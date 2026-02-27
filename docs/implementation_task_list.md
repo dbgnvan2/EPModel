@@ -62,15 +62,15 @@ Source spec: `/Users/davemini2/ProjectsLocal/EPModel/docs/bowen_individual_famil
 - [x] Add tests for CSV header and telemetry fields.
 
 ## Phase 6: Consistency Cleanup
-- [ ] Resolve remaining C-range mismatch to target clamp `[10, 80]`.
-- [ ] Resolve C initialization mismatch to target `40 +/- 5`.
-- [ ] Reconcile any section marked as implemented vs planned in spec/checklist.
-- [ ] Refresh glossary/parameter table if names change in code.
+- [x] Resolve remaining C-range mismatch to target clamp `[10, 80]`.
+- [x] Resolve C initialization mismatch to target `40 +/- 5`.
+- [x] Reconcile any section marked as implemented vs planned in spec/checklist.
+- [x] Refresh glossary/parameter table if names change in code.
 
 ## Commit Plan
 - [x] Docs baseline commit (spec + task list) before code refactor.
 - [x] Phase commits with tests passing at each checkpoint.
-- [ ] Keep commit messages scoped by phase.
+- [x] Keep commit messages scoped by phase.
 
 ## Ready-To-Code Gate
 - [x] Task list committed and pushed.

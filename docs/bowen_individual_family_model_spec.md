@@ -459,7 +459,7 @@ The full multigenerational pathway through the engine:
 
 ```
 Birth
-  └─ child_C = avg(parent_C) × uniform(0.9, 1.1)       [C inheritance, currently clipped to [10, 100]; target [10, 80]]
+  └─ child_C = avg(parent_C) × uniform(0.9, 1.1)       [C inheritance, clipped to [10, 80]]
   └─ if projection target: child_C *= uniform(0.7, 0.9) [lower C for most anxious child]
   └─ birth_stress elevated if family avg S > 160         [stress inheritance]
 
@@ -515,7 +515,7 @@ The following items are **fully implemented** in the current engine:
 - [x] C (Differentiation) as TX damper in both contagion and TX update
 - [x] R (Reactivity/TX) accumulation proportional to (S − baseline) / C
 - [x] TX_MAX cap (4.0) — prevents runaway contagion spiral
-- [x] Multigenerational C inheritance via apply_births() — currently clipped to [10, 100] (target [10, 80] in §3.3)
+- [x] Multigenerational C inheritance via apply_births() — clipped to [10, 80] per §3.3
 - [x] C-proximity matchmaking (two-pass: primary ≤5%, secondary with penalties)
 - [x] Per-family C-mismatch: divorce_rate_mod and s_penalty arrays
 - [x] Same-family zero-friction contagion (Axiom 4)
@@ -524,8 +524,8 @@ The following items are **fully implemented** in the current engine:
 
 The following items are **specified in this document but not yet implemented:**
 
-- [ ] C range clamped to [10, 80] in engine (currently [10, 100])
-- [ ] C initialization changed to 40.0 ± 5 (currently 50.0 ± 5)
+- [x] C range clamped to [10, 80] in engine
+- [x] C initialization changed to 40.0 ± 5
 - [x] Generational-flux slot model: initialize 8,000 active + 2,000 inactive buffer (`M = -1`, `slot_status = INACTIVE_BUFFER`)
 - [x] `slot_status[N]` lifecycle states with dead-slot reuse for births
 - [x] Split family identity arrays: immutable `family_origin_id[N]` and mutable `nuclear_family_id[N]` (with `family_ids` compatibility alias)

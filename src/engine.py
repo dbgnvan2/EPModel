@@ -38,7 +38,7 @@ class Simulator:
         self.state = np.zeros((num_units, 4), dtype=np.float64)
         self.state[:, 0] = self.S_BASELINE + np.random.uniform(-16, 16, num_units)
         self.state[:, 1] = 1.0
-        self.state[:, 2] = 50.0 + np.random.uniform(-5, 5, num_units)
+        self.state[:, 2] = 40.0 + np.random.uniform(-5, 5, num_units)
 
         self.slot_status = np.full(num_units, self.SLOT_ACTIVE, dtype=np.int8)
         if num_units == (self.INITIAL_ACTIVE_UNITS + self.NURSERY_BUFFER_UNITS):
@@ -567,7 +567,7 @@ class Simulator:
 
             # C-Level Inheritance: child C = avg(parent C) × uniform(0.9, 1.1)
             parent_c_avg = float(np.mean(self.state[parent_ids, 2]))
-            child_c = float(np.clip(parent_c_avg * np.random.uniform(0.9, 1.1), 10.0, 100.0))
+            child_c = float(np.clip(parent_c_avg * np.random.uniform(0.9, 1.1), 10.0, 80.0))
             child_origin = int(self.family_origin_id[parent_ids[0]])
 
             # Birth stress: if family avg S is elevated, newborn inherits some stress
@@ -756,7 +756,7 @@ class Simulator:
         self.state[stable_mask, 2] += recovery
         if self.L > 1.2:
             self.state[:, 2] += 0.05
-        self.state[:, 2] = np.clip(self.state[:, 2], 10.0, 100.0)
+        self.state[:, 2] = np.clip(self.state[:, 2], 10.0, 80.0)
 
     def update_m(self, base_metabolism=0.1):
         # Windfall: rare wealth events (inheritance, business success, lottery).

@@ -27,9 +27,9 @@ class TestSimulator(unittest.TestCase):
         # S is initialised as S_BASELINE ± 16  →  range [64, 96]
         self.assertTrue(np.all(simulator.state[:, 0] >= 64), "S below lower bound 64")
         self.assertTrue(np.all(simulator.state[:, 0] <= 96), "S above upper bound 96")
-        # C is initialised as 50 ± 5  →  range [45, 55]
-        self.assertTrue(np.all(simulator.state[:, 2] >= 45), "C below lower bound 45")
-        self.assertTrue(np.all(simulator.state[:, 2] <= 55), "C above upper bound 55")
+        # C is initialised as 40 ± 5  →  range [35, 45]
+        self.assertTrue(np.all(simulator.state[:, 2] >= 35), "C below lower bound 35")
+        self.assertTrue(np.all(simulator.state[:, 2] <= 45), "C above upper bound 45")
 
     def test_friction_event(self):
         """Test 1: Press 'F' (Friction). Verify global S increases by exactly 10%."""
@@ -545,6 +545,17 @@ class TestSimulator(unittest.TestCase):
         self.assertEqual(order[:len(expected_prefix)], expected_prefix)
         self.assertLess(order.index("apply_divorce"), order.index("update_contagion"))
 
+    def test_c_updates_are_clamped_to_target_range(self):
+        """C should remain clamped to [10, 80] under update rules and birth inheritance."""
+        sim = Simulator(num_units=10000)
+        sim.state[:, 2] = 200.0
+        sim.update_c()
+        self.assertTrue(np.all(sim.state[:, 2] <= 80.0))
+
+        sim.state[:, 2] = 1.0
+        sim.update_c()
+        self.assertTrue(np.all(sim.state[:, 2] >= 10.0))
+
     def test_launch_probability_stress_multiplier_calibration(self):
         """High-stress launch probability should exceed base launch probability."""
         sim = Simulator(num_units=100)
@@ -567,6 +578,26 @@ class TestSimulator(unittest.TestCase):
 
         self.assertEqual(sim.unit_status[uid_high], sim.STATUS_DEPARTED)
         self.assertEqual(sim.unit_status[uid_low], sim.STATUS_EMBEDDED)
+
+    def test_birth_child_c_is_clamped_to_80(self):
+        """Newborn inherited C should be clipped to the practical max (80)."""
+        sim = Simulator(num_units=10000)
+
+        active_embedded = (sim.unit_status == sim.STATUS_EMBEDDED) & (sim.state[:, 3] > 0)
+        sim.age[active_embedded] = 10.0
+        family_counts = np.bincount(sim.family_ids[active_embedded], minlength=sim.num_families)
+        fid = int(np.where(family_counts >= 2)[0][0])
+        parent_ids = np.where((sim.family_ids == fid) & active_embedded)[0]
+        sim.age[parent_ids] = 30.0
+        sim.state[parent_ids, 2] = 200.0
+
+        with patch("numpy.random.rand", return_value=np.array([0.0])):
+            with patch("numpy.random.uniform", return_value=1.1):
+                sim.apply_births(cycle=5)
+
+        newborn_ids = np.where((sim.family_ids == fid) & (sim.age == 0.0) & (sim.state[:, 3] > 0))[0]
+        self.assertGreater(len(newborn_ids), 0)
+        self.assertTrue(np.all(sim.state[newborn_ids, 2] <= 80.0))
 
 
 if __name__ == '__main__':

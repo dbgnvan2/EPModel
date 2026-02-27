@@ -499,6 +499,52 @@ class TestSimulator(unittest.TestCase):
         self.assertEqual(sim.family_origin_id[target_slot], parent_origin)
         self.assertNotEqual(sim.family_origin_id[target_slot], 99999)
 
+    def test_update_order_lifecycle_precedes_stress_pass(self):
+        """Regression: update() should run lifecycle passes before contagion/tx/c/m stress passes."""
+        sim = Simulator(num_units=100)
+        order = []
+
+        def wrap(name):
+            original = getattr(sim, name)
+
+            def _wrapped(*args, **kwargs):
+                order.append(name)
+                return original(*args, **kwargs)
+
+            return _wrapped
+
+        tracked = [
+            "apply_income",
+            "apply_aging",
+            "apply_matchmaking",
+            "apply_births",
+            "apply_launch",
+            "apply_divorce",
+            "update_contagion",
+            "update_tx",
+            "update_c",
+            "update_m",
+            "apply_safety_net",
+            "apply_recovery_curve",
+            "handle_departures",
+            "apply_progressive_tax",
+        ]
+        for method_name in tracked:
+            setattr(sim, method_name, wrap(method_name))
+
+        sim.update(cycle=sim.MATCH_INTERVAL)
+
+        expected_prefix = [
+            "apply_income",
+            "apply_aging",
+            "apply_matchmaking",
+            "apply_births",
+            "apply_launch",
+            "apply_divorce",
+        ]
+        self.assertEqual(order[:len(expected_prefix)], expected_prefix)
+        self.assertLess(order.index("apply_divorce"), order.index("update_contagion"))
+
 
 if __name__ == '__main__':
     unittest.main()

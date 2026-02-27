@@ -803,28 +803,32 @@ class Simulator:
     # ---------------------------------------------------------------------- #
 
     def update(self, cycle):
-        # 1. Income added first (spec: before aging)
+        # 1. Income pass
         self.apply_income()
 
-        # 2. Stress duration tracking
+        # 2. Family/lifecycle passes before societal stress propagation
+        self.apply_aging()
+        self.apply_matchmaking(cycle)   # circles pair up -> embedded couples
+        self.apply_births(cycle)        # family growth into available slots
+        self.apply_launch(cycle)        # young adults leave family system -> circles
+        self.apply_divorce(cycle)       # chronic stress can split size-2 families
+
+        # Departed units should not broadcast stress in the same cycle.
+        departed_mask = self.unit_status == self.STATUS_DEPARTED
+        self.state[departed_mask, 1] = 0.0
+
+        # 3. Stress duration tracking
         over_180 = self.state[:, 0] > 180
         self.high_stress_duration[over_180] += 1
         self.high_stress_duration[~over_180] = 0
 
-        # 3. Core dynamics
+        # 4. Core dynamics
         self.update_contagion()
         self.update_tx()
         self.update_c()
         self.update_m()
         self.apply_safety_net()
         self.apply_recovery_curve()
-
-        # 4. Demographic passes (order matters: age first, then lifecycle events)
-        self.apply_aging()
-        self.apply_launch(cycle)        # young adults leave home → circles
-        self.apply_matchmaking(cycle)   # eligible circles pair up → new families (every 20 cycles)
-        self.apply_births(cycle)        # size-2 families may produce newborns
-        self.apply_divorce(cycle)       # chronically stressed size-2 families may split
 
         # 5. Emotional/resource ejections
         self.handle_departures(cycle)

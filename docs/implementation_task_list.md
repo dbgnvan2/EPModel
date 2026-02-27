@@ -38,16 +38,16 @@ Source spec: `/Users/davemini2/ProjectsLocal/EPModel/docs/bowen_individual_famil
 - [x] Add tests covering marriage/divorce/remarriage identity continuity.
 
 ## Phase 3: Update Order Refactor
-- [ ] Reorder `update()` to match spec §5.4:
+- [x] Reorder `update()` to match spec §5.4:
   1. `apply_income`
   2. `apply_aging`
   3. `apply_matchmaking`
   4. `apply_reproduction`
   5. `apply_launching`
   6. stress/capacity/metabolic passes
-- [ ] Preserve Gompertz-Makeham mortality law.
-- [ ] Keep two-pass matchmaking (`<=5%` primary, `>5%` secondary + penalties).
-- [ ] Add regression tests validating order-sensitive outcomes.
+- [x] Preserve Gompertz-Makeham mortality law.
+- [x] Keep two-pass matchmaking (`<=5%` primary, `>5%` secondary + penalties).
+- [x] Add regression tests validating order-sensitive outcomes.
 
 ## Phase 4: Launch Calibration And Parameters
 - [x] Add configurable launch baseline (`LAUNCH_BASE_P`, default 0.07).

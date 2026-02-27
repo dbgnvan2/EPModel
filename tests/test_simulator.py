@@ -637,6 +637,25 @@ class TestSimulator(unittest.TestCase):
         sim.update_tx(gamma=0.1)
         self.assertGreaterEqual(sim.state[uid, 1], 120.0 / 50.0)
 
+    def test_chronic_anxiety_fix_handles_unattached_live_units(self):
+        """Regression: fixation must not crash when live units have family_ids=-1."""
+        sim = Simulator(num_units=100)
+        uid = 0
+        sim.state[uid, 3] = 500.0
+        sim.unit_status[uid] = sim.STATUS_DEPARTED
+        sim.slot_status[uid] = sim.SLOT_DEPARTED
+        sim.family_ids[uid] = -1
+        sim.nuclear_family_id[uid] = -1
+        sim.age[uid] = 12.0
+        sim.ca_fixed_mask[uid] = False
+        sim.state[uid, 0] = 90.0
+        sim.state[uid, 1] = 2.0
+
+        # Should not raise (previously crashed in np.bincount with negative ids).
+        sim.update_chronic_anxiety_baseline()
+        self.assertTrue(sim.ca_fixed_mask[uid])
+        self.assertGreater(sim.chronic_anxiety[uid], 0.0)
+
     def test_coaching_effects_on_adult_and_child(self):
         """Coaching should apply global TX/S effects and adult-only C growth."""
         sim = Simulator(num_units=100)

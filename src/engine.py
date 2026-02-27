@@ -979,25 +979,41 @@ class Simulator:
         if not np.any(fix_mask):
             return
 
-        family_s_sums = np.bincount(
-            self.family_ids[live_mask],
-            weights=self.state[live_mask, 0],
-            minlength=self.num_families
-        )
-        family_tx_sums = np.bincount(
-            self.family_ids[live_mask],
-            weights=self.state[live_mask, 1],
-            minlength=self.num_families
-        )
-        family_counts = np.bincount(self.family_ids[live_mask], minlength=self.num_families)
-        safe_counts = np.where(family_counts > 0, family_counts, 1)
-        family_avg_s = family_s_sums / safe_counts
-        family_avg_tx = family_tx_sums / safe_counts
+        valid_family_live = live_mask & (self.family_ids >= 0)
+        if np.any(valid_family_live):
+            family_s_sums = np.bincount(
+                self.family_ids[valid_family_live],
+                weights=self.state[valid_family_live, 0],
+                minlength=self.num_families
+            )
+            family_tx_sums = np.bincount(
+                self.family_ids[valid_family_live],
+                weights=self.state[valid_family_live, 1],
+                minlength=self.num_families
+            )
+            family_counts = np.bincount(self.family_ids[valid_family_live], minlength=self.num_families)
+            safe_counts = np.where(family_counts > 0, family_counts, 1)
+            family_avg_s = family_s_sums / safe_counts
+            family_avg_tx = family_tx_sums / safe_counts
+        else:
+            family_avg_s = np.zeros(self.num_families, dtype=np.float64)
+            family_avg_tx = np.zeros(self.num_families, dtype=np.float64)
 
-        fix_fids = self.family_ids[fix_mask]
-        self.chronic_anxiety[fix_mask] = (
-            family_avg_s[fix_fids] * 0.3 + family_avg_tx[fix_fids] * 0.2
-        ).astype(np.float32)
+        fix_with_family = fix_mask & (self.family_ids >= 0)
+        if np.any(fix_with_family):
+            fix_fids = self.family_ids[fix_with_family]
+            self.chronic_anxiety[fix_with_family] = (
+                family_avg_s[fix_fids] * 0.3 + family_avg_tx[fix_fids] * 0.2
+            ).astype(np.float32)
+
+        # If a live unit has no attached family ID, fall back to self-state at fixation.
+        fix_without_family = fix_mask & (self.family_ids < 0)
+        if np.any(fix_without_family):
+            self.chronic_anxiety[fix_without_family] = (
+                self.state[fix_without_family, 0] * 0.3 +
+                self.state[fix_without_family, 1] * 0.2
+            ).astype(np.float32)
+
         self.ca_fixed_mask[fix_mask] = True
 
     def apply_coaching(self):

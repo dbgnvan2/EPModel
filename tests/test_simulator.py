@@ -545,6 +545,29 @@ class TestSimulator(unittest.TestCase):
         self.assertEqual(order[:len(expected_prefix)], expected_prefix)
         self.assertLess(order.index("apply_divorce"), order.index("update_contagion"))
 
+    def test_launch_probability_stress_multiplier_calibration(self):
+        """High-stress launch probability should exceed base launch probability."""
+        sim = Simulator(num_units=100)
+        sim.LAUNCH_BASE_P = 0.07
+
+        active = np.where((sim.unit_status == sim.STATUS_EMBEDDED) & (sim.state[:, 3] > 0))[0]
+        uid_high = int(active[0])
+        fid_high = int(sim.family_ids[uid_high])
+        uid_low = int(active[np.where(sim.family_ids[active] != fid_high)[0][0]])
+        fid_low = int(sim.family_ids[uid_low])
+
+        sim.age[:] = 30.0
+        sim.age[[uid_high, uid_low]] = 20.0
+        sim.state[:, 0] = 100.0
+        sim.state[sim.family_ids == fid_high, 0] = 200.0
+        sim.state[sim.family_ids == fid_low, 0] = 100.0
+
+        with patch("numpy.random.rand", return_value=np.full(sim.num_units, 0.10)):
+            sim.apply_launch(cycle=1)
+
+        self.assertEqual(sim.unit_status[uid_high], sim.STATUS_DEPARTED)
+        self.assertEqual(sim.unit_status[uid_low], sim.STATUS_EMBEDDED)
+
 
 if __name__ == '__main__':
     unittest.main()

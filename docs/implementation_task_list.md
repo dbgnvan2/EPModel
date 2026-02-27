@@ -52,8 +52,8 @@ Source spec: `/Users/davemini2/ProjectsLocal/EPModel/docs/bowen_individual_famil
 ## Phase 4: Launch Calibration And Parameters
 - [x] Add configurable launch baseline (`LAUNCH_BASE_P`, default 0.07).
 - [x] Add stress multiplier logic for launch probability.
-- [ ] Add calibration notes/tests to keep launch outcomes in realistic bands.
-- [ ] Keep North America reference links in spec current.
+- [x] Add calibration notes/tests to keep launch outcomes in realistic bands.
+- [x] Keep North America reference links in spec current.
 
 ## Phase 5: Telemetry, CSV, UI Alignment
 - [x] Ensure sidebar includes `AVG AGE`, `HOMELESS %`, `BIRTHS`, `MARRIAGES`.

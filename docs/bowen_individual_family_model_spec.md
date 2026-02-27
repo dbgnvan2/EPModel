@@ -528,7 +528,7 @@ The following items are **specified in this document but not yet implemented:**
 - [ ] C initialization changed to 40.0 ± 5 (currently 50.0 ± 5)
 - [x] Generational-flux slot model: initialize 8,000 active + 2,000 inactive buffer (`M = -1`, `slot_status = INACTIVE_BUFFER`)
 - [x] `slot_status[N]` lifecycle states with dead-slot reuse for births
-- [ ] Split family identity arrays: immutable `family_origin_id[N]` and mutable `nuclear_family_id[N]` (with `family_ids` compatibility alias)
+- [x] Split family identity arrays: immutable `family_origin_id[N]` and mutable `nuclear_family_id[N]` (with `family_ids` compatibility alias)
 - [ ] `chronic_anxiety[N]` array — fixed at age 10 from family emotional atmosphere
 - [ ] R floor from CA: `R ≥ chronic_anxiety[unit] / 50.0` after age 10
 - [ ] Per-unit S floor for high-C units: C > 55 subtracts (C − 55) from personal S floor, requiring per-unit floor array replacing the current scalar clip

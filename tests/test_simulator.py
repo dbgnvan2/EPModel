@@ -424,6 +424,81 @@ class TestSimulator(unittest.TestCase):
         sim.update(cycle=1)
         self.assertEqual(sim.state[uid, 1], 0.0, "Departed TX should be hard-reset to 0")
 
+    def test_family_identity_arrays_exist_and_alias(self):
+        """Phase 2: family identity arrays should be present with compatibility aliasing."""
+        sim = Simulator(num_units=10000)
+        self.assertTrue(hasattr(sim, "family_origin_id"))
+        self.assertTrue(hasattr(sim, "nuclear_family_id"))
+        np.testing.assert_array_equal(
+            sim.family_ids, sim.nuclear_family_id,
+            err_msg="family_ids should remain a compatibility alias to nuclear_family_id values"
+        )
+
+    def test_family_origin_immutable_across_marriage_and_divorce(self):
+        """family_origin_id should not change when units marry/divorce; nuclear id should."""
+        sim = Simulator(num_units=100)
+        uid_a, uid_b = 0, 1
+
+        origin_a = int(sim.family_origin_id[uid_a])
+        origin_b = int(sim.family_origin_id[uid_b])
+
+        sim.unit_status[[uid_a, uid_b]] = sim.STATUS_DEPARTED
+        sim.slot_status[[uid_a, uid_b]] = sim.SLOT_DEPARTED
+        sim.state[[uid_a, uid_b], 3] = 1000.0
+        sim.state[[uid_a, uid_b], 0] = 100.0
+        sim.age[[uid_a, uid_b]] = 30.0
+        sim.state[[uid_a, uid_b], 2] = 50.0
+
+        sim.apply_matchmaking(cycle=sim.MATCH_INTERVAL)
+        self.assertEqual(sim.total_marriages, 1)
+
+        married_fid = int(sim.family_ids[uid_a])
+        self.assertEqual(sim.family_ids[uid_b], married_fid)
+        self.assertGreaterEqual(married_fid, 0)
+        self.assertEqual(int(sim.family_origin_id[uid_a]), origin_a)
+        self.assertEqual(int(sim.family_origin_id[uid_b]), origin_b)
+
+        sim.state[[uid_a, uid_b], 0] = 220.0
+        sim.family_high_stress_duration[[uid_a, uid_b]] = 49
+        with patch("numpy.random.rand", side_effect=lambda n: np.zeros(n)):
+            sim.apply_divorce(cycle=999)
+
+        self.assertEqual(sim.family_ids[uid_a], -1)
+        self.assertEqual(sim.family_ids[uid_b], -1)
+        self.assertEqual(sim.nuclear_family_id[uid_a], -1)
+        self.assertEqual(sim.nuclear_family_id[uid_b], -1)
+        self.assertEqual(int(sim.family_origin_id[uid_a]), origin_a)
+        self.assertEqual(int(sim.family_origin_id[uid_b]), origin_b)
+
+    def test_birth_replaces_identity_in_reused_slot(self):
+        """A newborn activated into a reused slot should receive a new family origin identity."""
+        sim = Simulator(num_units=10000)
+
+        active_embedded = (sim.unit_status == sim.STATUS_EMBEDDED) & (sim.state[:, 3] > 0)
+        sim.age[active_embedded] = 10.0
+        family_counts = np.bincount(sim.family_ids[active_embedded], minlength=sim.num_families)
+        fid = int(np.where(family_counts >= 2)[0][0])
+        parent_ids = np.where((sim.family_ids == fid) & active_embedded)[0]
+        sim.age[parent_ids] = 30.0
+
+        buffer_slots = np.where(sim.slot_status == sim.SLOT_INACTIVE_BUFFER)[0]
+        target_slot = int(buffer_slots[0])
+        other_buffer = buffer_slots[1:]
+        sim.slot_status[other_buffer] = sim.SLOT_DEAD
+        sim.state[other_buffer, 3] = 0.0
+
+        sim.family_origin_id[target_slot] = 99999
+        parent_origin = int(sim.family_origin_id[parent_ids[0]])
+
+        with patch("numpy.random.rand", return_value=np.array([0.0])):
+            sim.apply_births(cycle=5)
+
+        self.assertEqual(sim.total_births, 1)
+        self.assertEqual(sim.slot_status[target_slot], sim.SLOT_ACTIVE)
+        self.assertEqual(sim.nuclear_family_id[target_slot], fid)
+        self.assertEqual(sim.family_origin_id[target_slot], parent_origin)
+        self.assertNotEqual(sim.family_origin_id[target_slot], 99999)
+
 
 if __name__ == '__main__':
     unittest.main()

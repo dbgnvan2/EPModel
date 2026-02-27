@@ -30,12 +30,12 @@ Source spec: `/Users/davemini2/ProjectsLocal/EPModel/docs/bowen_individual_famil
 - [x] Update telemetry/docs for active vs inactive accounting.
 
 ## Phase 2: Family Identity Split (FOO vs Nuclear)
-- [ ] Introduce `family_origin_id[N]` (immutable) and `nuclear_family_id[N]` (mutable).
-- [ ] Keep `family_ids` compatibility alias mapped to `nuclear_family_id` during migration.
-- [ ] Update all family-dependent mechanics to use `nuclear_family_id`.
-- [ ] Implement divorce identity flow: set `nuclear_family_id=-1` for divorced circles.
-- [ ] Implement remarriage flow: assign new `nuclear_family_id`, preserve `family_origin_id`.
-- [ ] Add tests covering marriage/divorce/remarriage identity continuity.
+- [x] Introduce `family_origin_id[N]` (immutable) and `nuclear_family_id[N]` (mutable).
+- [x] Keep `family_ids` compatibility alias mapped to `nuclear_family_id` during migration.
+- [x] Update all family-dependent mechanics to use `nuclear_family_id`.
+- [x] Implement divorce identity flow: set `nuclear_family_id=-1` for divorced circles.
+- [x] Implement remarriage flow: assign new `nuclear_family_id`, preserve `family_origin_id`.
+- [x] Add tests covering marriage/divorce/remarriage identity continuity.
 
 ## Phase 3: Update Order Refactor
 - [ ] Reorder `update()` to match spec §5.4:
@@ -50,16 +50,16 @@ Source spec: `/Users/davemini2/ProjectsLocal/EPModel/docs/bowen_individual_famil
 - [ ] Add regression tests validating order-sensitive outcomes.
 
 ## Phase 4: Launch Calibration And Parameters
-- [ ] Add configurable launch baseline (`LAUNCH_BASE_P`, default 0.07).
-- [ ] Add stress multiplier logic for launch probability.
+- [x] Add configurable launch baseline (`LAUNCH_BASE_P`, default 0.07).
+- [x] Add stress multiplier logic for launch probability.
 - [ ] Add calibration notes/tests to keep launch outcomes in realistic bands.
 - [ ] Keep North America reference links in spec current.
 
 ## Phase 5: Telemetry, CSV, UI Alignment
-- [ ] Ensure sidebar includes `AVG AGE`, `HOMELESS %`, `BIRTHS`, `MARRIAGES`.
-- [ ] Ensure CSV includes `living_units`, `active_families`, `divorce_count` per log interval.
-- [ ] Validate homeless metric definition (`M < 100` and `S > 200` among live units).
-- [ ] Add tests for CSV header and telemetry fields.
+- [x] Ensure sidebar includes `AVG AGE`, `HOMELESS %`, `BIRTHS`, `MARRIAGES`.
+- [x] Ensure CSV includes `living_units`, `active_families`, `divorce_count` per log interval.
+- [x] Validate homeless metric definition (`M < 100` and `S > 200` among live units).
+- [x] Add tests for CSV header and telemetry fields.
 
 ## Phase 6: Consistency Cleanup
 - [ ] Resolve remaining C-range mismatch to target clamp `[10, 80]`.
@@ -68,8 +68,8 @@ Source spec: `/Users/davemini2/ProjectsLocal/EPModel/docs/bowen_individual_famil
 - [ ] Refresh glossary/parameter table if names change in code.
 
 ## Commit Plan
-- [ ] Docs baseline commit (spec + task list) before code refactor.
-- [ ] Phase commits with tests passing at each checkpoint.
+- [x] Docs baseline commit (spec + task list) before code refactor.
+- [x] Phase commits with tests passing at each checkpoint.
 - [ ] Keep commit messages scoped by phase.
 
 ## Ready-To-Code Gate

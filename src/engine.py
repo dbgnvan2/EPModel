@@ -107,6 +107,8 @@ class Simulator:
         self.total_marriages    = 0   # cumulative marriages
 
         self._init_family_clusters()
+        self.nuclear_family_id = self.family_ids
+        self.family_origin_id = self.family_ids.copy()
         self.log_messages = deque(maxlen=100)
         self.initial_family_sizes = np.bincount(self.family_ids)
         self.recovery_timers = np.zeros(self.num_units, dtype=np.int16)
@@ -522,8 +524,8 @@ class Simulator:
         if len(birth_fids) == 0:
             return
 
-        candidate_slots = self._get_birth_candidate_slots()
-        if len(candidate_slots) == 0:
+        slot_groups = self._get_birth_slot_groups()
+        if sum(len(g) for g in slot_groups) == 0:
             return  # No room — all units still active
 
         G = self.grid_size
@@ -541,15 +543,20 @@ class Simulator:
             cx = float(np.mean(p_rows))
             cy = float(np.mean(p_cols))
 
-            # Nearest available candidate slot to the family centroid
-            available = [s for s in candidate_slots if s not in used_slots]
-            if not available:
+            nearest = None
+            # Enforce priority tiers: INACTIVE_BUFFER -> DEAD -> DEPARTED.
+            for group in slot_groups:
+                available = [s for s in group if s not in used_slots]
+                if not available:
+                    continue
+                av_arr = np.array(available)
+                av_rows = av_arr // G
+                av_cols = av_arr %  G
+                dists   = np.sqrt((av_rows - cx)**2 + (av_cols - cy)**2)
+                nearest = available[int(np.argmin(dists))]
                 break
-            av_arr = np.array(available)
-            av_rows = av_arr // G
-            av_cols = av_arr %  G
-            dists   = np.sqrt((av_rows - cx)**2 + (av_cols - cy)**2)
-            nearest = available[int(np.argmin(dists))]
+            if nearest is None:
+                break
             used_slots.add(nearest)
 
             # M grant from parents
@@ -561,6 +568,7 @@ class Simulator:
             # C-Level Inheritance: child C = avg(parent C) × uniform(0.9, 1.1)
             parent_c_avg = float(np.mean(self.state[parent_ids, 2]))
             child_c = float(np.clip(parent_c_avg * np.random.uniform(0.9, 1.1), 10.0, 100.0))
+            child_origin = int(self.family_origin_id[parent_ids[0]])
 
             # Birth stress: if family avg S is elevated, newborn inherits some stress
             family_avg_s = float(np.mean(self.state[parent_ids, 0]))
@@ -572,6 +580,8 @@ class Simulator:
             self.unit_status[nearest] = self.STATUS_EMBEDDED
             self.slot_status[nearest] = self.SLOT_ACTIVE
             self.family_ids[nearest]  = fid
+            self.nuclear_family_id[nearest] = fid
+            self.family_origin_id[nearest] = child_origin
             self.age[nearest]         = 0.0
             self.state[nearest, 0]    = float(np.clip(birth_stress, self.S_BASELINE, 300.0))
             self.state[nearest, 1]    = 1.0                      # TX reset
@@ -659,6 +669,8 @@ class Simulator:
             members = np.where((self.family_ids == fid) & active_mask)[0]
             self.unit_status[members] = self.STATUS_DEPARTED
             self.slot_status[members] = self.SLOT_DEPARTED
+            self.family_ids[members] = -1
+            self.nuclear_family_id[members] = -1
             self.divorce_count += 1
             c_note = (f" [C-diff={self.family_c_diff[fid]:.1f}%]"
                       if self.family_c_diff[fid] > 0 else "")
@@ -848,8 +860,8 @@ class Simulator:
         m_grid  = self.state[:, 3].reshape((self.grid_size, self.grid_size))
         return s_grid, tx_grid, c_grid, m_grid
 
-    def _get_birth_candidate_slots(self):
-        """Return slot indices prioritized for newborn activation."""
+    def _get_birth_slot_groups(self):
+        """Return slot groups for newborn activation, ordered by priority."""
         buffer_slots = np.where(self.slot_status == self.SLOT_INACTIVE_BUFFER)[0]
         dead_slots = np.where(self.slot_status == self.SLOT_DEAD)[0]
         departed_slots = np.where(
@@ -857,7 +869,12 @@ class Simulator:
         )[0]
         if len(departed_slots) == 0:
             departed_slots = np.where(self.slot_status == self.SLOT_DEPARTED)[0]
-        return np.concatenate([buffer_slots, dead_slots, departed_slots])
+        return (buffer_slots, dead_slots, departed_slots)
+
+    def _get_birth_candidate_slots(self):
+        """Return a flat prioritized list of newborn activation slots."""
+        groups = self._get_birth_slot_groups()
+        return np.concatenate(groups)
 
     def reproduce(self):
         pass

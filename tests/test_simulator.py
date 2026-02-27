@@ -599,6 +599,96 @@ class TestSimulator(unittest.TestCase):
         self.assertGreater(len(newborn_ids), 0)
         self.assertTrue(np.all(sim.state[newborn_ids, 2] <= 80.0))
 
+    def test_chronic_anxiety_fixed_at_age_10(self):
+        """Units crossing age 10 should receive a fixed chronic anxiety baseline."""
+        sim = Simulator(num_units=100)
+        sim.age[:] = 5.0
+        sim.ca_fixed_mask[:] = False
+        sim.chronic_anxiety[:] = 0.0
+
+        fid = int(sim.family_ids[0])
+        members = np.where(sim.family_ids == fid)[0]
+        sim.age[members] = 10.0
+        sim.state[members, 0] = 100.0
+        sim.state[members, 1] = 2.0
+
+        sim.update_chronic_anxiety_baseline()
+
+        expected = 100.0 * 0.3 + 2.0 * 0.2
+        np.testing.assert_allclose(sim.chronic_anxiety[members], expected, atol=1e-6)
+        self.assertTrue(np.all(sim.ca_fixed_mask[members]))
+
+    def test_tx_respects_chronic_anxiety_floor_after_age_10(self):
+        """TX should never fall below chronic_anxiety / 50 for age >= 10 live units."""
+        sim = Simulator(num_units=100)
+        uid = 0
+        sim.age[uid] = 20.0
+        sim.state[uid, 3] = 1000.0
+        sim.state[uid, 0] = 0.0
+        sim.state[uid, 1] = 0.0
+        sim.state[uid, 2] = 40.0
+        sim.chronic_anxiety[uid] = 120.0
+
+        sim.update_tx(gamma=0.1)
+        self.assertGreaterEqual(sim.state[uid, 1], 120.0 / 50.0)
+
+    def test_coaching_effects_on_adult_and_child(self):
+        """Coaching should apply global TX/S effects and adult-only C growth."""
+        sim = Simulator(num_units=100)
+        sim.coaching_active = True
+
+        adult = 0
+        child = 1
+        sim.age[adult] = 30.0
+        sim.age[child] = 12.0
+        sim.state[[adult, child], 3] = 1000.0
+        sim.state[[adult, child], 1] = 3.0
+        sim.state[[adult, child], 0] = 200.0
+        sim.state[[adult, child], 2] = 40.0
+        sim.chronic_anxiety[[adult, child]] = 50.0  # floor = 1.0
+
+        sim.apply_coaching()
+
+        self.assertAlmostEqual(sim.state[adult, 1], 2.0, places=6)
+        self.assertAlmostEqual(sim.state[child, 1], 2.5, places=6)
+        self.assertAlmostEqual(sim.state[adult, 0], 176.0, places=6)
+        self.assertAlmostEqual(sim.state[child, 0], 176.0, places=6)
+        self.assertAlmostEqual(sim.state[adult, 2], 40.5, places=6)
+        self.assertAlmostEqual(sim.state[child, 2], 40.0, places=6)
+
+    def test_per_unit_high_c_stress_floor_applied(self):
+        """High-C units should receive reduced personal stress floors with cap."""
+        sim = Simulator(num_units=100)
+        sim.state[:, 0] = 0.0
+        sim.state[:, 2] = 40.0
+        sim.state[0, 2] = 80.0  # floor should reduce from 80 to 55 (capped above 40)
+        sim.E = 1.0
+
+        # Isolate final clamp pass to validate floor math deterministically.
+        sim.apply_income = lambda: None
+        sim.apply_aging = lambda: None
+        sim.update_chronic_anxiety_baseline = lambda: None
+        sim.apply_matchmaking = lambda cycle: None
+        sim.apply_births = lambda cycle: None
+        sim.apply_launch = lambda cycle: None
+        sim.apply_divorce = lambda cycle: None
+        sim.update_contagion = lambda: None
+        sim.update_tx = lambda: None
+        sim.update_c = lambda: None
+        sim.apply_coaching = lambda: None
+        sim.update_m = lambda: None
+        sim.apply_safety_net = lambda: None
+        sim.apply_recovery_curve = lambda: None
+        sim.handle_departures = lambda cycle: None
+        sim.apply_progressive_tax = lambda cycle: None
+        sim.calculate_family_telemetry = lambda: None
+        sim.log_telemetry = lambda cycle: None
+
+        sim.update(cycle=1)
+
+        self.assertAlmostEqual(sim.state[0, 0], 55.0, places=6)
+        self.assertAlmostEqual(sim.state[1, 0], 80.0, places=6)
+
 
 if __name__ == '__main__':
     unittest.main()

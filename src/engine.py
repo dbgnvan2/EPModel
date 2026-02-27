@@ -68,6 +68,7 @@ class Simulator:
         self.tax_pool = 0.0
 
         self.safety_net_active = False
+        self.coaching_active = False
         self.national_debt = 0.0
 
         self.L = 1.0
@@ -112,6 +113,8 @@ class Simulator:
         self.log_messages = deque(maxlen=100)
         self.initial_family_sizes = np.bincount(self.family_ids)
         self.recovery_timers = np.zeros(self.num_units, dtype=np.int16)
+        self.chronic_anxiety = np.full(self.num_units, self.S_BASELINE * 0.3, dtype=np.float32)
+        self.ca_fixed_mask = np.zeros(self.num_units, dtype=bool)
 
         self.active_family_count = 0
         self.avg_family_size = 0
@@ -587,6 +590,8 @@ class Simulator:
             self.state[nearest, 1]    = 1.0                      # TX reset
             self.state[nearest, 2]    = child_c                  # inherited C
             self.state[nearest, 3]    = grant                    # M grant
+            self.chronic_anxiety[nearest] = np.float32(self.S_BASELINE * 0.3)
+            self.ca_fixed_mask[nearest] = False
             self.recovery_timers[nearest] = 0
             self.high_stress_duration[nearest] = 0
 
@@ -735,6 +740,65 @@ class Simulator:
         self.state[recovering_mask, 2] += 0.5
         self.recovery_timers[recovering_mask] -= 1
 
+    def update_chronic_anxiety_baseline(self):
+        """Fix chronic anxiety once when a live unit reaches age 10."""
+        live_mask = self.state[:, 3] > 0
+        fix_mask = (~self.ca_fixed_mask) & (self.age >= 10.0) & live_mask
+        if not np.any(fix_mask):
+            return
+
+        family_s_sums = np.bincount(
+            self.family_ids[live_mask],
+            weights=self.state[live_mask, 0],
+            minlength=self.num_families
+        )
+        family_tx_sums = np.bincount(
+            self.family_ids[live_mask],
+            weights=self.state[live_mask, 1],
+            minlength=self.num_families
+        )
+        family_counts = np.bincount(self.family_ids[live_mask], minlength=self.num_families)
+        safe_counts = np.where(family_counts > 0, family_counts, 1)
+        family_avg_s = family_s_sums / safe_counts
+        family_avg_tx = family_tx_sums / safe_counts
+
+        fix_fids = self.family_ids[fix_mask]
+        self.chronic_anxiety[fix_mask] = (
+            family_avg_s[fix_fids] * 0.3 + family_avg_tx[fix_fids] * 0.2
+        ).astype(np.float32)
+        self.ca_fixed_mask[fix_mask] = True
+
+    def apply_coaching(self):
+        """Apply coaching effects to reactivity, stress, and C growth."""
+        if not self.coaching_active:
+            return
+
+        live_mask = self.state[:, 3] > 0
+        if not np.any(live_mask):
+            return
+        adult_live = live_mask & (self.age >= 18)
+        ca_floor = self.chronic_anxiety / 50.0
+
+        # All live units: -0.5 TX per cycle, floored at chronic-anxiety floor.
+        self.state[live_mask, 1] = np.maximum(
+            self.state[live_mask, 1] - 0.5,
+            ca_floor[live_mask]
+        )
+
+        # All live units: reduce acute stress toward baseline.
+        excess_s = np.maximum(self.state[live_mask, 0] - self.S_BASELINE, 0.0)
+        self.state[live_mask, 0] -= excess_s * 0.2
+
+        # Adults: +0.5 C (clipped), then additional -0.5 TX from C-growth inverse.
+        self.state[adult_live, 2] = np.clip(
+            self.state[adult_live, 2] + 0.5,
+            10.0, 80.0
+        )
+        self.state[adult_live, 1] = np.maximum(
+            self.state[adult_live, 1] - 0.5,
+            ca_floor[adult_live]
+        )
+
     # ---------------------------------------------------------------------- #
     #  Core update passes                                                     #
     # ---------------------------------------------------------------------- #
@@ -747,6 +811,13 @@ class Simulator:
         # Cap TX to prevent runaway contagion spiral (TX>5 was causing
         # unlimited stress amplification in long runs)
         self.state[:, 1] = np.clip(self.state[:, 1], 0.0, self.TX_MAX)
+
+        # Chronic anxiety floor applies once age >= 10.
+        ca_floor_mask = (self.age >= 10.0) & (self.state[:, 3] > 0)
+        self.state[ca_floor_mask, 1] = np.maximum(
+            self.state[ca_floor_mask, 1],
+            self.chronic_anxiety[ca_floor_mask] / 50.0
+        )
 
     def update_c(self):
         s = self.state[:, 0]
@@ -808,6 +879,7 @@ class Simulator:
 
         # 2. Family/lifecycle passes before societal stress propagation
         self.apply_aging()
+        self.update_chronic_anxiety_baseline()
         self.apply_matchmaking(cycle)   # circles pair up -> embedded couples
         self.apply_births(cycle)        # family growth into available slots
         self.apply_launch(cycle)        # young adults leave family system -> circles
@@ -826,6 +898,7 @@ class Simulator:
         self.update_contagion()
         self.update_tx()
         self.update_c()
+        self.apply_coaching()
         self.update_m()
         self.apply_safety_net()
         self.apply_recovery_curve()
@@ -834,9 +907,14 @@ class Simulator:
         self.handle_departures(cycle)
         self.apply_progressive_tax(cycle)
 
-        # 6. Clamp stress
-        s_floor = self.S_BASELINE * self.E
-        self.state[:, 0] = np.clip(self.state[:, 0], s_floor, 500)
+        # 6. Clamp stress with per-unit high-C floor adjustment.
+        s_floor_scalar = self.S_BASELINE * self.E
+        per_unit_floor = np.full(self.num_units, s_floor_scalar, dtype=np.float64)
+        high_c_mask = self.state[:, 2] > 55.0
+        per_unit_floor[high_c_mask] -= (self.state[high_c_mask, 2] - 55.0)
+        per_unit_floor = np.maximum(per_unit_floor, s_floor_scalar * 0.5)
+        self.state[:, 0] = np.maximum(self.state[:, 0], per_unit_floor)
+        self.state[:, 0] = np.minimum(self.state[:, 0], 500.0)
 
         # 7. Metabolic death (M <= 0, still embedded)
         newly_dead_mask = (self.state[:, 3] <= 0) & (self.unit_status == self.STATUS_EMBEDDED)

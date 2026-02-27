@@ -365,7 +365,7 @@ Coaching is NOT about removing stressors. It is about increasing the capacity to
 
 ### 9.2 Engine Specification
 
-**Planned global toggle:** `sim.coaching_active` (bool, default False). When implemented, it is toggled by keyboard key **[G]** in `main.py`.
+**Global toggle:** `sim.coaching_active` (bool, default False). Toggled by keyboard key **[G]** in `main.py`.
 
 **When coaching is active, each cycle:**
 
@@ -416,7 +416,7 @@ COACHING : ACTIVE [g]   ← green when on
   C GROWTH: +0.5/yr
 ```
 
-**Planned key binding:** `K_g` in `main.py` event loop.
+**Key binding:** `K_g` in `main.py` event loop.
 ```python
 if event.key == pygame.K_g:
     sim.coaching_active = not sim.coaching_active
@@ -529,16 +529,16 @@ The following items are **specified in this document but not yet implemented:**
 - [x] Generational-flux slot model: initialize 8,000 active + 2,000 inactive buffer (`M = -1`, `slot_status = INACTIVE_BUFFER`)
 - [x] `slot_status[N]` lifecycle states with dead-slot reuse for births
 - [x] Split family identity arrays: immutable `family_origin_id[N]` and mutable `nuclear_family_id[N]` (with `family_ids` compatibility alias)
-- [ ] `chronic_anxiety[N]` array — fixed at age 10 from family emotional atmosphere
-- [ ] R floor from CA: `R ≥ chronic_anxiety[unit] / 50.0` after age 10
-- [ ] Per-unit S floor for high-C units: C > 55 subtracts (C − 55) from personal S floor, requiring per-unit floor array replacing the current scalar clip
-- [ ] `coaching_active` toggle with:
+- [x] `chronic_anxiety[N]` array — fixed at age 10 from family emotional atmosphere
+- [x] R floor from CA: `R ≥ chronic_anxiety[unit] / 50.0` after age 10
+- [x] Per-unit S floor for high-C units: C > 55 subtracts (C − 55) from personal S floor, requiring per-unit floor array replacing the current scalar clip
+- [x] `coaching_active` toggle with:
   - R decay −0.5/cycle for all live units
   - S reduction −20% of excess/cycle
   - C growth +0.5/cycle for adults (clipped to 80)
   - C-growth inverse: additional R −0.5/cycle for adults (total adult R reduction = −1.0/cycle)
-- [ ] `[G]` key binding in main.py for coaching toggle
-- [ ] Coaching sidebar display (C GROWTH: +0.5/yr)
+- [x] `[G]` key binding in main.py for coaching toggle
+- [x] Coaching sidebar display (C GROWTH: +0.5/yr)
 - [ ] Functional Differentiation (FD) as derived quantity used in contagion and income bonus
 - [ ] Family projection process: projection-target child receives `C × uniform(0.7, 0.9)`
 - [ ] Spouse dysfunction asymmetry: lower-C partner receives larger S-penalty share

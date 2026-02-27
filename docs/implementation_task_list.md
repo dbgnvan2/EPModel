@@ -67,6 +67,15 @@ Source spec: `/Users/davemini2/ProjectsLocal/EPModel/docs/bowen_individual_famil
 - [x] Reconcile any section marked as implemented vs planned in spec/checklist.
 - [x] Refresh glossary/parameter table if names change in code.
 
+## Phase 7: Reactivity And Coaching Completion
+- [x] Implement `chronic_anxiety[N]` fixation at age 10 from family emotional atmosphere.
+- [x] Enforce TX floor from chronic anxiety (`R >= chronic_anxiety / 50` for age >= 10).
+- [x] Implement coaching pass (`coaching_active`) with TX decay, stress reduction, adult C growth, and C-growth inverse TX reduction.
+- [x] Wire `[G]` coaching key toggle in `main.py`.
+- [x] Add sidebar coaching telemetry (`COACHING` and `C GROWTH`).
+- [x] Replace scalar stress floor clamp with per-unit high-C floor adjustment.
+- [x] Add deterministic tests for chronic anxiety fixation, TX floor, coaching effects, and per-unit stress floor behavior.
+
 ## Commit Plan
 - [x] Docs baseline commit (spec + task list) before code refactor.
 - [x] Phase commits with tests passing at each checkpoint.

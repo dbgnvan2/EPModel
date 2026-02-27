@@ -1,6 +1,7 @@
 import os
 import sys
 import unittest
+from unittest.mock import patch
 
 import numpy as np
 
@@ -344,6 +345,84 @@ class TestSimulator(unittest.TestCase):
 
         self.assertEqual(sim.slot_status[victim], sim.SLOT_DEAD)
         self.assertEqual(sim.unit_status[victim], sim.STATUS_DEPARTED)
+
+    def test_non_10k_profile_has_no_inactive_buffer(self):
+        """Only the 10k profile should preallocate an inactive nursery buffer."""
+        sim = Simulator(num_units=100)
+        self.assertEqual(np.sum(sim.slot_status == sim.SLOT_INACTIVE_BUFFER), 0)
+        self.assertTrue(np.all(sim.state[:, 3] > 0), "Non-10k profiles should start fully active")
+
+    def test_log_telemetry_writes_every_10_cycles(self):
+        """Telemetry should append rows only when cycle % 10 == 0."""
+        csv_path = "sim_audit.csv"
+        if os.path.exists(csv_path):
+            os.remove(csv_path)
+
+        sim = Simulator(num_units=100)
+        sim.calculate_family_telemetry()
+        sim.log_telemetry(cycle=1)   # no write
+        sim.log_telemetry(cycle=10)  # write
+
+        with open(csv_path) as f:
+            lines = [line.strip() for line in f if line.strip()]
+
+        self.assertEqual(len(lines), 2, "Expected header + one telemetry row at cycle 10")
+        self.assertTrue(lines[1].startswith("10,"), f"Expected telemetry row for cycle 10, got: {lines[1]}")
+
+    def test_matchmaking_respects_interval_gate(self):
+        """Matchmaking should run only on MATCH_INTERVAL cycles."""
+        sim = Simulator(num_units=100)
+
+        uid_a, uid_b = 0, 1
+        sim.unit_status[[uid_a, uid_b]] = sim.STATUS_DEPARTED
+        sim.slot_status[[uid_a, uid_b]] = sim.SLOT_DEPARTED
+        sim.state[[uid_a, uid_b], 3] = 1000.0
+        sim.state[[uid_a, uid_b], 0] = 100.0
+        sim.age[[uid_a, uid_b]] = 30.0
+        sim.state[[uid_a, uid_b], 2] = 50.0
+
+        before = sim.total_marriages
+        sim.apply_matchmaking(cycle=1)
+        self.assertEqual(sim.total_marriages, before, "No marriages should occur off-interval")
+
+        sim.apply_matchmaking(cycle=sim.MATCH_INTERVAL)
+        self.assertGreaterEqual(sim.total_marriages, before + 1, "Expected at least one marriage on interval")
+
+    def test_births_consume_inactive_buffer_first(self):
+        """When available, births should activate INACTIVE_BUFFER slots before other slot types."""
+        sim = Simulator(num_units=10000)
+
+        active_embedded = (sim.unit_status == sim.STATUS_EMBEDDED) & (sim.state[:, 3] > 0)
+        sim.age[active_embedded] = 10.0
+        family_counts = np.bincount(sim.family_ids[active_embedded], minlength=sim.num_families)
+        candidate_fids = np.where(family_counts >= 2)[0]
+        self.assertGreater(len(candidate_fids), 0)
+        fid = int(candidate_fids[0])
+
+        parent_ids = np.where((sim.family_ids == fid) & active_embedded)[0]
+        sim.age[parent_ids] = 30.0  # make exactly one family eligible
+
+        buffer_before = np.where(sim.slot_status == sim.SLOT_INACTIVE_BUFFER)[0]
+        self.assertGreater(len(buffer_before), 0, "Expected inactive buffer slots in 10k profile")
+
+        with patch("numpy.random.rand", return_value=np.array([0.0])):
+            sim.apply_births(cycle=1)
+
+        buffer_after = np.where(sim.slot_status == sim.SLOT_INACTIVE_BUFFER)[0]
+        self.assertEqual(len(buffer_after), len(buffer_before) - 1, "One inactive buffer slot should be consumed")
+        self.assertEqual(sim.total_births, 1)
+
+    def test_departed_tx_zeroed_after_update(self):
+        """Departed units should not keep non-zero TX after update."""
+        sim = Simulator(num_units=10000)
+        uid = np.where(sim.slot_status == sim.SLOT_ACTIVE)[0][0]
+        sim.unit_status[uid] = sim.STATUS_DEPARTED
+        sim.slot_status[uid] = sim.SLOT_DEPARTED
+        sim.state[uid, 1] = 3.0
+        sim.state[uid, 3] = 100.0
+
+        sim.update(cycle=1)
+        self.assertEqual(sim.state[uid, 1], 0.0, "Departed TX should be hard-reset to 0")
 
 
 if __name__ == '__main__':

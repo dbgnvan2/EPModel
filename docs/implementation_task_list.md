@@ -18,6 +18,7 @@ Source spec: `/Users/davemini2/ProjectsLocal/EPModel/docs/bowen_individual_famil
 - [x] Add constants/config placeholders for generational flux settings (`INITIAL_ACTIVE_UNITS`, `NURSERY_BUFFER_UNITS`, `MATCH_INTERVAL`, `LAUNCH_BASE_P`).
 - [x] Add migration-safe status enum for slot lifecycle (`ACTIVE`, `DEPARTED`, `DEAD`, `INACTIVE_BUFFER`).
 - [x] Add unit tests that assert backward compatibility for existing behavior before refactor.
+- [x] Expand deterministic invariant tests (telemetry cadence, interval gates, departed TX zeroing, buffer/non-buffer init behavior).
 - [ ] Update docs section links if filenames or responsibilities change.
 
 ## Phase 1: Slot Lifecycle And Generational Flux

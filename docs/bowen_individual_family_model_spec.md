@@ -526,8 +526,8 @@ The following items are **specified in this document but not yet implemented:**
 
 - [ ] C range clamped to [10, 80] in engine (currently [10, 100])
 - [ ] C initialization changed to 40.0 ± 5 (currently 50.0 ± 5)
-- [ ] Generational-flux slot model: initialize 8,000 active + 2,000 inactive buffer (`M = -1`, `slot_status = INACTIVE_BUFFER`)
-- [ ] `slot_status[N]` lifecycle states with dead-slot reuse for births
+- [x] Generational-flux slot model: initialize 8,000 active + 2,000 inactive buffer (`M = -1`, `slot_status = INACTIVE_BUFFER`)
+- [x] `slot_status[N]` lifecycle states with dead-slot reuse for births
 - [ ] Split family identity arrays: immutable `family_origin_id[N]` and mutable `nuclear_family_id[N]` (with `family_ids` compatibility alias)
 - [ ] `chronic_anxiety[N]` array — fixed at age 10 from family emotional atmosphere
 - [ ] R floor from CA: `R ≥ chronic_anxiety[unit] / 50.0` after age 10

@@ -15,18 +15,18 @@ Source spec: `/Users/davemini2/ProjectsLocal/EPModel/docs/bowen_individual_famil
 - `[!]` Blocked
 
 ## Phase 0: Baseline And Guardrails
-- [ ] Add constants/config placeholders for generational flux settings (`INITIAL_ACTIVE_UNITS`, `NURSERY_BUFFER_UNITS`, `MATCH_INTERVAL`, `LAUNCH_BASE_P`).
-- [ ] Add migration-safe status enum for slot lifecycle (`ACTIVE`, `DEPARTED`, `DEAD`, `INACTIVE_BUFFER`).
-- [ ] Add unit tests that assert backward compatibility for existing behavior before refactor.
+- [x] Add constants/config placeholders for generational flux settings (`INITIAL_ACTIVE_UNITS`, `NURSERY_BUFFER_UNITS`, `MATCH_INTERVAL`, `LAUNCH_BASE_P`).
+- [x] Add migration-safe status enum for slot lifecycle (`ACTIVE`, `DEPARTED`, `DEAD`, `INACTIVE_BUFFER`).
+- [x] Add unit tests that assert backward compatibility for existing behavior before refactor.
 - [ ] Update docs section links if filenames or responsibilities change.
 
 ## Phase 1: Slot Lifecycle And Generational Flux
-- [ ] Initialize population as 8,000 active + 2,000 inactive buffer (`M=-1`, `slot_status=INACTIVE_BUFFER`) for N=10,000 profile.
-- [ ] Ensure births activate slots by priority: `INACTIVE_BUFFER` -> `DEAD` -> `DEPARTED`.
-- [ ] Ensure newborn activation creates a new identity (no resurrection of prior person state).
-- [ ] Ensure death transitions to `DEAD` and remains eligible for future newborn activation.
-- [ ] Add tests for slot transitions and birth activation priority.
-- [ ] Update telemetry/docs for active vs inactive accounting.
+- [x] Initialize population as 8,000 active + 2,000 inactive buffer (`M=-1`, `slot_status=INACTIVE_BUFFER`) for N=10,000 profile.
+- [x] Ensure births activate slots by priority: `INACTIVE_BUFFER` -> `DEAD` -> `DEPARTED`.
+- [x] Ensure newborn activation creates a new identity (no resurrection of prior person state).
+- [x] Ensure death transitions to `DEAD` and remains eligible for future newborn activation.
+- [x] Add tests for slot transitions and birth activation priority.
+- [x] Update telemetry/docs for active vs inactive accounting.
 
 ## Phase 2: Family Identity Split (FOO vs Nuclear)
 - [ ] Introduce `family_origin_id[N]` (immutable) and `nuclear_family_id[N]` (mutable).
@@ -72,6 +72,6 @@ Source spec: `/Users/davemini2/ProjectsLocal/EPModel/docs/bowen_individual_famil
 - [ ] Keep commit messages scoped by phase.
 
 ## Ready-To-Code Gate
-- [ ] Task list committed and pushed.
-- [ ] Spec v1.2 committed and pushed.
-- [ ] Clean plan for Phase 1 implementation prepared.
+- [x] Task list committed and pushed.
+- [x] Spec v1.2 committed and pushed.
+- [x] Clean plan for Phase 1 implementation prepared.

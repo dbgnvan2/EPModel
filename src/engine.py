@@ -1,6 +1,7 @@
 import numpy as np
 from collections import deque
 import os
+import re
 
 
 class Simulator:
@@ -20,6 +21,15 @@ class Simulator:
     NURSERY_BUFFER_UNITS = 2000
     MATCH_INTERVAL = 20
     LAUNCH_BASE_P = 0.07
+    BIRTH_PROB = 0.08
+    MATCH_RADIUS = 15
+    C_PRIMARY_PCT = 5.0
+    TRIANGLE_RADIUS = 20
+    DISTANCE_TX_THRESHOLD = 0.5
+    DISTANCE_CYCLES = 20
+    TRIANGLE_STRESS_THRESHOLD = 180.0
+    TRIANGLE_STRESS_CYCLES = 2
+    CONFIG_PATH = os.path.join(os.path.dirname(__file__), "..", "docs", "model_config.md")
 
     # --- Status Constants ---
     STATUS_EMBEDDED = 0
@@ -30,6 +40,7 @@ class Simulator:
     SLOT_INACTIVE_BUFFER = 3
 
     def __init__(self, num_units=10000):
+        self._apply_config()
         self.num_units = num_units
         self.grid_size = int(np.sqrt(num_units))
         if self.grid_size * self.grid_size != num_units:
@@ -82,8 +93,9 @@ class Simulator:
         # "one unit of disposable income per month" in abstract M-units.
         # Elite (top 10%) start at M=100,000 — they earn proportionally more via
         # the circle autonomy bonus and windfall (WD_FACTOR).
-        self.base_income      = 20.0         # income per cycle per live unit (was 5)
-        self.unemployment_rate = 0.05        # fraction with zero income + stress penalty
+        # Values default from markdown config; fallback defaults are set in _apply_config().
+        self.base_income = float(self.base_income)
+        self.unemployment_rate = float(self.unemployment_rate)
         self.divorce_count    = 0            # cumulative divorces
 
         # Age: 1 cycle = 1 year.  Realistic demographic pyramid.
@@ -128,12 +140,68 @@ class Simulator:
         self.family_c_diff          = np.zeros(self.num_families, dtype=np.float32)
         self.family_divorce_rate_mod = np.zeros(self.num_families, dtype=np.float32)
         self.family_s_penalty       = np.zeros(self.num_families, dtype=np.float32)
+        self.family_distance_flag = np.zeros(self.num_families, dtype=bool)
+        self.family_distance_duration = np.zeros(self.num_families, dtype=np.int16)
+        self.family_projection_peak_s = np.full(self.num_families, -np.inf, dtype=np.float32)
+        self.family_projection_target_child = np.full(self.num_families, -1, dtype=np.int32)
+        self.family_triangle_stress_duration = np.zeros(self.num_families, dtype=np.int16)
+        self.triangle_timer = np.zeros(self.num_units, dtype=np.int16)
+        self.triangle_original_family = np.full(self.num_units, -1, dtype=np.int32)
+        self.family_leader_mask = np.zeros(self.num_units, dtype=bool)
 
         if not os.path.exists("sim_audit.csv"):
             with open("sim_audit.csv", "w") as f:
                 f.write("cycle,living_units,active_families,avg_s,total_deaths,"
                         "total_births,total_marriages,debt,recovery_active,"
                         "homelessness_pct,avg_age,divorce_count,avg_c\n")
+
+    def _apply_config(self):
+        """Load model parameters from markdown config before state initialization."""
+        defaults = {
+            "S_BASELINE": self.S_BASELINE,
+            "TX_MAX": self.TX_MAX,
+            "INITIAL_ACTIVE_UNITS": self.INITIAL_ACTIVE_UNITS,
+            "NURSERY_BUFFER_UNITS": self.NURSERY_BUFFER_UNITS,
+            "MATCH_INTERVAL": self.MATCH_INTERVAL,
+            "LAUNCH_BASE_P": self.LAUNCH_BASE_P,
+            "BIRTH_PROB": self.BIRTH_PROB,
+            "MATCH_RADIUS": self.MATCH_RADIUS,
+            "C_PRIMARY_PCT": self.C_PRIMARY_PCT,
+            "TRIANGLE_RADIUS": self.TRIANGLE_RADIUS,
+            "BASE_INCOME": 20.0,
+            "UNEMPLOYMENT_RATE": 0.05,
+        }
+        values = defaults.copy()
+        if os.path.exists(self.CONFIG_PATH):
+            with open(self.CONFIG_PATH) as f:
+                for line in f:
+                    line = line.strip()
+                    if not line or line.startswith("#"):
+                        continue
+                    m = re.match(r"^([A-Z_]+)\s*[:=]\s*([^\s#]+)", line)
+                    if not m:
+                        continue
+                    key, raw = m.group(1), m.group(2)
+                    if key not in values:
+                        continue
+                    if raw.lower() in ("true", "false"):
+                        parsed = raw.lower() == "true"
+                    else:
+                        parsed = float(raw) if "." in raw else int(raw)
+                    values[key] = parsed
+
+        self.S_BASELINE = float(values["S_BASELINE"])
+        self.TX_MAX = float(values["TX_MAX"])
+        self.INITIAL_ACTIVE_UNITS = int(values["INITIAL_ACTIVE_UNITS"])
+        self.NURSERY_BUFFER_UNITS = int(values["NURSERY_BUFFER_UNITS"])
+        self.MATCH_INTERVAL = int(values["MATCH_INTERVAL"])
+        self.LAUNCH_BASE_P = float(values["LAUNCH_BASE_P"])
+        self.BIRTH_PROB = float(values["BIRTH_PROB"])
+        self.MATCH_RADIUS = int(values["MATCH_RADIUS"])
+        self.C_PRIMARY_PCT = float(values["C_PRIMARY_PCT"])
+        self.TRIANGLE_RADIUS = int(values["TRIANGLE_RADIUS"])
+        self.base_income = float(values["BASE_INCOME"])
+        self.unemployment_rate = float(values["UNEMPLOYMENT_RATE"])
 
     # ---------------------------------------------------------------------- #
     #  Initialisation                                                         #
@@ -182,6 +250,141 @@ class Simulator:
         self.family_ids = family_id_grid.flatten()
         self.family_member_counts = np.array(family_sizes_list)
         self.num_families = family_id
+
+    def _ensure_family_arrays_size(self):
+        """Grow per-family arrays when new families are created."""
+        nf = self.num_families
+        family_arrays = (
+            "family_c_diff",
+            "family_divorce_rate_mod",
+            "family_s_penalty",
+            "family_distance_flag",
+            "family_distance_duration",
+            "family_projection_peak_s",
+            "family_projection_target_child",
+            "family_triangle_stress_duration",
+        )
+        for arr_name in family_arrays:
+            arr = getattr(self, arr_name)
+            if len(arr) < nf:
+                fill_value = False if arr.dtype == bool else 0
+                if arr_name == "family_projection_peak_s":
+                    fill_value = -np.inf
+                if arr_name == "family_projection_target_child":
+                    fill_value = -1
+                pad = np.full(nf - len(arr), fill_value, dtype=arr.dtype)
+                setattr(self, arr_name, np.concatenate([arr, pad]))
+
+    def compute_fd(self):
+        """Compute functional differentiation FD for all units."""
+        s = self.state[:, 0]
+        c = self.state[:, 2]
+        baseline = self.S_BASELINE / self.L
+        adjustment = np.clip(baseline / np.maximum(s, 1.0), 0.3, 1.5)
+        return c * adjustment
+
+    def _update_family_leader_mask(self):
+        """Mark one highest-C embedded live member as leader per active family."""
+        self.family_leader_mask[:] = False
+        live_embedded = (self.unit_status == self.STATUS_EMBEDDED) & (self.state[:, 3] > 0)
+        if not np.any(live_embedded):
+            return
+        for fid in np.unique(self.family_ids[live_embedded]):
+            members = np.where(live_embedded & (self.family_ids == fid))[0]
+            if len(members) == 0:
+                continue
+            leader = members[int(np.argmax(self.state[members, 2]))]
+            self.family_leader_mask[leader] = True
+
+    def _update_family_distance_flags(self):
+        """Track low-reactivity duration for size-2 families and set distance flags."""
+        self._ensure_family_arrays_size()
+        live_embedded = (self.unit_status == self.STATUS_EMBEDDED) & (self.state[:, 3] > 0)
+        family_counts = np.bincount(self.family_ids[live_embedded], minlength=self.num_families)
+        candidate_fids = np.where(family_counts == 2)[0]
+        self.family_distance_flag[:] = False
+        for fid in candidate_fids:
+            members = np.where(live_embedded & (self.family_ids == fid))[0]
+            if len(members) != 2:
+                self.family_distance_duration[fid] = 0
+                continue
+            if np.all(self.state[members, 1] < self.DISTANCE_TX_THRESHOLD):
+                self.family_distance_duration[fid] += 1
+            else:
+                self.family_distance_duration[fid] = 0
+            if self.family_distance_duration[fid] >= self.DISTANCE_CYCLES:
+                self.family_distance_flag[fid] = True
+
+    def update_triangles(self):
+        """Implement short-term triangling-in for size-2 high-stress families."""
+        # Release expired triangles first.
+        expiring = np.where(self.triangle_timer == 1)[0]
+        if len(expiring) > 0:
+            restore_mask = self.triangle_original_family[expiring] >= 0
+            self.family_ids[expiring[restore_mask]] = self.triangle_original_family[expiring[restore_mask]]
+            self.nuclear_family_id[expiring[restore_mask]] = self.triangle_original_family[expiring[restore_mask]]
+            reset_mask = self.triangle_original_family[expiring] < 0
+            self.family_ids[expiring[reset_mask]] = -1
+            self.nuclear_family_id[expiring[reset_mask]] = -1
+            self.triangle_original_family[expiring] = -1
+        self.triangle_timer[self.triangle_timer > 0] -= 1
+
+        self._ensure_family_arrays_size()
+        live_embedded = (self.unit_status == self.STATUS_EMBEDDED) & (self.state[:, 3] > 0)
+        family_counts = np.bincount(self.family_ids[live_embedded], minlength=self.num_families)
+        family_s_sums = np.bincount(
+            self.family_ids[live_embedded],
+            weights=self.state[live_embedded, 0],
+            minlength=self.num_families
+        )
+        safe_counts = np.where(family_counts > 0, family_counts, 1)
+        family_avg_s = family_s_sums / safe_counts
+
+        high_stress_fams = (family_counts == 2) & (family_avg_s > self.TRIANGLE_STRESS_THRESHOLD)
+        self.family_triangle_stress_duration[high_stress_fams] += 1
+        self.family_triangle_stress_duration[~high_stress_fams] = 0
+
+        trigger_fids = np.where(
+            (family_counts == 2) &
+            (self.family_triangle_stress_duration >= self.TRIANGLE_STRESS_CYCLES)
+        )[0]
+        if len(trigger_fids) == 0:
+            return
+
+        circle_mask = (
+            (self.unit_status == self.STATUS_DEPARTED) &
+            (self.state[:, 3] > 0) &
+            (self.triangle_timer == 0) &
+            (self.family_ids < 0)
+        )
+        circle_ids = np.where(circle_mask)[0]
+        if len(circle_ids) == 0:
+            return
+
+        G = self.grid_size
+        for fid in trigger_fids:
+            members = np.where(live_embedded & (self.family_ids == fid))[0]
+            if len(members) != 2:
+                continue
+            m_rows, m_cols = members // G, members % G
+            cx, cy = float(np.mean(m_rows)), float(np.mean(m_cols))
+            c_rows, c_cols = circle_ids // G, circle_ids % G
+            dists = np.sqrt((c_rows - cx) ** 2 + (c_cols - cy) ** 2)
+            within = np.where(dists <= self.TRIANGLE_RADIUS)[0]
+            if len(within) == 0:
+                continue
+            circle_idx = circle_ids[within[int(np.argmin(dists[within]))]]
+            self.triangle_original_family[circle_idx] = self.family_ids[circle_idx]
+            self.family_ids[circle_idx] = fid
+            self.nuclear_family_id[circle_idx] = fid
+            self.triangle_timer[circle_idx] = 2
+
+            family_before = float(np.mean(self.state[members, 0]))
+            self.state[members, 0] *= 0.85
+            absorbed = max(family_before - float(np.mean(self.state[members, 0])), 0.0) * 0.2
+            fd = self.compute_fd()
+            circle_c_ratio = max(fd[circle_idx] / 100.0, 0.1)
+            self.state[circle_idx, 0] += absorbed * (1.0 / circle_c_ratio)
 
     # ---------------------------------------------------------------------- #
     #  Telemetry                                                              #
@@ -252,7 +455,8 @@ class Simulator:
 
         # Autonomy bonus for departed circles that are still alive
         circle_mask = (self.unit_status == self.STATUS_DEPARTED) & live_mask
-        income_vector[circle_mask] *= 1.5 * (self.state[circle_mask, 2] / 100.0)
+        fd = self.compute_fd()
+        income_vector[circle_mask] *= 1.5 * (fd[circle_mask] / 100.0)
 
         # Unemployment: random mask, zero income + stress hit
         unemployed = (np.random.rand(self.num_units) < self.unemployment_rate) & live_mask
@@ -364,6 +568,8 @@ class Simulator:
         for uid in launching_indices:
             self.unit_status[uid] = self.STATUS_DEPARTED
             self.slot_status[uid] = self.SLOT_DEPARTED
+            self.family_ids[uid] = -1
+            self.nuclear_family_id[uid] = -1
             self.log_messages.append(f"[{cycle}] Unit {uid} Launched (age {self.age[uid]:.0f})")
 
     def apply_matchmaking(self, cycle):
@@ -392,7 +598,9 @@ class Simulator:
         # Real-world: median age at first marriage US ≈ 28-30; window 22-40
         eligible = (departed & live &
                     (self.age >= 22) & (self.age <= 40) &
-                    (self.state[:, 0] < 150))
+                    (self.state[:, 0] < 150) &
+                    (self.triangle_timer == 0) &
+                    (self.family_ids < 0))
 
         candidate_ids = np.where(eligible)[0]
         if len(candidate_ids) < 2:
@@ -415,8 +623,8 @@ class Simulator:
         c_mean_mat  = np.where(c_mean_mat < 1.0, 1.0, c_mean_mat)   # avoid /0
         c_diff_pct  = np.abs(c_vals[:, None] - c_vals[None, :]) / c_mean_mat * 100.0
 
-        MATCH_RADIUS  = 15    # grid cells
-        C_PRIMARY_PCT = 5.0   # within this C-diff % → primary (no penalty)
+        MATCH_RADIUS = self.MATCH_RADIUS
+        C_PRIMARY_PCT = self.C_PRIMARY_PCT
         paired = set()
 
         # ---- helper to register a new family given two candidate indices --------
@@ -428,12 +636,15 @@ class Simulator:
             new_fid = self.num_families
             self.family_ids[uid_a] = new_fid
             self.family_ids[uid_b] = new_fid
+            self.nuclear_family_id[uid_a] = new_fid
+            self.nuclear_family_id[uid_b] = new_fid
             self.unit_status[uid_a] = self.STATUS_EMBEDDED
             self.unit_status[uid_b] = self.STATUS_EMBEDDED
             self.slot_status[uid_a] = self.SLOT_ACTIVE
             self.slot_status[uid_b] = self.SLOT_ACTIVE
             self.num_families += 1
             self.family_member_counts = np.append(self.family_member_counts, 2)
+            self._ensure_family_arrays_size()
 
             # Extend per-family mismatch arrays to cover new_fid
             excess_pct = max(0.0, c_gap - C_PRIMARY_PCT)
@@ -496,6 +707,7 @@ class Simulator:
         embedded = self.unit_status == self.STATUS_EMBEDDED
         live     = self.state[:, 3] > 0
         active_mask = embedded & live
+        self._update_family_distance_flags()
 
         # Families with ≥ 2 active members
         family_counts = np.bincount(self.family_ids[active_mask],
@@ -523,7 +735,11 @@ class Simulator:
         # The gap (5.6 vs 11) reflects that our model requires BOTH parents
         # to be embedded + family intact — real birth data includes single parents.
         roll = np.random.rand(len(eligible_fids))
-        birth_fids = eligible_fids[roll < 0.08]
+        birth_prob = np.full(len(eligible_fids), self.BIRTH_PROB, dtype=np.float64)
+        if np.any(self.family_distance_flag[eligible_fids]):
+            birth_prob[self.family_distance_flag[eligible_fids]] *= 1.5
+        birth_prob = np.clip(birth_prob, 0.0, 1.0)
+        birth_fids = eligible_fids[roll < birth_prob]
         if len(birth_fids) == 0:
             return
 
@@ -568,13 +784,28 @@ class Simulator:
             for pid in parent_ids:
                 self.state[pid, 3] = max(0.0, self.state[pid, 3] - per_parent)
 
-            # C-Level Inheritance: child C = avg(parent C) × uniform(0.9, 1.1)
+            family_avg_s = float(np.mean(self.state[parent_ids, 0]))
+            # C-Level Inheritance (plus projection process under high parental reactivity).
             parent_c_avg = float(np.mean(self.state[parent_ids, 2]))
             child_c = float(np.clip(parent_c_avg * np.random.uniform(0.9, 1.1), 10.0, 80.0))
             child_origin = int(self.family_origin_id[parent_ids[0]])
+            parent_max_tx = float(np.max(self.state[parent_ids, 1]))
+            if parent_max_tx > 2.0:
+                current_target = int(self.family_projection_target_child[fid])
+                target_is_child = (
+                    current_target >= 0 and
+                    self.age[current_target] < 18 and
+                    self.family_ids[current_target] == fid
+                )
+                should_shift = (not target_is_child) or (
+                    family_avg_s > float(self.family_projection_peak_s[fid])
+                )
+                if should_shift:
+                    child_c = float(np.clip(parent_c_avg * np.random.uniform(0.7, 0.9), 10.0, 80.0))
+                    self.family_projection_peak_s[fid] = family_avg_s
+                    self.family_projection_target_child[fid] = nearest
 
             # Birth stress: if family avg S is elevated, newborn inherits some stress
-            family_avg_s = float(np.mean(self.state[parent_ids, 0]))
             birth_stress = self.S_BASELINE
             if family_avg_s > 160.0:
                 birth_stress += (family_avg_s - 160.0) * 0.5
@@ -613,13 +844,8 @@ class Simulator:
         live     = self.state[:, 3] > 0
         active_mask = embedded & live
 
-        # Ensure per-family arrays cover all known families (grows via matchmaking)
+        self._ensure_family_arrays_size()
         nf = self.num_families
-        for arr_name in ('family_c_diff', 'family_divorce_rate_mod', 'family_s_penalty'):
-            arr = getattr(self, arr_name)
-            if len(arr) < nf:
-                pad = np.zeros(nf - len(arr), dtype=arr.dtype)
-                setattr(self, arr_name, np.concatenate([arr, pad]))
 
         # Per-family: count of active members
         family_counts = np.bincount(self.family_ids[active_mask], minlength=nf)
@@ -630,15 +856,18 @@ class Simulator:
         safe_counts = np.where(family_counts > 0, family_counts, 1)
         family_avg_s = family_s_sums / safe_counts
 
-        # Apply continuous S-raise for C-mismatched families (every cycle, all members)
-        # Only applies to size-2 active families with a non-zero S-penalty.
+        # Apply continuous S-raise for C-mismatched families (asymmetric spouse dysfunction).
         mismatch_fam_mask = (family_counts == 2) & (self.family_s_penalty[:nf] > 0)
         mismatch_fids = np.where(mismatch_fam_mask)[0]
-        if len(mismatch_fids) > 0:
-            # Map per-family S-penalty back to unit indices
-            unit_penalty = self.family_s_penalty[self.family_ids]
-            apply_pen_mask = active_mask & (unit_penalty > 0)
-            self.state[apply_pen_mask, 0] += unit_penalty[apply_pen_mask]
+        for fid in mismatch_fids:
+            members = np.where(active_mask & (self.family_ids == fid))[0]
+            if len(members) != 2:
+                continue
+            low_idx = members[int(np.argmin(self.state[members, 2]))]
+            high_idx = members[int(np.argmax(self.state[members, 2]))]
+            penalty = float(self.family_s_penalty[fid])
+            self.state[low_idx, 0] += penalty * 0.7
+            self.state[high_idx, 0] += penalty * 0.3
 
         # Track per-unit high-stress duration for divorce trigger
         stressed_units = active_mask & (self.state[:, 0] > 160)
@@ -652,6 +881,7 @@ class Simulator:
             if self.family_high_stress_duration[uid] < family_min_stress_dur[fid]:
                 family_min_stress_dur[fid] = self.family_high_stress_duration[uid]
 
+        self._update_family_distance_flags()
         # Candidate families: exactly 2 active members, avg S > 160, stress ≥ 50 cycles
         candidate_fam_mask = (
             (family_counts == 2) &
@@ -663,8 +893,8 @@ class Simulator:
             return
 
         # Effective divorce rate = base 1% + per-family C-mismatch modifier
-        base_rate = 0.01
-        eff_rates = base_rate + self.family_divorce_rate_mod[candidate_fids]
+        base_rates = np.where(self.family_distance_flag[candidate_fids], 0.005, 0.01)
+        eff_rates = base_rates + self.family_divorce_rate_mod[candidate_fids]
         eff_rates = np.clip(eff_rates, 0.0, 1.0)
 
         roll = np.random.rand(len(candidate_fids))
@@ -703,9 +933,11 @@ class Simulator:
         departing_indices = np.where(departing_mask)[0]
 
         for unit_id in departing_indices:
+            family_id = int(self.family_ids[unit_id])
             self.unit_status[unit_id] = self.STATUS_DEPARTED
             self.slot_status[unit_id] = self.SLOT_DEPARTED
-            family_id = self.family_ids[unit_id]
+            self.family_ids[unit_id] = -1
+            self.nuclear_family_id[unit_id] = -1
             self.log_messages.append(f"[{cycle}] Unit {unit_id} Ejected Fam {family_id}")
 
             family_members_mask = ((self.family_ids == family_id) &
@@ -825,8 +1057,10 @@ class Simulator:
         stable_mask = s < (self.S_BASELINE / self.L) + 5
         recovery = 0.5 * (self.c_baseline[stable_mask] - c[stable_mask])
         self.state[stable_mask, 2] += recovery
+        self._update_family_leader_mask()
         if self.L > 1.2:
             self.state[:, 2] += 0.05
+            self.state[self.family_leader_mask, 2] += 0.15
         self.state[:, 2] = np.clip(self.state[:, 2], 10.0, 80.0)
 
     def update_m(self, base_metabolism=0.1):
@@ -852,9 +1086,14 @@ class Simulator:
         Constitution Axiom 4: same-family neighbors → friction = 0.
         Cross-family neighbors → friction = 0.2.
         """
-        s_grid, tx_grid, c_grid, _ = self.get_grids()
+        s_grid, tx_grid, _, _ = self.get_grids()
         s_baseline = self.S_BASELINE / self.L
-        broadcast = (s_grid - s_baseline) * (tx_grid / np.clip(c_grid, 10, None))
+        fd = self.compute_fd()
+        fd_grid = fd.reshape(self.grid_size, self.grid_size)
+        broadcast = (s_grid - s_baseline) * (tx_grid / np.clip(fd_grid, 10, None))
+        if np.any(self.family_leader_mask):
+            leader_grid = self.family_leader_mask.reshape(self.grid_size, self.grid_size)
+            broadcast[leader_grid] *= 0.7
         family_grid = self.family_ids.reshape(self.grid_size, self.grid_size)
 
         neighbor_sum = np.zeros_like(s_grid)
@@ -863,11 +1102,18 @@ class Simulator:
                 if i == 0 and j == 0:
                     continue
                 neighbor_family = np.roll(family_grid, (i, j), axis=(0, 1))
-                eff_friction = np.where(family_grid == neighbor_family, 0.0, friction)
-                neighbor_sum += np.roll(broadcast, (i, j), axis=(0, 1)) * eff_friction
+                same_family = (family_grid == neighbor_family) & (family_grid >= 0)
+                coeff = np.where(same_family, 1.0, friction)
+
+                # Emotional distance: same-family exchange drops to 0.1.
+                if np.any(self.family_distance_flag):
+                    distanced = np.isin(family_grid, np.where(self.family_distance_flag)[0])
+                    coeff = np.where(same_family & distanced, 0.1, coeff)
+
+                neighbor_sum += np.roll(broadcast, (i, j), axis=(0, 1)) * coeff
 
         neighbor_contagion = neighbor_sum * (self.X * 2)
-        self.state[:, 0] += neighbor_contagion.flatten() / np.clip(self.state[:, 2], 10, None)
+        self.state[:, 0] += neighbor_contagion.flatten() / np.clip(fd, 10, None)
 
     # ---------------------------------------------------------------------- #
     #  Master update                                                          #
@@ -884,6 +1130,7 @@ class Simulator:
         self.apply_births(cycle)        # family growth into available slots
         self.apply_launch(cycle)        # young adults leave family system -> circles
         self.apply_divorce(cycle)       # chronic stress can split size-2 families
+        self.update_triangles()         # temporary triangling-in for high-stress size-2 families
 
         # Departed units should not broadcast stress in the same cycle.
         departed_mask = self.unit_status == self.STATUS_DEPARTED
@@ -923,6 +1170,8 @@ class Simulator:
             self.total_deaths += newly_dead_count
             self.unit_status[newly_dead_mask] = self.STATUS_DEPARTED
             self.slot_status[newly_dead_mask] = self.SLOT_DEAD
+            self.family_ids[newly_dead_mask] = -1
+            self.nuclear_family_id[newly_dead_mask] = -1
 
         # 8. Zero TX on all departed so they don't broadcast
         departed_mask = self.unit_status == self.STATUS_DEPARTED

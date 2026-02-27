@@ -332,7 +332,7 @@ The **same-family zero-friction rule** implements the twosome dynamic: within a 
 - The close twosome (same family block) where anxiety flows without resistance.
 - The outsider relationship (different family block) where anxiety must overcome friction to propagate.
 
-### 8.3 Triangling-In Mechanism (Specification for Future Implementation)
+### 8.3 Triangling-In Mechanism (Implemented)
 
 When a size-2 family has been under high stress (avg S > 180) for 2+ consecutive cycles and has NOT yet divorced, a **triangle event** fires:
 
@@ -437,14 +437,14 @@ This maps directly onto the engine's contagion model: a high-C unit at the cente
 
 The global `L` (Leadership) parameter captures the population-level version of this. Under the current engine formula (`S_BASELINE / L`), higher `L` lowers the stress threshold at which R starts climbing, while still adding a direct +0.05 C/cycle bonus when `L > 1.2`. This section defines the intended stabilizing interpretation; align formula and interpretation together in implementation updates.
 
-### 10.3 Family-Level Leader (Specification)
+### 10.3 Family-Level Leader (Implemented)
 
 A per-family "leader" unit can be identified as the member with the highest current C. This unit:
 - Gets the full `update_c()` recovery boost first (priority ordering).
 - Has its C updated with L bonus doubled: `+0.20/cycle` when L > 1.2 (vs +0.05 for others).
 - In the contagion calculation, its broadcast is additionally scaled by `0.7` (high-C leaders are less emotionally contagious even relative to their C level).
 
-Planned implementation as a per-cycle identification step in `update_c()`:
+Implemented as a per-cycle identification step in `update_c()`:
 ```python
 # Family leader: highest-C embedded live member per family
 family_leader_mask = ...  # one True per active family — the max-C member
@@ -539,13 +539,13 @@ The following items are **specified in this document but not yet implemented:**
   - C-growth inverse: additional R −0.5/cycle for adults (total adult R reduction = −1.0/cycle)
 - [x] `[G]` key binding in main.py for coaching toggle
 - [x] Coaching sidebar display (C GROWTH: +0.5/yr)
-- [ ] Functional Differentiation (FD) as derived quantity used in contagion and income bonus
-- [ ] Family projection process: projection-target child receives `C × uniform(0.7, 0.9)`
-- [ ] Spouse dysfunction asymmetry: lower-C partner receives larger S-penalty share
-- [ ] Emotional Distance mechanic: `family_distance_flag[F]`, reduced cross-member contagion, lower divorce rate, higher projection probability
-- [ ] Triangle mechanism: short-term triangling-in of nearby circle to absorb family stress (repeating every 2 cycles while avg S > 180)
-- [ ] Family-level leader identification: highest-C member gets +0.20/cycle C bonus (vs +0.05 for others) and 0.7× broadcast scaling
-- [ ] Config file system: all parameters sourced from markdown config file, none hard-coded (see §14)
+- [x] Functional Differentiation (FD) as derived quantity used in contagion and income bonus
+- [x] Family projection process: projection-target child receives `C × uniform(0.7, 0.9)`
+- [x] Spouse dysfunction asymmetry: lower-C partner receives larger S-penalty share
+- [x] Emotional Distance mechanic: `family_distance_flag[F]`, reduced cross-member contagion, lower divorce rate, higher projection probability
+- [x] Triangle mechanism: short-term triangling-in of nearby circle to absorb family stress (repeating every 2 cycles while avg S > 180)
+- [x] Family-level leader identification: highest-C member gets +0.20/cycle C bonus (vs +0.05 for others) and 0.7× broadcast scaling
+- [x] Config file system: parameters sourced from markdown config file (`docs/model_config.md`) at simulator startup
 
 ---
 

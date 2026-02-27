@@ -19,7 +19,7 @@ Source spec: `/Users/davemini2/ProjectsLocal/EPModel/docs/bowen_individual_famil
 - [x] Add migration-safe status enum for slot lifecycle (`ACTIVE`, `DEPARTED`, `DEAD`, `INACTIVE_BUFFER`).
 - [x] Add unit tests that assert backward compatibility for existing behavior before refactor.
 - [x] Expand deterministic invariant tests (telemetry cadence, interval gates, departed TX zeroing, buffer/non-buffer init behavior).
-- [ ] Update docs section links if filenames or responsibilities change.
+- [x] Update docs section links if filenames or responsibilities change.
 
 ## Phase 1: Slot Lifecycle And Generational Flux
 - [x] Initialize population as 8,000 active + 2,000 inactive buffer (`M=-1`, `slot_status=INACTIVE_BUFFER`) for N=10,000 profile.
@@ -75,6 +75,16 @@ Source spec: `/Users/davemini2/ProjectsLocal/EPModel/docs/bowen_individual_famil
 - [x] Add sidebar coaching telemetry (`COACHING` and `C GROWTH`).
 - [x] Replace scalar stress floor clamp with per-unit high-C floor adjustment.
 - [x] Add deterministic tests for chronic anxiety fixation, TX floor, coaching effects, and per-unit stress floor behavior.
+
+## Phase 8: Advanced Bowen Dynamics Completion
+- [x] Implement FD as derived quantity and use it in contagion damping and circle income bonus.
+- [x] Implement family projection process (`0.7-0.9` child C band under high parental reactivity).
+- [x] Implement spouse dysfunction asymmetry (lower-C partner gets larger S-penalty share).
+- [x] Implement emotional distance flags with reduced cross-member transmission and divorce-rate adjustment.
+- [x] Implement triangle mechanism with temporary circle attachment and timed release.
+- [x] Implement family-level leader effects (`+0.20` C/cycle when `L > 1.2`, `0.7x` broadcast scaling).
+- [x] Implement markdown-driven runtime config loader (`docs/model_config.md`) and apply values before state initialization.
+- [x] Add deterministic test coverage for FD usage, projection, asymmetry, distance, triangle, leader, and config loading.
 
 ## Commit Plan
 - [x] Docs baseline commit (spec + task list) before code refactor.

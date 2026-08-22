@@ -30,7 +30,7 @@ All 22 chapters of Bowen's *Family Therapy in Clinical Practice* have been extra
 src/engine.py        the grid engine — frozen in behaviour, still under test
 src/main.py          orchestration, UI, I/O
 src/bowen/           the agent model (not yet started)
-tests/               36 tests, all passing
+tests/               37 tests, all passing
 docs/theory/         the corpus extraction, ledger and convergences
 docs/                proposal, explainer, v2 spec, frozen v1.2 spec
 ```

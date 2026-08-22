@@ -125,7 +125,7 @@ Twelve people in one three-generation family. Each is an agent that, on every fa
 
 > **Two caveats that must travel with any use of this number.** Bowen *slowed* development of a clinical scale because readers wanted the scale without the concept (Ch16), then *stopped* that research entirely to prevent misuse (Ch17) — for misuse, not for invalidity. No external validation is offered anywhere in the book.
 
-### 3.2 `functional_level` / `functional_level` — functional level
+### 3.2 `functional_level` — functional differentiation
 
 **For:** what the person is actually running at right now, as opposed to their basic level.
 
@@ -149,7 +149,7 @@ Twelve people in one three-generation family. Each is an agent that, on every fa
 
 **For:** the fast state. What moves on the weekly clock.
 
-**Does:** raised by each incoming event by `intensity × conductance / FD`; decays toward the chronic floor; also takes a **standing load** from every tie each tick whether or not anything happened (§7.2).
+**Does:** raised by each incoming event by `intensity × conductance / `functional_level``; decays toward the chronic floor; also takes a **standing load** from every tie each tick whether or not anything happened (§7.2).
 
 **Source:** `[T]` Ch18 · L18.2 — all patterns intensify with anxiety and **vanish when calm**. `[M]` Ch01 · L01.1 — transfer is "almost quantitative": the source's anxiety measurably falls as the recipient's symptom rises.
 
@@ -506,11 +506,14 @@ Every fast tick, each person selects **exactly one** move. The repertoire is del
 
 **Does:** three scalar dials shift the family's ambient anxiety and stressor schedule. Society is a **dial on the symptom threshold**, not a separately simulated layer.
 
-> **⚠ The three dials are inherited, not sourced — and until now they were undefined.** They arrive from the grid engine as `L`, `X` and `E`, and their meanings appear nowhere in any design document: they exist only as Pygame log strings in `src/main.py`. They are **`L` = Leadership**, **`X` = Social Media**, **`E` = Climate**, and in the old engine `L` divides ambient anxiety and grants a differentiation bonus above 1.2, `X` multiplies cross-tie contagion, and `E` scales the metabolic drain and the stress floor.
+> **The three dials, and where they actually come from.** They arrive from the grid engine as `L`, `X` and `E`, and until this revision their meanings appeared nowhere in any design document — only as Pygame log strings in `src/main.py`: Leadership, Social Media, Climate. Renamed `societal_leadership`, `media_amplification` and `resource_pressure`.
 >
-> **None of the three is named in the corpus.** Ch18 does name six downward channels — labelling and diagnosis propensity, overleniency of officials and laws, helping-programme intensity, school structure at junior high, population density, and era-dependent symptom form — and social media and climate are not among them. The dials are `[I]` in full: invented, inherited from the project this repo grew out of, and carried into the Bowen model without re-grounding.
+> **`resource_pressure` is `[T]`, and it is Ch18's own thesis** — not an inheritance. "A spectrum of problems associated with **population explosion play a major role in man's deeper anxieties**", with "the rapid depletion of world's natural resources" and "certain natural resources are nearing exhaustion". The chapter's central claim is that society "appears to be functioning on a less differentiated emotional level than twenty-five years ago, that this **may be related to the disappearance of land frontiers**." It acts through **awareness of diminishing availability**, not consumption — "It was important for him to know there was new land for him, even if he never went to it" — which makes it the societal-scale instance of §6.3's availability mechanism, and **not** the grid engine's metabolic drain.
 >
-> Renamed for v2 as `societal_leadership`, `media_amplification` and `climate_pressure`. Two of them need a decision before Phase E, recorded in `TODO.md`: `climate_pressure`'s main mechanism was the metabolic drain, and that column is deleted; and `media_amplification` as a cross-tie contagion multiplier is the one of the three that maps cleanly onto something the model already has — conductance on non-family ties.
+> **`media_amplification` is a societal input the family modulates.** Its effect is scaled by the receiving family's differentiation rather than applied uniformly — §6.4's decoupling guard at the level of one dial — and it is the clearest case of a stressor that **converts from exogenous to endogenous**: it arrives from outside and then sustains itself through the chronicity integrator (§3.3) once internalised. Ch18's population-density channel is the corpus's nearest named analogue.
+>
+> **`societal_leadership` stays `[I]` in its functional form.** Ch18's six named downward channels do not include leadership quality, though Ch13's only stated reversal mechanism at societal scale does require a single principled leader.
+
 
 **Source:** `[T]` Ch13 · L13.1 — "Changing societal attitudes creates an environment that encourages behavior problems that would not have previously been symptomatic." The same family at unchanged differentiation produces symptoms in a regressed era it would not otherwise.
 
@@ -732,7 +735,7 @@ Eleven property tests over ensembles, written before tuning. Two properties matt
 
 | # | Test | Implements | Grade |
 |---|---|---|---|
-| 1 | **Differentiation protects.** Two families identical but for basic `basic_level`, same stressor schedule: the lower-`basic_level` family reaches symptom threshold sooner in a significant majority of seeds. | Ch09 · L09.1 — symptoms are a threshold on the functional level, and transfer scales inversely with the basic level | `[D]` |
+| 1 | **Differentiation protects.** Two families identical but for `basic_level`, same stressor schedule: the lower-`basic_level` family reaches symptom threshold sooner in a significant majority of seeds. | Ch09 · L09.1 — symptoms are a threshold on the functional level, and transfer scales inversely with the basic level | `[D]` |
 | 2 | **Symptoms concentrate.** Load lands disproportionately on the member who received the most projection-type events, not uniformly across children. | Ch09 · L09.2 — the two falsifiers Bowen supplies; Ch16 · L16.3 — the primary projection object emerges *lower*, minimally involved siblings about the same, those outside the process *better* | `[D]` |
 | 3 | **Triangling relieves the pair and costs the third.** After a `TRIANGLE` move the dyad's tension falls and the third person's anxiety rises within the same tick. | Ch09 · L09.3; Ch08 · L08.5 — parental conflict subsided precisely as the parents rejoined forces and resumed projecting | `[D]` |
 | 4 | **Cut-off trades now against later.** `CUTOFF` drops the actor's acute anxiety immediately and raises the family's total anxiety at the next nodal event, against a matched no-cutoff arm. | Ch10 · L10.3; Ch08 · L08.2 — zero re-activation latency on reunion | `[D]` |

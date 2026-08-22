@@ -30,26 +30,30 @@ class TestSimulator(unittest.TestCase):
         being the thing that trips it. See TODO.md and spec M11.D.1 / M11.D.7.
         """
         origin = os.getcwd()
-        workdir = tempfile.mkdtemp(prefix="epmodel-test-")
-        os.chdir(workdir)
-        self.addCleanup(shutil.rmtree, workdir, ignore_errors=True)
+        self.workdir = tempfile.mkdtemp(prefix="epmodel-test-")
+        os.chdir(self.workdir)
+        self.addCleanup(shutil.rmtree, self.workdir, ignore_errors=True)
         self.addCleanup(os.chdir, origin)
 
     def test_engine_writes_no_files_into_the_invocation_directory(self):
         """The suite must not leave engine output where pytest was invoked.
 
-        Guards the setUp above: delete its `os.chdir` and this goes red,
-        because `Simulator()` then drops `sim_audit.csv` into the repo root.
+        Guards the setUp above. Asserts the cwd *is* the tempdir rather than
+        merely is-not the repo root: the negative form passed from every
+        invocation directory except one, which is a guard that cannot fail.
         """
-        self.assertNotEqual(
-            os.path.realpath(os.getcwd()), os.path.realpath(REPO_ROOT),
-            "tests must not run from the repo root -- setUp's chdir is missing")
+        self.assertEqual(
+            os.path.realpath(os.getcwd()), os.path.realpath(self.workdir),
+            "setUp's chdir is missing -- the engine would write to the "
+            "directory pytest was invoked from")
         before = set(os.listdir(os.getcwd()))
         Simulator(num_units=100)
         created = set(os.listdir(os.getcwd())) - before
-        self.assertEqual(
+        # Subset, not equality: the engine writing *nothing* is the outcome
+        # TODO.md is asking for, and this guard must not stand in its way.
+        self.assertLessEqual(
             created, {"sim_audit.csv"},
-            "engine wrote unexpected files: %s" % sorted(created))
+            "engine wrote unexpected files: %s" % sorted(created - {"sim_audit.csv"}))
 
     def _seed_rng(self, seed):
         """Seed the global NumPy RNG for this test only, restoring it afterwards.

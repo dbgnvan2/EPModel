@@ -38,7 +38,7 @@ Anything not expressed in these terms is explanation, not requirement.
 
 ### 0.4 ID scheme
 
-`M<module>.<part>.<item>` — e.g. `M1.A.3`, `M11.C.5`, `M6.I.2`. **Every ID matches the single pattern `M\d+(\.[A-Z0-9]+)*` with each level separated by a dot**, so one regular expression extracts all of them (M11.D.10). Two-level IDs (`M0.3`, `M6.1`, `M13.1`) are IDs in their own right, not truncations.
+`M<module>.<part>.<item>` — e.g. `M1.A.3`, `M11.C.5`, `M6.I.2`. **Every ID matches the single pattern `M\d+(\.[A-Za-z0-9]+)*` with each level separated by a dot, and a lowercase suffix permitted for an inserted requirement (`M4.D.6a`)**, so one regular expression extracts all of them (M11.D.10). Two-level IDs (`M0.3`, `M6.1`, `M13.1`) are IDs in their own right, not truncations.
 
 IDs are stable and **MUST NOT** be renumbered; a withdrawn requirement keeps its ID and is marked `WITHDRAWN`. **Because renumbering is forbidden, any ID-scheme defect must be corrected before this document is approved, not after.**
 
@@ -159,9 +159,17 @@ Therefore:
 
 **M1.D.7** A `Family` **MUST** hold `ambient_anxiety` driven by the societal dials, acting on the **symptom threshold**. Turning a dial **MUST NOT** move every family proportionally. → §6.4
 
-**M1.D.7a** The dials **MUST** be named `societal_leadership`, `media_amplification` and `climate_pressure`. The single letters `L`, `X` and `E` **MUST NOT** be used. *Their meanings were previously recorded nowhere except Pygame log strings in `src/main.py`.*
+**M1.D.7a** The dials **MUST** be named `societal_leadership`, `media_amplification` and `resource_pressure`. The single letters `L`, `X` and `E` **MUST NOT** be used. *Their meanings were previously recorded nowhere except Pygame log strings in `src/main.py`, where the third was labelled "Climate"; `resource_pressure` is the accurate name for what Ch18 actually argues.*
 
-**M1.D.7b** All three dials **MUST** be labelled `[I]`. None is named in the corpus: Ch18's six downward channels do not include social media or climate. `climate_pressure` in particular **MUST NOT** be carried forward unexamined — its mechanism in the grid engine was the metabolic drain, and that column is deleted (M1.A.15). → `TODO.md`
+**M1.D.7b** `resource_pressure` **MUST** be implemented, and it is **`[T]`, not `[I]`** — it is Ch18's own proposed cause of societal regression, not an inheritance from the grid engine. Bowen: "a spectrum of problems associated with **population explosion play a major role in man's deeper anxieties**", with "the rapid depletion of world's natural resources" and "certain natural resources are nearing exhaustion"; and the chapter's thesis, that society "appears to be functioning on a less differentiated emotional level than twenty-five years ago, that this **may be related to the disappearance of land frontiers**."
+
+**M1.D.7c** `resource_pressure` **MUST** act through **awareness of diminishing availability**, not through consumption or a per-capita stock. "It was important for him to know there was **new land for him, even if he never went to it.**" It is therefore the societal-scale instance of the availability mechanism in M1.D.6, and **MUST NOT** be implemented as the grid engine's metabolic drain — that column is deleted (M1.A.15).
+
+**M1.D.7d** `media_amplification` **MUST** be a societal input whose effect on a given family is **modulated by that family's differentiation**, not applied uniformly. This is M1.D.7's decoupling guard at the level of a single dial: a well-differentiated family **MUST** be able to damp it, and a poorly-differentiated one to amplify it.
+
+**M1.D.7e** A dial-driven stressor **MUST** be able to convert from exogenous to endogenous within an individual — arriving from outside, then sustaining itself through the chronicity integrator (M4.C.3) once internalised. The `exogenous` flag (M1.F.7) **MUST** record which it was at emission, so the two remain countable separately at readout.
+
+**M1.D.7f** `societal_leadership` remains `[I]` in its functional form. Ch18 names six downward channels — labelling and diagnosis propensity, overleniency of officials and laws, helping-programme intensity, school structure at junior high, population density, and era-dependent symptom form — and leadership quality is not among them, though Ch13's only stated reversal mechanism does require a single principled leader.
 
 **M1.D.8** The family **MUST NOT** be the boundary of the simulated system. At least one family-of-origin tie per adult **MUST** exist, because degree of cutoff with the families of origin is an *input* to intensity. → §2.4, §6.2
 
@@ -221,14 +229,14 @@ The instance everything is tested against. It is **invented and tunable** — va
 | 6 | Marta | 2 | 50 | 40 | 46 | eldest of 2 | no | **head of household** | Ana's daughter |
 | 7 | Iris | 2 | 47 | 43 | 33 | youngest of 2 | no | peripheral | Marta's sister; low contact, **resolved** |
 | 8 | Leo | 3 | 22 | 36 | 48 | eldest of 3 | no | peripheral | launched |
-| 9 | Nadia | 3 | 17 | 41 | *derived* | middle of 3 | **yes** | peripheral | at home; becomes the projection target |
-| 10 | Pia | 3 | 14 | 44 | *derived* | youngest of 3 | **yes** | peripheral | minimally involved |
-| 11 | Toma | 3 | 20 | 39 | *derived* | only | **yes** | peripheral | Iris's son |
+| 9 | Nadia | 3 | 17 | 41 | 52 | middle of 3 | **yes** | peripheral | at home; becomes the projection target |
+| 10 | Pia | 3 | 14 | 44 | 37 | youngest of 3 | **yes** | peripheral | minimally involved |
+| 11 | Toma | 3 | 20 | 39 | 40 | only | **yes** | peripheral | Iris's son |
 | 12 | Dr Halim | — | 55 | 55 | 30 | — | no | — | `role = EXTERNAL`; counsellor, **not a family member** |
 
 **M2.A.0** The instance declares **eleven family members plus one external agent**. "Twelve-person reference family" is loose shorthand: Dr Halim is `role = EXTERNAL` and **MUST NOT** be counted in family membership, in the tie matrix of M2.B.1, or in `positions_live` unless the live-position test of M8 admits him. The nuclear family for M2.3 is **Ravi, Marta, Nadia and Pia** — Leo is launched and is not part of the Phase B spike.
 
-**M2.A.0a** `chronic_anxiety` for generations 1 and 2 **MUST** be supplied as an initial condition, because M1.A.7 and M7.B.1 fix it in childhood from witnessed history and those childhoods are never simulated. It is marked *derived* only for generation 3, whose childhoods the run covers. Supplying it for an agent whose childhood **is** simulated **MUST** be an error, not a default.
+**M2.A.0a** `chronic_anxiety` for generations 1 and 2 **MUST** be supplied as an initial condition, because M1.A.7 and M7.B.1 fix it in childhood from witnessed history and those childhoods are never simulated. The test is **life stage, not generation**: an initial value **MUST** be supplied for every agent already past the fixation age at `t0`, and **MUST** be an error for any agent who is not. Every agent in M2.A is past it, so all twelve carry a supplied value; the *derived* path applies only to agents born during the run.
 
 **M2.A.0b** There is **no calendar epoch**. All dates **MUST** be expressed as a duration relative to `t0`, the first slow tick. M3 defines only relative clocks, so a literal year has nothing to resolve against.
 
@@ -238,7 +246,7 @@ The instance everything is tested against. It is **invented and tunable** — va
 
 ### M2.B Ties `[I]`
 
-**M2.B.1** Twelve people give 66 possible pairs; the instance **MUST** declare only the ties that carry traffic, and **MUST NOT** instantiate the full matrix.
+**M2.B.1** Eleven family members give 55 possible pairs (Dr Halim is external and is not in this matrix — M2.A.0); the instance **MUST** declare only the ties that carry traffic, and **MUST NOT** instantiate the full matrix.
 
 **M2.B.2** The declared set **MUST** include: the Ravi–Marta marriage; both parental ties to each of Leo, Nadia and Pia; Marta–Ana; Ravi–Sofia; Ana–Bruno (cut off); Marta–Iris (resolved, low contact); Ana–Teodor; Iris–Toma; and Dr Halim's tie to whichever member is being coached.
 
@@ -294,7 +302,7 @@ The instance everything is tested against. It is **invented and tunable** — va
 
 ### M4.C Appraise
 
-**M4.C.1** Each incoming event **MUST** raise acute anxiety by `intensity × conductance / FD`, modulated by `route` (M1.F.3) and `source_position` (M1.F.2), and attenuated by `fidelity` (M1.F.4).
+**M4.C.1** Each incoming event **MUST** raise acute anxiety by `intensity × conductance / functional_level`, modulated by `route` (M1.F.3) and `source_position` (M1.F.2), and attenuated by `fidelity` (M1.F.4).
 
 **M4.C.2** Appraisal **MUST** apply a gain function on anxiety: above threshold, event content **MUST** be defended against rather than absorbed. A plain product is a failing implementation. → §3.4
 
@@ -314,11 +322,11 @@ The instance everything is tested against. It is **invented and tunable** — va
 
 **M4.D.6** Moves that worked before **MUST** be reinforced, so that a family develops a characteristic style.
 
-**M4.D.6a — the reinforcement signal MUST be named, and it MUST NOT be short-horizon anxiety relief.** The obvious proxy — the post-move change in the actor's own acute anxiety — is **forbidden**, because this specification pins the timing that makes it self-defeating: M11.C.4 requires `CUTOFF` to drop the actor's acute anxiety *immediately* with its cost deferred to the next nodal event, and M11.C.5 requires `I-POSITION` to *raise* tension for a bounded window before it settles. A short-horizon anxiety proxy therefore rewards the seven reactive moves and punishes the two differentiating ones **by construction**, and every agent converges on `CUTOFF`.
+**M4.D.6a** — *the reinforcement signal MUST be named, and it MUST NOT be short-horizon anxiety relief.* The obvious proxy — the post-move change in the actor's own acute anxiety — is **forbidden**, because this specification pins the timing that makes it self-defeating: M11.C.4 requires `CUTOFF` to drop the actor's acute anxiety *immediately* with its cost deferred to the next nodal event, and M11.C.5 requires `I-POSITION` to *raise* tension for a bounded window before it settles. A short-horizon anxiety proxy therefore rewards the seven reactive moves and punishes the two differentiating ones **by construction**, and every agent converges on `CUTOFF`.
 
 **M4.D.6b** The signal **MUST** be evaluated over a horizon longer than the reaction window of M5.D, and **MUST** be declared in config with its horizon. `[I]`
 
-**M4.D.6c** This failure would be invisible to M11.C.1–M11.C.15, because all of them are directional two-arm tests (M0.4) and a uniformly degenerate policy shifts both arms together. M11.C.16 exists to catch it.
+**M4.D.6c** This failure would be invisible to M11.C.1–M11.C.15, because all of them hold the policy fixed across both arms (M0.4) and a uniformly degenerate policy shifts both arms together. M11.C.16 exists to catch it.
 
 ### M4.E Act
 
@@ -422,12 +430,12 @@ Asserted at the end of every fast tick (M4.G.2). A violation **MUST** raise, not
 | **M6.I.2** | Emotional distance runs **outside** the budget as an always-on baseline; it **MUST NOT** be a fourth sink | §7 I2 |
 | **M6.I.3** | `life_energy` is zero-sum per person between relationship-seeking and goal-directed activity | §7 I3 |
 | **M6.I.4** | Dyadic exchange conserves **pseudo-self**: one spouse's functional gain equals the other's loss | §7 I4 |
-| **M6.I.5** | Solid self is **exempt** from fusion and **MUST NOT** participate in I4 | §7 I5 |
+| **M6.I.5** | Solid self is **exempt** from fusion and **MUST NOT** participate in M6.I.4 | §7 I5 |
 | **M6.I.6** | Anxiety is conserved and redirected, never destroyed; blocking one channel raises flow on the rest | §7 I6 |
 | **M6.I.7** | There is no exit from the field; `CUTOFF`, `DISTANCE` and silence are moves *inside* the system | §7 I7 |
 | **M6.I.8** | The standing load runs before delivery, every tick, on every tie | §7.2 — *this spec elevates it to an invariant; the explainer describes it as a mechanism* |
 
-**M6.1** I1 conservation **MUST** be asserted to a stated tolerance, declared in config, and the tolerance **MUST** be `[I]`.
+**M6.1** M6.I.1 conservation **MUST** be asserted to a stated tolerance, declared in config, and the tolerance **MUST** be `[I]`.
 
 **M6.2** M6.I.6 **MUST** be assertable across a removal event specifically (M11.C.11).
 
@@ -511,7 +519,7 @@ avoidance_available(g) = positions_live(g) < 3        # a step, not a gradient
 
 ### M10.A Derived from `basic_level` — preferred
 
-**M10.A.1** The following **MUST** be derived, not independently parameterised: reactivity (M1.A.1), `functional_level` variance (M1.A.5), the `life_energy` ratio (M1.A.10), the stabiliser repertoire available to a person, and transfer magnitude in I4 (which scales *inversely* with basic level).
+**M10.A.1** The following **MUST** be derived, not independently parameterised: reactivity (M1.A.1), `functional_level` variance (M1.A.5), the `life_energy` ratio (M1.A.10), the stabiliser repertoire available to a person, and transfer magnitude in M6.I.4 (which scales *inversely* with basic level).
 
 **M10.A.2** Deriving from `basic_level` is preferred wherever it is defensible, because the model has 60–90 free parameters against a single invented family and the risk is overfitting to the modeller's intuitions.
 
@@ -523,7 +531,7 @@ avoidance_available(g) = positions_live(g) < 3        # a step, not a gradient
 
 ### M10.C The `[I]` register
 
-**M10.C.1** The following are **invented** and **MUST** be labelled as such wherever they surface: the fast tick length; the softmax temperature and every propensity coefficient; all conductance values; all bond-energy values and its decay rate; the standing-load function; every gate threshold including the `outside_ness` threshold; the appraisal gain function's shape; the chronic-anxiety fixation age; sibling-position effect sizes; the I1 conservation tolerance; every value in M2.
+**M10.C.1** The following are **invented** and **MUST** be labelled as such wherever they surface: the fast tick length; the softmax temperature and every propensity coefficient; all conductance values; all bond-energy values and its decay rate; the standing-load function; every gate threshold including the `outside_ness` threshold; `societal_leadership`'s functional form; the appraisal gain function's shape; the chronic-anxiety fixation age; sibling-position effect sizes; the M6.I.1 conservation tolerance; every value in M2.
 
 **M10.C.2** The following are **stated in the corpus** and are usable as calibration targets: the durations in `model_explainer.md` §8, the 0–100 scale and the transition at 50, the ~90%-in-the-lower-half population skew, the three-sink count, and the eight-to-ten-generation figure.
 
@@ -543,7 +551,7 @@ Each criterion **MUST** have a named test, **MUST** assert a direction of differ
 
 | ID | Criterion | Test | Phase | Mutation target |
 |---|---|---|---|---|
-| **M11.C.1** | Differentiation protects: identical families differing only in basic `basic_level`, same stressor schedule → the lower-`basic_level` family reaches symptom threshold sooner in a significant majority of seeds | `test_m11c1_lower_c_reaches_threshold_sooner` | C | the `/FD` divisor in M4.C.1 |
+| **M11.C.1** | Differentiation protects: identical families differing only in basic `basic_level`, same stressor schedule → the lower-`basic_level` family reaches symptom threshold sooner in a significant majority of seeds | `test_m11c1_lower_c_reaches_threshold_sooner` | C | the `/ functional_level` divisor in M4.C.1 |
 | **M11.C.2** | Symptoms concentrate on the member who received the most projection-type events, not uniformly across children | `test_m11c2_symptom_concentrates_on_projection_target` | D | the witness path, M1.F.5 |
 | **M11.C.3** | Triangling relieves the pair and costs the third, within the same tick | `test_m11c3_triangle_relieves_pair_costs_third` | C | `bound_anxiety` transfer, M1.C.1 |
 | **M11.C.4** | Cut-off trades now against later: `CUTOFF` drops the actor's acute anxiety immediately and raises family total anxiety at the next nodal event, against a matched no-cutoff arm | `test_m11c4_cutoff_trades_now_against_later` | C | the standing load, M4.A.1 |
@@ -557,7 +565,7 @@ Each criterion **MUST** have a named test, **MUST** assert a direction of differ
 | **M11.C.12** | **Curing a symptom without changing the deficit raises tension.** Remit a spouse's dysfunction leaving the functioning balance intact → marital conflict rises | `test_m11c12_symptom_relief_raises_conflict` | D | M7.D.3 |
 | **M11.C.13** | Help relocates incidents; it does not reduce them. Score **count and location** — relocation from community into family carries a positive sign | `test_m11c13_help_relocates_not_reduces` | C | M6.I.6 |
 | **M11.C.14** | Management technique has zero independent effect while marital distance is high | `test_m11c14_technique_null_under_marital_distance` | C | the marital-distance gate, M5.C.1 |
-| **M11.C.16** | **The learned repertoire does not collapse.** Over a long run with no intervention, the family's move distribution **MUST** retain non-trivial mass on more than one move type, and `I-POSITION` **MUST NOT** be driven to zero propensity by reinforcement alone. | `test_m11c16_repertoire_does_not_collapse` | C | M4.D.6a's forbidden proxy — substituting it **MUST** turn this red |
+| **M11.C.16** | **The learned repertoire does not collapse onto relief-seeking.** Two arms, identical seeds, differing only in the reinforcement horizon: the short-horizon arm (M4.D.6a's forbidden proxy) against the declared-horizon arm (M4.D.6b). The short-horizon arm **MUST** show a strictly higher share of `CUTOFF` and `DISTANCE`, and a strictly lower `I-POSITION` selection rate, than the declared-horizon arm. A test that only asks whether more than one move type is used passes on the very failure it is meant to catch, because the failure spreads mass across seven reactive moves. | `test_m11c16_repertoire_does_not_collapse` | C | M4.D.6b's horizon — setting it to one tick **MUST** turn this red |
 | **M11.C.15** | Death destabilises exactly as recovery does — a stabilising arrangement built on one member's impairment breaks on their death as well as their recovery | `test_m11c15_death_destabilises_like_recovery` | D | M7.D.3 |
 
 ### M11.D — Engineering criteria
@@ -613,12 +621,12 @@ Flagged explicitly, with a human-review proposal, per the project's planning rul
 | Phase | Builds | Done when |
 |---|---|---|
 | **B** | M1 objects; M3 clocks and update order; M4.A standing load; M4.B, M4.E and M4.G; M1.F event record; M8 the live-position predicate; `ScriptedSource`. **No policy** — a fixed script drives it. Reduced instance per M2.3. | A scripted 40-week trace runs, the event log reads correctly, and a `TRIGGER` on a dormant family-of-origin tie moves anxiety with no contact. M11.D.1, M11.D.3, M11.D.5, M11.D.6 and M11.D.7 pass. |
-| **C** | M4.C appraisal; M4.D policy; M5 the full repertoire, gates and the `I-POSITION` state machine; M6 invariants I1–I8. | M11.C.1, M11.C.3, M11.C.4, M11.C.5, M11.C.7, M11.C.13 and M11.C.14 pass over 1,000-seed ensembles, each mutation-proved. M11.D.2, M11.D.4 and M11.D.8 pass. |
+| **C** | M4.C appraisal; M4.D policy; M5 the full repertoire, gates and the `I-POSITION` state machine; M6 invariants M6.I.1–M6.I.8. | M11.C.1, M11.C.3, M11.C.4, M11.C.5, M11.C.7, M11.C.13, M11.C.14 and M11.C.16 pass over 1,000-seed ensembles, each mutation-proved. M11.D.2, M11.D.4 and M11.D.8 pass. |
 | **D** | M7 the slow clock; M9 beliefs; the twelve-person reference family; the three symptom channels and endogenous events. | M11.C.2, M11.C.6, M11.C.9, M11.C.10, M11.C.11, M11.C.12, M11.C.15 pass. A 40-year three-generation run completes. |
 
 **M13.1** M8 **MUST** land in Phase B, before the policy, because four separate Phase C mechanisms call it.
 
-**M13.2** The frozen grid engine and its 36 tests **MUST** stay green throughout. v2 lives in a new package `src/bowen/`.
+**M13.2** The frozen grid engine and its tests **MUST** stay green throughout. v2 lives in a new package `src/bowen/`.
 
 ---
 

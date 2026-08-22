@@ -922,7 +922,7 @@
 
     <p>Their repertoire is a subset of the nine. A counsellor can STAY&#8209;IN&#8209;CONTACT and hold an I&#8209;POSITION; can OVERFUNCTION, which is the doctor who takes over what the family should be carrying; and can TRIANGLE, which is the counsellor who sides with one partner against the other. A discharge or a dropped referral is a CUTOFF. What they cannot easily do is the thing that makes them useful &mdash; and whether they manage it is a property worth testing rather than assuming.</p>
 
-    <p>This also gives the societal dials something concrete to mean. The family gains an <b>access vector</b>: which external ties are available and reachable at all &mdash; healthcare, counselling, stable employment, a school that notices. Whether the family <em>has</em> a counsellor to triangle is a societal input; what happens once they do is family process. That is a much sharper reading of <span class="m">L</span> than "quality of institutional differentiation."</p>
+    <p>This also gives the societal dials something concrete to mean. The family gains an <b>access vector</b>: which external ties are available and reachable at all &mdash; healthcare, counselling, stable employment, a school that notices. Whether the family <em>has</em> a counsellor to triangle is a societal input; what happens once they do is family process. That is a much sharper reading of <span class="m">societal_leadership</span> than "quality of institutional differentiation."</p>
 
     <h3>5.2 The trap: illness is an output before it is an input</h3>
 
@@ -1004,7 +1004,7 @@
         <tbody>
           <tr><td>ScriptedSource</td><td>B</td><td>A hand-written list in markdown config &mdash; "Ravi, year 12, job loss, 34 weeks." Enough to build, trace and test everything through phases B to D, and enough to run any counterfactual you can describe in a sentence.</td></tr>
           <tr><td>HazardSource</td><td>E</td><td>Samples spells from age- and cohort-conditioned rates in a data file. Employment first, because the data is cleanest and the event is genuinely exogenous. Accidents and non-stress-linked illness second.</td></tr>
-          <tr><td>DialSource</td><td>E</td><td>L, X, E and the access vector modulating the rate of either of the above, so "harsh decade" and "no counselling available" become one-line experiments.</td></tr>
+          <tr><td>DialSource</td><td>E</td><td>societal_leadership, media_amplification, resource_pressure and the access vector modulating the rate of either of the above, so "harsh decade" and "no counselling available" become one-line experiments.</td></tr>
         </tbody>
       </table>
     </div>
@@ -1194,7 +1194,7 @@
         <tbody>
           <tr><td>Engine</td><td><b>Deterministic core</b></td><td>Move selection is a seeded softmax over propensities &mdash; no language model in the decision path. Every run is reproducible from its seed, ensembles are effectively free, and the six acceptance tests can be mutation-proved. Phase F stays optional and stays out of the ensemble path.</td></tr>
           <tr><td>Subject</td><td><b>Synthetic reference family</b></td><td>The twelve people in section 3 are the instance, invented and tunable. Validation is against the theory's regularities rather than one family's history, so §8 carries the whole burden of falsification &mdash; which is the argument for writing those tests first. No intake path in scope.</td></tr>
-          <tr><td>Societal</td><td><b>Three scalar dials</b></td><td>L, X and E survive as inputs that shift the family's ambient anxiety and stressor schedule, alongside the access vector of section 5.1. The population, grid, economy, tax, safety net and national debt are deleted. The regression-in-society question stays askable without simulating a society to ask it.</td></tr>
+          <tr><td>Societal</td><td><b>Three scalar dials</b></td><td>societal_leadership, media_amplification and resource_pressure survive as inputs that shift the family's ambient anxiety and stressor schedule, alongside the access vector of section 5.1. The population, grid, economy, tax, safety net and national debt are deleted. The regression-in-society question stays askable without simulating a society to ask it.</td></tr>
           <tr><td>Use case</td><td><b>Research instrument</b></td><td><span class="revmark">rev</span> Settled since drafting. Ensembles, seeds and falsification &mdash; not an interactive training or coaching surface. The readout built at Phase E is a distribution viewer, not a session. This also fixes what &sect;8 has to carry: with no external validation available anywhere in the source (&sect;10), the acceptance tests are the whole of the falsification story.</td></tr>
         </tbody>
       </table>

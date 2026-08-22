@@ -29,12 +29,14 @@ Status markers:
   that nothing downstream re-derives it. Do not cite a withdrawn entry as evidence for anything.
 - `[new at p2]` — found on the second read; no pass-1 counterpart.
 
-Tombstones rather than deletions is a deliberate departure from "delete what was withdrawn". The reason
-is **re-invention, not dangling references** — a mechanism that is merely absent gets proposed again by
-the next reader, which is exactly what pass 2 spent its effort undoing. (An earlier draft of this
-paragraph justified tombstones by claiming withdrawn IDs are cited in the proposal and
-`_CONVERGENCES.md`. They are not: neither file cites any ledger ID at all. The policy is right; that
-reason was wrong.)
+Tombstones rather than deletions is a deliberate departure from "delete what was withdrawn", for two
+reasons. **Re-invention:** a mechanism that is merely absent gets proposed again by the next reader,
+which is what pass 2 spent its effort undoing. **And dangling references:** `docs/model_explainer.md`
+cites 101 ledger IDs, two of them withdrawn — `L01.7` and `L02.1`, both in its must-not-build table,
+cited precisely as tombstones. (An earlier draft justified the policy by naming
+`docs/agent_model_proposal.html` and `_CONVERGENCES.md`, which cite no ledger IDs at all; a later draft
+then concluded from those two files that the dangling-reference reason was wrong outright. Both drafts
+checked the wrong documents. The policy was right throughout.)
 
 Targets: `Person` · `Relationship` · `Triangle` · `Family` · `move:<NAME>` · `coach` ·
 `test` · `event-kind` · `policy` · `readout`

@@ -133,18 +133,31 @@ Order of work:
      letters), and `L21.11` — **surprise as a third secrecy mechanism**, in the source and in neither pass.
    - **Still genuinely open, but decided for the model:** when the basic level is fixed. Ch21 contradicts
      itself and is outvoted by three chapters; implement `C` as slow-moving with a ratchet, not frozen.
-7. **Write the v2 spec.** **DRAFTED 2026-08-22** — `docs/bowen_agent_model_spec_v2.md`, v2.0-draft,
-   **awaiting approval; no code until approved.** Scope: Phases B–D (objects, loop, policy, slow clock,
-   reference family). Phase E and F deliberately excluded. Normative-only — rationale and sourcing stay in
-   `model_explainer.md`, cited by section, so one rationale lives in one place.
-   158 numbered requirements across 14 modules; 272 MUSTs, 65 MUST NOTs. 15 acceptance criteria + 8
-   engineering criteria, each with a named test and a mutation target. **Four criteria flagged as not
-   code-testable in B–D, each with a human-review proposal**, per the planning rule.
-   **Counts are measured, not asserted** — reproduce with
-   `grep -oE '\*\*M[0-9]+(\.[A-Z0-9]+)*\*\*' docs/bowen_agent_model_spec_v2.md | sort -u | wc -l`.
-   At the step-6 fix commit: **239 distinct IDs**, one extraction pattern, 0 unresolved references,
-   0 duplicate definitions; **220 MUST / 69 MUST NOT**; **50** explainer cross-references, all resolving.
-   **Next: approval, then the implementation plan, then code.**
+7. **Write the v2 spec.** **DRAFTED 2026-08-22, sweep-corrected; awaiting approval. No code until approved.**
+   Scope: Phases B–D (objects, loop, policy, slow clock, reference family). Phases E and F excluded.
+   Normative only — rationale and sourcing stay in `model_explainer.md`, cited by section.
+
+   **Counts are measured, not asserted.** Reproduce the first with exactly this command; the rest are in
+   the same shape:
+   ```
+   grep -oE '\*\*M[0-9]+(\.[A-Za-z0-9]+)*\*\*' docs/bowen_agent_model_spec_v2.md | sort -u | wc -l
+   ```
+   At the sweep-fix commit: **212 requirement definitions** (plus 39 section headings; 251 distinct tokens
+   in all), **0 unresolved references, 0 duplicate definitions**, all matching the single pattern
+   `M\d+(\.[A-Za-z0-9]+)*`. **226 MUST / 68 MUST NOT.** **16 acceptance criteria + 10 engineering
+   criteria.** **50** explainer cross-references, all resolving. Explainer: **216 graded claims**, **101**
+   distinct ledger IDs cited, all resolving. Ledger: 151 `### L…` headings − `L03.2` (merged) −
+   `L10.11a` (a lettered sub-entry) = **149 findings**.
+
+   **Four criteria are flagged not code-testable in B–D**, each with a human-review proposal (M11.E).
+
+   **Two pre-push sweeps ran** over this batch: the first found 9 findings (5 high), the second — over the
+   fix commits only — found 15 (5 high), which is the expected shape: fixes are the least-reviewed code in
+   a batch. Both are resolved. The loop was bounded there deliberately rather than swept a third time.
+
+   **What neither sweep assessed:** whether the corpus extraction is faithful to Bowen. Both verified that
+   citations *resolve*, never that they are *true*. Twenty-two chapter files, ~19,000 lines, remain
+   unverified as extractions. That is the load-bearing claim in this work and it needs a reading pass.
 
 ## Standing decisions
 - Engine: deterministic core, no LLM in the decision path.

@@ -28,6 +28,10 @@ Recorded, not fixed. The engine is frozen in behaviour; these matter because the
 - [ ] **No `LEARNINGS.md`.** The project convention is a repo-local fix log for repo-specific lessons, with generic patterns going to `~/.claude/standards/learnings.md`. Two candidates from this batch: the ID-drift incident recorded in `M11.D.10`, and the two unseeded flaky tests.
 - [ ] Stray file `docs/model_explainer copy.textClipping` in the working tree — not mine to delete, but it is clutter.
 
+## Documentation hygiene, deferred
+
+- [ ] **`§n` cross-references are ambiguous across documents.** All 50 in the v2 spec resolve against `model_explainer.md`, but several sentences address other documents ("proposal §9", "the frozen spec's §5.4") and `§5.4` exists in both. A traceability scan over `§` cannot tell the targets apart. Prefix them with the document.
+
 ## Carried from the theory work
 
 - [ ] **`M11.C9`'s and sibling position's status generally.** Ch13 omits sibling position entirely, and its effect size has no source. Consider whether it earns a place in the model at all.

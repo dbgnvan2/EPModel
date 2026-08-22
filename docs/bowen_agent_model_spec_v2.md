@@ -38,7 +38,9 @@ Anything not expressed in these terms is explanation, not requirement.
 
 ### 0.4 ID scheme
 
-`M<module>.<section>.<requirement>` — e.g. `M1.A.3`. IDs are stable and **MUST NOT** be renumbered; a withdrawn requirement keeps its ID and is marked `WITHDRAWN`.
+`M<module>.<part>.<item>` — e.g. `M1.A.3`, `M11.C.5`, `M6.I.2`. **Every ID matches the single pattern `M\d+(\.[A-Z0-9]+)*` with each level separated by a dot**, so one regular expression extracts all of them (M11.D.10). Two-level IDs (`M0.3`, `M6.1`, `M13.1`) are IDs in their own right, not truncations.
+
+IDs are stable and **MUST NOT** be renumbered; a withdrawn requirement keeps its ID and is marked `WITHDRAWN`. **Because renumbering is forbidden, any ID-scheme defect must be corrected before this document is approved, not after.**
 
 Per the project convention, every function or module satisfying a requirement carries a docstring naming it:
 
@@ -87,7 +89,7 @@ Therefore:
 
 **M1.A.10** A `Person` **MUST** hold a `life_energy` allocation, zero-sum between relationship-seeking and goal-directed activity, whose ratio is a function of `basic_level`. → §3.7
 
-**M1.A.11** A `Person` **MUST** hold `symptom_load` over exactly three channels — physical, emotional, social — which **MUST** be substitutable (M7.D). → §3.9
+**M1.A.11** A `Person` **MUST** hold `symptom_load` over exactly three channels — physical, emotional, social — which **MUST** be substitutable (M7.D.1–M7.D.4). → §3.9
 
 **M1.A.12** A `Person` **MUST** hold `involvement_weight`, recomputed every fast tick. Family membership **MUST** be derived as a threshold over it and **MUST NOT** be a stored set. → §3.8
 
@@ -143,9 +145,9 @@ Therefore:
 
 ### M1.D `Family`
 
-**M1.D.1** A `Family` **MUST** hold one `undifferentiation_budget` and exactly **three** sink allocations: marital conflict, spouse dysfunction, child projection. → M6.I1
+**M1.D.1** A `Family` **MUST** hold one `undifferentiation_budget` and exactly **three** sink allocations: marital conflict, spouse dysfunction, child projection. → M6.I.1
 
-**M1.D.2** Emotional distance **MUST** run outside the budget as an always-on baseline and **MUST NOT** be implemented as a fourth sink. → M6.I2
+**M1.D.2** Emotional distance **MUST** run outside the budget as an always-on baseline and **MUST NOT** be implemented as a fourth sink. → M6.I.2
 
 **M1.D.3** A `Family` **MUST** hold an `overflow` term whose destination is conflict with families of origin — **not** distance. → §6.2
 
@@ -205,26 +207,32 @@ The instance everything is tested against. It is **invented and tunable** — va
 
 **M2.2** It **MUST** span three generations and **MUST** include at least one cut-off tie and at least one family-of-origin tie per adult (M1.D.8).
 
-**M2.3** Phase B **MUST** run on a reduced instance — the nuclear four **plus** their family-of-origin ties, even if those agents only hold a bond energy. A closed nuclear four **MUST NOT** be used, because it cannot compute its own driving term.
+**M2.3** Phase B **MUST** run on a reduced instance — the nuclear four of M2.A.0 **plus** their family-of-origin ties, even if those agents only hold a bond energy. A closed nuclear four **MUST NOT** be used, because it cannot compute its own driving term.
 
 ### M2.A Membership `[I]`
 
-| # | Name | Gen | Age | `basic_level` | Note |
-|---|---|---|---|---|---|
-| 1 | Teodor | 1 | 81 | 34 | Ana's husband |
-| 2 | Ana | 1 | 78 | 37 | Marta's mother; the central grandmother |
-| 3 | Bruno | 1 | 74 | 29 | Ana's brother; **cut off since 2009** |
-| 4 | Sofia | 1 | 76 | 41 | Ravi's mother; lives 200 miles away |
-| 5 | Ravi | 2 | 52 | 38 | married to Marta |
-| 6 | Marta | 2 | 50 | 40 | Ana's daughter |
-| 7 | Iris | 2 | 47 | 43 | Marta's sister; low contact, **resolved** — the discriminating case for M1.B.3 |
-| 8 | Leo | 3 | 22 | 36 | launched; Ravi and Marta's eldest |
-| 9 | Nadia | 3 | 17 | 41 | at home; the projection target |
-| 10 | Pia | 3 | 14 | 44 | minimally involved |
-| 11 | Toma | 3 | 20 | 39 | Iris's son |
-| 12 | Dr Halim | — | 55 | 55 | `role = EXTERNAL`; counsellor |
+| # | Name | Gen | Age | `basic_level` | `chronic_anxiety` | `sibling_position` | `financially_dependent` | `structural_importance` | Note |
+|---|---|---|---|---|---|---|---|---|---|
+| 1 | Teodor | 1 | 81 | 34 | 42 | eldest of 2 | no | shadow | Ana's husband |
+| 2 | Ana | 1 | 78 | 37 | 38 | eldest of 2 | no | **central** | Marta's mother |
+| 3 | Bruno | 1 | 74 | 29 | 55 | youngest of 2 | no | peripheral | Ana's brother; **cut off since t0 − 17y** |
+| 4 | Sofia | 1 | 76 | 41 | 35 | only | no | shadow | Ravi's mother; lives 200 miles away |
+| 5 | Ravi | 2 | 52 | 38 | 44 | eldest of 3 | no | **head of household** | married to Marta |
+| 6 | Marta | 2 | 50 | 40 | 46 | eldest of 2 | no | **head of household** | Ana's daughter |
+| 7 | Iris | 2 | 47 | 43 | 33 | youngest of 2 | no | peripheral | Marta's sister; low contact, **resolved** |
+| 8 | Leo | 3 | 22 | 36 | 48 | eldest of 3 | no | peripheral | launched |
+| 9 | Nadia | 3 | 17 | 41 | *derived* | middle of 3 | **yes** | peripheral | at home; becomes the projection target |
+| 10 | Pia | 3 | 14 | 44 | *derived* | youngest of 3 | **yes** | peripheral | minimally involved |
+| 11 | Toma | 3 | 20 | 39 | *derived* | only | **yes** | peripheral | Iris's son |
+| 12 | Dr Halim | — | 55 | 55 | 30 | — | no | — | `role = EXTERNAL`; counsellor, **not a family member** |
 
-**M2.A.1** `Iris` and `Bruno` **MUST** have comparable contact frequency and **MUST** differ in bond energy. This pair is the fixture for M11.C4 and the direct test of M1.B.3.
+**M2.A.0** The instance declares **eleven family members plus one external agent**. "Twelve-person reference family" is loose shorthand: Dr Halim is `role = EXTERNAL` and **MUST NOT** be counted in family membership, in the tie matrix of M2.B.1, or in `positions_live` unless the live-position test of M8 admits him. The nuclear family for M2.3 is **Ravi, Marta, Nadia and Pia** — Leo is launched and is not part of the Phase B spike.
+
+**M2.A.0a** `chronic_anxiety` for generations 1 and 2 **MUST** be supplied as an initial condition, because M1.A.7 and M7.B.1 fix it in childhood from witnessed history and those childhoods are never simulated. It is marked *derived* only for generation 3, whose childhoods the run covers. Supplying it for an agent whose childhood **is** simulated **MUST** be an error, not a default.
+
+**M2.A.0b** There is **no calendar epoch**. All dates **MUST** be expressed as a duration relative to `t0`, the first slow tick. M3 defines only relative clocks, so a literal year has nothing to resolve against.
+
+**M2.A.1** `Iris` and `Bruno` **MUST** have comparable contact frequency and **MUST** differ in bond energy. This pair is the fixture for M11.C.4 and the direct test of M1.B.3.
 
 **M2.A.2** `Nadia` **MUST** become the projection target as an **outcome** of accumulated witnessed events, not by assignment at initialisation. → §9.4
 
@@ -246,7 +254,7 @@ The instance everything is tested against. It is **invented and tunable** — va
 
 **M3.D.1** — *the update order.* Each fast tick **MUST** execute in exactly this order. This replaces the frozen spec's §5.4.
 
-1. **Standing load** — every person takes a load from every tie as a function of bond energy ÷ `functional_level`, *before any event is delivered*. → M6.I8
+1. **Standing load** — every person takes a load from every tie as a function of bond energy ÷ `functional_level`, *before any event is delivered*. → M6.I.8
 2. **Deliver** — pop events whose latency has elapsed, in timestamp order, batching simultaneous ones (M1.F.8).
 3. **Perceive** — each person reads its inbox, its ties and its own state.
 4. **Appraise** — M4.C.
@@ -262,7 +270,7 @@ The instance everything is tested against. It is **invented and tunable** — va
 
 **M3.D.4** — *determinism.* The engine **MUST** be a deterministic function of `(seed, config, scenario)`. Every stochastic draw **MUST** come from a single seeded generator threaded explicitly; module-level or global RNG state **MUST NOT** be used.
 
-**M3.D.5** Two runs with the same seed **MUST** produce byte-identical event logs. This is a test, not an aspiration (M11.D5).
+**M3.D.5** Two runs with the same seed **MUST** produce byte-identical event logs. This is a test, not an aspiration (M11.D.5).
 
 **M3.D.6** No LLM **MUST** appear in the decision path. → proposal §9, Decisions settled
 
@@ -305,6 +313,12 @@ The instance everything is tested against. It is **invented and tunable** — va
 **M4.D.5** The default state **MUST** be the fused default — each altering self to manage the other's functioning while demanding the other change — and **MUST NOT** be modelled as an absence of a move. → §5.2
 
 **M4.D.6** Moves that worked before **MUST** be reinforced, so that a family develops a characteristic style.
+
+**M4.D.6a — the reinforcement signal MUST be named, and it MUST NOT be short-horizon anxiety relief.** The obvious proxy — the post-move change in the actor's own acute anxiety — is **forbidden**, because this specification pins the timing that makes it self-defeating: M11.C.4 requires `CUTOFF` to drop the actor's acute anxiety *immediately* with its cost deferred to the next nodal event, and M11.C.5 requires `I-POSITION` to *raise* tension for a bounded window before it settles. A short-horizon anxiety proxy therefore rewards the seven reactive moves and punishes the two differentiating ones **by construction**, and every agent converges on `CUTOFF`.
+
+**M4.D.6b** The signal **MUST** be evaluated over a horizon longer than the reaction window of M5.D, and **MUST** be declared in config with its horizon. `[I]`
+
+**M4.D.6c** This failure would be invisible to M11.C.1–M11.C.15, because all of them are directional two-arm tests (M0.4) and a uniformly degenerate policy shifts both arms together. M11.C.16 exists to catch it.
 
 ### M4.E Act
 
@@ -386,7 +400,7 @@ The instance everything is tested against. It is **invented and tunable** — va
 
 **M5.E.6** The trajectory **MUST** be a damped oscillation with hysteresis, not a spike-and-settle. Reversion **MUST NOT** be treated as run failure. → §8
 
-**M5.E.7** The cause of the reaction **MUST** be the life-energy debit (M1.A.10, M6.I3) — the move withdraws energy the other was receiving. The ladder is the surface expression. → §3.7
+**M5.E.7** The cause of the reaction **MUST** be the life-energy debit (M1.A.10, M6.I.3) — the move withdraws energy the other was receiving. The ladder is the surface expression. → §3.7
 
 ### M5.F Act identity — the counterfeit problem
 
@@ -404,18 +418,18 @@ Asserted at the end of every fast tick (M4.G.2). A violation **MUST** raise, not
 
 | ID | Invariant | Explainer |
 |---|---|---|
-| **M6.I1** | The family undifferentiation budget has exactly **three** sinks and is conserved across them | §7 I1 |
-| **M6.I2** | Emotional distance runs **outside** the budget as an always-on baseline; it **MUST NOT** be a fourth sink | §7 I2 |
-| **M6.I3** | `life_energy` is zero-sum per person between relationship-seeking and goal-directed activity | §7 I3 |
-| **M6.I4** | Dyadic exchange conserves **pseudo-self**: one spouse's functional gain equals the other's loss | §7 I4 |
-| **M6.I5** | Solid self is **exempt** from fusion and **MUST NOT** participate in I4 | §7 I5 |
-| **M6.I6** | Anxiety is conserved and redirected, never destroyed; blocking one channel raises flow on the rest | §7 I6 |
-| **M6.I7** | There is no exit from the field; `CUTOFF`, `DISTANCE` and silence are moves *inside* the system | §7 I7 |
-| **M6.I8** | The standing load runs before delivery, every tick, on every tie | §7.2 — *this spec elevates it to an invariant; the explainer describes it as a mechanism* |
+| **M6.I.1** | The family undifferentiation budget has exactly **three** sinks and is conserved across them | §7 I1 |
+| **M6.I.2** | Emotional distance runs **outside** the budget as an always-on baseline; it **MUST NOT** be a fourth sink | §7 I2 |
+| **M6.I.3** | `life_energy` is zero-sum per person between relationship-seeking and goal-directed activity | §7 I3 |
+| **M6.I.4** | Dyadic exchange conserves **pseudo-self**: one spouse's functional gain equals the other's loss | §7 I4 |
+| **M6.I.5** | Solid self is **exempt** from fusion and **MUST NOT** participate in I4 | §7 I5 |
+| **M6.I.6** | Anxiety is conserved and redirected, never destroyed; blocking one channel raises flow on the rest | §7 I6 |
+| **M6.I.7** | There is no exit from the field; `CUTOFF`, `DISTANCE` and silence are moves *inside* the system | §7 I7 |
+| **M6.I.8** | The standing load runs before delivery, every tick, on every tie | §7.2 — *this spec elevates it to an invariant; the explainer describes it as a mechanism* |
 
 **M6.1** I1 conservation **MUST** be asserted to a stated tolerance, declared in config, and the tolerance **MUST** be `[I]`.
 
-**M6.2** M6.I6 **MUST** be assertable across a removal event specifically (M11.C11).
+**M6.2** M6.I.6 **MUST** be assertable across a removal event specifically (M11.C.11).
 
 ---
 
@@ -433,7 +447,7 @@ Asserted at the end of every fast tick (M4.G.2). A violation **MUST** raise, not
 
 **M7.D.2** The three channels **MUST** be substitutable — the same deficit **MUST** be able to present as any of the three.
 
-**M7.D.3** Curing a symptom without changing the underlying deficit **MUST** raise family tension. → M11.C12
+**M7.D.3** Curing a symptom without changing the underlying deficit **MUST** raise family tension. → M11.C.12
 
 **M7.D.4** Removal (`INSTITUTIONALIZE`) **MUST** fire off the **remaining members'** tolerance for disturbing behaviour, explicitly decoupled from the symptom-bearer's severity, and **MUST** be suppressible by relocating decision ownership (M5.C.1). → §6.2
 
@@ -463,7 +477,7 @@ avoidance_available(g) = positions_live(g) < 3        # a step, not a gradient
 
 **M8.4** A member present but **emotionally inactive** — the displaced member of an interlocking triangle — **MUST NOT** count.
 
-**M8.5** The same predicate **MUST** decide: whether a group can avoid its issue (M5.C), whether a third party is a witness or a new peripheral triangle (M8.6), whether the coach is in the outside position (M11.C7), and whether a triangle is active (M1.C.3).
+**M8.5** The same predicate **MUST** decide: whether a group can avoid its issue (M5.C), whether a third party is a witness or a new peripheral triangle (M8.6), whether the coach is in the outside position (M11.C.7), and whether a triangle is active (M1.C.3).
 
 **M8.6** — *alignment, not knowledge.* A third party's effect on a differentiating move **MUST** be determined by their *position*, never by what they know.
 
@@ -523,42 +537,45 @@ Each criterion **MUST** have a named test, **MUST** assert a direction of differ
 
 **M11.1** A test **MUST NOT** be counted as coverage until its mutation has actually been run, not reasoned about.
 
-**M11.2** These are ensemble property tests. A single-run assertion **MUST NOT** be used for any of M11.C1–M11.C15.
+**M11.1a** A mutation **MUST** be a real behaviour change. Where the value under test is written more than once — by a redundant assignment, or through two names bound to the same object — the mutation **MUST** name every write, or it proves nothing while looking exactly like a test that cannot fail. *Measured in the frozen engine: `nuclear_family_id` is bound to the same array as `family_ids`, so mutating one line of the triangle attach is overwritten by the next line and the test stays green.* This is why M1.A gives each field exactly one name.
+
+**M11.2** These are ensemble property tests. A single-run assertion **MUST NOT** be used for any of M11.C.1–M11.C.16.
 
 | ID | Criterion | Test | Phase | Mutation target |
 |---|---|---|---|---|
-| **M11.C1** | Differentiation protects: identical families differing only in basic `basic_level`, same stressor schedule → the lower-`basic_level` family reaches symptom threshold sooner in a significant majority of seeds | `test_m11c1_lower_c_reaches_threshold_sooner` | C | the `/FD` divisor in M4.C.1 |
-| **M11.C2** | Symptoms concentrate on the member who received the most projection-type events, not uniformly across children | `test_m11c2_symptom_concentrates_on_projection_target` | D | the witness path, M1.F.5 |
-| **M11.C3** | Triangling relieves the pair and costs the third, within the same tick | `test_m11c3_triangle_relieves_pair_costs_third` | C | `bound_anxiety` transfer, M1.C.1 |
-| **M11.C4** | Cut-off trades now against later: `CUTOFF` drops the actor's acute anxiety immediately and raises family total anxiety at the next nodal event, against a matched no-cutoff arm | `test_m11c4_cutoff_trades_now_against_later` | C | the standing load, M4.A.1 |
-| **M11.C5** | The system pushes back — as **symptom in a named third person**, as a damped oscillation with hysteresis, decaying unless fed, reverting if `FOLLOW_UP` is skipped; absence of reaction means the move did not land | `test_m11c5_change_back_reaction_shape` | C | the life-energy debit, M5.E.7 |
-| **M11.C6** | Transmission is multigenerational: over three generations with no external stressor change, mean `basic_level` in the projection line declines while the non-target line does not | `test_m11c6_multigenerational_decline_in_projection_line` | D | M7.E.1 |
-| **M11.C7** | **Position, not skill.** Hold the coach's parameters fixed and vary who talks to whom in whose presence; the topology arms **MUST** differ | `test_m11c7_topology_not_coach_skill` | C | M8.2/M8.3 |
-| **M11.C8** | Endogenous incidence lands near published rates | — | **`→E`** | — |
-| **M11.C9** | Sibling position shapes functioning at constant `basic_level` | `test_m11c9_sibling_position_shifts_propensity` | D | M1.A.14 |
-| **M11.C10** | Cut-off begets cut-off: a generation containing a cut-off produces more in the next than a matched arm | `test_m11c10_cutoff_begets_cutoff` | D | M7.E.3 |
-| **M11.C11** | Removal produces three phases, not a step down — rise, partial relief with redirected focus, sustained residual; and total anxiety is conserved across the removal to a stated tolerance | `test_m11c11_removal_three_phase_shape` | D | M6.I6 |
-| **M11.C12** | **Curing a symptom without changing the deficit raises tension.** Remit a spouse's dysfunction leaving the functioning balance intact → marital conflict rises | `test_m11c12_symptom_relief_raises_conflict` | D | M7.D.3 |
-| **M11.C13** | Help relocates incidents; it does not reduce them. Score **count and location** — relocation from community into family carries a positive sign | `test_m11c13_help_relocates_not_reduces` | C | M6.I6 |
-| **M11.C14** | Management technique has zero independent effect while marital distance is high | `test_m11c14_technique_null_under_marital_distance` | C | the marital-distance gate, M5.C.1 |
-| **M11.C15** | Death destabilises exactly as recovery does — a stabilising arrangement built on one member's impairment breaks on their death as well as their recovery | `test_m11c15_death_destabilises_like_recovery` | D | M7.D.3 |
+| **M11.C.1** | Differentiation protects: identical families differing only in basic `basic_level`, same stressor schedule → the lower-`basic_level` family reaches symptom threshold sooner in a significant majority of seeds | `test_m11c1_lower_c_reaches_threshold_sooner` | C | the `/FD` divisor in M4.C.1 |
+| **M11.C.2** | Symptoms concentrate on the member who received the most projection-type events, not uniformly across children | `test_m11c2_symptom_concentrates_on_projection_target` | D | the witness path, M1.F.5 |
+| **M11.C.3** | Triangling relieves the pair and costs the third, within the same tick | `test_m11c3_triangle_relieves_pair_costs_third` | C | `bound_anxiety` transfer, M1.C.1 |
+| **M11.C.4** | Cut-off trades now against later: `CUTOFF` drops the actor's acute anxiety immediately and raises family total anxiety at the next nodal event, against a matched no-cutoff arm | `test_m11c4_cutoff_trades_now_against_later` | C | the standing load, M4.A.1 |
+| **M11.C.5** | The system pushes back — as **symptom in a named third person**, as a damped oscillation with hysteresis, decaying unless fed, reverting if `FOLLOW_UP` is skipped; absence of reaction means the move did not land | `test_m11c5_change_back_reaction_shape` | C | the life-energy debit, M5.E.7 |
+| **M11.C.6** | Transmission is multigenerational: over three generations with no external stressor change, mean `basic_level` in the projection line declines while the non-target line does not | `test_m11c6_multigenerational_decline_in_projection_line` | D | M7.E.1 |
+| **M11.C.7** | **Position, not skill.** Hold the coach's parameters fixed and vary who talks to whom in whose presence; the topology arms **MUST** differ | `test_m11c7_topology_not_coach_skill` | C | M8.2/M8.3 |
+| **M11.C.8** | Endogenous incidence lands near published rates | — | **`→E`** | — |
+| **M11.C.9** | Sibling position shapes functioning at constant `basic_level` | `test_m11c9_sibling_position_shifts_propensity` | D | M1.A.14 |
+| **M11.C.10** | Cut-off begets cut-off: a generation containing a cut-off produces more in the next than a matched arm | `test_m11c10_cutoff_begets_cutoff` | D | M7.E.3 |
+| **M11.C.11** | Removal produces three phases, not a step down — rise, partial relief with redirected focus, sustained residual; and total anxiety is conserved across the removal to a stated tolerance | `test_m11c11_removal_three_phase_shape` | D | M6.I.6 |
+| **M11.C.12** | **Curing a symptom without changing the deficit raises tension.** Remit a spouse's dysfunction leaving the functioning balance intact → marital conflict rises | `test_m11c12_symptom_relief_raises_conflict` | D | M7.D.3 |
+| **M11.C.13** | Help relocates incidents; it does not reduce them. Score **count and location** — relocation from community into family carries a positive sign | `test_m11c13_help_relocates_not_reduces` | C | M6.I.6 |
+| **M11.C.14** | Management technique has zero independent effect while marital distance is high | `test_m11c14_technique_null_under_marital_distance` | C | the marital-distance gate, M5.C.1 |
+| **M11.C.16** | **The learned repertoire does not collapse.** Over a long run with no intervention, the family's move distribution **MUST** retain non-trivial mass on more than one move type, and `I-POSITION` **MUST NOT** be driven to zero propensity by reinforcement alone. | `test_m11c16_repertoire_does_not_collapse` | C | M4.D.6a's forbidden proxy — substituting it **MUST** turn this red |
+| **M11.C.15** | Death destabilises exactly as recovery does — a stabilising arrangement built on one member's impairment breaks on their death as well as their recovery | `test_m11c15_death_destabilises_like_recovery` | D | M7.D.3 |
 
 ### M11.D — Engineering criteria
 
 | ID | Criterion | Test |
 |---|---|---|
-| **M11.D1** | Engine purity: no file I/O and no UI in the engine package | `test_m11d1_engine_has_no_io` |
-| **M11.D2** | No magic literals: every numeric constant resolves to config or a `basic_level` derivation | `test_m11d2_no_magic_literals_in_engine` |
-| **M11.D3** | Config strictness: an unknown key or malformed line raises | `test_m11d3_config_rejects_unknown_key` |
-| **M11.D4** | Every `[I]` constant is labelled and none is described as sourced | `test_m11d4_invented_constants_labelled` |
-| **M11.D5** | Determinism: two runs at the same seed produce byte-identical event logs | `test_m11d5_same_seed_same_log` |
-| **M11.D6** | Dirty state: a second run in the same process sees no state from the first | `test_m11d6_second_run_is_clean` |
-| **M11.D7** | Every test constructs objects with explicit temporary paths; a conftest guard fails the run if a real artifact path is resolved | `test_m11d7_no_production_paths_in_tests` |
-| **M11.D8** | Spec traceability: every `Spec:` reference in a docstring resolves to an ID in this document, asserted by **exact count** | `test_m11d8_spec_references_resolve` |
+| **M11.D.1** | Engine purity: no file I/O and no UI in the engine package | `test_m11d1_engine_has_no_io` |
+| **M11.D.2** | No magic literals: every numeric constant resolves to config or a `basic_level` derivation | `test_m11d2_no_magic_literals_in_engine` |
+| **M11.D.3** | Config strictness: an unknown key or malformed line raises | `test_m11d3_config_rejects_unknown_key` |
+| **M11.D.4** | Every `[I]` constant is labelled and none is described as sourced | `test_m11d4_invented_constants_labelled` |
+| **M11.D.5** | Determinism: two runs at the same seed produce byte-identical event logs | `test_m11d5_same_seed_same_log` |
+| **M11.D.6** | Dirty state: a second run in the same process sees no state from the first | `test_m11d6_second_run_is_clean` |
+| **M11.D.7** | Every test constructs objects with explicit temporary paths; a conftest guard fails the run if a real artifact path is resolved | `test_m11d7_no_production_paths_in_tests` |
+| **M11.D.8** | Spec traceability: every `Spec:` reference in a docstring resolves to an ID in this document, asserted by **exact count** | `test_m11d8_spec_references_resolve` |
 
-**M11.D.9** M11.D8 **MUST** assert an exact count, not a floor. A floor assertion would not notice the scan silently narrowing.
+**M11.D.9** M11.D.8 **MUST** assert an exact count, not a floor. A floor assertion would not notice the scan silently narrowing.
 
-**M11.D.10** Every requirement ID in this document **MUST** be machine-extractable by a single pattern — a bolded bare token, with any explanatory phrase placed *outside* the bold. IDs **MUST** be fully qualified at their point of definition: an invariant is `M6.I1`, not `I1`; a criterion is `M11.C4`, not `C4`. *This requirement exists because the first draft of this document defined invariants and criteria in short form while referring to them in long form, which would have made M11.D8's scan under-count silently — the exact failure M11.D.9 guards against, in the guard's own source.*
+**M11.D.10** Every requirement ID in this document **MUST** be machine-extractable by a single pattern — a bolded bare token, with any explanatory phrase placed *outside* the bold. IDs **MUST** be fully qualified at their point of definition: an invariant is `M6.I.1`, not `I1`; a criterion is `M11.C.4`, not `C4`. *This requirement exists because the first draft of this document defined invariants and criteria in short form while referring to them in long form, which would have made M11.D.8's scan under-count silently — the exact failure M11.D.9 guards against, in the guard's own source.*
 
 ### M11.E — Criteria that cannot be made code-testable in Phases B–D
 
@@ -566,10 +583,10 @@ Flagged explicitly, with a human-review proposal, per the project's planning rul
 
 | ID | Why not | Proposal |
 |---|---|---|
-| **M11.C8** | Requires the Phase E ensemble runner and published incidence data; also requires deciding which sources are usable, which is editorial | Defer to Phase E. **Human review** at Phase E entry: confirm the chosen sources are genuinely exogenous, per proposal §5.3 |
-| **M11.C9** | The effect size is `[I]`, so the test can only assert *a detectable difference*, which is close to unfalsifiable | Keep as a smoke test. **Human review:** decide at Phase D whether an unfalsifiable criterion is worth keeping in the suite at all, or whether it should be demoted to a readout |
-| **M11.C11 shape** | "Three phases, not a step down" is a claim about curve *shape*; any automated shape test embeds an invented tolerance | Automate the direction (residual > pre-event baseline; a local relief between) and **human-review the curve** at Phase D against `_LEDGER.md` L08.4's timings |
-| **M5.F.2** | That a counterfeit move produces the *opposite sign* is testable, but the threshold separating counterfeit from genuine is `[I]` and sets the result | Test the sign flip across the threshold; **human review** the threshold's plausibility. Record it as the model's most consequential invented constant |
+| M11.C.8 | Requires the Phase E ensemble runner and published incidence data; also requires deciding which sources are usable, which is editorial | Defer to Phase E. **Human review** at Phase E entry: confirm the chosen sources are genuinely exogenous, per proposal §5.3 |
+| M11.C.9 | The effect size is `[I]`, so the test can only assert *a detectable difference*, which is close to unfalsifiable | Keep as a smoke test. **Human review:** decide at Phase D whether an unfalsifiable criterion is worth keeping in the suite at all, or whether it should be demoted to a readout |
+| M11.C.11 shape | "Three phases, not a step down" is a claim about curve *shape*; any automated shape test embeds an invented tolerance | Automate the direction (residual > pre-event baseline; a local relief between) and **human-review the curve** at Phase D against `_LEDGER.md` L08.4's timings |
+| M5.F.2 | That a counterfeit move produces the *opposite sign* is testable, but the threshold separating counterfeit from genuine is `[I]` and sets the result | Test the sign flip across the threshold; **human review** the threshold's plausibility. Record it as the model's most consequential invented constant |
 
 ---
 
@@ -595,9 +612,9 @@ Flagged explicitly, with a human-review proposal, per the project's planning rul
 
 | Phase | Builds | Done when |
 |---|---|---|
-| **B** | M1 objects; M3 clocks and update order; M4.A standing load; M4.B/E/F/G; M1.F event record; M8 the live-position predicate; `ScriptedSource`. **No policy** — a fixed script drives it. Reduced instance per M2.3. | A scripted 40-week trace runs, the event log reads correctly, and a `TRIGGER` on a dormant family-of-origin tie moves anxiety with no contact. D1, D3, D5, D6, D7 pass. |
-| **C** | M4.C appraisal; M4.D policy; M5 the full repertoire, gates and the `I-POSITION` state machine; M6 invariants I1–I8. | M11.C1, M11.C3, M11.C4, M11.C5, M11.C7, M11.C13, M11.C14 pass over 1,000-seed ensembles, each mutation-proved. D2, D4, D8 pass. |
-| **D** | M7 the slow clock; M9 beliefs; the twelve-person reference family; the three symptom channels and endogenous events. | M11.C2, M11.C6, M11.C9, M11.C10, M11.C11, M11.C12, M11.C15 pass. A 40-year three-generation run completes. |
+| **B** | M1 objects; M3 clocks and update order; M4.A standing load; M4.B, M4.E and M4.G; M1.F event record; M8 the live-position predicate; `ScriptedSource`. **No policy** — a fixed script drives it. Reduced instance per M2.3. | A scripted 40-week trace runs, the event log reads correctly, and a `TRIGGER` on a dormant family-of-origin tie moves anxiety with no contact. M11.D.1, M11.D.3, M11.D.5, M11.D.6 and M11.D.7 pass. |
+| **C** | M4.C appraisal; M4.D policy; M5 the full repertoire, gates and the `I-POSITION` state machine; M6 invariants I1–I8. | M11.C.1, M11.C.3, M11.C.4, M11.C.5, M11.C.7, M11.C.13 and M11.C.14 pass over 1,000-seed ensembles, each mutation-proved. M11.D.2, M11.D.4 and M11.D.8 pass. |
+| **D** | M7 the slow clock; M9 beliefs; the twelve-person reference family; the three symptom channels and endogenous events. | M11.C.2, M11.C.6, M11.C.9, M11.C.10, M11.C.11, M11.C.12, M11.C.15 pass. A 40-year three-generation run completes. |
 
 **M13.1** M8 **MUST** land in Phase B, before the policy, because four separate Phase C mechanisms call it.
 

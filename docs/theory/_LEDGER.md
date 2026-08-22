@@ -29,10 +29,12 @@ Status markers:
   that nothing downstream re-derives it. Do not cite a withdrawn entry as evidence for anything.
 - `[new at p2]` — found on the second read; no pass-1 counterpart.
 
-Tombstones rather than deletions is a deliberate departure from "delete what was withdrawn". Eleven
-withdrawn IDs are cited in `docs/agent_model_proposal.html` and `_CONVERGENCES.md`; deleting them
-silently would leave dangling references and invite exactly the re-invention that pass 2 spent its
-effort undoing.
+Tombstones rather than deletions is a deliberate departure from "delete what was withdrawn". The reason
+is **re-invention, not dangling references** — a mechanism that is merely absent gets proposed again by
+the next reader, which is exactly what pass 2 spent its effort undoing. (An earlier draft of this
+paragraph justified tombstones by claiming withdrawn IDs are cited in the proposal and
+`_CONVERGENCES.md`. They are not: neither file cites any ledger ID at all. The policy is right; that
+reason was wrong.)
 
 Targets: `Person` · `Relationship` · `Triangle` · `Family` · `move:<NAME>` · `coach` ·
 `test` · `event-kind` · `policy` · `readout`
@@ -854,6 +856,7 @@ receiving**. The script is the surface; the debit is the cause.
 without needing a separate mechanism, and replaces the withdrawn "motivation budget" of L22.5.
 
 ### L10.11a — Financial dependence is a hard gate on the differentiating move  `[new at p2]`
+*Note: `L10.11` is a strict prefix of `L10.11a`. Any traceability scan over these IDs **must anchor to a whole token**, or a grep for the former silently matches the latter.*
 **UNMODELLED → `move:I-POSITION`, Q-MATERIAL**
 The chapter's **only absolute precondition**: a differentiating move by a financially dependent person "has
 never been successful". Plus financial security as an input to the case couple's equilibrium, work

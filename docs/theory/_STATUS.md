@@ -87,7 +87,7 @@ Order of work:
      a read-this-first banner, F4 corrected to three sinks, tests 5 and 7 rewritten, the roster/cutoff
      problem raised against the twelve-person premise, the quantification weakness strengthened with
      Q-VALIDATION, and Use case closed as *research instrument*. **Republished to the same URL.**
-     Pre-corpus copy kept at `docs/agent_model_proposal.pre-corpus.html.bak`.
+     The pre-corpus version is in git history at `36dfa02^`; no `.bak` file is kept.
    - `docs/bowen_individual_family_model_spec.md` — **frozen as a v1.2 historical record** with a header
      table of the nine things the corpus contradicts in it. It is *not* the base for v2; v2 is written
      fresh. Also fixed a false sub-header ("not yet implemented" above a fully-ticked list).
@@ -95,10 +95,10 @@ Order of work:
      are easy to violate by accident, the `sim_audit.csv` purity violation recorded as a known defect,
      and **Axiom 1 scoped to the frozen grid engine only** — at N≈12 it pushes the design the wrong way
      and cannot express per-tie or per-triangle state without the exact flattening the pivot undoes.
-   - **Found in passing:** `test_spouse_dysfunction_asymmetric_penalty` is flaky, measured 6 failures in
-     12 runs — unseeded `Simulator`, asserts on an arbitrary pair, both deltas 0.0 when it fails. The
-     "36 tests passing" claim in the proposal was false and is corrected. Not fixed (out of scope for a
-     documentation step); a task chip is open for it.
+   - **Found in passing, and since fixed:** `test_spouse_dysfunction_asymmetric_penalty` was flaky at 6
+     failures in 12 runs — unseeded `Simulator`, asserting on an arbitrary pair, both deltas 0.0 on a
+     failing draw. A second test had the same defect. Both repaired in `3dfa301`; suite now 36/36 across
+     12 consecutive full runs.
 5. ~~**Write the model explainer.**~~ **DONE 2026-08-22** — `docs/model_explainer.md`, ~13,000 words,
    16 sections. Every object, field, move, gate, invariant, clock, event property, readout and test, each
    with *what it is for* / *what it does* / *which finding it implements + chapter*.
@@ -110,8 +110,10 @@ Order of work:
    three readouts that lie (overt emotionality peaks mid-scale, the fifth band, the measurement bias);
    the five must-not-build mechanisms; Bowen's two stated unknowns; the three open contradictions; a
    per-chapter source index; and the provenance table.
-   **Verified:** all 103 cited ledger IDs resolve, and every quote attributed to Bowen traces to a ledger
-   entry.
+   **Verified mechanically at the step-6 fix commit:** **101** distinct ledger IDs cited, all resolving;
+   every quote attributed to Bowen traces to a ledger entry; **215** graded claims. The ledger's own
+   figure reconciles as 151 `### L…` headings − `L03.2` (merged into `L03.1`) − `L10.11a` (a lettered
+   sub-entry) = **149 findings**.
 6. ~~Resolve the two live contradictions.~~ **DONE 2026-08-22** — `_RESOLUTIONS.md`. **Both resolved,
    and both against the primary source rather than the extractions** — in each case the resolving sentence
    is in the text and in neither summary.
@@ -138,7 +140,10 @@ Order of work:
    158 numbered requirements across 14 modules; 272 MUSTs, 65 MUST NOTs. 15 acceptance criteria + 8
    engineering criteria, each with a named test and a mutation target. **Four criteria flagged as not
    code-testable in B–D, each with a human-review proposal**, per the planning rule.
-   Verified: all 51 explainer cross-references resolve; all 158 IDs unique.
+   **Counts are measured, not asserted** — reproduce with
+   `grep -oE '\*\*M[0-9]+(\.[A-Z0-9]+)*\*\*' docs/bowen_agent_model_spec_v2.md | sort -u | wc -l`.
+   At the step-6 fix commit: **239 distinct IDs**, one extraction pattern, 0 unresolved references,
+   0 duplicate definitions; **220 MUST / 69 MUST NOT**; **50** explainer cross-references, all resolving.
    **Next: approval, then the implementation plan, then code.**
 
 ## Standing decisions

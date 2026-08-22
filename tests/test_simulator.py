@@ -2,12 +2,14 @@ import os
 import sys
 import unittest
 from unittest.mock import patch
+import shutil
 import tempfile
 
 import numpy as np
 
 # Add the project root to the Python path to allow importing 'src'
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+REPO_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+sys.path.insert(0, REPO_ROOT)
 
 from src.engine import Simulator
 
@@ -16,6 +18,38 @@ class TestSimulator(unittest.TestCase):
     """
     Unit tests for the Simulator engine to prevent regressions.
     """
+
+    def setUp(self):
+        """Run every test from a throwaway directory.
+
+        `Simulator.__init__` opens `sim_audit.csv` on a bare relative path and
+        `log_telemetry` appends to it, so without this the suite writes into
+        whatever directory pytest was invoked from -- the repo root, normally --
+        and run #2 appends to run #1's rows. Neither the engine's purity rule
+        nor the accumulating file is fixed here; this only stops the tests from
+        being the thing that trips it. See TODO.md and spec M11.D.1 / M11.D.7.
+        """
+        origin = os.getcwd()
+        workdir = tempfile.mkdtemp(prefix="epmodel-test-")
+        os.chdir(workdir)
+        self.addCleanup(shutil.rmtree, workdir, ignore_errors=True)
+        self.addCleanup(os.chdir, origin)
+
+    def test_engine_writes_no_files_into_the_invocation_directory(self):
+        """The suite must not leave engine output where pytest was invoked.
+
+        Guards the setUp above: delete its `os.chdir` and this goes red,
+        because `Simulator()` then drops `sim_audit.csv` into the repo root.
+        """
+        self.assertNotEqual(
+            os.path.realpath(os.getcwd()), os.path.realpath(REPO_ROOT),
+            "tests must not run from the repo root -- setUp's chdir is missing")
+        before = set(os.listdir(os.getcwd()))
+        Simulator(num_units=100)
+        created = set(os.listdir(os.getcwd())) - before
+        self.assertEqual(
+            created, {"sim_audit.csv"},
+            "engine wrote unexpected files: %s" % sorted(created))
 
     def _seed_rng(self, seed):
         """Seed the global NumPy RNG for this test only, restoring it afterwards.

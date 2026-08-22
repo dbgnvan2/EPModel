@@ -17,6 +17,18 @@ class TestSimulator(unittest.TestCase):
     Unit tests for the Simulator engine to prevent regressions.
     """
 
+    def _seed_rng(self, seed):
+        """Seed the global NumPy RNG for this test only, restoring it afterwards.
+
+        Family sizes are drawn at Simulator construction, so any test whose
+        precondition depends on a particular family size (e.g. "a size-2
+        family exists" — absent in ~2.7% of unseeded draws) must fix the draw.
+        The state is restored on cleanup so later tests keep varying inputs.
+        """
+        state = np.random.get_state()
+        self.addCleanup(np.random.set_state, state)
+        np.random.seed(seed)
+
     def test_simulator_initialization(self):
         """Tests if the simulator initializes correctly with the new multiscale properties."""
         simulator = Simulator(num_units=10000)
@@ -760,10 +772,16 @@ class TestSimulator(unittest.TestCase):
 
     def test_spouse_dysfunction_asymmetric_penalty(self):
         """Lower-C spouse should receive larger share of mismatch S penalty."""
+        self._seed_rng(20260822)
         sim = Simulator(num_units=100)
-        fid = int(sim.family_ids[0])
-        members = np.where(sim.family_ids == fid)[0][:2]
-        sim.family_ids[members] = fid
+        # apply_divorce only applies the mismatch S-raise to families with
+        # exactly TWO active members, so the pair must come from a size-2
+        # family — an arbitrary family may have 3+ members and never qualify.
+        size2_fids = np.where(sim.family_member_counts == 2)[0]
+        self.assertGreater(len(size2_fids), 0)
+        fid = int(size2_fids[0])
+        members = np.where(sim.family_ids == fid)[0]
+        self.assertEqual(len(members), 2)
         sim.unit_status[members] = sim.STATUS_EMBEDDED
         sim.state[members, 3] = 1000.0
         sim.state[members[0], 2] = 30.0
@@ -773,6 +791,10 @@ class TestSimulator(unittest.TestCase):
         s_before = sim.state[members, 0].copy()
         sim.apply_divorce(cycle=1)
         s_after = sim.state[members, 0]
+        # Both spouses must actually receive a share — a no-op run leaves both
+        # deltas at 0.0 and would not exercise the asymmetry at all.
+        self.assertAlmostEqual(s_after[0] - s_before[0], 7.0, places=5)
+        self.assertAlmostEqual(s_after[1] - s_before[1], 3.0, places=5)
         self.assertGreater((s_after[0] - s_before[0]), (s_after[1] - s_before[1]))
 
     def test_emotional_distance_flag_sets_after_20_cycles(self):
@@ -795,6 +817,7 @@ class TestSimulator(unittest.TestCase):
 
     def test_triangle_mechanism_attaches_and_releases_circle(self):
         """Triangle event should temporarily attach a circle and then release it."""
+        self._seed_rng(20260822)
         sim = Simulator(num_units=100)
         size2_fids = np.where(sim.family_member_counts == 2)[0]
         self.assertGreater(len(size2_fids), 0)

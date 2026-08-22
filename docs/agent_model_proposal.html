@@ -1,0 +1,1418 @@
+<title>The Twelve-Agent Family</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,600;1,400&family=Archivo:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+
+<style>
+  :root {
+    --ground:   #F2F5F5;
+    --surface:  #FBFCFC;
+    --sunken:   #E8EDED;
+    --ink:      #171F21;
+    --ink-soft: #3D4B4E;
+    --muted:    #66787C;
+    --rule:     #D5DEDF;
+    --rule-firm:#B7C4C6;
+    --anx:      #A8324A;
+    --anx-wash: #F7E9EC;
+    --dif:      #22656A;
+    --dif-wash: #E2EEEE;
+
+    --f-display: "Spectral", Georgia, "Times New Roman", serif;
+    --f-body:    "Archivo", "Helvetica Neue", Arial, sans-serif;
+    --f-mono:    "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground:   #101617;
+      --surface:  #171F21;
+      --sunken:   #1D2729;
+      --ink:      #E3EAEA;
+      --ink-soft: #C0CCCD;
+      --muted:    #8A9C9F;
+      --rule:     #29373A;
+      --rule-firm:#3A4B4E;
+      --anx:      #E4778F;
+      --anx-wash: #2C1B20;
+      --dif:      #5FB6B9;
+      --dif-wash: #14282A;
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --ground:   #101617;
+    --surface:  #171F21;
+    --sunken:   #1D2729;
+    --ink:      #E3EAEA;
+    --ink-soft: #C0CCCD;
+    --muted:    #8A9C9F;
+    --rule:     #29373A;
+    --rule-firm:#3A4B4E;
+    --anx:      #E4778F;
+    --anx-wash: #2C1B20;
+    --dif:      #5FB6B9;
+    --dif-wash: #14282A;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    background: var(--ground);
+    color: var(--ink);
+    font-family: var(--f-body);
+    font-size: 16.5px;
+    line-height: 1.62;
+    margin: 0;
+    padding: 0 1.5rem 6rem;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap { max-width: 1120px; margin: 0 auto; }
+
+  /* ---------- masthead ---------- */
+
+  .masthead {
+    border-bottom: 2px solid var(--ink);
+    padding: 4.5rem 0 1.75rem;
+    margin-bottom: 3.5rem;
+  }
+  .eyebrow {
+    font-family: var(--f-mono);
+    font-size: 11.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin: 0 0 1.5rem;
+  }
+  h1 {
+    font-family: var(--f-display);
+    font-weight: 600;
+    font-size: clamp(2.6rem, 6.5vw, 4.4rem);
+    line-height: 1.02;
+    letter-spacing: -0.022em;
+    text-wrap: balance;
+    margin: 0 0 1.1rem;
+  }
+  .standfirst {
+    font-family: var(--f-display);
+    font-size: clamp(1.05rem, 2.2vw, 1.32rem);
+    line-height: 1.5;
+    color: var(--ink-soft);
+    max-width: 46ch;
+    margin: 0 0 2.25rem;
+  }
+  .masthead-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem 2.25rem;
+    font-family: var(--f-mono);
+    font-size: 11.5px;
+    color: var(--muted);
+  }
+  .masthead-meta b { color: var(--ink-soft); font-weight: 500; }
+
+  /* ---------- section grid ---------- */
+
+  section { margin-bottom: 4.25rem; }
+
+  .section {
+    display: grid;
+    grid-template-columns: 6.5rem minmax(0, 67ch);
+    column-gap: 2.75rem;
+    justify-content: start;
+  }
+  .section > * { grid-column: 2; }
+  .section > .rail { grid-column: 1; }
+  .section > .wide { grid-column: 1 / -1; max-width: 1120px; }
+
+  @media (max-width: 860px) {
+    .section { grid-template-columns: minmax(0, 1fr); }
+    .section > *, .section > .rail, .section > .wide { grid-column: 1; }
+    .rail { margin-bottom: 0.4rem; }
+  }
+
+  .rail {
+    font-family: var(--f-mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding-top: 0.75rem;
+    line-height: 1.5;
+  }
+
+  h2 {
+    font-family: var(--f-display);
+    font-weight: 600;
+    font-size: clamp(1.6rem, 3.4vw, 2.15rem);
+    line-height: 1.16;
+    letter-spacing: -0.014em;
+    text-wrap: balance;
+    margin: 0 0 1.2rem;
+    padding-top: 0.4rem;
+  }
+  h3 {
+    font-family: var(--f-body);
+    font-weight: 600;
+    font-size: 1.02rem;
+    letter-spacing: -0.005em;
+    margin: 2.5rem 0 0.6rem;
+  }
+  h4 {
+    font-family: var(--f-mono);
+    font-weight: 500;
+    font-size: 11.5px;
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin: 2rem 0 0.7rem;
+  }
+
+  p { margin: 0 0 1.05rem; }
+  a { color: var(--dif); text-underline-offset: 3px; }
+  a:focus-visible, summary:focus-visible { outline: 2px solid var(--dif); outline-offset: 3px; }
+
+  strong { font-weight: 600; }
+  em { font-style: italic; }
+
+  code, .m {
+    font-family: var(--f-mono);
+    font-size: 0.855em;
+    background: var(--sunken);
+    padding: 0.1em 0.36em;
+    border-radius: 2px;
+  }
+
+  ul, ol { margin: 0 0 1.1rem; padding-left: 1.3rem; }
+  li { margin-bottom: 0.42rem; }
+  li::marker { color: var(--muted); }
+
+  /* ---------- findings ---------- */
+
+  .finding {
+    border-top: 1px solid var(--rule);
+    padding: 1.35rem 0 0.4rem;
+  }
+  .finding:last-of-type { border-bottom: 1px solid var(--rule); margin-bottom: 1.5rem; }
+  .finding-head {
+    display: flex;
+    align-items: baseline;
+    gap: 0.85rem;
+    margin-bottom: 0.5rem;
+  }
+  .fid {
+    font-family: var(--f-mono);
+    font-size: 11.5px;
+    font-weight: 500;
+    color: var(--anx);
+    letter-spacing: 0.06em;
+    flex: none;
+  }
+  .finding-head h3 {
+    margin: 0;
+    font-size: 1.06rem;
+    line-height: 1.34;
+  }
+  .sev {
+    font-family: var(--f-mono);
+    font-size: 10px;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    padding: 0.18em 0.5em;
+    border-radius: 2px;
+    flex: none;
+    margin-left: auto;
+    white-space: nowrap;
+  }
+  .sev-block { background: var(--anx-wash); color: var(--anx); border: 1px solid var(--anx); }
+  .sev-major { background: transparent; color: var(--ink-soft); border: 1px solid var(--rule-firm); }
+  .finding p { margin-bottom: 0.75rem; }
+  .finding p:last-child { margin-bottom: 0.9rem; }
+
+  /* ---------- figures ---------- */
+
+  figure {
+    margin: 2.25rem 0 2.5rem;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    padding: 1.5rem 1.5rem 1.15rem;
+  }
+  figure svg { display: block; width: 100%; height: auto; color: var(--ink); }
+  figcaption {
+    font-size: 13.5px;
+    line-height: 1.55;
+    color: var(--muted);
+    margin-top: 1.1rem;
+    padding-top: 0.85rem;
+    border-top: 1px solid var(--rule);
+  }
+  figcaption b { color: var(--ink-soft); font-weight: 600; }
+
+  /* ---------- tables ---------- */
+
+  .tablewrap { overflow-x: auto; margin: 1.5rem 0 2rem; }
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    font-size: 14.5px;
+    line-height: 1.5;
+  }
+  th {
+    font-family: var(--f-mono);
+    font-size: 10.5px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-align: left;
+    padding: 0 1.1rem 0.6rem 0;
+    border-bottom: 1px solid var(--ink);
+    white-space: nowrap;
+  }
+  td {
+    padding: 0.72rem 1.1rem 0.72rem 0;
+    border-bottom: 1px solid var(--rule);
+    vertical-align: top;
+  }
+  td:last-child, th:last-child { padding-right: 0; }
+  .num { font-family: var(--f-mono); font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .who { font-weight: 600; white-space: nowrap; }
+  .keep td:first-child { color: var(--dif); font-family: var(--f-mono); font-size: 12.5px; }
+
+  .move { color: var(--anx); font-family: var(--f-mono); font-size: 12.5px; letter-spacing: 0.04em; }
+  .move-c { color: var(--dif); }
+
+  /* ---------- two-up ---------- */
+
+  .twoup {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2.5rem;
+    margin: 1.75rem 0 1.5rem;
+  }
+  .col-head {
+    font-family: var(--f-mono);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding-bottom: 0.55rem;
+    margin-bottom: 1.1rem;
+    border-bottom: 2px solid currentColor;
+  }
+  .col-strong .col-head { color: var(--dif); }
+  .col-weak .col-head { color: var(--anx); }
+  .twoup h3 { margin-top: 1.5rem; font-size: 0.97rem; }
+  .twoup h3:first-of-type { margin-top: 0; }
+  .twoup p { font-size: 15px; margin-bottom: 0.9rem; }
+
+  /* ---------- callout ---------- */
+
+  .note {
+    border-left: 2px solid var(--dif);
+    background: var(--dif-wash);
+    padding: 1.05rem 1.25rem;
+    margin: 1.75rem 0;
+    font-size: 15px;
+  }
+  .note p:last-child { margin-bottom: 0; }
+  .note .lbl {
+    font-family: var(--f-mono);
+    font-size: 10.5px;
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
+    color: var(--dif);
+    display: block;
+    margin-bottom: 0.4rem;
+  }
+  .warn { border-left-color: var(--anx); background: var(--anx-wash); }
+  .warn .lbl { color: var(--anx); }
+
+  .revmark {
+    font-family: var(--f-mono);
+    font-size: 9.5px;
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
+    color: var(--anx);
+    border: 1px solid var(--anx);
+    border-radius: 2px;
+    padding: 0.14em 0.4em;
+    vertical-align: 0.14em;
+    white-space: nowrap;
+  }
+
+  /* ---------- code ---------- */
+
+  pre {
+    font-family: var(--f-mono);
+    font-size: 12.5px;
+    line-height: 1.62;
+    background: var(--sunken);
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    padding: 1.05rem 1.15rem;
+    overflow-x: auto;
+    margin: 1.35rem 0 1.75rem;
+  }
+  pre code { background: none; padding: 0; font-size: inherit; }
+  .cm { color: var(--muted); }
+  .kw { color: var(--anx); }
+
+  /* ---------- repertoire ---------- */
+
+  .rep {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(215px, 1fr));
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    margin: 1.6rem 0 2rem;
+    overflow: hidden;
+  }
+  .rep div { background: var(--surface); padding: 0.95rem 1.05rem; }
+  .rep dt {
+    font-family: var(--f-mono);
+    font-size: 11.5px;
+    letter-spacing: 0.06em;
+    color: var(--anx);
+    margin-bottom: 0.35rem;
+  }
+  .rep .up dt { color: var(--dif); }
+  .rep dd { margin: 0; font-size: 14px; line-height: 1.5; color: var(--ink-soft); }
+
+  /* ---------- footer ---------- */
+
+  .closer {
+    border-top: 2px solid var(--ink);
+    margin-top: 5rem;
+    padding-top: 2rem;
+    font-size: 14px;
+    color: var(--muted);
+    max-width: 67ch;
+  }
+</style>
+
+<div class="wrap">
+
+  <header class="masthead">
+    <p class="eyebrow">EPModel &nbsp;·&nbsp; architecture review and proposal</p>
+    <h1>The Twelve-Agent Family</h1>
+    <p class="standfirst">Rebuilding EPModel from a stress field on a grid into behaving agents in one three-generation family — what the current code gets in the way of, what replaces it, where the outside world enters, and what it can honestly predict.</p>
+    <div class="masthead-meta">
+      <span><b>Reviewed</b> src/engine.py · src/main.py · docs/ · tests/ (36 tests, all passing)</span>
+      <span><b>Against</b> Light Society, arXiv:2506.12078v2</span>
+      <span><b>Incorporating</b> Bowen Family Model &mdash; Plan; the cutoff and institutionalization model ideas</span>
+      <span><b>Revised against</b> <i>Family Therapy in Clinical Practice</i>, all 22 chapters, two passes</span>
+      <span><b>Date</b> 2026-08-21 &middot; rev. 2026-08-22</span>
+    </div>
+  </header>
+
+  <section class="section">
+    <div class="rail">00<br>Revision</div>
+    <div class="note warn">
+      <span class="lbl">Read this first &mdash; revised 22 August 2026</span>
+      <p><b>This document was drafted before the source corpus was read, and has since been corrected
+      against it.</b> All 22 chapters of <i>Family Therapy in Clinical Practice</i> were extracted twice
+      &mdash; a cold pass, then a comparative re-read of every chapter against the whole book &mdash;
+      producing a ledger of 149 findings in <span class="m">docs/theory/</span>.</p>
+      <p><b>The body below is current.</b> Sections 1&ndash;9 have been corrected in place: the sink count,
+      the object fields, the move repertoire, the event record, the appraisal, the acceptance tests, the
+      phase sequence and the readouts. Passages that changed carry an inline
+      <span class="revmark">rev</span> marker so a reader who knew the earlier version can find them &mdash;
+      <b>the marker means "this was corrected", not "this is unreliable."</b>
+      <a href="#corpus">&sect;10</a> is the record of what changed, what must never be built, and where the
+      corpus is genuinely silent. It is no longer required reading to use the body.</p>
+      <p>Two things outrank everything else here. <b>The corpus contains no validation of any kind</b>
+      &mdash; no instrument, no rater procedure, no comparison group, and no number ever assigned to a
+      person, in any of the 22 chapters. It supports <i>directions, orderings and mechanisms</i>, and almost
+      no <i>magnitudes</i>, so every constant in this model is invented and the source cannot narrow the
+      range even in principle. And <b>the first pass over the corpus over-read it in a consistent
+      direction</b>, making the source look more quantitative and more decided than it is; nineteen findings
+      were withdrawn on the second pass. When a claim about Bowen reads unusually crisply, check it.</p>
+      <p>For a part-by-part account of the model &mdash; every object, field, move, gate, invariant, clock
+      and test, each with what it is for, what it does, and which chapter it implements &mdash; see
+      <span class="m">docs/model_explainer.md</span>. That document is graded claim by claim and is the one
+      to build from.</p>
+    </div>
+  </section>
+
+  <!-- ==================== 1 ==================== -->
+  <section class="section">
+    <div class="rail">01<br>The code today</div>
+    <h2>What is actually in the repo</h2>
+
+    <p>A 1,227-line <code>Simulator</code> holding one array, <code>state[N, 4]</code> — stress <span class="m">S</span>, reactivity <span class="m">TX</span>, differentiation <span class="m">C</span>, resources <span class="m">M</span> — over 10,000 units arranged on a 100&times;100 grid. Families are rectangular blocks of cells (1&times;2, 2&times;2, 2&times;4, 4&times;4). Anxiety spreads by a vectorised 8-neighbour convolution: <code>np.roll</code> in eight directions, each neighbour's broadcast scaled by 1.0 inside the family block and 0.2 across it, divided on arrival by the receiver's functional differentiation. Around that sits a full demographic and economic layer: Gompertz-Makeham mortality, births, launch, spatial matchmaking, divorce, income, progressive tax, a safety net and a national debt. A Pygame heat map renders it.</p>
+
+    <p>The Bowen mapping is not decorative. <span class="m">docs/bowen_individual_family_model_spec.md</span> is a careful 612-line document, and its checklist is genuinely complete: chronic anxiety fixed at age 10 from the family's emotional atmosphere, the C-inheritance band, the projection-target discount, the spouse-dysfunction asymmetry, emotional distance, the coaching toggle, functional differentiation as a derived quantity. Those were implemented, tested, and committed. The theory work in this repo is the part worth carrying forward.</p>
+
+    <p>What follows is not a criticism of that work. It is a claim about the <em>substrate</em>: the thing the theory was written onto cannot express the part of Bowen you now want to model.</p>
+  </section>
+
+  <!-- ==================== 2 ==================== -->
+  <section class="section">
+    <div class="rail">02<br>Findings</div>
+    <h2>Seven findings, ordered by how much they block the pivot</h2>
+
+    <p>These are properties of the design, not bugs. Each one is fine for a 10,000-unit contagion field and fatal for a 12-person family.</p>
+
+    <div class="finding">
+      <div class="finding-head">
+        <span class="fid">F1</span>
+        <h3>Geometry stands in for relationship</h3>
+        <span class="sev sev-block">Blocker</span>
+      </div>
+      <p>Who influences whom is decided by grid adjacency. A family is a rectangle; a neighbour is a cell 1 step away. At population scale that is a reasonable abstraction of "proximity implies contact." In a three-generation family it is simply wrong. A grandmother in another city and a son in the next room are different ties with different conductance, and neither is a lattice position. There is also a real artifact: <code>np.roll</code> wraps, so the top row's stress lands on the bottom row and the left edge feeds the right.</p>
+    </div>
+
+    <div class="finding">
+      <div class="finding-head">
+        <span class="fid">F2</span>
+        <h3>There is no dyad anywhere in the model</h3>
+        <span class="sev sev-block">Blocker</span>
+      </div>
+      <p>Bowen's unit of analysis is the relationship, not the person. The engine has per-unit arrays and per-family arrays, and nothing in between. So there is nowhere to store the state of <em>this marriage</em>, <em>this father-son tie</em>, <em>this sibling cut-off</em> — the tension in it, how much contact it carries, who is over-functioning for whom. <span class="m">family_s_penalty</span> and <span class="m">family_c_diff</span> are per-family scalars standing in for one specific relationship, which works only because families of size 2 have exactly one.</p>
+    </div>
+
+    <div class="finding">
+      <div class="finding-head">
+        <span class="fid">F3</span>
+        <h3>Triangles are approximated, not represented</h3>
+        <span class="sev sev-block">Blocker</span>
+      </div>
+      <p>Follows directly from F2: a triangle is three dyads with shifting inside and outside positions, so a model with no dyads cannot hold one. <code>update_triangles()</code> does what it can — it finds the nearest unattached stranger within 20 cells, gives them the family's id for two cycles, moves 15% of the couple's stress onto them, and releases them. There are no positions, no comfortable twosome, no outsider, nothing that shifts. Given that Bowen calls the triangle the smallest stable relationship system, this is the largest gap between the theory and the code.</p>
+    </div>
+
+    <div class="finding">
+      <div class="finding-head">
+        <span class="fid">F4</span>
+        <h3>The four mechanisms don't compete for anything</h3>
+        <span class="sev sev-major">Major</span>
+      </div>
+      <p>Conflict, distance, spouse dysfunction and child projection are implemented as four independent code paths with four independent triggers, all firing in the same cycle whenever their conditions hold. In the theory they are alternative <em>routes for the same undifferentiation</em> — a couple that binds its anxiety through conflict is thereby not binding it through reciprocal dysfunction, and a couple that routes it into a child spares the marriage. Which route dominates is the single most consequential thing about a family, and the model currently has no way to express the trade-off.</p>
+      <p><span class="revmark">rev</span> <b>The budget has three sinks, not four.</b> Bowen counts
+      <i>marital conflict</i>, <i>dysfunction in one spouse</i> and <i>projection onto a child</i>. Emotional
+      distance is named in the same breath every time and <b>excluded from the count</b> &mdash; &ldquo;other
+      than the emotional distance, there are three major areas&rdquo; (Ch16); &ldquo;almost universal&rdquo;
+      and uncounted (Ch12); present a paragraph earlier and uncounted (Ch09); listed as (a) and then dropped
+      from &ldquo;three important patterns&rdquo; forty lines later (Ch18). Distance is an <b>always-on leaky
+      baseline outside the budget</b>, not a fourth competitor. Implementing it as a fourth sink lets a family
+      discharge its whole load into distance and read as untroubled, which is the opposite of what the theory
+      claims. See <a href="#corpus">&sect;10</a>.</p>
+    </div>
+
+    <div class="finding">
+      <div class="finding-head">
+        <span class="fid">F5</span>
+        <h3>One clock is carrying two timescales</h3>
+        <span class="sev sev-major">Major</span>
+      </div>
+      <p>A cycle is a year: <code>apply_aging</code> adds 1.0 to age, mortality is annual, coaching adds +0.5 C per year exactly as Bowen estimated. But the emotional machinery runs on the same tick. Contagion resolves once a year. Reactivity accumulates once a year. Triangling fires "every 2 cycles" — every two years. Emotional distance requires 20 consecutive cycles of low reactivity, so twenty years. Divorce requires <span class="m">S &gt; 160</span> sustained for 50 cycles, so a marriage must be in crisis for fifty years before it can end. Emotional process moves in hours and days; differentiation moves in years. One clock cannot carry both, and the calibration inherits the confusion.</p>
+    </div>
+
+    <div class="finding">
+      <div class="finding-head">
+        <span class="fid">F6</span>
+        <h3>There is no behaviour — only state</h3>
+        <span class="sev sev-block">Blocker</span>
+      </div>
+      <p>Nobody in this model ever <em>does</em> anything. Values move; no one acts. There is no criticising, withdrawing, over-functioning, taking a position, calling a sibling, going quiet at dinner. That matters for three reasons. Nothing can be observed, so there is no trace to read. Nothing can be compared to a real family history, which is told as a sequence of events. And nothing can be explained: a heat map cannot say <em>why</em>.</p>
+    </div>
+
+    <div class="finding">
+      <div class="finding-head">
+        <span class="fid">F7</span>
+        <h3>The only outcome is death</h3>
+        <span class="sev sev-major">Major</span>
+      </div>
+      <p>A unit ends by metabolic death (<span class="m">M &le; 0</span>) or ejection (<span class="m">S &ge; 180</span>). Bowen's outcome variables are the three symptom classes — physical illness, emotional illness, social dysfunction — and, above all, <em>which member carries the symptom</em>. That last question is the interesting prediction, and the current model has no variable for it.</p>
+    </div>
+
+    <h3>Evidence that the emotional model isn't driving the headline number</h3>
+    <p>The Monte Carlo sweep in <span class="m">monte_carlo_results.txt</span> is worth reading in this light. The top ten parameter combinations sit between 64.6% and 66.9% survival — a 2.3-point spread — while spanning <span class="m">L</span> from 0.5 to 2.0, <span class="m">E</span> from 0.5 to 1.5, safety net on and off, and <span class="m">S_BASELINE</span> from 60 to 120. Nearly every one reports about 13,000 births against about 16,400 deaths. The outcome is being set by the demographic machinery, not by the Bowen parameters, which is what you would expect when the emotional dynamics tick once a year.</p>
+
+    <h4>Engineering notes, carried into the rebuild</h4>
+    <ul>
+      <li><span class="revmark">rev</span> <span class="m">test_spouse_dysfunction_asymmetric_penalty</span> builds an unseeded <span class="m">Simulator(num_units=100)</span> and asserts on the first two members of an arbitrary family. It fails on roughly half of runs &mdash; measured 6 of 12 &mdash; with both stress deltas at zero, meaning the penalty never applied. A suite that is red half the time is worse than no suite; seed the construction or select a pair that satisfies the precondition.</li>
+
+      <li><span class="m">Simulator.__init__</span> opens and writes <span class="m">sim_audit.csv</span> in the process working directory, and <code>log_telemetry</code> appends to it every 10 cycles. The project's own CLAUDE.md says the engine stays pure — no UI, no file I/O. Two stray copies of the file exist (repo root and <span class="m">src/</span>).</li>
+      <li><code>_apply_config</code> skips any line that fails its regex and any key not already in <code>defaults</code>, silently. A typo in <span class="m">docs/model_config.md</span> vanishes with no warning and the default is used instead.</li>
+      <li>Spec §14 says no model parameters are hard-coded in engine source. In practice 12 keys are in the markdown config, 27 are class constants, and roughly 52 distinct float literals remain inline in executable code.</li>
+      <li>Axiom 1 prohibits iterative loops in the core update. <code>apply_divorce</code> loops over every active unit in Python to compute a per-family minimum, and <code>_update_family_leader_mask</code> loops over families. At N=12 this is irrelevant, which is itself an argument that the vectorisation constraint has stopped paying for itself.</li>
+      <li>The windfall in <code>update_m</code> picks <code>np.random.randint(0, num_units)</code>, so it can multiply the resources of a dead unit or an unused nursery slot.</li>
+      <li>The spec's checklist header still reads "specified in this document but not yet implemented" above a list where every item is ticked.</li>
+    </ul>
+  </section>
+
+  <!-- ==================== 3 ==================== -->
+  <section class="section">
+    <div class="rail">03<br>The change</div>
+    <h2>What replaces the grid</h2>
+
+    <p>The proposal is a straight swap of substrate. Anxiety still flows, still gets divided by the receiver's differentiation on arrival, still accumulates into reactivity — the equations you already wrote are kept almost intact. What changes is what it flows <em>along</em>, and what makes it flow.</p>
+
+    <figure class="wide">
+      <svg viewBox="0 0 880 400" role="img" aria-label="Left: a grid where a cell influences its eight neighbours equally, with np.roll wrapping edge to edge. Right: six family members connected by typed relationship edges — ordinary, conflict, fused, distant and cut off — each carrying its own conductance.">
+        <defs>
+          <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"/>
+          </marker>
+          <marker id="arA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 0 0 L 10 5 L 0 10 z" fill="var(--anx)"/>
+          </marker>
+        </defs>
+
+        <!-- ---- panel A ---- -->
+        <text x="210" y="24" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="11.5" letter-spacing="1.4" fill="currentColor" opacity="0.62">TODAY — INFLUENCE FOLLOWS THE GRID</text>
+
+        <g stroke="currentColor" stroke-opacity="0.3" fill="none">
+          <rect x="73"  y="70"  width="34" height="34"/><rect x="113" y="70"  width="34" height="34"/><rect x="153" y="70"  width="34" height="34"/><rect x="193" y="70"  width="34" height="34"/><rect x="233" y="70"  width="34" height="34"/><rect x="273" y="70"  width="34" height="34"/><rect x="313" y="70"  width="34" height="34"/>
+          <rect x="73"  y="110" width="34" height="34"/><rect x="113" y="110" width="34" height="34"/><rect x="153" y="110" width="34" height="34"/><rect x="193" y="110" width="34" height="34"/><rect x="233" y="110" width="34" height="34"/><rect x="273" y="110" width="34" height="34"/><rect x="313" y="110" width="34" height="34"/>
+          <rect x="73"  y="150" width="34" height="34"/><rect x="113" y="150" width="34" height="34"/><rect x="153" y="150" width="34" height="34"/><rect x="233" y="150" width="34" height="34"/><rect x="273" y="150" width="34" height="34"/><rect x="313" y="150" width="34" height="34"/>
+          <rect x="73"  y="190" width="34" height="34"/><rect x="113" y="190" width="34" height="34"/><rect x="153" y="190" width="34" height="34"/><rect x="193" y="190" width="34" height="34"/><rect x="233" y="190" width="34" height="34"/><rect x="273" y="190" width="34" height="34"/><rect x="313" y="190" width="34" height="34"/>
+          <rect x="73"  y="230" width="34" height="34"/><rect x="113" y="230" width="34" height="34"/><rect x="153" y="230" width="34" height="34"/><rect x="193" y="230" width="34" height="34"/><rect x="233" y="230" width="34" height="34"/><rect x="273" y="230" width="34" height="34"/><rect x="313" y="230" width="34" height="34"/>
+        </g>
+        <rect x="193" y="150" width="34" height="34" fill="var(--anx)" fill-opacity="0.14" stroke="var(--anx)" stroke-width="1.4"/>
+
+        <g stroke="var(--anx)" stroke-width="1.3" marker-end="url(#arA)">
+          <line x1="210" y1="155" x2="210" y2="141"/>
+          <line x1="210" y1="179" x2="210" y2="193"/>
+          <line x1="198" y1="167" x2="184" y2="167"/>
+          <line x1="222" y1="167" x2="236" y2="167"/>
+          <line x1="201" y1="158" x2="188" y2="145"/>
+          <line x1="219" y1="158" x2="232" y2="145"/>
+          <line x1="201" y1="176" x2="188" y2="189"/>
+          <line x1="219" y1="176" x2="232" y2="189"/>
+        </g>
+
+        <path d="M 351 247 C 400 305, 20 305, 69 247" fill="none" stroke="currentColor" stroke-opacity="0.4" stroke-width="1.1" stroke-dasharray="3 3" marker-end="url(#ar)"/>
+        <text x="210" y="316" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" fill="currentColor" opacity="0.5">np.roll wraps edge to edge</text>
+
+        <text x="210" y="352" text-anchor="middle" font-family="Archivo, sans-serif" font-size="12.5" fill="currentColor" opacity="0.72">Eight neighbours. One friction value</text>
+        <text x="210" y="370" text-anchor="middle" font-family="Archivo, sans-serif" font-size="12.5" fill="currentColor" opacity="0.72">for &ldquo;same block&rdquo;, one for &ldquo;not&rdquo;.</text>
+
+        <line x1="440" y1="46" x2="440" y2="368" stroke="currentColor" stroke-opacity="0.24" stroke-dasharray="2 5"/>
+
+        <!-- ---- panel B ---- -->
+        <text x="668" y="24" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="11.5" letter-spacing="1.4" fill="currentColor" opacity="0.62">PROPOSED — INFLUENCE FOLLOWS THE TIE</text>
+
+        <!-- edges first -->
+        <line x1="592" y1="83" x2="662" y2="83" stroke="currentColor" stroke-width="1.4"/>
+        <line x1="672" y1="96" x2="646" y2="164" stroke="currentColor" stroke-width="1.4"/>
+        <path d="M 674 92 L 748 152" stroke="currentColor" stroke-width="1.4"/>
+        <line x1="706" y1="112" x2="720" y2="126" stroke="currentColor" stroke-width="1.6"/>
+        <line x1="713" y1="106" x2="727" y2="120" stroke="currentColor" stroke-width="1.6"/>
+
+        <polyline points="562,183 574,175 586,191 598,175 610,191 622,175 632,183" fill="none" stroke="var(--anx)" stroke-width="1.6"/>
+
+        <line x1="637" y1="197" x2="608" y2="266" stroke="var(--anx)" stroke-width="1.4"/>
+        <line x1="644" y1="200" x2="615" y2="269" stroke="var(--anx)" stroke-width="1.4"/>
+
+        <line x1="546" y1="197" x2="588" y2="266" stroke="currentColor" stroke-width="1.4" stroke-dasharray="4 4"/>
+        <line x1="650" y1="196" x2="708" y2="268" stroke="currentColor" stroke-width="1.4"/>
+
+        <!-- nodes -->
+        <rect x="556" y="70" width="26" height="26" fill="var(--surface)" stroke="currentColor" stroke-width="1.6"/>
+        <circle cx="675" cy="83" r="13" fill="var(--surface)" stroke="currentColor" stroke-width="1.6"/>
+        <rect x="527" y="170" width="26" height="26" fill="var(--surface)" stroke="var(--anx)" stroke-width="1.8"/>
+        <circle cx="640" cy="183" r="13" fill="var(--surface)" stroke="var(--anx)" stroke-width="1.8"/>
+        <rect x="758" y="152" width="26" height="26" fill="var(--surface)" stroke="currentColor" stroke-width="1.6"/>
+        <rect x="576" y="268" width="26" height="26" fill="var(--surface)" stroke="currentColor" stroke-width="1.6"/>
+        <circle cx="717" cy="281" r="13" fill="var(--surface)" stroke="currentColor" stroke-width="1.6"/>
+
+        <g font-family="IBM Plex Mono, monospace" font-size="10.5" fill="currentColor" opacity="0.72">
+          <text x="569" y="62" text-anchor="middle">Teodor</text>
+          <text x="675" y="62" text-anchor="middle">Ana</text>
+          <text x="512" y="176" text-anchor="end">Ravi</text>
+          <text x="640" y="153" text-anchor="middle">Marta</text>
+          <text x="794" y="169" text-anchor="start">Bruno</text>
+          <text x="589" y="312" text-anchor="middle">Leo</text>
+          <text x="717" y="312" text-anchor="middle">Nadia</text>
+        </g>
+
+        <!-- legend -->
+        <g font-family="IBM Plex Mono, monospace" font-size="10" fill="currentColor">
+          <line x1="474" y1="345" x2="500" y2="345" stroke="currentColor" stroke-width="1.4"/>
+          <text x="506" y="348" opacity="0.66">ordinary</text>
+          <polyline points="570,345 576,340 582,350 588,340 594,350 600,345" fill="none" stroke="var(--anx)" stroke-width="1.4"/>
+          <text x="606" y="348" opacity="0.66">conflict</text>
+          <line x1="664" y1="342" x2="690" y2="342" stroke="var(--anx)" stroke-width="1.4"/>
+          <line x1="664" y1="348" x2="690" y2="348" stroke="var(--anx)" stroke-width="1.4"/>
+          <text x="696" y="348" opacity="0.66">fused</text>
+          <line x1="474" y1="372" x2="500" y2="372" stroke="currentColor" stroke-width="1.4" stroke-dasharray="4 4"/>
+          <text x="506" y="375" opacity="0.66">distant</text>
+          <line x1="570" y1="372" x2="600" y2="372" stroke="currentColor" stroke-width="1.4"/>
+          <line x1="580" y1="366" x2="588" y2="378" stroke="currentColor" stroke-width="1.6"/>
+          <line x1="586" y1="366" x2="594" y2="378" stroke="currentColor" stroke-width="1.6"/>
+          <text x="606" y="375" opacity="0.66">cut off</text>
+        </g>
+      </svg>
+      <figcaption><b>The one architectural change.</b> The lattice is replaced by a relationship graph. Each tie is a first-class object carrying its own conductance, tension, contact frequency and functioning balance — so a marriage in open conflict transmits differently from a distant one, and a cut-off sibling transmits almost nothing until a nodal event forces contact. Twelve people give 66 possible pairs; only the roughly 28 ties that carry traffic are instantiated.</figcaption>
+    </figure>
+
+    <h3>Four object types</h3>
+    <p><b>Person.</b> Basic differentiation <span class="m">C</span>, chronic anxiety <span class="m">CA</span>, acute anxiety <span class="m">A</span>, functional differentiation <span class="m">FD</span> derived as it already is, life stage, <b>sibling position</b>, symptom load in three channels (physical, emotional, social), an inbox, and a behavioural repertoire with per-move propensities. <span class="revmark">rev</span> Two further fields the corpus makes load-bearing: an <b>outside-ness</b> state, distinct from differentiation, which multiplies the effect of the two differentiating moves and below threshold makes an identical technique land as "either hollow meaningless words or a hostile assault on the system"; and a <b>life-energy budget</b>, zero-sum between relationship-seeking and goal-directed activity, which a differentiating step <em>debits</em>. Reactivity is <b>not</b> a field &mdash; Bowen names two variables and derives it. Sibling position is static profile data in the paper's sense and one of Bowen's eight concepts; it shapes the propensity vector and nothing else.</p>
+    <p><b>Relationship.</b> The object the current model lacks. Two members, a contact rate, an intensity, a tension level, a distance level, a functioning-balance scalar (positive means A over-functions for B), a fusion index, a cut-off flag, and &mdash; the term that turns out to carry the most weight &mdash; a <b>bond energy</b>.</p>
+    <p><span class="revmark">rev</span> Four more the corpus requires. A <b>transfer latency</b>, because stated delays differ by edge &mdash; "within hours" on one, months on another &mdash; where both the current engine and an ordinary event loop deliver everything in one tick. A directed <b>investment</b> term, which is <em>share of thought occupied by the target, valence-blind</em>: conflict-laden preoccupation is <em>high</em> investment, so any implementation deriving it from warmth inverts the sign on exactly the families this is about. The <b>areas of joint activity</b> over which the tie is live, because the functioning balance is held per area and "reducing the areas of joint activity" operates on that same variable. And a monotonically growing <b>taboo set</b> &mdash; subjects withdrawn from a tie and not returned.</p>
+    <p>Bond energy is the unresolved intensity still bound in the relationship, and it is <em>not</em> the same as contact. A cut-off tie has no interaction and high bond energy. A genuinely differentiated low-contact tie has no interaction and low bond energy. Without this term the two are indistinguishable, which would leave the model unable to tell a rupture from a resolved distance &mdash; the most consequential discrimination in this part of the theory. Ties are directed in their functioning balance and undirected in their conductance.</p>
+    <p><b>Triangle.</b> Three people whose three ties are all active. Holds which pair is currently the inside twosome and who is outside, plus how much anxiety the structure is currently binding. Positions shift under tension — that shifting <em>is</em> the mechanism. Twelve people give 220 possible triads; the model tracks only those that actually activate.</p>
+    <p><b>External agents.</b> Not a fifth type &mdash; <span class="m">Person</span> with <span class="m">role = external</span>: the counsellor, doctor, teacher, employer, close friend. Restricted repertoire, real ties, and a real position in whatever triangle they get pulled into. Section 5.1.</p>
+    <p><b>Family.</b> The system: the calendar of nodal events (deaths, births, launches, marriages, illnesses, job loss), the ambient societal anxiety scalar inherited from the current <span class="m">S_BASELINE</span>, and the multigenerational ledger.</p>
+
+    <div class="note warn">
+      <span class="lbl"><span class="revmark">rev</span> &nbsp;The roster is not fixed, and the title of this document is a simplification</span>
+      <p>Two chapters make the membership of the emotional system a <b>function of anxiety</b>. Calm, it is a
+      few most-involved people; under stress the fusion reaches extended family &ldquo;and even
+      nonrelatives&rdquo;, and &ldquo;live-in servants can be more emotionally fused into the family emotional
+      system than certain blood relatives&rdquo; (Ch07). Ch17 gives the full cascade &mdash; twosome &rarr;
+      triangle &rarr; interlocking triangles &rarr; neighbours, schools, agencies, courts &rarr; reversion on
+      subsidence. <b>A fixed twelve-person roster keyed on kinship gets the wrong set, and gets it wrong
+      exactly when it matters.</b></p>
+      <p>The primitive is a <b>continuous per-agent involvement weight recomputed each tick, with membership a
+      thresholded readout</b> &mdash; not a set that grows and shrinks. Twelve people remain the right instance
+      to build and test on; they are not the right definition of the system.</p>
+      <p>The same pressure comes from a second direction. Ch18 makes <b>degree of emotional cutoff with the
+      families of origin an <i>input</i> to the family's intensity</b>, alongside undifferentiation and stress
+      &mdash; not an outcome of it. <b>A model closed at the household cannot compute its own driving term.</b>
+      This is the strongest argument in the corpus against Phase B's four-person nuclear spike.</p>
+    </div>
+
+    <div class="note">
+      <span class="lbl">Two framings worth adopting wholesale</span>
+      <p><b>The genogram is the data structure</b> &mdash; not a view of the model but the model itself: the agent graph, the seed format and the readout are one artifact. That collapses three things listed separately above, and it means the figure at the top of this section is not an illustration of the design, it <em>is</em> the design.</p>
+      <p><b>Anxiety is conserved and redirected, not destroyed.</b> This belongs as a named invariant the engine enforces rather than a soft claim about competing mechanisms. When a symptom-bearer is removed, a tie is cut, or a triangle discharges, the bound anxiety has to be accounted for somewhere &mdash; relief in one member, re-focus onto another, or a standing residual. An engine that lets it evaporate is wrong, and the conservation check is cheap to assert every tick.</p>
+    </div>
+
+    <h3>The behavioural repertoire</h3>
+    <p>Every tick, each person selects exactly one move. The core set is deliberately small &mdash; Bowen's own vocabulary, nothing invented. <b><span class="revmark">rev</span> <b>It is not the whole repertoire:</b></b> the corpus names six more, listed below the nine.</p>
+
+    <dl class="rep wide">
+      <div><dt>PURSUE</dt><dd>Seek contact, close the distance, ask for reassurance.</dd></div>
+      <div><dt>DISTANCE</dt><dd>Withdraw, go quiet, reduce contact without ending it.</dd></div>
+      <div><dt>CONFLICT</dt><dd>Criticise, blame, press a position against the other.</dd></div>
+      <div><dt>OVERFUNCTION</dt><dd>Do for, advise, take over the other's responsibility.</dd></div>
+      <div><dt>UNDERFUNCTION</dt><dd>Defer, collapse, hand the responsibility over.</dd></div>
+      <div><dt>TRIANGLE</dt><dd>Route it through a third — recruit an ally, talk about, focus on a child.</dd></div>
+      <div><dt>CUTOFF</dt><dd>End contact. Cheap relief now, expensive at the next nodal event.</dd></div>
+      <div class="up"><dt>I&#8209;POSITION</dt><dd>State a self without attacking or accommodating. The differentiating move.</dd></div>
+      <div class="up"><dt>STAY&#8209;IN&#8209;CONTACT</dt><dd>Remain present under tension without acting. The other differentiating move.</dd></div>
+    </dl>
+
+    <p><span class="revmark">rev</span> <b>Six the corpus adds, and the nine do not cover.</b> <span class="m">DETRIANGLE</span> &mdash;
+    push an aligned third party back to neutral; verbatim in Ch21, and the countermeasure that makes the
+    ally rule work. <span class="m">PREVENT_ALIGNMENT</span> &mdash; act on <em>potential</em> alignment
+    before it forms; Ch21's two deliberately contradictory letters, sent in the same mail within the hour,
+    exist for exactly this. <span class="m">REDUCE_CUTOFF</span> &mdash; increase contact on a severed tie,
+    which lowers anxiety and pointedly does <em>not</em> raise differentiation. And three by which a family
+    manipulates the professional field: <span class="m">SPLIT</span> (consult an outsider without telling
+    the others, withholding history so the opinion is uncheckable), <span class="m">FRAME_AMBIGUITY</span>
+    (speak symptoms as social talk in the professional's presence, so "his response <em>or lack of it</em>"
+    carries professional weight), and <span class="m">DISPLACE</span> (take over another member's contact
+    with an external agent).</p>
+
+    <div class="note warn">
+      <span class="lbl">The same move is not the same act</span>
+      <p>A move's effect <b>cannot</b> be a function of the move type and the tie alone. Five chapters
+      across four independent settings say it is multiplied by a hidden state of the actor that the
+      <em>receivers</em> can read and the actor may not: at a low level "to 'stand up to' means to attack
+      and shock the other&hellip; and to get away with breaking rules"; accepting <em>blame</em> looks
+      identical to taking <em>responsibility</em> and produces none of the effect, discriminated only by
+      "the inner orientation of self"; and a whole band of the scale is occupied by people who look
+      differentiated and are not. <b>That is what the outside-ness field is for.</b></p>
+    </div>
+
+    <p>The move is drawn from a softmax over propensity scores. Each score is a function of the person's current anxiety, their <span class="m">FD</span>, the state of the tie in question, their position in whichever triangle is active, and their learned repertoire — the moves that worked for them before get reinforced, which is how a family develops a characteristic style. High <span class="m">FD</span> raises the weight on the two bottom-row moves; rising anxiety raises the weight on the seven above them. That single relationship is the whole of the theory expressed as a policy.</p>
+
+    <h3>Where the current math goes</h3>
+    <p>Almost none of it is thrown away. It moves from a global field update into a per-agent, per-event update.</p>
+
+    <div class="tablewrap wide">
+      <table class="keep">
+        <thead><tr><th style="width:34%">Today</th><th>Its new home</th></tr></thead>
+        <tbody>
+          <tr><td>&Delta;S<sub>i</sub> = &Sigma;<sub>j</sub>&nbsp;(S<sub>j</sub>&minus;80)(TX<sub>j</sub>/C<sub>j</sub>)&middot;friction / C<sub>i</sub></td><td>Kept, same shape. The sum runs over <em>events received this tick</em> instead of eight grid cells, and <span class="m">friction</span> becomes a property of the specific tie rather than a global 0.2.</td></tr>
+          <tr><td>&Delta;TX = (S &minus; 80)&nbsp;&gamma;&nbsp;/&nbsp;C</td><td><span class="revmark">rev</span> Kept in form, but <b>reactivity stops being a stored column</b>. Bowen names exactly two variables &mdash; level of self and level of anxiety &mdash; and derives reactivity from them: &ldquo;the lower the level of self, the more reactive&rdquo; (Ch17). The repo carries C and TX as independent state; the rebuild should compute reactivity from the pair and store the anxiety, not the response. See <a href="#corpus">&sect;10</a>.</td></tr>
+          <tr><td>C recovery = 0.5&nbsp;&times;&nbsp;(C<sub>base</sub>&nbsp;&minus;&nbsp;C) when calm</td><td>Kept, moved to the yearly clock where it always belonged.</td></tr>
+          <tr><td>FD = C &times; clip(baseline/S, 0.3, 1.5)</td><td>Kept unchanged, and becomes the divisor in every single appraisal.</td></tr>
+          <tr><td>chronic_anxiety fixed at age 10</td><td>Kept. The source changes from a family-average of S and TX to the child's own <em>witnessed event history</em> over the first ten years. Same idea, better fidelity, and it makes witnessing load-bearing.</td></tr>
+          <tr><td>child_C = avg(parent_C) &times; U(0.9, 1.1), &times; U(0.7, 0.9) if projection target</td><td>Kept. The projection target stops being assigned at birth by a parental-TX threshold and becomes an <em>outcome</em>: the child who received the most projection-type events.</td></tr>
+          <tr><td>coaching_active: +0.5 C/yr, &minus;1.0 TX/cycle</td><td>Becomes a per-person flag that raises the propensity on I&#8209;POSITION and STAY&#8209;IN&#8209;CONTACT and lets C climb. Coaching one member and watching the system react is the headline experiment.</td></tr>
+          <tr><td>update_triangles(): borrow a stranger for 2 cycles</td><td>Replaced by standing triangles with inside/outside positions that shift under tension.</td></tr>
+          <tr><td>divorce after 50 cycles of S &gt; 160</td><td>Replaced. Cut-off is a <em>move</em>, priced by the state of that one relationship at that moment.</td></tr>
+          <tr><td>Grid, np.roll, spatial matchmaking, income, tax, safety net, national debt, Gompertz over 10k, the heat map</td><td>Deleted. Societal pressure survives as a single scalar input to the family, not a simulated population.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Two clocks, and a per-edge delay</h3>
+    <p>The fix for F5. A <b>fast tick of one week</b> carries events, appraisal, acute anxiety, tie tension, triangle position shifts, and symptom accumulation. A <b>slow tick of one year</b> carries differentiation, chronic anxiety drift, life stage, mortality, and the nodal-event calendar. Fifty-two fast ticks per slow tick; a forty-year family history is 2,080 fast ticks over twelve agents, which is nothing.</p>
+    <p><span class="revmark">rev</span> <b>Neither clock is the whole timing story.</b> Delivery latency is a property of the specific tie, not of the tick: the corpus states different delays on different edges of the same family, from "within hours" to months. An event scheduled on the fast clock still arrives when its edge says it arrives.</p>
+  </section>
+
+  <!-- ==================== 4 ==================== -->
+  <section class="section">
+    <div class="rail">04<br>The mechanism</div>
+    <h2>How the agents actually interact</h2>
+
+    <p>This is the part worth being concrete about, because "agent" suggests something more mysterious than what is going on.</p>
+
+    <p><b>The agents do not talk.</b> Not in the default design. An interaction is a small typed record — a struct — passed from one agent to another through a queue. It has a sender, one or more receivers, a move type, a numeric intensity, and a timestamp &mdash; plus <span class="revmark">rev</span> three properties the corpus makes consequential and a plain record does not carry. <b>Source position:</b> identical content lands oppositely by speaker &mdash; an outsider naming a mother's projection is attacked by all three, while the father saying the same thing produces "a significant beneficial emotional reaction", and the verbs are asymmetric too, so the <em>milder</em> outside act is worse than the <em>stronger</em> inside one. <b>Route:</b> a direct dyad amplifies where the same message routed through a neutral third damps. <b>Fidelity:</b> distortion compounds per private hop. Together these are what make "who talks to whom in whose presence" mechanically consequential, which is what the ward's one working rule turned on. Natural language is an optional decoration you can add on top later, and section 4.4 covers what it costs.</p>
+
+    <p>Everything that happens in the model happens through this loop:</p>
+
+    <figure class="wide">
+      <svg viewBox="0 0 900 470" role="img" aria-label="The interaction loop: an agent selects a move, emits an event into a time-ordered queue, the queue delivers it to the target's inbox and to any witness's inbox, each receiver appraises it — anxiety rises by intensity times tie conductance divided by functional differentiation — and replies with a new event. At the end of each week a consolidation step decays acute anxiety, hardens repeated ties, and nudges chronic anxiety and differentiation.">
+        <defs>
+          <marker id="a2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+            <path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"/>
+          </marker>
+          <marker id="a2r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+            <path d="M 0 0 L 10 5 L 0 10 z" fill="var(--anx)"/>
+          </marker>
+        </defs>
+
+        <text x="20" y="24" font-family="IBM Plex Mono, monospace" font-size="11.5" letter-spacing="1.4" fill="currentColor" opacity="0.62">ONE FAST TICK  ·  ONE WEEK</text>
+
+        <!-- select -->
+        <rect x="20" y="96" width="152" height="62" rx="3" fill="var(--surface)" stroke="currentColor" stroke-width="1.4"/>
+        <text x="96" y="121" text-anchor="middle" font-family="Archivo, sans-serif" font-weight="600" font-size="13" fill="currentColor">Ravi selects</text>
+        <text x="96" y="139" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10.5" fill="var(--anx)">softmax(propensities)</text>
+
+        <!-- queue -->
+        <rect x="252" y="96" width="152" height="62" rx="3" fill="var(--surface)" stroke="currentColor" stroke-width="1.4"/>
+        <text x="328" y="117" text-anchor="middle" font-family="Archivo, sans-serif" font-weight="600" font-size="13" fill="currentColor">Event queue</text>
+        <line x1="278" y1="130" x2="378" y2="130" stroke="currentColor" stroke-opacity="0.35"/>
+        <line x1="278" y1="139" x2="358" y2="139" stroke="currentColor" stroke-opacity="0.35"/>
+        <line x1="278" y1="148" x2="368" y2="148" stroke="currentColor" stroke-opacity="0.35"/>
+
+        <!-- inboxes -->
+        <rect x="484" y="42" width="176" height="62" rx="3" fill="var(--surface)" stroke="currentColor" stroke-width="1.4"/>
+        <text x="572" y="67" text-anchor="middle" font-family="Archivo, sans-serif" font-weight="600" font-size="13" fill="currentColor">Marta &mdash; target</text>
+        <text x="572" y="85" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10.5" fill="currentColor" opacity="0.6">tie = marriage, conflicted</text>
+
+        <rect x="484" y="150" width="176" height="62" rx="3" fill="var(--surface)" stroke="currentColor" stroke-width="1.4" stroke-dasharray="4 3"/>
+        <text x="572" y="175" text-anchor="middle" font-family="Archivo, sans-serif" font-weight="600" font-size="13" fill="currentColor">Nadia &mdash; witness</text>
+        <text x="572" y="193" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10.5" fill="currentColor" opacity="0.6">present, not addressed</text>
+
+        <!-- appraise -->
+        <rect x="740" y="96" width="142" height="62" rx="3" fill="var(--anx)" fill-opacity="0.09" stroke="var(--anx)" stroke-width="1.5"/>
+        <text x="811" y="121" text-anchor="middle" font-family="Archivo, sans-serif" font-weight="600" font-size="13" fill="currentColor">Appraise</text>
+        <text x="811" y="139" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10.5" fill="var(--anx)">&Delta;A = i &middot; g / FD</text>
+
+        <!-- arrows -->
+        <line x1="172" y1="127" x2="246" y2="127" stroke="currentColor" stroke-width="1.4" marker-end="url(#a2)"/>
+        <text x="209" y="118" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" fill="currentColor" opacity="0.62">emits</text>
+
+        <path d="M 404 118 L 478 78" fill="none" stroke="currentColor" stroke-width="1.4" marker-end="url(#a2)"/>
+        <text x="437" y="88" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" fill="currentColor" opacity="0.62">to</text>
+
+        <path d="M 404 138 L 478 176" fill="none" stroke="currentColor" stroke-width="1.4" stroke-dasharray="4 3" marker-end="url(#a2)"/>
+        <text x="437" y="180" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" fill="currentColor" opacity="0.62">overhears</text>
+
+        <path d="M 660 80 L 734 115" fill="none" stroke="var(--anx)" stroke-width="1.4" marker-end="url(#a2r)"/>
+        <path d="M 660 174 L 734 141" fill="none" stroke="var(--anx)" stroke-width="1.4" marker-end="url(#a2r)"/>
+
+        <!-- return -->
+        <path d="M 811 158 L 811 262 L 96 262 L 96 164" fill="none" stroke="currentColor" stroke-width="1.4" marker-end="url(#a2)"/>
+        <text x="454" y="253" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10.5" fill="currentColor" opacity="0.66">the reply is just another event &mdash; each receiver becomes a sender</text>
+
+        <!-- divider -->
+        <line x1="20" y1="308" x2="880" y2="308" stroke="currentColor" stroke-opacity="0.3" stroke-dasharray="2 5"/>
+        <text x="20" y="340" font-family="IBM Plex Mono, monospace" font-size="11.5" letter-spacing="1.4" fill="currentColor" opacity="0.62">END OF TICK  ·  CONSOLIDATE</text>
+
+        <g font-family="Archivo, sans-serif" font-size="12.5" fill="currentColor">
+          <rect x="20" y="360" width="205" height="72" rx="3" fill="var(--surface)" stroke="currentColor" stroke-opacity="0.45"/>
+          <text x="34" y="384" font-family="IBM Plex Mono, monospace" font-size="10.5" fill="var(--anx)">ACUTE ANXIETY</text>
+          <text x="34" y="404" opacity="0.78">decays toward the</text>
+          <text x="34" y="420" opacity="0.78">chronic floor</text>
+
+          <rect x="240" y="360" width="205" height="72" rx="3" fill="var(--surface)" stroke="currentColor" stroke-opacity="0.45"/>
+          <text x="254" y="384" font-family="IBM Plex Mono, monospace" font-size="10.5" fill="var(--anx)">TIES</text>
+          <text x="254" y="404" opacity="0.78">repeated moves harden</text>
+          <text x="254" y="420" opacity="0.78">tension, distance, balance</text>
+
+          <rect x="460" y="360" width="205" height="72" rx="3" fill="var(--surface)" stroke="currentColor" stroke-opacity="0.45"/>
+          <text x="474" y="384" font-family="IBM Plex Mono, monospace" font-size="10.5" fill="var(--anx)">TRIANGLES</text>
+          <text x="474" y="404" opacity="0.78">positions shift; bound</text>
+          <text x="474" y="420" opacity="0.78">anxiety is re-tallied</text>
+
+          <rect x="680" y="360" width="200" height="72" rx="3" fill="var(--surface)" stroke="var(--dif)" stroke-opacity="0.6"/>
+          <text x="694" y="384" font-family="IBM Plex Mono, monospace" font-size="10.5" fill="var(--dif)">SLOW CLOCK &times;52</text>
+          <text x="694" y="404" opacity="0.78">C, chronic anxiety,</text>
+          <text x="694" y="420" opacity="0.78">stage, symptom, death</text>
+        </g>
+      </svg>
+      <figcaption><b>The interaction mechanism, end to end.</b> An interaction is a record, not a conversation. The witness path is not an extra: a child who overhears a fight that was not addressed to them still appraises it, and that accumulated witnessing is what sets their chronic anxiety at age ten and makes them the projection target. <b>g</b> is the tie's conductance, <b>i</b> the move's intensity, <b>FD</b> the receiver's functional differentiation — the same division by differentiation the current engine already performs, now once per event instead of once per year.</figcaption>
+    </figure>
+
+    <h3>4.1 The seven steps, in words</h3>
+    <ol>
+      <li><b>Perceive.</b> The agent reads its inbox: events addressed to it, and events it witnessed. It also reads the state of its own ties and its own anxiety.</li>
+      <li><b>Appraise.</b> Each incoming event raises acute anxiety by <span class="m">intensity &times; conductance / FD</span>. A high-differentiation receiver barely moves; a low-differentiation one takes the full hit. This is the current contagion formula, unchanged, now applied per event &mdash; with one addition &mdash; <span class="revmark">rev</span>  <b>anxiety gates information transfer</b>. Above threshold the content is not heard, only defended against, so appraisal carries a gain function rather than being a plain product. Symptom onset then depends on <b>chronicity, not instantaneous level</b> &mdash; "any unit can recover from periodic panic or overloads, but when the panic becomes chronic one or more of the individual units can collapse" &mdash; which requires an <em>integrator</em>, not a threshold test.</li>
+      <li><b>Select.</b> Anxiety and tie state produce propensity scores over the nine moves; one is drawn.</li>
+      <li><b>Act.</b> The chosen move becomes a new event — sender, target, witnesses, intensity, timestamp — pushed into the queue.</li>
+      <li><b>Deliver.</b> The queue pops events in time order and drops each into the right inboxes. Simultaneous events are batched, so the order within a tick does not silently decide the outcome.</li>
+      <li><b>React.</b> Receivers become senders. This is the S&nbsp;&rarr;&nbsp;R&nbsp;&rarr;&nbsp;S loop already documented in the spec, now with named participants.</li>
+      <li><b>Consolidate.</b> At the end of the tick, acute anxiety decays, repeated moves harden the ties (three withdrawals in a row is not three events, it is a distant relationship), triangles re-tally, and once every fifty-two ticks the slow clock advances.</li>
+    </ol>
+
+    <h3>4.2 A worked trace</h3>
+    <p>Ravi (52, <span class="m">C&nbsp;=&nbsp;38</span>) is made redundant in week 0. Nadia is 17 and living at home. This is what the log looks like — and note that no single line of it is surprising, which is the point: the model's job is to compose ordinary moves into a non-obvious outcome.</p>
+
+    <div class="tablewrap wide">
+      <table>
+        <thead><tr><th>Week</th><th>Who</th><th>Move</th><th>Toward</th><th>What it does</th></tr></thead>
+        <tbody>
+          <tr><td class="num">0</td><td class="who">&mdash;</td><td class="move">NODAL EVENT</td><td>Ravi</td><td>Job loss. Acute anxiety +40, undamped &mdash; this one comes from outside the system.</td></tr>
+          <tr><td class="num">1</td><td class="who">Ravi</td><td class="move">CONFLICT</td><td>Marta</td><td>Marital tie tension +. Marta's anxiety rises by intensity &divide; her FD of 44. Nadia witnesses.</td></tr>
+          <tr><td class="num">2</td><td class="who">Marta</td><td class="move">DISTANCE</td><td>Ravi</td><td>Tie conductance drops. Marta's own anxiety falls &mdash; distance works, briefly. Ravi's rises: the pursuer gets less.</td></tr>
+          <tr><td class="num">4</td><td class="who">Ravi</td><td class="move">TRIANGLE</td><td>Nadia</td><td>Anxiety routes to the child. Marital tension drops 30%. Nadia's rises. The Ravi&ndash;Marta&ndash;Nadia triangle activates with Marta outside.</td></tr>
+          <tr><td class="num">6</td><td class="who">Marta</td><td class="move">OVERFUNCTION</td><td>Nadia</td><td>Marta moves into the twosome via the child. Nadia's functioning balance goes negative on both parental ties.</td></tr>
+          <tr><td class="num">9&ndash;20</td><td class="who">Nadia</td><td class="move">UNDERFUNCTION</td><td>Both</td><td>Reciprocal collapse. Nadia's FD drops well below her C of 41. Symptom load accumulates in the social channel.</td></tr>
+          <tr><td class="num">24</td><td class="who">Ana</td><td class="move">TRIANGLE</td><td>Marta</td><td>The grandmother is recruited. Generation 1 enters the field; Ana's own tie to Bruno, cut off since 2009, carries none of it.</td></tr>
+          <tr><td class="num">31</td><td class="who">Marta</td><td class="move move-c">I&#8209;POSITION</td><td>Ravi</td><td>Under coaching. Tension spikes for six weeks &mdash; the system pushes back &mdash; then settles below its pre-crisis level.</td></tr>
+          <tr><td class="num">40</td><td class="who">Nadia</td><td class="move">CUTOFF</td><td>Ravi</td><td>Or not, depending on whether week 31 happened. This is the branch the ensemble is measuring.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="note">
+      <span class="lbl">Why the witness path matters</span>
+      <p>In the trace above, Nadia's chronic anxiety is not set by anything addressed to her. It is set by what she overheard between weeks 1 and 24. That is Bowen's projection process expressed as a mechanism rather than a coefficient — and it is the thing the current engine's <code>child_C &times; U(0.7, 0.9)</code> is standing in for.</p>
+    </div>
+
+    <h3>4.3 The standing term &mdash; what a pure event loop gets wrong</h3>
+
+    <p>The loop as described has a defect, worth naming precisely because the direction was right and the mechanism was not. Cut-off appeared above as cheap relief now and a cost arriving <em>at the next nodal event</em>. The cost is real, but it is not event-gated: a cut-off relationship carries a <b>continuous background load with no events at all</b>. In the quiet years between nodal events that version shows a cut-off family as calm, when the whole Bowen claim is that the intensity has gone underground rather than away.</p>
+
+    <p>An event-driven loop, left alone, gets this backwards: fewer events means less arriving anxiety, so severing a tie reads as pure relief. The fix is small and it is the bond energy term from section 3. Each tick, before any event is delivered, every person takes a standing load from their ties:</p>
+
+<pre><code><span class="cm"># standing load — runs every tick whether or not anything happened</span>
+<span class="kw">for</span> tie <span class="kw">in</span> person.ties:
+    person.acute += f(tie.bond_energy) / person.fd
+
+<span class="cm"># cutoff:    no events, bond_energy high, decays very slowly or not at all</span>
+<span class="cm"># distance:  few events, bond_energy moderate</span>
+<span class="cm"># resolved:  few events, bond_energy low     &lt;- the discrimination that matters</span>
+<span class="cm"># conflict:  many events, bond_energy high</span></code></pre>
+
+    <p>Three consequences follow, and each is testable. A <span class="m">TRIGGER</span> event &mdash; a holiday, a mention, someone else's news &mdash; spikes the standing term with no contact at all with the cut-off person. A <span class="m">RECONCILIATION</span> event reactivates the tie, converting standing load back into interaction-driven load. And the same primitive covers the institutionalization case with no new machinery: a removed member becomes non-interactive while keeping a <b>worry edge</b> to everyone, which is bond energy under another name.</p>
+
+    <p>That two independently written model ideas both need the same edge-level term is the strongest available evidence that it is the right primitive. Build it once, in the Relationship object, at Phase B.</p>
+
+    <h3>4.4 The language layer, if you want it</h3>
+    <p>Light Society, the paper, resolves each interaction with a large language model: the agent gets a natural-language profile, the event carries an utterance, and the model decides the reply. Their §4.7 setup is the closest template to yours — 1,000 agents with a continuous stance and confidence, an event queue, speaker activation, heard events fanned out to graph neighbours, and an end-of-day reflective update that integrates the day's exposures. Structurally that is exactly the loop above.</p>
+    <p>Three things are worth taking from how they handled the cost. They distilled the language model into a small classifier surrogate; they precomputed a lookup table over the full input space and reduced each interaction to an array lookup; and they showed that per-sample accuracy was a poor guide to whether the surrogate reproduced the population's behaviour, so they selected checkpoints on distributional fidelity instead.</p>
+    <p>For twelve agents you do not need any of that machinery for cost reasons — a 40-year run is a few thousand calls. The reasons to be careful are different, and they are in section 7.</p>
+  </section>
+
+  <!-- ==================== 5 ==================== -->
+  <section class="section">
+    <div class="rail">05<br>Outside</div>
+    <h2>The world outside the family</h2>
+
+    <p>Two things live outside the twelve people and both have to get in: the professionals a family leans on, and the events that arrive from elsewhere. They need different treatment, and one of them carries a trap.</p>
+
+    <h3>5.1 Professionals are agents, not services</h3>
+
+    <p>A doctor, a counsellor, a teacher, an employer, a close friend &mdash; in Bowen's terms none of these is a service the family consumes. Each is a candidate <em>triangle vertex</em>. That is precisely why the coaching method insists the coach stay detriangled: a professional who takes a side has joined the emotional system and is now part of the problem being treated.</p>
+
+    <p>So they are not a new object type. They are <span class="m">Person</span> with <span class="m">role = external</span>, a restricted repertoire, and a tie to one or more family members. Adding them costs no new machinery, and it repairs a defect rather than widening scope: <span class="m">coaching_active</span> today is a global boolean applied to everyone at once, with no position in the system and no relationship to anybody. That is the F2 and F3 problem in a third place. A coach who is an agent with a tie is strictly more correct <em>and</em> strictly simpler than a flag that reaches into every unit.</p>
+
+    <p>Their repertoire is a subset of the nine. A counsellor can STAY&#8209;IN&#8209;CONTACT and hold an I&#8209;POSITION; can OVERFUNCTION, which is the doctor who takes over what the family should be carrying; and can TRIANGLE, which is the counsellor who sides with one partner against the other. A discharge or a dropped referral is a CUTOFF. What they cannot easily do is the thing that makes them useful &mdash; and whether they manage it is a property worth testing rather than assuming.</p>
+
+    <p>This also gives the societal dials something concrete to mean. The family gains an <b>access vector</b>: which external ties are available and reachable at all &mdash; healthcare, counselling, stable employment, a school that notices. Whether the family <em>has</em> a counsellor to triangle is a societal input; what happens once they do is family process. That is a much sharper reading of <span class="m">L</span> than "quality of institutional differentiation."</p>
+
+    <h3>5.2 The trap: illness is an output before it is an input</h3>
+
+    <div class="note warn">
+      <span class="lbl">The direction of causation</span>
+      <p>Finding F7 says the model's dependent variable is the symptom &mdash; physical illness, emotional illness, social dysfunction, and which member carries it. If illness is drawn from a national incidence table, the most interesting thing the model has to say has been turned into one of its inputs. It would then reproduce the statistics by construction and tell you nothing you did not feed it.</p>
+    </div>
+
+    <p>The resolution is to split events by where they genuinely originate, and to keep that on the record itself.</p>
+
+    <div class="tablewrap wide">
+      <table>
+        <thead><tr><th style="width:17%">Origin</th><th style="width:33%">Examples</th><th>How it enters</th></tr></thead>
+        <tbody>
+          <tr><td class="who">Exogenous</td><td>Plant closure, recession, a road accident, a pandemic, an out-of-family death, a landlord's decision</td><td>Sampled or scheduled. Arrives undamped &mdash; differentiation governs the <em>response</em>, not the event. Statistics belong here.</td></tr>
+          <tr><td class="who">Endogenous</td><td>Stress-linked illness, emotional symptoms, job loss through deteriorating functioning, a child's school failure</td><td>Generated by accumulated load in the three symptom channels. Never sampled. This is the model's output.</td></tr>
+          <tr><td class="who">Mixed</td><td>Most real illness, and much real job loss</td><td>Both paths fire, and the <span class="m">exogenous</span> flag keeps them countable separately. Without that flag the two are indistinguishable at readout and the calibration below is impossible.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>The double-counting risk is concrete: national incidence of a stress-linked condition already contains the stress-driven cases. Feed the raw rate in as an exogenous input <em>and</em> generate cases endogenously, and every such case is counted twice.</p>
+
+    <h3>5.3 Statistics as a calibration target, not an event generator</h3>
+
+    <p>The move that keeps this honest is the standard one for agent models: let the model generate endogenous events from its own dynamics, then check that the incidence it produces &mdash; aggregated over many synthetic families, never one &mdash; lands near the national rate. The statistics constrain the <em>parameters</em> rather than driving the <em>events</em>. They become an acceptance test rather than a data feed.</p>
+
+    <p>Not all sources are equally usable, and the differences matter:</p>
+
+    <ul>
+      <li><b>Employment and layoff hazard</b> by age, sector and education is the cleanest. Mass layoffs and closures are genuinely exogenous, the data is good, and it can drive events directly.</li>
+      <li><b>Physical illness incidence</b> by age is a calibration target, not an input, for the reason above. The exception is the genuinely non-stress-linked &mdash; accidents, congenital conditions &mdash; which can be sampled.</li>
+      <li><b>Mental health prevalence</b> is the weakest. It is diagnosis-based, so it measures help-seeking as much as illness &mdash; and help-seeking is itself a family variable the model is trying to produce. Suspicious in both directions.</li>
+      <li><b>Divorce, cut-off, estrangement, launch age</b> &mdash; never inputs. These are relationship outcomes and the model exists to generate them. Sampling them is circular in exactly the way that makes a model unfalsifiable.</li>
+    </ul>
+
+    <p>The repo already holds both the right pattern and the wrong one. <code>apply_aging</code> uses a cited Gompertz&ndash;Makeham hazard for mortality &mdash; a genuinely exogenous event, properly sourced, with the checkpoints written down. Copy that. Meanwhile <code>apply_income</code> draws unemployment as an independent coin flip every cycle at <span class="m">rate 0.05</span> with a flat <span class="m">+10</span> stress penalty, so a person can be unemployed in year three, employed in year four and unemployed again in year five. There is no <em>spell</em>. Duration is the entire reason job loss stresses a family, and the current model has none of it.</p>
+
+    <div class="note">
+      <span class="lbl">Consequence for the design</span>
+      <p>Any statistical input must generate <b>spells with a start and a duration</b>, not per-tick probabilities. The event record therefore carries a duration field from the first version, whether or not anything reads it yet.</p>
+    </div>
+
+    <h3>5.4 So: full statistics now, or a summary value?</h3>
+
+    <p>Neither, quite. <b>Fix the seam now and put the simplest possible thing behind it.</b></p>
+
+    <p>A single summary value is the wrong starting point, because a scalar cannot say <em>who</em> the event lands on, <em>when</em>, or <em>what kind</em> it is &mdash; and those three facts decide everything downstream: which tie carries it, which triangle activates, which life stage it hits. Ravi losing a job at 52 with a teenager at home and Ravi losing a job at 34 are different events, and a rate cannot tell them apart.</p>
+
+    <p>An event record can. So settle the record and the interface in the spec now, and let the source behind it start trivially:</p>
+
+<pre><code><span class="cm"># the shape is fixed in the spec; the source behind it is swappable</span>
+<span class="kw">@dataclass(frozen=True)</span>
+<span class="kw">class</span> NodalEvent:
+    year:       int
+    week:       int
+    target:     PersonId
+    kind:       EventKind     <span class="cm"># JOB_LOSS | ILLNESS | DEATH | BIRTH | MOVE</span>
+                              <span class="cm"># INSTITUTIONALIZE | HOSPITALIZE | RETURN</span>
+                              <span class="cm"># TRIGGER | RECONCILIATION       (see 4.3)</span>
+    magnitude:  float
+    duration:   int           <span class="cm"># weeks &mdash; spells, never coin flips (5.3)</span>
+    exogenous:  bool          <span class="cm"># keeps endogenous cases countable at readout (5.2)</span>
+    source_pos: Position      <span class="cm"># INSIDE | OUTSIDE &mdash; decides the sign, not just</span>
+                              <span class="cm">#   the size, of the effect (4)</span>
+    route:      tuple[PersonId, ...]
+                              <span class="cm"># direct dyad amplifies; via a neutral third damps</span>
+    fidelity:   float         <span class="cm"># degrades per private hop</span>
+    latency:    int           <span class="cm"># weeks on this edge &mdash; hours to months (3)</span>
+
+<span class="kw">class</span> StressorSource(Protocol):
+    <span class="kw">def</span> events_for(self, year: int, family: Family) -&gt; list[NodalEvent]: ...</code></pre>
+
+    <p>Three sources implement it, added in this order:</p>
+
+    <div class="tablewrap wide">
+      <table class="keep">
+        <thead><tr><th style="width:23%">Source</th><th style="width:12%">Phase</th><th>What it does</th></tr></thead>
+        <tbody>
+          <tr><td>ScriptedSource</td><td>B</td><td>A hand-written list in markdown config &mdash; "Ravi, year 12, job loss, 34 weeks." Enough to build, trace and test everything through phases B to D, and enough to run any counterfactual you can describe in a sentence.</td></tr>
+          <tr><td>HazardSource</td><td>E</td><td>Samples spells from age- and cohort-conditioned rates in a data file. Employment first, because the data is cleanest and the event is genuinely exogenous. Accidents and non-stress-linked illness second.</td></tr>
+          <tr><td>DialSource</td><td>E</td><td>L, X, E and the access vector modulating the rate of either of the above, so "harsh decade" and "no counselling available" become one-line experiments.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>Three of those kinds exist because of the standing term rather than the stressor schedule. <span class="m">INSTITUTIONALIZE</span> is a long removal that converts every one of the member's ties to worry edges; <span class="m">HOSPITALIZE</span> plus <span class="m">RETURN</span> is the short version that re-injects interaction on the way back; <span class="m">TRIGGER</span> and <span class="m">RECONCILIATION</span> act on bond energy directly and carry no stressor at all. They ride the same record because the same queue dispatches them &mdash; but they are not stressors, and the source does not sample them.</p>
+
+    <p>Nothing downstream changes when the source is swapped, which is the whole reason to settle the record shape early. It also puts the rates, the event kinds and the access vector in markdown config rather than in Python &mdash; content that needs editorial judgement, kept where it can be reviewed and argued with.</p>
+  </section>
+
+  <!-- ==================== 6 ==================== -->
+  <section class="section">
+    <div class="rail">06<br>Prediction</div>
+    <h2>What it can and cannot tell you</h2>
+
+    <p>You asked whether the outcome for the family can be predicted. The honest answer has three tiers, and being clear about which tier a given claim sits in is most of what separates a useful model from a plausible one.</p>
+
+    <h3>The two questions already on the list</h3>
+
+    <p>Both existing model ideas are Tier 3 questions &mdash; counterfactual contrasts between two arms &mdash; which is the tier this model is genuinely good at. They also work as requirements documents, because between them they exercise nearly every mechanism in section 3.</p>
+
+    <div class="tablewrap wide">
+      <table>
+        <thead><tr><th style="width:23%">Scenario</th><th style="width:31%">The contrast</th><th>What has to exist for it to run</th></tr></thead>
+        <tbody>
+          <tr>
+            <td class="who">Cut-off and background load</td>
+            <td>A cut-off adult child against a genuinely differentiated low-contact one &mdash; same contact frequency, different bond energy.</td>
+            <td>Bond energy, the standing term, <span class="m">TRIGGER</span> and <span class="m">RECONCILIATION</span>. Readout: per-agent anxiety by tie type, and whether cut-off shows a persistent load with a signature distinct from both resolved distance and open conflict.</td>
+          </tr>
+          <tr>
+            <td class="who">Institutionalization</td>
+            <td>Long removal against hospitalize-and-release. The predicted shapes differ: a lower but <em>sustained</em> residual, versus a temporary dip and re-escalation on return.</td>
+            <td>Worry edges, a rising symptom severity acting as a stressor, the conservation invariant, and a readout that answers where displaced anxiety <em>goes</em> &mdash; relief, re-focus onto a new target, or residual.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>The institutionalization scenario is the more demanding of the two and the better test, because it predicts a <em>non-monotonic three-phase shape</em> rather than a direction: chronic anxiety rises as the dysfunction escalates, then partially relieves while focus redirects onto the removed member, then settles onto a standing residual. Getting a direction right is weak evidence. Getting a shape right, in both arms, is not.</p>
+
+    <h4>Tier 1 — not available</h4>
+    <p>Dated, specific forecasts about real people. "Ravi develops hypertension in 2031." Twelve agents, no fitted data, and a theory with no measured constants cannot support this, and no amount of engineering will change that. Any output at this resolution should be treated as an artifact of the random seed.</p>
+
+    <h4>Tier 2 — available, with care</h4>
+    <p>Ensemble distributions. Run the same family from the same initial conditions across a thousand seeds and report what varies:</p>
+    <ul>
+      <li>Which generation carries the symptom, as a probability across the three.</li>
+      <li>Which specific person is most often the symptom-bearer, and how concentrated that is.</li>
+      <li>Which tie ruptures first, and the distribution of when.</li>
+      <li>The family's mean differentiation trajectory over forty years, with a band.</li>
+      <li>The share of the family's anxiety bound by each of the <b>three</b> mechanisms, over time, with the always-on distance baseline reported separately rather than as a fourth share.</li>
+      <li><span class="revmark">rev</span> <b>Three readouts that will lie to you, and must not be used as proxies for differentiation.</b> Overt emotionality is <em>not</em> monotonic in level &mdash; "people in the moderate range of differentiation have the most intense versions of overt feeling", so it peaks in exactly the band where most agents sit. Position-taking behaviour does not mean differentiation &mdash; the upper 25&ndash;50 band is dogmatic, compliant or rebellious, with "intellect in the service of the relationship system". And <em>any</em> estimate of differentiation is biased by construction, because pseudo-self is lent and borrowed between people, which "results in false readings when one attempts to estimate levels of differentiation". A coach-side or readout-side estimate must be modelled as biased and noisy, not as a clean read.</li>
+    </ul>
+    <p>Never a single run. With twelve agents there is no law of large numbers to lean on — the paper's own finding runs the other way, that demographic effects sharpen and individual variability washes out <em>as populations grow</em>. At your scale individual stochasticity dominates completely, so a single trajectory is a sample, not a result.</p>
+
+    <h4>Tier 3 — the strong suit</h4>
+    <p>Counterfactual differences. Run the identical seed twice, changing one thing, and report the shift in the distribution:</p>
+    <ul>
+      <li>One member does differentiation work &mdash; how does the symptom distribution move, and how long does the system's push-back last?</li>
+      <li>The cut-off with Bruno is repaired &mdash; does the anxiety that was flowing to Nadia redistribute?</li>
+      <li>The same nodal event arrives ten years earlier, at a different life stage.</li>
+      <li>The same family with grandparental differentiation two points higher.</li>
+    </ul>
+    <p>Differences between arms are far more trustworthy than absolute levels, because most of what you are uncertain about is shared between the two arms and cancels. This is also the tier that matches what the theory is actually for: Bowen's claims are comparative claims.</p>
+
+    <div class="note warn">
+      <span class="lbl">The framing that has to travel with the output</span>
+      <p>The model is a consistency engine for the theory, not a measurement instrument. It answers "if Bowen's account is right, what follows for a family shaped like this?" &mdash; and the paper makes the same concession about its own results, that simulated populations are not substitutes for participants and the outputs are hypotheses to be examined, not evidence about real systems. Anything the model emits should carry that label, because a readable trace about a recognisable family is extremely easy to over-believe.</p>
+    </div>
+  </section>
+
+  <!-- ==================== 6 ==================== -->
+  <section class="section">
+    <div class="rail">07<br>Assessment</div>
+    <h2>Strengths and weaknesses</h2>
+
+    <div class="twoup wide">
+      <div class="col-strong">
+        <p class="col-head">What this buys you</p>
+
+        <h3>The theory stops being an analogy</h3>
+        <p>Bowen is a theory about how people behave in relationships under anxiety. A behaviour-based agent model maps onto it structurally — dyad to dyad, triangle to triangle, move to move — instead of by analogy to a diffusion equation. Concepts you currently approximate become things you represent.</p>
+
+        <h3>Triangles become expressible</h3>
+        <p>This alone justifies the rebuild. The smallest stable unit in the theory is currently unrepresentable, and after the change it is a first-class object with positions that shift.</p>
+
+        <h3>The three mechanisms can compete</h3>
+        <p>One anxiety budget routed through conflict, distance, reciprocal functioning or projection. That produces the output that actually matters clinically: <em>which</em> symptom, in <em>whom</em>.</p>
+
+        <h3>Every result comes with its reasons</h3>
+        <p>An event log is a causal trace. You can read why the model said what it said, show it to someone who knows the theory, and have them disagree with a specific step. A heat map cannot be argued with.</p>
+
+        <h3>Twelve agents is free</h3>
+        <p>Ten thousand ensemble runs take seconds. Full parameter sweeps, sensitivity analysis and counterfactual arms all become routine rather than an overnight job — the current Monte Carlo runs 150 combinations at 10,000 units.</p>
+
+        <h3>It can be checked against real histories</h3>
+        <p>A family history is told as a sequence of events, which is the same shape as the model's output. That makes face validation possible in a way a stress field never was.</p>
+      </div>
+
+      <div class="col-weak">
+        <p class="col-head">What it costs you</p>
+
+        <h3>Parameter explosion against no data</h3>
+        <p>The current model has four state columns. This one has per-person state, per-tie state, per-triangle state and a nine-way policy — call it 60&ndash;90 free parameters, constrained by a single family's history. The risk is not overfitting to data; it is overfitting to your own intuitions about how families work, and then reading the output as confirmation. Mitigate by keeping the repertoire fixed, deriving as much as possible from <span class="m">C</span> rather than from independent constants, and running global sensitivity analysis before believing anything.</p>
+
+        <h3>No large numbers to hide behind</h3>
+        <p>Every result is a distribution over seeds or it is noise. This is a discipline that has to be built into the runner from the first commit, not added once someone shows you a single suspiciously good trajectory.</p>
+
+        <h3>Plausible is not the same as correct</h3>
+        <p>A behavioural model that emits readable stories about a family is very easy to believe and very hard to falsify. The acceptance tests in section 8 have to be written <em>before</em> tuning, or they become a description of whatever the model already does.</p>
+
+        <h3>The theory is not quantified &mdash; and now we know how completely</h3>
+        <p>There is no dataset that says reactivity transmits at 0.2 per interaction, or that a conflict move costs 3.4 anxiety units. Every constant will be invented. This is an epistemic limit, not an engineering one, and it does not go away with better code.</p>
+        <p><span class="revmark">rev</span> Reading the corpus made this worse, not better. Across all 22 chapters there is <b>no instrument, no rater procedure, no comparison group, and no number ever assigned to a person</b>. The differentiation scale is a construct Bowen offers with no external validation anywhere in the book &mdash; he slowed its clinical development because readers wanted the scale without the concept, then stopped that research entirely to prevent misuse. The two numbers pass 1 had treated as calibration targets (a per-generation decline rate, an annual societal-regression rate) were both <b>manufactured from illustrations Bowen explicitly bounded</b>, and one of them contradicts his own chart. What the corpus supports is <b>directions, orderings, mechanisms and a handful of durations</b>. Any parameter presented as sourced should be checked against &sect;10 before it is believed.</p>
+
+        <h3>You lose the societal layer</h3>
+        <p>The regression-in-society story the current app tells — leadership, social media, climate, the whole L/X/E apparatus — collapses into scalar inputs. Worth softening this on the theory's own terms, though: Bowen is explicitly fractal, and individual, family and society run the same emotional process. That makes the family the <em>unit cell</em> rather than a scaled-down substitute — the societal layer is deferred until there is a cell worth replicating, not abandoned. It also means the current engine was building the top storey before the ground floor.</p>
+
+        <h3>A language model brings its own theory</h3>
+        <p>Ask one what an anxious father does and you get popular psychology, not systems theory. Its output is stochastic run to run, so a regression fixture recorded from a single draw locks in a lucky sample rather than a behaviour. If the language layer goes in, constrain it to emit only the nine moves and treat every recorded output as one draw among many.</p>
+
+        <h3>Roughly 900 lines get deleted</h3>
+        <p>The grid, the economy, the demographics, the Pygame renderer and most of the Monte Carlo harness. That is real, working, tested code, and some of it took calibration effort that does not transfer.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== 7 ==================== -->
+  <section class="section">
+    <div class="rail">08<br>Validation</div>
+    <h2>Fifteen acceptance tests, written before the tuning</h2>
+
+    <p>These are the clinical regularities the theory asserts. If the model does not reproduce them it is wrong, regardless of how good the traces read. Each is a property test over an ensemble, not a single-run assertion, and each names the spec section it verifies so the existing traceability convention carries over.</p>
+
+    <p><span class="revmark">rev</span> <b>Eleven were drafted before the corpus was read; four more came out of it</b> &mdash; including the sharpest falsifiable prediction in the book. They are numbered 12&ndash;15 below and are not optional extras: three of the four test mechanisms that nothing else in the suite touches.</p>
+
+    <ol>
+      <li><b>Differentiation protects.</b> Two families identical but for basic <span class="m">C</span>, given the same stressor schedule: the lower-C family reaches symptom threshold sooner, in a significant majority of seeds.</li>
+      <li><b>Symptoms concentrate.</b> Symptom load lands disproportionately on the member who received the most projection-type events, not uniformly across the children.</li>
+      <li><b>Triangling relieves the pair and costs the third.</b> After a TRIANGLE move, the dyad's tension falls and the third person's anxiety rises within the same tick.</li>
+      <li><b>Cut-off trades now against later.</b> A CUTOFF move drops the actor's acute anxiety immediately and raises the family's total anxiety at the next nodal event relative to a matched no-cutoff arm.</li>
+      <li><span class="revmark">rev</span> <b>The system pushes back &mdash; and the push-back is a debit, not a script.</b> An I&#8209;POSITION move raises tension for a bounded window before the tie settles below its pre-move level. The absence of a change-back reaction is a failing model, not a well-behaved one. <b>Three corrections.</b> The push-back is not tension on the acting tie alone &mdash; it is <em>symptom in a third person</em>, and the shape is a <em>damped oscillation with hysteresis</em>, not a spike-and-settle (Ch02, Ch03; the pass-1 source for this test, Ch14, turned out to be a risk clause and was withdrawn). The reaction runs a verbatim ladder &mdash; &ldquo;You are wrong&rdquo; &rarr; &ldquo;Change back&rdquo; &rarr; &ldquo;If you do not, these are the consequences&rdquo; &mdash; it <em>decays unless fed</em> by the mover defending or counterattacking, and <b>its absence means the move did not land</b> (Ch21, Ch01). And the mechanism underneath it is the life-energy debit of &sect;10: the move withdraws energy the other was receiving. The test therefore asserts a <em>trajectory shape in a named third party</em>, plus a revert-on-timeout if the mandatory next-day follow-up is skipped &mdash; not a single tension excursion.</li>
+      <li><b>Transmission is multigenerational.</b> Over three generations with no external stressor change, mean <span class="m">C</span> in the projection line declines while the non-target line does not.</li>
+      <li><span class="revmark">rev</span> <b>Position, not skill, is what makes a professional useful.</b> The pass-1 form of this test &mdash; a coach who <em>stays</em> outside against one who <em>takes</em> a side &mdash; presumes the coach chooses. <b>Four chapters say the configuration decides.</b> Multi-channel contact produced distortion relayed within minutes and compounding across staff, while the same staff held excellent intellectual understanding and &ldquo;the process continued on an unconscious level&rdquo; (Ch01). The neutral third position is generalised to &ldquo;any third person&hellip; no matter what the subject matter&rdquo;, and a family member's self-control is <em>the same operation from a different position</em> (Ch10). Silence is captured too &mdash; a doctor's &ldquo;response <em>or lack of it</em>&rdquo; carries the weight of a professional opinion, so abstention is not an exit (Ch19). And the observer <em>changes the configuration</em>, so a costless external coach models something Bowen says does not exist (Ch17). <b>Rewrite the test around channel topology:</b> hold the coach's parameters fixed and vary who talks to whom in whose presence. Detriangling must not be implemented as a high-FD parameter or an insight score.</li>
+      <li><b>Endogenous incidence lands near the national rate.</b> Aggregated over a large ensemble of synthetic families, model-generated illness and job-loss incidence by age falls within a stated band of published rates &mdash; counting endogenous events only, per 5.2.</li>
+      <li><b>Sibling position shapes functioning.</b> Holding differentiation constant, position in the sibling order produces a detectable difference in propensity and in symptom incidence.</li>
+      <li><b>Cut-off begets cut-off.</b> A generation containing a cut-off produces more cut-offs in the next than a matched arm without one &mdash; the multigenerational recurrence claim, and the test most likely to fail if bond energy is allowed to decay too fast.</li>
+      <li><b>Removal produces three phases, not a step down.</b> The institutionalization arm reproduces rise, partial relief with redirected focus, then a sustained residual; the hospitalize-and-release arm reproduces a temporary dip and re-escalation on return. Total system anxiety is conserved across the removal to within a stated tolerance.</li>
+
+      <li><b>Curing a symptom without changing the deficit raises tension.</b> Remit a spouse's dysfunction while leaving the functioning balance intact: marital conflict must <b>rise</b>. The prior harmony was purchased with that spouse's self, so restoring it necessarily destroys the peacekeeping mechanism &mdash; the wife's drinking remits, and "her regaining self was followed by a period of fairly intense marital conflict". <em>The sharpest falsifiable prediction in the corpus.</em> The general rule behind it is a chronic adapter who stops.</li>
+
+      <li><b>Help relocates incidents; it does not reduce them.</b> A coach that supplies help and instruction produces <b>the same incident count in different locations</b>. Score count <em>and</em> location &mdash; relocation from the community back into the family is "a hopeful sign", so counting alone gets the sign wrong.</li>
+
+      <li><b>Management technique has zero independent effect while marital distance is high.</b> Any intervention aimed at the symptom-bearer must produce <b>no improvement</b> in that condition. When the parents are close "they could do no wrong" &mdash; firmness, permissiveness, punishment and talking it out all work; when emotionally divorced, "any and all management approaches" fail equally.</li>
+
+      <li><b>Death destabilises exactly as recovery does.</b> A stabilising arrangement built on one member's impairment must break on that member's <b>death</b> as well as on their recovery &mdash; the stabilisation holds "as long as the incapacitated one <em>lives</em>". Two routes to the same collapse; a model with only the recovery route is half-built.</li>
+    </ol>
+
+    <p>Two properties of these tests matter more than their content. Each must be <em>proved failing</em> by mutation — delete the mechanism it names, confirm the test goes red, restore — because a test over a stochastic ensemble is exactly the kind that passes for the wrong reason. And each asserts a <em>direction of difference between two arms</em> rather than an absolute threshold, so it survives recalibration.</p>
+  </section>
+
+  <!-- ==================== 8 ==================== -->
+  <section class="section">
+    <div class="rail">09<br>Sequence</div>
+    <h2>How to get there</h2>
+
+    <div class="tablewrap wide">
+      <table>
+        <thead><tr><th>Phase</th><th>Build</th><th>Done when</th></tr></thead>
+        <tbody>
+          <tr><td class="who">A</td><td>Spec rewrite. Fork <span class="m">bowen_individual_family_model_spec.md</span> into a v2 targeting the agent model. Most of §3&ndash;§11 survives with the substrate swapped; §5.4 update order and §8.2's grid rationale are replaced.</td><td>The spec names the reference family, the nine moves, both clocks, and the six tests &mdash; approved before code, per the existing workflow.</td></tr>
+          <tr><td class="who">B</td><td>Objects and the loop, on a <b>small family &mdash; but not a closed nuclear one</b>. Person, Relationship, Triangle, Family; the event queue; perceive&ndash;appraise&ndash;select&ndash;act; consolidation. Bond energy and the standing term land here too, since 4.3 makes them core rather than an extension. The <span class="m">NodalEvent</span> record and <span class="m">StressorSource</span> seam arrive with <span class="m">ScriptedSource</span> behind them. No behaviour policy yet &mdash; a fixed script drives it.<br><br><span class="revmark">rev</span> <b>The original four-person nuclear spike is withdrawn.</b> Degree of emotional cutoff with the families of origin is an <em>input</em> to the family's intensity, alongside undifferentiation and stress &mdash; not an outcome of it. <b>A model closed at the household cannot compute its own driving term.</b> So the spike is four nuclear members <em>plus at least one family-of-origin tie per spouse</em>, even if those agents do nothing but hold a bond energy.</td><td>A scripted 40-week trace runs and the event log reads correctly &mdash; including a <span class="m">TRIGGER</span> on a dormant family-of-origin tie, which is the cheapest test that the standing term works. The twelve-person reference family waits for Phase D.</td></tr>
+          <tr><td class="who">C</td><td>The policy. Propensity scoring over the nine moves, reinforcement of the family's repertoire, the anxiety budget the <b>three</b> mechanisms draw against, and the per-person life-energy budget the differentiating move debits (&sect;10). Distance runs outside both budgets.</td><td>Tests 1, 3, 5, 7, 13 and 14 pass over 1,000-seed ensembles, each mutation-proved.</td></tr>
+          <tr><td class="who">D</td><td>The slow clock, and the family expands to the twelve-person reference. Differentiation drift, chronic anxiety fixation from witnessed history, life stage, sibling position, the three symptom channels and the endogenous events they emit, mortality, the nodal calendar.</td><td>Tests 2, 4, 6, 9, 10, 12 and 15 pass. A 40-year, 3-generation run completes, and both scenarios in section 6 run end to end.</td></tr>
+          <tr><td class="who">E</td><td>The ensemble runner and readout. Seeded batches, counterfactual arms, distributions rather than trajectories. <span class="m">HazardSource</span> and <span class="m">DialSource</span> land behind the seam. Timeline and genogram views replace the heat map.</td><td>A counterfactual pair renders as a distribution shift, with the seed recorded. Tests 8 and 11 pass &mdash; 11 being the three-phase shape, which is the one worth building the readout around.</td></tr>
+          <tr><td class="who">F</td><td>Optional: the language layer. Utterances attached to events, constrained to the nine moves, off by default and never in the path of an ensemble.</td><td>Traces read as English with the numbers unchanged.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Decisions settled</h3>
+    <p>Three forks were open when this was drafted. All three are now closed, and Phase A's spec is written against them.</p>
+
+    <div class="tablewrap wide">
+      <table class="keep">
+        <thead><tr><th style="width:22%">Decision</th><th style="width:26%">Taken</th><th>What it locks in</th></tr></thead>
+        <tbody>
+          <tr><td>Engine</td><td><b>Deterministic core</b></td><td>Move selection is a seeded softmax over propensities &mdash; no language model in the decision path. Every run is reproducible from its seed, ensembles are effectively free, and the six acceptance tests can be mutation-proved. Phase F stays optional and stays out of the ensemble path.</td></tr>
+          <tr><td>Subject</td><td><b>Synthetic reference family</b></td><td>The twelve people in section 3 are the instance, invented and tunable. Validation is against the theory's regularities rather than one family's history, so §8 carries the whole burden of falsification &mdash; which is the argument for writing those tests first. No intake path in scope.</td></tr>
+          <tr><td>Societal</td><td><b>Three scalar dials</b></td><td>L, X and E survive as inputs that shift the family's ambient anxiety and stressor schedule, alongside the access vector of section 5.1. The population, grid, economy, tax, safety net and national debt are deleted. The regression-in-society question stays askable without simulating a society to ask it.</td></tr>
+          <tr><td>Use case</td><td><b>Research instrument</b></td><td><span class="revmark">rev</span> Settled since drafting. Ensembles, seeds and falsification &mdash; not an interactive training or coaching surface. The readout built at Phase E is a distribution viewer, not a session. This also fixes what &sect;8 has to carry: with no external validation available anywhere in the source (&sect;10), the acceptance tests are the whole of the falsification story.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>Phase A &mdash; the v2 spec &mdash; is the immediate next step, and nothing in the code should move until it is approved.</p>
+  </section>
+
+
+  <!-- ==================== 10 ==================== -->
+  <section class="section" id="corpus">
+    <div class="rail">10<br>Corpus</div>
+
+    <h2>What reading Bowen changed</h2>
+
+    <p>This document was written from the repo, the plan and one paper. The source itself &mdash; Bowen's
+    <i>Family Therapy in Clinical Practice</i>, all 22 chapters &mdash; has since been read twice: a cold
+    extraction chapter by chapter, then a comparative pass in which each chapter was re-read against the whole
+    book. The result is a ledger of 149 per-chapter findings in <span class="m">docs/theory/</span>, ten
+    cross-chapter convergences, and an independence audit.</p>
+
+    <p><b>The changes below have been applied to sections 1&ndash;9.</b> This section is the record of what
+    moved and why &mdash; useful if you read the earlier draft, and useful as a list of things that must
+    never be re-introduced. It is not a list of outstanding corrections.</p>
+
+    <div class="note warn">
+      <span class="lbl">The one-line finding of the second pass</span>
+      <p><b>The first pass systematically over-read, and every error ran the same direction</b> &mdash; it made
+      the source look more quantitative and more decided than it is. It invented rankings, manufactured rates
+      from illustrations Bowen explicitly bounded, added topology the text does not have, stripped hedges, read
+      later vocabulary backwards into earlier chapters, and reported inferences as measurements. Nineteen
+      findings were withdrawn outright.</p>
+      <p>The lesson generalises past this document: <b>when a claim about the corpus reads unusually crisply,
+      that is a reason to check it, not to trust it.</b></p>
+    </div>
+
+    <h3>Nine changes, now applied</h3>
+
+    <div class="tablewrap wide">
+      <table class="keep">
+        <thead><tr><th style="width:20%">What the draft said</th><th style="width:38%">What the corpus says</th><th>What the body now does</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>Four mechanisms compete for one budget (F4, &sect;3, &sect;7, Phase C)</td>
+            <td><b>Three.</b> Marital conflict, spouse dysfunction, child projection. Emotional distance is named alongside them every time and excluded from the count in all four chapters that enumerate &mdash; &ldquo;other than the emotional distance, there are three major areas&rdquo;.</td>
+            <td>Three sinks drawing on the budget; distance as an <b>always-on leaky baseline outside it</b>. Report its share separately at readout. There was never a three&rarr;four transition to model.</td>
+          </tr>
+          <tr>
+            <td>Reactivity <span class="m">TX</span> is state, carried per person</td>
+            <td><b>Two variables only</b> &mdash; level of self and level of anxiety. Reactivity is <i>derived</i> from them: &ldquo;the lower the level of self, the more reactive&rdquo;.</td>
+            <td>Store the anxiety, derive the response. And expect the estimate to be <b>biased</b>: pseudo-self is traded between people, which &ldquo;results in false readings when one attempts to estimate levels of differentiation&rdquo;.</td>
+          </tr>
+          <tr>
+            <td>Twelve people are the system</td>
+            <td>The boundary is a <b>function of anxiety</b>. Calm, a few most-involved; under stress it reaches non-relatives, then schools, agencies and courts, then reverts. Cutoff with the families of origin is an <b>input</b> to intensity, not an outcome.</td>
+            <td>A continuous per-agent involvement weight recomputed each tick, membership a thresholded readout. Twelve is the right test instance, not the right definition. <b>A model closed at the household cannot compute its own driving term.</b></td>
+          </tr>
+          <tr>
+            <td>Acceptance test 5 &mdash; the system pushes back</td>
+            <td>The push-back is <b>symptom in a third person</b>, its shape is a <b>damped oscillation with hysteresis</b>, it runs a verbatim three-rung ladder, it <b>decays unless fed</b>, and <b>its absence means the move did not land</b>. The chapter pass 1 sourced it from turned out to be a risk clause.</td>
+            <td>Rewritten in &sect;8. Assert a trajectory shape in a named third party, plus revert-on-timeout when the mandatory next-day follow-up is skipped.</td>
+          </tr>
+          <tr>
+            <td>Acceptance test 7 &mdash; detriangling</td>
+            <td>The coach does not <b>choose</b>. Topology decides: multi-channel contact distorted within minutes while the same staff held excellent intellectual understanding; silence is captured too; the observer changes the configuration.</td>
+            <td>Rewritten in &sect;8. Hold the coach's parameters fixed and vary <b>who talks to whom in whose presence</b>. Detriangling must never be a high-FD parameter or an insight score.</td>
+          </tr>
+          <tr>
+            <td>Resources <span class="m">M</span> &mdash; already dropped from the new object set</td>
+            <td>Confirmed, and for a stronger reason than expected. <b>No per-person material stock exists anywhere in 22 chapters.</b> The one workplace chapter sets tie weight by emotional importance <i>explicitly not by economic relation</i>.</td>
+            <td>Keep it deleted. But add one thing the corpus does support: <b>financial dependence is a hard gate on the differentiating move</b> &mdash; &ldquo;has never been successful&rdquo;. A gate on one move, never a stock that keeps a person alive.</td>
+          </tr>
+          <tr>
+            <td>The differentiation scale, implied by <span class="m">C</span></td>
+            <td>0&ndash;100, with the top quartile withdrawn as &ldquo;more hypothetical than real&rdquo; and ~90% of people in the lower half. One behavioural transition at 50 &mdash; and it is a <b>licence</b>, not suppression: the emotional system <i>permits</i> the intellect its corner &ldquo;as long as it does not interfere in joint decisions&rdquo;. The quartile scheme is present in 1966, <b>absent</b> in 1972, present again in 1976; the scale gets <i>less</i> specified over time.</td>
+            <td>Model the range and the one transition. Do not treat the bands as a constant of the theory, and do not implement a linear clip with no threshold as the repo does.</td>
+          </tr>
+          <tr>
+            <td>Two clocks &mdash; one week, one year</td>
+            <td>Survives, and the corpus supplies real constants for the fast one: latencies differ <b>per edge</b> (hours to months), and one move is traced at T&minus;14, T&minus;7, T+0 and a mandatory T+1 follow-up.</td>
+            <td>Keep both clocks. Add <b>transfer latency as a property of the tie</b>, which neither the repo nor this document has &mdash; every event currently arrives within one tick.</td>
+          </tr>
+          <tr>
+            <td>Use case still open (&sect;9)</td>
+            <td>&mdash;</td>
+            <td>Closed: <b>research instrument</b>. With no external validation available in the source, &sect;8 carries the whole falsification burden.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Five things that must not be built</h3>
+
+    <p>Each of these was proposed during the first pass and withdrawn on the second. They are recorded here
+    rather than deleted, because a mechanism that is merely absent tends to get re-invented.</p>
+
+    <div class="tablewrap wide">
+      <table class="keep">
+        <thead><tr><th style="width:26%">Proposed</th><th>Why it went</th></tr></thead>
+        <tbody>
+          <tr><td>A <b>permission scalar</b> &mdash; the excluded third gates a dyad's closeness</td><td>The mothers <b>approved</b> the father&ndash;son efforts and the efforts still failed. The gating quantity is the incumbent's <i>unreleased investment in the competing tie</i>, which the model already has. This simplifies the design rather than extending it.</td></tr>
+          <tr><td><b>Ally cancellation</b> &mdash; support from a family member cancels a differentiating move</td><td>Over-read; Bowen never says it. The named mechanism is <b>displacement</b>: an ally opens a new peripheral triangle, which is what he calls &ldquo;my undoing&rdquo;. Active detriangling of an ally is verbatim and goes in as stated. The cancellation term must never be cited as a quotation.</td></tr>
+          <tr><td>A <b>projection target queue</b> &mdash; remove the symptom-bearer and a replacement durably takes the position</td><td><b>Bowen retracts this himself</b> and dates the error: six months of observation confirmed the uptake, two and a half years reversed it. Fast redirection of anxiety survives untouched; <i>durable</i> position uptake does not. The institutionalization scenario cannot lean on it.</td></tr>
+          <tr><td><b>&ldquo;Content is noise&rdquo;</b> as an argument for the deterministic core</td><td>Not in the text. Bowen gives two <i>attention</i> prescriptions and never says content lacks information &mdash; his own blame-versus-responsibility hazard <i>requires</i> reading an inner orientation no rate can supply. The argument survives only in its weaker, correct form: <b>the anxiety readout is computable from event rates alone.</b> The deterministic core stands on reproducibility, free ensembles and mutation-proofing, which is where &sect;9 already put it.</td></tr>
+          <tr><td>Physical distance as a <b>depletable relief stock</b> (frontiers &rarr; colonies &rarr; nothing)</td><td>No per-move draw-down anywhere. &ldquo;It was important for him to know there was new land for him, <b>even if he never went to it</b>.&rdquo; Two chapters converge on the real mechanism: <b>availability itself carries the effect, independent of use</b> &mdash; a belief about what is available, not a stock, and not a gate on moves. This changes the access vector of &sect;5.1 from a gate into a standing input.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Four mechanisms this document has no place for</h3>
+
+    <p>These are the valuable ones &mdash; findings with no home in the design as drafted.</p>
+
+    <p><b>A per-person life-energy budget.</b> Stated four times in one chapter as a zero-sum allocation
+    between relationship-seeking and goal-directed activity, with the ratio set by scale level, an empty-budget
+    state at the bottom of the scale, and an explicit <b>debit on the tie</b> when a differentiating step is
+    taken &mdash; the step &ldquo;detracts from the former energy devoted to the system, especially to the
+    important other.&rdquo; This is a second conservation law, per person, alongside the family
+    undifferentiation budget. It matters because it supplies <b>the mechanism of the change-back reaction</b>:
+    the ladder is the surface, the withdrawal of energy the other was receiving is the cause. It also explains
+    why symptom relief opposes progress without needing a separate mechanism for it.</p>
+
+    <p><b>An outside-ness gate, and the act-identity problem behind it.</b> Until the mover is partly outside
+    the system, an identical technique is &ldquo;either hollow meaningless words or a hostile assault on the
+    system, <b>and an emotional system knows the difference</b>.&rdquo; Five chapters converge on the same
+    shape: at a low level &ldquo;standing up to&rdquo; means attacking and breaking rules; accepting blame looks
+    identical to taking responsibility and produces none of the effect; and a whole band of the scale is
+    occupied by people who <i>look</i> differentiated &mdash; dogmatic, compliant or rebellious, with
+    &ldquo;intellect in the service of the relationship system&rdquo;. <b>A move's effect cannot be a function
+    of the move type and the tie alone.</b> It is multiplied by a hidden state of the actor that the receivers
+    can read and the actor may not. The nine-move repertoire in &sect;3 has no slot for this, and any readout
+    keyed to position-taking behaviour scores those agents wrong.</p>
+
+    <p><b>A belief layer, distinct from ground truth.</b> &ldquo;The family emotional system operates always to
+    obscure and misremember and to treat such events as coincidental.&rdquo; The model has only ground truth,
+    and a research instrument that reads out what <i>happened</i> while the family acts on what it
+    <i>believes</i> is missing the mechanism. One hard constraint on how to build it: <b>truth value and
+    emotional function are orthogonal</b> &mdash; &ldquo;the estimate might be accurate or not and yet be
+    largely in the service of a denial&rdquo; &mdash; so the belief layer must not be implemented as
+    &ldquo;the emotionally driven claim is the false one&rdquo;.</p>
+
+    <p><b>Routing, source and fidelity as properties of an event.</b> Three separate findings that all say the
+    same structural thing: the identical content lands oppositely depending on <b>who sent it</b> (an outsider
+    naming a mother's projection is attacked; the father saying it produces &ldquo;a significant beneficial
+    emotional reaction&rdquo;); the same message carries different gain depending on <b>its route</b> (direct
+    dyad amplifies, routed through a neutral third damps); and message fidelity <b>degrades per private hop</b>.
+    An event in &sect;4 carries sender, receivers, type, intensity and timestamp. It needs route and fidelity
+    too, and appraisal needs to read the sender's position rather than only the tie.</p>
+
+    <h3>Two contradictions &mdash; resolved</h3>
+
+    <p>Both were carried as genuinely unresolved. <b>Both are now settled</b>, and both settled the same
+    way: against the primary source rather than the extractions. In each case the resolving sentence is in
+    the text and in neither summary &mdash; one of them was a contradiction with a section <em>heading</em>.
+    Full argument in <span class="m">docs/theory/_RESOLUTIONS.md</span>.</p>
+
+    <p><b>Threesome or twosome? Neither &mdash; three live positions.</b> The finding was never about family
+    members. Ch03 counts only the family because its therapist is deliberately structured out ("the family
+    work on its own problem in the hour while the therapist <b>observes from the sideline</b>"). Ch14's
+    section is headed "Family Systems Therapy with Two People" and describes, in its own words, "<b>the
+    triangle of the two most important family members and the therapist</b>". Both satisfy one rule:
+    <b>avoidance is available when fewer than three live positions are in the working group</b>, where a
+    position counts only if its occupant is not fused into another. What changed between 1959 and 1975 is
+    who occupies the third. This also dissolves the "reversal" &mdash; engaging the therapist
+    <em>removes</em> the third position in Ch03 and <em>is</em> the third position in Ch14. Same act,
+    opposite meaning, because the configuration moved.</p>
+
+    <p><b>Does a witness help or displace? Alignment is the gate, not knowledge.</b> Nothing in the corpus
+    penalises a witness. What is penalised is a second person <b>taking a position on the mover's
+    behalf</b>, because that opens a new peripheral triangle &mdash; which Bowen names as his own undoing.
+    The chapter's one worked ally case is a sister who <em>already knew everything</em> and wrote "I am back
+    of you if I can be of help"; he calls it "a red flag" and works until "she <b>retreated from taking
+    sides</b> with me." Her knowledge was untouched. And the same chapter has a witness present throughout
+    who takes no position &mdash; his wife, whose silence he singles out as unprecedented &mdash; in his most
+    successful effort. Ch10 bars alliance from the helper's side in the same terms: the therapist may help
+    "<b>without being perceived as against the family</b>." <b>Secrecy is a hazard rate over alignment, not
+    an independent gate</b>, which is why the rule is scoped in the same sentence to "another person
+    <b>who is part of the system</b>."</p>
+
+    <div class="note">
+      <span class="lbl">One predicate under both</span>
+      <p><b>A position counts as live only if its occupant is not fused into another.</b> In the first it
+      decides whether three people can avoid their issue; in the second, whether a third party is a witness
+      or a peripheral triangle. The coach's neutrality, a family member's self-control, an ally's
+      detriangling and the three-position floor are <b>one rule seen from four angles</b> &mdash; which is
+      what Ch10 says outright. Implement it once.</p>
+      <p>Two things this adds that the design did not have: a <b>`PREVENT_ALIGNMENT`</b> move acting on
+      <em>potential</em> alignment before it forms (Ch21's two deliberately contradictory letters, sent in
+      the same mail within the hour, exist for exactly this), and a <b>third secrecy mechanism</b> &mdash;
+      "the element of surprise that is essential if a differentiating step is to be successful" &mdash;
+      which attaches to the <em>target</em> where the other two attach to the <em>mover</em>. That is why an
+      announced <em>act</em> costs nothing.</p>
+    </div>
+
+    <h3>A note on framing, from the source</h3>
+
+    <div class="note">
+      <span class="lbl">Recorded accurately, having first been recorded too strongly</span>
+      <p>Bowen states that he deliberately excluded &ldquo;models from the sciences of inanimate things&rdquo;
+      &mdash; the class this simulation belongs to. The first pass reported that as a ruling against this whole
+      approach. <b>The scope is much narrower.</b> It is &ldquo;for my research&rdquo;; it &ldquo;governed
+      nothing except the background thinking of the research staff&rdquo;; it is offered &ldquo;without saying
+      this should be done&rdquo;; it rests on &ldquo;no more than an educated guess&rdquo;; and in the same
+      interview he concedes the identical charge against his own <i>triangle</i> &mdash; &ldquo;It sounds almost
+      mathematical.&rdquo; / &ldquo;You are correct.&rdquo;</p>
+      <p>So: <b>a named methodological preference, scoped to his own research staff.</b> It belongs in the
+      record and it is worth taking seriously. It is not a prohibition, and it should not be quoted as one.</p>
+    </div>
+
+    <p>The working files are in <span class="m">docs/theory/</span>: <span class="m">_LEDGER.md</span> (149
+    findings, per chapter, each marked stands / narrowed / corrected / withdrawn / new),
+    <span class="m">_CONVERGENCES.md</span> (ten convergences with an independence audit &mdash; nine of the 22
+    chapters report the same 1954&ndash;59 residential project, so chapter counts overstate evidential weight),
+    <span class="m">_PASS2_CORRECTIONS.md</span> (the audit trail), and
+    <span class="m">ch01.md</span>&ndash;<span class="m">ch22.md</span>.</p>
+  </section>
+
+  <p class="closer">One named input was not available: <span class="m">Tech/Evolution Game Models.md</span> (DX, CX, SX, TX, IX, WX, LX) is referenced in the plan as a v0 to formalize and was not among the files provided. If it carries earlier variable definitions, it belongs in Phase A before anything gets named twice.</p>
+  <p class="closer" style="border-top:none;margin-top:1.25rem;padding-top:0">Reviewed against <span class="m">src/engine.py</span> at <span class="m">a6e51b6</span>, 36 tests, all passing &mdash; two of them, <span class="m">test_spouse_dysfunction_asymmetric_penalty</span> and <span class="m">test_triangle_mechanism_attaches_and_releases_circle</span>, were repaired on 2026-08-22, having each constructed an unseeded <span class="m">Simulator</span> and asserted on a family whose randomly drawn size did not satisfy the two-active-member precondition the code path requires &mdash; and <em>Modeling Earth-Scale Human-Like Societies with One Billion Agents</em> (Guan et al., arXiv:2506.12078v2) &mdash; whose §4.1 formalism and §4.7 network-topology setup are the structural template for the interaction loop in section 4. All quantities in section 4.2 are illustrative; the reference family is a proposal, not a fitted instance.</p>
+
+</div>

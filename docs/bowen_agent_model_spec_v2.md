@@ -58,7 +58,7 @@ Therefore:
 
 - **M0.1** Every numeric constant **MUST** carry a grade in the parameter register (M10), and the grade **MUST** match the explainer's grade for the same claim.
 - **M0.2** A constant graded `[I]` **MUST NOT** be described in code, comment, docstring or output as sourced, derived from Bowen, or theoretically grounded.
-- **M0.3** Every constant **MUST** be either derived from `C` (M10.A) or declared in the markdown config (M10.B). **No magic literals in engine source.**
+- **M0.3** Every constant **MUST** be either derived from `basic_level` (M10.A) or declared in the markdown config (M10.B). **No magic literals in engine source.**
 - **M0.4** Acceptance tests **MUST** assert a *direction of difference between two arms*, never an absolute threshold, so that they survive recalibration. The four exceptions are listed in M11 and each is justified there.
 
 ---
@@ -67,25 +67,25 @@ Therefore:
 
 ### M1.A `Person`
 
-**M1.A.1** A `Person` **MUST** hold exactly two state variables from which reactive behaviour is derived: a basic level `C` and an anxiety level. Reactivity **MUST NOT** be stored. → `model_explainer.md` §3.5
+**M1.A.1** A `Person` **MUST** hold exactly two state variables from which reactive behaviour is derived: a basic level and an anxiety level. Reactivity **MUST NOT** be stored. → `model_explainer.md` §3.5
 
-**M1.A.2** `C` **MUST** be on a 0–100 scale. The implementation **MUST NOT** clip to `[10, 80]`, and **MUST NOT** apply a linear transform in place of the one behavioural transition. → §3.1
+**M1.A.2** `basic_level` **MUST** be on a 0–100 scale. The implementation **MUST NOT** clip to `[10, 80]`, and **MUST NOT** apply a linear transform in place of the one behavioural transition. → §3.1
 
-**M1.A.3** There **MUST** be exactly one behavioural transition on `C`, at 50, and it **MUST** be implemented as a *licence over joint decisions* — below 50 the emotional system permits the intellect its own domain **except** where a decision affects the shared life course — not as a general suppression of intellect. → §3.1
+**M1.A.3** There **MUST** be exactly one behavioural transition on `basic_level`, at 50, and it **MUST** be implemented as a *licence over joint decisions* — below 50 the emotional system permits the intellect its own domain **except** where a decision affects the shared life course — not as a general suppression of intellect. → §3.1
 
-**M1.A.4** `C` **MUST NOT** be frozen at marriage. It **MUST** be slow-moving, with a ratchet that advances only on a *completed* differentiating exchange (M5.D.7). → §13.3
+**M1.A.4** `basic_level` **MUST NOT** be frozen at marriage. It **MUST** be slow-moving, with a ratchet that advances only on a *completed* differentiating exchange (M5.D.7). → §13.3
 
-**M1.A.5** A `Person` **MUST** hold a `functional_level` distinct from `C`, and its variance **MUST** be a decreasing function of `C`. → §3.2
+**M1.A.5** A `Person` **MUST** hold a `functional_level` distinct from `basic_level`, and its variance **MUST** be a decreasing function of `basic_level`. → §3.2
 
-**M1.A.6** Symptom thresholds **MUST** be evaluated against `functional_level`, never against `C`. → §3.2
+**M1.A.6** Symptom thresholds **MUST** be evaluated against `functional_level`, never against `basic_level`. → §3.2
 
 **M1.A.7** A `Person` **MUST** hold `chronic_anxiety`, fixed in childhood from that person's own **witnessed** event history, and it **MUST** act as a floor below which acute anxiety cannot decay. It **MUST NOT** be computed from a family average. → §3.3, §9.4
 
 **M1.A.8** A `Person` **MUST** hold `acute_anxiety`, updated per event and decaying toward the chronic floor.
 
-**M1.A.9** A `Person` **MUST** hold `outside_ness`, distinct from `C`, with three inputs at three time scales (M5.F). → §3.6
+**M1.A.9** A `Person` **MUST** hold `outside_ness`, distinct from `basic_level`, with three inputs at three time scales (M5.F). → §3.6
 
-**M1.A.10** A `Person` **MUST** hold a `life_energy` allocation, zero-sum between relationship-seeking and goal-directed activity, whose ratio is a function of `C`. → §3.7
+**M1.A.10** A `Person` **MUST** hold a `life_energy` allocation, zero-sum between relationship-seeking and goal-directed activity, whose ratio is a function of `basic_level`. → §3.7
 
 **M1.A.11** A `Person` **MUST** hold `symptom_load` over exactly three channels — physical, emotional, social — which **MUST** be substitutable (M7.D). → §3.9
 
@@ -157,6 +157,10 @@ Therefore:
 
 **M1.D.7** A `Family` **MUST** hold `ambient_anxiety` driven by the societal dials, acting on the **symptom threshold**. Turning a dial **MUST NOT** move every family proportionally. → §6.4
 
+**M1.D.7a** The dials **MUST** be named `societal_leadership`, `media_amplification` and `climate_pressure`. The single letters `L`, `X` and `E` **MUST NOT** be used. *Their meanings were previously recorded nowhere except Pygame log strings in `src/main.py`.*
+
+**M1.D.7b** All three dials **MUST** be labelled `[I]`. None is named in the corpus: Ch18's six downward channels do not include social media or climate. `climate_pressure` in particular **MUST NOT** be carried forward unexamined — its mechanism in the grid engine was the metabolic drain, and that column is deleted (M1.A.15). → `TODO.md`
+
 **M1.D.8** The family **MUST NOT** be the boundary of the simulated system. At least one family-of-origin tie per adult **MUST** exist, because degree of cutoff with the families of origin is an *input* to intensity. → §2.4, §6.2
 
 ### M1.E External agents
@@ -205,7 +209,7 @@ The instance everything is tested against. It is **invented and tunable** — va
 
 ### M2.A Membership `[I]`
 
-| # | Name | Gen | Age | `C` | Note |
+| # | Name | Gen | Age | `basic_level` | Note |
 |---|---|---|---|---|---|
 | 1 | Teodor | 1 | 81 | 34 | Ana's husband |
 | 2 | Ana | 1 | 78 | 37 | Marta's mother; the central grandmother |
@@ -242,7 +246,7 @@ The instance everything is tested against. It is **invented and tunable** — va
 
 **M3.D.1** — *the update order.* Each fast tick **MUST** execute in exactly this order. This replaces the frozen spec's §5.4.
 
-1. **Standing load** — every person takes a load from every tie as a function of bond energy ÷ `FD`, *before any event is delivered*. → M6.I8
+1. **Standing load** — every person takes a load from every tie as a function of bond energy ÷ `functional_level`, *before any event is delivered*. → M6.I8
 2. **Deliver** — pop events whose latency has elapsed, in timestamp order, batching simultaneous ones (M1.F.8).
 3. **Perceive** — each person reads its inbox, its ties and its own state.
 4. **Appraise** — M4.C.
@@ -268,7 +272,7 @@ The instance everything is tested against. It is **invented and tunable** — va
 
 ### M4.A Standing load
 
-**M4.A.1** Every person **MUST** take, each tick, a load from **every** tie, whether or not any event occurred on it, as a function of that tie's bond energy divided by the receiver's `FD`. → §7.2
+**M4.A.1** Every person **MUST** take, each tick, a load from **every** tie, whether or not any event occurred on it, as a function of that tie's bond energy divided by the receiver's `functional_level`. → §7.2
 
 **M4.A.2** A `TRIGGER` event **MUST** be able to spike the standing term with no contact at all with the cut-off person.
 
@@ -292,11 +296,11 @@ The instance everything is tested against. It is **invented and tunable** — va
 
 **M4.D.1** Each person **MUST** select exactly one move per fast tick, by softmax over propensity scores.
 
-**M4.D.2** The propensity score **MUST** be a function of acute anxiety, `FD`, the state of the tie in question, the person's position in the active triangle, and their learned repertoire.
+**M4.D.2** The propensity score **MUST** be a function of acute anxiety, `functional_level`, the state of the tie in question, the person's position in the active triangle, and their learned repertoire.
 
 **M4.D.3** Rising anxiety **MUST** raise the weight on the seven reactive moves.
 
-**M4.D.4** Propensity for `I-POSITION` **MUST NOT** be monotonically increasing in `C`. An implementation in which the highest-`C` member reliably moves first is a failing implementation. → §5.2
+**M4.D.4** Propensity for `I-POSITION` **MUST NOT** be monotonically increasing in `basic_level`. An implementation in which the highest-`basic_level` member reliably moves first is a failing implementation. → §5.2
 
 **M4.D.5** The default state **MUST** be the fused default — each altering self to manage the other's functioning while demanding the other change — and **MUST NOT** be modelled as an absence of a move. → §5.2
 
@@ -328,7 +332,7 @@ The instance everything is tested against. It is **invented and tunable** — va
 
 **M5.B.2** `PREVENT_ALIGNMENT` — act on *potential* alignment before it forms. **MUST** be available preemptively, not only in response to an alignment that has already occurred. → R2
 
-**M5.B.3** `REDUCE_CUTOFF` — increase contact on a severed tie. **MUST** lower anxiety and **MUST NOT** directly raise `C`. There **MUST NOT** be an optimum contact rate; more contact **MUST NOT** be penalised. → §5.7, §13.2
+**M5.B.3** `REDUCE_CUTOFF` — increase contact on a severed tie. **MUST** lower anxiety and **MUST NOT** directly raise `basic_level`. There **MUST NOT** be an optimum contact rate; more contact **MUST NOT** be penalised. → §5.7, §13.2
 
 **M5.B.4** Family→external moves `SPLIT`, `FRAME_AMBIGUITY`, `DISPLACE` **MUST** exist. `FRAME_AMBIGUITY` **MUST** capture the external agent's *silence* as carrying professional weight — abstention **MUST NOT** be an exit. → §5.7
 
@@ -364,7 +368,7 @@ The instance everything is tested against. It is **invented and tunable** — va
 
 **M5.D.6** `FOLLOW_UP` **MUST** be mandatory on the next day *relative to the resolving encounter*. Skipping it **MUST** revert the gain.
 
-**M5.D.7** Only a sequence reaching `FOLLOW_UP` counts as a *completed* exchange for the `C` ratchet (M1.A.4) and the triangle decrement (M1.C.5).
+**M5.D.7** Only a sequence reaching `FOLLOW_UP` counts as a *completed* exchange for the `basic_level` ratchet (M1.A.4) and the triangle decrement (M1.C.5).
 
 **M5.D.8** Success **MUST** usually follow several failures. An implementation in which the first attempt typically succeeds is a failing implementation.
 
@@ -417,9 +421,9 @@ Asserted at the end of every fast tick (M4.G.2). A violation **MUST** raise, not
 
 ## M7 — The slow tick
 
-**M7.A.1** `C` drift **MUST** be slow and **MUST** advance only via the ratchet on a completed differentiating exchange (M5.D.7). Recovery toward baseline when calm **MUST NOT** be a symmetric restoring force.
+**M7.A.1** `basic_level` drift **MUST** be slow and **MUST** advance only via the ratchet on a completed differentiating exchange (M5.D.7). Recovery toward baseline when calm **MUST NOT** be a symmetric restoring force.
 
-**M7.A.2** Differentiation gained in a peripheral system **MUST** transfer automatically to the nuclear family. `C` is per-person; intensity is per-relationship. → §10, §15 Ch10/Ch21
+**M7.A.2** Differentiation gained in a peripheral system **MUST** transfer automatically to the nuclear family. `basic_level` is per-person; intensity is per-relationship. → §10, §15 Ch10/Ch21
 
 **M7.B.1** `chronic_anxiety` **MUST** be fixed once in childhood from witnessed history (M1.A.7). The age is `[I]`.
 
@@ -489,13 +493,13 @@ avoidance_available(g) = positions_live(g) < 3        # a step, not a gradient
 
 ## M10 — Parameters
 
-**M10.1** Every constant **MUST** appear in the register with a grade (M0.1) and **MUST** resolve either by derivation from `C` or from markdown config (M0.3).
+**M10.1** Every constant **MUST** appear in the register with a grade (M0.1) and **MUST** resolve either by derivation from `basic_level` or from markdown config (M0.3).
 
-### M10.A Derived from `C` — preferred
+### M10.A Derived from `basic_level` — preferred
 
 **M10.A.1** The following **MUST** be derived, not independently parameterised: reactivity (M1.A.1), `functional_level` variance (M1.A.5), the `life_energy` ratio (M1.A.10), the stabiliser repertoire available to a person, and transfer magnitude in I4 (which scales *inversely* with basic level).
 
-**M10.A.2** Deriving from `C` is preferred wherever it is defensible, because the model has 60–90 free parameters against a single invented family and the risk is overfitting to the modeller's intuitions.
+**M10.A.2** Deriving from `basic_level` is preferred wherever it is defensible, because the model has 60–90 free parameters against a single invented family and the risk is overfitting to the modeller's intuitions.
 
 ### M10.B Config
 
@@ -509,7 +513,7 @@ avoidance_available(g) = positions_live(g) < 3        # a step, not a gradient
 
 **M10.C.2** The following are **stated in the corpus** and are usable as calibration targets: the durations in `model_explainer.md` §8, the 0–100 scale and the transition at 50, the ~90%-in-the-lower-half population skew, the three-sink count, and the eight-to-ten-generation figure.
 
-**M10.C.3** The following **MUST NOT** be implemented as rates, because they were manufactured from illustrations Bowen explicitly bounded: any per-generation `C` decrement, and any annual societal-regression rate. → §8
+**M10.C.3** The following **MUST NOT** be implemented as rates, because they were manufactured from illustrations Bowen explicitly bounded: any per-generation `basic_level` decrement, and any annual societal-regression rate. → §8
 
 ---
 
@@ -523,15 +527,15 @@ Each criterion **MUST** have a named test, **MUST** assert a direction of differ
 
 | ID | Criterion | Test | Phase | Mutation target |
 |---|---|---|---|---|
-| **M11.C1** | Differentiation protects: identical families differing only in basic `C`, same stressor schedule → the lower-`C` family reaches symptom threshold sooner in a significant majority of seeds | `test_m11c1_lower_c_reaches_threshold_sooner` | C | the `/FD` divisor in M4.C.1 |
+| **M11.C1** | Differentiation protects: identical families differing only in basic `basic_level`, same stressor schedule → the lower-`basic_level` family reaches symptom threshold sooner in a significant majority of seeds | `test_m11c1_lower_c_reaches_threshold_sooner` | C | the `/FD` divisor in M4.C.1 |
 | **M11.C2** | Symptoms concentrate on the member who received the most projection-type events, not uniformly across children | `test_m11c2_symptom_concentrates_on_projection_target` | D | the witness path, M1.F.5 |
 | **M11.C3** | Triangling relieves the pair and costs the third, within the same tick | `test_m11c3_triangle_relieves_pair_costs_third` | C | `bound_anxiety` transfer, M1.C.1 |
 | **M11.C4** | Cut-off trades now against later: `CUTOFF` drops the actor's acute anxiety immediately and raises family total anxiety at the next nodal event, against a matched no-cutoff arm | `test_m11c4_cutoff_trades_now_against_later` | C | the standing load, M4.A.1 |
 | **M11.C5** | The system pushes back — as **symptom in a named third person**, as a damped oscillation with hysteresis, decaying unless fed, reverting if `FOLLOW_UP` is skipped; absence of reaction means the move did not land | `test_m11c5_change_back_reaction_shape` | C | the life-energy debit, M5.E.7 |
-| **M11.C6** | Transmission is multigenerational: over three generations with no external stressor change, mean `C` in the projection line declines while the non-target line does not | `test_m11c6_multigenerational_decline_in_projection_line` | D | M7.E.1 |
+| **M11.C6** | Transmission is multigenerational: over three generations with no external stressor change, mean `basic_level` in the projection line declines while the non-target line does not | `test_m11c6_multigenerational_decline_in_projection_line` | D | M7.E.1 |
 | **M11.C7** | **Position, not skill.** Hold the coach's parameters fixed and vary who talks to whom in whose presence; the topology arms **MUST** differ | `test_m11c7_topology_not_coach_skill` | C | M8.2/M8.3 |
 | **M11.C8** | Endogenous incidence lands near published rates | — | **`→E`** | — |
-| **M11.C9** | Sibling position shapes functioning at constant `C` | `test_m11c9_sibling_position_shifts_propensity` | D | M1.A.14 |
+| **M11.C9** | Sibling position shapes functioning at constant `basic_level` | `test_m11c9_sibling_position_shifts_propensity` | D | M1.A.14 |
 | **M11.C10** | Cut-off begets cut-off: a generation containing a cut-off produces more in the next than a matched arm | `test_m11c10_cutoff_begets_cutoff` | D | M7.E.3 |
 | **M11.C11** | Removal produces three phases, not a step down — rise, partial relief with redirected focus, sustained residual; and total anxiety is conserved across the removal to a stated tolerance | `test_m11c11_removal_three_phase_shape` | D | M6.I6 |
 | **M11.C12** | **Curing a symptom without changing the deficit raises tension.** Remit a spouse's dysfunction leaving the functioning balance intact → marital conflict rises | `test_m11c12_symptom_relief_raises_conflict` | D | M7.D.3 |
@@ -544,7 +548,7 @@ Each criterion **MUST** have a named test, **MUST** assert a direction of differ
 | ID | Criterion | Test |
 |---|---|---|
 | **M11.D1** | Engine purity: no file I/O and no UI in the engine package | `test_m11d1_engine_has_no_io` |
-| **M11.D2** | No magic literals: every numeric constant resolves to config or a `C` derivation | `test_m11d2_no_magic_literals_in_engine` |
+| **M11.D2** | No magic literals: every numeric constant resolves to config or a `basic_level` derivation | `test_m11d2_no_magic_literals_in_engine` |
 | **M11.D3** | Config strictness: an unknown key or malformed line raises | `test_m11d3_config_rejects_unknown_key` |
 | **M11.D4** | Every `[I]` constant is labelled and none is described as sourced | `test_m11d4_invented_constants_labelled` |
 | **M11.D5** | Determinism: two runs at the same seed produce byte-identical event logs | `test_m11d5_same_seed_same_log` |

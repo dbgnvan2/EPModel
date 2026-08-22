@@ -46,7 +46,7 @@ A part carrying **`[I]`** is not a defect — the model cannot run without inven
 
 ## 1. Orientation — what the model is
 
-Twelve people in one three-generation family. Each is an agent that, on every fast tick, reads what reached it, appraises it, picks one move, and emits it as an event to named recipients and witnesses. Anxiety flows along **ties**, not along a grid, and is divided on arrival by the receiver's functional differentiation. Ties, triangles and the family each hold their own state. Nothing about a person is computed from a lattice position.
+Twelve people in one three-generation family. Each is an agent that, on every fast tick, reads what reached it, appraises it, picks one move, and emits it as an event to named recipients and witnesses. Anxiety flows along **ties**, not along a grid, and is divided on arrival by the receiver's functional level. Ties, triangles and the family each hold their own state. Nothing about a person is computed from a lattice position.
 
 **What it is not.** It is not a measurement instrument and cannot make dated claims about real people. It is a consistency engine for one theory: *if Bowen's account is right, what follows for a family shaped like this?* Its trustworthy output is the **difference between two arms of a counterfactual**, run over ensembles, because most of what is uncertain is shared between the arms and cancels.
 
@@ -110,7 +110,7 @@ Twelve people in one three-generation family. Each is an agent that, on every fa
 
 ## 3. `Person` fields
 
-### 3.1 `C` — basic differentiation
+### 3.1 `basic_level` — basic level
 
 **For:** the slow, stable level of self. The primary modulator of everything.
 
@@ -125,11 +125,11 @@ Twelve people in one three-generation family. Each is an agent that, on every fa
 
 > **Two caveats that must travel with any use of this number.** Bowen *slowed* development of a clinical scale because readers wanted the scale without the concept (Ch16), then *stopped* that research entirely to prevent misuse (Ch17) — for misuse, not for invalidity. No external validation is offered anywhere in the book.
 
-### 3.2 `functional_level` / `FD` — functional differentiation
+### 3.2 `functional_level` / `functional_level` — functional level
 
 **For:** what the person is actually running at right now, as opposed to their basic level.
 
-**Does:** superimposed on `C`, fluctuates widely, and is **the divisor in every appraisal**. Its *variance* is itself a function of the basic level — high-`C` people barely move.
+**Does:** superimposed on `basic_level`, fluctuates widely, and is **the divisor in every appraisal**. Its *variance* is itself a function of the basic level — high-`basic_level` people barely move.
 
 **Source:**
 - `[#]` Ch09 · L09.1 — the corpus's only real arithmetic: a husband functioning at **55** on strength drawn from a wife at **15**, both with a basic level of about **35**. Transfer magnitude scales **inversely** with basic level.
@@ -165,7 +165,7 @@ Twelve people in one three-generation family. Each is an agent that, on every fa
 
 ### 3.6 `outside_ness` — the efficacy gate
 
-**For:** the hidden state that decides whether a differentiating move lands or backfires. Distinct from basic differentiation.
+**For:** the hidden state that decides whether a differentiating move lands or backfires. Distinct from basic level.
 
 **Does:** multiplies the effect of `I-POSITION` and `STAY-IN-CONTACT`. Below threshold, an identical technique is received as either empty words or an attack.
 
@@ -366,13 +366,13 @@ Every fast tick, each person selects **exactly one** move. The repertoire is del
 
 ### 5.2 The policy
 
-**Does:** a softmax over propensity scores. Each score is a function of current anxiety, `FD`, the state of the tie in question, the person's position in whichever triangle is active, and their learned repertoire — moves that worked before get reinforced, which is how a family develops a characteristic style.
+**Does:** a softmax over propensity scores. Each score is a function of current anxiety, `functional_level`, the state of the tie in question, the person's position in whichever triangle is active, and their learned repertoire — moves that worked before get reinforced, which is how a family develops a characteristic style.
 
 **Source:** `[D]` Ch18 · L18.2 — all patterns intensify with anxiety and vanish when calm; rising anxiety raises the weight on the seven reactive moves. `[I]` The functional form and every coefficient are invented.
 
 > **The default state is not "no move".** `[T]` Ch07 · L07.5 — the fused default is each altering self to manage the other's functioning while demanding the other change, "neither responsible for self". That is the **term-for-term inverse of the differentiating move**, and it belongs in the policy as a baseline rather than as an absence.
 
-> **Propensity for the differentiating move is NOT monotonic in functioning.** `[D]` Ch02 · L02.5. The old engine raises `I-POSITION` propensity with `C`, which predicts the *over*-functioning member moves first. No reading of the corpus supports that. See §12.1 for what the corpus does say.
+> **Propensity for the differentiating move is NOT monotonic in functioning.** `[D]` Ch02 · L02.5. The old engine raises `I-POSITION` propensity with `basic_level`, which predicts the *over*-functioning member moves first. No reading of the corpus supports that. See §12.1 for what the corpus does say.
 
 ### 5.3 Move gates — preconditions that must hold
 
@@ -504,7 +504,13 @@ Every fast tick, each person selects **exactly one** move. The repertoire is del
 
 ### 6.4 The societal dials
 
-**Does:** L, X and E shift the family's ambient anxiety and stressor schedule. Society is a **dial on the symptom threshold**, not a separately simulated layer.
+**Does:** three scalar dials shift the family's ambient anxiety and stressor schedule. Society is a **dial on the symptom threshold**, not a separately simulated layer.
+
+> **⚠ The three dials are inherited, not sourced — and until now they were undefined.** They arrive from the grid engine as `L`, `X` and `E`, and their meanings appear nowhere in any design document: they exist only as Pygame log strings in `src/main.py`. They are **`L` = Leadership**, **`X` = Social Media**, **`E` = Climate**, and in the old engine `L` divides ambient anxiety and grants a differentiation bonus above 1.2, `X` multiplies cross-tie contagion, and `E` scales the metabolic drain and the stress floor.
+>
+> **None of the three is named in the corpus.** Ch18 does name six downward channels — labelling and diagnosis propensity, overleniency of officials and laws, helping-programme intensity, school structure at junior high, population density, and era-dependent symptom form — and social media and climate are not among them. The dials are `[I]` in full: invented, inherited from the project this repo grew out of, and carried into the Bowen model without re-grounding.
+>
+> Renamed for v2 as `societal_leadership`, `media_amplification` and `climate_pressure`. Two of them need a decision before Phase E, recorded in `TODO.md`: `climate_pressure`'s main mechanism was the metabolic drain, and that column is deleted; and `media_amplification` as a cross-tie contagion multiplier is the one of the three that maps cleanly onto something the model already has — conductance on non-family ties.
 
 **Source:** `[T]` Ch13 · L13.1 — "Changing societal attitudes creates an environment that encourages behavior problems that would not have previously been symptomatic." The same family at unchanged differentiation produces symptoms in a regressed era it would not otherwise.
 
@@ -578,7 +584,7 @@ These are asserted every tick. They are what makes the engine a model of *this* 
 
 **For:** the term that stops an event-driven loop from getting cut-off backwards.
 
-**Does:** every tick, before any event is delivered, each person takes a load from **every** tie as a function of its bond energy, divided by their `FD`. Runs whether or not anything happened.
+**Does:** every tick, before any event is delivered, each person takes a load from **every** tie as a function of its bond energy, divided by their `functional_level`. Runs whether or not anything happened.
 
 **Why:** a pure event loop reads *fewer events* as *less arriving anxiety*, so severing a tie looks like pure relief. In the quiet years between nodal events that shows a cut-off family as calm — when the whole claim is that the intensity has gone underground rather than away.
 
@@ -726,12 +732,12 @@ Eleven property tests over ensembles, written before tuning. Two properties matt
 
 | # | Test | Implements | Grade |
 |---|---|---|---|
-| 1 | **Differentiation protects.** Two families identical but for basic `C`, same stressor schedule: the lower-`C` family reaches symptom threshold sooner in a significant majority of seeds. | Ch09 · L09.1 — symptoms are a threshold on the functional level, and transfer scales inversely with the basic level | `[D]` |
+| 1 | **Differentiation protects.** Two families identical but for basic `basic_level`, same stressor schedule: the lower-`basic_level` family reaches symptom threshold sooner in a significant majority of seeds. | Ch09 · L09.1 — symptoms are a threshold on the functional level, and transfer scales inversely with the basic level | `[D]` |
 | 2 | **Symptoms concentrate.** Load lands disproportionately on the member who received the most projection-type events, not uniformly across children. | Ch09 · L09.2 — the two falsifiers Bowen supplies; Ch16 · L16.3 — the primary projection object emerges *lower*, minimally involved siblings about the same, those outside the process *better* | `[D]` |
 | 3 | **Triangling relieves the pair and costs the third.** After a `TRIANGLE` move the dyad's tension falls and the third person's anxiety rises within the same tick. | Ch09 · L09.3; Ch08 · L08.5 — parental conflict subsided precisely as the parents rejoined forces and resumed projecting | `[D]` |
 | 4 | **Cut-off trades now against later.** `CUTOFF` drops the actor's acute anxiety immediately and raises the family's total anxiety at the next nodal event, against a matched no-cutoff arm. | Ch10 · L10.3; Ch08 · L08.2 — zero re-activation latency on reunion | `[D]` |
 | 5 | **The system pushes back — and it is a debit, not a script.** After `I-POSITION`: tension rises for a bounded window, the push-back appears as **symptom in a named third person**, the trajectory is a **damped oscillation with hysteresis**, the reaction **decays unless fed**, and skipping the next-day follow-up **reverts** the gain. Absence of any reaction means the move did not land. | Ch02 · L02.3 and Ch03 · L03.3 for the observation; Ch21 · L21.4 for the ladder, the follow-up and the diagnostic rule; Ch10 · L10.11 for the mechanism | `[M]` `[T]` |
-| 6 | **Transmission is multigenerational.** Over three generations with no external stressor change, mean `C` in the projection line declines while the non-target line does not. | Ch16 · L16.3 — and the clean controlled comparison it supplies: two families at identical levels, one keeping contact (symptom-free for life, level preserved next generation), one cutting off (symptoms, dysfunction, lower level next generation) | `[D]` |
+| 6 | **Transmission is multigenerational.** Over three generations with no external stressor change, mean `basic_level` in the projection line declines while the non-target line does not. | Ch16 · L16.3 — and the clean controlled comparison it supplies: two families at identical levels, one keeping contact (symptom-free for life, level preserved next generation), one cutting off (symptoms, dysfunction, lower level next generation) | `[D]` |
 | 7 | **Position, not skill, makes a professional useful.** Hold the coach's parameters fixed and vary **who talks to whom in whose presence**. The topology arms must differ. | Ch01 · L01.4 — multi-channel contact distorted within minutes while staff held excellent intellectual understanding; Ch10 · L10.4 — "any third person… no matter what the subject matter"; Ch19 · L19.3 — silence is captured; Ch17 · L17.3 — the observer changes the configuration | `[M]` |
 | 8 | **Endogenous incidence lands near the national rate.** Aggregated over a large ensemble, model-generated illness and job-loss incidence by age falls in a stated band of published rates — **counting endogenous events only**. | §9.2 — statistics as a calibration target, never an event generator | `[I]` bands |
 | 9 | **Sibling position shapes functioning.** Holding differentiation constant, position in the sibling order produces a detectable difference in propensity and in symptom incidence. | Ch21 · L21.5 | `[D]` |
@@ -849,7 +855,7 @@ P(align | knows, outside_system) = low      # the wife
 
 Ch21 contradicts *itself* here — the freeze claim and a "basic increase… which can never return to the former level" sit ~5,000 words apart in different sections and neither refers to the other.
 
-**Decided for the model:** Ch21's freeze-at-marriage is **outvoted by three chapters, two of them later**, and Ch16 explicitly restores slow movement ("it is possible to make slow changes"). So `C` is **slow-moving with a ratchet on completed differentiating exchanges**, plus a much larger fast `functional_level`. Do not implement it as frozen. This is a modelling decision over a genuine disagreement, not a resolution of it.
+**Decided for the model:** Ch21's freeze-at-marriage is **outvoted by three chapters, two of them later**, and Ch16 explicitly restores slow movement ("it is possible to make slow changes"). So `basic_level` is **slow-moving with a ratchet on completed differentiating exchanges**, plus a much larger fast `functional_level`. Do not implement it as frozen. This is a modelling decision over a genuine disagreement, not a resolution of it.
 
 ### 13.4 What both resolutions have in common
 

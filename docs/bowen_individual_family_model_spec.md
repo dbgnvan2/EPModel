@@ -1,9 +1,45 @@
 # EPModel — Bowen Family Systems Theory Spec
 ## Individual & Family Level Models
 
-**Version:** 1.2
-**Date:** 2026-02-26
+**Version:** 1.2 — **FROZEN 2026-08-22. Historical record. Do not extend.**
+**Date:** 2026-02-26 (frozen 2026-08-22)
 **Source theory:** Murray Bowen, *Family Therapy in Clinical Practice*, Chapter 21 — "On the Differentiation of Self" (1970/1978)
+
+---
+
+> ## ⚠ FROZEN — read this before using anything below
+>
+> **What this document is.** The complete and accurate specification of the **grid engine** — 10,000 units
+> on a 100×100 lattice, `state[N, 4]`, vectorised 8-neighbour contagion. Every item in §12 is implemented
+> and tested. As a record of what was built, it stands.
+>
+> **What it is not.** A statement of Bowen's theory. It was written from **one chapter** of a
+> twenty-two-chapter book, before the corpus was read. All 22 chapters have since been extracted twice
+> (`docs/theory/`), and several claims below do not survive that reading.
+>
+> **Superseded by:** `docs/agent_model_proposal.html` §10 for the corrections, and by the **v2 spec**, which
+> is written fresh rather than edited from this file. This file is not the base for v2.
+>
+> ### What the corpus contradicts in this document
+>
+> | § | This document says | The corpus says |
+> |---|---|---|
+> | §2, §3.1, §15 | `C ∈ [10, 80]`, "10 to 80 is practical limit" | 0–100 with **one behavioural transition at 50**, and it is a *licence* over joint decisions, not suppression. The top quartile is withdrawn as "more hypothetical than real"; ~90% of people sit in the lower half. The band scheme is present in 1966, **absent** in 1972, present again in 1976 — it is not a constant of the theory. A linear clip with no threshold has no source. |
+> | §2, §4 | **TX / Reactivity is a stored state column** | Bowen names **two** variables — level of self and level of anxiety — and **derives** reactivity: "the lower the level of self, the more reactive". Store the anxiety, derive the response. Estimates of differentiation are also **biased by construction**, because pseudo-self is traded between people. |
+> | §2 | **M — Metabolic Resources**, whose depletion causes death | **No per-person material stock exists anywhere in 22 chapters.** The only workplace chapter sets tie weight by emotional importance *explicitly not by economic relation*. What the corpus does support is resources as **preconditions and capacities** — financial dependence is a hard gate on the differentiating move ("has never been successful") — never a stock that keeps a person alive. |
+> | §7 | Four mechanisms (conflict, distance, spouse dysfunction, projection) | **Three** sinks draw on the undifferentiation budget. **Emotional distance is excluded from the count in all four chapters that enumerate** — it is an always-on leaky baseline *outside* the budget, not a fourth competitor. |
+> | §8 | Triangle dynamics as implemented | The triangle needs **positions that shift**, persistent identity, activation memory, and a **latent state when calm** ("the system is calm and the triangles inoperative"). Borrowing a nearby stranger for two cycles is not this. |
+> | §9 | Coaching as a global toggle: +0.5 C/yr | Coaching is a **position, not a parameter** — "would probably proceed with any third person… no matter what the subject matter", and a family member's self-control is the same operation from a different position. A global boolean has no position and no tie. The dosage the corpus gives is 15–30 minutes every month or two; **1–2 appointments a year fails**; and more frequent contact does *not* produce faster change. |
+> | §10 | Family leader as a **global** high-C flag | The leadership office is real and its **vacancy stalls the system** — but it carries a **sphere of responsibility**, and the effort "can be effective in the area in which he has administrative responsibility". Treat sphere as a **move permission scope**. |
+> | §11 | Multigenerational transmission with a per-generation C decrement | **No per-generation rate is stated anywhere in the corpus.** The figure previously used was manufactured from an illustration Bowen explicitly bounded ("in the average situation the immaturity would progress at a much slower rate"). The rate is **stochastic** — fast for a few generations, static for one or two, then fast again — and reversible at both extremes. He gives "eight to ten generations" to schizophrenia, and nothing finer. |
+> | §5, whole doc | Everything on one annual clock | Latencies differ **per edge** — hours to months, stated repeatedly. Emotional process moves in hours and days; differentiation moves in years. |
+> | whole doc | Parameter values presented as theoretically grounded | **Q-VALIDATION is NO in all 22 chapters** — no instrument, no rater procedure, no comparison group, no number ever assigned to a person. The corpus supports directions, orderings, mechanisms and some durations. **It supports almost no magnitudes.** Bowen slowed development of a clinical scale because readers wanted the scale without the concept, then stopped that research to prevent misuse. |
+>
+> **Two things this document got right that the corpus confirms**, and which should carry into v2: chronic
+> anxiety fixed in childhood from the family's emotional atmosphere, and functional differentiation as a
+> *derived* quantity distinct from the basic level. The second is one of the few places the corpus gives real
+> arithmetic — a husband functioning at 55 on strength drawn from a wife at 15, both with a basic level of
+> about 35.
 
 ---
 
@@ -522,7 +558,7 @@ The following items are **fully implemented** in the current engine:
 - [x] Recovery curve: post-ejection R/C restoration (20-cycle timer)
 - [x] avg_c telemetry in sidebar and CSV
 
-The following items are **specified in this document but not yet implemented:**
+The following items were specified in this document and have **since been implemented** (header corrected 2026-08-22 — every item below is ticked):
 
 - [x] C range clamped to [10, 80] in engine
 - [x] C initialization changed to 40.0 ± 5

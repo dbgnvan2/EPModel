@@ -155,9 +155,24 @@ Order of work:
    fix commits only — found 15 (5 high), which is the expected shape: fixes are the least-reviewed code in
    a batch. Both are resolved. The loop was bounded there deliberately rather than swept a third time.
 
-   **What neither sweep assessed:** whether the corpus extraction is faithful to Bowen. Both verified that
-   citations *resolve*, never that they are *true*. Twenty-two chapter files, ~19,000 lines, remain
-   unverified as extractions. That is the load-bearing claim in this work and it needs a reading pass.
+   **What neither sweep assessed — and the distinction matters.** Bowen's papers are the source and are not
+   in question. What is unverified is **our reading of them**: `ch01.md`–`ch22.md` are summaries this
+   project wrote, and nobody has checked a summary back against its chapter. Both sweeps verified that
+   citations *resolve*, never that the entry they resolve to reports the chapter correctly.
+
+   This is not a hypothetical risk. **Pass 2 withdrew nineteen pass-1 findings** — two manufactured rates,
+   invented rankings, stripped hedges, topology the text does not have. In every case Bowen was right and
+   the extraction was wrong. It happened again on 2026-08-22: `resource_pressure` was graded `[I]`
+   (invented) when it is Ch18's own thesis, and it took the user to catch it.
+
+   ~19,000 lines of extraction remain unchecked against the chapters. That is the load-bearing claim in
+   this work.
+
+   *Separately, and not a judgement on the source:* **Q-VALIDATION is NO** means the papers contain no
+   instrument, no rater procedure, no comparison group and no number assigned to a person. That is a
+   statement about what is *in* them — clinical observation across decades, reported as such. It
+   constrains what the model can calibrate against (directions, orderings, mechanisms; not magnitudes).
+   It says nothing about whether Bowen is right.
 
 ## Standing decisions
 - Engine: deterministic core, no LLM in the decision path.

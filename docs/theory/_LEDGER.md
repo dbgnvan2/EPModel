@@ -1398,6 +1398,18 @@ narrower:**
 thinking.** **Do not quote it as "Bowen ruled out this class of model."** It still belongs in the proposal's
 framing section — accurately.
 
+**⚠ CORRECTED at the Kerr interview (late-period, undated).** The narrowing above is right, but the
+framing built on it was still wrong. Bowen is **not** indifferent to formal or quantitative approaches:
+"any theory to be a theory has to be based somehow, some way, **in the natural phenomenon, in the force
+that causes grass to grow, that causes the world to turn**." And he actively anticipates measurement —
+"there are **biochemical markers or indicators that could be measured** if we were smart enough to pick
+them out"; "if we just had enough money and enough people as subjects … **we wouldn't have to observe
+people, the chemistry would tell us**."
+**Consequence:** `Q-VALIDATION = NO` records a limit of what he had, **not a principle he held.** He
+wanted measurement and expected it. His objection was to importing models of *inanimate* things while
+insisting theory be grounded in nature — two compatible positions the project had been reading as one.
+See `_KERR_INTERVIEWS.md`.
+
 ---
 
 ## Ch18 — Society, Crisis, and Systems Theory  *(1973)*

@@ -108,6 +108,8 @@ If one of these is wrong, the architecture changes, not a parameter.
 
 **Scope corrected 2026-08-22.** This claim is about **Bowen's papers**, not about the field. External instruments exist — the Differentiation of Self Inventory (Skowron & Friedlander 1998; Skowron & Schmitt 2003) is the closest attempt, and it is still not a good instrument. The project had been using A6 loosely to mean "nothing exists to calibrate against anywhere", which was wrong. See `_EXTERNAL_MEASURES.md`; one calibration target is now admitted from it.
 
+**Kerr interview — the framing was wrong, though the finding stands.** Bowen anticipates measurement explicitly ("biochemical markers or indicators that could be measured"; "we wouldn't have to observe people, the chemistry would tell us") and insists theory be grounded "in the force that causes grass to grow". A6 records what the papers contain. It must not be read as Bowen rejecting measurement — he wanted it.
+
 **Verdict:** ☐ confirmed ☐ narrower ☐ wrong — notes:
 
 ### A7 · Estimates of differentiation are biased by construction

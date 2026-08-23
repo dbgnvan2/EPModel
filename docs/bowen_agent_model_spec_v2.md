@@ -392,6 +392,10 @@ The instance everything is tested against. It is **invented and tunable** — va
 
 **M5.D.7** Only a sequence reaching `FOLLOW_UP` counts as a *completed* exchange for the `basic_level` ratchet (M1.A.4) and the triangle decrement (M1.C.5).
 
+**M5.D.7a** The ratchet increment **MUST** be small enough that no realistic number of completed exchanges moves an agent materially up the scale within a run, and the config **MUST** carry a comment saying why. Bowen names the contrary reading as the field's characteristic misconception — of someone who "went home to see their parents over the weekend and differentiated" he says it is "**grotesque** … they think of differentiation is something **you do in an hour a weekend**." Ch21's trip is **one step in a decades-long effort**, not the unit of differentiation.
+
+**M5.D.7b** No readout **MUST** describe an agent that has completed an `I-POSITION` sequence as *differentiated*, or report completed exchanges as a differentiation score. → `theory/_KERR_INTERVIEWS.md`
+
 **M5.D.8** Success **MUST** usually follow several failures. An implementation in which the first attempt typically succeeds is a failing implementation.
 
 ### M5.E The reaction ladder

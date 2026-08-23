@@ -32,6 +32,11 @@ Recorded, not fixed. The engine is frozen in behaviour; these matter because the
 
 - [ ] **`§n` cross-references are ambiguous across documents.** All 50 in the v2 spec resolve against `model_explainer.md`, but several sentences address other documents ("proposal §9", "the frozen spec's §5.4") and `§5.4` exists in both. A traceability scan over `§` cannot tell the targets apart. Prefix them with the document.
 
+## Sources
+
+- [ ] **Locate the rest of the Kerr–Bowen interview series.** The folder holds #1 of a series; Kerr closes by saying later tapes "will concentrate on some of the more specific areas of the theory". Bowen names two he wanted covered: the difference between *distance* and *differentiation*, and how much of behaviour is intellectually directed versus emotionally reactive. An interview format with Kerr probing specific concepts is the highest-value form this material could take.
+- [ ] **Probe the remaining 11 validation items against the 1979 lectures.** Tape 6 especially — it is the direct counterpart to Ch15, where this project withdrew both the seven-rung severity ladder and the "hidden dependence network", and a whole lecture on family reaction to death is the natural place to test both withdrawals.
+
 ## Carried from the theory work
 
 - [ ] **`M11.C9`'s and sibling position's status generally.** Ch13 omits sibling position entirely, and its effect size has no source. Consider whether it earns a place in the model at all.

@@ -14,6 +14,7 @@
 | `_LEDGER.md` | **149** per-chapter findings + a withdrawn-ID appendix | **current — corrections folded in, self-contained.** The pass-1 version is in git history, not kept as a file. |
 | `ch01.md`–`ch22.md` | per-chapter extraction, both passes, `[p2]` marks additions | current |
 | `Extractions to be human validated.md` | the 22 extractions the model leans on hardest, with source line numbers and verdict boxes | **awaiting human validation — the open item** |
+| `_KERR_INTERVIEWS.md` | Kerr–Bowen interview #1, late period — the misconceptions interview | current; rest of the series not located |
 | `_LECTURES_1979.md` | the Basic Video Series (1979) — the latest Bowen in the project — and a first adjudication pass | current; 12 of 23 items probed |
 | `_EXTERNAL_MEASURES.md` | the DSI and what it does and does not give the model | current |
 | `_TEMPLATE.md` | extraction schema | reference |

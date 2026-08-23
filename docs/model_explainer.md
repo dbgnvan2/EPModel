@@ -884,6 +884,8 @@ Bowen states that he deliberately excluded "models from the sciences of inanimat
 
 So: **a named methodological preference, scoped to his own research staff.** It belongs in the record and it is worth taking seriously. It is not a prohibition and should not be quoted as one. `[T]` Ch17 · L17.5.
 
+**And the wider framing was wrong, which matters more than the narrowing.** In a late interview with Michael Kerr, Bowen insists theory must be grounded in nature — "in the force that causes grass to grow, that causes the world to turn" — and repeatedly anticipates measurement: "there are **biochemical markers or indicators that could be measured** if we were smart enough to pick them out"; "we wouldn't have to observe people, the chemistry would tell us." **`Q-VALIDATION = NO` records a limit of what he had, not a principle he held.** He wanted measurement and expected it to arrive. Objecting to models of *inanimate* things while demanding that theory be grounded in *nature* are compatible positions, and this project had been collapsing them into one. See [`theory/_KERR_INTERVIEWS.md`](theory/_KERR_INTERVIEWS.md).
+
 **And one more of his own, worth keeping in view.** `[T]` Ch14 · L14.4 — "The type of approach is not a positive index of success in therapy"; family therapy "is still more of an art than a science." Therapist skill may dominate method choice, which cuts against any model where method fully determines outcome.
 
 ---

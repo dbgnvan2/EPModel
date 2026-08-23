@@ -54,7 +54,7 @@ Acceptance test names **MUST** embed the lowercased ID (`test_m4c2_…`).
 
 ### 0.5 The parameter rule — the most important rule in this document
 
-**The corpus supports directions, orderings and mechanisms. It supports almost no magnitudes.** There is no instrument, no rater procedure, no comparison group and no number ever assigned to a person in any of the 22 chapters (`model_explainer.md`, "How to read an entry", and §3.1).
+**The corpus supports directions, orderings and mechanisms. It supports almost no magnitudes.** There is no instrument, no rater procedure, no comparison group and no number ever assigned to a person **in any of the 22 chapters** (external instruments exist and are recorded in `theory/_EXTERNAL_MEASURES.md`; they supply exactly one usable target, M10.C.2a) (`model_explainer.md`, "How to read an entry", and §3.1).
 
 Therefore:
 
@@ -534,6 +534,11 @@ avoidance_available(g) = positions_live(g) < 3        # a step, not a gradient
 **M10.C.1** The following are **invented** and **MUST** be labelled as such wherever they surface: the fast tick length; the softmax temperature and every propensity coefficient; all conductance values; all bond-energy values and its decay rate; the standing-load function; every gate threshold including the `outside_ness` threshold; `societal_leadership`'s functional form; the appraisal gain function's shape; the chronic-anxiety fixation age; sibling-position effect sizes; the M6.I.1 conservation tolerance; every value in M2.
 
 **M10.C.2** The following are **stated in the corpus** and are usable as calibration targets: the durations in `model_explainer.md` §8, the 0–100 scale and the transition at 50, the ~90%-in-the-lower-half population skew, the three-sink count, and the eight-to-ten-generation figure.
+
+**M10.C.2a** One **external** calibration target is admitted: the DSI–trait-anxiety association, **r = .64** (Skowron & Friedlander 1998, N = 609). It **MAY** be used to check an ensemble's differentiation–anxiety coupling and **MUST NOT** be used to set a parameter. Two limits **MUST** travel with it in any report: it relates two self-reports, so shared method variance inflates it; and it is a population association in a sample that is 82.7% White and largely northeastern US, not a norm. → `theory/_EXTERNAL_MEASURES.md`
+
+**M10.C.2b** No output **MUST** be described as reproducing *measured* differentiation. The best available instrument reports α ≈ .88 overall, and its Fusion With Others subscale — the construct most central to the theory — required a five-year rebuild after failing to relate to psychological adjustment at all. The model **MUST NOT** claim precision the measurement literature does not have.
+
 
 **M10.C.3** The following **MUST NOT** be implemented as rates, because they were manufactured from illustrations Bowen explicitly bounded: any per-generation `basic_level` decrement, and any annual societal-regression rate. → §8
 

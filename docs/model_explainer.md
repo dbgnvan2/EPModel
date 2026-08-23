@@ -25,6 +25,8 @@ Every part is written the same way:
 
 The corpus contains **no instrument, no rater procedure, no comparison group, and no number ever assigned to a person**, in any of its 22 chapters. It supports directions, orderings and mechanisms. It supports almost no magnitudes. Every numeric constant in this model is therefore invented, and the grade tells you which parts of a claim are which.
 
+**That is a statement about Bowen's papers, not about the field.** Instruments were built later by other researchers — the Differentiation of Self Inventory is the closest attempt, and it is still not a good instrument. It supplies exactly one figure this model may check itself against, and its own failures bear on §10.1's readout warnings. See [`theory/_EXTERNAL_MEASURES.md`](theory/_EXTERNAL_MEASURES.md).
+
 | Grade | Meaning | What you may do with it |
 |---|---|---|
 | **`[T]`** | **Textual.** Bowen states this, verbatim or nearly. | Implement as stated. Cite it. |
@@ -715,7 +717,9 @@ Three separate findings that all constrain how an event resolves:
 
 **2. Position-taking behaviour does not mean differentiation.** `[T]` Ch10 · L10.12 — the fifth band, upper 25–50: dogmatic, compliant or rebellious, "intellect in the service of the relationship system." These agents score high for the wrong reason.
 
-**3. Any estimate of differentiation is biased by construction.** `[T]` Ch17 · L17.2 — pseudo-self is lent, borrowed and traded between people, which "**results in false readings when one attempts to estimate levels of differentiation.**" Recoverable only over a life course. **A coach-side or readout-side estimate must be modelled as biased and noisy**, not as a clean read of the true value.
+**3. Any estimate of differentiation is biased by construction — and the measurement literature bears this out.** `[T]` Ch17 · L17.2 — pseudo-self is lent, borrowed and traded between people, which "**results in false readings when one attempts to estimate levels of differentiation.**" Recoverable only over a life course. **A coach-side or readout-side estimate must be modelled as biased and noisy**, not as a clean read of the true value.
+
+> This is the one place the model has external corroboration. The DSI's Fusion With Others subscale — the construct most directly about self borrowed from others — produced reliabilities of .57–.74 and **no significant relationship to psychological adjustment, problem-solving or relationship satisfaction**, while the instrument's other three subscales worked at α ≥ .80. It took a five-year rebuild. Suggestive, not proof; but it is what Bowen's claim predicts would happen, and it means agreement between this model and a DSI score is weak evidence for both.
 
 > **Gossip is a readout of the communication layer, and it moves inversely.** `[T]` Ch21 · L21.9 — gossip volume **rises as direct contact falls.** The only instance in the corpus of rerouting at the communication layer.
 

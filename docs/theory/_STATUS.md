@@ -14,6 +14,7 @@
 | `_LEDGER.md` | **149** per-chapter findings + a withdrawn-ID appendix | **current — corrections folded in, self-contained.** The pass-1 version is in git history, not kept as a file. |
 | `ch01.md`–`ch22.md` | per-chapter extraction, both passes, `[p2]` marks additions | current |
 | `Extractions to be human validated.md` | the 22 extractions the model leans on hardest, with source line numbers and verdict boxes | **awaiting human validation — the open item** |
+| `_EXTERNAL_MEASURES.md` | the DSI and what it does and does not give the model | current |
 | `_TEMPLATE.md` | extraction schema | reference |
 | `../agent_model_proposal.html` | **the model proposal — repo copy, source of truth** | **STALE — see "Known stale" below** |
 
@@ -169,7 +170,7 @@ Order of work:
    ~19,000 lines of extraction remain unchecked against the chapters. That is the load-bearing claim in
    this work.
 
-   *Separately, and not a judgement on the source:* **Q-VALIDATION is NO** means the papers contain no
+   *Separately, and not a judgement on the source:* **Q-VALIDATION is NO** is scoped to the papers — external instruments exist and are recorded in `_EXTERNAL_MEASURES.md`. It means the papers contain no
    instrument, no rater procedure, no comparison group and no number assigned to a person. That is a
    statement about what is *in* them — clinical observation across decades, reported as such. It
    constrains what the model can calibrate against (directions, orderings, mechanisms; not magnitudes).

@@ -12,7 +12,7 @@ date: 2026-08-22
 
 This is not a hypothetical risk. Pass 2 withdrew nineteen pass-1 findings: two rates manufactured from illustrations Bowen explicitly bounded, invented rankings, stripped hedges, topology the text does not have. In every case Bowen was right and our extraction was wrong. It happened again on 2026-08-22, when `resource_pressure` was graded "invented" although it is Ch18's own thesis.
 
-So this list is not a re-read of the corpus. It is the **twenty-two extractions the model leans on hardest** — the ones where being wrong changes the architecture, not just a footnote. Checking these covers most of the load-bearing surface in an afternoon.
+So this list is not a re-read of the corpus. It is the **twenty-three extractions the model leans on hardest** — the ones where being wrong changes the architecture, not just a footnote. Checking these covers most of the load-bearing surface in an afternoon.
 
 ## How to use it
 
@@ -92,13 +92,29 @@ If one of these is wrong, the architecture changes, not a parameter.
 
 **Verdict:** ☐ confirmed ☐ narrower ☐ wrong — notes:
 
-### A6 · No instrument, no rater procedure, no number assigned to a person
+### A6 · No instrument, no rater procedure, no number assigned to a person — *in the corpus*
 
 **We claim:** across all 22 chapters there is no measurement instrument, no rater procedure, no comparison group, and no number ever assigned to an individual — so the corpus supports directions, orderings and mechanisms but almost no magnitudes.
 
 **Where:** a negative finding, so it cannot be pointed at a line. The nearest positive evidence is Ch16 on the clinical scale being slowed, and Ch17 on that research being stopped to prevent misuse.
 
-**What depends on it:** the whole parameter register, spec M0.1–M0.4, and the grading system in the explainer. **This is the single highest-leverage item on the list.** If there is measurement anywhere we missed, a large part of the model becomes calibratable rather than invented.
+**What depends on it:** the whole parameter register, spec M0.1–M0.4, and the grading system in the explainer. **This is the single highest-leverage item on the list.** If there is measurement anywhere in the chapters we missed, a large part of the model becomes calibratable rather than invented.
+
+**Scope corrected 2026-08-22.** This claim is about **Bowen's papers**, not about the field. External instruments exist — the Differentiation of Self Inventory (Skowron & Friedlander 1998; Skowron & Schmitt 2003) is the closest attempt, and it is still not a good instrument. The project had been using A6 loosely to mean "nothing exists to calibrate against anywhere", which was wrong. See `_EXTERNAL_MEASURES.md`; one calibration target is now admitted from it.
+
+**Verdict:** ☐ confirmed ☐ narrower ☐ wrong — notes:
+
+### A7 · Estimates of differentiation are biased by construction
+
+**We claim:** because pseudo-self is lent, borrowed and traded between people, any attempt to estimate someone's level of differentiation produces false readings, recoverable only over a life course.
+
+**Words we rely on:** "results in false readings when one attempts to estimate levels of differentiation"
+
+**Where:** `Chapter17…txt:745`.
+
+**What depends on it:** explainer §10.1 — the model must treat every readout-side estimate as biased and noisy rather than as a clean read. It now also governs how the model may be compared against the DSI at all.
+
+**This one has external corroboration, which nothing else on this list does.** The DSI's Fusion With Others subscale — measuring the construct most directly about self borrowed from others — failed for five years (α .57–.74, no relationship to psychological adjustment, problem-solving or relationship satisfaction) while its other three subscales worked. That is consistent with Bowen's prediction, and it is suggestive rather than proof. Worth checking the original claim carefully given how much it now carries.
 
 **Verdict:** ☐ confirmed ☐ narrower ☐ wrong — notes:
 

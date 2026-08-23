@@ -42,6 +42,8 @@ If one of these is wrong, the architecture changes, not a parameter.
 
 **What depends on it:** spec M6.I.1 and M6.I.2; proposal finding F4; the entire conservation architecture. Pass 1 read four sinks and inserted the word *absorbing* to make distance one of them.
 
+**1979 lectures — CONFIRMED and sharpened.** Tape 2 names distance first and separately ("keeping distance from each other is one of the better ways"), then lists "the three ways… **because these are the three things that end up with symptoms**." The book establishes that distance sits outside the budget; the lecture supplies the criterion. Lower priority for validation than it was.
+
 **Verdict:** ☐ confirmed ☐ narrower ☐ wrong — notes:
 
 ### A2 · A per-person life-energy budget, and the debit on the tie
@@ -53,6 +55,8 @@ If one of these is wrong, the architecture changes, not a parameter.
 **Where:** `Chapter10…txt:1452`; the relationship-seeking / goal-directed split around `:776`.
 
 **What depends on it:** spec M1.A.10, M6.I.3, M5.E.7; acceptance criterion M11.C.5. **Please check the "four times" claim specifically** — if it is once, this is a much weaker foundation than we have given it.
+
+**1979 lectures — SILENT. This raises its priority.** No lecture statement of the relationship-seeking / goal-directed allocation was found, so it remains **Ch10 only**. The model uses it as the *cause* of the change-back reaction — and that reaction is now two-source while its proposed mechanism is not.
 
 **Verdict:** ☐ confirmed ☐ narrower ☐ wrong — notes:
 
@@ -77,6 +81,8 @@ If one of these is wrong, the architecture changes, not a parameter.
 **Where:** `Chapter16…txt:1403` and the band descriptions around it; population skew at `Chapter17…txt:686`.
 
 **What depends on it:** spec M1.A.2 and M1.A.3 — the only source in the corpus for the scale's numbers. Pass 1 truncated the 50 threshold and read it as suppression.
+
+**1979 lectures — NARROWED.** Bowen: the 0–100 range "**is arbitrary**", he could have used Fahrenheit, and "any kind of a scale is alright as long as one can get the notion of a continuum". Also "**I'm not liking this scale as I go through the years with it**". Please check whether the *book* also bounds the range this way, or whether we have been treating an arbitrary choice as a finding.
 
 **Verdict:** ☐ confirmed ☐ narrower ☐ wrong — notes:
 
@@ -131,6 +137,8 @@ If one of these is wrong, a named mechanism in the model changes shape.
 **Where:** `Chapter21…txt:1192`.
 
 **What depends on it:** spec M5.E.1–M5.E.3, acceptance criterion M11.C.5. Pass 2 recorded this as verbatim-correct; it is worth confirming, because the model treats the third rule as a hard diagnostic.
+
+**1979 lectures — CONFIRMED independently.** Tape 4 gives the same three steps in the same order, with a worked case, thirteen years after Ch21's events. This is now the best-evidenced mechanism in the model and needs the least validation.
 
 **Verdict:** ☐ confirmed ☐ narrower ☐ wrong — notes:
 
@@ -266,6 +274,8 @@ If one of these is wrong, a named mechanism in the model changes shape.
 
 **What depends on it:** spec M4.C.3. Also please check the **three anxiety regimes** we withdrew: pass 1 read invisible / legible / chaotic as a claim about the system, and pass 2 concluded it describes the *observer's* ability to see. That reversal is worth a second opinion.
 
+**1979 lectures — CONFIRMED, plus an addition.** Tape 5 defines anxiety as "the emotional responsiveness of a person to situational stress" and says its intensity "can be judged by the intensity **and fixedness** of these symptoms, the relationship patterns". *Fixedness* is a second observable the model does not currently read out.
+
 **Verdict:** ☐ confirmed ☐ narrower ☐ wrong — notes:
 
 ### C3 · Resource pressure and the disappearance of land frontiers
@@ -320,4 +330,6 @@ A **narrower** verdict is the most likely and the most useful. Note the hedge or
 
 A **wrong** verdict on anything in Tier A means the architecture moves, and the v2 spec should not be approved until it does. Tier B means one mechanism is respecified. Tier C usually means a parameter or a readout changes.
 
-Either way the finding goes into `_LEDGER.md` against the entry's ID, and `_RESOLUTIONS.md` if it settles or reopens a contradiction.
+Either way the finding goes into `_LEDGER.md` against the entry's ID, and `_RESOLUTIONS.md` if it settles or reopens a contradiction.**1979 lectures — the anniversary negative is CONFIRMED.** Tape 6 is an entire lecture on family reaction to death and the word "anniversary" appears nowhere in any of the six transcripts.
+
+

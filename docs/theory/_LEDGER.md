@@ -1242,8 +1242,17 @@ L09.4. **No dependence-vs-attachment edge weight.**
 relief — with an **unranked** list inside the top tier. Pass 1 presented an ordinal ladder as "Bowen's own
 ordering" **and silently swapped the grandmother pair so it would descend** (the text puts shadow before
 central). It was being used as a calibration ladder. Withdrawn as a ladder.
-**What survives:** the three tiers, and two pairwise relations — **central > shadow grandmother**, and
-**dysfunction that was load-bearing produces a shock wave where ordinary dysfunction does not**. A burdensome,
+**What survives, and 1979 Tape 6 supplies the ranking principle pass 2 said was absent:** the three tiers,
+and the rule that generates them — "the most important cue… has to do with the **functional position in the
+family** of the one who dies. Potential reactiveness is **greatest when that person goes from full
+functioning to death in a brief period**." The ordering is by **functional position plus suddenness**, not by
+role label.
+**The grandmother pair is settled, and neither earlier reading was right.** Tape 6: when the patriarch dies
+there is a fair chance of a shock wave, "and then when his wife dies, it'd be **less** of a reaction. **If
+the wife was the sort of matriarch** who was responsible and respected, then the shockwave would come more in
+relation to **her** than to her husband." Whoever held the functional-doer position, either sex. A disabling
+injury or life-threatening illness in an emotionally endowed child ranks with a death.
+Also surviving: **dysfunction that was load-bearing produces a shock wave where ordinary dysfunction does not**. A burdensome,
 non-critical member's death is followed by **improved** family functioning. Suicide produces prolonged grief
 but a **minor** shock wave.
 *Model impact:* grief magnitude and system-disturbance magnitude are **separate output channels**, and a

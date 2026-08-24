@@ -191,3 +191,74 @@ The seesaw conjunction (B8) and the three-live-positions finding (B10) are addre
 Of the 23 validation items, the lectures now **settle or corroborate 15**, **narrow 2** (the scale, and A4's arbitrariness), and are **silent on 4** — leaving A7, C4 and B4 single-sourced to the book, which is worth knowing before those items are validated by hand.
 
 **Two items still owed to Tape 6**, the counterpart to Ch15: whether the withdrawn seven-rung severity ladder and the withdrawn "hidden dependence network" are contradicted by a whole lecture on family reaction to death. Probing found neither reinstated, but Tape 6 has not been read end to end.
+
+
+---
+
+# Tape 6 read end to end — the Ch15 items settled
+
+The outstanding item. Tape 6 is the direct counterpart to Ch15, where pass 2 withdrew two findings. Both are now resolved, and one of the withdrawals needs refining.
+
+## T6.1 — The severity ladder: the withdrawal was right, the replacement was too weak
+
+Pass 2 withdrew Ch15's seven-rung ladder and replaced it with "three tiers, with an **unranked** list inside the top tier." Tape 6 keeps the three tiers and **supplies the ranking principle**:
+
+> "the most important cue… has to do with the **functional position in the family** of the one who dies. Potential reactiveness is **greatest when that person goes from full functioning to death in a brief period**."
+
+- **High:** a father or mother "who died in the **vigor of life**"; the **head of the clan** — "every family has a functional head of the clan who becomes the **responsible doer** when there's a job to be done… nominated by the family and **the responsibility accepted by the person**"; and a child "**endowed with emotional importance** — an only child, an only son, an only daughter, an oldest son or daughter, or a **gifted child**", including a life-threatening illness or **disabling injury**, not only death.
+- **Neutral:** "the family member who has been **neither famous nor infamous**… haven't made great contributions to the family, nor have they been a great problem."
+- **Relief:** someone who "has **not contributed back** to family functioning and who **has become a burden**… the family can reach a point of hoping that they would die, **and the person themselves can hope for death**."
+
+**And the grandmother pair is settled.** Pass 1 silently reordered it; pass 2 recorded the text as putting shadow before central. Tape 6 shows why neither reading was right — the order is **not by role label at all**:
+
+> "When this person [the patriarch] dies, there's a fair chance of a shockwave… **and then when his wife dies, it'd be less of a reaction. If the wife was the sort of matriarch** who was responsible and respected in a family, **then the shockwave would come more in relation to her than to her husband.**"
+
+*Model consequence:* `structural_importance` (`M1.A.13`) is currently a static three-tier label. It should be **derived** — from whether the person holds the functional-doer position, whether a child carries emotional endowment, and how **suddenly** they went from full functioning — with the three tiers as the output rather than the input. That is both better sourced and computable from state the model already has.
+
+## T6.2 — The "hidden dependence network" withdrawal is confirmed, with two worked cases
+
+Pass 2 withdrew pass 1's second edge type, holding that the propagation is multi-hop on the ordinary graph plus a belief layer. Tape 6 confirms it with a full case: a mother dying suddenly in her late 50s, and within about **18 months** — a grandson in dental school wrecking his car en route to the funeral, the father drinking for 18 months then diagnosed diabetic, a son at home losing his job and beginning drinking and first police trouble, a son-in-law's heart attack, a daughter's gallbladder surgery with complications, and **a daughter a thousand miles away with no visible reaction whose two children then became symptomatic within six months**.
+
+That last branch is exactly the pattern: an asymptomatic carrier on an ordinary tie, with the symptom appearing one hop further out. **No second edge type is needed.**
+
+## T6.3 — The belief layer, with a number `[#]`
+
+> "In some **3,000 detailed family histories, I found only one** in which a family member indicated some awareness of a connectedness."
+
+And: "the family tendency to obliterate connectedness is so great **I never tell them about it**."
+
+*Model consequence:* the largest N in the corpus, and it is a measurement of the **belief layer** (`M9`, `L09.4`) — families do not perceive the connection between a loss and the symptoms that follow, at a rate of about 1 in 3,000. It also gives the model a design constraint: a readout that reports the connection is reporting something no family member sees.
+
+His causal language is careful and should be preserved: "I **wouldn't be willing to say that this death causes this**, but I would be [willing] to say that these kinds of human problems **follow death in time sequence in a fair percentage of families**."
+
+## ⚠ T6.4 — The taboo set is REVERSIBLE — this corrects `L10.8`
+
+`L10.8` records the taboo-subject set as growing **monotonically** — "subjects are withdrawn from a tie and not returned." Tape 6:
+
+> "if people could only know that the **purposeful mention of the taboo subject**, if one can control one's own anxious response to the other, **can desensitize the whole mechanism**, it would be a healthier world."
+
+*Model consequence:* the set is not monotone. A subject can be returned to a tie by **deliberate mention under self-control** — which is the same operation as the differentiating move, applied to one topic. `L10.8` and any implementation deriving from it must be corrected.
+
+## T6.5 — The perception drives the wave, not the fact `[T]`
+
+A grandson arrested for shoplifting on the day his grandmother was hospitalised for removal of a **benign** breast tumour: "the family anxiety had treated it **as if this was a cancer**, and the boy's reaction would be based on **the family perception of it**." And a mastectomy shock wave "still going five years later when the mother was **pronounced cured**."
+
+*Model consequence:* `M9` again — the event that propagates is the family's belief about the event. Threatened death "can stir as much reaction as actual death… the family reaction is dependent more on the **escalating family anxiety than on reality**."
+
+## T6.6 — The vocabulary of the sender sets the receiver's register `[T]`
+
+> "I carefully use the words **death, die, bury**… I avoid terms such as passed, gone, deceased, expired… **when I introduce the subject with tangential words, the other will respond with tangential words**."
+
+*Model consequence:* a fidelity finding (`M1.F.4`) with a mechanism — the register of a message constrains the register of the reply, independently of content.
+
+## T6.7 — One open relationship is sufficient `[T]`
+
+> "one can't have them with everybody, but if a person can have an **open relationship with the important people in his life, one important other**, there's indication that this is a more healthy way of life."
+
+*Model consequence:* the open-relationship goal has a **floor of one**, not a requirement of universality — which bounds `KB05` · K05.5's "open relationship with every living relative" and sits with `KB08` · K08.4's reserve requirement.
+
+## T6.8 — Return of a removed member is the most disturbing addition `[T]`
+
+Additions disturb equilibrium as losses do — a first child turning a two-person system into three, a second making four — and "probably the **most intense** is the **return of a long lost family member**… the family has found a new way of adapting **without** the family member, and then the family member returns."
+
+*Model consequence:* directly relevant to `RETURN` in the event kinds. The model treats institutionalisation as the disturbance; **Tape 6 says the return is the larger one**, because the system has re-equilibrated in the member's absence. `M11.C.11`'s hospitalize-and-release arm should expect the re-escalation on return to exceed the removal.

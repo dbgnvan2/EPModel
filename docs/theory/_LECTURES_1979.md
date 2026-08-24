@@ -129,16 +129,65 @@ The lectures are the best hope of settling this, since they are latest. Not foun
 
 ---
 
-## Outstanding — not yet probed
+## Revision 1 — the remaining eleven items, probed
 
-Eleven items from the validation list have not been searched: A5 (pseudo-self conservation), A6/A7 (validation and measurement bias), B4 (the ally rule), B5 (no decay with distance), B6 (the removal trigger), B7/B8 (investment and the seesaw), B9 (two-level arithmetic), B10 (three live positions), C1 (financial dependence), C3 (resource pressure), C4 (the decoupling guard).
+Completing the pass. **Nine of the eleven now have a result; two are silent.**
 
-Two open contradictions are also unprobed: the threesome-versus-twosome question, and whether a witness helps or displaces.
+### A5 · pseudo-self conserved and traded — **CONFIRMED, and the lectures define it better than the book**
 
-**Tape 6 in particular is barely touched** and is the direct counterpart to Ch15, which this project narrowed heavily — the seven-rung severity ladder was withdrawn, and the "hidden dependence network" was withdrawn as an invented second edge type. A lecture devoted to family reaction to death is the natural place to test both.
+Tape 1: people in the lower half of the scale "have a way of **borrowing self from each other, lending, borrowing, trading self back and forth**… one can borrow a self, borrow some ideas from another person, and **appear to be more of a self than they are**, and this is much greater in the lower end of the scale."
 
-## Net effect on the validation burden
+Tape 2 gives the split cleanly: "The **basic self** of a person is what they believe in, what they stand for, who they are, and this is **where they will stand no matter what**. The **pseudo-self** is a lot of beliefs and philosophies that they acquire through education, reading… **the pseudo-self is negotiable.**"
 
-Of the twelve items probed, the lectures **settle two** (A1 confirmed and sharpened; C6's negative confirmed), **narrow one** (A4), **strengthen one to two sources** (B1), **add a caution** (sibling position), and **leave four single-source** (A2, A3, and the two silences).
+*Model consequence:* `M6.I.4`/`M6.I.5` confirmed, and **"the pseudo-self is negotiable" is the cleanest definition of the conserved quantity in any source.** Solid self is what does not negotiate. That is directly implementable as the exemption test.
 
-That is a real reduction in what needs human validation, and it identifies A2 as more exposed than the checklist currently shows.
+### B7 · investment is valence-blind — **CONFIRMED, more strongly than in the book**
+
+Tape 1: "**A negative feeling is just as successful in maintaining a family system as a positive feeling, so I make no difference. That is psychic investment in the other.** The only difference… is that people react differently… **but for systems purposes, negative and positive** [are equivalent]."
+
+*Model consequence:* `M1.B.8` was sourced to Ch04's "whether positive or negative". The lecture states the systems rationale outright — valence changes the *reaction*, not the *investment*. Two-source and unambiguous.
+
+### B9 · assortative mating is on the BASIC level — **CONFIRMED and specified**
+
+Tape 3: "When I say **spouses marry others with the same basic level of differentiation, I mean this base level and not functional levels**." And: "functioning goes up and down real easy — somebody can be complimented and they go out walking on clouds and they're functioning better."
+
+*Model consequence:* corroborates `KB14` · K14.2 and **specifies the field** — `M2.A.0c` correctly pairs on `basic_level`, and pairing on `functional_level` would be wrong.
+
+### C1 · financial dependence — **CONFIRMED, with the mechanism the spec lacked**
+
+Tape 4: "you **couldn't work with a child who's still financially and emotionally dependent** and living with parents. It has to be somebody who can **risk the chance** of differentiation, because when somebody starts differentiating, the family system is going to say, 'Don't you do that. **If you do that, we are going to disinherit you.**'"
+
+*Model consequence:* `M1.A.15`/`L10.11a` confirmed, and the mechanism is now explicit — **the change-back threat is materially enforceable, and financial dependence is what makes it bite.** The gate is not arbitrary; it is the condition under which the reaction ladder's third rung ("if you do not, these are the consequences") has teeth.
+
+### B5 · coupling does not decay with distance — **CONFIRMED, with a readout**
+
+Tape 4: people who "go away from it and get a lot of distance… are **not really out of it**… they're still hooked on to it, **they're just geographically away**." And: "it's common for this person who is away from it to **say that they have handled things** with the family and they are out of it — **which is not differentiation, that's distancing**."
+
+*Model consequence:* C7 confirmed from a fourth source, and the second half is another instance of the five-source rule in `kb/_KB_PASS2.md` — **claiming to have resolved it by moving away is evidence of not having resolved it.**
+
+### ⚠ B6 · removal and symptom relocation — **a passage that may bear on the withdrawn L01.7**
+
+Tape 3, on a family where the eldest was institutionalised for childhood psychosis: "after this girl went to an institution, then **his physical problem became much greater and he was hospitalized** for that, and this is **another characteristic of families**."
+
+*Handle carefully.* `L01.7` — the durable projection target queue — was withdrawn because **Ch04 retracts it and dates the error**. This 1979 passage is later than that retraction and describes a sibling's symptom worsening after a removal. **It is not obviously the same claim:** a physical symptom intensifying is not durable *position uptake* by a replacement. Under latest-wins the passage is later, but the withdrawn claim was withdrawn by Bowen himself.
+**Recorded as an open item.** Do not reinstate `L01.7` on this. What it does support is the fast redirection that survived the withdrawal (`L01.1`), now with a post-removal instance.
+
+### A7 · measurement bias — **SILENT**
+No lecture statement. Remains **Ch17-only**, which matters because validation item A7 now carries the weight of the DSI corroboration.
+
+### C4 · the decoupling guard — **SILENT**
+No lecture statement that well-differentiated families outrun the societal level. Remains **Ch18-only**, and it is the guard that keeps the societal dials from being unavoidable multipliers.
+
+### B4 · the ally rule — **effectively silent**
+The only hit is Tape 6 using *ally* in an ordinary sense — "the main ally was the regular therapist" — not the Ch21 rule. Remains Ch21-only, as resolved in `_RESOLUTIONS.md` R2.
+
+### B8, B10 — covered by the interviews rather than the lectures
+The seesaw conjunction (B8) and the three-live-positions finding (B10) are addressed in `kb/` and `_RESOLUTIONS.md` R1; the lectures add nothing further.
+
+---
+
+## Net effect of revision 1
+
+Of the 23 validation items, the lectures now **settle or corroborate 15**, **narrow 2** (the scale, and A4's arbitrariness), and are **silent on 4** — leaving A7, C4 and B4 single-sourced to the book, which is worth knowing before those items are validated by hand.
+
+**Two items still owed to Tape 6**, the counterpart to Ch15: whether the withdrawn seven-rung severity ladder and the withdrawn "hidden dependence network" are contradicted by a whole lecture on family reaction to death. Probing found neither reinstated, but Tape 6 has not been read end to end.

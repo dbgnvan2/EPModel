@@ -100,7 +100,7 @@ Therefore:
 
 **M1.A.14** A `Person` **MUST** hold `sibling_position` as static profile data affecting the propensity vector and nothing else. → §3.11
 
-**M1.A.15** A `Person` **MUST** hold `financially_dependent: bool`, a hard gate on one move (M5.C). There **MUST NOT** be a per-person material stock, resource pool, or any quantity whose depletion causes death. → §3.12
+**M1.A.15** A `Person` **MUST** hold `financially_dependent: bool`, a hard gate on one move (M5.C). **The mechanism is now explicit:** the change-back reaction's third rung — "if you do not, these are the consequences" — is **materially enforceable** against a dependent person. 1979 Tape 4: "you couldn't work with a child who's still **financially and emotionally dependent**… it has to be somebody who can **risk the chance**, because the family system is going to say, '**if you do that, we are going to disinherit you**.'" The gate is therefore not arbitrary; it is the condition under which the threat has teeth. There **MUST NOT** be a per-person material stock, resource pool, or any quantity whose depletion causes death. → §3.12
 
 **M1.A.16** A `Person` **MUST** hold `beliefs` (M9), which **MUST** be permitted to differ from ground truth.
 
@@ -122,7 +122,7 @@ Therefore:
 
 **M1.B.7** Reversal cost **MUST** be asymmetric: reducing a marked over-functioner **MUST** cost less than raising a marked under-functioner. → §4.4
 
-**M1.B.8** `investment` **MUST** be directed and **valence-blind** — share of thought occupied by the target. It **MUST NOT** be derived from warmth, agreement, or tie quality. Conflict-laden preoccupation **MUST** register as *high* investment. → §4.5
+**M1.B.8** `investment` **MUST** be directed and **valence-blind**. 1979 Tape 1 states the systems rationale: "a **negative feeling is just as successful in maintaining a family system as a positive feeling**, so I make no difference. That is psychic investment in the other… the only difference is that people **react** differently." Valence changes the reaction, not the investment. — share of thought occupied by the target. It **MUST NOT** be derived from warmth, agreement, or tie quality. Conflict-laden preoccupation **MUST** register as *high* investment. → §4.5
 
 **M1.B.9** A `Relationship` **MUST** hold `areas_of_joint_activity`; narrowing them **MUST** operate on the same variable as the functioning balance, not on a separate distance scalar. → §4.4
 
@@ -261,7 +261,7 @@ The instance everything is tested against. It is **invented and tunable** — va
 
 **M2.A.0b** There is **no calendar epoch**. All dates **MUST** be expressed as a duration relative to `t0`, the first slow tick. M3 defines only relative clocks, so a literal year has nothing to resolve against.
 
-**M2.A.0c** Spouses **MUST** be paired at comparable `basic_level`. "People choose spouses [at] **almost identical levels of differentiation of self**", offered as an observed constant and "par for the course". → `kb/kb14.md` · K14.2
+**M2.A.0c** Spouses **MUST** be paired at comparable **`basic_level`**, never `functional_level`. 1979 Tape 3 specifies the field: "when I say spouses marry others with the same basic level of differentiation, **I mean this base level and not functional levels**" — functioning "goes up and down real easy." "People choose spouses [at] **almost identical levels of differentiation of self**", offered as an observed constant and "par for the course". → `kb/kb14.md` · K14.2
 
 **M2.A.0d** Fusion **MUST** be life-stage dependent, not uniformly costly. The infant–caretaker symbiosis is stated as a **normal state, not a pathology**. → `kb/kb14.md` · K14.5
 
@@ -466,7 +466,7 @@ Asserted at the end of every fast tick (M4.G.2). A violation **MUST** raise, not
 | **M6.I.1** | The family undifferentiation budget has exactly **three** sinks and is conserved across them | §7 I1 |
 | **M6.I.2** | Emotional distance runs **outside** the budget as an always-on baseline; it **MUST NOT** be a fourth sink | §7 I2 |
 | **M6.I.3** | `life_energy` is zero-sum per person between relationship-seeking and goal-directed activity | §7 I3 |
-| **M6.I.4** | Dyadic exchange conserves **pseudo-self**: one spouse's functional gain equals the other's loss | §7 I4 |
+| **M6.I.4** | Dyadic exchange conserves **pseudo-self** — defined in 1979 Tape 2 as what is *negotiable*: basic self is "what they believe in, what they stand for… where they will stand **no matter what**", pseudo-self is acquired belief and "**the pseudo-self is negotiable**". The negotiability test is the exemption test: one spouse's functional gain equals the other's loss | §7 I4 |
 | **M6.I.5** | Solid self is **exempt** from fusion and **MUST NOT** participate in M6.I.4 | §7 I5 |
 | **M6.I.6** | Anxiety is conserved and redirected, never destroyed; blocking one channel raises flow on the rest | §7 I6 |
 | **M6.I.7** | There is no exit from the field; `CUTOFF`, `DISTANCE` and silence are moves *inside* the system | §7 I7 |

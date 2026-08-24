@@ -137,6 +137,15 @@ Therefore:
 
 **M1.C.3** Persistent triangle topology **MUST** be stored separately from the currently-active set. Triangles **MUST** be inoperative when the system is calm. → §6.1
 
+**M1.C.3a — the routing capacity of a triangle MUST be a function of its members' `functional_level`, not of the triangle alone.** A triangle among well-differentiated members **MUST** route little anxiety, activate only under real load, and **resolve when the load passes**; the same topology among poorly-differentiated members **MUST** route more and stay fixed. Verbatim: *the intensity of these patterns "is determined by level of differentiation and principally anxiety"* — "**well differentiated, these patterns will be mild, they'll be there in periods of anxiety and they'll go away**, and as we go down into lower levels of differentiation, **these patterns are more intense**."
+
+**M1.C.3b** It follows that **the coach MUST NOT act on triangles as a mechanism of change.** Triangle activity is a *consequence* of anxiety and differentiation, so the two levers are the two named in `KB04` — get the anxiety down, then work toward differentiation — and triangle activity falls out. A move that manipulates the family's triangles directly **MUST NOT** exist in the repertoire. *This is why Bowen says late in life that he does "not do much with triangles anymore" and that it makes "no difference how many triangles are out there": a statement about **coaching technique**, not about whether triangles operate.* `Triangle` remains a first-class object (M1.C) because it is the structure anxiety routes **through**; what changes with differentiation is how much it carries.
+
+**M1.C.3c** Two distinct operations share the name *detriangle* in the sources and **MUST NOT** be conflated in the implementation:
+- **detriangle self** — the actor withdraws their own emotional participation while staying in contact (`KB06`: "to calmly de-triangle self from the primary triangle with the parents"). This is the outside position and it is what `M8` counts.
+- **detriangle another** — returning an aligned third party to neutral (Ch21, `M5.B.1`).
+The first is the mechanism of change; the second is a countermeasure during a move.
+
 **M1.C.4** A `Triangle` **MUST** hold `activation_memory`; tension **MUST** preferentially reroute onto previously-used circuits. → §6.1
 
 **M1.C.5** A `Triangle` **MUST** hold `intensity_floor`, a permanent decrement applied when an I-position is held. The triangle's intensity **MUST NOT** fully revert. → §6.1

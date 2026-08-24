@@ -470,8 +470,13 @@ Every fast tick, each person selects **exactly one** move. The repertoire is del
 | `inside_pair`, `outside_member` | who is currently where | `[T]` Ch09 · L09.3 — **position value inverts with load**: outside is unfavoured when calm and **favoured under tension** |
 | `bound_anxiety` | how much the structure is currently holding | `[M]` Ch17 · L17.1 — anxiety dilutes across three edges |
 | `active` | whether it is operative at all | `[T]` Ch17 · L17.1 — "the system is calm and the triangles inoperative". **Persistent topology is stored separately from the active set.** |
+| `routing_capacity` | how much anxiety it can carry | `[T]` 1979 Tape 5 — intensity "is determined by level of differentiation and principally anxiety". **A function of the members' `functional_level`, not of the triangle.** Well differentiated: patterns are mild, appear under anxiety, and go away. Poorly differentiated: more intense and fixed. |
 | `activation_memory` | which circuits it has used before | `[T]` Ch09 · L09.3 — tension reroutes onto "old preestablished circuits" |
 | `intensity_floor` | a permanent decrement | `[T]` Ch09 · L09.3 — an "I" position held "for even a few days" produces a **permanent** decrease in that triangle's intensity. **The state does not fully revert.** This is the counterweight to the change-back reaction. |
+
+> **The coach never works the triangles.** Triangle activity is a *consequence* of anxiety and differentiation, so the levers are those two — get the anxiety down, then work toward differentiation — and the triangle activity follows. This is what Bowen means late in life by "I don't do much with triangles anymore… no difference how many triangles are out there": a claim about **coaching technique**, not about whether triangles operate. The object stays, because it is the structure anxiety routes *through*; what differentiation changes is how much it carries.
+>
+> And *detriangle* names two different operations. **Detriangling self** — withdrawing one's own emotional participation while staying in contact — is the mechanism of change. **Detriangling another** — returning an aligned third party to neutral — is a countermeasure during a move. The model must keep them apart.
 
 > **Sibling conflict is not dyadic.** `[T]` Ch21 · L21.8 — "Conflict between siblings consists **almost universally** of a triangle between mother and two children in which mother has a positive relationship to each child and the conflict is fought out between the children." **A peer-conflict event must instantiate the parent-level triangle, and intervening on the peer pair alone must fail.**
 

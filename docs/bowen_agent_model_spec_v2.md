@@ -69,6 +69,9 @@ Therefore:
 
 ### M1.A `Person`
 
+**M1.A.0** — *the word* **emotional** *in this document means INSTINCT, not feeling.* Every use of *emotional* — emotional system, emotional process, emotional reactivity, emotional cutoff — denotes the instinctual substrate, of which felt emotion is one surface expression. Bowen, twice: the emotional process is "**equivalent to instincts** — to the forces that result in birds migrating… the salmon finding his way back… on a cellular level, the force that guides an amoeba toward a morsel of food"; and "people have picked up this term I used, emotional, and **made it synonymous with feeling, which I didn't mean at all**." → `kb/kb02.md` · K02.1, `kb/kb13.md` · K13.1
+**Consequence:** `acute_anxiety` and `chronic_anxiety` **MUST NOT** be modelled as feeling-states, and no readout **MUST** treat visible emotion as their measure. This is why overt emotionality peaks mid-scale (M1.A.2 note) and why a withdrawn person is as involved as an effervescent one.
+
 **M1.A.1** A `Person` **MUST** hold exactly two state variables from which reactive behaviour is derived: a basic level and an anxiety level. Reactivity **MUST NOT** be stored. → `model_explainer.md` §3.5
 
 **M1.A.2** `basic_level` **MUST** be on a 0–100 scale. The implementation **MUST NOT** clip to `[10, 80]`, and **MUST NOT** apply a linear transform in place of the one behavioural transition. → §3.1
@@ -137,7 +140,7 @@ Therefore:
 
 **M1.C.3** Persistent triangle topology **MUST** be stored separately from the currently-active set. Triangles **MUST** be inoperative when the system is calm. → §6.1
 
-**M1.C.3a — the routing capacity of a triangle MUST be a function of its members' `functional_level`, not of the triangle alone.** A triangle among well-differentiated members **MUST** route little anxiety, activate only under real load, and **resolve when the load passes**; the same topology among poorly-differentiated members **MUST** route more and stay fixed. Verbatim: *the intensity of these patterns "is determined by level of differentiation and principally anxiety"* — "**well differentiated, these patterns will be mild, they'll be there in periods of anxiety and they'll go away**, and as we go down into lower levels of differentiation, **these patterns are more intense**."
+**M1.C.3a** — *the routing capacity of a triangle MUST be a function of its members' `functional_level`, not of the triangle alone.* A triangle among well-differentiated members **MUST** route little anxiety, activate only under real load, and **resolve when the load passes**; the same topology among poorly-differentiated members **MUST** route more and stay fixed. Verbatim: *the intensity of these patterns "is determined by level of differentiation and principally anxiety"* — "**well differentiated, these patterns will be mild, they'll be there in periods of anxiety and they'll go away**, and as we go down into lower levels of differentiation, **these patterns are more intense**."
 
 **M1.C.3b** It follows that **the coach MUST NOT act on triangles as a mechanism of change.** Triangle activity is a *consequence* of anxiety and differentiation, so the two levers are the two named in `KB04` — get the anxiety down, then work toward differentiation — and triangle activity falls out. A move that manipulates the family's triangles directly **MUST NOT** exist in the repertoire. *This is why Bowen says late in life that he does "not do much with triangles anymore" and that it makes "no difference how many triangles are out there": a statement about **coaching technique**, not about whether triangles operate.* `Triangle` remains a first-class object (M1.C) because it is the structure anxiety routes **through**; what changes with differentiation is how much it carries.
 
@@ -156,11 +159,16 @@ The first is the mechanism of change; the second is a countermeasure during a mo
 
 **M1.D.1** A `Family` **MUST** hold one `undifferentiation_budget` and exactly **three** sink allocations: marital conflict, spouse dysfunction, child projection. → M6.I.1
 
-**M1.D.2** Emotional distance **MUST** run outside the budget as an always-on baseline and **MUST NOT** be implemented as a fourth sink. → M6.I.2
+**M1.D.2** Emotional distance **MUST** run outside the **symptom** budget as an always-on baseline and **MUST NOT** be implemented as a fourth sink. → M6.I.2
+
+**M1.D.2a** Distance **MUST** nevertheless **absorb anxiety**. Bowen enumerates four ways of *absorbing* anxiety with distance first among them, and three that *end in symptoms* with distance excluded — two questions, two answers, both true. **Distance absorbs without symptomising**, which is why a family can discharge into it indefinitely and read as untroubled, and why `M11.C.13`'s relocation test must score location as well as count. → `kb/kb04.md` · K04.1
 
 **M1.D.3** A `Family` **MUST** hold an `overflow` term whose destination is conflict with families of origin — **not** distance. → §6.2
 
 **M1.D.4** A `Family` **MUST** hold `leadership_office` with an occupant and a **sphere of responsibility**. Vacancy **MUST** stall the system, and the stall **MUST** be releasable by external recognition rather than by the occupant. Sphere **MUST** be implemented as a move permission scope, **MUST NOT** be a propagation boundary, and **MUST NOT** be a global flag. → §6.2
+
+**M1.D.4a** A `Family` **MUST** expose `differentiation_capacity` — whether **any** member retains the ability to take a position against the objections of the others. Bowen reserved *schizophrenia* for families where no member has it, calling the rest functional psychoses, and ran "a **test of treatability, a test of differentiation**… and if one person had that ability, I'd stick with them" expecting a good result. → `kb/kb08.md` · K08.2
+**Consequence:** severity is a **family-level capacity**, not a property of the symptom-bearer, and it predicts treatability rather than describing symptoms.
 
 **M1.D.5** A `Family` **MUST** hold a per-agent `tolerance` for disturbing behaviour (M7.D.4).
 
@@ -169,6 +177,8 @@ The first is the mechanism of change; the second is a countermeasure during a mo
 **M1.D.7** A `Family` **MUST** hold `ambient_anxiety` driven by the societal dials, acting on the **symptom threshold**. Turning a dial **MUST NOT** move every family proportionally. → §6.4
 
 **M1.D.7a** The dials **MUST** be named `societal_leadership`, `media_amplification` and `resource_pressure`. The single letters `L`, `X` and `E` **MUST NOT** be used. *Their meanings were previously recorded nowhere except Pygame log strings in `src/main.py`, where the third was labelled "Climate"; `resource_pressure` is the accurate name for what Ch18 actually argues.*
+
+**M1.D.7a1** The three dials are **drivers of anxiety**, which is one of three variables Bowen names for societal process — "the way the person thinks, another is differentiation of self, and a third is the **intensity of anxiety**." The dials therefore sit **one level below** his decomposition and **MUST NOT** be presented as the societal model. His first variable, *mode of thinking*, has no representation here and is not currently implementable; that gap **MUST** be stated wherever societal results are reported. → `kb/kb10.md` · K10.1
 
 **M1.D.7b** `resource_pressure` **MUST** be implemented, and it is **`[T]`, not `[I]`** — it is Ch18's own proposed cause of societal regression, not an inheritance from the grid engine. Bowen: "a spectrum of problems associated with **population explosion play a major role in man's deeper anxieties**", with "the rapid depletion of world's natural resources" and "certain natural resources are nearing exhaustion"; and the chapter's thesis, that society "appears to be functioning on a less differentiated emotional level than twenty-five years ago, that this **may be related to the disappearance of land frontiers**."
 
@@ -186,7 +196,9 @@ The first is the mechanism of change; the second is a countermeasure during a mo
 
 **M1.E.1** An external agent **MUST** be a `Person` with `role = EXTERNAL`, a restricted repertoire (M5.B.4), and real ties.
 
-**M1.E.2** An external agent **MUST** hold its own drifting reactive state, observable as a readout. A stateless coach is a failing implementation. → §10.2
+**M1.E.2** An external agent **MUST** hold its own drifting reactive state, observable as a readout, with **three detectors** and the third **two-sided**: the urge to become critical (`L20.2`); the agent's attention inside the other's problem, with a factual relationship question as the recovery move and the return of humour as the signal (`kb/kb04.md` · K04.11); and catching itself **diagnosing, criticising or praising** — **praise is as much a loss as blame**, and a negative-valence-only detector misses half the cases (`kb/kb07.md` · K07.1). A stateless coach is a failing implementation.
+
+**M1.E.2a** An external agent's **objective MUST be to understand, not to help.** Four statements, an experiment and an independent replication: families seen in research with no therapeutic goal did better than families seen in therapy; residents instructed to learn rather than cure lasted at most **ten hours** before giving in to the demand for an answer; and Kerr, interviewing cancer families with no intent to fix anything, found they produced more ideas per session and "were **doing better, no question about it**." → `kb/kb03.md` · K03.1, observable as a readout. A stateless coach is a failing implementation. → §10.2
 
 **M1.E.3** An external agent **MUST** be able to **absorb responsibility** — a conserved transferable quantity the family cannot hold while the agent holds it. → §5.8
 
@@ -248,6 +260,10 @@ The instance everything is tested against. It is **invented and tunable** — va
 **M2.A.0a** `chronic_anxiety` for generations 1 and 2 **MUST** be supplied as an initial condition, because M1.A.7 and M7.B.1 fix it in childhood from witnessed history and those childhoods are never simulated. The test is **life stage, not generation**: an initial value **MUST** be supplied for every agent already past the fixation age at `t0`, and **MUST** be an error for any agent who is not. Every agent in M2.A is past it, so all twelve carry a supplied value; the *derived* path applies only to agents born during the run.
 
 **M2.A.0b** There is **no calendar epoch**. All dates **MUST** be expressed as a duration relative to `t0`, the first slow tick. M3 defines only relative clocks, so a literal year has nothing to resolve against.
+
+**M2.A.0c** Spouses **MUST** be paired at comparable `basic_level`. "People choose spouses [at] **almost identical levels of differentiation of self**", offered as an observed constant and "par for the course". → `kb/kb14.md` · K14.2
+
+**M2.A.0d** Fusion **MUST** be life-stage dependent, not uniformly costly. The infant–caretaker symbiosis is stated as a **normal state, not a pathology**. → `kb/kb14.md` · K14.5
 
 **M2.A.1** `Iris` and `Bruno` **MUST** have comparable contact frequency and **MUST** differ in bond energy. This pair is the fixture for M11.C.4 and the direct test of M1.B.3.
 
@@ -363,6 +379,8 @@ The instance everything is tested against. It is **invented and tunable** — va
 
 **M5.B.2** `PREVENT_ALIGNMENT` — act on *potential* alignment before it forms. **MUST** be available preemptively, not only in response to an alignment that has already occurred. → R2
 
+**M5.B.3a** `REDUCE_CUTOFF` **MUST** have a **floor as well as no ceiling**. Cutoff is load-bearing for the person maintaining it — "cutting off from people is your **lifeline** which enables you to live and adjust" — so it may be reduced only as fast as that person can absorb, and the far side of a cutoff has its own state and its own willingness. Total openness is also not the target: "to maintain a self, there has to be **some self that self does not communicate** to the other", and complete disclosure is "a **de-selfing** kind of thing". With `L12.4`'s two-sided closeness band, four sources agree that **contact is not monotonically good**. → `kb/kb05.md` · K05.2, `kb/kb08.md` · K08.4
+
 **M5.B.3** `REDUCE_CUTOFF` — increase contact on a severed tie. **MUST** lower anxiety and **MUST NOT** directly raise `basic_level`. There **MUST NOT** be an optimum contact rate; more contact **MUST NOT** be penalised. → §5.7, §13.2
 
 **M5.B.4** Family→external moves `SPLIT`, `FRAME_AMBIGUITY`, `DISPLACE` **MUST** exist. `FRAME_AMBIGUITY` **MUST** capture the external agent's *silence* as carrying professional weight — abstention **MUST NOT** be an exit. → §5.7
@@ -382,6 +400,9 @@ The instance everything is tested against. It is **invented and tunable** — va
 | system calm | triangles inoperative; projection **MUST NOT** fire | §5.3 |
 | marital distance high | any move targeting the symptom-bearer **MUST** produce no improvement | §5.3 |
 | decision ownership held externally | removal **MUST NOT** fire even at tolerance | §5.3 |
+
+**M5.C.1a** — *the live-issue gate MUST carry a family-type term, and this is a SAFETY property.* For a **peace-agree** family, whose differences are obliterated quickly, an old issue is deliberately raised to produce workable reactivity. For a **reactive, explosive** family the technique **inverts**: calm self first, and the success criterion is **relative** — "just be **less reactive than the others**, and you've made a step toward calming a family."
+Applying the peace-agree technique to a reactive family is not merely ineffective. `KB08` records three outcomes of forcing conjoint contact on families already at capacity: acute psychosis, a patient who "**took scissors and put out her eyes**", and one who "**got a pass to go out of the hospital and went and killed herself**" two weeks into a protocol Bowen had warned against. → `kb/kb05.md` · K05.1, `kb/kb06.md` · K06.4, `kb/kb08.md` · K08.1
 
 **M5.C.2** — *the non-monotonicity is on the mover's axis.* `I-POSITION` **MUST NOT** be gated on mid-band *family* anxiety. High-anxiety family events — serious illness, death — **MUST** be enabling. What backfires is the mover's own engagement level. An implementation that suppresses the move at high family anxiety is a failing implementation. → §5.3
 
@@ -428,6 +449,9 @@ The instance everything is tested against. It is **invented and tunable** — va
 **M5.F.1** A move's effect **MUST NOT** be a function of move type and tie state alone. It **MUST** be multiplied by a hidden actor state (`outside_ness`) that receivers can read and the actor may not. → §5.6
 
 **M5.F.2** The same move type at low `outside_ness` **MUST** be able to produce the *opposite* sign of effect, not merely a smaller one.
+
+**M5.F.2a** — *asserting a differentiated state MUST be negative evidence for it.* Five independent forms across five interviews: declaring non-involvement "**in itself is an indicator of involvement**"; "I'm out of it, you handle it" is "**mostly denial, because they are in it**"; "the more the individual has to say **I've worked it out**, is evidence of an attachment"; a low-level self holds a **selfish, dogmatic, forceful** I-position; and catching oneself **diagnosing, criticising or praising** is a loss of perspective. → `kb/_KB_PASS2.md`
+**Consequence:** a cheap readout computable from the event log, and the discriminator M5.F.3 asks for. An agent that announces its own neutrality **MUST** score lower on `outside_ness`, not higher.
 
 **M5.F.3** Concession **MUST** be gradable continuously by the receiver, not as a binary. → §5.6
 
@@ -534,7 +558,7 @@ avoidance_available(g) = positions_live(g) < 3        # a step, not a gradient
 
 **M10.A.1** The following **MUST** be derived, not independently parameterised: reactivity (M1.A.1), `functional_level` variance (M1.A.5), the `life_energy` ratio (M1.A.10), the stabiliser repertoire available to a person, and transfer magnitude in M6.I.4 (which scales *inversely* with basic level).
 
-**M10.A.2** Deriving from `basic_level` is preferred wherever it is defensible, because the model has 60–90 free parameters against a single invented family and the risk is overfitting to the modeller's intuitions.
+**M10.A.2** Deriving from `basic_level` is preferred wherever it is defensible, and the source states the principle directly: "a theory is made up of the **least number of pieces that will hang together into a story**, rather than trying to put in all of the others." A model with 60–90 free parameters is already in tension with that, so every added parameter **MUST** be justified against it rather than added by default. → `kb/kb10.md` · K10.9, because the model has 60–90 free parameters against a single invented family and the risk is overfitting to the modeller's intuitions.
 
 ### M10.B Config
 
@@ -546,7 +570,7 @@ avoidance_available(g) = positions_live(g) < 3        # a step, not a gradient
 
 **M10.C.1** The following are **invented** and **MUST** be labelled as such wherever they surface: the fast tick length; the softmax temperature and every propensity coefficient; all conductance values; all bond-energy values and its decay rate; the standing-load function; every gate threshold including the `outside_ness` threshold; `societal_leadership`'s functional form; the appraisal gain function's shape; the chronic-anxiety fixation age; sibling-position effect sizes; the M6.I.1 conservation tolerance; every value in M2.
 
-**M10.C.2** The following are **stated in the corpus** and are usable as calibration targets: the durations in `model_explainer.md` §8, the 0–100 scale and the transition at 50, the ~90%-in-the-lower-half population skew, the three-sink count, and the eight-to-ten-generation figure.
+**M10.C.2** The following are **stated in the corpus** and are usable as calibration targets: the durations in `model_explainer.md` §8, the 0–100 scale and the transition at 50, the ~90%-in-the-lower-half population skew, the three-sink count, and — **withdrawn at pass 3** — the eight-to-ten-generation figure, which `KB11` shows was rhetorical: "I put [it] in **not to say that it takes ten generations**."
 
 **M10.C.2a** One **external** calibration target is admitted: the DSI–trait-anxiety association, **r = .64** (Skowron & Friedlander 1998, N = 609). It **MAY** be used to check an ensemble's differentiation–anxiety coupling and **MUST NOT** be used to set a parameter. Two limits **MUST** travel with it in any report: it relates two self-reports, so shared method variance inflates it; and it is a population association in a sample that is 82.7% White and largely northeastern US, not a norm. → `theory/_EXTERNAL_MEASURES.md`
 
@@ -613,6 +637,18 @@ Flagged explicitly, with a human-review proposal, per the project's planning rul
 | M11.C.9 | The effect size is `[I]`, so the test can only assert *a detectable difference*, which is close to unfalsifiable | Keep as a smoke test. **Human review:** decide at Phase D whether an unfalsifiable criterion is worth keeping in the suite at all, or whether it should be demoted to a readout |
 | M11.C.11 shape | "Three phases, not a step down" is a claim about curve *shape*; any automated shape test embeds an invented tolerance | Automate the direction (residual > pre-event baseline; a local relief between) and **human-review the curve** at Phase D against `_LEDGER.md` L08.4's timings |
 | M5.F.2 | That a counterfeit move produces the *opposite sign* is testable, but the threshold separating counterfeit from genuine is `[I]` and sets the result | Test the sign flip across the threshold; **human review** the threshold's plausibility. Record it as the model's most consequential invented constant |
+
+---
+
+## M11.F — Framing that must travel with any output
+
+**M11.F.1** No output **MUST** be presented as an implementation of Bowen's authority. His stated goal was "an **open theoretical system**, where the basis for new knowledge is **research and science rather than anything I said**", and he named discipleship as the failure that closes a system off from science — "the more people that treat it like that, the more **my theory will perish** as being a dogma." The model is a thing to be tested. → `kb/kb09.md` · K09.1
+
+**M11.F.2** Any claim that the model's family level informs a societal level **MUST** be stated as **analogy, not derivation**, in this form: *the same principles apply at different levels; the levels are not the same system; reasoning from one to another is an analogy.* Three independent statements — "an analogy is **not an extension of theory**"; the triangle in society is "an analogy, but **not a reasonable connection — these things don't connect up**"; society is "**similar to a family. Not the same as, but the same principles apply.**" → `kb/_KB_PASS2.md`
+
+**M11.F.3** The objection to the model's foundation **MUST** be stated accurately and not softened. Bowen rejected **general systems theory** as a base in favour of **natural systems**, on the ground that general systems "came out of man's head, along with mathematics" — and separately called the two "**compatible within limits**". A simulation is a general-systems artifact, so this is a real named objection. Both of his statements **MUST** be recorded; neither collapses into the other. → `kb/kb13.md` · K13.2, `kb/kb09.md` · K09.3
+
+**M11.F.4** No output **MUST** claim to reproduce *measured* differentiation (M10.C.2b), and no emotional-state-to-physical-disease mechanism **MUST** be implemented on the basis of the cancer material in `kb/kb11.md` — single anecdotal cases, one with the diagnosis contested by the treating oncologists.
 
 ---
 

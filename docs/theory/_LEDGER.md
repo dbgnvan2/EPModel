@@ -55,7 +55,23 @@ whether its status marker says `[stands]`.
 
 **The corpus supports directions, orderings and mechanisms. It almost never supports magnitudes.**
 
-## 2. Chapter counts are not study counts
+## 2. There are now four sources, and they are not one evidence class
+
+| Source | What it is | How to cite | Constraint |
+|---|---|---|---|
+| The book, 22 chapters | published papers, 1957–1976 | `Ch16 · L16.2` | none — a single word can be load-bearing |
+| 1979 Basic Video Series, 6 tapes | Bowen lecturing | `Tape 5` | ASR; substance reliable, **no verbatim quotation** |
+| Kerr–Bowen interviews, 15 | Bowen and his successor in dialogue, late period | `KB04 · K04.1` | ASR, no speaker separation; **cite the interview, not the man**; questions are ~99% Kerr |
+| External measures | the DSI and its literature | `_EXTERNAL_MEASURES.md` | post-hoc, by other researchers |
+
+**Precedence:** latest-wins, with the published paper breaking ties wherever a transcript is ambiguous or
+the difference could be transcription rather than revision. Full analysis in `_SOURCE_QUALITY.md`;
+interview findings in `kb/`, comparative pass in `kb/_KB_PASS2.md`.
+
+**The interviews contradicted no book finding.** Several were narrowed; one calibration figure was withdrawn
+(above).
+
+## 3. Chapter counts are not study counts
 Bowen reports the same clinical material across many papers. Agreement between two chapters drawing on
 the same project is one study reported twice.
 
@@ -73,7 +89,7 @@ series.** **Ch07 is a near-verbatim rewrite of sixteen of Ch06's propositions**,
 same words — it is not an independent witness. **Ch01's father sequence is n = 1, not 2** ("the second
 father is still in this stage"), so every timing in it belongs to one family.
 
-## 3. Two corpus-wide negatives, checked in all 22 chapters
+## 4. Two corpus-wide negatives, checked in all 22 chapters
 - **Q-VALIDATION is NO everywhere.** No instrument, no rater procedure, no comparison group, no number
   ever assigned to a person. The only ordinal grading found is Ch04's 1/9/1 ordering of eleven
   families on emotional-divorce *style*, and Ch19's "token concurrence" scalar (L19.5).
@@ -85,7 +101,7 @@ father is still in this stage"), so every timing in it belongs to one family.
   person alive. Ch20 is the strongest negative: it is the corpus's only workplace chapter and tie
   weight there is set by emotional importance **explicitly not by economic relation**.
 
-## 4. Two live contradictions, unresolved, carried into pass 3
+## 5. Two live contradictions — resolved, see `_RESOLUTIONS.md`
 - **Ch10 vs Ch21 — does a witness help or displace?** Ch10's flagship differentiating step is stated
   aloud and its spouse witnesses the whole effort and it succeeds. Ch21 permits no allies and
   detriangles any that appear. The object-level resolution (a specific withdrawal vs. the overall
@@ -513,6 +529,8 @@ couples, whose defences are more rigid.
 **⚠ C1 has a direct counterexample in Ch22** — reducing cut-off reduces symptoms *and* makes therapy more
 productive. C1 likely survives only as a claim about *symptom relief obtained without structural change*.
 See L22.1.
+
+**`KB03` supplies the mechanism and the best evidence in the project.** "Therapeutic-itis": **the problem was created in the first place by the family trying to do good for the patient**, so helping is the same operation. And the research-versus-therapy finding is now four statements, an experiment (residents told to learn rather than cure; the best lasted **ten hours** before the family demanded an answer and he gave in) and an **independent replication by Kerr** on cancer families, who produced more ideas per session and did better.
 
 ### L06.3 — Physical distance does not attenuate coupling  `[narrowed]`
 **CONTRADICTS → `Relationship`**
@@ -1295,6 +1313,8 @@ channel does. Corroborates L09.2.
 *Model impact:* the conserved quantity is **pseudo-self**, not self. Solid self is exempt. Distance is
 **always-on and outside the budget** — it must not be implemented as a competing sink.
 
+**`KB04` adds the other half.** Bowen enumerates **four** ways of *absorbing* anxiety, distance first among them, where the 1979 lecture enumerates **three** that *end in symptoms*. Both are true and they answer different questions: **distance absorbs anxiety without producing a symptom**, which is why it sits outside the symptom budget and why a family can discharge into it indefinitely and read as untroubled. The ledger and spec state only the second half.
+
 ### L16.3 — The generational update rule, and the cutoff positive-feedback loop  `[stands]`
 **REFINES → `Person`, multigenerational**
 Primary projection object emerges **lower** than the parents; minimally involved siblings **about the same**;
@@ -1302,9 +1322,15 @@ those relatively outside the emotional process **better**. Rate is **stochastic*
 generations, static for one or two, then fast again — and reversible at both extremes.
 *The clearest positive feedback loop in the corpus:* the more intense the cutoff, the more exaggerated the
 parental problem in one's own marriage, and the more intense the next generation's cutoff.
-*Calibration:* "**eight to ten generations**" to schizophrenia — revised **up** from "at least three"; a
-five-or-six-generation stress produces a social failure less impaired than a schizophrenic. **No per-generation
-rate is stated here or anywhere** — see L09.7.
+*Calibration:* **⛔ WITHDRAWN at pass 3.** The figure was recorded as "eight to ten generations to
+schizophrenia — revised **up** from at least three", implying a measurement refined. `KB11` says otherwise,
+verbatim: "I introduced the notion of ten generations… **which I put in not to say that it takes ten
+generations**. Previously I'd said it took only three, but that was sort of **to convey the notion that it's
+not just three and just ten, but it is a multi-generational thing**." **Both numbers were rhetorical devices
+for one qualitative point.** This is the third figure to fail this way after L09.7 and L13.1.
+*What survives:* transmission is multigenerational, more than three, **unquantified**. A five-or-six-generation
+stress producing a social failure less impaired than a schizophrenic is the same illustrative register and
+must not be used as a target either. **No per-generation rate is stated anywhere** — see L09.7.
 *A clean controlled comparison, ready to implement as a test:* two families at identical levels — one keeping
 contact with the parental family (symptom-free for life, level preserved next generation), one cutting off
 (symptoms, dysfunction, lower level next generation).
@@ -1358,6 +1384,8 @@ origin" — but **that fixing point is disputed across the corpus** and Ch16 say
 See L16.5 and L22.7.
 *Model impact:* the repo carries C and TX as independent state columns. Reactivity should be **derived** from
 self and anxiety, not stored.
+
+**`KB04` corroborates and supplies the mechanism.** Reactivity is "a kind of a **manifestation of the anxiety**"; both framings are theoretically correct and "essentially the same", but reactivity "gives us something **we can get our hands on and see**". Kerr's drum analogy — tension in the skin is the anxiety, the noise when struck is the reactivity — is accepted as "specifically accurate". This answers the item the 1979 lectures left silent.
 
 ### L17.3 — The coach is a node inside the system, and efficacy is CONJOINTLY gated  `[stands]`
 **REFINES → `coach`, `test` 7**
@@ -1590,6 +1618,8 @@ position / failed to detriangle**) → modify it.
 detecting", so self-state is **one of two routes, not the only one**. And the three lapses are **recalled**,
 not diagnosed in the moment.
 *Model impact:* a stateless external coach loses one of the chapter's two detection channels.
+
+**Two further detectors from the interviews.** `KB04`: catching one's head inside the other's problem — "you have **lost your value**" — with a recovery move (a factual relationship question) and the return of humour as the signal. `KB07`: catching oneself **diagnosing, criticising or praising** — and the two-sidedness matters, since **praise is as much a loss as blame** and the model's detector is negative-valence only.
 
 ### L20.3 — A fixed observable set whose RATE reads out system anxiety  `[corrected]`
 **→ `readout`, architecture**

@@ -96,7 +96,10 @@ Therefore:
 
 **M1.A.12** A `Person` **MUST** hold `involvement_weight`, recomputed every fast tick. Family membership **MUST** be derived as a threshold over it and **MUST NOT** be a stored set. → §3.8
 
-**M1.A.13** A `Person` **MUST** hold `structural_importance` on exactly **three** tiers. A finer ranking **MUST NOT** be implemented. → §3.10
+**M1.A.13** A `Person` **MUST** hold `structural_importance` on exactly **three** tiers — shock-wave-likely, neutral, relief. A finer ranking **MUST NOT** be implemented.
+
+**M1.A.13a** The tier **MUST** be **derived, not assigned**, from two inputs the model already carries: whether the person holds a **functional-doer position** (the head of the clan, "nominated by the family and the responsibility accepted by the person"; or a child carrying emotional endowment — an only or oldest child, or a gifted one), and **how suddenly** they go from full functioning to loss. 1979 Tape 6: "the most important cue… has to do with the **functional position in the family** of the one who dies. Potential reactiveness is **greatest when that person goes from full functioning to death in a brief period**."
+**Role labels MUST NOT determine the tier.** Tape 6 is explicit that a matriarch outranks a patriarch where she held the position. A **disabling injury or life-threatening illness** in an endowed child **MUST** rank with a death. The relief tier is someone who has not contributed and has become a burden. → `theory/_LECTURES_1979.md` · T6.1
 
 **M1.A.14** A `Person` **MUST** hold `sibling_position` as static profile data affecting the propensity vector and nothing else. → §3.11
 
@@ -126,7 +129,9 @@ Therefore:
 
 **M1.B.9** A `Relationship` **MUST** hold `areas_of_joint_activity`; narrowing them **MUST** operate on the same variable as the functioning balance, not on a separate distance scalar. → §4.4
 
-**M1.B.10** A `Relationship` **MUST** hold `taboo_set`, which **MUST** grow monotonically. Subjects **MUST NOT** be returned to a tie. → §4.6
+**M1.B.10** A `Relationship` **MUST** hold `taboo_set`, which grows by default as each party learns what makes the other anxious — "so begins the communication cutoff between spouses." → §4.6
+
+**M1.B.10a** The set **MUST NOT** be implemented as monotone. A subject **MUST** be returnable by **purposeful mention under self-control**: "the purposeful mention of the taboo subject, **if one can control one's own anxious response** to the other, **can desensitize the whole mechanism**." This is the differentiating move applied to a single topic, and it **MUST** carry the same gates (`M5.C`). → `theory/_LECTURES_1979.md` · T6.4
 
 **M1.B.11** A `Relationship` **MUST** hold `latency`, a per-edge delivery delay. Events **MUST NOT** all arrive within one tick. → §4.7
 
@@ -217,6 +222,8 @@ The first is the mechanism of change; the second is a countermeasure during a mo
 **M1.F.3** `route` **MUST** modulate gain: a direct dyad amplifies; routing through a neutral third damps. → §9.3
 
 **M1.F.4** `fidelity` **MUST** degrade per private hop. → §9.3
+
+**M1.F.4a** The **register** of a message **MUST** constrain the register of the reply, independently of content: "when I introduce the subject with **tangential words, the other will respond with tangential words**", against the deliberate use of plain ones — *death, die, bury* rather than *passed, gone, deceased*. → `theory/_LECTURES_1979.md` · T6.6
 
 **M1.F.5** Witnesses **MUST** appraise events not addressed to them, and that accumulated witnessing **MUST** be the source of `chronic_anxiety` (M1.A.7). → §9.4
 
@@ -379,7 +386,7 @@ The instance everything is tested against. It is **invented and tunable** — va
 
 **M5.B.2** `PREVENT_ALIGNMENT` — act on *potential* alignment before it forms. **MUST** be available preemptively, not only in response to an alignment that has already occurred. → R2
 
-**M5.B.3a** `REDUCE_CUTOFF` **MUST** have a **floor as well as no ceiling**. Cutoff is load-bearing for the person maintaining it — "cutting off from people is your **lifeline** which enables you to live and adjust" — so it may be reduced only as fast as that person can absorb, and the far side of a cutoff has its own state and its own willingness. Total openness is also not the target: "to maintain a self, there has to be **some self that self does not communicate** to the other", and complete disclosure is "a **de-selfing** kind of thing". With `L12.4`'s two-sided closeness band, four sources agree that **contact is not monotonically good**. → `kb/kb05.md` · K05.2, `kb/kb08.md` · K08.4
+**M5.B.3a** `REDUCE_CUTOFF` **MUST** have a **floor as well as no ceiling**, and the target is **one open relationship, not universality** — "one can't have them with everybody, but if a person can have an open relationship with… **one important other**, there's indication that this is a more healthy way of life" (1979 Tape 6 · T6.7). Cutoff is load-bearing for the person maintaining it — "cutting off from people is your **lifeline** which enables you to live and adjust" — so it may be reduced only as fast as that person can absorb, and the far side of a cutoff has its own state and its own willingness. Total openness is also not the target: "to maintain a self, there has to be **some self that self does not communicate** to the other", and complete disclosure is "a **de-selfing** kind of thing". With `L12.4`'s two-sided closeness band, four sources agree that **contact is not monotonically good**. → `kb/kb05.md` · K05.2, `kb/kb08.md` · K08.4
 
 **M5.B.3** `REDUCE_CUTOFF` — increase contact on a severed tie. **MUST** lower anxiety and **MUST NOT** directly raise `basic_level`. There **MUST NOT** be an optimum contact rate; more contact **MUST NOT** be penalised. → §5.7, §13.2
 

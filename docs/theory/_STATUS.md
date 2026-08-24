@@ -1,5 +1,37 @@
 # Run status — HANDOFF
 
+> ## ▶ RESUME HERE
+>
+> **Position:** pass 1 over the Kerr–Bowen interviews. **7 of 15 extracted** — KB04, KB05, KB06, KB10, KB12, KB13, KB15, in `docs/theory/kb/`.
+> **Remaining, in priority order:** #2 (theoretical base), #3 (systems therapy), #8 (schizophrenia), #14 (best of family therapy), #7 (obstacles), #9 (background/discipleship), #11 (supernatural), #1 (already analysed from the Otter transcript in `_KERR_INTERVIEWS.md`; the Hijack version needs only a check for content the Otter one lacks).
+> **Branch:** `theory/corpus-alignment`, 25 commits, everything pushed. Tree clean. 37 tests green.
+>
+> ### The pipeline, as directed — do not skip a stage
+>
+> 1. ~~Chapters → draft spec~~ **DONE** — `bowen_agent_model_spec_v2.md`, v2.0-draft.
+> 2. **Revision 1 — against the 1979 lectures.** **INCOMPLETE.** `_LECTURES_1979.md` probed only 12 of the 23 validation items. The remaining 11 and a full spec validation are owed. **Tape 6 is barely touched** and is the counterpart to Ch15, where two findings were withdrawn.
+> 3. **Revision 2 — against the Kerr interviews.** Blocked on pass 1 finishing, then pass 2 (comparative re-read across all 15 plus the book and lectures), then pass 3 (fold into `_LEDGER.md`).
+> 4. **A decision list for the project owner** to review, approve or edit.
+> 5. Approval of the documents and the spec.
+> 6. **THEN and only then, code.** Nothing in `src/bowen/` may be written before step 5.
+>
+> ### Method rules for the interview corpus — established, do not re-derive
+>
+> - **Cite the interview (`KB07`), never a speaker.** Kerr was Bowen's successor and is as authoritative on the theory as Bowen; the interviews are two authorities in dialogue. Questions are ~99% Kerr.
+> - **No verbatim quotation.** ASR source; measured 97.2% agreement between two transcriptions of one lecture, 95.7% between two of interview #1. Substance is reliable, exact wording is not.
+> - **Latest-wins, papers break ties.** Where a recorded source and a paper disagree, prefer the recorded source as later Bowen — but only where the transcript is unambiguous. Where it is garbled, the paper wins.
+> - Full analysis in `_SOURCE_QUALITY.md`. One confabulation found and bounded (interview #1's Hijack opening); it is a one-off.
+>
+> ### Carried into pass 2 — flagged, not resolved
+>
+> - **`KB10` names three societal variables** — mode of thinking, differentiation, anxiety intensity — which are **not** the spec's three dials. Probably compatible (the dials drive his third), but the spec presents its three as *the* societal model and that is not what the source says.
+> - **`KB13`: "emotional" means instinct, not feeling.** Decide in revision 2 whether to rename the model's terms or define the word explicitly at first use. Defining is probably enough; renaming would break every corpus citation.
+> - **`KB13`: Bowen rejects general systems theory** as a foundation, in favour of natural systems. A simulation is a general-systems artifact, so this is a real named objection to the model's foundation and must be stated accurately in the framing.
+> - **`KB10`/`KB13`: the fractal justification in the proposal is not Bowen's.** He says the levels are "similar… not the same as, but the same principles apply", and that reasoning from one to the other is an analogy. The architectural decision may stand; the reason given for it must change.
+> - **`KB04` · K04.1: three sinks versus four.** They reconcile — four *absorb anxiety*, three *end in symptoms* — but the spec states only the second half.
+> - **`KB05`/`KB06`: technique is family-type dependent**, and `M5.C` states the live-issue gate unconditionally.
+>
+
 > **Starting a new session? Read this file first, then `_LEDGER.md`.** As of step 3 the ledger is
 > **self-contained** — every pass-1 entry has been rewritten against the pass-2 corrections, and you no
 > longer need to cross-reference two files to act on one. `_PASS2_CORRECTIONS.md` is now the audit

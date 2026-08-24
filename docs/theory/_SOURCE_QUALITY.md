@@ -15,19 +15,29 @@ Three recorded corpora have been added alongside the book. They are not one evid
 | **The book**, 22 chapters | n/a — published prose | none | Everything. A single word is legitimately load-bearing (Ch16's "Other than the emotional distance"). |
 | **1979 Basic Video Series**, 6 tapes, ~43k words | single speaker, so no ambiguity | **97.2%** word agreement between two independent transcriptions of Tape 1 | Substance and mechanism. **Not** verbatim quotation. |
 | **Kerr–Bowen interviews**, Otter folder, #1 only, ~5.6k words | **clean** — `Speaker 1` = Kerr, `Speaker 2` = Bowen, consistent | same ASR class | Substance, mechanism, and attributed claims. The best of the recorded material. |
-| **Kerr–Bowen interviews**, Hijack folder, all 15, ~93k words | **none** — one label, `Google Chrome`, covers both men | **90.3%** best-case Bowen precision against an **86.6%** baseline | Topic coverage and the shape of an exchange. **Not** attributed claims. |
+| **Kerr–Bowen interviews**, Hijack folder, all 15, ~93k words | **none** — one label covers both men, and per-person attribution is unrecoverable | **90.3%** best-case Bowen precision against an **86.6%** baseline | **Concepts, mechanisms and claims, cited to the interview rather than the man.** Kerr is Bowen's successor and equally authoritative, so this is a dialogue between two valid sources. Not verbatim quotation. |
 
-## Why the Hijack set cannot support attributed extraction
+## ⚠ Superseded — the attribution problem was mis-framed
 
-Interview #1 exists in both folders, so the Otter version provides ground truth for the Hijack version. Measured against it:
+**Corrected on direction from the project owner, 2026-08-22.** The analysis below treated Kerr's turns as contamination of Bowen's. That was wrong. **Dr Michael Kerr was Bowen's successor and is as authoritative on Bowen theory as Bowen.** The interviews are two authorities in dialogue, not one author plus an interviewer, so a claim's value does not depend on which of the two made it.
 
-- The whole file is **one undifferentiated block** with a single timestamp and a single speaker label. Timestamp alignment is impossible; there is no turn structure to recover.
-- A question-mark heuristic — treat sentences ending in `?` as Kerr, the rest as Bowen — scores **88.2%**, against **86.6%** for simply labelling every word Bowen. It adds 1.6 points and is worthless.
-- Restricting to long non-question spans reaches **90.3%**. **About one word in ten attributed to Bowen would be Kerr's.**
+The measurements below stand as measurements. Their **consequence** does not. What they establish is narrower than what the section originally concluded:
 
-The reason the heuristic fails is the reason this matters: **Kerr's dangerous turns are not questions.** He makes long declarative paraphrases — "So you're saying number one is people just to be aware that they're stuck…" — which read exactly like theory claims, and which Bowen sometimes *corrects* in the next breath. Recording an interviewer's paraphrase as the author's claim is the precise failure this project has spent two passes undoing.
+- Speaker attribution is not recoverable from these files. **This no longer blocks extraction**, because findings can be attributed to the *source* — "Kerr–Bowen #4" — rather than to a person.
+- **Questions are ~99% Kerr**, per the project owner, and question-shaped text is the one thing the heuristic detects reliably. That is enough for the one distinction that still matters.
+- The residual case worth care is not "who said it" but **where an exchange contains a correction** — one speaker restating or narrowing the other. There the landing point of the exchange is the finding, and it is recoverable from the text without knowing who spoke, because a correction announces itself.
 
-**Asymmetry of consequence.** Missing a Bowen claim costs completeness. Attributing Kerr's paraphrase to Bowen costs correctness, and does so invisibly. Only the second is unacceptable, so extraction from this set must be biased hard toward precision.
+**Extraction rule, as adopted:** cite the interview, not the man. Record question-shaped claims as Kerr's framing. Where an exchange corrects itself, record the landing point. Do not quote verbatim — the ASR constraint is unaffected by any of this.
+
+### The measurements, retained
+
+Interview #1 exists in both folders, so the Otter version provides ground truth for the Hijack version:
+
+- The whole file is **one undifferentiated block** with a single timestamp and a single speaker label. There is no turn structure to recover.
+- A question-mark heuristic scores **88.2%**, against **86.6%** for labelling every word Bowen — it adds 1.6 points.
+- Restricting to long non-question spans reaches **90.3%**.
+
+The heuristic fails because Kerr's longer turns are declarative paraphrases rather than questions. Under the corrected framing that is a feature of a dialogue between two authorities, not a defect in the source.
 
 ## One confabulation, and the scan that bounded it
 
@@ -41,17 +51,17 @@ So the blocker is attribution, not fabrication. That is a narrower problem with 
 
 ## The fix
 
-**Re-export interviews #2–#15 from Otter with speaker labels.** The Otter folder proves the same audio yields clean `Speaker 1` / `Speaker 2` separation. That single step converts ~93,000 words of late-period Bowen from topic-level material into a fully extractable corpus — larger, later, and more directly interrogated than anything else the project has.
+**Still worth doing: re-export interviews #2–#15 from Otter with speaker labels.** The Otter folder proves the same audio yields clean `Speaker 1` / `Speaker 2` separation. It is no longer a blocker, but it would let the ledger record which of the two men said what, and would settle the correction cases directly rather than by inference — larger, later, and more directly interrogated than anything else the project has.
 
-## What the Hijack set supports meanwhile
+## What the Hijack set supports
 
-Not a ledger-quality extraction. It does support:
+A full extraction, cited to the interview. It also supports:
 
 - **Topic coverage** — which interviews bear on which parts of the model (below), so extraction is targeted the moment attribution exists.
 - **The shape of an exchange** — recording that an interview *raises* a question and *lands* somewhere, without asserting who said what. Where Kerr paraphrases and Bowen corrects, the correction is the valuable part and survives without attribution.
 - **Negative findings** — a topic being absent across 15 interviews is attribution-independent and reliable.
 
-Any finding drawn from it **MUST** be marked attribution-uncertain and **MUST NOT** be quoted.
+Any finding drawn from it **MUST** cite the interview rather than a person, and **MUST NOT** be quoted verbatim.
 
 ## Coverage map — Kerr–Bowen series against model areas
 

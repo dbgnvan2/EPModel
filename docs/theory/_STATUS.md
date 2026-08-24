@@ -1,40 +1,26 @@
 # Run status — HANDOFF
 
-> ## ▶ RESUME HERE
+> ## ▶ STATE — awaiting approval
 >
-> **Position:** **pass 1 over the Kerr–Bowen interviews is COMPLETE.** All 15 extracted — `kb02`–`kb15` in `docs/theory/kb/`, plus #1 analysed in `_KERR_INTERVIEWS.md` from the better-attributed Otter transcript.
-> **Next:** pass 2 (comparative re-read across all 15 plus the book and the lectures — this is where over-reading gets caught), then pass 3 (fold into `_LEDGER.md`), then revision 1 and revision 2 of the spec.
-> **Branch:** `theory/corpus-alignment`, all pushed. Tree clean. 37 tests green.
+> **The pipeline is complete.** Chapters → draft spec → revision 1 (1979 lectures) → revision 2 (Kerr–Bowen interviews). Every source has been read.
 >
-> ### The pipeline, as directed — do not skip a stage
+> | Stage | State |
+> |---|---|
+> | Book, 22 chapters, 2 passes + resolutions | complete |
+> | 1979 Basic Video Series, 6 tapes — all 23 validation items probed, Tape 6 read end to end | complete |
+> | Kerr–Bowen interviews, 15 — pass 1, pass 2 comparative, pass 3 into the ledger | complete |
+> | External measures (the DSI) | recorded |
+> | Spec v2.0 — 276 IDs, 0 unresolved | **revision 2 applied; awaiting approval** |
+> | **`docs/DECISIONS FOR APPROVAL.md`** | **the open item — needs your review** |
+> | Code | **none. Nothing until the spec and then the plan are approved.** |
 >
-> 1. ~~Chapters → draft spec~~ **DONE** — `bowen_agent_model_spec_v2.md`, v2.0-draft.
-> 2. **Revision 1 — against the 1979 lectures.** **INCOMPLETE.** `_LECTURES_1979.md` probed only 12 of the 23 validation items. The remaining 11 and a full spec validation are owed. **Tape 6 is barely touched** and is the counterpart to Ch15, where two findings were withdrawn.
-> 3. **Revision 2 — against the Kerr interviews.** Blocked on pass 1 finishing, then pass 2 (comparative re-read across all 15 plus the book and lectures), then pass 3 (fold into `_LEDGER.md`).
-> 4. **A decision list for the project owner** to review, approve or edit.
-> 5. Approval of the documents and the spec.
-> 6. **THEN and only then, code.** Nothing in `src/bowen/` may be written before step 5.
+> **Next after approval:** implementation plan (criteria mapped to files and order), plan approved, then Phase B.
 >
-> ### Method rules for the interview corpus — established, do not re-derive
+> ### Still needing a human
+> - The **decision list** — 2 withdrawals, 1 terminology choice, 3 framing corrections, 11 new requirements, 5 open items.
+> - The **validation checklist** (`Extractions to be human validated.md`) — 23 items, of which the lectures and interviews settled or corroborated 15. **A7, C4 and B4 are single-sourced to the book and corroborated by nothing**; those most need a human eye.
+> - **Four acceptance criteria** that cannot be made code-testable in Phases B–D (`M11.E`).
 >
-> - **Cite the interview (`KB07`), never a speaker.** Kerr was Bowen's successor and is as authoritative on the theory as Bowen; the interviews are two authorities in dialogue. Questions are ~99% Kerr.
-> - **No verbatim quotation.** ASR source; measured 97.2% agreement between two transcriptions of one lecture, 95.7% between two of interview #1. Substance is reliable, exact wording is not.
-> - **Latest-wins, papers break ties.** Where a recorded source and a paper disagree, prefer the recorded source as later Bowen — but only where the transcript is unambiguous. Where it is garbled, the paper wins.
-> - Full analysis in `_SOURCE_QUALITY.md`. One confabulation found and bounded (interview #1's Hijack opening); it is a one-off.
->
-> ### Carried into pass 2 — flagged, not resolved
->
-> - **`KB11`: "eight to ten generations" was rhetorical.** Bowen says he used the figure "not to say that it takes ten generations" but to convey *multigenerational*. `L16.3` and `model_explainer.md` §8 both treat it as a calibration target. **Withdraw the number; keep the direction.**
-> - **`KB13`/`KB02`: "emotional" means instinct, not feeling.** Two-source and unambiguous. Decide whether to rename the model's terms or define the word at first use.
-> - **`KB13`/`KB09`: general systems versus natural systems.** He rejects general systems as a foundation in one interview and calls the two "compatible within limits" in another. Both are his; record both, collapse neither.
-> - **`KB10` names three societal variables** — mode of thinking, differentiation, anxiety intensity — which are not the spec's three dials. Probably compatible; the spec overstates.
-> - **`KB10`/`KB13`/`KB02`: the fractal justification in the proposal is not Bowen's.** Same principles, not the same thing, and reasoning across levels is analogy — stated three times.
-> - **`KB04`: three sinks versus four.** They reconcile — four absorb anxiety, three end in symptoms — but the spec states only the second half.
-> - **`KB05`/`KB06`: technique is family-type dependent**, and `M5.C` states the live-issue gate unconditionally.
-> - **`KB08`: schizophrenia defined by treatability**, not symptoms — a family-level capacity variable the model lacks.
-> - **`KB14`: spouses are selected at matched differentiation** — a construction rule the spec does not state.
-> - **`KB14`: the infant–caretaker symbiosis is normal**, so fusion must be life-stage dependent rather than always costly.
-> - **`KB09`: Bowen's own instruction not to take the theory on his authority** — belongs in the framing of the proposal and spec.
 
 > **Starting a new session? Read this file first, then `_LEDGER.md`.** As of step 3 the ledger is
 > **self-contained** — every pass-1 entry has been rewritten against the pass-2 corrections, and you no

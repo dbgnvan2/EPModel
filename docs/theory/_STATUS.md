@@ -2,9 +2,9 @@
 
 > ## ▶ RESUME HERE
 >
-> **Position:** pass 1 over the Kerr–Bowen interviews. **7 of 15 extracted** — KB04, KB05, KB06, KB10, KB12, KB13, KB15, in `docs/theory/kb/`.
-> **Remaining, in priority order:** #2 (theoretical base), #3 (systems therapy), #8 (schizophrenia), #14 (best of family therapy), #7 (obstacles), #9 (background/discipleship), #11 (supernatural), #1 (already analysed from the Otter transcript in `_KERR_INTERVIEWS.md`; the Hijack version needs only a check for content the Otter one lacks).
-> **Branch:** `theory/corpus-alignment`, 25 commits, everything pushed. Tree clean. 37 tests green.
+> **Position:** **pass 1 over the Kerr–Bowen interviews is COMPLETE.** All 15 extracted — `kb02`–`kb15` in `docs/theory/kb/`, plus #1 analysed in `_KERR_INTERVIEWS.md` from the better-attributed Otter transcript.
+> **Next:** pass 2 (comparative re-read across all 15 plus the book and the lectures — this is where over-reading gets caught), then pass 3 (fold into `_LEDGER.md`), then revision 1 and revision 2 of the spec.
+> **Branch:** `theory/corpus-alignment`, all pushed. Tree clean. 37 tests green.
 >
 > ### The pipeline, as directed — do not skip a stage
 >
@@ -24,13 +24,17 @@
 >
 > ### Carried into pass 2 — flagged, not resolved
 >
-> - **`KB10` names three societal variables** — mode of thinking, differentiation, anxiety intensity — which are **not** the spec's three dials. Probably compatible (the dials drive his third), but the spec presents its three as *the* societal model and that is not what the source says.
-> - **`KB13`: "emotional" means instinct, not feeling.** Decide in revision 2 whether to rename the model's terms or define the word explicitly at first use. Defining is probably enough; renaming would break every corpus citation.
-> - **`KB13`: Bowen rejects general systems theory** as a foundation, in favour of natural systems. A simulation is a general-systems artifact, so this is a real named objection to the model's foundation and must be stated accurately in the framing.
-> - **`KB10`/`KB13`: the fractal justification in the proposal is not Bowen's.** He says the levels are "similar… not the same as, but the same principles apply", and that reasoning from one to the other is an analogy. The architectural decision may stand; the reason given for it must change.
-> - **`KB04` · K04.1: three sinks versus four.** They reconcile — four *absorb anxiety*, three *end in symptoms* — but the spec states only the second half.
+> - **`KB11`: "eight to ten generations" was rhetorical.** Bowen says he used the figure "not to say that it takes ten generations" but to convey *multigenerational*. `L16.3` and `model_explainer.md` §8 both treat it as a calibration target. **Withdraw the number; keep the direction.**
+> - **`KB13`/`KB02`: "emotional" means instinct, not feeling.** Two-source and unambiguous. Decide whether to rename the model's terms or define the word at first use.
+> - **`KB13`/`KB09`: general systems versus natural systems.** He rejects general systems as a foundation in one interview and calls the two "compatible within limits" in another. Both are his; record both, collapse neither.
+> - **`KB10` names three societal variables** — mode of thinking, differentiation, anxiety intensity — which are not the spec's three dials. Probably compatible; the spec overstates.
+> - **`KB10`/`KB13`/`KB02`: the fractal justification in the proposal is not Bowen's.** Same principles, not the same thing, and reasoning across levels is analogy — stated three times.
+> - **`KB04`: three sinks versus four.** They reconcile — four absorb anxiety, three end in symptoms — but the spec states only the second half.
 > - **`KB05`/`KB06`: technique is family-type dependent**, and `M5.C` states the live-issue gate unconditionally.
->
+> - **`KB08`: schizophrenia defined by treatability**, not symptoms — a family-level capacity variable the model lacks.
+> - **`KB14`: spouses are selected at matched differentiation** — a construction rule the spec does not state.
+> - **`KB14`: the infant–caretaker symbiosis is normal**, so fusion must be life-stage dependent rather than always costly.
+> - **`KB09`: Bowen's own instruction not to take the theory on his authority** — belongs in the framing of the proposal and spec.
 
 > **Starting a new session? Read this file first, then `_LEDGER.md`.** As of step 3 the ledger is
 > **self-contained** — every pass-1 entry has been rewritten against the pass-2 corrections, and you no

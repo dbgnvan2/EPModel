@@ -306,6 +306,98 @@ reported.
 | **G6.6** | Estimator window and breadth count declared in config, graded `[I]`, with a reported sensitivity analysis | `M10.B` |
 | **G6.7** | New acceptance criterion: a `CUTOFF`-heavy arm and an `I-POSITION`-heavy arm reaching the **same** `functional_level` **MUST** diverge in estimated `basic_level` once nodal events enter the window | `M11.C` |
 
+### G7 · Agency is graded by differentiation — and it is already in the model as **solid self**
+
+A correction to how G2 was put. "The moves are instinct, not deliberation" is too strong. Agency is
+not absent; **it is a function of differentiation.** The higher the level, the less the individual
+is guided and governed by what the system wants — which is close to the definition of the concept
+rather than a consequence of it.
+
+**The corrected architecture is two channels with different objectives, not one channel:**
+
+| | Automatic channel | Self-directed channel |
+|---|---|---|
+| Driven by | the relationship system | the person |
+| Objective | discharge anxiety **now** | hold a position, **accepting** discomfort |
+| Repertoire | the seven reactive moves | `I-POSITION`, `STAY-IN-CONTACT` |
+| Learns? | yes — `M4.D.6`, this is family style | **no** |
+
+The mixing weight between them **MUST** be a function of differentiation. At low level the person
+is nearly all automatic; as level rises a real self-directed channel opens.
+
+**This preserves G2's conclusion and fixes its reasoning.** Differentiation is not learnable from a
+discomfort-reduction objective — not because agents lack agency, but because **the two channels
+optimise different things.** Discomfort reduction is the automatic channel's objective. The
+self-directed channel's objective is a position held *through* discomfort. No amount of horizon
+lengthening moves an agent from one to the other, because the target is not in the first channel's
+objective at all.
+
+**No new variable is needed for agency.** The model already carries it: **pseudo-self is the
+portion of the person the relationship system can move, and solid self is the portion it cannot.**
+`M6.I.4` already makes pseudo-self the conserved, negotiable quantity that transfers between people
+in a fused relationship, and 1979's definition of pseudo-self as "**negotiable**" is exactly
+"governed by what the system wants". So the agency fraction is the **solid-self fraction**, which is
+present, sourced, and derived rather than added. This satisfies K10.9's parsimony constraint instead
+of costing against it.
+
+Three distinct things, then, and only one of them is new:
+
+| Capacity | What it is | Status in the model |
+|---|---|---|
+| **Seeing** — systems perspective | whether the differentiating move is comprehensible | **new** (G4.1) |
+| **Acting** — agency | whether the person can act against the system's pull | **already there** as solid-self fraction |
+| **Aiming** — the position itself | what a differentiated move is *for* | **G8 below** |
+
+`KB07` · K07.4 has the first two as the two halves of what a productive contact delivered: the
+awareness that "there was an **alternative way to respond**" (seeing) "**and also that I was
+emotionally caught in it**" (the limit on acting).
+
+### G8 · Kerr's two-axis definition — and the counterfeit detector should be two-dimensional
+
+> **Be for self without being selfish** (non-impingement — do not impinge on the other).
+> **Be for other without being selfless** (do not let the other impinge on you).
+> — Kerr, supplied by you 2026-08-24
+
+This defines the differentiated position as a **conjunction of two negatives**, on two independent
+axes. It is the objective function for the self-directed channel in G7.
+
+**The corpus states the same structure twice, in the model's own terms.** `KB12` · K12.3: "the
+**low-level self can have an I-position**. That is a **selfish, dogmatic, forceful** kind of an
+I-position… a high-level differentiated self is **neither offensive nor defensive** to the other. So
+you can tell pretty much the **level of functioning of an I-position from the way they do it**."
+And `KB07` · K07.1's neutrality gauge is the same two-sidedness on the coach: **blaming or praising
+are both losses.**
+
+**Why this matters for the spec.** `M5.F.1` makes a move's effect turn on a **single hidden scalar**
+(`outside_ness`). One scalar **conflates the two counterfeits**, and they are different failures
+that need different corrections:
+
+| Axis | Failure | How it looks | Corpus |
+|---|---|---|---|
+| Impinges outward | **selfish / offensive** | assertive, dogmatic, forceful — the "shout them down and let them know you are different" grotesque | `KB12` · K12.3, `_KERR_INTERVIEWS.md` Corr. 2 |
+| Impinged inward | **selfless / defensive** | compliant, accommodating, reads the other as critical | `KB12` · K12.3, `KB05` — "if this person is **hearing** mother as being critical, then they probably are being critical, **defensive**" |
+
+A move scoring low on one axis and high on the other is a counterfeit **either way**, and a single
+scalar cannot say which. The compliant peace-keeper and the forceful declarer currently land at the
+same `outside_ness` and would receive the same correction, which is wrong in opposite directions.
+
+**Note the readout in the `KB05` line: the defensive pole is detectable in *perception*, before any
+move is emitted** — hearing the other as critical is itself the evidence. That is a free
+observable the model can compute in the appraisal step rather than the act step.
+
+### G9 · Spec changes G7–G8 imply — **listed, not applied**
+
+| # | Change | Where |
+|---|---|---|
+| **G9.1** | Two move-selection channels — automatic and self-directed — with the mixing weight a function of differentiation; only the automatic channel is subject to reinforcement | `M4.D.1`, `M4.D.6` |
+| **G9.2** | Agency **MUST** be derived as the solid-self fraction; **MUST NOT** be an independent parameter | `M10.A.1` derived list |
+| **G9.3** | `outside_ness` splits into **two axes** — outward impingement and inward impingement — and the differentiated position is **both low** | `M1.A.9`, `M5.F.1` |
+| **G9.4** | The counterfeit detector **MUST** report *which* axis failed; a single scalar score is a failing implementation | `M5.F.2`, `M5.F.2a` |
+| **G9.5** | Inward impingement gets a **perception-side** readout (hearing the other as critical), computed at appraisal, not only at act | `M4.C` |
+| **G9.6** | New acceptance criterion: a forceful-declarer arm and a compliant-accommodator arm **MUST** be distinguishable by axis, at equal overall counterfeit magnitude | `M11.C` |
+
+☐ approve §G7–G9 ☐ approve with edits: ______
+
 ☐ approve §G5–G6 ☐ approve with edits: ______
 
 ☐ approve §G1–G4 as the resolution of E1 ☐ approve with edits: ______ ☐ leave E1 open

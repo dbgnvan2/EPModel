@@ -23,14 +23,13 @@ Each item states **what changed**, **why**, **what I recommend**, and **what it 
 **Recommend:** approve. Keep the direction — multigenerational, more than three, unquantified.
 **Cost if wrong:** we lose a calibration anchor the model never had a defensible use for anyway.
 
-☐ ✅ ☐ ✏️ ☐ ❌
-
+☐ ✅ 
 ### A2 · The taboo set is no longer monotone
 **Was:** `L10.8` — subjects withdrawn from a tie and "not returned".
 **Why corrected:** 1979 Tape 6 — "the **purposeful mention of the taboo subject**, if one can control one's own anxious response, **can desensitize the whole mechanism**."
 **Recommend:** approve. Growth is the default, not a law; the reversal is the differentiating move applied to one topic and carries the same gates.
 
-☐ ✅ ☐ ✏️ ☐ ❌
+☐ ✅
 
 ---
 
@@ -47,7 +46,7 @@ Each item states **what changed**, **why**, **what I recommend**, and **what it 
 
 **Recommend:** option 1, already in place. **Cost if wrong:** a reader assumes anxiety is a feeling-state and builds an affective readout, which is exactly the error the corpus documents.
 
-☐ ✅ option 1 ☐ ✏️ ☐ ❌ prefer option 2
+☐ ✅ option 1 
 
 ---
 
@@ -59,40 +58,49 @@ Each item states **what changed**, **why**, **what I recommend**, and **what it 
 **Recommend:** keep the architectural decision, replace the reason with his formulation. *(implemented as `M11.F.2`)*
 **Cost if wrong:** we would be claiming his authority for a derivation he explicitly refused.
 
-☐ ✅ ☐ ✏️ ☐ ❌
+☐ ✅ 
 
 ### C2 · The general-systems objection, stated unsoftened
 **The finding:** `KB13` — he rejects **general systems** as a foundation in favour of **natural systems**, because general systems "came out of man's head, along with mathematics". `KB09` — but calls the two "**compatible within limits**". **Both are his.**
 **A simulation is a general-systems artifact**, so this is a real named objection to the model's foundation.
 **Recommend:** record both statements, collapse neither, state the objection plainly rather than softening it. *(implemented as `M11.F.3`)*
 
-☐ ✅ ☐ ✏️ ☐ ❌
+☐ ✅  The simulation is not trying to be a non-objective explanation of human functioning. this is the distinction - General Systems Theory is an abstract thought up conceptualization,  Bowen Theory is based on observations of how families function. Just like observing the planent moments to derive how they function.    
 
 ### C3 · No output presented as Bowen's authority
 **The finding:** `KB09` — his goal was "an **open theoretical system**, where the basis for new knowledge is **research and science rather than anything I said**", and he names discipleship as what closes a system off: "the more people that treat it like that, the more **my theory will perish** as being a dogma."
 **Recommend:** approve as a standing framing requirement. *(implemented as `M11.F.1`)* This is also the strongest external justification for the grading discipline this project has used.
 
-☐ ✅ ☐ ✏️ ☐ ❌
-
+☐ ✅ 
 ---
 
 ## D · Model additions — new requirements needing sign-off
 
-| # | Requirement | Source | Recommend |
-|---|---|---|---|
+ # | Requirement | Source | Recommend |
+ |---|---|---|---|
 | **D1** | `differentiation_capacity` — a **family-level** variable: does *any* member retain the ability to take a position? Bowen reserved "schizophrenia" for families where none does, and ran "a **test of treatability**". | `KB08` · K08.2 | ✅ — severity becomes a capacity that predicts treatability, not a symptom label |
+
 | **D2** | The live-issue gate carries a **family-type** term, and it is a **safety** property. Peace-agree families need an issue raised; reactive families need the opposite. `KB08` records three outcomes of getting it wrong: acute psychosis, a self-blinding, a suicide. | `KB05`/`KB06`/`KB08` | ✅ — the spec previously stated the gate unconditionally |
+
 | **D3** | Spouses paired at matched **`basic_level`**, never functional. | `KB14`, 1979 Tape 3 | ✅ — a construction rule, testable |
+
 | **D4** | `structural_importance` **derived** from functional-doer position + suddenness, not assigned as a static tier. Role labels excluded — a matriarch outranks a patriarch where she held the position. | Tape 6 · T6.1 | ✅ — better sourced and computable from existing state |
+
 | **D5** | Asserting a differentiated state is **negative evidence** for it. Five independent forms across five interviews. | `_KB_PASS2.md` | ✅ — the readout `outside_ness` never had |
+
 | **D6** | The coach's objective is **to understand, not to help.** Four statements, an experiment (best resident lasted ten hours), and an independent replication by Kerr. | `KB03` · K03.1 | ✅ — best-evidenced coach claim in the project |
+
 | **D7** | Coach detectors are **two-sided** — praise is as much a loss as blame. | `KB07` · K07.1 | ✅ — ours was negative-valence only |
+
 | **D8** | `REDUCE_CUTOFF` has a **floor**; cutoff is "your lifeline". Target is **one** open relationship, not universality. | `KB05`, `KB08`, Tape 6 | ✅ — four sources agree contact is not monotonically good |
+
 | **D9** | Distance **absorbs anxiety without symptomising** — the half the spec was missing. | `KB04` · K04.1 | ✅ — explains why a family can discharge into distance and read as untroubled |
+
 | **D10** | Fusion is **life-stage dependent**; the infant–caretaker symbiosis is normal, not pathological. | `KB14` · K14.5 | ✅ |
+
 | **D11** | On return from removal, re-escalation **exceeds** the original removal disturbance. | Tape 6 · T6.8 | ✅ — changes what `M11.C.11`'s release arm asserts |
 
-☐ approve all ☐ approve except: ______
+☐ approve all 
 
 ---
 
@@ -101,9 +109,13 @@ Each item states **what changed**, **why**, **what I recommend**, and **what it 
 | # | Item | Status |
 |---|---|---|
 | **E1** | **The dials versus Bowen's three societal variables.** He names *mode of thinking*, *differentiation*, *anxiety intensity*. Our three dials are drivers of his third — one level below, not a replacement. | **Resolved in §G below** — mode of thinking is representable, as a graded gate coupled to differentiation. `M1.D.7a1` stands for the societal layer; §G is the individual-level mechanism. **Approval needed on §G.** |
+
 | **E2** | **The marriage-ceremony break.** "Pretty good friendship relationships before marriage and then the whole thing gets messed up as of the time of the marriage ceremony. **I've often wondered the why of that**, but there it exists as a fact." No mechanism in any source. | Open. Possibly the same phenomenon as `L05.3`'s immediate pole assignment. |
+
 | **E3** | **A ninth concept** (supernatural phenomena) was proposed in 1980 and never consolidated. The concept list was never closed — six in 1972, six in 1975, eight in 1976, nine proposed in 1980. | Recorded. The model implements the eight. |
+
 | **E4** | **Tape 3's post-removal sibling symptom.** Later than Ch04's retraction of the durable target queue, but a symptom intensifying is not durable position uptake — and the withdrawn claim was withdrawn by Bowen himself. | **`L01.7` not reinstated.** Flagged for your judgement. |
+
 | **E5** | **A7 (measurement bias), C4 (decoupling guard) and B4 (the ally rule) are single-sourced to the book** — silent across all six lectures and all fifteen interviews. | Worth knowing before you validate those three by hand. |
 
 ---
@@ -227,7 +239,76 @@ buys the wrong model if nothing bounds the other end.
 | **G4.7** | New acceptance criterion: **no upward drift in `basic_level` in a coach-free arm.** Two arms, identical seeds, differing only in external-agent presence | `M11.C` |
 | **G4.8** | `M11.C.16` gains its second direction — the long-horizon arm **MUST NOT** exceed a declared `I-POSITION` ceiling | `M11.C.16` |
 
-☐ approve §G as the resolution of E1 ☐ approve with edits: ______ ☐ leave E1 open
+### G5 · `basic_level` is not written — it is **inferred** from functional history
+
+Your correction, and it replaces a mechanism the spec currently has. A person works on
+**functional** level. If that improvement holds up over years **and across dozens of situations**,
+that is what indicates a rise in **basic** level.
+
+**What the spec has now, and why it is weaker.** `M1.A.4` + `M5.D.7` + `M7.A.1` give `basic_level`
+a **ratchet** that advances on a *completed differentiating exchange*. That makes basic level a
+counter of successful moves — one exchange, one increment. It is directly writable, it is
+gameable, and it puts the weekend-differentiation grotesque **inside the mechanism**: perform the
+exchange, collect the ratchet.
+
+**The proposed replacement.** `basic_level` **MUST NOT** be directly writable by any move. It is an
+**estimator over `functional_level` history**: an elevated mean, sustained over years, with low
+variance, across many distinct situations.
+
+**This is already in the spec, stated forwards.** `M1.A.5` requires `functional_level` **variance**
+to be a *decreasing function of* `basic_level`. High basic level ⇒ functioning that does not swing.
+The proposal is to run that same relationship **backwards as the update rule**: sustained low
+variance at an elevated mean, across varied situations, *is* the evidence of basic level. One
+relationship, not two mechanisms.
+
+**It also matches the measurement position.** There is no instrument for basic level
+(`_EXTERNAL_MEASURES.md`) — what is observable is functioning. An estimator over observed
+functioning is the honest form, and it puts the model's own epistemic position where the corpus
+puts it.
+
+**The corpus has the anecdote, and it is the breadth test exactly.** `KB05`, on years of working
+both parental relationships individually: "I did **pretty good**, but I **still would get caught up
+in it when I would go home**." Years of sustained work, genuine functional improvement — and it
+failed in one situation. The gain had not generalised, so it was not yet basic. `KB07` · K07.2 is
+the same shape from the other side: the change "parallels **step by step**" work in one primary
+tie, over years.
+
+**The requirement that makes or breaks it: the situations must be loaded.** A benign decade
+produces a stable, elevated `functional_level` and demonstrates nothing. If the estimator does not
+condition on anxiety exposure, **an easy life reads as differentiation.** Two consequences:
+
+- The estimator **MUST** weight situations by the load they imposed, not count them.
+- The sample **MUST** include **nodal events**. This is what discriminates the binders. `CUTOFF`
+  drops acute anxiety immediately with its cost deferred to the next nodal event (`M11.C.4`), so a
+  cut-off agent shows a durable-looking calm that holds right up until a nodal event arrives.
+  Narrow gain, broad-looking until tested.
+
+**What this buys.** The estimator separates binder-relief from differentiation **without a special
+rule**. Binder gains are situation-specific and collapse under load; differentiating gains hold
+across situations. `M5.F.2a` (asserting a differentiated state is negative evidence for it) stops
+being a bolted-on counterfeit check and becomes an *output*: an assertion produces a functional
+spike that does not survive the window.
+
+**Honest grading.** "Over years" and "dozens of situations" are **your judgement, not the corpus** —
+no source states a window or a count. Both **MUST** be declared in config and graded `[I]`, and the
+model's conclusions **MUST** be shown to be insensitive to their exact values, or the sensitivity
+reported.
+
+### G6 · Spec changes G5 implies — **listed, not applied**
+
+| # | Change | Where |
+|---|---|---|
+| **G6.1** | `basic_level` **MUST NOT** be directly writable by any move; the ratchet is removed | `M1.A.4`, `M7.A.1` |
+| **G6.2** | `basic_level` is derived as an estimator over `functional_level` history — elevated mean, low variance, sustained window, breadth of situations | new, under `M1.A` / `M10.A` |
+| **G6.3** | The estimator **MUST** weight situations by imposed load and **MUST** include nodal events; an unloaded window is **not** evidence | new |
+| **G6.4** | A completed differentiating exchange (`M5.D.7`) raises `functional_level` and remains the triangle-decrement trigger; it no longer touches `basic_level` | `M5.D.7` |
+| **G6.5** | `M7.A.2` (peripheral-system gain transfers to the nuclear family) is **strengthened and now explained**: breadth across systems is precisely what the estimator measures, so transfer is not a special rule | `M7.A.2` |
+| **G6.6** | Estimator window and breadth count declared in config, graded `[I]`, with a reported sensitivity analysis | `M10.B` |
+| **G6.7** | New acceptance criterion: a `CUTOFF`-heavy arm and an `I-POSITION`-heavy arm reaching the **same** `functional_level` **MUST** diverge in estimated `basic_level` once nodal events enter the window | `M11.C` |
+
+☐ approve §G5–G6 ☐ approve with edits: ______
+
+☐ approve §G1–G4 as the resolution of E1 ☐ approve with edits: ______ ☐ leave E1 open
 
 ---
 

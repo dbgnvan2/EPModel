@@ -70,3 +70,4 @@ existing sources → **pass 3** fold into `_LEDGER.md` → **spec revision 3**.
 | 5 · Differentiation of Self | ✅ | `ks05.md` — 19 |
 | 6 · Emotional Regression | ✅ | `ks06.md` — 15 |
 | 7 · Regression and the I-T Balance | ✅ | `ks07.md` — 11 |
+| 8 · Emotional Objectivity | ✅ | `ks08.md` — 10 |

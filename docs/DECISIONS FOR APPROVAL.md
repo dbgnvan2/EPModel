@@ -1,6 +1,6 @@
 ---
 tags: [model-bt, decisions]
-status: partially answered — A, B, C, D, F2 outstanding
+status: APPROVED 2026-08-25 — propagation outstanding
 date: 2026-08-23
 ---
 
@@ -14,21 +14,28 @@ Each item states **what changed**, **why**, **what I recommend**, and **what it 
 
 ---
 
-## Status — 2026-08-24
+## Status — ✅ APPROVED, 2026-08-25
 
 | Section | State |
 |---|---|
-| **A** · Withdrawals (2) | ⬜ **awaiting you** |
-| **B** · Terminology (1 decision) | ⬜ **awaiting you** |
-| **C** · Framing corrections (3) | ⬜ **awaiting you** |
-| **D** · Model additions (11) | ⬜ **awaiting you** |
+| **A** · Withdrawals (2) | ✅ approved |
+| **B** · Terminology (1 decision) | ✅ approved — option 1 |
+| **C** · Framing corrections (3) | ✅ approved; C2 **with an addition** → `S2.14` |
+| **D** · Model additions (11) | ✅ all approved; **D3 with an amendment** (±1, `S2.13`) and **D9 with a correction** (`S2.15`) |
 | **E** · Open items (5) | ✅ all answered |
 | **F1** · Validation checklist | ✅ accepted |
-| **F2** · Non-code-testable criteria (4) | ⬜ **awaiting you** |
-| **G** · Resolution of E1 (G1–G9) | ✅ applied to the spec on your instruction |
+| **F2** · Non-code-testable criteria | ✅ acknowledged — **now three, not four**: `M11.C.9` was repaired by `KS12.1` into a falsifiable three-arm test |
+| **G1–G9** · Resolution of E1 | ✅ approved; G4/G6/G9 applied at `44c439f`, G7's two additions at `S2.11`/`S2.12` |
 
-**Still needed before step 2 can run: A, B, C, D and F2.** B1 is the only one that is a genuine
-either/or; A, C and D are approve-or-edit lists with a recommendation on every line.
+**Two subsections carry no explicit mark, and neither is a decision.** **G2** is the argument whose
+conclusions are G3 and G4 — both approved, which approves its substance. **F2** is an acknowledgment of
+criteria that cannot be code-tested, not a choice between options.
+
+**The document is closed.** What remains is not approval but **propagation** — the S2 queue in
+`theory/_STATUS.md`, carrying these decisions into the spec, `model_explainer.md`, the published
+proposal and the ledger. After that, the implementation plan.
+
+
 
 ---
 

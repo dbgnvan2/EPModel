@@ -93,3 +93,4 @@ existing sources → **pass 3** fold into `_LEDGER.md` → **spec revision 3**.
 | **PART IV COMPLETE** | **✅** | **2 chapters · 21 findings** |
 | Epilogue · Kerr's own family | ✅ | `ks25.md` — 14 |
 | **📗 PASS 1 COMPLETE** | **✅** | **26 segments · 262 findings** |
+| **PASS 2** — comparative re-read | ✅ | `_KS_PASS2.md` |

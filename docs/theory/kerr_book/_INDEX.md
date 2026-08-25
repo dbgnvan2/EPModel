@@ -72,3 +72,4 @@ existing sources → **pass 3** fold into `_LEDGER.md` → **spec revision 3**.
 | 7 · Regression and the I-T Balance | ✅ | `ks07.md` — 11 |
 | 8 · Emotional Objectivity | ✅ | `ks08.md` — 10 |
 | 9 · Emotional Programming | ✅ | `ks09.md` — 14 |
+| 10 · Chronic Anxiety | ✅ | `ks10.md` — 13 |

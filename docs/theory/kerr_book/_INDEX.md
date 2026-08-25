@@ -63,3 +63,7 @@ existing sources → **pass 3** fold into `_LEDGER.md` → **spec revision 3**.
 | Segment | Pass 1 | Findings |
 |---|---|---|
 | Introduction | ✅ | `ks00.md` — 12 |
+| 1 · Systems Thinking | ✅ | `ks01.md` — 9 |
+| 2 · Evolution and the Emotional System | ✅ | `ks02.md` — 8 |
+| 3 · The Molecule of an Emotional System | ✅ | `ks03.md` — 10 |
+| 4 · Patterns of Emotional Functioning | ✅ | `ks04.md` — 19 |

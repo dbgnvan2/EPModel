@@ -79,3 +79,4 @@ existing sources → **pass 3** fold into `_LEDGER.md` → **spec revision 3**.
 | 14 · Societal Emotional Process | ✅ | `ks14.md` — 12 |
 | **PART I COMPLETE** | **✅** | **14 chapters + intro · 177 findings** |
 | 15 · Key Ingredients in Differentiation | ✅ | `ks15.md` — 13 |
+| 16 · Personal Vignettes | ✅ | `ks16.md` — 11 · amends M7.A.2 |

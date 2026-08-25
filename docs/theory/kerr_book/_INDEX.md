@@ -81,3 +81,5 @@ existing sources → **pass 3** fold into `_LEDGER.md` → **spec revision 3**.
 | 15 · Key Ingredients in Differentiation | ✅ | `ks15.md` — 13 |
 | 16 · Personal Vignettes | ✅ | `ks16.md` — 11 · amends M7.A.2 |
 | 17 · Clinical Example | ✅ | `ks17.md` — 12 · tension with M1.E.2a |
+| 18 · Theory, Method, Technique | ✅ | `ks18.md` — 11 |
+| **PART II COMPLETE** | **✅** | **4 chapters · 47 findings** |

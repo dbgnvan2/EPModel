@@ -200,6 +200,38 @@ Order of work:
    constrains what the model can calibrate against (directions, orderings, mechanisms; not magnitudes).
    It says nothing about whether Bowen is right.
 
+---
+
+## Where the work is now — 2026-08-24
+
+**All four sources are read.** Book (22 chapters, two passes), 1979 video lectures (6 tapes), Kerr
+interviews (15, three passes), and the DSI measurement literature (`_EXTERNAL_MEASURES.md`).
+
+**The spec has moved ahead of the decision document, deliberately.** On the user's instruction, the
+G4, G6 and G9 change sets were applied to `bowen_agent_model_spec_v2.md` (commit `44c439f`): +20 IDs,
+none removed, 256 unique, 0 duplicates, 0 unresolved. Consequence: the G4/G6/G9 headings inside
+`DECISIONS FOR APPROVAL.md` still read *"listed, not applied"* and are **stale**. The user is editing
+that file; do not edit it without asking.
+
+### The blocking item
+`docs/DECISIONS FOR APPROVAL.md`, sections A, B, C, D, E1, E4, E5. **E2 and E3 are answered.**
+
+### Step 2 — propagation queue, to run once the decision document comes back
+
+Applying G4/G6/G9 to the spec made three previously-consistent documents stale. They **MUST** be
+brought back into agreement before the user reviews the set.
+
+| # | Target | What is stale / what to add |
+|---|---|---|
+| **S2.1** | `model_explainer.md` | still describes the `basic_level` **ratchet** (removed) and a **scalar** `outside_ness` (now two-axis, M1.A.9a); has no `systems_perspective` (M1.A.18) and no two-channel selection (M4.D.1a) |
+| **S2.2** | `agent_model_proposal.html` | same three gaps; published artifact, needs `revmark` spans |
+| **S2.3** | `_LEDGER.md` | the findings behind G1-G9 exist only in the decision document — record them as ledger entries with their `KB`/lecture citations |
+| **S2.4** | `bowen_agent_model_spec_v2.md` | whatever A/B/C/D/E1/E4/E5 decide |
+| **S2.5** | `M2.A` + `_LEDGER.md` | **E2 — the marriage-ceremony break.** User's mechanism, approved for folding in: *marriage strengthens fusion; the couple is treated as **one self**, so the live question becomes who gets to decide for that self; the lower the level, the more anxiety and reactivity this produces.* Encode against `M1.A.3`, whose behavioural transition at 50 is already **a licence over joint decisions** — the ceremony does not change either person, it reclassifies a large class of decisions into the shared-life-course domain where the transition bites. Record as the resolution of the long-open E2. |
+
+### Then
+User reviews the finished set -> implementation plan -> plan approved -> **only then** code.
+
 ## Standing decisions
 - Engine: deterministic core, no LLM in the decision path.
 - Subject: synthetic reference family.

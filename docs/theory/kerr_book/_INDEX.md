@@ -68,3 +68,4 @@ existing sources → **pass 3** fold into `_LEDGER.md` → **spec revision 3**.
 | 3 · The Molecule of an Emotional System | ✅ | `ks03.md` — 10 |
 | 4 · Patterns of Emotional Functioning | ✅ | `ks04.md` — 19 |
 | 5 · Differentiation of Self | ✅ | `ks05.md` — 19 |
+| 6 · Emotional Regression | ✅ | `ks06.md` — 15 |

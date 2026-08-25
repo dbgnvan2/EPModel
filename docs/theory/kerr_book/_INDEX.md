@@ -75,3 +75,4 @@ existing sources → **pass 3** fold into `_LEDGER.md` → **spec revision 3**.
 | 10 · Chronic Anxiety | ✅ | `ks10.md` — 13 |
 | 11 · The Multigenerational Family Organism | ✅ | `ks11.md` — 13 ⚠ reopens A1 |
 | 12 · Sibling Position | ✅ | `ks12.md` — 11 · repairs an F2 item |
+| 13 · Emotional Cutoff | ✅ | `ks13.md` — 11 |

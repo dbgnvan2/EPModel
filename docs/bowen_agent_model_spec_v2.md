@@ -78,6 +78,11 @@ Therefore:
 
 **M1.A.3** There **MUST** be exactly one behavioural transition on `basic_level`, at 50, and it **MUST** be implemented as a *licence over joint decisions* — below 50 the emotional system permits the intellect its own domain **except** where a decision affects the shared life course — not as a general suppression of intellect. → §3.1
 
+**M1.A.3a** — *the marriage-ceremony break, resolved.* Bowen states it as a fact and says he never worked out why: "pretty good friendship relationships before marriage and then the whole thing gets messed up as of the time of the marriage ceremony. **I've often wondered the why of that**, but there it exists as a fact." → user mechanism, E2, 2026-08-24; formerly open
+**The mechanism:** marriage strengthens fusion, and **the couple is treated as ONE SELF — so the live question becomes who gets to decide for that self.** The lower the level, the more anxiety and reactivity this produces.
+**Why it needs no new machinery.** The ceremony **changes neither person**. It **reclassifies a large class of decisions into the shared-life-course domain** — precisely the domain in which M1.A.3's transition bites. So a pair whose decisions were previously individual, and therefore outside the licence, finds most of them inside it overnight.
+**Requirement:** `M2.A` **MUST** treat the marriage event as a **reclassification of decision scope**, not as a stressor and not as a change to either person's state. Below 50 the effect **MUST** scale inversely with `basic_level`. `M11.C` candidate: two arms differing only in whether the pair marries, matched on everything else, with the married arm showing higher anxiety **and no change in either party's basic level**.
+
 **M1.A.4** `basic_level` **MUST NOT** be frozen at marriage, and it **MUST NOT** be directly writable by any move. It is **derived** (M1.A.4a), and therefore moves slowly as a consequence of the estimator's window rather than by a rate constant. → §13.3
 
 **M1.A.4a** — *`basic_level` is an **estimator over `functional_level` history**, not a stored quantity a move increments.* It **MUST** be computed from an **elevated mean** in `functional_level`, held at **low variance**, **sustained** over a declared window, and demonstrated **across many distinct situations**. A person works on functional level; sustained, broad improvement in functioning is what constitutes evidence of a rise in basic level. **No move, and no completed differentiating exchange, MUST write `basic_level` directly.**
@@ -89,7 +94,42 @@ Therefore:
 
 **M1.A.4c** The estimator's **window length** and **breadth count** **MUST** be declared in config, graded `[I]`, and the run **MUST** report a sensitivity analysis over both. No source states a window or a count; they are judgement. → M10.B.3
 
-**M1.A.5** A `Person` **MUST** hold a `functional_level` distinct from `basic_level`, and its variance **MUST** be a decreasing function of `basic_level`. → §3.2
+**M1.A.4d** — *a **capacity floor at 25**.* Below `basic_level` 25 the estimator **MUST NOT** raise `basic_level` regardless of functional history; above it, the rate **MUST** be monotone increasing in current `basic_level`. `functional_level` is **not** so constrained and moves freely at every level. A different kind of transition from M1.A.3's behavioural licence at 50 — a **capacity bound on change**, not a licence over decisions. → `kerr_book/ks05.md` · KS05.2
+> "**they lack the flexibility to make basic change**… **People above 25 on the continuum can make basic changes in differentiation. The higher a person's basic level of differentiation, the more potential that person has to increase the basic level.**" And: "**Their functional levels of differentiation can change** as the level of chronic anxiety fluctuates."
+
+**M1.A.4e** — *the estimator's observables, with per-observable reading rules.* Four domains — **work performance, education relative to opportunity, health history, relationship stability** — with "**No one piece of data is sufficient**". Each is read **asymmetrically**:
+
+| Observable | Reading |
+|---|---|
+| Occupation | high → **uninformative**; **low despite opportunity** → informative |
+| Health | the **adaptation to illness**, not the diagnosis |
+| Longevity | **not** a proxy; a long-lived, well-functioning generation **above a dysfunctional one is evidence of projection** |
+| Courtship length | **both** tails informative, middle uninformative |
+
+Contexts **MUST** be weighted by emotional intensity, not treated as comparable: "**In terms of solid self, one's personal life is where the rubber meets the road**", and occupational success "**is not a reliable measure of their basic level**". → `kerr_book/ks05.md` · KS05.10; `ks11.md` · KS11.7; `ks06.md` · KS06.8
+
+**M1.A.4f** The family-level estimate **MUST** be taken over **all** members, never from the best-functioning one, because "**the patterns of emotional functioning in a family system can result in one person functioning well at the expense of another person doing poorly.**" Sibling divergence **MUST NOT** be read as basic-level divergence — the higher-functioning sibling may be running on pseudo-self. → `ks05.md` · KS05.10; `ks11.md` · KS11.4
+
+**M1.A.5** A `Person` **MUST** hold a `functional_level` distinct from `basic_level`. → §3.2
+
+**M1.A.5a** — *the operational decomposition, stated.* `functional_level` **is** the **operational level of differentiation**, and **MUST** decompose as `basic_level` (the slow floor) **+ a swing term** (fast). `M1.A.5`'s variance requirement is a statement about the **swing**: its variance **MUST** be a decreasing function of `basic_level`. → user, 2026-08-24; `kerr_book/ks06.md` · KS06.5
+**The self-directed channel (M4.D.1a) writes the swing directly.** An agent can decide to stop or start doing something — a shift in functioning that is "more mature, more responsible for self" — and the swing moves **at once**, while `basic_level` does not move at all. That is why `M1.A.4a`'s estimator exists: sustained, broad, load-tested swing is what constitutes evidence of a basic-level rise.
+**And the conversion is one event, not two:** a `basic_level` rise **is** a pseudo-self→solid-self conversion, so agency (M10.A.1a) rises as a consequence with nothing extra modelled.
+
+**M1.A.5b** — *relationships carry the same two-level structure.* A `Relationship` **MUST** hold a **basic** individuality–togetherness balance and a **functional** one. Anxiety moves **only** the functional one — "**If anxiety goes up, fusion increases. This represents a functional shift in individuality-togetherness balance, not a basic change**"; and "**anxiety does not affect basic relationship balance.**" → `ks06.md` · KS06.5
+
+**M1.A.5c** — *the sign of the pseudo-self change depends on **which channel** produced the functional rise.* This is a **hard requirement**, and getting it backwards inverts the model's central discriminator. → user question S2.12, resolved by `kerr_book/ks05.md` · KS05.1
+
+| Rise produced by | `functional_level` | pseudo-self | `basic_level` |
+|---|---|---|---|
+| **Automatic channel** — borrowing from a partner, a group, a tribe | ↑ | **↑** (borrower) / ↓ (lender) | unchanged |
+| **Self-directed channel** — differentiating effort | ↑ | **↓**, converting toward solid | rises if sustained and broad |
+
+> "**Pseudo-self can be the basis of increasing a person's functional level of differentiation and reduce chronic anxiety.**" The aimless young man who finishes college after falling in love "**has borrowed pseudo-self from his romantic partner**"; people who join cults "**experience similar improvements in their functional level of differentiation.**"
+
+**Consequence:** the two channels leave **opposite signatures in pseudo-self**, which is a computable discriminator the model would otherwise lack. It requires that the event record carry the channel (M1.F.1a).
+
+**M1.A.5d** Borrowing **MUST NOT** be modelled as pathological. "**Everyone borrows and lends self to some degree**… **This is not a bad thing**" — it is the ordinary mechanism by which a stable culture supports functioning (`ks14.md` · KS14.2). What distinguishes it is only that it **does not survive withdrawal of the source**.
 
 **M1.A.6** Symptom thresholds **MUST** be evaluated against `functional_level`, never against `basic_level`. → §3.2
 
@@ -241,6 +281,16 @@ The first is the mechanism of change; the second is a countermeasure during a mo
 
 **M1.D.7d** `media_amplification` **MUST** be a societal input whose effect on a given family is **modulated by that family's differentiation**, not applied uniformly. This is M1.D.7's decoupling guard at the level of a single dial: a well-differentiated family **MUST** be able to damp it, and a poorly-differentiated one to amplify it.
 
+**M1.D.7i** — *the damping is **two-sided**.* Differentiation **MUST** modulate the **magnitude** of societal influence, `|effect|`, in **both** directions: a well-differentiated family is less moved by **favourable** societal conditions as well as by unfavourable ones. An implementation that damps only harm is wrong. → user, C4 verdict 2026-08-24
+> "**societal forces will have less of an impact (positive or negative) on a well differentiated family — they will be less reactive to outside forces.**"
+**This is the fourth instance of one pattern**, and it is now established enough to state generally (M11.F.6): blame **and** praise are both losses; selfish **and** selfless are both counterfeits; too much distance **and** too much closeness both trigger the stress response; favourable **and** unfavourable societal input are both damped. **Every naive one-sided detector in this model is wrong.**
+
+**M1.D.7j** Decoupling protects the family **without** conferring societal influence. A well-differentiated minority "**can float above the regression that surrounds them**" but "**their contributions are commonly ignored or overruled by the regressed majority**" — so a high-differentiation family **MUST NOT** damp the societal dial *for anyone else*. → `kerr_book/ks14.md` · KS14.8
+
+**M1.D.7k** `resource_pressure` (M1.D.7c) **MUST NOT** be monotone. **Both scarcity and superabundance degrade social structure**, so the dial requires an **optimum**, not a direction. The Galápagos ground finches under a 1983 El Niño: a copulating frenzy, monogamous mothers becoming polygamous, "**Females commonly abandoned their begging young offspring**", then mass die-off when the rain stopped — "**the orderly social structure of the frenzied birds regressed. Stable families disappeared.**" → `ks14.md` · KS14.7 (Grant & Grant 1985)
+
+**M1.D.7l** The societal individuality–togetherness balance **MUST** have its optimum at **parity**, not at maximum individuality, and a regression **MUST** be bounded at a **5–10 point** shift toward togetherness. "**Bowen theory holds that optimal functioning for a society is a 50-50 balance**… a new balance can occur, such as **55 or 60 on the togetherness side**." → `ks14.md` · KS14.3 `[#]`
+
 **M1.D.7e** A dial-driven stressor **MUST** be able to convert from exogenous to endogenous within an individual — arriving from outside, then sustaining itself through the chronicity integrator (M4.C.3) once internalised. The `exogenous` flag (M1.F.7) **MUST** record which it was at emission, so the two remain countable separately at readout.
 
 **M1.D.7f** `societal_leadership` remains `[I]` in its functional form. Ch18 names six downward channels — labelling and diagnosis propensity, overleniency of officials and laws, helping-programme intensity, school structure at junior high, population density, and era-dependent symptom form — and leadership quality is not among them, though Ch13's only stated reversal mechanism does require a single principled leader.
@@ -338,6 +388,12 @@ The instance everything is tested against. It is **invented and tunable** — va
 
 **M2.A.0c** Spouses **MUST** be paired at comparable **`basic_level`**, never `functional_level`. 1979 Tape 3 specifies the field: "when I say spouses marry others with the same basic level of differentiation, **I mean this base level and not functional levels**" — functioning "goes up and down real easy." "People choose spouses [at] **almost identical levels of differentiation of self**", offered as an observed constant and "par for the course". → `kb/kb14.md` · K14.2
 
+**M2.A.0e** — *the match is close, not exact.* Pairing **MUST** use a declared **tolerance**, not equality: **±1 point** on the 0–100 scale, declared in config. → user amendment to D3, 2026-08-24
+**Why a tolerance is the right shape.** The corpus's own claim is "**almost identical**", not identical, and Kerr adds that pairing is **strict for spouses and looser for friendships** — basic level "**also influence[s] the development of close friendships but somewhat less precisely**" (`kerr_book/ks07.md` · KS07.7). A wider tolerance therefore applies to non-family ties.
+**And it is what makes `M11.C.24` observable**: the initial gap must be small enough that the *developed* divergence dominates it.
+
+**M2.A.0f** Pairing **MUST** carry a second, orthogonal dimension: **rank and sex complementarity** of sibling position (M1.A.14). Complementary pairs form more readily and carry lower baseline conflict, and incompatible ones **MUST** be able to fail to form — "**if the female in this case was less deferential and the male is bothered by it, the relationship might not take.**" This affects **conflict propensity, not differentiation**: "**This does not mean that one marriage is more mature than the other.**" → `kerr_book/ks12.md` · KS12.3; `ks07.md` · KS07.9
+
 **M2.A.0d** Fusion **MUST** be life-stage dependent, not uniformly costly. The infant–caretaker symbiosis is stated as a **normal state, not a pathology**. → `kb/kb14.md` · K14.5
 
 **M2.A.1** `Iris` and `Bruno` **MUST** have comparable contact frequency and **MUST** differ in bond energy. This pair is the fixture for M11.C.4 and the direct test of M1.B.3.
@@ -411,6 +467,10 @@ The instance everything is tested against. It is **invented and tunable** — va
 **M4.C.3a** — *the integrand is **time above the floor**, not peak.* The integrator **MUST** accumulate `acute_anxiety − chronic_anxiety` where positive, so that **many resolved excursions and one unresolved excursion are distinguishable**. Citing McEwen's allostatic load: the cost is "**the wear and tear inflicted on the body due to repeated cycles of allostasis, such as occurs from repeated stresses or when the stress response system does not turn off when it should**" — **the damage is in the failure to return to baseline.** → `kerr_book/ks23.md` · KS23.3
 Duration is independently supported: enduring problems "**one month or longer**" were the most frequent threats, and "**the longer the stressful life event or events lasted, the greater the risk**" (`ks23.md` · KS23.5).
 
+**M4.C.8** — *attending to a channel **amplifies** it.* Directing attention at the feeling channel **MUST** increase its activity, not discharge it; directing it at the intellectual channel **MUST** order it. This is where feelings legitimately enter the model — **not as state** (forbidden by M1.A.0) but as a **target of attention with an amplifying effect**. → `kb/kb12.md` · K12.6
+> focusing on feelings is "almost as if you are **uncovering a volcano**, and the more you uncover it, the more of this coming and coming… the only time you get a kind of resolution is when the **feelings run down**, when the volcano gets tired." Work the intellect and "the feeling world is no longer a volcano. It is an **orderly little fountain**."
+**This generalises `C1` beyond symptom relief**: attending to a channel is itself an intervention on it, so a coach or family member who focuses on the feeling channel **MUST** raise it. It is also the mechanism behind `M4.C.2`'s gain function seen from the other side.
+
 **M4.C.4** `systems_perspective` (M1.A.18) **MUST** fall with acute anxiety. Polarity capture is a **loss** in someone who had the perspective, not merely a correlate of never having had it: "there is **no debate in systems**… any time anybody is stuck in a polarity, they have either not arrived at systems thinking, or **they have lost it** if they did arrive", and "the **higher the level of functioning, the more an individual can get beyond polarities**". → `kb/kb07.md` · K07.6, `kb/kb12.md` · K12.7
 
 **M4.C.6** — *reappraisal **MUST** be self-attribution, not re-interpretation of the other.* An agent with `systems_perspective` **MUST** attribute part of a received event to **its own prior emission on that tie**. The shift is not "she is not hostile" but *part of what I am receiving is my own output returning*. This is why the effect is **immediate** — no new information arrives, only a re-attribution of existing information. → `kerr_book/ks17.md` · KS17.3
@@ -463,6 +523,7 @@ This is the corpus's cleanest demonstration because **the content is identical b
 **M4.D.6a** — *the reinforcement signal MUST be named, and it MUST NOT be short-horizon anxiety relief.* The obvious proxy — the post-move change in the actor's own acute anxiety — is **forbidden**, because this specification pins the timing that makes it self-defeating: M11.C.4 requires `CUTOFF` to drop the actor's acute anxiety *immediately* with its cost deferred to the next nodal event, and M11.C.5 requires `I-POSITION` to *raise* tension for a bounded window before it settles. A short-horizon anxiety proxy therefore rewards the seven reactive moves and punishes the two differentiating ones **by construction**, and every agent converges on `CUTOFF`.
 
 **M4.D.6b** The signal **MUST** be evaluated over a horizon longer than the reaction window of M5.D, and **MUST** be declared in config with its horizon. `[I]`
+**The horizon belongs to `functional_level`, which is the *shorter* timescale** (M1.A.5a) — **not** to the `M1.A.4a` estimator's window. Reinforcement operates on the swing term, over months; the estimator operates on `basic_level`, over years. Scaling the reinforcement horizon to the estimator window is a failing implementation and would reproduce the very over-correction `M11.C.16`'s second direction exists to catch. → user, G3 approval 2026-08-24
 
 **M4.D.6c** This failure would be invisible to M11.C.1–M11.C.15, because all of them hold the policy fixed across both arms (M0.4) and a uniformly degenerate policy shifts both arms together. M11.C.16 exists to catch it.
 
@@ -471,6 +532,10 @@ This is the corpus's cleanest demonstration because **the content is identical b
 ### M4.E Act
 
 **M4.E.1** A selected move **MUST** become an event with sender, targets, witnesses, intensity, timestamp, route, fidelity and the tie's latency.
+
+**M1.F.1a** — *the event record **MUST** carry the **channel** that selected the move* — `AUTOMATIC` or `SELF_DIRECTED`, or a mixture weight, since "**a given decision may contain elements of both.**" → `kerr_book/ks13.md` · KS13.5
+**Without it the model cannot distinguish two cases the theory says are opposite.** "Going toward a goal" and "running away from a problem" can be the **same emitted act** — a geographic move, or staying put, is uninformative in **both** directions. Only the driving channel separates them, and no readout, and not the `M1.A.4a` estimator, can recover it after the fact.
+It is also what makes `M1.A.5c`'s pseudo-self sign computable.
 
 ### M4.G Consolidate
 
@@ -558,6 +623,21 @@ Applying the peace-agree technique to a reactive family is not merely ineffectiv
 **M5.E.6** The trajectory **MUST** be a damped oscillation with hysteresis, not a spike-and-settle. Reversion **MUST NOT** be treated as run failure. → §8
 
 **M5.E.7** The cause of the reaction **MUST** be the life-energy debit (M1.A.10, M6.I.3) — the move withdraws energy the other was receiving. The ladder is the surface expression. → §3.7
+
+**M5.E.7a** — *what the debit **means** to the party who bears it.* The reaction occurs because the move **pushes the other to function more responsibly**, which they initially resist. The debit and the demand are one event seen from two ends, and stating it this way connects the change-back ladder to `M12`'s counterfeit of responsibility, which it otherwise touches nowhere. → user, A7 verdict 2026-08-24
+
+**M5.E.8** — *the success state.* `M5.E` **MUST** have a terminal state that is **not** a return to baseline. A completed differentiating exchange **MUST** leave the tie **more solid** than before, with increased mutual respect — "**A hallmark of a successful effort to define 'self' is that it does not disrupt a relationship but, rather, solidifies it.**" `M11.C.5` **MUST** assert it. → `kerr_book/ks00.md` · KS00.6
+Observed form: the pursue/distance polarity can **invert** — after a successful sequence, the previously pursuing party distances and the previously distancing party pursues (`ks17.md` · KS17.11). That inversion is assertable.
+
+**M5.E.9** — *three timescales, and they are not one.* The config **MUST** declare all three separately, each `[I]` where the corpus gives no figure:
+
+| Scale | What settles | Source |
+|---|---|---|
+| **~1 week** | the acute reaction at peak, before it breaks | `ks07.md` · KS07.1 |
+| **months** | the system's re-equilibration after a held position | user, A7 verdict |
+| **years to a decade** | resolution of a primary tie; **ten years** on one relationship, **twelve** of preparation for one visit | `ks00.md` · KS00.6; `ks15.md` · KS15.6 |
+
+Together these bound `M5.D.7a`: **the unit of differentiation is not the exchange**, and no realistic number of exchanges moves an agent materially within a run.
 
 ### M5.F Act identity — the counterfeit problem
 
@@ -680,6 +760,12 @@ avoidance_available(g) = positions_live(g) < 3        # a step, not a gradient
 
 **M8.6** — *alignment, not knowledge.* A third party's effect on a differentiating move **MUST** be determined by their *position*, never by what they know.
 
+**M8.6a** — *an ally is a **pseudo-self transaction**, not only a peripheral triangle.* Alignment **MUST** transfer pseudo-self on `M6.I.4`'s conserved quantity — borrowing from the ally, or lending to them. → user, B4 verdict 2026-08-24
+**Why this makes the ally penalty computable rather than declared.** A differentiating move is meant to come from **solid** self, and agency is the solid-self fraction (`M10.A.1a`). A move fuelled by borrowed self is **not drawing on that reserve at all**, so it is counterfeit by construction under `M5.F.2a` — the model works it out instead of being told. It also explains why the effect is *undoing* rather than mere complication, which the triangle account alone did not.
+**Corroborated at scale.** Fifty to sixty observers at the Medical College of Virginia, and the harm mechanism was **alignment, not information** — "**a colleague… touched me softly on the arm in a way that convinced me that she had taken sides**"; "**It is too easy to be emboldened to think you are right when someone else reinforces that view.**" → `kerr_book/ks18.md` · KS18.3
+
+**M8.6b** The countermeasure **MUST** be available to an external agent: **routing**. All traffic addressed to the neutral party, who decides what passes — a gate on the event graph, which `M1.E` did not previously carry. → `ks18.md` · KS18.3
+
 - Position `NEUTRAL` → **no effect**, regardless of knowledge.
 - Position `ALIGNED_WITH_MOVER` → **MUST** open a new peripheral triangle; the move's gain leaks until the ally is detriangled.
 - `role = EXTERNAL` and perceived as against the family → **MUST** open a peripheral triangle.
@@ -769,6 +855,7 @@ Each criterion **MUST** have a named test, **MUST** assert a direction of differ
 | **M11.C.15** | Death destabilises exactly as recovery does — a stabilising arrangement built on one member's impairment breaks on their death as well as their recovery | `test_m11c15_death_destabilises_like_recovery` | D | M7.D.3 |
 | **M11.C.17** | **Differentiation is not self-generating.** Two arms, identical seeds, differing only in the presence of an external agent. The coach-free arm **MUST NOT** show upward drift in mean `basic_level` over the run. A population of agents that optimises its way to differentiation has contradicted multigenerational transmission, in which levels are roughly conserved and differentiation is rare. This is the model's strongest negative test. | `test_m11c17_no_basic_level_drift_without_coach` | C | M1.E.7's gate — letting `systems_perspective` rise spontaneously **MUST** turn this red |
 | **M11.C.18** | **The estimator discriminates the binder from the real thing.** A `CUTOFF`-heavy arm and an `I-POSITION`-heavy arm brought to the **same** `functional_level` **MUST** diverge in estimated `basic_level` once nodal events enter the window. If they do not, M1.A.4a is not discriminating and the estimator has failed. | `test_m11c18_estimator_separates_cutoff_from_iposition` | C | M1.A.4b's load weighting — flattening it to an unweighted count **MUST** turn this red |
+| **M11.C.24** | **The whisper of nature: dissolve a discrepant pair and the discrepancy reverses.** Construct a dominant-adaptive pair at matched `basic_level` (M2.A.0e), run until functional levels diverge, then dissolve the tie. The underfunctioner's `functional_level` **MUST** rise and the overfunctioner's **MUST** fall, converging toward their common basic level. If the model cannot produce this, `M6.I.4`'s pseudo-self transfer is not doing its work. The initial gap must be inside M2.A.0e's tolerance so the **developed** divergence dominates it → `kerr_book/ks07.md` · KS07.2 | `test_m11c24_whisper_of_nature_reverses_on_dissolution` | D | M6.I.4's transfer — zeroing it **MUST** turn this red |
 | **M11.C.20** | **The estimator separates a borrowed gain from a basic one.** Two arms brought to the **same** `functional_level`, one by a supporting external condition and one by a completed differentiating sequence; then **withdraw the supporting condition**. Estimated `basic_level` **MUST** diverge. The corpus contains **eight** instances of this discriminator (`kerr_book/_KS_PASS2.md` §KS-D), including a within-subject control on one nodal event type, and one already-worked fixture in which the source labels which change was functional and which was basic | `test_m11c20_estimator_separates_borrowed_from_basic` | C | M1.A.4b's load weighting — flattening it to an unweighted count **MUST** turn this red |
 | **M11.C.21** | **Reciprocity inverts when the overfunctioners' capacity falls.** An arm in which both projecting parents' functional level drops **MUST** show the projection target's functional level **rise**, with no change to the target. Two instances: a schizophrenic brother becoming the family's functional member when both parents collapsed, and a projection target's symptoms fading after both parents died | `test_m11c21_reciprocity_inverts_on_projector_collapse` | D | M6.I.4's transfer direction — making it one-way **MUST** turn this red |
 | **M11.C.22** | **Symptom lock-in.** After a symptom establishes, family anxiety **MUST** fall and the configuration **MUST** resist the symptom's removal — so that a cure arm shows rising conflict (`M11.C.12`) and a removal arm shows family relief, from the same mechanism | `test_m11c22_symptom_locks_in` | D | M7.D.2a |
@@ -812,6 +899,12 @@ Flagged explicitly, with a human-review proposal, per the project's planning rul
 **M11.F.2** Any claim that the model's family level informs a societal level **MUST** be stated as **analogy, not derivation**, in this form: *the same principles apply at different levels; the levels are not the same system; reasoning from one to another is an analogy.* Three independent statements — "an analogy is **not an extension of theory**"; the triangle in society is "an analogy, but **not a reasonable connection — these things don't connect up**"; society is "**similar to a family. Not the same as, but the same principles apply.**" → `kb/_KB_PASS2.md`
 
 **M11.F.3** The objection to the model's foundation **MUST** be stated accurately and not softened. Bowen rejected **general systems theory** as a base in favour of **natural systems**, on the ground that general systems "came out of man's head, along with mathematics" — and separately called the two "**compatible within limits**". A simulation is a general-systems artifact, so this is a real named objection. Both of his statements **MUST** be recorded; neither collapses into the other. → `kb/kb13.md` · K13.2, `kb/kb09.md` · K09.3
+
+**M11.F.3a** — *the distinction that answers the objection, and it **MUST** accompany it.* **General Systems Theory is an abstract conceptualisation thought up by man; Bowen theory is built from observation of how families actually function** — as one derives planetary motion by observing the planets. **The simulation is not offering a non-objective explanation of human functioning**; it is a computation over observed regularities. → user addition, C2 approval 2026-08-24
+Kerr's framing supports it: Bowen's stated validity criterion was that a theory be "**synonymous with the universe, the earth, the tides, the seasons, the predictable cycles of life**" (`kerr_book/ks24.md` · KS24.8), and the claim is continuity with the Baconian programme rather than with cybernetics (`ks24.md` · KS24.9).
+
+**M11.F.6** — *the general two-sidedness rule.* **No detector, readout or modulation in this model may be one-sided.** Established across four independent instances: blame **and** praise are both losses (`kb/kb07.md` · K07.1); selfish **and** selfless are both counterfeits (M1.A.9a); too much distance **and** too much closeness both trigger the stress response (`kerr_book/ks03.md` · KS03.2); favourable **and** unfavourable societal input are both damped (M1.D.7i). Further instances: over- **and** under-reactivity are both faults (`ks11.md` · KS11.11); blame of **other** and of **self** both count (`ks00.md` · KS00.2); **both** tails of courtship length are informative (M1.A.4e).
+**Every naive one-sided proxy for differentiation in this model would be wrong**, and the corpus supplies at least nine readout traps of exactly that shape — overt emotionality, absence of adolescent rebellion, an apparently fine marriage, the idealised child, type A and type B, the high-functioning sibling, conflict rising during recovery, geographic distance, and reported closeness.
 
 **M11.F.4** No output **MUST** claim to reproduce *measured* differentiation (M10.C.2b), and no emotional-state-to-physical-disease mechanism **MUST** be implemented on the basis of the cancer material in `kb/kb11.md` — single anecdotal cases, one with the diagnosis contested by the treating oncologists.
 

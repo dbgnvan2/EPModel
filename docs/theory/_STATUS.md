@@ -216,67 +216,29 @@ that file; do not edit it without asking.
 ### The blocking item
 `docs/DECISIONS FOR APPROVAL.md`, sections A, B, C, D, E1, E4, E5. **E2 and E3 are answered.**
 
-### Step 2 — propagation queue, to run once the decision document comes back
+### Step 2 — propagation: **spec items COMPLETE**, documents outstanding
 
-Applying G4/G6/G9 to the spec made three previously-consistent documents stale. They **MUST** be
-brought back into agreement before the user reviews the set.
+**Decision document APPROVED 2026-08-25.** All spec-bearing items S2.4–S2.16 are applied. Spec at
+**321 unique IDs**, 0 duplicates, 0 unresolved, 355 MUST / 100 MUST NOT, 37 tests green.
 
-| # | Target | What is stale / what to add |
+| # | Item | State |
 |---|---|---|
-| **S2.1** | `model_explainer.md` | still describes the `basic_level` **ratchet** (removed) and a **scalar** `outside_ness` (now two-axis, M1.A.9a); has no `systems_perspective` (M1.A.18) and no two-channel selection (M4.D.1a) |
-| **S2.2** | `agent_model_proposal.html` | same three gaps; published artifact, needs `revmark` spans |
-| **S2.3** | `_LEDGER.md` | the findings behind G1-G9 exist only in the decision document — record them as ledger entries with their `KB`/lecture citations |
-| **S2.4** | `bowen_agent_model_spec_v2.md` | whatever A/B/C/D/E1/E4/E5 decide |
-| **S2.5** | `M2.A` + `_LEDGER.md` | **E2 — the marriage-ceremony break.** User's mechanism, approved for folding in: *marriage strengthens fusion; the couple is treated as **one self**, so the live question becomes who gets to decide for that self; the lower the level, the more anxiety and reactivity this produces.* Encode against `M1.A.3`, whose behavioural transition at 50 is already **a licence over joint decisions** — the ceremony does not change either person, it reclassifies a large class of decisions into the shared-life-course domain where the transition bites. Record as the resolution of the long-open E2. |
-
-| **S2.6** | `M5.E.6`, `M5.E.7` | **A7 confirmed, with a mechanism.** The change-back reaction happens because the move **pushes others to function more responsibly**, which they resist; **hold the position and the system shifts over months.** `M5.E.7` currently names the life-energy debit as the cause — compatible, but the responsibility framing connects it to `M12`. `M5.E.6`'s damped oscillation needs a **settling timescale of months**, graded `[I]` (user's judgement, not a corpus quantity). |
-| **S2.7** | `M8.6`, `M6.I.4`, `M5.F` | **B4 confirmed — the pass-2 withdrawal was right**, and the mechanism is deeper than a triangle. An ally creates an "us against them" triangle **and** implies **borrowing self from the ally, or lending self to the ally**. So the ally penalty is a **pseudo-self transaction** on `M6.I.4`'s conserved quantity, not only a structural one. A move fuelled by borrowed self does not draw on the solid-self reserve (`M10.A.1a`) and is therefore counterfeit by construction (`M5.F.2a`) — computable rather than declared. |
-| **S2.8** | `M1.D.7d` | **C4 confirmed, and two-sided.** Societal forces have less impact **positive or negative** on a well-differentiated family. `M1.D.7d` currently reads as being about harm; the modulation applies to **`|effect|`**, both directions. Third instance of the same two-sided pattern (blame/praise, selfish/selfless, favourable/unfavourable) — treat as a general property. |
-
-| **S2.9** | `M1.A.5`, `M1.A.4a` | **The operational decomposition, stated out loud.** `functional_level` **is** the operational level of differentiation: `functional_level = basic_level` (slow floor) `+ swing` (fast). The self-directed channel (`M4.D.1a`) writes the swing directly — an agent can decide to stop or start doing something and shift functioning at once. `M1.A.5`'s variance requirement is really a statement about the **swing**, and should say so. `M1.A.4a`'s estimator converts sustained, broad swing into basic level — **and that conversion is the same event as pseudo-self becoming solid self**, so agency (`M10.A.1a`) rises as a consequence with nothing extra modelled. |
-| **S2.10** | `M4.C`, `M5` | **Attending to a channel amplifies it.** Focusing on feelings is "almost as if you are **uncovering a volcano**… the only time you get a kind of resolution is when the **feelings run down**"; work the intellect and "the feeling world is… an **orderly little fountain**." → `kb/kb12.md` · K12.6. This is where feelings legitimately enter the model — **not as state** (forbidden by `M1.A.0`) but as a **target of attention with an amplifying effect**. Generalises C1 beyond symptom relief. Currently unrepresented. |
-| **S2.11** | `M4.D.1a` | **G7 IMPORTANT (user):** *"the whole mechanism of Functional level of DOS in the above process."* The two-channel account must be written in terms of functional level of DOS — the self-directed channel's output **is** a functional-level shift, which is why it can be fast while `basic_level` stays slow. |
-| **S2.12** | `M6.I.4`, `M4.D.1a` | **G7 IMPORTANT (user):** *"increase in Functional level of DOS means pseudo self is lower."* ⚠ **Needs confirmation before encoding** — see the open question below. Proposed reading: the **sign depends on which channel produced the rise**. A rise via the **self-directed** channel converts pseudo-self toward solid (pseudo-self ↓). A rise via the **automatic** channel is borrowed from another in the reciprocity (pseudo-self ↑) and is a gain in *apparent functioning*, not in functional DOS. That makes the two channels leave **opposite signatures in pseudo-self** — a computable discriminator the model does not currently have. |
-| **S2.13** | `M2.A.0c` | **D3 approved with an amendment (user):** spouse pairing on `basic_level` *"doesn't have to be EXACTLY matched. + or - one point."* Change the construction rule from equality to a ±1 tolerance, declared in config. |
-| **S2.14** | `M11.F.3` | **C2 approved with an addition (user):** the distinction to state is that **General Systems Theory is an abstract conceptualisation thought up by man, whereas Bowen Theory is built from observation of how families actually function** — "just like observing the planet movements to derive how they function." The simulation is not offering a non-objective explanation of human functioning. |
-| **S2.15** | `M1.D.2a` | ⚠ **D9 approved with a note that pulls against the requirement (user):** *"the Distance IS the symptom, and since it indicates high intensity, that intensity can lead to other symptoms."* `M1.D.2a` currently says distance **absorbs without symptomising**. Reconciliation to encode: distance does not produce the three **named** symptom channels, but it is **itself an observable of high intensity and a predictor of later symptoms** — not a neutral sink. Do not leave it graded as costless. |
-| **S2.16** | `M4.D.6b` | **G3 approved with context (user):** the reinforcement horizon belongs to **functional level of DOS**, which is the shorter time horizon. The declared horizon should be scaled to the swing term, not to the `basic_level` estimator window. |
-
-### ✅ Source 5 pipeline COMPLETE — 2026-08-25
-**Kerr, *Bowen Theory's Secrets* (2019).** Pass 1 (26 segments, 262 findings, `kerr_book/`) → pass 2
-(comparative re-read, `kerr_book/_KS_PASS2.md`) → pass 3 (folded into `_LEDGER.md` as Source 5) →
-**spec revision 3 applied**. Spec now **295 unique IDs**, 0 duplicates, 0 unresolved, 323 MUST /
-94 MUST NOT. 37 tests green.
-
-**Headline:** across 262 findings the book contradicts **no** finding of the papers, the lectures or the
-interviews. It contradicts **six requirements this project wrote**, all now corrected in the spec.
-
-Both user decisions of 2026-08-25 recorded: **`A1` stands** (the range becomes a shape constraint on
-`M11.C.6`, the rate prohibition in `M10.C.3` untouched), and **expressed emotion is admissible on Kerr's
-summary** without primary-source checking (now `M11.C.23`).
-
-### Next: **Family Evaluation** (Kerr & Bowen, 1988) — source 6
-Already chapterised in `~/Downloads/bowen_rag/source_files/` (11 chapters + introduction, ~1.1 MB).
-Same process: pass 1 → pass 2 → pass 3 → spec revision 4. Note `KS24.4` locates the project's two-axis
-definition (`M1.A.9a`) in **that** book, so it is the primary citation for a load-bearing requirement.
-
-### ⚠ Superseded — resolved above
-
-**`KS11.1` touches approved decision `A1`.** The user approved withdrawing "eight to ten
-generations" as a calibration target. **Kerr states it in print in 2019** — "It could take eight to
-ten generations or as few as three or four" — for traversal from a very good to a very poor level.
-Assessment: the withdrawal of the *rate* stands (`M10.C.3` untouched), because this is a range with
-a 3x spread describing **full-scale traversal**, not a per-generation decrement, and no method is
-given. **Recommendation:** record as a `[#]` shape constraint on `M11.C.6` — a top-to-bottom decline
-**MUST NOT** complete in one or two generations and **MUST** be achievable within roughly ten.
-**User's call, since it amends their decision.**
-
-### Open question to put back to the user
-**S2.12.** The sentence *"increase in Functional level of DOS means pseudo self is lower"* and Bowen's
-standard reciprocity account can diverge: in the classic overfunctioner/underfunctioner exchange, one
-party's **functional level rises on borrowed self**, which is pseudo-self going *up*. The reading above
-resolves it by making the channel decide the sign. **Confirm before encoding** — if the user means it
-holds unconditionally, `M6.I.4`'s reciprocity needs re-examining instead.
+| S2.4 | A/B/C/D decisions into the spec | ✅ |
+| S2.5 | E2 marriage-ceremony mechanism → `M1.A.3a` | ✅ |
+| S2.6 | A7 change-back cause + `M5.E.8` success state + `M5.E.9` three timescales | ✅ |
+| S2.7 | B4 ally as pseudo-self transaction → `M8.6a/b` | ✅ |
+| S2.8 | C4 two-sided damping → `M1.D.7i–l` | ✅ |
+| S2.9 | operational decomposition → `M1.A.5a/b` | ✅ |
+| S2.10 | attention amplifies the channel → `M4.C.8` | ✅ |
+| S2.11 | functional DOS in the two-channel account → `M1.A.5a` | ✅ |
+| S2.12 | pseudo-self sign by channel → `M1.A.5c/d` + `M1.F.1a` | ✅ |
+| S2.13 | spouse pairing ±1 + complementarity → `M2.A.0e/f` | ✅ |
+| S2.14 | C2 observational-vs-abstract addition → `M11.F.3a`; general two-sidedness → `M11.F.6` | ✅ |
+| S2.15 | distance binds → `M1.D.2a` rewritten | ✅ |
+| S2.16 | reinforcement horizon belongs to functional level → `M4.D.6b` | ✅ |
+| **S2.1** | **`model_explainer.md`** — ratchet removed, `outside_ness` two-axis, `systems_perspective`, two channels, all of revision 3 | ⬜ **outstanding** |
+| **S2.2** | **`agent_model_proposal.html`** — same, plus `revmark` spans; published artifact | ⬜ **outstanding** |
+| **S2.3** | **`_LEDGER.md`** — the G1–G9 conversation findings as ledger entries (Source 5 is already folded in) | ⬜ **outstanding** |
 
 ### Then
 User reviews the finished set -> implementation plan -> plan approved -> **only then** code.

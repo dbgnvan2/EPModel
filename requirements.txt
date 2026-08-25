@@ -1,0 +1,14 @@
+# --- System Modeling & Math ---
+numpy                   # Numerical processing for emotional states
+pandas                  # Data structures for process logging
+networkx                # Modeling emotional triangles and systems
+
+numpy
+pygame-ce
+matplotlib
+
+
+
+# --- Engineering & Auditing ---
+ruff                    # Linter
+python-dotenv           # Environment management

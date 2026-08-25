@@ -242,7 +242,26 @@ brought back into agreement before the user reviews the set.
 | **S2.15** | `M1.D.2a` | ⚠ **D9 approved with a note that pulls against the requirement (user):** *"the Distance IS the symptom, and since it indicates high intensity, that intensity can lead to other symptoms."* `M1.D.2a` currently says distance **absorbs without symptomising**. Reconciliation to encode: distance does not produce the three **named** symptom channels, but it is **itself an observable of high intensity and a predictor of later symptoms** — not a neutral sink. Do not leave it graded as costless. |
 | **S2.16** | `M4.D.6b` | **G3 approved with context (user):** the reinforcement horizon belongs to **functional level of DOS**, which is the shorter time horizon. The declared horizon should be scaled to the swing term, not to the `basic_level` estimator window. |
 
-### ⚠ New item for the user — raised by the Kerr book, 2026-08-25
+### ✅ Source 5 pipeline COMPLETE — 2026-08-25
+**Kerr, *Bowen Theory's Secrets* (2019).** Pass 1 (26 segments, 262 findings, `kerr_book/`) → pass 2
+(comparative re-read, `kerr_book/_KS_PASS2.md`) → pass 3 (folded into `_LEDGER.md` as Source 5) →
+**spec revision 3 applied**. Spec now **295 unique IDs**, 0 duplicates, 0 unresolved, 323 MUST /
+94 MUST NOT. 37 tests green.
+
+**Headline:** across 262 findings the book contradicts **no** finding of the papers, the lectures or the
+interviews. It contradicts **six requirements this project wrote**, all now corrected in the spec.
+
+Both user decisions of 2026-08-25 recorded: **`A1` stands** (the range becomes a shape constraint on
+`M11.C.6`, the rate prohibition in `M10.C.3` untouched), and **expressed emotion is admissible on Kerr's
+summary** without primary-source checking (now `M11.C.23`).
+
+### Next: **Family Evaluation** (Kerr & Bowen, 1988) — source 6
+Already chapterised in `~/Downloads/bowen_rag/source_files/` (11 chapters + introduction, ~1.1 MB).
+Same process: pass 1 → pass 2 → pass 3 → spec revision 4. Note `KS24.4` locates the project's two-axis
+definition (`M1.A.9a`) in **that** book, so it is the primary citation for a load-bearing requirement.
+
+### ⚠ Superseded — resolved above
+
 **`KS11.1` touches approved decision `A1`.** The user approved withdrawing "eight to ten
 generations" as a calibration target. **Kerr states it in print in 2019** — "It could take eight to
 ten generations or as few as three or four" — for traversal from a very good to a very poor level.

@@ -1,0 +1,119 @@
+========================================================================
+  EPModel Monte Carlo Parameter Sweep — Results Summary
+  150 combos × 2 replicates × 200 cycles | 10,000 units
+========================================================================
+
+────────────────────────────────────────────────────────────────────────
+  SURVIVAL OVERVIEW
+────────────────────────────────────────────────────────────────────────
+  Runs with >50% population alive at cycle 200: 90/150  (60%)
+  Runs with total collapse (<5% alive):              26/150  (17%)
+  Mean survival rate across all runs:                42.9%
+
+────────────────────────────────────────────────────────────────────────
+  TOP 10 PARAMETER COMBOS  (best survival)
+────────────────────────────────────────────────────────────────────────
+   Surv%     L   SNet   SBase   Unempl     X     E   Births   Deaths
+    66.9%   2.0    YES      80       0%   1.0   1.5    13234    16542
+    66.5%   1.0     no      80       0%   0.5   1.5    13108    16458
+    66.5%   1.0    YES     100      20%   1.0   1.0    13064    16418
+    66.5%   1.0    YES      60       5%   1.0   0.5    13130    16484
+    66.2%   0.5    YES     120       0%   1.0   0.5    13234    16610
+    66.2%   0.5     no     120       0%   1.0   1.0    13163    16546
+    65.3%   1.5    YES      80       0%   0.5   1.0    12934    16406
+    65.1%   0.5    YES      80      10%   1.0   0.5    12934    16423
+    64.7%   1.0    YES      60       0%   0.5   1.5    12853    16382
+    64.6%   1.5     no     100       0%   2.0   1.0    12833    16374
+
+────────────────────────────────────────────────────────────────────────
+  BOTTOM 10 PARAMETER COMBOS  (worst / most deadly)
+────────────────────────────────────────────────────────────────────────
+   Surv%     L   SNet   SBase   Unempl     X     E   Births   Deaths
+     0.0%   2.0     no     120       5%   0.5   1.5       32    10032
+     0.0%   0.5    YES     120      10%   2.0   2.0       26    10026
+     0.0%   1.0     no     120       5%   2.0   1.5       30    10030
+     0.0%   1.0     no     100      10%   2.0   2.0       22    10022
+     0.0%   1.0    YES     120       5%   1.0   2.0       28    10028
+     0.0%   2.0     no     120      20%   0.5   2.0       26    10026
+     0.0%   2.0     no     100      20%   1.5   2.0       28    10028
+     0.0%   0.5     no     120       5%   2.0   1.5      763    10763
+     0.0%   1.5    YES     120      10%   1.0   2.0       29    10029
+     0.0%   0.5    YES     120       5%   0.5   2.0       26    10026
+
+────────────────────────────────────────────────────────────────────────
+  PARAMETER IMPACT ANALYSIS  (mean survival at each level)
+────────────────────────────────────────────────────────────────────────
+
+  L  — Leadership Factor:
+         0.5  →  mean survival  41.3%   (>50% alive in 54% of runs)  n=37
+         1.0  →  mean survival  39.9%   (>50% alive in 55% of runs)  n=40
+         1.5  →  mean survival  49.9%   (>50% alive in 74% of runs)  n=43
+         2.0  →  mean survival  39.0%   (>50% alive in 53% of runs)  n=30
+
+  Safety Net (True/False):
+        True  →  mean survival  48.7%   (>50% alive in 75% of runs)  n=76
+       False  →  mean survival  36.9%   (>50% alive in 45% of runs)  n=74
+
+  S_BASELINE — Baseline Stress:
+          60  →  mean survival  55.6%   (>50% alive in 80% of runs)  n=35
+          80  →  mean survival  46.7%   (>50% alive in 61% of runs)  n=46
+         100  →  mean survival  40.9%   (>50% alive in 61% of runs)  n=38
+         120  →  mean survival  25.5%   (>50% alive in 35% of runs)  n=31
+
+  Unemployment Rate:
+         0.0  →  mean survival  52.1%   (>50% alive in 79% of runs)  n=33
+        0.05  →  mean survival  43.0%   (>50% alive in 66% of runs)  n=44
+         0.1  →  mean survival  41.2%   (>50% alive in 57% of runs)  n=46
+         0.2  →  mean survival  34.3%   (>50% alive in 33% of runs)  n=27
+
+  X  — Social Media Amplifier:
+         0.5  →  mean survival  40.6%   (>50% alive in 49% of runs)  n=41
+         1.0  →  mean survival  45.2%   (>50% alive in 67% of runs)  n=36
+         1.5  →  mean survival  46.7%   (>50% alive in 71% of runs)  n=45
+         2.0  →  mean survival  37.2%   (>50% alive in 50% of runs)  n=28
+
+  E  — Climate / Environment:
+         0.5  →  mean survival  57.7%   (>50% alive in 85% of runs)  n=41
+         1.0  →  mean survival  59.8%   (>50% alive in 90% of runs)  n=31
+         1.5  →  mean survival  39.2%   (>50% alive in 52% of runs)  n=44
+         2.0  →  mean survival  14.6%   (>50% alive in 12% of runs)  n=34
+
+────────────────────────────────────────────────────────────────────────
+  LEADERSHIP × SAFETY NET  (mean survival %)
+────────────────────────────────────────────────────────────────────────
+                 L=0.5   L=1.0   L=1.5   L=2.0 
+  SafetyNet=ON    42.5%   44.2%   57.0%   49.7%
+  SafetyNet=OFF   40.3%   34.6%   41.6%   29.6%
+
+────────────────────────────────────────────────────────────────────────
+  KEY FINDINGS — MINIMUM VIABLE PARAMETERS
+────────────────────────────────────────────────────────────────────────
+  No runs achieved >80% survival in this sample.
+
+  Collapsed runs (<5% alive): 26/150
+  Their average parameters (what to AVOID):
+    L (Leadership)     : 1.27
+    Safety Net ON      : 42% had it active
+    S_BASELINE         : 110.0
+    Unemployment       : 10.0%
+    X (Social Media)   : 1.29
+    E (Climate)        : 1.83
+
+────────────────────────────────────────────────────────────────────────
+  RECOMMENDED DEFAULT PARAMETERS  (conservative safe zone)
+────────────────────────────────────────────────────────────────────────
+
+  Best single combo found:
+    Survival rate  : 66.9% (±0.7%)
+    L (Leadership) : 2.0
+    Safety Net     : ON
+    S_BASELINE     : 80
+    Unemployment   : 0%
+    X (Media)      : 1.0
+    E (Climate)    : 1.5
+    Avg Stress     : 127.8
+    Births         : 13234
+    Deaths         : 16542
+
+  Total runtime: 1238.4s
+========================================================================

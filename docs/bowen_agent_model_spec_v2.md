@@ -78,7 +78,16 @@ Therefore:
 
 **M1.A.3** There **MUST** be exactly one behavioural transition on `basic_level`, at 50, and it **MUST** be implemented as a *licence over joint decisions* — below 50 the emotional system permits the intellect its own domain **except** where a decision affects the shared life course — not as a general suppression of intellect. → §3.1
 
-**M1.A.4** `basic_level` **MUST NOT** be frozen at marriage. It **MUST** be slow-moving, with a ratchet that advances only on a *completed* differentiating exchange (M5.D.7). → §13.3
+**M1.A.4** `basic_level` **MUST NOT** be frozen at marriage, and it **MUST NOT** be directly writable by any move. It is **derived** (M1.A.4a), and therefore moves slowly as a consequence of the estimator's window rather than by a rate constant. → §13.3
+
+**M1.A.4a** — *`basic_level` is an **estimator over `functional_level` history**, not a stored quantity a move increments.* It **MUST** be computed from an **elevated mean** in `functional_level`, held at **low variance**, **sustained** over a declared window, and demonstrated **across many distinct situations**. A person works on functional level; sustained, broad improvement in functioning is what constitutes evidence of a rise in basic level. **No move, and no completed differentiating exchange, MUST write `basic_level` directly.**
+**Why this form:** M1.A.5 already requires `functional_level` **variance** to be a *decreasing function of* `basic_level`. M1.A.4a is that same relationship used **backwards as the update rule**, so the model carries one relationship rather than two mechanisms (M10.A.2). It also matches the model's own epistemic position: there is no instrument for basic level and what is observable is functioning. → `theory/_EXTERNAL_MEASURES.md`
+**Corroboration:** years of sustained work on both parental relationships — "I did **pretty good**, but I **still would get caught up in it when I would go home**" — real functional improvement that failed in one situation, and so was not yet basic. → `kb/kb05.md`; `kb/kb07.md` · K07.2
+
+**M1.A.4b** — *the situations in the window **MUST** be weighted by the load they imposed, and the sample **MUST** include nodal events.* An unweighted count is a failing implementation, because a benign window produces a stable, elevated `functional_level` and demonstrates nothing: **an easy life would read as differentiation.** Nodal events are what discriminate the binders — M11.C.4 requires `CUTOFF` to drop acute anxiety immediately with its cost deferred to the next nodal event, so a cut-off agent shows a durable-looking calm that holds until one arrives.
+**Consequence:** the estimator separates binder-relief from differentiation **without a special rule**, because binder gains are situation-specific and collapse under load while differentiating gains hold across situations.
+
+**M1.A.4c** The estimator's **window length** and **breadth count** **MUST** be declared in config, graded `[I]`, and the run **MUST** report a sensitivity analysis over both. No source states a window or a count; they are judgement. → M10.B.3
 
 **M1.A.5** A `Person` **MUST** hold a `functional_level` distinct from `basic_level`, and its variance **MUST** be a decreasing function of `basic_level`. → §3.2
 
@@ -89,6 +98,9 @@ Therefore:
 **M1.A.8** A `Person` **MUST** hold `acute_anxiety`, updated per event and decaying toward the chronic floor.
 
 **M1.A.9** A `Person` **MUST** hold `outside_ness`, distinct from `basic_level`, with three inputs at three time scales (M5.F). → §3.6
+
+**M1.A.9a** — *`outside_ness` **MUST** be two-dimensional, not a scalar.* The two axes are **outward impingement** (acting on the other) and **inward impingement** (being acted on by the other), and the differentiated position is **both low**. The definition is a conjunction of two negatives: *be for self without being selfish; be for other without being selfless.* The corpus states the same structure in the model's terms — "the **low-level self can have an I-position**. That is a **selfish, dogmatic, forceful** kind of an I-position… a high-level differentiated self is **neither offensive nor defensive** to the other. So you can tell pretty much the **level of functioning of an I-position from the way they do it**." → `kb/kb12.md` · K12.3; the same two-sidedness on the external agent is `kb/kb07.md` · K07.1.
+**Why a scalar fails:** the two counterfeits need **opposite** corrections. The forceful declarer fails outward; the compliant accommodator fails inward. A single score lands them at the same value and would correct them the same way. → M5.F.1, M5.F.2a
 
 **M1.A.10** A `Person` **MUST** hold a `life_energy` allocation, zero-sum between relationship-seeking and goal-directed activity, whose ratio is a function of `basic_level`. → §3.7
 
@@ -108,6 +120,15 @@ Therefore:
 **M1.A.16** A `Person` **MUST** hold `beliefs` (M9), which **MUST** be permitted to differ from ground truth.
 
 **M1.A.17** A `Person` **MUST** hold `role ∈ {MEMBER, EXTERNAL}`. `EXTERNAL` is not a separate type. → §2.5
+
+**M1.A.18** A `Person` **MUST** hold `systems_perspective`, **graded**, distinct from `basic_level` and from `functional_level`. `[M]` — mechanism sourced, magnitudes invented.
+**What it is.** Bowen names **three** variables for societal process: "**one, a different way of thinking** — the world is different depending on the way the head is that observes it… another is **differentiation of self**… and a third is the **intensity of anxiety**." `systems_perspective` is the first. The three dials of M1.D.7 are drivers of the third only (M1.D.7a1); this is the individual-level representation of the first. → `kb/kb10.md` · K10.1
+**Why it is needed.** Without the systems frame, an agent has no model of how differentiating would help, so it executes the differentiating move in the only frame it has — a stand taken *against* people. That is the misconception Bowen names as "**grotesque** … to somehow separate a self from the family, **to shout them down and let them know you are different**." Pseudo-differentiation is therefore **not a separate error to be modelled**; it is what the move degrades into at low `systems_perspective` (M5.F.4). → `theory/_KERR_INTERVIEWS.md`
+**Graded, not a hard gate.** No source says a person with no systems perspective is incapable of a genuine differentiating move, only that they will not see why it would help and will reach for blame. A hard gate would make the first differentiating move in any family impossible.
+
+**M1.A.18a** The **observable readout** for `systems_perspective` **MUST** be **two-sided**: emitting blame **or** praise is a loss, per the neutrality gauge — systems thinking is not possible until the person can be "**emotionally neutral. That is without blaming or praising.**" A negative-valence-only readout misses half the cases. This is M1.E.2's third detector pointed at a `MEMBER`, not only at an `EXTERNAL`. → `kb/kb07.md` · K07.1
+
+**M1.A.18b** `systems_perspective` **MUST NOT** be a free parameter. Its **ceiling MUST** be coupled to `basic_level` — undifferentiation is "the **cement, the hardener**, that fixes" a way of thinking, and reducing it lets the thinking change faster. → `kb/kb07.md` · K07.3; M10.A.1
 
 ### M1.B `Relationship`
 
@@ -212,6 +233,12 @@ The first is the mechanism of change; the second is a countermeasure during a mo
 **M1.E.5** Proximity of an external agent **MUST** carry a burden-transfer term with a negative sign. → §5.8
 
 **M1.E.6** An external agent's presence **MUST** change the configuration. A costless observer is a failing implementation. → §2.5
+
+**M1.E.7** `systems_perspective` (M1.A.18) **MUST** rise **only** on a *landed* external-agent contact, and **MUST** be conditioned on the person's binders failing. It **MUST NOT** rise spontaneously and **MUST NOT** be a reinforcement target (M4.D.6d).
+**What a landed contact delivers** — not instruction, but two things together: the awareness that "there was an **alternative way to respond**, and also that **I was emotionally caught in it**". → `kb/kb07.md` · K07.4
+**The rate MUST be low.** Measured from the recipient's side over two years at six to eight contacts a year: "there were probably **four times at most, five maybe, in two years**, that something helpful came out of the contact." → `kb/kb07.md` · K07.4 `[#]`
+**The binder-failure condition** is capacity exhaustion, stated at societal scale: "**societal attitudes change when society no longer has an option.**" Pain is necessary and **not sufficient** — without frame supply, exhaustion **MUST** produce symptom escalation, not insight. → `kb/kb10.md` · K10.6
+**One at a time.** → `kb/kb12.md` · K12.1
 
 ### M1.F `Event`
 
@@ -340,9 +367,16 @@ The instance everything is tested against. It is **invented and tunable** — va
 
 **M4.C.3** Symptom onset **MUST** be driven by an **integrator over chronicity**, not by a test on instantaneous anxiety. → §3.3
 
+**M4.C.4** `systems_perspective` (M1.A.18) **MUST** fall with acute anxiety. Polarity capture is a **loss** in someone who had the perspective, not merely a correlate of never having had it: "there is **no debate in systems**… any time anybody is stuck in a polarity, they have either not arrived at systems thinking, or **they have lost it** if they did arrive", and "the **higher the level of functioning, the more an individual can get beyond polarities**". → `kb/kb07.md` · K07.6, `kb/kb12.md` · K12.7
+
+**M4.C.5** The **inward-impingement** axis of M1.A.9a **MUST** have a **perception-side** readout computed at appraisal, before any move is emitted: reading the other's event as critical is itself the evidence. "Finally, I can be with my mother **without hearing her as being critical**. Well, if this person is **hearing** mother as being critical, then they probably are being critical, **defensive**." → `kb/kb05.md`. This readout is cheaper and harder to game than one taken from the emitted move.
+
 ### M4.D Select
 
 **M4.D.1** Each person **MUST** select exactly one move per fast tick, by softmax over propensity scores.
+
+**M4.D.1a** — *selection **MUST** run over **two channels with different objectives**, not one.* The **automatic** channel is driven by the relationship system, its objective is to discharge anxiety **now**, and it carries the seven reactive moves. The **self-directed** channel is driven by the person, its objective is to hold a position **through** discomfort (M5.F.5), and it carries `I-POSITION` and `STAY-IN-CONTACT`. The **mixing weight between them MUST be a function of differentiation**: at low level the person is nearly all automatic, and as level rises a real self-directed channel opens. Agency is **not absent** — it is graded, and the higher the level the less the individual is governed by what the system wants.
+**Consequence:** differentiation is **not reachable by lengthening a reinforcement horizon**, because the two channels optimise different things and the target is not in the automatic channel's objective at all. This is what M4.D.6d and M11.C.17 assert. Anxiety-relieving action genuinely relieves anxiety — "cause and effect laws designed to **relieve the anxiety of the moment**, and the more we do that, **the more we promote the thing we're trying to fix**" — so an agent selecting a binder is not making an error a longer horizon would correct. → `kb/kb10.md` · K10.7; M1.A.0 (the moves are instinct-level, not feeling-states)
 
 **M4.D.2** The propensity score **MUST** be a function of acute anxiety, `functional_level`, the state of the tie in question, the person's position in the active triangle, and their learned repertoire.
 
@@ -359,6 +393,8 @@ The instance everything is tested against. It is **invented and tunable** — va
 **M4.D.6b** The signal **MUST** be evaluated over a horizon longer than the reaction window of M5.D, and **MUST** be declared in config with its horizon. `[I]`
 
 **M4.D.6c** This failure would be invisible to M11.C.1–M11.C.15, because all of them hold the policy fixed across both arms (M0.4) and a uniformly degenerate policy shifts both arms together. M11.C.16 exists to catch it.
+
+**M4.D.6d** Reinforcement **MUST** operate on the **automatic channel only** (M4.D.1a) — that is what gives a family its characteristic style. `systems_perspective` (M1.A.18) and `basic_level` (M1.A.4) **MUST NOT** be reinforcement targets, and the self-directed channel **MUST NOT** be subject to M4.D.6 at all.
 
 ### M4.E Act
 
@@ -427,9 +463,9 @@ Applying the peace-agree technique to a reactive family is not merely ineffectiv
 
 **M5.D.6** `FOLLOW_UP` **MUST** be mandatory on the next day *relative to the resolving encounter*. Skipping it **MUST** revert the gain.
 
-**M5.D.7** Only a sequence reaching `FOLLOW_UP` counts as a *completed* exchange for the `basic_level` ratchet (M1.A.4) and the triangle decrement (M1.C.5).
+**M5.D.7** Only a sequence reaching `FOLLOW_UP` counts as a *completed* exchange. A completed exchange **MUST** raise `functional_level` and **MUST** trigger the triangle decrement (M1.C.5). It **MUST NOT** write `basic_level`, which is derived (M1.A.4a) and reachable only through sustained, broad functional improvement.
 
-**M5.D.7a** The ratchet increment **MUST** be small enough that no realistic number of completed exchanges moves an agent materially up the scale within a run, and the config **MUST** carry a comment saying why. Bowen names the contrary reading as the field's characteristic misconception — of someone who "went home to see their parents over the weekend and differentiated" he says it is "**grotesque** … they think of differentiation is something **you do in an hour a weekend**." Ch21's trip is **one step in a decades-long effort**, not the unit of differentiation.
+**M5.D.7a** The `functional_level` increment **MUST** be small enough, and M1.A.4a's window and breadth requirements strict enough, that no realistic number of completed exchanges moves an agent materially up the `basic_level` scale within a run. The config **MUST** carry a comment saying why. Bowen names the contrary reading as the field's characteristic misconception — of someone who "went home to see their parents over the weekend and differentiated" he says it is "**grotesque** … they think of differentiation is something **you do in an hour a weekend**." Ch21's trip is **one step in a decades-long effort**, not the unit of differentiation.
 
 **M5.D.7b** No readout **MUST** describe an agent that has completed an `I-POSITION` sequence as *differentiated*, or report completed exchanges as a differentiation score. → `theory/_KERR_INTERVIEWS.md`
 
@@ -453,12 +489,18 @@ Applying the peace-agree technique to a reactive family is not merely ineffectiv
 
 ### M5.F Act identity — the counterfeit problem
 
-**M5.F.1** A move's effect **MUST NOT** be a function of move type and tie state alone. It **MUST** be multiplied by a hidden actor state (`outside_ness`) that receivers can read and the actor may not. → §5.6
+**M5.F.1** A move's effect **MUST NOT** be a function of move type and tie state alone. It **MUST** be multiplied by a hidden actor state (`outside_ness`) that receivers can read and the actor may not. That state is **two-dimensional** per M1.A.9a — outward impingement and inward impingement — and a scalar implementation is a failing implementation. → §5.6
 
 **M5.F.2** The same move type at low `outside_ness` **MUST** be able to produce the *opposite* sign of effect, not merely a smaller one.
 
 **M5.F.2a** — *asserting a differentiated state MUST be negative evidence for it.* Five independent forms across five interviews: declaring non-involvement "**in itself is an indicator of involvement**"; "I'm out of it, you handle it" is "**mostly denial, because they are in it**"; "the more the individual has to say **I've worked it out**, is evidence of an attachment"; a low-level self holds a **selfish, dogmatic, forceful** I-position; and catching oneself **diagnosing, criticising or praising** is a loss of perspective. → `kb/_KB_PASS2.md`
 **Consequence:** a cheap readout computable from the event log, and the discriminator M5.F.3 asks for. An agent that announces its own neutrality **MUST** score lower on `outside_ness`, not higher.
+
+**M5.F.2b** The counterfeit detector **MUST** report **which axis failed** (M1.A.9a). A single scalar score is a failing implementation, because the forceful declarer and the compliant accommodator are counterfeits in **opposite** directions and require opposite corrections. → M11.C.19
+
+**M5.F.4** `I-POSITION` selected at low `systems_perspective` (M1.A.18) **MUST** execute as the **assertion form**: it **MUST** raise reactivity on the tie rather than lower it, and **MUST** count as negative evidence under M5.F.2a. This makes pseudo-differentiation an **output** of the model rather than a case the model must be told about separately.
+
+**M5.F.5** The self-directed channel's objective (M4.D.1a) **MUST** be the two-axis position of M1.A.9a — both impingement axes low — and **MUST NOT** be discomfort reduction. A differentiated move is held **through** discomfort; scoring it by the actor's own relief reproduces M4.D.6a's forbidden proxy at the objective level.
 
 **M5.F.3** Concession **MUST** be gradable continuously by the receiver, not as a binary. → §5.6
 
@@ -487,9 +529,9 @@ Asserted at the end of every fast tick (M4.G.2). A violation **MUST** raise, not
 
 ## M7 — The slow tick
 
-**M7.A.1** `basic_level` drift **MUST** be slow and **MUST** advance only via the ratchet on a completed differentiating exchange (M5.D.7). Recovery toward baseline when calm **MUST NOT** be a symmetric restoring force.
+**M7.A.1** `basic_level` **MUST NOT** be advanced by any move or by any per-exchange increment. It **MUST** be recomputed on the slow tick as the estimator of M1.A.4a–M1.A.4c over `functional_level` history. Recovery of `functional_level` toward baseline when calm **MUST NOT** be a symmetric restoring force.
 
-**M7.A.2** Differentiation gained in a peripheral system **MUST** transfer automatically to the nuclear family. `basic_level` is per-person; intensity is per-relationship. → §10, §15 Ch10/Ch21
+**M7.A.2** Differentiation gained in a peripheral system **MUST** transfer automatically to the nuclear family. `basic_level` is per-person; intensity is per-relationship. **Under M1.A.4a this is no longer a special rule but a consequence:** breadth across situations is precisely what the estimator measures, so a gain shown in a peripheral system is *evidence*, and evidence is not per-relationship. → §10, §15 Ch10/Ch21
 
 **M7.B.1** `chronic_anxiety` **MUST** be fixed once in childhood from witnessed history (M1.A.7). The age is `[I]`.
 
@@ -563,7 +605,9 @@ avoidance_available(g) = positions_live(g) < 3        # a step, not a gradient
 
 ### M10.A Derived from `basic_level` — preferred
 
-**M10.A.1** The following **MUST** be derived, not independently parameterised: reactivity (M1.A.1), `functional_level` variance (M1.A.5), the `life_energy` ratio (M1.A.10), the stabiliser repertoire available to a person, and transfer magnitude in M6.I.4 (which scales *inversely* with basic level).
+**M10.A.1** The following **MUST** be derived, not independently parameterised: reactivity (M1.A.1), `functional_level` variance (M1.A.5), the `life_energy` ratio (M1.A.10), the stabiliser repertoire available to a person, transfer magnitude in M6.I.4 (which scales *inversely* with basic level), the **ceiling** on `systems_perspective` (M1.A.18b), and **agency**.
+
+**M10.A.1a** **Agency MUST be derived as the solid-self fraction and MUST NOT be an independent parameter.** The model already carries it: **pseudo-self is the portion of the person the relationship system can move, and solid self is the portion it cannot.** M6.I.4 already makes pseudo-self the conserved, negotiable quantity that transfers between people in a fused relationship, and the 1979 definition of pseudo-self is precisely "**negotiable**" — which is what "governed by what the system wants" means. Adding a separate agency parameter would cost against M10.A.2 for nothing.
 
 **M10.A.2** Deriving from `basic_level` is preferred wherever it is defensible, and the source states the principle directly: "a theory is made up of the **least number of pieces that will hang together into a story**, rather than trying to put in all of the others." A model with 60–90 free parameters is already in tension with that, so every added parameter **MUST** be justified against it rather than added by default. → `kb/kb10.md` · K10.9, because the model has 60–90 free parameters against a single invented family and the risk is overfitting to the modeller's intuitions.
 
@@ -572,6 +616,8 @@ avoidance_available(g) = positions_live(g) < 3        # a step, not a gradient
 **M10.B.1** All remaining constants **MUST** live in markdown config. Editorial content — event kinds, the reference family, the access vector, tie declarations, dial ranges — **MUST NOT** live in Python.
 
 **M10.B.2** Config parsing **MUST** fail loudly on an unrecognised key or a malformed line. Silently skipping and falling back to a default **MUST NOT** occur. *(This is a defect in the frozen engine's `_apply_config`; v2 must not inherit it.)*
+
+**M10.B.3** The `basic_level` estimator's **window length** and **breadth count** (M1.A.4c) **MUST** be declared here, graded `[I]`, and every run reporting `basic_level` **MUST** carry a sensitivity analysis over both. A conclusion that depends on choosing 30 situations rather than 12 **MUST** be visible rather than buried.
 
 ### M10.C The `[I]` register
 
@@ -614,8 +660,11 @@ Each criterion **MUST** have a named test, **MUST** assert a direction of differ
 | **M11.C.12** | **Curing a symptom without changing the deficit raises tension.** Remit a spouse's dysfunction leaving the functioning balance intact → marital conflict rises | `test_m11c12_symptom_relief_raises_conflict` | D | M7.D.3 |
 | **M11.C.13** | Help relocates incidents; it does not reduce them. Score **count and location** — relocation from community into family carries a positive sign | `test_m11c13_help_relocates_not_reduces` | C | M6.I.6 |
 | **M11.C.14** | Management technique has zero independent effect while marital distance is high | `test_m11c14_technique_null_under_marital_distance` | C | the marital-distance gate, M5.C.1 |
-| **M11.C.16** | **The learned repertoire does not collapse onto relief-seeking.** Two arms, identical seeds, differing only in the reinforcement horizon: the short-horizon arm (M4.D.6a's forbidden proxy) against the declared-horizon arm (M4.D.6b). The short-horizon arm **MUST** show a strictly higher share of `CUTOFF` and `DISTANCE`, and a strictly lower `I-POSITION` selection rate, than the declared-horizon arm. A test that only asks whether more than one move type is used passes on the very failure it is meant to catch, because the failure spreads mass across seven reactive moves. | `test_m11c16_repertoire_does_not_collapse` | C | M4.D.6b's horizon — setting it to one tick **MUST** turn this red |
+| **M11.C.16** | **The learned repertoire does not collapse onto relief-seeking.** Two arms, identical seeds, differing only in the reinforcement horizon: the short-horizon arm (M4.D.6a's forbidden proxy) against the declared-horizon arm (M4.D.6b). The short-horizon arm **MUST** show a strictly higher share of `CUTOFF` and `DISTANCE`, and a strictly lower `I-POSITION` selection rate, than the declared-horizon arm. A test that only asks whether more than one move type is used passes on the very failure it is meant to catch, because the failure spreads mass across seven reactive moves. **The criterion is two-sided:** the declared-horizon arm **MUST NOT** exceed a declared `I-POSITION` ceiling either, because lengthening the horizon until agents optimise their way into differentiation is the opposite failure and M4.D.1a forbids it. | `test_m11c16_repertoire_does_not_collapse` | C | M4.D.6b's horizon — setting it to one tick **MUST** turn this red, and setting it to the run length **MUST** turn the ceiling half red |
 | **M11.C.15** | Death destabilises exactly as recovery does — a stabilising arrangement built on one member's impairment breaks on their death as well as their recovery | `test_m11c15_death_destabilises_like_recovery` | D | M7.D.3 |
+| **M11.C.17** | **Differentiation is not self-generating.** Two arms, identical seeds, differing only in the presence of an external agent. The coach-free arm **MUST NOT** show upward drift in mean `basic_level` over the run. A population of agents that optimises its way to differentiation has contradicted multigenerational transmission, in which levels are roughly conserved and differentiation is rare. This is the model's strongest negative test. | `test_m11c17_no_basic_level_drift_without_coach` | C | M1.E.7's gate — letting `systems_perspective` rise spontaneously **MUST** turn this red |
+| **M11.C.18** | **The estimator discriminates the binder from the real thing.** A `CUTOFF`-heavy arm and an `I-POSITION`-heavy arm brought to the **same** `functional_level` **MUST** diverge in estimated `basic_level` once nodal events enter the window. If they do not, M1.A.4a is not discriminating and the estimator has failed. | `test_m11c18_estimator_separates_cutoff_from_iposition` | C | M1.A.4b's load weighting — flattening it to an unweighted count **MUST** turn this red |
+| **M11.C.19** | **The two counterfeits are distinguishable by axis.** A forceful-declarer arm and a compliant-accommodator arm at **equal overall counterfeit magnitude MUST** be separated by which axis of M1.A.9a failed. A scalar detector cannot pass this. | `test_m11c19_counterfeit_axis_is_identified` | C | M5.F.2b — collapsing the two axes to their mean **MUST** turn this red |
 
 ### M11.D — Engineering criteria
 

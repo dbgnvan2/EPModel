@@ -89,3 +89,5 @@ existing sources → **pass 3** fold into `_LEDGER.md` → **spec revision 3**.
 | 22 · John Nash | ✅ | `ks22.md` — 14 |
 | **PART III COMPLETE** | **✅** | **4 chapters · 50 findings** |
 | 23 · Unidisease | ✅ | `ks23.md` — 11 · all `[K-ext]` |
+| 24 · Supernatural Phenomena | ✅ | `ks24.md` — 10 · closes E3 |
+| **PART IV COMPLETE** | **✅** | **2 chapters · 21 findings** |

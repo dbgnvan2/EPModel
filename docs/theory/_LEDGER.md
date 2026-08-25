@@ -55,13 +55,14 @@ whether its status marker says `[stands]`.
 
 **The corpus supports directions, orderings and mechanisms. It almost never supports magnitudes.**
 
-## 2. There are now four sources, and they are not one evidence class
+## 2. There are now five sources, and they are not one evidence class
 
 | Source | What it is | How to cite | Constraint |
 |---|---|---|---|
 | The book, 22 chapters | published papers, 1957–1976 | `Ch16 · L16.2` | none — a single word can be load-bearing |
 | 1979 Basic Video Series, 6 tapes | Bowen lecturing | `Tape 5` | ASR; substance reliable, **no verbatim quotation** |
 | Kerr–Bowen interviews, 15 | Bowen and his successor in dialogue, late period | `KB04 · K04.1` | ASR, no speaker separation; **cite the interview, not the man**; questions are ~99% Kerr |
+| **Kerr, *Bowen Theory's Secrets* (2019)** | **published book by Bowen's successor — 24 chapters, intro, epilogue** | `KS11 · KS11.2` | **none — written, author-edited, verbatim quotation permitted.** The best evidence class since the book itself |
 | External measures | the DSI and its literature | `_EXTERNAL_MEASURES.md` | post-hoc, by other researchers |
 
 **Precedence:** latest-wins, with the published paper breaking ties wherever a transcript is ambiguous or
@@ -70,6 +71,18 @@ interview findings in `kb/`, comparative pass in `kb/_KB_PASS2.md`.
 
 **The interviews contradicted no book finding.** Several were narrowed; one calibration figure was withdrawn
 (above).
+
+**Neither did the 2019 book.** Across 262 findings it contradicts **no** finding of the papers, the lectures
+or the interviews. What it contradicts is **six requirements this project wrote** — see
+`kerr_book/_KS_PASS2.md` §2. Findings in `kerr_book/`, comparative pass in `kerr_book/_KS_PASS2.md`.
+
+**One qualification on the 2019 book, stated by its author.** Kerr writes that it is "my version of Bowen
+family systems theory… I like to think that I may have extended the theory some." Findings that read as
+**his extension** rather than Bowen's are marked `[K-ext]` and **MUST NOT** be attributed to Bowen. He also
+states plainly that he cannot prove his clinical conclusions on cancer, autism, sociopathy, schizophrenia,
+depression or the addictions (`KS15.12`) — so Ch23's *unidisease* proposal and the Part III case
+attributions are `[K-ext]` throughout, and `M11.F.4`'s prohibition on disease-from-emotion mechanisms
+stands untouched.
 
 ## 3. Chapter counts are not study counts
 Bowen reports the same clinical material across many papers. Agreement between two chapters drawing on
@@ -90,8 +103,13 @@ same words — it is not an independent witness. **Ch01's father sequence is n =
 father is still in this stage"), so every timing in it belongs to one family.
 
 ## 4. Two corpus-wide negatives, checked in all 22 chapters
-- **Q-VALIDATION is NO everywhere.** No instrument, no rater procedure, no comparison group, no number
-  ever assigned to a person. The only ordinal grading found is Ch04's 1/9/1 ordering of eleven
+- **Q-VALIDATION is NO everywhere, and the 2019 book confirms it from the latest vantage point.** No
+  instrument, no rater procedure, no comparison group, no number ever assigned to a person. Kerr, 2019:
+  "**Many people interpreted the word scale to mean a psychological instrument… this is not the case… It is
+  not a measurement tool. Bowen subsequently dropped the term scale**" (`KS05.3`); and "**A computer program
+  or questionnaire does not yet exist that can estimate a person's basic level with sufficient accuracy.
+  Estimating basic level using a three-, four-, or five-generation family diagram is the most accurate
+  method at this point**" (`KS11.3`). The only ordinal grading found is Ch04's 1/9/1 ordering of eleven
   families on emotional-divorce *style*, and Ch19's "token concurrence" scalar (L19.5).
 - **Q-MATERIAL is NO as a per-person stock.** The engine's `M` metabolic column — a resource whose
   depletion kills — has no basis anywhere. What the corpus *does* support is resources as
@@ -101,7 +119,7 @@ father is still in this stage"), so every timing in it belongs to one family.
   person alive. Ch20 is the strongest negative: it is the corpus's only workplace chapter and tie
   weight there is set by emotional importance **explicitly not by economic relation**.
 
-## 5. Two live contradictions — resolved, see `_RESOLUTIONS.md`
+## 5. Two live contradictions — resolved, see `_RESOLUTIONS.md`; **both now settled by the 2019 book**
 - **Ch10 vs Ch21 — does a witness help or displace?** Ch10's flagship differentiating step is stated
   aloud and its spouse witnesses the whole effort and it succeeds. Ch21 permits no allies and
   detriangles any that appear. The object-level resolution (a specific withdrawal vs. the overall
@@ -109,6 +127,19 @@ father is still in this stage"), so every timing in it belongs to one family.
 - **Ch03 vs Ch14 — is the threesome or the twosome productive?** Ch03 says progress happens with all
   three present and any two can avoid the issue. Ch14 abandons the threesome for the twosome. This
   directly opposes L02.4 and L03.4, the group-size finding pass 1 called three-times corroborated.
+  **SETTLED by `KS18.1`.** Kerr reviews sixty years of technique — same theory, same practitioners,
+  varying only who is in the room — and gives the reason each composition failed. Adding the symptomatic
+  member "**brings the parental triangle into sharp focus**" *and* results in "**parents sitting back and
+  waiting for the adolescent to change**"; offspring are "**too dependent, emotionally and financially, to
+  exert leadership**". So **both chapters are right about different things**: the threesome is more
+  *informative*, the twosome is more *productive*, because composition determines **who can move**, not
+  only who is observed. That is `M11.C.7`'s topology-not-skill criterion, and the historical record is
+  its evidence.
+- **The ally question (Ch10 vs Ch21) gains a second witness.** `KS18.3`: at the Medical College of
+  Virginia, fifty to sixty observers, and the harm mechanism is **alignment, not information** — a touch
+  on the arm was enough. "**If you are in a tense relationship with someone and a third person takes your
+  side, it is seductive to be emboldened by that.**" Bowen's countermeasure was a **routing rule**: all
+  questions addressed to him, and he decided what passed. Confirms `M8.6` and the user's B4 verdict.
 
 ---
 
@@ -1914,6 +1945,381 @@ chapters, two of them later**, and Ch16 explicitly restores slow movement ("it i
 changes").
 *Model impact:* do not implement `basic_level` as frozen at marriage. Implement it as **slow-moving with a
 ratchet on completed differentiating exchanges** (L21.1) and a **much larger** fast `functional_level`.
+
+---
+
+# Source 5 — Kerr, *Bowen Theory's Secrets* (2019)
+
+Full extraction in `kerr_book/` (26 files, 262 findings); comparative pass in `kerr_book/_KS_PASS2.md`.
+Recorded here is only what **changes the ledger**: findings that correct a project requirement, settle an
+open item, or supply a mechanism the earlier four sources left as a direction.
+
+**Citation:** `KS11 · KS11.2`. Verbatim quotation permitted. `[K-ext]` marks Kerr's extension of the theory
+rather than Bowen's.
+
+---
+
+## KS-A · Six requirements this project wrote that the book contradicts
+
+### KS-A.1 — Family-of-origin gains do **not** transfer automatically  `[new]`
+**Target:** `M7.A.2` · **Verdict:** CONTRADICTS
+
+`KS16.9`: "**Progress in the family of origin does not transfer automatically to nuclear family
+relationships, but it helps considerably.**" Two reasons: the spouse carries their own unresolved
+attachment, and the nuclear tie is higher-load and harder to observe objectively.
+
+**Evidence:** `KS16.6` — Kerr had been **teaching the co-creation idea for over twenty-five years** before
+observing it in his own marriage. `KS17.1`: Mr. S. held systems thinking for his sister's triangle, his
+sons' triangle and his family history, and not in his marriage — "**I acknowledge Bowen theory, but I don't
+feel it.**"
+
+**Resolution:** the **capacity** transfers; the **application** is re-earned per tie. Amend `M7.A.2`.
+**Open design question:** two independent cases argue `systems_perspective` should be **per-tie**, not a
+global scalar.
+
+### KS-A.2 — No positional attribute may be read from a role label  `[new]`
+**Target:** `M1.A.14` · **Verdict:** CONTRADICTS
+
+`KS12.2`: "**the family projection process can so impair the functioning of a firstborn son that his
+younger brother may function more like an older brother than the firstborn does. In such instances, the
+younger son becomes a 'functional oldest.'**" Kerr of himself: "**some functional oldest traits in me,
+despite my position as last-born.**" `KS19.6`: Wanda Kaczynski, third of five, functioning as oldest.
+
+**This is the second instance of one class.** Tape 6 already forced it on `structural_importance`
+(`M1.A.13a`). State it once, generically: **birth order and role names are static data; every positional
+attribute the model acts on is derived from observed function.**
+
+### KS-A.3 — Chronic anxiety is a field property, not only a per-person constant  `[new]`
+**Target:** `M1.A.7` · **Verdict:** REFINES, sharply
+
+`KS10.2`: "**chronic anxiety… is most usefully conceptualized as a property of the emotional field**",
+determined by two processes "**not under individual control**": the system's differentiation, and "**the
+person's functioning position in the system**" — which changes.
+
+**Reconciliation:** the spec's fixed childhood value is the **programmed reactivity** (`KS09.10`'s first
+of two deficits). *Manifest* chronic anxiety is that reactivity **×** field **×** position. The model has
+one and needs both. **Highest-priority structural item** — upstream of `M4.C`, `M7.D` and the `M1.A.4a`
+estimator.
+
+### KS-A.4 — `M11.C.9` holds fixed the variable that modulates the effect  `[new]`
+**Target:** `M11.C.9`, flagged in `F2` as near-unfalsifiable · **Verdict:** REFINES
+
+`KS12.1`: Bowen "**qualified his thoughts about Toman's profiles by saying that they accurately describe
+people at the midrange on the continuum**"; and "**a poorly differentiated oldest brother may exhibit very
+few characteristics of an oldest profile.**"
+
+**Repair:** three arms — low / mid / high `basic_level`, same sibling position, same stressors — with the
+**mid arm showing the largest position-typical behaviour**. Direction-of-difference form, no invented
+effect size. **Takes `F2` from four items to three.**
+
+Counterweight (`KS12.4`): at the lowest levels the profile is **latent, not absent** — six ward patients
+who responded to a fire were all eldest children. Suppression in the *relational* domain, re-emergence on
+a *task* demand.
+
+### KS-A.5 — Distance **binds**; it neither destroys nor is costless  `[new]`
+**Target:** `M1.D.2a` · **Verdict:** CORRECTS. Confirms the user's D9 note (`S2.15`).
+
+`KS04.1`: Bowen's fourth mechanism "**inevitably accompan[ies] each of the other patterns**"; and the
+mechanism — "**Both people experience less internal anxiety… but the anxiety is now evident or bound in
+distancing behaviors**… **If people are unable to distance from each other for whatever reason,
+internalized anxiety reappears**"; "**the anxiety is integrated into the structure of a relationship.**"
+
+**Consequence:** `DISTANCE` moves anxiety from `Person` to `Relationship`, where it **persists**, is
+**readable as the distance**, and **returns if distancing is prevented**. A model in which `DISTANCE`
+reduces total system anxiety is a failing implementation. **This dissolves the three-vs-four-sinks question
+permanently**: distance is not a fourth sink beside three, it is the substrate under all of them.
+
+### KS-A.6 — One move per tick cannot express the book's canonical cases  `[new]`
+**Target:** `M4.D.1`, `M5.A.1` · **Verdict:** UNMODELLED
+
+Two of the book's central instances are moves **generated, detected and not emitted**:
+- `KS08.1` (the staircase) — "**I even started to move slightly, but I caught myself and stopped**…
+  **I did not take any obvious I-position with Mother; I just did not anxiously hover over her.**"
+- `KS16.2` (the couch) — "**I have something I need to do upstairs**… **My legs felt like they weighed a
+  hundred pounds each.**"
+
+And `KS16.1` establishes that **non-reaction is a distinct and *insufficient* move**, not a weak
+I-position: phase 2 of a three-phase trajectory that "**was an insufficient response to her.**"
+
+**Consequence:** a `WITHHOLD` move distinct from both the reactive set and `I-POSITION`, and a suppressed
+move **MUST** still change tie state.
+
+---
+
+## KS-B · Findings that settle standing questions
+
+### KS-B.1 — `A1` stands; the range becomes a shape constraint  `[user decision, 2026-08-25]`
+`KS11.1` puts "**eight to ten generations or as few as three or four**" in print in 2019. **Assessment
+accepted by the user: the withdrawal of the *rate* stands** — this is a range with a 3× spread describing
+**full-scale traversal**, not a per-generation decrement, and `M10.C.3` is untouched. Recorded instead as a
+`[#]` **shape constraint on `M11.C.6`**: a top-to-bottom decline **MUST NOT** complete in one or two
+generations and **MUST** be achievable within roughly ten.
+
+### KS-B.2 — `E3` documented at its source  `[new]`
+`KS24.1` gives the ninth concept's whole history — proposed March 1980 after two colleagues' cancer
+remissions, renamed *spiritual* → *supernatural* "**because people were quick to assume that he was
+focusing on religion**", presented twice, never consolidated, and "**Efforts by others since then… have
+fallen short of developing a concept.**" The user's decision to implement the eight is documented rather
+than inferred, and the concept's origin is the corpus's weakest evidential ground.
+
+### KS-B.3 — The transmission rule, in one sentence  `[new]`
+**Target:** `M7.E` · **Verdict:** REFINES
+
+`KS11.2`: "**A person with a good level chooses a mate at the same level, and they can produce children
+with basic levels a little higher, a little lower, or the same as their levels.**" A **three-outcome
+distribution centred on the parental level**, with `KS09.1`'s different-triangles mechanism deciding which
+child gets which offset. Forbids averaging dissimilar parents (they are not dissimilar) and forbids
+guaranteed decline — the projection **line** declines, the family does not.
+
+### KS-B.4 — A second threshold, at 25  `[new]`
+**Target:** `M1.A.3`, `M1.A.4a` · **Verdict:** UNMODELLED
+
+`KS05.2`: below 25 "**they lack the flexibility to make basic change, meaning to increase basic level of
+differentiation**"; above it, "**The higher a person's basic level… the more potential that person has to
+increase the basic level.**" Meanwhile "**Their functional levels of differentiation can change**" freely.
+
+A **capacity floor on the estimator**, not a behavioural licence — distinct in kind from `M1.A.3`'s
+transition at 50. Also the cleanest confirmation of the basic/functional decomposition (`S2.9`).
+
+### KS-B.5 — The estimator's observables, with per-observable reading rules  `[new]`
+**Target:** `M1.A.4a` · **Verdict:** REFINES
+
+`KS05.10` names four domains — work, education relative to opportunity, health, relationship stability —
+with "**No one piece of data is sufficient**" and the family estimate taken over **all** members because
+"**the patterns… can result in one person functioning well at the expense of another.**"
+
+`KS11.7` then gives the **reading rule for each**, and every one is asymmetric:
+
+| Observable | Reading |
+|---|---|
+| Occupation | high → **uninformative**; low despite opportunity → informative |
+| Health | the **adaptation**, not the diagnosis |
+| Longevity | **not** a proxy; a long-lived generation above a dysfunctional one is *evidence of projection* |
+| Courtship length | **both** tails informative, middle uninformative |
+
+And `KS06.8` weights them: "**In terms of solid self, one's personal life is where the rubber meets the
+road**"; occupational success "**is not a reliable measure**". Only **marital** functioning determines
+offspring basic level — so `M7.E` reads the parents' functional level **on the marital tie**, not a global
+average.
+
+---
+
+## KS-C · Mechanisms the earlier four sources left as directions
+
+### KS-C.1 — Symptom lock-in  `[new]`  ⭐ the largest single gap
+**Target:** `M7.D`, `M11.C.12` · **Verdict:** UNMODELLED
+
+`KS23.1`: "**a family can stabilize somewhat around the presence of a symptom, which fosters it becoming
+chronic**, or the regression can continue to get worse."
+
+**One line — symptom presence reduces subsequent family anxiety — yields chronicity, relapse-on-cure and
+relief-on-removal as consequences.** It is why the Nash marriage stabilised around the son (`KS22.13`),
+why family tensions fell when Gary Gilmore was in reform school (`KS20.8`), and why curing a symptom
+without changing the deficit raises conflict (`M11.C.12`).
+
+### KS-C.2 — Arrival as budget redistribution  `[new]`
+**Target:** `M4.A`, `M1.A.10` · **Verdict:** UNMODELLED
+
+`KS22.2`: "**Her reduced investment is a fact insofar as part of her emotional investment in John is
+constrained by her investment in the unborn child.**" A claimant is added and an existing tie's share falls
+**by construction** — nothing bad need happen. `M1.A.10`'s zero-sum budget operating **between ties**.
+
+Two instances of the same structure with different claimant types: a child (`KS22.2`) and a fiancée
+(`KS25.5`). So the mechanism is the **redistribution**, not the kind of new tie.
+
+Also: her **expectations** of him rose while her **investment** fell — two of the four cues moving in
+opposite directions on one tie simultaneously. A scalar tie state cannot express that.
+
+### KS-C.3 — Ambivalence is itself anxiogenic  `[new]`
+**Target:** `M4.D.1` · **Verdict:** UNMODELLED
+
+`KS06.4` describes both parties holding **simultaneous** approach and withdraw urges — responsibility for
+the other's distress pulling toward, fear of entanglement pulling away — and: "**The conflicting urges
+raise each person's anxiety, which further infects their interactions.**"
+
+`M4.D.1`'s single softmax draw discards the conflict. An **entropy or margin term** over the propensity
+distribution feeding back into `acute_anxiety` produces the observed vicious circle for free.
+
+### KS-C.4 — The repertoire has a complexity ordering  `[new]`
+**Target:** `M4.D.2`, `M4.D.3` · **Verdict:** REFINES
+
+`KS06.1` defines regression as domination by "**less thoughtful and more reactive ways of interacting that
+are older in an evolutionary sense**", with the worked ordering: **cooperation** (requires both systems as
+a team) → **conflict** → **dominant-adaptive** ("older evolutionarily, more primitive") → **distance**
+(`KS02.3`: "single-celled organisms could not survive without a distancing mechanism").
+
+Replaces `M4.D.3`'s binary reactive/non-reactive split with a **graded slide**, and gives the propensity
+vector a principled shape rather than nine free weights — a derivation in `M10.A.2`'s preferred sense.
+
+`KS23.2` shows the same structure at cellular level: regression is **loss of the newer regulatory layer,
+exposing an intact older one**, not damage — hence reversible.
+
+### KS-C.5 — Route changes appraisal on **both** sides  `[new]`
+**Target:** `M1.F.3`, `M4.C` · **Verdict:** REFINES
+
+`KS18.2` is the corpus's cleanest demonstration because the content is **identical by construction**: each
+spouse answers *the therapist* while the other listens. "**The fact that the husband does not direct his
+comments to the wife helps her to listen better and react less. The husband has less reactivity as well.**"
+
+`M1.F.5` already distinguishes addressed from witnessed events; this says the witnessed form is
+**systematically less reactive**, and that the **emitting** side is affected too — which the spec does not
+represent at all.
+
+### KS-C.6 — Self-observation accuracy rises with elapsed time  `[new]`
+**Target:** `M1.E.7` · **Verdict:** UNMODELLED
+
+`KS18.4`: Bowen required families to review session tapes "**at least six months old**", explicitly against
+the then-standard instant replay, because "**the family would be in a different place emotionally after
+time had passed.**" Kerr on his own tape a year later: "**Whom does that guy think he is kidding?**… **I do
+not think I would have seen my charade if I had watched a playback closer to the time.**"
+
+Implementable as the episode's acute anxiety decaying toward the chronic floor. Gives `M1.E.7` a fourth
+landed-contact form: **the agent's own event log, delayed.**
+
+### KS-C.7 — The accommodation ratchet  `[new]`
+**Target:** `M1.B`, `M4.D.5` · **Verdict:** UNMODELLED
+
+`KS19.3`: the father gave up hunting after his son's reaction to a killed rabbit, then gave up watching
+television news when the son was home. "**Peace at any price is part of the problem, not part of the
+solution**"; "**the family learned to normalize Ted's aberrant behaviors, to weave them into the family
+fabric.**"
+
+Each concession is individually small, reasonable, and **never reversed**. A **per-tie accommodation stock**
+that grows under `M4.D.5`'s fused default and does not decay. It also shifts the family's own baseline, so
+Wanda Kaczynski's "**there was nothing gross**" and Kerr's mother's identical phrase (`KS25.7`) are
+**sincere** — which is a gate on `M1.E`'s entry, not a failure of honesty.
+
+`KS21.1` supplies the decision rule, via Solomon: "**All parenting involves choosing between the day…
+and the years.** Nancy's error seems to have been that she **always focused on the day**." That is
+`M4.D.6a`'s forbidden proxy in human form.
+
+### KS-C.8 — Five situations that draw the family focus  `[new]`
+**Target:** `M7.E` · **Verdict:** UNMODELLED
+
+`KS09.2`: "**the firstborn child; the firstborn of a certain sex; a child born with a reality defect; a
+child born at a time of high stress in the family, nuclear or extended; and the last-born child.**"
+
+A **closed, enumerable selection rule**, all computable at construction. The fourth is a **timing**
+condition, so target selection is history-dependent and therefore emergent — the right shape. Kerr's own
+family is the worked case: Billy conceived while the dying paternal grandfather, his wife and her sister
+were living with the new nuclear family (`KS25.6`).
+
+### KS-C.9 — Reappraisal is self-attribution  `[new]`
+**Target:** `M4.C` · **Verdict:** UNMODELLED
+
+`KS17.3`: "**he realized that what he perceived as a tense expression on her face reflected his own facial
+expression and tone of voice, which in turn were intensified by what he saw in her.**" The shift is not
+"she is not hostile" but **part of what I am receiving is my own output returning**.
+
+`M4.C` appraises incoming events with no attribution to the agent's own prior emission. This is why the
+effect is **immediate** — no new information arrives, only a re-attribution of existing information.
+
+### KS-C.10 — Allostatic load: the cost is time above floor  `[new]`
+**Target:** `M4.C.3` · **Verdict:** REFINES
+
+`KS23.3`, citing McEwen: allostatic load is "**the wear and tear inflicted on the body due to repeated
+cycles of allostasis, such as occurs from repeated stresses or when the stress response system does not
+turn off when it should.**" **The damage is in the failure to return to baseline, not in the excursion.**
+
+An integral over `acute_anxiety − chronic_anxiety` above zero — a better specification of `M4.C.3`'s
+"integrator over chronicity" than peak-based accumulation.
+
+### KS-C.11 — Engaging the difficult is a distinct capacity, gated by perspective  `[new]`
+**Target:** `M4.D`, `M5` · **Verdict:** UNMODELLED
+
+`KS15.1` names six ingredients of the differentiating process. Five map to model quantities; the fourth —
+"**engage emotionally difficult situations**" — has no representation, and `M4.D.3` works against it, since
+rising anxiety raises the weight on every move that reduces engagement.
+
+`KS15.11` supplies the gate. Kerr's supervisor: "*you can't solve your difficulties by dealing directly
+with your family. It's too difficult.*" Kerr: "**of course it is difficult if you lack a theory to guide
+you.**" So engagement propensity is gated by `systems_perspective`, **not** by anxiety: without mindware
+the loaded tie is *correctly* avoided; with it, the same tie becomes approachable. Also supplies
+`KS13.3`'s bridging gate.
+
+---
+
+## KS-D · The natural-experiment set — `M11.C.18` is the corpus's most repeated observation
+
+Eight instances of one discriminator: change a relational condition, watch functioning move, observe
+whether it **holds**.
+
+| # | Case | Condition changed | Result |
+|---|---|---|---|
+| 1 | `KS07.1` | husband's cousin visits for a week | ↑ incl. **measured blood work**; **reverts** |
+| 2 | `KS10.8` | wife away on a business trip | ↑; "**came roaring back when she returned**" |
+| 3 | `KS11.4` | dominant twin dies at 21 | ↑ permanent — "**released from the process**" |
+| 4 | `KS10.4` | both grandparents die within six months | ↓ across **four households**; never recovered |
+| 5 | `KS19.5` | five years' isolation in Montana | ↑; reverts on encroachment |
+| 6 | **`KS22.3`** | **same nodal event, different tie investment** | **no episode vs breakdown — within-subject control** |
+| 7 | `KS22.8` | both parents die | ↑ **in the projection target** |
+| 8 | `KS25.2` | parents' capacity collapses | ↑ **in the projection target** |
+
+**#6 is a within-subject control on the same nodal event type**: Eleanor's 1953 pregnancy produced no
+psychotic episode; Alicia's 1958 pregnancy preceded the breakdown; the discriminating variable is the
+tie's investment level.
+
+**#7 and #8 are the projection target improving when the projectors are removed or decline** — #4 is the
+converse. Together they establish that **the symptom belongs to the triangle, not to the person**, and
+that `M11.C.11`'s removal test has **opposite-signed effects on different members** keyed to position.
+
+**`KS07.1` is the fixture `M11.C.18` asks for, already worked by the source** — two remissions of
+comparable magnitude in one marriage, one functional and one basic, with Kerr labelling which is which:
+"**This was a basic change brought about by the wife developing a fraction more solid self; it was not like
+the previous improvement, a functional shift.**" The discriminator is **withdrawal of the supporting
+condition**, not the size of the symptom change.
+
+---
+
+## KS-E · Two findings that must not be softened
+
+### KS-E.1 — The differentiating move done without the frame can kill  `[new]`
+**Target:** `M5.F.4`, `M11.C.11` · **Verdict:** UNMODELLED
+
+Two independent cases, forty-three years apart, in which the **sole supporting party's partial withdrawal**
+preceded catastrophe in the fused member:
+
+- **`KS25.3`/`KS25.4`** — Kerr's own. He pressed his mother toward separation from his brother —
+  "**overly zealous efforts to change many generations of family emotional process in a matter of
+  months**" — then urged her onto a six-week trip. Billy killed himself weeks after her return. Bowen, the
+  next morning: "**Mike, I think your mother pulled up and Billy suicided.**"
+- **`KS21.9`** — Nancy Lanza's withdrawal had the *form* of a differentiating move (reducing
+  overfunctioning, redirecting energy to her own life, explicitly hoping it would produce independence)
+  and **none** of the preconditions.
+
+**Requirement:** at extreme fusion with no alternative ties, a reduction in the supporting party's
+investment **MUST** be modelled as a **removal event** (`M11.C.11`), not as a differentiating move. The two
+are distinguishable only by the **other's** remaining alternatives — which is also what `KS22.3`'s control
+shows.
+
+### KS-E.2 — The neutral coach who withholds a position is not neutral  `[new]`  `[K-ext]`
+**Target:** `M1.E.2a`, `M5.B.5` · **Verdict:** REFINES — and it is a genuine tension
+
+`KS17.2`: Kerr watched a client pressure his wife for years, saw the damage, held his neutrality, and
+writes: "**I failed to define a 'self' to him about that process, meaning I should have communicated as
+clearly as possible that trying to change the other person is not differentiation of self. I can't say
+that it would have prevented her illness if I had addressed that process vigorously, but it might have.**"
+
+`KS21.3` is the same failure in a **family member**: Peter Lanza "**consistently supported her efforts**"
+while disagreeing, and Kerr states the move he should have made — "**he could say to her noncritically that
+he was less worried about Adam than she was.**"
+
+**Resolution:** `M1.E.2a`'s "understand, not help" governs **not taking sides between parties**. It does
+**not** license silence about the process. `M5.B.5` already gives the external agent `I-POSITION`; this
+says it must actually be **used**, and that withholding it is a failure mode with a named cost.
+
+---
+
+## KS-F · Regrades
+
+| Item | Change |
+|---|---|
+| `resource_pressure` grade | **Confirmed at its strongest** — `KS14.1` gives Bowen's three conditions as a numbered list: "**(1) the rapid depletion of natural resources, (2) the population explosion, and (3) the absence of new frontiers**", driving "**a disturbance between humankind and nature**". **But carry the epistemics**: Bowen was "**certain that a regression was under way… but less certain about what was driving**" it. |
+| `resource_pressure` **shape** | **Not monotone.** `KS14.7` — the Galápagos ground finches (Grant & Grant 1985) regressed under **superabundance**: a copulating frenzy, monogamous mothers becoming polygamous, females abandoning begging young, then mass die-off. The dial needs an **optimum**, not a direction. |
+| Societal I-T balance | **Optimum at parity.** `KS14.3`: "**optimal functioning for a society is a 50-50 balance**"; a real regression is "**55 or 60 on the togetherness side**". So a 5–10 point shift bounds a regression, and **more individuality is not better**. |
+| `M1.A.11` channel names | **physical / mental / social**, replacing *emotional* (`KS23.11`) — Kerr's own proposal, and it removes a collision with `M1.A.0`, under which everything in the theory is emotional. |
+| Part III & Ch23 claims | **Blanket `[K-ext]`.** `KS15.12`: Kerr states he cannot prove his conclusions on cancer, autism, sociopathy, schizophrenia, depression or the addictions. `M11.F.4` stands. |
+| Expressed emotion | **Admissible as an external measure** — user decision, 2026-08-25: trust Kerr's summary, primary sources not required. `KS25.9`: hostility, over-involvement and critical comments "**significantly increase the chances of relapse even if the person is on medication**"; absent them, "**relapse is a much lower possibility even with patients not on any medications.**" All three variables are computable from the model's event log. **Strongest `M11.C.8` candidate in the corpus.** |
 
 ---
 

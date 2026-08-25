@@ -242,6 +242,16 @@ brought back into agreement before the user reviews the set.
 | **S2.15** | `M1.D.2a` | ⚠ **D9 approved with a note that pulls against the requirement (user):** *"the Distance IS the symptom, and since it indicates high intensity, that intensity can lead to other symptoms."* `M1.D.2a` currently says distance **absorbs without symptomising**. Reconciliation to encode: distance does not produce the three **named** symptom channels, but it is **itself an observable of high intensity and a predictor of later symptoms** — not a neutral sink. Do not leave it graded as costless. |
 | **S2.16** | `M4.D.6b` | **G3 approved with context (user):** the reinforcement horizon belongs to **functional level of DOS**, which is the shorter time horizon. The declared horizon should be scaled to the swing term, not to the `basic_level` estimator window. |
 
+### ⚠ New item for the user — raised by the Kerr book, 2026-08-25
+**`KS11.1` touches approved decision `A1`.** The user approved withdrawing "eight to ten
+generations" as a calibration target. **Kerr states it in print in 2019** — "It could take eight to
+ten generations or as few as three or four" — for traversal from a very good to a very poor level.
+Assessment: the withdrawal of the *rate* stands (`M10.C.3` untouched), because this is a range with
+a 3x spread describing **full-scale traversal**, not a per-generation decrement, and no method is
+given. **Recommendation:** record as a `[#]` shape constraint on `M11.C.6` — a top-to-bottom decline
+**MUST NOT** complete in one or two generations and **MUST** be achievable within roughly ten.
+**User's call, since it amends their decision.**
+
 ### Open question to put back to the user
 **S2.12.** The sentence *"increase in Functional level of DOS means pseudo self is lower"* and Bowen's
 standard reciprocity account can diverge: in the classic overfunctioner/underfunctioner exchange, one

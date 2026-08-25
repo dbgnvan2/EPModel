@@ -86,3 +86,5 @@ existing sources → **pass 3** fold into `_LEDGER.md` → **spec revision 3**.
 | 19 · The Unabomber | ✅ | `ks19.md` — 12 |
 | 20 · Gary Gilmore | ✅ | `ks20.md` — 12 |
 | 21 · Adam Lanza | ✅ | `ks21.md` — 12 |
+| 22 · John Nash | ✅ | `ks22.md` — 14 |
+| **PART III COMPLETE** | **✅** | **4 chapters · 50 findings** |

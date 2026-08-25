@@ -124,7 +124,11 @@ If one of these is wrong, the architecture changes, not a parameter.
 
 **This one has external corroboration, which nothing else on this list does.** The DSI's Fusion With Others subscale — measuring the construct most directly about self borrowed from others — failed for five years (α .57–.74, no relationship to psychological adjustment, problem-solving or relationship satisfaction) while its other three subscales worked. That is consistent with Bowen's prediction, and it is suggestive rather than proof. Worth checking the original claim carefully given how much it now carries.
 
-**Verdict:** ☐ confirmed ☐ narrower ☐ wrong — notes:
+**Verdict:** ☑ **CONFIRMED** — user, 2026-08-24. *"Differentiation is hard to observe accurately."*
+
+**And a mechanism supplied with the confirmation, which the spec does not yet carry in this form.** A true shift in differentiation draws a **negative reaction from the system**, and the reason is that the move **pushes others to function more responsibly**, which they initially resist. **If the individual holds their position, the system shifts — over months.**
+
+*Model consequence — queued as `S2.6`.* `M5.E.7` currently gives the reaction's cause as the **life-energy debit** (the move withdraws energy the other was receiving). The user's framing is compatible but not identical: the debit *is* the demand to function, and naming it that way connects the change-back reaction to `M12`'s counterfeit of responsibility. `M5.E.6`'s damped oscillation needs a **stated settling timescale of months**, graded `[I]` — the figure is the user's judgement, not a corpus quantity.
 
 ---
 
@@ -178,7 +182,11 @@ If one of these is wrong, a named mechanism in the model changes shape.
 
 **What depends on it:** spec M8.6; resolution R2. Pass 1 reported cancellation as the corpus's most counter-intuitive finding, and pass 2 withdrew it. **Please confirm the withdrawal was right** — this is a case where we reversed ourselves.
 
-**Verdict:** ☐ confirmed ☐ narrower ☐ wrong — notes:
+**Verdict:** ☑ **CONFIRMED — the pass-2 withdrawal was right.** User, 2026-08-24: *"Bowen is clear that differentiating a self from one's family has to be by self, for self alone."*
+
+**And the mechanism is deeper than a triangle.** An ally creates a triangle of **"us" against "them"**, *and* implies a **borrowing of self from the ally — or a lending of self to the ally.**
+
+*Model consequence — queued as `S2.7`, and it is implementable with machinery already present.* The ally penalty is not only structural (a peripheral triangle, `M8.6`); it is a **pseudo-self transaction** on `M6.I.4`'s conserved quantity. That explains *why* an ally undoes the move rather than merely complicating it: a differentiating move is meant to come from **solid self**, and agency is the solid-self fraction (`M10.A.1a`). A move fuelled by borrowed self is not drawing on that reserve at all, so it is counterfeit by construction (`M5.F.2a`) — which the model can compute rather than be told.
 
 ### B5 · Coupling does not decay; separation is edge-rewiring
 
@@ -300,7 +308,11 @@ If one of these is wrong, a named mechanism in the model changes shape.
 
 **What depends on it:** spec M1.D.7 and M1.D.7d — the modulation of `media_amplification` by family differentiation.
 
-**Verdict:** ☐ confirmed ☐ narrower ☐ wrong — notes:
+**Verdict:** ☑ **CONFIRMED** — user, 2026-08-24: *"societal forces will have less of an impact (**positive or negative**) on a well differentiated family — they will be less reactive to outside forces."*
+
+**The confirmation is two-sided, and the spec currently is not.** `M1.D.7d` says a well-differentiated family must be able to **damp** the dial and a poorly-differentiated one to **amplify** it, which reads as being about harm. The correct form is that differentiation damps the **magnitude** of societal influence in **both directions** — a well-differentiated family is less moved by favourable societal conditions as well as by unfavourable ones. The modulation applies to `|effect|`, not to harm alone.
+
+*Model consequence — queued as `S2.8`.* This is the third instance of the same two-sided pattern in this corpus: blame **and** praise are both losses (`kb/kb07.md` · K07.1); selfish **and** selfless are both counterfeits (`M1.A.9a`); favourable **and** unfavourable societal input are both damped. Worth treating as a general property rather than three coincidences.
 
 ### C5 · Overt emotionality peaks in the middle of the scale
 

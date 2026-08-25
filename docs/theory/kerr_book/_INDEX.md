@@ -83,3 +83,4 @@ existing sources → **pass 3** fold into `_LEDGER.md` → **spec revision 3**.
 | 17 · Clinical Example | ✅ | `ks17.md` — 12 · tension with M1.E.2a |
 | 18 · Theory, Method, Technique | ✅ | `ks18.md` — 11 |
 | **PART II COMPLETE** | **✅** | **4 chapters · 47 findings** |
+| 19 · The Unabomber | ✅ | `ks19.md` — 12 |

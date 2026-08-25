@@ -1,6 +1,6 @@
 ---
 tags: [model-bt, source, kerr-secrets]
-status: pass 1 in progress
+status: pass 1 complete — 262 findings
 date: 2026-08-24
 ---
 
@@ -91,3 +91,5 @@ existing sources → **pass 3** fold into `_LEDGER.md` → **spec revision 3**.
 | 23 · Unidisease | ✅ | `ks23.md` — 11 · all `[K-ext]` |
 | 24 · Supernatural Phenomena | ✅ | `ks24.md` — 10 · closes E3 |
 | **PART IV COMPLETE** | **✅** | **2 chapters · 21 findings** |
+| Epilogue · Kerr's own family | ✅ | `ks25.md` — 14 |
+| **📗 PASS 1 COMPLETE** | **✅** | **26 segments · 262 findings** |

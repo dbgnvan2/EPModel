@@ -125,7 +125,14 @@ Twelve people in one three-generation family. Each is an agent that, on every fa
 - `[X]` The band scheme is **present in 1966, absent in 1972, present again in 1976**, and Ch21 has no regime change at 50 at all — its lower/upper transition is explicitly gradual (L21.1). **The bands are not a constant of the theory.** Ch16 is the only source for the numbers, and the scale gets *less* specified over time.
 - `[I]` The engine's old `C ∈ [10, 80]` with a linear clip has **no source**. It has no threshold, and 10 and 80 appear nowhere.
 
-> **Two caveats that must travel with any use of this number.** Bowen *slowed* development of a clinical scale because readers wanted the scale without the concept (Ch16), then *stopped* that research entirely to prevent misuse (Ch17) — for misuse, not for invalidity. No external validation is offered anywhere in the book.
+**Does not:** ⚠ **`basic_level` is not written by anything.** There is no ratchet and no per-exchange increment. It is **derived** — an estimator over `functional_level` history (§3.2a) — which is why no move, however successful, moves it directly. `M1.A.4`, `M1.A.4a`
+
+**Two more constraints on the number, from the 2019 book:**
+- `[#]` `KS05.3` — the scale **was never an instrument**: "*Many people interpreted the word scale to mean a psychological instrument… this is not the case… It is not a measurement tool. **Bowen subsequently dropped the term scale**.*" And Bowen revised the top **twice** — 90–95 in 1966, then "no higher than 60", then ~75 in 1976. A constructed family with members above 75 is outside anything the corpus describes.
+- `[#]` `KS05.4` — the distribution is a **left-shifted bell**: the 50–75 band is ~**10%** of the population, ~**90%** sit below 50, and the ≤25 group is ~**20%**. Hedged in the source ("it appears as if", "estimated"); usable for construction, **never** as a calibration target.
+- `[T]` `KS05.2` — a **second threshold, at 25**, of a different kind from the one at 50. Below it `basic_level` **cannot rise at all** — "*they lack the flexibility to make basic change*" — while `functional_level` still moves freely. A capacity bound on change, not a licence over decisions. `M1.A.4d`
+
+> **Two caveats that must travel with any use of this number.** Bowen *slowed* development of a clinical scale because readers wanted the scale without the concept (Ch16), then *stopped* that research entirely to prevent misuse (Ch17) — for misuse, not for invalidity. No external validation is offered anywhere in the book, and `KS11.3` confirms from 2019 that "*a computer program or questionnaire does not yet exist that can estimate a person's basic level with sufficient accuracy.*"
 
 ### 3.2 `functional_level` — functional differentiation
 
@@ -138,12 +145,46 @@ Twelve people in one three-generation family. Each is an agent that, on every fa
 - `[T]` Ch09 · L09.1 — **symptoms are a threshold on the functional level, not the basic one.**
 - `[T]` Ch17 · L17.2 — functional level "fluctuates widely" and its variance is set by the basic level.
 - `[M]` Ch01 · L01.9 — the distinction predates the vocabulary: "mother was *really more impaired* than the daughter" while holding the adequate role.
+- `[T]` `KS05.11` — "*The higher their basic level… the more consistent are people's emotional functioning… **As basic levels drop, functional levels of differentiation can rise and fall, sometimes dramatically**.*"
 
-### 3.3 `CA` — chronic anxiety
+### 3.2a The operational decomposition — and how `basic_level` is actually obtained
 
-**For:** the floor. What the person carries all the time, fixed in childhood.
+**`functional_level` *is* the operational level of differentiation**, and it decomposes:
 
-**Does:** set from the child's own **witnessed event history**, not from a family average. Acts as a floor that acute anxiety decays toward but never below.
+> **operational (`functional_level`) = `basic_level` (slow floor) + swing (fast)**
+
+The **self-directed channel** (§5.2) writes the **swing** directly — a person can decide to stop or start doing something and functioning shifts at once. `basic_level` does not move. `M1.A.5a`
+
+**`basic_level` is then an estimator over that swing's history**: an elevated mean, held at low variance, **sustained over years**, and demonstrated **across many distinct situations**. `M1.A.4a`
+
+- This is `M1.A.5`'s stated relationship **run backwards**. High basic level ⇒ low functional variance; therefore sustained low variance at an elevated mean **is** the evidence. One relationship, not two mechanisms.
+- `[T]` **The situations must be loaded, and must include nodal events.** A benign decade produces a stable elevated functional level and demonstrates nothing — without load-conditioning, **an easy life reads as differentiation**. `M1.A.4b`
+- This is what separates a binder from the real thing without a special rule: `CUTOFF` produces a durable-looking calm that holds until the next nodal event, so it fails on breadth.
+- `[#]` `KS05.10`, `KS11.7` — the observables and their **asymmetric** reading rules: occupation is uninformative when high but informative when **low despite opportunity**; health is read through the **adaptation**, not the diagnosis; longevity is **not** a proxy, but a long-lived generation above a dysfunctional one is *evidence of projection*; **both** tails of courtship length are informative. `M1.A.4e`
+- `[T]` `KS06.8` — contexts are **not** comparable: "*In terms of solid self, one's personal life is where the rubber meets the road*", and occupational success "*is not a reliable measure*."
+
+### 3.2b Which channel raised it — and why the sign of pseudo-self flips
+
+The **same** rise in `functional_level` means opposite things depending on what produced it. `M1.A.5c`
+
+| Rise produced by | `functional_level` | pseudo-self | `basic_level` |
+|---|---|---|---|
+| **Automatic channel** — borrowing from a partner, a group, a tribe | ↑ | **↑** (borrower) / ↓ (lender) | unchanged |
+| **Self-directed channel** — differentiating effort | ↑ | **↓**, converting toward solid | rises if sustained and broad |
+
+- `[T]` `KS05.1` — "*Pseudo-self can be the basis of increasing a person's functional level of differentiation*": the aimless young man who finishes college after falling in love "*has borrowed pseudo-self from his romantic partner*"; cult members "*experience similar improvements*."
+- `[T]` `KS05.1` — and it is **not pathological**: "*Everyone borrows and lends self to some degree… This is not a bad thing.*" What distinguishes it is only that **it does not survive withdrawal of the source**.
+- Because the two channels leave opposite signatures, the event record has to carry **which channel selected the move** (§2.6) — otherwise neither this nor "going toward a goal versus running away from a problem" is recoverable. `M1.F.1a`
+
+### 3.3 Chronic anxiety — **two quantities, not one**
+
+⚠ Corrected. What was one field is now a **disposition** and a **state**.
+
+**`programmed_reactivity`** — the disposition. Fixed in childhood from the child's own **witnessed event history**, never from a family average. `M1.A.7`
+
+**`chronic_anxiety`** — the state, **derived** each slow tick from three terms: that reactivity, **the field** (the system's differentiation and current load), and **the person's functioning position**, which changes. It acts as the floor acute anxiety decays toward but never below. `M1.A.7a`
+
+**Why the split matters:** `[T]` `KS10.2` — "*chronic anxiety is a consequence of various types of social interaction and, consequently, is **most usefully conceptualized as a property of the emotional field***", set by two processes "*not under individual control*" — the system's differentiation, and "*the person's functioning position in the system*." A model with only the fixed childhood term cannot produce a removal that helps some members and harms others, nor a reciprocity inversion, because **both act through position**.
 
 **Source:** `[M]` Ch06 · L06.1 — the load variable is **directed parental attention**, and pointedly not parenting *content*: the problem is created "just as surely by a project that was psychologically correct as by one that was psychopathological." `[M]` Ch18 · L18.2 — symptom onset depends on **chronicity, not instantaneous level**: "Any unit can recover from periodic panic or overloads, but when the panic becomes chronic one or more of the individual units can collapse." That requires an **integrator, not a threshold test**. `[I]` Fixing it at age 10 specifically is a modelling decision; the corpus says childhood.
 
@@ -178,7 +219,43 @@ Twelve people in one three-generation family. Each is an agent that, on every fa
 
 **Source:** `[T]` Ch21 · L21.2 — "either hollow meaningless words or a hostile assault on the system, **and an emotional system knows the difference**."
 
+**Does not:** ⚠ **it is not a scalar.** `outside_ness` is **two-dimensional** — **outward impingement** (acting on the other) and **inward impingement** (being acted on by the other) — and the differentiated position is **both low**. `M1.A.9a`
+
+The definition is a **conjunction of two negatives**:
+
+> *Be for self without being **selfish**. Be for other without being **selfless**.* — Kerr & Bowen, *Family Evaluation* (1988); `KS24.4`
+
+| Axis | Kerr's term | How it looks |
+|---|---|---|
+| Outward impingement | "**selfish**" | forceful, dogmatic, encroaching — the *shout them down* grotesque |
+| Inward impingement | "**unselfish**" | pleasing, placating, accommodating; hears the other as critical |
+
+- `[T]` `KS12.3` — "*a high-level differentiated self is **neither offensive nor defensive** to the other. So you can tell pretty much the level of functioning of an I-position from the way they do it.*"
+- `[T]` `KS07.3` — **both are the same failure**, and Kerr warns why a single score is dangerous rather than merely imprecise: "*If the selfish and unselfish terms are thought of as character traits rather than as polar opposite positions produced by a reciprocal process, **it is almost impossible not to view the 'unselfish' partner as a victim and the 'selfish' partner as the culprit**.*"
+- The **inward** axis has a **perception-side** readout available *before any move is emitted*: hearing the other as critical is itself the evidence. Cheaper and harder to game than anything read off the emitted act. `M4.C.5`
+- The counterfeit detector **must report which axis failed** — the forceful declarer and the compliant accommodator need **opposite** corrections. `M5.F.2b`
+
 > This field is the model's implementation of **C10**, the corpus's cleanest cross-chapter convergence: *an act's identity depends on the actor's hidden state, not on the act.* Five chapters, four independent settings. See §5.6.
+
+### 3.6a `systems_perspective` — the mode of thinking
+
+**For:** whether the differentiating move is **comprehensible to the agent at all**. Graded, `[M]` — mechanism sourced, magnitudes invented. `M1.A.18`
+
+**Does:** gates the **differentiating path only** — move quality (§5.6), engagement with a loaded tie, and therefore the estimator's capacity to rise.
+
+**Does not:** ⚠ **it does not gate `functional_level`.** An agent with none can function well across a whole life, and **most agents in any population have essentially none**. Systems thinking is *rare*; functioning is *common*; the model reproduces both. `M1.A.18c`
+
+**Why it exists.** Bowen names **three** variables for societal process — "*one, a different way of thinking… another is differentiation of self… and a third is the intensity of anxiety*" (`KB10` · K10.1). The three societal dials are drivers of the **third** only. This is the individual-level representation of the **first**.
+
+**How it moves:**
+- **Rises** only on a *landed* external contact, conditioned on the agent's binders failing. Never spontaneously, never as a reinforcement target. Four forms of landed contact — specifics, category, **non-participation**, and **delayed self-observation**. `M1.E.7`, `M1.E.7c`
+- **Falls** with acute anxiety. Polarity capture is a **loss** in someone who had it. `M4.C.4`
+- **Ceiling** coupled to `basic_level` — undifferentiation is "*the cement, the hardener, that fixes*" a way of thinking. `M1.A.18b`
+- **Per-person, attenuated per tie.** Not a per-tie variable: one capacity that **fails at the highest load**. Kerr taught the reciprocity idea for twenty-five years before seeing it in his own marriage. `M1.A.18d`
+
+**Readout:** blame — and it is two-sided **twice over**: blame *or* praise, and blame of **others** *or* of **self**. "*Blaming others and blaming oneself are the enemies of gaining a systems perspective.*" `M1.A.18a`, `KS00.2`
+
+**Not additive with cause-and-effect thinking.** Partial acquisition is a liability, not a partial benefit — "*the people who make the most progress are those who **stop mixing theories**… flip-flopping in highly anxious situations.*" `KS18.6`
 
 ### 3.7 `life_energy` — the per-person budget
 
@@ -198,15 +275,25 @@ Twelve people in one three-generation family. Each is an agent that, on every fa
 
 **Source:** `[T]` Ch07 · L07.1 — calm, the mass includes only a few most-involved members; under stress the fusion extends to multiple extended-family members "and even nonrelatives", and "**live-in servants can be more emotionally fused into the family emotional system than certain blood relatives**." `[M]` Ch17 · L17.1 — the full cascade: twosome → triangle → interlocking triangles, with the displaced member becoming *emotionally inactive* → neighbours, schools, agencies, courts → **reversion to the original triangle on subsidence.**
 
-### 3.9 `symptom_load[3]` — physical, emotional, social
+### 3.9 `symptom_load[3]` — physical, **mental**, social
 
 **For:** the model's dependent variable. The interesting prediction is not *whether* but **in whom**.
 
-**Does:** accumulates from the load routed to this person; crossing threshold emits an endogenous event. The three channels are **substitutable** — the same deficit presents interchangeably as physical illness, emotional illness, or social dysfunction.
+**Does:** accumulates from the load routed to this person; crossing threshold emits an endogenous event. The three channels are **substitutable** — the same deficit presents interchangeably as physical illness, mental illness, or social dysfunction.
+
+**On the name.** The third channel was *emotional*; it is **mental** on the author's own proposal — "*the symptoms manifest in aberrant cerebral cortical processes, but the core of the symptom-generating force is the subcortical emotional system*" (`KS23.11`). Under `M1.A.0` **everything** in this model is emotional, so *emotional* as a channel name was a collision.
+
+**A second axis crosses the three:** physical and mental **internalise**; social **externalises**. That is what makes "curing the symptom raises conflict" and its inverse — depression lifting as a couple starts fighting — the same mechanism rather than two. `M1.A.11a`, `KS10.5`
+
+**Which channel is exogenous.** Constitution sets the **channel**; level sets the **amplitude and sign**. The model never derives symptom *type* from relational position — "*genes would be seen as perhaps having a role in **whether** the chronic anxiety plays out as schizophrenia rather than some other clinical dysfunction*", and "*certain predispositions can become **assets or liabilities**, depending on the degree of family anxiety*." `M1.A.11b`
 
 **Source:** `[T]` Ch07 · L07.2 — the habitual giver-in reaches "no-self" and is incapacitated by one of the three; the chronic illness "seems to absorb the ego deficit between them". `[T]` Ch08 · L08.3 — the three present interchangeably.
 
 > **The symptom feeds back negatively onto family tension.** The marriage stays harmonious "as long as the disabled spouse does not recover" (`[T]` Ch07 · L07.2). So curing a symptom without changing the deficit must **raise** tension. See test 12 (§11).
+
+> ⚠ **And the system locks in around it.** Once a member carries the load, **family anxiety falls**, producing a stable configuration that **resists the symptom's removal**: "*a family can stabilize somewhat around the presence of a symptom, **which fosters it becoming chronic**.*" `M7.D.2a`, `KS23.1`
+>
+> **That one requirement produces three observed behaviours as consequences** — chronicity with no pathology anywhere; relapse when a symptom is cured without changing the deficit; and family **relief** when the symptomatic member is removed. Removal therefore has **opposite-signed** effects on different members, keyed to position: when Gary Gilmore went to reform school family tension dropped and **only his mother** wanted him back. `M7.D.2b`
 
 ### 3.10 `structural_importance`
 
@@ -218,13 +305,19 @@ Twelve people in one three-generation family. Each is an agent that, on every fa
 
 > **The seven-rung severity ladder is not Bowen's.** It was assembled on the first reading, and the grandmother pair was silently reordered so it would descend. Three tiers is what can be calibrated; anything finer is invention. **Grief magnitude and system-disturbance magnitude are separate output channels.**
 
-### 3.11 `sibling_position`
+### 3.11 `sibling_position` — static data, **derived position**
 
-**For:** static profile data. One of Bowen's named concepts.
+**For:** static **birth-order** data. One of Bowen's named concepts.
 
-**Does:** shapes the propensity vector and nothing else.
+**Does:** ⚠ **nothing directly.** The propensity vector reads a **derived `functional_sibling_position`**, computed from observed functioning — because the projection process can make a younger son "*a **functional oldest**.*" `M1.A.14`, `M1.A.14a`
 
-**Source:** `[T]` Ch21 · L21.5 — fifth of the six named concepts. `[I]` Its effect size is invented; the corpus gives no magnitudes, and Ch13 omits sibling position entirely.
+> **The general rule, of which this is the second instance** (`structural_importance` was the first): **no positional attribute the model acts on is read from a role label or from birth order. Every one is derived from observed function.** Labels are static data; positions are computed. `M1.A.14b`
+
+**Does not:** it is **not an additive offset**. Each position carries **both** an adaptive and a maladaptive expression, and `basic_level` selects which — "*An **immature** older brother of brothers is likely to be overly controlling and dogmatic… A **mature** older brother of brothers can be a very effective and responsible leader.*" A **gating** relationship, not additive. `M1.A.14c`
+
+**Source:** `[T]` Ch21 · L21.5 — fifth of the six named concepts. `[T]` `KS12.1` — ⚠ **the effect is not constant across the scale.** Bowen "*qualified his thoughts about Toman's profiles by saying that they accurately describe people **at the midrange***", and "*a poorly differentiated oldest brother may exhibit **very few** characteristics of an oldest profile.*" It peaks mid-scale and attenuates at both ends. **This repaired the acceptance test that had been flagged as near-unfalsifiable** — it is now a three-arm mid-peak comparison needing no invented effect size. `[#]` `KS12.10` — Toman estimated 10–25% of personality; **Bowen theory explicitly declines the figure**, so it must not enter the model.
+
+**Suppressed, not erased, at the low end:** six patients on a locked ward who responded to a fire "*were the oldest children in their families*". Position effects are suppressed by anxiety in the **relational** domain and re-emerge on an unambiguous **task** demand. `[D]`, n≈6, no control. `M1.A.14d`
 
 ### 3.12 `financially_dependent` — a gate, not a stock
 
@@ -312,13 +405,17 @@ Feeds the standing load (§7.2) every tick whether or not anything happened.
 
 **The seesaw is a conjunction, not a difference.** `[T]` Ch04 · L04.1 — "more invested in each other than **either** was in the patient" / "when **either** parent became more invested…". It is a **min over both parents**, and **one parent alone drives the regression**. A difference form lets a strong marriage mask a defecting parent.
 
-### 4.6 `taboo_set` — monotonically growing
+### 4.6 `taboo_set` — growing **by default**, but reversible
 
 **For:** the mechanism behind scope reduction.
 
-**Does:** subjects are withdrawn from a tie and **not returned**.
+**Does:** subjects are withdrawn from a tie, and growth is the **default** — each party learns what makes the other anxious, "so begins the communication cutoff between spouses."
 
-**Source:** `[T]` Ch10 · L10.8.
+**Does not:** ⚠ **it is not monotone.** Growth is a default, not a law. **Purposeful mention of a taboo subject, if one can control one's own anxious response, can desensitise the whole mechanism** — the differentiating move applied to a single topic, carrying the same gates as any other. `M1.B.10a`
+
+**The opposite pole is defined too.** An "open relationship" is one with an **empty** taboo set — "*both parties are able to communicate their innermost thoughts and feelings without fear of hurting the other person*" — and it is **health-promoting for both**, not merely neutral. Bowen names only four contexts where it naturally occurs: the early mother–infant relationship, courtship, a psychoanalytic relationship, and a fantasied relationship. Three of the four are transient or artificial, which is why growth is the default. `KS04.10`
+
+**Source:** `[T]` Ch10 · L10.8. `[T]` 1979 Tape 6 — the reversal, and the self-control condition on it.
 
 ### 4.7 `latency` — transfer delay, per edge
 
@@ -366,11 +463,36 @@ Every fast tick, each person selects **exactly one** move. The repertoire is del
 | `I-POSITION` | State a self without attacking or accommodating | `[T]` Ch13, Ch21 · L13.3, L21.4 |
 | `STAY-IN-CONTACT` | Remain present under tension without acting | `[T]` Ch22 · L22.1 |
 
-### 5.2 The policy
+**And a tenth outcome that is not a move.** `WITHHOLD` — the automatic move **computed, detected, and not emitted**. It is distinct from every move above and from the fused default, and ⚠ **a withheld move still changes tie state**; an implementation in which not acting is a no-op cannot represent the two canonical instances in the corpus. `M4.D.1b`
 
-**Does:** a softmax over propensity scores. Each score is a function of current anxiety, `functional_level`, the state of the tie in question, the person's position in whichever triangle is active, and their learned repertoire — moves that worked before get reinforced, which is how a family develops a characteristic style.
+> Kerr, on the staircase: "*I even started to move slightly, but **I caught myself and stopped**… **I did not take any obvious I-position with Mother; I just did not anxiously hover over her.**" (`KS08.1`) And on the couch, leaving his distressed wife to go upstairs: "*My legs felt like they weighed a hundred pounds each.*" (`KS16.2`)
 
-**Source:** `[D]` Ch18 · L18.2 — all patterns intensify with anxiety and vanish when calm; rising anxiety raises the weight on the seven reactive moves. `[I]` The functional form and every coefficient are invented.
+**But `WITHHOLD` alone is insufficient**, and this is easy to get wrong. It is **not** a weak `I-POSITION`. Kerr's three-year trajectory ran **counter-argument** ("accomplished nothing") → **non-reaction** ("*an insufficient response to her*") → **position** (lands, draws the reaction, resolves). Phase 2 is a necessary stage that must be **passed through and exceeded**. `M4.D.1c`, `KS16.1`
+
+### 5.2 The policy — **two channels, not one**
+
+**Does:** selection runs over **two channels with different objectives**, and the mixing weight between them is a function of differentiation. `M4.D.1a`
+
+| | **Automatic** | **Self-directed** |
+|---|---|---|
+| Driven by | the relationship system | the person |
+| Objective | discharge anxiety **now** | hold a position **through** discomfort |
+| Carries | the seven reactive moves | `I-POSITION`, `STAY-IN-CONTACT` |
+| Learns? | **yes** — this is family style | **no** |
+
+At low level a person is nearly all automatic; as level rises a real self-directed channel opens. **Agency is not absent — it is graded**, and it is already in the model as the **solid-self fraction**: pseudo-self is what the system can move, solid self is what it cannot. No new variable. `M10.A.1a`
+
+- `[T]` `KS00.3` — "*Cortical components of differentiation **guide** actions; subcortical components **motivate** actions.*" The self-directed channel does not supply its own motive force; it **redirects** what the emotional system supplies.
+- `[T]` `KS02.1` — "*better differentiated people have more control than do less differentiated people*" — but never full autonomy at any level.
+- **Consequence:** differentiation is **not reachable by lengthening a reinforcement horizon**, because the two channels optimise different things. Anxiety-relieving action genuinely relieves anxiety, so an agent choosing a binder is not making an error a longer horizon would correct.
+
+**The ordering within the automatic channel.** Rising anxiety does not simply "raise the reactive weights" — it **slides selection down a complexity ordering**: **cooperation** (requires both systems as a working team) → **conflict** → **dominant-adaptive** ("older evolutionarily, more primitive") → **distance**, the oldest of all. `M4.D.3a`, `KS06.1`
+
+**Engagement is gated by perspective, not by anxiety.** Nothing else in the model makes an agent approach its hardest tie — every reactive move reduces engagement. "*Of course it is difficult if you lack a theory to guide you.*" Without mindware the loaded tie is **correctly** avoided; with it, the same tie becomes approachable. `M4.D.3b`, `KS15.11`
+
+**Ambivalence is itself anxiogenic.** Both parties hold **simultaneous** approach and withdraw urges, and "*the conflicting urges raise each person's anxiety*" — independently of whichever move resolves. An entropy term over the propensity distribution produces the vicious circle for free. `M4.D.1d`, `KS06.4`
+
+**Source:** `[D]` Ch18 · L18.2 — all patterns intensify with anxiety and vanish when calm. `[I]` The functional form and every coefficient are invented.
 
 > **The default state is not "no move".** `[T]` Ch07 · L07.5 — the fused default is each altering self to manage the other's functioning while demanding the other change, "neither responsible for self". That is the **term-for-term inverse of the differentiating move**, and it belongs in the policy as a baseline rather than as an absence.
 
@@ -867,7 +989,7 @@ P(align | knows, outside_system) = low      # the wife
 
 Ch21 contradicts *itself* here — the freeze claim and a "basic increase… which can never return to the former level" sit ~5,000 words apart in different sections and neither refers to the other.
 
-**Decided for the model:** Ch21's freeze-at-marriage is **outvoted by three chapters, two of them later**, and Ch16 explicitly restores slow movement ("it is possible to make slow changes"). So `basic_level` is **slow-moving with a ratchet on completed differentiating exchanges**, plus a much larger fast `functional_level`. Do not implement it as frozen. This is a modelling decision over a genuine disagreement, not a resolution of it.
+**Decided for the model:** Ch21's freeze-at-marriage is **outvoted by three chapters, two of them later**, and Ch16 explicitly restores slow movement ("it is possible to make slow changes"). So `basic_level` moves — but ⚠ **not by a ratchet.** It is **derived**, an estimator over sustained, broad, load-tested `functional_level` history (§3.2a), with a **capacity floor at 25** below which it cannot rise at all. The fast quantity is the **swing** term inside `functional_level`. Do not implement it as frozen, and do not implement it as incremented. This is a modelling decision over a genuine disagreement, not a resolution of it.
 
 ### 13.4 What both resolutions have in common
 

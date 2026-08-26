@@ -2323,6 +2323,200 @@ says it must actually be **used**, and that withholding it is a failure mode wit
 
 ---
 
+# Source 6 — the domain expert, and cross-source resolutions
+
+⚠ **These are not corpus findings.** They came from the project's domain expert (the user) during review,
+or from reasoning across sources rather than from any single one. **They must never be cited as though a
+source said them.** Where a source was later found to support one, the citation is given and the grade
+rises; where none was, the grade stays `[user]`.
+
+**Grades used here:** `[user]` — supplied by the domain expert, no corpus citation. `[user→T]` — supplied
+by the expert and **subsequently corroborated** by a source. `[resolved]` — a contradiction or gap settled
+by reasoning across sources, with the reasoning recorded.
+
+---
+
+## U1 — The marriage-ceremony break  `[user]` → `M1.A.3a`
+**Verdict:** UNMODELLED, now closed. Bowen states the phenomenon and explicitly declines to explain it —
+"pretty good friendship relationships before marriage and then the whole thing gets messed up as of the
+time of the marriage ceremony. **I've often wondered the why of that**, but there it exists as a fact."
+
+**The expert's mechanism:** marriage strengthens fusion, and **the couple is treated as ONE SELF — so the
+live question becomes who gets to decide for that self.** The lower the level, the more anxiety and
+reactivity this produces.
+
+**Why it needed no new machinery, which is the reason to trust it.** The ceremony changes **neither
+person**. It **reclassifies a large class of decisions into the shared-life-course domain** — precisely
+the domain in which `M1.A.3`'s existing transition at 50 bites. A mechanism that requires nothing new and
+falls out of a requirement written for another purpose is a better fit than one that needs its own term.
+
+**Prediction it generates:** two arms differing only in whether the pair marries, matched otherwise —
+higher anxiety in the married arm, scaling inversely with level, **and no change in either party's basic
+level.**
+
+## U2 — The change-back reaction's cause, from the other end  `[user]` → `M5.E.7a`
+`M5.E.7` gives the reaction's cause as the **life-energy debit** — the move withdraws energy the other was
+receiving. The expert supplied what the debit *means to the party who bears it*: the move **pushes the
+other to function more responsibly**, which they initially resist; hold the position and the system shifts
+over **months**.
+
+**Two things follow.** The debit and the demand are **one event seen from two ends**, which connects the
+change-back ladder to `M12`'s counterfeit of responsibility — a link the spec otherwise had nowhere. And
+the months figure is one of three distinct timescales now separated in `M5.E.9`, none of which is the
+others.
+
+## U3 — An ally is a pseudo-self transaction  `[user]` → `M8.6a`
+`B4` had the ally opening a **peripheral triangle** — a structural account. The expert added that it also
+implies **borrowing self from the ally, or lending self to them**.
+
+**This makes the ally penalty computable rather than declared.** A differentiating move is meant to come
+from **solid** self, and agency is the solid-self fraction (`M10.A.1a`). A move fuelled by borrowed self is
+**not drawing on that reserve at all**, so it is counterfeit by construction — the model works it out
+instead of being told. It also explains why the effect is *undoing* rather than mere complication, which
+the triangle account alone never did.
+
+**Later corroborated at scale** (`KS18.3`): fifty to sixty observers at the Medical College of Virginia,
+with the harm mechanism **alignment, not information** — "a colleague… **touched me softly on the arm** in
+a way that convinced me that she had taken sides."
+
+## U4 — Societal damping is two-sided  `[user→T]` → `M1.D.7i`
+`C4`'s decoupling guard read as being about **harm**. The expert corrected it: "societal forces will have
+less of an impact **(positive or negative)** on a well differentiated family — they will be less reactive
+to outside forces." So the modulation applies to **`|effect|`**, both directions.
+
+**This was the fourth instance of one pattern**, and the one that made it worth stating generally
+(`M11.F.6`): blame **and** praise; selfish **and** selfless; too much distance **and** too much closeness;
+favourable **and** unfavourable societal input. **Every naive one-sided detector in this model is wrong**,
+and the corpus supplies nine readout traps of exactly that shape.
+
+## U5 — Distance is itself the symptom  `[user→T]` → `M1.D.2a`
+`D9` was approved with a correction: "the Distance **IS** the symptom, and since it indicates high
+intensity, that intensity can lead to other symptoms." The spec then said distance "absorbs without
+symptomising", which is half the story.
+
+**Fully corroborated eight months of reading later** by `KS04.1`: distance **binds** — the anxiety leaves
+the person and is **stored in the structure of the tie**, where it persists, is readable *as* the distance,
+and **returns if distancing is prevented**. The expert had the mechanism before the source was read.
+
+## U6 — Spouse pairing is close, not exact  `[user→T]` → `M2.A.0e`
+`D3` approved with an amendment: matched `basic_level` "doesn't have to be **EXACTLY** matched. + or - one
+point." Corroborated by the corpus's own wording — "**almost identical**", not identical — and by
+`KS07.7`, which adds that pairing is **strict for spouses and looser for friendships**.
+
+## U7 — Systems perspective is orthogonal to functioning  `[user]` → `M1.A.18c`
+**The most consequential correction in this file, and it caught a structural error before it was built.**
+
+The expert: "a systems perspective is **NOT** global, it occurs on an individual basis. **Most people in
+the world do NOT think systems — but they still can be more or less functional.**"
+
+**Why this mattered.** The natural implementation makes perspective raise everything. That would have
+predicted the ~90% of any population below `basic_level` 50 to be broadly dysfunctional — which is false,
+and would have been a silent, structural error producing a population of failures. Systems thinking is
+**rare**; functioning is **common**; the model must reproduce both.
+
+**What it gates, and only this:** the **differentiating path** — move quality, engagement with a loaded
+tie, and the estimator's capacity to rise. Not ordinary functioning, competence, symptom resistance, or
+adaptation to unremarkable stressors.
+
+**Construction consequence:** `systems_perspective` initialises at or near zero for the large majority, and
+`M11.C.17`'s coach-free arm shows a population that is **functional and undifferentiating** — not one that
+is failing. The absence of differentiation should look like ordinary life.
+
+## U8 — `basic_level` is inferred, never written  `[user→T]` → `M1.A.4a`, `M1.A.5a`
+The spec had a **ratchet**: `basic_level` advanced on each completed differentiating exchange. That made it
+a counter of successful moves — directly writable, gameable, and it put the "weekend differentiation"
+grotesque *inside the mechanism*.
+
+**The expert's correction:** a person works on **functional** level; if that improvement **holds up over
+years and across dozens of situations**, that is what indicates a rise in basic level.
+
+**Why it is better than what it replaced.** `M1.A.5` already required `functional_level` *variance* to be a
+decreasing function of `basic_level`. This runs that same relationship **backwards as the update rule** —
+one relationship, not two mechanisms, which satisfies `M10.A.2`'s parsimony constraint rather than costing
+against it. It also puts the model's epistemics where the corpus puts them: there is no instrument, and
+what is observable is functioning.
+
+**The requirement that makes or breaks it, also from the expert's framing:** the situations must be
+**loaded**, and must include **nodal events**. A benign decade produces a stable elevated functional level
+and demonstrates nothing — without load-conditioning, **an easy life reads as differentiation**.
+
+**Corroborated later and repeatedly**: `KS05.10`/`KS11.7`'s observables and asymmetric reading rules,
+`KS05.2`'s capacity floor at 25, and the eight-instance natural-experiment set (`kerr_book/_KS_PASS2.md`
+§KS-D) which turned out to be the corpus's most repeated observation.
+
+## U9 — Agency is graded, and it is already in the model  `[resolved]` → `M4.D.1a`, `M10.A.1a`
+An earlier formulation — "the moves are instinct, not deliberation" — was **too strong**, and the expert
+corrected it: agency is not absent, it is a **function of differentiation**; the higher the level, the less
+the individual is governed by what the system wants.
+
+**Resolution:** two channels with **different objectives**, not one channel. Automatic — driven by the
+system, objective *discharge anxiety now*. Self-directed — driven by the person, objective *hold a position
+through discomfort*. Mixing weight a function of differentiation.
+
+**This preserves the original conclusion on better ground.** Differentiation is not reachable by lengthening
+a reinforcement horizon — not because agents lack agency, but because **the two channels optimise different
+things**, so the target is not in the automatic channel's objective at all.
+
+**And agency needs no new variable.** Pseudo-self is what the relationship system can move; solid self is
+what it cannot. `M6.I.4` already makes pseudo-self the conserved negotiable quantity, and 1979 defines it
+as "**negotiable**" — which is what "governed by what the system wants" means. Agency **is** the solid-self
+fraction.
+
+Later corroborated exactly: "**Cortical components of differentiation guide actions; subcortical components
+motivate actions**" (`KS00.3`) — the self-directed channel does not supply its own motive force, it
+**redirects** what the emotional system supplies.
+
+## U10 — The two-axis definition  `[user→T]` → `M1.A.9a`
+Supplied by the expert as Kerr's formulation:
+
+> **Be for self without being selfish** (non-impingement). **Be for other without being selfless.**
+
+**Located in its primary source** at `KS24.4` — Kerr & Bowen, *Family Evaluation* (1988), which is the next
+source queued. Kerr states it there while gently **correcting Bowen**, whose "complete selflessness" is one
+pole where Kerr's formulation makes **both** poles failures.
+
+**Why it changed the spec.** `M5.F.1` had a **single hidden scalar** (`outside_ness`). One scalar conflates
+two counterfeits that need **opposite** corrections — the forceful declarer and the compliant accommodator
+land at the same value. Kerr's own warning is sharper than the design argument: treating the terms as
+character traits rather than reciprocal positions makes it "**almost impossible not to view the 'unselfish'
+partner as a victim and the 'selfish' partner as the culprit.**"
+
+## U11 — The reinforcement horizon belongs to functional level  `[user]` → `M4.D.6b`
+`M4.D.6b` requires the reinforcement signal be evaluated over a horizon longer than the reaction window.
+The expert added the scoping: that horizon belongs to **functional level of DOS, which is the shorter
+timescale** — not to the `M1.A.4a` estimator's window.
+
+**Consequence:** reinforcement operates on the **swing** term over months; the estimator operates on
+`basic_level` over years. Scaling the reinforcement horizon to the estimator window would reproduce the
+very over-correction `M11.C.16`'s second direction exists to catch.
+
+## U12 — General Systems versus natural systems, the distinction that answers it  `[user]` → `M11.F.3a`
+`C2` recorded Bowen's objection to general-systems theory as the model's foundation, unsoftened. The expert
+supplied the distinction that answers it rather than softening it: **General Systems Theory is an abstract
+conceptualisation thought up by man; Bowen theory is built from observation of how families actually
+function** — as one derives planetary motion by observing the planets. **The simulation is not offering a
+non-objective explanation of human functioning**; it is a computation over observed regularities.
+
+Consistent with Bowen's own stated validity criterion — that a theory be "synonymous with the universe, the
+earth, the tides, the seasons, the predictable cycles of life" (`KS24.8`).
+
+## U13 — Expressed emotion admitted on the successor's summary  `[user]` → `M11.C.23`
+`KS25.9` cites the expressed-emotion literature at second hand — hostility, over-involvement and critical
+comments predicting relapse **even on medication**, and low EE predicting low relapse **off** medication.
+The project flagged that the primary sources should be checked before a criterion depended on it.
+
+**Expert decision, 2026-08-25: trust Kerr, primary sources not required.** All three EE variables are
+computable from the model's event log — over-involvement from `M1.B.8`, critical comments from
+`M1.A.18a`'s blame readout — making it the strongest `M11.C.8`-class candidate in the corpus.
+
+## U14 — `A1` stands  `[user]` → `M11.C.6`
+`KS11.1` put "eight to ten generations or as few as three or four" in print in 2019, touching an approved
+withdrawal. **Expert decision: the withdrawal of the *rate* stands.** The figure is a range with a 3×
+spread describing **full-scale traversal**, not a per-generation decrement; `M10.C.3`'s prohibition is
+untouched; and it is recorded instead as a `[#]` **shape constraint** on `M11.C.6`.
+
+---
+
 # Appendix — withdrawn IDs, at a glance
 
 Do not cite any of these as evidence. Each is kept only so downstream references resolve.

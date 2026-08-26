@@ -216,10 +216,13 @@ that file; do not edit it without asking.
 ### The blocking item
 `docs/DECISIONS FOR APPROVAL.md`, sections A, B, C, D, E1, E4, E5. **E2 and E3 are answered.**
 
-### Step 2 — propagation: **spec items COMPLETE**, documents outstanding
+### Step 2 — propagation **COMPLETE**
 
-**Decision document APPROVED 2026-08-25.** All spec-bearing items S2.4–S2.16 are applied. Spec at
-**321 unique IDs**, 0 duplicates, 0 unresolved, 355 MUST / 100 MUST NOT, 37 tests green.
+**Decision document APPROVED 2026-08-25. All sixteen propagation items are applied.** Spec at
+**321 unique IDs**, 0 duplicates, 0 unresolved, 355 MUST / 100 MUST NOT. Explainer, published proposal and
+ledger all agree with it; every spec cross-reference in both documents resolves; 37 tests green.
+
+**The document set is consistent. The next step is the implementation plan.**
 
 | # | Item | State |
 |---|---|---|
@@ -236,9 +239,9 @@ that file; do not edit it without asking.
 | S2.14 | C2 observational-vs-abstract addition → `M11.F.3a`; general two-sidedness → `M11.F.6` | ✅ |
 | S2.15 | distance binds → `M1.D.2a` rewritten | ✅ |
 | S2.16 | reinforcement horizon belongs to functional level → `M4.D.6b` | ✅ |
-| **S2.1** | **`model_explainer.md`** — ratchet removed, `outside_ness` two-axis, `systems_perspective`, two channels, all of revision 3 | ⬜ **outstanding** |
-| **S2.2** | **`agent_model_proposal.html`** — same, plus `revmark` spans; published artifact | ⬜ **outstanding** |
-| **S2.3** | **`_LEDGER.md`** — the G1–G9 conversation findings as ledger entries (Source 5 is already folded in) | ⬜ **outstanding** |
+| S2.1 | `model_explainer.md` | ✅ |
+| S2.2 | `agent_model_proposal.html` — corrected in place, `revmark` spans, HTML validated | ✅ |
+| S2.3 | `_LEDGER.md` — **Source 6** added: 14 expert-supplied and cross-source resolutions, graded `[user]` / `[user→T]` / `[resolved]` so they are never mistaken for corpus findings | ✅ |
 
 ### Then
 User reviews the finished set -> implementation plan -> plan approved -> **only then** code.

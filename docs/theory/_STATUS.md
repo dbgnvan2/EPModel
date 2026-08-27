@@ -1,23 +1,35 @@
 # Run status — HANDOFF
 
-> ## ▶ STATE — awaiting approval
+> ## ▶ STATE — awaiting approval on the *Family Evaluation* decisions
 >
-> **The pipeline is complete.** Chapters → draft spec → revision 1 (1979 lectures) → revision 2 (Kerr–Bowen interviews). Every source has been read.
+> **Sixth corpus source complete, 2026-08-26.** Kerr & Bowen, *Family Evaluation* (1988) — 12 segments,
+> 219 findings, pass 2, folded into `_LEDGER.md` as **Source 7**. See `family_evaluation/_INDEX.md`.
+>
+> **The open item is `docs/DECISIONS — FAMILY EVALUATION.md`** — 4 contradictions with the approved
+> spec, 21 requirement candidates, 1 prohibition from Bowen. **Nothing applied.** That file is separate
+> from `DECISIONS FOR APPROVAL.md` on purpose, because you are editing that one.
+>
+> **The pipeline is complete.** Chapters → draft spec → revision 1 (1979 lectures) → revision 2 (Kerr–Bowen interviews) → revision 3 (Kerr 2019) → **the 1988 book, pending revision 4.** Every source has been read.
 >
 > | Stage | State |
 > |---|---|
 > | Book, 22 chapters, 2 passes + resolutions | complete |
 > | 1979 Basic Video Series, 6 tapes — all 23 validation items probed, Tape 6 read end to end | complete |
 > | Kerr–Bowen interviews, 15 — pass 1, pass 2 comparative, pass 3 into the ledger | complete |
+> | Kerr, *Bowen Theory's Secrets* (2019), 26 segments — 262 findings | complete |
+> | **Kerr & Bowen, *Family Evaluation* (1988), 12 segments — 219 findings** | **complete 2026-08-26** |
 > | External measures (the DSI) | recorded |
-> | Spec v2.0 — 276 IDs, 0 unresolved | **revision 2 applied; awaiting approval** |
-> | **`docs/DECISIONS FOR APPROVAL.md`** | **the open item — needs your review** |
+> | Spec v2.0 — 321 unique IDs, 0 unresolved | **approved 2026-08-25; revision 3 applied. Revision 4 blocked on the decisions below.** |
+> | **`docs/DECISIONS — FAMILY EVALUATION.md`** | **the open item — 4 contradictions, 21 candidates, nothing applied** |
+> | `docs/DECISIONS FOR APPROVAL.md` | approved 2026-08-25; propagation complete |
 > | Code | **none. Nothing until the spec and then the plan are approved.** |
 >
 > **Next after approval:** implementation plan (criteria mapped to files and order), plan approved, then Phase B.
 >
 > ### Still needing a human
-> - The **decision list** — 2 withdrawals, 1 terminology choice, 3 framing corrections, 11 new requirements, 5 open items.
+> - **`DECISIONS — FAMILY EVALUATION.md`** — 4 contradictions with the approved spec, 21 requirement candidates, 1 prohibition from Bowen.
+> - The **Ch13 re-read** on anger (`A3` in that file) — half an hour of reading, not done.
+> - ~~The **decision list**~~ *(approved 2026-08-25)* — 2 withdrawals, 1 terminology choice, 3 framing corrections, 11 new requirements, 5 open items.
 > - The **validation checklist** (`Extractions to be human validated.md`) — 23 items, of which the lectures and interviews settled or corroborated 15. **A7, C4 and B4 are single-sourced to the book and corroborated by nothing**; those most need a human eye.
 > - **Four acceptance criteria** that cannot be made code-testable in Phases B–D (`M11.E`).
 >
@@ -33,9 +45,11 @@
 | `_STATUS.md` | this file — state, decisions, order of work | current |
 | `_PASS2_CORRECTIONS.md` | 10 batches of corrections to pass 1 | audit trail — **folded into the ledger at step 3**, no longer needs reading first |
 | `_CONVERGENCES.md` | 10 cross-chapter convergences, independence audit, chronology, terminology timeline | current, corrected |
-| `_LEDGER.md` | **149** per-chapter findings + a withdrawn-ID appendix | **current — corrections folded in, self-contained.** The pass-1 version is in git history, not kept as a file. |
+| `_LEDGER.md` | **175 entries across six corpus sources** — 151 `L` (22 chapters), 24 `KS`, plus Source 6 (domain expert, `U1`–`U14`) and **Source 7 (*Family Evaluation*, `FE-A`–`FE-F`)** — and a withdrawn-ID appendix | **current — corrections folded in, self-contained.** The pass-1 version is in git history, not kept as a file. |
 | `ch01.md`–`ch22.md` | per-chapter extraction, both passes, `[p2]` marks additions | current |
 | `Extractions to be human validated.md` | the 22 extractions the model leans on hardest, with source line numbers and verdict boxes | **awaiting human validation — the open item** |
+| `family_evaluation/` | **Kerr & Bowen, *Family Evaluation* (1988)** — 12 files, 219 findings, `_FE_PASS2.md`, `_INDEX.md` | **current.** ⚠ Two authors writing **independently**: Chs 1–10 are `[K]`, the Epilogue is **`[B]`, the latest primary Bowen text in the project** |
+| `kerr_book/` | Kerr, *Bowen Theory's Secrets* (2019) — 26 files, 262 findings, `_KS_PASS2.md` | current |
 | `_KERR_INTERVIEWS.md` | Kerr–Bowen interview #1, late period — the misconceptions interview | current; rest of the series not located |
 | `_LECTURES_1979.md` | the Basic Video Series (1979) — the latest Bowen in the project — and a first adjudication pass | current; 12 of 23 items probed |
 | `_EXTERNAL_MEASURES.md` | the DSI and what it does and does not give the model | current |
@@ -254,3 +268,59 @@ User reviews the finished set -> implementation plan -> plan approved -> **only 
 - Repo: new package `src/bowen/` alongside `engine.py`; old engine and its 36 tests stay green until
   the new one passes the acceptance tests. Freeze `bowen_individual_family_model_spec.md` as a v1.2
   record; write v2 fresh.
+
+---
+
+## Family Evaluation — the sixth corpus source, 2026-08-26
+
+**Run to the same steps as the Bowen book and the 2019 book:** pass 1 per segment → pass 2 comparative
+→ pass 3 into `_LEDGER.md` → (spec revision 4, **blocked on approval**).
+
+**Pass 2 verified fifteen load-bearing quotations character-for-character** against the source files
+and **corrected six pass-1 readings** — the same shape as the 2019 book's pass 2, scope corrections
+rather than withdrawals. One was a term confusion (`FE03.2`) that would have put a symmetric invariant
+on `M1.B.8` and broken its directedness. That is what the pass is for.
+
+### What it changes
+
+**Four contradictions with the approved spec, none applied** — `_LEDGER.md` Source 7 `FE-A`:
+
+- **`M1.A.11b`** — Kerr 1988 says genes set the **specific symptom** and **learning** sets the
+  **category** (physical / emotional / social). The spec has that assignment inverted, citing 2019
+  material whose wording is ambiguous on exactly this point. **The most consequential item.**
+- **`M1.A.3`** — the transition at 50 described as an *awareness* boundary rather than a decision-scope
+  licence.
+- **`M5.D.4`** — anger called an unreliable guide, and dogmatic self-assertion negative evidence.
+  Bowen agrees independently in the same volume. Probably a mover/system distinction; **needs `L13`
+  checked against Ch13 before encoding.**
+- **`M12.2`** — a mechanism for the first of the two stated unknowns. The second gets a locus, not a
+  rule, and stands.
+
+**Twelve requirements move to written primary text**, five of them onto **Bowen's own hand** — `FE-B`.
+Nothing in the model changes; what changes is that a dozen load-bearing requirements stop depending on
+ASR transcripts the project may not quote. `M1.A.9a`, the two-axis identity definition the model is
+built on, had until now reached the project *secondhand* through Kerr in 2019 quoting himself citing
+this book. **That was the reason for the run, and the primary is stronger than the paraphrase.**
+
+**Three things settled:** explainer §13.3 (when `basic_level` is fixed — the provisional decision was
+right); the three-versus-four-sinks question, for good; and the apparent tension between `FE07.7`'s
+per-generation bound and `KS11.1`'s traversal timing, which dissolved inside the run.
+
+### Still needing a human
+
+- **`docs/DECISIONS — FAMILY EVALUATION.md`** — the 4 contradictions, 21 requirement candidates, the
+  `M12` prohibition from Bowen, and 2 proposed `M11.F` entries.
+- **The Ch13 re-read** on anger (`A3`), which is half an hour of reading and which I have not done.
+
+### Documents brought up to date
+
+| File | State |
+|---|---|
+| `_LEDGER.md` | ✅ Source 7 added; header §2 now six corpus sources |
+| `model_explainer.md` | ✅ **reworked** — six-source index, full citation legend, `[B]`/`[K]`/`[K-ext]` grades, magnitudes table, §13.3 closed, §14 now quotes Bowen's own general-systems passage |
+| `kerr_book/_INDEX.md` | ✅ queue line closed; the "source #6" numbering corrected |
+| `_SOURCE_QUALITY.md` | ✅ scope note — it analyses the **recorded** corpora only |
+| `_CONVERGENCES.md` | ✅ independence audit updated |
+| `CLAUDE.md` | ✅ where-the-theory-lives table updated |
+| `agent_model_proposal.html` | ✅ §10 note added; **needs republishing to the same URL** — see above |
+| `bowen_agent_model_spec_v2.md` | ⏸ **untouched — revision 4 is blocked on the decisions above** |

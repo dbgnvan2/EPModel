@@ -19,13 +19,23 @@ Read the relevant file from `~/.claude/standards/` before starting work:
 
 | File | What it is | Trust |
 |---|---|---|
-| `docs/theory/_LEDGER.md` | 149 findings from all 22 chapters, both passes folded in | **the source of truth for what Bowen says** |
+| `docs/theory/_LEDGER.md` | **175 entries across six corpus sources**, all passes folded in | **the source of truth for what the corpus says** |
 | `docs/theory/_CONVERGENCES.md` | ten cross-chapter convergences + independence audit | current |
-| `docs/theory/_STATUS.md` | run state, standing decisions, order of work | current |
+| `docs/theory/_STATUS.md` | run state, standing decisions, order of work | **read this first** |
+| `docs/DECISIONS — FAMILY EVALUATION.md` | 4 contradictions with the approved spec, 21 requirement candidates | **open — nothing applied** |
 | `docs/bowen_agent_model_spec_v2.md` | **the buildable contract** — 158 numbered requirements, the update order, the parameter register, 23 acceptance criteria | **v2.0-draft, awaiting approval — no code until approved** |
 | `docs/model_explainer.md` | **every part of the model** — object, field, move, gate, invariant, clock, test — what it is for, what it does, and which chapter it implements | **start here to understand the model** |
 | `docs/agent_model_proposal.html` | the architecture proposal, §10 = corpus reconciliation | current |
 | `docs/bowen_individual_family_model_spec.md` | **v1.2, FROZEN** — describes the grid engine only | historical record; do not extend |
+
+**Six corpus sources, and they are not one evidence class.** The 22 papers (1957–76, `L`); the 1979
+video lectures (`Tape N`, **ASR — no verbatim quotation**); the Kerr–Bowen interviews (`KB`, **ASR — cite
+the interview, not the man**); Kerr & Bowen, *Family Evaluation* (1988) — `FE`, written, and its
+**Epilogue is Bowen's own, the latest primary Bowen text in the project**; Kerr, *Bowen Theory's
+Secrets* (2019) — `KS`, written, some chapters `[K-ext]`; and the DSI literature. **Every claim carries
+an attribution grade as well as an evidence grade** — `[B]` Bowen, `[K]` Kerr, `[K-ext]` Kerr's own
+extension, which **must never be attributed to Bowen**. `model_explainer.md`'s citation legend has the
+full table.
 
 **Two rules that follow from the corpus and are easy to violate by accident:**
 

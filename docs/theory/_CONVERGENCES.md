@@ -36,8 +36,51 @@ family (n = 1); Ch13, Ch17, Ch18 and Ch20 carry no clinical series at all.
 
 **C5 is the casualty.** Four chapters, one setting, two case series, one of which (Ch02/Ch04) is
 double-counted — and **Ch05 states the opposite**, that the family *leaders* move first, usually the
-overadequate mother. Its own reconciliation is the thing to keep: **the leader drives the process, the
-peripheral member performs the visible position change. Two roles, not one contested slot.**
+overadequate mother.
+
+**✅ C5 better resolved, 2026-08-26.** The project's reconciliation was *two roles, not one contested
+slot* — the leader drives, the peripheral member performs the visible change. Bowen's own account is
+simpler and accommodates both observations without needing two roles:
+
+> "**a more differentiated leader began to emerge. Instead of blaming the other person, he focused on
+> himself.** … **After several weeks, the leader's wife began the same slow process** … **The
+> differentiation pattern is one in which leadership shifts back and forth, until the entire family is
+> safely out of the danger zone of undifferentiation.**" **`[B]`** `FE11.6`
+
+**It is a relay.** "Leaders first" and "peripheral member first" are one alternating process sampled
+at different moments, and neither is the rule. C5's weakness stands as an *evidential* judgement —
+four chapters, one setting — but the apparent contradiction with Ch05 is dissolved.
+
+---
+
+## ⭐ The one place this corpus has independent witnesses — added 2026-08-26
+
+Everything above is Bowen reporting his own clinical material, so the audit can only ever count
+**settings**. **One source escapes that.** Kerr & Bowen, *Family Evaluation* (1988): Bowen wrote the
+Epilogue without sight of Kerr's chapters, and says so in its opening paragraph.
+
+> "**Dr. Kerr has written a major portion of the book, without my knowledge of its content. This has
+> been purposeful.**" **`[B]`** `FE11.0`
+
+Six claims are stated **separately by both men** in that volume:
+
+| Claim | Kerr `[K]` | Bowen `[B]` | Bears on |
+|---|---|---|---|
+| Projection is **mutual**, not one-way | `FE07.4` fn 22 | `FE11.3` — "qualities are transferred in the process of **each describing the other**" | `M7.E.1c`, `M9` |
+| The general-systems objection | `FE00.1`, `FE01.14` | `FE11.2` | `M11.F.3` |
+| Three-outcome transmission | `FE04.19` | `FE11.4` | `M7.E.1a` |
+| Dogmatism is negative evidence for self | `FE04.4`, `FE06.13` | `FE11.19` | `M5.F.2a` |
+| The family is not the system's boundary | `FE10.9` | `FE11.14` | `M1.D.8`, `M2.3` |
+| Basic and functional levels separable **by intervention** | `FE04.6` | `FE11.5` | `M1.A.5` |
+
+That is not a large number, and it is **the project's first clean two-witness convergence**.
+
+**⚠ The limit, stated plainly.** Independence of *drafting* is not independence of *training*. Kerr had
+been in Bowen's programme for twenty years, and Bowen says so in the same paragraph — "**He probably
+knows more about my theoretical, therapeutic, and organizational orientation than any other person.**"
+Two observers from **one school**, writing without sight of each other. Better than co-authorship;
+weaker than two schools. Score it as **one setting, two observers** — which is still a category the
+rest of this table does not contain.
 
 ---
 

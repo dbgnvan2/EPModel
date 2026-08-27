@@ -11,7 +11,7 @@ date: 2026-08-26
 
 **The goal is that you can understand the whole model without reading the corpus.** Where a part has no basis in the corpus, this document says so in the same breath — that is the point of it.
 
-Companions: [`agent_model_proposal.html`](agent_model_proposal.html) is the architecture and the argument for it; [`theory/_LEDGER.md`](theory/_LEDGER.md) is the evidence — **175 entries drawn from six corpus sources**, plus a domain-expert block. This file is the bridge. It does not argue for the design and it does not quote the source at length; it tells you what each piece is and where it came from.
+Companions: [`agent_model_proposal.html`](agent_model_proposal.html) is the architecture and the argument for it; [`theory/_LEDGER.md`](theory/_LEDGER.md) is the evidence — **six corpus sources**, plus a domain-expert block. Its structure differs by source: the 22 papers are entered finding-by-finding (149), the later sources as consolidated entries that stand in for a fuller per-segment extraction alongside it. This file is the bridge. It does not argue for the design and it does not quote the source at length; it tells you what each piece is and where it came from.
 
 ---
 
@@ -1192,6 +1192,6 @@ Six claims are stated separately by both men in that volume: that projection is 
 
 ---
 
-*Written against `docs/theory/_LEDGER.md` — **175 entries across six corpus sources**, plus the domain-expert block. Every `[T]` and `[#]` claim traces to a named entry in the ledger or to the per-source extraction it consolidates; every `[I]` is a modelling decision with no source. If a constant in the code is presented as sourced and does not appear here, treat it as `[I]` until proven otherwise.*
+*Written against `docs/theory/_LEDGER.md` — **six corpus sources** (149 findings from the 22 papers; 24 consolidated `KS` entries; 6 `FE` sections), plus the domain-expert block. Every `[T]` and `[#]` claim traces to a named entry in the ledger or to the per-source extraction it consolidates; every `[I]` is a modelling decision with no source. If a constant in the code is presented as sourced and does not appear here, treat it as `[I]` until proven otherwise.*
 
 *⚠ **Four items from `FE` are unapplied**, pending a decision — see §15.2. Until they are settled, §3.9's account of what selects a symptom channel is provisional.*

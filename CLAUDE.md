@@ -19,7 +19,7 @@ Read the relevant file from `~/.claude/standards/` before starting work:
 
 | File | What it is | Trust |
 |---|---|---|
-| `docs/theory/_LEDGER.md` | **175 entries across six corpus sources**, all passes folded in | **the source of truth for what the corpus says** |
+| `docs/theory/_LEDGER.md` | **six corpus sources**, all passes folded in. Per-chapter findings for the 22 papers; consolidated entries for the later sources, each backed by a fuller extraction directory | **the source of truth for what the corpus says** |
 | `docs/theory/_CONVERGENCES.md` | ten cross-chapter convergences + independence audit | current |
 | `docs/theory/_STATUS.md` | run state, standing decisions, order of work | **read this first** |
 | `docs/DECISIONS — FAMILY EVALUATION.md` | 4 contradictions with the approved spec, 21 requirement candidates | **open — nothing applied** |

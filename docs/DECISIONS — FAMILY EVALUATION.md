@@ -1,7 +1,7 @@
 ---
 tags: [model-bt, decisions, family-evaluation]
-status: FOR APPROVAL — nothing applied
-date: 2026-08-26
+status: DECIDED 2026-08-27 — all nine items resolved and applied at spec revision 4
+date: 2026-08-26 · decided and applied 2026-08-27
 ---
 
 # Decisions arising from *Family Evaluation* (Kerr & Bowen, 1988)
@@ -9,7 +9,17 @@ date: 2026-08-26
 **A separate file deliberately.** `DECISIONS FOR APPROVAL.md` is yours and you are editing it; this
 one carries only what the sixth corpus source raised, so the two do not collide.
 
-**Nothing here has been applied.** The spec was approved on 2026-08-25. Three of the items below
+> ## ✅ Closed — decided 2026-08-27, applied at spec revision 4
+>
+> All nine items are resolved. `docs/bowen_agent_model_spec_v2.md` carries the changes and its own
+> revision-4 log lists them. **This file is now the record of how each was decided, not an open question.**
+>
+> **One decision changed the answer.** A3 authorised the Ch13 re-read. The reconciliation proposed
+> below — *they are about different people's anger* — **did not survive it**. Ch13's anger is the
+> **mover's**, and the chapter says the *absence* of it admits the peak. `M5.D.4` was therefore
+> **inverted** and has been corrected. See §A3 below.
+
+**Nothing here has been applied.** *(Superseded — see the box above.)* The spec was approved on 2026-08-25. Three of the items below
 change requirements the model is built on, and one closes an open contradiction.
 
 **What the run produced:** 12 segments, 219 findings, pass 2 complete, folded into `_LEDGER.md` as
@@ -56,79 +66,104 @@ those two 2019 passages in context, which is the unchecked-extraction risk `_STA
 | **(b)** 2019 revised 1988. Keep `M1.A.11b`; record `FE08.3` as superseded. | Nothing changes. But see §D — the measured direction of Kerr's drift over 31 years is *toward* wider constitutional claims, which makes a quiet revision here less likely than a scope difference. |
 | **(c)** Both hold, via `FE08.3`'s own override: "**Genetic predisposition to a disease… can be strong enough to override relationship programming.**" | `M1.A.11b` keeps constitution as the channel default and gains a relational term that can move it. Most machinery, least contradiction. |
 
-**My reading: (a) or (c).** (b) requires believing Kerr reversed himself on a mechanism he stated
-twice in one book and never flagged as revised.
+**My reading: (a) or (c).** (b) requires believing Kerr reversed himself on a mechanism he stated twice in one book and never flagged as revised.
 
 **Until this is decided, `model_explainer.md` §3.9 is marked provisional.**
 
+> ### ✅ DECISION — **(c)**. A genetic disposition can override relationship programming.
+> **Applied** as `M1.A.11c`: three terms in order — constitution sets the channel **prior**, a
+> family-focus term can **shift** it, a constitutional-strength term can **override** the shift.
+> `FE09.1`'s decomposition bounds it: only the **category** moves; the *specific symptom within a
+> channel* stays constitutional. `model_explainer.md` §3.9 is no longer provisional.
 ---
 
 ### A2 ⚠ `M1.A.3` — the transition at 50: **licence** or **awareness**?
 
 **The spec says:** exactly one behavioural transition at 50, implemented as *a licence over joint
-decisions* — below 50 the emotional system permits the intellect its own domain **except** where a
-decision affects the shared life course. Derived from Ch16, **Bowen's own**.
+decisions* — below 50 the emotional system permits the intellect its own domain **except** where a decision affects the shared life course. Derived from Ch16, **Bowen's own**.
 
 **Kerr 1988 describes the same transition differently** (`FE04.3`):
 
 > "**Above 50, the intellectual system is sufficiently developed to make a few decisions of its own.**"
-> "**A criterion for distinguishing people who are above rather than below 50 is that above 50 there is
-> more awareness of the difference between feelings and intellectual principle.**"
+> "**A criterion for distinguishing people who are above rather than below 50 is that above 50 there is > more awareness of the difference between feelings and intellectual principle.**"
 
-That maps onto `M4.D.1a`'s mixing weight — the self-directed channel opening — rather than onto a
-decision-scope licence.
+That maps onto `M4.D.1a`'s mixing weight — the self-directed channel opening — rather than onto a decision-scope licence.
 
-**Recommendation: keep both, neither overwritten.** `M1.A.3`'s licence as the behavioural
-implementation; `FE04.3`'s awareness criterion as the **readout** that distinguishes the bands. The
-index rule forbids a Kerr formulation silently overwriting a Bowen one, and `M1.A.3` was chosen
-deliberately to avoid modelling low differentiation as reduced cognitive capacity — which `FE02.16`
-independently confirms is wrong ("**the intellect operates in the service of the feeling and emotional
-process**"; low-level agents argue fluently).
+**Recommendation: keep both, neither overwritten.** `M1.A.3`'s licence as the behavioural 
+implementation; `FE04.3`'s awareness criterion as the **readout** that distinguishes the bands. The index rule forbids a Kerr formulation silently overwriting a Bowen one, and `M1.A.3` was chosen deliberately to avoid modelling low differentiation as reduced cognitive capacity — which `FE02.16`
+independently confirms is wrong ("**the intellect operates in the service of the feeling and emotional process**"; low-level agents argue fluently).
 
 **Decision needed:** accept the recommendation, or treat `FE04.3` as superseding.
+
+> ### ✅ DECISION — accept the recommendation. Keep both.
+> **Note from the project owner, and it is now normative:** *it is not about cognitive ability — it is
+> about the strength of the emotional circuits overriding the cognitive ones.*
+> **Applied** as `M1.A.3b`: `M1.A.3`'s licence stays the behavioural implementation; `FE04.3`'s
+> awareness criterion becomes the **band discriminator at readout**, over `M4.D.1a`'s mixing weight.
+> The requirement states explicitly that a low-`basic_level` agent **MUST** argue as fluently and hold
+> positions as confidently as a high one — the difference is which circuits are driving, not how good
+> the cognitive ones are.
 
 ---
 
 ### A3 ⚠ `M5.D.4` — is anger the gate, or negative evidence?
 
-**The spec says:** *"Anger **MUST** be the **gate** admitting the sequence to `PEAK`, not a fourth abort
-branch."* From Ch13.
+**The spec says:** *"Anger **MUST** be the **gate** admitting the sequence to `PEAK`, not a fourth abort branch."* From Ch13.
 
-**Kerr 1988** (`FE04.4`): "**it is not fueled by anger. Anger can sometimes be a stimulus to clarify
-one's thinking, but it is not a reliable guide for action. When someone angrily and dogmatically
-claims to be a 'self,' he is usually unsure of his position and is blaming others for his plight in
+**Kerr 1988** (`FE04.4`): "**it is not fueled by anger. Anger can sometimes be a stimulus to clarify one's thinking, but it is not a reliable guide for action. When someone angrily and dogmatically claims to be a 'self,' he is usually unsure of his position and is blaming others for his plight in
 life.**"
 
-**Bowen agrees, independently, in the same volume** (`FE11.19`): "**A dogmatic person is rarely sure of
-self.**"
+**Bowen agrees, independently, in the same volume** (`FE11.19`): "**A dogmatic person is rarely sure of self.**"
 
-**Probable resolution: they are about different people's anger.** `M5.D.4`'s gate sits in the
-*system's* reaction ladder — the opposition escalating to anger is the signal the move landed
-(`M5.E.3`). `FE04.4` is about the *mover's* state. Read that way both stand, and the model gains a
-cheap gate it lacks: **an `I-POSITION` emitted while the mover's own anger is above threshold MUST
+**Probable resolution: they are about different people's anger.** `M5.D.4`'s gate sits in the *system's* reaction ladder — the opposition escalating to anger is the signal the move landed
+(`M5.E.3`). `FE04.4` is about the *mover's* state. Read that way both stand, and the model gains a cheap gate it lacks: **an `I-POSITION` emitted while the mover's own anger is above threshold MUST
 execute as `M5.F.4`'s assertion form.**
 
 ⚠ **But this needs `L13` checked against the primary chapter before anything is encoded.** If Ch13's
-anger is the *mover's*, the two genuinely conflict and `M5.D.4` is in trouble. That check is a
-half-hour of reading Ch13 and I have not done it.
+anger is the *mover's*, the two genuinely conflict and `M5.D.4` is in trouble. That check is a half-hour of reading Ch13 and I have not done it.
 
 **Decision needed:** authorise the Ch13 re-read, or accept the reconciliation on its face.
 
+> ### ✅ DECISION — re-read Ch13. **Done 2026-08-27, and it changed the answer.**
+>
+> **The reconciliation above does not hold.** It supposed that `M5.D.4`'s anger was the *system's* and
+> `FE04.4`'s the *mover's*. Ch13 mentions anger **exactly once**, and it is the mover's:
+>
+> > "When he is finally able to maintain his course **without getting angry at the opposition**, the
+> > opposition does a final intense emotional attack. If he remains calm with this, the opposition
+> > becomes calm and pulls up to his level of individuality."
+>
+> Verified character-for-character against the primary chapter. (Five apparent further hits on
+> `anger|angry|rage` are substring matches inside *average*, *encourages* and *courageous*.)
+>
+> **So `M5.D.4` was inverted.** The gate is the mover's **freedom from** anger, not anger. The spec
+> said the opposite. `docs/theory/ch13.md` had it right in its body — "anger-free holding gates entry
+> to the peak" — but carried a lossy heading, "Anger gates the escalation", and that heading is what
+> reached the spec. The heading is now corrected in place with a note saying why.
+>
+> **The outcome is better than the reconciliation would have been.** Ch13 (Bowen, 1970s), `FE04.4`
+> (Kerr, 1988) and `FE11.19` (Bowen, 1988) are all about the **mover's** anger and all say the same
+> thing. Three statements, two authors, two decades, one rule — and `FE11.19` is an independent
+> witness under the Epilogue rule.
+>
+> **Applied** as the corrected `M5.D.4`, the new `M5.D.4a`, and the acceptance criterion `M11.C.32`.
+>
+> **Note from the project owner, folded into `M5.D.4a`:** *anger represents a level of intensity of
+> negative energy; what I do with it reflects level of differentiation — do I notice it, manage it,
+> learn from it, or do I reactively get defensive and do something unproductive.* The requirement now
+> states that anger is **not a state** (M1.A.0 still binds) but an intensity on the negative side of
+> the appraisal, whose **handling** is the readout — and that M5.D.3's abort branches are what
+> discharging it looks like.
 ---
 
 ### A4 `M12.2` — one of the two stated unknowns now has a mechanism
 
-**The spec says:** two things Bowen states he does not know **MUST** be labelled `[I]` wherever the
-model decides them — (i) what determines whether a problem stays in the spouse dyad or transmits to a
-child, and (ii) what selects which spouse takes the dominant pole at identical levels.
+**The spec says:** two things Bowen states he does not know **MUST** be labelled `[I]` wherever the model decides them — (i) what determines whether a problem stays in the spouse dyad or transmits to a child, and (ii) what selects which spouse takes the dominant pole at identical levels.
 
-**For (i), Kerr 1988 gives a mechanism** (`FE07.3`): the parents' **emotional complementarity**, formed
-in their families of origin and exaggerated by anxiety. "**The nature of these exaggerated elements
-determines whether the problem emerges as marital conflict, spouse dysfunction, or child
+**For (i), Kerr 1988 gives a mechanism** (`FE07.3`): the parents' **emotional complementarity**, formed in their families of origin and exaggerated by anxiety. "**The nature of these exaggerated elements determines whether the problem emerges as marital conflict, spouse dysfunction, or child
 dysfunction.**"
 
-**For (ii) he gives only a locus, not a rule** — "by mutual agreement, the product of the emotional
-fit." *(Pass 1 claimed he answered both; corrected at `_FE_PASS2.md` §3.1.)*
+**For (ii) he gives only a locus, not a rule** — "by mutual agreement, the product of the emotional fit." *(Pass 1 claimed he answered both; corrected at `_FE_PASS2.md` §3.1.)*
 
 | Option | |
 |---|---|
@@ -137,14 +172,17 @@ fit." *(Pass 1 claimed he answered both; corrected at `_FE_PASS2.md` §3.1.)*
 
 **(ii) stands either way.**
 
-**And one part applies regardless and is not contested.** `FE07.3`: "**males and females assume the
-dominant position with equal frequency.**" That is a hard constraint the spec does not state and a
-natural implementation could easily violate — any asymmetry in the pole-assignment rule would show up
-as a sex effect across an ensemble.
+**And one part applies regardless and is not contested.** `FE07.3`: "**males and females assume the dominant position with equal frequency.**" That is a hard constraint the spec does not state and a
+natural implementation could easily violate — any asymmetry in the pole-assignment rule would show up as a sex effect across an ensemble.
 
-> **Proposed, uncontested:** `M2.A` gains a requirement that pole assignment be **independent of sex**,
-> assertable over an ensemble.
+> **Proposed, uncontested:** `M2.A` gains a requirement that pole assignment be **independent of sex**, assertable over an ensemble.
 
+> ### ✅ DECISION — (i): **(b)**, locus only. `M12.2` stands in full. Tail: **agreed**.
+> `FE07.3` names *where* the answer lives without saying what it is, and its own hedge is "determined
+> **largely by**", so the sink allocation stays `[I]`. Recorded as `M12.2a`. What does follow is
+> `M9.6`: the allocation is **identifiable** from the belief configuration — a readout, not a
+> determinant — with `M11.C.26` asserting it in both directions.
+> The sex-independence requirement is applied as `M2.A.0g`, with `M11.C.25` as its ensemble test.
 ---
 
 ## B. What settles without a decision — **for information**
@@ -193,12 +231,23 @@ Full list at `_LEDGER.md` Source 7, `FE-C` and `FE-D`. The ten that change a mec
 > "**there is no such thing as one person taking action against another. The issue of 'power' or
 > 'punishing' another person does not apply with the concept of differentiation of self.**"
 
-> **Proposed `M12` entry:** `power` and `punishment` **MUST NOT** exist as mechanisms; no move may be
-> represented as one agent acting *against* another. This matters — `M1.B.5`'s dominant pole,
+> **Proposed `M12` entry:** `power` and `punishment` **MUST NOT** exist as mechanisms; no move may be represented as one agent acting *against* another. This matters — `M1.B.5`'s dominant pole,
 > `M5.E.1`'s consequence rung and `M8.6`'s alignment penalty could each be implemented adversarially,
 > and nothing currently forbids it. It is the only `M12` entry stated as a prohibition **by the
 > author** rather than inferred by the project.
 
+> ### ✅ DECISION — **apply all 21**, and adopt the `M12` prohibition.
+> Read as covering both tiers of §C: the ten mechanism candidates in `_LEDGER.md` `FE-C` and the
+> readout and criterion candidates in `FE-D`. Applied as:
+> `M9.6`, `M9.7`, `M4.D.6e`, `M4.A.5`, `M7.D.2c`, `M7.D.2d`, `M4.C.8a`, `M5.D.2a`, `M1.F.9`,
+> `M4.D.5d`, `M7.E.4`, `M1.E.8`, `M11.3`, `M11.G.1`–`M11.G.4`, and amendments to `M7.D.2a`,
+> `M11.C.3`, `M11.C.17` and `M11.C.22`. New acceptance criteria `M11.C.25`–`M11.C.33`.
+> **The prohibition is `M12.5`** — the only `M12` entry stated by the author rather than inferred by
+> the project. It binds `M1.B.5`, `M5.E.1` and `M8.6`, each of which could have been implemented
+> adversarially and none of which was previously forbidden from it.
+> `FE-D`'s twelve stated magnitudes are admitted as `M10.C.4` — **checks on an output, never
+> parameters** — and `M10.C.3` gains `M10.C.3a` to say that its prohibition is on the *parameter*,
+> not on the quantity.
 ---
 
 ## D. Two things worth knowing about the source
@@ -222,19 +271,18 @@ of *drafting*, not of *training*.
 
 ## E. Not to be implemented — **for the record**
 
-- **`FE07.21` — the trauma claim.** "the child's life course is more influenced by the lack of emotional
-  separation… **than by the abuse itself**"; "events are not the process". A 1988 clinical position with
-  no series, no comparison group and no measurement, on a question where the wider evidence base has
-  moved considerably. Nothing in the model requires it. **Proposed `M11.F` entry: no output may be
-  presented as adjudicating discrete traumatic events against ongoing relational process** — the model
-  does not distinguish them and must not be read as having an opinion.
-- **`FE09.16`** — LeShan's reported **50% cure rate** in "medically hopeless" cancer patients (1977), at
-  face value, uncontrolled. `[X]`, excluded. Also evidence that the widening in §D was underway in 1988.
-- **`FE08.17` / `FE02.19`** — the unidisease, and the claim that the emotional system sits "at a level
-  probably more basic than genes". `[K-ext]`, `[X]`. `M11.F.4` unaffected and better supported.
-- **`FE10.17`'s societal symptom list** — "an incessant clamor for '**rights**'" is a 1988 editorial
-  judgement, not an observation. `M1.D.7`'s readouts **MUST NOT** inherit it; a readout that scores
-  rights claims as regression is one-sided by construction and fails `M11.F.6`.
+- **`FE07.21` — the trauma claim.** "the child's life course is more influenced by the lack of emotional separation… **than by the abuse itself**"; "events are not the process". A 1988 clinical position with
+  no series, no comparison group and no measurement, on a question where the wider evidence base has moved considerably. Nothing in the model requires it. 
+  **Proposed `M11.F` entry: no output may be presented as adjudicating discrete traumatic events against ongoing relational process** — the model does not distinguish them and must not be read as having an opinion.
+- **`FE09.16`** — LeShan's reported **50% cure rate** in "medically hopeless" cancer patients (1977), at face value, uncontrolled. `[X]`, excluded. Also evidence that the widening in §D was underway in 1988.
+- **`FE08.17` / `FE02.19`** — the unidisease, and the claim that the emotional system sits "at a level probably more basic than genes". `[K-ext]`, `[X]`. `M11.F.4` unaffected and better supported.
+- **`FE10.17`'s societal symptom list** — "an incessant clamor for '**rights**'" is a 1988 editorial judgement, not an observation. `M1.D.7`'s readouts **MUST NOT** inherit it; a readout that scores rights claims as regression is one-sided by construction and fails `M11.F.6`.
+
+> ### ✅ DECISION — adopt both.
+> `M11.F.7`: no output may be presented as adjudicating discrete traumatic events against ongoing
+> relational process. `M11.F.8`: `M1.D.7`'s societal readouts must not inherit the 1988 symptom list,
+> and specifically must not score claims of **rights** as regression. `FE09.16`, `FE08.17` and
+> `FE02.19` remain `[X]` and excluded.
 
 ---
 
@@ -252,6 +300,22 @@ of *drafting*, not of *training*.
 | 8 | **B1 tail** — extend `M1.A.15`'s dependence gate to basic-level change? | spec change |
 | 9 | **E** — adopt the two proposed `M11.F` entries? | framing |
 
-**Nothing is applied until you say so.** The extraction, the comparative pass and the ledger fold are
-complete and committed; `model_explainer.md` carries only the two items in §B marked *applied*, both
-of which close things rather than change them.
+**Nothing is applied until you say so.** *(Superseded 2026-08-27 — all nine are decided and applied.)*
+
+## Outcome — all nine, 2026-08-27
+
+| # | Item | Decision | Applied as |
+|---|---|---|---|
+| 1 | **A1** — learning or constitution? | **(c)** — both, with an override | `M1.A.11c` |
+| 2 | **A2** — `M1.A.3` keep both or supersede? | **keep both** | `M1.A.3b` |
+| 3 | **A3** — Ch13 re-read or accept? | **re-read** → the reconciliation failed; `M5.D.4` was **inverted** | `M5.D.4`, `M5.D.4a`, `M11.C.32` |
+| 4 | **A4** — does `M12.2`'s first unknown have a mechanism? | **(b)** — locus only; `M12.2` stands | `M12.2a`, `M9.6` |
+| 5 | **A4 tail** — sex independence | **agreed** | `M2.A.0g`, `M11.C.25` |
+| 6 | **C1–C10 + `M12`** | **apply all** | 10 requirements + `M12.5` |
+| 7 | **C tier 2** — readouts and criteria | **apply all** | `M11.3`, `M11.G`, `M1.E.8`, `M7.E.4`, 4 amendments |
+| 8 | **B1 tail** — extend the dependence gate | **yes** | `M7.A.1a`, `M11.C.33` |
+| 9 | **E** — the two `M11.F` entries | **adopt both** | `M11.F.7`, `M11.F.8` |
+
+**Two IDs I had to move.** `M1.A.3a` and `M7.E.1` were already taken; the new requirements are
+`M1.A.3b` and `M7.E.4`. IDs are stable and are not renumbered, so the new arrival moves, not the
+incumbent.

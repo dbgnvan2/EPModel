@@ -1,15 +1,23 @@
 # Run status — HANDOFF
 
-> ## ▶ STATE — awaiting approval on the *Family Evaluation* decisions
+> ## ▶ STATE — the corpus is closed and the spec is current. **Next is the implementation plan.**
 >
 > **Sixth corpus source complete, 2026-08-26.** Kerr & Bowen, *Family Evaluation* (1988) — 12 segments,
 > 219 findings, pass 2, folded into `_LEDGER.md` as **Source 7**. See `family_evaluation/_INDEX.md`.
 >
-> **The open item is `docs/DECISIONS — FAMILY EVALUATION.md`** — 4 contradictions with the approved
-> spec, 21 requirement candidates, 1 prohibition from Bowen. **Nothing applied.** That file is separate
-> from `DECISIONS FOR APPROVAL.md` on purpose, because you are editing that one.
+> **Its decisions were taken on 2026-08-27 and spec revision 4 is applied.** All nine items in
+> `docs/DECISIONS — FAMILY EVALUATION.md` are resolved; that file is now the record of how each was
+> decided, not an open question.
 >
-> **The pipeline is complete.** Chapters → draft spec → revision 1 (1979 lectures) → revision 2 (Kerr–Bowen interviews) → revision 3 (Kerr 2019) → **the 1988 book, pending revision 4.** Every source has been read.
+> ⚠ **One of them was a real defect, not a refinement.** `M5.D.4` said *anger* is the gate admitting the
+> `I-POSITION` sequence to its peak. Ch13 says the opposite — the mover's **freedom from** anger is the
+> gate — and the chapter mentions anger exactly once. The extraction's body had it right; a lossy
+> **heading** in `ch13.md` ("Anger gates the escalation") is what reached the spec. Heading corrected in
+> place, spec corrected, `M11.C.32` added. **The reusable lesson: a summary heading is a lossy artifact,
+> and a requirement sourced from one rather than from the quoted sentence beneath it can invert without
+> anything looking wrong.**
+>
+> **The pipeline is complete.** Chapters → draft spec → revision 1 (1979 lectures) → revision 2 (Kerr–Bowen interviews) → revision 3 (Kerr 2019) → **revision 4 (the 1988 book), applied 2026-08-27.** Every source has been read and every source has been folded in.
 >
 > | Stage | State |
 > |---|---|
@@ -19,16 +27,16 @@
 > | Kerr, *Bowen Theory's Secrets* (2019), 26 segments — 262 findings | complete |
 > | **Kerr & Bowen, *Family Evaluation* (1988), 12 segments — 219 findings** | **complete 2026-08-26** |
 > | External measures (the DSI) | recorded |
-> | Spec v2.0 — 321 unique IDs, 0 unresolved | **approved 2026-08-25; revision 3 applied. Revision 4 blocked on the decisions below.** |
-> | **`docs/DECISIONS — FAMILY EVALUATION.md`** | **the open item — 4 contradictions, 21 candidates, nothing applied** |
+> | Spec v2.0 — **355 unique IDs, 0 unresolved, 0 dangling references** | **approved 2026-08-25; revisions 1–4 applied.** Revision 4 landed 2026-08-27 |
+> | **`docs/DECISIONS — FAMILY EVALUATION.md`** | ✅ **closed 2026-08-27** — all nine items decided and applied |
 > | `docs/DECISIONS FOR APPROVAL.md` | approved 2026-08-25; propagation complete |
 > | Code | **none. Nothing until the spec and then the plan are approved.** |
 >
-> **Next after approval:** implementation plan (criteria mapped to files and order), plan approved, then Phase B.
+> **Next:** the implementation plan — acceptance criteria mapped to files, modules and order; plan approved; then Phase B. **No code before that.**
 >
 > ### Still needing a human
-> - **`DECISIONS — FAMILY EVALUATION.md`** — 4 contradictions with the approved spec, 21 requirement candidates, 1 prohibition from Bowen.
-> - The **Ch13 re-read** on anger (`A3` in that file) — half an hour of reading, not done.
+> - ~~**`DECISIONS — FAMILY EVALUATION.md`**~~ *(decided and applied 2026-08-27 — all nine items)*
+> - ~~The **Ch13 re-read** on anger~~ *(done 2026-08-27; it inverted `M5.D.4` — see above)*
 > - ~~The **decision list**~~ *(approved 2026-08-25)* — 2 withdrawals, 1 terminology choice, 3 framing corrections, 11 new requirements, 5 open items.
 > - The **validation checklist** (`Extractions to be human validated.md`) — 23 items, of which the lectures and interviews settled or corroborated 15. **A7, C4 and B4 are single-sourced to the book and corroborated by nothing**; those most need a human eye.
 > - **Four acceptance criteria** that cannot be made code-testable in Phases B–D (`M11.E`).
@@ -232,11 +240,12 @@ that file; do not edit it without asking.
 
 ### Step 2 — propagation **COMPLETE**
 
-**Decision document APPROVED 2026-08-25. All sixteen propagation items are applied.** Spec at
-**321 unique IDs**, 0 duplicates, 0 unresolved, 355 MUST / 100 MUST NOT. Explainer, published proposal and
-ledger all agree with it; every spec cross-reference in both documents resolves; 37 tests green.
+**Decision document APPROVED 2026-08-25. All sixteen propagation items are applied.** That left the
+spec at 321 unique IDs. **Revision 4 (2026-08-27) took it to 355 unique IDs**, 0 duplicates, 0 unresolved,
+**0 dangling cross-references** (every `M…` reference resolves to a defined requirement, checked by script).
+33 acceptance criteria in `M11.C`. Explainer, published proposal and ledger all agree with it; 37 tests green.
 
-**The document set is consistent. The next step is the implementation plan.**
+**The document set is consistent as of 2026-08-27, spec revision 4. The next step is the implementation plan.**
 
 | # | Item | State |
 |---|---|---|
@@ -274,7 +283,7 @@ User reviews the finished set -> implementation plan -> plan approved -> **only 
 ## Family Evaluation — the sixth corpus source, 2026-08-26
 
 **Run to the same steps as the Bowen book and the 2019 book:** pass 1 per segment → pass 2 comparative
-→ pass 3 into `_LEDGER.md` → (spec revision 4, **blocked on approval**).
+→ pass 3 into `_LEDGER.md` → **spec revision 4, applied 2026-08-27**.
 
 **Pass 2 verified fifteen load-bearing quotations character-for-character** against the source files
 and **corrected six pass-1 readings** — the same shape as the 2019 book's pass 2, scope corrections
@@ -308,9 +317,11 @@ per-generation bound and `KS11.1`'s traversal timing, which dissolved inside the
 
 ### Still needing a human
 
-- **`docs/DECISIONS — FAMILY EVALUATION.md`** — the 4 contradictions, 21 requirement candidates, the
-  `M12` prohibition from Bowen, and 2 proposed `M11.F` entries.
-- **The Ch13 re-read** on anger (`A3`), which is half an hour of reading and which I have not done.
+- ~~**`docs/DECISIONS — FAMILY EVALUATION.md`**~~ — ✅ **closed 2026-08-27.** All nine items decided;
+  the 4 contradictions, 21 requirement candidates, the `M12` prohibition and both `M11.F` entries are
+  applied at spec revision 4.
+- ~~**The Ch13 re-read** on anger (`A3`)~~ — ✅ **done 2026-08-27**, and it changed the answer: the
+  proposed reconciliation failed and `M5.D.4` turned out to be **inverted**. Corrected.
 
 ### Documents brought up to date
 
@@ -323,4 +334,4 @@ per-generation bound and `KS11.1`'s traversal timing, which dissolved inside the
 | `_CONVERGENCES.md` | ✅ independence audit updated |
 | `CLAUDE.md` | ✅ where-the-theory-lives table updated |
 | `agent_model_proposal.html` | ✅ §10 note added; **needs republishing to the same URL** — see above |
-| `bowen_agent_model_spec_v2.md` | ⏸ **untouched — revision 4 is blocked on the decisions above** |
+| `bowen_agent_model_spec_v2.md` | ✅ **revision 4 applied 2026-08-27** — 355 IDs, one correction (`M5.D.4`), three amendments, ~20 new requirements, 9 new acceptance criteria (`M11.C.25`–`M11.C.33`), a readout schema (`M11.G`) and two new prohibitions |

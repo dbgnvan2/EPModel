@@ -1,8 +1,8 @@
 ---
 tags: [model-bt, explainer]
 status: current
-version: 1.2
-date: 2026-08-26
+version: 1.3
+date: 2026-08-27
 ---
 
 # The model, part by part
@@ -315,7 +315,15 @@ That is the fixture test 15 needs: two counterfeits at **equal magnitude of the 
 
 **A second axis crosses the three:** physical and mental **internalise**; social **externalises**. That is what makes "curing the symptom raises conflict" and its inverse — depression lifting as a couple starts fighting — the same mechanism rather than two. `M1.A.11a`, `KS10.5`
 
-**Which channel is exogenous.** Constitution sets the **channel**; level sets the **amplitude and sign**. The model never derives symptom *type* from relational position — "*genes would be seen as perhaps having a role in **whether** the chronic anxiety plays out as schizophrenia rather than some other clinical dysfunction*", and "*certain predispositions can become **assets or liabilities**, depending on the degree of family anxiety*." `M1.A.11b`
+**The three channels also protect one another.** They are not just substitutable at the point of onset: **occupancy of one lowers the hazard on the other two** — reciprocal functioning inside a single person, the same shape §4 gives a dyad. So a person already carrying one symptom is protected against a second, which is why channel-switching shows up as an *event* rather than as accumulation. `[T]` `FE01.6`, `FE05.8`; `M7.D.2c`
+
+**Which channel is exogenous.** ✅ **Settled 2026-08-27; this paragraph was provisional and is now decided.** Constitution sets the **channel prior**; level sets the **amplitude and sign** — "*genes would be seen as perhaps having a role in **whether** the chronic anxiety plays out as schizophrenia rather than some other clinical dysfunction*", and "*certain predispositions can become **assets or liabilities**, depending on the degree of family anxiety*." `M1.A.11b`
+
+**But the prior moves, and Kerr 1988 says so plainly.** "*Genes are an important influence on the type of symptom that develops, but **learning based on childhood experience appears to be the most important influence on the category of clinical dysfunction (physical, emotional, social) that develops**.*" `[K]` `FE08.3`. He names the relational determinant too: the category tracks "*what others in the system focus on in that individual when they get anxious*" — which is a **belief** quantity, and therefore §9.5's layer (`M9`).
+
+**Three terms, in this order.** The constitutional assignment is the **prior**; a **family-focus term** can shift the expressed channel away from it; and a **constitutional-strength term** can override the shift — the override is Kerr's own: "*Genetic predisposition to a disease… can be **strong enough to override relationship programming**.*" A model in which the channel is purely constitutional, or purely relational, is wrong in both directions. `M1.A.11c`
+
+**And the limit on it.** `FE09.1` decomposes the whole thing — **constellation → ripeness; learning → category; constitution → specific symptom**. So only the **category** moves. The *specific symptom within a channel* stays constitutional and the relational term does not touch it: the family's focus can make a person a physical carrier, but not give them one disease rather than another.
 
 **Source:** `[T]` Ch07 · L07.2 — the habitual giver-in reaches "no-self" and is incapacitated by one of the three; the chronic illness "seems to absorb the ego deficit between them". `[T]` Ch08 · L08.3 — the three present interchangeably.
 
@@ -324,6 +332,8 @@ That is the fixture test 15 needs: two counterfeits at **equal magnitude of the 
 > ⚠ **And the system locks in around it.** Once a member carries the load, **family anxiety falls**, producing a stable configuration that **resists the symptom's removal**: "*a family can stabilize somewhat around the presence of a symptom, **which fosters it becoming chronic**.*" `M7.D.2a`, `KS23.1`
 >
 > **That one requirement produces three observed behaviours as consequences** — chronicity with no pathology anywhere; relapse when a symptom is cured without changing the deficit; and family **relief** when the symptomatic member is removed. Removal therefore has **opposite-signed** effects on different members, keyed to position: when Gary Gilmore went to reform school family tension dropped and **only his mother** wanted him back. `M7.D.2b`
+>
+> ⚠ **The lock-in curve turns over, and this amends the above.** As stated, the stabilising effect grows without limit, so a severe enough symptom would be maximally stabilising. Three independent statements say otherwise: past a severity threshold the symptom **destabilises** the very configuration it was holding up, and removal then brings relief rather than resistance. **That is what reconciles resistance-to-removal with relief-on-removal** — they are the same curve on either side of the turn, not two mechanisms. `[T]` `FE03.9`, `FE07.15`; `M7.D.2d`. Test 22 must assert **both limbs**; a test written only on the rising limb passes a monotone implementation.
 
 ### 3.10 `structural_importance`
 
@@ -549,12 +559,14 @@ At low level a person is nearly all automatic; as level rises a real self-direct
 1. **Define self.**
 2. **Immediate opposition** — "selfish and mean and does not love the others."
 3. **Abort branches — defend, counterattack, go silent.** These sit at the *first* opposition and are the **usual** response, not the exception. Each returns the mover to the prior balance.
-4. **Hold course.** **Anger is the gate**, not a fourth branch: "when he is finally able to maintain his course without getting angry… the opposition does a final intense emotional attack."
+4. **Hold course.** ⚠ **Corrected 2026-08-27 — this step was stated backwards here and in the spec.** The gate is the mover's **freedom from** anger: "when he is finally able to maintain his course **without getting angry** at the opposition… the opposition does a final intense emotional attack." An angry mover **does not reach the peak at all** — the sequence stalls quietly rather than aborting loudly, which is a different failure from step 3's. Ch13 mentions anger exactly once and it is the mover's; Kerr 1988 (`FE04.4`) and Bowen 1988 (`FE11.19`) say the same about the same person's anger. **Anger is negative evidence for a differentiated move, never a gate admitting one.** → spec `M5.D.4`, `M5.D.4a`
 5. **The peak** — a final intense emotional attack.
 6. **If the mover stays calm:** "the opposition becomes calm and **pulls up to his level** of individuality," and then "another, and another will do the same."
 7. **Mandatory follow-up the next day** — "this is the point where the feeling system dictates withdrawal, which will result in the system 'tightening up' again." **Skipping it reverts the gain.**
 
-**Source:** `[M]` Ch13 · L13.3 for the sequence; `[T]` Ch21 · L21.4 for the follow-up and the timings. **Success usually follows several failures.**
+**Source:** `[M]` Ch13 · L13.3 for the sequence; `[T]` Ch21 · L21.4 for the follow-up and the timings; `[T]` `FE11.9` for the `PREPARE` phase that now precedes step 1 — Bowen's own February 1967 trip ran **months of planning** and **one private letter per important triangle**, timed "**to cause the triangles to come to me**". **Success usually follows several failures.**
+
+> **What anger is, in this model.** Not a state — §3 forbids feeling-states as fields. It is an **intensity on the negative side of the appraisal**, and what the person *does* with it is the differentiation readout: noticed, managed and learned from, or discharged reactively. Step 3's abort branches are what discharging it looks like. *(Project owner, 2026-08-27; folded into `M5.D.4a`.)*
 
 ### 5.5 The reaction ladder
 
@@ -1023,7 +1035,7 @@ Ch21 contradicts *itself* here — the freeze claim and a "basic increase… whi
 
 > "**Basic level is fairly well established by the time a child reaches adolescence and usually remains fixed for life, although unusual life experiences or a structured effort to increase basic level at a point later in life can lead to some change in it. Clinical experience suggests that a person must be self-sustaining and living independently of his family of origin to be successful at modifying his basic level of differentiation in relationship to the family.**" `[K]` `FE04.9`
 
-That is exactly the shape the project had provisionally chosen — **established by adolescence, usually fixed, changeable by structured effort** — so the decision below stands and is no longer a judgement over a disagreement. It also adds a precondition the model had too narrowly: *self-sustaining independence* gates **basic-level change itself**, not only the `I-POSITION` move (§3.12).
+That is exactly the shape the project had provisionally chosen — **established by adolescence, usually fixed, changeable by structured effort** — so the decision below stands and is no longer a judgement over a disagreement. It also adds a precondition the model had too narrowly: *self-sustaining independence* gates **basic-level change itself**, not only the `I-POSITION` move (§3.12). ✅ **Applied 2026-08-27** as `M7.A.1a`: `basic_level` cannot rise on the slow tick while the agent is financially dependent, however many exchanges completed. Without it an agent could ratchet upward while still inside the exact condition under which the change-back reaction's third rung has teeth — which would have made the fast-clock gate cosmetic.
 
 **The decision, unchanged:** Ch21's freeze-at-marriage is **outvoted by three chapters, two of them later**, and Ch16 explicitly restores slow movement ("it is possible to make slow changes"). So `basic_level` moves — but ⚠ **not by a ratchet.** It is **derived**, an estimator over sustained, broad, load-tested `functional_level` history (§3.2a), with a **capacity floor at 25** below which it cannot rise at all. The fast quantity is the **swing** term inside `functional_level`. Do not implement it as frozen, and do not implement it as incremented. This is a modelling decision over a genuine disagreement, not a resolution of it.
 
@@ -1106,7 +1118,16 @@ The model was built against Bowen's 22 papers and then checked against five furt
 
 It also **settled §13.3** (see above), retired the three-versus-four-sinks question for good (§7 I2), and supplied the magnitudes in 15.3.
 
-⚠ **And it raised four items that the approved spec does not currently match.** They are recorded in `theory/family_evaluation/_FE_PASS2.md` §1 and in `theory/_LEDGER.md` Source 7 `FE-A`, and **none has been applied here** — the most consequential is that Kerr 1988 assigns the *category* of dysfunction (physical / emotional / social) to **learning**, where this document and the spec assign it to constitution (§3.9). Until that is decided, §3.9's channel account should be read as provisional.
+✅ **It raised four items the approved spec did not match. All four are now decided and applied** — `docs/DECISIONS — FAMILY EVALUATION.md`, decided 2026-08-27, spec revision 4.
+
+| Item | Decided | Where it landed |
+|---|---|---|
+| **Learning or constitution selects the symptom category** | **both, with an override.** Constitution sets the channel **prior**; a family-focus term can shift it; a constitutional-strength term can override the shift — "**Genetic predisposition to a disease… can be strong enough to override relationship programming**" (`FE08.3`). `FE09.1` bounds it: only the *category* moves, the *specific symptom within a channel* stays constitutional | spec `M1.A.11c`; §3.9 below, **no longer provisional** |
+| **The transition at 50 — licence or awareness** | **both.** The licence stays the behavioural implementation; `FE04.3`'s awareness criterion becomes the band **discriminator at readout**. Neither is reduced cognitive capacity — what differs is the strength of the emotional circuits over the cognitive ones, and a low-level agent argues just as fluently (`FE02.16`) | spec `M1.A.3b` |
+| **Anger as the gate** | **the spec was inverted.** A re-read of Ch13 settled it: the gate is the mover's *freedom from* anger. Corrected here at §5.4 and in the spec | spec `M5.D.4`, `M5.D.4a` |
+| **A mechanism for `M12.2`'s first unknown** | **no.** `FE07.3` names the **locus**, not the rule — its own hedge is "determined **largely by**" — so the sink allocation stays `[I]`. What does follow is that the allocation is *identifiable* from the belief configuration, which is a readout | spec `M12.2a`, `M9.6` |
+
+**And twenty-odd new requirements came with them**, the largest being that the **belief layer becomes a channel** rather than a parallel store: chronic anxiety runs on *what might be*, and Bowen's own correction of his term has the transfer running **through descriptions** — so `M9` is what the projection process operates *on*. See the spec's revision-4 log.
 
 ### 15.3 Magnitudes the corpus supplies  `[#]`
 
@@ -1142,7 +1163,7 @@ The corpus almost never gives numbers, so the ones it does give are listed toget
 | 10 | 1971 | **two outcome axes**; the **per-person life-energy budget**; the neutral third *is* the intervention; no exit from the field; differentiation transfers between systems; the taboo set; institutional acts write beliefs with hysteresis; the **fifth scale band**; **financial dependence as a hard gate** |
 | 11 | 1971a | the displacement sequence; **an open channel works without being used**; more contact ≠ more change; design constants; topology beats insight, second instance |
 | 12 | 1974 | signed equal-magnitude transfer, hardening with duration, asymmetric to reverse; the **conflict spike** on recovery; a single non-symptomatic node can control the system; the **closeness ceiling** as a two-sided band |
-| 13 | 1974a | society as a **symptom-threshold shift**; the conditional togetherness ratchet with a hard individuality cap; the **differentiation state machine** with anger as the gate; the **counterfeit move** |
+| 13 | 1974a | society as a **symptom-threshold shift**; the conditional togetherness ratchet with a hard individuality cap; the **differentiation state machine**, whose gate is *freedom from* anger (corrected 2026-08-27); the **counterfeit move** |
 | 14 | 1975 | routing gain; satisfaction diverging from structural change; the extended family as the site of work — **and seven contradictions with his own earlier text, which is why it is cited last** |
 | 15 | 1976 | integration inverts the **overt** response; multi-hop propagation through asymptomatic carriers; **three tiers** of structural importance; **no anniversary effect** |
 | 16 | 1976 | **the scale** — the only source for the numbers; three sinks with distance outside the budget; **pseudo-self** as the conserved quantity, solid self exempt; the generational update rule and the cutoff feedback loop; overt emotionality **peaks in the middle** |
@@ -1194,4 +1215,4 @@ Six claims are stated separately by both men in that volume: that projection is 
 
 *Written against `docs/theory/_LEDGER.md` — **six corpus sources** (149 findings from the 22 papers; 24 consolidated `KS` entries; 6 `FE` sections), plus the domain-expert block. Every `[T]` and `[#]` claim traces to a named entry in the ledger or to the per-source extraction it consolidates; every `[I]` is a modelling decision with no source. If a constant in the code is presented as sourced and does not appear here, treat it as `[I]` until proven otherwise.*
 
-*⚠ **Four items from `FE` are unapplied**, pending a decision — see §15.2. Until they are settled, §3.9's account of what selects a symptom channel is provisional.*
+*✅ **All four `FE` items are decided and applied** at spec revision 4, 2026-08-27 — see §15.2. §3.9's account of what selects a symptom channel is no longer provisional: constitution sets the channel prior, a family-focus term can move it, and a constitutional-strength term can override that move.*

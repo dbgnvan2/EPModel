@@ -1,8 +1,8 @@
 ---
 tags: [model-bt, spec]
-version: 2.0-draft
+version: 2.0-draft, revision 4
 status: FOR APPROVAL — no code until approved
-date: 2026-08-22
+date: 2026-08-27
 supersedes: bowen_individual_family_model_spec.md (v1.2, frozen)
 ---
 
@@ -77,6 +77,9 @@ Therefore:
 **M1.A.2** `basic_level` **MUST** be on a 0–100 scale. The implementation **MUST NOT** clip to `[10, 80]`, and **MUST NOT** apply a linear transform in place of the one behavioural transition. → §3.1
 
 **M1.A.3** There **MUST** be exactly one behavioural transition on `basic_level`, at 50, and it **MUST** be implemented as a *licence over joint decisions* — below 50 the emotional system permits the intellect its own domain **except** where a decision affects the shared life course — not as a general suppression of intellect. → §3.1
+
+**M1.A.3b** — *the transition's **readout** is awareness; its **implementation** stays the licence.* Kerr 1988 describes the same transition differently: "**Above 50, the intellectual system is sufficiently developed to make a few decisions of its own**"; "**A criterion for distinguishing people who are above rather than below 50 is that above 50 there is more awareness of the difference between feelings and intellectual principle.**" That is a **band discriminator**, and it **MUST** be implemented as one — a readout over M4.D.1a's mixing weight — and **MUST NOT** be implemented as a second behavioural transition. M1.A.3's licence remains the behavioural form, because a Kerr formulation **MUST NOT** silently overwrite a Bowen one.
+**Neither MUST be implemented as reduced cognitive capacity.** What differs across the transition is the **strength of the emotional circuits relative to the cognitive ones**, not the quality of the cognitive ones: "**the intellect operates in the service of the feeling and emotional process**". A low-`basic_level` agent **MUST** argue as fluently, and hold positions as confidently, as a high one. → *decision A2, 2026-08-27*; `theory/family_evaluation/fe04.md` · FE04.3, `fe02.md` · FE02.16
 
 **M1.A.3a** — *the marriage-ceremony break, resolved.* Bowen states it as a fact and says he never worked out why: "pretty good friendship relationships before marriage and then the whole thing gets messed up as of the time of the marriage ceremony. **I've often wondered the why of that**, but there it exists as a fact." → user mechanism, E2, 2026-08-24; formerly open
 **The mechanism:** marriage strengthens fusion, and **the couple is treated as ONE SELF — so the live question becomes who gets to decide for that self.** The lower the level, the more anxiety and reactivity this produces.
@@ -153,7 +156,11 @@ Contexts **MUST** be weighted by emotional intensity, not treated as comparable:
 
 **M1.A.11a** The three channels **MUST** carry `KS10.5`'s second axis: **physical and mental internalise; social externalises.** This is what makes `M11.C.12`'s symptom-relief-raises-conflict result and `KS04.13`'s inverse — depression lifting as conflict rises — the same mechanism rather than two.
 
-**M1.A.11b** Which channel a person expresses **MUST** be exogenous constitutional data, and the model **MUST NOT** derive symptom *type* from relational position. "genes would be seen as perhaps having a role in **whether the chronic anxiety plays out as schizophrenia rather than some other clinical dysfunction**" (`kerr_book/ks22.md` · KS22.14); "**Certain predispositions in a person can become assets or liabilities, depending on the degree of family anxiety**" (`ks21.md` · KS21.5). Level sets amplitude and **sign**; constitution sets channel.
+**M1.A.11b** Which channel a person expresses **MUST** be exogenous constitutional data, and the model **MUST NOT** derive symptom *type* from relational position. "genes would be seen as perhaps having a role in **whether the chronic anxiety plays out as schizophrenia rather than some other clinical dysfunction**" (`kerr_book/ks22.md` · KS22.14); "**Certain predispositions in a person can become assets or liabilities, depending on the degree of family anxiety**" (`ks21.md` · KS21.5). Level sets amplitude and **sign**; constitution sets the channel **prior** (M1.A.11c).
+
+**M1.A.11c** — *the channel prior **MUST** be movable by a relational term, and the relational term **MUST** be overridable.* Kerr 1988 states the reverse emphasis of M1.A.11b: "**Genes are an important influence on the type of symptom that develops, but learning based on childhood experience appears to be the most important influence on the category of clinical dysfunction (physical, emotional, social) that develops.**" He names the relational determinant — the category tracks "**what others in the system focus on in that individual when they get anxious**" — and he supplies the override himself: "**Genetic predisposition to a disease… can be strong enough to override relationship programming.**"
+Therefore three terms, in this order: (1) M1.A.11b's constitutional assignment is the **prior**; (2) a **family-focus term MUST** be able to shift the expressed channel away from that prior, driven by what the family attends to in that member under anxiety (M9); (3) a **constitutional-strength term MUST** be able to override the shift. A model in which the channel is purely constitutional, or purely relational, is a failing implementation.
+**The reconciliation, and its limit.** `FE09.1` decomposes it — **constellation → ripeness; learning → category; constitution → specific symptom**. The *specific symptom within a channel* therefore stays constitutional and is **not** moved by the relational term; only the **category** moves. → *decision A1, option (c), 2026-08-27*; `theory/family_evaluation/fe08.md` · FE08.3, `fe09.md` · FE09.1, `fe07.md` · FE07
 
 **M1.A.12** A `Person` **MUST** hold `involvement_weight`, recomputed every fast tick. Family membership **MUST** be derived as a threshold over it and **MUST NOT** be a stored set. → §3.8
 
@@ -331,6 +338,8 @@ The first is the mechanism of change; the second is a countermeasure during a mo
 
 **M1.E.7f** `M1.E`'s entry threshold **MUST** be **family-relative**, not absolute (M4.D.5b), and **MUST** carry a **rejection hazard** proportional to how far the account displaces the family's own attribution. Nancy Lanza sought help repeatedly across years and multiple professionals, and no contact landed, because what she wanted was a diagnosis located in the child. "**some parents do not want to hear it and seek another therapist no matter how nonjudgmental the therapist is.**" **The highest-need families are the hardest to retain** — a real dynamic for `M11.C.17`'s coach arm. → `kerr_book/ks21.md` · KS21.10
 
+**M1.E.8** — *external-agent contact frequency **MUST** be non-monotone, with a **low** optimum.* Four sessions a month were observed **worse** than one, and the named mechanism is transference: frequent contact thickens the coach tie, which is exactly what `M1.E.7e` forbids. Therefore the landing probability of M1.E.7 **MUST** fall above a low contact rate, and an implementation in which more coaching is monotonically better is a failing implementation. **This is distinct from `M5.B.3`**, which governs family ties and correctly carries no optimum — the coach tie is the one tie in the model where more contact is a hazard. → `theory/family_evaluation/fe11.md` · FE11.8
+
 ### M1.F `Event`
 
 **M1.F.1** An `Event` **MUST** carry: sender, targets, witnesses, move type, intensity, timestamp, `duration`, `exogenous`, `source_position`, `route`, `fidelity`.
@@ -350,6 +359,8 @@ The first is the mechanism of change; the second is a countermeasure during a mo
 **M1.F.7** Endogenous events **MUST NOT** be sampled from incidence data. The `exogenous` flag **MUST** keep the two countable separately. → §9.2
 
 **M1.F.8** Simultaneous events **MUST** be batched so that order within a tick cannot decide the outcome.
+
+**M1.F.9** — *a second event type: **a binder becomes unavailable**.* Every stressor in M1.F to date **adds load**. This one adds none: it **removes a mechanism that was binding anxiety**, and the anxiety it was holding **MUST** surface. The worked case is a retirement — physical proximity removed the emotional distance that had been doing the binding, and the anxiety "**spilled over**" into symptoms with no new stressor anywhere. The event **MUST** therefore name the binder it removes (a tie's distance, a triangle position, a symptom channel, an external agent's absorbed responsibility) and **MUST** return that binder's held anxiety to the family budget rather than discarding it (M6.I.1). Without this kind the model can only make a family worse by hitting it. → `theory/family_evaluation/fe09.md` · FE09.2, `fe08.md` · FE08.6
 
 ---
 
@@ -395,6 +406,8 @@ The instance everything is tested against. It is **invented and tunable** — va
 **M2.A.0f** Pairing **MUST** carry a second, orthogonal dimension: **rank and sex complementarity** of sibling position (M1.A.14). Complementary pairs form more readily and carry lower baseline conflict, and incompatible ones **MUST** be able to fail to form — "**if the female in this case was less deferential and the male is bothered by it, the relationship might not take.**" This affects **conflict propensity, not differentiation**: "**This does not mean that one marriage is more mature than the other.**" → `kerr_book/ks12.md` · KS12.3; `ks07.md` · KS07.9
 
 **M2.A.0d** Fusion **MUST** be life-stage dependent, not uniformly costly. The infant–caretaker symbiosis is stated as a **normal state, not a pathology**. → `kb/kb14.md` · K14.5
+
+**M2.A.0g** — *pole assignment **MUST** be independent of sex.* "**males and females assume the dominant position with equal frequency.**" `M1.B.5`'s dominant pole **MUST NOT** correlate with sex across an ensemble. This is a hard constraint a natural implementation could easily violate — any asymmetry in the assignment rule surfaces as a sex effect at readout — and it is assertable: see `M11.C.25`. → *decision A4-tail, 2026-08-27*; `theory/family_evaluation/fe07.md` · FE07.3
 
 **M2.A.1** `Iris` and `Bruno` **MUST** have comparable contact frequency and **MUST** differ in bond energy. This pair is the fixture for M11.C.4 and the direct test of M1.B.3.
 
@@ -452,6 +465,8 @@ The instance everything is tested against. It is **invented and tunable** — va
 
 **M4.A.4** `INSTITUTIONALIZE` **MUST** be implemented as converting a member's ties to worry edges — non-interactive, bond energy retained — and **MUST NOT** require new machinery beyond M4.A.1.
 
+**M4.A.5** — *a **self-generated** stress term **MUST** exist, derived from `basic_level`.* Two sources of chronic stress are named and both scale with level; the model has only the inter-person one (M4.A.1) and nothing intra-person, so a person alone in a calm system currently has no load at all. Each person **MUST** therefore take, each tick, a second standing load that is a function of `basic_level` only. It **MUST** be derived, never independently parameterised (M10.A.1), and it **MUST NOT** be large enough to swamp M4.A.1 — otherwise `M11.C.1` passes for the wrong reason, on a term that never touches a tie. → `theory/family_evaluation/fe08.md` · FE08.5
+
 ### M4.B Perceive
 
 **M4.B.1** A person **MUST** read events addressed to it *and* events it witnessed (M1.F.5).
@@ -468,6 +483,8 @@ The instance everything is tested against. It is **invented and tunable** — va
 Duration is independently supported: enduring problems "**one month or longer**" were the most frequent threats, and "**the longer the stressful life event or events lasted, the greater the risk**" (`ks23.md` · KS23.5).
 
 **M4.C.8** — *attending to a channel **amplifies** it.* Directing attention at the feeling channel **MUST** increase its activity, not discharge it; directing it at the intellectual channel **MUST** order it. This is where feelings legitimately enter the model — **not as state** (forbidden by M1.A.0) but as a **target of attention with an amplifying effect**. → `kb/kb12.md` · K12.6
+
+**M4.C.8a** — *the amplification **MUST** be gated by objectivity.* As M4.C.8 stands, **every** act of reflection is an escalation, which would make `M1.E.7c`'s category supply and its delayed self-observation impossible — the person could never look at their own process without inflaming it. The gate is the **stance** of the attention, not its target: attention paid **from inside** the reaction amplifies; attention paid with the observing distance M1.A.9 measures does not. `outside_ness` **MUST** therefore scale M4.C.8's amplification toward zero, and a scalar implementation that amplifies unconditionally is a failing implementation. → `theory/family_evaluation/fe03.md` · FE03.6
 > focusing on feelings is "almost as if you are **uncovering a volcano**, and the more you uncover it, the more of this coming and coming… the only time you get a kind of resolution is when the **feelings run down**, when the volcano gets tired." Work the intellect and "the feeling world is no longer a volcano. It is an **orderly little fountain**."
 **This generalises `C1` beyond symptom relief**: attending to a channel is itself an intervention on it, so a coach or family member who focuses on the feeling channel **MUST** raise it. It is also the mechanism behind `M4.C.2`'s gain function seen from the other side.
 
@@ -518,6 +535,8 @@ This is the corpus's cleanest demonstration because **the content is identical b
 
 **M4.D.5c** The decision rule behind M4.D.5a **MUST** be short-horizon by construction: "**All parenting involves choosing between the day… and the years.** Nancy's error seems to have been that **she always focused on the day**… her willingness to indulge his isolation **may well have exacerbated the problems it was intended to ameliorate**." This is M4.D.6a's forbidden proxy in its human form, and `M11.C.16` is the test. → `ks21.md` · KS21.1
 
+**M4.D.5d** — *`emotional_reserve` **MUST** be derived, and **MUST** gate symptom onset.* M4.D.5a's accommodation stock grows monotonically and currently has **no consequence** — nothing reads it. The source names the missing quantity repeatedly across two chapters: reserve is **capacity minus what is already committed to accommodation**. Therefore `emotional_reserve = f(basic_level) − accommodation_stock`, derived and never independently parameterised (M10.A.1), and symptom onset in M7.D **MUST** be gated on it rather than on absolute anxiety alone. This is what lets two agents at the same anxiety differ in whether they break, and it gives M4.D.5a the consequence it lacks. → `theory/family_evaluation/fe03.md` · FE03.10
+
 **M4.D.6** Moves that worked before **MUST** be reinforced, so that a family develops a characteristic style.
 
 **M4.D.6a** — *the reinforcement signal MUST be named, and it MUST NOT be short-horizon anxiety relief.* The obvious proxy — the post-move change in the actor's own acute anxiety — is **forbidden**, because this specification pins the timing that makes it self-defeating: M11.C.4 requires `CUTOFF` to drop the actor's acute anxiety *immediately* with its cost deferred to the next nodal event, and M11.C.5 requires `I-POSITION` to *raise* tension for a bounded window before it settles. A short-horizon anxiety proxy therefore rewards the seven reactive moves and punishes the two differentiating ones **by construction**, and every agent converges on `CUTOFF`.
@@ -528,6 +547,8 @@ This is the corpus's cleanest demonstration because **the content is identical b
 **M4.D.6c** This failure would be invisible to M11.C.1–M11.C.15, because all of them hold the policy fixed across both arms (M0.4) and a uniformly degenerate policy shifts both arms together. M11.C.16 exists to catch it.
 
 **M4.D.6d** Reinforcement **MUST** operate on the **automatic channel only** (M4.D.1a) — that is what gives a family its characteristic style. `systems_perspective` (M1.A.18) and `basic_level` (M1.A.4) **MUST NOT** be reinforcement targets, and the self-directed channel **MUST NOT** be subject to M4.D.6 at all.
+
+**M4.D.6e** — *reinforcement **MUST** be able to arrive from another person's state.* M4.D.6 reinforces on the actor's **own** signal, so nothing in the model currently drives the projection loop's step 5, internalisation. The named mechanism is cross-person: the child learns that acting as the parental image predicts **calms the mother**, and **her calming is the reinforcement**. Therefore a move's reinforcement signal **MUST** be able to include the change in a **witness's or target's** anxiety, not only the actor's, and the projection target's repertoire **MUST** shape itself to that signal. This is what makes `M11.C.2`'s concentration a learned outcome rather than an assigned one. It remains inside M4.D.6d: the channel reinforced is still the automatic one. → `theory/family_evaluation/fe07.md` · FE07.4
 
 ### M4.E Act
 
@@ -590,11 +611,16 @@ Applying the peace-agree technique to a reactive family is not merely ineffectiv
 
 **M5.D.1** `I-POSITION` **MUST NOT** be a single-tick move with a propensity.
 
-**M5.D.2** States, in order: `DEFINE` → `OPPOSITION` → (`ABORT` | `HOLD`) → `PEAK` → `RESOLVE` → `FOLLOW_UP`.
+**M5.D.2** States, in order: `PREPARE` → `DEFINE` → `OPPOSITION` → (`ABORT` | `HOLD`) → `PEAK` → `RESOLVE` → `FOLLOW_UP`.
+
+**M5.D.2a** — *`PREPARE` **MUST** exist and **MUST** be able to fail.* A differentiating move is not emitted on the tick it is decided. Bowen's own February 1967 effort ran **months of planning** and **one private letter per important triangle**, timed "**to cause the triangles to come to me.**" `PREPARE` therefore **MUST** occupy multiple fast ticks, **MUST** be able to act on each triangle separately (M5.B's `PREVENT_ALIGNMENT`), and a sequence entering `DEFINE` without it **MUST** carry a lower probability of reaching `PEAK`. This is also where M5.D.8's "several failures" partly lives: an unprepared move is one of the ways an attempt fails. → `theory/family_evaluation/fe11.md` · FE11.9
 
 **M5.D.3** The abort branches — defend, counterattack, go silent — **MUST** sit at the *first* opposition and **MUST** be the usual outcome, not an exception. Each **MUST** return the mover to the prior balance.
 
-**M5.D.4** Anger **MUST** be the *gate* admitting the sequence to `PEAK`, not a fourth abort branch.
+**M5.D.4** — *corrected at revision 4; the earlier form was inverted.* The **mover's freedom from anger MUST** be the gate admitting the sequence to `PEAK`. Ch13 mentions anger once and only once, and it is the mover's: "When he is finally able to maintain his course **without getting angry at the opposition**, the opposition does a final intense emotional attack. If he remains calm with this, the opposition becomes calm and pulls up to his level of individuality." An angry mover **MUST** therefore **stall** the sequence — the final attack does not come at all — rather than abort it loudly. Anger **MUST NOT** be implemented as a fourth abort branch **and MUST NOT** be implemented as the condition that admits the peak. → `theory/ch13.md` · verified against the primary chapter, 2026-08-27
+
+**M5.D.4a** — *the mover's anger MUST degrade the move, not merely delay it.* `I-POSITION` emitted while the mover's own anger is above threshold **MUST** execute as `M5.F.4`'s assertion form and **MUST** count as negative evidence under `M5.F.2a`. Three statements, two authors, two decades, every one of them about the **mover's** anger and not the system's: Ch13 above; Kerr 1988 — "**it is not fueled by anger. Anger can sometimes be a stimulus to clarify one's thinking, but it is not a reliable guide for action. When someone angrily and dogmatically claims to be a 'self,' he is usually unsure of his position and is blaming others for his plight in life**"; and Bowen 1988, written independently in the same volume — "**A dogmatic person is rarely sure of self.**"
+**What anger is, in this model.** Not a gate and not a state (M1.A.0 still binds): an **intensity level on the negative side of the appraisal**, whose *handling* is the differentiation readout — noticed and managed, or discharged reactively as defence. The abort branches of M5.D.3 are what discharging it looks like. → *decision A3, 2026-08-27*; `theory/family_evaluation/fe04.md` · FE04.4, `fe11.md` · FE11.19
 
 **M5.D.5** On a held `PEAK`, the opposition **MUST** pull up **to the mover's level**, not to a group mean, and the payoff **MUST** propagate to subsequent movers.
 
@@ -683,6 +709,8 @@ Asserted at the end of every fast tick (M4.G.2). A violation **MUST** raise, not
 
 **M7.A.1** `basic_level` **MUST NOT** be advanced by any move or by any per-exchange increment. It **MUST** be recomputed on the slow tick as the estimator of M1.A.4a–M1.A.4c over `functional_level` history. Recovery of `functional_level` toward baseline when calm **MUST NOT** be a symmetric restoring force.
 
+**M7.A.1a** — *the dependence gate **MUST** run on the slow clock too.* `M1.A.15`'s `financially_dependent` flag currently gates one **move** (M5.C). `FE04.9` puts the same condition on **basic-level change itself**: change requires that the person be **self-sustainingly independent of the family of origin**. Therefore `basic_level` **MUST NOT** rise on the slow tick while the agent is financially dependent, however many exchanges completed. Without this gate an agent accumulates `functional_level` gains and ratchets `basic_level` upward while still inside the exact condition under which the change-back reaction's third rung has teeth (M1.A.15) — which would make M5.C's fast-clock gate cosmetic. → *decision B1-tail, 2026-08-27*; `theory/family_evaluation/fe04.md` · FE04.9
+
 **M7.A.2** — *amended.* Differentiation gained in a peripheral system **MUST NOT** transfer automatically to the nuclear family. **The capacity transfers; the application is re-earned per tie.** `basic_level` is per-person and rises on the M1.A.4a estimator; **applying** it in a given relationship requires observing the reciprocity **in that relationship**. → §10, §15 Ch10/Ch21; `kerr_book/ks16.md` · KS16.9
 > "**Progress in the family of origin does not transfer automatically to nuclear family relationships, but it helps considerably.**" Two reasons: the spouse "**bring[s] aspects of their own unresolved attachment**", and one "**lives day in and day out with them, which makes the emotional process more intense and more difficult to observe objectively.**"
 **The evidence is unambiguous.** Kerr had been "**teaching this cocreation idea to students of Bowen theory for over twenty-five years**" before observing it in his own marriage (`ks16.md` · KS16.6); and Mr. S. held systems thinking for his sister's triangle, his sons' triangle and his family history while lacking it in his marriage — "**I acknowledge Bowen theory, but I don't feel it**" (`ks17.md` · KS17.1).
@@ -716,7 +744,13 @@ Two instances with different claimant types — a child (KS22.2) and a fiancée 
 
 **M7.D.2b** Removal of a member **MUST** produce **opposite-signed** effects on different members, keyed to their position relative to the removed one — not a uniform family-level shift. When Gary Gilmore was removed the family relaxed and **only his mother** wanted him back; when both of Nash's son's parents died, **the projection target improved**. → `ks20.md` · KS20.8; `ks22.md` · KS22.8
 
+**M7.D.2c** — *the three channels are **mutually protective**, not merely substitutable.* M7.D.2 makes them alternatives for the same deficit. The source goes further: **occupancy of one channel lowers the hazard on the others** — reciprocal functioning **within** a single person, the same shape M1.B.6 gives a dyad. Therefore symptom hazard in each channel **MUST** be reduced by load already carried in another, and a model that treats the three as independent draws is a failing implementation. Consequence: **a person carrying one symptom is protected against a second**, which is what makes channel-switching visible as an event rather than as accumulation. → `theory/family_evaluation/fe01.md` · FE01.6, `fe05.md` · FE05.8
+
+**M7.D.2d** — *lock-in **MUST** be non-monotone in severity, and this **amends** M7.D.2a.* M7.D.2a as written makes the stabilising effect grow without limit, so a severe enough symptom becomes maximally stabilising. Three independent statements say the curve turns over: past a severity threshold the symptom **destabilises** the configuration it was stabilising, and removal then brings **relief** rather than the resistance M7.D.2a predicts. The stabilising term **MUST** therefore rise with symptom load to a peak and fall beyond it, and `M11.C.22` **MUST** test both limbs. This is what reconciles M7.D.2a's resistance-to-removal with M7.D.2b's relief-on-removal: they are the same curve either side of the turn. → `theory/family_evaluation/fe03.md` · FE03.9, `fe07.md` · FE07.15
+
 **M7.D.3** Curing a symptom without changing the underlying deficit **MUST** raise family tension. → M11.C.12
+
+**M7.E.4** — *ties **MUST** deteriorate by default, at a rate inverse to level.* A relationship left alone does not hold its state: without active work it degrades, and it degrades **faster the lower the pair's `basic_level`**. Each tie **MUST** therefore carry a slow-clock decay on conductance and a slow-clock accrual on bond energy, scaled inversely to level, which any `STAY-IN-CONTACT` or completed exchange offsets. **This is what makes `M11.C.17`'s coach-free arm a real test rather than a trivial one**: a flat arm produced by *nothing happening* proves nothing, whereas a flat arm produced by decay and effort cancelling is a result. → `theory/family_evaluation/fe03.md` · FE03.13
 
 **M7.D.4** Removal (`INSTITUTIONALIZE`) **MUST** fire off the **remaining members'** tolerance for disturbing behaviour, explicitly decoupled from the symptom-bearer's severity, and **MUST** be suppressible by relocating decision ownership (M5.C.1). → §6.2
 
@@ -788,6 +822,11 @@ avoidance_available(g) = positions_live(g) < 3        # a step, not a gradient
 
 **M9.5** Readouts **MUST** be able to report ground truth and belief separately. `→E`
 
+**M9.6** — *sink allocation **MUST** be identifiable from the belief configuration.* The three sinks of M1.D.1 carry three distinct attribution patterns: **marital conflict — each says the other**; **spouse dysfunction — both say the same one**; **child projection — both say the children**. The belief store **MUST** therefore hold, per person, an attribution of where the family's difficulty lies, and the readout **MUST** be able to recover the active sink from that configuration and the configuration from the active sink. This is the first connection between `M1.D.1` and `M9`, and it is assertable in **both** directions — `M11.C.26`. → `theory/family_evaluation/fe07.md` · FE07.2
+
+**M9.7** — *belief **MUST** be able to drive appraisal, not only record it.* M9.1 as written makes the belief layer a parallel store. Three independent arguments make it a **channel**: the three systems influence one another **in both directions** (`FE02.7`); chronic anxiety runs on **what might be** rather than on what is, so its input is belief and not event (`FE05.10`); and Bowen corrects his own term — the transfer is not "projection" but runs **through descriptions** (`FE11.3`), which makes `M9` the medium the family projection process operates **on** rather than a readout beside it.
+Therefore M4.C's appraisal **MUST** read the receiver's belief about the sender and the situation, not the ground-truth event alone. **M9.2 still binds**: a belief that drives appraisal **MUST NOT** be assumed false because it is emotionally loaded, and the model **MUST NOT** implement "the emotionally driven claim is the wrong one". → `theory/family_evaluation/fe02.md` · FE02.7, `fe05.md` · FE05.10, `fe11.md` · FE11.3
+
 ---
 
 ## M10 — Parameters
@@ -820,8 +859,29 @@ avoidance_available(g) = positions_live(g) < 3        # a step, not a gradient
 
 **M10.C.2b** No output **MUST** be described as reproducing *measured* differentiation. The best available instrument reports α ≈ .88 overall, and its Fusion With Others subscale — the construct most central to the theory — required a five-year rebuild after failing to relate to psychological adjustment at all. The model **MUST NOT** claim precision the measurement literature does not have.
 
+**M10.C.4** — *bounds and shapes stated in the corpus, admitted as **checks**, never as parameters.* *Family Evaluation* is the one source that gives more than a handful of these. Every entry below is a **bound or a shape**, not a rate; each **MUST** be usable to check an ensemble output and **MUST NOT** be settable in config (M10.C.3a). All carry `[#]` and the attribution grade of their segment — `[K]` unless marked `[B]`.
+
+| Quantity | Value | Source |
+|---|---|---|
+| Species median `basic_level` | **≈ 40** — below M1.A.3's transition | `FE03.5` |
+| Band edges | 0–10 very poor · >60 well · >70 very well · **100 unreachable** | `FE03.5` |
+| Pseudo-self transfer, worked | **35 + 35 → 55 + 15** — conserved exactly; the corpus's only arithmetic instance of M6.I.4 | `FE04.1` |
+| Per-generation step, typical | **< 5 points** | `FE08.7` |
+| Per-generation step, consequential | **5–10 points** | `FE07.7` |
+| Parent-to-child bound | **never 30 points** | `FE07.7` |
+| Quantum jump | **~10 points per generation over two generations**, under three conjunctive conditions | `FE08.1` |
+| Full traversal | 3 generations (quantum jump) to 5–10 (typical), **symmetric in both directions** | `FE08.2` |
+| Generation length | ~25 years | `FE08.2` |
+| Sibling-position decay | a gap of **≥ 5 years** reduces predictability | `FE10.7` |
+| Treatability floor | **upper two-thirds** of the schizophrenic range | `FE11.10` |
+| Borrowed-gain gap, worked | apparent **40–45**, true **25–30**, revealed by a matriarch's death | `FE04.8` |
+
+**M10.C.4a** — *the quantum-jump conditions are a three-way ablation, not a rate.* The most specific mechanism-plus-magnitude statement in the whole corpus, and the only one that yields a factorial test: the jump requires, **held over two successive generations**, (1) anxiety bound **primarily in focus on one child**, (2) the family **poorly connected to the extended family**, and (3) **at least average stress**. Each condition **MUST** be independently ablatable, and removing any one **MUST** remove the jump. Condition (2) gives `M1.D.8` and `M2.3` a quantified consequence for the first time — this is the test that makes the family-of-origin ties load-bearing rather than decorative. → `theory/family_evaluation/fe08.md` · FE08.1
+
 
 **M10.C.3** The following **MUST NOT** be implemented as rates, because they were manufactured from illustrations Bowen explicitly bounded: any per-generation `basic_level` decrement, and any annual societal-regression rate. → §8
+
+**M10.C.3a** — *amended: the prohibition is on the **parameter**, not on the quantity.* M10.C.3 reads as forbidding a per-generation change altogether. It does not. A per-generation `basic_level` change **MUST** be an **output** of the three mechanisms in M1.D.1 and M7, observed at readout, and **MUST NOT** appear anywhere as a configurable rate. The bounds in M10.C.4 are then usable as **checks on that output**, which is the only role a stated magnitude can play in this model.
 
 ---
 
@@ -835,11 +895,13 @@ Each criterion **MUST** have a named test, **MUST** assert a direction of differ
 
 **M11.2** These are ensemble property tests. A single-run assertion **MUST NOT** be used for any of M11.C.1–M11.C.16.
 
+**M11.3** — *every discriminating criterion **MUST** run under a stressor.* Cohesion produced by togetherness and cohesion produced by individuality are **indistinguishable when the system is calm**; so are most of the differentiation readouts in M11.C. A criterion whose two arms are compared in a quiet stretch is measuring nothing, and will pass. Each M11.C criterion **MUST** therefore name the stressor its arms run under, and a criterion that cannot name one **MUST** be moved to M11.E. → `theory/family_evaluation/fe04.md` · FE04.18
+
 | ID | Criterion | Test | Phase | Mutation target |
 |---|---|---|---|---|
 | **M11.C.1** | Differentiation protects: identical families differing only in basic `basic_level`, same stressor schedule → the lower-`basic_level` family reaches symptom threshold sooner in a significant majority of seeds | `test_m11c1_lower_c_reaches_threshold_sooner` | C | the `/ functional_level` divisor in M4.C.1 |
 | **M11.C.2** | Symptoms concentrate on the member who received the most projection-type events, not uniformly across children | `test_m11c2_symptom_concentrates_on_projection_target` | D | the witness path, M1.F.5 |
-| **M11.C.3** | Triangling relieves the pair and costs the third, within the same tick | `test_m11c3_triangle_relieves_pair_costs_third` | C | `bound_anxiety` transfer, M1.C.1 |
+| **M11.C.3** | Triangling relieves the pair and costs the third, within the same tick. **One of four cells** — see `M11.C.27`, which the corpus requires and this criterion alone does not cover | `test_m11c3_triangle_relieves_pair_costs_third` | C | `bound_anxiety` transfer, M1.C.1 |
 | **M11.C.4** | Cut-off trades now against later: `CUTOFF` drops the actor's acute anxiety immediately and raises family total anxiety at the next nodal event, against a matched no-cutoff arm | `test_m11c4_cutoff_trades_now_against_later` | C | the standing load, M4.A.1 |
 | **M11.C.5** | The system pushes back — as **symptom in a named third person**, as a damped oscillation with hysteresis, decaying unless fed, reverting if `FOLLOW_UP` is skipped; absence of reaction means the move did not land | `test_m11c5_change_back_reaction_shape` | C | the life-energy debit, M5.E.7 |
 | **M11.C.6** | Transmission is multigenerational: over three generations with no external stressor change, mean `basic_level` in the projection line declines while the non-target line does not. **Two shape constraints.** (a) **Traversal:** a decline from the top of the scale to the bottom **MUST NOT** complete in one or two generations and **MUST** be achievable within roughly ten — "**It could take eight to ten generations or as few as three or four**" (`kerr_book/ks11.md` · KS11.1 `[#]`; recorded as a **shape** constraint only — `M10.C.3`'s prohibition on a per-generation *rate* stands, per approved decision `A1`). (b) **Variance:** the **spread** of `basic_level` within the family **MUST** widen across generations — "**The essence of the multigenerational transmission process concept is that it describes a natural process that generates variation**" (`ks11.md` · KS11.9), bounded below by line extinction (`ks20.md` · KS20.1) and above by the species ceiling (`ks05.md` · KS05.3) | `test_m11c6_multigenerational_decline_in_projection_line` | D | M7.E.1 |
@@ -853,14 +915,23 @@ Each criterion **MUST** have a named test, **MUST** assert a direction of differ
 | **M11.C.14** | Management technique has zero independent effect while marital distance is high | `test_m11c14_technique_null_under_marital_distance` | C | the marital-distance gate, M5.C.1 |
 | **M11.C.16** | **The learned repertoire does not collapse onto relief-seeking.** Two arms, identical seeds, differing only in the reinforcement horizon: the short-horizon arm (M4.D.6a's forbidden proxy) against the declared-horizon arm (M4.D.6b). The short-horizon arm **MUST** show a strictly higher share of `CUTOFF` and `DISTANCE`, and a strictly lower `I-POSITION` selection rate, than the declared-horizon arm. A test that only asks whether more than one move type is used passes on the very failure it is meant to catch, because the failure spreads mass across seven reactive moves. **The criterion is two-sided:** the declared-horizon arm **MUST NOT** exceed a declared `I-POSITION` ceiling either, because lengthening the horizon until agents optimise their way into differentiation is the opposite failure and M4.D.1a forbids it. | `test_m11c16_repertoire_does_not_collapse` | C | M4.D.6b's horizon — setting it to one tick **MUST** turn this red, and setting it to the run length **MUST** turn the ceiling half red |
 | **M11.C.15** | Death destabilises exactly as recovery does — a stabilising arrangement built on one member's impairment breaks on their death as well as their recovery | `test_m11c15_death_destabilises_like_recovery` | D | M7.D.3 |
-| **M11.C.17** | **Differentiation is not self-generating.** Two arms, identical seeds, differing only in the presence of an external agent. The coach-free arm **MUST NOT** show upward drift in mean `basic_level` over the run. A population of agents that optimises its way to differentiation has contradicted multigenerational transmission, in which levels are roughly conserved and differentiation is rare. This is the model's strongest negative test. | `test_m11c17_no_basic_level_drift_without_coach` | C | M1.E.7's gate — letting `systems_perspective` rise spontaneously **MUST** turn this red |
+| **M11.C.17** | **Differentiation is not self-generating.** Two arms, identical seeds, differing only in the presence of an external agent. The coach-free arm **MUST NOT** show upward drift in mean `basic_level` over the run. A population of agents that optimises its way to differentiation has contradicted multigenerational transmission, in which levels are roughly conserved and differentiation is rare. This is the model's strongest negative test. **Two amendments:** the flat arm **MUST** be flat against `M7.E.4`'s default deterioration, not against nothing; and the coached arm **MUST** show a **relay**, not a single mover — "**leadership shifts back and forth**", the second mover following after "**several weeks**" (`theory/family_evaluation/fe11.md` · FE11.6) | `test_m11c17_no_basic_level_drift_without_coach` | C | M1.E.7's gate — letting `systems_perspective` rise spontaneously **MUST** turn this red |
 | **M11.C.18** | **The estimator discriminates the binder from the real thing.** A `CUTOFF`-heavy arm and an `I-POSITION`-heavy arm brought to the **same** `functional_level` **MUST** diverge in estimated `basic_level` once nodal events enter the window. If they do not, M1.A.4a is not discriminating and the estimator has failed. | `test_m11c18_estimator_separates_cutoff_from_iposition` | C | M1.A.4b's load weighting — flattening it to an unweighted count **MUST** turn this red |
 | **M11.C.24** | **The whisper of nature: dissolve a discrepant pair and the discrepancy reverses.** Construct a dominant-adaptive pair at matched `basic_level` (M2.A.0e), run until functional levels diverge, then dissolve the tie. The underfunctioner's `functional_level` **MUST** rise and the overfunctioner's **MUST** fall, converging toward their common basic level. If the model cannot produce this, `M6.I.4`'s pseudo-self transfer is not doing its work. The initial gap must be inside M2.A.0e's tolerance so the **developed** divergence dominates it → `kerr_book/ks07.md` · KS07.2 | `test_m11c24_whisper_of_nature_reverses_on_dissolution` | D | M6.I.4's transfer — zeroing it **MUST** turn this red |
 | **M11.C.20** | **The estimator separates a borrowed gain from a basic one.** Two arms brought to the **same** `functional_level`, one by a supporting external condition and one by a completed differentiating sequence; then **withdraw the supporting condition**. Estimated `basic_level` **MUST** diverge. The corpus contains **eight** instances of this discriminator (`kerr_book/_KS_PASS2.md` §KS-D), including a within-subject control on one nodal event type, and one already-worked fixture in which the source labels which change was functional and which was basic | `test_m11c20_estimator_separates_borrowed_from_basic` | C | M1.A.4b's load weighting — flattening it to an unweighted count **MUST** turn this red |
 | **M11.C.21** | **Reciprocity inverts when the overfunctioners' capacity falls.** An arm in which both projecting parents' functional level drops **MUST** show the projection target's functional level **rise**, with no change to the target. Two instances: a schizophrenic brother becoming the family's functional member when both parents collapsed, and a projection target's symptoms fading after both parents died | `test_m11c21_reciprocity_inverts_on_projector_collapse` | D | M6.I.4's transfer direction — making it one-way **MUST** turn this red |
-| **M11.C.22** | **Symptom lock-in.** After a symptom establishes, family anxiety **MUST** fall and the configuration **MUST** resist the symptom's removal — so that a cure arm shows rising conflict (`M11.C.12`) and a removal arm shows family relief, from the same mechanism | `test_m11c22_symptom_locks_in` | D | M7.D.2a |
+| **M11.C.22** | **Symptom lock-in, and its turn.** After a symptom establishes, family anxiety **MUST** fall and the configuration **MUST** resist the symptom's removal — so that a cure arm shows rising conflict (`M11.C.12`) and a removal arm shows family relief, from the same mechanism. **Both limbs MUST be asserted** (M7.D.2d): a mild-symptom arm resists removal, and a severe-symptom arm past the turn **destabilises** and shows relief on removal. Testing only the rising limb passes a monotone implementation | `test_m11c22_symptom_lock_in_is_non_monotone` | D | M7.D.2a's stabilising term, **and** M7.D.2d's turn — flattening the curve **MUST** turn this red |
 | **M11.C.23** | **Expressed emotion dominates medication.** Two crossed arms over hostility / over-involvement / critical comments and a symptom-suppression term: **high-EE-with-suppression MUST relapse more than low-EE-without-suppression.** All three EE variables are computable from the event log — over-involvement from `M1.B.8`, critical comments from `M1.A.18a`'s blame readout. → `kerr_book/ks25.md` · KS25.9 `[#]` | `test_m11c23_expressed_emotion_dominates_suppression` | D | the EE term — zeroing it **MUST** turn this red |
 | **M11.C.19** | **The two counterfeits are distinguishable by axis.** A forceful-declarer arm and a compliant-accommodator arm at **equal overall counterfeit magnitude MUST** be separated by which axis of M1.A.9a failed. A scalar detector cannot pass this. | `test_m11c19_counterfeit_axis_is_identified` | C | M5.F.2b — collapsing the two axes to their mean **MUST** turn this red |
+| **M11.C.25** | **Pole assignment is independent of sex.** Over an ensemble, the frequency with which each sex occupies `M1.B.5`'s dominant pole **MUST NOT** differ beyond sampling error. "**males and females assume the dominant position with equal frequency**" → `theory/family_evaluation/fe07.md` · FE07.3 | `test_m11c25_dominant_pole_independent_of_sex` | C | M2.A.0g — introducing any sex term into the assignment rule **MUST** turn this red |
+| **M11.C.26** | **The active sink is recoverable from the belief configuration, and the configuration from the sink.** Three arms driven to conflict, spouse dysfunction and child projection respectively **MUST** produce the three distinct attribution patterns of `M9.6` — *each says the other* / *both say the same one* / *both say the children* — and a classifier reading only the belief store **MUST** recover the sink. Assertable in both directions | `test_m11c26_sink_recoverable_from_belief_configuration` | D | M9.6's attribution write — randomising it **MUST** turn this red |
+| **M11.C.27** | **The twosome 2×2, all four cells.** A **stable** twosome **MUST** be destabilised by adding a third *and* by removing one; an **unstable** twosome **MUST** be stabilised by adding a third *and* by removing one. `M11.C.3` tests one cell, and the sign depends on the twosome's prior state, so a model tuned to that cell alone gets the other three wrong → `theory/family_evaluation/fe06.md` · FE06.1 | `test_m11c27_twosome_two_by_two_all_cells` | C | the prior-state term — making the effect sign-invariant **MUST** turn this red |
+| **M11.C.28** | **Sink mobility is protective, so symptom count is not a differentiation readout.** Two families at equal adaptiveness and equal stress, differing only in whether sink allocation is **fixed** or **rotates**: the fixed arm **MUST** produce fewer, more severe outcomes and the rotating arm more numerous, milder ones. A readout that ranks the rotating family as worse because it counted symptoms has failed → `theory/family_evaluation/fe07.md` · FE07.6, `fe10.md` · FE10.3 | `test_m11c28_sink_mobility_is_protective` | D | the allocation-mobility term — pinning it **MUST** turn this red |
+| **M11.C.29** | **Relief and differentiation are distinguishable by the third person's time course.** Both a genuine `I-POSITION` and distance-in-disguise produce a symptom in a third party; nothing in M11.C currently separates them. The discriminator is duration: **transient** after a genuine move, **persistent** when the move was distance wearing its clothes. Relief **reallocates** the budget; differentiation **reduces** it → `theory/family_evaluation/fe05.md` · FE05.2 | `test_m11c29_relief_and_differentiation_differ_in_time_course` | C | M6.I.1's budget reduction — making the differentiating move merely reallocate **MUST** turn this red |
+| **M11.C.30** | **Carrying one symptom protects against a second.** An arm with established load in one channel **MUST** show lower onset hazard in the other two than a matched arm with no load, at equal anxiety → `theory/family_evaluation/fe01.md` · FE01.6, `fe05.md` · FE05.8 | `test_m11c30_channels_are_mutually_protective` | D | M7.D.2c's cross-channel term — zeroing it **MUST** turn this red |
+| **M11.C.31** | **Removing a binder raises anxiety with no stressor at all.** A `binder_unavailable` event (M1.F.9) delivered into a calm family **MUST** raise family anxiety while adding **zero** exogenous load, and the rise **MUST** equal the anxiety the binder was holding, to M6.I.1's tolerance | `test_m11c31_binder_removal_releases_bound_anxiety` | D | M1.F.9's return-to-budget step — discarding the held anxiety instead **MUST** turn this red |
+| **M11.C.32** | **The mover's anger degrades the move.** Two arms, identical seeds, differing only in the mover's own anger at emission: the angry arm **MUST NOT** reach `PEAK` — it stalls, it does not abort loudly — and its `I-POSITION` **MUST** execute as `M5.F.4`'s assertion form, raising reactivity on the tie. An implementation in which anger *admits* the peak has the corrected `M5.D.4` inverted | `test_m11c32_mover_anger_stalls_and_degrades` | C | M5.D.4's gate — inverting it back **MUST** turn this red |
+| **M11.C.33** | **The dependence gate binds the slow clock.** A financially dependent agent completing an unbounded number of exchanges **MUST NOT** show any rise in `basic_level`, while an otherwise identical independent agent does → `theory/family_evaluation/fe04.md` · FE04.9 | `test_m11c33_dependence_gate_blocks_basic_level_rise` | D | M7.A.1a — removing the slow-clock gate **MUST** turn this red |
 
 ### M11.D — Engineering criteria
 
@@ -908,6 +979,33 @@ Kerr's framing supports it: Bowen's stated validity criterion was that a theory 
 
 **M11.F.4** No output **MUST** claim to reproduce *measured* differentiation (M10.C.2b), and no emotional-state-to-physical-disease mechanism **MUST** be implemented on the basis of the cancer material in `kb/kb11.md` — single anecdotal cases, one with the diagnosis contested by the treating oncologists.
 
+**M11.F.7** — *the model has no opinion on trauma.* No output **MUST** be presented as adjudicating **discrete traumatic events against ongoing relational process**. The source states a position — "the child's life course is more influenced by the lack of emotional separation… **than by the abuse itself**"; "events are not the process" — offered in 1988 with no series, no comparison group and no measurement, on a question where the wider evidence base has moved considerably. **Nothing in this model requires it and nothing implements it.** The model does not distinguish the two, so it **MUST NOT** be read, quoted or reported as having weighed them. → `theory/family_evaluation/fe07.md` · FE07.21 `[K]` `[X]`
+
+**M11.F.8** — *societal readouts **MUST NOT** inherit an editorial symptom list.* `M1.D.7`'s readouts **MUST NOT** score any of the 1988 societal symptom list as evidence of regression, and specifically **MUST NOT** score claims of **rights**. "an incessant clamor for '**rights**'" is an editorial judgement of its period, not an observation, and a readout that treats rights claims as regression is one-sided by construction and fails `M11.F.6`. → `theory/family_evaluation/fe10.md` · FE10.17 `[K]` `[X]`
+
+---
+
+## M11.G — The family-evaluation readout
+
+**M11.G.1** — *the model **MUST** emit a structured family evaluation, and its schema is given.* The project has had acceptance criteria but no **readout schema**; `FE10.1` supplies a ten-component family diagnosis, and **components 1–8 MUST** be emitted. Every one is computable from state the model already carries.
+
+| # | Component | Computed from |
+|---|---|---|
+| 1 | Symptom — who carries it, in which channel, at what severity | M7.D, M1.A.11 |
+| 2 | The nuclear family's binding pattern — which of the three sinks is active, in what proportion | M1.D.1, M9.6 |
+| 3 | Intensity of the family emotional process | M1.D's budget occupancy |
+| 4 | The multigenerational picture — level by generation, and the projection line | M7.A, M11.C.6 |
+| 5 | Degree of emotional cutoff with the families of origin | M1.B.3 bond energy on family-of-origin ties |
+| 6 | Stress currently on the system, exogenous and endogenous separately | M1.F `exogenous` |
+| 7 | Adaptiveness — **derived, not measured** (M11.G.2) | reactivity against stress |
+| 8 | The extended family and social network available to the system | M8's live positions, the access vector |
+
+**M11.G.2** — *adaptiveness **MUST** be derived as reactivity **compared against** stress, never reported as a level.* A family showing little reactivity under heavy stress and a family showing little reactivity under none are not the same family, and a readout that reports reactivity alone cannot tell them apart. This makes `M1.A.4b`'s load weighting **definitional** rather than a correction applied afterwards. → `theory/family_evaluation/fe10.md` · FE10.2
+
+**M11.G.3** — *components 9 and 10 **MUST NOT** be emitted.* The source's ninth and tenth components are **therapeutic focus** and **prognosis**. Both are clinical judgements about a real family in treatment. This model has no patient, no clinician and no outcome data, and emitting either would be the single most misreadable thing it could produce. → `theory/family_evaluation/_FE_PASS2.md` §3.4
+
+**M11.G.4** The evaluation **MUST** carry `M11.F`'s framing block wherever it is emitted, and **MUST** report belief and ground truth separately (M9.5). `→E` for the rendering; the schema itself is Phase D.
+
 ---
 
 ## M12 — Out of scope, and must never be built
@@ -922,9 +1020,16 @@ Kerr's framing supports it: Bowen's stated validity criterion was that a theory 
 
 **M12.2** Two things Bowen states he does **not** know **MUST** be labelled `[I]` wherever the model decides them: what determines whether a problem stays in the spouse dyad or transmits to a child, and what selects which spouse takes the dominant pole at identical levels. → §12.2
 
+**M12.2a** — *reviewed at revision 4; **M12.2 stands in full**.* Kerr 1988 was read as supplying a mechanism for the first of the two: the parents' **emotional complementarity**, formed in their families of origin and exaggerated by anxiety — "**The nature of these exaggerated elements determines whether the problem emerges as marital conflict, spouse dysfunction, or child dysfunction.**" On review this **names the locus, not the rule**: it says *where* the answer lives without saying what it is, and its own hedge is "determined **largely by**". The sink allocation therefore remains `[I]`. `M9.6` is the consequence that does follow — the allocation is **identifiable** from the belief configuration, which is a readout, not a determinant. For the second unknown the source gives only "by mutual agreement, the product of the emotional fit", which is the same shape. → *decision A4, option (b), 2026-08-27*; `theory/family_evaluation/fe07.md` · FE07.3
+
 **M12.3** There **MUST NOT** be an anniversary effect. No date-anchored recurrence is named anywhere in the corpus. → §12.3
 
 **M12.4** The `M` metabolic column **MUST NOT** be reintroduced in any form. → M1.A.15
+
+**M12.5** — *the only prohibition in this section stated **by the author** rather than inferred by the project.* `power` and `punishment` **MUST NOT** exist as mechanisms, and **no move MUST be represented as one agent acting *against* another**. Bowen, in his own written prose:
+> "**there is no such thing as one person taking action against another. The issue of 'power' or 'punishing' another person does not apply with the concept of differentiation of self.**"
+
+This binds three places that could each be implemented adversarially and where nothing currently forbids it: `M1.B.5`'s dominant pole is a **reciprocal** position, not a victory; `M5.E.1`'s consequence rung is the system's **automatic** reaction, not a punishment chosen by anyone; and `M8.6`'s alignment penalty is a **structural** cost of a peripheral triangle, not a sanction. A readout describing any of the three in adversarial terms is a failing implementation. → *decision C, 2026-08-27*; `theory/family_evaluation/fe11.md` · FE11.7 `[B]`
 
 ---
 
@@ -932,9 +1037,9 @@ Kerr's framing supports it: Bowen's stated validity criterion was that a theory 
 
 | Phase | Builds | Done when |
 |---|---|---|
-| **B** | M1 objects; M3 clocks and update order; M4.A standing load; M4.B, M4.E and M4.G; M1.F event record; M8 the live-position predicate; `ScriptedSource`. **No policy** — a fixed script drives it. Reduced instance per M2.3. | A scripted 40-week trace runs, the event log reads correctly, and a `TRIGGER` on a dormant family-of-origin tie moves anxiety with no contact. M11.D.1, M11.D.3, M11.D.5, M11.D.6 and M11.D.7 pass. |
-| **C** | M4.C appraisal; M4.D policy; M5 the full repertoire, gates and the `I-POSITION` state machine; M6 invariants M6.I.1–M6.I.8. | M11.C.1, M11.C.3, M11.C.4, M11.C.5, M11.C.7, M11.C.13, M11.C.14 and M11.C.16 pass over 1,000-seed ensembles, each mutation-proved. M11.D.2, M11.D.4 and M11.D.8 pass. |
-| **D** | M7 the slow clock; M9 beliefs; the twelve-person reference family; the three symptom channels and endogenous events. | M11.C.2, M11.C.6, M11.C.9, M11.C.10, M11.C.11, M11.C.12, M11.C.15 pass. A 40-year three-generation run completes. |
+| **B** | M1 objects; M3 clocks and update order; M4.A standing load **including M4.A.5**; M4.B, M4.E and M4.G; M1.F event record **including M1.F.9**; M8 the live-position predicate; `ScriptedSource`. **No policy** — a fixed script drives it. Reduced instance per M2.3. | A scripted 40-week trace runs, the event log reads correctly, and a `TRIGGER` on a dormant family-of-origin tie moves anxiety with no contact. M11.D.1, M11.D.3, M11.D.5, M11.D.6 and M11.D.7 pass. |
+| **C** | M4.C appraisal **including M4.C.8a**; M4.D policy; M5 the full repertoire, gates and the `I-POSITION` state machine **including `PREPARE` (M5.D.2a) and the corrected anger gate (M5.D.4)**; M6 invariants M6.I.1–M6.I.8. | M11.C.1, M11.C.3, M11.C.4, M11.C.5, M11.C.7, M11.C.13, M11.C.14, M11.C.16, **M11.C.25, M11.C.27, M11.C.29 and M11.C.32** pass over 1,000-seed ensembles, each mutation-proved. M11.D.2, M11.D.4 and M11.D.8 pass. |
+| **D** | M7 the slow clock **including M7.A.1a, M7.D.2c/2d and M7.E.4**; M9 beliefs **as a channel (M9.6, M9.7)**; the twelve-person reference family; the three symptom channels and endogenous events; **M11.G's readout schema**. | M11.C.2, M11.C.6, M11.C.9, M11.C.10, M11.C.11, M11.C.12, M11.C.15, **M11.C.22 (both limbs), M11.C.26, M11.C.28, M11.C.30, M11.C.31 and M11.C.33** pass. A 40-year three-generation run completes. |
 
 **M13.1** M8 **MUST** land in Phase B, before the policy, because four separate Phase C mechanisms call it.
 
@@ -950,4 +1055,25 @@ Kerr's framing supports it: Bowen's stated validity criterion was that a theory 
 
 ---
 
-*Written against `model_explainer.md` v1.0 and `theory/_LEDGER.md` at 149 findings. Every requirement traces to an explainer section; the explainer traces to a ledger entry; the ledger traces to a chapter. Nothing in this document is sourced to a summary.*
+### Revision 4 — *Family Evaluation* (Kerr & Bowen, 1988), applied 2026-08-27
+
+The sixth corpus source, folded in against the decisions recorded in `docs/DECISIONS — FAMILY EVALUATION.md`. **One correction, three amendments, and about twenty new requirements.**
+
+| | What changed | Where |
+|---|---|---|
+| **Corrected** | `M5.D.4` was **inverted**. Ch13 says the mover's *freedom from* anger admits the peak; the spec said anger did. Settled by a re-read of the primary chapter, which mentions anger exactly once | M5.D.4, M5.D.4a, M11.C.32 |
+| **Amended** | The channel prior is movable by a relational term and overridable by a constitutional one (A1, option c) | M1.A.11b, M1.A.11c |
+| **Amended** | The transition at 50 keeps its licence implementation and gains an awareness **readout**; neither is reduced cognitive capacity (A2) | M1.A.3b |
+| **Amended** | The dependence gate now binds the **slow** clock, not only the `I-POSITION` move (B1 tail) | M7.A.1a, M11.C.33 |
+| **Reviewed, unchanged** | `M12.2` stands in full — Kerr 1988 names the locus of the first unknown, not the rule (A4, option b) | M12.2a |
+| **New mechanisms** | Belief becomes a channel; cross-person reinforcement; a self-generated stress term; mutually protective channels; non-monotone lock-in; an objectivity gate on amplification; a `PREPARE` phase; a binder-unavailable event; emotional reserve; default tie deterioration | M9.6–M9.7, M4.D.6e, M4.A.5, M7.D.2c–2d, M4.C.8a, M5.D.2a, M1.F.9, M4.D.5d, M7.E.4 |
+| **New constraints** | Pole assignment independent of sex; non-monotone coach contact; every criterion needs a stressor | M2.A.0g, M1.E.8, M11.3 |
+| **New readout** | The eight-component family evaluation, with components 9 and 10 explicitly barred | M11.G |
+| **New magnitudes** | Twelve stated bounds and shapes, admitted as **checks** and never as parameters | M10.C.4, M10.C.4a, M10.C.3a |
+| **New prohibitions** | Power and punishment as mechanisms — the only `M12` entry stated by the author; no adjudication of trauma against process; no rights-as-regression readout | M12.5, M11.F.7, M11.F.8 |
+
+**One item remains open and is not applied:** nothing. All nine decision items are resolved.
+
+---
+
+*Written against `model_explainer.md` v1.2 and `theory/_LEDGER.md` across six corpus sources. Every requirement traces to an explainer section or a ledger entry; the ledger traces to a chapter, a tape, an interview or a page. Nothing in this document is sourced to a summary.*

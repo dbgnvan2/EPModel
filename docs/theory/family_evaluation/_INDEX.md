@@ -1,6 +1,6 @@
 ---
 tags: [model-bt, source, family-evaluation]
-status: pass 1 complete — 219 findings
+status: complete — pass 1, pass 2, ledger fold, and spec revision 4 applied 2026-08-27
 date: 2026-08-26
 ---
 
@@ -122,11 +122,25 @@ Three things only this book can settle:
 | 4 · Differentiation of Self | ✅ | `fe04.md` — 21 ⚠ 2 contradictions with the spec (`M1.A.3`, `M5.D.4`); §13.3 settles |
 | 5 · Chronic Anxiety | ✅ | `fe05.md` — 20 ⚠ new `M11.C` criterion candidate |
 | 6 · Triangles | ✅ | `fe06.md` — 20 ⚠ the four-proposition 2×2 |
-| 7 · Nuclear Family Emotional System | ✅ | `fe07.md` — 22 ⚠ offers a mechanism for **both** of `M12.2`'s stated unknowns |
+| 7 · Nuclear Family Emotional System | ✅ | `fe07.md` — 22 ⚠ a mechanism for **one** of `M12.2`'s two stated unknowns *(pass 1 said both; corrected at `_FE_PASS2.md` §3.1)* |
 | 8 · Multigenerational Emotional Process | ✅ | `fe08.md` — 18 ⚠ **contradicts `M1.A.11b`**; supplies the quantum-jump rate |
 | 9 · Symptom Development | ✅ | `fe09.md` — 16 |
 | 10 · Family Evaluation | ✅ | `fe10.md` — 18 ⭐ the ten-component **readout schema** |
 | 11 · Epilogue — An Odyssey Toward Science | ✅ | `fe11.md` — 20 ⭐⭐ **Bowen's own**; the master theory as a prediction engine |
 | **📗 PASS 1 COMPLETE** | **✅** | **12 segments · 219 findings** |
-| **PASS 2** — comparative re-read | ⏳ | |
-| **PASS 3** — fold into `_LEDGER.md` | ⏳ | |
+| **PASS 2** — comparative re-read | ✅ | `_FE_PASS2.md` — 15 quotations verified verbatim, **6 pass-1 readings corrected** |
+| **PASS 3** — fold into `_LEDGER.md` | ✅ | **Source 7**, sections `FE-A`–`FE-F` |
+| **SPEC REVISION 4** | ✅ | **applied 2026-08-27** — all nine decisions taken; see the spec's revision-4 log |
+
+## What this source changed in the spec
+
+| | |
+|---|---|
+| **Corrected** | `M5.D.4` was **inverted**. The re-read of Ch13 authorised by decision A3 found the chapter mentions anger exactly once, and it is the mover's: freedom *from* anger is the gate. `FE04.4` and `FE11.19` agree, about the same person's anger |
+| **Amended** | `M1.A.11c` (channel prior movable and overridable) · `M1.A.3b` (awareness as readout, licence as implementation) · `M7.A.1a` (dependence gates the slow clock) |
+| **Unchanged on review** | `M12.2` stands in full — `FE07.3` names the locus of the first unknown, not the rule |
+| **New** | ~20 requirements, 9 acceptance criteria (`M11.C.25`–`M11.C.33`), the `M11.G` readout schema, `M10.C.4`'s twelve sourced bounds, and three prohibitions (`M12.5`, `M11.F.7`, `M11.F.8`) |
+
+**The single largest change is that the belief layer becomes a channel** (`M9.6`, `M9.7`) rather than a
+parallel store — chronic anxiety runs on *what might be*, and Bowen's own correction of his term has the
+transfer running **through descriptions**, which makes `M9` what the projection process operates *on*.

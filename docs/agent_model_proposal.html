@@ -404,19 +404,21 @@
       <span><b>Reviewed</b> src/engine.py · src/main.py · docs/ · tests/ (36 tests, all passing)</span>
       <span><b>Against</b> Light Society, arXiv:2506.12078v2</span>
       <span><b>Incorporating</b> Bowen Family Model &mdash; Plan; the cutoff and institutionalization model ideas</span>
-      <span><b>Revised against</b> <i>Family Therapy in Clinical Practice</i>, all 22 chapters, two passes</span>
-      <span><b>Date</b> 2026-08-21 &middot; rev. 2026-08-22</span>
+      <span><b>Revised against</b> six corpus sources &mdash; <i>Family Therapy in Clinical Practice</i> (22 chapters, two passes), the 1979 lectures, the Kerr&ndash;Bowen interviews, <i>Family Evaluation</i> (1988), <i>Bowen Theory's Secrets</i> (2019), the DSI literature</span>
+      <span><b>Date</b> 2026-08-21 &middot; rev. 2026-08-22 &middot; rev. 2026-08-26 &middot; rev. 2026-08-27</span>
     </div>
   </header>
 
   <section class="section">
     <div class="rail">00<br>Revision</div>
     <div class="note warn">
-      <span class="lbl">Read this first &mdash; revised 22 August 2026</span>
+      <span class="lbl">Read this first &mdash; revised 27 August 2026</span>
       <p><b>This document was drafted before the source corpus was read, and has since been corrected
       against it.</b> All 22 chapters of <i>Family Therapy in Clinical Practice</i> were extracted twice
       &mdash; a cold pass, then a comparative re-read of every chapter against the whole book &mdash;
-      producing a ledger of 149 findings in <span class="m">docs/theory/</span>.</p>
+      producing a ledger of 149 findings in <span class="m">docs/theory/</span>. <b>Five further sources
+      have been read since</b>, most recently Kerr &amp; Bowen's <i>Family Evaluation</i> (1988), whose
+      Epilogue is Bowen's own late written prose. <a href="#corpus">&sect;10</a> records what each changed.</p>
       <p><b>The body below is current.</b> Sections 1&ndash;9 have been corrected in place: the sink count,
       the object fields, the move repertoire, the event record, the appraisal, the acceptance tests, the
       phase sequence and the readouts. Passages that changed carry an inline
@@ -435,6 +437,19 @@
       and test, each with what it is for, what it does, and which chapter it implements &mdash; see
       <span class="m">docs/model_explainer.md</span>. That document is graded claim by claim and is the one
       to build from.</p>
+      <p><span class="revmark">rev</span> <b>The corpus is now closed, and the spec is at revision 4.</b>
+      All six sources have been read and folded in;
+      <span class="m">docs/bowen_agent_model_spec_v2.md</span> carries <b>355 numbered requirements</b> and
+      33 acceptance criteria. The remaining step before code is the <b>implementation plan</b>.</p>
+      <p><b>And the sixth source found an inverted requirement, which is the best argument in this document
+      for the whole extraction discipline.</b> The differentiation state machine's gate had been written as
+      <i>anger admits the sequence to its peak</i>. Ch13 says the opposite &mdash; "when he is finally able
+      to maintain his course <b>without getting angry</b> at the opposition, the opposition does a final
+      intense emotional attack" &mdash; and mentions anger exactly once. The extraction's body was right;
+      a lossy <b>heading</b> above it read "Anger gates the escalation", and <em>that</em> is what reached
+      the spec. Two later sources, written by both authors, independently agree with the chapter.
+      <b>A requirement sourced from a summary heading rather than from the sentence beneath it can invert
+      without anything looking wrong.</b></p>
     </div>
   </section>
 
@@ -1524,6 +1539,13 @@
       mathematical.&rdquo; / &ldquo;You are correct.&rdquo;</p>
       <p>So: <b>a named methodological preference, scoped to his own research staff.</b> It belongs in the
       record and it is worth taking seriously. It is not a prohibition, and it should not be quoted as one.</p>
+      <p><span class="revmark">rev</span> <b>2026-08-26 &mdash; and it is now quotable from Bowen in writing,
+      which settles the reading above.</b> The Epilogue of <i>Family Evaluation</i> states the objection
+      directly and confirms both halves of the narrowing: he names the systems theories he rejected
+      (von Bertalanffy's mathematics; Wiener's &ldquo;radar and the early computers&rdquo;), and he
+      <em>declines</em> the field rather than closing it &mdash; &ldquo;<b>Anyone is welcome to that field if
+      they wish.</b>&rdquo; He also names the defect the pivot in this document exists to fix. See the note
+      at the top of this section.</p>
       <p><span class="revmark">rev</span> <b>And the wider framing this supported was wrong, which matters
       more than the narrowing.</b> In a late interview with Michael Kerr, Bowen insists a theory must be
       grounded in nature &mdash; "in the force that causes grass to grow, that causes the world to turn"
@@ -1535,12 +1557,24 @@
       compatible positions, and this document had been collapsing them into one.</p>
     </div>
 
-    <p>The working files are in <span class="m">docs/theory/</span>: <span class="m">_LEDGER.md</span> (149
-    findings, per chapter, each marked stands / narrowed / corrected / withdrawn / new),
-    <span class="m">_CONVERGENCES.md</span> (ten convergences with an independence audit &mdash; nine of the 22
-    chapters report the same 1954&ndash;59 residential project, so chapter counts overstate evidential weight),
-    <span class="m">_PASS2_CORRECTIONS.md</span> (the audit trail), and
-    <span class="m">ch01.md</span>&ndash;<span class="m">ch22.md</span>.</p>
+    <p>The working files are in <span class="m">docs/theory/</span>. For the 22 papers:
+    <span class="m">_LEDGER.md</span> (149 findings, per chapter, each marked stands / narrowed / corrected /
+    withdrawn / new), <span class="m">_CONVERGENCES.md</span> (ten convergences with an independence audit
+    &mdash; nine of the 22 chapters report the same 1954&ndash;59 residential project, so chapter counts
+    overstate evidential weight), <span class="m">_PASS2_CORRECTIONS.md</span> (the audit trail), and
+    <span class="m">ch01.md</span>&ndash;<span class="m">ch22.md</span>. <span class="revmark">rev</span> For
+    the later sources: <span class="m">_LECTURES_1979.md</span>, <span class="m">kb/</span>,
+    <span class="m">_EXTERNAL_MEASURES.md</span>, <span class="m">kerr_book/</span> (2019, 262 findings) and
+    <span class="m">family_evaluation/</span> (1988, 219 findings). The ledger carries each later source as a
+    consolidated block standing in for the fuller extraction beside it, so its sections are not all the same
+    unit &mdash; do not add them into a single total.</p>
+    <p><span class="revmark">rev</span> The independence audit gained a category it did not have.
+    <i>Family Evaluation</i>'s two halves were written without sight of each other &mdash; &ldquo;Dr. Kerr has
+    written a major portion of the book, <b>without my knowledge of its content. This has been
+    purposeful.</b>&rdquo; Six claims in it are stated separately by both men, which is the project's first
+    clean two-witness convergence in a corpus where almost everything else is one setting reported repeatedly.
+    The limit is real and recorded: independence of <em>drafting</em>, not of <em>training</em> &mdash; Kerr had
+    been in Bowen's programme for twenty years.</p>
   </section>
 
   <p class="closer">One named input was not available: <span class="m">Tech/Evolution Game Models.md</span> (DX, CX, SX, TX, IX, WX, LX) is referenced in the plan as a v0 to formalize and was not among the files provided. If it carries earlier variable definitions, it belongs in Phase A before anything gets named twice.</p>

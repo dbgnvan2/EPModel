@@ -49,9 +49,13 @@ hundred families."
 
 ## Queue after this book
 
-**Family Evaluation** (Kerr & Bowen, 1988) — user-requested 2026-08-24, to run immediately after this one.
-Already chapterised as text in `~/Downloads/bowen_rag/source_files/` (11 chapters + introduction, ~1.1 MB).
-That becomes source **#6** and **spec revision 4**.
+~~**Family Evaluation** (Kerr & Bowen, 1988) — user-requested 2026-08-24, to run immediately after this
+one.~~ **DONE 2026-08-26.** 12 segments, 219 findings, pass 2 complete, folded into `_LEDGER.md`. See
+`family_evaluation/_INDEX.md`.
+
+**Correction to the numbering above.** This note called it "source #6". By the time it ran, the ledger had
+given **Source 6** to the domain-expert block, so *Family Evaluation* is **Source 7 in the ledger and the
+sixth corpus source**. Both counts are correct; say which is meant.
 
 ## Process
 

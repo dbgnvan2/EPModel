@@ -55,7 +55,7 @@ whether its status marker says `[stands]`.
 
 **The corpus supports directions, orderings and mechanisms. It almost never supports magnitudes.**
 
-## 2. There are now five sources, and they are not one evidence class
+## 2. There are now six corpus sources, and they are not one evidence class
 
 | Source | What it is | How to cite | Constraint |
 |---|---|---|---|
@@ -63,6 +63,7 @@ whether its status marker says `[stands]`.
 | 1979 Basic Video Series, 6 tapes | Bowen lecturing | `Tape 5` | ASR; substance reliable, **no verbatim quotation** |
 | Kerr–Bowen interviews, 15 | Bowen and his successor in dialogue, late period | `KB04 · K04.1` | ASR, no speaker separation; **cite the interview, not the man**; questions are ~99% Kerr |
 | **Kerr, *Bowen Theory's Secrets* (2019)** | **published book by Bowen's successor — 24 chapters, intro, epilogue** | `KS11 · KS11.2` | **none — written, author-edited, verbatim quotation permitted.** The best evidence class since the book itself |
+| **Kerr & Bowen, *Family Evaluation* (1988)** | **published book — Kerr wrote Chs 1–10, Bowen the Epilogue, and they wrote *independently*** | `FE07 · FE07.2` | **none — written, author-edited, verbatim quotation permitted.** The Epilogue is **`[B]`: the latest primary Bowen text in the project** |
 | External measures | the DSI and its literature | `_EXTERNAL_MEASURES.md` | post-hoc, by other researchers |
 
 **Precedence:** latest-wins, with the published paper breaking ties wherever a transcript is ambiguous or
@@ -75,6 +76,19 @@ interview findings in `kb/`, comparative pass in `kb/_KB_PASS2.md`.
 **Neither did the 2019 book.** Across 262 findings it contradicts **no** finding of the papers, the lectures
 or the interviews. What it contradicts is **six requirements this project wrote** — see
 `kerr_book/_KS_PASS2.md` §2. Findings in `kerr_book/`, comparative pass in `kerr_book/_KS_PASS2.md`.
+
+**Nor did the 1988 book.** Across 219 findings *Family Evaluation* contradicts **no** finding of the
+papers, the lectures or the interviews. What it contradicts is **four requirements this project wrote** —
+see Source 7, `FE-A`. It also moves **twelve** load-bearing requirements off ASR transcripts and secondhand
+citation onto written primary text (`FE-B`), five of them onto Bowen's own hand. Findings in
+`family_evaluation/`, comparative pass in `family_evaluation/_FE_PASS2.md`.
+
+**The one place this corpus contains genuinely independent witnesses.** Bowen wrote the Epilogue without
+sight of Kerr's chapters — "**Dr. Kerr has written a major portion of the book, without my knowledge of its
+content. This has been purposeful.**" Six claims are stated separately by both men in that volume. Set
+against §3's problem — nine chapters reporting one NIMH project — this is the project's first clean
+two-witness convergence. Note the limit: independence of *drafting*, not of *training*; Kerr had been in
+Bowen's programme for twenty years.
 
 **One qualification on the 2019 book, stated by its author.** Kerr writes that it is "my version of Bowen
 family systems theory… I like to think that I may have extended the theory some." Findings that read as
@@ -2514,6 +2528,300 @@ computable from the model's event log — over-involvement from `M1.B.8`, critic
 withdrawal. **Expert decision: the withdrawal of the *rate* stands.** The figure is a range with a 3×
 spread describing **full-scale traversal**, not a per-generation decrement; `M10.C.3`'s prohibition is
 untouched; and it is recorded instead as a `[#]` **shape constraint** on `M11.C.6`.
+
+---
+
+# Source 7 — Kerr & Bowen, *Family Evaluation* (1988)
+
+Full extraction in `family_evaluation/` (12 files, 219 findings); comparative pass in
+`family_evaluation/_FE_PASS2.md`. Recorded here is only what **changes the ledger**.
+
+**Citation:** `FE07 · FE07.2`. Written, author-edited; verbatim quotation permitted.
+
+**⚠ Two authors, writing independently.** Bowen opens the Epilogue: "**Dr. Kerr has written a major
+portion of the book, without my knowledge of its content. This has been purposeful.**" So Chapters
+1–10 are **`[K]`** — Bowen theory as Kerr states it, 1988 — and the Epilogue is **`[B]`**, Bowen's own
+written prose and the **latest primary Bowen text in the project**. Agreement between the two halves
+is a genuine two-witness convergence, which almost nothing else in this corpus is. Independence of
+*drafting* is not independence of *training*: Kerr had been in Bowen's programme for twenty years.
+
+**Sixth corpus source, seventh ledger section.** The numbering counts sections in order of addition,
+and Source 6 is not a corpus source. See `family_evaluation/_INDEX.md`.
+
+---
+
+## FE-A · Four items that contradict or amend the **approved** spec
+
+**None applied.** The spec was approved 2026-08-25; three of these change requirements the model is
+built on.
+
+### FE-A.1 — Genes set the **symptom**; learning sets the **category**  `[new]`
+**Target:** `M1.A.11b` · **Verdict:** CONTRADICTS
+
+`M1.A.11b` requires the symptom **channel** to be exogenous constitutional data — *level sets
+amplitude, constitution sets channel* — citing `KS22.14`, `KS21.5` (2019).
+
+`FE08.3`, verified verbatim: "**Genes are an important influence on the type of symptom that develops,
+but learning based on childhood experience appears to be the most important influence on the category
+of clinical dysfunction (physical, emotional, social) that develops.**" `FE07` says the same from the
+relational side — the category tracks "**what others in the system focus on in that individual when
+they get anxious.**"
+
+`FE09.1` supplies the decomposition that reconciles the two 1988 passages and not the spec:
+**constellation → ripeness; learning → category; constitution → specific symptom.**
+
+**Not resolvable here.** `KS22.14`'s wording ("schizophrenia **rather than some other clinical
+dysfunction**") is ambiguous between symptom and category. If it is about the specific symptom the
+two texts agree and `M1.A.11b` has the level wrong. `FE08.3` also preserves an override: "**Genetic
+predisposition to a disease… can be strong enough to override relationship programming.**"
+
+### FE-A.2 — The transition at 50 described as awareness, not licence  `[new]`
+**Target:** `M1.A.3` · **Verdict:** DIVERGES
+
+`FE04.3`: "**above 50 there is more awareness of the difference between feelings and intellectual
+principle**"; the intellect "**sufficiently developed to make a few decisions of its own.**" That maps
+to `M4.D.1a`'s mixing weight, not to a decision-scope licence. `M1.A.3` derives from Ch16 — Bowen's
+own — and the index rule forbids a Kerr formulation overwriting a Bowen one.
+
+**Recommended landing:** keep `M1.A.3` as the behavioural implementation; add `FE04.3`'s criterion as
+the **readout** that distinguishes bands. Both stated.
+
+### FE-A.3 — Anger called an unreliable guide  `[new]`
+**Target:** `M5.D.4` · **Verdict:** CONTRADICTS, pending a Ch13 re-read
+
+`M5.D.4` makes anger the **gate** admitting the `I-POSITION` sequence to `PEAK`. `FE04.4`: "**it is not
+fueled by anger… not a reliable guide for action. When someone angrily and dogmatically claims to be
+a 'self,' he is usually unsure of his position.**" Bowen independently: "**A dogmatic person is rarely
+sure of self**" (`FE11.19`).
+
+**Probable resolution:** `M5.D.4` is the *system's* anger, `FE04.4` the *mover's*. Read that way both
+stand and the model gains a gate — a mover whose own anger is above threshold executes `M5.F.4`'s
+assertion form. **Check `L13` against the primary before encoding.**
+
+### FE-A.4 — A mechanism for the first of `M12.2`'s two unknowns  `[new]`
+**Target:** `M12.2` · **Verdict:** NARROWS
+
+`FE07.3`: the parents' **emotional complementarity**, formed in their families of origin and
+exaggerated by anxiety, determines which sink carries the load — "**The nature of these exaggerated
+elements determines whether the problem emerges as marital conflict, spouse dysfunction, or child
+dysfunction.**"
+
+For the **second** unknown — which spouse takes the dominant pole at identical levels — the text gives
+only "**by mutual agreement — the product of the emotional fit**", which names a locus, not a rule.
+`M12.2`'s second clause **stands**. (Pass 1 over-read this; corrected at `_FE_PASS2.md` §3.1.)
+
+**One part applies regardless and is not contested:** "**males and females assume the dominant position
+with equal frequency.**" → `M2.A` candidate: pole assignment MUST be sex-independent.
+
+---
+
+## FE-B · Twelve requirements move to written primary text  `[new]`
+
+The largest single improvement in evidential quality the project has had. **Nothing in the model
+changes**; twelve load-bearing requirements stop depending on ASR transcripts the project may not
+quote, or on one author reporting another. Five are now quotable from **Bowen's own hand**.
+
+| Requirement | Was | Now | By |
+|---|---|---|---|
+| `M1.A.0` *emotional = instinct* | `kb02`·K02.1 (ASR) | `FE01.9`, `FE02.2`, `FE11.11` | K + **B** |
+| **`M1.A.9a` two-axis identity** | `KS24.4` (2019, secondhand) | **`FE03.1`** — both counterfeits named as "**two sides of the same coin**" | K |
+| `M1.A.4d` capacity floor at 25 | `KS05.2` (2019) | `FE04.2` — with its reason, *addicted to comfort* | K |
+| `M1.A.14a` functional sibling position | `KS12.2` (2019) | `FE02.13`, `FE07.13`, `FE10.7` | K |
+| `M1.D.2a` distance binds | `KS04.1`, `kb04` (ASR) | `FE03.15`, `FE08.6` | K |
+| `M6.I.4` / `M6.I.5` pseudo / solid self | 1979 Tape 2 (ASR) | `FE04.10` | K |
+| `M5.E.1` / `M5.E.3` the ladder | Ch21, `L01.8` | `FE04.11` — both in one sentence | K |
+| `M7.E.1a` three-outcome transmission | `KS11.2` (2019) | `FE04.19`, **`FE11.4`** | K + **B** |
+| `M1.D.4a` differentiation capacity | `kb08`·K08.2 (ASR) | **`FE11.10`** — with a two-thirds threshold | **B** |
+| **`M11.F.3` general-systems objection** | `kb13`, `kb09` (ASR) | **`FE11.2`** — three passages | **B** |
+| `M11.F.3a` validity criterion | `KS24.8` (2019) | **`FE11.11`** — *sun and earth, tides and seasons* | **B** |
+| `M7.A.2b` substitution on a dead parent | `KS13.11` (2019) | `FE06.4` — worked case + mechanism | K |
+
+`M1.A.9a` is the one the run was queued for: the definition the model is built on has until now
+reached the project through Kerr in 2019 quoting himself citing this book. The primary is stronger
+than the paraphrase — it **names and pairs both counterfeits**, which is exactly the fixture
+`M11.C.19` needs and could not source.
+
+---
+
+## FE-C · Mechanisms the spec lacks  `[new]`
+
+Ten, ranked. All are candidates; none applied.
+
+1. **Sink allocation is identified by the belief configuration.** Three sinks, three distinct
+   attribution patterns — conflict: *each says the other*; spouse dysfunction: *both say the same one*;
+   child projection: *both say the children*. Connects `M1.D.1` to `M9` for the first time and is
+   assertable in both directions. → `FE07.2`
+2. **Belief MUST be able to drive appraisal**, not only record it. Three independent arguments:
+   the three systems influence each other in both directions (`FE02.7`); chronic anxiety runs on
+   *what might be* (`FE05.10`); and Bowen's own correction of "projection" — the transfer runs
+   **through descriptions** (`FE11.3`), which makes `M9` the channel the family projection process
+   operates on rather than a readout beside it.
+3. **Reinforcement across persons.** The projection loop's step 4: the child learns that acting as the
+   image predicts **calms the mother**, and her calming is the reinforcement. `M4.D.6` reinforces on
+   the actor's own signal only, so nothing currently drives step 5's internalisation. → `FE07.4`
+4. **A self-generated stress term**, derived from `basic_level`. Two named sources of chronic stress
+   scale with level; the model has the inter-person one (`M4.A.1`) and nothing intra-person. → `FE08.5`
+5. **Symptom channels are mutually protective**, not merely substitutable — occupancy of one lowers
+   the hazard on the others; reciprocal functioning **within** the person. → `FE01.6`, `FE05.8`
+6. **Lock-in is non-monotone.** Past a severity threshold the symptom **destabilises** and removal
+   brings relief. Three independent statements. Amend `M7.D.2a` and `M11.C.22`. → `FE03.9`, `FE07.15`
+7. **`M4.C.8`'s amplification MUST be gated by objectivity.** As written, every act of reflection is
+   an escalation, which would make `M1.E.7c`'s category supply and delayed self-observation
+   impossible. → `FE03.6`
+8. **A `PREPARE` phase before `M5.D`.** Bowen's February 1967 trip: months of planning, **one private
+   letter per important triangle**, timed "**to cause the triangles to come to me.**" → `FE11.9`
+9. **A second event type: a binder becomes unavailable** — raises anxiety while adding no load. The
+   retirement case: physical proximity removed the distance that had been binding, and the anxiety
+   "**spilled over**" into symptoms. → `FE09.2`, `FE08.6`
+10. **Emotional reserve**, derived as *capacity − accommodation stock*, gating symptom onset. Named
+    repeatedly in two chapters; gives `M4.D.5a` the consequence it currently lacks. → `FE03.10`
+
+---
+
+## FE-D · Readouts, criteria and magnitudes  `[new]`
+
+### The readout schema the spec does not have
+`FE10.1`'s ten-component family diagnosis — **components 1–8 only**; 9 (therapeutic focus) and 10
+(prognosis) are clinical judgements the model must not emit (`_FE_PASS2.md` §3.4). Every one of the
+eight is computable from state the model already carries, and **adaptiveness is derived, not
+measured**: reactivity *compared against* stress (`FE10.2`), which makes `M1.A.4b`'s load weighting
+definitional rather than corrective.
+
+### Criteria candidates
+- **The four-proposition 2×2** — a stable twosome is destabilised by adding *or* removing a third; an
+  unstable one is stabilised by adding *or* removing. `M11.C.3` tests **one of four cells**, and the
+  sign depends on the twosome's prior state. → `FE06.1`
+- **Sink mobility is protective.** Two families at the same adaptiveness and stress: fixed allocation
+  → one catastrophic outcome; rotating → many moderate ones. **Symptom count is therefore not a
+  differentiation readout.** → `FE07.6`, `FE10.3`
+- **Relief reallocates; differentiation reduces the budget.** Nothing in `M11.C` distinguishes them.
+  With a time-course discriminator: a third-person symptom is **transient** in a genuine move and
+  **persistent** when the move was distance in disguise. → `FE05.2`
+- **Coach contact frequency is non-monotone with a low optimum.** Four sessions a month were measured
+  worse than one; mechanism named as transference. Distinct from `M5.B.3`, which governs family ties.
+  → `FE11.8`
+- **`M11.C.17` asserts a relay**, not a single mover — "**leadership shifts back and forth**", the second
+  mover following after "**several weeks**". This also resolves `model_explainer.md` §16's weakest
+  convergence: *leaders first* and *peripheral member first* are one alternating process. → `FE11.6`
+- **Every discriminating criterion needs a stressor** — cohesion by togetherness and by individuality
+  are indistinguishable when calm. → `FE04.18`
+- **Ties deteriorate by default** at a rate inverse to level, which makes `M11.C.17`'s flat arm a real
+  test rather than a trivial one. → `FE03.13`
+
+### Magnitudes  `[#]`
+The corpus almost never gives these. All are **bounds and shapes**, not rates; `M10.C.3` is untouched.
+
+| Quantity | Value | Source |
+|---|---|---|
+| Species median `basic_level` | **≈ 40** — below `M1.A.3`'s transition | `FE03.5` |
+| Band edges | 0–10 very poor · >60 well · >70 very well · 100 unreachable | `FE03.5` |
+| Pseudo-self transfer, worked | **35+35 → 55+15** — conserved exactly; the corpus's only arithmetic instance of `M6.I.4` | `FE04.1` |
+| Per-generation step, typical | **< 5 points** | `FE08.7` |
+| Per-generation step, consequential | **5–10 points** | `FE07.7` |
+| Parent-to-child bound | **never 30 points** | `FE07.7` |
+| Quantum jump | **~10 points/generation over two generations**, under three conjunctive conditions | `FE08.1` |
+| Full traversal | 3 generations (quantum jump) to 5–10 (typical), **symmetric both directions** | `FE08.2` |
+| Generation length | ~25 years | `FE08.2` |
+| Sibling-position decay | ≥ **5-year** gap reduces predictability | `FE10.7` |
+| Treatability floor | **upper two-thirds of the schizophrenic range** | `FE11.10` |
+| Borrowed-gain gap, worked | apparent **40–45**, true **25–30**, revealed by a matriarch's death | `FE04.8` |
+
+**The quantum-jump conditions are the most specific mechanism-plus-magnitude statement in the whole
+corpus** and yield a three-way ablation test: (1) anxiety bound primarily in **focus on one child**,
+(2) **poorly connected to the extended family**, (3) at least **average stress** — held over two
+successive generations. Condition (2) gives `M1.D.8` and `M2.3` a **quantified** consequence for the
+first time. The rate must be implemented as an **output of the three mechanisms, never a parameter**;
+`M10.C.3` should be amended to say so rather than left to read as forbidding it.
+
+---
+
+## FE-E · Framing, and one prohibition from Bowen  `[new]`
+
+### The master theory was a prediction engine
+`FE11.1`, Bowen's own account of the NIMH device: predictions about "**every item of abnormal behavior
+that might occur, and the therapeutic action that might change it**"; "**If the prediction was
+inaccurate, it meant that the theory was incomplete or there had been an error in the staff**"; "**an
+impersonal 'rule book' that was always current, that 'knew everything'**"; and "**A theory can be
+changed at any time by the logical thinking of respected people, but never in response to PERSONAL
+feelings of the moment.**"
+
+**Continuity of method, not identity of artefact** (`_FE_PASS2.md` §3.3). Bowen's device was a written
+rule book applied by a human staff. What it earns is narrower than pass 1 claimed and still worth
+having: **the enterprise of building an impersonal predictive apparatus over this theory is the
+author's own**, so `M11.F.3`'s objection bears on the *implementation choices* and not on the
+project's existence.
+
+### The general-systems objection, from Bowen, and what it does and does not say
+Three passages (`FE11.2`), all verified verbatim. He names von Bertalanffy's mathematics and Wiener's
+"**radar and the early computers**", and says "**To have used mathematical ideas would have further
+blurred the long quest toward science.**"
+
+Two things `M11.F.3` currently gets wrong:
+
+- **"Anyone is welcome to that field if they wish"** — Bowen says he **chose to avoid** connecting
+  living matter to "**a technological extension of the brain**" and explicitly leaves the field open.
+  That is a declination, not a prohibition, and the spec presents it as a standing charge.
+- **The analogy-breakdown clause names the defect the agent pivot fixes**: "**It is factual that certain
+  aspects of human relationships can be described by any form of systems thinking, just as any
+  mechanical machine can be a set of systems within systems. The analogy breaks down in the human when
+  each family member has a brain that can control its part in the drama.**" A lattice updated by a
+  global rule fails that test; autonomous agents each selecting their own move do not. The pivot from
+  the grid engine is recorded in `CLAUDE.md` as a design judgement; **it is the correction Bowen
+  names.**
+
+### A prohibition
+> **`power` and `punishment` MUST NOT exist as mechanisms in the model.** No move may be represented as
+> one agent acting *against* another; `M1.F.1`'s targets are recipients, never victims. → `FE11.7`:
+> "**there is no such thing as one person taking action against another. The issue of 'power' or
+> 'punishing' another person does not apply with the concept of differentiation of self.**"
+
+`M12` candidate — a sixth entry beside the five withdrawn mechanisms, and the only one stated as a
+prohibition by the author rather than inferred by the project.
+
+### Two further framing items
+- **`FE08.10`'s anti-blame clause**, to be quoted verbatim wherever a symptom is reported: "**Symptoms
+  do not indicate people 'should' have been able to adapt better. They simply indicate that people
+  were not able to adapt better.**"
+- **The ninth concept was subjectivity, and it was never published** (`FE10.16`). `M9` and
+  `M1.A.18`'s `systems_perspective` are attempts at exactly the thing Bowen was formalising and did
+  not finish — so they are the parts of the model with the **least** theoretical backing, and the
+  reason is not that the project chose badly.
+
+---
+
+## FE-F · What this source settles
+
+1. **Explainer §13.3 / `_RESOLUTIONS.md` R3 — when `basic_level` is fixed.** `FE04.9`: "**fairly well
+   established by the time a child reaches adolescence and usually remains fixed for life, although
+   unusual life experiences or a structured effort… can lead to some change in it.**" The project's
+   provisional decision — slow-moving with a ratchet, not frozen — was right and now has a written
+   primary source. **The third open contradiction can be closed.**
+2. **Three sinks, and distance is not a fourth.** `FE07.1` gives both halves: not a fourth category
+   **because it is a feature of all relationships and intertwined with all the patterns**, while being
+   no less important. Retired.
+3. **`KS11.1`'s traversal timing.** Three generations is the quantum-jump case requiring `FE08.1`'s
+   three conditions; five to ten is typical. At ~10 points/generation that is 30 points over three
+   generations — exactly `FE07.7`'s stated maximum. Same claim, two statements.
+
+## What it must not be used for
+
+- **`FE07.21`** — the trauma claim ("the child's life course is more influenced by the lack of
+  emotional separation… **than by the abuse itself**"). 1988 clinical position, no series, no
+  comparison group, on a question where the wider evidence base has moved. **`M11.F` candidate: no
+  output may be presented as adjudicating discrete traumatic events against ongoing relational
+  process.** The model does not distinguish them.
+- **`FE09.16`** — LeShan's reported **50% cure rate** in "medically hopeless" cancer. `[X]`, excluded.
+- **`FE08.17` / `FE02.19`** — the unidisease and the sub-genic emotional system. `[K-ext]`, `[X]`.
+- **`FE10.17`'s societal symptom list** — "an incessant clamor for '**rights**'" is a 1988 editorial
+  judgement. `M1.D.7`'s readouts MUST NOT inherit it; it fails `M11.F.6` by construction.
+
+## Kerr 1988 → Kerr 2019, measured
+
+Two divergences, **both about disease, both in the same direction: the claim widened and the hedge
+weakened** (`_FE_PASS2.md` §5). This **strengthens** the `[K-ext]` grading of the 2019 disease
+material — the extension is now visible as one, because both endpoints are in the corpus. On
+everything that is not disease the two texts agree closely, several times in near-identical language,
+which is the only longitudinal stability measurement the project has on a single voice.
 
 ---
 

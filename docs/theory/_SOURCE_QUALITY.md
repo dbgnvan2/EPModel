@@ -6,6 +6,13 @@ date: 2026-08-22
 
 # Recorded sources — quality, and what each can support
 
+> **Scope note, 2026-08-26.** This file analyses the three **recorded** (ASR) corpora. Two **written**
+> sources have since been added and are outside its scope because they carry none of the constraints it
+> exists to measure: Kerr, *Bowen Theory's Secrets* (2019), and Kerr & Bowen, *Family Evaluation* (1988).
+> Both are published, author-edited, and permit verbatim quotation. *Family Evaluation*'s Epilogue is
+> **Bowen's own written prose** and is the highest-weight late-Bowen text in the project — it is the one
+> place his objection to general systems can be quoted rather than paraphrased. See `_LEDGER.md` §2.
+
 Three recorded corpora have been added alongside the book. They are not one evidence class, and the differences decide what may be extracted from each.
 
 ## Measured, not assumed

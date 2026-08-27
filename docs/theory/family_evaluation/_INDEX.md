@@ -125,7 +125,7 @@ Three things only this book can settle:
 | 7 · Nuclear Family Emotional System | ✅ | `fe07.md` — 22 ⚠ offers a mechanism for **both** of `M12.2`'s stated unknowns |
 | 8 · Multigenerational Emotional Process | ✅ | `fe08.md` — 18 ⚠ **contradicts `M1.A.11b`**; supplies the quantum-jump rate |
 | 9 · Symptom Development | ✅ | `fe09.md` — 16 |
-| 10 · Family Evaluation | ⏳ | |
+| 10 · Family Evaluation | ✅ | `fe10.md` — 18 ⭐ the ten-component **readout schema** |
 | 11 · Epilogue — An Odyssey Toward Science | ⏳ | |
 | **PASS 2** — comparative re-read | ⏳ | |
 | **PASS 3** — fold into `_LEDGER.md` | ⏳ | |

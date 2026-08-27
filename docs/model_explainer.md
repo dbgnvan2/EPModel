@@ -1,8 +1,8 @@
 ---
 tags: [model-bt, explainer]
 status: current
-version: 1.0
-date: 2026-08-22
+version: 1.2
+date: 2026-08-26
 ---
 
 # The model, part by part
@@ -11,7 +11,7 @@ date: 2026-08-22
 
 **The goal is that you can understand the whole model without reading the corpus.** Where a part has no basis in the corpus, this document says so in the same breath — that is the point of it.
 
-Companions: [`agent_model_proposal.html`](agent_model_proposal.html) is the architecture and the argument for it; [`theory/_LEDGER.md`](theory/_LEDGER.md) is the evidence, 149 findings across 22 chapters. This file is the bridge. It does not argue for the design and it does not quote the source at length; it tells you what each piece is and where it came from.
+Companions: [`agent_model_proposal.html`](agent_model_proposal.html) is the architecture and the argument for it; [`theory/_LEDGER.md`](theory/_LEDGER.md) is the evidence — **175 entries drawn from six corpus sources**, plus a domain-expert block. This file is the bridge. It does not argue for the design and it does not quote the source at length; it tells you what each piece is and where it came from.
 
 ---
 
@@ -36,13 +36,37 @@ The corpus contains **no instrument, no rater procedure, no comparison group, an
 | **`[I]`** | **Invented.** No source. A modelling decision. | Free to tune. **Must never be presented as sourced.** |
 | **`[X]`** | **Contested.** The corpus disagrees with itself. | Do not implement as an absolute. See §12. |
 
+**Three attribution grades sit alongside these**, because half the corpus is no longer Bowen's own words. They say *who said it*, not how strong it is, and a claim carries one of each kind.
+
+| Grade | Meaning | What you may do with it |
+|---|---|---|
+| **`[B]`** | **Bowen.** His own writing or speech. | Attribute to Bowen. |
+| **`[K]`** | **Kerr.** Bowen theory as his successor states it. | Attribute to **Kerr**, never to Bowen, unless the text quotes Bowen. |
+| **`[K-ext]`** | **Kerr's extension**, by his own account — "I like to think that I may have extended the theory some." | **MUST NOT** be attributed to Bowen. Treat as one authority's proposal. |
+
 A part carrying **`[I]`** is not a defect — the model cannot run without invented constants. A part carrying `[I]` while *claiming* a source is a defect, and that is the failure this grading exists to prevent.
 
 ### Reading the citations
 
-`Ch16 · L16.2` means chapter 16 of *Family Therapy in Clinical Practice*, ledger entry L16.2. Chapter numbers are the book's, and the book is **not** in chronological order — Ch19 is one of the earliest papers, Ch12 one of the latest. Where the date matters the entry says so.
+There are six corpus sources and each has its own prefix. **The prefix tells you who is speaking and what may be quoted.**
 
-**One caution that applies throughout.** Nine of the 22 chapters report the same 1954–59 residential project. When two chapters agree, that is often one study reported twice, not replication. Where an entry leans on agreement across chapters, it says how many *independent settings* are behind it.
+| Prefix | Source | Date | Attribution | Verbatim quotation |
+|---|---|---|---|---|
+| `Ch16 · L16.2` | *Family Therapy in Clinical Practice* — the 22 papers | 1957–76 | `[B]` | yes |
+| `Tape 5` | 1979 Basic Video Series | 1979 | `[B]` | **no** — ASR |
+| `KB04 · K04.1` | Kerr–Bowen interviews, 15 | late period | cite the **interview**, not the man | **no** — ASR |
+| `FE07 · FE07.2` | *Family Evaluation*, Chs 1–10 | 1988 | `[K]` | yes |
+| `FE11 · FE11.2` | *Family Evaluation*, the Epilogue | 1988 | **`[B]`** — the latest primary Bowen text | yes |
+| `KS11 · KS11.2` | *Bowen Theory's Secrets* | 2019 | `[K]`, some `[K-ext]` | yes |
+| `U7` | the domain expert, and cross-source resolutions | — | **not a corpus finding** | n/a |
+
+Chapter numbers in `ChNN` are the book's, and the book is **not** in chronological order — Ch19 is one of the earliest papers, Ch12 one of the latest. Where the date matters the entry says so.
+
+**Two cautions that apply throughout.**
+
+**Repetition is not replication.** Nine of the 22 chapters report the same 1954–59 residential project. When two chapters agree, that is often one study reported twice. Where an entry leans on agreement across chapters, it says how many *independent settings* are behind it.
+
+**One place in the corpus does contain independent witnesses.** *Family Evaluation*'s two halves were written without sight of each other — Bowen: "**Dr. Kerr has written a major portion of the book, without my knowledge of its content. This has been purposeful.**" So an `FE0x`/`FE11` agreement is a genuine two-witness convergence. The limit: independence of *drafting*, not of *training* — Kerr had been in Bowen's programme for twenty years.
 
 ---
 
@@ -223,7 +247,13 @@ The **same** rise in `functional_level` means opposite things depending on what 
 
 The definition is a **conjunction of two negatives**:
 
-> *Be for self without being **selfish**. Be for other without being **selfless**.* — Kerr & Bowen, *Family Evaluation* (1988); `KS24.4`
+> *Be for self without being **selfish**. Be for other without being **selfless**.* — Kerr, *Family Evaluation* (1988); `[K]` `FE03.1`
+
+**On this citation.** Until 2026-08-26 the project held this formulation only at second hand, through Kerr in 2019 quoting himself citing Kerr & Bowen 1988 (`KS24.4`). The primary is now read, and it is stronger than the paraphrase — it **names and pairs both counterfeits**:
+
+> "**Both 'rugged individualism' and obligatory conformity are strongly influenced by the togetherness force. The 'rugged individualist' operates as much in reaction to others as the compliant person.** … **He has trouble being an 'individual' without permanently disrupting his relationships with others. The compliant person has difficulty maintaining his relationships with others without giving up his 'individuality.' Rugged individualism and compliance, therefore, are two sides of the same coin.**" `[K]` `FE03.1`
+
+That is the fixture test 15 needs: two counterfeits at **equal magnitude of the same force**, separated only by direction. And the failures are defined by what each **cannot do** — the declarer cannot hold a position without rupturing the tie; the accommodator cannot hold the tie without dropping the position — which makes the detector a 2×2 over *(position held?, tie intact?)* rather than a threshold on a hidden state.
 
 | Axis | Kerr's term | How it looks |
 |---|---|---|
@@ -281,7 +311,7 @@ The definition is a **conjunction of two negatives**:
 
 **Does:** accumulates from the load routed to this person; crossing threshold emits an endogenous event. The three channels are **substitutable** — the same deficit presents interchangeably as physical illness, mental illness, or social dysfunction.
 
-**On the name.** The third channel was *emotional*; it is **mental** on the author's own proposal — "*the symptoms manifest in aberrant cerebral cortical processes, but the core of the symptom-generating force is the subcortical emotional system*" (`KS23.11`). Under `M1.A.0` **everything** in this model is emotional, so *emotional* as a channel name was a collision.
+**On the name.** The third channel was *emotional*; it is **mental** on the author's own proposal — "*the symptoms manifest in aberrant cerebral cortical processes, but the core of the symptom-generating force is the subcortical emotional system*" (`[K-ext]` `KS23.11`). Under `M1.A.0` **everything** in this model is emotional, so *emotional* as a channel name was a collision. ⚠ **The source is graded `[K-ext]`** — it comes from the 2019 book's *unidisease* chapter, which its author states he cannot prove — so the **rename** is adopted on the argument, which stands on its own, and **nothing else from that chapter is.**
 
 **A second axis crosses the three:** physical and mental **internalise**; social **externalises**. That is what makes "curing the symptom raises conflict" and its inverse — depression lifting as a couple starts fighting — the same mechanism rather than two. `M1.A.11a`, `KS10.5`
 
@@ -979,7 +1009,7 @@ P(align | knows, outside_system) = low      # the wife
 
 **And a third secrecy mechanism**, in the source and in neither extraction — `[T]` Ch21 · L21.11: "**the element of surprise that is essential if a differentiating step is to be successful.**" Surprise attaches to **the target**; latency and ownership attach to **the mover**. Three mechanisms, two objects — which is why an announced *act* costs nothing.
 
-### 13.3 A third, smaller one: when is the basic level fixed?  `[X]` — **still open, but decided for the model**
+### 13.3 A third, smaller one: when is the basic level fixed?  ✅ **SETTLED 2026-08-26** — the provisional decision was right
 
 | Chapter | When |
 |---|---|
@@ -989,7 +1019,13 @@ P(align | knows, outside_system) = low      # the wife
 
 Ch21 contradicts *itself* here — the freeze claim and a "basic increase… which can never return to the former level" sit ~5,000 words apart in different sections and neither refers to the other.
 
-**Decided for the model:** Ch21's freeze-at-marriage is **outvoted by three chapters, two of them later**, and Ch16 explicitly restores slow movement ("it is possible to make slow changes"). So `basic_level` moves — but ⚠ **not by a ratchet.** It is **derived**, an estimator over sustained, broad, load-tested `functional_level` history (§3.2a), with a **capacity floor at 25** below which it cannot rise at all. The fast quantity is the **swing** term inside `functional_level`. Do not implement it as frozen, and do not implement it as incremented. This is a modelling decision over a genuine disagreement, not a resolution of it.
+**Settled by `FE04.9`.** Kerr, 1988, in writing:
+
+> "**Basic level is fairly well established by the time a child reaches adolescence and usually remains fixed for life, although unusual life experiences or a structured effort to increase basic level at a point later in life can lead to some change in it. Clinical experience suggests that a person must be self-sustaining and living independently of his family of origin to be successful at modifying his basic level of differentiation in relationship to the family.**" `[K]` `FE04.9`
+
+That is exactly the shape the project had provisionally chosen — **established by adolescence, usually fixed, changeable by structured effort** — so the decision below stands and is no longer a judgement over a disagreement. It also adds a precondition the model had too narrowly: *self-sustaining independence* gates **basic-level change itself**, not only the `I-POSITION` move (§3.12).
+
+**The decision, unchanged:** Ch21's freeze-at-marriage is **outvoted by three chapters, two of them later**, and Ch16 explicitly restores slow movement ("it is possible to make slow changes"). So `basic_level` moves — but ⚠ **not by a ratchet.** It is **derived**, an estimator over sustained, broad, load-tested `functional_level` history (§3.2a), with a **capacity floor at 25** below which it cannot rise at all. The fast quantity is the **swing** term inside `functional_level`. Do not implement it as frozen, and do not implement it as incremented. This is a modelling decision over a genuine disagreement, not a resolution of it.
 
 ### 13.4 What both resolutions have in common
 
@@ -1015,9 +1051,82 @@ So: **a named methodological preference, scoped to his own research staff.** It 
 
 **And one more of his own, worth keeping in view.** `[T]` Ch14 · L14.4 — "The type of approach is not a positive index of success in therapy"; family therapy "is still more of an art than a science." Therapist skill may dominate method choice, which cuts against any model where method fully determines outcome.
 
+### 14.1 The objection in Bowen's own written words — 1988
+
+Until 2026-08-26 this section rested on transcripts the project may not quote. The Epilogue of *Family Evaluation* states the objection directly, and it says three things the paraphrase did not.
+
+> "In the 1940s, there were at least two kinds of systems theory already in existence. One was **general systems theory applied to the human by von Bertalanffy. It contained concepts from mathematics**… Another systems theory had been developed to deal with the **new technological advances in radar and the early computers**… **To have used mathematical ideas would have further blurred the long quest toward science. To get beyond mathematics and technology, I fashioned a natural systems theory, designed to fit precisely with the principles of evolution and the human as an evolutionary being.**" **`[B]`** `FE11.2`
+
+**First — it is a declination, not a prohibition, and he says so.**
+
+> "**I am no longer prepared to debate all the issues that go into connecting living matter with a technological extension of the brain. Anyone is welcome to that field if they wish.** I chose to avoid that complexity." **`[B]`** `FE11.2`
+
+A *technological extension of the brain* is a computer. He declined the road and left it open. That is a materially different thing from the standing charge this section had been reading, and it should not be softened in either direction.
+
+**Second — he names the defect that the agent pivot exists to fix.**
+
+> "**It is factual that certain aspects of human relationships can be described by any form of systems thinking, just as any mechanical machine can be a set of systems within systems. The analogy breaks down in the human when each family member has a brain that can control its part in the drama**, and each is capable of thinking, voluntary action, reproduction, and a host of other functions." **`[B]`** `FE11.2`
+
+A lattice of cells updated by a global rule fails that test exactly. **Agents that each perceive, appraise and select their own move do not.** The move away from the grid engine is recorded elsewhere in this project as a design judgement; it is the correction Bowen names.
+
+**Third — he had built and run an impersonal predictive apparatus over this theory himself.** At NIMH the "master theory" made predictions "about **every item of abnormal behavior that might occur, and the therapeutic action that might change it**"; "**If the prediction was inaccurate, it meant that the theory was incomplete or there had been an error in the staff**"; it was "**an impersonal 'rule book' that was always current**"; and "**A theory can be changed at any time by the logical thinking of respected people, but never in response to PERSONAL feelings of the moment.**" **`[B]`** `FE11.1`
+
+⚠ **Stated carefully, because it flatters the project.** That is **continuity of method, not identity of artefact** — his device was a written rule book applied by a human staff and given to the families in advance, and a simulation is not that. What it earns is narrower and still worth having: **the enterprise of building an impersonal predictive apparatus over this theory is the author's own**, so the objection bears on *how* this one is built — mathematics, technology — and not on whether it should exist. Which is what "anyone is welcome to that field" already said.
+
+**And the criterion he set for any such theory**, now quotable from him rather than from Kerr reporting him: "**a theory which proposes to move toward science must somehow be in harmony with the sun and the earth, the tides and the seasons.**" **`[B]`** `FE11.11`
+
+### 14.2 He shortened his own timeline
+
+The project has read Bowen as sceptical about whether human behaviour could become a science. In 1988 he corrected that himself:
+
+> "**Thirty years ago, I was guessing it might be two centuries before human behavior could become an accepted science. The events of the past 30 years have caused me to change that original estimate.** … Serious people have become interested in theory. **When the human believes he can do something, it will be done. It leads me to believe human behavior will become a science by the middle of the next century.**" **`[B]`** `FE11.16`
+
+That is a man who expected the science to arrive, revising the date **forward**, in his last major publication. It belongs beside the paragraph above: `Q-VALIDATION = NO` is a statement about what he had, and this is a statement about what he expected.
+
 ---
 
-## 15. Source index — what each chapter supplies
+## 15. Source index
+
+### 15.1 The six corpus sources, and what each is for
+
+The model was built against Bowen's 22 papers and then checked against five further sources. **They are not one evidence class**, and the differences decide what may be taken from each.
+
+| Source | Date | What it supplies that nothing else does | Grade |
+|---|---|---|---|
+| **The 22 papers** | 1957–76 | The whole spine — every mechanism in §§2–9 traces here first. A single word is legitimately load-bearing. | `[B]` |
+| **1979 Basic Video Series**, 6 tapes | 1979 | The latest Bowen *speaking*; the structural-importance ranking (§3.10), the register constraint (§9.3), the taboo-set reversal (§4.6). **No verbatim quotation** — ASR. | `[B]` |
+| **Kerr–Bowen interviews**, 15 | late period | *Emotional* defined as instinct; the three societal variables; the four-sink/three-symptom reconciliation; the two-sidedness of the neutrality gauge. **No verbatim quotation** — ASR, and cite the interview rather than the man. | mixed |
+| **Kerr & Bowen, *Family Evaluation*** | **1988** | **Twelve requirements moved off transcripts onto written primary text** — see 15.2. The two-axis identity in its primary source; the scale bands with assignment criteria; the transmission magnitudes; the readout schema (§10); and the **Epilogue, which is Bowen's own written prose and the latest primary Bowen text in the project.** | `[K]` Chs 1–10, **`[B]`** Epilogue |
+| **Kerr, *Bowen Theory's Secrets*** | 2019 | The estimator's observables; the capacity floor at 25; symptom lock-in; the reciprocity inversion; sibling position as a gate rather than an offset. Some chapters `[K-ext]`. | `[K]` |
+| **External measures** — the DSI | post-hoc | Exactly one usable figure (§10.1), and its own failures. Not a Bowen text. | — |
+
+### 15.2 What *Family Evaluation* changed, 2026-08-26
+
+**It changed no mechanism in this document.** What it changed is the quality of the evidence under twelve of them — moving each off an ASR transcript the project may not quote, or off one author reporting another, onto written primary text. Five of the twelve are now quotable from **Bowen's own hand**: the general-systems objection (§14), the validity criterion, the family-level differentiation capacity, the three-outcome transmission rule, and *emotional = instinct* (§2.1).
+
+It also **settled §13.3** (see above), retired the three-versus-four-sinks question for good (§7 I2), and supplied the magnitudes in 15.3.
+
+⚠ **And it raised four items that the approved spec does not currently match.** They are recorded in `theory/family_evaluation/_FE_PASS2.md` §1 and in `theory/_LEDGER.md` Source 7 `FE-A`, and **none has been applied here** — the most consequential is that Kerr 1988 assigns the *category* of dysfunction (physical / emotional / social) to **learning**, where this document and the spec assign it to constitution (§3.9). Until that is decided, §3.9's channel account should be read as provisional.
+
+### 15.3 Magnitudes the corpus supplies  `[#]`
+
+The corpus almost never gives numbers, so the ones it does give are listed together. **All are bounds and shapes, not rates**, and none licenses a per-generation decrement (§12.3).
+
+| Quantity | Value | Source |
+|---|---|---|
+| Species median `basic_level` | ≈ **40** — below the transition at 50 | `[K]` `FE03.5` |
+| Band edges | 0–10 very poor · >60 well · >70 very well · 100 unreachable | `[K]` `FE03.5` |
+| Pseudo-self transfer, worked | **35+35 → 55+15**, conserved exactly — the corpus's only arithmetic instance of I4 | `[K]` `FE04.1` |
+| Per-generation step, typical | **< 5 points** | `[K]` `FE08.7` |
+| Per-generation step, consequential | **5–10 points** | `[K]` `FE07.7` |
+| Parent-to-child bound | **never 30 points** | `[K]` `FE07.7` |
+| Quantum jump | ~**10 points/generation over two**, under three conjunctive conditions | `[K]` `FE08.1` |
+| Full traversal | 3 generations (quantum jump) to 5–10 (typical), **symmetric in both directions** | `[K]` `FE08.2` |
+| Generation length | ~**25 years** | `[K]` `FE08.2` |
+| Sibling-position decay | ≥ **5-year** gap reduces predictability | `[K]` `FE10.7` |
+| Treatability floor | **upper two-thirds of the schizophrenic range** | **`[B]`** `FE11.10` |
+
+### 15.4 The 22 papers — what each chapter supplies
 
 | Ch | Year | What the model takes from it |
 |---|---|---|
@@ -1065,8 +1174,24 @@ Known double-counts: **Ch02 (n=5) and Ch04 (n=6) are the same father case series
 | Calendar time, not frequency | 2 | ~2 | weak; one retells the other |
 | The peripheral member moves first | 4 | **1 setting, 2 series** | **weak, and contradicted by Ch05** |
 
-**On that last one.** Ch05 says the family *leaders* began differentiation first, usually the overadequate mother. Its own reconciliation is what the model implements: **the leader drives the process, the peripheral member performs the visible position change. Two roles, not one contested slot.**
+**On that last one — ✅ better resolved, 2026-08-26.** Ch05 says the family *leaders* began differentiation first, usually the overadequate mother; four other chapters say the peripheral member moves first. The project's reconciliation was *two roles, not one contested slot*. Bowen's own account is simpler and fits both observations:
+
+> "**a more differentiated leader began to emerge. Instead of blaming the other person, he focused on himself.** … **After several weeks, the leader's wife began the same slow process** of becoming more sure of herself. … **The differentiation pattern is one in which leadership shifts back and forth, until the entire family is safely out of the danger zone of undifferentiation.**" **`[B]`** `FE11.6`
+
+**It is a relay.** "Leaders first" and "peripheral member first" are the same alternating process sampled at different moments, and neither is the rule. Test 8 should assert the relay — a second mover following the first after roughly **several weeks** — rather than a single mover.
+
+### 16.1 The one place this corpus has independent witnesses
+
+Everything in the table above is drawn from Bowen reporting his own clinical material, so the independence audit can only ever count *settings*. **One source escapes that.** *Family Evaluation*'s two halves were written without sight of each other:
+
+> "**Dr. Kerr has written a major portion of the book, without my knowledge of its content. This has been purposeful.**" **`[B]`** `FE11.0`
+
+Six claims are stated separately by both men in that volume: that projection is **mutual** rather than one-way; the general-systems objection; the three-outcome transmission rule; that dogmatism is negative evidence for self; that the family is not the system's boundary; and that basic and functional levels are separable **by intervention**. That is the project's first clean two-witness convergence.
+
+**The limit, stated plainly:** independence of *drafting* is not independence of *training*. Kerr had been in Bowen's programme for twenty years, and Bowen says so — "**He probably knows more about my theoretical, therapeutic, and organizational orientation than any other person.**" Two observers from one school, writing without sight of each other. Better than co-authorship; weaker than two schools.
 
 ---
 
-*Written against `docs/theory/_LEDGER.md` at 149 findings, all 22 chapters, two passes. Every `[T]` and `[#]` claim traces to a named ledger entry; every `[I]` is a modelling decision with no source. If a constant in the code is presented as sourced and does not appear here, treat it as `[I]` until proven otherwise.*
+*Written against `docs/theory/_LEDGER.md` — **175 entries across six corpus sources**, plus the domain-expert block. Every `[T]` and `[#]` claim traces to a named entry in the ledger or to the per-source extraction it consolidates; every `[I]` is a modelling decision with no source. If a constant in the code is presented as sourced and does not appear here, treat it as `[I]` until proven otherwise.*
+
+*⚠ **Four items from `FE` are unapplied**, pending a decision — see §15.2. Until they are settled, §3.9's account of what selects a symptom channel is provisional.*

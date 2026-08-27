@@ -121,7 +121,7 @@ Three things only this book can settle:
 | 3 · Individuality and Togetherness | ✅ | `fe03.md` — 20 ⭐ **`M1.A.9a` located in its primary source** |
 | 4 · Differentiation of Self | ✅ | `fe04.md` — 21 ⚠ 2 contradictions with the spec (`M1.A.3`, `M5.D.4`); §13.3 settles |
 | 5 · Chronic Anxiety | ✅ | `fe05.md` — 20 ⚠ new `M11.C` criterion candidate |
-| 6 · Triangles | ⏳ | |
+| 6 · Triangles | ✅ | `fe06.md` — 20 ⚠ the four-proposition 2×2 |
 | 7 · Nuclear Family Emotional System | ⏳ | |
 | 8 · Multigenerational Emotional Process | ⏳ | |
 | 9 · Symptom Development | ⏳ | |

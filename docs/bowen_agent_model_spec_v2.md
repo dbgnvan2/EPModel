@@ -1,6 +1,6 @@
 ---
 tags: [model-bt, spec]
-version: 2.0-draft, revision 4
+version: 2.0-draft, revision 5
 status: FOR APPROVAL — no code until approved
 date: 2026-08-27
 supersedes: bowen_individual_family_model_spec.md (v1.2, frozen)
@@ -15,6 +15,8 @@ supersedes: bowen_individual_family_model_spec.md (v1.2, frozen)
 This specification covers **Phases B, C and D** of the sequence in `agent_model_proposal.html` §9: the objects, the event loop, the behaviour policy, the slow clock, and the twelve-person reference family.
 
 **Out of scope, deliberately:** Phase E (the ensemble runner, seeded batches, counterfactual arms, distribution readouts, `HazardSource`, `DialSource`) and Phase F (the language layer). Phase E is specified after the core is real, because most of its content is decisions about what to measure and those are cheaper to make against a running model. Where a Phase B–D requirement exists only to make Phase E possible, it is marked **`→E`** and the reason is stated.
+
+**One exception, added at revision 5.** `M15` specifies the **family-diagram import** — a Phase E capability — ahead of the rest of Phase E. It is specified early for one reason: the export format is produced by an application the project owner controls and can change, and the cheapest time to state what it must emit is **before** it emits something else. `M15` is a contract on that application, not an implementation plan. Nothing in `M15` is built during Phases B–D.
 
 ### 0.2 Relationship to the other documents
 
@@ -981,6 +983,14 @@ Kerr's framing supports it: Bowen's stated validity criterion was that a theory 
 
 **M11.F.7** — *the model has no opinion on trauma.* No output **MUST** be presented as adjudicating **discrete traumatic events against ongoing relational process**. The source states a position — "the child's life course is more influenced by the lack of emotional separation… **than by the abuse itself**"; "events are not the process" — offered in 1988 with no series, no comparison group and no measurement, on a question where the wider evidence base has moved considerably. **Nothing in this model requires it and nothing implements it.** The model does not distinguish the two, so it **MUST NOT** be read, quoted or reported as having weighed them. → `theory/family_evaluation/fe07.md` · FE07.21 `[K]` `[X]`
 
+**M11.F.9** — *the model **MUST NOT** be presented as speaking about a particular real family.* Three clauses, and the third is the one nothing else covers.
+
+**(a) No output** **MUST** be presented as concerning a named real family or person, or as advice to one. The model has no patient, no clinician and no outcome data (M11.G.3).
+
+**(b) Initialisation from a real family MUST carry its uncertainty.** The inputs are not measurable in the way the arithmetic assumes: there is **no instrument, no rater procedure, no comparison group and no number ever assigned to a person** anywhere in the six sources; estimates of level are **biased by construction**, because pseudo-self is lent and borrowed, which "**results in false readings when one attempts to estimate levels of differentiation**"; and Bowen **withdrew** the scale research rather than let it be used as a scoring device. Import is therefore permitted only under M15, and only as **ranges** (M15.B.1).
+
+**(c) No counterfactual MUST be reported from parameters tuned to reproduce a known history.** This is a **correctness** requirement, not a framing one. `M0.4`'s differencing is trustworthy because the invented constants are set independently of the question and therefore cancel between the arms. Fitting one arm to a history you already know makes that arm right **by construction**, absorbing the model's error on one side only; the counterfactual arm inherits the absorption in an unknown direction and the error stops being common-mode. **The better the fit to the family you know, the less the counterfactual can be trusted — and the more it looks trustworthy.** Any run whose parameters were adjusted to reproduce an observed outcome **MUST** be reported as a fit, never as a comparison.
+
 **M11.F.8** — *societal readouts **MUST NOT** inherit an editorial symptom list.* `M1.D.7`'s readouts **MUST NOT** score any of the 1988 societal symptom list as evidence of regression, and specifically **MUST NOT** score claims of **rights**. "an incessant clamor for '**rights**'" is an editorial judgement of its period, not an observation, and a readout that treats rights claims as regression is one-sided by construction and fails `M11.F.6`. → `theory/family_evaluation/fe10.md` · FE10.17 `[K]` `[X]`
 
 ---
@@ -1045,6 +1055,142 @@ This binds three places that could each be implemented adversarially and where n
 
 **M13.2** The frozen grid engine and its tests **MUST** stay green throughout. v2 lives in a new package `src/bowen/`.
 
+**M13.3** `M15`'s importer is **Phase E** and **MUST NOT** be built during B–D. The contract is stated now only so the source application can be changed to meet it; the two cheapest changes for it to make first are **M15.A.4** (export intervals, not bare ordinals) and **M15.C.2** (distinguish a rupture from a resolved distance), because both require new information the diagram does not currently hold and neither can be recovered afterwards.
+
+---
+
+## M15 — Family diagram import  `Phase E`
+
+**Status.** Planned, not built. Specified ahead of the rest of Phase E because the source format comes from an
+application the project owner controls: the useful moment to say what it must emit is before it emits
+something else. **This module is a contract on that application** as much as on the importer.
+
+**Why it is worth doing at all.** The genogram is not a view of the model — it *is* the model's data
+structure. The agent graph, the seed format and the readout are one artifact, so most of the two hundred
+values `M2` otherwise requires by hand already exist in a family diagram, and they are the values the corpus
+actually supports: topology, tie kind, sibling rank, nodal events. What the diagram does **not** contain is
+anything the arithmetic can divide by, and `M15.B` exists to keep those two classes apart.
+
+### M15.A The export contract
+
+**M15.A.1** Structural fields **MUST** be exported as values: stable id, generation, birth and death dates,
+household membership over time, **sibling rank and sibship size** (M1.A.14), financial dependence, and
+`role` where an external agent is drawn. Display names **MUST** be treated as opaque labels with no semantic
+content.
+
+**M15.A.2** Ties **MUST** be exported with their **kind** (marriage, parent–child, sibling, other) and their
+**relational state** from the diagram's own vocabulary — close, distant, conflictual, cut-off, fused. Only
+ties the diagram actually draws are exported; the importer **MUST NOT** synthesise the full pair matrix
+(M2.B.1).
+
+**M15.A.3** — *tie state is time-varying and a diagram usually records only the present.* The export **MUST**
+carry the tie's state **at `t0`** and every transition after it that the diagram knows about, each dated.
+An export that carries only the current state **MUST** be imported as a state at `t0` with **no** history,
+and the run **MUST** say so, because M7.E.4's default deterioration and M1.B.3's bond energy both depend on
+how long a tie has been in its state.
+
+**M15.A.4** — *every rating **MUST** be exported as an interval, never a bare ordinal*, together with the
+**definition of the scale point** the rater was working to. A `3` on a 1–5 scale is a rank; the model needs
+something it can divide by (M4.C.1), difference (M2.A.0e) and threshold (M1.A.3). Exporting the interval the
+rater would actually defend is the single highest-value change the application can make.
+
+**M15.A.5** — *every per-person rating **MUST** declare whether it is a **basic** or a **functional**
+judgement*, and the default **MUST** be **functional**. Functioning is what an observer sees and it "goes up
+and down real easy" (M2.A.0c); basic level is not observable in a single view. An export that does not
+declare this **MUST** be imported as functional.
+
+**M15.A.6** Every judgement **MUST** carry its rater and its date. Estimates drift, and they are biased in a
+known direction (M11.F.9(b)).
+
+**M15.A.7** The application **MUST NOT** export a differentiation score, and the importer **MUST** reject
+one if it appears. No such instrument exists in the corpus, and Bowen withdrew the scale research
+specifically to prevent the diagram-plus-score use.
+
+**M15.A.8** — *the identified patient **MUST NOT** be exportable into `basic_level`, sink allocation, or
+projection-target state.* Family diagrams routinely mark who the problem is. In this model that is an
+**output** (M2.A.2, M9.6), and importing it feeds in the answer. It **MAY** be exported into the **belief
+layer** (M9), where it belongs — it is what the family thinks, which is a different quantity from what is so.
+
+### M15.B Mapping — values and ranges are different things
+
+**M15.B.1** — *structure imports as **values**; ratings import as **ranges**.* This is the module's central
+rule. Topology, tie kind, sibling rank and dated events are categorical or factual and import directly.
+Every rated quantity imports as an interval, and a run over an imported family **MUST** sweep that interval
+rather than pick a point inside it.
+
+**M15.B.2** The ordinal→interval map **MUST** live in config, **MUST** be graded `[I]`, and **MUST NOT** be a
+linear point map. Each rating point maps to a **wide** interval, and adjacent intervals **MAY** overlap.
+
+**M15.B.3** — *no rating point **MUST** map onto `M1.A.3`'s transition at 50.* On a linear 1–5 map the modal
+rating lands exactly on the one behavioural boundary the theory has, so the most common value in the data
+sits where the licence behaviour flips. The interval for the middle rating **MUST** straddle the transition
+and the run **MUST** report that it does.
+
+**M15.B.4** The imported population **MUST** be checked against the corpus distribution — species median
+≈ 40, ~90% in the lower half, the top quartile "more hypothetical than real" (M10.C.4) — and the comparison
+**MUST** be reported. Rating scales are used symmetrically about their midpoint and the corpus distribution
+is not symmetric, so a naive map yields a family systematically too differentiated and too evenly spread.
+
+**M15.B.5** — *a functional reading **MUST NOT** initialise `basic_level`.* It initialises `functional_level`,
+and `basic_level` stays a **free range beneath it**, bounded above by M1.A.4d's floor and by the reading
+itself. Collapsing the two destroys the discrimination `M11.C.20` exists to test, and it is the error an
+importer is most likely to make silently.
+
+### M15.C Four traps, each of which looks reasonable in adapter code
+
+**M15.C.1** — *a warmth rating **MUST NOT** be wired to `investment`.* `M1.B.8` requires `investment` to be
+**valence-blind**: conflict-laden preoccupation is *high* investment — "a negative feeling is just as
+successful in maintaining a family system as a positive feeling." A closeness scale runs warmth-positive, so
+wiring it directly **inverts the sign on exactly the conflicted families the model is for.**
+
+**M15.C.2** — *"distant" on a diagram is two different things, and the application **MUST** distinguish
+them.* A genogram draws one line for a **rupture** and for a **resolved low-contact** tie. `M1.B.3` makes
+telling those apart the most consequential discrimination in this part of the theory: same contact
+frequency, opposite bond energy. Until the application emits the distinction explicitly, bond energy on any
+"distant" tie **MUST** be imported as a free range spanning both readings, never as a point.
+
+**M15.C.3** Sex **MAY** be exported, for `M11.C.25`'s assertion only. It **MUST NOT** enter pole assignment
+(M2.A.0g).
+
+**M15.C.4** Contact frequency and relational state import to **conductance and contact rate**. They **MUST
+NOT** import to bond energy, tension or functioning balance, none of which a diagram records.
+
+### M15.D What import does not license
+
+**M15.D.1** An imported family is subject to `M11.F.9` **in full**. Import changes what is convenient, not
+what is knowable.
+
+**M15.D.2** — *a run over an imported family **MUST NOT** report a point direction.* It reports the
+**envelope** over M15.B.1's ranges: whether the direction of difference survives the whole box.
+
+**M15.D.3** — *when the direction flips inside the box, the run **MUST** name the imported quantity it turned
+on.* This is the useful output, not a degraded one: it says the question cannot be answered without a
+distinction the data does not carry, and it says which. **A flip is a result, and it MUST be reported as one.**
+
+**M15.D.4** — *why the envelope is required rather than recommended.* Initial conditions are not nuisance
+parameters. They are what the intervention acts on, so their error does **not** cancel between arms the way
+an invented constant does — it moves the family across a regime boundary and reverses the sign. The model
+has at least five such boundaries: management technique has zero effect while marital distance is high but
+"they could do no wrong" when the parents are close (M11.C.14); a third destabilises a **stable** twosome and
+stabilises an **unstable** one (M11.C.27); below threshold the same move produces the **opposite** sign
+(M5.F.2); lock-in reverses past a severity turn (M7.D.2d); and the technique for a peace-agree family
+**inverts** for a reactive one, which `M5.C.1a` marks a **SAFETY** property with recorded harms. Overt
+emotionality is non-monotonic in level besides, so the most available observable maps one reading to two
+states. **Direction is therefore the least robust output under mis-specified inputs, not the most.**
+
+### M15.E Fixture mode — the part that pays off first
+
+**M15.E.1** The application **SHOULD** support an **anonymised export**: topology, tie kinds, sibling
+structure and dated events, with identities and all ratings stripped.
+
+**M15.E.2** `M11` fixtures **SHOULD** prefer real anonymised topologies to hand-built ones wherever a
+criterion depends on asymmetry — lopsided sibships, a cut-off three generations up, a branch with no
+contact. Hand-built families come out more balanced than real ones, and a balanced fixture is exactly what
+lets a ranking or depth defect through.
+
+**M15.E.3** Fixture mode carries none of `M15.D`'s restrictions, because an anonymised topology with no
+ratings is not a claim about anyone.
+
 ---
 
 ## M14 — Spec coverage
@@ -1073,6 +1219,23 @@ The sixth corpus source, folded in against the decisions recorded in `docs/DECIS
 | **New prohibitions** | Power and punishment as mechanisms — the only `M12` entry stated by the author; no adjudication of trauma against process; no rights-as-regression readout | M12.5, M11.F.7, M11.F.8 |
 
 **One item remains open and is not applied:** nothing. All nine decision items are resolved.
+
+### Revision 5 — the import question and what it exposed, 2026-08-27
+
+Arising from a working session on whether the model can answer *"if you changed this one thing, what would happen to this family?"*
+
+| | What changed | Where |
+|---|---|---|
+| **New guard** | Three clauses on speaking about a real family. (a) no output about a named family or person; (b) initialisation must carry its uncertainty; **(c) no counterfactual from parameters tuned to reproduce a known history** — a *correctness* clause, because fitting one arm breaks the cancellation `M0.4` depends on, invisibly and in one direction only | `M11.F.9` |
+| **New module** | The family-diagram import contract — export format, the value/range split, four adapter traps, the envelope requirement, and fixture mode | `M15` |
+| **Scope** | `M15` is Phase E but specified early, because the source application is under the project owner's control and the format is cheaper to fix before it exists than after | §0.1, `M13.3` |
+
+**The finding worth keeping.** Initial conditions are not nuisance parameters. Invented constants cancel
+between two arms because they do not interact with the intervention; **initial conditions are precisely what
+the intervention acts on**, so their error crosses a regime boundary and flips the sign rather than shifting
+both arms together. The model has at least five such boundaries and one of them (`M5.C.1a`) is a SAFETY
+property with recorded harms. **Direction is the least robust output under mis-specified inputs, not the
+most** — which is why `M15.D.2` requires an envelope over ranges and forbids a point direction.
 
 ---
 

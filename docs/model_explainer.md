@@ -1,7 +1,7 @@
 ---
 tags: [model-bt, explainer]
 status: current
-version: 1.3
+version: 1.4
 date: 2026-08-27
 ---
 
@@ -1210,6 +1210,96 @@ Everything in the table above is drawn from Bowen reporting his own clinical mat
 Six claims are stated separately by both men in that volume: that projection is **mutual** rather than one-way; the general-systems objection; the three-outcome transmission rule; that dogmatism is negative evidence for self; that the family is not the system's boundary; and that basic and functional levels are separable **by intervention**. That is the project's first clean two-witness convergence.
 
 **The limit, stated plainly:** independence of *drafting* is not independence of *training*. Kerr had been in Bowen's programme for twenty years, and Bowen says so — "**He probably knows more about my theoretical, therapeutic, and organizational orientation than any other person.**" Two observers from one school, writing without sight of each other. Better than co-authorship; weaker than two schools.
+
+---
+
+## 17. What the model can be asked — and the two ways the answer goes wrong
+
+*Added 2026-08-27, spec revision 5. **This section is method, not corpus.** The reasoning is `[I]`; the
+regime boundaries it depends on are corpus claims and carry their own grades.*
+
+### 17.1 Why the trustworthy output is a difference
+
+Sixty to ninety parameters, all `[I]`, against no data. So an absolute number — "the symptom appears in
+year 14 in 23% of seeds" — is mostly a statement about the invented constants. Halve the softmax
+temperature and it is a different number.
+
+**Two arms fix this.** Run the same family twice from the same seed, changing exactly one thing. The
+invented constants enter both arms identically, so most of the error they inject is common to both and
+subtracts out. What survives is attributable to the change. That is why `M0.4` permits a **direction of
+difference between two arms** and forbids an absolute threshold, and why `M11.2` requires ensembles —
+paired by seed, so the sampling noise largely cancels too. With twelve agents and no law of large numbers,
+pairing is not a refinement; it is the only way a small effect is visible at all.
+
+**Three limits.** Cancellation is clean only for error that does not interact with the intervention, so the
+*sign* and *ordering* survive and the *magnitude* does not. It does nothing about a wrong mechanism — shared
+structural error does not cancel, and both arms are then confidently wrong together. And both arms must
+differ in exactly one thing: `M4.D.6c` is the worked case where a uniformly degenerate policy shifts both
+arms and every paired test stays green.
+
+### 17.2 The first failure: fitting one arm
+
+Tune the parameters until the factual arm reproduces a history you already know, and that arm is right **by
+construction**. The tuning has absorbed the model's error on one side only; the counterfactual arm inherits
+the absorption in a direction nothing reveals. **The better the match to the family you know, the less the
+counterfactual can be trusted — and the more trustworthy it looks.** `M11.F.9(c)` makes this a correctness
+requirement rather than a framing one: a run whose parameters were adjusted to reproduce an observed
+outcome is a *fit*, and must never be reported as a comparison.
+
+Reproducing a known history is therefore almost uninformative on its own. Two hundred free parameters
+against one family will always fit. The asymmetry is what matters: **failing** to reproduce the pattern says
+something about the theory; **succeeding** says only that the knobs are numerous.
+
+### 17.3 The second failure: initial conditions are not nuisance parameters
+
+An invented constant is a nuisance — it does not interact with the intervention, so it sits in both arms.
+**An initial condition is what the intervention acts on.** Mis-estimate it and you do not shift both arms
+together; you cross a regime boundary and the sign reverses.
+
+The model has at least five, and they are corpus claims, not artefacts:
+
+| Boundary | The sign turns on | Grade |
+|---|---|---|
+| Management technique has **zero** independent effect at high marital distance; when the parents are close "they could do no wrong" | marital distance | `[T]` test 14 |
+| A third **destabilises** a stable twosome and **stabilises** an unstable one | the twosome's prior state | `[T]` `FE06.1`, `M11.C.27` |
+| The same move below the outside-ness threshold produces the **opposite** sign, not a smaller effect | `outside_ness` | `[M]` `M5.F.2` |
+| Lock-in reverses past a severity turn — resistance below it, relief above | symptom severity | `[T]` `FE03.9`, `FE07.15` |
+| The peace-agree technique **inverts** for a reactive family — a **SAFETY** property with recorded harms | family type | `[T]` `M5.C.1a` |
+
+And overt emotionality is **non-monotonic** in level (§10), so the most available observable maps one
+reading to two states.
+
+**Conclusion, and it is counterintuitive:** direction is the *least* robust output under mis-specified
+inputs, not the most. "We only asked for the direction" is not the safe request it sounds like.
+
+### 17.4 What survives — run estimates as ranges
+
+Do not pick a point inside your uncertainty. Give each estimate the interval you would defend and sweep the
+box; twelve agents make it free, and §7 already requires global sensitivity analysis before believing
+anything.
+
+- **Direction holds across the box** → a real result about the theory.
+- **Direction flips inside it** → *also* a real result, and the more useful one: the question cannot be
+  answered without a distinction the data does not carry, **and the run names which one**.
+
+`M15.D.2` requires the envelope and forbids a point direction; `M15.D.3` requires a flip to be reported as a
+finding rather than a failure.
+
+### 17.5 Import, and what it does not change
+
+`M15` specifies a family-diagram importer for Phase E. Structure imports as **values** — topology, tie kind,
+sibling rank, dated events — and that is most of what `M2` otherwise needs by hand. **Ratings import as
+ranges**, never as points, for the reason in 17.3.
+
+Four things the import must not do, each of which looks reasonable in adapter code: wire a warmth rating to
+`investment`, which is **valence-blind** and would invert the sign on exactly the conflicted families the
+model is for (§4, `M1.B.8`); treat a genogram's single "distant" line as one state, when it covers both a
+rupture and a resolved low-contact tie — the discrimination §4 calls the most consequential in this part of
+the theory; let a **functional** reading initialise `basic_level` (§3.2a, `M2.A.0c`); or import the
+identified patient, which is an **output** (§9.4, `M2.A.2`) and belongs in the belief layer if anywhere.
+
+**None of this makes the model able to speak about a real family.** `M11.F.9` holds regardless: import
+changes what is convenient, not what is knowable.
 
 ---
 

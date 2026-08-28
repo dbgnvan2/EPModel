@@ -23,7 +23,7 @@ Read the relevant file from `~/.claude/standards/` before starting work:
 | `docs/theory/_CONVERGENCES.md` | ten cross-chapter convergences + independence audit | current |
 | `docs/theory/_STATUS.md` | run state, standing decisions, order of work | **read this first** |
 | `docs/DECISIONS — FAMILY EVALUATION.md` | how the 4 contradictions and 21 requirement candidates from the sixth source were decided | **closed 2026-08-27 — all applied at spec revision 4** |
-| `docs/bowen_agent_model_spec_v2.md` | **the buildable contract** — 355 numbered requirements, the update order, the parameter register, 33 acceptance criteria, the `M11.G` readout schema | **v2.0-draft revision 4, approved 2026-08-25 — no code until the implementation plan is also approved** |
+| `docs/bowen_agent_model_spec_v2.md` | **the buildable contract** — 381 numbered requirements, the update order, the parameter register, 33 acceptance criteria, the `M11.G` readout schema, the `M15` import contract | **v2.0-draft revision 5, approved 2026-08-25 — no code until the implementation plan is also approved** |
 | `docs/model_explainer.md` | **every part of the model** — object, field, move, gate, invariant, clock, test — what it is for, what it does, and which chapter it implements | **start here to understand the model** |
 | `docs/agent_model_proposal.html` | the architecture proposal, §10 = corpus reconciliation | current |
 | `docs/bowen_individual_family_model_spec.md` | **v1.2, FROZEN** — describes the grid engine only | historical record; do not extend |
@@ -49,6 +49,12 @@ full table.
   be manufactured from illustrations Bowen explicitly bounded.
 - **Acceptance tests assert a direction of difference between two arms, not an absolute threshold** — and
   each must be proved failing by mutation before it counts as coverage.
+- **The model must never be presented as speaking about a real family** (`M11.F.9`). In particular: a run
+  whose parameters were tuned to reproduce a known history is a **fit**, not a comparison — fitting one arm
+  breaks the error cancellation the two-arm design depends on, on one side only and invisibly. Initial
+  conditions are not nuisance parameters; they are what the intervention acts on, so their error flips the
+  sign at a regime boundary rather than cancelling. Imported families run as **ranges**, and the output is an
+  **envelope** (`M15.D`).
 
 ## Key rules
 

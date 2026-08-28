@@ -27,10 +27,26 @@
 > | Kerr, *Bowen Theory's Secrets* (2019), 26 segments — 262 findings | complete |
 > | **Kerr & Bowen, *Family Evaluation* (1988), 12 segments — 219 findings** | **complete 2026-08-26** |
 > | External measures (the DSI) | recorded |
-> | Spec v2.0 — **355 unique IDs, 0 unresolved, 0 dangling references** | **approved 2026-08-25; revisions 1–4 applied.** Revision 4 landed 2026-08-27 |
+> | Spec v2.0 — **381 unique IDs, 0 unresolved, 0 dangling references** | **approved 2026-08-25; revisions 1–5 applied.** Revisions 4 and 5 landed 2026-08-27 |
 > | **`docs/DECISIONS — FAMILY EVALUATION.md`** | ✅ **closed 2026-08-27** — all nine items decided and applied |
 > | `docs/DECISIONS FOR APPROVAL.md` | approved 2026-08-25; propagation complete |
 > | Code | **none. Nothing until the spec and then the plan are approved.** |
+>
+> **Revision 5, same day.** Arising from a working session on whether the model can answer *"if you changed
+> this one thing, what would happen to this family?"* Two additions and one finding:
+>
+> - **`M11.F.9`** — three clauses on speaking about a real family. The third is a **correctness** clause, not
+>   a framing one: *no counterfactual may be reported from parameters tuned to reproduce a known history*,
+>   because fitting one arm breaks the cancellation `M0.4` depends on, invisibly and on one side only.
+> - **`M15`** — the **family-diagram import contract**, a Phase E capability specified early because the
+>   source application is under the project owner's control and its export format is cheaper to fix before it
+>   exists than after. Structure imports as **values**, ratings as **ranges**, and the readout is an
+>   **envelope**, never a point direction.
+> - **The finding worth keeping.** Initial conditions are **not** nuisance parameters. Invented constants
+>   cancel between arms because they do not interact with the intervention; initial conditions are *what the
+>   intervention acts on*, so their error crosses a regime boundary and flips the sign. Five such boundaries
+>   are named at `M15.D.4`, one of them (`M5.C.1a`) a SAFETY property with recorded harms. **Direction is the
+>   least robust output under mis-specified inputs, not the most.**
 >
 > **Next:** the implementation plan — acceptance criteria mapped to files, modules and order; plan approved; then Phase B. **No code before that.**
 >
@@ -241,7 +257,7 @@ that file; do not edit it without asking.
 ### Step 2 — propagation **COMPLETE**
 
 **Decision document APPROVED 2026-08-25. All sixteen propagation items are applied.** That left the
-spec at 321 unique IDs. **Revision 4 (2026-08-27) took it to 355 unique IDs**, 0 duplicates, 0 unresolved,
+spec at 321 unique IDs. **Revisions 4 and 5 (2026-08-27) took it to 381 unique IDs**, 0 duplicates, 0 unresolved,
 **0 dangling cross-references** (every `M…` reference resolves to a defined requirement, checked by script).
 33 acceptance criteria in `M11.C`. Explainer, published proposal and ledger all agree with it; 37 tests green.
 
@@ -334,4 +350,4 @@ per-generation bound and `KS11.1`'s traversal timing, which dissolved inside the
 | `_CONVERGENCES.md` | ✅ independence audit updated |
 | `CLAUDE.md` | ✅ where-the-theory-lives table updated |
 | `agent_model_proposal.html` | ✅ §10 note added; **needs republishing to the same URL** — see above |
-| `bowen_agent_model_spec_v2.md` | ✅ **revision 4 applied 2026-08-27** — 355 IDs, one correction (`M5.D.4`), three amendments, ~20 new requirements, 9 new acceptance criteria (`M11.C.25`–`M11.C.33`), a readout schema (`M11.G`) and two new prohibitions |
+| `bowen_agent_model_spec_v2.md` | ✅ **revisions 4 and 5 applied 2026-08-27** — 381 IDs, one correction (`M5.D.4`), three amendments, ~20 new requirements, 9 new acceptance criteria (`M11.C.25`–`M11.C.33`), a readout schema (`M11.G`) and two new prohibitions |

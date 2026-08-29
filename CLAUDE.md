@@ -23,7 +23,7 @@ Read the relevant file from `~/.claude/standards/` before starting work:
 | `docs/theory/_CONVERGENCES.md` | ten cross-chapter convergences + independence audit | current |
 | `docs/theory/_STATUS.md` | run state, standing decisions, order of work | **read this first** |
 | `docs/DECISIONS — FAMILY EVALUATION.md` | how the 4 contradictions and 21 requirement candidates from the sixth source were decided | **closed 2026-08-27 — all applied at spec revision 4** |
-| `docs/bowen_agent_model_spec_v2.md` | **the buildable contract** — 381 numbered requirements, the update order, the parameter register, 33 acceptance criteria, the `M11.G` readout schema, the `M15` import contract | **v2.0-draft revision 5, approved 2026-08-25 — no code until the implementation plan is also approved** |
+| `docs/bowen_agent_model_spec_v2.md` | **the buildable contract** — 405 numbered requirements, the update order, the parameter register, 33 acceptance criteria, the `M11.G` readout schema, the `M15` import contract, the `M16` run log | **v2.0-draft revision 6, approved 2026-08-25 — no code until the implementation plan is also approved** |
 | `docs/model_explainer.md` | **every part of the model** — object, field, move, gate, invariant, clock, test — what it is for, what it does, and which chapter it implements | **start here to understand the model** |
 | `docs/agent_model_proposal.html` | the architecture proposal, §10 = corpus reconciliation | current |
 | `docs/bowen_individual_family_model_spec.md` | **v1.2, FROZEN** — describes the grid engine only | historical record; do not extend |
@@ -60,7 +60,10 @@ full table.
 
 - Simulation parameters (thresholds, rates, constants) belong in config or named constants — not magic
   literals scattered through `engine.py`.
-- Keep the simulation engine pure: **no UI, no file I/O.** This is currently violated —
+- Keep the simulation engine pure: **no UI, no file I/O.** `M16.B` makes this a requirement for v2: the
+  engine emits log records through a caller-supplied interface and never writes them itself, and logging
+  must be a pure observer — same seed with logging on and off reaches the same final state. This is
+  currently violated in the frozen engine —
   `Simulator.__init__` opens and writes `sim_audit.csv` in the process working directory, and
   `log_telemetry` appends to it every 10 cycles. Two stray copies of the file exist (repo root and `src/`).
   Fix this when the engine is next touched; do not add new I/O to it in the meantime.

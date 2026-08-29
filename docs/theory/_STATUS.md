@@ -27,7 +27,7 @@
 > | Kerr, *Bowen Theory's Secrets* (2019), 26 segments — 262 findings | complete |
 > | **Kerr & Bowen, *Family Evaluation* (1988), 12 segments — 219 findings** | **complete 2026-08-26** |
 > | External measures (the DSI) | recorded |
-> | Spec v2.0 — **381 unique IDs, 0 unresolved, 0 dangling references** | **approved 2026-08-25; revisions 1–5 applied.** Revisions 4 and 5 landed 2026-08-27 |
+> | Spec v2.0 — **405 unique IDs, 0 unresolved, 0 dangling references** | **approved 2026-08-25; revisions 1–6 applied.** Revisions 4–5 landed 2026-08-27, revision 6 on 2026-08-28 |
 > | **`docs/DECISIONS — FAMILY EVALUATION.md`** | ✅ **closed 2026-08-27** — all nine items decided and applied |
 > | `docs/DECISIONS FOR APPROVAL.md` | approved 2026-08-25; propagation complete |
 > | Code | **none. Nothing until the spec and then the plan are approved.** |
@@ -47,6 +47,14 @@
 >   intervention acts on*, so their error crosses a regime boundary and flips the sign. Five such boundaries
 >   are named at `M15.D.4`, one of them (`M5.C.1a`) a SAFETY property with recorded harms. **Direction is the
 >   least robust output under mis-specified inputs, not the most.**
+>
+> **Revision 6, 2026-08-28 — `M16`, the run log.** Six requirements already depended on a log and none of
+> them said what one is; Phase B's exit condition said "the event log reads correctly", which named no
+> requirement and no test. `M16` supplies the format (effects and the selection rationale recorded beside
+> the events, belief writes tagged apart), the **deterministic renderer** built in Phase B, the per-agent
+> **delayed view** that `M1.E.7c`'s fourth form needs, and engine purity — the engine emits, the caller
+> persists. The exit condition now names `M16.C.2` and `M16.T.1`. Modules were also put back in numeric
+> order; `M14` had ended up after `M15`.
 >
 > **Next:** the implementation plan — acceptance criteria mapped to files, modules and order; plan approved; then Phase B. **No code before that.**
 >
@@ -257,7 +265,7 @@ that file; do not edit it without asking.
 ### Step 2 — propagation **COMPLETE**
 
 **Decision document APPROVED 2026-08-25. All sixteen propagation items are applied.** That left the
-spec at 321 unique IDs. **Revisions 4 and 5 (2026-08-27) took it to 381 unique IDs**, 0 duplicates, 0 unresolved,
+spec at 321 unique IDs. **Revisions 4–6 (2026-08-27/28) took it to 405 unique IDs**, 0 duplicates, 0 unresolved,
 **0 dangling cross-references** (every `M…` reference resolves to a defined requirement, checked by script).
 33 acceptance criteria in `M11.C`. Explainer, published proposal and ledger all agree with it; 37 tests green.
 
@@ -350,4 +358,4 @@ per-generation bound and `KS11.1`'s traversal timing, which dissolved inside the
 | `_CONVERGENCES.md` | ✅ independence audit updated |
 | `CLAUDE.md` | ✅ where-the-theory-lives table updated |
 | `agent_model_proposal.html` | ✅ §10 note added; **needs republishing to the same URL** — see above |
-| `bowen_agent_model_spec_v2.md` | ✅ **revisions 4 and 5 applied 2026-08-27** — 381 IDs, one correction (`M5.D.4`), three amendments, ~20 new requirements, 9 new acceptance criteria (`M11.C.25`–`M11.C.33`), a readout schema (`M11.G`) and two new prohibitions |
+| `bowen_agent_model_spec_v2.md` | ✅ **revisions 4–6 applied, 2026-08-27/28** — 405 IDs, one correction (`M5.D.4`), three amendments, ~20 new requirements, 9 new acceptance criteria (`M11.C.25`–`M11.C.33`), a readout schema (`M11.G`) and two new prohibitions |

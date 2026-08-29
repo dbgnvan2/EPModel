@@ -1,8 +1,8 @@
 ---
 tags: [model-bt, spec]
-version: 2.0-draft, revision 5
+version: 2.0-draft, revision 6
 status: FOR APPROVAL — no code until approved
-date: 2026-08-27
+date: 2026-08-28
 supersedes: bowen_individual_family_model_spec.md (v1.2, frozen)
 ---
 
@@ -1047,8 +1047,8 @@ This binds three places that could each be implemented adversarially and where n
 
 | Phase | Builds | Done when |
 |---|---|---|
-| **B** | M1 objects; M3 clocks and update order; M4.A standing load **including M4.A.5**; M4.B, M4.E and M4.G; M1.F event record **including M1.F.9**; M8 the live-position predicate; `ScriptedSource`. **No policy** — a fixed script drives it. Reduced instance per M2.3. | A scripted 40-week trace runs, the event log reads correctly, and a `TRIGGER` on a dormant family-of-origin tie moves anxiety with no contact. M11.D.1, M11.D.3, M11.D.5, M11.D.6 and M11.D.7 pass. |
-| **C** | M4.C appraisal **including M4.C.8a**; M4.D policy; M5 the full repertoire, gates and the `I-POSITION` state machine **including `PREPARE` (M5.D.2a) and the corrected anger gate (M5.D.4)**; M6 invariants M6.I.1–M6.I.8. | M11.C.1, M11.C.3, M11.C.4, M11.C.5, M11.C.7, M11.C.13, M11.C.14, M11.C.16, **M11.C.25, M11.C.27, M11.C.29 and M11.C.32** pass over 1,000-seed ensembles, each mutation-proved. M11.D.2, M11.D.4 and M11.D.8 pass. |
+| **B** | M1 objects; M3 clocks and update order; M4.A standing load **including M4.A.5**; M4.B, M4.E and M4.G; M1.F event record **including M1.F.9**; M8 the live-position predicate; `ScriptedSource`; **M16.A–M16.C, the run log and the deterministic renderer**. **No policy** — a fixed script drives it. Reduced instance per M2.3. | A scripted 40-week trace runs; **the renderer emits a trace conforming to M16.C.2 and M16.T.1 passes**; and a `TRIGGER` on a dormant family-of-origin tie moves anxiety with no contact. M11.D.1, M11.D.3, M11.D.5, M11.D.6, M11.D.7, **M16.T.2, M16.T.3 and M16.T.5** pass. |
+| **C** | M4.C appraisal **including M4.C.8a**; M4.D policy; M5 the full repertoire, gates and the `I-POSITION` state machine **including `PREPARE` (M5.D.2a) and the corrected anger gate (M5.D.4)**; M6 invariants M6.I.1–M6.I.8; **M16.D's delayed view**, which `M1.E.7c`'s fourth form requires. | M11.C.1, M11.C.3, M11.C.4, M11.C.5, M11.C.7, M11.C.13, M11.C.14, M11.C.16, **M11.C.25, M11.C.27, M11.C.29 and M11.C.32** pass over 1,000-seed ensembles, each mutation-proved. M11.D.2, M11.D.4 and M11.D.8 pass. |
 | **D** | M7 the slow clock **including M7.A.1a, M7.D.2c/2d and M7.E.4**; M9 beliefs **as a channel (M9.6, M9.7)**; the twelve-person reference family; the three symptom channels and endogenous events; **M11.G's readout schema**. | M11.C.2, M11.C.6, M11.C.9, M11.C.10, M11.C.11, M11.C.12, M11.C.15, **M11.C.22 (both limbs), M11.C.26, M11.C.28, M11.C.30, M11.C.31 and M11.C.33** pass. A 40-year three-generation run completes. |
 
 **M13.1** M8 **MUST** land in Phase B, before the policy, because four separate Phase C mechanisms call it.
@@ -1056,6 +1056,14 @@ This binds three places that could each be implemented adversarially and where n
 **M13.2** The frozen grid engine and its tests **MUST** stay green throughout. v2 lives in a new package `src/bowen/`.
 
 **M13.3** `M15`'s importer is **Phase E** and **MUST NOT** be built during B–D. The contract is stated now only so the source application can be changed to meet it; the two cheapest changes for it to make first are **M15.A.4** (export intervals, not bare ordinals) and **M15.C.2** (distinguish a rupture from a resolved distance), because both require new information the diagram does not currently hold and neither can be recovered afterwards.
+
+---
+
+## M14 — Spec coverage
+
+**M14.1** `docs/spec_coverage.md` **MUST** be generated as part of the completion report, listing every ID in this document with `done` / `partial` / `not done`, each `done` carrying the file path and test name that proves it.
+
+**M14.2** "Implementation complete" without that report **MUST NOT** be accepted.
 
 ---
 
@@ -1193,11 +1201,132 @@ ratings is not a claim about anyone.
 
 ---
 
-## M14 — Spec coverage
+## M16 — The run log and the readable trace
 
-**M14.1** `docs/spec_coverage.md` **MUST** be generated as part of the completion report, listing every ID in this document with `done` / `partial` / `not done`, each `done` carrying the file path and test name that proves it.
+**Why this module exists.** Six requirements already depend on the log — `M3.D.5`'s determinism test,
+`M5.F.2a`'s counterfeit readout, `M11.C.23`'s expressed-emotion variables, `M1.E.7c`'s **instance supply** form,
+`M1.E.7c`'s **delayed self-observation** form, and Phase B's own exit condition — and **none of them says what a
+log is.** "The event log reads correctly" was an exit condition with no requirement and no test behind it.
+This module supplies both.
 
-**M14.2** "Implementation complete" without that report **MUST NOT** be accepted.
+**The log is not only an output.** `M1.E.7c` makes an agent's own delayed log an **input** to a mechanism,
+so the format has to support being queried from inside the run, per agent, with a time offset.
+
+### M16.A What a run records
+
+**M16.A.1** — *a log **MUST** be self-describing.* Every log **MUST** open with a header carrying the
+**seed**, a **hash of the resolved config**, the **spec revision** it was produced against, and the family
+instance identifier. A log without these cannot be replayed and cannot be attributed, and `M3.D.5`'s
+byte-identity claim is unverifiable without them.
+
+**M16.A.2** Each event **MUST** be recorded with the full `M1.F.1` field set, plus the tie latency it was
+delivered on, and both its **emitted** and **delivered** timestamps — they differ by `M1.B`'s per-edge
+latency, and a log that records only one of them cannot show an event arriving late.
+
+**M16.A.3** — *the **selection rationale MUST** be recorded, not only the selected move.* The propensity
+vector over the repertoire and the draw that resolved it. Without this the log shows **behaviour but not
+causation**, which is most of the argument for the agent model over the grid: an event log is a causal
+trace, or it is a list.
+
+**M16.A.4** — *effects **MUST** be recorded beside their cause.* For each delivered event: the change in
+each receiver's acute anxiety, the tie deltas, any triangle position change, any reallocation across
+`M1.D.1`'s three sinks, and the result of `M4.G.2`'s invariant assertions for that tick. A log of events
+with no effects cannot answer "what did that do", which is the only question anyone reads a trace to answer.
+
+**M16.A.5** Belief writes (`M9`) **MUST** be tagged distinctly from ground-truth state changes, so a reader
+and a readout can separate them without inference. → `M9.5`
+
+**M16.A.6** Records **MUST** be appended in a stable, deterministic order. Two runs at one seed produce
+byte-identical logs (`M3.D.5`), so any nondeterminism in ordering — dictionary iteration, set traversal,
+parallel dispatch — is a defect this requirement makes visible.
+
+### M16.B The engine emits; it does not write
+
+**M16.B.1** The engine **MUST NOT** perform file I/O. It **MUST** emit log records through an interface the
+caller supplies, and the caller **MUST** decide whether and where they are persisted.
+
+**M16.B.2** — *the anti-pattern, named so it is not repeated.* The frozen engine opens and writes
+`sim_audit.csv` from `Simulator.__init__` into the **process working directory**, and appends to it every
+ten cycles; two stray copies of that file exist in the repo. The project's own rule is that the engine stays
+pure. v2 **MUST NOT** inherit this, and `M11.D` carries the test.
+
+**M16.B.3** Logging **MUST NOT** be disableable in a way that changes results. It **MUST** be a pure
+observer: a run with logging off **MUST** produce the same final state as a run with it on, at the same
+seed. Otherwise the trace is not evidence about the run it claims to describe.
+
+### M16.C The readable trace
+
+**M16.C.1** — *there **MUST** be a renderer, and it **MUST** be deterministic.* It turns a log into readable
+text by template. **No language model.** Same log in, same text out, byte for byte. This is a **rendering,
+not an interpretation**, and that distinction is the whole of its safety.
+
+**M16.C.2** The rendered trace **MUST** carry, per line: the time, the actor, the move, the target and
+witnesses, and **what it did** — the effect fields of `M16.A.4`, in the units the reader needs rather than
+raw state. The worked trace in `agent_model_proposal.html` §4.2 is the shape; that table's "What it does"
+column is the requirement.
+
+**M16.C.3** The renderer **MUST** be built in **Phase B**, because Phase B's exit condition depends on a
+human reading a trace and judging it correct, and that judgement is not available without it.
+
+**M16.C.4** The trace **MUST** be able to render a **single agent's view** — the events that agent sent,
+received or witnessed — as well as the whole family's. Three mechanisms are per-agent (`M1.E.7c`), and a
+family-wide trace cannot serve them.
+
+**M16.C.5** A rendered trace **MUST** carry its log header (`M16.A.1`) and `M11.F`'s framing. It **MUST NOT**
+be formatted to resemble a clinical record or case history. → `M11.F.9`
+
+### M16.D The delayed view
+
+**M16.D.1** — *serving `M1.E.7c`'s fourth form, delayed self-observation.* The log **MUST** support a query returning **one agent's own events,
+older than a configured delay**, and nothing else. The agent **MUST NOT** be able to read events it did not
+send, receive or witness; **MUST NOT** read another agent's private hops (`M1.F` route and fidelity make
+those genuinely private); and **MUST NOT** read anything newer than the delay.
+
+**M16.D.2** The delay **MUST** be configurable and **MUST** default to the corpus value: Bowen required
+session tapes to be "**at least six months old**", explicitly against instant replay, because
+self-observation accuracy rises as the episode's acute anxiety decays toward the floor. `[#]` A zero delay
+**MUST** be permitted only as an experimental arm, never as the default, and `M11` **SHOULD** carry an arm
+showing that the delayed view lands where the instant one does not.
+
+### M16.E What the trace must not become
+
+**M16.E.1** Language-model narration of a log is **Phase F**. It **MUST** be off by default and **MUST NOT**
+appear anywhere in the ensemble path.
+
+**M16.E.2** — *the risk is not cost, it is credibility.* A language model brings its own theory: asked what
+an anxious father does it returns popular psychology, not systems theory. And a readable story about a
+recognisable family is, in this document's own words, "very easy to believe and very hard to falsify" and
+"extremely easy to over-believe." Narration converts a defensible numeric result into a persuasive one
+without adding any evidence.
+
+**M16.E.3** Any narrated output **MUST** carry `M11.F` in full, **MUST** be marked as generated prose over a
+deterministic log, and **MUST** be subject to `M11.F.9`. The deterministic renderer of `M16.C` **MUST**
+remain available alongside it, and any narrated claim **MUST** be traceable to the log lines it came from.
+
+### M16.F Tests
+
+| ID | Criterion | Test |
+|---|---|---|
+| **M16.T.1** | A scripted Phase B run renders a trace conforming to `M16.C.2`, with effects beside causes | `test_m16c_trace_renders_scripted_run` |
+| **M16.T.2** | The engine performs no file I/O; constructing and running it writes nothing to disk | `test_m16b_engine_writes_nothing` |
+| **M16.T.3** | Logging is a pure observer: same seed, logging on and off, identical final state | `test_m16b3_logging_does_not_change_results` |
+| **M16.T.4** | The delayed view returns only the agent's own events, only older than the delay | `test_m16d_delayed_view_is_scoped_and_lagged` |
+| **M16.T.5** | Two runs at one seed produce byte-identical logs, header included | `test_m11d5_same_seed_same_log` (extends `M11.D.5`) |
+
+### Revision 6 — the run log, 2026-08-28
+
+| | What changed | Where |
+|---|---|---|
+| **New module** | The run log and the readable trace. Six existing requirements already depended on a log; none of them said what one is | `M16` |
+| **Exit condition made checkable** | Phase B's "the event log reads correctly" named no requirement and no test. It now names `M16.C.2` and `M16.T.1` | `M13` |
+| **Engine purity** | The engine emits records; the caller persists them. The frozen engine's `sim_audit.csv` is named as the anti-pattern | `M16.B` |
+| **Ordering** | `M14` was sitting after `M15`; modules are now in numeric order |  |
+
+**Two things this settles.** A log records **effects beside causes** and the **selection rationale**, not
+just the moves — without those an event log is a list, not a causal trace, and the causal trace is most of
+the argument for the agent model over the grid. And the deterministic renderer is **not** the language
+layer: rendering a finished log by template is reproducible and carries no interpretation, where narration
+by a language model is Phase F, off by default, and never in the ensemble path (`M16.E`).
 
 ---
 

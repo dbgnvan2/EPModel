@@ -1,8 +1,8 @@
 ---
 tags: [model-bt, explainer]
 status: current
-version: 1.4
-date: 2026-08-27
+version: 1.5
+date: 2026-08-28
 ---
 
 # The model, part by part
@@ -1300,6 +1300,37 @@ identified patient, which is an **output** (§9.4, `M2.A.2`) and belongs in the 
 
 **None of this makes the model able to speak about a real family.** `M11.F.9` holds regardless: import
 changes what is convenient, not what is knowable.
+
+### 17.6 Reading a run — the log and the trace
+
+*Added 2026-08-28, spec revision 6. `M16`.*
+
+**Every run produces a log, and the log is a causal trace rather than a list.** Each event is recorded with
+its full record (§9) plus the **reason it was chosen** — the propensity scores and the draw — and the
+**effect it had** beside it: each receiver's change in anxiety, the tie deltas, any triangle position
+change, any reallocation across the three sinks, and the invariant results for that tick. Belief writes
+(§9.5) are tagged apart from ground truth. Without the reason and the effect, an event log shows behaviour
+and not causation, which is most of what the agent model was supposed to buy over the grid.
+
+**A deterministic renderer turns the log into readable text.** By template, no language model, same log in
+and same text out. The worked trace in `agent_model_proposal.html` §4.2 is the shape — the "What it does"
+column is the requirement, not an illustration. It renders one agent's view as well as the whole family's.
+
+**The log is also an input.** §5's fourth form of a landed coaching contact is *delayed self-observation* —
+presenting an agent with **its own log, delayed**. Bowen required session tapes to be "at least six months
+old", explicitly against instant replay, because self-observation gets more accurate as the acute anxiety of
+the episode decays. `[#]` That is the default delay, and the query returns only that agent's own events and
+only ones older than it.
+
+**Two rules that keep the trace honest.** The engine emits records and the caller decides where they go —
+the engine performs no file I/O, and the frozen engine's `sim_audit.csv` is named in the spec as the
+anti-pattern. And logging is a pure observer: the same seed with logging on and off must reach the same
+final state, or the trace is not evidence about the run it describes.
+
+**Narration by a language model is a different thing and is Phase F** — off by default, never in the
+ensemble path. A language model brings its own theory, and §7's warning applies with force: a readable story
+about a recognisable family is very easy to believe and very hard to falsify. Rendering is reproducible and
+adds no interpretation; narration adds fluency and no evidence.
 
 ---
 

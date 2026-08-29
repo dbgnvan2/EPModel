@@ -145,8 +145,9 @@ Twelve people in one three-generation family. Each is an agent that, on every fa
 **Source:**
 - `[#]` Ch16 · L16.1 — **0 to 100.** 0 is the lowest possible human functioning; 100 a hypothetical perfection. **The top quartile (75–100) is explicitly withdrawn as "more hypothetical than real."**
 - `[#]` Ch17 · L17.2 — **~90% of people sit in the lower half**; ≤10% reach the third segment. The top profile is stated to be extrapolation, not observation.
-- `[T]` Ch16 · L16.1 — **one behavioural transition, at 50**, and it is a **licence, not suppression**: the emotional system *permits* the intellect its corner "as long as it does not interfere in joint decisions that affect the total life course."
-- `[X]` The band scheme is **present in 1966, absent in 1972, present again in 1976**, and Ch21 has no regime change at 50 at all — its lower/upper transition is explicitly gradual (L21.1). **The bands are not a constant of the theory.** Ch16 is the only source for the numbers, and the scale gets *less* specified over time.
+- `[T]` Ch16 · L16.1 — the **licence, not suppression**: the emotional system *permits* the intellect its corner "as long as it does not interfere in joint decisions that affect the total life course." ⚠ **Corrected 2026-08-28 — this is a slope, not a step.** The model previously implemented "one behavioural transition, at 50". Ch16's own wording is graded: above 50 the intellect "**begins** making **a few** decisions of its own". **The licence varies continuously with level**, with the joint-decision domain lagging every other domain at every point — that ordering is the mechanism, and 50 is a label for where the description changes character. `M1.A.3`
+- `[X]` The band scheme is **present in 1966, absent in 1972, present again in 1976**, and Ch21 has no regime change at 50 at all — its lower/upper transition is explicitly gradual (L21.1). **The bands are not a constant of the theory.** Ch16 is the only source for the numbers, and the scale gets *less* specified over time. Kerr 1988 gives different edges again — 0–10, >60, >70 (`FE03.5`). **This is why no band edge may be a branch point anywhere in the model** (`M1.A.3d`): the edges are descriptive labels, and two authors do not agree on them.
+- **What removing the step must not do is flatten the model.** The corpus asserts real structure over the range, and it is **not monotone**: overt emotionality *peaks in the middle* (L16.4), and the upper part of 25–50 looks differentiated and is not (L10.12). The structure lives in the **shape of the functions**, never in a jump at a coordinate. `M1.A.3c`
 - `[I]` The engine's old `C ∈ [10, 80]` with a linear clip has **no source**. It has no threshold, and 10 and 80 appear nowhere.
 
 **Does not:** ⚠ **`basic_level` is not written by anything.** There is no ratchet and no per-exchange increment. It is **derived** — an estimator over `functional_level` history (§3.2a) — which is why no move, however successful, moves it directly. `M1.A.4`, `M1.A.4a`
@@ -1266,7 +1267,10 @@ An invented constant is a nuisance — it does not interact with the interventio
 **An initial condition is what the intervention acts on.** Mis-estimate it and you do not shift both arms
 together; you cross a regime boundary and the sign reverses.
 
-The model has at least five, and they are corpus claims, not artefacts:
+The model has at least five. *They are **turning points**, not cliffs — §3.1's correction removes every
+discontinuity from the scale, so the effect rolls off through a region where it is near zero rather than
+flipping over an edge. The conclusion is unchanged, and near the turn the effect is small and noisy, which
+is its own problem.* They are corpus claims, not artefacts:
 
 | Boundary | The sign turns on | Grade |
 |---|---|---|

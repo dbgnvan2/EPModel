@@ -439,7 +439,7 @@
       to build from.</p>
       <p><span class="revmark">rev</span> <b>The corpus is now closed, and the spec is at revision 6.</b>
       All six sources have been read and folded in;
-      <span class="m">docs/bowen_agent_model_spec_v2.md</span> carries <b>419 numbered requirements</b> and
+      <span class="m">docs/bowen_agent_model_spec_v2.md</span> carries <b>421 numbered requirements</b> and
       33 acceptance criteria. The remaining step before code is the <b>implementation plan</b>.</p>
       <p><b>And the sixth source found an inverted requirement, which is the best argument in this document
       for the whole extraction discipline.</b> The differentiation state machine's gate had been written as
@@ -1154,8 +1154,11 @@
       <p><b>Input error does not cancel the way parameter error does.</b> An invented constant is a
       <em>nuisance</em> &mdash; it does not interact with the intervention, so it sits in both arms and
       subtracts out. An initial condition is <em>what the intervention acts on</em>. Get it wrong and you do
-      not shift both arms together; you land on the wrong side of a regime boundary and the <b>sign
-      flips</b>. This model has at least five: technique's zero effect at high marital distance against
+      not shift both arms together; you land on the wrong side of a <b>turning point</b> and the
+      <b>sign flips</b>. <span class="revmark">rev</span> <em>Called &ldquo;regime boundaries&rdquo; until
+      2026-08-28, which implies cliffs; the scale has no discontinuities, so the effect rolls off through a
+      region where it is near zero &mdash; small and noisy there, which is its own problem. The conclusion is
+      unchanged.</em> This model has at least five: technique's zero effect at high marital distance against
       &ldquo;they could do no wrong&rdquo; when the parents are close; a third destabilising a
       <em>stable</em> twosome and stabilising an <em>unstable</em> one; the same move producing the opposite
       sign below the outside-ness threshold; lock-in reversing past a severity turn; and the peace-agree
@@ -1459,7 +1462,14 @@
           <tr>
             <td>The differentiation scale, implied by <span class="m">basic_level</span></td>
             <td>0&ndash;100, with the top quartile withdrawn as &ldquo;more hypothetical than real&rdquo; and ~90% of people in the lower half. One behavioural transition at 50 &mdash; and it is a <b>licence</b>, not suppression: the emotional system <i>permits</i> the intellect its corner &ldquo;as long as it does not interfere in joint decisions&rdquo;. The quartile scheme is present in 1966, <b>absent</b> in 1972, present again in 1976; the scale gets <i>less</i> specified over time.</td>
-            <td>Model the range and the one transition. Do not treat the bands as a constant of the theory, and do not implement a linear clip with no threshold as the repo does.</td>
+            <td><span class="revmark">rev</span> Model the range and the <b>shape over it</b>. <b>Not a threshold at 50</b>
+      &mdash; corrected 2026-08-28: Ch16 says the intellect &ldquo;<b>begins</b> making <b>a few</b> decisions of
+      its own&rdquo;, Ch21 has no regime change at 50 and calls the transition <b>explicitly gradual</b>, and
+      Kerr gives different edges again. The licence varies <em>continuously</em>, with joint decisions the last
+      domain the intellect gets. <b>No band edge may be a branch point anywhere</b> (<span class="m">M1.A.3d</span>).
+      But do not flatten it either: emotionality <em>peaks in the middle</em> and a whole stratum looks
+      differentiated and is not, so the structure is <b>non-monotone shape</b>, not a step. And do not implement
+      a linear clip as the repo does.</td>
           </tr>
           <tr>
             <td>Two clocks &mdash; one week, one year</td>

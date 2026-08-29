@@ -1,6 +1,6 @@
 ---
 tags: [model-bt, spec]
-version: 2.0-draft, revision 6
+version: 2.0-draft, revision 7
 status: FOR APPROVAL — no code until approved
 date: 2026-08-28
 supersedes: bowen_individual_family_model_spec.md (v1.2, frozen)
@@ -32,7 +32,7 @@ This specification covers **Phases B, C and D** of the sequence in `agent_model_
 
 ### 0.3 Normative language
 
-- **MUST** / **MUST NOT** — required. A violation is a defect. **Not every one carries its own test**: there are roughly 639 bolded MUST/MUST NOT tokens against 50 named tests, and whole modules (`M15`, `M16`) sit outside `M11` entirely. What is true is narrower and is the thing to rely on: **every `M11.C`, `M11.D` and `M16.F` criterion names a test — except `M11.C.8`, whose Test cell is `—` because `M11.E` defers it — and every `M6` invariant is asserted each tick.** A MUST elsewhere is a requirement on the implementer that a reviewer must check by reading. *(Corrected 2026-08-28. The earlier form claimed each MUST had a test or an invariant, which was not true when written and got roughly 35% further from true over three revisions. It is the sentence a builder would use to decide what needs a test, so an aspirational reading of it is expensive.)*
+- **MUST** / **MUST NOT** — required. A violation is a defect. **Not every one carries its own test**: there are roughly 650 bolded MUST/MUST NOT tokens against 50 named tests, and whole modules (`M15`, `M16`) sit outside `M11` entirely. What is true is narrower and is the thing to rely on: **every `M11.C`, `M11.D` and `M16.F` criterion names a test — except `M11.C.8`, whose Test cell is `—` because `M11.E` defers it — and every `M6` invariant is asserted each tick.** A MUST elsewhere is a requirement on the implementer that a reviewer must check by reading. *(Corrected 2026-08-28. The earlier form claimed each MUST had a test or an invariant, which was not true when written and got roughly 35% further from true over three revisions. It is the sentence a builder would use to decide what needs a test, so an aspirational reading of it is expensive.)*
 - **SHOULD** — required unless there is a stated reason not to; the reason goes in the code comment.
 - **MAY** — genuinely optional.
 
@@ -76,11 +76,20 @@ Therefore:
 
 **M1.A.1** A `Person` **MUST** hold exactly two state variables from which reactive behaviour is derived: a basic level and an anxiety level. Reactivity **MUST NOT** be stored. → `model_explainer.md` §3.5
 
-**M1.A.2** `basic_level` **MUST** be on a 0–100 scale. The implementation **MUST NOT** clip to `[10, 80]`, and **MUST NOT** apply a linear transform in place of the one behavioural transition. → §3.1
+**M1.A.2** `basic_level` **MUST** be on a 0–100 scale. The implementation **MUST NOT** clip to `[10, 80]`, and **MUST NOT** apply a plain linear transform in place of the graded structure `M1.A.3` requires. → §3.1
 
-**M1.A.3** There **MUST** be exactly one behavioural transition on `basic_level`, at 50, and it **MUST** be implemented as a *licence over joint decisions* — below 50 the emotional system permits the intellect its own domain **except** where a decision affects the shared life course — not as a general suppression of intellect. → §3.1
+**M1.A.3** — *the licence is a **slope**, not a step; corrected at revision 7.* The intellect's licence **MUST** vary **continuously** with `basic_level`, and there **MUST NOT** be a discontinuity at 50 or at any other coordinate. What the corpus states, and what **MUST** be implemented, is the **shape** rather than a switch: the emotional system permits the intellect its own domain **except** where a decision affects the shared life course, so the weight over the **joint-decision domain lags the weight over every other domain at every level**, approaching parity only at the top of the range. It **MUST NOT** be implemented as a general suppression of intellect (M1.A.3b), and **MUST NOT** be implemented as a linear ramp either — see `M1.A.3c` for the shape constraints the corpus does assert.
 
-**M1.A.3b** — *the transition's **readout** is awareness; its **implementation** stays the licence.* Kerr 1988 describes the same transition differently: "**Above 50, the intellectual system is sufficiently developed to make a few decisions of its own**"; "**A criterion for distinguishing people who are above rather than below 50 is that above 50 there is more awareness of the difference between feelings and intellectual principle.**" That is a **band discriminator**, and it **MUST** be implemented as one — a readout over M4.D.1a's mixing weight — and **MUST NOT** be implemented as a second behavioural transition. M1.A.3's licence remains the behavioural form, because a Kerr formulation **MUST NOT** silently overwrite a Bowen one.
+**Why this changed.** The earlier form required *"exactly one behavioural transition on `basic_level`, at 50"*, which reads Ch16's description as a mechanism. Ch16's own wording is graded — the intellect "**begins** making **a few** decisions of its own" — and the rest of the corpus is against a switch: Ch21 has **no regime change at 50 at all** and calls the lower/upper transition **explicitly gradual** (`L21.1`, `[corrected]`); the band scheme is **present in 1966, absent in 1972, present again in 1976** and is graded `[X]` as "not a constant of the theory"; Kerr 1988 gives entirely different edges (0–10, >60, >70 — `FE03.5`); Bowen revised the top **twice**; and he "**subsequently dropped the term scale**" (`KS05.3`). Ch16 is the latest of the three and is not outvoted — but it describes a band, and this requirement had implemented a cliff. → §3.1; *user correction, 2026-08-28*
+
+**M1.A.3c** — *the shape is where the structure lives, and it **MUST NOT** be monotone.* Removing the step **MUST NOT** flatten the model into a smooth ramp, because the corpus asserts real structure over the range and it is not monotone:
+
+- **Overt emotionality peaks in the middle.** "**People in the moderate range of differentiation have the most intense versions of overt feeling**" (`L16.4`). Any function of level standing in for emotional expression **MUST** be non-monotone with an interior maximum.
+- **A stratum that looks differentiated and is not.** The upper part of the 25–50 range is dogmatic, compliant or rebellious, with "**intellect in the service of the relationship system**" (`L10.12`). Position-taking behaviour **MUST** therefore also be non-monotone in level, and `M5.F` is what separates the appearance from the thing.
+
+**M1.A.3d** — *a band edge **MUST NOT** be a branch point, anywhere in the model.* 25, 50, 60, 70, 75 and every other number attached to a band are **descriptive labels**, usable in readout and in construction, and **MUST NOT** appear as a threshold, a conditional, or a discontinuity in any update. The band scheme moved three times in the corpus and its edges differ between authors; a model that branches on one has hard-coded a coordinate the source does not hold still. **This rule is general so the error cannot recur at the other four numbers.** The single admitted exception is `M1.A.4d`, and it is admitted on a different claim — see there.
+
+**M1.A.3b** — *the transition's **readout** is awareness; its **implementation** stays the licence.* Kerr 1988 describes the same transition differently: "**Above 50, the intellectual system is sufficiently developed to make a few decisions of its own**"; "**A criterion for distinguishing people who are above rather than below 50 is that above 50 there is more awareness of the difference between feelings and intellectual principle.**" That is a **band discriminator**, and it **MUST** be implemented as one — a readout over M4.D.1a's mixing weight — and **MUST NOT** be implemented as a second behavioural transition. **A discriminator labels a region of a continuum; it is not evidence that a boundary exists there** (`M1.A.3d`). Kerr's own criterion is comparative — *more* awareness above than below — which is what a monotone quantity read at two points looks like, not a switch. M1.A.3's licence remains the behavioural form, because a Kerr formulation **MUST NOT** silently overwrite a Bowen one.
 **Neither MUST be implemented as reduced cognitive capacity.** What differs across the transition is the **strength of the emotional circuits relative to the cognitive ones**, not the quality of the cognitive ones: "**the intellect operates in the service of the feeling and emotional process**". A low-`basic_level` agent **MUST** argue as fluently, and hold positions as confidently, as a high one. → *decision A2, 2026-08-27*; `theory/family_evaluation/fe04.md` · FE04.3, `fe02.md` · FE02.16
 
 **M1.A.3a** — *the marriage-ceremony break, resolved.* Bowen states it as a fact and says he never worked out why: "pretty good friendship relationships before marriage and then the whole thing gets messed up as of the time of the marriage ceremony. **I've often wondered the why of that**, but there it exists as a fact." → user mechanism, E2, 2026-08-24; formerly open
@@ -99,7 +108,9 @@ Therefore:
 
 **M1.A.4c** The estimator's **window length** and **breadth count** **MUST** be declared in config, graded `[I]`, and the run **MUST** report a sensitivity analysis over both. No source states a window or a count; they are judgement. → M10.B.3
 
-**M1.A.4d** — *a **capacity floor at 25**.* Below `basic_level` 25 the estimator **MUST NOT** raise `basic_level` regardless of functional history; above it, the rate **MUST** be monotone increasing in current `basic_level`. `functional_level` is **not** so constrained and moves freely at every level. A different kind of transition from M1.A.3's behavioural licence at 50 — a **capacity bound on change**, not a licence over decisions. → `kerr_book/ks05.md` · KS05.2
+**M1.A.4d** — *a **capacity falloff** toward the bottom of the range, not a floor at a coordinate.* The rate at which the estimator can raise `basic_level` **MUST** fall continuously toward zero at the low end and **MUST** be monotone increasing in current `basic_level` above that. It **MUST NOT** be implemented as a hard gate at 25.
+
+*Regraded at revision 7, by the same argument as `M1.A.3`, and the limits of that are worth stating.* This is a **different claim** from the licence — a bound on the capacity for change, not a licence over decisions — and its source is `KS05.2`, which **has not been re-read this session**. What the source says is a description of a group, "**they lack the flexibility to make basic change**", which is the same grammatical shape as Ch16's band description and warrants the same treatment. So the *falloff* is applied on the principle; the *location* stands as stated, pending a reading of the primary. It is the one number `M1.A.3d` admits as structural, and it is admitted provisionally. `functional_level` is **not** so constrained and moves freely at every level. A different kind of transition from M1.A.3's behavioural licence at 50 — a **capacity bound on change**, not a licence over decisions. → `kerr_book/ks05.md` · KS05.2
 > "**they lack the flexibility to make basic change**… **People above 25 on the continuum can make basic changes in differentiation. The higher a person's basic level of differentiation, the more potential that person has to increase the basic level.**" And: "**Their functional levels of differentiation can change** as the level of chronic anxiety fluctuates."
 
 **M1.A.4e** — *the estimator's observables, with per-observable reading rules.* Four domains — **work performance, education relative to opportunity, health history, relationship stability** — with "**No one piece of data is sufficient**". Each is read **asymmetrically**:
@@ -855,7 +866,7 @@ Therefore M4.C's appraisal **MUST** read the receiver's belief about the sender 
 
 **M10.C.1** The following are **invented** and **MUST** be labelled as such wherever they surface: the fast tick length; the softmax temperature and every propensity coefficient; all conductance values; all bond-energy values and its decay rate; the standing-load function; every gate threshold including the `outside_ness` threshold; `societal_leadership`'s functional form; the appraisal gain function's shape; the chronic-anxiety fixation age; sibling-position effect sizes; the M6.I.1 conservation tolerance; every value in M2.
 
-**M10.C.2** The following are **stated in the corpus** and are usable as calibration targets: the durations in `model_explainer.md` §8, the 0–100 scale and the transition at 50, the ~90%-in-the-lower-half population skew, the three-sink count, and — **withdrawn at pass 3** — the eight-to-ten-generation figure, which `KB11` shows was rhetorical: "I put [it] in **not to say that it takes ten generations**."
+**M10.C.2** The following are **stated in the corpus** and are usable as calibration targets. **The band edges are not among them** — they are descriptive labels (`M1.A.3d`), they moved three times within the corpus, and Kerr states different ones; using an edge as a target would calibrate against a coordinate the source does not hold still. the durations in `model_explainer.md` §8, the 0–100 scale, the ~90%-in-the-lower-half population skew, the three-sink count, and — **withdrawn at pass 3** — the eight-to-ten-generation figure, which `KB11` shows was rhetorical: "I put [it] in **not to say that it takes ten generations**."
 
 **M10.C.2a** One **external** calibration target is admitted: the DSI–trait-anxiety association, **r = .64** (Skowron & Friedlander 1998, N = 609). It **MAY** be used to check an ensemble's differentiation–anxiety coupling and **MUST NOT** be used to set a parameter. Two limits **MUST** travel with it in any report: it relates two self-reports, so shared method variance inflates it; and it is a population association in a sample that is 82.7% White and largely northeastern US, not a norm. → `theory/_EXTERNAL_MEASURES.md`
 
@@ -1036,7 +1047,7 @@ Kerr's framing supports it: Bowen's stated validity criterion was that a theory 
 **(c) A counterfactual MUST NOT be reported from parameters tuned to reproduce a known history.** This is a **correctness** requirement, not a framing one. `M0.4`'s differencing is trustworthy because the invented constants are **set independently of the question**; that independence is the precondition the cancellation rests on. Fitting the parameters so one arm reproduces a history you already know destroys it, in three ways that compound:
 
 1. **The parameters are now selected conditional on the factual trajectory.** They are no longer independent of the question being asked, so `M0.4`'s premise is simply not met.
-2. **The residual stops being exchangeable across the arms.** The intervention moves the system away from the region the fit was performed in, and `M15.D.4` names five regime boundaries where that move reverses the sign of the effect.
+2. **The residual stops being exchangeable across the arms.** The intervention moves the system away from the region the fit was performed in, and `M15.D.4` names five turning points where that move reverses the sign of the effect.
 3. **The fit is non-identifiable.** 60–90 free `[I]` parameters against a **single realisation** (`M10.A.2`) — many parameter sets reproduce the same history and **disagree about the counterfactual**. The counterfactual difference is therefore **not identified by the data**: its sign and its size vary freely across the parameter sets that reproduce the history, and nothing in the fit constrains that variation. *(An earlier form said the bias was "unbounded". That does not follow — over a bounded parameter space the difference is unidentified, not unbounded — and an unsupported strengthening is the exact error §10 records the first corpus pass making.)*
 
 Any run whose parameters were adjusted to reproduce an observed outcome **MUST** be reported as a fit, never as a comparison.
@@ -1183,10 +1194,15 @@ rather than pick a point inside it.
 **M15.B.2** The ordinal→interval map **MUST** live in config, **MUST** be graded `[I]`, and **MUST NOT** be a
 linear point map. Each rating point maps to a **wide** interval, and adjacent intervals **MAY** overlap.
 
-**M15.B.3** — *a rating point **MUST NOT** map onto `M1.A.3`'s transition at 50.* On a linear 1–5 map the modal
-rating lands exactly on the one behavioural boundary the theory has, so the most common value in the data
-sits where the licence behaviour flips. The interval for the middle rating **MUST** straddle the transition
-and the run **MUST** report that it does.
+**M15.B.3** — *the ordinal map **MUST** be checked across the whole range, not at one edge.* *Rewritten at
+revision 7.* The earlier form required that no rating point land on "the transition at 50", reasoning that
+the modal rating would sit where the licence flips. **`M1.A.3` no longer has a flip**, so that reasoning is
+gone — and the problem it named is **larger**, not smaller. With a graded licence *every* part of the range
+carries behaviour, so a five-point ordinal map compresses a continuum onto five coordinates and the error is
+spread across all of them rather than concentrated at one edge. The map **MUST** therefore report a
+**coverage figure** — what fraction of the 0–100 range each rating point's interval spans, and where
+intervals overlap — and a run **MUST NOT** present a result whose sign depends on which point inside an
+interval was taken (`M15.D.2`).
 
 **M15.B.4** The imported population **MUST** be checked against the corpus distribution — species median
 ≈ 40, ~90% in the lower half, the top quartile "more hypothetical than real" (M10.C.4) — and the comparison
@@ -1231,8 +1247,12 @@ distinction the data does not carry, and it says which. **A flip is a result, an
 
 **M15.D.4** — *why the envelope is required rather than recommended.* Initial conditions are not nuisance
 parameters. They are what the intervention acts on, so their error does **not** cancel between arms the way
-an invented constant does — it moves the family across a regime boundary and reverses the sign. The model
-has at least five such boundaries: management technique has zero effect while marital distance is high but
+an invented constant does — it moves the family across a **turning point** and reverses the sign. *Revision 7 corrects the word: these
+were called "regime boundaries", which implies cliffs. `M1.A.3d` establishes that the model has no
+discontinuity at a band edge, so the honest picture is a turning point with a roll-off through a region where
+the effect is near zero — and near the turn the effect is both small and noisy, which is its own problem.
+**The conclusion is unchanged**: mis-estimating which side of a turning point you are on still reverses the
+sign.* The model has at least five: management technique has zero effect while marital distance is high but
 "they could do no wrong" when the parents are close (M11.C.14); a third destabilises a **stable** twosome and
 stabilises an **unstable** one (M11.C.27); below threshold the same move produces the **opposite** sign
 (M5.F.2); lock-in reverses past a severity turn (M7.D.2d); and the technique for a peace-agree family
@@ -1381,6 +1401,36 @@ remain available alongside it, and any narrated claim **MUST** be traceable to t
 | **M16.T.6** | The **event store** is *not* optional: with `M16.D`'s delayed view reachable, a run whose store is emptied **MUST** diverge from one whose store is live, wherever `M1.E.7c`'s first or fourth form fires. This is the converse of `M16.T.3`, and exists so the two are not conflated again. **The store is disabled by an experimental override declared in the test, never by a config key** — `M16.B.3` forbids it being disableable in production, which is the same shape `M10.C.4b` uses for the quantum-jump conditions | `test_m16t6_event_store_is_load_bearing` |
 | **M16.T.4** | The delayed view returns only the agent's own events, only older than the delay | `test_m16t4_delayed_view_is_scoped_and_lagged` |
 | **M16.T.5** | Two runs at one seed produce byte-identical logs, header included | `test_m16t5_same_seed_same_log_with_header` — a separate test from `M11.D.5`'s, because §0.4 requires the name to embed this criterion's own ID |
+
+### Revision 7 — the scale is a continuum, 2026-08-28
+
+Raised by the project owner: *Bowen's quadrants are bands across a continuum, not shift points.* Checked
+against the primary and upheld.
+
+| | What changed | Where |
+|---|---|---|
+| **Corrected** | `M1.A.3` required *"exactly one behavioural transition on `basic_level`, at 50"*. The licence is now a **slope** — continuous in level, with the joint-decision domain lagging every other domain at every level, and no discontinuity anywhere | `M1.A.3`, `M1.A.2` |
+| **Guarded** | Removing the step **MUST NOT** flatten the model: the corpus asserts real, **non-monotone** structure over the range — emotionality peaks in the middle, and a stratum looks differentiated and is not | `M1.A.3c` |
+| **Generalised** | **A band edge MUST NOT be a branch point anywhere** — 25, 50, 60, 70, 75. The scheme moved three times inside the corpus and the two authors give different edges; branching on one hard-codes a coordinate the source does not hold still | `M1.A.3d` |
+| **Regraded, provisionally** | The capacity floor at 25 becomes a continuous falloff, applied on the principle rather than on a fresh reading — its source has **not** been re-read, so its location stands pending that | `M1.A.4d` |
+| **Withdrawn as a target** | "the transition at 50" had been listed as a corpus-stated calibration target | `M10.C.2` |
+| **Rewritten** | The import rule that no rating point may land on 50 — its reason went with the step, and the problem underneath is larger without it | `M15.B.3` |
+| **Word corrected** | "regime boundary" → **turning point** in the sign-flip argument. Conclusion unchanged; the picture is a roll-off, not a cliff | `M15.D.4`, `M11.F.9(c)` |
+
+**The evidence, since this overturns a MUST cited to Bowen's own hand.** Ch16 states it as a description with
+hedges — the intellect "**begins** making **a few** decisions of its own". Ch21 has **no regime change at 50
+at all** and calls the lower/upper transition **explicitly gradual** (`L21.1`, already marked `[corrected]`
+in the ledger). The band scheme is **present 1966, absent 1972, present again 1976**, graded `[X]` in the
+explainer as "not a constant of the theory". Kerr 1988 gives different edges entirely — 0–10, >60, >70
+(`FE03.5`). Bowen revised the top twice and "**subsequently dropped the term scale**" (`KS05.3`). Ch16 is the
+latest of the three and is **not** outvoted — but it describes a band, and this requirement had implemented
+a cliff.
+
+**This is the same failure as `M5.D.4` at revision 4**: a source *description* firmed up into a mechanism the
+source does not assert. Two instances now, both caught by reading the primary rather than the extraction, and
+neither catchable by a regex. A sweep for others of this shape is logged in `TODO.md`.
+
+---
 
 ### Revision 6 — the run log, 2026-08-28
 

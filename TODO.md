@@ -45,6 +45,22 @@ rule is to bound the loop rather than trade one defect class for another.
   as discriminating or not. Classify them when each test is written, and consider a marking column then —
   `M11.3` originally required one and the table has no such column.
 
+- [ ] **Sweep the spec for other descriptions firmed up into mechanisms.** Two are now known — `M5.D.4`
+  (anger, revision 4) and `M1.A.3` (the transition at 50, revision 7) — and both were caught by reading the
+  primary, not the extraction. **Neither was catchable by a regex**, which is why this is a reading task and
+  not a guard. The shape to look for: a requirement whose source is a *descriptive* passage, whose hedges
+  ("begins", "a few", "tends to", "usually") the requirement dropped, and which the spec then states as a
+  threshold, a switch, or an exact count. Highest risk where a single chapter is the only source.
+- [ ] **Re-read `KS05.2` on the capacity floor at 25.** `M1.A.4d` was regraded to a continuous falloff at
+  revision 7 **on the principle rather than on a reading** — its source says "they lack the flexibility to
+  make basic change", which is a description of a group and the same grammatical shape as Ch16's band. The
+  falloff is applied; the *location* stands pending the primary. It is the one number `M1.A.3d` admits as
+  structural, and it is admitted provisionally.
+- [ ] **Re-read the source behind `M5.F.2`'s `outside_ness` threshold.** "Below threshold the same move
+  produces the opposite sign" is the same shape as the transition at 50 — a threshold on a continuous
+  quantity, doing load-bearing work in the sign-flip argument at `M15.D.4`. It may be sound; it has not been
+  checked with this question in mind.
+
 - [ ] **Run a cold sweep over this batch.** The 2026-08-28 sweep was warm — the same session that wrote the documents commissioned it. It found fifteen defects, which says the sweep works, not that the set is clean. The project's own rule is that a falling finding count from self-review is not a stopping condition, and that a pass which does not know the change's history changes the *distribution* of findings. `/csdp --cold-sweep` over `4e79697..HEAD` from a fresh session.
 - [ ] **The sweep covered one failure family only.** It reports itself as not covering: theoretical fidelity (it did not open `_LEDGER.md`, the `family_evaluation/` extractions, or Ch13's primary text), whether the ~88 new requirements are individually implementable, whether the specified model is coherent, and the reasoning in the DECISIONS document. **The `M5.D.4` correction rests on one re-read of one chapter by the context that made the correction** — a second reader on the sources is the highest-value follow-up.
 - [ ] **Decide whether `M16`'s renderer output format is worth fixing in the spec.** `M16.C.2` says what a rendered line must carry and points at the proposal's §4.2 table as the shape, but does not fix a format. That is deliberate for now — the format is cheaper to settle against a running Phase B than in advance — but it should be settled *before* a second consumer exists, or the two will drift.

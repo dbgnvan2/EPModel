@@ -27,7 +27,7 @@
 > | Kerr, *Bowen Theory's Secrets* (2019), 26 segments — 262 findings | complete |
 > | **Kerr & Bowen, *Family Evaluation* (1988), 12 segments — 219 findings** | **complete 2026-08-26** |
 > | External measures (the DSI) | recorded |
-> | Spec v2.0 — **419 unique IDs, 0 unresolved, 0 dangling references** | **approved 2026-08-25; revisions 1–6 applied.** Revisions 4–5 landed 2026-08-27, revision 6 on 2026-08-28 |
+> | Spec v2.0 — **421 unique IDs, 0 unresolved, 0 dangling references** | **approved 2026-08-25; revisions 1–6 applied.** Revisions 4–5 landed 2026-08-27, revision 6 on 2026-08-28 |
 > | **`docs/DECISIONS — FAMILY EVALUATION.md`** | ✅ **closed 2026-08-27** — all nine items decided and applied |
 > | `docs/DECISIONS FOR APPROVAL.md` | approved 2026-08-25; propagation complete |
 > | Code | **none. Nothing until the spec and then the plan are approved.** |
@@ -58,6 +58,18 @@
 > **delayed view** that `M1.E.7c`'s fourth form needs, and engine purity — the engine emits, the caller
 > persists. The exit condition now names `M16.C.2` and `M16.T.1`. Modules were also put back in numeric
 > order; `M14` had ended up after `M15`.
+>
+> **Revision 7, 2026-08-28 — the scale is a continuum.** Raised by the project owner and upheld against the
+> primary: Bowen's quadrants are **bands across a continuum, not shift points**. `M1.A.3` had required
+> *"exactly one behavioural transition on `basic_level`, at 50"* and implemented a cliff where Ch16 describes
+> a band — its own wording is graded ("**begins** making **a few** decisions"), Ch21 has no regime change at
+> 50 and calls the transition explicitly gradual, and the ledger already carried that at `L21.1` marked
+> `[corrected]`. The licence is now a slope; `M1.A.3d` forbids any band edge from being a branch point
+> anywhere; `M1.A.3c` stops the de-stepping from flattening structure the corpus asserts is **non-monotone**.
+>
+> ⚠ **This is the second instance of one failure**, after `M5.D.4` at revision 4: a source *description*
+> firmed up into a mechanism the source does not assert. Both were found by **reading the primary**, not the
+> extraction, and neither was catchable by a regex. A sweep for others is a reading task, in `TODO.md`.
 >
 > **Next:** the implementation plan — acceptance criteria mapped to files, modules and order; plan approved; then Phase B. **No code before that.**
 >
@@ -268,7 +280,7 @@ that file; do not edit it without asking.
 ### Step 2 — propagation **COMPLETE**
 
 **Decision document APPROVED 2026-08-25. All sixteen propagation items are applied.** That left the
-spec at 321 unique IDs. **Revisions 4–6 (2026-08-27/28) took it to 419 unique IDs**, 0 duplicates, 0 unresolved,
+spec at 321 unique IDs. **Revisions 4–6 (2026-08-27/28) took it to 421 unique IDs**, 0 duplicates, 0 unresolved,
 **0 dangling cross-references** (every `M…` reference resolves to a defined requirement, checked by script).
 33 acceptance criteria in `M11.C`. Explainer, published proposal and ledger all agree with it, **and that agreement is now asserted by `tests/test_spec_consistency.py` rather than by this sentence**.
 
@@ -361,4 +373,4 @@ per-generation bound and `KS11.1`'s traversal timing, which dissolved inside the
 | `_CONVERGENCES.md` | ✅ independence audit updated |
 | `CLAUDE.md` | ✅ where-the-theory-lives table updated |
 | `agent_model_proposal.html` | ✅ §10 note added; **needs republishing to the same URL** — see above |
-| `bowen_agent_model_spec_v2.md` | ✅ **revisions 4–6 applied, 2026-08-27/28** — 419 IDs, one correction (`M5.D.4`), three amendments, ~20 new requirements, 9 new acceptance criteria (`M11.C.25`–`M11.C.33`), a readout schema (`M11.G`) and two new prohibitions |
+| `bowen_agent_model_spec_v2.md` | ✅ **revisions 4–6 applied, 2026-08-27/28** — 421 IDs, one correction (`M5.D.4`), three amendments, ~20 new requirements, 9 new acceptance criteria (`M11.C.25`–`M11.C.33`), a readout schema (`M11.G`) and two new prohibitions |

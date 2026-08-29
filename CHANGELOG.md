@@ -22,6 +22,15 @@ And eleven more: `M10.C.4`'s twelve magnitudes had **no permitted home** — for
 - **A phase exit condition that could not be checked.** Phase B was done when "the event log reads correctly" — an adjective naming no requirement, no test and no artifact, in a table where every other condition names one. It now names `M16.C.2` and `M16.T.1`.
 - **Module ordering.** `M14` had ended up after `M15`.
 
+### Fixed — the scale is a continuum
+
+- **`M1.A.3` implemented a cliff where the corpus describes a band.** It required *"exactly one behavioural transition on `basic_level`, at 50"*. Raised by the project owner — Bowen's quadrants are bands across a continuum, not shift points — and upheld against the primary: Ch16's own wording is graded ("**begins** making **a few** decisions of its own"), Ch21 has **no regime change at 50 at all** and calls the transition **explicitly gradual**, the band scheme is present/absent/present across 1966/1972/1976, Kerr gives different edges entirely, and Bowen "subsequently dropped the term scale". The licence is now a **slope**: continuous in level, with the joint-decision domain lagging every other domain at every point. That ordering is the mechanism; 50 is a label.
+- **Removing the step must not flatten the model** (`M1.A.3c`) — the corpus asserts **non-monotone** structure over the range, and a smooth ramp would erase it.
+- **A band edge may no longer be a branch point anywhere** (`M1.A.3d`) — 25, 50, 60, 70, 75 — so the error cannot recur at the other four numbers. The capacity floor at 25 is regraded to a continuous falloff (`M1.A.4d`), applied **on the principle rather than on a fresh reading**, with its location left standing pending one.
+- **"Regime boundary" corrected to "turning point"** throughout the sign-flip argument. The conclusion is unchanged — mis-estimating which side of a turning point you are on still reverses the sign — but the picture is a roll-off, not a cliff, and near the turn the effect is small and noisy.
+
+**This is the second instance of one failure**, after `M5.D.4` at revision 4: a source *description* firmed up into a mechanism the source does not assert. Both were found by reading the primary rather than the extraction, and **neither was catchable by a regex** — a sweep for others is a reading task, logged in `TODO.md`.
+
 ### Fixed — second pass
 
 **The fix commit was swept as its own range and returned fifteen more findings**, four high. That is the
@@ -70,7 +79,7 @@ Four low findings were graded and **backlogged rather than fixed**, with reasons
 - **`M7.A.1a`** — the financial-dependence gate now binds the slow clock, not only the `I-POSITION` move.
 - **`M12.2` reviewed and left standing in full.** Kerr 1988 names the *locus* of the first unknown, not the rule; its own hedge is "determined largely by".
 - **`M12.5`** — power and punishment barred as mechanisms. The only entry in that module stated as a prohibition by the author rather than inferred by the project.
-- Spec is **419 requirements over 16 modules**, 33 acceptance criteria, 0 duplicate IDs, 0 dangling cross-references. Every `M…` reference in seven documents resolves, and all of that is now asserted by `tests/test_spec_consistency.py` rather than by a script run once.
+- Spec is **421 requirements over 16 modules**, 33 acceptance criteria, 0 duplicate IDs, 0 dangling cross-references. Every `M…` reference in seven documents resolves, and all of that is now asserted by `tests/test_spec_consistency.py` rather than by a script run once.
 
 ### Learned
 - **A summary heading is a lossy artifact, and a requirement sourced from one can invert without anything looking wrong.** The `M5.D.4` inversion above is the worked instance: the quoted sentence was right, the heading over it was not, and only the heading travelled.

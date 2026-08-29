@@ -32,7 +32,7 @@ This specification covers **Phases B, C and D** of the sequence in `agent_model_
 
 ### 0.3 Normative language
 
-- **MUST** / **MUST NOT** — required. A violation is a defect. **Not every one carries its own test**: there are 616 MUST/MUST NOT tokens against 44 named tests, and whole modules (`M15`, `M16`) sit outside `M11` entirely. What is true is narrower and is the thing to rely on: **every `M11.C`, `M11.D` and `M16.F` criterion names a test, and every `M6` invariant is asserted each tick.** A MUST elsewhere is a requirement on the implementer that a reviewer must check by reading. *(Corrected 2026-08-28. The earlier form claimed each MUST had a test or an invariant, which was not true when written and got roughly 35% further from true over three revisions. It is the sentence a builder would use to decide what needs a test, so an aspirational reading of it is expensive.)*
+- **MUST** / **MUST NOT** — required. A violation is a defect. **Not every one carries its own test**: there are roughly 639 bolded MUST/MUST NOT tokens against 50 named tests, and whole modules (`M15`, `M16`) sit outside `M11` entirely. What is true is narrower and is the thing to rely on: **every `M11.C`, `M11.D` and `M16.F` criterion names a test — except `M11.C.8`, whose Test cell is `—` because `M11.E` defers it — and every `M6` invariant is asserted each tick.** A MUST elsewhere is a requirement on the implementer that a reviewer must check by reading. *(Corrected 2026-08-28. The earlier form claimed each MUST had a test or an invariant, which was not true when written and got roughly 35% further from true over three revisions. It is the sentence a builder would use to decide what needs a test, so an aspirational reading of it is expensive.)*
 - **SHOULD** — required unless there is a stated reason not to; the reason goes in the code comment.
 - **MAY** — genuinely optional.
 
@@ -56,7 +56,7 @@ Acceptance test names **MUST** embed the lowercased ID (`test_m4c2_…`).
 
 ### 0.5 The parameter rule — the most important rule in this document
 
-**The corpus supports directions, orderings and mechanisms. It supports almost no magnitudes.** There is no instrument, no rater procedure, no comparison group and no number ever assigned to a person **in any of the 22 chapters** (external instruments exist and are recorded in `theory/_EXTERNAL_MEASURES.md`; they supply exactly one usable target, M10.C.2a) (`model_explainer.md`, "How to read an entry", and §3.1).
+**The corpus supports directions, orderings and mechanisms. It supports almost no magnitudes.** There is no instrument, no rater procedure, no comparison group and no number ever assigned to a person **in any of the six corpus sources** — with one qualification added at revision 4: *Family Evaluation* states twelve **bounds and shapes**, admitted at `M10.C.4` as checks on an output and never as parameters (external instruments exist and are recorded in `theory/_EXTERNAL_MEASURES.md`; they supply exactly one usable target, M10.C.2a) (`model_explainer.md`, "How to read an entry", and §3.1).
 
 Therefore:
 
@@ -72,7 +72,7 @@ Therefore:
 ### M1.A `Person`
 
 **M1.A.0** — *the word* **emotional** *in this document means INSTINCT, not feeling.* Every use of *emotional* — emotional system, emotional process, emotional reactivity, emotional cutoff — denotes the instinctual substrate, of which felt emotion is one surface expression. Bowen, twice: the emotional process is "**equivalent to instincts** — to the forces that result in birds migrating… the salmon finding his way back… on a cellular level, the force that guides an amoeba toward a morsel of food"; and "people have picked up this term I used, emotional, and **made it synonymous with feeling, which I didn't mean at all**." → `kb/kb02.md` · K02.1, `kb/kb13.md` · K13.1
-**Consequence:** `acute_anxiety` and `chronic_anxiety` **MUST NOT** be modelled as feeling-states, and no readout **MUST** treat visible emotion as their measure. This is why overt emotionality peaks mid-scale (M1.A.2 note) and why a withdrawn person is as involved as an effervescent one.
+**Consequence:** `acute_anxiety` and `chronic_anxiety` **MUST NOT** be modelled as feeling-states, and a readout **MUST NOT** treat visible emotion as their measure. This is why overt emotionality peaks mid-scale (M1.A.2 note) and why a withdrawn person is as involved as an effervescent one.
 
 **M1.A.1** A `Person` **MUST** hold exactly two state variables from which reactive behaviour is derived: a basic level and an anxiety level. Reactivity **MUST NOT** be stored. → `model_explainer.md` §3.5
 
@@ -90,7 +90,7 @@ Therefore:
 
 **M1.A.4** `basic_level` **MUST NOT** be frozen at marriage, and it **MUST NOT** be directly writable by any move. It is **derived** (M1.A.4a), and therefore moves slowly as a consequence of the estimator's window rather than by a rate constant. → §13.3
 
-**M1.A.4a** — *`basic_level` is an **estimator over `functional_level` history**, not a stored quantity a move increments.* It **MUST** be computed from an **elevated mean** in `functional_level`, held at **low variance**, **sustained** over a declared window, and demonstrated **across many distinct situations**. A person works on functional level; sustained, broad improvement in functioning is what constitutes evidence of a rise in basic level. **No move, and no completed differentiating exchange, MUST write `basic_level` directly.**
+**M1.A.4a** — *`basic_level` is an **estimator over `functional_level` history**, not a stored quantity a move increments.* It **MUST** be computed from an **elevated mean** in `functional_level`, held at **low variance**, **sustained** over a declared window, and demonstrated **across many distinct situations**. A person works on functional level; sustained, broad improvement in functioning is what constitutes evidence of a rise in basic level. **A move MUST NOT write `basic_level` directly, and neither may a completed differentiating exchange.**
 **Why this form:** M1.A.5 already requires `functional_level` **variance** to be a *decreasing function of* `basic_level`. M1.A.4a is that same relationship used **backwards as the update rule**, so the model carries one relationship rather than two mechanisms (M10.A.2). It also matches the model's own epistemic position: there is no instrument for basic level and what is observable is functioning. → `theory/_EXTERNAL_MEASURES.md`
 **Corroboration:** years of sustained work on both parental relationships — "I did **pretty good**, but I **still would get caught up in it when I would go home**" — real functional improvement that failed in one situation, and so was not yet basic. → `kb/kb05.md`; `kb/kb07.md` · K07.2
 
@@ -880,7 +880,9 @@ Therefore M4.C's appraisal **MUST** read the receiver's belief about the sender 
 
 **M10.C.4b** — *where the twelve actually live, because as first written they had nowhere.* `M0.3` and `M10.1` allow a constant two homes — derived from `basic_level`, or declared in markdown config. **None of the twelve is derivable** (a species median, a generation length in years, a five-year sibling gap, a worked 35+35→55+15 transfer), and `M10.C.4` forbids the other. An implementer who hardcodes them fails `M11.D.2`; one who puts them in config violates `M10.C.4` — and nothing was asserting the second, so the violating route was also the one that looked compliant.
 
-**A third location is therefore named.** The twelve **MUST** live in a **checks module** that the config parser **MUST** reject as a key source and that no engine code path may import. They are read only by `M11` criteria and by readout comparisons. `M11.D.12` asserts no engine-reachable config key resolves to one of them.
+**A third location is therefore named.** The twelve **MUST** live in a **checks module** that the config parser **MUST** reject as a key source and that an engine code path **MUST NOT** import. They are read only by `M11` criteria and by readout comparisons. `M11.D.12` asserts that no engine-reachable config key resolves to one of them.
+
+**And the two requirements that made the trap are scoped, because naming a third location does not by itself clear them.** `M10.B.1` ("all remaining constants **MUST** live in markdown config") and `M11.D.2` ("every numeric constant resolves to config or a `basic_level` derivation") are both written unqualified. Each is hereby scoped to **constants the engine reads**. A value in the checks module is not an engine constant: no engine path imports it, it parameterises nothing, and it exists only to be compared against an output. Without this scoping the compliant route still violates two MUSTs, which is a milder form of the problem this requirement was written to remove.
 
 **Two consequences, both deliberate.** `M10.C.4a`'s ablation needs the quantum-jump conditions *settable* to run its arms — it sets them as an **experimental override declared in the test**, never as a config default. And `M16.D.2`'s six-month delay, marked `[#]` and made a configurable default, is **outside** `M10.C.4`'s scope and stays in config: it parameterises an intervention the model applies, not a quantity the model is checked against. `M10.C.4`'s heading is scoped accordingly — it governs the twelve enumerated rows, not every `[#]` value in the corpus.
 
@@ -912,6 +914,9 @@ Each criterion **MUST** have a named test, **MUST** assert a direction of differ
 | `M11.C.25` | a **null** — pole assignment does not correlate with sex | The corpus claim is an equality ("equal frequency"), not a difference. Admitted **only** with the equivalence bound the criterion now carries; without one an underpowered ensemble passes it |
 | `M11.C.31` | an **equality** — released anxiety equals what the binder held, to `M6.I.1`'s tolerance | A conservation check has no second arm. The tolerance is `[I]` and declared in config |
 | `M11.C.17` | a **null** — no upward drift in the coach-free arm | Two arms exist, but the assertion falls on one of them. Same equivalence-bound requirement as `M11.C.25` |
+| `M11.C.26` | **identifiability** — recovers the active sink from the belief configuration | Reads a mapping, not a difference between states. `M11.3`'s own scoping table classifies it this way, and it was missing from this list until 2026-08-28 |
+| `M11.C.11` | an **equality** — total anxiety conserved across a removal, to a stated tolerance | The same conservation shape that admits `M11.C.31`. It also carries a two-arm shape claim, so only its conservation clause is the exception |
+| `M11.C.16` | an **absolute threshold** — the declared-horizon arm must not exceed a declared ceiling | The form `M0.4` names as prohibited. Admitted because the ceiling is the *declared* horizon under test, not a calibrated magnitude; the criterion **MUST** state that the ceiling is an input, not a result |
 
 **M11.4a** — *a null **MUST** carry an equivalence bound.* `M11.C.25` and `M11.C.17` assert that something does **not** differ. As written — "**MUST NOT** differ beyond sampling error", "**MUST NOT** show upward drift" — both pass whenever the ensemble is underpowered, so a real effect below the detection threshold reads as a clean result and the mutation only proves failability at whatever size the mutant injects. Each **MUST** therefore declare a **minimum detectable effect** and an **equivalence margin** in config, graded `[I]`, and **MUST** report achieved power alongside the verdict. Absence of evidence is not the finding these criteria claim to make.
 
@@ -925,7 +930,7 @@ Each criterion **MUST** have a named test, **MUST** assert a direction of differ
 | **Identifiability** — `M11.C.26` | Recovers the active sink from the belief configuration. Reads a mapping, not a difference between states |
 | **Structural nulls** — `M11.C.25` | Asserts an ensemble-wide independence, not a state discrimination |
 
-A criterion that discriminates and cannot name a stressor **MUST** be moved to `M11.E`. → `theory/family_evaluation/fe04.md` · FE04.18
+**Where the requirement bites, since the table has no marking column and 27 criteria are unclassified.** The obligation is on the **test**, not on the criterion's prose: when a discriminating criterion's test is written, it **MUST** run both arms under a declared stressor, and the stressor **MUST** be named in the test. A criterion is *discriminating* when its two arms differ in a state of the emotional system that the corpus says is legible only under load — differentiation level, cohesion type, fusion, position. The three classes tabled above are outside it. A criterion that discriminates and whose test cannot name a stressor **MUST** be moved to `M11.E`. *(Stated this way deliberately: as first written this required every criterion's prose to name a stressor, which 29 of 33 did not, and which `M11.C.31` cannot.)* → `theory/family_evaluation/fe04.md` · FE04.18
 
 | ID | Criterion | Test | Phase | Mutation target |
 |---|---|---|---|---|
@@ -983,9 +988,11 @@ A criterion that discriminates and cannot name a stressor **MUST** be moved to `
 
 **M11.D.11** — *every criterion **MUST** gate its own phase (`M13.2a`).* A scan over this document **MUST** assert that each `M11.C` and `M16.F` criterion carrying a phase appears in that phase's *Done when* cell, by **exact set equality in both directions** — not a floor, and not one direction only, so both an omission and an orphan are caught. `test_m11d11_every_criterion_gates_its_phase`
 
-**M11.D.12** — *no engine-reachable config key **MUST** resolve to one of `M10.C.4`'s twelve corpus magnitudes.* Those values are checks on an output and are forbidden as parameters, but `M10.B.1` requires every remaining constant to live in config, so without this guard the forbidden route is also the compliant-looking one. See `M10.C.4b` for where they do live. `test_m11d12_corpus_magnitudes_are_not_config_keys`
+**M11.D.12** — *an engine-reachable config key **MUST NOT** resolve to one of `M10.C.4`'s twelve corpus magnitudes.* Those values are checks on an output and are forbidden as parameters, but `M10.B.1` requires every remaining constant to live in config, so without this guard the forbidden route is also the compliant-looking one. See `M10.C.4b` for where they do live. `test_m11d12_corpus_magnitudes_are_not_config_keys`
 
-**M11.D.13** — *the normative vocabulary **MUST** be used as §0.3 defines it.* A scan **MUST** assert that no requirement states a prohibition in the inverted form `No X MUST Y`, which under §0.3 reads as a permission. **Nine requirements were in that form on 2026-08-28**, four of them added that day, including `M11.F.9(c)` — a clause the document itself marks as *correctness, not framing*. The document uses `MUST NOT` correctly in adjacent requirements, so a reader cannot tell the intended reading from the text. `test_m11d13_no_inverted_prohibitions`
+**M11.D.14** — *§0.3's own coverage figures **MUST** be asserted, not stated.* They were written once and measured at the parent commit, so they were stale on arrival — the same shape as the requirement-count drift `M11.D.11` was added for. The scan **MUST** compare §0.3's stated token and test counts against the document as it stands. `test_m11d14_section_0_3_counts_are_current`
+
+**M11.D.13** — *the normative vocabulary **MUST** be used as §0.3 defines it.* A scan **MUST** assert that the document contains no prohibition written *subject-negated* — a bare negative subject followed by a bare `MUST` — which under §0.3 reads as a permission rather than a prohibition. **Nine requirements were in that form on 2026-08-28**, four of them added that day, including `M11.F.9(c)` — a clause the document itself marks as *correctness, not framing*. The document uses `MUST NOT` correctly in adjacent requirements, so a reader cannot tell the intended reading from the text. `test_m11d13_no_inverted_prohibitions`
 
 ### M11.E — Criteria that cannot be made code-testable in Phases B–D
 
@@ -1016,7 +1023,7 @@ Kerr's framing supports it: Bowen's stated validity criterion was that a theory 
 **M11.F.6** — *the general two-sidedness rule.* **No detector, readout or modulation in this model may be one-sided.** Established across four independent instances: blame **and** praise are both losses (`kb/kb07.md` · K07.1); selfish **and** selfless are both counterfeits (M1.A.9a); too much distance **and** too much closeness both trigger the stress response (`kerr_book/ks03.md` · KS03.2); favourable **and** unfavourable societal input are both damped (M1.D.7i). Further instances: over- **and** under-reactivity are both faults (`ks11.md` · KS11.11); blame of **other** and of **self** both count (`ks00.md` · KS00.2); **both** tails of courtship length are informative (M1.A.4e).
 **Every naive one-sided proxy for differentiation in this model would be wrong**, and the corpus supplies at least nine readout traps of exactly that shape — overt emotionality, absence of adolescent rebellion, an apparently fine marriage, the idealised child, type A and type B, the high-functioning sibling, conflict rising during recovery, geographic distance, and reported closeness.
 
-**M11.F.4** An output **MUST NOT** claim to reproduce *measured* differentiation (M10.C.2b), and no emotional-state-to-physical-disease mechanism **MUST** be implemented on the basis of the cancer material in `kb/kb11.md` — single anecdotal cases, one with the diagnosis contested by the treating oncologists.
+**M11.F.4** An output **MUST NOT** claim to reproduce *measured* differentiation (M10.C.2b), and an emotional-state-to-physical-disease mechanism **MUST NOT** be implemented on the basis of the cancer material in `kb/kb11.md` — single anecdotal cases, one with the diagnosis contested by the treating oncologists.
 
 **M11.F.7** — *the model has no opinion on trauma.* An output **MUST NOT** be presented as adjudicating **discrete traumatic events against ongoing relational process**. The source states a position — "the child's life course is more influenced by the lack of emotional separation… **than by the abuse itself**"; "events are not the process" — offered in 1988 with no series, no comparison group and no measurement, on a question where the wider evidence base has moved considerably. **Nothing in this model requires it and nothing implements it.** The model does not distinguish the two, so it **MUST NOT** be read, quoted or reported as having weighed them. → `theory/family_evaluation/fe07.md` · FE07.21 `[K]` `[X]`
 
@@ -1030,7 +1037,7 @@ Kerr's framing supports it: Bowen's stated validity criterion was that a theory 
 
 1. **The parameters are now selected conditional on the factual trajectory.** They are no longer independent of the question being asked, so `M0.4`'s premise is simply not met.
 2. **The residual stops being exchangeable across the arms.** The intervention moves the system away from the region the fit was performed in, and `M15.D.4` names five regime boundaries where that move reverses the sign of the effect.
-3. **The fit is non-identifiable.** 60–90 free `[I]` parameters against a **single realisation** (`M10.A.2`) — many parameter sets reproduce the same history and **disagree about the counterfactual**. The bias in the *difference* is therefore unbounded, not merely of unknown direction.
+3. **The fit is non-identifiable.** 60–90 free `[I]` parameters against a **single realisation** (`M10.A.2`) — many parameter sets reproduce the same history and **disagree about the counterfactual**. The counterfactual difference is therefore **not identified by the data**: its sign and its size vary freely across the parameter sets that reproduce the history, and nothing in the fit constrains that variation. *(An earlier form said the bias was "unbounded". That does not follow — over a bounded parameter space the difference is unidentified, not unbounded — and an unsupported strengthening is the exact error §10 records the first corpus pass making.)*
 
 Any run whose parameters were adjusted to reproduce an observed outcome **MUST** be reported as a fit, never as a comparison.
 
@@ -1081,7 +1088,7 @@ Any run whose parameters were adjusted to reproduce an observed outcome **MUST**
 
 **M12.4** The `M` metabolic column **MUST NOT** be reintroduced in any form. → M1.A.15
 
-**M12.5** — *the only prohibition in this section stated **by the author** rather than inferred by the project.* `power` and `punishment` **MUST NOT** exist as mechanisms, and **no move MUST be represented as one agent acting *against* another**. Bowen, in his own written prose:
+**M12.5** — *the only prohibition in this section stated **by the author** rather than inferred by the project.* `power` and `punishment` **MUST NOT** exist as mechanisms, and **a move MUST NOT be represented as one agent acting *against* another**. Bowen, in his own written prose:
 > "**there is no such thing as one person taking action against another. The issue of 'power' or 'punishing' another person does not apply with the concept of differentiation of self.**"
 
 This binds three places that could each be implemented adversarially and where nothing currently forbids it: `M1.B.5`'s dominant pole is a **reciprocal** position, not a victory; `M5.E.1`'s consequence rung is the system's **automatic** reaction, not a punishment chosen by anyone; and `M8.6`'s alignment penalty is a **structural** cost of a peripheral triangle, not a sanction. A readout describing any of the three in adversarial terms is a failing implementation. → *decision C, 2026-08-27*; `theory/family_evaluation/fe11.md` · FE11.7 `[B]`
@@ -1368,12 +1375,12 @@ remain available alongside it, and any narrated claim **MUST** be traceable to t
 
 | ID | Criterion | Test |
 |---|---|---|
-| **M16.T.1** | A scripted Phase B run renders a trace conforming to `M16.C.2`, with effects beside causes | `test_m16c_trace_renders_scripted_run` |
-| **M16.T.2** | The engine performs no file I/O; constructing and running it writes nothing to disk | `test_m16b_engine_writes_nothing` |
-| **M16.T.3** | The **persistence sink** is a pure observer: same seed, sink attached and detached, identical final state. **MUST** be re-run at the end of Phase C and Phase D, not Phase B alone — Phase B has no policy and no external agent, so it passes there vacuously | `test_m16b3_sink_does_not_change_results` |
-| **M16.T.6** | The **event store** is *not* optional: with `M16.D`'s delayed view reachable, a run whose store is disabled **MUST** diverge from one whose store is live, wherever `M1.E.7c`'s first or fourth form fires. This is the converse of `M16.T.3` and exists so the two are not conflated again | `test_m16b3_event_store_is_load_bearing` |
-| **M16.T.4** | The delayed view returns only the agent's own events, only older than the delay | `test_m16d_delayed_view_is_scoped_and_lagged` |
-| **M16.T.5** | Two runs at one seed produce byte-identical logs, header included | `test_m11d5_same_seed_same_log` (extends `M11.D.5`) |
+| **M16.T.1** | A scripted Phase B run renders a trace conforming to `M16.C.2`, with effects beside causes | `test_m16t1_trace_renders_scripted_run` |
+| **M16.T.2** | The engine performs no file I/O; constructing and running it writes nothing to disk | `test_m16t2_engine_writes_nothing` |
+| **M16.T.3** | The **persistence sink** is a pure observer: same seed, sink attached and detached, identical final state. **MUST** be re-run at the end of Phase C and Phase D, not Phase B alone — Phase B has no policy and no external agent, so it passes there vacuously | `test_m16t3_sink_does_not_change_results` |
+| **M16.T.6** | The **event store** is *not* optional: with `M16.D`'s delayed view reachable, a run whose store is emptied **MUST** diverge from one whose store is live, wherever `M1.E.7c`'s first or fourth form fires. This is the converse of `M16.T.3`, and exists so the two are not conflated again. **The store is disabled by an experimental override declared in the test, never by a config key** — `M16.B.3` forbids it being disableable in production, which is the same shape `M10.C.4b` uses for the quantum-jump conditions | `test_m16t6_event_store_is_load_bearing` |
+| **M16.T.4** | The delayed view returns only the agent's own events, only older than the delay | `test_m16t4_delayed_view_is_scoped_and_lagged` |
+| **M16.T.5** | Two runs at one seed produce byte-identical logs, header included | `test_m16t5_same_seed_same_log_with_header` — a separate test from `M11.D.5`'s, because §0.4 requires the name to embed this criterion's own ID |
 
 ### Revision 6 — the run log, 2026-08-28
 

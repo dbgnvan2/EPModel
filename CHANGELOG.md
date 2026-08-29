@@ -22,11 +22,41 @@ And eleven more: `M10.C.4`'s twelve magnitudes had **no permitted home** — for
 - **A phase exit condition that could not be checked.** Phase B was done when "the event log reads correctly" — an adjective naming no requirement, no test and no artifact, in a table where every other condition names one. It now names `M16.C.2` and `M16.T.1`.
 - **Module ordering.** `M14` had ended up after `M15`.
 
+### Fixed — second pass
+
+**The fix commit was swept as its own range and returned fifteen more findings**, four high. That is the
+expected result, not a surprise: a fix commit is the least-reviewed code in a change, and the project's
+catalogue says a fix pass introduces defects at roughly the rate it removes them. Four of the fifteen were
+**the first sweep's own diagnosed failure mode recurring inside its fix**:
+
+- **The phase-gating guard went vacuum-green on a cosmetic reformat.** It accepted a phase cell only if it
+  was exactly `B`/`C`/`D`/`E`; bolding all 32 remaining cells made it check **zero** criteria and pass. One
+  row was already being dropped silently. It now asserts it read every gateable row.
+- **The inverted-prohibition scan was narrower than the class it named** — capital `No` plus a separately
+  bolded `**MUST**` — so four instances survived, including **`M11.D.12`, the guard written for another
+  finding, in the form this finding forbids.**
+- **Two corrections landed in the spec only.** `model_explainer.md` still said logging is a pure observer,
+  which corrected `M16.B.3` contradicts, and `_STATUS.md` still carried the repudiated "on one side only"
+  mechanism — while asserting the document set was consistent.
+- **`M11.4`'s "exhaustive" exception list was contradicted three times in the same document**, once by a
+  table fifteen lines below it. Same shape as the `M11.3` defect it was written alongside.
+
+Also: `M16.T.6` required disabling what `M16.B.3` forbids (now an experimental override, the pattern
+`M10.C.4b` already uses); all six `M16.T` criteria named tests that do not embed their ID, against §0.4;
+`M10.C.4b`'s third home cleared `M0.3` and `M10.1` but not `M10.B.1` or `M11.D.2`, which are now scoped to
+engine-read constants; `M11.3`'s "discriminating" was undefined and named a table column that does not
+exist; §0.3's coverage figures were measured at the parent commit and stale on arrival (now asserted by
+`M11.D.14`); `M11.C.8`'s Test cell is `—`, a counterexample to §0.3's replacement claim; and
+`M11.F.9(c)` said the bias was "**unbounded**", which does not follow — the difference is *unidentified*,
+and an unsupported strengthening is precisely the error §10 records the first corpus pass making.
+
+Four low findings were graded and **backlogged rather than fixed**, with reasons, in `TODO.md`.
+
 ### Added
 - **`tests/test_spec_consistency.py`** — ten guards over the document set, each mutation-proved by reverting the fix it protects and confirming red. They assert what a failure-pattern sweep had to find by hand: IDs unique and machine-extractable, every cross-reference resolving in seven documents, no prohibition written in the inverted form §0.3 reads as a permission, every criterion gating the phase its own table row names, `M11.2` stated over the whole criteria set rather than a numeric range, and the requirement and suite counts in `README`/`CLAUDE.md`/`_STATUS.md`/the proposal reconciling to the artifacts they describe. They read documents only — nothing imports `src/`.
 - **`M15` — the family-diagram import contract.** A Phase E capability specified early, because the diagram application that would feed it is under the project owner's control and its export format is cheaper to fix before it exists than after. Structure imports as **values**; ratings import as **ranges**; the readout is an **envelope**, never a point direction. Four adapter traps named, including a warmth rating wired to a valence-blind `investment` (which would invert the sign on exactly the conflicted families the model is for) and a genogram's single "distant" line, which covers both a rupture and a resolved low-contact tie — the discrimination `M1.B.3` calls the most consequential in this part of the theory. Fixture mode included: anonymised real topologies beat hand-built ones wherever a criterion depends on asymmetry.
 - **`M16` — the run log and the readable trace.** Six requirements already depended on a log and none of them said what one is. Effects and the selection rationale are recorded beside the events, so the log is a causal trace rather than a list; belief writes are tagged apart from ground truth; the engine emits and the caller persists; logging is a pure observer. A **deterministic renderer** — template, no language model — is built in Phase B, and a per-agent **delayed view** serves the fourth form of a landed coaching contact, defaulting to the corpus's six months.
-- **`M11.F.9`** — three clauses on speaking about a real family. The third is a *correctness* requirement, not a framing one: no counterfactual may be reported from parameters tuned to reproduce a known history, because fitting one arm breaks the error cancellation the two-arm design depends on, on one side only and invisibly.
+- **`M11.F.9`** — three clauses on speaking about a real family. The third is a *correctness* requirement, not a framing one: no counterfactual may be reported from parameters tuned to reproduce a known history, because the parameters are then chosen conditional on the trajectory and the fit is non-identifiable, so the counterfactual difference is not identified by the data. *(This entry originally carried the mechanism as "on one side only", which the re-sweep showed to be wrong; see Fixed.)*
 - **~20 requirements from *Family Evaluation***, the largest being that the belief layer becomes a **channel** (`M9.6`, `M9.7`) rather than a parallel store — chronic anxiety runs on what *might be*, and Bowen's own correction of "projection" has the transfer running through descriptions.
 - **`M10.C.4`** — twelve magnitudes stated in the corpus, admitted as **checks on an output** and never as parameters, with `M10.C.3a` clarifying that the existing prohibition is on the parameter and not on the quantity.
 - **`M11.G`** — the eight-component family evaluation readout, with the source's ninth and tenth components (therapeutic focus, prognosis) explicitly barred.
@@ -40,7 +70,7 @@ And eleven more: `M10.C.4`'s twelve magnitudes had **no permitted home** — for
 - **`M7.A.1a`** — the financial-dependence gate now binds the slow clock, not only the `I-POSITION` move.
 - **`M12.2` reviewed and left standing in full.** Kerr 1988 names the *locus* of the first unknown, not the rule; its own hedge is "determined largely by".
 - **`M12.5`** — power and punishment barred as mechanisms. The only entry in that module stated as a prohibition by the author rather than inferred by the project.
-- Spec is **405 requirements over 16 modules**, 33 acceptance criteria, 0 duplicate IDs, 0 dangling cross-references; every `M…` reference in the spec, explainer, proposal, `CLAUDE.md` and `_STATUS.md` resolves. 37 tests green throughout.
+- Spec is **419 requirements over 16 modules**, 33 acceptance criteria, 0 duplicate IDs, 0 dangling cross-references. Every `M…` reference in seven documents resolves, and all of that is now asserted by `tests/test_spec_consistency.py` rather than by a script run once.
 
 ### Learned
 - **A summary heading is a lossy artifact, and a requirement sourced from one can invert without anything looking wrong.** The `M5.D.4` inversion above is the worked instance: the quoted sentence was right, the heading over it was not, and only the heading travelled.

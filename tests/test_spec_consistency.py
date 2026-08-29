@@ -122,8 +122,18 @@ def test_every_citing_document_resolves_against_the_spec():
 
 def test_m11d13_no_inverted_prohibitions():
     """`No X MUST Y` states a permission under §0.3, not a prohibition."""
+    # Case-insensitive, and tolerant of MUST being inside an enclosing bold span
+    # rather than bolded on its own. The first version required capital "No" and a
+    # separately-bolded **MUST**; it reported the class closed while four
+    # instances survived — one of them M11.D.12, the guard written for this very
+    # finding, in the form the finding forbids.
     inverted = re.findall(
-        r"\*?\*?No\b[^.\n]{0,60}?\*\*MUST\*\*(?! NOT)", _spec_text()
+        # Words only between "no" and MUST — a clause boundary (comma-plus-clause,
+        # semicolon, quote, backtick) means the "no" is not the subject of the
+        # MUST, and matching across one produced four false alarms. A guard that
+        # cries wolf gets switched off, which is its own failure mode.
+        r"(?i)\bno\s+(?:[a-z][a-z-]*,?\s+){0,8}(?:\*\*)?MUST(?:\*\*)?(?! NOT)\b",
+        _spec_text(),
     )
     assert inverted == [], (
         "prohibitions written in the inverted form 'No X MUST Y', which §0.3 "
@@ -135,33 +145,81 @@ def test_m11d13_no_inverted_prohibitions():
 # M11.D.11 — every criterion gates the phase its own row names (M13.2a)
 # --------------------------------------------------------------------------
 
-def _criterion_phases(text: str) -> dict[str, str]:
-    """Criterion ID -> the phase letter its table row assigns it."""
-    phases = {}
-    for cid, rest in re.findall(r"^\| \*\*(M11\.C\.\d+)\*\* \|(.*)$", text, re.M):
-        cells = [c.strip() for c in rest.split(" | ")]
-        if len(cells) >= 3 and cells[2] in {"B", "C", "D", "E"}:
-            phases[cid] = cells[2]
-    return phases
+def _criterion_rows(text: str) -> list[tuple[str, list[str]]]:
+    return [
+        (cid, [c.strip() for c in rest.split(" | ")])
+        for cid, rest in re.findall(r"^\| \*\*(M11\.C\.\d+)\*\* \|(.*)$", text, re.M)
+    ]
+
+
+def _phase_of(cell: str) -> str | None:
+    """The phase letter in a table cell, however it is decorated.
+
+    The first version required the cell to be exactly `B`/`C`/`D`/`E`. One row
+    already used ``**`→E`**`` and was silently dropped, and bolding every phase
+    cell — a purely cosmetic edit — made the guard check *zero* criteria and stay
+    green. Strip decoration and read the letter.
+    """
+    bare = re.sub(r"[^A-Za-z]", "", cell)
+    return bare if bare in {"B", "C", "D", "E", "F"} else None
 
 
 def _phase_exit_conditions(text: str) -> dict[str, str]:
+    """Phase letter -> its *Done when* cell only.
+
+    The first version returned the whole M13 row, so a criterion named in the
+    "Builds" column satisfied a guard that M13.2a scopes to the exit condition —
+    and the Builds column is written in exactly that style.
+    """
     exits = {}
     for letter in "BCDEF":
         row = re.search(r"^\| \*\*%s\*\* \|(.*)$" % letter, text, re.M)
         if row:
-            exits[letter] = row.group(1)
+            cells = [c.strip() for c in row.group(1).split(" | ")]
+            exits[letter] = cells[-1] if cells else ""
     return exits
+
+
+def test_m11d11_every_criterion_row_declares_a_readable_phase():
+    """No row may be silently dropped — that is how the guard went vacuum-green."""
+    rows = _criterion_rows(_spec_text())
+    assert rows, "no M11.C rows parsed — the table moved or was renamed"
+    unreadable = sorted(
+        cid for cid, cells in rows if len(cells) < 3 or _phase_of(cells[2]) is None
+    )
+    assert unreadable == [], (
+        f"M11.C rows whose phase cell this guard cannot read, so it checks nothing "
+        f"for them: {unreadable}"
+    )
 
 
 def test_m11d11_every_criterion_gates_its_phase():
     text = _spec_text()
     exits = _phase_exit_conditions(text)
-    ungated = sorted(
-        (cid, phase)
-        for cid, phase in _criterion_phases(text).items()
-        if phase in exits and cid not in exits[phase]
+    rows = _criterion_rows(text)
+    checked = 0
+    ungated = []
+    for cid, cells in rows:
+        phase = _phase_of(cells[2]) if len(cells) >= 3 else None
+        if phase is None or phase not in exits:
+            continue
+        checked += 1
+        if cid not in exits[phase]:
+            ungated.append((cid, phase))
+    # A criterion assigned to a phase M13 does not table (E, F — out of scope per
+    # §0.1) cannot be gated there, and is not a defect. Everything else must be
+    # checked, so a narrowed scan cannot report clean by looking at nothing.
+    gateable = [
+        cid
+        for cid, cells in rows
+        if len(cells) >= 3 and _phase_of(cells[2]) in exits
+    ]
+    assert checked == len(gateable), (
+        f"guard checked {checked} of {len(gateable)} gateable criteria — a "
+        "silently narrowed scan reports clean because it looked at nothing"
     )
+    assert gateable, "no criteria are gateable — M13's phase table moved or was renamed"
+    ungated = sorted(ungated)
     assert ungated == [], (
         "criteria carry a phase in the M11.C table but appear in no phase exit "
         f"condition, so the phase can be declared done with them unwritten: {ungated}"
@@ -193,6 +251,30 @@ def test_m112_is_not_bounded_by_a_stale_numeric_range():
 
 
 # --------------------------------------------------------------------------
+# M11.D.14 — §0.3's own coverage figures are measured, not stated once
+# --------------------------------------------------------------------------
+
+def test_m11d14_section_0_3_counts_are_current():
+    """The figures in §0.3 were written once and were stale on arrival.
+
+    They were measured at the parent commit, so the sixteen MUSTs the same
+    commit added were already missing from them — the identical drift the
+    requirement-count guard exists to catch, one paragraph away from it.
+    """
+    text = _spec_text()
+    must = len(re.findall(r"\*\*MUST(?: NOT)?\*\*", text))
+    tests = len(set(re.findall(r"`(test_[a-z0-9_]+)`", text)))
+    stated = re.search(
+        r"roughly (\d+) bolded MUST/MUST NOT tokens against (\d+) named tests", text
+    )
+    assert stated, "§0.3 no longer states its coverage figures; the honesty note is gone"
+    assert (int(stated.group(1)), int(stated.group(2))) == (must, tests), (
+        f"§0.3 states {stated.group(1)} MUSTs / {stated.group(2)} tests; "
+        f"the document has {must} / {tests}"
+    )
+
+
+# --------------------------------------------------------------------------
 # P6 — status claims reconcile to the artifact they describe
 # --------------------------------------------------------------------------
 
@@ -200,10 +282,13 @@ def test_requirement_counts_agree_with_the_spec():
     actual = len(set(defined_ids(_spec_text())))
     claimed = {}
     for doc in CITING_DOCS:
+        # "405 requirements over 16 modules" was invisible to the first version,
+        # which required the literal "numbered requirements" or "unique IDs".
         for n in re.findall(
-            r"(\d{3,4})\s+(?:numbered requirements|unique IDs)",
+            r"(\d{3,4})\s+(?:numbered\s+)?requirements|(?:\b)(\d{3,4})\s+unique IDs",
             doc.read_text(encoding="utf-8"),
         ):
+            n = n[0] or n[1] if isinstance(n, tuple) else n
             claimed.setdefault(doc.relative_to(REPO).as_posix(), set()).add(int(n))
     # Documents legitimately cite earlier, smaller counts as history ("that left
     # the spec at 321"). The *largest* count a document states is its claim about
@@ -225,9 +310,20 @@ def test_claimed_test_count_matches_the_suite():
             if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef))
             and node.name.startswith("test_")
         )
+    # Every document, not CLAUDE.md alone: "37 tests green" sat stale in
+    # _STATUS.md and CHANGELOG.md while CLAUDE.md's own figure was correct.
+    wrong = {}
+    for doc in CITING_DOCS:
+        text = doc.read_text(encoding="utf-8")
+        claims = [
+            int(c)
+            for c in re.findall(r"(\d+)\s+tests\s+(?:pass|green)", text)
+        ]
+        bad = sorted({c for c in claims if c != total})
+        if bad:
+            wrong[doc.relative_to(REPO).as_posix()] = bad
     claude = (REPO / "CLAUDE.md").read_text(encoding="utf-8")
-    claimed = re.findall(r"all (\d+) tests pass", claude)
-    assert claimed, "CLAUDE.md no longer states a suite size; the gate is gone"
-    assert [int(c) for c in claimed] == [total] * len(claimed), (
-        f"CLAUDE.md claims {claimed} tests; the suite defines {total}"
+    assert re.search(r"all \d+ tests pass", claude), (
+        "CLAUDE.md no longer states a suite size; the green-suite gate is gone"
     )
+    assert wrong == {}, f"documents claim a suite size that is not {total}: {wrong}"

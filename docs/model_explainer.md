@@ -1334,8 +1334,12 @@ only ones older than it.
 
 **Two rules that keep the trace honest.** The engine emits records and the caller decides where they go —
 the engine performs no file I/O, and the frozen engine's `sim_audit.csv` is named in the spec as the
-anti-pattern. And logging is a pure observer: the same seed with logging on and off must reach the same
-final state, or the trace is not evidence about the run it describes.
+anti-pattern. **And two things are being called "logging", only one of them optional.** The **event store**
+is in-run state: always present, causally load-bearing, and read by §5's first and fourth forms of a landed
+coaching contact — turning it off would change behaviour, so it is not an observer and cannot be disabled.
+The **persistence sink**, which writes records outward, *is* a pure observer: the same seed with the sink
+attached and detached must reach the same final state, or the trace is not evidence about the run it
+describes.
 
 **Narration by a language model is a different thing and is Phase F** — off by default, never in the
 ensemble path. A language model brings its own theory, and §7's warning applies with force: a readable story

@@ -18,6 +18,33 @@ Deferred and adjacent items. Each carries enough context to act on later without
 - [ ] **Two changes to the family-diagram application, both needing information the diagram does not currently hold.** Neither can be recovered afterwards, which is why `M13.3` names them as the ones to make first.
   - `M15.A.4` — export the **interval** a rater would defend, with the scale point defined, not a bare `3` on a 1–5 scale. The model divides by, differences and thresholds these values; a rank supports none of that.
   - `M15.C.2` — split the diagram's single **"distant"** line into *rupture* and *resolved low-contact*. `M1.B.3` calls telling those apart the most consequential discrimination in this part of the theory: same contact frequency, opposite bond energy. Until the app emits it, bond energy on any distant tie imports as a free range.
+### Deferred from the 2026-08-28 re-sweep — graded below medium, backlogged rather than fixed
+
+The re-sweep of the fix commit returned fifteen findings. Four high and seven medium were fixed; these four
+were graded low and are recorded instead, because each fix is new unreviewed surface and the project's own
+rule is to bound the loop rather than trade one defect class for another.
+
+- [ ] **`test_claimed_test_count_matches_the_suite` counts definitions, not collection.** It walks the AST for
+  `def test_*`. `@pytest.mark.parametrize` multiplies collection, `*_test.py` files fall outside the glob, and
+  a `skip`/`xfail` keeps the guard green while `CLAUDE.md`'s claim — "all N tests **pass**" — is false. Today
+  the three numbers agree exactly (49 defined, 49 collected, 49 passed). Fix by shelling to
+  `pytest --collect-only -q`, or state the assumption in the docstring.
+- [ ] **`docs/theory/` is outside the reference guard, and has a dangling reference.**
+  `family_evaluation/fe03.md` cites an `M0` requirement numbered **one past the last one §0 defines** (§0 runs
+  `M0.1`–`M0.4`). `fe03.md` and `fe08.md` also cite `M1.E.7c`'s numbered sub-forms as though they were IDs —
+  the spec's own uses of that notation were corrected at revision 5, the extractions were not. Adding the
+  directory to `CITING_DOCS` turns the suite red until all three are fixed, so do both together.
+  *(The literal tokens are deliberately not written out here: `TODO.md` is inside `CITING_DOCS`, so quoting a
+  dangling ID as an example makes the guard fail on the note describing it. The guard is right to be strict —
+  an exclusion mechanism would be the loophole that later hides a real one.)*
+- [ ] **`_REF` truncates compound references.** `M7.D.2c/2d` yields only `2c`; `M1.D.7i–l` only `7i`. Neither
+  is currently dangling, so nothing is wrong today — but the scan is narrower than it reads, and
+  `_STATUS.md` describes it without that qualifier.
+- [ ] **Name the stressor per criterion when the tests are written.** `M11.3` now places the obligation on the
+  test rather than the criterion's prose, which is honest but defers it: 27 of 33 criteria are unclassified
+  as discriminating or not. Classify them when each test is written, and consider a marking column then —
+  `M11.3` originally required one and the table has no such column.
+
 - [ ] **Run a cold sweep over this batch.** The 2026-08-28 sweep was warm — the same session that wrote the documents commissioned it. It found fifteen defects, which says the sweep works, not that the set is clean. The project's own rule is that a falling finding count from self-review is not a stopping condition, and that a pass which does not know the change's history changes the *distribution* of findings. `/csdp --cold-sweep` over `4e79697..HEAD` from a fresh session.
 - [ ] **The sweep covered one failure family only.** It reports itself as not covering: theoretical fidelity (it did not open `_LEDGER.md`, the `family_evaluation/` extractions, or Ch13's primary text), whether the ~88 new requirements are individually implementable, whether the specified model is coherent, and the reasoning in the DECISIONS document. **The `M5.D.4` correction rests on one re-read of one chapter by the context that made the correction** — a second reader on the sources is the highest-value follow-up.
 - [ ] **Decide whether `M16`'s renderer output format is worth fixing in the spec.** `M16.C.2` says what a rendered line must carry and points at the proposal's §4.2 table as the shape, but does not fix a format. That is deliberate for now — the format is cheaper to settle against a running Phase B than in advance — but it should be settled *before* a second consumer exists, or the two will drift.

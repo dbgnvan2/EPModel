@@ -27,7 +27,7 @@
 > | Kerr, *Bowen Theory's Secrets* (2019), 26 segments — 262 findings | complete |
 > | **Kerr & Bowen, *Family Evaluation* (1988), 12 segments — 219 findings** | **complete 2026-08-26** |
 > | External measures (the DSI) | recorded |
-> | Spec v2.0 — **418 unique IDs, 0 unresolved, 0 dangling references** | **approved 2026-08-25; revisions 1–6 applied.** Revisions 4–5 landed 2026-08-27, revision 6 on 2026-08-28 |
+> | Spec v2.0 — **419 unique IDs, 0 unresolved, 0 dangling references** | **approved 2026-08-25; revisions 1–6 applied.** Revisions 4–5 landed 2026-08-27, revision 6 on 2026-08-28 |
 > | **`docs/DECISIONS — FAMILY EVALUATION.md`** | ✅ **closed 2026-08-27** — all nine items decided and applied |
 > | `docs/DECISIONS FOR APPROVAL.md` | approved 2026-08-25; propagation complete |
 > | Code | **none. Nothing until the spec and then the plan are approved.** |
@@ -37,7 +37,10 @@
 >
 > - **`M11.F.9`** — three clauses on speaking about a real family. The third is a **correctness** clause, not
 >   a framing one: *no counterfactual may be reported from parameters tuned to reproduce a known history*,
->   because fitting one arm breaks the cancellation `M0.4` depends on, invisibly and on one side only.
+>   because fitting one arm breaks the independence `M0.4`'s cancellation depends on. *(Mechanism corrected
+>   2026-08-28: the earlier wording said the error was absorbed "on one side only", which is wrong — both arms
+>   share one parameter set. The real failure is loss of independence plus **non-identifiability**, which is a
+>   stronger objection. See `M11.F.9(c)`.)*
 > - **`M15`** — the **family-diagram import contract**, a Phase E capability specified early because the
 >   source application is under the project owner's control and its export format is cheaper to fix before it
 >   exists than after. Structure imports as **values**, ratings as **ranges**, and the readout is an
@@ -265,9 +268,9 @@ that file; do not edit it without asking.
 ### Step 2 — propagation **COMPLETE**
 
 **Decision document APPROVED 2026-08-25. All sixteen propagation items are applied.** That left the
-spec at 321 unique IDs. **Revisions 4–6 (2026-08-27/28) took it to 418 unique IDs**, 0 duplicates, 0 unresolved,
+spec at 321 unique IDs. **Revisions 4–6 (2026-08-27/28) took it to 419 unique IDs**, 0 duplicates, 0 unresolved,
 **0 dangling cross-references** (every `M…` reference resolves to a defined requirement, checked by script).
-33 acceptance criteria in `M11.C`. Explainer, published proposal and ledger all agree with it; 37 tests green.
+33 acceptance criteria in `M11.C`. Explainer, published proposal and ledger all agree with it, **and that agreement is now asserted by `tests/test_spec_consistency.py` rather than by this sentence**.
 
 **The document set is consistent as of 2026-08-28, spec revision 6**, and the consistency is now **asserted by a test** (`tests/test_spec_consistency.py`) rather than by this sentence. It previously claimed consistency at revision 4 while the published proposal still carried revision 4's requirement count through revisions 5 and 6 — a status line describing an artifact one revision behind the artifact itself. The next step is the implementation plan.
 
@@ -358,4 +361,4 @@ per-generation bound and `KS11.1`'s traversal timing, which dissolved inside the
 | `_CONVERGENCES.md` | ✅ independence audit updated |
 | `CLAUDE.md` | ✅ where-the-theory-lives table updated |
 | `agent_model_proposal.html` | ✅ §10 note added; **needs republishing to the same URL** — see above |
-| `bowen_agent_model_spec_v2.md` | ✅ **revisions 4–6 applied, 2026-08-27/28** — 418 IDs, one correction (`M5.D.4`), three amendments, ~20 new requirements, 9 new acceptance criteria (`M11.C.25`–`M11.C.33`), a readout schema (`M11.G`) and two new prohibitions |
+| `bowen_agent_model_spec_v2.md` | ✅ **revisions 4–6 applied, 2026-08-27/28** — 419 IDs, one correction (`M5.D.4`), three amendments, ~20 new requirements, 9 new acceptance criteria (`M11.C.25`–`M11.C.33`), a readout schema (`M11.G`) and two new prohibitions |

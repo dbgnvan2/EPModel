@@ -20,9 +20,11 @@ All 22 chapters of Bowen's *Family Therapy in Clinical Practice* have been extra
 
 **Two results from that work govern everything else in this repo:**
 
-1. **The corpus contains no validation of any kind.** No instrument, no rater procedure, no comparison group, and no number ever assigned to a person, in any of the 22 chapters. It supports *directions, orderings and mechanisms*, and almost no *magnitudes*. Every constant in the model is invented, and the source cannot narrow the range even in principle.
+1. **The corpus contains no validation of any kind.** No instrument, no rater procedure, no comparison group, and no number ever assigned to a person, in any of the six sources. It supports *directions, orderings and mechanisms*, and almost no *magnitudes*. Every constant in the model is invented, and the source cannot narrow the range even in principle. *(The 1988 book supplies twelve stated bounds and shapes — recorded at `M10.C.4` as checks on an output, never as parameters.)*
 
 2. **The first pass over the corpus over-read it, consistently in one direction** — making the source look more quantitative and more decided than it is. Nineteen findings were withdrawn on the second pass, including two numeric "calibration targets" that turned out to be manufactured from illustrations Bowen explicitly bounded. Every claim in the explainer is therefore graded, so an invented constant can never be mistaken for a sourced one.
+
+3. **The model is not a fortune teller, and the theory itself is what forbids it.** It answers *"if Bowen's account is right, what follows for a family shaped like this?"* — never *"what should this family do?"* Nearly every place you would want a lever, the corpus says the lever does not work: management technique has zero independent effect while marital distance is high; help relocates incidents without reducing them; curing a symptom raises conflict. **A model faithful to this corpus is anti-lever by construction.** The guards are `M11.F.9` and `M15.D`; the reasoning is `model_explainer.md` §17.
 
 ## Layout
 
@@ -49,4 +51,6 @@ Requires Python 3, NumPy and Pygame. `requirements.txt` is present but not yet t
 
 ## Status
 
-The v2 specification is **drafted and awaiting approval**. No code moves until it is approved: the project's convention is spec → plan → build, each approved before the next.
+The v2 specification is **approved** — 418 numbered requirements over 16 modules, 33 acceptance criteria, at revision 6 (2026-08-28). **No code moves until the implementation plan is also approved**: the project's convention is spec → plan → build, each approved before the next. The plan is the next piece of work.
+
+All six corpus sources have been read and folded in. Two capabilities are specified but not built: a **family-diagram importer** (`M15`, Phase E) and the **run log and readable trace** (`M16`, Phase B).

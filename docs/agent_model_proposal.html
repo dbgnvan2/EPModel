@@ -401,7 +401,7 @@
     <h1>The Twelve-Agent Family</h1>
     <p class="standfirst">Rebuilding EPModel from a stress field on a grid into behaving agents in one three-generation family — what the current code gets in the way of, what replaces it, where the outside world enters, and what it can honestly predict.</p>
     <div class="masthead-meta">
-      <span><b>Reviewed</b> src/engine.py · src/main.py · docs/ · tests/ (36 tests, all passing)</span>
+      <span><b>Reviewed</b> src/engine.py · src/main.py · docs/ · tests/ (36 tests at review; 37 today, all passing)</span>
       <span><b>Against</b> Light Society, arXiv:2506.12078v2</span>
       <span><b>Incorporating</b> Bowen Family Model &mdash; Plan; the cutoff and institutionalization model ideas</span>
       <span><b>Revised against</b> six corpus sources &mdash; <i>Family Therapy in Clinical Practice</i> (22 chapters, two passes), the 1979 lectures, the Kerr&ndash;Bowen interviews, <i>Family Evaluation</i> (1988), <i>Bowen Theory's Secrets</i> (2019), the DSI literature</span>
@@ -437,9 +437,9 @@
       and test, each with what it is for, what it does, and which chapter it implements &mdash; see
       <span class="m">docs/model_explainer.md</span>. That document is graded claim by claim and is the one
       to build from.</p>
-      <p><span class="revmark">rev</span> <b>The corpus is now closed, and the spec is at revision 4.</b>
+      <p><span class="revmark">rev</span> <b>The corpus is now closed, and the spec is at revision 6.</b>
       All six sources have been read and folded in;
-      <span class="m">docs/bowen_agent_model_spec_v2.md</span> carries <b>355 numbered requirements</b> and
+      <span class="m">docs/bowen_agent_model_spec_v2.md</span> carries <b>418 numbered requirements</b> and
       33 acceptance criteria. The remaining step before code is the <b>implementation plan</b>.</p>
       <p><b>And the sixth source found an inverted requirement, which is the best argument in this document
       for the whole extraction discipline.</b> The differentiation state machine's gate had been written as
@@ -1141,12 +1141,16 @@
 
     <div class="note warn">
       <span class="lbl">Two failures that are invisible from inside</span>
-      <p><b>Fitting one arm destroys the comparison, and improves how it looks.</b> Differencing is
-      trustworthy because the invented constants are set <em>independently of the question</em> and cancel
-      between the arms. Tune them until the factual arm reproduces a history you already know and you have
-      made that arm right <b>by construction</b> &mdash; the tuning has absorbed the model's error on one side
-      only, and the counterfactual arm inherits that absorption in a direction you cannot see. <b>The better
-      the match to the family you know, the less the counterfactual can be trusted.</b></p>
+      <p><b>Fitting to a known history destroys the comparison, and improves how it looks.</b> Differencing
+      is trustworthy because the invented constants are set <em>independently of the question</em>. Tune them
+      until the factual arm reproduces a history you already know and that precondition is gone: the
+      parameters are now chosen conditional on the trajectory; the residual stops being exchangeable between
+      the arms, because the intervention moves the system out of the region the fit was done in; and with
+      sixty to ninety free constants against <em>one</em> family the fit is <b>non-identifiable</b> &mdash;
+      many parameter sets reproduce that history and <b>disagree about the counterfactual</b>. The bias in the
+      difference is unbounded, not merely unknown in direction. <b>In this regime, a closer fit means a less
+      trustworthy counterfactual</b> &mdash; which is a statement about overfitting, not a general law: a
+      better-<em>specified</em> model would both fit and extrapolate better.</p>
       <p><b>Input error does not cancel the way parameter error does.</b> An invented constant is a
       <em>nuisance</em> &mdash; it does not interact with the intervention, so it sits in both arms and
       subtracts out. An initial condition is <em>what the intervention acts on</em>. Get it wrong and you do

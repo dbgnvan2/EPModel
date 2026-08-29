@@ -1239,12 +1239,22 @@ arms and every paired test stays green.
 
 ### 17.2 The first failure: fitting one arm
 
-Tune the parameters until the factual arm reproduces a history you already know, and that arm is right **by
-construction**. The tuning has absorbed the model's error on one side only; the counterfactual arm inherits
-the absorption in a direction nothing reveals. **The better the match to the family you know, the less the
-counterfactual can be trusted — and the more trustworthy it looks.** `M11.F.9(c)` makes this a correctness
-requirement rather than a framing one: a run whose parameters were adjusted to reproduce an observed
-outcome is a *fit*, and must never be reported as a comparison.
+Tune the parameters until the factual arm reproduces a history you already know, and 17.1's cancellation
+stops applying — because its precondition was that the parameters were chosen **independently of the
+question**. Three things go wrong together: the parameters are now selected conditional on the factual
+trajectory; the residual stops being exchangeable across the arms, because the intervention moves the system
+out of the region the fit was performed in and 17.3 lists five boundaries where that reverses the sign; and
+the fit is **non-identifiable** — 60–90 free constants against a single family, so many parameter sets
+reproduce the history and **disagree about the counterfactual**. The bias in the difference is unbounded,
+not merely of unknown direction.
+
+`M11.F.9(c)` makes this a correctness requirement rather than a framing one: a run whose parameters were
+adjusted to reproduce an observed outcome is a **fit**, and must never be reported as a comparison.
+
+*One caution about how to read that.* **In this model's regime** — many free constants, one realisation —
+a closer fit does mean a less trustworthy counterfactual. That is not a general law. A better-*specified*
+model both fits better and extrapolates better, so the rule is about overfitting, not about fitting; a
+deliberately poorer fit buys nothing, and fitting *both* arms does not restore the symmetry.
 
 Reproducing a known history is therefore almost uninformative on its own. Two hundred free parameters
 against one family will always fit. The asymmetry is what matters: **failing** to reproduce the pattern says

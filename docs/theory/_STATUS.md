@@ -27,7 +27,7 @@
 > | Kerr, *Bowen Theory's Secrets* (2019), 26 segments — 262 findings | complete |
 > | **Kerr & Bowen, *Family Evaluation* (1988), 12 segments — 219 findings** | **complete 2026-08-26** |
 > | External measures (the DSI) | recorded |
-> | Spec v2.0 — **421 unique IDs, 0 unresolved, 0 dangling references** | **approved 2026-08-25; revisions 1–6 applied.** Revisions 4–5 landed 2026-08-27, revision 6 on 2026-08-28 |
+> | Spec v2.0 — **427 unique IDs, 0 unresolved, 0 dangling references** | **approved 2026-08-25; revisions 1–6 applied.** Revisions 4–5 landed 2026-08-27, revision 6 on 2026-08-28 |
 > | **`docs/DECISIONS — FAMILY EVALUATION.md`** | ✅ **closed 2026-08-27** — all nine items decided and applied |
 > | `docs/DECISIONS FOR APPROVAL.md` | approved 2026-08-25; propagation complete |
 > | Code | **none. Nothing until the spec and then the plan are approved.** |
@@ -58,6 +58,18 @@
 > **delayed view** that `M1.E.7c`'s fourth form needs, and engine purity — the engine emits, the caller
 > persists. The exit condition now names `M16.C.2` and `M16.T.1`. Modules were also put back in numeric
 > order; `M14` had ended up after `M15`.
+>
+> **Revision 8, 2026-08-28 — what the estimator may read.** Three points from the project owner, all upheld.
+> `M1.A.4e` had promoted **genogram intake fields** to "the estimator's observables" — `KS11.7`'s own opening
+> says they are what *"the family diagram records"* — and those observables are outcomes, base-rate common,
+> and confound load with functioning. `KS06.8` already corrected the four-domain list and the requirement
+> cited that correction **beneath the table it invalidates**. Replaced by a three-tier reading (`M1.A.4g`),
+> with the discriminator being **which channel was selected under discomfort at comparable load**
+> (`M1.A.4h`) — which is `M4.D.1a`'s mixing weight read backwards, and which unifies "adhering to convictions
+> under pressure" and "carrying discomfort" into one observable. The **system's reaction to a symptom** is
+> now an input and is the best-controlled one in the model (`M1.A.4i`): one event, N observers, one moment,
+> load constant by construction. `M1.E.2`'s reaction detectors are generalised off the coach to every person
+> (`M1.A.19`) — Ch10 and the proposal's §10 had both already said they were general.
 >
 > **Revision 7, 2026-08-28 — the scale is a continuum.** Raised by the project owner and upheld against the
 > primary: Bowen's quadrants are **bands across a continuum, not shift points**. `M1.A.3` had required
@@ -280,9 +292,9 @@ that file; do not edit it without asking.
 ### Step 2 — propagation **COMPLETE**
 
 **Decision document APPROVED 2026-08-25. All sixteen propagation items are applied.** That left the
-spec at 321 unique IDs. **Revisions 4–6 (2026-08-27/28) took it to 421 unique IDs**, 0 duplicates, 0 unresolved,
+spec at 321 unique IDs. **Revisions 4–6 (2026-08-27/28) took it to 427 unique IDs**, 0 duplicates, 0 unresolved,
 **0 dangling cross-references** (every `M…` reference resolves to a defined requirement, checked by script).
-33 acceptance criteria in `M11.C`. Explainer, published proposal and ledger all agree with it, **and that agreement is now asserted by `tests/test_spec_consistency.py` rather than by this sentence**.
+34 acceptance criteria in `M11.C`. Explainer, published proposal and ledger all agree with it, **and that agreement is now asserted by `tests/test_spec_consistency.py` rather than by this sentence**.
 
 **The document set is consistent as of 2026-08-28, spec revision 6**, and the consistency is now **asserted by a test** (`tests/test_spec_consistency.py`) rather than by this sentence. It previously claimed consistency at revision 4 while the published proposal still carried revision 4's requirement count through revisions 5 and 6 — a status line describing an artifact one revision behind the artifact itself. The next step is the implementation plan.
 
@@ -373,4 +385,4 @@ per-generation bound and `KS11.1`'s traversal timing, which dissolved inside the
 | `_CONVERGENCES.md` | ✅ independence audit updated |
 | `CLAUDE.md` | ✅ where-the-theory-lives table updated |
 | `agent_model_proposal.html` | ✅ §10 note added; **needs republishing to the same URL** — see above |
-| `bowen_agent_model_spec_v2.md` | ✅ **revisions 4–6 applied, 2026-08-27/28** — 421 IDs, one correction (`M5.D.4`), three amendments, ~20 new requirements, 9 new acceptance criteria (`M11.C.25`–`M11.C.33`), a readout schema (`M11.G`) and two new prohibitions |
+| `bowen_agent_model_spec_v2.md` | ✅ **revisions 4–6 applied, 2026-08-27/28** — 427 IDs, one correction (`M5.D.4`), three amendments, ~20 new requirements, 9 new acceptance criteria (`M11.C.25`–`M11.C.33`), a readout schema (`M11.G`) and two new prohibitions |

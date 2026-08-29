@@ -51,6 +51,6 @@ Requires Python 3, NumPy and Pygame. `requirements.txt` is present but not yet t
 
 ## Status
 
-The v2 specification is **approved** — 421 numbered requirements over 16 modules, 33 acceptance criteria, at revision 6 (2026-08-28). **No code moves until the implementation plan is also approved**: the project's convention is spec → plan → build, each approved before the next. The plan is the next piece of work.
+The v2 specification is **approved** — 427 numbered requirements over 16 modules, 34 acceptance criteria, at revision 6 (2026-08-28). **No code moves until the implementation plan is also approved**: the project's convention is spec → plan → build, each approved before the next. The plan is the next piece of work.
 
 All six corpus sources have been read and folded in. Two capabilities are specified but not built: a **family-diagram importer** (`M15`, Phase E) and the **run log and readable trace** (`M16`, Phase B).

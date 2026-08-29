@@ -1,7 +1,7 @@
 ---
 tags: [model-bt, explainer]
 status: current
-version: 1.5
+version: 1.6
 date: 2026-08-28
 ---
 

@@ -1,6 +1,6 @@
 ---
 tags: [model-bt, spec]
-version: 2.0-draft, revision 7
+version: 2.0-draft, revision 8
 status: FOR APPROVAL — no code until approved
 date: 2026-08-28
 supersedes: bowen_individual_family_model_spec.md (v1.2, frozen)
@@ -32,7 +32,7 @@ This specification covers **Phases B, C and D** of the sequence in `agent_model_
 
 ### 0.3 Normative language
 
-- **MUST** / **MUST NOT** — required. A violation is a defect. **Not every one carries its own test**: there are roughly 650 bolded MUST/MUST NOT tokens against 50 named tests, and whole modules (`M15`, `M16`) sit outside `M11` entirely. What is true is narrower and is the thing to rely on: **every `M11.C`, `M11.D` and `M16.F` criterion names a test — except `M11.C.8`, whose Test cell is `—` because `M11.E` defers it — and every `M6` invariant is asserted each tick.** A MUST elsewhere is a requirement on the implementer that a reviewer must check by reading. *(Corrected 2026-08-28. The earlier form claimed each MUST had a test or an invariant, which was not true when written and got roughly 35% further from true over three revisions. It is the sentence a builder would use to decide what needs a test, so an aspirational reading of it is expensive.)*
+- **MUST** / **MUST NOT** — required. A violation is a defect. **Not every one carries its own test**: there are roughly 659 bolded MUST/MUST NOT tokens against 51 named tests, and whole modules (`M15`, `M16`) sit outside `M11` entirely. What is true is narrower and is the thing to rely on: **every `M11.C`, `M11.D` and `M16.F` criterion names a test — except `M11.C.8`, whose Test cell is `—` because `M11.E` defers it — and every `M6` invariant is asserted each tick.** A MUST elsewhere is a requirement on the implementer that a reviewer must check by reading. *(Corrected 2026-08-28. The earlier form claimed each MUST had a test or an invariant, which was not true when written and got roughly 35% further from true over three revisions. It is the sentence a builder would use to decide what needs a test, so an aspirational reading of it is expensive.)*
 - **SHOULD** — required unless there is a stated reason not to; the reason goes in the code comment.
 - **MAY** — genuinely optional.
 
@@ -113,7 +113,23 @@ Therefore:
 *Regraded at revision 7, by the same argument as `M1.A.3`, and the limits of that are worth stating.* This is a **different claim** from the licence — a bound on the capacity for change, not a licence over decisions — and its source is `KS05.2`, which **has not been re-read this session**. What the source says is a description of a group, "**they lack the flexibility to make basic change**", which is the same grammatical shape as Ch16's band description and warrants the same treatment. So the *falloff* is applied on the principle; the *location* stands as stated, pending a reading of the primary. It is the one number `M1.A.3d` admits as structural, and it is admitted provisionally. `functional_level` is **not** so constrained and moves freely at every level. A different kind of transition from M1.A.3's behavioural licence at 50 — a **capacity bound on change**, not a licence over decisions. → `kerr_book/ks05.md` · KS05.2
 > "**they lack the flexibility to make basic change**… **People above 25 on the continuum can make basic changes in differentiation. The higher a person's basic level of differentiation, the more potential that person has to increase the basic level.**" And: "**Their functional levels of differentiation can change** as the level of chronic anxiety fluctuates."
 
-**M1.A.4e** — *the estimator's observables, with per-observable reading rules.* Four domains — **work performance, education relative to opportunity, health history, relationship stability** — with "**No one piece of data is sufficient**". Each is read **asymmetrically**:
+**M1.A.4e** — *intake fields, and a **weak prior only**; demoted at revision 8.* These are what a family
+diagram records, and `KS11.7` says so in its opening line: "**The family diagram records**, per person: birth
+date, educational history, occupational history, health history, and date of death." They are an **intake
+form**, and the earlier form of this requirement promoted them to "the estimator's observables". They **MUST
+NOT** set an estimate. They **MAY** seed a prior at import (`M15`), and every one **MUST** carry `M1.A.4g`'s
+tier and `M1.A.4b`'s load correction before it is read at all.
+
+**Two reasons the four-domain list is the wrong instrument, and the corpus supplies both.** `KS06.8` already
+corrects `KS05.10`: "**In terms of solid self, one's personal life is where the rubber meets the road**", and
+"how people manage themselves **in the intimate relationship with their spouses, and not how they manage
+themselves in their work lives, is the primary determinant of the basic levels of differentiation of their
+offspring**." The correction was recorded in the ledger and this requirement cited it **underneath the table
+it invalidates**, which left the table reading as the instrument. And the outcomes are **base-rate common** —
+a divorce or a job loss is an event a large fraction of the population experiences, so it carries almost no
+information about who had it. → *user correction, 2026-08-28*
+
+**The original list, retained as intake fields with their reading rules:** Four domains — **work performance, education relative to opportunity, health history, relationship stability** — with "**No one piece of data is sufficient**". Each is read **asymmetrically**:
 
 | Observable | Reading |
 |---|---|
@@ -122,7 +138,55 @@ Therefore:
 | Longevity | **not** a proxy; a long-lived, well-functioning generation **above a dysfunctional one is evidence of projection** |
 | Courtship length | **both** tails informative, middle uninformative |
 
-Contexts **MUST** be weighted by emotional intensity, not treated as comparable: "**In terms of solid self, one's personal life is where the rubber meets the road**", and occupational success "**is not a reliable measure of their basic level**". → `kerr_book/ks05.md` · KS05.10; `ks11.md` · KS11.7; `ks06.md` · KS06.8
+Contexts **MUST** be weighted by emotional intensity, never treated as comparable, and occupational success "**is not a reliable measure of their basic level**". → `kerr_book/ks05.md` · KS05.10; `ks11.md` · KS11.7; `ks06.md` · KS06.8
+
+**M1.A.4g** — *three tiers, and only the third reads basic level.* Every observation entering the estimator **MUST** be assigned a tier, and the tiers are not interchangeable:
+
+| Tier | Reads as |
+|---|---|
+| A **single adverse event** — a divorce, a job loss, an illness | mostly **load**. The base rate is too high to discriminate; it **MUST NOT** move a basic-level estimate on its own |
+| A **chronic, self-maintained pattern** — substance use, health tracking poor habits, chronic career trouble, sustained conflict or distance on a tie | **`functional_level`**, and only with `M1.A.4b`'s load weighting. Chronicity is the discriminator, exactly as it is for symptom onset: an episode is load, a maintained pattern is functioning |
+| A **position held under relationship pressure**, and **discomfort carried rather than discharged** | the reading on **`basic_level`** (M1.A.4h) |
+
+**M1.A.4h** — *the discriminator is which channel was selected under discomfort, at comparable load.* `M4.D.1a`
+already carries the quantity: the **automatic** channel's objective is to **discharge anxiety now**, the
+**self-directed** channel's is to **hold a position through** discomfort, and *the mixing weight between them
+is a function of differentiation*. Reading that weight back out of behaviour **MUST** be the estimator's
+primary signal. What the person reaches for when uncomfortable — an affair, a substance, distance, cutoff —
+is the automatic channel running; carrying it is the self-directed channel. The corpus states the first case
+as mechanism: "**As anxiety, regression, and the need for closeness increase, and it is impossible to achieve
+closeness in their own families, more and more seek closeness through sexual activity outside their
+families**" (Ch13).
+
+**This unifies with the solid-self definition rather than adding to it.** Solid self is "what they believe in,
+what they stand for… where they will stand **no matter what**"; pseudo-self is "**negotiable**" (1979 Tape 2,
+M6.I.4). Holding a conviction under relationship pressure and carrying discomfort without discharging it are
+the same operation, which `M5.F.5` states in one sentence. The observables are already in the model:
+`M4.D.5a`'s accommodation stock, the tie's taboo set, `M5.F.3`'s gradable concession, `M10.A.1a`'s solid-self
+fraction. **No new machinery.**
+
+**The load correction is not optional here.** Channel mix is *set by* level (M4.D.1a), so reading level back
+out of it in an uncorrected run recovers its own input. What breaks the degeneracy is that at **comparable
+load** a lower-level person reaches for discharge sooner. `M1.A.4b` applies to this reading in full.
+
+**M1.A.4i** — *the system's reaction to a symptom is the **best-controlled** reading in the model, and it
+**MUST** be used.* When a symptom emerges in one member, every other member's response is a reading on **their
+own `functional_level`** — and through `M1.A.4a`'s sustained, broad, load-weighted history, on the family's.
+Anxious focus on the bearer, taking over, distancing, or organising the household around the symptom are the
+automatic channel; staying in contact without taking over, and continuing to function, is the self-directed
+one.
+
+**Why it is better than any other input.** One event, **N observers, the same moment** — load is held constant
+*by construction*, so the comparison across members is matched and needs no after-the-fact correction. It is
+also the model's only strong reading on members who are **not** symptomatic: a quiet member of a symptomatic
+family is not neutral, and the response separates detriangled from cut off. `M11.C.34` is the test.
+
+**M1.A.4j** — *the circularity boundary, stated precisely rather than as a ban.* Symptom **magnitude MUST NOT**
+feed the estimator: the model generates it from anxiety and level, so reading it back recovers the input. The
+**channel selected under discomfort MAY**, and **MUST**, because it reads the **policy** rather than the
+accumulated load, which is a different relationship from the one that produced the symptom. `M1.A.4a` already
+uses one relationship backwards as its update rule; a second backwards path is admissible **only** where it is
+a different relationship, and this requirement is what makes that check possible.
 
 **M1.A.4f** The family-level estimate **MUST** be taken over **all** members, never from the best-functioning one, because "**the patterns of emotional functioning in a family system can result in one person functioning well at the expense of another person doing poorly.**" Sibling divergence **MUST NOT** be read as basic-level divergence — the higher-functioning sibling may be running on pseudo-self. → `ks05.md` · KS05.10; `ks11.md` · KS11.4
 
@@ -215,6 +279,12 @@ Therefore three terms, in this order: (1) M1.A.11b's constitutional assignment i
 **Consequences:** `M1.E.7`'s rise applies to the **person**; `M4.D.3b`'s gate and `M5.F.4`'s degradation are evaluated **per tie** against the attenuated value; and `M7.A.2`'s "application re-earned per tie" follows without a second state variable — the re-earning is the tie's load falling far enough for the existing capacity to reach it.
 
 **M1.A.18b** `systems_perspective` **MUST NOT** be a free parameter. Its **ceiling MUST** be coupled to `basic_level` — undifferentiation is "the **cement, the hardener**, that fixes" a way of thinking, and reducing it lets the thinking change faster. → `kb/kb07.md` · K07.3; M10.A.1
+
+**M1.A.19** — *every `Person` **MUST** hold a drifting reactive state with three detectors, and the third is **two-sided**.* The urge to become critical (`L20.2`); attention sitting **inside the other's problem**, with a factual relationship question as the recovery move and the return of humour as the signal (`K04.11`); and catching oneself **diagnosing, criticising or praising** — **praise is as much a loss as blame**, and a negative-valence-only detector misses half the cases (`K07.1`).
+
+**Generalised off the external agent at revision 8.** These were written on the coach alone (`M1.E.2`). The project had already concluded they were general and did not carry it through: Ch10 extends the neutral-third position to "**any third person… no matter what the subject matter**", and states that a family member's self-control is *the same operation from a different position*. `agent_model_proposal.html` §10 records the conclusion in as many words — "**one rule seen from four angles… Implement it once**" — and `M1.E.2` implemented one of the four.
+
+**What this buys, and it is the reason it matters.** The detectors are how `M1.A.4i` reads a member's response to a symptom in another member. Without them on every person the model can score the coach's neutrality and nothing else, and the family's own reaction — the best-controlled estimator input available — is unreadable. → *user correction, 2026-08-28*
 
 ### M1.B `Relationship`
 
@@ -321,7 +391,7 @@ The first is the mechanism of change; the second is a countermeasure during a mo
 
 **M1.E.1** An external agent **MUST** be a `Person` with `role = EXTERNAL`, a restricted repertoire (M5.B.4), and real ties.
 
-**M1.E.2** An external agent **MUST** hold its own drifting reactive state, observable as a readout, with **three detectors** and the third **two-sided**: the urge to become critical (`L20.2`); the agent's attention inside the other's problem, with a factual relationship question as the recovery move and the return of humour as the signal (`kb/kb04.md` · K04.11); and catching itself **diagnosing, criticising or praising** — **praise is as much a loss as blame**, and a negative-valence-only detector misses half the cases (`kb/kb07.md` · K07.1). A stateless coach is a failing implementation.
+**M1.E.2** An external agent's reactive state is `M1.A.19` applied at `role = EXTERNAL`, and a stateless coach is a failing implementation. The detectors are **not** coach-specific — see `M1.A.19`, which this requirement was written on before the rule was generalised. → `L20.2`; `kb/kb04.md` · K04.11; `kb/kb07.md` · K07.1
 
 **M1.E.2a** An external agent's **objective MUST be to understand, not to help.** Four statements, an experiment and an independent replication: families seen in research with no therapeutic goal did better than families seen in therapy; residents instructed to learn rather than cure lasted at most **ten hours** before giving in to the demand for an answer; and Kerr, interviewing cancer families with no intent to fix anything, found they produced more ideas per session and "were **doing better, no question about it**." → `kb/kb03.md` · K03.1, observable as a readout. A stateless coach is a failing implementation. → §10.2
 
@@ -978,6 +1048,7 @@ Each criterion **MUST** have a named test, **MUST** assert a direction of differ
 | **M11.C.30** | **Carrying one symptom protects against a second.** An arm with established load in one channel **MUST** show lower onset hazard in the other two than a matched arm with no load, at equal anxiety → `theory/family_evaluation/fe01.md` · FE01.6, `fe05.md` · FE05.8 | `test_m11c30_channels_are_mutually_protective` | D | M7.D.2c's cross-channel term — zeroing it **MUST** turn this red |
 | **M11.C.31** | **Removing a binder raises anxiety with no stressor at all.** A `binder_unavailable` event (M1.F.9) delivered into a calm family **MUST** raise family anxiety while adding **zero** exogenous load, and the rise **MUST** equal the anxiety the binder was holding, to M6.I.1's tolerance | `test_m11c31_binder_removal_releases_bound_anxiety` | D | M1.F.9's return-to-budget step — discarding the held anxiety instead **MUST** turn this red |
 | **M11.C.32** | **The mover's anger degrades the move.** Two arms, identical seeds, differing only in the mover's own anger at emission: the angry arm **MUST NOT** reach `PEAK` — it stalls, it does not abort loudly — and its `I-POSITION` **MUST** execute as `M5.F.4`'s assertion form, raising reactivity on the tie. An implementation in which anger *admits* the peak has the corrected `M5.D.4` inverted | `test_m11c32_mover_anger_stalls_and_degrades` | C | M5.D.4's gate — inverting it back **MUST** turn this red |
+| **M11.C.34** | **The system's reaction to a symptom discriminates level, at matched load.** One arm at low family `basic_level` and one at high, identical seeds, the **same symptom emerging in the same member at the same tick**: the low arm **MUST** show more automatic-channel responses from the other members — anxious focus on the bearer, taking over, distancing, organising around the symptom — and the high arm more self-directed ones. Because it is one event seen by N members at one moment, **load is held constant by construction** and no after-the-fact correction is needed → `M1.A.4i`, `M1.A.19` | `test_m11c34_system_reaction_to_symptom_discriminates_level` | D | `M1.A.19`'s detectors — making the response independent of the responder's `functional_level` **MUST** turn this red |
 | **M11.C.33** | **The dependence gate binds the slow clock.** A financially dependent agent completing an unbounded number of exchanges **MUST NOT** show any rise in `basic_level`, while an otherwise identical independent agent does → `theory/family_evaluation/fe04.md` · FE04.9 | `test_m11c33_dependence_gate_blocks_basic_level_rise` | D | M7.A.1a — removing the slow-clock gate **MUST** turn this red |
 
 ### M11.D — Engineering criteria
@@ -1112,7 +1183,7 @@ This binds three places that could each be implemented adversarially and where n
 |---|---|---|
 | **B** | M1 objects; M3 clocks and update order; M4.A standing load **including M4.A.5**; M4.B, M4.E and M4.G; M1.F event record **including M1.F.9**; M8 the live-position predicate; `ScriptedSource`; **M16.A–M16.C, the run log and the deterministic renderer**. **No policy** — a fixed script drives it. Reduced instance per M2.3. | A scripted 40-week trace runs; **the renderer emits a trace conforming to M16.C.2 and M16.T.1 passes**; and a `TRIGGER` on a dormant family-of-origin tie moves anxiety with no contact. M11.D.1, M11.D.3, M11.D.5, M11.D.6, M11.D.7, **M16.T.2, M16.T.3 and M16.T.5** pass. |
 | **C** | M4.C appraisal **including M4.C.8a**; M4.D policy; M5 the full repertoire, gates and the `I-POSITION` state machine **including `PREPARE` (M5.D.2a) and the corrected anger gate (M5.D.4)**; M6 invariants M6.I.1–M6.I.8; **M16.D's delayed view**, which `M1.E.7c`'s fourth form requires. | M11.C.1, M11.C.3, M11.C.4, M11.C.5, M11.C.7, M11.C.13, M11.C.14, M11.C.16, M11.C.25, M11.C.27, M11.C.29, M11.C.32, **and — added 2026-08-28, having carried Phase C in the criteria table while gating nothing — M11.C.17, M11.C.18, M11.C.19 and M11.C.20** pass over 1,000-seed ensembles, each mutation-proved. M11.D.2, M11.D.4 and M11.D.8 pass, and **M16.T.3, M16.T.4 and M16.T.6** pass now that `M16.D`'s delayed view exists. |
-| **D** | M7 the slow clock **including M7.A.1a, M7.D.2c/2d and M7.E.4**; M9 beliefs **as a channel (M9.6, M9.7)**; the twelve-person reference family; the three symptom channels and endogenous events; **M11.G's readout schema**. | M11.C.2, M11.C.6, M11.C.9, M11.C.10, M11.C.11, M11.C.12, M11.C.15, M11.C.22 (both limbs), M11.C.26, M11.C.28, M11.C.30, M11.C.31, M11.C.33, **and — added 2026-08-28, same omission — M11.C.21, M11.C.23 and M11.C.24** pass, **each over an ensemble per `M11.2`**. **M16.T.3 is re-run here.** A 40-year three-generation run completes. |
+| **D** | M7 the slow clock **including M7.A.1a, M7.D.2c/2d and M7.E.4**; M9 beliefs **as a channel (M9.6, M9.7)**; the twelve-person reference family; the three symptom channels and endogenous events; **M11.G's readout schema**. | M11.C.2, M11.C.6, M11.C.9, M11.C.10, M11.C.11, M11.C.12, M11.C.15, M11.C.22 (both limbs), M11.C.26, M11.C.28, M11.C.30, M11.C.31, M11.C.33, **and — added 2026-08-28, same omission — M11.C.21, M11.C.23 and M11.C.24**, and **M11.C.34** pass, **each over an ensemble per `M11.2`**. **M16.T.3 is re-run here.** A 40-year three-generation run completes. |
 
 **M13.1** M8 **MUST** land in Phase B, before the policy, because four separate Phase C mechanisms call it.
 
@@ -1401,6 +1472,39 @@ remain available alongside it, and any narrated claim **MUST** be traceable to t
 | **M16.T.6** | The **event store** is *not* optional: with `M16.D`'s delayed view reachable, a run whose store is emptied **MUST** diverge from one whose store is live, wherever `M1.E.7c`'s first or fourth form fires. This is the converse of `M16.T.3`, and exists so the two are not conflated again. **The store is disabled by an experimental override declared in the test, never by a config key** — `M16.B.3` forbids it being disableable in production, which is the same shape `M10.C.4b` uses for the quantum-jump conditions | `test_m16t6_event_store_is_load_bearing` |
 | **M16.T.4** | The delayed view returns only the agent's own events, only older than the delay | `test_m16t4_delayed_view_is_scoped_and_lagged` |
 | **M16.T.5** | Two runs at one seed produce byte-identical logs, header included | `test_m16t5_same_seed_same_log_with_header` — a separate test from `M11.D.5`'s, because §0.4 requires the name to embed this criterion's own ID |
+
+### Revision 8 — what the estimator may read, 2026-08-28
+
+Raised by the project owner across three points, each checked and each upheld. Together they replace the
+estimator's observable set.
+
+| | What changed | Where |
+|---|---|---|
+| **Demoted** | `M1.A.4e` presented **genogram intake fields** as "the estimator's observables". `KS11.7`'s own opening says they are what *"the family diagram records"*. They are now a weak prior at import and **MUST NOT** set an estimate | `M1.A.4e` |
+| **New** | A **three-tier** reading: a single adverse event is mostly **load**; a chronic self-maintained pattern reads **functional** level under load correction; only a position held under pressure reads **basic** level | `M1.A.4g` |
+| **New** | The discriminator is **which channel was selected under discomfort, at comparable load** — `M4.D.1a`'s mixing weight read backwards out of behaviour | `M1.A.4h` |
+| **New** | The **system's reaction to a symptom** is the best-controlled reading in the model: one event, N observers, one moment, so load is constant **by construction** | `M1.A.4i`, `M11.C.34` |
+| **New** | The circularity boundary stated precisely: symptom **magnitude** may not feed the estimator; the **channel selected** must, because it reads policy rather than accumulated load | `M1.A.4j` |
+| **Generalised** | `M1.E.2`'s three reaction detectors were scoped to the coach. They are now on **every `Person`** — without them the family's own reaction is unreadable | `M1.A.19`, `M1.E.2` |
+
+**Three things the corpus already said, which the spec had not carried through.**
+
+1. `KS06.8` **already corrects** `KS05.10`: "**In terms of solid self, one's personal life is where the rubber meets the road**", and it is the intimate relationship "**and not how they manage themselves in their work lives**" that determines offspring level. `M1.A.4e` cited this correction **underneath the table it invalidates**, so the table still read as the instrument.
+2. The outcomes in that table are **base-rate common**. A divorce or a job loss is an event a large share of the population has; it carries almost no information about who had it, and it confounds the load on a person with their functioning.
+3. Ch10 generalises the neutral third to "**any third person… no matter what the subject matter**", and `agent_model_proposal.html` §10 records the conclusion outright — "**one rule seen from four angles… Implement it once**". `M1.E.2` implemented one of the four.
+
+**The unification, which is the reason to believe it.** "Adhering to one's convictions under relationship
+pressure" and "carrying discomfort rather than discharging it" are **one** observable, not two — `M5.F.5`
+says so in a sentence, and `M4.D.1a` already carries the quantity as the mixing weight. Solid self is "where
+they will stand **no matter what**"; pseudo-self is "**negotiable**". Everything needed is already state the
+model holds: the accommodation stock, the taboo set, gradable concession, the solid-self fraction. **No new
+machinery.**
+
+**And the load correction applies twice over.** Channel mix is *set by* level, so reading level back out of an
+uncorrected run recovers its own input. `M1.A.4b` was already the answer and had not been extended to these
+readings.
+
+---
 
 ### Revision 7 — the scale is a continuum, 2026-08-28
 

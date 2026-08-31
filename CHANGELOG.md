@@ -22,6 +22,19 @@ And eleven more: `M10.C.4`'s twelve magnitudes had **no permitted home** — for
 - **A phase exit condition that could not be checked.** Phase B was done when "the event log reads correctly" — an adjective naming no requirement, no test and no artifact, in a table where every other condition names one. It now names `M16.C.2` and `M16.T.1`.
 - **Module ordering.** `M14` had ended up after `M15`.
 
+### Fixed — the corpus-fidelity sweep
+
+**Every quoted passage in the spec was checked against the primary sources** — 214 quotations, 160 verbatim in the corpus, 52 legitimate self-quotes of project documents, 0 unexplained. Five cold agents on a different model, reading the source texts and forbidden the extractions, plus a deterministic string match by the author.
+
+- **One fabricated quotation.** `M1.A.4e` placed a paraphrase inside quotation marks and attributed it to the source as its own opening line; it was the evidence for revision 8's demotion. Fixed, and the demotion restated to what the source carries.
+- **Modal inflation, the dominant class.** `can… or` → `MUST` with one branch erased; `suggested` → `required`; `perhaps having a role` → `MUST be`; `such as 55 or 60` → a bound; and a **rate** claim hedged with *"sort of"* turned into a **ceiling**.
+- **Three scope shifts, introduced at revisions 7 and 8** — a subgroup phrase applied to a whole band, a societal trend grounding an individual mechanism, and a consequence presented as a quotation's when the corpus arguably says the opposite.
+- **Evidence framing.** "An experiment and an independent replication" were two clinical accounts, one of them the author confirming what he had been told. "Two families — home movies in both" was one family. "Three statements, every one about the mover's anger" was two.
+- **Attribution.** An ASR transcript attributed to Bowen personally against the project's own rule; a requirement grounded on **Andrew Solomon's** words, quoted by Kerr.
+- **Propagated** to `model_explainer.md` and the published proposal, both of which carried the same band-scope over-read graded `[T]`.
+
+Hedge-level findings are in `TODO.md` with reasons rather than fixed.
+
 ### Changed — what the estimator may read
 
 Three points from the project owner, each checked against the corpus and each upheld.

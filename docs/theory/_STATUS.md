@@ -59,6 +59,24 @@
 > persists. The exit condition now names `M16.C.2` and `M16.T.1`. Modules were also put back in numeric
 > order; `M14` had ended up after `M15`.
 >
+> **Revision 9, 2026-08-28 — the corpus-fidelity sweep, complete.** Every quoted passage in the spec checked
+> against the primary sources: **214 quotations, 160 verbatim in the corpus, 52 legitimate self-quotes of
+> project documents, 0 unexplained.** Five cold agents on a different model, reading the source `.txt` files
+> and forbidden the extractions, plus a deterministic `grep` pass by the author.
+>
+> ⚠ **One fabricated quotation existed** — `M1.A.4e` put a paraphrase inside quotation marks and attributed
+> it to the source as its own opening line. It was the evidence for revision 8's demotion. Fixed.
+>
+> **The dominant class was modal inflation**: a hedged, permissive or illustrative source becoming a mandate
+> ("can… or" → MUST; "suggested" → "required"; "perhaps" → MUST; "such as 55 or 60" → a bound; a *rate*
+> claim → a *ceiling*). **Three scope shifts were introduced at revisions 7 and 8**, after the pattern had
+> been identified and written into the spec as a rule.
+>
+> **Method note, the reusable part.** Two warm sweeps and eight revisions had passed over all of it. Every
+> finding came from reading the **primary**, not the extraction. And the mechanical existence check belongs
+> to `grep`, not an agent: the first matcher reported 100 of 231 quotations missing, which was bracketed
+> insertions and self-quotes, not fabrications.
+>
 > **Revision 8, 2026-08-28 — what the estimator may read.** Three points from the project owner, all upheld.
 > `M1.A.4e` had promoted **genogram intake fields** to "the estimator's observables" — `KS11.7`'s own opening
 > says they are what *"the family diagram records"* — and those observables are outcomes, base-rate common,

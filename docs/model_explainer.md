@@ -1,7 +1,7 @@
 ---
 tags: [model-bt, explainer]
 status: current
-version: 1.6
+version: 1.7
 date: 2026-08-28
 ---
 
@@ -525,7 +525,7 @@ At low level a person is nearly all automatic; as level rises a real self-direct
 
 - `[T]` `KS00.3` — "*Cortical components of differentiation **guide** actions; subcortical components **motivate** actions.*" The self-directed channel does not supply its own motive force; it **redirects** what the emotional system supplies.
 - `[T]` `KS02.1` — "*better differentiated people have more control than do less differentiated people*" — but never full autonomy at any level.
-- **Consequence:** differentiation is **not reachable by lengthening a reinforcement horizon**, because the two channels optimise different things. Anxiety-relieving action genuinely relieves anxiety, so an agent choosing a binder is not making an error a longer horizon would correct.
+- **Consequence** *(regraded `[I]` 2026-08-28)*: differentiation is **not reachable by lengthening a reinforcement horizon**, because the two channels optimise different things. **This is a design decision, not a corpus finding.** The quotation it had rested on is Bowen on band-aid *legislation* — societal scale — and the corpus arguably cuts the other way: differentiated actions "are based on a **broad and long-range assessment** of the situation" (`Family Evaluation` Ch3). What the quotation supports is *relieving now worsens later*, not that a longer horizon cannot reach the target. Anxiety-relieving action genuinely relieves anxiety, so an agent choosing a binder is not making an error a longer horizon would correct.
 
 **The ordering within the automatic channel.** Rising anxiety does not simply "raise the reactive weights" — it **slides selection down a complexity ordering**: **cooperation** (requires both systems as a working team) → **conflict** → **dominant-adaptive** ("older evolutionarily, more primitive") → **distance**, the oldest of all. `M4.D.3a`, `KS06.1`
 
@@ -595,7 +595,7 @@ At low level a person is nearly all automatic; as level rises a real self-direct
 - Ch13 · L13.5 — at a low level, "to 'stand up to' means to attack and shock the other with language and behavior, and to get away with breaking rules."
 - Ch20 · L20.4 — accepting **blame** versus taking **responsibility for the part self plays**: "a fine line", discriminated by "the inner orientation of self".
 - Ch21 · L21.2 — the outside-ness gate.
-- Ch10 · L10.12 — **the fifth scale band.** "The upper part of the 25-to-50 segment": dogmatic authoritativeness, the compliance of a disciple, or the opposition of a rebel, with "**intellect in the service of the relationship system**." These agents *look* differentiated and are not.
+- Ch10 · L10.12 — **the fifth scale band.** "The upper part of the 25-to-50 segment": dogmatic authoritativeness, the compliance of a disciple, or the opposition of a rebel — *that* is stated of the band. ⚠ **The phrase "intellect in the service of the relationship system" is not**: the source restricts it to "**Some of those in this group**", and this document had attached it to the whole band *(corrected 2026-08-28)*. These agents *look* differentiated and are not.
 - Ch19 · L19.5 — "**token concurrence**": the family scores concession on a **continuous scale** against ordinary competent acts. The one place in the corpus Bowen grades anything continuously, and it grades an act's value **as read by the receiver**.
 
 ### 5.7 Moves the nine do not cover
@@ -885,7 +885,7 @@ Three separate findings that all constrain how an event resolves:
 
 **1. Overt emotionality is not monotonic in level.** `[T]` Ch16 · L16.4 — "People in the moderate range of differentiation have the most intense versions of overt feeling." **It peaks in the middle.** Any readout using visible emotionality as a proxy for differentiation is wrong **in exactly the band where most agents sit.**
 
-**2. Position-taking behaviour does not mean differentiation.** `[T]` Ch10 · L10.12 — the fifth band, upper 25–50: dogmatic, compliant or rebellious, "intellect in the service of the relationship system." These agents score high for the wrong reason.
+**2. Position-taking behaviour does not mean differentiation.** `[T]` Ch10 · L10.12 — the fifth band, upper 25–50: dogmatic, compliant or rebellious. ⚠ *Scope corrected 2026-08-28:* "intellect in the service of the relationship system" is said of "**Some of those in this group**", not the band. **And the readout is not thereby non-monotone** — that was an inference this document made and the spec has withdrawn (`M1.A.3c`): a monotone curve whose mid-band positions are counterfeit fits the source equally well, and separating appearance from substance is §5.6's job, not the shape function's. These agents score high for the wrong reason.
 
 **3. Any estimate of differentiation is biased by construction — and the measurement literature bears this out.** `[T]` Ch17 · L17.2 — pseudo-self is lent, borrowed and traded between people, which "**results in false readings when one attempts to estimate levels of differentiation.**" Recoverable only over a life course. **A coach-side or readout-side estimate must be modelled as biased and noisy**, not as a clean read of the true value.
 

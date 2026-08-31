@@ -25,6 +25,22 @@ Status markers:
 - `[stands]` — pass 2 checked it and it survives as written.
 - `[narrowed]` — survives, but scoped down. The narrowing is stated in the entry.
 - `[corrected]` — pass 1 got the mechanism or the sign wrong. The entry now states the corrected one.
+
+> ### ⛔ Corpus-fidelity sweep, 2026-08-28 — read this before trusting an entry against the spec
+>
+> **Every quoted passage in `bowen_agent_model_spec_v2.md` was checked against the primary sources**: 214
+> quotations, 160 verbatim in the corpus, 52 legitimate self-quotes of project documents, 0 unexplained.
+> Five cold agents on a different model, reading the source `.txt` files and **forbidden these extractions**,
+> plus a deterministic `grep` pass.
+>
+> **The sweep read the primaries, not this ledger.** Where it overturned a reading, the affected entries below
+> carry a dated `⛔ Correction`. Entries it did not touch were not re-verified — absence of a correction note
+> is **not** evidence an entry was checked.
+>
+> **One fabricated quotation was found** (`M1.A.4e`, since fixed): a paraphrase placed inside quotation marks
+> and attributed to a source as its own words. **The dominant class was modal inflation** — a hedged,
+> permissive or illustrative source becoming a mandate. Both classes are invisible to a reader working from
+> summaries, which is why the sweep was forbidden to use them.
 - `[withdrawn]` — not supported by the text. **The ID is kept as a tombstone**, with the reason, so
   that nothing downstream re-derives it. Do not cite a withdrawn entry as evidence for anything.
 - `[new at p2]` — found on the second read; no pass-1 counterpart.
@@ -930,7 +946,14 @@ performance as a 35–40 band readout, and a better job as a downstream gain.
 depletion causes death. It establishes a different and narrower role for a material variable: **a gate on
 one move.** See the corpus-wide Q-MATERIAL note at the top of this file.
 
-### L10.12 — The fifth scale band: agents that look differentiated and are not  `[new at p2]`
+### L10.12 — The fifth scale band: agents that look differentiated and are not  `[new at p2]` `[corrected]`
+**⛔ Correction 2026-08-28, from the primary.** The band characterisation — "dogmatic authoritativeness, the
+compliance of a disciple, or the opposition of a rebel" — **is** stated of the group. The phrase
+"**intellect in the service of the relationship system**" is **not**: Ch10 restricts it to "**Some of those
+in this group** use intellect in the service of the relationship system." The spec and the explainer had both
+attached it to the whole band and have been corrected (`M1.A.3c`). *And the corollary drawn from it — that
+position-taking behaviour must be **non-monotone** in level — was the project's inference, not the source's,
+and is withdrawn: a monotone curve whose mid-band positions are counterfeit fits the text equally well.*
 **UNMODELLED → `Person`, `readout`, C10**
 "The upper part of the 25-to-50 segment": dogmatic authoritativeness, the compliance of a disciple, or the
 opposition of a rebel, with "**intellect in the service of the relationship system**."
@@ -2098,6 +2121,16 @@ transition at 50. Also the cleanest confirmation of the basic/functional decompo
 ### KS-B.5 — The estimator's observables, with per-observable reading rules  `[new]`
 **Target:** `M1.A.4a` · **Verdict:** REFINES
 
+**⛔ Correction 2026-08-28.** Two things about the entry below. (1) The spec had quoted "**The family diagram
+records**, per person: birth date, educational history…" as `KS11.7`'s opening line. **That phrase is not in
+the book** — it was a paraphrase inside quotation marks. The real sentence is "data are recorded for the
+father and the mother that include birth date, educational history, occupational history, health history, and
+date of death." (2) `KS05.10` introduces these as "**criteria to assess emotional functioning**" and says a
+family's level is "**estimated from the assessments** of all of its members" — so the book *does* estimate
+from them. What it supports is its own verbatim "**No one piece of data is sufficient**": insufficient
+**singly**, not non-evidentiary. `KS06.8`'s correction is real, and says the spousal domain is the *primary
+determinant of offspring level* — not that these set no estimate.
+
 `KS05.10` names four domains — work, education relative to opportunity, health, relationship stability —
 with "**No one piece of data is sufficient**" and the family estimate taken over **all** members because
 "**the patterns… can result in one person functioning well at the expense of another.**"
@@ -2122,6 +2155,10 @@ average.
 
 ### KS-C.1 — Symptom lock-in  `[new]`  ⭐ the largest single gap
 **Target:** `M7.D`, `M11.C.12` · **Verdict:** UNMODELLED
+
+**⛔ Correction 2026-08-28.** The sentence is a **disjunction** and the spec had mandated one branch: it
+continues "…**or the regression can continue to get worse**." "can… somewhat" had been hardened to "MUST
+fall". Both branches are now admitted (`M7.D.2a`).
 
 `KS23.1`: "**a family can stabilize somewhat around the presence of a symptom, which fosters it becoming
 chronic**, or the regression can continue to get worse."
@@ -2182,7 +2219,12 @@ represent at all.
 ### KS-C.6 — Self-observation accuracy rises with elapsed time  `[new]`
 **Target:** `M1.E.7` · **Verdict:** UNMODELLED
 
-`KS18.4`: Bowen required families to review session tapes "**at least six months old**", explicitly against
+**⛔ Correction 2026-08-28: "required" is not the source's word.** Kerr writes "Bowen **suggested** that the
+family begin to review videotapes of sessions that were at least six months old… Bowen **thought** it would be
+useful… the family **could perhaps** then view a replayed tape more objectively." Hedged twice, and it is Kerr
+reporting Bowen. The contrast with instant replay is genuinely in the source. Corrected at `M16.D.2`.
+
+`KS18.4`: Bowen suggested families review session tapes "**at least six months old**", against
 the then-standard instant replay, because "**the family would be in a different place emotionally after
 time had passed.**" Kerr on his own tape a year later: "**Whom does that guy think he is kidding?**… **I do
 not think I would have seen my charade if I had watched a playback closer to the time.**"
@@ -2560,6 +2602,20 @@ built on.
 
 `M1.A.11b` requires the symptom **channel** to be exogenous constitutional data — *level sets
 amplitude, constitution sets channel* — citing `KS22.14`, `KS21.5` (2019).
+**⛔ Correction 2026-08-28: `KS22.14` is doubly hedged and the spec had dropped both.** The source is "Bowen
+theory **does not rule out** genetics… but genes would be seen as **perhaps** having a role in whether the
+chronic anxiety plays out as schizophrenia rather than some other clinical dysfunction." A design choice may
+rest on that; it **must not be presented as corpus-forced**, and the source nowhere forbids deriving symptom
+type from relational position — it simply does not do so. Corrected at `M1.A.11b`.
+
+**⛔ Correction 2026-08-28 — the footnote continues, and the continuation was not read.** Two sentences after
+the quoted passage, Ch8 fn25 says: "**Learning also influences the specific type of symptom that develops
+within a category**; for example, hysteria versus obsessiveness (emotional) or alcoholism versus gambling
+(social). Genes **can** influence the specific symptom that develops, but they seem to have **less influence
+on the category**." So learning reaches **both** levels and genes are stated with "can". Decision A1's
+exclusivity clause — that the specific symptom stays constitutional — was withdrawn at `M1.A.11c` on this.
+Ch7 was also half-quoted: the full sentence names a **third** determinant, "the particular way an individual
+manages anxiety", which is neither the constitutional prior nor the family-focus term.
 
 `FE08.3`, verified verbatim: "**Genes are an important influence on the type of symptom that develops,
 but learning based on childhood experience appears to be the most important influence on the category

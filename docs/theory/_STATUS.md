@@ -59,6 +59,17 @@
 > persists. The exit condition now names `M16.C.2` and `M16.T.1`. Modules were also put back in numeric
 > order; `M14` had ended up after `M15`.
 >
+> **The ledger and the extractions are now annotated** with the sweep's corrections — `L10.12`, `KS05.10`/
+> `KS11.7`, `KS23.1`, `KS18.4`, `FE08.3`, `KS22.14`, plus `ch10.md` and `ks11.md`. ⚠ **Absence of a
+> correction note is not evidence an entry was checked**: the sweep read the primaries and only touched what
+> it overturned. `_LEDGER.md`'s header says so.
+>
+> **One of the corrections lands on the spec, not the ledger.** `ks11.md` was *correct*: its sentence opens
+> with the file's own connective prose, "The family diagram records, per person:", followed by a genuinely
+> verbatim list. The spec pulled that connective prose **inside** the quotation marks and attributed it to
+> Kerr. **The extraction did not drift — the spec quoted the extraction's framing as though it were the
+> source.** That is a distinct failure from the `M5.D.4` heading inversion and worth keeping separate.
+>
 > **Revision 9, 2026-08-28 — the corpus-fidelity sweep, complete.** Every quoted passage in the spec checked
 > against the primary sources: **214 quotations, 160 verbatim in the corpus, 52 legitimate self-quotes of
 > project documents, 0 unexplained.** Five cold agents on a different model, reading the source `.txt` files

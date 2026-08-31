@@ -32,7 +32,7 @@ This specification covers **Phases B, C and D** of the sequence in `agent_model_
 
 ### 0.3 Normative language
 
-- **MUST** / **MUST NOT** — required. A violation is a defect. **Not every one carries its own test**: there are roughly 659 bolded MUST/MUST NOT tokens against 51 named tests, and whole modules (`M15`, `M16`) sit outside `M11` entirely. What is true is narrower and is the thing to rely on: **every `M11.C`, `M11.D` and `M16.F` criterion names a test — except `M11.C.8`, whose Test cell is `—` because `M11.E` defers it — and every `M6` invariant is asserted each tick.** A MUST elsewhere is a requirement on the implementer that a reviewer must check by reading. *(Corrected 2026-08-28. The earlier form claimed each MUST had a test or an invariant, which was not true when written and got roughly 35% further from true over three revisions. It is the sentence a builder would use to decide what needs a test, so an aspirational reading of it is expensive.)*
+- **MUST** / **MUST NOT** — required. A violation is a defect. **Not every one carries its own test**: there are roughly 661 bolded MUST/MUST NOT tokens against 51 named tests, and whole modules (`M15`, `M16`) sit outside `M11` entirely. What is true is narrower and is the thing to rely on: **every `M11.C`, `M11.D` and `M16.F` criterion names a test — except `M11.C.8`, whose Test cell is `—` because `M11.E` defers it — and every `M6` invariant is asserted each tick.** A MUST elsewhere is a requirement on the implementer that a reviewer must check by reading. *(Corrected 2026-08-28. The earlier form claimed each MUST had a test or an invariant, which was not true when written and got roughly 35% further from true over three revisions. It is the sentence a builder would use to decide what needs a test, so an aspirational reading of it is expensive.)*
 - **SHOULD** — required unless there is a stated reason not to; the reason goes in the code comment.
 - **MAY** — genuinely optional.
 
@@ -237,7 +237,32 @@ a different relationship, and this requirement is what makes that check possible
 
 **M1.A.11c** — *the channel prior **MUST** be movable by a relational term, and the relational term **MUST** be overridable.* Kerr 1988 states the reverse emphasis of M1.A.11b: "**Genes are an important influence on the type of symptom that develops, but learning based on childhood experience appears to be the most important influence on the category of clinical dysfunction (physical, emotional, social) that develops.**" He names the relational determinant — the category tracks "**what others in the system focus on in that individual when they get anxious**" — and he supplies the override himself: "**Genetic predisposition to a disease… can be strong enough to override relationship programming.**"
 Therefore three terms, in this order: (1) M1.A.11b's constitutional assignment is the **prior**; (2) a **family-focus term MUST** be able to shift the expressed channel away from that prior, driven by what the family attends to in that member under anxiety (M9); (3) a **constitutional-strength term MUST** be able to override the shift. A model in which the channel is purely constitutional, or purely relational, is a failing implementation.
-**The reconciliation, and its limit.** `FE09.1` decomposes it — **constellation → ripeness; learning → category; constitution → specific symptom**. The *specific symptom within a channel* therefore stays constitutional and is **not** moved by the relational term; only the **category** moves. → *decision A1, option (c), 2026-08-27*; `theory/family_evaluation/fe08.md` · FE08.3, `fe09.md` · FE09.1, `fe07.md` · FE07
+**The exclusivity clause is withdrawn — corrected 2026-08-28.** This requirement previously said the
+*specific symptom within a channel* stays constitutional and is "**not** moved by the relational term; only
+the **category** moves." **The footnote it quotes says the opposite, two sentences later:**
+
+> "**Learning also influences the specific type of symptom that develops within a category**; for example,
+> hysteria versus obsessiveness (emotional) or alcoholism versus gambling (social). Genes **can** influence
+> the specific symptom that develops, but they seem to have **less influence on the category**." (Ch8, fn 25)
+
+So learning reaches **both** levels, and genes are stated with "**can**" — an influence, not a determinant.
+The decomposition attributed to `FE09.1` also is not what Chapter 9 says: once the constellation makes a
+situation ripe, "**any** category or type of symptom can develop or not develop."
+
+**What stands, and what replaces the limit.** The three terms above are unaffected — prior, family-focus
+shift, constitutional override. What changes is their **reach**: the relational term **MUST** be able to move
+the **specific symptom as well as the category**, and the constitutional term **MUST** be the weaker
+influence on the **category** while remaining able to override on a strong predisposition. A model that
+freezes the specific symptom constitutionally is a failing implementation.
+
+**One term is missing entirely and MUST be added.** The Ch7 sentence was half-quoted. In full: "The type of
+symptom that develops (physical, emotional, or social) is connected **both to the particular way an
+individual manages anxiety and** to what others in the system focus on in that individual when they get
+anxious." The person's **own learned anxiety-management style** is a co-determinant of the channel, and it is
+neither the constitutional prior nor the family-focus term. It reads directly off `M1.A.4h`'s channel mix.
+
+→ *decision A1, option (c), 2026-08-27; exclusivity clause withdrawn 2026-08-28 on the full footnote*;
+`theory/family_evaluation/fe08.md` · FE08.3, `fe07.md` · FE07
 
 **M1.A.12** A `Person` **MUST** hold `involvement_weight`, recomputed every fast tick. Family membership **MUST** be derived as a threshold over it and **MUST NOT** be a stored set. → §3.8
 
@@ -372,7 +397,12 @@ The first is the mechanism of change; the second is a countermeasure during a mo
 **M1.D.7d** `media_amplification` **MUST** be a societal input whose effect on a given family is **modulated by that family's differentiation**, not applied uniformly. This is M1.D.7's decoupling guard at the level of a single dial: a well-differentiated family **MUST** be able to damp it, and a poorly-differentiated one to amplify it.
 
 **M1.D.7i** — *the damping is **two-sided**.* Differentiation **MUST** modulate the **magnitude** of societal influence, `|effect|`, in **both** directions: a well-differentiated family is less moved by **favourable** societal conditions as well as by unfavourable ones. An implementation that damps only harm is wrong. → user, C4 verdict 2026-08-24
-> "**societal forces will have less of an impact (positive or negative) on a well differentiated family — they will be less reactive to outside forces.**"
+**⚠ The following is a project decision, not a corpus quotation.** It was formatted as a blockquote
+alongside sourced material and read as evidence; it is the project owner's C4 verdict of 2026-08-24 and
+appears in no source. *Relabelled 2026-08-28.*
+
+> *(project decision, 2026-08-24)* societal forces will have less of an impact, positive or negative, on a
+> well-differentiated family — they will be less reactive to outside forces.
 **This is the fourth instance of one pattern**, and it is now established enough to state generally (M11.F.6): blame **and** praise are both losses; selfish **and** selfless are both counterfeits; too much distance **and** too much closeness both trigger the stress response; favourable **and** unfavourable societal input are both damped. **Every naive one-sided detector in this model is wrong.**
 
 **M1.D.7j** Decoupling protects the family **without** conferring societal influence. A well-differentiated minority "**can float above the regression that surrounds them**" but "**their contributions are commonly ignored or overruled by the regressed majority**" — so a high-differentiation family **MUST NOT** damp the societal dial *for anyone else*. → `kerr_book/ks14.md` · KS14.8
@@ -413,7 +443,7 @@ The first is the mechanism of change; the second is a countermeasure during a mo
 1. **Instance supply** — specific functional facts from the recipient's own history. Expensive; requires the log. "**saying someone has an equal part in a process is not especially helpful until that person can comprehend the specifics of it all.**" → `kerr_book/ks10.md` · KS10.11
 2. **Category supply** — naming a process the agent is engaged in and has no name for. Cheap, one-shot, works from an impersonal source: Kerr recognising his own cutoff during a lecture. → `kerr_book/ks13.md` · KS13.4
 3. **Non-participation** — the agent's *failure to be recruited*. Transmits no information at all. Bowen's slight smile after a half-hour anxious monologue: "**he simply did not get caught in my anxiety, and that was enough to get me out of it.**" Implementable as M4.D.5's fused default **not** being played — and the reason a stateless coach transmits nothing. → `kerr_book/ks16.md` · KS16.4
-4. **Delayed self-observation** — presenting the agent with **its own event log, delayed**. Bowen required session tapes to be "**at least six months old**", explicitly against instant replay, because self-observation accuracy rises as the episode's acute anxiety decays toward the floor. Kerr on his own tape a year later: "**Whom does that guy think he is kidding?**" → `kerr_book/ks18.md` · KS18.4
+4. **Delayed self-observation** — presenting the agent with **its own event log, delayed**. Bowen suggested session tapes "**at least six months old**", against instant replay, because self-observation accuracy rises as the episode's acute anxiety decays toward the floor. Kerr on his own tape a year later: "**Whom does that guy think he is kidding?**" → `kerr_book/ks18.md` · KS18.4
 
 **M1.E.7d** Landing **MUST** require **coincidence with the recipient's current state**, not merely correct content — which is why the same content can fail and later succeed, and why the rate is low. Three conditions jointly: coach quality, recipient motivation, and **occasion**, the last of which the coach does not control. → `kerr_book/ks17.md` · KS17.10
 
@@ -1442,8 +1472,8 @@ send, receive or witness; **MUST NOT** read another agent's private hops (`M1.F`
 those genuinely private); and **MUST NOT** read anything newer than the delay.
 
 **M16.D.2** The delay **MUST** be configurable and **MUST** default to the corpus value: Bowen required
-session tapes to be "**at least six months old**", explicitly against instant replay, because
-self-observation accuracy rises as the episode's acute anxiety decays toward the floor. `[#]` A zero delay
+session tapes "**at least six months old**" — *suggested*, not required (corrected 2026-08-28) — against instant replay, because
+self-observation accuracy rises as the episode's acute anxiety decays toward the floor. `[#]` **Bowen *suggested* this, and did not require it** — the source is Kerr reporting Bowen, hedged twice ("Bowen **suggested**…", "the family **could perhaps** then view a replayed tape more objectively"). The contrast with instant replay is genuinely in the source; the modal was not. *Corrected 2026-08-28.* A zero delay
 **MUST** be permitted only as an experimental arm, never as the default, and `M11` **SHOULD** carry an arm
 showing that the delayed view lands where the instant one does not.
 

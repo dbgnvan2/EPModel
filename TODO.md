@@ -61,6 +61,39 @@ rule is to bound the loop rather than trade one defect class for another.
   quantity, doing load-bearing work in the sign-flip argument at `M15.D.4`. It may be sound; it has not been
   checked with this question in mind.
 
+### Backlogged from the corpus-fidelity sweep, 2026-08-28 — graded LOW, recorded not fixed
+
+The sweep checked **every** quoted passage in the spec: 214 total, 160 verbatim in the corpus, 52 legitimate
+self-quotes of project documents, 0 unexplained. Integrity and modal findings are fixed; these are the
+hedge-level remainder, held back because each fix is new unreviewed surface.
+
+- [ ] **Ellipses that remove a qualifier.** `M1.A.19` drops "**would probably**" and a trailing condition
+  ("as long as discussion touched emotional issues") from Ch10's neutral-third sentence. `M1.A.14c` drops
+  "**provided his spouse functions in a reciprocal opposite way**", which is a condition on the whole claim.
+  `M1.A.5d` splices two passages ~5,700 characters apart into one quotation and drops a "per se, **but…**"
+  that states the harmful case. `M11.F.3a` truncates a Bowen epigraph with no ellipsis shown.
+- [ ] **Hedges trimmed off the front of quotations.** `M1.A.13a` ("**I believe** the most important cue"),
+  `M1.D.7b` ("**I believe** a spectrum of problems"), `M1.A.18d` ("not observed it **fully**"),
+  `M8.6a` ("**as many as** fifty or sixty" flattened to "fifty to sixty").
+- [ ] **Third parties quoted by an author, unmarked.** `M7.C.1c` rests on **Sylvia Nasar's** thought, quoted
+  by Kerr. (`M4.D.5c`'s Andrew Solomon attribution is fixed; this one is the same shape.)
+- [ ] **A scope narrower than the requirement.** `M5.B.3a`'s band is stated of "**the alcoholic person**";
+  `M1.B.10` quotes a taboo-set claim made of **spouses** and applies it to every tie; `M15.D.4`'s "they could
+  do no wrong" comes from the inpatient schizophrenia project, the most severe families studied.
+- [ ] **`M4.D.3a`'s four-element evolutionary ordering has three sourced slots and one unsourced** —
+  conflict's position between cooperation and dominant-adaptive is nowhere given in the source.
+- [ ] **`M1.A.5a` quotes a phrase absent from the book it cites** ("more mature, more responsible for self",
+  cited to Kerr 2019 ch6; nearest analogue is in ch24 and says something different). Its decomposition is
+  tagged as user-derived, so the model claim survives — the citation does not.
+- [ ] **`M2.A.0e`'s "almost identical" reads as Kerr-2019-grounded** and is in fact from KB Interview #14.
+  Kerr 2019 says spouses marry at the "**same**" basic levels — stricter than the ±1 tolerance built on it.
+- [ ] **`M5.C.1a` borrows severity from an adjacent intervention class.** The three catastrophes are real and
+  correctly sourced to *forcing conjoint contact*; the recorded consequence of the peace-agree/reactive
+  mismatch itself is relational rupture. Careful drafting, suggestive juxtaposition.
+- [ ] **`M1.A.4d`'s source sentence is gate-shaped.** Kerr 2019: "**People above 25** on the continuum can
+  make basic changes." Revision 7 replaced the gate with a continuous falloff on principle; the requirement
+  should say plainly that the source's own wording is the gate it forbids.
+
 - [ ] **Run a cold sweep over this batch.** The 2026-08-28 sweep was warm — the same session that wrote the documents commissioned it. It found fifteen defects, which says the sweep works, not that the set is clean. The project's own rule is that a falling finding count from self-review is not a stopping condition, and that a pass which does not know the change's history changes the *distribution* of findings. `/csdp --cold-sweep` over `4e79697..HEAD` from a fresh session.
 - [ ] **The sweep covered one failure family only.** It reports itself as not covering: theoretical fidelity (it did not open `_LEDGER.md`, the `family_evaluation/` extractions, or Ch13's primary text), whether the ~88 new requirements are individually implementable, whether the specified model is coherent, and the reasoning in the DECISIONS document. **The `M5.D.4` correction rests on one re-read of one chapter by the context that made the correction** — a second reader on the sources is the highest-value follow-up.
 - [ ] **Decide whether `M16`'s renderer output format is worth fixing in the spec.** `M16.C.2` says what a rendered line must carry and points at the proposal's §4.2 table as the shape, but does not fix a format. That is deliberate for now — the format is cheaper to settle against a running Phase B than in advance — but it should be settled *before* a second consumer exists, or the two will drift.

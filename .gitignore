@@ -10,3 +10,8 @@ sim_audit.csv
 
 # agent worktrees
 .claude/worktrees/
+
+# method-literature paper PDFs — the catalog (papers/INDEX.md) is committed,
+# raw PDFs stay local and are not tracked (they grow weekly)
+papers/*.pdf
+papers/_candidates.json

@@ -43,10 +43,23 @@ QUERIES = {
     "MECH": 'abs:("temporal difference" OR "reinforcement learning") AND abs:(addiction OR habit OR anxiety)',
 }
 
-_ARXIV_ID_RE = re.compile(r"\b\d{4}\.\d{4,5}\b")
+# Group 1 is the unversioned id; the optional suffix lets the catalogue carry
+# either form ("2609.17331" or "2609.17331v1") and still be recognised.
+_ARXIV_ID_RE = re.compile(r"\b(\d{4}\.\d{4,5})(?:v\d+)?\b")
+_VERSION_SUFFIX_RE = re.compile(r"v\d+$")
+
+
+def base_id(arxiv_id: str) -> str:
+    """Strip the version suffix: '2609.17331v1' -> '2609.17331'.
+
+    The API returns versioned ids while INDEX.md carries unversioned ones, so
+    every comparison between the two must go through this.
+    """
+    return _VERSION_SUFFIX_RE.sub("", arxiv_id.strip())
 
 
 def already_catalogued(index_path: Path) -> set[str]:
+    """Unversioned ids already in the catalogue."""
     if not index_path.exists():
         return set()
     return set(_ARXIV_ID_RE.findall(index_path.read_text(encoding="utf-8")))
@@ -124,13 +137,16 @@ def main() -> int:
             continue
         fresh = 0
         for h in hits:
-            if h["id"] in seen:
+            # The API returns versioned ids; `known` and `seen` are keyed on the
+            # unversioned form, or a catalogued paper is re-proposed every run.
+            key = base_id(h["id"])
+            if key in seen:
                 continue
             withdrawn = "withdrawn" in h["abstract"].lower()
-            if withdrawn or h["published"] < cutoff or h["id"] in known:
+            if withdrawn or h["published"] < cutoff or key in known:
                 continue
             h["facet"] = facet
-            seen[h["id"]] = h
+            seen[key] = h
             fresh += 1
         print(f"=== {facet}: {len(hits)} raw -> {fresh} new candidates ===")
         time.sleep(6)

@@ -300,7 +300,7 @@ High = changes or sharpens a design decision. Medium = a usable technique or a s
 6. Is snapshot-and-fork wanted in Phase E, or will arms replay from tick 0? (§2.8) *2026-09-20:* either way, candidate C1 is needed first, or the two arms are not comparing the same chance events.
 7. Is a no-interaction control arm (all conductance zero) already among the 34 criteria? I did not find one by keyword. (§2.6) *2026-09-20:* candidate C34 proposes three named control arms, including a two-level no-interaction control.
 
-Questions 8–15 are in **§7.11** and come from the SEAA addendum. Questions 13 and 14 are answered in **§8.1** and **§8.2**.
+Questions 8–17 are in **§7.11**; 8–15 come from the SEAA addendum and 16–17 from reconciling it with §8. Questions 13 and 14 are answered in **§8.1** and **§8.2**.
 
 ---
 
@@ -601,6 +601,18 @@ second test red.
 
 ---
 
+**Where these sit against the C-numbers (added 2026-09-20).** The candidates file
+(`SPEC_CANDIDATES_from_preprints_2026-09-20.md`) was written from fourteen other papers and overlaps
+these four drafts in places. The two sets are **not** rival proposals; where they overlap the C-number is
+better sourced, because it rests on a paper that did the thing rather than on transfer from SEAA.
+
+| Draft | Overlaps | How to resolve |
+|---|---|---|
+| `E-DR` | **C16** (monotonicity over ≥4 levels), **C24** (readout saturation), **C31** (per-constant invariance interval) | Keep `E-DR` for the `[I]` constants *behind a criterion*; C16 is the same shape applied to *person parameters*. `E-DR`(b) is C16's assertion. `E-DR`(c) is C24 plus C31 — and for a **threshold** constant C31 is strictly better than sampling a curve, because the switch points are computable from the margins encountered rather than sampled |
+| `E-SH` | **C18** (persistence after a spell, with a learning-off arm), **C29** (regime classification) | No C-number covers the trajectory-through-the-event readout or the non-occurrence fraction. Keep `E-SH`; take C29's inconclusive class for part (b) |
+| `E-RM` | **C34** (three named control arms) | Distinct: C34's arms remove *interaction*, *exogenous input* or *heterogeneity*; `E-RM` removes **the mechanism the criterion credits** while leaving `M4.D.6` reinforcement running. Add it to C34's list rather than proposing it separately |
+| `E-RE` | **C39** (move-transition matrix and JSD between arms) | Complementary. C39 is richer on structure and says nothing about the **channel split**, which is the whole point of `E-RE` and the only thing that tests `M4.D.6d`. Fold `E-RE` in as a per-channel entropy column on C39's readout |
+
 ### 7.9 The one Phase B–D item
 
 **`E-RE` — repertoire entropy, per channel.** Not a Phase E requirement; a readout over state the engine
@@ -642,6 +654,12 @@ the others. This bears on `E-RM` and on `M10.C.4a`, both of which work by turnin
 comparing, and it is a dirty-state problem in the sense of the global testing rules — the shared stream
 is state persisting across the thing under test.
 *Test:* `test_disabled_mechanism_leaves_rng_stream_unchanged`.
+*Revised 2026-09-20 (§8.1):* **the test stands; the remedy above does not.** Buffalo et al. §1 classify
+per-mechanism substreams as a coarse mitigation — within a stream the dependence persists, and choosing
+the granularity requires anticipating every execution-path change in advance. The remedy is counter-based
+draws keyed by a stable event identity (candidate **C1**), and this test is candidate **C4**'s placebo
+test. The sentence "the remedy is a named RNG substream per mechanism" is superseded and should not be
+acted on.
 
 **(b) Permutation invariance over a symmetric family.** Paper: the entire design rests on agents starting
 identical, so that any later difference is emergent by construction (§4.7, §5.7.1 — "identical for all",
@@ -653,6 +671,11 @@ executable test of `M1.F.8` (order within a tick **MUST NOT** decide the outcome
 asserted with nothing behind it. A symmetric family is artificial; the test does not need a realistic
 one, and its artificiality is the point.
 *Test:* `test_m1f8_symmetric_family_outcome_is_permutation_equivariant`.
+*Extended 2026-09-20 (§8.2):* Q14 answered **yes — write it now**. Candidate **C5** adds two further
+forms, batch-order permutation and a sequential-reduction mutant. One trap the §7.10(b) text does not
+name: a commutative batch reduction does **not** satisfy `M1.F.8` if a stateful generator is consumed in
+loop order, which C1 removes. Sachdeva & van Nuenen §3.3 put a number on why this matters — speaking
+order alone moved first-round consensus from ~40% to ~90%.
 
 **(c) Floor tests where a null arm exists, not only direction tests.** Paper: the controls' lock-in rate
 is **0 across all seeds** (§5.7.2), and 0.00 of control groups produce a unanimous outlier against 0.77
@@ -662,6 +685,11 @@ in that case. Wherever a mechanism-disabled arm exists, the criterion **should**
 observable is absent — as a declared upper bound over N seeds, not a literal zero, since the model is
 stochastic. `E-RM`'s rival arm is the first place this applies.
 *Test:* `test_null_arm_observable_stays_below_declared_floor`.
+*Extended 2026-09-20:* candidate **C34** names three control arms to apply this to — no-interaction at
+two levels (zero conductance; ties intact with delivery suppressed), endogenous-only, and a homogeneous
+family in which each criterion declares in advance whether it is expected to fail. C34's homogeneous arm
+is the sharper form of the same idea: a criterion that still passes where the theory says heterogeneity
+is required is flagged.
 
 **(d) Two renderings of the same state MUST agree in ordering.** Paper: the deterministic verbalizer and
 the hosted model give different magnitudes but the same ordering (0.57 vs 0.77 for one, 0.267 vs 0.391
@@ -670,6 +698,8 @@ artefact. Inference: `M11.G`'s family-evaluation readout and the `M16` run log a
 state. An ordering computed from the readout **should** match the ordering computed from the raw log.
 This is cheap and it catches renderer drift, which rots silently because nothing else reads the readout.
 *Test:* `test_m11g_readout_ordering_matches_run_log_ordering`.
+*Related 2026-09-20:* candidate **C21** (representation-invariance mutants) is the general form — a
+result that changes when the encoding changes but the content does not is an artefact of the encoding.
 
 **(e) Assert the settling condition; do not count ticks.** Paper: 300 steps are burned to consolidation
 before the shock is applied (§5.7.4), and consolidation is verified — occupancy of the dominant state
@@ -686,10 +716,15 @@ readouts should be distributions; the way to hold that at the code level rather 
 synthetic **bimodal** fixture that the reporting path must not collapse to a single number. This is the
 `[I]`-fixture discipline of P23 applied to a summary statistic.
 *Test:* `test_time_to_event_report_does_not_collapse_a_bimodal_fixture`.
+*Related 2026-09-20:* candidate **C29** is the reporting-side counterpart — per-seed regime
+classification with an explicit inconclusive class, rather than a summary that has to pick one mode.
 
 **Priority.** (a), (b) and (e) are testable against the engine as specified and need no Phase E. (b) is
 the one to write first: it tests an invariant the spec states and nothing currently checks, and unlike the
 others it can fail today.
+*Confirmed 2026-09-20:* §8.2 reaches the same conclusion on (b) from Sachdeva & van Nuenen and from Li &
+Tao, independently of SEAA. (a) is reclassified: the test is still Phase-B-testable, but its remedy is a
+design decision (**C1**, P1) that has to be settled before Phase B rather than a test to be written.
 
 ### 7.11 Open questions this addendum raises
 
@@ -705,11 +740,21 @@ others it can fail today.
     enforced at the call boundary — the intended contract? (§7.6)
 13. Does each mechanism draw from its own named RNG substream today, or from one shared stream? If
     shared, `M10.C.4a`'s ablation arms differ by more than the ablated condition. (§7.10a)
+    **Answered 2026-09-20 (§8.1): neither.** Substreams are a partial fix; the answer is counter-based
+    draws keyed by a stable event identity (C1), which corrects `M3.D.4`. The question is closed; the
+    open part is C3's modelling decision — what counts as "the same event" across arms.
 14. `M1.F.8` requires that order within a tick cannot decide the outcome, and nothing currently tests it.
     Should the permutation-equivariance test be written now, against a symmetric family, rather than
-    waiting for Phase E? (§7.10b)
+    waiting for Phase E? (§7.10b) **Answered 2026-09-20 (§8.2): yes**, and C5 adds two further forms of
+    it. C1 is a prerequisite — without it a commutative reduction still fails the test.
 15. Where a criterion has a mechanism-disabled arm, should it assert a **floor** on that arm — the
-    observable is absent — rather than only a direction between arms? (§7.10c)
+    observable is absent — rather than only a direction between arms? (§7.10c) **Still open**; C34
+    supplies the arms to assert it on, and C25 the statistic for an arm with zero variance.
+
+16. Do `E-RM` and C34 become one requirement — a single list of named control arms, including the
+    rival-mechanism arm — or two? (§7.8 mapping table)
+17. `E-RE`'s per-channel entropy is the only proposed test of `M4.D.6d`. Fold it into C39's readout, or
+    keep it as its own `M16` column? (§7.8 mapping table, §7.9)
 
 ---
 
@@ -734,4 +779,6 @@ Fourteen preprints from the twelve-month sweep were read in full by five sub-age
 **8.8 The LLM line (confirms §3, adds nothing to v2).** Buitrago López et al.: mean JSD 0.212 between LLM action choices and the intended policy, no prompt best across models, 135–1,337× slower. Wang et al. 2026 (2608.06485): personas differ at baseline but respond to life events alike, with changes about ten times smaller than human bands and a pull toward agreeableness. Li et al. 2026 (2608.24912): a benevolence bias that adversarial personas cannot push below the human baseline on prosociality or harm aversion. All three support `M3.D.6`. Protocol items for the exploratory notes only (X1–X4 in the candidates file).
 
 **Not changed.** §2.2, §2.4, §2.5, §2.7, §2.10–2.12, §3 and §7.1–7.9 stand as written; the sweep papers add instances, not corrections.
+
+**8.9 Reconciliation pass, 2026-09-21.** §8 was written against §1–§7 but the dated notes it calls for were applied only to §2.6, §2.8, §2.9 and questions 4, 6 and 7. This pass completed them: §7.10(a) now records that its proposed remedy is superseded by C1 while its test survives as C4's placebo test; §7.10(b)–(f) carry the C-numbers that extend them; §7.8 gains a mapping table placing `E-DR`, `E-SH`, `E-RM` and `E-RE` against C16/C24/C31, C18/C29, C34 and C39, so the two proposal sets do not compete; and questions 13–15 carry their answers, with 16 and 17 added for the two overlaps the mapping table leaves undecided. No claim in §7 or §8 was rewritten — only cross-referenced.
 

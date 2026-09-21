@@ -26,3 +26,24 @@ otherwise. Window: 30 days (>= 2026-08-15, first run).
 Facets with nothing new in window: ADAPT, MECH. (MECH near-miss, outside 30-day window:
 2607.07753 "A Transdiagnostic Space of Disorder-Like Phenotypes in Reinforcement Learning
 Agents", 2026-07-21.)
+
+### Deep-review candidates (individual/small-group ABM, for the EPModel spec)
+
+Screened against the level criterion — design/build/testing of an ABM simulating human
+interaction at individual or small-group scale, not societal/population scale.
+
+- **MicroVerse** (2608.15844) — candidate. 25 agents, individual "soul file"/identity,
+  memory/reflection, long-horizon identity-drift testing; engine/cognition separation. Closest
+  match to EPModel's small-group trait-stability and engine-purity concerns.
+- **Emergent Misaligned Communication in Long-Horizon Multi-Agent LLM Commerce** (2608.14825) —
+  candidate. 4-agent small-group, one-year horizon, corpus-scale testing of emergent inter-agent
+  behaviour (domain is competitive commerce/misalignment, not human relational simulation).
+- *Adjacent (methodology transfers, domain is population-scale or non-interactive):*
+  Prompt Sensitivity of Generative Agents (2608.26221, prompt-sensitivity testing of individual
+  agent decisions, but 100-agent epidemic); Implicit Personality Representations (2609.12704,
+  individual trait geometry, but not an interaction model).
+
+Out of scope on level grounds: Total Simulated Survey Error, Diverse Minds/TraitMix, Insurance
+as AI Risk Infrastructure (societal/population); Emergent Misalignment Is Not Magical, Inducing
+Emergent Misalignment (single-model, not an ABM); Ordinary Reasonable Chatbots (individual
+judgment eval, no agent-agent interaction).

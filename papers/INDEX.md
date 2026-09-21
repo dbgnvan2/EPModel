@@ -15,7 +15,7 @@ Facet keys:
 - `METHOD` — ABM methodology: scheduling, seeding, sensitivity, statistical model checking, documentation protocols
 - `TIES` — relationship and network dynamics: witnesses, signed ties, coevolving ties
 
-Status legend: `new` = downloaded, unread · `read` = abstract read · `digested` = full read + notes
+Status legend: `new` = downloaded, unread · `candidate` = deep-review candidate (individual/small-group ABM) · `read` = abstract read · `digested` = full read + notes
 
 | File | Title | Authors | Year | ID | Facet | Status |
 |---|---|---|---|---|---|---|
@@ -33,8 +33,8 @@ Status legend: `new` = downloaded, unread · `read` = abstract read · `digested
 | 2026_Inducing_Emergent_Misalignment_DPO_2609.06649.pdf | Inducing Emergent Misalignment from Reward Hacks with Iterative DPO | Daniels, Moodley, Marlin, Lindner | 2026 | 2609.06649 | DYNAMICS | new |
 | 2026_Ordinary_Reasonable_Chatbots_2609.06769.pdf | Ordinary, Reasonable Chatbots: Do AI Models Track Human Legal Judgments? | Patel, Wenger, Buccafusco | 2026 | 2609.06769 | FIDELITY | new |
 | 2026_Implicit_Personality_LLMs_2609.12704.pdf | Implicit Personality Representations in Humans and LLMs | Geng, Abend, Hovy, Frermann | 2026 | 2609.12704 | TRAIT | new |
-| 2026_MicroVerse_Identity_Drift_2608.15844.pdf | MicroVerse: An Instrument for Measuring Self-Authored Identity Drift in Long-Horizon Multi-Agent Language-Model Simulations | Ng, Joshi, Gupta, Huang, Di, et al. | 2026 | 2608.15844 | ARCH | new |
-| 2026_Emergent_Misaligned_Communication_2608.14825.pdf | Emergent Misaligned Communication in Long-Horizon Multi-Agent LLM Commerce | Li, Petersson, Acquisti, Bakker | 2026 | 2608.14825 | DYNAMICS | new |
+| 2026_MicroVerse_Identity_Drift_2608.15844.pdf | MicroVerse: An Instrument for Measuring Self-Authored Identity Drift in Long-Horizon Multi-Agent Language-Model Simulations | Ng, Joshi, Gupta, Huang, Di, et al. | 2026 | 2608.15844 | ARCH | candidate |
+| 2026_Emergent_Misaligned_Communication_2608.14825.pdf | Emergent Misaligned Communication in Long-Horizon Multi-Agent LLM Commerce | Li, Petersson, Acquisti, Bakker | 2026 | 2608.14825 | DYNAMICS | candidate |
 | 2026_Insurance_AI_Risk_Infrastructure_2608.15181.pdf | Insurance as AI Risk Infrastructure: A Generative-Agent Simulation of AI Adoption | Yuan, Wei, Qian, Feng, Lin, et al. | 2026 | 2608.15181 | ARCH | new |
 | Sweep 2026-09/2026_Event-Keyed_Hashing_CRN_Buffalo_2603.11084.pdf | Realizing Common Random Numbers: Event-Keyed Hashing for Causally Valid Stochastic Models | Buffalo, Pearson, Klein (first authors) | 2026 | 2603.11084 | METHOD | new |
 | Sweep 2026-09/2025_Interaction_Protocol_Moral_Judgment_Sachdeva_2510.10002.pdf | Interaction Protocol Shapes Moral Judgment in Multi-Agent Debate | Sachdeva, Nuenen (first authors) | 2025 | 2510.10002 | DYNAMICS | new |

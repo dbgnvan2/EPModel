@@ -1,6 +1,6 @@
 # What the model-design papers say about how to build EPModel
 
-Compiled 2026-09-17. Method literature only. This file is separate from the Bowen corpus in `docs/theory/` and makes no claim about what the corpus says.
+Compiled 2026-09-17; SEAA addendum 2026-09-19 (§7); revised 2026-09-20 after full reads of the fourteen sweep papers (§8 and `SPEC_CANDIDATES_from_preprints_2026-09-20.md`). Method literature only. This file is separate from the Bowen corpus in `docs/theory/` and makes no claim about what the corpus says.
 
 ## 0. How this was produced, and how far to trust it
 
@@ -97,7 +97,7 @@ Each item is a technique taken from a paper, with the reason.
 | **Sever-the-input mutants**, not only delete-the-mechanism | EconAgent Fig. 4: without perception, results were "too stable" and looked plausible | A run can pass because agents are insensitive. Mutants that cut an appraisal input test that selection responds to what the spec says it responds to |
 | **Rare-move coverage** | Mou et al. 2024 Table 2 and 5: stance accuracy 0.90–0.97 with macro-F1 0.34–0.37 under extreme class imbalance | A directional test should fail if `CUTOFF` or `I-POSITION` never occurs in the ensemble |
 | **Pre-declared minimum effect size** | Röchert et al. Tables 4–6: 1000 replicates give CIs so narrow that every difference is "significant" | Test 1's "significant majority of seeds" needs a stated margin, or ensemble size decides the result |
-| **Per-seed paired differences** | OASIS §3.2: averaged error on one instance "could be balanced out" by another | Report the distribution of arm differences, not the difference of arm means |
+| **Per-seed paired differences** | OASIS §3.2: averaged error on one instance "could be balanced out" by another | Report the distribution of arm differences, not the difference of arm means. *Revised 2026-09-20:* the pairing is only valid if the same seed produces the same chance events in both arms, which a single stateful generator (`M3.D.4`) does not guarantee once an arm changes control flow; see §8.1 and candidate C1 |
 | **Separate the variance sources** | Light Society §2.4.1 isolates seed noise from LLM noise. JUNE's 14 realizations vary parameters, not seeds, and never separate the two. Mou et al. App. C.2 hold core-agent output fixed and re-run only the rest, which understates variance | Report seed variance, exogenous-spell-timing variance and constant-sweep variance separately. Re-draw every stochastic source in every seed |
 | **Regress selected moves on the inputs shown** | EconAgent Eq. 14, Table 1: savings significant for consumption in 100/100 agents, interest rate for work in 31/100 | A post-run check that each move's selection depends on the state variables `M4` says it depends on |
 | **Mechanism switches with a baseline arm** | Röchert et al.: each mechanism "can be switched on and off"; all effects reported against a baseline | Same logic as mutation testing, available at run time rather than only in the test suite |
@@ -127,7 +127,7 @@ Paper:
 - AgentScope §2.1: agents expose `reply` and `observe`; `observe` "processes incoming messages without generating a direct reply". Every message has a unique id and timestamp.
 
 Inference:
-- My keyword search found no snapshot, fork or checkpoint requirement in the spec. Two-arm counterfactuals that share history up to an intervention tick need it, or each arm must replay from tick 0. Byte-identical determinism (`M3.D.5`) makes replay valid, so this is a cost decision for Phase E, not a correctness gap.
+- My keyword search found no snapshot, fork or checkpoint requirement in the spec. Two-arm counterfactuals that share history up to an intervention tick need it, or each arm must replay from tick 0. Byte-identical determinism (`M3.D.5`) makes replay valid, so this is a cost decision for Phase E, not a correctness gap. *Revised 2026-09-20:* with event-keyed draws (candidate C1) a fork carries no generator state, so a snapshot is a plain state copy.
 - The three intervention channels map onto EPModel's arms: initial-condition arm, mid-run perturbation, exogenous spell. Naming them in the Phase E spec, with JUNE's mapping table, would make each counterfactual's mechanism of entry explicit.
 - Appraisal and belief-write log records that cite the event IDs they appraised would let the trace renderer show the path from an event to a belief. `M16` already separates belief writes; I did not check whether it links them to event IDs. IDs must derive from the seed, not from a UUID, to keep `M3.D.5`.
 - `observe` versus `reply` is the same split as witness versus target (§9.4 of the explainer).
@@ -139,7 +139,7 @@ Inference:
 
 Paper: YuLan-OneSim §3.2.1 formalises scenarios with the ODD protocol (Grimm et al.). Ghaffarian et al. use ODD+D and give a table of variable, description, initialisation and data source (Table A1). Röchert et al. Table 3 lists symbol, meaning and explored parameter space, and never varied their threshold constants. Axtell & Farmer mention ODD only in a glossary.
 
-Inference: a keyword search found no mention of ODD in the spec. ODD is the reporting format ABM reviewers expect, and the spec already contains its ingredients. A parameter register with a column stating whether each `[I]` constant has ever been varied, and over what range, would record exactly what Röchert et al. omitted.
+Inference: a keyword search found no mention of ODD in the spec. ODD is the reporting format ABM reviewers expect, and the spec already contains its ingredients. A parameter register with a column stating whether each `[I]` constant has ever been varied, and over what range, would record exactly what Röchert et al. omitted. *Added 2026-09-20:* He's VISA protocol (2607.28027) is a stricter alternative to ODD with 19 machine-checkable consistency rules; candidate C10 proposes a state-and-mechanism register on that model, and candidates C31 and C36 add an invariance-interval column and a per-result audit record.
 
 ### 2.10 Candidate functional shapes
 
@@ -295,12 +295,12 @@ High = changes or sharpens a design decision. Medium = a usable technique or a s
 1. What does a person's appraisal do with two same-tick events that pull in opposite directions, and is that rule stated in the spec? (§2.1)
 2. Should Phase E require the acceptance criteria to be re-run under an alternative activation regime? (§2.1)
 3. Should Phase E require a sweep over `[I]` constants, reporting for each criterion the fraction of the range in which its direction holds? (§2.3)
-4. How is the reference family's initial tie and triangle state constructed, and is there a settling window before interventions and readouts? (§2.5)
+4. How is the reference family's initial tie and triangle state constructed, and is there a settling window before interventions and readouts? (§2.5) *2026-09-20:* still open; §7.10(e) gives the testable form, and candidates C29, C32 and C42 bear on it.
 5. Is excluding regions of constant space that violate the `M10.C.4` bounds permitted, or does it conflict with "checks, never parameters"? (§2.11)
-6. Is snapshot-and-fork wanted in Phase E, or will arms replay from tick 0? (§2.8)
-7. Is a no-interaction control arm (all conductance zero) already among the 34 criteria? I did not find one by keyword. (§2.6)
+6. Is snapshot-and-fork wanted in Phase E, or will arms replay from tick 0? (§2.8) *2026-09-20:* either way, candidate C1 is needed first, or the two arms are not comparing the same chance events.
+7. Is a no-interaction control arm (all conductance zero) already among the 34 criteria? I did not find one by keyword. (§2.6) *2026-09-20:* candidate C34 proposes three named control arms, including a two-level no-interaction control.
 
-Questions 8–15 are in **§7.11** and come from the SEAA addendum.
+Questions 8–15 are in **§7.11** and come from the SEAA addendum. Questions 13 and 14 are answered in **§8.1** and **§8.2**.
 
 ---
 
@@ -710,3 +710,28 @@ others it can fail today.
     waiting for Phase E? (§7.10b)
 15. Where a criterion has a mechanism-disabled arm, should it assert a **floor** on that arm — the
     observable is absent — rather than only a direction between arms? (§7.10c)
+
+---
+
+## 8. Revisions after the 2026-09 sweep (full reads, 2026-09-20)
+
+Fourteen preprints from the twelve-month sweep were read in full by five sub-agents from `pdftotext` output (reports in `SWEEP_READING_REPORTS_2026-09-20.md`, with the same provenance limits as §0); the proposals drawn from them are consolidated, re-checked against spec v2 by keyword search, and prioritised in `SPEC_CANDIDATES_from_preprints_2026-09-20.md` (candidates C1–C42, X1–X4). Where a full read changes a statement in §1–§7, the change is recorded here and the affected line above carries a dated note.
+
+**8.1 Seed pairing across arms is not guaranteed by a single generator, and per-mechanism substreams are only a partial fix (changes §2.6, §2.8; answers Q13).** Buffalo, Pearson & Klein 2026 (2603.11084) show formally (§3.3) that seed-matched runs with a stateful generator fail to couple the two arms of a counterfactual whenever the intervention alters the execution path, because every later draw index shifts. Spec `M3.D.4` (one seeded generator threaded explicitly) is exactly that design; byte-identical logs (`M3.D.5`) are a within-arm property and do not help. The paper also addresses §7.10(a)'s proposed remedy directly (§1): separate streams per event class are a coarse mitigation, because within a class the dependence persists and choosing the granularity requires anticipating every execution-path change. The full remedy is a counter-based generator keyed by a stable event identity (tick, stable object identifiers, purpose, index), with stable person identifiers across arms and no rejection sampling. Q13's answer is therefore: neither a shared stream nor per-mechanism substreams; keyed draws. This is the one finding of the sweep that corrects a stated requirement rather than adding to Phase E. Candidates C1–C4; §7.10(a)'s bit-identical-disabled-arm test is candidate C4's placebo test.
+
+**8.2 Ordering is model content, with a number attached (strengthens §2.1; bears on Q14).** Sachdeva & van Nuenen 2025 (2510.10002) §3.3: with everything else fixed, the order in which two agents spoke moved first-round consensus from about 40% to nearly 90%. Li & Tao 2026 (2603.00113) name the scheduler and the visibility object as parts of the model to be versioned and logged. §7.10(b)'s permutation test should be written now (Q14: yes), and with the caution that a commutative batch reduction does not save `M1.F.8` if a stateful generator is consumed in loop order, which 8.1 removes. Candidates C5, C6, C30.
+
+**8.3 Information access needs a rule and a mutant, not an intent (new).** He 2026 (VISA, 2607.28027) rule r14 and Zhou et al. 2026 (PIMMUR, 2509.18052) §2.3.2 make the same point from different directions: what an agent may read must be declared and enforced. The spec has the belief layer (`M9`) but no prohibition on reading another person's true state and no test that would notice. Candidate C9.
+
+**8.4 Witness appraisal (new mechanism).** Holland et al. 2026 (2607.29546) eqs 4–5 give a witness rule with its own constant and a dependence on the witness's relation to both parties. Spec `M1.F.5` says witnesses appraise; `M4.C.1` does not say which tie's conductance applies. This is the one place the sweep proposes a mechanism rather than a test. Candidate C8.
+
+**8.5 Object lifecycle (new).** VISA rules r8 and r13 ask for named create and remove functions with declared external effects. Mortality is in the spec (`M3.B.1`, `M7.C.1`, `M11.C.15`); the disposition of a dead person's conserved quantities is not. Candidate C15.
+
+**8.6 Test-design additions to §2.6 and §7.10.** From Prasad 2026 (2607.07753): four-or-more-level monotonicity sweeps with a pre-declared primary readout (the same form as §7.2's dose–response, applied to person parameters); matched-magnitude contingency-severing mutants, stronger than the sever-the-input row in §2.6 because they keep the input's size; a persistence-after-spell test with a learning-off arm; a readout-saturation rule; an additivity residual. From Kalluri 2026 (2603.01189): ordinal criteria (rank order across three or more mechanisms) and frequency-controlled tests of asymmetric rules, since a 1.5× per-event asymmetry produced cumulative ratios of 0.07–0.55 depending only on event frequency. From TRAILS (2605.18890): re-encoding mutants, a fallback-provenance flag per decision, structural totals held fixed across arms, a paired rank statistic for degenerate arms with a declared multiplicity correction, and a per-result audit record with an unaudited column. From PIMMUR: sign-inversion mutants with a premise/mechanism register, constants frozen before the acceptance suite, arm-blindness of the engine, enumerated triad initial configurations. From Buitrago López et al. 2026 (2606.12369): a logged legality mask before selection. Candidates C11–C25, C33, C35–C37, C42.
+
+**8.7 Ensemble statistics for Phase E (extends §2.6, §2.8, §7.8).** Blando et al. 2026 (2604.04543) practise adaptive ensemble size (add blocks until the interval at every reporting time is below a declared width) and time-resolved comparison with power reported; the reader adds UNDETERMINED as a third outcome. Holland's regime map at N = 10 versus N = 100 shows the polarise/consense boundary widening and flipping under marginal constant changes at small N, which is §2.2's point with a number; the reader proposes per-seed regime classification with an inconclusive class and a non-absorbing-bound test, which is the reporting side of §7.10(e)'s settling condition. Kurz 2025 (2512.18016) gives the exact form of §2.3's constant sweep for threshold-type constants: the trajectory is piecewise constant in each threshold, and the switch points are computable from the margins encountered, so an invariance interval per constant can be logged rather than sampled. Candidates C26–C29, C31.
+
+**8.8 The LLM line (confirms §3, adds nothing to v2).** Buitrago López et al.: mean JSD 0.212 between LLM action choices and the intended policy, no prompt best across models, 135–1,337× slower. Wang et al. 2026 (2608.06485): personas differ at baseline but respond to life events alike, with changes about ten times smaller than human bands and a pull toward agreeableness. Li et al. 2026 (2608.24912): a benevolence bias that adversarial personas cannot push below the human baseline on prosociality or harm aversion. All three support `M3.D.6`. Protocol items for the exploratory notes only (X1–X4 in the candidates file).
+
+**Not changed.** §2.2, §2.4, §2.5, §2.7, §2.10–2.12, §3 and §7.1–7.9 stand as written; the sweep papers add instances, not corrections.
+

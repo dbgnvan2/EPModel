@@ -1203,6 +1203,8 @@ Each criterion **MUST** have a named test, **MUST** assert a direction of differ
 
 **M11.D.20** — *two renderings of one state agree in ordering.* An ordering computed from `M11.G`'s family-evaluation readout — for example, members ranked by symptom load — **SHOULD** match the same ordering computed from the raw run log (`M16`). Nothing else reads the readout, so renderer drift would otherwise go unnoticed. `test_m11d20_readout_ordering_matches_run_log_ordering` ⟦proposed rev10 · DL §7.10(d) · SEAA⟧
 
+**M11.D.21** — *no state bound is absorbing unless the theory says so.* For each bounded state — `functional_level`, the anxiety channels, conductance — a run that starts a person at the bound **MUST** show that the mechanism can leave it, unless the corpus says the bound is absorbing. `M17.B.2`'s regime classification is the Phase E counterpart. `test_m11d21_state_bounds_are_not_absorbing` ⟦proposed rev10 · C29 · Holland 2026⟧
+
 ### M11.E — Criteria that cannot be made code-testable in Phases B–D
 
 Flagged explicitly, with a human-review proposal, per the project's planning rule.
@@ -1530,6 +1532,8 @@ with no effects cannot answer "what did that do", which is the only question any
 **M16.A.5** Belief writes (`M9`) **MUST** be tagged distinctly from ground-truth state changes, so a reader
 and a readout can separate them without inference. → `M9.5`
 
+**M16.A.5a** For each belief that has a true-state counterpart, the log **MUST** allow the signed discrepancy (belief − truth) to be computed per tick. → `papers/SPEC_CANDIDATES…` C41 ⟦proposed rev10 · C41 · Kalluri 2026⟧
+
 **M16.A.6** Records **MUST** be appended in a stable, deterministic order. Two runs at one seed produce
 byte-identical logs (`M3.D.5`), so any nondeterminism in ordering — dictionary iteration, set traversal,
 parallel dispatch — is a defect this requirement makes visible.
@@ -1539,6 +1543,8 @@ parallel dispatch — is a defect this requirement makes visible.
 **M16.A.8** For every mechanism with asymmetric `[I]` constants (`M11.1e`), the log **MUST** record per-event magnitudes and event counts separately, so that a cumulative asymmetry can be split into its rule and its frequency. → `papers/SPEC_CANDIDATES…` C20 ⟦proposed rev10 · C20 · Kalluri 2026⟧
 
 **M16.A.9** — *repertoire entropy, per channel.* The log **SHOULD** carry, per agent and per window, the normalised entropy of the distribution of selected moves over the `M5` repertoire, computed **separately** for the `AUTOMATIC` and `SELF_DIRECTED` channels from the channel `M1.F.1a` records on every event. It describes concentration and **MUST** be labelled as such: it is **not** a measure of differentiation, maturity or `basic_level`, and a falling value means behaviour has narrowed, not that anyone has matured. It needs no new state and no engine change — an observer computes it from the `M4.E.1` event stream — so `M16.B.3` holds. It is the only observable `M4.D.6d` has; `M11.C.40` is the test, and `M17.B.5`'s transition readout carries it as a per-channel column. → `papers/DESIGN_LESSONS…` §7.9 ⟦proposed rev10 · E-RE · SEAA⟧
+
+**M16.A.10** For every `[I]` constant used as a threshold in policy or appraisal, the engine **SHOULD** emit, per tick, the signed margin of each comparison made against it. It is an observer-side record class, so `M16.B.3` holds. → `papers/SPEC_CANDIDATES…` C31 ⟦proposed rev10 · C31 · Kurz 2025⟧
 
 ### M16.B The engine emits; it does not write
 
@@ -1627,6 +1633,109 @@ remain available alongside it, and any narrated claim **MUST** be traceable to t
 | **M16.T.6** | The **event store** is *not* optional: with `M16.D`'s delayed view reachable, a run whose store is emptied **MUST** diverge from one whose store is live, wherever `M1.E.7c`'s first or fourth form fires. This is the converse of `M16.T.3`, and exists so the two are not conflated again. **The store is disabled by an experimental override declared in the test, never by a config key** — `M16.B.3` forbids it being disableable in production, which is the same shape `M10.C.4b` uses for the quantum-jump conditions | `test_m16t6_event_store_is_load_bearing` |
 | **M16.T.4** | The delayed view returns only the agent's own events, only older than the delay | `test_m16t4_delayed_view_is_scoped_and_lagged` |
 | **M16.T.5** | Two runs at one seed produce byte-identical logs, header included | `test_m16t5_same_seed_same_log_with_header` — a separate test from `M11.D.5`'s, because §0.4 requires the name to embed this criterion's own ID |
+
+---
+
+## M17 — Phase E: ensemble runner, arms and readouts ⟦first draft, rev10⟧
+
+**Status.** A first draft, written at revision 10 from the method literature on the owner's decision of 2026-09-22 (§0.1). **All of `M17` is Phase E scope, and `M13.3`'s rule applies to every requirement in it: nothing here is built during Phases B–D.** Where an `M17` requirement needs something recorded or tested during B–D, that part is placed in `M16` or `M11` and cited from here. `M17` changes nothing in `M0.4`, `M11.F.9` or `M15.D`; it says how Phase E measures what they allow a run to claim. Every requirement in it carries a proposal marker. `E-RE`, which the handoff placed in `M17.C`, is at `M16.A.9` and `M11.C.40` by the owner's decision of 2026-09-22, because `DESIGN_LESSONS` §7.9 says it is a Phase B–D readout. ⟦proposed rev10 · owner decision 2026-09-22⟧
+
+### M17.A Ensemble size and stopping
+
+**M17.A.1** — *adaptive ensemble size, and UNDETERMINED as a third outcome.* For each directional criterion, Phase E **MUST** add seeds in blocks of a declared size until the confidence interval of the per-seed arm difference has a half-width below a declared precision δ, up to a declared seed cap, and the log **MUST** record the seed count used. A criterion whose interval has not converged at the cap **MUST** be reported **UNDETERMINED** — not pass and not fail. Block size, δ and the cap are `[I]`. The fixed 1,000-seed ensembles `M13` names for Phases C and D are not changed by this. → `papers/SPEC_CANDIDATES…` C26 ⟦proposed rev10 · C26 · Blando 2026⟧
+
+**M17.A.2** — *time-resolved comparison that carries its power.* Phase E **SHOULD** test the arm difference at each reporting tick, report the first tick at which the pre-declared direction holds, and report the power of the test wherever the null is not rejected, so that "the arms did not differ" is distinguishable from "the ensemble was too small". → `papers/SPEC_CANDIDATES…` C27 ⟦proposed rev10 · C27 · Blando 2026⟧
+
+**M17.A.3** Every Phase E comparison **MUST** use `M11.4e`'s paired statistic on per-seed differences, with its declared multiplicity correction; an unpaired test on the two arms' distributions **MUST NOT** be used. → `papers/SPEC_CANDIDATES…` C25 ⟦proposed rev10 · C25 · Ye 2026⟧
+
+**M17.A.4** — *a pre-declared minimum effect margin.* Every directional criterion **MUST** declare, before it is run, a minimum effect margin graded `[I]`, and a per-seed difference below the margin **MUST NOT** count toward the direction holding, whatever the ensemble size. Without a margin, ensemble size decides the result: a large enough ensemble makes every difference significant. → `papers/DESIGN_LESSONS…` §2.6 ⟦proposed rev10 · DL §2.6 · Röchert 2022⟧
+
+### M17.B Per-seed readouts
+
+**M17.B.1** — *principal strata per seed.* Phase E **SHOULD** report, per criterion and per seed, the paired arm difference, and classify each seed as **same**, **converted** or **reversed**; a directional criterion holds when converted seeds exceed reversed seeds by the pre-declared margin (`M17.A.4`). The classification is meaningful only under `M3.D.4a`'s coupled draws. → `papers/SPEC_CANDIDATES…` C28 ⟦proposed rev10 · C28 · Buffalo 2026⟧
+
+**M17.B.2** — *regime classification per seed, with an inconclusive class.* Phase E **MUST** classify each bounded slow and fast state trajectory per seed as settled at a bound, settled at its attractor, oscillating, or inconclusive at the horizon, and report the fractions per arm. A directional criterion **MUST NOT** count inconclusive seeds as passes. The companion test that no bound is absorbing is `M11.D.21`, which runs in Phase C. → `papers/SPEC_CANDIDATES…` C29 ⟦proposed rev10 · C29 · Holland 2026⟧
+
+**M17.B.3** — *belief–truth discrepancy.* Phase E **SHOULD** report the distribution and trajectory, per arm, of the signed discrepancy between each belief and its true-state counterpart (`M16.A.5a`), beside the outcome readouts, so that arms in which belief and outcome move in opposite directions are identified rather than averaged away. With `M4.B.2` in place this is the quantity `M11.C.36`'s mutant is expected to move. → `papers/SPEC_CANDIDATES…` C41 ⟦proposed rev10 · C41 · Kalluri 2026⟧
+
+**M17.B.4** — *a time-to-event report does not collapse a bimodal distribution.* Every time-to-event readout **MUST** be reported as a distribution, and the reporting path **MUST** be tested against a synthetic **bimodal** fixture that it must not reduce to a single number. `test_m17b4_time_to_event_report_does_not_collapse_a_bimodal_fixture` → `papers/DESIGN_LESSONS…` §7.10(f) ⟦proposed rev10 · DL §7.10(f) · SEAA⟧
+
+**M17.B.5** — *move-transition structure.* The trace renderer **SHOULD** emit, per person and per arm, the first-order move-transition count matrix, and ensemble reports **SHOULD** compare arms on transition structure as well as on move marginals. Where a criterion concerns the distribution of moves, the report **SHOULD** include the base-2 Jensen–Shannon divergence with Laplace smoothing between arms, per person stratum, as a per-seed paired distribution rather than one pooled value. The readout **SHOULD** carry `M16.A.9`'s repertoire entropy as a per-channel column. → `papers/SPEC_CANDIDATES…` C39; `papers/DESIGN_LESSONS…` §7.8 mapping table ⟦proposed rev10 · C39 · Buitrago López 2026; E-RE · SEAA⟧
+
+**M17.B.6** — *inertia and conformity, as a post-run diagnostic.* The analysis layer **SHOULD** fit, per person, a multinomial model of the selected move on an indicator that the same move was selected at the previous tick (inertia), the count of each move type received or witnessed in the current batch, and the count in earlier ticks (conformity, within-batch and prior), with person and tick effects. Acceptance tests **MAY** assert directions on these coefficients; where they do, zeroing all conductance **MUST** drive the conformity terms to about zero, and deleting the self-directed channel **MUST** reduce inertia for high-`basic_level` persons. The coefficients describe the model and **MUST NOT** become constants. Rare moves will have wide intervals, and those intervals **MUST** be reported. → `papers/SPEC_CANDIDATES…` C40 ⟦proposed rev10 · C40 · Sachdeva 2025⟧
+
+### M17.C Variance components and initial conditions
+
+**M17.C.1** — *initial conditions as a declared distribution.* Initial state for any run family **MUST** be specified as a distribution `D0` over person attributes, tie states, triangle topology and beliefs that declares its correlation structure — the pairings the theory states (spouses matched on `basic_level`, `M2.A.0c` and `M2.A.0e`; pole independent of sex, `M2.A.0g`) and orderings among children — and not as independent per-attribute ranges. The runner **MUST** draw initial states from it and **MUST** report four variance components separately: seed, initial condition, exogenous-spell timing, and constant sweep. `D0` **MUST NOT** be tuned to reproduce a known history (`M11.F.9(c)`); for an imported family it is `M15.B.1`'s ranges with their correlations stated. → `papers/SPEC_CANDIDATES…` C32; `papers/DESIGN_LESSONS…` §2.6 ⟦proposed rev10 · C32 · Li & Tao 2026; DL §2.6 · Guan 2026⟧
+
+**M17.C.2** — *ordering spread, if a sequential regime is run.* If Phase E runs an activation regime in which persons select or receive in sequence (`M17.E.6`), the runner **MUST**, per seed, run every ordering or a seeded sample of orderings of declared size, and **MUST** report the spread of each directional result across orderings as a variance component distinct from the across-seed spread. → `papers/SPEC_CANDIDATES…` C30 ⟦proposed rev10 · C30 · Sachdeva 2025⟧
+
+**M17.C.3** — *structural arms hold declared totals fixed.* When counterfactual arms differ in initial tie topology or tie strengths, the arm specification **MUST** state which structural totals are held fixed — number of ties, total conductance, total bond energy, generation structure — and the run log **MUST** verify them. → `papers/SPEC_CANDIDATES…` C33 ⟦proposed rev10 · C33 · Ye 2026⟧
+
+### M17.D Control and structural arms
+
+**M17.D.1** — *named control arms.* Phase E **SHOULD** provide four control arms:
+
+- (a) two **no-interaction** controls — all conductance zero; and ties intact with event delivery suppressed — so that drift from standing load (`M3.D.1` step 1, `M6.I.8`) is separated from drift from events;
+- (b) an **endogenous-only** arm, with all exogenous spells removed and societal anxiety held constant, so that persistent non-settling can be attributed to the relationship mechanisms;
+- (c) a **homogeneous-family** arm, in which all persons share identical initial `basic_level`, chronic anxiety and tie attributes, with each `M11.C` criterion declaring in advance whether it is expected to pass or fail there; a criterion that passes where the theory says heterogeneity is required (projection onto the most vulnerable child, `M2.A.2`) **MUST** be flagged;
+- (d) the **rival-mechanism** arm of `M17.D.2`.
+
+→ `papers/SPEC_CANDIDATES…` C34; `papers/DESIGN_LESSONS…` §2.6, §7.8 `E-RM` ⟦proposed rev10 · C34 · Sachdeva 2025; E-RM · SEAA⟧
+
+**M17.D.2** — *the rival-mechanism arm.* Every `M11.C` criterion whose observable is differentiation between family members — `M11.C.2` is the first — **MUST** be run against a third arm in which the mechanism the criterion credits is **disabled** while `M4.D.6`'s reinforcement keeps running, and **MUST** assert the **shape** of the outcome, not its presence:
+
+- (a) the criterion **MUST** name which member the mechanism predicts will be affected, and the assertion **MUST** be about that member, in a form the rival arm can fail. "The members diverge" fails this requirement; "the member carrying the projection focus diverges and the siblings do not" does not;
+- (b) the rival arm **MUST** be reported even when it also produces divergence; a rival arm that reproduces the magnitude but not the shape is the expected and informative result;
+- (c) if the rival arm reproduces the shape as well, the criterion **MUST** be reported as **not discriminating**, and the mechanism it tests **MUST NOT** be described in any output as supported by it.
+
+This is distinct from `M10.C.4a`, which removes a condition from the jump mechanism; `M17.D.2` removes the mechanism and asks whether the observable survives without it. Whether disabling a mechanism stays within `M0.4`'s one-parameter-set discipline is an open question (`DESIGN_LESSONS` Q10). Tests: `test_m17d2_rival_arm_is_run_and_reported`, `test_m17d2_criterion_asserts_which_member_not_that_members_differ`, `test_m17d2_non_discriminating_criterion_is_reported_as_such`; an assertion that requires only non-zero divergence between members **MUST** turn the second red. → `papers/DESIGN_LESSONS…` §7.8 `E-RM` ⟦proposed rev10 · E-RM · SEAA; C34 · Sachdeva 2025⟧
+
+**M17.D.3** — *the engine is arm-blind.* The engine **MUST NOT** receive an arm label, scenario name, test identifier or readout definition. Arms **MUST** differ only through declared channels: initial state, `[I]` constants, exogenous spells, and mechanism switches declared in `M10` (for example `M10.B.5`). The build **MUST** include a static check that no policy, appraisal or consolidation module imports from the test or readout modules; the check has the same shape as `M11.D.12` and **MAY** run from Phase B. `test_m17d3_engine_modules_do_not_import_tests_or_readouts` → `papers/SPEC_CANDIDATES…` C35 ⟦proposed rev10 · C35 · Zhou 2026⟧
+
+**M17.D.4** — *floors on null arms.* Wherever a mechanism-disabled arm exists (`M17.D.1`, `M17.D.2`, `M10.C.4a`), the criterion **SHOULD** also assert that the observable is **absent** in that arm, as a declared upper bound over the ensemble rather than a literal zero. A direction test passes when both arms show the phenomenon and one shows more; a floor test fails there. The bound is `[I]`. Whether floors become required is an open question (`DESIGN_LESSONS` Q15). `test_m17d4_null_arm_observable_stays_below_declared_floor` → `papers/DESIGN_LESSONS…` §7.10(c) ⟦proposed rev10 · DL §7.10(c) · SEAA⟧
+
+**M17.D.5** — *both signs of every perturbation.* Every perturbation arm **SHOULD** be run in both directions, raised and lowered, because a directional match on one side can hide an asymmetric failure on the other. → `papers/DESIGN_LESSONS…` §2.6 ⟦proposed rev10 · DL §2.6 · Yang 2024⟧
+
+### M17.E Sweeps and sensitivity
+
+**M17.E.1** — *the constant sweep, reported as a fraction of range.* For each `M11.C` criterion, Phase E **MUST** sample the `[I]` constants over declared ranges and report the fraction of samples in which the asserted direction holds. A criterion that holds only in a narrow band of invented constants is a weaker result than one that holds across the range, and a single-point run cannot tell them apart. The rate at which ties harden or attenuate, relative to the rate at which anxiety moves, **MUST** be swept as a named ratio. → `papers/DESIGN_LESSONS…` §2.3, §2.4 ⟦proposed rev10 · DL §2.3 · Castellano 2009; DL §2.4 · Castellano 2009⟧
+
+**M17.E.2** — *dose–response for the dominant constant of a criterion.* Every `M11.C` criterion whose direction depends on a single dominant `[I]` constant **MUST** be re-run over a declared sweep of that constant, declared in `M10` beside the constant, and **MUST** report the response curve rather than a single point, stating three properties separately:
+
+- (a) **necessity** — the effect **MUST** be absent at the constant's null value (zero, or the value that disables the mechanism); a criterion whose direction still holds with its own mechanism disabled is failing and **MUST** be raised as such;
+- (b) **monotonicity** — the response **MUST** be reported as monotone or non-monotone over the range, and a non-monotone response **MUST** be flagged as a functional-form finding, not smoothed. This is `M11.C.38`'s assertion applied to a constant rather than to a person parameter;
+- (c) **operating point** — the report **MUST** state whether the declared default sits on a plateau or on a rising edge, by the fraction of the range maximum attained at the default. For a threshold constant, `M17.E.3`'s invariance interval gives this exactly, and `M11.4d` applies at the ends of the range.
+
+Where a direction depends on a ratio of two `[I]` rates, the ratio **MUST** be named in `M10` and swept. A criterion whose dominant constant cannot be identified **MUST** be reported as not covered by this requirement, not silently omitted. This does not replace `M10.C.4a`. Tests: `test_m17e2_null_value_removes_effect`, `test_m17e2_reports_monotonicity`, `test_m17e2_flags_rising_edge_operating_point`; pinning the sweep to one point, or reporting only the end-of-range value, **MUST** turn them red. → `papers/DESIGN_LESSONS…` §7.8 `E-DR` and its mapping table ⟦proposed rev10 · E-DR · SEAA; C16 · Prasad 2026; C24 · Prasad 2026; C31 · Kurz 2025⟧
+
+**M17.E.3** — *threshold margins and the invariance interval.* For every `[I]` constant used as a threshold in policy or appraisal, Phase E **MUST** report, for each directional criterion, the interval of that constant within which every seed's trajectory is unchanged, bounded by the minimum positive and negative margins logged over the run (`M16.A.10`). `M10`'s register gains an **invariance interval** column. A comparison decided within numerical noise is flagged here; `M11.1c` is its counterpart. → `papers/SPEC_CANDIDATES…` C31 ⟦proposed rev10 · C31 · Kurz 2025⟧
+
+**M17.E.4** — *sensitivity at two or more reference configurations.* For each dimension audited under `M17.G.1`, sensitivity **MUST** be measured at no fewer than two declared reference configurations of the `[I]` constants — for instance a low- and a high-differentiation family — because a perturbation that is null at one configuration may flip the outcome at another. → `papers/SPEC_CANDIDATES…` C37 ⟦proposed rev10 · C37 · Ye 2026⟧
+
+**M17.E.5** — *pairwise additivity residual.* For parameter pairs the theory says interact — chronic anxiety × `basic_level`; functioning balance × conductance — Phase E **SHOULD** run a two-dimensional grid and report the maximum residual against the additive prediction from the two one-dimensional sweeps. → `papers/SPEC_CANDIDATES…` C38 ⟦proposed rev10 · C38 · Prasad 2026⟧
+
+**M17.E.6** — *an alternative activation regime.* Phase E **SHOULD** run the acceptance criteria under at least one activation regime other than `M3.E.2`'s default — seeded random-sequential selection, or a Poisson clock — by swapping the `M3.E.1` activation component, and report which directional results survive. No principled way to choose between regimes is known, so neither is preferred. → `papers/DESIGN_LESSONS…` §2.1 ⟦proposed rev10 · DL §2.1 · Axtell 2022⟧
+
+### M17.F Shocks and settling
+
+**M17.F.1** — *the shock-and-recover protocol.* Any `M11.C` criterion that asserts a change **following** a nodal event — `M11.C.4` is the first — **MUST** be run as a shock protocol and **MUST** report a trajectory, not an end-of-run difference. Both arms run to `M17.F.2`'s settling condition; the nodal event is applied at a fixed tick in both; both continue for a declared post-event window. The readout **MUST** include, for both arms:
+
+- (a) the trajectory of the affected quantity **through** the event, at a resolution fine enough to show a transient; an end-of-window value alone is a failing readout;
+- (b) the time-to-event distribution across seeds for what the criterion says should happen, reported as a distribution with its spread and never as a mean (`M17.B.4`), using `M17.B.2`'s inconclusive class for seeds that have not resolved;
+- (c) the fraction of seeds in which it does not happen within the window, reported explicitly and not dropped from the denominator.
+
+Where a concentration measure is available (`M16.A.9`), the report **MUST** distinguish destabilisation without re-settling from reorganisation. The shock **MUST** be an ordinary nodal event propagating through the model's own machinery (`M7`, `M9.4`); an exogenous edit applied directly to an agent's state **MUST NOT** stand in for one. Tests: `test_m17f1_reports_trajectory_through_event`, `test_m17f1_time_to_event_is_a_distribution`, `test_m17f1_reports_non_occurrence_fraction`; collapsing (b) to a mean, or excluding non-occurring seeds from the denominator, **MUST** turn them red. → `papers/DESIGN_LESSONS…` §7.8 `E-SH` and its mapping table ⟦proposed rev10 · E-SH · SEAA; C29 · Holland 2026⟧
+
+**M17.F.2** — *the settling condition is asserted, not assumed.* A readout **MUST NOT** be taken, and a shock **MUST NOT** be applied, until the readout quantity's drift over a declared trailing window is below a declared threshold, both `[I]`; a run still in its initial transient **MUST** fail rather than report the transient as a result. This is the testable form of `DESIGN_LESSONS` §2.5's concern that hand-set initial states relax during the first ticks. `test_m17f2_readout_refuses_to_report_before_settling_condition_is_met` → `papers/DESIGN_LESSONS…` §7.10(e), §2.5 ⟦proposed rev10 · DL §7.10(e) · SEAA; DL §2.5 · Axtell 2022⟧
+
+### M17.G Reporting and audit
+
+**M17.G.1** — *a robustness audit record per result, with its claim grade.* Every directional result reported from an ensemble **MUST** carry an audit record listing, for each design dimension — seed; initial persons and ties; appraisal and belief rules; tick length and estimator windows; activation and same-tick aggregation; intervention timing, target and channel; topology; family composition — whether the dimension was perturbed and whether the direction **held**, was **sensitive**, or is **unaudited**; and it **MUST** state the claim grade the result is used for: exploratory, mechanism or intervention. → `papers/SPEC_CANDIDATES…` C36 ⟦proposed rev10 · C36 · Ye 2026⟧
+
+**M17.G.2** — *enumerated triad configurations.* Triangle-level acceptance tests **SHOULD** be run over an enumerated set of initial triad configurations — all sign patterns of the three ties' functioning balance and all orderings of the three conductance classes — rather than one hand-set reference triad, with per-configuration outcomes reported. This is feasible for triads and not for the twelve-person family, which stays on `M15`'s ranges. → `papers/SPEC_CANDIDATES…` C42 ⟦proposed rev10 · C42 · Zhou 2026⟧
+
+**M17.G.3** — *misfits reported beside fits.* Any comparison of an ensemble output against `M10.C.4`'s bounds **MUST** report the bounds the output misses alongside those it meets. → `papers/DESIGN_LESSONS…` §2.6 ⟦proposed rev10 · DL §2.6 · Axtell 2016⟧
 
 ### Revision 9 — the corpus-fidelity sweep, 2026-08-28
 

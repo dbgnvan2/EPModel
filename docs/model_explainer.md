@@ -1,8 +1,8 @@
 ---
 tags: [model-bt, explainer]
 status: current
-version: 1.7
-date: 2026-08-28
+version: 1.8
+date: 2026-09-22
 ---
 
 # The model, part by part
@@ -1349,6 +1349,210 @@ describes.
 ensemble path. A language model brings its own theory, and §7's warning applies with force: a readable story
 about a recognisable family is very easy to believe and very hard to falsify. Rendering is reproducible and
 adds no interpretation; narration adds fluency and no evidence.
+
+---
+
+## 18. Method rationale — how the model is built and tested  *(proposed, spec revision 10)*
+
+**What this section is, and how it differs from §1–§17.** Every earlier section explains a part of the model
+by what the corpus says. This one explains parts that come from somewhere else: the method literature on
+agent-based simulation, read in September 2026 and folded into the spec as revision 10. **None of it is a
+claim about Bowen theory or about families.** It is about whether a run's output can be trusted — whether a
+direction the model reports belongs to the mechanism, or to the random seed, the order of updates, a fallback
+rule, a rounding artefact, or a constant tuned until the test passed. Every part here is a proposal: the spec
+marks each one ⟦proposed rev10⟧ until the owner accepts or strikes it. The rationale lives here, on the
+owner's decision of 2026-09-22; the evidence is in `papers/SPEC_CANDIDATES_from_preprints_2026-09-20.md`
+(C-numbers) and `papers/DESIGN_LESSONS_model_design_papers_2026-09-17.md` (`DL §…`, and the SEAA drafts
+`E-DR`, `E-SH`, `E-RM`, `E-RE`), which play the ledger's role for this section.
+
+### 18.0 How to read a method entry
+
+The corpus grades of "How to read an entry" do not apply: these parts make no claim a chapter could support.
+Each entry carries a **method grade** instead, taken from the candidates file.
+
+| Grade | Meaning |
+|---|---|
+| **`[SHOWN]`** | An experimental or formal result in the paper — about the paper's own system |
+| **`[ARGUED]`** | A position or line of reasoning in the paper |
+| **`[INF]`** | The transfer to EPModel. Made by the reader or the consolidator, not by the paper |
+
+Most entries are `[SHOWN]` or `[ARGUED]` about the paper's model and `[INF]` for this one, and both are
+stated. Several sources study LLM agents, not rule-based ones; where that is so the entry says it. **Every
+constant a method entry introduces is `[I]`**, and all of them are listed in spec `M10.C.1a`.
+
+### 18.1 Random draws and identity
+
+**Keyed draws** (spec `M3.D.4a` · C1) — *so that the two arms of a comparison face the same chance events.*
+**Does:** every random draw is a pure function of the seed and a label for the event — the tick, who is
+involved, what the draw is for, and an index — computed by a counter-based generator. No generator state
+carries from one draw to the next. **Why:** the model's trusted output is the difference between two arms
+run on the same seed (§17.1). With one generator threaded through the run, any change that alters the
+execution path — and deleting a mechanism always does — shifts the position of every later draw, so the arms
+stop facing the same chance events and part of their difference is reshuffled noise. Within one arm the old
+design was sound; the defect appears only between arms, which is exactly where the model's claims live.
+**Source:** `[SHOWN]` Buffalo, Pearson & Klein 2026, §3.3 — a formal result that seed-matched runs with a
+stateful generator are not coupled once an arm changes the path; `[ARGUED]` §4.1 for the remedy; Holland et
+al. 2026 §5.2 used the practice without stating the mechanism. `[INF]` transfer.
+
+**Stable identifiers** (`M1.A.20`, `M1.B.13`, `M1.C.7`, `M2.A.0h`, `M15.A.1a` · C2) — *so an event label
+names the same person in both arms.* **Does:** founders keep fixed identifiers; a child's is derived from its
+parents' and its birth order; nothing is numbered from a run-time counter. **Why:** with a counter, a death in
+one arm renumbers everyone born later in the other, and keyed draws then pair different people. **Source:**
+`[ARGUED]` Buffalo et al. §4.3.
+
+**Declared keys** (`M3.D.4b` · C3) — *so the modelling choice hidden inside "the same event" is written down.*
+**Does:** a table of every kind of random draw with its key. A **slot** key (who acts, when) makes "what A
+does this week" the coupled event even if A's target differs between arms; a **dyad** key (who, with whom)
+treats a different partner as a different chance event. **Source:** `[ARGUED]` Buffalo et al. §4.2. The
+assignments are `[INF]`: the sweep reader's for six kinds of draw, and recommended at revision 10 for the
+other four, on the owner's instruction.
+
+**Single query, and the placebo arm** (`M3.D.4c`, `M11.D.15` · C4; DL §7.10(a)) — *a cheap alarm for broken
+coupling.* **Does:** each key is drawn once and cached; an arm that switches on a mechanism at zero strength
+must reproduce the baseline byte for byte. **Source:** `[ARGUED]` Buffalo et al. §2.3, §4.3; SEAA's
+zero-strength arm reproduced its control exactly (DL §7.10(a)). Passing does not prove the arms are coupled;
+failing proves they are not.
+
+### 18.2 Order, activation and visibility
+
+**Order must not decide the outcome** (`M11.D.16` · C5; DL §7.10(b)) — *the first test of spec `M1.F.8`,
+which nothing tested.* **Does:** shuffle the order in which persons are processed and same-tick events are
+delivered, and require an identical result; relabel the members of a deliberately symmetric family and
+require a relabelled result. **Source:** `[SHOWN]` Sachdeva & van Nuenen 2025 §3.3 — in LLM debates, speaking
+order alone moved first-round consensus from about 40% to about 90%; `[ARGUED]` Li & Tao 2026, Action 2.
+`[INF]` transfer.
+
+**Activation and visibility as named parts** (`M3.E`, `M16.A.1a` · C6) — *who acts when, and who sees what,
+are part of the model, not plumbing.* **Does:** two components with declared interfaces, logged with a
+version; "everyone acts every week" is recorded as a choice and graded `[I]`. **Source:** `[ARGUED]` Li & Tao
+2026, Definition 4.1 and Action 1. DL §2.1 collects cases where synchronous updating produced results that
+were artefacts of the update scheme (Axtell & Farmer 2022; Castellano, Fortunato & Loreto 2009).
+
+**Witnesses are computed, not chosen** (`M1.F.1b`, `M4.E.1a` · C7) — *who overhears is a property of the
+household, not of the speaker's intent.* **Does:** the visibility component fills an event's witness list
+from co-residence, conductance and route. A sender who wants an audience has to make a move for it
+(`TRIANGLE`). **Source:** `[ARGUED]` Li & Tao 2026; `[INF]` transfer. It connects to §9.4's witness path.
+
+**An alternative activation scheme** (`M17.E.6` · DL §2.1) — Phase E re-runs the criteria with persons acting
+in a random sequence, or on independent clocks, and reports which directions survive. No paper offers a
+principled way to pick the right scheme, so none is preferred.
+
+### 18.3 Witnesses and information
+
+**Witness appraisal** (`M4.C.9`, `M11.C.35` · C8) — *what makes a triangle rather than a diluted dyad.*
+**Does:** a witness appraises an exchange from its own state and its ties to **both** parties, with its own
+`[I]` weight, never as a scaled copy of the target's reaction. **Why:** in Bowen's account a third party is
+drawn in according to its ties to both members of the anxious pair (§6.1, §9.4), and spec `M4.C.1` did not say
+which tie's conductance applies to a witness. **Source:** `[SHOWN]` Holland et al. 2026, eqs 4–5 and §4.2 — in
+their model the witness channel alone was enough to produce oscillation and polarisation; `[INF]` transfer.
+This is the one place the method literature adds a mechanism rather than a test. Their model's bounds act as
+absorbing states; that is a property of their functional form and is not imported.
+
+**What a person may read** (`M4.B.2`, `M9.8`, `M16.A.3a`, `M11.C.36` · C9) — *belief is the only route by
+which a person's decisions reach other people's state.* **Does:** a person decides from its own state, its
+beliefs — including beliefs about ties it is not part of — and the events actually delivered to it. It may
+not read another person's true state. A mutant that reads true state must fail a test. **Why:** the belief
+layer (§9.5) was a channel into appraisal but nothing forbade a shortcut around it, and with the shortcut a
+misperceived alliance cannot happen. **Source:** `[ARGUED]` He 2026 (VISA), rule r14; `[SHOWN]` Zhou et al.
+2026 (PIMMUR) §2.3.2 — LLM agents that had to infer others' relationships, rather than being handed them,
+reached balanced configurations far less often (from about 61% to about 34%). `[INF]` for a rule-based model.
+
+**Belief against truth, as a readout** (`M16.A.5a`, `M17.B.3` · C41) — *so arms in which beliefs and outcomes
+move in opposite directions are seen rather than averaged away.* **Source:** `[SHOWN]` Kalluri 2026 §6.3 —
+trust and task success came apart across scenarios, and a calibration-error readout separated them.
+
+### 18.4 The policy's bookkeeping
+
+**The legal set, logged** (`M4.D.1e`, `M16.A.3b` · C11) — *so a move that was never possible is not mistaken
+for a move never chosen.* **Source:** `[SHOWN]` Buitrago López et al. 2026 §3.2, as practice; in the same
+paper, LLM policies drove the rarer actions to zero in most settings.
+
+**Tie-break and fallback, flagged** (`M4.D.1f`, `M16.A.3c`, `M11.D.18` · C12) — *a silent fallback rule can
+produce the very behaviour a test looks for.* **Source:** `[SHOWN]` Ye et al. 2026 (TRAILS) App. C, as
+practice — a validity flag on every decision, and a fixed fallback when output could not be parsed; `[INF]`
+the risk to EPModel.
+
+**Habituation on repeated relief** (`M4.G.3` · C13) — conditional, and **deferred by the owner for later
+review**. If any term pays relief for repeating the same move, it should wear off with repetition, or be
+shown not to flip between "ignored" and "runaway". **Source:** `[SHOWN]` Prasad 2026 — in a reinforcement
+learner, a bonus without habituation was either ignored or looped without limit, with no graded behaviour in
+between; a bonus that diminished with repetition gave a graded response.
+
+**Every move is reachable** (`M11.D.19` · C14) — *to catch a move the policy can never produce.* **Source:**
+`[SHOWN]` Kurz 2025, Lemma 7 — for bounded-confidence models, whether a pattern of interactions can occur is a
+linear-programming feasibility question; `[INF]` the construction for a triad here.
+
+### 18.5 Structure and lifecycle
+
+**The state and mechanism register** (`M14.A`, `M11.D.17` · C10) — *so every variable has a writer, every
+mechanism a place in the update order, and nothing reads what its owner cannot observe.* **Source:**
+`[ARGUED]` He 2026 (VISA), rules r1, r3, r10, r11, r14, r16. The third check is the static form of "what a
+person may read" above.
+
+**Disposition at death** (`M6.3`, `M7.C.1e`, `M11.C.37` · C15) — *so conservation (I6, I7) can be checked across
+a death.* A dead person's anxiety, bond energy, debts, positions and budget share have to go somewhere the
+invariants can see. **Deferred by the owner for later review**, with this guidance: relationship energy
+behaves like chemical bond energy and does not disappear — which agrees with §4.3 (coupling does not decay)
+and with I7 (no exit from the field). **Source:** `[ARGUED]` He 2026 (VISA), rules r8 and r13; that the spec left
+the disposition open is the consolidator's finding.
+
+### 18.6 Test design
+
+Each is a rule about how a criterion is written or proved, not about what the model does.
+
+| Rule | Spec | Why | Source |
+|---|---|---|---|
+| Graded monotonicity over four or more levels | `M11.C.38` · C16 | A two-arm test cannot see a threshold; an ordering over several levels uses the corpus's orderings more fully than a sign | `[SHOWN]` Prasad 2026, Tables 2 and 7 — whose own monotonicity claim overstated its tables, which is the point |
+| Mutants that keep an input's size and break its link to state | `M11.1b` · C17 | Shows the link to state matters, not only the input's size | `[SHOWN]` Prasad 2026, Figs 3 and 12 |
+| A pattern learned under a spell outlasts it | `M11.C.39`, `M10.B.5` · C18 | Distance and cutoff remove the contact that would disconfirm what was learned, so the pattern persists with no persistence rule written | `[SHOWN]` Prasad 2026, Tables 4, 11, 12, some cells on five seeds |
+| Ordinal criteria | `M11.4c` · C19 | Rank order across mechanisms uses orderings without magnitudes. No corpus ranking of effect strengths has been found yet, so no criterion uses it | `[SHOWN]` Kalluri 2026 §5.1 — eight effects ranked correctly while only four magnitudes matched |
+| Asymmetric rules tested at matched frequency | `M11.1e`, `M16.A.8` · C20 | A per-event asymmetry does not produce a cumulative one; event frequency decides the total | `[SHOWN]` Kalluri 2026, Table 5 |
+| Re-encoding mutants | `M11.1c` · C21 | A direction that changes when only the encoding changes is an artefact of the encoding | `[SHOWN]` Ye et al. 2026 (TRAILS) §3.1, for LLM agents; `[INF]` |
+| Outcome-directive audit and a premise column | `M11.1d`, `M10.C.5` · C22 | Separates what the model is told (a premise) from what follows from it | `[SHOWN]` Zhou et al. 2026 (PIMMUR) §4.4, for LLM prompts; `[INF]` |
+| Constants frozen before the tests | `M10.B.4`, `M16.A.7` · C23 | The acceptance-test twin of §17.2: tuning a constant until a test passes, then reporting the pass | `[ARGUED]` PIMMUR; Kalluri 2026 as a worked example of the failure |
+| A null at a bound is an assay limit | `M11.4d` · C24 | A readout already at its floor or ceiling cannot move | `[SHOWN]` Prasad 2026 |
+| A statistic for zero-variance arms; multiplicity declared | `M11.4e`, `M17.A.3` · C25 | Some arms have no seed-to-seed variance; several readouts under one criterion need a correction | `[SHOWN]` Ye et al. 2026 (TRAILS) App. C.1, as method |
+| A criterion fails when the move it needs never occurs | `M11.1f` · DL §2.6 | High overall accuracy can hide total failure on rare classes | Mou, Wei & Huang 2024 |
+| Repertoire entropy, per channel | `M16.A.9`, `M11.C.40` · E-RE | The only observable for spec `M4.D.6d`: reinforcement should narrow the automatic channel and not the self-directed one. It measures concentration, **not** differentiation | DL §7.9, from SEAA |
+| Two views of one state agree in ordering | `M11.D.20` · DL §7.10(d) | Catches drift in the family-evaluation readout, which nothing else reads | SEAA §5.9 |
+| No bound is absorbing unless the theory says so | `M11.D.21` · C29 | A person started at a bound must be able to leave it | `[SHOWN]` Holland et al. 2026, Corollary 4.2 |
+| The engine cannot see which arm it is in | `M17.D.3`, `M11.D.22` · C35 | A code path that branches on the arm writes the result into the run | `[SHOWN]` PIMMUR §2.4 — when LLM agents could see what was being tested, the tested outcome became 1.77 times as frequent; `[INF]` |
+
+### 18.7 Phase E — the ensemble runner (`M17`)
+
+`M17` is a first draft of Phase E, kept in the one master specification on the owner's decision. Nothing in it
+is built during Phases B–D except the stopping rule, which the owner brought into Phases C and D (`M13.4`).
+
+- **Stopping** (`M17.A` · C26, C27, C25; DL §2.6). Seeds are added in blocks until the uncertainty on the
+  per-seed difference is small enough, up to a cap; a criterion that has not settled at the cap is reported
+  **UNDETERMINED**, which is neither a pass nor a fail. A minimum effect is declared in advance so that sheer
+  ensemble size cannot make a trivial difference significant. `[SHOWN]` Blando et al. 2026 §4 and §7, as
+  practice; Röchert et al. 2022, where 1,000 replicates made every difference significant.
+- **Per-seed readouts** (`M17.B` · C28, C29, C39, C40, C41; DL §7.10(f)). Each seed is classified — the arms
+  agreed, one converted, one reversed; the trajectory settled, oscillated, or had not resolved — instead of
+  averaging across seeds. A time-to-event report must not collapse a two-peaked distribution into one
+  number. Transition structure and an inertia/conformity split are post-run diagnostics, outside the engine.
+- **Variance and initial conditions** (`M17.C` · C30, C32, C33). Initial states are drawn from a declared
+  distribution with its correlations stated — spouses matched on basic level, pole independent of sex —
+  and four sources of variance are reported separately: seed, initial condition, spell timing, and
+  constant sweep. `[ARGUED]` Li & Tao 2026 §3.2.3: identical marginals with different correlations encode
+  different mechanisms. The distribution must never be tuned to a known history (§17.2–§17.3).
+- **Control arms** (`M17.D` · C34, E-RM; DL §7.10(c), §2.6). No interaction (two forms); no exogenous input;
+  a homogeneous family; and a **rival-mechanism** arm that disables the mechanism a criterion credits while
+  reinforcement keeps running — if the rival arm reproduces the predicted *shape*, the criterion does not
+  discriminate. Floors on null arms stay a SHOULD, by the owner's decision.
+- **Sweeps** (`M17.E` · DL §2.3, E-DR, C31, C37, C38). The fraction of the invented constants' range over
+  which each direction holds; a dose–response curve for the one constant a criterion depends on most, sharing
+  that range; for threshold constants, the exact interval within which nothing changes, computed from logged
+  margins (`[SHOWN]` Kurz 2025, Lemma 3); sensitivity checked at two or more reference configurations, because a
+  perturbation can be harmless at one and decisive at another (`[SHOWN]` TRAILS §4.2); and interaction
+  between pairs of parameters the theory says interact (`[SHOWN]` Prasad 2026, Tables 13–14).
+- **Shocks and settling** (`M17.F` · E-SH; DL §7.10(e), §2.5). A criterion about what follows a nodal event
+  reports the trajectory through it, the distribution of times to the outcome, and the share of seeds where
+  it never happens; and no readout is taken before the run has settled.
+- **Reporting** (`M17.G` · C36, C42; DL §2.6). Each result carries an audit record naming which design
+  dimensions were perturbed and which are **unaudited**, and the use the claim is put to; triangle tests run
+  over every initial triad configuration; and misfits against the corpus bounds are reported beside fits.
 
 ---
 

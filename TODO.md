@@ -12,6 +12,30 @@ Deferred and adjacent items. Each carries enough context to act on later without
   - `M11.C.11` shape — "three phases, not a step down" is a claim about curve shape; any automated version embeds an invented tolerance.
   - `M5.F.2` — the threshold separating a counterfeit move from a genuine one is invented and sets the result. **This is the model's most consequential invented constant.**
 
+## Spec revision 10 — deferred at the owner's review, 2026-09-22
+
+Revision 10 (branch `spec-rev10-draft`) folds the method literature into the spec. The owner answered its
+fourteen questions on 2026-09-22; these are the ones left for later. The answers table is in the spec's
+revision-10 section.
+
+- [ ] **Disposition at death (C15, spec `M6.3`).** Decide where a dead person's anxiety, bond energy,
+  functioning-balance debts, positions and budget share go. Owner's guidance, not yet a requirement:
+  relationship energy behaves like chemical bond energy and does not disappear when a person dies. That agrees
+  with `M1.B.4` (bond energy decays at or near zero) and `M6.I.7` (no exit from the field). `M11.C.37` cannot be
+  written until this is decided.
+- [ ] **Habituation on repeated relief (C13, spec `M4.G.3`).** Decide whether any `M4` term pays anxiety relief
+  for a repeated move. If none does, strike `M4.G.3` at approval.
+- [ ] **`E-RM` and C34 — one requirement or two (DESIGN_LESSONS Q16).** Currently `M17.D.1`(d) plus `M17.D.2`.
+- [ ] **Does disabling a mechanism count as a second parameter set under `M0.4`? (DESIGN_LESSONS Q10)** Not yet
+  answered. Governs whether `M17.D.2`'s rival-mechanism arm is admissible.
+- [ ] **C19 — is there a corpus ranking of effect strengths?** `M11.4c` allows ordinal criteria (mechanism X moves
+  the outcome more than Y, and Y more than Z), but none is instantiated because no such ranking has been found.
+- [ ] **Confirm the `E-DR` recommendation (Q11).** `M17.E.1` and `M17.E.2` kept separate, sharing one sweep range.
+- [ ] **At approval: restate the requirement count in five documents.** `CLAUDE.md` (also still says revision 6),
+  `README.md`, `CHANGELOG.md`, `docs/theory/_STATUS.md` and `docs/agent_model_proposal.html` claim 427;
+  `tests/test_spec_consistency.py::test_requirement_counts_agree_with_the_spec` is red on the branch until they
+  match the approved count.
+
 ## Arising from the 2026-08-28 batch
 
 - [ ] **Audit the spec for requirements sourced from an extraction *heading* rather than a quoted sentence.** `M5.D.4` was inverted for exactly this reason: `docs/theory/ch13.md` carried the correct quotation in its body under a heading that said the opposite, and only the heading travelled into the spec. The heading is fixed and the requirement corrected, but **nothing has checked whether there are others of the same shape.** The check is mechanical: for each requirement citing a chapter, confirm the claim appears in a *quoted* passage in the extraction, not only in a section title or a bolded gloss. Highest risk in the earliest requirements, written when the extractions were newest.

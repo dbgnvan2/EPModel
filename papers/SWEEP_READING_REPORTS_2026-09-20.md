@@ -4,6 +4,8 @@ Date: 2026-09-20. PDFs in `Model Design papers/Sweep 2026-09/`; catalogue entrie
 
 How these were produced. Each PDF was converted to text (pdftotext; figures survive only as captions; some equations are garbled and the readers say so where it matters). Five readers each took two or three papers, read `EPMODEL_BRIEF.md`, `DESIGN_LESSONS_model_design_papers_2026-09-17.md` and a written task, then wrote for each paper (A) a report on the eight questions in the brief, with every finding tagged [PAPER] (stated or shown in the paper) or [INFERENCE] (the reader's transfer to EPModel) and cited to a section, table or figure, and (B) candidate additions to the spec with a proposed requirement, target module, evidence strength (SHOWN / ARGUED / INFERENCE), what it changes, and cost or risk. The readers did not have the 427 requirements, only the brief and the design lessons; their "already covered" judgements are re-checked against spec v2 in the candidates file, which supersedes section B of each report where they differ.
 
+> **Missing input, noted 2026-09-21.** `EPMODEL_BRIEF.md` and the readers' written task (`READER_TASK.md`) were working files given to the five readers and were never committed. Neither exists in this repository, its history, or anywhere searched on davemini2; the session that produced them did not run on this machine, so they may survive on the other Mac. They have **not** been reconstructed, because a reconstruction would be a guess presented as a source. What is lost is the ability to check what the readers were told about EPModel. What is not lost: every "already covered" judgement the readers made was re-checked against spec v2 by text search in `SPEC_CANDIDATES_from_preprints_2026-09-20.md`, which supersedes the readers' coverage calls where they differ — so no candidate's status rests on the brief alone. If the files are found, commit them to `papers/` and remove this note.
+
 Direct quotations from the papers have been replaced by paraphrases; paper-defined labels are kept in backticks. Numbers, citations and tags are as the readers wrote them.
 
 Contents:
@@ -461,7 +463,7 @@ The three papers converge on one point the spec already half-holds: **who acts w
 
 # Reader report, round 2: VISA (He 2026), Kalluri 2026, Holland et al. 2026
 
-Read in full: READER_TASK.md, EPMODEL_BRIEF.md, DESIGN_LESSONS.md, and the three pdftotext files. All statements about what EPModel "has" rest on the brief and design lessons, not on a read of the 427 requirements; each "already covered" judgement should be checked against the spec.
+Read in full: READER_TASK.md, EPMODEL_BRIEF.md, DESIGN_LESSONS.md, and the three pdftotext files. *(READER_TASK.md and EPMODEL_BRIEF.md were not preserved — see the note under "How these were produced". DESIGN_LESSONS.md is presumably `DESIGN_LESSONS_model_design_papers_2026-09-17.md` as it stood before its §8, which was written from these reports.)* All statements about what EPModel "has" rest on the brief and design lessons, not on a read of the 427 requirements; each "already covered" judgement should be checked against the spec.
 
 ---
 

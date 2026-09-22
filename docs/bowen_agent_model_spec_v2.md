@@ -1029,7 +1029,7 @@ Therefore M4.C's appraisal **MUST** read the receiver's belief about the sender 
 
 **M10.C.1** The following are **invented** and **MUST** be labelled as such wherever they surface: the fast tick length; the softmax temperature and every propensity coefficient; all conductance values; all bond-energy values and its decay rate; the standing-load function; every gate threshold including the `outside_ness` threshold; `societal_leadership`'s functional form; the appraisal gain function's shape; the chronic-anxiety fixation age; sibling-position effect sizes; the M6.I.1 conservation tolerance; every value in M2.
 
-**M10.C.1a** — *extended at revision 10.* The following are added to `M10.C.1`'s list. Each is invented, **MUST** be labelled `[I]` wherever it surfaces, and is given no value in this document:
+**M10.C.1a** — *extended at revision 10.* The following are added to `M10.C.1`'s list. Each is invented, **MUST** be labelled `[I]` wherever it surfaces, and is given no value in this document: ⟦proposed rev10 · register extension⟧
 
 - the activation regime (`M3.E.2`) ⟦proposed rev10 · C6 · Li & Tao 2026⟧
 - the witness weighting constant (`M4.C.9`) ⟦proposed rev10 · C8 · Holland 2026⟧
@@ -1763,6 +1763,211 @@ Where a concentration measure is available (`M16.A.9`), the report **MUST** dist
 **M17.G.2** — *enumerated triad configurations.* Triangle-level acceptance tests **SHOULD** be run over an enumerated set of initial triad configurations — all sign patterns of the three ties' functioning balance and all orderings of the three conductance classes — rather than one hand-set reference triad, with per-configuration outcomes reported. This is feasible for triads and not for the twelve-person family, which stays on `M15`'s ranges. → `papers/SPEC_CANDIDATES…` C42 ⟦proposed rev10 · C42 · Zhou 2026⟧
 
 **M17.G.3** — *misfits reported beside fits.* Any comparison of an ensemble output against `M10.C.4`'s bounds **MUST** report the bounds the output misses alongside those it meets. → `papers/DESIGN_LESSONS…` §2.6 ⟦proposed rev10 · DL §2.6 · Axtell 2016⟧
+
+### Revision 10 — the method literature, 2026-09-22 ⟦proposed rev10 · owner decision 2026-09-22⟧
+
+**Everything this revision adds is a proposal.** Each requirement, table row, register entry and amendment
+ends with a marker of the form ⟦proposed rev10 · C8 · Holland 2026⟧, naming the candidate or design-lessons
+item and the first author of the paper it rests on. A requirement without a marker is approved text and was
+not touched, except where an approved statement had to be extended — those edits are listed below and are
+marked too. Markers are removed only by the owner at approval. The rationale for every marked item lives in
+the candidates and design-lessons files (§0.2), not here.
+
+**What was read.** Four bodies of material, all under `papers/`:
+
+| | File | Contributed |
+|---|---|---|
+| 29 model-design papers | `DESIGN_LESSONS_model_design_papers_2026-09-17.md` §1–§6 | §2 lessons, entered only where the text states a testable form |
+| The SEAA addendum (Liu 2026, 2609.17331) | the same file, §7 | the four drafts `E-DR`, `E-SH`, `E-RM`, `E-RE` and the six test designs of §7.10 |
+| Fourteen sweep preprints, read in full | `SWEEP_READING_REPORTS_2026-09-20.md`, from the brief in `sweep_readers_brief_2026-09-19/` | the evidence behind the candidates, cited by part and candidate, not restated |
+| Their 42 candidates | `SPEC_CANDIDATES_from_preprints_2026-09-20.md` | the primary source of requirement text; each coverage status was re-checked against revision 9 before placing it |
+
+Where a §7.8 draft and a C-number overlap, `DESIGN_LESSONS` §8.9's mapping table was followed and the item
+was entered once, with both references in its marker: `E-DR` with C16, C24 and C31 (`M17.E.2`); `E-SH` with
+C29 (`M17.F.1`); `E-RM` as arm (d) of C34's list (`M17.D.1`, `M17.D.2`); `E-RE` as a column on C39's readout
+(`M17.B.5`). No wording was taken from the PDFs; the paraphrases are the candidates file's.
+
+**Two placements differ from the handoff that drove this revision, both on the owner's decision of
+2026-09-22.** `E-RE` is at `M16.A.9` and `M11.C.40`, gated in Phase D, not in `M17.C` — `DESIGN_LESSONS` §7.9
+says it is a Phase B–D readout and the only observable `M4.D.6d` has. And the three §7.10 tests with no
+C-number are entered: (c) at `M17.D.4`, (d) at `M11.D.20`, (f) at `M17.B.4`.
+
+**Parts of three Phase E candidates were placed outside `M17`**, because they must exist during B–D: C29's
+non-absorbing-bound test (`M11.D.21`), C31's margin log (`M16.A.10`) and C41's discrepancy log (`M16.A.5a`).
+
+| | Count |
+|---|---|
+| New IDs | **87** — M1 4, M2 1, M3 5, M4 6, M6 1, M7 1, M9 1, M10 4, M11 22, M14 3, M15 1, M16 9, M17 29 |
+| Amendments of approved requirements, by suffixed ID | **2** — `M3.D.4a` (C1, replaces `M3.D.4`'s second sentence) and `M11.4b` (the exceptions count) |
+| New acceptance criteria | **6** in `M11.C` (`M11.C.35`–`M11.C.40`) and **7** in `M11.D` (`M11.D.15`–`M11.D.21`) |
+| New `[I]` register entries | **17** in `M10.C.1a`, naming **23** constants; none is given a value |
+| Candidates entered | **all 42** (C1–C42), the four §7.8 drafts, and all six §7.10 tests; C19 enters as a criterion form with no instance |
+| New part headings | `M3.E`, `M14.A`, and the module `M17` with parts A–G |
+
+**Every marked item with an ID.** Form is *new*, *amendment*, *criterion*, *register* or *Phase E*.
+
+| Spec ID | Candidate or E-ID | Source paper | Form |
+|---|---|---|---|
+| `M1.A.20` | C2 | Buffalo, Pearson & Klein 2026 (2603.11084) | new |
+| `M1.B.13` | C2 | Buffalo, Pearson & Klein 2026 (2603.11084) | new |
+| `M1.C.7` | C2 | Buffalo, Pearson & Klein 2026 (2603.11084) | new |
+| `M1.F.1b` | C7 | Li & Tao 2026 (2603.00113) | new |
+| `M2.A.0h` | C2 | Buffalo, Pearson & Klein 2026 (2603.11084) | new |
+| `M3.D.4a` | C1 | Buffalo, Pearson & Klein 2026 (2603.11084) | amendment |
+| `M3.D.4b` | C3 | Buffalo, Pearson & Klein 2026 (2603.11084) | new |
+| `M3.D.4c` | C4 | Buffalo, Pearson & Klein 2026 (2603.11084) | new |
+| `M3.E.1` | C6 | Li & Tao 2026 (2603.00113) | new |
+| `M3.E.2` | C6, DL §2.1 | Li & Tao 2026 (2603.00113); Axtell & Farmer 2022 | new |
+| `M4.B.2` | C9 | He 2026, VISA (2607.28027) | new |
+| `M4.C.9` | C8 | Holland et al. 2026 (2607.29546) | new |
+| `M4.D.1e` | C11 | Buitrago López et al. 2026 (2606.12369) | new |
+| `M4.D.1f` | C12 | Ye et al. 2026, TRAILS (2605.18890) | new |
+| `M4.E.1a` | C7 | Li & Tao 2026 (2603.00113) | new |
+| `M4.G.3` | C13 | Prasad 2026 (2607.07753) | new |
+| `M6.3` | C15 | He 2026, VISA (2607.28027) | new |
+| `M7.C.1e` | C15 | He 2026, VISA (2607.28027) | new |
+| `M9.8` | C9 | He 2026, VISA (2607.28027) | new |
+| `M10.B.4` | C23 | Zhou et al. 2026, PIMMUR (2509.18052) | new |
+| `M10.B.5` | C18 | Prasad 2026 (2607.07753) | new |
+| `M10.C.1a` | one per entry — C6, C8, C12, C13, C16, C19, C21, C26, C30, C32, C37, E-RE, E-SH, E-DR, DL §2.3, §2.6, §7.10(c), §7.10(e) | as each entry's marker | register |
+| `M10.C.5` | C22 | Zhou et al. 2026, PIMMUR (2509.18052) | register |
+| `M11.1b` | C17 | Prasad 2026 (2607.07753) | new |
+| `M11.1c` | C21 | Ye et al. 2026, TRAILS (2605.18890) | new |
+| `M11.1d` | C22 | Zhou et al. 2026, PIMMUR (2509.18052) | new |
+| `M11.1e` | C20 | Kalluri 2026 (2603.01189) | new |
+| `M11.1f` | DL §2.6 | Mou, Wei & Huang 2024 | new |
+| `M11.4b` | C15, C16, C19, C26 | He 2026, VISA (2607.28027); Prasad 2026 (2607.07753); Kalluri 2026 (2603.01189); Blando et al. 2026 (2604.04543) | amendment |
+| `M11.4c` | C19 | Kalluri 2026 (2603.01189) | new |
+| `M11.4d` | C24 | Prasad 2026 (2607.07753) | new |
+| `M11.4e` | C25 | Ye et al. 2026, TRAILS (2605.18890) | new |
+| `M11.C.35` | C8 | Holland et al. 2026 (2607.29546) | criterion |
+| `M11.C.36` | C9 | He 2026, VISA (2607.28027) | criterion |
+| `M11.C.37` | C15 | He 2026, VISA (2607.28027) | criterion |
+| `M11.C.38` | C16 | Prasad 2026 (2607.07753) | criterion |
+| `M11.C.39` | C18 | Prasad 2026 (2607.07753) | criterion |
+| `M11.C.40` | E-RE | Liu 2026, SEAA (2609.17331) | criterion |
+| `M11.D.15` | C4, DL §7.10(a) | Buffalo, Pearson & Klein 2026 (2603.11084); Liu 2026, SEAA (2609.17331) | criterion |
+| `M11.D.16` | C5, DL §7.10(b) | Li & Tao 2026 (2603.00113); Liu 2026, SEAA (2609.17331) | criterion |
+| `M11.D.17` | C10 | He 2026, VISA (2607.28027) | criterion |
+| `M11.D.18` | C12 | Ye et al. 2026, TRAILS (2605.18890) | criterion |
+| `M11.D.19` | C14 | Kurz 2025 (2512.18016) | criterion |
+| `M11.D.20` | DL §7.10(d) | Liu 2026, SEAA (2609.17331) | criterion |
+| `M11.D.21` | C29 | Holland et al. 2026 (2607.29546) | criterion |
+| `M14.A.1` | C10 | He 2026, VISA (2607.28027) | new |
+| `M14.A.2` | C10 | He 2026, VISA (2607.28027) | new |
+| `M14.A.3` | C10 | He 2026, VISA (2607.28027) | new |
+| `M15.A.1a` | C2 | Buffalo, Pearson & Klein 2026 (2603.11084) | new |
+| `M16.A.1a` | C6 | Li & Tao 2026 (2603.00113) | new |
+| `M16.A.3a` | C9 | He 2026, VISA (2607.28027) | new |
+| `M16.A.3b` | C11 | Buitrago López et al. 2026 (2606.12369) | new |
+| `M16.A.3c` | C12 | Ye et al. 2026, TRAILS (2605.18890) | new |
+| `M16.A.5a` | C41 | Kalluri 2026 (2603.01189) | new |
+| `M16.A.7` | C23 | Zhou et al. 2026, PIMMUR (2509.18052) | new |
+| `M16.A.8` | C20 | Kalluri 2026 (2603.01189) | new |
+| `M16.A.9` | E-RE | Liu 2026, SEAA (2609.17331) | new |
+| `M16.A.10` | C31 | Kurz 2025 (2512.18016) | new |
+| `M17.A.1` | C26 | Blando et al. 2026 (2604.04543) | Phase E |
+| `M17.A.2` | C27 | Blando et al. 2026 (2604.04543) | Phase E |
+| `M17.A.3` | C25 | Ye et al. 2026, TRAILS (2605.18890) | Phase E |
+| `M17.A.4` | DL §2.6 | Röchert et al. 2022 | Phase E |
+| `M17.B.1` | C28 | Buffalo, Pearson & Klein 2026 (2603.11084) | Phase E |
+| `M17.B.2` | C29 | Holland et al. 2026 (2607.29546) | Phase E |
+| `M17.B.3` | C41 | Kalluri 2026 (2603.01189) | Phase E |
+| `M17.B.4` | DL §7.10(f) | Liu 2026, SEAA (2609.17331) | Phase E |
+| `M17.B.5` | C39, E-RE | Buitrago López et al. 2026 (2606.12369); Liu 2026, SEAA (2609.17331) | Phase E |
+| `M17.B.6` | C40 | Sachdeva & van Nuenen 2025 (2510.10002) | Phase E |
+| `M17.C.1` | C32, DL §2.6 | Li & Tao 2026 (2603.00113); Guan et al. 2026, Light Society | Phase E |
+| `M17.C.2` | C30 | Sachdeva & van Nuenen 2025 (2510.10002) | Phase E |
+| `M17.C.3` | C33 | Ye et al. 2026, TRAILS (2605.18890) | Phase E |
+| `M17.D.1` | C34, E-RM | Sachdeva & van Nuenen 2025 (2510.10002); Liu 2026, SEAA (2609.17331) | Phase E |
+| `M17.D.2` | E-RM, C34 | Liu 2026, SEAA (2609.17331); Sachdeva & van Nuenen 2025 (2510.10002) | Phase E |
+| `M17.D.3` | C35 | Zhou et al. 2026, PIMMUR (2509.18052) | Phase E |
+| `M17.D.4` | DL §7.10(c) | Liu 2026, SEAA (2609.17331) | Phase E |
+| `M17.D.5` | DL §2.6 | Yang et al. 2024, OASIS | Phase E |
+| `M17.E.1` | DL §2.3, DL §2.4 | Castellano, Fortunato & Loreto 2009 | Phase E |
+| `M17.E.2` | E-DR, C16, C24, C31 | Liu 2026, SEAA (2609.17331); Prasad 2026 (2607.07753); Kurz 2025 (2512.18016) | Phase E |
+| `M17.E.3` | C31 | Kurz 2025 (2512.18016) | Phase E |
+| `M17.E.4` | C37 | Ye et al. 2026, TRAILS (2605.18890) | Phase E |
+| `M17.E.5` | C38 | Prasad 2026 (2607.07753) | Phase E |
+| `M17.E.6` | DL §2.1 | Axtell & Farmer 2022 | Phase E |
+| `M17.F.1` | E-SH, C29 | Liu 2026, SEAA (2609.17331); Holland et al. 2026 (2607.29546) | Phase E |
+| `M17.F.2` | DL §7.10(e), DL §2.5 | Liu 2026, SEAA (2609.17331); Axtell & Farmer 2022 | Phase E |
+| `M17.G.1` | C36 | Ye et al. 2026, TRAILS (2605.18890) | Phase E |
+| `M17.G.2` | C42 | Zhou et al. 2026, PIMMUR (2509.18052) | Phase E |
+| `M17.G.3` | DL §2.6 | Axtell 2016 | Phase E |
+
+**Marked edits without an ID of their own.** Front matter (revision, date); §0.1's Phase E paragraph; §0.2's
+method-literature row; §0.3's counts (restated at step 7, below); `M3.D.4b`'s ten draw-class rows, every one
+the sweep reader's proposal; four rows added to `M11.4`'s exceptions table (`M11.C.37`, `M11.C.38`, the
+`M11.4c` form, `M17.A.1`'s `UNDETERMINED`); the Done-when cells of Phases B, C and D in `M13`, and a new
+Phase E row carrying `M17` and `M11.C.8`; the `M14.A` stub table.
+
+**Candidates judged already covered, and not entered** (candidates file §9): the engine driver surface —
+reset, next, eval (`M16.B`); refactor-equivalence by draw order (superseded by C1); interval-valued initial
+conditions (`M15.D.2`–`M15.D.4`); exact rational arithmetic (not adopted; byte identity plus C31 suffices); a
+solo no-interaction baseline (extended by C34); information availability against awareness (the belief
+layer and exogenous-flagged events — a one-line check that spell onsets enter as events, `M1.F.6`, is still
+worth doing); one-component-at-a-time mechanism ablation (`M11`'s mutation protocol); readout frequency per
+output (`DESIGN_LESSONS` §2.8); a single seeded generator (`M3.D.4`, now amended by C1); execution mode as an
+assumption to test (§2.1, now `M17.E.6`); one-factor and factorial sweeps (§2.3, now `M17.E.1`); witness
+radius with a visibility weight (per-hop fidelity); self-describing run files (`M16`); memory as digested
+persistent state and event-driven interaction (`M1`, `M16.B.3`); turn order and initial event as
+perturbations, and freezing a slow variable (§2.1, §2.6). The exploratory LLM-line items X1–X4 are not spec
+content and were not entered.
+
+**Design lessons noted, not specified** — no testable form is stated in the text, or the item is a cost
+decision: §2.2's point that statistical-physics critical points and exponents do not carry to twelve agents;
+§2.7's functional-form artefacts (a product with a zero term, equality created by rounding, accumulation with
+no decay, division by a `functional_level` near zero); §2.8's snapshot-and-fork (a cost decision; under
+`M3.D.4a` a fork is a plain state copy), naming of three intervention channels (`M17.D.3` declares the
+channels but has no mid-run perturbation), appraisal and belief records citing event IDs, a `WITHHOLD` count
+in readouts, and windowed trajectories for slow variables outside a shock; §2.9's ODD format and an
+"ever varied" register column (partly met by `M10.B.4`, `M16.A.7` and `M17.E.3`); §2.10's candidate
+functional shapes; §2.11's Latin-hypercube design and the history-matching question already on the
+design-lessons question list; §2.12's supporting statements.
+
+**Read at abstract level only; no requirement derived.** The eight papers of `DIGEST.md`'s 2026-09-21 entry
+(2609.16395, 2609.15849, 2609.16344, 2609.21857, 2609.21636, 2609.21349, 2609.19913, 2609.21940), which were
+not read in full and from which no candidate was drawn; the Light Society reference list
+(`2026_Light_Society_2506.12078_model_design_refs.md`); and the catalogues `PREPRINT_SWEEP_2025-09_to_2026-09.md`
+and `INDEX.md`. `SPEC_CANDIDATES_plain_language_2026-09-20.md` is explanation only and supplied no wording.
+
+**Open questions for the owner.**
+
+1. **Death (C15, `M6.3`).** Is death an exit from the field, or does the family absorb the dead person's
+   anxiety, bond energy, debts, positions and budget share? `M6.I.7` says there is no exit from the field,
+   which points to absorption, but `M6.3` leaves the choice open.
+2. **Where method rationale lives.** Should method-derived rationale be mirrored in `model_explainer.md`, as
+   corpus rationale is, or stay in the two `papers/` files §0.2 now names? `model_explainer.md` was not edited.
+3. **`M17`'s home.** Does `M17` stay in this document after approval, or split into a Phase E spec?
+4. **C3's keys (`M3.D.4b`).** Accept, change or reject the reader's slot/dyad proposal per class, and declare
+   keys for the four rows marked *not proposed* (mixing-weight noise, latency, mortality, tie-break and
+   fallback).
+5. **C13's relief term (`M4.G.3`).** Does any `M4` term pay anxiety relief on a repeated move? If not,
+   `M4.G.3` can be struck at approval.
+6. **C19's instance (`M11.4c`).** Which corpus ordering of effect strengths across three or more mechanisms
+   qualifies? `M4.D.3a`'s complexity ordering orders moves under rising anxiety, not effect strengths, and may
+   not.
+7. **Two criterion directions written here, not in the candidates file.** `M11.C.35` (a higher C–A
+   conductance gives a larger witness appraisal) and `M11.C.36` (a higher believed tension gives a higher
+   acute anxiety response) take their directions from `M4.C.1` and `M9.7`. Confirm them.
+8. **`E-RM` within `M0.4` (`DESIGN_LESSONS` Q10).** Does disabling a mechanism count as a second parameter set?
+9. **`E-RM` and C34, one requirement or two (Q16).** Entered as `M17.D.1`(d) plus `M17.D.2`.
+10. **Floors (Q15, `M17.D.4`).** Stay a SHOULD, or become required?
+11. **`E-DR` against the constant sweep (Q8).** Entered as two requirements, `M17.E.1` and `M17.E.2`; merge?
+12. **Ensemble size in Phases C and D.** `M13` names fixed 1,000-seed ensembles; `M17.A.1`'s adaptive rule
+    is Phase E only. Should C and D adopt it?
+13. **The arm-blindness check (`M17.D.3`)** **MAY** run from Phase B. Adopt it there?
+14. **`CLAUDE.md`** still describes the spec as revision 6 with 427 requirements. Update after approval;
+    not edited here.
+
+**Adjacent issues found, not fixed.** `M11.2`'s note says the criteria table "now ends at 33" and `M11.3`
+counts "4 of 33 criteria" and "27 unclassified"; at revision 9 the table already held 34 rows, and it now
+holds 40. `M11.3`'s stressor classification has not been applied to the six new criteria. `M1.F.1a` sits
+physically inside `M4.E`. Revision sections 4 and 5 are out of order below. These are approved text and
+were left for the owner.
+
+---
 
 ### Revision 9 — the corpus-fidelity sweep, 2026-08-28
 

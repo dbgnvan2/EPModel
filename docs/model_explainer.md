@@ -930,6 +930,20 @@ Eleven property tests over ensembles, written before tuning. Two properties matt
 | 14 | **Management technique has zero independent effect while marital distance is high.** Any intervention aimed at the symptom-bearer must produce **no improvement** in that condition. When the parents are close, "they could do no wrong" — firmness, permissiveness, punishment and talking it out all work. | `[T]` Ch04 · L04.2 |
 | 15 | **Death destabilises exactly as recovery does.** A stabilising arrangement built on one member's impairment must break on that member's **death** as well as on their recovery — the stabilisation holds "as long as the incapacitated one **lives**". | `[T]` Ch07 · L07.3 |
 
+### 11.2 Differentiation and stress order the conditions  *(proposed, spec revision 10)*
+
+**Lower differentiation and higher stress each exacerbate the pattern** (spec `M11.C.41`) — *the general
+shape most mechanisms in the model share.* **Does:** four arms cross a lower and a higher `basic_level` with
+a lighter and a heavier stress load. At either level, more stress means more acute anxiety and a larger share
+of reactive moves; at either stress load, lower level means the same. The two mixed arms — low level under
+light stress, high level under heavy stress — are not compared with each other, because which is worse
+depends on magnitudes the corpus does not give. **Source:** `[D]` the project owner, as domain expert
+(2026-09-22): most mechanisms are proportional to level of differentiation of self and to the stress being
+experienced, and lower differentiation with higher stress means more anxiety and more exaggerated patterns
+of functioning, such as more reactivity. It agrees with test 1 above and with §6.1's routing capacity, which
+1979 Tape 5 ties to differentiation and principally anxiety. **Not** a readout of overt emotionality, which
+peaks mid-scale (§3.1).
+
 ---
 
 ## 12. What is deliberately not in the model
@@ -1505,7 +1519,7 @@ Each is a rule about how a criterion is written or proved, not about what the mo
 | Graded monotonicity over four or more levels | `M11.C.38` · C16 | A two-arm test cannot see a threshold; an ordering over several levels uses the corpus's orderings more fully than a sign | `[SHOWN]` Prasad 2026, Tables 2 and 7 — whose own monotonicity claim overstated its tables, which is the point |
 | Mutants that keep an input's size and break its link to state | `M11.1b` · C17 | Shows the link to state matters, not only the input's size | `[SHOWN]` Prasad 2026, Figs 3 and 12 |
 | A pattern learned under a spell outlasts it | `M11.C.39`, `M10.B.5` · C18 | Distance and cutoff remove the contact that would disconfirm what was learned, so the pattern persists with no persistence rule written | `[SHOWN]` Prasad 2026, Tables 4, 11, 12, some cells on five seeds |
-| Ordinal criteria | `M11.4c` · C19 | Rank order across mechanisms uses orderings without magnitudes. No corpus ranking of effect strengths has been found yet, so no criterion uses it | `[SHOWN]` Kalluri 2026 §5.1 — eight effects ranked correctly while only four magnitudes matched |
+| Ordinal criteria | `M11.4c` · C19 | Rank order across mechanisms uses orderings without magnitudes. The owner's answer (2026-09-22) is that most mechanisms scale with differentiation and stress, so the theory orders **conditions** rather than ranking mechanisms; that ordering is tested as `M11.C.41` (§11.2), and the ranking form stays unused | `[SHOWN]` Kalluri 2026 §5.1 — eight effects ranked correctly while only four magnitudes matched |
 | Asymmetric rules tested at matched frequency | `M11.1e`, `M16.A.8` · C20 | A per-event asymmetry does not produce a cumulative one; event frequency decides the total | `[SHOWN]` Kalluri 2026, Table 5 |
 | Re-encoding mutants | `M11.1c` · C21 | A direction that changes when only the encoding changes is an artefact of the encoding | `[SHOWN]` Ye et al. 2026 (TRAILS) §3.1, for LLM agents; `[INF]` |
 | Outcome-directive audit and a premise column | `M11.1d`, `M10.C.5` · C22 | Separates what the model is told (a premise) from what follows from it | `[SHOWN]` Zhou et al. 2026 (PIMMUR) §4.4, for LLM prompts; `[INF]` |
@@ -1540,10 +1554,13 @@ is built during Phases B–D except the stopping rule, which the owner brought i
 - **Control arms** (`M17.D` · C34, E-RM; DL §7.10(c), §2.6). No interaction (two forms); no exogenous input;
   a homogeneous family; and a **rival-mechanism** arm that disables the mechanism a criterion credits while
   reinforcement keeps running — if the rival arm reproduces the predicted *shape*, the criterion does not
-  discriminate. Floors on null arms stay a SHOULD, by the owner's decision.
+  discriminate. Floors on null arms stay a SHOULD, by the owner's decision. **Switching a mechanism off is a
+  change to the model, not an arm** (the owner's ruling; spec `M11.4f`): the invented constants cancel only
+  between two arms of one model (§17.1), so any comparison with a mechanism disabled — these arms, and the
+  learning-off arms of §18.6 — tests the model's structure and is never reported as an effect on a family.
 - **Sweeps** (`M17.E` · DL §2.3, E-DR, C31, C37, C38). The fraction of the invented constants' range over
   which each direction holds; a dose–response curve for the one constant a criterion depends on most, sharing
-  that range; for threshold constants, the exact interval within which nothing changes, computed from logged
+  that range (kept as two requirements, approved by the owner); for threshold constants, the exact interval within which nothing changes, computed from logged
   margins (`[SHOWN]` Kurz 2025, Lemma 3); sensitivity checked at two or more reference configurations, because a
   perturbation can be harmless at one and decisive at another (`[SHOWN]` TRAILS §4.2); and interaction
   between pairs of parameters the theory says interact (`[SHOWN]` Prasad 2026, Tables 13–14).

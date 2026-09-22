@@ -26,11 +26,14 @@ revision-10 section.
 - [ ] **Habituation on repeated relief (C13, spec `M4.G.3`).** Decide whether any `M4` term pays anxiety relief
   for a repeated move. If none does, strike `M4.G.3` at approval.
 - [ ] **`E-RM` and C34 — one requirement or two (DESIGN_LESSONS Q16).** Currently `M17.D.1`(d) plus `M17.D.2`.
-- [ ] **Does disabling a mechanism count as a second parameter set under `M0.4`? (DESIGN_LESSONS Q10)** Not yet
-  answered. Governs whether `M17.D.2`'s rival-mechanism arm is admissible.
-- [ ] **C19 — is there a corpus ranking of effect strengths?** `M11.4c` allows ordinal criteria (mechanism X moves
-  the outcome more than Y, and Y more than Z), but none is instantiated because no such ranking has been found.
-- [ ] **Confirm the `E-DR` recommendation (Q11).** `M17.E.1` and `M17.E.2` kept separate, sharing one sweep range.
+- [x] ~~**Does disabling a mechanism count as a second parameter set under `M0.4`? (DESIGN_LESSONS Q10)**~~
+  *Answered 2026-09-22: switching off a mechanism is a change to the model. Written as spec `M11.4f`.*
+- [ ] **Does `M11.4f` reach the approved ablation of `M10.C.4a`?** The quantum-jump ablation removes a
+  condition, not a whole mechanism; decide whether it is a change to the model under the new ruling.
+- [ ] **Strike `M11.4c` at approval unless a mechanism ranking turns up.** Answered 2026-09-22: most mechanisms
+  scale with differentiation and stress, so the theory orders conditions, not mechanisms — tested as
+  `M11.C.41`. The ranking form has nothing to rank.
+- [x] ~~**Confirm the `E-DR` recommendation (Q11).**~~ *Approved 2026-09-22: `M17.E.1` and `M17.E.2` kept separate, sharing one sweep range.*
 - [ ] **At approval: restate the requirement count in five documents.** `CLAUDE.md` (also still says revision 6),
   `README.md`, `CHANGELOG.md`, `docs/theory/_STATUS.md` and `docs/agent_model_proposal.html` claim 427;
   `tests/test_spec_consistency.py::test_requirement_counts_agree_with_the_spec` is red on the branch until they

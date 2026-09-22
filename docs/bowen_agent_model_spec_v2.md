@@ -317,6 +317,8 @@ neither the constitutional prior nor the family-focus term. It reads directly of
 
 **What this buys, and it is the reason it matters.** The detectors are how `M1.A.4i` reads a member's response to a symptom in another member. Without them on every person the model can score the coach's neutrality and nothing else, and the family's own reaction — the best-controlled estimator input available — is unreadable. → *user correction, 2026-08-28*
 
+**M1.A.20** — *a person's identifier **MUST** be stable across counterfactual arms.* Founders **MUST** receive fixed identifiers from the family definition (`M2.A.0h`) or the import (`M15.A.1a`). A person born during a run **MUST** receive an identifier derived from the parents' identifiers and birth order. Identifiers **MUST NOT** be allocated from a run-time counter: a death in one arm would shift every later identifier in the other, and `M3.D.4a`'s keyed draws would then pair different people. → `papers/SPEC_CANDIDATES…` C2 ⟦proposed rev10 · C2 · Buffalo 2026⟧
+
 ### M1.B `Relationship`
 
 **M1.B.1** A `Relationship` **MUST** connect exactly two `Person`s and **MUST** be the unit on which coupling state is stored. Per-family scalars **MUST NOT** stand in for a specific tie.
@@ -345,6 +347,8 @@ neither the constitutional prior nor the family-focus term. It reads directly of
 
 **M1.B.12** A `Relationship` **MUST** hold `dyad_age`, raising the cost of a pole flip with time in configuration. → §4.9
 
+**M1.B.13** A tie's identifier **MUST** be the unordered pair of its members' `M1.A.20` identifiers. → `papers/SPEC_CANDIDATES…` C2 ⟦proposed rev10 · C2 · Buffalo 2026⟧
+
 ### M1.C `Triangle`
 
 **M1.C.1** A `Triangle` **MUST** hold three members, the current inside pair, the outside member, and `bound_anxiety`.
@@ -367,6 +371,8 @@ The first is the mechanism of change; the second is a countermeasure during a mo
 **M1.C.5** A `Triangle` **MUST** hold `intensity_floor`, a permanent decrement applied when an I-position is held. The triangle's intensity **MUST NOT** fully revert. → §6.1
 
 **M1.C.6** A sibling-conflict event **MUST** instantiate the parent-level triangle. An intervention on the sibling pair alone **MUST** fail. → §6.1
+
+**M1.C.7** A triangle's identifier **MUST** be the sorted triple of its members' `M1.A.20` identifiers. → `papers/SPEC_CANDIDATES…` C2 ⟦proposed rev10 · C2 · Buffalo 2026⟧
 
 ### M1.D `Family`
 
@@ -463,6 +469,8 @@ appears in no source. *Relabelled 2026-08-28.*
 
 **M1.F.1** An `Event` **MUST** carry: sender, targets, witnesses, move type, intensity, timestamp, `duration`, `exogenous`, `source_position`, `route`, `fidelity`.
 
+**M1.F.1b** — *the witness set is computed, not chosen.* An Event's `witnesses` **MUST** be computed by the visibility component (`M3.E.1`) from tie and household state — co-residence, tie conductance and route — and **MUST NOT** be a field the sender's policy sets. Where the theory needs a sender to choose an audience, the choice **MUST** be expressed as a move (`TRIANGLE` addressed to a third party), not as witness selection. `M8.5`'s predicate, which decides whether a third party is a witness or a new peripheral triangle, belongs to that component. → `papers/SPEC_CANDIDATES…` C7 ⟦proposed rev10 · C7 · Li & Tao 2026⟧
+
 **M1.F.2** `source_position` **MUST** be able to change the *sign* of an event's effect, not only its magnitude. → §9.3
 
 **M1.F.3** `route` **MUST** modulate gain: a direct dyad amplifies; routing through a neutral third damps. → §9.3
@@ -528,6 +536,8 @@ The instance everything is tested against. It is **invented and tunable** — va
 
 **M2.A.0g** — *pole assignment **MUST** be independent of sex.* "**males and females assume the dominant position with equal frequency.**" `M1.B.5`'s dominant pole **MUST NOT** correlate with sex across an ensemble. This is a hard constraint a natural implementation could easily violate — any asymmetry in the assignment rule surfaces as a sex effect at readout — and it is assertable: see `M11.C.25`. → *decision A4-tail, 2026-08-27*; `theory/family_evaluation/fe07.md` · FE07.3
 
+**M2.A.0h** The reference family's declaration **MUST** assign each member the fixed identifier `M1.A.20` requires. Display names **MUST NOT** serve as identifiers. → `papers/SPEC_CANDIDATES…` C2 ⟦proposed rev10 · C2 · Buffalo 2026⟧
+
 **M2.A.1** `Iris` and `Bruno` **MUST** have comparable contact frequency and **MUST** differ in bond energy. This pair is the fixture for M11.C.4 and the direct test of M1.B.3.
 
 **M2.A.2** `Nadia` **MUST** become the projection target as an **outcome** of accumulated witnessed events, not by assignment at initialisation. → §9.4
@@ -566,9 +576,34 @@ The instance everything is tested against. It is **invented and tunable** — va
 
 **M3.D.4** — *determinism.* The engine **MUST** be a deterministic function of `(seed, config, scenario)`. Every stochastic draw **MUST** come from a single seeded generator threaded explicitly; module-level or global RNG state **MUST NOT** be used.
 
+**M3.D.4a** — *amended: counter-based, event-keyed draws.* This replaces the second sentence of `M3.D.4` ("a single seeded generator threaded explicitly"), because a stateful generator does not couple two arms once an arm changes the execution path, so the paired arm difference `M0.4` relies on would partly measure re-aligned noise; `M3.D.4`'s first sentence, its prohibition on module-level or global RNG state, and `M3.D.5` stand. Every stochastic draw **MUST** be computed as a pure function of the run seed and a canonical event key by a counter-based generator (for example Philox or Threefry), and the engine **MUST NOT** hold mutable generator state. Sampling from a distribution **MUST** consume a fixed number of keyed uniforms (inverse transform), never a variable number (rejection sampling). A key **MUST** contain only structural identity — the tick, stable object identifiers (`M1.A.20`, `M1.B.13`, `M1.C.7`), a purpose label and a within-event index — and **MUST NOT** contain a state quantity or an endogenous summary. The function that turns a key into a counter **MUST** be fixed and documented; a hash salted per process, such as Python's built-in `hash()` on tuples, breaks `M3.D.5` and **MUST NOT** be used. → `papers/SPEC_CANDIDATES…` C1 ⟦proposed rev10 · C1 · Buffalo 2026⟧
+
+**M3.D.4b** — *every draw class **MUST** declare its key.* The table below **MUST** list every stochastic draw class in the engine and, for each, its key and whether it is **slot-keyed** (tick, actor, purpose, index — a partner enters only through state) or **dyad-keyed** (tick, actor, partner, purpose, index — a different partner is a different chance event). A deliberately coarse key **MUST** be marked as such. Choosing a key is choosing what counts as *the same event* in two arms; a stateful generator makes that choice silently, by draw index. **The keys and keyings below are the sweep reader's proposal, not a decision** — this revision chooses neither slot- nor dyad-keying for any class, and rows marked *not proposed* are for the owner to declare. → `papers/SPEC_CANDIDATES…` C3 ⟦proposed rev10 · C3 · Buffalo 2026⟧
+
+| Draw class | Where | Proposed key | Proposed keying |
+|---|---|---|---|
+| Move selection (softmax) | `M4.D.1` | tick, actor, purpose, index | slot — "what A does this week" is the coupled event even when A's target differs between arms ⟦proposed rev10 · C3 · Buffalo 2026; reader's proposal⟧ |
+| Channel mixing-weight noise, if any | `M4.D.1a` | *not proposed* | *not proposed* ⟦proposed rev10 · C3 · Buffalo 2026; reader's proposal⟧ |
+| Per-hop fidelity | `M1.F.4` | tick, actor, partner, purpose, index | dyad — a `TRIANGLE` move that picks a different third party is a different chance event ⟦proposed rev10 · C3 · Buffalo 2026; reader's proposal⟧ |
+| Per-edge latency, where stochastic | `M1.B.11`, `M3.C.1` | *not proposed* | *not proposed* ⟦proposed rev10 · C3 · Buffalo 2026; reader's proposal⟧ |
+| Receiver-side appraisal noise, if any | `M4.C` | tick, actor, partner, purpose, index | dyad ⟦proposed rev10 · C3 · Buffalo 2026; reader's proposal⟧ |
+| Witness overhearing, where stochastic | `M1.F.1b`, `M1.F.5` | tick, actor, partner, purpose, index | dyad ⟦proposed rev10 · C3 · Buffalo 2026; reader's proposal⟧ |
+| Exogenous spell onset and duration | `M1.F.6` | family, spell class, occurrence index | coarse by design — an arm with a higher hazard can bring the k-th spell forward but cannot reshuffle the sequence ⟦proposed rev10 · C3 · Buffalo 2026; reader's proposal⟧ |
+| Symptom onset | `M4.C.3`, `M7.D.1` | tick, person, channel | per person — makes "more load, same or earlier symptom" a per-seed monotone coupling ⟦proposed rev10 · C3 · Buffalo 2026; reader's proposal⟧ |
+| Mortality | `M7.C.1`, `M6.3` | *not proposed* | *not proposed* ⟦proposed rev10 · C3 · Buffalo 2026; reader's proposal⟧ |
+| Tie-break and fallback | `M4.D.1f` | *not proposed* | *not proposed* ⟦proposed rev10 · C3 · Buffalo 2026; reader's proposal⟧ |
+
+**M3.D.4c** The engine **MUST** query each event key at most once per run and cache the value, and a debug build **MUST** raise on a repeated key. `M11.D.15` is the test. → `papers/SPEC_CANDIDATES…` C4 ⟦proposed rev10 · C4 · Buffalo 2026⟧
+
 **M3.D.5** Two runs with the same seed **MUST** produce byte-identical event logs. This is a test, not an aspiration (M11.D.5).
 
 **M3.D.6** An LLM **MUST NOT** appear in the decision path. → proposal §9, Decisions settled
+
+### M3.E Activation and visibility ⟦proposed rev10 · C6 · Li & Tao 2026⟧
+
+**M3.E.1** The engine **MUST** implement **activation** — which persons select a move in a given fast tick — and **visibility** — which persons are targets or witnesses of an event, with what latency and fidelity — as two separately named components with a declared interface. Visibility today is spread across `M1.F.1`, `M1.F.3`, `M1.F.4`, `M3.C.1` and `M8.5`; the component gathers it, and changes none of them. → `papers/SPEC_CANDIDATES…` C6 ⟦proposed rev10 · C6 · Li & Tao 2026⟧
+
+**M3.E.2** The default activation — every person selects every fast tick (`M3.D.1` step 7) — **MUST** be recorded as the chosen regime and graded `[I]`. It is the synchronous end of a range of activation schemes, and the choice is a modelling assumption; `M17.E.6` tests it. → `papers/SPEC_CANDIDATES…` C6; `DESIGN_LESSONS` §2.1 ⟦proposed rev10 · C6 · Li & Tao 2026; DL §2.1 · Axtell 2022⟧
 
 ---
 
@@ -589,6 +624,8 @@ The instance everything is tested against. It is **invented and tunable** — va
 ### M4.B Perceive
 
 **M4.B.1** A person **MUST** read events addressed to it *and* events it witnessed (M1.F.5).
+
+**M4.B.2** — *what the policy may read.* The policy (`M4.D`) **MUST** compute a Person's outcome from only (a) that Person's own state; (b) that Person's beliefs, including its belief about any tie it is not party to (`M9.8`); and (c) events delivered to that Person's inbox as target or witness, after per-hop fidelity (`M1.F.4`). It **MUST NOT** read another Person's true state, the true state of a tie it is not party to, or an undelivered event. `M9.7` makes belief a channel into appraisal; this makes it the only route into selection. `M11.C.36` carries the mutant. → `papers/SPEC_CANDIDATES…` C9 ⟦proposed rev10 · C9 · He 2026⟧
 
 ### M4.C Appraise
 
@@ -618,6 +655,8 @@ This is the corpus's cleanest demonstration because **the content is identical b
 
 **M4.C.5** The **inward-impingement** axis of M1.A.9a **MUST** have a **perception-side** readout computed at appraisal, before any move is emitted: reading the other's event as critical is itself the evidence. "Finally, I can be with my mother **without hearing her as being critical**. Well, if this person is **hearing** mother as being critical, then they probably are being critical, **defensive**." → `kb/kb05.md`. This readout is cheaper and harder to game than one taken from the emitted move.
 
+**M4.C.9** — *a witness appraises from its own position.* A witness's appraisal of an Event (`M1.F.5`) **MUST** be computed from the witness's own state, the witness's ties to **both** the sender and each target, and the intensity of the exchange between them, with a witness-specific weighting constant graded `[I]`. It **MUST NOT** be a fidelity-scaled copy of a target's appraisal. `M4.C.1` names one conductance and does not say which tie's applies to a witness; this supplies it. `M4.C.7` (the witnessed form is less reactive) and per-hop fidelity (`M1.F.4`) still apply. The source model's pull toward its bounds as absorbing states is a property of its functional form and **MUST NOT** be imported with the rule. `M11.C.35` is the test. → `papers/SPEC_CANDIDATES…` C8 ⟦proposed rev10 · C8 · Holland 2026⟧
+
 ### M4.D Select
 
 **M4.D.1** Each person **MUST** resolve exactly one **outcome** per fast tick, by softmax over propensity scores. An outcome is either an emitted move (M5.A.1) or a **withheld** move (M4.D.1b).
@@ -628,6 +667,10 @@ This is the corpus's cleanest demonstration because **the content is identical b
 **M4.D.1c** — *`WITHHOLD` is **not** a weak `I-POSITION`, and on its own it is **insufficient**.* Kerr's three-year trajectory runs **counter-argument** ("accomplished nothing") → **non-reaction** ("**an insufficient response to her**") → **position** (lands, reaction, resolution). `M11.C` **MUST** assert that a `WITHHOLD`-only arm does not produce the `M5.E` resolution an `I-POSITION` arm produces. → `ks16.md` · KS16.1
 
 **M4.D.1d** — *unresolved competition between candidate moves **MUST** itself raise `acute_anxiety`*, independently of which outcome resolves. Both parties in a loaded tie hold **simultaneous** approach and withdraw urges — responsibility for the other's distress pulling toward, fear of entanglement pulling away — and "**The conflicting urges raise each person's anxiety, which further infects their interactions.**" Implementable as an entropy or margin term over the propensity distribution fed back into M1.A.8; it produces the observed vicious circle without a separate rule. → `ks06.md` · KS06.4
+
+**M4.D.1e** — *the legal set is formed before selection.* For each person each fast tick, the policy **MUST** compute the set of legal outcomes from current tie and triangle state — the structural preconditions of each move (for example, `CUTOFF` requires a live tie, `TRIANGLE` a reachable third party, `PURSUE` a target not cut off) and every `M5.C` gate that removes a move from the draw — and **MUST** select only over that set, with weights renormalised over it. A gate that degrades a move rather than removing it (`M5.C.1`'s `outside_ness` row) is not part of the mask. The mask is logged (`M16.A.3b`). → `papers/SPEC_CANDIDATES…` C11 ⟦proposed rev10 · C11 · Buitrago López 2026⟧
+
+**M4.D.1f** — *tie-break and fallback are declared, keyed and flagged.* The policy **MUST** declare a tie-break rule for equal scores and a fallback rule for a non-finite score, exhausted `life_energy` and an empty legal set. Both rules are `[I]` and **MUST** be declared in config; any draw either makes **MUST** use a key declared in `M3.D.4b`. Every selection record **MUST** state whether its outcome came from the scored policy, the tie-break or the fallback (`M16.A.3c`), because a fallback rule can generate the very behaviour a criterion tests. `M11.D.18` is the guard. → `papers/SPEC_CANDIDATES…` C12 ⟦proposed rev10 · C12 · Ye 2026⟧
 
 **M4.D.1a** — *selection **MUST** run over **two channels with different objectives**, not one.* The **automatic** channel is driven by the relationship system, its objective is to discharge anxiety **now**, and it carries the seven reactive moves. The **self-directed** channel is driven by the person, its objective is to hold a position **through** discomfort (M5.F.5), and it carries `I-POSITION` and `STAY-IN-CONTACT`. The **mixing weight between them MUST be a function of differentiation**: at low level the person is nearly all automatic, and as level rises a real self-directed channel opens. Agency is **not absent** — it is graded, and the higher the level the less the individual is governed by what the system wants.
 **Consequence, and its evidence is the spec's own reasoning rather than the quotation below.** Differentiation is **not reachable by lengthening a reinforcement horizon**, because the two channels optimise different things and the target is not in the automatic channel's objective at all. *Flagged 2026-08-28: the quoted line does not assert this, and the corpus arguably cuts the other way — differentiated actions "are based on a **broad and long-range assessment** of the situation" (`Family Evaluation` Ch3). The quotation supports "relieving now worsens later"; it does not establish that a longer horizon cannot reach the target. The claim stands as a design decision, `[I]`, not as a corpus finding. The quotation itself is also **societal** in scope — Bowen on band-aid legislation — and individual-level support exists elsewhere in the corpus and should replace it.* This is what M4.D.6d and M11.C.17 assert. Anxiety-relieving action genuinely relieves anxiety — "cause and effect laws designed to **relieve the anxiety of the moment**, and the more we do that, **the more we promote the thing we're trying to fix**" — so an agent selecting a binder is not making an error a longer horizon would correct. → `kb/kb10.md` · K10.7; M1.A.0 (the moves are instinct-level, not feeling-states)
@@ -677,11 +720,15 @@ This is the corpus's cleanest demonstration because **the content is identical b
 **Without it the model cannot distinguish two cases the theory says are opposite.** "Going toward a goal" and "running away from a problem" can be the **same emitted act** — a geographic move, or staying put, is uninformative in **both** directions. Only the driving channel separates them, and no readout, and not the `M1.A.4a` estimator, can recover it after the fact.
 It is also what makes `M1.A.5c`'s pseudo-self sign computable.
 
+**M4.E.1a** The `witnesses` field of the event `M4.E.1` creates **MUST** be filled by the visibility component (`M1.F.1b`), not by the policy that selected the move. → `papers/SPEC_CANDIDATES…` C7 ⟦proposed rev10 · C7 · Li & Tao 2026⟧
+
 ### M4.G Consolidate
 
 **M4.G.1** Repeated moves **MUST** harden tie state: three withdrawals in a row **MUST** register as a distant relationship, not as three independent events.
 
 **M4.G.2** All invariants in M6 **MUST** be asserted at the end of every fast tick.
+
+**M4.G.3** — *conditional: habituation on repeated relief.* If any `M4` term credits anxiety relief to a repeated identical move within a window — reassurance-seeking `PURSUE`, checking-type `OVERFUNCTION` — that term **SHOULD** decay geometrically with the repetition count, with the decay constant graded `[I]`, or **SHOULD** be shown by sweep not to be bistable (ignored below a threshold, absorbing above it, with no graded regime between). Whether this specification contains such a term is not settled — `M4.D.6a` forbids short-horizon relief as the reinforcement signal, which may already exclude it — and is listed in the revision-10 open questions. → `papers/SPEC_CANDIDATES…` C13 ⟦proposed rev10 · C13 · Prasad 2026⟧
 
 ---
 
@@ -822,6 +869,8 @@ Asserted at the end of every fast tick (M4.G.2). A violation **MUST** raise, not
 
 **M6.2** M6.I.6 **MUST** be assertable across a removal event specifically (M11.C.11).
 
+**M6.3** — *disposition at death.* `M6` **MUST** name the mechanism that removes a Person at death, and **MUST** state where that Person's acute and chronic anxiety, bond energy on each tie, functioning-balance debts, `investment`, triangle positions and share of the undifferentiation budget go, so that `M6.I.6` and `M6.I.7` remain assertable across a death. If births occur within the horizon, the creating mechanism and the initial state it assigns **MUST** be named likewise, and `M1.A.20`'s identifier rule applies. **The disposition itself is an owner decision** — whether death is an exit from the field, or whether the family absorbs the person's quantities — and is listed in the revision-10 open questions. `M11.C.37` is the test. → `papers/SPEC_CANDIDATES…` C15 ⟦proposed rev10 · C15 · He 2026⟧
+
 ---
 
 ## M7 — The slow tick
@@ -852,6 +901,8 @@ Two instances with different claimant types — a child (KS22.2) and a fiancée 
 
 **M7.C.1d** — *withdrawal at extreme fusion is a **removal**, not a differentiation.* Where a person's fusion is concentrated in a **single** tie with no alternatives, a reduction in the supporting party's investment **MUST** be resolved as a removal event (`M11.C.11`), **not** as a differentiating move — regardless of the withdrawing party's intent. The two are distinguishable **only** by the other's remaining alternative ties. → `ks25.md` · KS25.3, KS25.4; `ks21.md` · KS21.9
 **Two independent cases, forty-three years apart.** Bowen, the morning after: "**Mike, I think your mother pulled up and Billy suicided.**" And Nancy Lanza's withdrawal had the *form* of the move — reducing overfunctioning, redirecting energy to her own life, explicitly hoping it would produce independence — with **none** of the preconditions in `kerr_book/ks15.md` · KS15.1. **This is the model's most consequential asymmetry and MUST NOT be softened.**
+
+**M7.C.1e** Mortality (`M7.C.1`) **MUST** remove a Person only through `M6.3`'s named mechanism. → `papers/SPEC_CANDIDATES…` C15 ⟦proposed rev10 · C15 · He 2026⟧
 
 **M7.D.1** Symptom load **MUST** accumulate from routed load and, on crossing threshold, **MUST** emit an **endogenous** event (M1.F.7).
 
@@ -945,6 +996,8 @@ avoidance_available(g) = positions_live(g) < 3        # a step, not a gradient
 
 **M9.7** — *belief **MUST** be able to drive appraisal, not only record it.* M9.1 as written makes the belief layer a parallel store. Three independent arguments make it a **channel**: the three systems influence one another **in both directions** (`FE02.7`); chronic anxiety runs on **what might be** rather than on what is, so its input is belief and not event (`FE05.10`); and Bowen corrects his own term — the transfer is not "projection" but runs **through descriptions** (`FE11.3`), which makes `M9` the medium the family projection process operates **on** rather than a readout beside it.
 Therefore M4.C's appraisal **MUST** read the receiver's belief about the sender and the situation, not the ground-truth event alone. **M9.2 still binds**: a belief that drives appraisal **MUST NOT** be assumed false because it is emotionally loaded, and the model **MUST NOT** implement "the emotionally driven claim is the wrong one". → `theory/family_evaluation/fe02.md` · FE02.7, `fe05.md` · FE05.10, `fe11.md` · FE11.3
+
+**M9.8** — *each person holds beliefs about ties it is not party to.* The per-person belief store (`M9.1`) **MUST** hold, for each tie the person's policy reads and is not party to, a belief about that tie's state, written only by events delivered to that person as target or witness, after per-hop fidelity. It **MUST** be permitted to differ from the tie's true state, so that a misperceived alliance is possible. → `papers/SPEC_CANDIDATES…` C9 ⟦proposed rev10 · C9 · He 2026⟧
 
 ---
 
@@ -1086,6 +1139,9 @@ Each criterion **MUST** have a named test, **MUST** assert a direction of differ
 | **M11.C.32** | **The mover's anger degrades the move.** Two arms, identical seeds, differing only in the mover's own anger at emission: the angry arm **MUST NOT** reach `PEAK` — it stalls, it does not abort loudly — and its `I-POSITION` **MUST** execute as `M5.F.4`'s assertion form, raising reactivity on the tie. An implementation in which anger *admits* the peak has the corrected `M5.D.4` inverted | `test_m11c32_mover_anger_stalls_and_degrades` | C | M5.D.4's gate — inverting it back **MUST** turn this red |
 | **M11.C.34** | **The system's reaction to a symptom discriminates level, at matched load.** One arm at low family `basic_level` and one at high, identical seeds, the **same symptom emerging in the same member at the same tick**: the low arm **MUST** show more automatic-channel responses from the other members — anxious focus on the bearer, taking over, distancing, organising around the symptom — and the high arm more self-directed ones. Because it is one event seen by N members at one moment, **load is held constant by construction** and no after-the-fact correction is needed → `M1.A.4i`, `M1.A.19` | `test_m11c34_system_reaction_to_symptom_discriminates_level` | D | `M1.A.19`'s detectors — making the response independent of the responder's `functional_level` **MUST** turn this red |
 | **M11.C.33** | **The dependence gate binds the slow clock.** A financially dependent agent completing an unbounded number of exchanges **MUST NOT** show any rise in `basic_level`, while an otherwise identical independent agent does → `theory/family_evaluation/fe04.md` · FE04.9 | `test_m11c33_dependence_gate_blocks_basic_level_rise` | D | M7.A.1a — removing the slow-clock gate **MUST** turn this red |
+| **M11.C.35** | **A witness appraises from its own position.** One exchange between A and B, witnessed by C; two arms, identical seeds, differing only in the conductance of C's tie to A, with C's tie to B held fixed. C's appraisal **MUST** be larger in the arm with the higher C–A conductance, the direction `M4.C.1`'s conductance term gives and `M4.C.9`'s dependence on both ties requires. Under a copy of B's appraisal the two arms are identical, which is what makes the mutant bite; the same mutant **SHOULD** also be run against `M11.C.3` and `M11.C.27` ⟦proposed rev10 · C8 · Holland 2026⟧ | `test_m11c35_witness_appraisal_depends_on_both_ties` | C | `M4.C.9` — replacing witness appraisal with a fidelity-scaled copy of the target's appraisal **MUST** turn this red |
+| **M11.C.36** | **Appraisal and selection read belief, not truth.** Two arms, identical seeds and identical true state, differing only in one member's belief about a tie it is not party to (`M9.8`): in one arm the member believes the tie carries more tension than it does. That member's acute anxiety response to the same events delivered from that pair **MUST** be higher in the arm with the higher believed tension, because `M9.7` makes appraisal read belief and `M4.B.2` forbids reading the true state ⟦proposed rev10 · C9 · He 2026⟧ | `test_m11c36_policy_reads_belief_not_true_state` | D | `M4.B.2` — letting appraisal and the policy read the tie's true state in place of belief **MUST** turn this red, because the arms become identical; the same mutant **SHOULD** be run against `M11.C.26` |
+| **M11.C.37** | **Anxiety is conserved across a death.** A run in which a member dies (`M7.C.1`) **MUST** satisfy `M6.I.6` and `M6.I.7` across the death: the family's total anxiety immediately after equals the total immediately before, to `M6.1`'s tolerance, with the dead person's quantities located where `M6.3` says they go. A conservation check has no second arm, so this is an `M11.4` exception on the same ground as `M11.C.31` ⟦proposed rev10 · C15 · He 2026⟧ | `test_m11c37_anxiety_conserved_across_death` | D | `M6.3`'s disposition step — discarding the dead person's anxiety instead **MUST** turn this red |
 
 ### M11.D — Engineering criteria
 
@@ -1096,6 +1152,8 @@ Each criterion **MUST** have a named test, **MUST** assert a direction of differ
 | **M11.D.3** | Config strictness: an unknown key or malformed line raises | `test_m11d3_config_rejects_unknown_key` |
 | **M11.D.4** | Every `[I]` constant is labelled and none is described as sourced | `test_m11d4_invented_constants_labelled` |
 | **M11.D.5** | Determinism: two runs at the same seed produce byte-identical event logs | `test_m11d5_same_seed_same_log` |
+| **M11.D.15** | **Placebo arm.** An arm that enables an extra mechanism at zero magnitude — extra draws, no state change — reproduces the baseline trajectory byte for byte on every seed. `M11.D.5` compares one arm with itself and cannot see this defect, which appears only between arms. Passing does not prove the arms are coupled; failing proves they are not ⟦proposed rev10 · C4 · Buffalo 2026; DL §7.10(a) · SEAA⟧ | `test_m11d15_placebo_arm_is_byte_identical` |
+| **M11.D.16** | **Order does not decide the outcome (`M1.F.8`).** At a fixed seed, permuting the iteration order of persons in the select step and the delivery order of events within every same-tick batch yields a byte-identical final state and an order-normalised identical log; and a deliberately symmetric family whose person identifiers are permuted yields an outcome permuted the same way. Replacing the batch reduction with a sequential one **MUST** turn it red ⟦proposed rev10 · C5 · Li & Tao 2026; DL §7.10(b) · SEAA⟧ | `test_m11d16_batch_order_permutation_is_invariant`, `test_m11d16_symmetric_family_is_permutation_equivariant` |
 | **M11.D.6** | Dirty state: a second run in the same process sees no state from the first | `test_m11d6_second_run_is_clean` |
 | **M11.D.7** | Every test constructs objects with explicit temporary paths; a conftest guard fails the run if a real artifact path is resolved | `test_m11d7_no_production_paths_in_tests` |
 | **M11.D.8** | Spec traceability: every `Spec:` reference in a docstring resolves to an ID in this document, asserted by **exact count** | `test_m11d8_spec_references_resolve` |
@@ -1111,6 +1169,12 @@ Each criterion **MUST** have a named test, **MUST** assert a direction of differ
 **M11.D.14** — *§0.3's own coverage figures **MUST** be asserted, not stated.* They were written once and measured at the parent commit, so they were stale on arrival — the same shape as the requirement-count drift `M11.D.11` was added for. The scan **MUST** compare §0.3's stated token and test counts against the document as it stands. `test_m11d14_section_0_3_counts_are_current`
 
 **M11.D.13** — *the normative vocabulary **MUST** be used as §0.3 defines it.* A scan **MUST** assert that the document contains no prohibition written *subject-negated* — a bare negative subject followed by a bare `MUST` — which under §0.3 reads as a permission rather than a prohibition. **Nine requirements were in that form on 2026-08-28**, four of them added that day, including `M11.F.9(c)` — a clause the document itself marks as *correctness, not framing*. The document uses `MUST NOT` correctly in adjacent requirements, so a reader cannot tell the intended reading from the text. `test_m11d13_no_inverted_prohibitions`
+
+**M11.D.17** — *the state-and-mechanism register has no orphans (`M14.A`).* A static check over the register **MUST** fail on a state variable with no writer, a mechanism not placed in `M3.D.1`'s order, and a mechanism that reads a quantity its owner cannot observe — the last is the static form of `M4.B.2`. `test_m11d17_register_has_no_orphans` ⟦proposed rev10 · C10 · He 2026⟧
+
+**M11.D.18** — *the fallback rate is reported, and a high one is flagged (`M4.D.1f`).* Ensemble readouts **MUST** report the fallback and tie-break rate per move and per person, and a criterion whose passing ensemble has a fallback rate above a declared threshold, graded `[I]`, **MUST** be flagged in its verdict. `test_m11d18_fallback_rate_is_reported_and_flagged` ⟦proposed rev10 · C12 · Ye 2026⟧
+
+**M11.D.19** — *every move is reachable in a triad.* `M11` **SHOULD** include a static reachability test: for a three-person sub-family over one fast tick, enumerate the outcomes the `M4` policy can produce from any state within the declared ranges — by linear-programming feasibility where the policy is piecewise linear, by dense sampling of the state box otherwise — and assert that each of the nine core moves and `WITHHOLD` is legal somewhere in the box (`M4.D.1e`) and, where legal, receives non-negligible propensity. Unreachable moves **MUST** be listed. Under dense sampling the finding is "not observed", not "unreachable", and **MUST** be reported that way. `test_m11d19_every_move_is_reachable_in_a_triad` ⟦proposed rev10 · C14 · Kurz 2025⟧
 
 ### M11.E — Criteria that cannot be made code-testable in Phases B–D
 
@@ -1237,6 +1301,18 @@ This binds three places that could each be implemented adversarially and where n
 
 **M14.2** "Implementation complete" without that report **MUST NOT** be accepted.
 
+### M14.A State and mechanism register ⟦proposed rev10 · C10 · He 2026⟧
+
+**M14.A.1** The object model (`M1`) **MUST** be accompanied by a register in which every state variable of `Person`, `Relationship`, `Triangle` and `Family` is classified — exogenous-homogeneous, exogenous-heterogeneous, endogenous-decision or endogenous-derived — with the mechanisms that write it. → `papers/SPEC_CANDIDATES…` C10 ⟦proposed rev10 · C10 · He 2026⟧
+
+**M14.A.2** Every mechanism **MUST** list what it reads, what it writes on its owner and what it writes on other objects, and `M3.D.1`'s phase order **MUST** list each mechanism with its execution mode — synchronous batch, latency-delivered or slow tick — and its trigger condition. `M1.F.8`'s same-tick batching is none of these modes and **MUST** be recorded as a documented composite. → `papers/SPEC_CANDIDATES…` C10 ⟦proposed rev10 · C10 · He 2026⟧
+
+**M14.A.3** The register below is a **stub**. Its rows are for the owner to fill when the implementation plan is written; `M11.D.17` checks it. → `papers/SPEC_CANDIDATES…` C10 ⟦proposed rev10 · C10 · He 2026⟧
+
+| Variable or mechanism | Owner | Class or execution mode | Written by | Reads | Writes on other objects |
+|---|---|---|---|---|---|
+| *(to be filled)* | | | | | |
+
 ---
 
 ## M15 — Family diagram import  `Phase E`
@@ -1257,6 +1333,8 @@ anything the arithmetic can divide by, and `M15.B` exists to keep those two clas
 household membership over time, **sibling rank and sibship size** (M1.A.14), financial dependence, and
 `role` where an external agent is drawn. Display names **MUST** be treated as opaque labels with no semantic
 content.
+
+**M15.A.1a** The stable id of `M15.A.1` **MUST** be the identifier `M1.A.20` uses, and **MUST** be carried unchanged into every arm run over the imported family. → `papers/SPEC_CANDIDATES…` C2 ⟦proposed rev10 · C2 · Buffalo 2026⟧
 
 **M15.A.2** Ties **MUST** be exported with their **kind** (marriage, parent–child, sibling, other) and their
 **relational state** from the diagram's own vocabulary — close, distant, conflictual, cut-off, fused. Only
@@ -1400,6 +1478,8 @@ so the format has to support being queried from inside the run, per agent, with 
 instance identifier. A log without these cannot be replayed and cannot be attributed, and `M3.D.5`'s
 byte-identity claim is unverifiable without them.
 
+**M16.A.1a** The header **MUST** also record the identity and version of the activation and visibility components (`M3.E.1`) and the activation regime in use (`M3.E.2`). → `papers/SPEC_CANDIDATES…` C6 ⟦proposed rev10 · C6 · Li & Tao 2026⟧
+
 **M16.A.2** Each event **MUST** be recorded with the full `M1.F.1` field set, plus the tie latency it was
 delivered on, and both its **emitted** and **delivered** timestamps — they differ by `M1.B`'s per-edge
 latency, and a log that records only one of them cannot show an event arriving late.
@@ -1408,6 +1488,12 @@ latency, and a log that records only one of them cannot show an event arriving l
 vector over the repertoire and the draw that resolved it. Without this the log shows **behaviour but not
 causation**, which is most of the argument for the agent model over the grid: an event log is a causal
 trace, or it is a list.
+
+**M16.A.3a** The selection record **MUST** also carry the belief value the policy used for each tie it read (`M4.B.2`, `M9.8`), so the renderer can show believed against true tie state. → `papers/SPEC_CANDIDATES…` C9 ⟦proposed rev10 · C9 · He 2026⟧
+
+**M16.A.3b** The selection record **MUST** carry the legal set formed under `M4.D.1e`, so that a move that was never legal is distinguishable from one that was legal and never chosen. → `papers/SPEC_CANDIDATES…` C11 ⟦proposed rev10 · C11 · Buitrago López 2026⟧
+
+**M16.A.3c** The selection record **MUST** carry a flag stating whether the outcome was chosen by the scored policy, the tie-break rule or the fallback rule (`M4.D.1f`). → `papers/SPEC_CANDIDATES…` C12 ⟦proposed rev10 · C12 · Ye 2026⟧
 
 **M16.A.4** — *effects **MUST** be recorded beside their cause.* For each delivered event: the change in
 each receiver's acute anxiety, the tie deltas, any triangle position change, any reallocation across

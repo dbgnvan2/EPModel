@@ -35,7 +35,7 @@ This specification covers **Phases B, C and D** of the sequence in `agent_model_
 
 ### 0.3 Normative language
 
-- **MUST** / **MUST NOT** — required. A violation is a defect. **Not every one carries its own test**: there are roughly 663 bolded MUST/MUST NOT tokens against 51 named tests, and whole modules (`M15`, `M16`) sit outside `M11` entirely. What is true is narrower and is the thing to rely on: **every `M11.C`, `M11.D` and `M16.F` criterion names a test — except `M11.C.8`, whose Test cell is `—` because `M11.E` defers it — and every `M6` invariant is asserted each tick.** A MUST elsewhere is a requirement on the implementer that a reviewer must check by reading. *(Corrected 2026-08-28. The earlier form claimed each MUST had a test or an invariant, which was not true when written and got roughly 35% further from true over three revisions. It is the sentence a builder would use to decide what needs a test, so an aspirational reading of it is expensive.)*
+- **MUST** / **MUST NOT** — required. A violation is a defect. **Not every one carries its own test**: there are roughly 825 bolded MUST/MUST NOT tokens against 78 named tests *(recomputed 2026-09-22 at revision 10 by `M11.D.14`'s method — every bolded token, and every distinct backticked test name in the document, `M17`'s included; revision 9 stated 663 and 51)* ⟦proposed rev10 · owner decision 2026-09-22⟧, and whole modules (`M15`, `M16`) sit outside `M11` entirely. What is true is narrower and is the thing to rely on: **every `M11.C`, `M11.D` and `M16.F` criterion names a test — except `M11.C.8`, whose Test cell is `—` because `M11.E` defers it — and every `M6` invariant is asserted each tick.** A MUST elsewhere is a requirement on the implementer that a reviewer must check by reading. *(Corrected 2026-08-28. The earlier form claimed each MUST had a test or an invariant, which was not true when written and got roughly 35% further from true over three revisions. It is the sentence a builder would use to decide what needs a test, so an aspirational reading of it is expensive.)*
 - **SHOULD** — required unless there is a stated reason not to; the reason goes in the code comment.
 - **MAY** — genuinely optional.
 
@@ -1960,6 +1960,24 @@ and `INDEX.md`. `SPEC_CANDIDATES_plain_language_2026-09-20.md` is explanation on
 13. **The arm-blindness check (`M17.D.3`)** **MAY** run from Phase B. Adopt it there?
 14. **`CLAUDE.md`** still describes the spec as revision 6 with 427 requirements. Update after approval;
     not edited here.
+
+**Consistency checks, run 2026-09-22 at the end of this revision.** No `M11.D` scan code exists for the v2
+engine yet, but `tests/test_spec_consistency.py` implements the `M11.D.10`, `M11.D.11`, `M11.D.13` and
+`M11.D.14` scans against this document and was run; the other checks were one-off Python and `grep`
+scripts, not committed.
+
+| Check | Result |
+|---|---|
+| New criteria numbered from `M11.C.35` (revision 9's table ended at `M11.C.34`) | pass — `M11.C.35`–`M11.C.40`; `M11.D` continues at `M11.D.15`–`M11.D.21` |
+| Every ID matches `M\d+(\.[A-Za-z0-9]+)*`; no duplicates | pass — 514 defined IDs, 0 failures, 0 duplicates |
+| Revision 9's IDs unchanged | pass — all 427 still defined, 0 removed, 87 added; extracted from both versions with the same pattern and diffed |
+| `M11.D.11`, both directions | pass — every `M11.C` criterion's phase matches its `M13` Done-when cell (B 0, C 18, D 21, E 1) and no cell names an orphan; the project's three `M11.D.11` tests pass |
+| `M11.D.13`, no subject-negated `MUST` | pass — the project's test, and a separate scan of the added text |
+| Every marker resolves | pass — 131 markers; every part names a C-number heading in the candidates file, an `E-DR`/`E-SH`/`E-RM`/`E-RE` draft in `DESIGN_LESSONS` §7.8–§7.9, or a `DESIGN_LESSONS` section or §7.10 item, except three administrative forms (*owner decision 2026-09-22*, *first draft, rev10*, *register extension*) and the *reader's proposal* tag on `M3.D.4b`'s rows |
+| No quotation of eight or more words from a paper | pass — every added line compared as eight-word sequences against the `pdftotext` output of all 70 PDFs under `papers/`, including the fourteen sweep papers and SEAA: 0 matches |
+| §0.3's counts | restated above: 825 tokens, 78 named tests (revision 9: 663, 51). The project's `M11.D.14` test passes against them |
+| `M14`'s coverage figures | nothing to restate — `M14` states no figures; `docs/spec_coverage.md` does not exist until implementation |
+| Requirement count cited by other documents | **fails, and is left failing on this branch.** The project's requirement-count test finds `CLAUDE.md`, `README.md`, `CHANGELOG.md`, `docs/theory/_STATUS.md` and `agent_model_proposal.html` claiming 427 against the spec's 514. This revision may not edit `CLAUDE.md` or `docs/theory/`, and restating the others would present unapproved proposals as the count. Update all five at approval, with the count as approved |
 
 **Adjacent issues found, not fixed.** `M11.2`'s note says the criteria table "now ends at 33" and `M11.3`
 counts "4 of 33 criteria" and "27 unclassified"; at revision 9 the table already held 34 rows, and it now

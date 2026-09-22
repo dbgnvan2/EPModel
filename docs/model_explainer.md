@@ -1557,8 +1557,8 @@ is built during Phases B–D except the stopping rule, which the owner brought i
   discriminate. Floors on null arms stay a SHOULD, by the owner's decision. **Switching a mechanism off is a
   change to the model; the comparison is allowed, but only as a test of the model** (spec `M11.4f`, adopted by
   the owner 2026-09-22): the invented constants cancel only
-  between two arms of one model (§17.1), so any comparison with a mechanism disabled — these arms, and the
-  learning-off arms of §18.6 — tests the model's structure and is never reported as an effect on a family.
+  between two arms of one model (§17.1), so any comparison with a mechanism disabled — these arms, the
+  learning-off arms of §18.6, and the quantum-jump ablation of spec `M10.C.4a` — tests the model's structure and is never reported as an effect on a family.
 - **Sweeps** (`M17.E` · DL §2.3, E-DR, C31, C37, C38). The fraction of the invented constants' range over
   which each direction holds; a dose–response curve for the one constant a criterion depends on most, sharing
   that range (kept as two requirements, approved by the owner); for threshold constants, the exact interval within which nothing changes, computed from logged

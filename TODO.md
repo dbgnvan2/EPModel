@@ -28,8 +28,8 @@ revision-10 section.
 - [ ] **`E-RM` and C34 — one requirement or two (DESIGN_LESSONS Q16).** Currently `M17.D.1`(d) plus `M17.D.2`.
 - [x] ~~**Does disabling a mechanism count as a second parameter set under `M0.4`? (DESIGN_LESSONS Q10)**~~
   *Answered 2026-09-22: switching off a mechanism is a change to the model; such comparisons are allowed as tests of the model's structure only (the recommendation the owner adopted). Written as spec `M11.4f`.*
-- [ ] **Does `M11.4f` reach the approved ablation of `M10.C.4a`?** The quantum-jump ablation removes a
-  condition, not a whole mechanism; decide whether it is a change to the model under the new ruling.
+- [x] ~~**Does `M11.4f` reach the approved ablation of `M10.C.4a`?**~~ *Decided 2026-09-22: yes. Each run with a
+  condition removed tests whether the model needs that condition; `M10.C.4a` itself is unchanged.*
 - [ ] **Strike `M11.4c` at approval unless a mechanism ranking turns up.** Answered 2026-09-22: most mechanisms
   scale with differentiation and stress, so the theory orders conditions, not mechanisms — tested as
   `M11.C.41`. The ranking form has nothing to rank.

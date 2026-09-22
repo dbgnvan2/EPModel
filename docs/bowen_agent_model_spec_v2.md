@@ -1,8 +1,8 @@
 ---
 tags: [model-bt, spec]
-version: 2.0-draft, revision 9
+version: 2.0-draft, revision 10
 status: FOR APPROVAL — no code until approved
-date: 2026-08-28
+date: 2026-09-22
 supersedes: bowen_individual_family_model_spec.md (v1.2, frozen)
 ---
 
@@ -18,6 +18,8 @@ This specification covers **Phases B, C and D** of the sequence in `agent_model_
 
 **One exception, added at revision 5.** `M15` specifies the **family-diagram import** — a Phase E capability — ahead of the rest of Phase E. It is specified early for one reason: the export format is produced by an application the project owner controls and can change, and the cheapest time to state what it must emit is **before** it emits something else. `M15` is a contract on that application, not an implementation plan. Nothing in `M15` is built during Phases B–D.
 
+**Phase E drafted at revision 10.** The sentence above that says Phase E is specified after the core is real is superseded in part: Phase E is now drafted in `M17` as a **first draft**, on the project owner's decision of 2026-09-22 that everything the method literature proposes should sit in this one document for review. `M13.3`'s rule is unchanged and applies to all of `M17`: nothing in it is built during Phases B–D. Every requirement added at revision 10 carries a proposal marker until the owner accepts or strikes it. ⟦proposed rev10 · owner decision 2026-09-22⟧
+
 ### 0.2 Relationship to the other documents
 
 | Document | Role | This spec's relationship to it |
@@ -27,6 +29,7 @@ This specification covers **Phases B, C and D** of the sequence in `agent_model_
 | `theory/_RESOLUTIONS.md` | the two settled contradictions | Cited where a requirement depends on a resolution. |
 | `agent_model_proposal.html` | the architecture and the argument for the pivot | Context. Where it and this spec disagree, **this spec wins**. |
 | `bowen_individual_family_model_spec.md` | v1.2, **frozen** — the grid engine | Historical. Not a source for v2. |
+| `papers/SPEC_CANDIDATES_from_preprints_2026-09-20.md` and `papers/DESIGN_LESSONS_model_design_papers_2026-09-17.md` | method-literature rationale for requirements marked `[proposed rev10]` — candidates C1–C42, and the design-lessons sections (`DL §…`) including the `E-DR`, `E-SH`, `E-RM` and `E-RE` drafts | **Authoritative for the rationale of method-derived requirements.** The spec cites `→ papers/SPEC_CANDIDATES… C8` the way it cites `→ model_explainer §9.4`, and does not restate the evidence. ⟦proposed rev10 · owner decision 2026-09-22⟧ |
 
 **One rationale lives in one place.** If a requirement here needs justification, that justification is in the explainer and this spec links to it. This rule exists because the project has already been bitten by two documents drifting apart.
 

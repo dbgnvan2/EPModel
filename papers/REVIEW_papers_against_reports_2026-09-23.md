@@ -20,21 +20,24 @@ limited to the papers I could open, and each row of the table says how much of e
 | Holland, Saynor, Svingen & Luo 2026 (2607.29546) | **full text** (HTML) | C8, C29, H2 |
 | Prasad 2026 (2607.07753) | **full text including supplement** (HTML) | C13, C16, C17, C18, C24, C38 |
 | Kalluri 2026 (2603.01189) | **full text** (PDF) | C19, C20, C23, C41 |
-| Ye et al., TRAILS (2605.18890) | abstract only | C12, C21, C25, C33, C36, C37 |
-| Li & Tao 2026 (2603.00113) | abstract and introduction | C5, C6, C7, C32 |
-| He 2026, VISA (2607.28027) | abstract only | C9, C10, C15 |
-| Sachdeva & van Nuenen (2510.10002) | abstract only (v1/v2) | C5, C30, C34, C40 |
-| Buitrago López et al. 2026 (2606.12369) | title and date only | C11, C39 |
-| Kurz 2025 (2512.18016) | model definition only | C14, C31 |
-| Liu 2026, SEAA (2609.17331) | abstract only | the M17 drafts E-DR, E-SH, E-RM, E-RE |
-| Blando et al. 2026 (2604.04543); Wang et al. 2026 (2608.06485); Li et al. 2026 (2608.24912) | **not checked** | C26, C27; X1–X4 |
+| Ye et al., TRAILS (2605.18890) | **full text** through Appendix D (PDF); Appendix E not reached | C12, C21, C25, C33, C36, C37 |
+| Li & Tao 2026 (2603.00113) | **full text** (HTML v2) | C5, C6, C7, C32 |
+| He 2026, VISA (2607.28027) | abstract and search extracts only; the PDF has no machine-readable text and no HTML version was found | C9, C10, C15 |
+| Sachdeva & van Nuenen (2510.10002) | **full text of v4** (COLM 2026, 27 Aug 2026, retitled "Interaction Protocol Shapes Moral Judgment in Multi-Agent Debate") | C5, C30, C34, C40 |
+| Buitrago López et al. 2026 (2606.12369) | **full text** (HTML v1); figure cell values not extractable | C11, C39; LLM-line paragraph |
+| Kurz 2025 (2512.18016) | **full text** (PDF) | C14, C31, C32 |
+| Blando et al. 2026 (2604.04543) | **full text** (PDF) | C25, C26, C27 |
+| Wang et al. 2026 (2608.06485) | **full text** (PDF) | LLM-line paragraph; X1, X2 |
+| Li et al. 2026 (2608.24912) | abstract and two search extracts only | LLM-line paragraph; X3, X4 |
+| Liu 2026, SEAA (2609.17331) | **full text** (HTML v1) | `DESIGN_LESSONS` §7; the drafts E-DR, E-SH, E-RM, E-RE |
 
-**Five papers were read in full.** Between them they carry the two revision-10 items that change the model itself
-(C8 → `M4.C.9`, C9 → `M4.B.2`), and the evidence behind C1–C4, C16–C24 and C28.
+**Thirteen of the fifteen papers were read in full.** The first five carry the two revision-10 items that change the
+model itself (C8 → `M4.C.9`, C9 → `M4.B.2`). The second batch (addendum, same day) covers the remaining papers. VISA
+and Li et al. are the two I could not read in full.
 
 ## Summary
 
-**The readers' reports are accurate.** For all five papers read in full, section A of the reading report (the
+**The readers' reports are accurate.** For all thirteen papers read in full (five in the first batch, eight in the addendum), section A of the reading report (the
 summary of the paper) is correct in detail: equations, table values, seed counts, caveats. In two cases the reader
 caught the paper overclaiming:
 
@@ -53,6 +56,11 @@ the paper is made to support more than it does:
 | **C19 / `M11.4c`** (Kalluri) | Spearman ρ = 0.833 against benchmarks that contain ties | "ranked the eight correctly" |
 | **C23** (Kalluri as "worked example") | a parameter calibrated to a target that the output then **missed** | a target "then reported as a validation result" |
 | **Plain-language C37** (TRAILS) | 76 points versus 1 point between two **LLMs** | presented in a low- versus high-differentiation family example |
+| **C21** (TRAILS) | memory representation had *small* effects (most shifts < 0.2 payoff, < 0.1 cooperation); persona format was the large one | memory representation cited as the case that "moved outcomes" |
+| **C40** (Sachdeva) | the interaction terms lower AIC by 2,094 (77,734 → 75,640) | "interact positively (AIC drops from 92,233 to 75,640)", the whole nested sequence |
+| **LLM-line paragraph** (Wang) | median \|Δ\| 0.02 against the paper's own band 0.035–0.14; 10–32% of responses overshoot | "about ten times smaller than human bands" |
+| **LLM-line paragraph** (Li) | the malicious persona pushes two categories below the models' *own normal values* | pushes them below the *human baseline* |
+| **`DESIGN_LESSONS` §7.5** (SEAA) | prototype agents do not interact; LLM narrators are *given* their labels and gaps | differentiation, self-narrative and social topology all emerge from "reinforcement plus observation" |
 
 This is the direction the project already documented for the first corpus pass: sources made to look "more
 quantitative and more decided" than they are. It recurred here in the step from a correct summary to a candidate.
@@ -176,22 +184,100 @@ and 0.069–0.552 across scenarios. Calibration error runs 8.93–52.05.
 **The paper overall is weak evidence for a methods standard.** It is titled "Empirically-Validated" on the strength
 of interval validity for four of eight predictors.
 
-### Abstract-level checks
+### Second batch (addendum): the other ten papers
 
-- **TRAILS.** The abstract confirms that the 76-point versus 1-point contrast is between model families. This
-  settles the plain-language misframing of C37.
-- **Li & Tao.** A position paper (one arXiv version is titled "Position: AI Agents Are Not (Yet) a Panacea for Social
-  Simulation"). Scheduling and exposure as model content match the candidates' `[ARGUED]` grading.
-- **VISA.** The abstract matches: eight tables, nineteen consistency rules, and the AnyLogic reproduction barrier.
-  ODD (Grimm et al. 2006, 2010, 2020) is the established standard C10 belongs beside.
-- **Sachdeva & van Nuenen.** arXiv lists v1 (October 2025) and v2 (March 2026) as "Deliberative Dynamics and Value
-  Alignment in LLM Debates". The report cites "v4, COLM 2026" under a different title. I could not confirm v4 or its
-  numbers.
-- **Kurz.** The model is synchronous Hegselmann–Krause averaging. C14 and C31 are transfers from a deterministic
-  one-dimensional model.
-- **SEAA.** Single author, independent researcher, not peer reviewed. Four `M17` drafts come from it. The consolidator
-  read it himself (`DESIGN_LESSONS` §7), which is better provenance than a sub-agent report. The drafts themselves —
-  dose–response, shock and recover, a rival-mechanism arm — are standard methodology and need no special authority.
+**TRAILS — report accurate; C21 cites the wrong perturbation.** App. C.1 (Mann–Whitney U because some conditions have
+zero run-level variance; Holm within each metric), C.2.1 and C.4 (parse-validity logged; unparseable output falls
+back to DEFECT after one retry), C.3.3 (degree-preserving swaps; hubs reassigned with degree sequence and homophily
+band fixed) and §4 (76 pp in gpt-5.2, ~77 pp in claude-haiku, ~36 pp in gemini, ~1 pp in deepseek) all match C12,
+C25, C33, C36 and C37. C12 also cites App. E.1.7, which I did not reach. **C21** cites §4.1 P3 as the case where
+representation "moved outcomes while memory content was identical". The paper reports that memory representation had
+only small effects and did not shift the equilibrium. The reading report states this correctly (its line on P3); the
+candidate dropped it. The representation-level result that did move outcomes is persona format (P1: the same content
+as prose, bullets or a table; 76 pp in the two-agent game). Re-cite C21 to P1. The paper is explicit that its
+perturbation surface is textual and LLM-specific, so the transfer to rounding and summation order stays `[INFERENCE]`.
+
+**Li & Tao — accurate.** Definition 4.1 (Sch, Vis, D₀ as named parts of the simulator), Action 1 (versioned,
+inspectable, logged), Action 2(3) and Action 3, and §3.2.3 (independent attribute sampling breaks joint structure;
+identical aggregate statistics can encode different mechanisms) are all as stated in C5, C6, C7 and C32, and all
+are correctly graded `[ARGUED]`. The paper's "environment" is institutions and platforms; what transfers to a
+twelve-person family is the scheduler and visibility objects, which is what the candidates take.
+
+**VISA — still not read.** Search extracts confirm rule r4 (a composite execution step is allowed if declared) and
+rule r8 (a variable-count agent set owns a creation and a removal function). I could not verify r13 or r14. C9, C10
+and C15 are graded `[ARGUED]` and none needs VISA's authority: C15 (disposition at death) follows from the spec's own
+conservation invariants.
+
+**Sachdeva & van Nuenen — v4 exists; numbers accurate; one misattributed figure.** This corrects my earlier row:
+v4 is on arXiv (COLM 2026, 27 August 2026) under a new title, as the report says. Change-of-verdict rates, first-round
+consensus of about 90% versus 40% by speaking order, the >70% NTA steering in one three-way order, Table 1
+(γ_within 2.22 for GPT-4.1, 0.03 for Claude) and App. D (Gemini's verdict distribution shifted by the debate framing
+alone) all match C5, C30 and C34. **C40** says the two quantities "interact positively (nested-model AIC drops
+from 92,233 to 75,640)". 92,233 is the fixed-effects-only model. The interaction terms account for 77,734 → 75,640;
+the report has this right. Two caveats the candidates omit: the authors ran each experiment once, and adding the
+interaction or a debate random effect changes the magnitudes considerably (Claude's inertia 1.51 → 0.87; Claude's
+within-round conformity 0.05 → −0.20). Only the ordering between models holds. That limits C40's
+"statistically separable".
+
+**Buitrago López — text accurate; figure values unverified.** Every number in the text matches: mean JSD 0.212 over
+nine configurations; prompt means 0.148 / 0.172 / 0.317; best prompt differs by model; 135.1× to 1,337.1× slower,
+mean 563.3×; no repetitions and no variance reported. The report's cell counts (for example LLaMA v1 Passive read
+5,124 → 1,071; follow driven to 0 in most LLM cells) come from heatmap images I could not extract. The text says
+only that rare actions were "reduced". The candidates' "drove the rare actions to zero in most cells" and "inverted
+the rare/common actions" rest on those figures, and I have not checked them. The contextual mask is described only as
+an input to the v3 prompt ("final normalized probabilities after masking"). The paper implies that the FSM masks and
+renormalises but does not specify the procedure.
+
+**Kurz — accurate; the idea is Hegselmann's.** Lemma 3 (finitely many ε-intervals with identical trajectories; switch
+points are pairwise distances), Lemma 7 (realisability as an LP), Table 1 (51,505 unit interval graphs at n = 12) and
+Example 5 all match C14, C31 and C32. As with Buffalo, the core result is not new: ε-switches and their algorithm are
+from Hegselmann (2023, *JASSS* 26(4)). Kurz proves Hegselmann's conjecture and gives a breadth-first version. Cite
+Hegselmann with C31. On C32: Example 5 is n = 4, and the paper's next sentence says the outcome is "different for
+larger numbers of agents or tighter constraints". The input bands are ±0.1 on opinions of 2–5 (about ±2–5%), and ±10%
+only on ε. The report's "n ≈ 4–12" and the candidate's "±10% bands on inputs" both extend it.
+
+**Blando — report accurate; the paper's inference is not.** C25, C26 and C27 describe the practice correctly (Welch
+test per step, batches of 30 until every interval is below δ, non-converging configurations reported as such). The
+paper reads ρ = 3.0 versus 5.0, which "does not reject equality at any time step (power = 1.0)", as a saturation effect.
+A non-rejection does not establish equality, and a power figure with no stated effect size does not change that. The
+candidate quotes this as "SHOWN as practice" without flagging it. EPModel's `M11.4a` (a null must carry an
+equivalence bound) is the correct rule and already excludes this reading. The paper also applies a separate test at
+each of 21 time points with no multiplicity correction. C25's Holm requirement covers that.
+
+**Wang et al. — report accurate; two of the paper's own claims are weaker than stated.** 0.19 versus ~0.7, 14 of 27
+matched and 13 reversed, retirement reversed by every model, the agreeableness pull, ρ ≤ 0.105 against scenario
+decisions and the three-turn horizon all match. Two problems carry into the LLM-line paragraph and X2:
+- *"About ten times smaller."* This is the annotation in the paper's Figure 1. The body gives median |Δ| = 0.02
+  against a human reference band of 0.035–0.14, which is 1.75 to 7 times smaller. 9.9–31.6% of responses overshoot the
+  band. Cite the in-band rate (11–16%), not a ratio.
+- *Heterogeneity collapse.* The paper compares the SD of *change scores* across personas (σ_LLM = 0.19) with the human
+  SD of trait *levels* (0.5–0.8, from Bühler 2024 and Roberts 2006). These are different quantities, so the
+  "three- to four-fold compression" is not established by that comparison. X2 ("collapse relative to baseline SD")
+  inherits the same mismatch. I do not know the human SD of individual change after these events; the comparison
+  needs it.
+
+**Li et al. — only partly read.** Confirmed: 18 models; prompt-level interventions change the size of the bias but not
+its direction; the calibration divides the persona-conditioned next-token distribution by the neutral-persona one to
+the power α. Two wording issues in the LLM-line paragraph. The paper says the malicious persona pushes fairness
+optimism and emotional softening below the models' *normal values*, not below the human baseline. And the method
+needs the token probability vector, which the paper says black-box APIs supply; "needs logits" suggests model access.
+I did not confirm the report's "needs a human reference".
+
+**SEAA — the design-lessons numbers are accurate; §7.5 attributes too much to the loop.** The consolidator's §7
+reports the paper's numbers correctly. Three corrections:
+1. **The prototype agents do not interact.** In Listing 2 the group mean enters only an EMA "others-model", which
+   nothing reads. Each agent's reward depends on its own state and its own random walk. Differentiation therefore comes
+   from positive feedback on independent noise. §7.5 says "reinforcement plus observation alone". Observation plays no
+   causal part. The null-model argument (E-RM) is stronger for this: differentiation needs no interaction at all.
+2. **The narratives and the deliberation topology are supplied, not emergent.** Appendix A hands each LLM agent its
+   dominant-state label, its trait numbers and its signed gaps to the group, and tells it to "stay true to this
+   disposition". Control agents are all labelled "none (no lock-in)". An agent labelled *impulsive* among agents
+   labelled *pessimistic* and *calm* becoming the outlier follows from the prompt. §7.5 (b) and (c) should not be
+   counted as outputs of the mechanism.
+3. **§7.7(3):** the control is not "no dynamics at all". It keeps the HMM transitions under P_base and the experience
+   walk; it lacks only the preference update. The manipulation-check objection stands.
+The paper also describes control occupancy 0.40 → 0.25 as "unchanged". E-DR, E-SH and E-RM rest on design reasoning
+and are unaffected.
 
 ## What this changes
 
@@ -204,8 +290,12 @@ of interval validity for four of eight predictors.
    L07.4 supplies a mechanism ranking (`REVIEW_spec_rev10` §G1).
 4. **C23 / `M10.B.4`.** The requirement is sound. Replace the Kalluri example with the accurate one (calibrated and
    validated against the same meta-analysis), or drop it.
-5. **A second pass.** Give the candidate lines the second pass the corpus got. Five of five full reads confirmed the
-   summaries and found the overstatements in the step after them. The nine papers read only at abstract level, or
-   not checked, have had no pass of this kind; their numbers rest on one reader each.
+5. **A second pass.** Give the candidate lines the second pass the corpus got. Across thirteen full reads the reading
+   reports were accurate every time; the errors are in the candidate lines, the LLM-line paragraph and design lessons
+   §7.5. Corrections from the second batch: re-cite C21 to TRAILS P1; correct C40's AIC figure and add Sachdeva's
+   single-run and magnitude caveats; add Kurz Example 5's own scope sentence to C32 and cite Hegselmann 2023 with C31;
+   flag Blando's saturation reading as unsound; in the LLM-line paragraph replace "ten times smaller" with the in-band
+   rate and correct the Li wording; redraft X2 or drop it; rewrite `DESIGN_LESSONS` §7.5 per the SEAA note above.
+   VISA and Li et al. remain unread in full.
 6. **Cite established methodology beside the preprints** where it exists: common random numbers and streams (C1–C4),
    ODD (C10), global sensitivity analysis (C31, C37, C38).

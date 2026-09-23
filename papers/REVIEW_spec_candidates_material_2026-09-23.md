@@ -44,30 +44,51 @@ author: Claude (claude.ai chat session), for Dave
 
 **Three weaknesses matter for what reached the spec:**
 
-1. **C9's headline evidence does not support C9, and the project's own reading report says so.** The number travelled unchanged into the candidates file, the explainer (§18.3) and the plain-language file. `M4.B.2` rests on it.
+1. **C9's headline evidence is LLM-specific and does not transfer.** *(Corrected 2026-09-23 after reading the paper; the first version of this item said the evidence pointed the other way, which was too strong — see §1.)* The 60.7% → 34.4% figure travelled unchanged into the candidates file, the explainer (§18.3) and the plain-language file. `M4.B.2` rests on it.
 2. **Coverage was checked by keyword search against the spec only**, not against the explainer or the ledger. That is how C9 came to be recorded as "No conflict", and how C19 concluded the corpus has no mechanism ranking.
 3. **The method literature got one reading pass.** The project's own experience with the corpus is that a single pass over-reads in a consistent direction; pass 2 withdrew nineteen findings. Nothing equivalent was done here.
 
 **The plain-language file has errors of its own.** It misstates two spec objects: it calls `WITHHOLD` "do nothing", and it lists a `FIGHT` move that does not exist. It drops every evidence grade and every LLM-versus-rule-based caveat. And it restates two statistical results incorrectly.
 
-## 1. C9: the headline number points the other way
+## 1. C9: the headline number is LLM-specific
 
-**What the candidate says.** C9 (the no-god-view rule, now spec `M4.B.2`) cites PIMMUR §2.3.2: when LLM agents had to infer other dyads' relations instead of being handed the relationship graph, balanced states fell from 60.7% to 34.4%. The candidate labels this "SHOWN for LLM agents". Explainer §18.3 repeats it ("from about 61% to about 34%"), and the plain-language file presents it as showing "how much this matters".
+*Corrected 2026-09-23 after reading PIMMUR v3 (arXiv 2509.18052v3, 6 April 2026) in full. The first version of this
+section, written from the project's reading report alone, said the paper's ablation pointed against C9. That was too
+strong. The paper labels its manipulations inconsistently, so the ablation cannot be read that way.*
 
-**What the reading report says.** In the PIMMUR report (Part 5, item 5, "Social balance"), the reader records the paper's ablation (§2.4, Fig. 4e):
+**What the candidate says.** C9 (the no-god-view rule, now spec `M4.B.2`) cites PIMMUR §2.3.2: when LLM agents had
+to infer other dyads' relations instead of being told them, balanced states fell from 60.7% to 34.4%. The candidate
+labels this "SHOWN for LLM agents". Explainer §18.3 and the plain-language file repeat it.
 
-- **Interaction alone** — the god-view removal — **had a negligible effect**;
-- adding Profile moved balanced states by −14 points;
-- adding Unawareness moved them by −26 points.
+**What the paper says.**
 
-**Why that matters.** The drop is carried by agent heterogeneity and by the model recognising the experiment, not by denying the god-view. The candidate text even says "with the Unawareness and Profile principles carrying the effect" — and still cites the number as support for a rule about information access. The paper's own ablation is weak evidence *against* the claim that the god-view matters, in LLM agents.
+- §2.3.2 names two flaws in the original study. **Unawareness:** relational metadata let the model recognise the
+  theory. **Interaction:** agents were told the global relationship graph (the god-view).
+- §4.3.2, which describes what was actually changed, assigns the labels differently:
+  - "Interaction" there means replacing binary relationship labels with natural-language stances;
+  - "Unawareness" there means replacing the told dyad relations with inference from conversation.
+- The ablation (§2.4, Fig. 9) finds "Interaction alone" negligible, adding Profile −14 points, and adding Unawareness
+  −26 points.
 
-**Two further cautions from the same report**, neither carried into the candidates file:
+On the §4.3.2 labels, the god-view removal is part of the −26 "Unawareness" arm. It is bundled there with removing
+the cue that lets the model recognise Heider's balance theory.
 
-- The reader writes that **PIMMUR explicitly places theory-driven agent-based models outside its scope**; "every analogue above is mine, not the paper's". C9, C22, C23, C35 and C42 all draw on PIMMUR.
-- The Minimal-Control coding rests on LLM judges with a mean κ of 0.49.
+**How the authors explain the effect.** They attribute it to a "Silicon Hawthorne Effect": agents told the relations
+invoked balance theory in their own reasoning and performed it.
 
-**Consequence.** C9 may still be a good rule. The design argument — the belief layer is pointless if the policy can bypass it — stands on its own, and VISA r14 gives an `[ARGUED]` source. But its `[SHOWN]` support should be struck, and the rule should be argued on design grounds. See also `docs/REVIEW_spec_rev10_2026-09-23.md` §A4, on the approved requirements it conflicts with.
+**Consequence.** The effect is an LLM mechanism — recall of a textbook theory triggered by explicit metadata. A
+rule-based agent has no such mechanism, so the number is neither support for C9 nor evidence against it. C9 should
+stand or fall on its design argument: the belief layer (`M9.7`; ledger L09.4) is pointless if the policy can bypass
+it. VISA r14 supplies an `[ARGUED]` source for that argument.
+
+**Two cautions the candidates file does not carry.**
+
+- PIMMUR v3 limits its own scope: it is "not … a rigid, universal checklist for all computational modeling", and it
+  applies when simulations make claims about real human collectives.
+- PIMMUR's Realism principle classes validation against a theory, rather than against empirical data, as circular.
+  EPModel validates against Bowen's theory by design. Citing PIMMUR as an authority imports that objection too.
+
+See also `docs/REVIEW_spec_rev10_2026-09-23.md` §A4, on the approved requirements `M4.B.2` conflicts with.
 
 ## 2. Coverage checked against the spec by keyword only
 
@@ -96,7 +117,7 @@ The corpus work taught the project that a single reading pass over-reads, "consi
 - **Fourteen papers were read once, by five sub-agents working from `pdftotext`.** The consolidator says nothing was added from memory and that every candidate traces to a reader report. It does not say that any reader's number was re-checked against a paper.
 - **The revision-10 "eight-word quotation" check was a copying check, not an accuracy check.** It compared text against the PDFs to catch reproduced wording, not to confirm what the papers say.
 
-The C9 case in §1 is the kind of error a second pass exists to catch. A reported effect was attached to the wrong component — and the reader had the right attribution sitting in the same paragraph.
+The C9 case in §1, and the C8, C19 and C23 cases in `papers/REVIEW_papers_against_reports_2026-09-23.md`, are the kind of error a second pass exists to catch. In each, a result about an LLM or about a different model was cited as stronger or more directly applicable support than the paper provides.
 
 **Selection.**
 
@@ -149,7 +170,7 @@ The file was written as an explanation for the owner, and in places it is cleare
 
 ## Recommendations
 
-1. **Correct C9.** Strike its `[SHOWN]` support, in the candidates file, explainer §18.3 and the plain-language file, and restate it on design grounds.
+1. **Correct C9.** Strike its `[SHOWN]` support — it is an LLM-specific effect — in the candidates file, explainer §18.3 and the plain-language file, and restate it on design grounds.
 2. **Carry PIMMUR's scope exclusion** into every candidate that draws on it (C9, C22, C23, C35, C42).
 3. **Re-run the coverage check for C7, C9, C16 and C19** against the explainer and the ledger, not the spec's text alone.
 4. **Commission a second pass over the fourteen reports.** An independent reader should check each number that reached a candidate against the paper — the same discipline the corpus got.

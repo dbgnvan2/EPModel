@@ -39,6 +39,47 @@ revision-10 section.
   `tests/test_spec_consistency.py::test_requirement_counts_agree_with_the_spec` is red on the branch until they
   match the approved count.
 
+## Spec revision 11 — held, 2026-09-27
+
+The owner decided on 2026-09-27 that nothing from the 2026-09-27 paper batches enters revision 10, which is
+under external review. All of it waits for revision 11. None of it is a requirement yet.
+
+- [ ] **Method proposals from the two 2026-09-27 batches.** 36 candidates. First batch: J1–J4, SV1–SV4, PD1–PD4,
+  X5–X9, in `papers/SWEEP_READING_REPORTS_2026-09-27.md`. Second batch: BB1–BB5, MM1–MM4, AD1–AD3, TM1–TM6, X10,
+  in `papers/SWEEP_READING_REPORTS_2026-09-27b.md`. Plain-language versions with examples are in
+  `papers/SPEC_CANDIDATES_plain_language_2026-09-27.md` and `…-27b.md`. Candidates labelled X are for the
+  exploratory narrator line only and do not enter the v2 spec.
+- [ ] **Owner answer: anxiety shapes beliefs (answers MM1).** Anxiety makes a person's beliefs about others more
+  subjective. It also biases risk assessment upward, so the same event is read as more threatening. For revision 11:
+  - belief writes (`M9.8`, and the per-person belief store) read the receiver's own anxiety, not only the events
+    delivered;
+  - the weight on the receiver's own state rises with anxiety;
+  - the threat bias points one way, upward;
+  - direction graded `[user]`, strength graded `[I]`;
+  - check `M4.C.5` and FE05.10 for corpus support before raising the grade;
+  - `M9.2` still binds: a threat-biased reading is not automatically false.
+
+  MM1's probe (identical events, only the receiver's anxiety differs, plus a label-only null arm) becomes the test.
+- [ ] **Owner answer: how coaching enters a family (answers SV2).**
+  - **Coach.** Present from t0 in every run.
+  - **Knowledge.** A family learns that coaching exists only through an outside event, which reaches one or more
+    named people at a declared tick.
+  - **What makes an arm.** Arms differ by that knowledge event, meaning whether it happens, when, or who receives it.
+    If both runs receive the same event on the same tick, it is shared history, not an arm, and not what the
+    comparison tests.
+  - **After the event.** Everything is the family's own dynamics: whether to try coaching, how many sessions, and
+    whether to stop once relief comes or continue. The owner expects lower-differentiated people to stop once
+    relieved more often, graded `[user]`; corpus support for relief lowering motivation is ledger L14.6 and L14.2.
+  - **Spread.** Once one person knows, knowledge spreads through ordinary ties, mostly to those closest and safest.
+    A partner is almost always told. Spread is therefore an output of the model, not part of the arm definition. The
+    exception is an arm in which the person is instructed not to tell their partner: that instruction is declared
+    as part of the knowledge event.
+  - **Reporting.** The headline result compares runs where the family learned about coaching with runs where it
+    did not. Never tried, tried and stopped, and continued are reported underneath as a breakdown, never as the
+    comparison itself.
+  - **Where it sits in the spec.** Next to `M1.E.7f` (family-relative entry threshold and rejection hazard) and
+    `M1.E.8` (low optimum for contact frequency).
+
 ## Arising from the 2026-08-28 batch
 
 - [ ] **Audit the spec for requirements sourced from an extraction *heading* rather than a quoted sentence.** `M5.D.4` was inverted for exactly this reason: `docs/theory/ch13.md` carried the correct quotation in its body under a heading that said the opposite, and only the heading travelled into the spec. The heading is fixed and the requirement corrected, but **nothing has checked whether there are others of the same shape.** The check is mechanical: for each requirement citing a chapter, confirm the claim appears in a *quoted* passage in the extraction, not only in a section title or a bolded gloss. Highest risk in the earliest requirements, written when the extractions were newest.

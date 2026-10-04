@@ -5,6 +5,47 @@ Completely separate from the Bowen corpus in `docs/theory/`.
 
 ---
 
+## 2026-09-28 — 5 new papers
+
+Method note: all six facet queries returned via `export.arxiv.org/api` (explicit
+`Accept: application/atom+xml` header). Window: arXiv submitted >= 2026-09-14 (~2 weeks,
+since last sweep). Version suffixes preserved (all v1 except 2609.27690, read as v2).
+One PDF (PERSONAWEAVER, 2609.26629) truncated on first download and was re-fetched;
+verified `%%EOF` on all five. No arXiv failures. Semantic Scholar citation tracking was
+skipped this run (rate-limited on prior run; nothing new expected from seeds).
+
+1. **Cultural Divergence Preservation: Diagnosing Flattening and Caricature in LLM-Simulated Survey Populations** — 2609.29928 — Yeeun Chae, Yewon Choi, Seunghyun Lee, IL Im — FIDELITY. Cross-cultural survey simulation: existing JSD-style distance metrics miss whether *between-country* differences are preserved; proposes diagnostics for "flattening" and "caricature" of simulated populations.
+2. **Consequential Behaviour and Representational Fairness in the Validation of Synthetic Research** — 2609.27690 — Florian Kutzner, Celina Kacperski, Laura de Molière, Edoardo Chidichimo, Min Jun Jung, Felix P. S. Wallis, James K. He — FIDELITY. Argues synthetic-sample validation tests the wrong thing (intention vs behaviour gap) and proposes consequential-behaviour + representational-fairness criteria.
+3. **Warned alike, AI agents avoid the less-crowded road while people take it** — 2609.30883 — Takahiro Ezaki, Naoto Imura, Katsuhiro Nishinari — FIDELITY. Two-road congestion game: 50 GPT agents herded onto one road under a shared forecast while humans diversified — a concrete agent-vs-human divergence in emergent collective choice.
+4. **From Static Personal Values to Contextualized Personalization: Bayesian Personalized Value Alignment for LLMs** — 2609.28942 — Hanze Guo, Aixuan Song, Jing Yao, Xiangxu Zhang, Xiaoyuan Yi, Xing Xie, Xiao Zhou — TRAIT. Replaces a static value profile with context-dependent value salience, explicitly citing Lewin's Field Theory (behaviour = f(person, environment)).
+5. **PERSONAWEAVER: Controllable Diversity Beyond Conventional Archetypes in Procedural Character Generation** — 2609.26629 — Maan Qraitem, Kate Saenko, Bryan A. Plummer — TRAIT. Procedural character/persona generation with controllable diversity beyond a fixed archetype bank, for populating games and simulations.
+
+Facets with nothing new in window: ARCH, ADAPT, DYNAMICS, MECH. (ARCH top hits were
+post-training recipes / robotics / security agents; ADAPT returned self-distillation and
+self-improvement *training* papers — out of scope, same as prior weeks; DYNAMICS was
+dominated by robotics/optics "alignment" noise; MECH hits were all pre-window.)
+
+### Deep-review candidates (individual/small-group ABM, for the EPModel spec)
+
+Screened 2026-09-28 against the level criterion (design/build/testing of an ABM at
+individual or small-group scale). **No candidates this week** — all five are
+population-scale, single-model, or individual-level building blocks:
+
+- **Warned alike** (2609.30883) — adjacent. A 50-agent congestion game that *tests*
+  agent-vs-human emergent behaviour (criterion c), but it studies an aggregate
+  congestion outcome, not individual-level dynamics; no persona/identity/memory
+  architecture. The game-as-behavioural-audit method is the transferable piece.
+- **PERSONAWEAVER** (2609.26629) — adjacent. Individual persona *generation* (controllable
+  diversity), not an interaction model; relevant as a TRAIT building block.
+- **Bayesian Personalized Value Alignment** (2609.28942) — adjacent. Individual value
+  salience (Lewin Field Theory) — the person×environment framing is the closest analogue to
+  EPModel's appraisal→state→move, but it is single-model alignment, not a group sim.
+- Out on level grounds: Cultural Divergence Preservation (2609.29928, cross-national survey
+  populations) and Consequential Behaviour (2609.27690, synthetic survey validation) — both
+  population-scale FIDELITY methodology, no interacting individual agents.
+
+---
+
 ## 2026-09-21 — 8 new papers
 
 Method note: `export.arxiv.org/api` was reachable this run, but only with an explicit

@@ -79,6 +79,41 @@ under external review. All of it waits for revision 11. None of it is a requirem
     comparison itself.
   - **Where it sits in the spec.** Next to `M1.E.7f` (family-relative entry threshold and rejection hazard) and
     `M1.E.8` (low optimum for contact frequency).
+- [ ] **Method proposals from the two 2026-10-04 batches.** Added 2026-10-04 by owner decision; held for revision 11
+  on the same terms as the 2026-09-27 batches. 59 candidates, including narrator-line items.
+  - **Batch a.** The five papers from the 2026-09-28 sweep: WA1–WA5, CD1–CD4, CB1–CB3, BV1–BV3, PW1–PW3, plus
+    WA-X1, CD-X1 and PW-X1. In `papers/SWEEP_READING_REPORTS_2026-10-04.md`.
+  - **Batch b.** 21 papers from the owner's 25-paper digest of 2026-09-15 to 09-30. The other four had already been
+    read. Candidates: PF1–PF3, AQ1–AQ3, RP1–RP2, PP1–PP2, EN1, TP1, PM1–PM2, RA1–RA2, NG1–NG3, RZ1–RZ2, AN1,
+    AG1–AG2, AR1, AT1–AT3, EV1–EV4, plus AQ-X1, RP-X1, TP-X1, PM-X1, NG-X1, IT-X1, AN-X1 and AT-X1. In
+    `papers/SWEEP_READING_REPORTS_2026-10-04b.md`.
+  - **Plain-language versions.** `papers/SPEC_CANDIDATES_plain_language_2026-10-04.md` and `…-04b.md`.
+  - **X-labelled candidates.** As before, these are for the exploratory narrator line only.
+  - **Interactions with earlier proposals.** TP1 should be folded into BB5. PM2 and EV4 extend the MM1 test. EV1 and
+    WA5 build on the SV2 answer. AR1's wording must be reconciled with PD4's "never select".
+- [ ] **Open owner questions from the 2026-10-04 batches.** Each one blocks the candidate named. The full list is at
+  the end of each plain-language file.
+  - **Silent mechanisms** (theory decisions):
+    - **RA1.** How a move's target is chosen, and whether anxiety shifts targeting toward the sender of the latest
+      upset.
+    - **PM1.** How long a per-person belief persists between writes. L09.4 may point the opposite way from the memory
+      literature.
+    - **BV1.** What a "situation", a "decision domain" and a "demand type" are. `M1.A.3`, `M1.A.3a`, `M1.A.14d` and
+      the `M1.A.4c` estimator read them, and nothing represents them.
+    - **BV3.** What `M4.D.1a`'s mixing weight reads.
+    - **AN1.** Whether an event in flight is delivered after the sender dies or the tie is cut off.
+    - **RZ1.** Whether belief items are coupled.
+    - **RZ2.** Whether confirming writes are stronger than contradicting ones.
+    - **WA2.** Whether more fused families react more alike to one event.
+    - **EV4.** Whether anxiety weighs more on indirect evidence.
+    - **Carry-over.** Whether a withheld move carries over to the next tick.
+    - **EN.** Whether any stochastic term may persist across ticks.
+  - **Arm and framing decisions:**
+    - **NG1.** Whether an arm may separate spouses' levels against `M2.A.0c`.
+    - **AT1, AT2.** Whether model "anxiety" is described as felt, and whether the consistency-engine framing becomes
+      a requirement.
+  - **Corpus item found while checking, not from a paper.** FE05.17 (protecting children from one's own problems
+    transmits them) is marked testable in `fe05.md`, but no `M11` criterion covers it.
 
 ## Arising from the 2026-08-28 batch
 

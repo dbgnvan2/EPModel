@@ -146,7 +146,20 @@ under external review. All of it waits for revision 11. None of it is a requirem
   - **Owner questions.** TD2: is an old pattern held down or erased when it goes quiet? GA1: does belief fading run on
     time since written or time since last used? GA2: does a derived belief outlast its evidence?
   - **Catalogue gap found by the Argyle reader.** The three later silicon-sampling papers (2609.10280, 2609.15849,
-    2609.16395) have not been read in full.
+    2609.16395) had not been read in full. *Closed 2026-10-05: read in batch b, below.*
+- [ ] **Method proposals from the 2026-10-05 batch b (silicon sampling).** Added 2026-10-05 by owner request; held for
+  revision 11 on the same terms. Total Simulated Survey Error 2609.10280 (TS1–TS4, TS-X1), Before You Poll 2609.15849
+  (BP1–BP5, BP-X1, BP-X2), Silicon Sampling Country Assumptions 2609.16395 (SC1–SC5, SC-X1, SC-X2). In
+  `papers/SWEEP_READING_REPORTS_2026-10-05b.md`; plain-language version in
+  `papers/SPEC_CANDIDATES_plain_language_2026-10-05b.md`.
+  - **Interactions with earlier proposals.** SC4 amends OM2. SC5 could be folded into SC1. BP4 could be folded into
+    CB1 or OM1. TS4 extends PW3 and PD4 from filtering and selection to weighting. BP2's inert arm builds on the SV2
+    answer. TS2's readout alternatives must exclude the `M11.F.6` traps.
+  - **Owner questions.** BP2: is coach quality (`M1.E.7d`) a declared setting that can be set to null, so the inert
+    arm is an ordinary arm, or does it need a model change under `M11.4f`? BP1: is the list of criteria a result
+    depends on derived from `M11.1d`'s minimal rule sets, or declared by hand per result?
+  - **At approval of revision 10 or in revision 11.** The spec's line recording 2609.15849 and 2609.16395 as "read at
+    abstract level only" is out of date. Left unchanged while revision 10 is under review.
 
 ## Arising from the 2026-08-28 batch
 

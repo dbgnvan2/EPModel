@@ -19,13 +19,13 @@ Status legend: `new` = downloaded, unread · `candidate` = deep-review candidate
 
 | File | Title | Authors | Year | ID | Facet | Status |
 |---|---|---|---|---|---|---|
-| 2023_Generative_Agents_Park_2304.03442.pdf | Generative Agents: Interactive Simulacra of Human Behavior | Park, O'Brien, Cai, Morris, Liang, Bernstein | 2023 | 2304.03442 | ARCH | read |
-| 2022_Out_of_One_Many_Ahn_2209.06899.pdf | Out of One, Many: Using Language Models to Simulate Human Samples | Argyle, Busby, Fulda, Gubler, Rytting, Wingate | 2022 | 2209.06899 | FIDELITY | read |
+| 2023_Generative_Agents_Park_2304.03442.pdf | Generative Agents: Interactive Simulacra of Human Behavior | Park, O'Brien, Cai, Morris, Liang, Bernstein | 2023 | 2304.03442 | ARCH | digested — SWEEP_READING_REPORTS_2026-10-05.md |
+| 2022_Out_of_One_Many_Argyle_2209.06899.pdf | Out of One, Many: Using Language Models to Simulate Human Samples | Argyle, Busby, Fulda, Gubler, Rytting, Wingate | 2022 | 2209.06899 | FIDELITY | digested — SWEEP_READING_REPORTS_2026-10-05.md |
 | 2025_Persona_Vectors_2507.21509.pdf | Persona Vectors: Monitoring and Controlling Character Traits in Language Models | Chen, Arditi, Sleight, Evans, Lindsey | 2025 | 2507.21509 | TRAIT | read |
 | 2026_Emotion_Concepts_2604.07729.pdf | Emotion Concepts (functional emotions in LLMs) | Lindsey, Pearce, Tarng, Gurnee, Batson, et al. | 2026 | 2604.07729 | TRAIT | read |
 | 2025_SEAL_2506.10943.pdf | SEAL: Self-Adapting Language Models | Zweiger, Pari, Guo, Akyürek, Kim, Agrawal | 2025 | 2506.10943 | ADAPT | read |
 | 2025_Emergent_Misalignment_2502.17424.pdf | Emergent Misalignment: Narrow finetuning can produce broadly misaligned LLMs | Betley, Tan, Warncke, Sztyber-Betley, Bao, Soto, Labenz, Evans | 2025 | 2502.17424 | DYNAMICS | read |
-| 2004_Redish_Addiction.pdf | Addiction as a Computational Process Gone Awry | Redish | 2004 | — (Science 306:1944) | MECH | read |
+| 2004_Redish_Addiction.pdf | Addiction as a Computational Process Gone Awry | Redish | 2004 | — (Science 306:1944) | MECH | digested — SWEEP_READING_REPORTS_2026-10-05.md |
 | 2026_Total_Simulated_Survey_Error_2609.10280.pdf | Total Simulated Survey Error: Designing and Diagnosing Survey Responses from Large Language Models | Sen, Ahnert, von der Heyde, Lasser, Weiß, Strohmaier | 2026 | 2609.10280 | FIDELITY | new |
 | 2026_Diverse_Minds_Divided_Networks_2609.12444.pdf | Diverse Minds, Divided Networks? Personality Composition, Polarization, and Collective Intelligence in LLM-Based Social Simulations | Tareaf | 2026 | 2609.12444 | TRAIT | digested — SWEEP_READING_REPORTS_2026-09-27b.md |
 | 2026_Emergent_Misalignment_Not_Magical_2608.29118.pdf | Emergent Misalignment Is Not Magical | Li, Dai, Wang, Tan | 2026 | 2608.29118 | DYNAMICS | new |

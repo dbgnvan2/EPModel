@@ -114,6 +114,39 @@ under external review. All of it waits for revision 11. None of it is a requirem
       a requirement.
   - **Corpus item found while checking, not from a paper.** FE05.17 (protecting children from one's own problems
     transmits them) is marked testable in `fe05.md`, but no `M11` criterion covers it.
+- [ ] **Owner questions from the 2026-09 maturity-and-emotion conversation.** Added 2026-10-05. These four ideas
+  come from Claude's reasoning in `docs/conversation_agents_maturity_emotion_2026-09.md` §4, not from a paper or
+  the corpus. Each is `[I]` until corpus support is found. None is a requirement, and each needs an owner decision
+  before it can become a proposal.
+  - **Goals and shared resources.** Each person holds weighted goals (closeness, achievement, money, autonomy,
+    relief), and a family-level ledger of time, money and attention that pursuing those goals uses up. Conflict comes
+    from goals competing for the same resources. Check against `M1.A.10` (`life_energy` split between relationship
+    and goal-directed activity) before adding anything; it may already be the place for this.
+  - **Three cost terms on an act.** An act carries relief now, a cost to the actor later, and a cost to others
+    (tie tension, others' goals blocked). Drinking is the example: relief now, cost later. Qualifications are the
+    reverse: cost now, payoff later. Check against `M1.A.4g` (substance use as a chronic `functional_level`
+    pattern), `M4.D.6a` and `M7.D`.
+  - **An outside world with delayed returns.** School, jobs and legal risk return outcomes after a delay, with some
+    chance involved. Without this, "qualifications pay off" can never come out of a run. This would be a new
+    exogenous source; check it against `M1.E` and the scripted-event source.
+  - **A horizon that changes with age.** The reinforcement horizon is short in adolescence, lengthens through the
+    twenties, and nodal events can shift it. At present `M4.D.6b` declares one fixed horizon. This bears on
+    `M4.D.1a`'s design decision that a longer horizon cannot reach differentiation: the decision stands, and a
+    horizon that changes with age would act on the automatic channel only (`M4.D.6d`). The Redish full read
+    (2026-10-05) gives this no support: his discount factors are fixed and never change with age or experience, and
+    he states discounting is not the cause of addiction in his model. Any support would have to come from elsewhere.
+- [ ] **Method proposals from the 2026-10-05 full reads.** Added 2026-10-05 by owner request; held for revision 11 on
+  the same terms as the earlier batches. Three papers that had been catalogued at abstract level since 2026-09-17:
+  Redish 2004 (TD1–TD3), Park et al. 2023, Generative Agents (GA1–GA4, GA-X1, GA-X2), Argyle et al. 2022, Out of One,
+  Many (OM1–OM3, OM-X1). In `papers/SWEEP_READING_REPORTS_2026-10-05.md`; plain-language version in
+  `papers/SPEC_CANDIDATES_plain_language_2026-10-05.md`.
+  - **Interactions with earlier proposals.** GA1 adds to PM1. GA2 is close to RZ1 and could be folded into it. TD1
+    may make `M4.G.3`'s separate habituation term unnecessary, and shows `M4.D.6a`'s "converges on CUTOFF by
+    construction" assumes an additive update the spec never states. OM1 sits next to `M10.C.2a`.
+  - **Owner questions.** TD2: is an old pattern held down or erased when it goes quiet? GA1: does belief fading run on
+    time since written or time since last used? GA2: does a derived belief outlast its evidence?
+  - **Catalogue gap found by the Argyle reader.** The three later silicon-sampling papers (2609.10280, 2609.15849,
+    2609.16395) have not been read in full.
 
 ## Arising from the 2026-08-28 batch
 

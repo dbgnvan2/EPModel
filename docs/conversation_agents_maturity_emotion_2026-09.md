@@ -6,6 +6,21 @@ Context: the EPModel repository (`~/ProjectsLocal/EPModel`) was connected. Claud
 
 All references are collected in the final section. Where a claim in the text was made from Claude's training knowledge rather than from a source checked during the conversation, that is stated in the reference notes.
 
+> **Corrections, 2026-10-05.** Three of the papers cited here from memory were later read in full
+> (`papers/SWEEP_READING_REPORTS_2026-10-05.md`). The text below is left as it was said; these corrections apply:
+> - **Redish 2004 (§4).** The paper does not model "a short horizon learns the vice". Redish states that discounting is
+>   not the fundamental reason; in his model the drug adds a reward-error term that learning can never cancel, and the
+>   discount distribution is the same in the drug and natural-reward arms. The short-horizon claim belongs to the
+>   delay-discounting literature and should not be attributed to Redish.
+> - **Park et al. 2023 (§2).** Relationships did not emerge "entirely" from memory, retrieval and reflection. Planning
+>   is a third component; the seed paragraphs authored pre-existing relationships and opinions; Maria's crush on Klaus,
+>   behind the "date", was set by the user; and "relationship" was measured as both agents answering yes to "Do you
+>   know of <name>?", which is mutual awareness, not attachment.
+> - **Argyle et al. (§2).** Compression of spread and collapse onto modal categories are visible in this paper's own
+>   appendix (Table 16), not only in later literature, though the authors do not discuss them. Over-strong associations
+>   appear only at near-greedy sampling; at default temperature the model's associations were mostly weaker than the
+>   human ones. The journal version is Political Analysis 31(3); the arXiv v1 is dated September 2022.
+
 ---
 
 ## 1. Is it possible at all? What would a "15-year-old brat" or a "shy 10-year-old" take?

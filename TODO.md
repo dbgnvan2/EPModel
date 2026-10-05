@@ -155,9 +155,19 @@ under external review. All of it waits for revision 11. None of it is a requirem
   - **Interactions with earlier proposals.** SC4 amends OM2. SC5 could be folded into SC1. BP4 could be folded into
     CB1 or OM1. TS4 extends PW3 and PD4 from filtering and selection to weighting. BP2's inert arm builds on the SV2
     answer. TS2's readout alternatives must exclude the `M11.F.6` traps.
-  - **Owner questions.** BP2: is coach quality (`M1.E.7d`) a declared setting that can be set to null, so the inert
-    arm is an ordinary arm, or does it need a model change under `M11.4f`? BP1: is the list of criteria a result
-    depends on derived from `M11.1d`'s minimal rule sets, or declared by hand per result?
+  - **Owner answer: BP2's inert arm (answered 2026-10-05).** Coach quality, one of `M1.E.7d`'s three landing
+    conditions, is a declared setting that can be set to null. The inert arm is therefore an ordinary arm, set through
+    a declared channel (`M17.D.3`). It is not a model change under `M11.4f`. For revision 11:
+    - coach quality is a declared per-agent attribute, and its null value is `[I]`;
+    - the inert arm matches the coach arm on timing, contact schedule, tie formation and event intensity, and differs
+      only in coach quality;
+    - it is added as a fifth control arm, (e), in `M17.D.1`.
+  - **Owner answer: BP1's dependency list (answered 2026-10-05).** The list of `M11.C` criteria an intervention result
+    depends on is **derived** from `M11.1d`'s minimal rule sets, not declared by hand. For revision 11:
+    - a criterion is on the list when its minimal rule set shares a rule with the mechanism chain the result runs
+      through;
+    - the list is computed before the run and logged with the result in `M17.G.1`;
+    - BP1 therefore depends on `M11.1d`'s rule sets being complete for every criterion.
   - **At approval of revision 10 or in revision 11.** The spec's line recording 2609.15849 and 2609.16395 as "read at
     abstract level only" is out of date. Left unchanged while revision 10 is under review.
 

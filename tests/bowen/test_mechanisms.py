@@ -410,3 +410,17 @@ def test_m4g2_a_violation_raises(invariant, mutate, steps):
 def test_m4g2a_m6i6_cannot_be_enabled():
     with pytest.raises(M6I6NotRestated):
         check_m6i6(enabled=True)
+
+
+def test_m1f5_a_witness_takes_no_more_than_the_edge_it_overheard():
+    """Step 12 finding: a witness's conductance is bounded by the event's own edge."""
+    state = fresh()
+    act(state, Selection(ANA, "TRIANGLE", (MARTA,), 120.0), VIS)
+    batch = state.queue.release(1)
+    state.tick = 1
+    record_deliveries(state, batch)
+    edge = state.tie_between(ANA, MARTA).conductance
+    for delivery, event in [(d, state.store.event(d.event_id)) for d in batch]:
+        delta = appraisal_delta(state, delivery, event, PARAMS)
+        divisor = max(state.people[delivery.recipient].functional_level, PARAMS.functional_level_floor)
+        assert delta * divisor / event.intensity <= edge + 1e-12, delivery.recipient

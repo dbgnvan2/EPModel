@@ -14,10 +14,15 @@ the gain function, and no Phase B test asserts an appraisal magnitude.
               × fidelity                             (M1.F.4)
               × sign(kind, source_position)          (M1.F.2)
 
-``conductance`` is the recipient's tie to the sender. A witness may have no tie
-to the sender (M1.F.5 still requires it to appraise); it then uses its tie to
-the target it overheard. An exogenous event has no edge and uses 1. Phase C
-replaces the witness rule with M4.C.9's, which reads both ties.
+``conductance`` for a target is its tie to the sender; an exogenous event has
+no edge and uses 1. A **witness** (M1.F.5 requires it to appraise) takes the
+event's own edge — the sender's tie to the nearest target — times its best tie
+to the sender or a target. So a witness never takes more of an event than the
+edge it travelled on. *Changed at Phase B step 12*: the first rule used the
+witness's tie to the target alone, and the first rendered trace showed
+witnesses hit harder than the person addressed (a daughter overhearing her
+grandmother's call to her mother took +2.9 against her mother's +1.8). Phase C
+replaces this with M4.C.9's rule, which reads both ties.
 
 The batch is applied as a whole: every delta is computed from the state before
 the batch, then summed in canonical order, so the order deliveries arrived in
@@ -47,15 +52,19 @@ def perceive(state: RunState, batch: tuple[Delivery, ...]) -> dict[PersonId, tup
 
 
 def _conductance(state: RunState, recipient: PersonId, event: Event, role: Role) -> float:
+    if role is Role.TARGET:
+        if event.sender is None:
+            return 1.0
+        direct = state.tie_between(recipient, event.sender)
+        return direct.conductance if direct is not None else 0.0
+    anchors = [p for p in (event.sender, *event.targets) if p is not None]
+    own = max((t.conductance for a in anchors if (t := state.tie_between(recipient, a)) is not None), default=0.0)
     if event.sender is None:
-        return 1.0
-    direct = state.tie_between(recipient, event.sender)
-    if direct is not None:
-        return direct.conductance
-    if role is Role.WITNESS:
-        candidates = [state.tie_between(recipient, t) for t in event.targets]
-        return max((t.conductance for t in candidates if t is not None), default=0.0)
-    return 0.0
+        edge = 1.0
+    else:
+        edges = [t.conductance for x in event.targets if (t := state.tie_between(event.sender, x)) is not None]
+        edge = max(edges, default=0.0)
+    return edge * own
 
 
 def appraisal_delta(state: RunState, delivery: Delivery, event: Event, params: EngineParams) -> float:

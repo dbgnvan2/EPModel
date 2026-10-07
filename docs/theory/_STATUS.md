@@ -8,8 +8,9 @@
 > settle the Phase C prerequisites the report lists, then plan Phase C.**
 >
 > **2026-10-07 — spec revision 12 approved: 542 unique IDs, 45 acceptance criteria.** The Phase C prerequisites, with
-> the Phase C plan (`docs/implementation_plan_phase_c.md`). Phase C gates 19 criteria. **Next: close Phase B (the
-> owner's trace read), then Phase C step 1.**
+> the Phase C plan (`docs/implementation_plan_phase_c.md`). Phase C gates 19 criteria. **Phase B closed the same day** (the owner's
+> trace read, no findings). **Next: Phase C step 1** — the revision-11 rework of appraisal, standing load and
+> triangle activity.
 >
 > **2026-10-06 — spec revision 11 approved: 538 unique IDs, 45 acceptance criteria.** Bowen's patterns are now
 > produced by learning rather than written as rules (`model_explainer.md` §19; spec `M11.5`). Phase B code built

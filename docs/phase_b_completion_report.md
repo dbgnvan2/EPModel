@@ -1,6 +1,6 @@
 ---
 tags: [model-bt, report]
-status: Phase B built — every automated exit criterion passes; one human review pending
+status: Phase B DONE 2026-10-07 — every automated exit criterion passes; the owner's read of the rendered traces is recorded
 date: 2026-10-06
 plan: docs/implementation_plan_phase_b.md (approved 2026-10-06)
 spec: docs/bowen_agent_model_spec_v2.md, v2.0 revision 10 (526 IDs after the plan's changes)
@@ -10,7 +10,7 @@ spec: docs/bowen_agent_model_spec_v2.md, v2.0 revision 10 (526 IDs after the pla
 
 ## Status
 
-**Phase B is built but not yet done.** All fourteen automated exit criteria pass, and each is
+**Phase B is done (2026-10-07).** *Until that date this said:* **Phase B is built but not yet done.** All fourteen automated exit criteria pass, and each is
 shown to fail under a mutation (17 of 17 mutations, `docs/phase_b_mutation_record.md`). One
 criterion cannot be a test: the owner's end-to-end read of the rendered trace (plan §7). Until
 that read is done and recorded, Phase B is not declared complete.
@@ -45,7 +45,7 @@ From `M13`'s Phase B *Done when* cell, as mapped in plan §2.
 | G13 | `M11.D.22` the engine cannot see its arm | done | `tests/bowen/test_engine_purity.py::test_m11d22_engine_modules_do_not_import_tests_or_readouts` |
 | G14 | `M13.2` the frozen engine stays green | done | `tests/test_simulator.py` (37 tests) |
 | D6 | The register matches the object fields | done | `tests/bowen/test_register.py::test_m14a_register_matches_object_fields` |
-| §7 | The rendered trace reads correctly end to end | **not done** | owner's read pending: `docs/review/phase_b_trace_seed7.md` and `docs/review/phase_b_trace_seed7_nadia.md` |
+| §7 | The rendered trace reads correctly end to end | done | read by the owner, 2026-10-07, with no findings: `docs/review/phase_b_trace_seed7.md` and `docs/review/phase_b_trace_seed7_nadia.md` |
 | §7 | The register's classifications are right | done | reviewed by the owner at plan approval, 2026-10-06 |
 | `M14.1` | Spec coverage report | done | `docs/spec_coverage.md` — 526 IDs: 112 done, 27 partial, 387 not done; kept current by `tests/bowen/test_spec_coverage.py` |
 
@@ -189,3 +189,6 @@ python3 -m src.bowen.run --seed 7 --log runs/phase_b_seed7.jsonl --trace docs/re
 
 Both traces are already in `docs/review/`. Anything that reads wrong — an effect that should not
 follow, a witness who should not be there, a missing line — is a finding for Phase B, not Phase C.
+
+**Recorded 2026-10-07:** the owner read both traces and reported no findings. Phase B is closed. The traces show
+revision-10 behaviour for `M4.C.1`, `M4.A.1` and `M1.C.3`, which Phase C step 1 replaces (spec revision 11).

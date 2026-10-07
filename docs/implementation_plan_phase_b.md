@@ -1,6 +1,6 @@
 ---
 tags: [model-bt, plan]
-status: FOR APPROVAL — no code until approved
+status: APPROVED 2026-10-06 — all nine recommendations (D1–D9) adopted as written
 date: 2026-10-06
 spec: docs/bowen_agent_model_spec_v2.md, v2.0 revision 10, approved 2026-10-06
 scope: Phase B only

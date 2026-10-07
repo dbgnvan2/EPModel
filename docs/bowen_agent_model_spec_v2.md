@@ -35,7 +35,7 @@ This specification covers **Phases B, C and D** of the sequence in `agent_model_
 
 ### 0.3 Normative language
 
-- **MUST** / **MUST NOT** — required. A violation is a defect. **Not every one carries its own test**: there are roughly 839 bolded MUST/MUST NOT tokens against 79 named tests *(recomputed 2026-10-06 after `M11.F.10` was added, by `M11.D.14`'s method — every bolded token, and every distinct backticked test name in the document, `M17`'s included; revision 9 stated 663 and 51)* ⟦rev10 · owner decision 2026-09-22⟧, and whole modules (`M15`, `M16`) sit outside `M11` entirely. What is true is narrower and is the thing to rely on: **every `M11.C`, `M11.D` and `M16.F` criterion names a test — except `M11.C.8`, whose Test cell is `—` because `M11.E` defers it — and every `M6` invariant is asserted each tick.** A MUST elsewhere is a requirement on the implementer that a reviewer must check by reading. *(Corrected 2026-08-28. The earlier form claimed each MUST had a test or an invariant, which was not true when written and got roughly 35% further from true over three revisions. It is the sentence a builder would use to decide what needs a test, so an aspirational reading of it is expensive.)*
+- **MUST** / **MUST NOT** — required. A violation is a defect. **Not every one carries its own test**: there are roughly 847 bolded MUST/MUST NOT tokens against 80 named tests *(recomputed 2026-10-06 after the Phase B plan's spec changes, by `M11.D.14`'s method — every bolded token, and every distinct backticked test name in the document, `M17`'s included; revision 9 stated 663 and 51)* ⟦rev10 · owner decision 2026-09-22⟧, and whole modules (`M15`, `M16`) sit outside `M11` entirely. What is true is narrower and is the thing to rely on: **every `M11.C`, `M11.D` and `M16.F` criterion names a test — except `M11.C.8`, whose Test cell is `—` because `M11.E` defers it — and every `M6` invariant is asserted each tick.** A MUST elsewhere is a requirement on the implementer that a reviewer must check by reading. *(Corrected 2026-08-28. The earlier form claimed each MUST had a test or an invariant, which was not true when written and got roughly 35% further from true over three revisions. It is the sentence a builder would use to decide what needs a test, so an aspirational reading of it is expensive.)*
 - **SHOULD** — required unless there is a stated reason not to; the reason goes in the code comment.
 - **MAY** — genuinely optional.
 
@@ -319,6 +319,10 @@ neither the constitutional prior nor the family-focus term. It reads directly of
 
 **M1.A.20** — *a person's identifier **MUST** be stable across counterfactual arms.* Founders **MUST** receive fixed identifiers from the family definition (`M2.A.0h`) or the import (`M15.A.1a`). A person born during a run **MUST** receive an identifier derived from the parents' identifiers and birth order. Identifiers **MUST NOT** be allocated from a run-time counter: a death in one arm would shift every later identifier in the other, and `M3.D.4a`'s keyed draws would then pair different people. → `model_explainer.md` §18 · C2 ⟦rev10 · C2 · Buffalo 2026⟧
 
+**M1.A.21** A `Person` **MUST** hold `sex`, declared in the family definition (`M2.A`) or the import. No Phase B mechanism reads it; `M2.A.0f`, `M2.A.0g`, `M7.E.1c` and `M11.C.25` do, and `M2.A.0g` forbids the dominant pole correlating with it. ⟦owner decision 2026-10-06 · Phase B plan D4⟧
+
+**M1.A.22** A `Person` **MUST** hold `household_id`, declared in the family definition and changed only by a life-stage update. Co-residence is equality of `household_id`; the visibility component reads it to compute witness sets (`M1.F.1b`). ⟦owner decision 2026-10-06 · Phase B plan D4⟧
+
 ### M1.B `Relationship`
 
 **M1.B.1** A `Relationship` **MUST** connect exactly two `Person`s and **MUST** be the unit on which coupling state is stored. Per-family scalars **MUST NOT** stand in for a specific tie.
@@ -501,6 +505,8 @@ The instance everything is tested against. It is **invented and tunable** — va
 
 **M2.3** Phase B **MUST** run on a reduced instance — the nuclear four of M2.A.0 **plus** their family-of-origin ties, even if those agents only hold a bond energy. A closed nuclear four **MUST NOT** be used, because it cannot compute its own driving term.
 
+**M2.3a** — *the Phase B instance.* Members: Ravi, Marta, Nadia and Pia, active; Ana, Sofia and Bruno, holding bond energy and acting only by script. Ties: Ravi–Marta; Ravi–Nadia; Ravi–Pia; Marta–Nadia; Marta–Pia; Marta–Ana; Ravi–Sofia; Ana–Bruno, cut off. Ana–Bruno is the dormant family-of-origin tie on which Phase B's exit condition places its `TRIGGER`. `structural_importance` **MUST NOT** be declared in the Phase B instance, because `M1.A.13a` derives it. ⟦owner decision 2026-10-06 · Phase B plan D5⟧
+
 ### M2.A Membership `[I]`
 
 | # | Name | Gen | Age | `basic_level` | `chronic_anxiety` | `sibling_position` | `financially_dependent` | `structural_importance` | Note |
@@ -509,7 +515,7 @@ The instance everything is tested against. It is **invented and tunable** — va
 | 2 | Ana | 1 | 78 | 37 | 38 | eldest of 2 | no | **central** | Marta's mother |
 | 3 | Bruno | 1 | 74 | 29 | 55 | youngest of 2 | no | peripheral | Ana's brother; **cut off since t0 − 17y** |
 | 4 | Sofia | 1 | 76 | 41 | 35 | only | no | shadow | Ravi's mother; lives 200 miles away |
-| 5 | Ravi | 2 | 52 | 38 | 44 | eldest of 3 | no | **head of household** | married to Marta |
+| 5 | Ravi | 2 | 52 | 39 | 44 | eldest of 3 | no | **head of household** | married to Marta |
 | 6 | Marta | 2 | 50 | 40 | 46 | eldest of 2 | no | **head of household** | Ana's daughter |
 | 7 | Iris | 2 | 47 | 43 | 33 | youngest of 2 | no | peripheral | Marta's sister; low contact, **resolved** |
 | 8 | Leo | 3 | 22 | 36 | 48 | eldest of 3 | no | peripheral | launched |
@@ -526,7 +532,7 @@ The instance everything is tested against. It is **invented and tunable** — va
 
 **M2.A.0c** Spouses **MUST** be paired at comparable **`basic_level`**, never `functional_level`. 1979 Tape 3 specifies the field: "when I say spouses marry others with the same basic level of differentiation, **I mean this base level and not functional levels**" — functioning "goes up and down real easy." "People choose spouses [at] **almost identical levels of differentiation of self**", offered as an observed constant and "par for the course". → `kb/kb14.md` · K14.2
 
-**M2.A.0e** — *the match is close, not exact.* Pairing **MUST** use a declared **tolerance**, not equality: **±1 point** on the 0–100 scale, declared in config. → user amendment to D3, 2026-08-24
+**M2.A.0e** — *the match is close, not exact.* *Ravi's `basic_level` was 38 against Marta's 40, outside this requirement's own tolerance (review C); changed to 39. ⟦owner decision 2026-10-06 · Phase B plan D5⟧* Pairing **MUST** use a declared **tolerance**, not equality: **±1 point** on the 0–100 scale, declared in config. → user amendment to D3, 2026-08-24
 **Why a tolerance is the right shape.** The corpus's own claim is "**almost identical**", not identical, and Kerr adds that pairing is **strict for spouses and looser for friendships** — basic level "**also influence[s] the development of close friendships but somewhat less precisely**" (`kerr_book/ks07.md` · KS07.7). A wider tolerance therefore applies to non-family ties.
 **And it is what makes `M11.C.24` observable**: the initial gap must be small enough that the *developed* divergence dominates it.
 
@@ -557,6 +563,8 @@ The instance everything is tested against. It is **invented and tunable** — va
 **M3.B.1** The slow tick **MUST** be one year and **MUST** carry: differentiation drift, chronic anxiety drift, life stage, the nodal calendar, mortality, and the multigenerational update. It **MUST** fire every 52 fast ticks.
 
 **M3.C.1** Delivery latency **MUST** be a property of the tie (M1.B.11), not of the tick. An event scheduled on the fast clock **MUST** arrive when its edge's latency says it arrives. → §8
+
+**M3.C.2** — *latency is a whole number of fast ticks, at least one.* An event emitted at step 8 of tick *t* on an edge whose latency is *L* **MUST** be delivered at step 2 of tick *t + L*. Durations shorter than a week **MUST NOT** be used as calibration targets, and no intra-tick schedule exists. ⟦owner decision 2026-10-06 · Phase B plan D3⟧
 
 **M3.D.1** — *the update order.* Each fast tick **MUST** execute in exactly this order. This replaces the frozen spec's §5.4.
 
@@ -727,6 +735,8 @@ It is also what makes `M1.A.5c`'s pseudo-self sign computable.
 **M4.G.1** Repeated moves **MUST** harden tie state: three withdrawals in a row **MUST** register as a distant relationship, not as three independent events.
 
 **M4.G.2** All invariants in M6 **MUST** be asserted at the end of every fast tick.
+
+**M4.G.2a** — *`M6.I.6` is not asserted until it is restated.* As worded it fails on every tick: appraisal creates acute anxiety and consolidation decays it with no sink named (external review A3). `M4.G.2` therefore asserts every `M6` invariant **except** `M6.I.6`, which **MUST** remain in the invariant set as a named check that raises if enabled, so it cannot be dropped silently. Restating `M6.I.6` at the scope of bound quantities across rerouting and transfer events, with a stock-and-flow table, is a prerequisite of Phase C. ⟦owner decision 2026-10-06 · Phase B plan D2⟧
 
 **M4.G.3** — *conditional: habituation on repeated relief.* If any `M4` term credits anxiety relief to a repeated identical move within a window — reassurance-seeking `PURSUE`, checking-type `OVERFUNCTION` — that term **SHOULD** decay geometrically with the repetition count, with the decay constant graded `[I]`, or **SHOULD** be shown by sweep not to be bistable (ignored below a threshold, absorbing above it, with no graded regime between). Whether this specification contains such a term is not settled — `M4.D.6a` forbids short-horizon relief as the reinforcement signal, which may already exclude it — and is listed in the revision-10 open questions. → `model_explainer.md` §18 · C13 ⟦rev10 · C13 · Prasad 2026⟧
 
@@ -1225,7 +1235,7 @@ Each criterion **MUST** have a named test, **MUST** assert a direction of differ
 
 **M11.D.13** — *the normative vocabulary **MUST** be used as §0.3 defines it.* A scan **MUST** assert that the document contains no prohibition written *subject-negated* — a bare negative subject followed by a bare `MUST` — which under §0.3 reads as a permission rather than a prohibition. **Nine requirements were in that form on 2026-08-28**, four of them added that day, including `M11.F.9(c)` — a clause the document itself marks as *correctness, not framing*. The document uses `MUST NOT` correctly in adjacent requirements, so a reader cannot tell the intended reading from the text. `test_m11d13_no_inverted_prohibitions`
 
-**M11.D.17** — *the state-and-mechanism register has no orphans (`M14.A`).* A static check over the register **MUST** fail on a state variable with no writer, a mechanism not placed in `M3.D.1`'s order, and a mechanism that reads a quantity its owner cannot observe — the last is the static form of `M4.B.2`. `test_m11d17_register_has_no_orphans` ⟦rev10 · C10 · He 2026⟧
+**M11.D.17** — *the state-and-mechanism register has no orphans (`M14.A`).* A static check over the register **MUST** fail on a state variable with no writer in any phase, a mechanism not placed in `M3.D.1`'s order, and a mechanism that reads a quantity its owner cannot observe — the last is the static form of `M4.B.2`. `test_m11d17_register_has_no_orphans` ⟦rev10 · C10 · He 2026⟧
 
 **M11.D.18** — *the fallback rate is reported, and a high one is flagged (`M4.D.1f`).* Ensemble readouts **MUST** report the fallback and tie-break rate per move and per person, and a criterion whose passing ensemble has a fallback rate above a declared threshold, graded `[I]`, **MUST** be flagged in its verdict. `test_m11d18_fallback_rate_is_reported_and_flagged` ⟦rev10 · C12 · Ye 2026⟧
 
@@ -1344,7 +1354,7 @@ This binds three places that could each be implemented adversarially and where n
 
 | Phase | Builds | Done when |
 |---|---|---|
-| **B** | M1 objects; M3 clocks and update order; M4.A standing load **including M4.A.5**; M4.B, M4.E and M4.G; M1.F event record **including M1.F.9**; M8 the live-position predicate; `ScriptedSource`; **M16.A–M16.C, the run log and the deterministic renderer**. **No policy** — a fixed script drives it. Reduced instance per M2.3. | A scripted 40-week trace runs; **the renderer emits a trace conforming to M16.C.2 and M16.T.1 passes**; and a `TRIGGER` on a dormant family-of-origin tie moves anxiety with no contact. M11.D.1, M11.D.3, M11.D.5, M11.D.6, M11.D.7, **M16.T.2, M16.T.3 and M16.T.5** pass. **Added at revision 10:** M11.D.17 passes against the register as filled at plan time, and M11.D.22 passes. ⟦rev10 · C10 · He 2026; C35 · Zhou 2026⟧ |
+| **B** | M1 objects; M3 clocks and update order; M4.A standing load **including M4.A.5**; M4.B, M4.E and M4.G; **`M4.C.1` only**, the base appraisal — `M4.C.2` onward stays in Phase C, and Phase B's tests assert no appraisal magnitude ⟦owner decision 2026-10-06 · Phase B plan D1⟧; M1.F event record **including M1.F.9**; M8 the live-position predicate; `ScriptedSource`; **M16.A–M16.C, the run log and the deterministic renderer**. **No policy** — a fixed script drives it. Reduced instance per M2.3. | A scripted 40-week trace runs; **the renderer emits a trace conforming to M16.C.2 and M16.T.1 passes**; and a `TRIGGER` on a dormant family-of-origin tie moves anxiety with no contact. M11.D.1, M11.D.3, M11.D.5, M11.D.6, M11.D.7, **M16.T.2, M16.T.3 and M16.T.5** pass. **Added at revision 10:** M11.D.17 passes against the register as filled at plan time, and M11.D.22 passes. ⟦rev10 · C10 · He 2026; C35 · Zhou 2026⟧ |
 | **C** | M4.C appraisal **including M4.C.8a**; M4.D policy; M5 the full repertoire, gates and the `I-POSITION` state machine **including `PREPARE` (M5.D.2a) and the corrected anger gate (M5.D.4)**; M6 invariants M6.I.1–M6.I.8; **M16.D's delayed view**, which `M1.E.7c`'s fourth form requires. | M11.C.1, M11.C.3, M11.C.4, M11.C.5, M11.C.7, M11.C.13, M11.C.14, M11.C.16, M11.C.25, M11.C.27, M11.C.29, M11.C.32, **and — added 2026-08-28, having carried Phase C in the criteria table while gating nothing — M11.C.17, M11.C.18, M11.C.19 and M11.C.20** pass over 1,000-seed ensembles, each mutation-proved. M11.D.2, M11.D.4 and M11.D.8 pass, and **M16.T.3, M16.T.4 and M16.T.6** pass now that `M16.D`'s delayed view exists. **Added at revision 10:** M11.C.35, M11.C.38 and M11.C.41 pass over the same ensembles, each mutation-proved; M11.D.15, M11.D.16, M11.D.18, M11.D.19 and M11.D.21 pass. ⟦rev10 · C4 · Buffalo 2026; C5 · Li & Tao 2026; C8 · Holland 2026; C12 · Ye 2026; C14 · Kurz 2025; C16 · Prasad 2026; C29 · Holland 2026; owner decision 2026-09-22⟧ |
 | **D** | M7 the slow clock **including M7.A.1a, M7.D.2c/2d and M7.E.4**; M9 beliefs **as a channel (M9.6, M9.7)**; the twelve-person reference family; the three symptom channels and endogenous events; **M11.G's readout schema**. | M11.C.2, M11.C.6, M11.C.9, M11.C.10, M11.C.11, M11.C.12, M11.C.15, M11.C.22 (both limbs), M11.C.26, M11.C.28, M11.C.30, M11.C.31, M11.C.33, **and — added 2026-08-28, same omission — M11.C.21, M11.C.23 and M11.C.24**, and **M11.C.34** pass, **each over an ensemble per `M11.2`**. **M16.T.3 is re-run here.** A 40-year three-generation run completes. **Added at revision 10:** M11.C.36, M11.C.37, M11.C.39 and M11.C.40 pass, each over an ensemble per `M11.2`; M11.D.20 passes. ⟦rev10 · C9 · He 2026; C15 · He 2026; C18 · Prasad 2026; E-RE · SEAA; DL §7.10(d) · SEAA⟧ |
 | **E** | `M17` — the ensemble runner, control and structural arms, sweeps, and readouts; `M15`'s importer (`M13.3`). **Not built during B–D.** *First draft.* | Every `M11.C` criterion is reported under `M17.A`'s stopping rule, with `M17.G.1`'s audit record; M11.C.8 is decided under `M11.E`; the `M17` tests named in `M17.B.4`, `M17.D.2`, `M17.D.3`, `M17.D.4`, `M17.E.2`, `M17.F.1` and `M17.F.2` pass. ⟦rev10 · owner decision 2026-09-22⟧ |
@@ -1373,11 +1383,87 @@ This binds three places that could each be implemented adversarially and where n
 
 **M14.A.2** Every mechanism **MUST** list what it reads, what it writes on its owner and what it writes on other objects, and `M3.D.1`'s phase order **MUST** list each mechanism with its execution mode — synchronous batch, latency-delivered or slow tick — and its trigger condition. `M1.F.8`'s same-tick batching is none of these modes and **MUST** be recorded as a documented composite. → `model_explainer.md` §18 · C10 ⟦rev10 · C10 · He 2026⟧
 
-**M14.A.3** The register below is a **stub**. Its rows are for the owner to fill when the implementation plan is written; `M11.D.17` checks it. → `model_explainer.md` §18 · C10 ⟦rev10 · C10 · He 2026⟧
+**M14.A.3** The register below was filled with the Phase B implementation plan (`docs/implementation_plan_phase_b.md`, Appendix A) and approved with it on 2026-10-06; `M11.D.17` checks it. Rows for mechanisms built in later phases are added when that phase is planned. → `model_explainer.md` §18 · C10 ⟦rev10 · C10 · He 2026⟧
 
-| Variable or mechanism | Owner | Class or execution mode | Written by | Reads | Writes on other objects |
-|---|---|---|---|---|---|
-| *(to be filled)* | | | | | |
+**M14.A.4** — *the register carries a `Phase` column.* It names the phase in which each writer or mechanism is built, so that `M11.D.17`'s no-writer check reads "a writer in some phase" while later phases are unbuilt. A mechanism owned by `engine` is not an agent's decision and **MAY** read true state; a mechanism owned by a person is bound by `M4.B.2`. Every field of `Person`, `Relationship`, `Triangle` and `Family` in the code **MUST** have a row in the variables table, and every row **MUST** name a field in the code (`test_m14a_register_matches_object_fields`). ⟦owner decision 2026-10-06 · Phase B plan D6⟧
+
+Classes are `M14.A.1`'s four: exogenous-homogeneous (EH), exogenous-heterogeneous (EX), endogenous-decision (ED), endogenous-derived (DV).
+
+**State variables**
+
+| Variable | Owner | Class | Written by | Phase |
+|---|---|---|---|---|
+| `id` | Person | EX | family definition (`M1.A.20`) | B |
+| `role` | Person | EX | family definition (`M1.A.17`) | B |
+| `sex` | Person | EX | family definition (`M1.A.21`) | B |
+| `household_id` | Person | EX | family definition; life-stage update (`M1.A.22`) | B; D |
+| `basic_level` | Person | DV | family definition at `t0`; the estimator (`M1.A.4a`, `M7.A.1`) | B; D |
+| `functional_level` | Person | DV | `basic_level` plus swing (`M1.A.5a`); swing written by consolidation and the self-directed channel | B; C |
+| `acute_anxiety` | Person | DV | standing load (`M4.A.1`); base appraisal (`M4.C.1`); consolidation decay (`M1.A.8`) | B |
+| `chronic_anxiety` | Person | DV | family definition at `t0` (`M2.A.0a`); slow-tick derivation (`M1.A.7a`) | B; D |
+| `programmed_reactivity` | Person | DV | family definition at `t0`; childhood fixation (`M1.A.7`) | B; D |
+| `outside_ness_outward` | Person | DV | appraisal and selection (`M5.F`) | C |
+| `outside_ness_inward` | Person | DV | appraisal and selection (`M5.F`) | C |
+| `life_energy_ratio` | Person | DV | derived from `basic_level` (`M1.A.10`, `M10.A.1`) | B |
+| `symptom_load` | Person | DV | symptom accumulation (`M7.D`) | D |
+| `involvement_weight` | Person | DV | involvement recompute, step 5 (`M1.A.12`) | B |
+| `structural_importance` | Person | DV | derivation (`M1.A.13a`) | D |
+| `sibling_position` | Person | EX | family definition (`M1.A.14`) | B |
+| `functional_sibling_position` | Person | DV | derivation (`M1.A.14a`) | D |
+| `financially_dependent` | Person | EX | family definition; life-stage update (`M1.A.15`) | B; D |
+| `beliefs` | Person | DV | belief layer (`M9`) | D |
+| `systems_perspective` | Person | DV | landed contact (`M1.E.7`) | C |
+| `reactive_state` | Person | DV | appraisal, three detectors (`M1.A.19`) | C |
+| `pseudo_self` | Person | DV | dyadic exchange (`M6.I.4`); estimator | C; D |
+| `alive` | Person | DV | mortality (`M7.C.1`, `M6.3`) | D |
+| `conductance` | Relationship | EX | family definition (`M1.B.2`) | B |
+| `bond_energy` | Relationship | DV | family definition; `TRIGGER`, `RECONCILIATION` and `INSTITUTIONALIZE` handling (`M4.A.2`–`M4.A.4`) | B |
+| `interactive` | Relationship | DV | `CUTOFF`, `RECONCILIATION` and `INSTITUTIONALIZE` handling (`M4.A.3`, `M4.A.4`) | B |
+| `tie_state` | Relationship | DV | consolidation hardening (`M4.G.1`, `M1.B.3`) | B |
+| `distance_bound_anxiety` | Relationship | DV | `DISTANCE` handling (`M1.D.2a`); `binder_unavailable` (`M1.F.9`) | B; C |
+| `functioning_balance` | Relationship | DV | pole flip (`M1.B.5`–`M1.B.7`) | C |
+| `investment` | Relationship | DV | appraisal (`M1.B.8`) | C |
+| `areas_of_joint_activity` | Relationship | DV | functioning-balance narrowing (`M1.B.9`) | C |
+| `taboo_set` | Relationship | DV | appraisal; purposeful mention (`M1.B.10`, `M1.B.10a`) | C |
+| `latency` | Relationship | EX | family definition (`M1.B.11`, `M3.C.2`) | B |
+| `dyad_age` | Relationship | DV | slow tick (`M1.B.12`) | D |
+| `basic_togetherness` | Relationship | EX | family definition (`M1.A.5b`) | B |
+| `functional_togetherness` | Relationship | DV | anxiety (`M1.A.5b`) | C |
+| `members` | Triangle | DV | triangle recompute, step 6 (`M1.C.3`) | B |
+| `inside_pair` | Triangle | DV | triangle recompute, step 6 (`M1.C.3`) | B |
+| `outside` | Triangle | DV | triangle recompute, step 6 (`M1.C.3`) | B |
+| `active` | Triangle | DV | triangle recompute, step 6, via `M8` (`M1.C.3`, `M8.5`) | B |
+| `bound_anxiety` | Triangle | DV | consolidation re-tally | B |
+| `activation_memory` | Triangle | DV | triangle recompute, step 6 (`M1.C.4`) | B |
+| `intensity_floor` | Triangle | DV | `I-POSITION` held (`M1.C.5`) | C |
+| `undifferentiation_budget` | Family | DV | family definition; `binder_unavailable` return (`M1.F.9`) | B |
+| `sink_allocations` | Family | DV | sink allocation (`M1.D.1`) | C |
+| `overflow` | Family | DV | sink allocation (`M1.D.3`) | C |
+| `leadership_office` | Family | DV | family definition; recognition (`M1.D.4`) | B; C |
+| `differentiation_capacity` | Family | DV | derivation (`M1.D.4a`) | C |
+| `tolerance` | Family | DV | tolerance update (`M7.D.4`) | D |
+| `access_vector` | Family | EX | family definition (`M1.D.6`) | B |
+| `ambient_anxiety` | Family | DV | societal dials (`M1.D.7`) | D |
+
+**Mechanisms**
+
+| Mechanism | Owner | Execution mode | Trigger | Reads | Writes on owner | Writes on other objects | Phase |
+|---|---|---|---|---|---|---|---|
+| Standing load (`M4.A.1`, `M4.A.5`) | engine | synchronous batch, step 1 | every tick | each tie's `bond_energy` and `interactive`; each person's `functional_level` and `basic_level` | — | `Person.acute_anxiety` | B |
+| Deliver (`M1.F.8`) | engine | latency-delivered, step 2 | event due | event queue | — | inboxes | B |
+| Perceive (`M4.B.1`) | engine | synchronous batch, step 3 | every tick | inbox | — | perceived set | B |
+| Base appraisal (`M4.C.1`) | engine | synchronous batch, step 4 | perceived event | event fields; tie `conductance`; receiver `functional_level` | — | `Person.acute_anxiety` | B |
+| Involvement recompute (`M1.A.12`) | engine | synchronous batch, step 5 | every tick | ties; `acute_anxiety` | — | `Person.involvement_weight` | B |
+| Triangle recompute (`M1.C.3`) | engine | synchronous batch, step 6 | every tick | tie tension; live positions | — | `Triangle.members`, `inside_pair`, `outside`, `active`, `activation_memory` | B |
+| Live positions (`M8.1`) | engine | called from step 6 and from visibility | on call | group membership; fusion | — | — | B |
+| Scripted selection (`ScriptedSource`) | engine | synchronous batch, step 7 | script entry due | script | — | selection record | B |
+| Act (`M4.E.1`) | engine | synchronous batch, step 8 | selection | selection; tie `latency` | — | event queue | B |
+| Visibility (`M3.E.1`, `M1.F.1b`) | engine | called from step 8 | event created | `household_id`; tie `conductance`; route | — | `Event.witnesses` | B |
+| Consolidate (`M4.G.1`, `M1.A.8`) | engine | synchronous batch, step 9 | every tick | tie event history; `chronic_anxiety` | — | `Relationship.tie_state`, `Person.acute_anxiety`, `Triangle.bound_anxiety` | B |
+| Invariants (`M4.G.2`, `M4.G.2a`) | engine | synchronous batch, step 9 | every tick | all state | — | — | B |
+| Binder unavailable (`M1.F.9`) | engine | latency-delivered, step 2 | scripted event | the named binder | — | `Family.undifferentiation_budget`; the binder's object | B |
+| Slow-tick hook (`M3.B.1`) | engine | slow tick | every 52 fast ticks | — | — | — | B |
+| Same-tick batching (`M1.F.8`) | engine | documented composite | same-tick events | the batch | — | — | B |
 
 ---
 
@@ -2008,6 +2094,7 @@ Revision 10 was approved by the owner on 2026-10-06, on these terms:
 | `M11.E` | The four human-review proposals are accepted as written |
 | Still open | `M6.3` (disposition at death; blocks `M11.C.37` and Phase D) and the `E-RM`/C34 question (Phase E). Neither blocks Phase B |
 | Revision-11 material in `TODO.md` | Held. Not part of this approval |
+| Phase B plan, approved the same day | All nine recommendations (D1–D9) of `docs/implementation_plan_phase_b.md` adopted as written. Spec changes: `M4.C.1` pulled into Phase B (`M13`); `M1.A.21`, `M1.A.22`; `M2.3a` and Ravi's `basic_level`; `M3.C.2`; `M4.G.2a`; `M14.A.3`, `M14.A.4` and the filled register; `M11.D.17` reads "no writer in any phase" |
 
 ### Revision 9 — the corpus-fidelity sweep, 2026-08-28
 

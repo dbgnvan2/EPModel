@@ -302,7 +302,7 @@ def test_requirement_counts_agree_with_the_spec():
 def test_claimed_test_count_matches_the_suite():
     """CLAUDE.md's green-suite gate is the count a future session checks against."""
     total = 0
-    for path in sorted((REPO / "tests").glob("test_*.py")):
+    for path in sorted((REPO / "tests").rglob("test_*.py")):
         tree = ast.parse(path.read_text(encoding="utf-8"))
         total += sum(
             1
@@ -327,3 +327,107 @@ def test_claimed_test_count_matches_the_suite():
         "CLAUDE.md no longer states a suite size; the green-suite gate is gone"
     )
     assert wrong == {}, f"documents claim a suite size that is not {total}: {wrong}"
+
+
+# --------------------------------------------------------------------------
+# M11.D.17 — the state-and-mechanism register (M14.A) has no orphans
+# --------------------------------------------------------------------------
+
+_PHASES = {"B", "C", "D", "E"}
+_STEP = re.compile(r"\bstep ([1-9])\b")
+
+
+def _register_tables(text: str) -> tuple[list[list[str]], list[list[str]]]:
+    """Return the M14.A variables table and mechanisms table as rows of cells."""
+    start = text.index("### M14.A State and mechanism register")
+    end = text.index("\n---\n", start)
+    section = text[start:end]
+
+    def table_after(label: str, header_first_cell: str) -> list[list[str]]:
+        at = section.index(label)
+        rows = []
+        for line in section[at:].splitlines()[1:]:
+            if not line.startswith("|"):
+                if rows:
+                    break
+                continue
+            cells = [c.strip() for c in line.strip().strip("|").split("|")]
+            if cells[0] in (header_first_cell,) or set(cells[0]) <= {"-"}:
+                continue
+            rows.append(cells)
+        return rows
+
+    return (
+        table_after("**State variables**", "Variable"),
+        table_after("**Mechanisms**", "Mechanism"),
+    )
+
+
+def register_orphans(text: str) -> list[str]:
+    """Every M11.D.17 violation in the register, as readable strings."""
+    variables, mechanisms = _register_tables(text)
+    problems = []
+    if not variables or not mechanisms:
+        problems.append("register tables are empty or missing")
+    for row in variables:
+        name, _owner, _cls, written_by, phase = row
+        phases = {p.strip() for p in phase.split(";")}
+        if not written_by or written_by in {"—", "-"}:
+            problems.append(f"variable {name} has no writer")
+        if not phases or not phases <= _PHASES:
+            problems.append(f"variable {name} has no valid phase: {phase!r}")
+    placed_names = {row[0] for row in mechanisms}
+    for row in mechanisms:
+        name, owner, mode = row[0], row[1], row[2]
+        phase = row[-1]
+        placed = (
+            _STEP.search(mode)
+            or "slow tick" in mode
+            or "documented composite" in mode
+            or mode.startswith("called from")
+        )
+        if not placed:
+            problems.append(f"mechanism {name} is not placed in M3.D.1's order")
+        if phase not in _PHASES:
+            problems.append(f"mechanism {name} has no valid phase: {phase!r}")
+        # The static form of M4.B.2: an agent-owned mechanism may read only its
+        # owner's own state, beliefs and delivered events (D6).
+        if owner != "engine":
+            reads = row[4].lower()
+            allowed = ("own", "belief", "inbox", "delivered")
+            if not any(word in reads for word in allowed) or "true" in reads:
+                problems.append(f"mechanism {name} owned by {owner} reads unobservable state")
+    assert len(placed_names) == len(mechanisms), "duplicate mechanism rows"
+    return problems
+
+
+def test_m11d17_register_has_no_orphans():
+    """M14.A's register is checked, not trusted.
+
+    Spec:  docs/bowen_agent_model_spec_v2.md#M11.D.17, #M14.A.4
+    """
+    assert register_orphans(_spec_text()) == []
+
+
+def test_m11d17_check_catches_a_missing_writer():
+    """The check is proved able to fail: blank one writer and it must say so."""
+    text = _spec_text().replace(
+        "| `conductance` | Relationship | EX | family definition (`M1.B.2`) | B |",
+        "| `conductance` | Relationship | EX | — | B |",
+    )
+    assert "variable `conductance` has no writer" in register_orphans(text)
+
+
+def test_m11d17_check_catches_an_unplaced_mechanism():
+    text = _spec_text().replace(
+        "| engine | synchronous batch, step 1 |", "| engine | whenever convenient |", 1
+    )
+    assert any("not placed" in p for p in register_orphans(text))
+
+
+def test_m11d17_check_catches_an_agent_reading_true_state():
+    text = _spec_text().replace(
+        "| Perceive (`M4.B.1`) | engine | synchronous batch, step 3 | every tick | inbox |",
+        "| Perceive (`M4.B.1`) | Person | synchronous batch, step 3 | every tick | another person's true acute_anxiety |",
+    )
+    assert any("unobservable" in p for p in register_orphans(text))

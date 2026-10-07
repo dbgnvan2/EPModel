@@ -4,11 +4,13 @@ All notable changes to this project are recorded here. Dates are ISO.
 
 ## [Unreleased] — 2026-10-06
 
-Spec revision 10 approved. Documentation only; no code.
+Spec revision 10 approved, then the Phase B implementation plan. Documentation and one test file; no model code.
 
 ### Changed
 
 - **Spec v2.0 revision 10 approved by the owner, 2026-10-06** — 519 requirements over 17 modules, 41 acceptance criteria. The terms are recorded in the spec's revision-10 section under *Approval*: the external review of 2026-09-23 is carried into the implementation plan rather than fixed first (its recommendation 9), `M11.4c` and `M4.G.3` kept, `M11.E`'s proposals accepted, revision-11 material held.
+- **Phase B plan approved, 2026-10-06** (`docs/implementation_plan_phase_b.md`), all nine recommendations as written. The spec now holds 525 requirements: `M1.A.21` (`sex`), `M1.A.22` (`household_id`), `M2.3a` (the Phase B instance), `M3.C.2` (latency in whole ticks), `M4.G.2a` (`M6.I.6` held back until restated), `M14.A.4` and the filled `M14.A` register. `M4.C.1` moves into Phase B. Ravi's `basic_level` is 39, within `M2.A.0e`'s tolerance of Marta's 40.
+- `test_m11d17_register_has_no_orphans` and three mutation checks added to `tests/test_spec_consistency.py`; the suite-size guard now counts tests in subdirectories.
 - `M11.F.10` added: the model may not be called a "virtual family" without `M11.F`'s framing. `model_explainer.md` §1.1 gives the comparison with virtual-cell models and what a virtual family would need.
 
 ## [Unreleased] — 2026-08-28

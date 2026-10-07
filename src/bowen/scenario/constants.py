@@ -35,13 +35,16 @@ class KeySpec:
 
 
 # Every key the engine reads. The grade is the spec's, not a choice made here:
-# M10.C.1 lists the fast tick length as invented, and M6.1 requires the
-# invariant tolerance to be [I].
+# M10.C.1 lists the fast tick length and the chronic-anxiety fixation age as
+# invented, M6.1 requires the invariant tolerance to be [I], and M2.A.0e's
+# spouse tolerance is a project decision (user amendment to D3, 2026-08-24).
 SCHEMA: Mapping[str, KeySpec] = MappingProxyType(
     {
         "fast_tick_weeks": KeySpec(int, "[I]", "M3.A.1"),
         "slow_tick_fast_ticks": KeySpec(int, "[I]", "M3.B.1"),
         "invariant_tolerance": KeySpec(float, "[I]", "M6.1"),
+        "spouse_basic_level_tolerance": KeySpec(float, "[I]", "M2.A.0e"),
+        "chronic_anxiety_fixation_age_years": KeySpec(int, "[I]", "M2.A.0a"),
     }
 )
 

@@ -12,6 +12,7 @@ from pathlib import Path
 from src.bowen.engine.events import EventKinds
 from src.bowen.scenario.constants import Constants, parse_constants
 from src.bowen.scenario.event_kinds import parse_event_kinds
+from src.bowen.scenario.family import FamilyInstance, build_family
 
 CONFIG_DIR = Path(__file__).resolve().parents[3] / "config" / "bowen"
 
@@ -34,3 +35,11 @@ def load_event_kinds(path: Path = CONFIG_DIR / "event_kinds.md") -> EventKinds:
     Tests:   tests/bowen/test_events.py::test_m10b1_event_kinds_come_from_config
     """
     return parse_event_kinds(read_text(path), source=str(path))
+
+
+def load_family(path: Path = CONFIG_DIR / "family_reduced.md", constants: Constants | None = None) -> FamilyInstance:
+    """Purpose: read and build a family declaration.
+    Spec:    docs/bowen_agent_model_spec_v2.md#M2.1
+    Tests:   tests/bowen/test_family.py::test_m21_family_declared_in_markdown
+    """
+    return build_family(read_text(path), constants or load_constants(), source=str(path))

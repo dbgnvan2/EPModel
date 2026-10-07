@@ -21,6 +21,8 @@ GOOD_ROWS = (
     "| `fast_tick_weeks` | 1 | [I] | week | `M3.A.1` |\n"
     "| `slow_tick_fast_ticks` | 52 | [I] | fast tick | `M3.B.1` |\n"
     "| `invariant_tolerance` | 1e-9 | [I] | anxiety unit | `M6.1` |\n"
+    "| `spouse_basic_level_tolerance` | 1.0 | [I] | point | `M2.A.0e` |\n"
+    "| `chronic_anxiety_fixation_age_years` | 12 | [I] | year | `M2.A.0a` |\n"
 )
 
 
@@ -56,7 +58,7 @@ def test_m11d3_config_rejects_malformed_line(stray):
 
 def test_m11d3_config_rejects_missing_required_key():
     rows = "".join(GOOD_ROWS.splitlines(keepends=True)[:2])
-    with pytest.raises(ConfigError, match="missing keys \\['invariant_tolerance'\\]"):
+    with pytest.raises(ConfigError, match="missing keys \\[.*'invariant_tolerance'"):
         parse_constants(doc(rows))
 
 

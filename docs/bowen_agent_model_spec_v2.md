@@ -35,7 +35,7 @@ This specification covers **Phases B, C and D** of the sequence in `agent_model_
 
 ### 0.3 Normative language
 
-- **MUST** / **MUST NOT** — required. A violation is a defect. **Not every one carries its own test**: there are roughly 847 bolded MUST/MUST NOT tokens against 80 named tests *(recomputed 2026-10-06 after the Phase B plan's spec changes, by `M11.D.14`'s method — every bolded token, and every distinct backticked test name in the document, `M17`'s included; revision 9 stated 663 and 51)* ⟦rev10 · owner decision 2026-09-22⟧, and whole modules (`M15`, `M16`) sit outside `M11` entirely. What is true is narrower and is the thing to rely on: **every `M11.C`, `M11.D` and `M16.F` criterion names a test — except `M11.C.8`, whose Test cell is `—` because `M11.E` defers it — and every `M6` invariant is asserted each tick.** A MUST elsewhere is a requirement on the implementer that a reviewer must check by reading. *(Corrected 2026-08-28. The earlier form claimed each MUST had a test or an invariant, which was not true when written and got roughly 35% further from true over three revisions. It is the sentence a builder would use to decide what needs a test, so an aspirational reading of it is expensive.)*
+- **MUST** / **MUST NOT** — required. A violation is a defect. **Not every one carries its own test**: there are roughly 848 bolded MUST/MUST NOT tokens against 80 named tests *(recomputed 2026-10-06 after Phase B step 5 added `M2.A.0i`, by `M11.D.14`'s method — every bolded token, and every distinct backticked test name in the document, `M17`'s included; revision 9 stated 663 and 51)* ⟦rev10 · owner decision 2026-09-22⟧, and whole modules (`M15`, `M16`) sit outside `M11` entirely. What is true is narrower and is the thing to rely on: **every `M11.C`, `M11.D` and `M16.F` criterion names a test — except `M11.C.8`, whose Test cell is `—` because `M11.E` defers it — and every `M6` invariant is asserted each tick.** A MUST elsewhere is a requirement on the implementer that a reviewer must check by reading. *(Corrected 2026-08-28. The earlier form claimed each MUST had a test or an invariant, which was not true when written and got roughly 35% further from true over three revisions. It is the sentence a builder would use to decide what needs a test, so an aspirational reading of it is expensive.)*
 - **SHOULD** — required unless there is a stated reason not to; the reason goes in the code comment.
 - **MAY** — genuinely optional.
 
@@ -509,20 +509,20 @@ The instance everything is tested against. It is **invented and tunable** — va
 
 ### M2.A Membership `[I]`
 
-| # | Name | Gen | Age | `basic_level` | `chronic_anxiety` | `sibling_position` | `financially_dependent` | `structural_importance` | Note |
-|---|---|---|---|---|---|---|---|---|---|
-| 1 | Teodor | 1 | 81 | 34 | 42 | eldest of 2 | no | shadow | Ana's husband |
-| 2 | Ana | 1 | 78 | 37 | 38 | eldest of 2 | no | **central** | Marta's mother |
-| 3 | Bruno | 1 | 74 | 29 | 55 | youngest of 2 | no | peripheral | Ana's brother; **cut off since t0 − 17y** |
-| 4 | Sofia | 1 | 76 | 41 | 35 | only | no | shadow | Ravi's mother; lives 200 miles away |
-| 5 | Ravi | 2 | 52 | 39 | 44 | eldest of 3 | no | **head of household** | married to Marta |
-| 6 | Marta | 2 | 50 | 40 | 46 | eldest of 2 | no | **head of household** | Ana's daughter |
-| 7 | Iris | 2 | 47 | 43 | 33 | youngest of 2 | no | peripheral | Marta's sister; low contact, **resolved** |
-| 8 | Leo | 3 | 22 | 36 | 48 | eldest of 3 | no | peripheral | launched |
-| 9 | Nadia | 3 | 17 | 41 | 52 | middle of 3 | **yes** | peripheral | at home; becomes the projection target |
-| 10 | Pia | 3 | 14 | 44 | 37 | youngest of 3 | **yes** | peripheral | minimally involved |
-| 11 | Toma | 3 | 20 | 39 | 40 | only | **yes** | peripheral | Iris's son |
-| 12 | Dr Halim | — | 55 | 55 | 30 | — | no | — | `role = EXTERNAL`; counsellor, **not a family member** |
+| # | Name | Gen | Age | Sex | `basic_level` | `chronic_anxiety` | `sibling_position` | `financially_dependent` | `structural_importance` | Note |
+|---|---|---|---|---|---|---|---|---|---|---|
+| 1 | Teodor | 1 | 81 | male | 34 | 42 | eldest of 2 | no | shadow | Ana's husband |
+| 2 | Ana | 1 | 78 | female | 37 | 38 | eldest of 2 | no | **central** | Marta's mother |
+| 3 | Bruno | 1 | 74 | male | 29 | 55 | youngest of 2 | no | peripheral | Ana's brother; **cut off since t0 − 17y** |
+| 4 | Sofia | 1 | 76 | female | 41 | 35 | only | no | shadow | Ravi's mother; lives 200 miles away |
+| 5 | Ravi | 2 | 52 | male | 39 | 44 | eldest of 3 | no | **head of household** | married to Marta |
+| 6 | Marta | 2 | 50 | female | 40 | 46 | eldest of 2 | no | **head of household** | Ana's daughter |
+| 7 | Iris | 2 | 47 | female | 43 | 33 | youngest of 2 | no | peripheral | Marta's sister; low contact, **resolved** |
+| 8 | Leo | 3 | 22 | not stated | 36 | 48 | eldest of 3 | no | peripheral | launched |
+| 9 | Nadia | 3 | 17 | female | 41 | 52 | middle of 3 | **yes** | peripheral | at home; becomes the projection target |
+| 10 | Pia | 3 | 14 | female | 44 | 37 | youngest of 3 | **yes** | peripheral | minimally involved |
+| 11 | Toma | 3 | 20 | male | 39 | 40 | only | **yes** | peripheral | Iris's son |
+| 12 | Dr Halim | — | 55 | not stated | 55 | 30 | — | no | — | `role = EXTERNAL`; counsellor, **not a family member** |
 
 **M2.A.0** The instance declares **eleven family members plus one external agent**. "Twelve-person reference family" is loose shorthand: Dr Halim is `role = EXTERNAL` and **MUST NOT** be counted in family membership, in the tie matrix of M2.B.1, or in `positions_live` unless the live-position test of M8 admits him. The nuclear family for M2.3 is **Ravi, Marta, Nadia and Pia** — Leo is launched and is not part of the Phase B spike.
 
@@ -543,6 +543,8 @@ The instance everything is tested against. It is **invented and tunable** — va
 **M2.A.0g** — *pole assignment **MUST** be independent of sex.* "**males and females assume the dominant position with equal frequency.**" `M1.B.5`'s dominant pole **MUST NOT** correlate with sex across an ensemble. This is a hard constraint a natural implementation could easily violate — any asymmetry in the assignment rule surfaces as a sex effect at readout — and it is assertable: see `M11.C.25`. → *decision A4-tail, 2026-08-27*; `theory/family_evaluation/fe07.md` · FE07.3
 
 **M2.A.0h** The reference family's declaration **MUST** assign each member the fixed identifier `M1.A.20` requires. Display names **MUST NOT** serve as identifiers. → `model_explainer.md` §18 · C2 ⟦rev10 · C2 · Buffalo 2026⟧
+
+**M2.A.0i** — *the `Sex` column.* It carries `M1.A.21`'s field. Where the table's own relationship words fix a member's sex (mother, daughter, sister, brother, husband, son) the column states it; Ravi, Nadia and Pia were declared by the owner on 2026-10-06. **Leo and Dr Halim are not stated** and **MUST** be declared before Phase D, the first phase whose instance includes them. ⟦owner decision 2026-10-06 · Phase B step 5⟧
 
 **M2.A.1** `Iris` and `Bruno` **MUST** have comparable contact frequency and **MUST** differ in bond energy. This pair is the fixture for M11.C.4 and the direct test of M1.B.3.
 

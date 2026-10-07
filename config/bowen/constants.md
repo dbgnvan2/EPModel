@@ -7,6 +7,10 @@
 > key, a grade that differs from the spec's, or any unrecognised line raises (`M10.B.2`).
 > `frozen_at` is set before the acceptance suite first runs against these values;
 > any later change that alters an acceptance outcome is logged (`M10.B.4`).
+>
+> `chronic_anxiety_fixation_age_years` has no source. `M2.A.0a` states that every
+> agent in the reference family is past it, and the youngest is 14, so it must be
+> at most 14. 12 was chosen at Phase B step 5.
 
 frozen_at: unset
 
@@ -15,3 +19,5 @@ frozen_at: unset
 | `fast_tick_weeks` | 1 | [I] | week | `M3.A.1` |
 | `slow_tick_fast_ticks` | 52 | [I] | fast tick | `M3.B.1` |
 | `invariant_tolerance` | 1e-9 | [I] | anxiety unit | `M6.1` |
+| `spouse_basic_level_tolerance` | 1.0 | [I] | basic-level point | `M2.A.0e` |
+| `chronic_anxiety_fixation_age_years` | 12 | [I] | year of age | `M2.A.0a` |

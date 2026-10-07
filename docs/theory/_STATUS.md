@@ -2,7 +2,7 @@
 
 > ## ▶ STATE — the corpus is closed and the spec is current. **Next is the implementation plan.**
 >
-> **2026-10-06 — Phase B plan approved; the spec is at 525 unique IDs.** Building has started at step 0 of
+> **2026-10-06 — Phase B plan approved; the spec is at 526 unique IDs** (`M2.A.0i`, the sex column, added at step 5). Building has started at step 0 of
 > `docs/implementation_plan_phase_b.md`.
 >
 > **2026-10-06 — spec revision 10 approved: 519 unique IDs over 17 modules, 41 acceptance criteria.** The

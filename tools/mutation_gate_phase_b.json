@@ -1,0 +1,216 @@
+[
+ {
+  "gate": "G1",
+  "test": "tests/bowen/test_phase_b_gate.py::test_m13_phase_b_scripted_40_week_trace_runs",
+  "mutation": "the tick loop stops one week short",
+  "edits": [
+   [
+    "src/bowen/engine/tick.py",
+    "    for _ in range(ticks):",
+    "    for _ in range(ticks - 1):"
+   ]
+  ]
+ },
+ {
+  "gate": "G2",
+  "test": "tests/bowen/test_render.py::test_m16t1_trace_renders_scripted_run",
+  "mutation": "effects dropped from every event line",
+  "edits": [
+   [
+    "src/bowen/render/trace.py",
+    "    return \"; \".join(parts) or \"—\"",
+    "    return \"—\""
+   ]
+  ]
+ },
+ {
+  "gate": "G2",
+  "test": "tests/bowen/test_render.py::test_m16t1_effects_are_reported_in_reader_units",
+  "mutation": "effects rendered beside the wrong event",
+  "edits": [
+   [
+    "src/bowen/render/trace.py",
+    "    for effect in index.effects.get(event.id, []):",
+    "    for effect in index.effects.get(min(index.effects), []):"
+   ]
+  ]
+ },
+ {
+  "gate": "G3",
+  "test": "tests/bowen/test_phase_b_gate.py::test_m4a2_g3_trigger_on_dormant_tie_moves_anxiety_without_contact",
+  "mutation": "TRIGGER is a no-op (direction clause)",
+  "edits": [
+   [
+    "src/bowen/engine/standing_load.py",
+    "        spike = trigger_intensity(state, tie_id, state.tick)",
+    "        spike = 0.0"
+   ]
+  ]
+ },
+ {
+  "gate": "G3",
+  "test": "tests/bowen/test_phase_b_gate.py::test_m4a2_g3_trigger_on_dormant_tie_moves_anxiety_without_contact",
+  "mutation": "TRIGGER delivered to the tie's members (no-contact clause)",
+  "edits": [
+   [
+    "src/bowen/engine/visibility.py",
+    "        target_deliveries = []\n        for target in event.targets:",
+    "        target_deliveries = []\n        for target in (event.targets or (event.on_tie.members() if event.on_tie else ())):"
+   ]
+  ]
+ },
+ {
+  "gate": "G4",
+  "test": "tests/bowen/test_engine_purity.py::test_m11d1_engine_has_no_io",
+  "mutation": "the engine opens a file",
+  "edits": [
+   [
+    "src/bowen/engine/tick.py",
+    "    for record in records:\n        emitter.emit(record)",
+    "    open(\"/dev/null\", \"w\").close()\n    for record in records:\n        emitter.emit(record)"
+   ]
+  ]
+ },
+ {
+  "gate": "G5",
+  "test": "tests/bowen/test_config.py::test_m11d3_config_rejects_unknown_key",
+  "mutation": "unknown keys skipped (the frozen engine's _apply_config defect)",
+  "edits": [
+   [
+    "src/bowen/scenario/constants.py",
+    "            raise ConfigError(f\"{where}: unknown key {key!r}\")",
+    "            continue"
+   ]
+  ]
+ },
+ {
+  "gate": "G6",
+  "test": "tests/bowen/test_determinism.py::test_m11d5_same_seed_same_log",
+  "mutation": "ties iterated in hash order",
+  "edits": [
+   [
+    "src/bowen/engine/standing_load.py",
+    "    for tie_id in sorted(state.ties):",
+    "    for tie_id in set(state.ties):"
+   ],
+   [
+    "src/bowen/engine/standing_load.py",
+    "        acute_anxiety=tuple((pid, loads[pid]) for pid in sorted(loads)),",
+    "        acute_anxiety=tuple((pid, loads[pid]) for pid in loads),"
+   ]
+  ]
+ },
+ {
+  "gate": "G7",
+  "test": "tests/bowen/test_determinism.py::test_m11d6_second_run_is_clean",
+  "mutation": "one event store shared by every run",
+  "edits": [
+   [
+    "src/bowen/engine/state.py",
+    "    store: EventStore = field(default_factory=EventStore)",
+    "    store: EventStore = field(default_factory=lambda: _SHARED_STORE)"
+   ],
+   [
+    "src/bowen/engine/state.py",
+    "@dataclass(frozen=True)\nclass ActiveTrigger:",
+    "_SHARED_STORE = EventStore()\n\n\n@dataclass(frozen=True)\nclass ActiveTrigger:"
+   ]
+  ]
+ },
+ {
+  "gate": "G8",
+  "test": "tests/bowen/test_test_hygiene.py::test_m11d7_no_production_paths_in_tests",
+  "mutation": "the write guard disabled",
+  "edits": [
+   [
+    "tests/bowen/conftest.py",
+    "        if not _inside(path, root):\n            raise",
+    "        if False:\n            raise"
+   ]
+  ]
+ },
+ {
+  "gate": "G9",
+  "test": "tests/bowen/test_engine_purity.py::test_m16t2_engine_writes_nothing",
+  "mutation": "the engine appends an audit file each tick (as the frozen engine does)",
+  "edits": [
+   [
+    "src/bowen/engine/tick.py",
+    "    for record in records:\n        emitter.emit(record)",
+    "    with open(\"sim_audit.csv\", \"a\") as audit:\n        audit.write(f\"{state.tick}\\n\")\n    for record in records:\n        emitter.emit(record)"
+   ]
+  ]
+ },
+ {
+  "gate": "G10",
+  "test": "tests/bowen/test_log.py::test_m16t3_sink_does_not_change_results",
+  "mutation": "the sink alters the events it logs",
+  "edits": [
+   [
+    "src/bowen/io/sinks.py",
+    "        self._handle.write(serialize(record) + \"\\n\")",
+    "        if getattr(record, \"record_type\", \"\") == \"emitted\":\n            object.__setattr__(record.event, \"intensity\", 0.0)\n        self._handle.write(serialize(record) + \"\\n\")"
+   ]
+  ]
+ },
+ {
+  "gate": "G11",
+  "test": "tests/bowen/test_log.py::test_m16t5_same_seed_same_log_with_header",
+  "mutation": "a clock reading in the header",
+  "edits": [
+   [
+    "src/bowen/scenario/header.py",
+    "        spec_revision=spec_revision,",
+    "        spec_revision=spec_revision + str(__import__(\"time\").perf_counter_ns()),"
+   ]
+  ]
+ },
+ {
+  "gate": "G12",
+  "test": "tests/test_spec_consistency.py::test_m11d17_register_has_no_orphans",
+  "mutation": "a writer deleted from the spec's register",
+  "edits": [
+   [
+    "docs/bowen_agent_model_spec_v2.md",
+    "| `conductance` | Relationship | EX | family definition (`M1.B.2`) | B |",
+    "| `conductance` | Relationship | EX | — | B |"
+   ]
+  ]
+ },
+ {
+  "gate": "G13",
+  "test": "tests/bowen/test_engine_purity.py::test_m11d22_engine_modules_do_not_import_tests_or_readouts",
+  "mutation": "the tick module imports the renderer",
+  "edits": [
+   [
+    "src/bowen/engine/tick.py",
+    "from src.bowen.engine.visibility import HouseholdConductanceVisibility\n",
+    "from src.bowen.engine.visibility import HouseholdConductanceVisibility\nfrom src.bowen.render.trace import render  # noqa\n"
+   ]
+  ]
+ },
+ {
+  "gate": "G14",
+  "test": "tests/test_simulator.py",
+  "mutation": "the frozen engine's constructor breaks",
+  "edits": [
+   [
+    "src/engine.py",
+    "    def __init__(self, num_units=10000):\n        self._apply_config()",
+    "    def __init__(self, num_units=10000):\n        raise RuntimeError('broken by mutation')\n        self._apply_config()"
+   ]
+  ]
+ },
+ {
+  "gate": "D6",
+  "test": "tests/bowen/test_register.py::test_m14a_register_matches_object_fields",
+  "mutation": "a Person field with no register row",
+  "edits": [
+   [
+    "src/bowen/engine/objects.py",
+    "    alive: bool = True\n",
+    "    alive: bool = True\n    mood: float = 0.0\n"
+   ]
+  ]
+ }
+]

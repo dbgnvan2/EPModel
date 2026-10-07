@@ -378,7 +378,7 @@ Each step lands with its tests, written first, and the full suite green.
 | 11 | `io/sinks.py`, `scenario/header.py`, `run.py` (the composition root: `python3 -m src.bowen.run --seed 7 --log …`). **Done 2026-10-06.** The header hashes the parsed config, not file text, and reads the spec revision from the spec's front matter | 4 | G9, G10, G6, G7, G11 |
 | 12 | `render/trace.py`; `run.py --trace`. **Done 2026-10-06.** Reading the first rendered trace found witnesses hit harder than the person addressed; the step-8 witness rule (`[I]`) was bounded by the event's own edge, with a test. No constant changed | 4, 10 | G2, `M16.C.*` tests |
 | 13 | Static guards, the M11.D.7 write guard in `tests/bowen/conftest.py`, and `readouts/` (empty). **Done 2026-10-06.** `test_m11d4_invented_constants_labelled` built as §7 promised, not counted toward the gate | all | G4, G8, G13 |
-| 14 | Mutation proof of every gate test (§2's mutation column), recorded in the completion report | all | — |
+| 14 | Mutation proof of every gate test (§2's mutation column). **Done 2026-10-06:** `tools/mutation_gate.py` with `tools/mutation_gate_phase_b.json`; 17 of 17 proved (both G3 clauses, two G2 checks, and D6), each run alone against its own test after a passing baseline. Record: `docs/phase_b_mutation_record.md` | all | — |
 | 15 | Human read of a rendered trace (§7); `docs/spec_coverage.md` (`M14.1`); status report | all | — |
 
 ---

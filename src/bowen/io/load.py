@@ -13,6 +13,7 @@ from src.bowen.engine.events import EventKinds
 from src.bowen.scenario.constants import Constants, parse_constants
 from src.bowen.scenario.event_kinds import parse_event_kinds
 from src.bowen.scenario.family import FamilyInstance, build_family
+from src.bowen.scenario.scripted_source import ScriptedSource, build_script
 
 CONFIG_DIR = Path(__file__).resolve().parents[3] / "config" / "bowen"
 
@@ -43,3 +44,23 @@ def load_family(path: Path = CONFIG_DIR / "family_reduced.md", constants: Consta
     Tests:   tests/bowen/test_family.py::test_m21_family_declared_in_markdown
     """
     return build_family(read_text(path), constants or load_constants(), source=str(path))
+
+
+def load_script(
+    path: Path = CONFIG_DIR / "script_phase_b.md",
+    kinds: EventKinds | None = None,
+    family: FamilyInstance | None = None,
+) -> ScriptedSource:
+    """Purpose: read and build a script.
+    Spec:    docs/bowen_agent_model_spec_v2.md#M13
+    Tests:   tests/bowen/test_script.py::test_m13_script_parses_and_validates
+    """
+    return build_script(read_text(path), kinds or load_event_kinds(), family or load_family(), source=str(path))
+
+
+def load_frozen_constants(path: Path = CONFIG_DIR / "constants_frozen.md") -> Constants:
+    """Purpose: the snapshot of the constants as frozen before the acceptance suite first ran.
+    Spec:    docs/bowen_agent_model_spec_v2.md#M10.B.4, #M16.A.7
+    Tests:   tests/bowen/test_phase_b_gate.py::test_m10b4_constants_frozen_before_suite
+    """
+    return parse_constants(read_text(path), source=str(path))

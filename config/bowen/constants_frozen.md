@@ -1,4 +1,8 @@
-# EPModel v2 — constants register
+# EPModel v2 — constants register, frozen snapshot
+
+> **Do not edit.** This is the register as it stood when the acceptance suite first
+> ran against it, 2026-10-06 (`M10.B.4`). A later change goes in `constants.md` and is
+> logged in `constants_changes.md`; the log header flags it (`M16.A.7`).
 
 > Every numeric constant the engine reads, with its grade (spec `M10.1`, `M0.1`).
 > `[I]` means invented: a modelling decision with no source. An `[I]` value must

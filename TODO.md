@@ -44,6 +44,10 @@ revision-10 section.
 The owner decided on 2026-09-27 that nothing from the 2026-09-27 paper batches enters revision 10, which is
 under external review. All of it waits for revision 11. None of it is a requirement yet.
 
+**One exception, by owner instruction on 2026-10-06:** `M11.F.10` (the "virtual family" term may not be used
+without `M11.F`'s framing) was entered in the spec text directly, marked ⟦proposed rev11 · owner decision
+2026-10-06⟧. It is still a proposal until revision 11 is approved. Rationale: `model_explainer.md` §1.1.
+
 - [ ] **Method proposals from the two 2026-09-27 batches.** 36 candidates. First batch: J1–J4, SV1–SV4, PD1–PD4,
   X5–X9, in `papers/SWEEP_READING_REPORTS_2026-09-27.md`. Second batch: BB1–BB5, MM1–MM4, AD1–AD3, TM1–TM6, X10,
   in `papers/SWEEP_READING_REPORTS_2026-09-27b.md`. Plain-language versions with examples are in

@@ -280,10 +280,22 @@ def test_m5a1_configured_moves_are_exactly_the_spec_repertoire():
 
 
 def test_m10b2_event_kinds_parse_strictly():
-    header = "| kind | mechanism | spec |\n|---|---|---|\n"
+    header = "| kind | mechanism | inside_sign | outside_sign | spec |\n|---|---|---|---|---|\n"
     with pytest.raises(ConfigError, match="unknown mechanism"):
-        parse_event_kinds(header + "| `X` | magic | `M1.F.1` |\n")
+        parse_event_kinds(header + "| `X` | magic | +1 | +1 | `M1.F.1` |\n")
     with pytest.raises(ConfigError, match="duplicate"):
-        parse_event_kinds(header + "| `X` | move | `M5.A.1` |\n| `X` | move | `M5.A.1` |\n")
+        parse_event_kinds(header + "| `X` | move | +1 | +1 | `M5.A.1` |\n| `X` | move | +1 | +1 | `M5.A.1` |\n")
     with pytest.raises(ConfigError, match="upper case"):
-        parse_event_kinds(header + "| `job_loss` | exogenous_stressor | `M1.F.6` |\n")
+        parse_event_kinds(header + "| `job_loss` | exogenous_stressor | +1 | +1 | `M1.F.6` |\n")
+
+
+def test_m1f2_signs_parse_and_default_to_plus_one():
+    header = "| kind | mechanism | inside_sign | outside_sign | spec |\n|---|---|---|---|---|\n"
+    kinds = parse_event_kinds(header + "| `NAME_IT` | move | +1 | -1 | `M1.F.2` |\n")
+    assert kinds.sign("NAME_IT", SourcePosition.OUTSIDE) == -1
+    assert kinds.sign("NAME_IT", SourcePosition.INSIDE) == 1
+    assert kinds.sign("NAME_IT", SourcePosition.NONE) == 1
+    with pytest.raises(ConfigError, match="must be \\+1 or -1"):
+        parse_event_kinds(header + "| `X` | move | 0 | +1 | `M1.F.2` |\n")
+    repo = load_event_kinds()
+    assert all(repo.sign(k, p) == 1 for k in repo.mechanisms for p in SourcePosition)

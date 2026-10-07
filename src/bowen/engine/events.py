@@ -37,12 +37,25 @@ TIE_MECHANISMS = frozenset({Mechanism.TRIGGER, Mechanism.RECONCILIATION})
 
 @dataclass(frozen=True)
 class EventKinds:
-    """The kind vocabulary, as loaded from config."""
+    """The kind vocabulary, as loaded from config.
+
+    ``signs`` maps (kind, source position) to +1 or -1 (M1.F.2). A missing
+    entry, and every event sent from no position, is +1.
+    """
 
     mechanisms: Mapping[str, Mechanism]
+    signs: Mapping[tuple[str, "SourcePosition"], int] = MappingProxyType({})
 
     def __post_init__(self) -> None:
         object.__setattr__(self, "mechanisms", MappingProxyType(dict(self.mechanisms)))
+        if any(v not in (1, -1) for v in self.signs.values()):
+            raise ValueError("a source-position sign is +1 or -1")
+        object.__setattr__(self, "signs", MappingProxyType(dict(self.signs)))
+
+    def sign(self, kind: str, position: "SourcePosition") -> int:
+        if position is SourcePosition.NONE:
+            return 1
+        return self.signs.get((kind, position), 1)
 
     def mechanism_of(self, kind: str) -> Mechanism:
         try:

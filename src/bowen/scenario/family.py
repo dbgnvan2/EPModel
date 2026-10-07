@@ -160,6 +160,8 @@ def build_family(text: str, constants: Constants, *, source: str = "<family>") -
                 basic_level=_number(row["basic_level"], float, where, "basic_level"),
                 functional_level=_number(row["functional_level"], float, where, "functional_level"),
                 chronic_anxiety=_number(row["chronic_anxiety"], float, where, "chronic_anxiety"),
+                # Acute anxiety starts on its floor (M1.A.7a: chronic is the floor it decays toward).
+                acute_anxiety=_number(row["chronic_anxiety"], float, where, "chronic_anxiety"),
                 sibling_position=sibling,
                 financially_dependent=_choice(row["financially_dependent"], _YES_NO, where, "financially_dependent"),
             )

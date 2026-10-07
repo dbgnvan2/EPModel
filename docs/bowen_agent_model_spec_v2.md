@@ -1436,7 +1436,7 @@ Classes are `M14.A.1`'s four: exogenous-homogeneous (EH), exogenous-heterogeneou
 | `inside_pair` | Triangle | DV | triangle recompute, step 6 (`M1.C.3`) | B |
 | `outside` | Triangle | DV | triangle recompute, step 6 (`M1.C.3`) | B |
 | `active` | Triangle | DV | triangle recompute, step 6, via `M8` (`M1.C.3`, `M8.5`) | B |
-| `bound_anxiety` | Triangle | DV | consolidation re-tally | B |
+| `bound_anxiety` | Triangle | DV | triangle binding through the sinks (`M1.D.1`); `binder_unavailable` releases it (`M1.F.9`) | C; B |
 | `activation_memory` | Triangle | DV | triangle recompute, step 6 (`M1.C.4`) | B |
 | `intensity_floor` | Triangle | DV | `I-POSITION` held (`M1.C.5`) | C |
 | `undifferentiation_budget` | Family | DV | family definition; `binder_unavailable` return (`M1.F.9`) | B |
@@ -1462,9 +1462,11 @@ Classes are `M14.A.1`'s four: exogenous-homogeneous (EH), exogenous-heterogeneou
 | Scripted selection (`ScriptedSource`) | engine | synchronous batch, step 7 | script entry due | script | — | selection record | B |
 | Act (`M4.E.1`) | engine | synchronous batch, step 8 | selection | selection; tie `latency` | — | event queue | B |
 | Visibility (`M3.E.1`, `M1.F.1b`) | engine | called from step 8 | event created | `household_id`; tie `conductance`; route | — | `Event.witnesses` | B |
-| Consolidate (`M4.G.1`, `M1.A.8`) | engine | synchronous batch, step 9 | every tick | tie event history; `chronic_anxiety` | — | `Relationship.tie_state`, `Person.acute_anxiety`, `Triangle.bound_anxiety` | B |
+| Consolidate (`M4.G.1`, `M1.A.8`) | engine | synchronous batch, step 9 | every tick | tie event history; `chronic_anxiety` | — | `Relationship.tie_state`, `Relationship.bond_energy`, `Person.acute_anxiety` | B |
 | Invariants (`M4.G.2`, `M4.G.2a`) | engine | synchronous batch, step 9 | every tick | all state | — | — | B |
 | Binder unavailable (`M1.F.9`) | engine | latency-delivered, step 2 | scripted event | the named binder | — | `Family.undifferentiation_budget`; the binder's object | B |
+| Structural events (`M4.A.2`–`M4.A.4`) | engine | synchronous batch, step 2 | scripted event due | the named tie or person | — | `Relationship.interactive`, `Relationship.tie_state`; the trigger list read by step 1 | B |
+| Delivered cutoff (`M1.B.3`) | engine | synchronous batch, step 4 | `CUTOFF` delivered | the tie | — | `Relationship.interactive`, `Relationship.tie_state` | B |
 | Slow-tick hook (`M3.B.1`) | engine | slow tick | every 52 fast ticks | — | — | — | B |
 | Same-tick batching (`M1.F.8`) | engine | documented composite | same-tick events | the batch | — | — | B |
 

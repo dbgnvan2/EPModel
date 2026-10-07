@@ -49,6 +49,15 @@ SCHEMA: Mapping[str, KeySpec] = MappingProxyType(
         "spouse_basic_level_tolerance": KeySpec(float, "[I]", "M2.A.0e"),
         "chronic_anxiety_fixation_age_years": KeySpec(int, "[I]", "M2.A.0a"),
         "per_hop_fidelity": KeySpec(float, "[I]", "M1.F.4"),
+        "standing_load_gain": KeySpec(float, "[I]", "M4.A.1"),
+        "interactive_standing_fraction": KeySpec(float, "[I]", "M4.A.3"),
+        "functional_level_floor": KeySpec(float, "[I]", "M4.C.1"),
+        "acute_decay_rate": KeySpec(float, "[I]", "M1.A.8"),
+        "route_damping": KeySpec(float, "[I]", "M1.F.3"),
+        "hardening_run_length": KeySpec(int, "[I]", "M4.G.1"),
+        "bond_energy_decay_rate": KeySpec(float, "[I]", "M1.B.4"),
+        "tension_activation_threshold": KeySpec(float, "[I]", "M1.C.3"),
+        "involvement_membership_threshold": KeySpec(float, "[I]", "M1.A.12"),
     }
 )
 

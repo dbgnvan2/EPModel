@@ -24,6 +24,15 @@ GOOD_ROWS = (
     "| `spouse_basic_level_tolerance` | 1.0 | [I] | point | `M2.A.0e` |\n"
     "| `chronic_anxiety_fixation_age_years` | 12 | [I] | year | `M2.A.0a` |\n"
     "| `per_hop_fidelity` | 0.8 | [I] | fraction | `M1.F.4` |\n"
+    "| `standing_load_gain` | 0.2 | [I] | u | `M4.A.1` |\n"
+    "| `interactive_standing_fraction` | 0.5 | [I] | u | `M4.A.3` |\n"
+    "| `functional_level_floor` | 1.0 | [I] | u | `M4.C.1` |\n"
+    "| `acute_decay_rate` | 0.2 | [I] | u | `M1.A.8` |\n"
+    "| `route_damping` | 0.5 | [I] | u | `M1.F.3` |\n"
+    "| `hardening_run_length` | 3 | [I] | u | `M4.G.1` |\n"
+    "| `bond_energy_decay_rate` | 0.0 | [I] | u | `M1.B.4` |\n"
+    "| `tension_activation_threshold` | 5.0 | [I] | u | `M1.C.3` |\n"
+    "| `involvement_membership_threshold` | 0.5 | [I] | u | `M1.A.12` |\n"
 )
 
 

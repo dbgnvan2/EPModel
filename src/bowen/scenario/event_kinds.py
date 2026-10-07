@@ -9,10 +9,11 @@ from __future__ import annotations
 
 import re
 
-from src.bowen.engine.events import EventKinds, Mechanism
+from src.bowen.engine.events import EventKinds, Mechanism, SourcePosition
 from src.bowen.scenario.config_parse import ConfigError, parse_table_document
 
-COLUMNS = ("kind", "mechanism", "spec")
+COLUMNS = ("kind", "mechanism", "inside_sign", "outside_sign", "spec")
+_SIGNS = {"+1": 1, "-1": -1}
 _KIND = re.compile(r"^[A-Z][A-Z_-]*$")
 
 
@@ -20,6 +21,7 @@ def parse_event_kinds(text: str, *, source: str = "<event kinds>") -> EventKinds
     document = parse_table_document(text, columns=COLUMNS, metadata_keys=frozenset(), source=source)
     by_value = {m.value: m for m in Mechanism}
     mechanisms: dict[str, Mechanism] = {}
+    signs: dict[tuple[str, SourcePosition], int] = {}
     for row, line in zip(document.rows, document.row_lines):
         where = f"{source}:{line}"
         kind = row["kind"].strip("`")
@@ -30,6 +32,10 @@ def parse_event_kinds(text: str, *, source: str = "<event kinds>") -> EventKinds
         if row["mechanism"] not in by_value:
             raise ConfigError(f"{where}: unknown mechanism {row['mechanism']!r}")
         mechanisms[kind] = by_value[row["mechanism"]]
+        for column, position in (("inside_sign", SourcePosition.INSIDE), ("outside_sign", SourcePosition.OUTSIDE)):
+            if row[column] not in _SIGNS:
+                raise ConfigError(f"{where}: {column} must be +1 or -1, got {row[column]!r}")
+            signs[(kind, position)] = _SIGNS[row[column]]
     if not mechanisms:
         raise ConfigError(f"{source}: no event kinds declared")
-    return EventKinds(mechanisms)
+    return EventKinds(mechanisms, signs)

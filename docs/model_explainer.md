@@ -1,8 +1,8 @@
 ---
 tags: [model-bt, explainer]
 status: current
-version: 1.8
-date: 2026-09-22
+version: 1.9
+date: 2026-10-06
 ---
 
 # The model, part by part
@@ -75,6 +75,41 @@ Chapter numbers in `ChNN` are the book's, and the book is **not** in chronologic
 Twelve people in one three-generation family. Each is an agent that, on every fast tick, reads what reached it, appraises it, picks one move, and emits it as an event to named recipients and witnesses. Anxiety flows along **ties**, not along a grid, and is divided on arrival by the receiver's functional level. Ties, triangles and the family each hold their own state. Nothing about a person is computed from a lattice position.
 
 **What it is not.** It is not a measurement instrument and cannot make dated claims about real people. It is a consistency engine for one theory: *if Bowen's account is right, what follows for a family shaped like this?* Its trustworthy output is the **difference between two arms of a counterfactual**, run over ensembles, because most of what is uncertain is shared between the arms and cancels.
+
+### 1.1 Is it a "virtual family", like a virtual cell?
+
+*Added 2026-10-06. **This section is method, not corpus.** The comparison is `[I]`; the claims about cell models are from the two papers cited, read at abstract and summary level only.*
+
+Two things are called a virtual cell. **Mechanistic whole-cell models** — Karr et al., *Cell* 2012, *M. genitalium* as 28 interconnected modules built from more than 900 sources and validated against a broad range of experimental data. **AI virtual cells** — Bunne et al., *Cell* 2024, large neural networks trained on omics data to predict a cell's response to stimuli. Both are judged by how well they predict **measured** behaviour.
+
+**Where the comparison holds.**
+
+- **Bottom-up construction.** Twelve agents with their own state; ties, triangles and the family each hold state; family-level patterns are meant to arise from those interactions, as cell-level behaviour arises from molecular modules.
+- **Experiments run inside the model.** The trustworthy output is a two-arm difference (`M0.4`, §17.1), and switching a mechanism off to see whether it is needed is admitted as a test of the model's structure (`M11.4f`) — the analogue of an in-silico knockout.
+- **Synthesis from literature.** Karr assembled hundreds of sources; this model assembles six corpus sources through `_LEDGER.md`.
+
+**Where it does not.**
+
+1. **No measurements to calibrate against.** The corpus has no instrument, no rater procedure, no comparison group and no number assigned to a person (spec §0.5). Every constant is `[I]`. The one external figure, the DSI–anxiety correlation, **may check** an ensemble and **must not set** a parameter (`M10.C.2a`).
+2. **Direction, not magnitude.** Acceptance tests assert a direction of difference (`M0.4`). A virtual cell aims at quantitative prediction.
+3. **No particular real family.** `M11.F.9` forbids presenting output as being about one. Fitting parameters to a known history yields a fit, not a comparison — 60–90 free parameters against a single realisation leave the counterfactual unidentified (`M11.F.9(c)`, §17.2). Imported families run as ranges and report an envelope (`M15.D`), because initial-condition error crosses turning points and flips the sign (§17.3).
+4. **One theory, checked against itself.** The acceptance suite tests agreement with Bowen's stated mechanisms, not with observed families. A cell model encodes measured biochemistry; this model encodes a theory its author wanted kept open to test (`M11.F.1`), and Bowen's objection to general-systems artifacts applies to it (`M11.F.3`).
+
+**The accurate description** is the one above: a **consistency engine** — it can show whether Bowen's mechanisms, taken together, produce the patterns the theory claims, and which mechanism each result depends on. It cannot show that real families behave that way. The nearer analogue in cell biology is a theoretical mechanism model, used to ask whether a proposed mechanism *can* produce a pattern, rather than a predictive virtual cell. **"Virtual family" MUST NOT be used of this model without `M11.F`'s framing beside it**, because readers will take it in the predictive sense.
+
+**What would move it toward a virtual family.** What makes Karr's model a virtual cell is a loop: its predictions directed experiments, and those experiments identified kinetic parameters and gene functions not seen before. Each item below supplies one half of that loop or connects the two, roughly in order of how much it blocks the rest.
+
+1. **A measure of the state variables.** The binding constraint, and not an engineering one. Basic level has no adequate instrument: estimates are "false readings" because pseudo-self is lent and borrowed (Ch17 · L17.2), and the DSI is self-report whose most central subscale failed for five years (`_EXTERNAL_MEASURES.md`). Needed: a non-self-report measure, probably of observed functioning over time — the only route Bowen says recovers level.
+2. **Many families, measured repeatedly, across generations.** 60–90 free parameters against one invented family (`M10.A.2`) cannot be estimated. Many independent families with repeated measurement would allow calibrating on some and testing on others.
+3. **Calibration separated from test.** `M10.B.4` already freezes constants before the acceptance suite runs. The same rule applied to real data: fit on one set of families, predict held-out families before looking at their outcomes.
+4. **Comparison groups for interventions** — families that underwent a change (coaching, a cutoff, a relocation) and matched families that did not, with outcomes measured. The only way to check a counterfactual; the corpus has none (spec §0.5).
+5. **Measurement precise enough to place one family.** `M15.D.4` names five turning points where initial-condition error flips the sign. Running a particular family needs its initial state measured well enough to know which side of each it is on. Until then, `M15.D`'s envelope stands.
+6. **Fewer parameters, and evidence they are identifiable** — an identifiability analysis of which parameters data could pin down, and `M17.E`'s sensitivity sweeps to show which outputs survive across the rest.
+7. **Then, and only then, revisit the guard rules.** `M0.4`, `M11.F.9(c)` and `M15.D` exist because 1–5 are missing. They are correctness rules, and relaxing any before that data exists makes the output wrong, not more useful.
+
+Items 1, 2 and 4 are outside this project; they would have to come from family research. What the project can do is build the engine, run Phase E's sweeps to find which directional predictions hold across all plausible constants (item 6), and keep `M15`'s import contract right so real data has somewhere to land. That makes it a theoretical model with stated, robust predictions — the prerequisite for a virtual family, not one.
+
+Sources: Karr J.R. et al. (2012) *Cell* 150(2):389–401, [PMC3413483](https://pmc.ncbi.nlm.nih.gov/articles/3413483); Bunne C. et al. (2024) *Cell* 187(25):7045–7063, [arXiv 2409.11654](https://arxiv.org/abs/2409.11654).
 
 ---
 

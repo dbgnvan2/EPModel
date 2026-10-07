@@ -25,8 +25,9 @@ Each test below is written so that reverting the corresponding fix turns it red.
 
 from __future__ import annotations
 
-import ast
 import re
+import subprocess
+import sys
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parent.parent
@@ -299,17 +300,26 @@ def test_requirement_counts_agree_with_the_spec():
     )
 
 
+def _collected_test_count() -> int:
+    """The number of tests pytest collects — what "all N tests pass" claims.
+
+    Counting `def test_*` in the AST was the earlier method. It undercounts a
+    parametrized test, misses files outside the glob, and agreed with the real
+    count only by coincidence until Phase B added a parametrized test (TODO.md).
+    """
+    result = subprocess.run(
+        [sys.executable, "-m", "pytest", str(REPO / "tests"), "--collect-only", "-q",
+         "-p", "no:cacheprovider"],
+        capture_output=True, text=True, timeout=120, cwd=REPO,
+    )
+    match = re.search(r"^(\d+) tests? collected", result.stdout, re.M)
+    assert match, f"could not read pytest's collection count:\n{result.stdout[-2000:]}{result.stderr[-2000:]}"
+    return int(match.group(1))
+
+
 def test_claimed_test_count_matches_the_suite():
     """CLAUDE.md's green-suite gate is the count a future session checks against."""
-    total = 0
-    for path in sorted((REPO / "tests").rglob("test_*.py")):
-        tree = ast.parse(path.read_text(encoding="utf-8"))
-        total += sum(
-            1
-            for node in ast.walk(tree)
-            if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef))
-            and node.name.startswith("test_")
-        )
+    total = _collected_test_count()
     # Every document, not CLAUDE.md alone: "37 tests green" sat stale in
     # _STATUS.md and CHANGELOG.md while CLAUDE.md's own figure was correct.
     wrong = {}

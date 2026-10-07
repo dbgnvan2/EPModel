@@ -187,7 +187,7 @@ The re-sweep of the fix commit returned fifteen findings. Four high and seven me
 were graded low and are recorded instead, because each fix is new unreviewed surface and the project's own
 rule is to bound the loop rather than trade one defect class for another.
 
-- [ ] **`test_claimed_test_count_matches_the_suite` counts definitions, not collection.** It walks the AST for
+- [x] ~~**`test_claimed_test_count_matches_the_suite` counts definitions, not collection.**~~ *Fixed 2026-10-06: it now shells to `pytest --collect-only -q`. Phase B step 1's parametrized test was the first case where the counts differed (76 defined, 78 collected).* It walks the AST for
   `def test_*`. `@pytest.mark.parametrize` multiplies collection, `*_test.py` files fall outside the glob, and
   a `skip`/`xfail` keeps the guard green while `CLAUDE.md`'s claim — "all N tests **pass**" — is false. Today
   the three numbers agree exactly (49 defined, 49 collected, 49 passed). Fix by shelling to

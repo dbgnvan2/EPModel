@@ -1,0 +1,26 @@
+"""Reading configuration files from disk.
+
+Purpose: the one place config files are read; everything else takes text.
+Spec:    docs/bowen_agent_model_spec_v2.md#M11.D.1, #M16.B.1
+Tests:   tests/bowen/test_config.py::test_m101_repository_constants_load_and_are_graded
+"""
+
+from __future__ import annotations
+
+from pathlib import Path
+
+from src.bowen.scenario.constants import Constants, parse_constants
+
+CONFIG_DIR = Path(__file__).resolve().parents[3] / "config" / "bowen"
+
+
+def read_text(path: Path) -> str:
+    return Path(path).read_text(encoding="utf-8")
+
+
+def load_constants(path: Path = CONFIG_DIR / "constants.md") -> Constants:
+    """Purpose: read and parse the constants register.
+    Spec:    docs/bowen_agent_model_spec_v2.md#M10.B.1
+    Tests:   tests/bowen/test_config.py::test_m101_repository_constants_load_and_are_graded
+    """
+    return parse_constants(read_text(path), source=str(path))

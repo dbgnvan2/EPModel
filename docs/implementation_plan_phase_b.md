@@ -365,7 +365,7 @@ Each step lands with its tests, written first, and the full suite green.
 | Step | Builds | Depends on | Tests that land with it |
 |---|---|---|---|
 | 0 | Owner answers D1–D9; register rows (Appendix A) entered into spec `M14.A`; `M13`, `M1.A` and `M2.A` amended per D1, D4, D5 | — | `test_m11d17_register_has_no_orphans` (register only) |
-| 1 | `scenario/config_parse.py`, `io/load.py`, `config/bowen/constants.md` with every Phase B `[I]` constant **frozen before any acceptance test runs** (`M10.B.4`) | 0 | G5, `M10.B.*` tests |
+| 1 | `scenario/config_parse.py`, `scenario/constants.py`, `io/load.py`, `config/bowen/constants.md`. **Done 2026-10-06.** The register holds the three constants the spec fixes or step 1 needs; each further `[I]` constant is entered with the mechanism that reads it, and `frozen_at` is set before the first acceptance test runs (step 10, `M10.B.4`) | 0 | G5, `M10.B.*` tests |
 | 2 | `engine/identifiers.py`, `engine/objects.py` (Appendix B's structural set) | 1 | identifier tests, `test_m14a_register_matches_object_fields` |
 | 3 | `engine/draws.py` | 1 | `M3.D.4a`–`M3.D.4c` tests |
 | 4 | `engine/events.py`, `engine/event_store.py`, `engine/log_records.py` | 2 | `M1.F.1`, `M1.F.6`, `M1.F.7`, `M16.A.*` structural tests |

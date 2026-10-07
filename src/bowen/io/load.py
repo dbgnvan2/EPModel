@@ -9,7 +9,9 @@ from __future__ import annotations
 
 from pathlib import Path
 
+from src.bowen.engine.events import EventKinds
 from src.bowen.scenario.constants import Constants, parse_constants
+from src.bowen.scenario.event_kinds import parse_event_kinds
 
 CONFIG_DIR = Path(__file__).resolve().parents[3] / "config" / "bowen"
 
@@ -24,3 +26,11 @@ def load_constants(path: Path = CONFIG_DIR / "constants.md") -> Constants:
     Tests:   tests/bowen/test_config.py::test_m101_repository_constants_load_and_are_graded
     """
     return parse_constants(read_text(path), source=str(path))
+
+
+def load_event_kinds(path: Path = CONFIG_DIR / "event_kinds.md") -> EventKinds:
+    """Purpose: read and parse the event-kind vocabulary.
+    Spec:    docs/bowen_agent_model_spec_v2.md#M10.B.1
+    Tests:   tests/bowen/test_events.py::test_m10b1_event_kinds_come_from_config
+    """
+    return parse_event_kinds(read_text(path), source=str(path))

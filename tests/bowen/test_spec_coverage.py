@@ -36,3 +36,22 @@ def test_m141_every_done_names_an_existing_test():
             path, _, name = item.partition("::")
             source = (REPO / path).read_text(encoding="utf-8")
             assert not name or f"def {name}(" in source, f"{row['id']}: {item} does not exist"
+
+
+def test_m141_no_id_resolves_to_an_unassigned_phase():
+    """A new ID that no MODULE_PHASES pattern matches was reported "Phase unassigned"."""
+    rows = TOOL.coverage(json.loads(OVERRIDES.read_text(encoding="utf-8")))
+    unassigned = [r["id"] for r in rows if r["note"] == "Phase unassigned"]
+    assert unassigned == [], f"IDs with no building phase: {unassigned}"
+
+
+def test_m141_excluded_evidence_is_not_shown():
+    """A test pinning a superseded revision must not be merged back in as evidence."""
+    overrides = json.loads(OVERRIDES.read_text(encoding="utf-8"))
+    rows = {r["id"]: r for r in TOOL.coverage(overrides)}
+    checked = 0
+    for spec_id, o in overrides.items():
+        for test in o.get("exclude_evidence", []):
+            checked += 1
+            assert test not in rows[spec_id]["evidence"], f"{spec_id}: excluded {test} shown as evidence"
+    assert checked, "no override uses exclude_evidence, so this guard checks nothing"

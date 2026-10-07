@@ -26,6 +26,10 @@ level of the family and of each nuclear-household member. On the Phase B family
 both hold. One peripheral agent there has a single tie and carries a self term
 above that tie's load (0.118 against 0.098 a week); the test records which, and
 it is not treated as a defect.
+
+**Revision 10 form.** This module implements `M4.A.1` as written at spec revision 10. Revision 11
+(2026-10-06) replaced it with `M4.C.1c`, the "too little" side of `M4.C.1`'s function; see the spec's revision-11 section, "Phase B code that no longer
+conforms". Reworking it is a Phase C plan item.
 """
 
 from __future__ import annotations

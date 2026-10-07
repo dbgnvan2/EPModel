@@ -85,7 +85,7 @@ predicate, the scripted source and the run log, so most of the spec is, correctl
 | M1.B.13 | done | `tests/bowen/test_objects.py::test_m1b13_tie_id_is_unordered_pair` | — |
 | M1.C.1 | done | `tests/bowen/test_objects.py::test_m1c1_triangle_holds_members_inside_pair_outside_and_bound_anxiety` | — |
 | M1.C.2 | not done | — | Phase C or D — the phase that builds its mechanism (plan Appendix B) |
-| M1.C.3 | partial | `tests/bowen/test_mechanisms.py::test_m1c3_topology_is_the_closed_triads`<br>`tests/bowen/test_objects.py::test_m1c3_topology_is_stored_apart_from_activity`<br>`tests/bowen/test_mechanisms.py::test_m1c3_triangle_move_sets_the_inside_pair`<br>`tests/bowen/test_mechanisms.py::test_m1c3_triangles_are_inoperative_when_calm` | built against revision 10; revision 11 replaced it — stored topology conforms; triangle activity uses a calm-system tension threshold, which the amended text forbids, and test_m1c3_triangles_are_inoperative_when_calm tests that threshold. Rework is a Phase C item |
+| M1.C.3 | partial | `tests/bowen/test_mechanisms.py::test_m1c3_topology_is_the_closed_triads`<br>`tests/bowen/test_objects.py::test_m1c3_topology_is_stored_apart_from_activity`<br>`tests/bowen/test_mechanisms.py::test_m1c3_triangle_move_sets_the_inside_pair` | built against revision 10; revision 11 replaced it — stored topology conforms; triangle activity uses a calm-system tension threshold, which the amended text forbids, and test_m1c3_triangles_are_inoperative_when_calm tests that threshold. Rework is a Phase C item |
 | M1.C.3a | not done | — | Phase C or D — the phase that builds its mechanism (plan Appendix B) |
 | M1.C.3b | not done | — | Phase C or D — the phase that builds its mechanism (plan Appendix B) |
 | M1.C.3c | not done | — | Phase C or D — the phase that builds its mechanism (plan Appendix B) |
@@ -178,8 +178,8 @@ predicate, the scripted source and the run log, so most of the spec is, correctl
 | M4.A.5 | done | `tests/bowen/test_mechanisms.py::test_m4a5_self_generated_load_derives_from_basic_level`<br>`tests/bowen/test_mechanisms.py::test_m4a5_self_generated_load_does_not_swamp_tie_load` | 'must not swamp' read at family and nuclear-household level (owner, 2026-10-06) |
 | M4.B.1 | done | `tests/bowen/test_mechanisms.py::test_m4b1_person_reads_addressed_and_witnessed_events` | — |
 | M4.B.2 | not done | — | Phase C |
-| M4.B.3 | not done | — | Phase unassigned |
-| M4.C.1 | partial | `tests/bowen/test_mechanisms.py`<br>`tests/bowen/test_mechanisms.py::test_m4c1_delivered_event_raises_receiver_anxiety` | built against revision 10; revision 11 replaced it — Phase B's base product is the old intensity × conductance / functional_level form, not two-sided deviation from a contact optimum (M4.C.1–M4.C.1b). Rework is a Phase C item |
+| M4.B.3 | not done | — | Phase C |
+| M4.C.1 | partial | `tests/bowen/test_mechanisms.py::test_m4c1_delivered_event_raises_receiver_anxiety` | built against revision 10; revision 11 replaced it — Phase B's base product is the old intensity × conductance / functional_level form, not two-sided deviation from a contact optimum (M4.C.1–M4.C.1b). Rework is a Phase C item |
 | M4.C.1a | not done | — | Phase C |
 | M4.C.1b | not done | — | Phase C |
 | M4.C.1c | not done | — | Phase C |
@@ -454,7 +454,7 @@ predicate, the scripted source and the run log, so most of the spec is, correctl
 | M13.2a | done | `tests/test_spec_consistency.py::test_m11d11_every_criterion_gates_its_phase` | — |
 | M13.3 | partial | — | no M15 importer exists under src/bowen; no test guards against one being built |
 | M13.4 | not done | — | Phase C |
-| M14.1 | done | `tests/bowen/test_spec_coverage.py::test_m141_spec_coverage_is_current`<br>`tests/bowen/test_spec_coverage.py::test_m141_every_done_names_an_existing_test` | this file |
+| M14.1 | done | `tests/bowen/test_spec_coverage.py::test_m141_spec_coverage_is_current`<br>`tests/bowen/test_spec_coverage.py::test_m141_every_done_names_an_existing_test`<br>`tests/bowen/test_spec_coverage.py::test_m141_excluded_evidence_is_not_shown`<br>`tests/bowen/test_spec_coverage.py::test_m141_no_id_resolves_to_an_unassigned_phase` | this file |
 | M14.2 | not done | — | Phase every phase |
 | M14.A.1 | done | `tests/test_spec_consistency.py::test_m11d17_register_has_no_orphans`<br>`tests/bowen/test_register.py::test_m14a_register_matches_object_fields` | — |
 | M14.A.2 | partial | `tests/test_spec_consistency.py::test_m11d17_register_has_no_orphans` | Phase B mechanisms registered; later phases add theirs |

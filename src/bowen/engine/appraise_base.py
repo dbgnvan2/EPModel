@@ -27,6 +27,10 @@ replaces this with M4.C.9's rule, which reads both ties.
 The batch is applied as a whole: every delta is computed from the state before
 the batch, then summed in canonical order, so the order deliveries arrived in
 cannot decide the outcome (M1.F.8).
+
+**Revision 10 form.** This module implements `M4.C.1` as written at spec revision 10. Revision 11
+(2026-10-06) replaced it with the two-sided deviation form of `M4.C.1`–`M4.C.1b`; see the spec's revision-11 section, "Phase B code that no longer
+conforms". Reworking it is a Phase C plan item.
 """
 
 from __future__ import annotations

@@ -21,6 +21,10 @@ ones below are the project's, graded [I]:
   ``TRIANGLE`` move within it, and the third member is outside; with no such
   move the pair is left unset. ``activation_memory`` counts the ticks it has
   been active (M1.C.4's memory; the rerouting that reads it is Phase C).
+
+**Revision 10 form.** This module implements `M1.C.3` as written at spec revision 10. Revision 11
+(2026-10-06) replaced it with amended `M1.C.3`, under which triangle activity is a readout of recent `TRIANGLE` acts and no calm-system threshold is applied; see the spec's revision-11 section, "Phase B code that no longer
+conforms". Reworking it is a Phase C plan item.
 """
 
 from __future__ import annotations

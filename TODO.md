@@ -141,7 +141,7 @@ without `M11.F`'s framing) was entered in the spec text directly, marked ⟦prop
   - **Three cost terms on an act.** An act carries relief now, a cost to the actor later, and a cost to others
     (tie tension, others' goals blocked). Drinking is the example: relief now, cost later. Qualifications are the
     reverse: cost now, payoff later. Check against `M1.A.4g` (substance use as a chronic `functional_level`
-    pattern), `M4.D.6a` and `M7.D`.
+    pattern), `M4.D.6a` (reversed at revision 11: the automatic channel now learns from felt relief) and `M7.D`.
   - **An outside world with delayed returns.** School, jobs and legal risk return outcomes after a delay, with some
     chance involved. Without this, "qualifications pay off" can never come out of a run. This would be a new
     exogenous source; check it against `M1.E` and the scripted-event source.
@@ -158,7 +158,7 @@ without `M11.F`'s framing) was entered in the spec text directly, marked ⟦prop
   `papers/SPEC_CANDIDATES_plain_language_2026-10-05.md`.
   - **Interactions with earlier proposals.** GA1 adds to PM1. GA2 is close to RZ1 and could be folded into it. TD1
     may make `M4.G.3`'s separate habituation term unnecessary, and shows `M4.D.6a`'s "converges on CUTOFF by
-    construction" assumes an additive update the spec never states. OM1 sits next to `M10.C.2a`.
+    construction" assumes an additive update the spec never states. *That clause was removed at revision 11, when `M4.D.6a` was reversed; TD1's point about the update form still applies to `M4.D.6`.* OM1 sits next to `M10.C.2a`.
   - **Owner questions.** TD2: is an old pattern held down or erased when it goes quiet? GA1: does belief fading run on
     time since written or time since last used? GA2: does a derived belief outlast its evidence?
   - **Catalogue gap found by the Argyle reader.** The three later silicon-sampling papers (2609.10280, 2609.15849,

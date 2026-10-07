@@ -10,7 +10,9 @@ How a status is decided, in this order:
 
 1. **Override.** ``spec_coverage_phase_b.json`` sets the status, evidence and a
    note for an ID — every *partial*, every ID verified by a test not named for
-   it, and every *not done* whose reason is more specific than its phase.
+   it, and every *not done* whose reason is more specific than its phase. An
+   override's ``exclude_evidence`` lists tests named for the ID that must not be
+   shown as evidence, because they verify a superseded form of its text.
 2. **A test named for the ID.** The suite passes, so the ID is *done*, and the
    evidence is each such test's file and name (test names embed the ID they
    verify, spec §0.4).
@@ -38,7 +40,7 @@ _consistency_spec.loader.exec_module(_consistency)
 MODULE_PHASES = [
     (r"^M1\.", "C or D — the phase that builds its mechanism (plan Appendix B)"),
     (r"^M5\.", "C"), (r"^M6\.", "C"), (r"^M7\.", "D"), (r"^M9\.", "D"),
-    (r"^M4\.(B\.2|C|D)", "C"), (r"^M4\.G\.3", "C"),
+    (r"^M4\.(B\.[23]|C|D)", "C"), (r"^M4\.G\.3", "C"),
     (r"^M8\.[678]", "C"), (r"^M2\.", "D — the twelve-person reference family"),
     (r"^M10\.", "C or D"), (r"^M11\.G", "D"), (r"^M11\.E", "C, D or E (M11.E)"),
     (r"^M11\.D", "C"), (r"^M11\.", "C — acceptance-test rules"),
@@ -110,7 +112,12 @@ def coverage(overrides: dict) -> list[dict]:
         named = tests_for(spec_id, tests)
         if spec_id in overrides:
             o = overrides[spec_id]
-            evidence = o.get("evidence", []) + [t for t in named if t not in o.get("evidence", [])]
+            # ``exclude_evidence`` drops a test named for the ID that does not verify
+            # the current text — one that pins a superseded revision's behaviour.
+            excluded = set(o.get("exclude_evidence", []))
+            evidence = o.get("evidence", []) + [
+                t for t in named if t not in o.get("evidence", []) and t not in excluded
+            ]
             rows.append({"id": spec_id, "status": o["status"], "evidence": evidence, "note": o.get("note", "")})
         elif named:
             rows.append({"id": spec_id, "status": "done", "evidence": named, "note": ""})

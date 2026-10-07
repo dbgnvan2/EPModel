@@ -137,7 +137,7 @@ Sources: Karr J.R. et al. (2012) *Cell* 150(2):389–401, [PMC3413483](https://p
 
 **Does:** binds anxiety that the three ties cannot hold on their own. Holds which pair is currently inside, who is outside, how much is bound, and whether it is currently active at all.
 
-**Source:** `[M]` Ch09 · L09.3 — tension above a threshold recruits a third; the **value of a position inverts with load** (outside is unfavoured when calm, favoured under tension); tension reroutes onto "old preestablished circuits", so a triangle needs persistent identity and activation memory. `[T]` Ch17 · L17.1 — **triangles are latent when calm**: "the system is calm and the triangles inoperative". Persistent topology is therefore stored separately from the currently-active set.
+**Source:** `[M]` Ch09 · L09.3 — tension above a threshold recruits a third; the **value of a position inverts with load** (outside is unfavoured when calm, favoured under tension); tension reroutes onto "old preestablished circuits", so a triangle needs persistent identity and activation memory. `[T]` Ch17 · L17.1 — **triangles are latent when calm**: "the system is calm and the triangles inoperative". Persistent topology is therefore stored separately from the currently-active set. *Revision 11 (§19):* the inversion, the reuse of old circuits and the quiet when calm are now **results** of two-sided appraisal and learning, asserted by spec `M11.C.42`, `M11.C.44` and `M11.C.45`; none is written as a rule. The textual claims are unchanged.
 
 > **Scope warning.** The earliest chapters license **one distinguished primary triad** with *fixed* membership and no recruitable third, on exclusivity grounds — closeness to the child is a rivalrous good (`[M]` Ch02 · L02.6). The general, mobile, recruitable triangle arrives later. Do not read the general primitive back into the early evidence. And note Bowen calls "triangle" his "most unfortunate term" and offers no replacement (`[T]` Ch17 · L17.4).
 
@@ -252,7 +252,7 @@ The **same** rise in `functional_level` means opposite things depending on what 
 
 **For:** the fast state. What moves on the weekly clock.
 
-**Does:** raised by each incoming event by `intensity × conductance / `functional_level``; decays toward the chronic floor; also takes a **standing load** from every tie each tick whether or not anything happened (§7.2).
+**Does:** raised by each incoming event by `intensity × conductance / `functional_level``; decays toward the chronic floor; also takes a **standing load** from every tie each tick whether or not anything happened (§7.2). *Revision 11 (§19):* the event term is now the change in the tie's deviation from the person's felt contact optimum, on either side (spec `M4.C.1`–`M4.C.1b`), and the standing load is the "too little" side of the same function (`M4.C.1c`). The form above is revision 10's and is what Phase B built.
 
 **Source:** `[T]` Ch18 · L18.2 — all patterns intensify with anxiety and **vanish when calm**. `[M]` Ch01 · L01.1 — transfer is "almost quantitative": the source's anxiety measurably falls as the recipient's symptom rises.
 
@@ -582,7 +582,7 @@ At low level a person is nearly all automatic; as level rises a real self-direct
 | **`financially_dependent`** | `I-POSITION` fails outright | `[T]` Ch10 · L10.11a |
 | **No live issue** | `I-POSITION` is **delayed**, not blocked | `[T]` Ch22 · L22.2 |
 | **Mover's own engagement too high** | `I-POSITION` backfires, with a recovery cost of "months, or even a year or two" | `[T]` Ch22 · L22.2 |
-| **System calm** | Triangles are inoperative; projection does not fire | `[T]` Ch17, Ch01 · L17.1, L01.6 |
+| **System calm** | Triangles are inoperative; projection does not fire — from revision 11 a result of learning, not a rule (§19) | `[T]` Ch17, Ch01 · L17.1, L01.6 |
 | **Marital distance high** | *Any* intervention aimed at the symptom-bearer produces no improvement | `[T]` Ch04 · L04.2 |
 | **Decision ownership held by staff** | Removal does not fire even at tolerance | `[T]` Ch08 · L08.1 |
 
@@ -669,7 +669,7 @@ At low level a person is nearly all automatic; as level rises a real self-direct
 | `members[3]` | the three people | `[T]` Ch09 · L09.3 |
 | `inside_pair`, `outside_member` | who is currently where | `[T]` Ch09 · L09.3 — **position value inverts with load**: outside is unfavoured when calm and **favoured under tension** |
 | `bound_anxiety` | how much the structure is currently holding | `[M]` Ch17 · L17.1 — anxiety dilutes across three edges |
-| `active` | whether it is operative at all | `[T]` Ch17 · L17.1 — "the system is calm and the triangles inoperative". **Persistent topology is stored separately from the active set.** |
+| `active` | whether it is operative at all | `[T]` Ch17 · L17.1 — "the system is calm and the triangles inoperative". **Persistent topology is stored separately from the active set.** From revision 11, `active` is a readout of recent `TRIANGLE` acts, not a threshold on tension (§19). |
 | `routing_capacity` | how much anxiety it can carry | `[T]` 1979 Tape 5 — intensity "is determined by level of differentiation and principally anxiety". **A function of the members' `functional_level`, not of the triangle.** Well differentiated: patterns are mild, appear under anxiety, and go away. Poorly differentiated: more intense and fixed. |
 | `activation_memory` | which circuits it has used before | `[T]` Ch09 · L09.3 — tension reroutes onto "old preestablished circuits" |
 | `intensity_floor` | a permanent decrement | `[T]` Ch09 · L09.3 — an "I" position held "for even a few days" produces a **permanent** decrease in that triangle's intensity. **The state does not fully revert.** This is the counterweight to the change-back reaction. |
@@ -794,7 +794,7 @@ These are asserted every tick. They are what makes the engine a model of *this* 
 
 **For:** the term that stops an event-driven loop from getting cut-off backwards.
 
-**Does:** every tick, before any event is delivered, each person takes a load from **every** tie as a function of its bond energy, divided by their `functional_level`. Runs whether or not anything happened.
+**Does:** every tick, before any event is delivered, each person takes a load from **every** tie as a function of its bond energy, divided by their `functional_level`. Runs whether or not anything happened. *Revision 11 (§19):* this is the "too little" side of the two-sided appraisal function, building over time since contact (spec `M4.C.1c`). The form above is revision 10's and is what Phase B built.
 
 **Why:** a pure event loop reads *fewer events* as *less arriving anxiety*, so severing a tie looks like pure relief. In the quiet years between nodal events that shows a cut-off family as calm — when the whole claim is that the intensity has gone underground rather than away.
 
@@ -1630,7 +1630,7 @@ is built during Phases B–D except the stopping rule, which the owner brought i
 
 ### 19.3 Learning (spec `M4.D.6a`, reversed)
 
-The automatic channel learns from felt relief over a short horizon. Revision 2 forbade this signal on the ground that it would punish the differentiating moves; those moves are in the self-directed channel, which is never reinforced (`M4.D.6d`), so the ground does not hold. Relief that keeps the anxious pattern in place is the corpus's own account: blaming each other is "calming for both" while the anxiety stays bound (`KS04.13`, `[T]` `[K]`). Whether a family's repertoire collapses onto one move is now measured (`M11.C.16`), not prevented. **The risk** is that a collapse comes from the learner — its rate, horizon or selection temperature — rather than from any family process, so all three are swept (`M4.D.6b`, `M17.E.1`).
+The automatic channel learns from felt relief over a short horizon. The form approved at G3 (2026-08-24) forbade this signal on the ground that it would punish the differentiating moves; those moves are in the self-directed channel, which is never reinforced (`M4.D.6d`), so the ground does not hold. Relief that keeps the anxious pattern in place is the corpus's own account: blaming each other is "calming for both" while the anxiety stays bound (`KS04.13`, `[T]` `[K]`). Whether a family's repertoire collapses onto one move is now measured (`M11.C.16`), not prevented. The ledger entries that argued against this signal (`FE05.4`, which defines regression as acting to relieve the anxiety of the moment; `FE03.19`; `KS21.1`; `K03.2`) argue that differentiated action and a helper's objective are not relief-driven. That still holds: relief drives only the automatic channel, which is the regressed mode, and the self-directed channel is never scored by relief (`M5.F.5`). **The risk** is that a collapse comes from the learner — its rate, horizon or selection temperature — rather than from any family process, so all three are swept (`M4.D.6b`, `M17.E.1`).
 
 ### 19.4 Acts and patterns (spec `M5.A.1a`)
 

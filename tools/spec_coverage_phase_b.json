@@ -266,9 +266,6 @@
  },
  "M4.C.1": {
   "status": "partial",
-  "evidence": [
-   "tests/bowen/test_mechanisms.py"
-  ],
   "note": "built against revision 10; revision 11 replaced it — Phase B's base product is the old intensity × conductance / functional_level form, not two-sided deviation from a contact optimum (M4.C.1–M4.C.1b). Rework is a Phase C item"
  },
  "M4.A.5": {
@@ -301,6 +298,9 @@
    "tests/bowen/test_mechanisms.py::test_m1c3_topology_is_the_closed_triads",
    "tests/bowen/test_objects.py::test_m1c3_topology_is_stored_apart_from_activity"
   ],
-  "note": "built against revision 10; revision 11 replaced it — stored topology conforms; triangle activity uses a calm-system tension threshold, which the amended text forbids, and test_m1c3_triangles_are_inoperative_when_calm tests that threshold. Rework is a Phase C item"
+  "note": "built against revision 10; revision 11 replaced it — stored topology conforms; triangle activity uses a calm-system tension threshold, which the amended text forbids, and test_m1c3_triangles_are_inoperative_when_calm tests that threshold. Rework is a Phase C item",
+  "exclude_evidence": [
+   "tests/bowen/test_mechanisms.py::test_m1c3_triangles_are_inoperative_when_calm"
+  ]
  }
 }

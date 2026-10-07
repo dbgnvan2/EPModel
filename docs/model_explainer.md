@@ -72,7 +72,7 @@ Chapter numbers in `ChNN` are the book's, and the book is **not** in chronologic
 
 ## 1. Orientation — what the model is
 
-Twelve people in one three-generation family. Each is an agent that, on every fast tick, reads what reached it, appraises it, picks one move, and emits it as an event to named recipients and witnesses. Anxiety flows along **ties**, not along a grid, and is divided on arrival by the receiver's functional level. Ties, triangles and the family each hold their own state. Nothing about a person is computed from a lattice position.
+Twelve people in one three-generation family. Each is an agent that, on every fast tick, reads what reached it, appraises it, picks one move, and emits it as an event to named recipients and witnesses. Anxiety flows along **ties**, not along a grid. From spec revision 11 it is appraised as a tie's deviation from the person's felt contact optimum, in either direction, rising more steeply the lower the receiver's functional level (§19). Ties, triangles and the family each hold their own state. Nothing about a person is computed from a lattice position.
 
 **What it is not.** It is not a measurement instrument and cannot make dated claims about real people. It is a consistency engine for one theory: *if Bowen's account is right, what follows for a family shaped like this?* Its trustworthy output is the **difference between two arms of a counterfactual**, run over ensembles, because most of what is uncertain is shared between the arms and cancels.
 
@@ -1606,6 +1606,43 @@ is built during Phases B–D except the stopping rule, which the owner brought i
 - **Reporting** (`M17.G` · C36, C42; DL §2.6). Each result carries an audit record naming which design
   dimensions were perturbed and which are **unaudited**, and the use the claim is put to; triangle tests run
   over every initial triad configuration; and misfits against the corpus bounds are reported beside fits.
+
+## 19. Set, random, emergent — what the model is told and what it is left to produce  *(spec revision 11, approved 2026-10-06)*
+
+**The problem this section answers.** A model told how families behave will behave that way, and running it shows nothing beyond what was written in. Read against spec `M11.1d` at revision 10, 2 of the 41 acceptance criteria could produce a result that no single rule states; the rest confirm that the code renders the spec. Revision 11 moves Bowen's patterns out of the rules and into what the rules produce. The working record is `docs/proposal_rev11_emergence.md`.
+
+### 19.1 Three layers
+
+| Layer | What is in it | Status |
+|---|---|---|
+| **Set** | Two given drives on every tie: toward connection — feeling connected, appreciated, loved — and away from too much of it — being smothered, controlled, threatened, losing autonomy. What each act does to the state of the system. The capacity limits (gates). Differentiation's role: how steeply anxiety rises with deviation, how wide the tolerated band is, and how much a person runs on the automatic channel | the same in every run; graded below |
+| **Random** | Exogenous spells, noise in move selection (how a first triangle happens by chance), initial conditions, who witnesses an exchange | varies by seed |
+| **Emergent** | Conflict, over- and underfunctioning, distance, cutoff, projection onto a child, fixed triangles, a family's characteristic style | produced by learning from felt relief; never written as rules |
+
+**Agents do not know consequences** (spec `M4.B.3`). An agent feels its own state change and repeats what relieved it. A cost that arrives later is felt as anxiety when it arrives and is credited to whatever it did within the learning horizon at that time. Distance relieves tension now and produces anxiety later from the lack of the relationship. Projection calms a parent now and later troubles the child, who is learning too. The second round of learning comes from those consequences. `[M]` as a design; every constant `[I]`.
+
+### 19.2 The drives and the appraisal (spec `M4.C.1`–`M4.C.1c`)
+
+- **Two-sided appraisal** `[T]` `[K]` — Kerr 2019: people have "a profound need for emotional closeness" and are averse "to too much of it", and threats of too much distance and too much closeness both activate the stress response (`KS03.2`). Threats to contact and to distance are "the fundamental triggers of anxiety" (`KS06.3`). That extraction recommended re-deriving the appraisal rule from it, and revision 11 did. Whether Kerr is reporting Bowen in each place has not been checked.
+- **Level sets steepness and width** `[D]` — "well-differentiated people manage the closeness-distance dilemma more effectively" (`KS03.2`). The functional form is `[I]`; division by functional level, the revision-10 form, is one admissible version.
+- **Anxiety moves the optimum toward closeness** `[T]` `[D]` — the togetherness force intensifies by default as anxiety rises (`KS06.5`).
+- **One function for events and standing load** `[I]` — the standing load is the "too little" side of the same function, so cutoff produces anxiety of its own without a separate rule.
+
+### 19.3 Learning (spec `M4.D.6a`, reversed)
+
+The automatic channel learns from felt relief over a short horizon. Revision 2 forbade this signal on the ground that it would punish the differentiating moves; those moves are in the self-directed channel, which is never reinforced (`M4.D.6d`), so the ground does not hold. Relief that keeps the anxious pattern in place is the corpus's own account: blaming each other is "calming for both" while the anxiety stays bound (`KS04.13`, `[T]` `[K]`). Whether a family's repertoire collapses onto one move is now measured (`M11.C.16`), not prevented. **The risk** is that a collapse comes from the learner — its rate, horizon or selection temperature — rather than from any family process, so all three are swept (`M4.D.6b`, `M17.E.1`).
+
+### 19.4 Acts and patterns (spec `M5.A.1a`)
+
+The core moves keep their names but each is one act. The pattern of the same name is a readout over a tie's history. Kerr: each pattern "solves the dilemma… in a different way" (`KS04.14`, `[T]` `[K]`), so the patterns are alternative solutions to one problem, not primitives.
+
+### 19.5 Calmer contact (spec `M4.C.10`)
+
+Contact with a less anxious person lowers anxiety on every tie, generalising the external agent's burden-transfer term (`M1.E.5`). Seeking such contact is learned. Under Bowen theory this is the ordinary lending of self (`M1.A.5d`), and its cost is tested: learned reliance on a calming tie raises the anxiety released when it is lost (`M11.C.43`). The name *social buffering* comes from the stress-physiology literature, outside the six sources; it is `[I]` here and is not cited until a source is recorded.
+
+### 19.6 What this buys, and what it does not
+
+Spec `M11.5` classifies every criterion. At revision 11: 20 premises, 14 composites (4 of them new), 3 mixed, 7 checks, 1 deferred. A premise passing confirms the code; a composite passing or failing says something about whether Bowen's mechanisms, taken together, produce his patterns. **A failing composite is the most informative output the model has.** None of it says whether real families behave this way (§1.1, spec `M11.F.10`).
 
 ---
 

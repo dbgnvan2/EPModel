@@ -7,7 +7,11 @@
 > `learning-qa` review and a push. Report: `docs/phase_b_completion_report.md`. **Next after that:
 > settle the Phase C prerequisites the report lists, then plan Phase C.**
 >
-> **2026-10-06 — Phase B plan approved; the spec is at 526 unique IDs** (`M2.A.0i`, the sex column, added at step 5). Building has started at step 0 of
+> **2026-10-06 — spec revision 11 approved: 538 unique IDs, 45 acceptance criteria.** Bowen's patterns are now
+> produced by learning rather than written as rules (`model_explainer.md` §19; spec `M11.5`). Phase B code built
+> against revision 10's `M4.C.1`, `M4.A.1` and `M1.C.3` no longer conforms; the Phase C plan must rework it.
+>
+> **2026-10-06 — Phase B plan approved; the spec was then at 526 unique IDs** (`M2.A.0i`, the sex column, added at step 5). Building has started at step 0 of
 > `docs/implementation_plan_phase_b.md`.
 >
 > **2026-10-06 — spec revision 10 approved: 519 unique IDs over 17 modules, 41 acceptance criteria.** The

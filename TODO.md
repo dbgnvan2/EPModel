@@ -44,6 +44,15 @@ revision-10 section.
 
 ## Spec revision 11 — held, 2026-09-27
 
+> **Label stale, 2026-10-06.** Revision 11 was used for the emergence revision (set / random / emergent layers;
+> `docs/proposal_rev11_emergence.md`). Nothing in this section is part of it. The owner has not yet assigned this
+> material to a revision.
+>
+> **Phase C plan prerequisites from revision 11:** rework Phase B's base appraisal (`appraise_base.py`, now `M4.C.1`–`M4.C.1b`),
+> standing load (`standing_load.py`, now `M4.C.1c`) and triangle activity (`recompute.py`'s `tension_activation_threshold`
+> and `test_m1c3_triangles_are_inoperative_when_calm`, now amended `M1.C.3`). Define the pattern readouts `M5.A.1a`
+> requires before any criterion reads them. Decide the five rule groups revision 11 marked for review.
+
 The owner decided on 2026-09-27 that nothing from the 2026-09-27 paper batches enters revision 10, which is
 under external review. All of it waits for revision 11. None of it is a requirement yet.
 

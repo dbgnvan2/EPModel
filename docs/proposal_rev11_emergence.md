@@ -1,12 +1,18 @@
 ---
-status: DRAFT for owner review — nothing here is applied to the spec
+status: APPROVED 2026-10-06 and applied as spec revision 11 — this file is the working record
 date: 2026-10-06
 against: docs/bowen_agent_model_spec_v2.md, revision 10 (approved 2026-10-06)
-decided: M4.D.6a reversed — owner, 2026-10-06 (§2, A1)
-open: A2–A6 and the two classification tables
+decided: A1 first; then A2 with A2.1, A3 option (a), A4, A5, A6 — owner, 2026-10-06
+superseded_by: the spec's revision-11 section, M11.5 (classification) and model_explainer.md §19
 ---
 
 # Revision 11 proposal — what is set, what is random, what emerges
+
+> **Applied 2026-10-06.** Where this draft and the spec differ, the spec wins. Three corrections were made while
+> applying it, listed in the spec's revision-11 section: `M11.C.41`'s reactive-share limb stays a premise;
+> `M7.E.1a` and `M7.E.1e` changed with `M7.E.1`; `M4.D.6a` cites `KS04.13`, not the societal `K10.7`. The
+> criteria added in §4 as C.42 and C.43 became `M11.C.42`–`M11.C.45` in the spec; §4's counts are superseded by
+> `M11.5`.
 
 ## 0. Why this exists
 

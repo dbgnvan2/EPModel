@@ -88,7 +88,7 @@ def test_m16c4_single_agent_view():
 
 
 def test_m16c5_trace_carries_header_and_framing():
-    for needle in ("seed | 7", "config hash", "spec revision | 2.0, revision 10", "phase_b_reduced",
+    for needle in ("seed | 7", "config hash", "spec revision | 2.0, revision 11", "phase_b_reduced",
                    "constants frozen | 2026-10-06", "M11.F.9", "M11.F.10", "invented", "virtual family"):
         assert needle in TEXT, needle
     assert TEXT.index("What this is") < TEXT.index(TABLE_HEAD)

@@ -10,7 +10,7 @@ from __future__ import annotations
 from pathlib import Path
 
 from src.bowen.engine.events import EventKinds
-from src.bowen.scenario.constants import Constants, parse_constants
+from src.bowen.scenario.constants import RETIRED, SCHEMA, Constants, parse_constants
 from src.bowen.scenario.event_kinds import parse_event_kinds
 from src.bowen.scenario.family import FamilyInstance, build_family
 from src.bowen.scenario.scripted_source import ScriptedSource, build_script
@@ -63,7 +63,11 @@ def load_frozen_constants(path: Path = CONFIG_DIR / "constants_frozen.md") -> Co
     Spec:    docs/bowen_agent_model_spec_v2.md#M10.B.4, #M16.A.7
     Tests:   tests/bowen/test_phase_b_gate.py::test_m10b4_constants_frozen_before_suite
     """
-    return parse_constants(read_text(path), source=str(path))
+    # A snapshot predates later keys and may hold retired ones; the change log
+    # accounts for both (test_m10b4_constants_frozen_before_suite).
+    return parse_constants(
+        read_text(path), source=str(path), schema={**SCHEMA, **RETIRED}, require_all=False,
+    )
 
 
 SPEC_PATH = Path(__file__).resolve().parents[3] / "docs" / "bowen_agent_model_spec_v2.md"

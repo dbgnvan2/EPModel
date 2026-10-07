@@ -25,13 +25,19 @@ GOOD_ROWS = (
     "| `chronic_anxiety_fixation_age_years` | 12 | [I] | year | `M2.A.0a` |\n"
     "| `per_hop_fidelity` | 0.8 | [I] | fraction | `M1.F.4` |\n"
     "| `standing_load_gain` | 0.2 | [I] | u | `M4.A.1` |\n"
-    "| `interactive_standing_fraction` | 0.5 | [I] | u | `M4.A.3` |\n"
+    "| `appraisal_gain` | 3.0 | [I] | u | `M4.C.1` |\n"
+    "| `intensity_scale` | 100.0 | [I] | u | `M4.C.1` |\n"
+    "| `contact_band_max` | 0.2 | [I] | u | `M4.C.1a` |\n"
+    "| `anxiety_togetherness_gain` | 0.5 | [I] | u | `M4.C.1b` |\n"
+    "| `interactive_resting_contact` | 0.5 | [I] | u | `M4.C.1c` |\n"
+    "| `contact_relaxation_rate` | 0.1 | [I] | u | `M4.C.1c` |\n"
+    "| `impingement_relaxation_rate` | 0.3 | [I] | u | `M4.C.1` |\n"
     "| `functional_level_floor` | 1.0 | [I] | u | `M4.C.1` |\n"
     "| `acute_decay_rate` | 0.2 | [I] | u | `M1.A.8` |\n"
     "| `route_damping` | 0.5 | [I] | u | `M1.F.3` |\n"
     "| `hardening_run_length` | 3 | [I] | u | `M4.G.1` |\n"
     "| `bond_energy_decay_rate` | 0.0 | [I] | u | `M1.B.4` |\n"
-    "| `tension_activation_threshold` | 5.0 | [I] | u | `M1.C.3` |\n"
+    "| `triangle_activity_window` | 4 | [I] | u | `M1.C.3` |\n"
     "| `involvement_membership_threshold` | 0.5 | [I] | u | `M1.A.12` |\n"
 )
 
@@ -152,3 +158,9 @@ def test_m3e2_activation_regime_is_declared_and_checked():
     assert load_constants().activation_regime == "synchronous"
     with pytest.raises(ConfigError, match="activation_regime"):
         parse_constants(doc(before="frozen_at: unset\nactivation_regime: random_sequential\n\n"))
+
+
+def test_m10b4_a_retired_key_is_rejected_in_the_live_register():
+    """A key retired since the freeze may appear only in a frozen snapshot (M10.B.4)."""
+    with pytest.raises(ConfigError, match="unknown key"):
+        parse_constants(doc(GOOD_ROWS + "| `tension_activation_threshold` | 5.0 | [I] | u | `M1.C.3` |\n"))

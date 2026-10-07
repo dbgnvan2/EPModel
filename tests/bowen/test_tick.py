@@ -15,6 +15,7 @@ from src.bowen.engine.activation import SynchronousActivation
 from src.bowen.engine.events import Channel, Event, EventId, SourcePosition
 from src.bowen.engine.identifiers import PersonId, TieId, TriangleId
 from src.bowen.engine.log_records import CollectingEmitter, DeliveredRecord, EffectRecord, TickRecord
+from src.bowen.engine.contact import initialise_contact
 from src.bowen.engine.state import new_run_state
 from src.bowen.engine.tick import STEPS, SelectionFromInactivePerson, run, run_tick
 from src.bowen.engine.visibility import HouseholdConductanceVisibility
@@ -47,7 +48,9 @@ class FixedSource:
 
 def fresh():
     family = load_family()
-    return new_run_state(dict(family.people), dict(family.ties), family.family, load_event_kinds())
+    state = new_run_state(dict(family.people), dict(family.ties), family.family, load_event_kinds())
+    initialise_contact(state.people, state.ties, PARAMS)
+    return state
 
 
 def test_m3d1_steps_run_in_spec_order():
@@ -92,18 +95,15 @@ def test_m3d2_standing_load_precedes_delivery():
 
 
 def test_m3d3_involvement_and_triangles_precede_select():
-    """At selection the triangle state already reflects this tick's appraisal."""
+    """At selection the triangle state already reflects the acts recorded so far (M3.D.3)."""
     seen = {}
 
     def on_select(tick, state):
         seen[tick] = state.triangles[TriangleId.of(RAVI, MARTA, NADIA)].active
 
-    job_loss = Event(
-        id=EventId(2, "script:1", 0), kind="JOB_LOSS", mechanism=load_event_kinds().mechanism_of("JOB_LOSS"),
-        sender=None, targets=(RAVI,), intensity=400.0, timestamp=2, duration=34, exogenous=True,
-        source_position=SourcePosition.NONE, channel=Channel.EXOGENOUS,
-    )
-    run(fresh(), FixedSource(events={2: (job_loss,)}, on_select=on_select), PARAMS, VIS, ACT, CollectingEmitter(), ticks=3)
+    # A TRIANGLE act emitted at week 1 is in the store when week 2's step 6 runs.
+    source = FixedSource(selections={1: (Selection(RAVI, "TRIANGLE", (NADIA,), 3.0),)}, on_select=on_select)
+    run(fresh(), source, PARAMS, VIS, ACT, CollectingEmitter(), ticks=3)
     assert seen[1] is False and seen[2] is True
 
 
@@ -145,4 +145,7 @@ def test_m4a2_trigger_in_the_loop_spikes_the_next_tick():
         }
 
     quiet, spiked = loads(FixedSource()), loads(FixedSource(events={10: (trigger,)}))
-    assert spiked[10] == quiet[10] and spiked[11] > quiet[11] and spiked[12] == quiet[12]
+    assert spiked[10] == quiet[10] and spiked[11] > quiet[11]
+    # After the spike only the carry-over remains: Ana is more anxious, so her optimum
+    # has moved toward closeness (M4.C.1b). It is small beside the spike itself.
+    assert 0 <= spiked[12] - quiet[12] < (spiked[11] - quiet[11]) / 10

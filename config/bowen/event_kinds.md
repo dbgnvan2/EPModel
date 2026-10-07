@@ -12,27 +12,35 @@
 > can change the sign). The corpus case (Ch04 · L04.4) is one class of content — naming
 > the projection — which lands oppositely by speaker. Which kinds carry it is a Phase C
 > decision, made with `I-POSITION`; until then every sign is +1.
+>
+> `contact` and `impingement` are each kind's components per unit of scaled intensity
+> (spec `M4.C.1`, revision 11; Phase C plan D2): how much a delivered event of the kind moves the
+> receiver's felt contact and felt impingement on the tie it arrives on. **Every value is invented,
+> `[I]`.** The one source constraint is `CONFLICT`, which carries both — "people maintain contact and
+> enforce distance at the same time" (`KS04.13`). `CUTOFF` is 0 and 0 because its effect is structural:
+> on delivery it makes the tie non-interactive and removes impingement at once, and contact then decays
+> (`M4.C.1c`). Structural and exogenous kinds move neither; an exogenous stressor has no tie.
 
-| kind | mechanism | inside_sign | outside_sign | spec |
-|---|---|---|---|---|
-| `PURSUE` | move | +1 | +1 | `M5.A.1` |
-| `DISTANCE` | move | +1 | +1 | `M5.A.1` |
-| `CONFLICT` | move | +1 | +1 | `M5.A.1` |
-| `OVERFUNCTION` | move | +1 | +1 | `M5.A.1` |
-| `UNDERFUNCTION` | move | +1 | +1 | `M5.A.1` |
-| `TRIANGLE` | move | +1 | +1 | `M5.A.1` |
-| `CUTOFF` | move | +1 | +1 | `M5.A.1` |
-| `I-POSITION` | move | +1 | +1 | `M5.A.1` |
-| `STAY-IN-CONTACT` | move | +1 | +1 | `M5.A.1` |
-| `DETRIANGLE` | move | +1 | +1 | `M5.B.1` |
-| `PREVENT_ALIGNMENT` | move | +1 | +1 | `M5.B.2` |
-| `REDUCE_CUTOFF` | move | +1 | +1 | `M5.B.3` |
-| `PROVOKE` | move | +1 | +1 | `M5.B.6` |
-| `SPLIT` | move | +1 | +1 | `M5.B.4` |
-| `FRAME_AMBIGUITY` | move | +1 | +1 | `M5.B.4` |
-| `DISPLACE` | move | +1 | +1 | `M5.B.4` |
-| `TRIGGER` | trigger | +1 | +1 | `M4.A.2` |
-| `RECONCILIATION` | reconciliation | +1 | +1 | `M4.A.3` |
-| `INSTITUTIONALIZE` | institutionalize | +1 | +1 | `M4.A.4` |
-| `BINDER_UNAVAILABLE` | binder_unavailable | +1 | +1 | `M1.F.9` |
-| `JOB_LOSS` | exogenous_stressor | +1 | +1 | `M1.F.6` |
+| kind | mechanism | inside_sign | outside_sign | contact | impingement | spec |
+|---|---|---|---|---|---|---|
+| `PURSUE` | move | +1 | +1 | 0.5 | 0.3 | `M5.A.1` |
+| `DISTANCE` | move | +1 | +1 | -0.5 | 0 | `M5.A.1` |
+| `CONFLICT` | move | +1 | +1 | 0.3 | 0.6 | `M5.A.1` |
+| `OVERFUNCTION` | move | +1 | +1 | 0.2 | 0.5 | `M5.A.1` |
+| `UNDERFUNCTION` | move | +1 | +1 | 0.2 | 0 | `M5.A.1` |
+| `TRIANGLE` | move | +1 | +1 | 0.3 | 0 | `M5.A.1` |
+| `CUTOFF` | move | +1 | +1 | 0 | 0 | `M5.A.1` |
+| `I-POSITION` | move | +1 | +1 | 0.2 | 0.1 | `M5.A.1` |
+| `STAY-IN-CONTACT` | move | +1 | +1 | 0.5 | 0 | `M5.A.1` |
+| `DETRIANGLE` | move | +1 | +1 | 0.2 | 0 | `M5.B.1` |
+| `PREVENT_ALIGNMENT` | move | +1 | +1 | 0.2 | 0 | `M5.B.2` |
+| `REDUCE_CUTOFF` | move | +1 | +1 | 0.5 | 0.1 | `M5.B.3` |
+| `PROVOKE` | move | +1 | +1 | 0.2 | 0.4 | `M5.B.6` |
+| `SPLIT` | move | +1 | +1 | 0.1 | 0.2 | `M5.B.4` |
+| `FRAME_AMBIGUITY` | move | +1 | +1 | 0.1 | 0.2 | `M5.B.4` |
+| `DISPLACE` | move | +1 | +1 | 0.1 | 0.2 | `M5.B.4` |
+| `TRIGGER` | trigger | +1 | +1 | 0 | 0 | `M4.A.2` |
+| `RECONCILIATION` | reconciliation | +1 | +1 | 0 | 0 | `M4.A.3` |
+| `INSTITUTIONALIZE` | institutionalize | +1 | +1 | 0 | 0 | `M4.A.4` |
+| `BINDER_UNAVAILABLE` | binder_unavailable | +1 | +1 | 0 | 0 | `M1.F.9` |
+| `JOB_LOSS` | exogenous_stressor | +1 | +1 | 0 | 0 | `M1.F.6` |

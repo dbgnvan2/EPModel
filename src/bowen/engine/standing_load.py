@@ -1,39 +1,35 @@
 """The standing load — tick step 1, before any event is delivered.
 
 Purpose: load every person from every tie each tick, whether or not anything
-         happened, plus a self-generated term from their own basic level.
-Spec:    docs/bowen_agent_model_spec_v2.md#M4.A.1, #M4.A.2, #M4.A.3, #M4.A.4, #M4.A.5, #M6.I.8, #M3.D.2
-Tests:   tests/bowen/test_mechanisms.py
+         happened, as the "too little" side of the two-sided appraisal function,
+         plus a self-generated term from their own basic level.
+Spec:    docs/bowen_agent_model_spec_v2.md#M4.C.1c, #M4.A.1, #M4.A.2, #M4.A.3, #M4.A.4, #M4.A.5, #M6.I.8, #M3.D.2
+Tests:   tests/bowen/test_mechanisms.py; tests/bowen/test_contact.py
 
-The standing-load function is invented (M10.C.1). The form used here, graded [I]:
+Spec revision 11 (`M4.C.1c`, owner decision A2.1) made the standing load the "too
+little" side of `M4.C.1`'s deviation function, so one function serves both the
+standing term and delivered events. The forms are in ``contact.py``; here, [I]:
 
-    tie term  = standing_load_gain × bond_energy × m / max(functional_level, floor)
-    m         = interactive_standing_fraction   for an interactive tie
-              = 1                               for a non-interactive tie (cut off, worry edge)
-              + the intensity of any TRIGGER active on the tie this tick (M4.A.2)
+    tie term  = standing_load_gain × steepness(fl) × too_little(person, tie, spike)
     self term = standing_load_gain × (100 − basic_level) / 100            (M4.A.5)
 
-Why ``m`` differs: M4.A.3 says RECONCILIATION converts standing load back into
-interaction-driven load, so an interactive tie carries part of its load through
-events and less of it as standing load. A cut-off tie carries all of it.
+What used to be separate rules now follows from the function:
 
-The self term is a function of ``basic_level`` only and has no parameter of its
-own (M4.A.5, M10.A.1): it borrows the tie term's scale, and it is not divided by
-``functional_level`` because it is intra-person.
+* a cut-off or non-interactive tie relaxes toward no contact, so its term is the
+  largest a tie of that bond energy can carry (M4.A.4: worry edges need no new
+  machinery);
+* an interactive tie rests at part of its optimum, so it carries a smaller term —
+  `RECONCILIATION` restores that resting contact at once (M4.A.3, M1.B.4);
+* a `TRIGGER` adds to the "too little" side on its tie, with no contact (M4.A.2).
 
-"Must not swamp M4.A.1" is read, by the owner's decision of 2026-10-06, at the
-level of the family and of each nuclear-household member. On the Phase B family
-both hold. One peripheral agent there has a single tie and carries a self term
-above that tie's load (0.118 against 0.098 a week); the test records which, and
-it is not treated as a defect.
-
-**Revision 10 form.** This module implements `M4.A.1` as written at spec revision 10. Revision 11
-(2026-10-06) replaced it with `M4.C.1c`, the "too little" side of `M4.C.1`'s function; see the spec's revision-11 section, "Phase B code that no longer
-conforms". Reworking it is a Phase C plan item.
+The self term is unchanged from Phase B: a function of ``basic_level`` only, with
+no parameter of its own (M4.A.5, M10.A.1), not divided by ``functional_level``
+because it is intra-person.
 """
 
 from __future__ import annotations
 
+from src.bowen.engine.contact import steepness, too_little
 from src.bowen.engine.identifiers import PersonId, TieId
 from src.bowen.engine.log_records import EffectRecord
 from src.bowen.engine.params import EngineParams
@@ -47,12 +43,10 @@ def trigger_intensity(state: RunState, tie: TieId, tick: int) -> float:
 
 def tie_term(person: Person, tie: Relationship, spike: float, params: EngineParams) -> float:
     """Purpose: one tie's standing load on one of its members this tick.
-    Spec:    docs/bowen_agent_model_spec_v2.md#M4.A.1, #M4.A.2, #M4.A.3
+    Spec:    docs/bowen_agent_model_spec_v2.md#M4.C.1c, #M4.A.1, #M4.A.2
     Tests:   tests/bowen/test_mechanisms.py::test_m4a1_every_tie_loads_every_tick_without_events
     """
-    multiplier = (params.interactive_standing_fraction if tie.interactive else 1.0) + spike
-    divisor = max(person.functional_level, params.functional_level_floor)
-    return params.standing_load_gain * tie.bond_energy * multiplier / divisor
+    return params.standing_load_gain * steepness(person, params) * too_little(person, tie, params, spike)
 
 
 def self_term(person: Person, params: EngineParams) -> float:

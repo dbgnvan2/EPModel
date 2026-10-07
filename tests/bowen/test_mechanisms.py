@@ -24,6 +24,7 @@ from src.bowen.engine.invariants import InvariantViolation, M6I6NotRestated, ass
 from src.bowen.engine.objects import TieState
 from src.bowen.engine.recompute import is_member, recompute_involvement, recompute_triangles
 from src.bowen.engine.standing_load import apply_standing_load, self_term, tie_term
+from src.bowen.engine.contact import initialise_contact, relax_contact
 from src.bowen.engine.state import new_run_state
 from src.bowen.engine.visibility import HouseholdConductanceVisibility
 from src.bowen.io.load import load_constants, load_event_kinds, load_family
@@ -38,7 +39,9 @@ VIS = HouseholdConductanceVisibility(PARAMS.per_hop_fidelity)
 
 def fresh(kinds: EventKinds | None = None):
     family = load_family()
-    return new_run_state(dict(family.people), dict(family.ties), family.family, kinds or load_event_kinds())
+    state = new_run_state(dict(family.people), dict(family.ties), family.family, kinds or load_event_kinds())
+    initialise_contact(state.people, state.ties, PARAMS)
+    return state
 
 
 def scripted(kind, tick, targets=(), *, on_tie=None, intensity=1.0, duration=1, binder=None, index=0):
@@ -99,7 +102,7 @@ def test_m4a2_trigger_spikes_standing_load_without_contact():
         state.tick = 10
     trigger = scripted("TRIGGER", 10, on_tie=ANA_BRUNO, intensity=1.0)
     inject(triggered, trigger, VIS)
-    apply_structural_event(triggered, triggered.store.event(trigger.id))
+    apply_structural_event(triggered, triggered.store.event(trigger.id), PARAMS)
     for state in (quiet, triggered):
         state.tick = 11  # applied at step 2 of week 10, the spike lands at step 1 of week 11
     apply_standing_load(quiet, PARAMS)
@@ -113,7 +116,7 @@ def test_m4a3_reconciliation_converts_standing_to_interaction_load():
     state = fresh()
     state.tick = 3
     cut_off_load = tie_term(state.people[ANA], state.ties[ANA_BRUNO], 0, PARAMS)
-    apply_structural_event(state, scripted("RECONCILIATION", 3, on_tie=ANA_BRUNO))
+    apply_structural_event(state, scripted("RECONCILIATION", 3, on_tie=ANA_BRUNO), PARAMS)
     assert state.ties[ANA_BRUNO].interactive
     assert tie_term(state.people[ANA], state.ties[ANA_BRUNO], 0, PARAMS) < cut_off_load
 
@@ -122,9 +125,12 @@ def test_m4a4_institutionalize_makes_worry_edges():
     state = fresh()
     bonds = {t.id: t.bond_energy for t in state.ties_of(NADIA)}
     loads = {t.id: tie_term(state.people[RAVI], t, 0, PARAMS) for t in state.ties_of(NADIA) if RAVI in t.id.members()}
-    apply_structural_event(state, scripted("INSTITUTIONALIZE", 0, targets=(NADIA,)))
+    apply_structural_event(state, scripted("INSTITUTIONALIZE", 0, targets=(NADIA,)), PARAMS)
     for tie in state.ties_of(NADIA):
         assert not tie.interactive and tie.bond_energy == bonds[tie.id]
+    # Revision 11 (M4.C.1c): a worry edge's load builds as its contact relaxes toward none.
+    for _ in range(10):
+        relax_contact(state.people, state.ties, PARAMS)
     for tie_id, load in loads.items():
         assert tie_term(state.people[RAVI], state.ties[tie_id], 0, PARAMS) > load
     assert len(state.ties) == 8  # no tie removed (M6.I.7)
@@ -167,8 +173,8 @@ def test_m4a5_self_generated_load_does_not_swamp_tie_load():
 # --- M4.B / M4.C.1 / M1.F.2-.5, .8 ---------------------------------------------------
 
 
-def _conflict(state, sender=RAVI, target=MARTA, **kwargs):
-    act(state, Selection(sender, "CONFLICT", (target,), 5.0, **kwargs), VIS)
+def _conflict(state, sender=RAVI, target=MARTA, intensity=5.0, **kwargs):
+    act(state, Selection(sender, "CONFLICT", (target,), intensity, **kwargs), VIS)
     return state.queue.release(state.tick + 1)
 
 
@@ -183,8 +189,9 @@ def test_m4b1_person_reads_addressed_and_witnessed_events():
 
 
 def test_m4c1_delivered_event_raises_receiver_anxiety():
+    """A conflict strong enough to push impingement past the band is a load (revision 11 form)."""
     quiet, hit = fresh(), fresh()
-    batch = _conflict(hit)
+    batch = _conflict(hit, intensity=200.0)
     hit.tick = 1
     record_deliveries(hit, batch)
     apply_base_appraisal(hit, perceive(hit, batch), PARAMS)
@@ -211,16 +218,20 @@ def _move(**overrides):
 
 def test_m1f2_source_position_can_flip_sign():
     kinds = load_event_kinds()
-    flipped = EventKinds(kinds.mechanisms, {("CONFLICT", SourcePosition.OUTSIDE): -1})
-    assert _delta(_move(source_position=SourcePosition.OUTSIDE), flipped) < 0 < _delta(_move(), flipped)
+    flipped = EventKinds(kinds.mechanisms, {("CONFLICT", SourcePosition.OUTSIDE): -1}, kinds.components)
+    strong = dict(intensity=200.0)
+    assert _delta(_move(source_position=SourcePosition.OUTSIDE, **strong), flipped) < 0 < _delta(_move(**strong), flipped)
 
 
 def test_m1f3_route_through_neutral_third_damps():
-    assert _delta(_move(route=(ANA,))) < _delta(_move())
+    """A neutral third on the route shrinks the appraisal, whichever side of the optimum it lands."""
+    for intensity in (5.0, 200.0):  # relief at low intensity, a load at high
+        assert abs(_delta(_move(route=(ANA,), intensity=intensity))) < abs(_delta(_move(intensity=intensity)))
 
 
 def test_m1f4_appraisal_attenuated_by_fidelity():
-    assert _delta(_move(fidelity=0.5)) < _delta(_move(fidelity=1.0))
+    for intensity in (5.0, 200.0):
+        assert abs(_delta(_move(fidelity=0.5, intensity=intensity))) < abs(_delta(_move(fidelity=1.0, intensity=intensity)))
 
 
 def test_m1f8_same_tick_batch_order_does_not_change_state():
@@ -244,7 +255,7 @@ def test_m1f9_binder_unavailable_returns_held_anxiety_to_budget():
     budget = state.family.undifferentiation_budget
     event = scripted("BINDER_UNAVAILABLE", 0, targets=(MARTA, RAVI),
                      binder=BinderRef(BinderKind.TIE_DISTANCE, str(TieId.of(RAVI, MARTA))))
-    [record] = apply_structural_event(state, event)
+    [record] = apply_structural_event(state, event, PARAMS)
     assert state.family.undifferentiation_budget == budget + 7.0
     assert state.ties[TieId.of(RAVI, MARTA)].distance_bound_anxiety == 0.0
     assert record.sinks == (("undifferentiation_budget", 7.0),)
@@ -265,7 +276,7 @@ def test_m1b3_four_tie_states_are_distinct():
     batch = state.queue.release(1) + state.queue.release(2)
     state.tick = 2
     record_deliveries(state, batch)
-    apply_delivered_cutoffs(state, batch)
+    apply_delivered_cutoffs(state, batch, PARAMS)
     tie = state.ties[TieId.of(RAVI, SOFIA)]
     assert tie.tie_state is TieState.CUT_OFF and not tie.interactive and tie.bond_energy == 40
 
@@ -273,7 +284,7 @@ def test_m1b3_four_tie_states_are_distinct():
 def test_m1b4_reunion_restores_coupling_immediately():
     state = fresh()
     bond = state.ties[ANA_BRUNO].bond_energy
-    apply_structural_event(state, scripted("RECONCILIATION", 0, on_tie=ANA_BRUNO))
+    apply_structural_event(state, scripted("RECONCILIATION", 0, on_tie=ANA_BRUNO), PARAMS)
     tie = state.ties[ANA_BRUNO]
     assert tie.interactive and tie.bond_energy == bond and tie.tie_state is TieState.ORDINARY
 
@@ -327,20 +338,38 @@ def test_m1c3_topology_is_the_closed_triads():
     assert set(fresh().triangles) == {TriangleId.of(RAVI, MARTA, NADIA), TriangleId.of(RAVI, MARTA, PIA)}
 
 
-def test_m1c3_triangles_are_inoperative_when_calm():
+def test_m1c3_activity_is_a_readout_of_recent_triangle_acts():
+    """Amended M1.C.3 (revision 11): active means a TRIANGLE act within the window — tension alone does nothing."""
     state = fresh()
+    for p in (RAVI, MARTA):
+        state.people[p].acute_anxiety += 20.0  # high tension, no TRIANGLE act
     recompute_triangles(state, PARAMS)
     assert not any(t.active for t in state.triangles.values())
-    for p in (RAVI, MARTA):
-        state.people[p].acute_anxiety += 20.0
+    act(state, Selection(RAVI, "TRIANGLE", (NADIA,), 3.0), VIS)
     recompute_triangles(state, PARAMS)
-    assert all(t.active for t in state.triangles.values())
+    assert state.triangles[TriangleId.of(RAVI, MARTA, NADIA)].active
+    assert not state.triangles[TriangleId.of(RAVI, MARTA, PIA)].active
+    state.tick = PARAMS.triangle_activity_window  # the act now falls outside the window
+    recompute_triangles(state, PARAMS)
+    assert not state.triangles[TriangleId.of(RAVI, MARTA, NADIA)].active
+
+
+def test_m1c3_calm_and_tense_systems_get_no_threshold():
+    """No calm-system threshold in step 6: the same TRIANGLE act activates its triangle at any tension."""
+    calm, tense = fresh(), fresh()
+    for p in (RAVI, MARTA):
+        tense.people[p].acute_anxiety += 40.0
+    for state in (calm, tense):
+        act(state, Selection(RAVI, "TRIANGLE", (NADIA,), 3.0), VIS)
+        recompute_triangles(state, PARAMS)
+    key = TriangleId.of(RAVI, MARTA, NADIA)
+    assert calm.triangles[key].active and tense.triangles[key].active
 
 
 def test_m85_a_triangle_with_an_absent_member_is_not_active():
     state = fresh()
-    for p in (RAVI, MARTA):
-        state.people[p].acute_anxiety += 20.0
+    act(state, Selection(RAVI, "TRIANGLE", (NADIA,), 3.0), VIS)
+    act(state, Selection(RAVI, "TRIANGLE", (PIA,), 3.0, index=1), VIS)
     state.people[NADIA].alive = False
     recompute_triangles(state, PARAMS)
     assert not state.triangles[TriangleId.of(RAVI, MARTA, NADIA)].active
@@ -350,8 +379,6 @@ def test_m85_a_triangle_with_an_absent_member_is_not_active():
 def test_m1c3_triangle_move_sets_the_inside_pair():
     state = fresh()
     act(state, Selection(RAVI, "TRIANGLE", (NADIA,), 3.0), VIS)
-    for p in (RAVI, MARTA):
-        state.people[p].acute_anxiety += 20.0
     recompute_triangles(state, PARAMS)
     triangle = state.triangles[TriangleId.of(RAVI, MARTA, NADIA)]
     assert triangle.inside_pair == TieId.of(RAVI, NADIA) and triangle.outside == MARTA

@@ -1,40 +1,39 @@
-"""Perception and the base appraisal — tick steps 3 and 4.
+"""Perception and appraisal — tick steps 3 and 4.
 
-Purpose: give each person the events delivered to them this tick, and raise
-         their acute anxiety by M4.C.1's base product.
-Spec:    docs/bowen_agent_model_spec_v2.md#M4.B.1, #M4.C.1, #M1.F.2, #M1.F.3, #M1.F.4, #M1.F.5, #M1.F.8
-Tests:   tests/bowen/test_mechanisms.py
+Purpose: give each person the events delivered to them this tick, and appraise
+         each one as the change it makes to the receiver's two-sided deviation.
+Spec:    docs/bowen_agent_model_spec_v2.md#M4.B.1, #M4.C.1, #M4.C.1a, #M1.F.2, #M1.F.3, #M1.F.4, #M1.F.5, #M1.F.8
+Tests:   tests/bowen/test_mechanisms.py; tests/bowen/test_contact.py
 
-**Phase B builds `M4.C.1` only** (plan decision D1, `M13`). It knowingly fails
-`M4.C.2` — "a plain product is a failing implementation" — until Phase C adds
-the gain function, and no Phase B test asserts an appraisal magnitude.
+Spec revision 11 re-derived `M4.C.1` (Phase C step 1, plan decision D2). Three cases:
 
-    Δ acute = intensity × conductance / max(functional_level, floor)
-              × route_damping ** len(route)          (M1.F.3: a neutral third damps)
-              × fidelity                             (M1.F.4)
-              × sign(kind, source_position)          (M1.F.2)
+**An event addressed to a person on a tie** moves that person's felt contact and
+felt impingement on the tie by the kind's two components (``event_kinds.md``):
 
-``conductance`` for a target is its tie to the sender; an exogenous event has
-no edge and uses 1. A **witness** (M1.F.5 requires it to appraise) takes the
-event's own edge — the sender's tie to the nearest target — times its best tie
-to the sender or a target. So a witness never takes more of an event than the
-edge it travelled on. *Changed at Phase B step 12*: the first rule used the
-witness's tie to the target alone, and the first rendered trace showed
-witnesses hit harder than the person addressed (a daughter overhearing her
-grandmother's call to her mother took +2.9 against her mother's +1.8). Phase C
-replaces this with M4.C.9's rule, which reads both ties.
+    scale        = intensity / intensity_scale × conductance × route_damping ** len(route) × fidelity
+    Δ contact    = contact component × scale           Δ impingement = impingement component × scale
+    Δ acute      = appraisal_gain × steepness(fl) × (deviation after − deviation before) × sign
 
-The batch is applied as a whole: every delta is computed from the state before
-the batch, then summed in canonical order, so the order deliveries arrived in
-cannot decide the outcome (M1.F.8).
+So an approach toward someone below their optimum is **relief** (Δ acute < 0), and
+a push past their tolerated band is a load. `sign` is M1.F.2's source-position sign.
 
-**Revision 10 form.** This module implements `M4.C.1` as written at spec revision 10. Revision 11
-(2026-10-06) replaced it with the two-sided deviation form of `M4.C.1`–`M4.C.1b`; see the spec's revision-11 section, "Phase B code that no longer
-conforms". Reworking it is a Phase C plan item.
+**An exogenous stressor** has no tie, so it is appraised by its intensity:
+``intensity / intensity_scale × steepness(fl) × fidelity`` (the Phase B magnitude).
+
+**A witness** keeps Phase B's rule for now: the event's own edge times the witness's
+best tie to the sender or a target, scaled as for a stressor. *Interim.* Phase C
+step 2 replaces it with `M4.C.9`'s rule, which reads the witness's ties to both.
+
+The batch is applied as a whole: every change is computed from the state before
+the batch, then applied in canonical order, so arrival order cannot decide the
+outcome (M1.F.8). Contact changes on one tie in one batch are summed, then clamped.
+
+The gain function (`M4.C.2`) is not built yet; Phase C step 2 adds it.
 """
 
 from __future__ import annotations
 
+from src.bowen.engine.contact import clamp_unit, deviation_at, felt_contact, felt_impingement, steepness
 from src.bowen.engine.events import Delivery, Event, Mechanism, Role
 from src.bowen.engine.identifiers import PersonId
 from src.bowen.engine.log_records import EffectRecord
@@ -71,23 +70,38 @@ def _conductance(state: RunState, recipient: PersonId, event: Event, role: Role)
     return edge * own
 
 
+def _scale(event: Event, conductance: float, params: EngineParams) -> float:
+    return event.intensity / params.intensity_scale * conductance * params.route_damping ** len(event.route) * event.fidelity
+
+
+def _tie_change(state: RunState, delivery: Delivery, event: Event, params: EngineParams):
+    """The tie and the (Δ contact, Δ impingement) a target-on-a-tie delivery makes, or None."""
+    if delivery.role is not Role.TARGET or event.sender is None:
+        return None
+    tie = state.tie_between(delivery.recipient, event.sender)
+    if tie is None:
+        return None
+    contact, impingement = state.kinds.components_of(event.kind)
+    scale = _scale(event, tie.conductance, params)
+    return tie, contact * scale, impingement * scale
+
+
 def appraisal_delta(state: RunState, delivery: Delivery, event: Event, params: EngineParams) -> float:
-    """Purpose: M4.C.1's base product for one delivery.
-    Spec:    docs/bowen_agent_model_spec_v2.md#M4.C.1
-    Tests:   tests/bowen/test_mechanisms.py::test_m4c1_delivered_event_raises_receiver_anxiety
+    """Purpose: the change in the receiver's acute anxiety from one delivery, from the pre-batch state.
+    Spec:    docs/bowen_agent_model_spec_v2.md#M4.C.1, #M4.C.1a, #M1.F.2, #M1.F.3, #M1.F.4
+    Tests:   tests/bowen/test_contact.py::test_m4c1_delivered_event_is_appraised_by_its_change_in_deviation
     """
     person = state.people[delivery.recipient]
-    divisor = max(person.functional_level, params.functional_level_floor)
-    route_gain = params.route_damping ** len(event.route)
     sign = state.kinds.sign(event.kind, event.source_position)
-    return (
-        event.intensity
-        * _conductance(state, delivery.recipient, event, delivery.role)
-        / divisor
-        * route_gain
-        * event.fidelity
-        * sign
-    )
+    change = _tie_change(state, delivery, event, params)
+    if change is not None:
+        tie, d_contact, d_imp = change
+        contact, imp = felt_contact(person, tie), felt_impingement(person, tie)
+        before = deviation_at(person, tie, params, contact, imp)
+        after = deviation_at(person, tie, params, clamp_unit(contact + d_contact), clamp_unit(imp + d_imp))
+        return params.appraisal_gain * steepness(person, params) * (after - before) * sign
+    conductance = _conductance(state, delivery.recipient, event, delivery.role)
+    return _scale(event, conductance, params) * steepness(person, params) * sign
 
 
 def apply_base_appraisal(
@@ -95,7 +109,7 @@ def apply_base_appraisal(
     perceived: dict[PersonId, tuple[tuple[Delivery, Event], ...]],
     params: EngineParams,
 ) -> list[EffectRecord]:
-    """Purpose: apply one tick's appraisals as a batch (M1.F.8).
+    """Purpose: apply one tick's appraisals and contact changes as a batch (M1.F.8).
     Spec:    docs/bowen_agent_model_spec_v2.md#M4.C.1, #M1.F.5, #M1.F.8
     Tests:   tests/bowen/test_mechanisms.py::test_m1f8_same_tick_batch_order_does_not_change_state
     """
@@ -108,8 +122,20 @@ def apply_base_appraisal(
     by_event: dict = {}
     for delivery, event, delta in sorted(deltas, key=lambda x: x[0]):
         by_event.setdefault(event.id, []).append((delivery.recipient, delta))
+    contact_moves: dict = {}
+    for delivery, event, _ in sorted(deltas, key=lambda x: x[0]):
+        change = _tie_change(state, delivery, event, params)
+        if change is not None:
+            tie, d_contact, d_imp = change
+            key = (tie.id, delivery.recipient)
+            c, i = contact_moves.get(key, (0.0, 0.0))
+            contact_moves[key] = (c + d_contact, i + d_imp)
     for delivery, event, delta in sorted(deltas, key=lambda x: x[0]):
         state.people[delivery.recipient].acute_anxiety += delta
+    for (tie_id, member), (d_contact, d_imp) in sorted(contact_moves.items()):
+        tie = state.ties[tie_id]
+        tie.felt_contact[member] = clamp_unit(tie.felt_contact[member] + d_contact)
+        tie.felt_impingement[member] = clamp_unit(tie.felt_impingement[member] + d_imp)
     for event_id in sorted(by_event):
         records.append(
             EffectRecord(

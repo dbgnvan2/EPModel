@@ -264,10 +264,6 @@
   ],
   "note": "the trace's framing names it; checked by review elsewhere"
  },
- "M4.C.1": {
-  "status": "partial",
-  "note": "built against revision 10; revision 11 replaced it — Phase B's base product is the old intensity × conductance / functional_level form, not two-sided deviation from a contact optimum (M4.C.1–M4.C.1b). Rework is a Phase C item"
- },
  "M4.A.5": {
   "status": "done",
   "note": "'must not swamp' read at family and nuclear-household level (owner, 2026-10-06)"
@@ -283,24 +279,5 @@
  "M1.B.3": {
   "status": "done",
   "note": "no move crosses a non-interactive tie (review, 2026-10-06)"
- },
- "M4.A.1": {
-  "status": "partial",
-  "evidence": [
-   "tests/bowen/test_mechanisms.py::test_m4a1_every_tie_loads_every_tick_without_events",
-   "tests/bowen/test_mechanisms.py::test_m4a1_load_rises_with_bond_energy_and_falls_with_functional_level"
-  ],
-  "note": "built against revision 10; revision 11 replaced it — the load is a separate bond-energy formula, not the \"too little\" side of M4.C.1's function (M4.C.1c). Rework is a Phase C item"
- },
- "M1.C.3": {
-  "status": "partial",
-  "evidence": [
-   "tests/bowen/test_mechanisms.py::test_m1c3_topology_is_the_closed_triads",
-   "tests/bowen/test_objects.py::test_m1c3_topology_is_stored_apart_from_activity"
-  ],
-  "note": "built against revision 10; revision 11 replaced it — stored topology conforms; triangle activity uses a calm-system tension threshold, which the amended text forbids, and test_m1c3_triangles_are_inoperative_when_calm tests that threshold. Rework is a Phase C item",
-  "exclude_evidence": [
-   "tests/bowen/test_mechanisms.py::test_m1c3_triangles_are_inoperative_when_calm"
-  ]
  }
 }

@@ -50,14 +50,32 @@ SCHEMA: Mapping[str, KeySpec] = MappingProxyType(
         "chronic_anxiety_fixation_age_years": KeySpec(int, "[I]", "M2.A.0a"),
         "per_hop_fidelity": KeySpec(float, "[I]", "M1.F.4"),
         "standing_load_gain": KeySpec(float, "[I]", "M4.A.1"),
-        "interactive_standing_fraction": KeySpec(float, "[I]", "M4.A.3"),
+        "appraisal_gain": KeySpec(float, "[I]", "M4.C.1"),
+        "intensity_scale": KeySpec(float, "[I]", "M4.C.1"),
+        "contact_band_max": KeySpec(float, "[I]", "M4.C.1a"),
+        "anxiety_togetherness_gain": KeySpec(float, "[I]", "M4.C.1b"),
+        "interactive_resting_contact": KeySpec(float, "[I]", "M4.C.1c"),
+        "contact_relaxation_rate": KeySpec(float, "[I]", "M4.C.1c"),
+        "impingement_relaxation_rate": KeySpec(float, "[I]", "M4.C.1"),
         "functional_level_floor": KeySpec(float, "[I]", "M4.C.1"),
         "acute_decay_rate": KeySpec(float, "[I]", "M1.A.8"),
         "route_damping": KeySpec(float, "[I]", "M1.F.3"),
         "hardening_run_length": KeySpec(int, "[I]", "M4.G.1"),
         "bond_energy_decay_rate": KeySpec(float, "[I]", "M1.B.4"),
-        "tension_activation_threshold": KeySpec(float, "[I]", "M1.C.3"),
+        "triangle_activity_window": KeySpec(int, "[I]", "M1.C.3"),
         "involvement_membership_threshold": KeySpec(float, "[I]", "M1.A.12"),
+    }
+)
+
+# Keys a frozen snapshot may still hold after the mechanism that read them was
+# replaced. A retired key is accepted only when parsing a snapshot, never in the
+# live register, and its removal is logged in constants_changes.md (M10.B.4).
+# Retired at Phase C step 1 by spec revision 11 (M4.C.1c replaced the standing
+# load's interactive fraction; amended M1.C.3 forbade the tension threshold).
+RETIRED: Mapping[str, KeySpec] = MappingProxyType(
+    {
+        "interactive_standing_fraction": KeySpec(float, "[I]", "M4.A.3"),
+        "tension_activation_threshold": KeySpec(float, "[I]", "M1.C.3"),
     }
 )
 
@@ -109,6 +127,7 @@ def parse_constants(
     *,
     source: str = "<constants>",
     schema: Mapping[str, KeySpec] = SCHEMA,
+    require_all: bool = True,
 ) -> Constants:
     """Purpose: parse the constants register, rejecting unknown, missing or mislabelled keys.
     Spec:    docs/bowen_agent_model_spec_v2.md#M10.B.2, #M10.1, #M0.1, #M10.B.4
@@ -145,7 +164,7 @@ def parse_constants(
             spec=spec,
         )
     missing = schema.keys() - values.keys()
-    if missing:
+    if missing and require_all:
         raise ConfigError(f"{source}: missing keys {sorted(missing)}")
     regime = document.metadata["activation_regime"]
     if regime not in ACTIVATION_REGIMES:

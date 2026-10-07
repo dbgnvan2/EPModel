@@ -12,7 +12,7 @@ import re
 from src.bowen.engine.events import EventKinds, Mechanism, SourcePosition
 from src.bowen.scenario.config_parse import ConfigError, parse_table_document
 
-COLUMNS = ("kind", "mechanism", "inside_sign", "outside_sign", "spec")
+COLUMNS = ("kind", "mechanism", "inside_sign", "outside_sign", "contact", "impingement", "spec")
 _SIGNS = {"+1": 1, "-1": -1}
 _KIND = re.compile(r"^[A-Z][A-Z_-]*$")
 
@@ -22,6 +22,7 @@ def parse_event_kinds(text: str, *, source: str = "<event kinds>") -> EventKinds
     by_value = {m.value: m for m in Mechanism}
     mechanisms: dict[str, Mechanism] = {}
     signs: dict[tuple[str, SourcePosition], int] = {}
+    components: dict[str, tuple[float, float]] = {}
     for row, line in zip(document.rows, document.row_lines):
         where = f"{source}:{line}"
         kind = row["kind"].strip("`")
@@ -36,6 +37,16 @@ def parse_event_kinds(text: str, *, source: str = "<event kinds>") -> EventKinds
             if row[column] not in _SIGNS:
                 raise ConfigError(f"{where}: {column} must be +1 or -1, got {row[column]!r}")
             signs[(kind, position)] = _SIGNS[row[column]]
+        parts = []
+        for column in ("contact", "impingement"):
+            try:
+                value = float(row[column])
+            except ValueError:
+                raise ConfigError(f"{where}: {column} must be a number, got {row[column]!r}") from None
+            if not -1.0 <= value <= 1.0:
+                raise ConfigError(f"{where}: {column} must be in [-1, 1], got {value}")
+            parts.append(value)
+        components[kind] = (parts[0], parts[1])
     if not mechanisms:
         raise ConfigError(f"{source}: no event kinds declared")
-    return EventKinds(mechanisms, signs)
+    return EventKinds(mechanisms, signs, components)

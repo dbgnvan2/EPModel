@@ -54,7 +54,8 @@ def test_m16t1_trace_renders_scripted_run():
 
 def test_m16t1_effects_are_reported_in_reader_units():
     conflict = next(r for r in event_rows(TEXT) if r[2] == "CONFLICT")
-    assert "Marta +5.0" in conflict[5] and "(witness)" in conflict[5] and "arrives week 2" in conflict[5]
+    # Reader units: a signed figure to one decimal. The value itself comes from invented constants.
+    assert re.search(r"Marta \+\d+\.\d", conflict[5]) and "(witness)" in conflict[5] and "arrives week 2" in conflict[5]
     trigger = next(r for r in event_rows(TEXT) if r[2] == "TRIGGER")
     assert "no event crosses the tie" in trigger[5] and trigger[3] == "Ana–Bruno"
     assert "Marta–Ravi tie now distant" in TEXT

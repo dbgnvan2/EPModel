@@ -48,10 +48,10 @@ def test_m141_no_id_resolves_to_an_unassigned_phase():
 def test_m141_excluded_evidence_is_not_shown():
     """A test pinning a superseded revision must not be merged back in as evidence."""
     overrides = json.loads(OVERRIDES.read_text(encoding="utf-8"))
+    named = TOOL.tests_for("M4.C.1", TOOL.named_tests())
+    assert named, "no test is named for M4.C.1, so this guard checks nothing"
+    excluded = named[0]
+    overrides["M4.C.1"] = {"status": "partial", "note": "guard fixture", "exclude_evidence": [excluded]}
     rows = {r["id"]: r for r in TOOL.coverage(overrides)}
-    checked = 0
-    for spec_id, o in overrides.items():
-        for test in o.get("exclude_evidence", []):
-            checked += 1
-            assert test not in rows[spec_id]["evidence"], f"{spec_id}: excluded {test} shown as evidence"
-    assert checked, "no override uses exclude_evidence, so this guard checks nothing"
+    assert excluded not in rows["M4.C.1"]["evidence"]
+    assert set(named[1:]) <= set(rows["M4.C.1"]["evidence"])  # only the excluded one is dropped

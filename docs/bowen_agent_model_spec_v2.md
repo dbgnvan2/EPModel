@@ -570,7 +570,7 @@ The instance everything is tested against. It is **invented and tunable** — va
 
 **M3.D.1** — *the update order.* Each fast tick **MUST** execute in exactly this order. This replaces the frozen spec's §5.4.
 
-1. **Standing load** — every person takes a load from every tie as a function of bond energy ÷ `functional_level`, *before any event is delivered*. → M6.I.8
+1. **Standing load** — every person takes a load from every tie as a function of bond energy ÷ `functional_level`, *before any event is delivered*. → M6.I.8. *From revision 11, the "too little" side of `M4.C.1`'s function (`M4.C.1c`).*
 2. **Deliver** — pop events whose latency has elapsed, in timestamp order, batching simultaneous ones (M1.F.8).
 3. **Perceive** — each person reads its inbox, its ties and its own state.
 4. **Appraise** — M4.C.
@@ -1518,6 +1518,8 @@ Classes are `M14.A.1`'s four: exogenous-homogeneous (EH), exogenous-heterogeneou
 | `conductance` | Relationship | EX | family definition (`M1.B.2`) | B |
 | `bond_energy` | Relationship | DV | family definition; `TRIGGER`, `RECONCILIATION` and `INSTITUTIONALIZE` handling (`M4.A.2`–`M4.A.4`) | B |
 | `interactive` | Relationship | DV | `CUTOFF`, `RECONCILIATION` and `INSTITUTIONALIZE` handling (`M4.A.3`, `M4.A.4`) | B |
+| `felt_contact` | Relationship | DV | contact initialisation (`M4.C.1c`); appraisal of a delivered event (`M4.C.1`); `RECONCILIATION` (`M1.B.4`); contact relaxation, step 9 (`M4.C.1c`) ⟦rev11 · Phase C step 1, 2026-10-07⟧ | C |
+| `felt_impingement` | Relationship | DV | contact initialisation (`M4.C.1c`); appraisal of a delivered event (`M4.C.1`); delivered `CUTOFF` (`M1.B.3`); contact relaxation, step 9 (`M4.C.1`) ⟦rev11 · Phase C step 1, 2026-10-07⟧ | C |
 | `tie_state` | Relationship | DV | consolidation hardening (`M4.G.1`, `M1.B.3`) | B |
 | `distance_bound_anxiety` | Relationship | DV | `DISTANCE` handling (`M1.D.2a`); `binder_unavailable` (`M1.F.9`) | B; C |
 | `functioning_balance` | Relationship | DV | pole flip (`M1.B.5`–`M1.B.7`) | C |
@@ -1548,21 +1550,21 @@ Classes are `M14.A.1`'s four: exogenous-homogeneous (EH), exogenous-heterogeneou
 
 | Mechanism | Owner | Execution mode | Trigger | Reads | Writes on owner | Writes on other objects | Phase |
 |---|---|---|---|---|---|---|---|
-| Standing load (`M4.A.1`, `M4.A.5`) | engine | synchronous batch, step 1 | every tick | each tie's `bond_energy` and `interactive`; each person's `functional_level` and `basic_level` | — | `Person.acute_anxiety` | B |
+| Standing load (`M4.A.1`, `M4.A.5`, `M4.C.1c`) | engine | synchronous batch, step 1 | every tick | each tie's `bond_energy`, `interactive`, `felt_contact`; each person's `functional_level`, `basic_level`, `acute_anxiety` and `chronic_anxiety` (the optimum, `M4.C.1b`) — the "too little" side from revision 11 ⟦rev11 · Phase C step 1, 2026-10-07⟧ | — | `Person.acute_anxiety` *(built in B, rebuilt in C)* | C |
 | Deliver (`M1.F.8`) | engine | latency-delivered, step 2 | event due | event queue | — | inboxes | B |
 | Perceive (`M4.B.1`) | engine | synchronous batch, step 3 | every tick | inbox | — | perceived set | B |
-| Base appraisal (`M4.C.1`) | engine | synchronous batch, step 4 | perceived event | event fields; tie `conductance`; receiver `functional_level` | — | `Person.acute_anxiety` | B |
+| Base appraisal (`M4.C.1`) | engine | synchronous batch, step 4 | perceived event | event fields and the kind's components; tie `conductance`, `bond_energy`, the receiver's `felt_contact` and `felt_impingement`; receiver `functional_level` and anxiety — the change in two-sided deviation from revision 11 ⟦rev11 · Phase C step 1, 2026-10-07⟧ | — | `Person.acute_anxiety`; `Relationship.felt_contact`, `felt_impingement` *(built in B, rebuilt in C)* | C |
 | Involvement recompute (`M1.A.12`) | engine | synchronous batch, step 5 | every tick | ties; `acute_anxiety` | — | `Person.involvement_weight` | B |
-| Triangle recompute (`M1.C.3`) | engine | synchronous batch, step 6 | every tick | tie tension; live positions | — | `Triangle.members`, `inside_pair`, `outside`, `active`, `activation_memory` | B |
+| Triangle recompute (`M1.C.3`) | engine | synchronous batch, step 6 | every tick | recent `TRIANGLE` acts in the store; live positions — no tension threshold from revision 11 ⟦rev11 · Phase C step 1, 2026-10-07⟧ | — | `Triangle.members`, `inside_pair`, `outside`, `active`, `activation_memory` | B |
 | Live positions (`M8.1`) | engine | called from step 6 and from visibility | on call | group membership; fusion | — | — | B |
 | Scripted selection (`ScriptedSource`) | engine | synchronous batch, step 7 | script entry due | script | — | selection record | B |
 | Act (`M4.E.1`) | engine | synchronous batch, step 8 | selection | selection; tie `latency` | — | event queue | B |
 | Visibility (`M3.E.1`, `M1.F.1b`) | engine | called from step 8 | event created | `household_id`; tie `conductance`; route | — | `Event.witnesses` | B |
-| Consolidate (`M4.G.1`, `M1.A.8`) | engine | synchronous batch, step 9 | every tick | tie event history; `chronic_anxiety` | — | `Relationship.tie_state`, `Relationship.bond_energy`, `Person.acute_anxiety` | B |
+| Consolidate (`M4.G.1`, `M1.A.8`, `M4.C.1c`) | engine | synchronous batch, step 9 | every tick | tie event history; `chronic_anxiety`; the optimum's inputs | — | `Relationship.tie_state`, `Relationship.bond_energy`, `Person.acute_anxiety`; `Relationship.felt_contact`, `felt_impingement` (contact relaxation, ⟦rev11 · Phase C step 1, 2026-10-07⟧) *(built in B, rebuilt in C)* | C |
 | Invariants (`M4.G.2`, `M4.G.2a`) | engine | synchronous batch, step 9 | every tick | all state | — | — | B |
 | Binder unavailable (`M1.F.9`) | engine | latency-delivered, step 2 | scripted event | the named binder | — | `Family.undifferentiation_budget`; the binder's object | B |
-| Structural events (`M4.A.2`–`M4.A.4`) | engine | synchronous batch, step 2 | scripted event due | the named tie or person | — | `Relationship.interactive`, `Relationship.tie_state`; the trigger list read by step 1 | B |
-| Delivered cutoff (`M1.B.3`) | engine | synchronous batch, step 4 | `CUTOFF` delivered | the tie | — | `Relationship.interactive`, `Relationship.tie_state` | B |
+| Structural events (`M4.A.2`–`M4.A.4`) | engine | synchronous batch, step 2 | scripted event due | the named tie or person | — | `Relationship.interactive`, `Relationship.tie_state`; the trigger list read by step 1; `Relationship.felt_contact` on `RECONCILIATION` (⟦rev11 · Phase C step 1, 2026-10-07⟧) *(built in B, rebuilt in C)* | C |
+| Delivered cutoff (`M1.B.3`) | engine | synchronous batch, step 4 | `CUTOFF` delivered | the tie; both members' deviation | — | `Relationship.interactive`, `Relationship.tie_state`; `Relationship.felt_impingement` and both members' `Person.acute_anxiety` (relief, ⟦rev11 · Phase C step 1, 2026-10-07⟧) *(built in B, rebuilt in C)* | C |
 | Slow-tick hook (`M3.B.1`) | engine | slow tick | every 52 fast ticks | — | — | — | B |
 | Same-tick batching (`M1.F.8`) | engine | documented composite | same-tick events | the batch | — | — | B |
 

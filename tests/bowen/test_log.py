@@ -82,15 +82,17 @@ def test_m16a1_header_hash_ignores_comments_but_not_values():
 
 
 def test_m16a7_header_flags_constants_changed_after_freeze():
-    constants = load_constants()
-    assert not any(flag for _, flag in header().constant_changed_after_freeze)
+    constants, frozen = load_constants(), load_frozen_constants()
+    since_freeze = {k for k in constants.values if k not in frozen.values or constants[k] != frozen[k]}
+    baseline = {k for k, flag in header().constant_changed_after_freeze if flag}
+    assert baseline == since_freeze and "appraisal_gain" in baseline  # added at Phase C step 1, logged
     changed = dataclasses.replace(
         constants,
         values=MappingProxyType({**constants.values,
                                  "route_damping": dataclasses.replace(constants.values["route_damping"], value=0.4)}),
     )
     flags = dict(header(constants=changed).constant_changed_after_freeze)
-    assert flags["route_damping"] is True and sum(flags.values()) == 1
+    assert {k for k, flag in flags.items() if flag} == baseline | {"route_damping"}
 
 
 def test_m16b1_a_failed_run_leaves_no_complete_looking_log(tmp_path):

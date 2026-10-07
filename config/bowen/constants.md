@@ -22,6 +22,16 @@
 > "three withdrawals" is the spec's own number, still `[I]`. `bond_energy_decay_rate`
 > is 0 because `M1.B.4` requires decay at or near zero. `functional_level_floor` only
 > stops a division by zero at `functional_level` 0, which `M1.A.2` allows.
+>
+> **Phase C step 1, 2026-10-07 — spec revision 11's two-sided appraisal (`M4.C.1`–`M4.C.1c`, plan D2).**
+> `standing_load_gain` keeps its value and now scales the "too little" side of the appraisal function.
+> The constants from `appraisal_gain` to `impingement_relaxation_rate` and `triangle_activity_window` are new;
+> `interactive_standing_fraction` and `tension_activation_threshold` are retired. Every change is logged in
+> `constants_changes.md`. The new values were chosen so that, on the Phase B family, magnitudes stay on the
+> Phase B scale: `intensity_scale` 100 makes a stressor's appraisal equal Phase B's (intensity ÷ functional
+> level); an interactive tie resting at half its optimum (`interactive_resting_contact` 0.5) carries roughly
+> Phase B's interactive standing load. `triangle_activity_window` 4 keeps a triangle active for four weeks
+> after a `TRIANGLE` act. All are `[I]`; Phase C re-freezes at step 14.
 
 frozen_at: 2026-10-06
 activation_regime: synchronous
@@ -34,12 +44,18 @@ activation_regime: synchronous
 | `spouse_basic_level_tolerance` | 1.0 | [I] | basic-level point | `M2.A.0e` |
 | `chronic_anxiety_fixation_age_years` | 12 | [I] | year of age | `M2.A.0a` |
 | `per_hop_fidelity` | 0.8 | [I] | fraction kept per private hop | `M1.F.4` |
-| `standing_load_gain` | 0.2 | [I] | anxiety per tick per bond-energy unit per functional-level unit | `M4.A.1` |
-| `interactive_standing_fraction` | 0.5 | [I] | fraction | `M4.A.3` |
+| `standing_load_gain` | 0.2 | [I] | anxiety per tick per unit of "too little" deviation per unit of steepness | `M4.A.1` |
+| `appraisal_gain` | 3.0 | [I] | anxiety per unit change in deviation per unit of steepness | `M4.C.1` |
+| `intensity_scale` | 100.0 | [I] | event intensity per unit component | `M4.C.1` |
+| `contact_band_max` | 0.2 | [I] | deviation tolerated at functional level 100 | `M4.C.1a` |
+| `anxiety_togetherness_gain` | 0.5 | [I] | relative rise of the optimum per 100 points of excess anxiety | `M4.C.1b` |
+| `interactive_resting_contact` | 0.5 | [I] | share of the optimum | `M4.C.1c` |
+| `contact_relaxation_rate` | 0.1 | [I] | share of the gap to resting contact closed per tick | `M4.C.1c` |
+| `impingement_relaxation_rate` | 0.3 | [I] | share of felt impingement shed per tick | `M4.C.1` |
 | `functional_level_floor` | 1.0 | [I] | functional-level point | `M4.C.1` |
 | `acute_decay_rate` | 0.2 | [I] | fraction of excess per tick | `M1.A.8` |
 | `route_damping` | 0.5 | [I] | gain per neutral third | `M1.F.3` |
 | `hardening_run_length` | 3 | [I] | consecutive moves | `M4.G.1` |
 | `bond_energy_decay_rate` | 0.0 | [I] | fraction per tick | `M1.B.4` |
-| `tension_activation_threshold` | 5.0 | [I] | anxiety above the chronic floor | `M1.C.3` |
+| `triangle_activity_window` | 4 | [I] | fast ticks | `M1.C.3` |
 | `involvement_membership_threshold` | 0.5 | [I] | involvement units | `M1.A.12` |

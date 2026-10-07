@@ -14,8 +14,9 @@ target and witnesses, and what it did — in the shape of the worked trace in
 ``docs/agent_model_proposal.html`` §4.2. "What it did" is in reader units:
 anxiety changes in points, tie and triangle changes in words.
 
-The standing load and the decay toward each person's floor run every week for
-everyone; the trace says so once rather than printing them line by line. A
+The standing load, the decay toward each person's floor, and the relaxation of felt
+contact on every tie run every week for everyone; the trace says so once rather than
+printing them line by line. A
 TRIGGER is the exception, because its whole effect runs through the standing load.
 """
 
@@ -47,7 +48,7 @@ TABLE_HEAD = "| Week | Who | Move | Toward | Witnesses | What it did |\n|---|---
 # raises: a record the renderer does not understand must not vanish (P2, P19).
 CAUSED = frozenset({"base_appraisal", "trigger", "cutoff", "reconciliation", "institutionalize", "binder_unavailable"})
 SYSTEM_SHOWN = frozenset({"triangle_recompute", "consolidation", "slow_tick"})
-SYSTEM_SUMMARISED = frozenset({"standing_load", "acute_decay"})  # every week, everyone; stated once
+SYSTEM_SUMMARISED = frozenset({"standing_load", "acute_decay", "contact_relaxation"})  # every week, everyone; stated once
 
 
 class UnrenderableRecord(ValueError):
@@ -115,11 +116,14 @@ def _what_it_did(event: Event, index: _Index, names: _Names, view: PersonId | No
         elif effect.mechanism == "trigger":
             for tie, _, intensity in effect.ties:
                 parts.append(
-                    f"standing load on {names.tie(tie)} spikes next week (multiplier +{intensity:g}) "
+                    f"standing load on {names.tie(tie)} spikes next week (too-little side +{intensity:g} × optimum) "
                     f"for {event.duration} week{'s' if event.duration != 1 else ''}; no event crosses the tie"
                 )
         elif effect.mechanism == "cutoff":
             parts += [f"{names.tie(t)} now cut off (no events; bond energy kept)" for t, _, _ in effect.ties]
+            relief = [f"{names(p)} {_signed(v)}" for p, v in effect.acute_anxiety if view is None or p == view]
+            if relief:
+                parts.append("impingement removed at once, anxiety " + ", ".join(relief))
         elif effect.mechanism == "reconciliation":
             parts += [f"{names.tie(t)} reconnected" for t, _, _ in effect.ties]
         elif effect.mechanism == "institutionalize":
@@ -203,8 +207,8 @@ def render(
         f"| constants changed since freeze | "
         f"{', '.join(k for k, changed in header.constant_changed_after_freeze if changed) or 'none'} |",
         "",
-        "The standing load and the decay toward each person's floor run every week for everyone "
-        "and are not listed line by line. Effects are shown beside the event that caused them.",
+        "The standing load, the decay toward each person's floor and the relaxation of felt contact "
+        "run every week for everyone and are not listed line by line. Effects are shown beside the event that caused them.",
         "",
         TABLE_HEAD,
     ]

@@ -12,10 +12,14 @@ Tests:   tests/bowen/test_mechanisms.py
 * M4.G.1: when the last ``hardening_run_length`` moves on a tie, in either
   direction, are all ``DISTANCE``, the tie registers as distant — "three
   withdrawals in a row … not three independent events". A cut-off tie stays cut off.
+* Revision 11 (`M4.C.1c`): felt contact relaxes toward its resting value and felt
+  impingement toward zero (``contact.relax_contact``), so a severed tie's "too little"
+  side builds over the ticks after the cut.
 """
 
 from __future__ import annotations
 
+from src.bowen.engine.contact import relax_contact
 from src.bowen.engine.events import Mechanism
 from src.bowen.engine.identifiers import TieId
 from src.bowen.engine.log_records import EffectRecord
@@ -44,7 +48,7 @@ def _recent_moves_on(state: RunState, tie: TieId, count: int) -> list[str]:
 
 def consolidate(state: RunState, params: EngineParams) -> list[EffectRecord]:
     """Purpose: run tick step 9's state changes.
-    Spec:    docs/bowen_agent_model_spec_v2.md#M1.A.8, #M1.B.4, #M4.G.1
+    Spec:    docs/bowen_agent_model_spec_v2.md#M1.A.8, #M1.B.4, #M4.G.1, #M4.C.1c
     Tests:   tests/bowen/test_mechanisms.py::test_m4g1_three_withdrawals_register_as_distant_tie
     """
     decay = []
@@ -70,9 +74,14 @@ def consolidate(state: RunState, params: EngineParams) -> list[EffectRecord]:
             tie.tie_state = TieState.DISTANT
             tie_changes.append((tie_id, "tie_state_distant", 1.0))
 
+    contact_changes = relax_contact(state.people, state.ties, params)
+
     records = []
     if decay:
         records.append(EffectRecord(state.tick, "acute_decay", None, acute_anxiety=tuple(decay)))
     if tie_changes:
         records.append(EffectRecord(state.tick, "consolidation", None, ties=tuple(tie_changes)))
+    if contact_changes:
+        rows = tuple((tie, f"{field}:{member}", value) for tie, field, member, value in contact_changes)
+        records.append(EffectRecord(state.tick, "contact_relaxation", None, ties=rows))
     return records

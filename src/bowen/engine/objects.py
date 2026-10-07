@@ -170,6 +170,10 @@ class Relationship:
     latency: int
     tie_state: TieState = TieState.ORDINARY
     interactive: bool = True
+    # M4.C.1, revision 11 (Phase C plan D2): per member, in [0, 1]. Written by
+    # ``contact.initialise_contact``, delivered events and step 9's relaxation.
+    felt_contact: dict[PersonId, float] = field(default_factory=dict)
+    felt_impingement: dict[PersonId, float] = field(default_factory=dict)
     distance_bound_anxiety: float = 0.0
     functioning_balance: dict[str, float] = field(default_factory=dict)
     investment: dict[PersonId, float] = field(default_factory=dict)

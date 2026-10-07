@@ -41,21 +41,32 @@ class EventKinds:
 
     ``signs`` maps (kind, source position) to +1 or -1 (M1.F.2). A missing
     entry, and every event sent from no position, is +1.
+
+    ``components`` maps a kind to its (contact, impingement) components per unit
+    of scaled intensity (M4.C.1, revision 11; Phase C plan D2). A kind with no
+    entry moves neither.
     """
 
     mechanisms: Mapping[str, Mechanism]
     signs: Mapping[tuple[str, "SourcePosition"], int] = field(default_factory=lambda: MappingProxyType({}))
+    components: Mapping[str, tuple[float, float]] = field(default_factory=lambda: MappingProxyType({}))
 
     def __post_init__(self) -> None:
         object.__setattr__(self, "mechanisms", MappingProxyType(dict(self.mechanisms)))
         if any(v not in (1, -1) for v in self.signs.values()):
             raise ValueError("a source-position sign is +1 or -1")
         object.__setattr__(self, "signs", MappingProxyType(dict(self.signs)))
+        if any(not (-1.0 <= c <= 1.0 and -1.0 <= i <= 1.0) for c, i in self.components.values()):
+            raise ValueError("a contact or impingement component is in [-1, 1]")
+        object.__setattr__(self, "components", MappingProxyType(dict(self.components)))
 
     def sign(self, kind: str, position: "SourcePosition") -> int:
         if position is SourcePosition.NONE:
             return 1
         return self.signs.get((kind, position), 1)
+
+    def components_of(self, kind: str) -> tuple[float, float]:
+        return self.components.get(kind, (0.0, 0.0))
 
     def mechanism_of(self, kind: str) -> Mechanism:
         try:

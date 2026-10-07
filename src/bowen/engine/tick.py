@@ -91,7 +91,7 @@ def run_tick(
             raise ValueError(f"source scheduled {event.id} for tick {state.tick}")
         records += inject(state, event, visibility)
         if event.mechanism in STRUCTURAL:
-            records += apply_structural_event(state, state.store.event(event.id))
+            records += apply_structural_event(state, state.store.event(event.id), params)
     batch = state.queue.release(state.tick)
     records += record_deliveries(state, batch)
     steps.append("deliver")
@@ -102,7 +102,7 @@ def run_tick(
 
     # 4 — appraise.
     records += apply_base_appraisal(state, perceived, params)
-    records += apply_delivered_cutoffs(state, batch)
+    records += apply_delivered_cutoffs(state, batch, params)
     steps.append("appraise")
 
     # 5, 6 — before selection, because gates and propensities read them (M3.D.3).

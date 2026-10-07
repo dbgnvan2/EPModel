@@ -52,6 +52,7 @@ def test_m10b4_constants_frozen_before_suite():
     )
     logged = {row["key"].strip("`") for row in log.rows}
     changed = {k for k in current.values if k not in frozen.values or current[k] != frozen[k]}
+    changed |= {k for k in frozen.values if k not in current.values}  # retired since the freeze
     assert changed <= logged, f"changed after freeze without a log row: {sorted(changed - logged)}"
 
 

@@ -14,6 +14,9 @@ import copy
 from dataclasses import dataclass, field
 from itertools import combinations
 
+import json
+
+from src.bowen.engine.draws import DrawService
 from src.bowen.engine.event_store import EventStore
 from src.bowen.engine.events import EventKinds, EventQueue
 from src.bowen.engine.identifiers import PersonId, TieId, TriangleId
@@ -41,6 +44,7 @@ class RunState:
     store: EventStore = field(default_factory=EventStore)
     triggers: list[ActiveTrigger] = field(default_factory=list)
     tick: int = 0
+    draws: DrawService = field(default_factory=lambda: DrawService(0))
 
     def ties_of(self, person: PersonId) -> tuple[Relationship, ...]:
         return tuple(self.ties[t] for t in sorted(self.ties) if person in t.members())
@@ -70,9 +74,31 @@ def new_run_state(
     ties: dict[TieId, Relationship],
     family: Family,
     kinds: EventKinds,
+    seed: int = 0,
 ) -> RunState:
     """Copy the inputs, so a run never mutates the declaration it started from (M11.D.6)."""
     people = {k: copy.deepcopy(v) for k, v in people.items()}
     ties = {k: copy.deepcopy(v) for k, v in ties.items()}
     triangles = {t: Triangle(t) for t in closed_triads(ties)}
-    return RunState(people=people, ties=ties, family=copy.deepcopy(family), kinds=kinds, triangles=triangles)
+    return RunState(
+        people=people, ties=ties, family=copy.deepcopy(family), kinds=kinds, triangles=triangles,
+        draws=DrawService(seed),
+    )
+
+
+def canonical_state(state: RunState) -> str:
+    """Purpose: the run's object state as one canonical string, for comparing two runs.
+    Spec:    docs/bowen_agent_model_spec_v2.md#M16.T.3, #M11.D.6
+    Tests:   tests/bowen/test_log.py::test_m16t3_sink_does_not_change_results
+    """
+    from src.bowen.engine.log_records import plain
+
+    body = {
+        "tick": state.tick,
+        "people": [plain(state.people[k]) for k in sorted(state.people)],
+        "ties": [plain(state.ties[k]) for k in sorted(state.ties)],
+        "triangles": [plain(state.triangles[k]) for k in sorted(state.triangles)],
+        "family": plain(state.family),
+        "events": [plain(e) for e in state.store.events()],
+    }
+    return json.dumps(body, sort_keys=True, separators=(",", ":"), default=str)

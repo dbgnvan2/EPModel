@@ -30,11 +30,13 @@ class Assembled:
     activation: SynchronousActivation
 
 
-def assemble(constants: Constants, kinds: EventKinds, family: FamilyInstance, source: ScriptedSource) -> Assembled:
+def assemble(
+    constants: Constants, kinds: EventKinds, family: FamilyInstance, source: ScriptedSource, seed: int = 0
+) -> Assembled:
     """A fresh state every call, so two runs share nothing (M11.D.6)."""
     params = engine_params(constants)
     return Assembled(
-        state=new_run_state(dict(family.people), dict(family.ties), family.family, kinds),
+        state=new_run_state(dict(family.people), dict(family.ties), family.family, kinds, seed=seed),
         source=source,
         params=params,
         visibility=HouseholdConductanceVisibility(params.per_hop_fidelity),

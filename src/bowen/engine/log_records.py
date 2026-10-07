@@ -159,6 +159,17 @@ class Emitter(Protocol):
     def emit(self, record: Record) -> None: ...
 
 
+class Tee:
+    """Send each record to several emitters, in order. Writes nothing itself."""
+
+    def __init__(self, *emitters: Emitter) -> None:
+        self._emitters = emitters
+
+    def emit(self, record: Record) -> None:
+        for emitter in self._emitters:
+            emitter.emit(record)
+
+
 class CollectingEmitter:
     """Keeps records in memory. Tests and the renderer use it; it writes nothing."""
 
@@ -169,7 +180,8 @@ class CollectingEmitter:
         self.records.append(record)
 
 
-def _plain(value: Any) -> Any:
+def plain(value: Any) -> Any:
+    """A JSON-ready form of any record value: identifiers as text, enums as values."""
     if isinstance(value, PersonId):
         return value.value
     if isinstance(value, (TieId, TriangleId, EventId)):
@@ -179,16 +191,22 @@ def _plain(value: Any) -> Any:
     if isinstance(value, dt.date):
         return value.isoformat()
     if dataclasses.is_dataclass(value):
-        return {f.name: _plain(getattr(value, f.name)) for f in dataclasses.fields(value)}
+        return {f.name: plain(getattr(value, f.name)) for f in dataclasses.fields(value)}
     if isinstance(value, (tuple, list)):
-        return [_plain(v) for v in value]
+        return [plain(v) for v in value]
+    if isinstance(value, dict):
+        items = [(json.dumps(plain(k), sort_keys=True) if not isinstance(plain(k), str) else plain(k), plain(v))
+                 for k, v in value.items()]
+        return dict(sorted(items))
+    if isinstance(value, (set, frozenset)):
+        return sorted((plain(v) for v in value), key=lambda v: json.dumps(v, sort_keys=True))
     if isinstance(value, float) and value != value:
         raise ValueError("NaN cannot be logged")
     return value
 
 
 def to_dict(record: Record) -> dict[str, Any]:
-    body = _plain(record)
+    body = plain(record)
     body["record_type"] = record.record_type
     return body
 

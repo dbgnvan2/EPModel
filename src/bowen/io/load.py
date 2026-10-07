@@ -64,3 +64,17 @@ def load_frozen_constants(path: Path = CONFIG_DIR / "constants_frozen.md") -> Co
     Tests:   tests/bowen/test_phase_b_gate.py::test_m10b4_constants_frozen_before_suite
     """
     return parse_constants(read_text(path), source=str(path))
+
+
+SPEC_PATH = Path(__file__).resolve().parents[3] / "docs" / "bowen_agent_model_spec_v2.md"
+
+
+def load_spec_revision(path: Path = SPEC_PATH) -> str:
+    """Purpose: the spec revision a run is produced against, read from the spec's front matter.
+    Spec:    docs/bowen_agent_model_spec_v2.md#M16.A.1
+    Tests:   tests/bowen/test_log.py::test_m16a1_header_hashes_the_resolved_config
+    """
+    for line in read_text(path).splitlines()[:10]:
+        if line.startswith("version:"):
+            return line.split(":", 1)[1].strip()
+    raise ValueError(f"{path}: no version line in the front matter")

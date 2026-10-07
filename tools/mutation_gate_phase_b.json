@@ -9,7 +9,8 @@
     "    for _ in range(ticks):",
     "    for _ in range(ticks - 1):"
    ]
-  ]
+  ],
+  "expect": "assert [r.tick for r in records if isinstance(r, TickRecord)] == list(range(40))"
  },
  {
   "gate": "G2",
@@ -21,7 +22,8 @@
     "    return \"; \".join(parts) or \"—\"",
     "    return \"—\""
    ]
-  ]
+  ],
+  "expect": "assert re.search(r\"anxiety"
  },
  {
   "gate": "G2",
@@ -33,7 +35,8 @@
     "    for effect in index.effects.get(event.id, []):",
     "    for effect in index.effects.get(min(index.effects), []):"
    ]
-  ]
+  ],
+  "expect": "assert \"Marta +5.0\" in conflict[5]"
  },
  {
   "gate": "G3",
@@ -45,7 +48,8 @@
     "        spike = trigger_intensity(state, tie_id, state.tick)",
     "        spike = 0.0"
    ]
-  ]
+  ],
+  "expect": "assert _ana_standing(records_with)[11] > _ana_standing(records_without)[11]"
  },
  {
   "gate": "G3",
@@ -57,7 +61,8 @@
     "        target_deliveries = []\n        for target in event.targets:",
     "        target_deliveries = []\n        for target in (event.targets or (event.on_tie.members() if event.on_tie else ())):"
    ]
-  ]
+  ],
+  "expect": "assert crossing == []"
  },
  {
   "gate": "G4",
@@ -69,7 +74,8 @@
     "    for record in records:\n        emitter.emit(record)",
     "    open(\"/dev/null\", \"w\").close()\n    for record in records:\n        emitter.emit(record)"
    ]
-  ]
+  ],
+  "expect": "assert engine_io_findings() == []"
  },
  {
   "gate": "G5",
@@ -81,7 +87,8 @@
     "            raise ConfigError(f\"{where}: unknown key {key!r}\")",
     "            continue"
    ]
-  ]
+  ],
+  "expect": "match=\"unknown key 'softmax_temperature'\""
  },
  {
   "gate": "G6",
@@ -98,24 +105,26 @@
     "        acute_anxiety=tuple((pid, loads[pid]) for pid in sorted(loads)),",
     "        acute_anxiety=tuple((pid, loads[pid]) for pid in loads),"
    ]
-  ]
+  ],
+  "expect": "assert fresh_process_log_digest(7, \"1\")"
  },
  {
   "gate": "G7",
   "test": "tests/bowen/test_determinism.py::test_m11d6_second_run_is_clean",
-  "mutation": "one event store shared by every run",
+  "mutation": "one trigger list shared by every run",
   "edits": [
    [
     "src/bowen/engine/state.py",
-    "    store: EventStore = field(default_factory=EventStore)",
-    "    store: EventStore = field(default_factory=lambda: _SHARED_STORE)"
+    "    triggers: list[ActiveTrigger] = field(default_factory=list)",
+    "    triggers: list[ActiveTrigger] = field(default_factory=lambda: _SHARED_TRIGGERS)"
    ],
    [
     "src/bowen/engine/state.py",
-    "@dataclass(frozen=True)\nclass ActiveTrigger:",
-    "_SHARED_STORE = EventStore()\n\n\n@dataclass(frozen=True)\nclass ActiveTrigger:"
+    "@dataclass\nclass RunState:",
+    "_SHARED_TRIGGERS: list = []\n\n\n@dataclass\nclass RunState:"
    ]
-  ]
+  ],
+  "expect": "assert digest(after_other) == fresh_process_log_digest(7, \"3\")"
  },
  {
   "gate": "G8",
@@ -127,7 +136,8 @@
     "        if not _inside(path, root):\n            raise",
     "        if False:\n            raise"
    ]
-  ]
+  ],
+  "expect": "PROBE.write_text(\"must not exist\")"
  },
  {
   "gate": "G9",
@@ -139,7 +149,8 @@
     "    for record in records:\n        emitter.emit(record)",
     "    with open(\"sim_audit.csv\", \"a\") as audit:\n        audit.write(f\"{state.tick}\\n\")\n    for record in records:\n        emitter.emit(record)"
    ]
-  ]
+  ],
+  "expect": "assert writes == []"
  },
  {
   "gate": "G10",
@@ -151,7 +162,8 @@
     "        self._handle.write(serialize(record) + \"\\n\")",
     "        if getattr(record, \"record_type\", \"\") == \"emitted\":\n            object.__setattr__(record.event, \"intensity\", 0.0)\n        self._handle.write(serialize(record) + \"\\n\")"
    ]
-  ]
+  ],
+  "expect": "assert canonical_state(attached.state) == canonical_state(detached.state)"
  },
  {
   "gate": "G11",
@@ -163,7 +175,8 @@
     "        spec_revision=spec_revision,",
     "        spec_revision=spec_revision + str(__import__(\"time\").perf_counter_ns()),"
    ]
-  ]
+  ],
+  "expect": "    assert a == b"
  },
  {
   "gate": "G12",
@@ -175,7 +188,8 @@
     "| `conductance` | Relationship | EX | family definition (`M1.B.2`) | B |",
     "| `conductance` | Relationship | EX | — | B |"
    ]
-  ]
+  ],
+  "expect": "assert register_orphans(_spec_text()) == []"
  },
  {
   "gate": "G13",
@@ -187,7 +201,8 @@
     "from src.bowen.engine.visibility import HouseholdConductanceVisibility\n",
     "from src.bowen.engine.visibility import HouseholdConductanceVisibility\nfrom src.bowen.render.trace import render  # noqa\n"
    ]
-  ]
+  ],
+  "expect": "assert engine_import_findings() == []"
  },
  {
   "gate": "G14",
@@ -211,6 +226,7 @@
     "    alive: bool = True\n",
     "    alive: bool = True\n    mood: float = 0.0\n"
    ]
-  ]
+  ],
+  "expect": "assert mismatches(_spec_text()) == {}"
  }
 ]

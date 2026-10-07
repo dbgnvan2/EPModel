@@ -15,7 +15,7 @@ shown to fail under a mutation (17 of 17 mutations, `docs/phase_b_mutation_recor
 criterion cannot be a test: the owner's end-to-end read of the rendered trace (plan §7). Until
 that read is done and recorded, Phase B is not declared complete.
 
-The suite is 282 tests, all passing: `python3 -m pytest tests/`. The frozen grid engine's 37
+The suite is 291 tests, all passing: `python3 -m pytest tests/`. The frozen grid engine's 37
 tests are among them and pass unchanged (`M13.2`).
 
 **What this phase shows, and what it does not.** It shows the plumbing works: the objects, the
@@ -47,7 +47,7 @@ From `M13`'s Phase B *Done when* cell, as mapped in plan §2.
 | D6 | The register matches the object fields | done | `tests/bowen/test_register.py::test_m14a_register_matches_object_fields` |
 | §7 | The rendered trace reads correctly end to end | **not done** | owner's read pending: `docs/review/phase_b_trace_seed7.md` and `docs/review/phase_b_trace_seed7_nadia.md` |
 | §7 | The register's classifications are right | done | reviewed by the owner at plan approval, 2026-10-06 |
-| `M14.1` | Spec coverage report | done | `docs/spec_coverage.md` — 526 IDs: 113 done, 26 partial, 387 not done; kept current by `tests/bowen/test_spec_coverage.py` |
+| `M14.1` | Spec coverage report | done | `docs/spec_coverage.md` — 526 IDs: 112 done, 27 partial, 387 not done; kept current by `tests/bowen/test_spec_coverage.py` |
 
 ## The plan's decisions, and where each landed
 
@@ -87,6 +87,29 @@ Each was found by a test, a mutation, or reading output, and is fixed and covere
 6. **A mutation script left injected faults in the working tree** — zsh does not split an
    unquoted variable; caught at once (24 tests red), reverted by hand, and replaced by
    `tools/mutation_gate.py`, which restores in `finally` (step 11).
+
+## The `learning-qa` review, 2026-10-06
+
+A cold review of the Phase B diff against the failure-pattern catalogue (P1–P37) found eleven
+issues and raised three suspicions. All were fixed in this session except one suspicion, which is
+intended behaviour.
+
+| # | Pattern | Finding | Disposition |
+|---|---|---|---|
+| 1 | P21/P6 | A stressor's duration had no effect, but `M1.F.6` was marked done | Owner: a stressor acts once in Phase B. `M1.F.6` marked partial; the script and the trace say so |
+| 2 | P6 | A move reached a person across a cut-off tie | Refused: `InactiveTie` in visibility (`M1.B.3`); test added. `REDUCE_CUTOFF` will need its own path in Phase C |
+| 3 | P24/P37 | The mutation tool counted any non-zero exit as proof; G7's mutation was caught by another guard | Exit code 1 and a failure required; each gate names its intended assertion and the tool checks the failure fired there; G7 re-mutated so its own assertion catches it. The tool was shown to reject a collection error and a wrong-assertion failure |
+| 4 | P37 | The tool's clean-tree check printed only, missed ignored files and the repo root | Whole-repo snapshot, ignored and untracked included, before and after; a difference fails the run |
+| 5 | P19/P2 | The renderer dropped unknown mechanisms and fields, and claimed invariants without counting them | Unknown records, mechanisms and fields raise; the invariant sentence reconciles with the records |
+| 6 | P6 | The mutation record named no commit | The record is stamped with the commit and a dirty flag |
+| 7 | P2 | `--view` of an unknown person gave an empty trace | Refused in the renderer and the CLI |
+| 8 | P2/P6 | A failed run left a complete-looking log | The sink writes `.partial` and renames only on success |
+| 9 | P28 | The write guard missed moves and deletes, and nothing fingerprinted real files | Guard extended to replace, rename, remove, unlink, rmdir, truncate and `shutil.rmtree`; a session-wide fingerprint of config, model source, spec and tests in `tests/conftest.py` |
+| 10 | P31 | Coverage took one file per test name and hid tests named for no ID | Every file listed; the 56 tests named for no ID are listed in the report |
+| 11 | — | (review commit count said 20; it is 18) | noted |
+| s1 | — | The G4 scan missed file *reads* | `load`, `loadtxt`, `fromfile`, `read_text`, `importlib` and similar added |
+| s2 | P3 | Hardening ignored multi-target withdrawals | A move counts on a tie when it goes from one member to the other, whoever else it addresses |
+| s3 | — | Acute anxiety below the floor is raised to the floor, not decayed | Intended: `M1.A.7a` makes chronic anxiety the floor acute anxiety cannot go below |
 
 ## Invented constants, frozen 2026-10-06
 
@@ -147,7 +170,7 @@ From the external review (plan §6) and the build:
 
 - ~~`requirements.txt` does not list pytest; no `.github/workflows/tests.yml`.~~ *Fixed 2026-10-06:*
   pytest pinned to 8.x, and the workflow runs the suite on Python 3.11, 3.12 and 3.13, each first run
-  from a fresh virtualenv with only `requirements.txt` (NumPy 2.4–2.5 there, 1.26 here; all 282 pass).
+  from a fresh virtualenv with only `requirements.txt` (NumPy 2.4–2.5 there, 1.26 here; all then-282 pass).
   The 3.11 run found a real defect — a `MappingProxyType` dataclass default that 3.11 rejects — now fixed.
 - A stray top-level `tests` package in the system Python's site-packages shadows `import tests…`.
 - `docs/implementation_task_list.md` still tracks the frozen grid engine.

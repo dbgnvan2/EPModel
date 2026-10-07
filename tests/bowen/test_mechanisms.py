@@ -424,3 +424,14 @@ def test_m1f5_a_witness_takes_no_more_than_the_edge_it_overheard():
         delta = appraisal_delta(state, delivery, event, PARAMS)
         divisor = max(state.people[delivery.recipient].functional_level, PARAMS.functional_level_floor)
         assert delta * divisor / event.intensity <= edge + 1e-12, delivery.recipient
+
+
+def test_m4g1_a_withdrawal_addressed_to_several_still_counts_on_each_tie():
+    """Review suspicion (2026-10-06): multi-target withdrawals were left out of the run."""
+    state = fresh()
+    for tick in range(3):
+        state.tick = tick
+        act(state, Selection(MARTA, "DISTANCE", (RAVI, NADIA), 2.0), VIS)
+    consolidate(state, PARAMS)
+    assert state.ties[TieId.of(RAVI, MARTA)].tie_state is TieState.DISTANT
+    assert state.ties[TieId.of(MARTA, NADIA)].tie_state is TieState.DISTANT

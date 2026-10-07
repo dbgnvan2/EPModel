@@ -8,7 +8,7 @@ Spec revision 10 approved, the Phase B plan approved, and **Phase B built** (`sr
 
 ### Added
 
-- **Phase B of the agent model** — objects and identifiers, keyed draws, the event record and queue, the in-run event store, log records, the reduced family and the 40-week script from markdown, the M8 predicate, activation and visibility, the standing load, the base appraisal (`M4.C.1` only), structural events, consolidation, the M6 invariants (`M6.I.6` held back), the nine-step weekly loop, the persistence sink, the log header, the deterministic renderer, and `python3 -m src.bowen.run`. 282 tests; every automated Phase B exit criterion passes and is mutation-proved (`docs/phase_b_mutation_record.md`). Report: `docs/phase_b_completion_report.md`; coverage: `docs/spec_coverage.md`.
+- **Phase B of the agent model** — objects and identifiers, keyed draws, the event record and queue, the in-run event store, log records, the reduced family and the 40-week script from markdown, the M8 predicate, activation and visibility, the standing load, the base appraisal (`M4.C.1` only), structural events, consolidation, the M6 invariants (`M6.I.6` held back), the nine-step weekly loop, the persistence sink, the log header, the deterministic renderer, and `python3 -m src.bowen.run`. 291 tests after the `learning-qa` review's fixes; every automated Phase B exit criterion passes and is mutation-proved (`docs/phase_b_mutation_record.md`). Report: `docs/phase_b_completion_report.md`; coverage: `docs/spec_coverage.md`.
 - `tools/mutation_gate.py` and `tools/spec_coverage.py`.
 - Constants frozen 2026-10-06 (`config/bowen/constants_frozen.md`).
 

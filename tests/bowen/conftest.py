@@ -5,14 +5,18 @@ Purpose: put the repo on the import path, and fail any test that writes outside
 Spec:    docs/bowen_agent_model_spec_v2.md#M11.D.7
 Tests:   tests/bowen/test_test_hygiene.py::test_m11d7_no_production_paths_in_tests
 
-The guard wraps ``open``, ``io.open``, ``os.open`` and ``os.mkdir``: a write, an
-append, a create or a directory made anywhere but under pytest's base temporary
-directory raises ``ProductionPathWrite``. Reading the committed config is allowed.
+The guard wraps ``open``, ``io.open``, ``os.open``, ``os.mkdir``, and the calls
+that move, delete or shrink files — ``os.replace``, ``os.rename``, ``os.remove``,
+``os.unlink``, ``os.rmdir``, ``os.truncate`` and ``shutil.rmtree``. Any of them
+touching a path outside pytest's base temporary directory raises
+``ProductionPathWrite``. Reading the committed config is allowed. The suite-wide
+fingerprint in ``tests/conftest.py`` catches anything this misses.
 """
 
 import builtins
 import io
 import os
+import shutil
 import sys
 from pathlib import Path
 
@@ -60,8 +64,18 @@ def m11d7_writes_stay_in_tmp(tmp_path_factory, monkeypatch):
         check(path, "mkdir")
         return real_mkdir(path, *args, **kwargs)
 
+    def guarded(name, real, arity):
+        def wrapper(*args, **kwargs):
+            for path in args[:arity]:
+                check(path, name)
+            return real(*args, **kwargs)
+        return wrapper
+
     monkeypatch.setattr(builtins, "open", guarded_open)
     monkeypatch.setattr(io, "open", guarded_open)
     monkeypatch.setattr(os, "open", guarded_os_open)
     monkeypatch.setattr(os, "mkdir", guarded_mkdir)
+    for name, arity in (("replace", 2), ("rename", 2), ("remove", 1), ("unlink", 1), ("rmdir", 1), ("truncate", 1)):
+        monkeypatch.setattr(os, name, guarded(f"os.{name}", getattr(os, name), arity))
+    monkeypatch.setattr(shutil, "rmtree", guarded("shutil.rmtree", shutil.rmtree, 1))
     yield

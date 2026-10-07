@@ -19,7 +19,7 @@ from src.bowen.engine.identifiers import PersonId
 from src.bowen.engine.log_records import EmittedRecord
 from src.bowen.io.load import load_family
 from src.bowen.render import trace
-from src.bowen.render.trace import TABLE_HEAD, render
+from src.bowen.render.trace import TABLE_HEAD, UnrenderableRecord, render
 from src.bowen.run import run_phase_b
 
 NAMES = load_family().display_names
@@ -104,3 +104,47 @@ def test_m16c5_trace_does_not_resemble_a_clinical_record():
 def test_m16c5_a_log_without_its_header_is_refused():
     with pytest.raises(ValueError, match="header"):
         render(RECORDS[1:], NAMES)
+
+
+# --- review findings (2026-10-06): nothing the renderer does not understand may vanish ---
+
+
+def test_m16c2_an_unknown_mechanism_raises_instead_of_vanishing():
+    from src.bowen.engine.log_records import EffectRecord
+
+    stray = EffectRecord(tick=3, mechanism="sink_allocation", cause=None)
+    with pytest.raises(UnrenderableRecord, match="sink_allocation"):
+        render(RECORDS[:5] + [stray], NAMES)
+    first_event = next(r.event for r in RECORDS if isinstance(r, EmittedRecord))
+    caused = EffectRecord(tick=3, mechanism="new_thing", cause=first_event.id)
+    with pytest.raises(UnrenderableRecord, match="new_thing"):
+        render(RECORDS + [caused], NAMES)
+
+
+def test_m16c2_policy_selections_and_belief_writes_are_not_silently_skipped():
+    from src.bowen.engine.log_records import BeliefWriteRecord, DecidedBy, SelectionRecord
+
+    policy = SelectionRecord(tick=1, actor=PersonId("ravi"), decided_by=DecidedBy.POLICY, event_id=None)
+    with pytest.raises(UnrenderableRecord, match="Phase C"):
+        render(RECORDS[:3] + [policy], NAMES)
+    belief = BeliefWriteRecord(tick=1, holder=PersonId("ravi"), subject="x", value=1.0, true_value=0.0)
+    with pytest.raises(UnrenderableRecord, match="Phase D"):
+        render(RECORDS[:3] + [belief], NAMES)
+
+
+def test_m16c2_invariant_sentence_reconciles_with_the_records():
+    from src.bowen.engine.log_records import InvariantRecord
+
+    dropped = [r for r in RECORDS if not (isinstance(r, InvariantRecord) and r.tick == 7)]
+    text = render(dropped, NAMES)
+    assert "recorded for 39 of them" in text and "at the end of every week" not in text
+
+
+def test_m16c4_a_view_of_no_one_is_refused():
+    with pytest.raises(ValueError, match="not in this family"):
+        render(RECORDS, NAMES, view=PersonId("nobody"))
+
+
+def test_m1f6_the_trace_says_a_stressor_acts_once():
+    job_loss = next(r for r in event_rows(TEXT) if r[2] == "JOB_LOSS")
+    assert "one-time effect; a 34-week spell, recorded" in job_loss[5]

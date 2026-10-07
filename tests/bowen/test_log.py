@@ -91,3 +91,20 @@ def test_m16a7_header_flags_constants_changed_after_freeze():
     )
     flags = dict(header(constants=changed).constant_changed_after_freeze)
     assert flags["route_damping"] is True and sum(flags.values()) == 1
+
+
+def test_m16b1_a_failed_run_leaves_no_complete_looking_log(tmp_path):
+    """Review finding (2026-10-06): a run that raised left a well-formed, shorter log."""
+    path = tmp_path / "run.jsonl"
+
+    class Boom(RuntimeError):
+        pass
+
+    try:
+        with JsonlFileSink(path) as sink:
+            run_phase_b(7, extra=sink)
+            raise Boom
+    except Boom:
+        pass
+    assert not path.exists()
+    assert (tmp_path / "run.jsonl.partial").exists()

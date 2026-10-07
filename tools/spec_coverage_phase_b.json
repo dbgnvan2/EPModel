@@ -275,5 +275,13 @@
  "M6.3": {
   "status": "not done",
   "note": "open owner decision (disposition at death); blocks M11.C.37 and Phase D"
+ },
+ "M1.F.6": {
+  "status": "partial",
+  "note": "stressors are spells with a start and a duration, never per-tick draws; in Phase B a stressor acts once on arrival and its duration is recorded, not used (owner, 2026-10-06)"
+ },
+ "M1.B.3": {
+  "status": "done",
+  "note": "no move crosses a non-interactive tie (review, 2026-10-06)"
  }
 }

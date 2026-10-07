@@ -24,9 +24,10 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Iterable, Mapping
 
-from src.bowen.engine.events import Event, EventId, Role
+from src.bowen.engine.events import Event, EventId, Mechanism, Role
 from src.bowen.engine.log_records import (
-    DeliveredRecord, EffectRecord, EmittedRecord, InvariantRecord, InvariantStatus, LogHeader, Record, TickRecord,
+    BeliefWriteRecord, DecidedBy, DeliveredRecord, EffectRecord, EmittedRecord, InvariantRecord, InvariantStatus,
+    LogHeader, Record, SelectionRecord, TickRecord,
 )
 from src.bowen.engine.identifiers import PersonId
 
@@ -41,6 +42,16 @@ FRAMING = """\
 > chose anything (Phase B)."""
 
 TABLE_HEAD = "| Week | Who | Move | Toward | Witnesses | What it did |\n|---|---|---|---|---|---|"
+
+# Every mechanism the engine emits, and how the trace treats it. Anything else
+# raises: a record the renderer does not understand must not vanish (P2, P19).
+CAUSED = frozenset({"base_appraisal", "trigger", "cutoff", "reconciliation", "institutionalize", "binder_unavailable"})
+SYSTEM_SHOWN = frozenset({"triangle_recompute", "consolidation", "slow_tick"})
+SYSTEM_SUMMARISED = frozenset({"standing_load", "acute_decay"})  # every week, everyone; stated once
+
+
+class UnrenderableRecord(ValueError):
+    """The log holds something this renderer has no template for."""
 
 
 @dataclass(frozen=True)
@@ -89,6 +100,9 @@ def _what_it_did(event: Event, index: _Index, names: _Names, view: PersonId | No
     if arrival and arrival != {event.timestamp}:
         parts.append(f"arrives week {', '.join(str(t) for t in sorted(arrival))}")
     roles = {d.recipient: d.role for d in delivered}
+    if event.mechanism is Mechanism.EXOGENOUS_STRESSOR:
+        # Phase B appraises a stressor once; the spell's length is recorded, not yet used.
+        parts.append(f"one-time effect; a {event.duration}-week spell, recorded")
     for effect in index.effects.get(event.id, []):
         if effect.mechanism == "base_appraisal":
             changes = [
@@ -112,6 +126,8 @@ def _what_it_did(event: Event, index: _Index, names: _Names, view: PersonId | No
             parts.append(f"{len(effect.ties)} ties become worry edges (no events; bond energy kept)")
         elif effect.mechanism == "binder_unavailable":
             parts += [f"{v:.1f} returned to the family budget" for _, v in effect.sinks]
+        else:
+            raise UnrenderableRecord(f"no template for caused mechanism {effect.mechanism!r}")
     return "; ".join(parts) or "—"
 
 
@@ -128,12 +144,23 @@ def _system_rows(effect: EffectRecord, names: _Names) -> list[str]:
         for tri, field, value in effect.triangles:
             if field == "active":
                 rows.append(f"{names.triangle(tri)} triangle {'active' if value == 'true' else 'inactive'}")
-            elif field == "inside_pair" and value != "none":
-                rows.append(f"{names.triangle(tri)}: inside pair {names.tie(value)}")
+            elif field == "inside_pair":
+                if value != "none":
+                    rows.append(f"{names.triangle(tri)}: inside pair {names.tie(value)}")
+            else:
+                raise UnrenderableRecord(f"no template for triangle field {field!r}")
     elif effect.mechanism == "consolidation":
-        rows += [f"{names.tie(t)} tie now distant" for t, field, _ in effect.ties if field == "tie_state_distant"]
+        for tie, field, value in effect.ties:
+            if field == "tie_state_distant":
+                rows.append(f"{names.tie(tie)} tie now distant")
+            elif field == "bond_energy":
+                rows.append(f"{names.tie(tie)} bond energy {_signed(value)}")
+            else:
+                raise UnrenderableRecord(f"no template for consolidation field {field!r}")
     elif effect.mechanism == "slow_tick":
         rows.append("slow tick (yearly) fired — nothing runs on it in Phase B")
+    elif effect.mechanism not in SYSTEM_SUMMARISED:
+        raise UnrenderableRecord(f"no template for weekly mechanism {effect.mechanism!r}")
     return [f"| {effect.tick} | — | (system) | — | — | {text} |" for text in rows]
 
 
@@ -154,6 +181,8 @@ def render(
     if not records or not isinstance(records[0], LogHeader):
         raise ValueError("a log opens with its header (M16.A.1); this one does not")
     header = records[0]
+    if view is not None and names is not None and view not in names:
+        raise ValueError(f"{view} is not in this family; a view of no one would be an empty trace")
     label = _Names(names)
     index = _index(records)
 
@@ -180,6 +209,7 @@ def render(
         TABLE_HEAD,
     ]
     weeks = 0
+    asserted = 0
     disabled: set[str] = set()
     for record in records[1:]:
         if isinstance(record, TickRecord):
@@ -187,13 +217,30 @@ def render(
         elif isinstance(record, EmittedRecord):
             if view is None or _concerns(record.event, view):
                 lines.append(_event_row(record.event, index, label, view))
-        elif isinstance(record, EffectRecord) and record.cause is None and view is None:
-            lines += _system_rows(record, label)
+        elif isinstance(record, EffectRecord):
+            if record.cause is None:
+                rows = _system_rows(record, label)
+                if view is None:
+                    lines += rows
+            elif record.mechanism not in CAUSED:
+                raise UnrenderableRecord(f"no template for caused mechanism {record.mechanism!r}")
         elif isinstance(record, InvariantRecord):
+            asserted += 1
             disabled |= {k for k, s in record.results if s is InvariantStatus.DISABLED}
+        elif isinstance(record, SelectionRecord):
+            if record.decided_by is not DecidedBy.SCRIPTED:
+                raise UnrenderableRecord("rendering a policy's selection rationale is Phase C (M16.A.3)")
+        elif isinstance(record, BeliefWriteRecord):
+            raise UnrenderableRecord("rendering belief writes is Phase D (M16.A.5)")
+        elif not isinstance(record, DeliveredRecord):
+            raise UnrenderableRecord(f"no template for record {type(record).__name__}")
+    if asserted == weeks:
+        closing = f"{weeks} weeks. The invariants were asserted at the end of every week"
+    else:
+        closing = f"{weeks} weeks. The invariants were recorded for {asserted} of them"
     lines += [
         "",
-        f"{weeks} weeks. The invariants were asserted at the end of every week"
+        closing
         + (f"; {', '.join(sorted(disabled))} is disabled until it is restated (`M4.G.2a`)." if disabled else "."),
         "",
     ]

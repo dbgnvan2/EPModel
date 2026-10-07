@@ -61,13 +61,16 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--trace", type=Path, help="where to write the rendered markdown trace")
     parser.add_argument("--view", help="render one person's view (a person id)")
     args = parser.parse_args(argv)
+    names = load_family().display_names
+    if args.view and PersonId(args.view) not in names:
+        parser.error(f"--view {args.view!r} is not in the family: {sorted(p.value for p in names)}")
     with JsonlFileSink(args.log) as sink:
         result = run_phase_b(args.seed, extra=sink)
     print(f"{len(result.records)} records written to {args.log}")
     if args.trace:
         view = PersonId(args.view) if args.view else None
         args.trace.parent.mkdir(parents=True, exist_ok=True)
-        args.trace.write_text(render(result.records, load_family().display_names, view=view), encoding="utf-8")
+        args.trace.write_text(render(result.records, names, view=view), encoding="utf-8")
         print(f"trace written to {args.trace}")
     return 0
 

@@ -35,8 +35,9 @@ def _recent_moves_on(state: RunState, tie: TieId, count: int) -> list[str]:
         if e.mechanism is Mechanism.MOVE
         and e.timestamp <= state.tick
         and e.sender in (a, b)
-        and len(e.targets) == 1
-        and {e.sender, e.targets[0]} == {a, b}
+        # A move counts on this tie when it goes from one member to the other,
+        # whoever else it is also addressed to (review, 2026-10-06).
+        and ({a, b} - {e.sender}) <= set(e.targets)
     ]
     return kinds[-count:]
 

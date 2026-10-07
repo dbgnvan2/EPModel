@@ -54,11 +54,13 @@ ENGINE = Path(__file__).resolve().parents[2] / "src" / "bowen" / "engine"
 # M11.D.1: file I/O, process and network access, and UI toolkits.
 FORBIDDEN_MODULES = {
     "os", "sys", "io", "shutil", "pathlib", "subprocess", "socket", "tempfile", "glob", "csv", "pickle",
-    "sqlite3", "urllib", "requests", "logging", "tkinter", "pygame", "matplotlib", "builtins",
+    "sqlite3", "urllib", "requests", "logging", "tkinter", "pygame", "matplotlib", "builtins", "importlib",
 }
 FORBIDDEN_CALLS = {"open", "print", "input", "exec", "eval", "__import__", "breakpoint"}
 FORBIDDEN_METHODS = {"write", "write_text", "write_bytes", "mkdir", "makedirs", "unlink", "touch",
-                     "dump", "savetxt", "save", "tofile", "remove", "rmdir"}
+                     "dump", "savetxt", "save", "tofile", "remove", "rmdir",
+                     # reads too (review, 2026-10-06): the engine takes everything from its caller
+                     "load", "loadtxt", "genfromtxt", "fromfile", "read_text", "read_bytes", "import_module"}
 # M11.D.22 and the plan's layout: the engine depends on nothing outside itself.
 FORBIDDEN_IMPORT_PREFIXES = ("tests", "src.bowen.render", "src.bowen.readouts", "src.bowen.scenario",
                              "src.bowen.io", "src.bowen.run", "src.engine", "src.main")
@@ -116,12 +118,12 @@ def test_m11d1_the_scans_find_what_they_look_for(tmp_path):
     """The scanners are proved able to fail on a planted module."""
     (tmp_path / "bad.py").write_text(
         "import os\nfrom src.bowen.render.trace import render\nopen('x', 'w')\nprint(1)\n"
-        "import json\njson.dump({}, None)\n"
+        "import json\njson.dump({}, None)\nimport numpy as np\nnp.load('x.npy')\n"
     )
     io_found = engine_io_findings(tmp_path)
     assert any("imports os" in f for f in io_found)
     assert any("calls open()" in f for f in io_found) and any("calls print()" in f for f in io_found)
-    assert any(".dump()" in f for f in io_found)
+    assert any(".dump()" in f for f in io_found) and any(".load()" in f for f in io_found)
     assert engine_import_findings(tmp_path) == ["bad.py: imports src.bowen.render.trace"]
 
 

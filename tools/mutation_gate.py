@@ -1,78 +1,132 @@
 """Prove each acceptance test can fail: apply its mutation, run only that test, restore.
 
 Purpose: produce the mutation record a phase's completion report needs — for
-         every gate test, a baseline pass and a red run under its mutation.
+         every gate test, a baseline pass and a red run under its mutation in
+         which the intended assertion is the one that fired.
 Spec:    docs/bowen_agent_model_spec_v2.md#M11 (each criterion "proved failing by
          mutation before it counts as coverage"); docs/implementation_plan_phase_b.md §2, step 14
-Tests:   run it; it exits non-zero if any gate is not proved
+Tests:   run it; it exits non-zero if any gate is not proved or the tree changed
 
     python3 tools/mutation_gate.py tools/mutation_gate_phase_b.json docs/phase_b_mutation_record.md
 
-Every file a mutation touches is restored in a ``finally`` block, whether the
-edit, the test run or anything else fails. (At Phase B step 11 a shell loop's
-backups failed silently while its edits succeeded and left mutations in the
-tree; this harness exists so that cannot recur.) A mutation whose search text
-is not found exactly once is an error, never a silent no-op.
+A gate is **proved** only when all of these hold:
+
+* the test passes unmutated (exit code 0);
+* under the mutation pytest exits with code 1 and reports at least one failure —
+  a collection error (2), "no tests ran" (5) or any other code is *not* proof (P24);
+* when the gate names an ``expect`` fragment, the first failure points at that
+  assertion: the fragment's line in the test file, give or take one line
+  (P37's corollary — a mutation proves the clause that went red).
+
+Files are read into memory before editing and restored in ``finally``. A search
+text not found exactly once is an error. The whole repository's git status —
+ignored and untracked files included, ``__pycache__`` aside — is snapshotted
+before and after, and any difference fails the run (P37).
 """
 
 from __future__ import annotations
 
 import json
+import re
 import subprocess
 import sys
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parents[1]
 TIMEOUT_SECONDS = 600
+_LOCATION = re.compile(r"^(/\S+?\.py):(\d+): ", re.M)
 
 
-def run_node(node: str) -> tuple[bool, str]:
+def git(*args: str) -> str:
+    return subprocess.run(["git", *args], cwd=REPO, capture_output=True, text=True, timeout=60, check=True).stdout
+
+
+def tree_snapshot() -> list[str]:
+    lines = git("status", "--porcelain", "--ignored", "--untracked-files=all").splitlines()
+    return sorted(line for line in lines if "__pycache__" not in line)
+
+
+def run_node(node: str) -> dict:
     result = subprocess.run(
-        [sys.executable, "-m", "pytest", node, "-q", "-p", "no:cacheprovider"],
+        [sys.executable, "-m", "pytest", node, "-q", "--tb=line", "-p", "no:cacheprovider"],
         cwd=REPO, capture_output=True, text=True, timeout=TIMEOUT_SECONDS,
     )
-    tail = (result.stdout.strip().splitlines() or ["(no output)"])[-1]
-    return result.returncode == 0, tail
+    out = result.stdout
+    summary = (out.strip().splitlines() or ["(no output)"])[-1]
+    failed = re.search(r"(\d+) failed", summary)
+    location = _LOCATION.search(out)
+    return {
+        "code": result.returncode,
+        "summary": summary,
+        "failed": int(failed.group(1)) if failed else 0,
+        "location": (Path(location.group(1)), int(location.group(2))) if location else None,
+    }
+
+
+def expected_line(test_file: Path, fragment: str) -> int:
+    lines = test_file.read_text(encoding="utf-8").splitlines()
+    hits = [n for n, line in enumerate(lines, start=1) if fragment in line]
+    if len(hits) != 1:
+        raise ValueError(f"expect fragment {fragment!r} found {len(hits)} times in {test_file}")
+    return hits[0]
 
 
 def prove(gate: dict) -> dict:
-    baseline_ok, baseline_tail = run_node(gate["test"])
+    baseline = run_node(gate["test"])
     originals: dict[Path, str] = {}
     try:
         for relative, old, new in gate["edits"]:
             path = REPO / relative
-            text = originals.setdefault(path, path.read_text(encoding="utf-8"))
+            originals.setdefault(path, path.read_text(encoding="utf-8"))
             current = path.read_text(encoding="utf-8")
             count = current.count(old)
             if count != 1:
                 raise ValueError(f"{gate['gate']}: search text found {count} times in {relative}")
             path.write_text(current.replace(old, new), encoding="utf-8")
-        mutant_ok, mutant_tail = run_node(gate["test"])
+        mutant = run_node(gate["test"])
     finally:
         for path, text in originals.items():
             path.write_text(text, encoding="utf-8")
-    return {
-        **gate,
-        "baseline": baseline_tail,
-        "mutant": mutant_tail,
-        "proved": baseline_ok and not mutant_ok,
-    }
+
+    reasons = []
+    if baseline["code"] != 0:
+        reasons.append(f"baseline did not pass ({baseline['summary']})")
+    if mutant["code"] != 1 or mutant["failed"] < 1:
+        reasons.append(f"mutant exit {mutant['code']} is not a test failure ({mutant['summary']})")
+    fired = "—"
+    if mutant["location"]:
+        path, line = mutant["location"]
+        shown = path.relative_to(REPO) if path.resolve().is_relative_to(REPO) else path
+        fired = f"{shown}:{line}"
+    if gate.get("expect"):
+        test_file = REPO / gate["test"].split("::")[0]
+        want = expected_line(test_file, gate["expect"])
+        got = mutant["location"]
+        if got is None or got[0].resolve() != test_file.resolve() or abs(got[1] - want) > 1:
+            reasons.append(f"failure at {fired}, not the intended assertion at {test_file.relative_to(REPO)}:{want}")
+    return {**gate, "baseline": baseline["summary"], "mutant": mutant["summary"], "fired": fired,
+            "proved": not reasons, "reasons": reasons}
 
 
-def render(results: list[dict], spec_name: str) -> str:
+def render(results: list[dict], spec_name: str, commit: str, dirty: bool) -> str:
     lines = [
         "# Phase B — mutation record",
         "",
-        f"Generated by `tools/mutation_gate.py {spec_name}`. Each gate test passes unmutated",
-        "(baseline), then fails under its mutation, run alone. Files are restored after every mutation.",
+        f"Generated by `tools/mutation_gate.py {spec_name}` at commit `{commit}`"
+        f"{' (with uncommitted changes)' if dirty else ''}.",
+        "Each gate test passes unmutated, then fails under its mutation, run alone, with pytest's exit code 1;",
+        "\"Assertion that fired\" is the first failure's location, checked against the intended assertion",
+        "where the gate names one. Files are restored after every mutation and the tree is compared before",
+        "and after the whole run.",
         "",
-        "| Gate | Test | Mutation | Baseline | Under mutation | Proved |",
-        "|---|---|---|---|---|---|",
+        "| Gate | Test | Mutation | Baseline | Under mutation | Assertion that fired | Proved |",
+        "|---|---|---|---|---|---|---|",
     ]
     for r in results:
+        verdict = "yes" if r["proved"] else "**NO** — " + "; ".join(r["reasons"])
         lines.append(
             f"| {r['gate']} | `{r['test'].split('::')[-1]}` | {r['mutation']} | {r['baseline']} | "
-            f"{r['mutant']} | {'yes' if r['proved'] else '**NO**'} |"
+            f"{r['mutant']} | `{r['fired']}` | {verdict} |"
         )
     proved = sum(r["proved"] for r in results)
     lines += ["", f"{proved} of {len(results)} gates proved.", ""]
@@ -82,14 +136,21 @@ def render(results: list[dict], spec_name: str) -> str:
 def main(argv: list[str]) -> int:
     spec_path, out_path = Path(argv[1]), Path(argv[2])
     gates = json.loads(spec_path.read_text(encoding="utf-8"))
+    commit = git("rev-parse", "--short", "HEAD").strip()
+    dirty = bool(git("status", "--porcelain", "--untracked-files=no").strip())
+    before = tree_snapshot()
     results = [prove(g) for g in gates]
-    out_path.write_text(render(results, spec_path.name), encoding="utf-8")
+    after = tree_snapshot()
+    out_path.write_text(render(results, spec_path.name, commit, dirty), encoding="utf-8")
     for r in results:
-        print(f"{r['gate']:<4} {'proved' if r['proved'] else 'NOT PROVED':<11} {r['mutant']}")
-    unchanged = subprocess.run(["git", "status", "--porcelain", "--", "src", "tests", "config", "docs/bowen_agent_model_spec_v2.md"],
-                               cwd=REPO, capture_output=True, text=True, timeout=60).stdout
-    print("working tree after run:", "clean" if not unchanged.strip() else unchanged)
-    return 0 if all(r["proved"] for r in results) else 1
+        print(f"{r['gate']:<4} {'proved' if r['proved'] else 'NOT PROVED':<11} {r['fired']:<52} {'; '.join(r['reasons'])}")
+    changed = sorted(set(before) ^ set(after))
+    changed = [c for c in changed if not c.endswith(out_path.name)]
+    if changed:
+        print("the working tree changed during the run:", *changed, sep="\n  ")
+    else:
+        print("working tree unchanged by the run")
+    return 0 if all(r["proved"] for r in results) and not changed else 1
 
 
 if __name__ == "__main__":

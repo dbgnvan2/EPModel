@@ -19,7 +19,7 @@ from src.bowen.engine import activation, visibility
 from src.bowen.engine.activation import SynchronousActivation, activation_for
 from src.bowen.engine.events import Channel, Event, EventId, Mechanism, Role, SourcePosition
 from src.bowen.engine.identifiers import PersonId, TieId
-from src.bowen.engine.visibility import HouseholdConductanceVisibility, MissingTie
+from src.bowen.engine.visibility import HouseholdConductanceVisibility, InactiveTie, MissingTie
 from src.bowen.io.load import load_constants, load_family
 
 P = PersonId
@@ -178,3 +178,13 @@ def test_m1f4_fidelity_degrades_per_private_hop(vis):
     assert vis.fidelity_for((ANA,)) == pytest.approx(0.8)
     assert vis.fidelity_for((ANA, SOFIA)) == pytest.approx(0.64)
     assert vis.fidelity_for((ANA, SOFIA)) < vis.fidelity_for((ANA,)) < vis.fidelity_for(())
+
+
+def test_m1b3_no_move_crosses_a_cut_off_tie(family, vis):
+    """Review finding (2026-10-06): Ana's CONFLICT reached Bruno across the cut-off tie."""
+    with pytest.raises(InactiveTie):
+        vis.resolve(move(ANA, (BRUNO,)), family.people, family.ties)
+    ties = dict(family.ties)
+    ties[TieId.of(RAVI, MARTA)] = dataclasses.replace(ties[TieId.of(RAVI, MARTA)], interactive=False)
+    with pytest.raises(InactiveTie):
+        vis.resolve(move(RAVI, (MARTA,)), family.people, ties)

@@ -13,6 +13,10 @@
 >
 > In Phase B every move is scripted and none is chosen; an `I-POSITION` here is a
 > move record only — its state machine (`M5.D`) is Phase C.
+>
+> **A stressor acts once, on arrival.** Its duration is recorded (the job loss is a
+> 34-week spell, `M1.F.6`) but in Phase B nothing reads it: how a spell weighs on
+> people across its weeks is decided with the symptom channels (owner, 2026-10-06).
 
 script_id: phase_b_40_weeks
 instance_id: phase_b_reduced

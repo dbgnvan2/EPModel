@@ -69,8 +69,22 @@ def named_tests() -> dict[str, list[str]]:
 
 
 def tests_for(spec_id: str, tests: dict[str, list[str]]) -> list[str]:
+    """Every file holding a test named for the ID — a name in two files is two pieces of evidence."""
     token = spec_id.lower().replace(".", "")
-    return sorted(f"{files[0]}::{name}" for name, files in tests.items() if name.startswith(f"test_{token}_"))
+    return sorted(
+        f"{path}::{name}" for name, files in tests.items() if name.startswith(f"test_{token}_") for path in files
+    )
+
+
+def unmapped_tests(ids: list[str], tests: dict[str, list[str]]) -> list[str]:
+    """Tests whose name embeds no spec ID; they count for nothing unless an override cites them."""
+    tokens = {i.lower().replace(".", "") for i in ids}
+    return sorted(
+        f"{path}::{name}"
+        for name, files in tests.items()
+        if not any(name.startswith(f"test_{t}_") for t in tokens)
+        for path in files
+    )
 
 
 def criterion_phases(text: str) -> dict[str, str]:
@@ -111,7 +125,7 @@ def coverage(overrides: dict) -> list[dict]:
     return rows
 
 
-def render(rows: list[dict], overrides_name: str) -> str:
+def render(rows: list[dict], overrides_name: str, unmapped: list[str] | None = None) -> str:
     counts = {s: sum(r["status"] == s for r in rows) for s in ("done", "partial", "not done")}
     lines = [
         "# Spec coverage — after Phase B",
@@ -130,14 +144,30 @@ def render(rows: list[dict], overrides_name: str) -> str:
     for r in rows:
         evidence = "<br>".join(f"`{e}`" for e in r["evidence"]) or "—"
         lines.append(f"| {r['id']} | {r['status']} | {evidence} | {r['note'] or '—'} |")
+    if unmapped:
+        cited = {e for r in rows for e in r["evidence"]}
+        lines += [
+            "",
+            f"## Tests named for no spec ID ({len(unmapped)})",
+            "",
+            "Their names embed no requirement ID, so they count only where an override cites them "
+            "(marked *cited*). The rest check spec documents, tooling or helpers.",
+            "",
+        ]
+        lines += [f"- `{t}`{' — *cited*' if t in cited else ''}" for t in unmapped]
     return "\n".join(lines) + "\n"
+
+
+def report(overrides: dict, overrides_name: str) -> str:
+    rows = coverage(overrides)
+    return render(rows, overrides_name, unmapped_tests(spec_ids(SPEC.read_text(encoding="utf-8")), named_tests()))
 
 
 def main(argv: list[str]) -> int:
     overrides_path, out = Path(argv[1]), Path(argv[2])
-    rows = coverage(json.loads(overrides_path.read_text(encoding="utf-8")))
-    out.write_text(render(rows, overrides_path.name), encoding="utf-8")
-    print(f"{len(rows)} IDs written to {out}")
+    text = report(json.loads(overrides_path.read_text(encoding="utf-8")), overrides_path.name)
+    out.write_text(text, encoding="utf-8")
+    print(f"coverage written to {out}")
     return 0
 
 

@@ -27,7 +27,9 @@ the rule. The rule below is the project's, graded [I]:
   M3.D.4b has a draw class (plan decision D7).
 
 A TRIGGER or RECONCILIATION names a tie and has no targets; it produces no
-deliveries and no witnesses (M4.A.2: no contact).
+deliveries and no witnesses (M4.A.2: no contact). A move addressed across a
+non-interactive tie — cut off, or a worry edge — is refused (M1.B.3: a cut-off
+tie carries no events), loudly, rather than dropped.
 """
 
 from __future__ import annotations
@@ -43,6 +45,14 @@ from src.bowen.engine.objects import Person, Relationship
 
 class MissingTie(ValueError):
     """A sender addressed a target it has no tie to."""
+
+
+class InactiveTie(ValueError):
+    """A move was addressed across a cut-off or worry-edge tie, which carries no events (M1.B.3).
+
+    `REDUCE_CUTOFF` (M5.B.3) is the move meant to act on a severed tie; its
+    behaviour is Phase C, and it will need its own path across this rule then.
+    """
 
 
 @dataclass(frozen=True)
@@ -114,6 +124,8 @@ class HouseholdConductanceVisibility:
                 tie = ties.get(TieId.of(event.sender, target))
                 if tie is None:
                     raise MissingTie(f"{event.sender} has no tie to {target}")
+                if not tie.interactive:
+                    raise InactiveTie(f"{event.kind} from {event.sender} to {target}: the tie carries no events")
                 latency = tie.latency
             target_deliveries.append(
                 Delivery(

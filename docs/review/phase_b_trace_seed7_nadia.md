@@ -24,7 +24,7 @@ The standing load and the decay toward each person's floor run every week for ev
 
 | Week | Who | Move | Toward | Witnesses | What it did |
 |---|---|---|---|---|---|
-| 0 | (from outside) | JOB_LOSS | Ravi | Marta, Nadia, Pia | anxiety Nadia +9.8 (witness) |
+| 0 | (from outside) | JOB_LOSS | Ravi | Marta, Nadia, Pia | one-time effect; a 34-week spell, recorded; anxiety Nadia +9.8 (witness) |
 | 1 | Ravi | CONFLICT | Marta | Nadia, Pia | arrives week 2; anxiety Nadia +4.9 (witness) |
 | 2 | Marta | DISTANCE | Ravi | Nadia, Pia | arrives week 3; anxiety Nadia +2.4 (witness) |
 | 3 | Marta | DISTANCE | Ravi | Nadia, Pia | arrives week 4; anxiety Nadia +2.4 (witness) |

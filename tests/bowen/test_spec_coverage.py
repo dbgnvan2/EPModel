@@ -21,8 +21,7 @@ OVERRIDES = REPO / "tools" / "spec_coverage_phase_b.json"
 
 
 def test_m141_spec_coverage_is_current():
-    rows = TOOL.coverage(json.loads(OVERRIDES.read_text(encoding="utf-8")))
-    expected = TOOL.render(rows, OVERRIDES.name)
+    expected = TOOL.report(json.loads(OVERRIDES.read_text(encoding="utf-8")), OVERRIDES.name)
     actual = (REPO / "docs" / "spec_coverage.md").read_text(encoding="utf-8")
     assert actual == expected, "regenerate: python3 tools/spec_coverage.py tools/spec_coverage_phase_b.json docs/spec_coverage.md"
 

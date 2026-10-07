@@ -10,5 +10,6 @@ matplotlib
 
 
 # --- Engineering & Auditing ---
+pytest>=8.4,<9           # Test runner; 8.x is what pytest-asyncio 1.x requires if installed
 ruff                    # Linter
 python-dotenv           # Environment management

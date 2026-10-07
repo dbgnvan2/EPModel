@@ -57,6 +57,9 @@ The v2 specification is **approved** — 526 numbered requirements over 17 modul
 
 ```
 python3 -m src.bowen.run --seed 7 --log runs/phase_b.jsonl --trace runs/phase_b_trace.md
+python3 -m pytest tests/
 ```
+
+The suite runs in CI on Python 3.11, 3.12 and 3.13 (`.github/workflows/tests.yml`), installing only `requirements.txt`.
 
 Phase B runs a fixed script over an invented seven-person family. It tests one model claim, as a direction between two runs; nothing it produces is a finding about families. The family-diagram importer (`M15`) is Phase E.

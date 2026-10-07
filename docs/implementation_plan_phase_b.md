@@ -420,10 +420,10 @@ here to the phase it blocks. Phase B's own exposure is resolved by D1–D9.
 
 ## 8. Adjacent issues found, not fixed
 
-- **`requirements.txt` does not list pytest**, and the system Python's pytest had drifted to a version its own
+- *(Fixed 2026-10-06, with the CI workflow below.)* **`requirements.txt` did not list pytest**, and the system Python's pytest had drifted to a version its own
   installed plugin could not load (fixed in the environment on 2026-10-06, nothing in the repo). Phase B adds
   `tests/bowen/`; the version should be pinned.
-- **No `.github/workflows/tests.yml`**, which the global rules require for a repo with a suite pushed to
+- *(Fixed 2026-10-06: Python 3.11–3.13.)* **No `.github/workflows/tests.yml`**, which the global rules require for a repo with a suite pushed to
   GitHub. Phase B's purity and determinism tests are exactly the kind a blank machine checks best.
 - **`sim_audit.csv` in the repo root and `src/`** — two stray copies from the frozen engine (`M16.B.2`).
   Phase B does not touch the frozen engine, so they stay; CLAUDE.md says to fix the frozen engine's I/O when it

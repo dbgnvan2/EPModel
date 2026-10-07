@@ -44,7 +44,7 @@ class EventKinds:
     """
 
     mechanisms: Mapping[str, Mechanism]
-    signs: Mapping[tuple[str, "SourcePosition"], int] = MappingProxyType({})
+    signs: Mapping[tuple[str, "SourcePosition"], int] = field(default_factory=lambda: MappingProxyType({}))
 
     def __post_init__(self) -> None:
         object.__setattr__(self, "mechanisms", MappingProxyType(dict(self.mechanisms)))

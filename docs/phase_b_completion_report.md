@@ -145,14 +145,16 @@ From the external review (plan §6) and the build:
 
 ## Adjacent issues, not fixed
 
-- `requirements.txt` does not list pytest; the system Python's pytest had drifted until it was
-  upgraded in the environment on 2026-10-06.
-- No `.github/workflows/tests.yml`, which the global rules require for a repo with a suite.
+- ~~`requirements.txt` does not list pytest; no `.github/workflows/tests.yml`.~~ *Fixed 2026-10-06:*
+  pytest pinned to 8.x, and the workflow runs the suite on Python 3.11, 3.12 and 3.13, each first run
+  from a fresh virtualenv with only `requirements.txt` (NumPy 2.4–2.5 there, 1.26 here; all 282 pass).
+  The 3.11 run found a real defect — a `MappingProxyType` dataclass default that 3.11 rejects — now fixed.
 - A stray top-level `tests` package in the system Python's site-packages shadows `import tests…`.
 - `docs/implementation_task_list.md` still tracks the frozen grid engine.
 - The two stray `sim_audit.csv` copies from the frozen engine (only `src/` has one now; the repo-root
   copy CLAUDE.md mentions does not exist).
-- The step-11 mutation-script failure is a candidate for `~/.claude/standards/learnings.md`.
+- ~~The step-11 mutation-script failure is a candidate for the learnings catalogue.~~ *Added as P37,
+  with the multi-clause corollary from step 10 (`claude-standards` `c5c7dc6`).*
 
 ## The human read
 

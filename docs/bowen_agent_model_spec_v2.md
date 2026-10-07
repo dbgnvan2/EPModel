@@ -1416,6 +1416,7 @@ Classes are `M14.A.1`'s four: exogenous-homogeneous (EH), exogenous-heterogeneou
 | `reactive_state` | Person | DV | appraisal, three detectors (`M1.A.19`) | C |
 | `pseudo_self` | Person | DV | dyadic exchange (`M6.I.4`); estimator | C; D |
 | `alive` | Person | DV | mortality (`M7.C.1`, `M6.3`) | D |
+| `id` | Relationship | EX | family definition (`M1.B.13`) | B |
 | `conductance` | Relationship | EX | family definition (`M1.B.2`) | B |
 | `bond_energy` | Relationship | DV | family definition; `TRIGGER`, `RECONCILIATION` and `INSTITUTIONALIZE` handling (`M4.A.2`–`M4.A.4`) | B |
 | `interactive` | Relationship | DV | `CUTOFF`, `RECONCILIATION` and `INSTITUTIONALIZE` handling (`M4.A.3`, `M4.A.4`) | B |

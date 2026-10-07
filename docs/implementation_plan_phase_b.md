@@ -366,7 +366,7 @@ Each step lands with its tests, written first, and the full suite green.
 |---|---|---|---|
 | 0 | Owner answers D1–D9; register rows (Appendix A) entered into spec `M14.A`; `M13`, `M1.A` and `M2.A` amended per D1, D4, D5 | — | `test_m11d17_register_has_no_orphans` (register only) |
 | 1 | `scenario/config_parse.py`, `scenario/constants.py`, `io/load.py`, `config/bowen/constants.md`. **Done 2026-10-06.** The register holds the three constants the spec fixes or step 1 needs; each further `[I]` constant is entered with the mechanism that reads it, and `frozen_at` is set before the first acceptance test runs (step 10, `M10.B.4`) | 0 | G5, `M10.B.*` tests |
-| 2 | `engine/identifiers.py`, `engine/objects.py` (Appendix B's structural set) | 1 | identifier tests, `test_m14a_register_matches_object_fields` |
+| 2 | `engine/identifiers.py`, `engine/objects.py` (Appendix B's structural set). **Done 2026-10-06.** The register gained a `Relationship.id` row it had missed; `test_m14a_register_matches_object_fields` is in `tests/bowen/test_register.py`, not `test_spec_consistency.py`, because it imports model code | 1 | identifier tests, `test_m14a_register_matches_object_fields` |
 | 3 | `engine/draws.py` | 1 | `M3.D.4a`–`M3.D.4c` tests |
 | 4 | `engine/events.py`, `engine/event_store.py`, `engine/log_records.py` | 2 | `M1.F.1`, `M1.F.6`, `M1.F.7`, `M16.A.*` structural tests |
 | 5 | `scenario/family.py`, `config/bowen/family_reduced.md` | 2 | `M2.*` tests |
@@ -428,6 +428,7 @@ here to the phase it blocks. Phase B's own exposure is resolved by D1–D9.
 - **`sim_audit.csv` in the repo root and `src/`** — two stray copies from the frozen engine (`M16.B.2`).
   Phase B does not touch the frozen engine, so they stay; CLAUDE.md says to fix the frozen engine's I/O when it
   is next touched.
+- **The system Python has a stray top-level `tests` package in site-packages**, installed by some other package. It shadows `import tests…`, so `tests/bowen/test_register.py` loads `test_spec_consistency.py` by path. Found at step 2.
 - **`docs/implementation_task_list.md` tracks the frozen v1.2 grid engine** and could be mistaken for this
   plan.
 - **Spec `M10.A.1`** still lists "the ceiling on `systems_perspective`" though `M1.A.18b` is a rate (review B).

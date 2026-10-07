@@ -275,7 +275,7 @@ def test_m5a1_configured_moves_are_exactly_the_spec_repertoire():
     core = set(re.findall(r"`([A-Z][A-Z_-]+)`", core_line))
     added = set(re.findall(r"^\*\*M5\.B\.\d+a?\*\* `([A-Z_]+)`", spec, re.M))
     added |= set(re.findall(r"`(SPLIT|FRAME_AMBIGUITY|DISPLACE)`", re.search(r"^\*\*M5\.B\.4\*\*.*$", spec, re.M).group(0)))
-    assert len(core) == 9 and len(added) == 6
+    assert len(core) == 9 and len(added) == 7  # PROVOKE, M5.B.6, added at spec revision 12
     assert load_event_kinds().moves() == core | added
 
 

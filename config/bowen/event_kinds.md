@@ -27,6 +27,7 @@
 | `DETRIANGLE` | move | +1 | +1 | `M5.B.1` |
 | `PREVENT_ALIGNMENT` | move | +1 | +1 | `M5.B.2` |
 | `REDUCE_CUTOFF` | move | +1 | +1 | `M5.B.3` |
+| `PROVOKE` | move | +1 | +1 | `M5.B.6` |
 | `SPLIT` | move | +1 | +1 | `M5.B.4` |
 | `FRAME_AMBIGUITY` | move | +1 | +1 | `M5.B.4` |
 | `DISPLACE` | move | +1 | +1 | `M5.B.4` |

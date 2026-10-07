@@ -42,11 +42,13 @@ revision-10 section.
   `tests/test_spec_consistency.py::test_requirement_counts_agree_with_the_spec` is red on the branch until they
   match the approved count.
 
-## Spec revision 11 — held, 2026-09-27
+## Held for a later revision — paper material, 2026-09-27 (labelled "revision 11" until 2026-10-07)
 
-> **Label stale, 2026-10-06.** Revision 11 was used for the emergence revision (set / random / emergent layers;
-> `docs/proposal_rev11_emergence.md`). Nothing in this section is part of it. The owner has not yet assigned this
-> material to a revision.
+> **Relabelled 2026-10-07 (spec revision 12, P12).** Revision 11 became the emergence revision and revision 12 the
+> Phase C prerequisites. Nothing in this section is part of either. It waits for the owner to assign it to a revision.
+>
+> **For the Phase D plan (revision 12, P10):** criteria for Bowen's two falsifiers of the budget (`L09.2`, `L16.2`) and
+> `L15.1`'s delayed symptom after a loss; decide `L03.4`'s two-rung avoidance ladder and `L03.5`'s illness in the mover.
 >
 > **Phase C plan prerequisites from revision 11:** rework Phase B's base appraisal (`appraise_base.py`, now `M4.C.1`–`M4.C.1b`),
 > standing load (`standing_load.py`, now `M4.C.1c`) and triangle activity (`recompute.py`'s `tension_activation_threshold`

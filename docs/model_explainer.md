@@ -190,7 +190,7 @@ Sources: Karr J.R. et al. (2012) *Cell* 150(2):389–401, [PMC3413483](https://p
 **Two more constraints on the number, from the 2019 book:**
 - `[#]` `KS05.3` — the scale **was never an instrument**: "*Many people interpreted the word scale to mean a psychological instrument… this is not the case… It is not a measurement tool. **Bowen subsequently dropped the term scale**.*" And Bowen revised the top **twice** — 90–95 in 1966, then "no higher than 60", then ~75 in 1976. A constructed family with members above 75 is outside anything the corpus describes.
 - `[#]` `KS05.4` — the distribution is a **left-shifted bell**: the 50–75 band is ~**10%** of the population, ~**90%** sit below 50, and the ≤25 group is ~**20%**. Hedged in the source ("it appears as if", "estimated"); usable for construction, **never** as a calibration target.
-- `[T]` `KS05.2` — a **second threshold, at 25**, of a different kind from the one at 50. Below it `basic_level` **cannot rise at all** — "*they lack the flexibility to make basic change*" — while `functional_level` still moves freely. A capacity bound on change, not a licence over decisions. `M1.A.4d`
+- `[T]` `KS05.2` — a **second threshold, at 25**, of a different kind from the one at 50. Below it `basic_level` **cannot rise at all** — "*they lack the flexibility to make basic change*" — while `functional_level` still moves freely. A capacity bound on change, not a licence over decisions. `M1.A.4d`. *Corrected at spec revision 12:* the spec has no floor at a coordinate. `M1.A.4d` (revision 7) makes the capacity to raise `basic_level` **fall continuously** toward zero at the low end, and `M1.A.3` has no transition at 50. KS05.2 is read as the shape, not a threshold.
 
 > **Two caveats that must travel with any use of this number.** Bowen *slowed* development of a clinical scale because readers wanted the scale without the concept (Ch16), then *stopped* that research entirely to prevent misuse (Ch17) — for misuse, not for invalidity. No external validation is offered anywhere in the book, and `KS11.3` confirms from 2019 that "*a computer program or questionnaire does not yet exist that can estimate a person's basic level with sufficient accuracy.*"
 
@@ -316,7 +316,7 @@ That is the fixture test 15 needs: two counterfeits at **equal magnitude of the 
 **How it moves:**
 - **Rises** only on a *landed* external contact, conditioned on the agent's binders failing. Never spontaneously, never as a reinforcement target. Four forms of landed contact — specifics, category, **non-participation**, and **delayed self-observation**. `M1.E.7`, `M1.E.7c`
 - **Falls** with acute anxiety. Polarity capture is a **loss** in someone who had it. `M4.C.4`
-- **Ceiling** coupled to `basic_level` — undifferentiation is "*the cement, the hardener, that fixes*" a way of thinking. `M1.A.18b`
+- **Rate of change** coupled to `basic_level` — undifferentiation is "*the cement, the hardener, that fixes*" a way of thinking. `M1.A.18b` (a rate since revision 9; this line said ceiling until revision 12)
 - **Per-person, attenuated per tie.** Not a per-tie variable: one capacity that **fails at the highest load**. Kerr taught the reciprocity idea for twenty-five years before seeing it in his own marriage. `M1.A.18d`
 
 **Readout:** blame — and it is two-sided **twice over**: blame *or* praise, and blame of **others** *or* of **self**. "*Blaming others and blaming oneself are the enemies of gaining a systems perspective.*" `M1.A.18a`, `KS00.2`
@@ -359,7 +359,7 @@ That is the fixture test 15 needs: two counterfeits at **equal magnitude of the 
 
 **Three terms, in this order.** The constitutional assignment is the **prior**; a **family-focus term** can shift the expressed channel away from it; and a **constitutional-strength term** can override the shift — the override is Kerr's own: "*Genetic predisposition to a disease… can be **strong enough to override relationship programming**.*" A model in which the channel is purely constitutional, or purely relational, is wrong in both directions. `M1.A.11c`
 
-**And the limit on it.** `FE09.1` decomposes the whole thing — **constellation → ripeness; learning → category; constitution → specific symptom**. So only the **category** moves. The *specific symptom within a channel* stays constitutional and the relational term does not touch it: the family's focus can make a person a physical carrier, but not give them one disease rather than another.
+**And the limit on it.** `FE09.1` decomposes the whole thing — **constellation → ripeness; learning → category; constitution → specific symptom**. So only the **category** moves. The *specific symptom within a channel* stays constitutional and the relational term does not touch it: the family's focus can make a person a physical carrier, but not give them one disease rather than another. *Corrected at spec revision 12:* spec revision 9 withdrew this exclusivity (`M1.A.11c`): learning can reach both levels. The paragraph above records the earlier reading.
 
 **Source:** `[T]` Ch07 · L07.2 — the habitual giver-in reaches "no-self" and is incapacitated by one of the three; the chronic illness "seems to absorb the ego deficit between them". `[T]` Ch08 · L08.3 — the three present interchangeably.
 
@@ -811,10 +811,10 @@ These are asserted every tick. They are what makes the engine a model of *this* 
 | **Fast tick** | 1 week | events, appraisal, acute anxiety, tie tension, triangle position shifts, symptom accumulation | `[I]` the week is a modelling choice; `[M]` Ch18, Ch01 require a fast scale |
 | **Slow tick** | 1 year | differentiation drift, chronic anxiety, life stage, mortality, nodal calendar | `[#]` Ch16 · L16.3 — generational change; `[#]` Ch11 · L11.3 — "a certain amount of time **on the calendar**" |
 | **Edge latency** | hours to months | per-tie delivery delay | `[#]` Ch01 · L01.1 |
-| **Follow-up window** | next day, relative to **the meeting** | revert-on-timeout after `I-POSITION` | `[T]` Ch21 · L21.4 |
+| **Follow-up window** | next day, relative to **the meeting** — in the model, the next weekly tick (spec `M5.D.6`, revision 12) | revert-on-timeout after `I-POSITION` | `[T]` Ch21 · L21.4 |
 | **Reaction decay** | unfed | the change-back reaction fades unless the mover feeds it | `[T]` Ch01 · L01.8, Ch21 · L21.4 |
 
-**Durations the corpus actually states** — usable as calibration targets, each verified verbatim:
+**Durations the corpus actually states** — usable as calibration targets, each verified verbatim. *Spec revision 12:* durations under one week ("3 days", "within days", "2 hours", latencies "within hours") are **not** calibration targets on a weekly clock; they are kept as the record of what the corpus says.
 
 | Quantity | Value | Source |
 |---|---|---|
@@ -952,7 +952,7 @@ Eleven property tests over ensembles, written before tuning. Two properties matt
 | 6 | **Transmission is multigenerational.** Over three generations with no external stressor change, mean `basic_level` in the projection line declines while the non-target line does not. | Ch16 · L16.3 — and the clean controlled comparison it supplies: two families at identical levels, one keeping contact (symptom-free for life, level preserved next generation), one cutting off (symptoms, dysfunction, lower level next generation) | `[D]` |
 | 7 | **Position, not skill, makes a professional useful.** Hold the coach's parameters fixed and vary **who talks to whom in whose presence**. The topology arms must differ. | Ch01 · L01.4 — multi-channel contact distorted within minutes while staff held excellent intellectual understanding; Ch10 · L10.4 — "any third person… no matter what the subject matter"; Ch19 · L19.3 — silence is captured; Ch17 · L17.3 — the observer changes the configuration | `[M]` |
 | 8 | **Endogenous incidence lands near the national rate.** Aggregated over a large ensemble, model-generated illness and job-loss incidence by age falls in a stated band of published rates — **counting endogenous events only**. | §9.2 — statistics as a calibration target, never an event generator | `[I]` bands |
-| 9 | **Sibling position shapes functioning.** Holding differentiation constant, position in the sibling order produces a detectable difference in propensity and in symptom incidence. | Ch21 · L21.5 | `[D]` |
+| 9 | **Sibling position shapes functioning, most at mid-scale.** Three arms across `basic_level` at the same sibling position: the mid arm shows the largest position-typical behaviour (spec `M11.C.9`; §3.11). The earlier form held differentiation constant. | Ch21 · L21.5 | `[D]` |
 | 10 | **Cut-off begets cut-off.** A generation containing a cut-off produces more in the next than a matched arm without one. | Ch16 · L16.3 — the positive feedback loop; Ch18 · L18.1 — cutoff is an *input* to intensity | `[M]` |
 | 11 | **Removal produces three phases, not a step down.** The institutionalization arm reproduces rise → partial relief with redirected focus → sustained residual; hospitalize-and-release reproduces a temporary dip and re-escalation on return. Total system anxiety is conserved across the removal to a stated tolerance. | Ch08 · L08.1 — removal fires off the **remaining members' tolerance**, not the patient's severity; §7 I6 | `[M]` |
 
@@ -1087,7 +1087,7 @@ Ch21 contradicts *itself* here — the freeze claim and a "basic increase… whi
 
 That is exactly the shape the project had provisionally chosen — **established by adolescence, usually fixed, changeable by structured effort** — so the decision below stands and is no longer a judgement over a disagreement. It also adds a precondition the model had too narrowly: *self-sustaining independence* gates **basic-level change itself**, not only the `I-POSITION` move (§3.12). ✅ **Applied 2026-08-27** as `M7.A.1a`: `basic_level` cannot rise on the slow tick while the agent is financially dependent, however many exchanges completed. Without it an agent could ratchet upward while still inside the exact condition under which the change-back reaction's third rung has teeth — which would have made the fast-clock gate cosmetic.
 
-**The decision, unchanged:** Ch21's freeze-at-marriage is **outvoted by three chapters, two of them later**, and Ch16 explicitly restores slow movement ("it is possible to make slow changes"). So `basic_level` moves — but ⚠ **not by a ratchet.** It is **derived**, an estimator over sustained, broad, load-tested `functional_level` history (§3.2a), with a **capacity floor at 25** below which it cannot rise at all. The fast quantity is the **swing** term inside `functional_level`. Do not implement it as frozen, and do not implement it as incremented. This is a modelling decision over a genuine disagreement, not a resolution of it.
+**The decision, unchanged:** Ch21's freeze-at-marriage is **outvoted by three chapters, two of them later**, and Ch16 explicitly restores slow movement ("it is possible to make slow changes"). So `basic_level` moves — but ⚠ **not by a ratchet.** It is **derived**, an estimator over sustained, broad, load-tested `functional_level` history (§3.2a), with a capacity that **falls continuously toward zero** at the low end (`M1.A.4d`; the earlier "floor at 25" was withdrawn at revision 7). The fast quantity is the **swing** term inside `functional_level`. Do not implement it as frozen, and do not implement it as incremented. This is a modelling decision over a genuine disagreement, not a resolution of it.
 
 ### 13.4 What both resolutions have in common
 
@@ -1159,7 +1159,7 @@ The model was built against Bowen's 22 papers and then checked against five furt
 | **1979 Basic Video Series**, 6 tapes | 1979 | The latest Bowen *speaking*; the structural-importance ranking (§3.10), the register constraint (§9.3), the taboo-set reversal (§4.6). **No verbatim quotation** — ASR. | `[B]` |
 | **Kerr–Bowen interviews**, 15 | late period | *Emotional* defined as instinct; the three societal variables; the four-sink/three-symptom reconciliation; the two-sidedness of the neutrality gauge. **No verbatim quotation** — ASR, and cite the interview rather than the man. | mixed |
 | **Kerr & Bowen, *Family Evaluation*** | **1988** | **Twelve requirements moved off transcripts onto written primary text** — see 15.2. The two-axis identity in its primary source; the scale bands with assignment criteria; the transmission magnitudes; the readout schema (§10); and the **Epilogue, which is Bowen's own written prose and the latest primary Bowen text in the project.** | `[K]` Chs 1–10, **`[B]`** Epilogue |
-| **Kerr, *Bowen Theory's Secrets*** | 2019 | The estimator's observables; the capacity floor at 25; symptom lock-in; the reciprocity inversion; sibling position as a gate rather than an offset. Some chapters `[K-ext]`. | `[K]` |
+| **Kerr, *Bowen Theory's Secrets*** | 2019 | The estimator's observables; the capacity falloff toward the low end (read at first as a floor at 25); symptom lock-in; the reciprocity inversion; sibling position as a gate rather than an offset. Some chapters `[K-ext]`. | `[K]` |
 | **External measures** — the DSI | post-hoc | Exactly one usable figure (§10.1), and its own failures. Not a Bowen text. | — |
 
 ### 15.2 What *Family Evaluation* changed, 2026-08-26
@@ -1172,7 +1172,7 @@ It also **settled §13.3** (see above), retired the three-versus-four-sinks ques
 
 | Item | Decided | Where it landed |
 |---|---|---|
-| **Learning or constitution selects the symptom category** | **both, with an override.** Constitution sets the channel **prior**; a family-focus term can shift it; a constitutional-strength term can override the shift — "**Genetic predisposition to a disease… can be strong enough to override relationship programming**" (`FE08.3`). `FE09.1` bounds it: only the *category* moves, the *specific symptom within a channel* stays constitutional | spec `M1.A.11c`; §3.9 below, **no longer provisional** |
+| **Learning or constitution selects the symptom category** | **both, with an override.** Constitution sets the channel **prior**; a family-focus term can shift it; a constitutional-strength term can override the shift — "**Genetic predisposition to a disease… can be strong enough to override relationship programming**" (`FE08.3`). `FE09.1` was read as bounding it to the *category*; spec revision 9 withdrew that exclusivity (`M1.A.11c`) | spec `M1.A.11c`; §3.9 below, **no longer provisional** |
 | **The transition at 50 — licence or awareness** | **both.** The licence stays the behavioural implementation; `FE04.3`'s awareness criterion becomes the band **discriminator at readout**. Neither is reduced cognitive capacity — what differs is the strength of the emotional circuits over the cognitive ones, and a low-level agent argues just as fluently (`FE02.16`) | spec `M1.A.3b` |
 | **Anger as the gate** | **the spec was inverted.** A re-read of Ch13 settled it: the gate is the mover's *freedom from* anger. Corrected here at §5.4 and in the spec | spec `M5.D.4`, `M5.D.4a` |
 | **A mechanism for `M12.2`'s first unknown** | **no.** `FE07.3` names the **locus**, not the rule — its own hedge is "determined **largely by**" — so the sink allocation stays `[I]`. What does follow is that the allocation is *identifiable* from the belief configuration, which is a readout | spec `M12.2a`, `M9.6` |
@@ -1185,7 +1185,7 @@ The corpus almost never gives numbers, so the ones it does give are listed toget
 
 | Quantity | Value | Source |
 |---|---|---|
-| Species median `basic_level` | ≈ **40** — below the transition at 50 | `[K]` `FE03.5` |
+| Species median `basic_level` | ≈ **40** — below the midpoint of the scale (there is no transition at 50, `M1.A.3`) | `[K]` `FE03.5` |
 | Band edges | 0–10 very poor · >60 well · >70 very well · 100 unreachable | `[K]` `FE03.5` |
 | Pseudo-self transfer, worked | **35+35 → 55+15**, conserved exactly — the corpus's only arithmetic instance of I4 | `[K]` `FE04.1` |
 | Per-generation step, typical | **< 5 points** | `[K]` `FE08.7` |
@@ -1295,8 +1295,8 @@ question**. Three things go wrong together: the parameters are now selected cond
 trajectory; the residual stops being exchangeable across the arms, because the intervention moves the system
 out of the region the fit was performed in and 17.3 lists five boundaries where that reverses the sign; and
 the fit is **non-identifiable** — 60–90 free constants against a single family, so many parameter sets
-reproduce the history and **disagree about the counterfactual**. The bias in the difference is unbounded,
-not merely of unknown direction.
+reproduce the history and **disagree about the counterfactual**. The difference is **unidentified** — its sign and size vary freely across the parameter sets that reproduce
+the history — not unbounded (spec `M11.F.9(c)`; corrected at spec revision 12).
 
 `M11.F.9(c)` makes this a correctness requirement rather than a framing one: a run whose parameters were
 adjusted to reproduce an observed outcome is a **fit**, and must never be reported as a comparison.
@@ -1312,7 +1312,7 @@ something about the theory; **succeeding** says only that the knobs are numerous
 
 ### 17.3 The second failure: initial conditions are not nuisance parameters
 
-An invented constant is a nuisance — it does not interact with the intervention, so it sits in both arms.
+An invented constant cancels between arms **only where it does not interact with the intervention** (§17.1). Some do: the turning-point table below puts a sign reversal on the `outside_ness` threshold, which is invented. That is why Phase C sweeps the constants its composite criteria depend on (spec revision 12; Phase C plan D9), and why Phase E sweeps them all (`M17.E.1`). *Corrected at spec revision 12; this sentence said every invented constant was a nuisance that does not interact.*
 **An initial condition is what the intervention acts on.** Mis-estimate it and you do not shift both arms
 together; you cross a regime boundary and the sign reverses.
 

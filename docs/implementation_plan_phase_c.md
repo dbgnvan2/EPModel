@@ -1,8 +1,8 @@
 ---
 tags: [model-bt, plan]
-status: DRAFT for owner review — no code until approved
+status: APPROVED 2026-10-07 — all recommendations (P1–P12, D1–D10) adopted as written; §1's spec changes applied as revision 12
 date: 2026-10-07
-spec: docs/bowen_agent_model_spec_v2.md, v2.0 revision 11, approved 2026-10-06
+spec: docs/bowen_agent_model_spec_v2.md, v2.0 revision 12, approved 2026-10-07
 scope: Phase C only
 ---
 

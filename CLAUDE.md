@@ -23,7 +23,7 @@ Read the relevant file from `~/.claude/standards/` before starting work:
 | `docs/theory/_CONVERGENCES.md` | ten cross-chapter convergences + independence audit | current |
 | `docs/theory/_STATUS.md` | run state, standing decisions, order of work | **read this first** |
 | `docs/DECISIONS — FAMILY EVALUATION.md` | how the 4 contradictions and 21 requirement candidates from the sixth source were decided | **closed 2026-08-27 — all applied at spec revision 4** |
-| `docs/bowen_agent_model_spec_v2.md` | **the buildable contract** — 538 numbered requirements, the update order, the parameter register, 45 acceptance criteria, the `M11.G` readout schema, the `M15` import contract, the `M16` run log | **v2.0 revision 11, approved 2026-10-06 — no code until the implementation plan is also approved** |
+| `docs/bowen_agent_model_spec_v2.md` | **the buildable contract** — 542 numbered requirements, the update order, the parameter register, 45 acceptance criteria, the `M11.G` readout schema, the `M15` import contract, the `M16` run log | **v2.0 revision 12, approved 2026-10-07 — no code until the implementation plan is also approved** |
 | `docs/model_explainer.md` | **every part of the model** — object, field, move, gate, invariant, clock, test — what it is for, what it does, and which chapter it implements | **start here to understand the model** |
 | `docs/agent_model_proposal.html` | the architecture proposal, §10 = corpus reconciliation | current |
 | `docs/bowen_individual_family_model_spec.md` | **v1.2, FROZEN** — describes the grid engine only | historical record; do not extend |

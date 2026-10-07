@@ -7,6 +7,10 @@
 > `learning-qa` review and a push. Report: `docs/phase_b_completion_report.md`. **Next after that:
 > settle the Phase C prerequisites the report lists, then plan Phase C.**
 >
+> **2026-10-07 — spec revision 12 approved: 542 unique IDs, 45 acceptance criteria.** The Phase C prerequisites, with
+> the Phase C plan (`docs/implementation_plan_phase_c.md`). Phase C gates 19 criteria. **Next: close Phase B (the
+> owner's trace read), then Phase C step 1.**
+>
 > **2026-10-06 — spec revision 11 approved: 538 unique IDs, 45 acceptance criteria.** Bowen's patterns are now
 > produced by learning rather than written as rules (`model_explainer.md` §19; spec `M11.5`). Phase B code built
 > against revision 10's `M4.C.1`, `M4.A.1` and `M1.C.3` no longer conforms; the Phase C plan must rework it.
@@ -63,7 +67,7 @@
 >   exists than after. Structure imports as **values**, ratings as **ranges**, and the readout is an
 >   **envelope**, never a point direction.
 > - **The finding worth keeping.** Initial conditions are **not** nuisance parameters. Invented constants
->   cancel between arms because they do not interact with the intervention; initial conditions are *what the
+>   cancel between arms **only where** they do not interact with the intervention (corrected at spec revision 12: some do — see explainer §17.3); initial conditions are *what the
 >   intervention acts on*, so their error crosses a regime boundary and flips the sign. Five such boundaries
 >   are named at `M15.D.4`, one of them (`M5.C.1a`) a SAFETY property with recorded harms. **Direction is the
 >   least robust output under mis-specified inputs, not the most.**

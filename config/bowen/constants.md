@@ -11,8 +11,13 @@
 > `chronic_anxiety_fixation_age_years` has no source. `M2.A.0a` states that every
 > agent in the reference family is past it, and the youngest is 14, so it must be
 > at most 14. 12 was chosen at Phase B step 5.
+>
+> `activation_regime` is `[I]` (`M3.E.2`): every person selects every fast tick.
+> `per_hop_fidelity` stands in for the per-hop fidelity draw of `M3.D.4b` in
+> Phase B, which makes no draws (plan decision D7). 0.8 was chosen at step 7.
 
 frozen_at: unset
+activation_regime: synchronous
 
 | key | value | grade | unit | spec |
 |---|---|---|---|---|
@@ -21,3 +26,4 @@ frozen_at: unset
 | `invariant_tolerance` | 1e-9 | [I] | anxiety unit | `M6.1` |
 | `spouse_basic_level_tolerance` | 1.0 | [I] | basic-level point | `M2.A.0e` |
 | `chronic_anxiety_fixation_age_years` | 12 | [I] | year of age | `M2.A.0a` |
+| `per_hop_fidelity` | 0.8 | [I] | fraction kept per private hop | `M1.F.4` |

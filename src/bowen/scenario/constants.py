@@ -23,6 +23,9 @@ from src.bowen.scenario.config_parse import ConfigError, parse_table_document
 COLUMNS = ("key", "value", "grade", "unit", "spec")
 GRADES = frozenset({"[T]", "[M]", "[D]", "[#]", "[I]", "[X]"})
 UNFROZEN = "unset"
+# M3.E.2: the activation regime is a modelling choice, graded [I] by the spec.
+ACTIVATION_REGIMES = frozenset({"synchronous"})
+ACTIVATION_REGIME_GRADE = "[I]"
 
 
 @dataclass(frozen=True)
@@ -45,6 +48,7 @@ SCHEMA: Mapping[str, KeySpec] = MappingProxyType(
         "invariant_tolerance": KeySpec(float, "[I]", "M6.1"),
         "spouse_basic_level_tolerance": KeySpec(float, "[I]", "M2.A.0e"),
         "chronic_anxiety_fixation_age_years": KeySpec(int, "[I]", "M2.A.0a"),
+        "per_hop_fidelity": KeySpec(float, "[I]", "M1.F.4"),
     }
 )
 
@@ -63,6 +67,7 @@ class Constants:
 
     values: Mapping[str, Constant]
     frozen_at: dt.date | None
+    activation_regime: str = "synchronous"
 
     def __getitem__(self, key: str) -> int | float:
         return self.values[key].value
@@ -101,7 +106,7 @@ def parse_constants(
     Tests:   tests/bowen/test_config.py::test_m11d3_config_rejects_unknown_key
     """
     document = parse_table_document(
-        text, columns=COLUMNS, metadata_keys=frozenset({"frozen_at"}), source=source
+        text, columns=COLUMNS, metadata_keys=frozenset({"frozen_at", "activation_regime"}), source=source
     )
     values: dict[str, Constant] = {}
     for row, line in zip(document.rows, document.row_lines):
@@ -133,7 +138,11 @@ def parse_constants(
     missing = schema.keys() - values.keys()
     if missing:
         raise ConfigError(f"{source}: missing keys {sorted(missing)}")
+    regime = document.metadata["activation_regime"]
+    if regime not in ACTIVATION_REGIMES:
+        raise ConfigError(f"{source}: activation_regime {regime!r} is not one of {sorted(ACTIVATION_REGIMES)}")
     return Constants(
         values=MappingProxyType(values),
         frozen_at=_parse_frozen_at(document.metadata["frozen_at"], source),
+        activation_regime=regime,
     )

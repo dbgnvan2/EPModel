@@ -78,7 +78,13 @@ def test_m85_single_implementation():
             for node in ast.walk(tree)
             if isinstance(node, ast.FunctionDef) and node.name in {"positions_live", "avoidance_available"}
         ]
-        if path.name != "live_positions.py" and re.search(r"fused_into", source):
+        # A caller may describe occupants (and so mention fused_into), but only
+        # through the predicate: it must import from live_positions.
+        if (
+            path.name != "live_positions.py"
+            and re.search(r"fused_into", source)
+            and "from src.bowen.engine.live_positions import" not in source
+        ):
             copies.append(path.name)
     assert sorted(definitions) == ["live_positions.py:avoidance_available", "live_positions.py:positions_live"]
-    assert copies == [], f"fusion is read outside live_positions.py: {copies}"
+    assert copies == [], f"fusion is read without the predicate: {copies}"

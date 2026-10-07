@@ -23,10 +23,11 @@ GOOD_ROWS = (
     "| `invariant_tolerance` | 1e-9 | [I] | anxiety unit | `M6.1` |\n"
     "| `spouse_basic_level_tolerance` | 1.0 | [I] | point | `M2.A.0e` |\n"
     "| `chronic_anxiety_fixation_age_years` | 12 | [I] | year | `M2.A.0a` |\n"
+    "| `per_hop_fidelity` | 0.8 | [I] | fraction | `M1.F.4` |\n"
 )
 
 
-def doc(rows: str = GOOD_ROWS, *, before: str = "frozen_at: unset\n\n", after: str = "") -> str:
+def doc(rows: str = GOOD_ROWS, *, before: str = "frozen_at: unset\nactivation_regime: synchronous\n\n", after: str = "") -> str:
     return "# constants\n\n> a note\n\n" + before + HEADER + rows + after
 
 
@@ -94,7 +95,7 @@ def test_m11d3_config_rejects_wrong_table_header():
 
 def test_m11d3_config_rejects_unknown_metadata_key():
     with pytest.raises(ConfigError, match="unknown metadata key 'seed'"):
-        parse_constants(doc(before="frozen_at: unset\nseed: 7\n\n"))
+        parse_constants(doc(before="frozen_at: unset\nactivation_regime: synchronous\nseed: 7\n\n"))
 
 
 def test_m11d3_config_rejects_missing_frozen_at():
@@ -116,9 +117,9 @@ def test_m0_1_unknown_grade_rejected():
 
 
 def test_m10b4_frozen_at_parses_a_date_and_rejects_anything_else():
-    assert parse_constants(doc(before="frozen_at: 2026-10-06\n\n")).frozen_at == dt.date(2026, 10, 6)
+    assert parse_constants(doc(before="frozen_at: 2026-10-06\nactivation_regime: synchronous\n\n")).frozen_at == dt.date(2026, 10, 6)
     with pytest.raises(ConfigError, match="frozen_at"):
-        parse_constants(doc(before="frozen_at: soon\n\n"))
+        parse_constants(doc(before="frozen_at: soon\nactivation_regime: synchronous\n\n"))
 
 
 def test_m101_repository_constants_load_and_are_graded():
@@ -136,3 +137,9 @@ def test_m3a1_fast_tick_is_one_week_and_graded_invented():
 
 def test_m3b1_slow_tick_is_52_fast_ticks():
     assert load_constants()["slow_tick_fast_ticks"] == 52
+
+
+def test_m3e2_activation_regime_is_declared_and_checked():
+    assert load_constants().activation_regime == "synchronous"
+    with pytest.raises(ConfigError, match="activation_regime"):
+        parse_constants(doc(before="frozen_at: unset\nactivation_regime: random_sequential\n\n"))

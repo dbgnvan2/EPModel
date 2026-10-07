@@ -34,8 +34,10 @@ def apply_structural_event(state: RunState, event: Event) -> list[EffectRecord]:
     Tests:   tests/bowen/test_mechanisms.py::test_m4a3_reconciliation_converts_standing_to_interaction_load
     """
     if event.mechanism is Mechanism.TRIGGER:
+        # Applied at step 2 of tick t; the standing load ran at step 1, so the
+        # spike lands from step 1 of t + 1, for `duration` ticks (M3.D.2, M4.A.2).
         state.triggers.append(
-            ActiveTrigger(event.on_tie, event.intensity, event.timestamp, event.timestamp + event.duration - 1)
+            ActiveTrigger(event.on_tie, event.intensity, event.timestamp + 1, event.timestamp + event.duration)
         )
         return [EffectRecord(state.tick, "trigger", event.id, ties=((event.on_tie, "standing_spike", event.intensity),))]
     if event.mechanism is Mechanism.RECONCILIATION:

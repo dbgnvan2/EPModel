@@ -100,6 +100,8 @@ def test_m4a2_trigger_spikes_standing_load_without_contact():
     trigger = scripted("TRIGGER", 10, on_tie=ANA_BRUNO, intensity=1.0)
     inject(triggered, trigger, VIS)
     apply_structural_event(triggered, triggered.store.event(trigger.id))
+    for state in (quiet, triggered):
+        state.tick = 11  # applied at step 2 of week 10, the spike lands at step 1 of week 11
     apply_standing_load(quiet, PARAMS)
     apply_standing_load(triggered, PARAMS)
     assert acute(triggered, ANA) > acute(quiet, ANA)

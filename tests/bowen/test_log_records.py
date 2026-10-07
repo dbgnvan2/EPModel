@@ -126,3 +126,20 @@ def test_m16b1_emitter_collects_without_writing():
     emitter = CollectingEmitter()
     emitter.emit(header())
     assert emitter.records == [header()]
+
+
+def test_m16a1a_header_records_activation_and_visibility_components():
+    """The header names both components, their versions and the activation regime (M3.E.1, M3.E.2)."""
+    from src.bowen.run import run_phase_b
+
+    header = run_phase_b(3).records[0]
+    assert (header.activation_component, header.activation_version) == ("synchronous_activation", "1")
+    assert (header.visibility_component, header.visibility_version) == ("household_conductance_visibility", "1")
+    assert header.activation_regime == "synchronous"
+
+
+def test_m16a5a_belief_discrepancy_is_computable_per_record():
+    over = BeliefWriteRecord(tick=1, holder=MARTA, subject="tie:marta~ravi", value=0.9, true_value=0.5)
+    under = BeliefWriteRecord(tick=1, holder=MARTA, subject="tie:marta~ravi", value=0.2, true_value=0.5)
+    assert over.discrepancy() == pytest.approx(0.4) and under.discrepancy() == pytest.approx(-0.3)
+    assert to_dict(over)["true_value"] == 0.5  # both values travel in the log, so a reader can recompute it

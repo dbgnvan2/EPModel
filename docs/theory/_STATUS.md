@@ -2,6 +2,11 @@
 
 > ## ▶ STATE — the corpus is closed and the spec is current. **Next is the implementation plan.**
 >
+> **2026-10-06 — Phase B built.** All 14 automated exit criteria pass, each mutation-proved
+> (`docs/phase_b_mutation_record.md`). Pending: the owner's read of the rendered trace, then the
+> `learning-qa` review and a push. Report: `docs/phase_b_completion_report.md`. **Next after that:
+> settle the Phase C prerequisites the report lists, then plan Phase C.**
+>
 > **2026-10-06 — Phase B plan approved; the spec is at 526 unique IDs** (`M2.A.0i`, the sex column, added at step 5). Building has started at step 0 of
 > `docs/implementation_plan_phase_b.md`.
 >

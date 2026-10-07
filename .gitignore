@@ -16,3 +16,6 @@ sim_audit.csv
 papers/*.pdf
 papers/**/*.pdf
 papers/_candidates.json
+
+# run logs — regenerable with python3 -m src.bowen.run
+runs/

@@ -51,6 +51,12 @@ Requires Python 3, NumPy and Pygame. `requirements.txt` is present but not yet t
 
 ## Status
 
-The v2 specification is **approved** — 526 numbered requirements over 17 modules, 41 acceptance criteria, at revision 10 (approved 2026-10-06). **No code moves until the implementation plan is also approved**: the project's convention is spec → plan → build, each approved before the next. The plan is the next piece of work, and covers Phase B only.
+The v2 specification is **approved** — 526 numbered requirements over 17 modules, 41 acceptance criteria, at revision 10 (approved 2026-10-06).
 
-All six corpus sources have been read and folded in. Two capabilities are specified but not built: a **family-diagram importer** (`M15`, Phase E) and the **run log and readable trace** (`M16`, Phase B).
+**Phase B is built** (`src/bowen/`): the objects, the weekly loop, the standing load, the base appraisal, the event record, the scripted source, the run log and the renderer. Every automated exit criterion passes and each is mutation-proved; the owner's read of the rendered trace is the one item left before Phase B is declared done. See `docs/phase_b_completion_report.md` and `docs/spec_coverage.md`.
+
+```
+python3 -m src.bowen.run --seed 7 --log runs/phase_b.jsonl --trace runs/phase_b_trace.md
+```
+
+Phase B runs a fixed script over an invented seven-person family. It tests one model claim, as a direction between two runs; nothing it produces is a finding about families. The family-diagram importer (`M15`) is Phase E.

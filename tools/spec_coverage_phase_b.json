@@ -1,0 +1,279 @@
+{
+ "M13.2": {
+  "status": "done",
+  "evidence": [
+   "tests/test_simulator.py"
+  ],
+  "note": "the frozen engine's 37 tests pass unchanged; gate G14"
+ },
+ "M16.B.2": {
+  "status": "done",
+  "evidence": [
+   "tests/bowen/test_engine_purity.py::test_m16t2_engine_writes_nothing"
+  ],
+  "note": "the frozen engine's audit-file pattern is the G9 mutation"
+ },
+ "M16.C.2": {
+  "status": "done",
+  "evidence": [
+   "tests/bowen/test_render.py::test_m16t1_trace_renders_scripted_run",
+   "tests/bowen/test_render.py::test_m16t1_effects_are_reported_in_reader_units"
+  ],
+  "note": "gate G2"
+ },
+ "M16.C.3": {
+  "status": "partial",
+  "evidence": [
+   "tests/bowen/test_render.py::test_m16t1_trace_renders_scripted_run"
+  ],
+  "note": "renderer built in Phase B; the owner's end-to-end read of the trace (plan §7) is pending"
+ },
+ "M2.A.0h": {
+  "status": "done",
+  "evidence": [
+   "tests/bowen/test_objects.py::test_m1a20_identifiers_are_declared_not_counted",
+   "tests/bowen/test_family.py::test_m21_family_declared_in_markdown"
+  ],
+  "note": ""
+ },
+ "M3.D.5": {
+  "status": "done",
+  "evidence": [
+   "tests/bowen/test_determinism.py::test_m11d5_same_seed_same_log",
+   "tests/bowen/test_log.py::test_m16t5_same_seed_same_log_with_header"
+  ],
+  "note": ""
+ },
+ "M3.D.6": {
+  "status": "done",
+  "evidence": [
+   "tests/bowen/test_engine_purity.py::test_m11d1_engine_has_no_io"
+  ],
+  "note": "the G4 scan includes LLM modules"
+ },
+ "M13.1": {
+  "status": "done",
+  "evidence": [
+   "tests/bowen/test_live_positions.py::test_m81_positions_live_counts_unfused_present_occupants"
+  ],
+  "note": "M8 built at Phase B step 6, before any caller"
+ },
+ "M13.2a": {
+  "status": "done",
+  "evidence": [
+   "tests/test_spec_consistency.py::test_m11d11_every_criterion_gates_its_phase"
+  ],
+  "note": ""
+ },
+ "M13.3": {
+  "status": "partial",
+  "note": "no M15 importer exists under src/bowen; no test guards against one being built"
+ },
+ "M14.1": {
+  "status": "done",
+  "evidence": [
+   "tests/bowen/test_spec_coverage.py::test_m141_spec_coverage_is_current"
+  ],
+  "note": "this file"
+ },
+ "M14.A.1": {
+  "status": "done",
+  "evidence": [
+   "tests/test_spec_consistency.py::test_m11d17_register_has_no_orphans",
+   "tests/bowen/test_register.py::test_m14a_register_matches_object_fields"
+  ],
+  "note": ""
+ },
+ "M14.A.2": {
+  "status": "partial",
+  "evidence": [
+   "tests/test_spec_consistency.py::test_m11d17_register_has_no_orphans"
+  ],
+  "note": "Phase B mechanisms registered; later phases add theirs"
+ },
+ "M14.A.3": {
+  "status": "done",
+  "evidence": [
+   "tests/test_spec_consistency.py::test_m11d17_register_has_no_orphans"
+  ],
+  "note": "filled with the Phase B plan"
+ },
+ "M14.A.4": {
+  "status": "done",
+  "evidence": [
+   "tests/bowen/test_register.py::test_m14a_register_matches_object_fields"
+  ],
+  "note": ""
+ },
+ "M2.A.0i": {
+  "status": "done",
+  "evidence": [
+   "tests/bowen/test_family.py::test_m1a21_sex_must_be_declared",
+   "tests/bowen/test_family.py::test_m2a_values_match_the_spec_table"
+  ],
+  "note": "Leo and Dr Halim still to declare before Phase D"
+ },
+ "M0.1": {
+  "status": "done",
+  "evidence": [
+   "tests/bowen/test_config.py::test_m0_1_grade_must_match_the_spec",
+   "tests/bowen/test_config.py::test_m0_1_unknown_grade_rejected"
+  ],
+  "note": "for the Phase B constants"
+ },
+ "M0.2": {
+  "status": "done",
+  "evidence": [
+   "tests/bowen/test_engine_purity.py::test_m11d4_invented_constants_labelled",
+   "tests/bowen/test_config.py::test_m0_1_grade_must_match_the_spec"
+  ],
+  "note": "for the Phase B constants"
+ },
+ "M6.1": {
+  "status": "done",
+  "evidence": [
+   "tests/bowen/test_mechanisms.py::test_m4g2_invariants_asserted_every_tick"
+  ],
+  "note": "invariant_tolerance 1e-9, [I], in config/bowen/constants.md"
+ },
+ "M0.3": {
+  "status": "partial",
+  "note": "constants come from config or basic_level; the magic-literal scan (M11.D.2) is a Phase C gate"
+ },
+ "M0.4": {
+  "status": "partial",
+  "note": "Phase B's one model criterion (G3) is a two-arm direction; the rest of the suite is engineering checks"
+ },
+ "M1.A.13": {
+  "status": "partial",
+  "note": "exactly three tiers exist; the derivation (M1.A.13a) is Phase D"
+ },
+ "M1.F.2": {
+  "status": "partial",
+  "note": "the sign capacity is built; every kind's sign is +1 until Phase C decides which kinds flip"
+ },
+ "M1.F.5": {
+  "status": "partial",
+  "note": "witnesses appraise; their accumulated witnessing as the source of chronic anxiety is slow-tick, Phase D"
+ },
+ "M1.F.8": {
+  "status": "partial",
+  "note": "batch order cannot change Phase B appraisal; the full permutation test M11.D.16 is Phase C"
+ },
+ "M5.A.1": {
+  "status": "partial",
+  "note": "the configured repertoire is exactly M5.A.1 and M5.B; moves carry no behaviour until the Phase C policy"
+ },
+ "M8.5": {
+  "status": "partial",
+  "note": "one implementation, called by triangle recompute and visibility; the M5.C and M11.C.7 call sites are Phase C"
+ },
+ "M16.A.3": {
+  "status": "partial",
+  "note": "selection-record fields exist; Phase B selections are scripted, so propensities, draw and legal set are empty"
+ },
+ "M16.A.5": {
+  "status": "partial",
+  "note": "the belief-write record type is tagged apart; Phase B writes no beliefs"
+ },
+ "M16.A.5a": {
+  "status": "partial",
+  "note": "the discrepancy is computable from a record; Phase B writes no beliefs"
+ },
+ "M16.T.3": {
+  "status": "partial",
+  "note": "passes in Phase B, where it is vacuous (no policy reads the log); must be rerun at the end of Phases C and D"
+ },
+ "M2.A.0e": {
+  "status": "partial",
+  "note": "enforced for every declared spouse pair; the spec's Teodor/Ana (34/37) still breaks it — Phase D (review C)"
+ },
+ "M6.I.1": {
+  "status": "partial",
+  "evidence": [
+   "tests/bowen/test_mechanisms.py::test_m4g2_invariants_asserted_every_tick"
+  ],
+  "note": "asserted every tick; nothing moves the sinks until Phase C"
+ },
+ "M6.I.2": {
+  "status": "partial",
+  "evidence": [
+   "tests/bowen/test_mechanisms.py::test_m4g2_invariants_asserted_every_tick"
+  ],
+  "note": "asserted every tick (structural in Phase B)"
+ },
+ "M6.I.3": {
+  "status": "partial",
+  "evidence": [
+   "tests/bowen/test_mechanisms.py::test_m4g2_invariants_asserted_every_tick"
+  ],
+  "note": "asserted every tick; life_energy is not used until Phase C"
+ },
+ "M6.I.4": {
+  "status": "partial",
+  "evidence": [
+   "tests/bowen/test_mechanisms.py::test_m4g2_a_violation_raises"
+  ],
+  "note": "asserted every tick; nothing exchanges pseudo-self until Phase C"
+ },
+ "M6.I.5": {
+  "status": "partial",
+  "evidence": [
+   "tests/bowen/test_mechanisms.py::test_m4g2_a_violation_raises"
+  ],
+  "note": "asserted every tick; basic_level does not move until the Phase D estimator"
+ },
+ "M6.I.6": {
+  "status": "not done",
+  "note": "disabled by M4.G.2a until restated (external review A3); a Phase C prerequisite"
+ },
+ "M6.I.7": {
+  "status": "partial",
+  "evidence": [
+   "tests/bowen/test_mechanisms.py::test_m4g2_a_violation_raises"
+  ],
+  "note": "asserted every tick; no Phase B mechanism removes anything"
+ },
+ "M6.I.8": {
+  "status": "done",
+  "evidence": [
+   "tests/bowen/test_mechanisms.py::test_m4g2_a_violation_raises",
+   "tests/bowen/test_tick.py::test_m3d2_standing_load_precedes_delivery"
+  ],
+  "note": ""
+ },
+ "M10.C.1": {
+  "status": "partial",
+  "note": "every Phase B constant is labelled [I] in config/bowen/constants.md; later phases add theirs"
+ },
+ "M10.C.1a": {
+  "status": "partial",
+  "note": "the activation regime is recorded as [I]; the other entries are Phase C and later"
+ },
+ "M11.F.9": {
+  "status": "partial",
+  "evidence": [
+   "tests/bowen/test_render.py::test_m16c5_trace_carries_header_and_framing"
+  ],
+  "note": "the rendered trace carries the framing; readouts are Phase D"
+ },
+ "M11.F.10": {
+  "status": "partial",
+  "evidence": [
+   "tests/bowen/test_render.py::test_m16c5_trace_carries_header_and_framing"
+  ],
+  "note": "the trace's framing names it; checked by review elsewhere"
+ },
+ "M4.C.1": {
+  "status": "done",
+  "note": "pulled into Phase B (plan D1); the base product only — M4.C.2's gain function is not done"
+ },
+ "M4.A.5": {
+  "status": "done",
+  "note": "'must not swamp' read at family and nuclear-household level (owner, 2026-10-06)"
+ },
+ "M6.3": {
+  "status": "not done",
+  "note": "open owner decision (disposition at death); blocks M11.C.37 and Phase D"
+ }
+}

@@ -965,7 +965,7 @@ Eleven property tests over ensembles, written before tuning. Two properties matt
 | 14 | **Management technique has zero independent effect while marital distance is high.** Any intervention aimed at the symptom-bearer must produce **no improvement** in that condition. When the parents are close, "they could do no wrong" — firmness, permissiveness, punishment and talking it out all work. | `[T]` Ch04 · L04.2 |
 | 15 | **Death destabilises exactly as recovery does.** A stabilising arrangement built on one member's impairment must break on that member's **death** as well as on their recovery — the stabilisation holds "as long as the incapacitated one **lives**". | `[T]` Ch07 · L07.3 |
 
-### 11.2 Differentiation and stress order the conditions  *(proposed, spec revision 10)*
+### 11.2 Differentiation and stress order the conditions  *(spec revision 10, approved 2026-10-06)*
 
 **Lower differentiation and higher stress each exacerbate the pattern** (spec `M11.C.41`) — *the general
 shape most mechanisms in the model share.* **Does:** four arms cross a lower and a higher `basic_level` with
@@ -1401,15 +1401,15 @@ adds no interpretation; narration adds fluency and no evidence.
 
 ---
 
-## 18. Method rationale — how the model is built and tested  *(proposed, spec revision 10)*
+## 18. Method rationale — how the model is built and tested  *(spec revision 10, approved 2026-10-06)*
 
 **What this section is, and how it differs from §1–§17.** Every earlier section explains a part of the model
 by what the corpus says. This one explains parts that come from somewhere else: the method literature on
 agent-based simulation, read in September 2026 and folded into the spec as revision 10. **None of it is a
 claim about Bowen theory or about families.** It is about whether a run's output can be trusted — whether a
 direction the model reports belongs to the mechanism, or to the random seed, the order of updates, a fallback
-rule, a rounding artefact, or a constant tuned until the test passed. Every part here is a proposal: the spec
-marks each one ⟦proposed rev10⟧ until the owner accepts or strikes it. The rationale lives here, on the
+rule, a rounding artefact, or a constant tuned until the test passed. Every part here was a proposal; the spec
+marks each one ⟦rev10 · …⟧; revision 10 was approved on 2026-10-06 and the marker now records provenance. The rationale lives here, on the
 owner's decision of 2026-09-22; the evidence is in `papers/SPEC_CANDIDATES_from_preprints_2026-09-20.md`
 (C-numbers) and `papers/DESIGN_LESSONS_model_design_papers_2026-09-17.md` (`DL §…`, and the SEAA drafts
 `E-DR`, `E-SH`, `E-RM`, `E-RE`), which play the ledger's role for this section.

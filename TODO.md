@@ -5,8 +5,9 @@ Deferred and adjacent items. Each carries enough context to act on later without
 ## Blocking the next phase
 
 - [x] ~~**Approve or revise `docs/bowen_agent_model_spec_v2.md`.**~~ *Approved 2026-08-25; revisions 1–6 applied, the last on 2026-08-28.*
-- [ ] **Write the implementation plan.** The next gate, and the only thing between here and code. Every acceptance criterion mapped to the file and module that satisfies it, in dependency order, with the mutation that proves each one. Spec convention is spec → plan → build, each approved before the next. Inputs: the 33 criteria in `M11.C`, the 5 in `M16.F`, the engineering criteria in `M11.D`, and the phase table at `M13`.
-- [ ] **Decide four criteria that cannot be made code-testable in Phases B–D** (spec §M11.E). Each has a human-review proposal:
+- [x] ~~**Approve spec revision 10.**~~ *Approved 2026-10-06. Terms in the spec's revision-10 section under* Approval.
+- [ ] **Write the implementation plan — Phase B only** (owner decision 2026-10-06, following the external review's recommendation 9). The 2026-09-23 review's findings go in the plan as blockers on the phases they affect. The next gate, and the only thing between here and code. Every acceptance criterion mapped to the file and module that satisfies it, in dependency order, with the mutation that proves each one. Spec convention is spec → plan → build, each approved before the next. Inputs: the 33 criteria in `M11.C`, the 5 in `M16.F`, the engineering criteria in `M11.D`, and the phase table at `M13`.
+- [x] ~~**Decide four criteria that cannot be made code-testable in Phases B–D** (spec §M11.E).~~ *Accepted as written by the owner, 2026-10-06, at approval of revision 10.* Each has a human-review proposal:
   - `M11.C.8` (endogenous incidence vs published rates) — needs Phase E and an editorial call on which sources are genuinely exogenous.
   - `M11.C.9` (sibling position) — the effect size is invented, so the test can only assert "a detectable difference", which is close to unfalsifiable. Decide whether it belongs in the suite or should be demoted to a readout.
   - `M11.C.11` shape — "three phases, not a step down" is a claim about curve shape; any automated version embeds an invented tolerance.
@@ -23,18 +24,17 @@ revision-10 section.
   relationship energy behaves like chemical bond energy and does not disappear when a person dies. That agrees
   with `M1.B.4` (bond energy decays at or near zero) and `M6.I.7` (no exit from the field). `M11.C.37` cannot be
   written until this is decided.
-- [ ] **Habituation on repeated relief (C13, spec `M4.G.3`).** Decide whether any `M4` term pays anxiety relief
-  for a repeated move. If none does, strike `M4.G.3` at approval.
+- [x] ~~**Habituation on repeated relief (C13, spec `M4.G.3`).**~~ *Kept as written at approval, 2026-10-06: it is a conditional SHOULD and binds only if such a term exists.*
 - [ ] **`E-RM` and C34 — one requirement or two (DESIGN_LESSONS Q16).** Currently `M17.D.1`(d) plus `M17.D.2`.
 - [x] ~~**Does disabling a mechanism count as a second parameter set under `M0.4`? (DESIGN_LESSONS Q10)**~~
   *Answered 2026-09-22: switching off a mechanism is a change to the model; such comparisons are allowed as tests of the model's structure only (the recommendation the owner adopted). Written as spec `M11.4f`.*
 - [x] ~~**Does `M11.4f` reach the approved ablation of `M10.C.4a`?**~~ *Decided 2026-09-22: yes. Each run with a
   condition removed tests whether the model needs that condition; `M10.C.4a` itself is unchanged.*
-- [ ] **Strike `M11.4c` at approval unless a mechanism ranking turns up.** Answered 2026-09-22: most mechanisms
+- [x] ~~**Strike `M11.4c` at approval unless a mechanism ranking turns up.**~~ *Kept, 2026-10-06: the external review found one in the ledger (`L07.4`).* Answered 2026-09-22: most mechanisms
   scale with differentiation and stress, so the theory orders conditions, not mechanisms — tested as
   `M11.C.41`. The ranking form has nothing to rank.
 - [x] ~~**Confirm the `E-DR` recommendation (Q11).**~~ *Approved 2026-09-22: `M17.E.1` and `M17.E.2` kept separate, sharing one sweep range.*
-- [ ] **At approval: restate the requirement count in five documents.** `CLAUDE.md` (also still says revision 6),
+- [x] ~~**At approval: restate the requirement count in five documents.**~~ *Done 2026-10-06: 519.* `CLAUDE.md` (also still says revision 6),
   `README.md`, `CHANGELOG.md`, `docs/theory/_STATUS.md` and `docs/agent_model_proposal.html` claim 427;
   `tests/test_spec_consistency.py::test_requirement_counts_agree_with_the_spec` is red on the branch until they
   match the approved count.
@@ -46,7 +46,7 @@ under external review. All of it waits for revision 11. None of it is a requirem
 
 **One exception, by owner instruction on 2026-10-06:** `M11.F.10` (the "virtual family" term may not be used
 without `M11.F`'s framing) was entered in the spec text directly, marked ⟦proposed rev11 · owner decision
-2026-10-06⟧. It is still a proposal until revision 11 is approved. Rationale: `model_explainer.md` §1.1.
+2026-10-06⟧. **Approved with revision 10 the same day**, so it is no longer a revision-11 item. Rationale: `model_explainer.md` §1.1.
 
 - [ ] **Method proposals from the two 2026-09-27 batches.** 36 candidates. First batch: J1–J4, SV1–SV4, PD1–PD4,
   X5–X9, in `papers/SWEEP_READING_REPORTS_2026-09-27.md`. Second batch: BB1–BB5, MM1–MM4, AD1–AD3, TM1–TM6, X10,

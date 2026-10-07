@@ -2,6 +2,11 @@
 
 > ## ▶ STATE — the corpus is closed and the spec is current. **Next is the implementation plan.**
 >
+> **2026-10-06 — spec revision 10 approved: 519 unique IDs over 17 modules, 41 acceptance criteria.** The
+> plan covers **Phase B only**, and the 2026-09-23 external review's findings travel in it as blockers on the
+> phases they affect. Terms are in the spec's revision-10 section under *Approval*. Revision-11 material
+> stays held in `TODO.md`. The table below is the state at revision 6 and is kept as history.
+>
 > **Sixth corpus source complete, 2026-08-26.** Kerr & Bowen, *Family Evaluation* (1988) — 12 segments,
 > 219 findings, pass 2, folded into `_LEDGER.md` as **Source 7**. See `family_evaluation/_INDEX.md`.
 >

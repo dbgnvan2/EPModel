@@ -2,6 +2,15 @@
 
 All notable changes to this project are recorded here. Dates are ISO.
 
+## [Unreleased] — 2026-10-06
+
+Spec revision 10 approved. Documentation only; no code.
+
+### Changed
+
+- **Spec v2.0 revision 10 approved by the owner, 2026-10-06** — 519 requirements over 17 modules, 41 acceptance criteria. The terms are recorded in the spec's revision-10 section under *Approval*: the external review of 2026-09-23 is carried into the implementation plan rather than fixed first (its recommendation 9), `M11.4c` and `M4.G.3` kept, `M11.E`'s proposals accepted, revision-11 material held.
+- `M11.F.10` added: the model may not be called a "virtual family" without `M11.F`'s framing. `model_explainer.md` §1.1 gives the comparison with virtual-cell models and what a virtual family would need.
+
 ## [Unreleased] — 2026-08-28
 
 The sixth corpus source decided and applied, plus two modules that came out of working through what the model may and may not be asked. Documentation only; no code. Spec revisions 4, 5 and 6.

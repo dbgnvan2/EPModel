@@ -49,16 +49,10 @@ Phase C steps 0–16 are built. **Its gate does not pass** (`docs/phase_c_comple
 - [ ] **Bruno falls back every week.** His one tie starts cut off, `REDUCE_CUTOFF` is his only legal act, and it
   carries no weight without systems perspective, so the family runs' fallback rate is 0.26–0.41 (`M11.D.18` flags
   it). Decide whether that is the intended reading of `M4.D.3b`.
-- [ ] **Eighth gate's low findings, 2026-10-08** (`docs/cycles/2026-10-08_phase-c-qa-gate-8.md`, APPROVED). All
-  test-only, so no record needs regenerating:
-  1. `tests/bowen/test_phase_c_criteria.py`'s C.45 rate check counts `TRIANGLE` events without the
-     `mechanism is MOVE` filter the readout uses. Share one predicate.
-  2. `test_m11c42_absence_changes_nothing_before_its_tick` compares only records with a `.tick`, so emitted and
-     delivered records are not compared. Normalise every record to its tick, or narrow the name.
-  3. C.42's pair-wide readout has no default-suite test. Add one on `arm_c42`'s count.
-  4. (informational) The absence's `triangle_for` clause, which stops a pair member forming any triad that holds
-     the absent member, is not covered directly. Add a test that the pair member cannot `TRIANGLE` toward the
-     other pair member at that tick.
+- [x] ~~**Eighth gate's low findings, 2026-10-08.**~~ *Fixed 2026-10-08, tests only: the C.45 rate check applies the
+  readout's `MOVE` filter; the before-t0 check compares every record by its tick; new
+  `test_m11c42_readout_counts_the_whole_pairs_triangles` and
+  `test_m11c42_absence_forms_no_triangle_holding_the_absent_member`. Each proved failing by mutation.*
 - [x] ~~**Fifth gate's low finding, 2026-10-08 (informational).**~~ *Fixed 2026-10-08: the tests load
   `tools/sweep_record.py` as `tools.sweep_record`, and `test_sweep_tool_shares_the_loaded_mutation_tool` asserts it.*
 - [x] ~~**Third gate's low findings, 2026-10-08.**~~ *Fixed 2026-10-08:

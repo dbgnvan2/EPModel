@@ -64,6 +64,9 @@ the per-criterion status is in `docs/phase_c_completion_report.md`.
   C.42's baseline arm now makes the third member unavailable for one tick, instead of scripting `STAY-IN-CONTACT`,
   and its readout counts the whole pair's triangles. C.45's readout is `TRIANGLE` selections per person-week.
   Both still fail: C.42 is +0.26 (p 0.084), C.45 +0.0020 (p 0.20). Report §9.
+- From the eighth gate (APPROVED, four test-strength findings): the absence and readout tests for `M11.C.42` and
+  `.45` now compare every record before the absence, check that no triangle can form during it, and check the
+  pair-wide count. Tests only; no record changes.
 
 ## [Unreleased] — 2026-10-06
 

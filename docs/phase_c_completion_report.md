@@ -12,7 +12,7 @@ a hash goes stale.
 | `docs/phase_c_sweep_record.md` | `tools/sweep_record.py` | each composite criterion at half and double α, H and temperature (plan D9) |
 | `docs/spec_coverage.md` | `tools/spec_coverage.py` | every spec ID: done / partial / not done |
 
-Default suite: **485 tests pass** (`python3 -m pytest tests/`). The 19 ensemble-marked criterion tests are
+Default suite: **488 tests pass** (`python3 -m pytest tests/`). The 19 ensemble-marked criterion tests are
 deselected there and run with `python3 -m pytest -m ensemble`.
 
 **Read this first.** Phase C's gate does **not** pass. Of the 16 criteria built, 7 pass at the frozen
@@ -48,9 +48,9 @@ column follows the global completion standard.
 | `M11.C.35` witness appraisal depends on both ties | check | PASS (200) | yes: `witness-position-blind`, `witness-reach-inverted` | — | done |
 | `M11.C.38` graded level orders time to threshold | premise | PASS, all 3 adjacent pairs | every pair red under the joint `level-blind` mutant; single-rule mutants red on some pairs only (§2) | — | done (proved only jointly, §2) |
 | `M11.C.41` level and stress each exacerbate | mixed | **FAIL** — no cell passes. [lower level: heavier stress] passed before §8; its reactive-share limb is now +0.004 (p 0.16). [light: lower level] is undetermined. In both "lower level" cells anxiety rises but the reactive share **falls** | not run | — | not done — §3.7 |
-| `M11.C.42` a relieving triangle is reused | composite | **FAIL** — reuse −0.17 (p 0.85); passed before §8 | not run | fails at all 6 settings; reverses at 3 | not done — §3.8 |
+| `M11.C.42` a relieving triangle is reused | composite | **FAIL** — reuse +0.26 ± 0.33 (p 0.084), under §9's spec-conforming arms and readout | not run | passes only at H = 6; reverses at 3 of 6 | not done — §3.8, §9 |
 | `M11.C.44` position value inverts with load | composite | **FAIL** — +0.010 (p 0.73) | not run | passes at 3 of 6 off-central settings (α 0.1, H 2, T 2.0); only the central setting gates | not done |
-| `M11.C.45` triangles quiet when calm | composite | **FAIL** — +0.0024 (p 0.17); passed before §8 | not run | fails at all 6 settings; reverses at 4 | not done — §3.8 |
+| `M11.C.45` triangles quiet when calm | composite | **FAIL** — +0.0020 TRIANGLE selections per person-week (p 0.20), under §9's readout | not run | fails at all 6 settings; reverses at 4 | not done — §3.8, §9 |
 
 **Representation mutants (`M11.1c`).** Two re-encodings ran on every passing entry: same-tick appraisal summed
 in reverse order, and felt contact clamped 1e-12 inside [0, 1]. No verdict changed, so no encoding artefact was
@@ -294,3 +294,20 @@ selections per person-week. The build divided by emitted moves instead, and that
 and fallback weeks and moves when any other act changes.
 
 The scenario settings (horizons, the week of the act, the spell) are unchanged.
+
+**Results, run after the decision was committed (`0670ee5`).** Neither criterion passes.
+
+| Criterion | Before §9 | After §9 | Sweep after §9 |
+|---|---|---|---|
+| `M11.C.42` | FAIL, reuse −0.17 ± 0.26 (p 0.85) | **FAIL**, reuse +0.26 ± 0.33 (p 0.084) | passes only at H = 6; reverses at α 0.1, H 2 and T 0.5 |
+| `M11.C.45` | FAIL, +0.0024 (p 0.17), share of acts | **FAIL**, +0.0020 per person-week (p 0.20) | fails at all 6; reverses at 4 |
+
+C.42 now points the way its claim states, but the difference is not distinguishable from zero at 100 seeds, and
+its sign depends on the learner's constants. C.45 points the claimed way at the central setting, and the sign
+does not hold across the sweep. Under revision 11 both are composites. Their failing is informative: at the
+frozen constants, the model's learner does not produce triangle reuse after relief, or quiet triangles in calm,
+reliably enough to detect. No rule or constant was changed to make either pass.
+
+The absence that C.42's baseline arm uses is tested in the default suite
+(`tests/bowen/test_phase_c_criteria.py`). It removes the third member from the pair's choices at that tick and
+changes nothing before it. The new C.45 readout is checked there too.

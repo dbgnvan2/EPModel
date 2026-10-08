@@ -406,10 +406,10 @@ mutant has turned each entry red in `docs/phase_c_mutation_record.md`; the D9 sw
 | M11.C.39 | not done | — | Phase D |
 | M11.C.40 | not done | — | Phase D |
 | M11.C.41 | partial | `tests/bowen/test_phase_c_gate.py::test_m11c41_level_and_stress_each_exacerbate_the_pattern` | ensemble record: M11.C.41[light: lower level] UNDETERMINED; M11.C.41[heavy: lower level] FAIL; M11.C.41[higher level: heavier stress] FAIL; M11.C.41[lower level: heavier stress] FAIL |
-| M11.C.42 | partial | `tests/bowen/test_phase_c_gate.py::test_m11c42_relieving_triangle_is_reused` | ensemble record: M11.C.42 FAIL |
+| M11.C.42 | partial | `tests/bowen/test_phase_c_criteria.py::test_m11c42_absence_changes_nothing_before_its_tick`<br>`tests/bowen/test_phase_c_criteria.py::test_m11c42_absence_removes_the_third_from_the_pairs_choices_that_tick`<br>`tests/bowen/test_phase_c_gate.py::test_m11c42_relieving_triangle_is_reused` | ensemble record: M11.C.42 FAIL |
 | M11.C.43 | not done | — | Phase D |
 | M11.C.44 | partial | `tests/bowen/test_phase_c_gate.py::test_m11c44_position_value_inverts_with_load` | ensemble record: M11.C.44 FAIL |
-| M11.C.45 | partial | `tests/bowen/test_phase_c_gate.py::test_m11c45_triangles_quiet_when_calm` | ensemble record: M11.C.45 FAIL |
+| M11.C.45 | partial | `tests/bowen/test_phase_c_criteria.py::test_m11c45_triangle_rate_is_per_person_week`<br>`tests/bowen/test_phase_c_gate.py::test_m11c45_triangles_quiet_when_calm` | ensemble record: M11.C.45 FAIL |
 | M11.5 | not done | — | Phase C — acceptance-test rules |
 | M11.D.1 | done | `tests/bowen/test_engine_purity.py::test_m11d1_engine_has_no_io`<br>`tests/bowen/test_engine_purity.py::test_m11d1_the_scans_find_what_they_look_for` | — |
 | M11.D.2 | done | `tests/bowen/test_engineering_gates.py::test_m11d2_check_catches_a_literal_in_the_criteria`<br>`tests/bowen/test_engineering_gates.py::test_m11d2_check_catches_a_literal_in_the_policy`<br>`tests/bowen/test_engineering_gates.py::test_m11d2_no_magic_literals_in_engine` | — |

@@ -28,7 +28,10 @@ Phase C steps 0–16 are built. **Its gate does not pass** (`docs/phase_c_comple
   `.38` as joint premises (no single level-reading rule carries them). `M11.C.45`'s reclassification as a premise
   was withdrawn when it stopped passing after the `TRIANGLE` decision. Report §2.
 - [ ] **`M11.C.42` and `.45` stopped passing after the `TRIANGLE` decision.** *What each tests decided 2026-10-08
-  (report §9): C.42's baseline arm and readout, and C.45's readout, brought to the spec's text. Rerun pending.* Both were already fragile in the sweep.
+  (report §9): C.42's baseline arm and readout, and C.45's readout, brought to the spec's text. Rerun: both still
+  fail. C.42 is +0.26 (p 0.084) and its sign depends on the learner's constants; C.45 is +0.0020 per person-week
+  (p 0.20) and reverses at 4 of 6 sweep settings. What remains is whether the learner should produce these
+  effects at all, which is a model question, not a test question.* Both were already fragile in the sweep.
   C.42's reuse is −0.17 and it fails at every sweep setting; C.45 has the right sign, without significance.
   Decide whether either criterion's arms still test what it claims, now that the act loads the recruited third.
   Report §3.8 and §8.

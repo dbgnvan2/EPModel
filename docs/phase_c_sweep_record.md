@@ -7,60 +7,60 @@ temperature (`policy_temperature`), one constant at a time. **Only the central s
 opposite sign to the declared direction is marked **reversed**. Plan D9's fourth constant, each
 criterion's dominant constant, is not swept: plan §3 names none.
 
-code_hash: af71ed241cd5f0c433fa3e622a840b8babaef05193cd40cc7e09493d4e4ac8ac
+code_hash: 650e8ad8db43209145b54089544ad729014fa994477f4c32a89acad1128c32bf
 
 | Criterion | Central verdict | Setting | Verdict | Seeds | Readouts (mean difference; direction) |
 |---|---|---|---|---|---|
 | `M11.C.5` | FAIL | learning_rate 0.1 | FAIL | 100 | `target_reaction` -7.8 **reversed**; `third_person_symptom_load` +0.389 |
 | `M11.C.16` | UNDETERMINED | learning_rate 0.1 | UNDETERMINED | 500 | `repertoire_entropy` -0.064; `top_move_share` +0.0564 |
-| `M11.C.42` | FAIL | learning_rate 0.1 | FAIL | 50 | `triangle_reuse` +0.18 |
+| `M11.C.42` | FAIL | learning_rate 0.1 | FAIL | 100 | `triangle_reuse` -0.2 **reversed** |
 | `M11.C.44` | FAIL | learning_rate 0.1 | PASS | 100 | `outside_inside_ratio` +0.0895 |
-| `M11.C.45` | FAIL | learning_rate 0.1 | FAIL | 100 | `triangle_rate` -0.00269 **reversed** |
+| `M11.C.45` | FAIL | learning_rate 0.1 | FAIL | 100 | `triangle_rate` -0.00329 **reversed** |
 | `M11.C.27[stable,add_third]` | FAIL | learning_rate 0.1 | FAIL | 50 | `pair_deviation` -0.00671 **reversed** |
 | `M11.C.27[stable,remove_one]` | FAIL | learning_rate 0.1 | FAIL | 50 | `pair_deviation` -0.116 **reversed** |
 | `M11.C.27[unstable,add_third]` | FAIL | learning_rate 0.1 | FAIL | 50 | `pair_deviation` +0.0151 **reversed** |
 | `M11.C.27[unstable,remove_one]` | PASS | learning_rate 0.1 | PASS | 100 | `pair_deviation` -0.102 |
 | `M11.C.5` | FAIL | learning_rate 0.4 | FAIL | 100 | `target_reaction` -26.8 **reversed**; `third_person_symptom_load` -1.18 **reversed** |
 | `M11.C.16` | UNDETERMINED | learning_rate 0.4 | UNDETERMINED | 500 | `repertoire_entropy` -0.0654; `top_move_share` +0.0407 |
-| `M11.C.42` | FAIL | learning_rate 0.4 | FAIL | 100 | `triangle_reuse` +0.08 |
+| `M11.C.42` | FAIL | learning_rate 0.4 | FAIL | 100 | `triangle_reuse` +0.15 |
 | `M11.C.44` | FAIL | learning_rate 0.4 | FAIL | 150 | `outside_inside_ratio` +0.0787 |
-| `M11.C.45` | FAIL | learning_rate 0.4 | FAIL | 150 | `triangle_rate` -0.00137 **reversed** |
+| `M11.C.45` | FAIL | learning_rate 0.4 | FAIL | 150 | `triangle_rate` -0.00169 **reversed** |
 | `M11.C.27[stable,add_third]` | FAIL | learning_rate 0.4 | FAIL | 50 | `pair_deviation` -0.00686 **reversed** |
 | `M11.C.27[stable,remove_one]` | FAIL | learning_rate 0.4 | FAIL | 100 | `pair_deviation` -0.107 **reversed** |
 | `M11.C.27[unstable,add_third]` | FAIL | learning_rate 0.4 | FAIL | 50 | `pair_deviation` +0.0312 **reversed** |
 | `M11.C.27[unstable,remove_one]` | PASS | learning_rate 0.4 | PASS | 100 | `pair_deviation` -0.078 |
 | `M11.C.5` | FAIL | credit_horizon 2 | FAIL | 50 | `target_reaction` -9.9 **reversed**; `third_person_symptom_load` +10.6 |
 | `M11.C.16` | UNDETERMINED | credit_horizon 2 | UNDETERMINED | 500 | `repertoire_entropy` -0.0679; `top_move_share` +0.0488 |
-| `M11.C.42` | FAIL | credit_horizon 2 | FAIL | 50 | `triangle_reuse` +0 |
+| `M11.C.42` | FAIL | credit_horizon 2 | FAIL | 100 | `triangle_reuse` -0.15 **reversed** |
 | `M11.C.44` | FAIL | credit_horizon 2 | PASS | 150 | `outside_inside_ratio` +0.104 |
-| `M11.C.45` | FAIL | credit_horizon 2 | FAIL | 100 | `triangle_rate` -0.00308 **reversed** |
+| `M11.C.45` | FAIL | credit_horizon 2 | FAIL | 100 | `triangle_rate` -0.00263 **reversed** |
 | `M11.C.27[stable,add_third]` | FAIL | credit_horizon 2 | FAIL | 50 | `pair_deviation` +0.00214 |
 | `M11.C.27[stable,remove_one]` | FAIL | credit_horizon 2 | FAIL | 100 | `pair_deviation` -0.0972 **reversed** |
 | `M11.C.27[unstable,add_third]` | FAIL | credit_horizon 2 | FAIL | 50 | `pair_deviation` +0.0256 **reversed** |
 | `M11.C.27[unstable,remove_one]` | PASS | credit_horizon 2 | PASS | 50 | `pair_deviation` -0.0973 |
 | `M11.C.5` | FAIL | credit_horizon 6 | FAIL | 100 | `target_reaction` -2.06 **reversed**; `third_person_symptom_load` -0.676 **reversed** |
 | `M11.C.16` | UNDETERMINED | credit_horizon 6 | UNDETERMINED | 500 | `repertoire_entropy` -0.05; `top_move_share` +0.0435 |
-| `M11.C.42` | FAIL | credit_horizon 6 | FAIL | 50 | `triangle_reuse` -0.06 **reversed** |
+| `M11.C.42` | FAIL | credit_horizon 6 | PASS | 100 | `triangle_reuse` +0.37 |
 | `M11.C.44` | FAIL | credit_horizon 6 | FAIL | 100 | `outside_inside_ratio` -0.058 **reversed** |
-| `M11.C.45` | FAIL | credit_horizon 6 | FAIL | 100 | `triangle_rate` +0.00198 |
+| `M11.C.45` | FAIL | credit_horizon 6 | FAIL | 150 | `triangle_rate` +0.000889 |
 | `M11.C.27[stable,add_third]` | FAIL | credit_horizon 6 | FAIL | 50 | `pair_deviation` +0.0225 |
 | `M11.C.27[stable,remove_one]` | FAIL | credit_horizon 6 | FAIL | 50 | `pair_deviation` -0.126 **reversed** |
 | `M11.C.27[unstable,add_third]` | FAIL | credit_horizon 6 | FAIL | 50 | `pair_deviation` +0.0263 **reversed** |
 | `M11.C.27[unstable,remove_one]` | PASS | credit_horizon 6 | PASS | 100 | `pair_deviation` -0.0944 |
 | `M11.C.5` | FAIL | policy_temperature 0.5 | FAIL | 150 | `target_reaction` +11.6; `third_person_symptom_load` +2 |
 | `M11.C.16` | UNDETERMINED | policy_temperature 0.5 | UNDETERMINED | 500 | `repertoire_entropy` -0.0469; `top_move_share` +0.0264 |
-| `M11.C.42` | FAIL | policy_temperature 0.5 | FAIL | 50 | `triangle_reuse` -0.34 **reversed** |
+| `M11.C.42` | FAIL | policy_temperature 0.5 | FAIL | 100 | `triangle_reuse` -0.13 **reversed** |
 | `M11.C.44` | FAIL | policy_temperature 0.5 | FAIL | 150 | `outside_inside_ratio` +0.071 |
-| `M11.C.45` | FAIL | policy_temperature 0.5 | FAIL | 150 | `triangle_rate` -0.000657 **reversed** |
+| `M11.C.45` | FAIL | policy_temperature 0.5 | FAIL | 100 | `triangle_rate` -0.00229 **reversed** |
 | `M11.C.27[stable,add_third]` | FAIL | policy_temperature 0.5 | FAIL | 50 | `pair_deviation` +0.000761 |
 | `M11.C.27[stable,remove_one]` | FAIL | policy_temperature 0.5 | FAIL | 100 | `pair_deviation` -0.0763 **reversed** |
 | `M11.C.27[unstable,add_third]` | FAIL | policy_temperature 0.5 | FAIL | 50 | `pair_deviation` +0.00931 **reversed** |
 | `M11.C.27[unstable,remove_one]` | PASS | policy_temperature 0.5 | PASS | 50 | `pair_deviation` -0.0705 |
 | `M11.C.5` | FAIL | policy_temperature 2.0 | FAIL | 100 | `target_reaction` -3.37 **reversed**; `third_person_symptom_load` +6.21 |
 | `M11.C.16` | UNDETERMINED | policy_temperature 2.0 | UNDETERMINED | 500 | `repertoire_entropy` -0.0685; `top_move_share` +0.0589 |
-| `M11.C.42` | FAIL | policy_temperature 2.0 | FAIL | 100 | `triangle_reuse` -0.02 **reversed** |
+| `M11.C.42` | FAIL | policy_temperature 2.0 | FAIL | 100 | `triangle_reuse` +0.14 |
 | `M11.C.44` | FAIL | policy_temperature 2.0 | PASS | 100 | `outside_inside_ratio` +0.0936 |
-| `M11.C.45` | FAIL | policy_temperature 2.0 | FAIL | 100 | `triangle_rate` +0.000853 |
+| `M11.C.45` | FAIL | policy_temperature 2.0 | FAIL | 150 | `triangle_rate` +0.00106 |
 | `M11.C.27[stable,add_third]` | FAIL | policy_temperature 2.0 | FAIL | 50 | `pair_deviation` -0.0195 **reversed** |
 | `M11.C.27[stable,remove_one]` | FAIL | policy_temperature 2.0 | FAIL | 50 | `pair_deviation` -0.113 **reversed** |
 | `M11.C.27[unstable,add_third]` | FAIL | policy_temperature 2.0 | FAIL | 50 | `pair_deviation` +0.0165 **reversed** |
@@ -114,13 +114,13 @@ code_hash: af71ed241cd5f0c433fa3e622a840b8babaef05193cd40cc7e09493d4e4ac8ac
   "setting": "learning_rate 0.1",
   "criterion": "M11.C.42",
   "outcome": "FAIL",
-  "seeds": 50,
+  "seeds": 100,
   "readouts": [
    {
     "readout": "triangle_reuse",
     "direction": 1,
-    "mean_difference": 0.18,
-    "half_width": 0.2608061348971684
+    "mean_difference": -0.2,
+    "half_width": 0.2974444689706166
    }
   ]
  },
@@ -147,8 +147,8 @@ code_hash: af71ed241cd5f0c433fa3e622a840b8babaef05193cd40cc7e09493d4e4ac8ac
    {
     "readout": "triangle_rate",
     "direction": 1,
-    "mean_difference": -0.0026942453118441265,
-    "half_width": 0.0049982252535965615
+    "mean_difference": -0.003291666666666667,
+    "half_width": 0.004533348989253022
    }
   ]
  },
@@ -257,8 +257,8 @@ code_hash: af71ed241cd5f0c433fa3e622a840b8babaef05193cd40cc7e09493d4e4ac8ac
    {
     "readout": "triangle_reuse",
     "direction": 1,
-    "mean_difference": 0.08,
-    "half_width": 0.21157585167050846
+    "mean_difference": 0.15,
+    "half_width": 0.35058778926225875
    }
   ]
  },
@@ -285,8 +285,8 @@ code_hash: af71ed241cd5f0c433fa3e622a840b8babaef05193cd40cc7e09493d4e4ac8ac
    {
     "readout": "triangle_rate",
     "direction": 1,
-    "mean_difference": -0.001365496267452465,
-    "half_width": 0.005252828253216411
+    "mean_difference": -0.0016944444444444444,
+    "half_width": 0.004822096814659517
    }
   ]
  },
@@ -390,13 +390,13 @@ code_hash: af71ed241cd5f0c433fa3e622a840b8babaef05193cd40cc7e09493d4e4ac8ac
   "setting": "credit_horizon 2",
   "criterion": "M11.C.42",
   "outcome": "FAIL",
-  "seeds": 50,
+  "seeds": 100,
   "readouts": [
    {
     "readout": "triangle_reuse",
     "direction": 1,
-    "mean_difference": 0.0,
-    "half_width": 0.29098453567157134
+    "mean_difference": -0.15,
+    "half_width": 0.3241325953895094
    }
   ]
  },
@@ -423,8 +423,8 @@ code_hash: af71ed241cd5f0c433fa3e622a840b8babaef05193cd40cc7e09493d4e4ac8ac
    {
     "readout": "triangle_rate",
     "direction": 1,
-    "mean_difference": -0.0030830932658527273,
-    "half_width": 0.005264060358851855
+    "mean_difference": -0.002625000000000001,
+    "half_width": 0.004961014486034054
    }
   ]
  },
@@ -527,14 +527,14 @@ code_hash: af71ed241cd5f0c433fa3e622a840b8babaef05193cd40cc7e09493d4e4ac8ac
  {
   "setting": "credit_horizon 6",
   "criterion": "M11.C.42",
-  "outcome": "FAIL",
-  "seeds": 50,
+  "outcome": "PASS",
+  "seeds": 100,
   "readouts": [
    {
     "readout": "triangle_reuse",
     "direction": 1,
-    "mean_difference": -0.06,
-    "half_width": 0.29318553852466867
+    "mean_difference": 0.37,
+    "half_width": 0.3021750940675744
    }
   ]
  },
@@ -556,13 +556,13 @@ code_hash: af71ed241cd5f0c433fa3e622a840b8babaef05193cd40cc7e09493d4e4ac8ac
   "setting": "credit_horizon 6",
   "criterion": "M11.C.45",
   "outcome": "FAIL",
-  "seeds": 100,
+  "seeds": 150,
   "readouts": [
    {
     "readout": "triangle_rate",
     "direction": 1,
-    "mean_difference": 0.001976901705516459,
-    "half_width": 0.004872621414655205
+    "mean_difference": 0.0008888888888888887,
+    "half_width": 0.0038437942362224294
    }
   ]
  },
@@ -666,13 +666,13 @@ code_hash: af71ed241cd5f0c433fa3e622a840b8babaef05193cd40cc7e09493d4e4ac8ac
   "setting": "policy_temperature 0.5",
   "criterion": "M11.C.42",
   "outcome": "FAIL",
-  "seeds": 50,
+  "seeds": 100,
   "readouts": [
    {
     "readout": "triangle_reuse",
     "direction": 1,
-    "mean_difference": -0.34,
-    "half_width": 0.26032472030139586
+    "mean_difference": -0.13,
+    "half_width": 0.30345653442104076
    }
   ]
  },
@@ -694,13 +694,13 @@ code_hash: af71ed241cd5f0c433fa3e622a840b8babaef05193cd40cc7e09493d4e4ac8ac
   "setting": "policy_temperature 0.5",
   "criterion": "M11.C.45",
   "outcome": "FAIL",
-  "seeds": 150,
+  "seeds": 100,
   "readouts": [
    {
     "readout": "triangle_rate",
     "direction": 1,
-    "mean_difference": -0.0006570459445179981,
-    "half_width": 0.004511772032039739
+    "mean_difference": -0.0022916666666666667,
+    "half_width": 0.0047241269925512
    }
   ]
  },
@@ -809,8 +809,8 @@ code_hash: af71ed241cd5f0c433fa3e622a840b8babaef05193cd40cc7e09493d4e4ac8ac
    {
     "readout": "triangle_reuse",
     "direction": 1,
-    "mean_difference": -0.02,
-    "half_width": 0.2210827204756837
+    "mean_difference": 0.14,
+    "half_width": 0.2974705594464328
    }
   ]
  },
@@ -832,13 +832,13 @@ code_hash: af71ed241cd5f0c433fa3e622a840b8babaef05193cd40cc7e09493d4e4ac8ac
   "setting": "policy_temperature 2.0",
   "criterion": "M11.C.45",
   "outcome": "FAIL",
-  "seeds": 100,
+  "seeds": 150,
   "readouts": [
    {
     "readout": "triangle_rate",
     "direction": 1,
-    "mean_difference": 0.0008529758770063158,
-    "half_width": 0.004731012961307162
+    "mean_difference": 0.0010555555555555548,
+    "half_width": 0.0036195684317034136
    }
   ]
  },

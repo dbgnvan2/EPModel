@@ -142,10 +142,15 @@ class Forced:
     A scripted act is made only if it is legal that week (`M4.D.1e`): the policy may already
     have cut the tie it crosses. An act that is not legal is skipped and counted, in both arms
     alike, so a seed where it could not be made contributes no difference rather than a biased one.
+
+    ``unavailable`` maps a week to ``(actors, absent)``: that week ``absent`` cannot be the target of
+    any act by ``actors``, nor complete a triad for them (`M11.C.42`'s declared absence, `M17.D.3`).
+    Each actor's selection is drawn again, under the same keyed draw, from its legal set without
+    ``absent``. Every other week, and every other person, is the policy's own.
     """
 
-    def __init__(self, policy: PolicySource, forced: dict):
-        self.policy, self.forced = policy, forced
+    def __init__(self, policy: PolicySource, forced: dict, unavailable: dict | None = None):
+        self.policy, self.forced, self.unavailable = policy, forced, unavailable or {}
         self.made, self.skipped = 0, 0
 
     def scheduled(self, tick):
@@ -156,6 +161,11 @@ class Forced:
         from src.bowen.policy.policy import legal_outcomes
 
         chosen = list(self.policy.selections(tick, active, state))
+        if tick in self.unavailable:
+            actors, absent = self.unavailable[tick]
+            for actor in sorted(set(actors) & set(active)):
+                if state.people[actor].alive:
+                    chosen = [s for s in chosen if s.actor != actor] + [self._without(state, actor, absent)]
         for (t, actor), selection in self.forced.items():
             if t != tick or actor not in active:
                 continue
@@ -169,7 +179,25 @@ class Forced:
         return tuple(chosen)
 
 
-def scenario(family: str, seed: int, weeks: int, *, spells=(), forced=None, setup=None, until=None):
+    def _without(self, state, actor, absent):
+        from types import MappingProxyType
+
+        from src.bowen.engine.observe import observe
+        from src.bowen.policy.policy import decide
+
+        obs = observe(state, actor, self.policy.params)
+        obs = dataclasses.replace(
+            obs,
+            ties=tuple(v for v in obs.ties if v.other != absent),
+            triangle_for=MappingProxyType({t: tri for t, tri in obs.triangle_for.items()
+                                           if t != absent and absent not in tri.members}),
+        )
+        decision = decide(obs, state.kinds, self.policy.params, self.policy.rules, state.draws)
+        return dataclasses.replace(decision.selection, urge=decision.urge)
+
+
+def scenario(family: str, seed: int, weeks: int, *, spells=(), forced=None, setup=None, until=None,
+             unavailable=None):
     """Run one arm; return (state, records). ``until`` stops early at that week (exclusive)."""
     constants, kinds = load_constants(), load_event_kinds()
     fam = load_family(FAMILIES[family])
@@ -177,7 +205,7 @@ def scenario(family: str, seed: int, weeks: int, *, spells=(), forced=None, setu
     parts = assemble(constants, kinds, fam, events, seed=seed)
     if setup:
         setup(parts.state)
-    source = Forced(PolicySource(events, parts.params, load_policy_rules()), forced or {})
+    source = Forced(PolicySource(events, parts.params, load_policy_rules()), forced or {}, unavailable)
     records = []
     scenario.last_source = source
     sink = type("Sink", (), {"emit": lambda self, r: records.append(r)})()
@@ -483,12 +511,18 @@ def arm_c41(arm, seed, settings):
 
 
 def arm_c42(arm, seed, settings):
+    # Decided 2026-10-08 from the spec's text (docs/phase_c_completion_report.md §9): in the baseline the third
+    # member is unavailable to the pair at t0, so no triangle forms; the readout counts the pair's triangles.
     t0, weeks = settings["t0"], settings["weeks"]
-    forced = act("f", "TRIANGLE", "c", t0) if arm == "treatment" else act("f", "STAY-IN-CONTACT", "m", t0)
+    pair, third = (P("f"), P("m")), P("c")
+    if arm == "treatment":
+        forced, unavailable = act("f", "TRIANGLE", "c", t0), None
+    else:
+        forced, unavailable = {}, {t0: (pair, third)}
     state, records = scenario("triad", seed, weeks, spells=spell("triad", weeks), forced=forced,
-                              setup=settings.get("setup"))
-    reused = sum(1 for r in records if isinstance(r, EmittedRecord) and r.event.sender == P("f")
-                 and r.event.kind == "TRIANGLE" and r.event.targets == (P("c"),) and r.event.timestamp > t0)
+                              setup=settings.get("setup"), unavailable=unavailable)
+    reused = sum(1 for r in records if isinstance(r, EmittedRecord) and r.event.sender in pair
+                 and r.event.kind == "TRIANGLE" and r.event.targets == (third,) and r.event.timestamp > t0)
     return result({"triangle_reuse": float(reused)}, records)
 
 
@@ -506,7 +540,9 @@ def arm_spell_triad(arm, seed, settings):
              and r.event.sender in triad]
     outside = sum(1 for e in acts_ if e.kind in OUTSIDE_ACTS)
     inside = sum(1 for e in acts_ if e.kind in INSIDE_ACTS)
-    triangles = sum(1 for e in acts_ if e.kind == "TRIANGLE") / max(1, len(acts_))
+    # M11.C.45's "rate of TRIANGLE selection": one selection per person per week (M4.D.1), so the rate is
+    # TRIANGLE selections per person-week (decided 2026-10-08, docs/phase_c_completion_report.md §9).
+    triangles = sum(1 for e in acts_ if e.kind == "TRIANGLE") / (len(triad) * weeks)
     return result({"outside_inside_ratio": (outside + 1) / (inside + 1), "triangle_rate": triangles}, records)
 
 

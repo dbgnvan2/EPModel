@@ -5,7 +5,7 @@ seeds (`M3.D.4a`), stopped adaptively (`M17.A.1`, `M13.4`): `UNDETERMINED` at th
 pass. Every verdict carries its class (`M11.5`). **A premise passing confirms that the code renders the
 spec; it is not a finding about families.** The constants are the Phase C freeze of 2026-10-07.
 
-code_hash: 4faa4934175a767ce4f31a755c75efb8756f0da5a824b48a902633f902c35bed
+code_hash: 6aac4041373aeae6d1c6b2523b3b95a9a28e2eb3706c40340cb0fab73fe46399
 
 Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25, `ensemble_margin` = 0.1, `ensemble_alpha` = 0.05, `fallback_flag_rate` = 0.2, `equivalence_margin` = 0.5.
 
@@ -21,9 +21,9 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
 | `M11.C.29` | premise | **FAIL** | 150 | `budget` -0.08 ± 0.097, p 0.0898, does not hold; `third_symptom_weeks` +0 ± 0, p 1, does not hold | 0.08 | — |
 | `M11.C.32` | premise | **PASS** | 100 | `assertion_form` +1.02 ± 0.29, p 5.5e-09, holds; `reached_peak` -0.09 ± 0.1, p 0.0488, holds | 0.03 | — |
 | `M11.C.35` | check | **PASS** | 200 | `witness_appraisal` +0.467 ± 0.11, p 2.09e-22, holds | 0.02 | — |
-| `M11.C.42` | composite | **FAIL** | 100 | `triangle_reuse` -0.17 ± 0.26, p 0.853, does not hold | 0.04 | — |
+| `M11.C.42` | composite | **FAIL** | 100 | `triangle_reuse` +0.26 ± 0.33, p 0.0841, does not hold | 0.04 | — |
 | `M11.C.44` | composite | **FAIL** | 150 | `outside_inside_ratio` +0.0103 ± 0.12, p 0.735, does not hold | 0.07 | — |
-| `M11.C.45` | composite | **FAIL** | 100 | `triangle_rate` +0.00244 ± 0.0046, p 0.169, does not hold | 0.06 | — |
+| `M11.C.45` | composite | **FAIL** | 100 | `triangle_rate` +0.00204 ± 0.0041, p 0.197, does not hold | 0.06 | — |
 | `M11.C.27[stable,add_third]` | composite | **FAIL** | 50 | `pair_deviation` +0.00308 ± 0.032, p 0.494, does not hold | 0.02 | — |
 | `M11.C.27[stable,remove_one]` | composite | **FAIL** | 50 | `pair_deviation` -0.11 ± 0.065, p 0.999, does not hold | 0.02 | — |
 | `M11.C.27[unstable,add_third]` | composite | **FAIL** | 50 | `pair_deviation` +0.0188 ± 0.027, p 0.85, does not hold | 0.02 | — |
@@ -54,7 +54,7 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
 - `M11.C.29`: pf 0.17, pm 0.14, c 0.10
 - `M11.C.32`: pb 0.08, pa 0.05, b 0.00
 - `M11.C.35`: pm 0.04, pf 0.03, c 0.01
-- `M11.C.42`: pf 0.08, pm 0.06, c 0.06
+- `M11.C.42`: pf 0.07, c 0.06, pm 0.04
 - `M11.C.44`: c 0.13, pf 0.11, pm 0.07
 - `M11.C.45`: c 0.12, pf 0.10, pm 0.07
 - `M11.C.27[stable,add_third]`: pf 0.06, pm 0.02, c 0.01
@@ -394,17 +394,17 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
    {
     "readout": "triangle_reuse",
     "direction": 1,
-    "mean_difference": -0.17,
-    "half_width": 0.26436708791322183,
-    "baseline_sd": 1.2470571418950755,
+    "mean_difference": 0.26,
+    "half_width": 0.33035205952487,
+    "baseline_sd": 1.473640445161628,
     "baseline_position": null,
-    "w_plus": 351.5,
-    "n_nonzero": 41,
-    "p": 0.8529574552432175,
+    "w_plus": 1680.5,
+    "n_nonzero": 75,
+    "p": 0.08408208130919427,
     "holds": false
    }
   ],
-  "fallback_rate": 0.04405,
+  "fallback_rate": 0.036975,
   "flags": [],
   "missing_moves": []
  },
@@ -440,13 +440,13 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
    {
     "readout": "triangle_rate",
     "direction": 1,
-    "mean_difference": 0.002442174743216259,
-    "half_width": 0.0045597388530531895,
-    "baseline_sd": 0.01844472636624767,
+    "mean_difference": 0.002041666666666666,
+    "half_width": 0.004147169531554839,
+    "baseline_sd": 0.01682896566332639,
     "baseline_position": null,
-    "w_plus": 2286.0,
-    "n_nonzero": 90,
-    "p": 0.16912268268980374,
+    "w_plus": 2116.0,
+    "n_nonzero": 87,
+    "p": 0.19674449368236402,
     "holds": false
    }
   ],

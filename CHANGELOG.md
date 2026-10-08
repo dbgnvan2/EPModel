@@ -48,7 +48,7 @@ the per-criterion status is in `docs/phase_c_completion_report.md`.
   three records regenerated; apart from the hash they are byte-identical. The suite then held 483 tests.
 - From the third gate (`docs/cycles/2026-10-08_phase-c-qa-gate-3.md`, APPROVED, three low findings): a static test
   ties the criteria's `REQUIRED` settings to what each arm reads, in both directions; the `criteria.py` docstring
-  no longer restates the spell's numbers; the mutation tool loads once in the tests. 485 tests pass.
+  no longer restates the spell's numbers; the mutation tool loads once in the tests. The suite then held 485 tests.
 - From the fourth and fifth gates: a stale suite count in this file fixed, and the tests load both tools under their
   real module names (`tools.mutation_record`, `tools.sweep_record`).
 
@@ -60,6 +60,10 @@ the per-criterion status is in `docs/phase_c_completion_report.md`.
   made from the spec's text and reported (`docs/phase_c_completion_report.md` §8). `M11.C.3` now passes and is
   proved, including by a mutant that restores the old reading. `M11.C.42`, `.45`, one cell of `.27` and one of `.41`
   stopped passing; they are reported, not recovered. 7 criteria now pass and are proved, 7 fail.
+- **What `M11.C.42` and `.45` test, 2026-10-08**, decided from the spec's text and committed before rerunning.
+  C.42's baseline arm now makes the third member unavailable for one tick, instead of scripting `STAY-IN-CONTACT`,
+  and its readout counts the whole pair's triangles. C.45's readout is `TRIANGLE` selections per person-week.
+  Both still fail: C.42 is +0.26 (p 0.084), C.45 +0.0020 (p 0.20). Report §9.
 
 ## [Unreleased] — 2026-10-06
 

@@ -7,7 +7,7 @@ is **red** when the criterion stops passing and **survived** when it still passe
 mutant does not prove the criterion. A representation mutant (`M11.1c`) should leave every verdict
 unchanged; a change is reported as an **encoding artefact**.
 
-code_hash: dd32edc0490af4ecb303327c23d49ba1ba3b22357e61172aaa25a13bbc8b4fd9
+code_hash: ce8a1c52f46bfe93435e6b40bf2ab8b71db2a76827e3f0409051f1c684626f5c
 
 | Mutant | Kind | What it changes | Criterion | Verdict under mutant | Seeds | Result |
 |---|---|---|---|---|---|---|

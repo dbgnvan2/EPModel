@@ -13,7 +13,7 @@ import dataclasses
 import pytest
 
 from src.bowen.engine.act import Selection, act, inject, record_deliveries
-from src.bowen.engine.appraise_base import appraisal_delta, apply_base_appraisal, perceive
+from src.bowen.engine.appraise import appraisal_delta, apply_appraisal, perceive
 from src.bowen.engine.consolidate import consolidate
 from src.bowen.engine.event_effects import apply_delivered_cutoffs, apply_structural_event
 from src.bowen.engine.events import (
@@ -194,7 +194,7 @@ def test_m4c1_delivered_event_raises_receiver_anxiety():
     batch = _conflict(hit, intensity=200.0)
     hit.tick = 1
     record_deliveries(hit, batch)
-    apply_base_appraisal(hit, perceive(hit, batch), PARAMS)
+    apply_appraisal(hit, perceive(hit, batch), PARAMS)
     assert acute(hit, MARTA) > acute(quiet, MARTA)
     assert acute(hit, NADIA) > acute(quiet, NADIA)  # M1.F.5: witnesses appraise too
 
@@ -243,7 +243,7 @@ def test_m1f8_same_tick_batch_order_does_not_change_state():
         batch = state.queue.release(1)
         state.tick = 1
         record_deliveries(state, batch)
-        apply_base_appraisal(state, perceive(state, tuple(order(batch))), PARAMS)
+        apply_appraisal(state, perceive(state, tuple(order(batch))), PARAMS)
         return {p: acute(state, p) for p in sorted(state.people)}
 
     assert run(lambda b: b) == run(lambda b: tuple(reversed(b)))

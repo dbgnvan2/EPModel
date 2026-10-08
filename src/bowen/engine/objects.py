@@ -53,6 +53,11 @@ class SymptomChannel(enum.Enum):
     SOCIAL = "social"
 
 
+# M1.A.19 — the reactive state's three detectors. The third is two-sided: praise
+# is as much a loss as blame (K07.1), so it counts evaluations of either sign.
+REACTIVE_DETECTORS = ("critical_urge", "inside_other_problem", "evaluating")
+
+
 class StructuralTier(enum.Enum):
     """M1.A.13 — exactly three tiers. A finer ranking must not exist."""
 
@@ -127,6 +132,10 @@ class Person:
     sibling_position: SiblingPosition | None
     financially_dependent: bool
     acute_anxiety: float = 0.0
+    channel_prior: SymptomChannel | None = None
+    symptom_active: dict[SymptomChannel, bool] = field(
+        default_factory=lambda: {channel: False for channel in SymptomChannel}
+    )
     programmed_reactivity: float | None = None
     outside_ness_outward: float | None = None
     outside_ness_inward: float | None = None
@@ -146,8 +155,10 @@ class Person:
     def __post_init__(self) -> None:
         _check_scale("basic_level", self.basic_level)
         _check_scale("functional_level", self.functional_level)
-        if set(self.symptom_load) != set(SymptomChannel):
-            raise ValueError("symptom_load must have exactly the three M1.A.11 channels")
+        if set(self.symptom_load) != set(SymptomChannel) or set(self.symptom_active) != set(SymptomChannel):
+            raise ValueError("symptom_load and symptom_active must have exactly the three M1.A.11 channels")
+        if self.reactive_state is not None and set(self.reactive_state) != set(REACTIVE_DETECTORS):
+            raise ValueError(f"reactive_state must hold exactly the M1.A.19 detectors {REACTIVE_DETECTORS}")
         if not self.household_id:
             raise ValueError("household_id is required (M1.A.22)")
 

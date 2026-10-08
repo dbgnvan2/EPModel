@@ -44,3 +44,4 @@
 | `INSTITUTIONALIZE` | institutionalize | +1 | +1 | 0 | 0 | `M4.A.4` |
 | `BINDER_UNAVAILABLE` | binder_unavailable | +1 | +1 | 0 | 0 | `M1.F.9` |
 | `JOB_LOSS` | exogenous_stressor | +1 | +1 | 0 | 0 | `M1.F.6` |
+| `SYMPTOM_ONSET` | endogenous_symptom | +1 | +1 | 0 | 0 | `M7.D.1` |

@@ -30,6 +30,7 @@ class Mechanism(enum.Enum):
     INSTITUTIONALIZE = "institutionalize"      # M4.A.4
     BINDER_UNAVAILABLE = "binder_unavailable"  # M1.F.9
     EXOGENOUS_STRESSOR = "exogenous_stressor"  # M1.F.6 — a spell, never a per-tick draw
+    ENDOGENOUS_SYMPTOM = "endogenous_symptom"  # M7.D.1 — emitted when symptom load crosses threshold (M1.F.7)
 
 
 TIE_MECHANISMS = frozenset({Mechanism.TRIGGER, Mechanism.RECONCILIATION})
@@ -94,6 +95,15 @@ class Channel(enum.Enum):
     MIXED = "mixed"
     SCRIPTED = "scripted"
     EXOGENOUS = "exogenous"
+    ENDOGENOUS = "endogenous"   # an event the engine emits, not a selection (M7.D.1)
+
+
+class Attention(enum.Enum):
+    """M4.C.8 — the channel an event directs the receiver's attention at, if any."""
+
+    NONE = "none"
+    FEELING = "feeling"
+    INTELLECT = "intellect"
 
 
 class BinderKind(enum.Enum):
@@ -157,8 +167,14 @@ class Event:
     channel_weight: float | None = None
     binder: BinderRef | None = None
     on_tie: TieId | None = None
+    # M4.C.8: what the event directs the receiver's attention at.
+    attention: Attention = Attention.NONE
+    # M1.A.18a, M1.A.19: an evaluation of the target, -1 blame, +1 praise, 0 none. Two-sided by design.
+    valence: int = 0
 
     def __post_init__(self) -> None:
+        if self.valence not in (-1, 0, 1):
+            raise ValueError("valence is -1 (blame), 0 or +1 (praise)")
         if self.timestamp != self.id.tick:
             raise ValueError("timestamp must equal the emitting tick in the event id")
         if self.intensity < 0:

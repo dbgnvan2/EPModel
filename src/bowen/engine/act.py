@@ -64,7 +64,7 @@ def act(state: RunState, selection: Selection, visibility: HouseholdConductanceV
 
 
 def inject(state: RunState, event: Event, visibility: HouseholdConductanceVisibility) -> list:
-    """Purpose: bring a scheduled exogenous or structural event into the run at its tick (step 2).
+    """Purpose: bring a scheduled exogenous or structural event, or an endogenous one, into the run at its tick.
     Spec:    docs/bowen_agent_model_spec_v2.md#M1.F.6, #M1.F.7, #M3.C.2
     Tests:   tests/bowen/test_mechanisms.py::test_m4a2_trigger_spikes_standing_load_without_contact
 

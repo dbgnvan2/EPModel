@@ -32,6 +32,13 @@
 > level); an interactive tie resting at half its optimum (`interactive_resting_contact` 0.5) carries roughly
 > Phase B's interactive standing load. `triangle_activity_window` 4 keeps a triangle active for four weeks
 > after a `TRIANGLE` act. All are `[I]`; Phase C re-freezes at step 14.
+>
+> **Phase C step 2, 2026-10-07 — the rest of the appraisal** (`M4.C.2`–`M4.C.10`, `M4.C.3`, `M7.D.1`,
+> `M1.A.19`, `M1.B.8`). The constants from `defence_threshold` to `investment_leak_rate` are new and logged.
+> Chosen so that a witness takes about half of what Phase B gave it, below the person addressed; content stops
+> getting through at 15–30 points of excess anxiety; and the symptom threshold (1.5 × functional level, about 60
+> for the Phase B adults) sits above the integral a steady few points of excess reach (excess ÷ `symptom_leak_rate`),
+> so onset needs a sustained excursion. All `[I]`.
 
 frozen_at: 2026-10-06
 activation_regime: synchronous
@@ -58,4 +65,17 @@ activation_regime: synchronous
 | `hardening_run_length` | 3 | [I] | consecutive moves | `M4.G.1` |
 | `bond_energy_decay_rate` | 0.0 | [I] | fraction per tick | `M1.B.4` |
 | `triangle_activity_window` | 4 | [I] | fast ticks | `M1.C.3` |
+| `defence_threshold` | 15.0 | [I] | points of excess anxiety | `M4.C.2` |
+| `witness_weight` | 0.5 | [I] | share of an overheard exchange | `M4.C.9` |
+| `speaker_echo_gain` | 0.2 | [I] | share of what was addressed | `M4.C.7` |
+| `reappraisal_window` | 4 | [I] | fast ticks | `M4.C.6` |
+| `attention_gain` | 0.5 | [I] | relative change in appraisal | `M4.C.8` |
+| `perspective_anxiety_scale` | 10.0 | [I] | points of excess anxiety | `M4.C.4` |
+| `calm_transfer_rate` | 0.05 | [I] | share of the anxiety gap per unit conductance | `M4.C.10` |
+| `symptom_leak_rate` | 0.1 | [I] | share of the integral per tick | `M4.C.3a` |
+| `symptom_threshold_gain` | 1.5 | [I] | integral units per functional-level point | `M7.D.1` |
+| `symptom_rearm_fraction` | 0.5 | [I] | share of the threshold | `M7.D.1` |
+| `symptom_event_intensity` | 100.0 | [I] | event intensity | `M7.D.1` |
+| `reactive_rate` | 0.2 | [I] | share of the gap per tick | `M1.A.19` |
+| `investment_leak_rate` | 0.1 | [I] | share per tick | `M1.B.8` |
 | `involvement_membership_threshold` | 0.5 | [I] | involvement units | `M1.A.12` |

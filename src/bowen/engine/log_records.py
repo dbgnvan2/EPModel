@@ -114,6 +114,8 @@ class EffectRecord:
     ties: tuple[tuple[TieId, str, float], ...] = ()
     triangles: tuple[tuple[TriangleId, str, str], ...] = ()
     sinks: tuple[tuple[str, float], ...] = ()
+    # Per-person state other than acute anxiety: (person, field, change or value).
+    people: tuple[tuple[PersonId, str, float], ...] = ()
     record_type = "effect"
 
 

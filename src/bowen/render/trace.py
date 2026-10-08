@@ -14,9 +14,9 @@ target and witnesses, and what it did — in the shape of the worked trace in
 ``docs/agent_model_proposal.html`` §4.2. "What it did" is in reader units:
 anxiety changes in points, tie and triangle changes in words.
 
-The standing load, the decay toward each person's floor, and the relaxation of felt
-contact on every tie run every week for everyone; the trace says so once rather than
-printing them line by line. A
+The standing load, the decay toward each person's floor, the relaxation of felt
+contact, symptom accumulation, investment and the reactive detectors run every week
+for everyone; the trace says so once rather than printing them line by line. A
 TRIGGER is the exception, because its whole effect runs through the standing load.
 """
 
@@ -46,9 +46,11 @@ TABLE_HEAD = "| Week | Who | Move | Toward | Witnesses | What it did |\n|---|---
 
 # Every mechanism the engine emits, and how the trace treats it. Anything else
 # raises: a record the renderer does not understand must not vanish (P2, P19).
-CAUSED = frozenset({"base_appraisal", "trigger", "cutoff", "reconciliation", "institutionalize", "binder_unavailable"})
+CAUSED = frozenset({"appraisal", "calm_contact", "symptom_onset", "trigger", "cutoff", "reconciliation", "institutionalize", "binder_unavailable"})
 SYSTEM_SHOWN = frozenset({"triangle_recompute", "consolidation", "slow_tick"})
-SYSTEM_SUMMARISED = frozenset({"standing_load", "acute_decay", "contact_relaxation"})  # every week, everyone; stated once
+SYSTEM_SUMMARISED = frozenset({
+    "standing_load", "acute_decay", "contact_relaxation", "symptom_accumulation", "investment", "reactive_state",
+})  # every week, everyone; stated once
 
 
 class UnrenderableRecord(ValueError):
@@ -105,7 +107,7 @@ def _what_it_did(event: Event, index: _Index, names: _Names, view: PersonId | No
         # Phase B appraises a stressor once; the spell's length is recorded, not yet used.
         parts.append(f"one-time effect; a {event.duration}-week spell, recorded")
     for effect in index.effects.get(event.id, []):
-        if effect.mechanism == "base_appraisal":
+        if effect.mechanism == "appraisal":
             changes = [
                 f"{names(p)} {_signed(v)}{' (witness)' if roles.get(p) is Role.WITNESS else ''}"
                 for p, v in effect.acute_anxiety
@@ -113,6 +115,12 @@ def _what_it_did(event: Event, index: _Index, names: _Names, view: PersonId | No
             ]
             if changes:
                 parts.append("anxiety " + ", ".join(changes))
+        elif effect.mechanism == "calm_contact":
+            moved = [f"{names(p)} {_signed(v)}" for p, v in effect.acute_anxiety if view is None or p == view]
+            if moved:
+                parts.append("calmer sender takes some anxiety: " + ", ".join(moved))
+        elif effect.mechanism == "symptom_onset":
+            parts += [f"symptom onset, {field.split(':', 1)[1]} channel" for field, _ in effect.sinks]
         elif effect.mechanism == "trigger":
             for tie, _, intensity in effect.ties:
                 parts.append(
@@ -207,8 +215,9 @@ def render(
         f"| constants changed since freeze | "
         f"{', '.join(k for k, changed in header.constant_changed_after_freeze if changed) or 'none'} |",
         "",
-        "The standing load, the decay toward each person's floor and the relaxation of felt contact "
-        "run every week for everyone and are not listed line by line. Effects are shown beside the event that caused them.",
+        "The standing load, the decay toward each person's floor, the relaxation of felt contact, "
+        "symptom accumulation, investment and the reactive detectors run every week for everyone "
+        "and are not listed line by line. Effects are shown beside the event that caused them.",
         "",
         TABLE_HEAD,
     ]

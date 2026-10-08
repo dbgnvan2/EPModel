@@ -18,13 +18,15 @@ from types import MappingProxyType
 from typing import Mapping
 
 from src.bowen.engine.identifiers import PersonId, TieId
-from src.bowen.engine.objects import Family, Person, Relationship, Role, Sex, SiblingPosition, TieState
+from src.bowen.engine.objects import (
+    REACTIVE_DETECTORS, Family, Person, Relationship, Role, Sex, SiblingPosition, SymptomChannel, TieState,
+)
 from src.bowen.scenario.config_parse import ConfigError, parse_sectioned_document
 from src.bowen.scenario.constants import Constants
 
 PEOPLE_COLUMNS = (
     "id", "name", "generation", "age", "sex", "household", "basic_level", "functional_level",
-    "chronic_anxiety", "sibling_rank", "sibship_size", "financially_dependent", "role",
+    "chronic_anxiety", "sibling_rank", "sibship_size", "financially_dependent", "role", "channel_prior",
 )
 TIE_COLUMNS = ("a", "b", "relation", "conductance", "bond_energy", "latency", "tie_state", "interactive")
 METADATA = frozenset({"instance_id", "grade", "nuclear_household", "undifferentiation_budget"})
@@ -119,6 +121,7 @@ def build_family(text: str, constants: Constants, *, source: str = "<family>") -
 
     fixation_age = constants["chronic_anxiety_fixation_age_years"]
     sexes = {s.value: s for s in Sex}
+    channels = {c.value: c for c in SymptomChannel}
     roles = {r.value: r for r in Role}
 
     people: dict[PersonId, Person] = {}
@@ -164,6 +167,12 @@ def build_family(text: str, constants: Constants, *, source: str = "<family>") -
                 acute_anxiety=_number(row["chronic_anxiety"], float, where, "chronic_anxiety"),
                 sibling_position=sibling,
                 financially_dependent=_choice(row["financially_dependent"], _YES_NO, where, "financially_dependent"),
+                # M1.A.11b: the constitutional channel prior is declared data, [I].
+                channel_prior=_choice(row["channel_prior"], channels, where, "channel_prior"),
+                # Nobody starts with a systems perspective: M1.E.7 makes it rise only on a landed
+                # external-agent contact. The reactive state's three detectors start at rest (M1.A.19).
+                systems_perspective=0.0,
+                reactive_state={name: 0.0 for name in REACTIVE_DETECTORS},
             )
         except ValueError as error:
             if isinstance(error, ConfigError):

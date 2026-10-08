@@ -91,7 +91,7 @@ def test_m16a3_selection_record_present_for_scripted_moves():
 
 def test_m16a4_effects_recorded_beside_cause():
     record = EffectRecord(
-        tick=2, mechanism="base_appraisal", cause=EventId(1, "ravi", 0),
+        tick=2, mechanism="appraisal", cause=EventId(1, "ravi", 0),
         acute_anxiety=((MARTA, 0.25),), ties=((TieId.of(RAVI, MARTA), "bond_energy", 0.0),),
     )
     body = to_dict(record)

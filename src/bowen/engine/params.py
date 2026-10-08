@@ -33,6 +33,19 @@ class EngineParams:
     hardening_run_length: int              # M4.G.1 — consecutive withdrawals that make a tie distant
     bond_energy_decay_rate: float          # M1.B.4 — at or near zero
     triangle_activity_window: int          # M1.C.3 amended — ticks a TRIANGLE act keeps its triangle active
+    defence_threshold: float               # M4.C.2 — excess anxiety above which content is defended against
+    witness_weight: float                  # M4.C.9 — a witness's share of an exchange it overhears
+    speaker_echo_gain: float               # M4.C.7 — the speaker's own reaction to what it addressed
+    reappraisal_window: int                # M4.C.6 — ticks of own emissions a reappraiser counts on a tie
+    attention_gain: float                  # M4.C.8 — amplification of attended feeling; ordering of attended intellect
+    perspective_anxiety_scale: float       # M4.C.4, M1.A.18d — excess anxiety that halves the effective perspective
+    calm_transfer_rate: float              # M4.C.10 — share of the anxiety gap a calmer sender takes per unit conductance
+    symptom_leak_rate: float               # M4.C.3a — share of the chronicity integral that leaks per tick
+    symptom_threshold_gain: float          # M1.A.6, M7.D.1 — onset threshold per point of functional level
+    symptom_rearm_fraction: float          # M7.D.1 — share of threshold below which a channel can fire again
+    symptom_event_intensity: float         # M7.D.1 — intensity of the endogenous event a symptom emits
+    reactive_rate: float                   # M1.A.19 — share of the gap each detector closes per tick
+    investment_leak_rate: float            # M1.B.8 — share of attention on a tie that fades per tick
     involvement_membership_threshold: float  # M1.A.12 — membership is a threshold over involvement
 
     def __post_init__(self) -> None:
@@ -52,6 +65,14 @@ class EngineParams:
             raise ValueError("contact_band_max must be in [0, 1)")
         if self.intensity_scale <= 0 or self.appraisal_gain < 0 or self.anxiety_togetherness_gain < 0:
             raise ValueError("intensity_scale must be positive; appraisal_gain and anxiety_togetherness_gain non-negative")
+        for name in ("witness_weight", "calm_transfer_rate", "symptom_leak_rate", "symptom_rearm_fraction",
+                     "reactive_rate", "investment_leak_rate", "attention_gain"):
+            if not 0.0 <= getattr(self, name) <= 1.0:
+                raise ValueError(f"{name} must be in [0, 1]")
+        if min(self.defence_threshold, self.perspective_anxiety_scale, self.symptom_threshold_gain) <= 0:
+            raise ValueError("defence_threshold, perspective_anxiety_scale and symptom_threshold_gain must be positive")
+        if self.reappraisal_window < 1 or self.speaker_echo_gain < 0 or self.symptom_event_intensity < 0:
+            raise ValueError("reappraisal_window >= 1; speaker_echo_gain and symptom_event_intensity non-negative")
         if self.triangle_activity_window < 1:
             raise ValueError("triangle_activity_window must be at least 1")
         if self.hardening_run_length < 2:

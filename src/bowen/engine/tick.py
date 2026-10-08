@@ -12,14 +12,17 @@ The nine steps, and where each lives:
 2. deliver .................. scheduled inputs enter (``act.inject``), structural
                               events apply (``event_effects``), the tick's batch is
                               released and recorded
-3. perceive ................. ``appraise_base.perceive``
-4. appraise ................. ``appraise_base.apply_base_appraisal``; delivered cutoffs
+3. perceive ................. ``appraise.perceive``
+4. appraise ................. ``appraise.apply_appraisal``; delivered cutoffs
 5. involvement .............. ``recompute.recompute_involvement``
 6. triangles ................ ``recompute.recompute_triangles``
 7. select ................... the activation component names who selects; the
                               source supplies their selections (a script, in Phase B)
 8. act ...................... ``act.act``
-9. consolidate .............. ``consolidate.consolidate``; then the invariants assert
+9. consolidate .............. ``symptoms.accumulate_symptoms`` (the integrator and onset,
+                              M4.C.3, M7.D.1); ``reactive.update_attention_state``
+                              (investment, M1.B.8; the detectors, M1.A.19);
+                              ``consolidate.consolidate``; then the invariants assert
 
 The slow tick (M3.B.1) fires after the 52nd, 104th, … fast tick. In Phase B it
 does nothing but record that it fired; its contents are Phase D.
@@ -31,7 +34,7 @@ from typing import Protocol
 
 from src.bowen.engine.act import Selection, act, inject, record_deliveries
 from src.bowen.engine.activation import SynchronousActivation
-from src.bowen.engine.appraise_base import apply_base_appraisal, perceive
+from src.bowen.engine.appraise import apply_appraisal, perceive
 from src.bowen.engine.consolidate import consolidate
 from src.bowen.engine.event_effects import STRUCTURAL, apply_delivered_cutoffs, apply_structural_event
 from src.bowen.engine.events import Event
@@ -39,9 +42,11 @@ from src.bowen.engine.identifiers import PersonId
 from src.bowen.engine.invariants import assert_invariants, snapshot
 from src.bowen.engine.log_records import EffectRecord, Emitter, TickRecord
 from src.bowen.engine.params import EngineParams
+from src.bowen.engine.reactive import update_attention_state
 from src.bowen.engine.recompute import recompute_involvement, recompute_triangles
 from src.bowen.engine.standing_load import apply_standing_load
 from src.bowen.engine.state import RunState
+from src.bowen.engine.symptoms import accumulate_symptoms
 from src.bowen.engine.visibility import HouseholdConductanceVisibility
 
 STEPS = (
@@ -101,7 +106,8 @@ def run_tick(
     steps.append("perceive")
 
     # 4 — appraise.
-    records += apply_base_appraisal(state, perceived, params)
+    effects, attended = apply_appraisal(state, perceived, params)
+    records += effects
     records += apply_delivered_cutoffs(state, batch, params)
     steps.append("appraise")
 
@@ -126,7 +132,10 @@ def run_tick(
         records += act(state, selection, visibility)
     steps.append("act")
 
-    # 9 — consolidate, then the invariants assert (M4.G.2).
+    # 9 — consolidate, then the invariants assert (M4.G.2). The integrator reads this
+    # tick's time above the floor before decay (M4.C.3a).
+    records += accumulate_symptoms(state, params, visibility)
+    records += update_attention_state(state, attended, params)
     records += consolidate(state, params)
     steps.append("consolidate")
     records.append(assert_invariants(state, before, loaded, tuple(steps), params.invariant_tolerance))

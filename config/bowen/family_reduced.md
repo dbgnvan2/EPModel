@@ -16,6 +16,10 @@
 > - The undifferentiation budget starts at 0. The spec gives no relation between the
 >   budget and anxiety (external review A3); in Phase B only `binder_unavailable` writes it.
 >
+> `channel_prior` is each person's constitutional symptom channel (spec `M1.A.11b`): which channel their
+> symptom load accumulates in until Phase D's relational term can move it (`M1.A.11c`, `M7.D.2`). **Invented,
+> `[I]`**, chosen at Phase C step 2; the spec's `M2.A` table gives none.
+>
 > Relations: `parent_of` reads "a is the parent of b". A person's family-of-origin
 > ties are those to a parent or a sibling (`M1.D.8`).
 
@@ -26,15 +30,15 @@ undifferentiation_budget: 0
 
 ## People
 
-| id | name | generation | age | sex | household | basic_level | functional_level | chronic_anxiety | sibling_rank | sibship_size | financially_dependent | role |
-|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| `ravi` | Ravi | 2 | 52 | male | ravi_marta | 39 | 39 | 44 | 1 | 3 | no | member |
-| `marta` | Marta | 2 | 50 | female | ravi_marta | 40 | 40 | 46 | 1 | 2 | no | member |
-| `nadia` | Nadia | 3 | 17 | female | ravi_marta | 41 | 41 | 52 | 2 | 3 | yes | member |
-| `pia` | Pia | 3 | 14 | female | ravi_marta | 44 | 44 | 37 | 3 | 3 | yes | member |
-| `ana` | Ana | 1 | 78 | female | ana | 37 | 37 | 38 | 1 | 2 | no | member |
-| `sofia` | Sofia | 1 | 76 | female | sofia | 41 | 41 | 35 | 1 | 1 | no | member |
-| `bruno` | Bruno | 1 | 74 | male | bruno | 29 | 29 | 55 | 2 | 2 | no | member |
+| id | name | generation | age | sex | household | basic_level | functional_level | chronic_anxiety | sibling_rank | sibship_size | financially_dependent | role | channel_prior |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| `ravi` | Ravi | 2 | 52 | male | ravi_marta | 39 | 39 | 44 | 1 | 3 | no | member | physical |
+| `marta` | Marta | 2 | 50 | female | ravi_marta | 40 | 40 | 46 | 1 | 2 | no | member | physical |
+| `nadia` | Nadia | 3 | 17 | female | ravi_marta | 41 | 41 | 52 | 2 | 3 | yes | member | mental |
+| `pia` | Pia | 3 | 14 | female | ravi_marta | 44 | 44 | 37 | 3 | 3 | yes | member | social |
+| `ana` | Ana | 1 | 78 | female | ana | 37 | 37 | 38 | 1 | 2 | no | member | physical |
+| `sofia` | Sofia | 1 | 76 | female | sofia | 41 | 41 | 35 | 1 | 1 | no | member | physical |
+| `bruno` | Bruno | 1 | 74 | male | bruno | 29 | 29 | 55 | 2 | 2 | no | member | social |
 
 ## Ties
 

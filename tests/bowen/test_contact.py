@@ -17,7 +17,7 @@ import dataclasses
 
 import pytest
 
-from src.bowen.engine.appraise_base import appraisal_delta
+from src.bowen.engine.appraise import appraisal_delta
 from src.bowen.engine.contact import (
     ContactNotInitialised, band, deviation, deviation_at, initialise_contact, optimum, relax_contact,
     resting_contact, steepness, too_little, too_much,

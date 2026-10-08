@@ -411,7 +411,7 @@ Not gate criteria, but `M13` places them in Phase C. Each carries a unit test na
 | Objects written in C | `M1.A.9`/`.9a` (`outside_ness`), `M1.A.18`–`.18d`, `M1.A.19`, `M1.B.5`–`.10a`, `M1.C.5`, `M1.D.1`, `.3`, `.4a`, `M1.E.1`–`.8`, `M1.A.5b`'s functional togetherness | per register row (Appendix A) |
 | Invariants | `M6.I.1`–`M6.I.8` asserted every tick, `M6.I.6` as restated (P1); `M6.1`, `M6.2` | `test_m6i6_transfers_balance_every_tick`, one per invariant |
 | Symptoms (P3) | `M7.D.1` | `test_m7d1_threshold_crossing_emits_endogenous_event` |
-| Belief (P2a) | `M9.8` store only | `test_m9d8_belief_written_only_from_witnessed_events` |
+| Belief (P2a) | `M9.8` store only | `test_m98_belief_written_only_from_delivered_events` *(built at step 4 under this name: the coverage tool maps `test_m98_` to `M9.8`, and the store is written from target as well as witness deliveries, as `M9.8` says)* |
 | Log | `M16.D.1`, `M16.D.2` | `M16.T.4`, and the delayed-view arm `M16.D.2` asks for |
 | Stopping | `M17.A.1`, `.3`, `.4`; `M11.4a`, `.4d`, `.4e` | `test_m17a1_undetermined_at_cap_does_not_pass`, `test_m114e_signed_rank_matches_table` |
 
@@ -433,7 +433,7 @@ src/bowen/
     symptoms.py      M7.D.1 (P3)
     external.py      M1.E
   policy/          D3, D4 — legal set, gates, channels, learner; imports engine state types only
-  beliefs/         P2a — the M9.8 store
+  beliefs/         P2a — the M9.8 store. *Built at step 4 as `engine/beliefs.py` instead: the engine writes it at step 3, and the purity guard (`M11.D.22`) keeps the engine from importing outside itself*
   readouts/        D6 pattern readouts; M5.F.2b counterfeit detector; M1.A.4h channel readout
   ensemble/        D7, D8 — paired runs, keyed seeds, signed-rank, adaptive stopping, record
 config/bowen/

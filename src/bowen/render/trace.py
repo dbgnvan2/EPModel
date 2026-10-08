@@ -50,7 +50,7 @@ CAUSED = frozenset({"appraisal", "calm_contact", "symptom_onset", "trigger", "cu
 SYSTEM_SHOWN = frozenset({"triangle_recompute", "consolidation", "slow_tick"})
 SYSTEM_SUMMARISED = frozenset({
     "standing_load", "acute_decay", "contact_relaxation", "symptom_accumulation", "investment", "reactive_state",
-    "outside_ness",
+    "outside_ness", "belief",
 })  # every week, everyone; stated once
 
 

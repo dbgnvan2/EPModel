@@ -83,6 +83,7 @@ SCHEMA: Mapping[str, KeySpec] = MappingProxyType(
         "outside_ness_threshold_outward": KeySpec(float, "[I]", "M5.C.1"),
         "outside_ness_threshold_inward": KeySpec(float, "[I]", "M5.C.1"),
         "involvement_membership_threshold": KeySpec(float, "[I]", "M1.A.12"),
+        "belief_rate": KeySpec(float, "[I]", "M9.8"),
     }
 )
 

@@ -53,6 +53,7 @@ class EngineParams:
     outside_ness_threshold_outward: float  # M5.C.1, revision 12 P9 — the gate fails above this on the outward axis
     outside_ness_threshold_inward: float   # M5.C.1, revision 12 P9 — and above this on the inward axis
     involvement_membership_threshold: float  # M1.A.12 — membership is a threshold over involvement
+    belief_rate: float                     # M9.8 — share of the gap to a witnessed observation closed per tick, at full fidelity
 
     def __post_init__(self) -> None:
         for name in (
@@ -78,7 +79,7 @@ class EngineParams:
         if self.assault_gain < 0:
             raise ValueError("assault_gain must be non-negative")
         for name in ("witness_weight", "calm_transfer_rate", "symptom_leak_rate", "symptom_rearm_fraction",
-                     "reactive_rate", "investment_leak_rate", "attention_gain"):
+                     "reactive_rate", "investment_leak_rate", "attention_gain", "belief_rate"):
             if not 0.0 <= getattr(self, name) <= 1.0:
                 raise ValueError(f"{name} must be in [0, 1]")
         if min(self.defence_threshold, self.perspective_anxiety_scale, self.symptom_threshold_gain) <= 0:

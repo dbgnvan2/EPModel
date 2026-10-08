@@ -1512,6 +1512,7 @@ Classes are `M14.A.1`'s four: exogenous-homogeneous (EH), exogenous-heterogeneou
 | `functional_sibling_position` | Person | DV | derivation (`M1.A.14a`) | D |
 | `financially_dependent` | Person | EX | family definition; life-stage update (`M1.A.15`) | B; D |
 | `beliefs` | Person | DV | belief layer (`M9`) | D |
+| `tie_beliefs` | Person | DV | initialisation at an uninformed prior; step 3's belief update, from moves delivered to the person as target or witness, after per-hop fidelity (`M9.8`) ⟦rev12 · Phase C step 4, 2026-10-07 · P2a⟧ | C |
 | `systems_perspective` | Person | DV | family definition, 0 at `t0` ⟦rev12 · Phase C step 2, 2026-10-07⟧; landed contact (`M1.E.7`) | C |
 | `reactive_state` | Person | DV | the three detectors' drift, step 9 (`M1.A.19`) ⟦rev12 · Phase C step 2, 2026-10-07⟧ | C |
 | `pseudo_self` | Person | DV | dyadic exchange (`M6.I.4`); estimator | C; D |
@@ -1555,6 +1556,7 @@ Classes are `M14.A.1`'s four: exogenous-homogeneous (EH), exogenous-heterogeneou
 | Standing load (`M4.A.1`, `M4.A.5`, `M4.C.1c`) | engine | synchronous batch, step 1 | every tick | each tie's `bond_energy`, `interactive`, `felt_contact`; each person's `functional_level`, `basic_level`, `acute_anxiety` and `chronic_anxiety` (the optimum, `M4.C.1b`) — the "too little" side from revision 11 ⟦rev11 · Phase C step 1, 2026-10-07⟧ | — | `Person.acute_anxiety` *(built in B, rebuilt in C)* | C |
 | Deliver (`M1.F.8`) | engine | latency-delivered, step 2 | event due | event queue | — | inboxes | B |
 | Perceive (`M4.B.1`) | engine | synchronous batch, step 3 | every tick | inbox | — | perceived set | B |
+| Belief update (`M9.8`) | Person | synchronous batch, step 3, after perceive | every tick on which a move is delivered to the person | the person's own inbox — delivered moves' kind, intensity and fidelity — and its own prior beliefs | `Person.tie_beliefs` | — ⟦rev12 · Phase C step 4, 2026-10-07 · P2a⟧ | C |
 | Base appraisal (`M4.C.1`) | engine | synchronous batch, step 4 | perceived event | event fields and the kind's components; tie `conductance`, `bond_energy`, the receiver's `felt_contact` and `felt_impingement`; receiver `functional_level` and anxiety — the change in two-sided deviation from revision 11 ⟦rev11 · Phase C step 1, 2026-10-07⟧ | — | `Person.acute_anxiety`; `Relationship.felt_contact`, `felt_impingement` *(built in B, rebuilt in C)* | C |
 | Involvement recompute (`M1.A.12`) | engine | synchronous batch, step 5 | every tick | ties; `acute_anxiety` | — | `Person.involvement_weight` | B |
 | Triangle recompute (`M1.C.3`) | engine | synchronous batch, step 6 | every tick | recent `TRIANGLE` acts in the store; live positions — no tension threshold from revision 11 ⟦rev11 · Phase C step 1, 2026-10-07⟧ | — | `Triangle.members`, `inside_pair`, `outside`, `active`, `activation_memory` | B |

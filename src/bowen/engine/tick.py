@@ -3,7 +3,7 @@
 Purpose: run one week of the model as M3.D.1's nine steps, assert the
          invariants, fire the slow tick every 52 fast ticks, and emit the week's
          log records through the caller's emitter.
-Spec:    docs/bowen_agent_model_spec_v2.md#M3.A.1, #M3.B.1, #M3.D.1, #M3.D.2, #M3.D.3, #M4.G.2, #M16.B.1
+Spec:    docs/bowen_agent_model_spec_v2.md#M3.A.1, #M3.B.1, #M3.D.1, #M3.D.2, #M3.D.3, #M4.G.2, #M16.B.1, #M9.8
 Tests:   tests/bowen/test_tick.py
 
 The nine steps, and where each lives:
@@ -12,7 +12,9 @@ The nine steps, and where each lives:
 2. deliver .................. scheduled inputs enter (``act.inject``), structural
                               events apply (``event_effects``), the tick's batch is
                               released and recorded
-3. perceive ................. ``appraise.perceive``
+3. perceive ................. ``appraise.perceive``; each person's beliefs about ties
+                              they are not party to move toward what was delivered
+                              (``beliefs.update_beliefs``, M9.8)
 4. appraise ................. ``appraise.apply_appraisal``; delivered cutoffs
 5. involvement .............. ``recompute.recompute_involvement``
 6. triangles ................ ``recompute.recompute_triangles``
@@ -36,6 +38,7 @@ from typing import Protocol
 from src.bowen.engine.act import Selection, act, inject, record_deliveries
 from src.bowen.engine.activation import SynchronousActivation
 from src.bowen.engine.appraise import apply_appraisal, perceive
+from src.bowen.engine.beliefs import update_beliefs
 from src.bowen.engine.consolidate import consolidate
 from src.bowen.engine.event_effects import STRUCTURAL, apply_delivered_cutoffs, apply_structural_event
 from src.bowen.engine.events import Event
@@ -105,6 +108,7 @@ def run_tick(
 
     # 3 — perceive.
     perceived = perceive(state, batch)
+    records += update_beliefs(state, perceived, params)
     steps.append("perceive")
 
     # 4 — appraise.

@@ -58,6 +58,7 @@ GOOD_ROWS = (
     "| `outside_ness_threshold_outward` | 0.5 | [I] | u | `M5.C.1` |\n"
     "| `outside_ness_threshold_inward` | 0.5 | [I] | u | `M5.C.1` |\n"
     "| `involvement_membership_threshold` | 0.5 | [I] | u | `M1.A.12` |\n"
+    "| `belief_rate` | 0.3 | [I] | u | `M9.8` |\n"
 )
 
 

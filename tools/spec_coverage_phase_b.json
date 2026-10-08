@@ -178,7 +178,7 @@
  },
  "M16.A.5a": {
   "status": "partial",
-  "note": "the discrepancy is computable from a record; Phase B writes no beliefs"
+  "note": "beliefs exist from Phase C step 4 and true_counterpart gives each one's true-state side (tests/bowen/test_beliefs.py::test_m98_belief_can_differ_from_the_true_state); the log records belief changes, not the tie's true levels, so a per-tick discrepancy is not yet recoverable from the log alone"
  },
  "M16.T.3": {
   "status": "partial",
@@ -279,5 +279,9 @@
  "M1.B.3": {
   "status": "done",
   "note": "no move crosses a non-interactive tie (review, 2026-10-06)"
+ },
+ "M4.B.2": {
+  "status": "partial",
+  "note": "the belief update reads no true state (static check, mutation-proved); the policy M4.B.2 binds is Phase C step 6, and M11.C.36 is Phase D"
  }
 }

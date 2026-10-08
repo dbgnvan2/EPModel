@@ -147,6 +147,9 @@ class Person:
     structural_importance: StructuralTier | None = None
     functional_sibling_position: SiblingPosition | None = None
     beliefs: dict[str, object] = field(default_factory=dict)
+    # M9.8, revision 12 P2a: belief about each tie the person is not party to.
+    # Written by ``beliefs.initialise_beliefs`` and step 3's ``beliefs.update_beliefs``.
+    tie_beliefs: dict | None = None
     systems_perspective: float | None = None
     reactive_state: dict[str, float] | None = None
     pseudo_self: float | None = None

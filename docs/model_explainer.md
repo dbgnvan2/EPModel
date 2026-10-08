@@ -1505,6 +1505,12 @@ layer (§9.5) was a channel into appraisal but nothing forbade a shortcut around
 misperceived alliance cannot happen. **Source:** `[ARGUED]` He 2026 (VISA), rule r14; `[SHOWN]` Zhou et al.
 2026 (PIMMUR) §2.3.2 — LLM agents that had to infer others' relationships, rather than being handed them,
 reached balanced configurations far less often (from about 61% to about 34%). `[INF]` for a rule-based model.
+**As built (Phase C step 4, 2026-10-07):** each person holds a believed tension and a believed closeness
+for every tie it is not part of. Both start at an uninformed prior (a tie it has seen nothing of is assumed
+to be at rest). Each week they move toward what the person was delivered about that tie: the act's kind and
+intensity, weighted by fidelity. They never move toward the truth on their own, so a tense marriage seen
+only in its calm moments stays believed calm. The sender's hidden state is not visible to the observer. The
+smoothing rule and its rate (`belief_rate`) are `[I]`. A static test fails if the update reads any true state.
 
 **Belief against truth, as a readout** (`M16.A.5a`, `M17.B.3` · C41) — *so arms in which beliefs and outcomes
 move in opposite directions are seen rather than averaged away.* **Source:** `[SHOWN]` Kalluri 2026 §6.3 —

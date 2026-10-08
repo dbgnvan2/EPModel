@@ -1262,7 +1262,7 @@ Each criterion **MUST** have a named test, **MUST** assert a direction of differ
 
 | Criterion | Class | The single rule it rests on | Note |
 |---|---|---|---|
-| M11.C.1 | Premise | `/ functional_level` in `M4.C.1a` | Bowen's central premise, entered as an input |
+| M11.C.1 | Premise (joint) | every rule that reads level, jointly | Bowen's central premise, entered as an input. *Corrected 2026-10-08 from `M11.1d`'s mutants (`docs/phase_c_mutation_record.md`): `M4.C.1a`'s steepness, `M1.A.6`'s threshold and `M4.A.5`'s self term each survive deletion and inversion alone; only the joint level-blind mutant turns it red. No single rule carries it.* |
 | M11.C.2 | Composite | — | target follows from where parental focus is relieved (`M7.E.1c` amended, `M4.D.6e`) |
 | M11.C.3 | Premise | `M1.C.1` transfer | physics of the act |
 | M11.C.4 | Premise | `M4.C.1c`'s accrual over time | the immediate limb is the impingement side's removal; the later limb is the accrual and the nodal-event spike (amended for finding 6) |
@@ -1286,27 +1286,27 @@ Each criterion **MUST** have a named test, **MUST** assert a direction of differ
 | M11.C.22 | Premise | `M7.D.2a`, `M7.D.2d` | candidate for learning; not decided |
 | M11.C.23 | Premise | the EE term |  |
 | M11.C.24 | Premise | `M6.I.4` transfer | as `M11.C.21` |
-| M11.C.25 | Premise | `M2.A.0g` | deliberate structural null |
+| M11.C.25 | Premise | `M2.A.0g` | deliberate structural null. *Confirmed 2026-10-08: the difference is exactly 0 in every seed; a sex term in pole assignment turns it red.* |
 | M11.C.26 | Premise | `M9.6` attribution write | composite only if beliefs are formed from witnessed events; not decided |
-| M11.C.27 | Composite | — | follows from `M4.C.1`'s two-sided shape; no prior-state term |
+| M11.C.27 | Composite | — | follows from `M4.C.1`'s two-sided shape; no prior-state term. *Checked 2026-10-08: the two passing cells flip only under inversion of `M4.C.1`'s deviation, the sign of all appraisal; kept composite.* |
 | M11.C.28 | Composite | — | arm input; outcome through `M4.C.3`'s integrator |
 | M11.C.29 | Premise | `M6.I.1` budget reduction |  |
 | M11.C.30 | Premise | `M7.D.2c` |  |
 | M11.C.31 | Check | `M1.F.9` | conservation; `M11.C.43` is its composite extension |
-| M11.C.32 | Premise | `M5.D.4` gate |  |
+| M11.C.32 | Premise | `M5.D.4` gate | *Confirmed 2026-10-08: the gate's inversion and its removal both turn it red.* |
 | M11.C.33 | Premise | `M7.A.1a` | deliberate |
 | M11.C.34 | Mixed | `M4.D.1a` mixing weight | the automatic share is premise; which automatic acts appear is learned |
 | M11.C.35 | Check | `M4.C.9` | architecture |
 | M11.C.36 | Check | `M4.B.2` | architecture |
 | M11.C.37 | Check | `M6.3` | conservation |
-| M11.C.38 | Premise | `M4.C.1a` steepness | as `M11.C.1` |
+| M11.C.38 | Premise (joint) | every rule that reads level, jointly | as `M11.C.1`. *Corrected 2026-10-08: each single-rule mutant reds some adjacent pairs and not others; the joint level-blind mutant reds all three.* |
 | M11.C.39 | Composite | — | "No persistence rule is written" |
 | M11.C.40 | Premise | the learning rule itself | plus a check that the self-directed channel is not reinforced |
 | M11.C.41 | Mixed | `M4.C.1a`; `M4.D.1a` mixing weight | anxiety and reactive-share limbs are premise through the mixing weight (`M4.D.3` amended); which reactive acts rise is learned |
-| M11.C.42 | Composite | — | new at revision 11 |
+| M11.C.42 | Composite | — | new at revision 11. *Checked 2026-10-08: deleting the learner turns it red, but inverting the learner does not. The direction needs a learner, not relief's sign, so the row's mechanism is not what produces it. Fails at 5 of 6 sweep settings.* |
 | M11.C.43 | Composite | — | new at revision 11 |
 | M11.C.44 | Composite | — | new at revision 11 |
-| M11.C.45 | Composite | — | new at revision 11 |
+| M11.C.45 | Premise | `M1.C.1`'s relief in proportion to the insiders' excess | new at revision 11. *Corrected 2026-10-08: the direction flips when that one rule is inverted (`relief-tension-inverted`), so under `M11.1d` it is a programmed premise. It also reverses at 3 of 6 sweep settings.* |
 
 ### M11.D — Engineering criteria
 

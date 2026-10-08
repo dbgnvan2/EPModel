@@ -48,6 +48,7 @@ class Readout:
     name: str
     direction: int                      # +1: treatment > baseline; -1: treatment < baseline; 0: a null
     bounds: tuple[float, float] = (-math.inf, math.inf)
+    report_only: bool = False           # reported beside the verdict, never tested (e.g. M11.C.16's top share)
 
 
 @dataclass
@@ -132,6 +133,8 @@ def _half_width(diff) -> float:
 
 def _converged(criterion, results, rules) -> bool:
     for readout in criterion.readouts:
+        if readout.report_only:
+            continue
         base, treat = _arrays(criterion, results, readout.name)
         diff = treat - base
         scale = _scale(base, diff)
@@ -154,7 +157,9 @@ def _verdict(criterion, results, converged, rules) -> Verdict:
             position = float((np.mean(base) - lo) / (hi - lo))
         row = {"readout": readout.name, "direction": readout.direction, "mean_difference": float(np.mean(diff)),
                "half_width": _half_width(diff), "baseline_sd": scale, "baseline_position": position}
-        if readout.direction == 0:
+        if readout.report_only:
+            row["report_only"] = True
+        elif readout.direction == 0:
             row["equivalence_bound"] = rules["equivalence_margin"] * scale
             row["within_bound"] = abs(row["mean_difference"]) + row["half_width"] <= row["equivalence_bound"]
             row["assay_limit"] = position is not None and (position <= 0.01 or position >= 0.99)
@@ -182,7 +187,7 @@ def _verdict(criterion, results, converged, rules) -> Verdict:
         outcome = UNDETERMINED
     else:
         held = all(r.get("holds", False) for r in directional) and all(
-            r.get("within_bound", True) for r in rows if r["direction"] == 0)
+            r.get("within_bound", True) for r in rows if r["direction"] == 0 and not r.get("report_only"))
         outcome = PASS if held else FAIL
     flagged = []
     if outcome == PASS and rate > rules["fallback_flag_rate"]:

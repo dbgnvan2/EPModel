@@ -109,7 +109,7 @@ def test_m11d2_check_catches_a_literal_in_the_policy(tmp_path):
 
 # --- M11.D.8 / M11.D.9 --------------------------------------------------------------------------
 
-EXPECTED_SPEC_REFERENCES = 558  # M11.D.9: an exact count, not a floor; update it when references change
+EXPECTED_SPEC_REFERENCES = 577  # M11.D.9: an exact count, not a floor; update it when references change
 
 
 def spec_anchors() -> set[str]:

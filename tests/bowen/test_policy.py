@@ -350,3 +350,44 @@ def test_m5b3_reduce_cutoff_crosses_a_cut_off_tie_and_nothing_else_does():
     assert any(isinstance(r, EmittedRecord) for r in act(state, reach, visibility, PARAMS))
     with pytest.raises(InactiveTie):
         act(state, dataclasses.replace(reach, kind="PURSUE", index=1), visibility, PARAMS)
+
+
+# --- numerical fixes made at step 14, after the freeze (reported in the completion report) --------
+
+
+def test_m4d1_large_learned_values_keep_the_softmax_finite():
+    """A learned value far past exp()'s range still selects; the within-channel softmax is shift-invariant."""
+    obs = observe(fresh(), RAVI, PARAMS)
+    first = next(o for o in legal_outcomes(obs, KINDS, PARAMS) if o.channel == AUTOMATIC)
+    big = dataclasses.replace(obs, learned_values={first.value_key: 1000.0})
+    outcomes, probs = propensities(big, KINDS, PARAMS)
+    assert all(math.isfinite(p) for p in probs)
+    automatic = {o.label: p for o, p in zip(outcomes, probs) if o.channel == AUTOMATIC}
+    assert automatic[first.label] == pytest.approx(sum(automatic.values()))
+    assert decide(big, KINDS, PARAMS, RULES, DrawService(0)).selection.decided_by is not DecidedBy.FALLBACK
+
+
+def test_m4d1b_withheld_act_is_drawn_when_the_automatic_channel_has_no_share():
+    """With the mixing weight all on the self-directed channel, WITHHOLD still names an automatic act."""
+    from unittest import mock
+
+    import src.bowen.policy.policy as policy
+
+    obs = observe(fresh(ravi={"functional_level": 60.0}), RAVI, PARAMS)
+    with mock.patch.object(policy, "self_channel_weight", lambda level, params: 1.0):
+        withheld = [d.selection for d in (decide(obs, KINDS, PARAMS, RULES, DrawService(s)) for s in range(300))
+                    if d.selection.kind == WITHHOLD]
+    assert withheld, "WITHHOLD never drawn in 300 seeds"
+    assert all(s.withheld in KINDS.in_channel(AUTOMATIC) for s in withheld)
+
+
+def test_m4d1b_nothing_to_withhold_when_no_automatic_act_has_weight():
+    """No automatic act available means WITHHOLD carries no weight (and no division by an empty total)."""
+    from unittest import mock
+
+    import src.bowen.policy.policy as policy
+
+    obs = observe(fresh(), RAVI, PARAMS)
+    with mock.patch.object(policy, "availability", lambda kind, obs, kinds, params: 0.0):
+        outcomes, probs = propensities(obs, KINDS, PARAMS)
+    assert dict((o.kind, p) for o, p in zip(outcomes, probs))[WITHHOLD] == 0.0

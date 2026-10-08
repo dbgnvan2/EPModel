@@ -312,7 +312,7 @@ def _collected_test_count() -> int:
          "-p", "no:cacheprovider"],
         capture_output=True, text=True, timeout=120, cwd=REPO,
     )
-    match = re.search(r"^(\d+) tests? collected", result.stdout, re.M)
+    match = re.search(r"^(\d+)(?:/\d+)? tests? collected", result.stdout, re.M)
     assert match, f"could not read pytest's collection count:\n{result.stdout[-2000:]}{result.stderr[-2000:]}"
     return int(match.group(1))
 

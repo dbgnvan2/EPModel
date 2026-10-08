@@ -215,10 +215,15 @@ def _loaded_gate(outcome: Outcome, obs: Observation, params: EngineParams) -> fl
 def channel_weights(outcomes: list[Outcome], obs: Observation, kinds: EventKinds, params: EngineParams) -> list[float]:
     """Unnormalised within-channel weights, before mixing."""
     weights = []
+    values = [obs.learned_values.get(o.value_key, 0.0) for o in outcomes if o.channel == AUTOMATIC]
+    # The softmax is shift-invariant within the channel; subtracting the largest value keeps exp() finite
+    # and away from underflow when learned values grow large (Phase C step 14). A non-finite value still
+    # reaches the fallback.
+    top = max(values) if values and all(math.isfinite(v) for v in values) else 0.0
     for o in outcomes:
         if o.channel == AUTOMATIC:
             value = obs.learned_values.get(o.value_key, 0.0)
-            weights.append(math.exp(value / params.policy_temperature) * availability(o.kind, obs, kinds, params))
+            weights.append(math.exp((value - top) / params.policy_temperature) * availability(o.kind, obs, kinds, params))
         else:
             weights.append(self_score(o, obs) ** (1.0 / params.policy_temperature) * _loaded_gate(o, obs, params))
     return weights
@@ -233,6 +238,9 @@ def propensities(obs: Observation, kinds: EventKinds, params: EngineParams) -> t
     weights = channel_weights(outcomes, obs, kinds, params)
     if any(not math.isfinite(w) for w in weights):
         return outcomes, [math.nan] * len(outcomes)
+    if sum(w for o, w in zip(outcomes, weights) if o.channel == AUTOMATIC) <= 0:
+        # Nothing automatic carries weight, so there is nothing to withhold (M4.D.1b).
+        weights = [0.0 if o.kind == WITHHOLD else w for o, w in zip(outcomes, weights)]
     totals = {c: sum(w for o, w in zip(outcomes, weights) if o.channel == c) for c in (AUTOMATIC, SELF)}
     mix = {SELF: self_channel_weight(obs.functional_level, params)}
     mix[AUTOMATIC] = 1.0 - mix[SELF]
@@ -284,8 +292,10 @@ def decide(obs: Observation, kinds: EventKinds, params: EngineParams, rules: Pol
         beliefs_used=triangle_position(obs, params)[1],
     )
     if chosen.kind == WITHHOLD:
-        auto = [(o, p) for o, p in zip(outcomes, probs) if o.channel == AUTOMATIC]
-        held = auto[_invert(draws.uniform(_key(obs, "withheld")), [p for _, p in auto])][0]
+        # The act held back is the automatic channel's own: drawn from its within-channel weights,
+        # which stay defined when the mixing weight gives that channel no share (M4.D.1b).
+        auto = [(o, w) for o, w in zip(outcomes, channel_weights(outcomes, obs, kinds, params)) if o.channel == AUTOMATIC]
+        held = auto[_invert(draws.uniform(_key(obs, "withheld")), [w for _, w in auto])][0]
         return Decision(Selection(
             actor=obs.person, kind=WITHHOLD, targets=(held.target,), intensity=params.policy_intensity,
             withheld=held.kind, **rationale,

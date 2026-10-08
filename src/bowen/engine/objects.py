@@ -190,6 +190,8 @@ class Relationship:
     felt_impingement: dict[PersonId, float] = field(default_factory=dict)
     distance_bound_anxiety: float = 0.0
     functioning_balance: dict[str, float] = field(default_factory=dict)
+    # M1.B.6, L05.3: the hardened configuration a flipped balance reverts toward unless sustained.
+    functioning_habit: dict[str, float] = field(default_factory=dict)
     investment: dict[PersonId, float] = field(default_factory=dict)
     areas_of_joint_activity: set[str] = field(default_factory=set)
     taboo_set: set[str] = field(default_factory=set)

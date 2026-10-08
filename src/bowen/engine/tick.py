@@ -15,7 +15,8 @@ The nine steps, and where each lives:
 3. perceive ................. ``appraise.perceive``; each person's beliefs about ties
                               they are not party to move toward what was delivered
                               (``beliefs.update_beliefs``, M9.8)
-4. appraise ................. ``appraise.apply_appraisal``; delivered cutoffs
+4. appraise ................. ``appraise.apply_appraisal``; delivered cutoffs; each delivered
+                              move's own effect (``moves.apply_move_effects``, plan D5)
 5. involvement .............. ``recompute.recompute_involvement``
 6. triangles ................ ``recompute.recompute_triangles``
 7. select ................... the activation component names who selects; the
@@ -25,6 +26,7 @@ The nine steps, and where each lives:
                               M4.C.3, M7.D.1); ``reactive.update_attention_state``
                               (investment, M1.B.8; the detectors, M1.A.19);
                               ``outside_ness.update_outside_ness`` (M1.A.9, M4.C.5);
+                              ``moves.settle_functioning`` (M1.B.5, M1.B.6);
                               ``consolidate.consolidate``; then the invariants assert
 
 The slow tick (M3.B.1) fires after the 52nd, 104th, … fast tick. In Phase B it
@@ -44,6 +46,7 @@ from src.bowen.engine.event_effects import STRUCTURAL, apply_delivered_cutoffs, 
 from src.bowen.engine.events import Event
 from src.bowen.engine.identifiers import PersonId
 from src.bowen.engine.invariants import assert_invariants, snapshot
+from src.bowen.engine.moves import apply_move_effects, settle_functioning
 from src.bowen.engine.log_records import EffectRecord, Emitter, TickRecord
 from src.bowen.engine.params import EngineParams
 from src.bowen.engine.outside_ness import update_outside_ness
@@ -115,6 +118,7 @@ def run_tick(
     effects, attended, readings = apply_appraisal(state, perceived, params)
     records += effects
     records += apply_delivered_cutoffs(state, batch, params)
+    records += apply_move_effects(state, batch, params)
     steps.append("appraise")
 
     # 5, 6 — before selection, because gates and propensities read them (M3.D.3).
@@ -143,6 +147,7 @@ def run_tick(
     records += accumulate_symptoms(state, params, visibility)
     records += update_attention_state(state, attended, params)
     records += update_outside_ness(state, readings, params)
+    records += settle_functioning(state, params)
     records += consolidate(state, params)
     steps.append("consolidate")
     records.append(assert_invariants(state, before, loaded, tuple(steps), params.invariant_tolerance))

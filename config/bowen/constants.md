@@ -90,4 +90,12 @@ activation_regime: synchronous
 | `outside_ness_threshold_outward` | 0.5 | [I] | outward impingement | `M5.C.1` |
 | `outside_ness_threshold_inward` | 0.5 | [I] | inward impingement | `M5.C.1` |
 | `belief_rate` | 0.3 | [I] | share of the gap to an observation per tick, at full fidelity | `M9.8` |
+| `distance_binding_rate` | 0.3 | [I] | share of excess bound per unit scaled intensity | `M1.D.2a` |
+| `triangle_transfer_rate` | 0.3 | [I] | share of each insider's excess passed per unit scaled intensity | `M1.C.1` |
+| `outsider_positional_gain` | 0.5 | [I] | positional anxiety per unit transferred | `M1.C.1` |
+| `balance_push_gain` | 0.2 | [I] | balance per unit scaled intensity | `M1.B.5` |
+| `balance_settle_rate` | 0.05 | [I] | share of the gap to the pole per tick | `M1.B.5` |
+| `balance_harden_rate` | 0.02 | [I] | share of the gap per tick | `M1.B.6` |
+| `reversal_asymmetry` | 0.5 | [I] | share of an upward push lost at a fully hardened habit | `M1.B.7` |
+| `pseudo_self_transfer_gain` | 2.0 | [I] | functional-level points per unit scaled intensity | `M6.I.4` |
 | `involvement_membership_threshold` | 0.5 | [I] | involvement units | `M1.A.12` |

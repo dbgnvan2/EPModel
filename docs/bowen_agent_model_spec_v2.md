@@ -917,7 +917,7 @@ Asserted at the end of every fast tick (M4.G.2). A violation **MUST** raise, not
 |---|---|---|---|
 | `Person.acute_anxiety` | appraisal (`M4.C.1`), including the standing "too little" term (`M4.C.1c`); competing urges (`M4.D.1d`); a triangle outsider's own positional anxiety (`kerr_book/ks03.md` · KS03.1) | decay toward the chronic floor (`M1.A.8`) | `TRIANGLE` pair → outsider (`M1.C.1`); the calmer person's share of calmer contact (`M4.C.10`); binding into a tie by `DISTANCE` (`M1.D.2a`) |
 | `Triangle.bound_anxiety` | — | discharge on resolution (`M1.C.3a`), logged | from and to the triangle's members |
-| tie-bound anxiety (`M1.D.2a`) | — | — | from the person who distanced; back to the tie's members on `RECONCILIATION` (`M4.A.3`) |
+| tie-bound anxiety (`M1.D.2a`) | — | — | from the person who distanced; back to the tie's members on `RECONCILIATION` (`M4.A.3`); to the third members of the triads holding the tie on `REDUCE_CUTOFF` (`M5.B.3`, `L22.6`) ⟦rev12 · Phase C step 5, 2026-10-07⟧ |
 | `Family.undifferentiation_budget` | — | reduction by a completed differentiating exchange (`M6.I.1`) | between the three sinks (`M1.D.1`); back to the family on `binder_unavailable` (`M1.F.9`) |
 
 The budget and anxiety are separate stocks; the transfers above are the only stated relation between them. If a later revision takes up `M1.D.1`'s sinks, this table changes with it.
@@ -1496,8 +1496,8 @@ Classes are `M14.A.1`'s four: exogenous-homogeneous (EH), exogenous-heterogeneou
 | `sex` | Person | EX | family definition (`M1.A.21`) | B |
 | `household_id` | Person | EX | family definition; life-stage update (`M1.A.22`) | B; D |
 | `basic_level` | Person | DV | family definition at `t0`; the estimator (`M1.A.4a`, `M7.A.1`) | B; D |
-| `functional_level` | Person | DV | `basic_level` plus swing (`M1.A.5a`); swing written by consolidation and the self-directed channel | B; C |
-| `acute_anxiety` | Person | DV | standing load (`M4.A.1`); base appraisal (`M4.C.1`); consolidation decay (`M1.A.8`); speaker echo (`M4.C.7`) and calm transfer (`M4.C.10`) ⟦rev12 · Phase C step 2, 2026-10-07⟧ | B; C |
+| `functional_level` | Person | DV | `basic_level` plus swing (`M1.A.5a`); swing written by consolidation and the self-directed channel; the pseudo-self exchange of `OVERFUNCTION` and `UNDERFUNCTION` (`M6.I.4`) ⟦rev12 · Phase C step 5, 2026-10-07⟧ | B; C |
+| `acute_anxiety` | Person | DV | standing load (`M4.A.1`); base appraisal (`M4.C.1`); consolidation decay (`M1.A.8`); speaker echo (`M4.C.7`) and calm transfer (`M4.C.10`) ⟦rev12 · Phase C step 2, 2026-10-07⟧; `DISTANCE` binding (`M1.D.2a`), the `TRIANGLE` transfer and the outsider's positional anxiety (`M1.C.1`), release of tie-bound anxiety on `RECONCILIATION` and `REDUCE_CUTOFF` ⟦rev12 · Phase C step 5, 2026-10-07⟧ | B; C |
 | `chronic_anxiety` | Person | DV | family definition at `t0` (`M2.A.0a`); slow-tick derivation (`M1.A.7a`) | B; D |
 | `programmed_reactivity` | Person | DV | family definition at `t0`; childhood fixation (`M1.A.7`) | B; D |
 | `outside_ness_outward` | Person | DV | initialisation from `basic_level`; step-9 drift toward the impingement the person's own moves delivered (`M1.A.9`); selection (`M5.F`, step 6). Holds outward **impingement**: low is differentiated (`M1.A.9a`) ⟦rev12 · Phase C step 3, 2026-10-07⟧ | C |
@@ -1515,17 +1515,18 @@ Classes are `M14.A.1`'s four: exogenous-homogeneous (EH), exogenous-heterogeneou
 | `tie_beliefs` | Person | DV | initialisation at an uninformed prior; step 3's belief update, from moves delivered to the person as target or witness, after per-hop fidelity (`M9.8`) ⟦rev12 · Phase C step 4, 2026-10-07 · P2a⟧ | C |
 | `systems_perspective` | Person | DV | family definition, 0 at `t0` ⟦rev12 · Phase C step 2, 2026-10-07⟧; landed contact (`M1.E.7`) | C |
 | `reactive_state` | Person | DV | the three detectors' drift, step 9 (`M1.A.19`) ⟦rev12 · Phase C step 2, 2026-10-07⟧ | C |
-| `pseudo_self` | Person | DV | dyadic exchange (`M6.I.4`); estimator | C; D |
+| `pseudo_self` | Person | DV | initialisation as the swing (`M1.A.5a`); dyadic exchange by `OVERFUNCTION` and `UNDERFUNCTION` (`M6.I.4`) ⟦rev12 · Phase C step 5, 2026-10-07⟧; estimator | C; D |
 | `alive` | Person | DV | mortality (`M7.C.1`, `M6.3`) | D |
 | `id` | Relationship | EX | family definition (`M1.B.13`) | B |
 | `conductance` | Relationship | EX | family definition (`M1.B.2`) | B |
 | `bond_energy` | Relationship | DV | family definition; `TRIGGER`, `RECONCILIATION` and `INSTITUTIONALIZE` handling (`M4.A.2`–`M4.A.4`) | B |
-| `interactive` | Relationship | DV | `CUTOFF`, `RECONCILIATION` and `INSTITUTIONALIZE` handling (`M4.A.3`, `M4.A.4`) | B |
+| `interactive` | Relationship | DV | `CUTOFF`, `RECONCILIATION` and `INSTITUTIONALIZE` handling (`M4.A.3`, `M4.A.4`); `REDUCE_CUTOFF` (`M5.B.3`) ⟦rev12 · Phase C step 5, 2026-10-07⟧ | B; C |
 | `felt_contact` | Relationship | DV | contact initialisation (`M4.C.1c`); appraisal of a delivered event (`M4.C.1`); `RECONCILIATION` (`M1.B.4`); contact relaxation, step 9 (`M4.C.1c`) ⟦rev11 · Phase C step 1, 2026-10-07⟧ | C |
 | `felt_impingement` | Relationship | DV | contact initialisation (`M4.C.1c`); appraisal of a delivered event (`M4.C.1`); delivered `CUTOFF` (`M1.B.3`); contact relaxation, step 9 (`M4.C.1`) ⟦rev11 · Phase C step 1, 2026-10-07⟧ | C |
-| `tie_state` | Relationship | DV | consolidation hardening (`M4.G.1`, `M1.B.3`) | B |
-| `distance_bound_anxiety` | Relationship | DV | `DISTANCE` handling (`M1.D.2a`); `binder_unavailable` (`M1.F.9`) | B; C |
-| `functioning_balance` | Relationship | DV | pole flip (`M1.B.5`–`M1.B.7`) | C |
+| `tie_state` | Relationship | DV | consolidation hardening (`M4.G.1`, `M1.B.3`); `REDUCE_CUTOFF` (`M5.B.3`) ⟦rev12 · Phase C step 5, 2026-10-07⟧ | B; C |
+| `distance_bound_anxiety` | Relationship | DV | `DISTANCE` binding (`M1.D.2a`); release on `RECONCILIATION` and `REDUCE_CUTOFF` ⟦rev12 · Phase C step 5, 2026-10-07⟧; `binder_unavailable` (`M1.F.9`) | B; C |
+| `functioning_balance` | Relationship | DV | initialisation, one area (`M1.B.9`); `OVERFUNCTION` and `UNDERFUNCTION` pushes with the relative flip (`M1.B.5`–`M1.B.7`); step-9 settling toward a pole ⟦rev12 · Phase C step 5, 2026-10-07⟧ | C |
+| `functioning_habit` | Relationship | DV | initialisation; step-9 hardening toward the balance (`M1.B.6`, `L05.3`) ⟦rev12 · Phase C step 5, 2026-10-07⟧ | C |
 | `investment` | Relationship | DV | attention update, step 9, from what each member appraised on the tie (`M1.B.8`) ⟦rev12 · Phase C step 2, 2026-10-07⟧ | C |
 | `areas_of_joint_activity` | Relationship | DV | functioning-balance narrowing (`M1.B.9`) | C |
 | `taboo_set` | Relationship | DV | appraisal; purposeful mention (`M1.B.10`, `M1.B.10a`) | C |
@@ -1559,7 +1560,7 @@ Classes are `M14.A.1`'s four: exogenous-homogeneous (EH), exogenous-heterogeneou
 | Belief update (`M9.8`) | Person | synchronous batch, step 3, after perceive | every tick on which a move is delivered to the person | the person's own inbox — delivered moves' kind, intensity and fidelity — and its own prior beliefs | `Person.tie_beliefs` | — ⟦rev12 · Phase C step 4, 2026-10-07 · P2a⟧ | C |
 | Base appraisal (`M4.C.1`) | engine | synchronous batch, step 4 | perceived event | event fields and the kind's components; tie `conductance`, `bond_energy`, the receiver's `felt_contact` and `felt_impingement`; receiver `functional_level` and anxiety — the change in two-sided deviation from revision 11 ⟦rev11 · Phase C step 1, 2026-10-07⟧ | — | `Person.acute_anxiety`; `Relationship.felt_contact`, `felt_impingement` *(built in B, rebuilt in C)* | C |
 | Involvement recompute (`M1.A.12`) | engine | synchronous batch, step 5 | every tick | ties; `acute_anxiety` | — | `Person.involvement_weight` | B |
-| Triangle recompute (`M1.C.3`) | engine | synchronous batch, step 6 | every tick | recent `TRIANGLE` acts in the store; live positions — no tension threshold from revision 11 ⟦rev11 · Phase C step 1, 2026-10-07⟧ | — | `Triangle.members`, `inside_pair`, `outside`, `active`, `activation_memory` | B |
+| Triangle recompute (`M1.C.3`) | engine | synchronous batch, step 6 | every tick | recent `TRIANGLE` acts in the store; live positions — no tension threshold from revision 11 ⟦rev11 · Phase C step 1, 2026-10-07⟧; recent `DETRIANGLE` and `PREVENT_ALIGNMENT` acts (`M5.B.1`, `M5.B.2`) ⟦rev12 · Phase C step 5, 2026-10-07⟧ | — | `Triangle.members`, `inside_pair`, `outside`, `active`, `activation_memory` | B |
 | Live positions (`M8.1`) | engine | called from step 6 and from visibility | on call | group membership; fusion | — | — | B |
 | Scripted selection (`ScriptedSource`) | engine | synchronous batch, step 7 | script entry due | script | — | selection record | B |
 | Act (`M4.E.1`) | engine | synchronous batch, step 8 | selection | selection; tie `latency` | — | event queue | B |
@@ -1567,12 +1568,14 @@ Classes are `M14.A.1`'s four: exogenous-homogeneous (EH), exogenous-heterogeneou
 | Consolidate (`M4.G.1`, `M1.A.8`, `M4.C.1c`) | engine | synchronous batch, step 9 | every tick | tie event history; `chronic_anxiety`; the optimum's inputs | — | `Relationship.tie_state`, `Relationship.bond_energy`, `Person.acute_anxiety`; `Relationship.felt_contact`, `felt_impingement` (contact relaxation, ⟦rev11 · Phase C step 1, 2026-10-07⟧) *(built in B, rebuilt in C)* | C |
 | Invariants (`M4.G.2`, `M4.G.2a`) | engine | synchronous batch, step 9 | every tick | all state | — | — | B |
 | Binder unavailable (`M1.F.9`) | engine | latency-delivered, step 2 | scripted event | the named binder | — | `Family.undifferentiation_budget`; the binder's object | B |
-| Structural events (`M4.A.2`–`M4.A.4`) | engine | synchronous batch, step 2 | scripted event due | the named tie or person | — | `Relationship.interactive`, `Relationship.tie_state`; the trigger list read by step 1; `Relationship.felt_contact` on `RECONCILIATION` (⟦rev11 · Phase C step 1, 2026-10-07⟧) *(built in B, rebuilt in C)* | C |
+| Structural events (`M4.A.2`–`M4.A.4`) | engine | synchronous batch, step 2 | scripted event due | the named tie or person | — | `Relationship.interactive`, `Relationship.tie_state`; the trigger list read by step 1; `Relationship.felt_contact` on `RECONCILIATION` (⟦rev11 · Phase C step 1, 2026-10-07⟧); `Relationship.distance_bound_anxiety` and the members' `Person.acute_anxiety` on `RECONCILIATION` (`M1.D.2a`) ⟦rev12 · Phase C step 5, 2026-10-07⟧ *(built in B, rebuilt in C)* | C |
 | Delivered cutoff (`M1.B.3`) | engine | synchronous batch, step 4 | `CUTOFF` delivered | the tie; both members' deviation | — | `Relationship.interactive`, `Relationship.tie_state`; `Relationship.felt_impingement` and both members' `Person.acute_anxiety` (relief, ⟦rev11 · Phase C step 1, 2026-10-07⟧) *(built in B, rebuilt in C)* | C |
 | Symptom accumulation and onset (`M4.C.3`, `M4.C.3a`, `M7.D.1`) | engine | synchronous batch, step 9 | every tick | each person's acute and chronic anxiety, `functional_level`, `channel_prior` | — | `Person.symptom_load`, `Person.symptom_active`; the event queue (an endogenous `SYMPTOM_ONSET`) ⟦rev12 · Phase C step 2, 2026-10-07⟧ | C |
 | Investment (`M1.B.8`) | engine | synchronous batch, step 9 | every tick | what each member appraised on each tie this tick; their deviation on it | — | `Relationship.investment` ⟦rev12 · Phase C step 2, 2026-10-07⟧ | C |
 | Reactive detectors (`M1.A.19`) | engine | synchronous batch, step 9 | every tick | each person's own "too much" side, investment share and partners' anxiety, own emitted valence | — | `Person.reactive_state` ⟦rev12 · Phase C step 2, 2026-10-07⟧ | C |
 | Outside-ness drift (`M1.A.9`, `M4.C.5`) | engine | synchronous batch, step 9 | every tick | the person's own emitted moves this tick and their kinds' components; `M4.C.5`'s inward reading from step 4 | — | `Person.outside_ness_outward`, `Person.outside_ness_inward` ⟦rev12 · Phase C step 3, 2026-10-07⟧ | C |
+| Move physics (`M1.D.2a`, `M1.C.1`, `M1.C.3a`, `M1.B.5`–`M1.B.7`, `M6.I.4`, `M5.B.3`) | engine | synchronous batch, step 4, after appraisal | a `DISTANCE`, `TRIANGLE`, `OVERFUNCTION`, `UNDERFUNCTION` or `REDUCE_CUTOFF` delivered to its target | the sender's and target's acute and chronic anxiety and `functional_level`; the tie; the triangle topology and the sender's deviation on its ties | — | `Person.acute_anxiety`, `Person.functional_level`, `Person.pseudo_self`; `Relationship.distance_bound_anxiety`, `functioning_balance`, `interactive`, `tie_state` ⟦rev12 · Phase C step 5, 2026-10-07⟧ | C |
+| Functioning settle (`M1.B.5`, `M1.B.6`) | engine | synchronous batch, step 9 | every tick | each tie's balance and habit | — | `Relationship.functioning_balance`, `Relationship.functioning_habit` ⟦rev12 · Phase C step 5, 2026-10-07⟧ | C |
 | Slow-tick hook (`M3.B.1`) | engine | slow tick | every 52 fast ticks | — | — | — | B |
 | Same-tick batching (`M1.F.8`) | engine | documented composite | same-tick events | the batch | — | — | B |
 

@@ -210,11 +210,11 @@
   "note": "asserted every tick; life_energy is not used until Phase C"
  },
  "M6.I.4": {
-  "status": "partial",
+  "status": "done",
   "evidence": [
    "tests/bowen/test_mechanisms.py::test_m4g2_a_violation_raises"
   ],
-  "note": "asserted every tick; nothing exchanges pseudo-self until Phase C"
+  "note": "asserted every tick; OVERFUNCTION and UNDERFUNCTION exchange pseudo-self from Phase C step 5"
  },
  "M6.I.5": {
   "status": "partial",
@@ -283,5 +283,21 @@
  "M4.B.2": {
   "status": "partial",
   "note": "the belief update reads no true state (static check, mutation-proved); the policy M4.B.2 binds is Phase C step 6, and M11.C.36 is Phase D"
+ },
+ "M1.B.5": {
+  "status": "partial",
+  "note": "directed, bistable with no stable midpoint and not a trait; held in one area (`joint`) until the family declares areas of joint activity (M1.B.9)"
+ },
+ "M1.C.3a": {
+  "status": "partial",
+  "note": "routing capacity falls with the members' functional level (step 5); 'activate only under real load, resolve when the load passes' is left to the learner (step 7) and is not yet tested"
+ },
+ "M5.B.6": {
+  "status": "partial",
+  "note": "the intensity dial is separate from the content (step 5); its use in M5.C.1a's peace-agree technique and the live-issue gate arrives with the I-POSITION state machine (step 8)"
+ },
+ "M5.B.2": {
+  "status": "partial",
+  "note": "the move acts before any alignment exists (step 5); its legality without an alignment is the policy's legal set (step 6)"
  }
 }

@@ -1642,6 +1642,24 @@ The automatic channel learns from felt relief over a short horizon. The form app
 
 The core moves keep their names but each is one act. The pattern of the same name is a readout over a tie's history. Kerr: each pattern "solves the dilemma… in a different way" (`KS04.14`, `[T]` `[K]`), so the patterns are alternative solutions to one problem, not primitives.
 
+**What each act does, as built (Phase C step 5, 2026-10-07).** Every form and rate is `[I]`.
+- **`DISTANCE`** moves part of the distancer's excess anxiety into the tie, where it stays. It returns to the
+  pair on reconciliation. Total anxiety is unchanged.
+- **`TRIANGLE`** makes the sender and the person they turn to the inside pair. Each passes part of their
+  anxiety to the third, who also generates more of their own (`KS03.1`). Less passes among
+  better-differentiated members.
+- **Taking charge and giving way** push the tie's functioning balance toward one person's pole, and move
+  pseudo-self and functional level between the two, conserved.
+  - The balance has no stable middle and hardens with time.
+  - A flip is immediate when one person's assertion outweighs the other's current domination, but it
+    reverts unless sustained.
+  - Raising a marked under-functioner is harder than toning down the over-functioner.
+- **`REDUCE_CUTOFF`** reopens a severed tie, and the anxiety the cutoff held goes to the third parties
+  around it (`L22.6`).
+- **`DETRIANGLE` and `PREVENT_ALIGNMENT`** change only who counts as aligned. No one's beliefs change.
+
+None of these acts knows its consequences. Whether anyone repeats an act is left to what it relieves (§19.3).
+
 ### 19.5 Calmer contact (spec `M4.C.10`)
 
 Contact with a less anxious person lowers anxiety on every tie, generalising the external agent's burden-transfer term (`M1.E.5`). Seeking such contact is learned. Under Bowen theory this is the ordinary lending of self (`M1.A.5d`), and its cost is tested: learned reliance on a calming tie raises the anxiety released when it is lost (`M11.C.43`). The name *social buffering* comes from the stress-physiology literature, outside the six sources; it is `[I]` here and is not cited until a source is recorded.

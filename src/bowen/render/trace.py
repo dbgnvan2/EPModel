@@ -46,11 +46,12 @@ TABLE_HEAD = "| Week | Who | Move | Toward | Witnesses | What it did |\n|---|---
 
 # Every mechanism the engine emits, and how the trace treats it. Anything else
 # raises: a record the renderer does not understand must not vanish (P2, P19).
-CAUSED = frozenset({"appraisal", "calm_contact", "symptom_onset", "trigger", "cutoff", "reconciliation", "institutionalize", "binder_unavailable"})
+CAUSED = frozenset({"appraisal", "calm_contact", "symptom_onset", "distance_binding", "triangle_transfer",
+                    "functioning_shift", "reduce_cutoff", "trigger", "cutoff", "reconciliation", "institutionalize", "binder_unavailable"})
 SYSTEM_SHOWN = frozenset({"triangle_recompute", "consolidation", "slow_tick"})
 SYSTEM_SUMMARISED = frozenset({
     "standing_load", "acute_decay", "contact_relaxation", "symptom_accumulation", "investment", "reactive_state",
-    "outside_ness", "belief",
+    "outside_ness", "belief", "functioning_settle",
 })  # every week, everyone; stated once
 
 
@@ -134,7 +135,33 @@ def _what_it_did(event: Event, index: _Index, names: _Names, view: PersonId | No
             if relief:
                 parts.append("impingement removed at once, anxiety " + ", ".join(relief))
         elif effect.mechanism == "reconciliation":
-            parts += [f"{names.tie(t)} reconnected" for t, _, _ in effect.ties]
+            parts += [f"{names.tie(t)} reconnected" for t, f, _ in effect.ties if f == "interactive"]
+            returned = [f"{names(p)} {_signed(v)}" for p, v in effect.acute_anxiety if view is None or p == view]
+            if returned:
+                parts.append("anxiety bound by distancing returns: " + ", ".join(returned))
+        elif effect.mechanism == "distance_binding":
+            for tie, _, v in effect.ties:
+                parts.append(f"{v:.1f} of the sender's anxiety bound into {names.tie(tie)}")
+        elif effect.mechanism == "triangle_transfer":
+            outsider = next(value for _, field, value in effect.triangles if field == "outsider")
+            moved = [f"{names(p)} {_signed(v)}" for p, v in effect.acute_anxiety if view is None or p == view]
+            own = sum(v for _, _, v in effect.people)
+            if moved:
+                parts.append(f"{names(PersonId(outsider))} left outside: anxiety " + ", ".join(moved)
+                             + (f" (of which {own:.1f} the outsider's own)" if own else ""))
+        elif effect.mechanism == "functioning_shift":
+            for tie, field, v in effect.ties:
+                if field.startswith("functioning_flip"):
+                    parts.append(f"{names.tie(tie)} functioning balance flips")
+            gained = [(p, v) for p, _, v in effect.people if v > 0]
+            if gained:
+                (p, v), = gained
+                parts.append(f"{names(p)} takes {v:.1f} of functioning from the other")
+        elif effect.mechanism == "reduce_cutoff":
+            parts += [f"{names.tie(t)} reopened" for t, f, _ in effect.ties if f == "interactive"]
+            released = [f"{names(p)} {_signed(v)}" for p, v in effect.acute_anxiety if view is None or p == view]
+            if released:
+                parts.append("bound anxiety released to the third party: " + ", ".join(released))
         elif effect.mechanism == "institutionalize":
             parts.append(f"{len(effect.ties)} ties become worry edges (no events; bond energy kept)")
         elif effect.mechanism == "binder_unavailable":

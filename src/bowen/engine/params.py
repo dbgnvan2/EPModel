@@ -53,6 +53,14 @@ class EngineParams:
     outside_ness_threshold_outward: float  # M5.C.1, revision 12 P9 — the gate fails above this on the outward axis
     outside_ness_threshold_inward: float   # M5.C.1, revision 12 P9 — and above this on the inward axis
     involvement_membership_threshold: float  # M1.A.12 — membership is a threshold over involvement
+    distance_binding_rate: float  # M1.D.2a — share of the distancer's excess bound into the tie per unit scaled intensity
+    triangle_transfer_rate: float # M1.C.1 — share of each insider's excess passed to the outsider per unit scaled intensity, before capacity
+    outsider_positional_gain: float # M1.C.1, KS03.1 — the outsider's own positional anxiety per unit absorbed
+    balance_push_gain: float      # M1.B.5 — how far one act pushes the functioning balance per unit scaled intensity
+    balance_settle_rate: float    # M1.B.5 — share of the gap to its pole a balance closes per tick
+    balance_harden_rate: float    # M1.B.6, L05.3 — share of the gap to the balance the habit closes per tick
+    reversal_asymmetry: float     # M1.B.7 — how much harder it is to raise a marked under-functioner
+    pseudo_self_transfer_gain: float # M6.I.4 — pseudo-self points one over/underfunctioning act moves per unit scaled intensity
     belief_rate: float                     # M9.8 — share of the gap to a witnessed observation closed per tick, at full fidelity
 
     def __post_init__(self) -> None:
@@ -78,8 +86,12 @@ class EngineParams:
                 raise ValueError(f"{name} must be in [0, 1]")
         if self.assault_gain < 0:
             raise ValueError("assault_gain must be non-negative")
+        if self.outsider_positional_gain < 0 or self.pseudo_self_transfer_gain < 0:
+            raise ValueError("outsider_positional_gain and pseudo_self_transfer_gain must be non-negative")
         for name in ("witness_weight", "calm_transfer_rate", "symptom_leak_rate", "symptom_rearm_fraction",
-                     "reactive_rate", "investment_leak_rate", "attention_gain", "belief_rate"):
+                     "reactive_rate", "investment_leak_rate", "attention_gain", "belief_rate",
+                     "distance_binding_rate", "triangle_transfer_rate", "balance_push_gain", "balance_settle_rate",
+                     "balance_harden_rate", "reversal_asymmetry"):
             if not 0.0 <= getattr(self, name) <= 1.0:
                 raise ValueError(f"{name} must be in [0, 1]")
         if min(self.defence_threshold, self.perspective_anxiety_scale, self.symptom_threshold_gain) <= 0:

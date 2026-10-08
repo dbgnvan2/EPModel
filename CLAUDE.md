@@ -76,7 +76,7 @@ full table.
 - New work goes in a new package `src/bowen/` alongside `engine.py`. The old engine and its tests stay
   green until the new one passes the acceptance tests.
 - Run tests before declaring done: `python3 -m pytest tests/`
-- **A red suite is never normal — all 345 tests pass** (measured 2026-10-07, as collected by pytest; Phase B adds to it step by step). The previously documented flake in
+- **A red suite is never normal — all 360 tests pass** (measured 2026-10-07, as collected by pytest; Phase B adds to it step by step). The previously documented flake in
   `test_spouse_dysfunction_asymmetric_penalty` was fixed on 2026-08-22 (measured 12/12, plus 20 clean
   full-suite runs); `test_triangle_mechanism_attaches_and_releases_circle` had the same latent fault at
   a ~2.7% rate and was fixed with it.

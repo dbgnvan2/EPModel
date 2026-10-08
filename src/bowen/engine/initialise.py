@@ -14,6 +14,7 @@ from __future__ import annotations
 
 from src.bowen.engine.beliefs import initialise_beliefs
 from src.bowen.engine.contact import initialise_contact
+from src.bowen.engine.moves import initialise_functioning
 from src.bowen.engine.outside_ness import initialise_outside_ness
 from src.bowen.engine.params import EngineParams
 from src.bowen.engine.state import RunState
@@ -23,4 +24,5 @@ def initialise_run(state: RunState, params: EngineParams) -> RunState:
     initialise_contact(state.people, state.ties, params)
     initialise_outside_ness(state.people, params)
     initialise_beliefs(state.people, state.ties, params)
+    initialise_functioning(state.people, state.ties)
     return state

@@ -15,7 +15,9 @@ Revision 11 (Phase C step 1, plan D2): a delivered CUTOFF also removes felt
 impingement on the tie at once, for both members, and that change is appraised —
 the relief `M11.C.4` needs now. Felt contact is not touched: it relaxes toward
 zero over the following ticks, which is the cost that comes later (`M4.C.1c`).
-RECONCILIATION restores resting contact at once (`M1.B.4`: zero re-activation latency).
+RECONCILIATION restores resting contact at once (`M1.B.4`: zero re-activation latency),
+and returns any anxiety `DISTANCE` bound into the tie to its members, split equally
+(`M1.D.2a` (c); Phase C step 5).
 """
 
 from __future__ import annotations
@@ -24,6 +26,7 @@ from src.bowen.engine.contact import deviation, resting_contact, steepness
 from src.bowen.engine.events import BinderKind, Delivery, Event, Mechanism, Role
 from src.bowen.engine.identifiers import PersonId, TieId, TriangleId
 from src.bowen.engine.log_records import EffectRecord
+from src.bowen.engine.moves import release_bound_distance
 from src.bowen.engine.objects import SymptomChannel, TieState
 from src.bowen.engine.params import EngineParams
 from src.bowen.engine.state import ActiveTrigger, RunState
@@ -55,7 +58,14 @@ def apply_structural_event(state: RunState, event: Event, params: EngineParams) 
         tie.tie_state = TieState.ORDINARY
         for member in tie.id.members():
             tie.felt_contact[member] = resting_contact(state.people[member], tie, params)
-        return [EffectRecord(state.tick, "reconciliation", event.id, ties=((tie.id, "interactive", 1.0),))]
+        # M1.D.2a (c), M6.4: distancing prevented, the anxiety it bound returns to the tie's members.
+        returned = release_bound_distance(
+            state, tie, tuple(m for m in tie.id.members() if state.people[m].alive)
+        )
+        ties = [(tie.id, "interactive", 1.0)]
+        if returned:
+            ties.append((tie.id, "distance_bound_anxiety", -sum(v for _, v in returned)))
+        return [EffectRecord(state.tick, "reconciliation", event.id, acute_anxiety=returned, ties=tuple(ties))]
     if event.mechanism is Mechanism.INSTITUTIONALIZE:
         changed = []
         for target in event.targets:

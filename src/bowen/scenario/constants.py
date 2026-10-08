@@ -84,6 +84,14 @@ SCHEMA: Mapping[str, KeySpec] = MappingProxyType(
         "outside_ness_threshold_inward": KeySpec(float, "[I]", "M5.C.1"),
         "involvement_membership_threshold": KeySpec(float, "[I]", "M1.A.12"),
         "belief_rate": KeySpec(float, "[I]", "M9.8"),
+        "distance_binding_rate": KeySpec(float, "[I]", "M1.D.2a"),
+        "triangle_transfer_rate": KeySpec(float, "[I]", "M1.C.1"),
+        "outsider_positional_gain": KeySpec(float, "[I]", "M1.C.1"),
+        "balance_push_gain": KeySpec(float, "[I]", "M1.B.5"),
+        "balance_settle_rate": KeySpec(float, "[I]", "M1.B.5"),
+        "balance_harden_rate": KeySpec(float, "[I]", "M1.B.6"),
+        "reversal_asymmetry": KeySpec(float, "[I]", "M1.B.7"),
+        "pseudo_self_transfer_gain": KeySpec(float, "[I]", "M6.I.4"),
     }
 )
 

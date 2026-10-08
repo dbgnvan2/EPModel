@@ -59,6 +59,14 @@ GOOD_ROWS = (
     "| `outside_ness_threshold_inward` | 0.5 | [I] | u | `M5.C.1` |\n"
     "| `involvement_membership_threshold` | 0.5 | [I] | u | `M1.A.12` |\n"
     "| `belief_rate` | 0.3 | [I] | u | `M9.8` |\n"
+    "| `distance_binding_rate` | 0.3 | [I] | u | `M1.D.2a` |\n"
+    "| `triangle_transfer_rate` | 0.3 | [I] | u | `M1.C.1` |\n"
+    "| `outsider_positional_gain` | 0.5 | [I] | u | `M1.C.1` |\n"
+    "| `balance_push_gain` | 0.2 | [I] | u | `M1.B.5` |\n"
+    "| `balance_settle_rate` | 0.05 | [I] | u | `M1.B.5` |\n"
+    "| `balance_harden_rate` | 0.02 | [I] | u | `M1.B.6` |\n"
+    "| `reversal_asymmetry` | 0.5 | [I] | u | `M1.B.7` |\n"
+    "| `pseudo_self_transfer_gain` | 2.0 | [I] | u | `M6.I.4` |\n"
 )
 
 

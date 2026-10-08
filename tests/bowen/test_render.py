@@ -81,7 +81,8 @@ def test_m16c4_single_agent_view():
         rows = event_rows(render(RECORDS, NAMES, view=pid))
         assert [(int(r[0]), r[2]) for r in rows] == [(e.timestamp, e.kind) for e in expected], pid
     sofia = event_rows(render(RECORDS, NAMES, view=PersonId("sofia")))
-    assert [r[2] for r in sofia] == ["PURSUE"]
+    # Sofia sends nothing and witnesses nothing; she is the target of what reaches her across her ties.
+    assert "PURSUE" in [r[2] for r in sofia] and all(r[1] != "Sofia" for r in sofia)
     assert "Marta" not in sofia[0][5]  # only Sofia's own effect is shown in her view
     ana = render(RECORDS, NAMES, view=PersonId("ana"))
     assert "TRIGGER" not in ana  # a TRIGGER reaches no one, so it is in no one's view

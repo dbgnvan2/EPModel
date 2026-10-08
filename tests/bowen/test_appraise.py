@@ -14,7 +14,7 @@ import dataclasses
 from src.bowen.engine.appraise import (
     appraisal_delta, apply_appraisal, calm_transfer, content_gain, effective_perspective, speaker_echo, witness_delta,
 )
-from src.bowen.engine.contact import initialise_contact
+from src.bowen.engine.initialise import initialise_run
 from src.bowen.engine.events import Attention, Channel, Delivery, Event, EventId, Mechanism, Role, SourcePosition
 from src.bowen.engine.identifiers import PersonId, TieId
 from src.bowen.engine.state import new_run_state
@@ -30,8 +30,7 @@ PARAMS = engine_params(load_constants())
 def fresh():
     family = load_family()
     state = new_run_state(dict(family.people), dict(family.ties), family.family, load_event_kinds())
-    initialise_contact(state.people, state.ties, PARAMS)
-    return state
+    return initialise_run(state, PARAMS)
 
 
 def move(kind="CONFLICT", intensity=250.0, sender=RAVI, target=MARTA, tick=0, index=0, **extra):
@@ -50,6 +49,8 @@ def as_target(state, event, recipient=MARTA):
 def test_m4c2_content_is_defended_against_above_threshold():
     """Above threshold an approach brings no relief: its content is not heard, only its impingement lands."""
     calm, anxious = fresh(), fresh()
+    for state in (calm, anxious):  # a neutral sender, so act identity (M5.F.1) does not mask the gain
+        state.people[RAVI].outside_ness_outward = state.people[RAVI].outside_ness_inward = 0.0
     anxious.people[MARTA].acute_anxiety += 3 * PARAMS.defence_threshold
     assert content_gain(calm.people[MARTA], PARAMS) == 1.0
     assert content_gain(anxious.people[MARTA], PARAMS) == 0.0
@@ -143,6 +144,6 @@ def test_m4c10_calm_transfer_balances():
     contact = move("STAY-IN-CONTACT", 30.0)
     delivery = as_target(state, contact)
     perceived = {MARTA: ((delivery, contact),)}
-    records, _ = apply_appraisal(state, perceived, PARAMS)
+    records, _, _ = apply_appraisal(state, perceived, PARAMS)
     [calm] = [r for r in records if r.mechanism == "calm_contact"]
     assert abs(sum(v for _, v in calm.acute_anxiety)) < 1e-12 and dict(calm.acute_anxiety)[MARTA] < 0

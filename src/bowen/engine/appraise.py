@@ -4,7 +4,7 @@ Purpose: give each person the events delivered to them this tick, and appraise
          each one: as the change it makes to the receiver's two-sided deviation,
          through a gain that defends against content under anxiety, with the
          witness's, the speaker's and the calmer sender's terms.
-Spec:    docs/bowen_agent_model_spec_v2.md#M4.B.1, #M4.C.1, #M4.C.2, #M4.C.4, #M4.C.6, #M4.C.7, #M4.C.8, #M4.C.8a, #M4.C.9, #M4.C.10, #M1.F.2, #M1.F.3, #M1.F.4, #M1.F.5, #M1.F.8
+Spec:    docs/bowen_agent_model_spec_v2.md#M4.B.1, #M4.C.1, #M4.C.2, #M4.C.4, #M4.C.5, #M4.C.6, #M5.F.1, #M5.F.2, #M4.C.7, #M4.C.8, #M4.C.8a, #M4.C.9, #M4.C.10, #M1.F.2, #M1.F.3, #M1.F.4, #M1.F.5, #M1.F.8
 Tests:   tests/bowen/test_appraise.py; tests/bowen/test_contact.py; tests/bowen/test_mechanisms.py
 
 Every form below is the project's, graded [I]; the constants are in
@@ -16,7 +16,8 @@ in deviation:
 
     scale     = intensity / intensity_scale × conductance × route_damping ** len(route) × fidelity
     Δ contact = contact component × scale × content_gain          (M4.C.2)
-    Δ imp     = impingement component × scale
+                × (1 − hollow_gain × sender's inward impingement)    (M5.F.1: empty words)
+    Δ imp     = (impingement component + assault_gain × sender's outward impingement) × scale   (M5.F.1: assault)
     Δ acute   = appraisal_gain × steepness × (deviation after − before) × sign
                 × (1 − effective_perspective × own_share)            (M4.C.6)
                 × attention factor                                    (M4.C.8, M4.C.8a)
@@ -30,10 +31,16 @@ in deviation:
   part of what arrives to their own recent output on the tie — the share of the
   last ``reappraisal_window`` ticks' moves on it that they sent. Immediate; no
   new information arrives.
+* **Act identity** (`M5.F.1`, `M5.F.2`): the sender's two outside-ness axes act
+  **through the event** (`M4.B.2a`) — see ``outside_ness.py``. A forceful sender's
+  move can land as a load where a calm sender's same move is relief: the opposite sign.
 * **Attention** (`M4.C.8`, `M4.C.8a`): attention at the feeling channel amplifies
   by ``1 + attention_gain × (1 − objectivity)``; at the intellect it orders, by
-  ``1 − attention_gain``. Objectivity is ``1 −`` the mean of the two
-  ``outside_ness`` axes (step 3); 0 until they are set.
+  ``1 − attention_gain``. Objectivity is the receiver's outside-ness efficacy,
+  ``1 − max(outward, inward)`` (`M1.A.9a`). *Changed at step 3: step 2 used 1 − the mean.*
+* **The inward reading** (`M4.C.5`): the rise in the receiver's "too much" side from
+  each delivered move — reading the event as critical. Returned for step 9's
+  outside-ness drift; computed before any move is emitted.
 
 **A witness** (`M4.C.9`) appraises from its own position — its own steepness,
 its ties to **both** the sender and each target, and the exchange's intensity:
@@ -69,6 +76,7 @@ from src.bowen.engine.events import Attention, Delivery, Event, Mechanism, Role
 from src.bowen.engine.identifiers import PersonId, TieId
 from src.bowen.engine.log_records import EffectRecord
 from src.bowen.engine.objects import Person, Relationship
+from src.bowen.engine.outside_ness import axes, efficacy
 from src.bowen.engine.params import EngineParams
 from src.bowen.engine.state import RunState
 
@@ -114,10 +122,8 @@ def effective_perspective(person: Person, tie: Relationship | None, params: Engi
 
 
 def objectivity(person: Person) -> float:
-    """1 − the mean of the two outside_ness axes (M1.A.9a: both low is the differentiated position)."""
-    if person.outside_ness_outward is None or person.outside_ness_inward is None:
-        return 0.0
-    return clamp_unit(1.0 - (person.outside_ness_outward + person.outside_ness_inward) / 2.0)
+    """The receiver's outside-ness efficacy: both impingement axes low (M1.A.9a, M4.C.8a)."""
+    return efficacy(person)
 
 
 def attention_factor(person: Person, event: Event, params: EngineParams) -> float:
@@ -170,7 +176,26 @@ def _tie_change(state: RunState, delivery: Delivery, event: Event, params: Engin
     contact, impingement = state.kinds.components_of(event.kind)
     scale = _scale(event, tie.conductance, params)
     receiver = state.people[delivery.recipient]
-    return tie, contact * scale * content_gain(receiver, params), impingement * scale
+    outward, inward = axes(state.people[event.sender])
+    d_contact = contact * scale * content_gain(receiver, params) * (1.0 - params.hollow_gain * inward)
+    d_imp = (impingement + params.assault_gain * outward) * scale
+    return tie, d_contact, d_imp
+
+
+def inward_reading(state: RunState, delivery: Delivery, event: Event, params: EngineParams) -> float:
+    """Purpose: how much more impinged on a person feels from one delivered move — reading it as critical.
+    Spec:    docs/bowen_agent_model_spec_v2.md#M4.C.5
+    Tests:   tests/bowen/test_outside_ness.py::test_m4c5_hearing_criticism_raises_inward_impingement
+    """
+    change = _tie_change(state, delivery, event, params)
+    if change is None:
+        return 0.0
+    tie, _, d_imp = change
+    person = state.people[delivery.recipient]
+    imp = felt_impingement(person, tie)
+    band_now = deviation_at(person, tie, params, 1.0, imp) - deviation_at(person, tie, params, 1.0, 0.0)
+    band_after = deviation_at(person, tie, params, 1.0, clamp_unit(imp + d_imp)) - deviation_at(person, tie, params, 1.0, 0.0)
+    return max(0.0, band_after - band_now)
 
 
 def appraisal_delta(state: RunState, delivery: Delivery, event: Event, params: EngineParams) -> float:
@@ -247,13 +272,14 @@ def apply_appraisal(
     state: RunState,
     perceived: dict[PersonId, tuple[tuple[Delivery, Event], ...]],
     params: EngineParams,
-) -> tuple[list[EffectRecord], dict[tuple[TieId, PersonId], float]]:
+) -> tuple[list[EffectRecord], dict[tuple[TieId, PersonId], float], dict[PersonId, float]]:
     """Purpose: apply one tick's appraisals, contact changes, echoes and calm transfers as a batch (M1.F.8).
     Spec:    docs/bowen_agent_model_spec_v2.md#M4.C.1, #M4.C.7, #M4.C.10, #M1.F.5, #M1.F.8
     Tests:   tests/bowen/test_mechanisms.py::test_m1f8_same_tick_batch_order_does_not_change_state
 
-    Returns the records and, for `M1.B.8`'s investment, the size of what each person
-    appraised on each tie this tick, valence-blind (absolute).
+    Returns the records; for `M1.B.8`'s investment, the size of what each person
+    appraised on each tie this tick, valence-blind (absolute); and `M4.C.5`'s inward
+    reading per person.
     """
     items = [
         (delivery, event)
@@ -267,6 +293,7 @@ def apply_appraisal(
     contact_moves: dict = {}
     transfers: dict = {}
     attended: dict[tuple[TieId, PersonId], float] = {}
+    readings: dict[PersonId, float] = {}
 
     def add(event_id, person, value):
         if value:
@@ -285,6 +312,9 @@ def apply_appraisal(
             c, i = contact_moves.get(key, (0.0, 0.0))
             contact_moves[key] = (c + d_contact, i + d_imp)
             attended[key] = attended.get(key, 0.0) + abs(delta)
+            readings[delivery.recipient] = readings.get(delivery.recipient, 0.0) + inward_reading(
+                state, delivery, event, params
+            )
         moved = calm_transfer(state, delivery, event, params)
         if moved:
             transfers.setdefault(event.id, []).append((delivery.recipient, event.sender, moved))
@@ -312,4 +342,4 @@ def apply_appraisal(
             pairs[sender] = pairs.get(sender, 0.0) + moved
         records.append(EffectRecord(tick=state.tick, mechanism="calm_contact", cause=event_id,
                                     acute_anxiety=tuple(sorted(pairs.items()))))
-    return records, attended
+    return records, attended, readings

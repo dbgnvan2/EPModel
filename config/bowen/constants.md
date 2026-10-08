@@ -39,6 +39,11 @@
 > getting through at 15–30 points of excess anxiety; and the symptom threshold (1.5 × functional level, about 60
 > for the Phase B adults) sits above the integral a steady few points of excess reach (excess ÷ `symptom_leak_rate`),
 > so onset needs a sustained excursion. All `[I]`.
+>
+> **Phase C step 3, 2026-10-07 — outside-ness** (`M1.A.9`, `M1.A.9a`, `M4.C.5`, `M5.F`). The six constants from
+> `initial_impingement_scale` down are new and logged. At 0.8, the Phase B adults (basic level about 40) start
+> near 0.5 on both axes, at the gate's thresholds: the gate passes or fails on behaviour, not on the start.
+> `hollow_gain` and `assault_gain` at 0.5 keep act identity smaller than the move's own components. All `[I]`.
 
 frozen_at: 2026-10-06
 activation_regime: synchronous
@@ -78,4 +83,10 @@ activation_regime: synchronous
 | `symptom_event_intensity` | 100.0 | [I] | event intensity | `M7.D.1` |
 | `reactive_rate` | 0.2 | [I] | share of the gap per tick | `M1.A.19` |
 | `investment_leak_rate` | 0.1 | [I] | share per tick | `M1.B.8` |
+| `initial_impingement_scale` | 0.8 | [I] | impingement at basic level 0 | `M1.A.9` |
+| `outside_ness_rate` | 0.1 | [I] | share of the gap per tick | `M1.A.9` |
+| `hollow_gain` | 0.5 | [I] | share of contact hollowed at full inward impingement | `M5.F.1` |
+| `assault_gain` | 0.5 | [I] | impingement added per unit outward impingement | `M5.F.1` |
+| `outside_ness_threshold_outward` | 0.5 | [I] | outward impingement | `M5.C.1` |
+| `outside_ness_threshold_inward` | 0.5 | [I] | inward impingement | `M5.C.1` |
 | `involvement_membership_threshold` | 0.5 | [I] | involvement units | `M1.A.12` |

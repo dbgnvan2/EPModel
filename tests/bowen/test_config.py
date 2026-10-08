@@ -51,6 +51,12 @@ GOOD_ROWS = (
     "| `symptom_event_intensity` | 100.0 | [I] | u | `M7.D.1` |\n"
     "| `reactive_rate` | 0.2 | [I] | u | `M1.A.19` |\n"
     "| `investment_leak_rate` | 0.1 | [I] | u | `M1.B.8` |\n"
+    "| `initial_impingement_scale` | 0.8 | [I] | u | `M1.A.9` |\n"
+    "| `outside_ness_rate` | 0.1 | [I] | u | `M1.A.9` |\n"
+    "| `hollow_gain` | 0.5 | [I] | u | `M5.F.1` |\n"
+    "| `assault_gain` | 0.5 | [I] | u | `M5.F.1` |\n"
+    "| `outside_ness_threshold_outward` | 0.5 | [I] | u | `M5.C.1` |\n"
+    "| `outside_ness_threshold_inward` | 0.5 | [I] | u | `M5.C.1` |\n"
     "| `involvement_membership_threshold` | 0.5 | [I] | u | `M1.A.12` |\n"
 )
 

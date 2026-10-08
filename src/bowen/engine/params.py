@@ -46,6 +46,12 @@ class EngineParams:
     symptom_event_intensity: float         # M7.D.1 — intensity of the endogenous event a symptom emits
     reactive_rate: float                   # M1.A.19 — share of the gap each detector closes per tick
     investment_leak_rate: float            # M1.B.8 — share of attention on a tie that fades per tick
+    initial_impingement_scale: float       # M1.A.9 — both axes at t0 = this × (1 − basic_level / 100)
+    outside_ness_rate: float               # M1.A.9 — share of the gap to this tick's behaviour closed per tick
+    hollow_gain: float                     # M5.F.1 — how far inward impingement empties a move's contact
+    assault_gain: float                    # M5.F.1 — impingement a move gains per unit of outward impingement
+    outside_ness_threshold_outward: float  # M5.C.1, revision 12 P9 — the gate fails above this on the outward axis
+    outside_ness_threshold_inward: float   # M5.C.1, revision 12 P9 — and above this on the inward axis
     involvement_membership_threshold: float  # M1.A.12 — membership is a threshold over involvement
 
     def __post_init__(self) -> None:
@@ -65,6 +71,12 @@ class EngineParams:
             raise ValueError("contact_band_max must be in [0, 1)")
         if self.intensity_scale <= 0 or self.appraisal_gain < 0 or self.anxiety_togetherness_gain < 0:
             raise ValueError("intensity_scale must be positive; appraisal_gain and anxiety_togetherness_gain non-negative")
+        for name in ("initial_impingement_scale", "outside_ness_rate", "hollow_gain",
+                     "outside_ness_threshold_outward", "outside_ness_threshold_inward"):
+            if not 0.0 <= getattr(self, name) <= 1.0:
+                raise ValueError(f"{name} must be in [0, 1]")
+        if self.assault_gain < 0:
+            raise ValueError("assault_gain must be non-negative")
         for name in ("witness_weight", "calm_transfer_rate", "symptom_leak_rate", "symptom_rearm_fraction",
                      "reactive_rate", "investment_leak_rate", "attention_gain"):
             if not 0.0 <= getattr(self, name) <= 1.0:

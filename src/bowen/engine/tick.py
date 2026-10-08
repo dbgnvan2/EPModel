@@ -22,6 +22,7 @@ The nine steps, and where each lives:
 9. consolidate .............. ``symptoms.accumulate_symptoms`` (the integrator and onset,
                               M4.C.3, M7.D.1); ``reactive.update_attention_state``
                               (investment, M1.B.8; the detectors, M1.A.19);
+                              ``outside_ness.update_outside_ness`` (M1.A.9, M4.C.5);
                               ``consolidate.consolidate``; then the invariants assert
 
 The slow tick (M3.B.1) fires after the 52nd, 104th, … fast tick. In Phase B it
@@ -42,6 +43,7 @@ from src.bowen.engine.identifiers import PersonId
 from src.bowen.engine.invariants import assert_invariants, snapshot
 from src.bowen.engine.log_records import EffectRecord, Emitter, TickRecord
 from src.bowen.engine.params import EngineParams
+from src.bowen.engine.outside_ness import update_outside_ness
 from src.bowen.engine.reactive import update_attention_state
 from src.bowen.engine.recompute import recompute_involvement, recompute_triangles
 from src.bowen.engine.standing_load import apply_standing_load
@@ -106,7 +108,7 @@ def run_tick(
     steps.append("perceive")
 
     # 4 — appraise.
-    effects, attended = apply_appraisal(state, perceived, params)
+    effects, attended, readings = apply_appraisal(state, perceived, params)
     records += effects
     records += apply_delivered_cutoffs(state, batch, params)
     steps.append("appraise")
@@ -136,6 +138,7 @@ def run_tick(
     # tick's time above the floor before decay (M4.C.3a).
     records += accumulate_symptoms(state, params, visibility)
     records += update_attention_state(state, attended, params)
+    records += update_outside_ness(state, readings, params)
     records += consolidate(state, params)
     steps.append("consolidate")
     records.append(assert_invariants(state, before, loaded, tuple(steps), params.invariant_tolerance))

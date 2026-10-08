@@ -15,8 +15,8 @@ target and witnesses, and what it did — in the shape of the worked trace in
 anxiety changes in points, tie and triangle changes in words.
 
 The standing load, the decay toward each person's floor, the relaxation of felt
-contact, symptom accumulation, investment and the reactive detectors run every week
-for everyone; the trace says so once rather than printing them line by line. A
+contact, symptom accumulation, investment, the reactive detectors and outside-ness run
+every week for everyone; the trace says so once rather than printing them line by line. A
 TRIGGER is the exception, because its whole effect runs through the standing load.
 """
 
@@ -50,6 +50,7 @@ CAUSED = frozenset({"appraisal", "calm_contact", "symptom_onset", "trigger", "cu
 SYSTEM_SHOWN = frozenset({"triangle_recompute", "consolidation", "slow_tick"})
 SYSTEM_SUMMARISED = frozenset({
     "standing_load", "acute_decay", "contact_relaxation", "symptom_accumulation", "investment", "reactive_state",
+    "outside_ness",
 })  # every week, everyone; stated once
 
 
@@ -216,7 +217,7 @@ def render(
         f"{', '.join(k for k, changed in header.constant_changed_after_freeze if changed) or 'none'} |",
         "",
         "The standing load, the decay toward each person's floor, the relaxation of felt contact, "
-        "symptom accumulation, investment and the reactive detectors run every week for everyone "
+        "symptom accumulation, investment, the reactive detectors and outside-ness run every week for everyone "
         "and are not listed line by line. Effects are shown beside the event that caused them.",
         "",
         TABLE_HEAD,

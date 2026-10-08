@@ -9,7 +9,7 @@ from __future__ import annotations
 
 import dataclasses
 
-from src.bowen.engine.contact import initialise_contact
+from src.bowen.engine.initialise import initialise_run
 from src.bowen.engine.events import Mechanism
 from src.bowen.engine.identifiers import PersonId
 from src.bowen.engine.objects import SymptomChannel
@@ -27,8 +27,7 @@ VIS = HouseholdConductanceVisibility(PARAMS.per_hop_fidelity)
 def fresh():
     family = load_family()
     state = new_run_state(dict(family.people), dict(family.ties), family.family, load_event_kinds())
-    initialise_contact(state.people, state.ties, PARAMS)
-    return state
+    return initialise_run(state, PARAMS)
 
 
 def run_excursions(person, pattern):

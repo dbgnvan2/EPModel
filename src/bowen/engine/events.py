@@ -51,6 +51,8 @@ class EventKinds:
     mechanisms: Mapping[str, Mechanism]
     signs: Mapping[tuple[str, "SourcePosition"], int] = field(default_factory=lambda: MappingProxyType({}))
     components: Mapping[str, tuple[float, float]] = field(default_factory=lambda: MappingProxyType({}))
+    # M1.A.9a, FE03.1: the kinds that give way to the other (the inward axis).
+    accommodating: frozenset[str] = frozenset()
 
     def __post_init__(self) -> None:
         object.__setattr__(self, "mechanisms", MappingProxyType(dict(self.mechanisms)))

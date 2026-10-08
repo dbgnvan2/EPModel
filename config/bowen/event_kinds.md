@@ -20,28 +20,32 @@
 > enforce distance at the same time" (`KS04.13`). `CUTOFF` is 0 and 0 because its effect is structural:
 > on delivery it makes the tie non-interactive and removes impingement at once, and contact then decays
 > (`M4.C.1c`). Structural and exogenous kinds move neither; an exogenous stressor has no tie.
+>
+> `accommodates` marks the kinds that give way to the other — the inward axis of `M1.A.9a`, the
+> "compliant accommodator" of `FE03.1` (Phase C step 3). Only `UNDERFUNCTION` is marked; which acts count as
+> giving way is editorial and `[I]`.
 
-| kind | mechanism | inside_sign | outside_sign | contact | impingement | spec |
-|---|---|---|---|---|---|---|
-| `PURSUE` | move | +1 | +1 | 0.5 | 0.3 | `M5.A.1` |
-| `DISTANCE` | move | +1 | +1 | -0.5 | 0 | `M5.A.1` |
-| `CONFLICT` | move | +1 | +1 | 0.3 | 0.6 | `M5.A.1` |
-| `OVERFUNCTION` | move | +1 | +1 | 0.2 | 0.5 | `M5.A.1` |
-| `UNDERFUNCTION` | move | +1 | +1 | 0.2 | 0 | `M5.A.1` |
-| `TRIANGLE` | move | +1 | +1 | 0.3 | 0 | `M5.A.1` |
-| `CUTOFF` | move | +1 | +1 | 0 | 0 | `M5.A.1` |
-| `I-POSITION` | move | +1 | +1 | 0.2 | 0.1 | `M5.A.1` |
-| `STAY-IN-CONTACT` | move | +1 | +1 | 0.5 | 0 | `M5.A.1` |
-| `DETRIANGLE` | move | +1 | +1 | 0.2 | 0 | `M5.B.1` |
-| `PREVENT_ALIGNMENT` | move | +1 | +1 | 0.2 | 0 | `M5.B.2` |
-| `REDUCE_CUTOFF` | move | +1 | +1 | 0.5 | 0.1 | `M5.B.3` |
-| `PROVOKE` | move | +1 | +1 | 0.2 | 0.4 | `M5.B.6` |
-| `SPLIT` | move | +1 | +1 | 0.1 | 0.2 | `M5.B.4` |
-| `FRAME_AMBIGUITY` | move | +1 | +1 | 0.1 | 0.2 | `M5.B.4` |
-| `DISPLACE` | move | +1 | +1 | 0.1 | 0.2 | `M5.B.4` |
-| `TRIGGER` | trigger | +1 | +1 | 0 | 0 | `M4.A.2` |
-| `RECONCILIATION` | reconciliation | +1 | +1 | 0 | 0 | `M4.A.3` |
-| `INSTITUTIONALIZE` | institutionalize | +1 | +1 | 0 | 0 | `M4.A.4` |
-| `BINDER_UNAVAILABLE` | binder_unavailable | +1 | +1 | 0 | 0 | `M1.F.9` |
-| `JOB_LOSS` | exogenous_stressor | +1 | +1 | 0 | 0 | `M1.F.6` |
-| `SYMPTOM_ONSET` | endogenous_symptom | +1 | +1 | 0 | 0 | `M7.D.1` |
+| kind | mechanism | inside_sign | outside_sign | contact | impingement | accommodates | spec |
+|---|---|---|---|---|---|---|---|
+| `PURSUE` | move | +1 | +1 | 0.5 | 0.3 | no | `M5.A.1` |
+| `DISTANCE` | move | +1 | +1 | -0.5 | 0 | no | `M5.A.1` |
+| `CONFLICT` | move | +1 | +1 | 0.3 | 0.6 | no | `M5.A.1` |
+| `OVERFUNCTION` | move | +1 | +1 | 0.2 | 0.5 | no | `M5.A.1` |
+| `UNDERFUNCTION` | move | +1 | +1 | 0.2 | 0 | yes | `M5.A.1` |
+| `TRIANGLE` | move | +1 | +1 | 0.3 | 0 | no | `M5.A.1` |
+| `CUTOFF` | move | +1 | +1 | 0 | 0 | no | `M5.A.1` |
+| `I-POSITION` | move | +1 | +1 | 0.2 | 0.1 | no | `M5.A.1` |
+| `STAY-IN-CONTACT` | move | +1 | +1 | 0.5 | 0 | no | `M5.A.1` |
+| `DETRIANGLE` | move | +1 | +1 | 0.2 | 0 | no | `M5.B.1` |
+| `PREVENT_ALIGNMENT` | move | +1 | +1 | 0.2 | 0 | no | `M5.B.2` |
+| `REDUCE_CUTOFF` | move | +1 | +1 | 0.5 | 0.1 | no | `M5.B.3` |
+| `PROVOKE` | move | +1 | +1 | 0.2 | 0.4 | no | `M5.B.6` |
+| `SPLIT` | move | +1 | +1 | 0.1 | 0.2 | no | `M5.B.4` |
+| `FRAME_AMBIGUITY` | move | +1 | +1 | 0.1 | 0.2 | no | `M5.B.4` |
+| `DISPLACE` | move | +1 | +1 | 0.1 | 0.2 | no | `M5.B.4` |
+| `TRIGGER` | trigger | +1 | +1 | 0 | 0 | no | `M4.A.2` |
+| `RECONCILIATION` | reconciliation | +1 | +1 | 0 | 0 | no | `M4.A.3` |
+| `INSTITUTIONALIZE` | institutionalize | +1 | +1 | 0 | 0 | no | `M4.A.4` |
+| `BINDER_UNAVAILABLE` | binder_unavailable | +1 | +1 | 0 | 0 | no | `M1.F.9` |
+| `JOB_LOSS` | exogenous_stressor | +1 | +1 | 0 | 0 | no | `M1.F.6` |
+| `SYMPTOM_ONSET` | endogenous_symptom | +1 | +1 | 0 | 0 | no | `M7.D.1` |

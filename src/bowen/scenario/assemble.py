@@ -11,7 +11,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 
 from src.bowen.engine.activation import SynchronousActivation, activation_for
-from src.bowen.engine.contact import initialise_contact
+from src.bowen.engine.initialise import initialise_run
 from src.bowen.engine.events import EventKinds
 from src.bowen.engine.params import EngineParams
 from src.bowen.engine.state import RunState, new_run_state
@@ -37,7 +37,7 @@ def assemble(
     """A fresh state every call, so two runs share nothing (M11.D.6)."""
     params = engine_params(constants)
     state = new_run_state(dict(family.people), dict(family.ties), family.family, kinds, seed=seed)
-    initialise_contact(state.people, state.ties, params)
+    initialise_run(state, params)
     return Assembled(
         state=state,
         source=source,

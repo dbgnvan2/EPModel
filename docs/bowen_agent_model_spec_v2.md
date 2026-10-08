@@ -1500,8 +1500,8 @@ Classes are `M14.A.1`'s four: exogenous-homogeneous (EH), exogenous-heterogeneou
 | `acute_anxiety` | Person | DV | standing load (`M4.A.1`); base appraisal (`M4.C.1`); consolidation decay (`M1.A.8`); speaker echo (`M4.C.7`) and calm transfer (`M4.C.10`) ⟦rev12 · Phase C step 2, 2026-10-07⟧ | B; C |
 | `chronic_anxiety` | Person | DV | family definition at `t0` (`M2.A.0a`); slow-tick derivation (`M1.A.7a`) | B; D |
 | `programmed_reactivity` | Person | DV | family definition at `t0`; childhood fixation (`M1.A.7`) | B; D |
-| `outside_ness_outward` | Person | DV | appraisal and selection (`M5.F`) | C |
-| `outside_ness_inward` | Person | DV | appraisal and selection (`M5.F`) | C |
+| `outside_ness_outward` | Person | DV | initialisation from `basic_level`; step-9 drift toward the impingement the person's own moves delivered (`M1.A.9`); selection (`M5.F`, step 6). Holds outward **impingement**: low is differentiated (`M1.A.9a`) ⟦rev12 · Phase C step 3, 2026-10-07⟧ | C |
+| `outside_ness_inward` | Person | DV | initialisation from `basic_level`; step-9 drift toward `M4.C.5`'s inward reading and the person's accommodating acts (`M1.A.9`); selection (`M5.F`, step 6). Holds inward **impingement**: low is differentiated ⟦rev12 · Phase C step 3, 2026-10-07⟧ | C |
 | `life_energy_ratio` | Person | DV | derived from `basic_level` (`M1.A.10`, `M10.A.1`) | B |
 | `symptom_load` | Person | DV | symptom accumulation, the chronicity integrator (`M4.C.3a`, `M7.D.1`) — Phase C by revision 12's P3 ⟦rev12 · Phase C step 2, 2026-10-07⟧ | C |
 | `channel_prior` | Person | EX | family definition (`M1.A.11b`) ⟦rev12 · Phase C step 2, 2026-10-07⟧ | C |
@@ -1570,6 +1570,7 @@ Classes are `M14.A.1`'s four: exogenous-homogeneous (EH), exogenous-heterogeneou
 | Symptom accumulation and onset (`M4.C.3`, `M4.C.3a`, `M7.D.1`) | engine | synchronous batch, step 9 | every tick | each person's acute and chronic anxiety, `functional_level`, `channel_prior` | — | `Person.symptom_load`, `Person.symptom_active`; the event queue (an endogenous `SYMPTOM_ONSET`) ⟦rev12 · Phase C step 2, 2026-10-07⟧ | C |
 | Investment (`M1.B.8`) | engine | synchronous batch, step 9 | every tick | what each member appraised on each tie this tick; their deviation on it | — | `Relationship.investment` ⟦rev12 · Phase C step 2, 2026-10-07⟧ | C |
 | Reactive detectors (`M1.A.19`) | engine | synchronous batch, step 9 | every tick | each person's own "too much" side, investment share and partners' anxiety, own emitted valence | — | `Person.reactive_state` ⟦rev12 · Phase C step 2, 2026-10-07⟧ | C |
+| Outside-ness drift (`M1.A.9`, `M4.C.5`) | engine | synchronous batch, step 9 | every tick | the person's own emitted moves this tick and their kinds' components; `M4.C.5`'s inward reading from step 4 | — | `Person.outside_ness_outward`, `Person.outside_ness_inward` ⟦rev12 · Phase C step 3, 2026-10-07⟧ | C |
 | Slow-tick hook (`M3.B.1`) | engine | slow tick | every 52 fast ticks | — | — | — | B |
 | Same-tick batching (`M1.F.8`) | engine | documented composite | same-tick events | the batch | — | — | B |
 

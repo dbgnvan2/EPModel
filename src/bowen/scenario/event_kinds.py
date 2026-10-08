@@ -12,7 +12,7 @@ import re
 from src.bowen.engine.events import EventKinds, Mechanism, SourcePosition
 from src.bowen.scenario.config_parse import ConfigError, parse_table_document
 
-COLUMNS = ("kind", "mechanism", "inside_sign", "outside_sign", "contact", "impingement", "spec")
+COLUMNS = ("kind", "mechanism", "inside_sign", "outside_sign", "contact", "impingement", "accommodates", "spec")
 _SIGNS = {"+1": 1, "-1": -1}
 _KIND = re.compile(r"^[A-Z][A-Z_-]*$")
 
@@ -23,6 +23,7 @@ def parse_event_kinds(text: str, *, source: str = "<event kinds>") -> EventKinds
     mechanisms: dict[str, Mechanism] = {}
     signs: dict[tuple[str, SourcePosition], int] = {}
     components: dict[str, tuple[float, float]] = {}
+    accommodating: set[str] = set()
     for row, line in zip(document.rows, document.row_lines):
         where = f"{source}:{line}"
         kind = row["kind"].strip("`")
@@ -47,6 +48,10 @@ def parse_event_kinds(text: str, *, source: str = "<event kinds>") -> EventKinds
                 raise ConfigError(f"{where}: {column} must be in [-1, 1], got {value}")
             parts.append(value)
         components[kind] = (parts[0], parts[1])
+        if row["accommodates"] not in ("yes", "no"):
+            raise ConfigError(f"{where}: accommodates must be yes or no, got {row['accommodates']!r}")
+        if row["accommodates"] == "yes":
+            accommodating.add(kind)
     if not mechanisms:
         raise ConfigError(f"{source}: no event kinds declared")
-    return EventKinds(mechanisms, signs, components)
+    return EventKinds(mechanisms, signs, components, frozenset(accommodating))

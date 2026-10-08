@@ -18,6 +18,7 @@ import dataclasses
 import pytest
 
 from src.bowen.engine.appraise import appraisal_delta
+from src.bowen.engine.initialise import initialise_run
 from src.bowen.engine.contact import (
     ContactNotInitialised, band, deviation, deviation_at, initialise_contact, optimum, relax_contact,
     resting_contact, steepness, too_little, too_much,
@@ -38,8 +39,7 @@ PARAMS = engine_params(load_constants())
 def fresh():
     family = load_family()
     state = new_run_state(dict(family.people), dict(family.ties), family.family, load_event_kinds())
-    initialise_contact(state.people, state.ties, PARAMS)
-    return state
+    return initialise_run(state, PARAMS)
 
 
 def move(kind, intensity, sender=RAVI, target=MARTA):

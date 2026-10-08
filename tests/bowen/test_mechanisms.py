@@ -24,7 +24,8 @@ from src.bowen.engine.invariants import InvariantViolation, M6I6NotRestated, ass
 from src.bowen.engine.objects import TieState
 from src.bowen.engine.recompute import is_member, recompute_involvement, recompute_triangles
 from src.bowen.engine.standing_load import apply_standing_load, self_term, tie_term
-from src.bowen.engine.contact import initialise_contact, relax_contact
+from src.bowen.engine.contact import relax_contact
+from src.bowen.engine.initialise import initialise_run
 from src.bowen.engine.state import new_run_state
 from src.bowen.engine.visibility import HouseholdConductanceVisibility
 from src.bowen.io.load import load_constants, load_event_kinds, load_family
@@ -40,8 +41,7 @@ VIS = HouseholdConductanceVisibility(PARAMS.per_hop_fidelity)
 def fresh(kinds: EventKinds | None = None):
     family = load_family()
     state = new_run_state(dict(family.people), dict(family.ties), family.family, kinds or load_event_kinds())
-    initialise_contact(state.people, state.ties, PARAMS)
-    return state
+    return initialise_run(state, PARAMS)
 
 
 def scripted(kind, tick, targets=(), *, on_tie=None, intensity=1.0, duration=1, binder=None, index=0):

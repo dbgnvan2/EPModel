@@ -8,7 +8,7 @@ Tests:   this file
 
 from __future__ import annotations
 
-from src.bowen.engine.contact import initialise_contact
+from src.bowen.engine.initialise import initialise_run
 from src.bowen.engine.events import Channel, Event, EventId, Mechanism, SourcePosition
 from src.bowen.engine.identifiers import PersonId, TieId
 from src.bowen.engine.objects import REACTIVE_DETECTORS
@@ -26,8 +26,7 @@ PARAMS = engine_params(load_constants())
 def fresh():
     family = load_family()
     state = new_run_state(dict(family.people), dict(family.ties), family.family, load_event_kinds())
-    initialise_contact(state.people, state.ties, PARAMS)
-    return state
+    return initialise_run(state, PARAMS)
 
 
 def emitted(state, sender, target, valence, index):

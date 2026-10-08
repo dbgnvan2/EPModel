@@ -15,7 +15,7 @@ from src.bowen.engine.activation import SynchronousActivation
 from src.bowen.engine.events import Channel, Event, EventId, SourcePosition
 from src.bowen.engine.identifiers import PersonId, TieId, TriangleId
 from src.bowen.engine.log_records import CollectingEmitter, DeliveredRecord, EffectRecord, TickRecord
-from src.bowen.engine.contact import initialise_contact
+from src.bowen.engine.initialise import initialise_run
 from src.bowen.engine.state import new_run_state
 from src.bowen.engine.tick import STEPS, SelectionFromInactivePerson, run, run_tick
 from src.bowen.engine.visibility import HouseholdConductanceVisibility
@@ -49,8 +49,7 @@ class FixedSource:
 def fresh():
     family = load_family()
     state = new_run_state(dict(family.people), dict(family.ties), family.family, load_event_kinds())
-    initialise_contact(state.people, state.ties, PARAMS)
-    return state
+    return initialise_run(state, PARAMS)
 
 
 def test_m3d1_steps_run_in_spec_order():

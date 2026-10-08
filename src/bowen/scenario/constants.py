@@ -76,6 +76,12 @@ SCHEMA: Mapping[str, KeySpec] = MappingProxyType(
         "symptom_event_intensity": KeySpec(float, "[I]", "M7.D.1"),
         "reactive_rate": KeySpec(float, "[I]", "M1.A.19"),
         "investment_leak_rate": KeySpec(float, "[I]", "M1.B.8"),
+        "initial_impingement_scale": KeySpec(float, "[I]", "M1.A.9"),
+        "outside_ness_rate": KeySpec(float, "[I]", "M1.A.9"),
+        "hollow_gain": KeySpec(float, "[I]", "M5.F.1"),
+        "assault_gain": KeySpec(float, "[I]", "M5.F.1"),
+        "outside_ness_threshold_outward": KeySpec(float, "[I]", "M5.C.1"),
+        "outside_ness_threshold_inward": KeySpec(float, "[I]", "M5.C.1"),
         "involvement_membership_threshold": KeySpec(float, "[I]", "M1.A.12"),
     }
 )

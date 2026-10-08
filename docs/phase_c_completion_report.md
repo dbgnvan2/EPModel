@@ -269,3 +269,28 @@ What the change did to the gate, with the same seeds and rules:
 
 The four entries that stopped passing are reported, not recovered. Changing a rule or constant to make them pass
 again would be tuning against them.
+
+## 9. What `M11.C.42` and `M11.C.45` test — decided 2026-10-08, before rerunning
+
+The owner asked what C.42 and C.45 should test after §8. **Decided from the spec's text, and committed before
+either criterion was rerun.** Their results are reported below whatever they are.
+
+**`M11.C.42`, a relieving triangle is reused.** The claim stands. Two parts of the build departed from the spec's
+arms and readout, and both are corrected:
+
+1. *Baseline arm.* The spec reads "that member is unavailable at that tick … so no triangle forms". The build
+   instead scripted the sender to `STAY-IN-CONTACT` with its partner, which is a different act with effects of its
+   own. Now, at that one tick, the third member is unavailable as the target of any act by either member of the
+   pair. Each member's selection is drawn from its legal set without that member, under the same keyed draw. The
+   treatment arm is unchanged: the sender's `TRIANGLE` toward the third member at that tick.
+2. *Readout.* The spec reads "the **pair** MUST select `TRIANGLE` toward that member more often". The build counted
+   only the sender's triangles. Now the readout counts `TRIANGLE` acts toward the third member by either member of
+   the pair, from the tick after the act to the horizon.
+
+**`M11.C.45`, triangles are quiet when calm.** The claim stands and the `TRIANGLE` decision does not change it,
+because triangle activity is still `TRIANGLE` acts. The readout is corrected. The spec reads "the rate of
+`TRIANGLE` selection". Every person makes exactly one selection a tick (`M4.D.1`), so the rate is `TRIANGLE`
+selections per person-week. The build divided by emitted moves instead, and that denominator leaves out withheld
+and fallback weeks and moves when any other act changes.
+
+The scenario settings (horizons, the week of the act, the spell) are unchanged.

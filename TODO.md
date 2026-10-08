@@ -27,7 +27,8 @@ Phase C steps 0–16 are built. **Its gate does not pass** (`docs/phase_c_comple
 - [ ] **Accept or revise the `M11.5` reclassifications** recorded 2026-10-08 in the spec's table: `M11.C.1` and
   `.38` as joint premises (no single level-reading rule carries them). `M11.C.45`'s reclassification as a premise
   was withdrawn when it stopped passing after the `TRIANGLE` decision. Report §2.
-- [ ] **`M11.C.42` and `.45` stopped passing after the `TRIANGLE` decision.** Both were already fragile in the sweep.
+- [ ] **`M11.C.42` and `.45` stopped passing after the `TRIANGLE` decision.** *What each tests decided 2026-10-08
+  (report §9): C.42's baseline arm and readout, and C.45's readout, brought to the spec's text. Rerun pending.* Both were already fragile in the sweep.
   C.42's reuse is −0.17 and it fails at every sweep setting; C.45 has the right sign, without significance.
   Decide whether either criterion's arms still test what it claims, now that the act loads the recruited third.
   Report §3.8 and §8.

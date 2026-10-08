@@ -20,6 +20,7 @@ from dataclasses import dataclass
 from src.bowen.engine.act import Selection
 from src.bowen.engine.events import Event
 from src.bowen.engine.identifiers import PersonId
+from src.bowen.engine.objects import Role
 from src.bowen.engine.observe import observe
 from src.bowen.engine.params import EngineParams
 from src.bowen.engine.state import RunState
@@ -49,6 +50,10 @@ class PolicySource:
                 chosen.append(scripted[pid])
                 continue
             if not state.people[pid].alive:
+                continue
+            # M1.E.8: an external agent's contact is scheduled — a session every few weeks — and its
+            # content is the policy's. Between sessions the agent has no outcome in the family.
+            if state.people[pid].role is Role.EXTERNAL and tick % self.params.session_interval_weeks != 0:
                 continue
             decision = decide(observe(state, pid, self.params), state.kinds, self.params, self.rules, state.draws)
             chosen.append(dataclasses.replace(decision.selection, urge=decision.urge))

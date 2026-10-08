@@ -11,8 +11,9 @@ the channel and capacity layer of each act in ``config/bowen/event_kinds.md``, t
 tie-break and fallback rules in ``config/bowen/policy.md``.
 
 **Outcomes** are an act toward one person, or ``WITHHOLD``. The legal set (`M4.D.1e`)
-is formed first, from structural preconditions — a tie to a living person who is not an
-external agent; across a severed tie only `REDUCE_CUTOFF`, and `REDUCE_CUTOFF` only there;
+is formed first, from structural preconditions — a tie to a living person; the
+family→external moves (`M5.B.4`) only toward an external agent, and an external agent only
+from its own repertoire (`M5.B.5`); across a severed tie only `REDUCE_CUTOFF`, and `REDUCE_CUTOFF` only there;
 `TRIANGLE`, `DETRIANGLE` and `PREVENT_ALIGNMENT` only toward someone a closed triad holds —
 and the `M5.C` gates that remove an act: `I-POSITION` is removed
 for a financially dependent person (`M5.C.1`: it "MUST fail outright"). ``WITHHOLD`` is
@@ -77,6 +78,10 @@ AUTOMATIC, SELF = "automatic", "self"
 CUTOFF, TRIANGLE, I_POSITION, STAY_IN_CONTACT = "CUTOFF", "TRIANGLE", "I-POSITION", "STAY-IN-CONTACT"
 REDUCE_CUTOFF, DETRIANGLE, PREVENT_ALIGNMENT = "REDUCE_CUTOFF", "DETRIANGLE", "PREVENT_ALIGNMENT"
 NEEDS_TRIAD = frozenset({TRIANGLE, DETRIANGLE, PREVENT_ALIGNMENT})
+# M5.B.4: moves a family member makes toward an external agent, and only toward one.
+FAMILY_TO_EXTERNAL = frozenset({"SPLIT", "FRAME_AMBIGUITY", "DISPLACE"})
+# M5.B.5: the external agent's repertoire is a strict subset (M1.E.3's and M1.E.4's acts are Phase D).
+EXTERNAL_REPERTOIRE = frozenset({"STAY-IN-CONTACT", "I-POSITION", "OVERFUNCTION", "TRIANGLE", "CUTOFF"})
 
 
 @dataclass(frozen=True)
@@ -143,9 +148,13 @@ def legal_outcomes(obs: Observation, kinds: EventKinds, params: EngineParams) ->
     legal = []
     position = triangle_position(obs, params)[0]
     for view in obs.ties:
-        if not view.other_alive or view.other_external:
+        if not view.other_alive:
             continue
         for kind, channel in sorted(kinds.channels.items()):
+            if obs.external and kind not in EXTERNAL_REPERTOIRE:
+                continue
+            if (kind in FAMILY_TO_EXTERNAL) != (view.other_external and not obs.external):
+                continue
             # Across a severed tie the one legal act is to reduce the cutoff; on a live tie it is not legal.
             if kind == REDUCE_CUTOFF:
                 if not view.severed:

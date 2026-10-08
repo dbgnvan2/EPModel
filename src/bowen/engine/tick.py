@@ -16,7 +16,8 @@ The nine steps, and where each lives:
                               they are not party to move toward what was delivered
                               (``beliefs.update_beliefs``, M9.8)
 4. appraise ................. ``appraise.apply_appraisal``; delivered cutoffs; each delivered
-                              move's own effect (``moves.apply_move_effects``, plan D5)
+                              move's own effect (``moves.apply_move_effects``, plan D5);
+                              external-agent contact lands or not (``external``, M1.E.7)
 5. involvement .............. ``recompute.recompute_involvement``
 6. triangles ................ ``recompute.recompute_triangles``
 7. select ................... ``iposition.advance_sequences`` (M5.D); a person owed a
@@ -49,6 +50,7 @@ from src.bowen.engine.event_effects import STRUCTURAL, apply_delivered_cutoffs, 
 from src.bowen.engine.events import Event
 from src.bowen.engine.identifiers import PersonId
 from src.bowen.engine.invariants import assert_invariants, snapshot
+from src.bowen.engine.external import apply_landed_contacts
 from src.bowen.engine.iposition import advance_sequences, redirect_to_sequence_tie, sequence_selections
 from src.bowen.engine.learner import learn, register_acts
 from src.bowen.engine.moves import apply_move_effects, settle_functioning
@@ -125,6 +127,7 @@ def run_tick(
     records += effects
     records += apply_delivered_cutoffs(state, batch, params)
     records += apply_move_effects(state, batch, params)
+    records += apply_landed_contacts(state, batch, params)
     steps.append("appraise")
 
     # 5, 6 — before selection, because gates and propensities read them (M3.D.3).

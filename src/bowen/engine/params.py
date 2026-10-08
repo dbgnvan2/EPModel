@@ -91,6 +91,14 @@ class EngineParams:
     triangle_floor_decrement: float # M1.C.5 — a completed exchange's permanent decrement in each triangle holding the pair
     respect_gain: float        # M5.E.8 — a completed exchange lowers both parties' impingement axes by this share
     debit_gain: float          # M5.E.7 — contact the mover withdraws from the other with a genuine I-POSITION
+    session_interval_weeks: int # M1.E.8, K07.4 — an external agent's session falls every this many weeks (six to eight a year)
+    landing_rate: float        # M1.E.7 — the base chance a contact lands; low by source (K07.4: about five in two years)
+    delayed_view_bonus: float  # M1.E.7c — a contact that can draw on the recipient's own delayed log lands this much more often
+    binder_failure_fraction: float # M1.E.7 — binders count as failing when a symptom is active or the load reaches this share of threshold
+    contact_optimum: int       # M1.E.8 — above this many contacts in the window, the chance each lands falls with the square of the excess
+    contact_window: int        # M1.E.8 — the window over which contacts are counted
+    perspective_gain: float    # M1.E.7 — a landed contact raises systems_perspective by this share of its distance from 1
+    delayed_view_weeks: int    # M16.D.2 — the delay of the delayed view: six months, as Bowen suggested
     belief_rate: float                     # M9.8 — share of the gap to a witnessed observation closed per tick, at full fidelity
 
     def __post_init__(self) -> None:
@@ -136,6 +144,11 @@ class EngineParams:
         if min(self.anger_threshold, self.assertion_gain, self.assertion_evidence_gain, self.hold_gain,
                self.exchange_gain, self.debit_gain) < 0:
             raise ValueError("the I-POSITION gains and thresholds are non-negative")
+        for name in ("landing_rate", "binder_failure_fraction", "perspective_gain"):
+            if not 0.0 <= getattr(self, name) <= 1.0:
+                raise ValueError(f"{name} must be in [0, 1]")
+        if min(self.session_interval_weeks, self.contact_optimum, self.contact_window) < 1 or self.delayed_view_weeks < 0 or self.delayed_view_bonus < 0:
+            raise ValueError("the external-agent windows must be at least 1; delayed_view_weeks and delayed_view_bonus non-negative")
         if self.outsider_positional_gain < 0 or self.pseudo_self_transfer_gain < 0:
             raise ValueError("outsider_positional_gain and pseudo_self_transfer_gain must be non-negative")
         for name in ("witness_weight", "calm_transfer_rate", "symptom_leak_rate", "symptom_rearm_fraction",

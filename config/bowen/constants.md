@@ -131,6 +131,14 @@ activation_regime: synchronous
 | `triangle_floor_decrement` | 0.1 | [I] | share of routing capacity | `M1.C.5` |
 | `respect_gain` | 0.2 | [I] | share of each axis | `M5.E.8` |
 | `debit_gain` | 0.3 | [I] | felt contact per unit scaled intensity | `M5.E.7` |
+| `session_interval_weeks` | 8 | [I] | fast ticks | `M1.E.8` |
+| `landing_rate` | 0.15 | [I] | probability per contact at full coach quality | `M1.E.7` |
+| `delayed_view_bonus` | 1.0 | [I] | added share of the landing rate | `M1.E.7c` |
+| `binder_failure_fraction` | 0.8 | [I] | share of the symptom threshold | `M1.E.7` |
+| `contact_optimum` | 4 | [I] | contacts in the window | `M1.E.8` |
+| `contact_window` | 26 | [I] | fast ticks | `M1.E.8` |
+| `perspective_gain` | 0.1 | [I] | share of the gap to 1 | `M1.E.7` |
+| `delayed_view_weeks` | 26 | [I] | fast ticks | `M16.D.2` |
 | `distance_binding_rate` | 0.3 | [I] | share of excess bound per unit scaled intensity | `M1.D.2a` |
 | `triangle_transfer_rate` | 0.3 | [I] | share of each insider's excess passed per unit scaled intensity | `M1.C.1` |
 | `outsider_positional_gain` | 0.5 | [I] | positional anxiety per unit transferred | `M1.C.1` |

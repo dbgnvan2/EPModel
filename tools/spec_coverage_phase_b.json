@@ -357,5 +357,24 @@
  "M5.F.2a": {
   "status": "partial",
   "note": "one of the five forms is built: an assertion-form I-POSITION raises the claimant's outward axis (step 8); declaring non-involvement and the other forms are not"
+ },
+ "M1.E.7c": {
+  "status": "partial",
+  "note": "two of the four forms are built (step 9): non-participation, as coach quality, and delayed self-observation, through M16.D's view; instance and category supply are not"
+ },
+ "M1.E.7": {
+  "status": "done",
+  "evidence": [
+   "tests/bowen/test_external.py::test_m1e7_perspective_rises_only_on_a_landed_contact",
+   "tests/bowen/test_external.py::test_m1e7_contact_lands_only_when_binders_fail"
+  ],
+  "note": "rises only on a landed contact, conditioned on binders failing, at a low rate; never spontaneously, never reinforced (step 9)"
+ },
+ "M16.D.2": {
+  "status": "done",
+  "evidence": [
+   "tests/bowen/test_external.py::test_m16d2_default_delay_is_six_months_and_zero_is_only_an_arm"
+  ],
+  "note": "default 26 weeks; the SHOULD arm showing the delayed view lands where the instant one does not is not built"
  }
 }

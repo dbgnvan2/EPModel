@@ -73,6 +73,7 @@ class Observation:
     outside_ness_inward: float
     systems_perspective: float
     financially_dependent: bool
+    external: bool                                # the person is an external agent (M1.E.1)
     ties: tuple[TieView, ...]
     triads: tuple[TriangleId, ...]                # every closed triad the person belongs to (topology)
     triangle_for: Mapping[PersonId, TriangleId]   # target → the triad a TRIANGLE act to them forms
@@ -115,6 +116,7 @@ def observe(state: RunState, person: PersonId, params: EngineParams) -> Observat
         tick=state.tick, person=person, acute_excess=excess(me), functional_level=me.functional_level,
         outside_ness_outward=outward, outside_ness_inward=inward,
         systems_perspective=me.systems_perspective or 0.0, financially_dependent=me.financially_dependent,
+        external=me.role is Role.EXTERNAL,
         ties=tuple(ties), triads=tuple(t for t in sorted(state.triangles) if person in t.members),
         triangle_for=MappingProxyType(triangle_for),
         beliefs=MappingProxyType({t: (b.tension, b.contact) for t, b in (me.tie_beliefs or {}).items()}),

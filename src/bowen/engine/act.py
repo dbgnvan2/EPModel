@@ -15,6 +15,7 @@ from src.bowen.engine import iposition
 
 from src.bowen.engine.events import Channel, Event, EventId, Mechanism, SourcePosition
 from src.bowen.engine.identifiers import PersonId
+from src.bowen.engine.objects import Role
 from src.bowen.engine.log_records import DecidedBy, DeliveredRecord, EffectRecord, EmittedRecord, SelectionRecord
 from src.bowen.engine.params import EngineParams
 from src.bowen.engine.state import RunState
@@ -84,6 +85,8 @@ def withhold(state: RunState, selection: Selection, params: EngineParams) -> lis
     if selection.withheld is None:
         return records
     tie = state.tie_between(selection.actor, selection.targets[0])
+    if any(state.people[m].role is Role.EXTERNAL for m in tie.id.members()):
+        return records  # M1.E.7e: the coach tie accumulates no investment
     gain = params.withhold_investment_gain * selection.intensity / params.intensity_scale
     tie.investment[selection.actor] = tie.investment.get(selection.actor, 0.0) + gain
     records.append(EffectRecord(state.tick, "withhold", None, ties=((tie.id, f"investment:{selection.actor}", gain),)))

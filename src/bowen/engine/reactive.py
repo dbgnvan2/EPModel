@@ -22,7 +22,7 @@ attention on a tie fades by ``investment_leak_rate`` and gains the absolute size
 what they appraised on it plus their deviation on it. The absolute value makes it
 **valence-blind**: conflict-laden preoccupation registers as high investment, and
 nothing reads warmth, agreement or tie quality. It is stored per person, so it is
-directed. ``investment_share`` normalises it across the person's ties.
+directed. A tie with an external agent accumulates none (`M1.E.7e`: the coach tie stays thin). ``investment_share`` normalises it across the person's ties.
 """
 
 from __future__ import annotations
@@ -31,7 +31,7 @@ from src.bowen.engine.contact import deviation, excess, too_much
 from src.bowen.engine.events import Mechanism
 from src.bowen.engine.identifiers import PersonId, TieId
 from src.bowen.engine.log_records import EffectRecord
-from src.bowen.engine.objects import REACTIVE_DETECTORS, SCALE_MAX
+from src.bowen.engine.objects import REACTIVE_DETECTORS, SCALE_MAX, Role
 from src.bowen.engine.params import EngineParams
 from src.bowen.engine.state import RunState
 
@@ -55,6 +55,8 @@ def update_investment(
     changes = []
     for tie_id in sorted(state.ties):
         tie = state.ties[tie_id]
+        if any(state.people[m].role is Role.EXTERNAL for m in tie_id.members()):
+            continue  # M1.E.7e: the coach tie stays thin and accumulates no investment
         for member in tie_id.members():
             person = state.people[member]
             if not person.alive:

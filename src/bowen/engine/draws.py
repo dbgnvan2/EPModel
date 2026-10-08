@@ -77,6 +77,7 @@ DRAW_CLASSES: Mapping[str, DrawClass] = MappingProxyType(
             _cls("symptom_onset", "M4.C.3", "tick, person, channel", Keying.PER_PERSON),
             _cls("mortality", "M7.C.1", "slow tick, person, purpose", Keying.PER_PERSON),
             _cls("tie_break_fallback", "M4.D.1f", "tick, actor, purpose, index", Keying.SLOT),
+            _cls("landed_contact", "M1.E.7", "tick, actor, partner, purpose, index", Keying.DYAD),
         )
     }
 )

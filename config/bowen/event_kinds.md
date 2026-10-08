@@ -29,7 +29,8 @@
 > moves are `automatic`; `I-POSITION` and `STAY-IN-CONTACT` are `self`, and so are the four family moves of
 > `M5.B` — `DETRIANGLE`, `PREVENT_ALIGNMENT`, `REDUCE_CUTOFF`, `PROVOKE` — by the owner's decision of
 > 2026-10-07: purposeful, position-holding acts, scored by the position gap like `I-POSITION`. The
-> external-agent moves (`M5.B.4`) have no channel (`—`) until there is an external agent (step 9).
+> family→external moves (`M5.B.4`) are `automatic`, layer 1, `[I]`, and legal only toward an external agent
+> (Phase C step 9): splitting, framing ambiguity and displacing are reactive acts toward the helper.
 > `layer` is an automatic move's place in `M4.D.3a`'s complexity ordering, 0 the oldest: distance and cutoff
 > (0, "single-celled organisms could not survive without a distancing mechanism") → dominant-adaptive,
 > over- and underfunctioning (1) → conflict (2). `PURSUE` and `TRIANGLE` are placed with conflict, `[I]`: the
@@ -50,9 +51,9 @@
 | `PREVENT_ALIGNMENT` | move | +1 | +1 | 0.2 | 0 | no | self | — | `M5.B.2` |
 | `REDUCE_CUTOFF` | move | +1 | +1 | 0.5 | 0.1 | no | self | — | `M5.B.3` |
 | `PROVOKE` | move | +1 | +1 | 0.2 | 0.4 | no | self | — | `M5.B.6` |
-| `SPLIT` | move | +1 | +1 | 0.1 | 0.2 | no | — | — | `M5.B.4` |
-| `FRAME_AMBIGUITY` | move | +1 | +1 | 0.1 | 0.2 | no | — | — | `M5.B.4` |
-| `DISPLACE` | move | +1 | +1 | 0.1 | 0.2 | no | — | — | `M5.B.4` |
+| `SPLIT` | move | +1 | +1 | 0.1 | 0.2 | no | automatic | 1 | `M5.B.4` |
+| `FRAME_AMBIGUITY` | move | +1 | +1 | 0.1 | 0.2 | no | automatic | 1 | `M5.B.4` |
+| `DISPLACE` | move | +1 | +1 | 0.1 | 0.2 | no | automatic | 1 | `M5.B.4` |
 | `TRIGGER` | trigger | +1 | +1 | 0 | 0 | no | — | — | `M4.A.2` |
 | `RECONCILIATION` | reconciliation | +1 | +1 | 0 | 0 | no | — | — | `M4.A.3` |
 | `INSTITUTIONALIZE` | institutionalize | +1 | +1 | 0 | 0 | no | — | — | `M4.A.4` |

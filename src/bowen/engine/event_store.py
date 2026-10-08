@@ -65,6 +65,28 @@ class EventStore:
             if role is None or d.role is role
         )
 
+    def delayed_view(self, person: PersonId, now: int, delay: int) -> tuple[Event, ...]:
+        """Purpose: one agent's own events, older than the delay, and nothing else (M16.D.1).
+        Spec:    docs/bowen_agent_model_spec_v2.md#M16.D.1, #M16.D.2
+        Tests:   tests/bowen/test_external.py::test_m16t4_delayed_view_is_scoped_and_lagged
+
+        Own: sent by the person, or delivered to it as target or witness. A routed event
+        (a private hop, ``M1.F.4``) the person did not send and was not addressed by is
+        excluded. Only events emitted at or before ``now - delay``.
+        """
+        if delay < 0:
+            raise ValueError("the delay is non-negative")
+        cutoff = now - delay
+        ids = {e.id for e in self._by_sender.get(person, ()) if e.timestamp <= cutoff}
+        for d in self._by_recipient.get(person, ()):
+            event = self._events[d.event_id]
+            if event.timestamp > cutoff:
+                continue
+            if event.route and d.role is not Role.TARGET:
+                continue  # another agent's private hop
+            ids.add(event.id)
+        return tuple(self._events[k] for k in sorted(ids))
+
     def view_of(self, person: PersonId) -> tuple[Event, ...]:
         """Every event the person sent, received as target, or witnessed (M16.C.4)."""
         ids = {e.id for e in self.sent_by(person)} | {d.event_id for d in self.delivered_to(person)}

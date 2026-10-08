@@ -38,6 +38,8 @@ class Relation(enum.Enum):
     SPOUSE = "spouse"
     PARENT_OF = "parent_of"  # column a is the parent of column b
     SIBLING = "sibling"
+    # M1.E.1: an external agent's real ties to the family; not a family-of-origin tie. Phase C step 9.
+    PROFESSIONAL = "professional"
 
 
 @dataclass(frozen=True)

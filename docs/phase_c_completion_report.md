@@ -12,7 +12,7 @@ a hash goes stale.
 | `docs/phase_c_sweep_record.md` | `tools/sweep_record.py` | each composite criterion at half and double α, H and temperature (plan D9) |
 | `docs/spec_coverage.md` | `tools/spec_coverage.py` | every spec ID: done / partial / not done |
 
-Default suite: **483 tests pass** (`python3 -m pytest tests/`). The 19 ensemble-marked criterion tests are
+Default suite: **485 tests pass** (`python3 -m pytest tests/`). The 19 ensemble-marked criterion tests are
 deselected there and run with `python3 -m pytest -m ensemble`.
 
 **Read this first.** Phase C's gate does **not** pass. Of the 16 criteria built, 6 pass at the frozen
@@ -229,4 +229,8 @@ verdict, seed count, difference and mutant result is unchanged, so the move to c
 
 A third gate on those fixes (`docs/cycles/2026-10-08_phase-c-qa-gate-3.md`) verified all three, including the
 claim that the regenerated records are identical, and **APPROVED**, with three low findings and no high or
-medium. They are in `TODO.md`.
+medium. All three were then fixed: a static test ties the criteria's required settings to what each arm reads,
+in both directions (`test_criteria_required_matches_what_the_arms_read`); the `criteria.py` docstring points at the
+config file instead of restating the spell; and the tests load the mutation tool once
+(`test_sweep_tool_shares_the_loaded_mutation_tool`). The records were regenerated again and are identical apart from
+the hash.

@@ -8,11 +8,9 @@ Tests:   tests/bowen/test_phase_c_gate.py
 
 Written after the constants were frozen (`M10.B.4`). Every arm runs the full engine under
 the policy and the learner; a scripted act replaces one person's outcome at one week. All
-choices below — horizons, the spell, readout definitions — are `[I]` and declared here
-before any criterion ran.
-
-**The declared spell** (`M11.3`): a `JOB_LOSS` stressor of intensity 120 to each parent every
-4 weeks from week 4 to the horizon. "Calm" is no spell.
+choices are `[I]` and were declared before any criterion ran: the readout definitions in
+this module, and every number an arm uses — horizons, scripted-act weeks, levels, starting
+states and the declared spell (`M11.3`) — in ``config/bowen/criteria.md``. "Calm" is no spell.
 
 **Not built in Phase C** (reported as blockers, not as passes or failures): `M11.C.7` needs
 `M8.2`/`M8.3`'s position predicates and declares no direction for its topology arms;
@@ -65,7 +63,10 @@ def load_roles(path=CONFIG_DIR / "criterion_roles.md") -> dict[tuple[str, str], 
 
 ROLES = load_roles()
 
+# Keys the criteria table adds to an arm's settings itself, for expanded cells; never config.
+INJECTED = frozenset({"twosome", "change", "levels", "arms"})
 # Every setting a criterion reads, by section; config/bowen/criteria.md must hold exactly these.
+# tests/bowen/test_ensemble_record.py::test_criteria_required_matches_what_the_arms_read ties this to the code.
 REQUIRED = {
     "spell": ("kind", "intensity", "every", "from", "light_every", "light_parents"),
     "scripted_act": ("intensity",),

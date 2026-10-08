@@ -51,6 +51,8 @@ sys.modules[_sspec.name] = _sweep
 _mspec = importlib.util.spec_from_file_location("mutation_record_tool", REPO / "tools" / "mutation_record.py")
 _mutants = importlib.util.module_from_spec(_mspec)
 sys.modules[_mspec.name] = _mutants  # its dataclass resolves its own module
+# The sweep tool imports `tools.mutation_record`; registering this copy under that name keeps it to one load.
+sys.modules["tools.mutation_record"] = _mutants
 _mspec.loader.exec_module(_mutants)
 _sspec.loader.exec_module(_sweep)  # after the mutation tool: it imports from it
 
@@ -131,3 +133,51 @@ def test_criteria_settings_are_parsed_strictly(tmp_path):
     missing.write_text(text.replace("| M11.C.42 | weeks | 40 |\n", ""), encoding="utf-8")
     with pytest.raises(ConfigError, match="M11.C.42 weeks"):
         load_settings(missing)
+
+
+def test_sweep_tool_shares_the_loaded_mutation_tool():
+    """One copy of the mutation tool, not two (third gate finding 3)."""
+    assert _sweep.Mutant is _mutants.Mutant and _sweep.run_mutant is _mutants.run_mutant
+
+
+def _setting_reads():
+    """Each top-level function's literal ``settings["k"]`` reads, and every literal ``SETTINGS["s"]["k"]`` / ``SPELL["k"]``."""
+    import ast
+
+    tree = ast.parse((REPO / "src" / "bowen" / "ensemble" / "criteria.py").read_text(encoding="utf-8"))
+
+    def key(node):
+        return node.slice.value if isinstance(node.slice, ast.Constant) and isinstance(node.slice.value, str) else None
+
+    by_function, module = {}, set()
+    for top in tree.body:
+        if isinstance(top, ast.FunctionDef):
+            by_function[top.name] = {key(n) for n in ast.walk(top) if isinstance(n, ast.Subscript)
+                                     and isinstance(n.value, ast.Name) and n.value.id == "settings" and key(n)}
+    for n in ast.walk(tree):
+        if isinstance(n, ast.Subscript) and key(n):
+            if isinstance(n.value, ast.Name) and n.value.id == "SPELL":
+                module.add(("spell", key(n)))
+            elif isinstance(n.value, ast.Subscript) and isinstance(n.value.value, ast.Name) \
+                    and n.value.value.id == "SETTINGS" and key(n.value):
+                module.add((key(n.value), key(n)))
+    return by_function, module
+
+
+def test_criteria_required_matches_what_the_arms_read():
+    """REQUIRED, the config's schema, and the arms' reads agree in both directions (third gate finding 1)."""
+    from src.bowen.ensemble.criteria import INJECTED, REQUIRED
+
+    by_function, module = _setting_reads()
+    # Forward: every key an arm reads is in the settings that criterion is given (else KeyError at ensemble time).
+    for cid, criterion in CRITERIA.items():
+        missing = by_function[criterion.arm.__name__] - set(criterion.settings)
+        assert not missing, f"{cid}: its arm reads {sorted(missing)}, which its settings do not hold"
+    # Reverse: every required setting is read — by an arm of its section, or by name at module level.
+    read = set(module)
+    for cid, criterion in CRITERIA.items():
+        read |= {(cid.split("[")[0], k) for k in by_function[criterion.arm.__name__] - INJECTED}
+    level_rows = {("M11.C.38", k) for k in REQUIRED["M11.C.38"] if k.startswith("level_")}  # read by prefix
+    unread = {(s, k) for s, names in REQUIRED.items() for k in names} - read - level_rows
+    assert not unread, f"declared in REQUIRED but read nowhere: {sorted(unread)}"
+    assert not (read - {(s, k) for s, names in REQUIRED.items() for k in names}), "read but not declared"

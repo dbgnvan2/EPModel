@@ -46,6 +46,9 @@ the per-criterion status is in `docs/phase_c_completion_report.md`.
   sweep staleness test imports the sweep tool's `HASHED_TOOLS` (B, low); the criteria's declared settings moved,
   unchanged, to `config/bowen/criteria.md`, and `M11.D.2`'s magic-literal scan covers `criteria.py` (4, low). All
   three records regenerated; apart from the hash they are byte-identical. 483 tests pass.
+- From the third gate (`docs/cycles/2026-10-08_phase-c-qa-gate-3.md`, APPROVED, three low findings): a static test
+  ties the criteria's `REQUIRED` settings to what each arm reads, in both directions; the `criteria.py` docstring
+  no longer restates the spell's numbers; the mutation tool loads once in the tests. 485 tests pass.
 
 ## [Unreleased] — 2026-10-06
 

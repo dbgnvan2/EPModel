@@ -554,14 +554,16 @@ mutant has turned each entry red in `docs/phase_c_mutation_record.md`; the D9 sw
 | M17.G.2 | not done | — | Phase E |
 | M17.G.3 | not done | — | Phase E |
 
-## Tests named for no spec ID (58)
+## Tests named for no spec ID (60)
 
 Their names embed no requirement ID, so they count only where an override cites them (marked *cited*). The rest check spec documents, tooling or helpers.
 
 - `tests/bowen/test_config.py::test_m0_1_grade_must_match_the_spec` — *cited*
 - `tests/bowen/test_config.py::test_m0_1_unknown_grade_rejected` — *cited*
+- `tests/bowen/test_ensemble_record.py::test_criteria_required_matches_what_the_arms_read`
 - `tests/bowen/test_ensemble_record.py::test_criteria_settings_are_parsed_strictly`
 - `tests/bowen/test_ensemble_record.py::test_d9_sweep_record_is_current`
+- `tests/bowen/test_ensemble_record.py::test_sweep_tool_shares_the_loaded_mutation_tool`
 - `tests/bowen/test_family.py::test_m2_family_declaration_must_be_graded_invented`
 - `tests/bowen/test_family.py::test_m2a_values_match_the_spec_table` — *cited*
 - `tests/bowen/test_phase_b_gate.py::test_m13_phase_b_scripted_40_week_trace_runs`

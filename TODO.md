@@ -43,16 +43,10 @@ Phase C steps 0–16 are built. **Its gate does not pass** (`docs/phase_c_comple
 - [ ] **Bruno falls back every week.** His one tie starts cut off, `REDUCE_CUTOFF` is his only legal act, and it
   carries no weight without systems perspective, so the family runs' fallback rate is 0.26–0.41 (`M11.D.18` flags
   it). Decide whether that is the intended reading of `M4.D.3b`.
-- [ ] **Third gate's low findings, 2026-10-08** (`docs/cycles/2026-10-08_phase-c-qa-gate-3.md`, APPROVED), not fixed
-  because each touches `criteria.py` and forces a full regeneration of the three records; do them together before
-  the records are next regenerated:
-  1. `REQUIRED` in `src/bowen/ensemble/criteria.py` mirrors by hand the settings the arms read, and no default-suite
-     test ties the two. Add a static test that collects every `settings["…"]` / `SETTINGS["…"]` read and compares it
-     with `REQUIRED`, or have each arm declare its settings.
-  2. The module docstring still states the spell's numbers (intensity 120, every 4 weeks from week 4) and says they
-     are "declared here". Point it at `config/bowen/criteria.md` instead.
-  3. (informational) `tests/bowen/test_ensemble_record.py` loads `tools/mutation_record.py` twice, once under its own
-     name and once through `tools/sweep_record.py`'s import. Register the loaded copy as `tools.mutation_record`.
+- [x] ~~**Third gate's low findings, 2026-10-08.**~~ *Fixed 2026-10-08:
+  `test_criteria_required_matches_what_the_arms_read` ties `REQUIRED` to every arm's reads in both directions; the
+  `criteria.py` docstring points at `config/bowen/criteria.md` instead of restating the spell; the mutation tool is
+  loaded once (`test_sweep_tool_shares_the_loaded_mutation_tool`). Records regenerated.*
 - [x] ~~**Re-gate finding A (medium, P6/P19).**~~ *Fixed 2026-10-08: every record's hash covers
   `tools/ensemble_record.py` (its `RULE_KEYS`), and each tool names its inputs in `HASHED_TOOLS`
   (`test_m134_every_record_hashes_the_ensemble_tool`). All three records regenerated.*

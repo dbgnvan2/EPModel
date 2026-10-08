@@ -36,7 +36,7 @@ Phase C steps 0–16 are built. **Its gate does not pass** (`docs/phase_c_comple
   C.42's reuse is −0.17 and it fails at every sweep setting; C.45 has the right sign, without significance.
   Decide whether either criterion's arms still test what it claims, now that the act loads the recruited third.
   Report §3.8 and §8.
-- [ ] **`M13.4`'s precision rule and `M11.C.16`.** The direction holds at p ≈ 1e-44, but the half-width never falls
+- [ ] **`M13.4`'s precision rule and `M11.C.16`.** *Decided 2026-10-08 (report §10): precision against the pooled sd of the two arms. Rerun pending.* The direction holds at p ≈ 1e-44, but the half-width never falls
   below 0.25 of the baseline arm's sd, so it is `UNDETERMINED` at 500 seeds. Decide whether precision should
   scale by the paired difference's sd. Report §3.4.
 - [ ] **The failing criteria** — `M11.C.4` (later limb), `.5`, `.29` (the third person never accumulates symptom

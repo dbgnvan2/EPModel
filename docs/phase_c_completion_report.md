@@ -319,3 +319,34 @@ reliably enough to detect. No rule or constant was changed to make either pass.
 The absence that C.42's baseline arm uses is tested in the default suite
 (`tests/bowen/test_phase_c_criteria.py`). It removes the third member from the pair's choices at that tick and
 changes nothing before it. The new C.45 readout is checked there too.
+
+## 10. The precision rule — decided 2026-10-08, before rerunning
+
+The owner asked for a decision on the stopping rule's precision, which `M11.C.16` turns on. **Decided: the half-width
+is compared with `ensemble_precision` (0.25, unchanged) times the *pooled* seed-to-seed sd of the two arms,
+√((sd_baseline² + sd_treatment²) / 2), instead of the baseline arm's sd.** When both arms have no spread, the
+differences' sd is used, as before. The margin (`M17.A.4`) and the equivalence bound stay relative to the baseline
+arm's sd, as plan D8 approved. D8 governs margins. That precision used the same scale was the build's choice, not
+the plan's.
+
+Why. `M17.A.1` asks for enough seeds that the interval is narrow; δ is `[I]` and its unit is not given.
+
+- *The baseline arm alone is the wrong ruler when the arms differ in spread.* In C.16, lowering level makes the
+  treatment arm far more variable: the baseline sd is 0.027, while the per-seed difference's sd is 0.134. The
+  interval, −0.063 ± 0.012, lies far beyond the margin, 0.0027, but never reaches 0.25 of the baseline's sd.
+- *The ruler must not depend on which arm is called baseline.* For `M11.C.38`'s adjacent pairs and `M11.C.41`'s
+  cells the label is arbitrary, and a baseline-only scale changes the stopping point when the arms are swapped.
+  A pooled scale does not.
+
+Rejected:
+
+- *The differences' own sd* (the option `TODO.md` named). The half-width over its own sd is 1.96/√n, so the rule
+  would be a fixed seed count (here, 100) in disguise — what `M13.4` replaced. The record shows this exactly: every
+  criterion that stopped at n = 100 has half-width / difference-sd = 0.196.
+- *Raising the cap.* It is a frozen constant, and C.16 would need about 1,500 seeds.
+- *Stopping once the interval clears the margin.* Stopping on the outcome at up to ten looks inflates false
+  positives.
+
+This changes when every criterion stops, not only C.16, so all three records are rerun and every verdict that moves
+is reported here. No constant's value changes; `ensemble_precision`'s unit changes, and that is logged in
+`config/bowen/constants_changes.md`.

@@ -92,3 +92,10 @@
 | `pattern_min_acts` | — | 2 | 2026-10-07 | — (new readout; Phase C step 11) | no |
 | `pattern_pole` | — | 0.5 | 2026-10-07 | — (new readout; Phase C step 11) | no |
 | `pattern_fixed_activations` | — | 3 | 2026-10-07 | — (new readout; Phase C step 11) | no |
+| `ensemble_block` | — | 50 | 2026-10-07 | — (ensemble rule; Phase C step 12) | no |
+| `ensemble_cap` | — | 500 | 2026-10-07 | — (ensemble rule; Phase C step 12) | no |
+| `ensemble_precision` | — | 0.25 | 2026-10-07 | — (ensemble rule; Phase C step 12) | no |
+| `ensemble_margin` | — | 0.1 | 2026-10-07 | — (ensemble rule; Phase C step 12) | no |
+| `ensemble_alpha` | — | 0.05 | 2026-10-07 | — (ensemble rule; Phase C step 12) | no |
+| `fallback_flag_rate` | — | 0.2 | 2026-10-07 | — (ensemble rule; Phase C step 12) | no |
+| `equivalence_margin` | — | 0.5 | 2026-10-07 | — (ensemble rule; Phase C step 12) | no |

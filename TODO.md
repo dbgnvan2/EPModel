@@ -49,6 +49,11 @@ Phase C steps 0–16 are built. **Its gate does not pass** (`docs/phase_c_comple
 - [ ] **Bruno falls back every week.** His one tie starts cut off, `REDUCE_CUTOFF` is his only legal act, and it
   carries no weight without systems perspective, so the family runs' fallback rate is 0.26–0.41 (`M11.D.18` flags
   it). Decide whether that is the intended reading of `M4.D.3b`.
+- [ ] **Ninth gate's notes, 2026-10-08** (`docs/cycles/2026-10-08_phase-c-qa-gate-9.md`, APPROVED, nothing medium or
+  higher): (1) `tick_of` in `tests/bowen/test_phase_c_criteria.py` does not handle `LogHeader`, which `run_tick` never
+  emits; make it total or assert the record type. (2) The C.45 rate check still copies the readout's filter; share one
+  predicate from `criteria.py` the next time the records are regenerated anyway, since moving it into `src` changes
+  the hash. (The third note, a stale date in `CLAUDE.md`, is fixed.)
 - [x] ~~**Eighth gate's low findings, 2026-10-08.**~~ *Fixed 2026-10-08, tests only: the C.45 rate check applies the
   readout's `MOVE` filter; the before-t0 check compares every record by its tick; new
   `test_m11c42_readout_counts_the_whole_pairs_triangles` and

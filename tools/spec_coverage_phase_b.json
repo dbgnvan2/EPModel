@@ -169,8 +169,11 @@
   "note": "one implementation, called by triangle recompute and visibility; the M5.C and M11.C.7 call sites are Phase C"
  },
  "M16.A.3": {
-  "status": "partial",
-  "note": "selection-record fields exist; Phase B selections are scripted, so propensities, draw and legal set are empty"
+  "status": "done",
+  "evidence": [
+   "tests/bowen/test_policy.py::test_m16a3b_selection_record_carries_the_legal_set_and_the_decider"
+  ],
+  "note": "policy selections carry propensities, draw, legal set, decided-by flag and any withheld act (step 6)"
  },
  "M16.A.5": {
   "status": "partial",
@@ -281,8 +284,11 @@
   "note": "no move crosses a non-interactive tie (review, 2026-10-06)"
  },
  "M4.B.2": {
-  "status": "partial",
-  "note": "the belief update reads no true state (static check, mutation-proved); the policy M4.B.2 binds is Phase C step 6, and M11.C.36 is Phase D"
+  "status": "done",
+  "evidence": [
+   "tests/bowen/test_beliefs.py::test_m4b2_belief_update_reads_no_true_state"
+  ],
+  "note": "the policy reads one person's Observation only (engine/observe.py), checked statically and by a two-arm test (step 6); the belief update reads no true state (step 4). M11.C.36, the ensemble form, is Phase D"
  },
  "M1.B.5": {
   "status": "partial",
@@ -299,5 +305,26 @@
  "M5.B.2": {
   "status": "partial",
   "note": "the move acts before any alignment exists (step 5); its legality without an alignment is the policy's legal set (step 6)"
+ },
+ "M4.D.2": {
+  "status": "partial",
+  "note": "the score reads acute anxiety (band), functional_level (mixing, capacity), the tie's state (legal set, loaded-tie gate) and the learned repertoire (step 6); the person's position in the active triangle, read through belief, is the learner's conditioning (step 7)"
+ },
+ "M4.D.3a": {
+  "status": "partial",
+  "note": "the capacity gate on newer acts by functional_level is built and tested (step 6); nothing yet lowers functional_level with acute anxiety, so the slide under anxiety that M4.D.3 (a) and M4.D.3a describe does not yet happen — an engine mechanism no Phase C step names"
+ },
+ "M5.C.1": {
+  "status": "partial",
+  "note": "financial dependence removes I-POSITION from the legal set (step 6) and the outside-ness thresholds exist (step 3); the other gates act on I-POSITION's outcome and arrive with its state machine (step 8); decision ownership is Phase D"
+ },
+ "M16.A.3a": {
+  "status": "partial",
+  "note": "the field exists; the step 6 policy reads no belief, so beliefs_used is empty until the triangle-position term (step 7)"
+ },
+ "M4.D.1f": {
+  "status": "done",
+  "evidence": [],
+  "note": "declared in config/bowen/policy.md and refused at load if not implemented; life_energy is not built in Phase C, so the exhausted-life-energy case cannot arise yet"
  }
 }

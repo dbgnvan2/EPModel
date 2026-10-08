@@ -90,6 +90,15 @@ activation_regime: synchronous
 | `outside_ness_threshold_outward` | 0.5 | [I] | outward impingement | `M5.C.1` |
 | `outside_ness_threshold_inward` | 0.5 | [I] | inward impingement | `M5.C.1` |
 | `belief_rate` | 0.3 | [I] | share of the gap to an observation per tick, at full fidelity | `M9.8` |
+| `self_channel_exponent` | 2.0 | [I] | exponent on functional_level / 100 | `M4.D.1a` |
+| `policy_temperature` | 1.0 | [I] | learned-value units | `M4.D.1` |
+| `anxiety_band_low` | 5.0 | [I] | points of excess anxiety | `M4.D.3` |
+| `anxiety_band_high` | 15.0 | [I] | points of excess anxiety | `M4.D.3` |
+| `capacity_level_per_layer` | 20.0 | [I] | functional-level points per layer | `M4.D.3a` |
+| `competing_urge_gain` | 0.5 | [I] | points of acute anxiety at maximal entropy | `M4.D.1d` |
+| `withhold_investment_gain` | 0.2 | [I] | share of attention per unit scaled intensity | `M4.D.1b` |
+| `loaded_tie_threshold` | 0.2 | [I] | deviation units | `M4.D.3b` |
+| `policy_intensity` | 100.0 | [I] | intensity units | `M4.D.1` |
 | `distance_binding_rate` | 0.3 | [I] | share of excess bound per unit scaled intensity | `M1.D.2a` |
 | `triangle_transfer_rate` | 0.3 | [I] | share of each insider's excess passed per unit scaled intensity | `M1.C.1` |
 | `outsider_positional_gain` | 0.5 | [I] | positional anxiety per unit transferred | `M1.C.1` |

@@ -1497,7 +1497,7 @@ Classes are `M14.A.1`'s four: exogenous-homogeneous (EH), exogenous-heterogeneou
 | `household_id` | Person | EX | family definition; life-stage update (`M1.A.22`) | B; D |
 | `basic_level` | Person | DV | family definition at `t0`; the estimator (`M1.A.4a`, `M7.A.1`) | B; D |
 | `functional_level` | Person | DV | `basic_level` plus swing (`M1.A.5a`); swing written by consolidation and the self-directed channel; the pseudo-self exchange of `OVERFUNCTION` and `UNDERFUNCTION` (`M6.I.4`) ⟦rev12 · Phase C step 5, 2026-10-07⟧ | B; C |
-| `acute_anxiety` | Person | DV | standing load (`M4.A.1`); base appraisal (`M4.C.1`); consolidation decay (`M1.A.8`); speaker echo (`M4.C.7`) and calm transfer (`M4.C.10`) ⟦rev12 · Phase C step 2, 2026-10-07⟧; `DISTANCE` binding (`M1.D.2a`), the `TRIANGLE` transfer and the outsider's positional anxiety (`M1.C.1`), release of tie-bound anxiety on `RECONCILIATION` and `REDUCE_CUTOFF` ⟦rev12 · Phase C step 5, 2026-10-07⟧ | B; C |
+| `acute_anxiety` | Person | DV | standing load (`M4.A.1`); base appraisal (`M4.C.1`); consolidation decay (`M1.A.8`); speaker echo (`M4.C.7`) and calm transfer (`M4.C.10`) ⟦rev12 · Phase C step 2, 2026-10-07⟧; `DISTANCE` binding (`M1.D.2a`), the `TRIANGLE` transfer and the outsider's positional anxiety (`M1.C.1`), release of tie-bound anxiety on `RECONCILIATION` and `REDUCE_CUTOFF` ⟦rev12 · Phase C step 5, 2026-10-07⟧; competing urges (`M4.D.1d`), step 7 ⟦rev12 · Phase C step 6, 2026-10-07⟧ | B; C |
 | `chronic_anxiety` | Person | DV | family definition at `t0` (`M2.A.0a`); slow-tick derivation (`M1.A.7a`) | B; D |
 | `programmed_reactivity` | Person | DV | family definition at `t0`; childhood fixation (`M1.A.7`) | B; D |
 | `outside_ness_outward` | Person | DV | initialisation from `basic_level`; step-9 drift toward the impingement the person's own moves delivered (`M1.A.9`); selection (`M5.F`, step 6). Holds outward **impingement**: low is differentiated (`M1.A.9a`) ⟦rev12 · Phase C step 3, 2026-10-07⟧ | C |
@@ -1513,6 +1513,7 @@ Classes are `M14.A.1`'s four: exogenous-homogeneous (EH), exogenous-heterogeneou
 | `financially_dependent` | Person | EX | family definition; life-stage update (`M1.A.15`) | B; D |
 | `beliefs` | Person | DV | belief layer (`M9`) | D |
 | `tie_beliefs` | Person | DV | initialisation at an uninformed prior; step 3's belief update, from moves delivered to the person as target or witness, after per-hop fidelity (`M9.8`) ⟦rev12 · Phase C step 4, 2026-10-07 · P2a⟧ | C |
+| `learned_values` | Person | DV | the learner (`M4.D.6`), step 9, Phase C step 7; absent entries are the shared initial value (plan D3) ⟦rev12 · Phase C step 6, 2026-10-07⟧ | C |
 | `systems_perspective` | Person | DV | family definition, 0 at `t0` ⟦rev12 · Phase C step 2, 2026-10-07⟧; landed contact (`M1.E.7`) | C |
 | `reactive_state` | Person | DV | the three detectors' drift, step 9 (`M1.A.19`) ⟦rev12 · Phase C step 2, 2026-10-07⟧ | C |
 | `pseudo_self` | Person | DV | initialisation as the swing (`M1.A.5a`); dyadic exchange by `OVERFUNCTION` and `UNDERFUNCTION` (`M6.I.4`) ⟦rev12 · Phase C step 5, 2026-10-07⟧; estimator | C; D |
@@ -1527,7 +1528,7 @@ Classes are `M14.A.1`'s four: exogenous-homogeneous (EH), exogenous-heterogeneou
 | `distance_bound_anxiety` | Relationship | DV | `DISTANCE` binding (`M1.D.2a`); release on `RECONCILIATION` and `REDUCE_CUTOFF` ⟦rev12 · Phase C step 5, 2026-10-07⟧; `binder_unavailable` (`M1.F.9`) | B; C |
 | `functioning_balance` | Relationship | DV | initialisation, one area (`M1.B.9`); `OVERFUNCTION` and `UNDERFUNCTION` pushes with the relative flip (`M1.B.5`–`M1.B.7`); step-9 settling toward a pole ⟦rev12 · Phase C step 5, 2026-10-07⟧ | C |
 | `functioning_habit` | Relationship | DV | initialisation; step-9 hardening toward the balance (`M1.B.6`, `L05.3`) ⟦rev12 · Phase C step 5, 2026-10-07⟧ | C |
-| `investment` | Relationship | DV | attention update, step 9, from what each member appraised on the tie (`M1.B.8`) ⟦rev12 · Phase C step 2, 2026-10-07⟧ | C |
+| `investment` | Relationship | DV | attention update, step 9, from what each member appraised on the tie (`M1.B.8`) ⟦rev12 · Phase C step 2, 2026-10-07⟧; a withheld act's attention, step 8 (`M4.D.1b`) ⟦rev12 · Phase C step 6, 2026-10-07⟧ | C |
 | `areas_of_joint_activity` | Relationship | DV | functioning-balance narrowing (`M1.B.9`) | C |
 | `taboo_set` | Relationship | DV | appraisal; purposeful mention (`M1.B.10`, `M1.B.10a`) | C |
 | `latency` | Relationship | EX | family definition (`M1.B.11`, `M3.C.2`) | B |
@@ -1564,6 +1565,9 @@ Classes are `M14.A.1`'s four: exogenous-homogeneous (EH), exogenous-heterogeneou
 | Live positions (`M8.1`) | engine | called from step 6 and from visibility | on call | group membership; fusion | — | — | B |
 | Scripted selection (`ScriptedSource`) | engine | synchronous batch, step 7 | script entry due | script | — | selection record | B |
 | Act (`M4.E.1`) | engine | synchronous batch, step 8 | selection | selection; tie `latency` | — | event queue | B |
+| Policy selection (`M4.D.1`–`M4.D.4`, `M5.C.1`, `M5.F.5`) | Person | synchronous batch, step 7 | every tick, each active person without a scripted move | the person's own observation (`engine/observe.py`): its own state, its own ties as it has them, its beliefs, its own triangle topology and its inbox; keyed draws | the selection, with its legal set, propensities, draw, decided-by flag and withheld act | — ⟦rev12 · Phase C step 6, 2026-10-07⟧ | C |
+| Competing urges (`M4.D.1d`) | engine | synchronous batch, step 7, after selection | a policy selection with a non-zero urge | the selection's entropy term | — | `Person.acute_anxiety` ⟦rev12 · Phase C step 6, 2026-10-07⟧ | C |
+| Withhold (`M4.D.1b`) | engine | synchronous batch, step 8 | a `WITHHOLD` selection | the selection; the tie to the person it would have acted on | — | `Relationship.investment` ⟦rev12 · Phase C step 6, 2026-10-07⟧ | C |
 | Visibility (`M3.E.1`, `M1.F.1b`) | engine | called from step 8 | event created | `household_id`; tie `conductance`; route | — | `Event.witnesses` | B |
 | Consolidate (`M4.G.1`, `M1.A.8`, `M4.C.1c`) | engine | synchronous batch, step 9 | every tick | tie event history; `chronic_anxiety`; the optimum's inputs | — | `Relationship.tie_state`, `Relationship.bond_energy`, `Person.acute_anxiety`; `Relationship.felt_contact`, `felt_impingement` (contact relaxation, ⟦rev11 · Phase C step 1, 2026-10-07⟧) *(built in B, rebuilt in C)* | C |
 | Invariants (`M4.G.2`, `M4.G.2a`) | engine | synchronous batch, step 9 | every tick | all state | — | — | B |

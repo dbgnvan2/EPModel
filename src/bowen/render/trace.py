@@ -51,7 +51,7 @@ CAUSED = frozenset({"appraisal", "calm_contact", "symptom_onset", "distance_bind
 SYSTEM_SHOWN = frozenset({"triangle_recompute", "consolidation", "slow_tick"})
 SYSTEM_SUMMARISED = frozenset({
     "standing_load", "acute_decay", "contact_relaxation", "symptom_accumulation", "investment", "reactive_state",
-    "outside_ness", "belief", "functioning_settle",
+    "outside_ness", "belief", "functioning_settle", "competing_urges", "withhold",
 })  # every week, everyone; stated once
 
 
@@ -204,6 +204,15 @@ def _system_rows(effect: EffectRecord, names: _Names) -> list[str]:
     return [f"| {effect.tick} | — | (system) | — | — | {text} |" for text in rows]
 
 
+def _held_row(record: SelectionRecord, names: _Names) -> str:
+    if record.withheld is not None:
+        return (f"| {record.tick} | {names(record.actor)} | WITHHOLD | {names(record.withheld_toward)} | — | "
+                f"held back {record.withheld}: computed, not emitted; attention on the tie rises |")
+    if record.decided_by is DecidedBy.FALLBACK:
+        return f"| {record.tick} | {names(record.actor)} | (holds) | — | — | fallback ({record.fallback_rule}): no legal act |"
+    raise UnrenderableRecord(f"selection at tick {record.tick} emitted nothing and is neither withheld nor a fallback")
+
+
 def _concerns(event: Event, view: PersonId) -> bool:
     return view == event.sender or view in event.targets or view in event.witnesses
 
@@ -269,8 +278,11 @@ def render(
             asserted += 1
             disabled |= {k for k, s in record.results if s is InvariantStatus.DISABLED}
         elif isinstance(record, SelectionRecord):
-            if record.decided_by is not DecidedBy.SCRIPTED:
-                raise UnrenderableRecord("rendering a policy's selection rationale is Phase C (M16.A.3)")
+            # An emitted outcome is shown by its event's row. An outcome that emitted nothing —
+            # a WITHHOLD or a fallback hold (M4.D.1b, M4.D.1f) — gets a row of its own. The
+            # rationale (legal set, propensities, draw) is in the log, not the trace (M16.A.3).
+            if record.event_id is None and (view is None or view == record.actor):
+                lines.append(_held_row(record, label))
         elif isinstance(record, BeliefWriteRecord):
             raise UnrenderableRecord("rendering belief writes is Phase D (M16.A.5)")
         elif not isinstance(record, DeliveredRecord):

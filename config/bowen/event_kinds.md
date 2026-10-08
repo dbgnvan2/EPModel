@@ -24,28 +24,37 @@
 > `accommodates` marks the kinds that give way to the other — the inward axis of `M1.A.9a`, the
 > "compliant accommodator" of `FE03.1` (Phase C step 3). Only `UNDERFUNCTION` is marked; which acts count as
 > giving way is editorial and `[I]`.
+>
+> `channel` is the policy channel a move is selected in (spec `M4.D.1a`, Phase C step 6): the seven reactive
+> moves are `automatic`, `I-POSITION` and `STAY-IN-CONTACT` are `self`. The `M5.B` moves have no channel
+> (`—`) and are not selected by the policy in Phase C step 6: plan D3 assigns them to neither channel, and
+> the external-agent moves (`M5.B.4`) need an external agent (step 9). **This is a gap the owner decides.**
+> `layer` is an automatic move's place in `M4.D.3a`'s complexity ordering, 0 the oldest: distance and cutoff
+> (0, "single-celled organisms could not survive without a distancing mechanism") → dominant-adaptive,
+> over- and underfunctioning (1) → conflict (2). `PURSUE` and `TRIANGLE` are placed with conflict, `[I]`: the
+> source orders four classes and names neither (`KS06.1`, `KS02.3`).
 
-| kind | mechanism | inside_sign | outside_sign | contact | impingement | accommodates | spec |
-|---|---|---|---|---|---|---|---|
-| `PURSUE` | move | +1 | +1 | 0.5 | 0.3 | no | `M5.A.1` |
-| `DISTANCE` | move | +1 | +1 | -0.5 | 0 | no | `M5.A.1` |
-| `CONFLICT` | move | +1 | +1 | 0.3 | 0.6 | no | `M5.A.1` |
-| `OVERFUNCTION` | move | +1 | +1 | 0.2 | 0.5 | no | `M5.A.1` |
-| `UNDERFUNCTION` | move | +1 | +1 | 0.2 | 0 | yes | `M5.A.1` |
-| `TRIANGLE` | move | +1 | +1 | 0.3 | 0 | no | `M5.A.1` |
-| `CUTOFF` | move | +1 | +1 | 0 | 0 | no | `M5.A.1` |
-| `I-POSITION` | move | +1 | +1 | 0.2 | 0.1 | no | `M5.A.1` |
-| `STAY-IN-CONTACT` | move | +1 | +1 | 0.5 | 0 | no | `M5.A.1` |
-| `DETRIANGLE` | move | +1 | +1 | 0.2 | 0 | no | `M5.B.1` |
-| `PREVENT_ALIGNMENT` | move | +1 | +1 | 0.2 | 0 | no | `M5.B.2` |
-| `REDUCE_CUTOFF` | move | +1 | +1 | 0.5 | 0.1 | no | `M5.B.3` |
-| `PROVOKE` | move | +1 | +1 | 0.2 | 0.4 | no | `M5.B.6` |
-| `SPLIT` | move | +1 | +1 | 0.1 | 0.2 | no | `M5.B.4` |
-| `FRAME_AMBIGUITY` | move | +1 | +1 | 0.1 | 0.2 | no | `M5.B.4` |
-| `DISPLACE` | move | +1 | +1 | 0.1 | 0.2 | no | `M5.B.4` |
-| `TRIGGER` | trigger | +1 | +1 | 0 | 0 | no | `M4.A.2` |
-| `RECONCILIATION` | reconciliation | +1 | +1 | 0 | 0 | no | `M4.A.3` |
-| `INSTITUTIONALIZE` | institutionalize | +1 | +1 | 0 | 0 | no | `M4.A.4` |
-| `BINDER_UNAVAILABLE` | binder_unavailable | +1 | +1 | 0 | 0 | no | `M1.F.9` |
-| `JOB_LOSS` | exogenous_stressor | +1 | +1 | 0 | 0 | no | `M1.F.6` |
-| `SYMPTOM_ONSET` | endogenous_symptom | +1 | +1 | 0 | 0 | no | `M7.D.1` |
+| kind | mechanism | inside_sign | outside_sign | contact | impingement | accommodates | channel | layer | spec |
+|---|---|---|---|---|---|---|---|---|---|
+| `PURSUE` | move | +1 | +1 | 0.5 | 0.3 | no | automatic | 2 | `M5.A.1` |
+| `DISTANCE` | move | +1 | +1 | -0.5 | 0 | no | automatic | 0 | `M5.A.1` |
+| `CONFLICT` | move | +1 | +1 | 0.3 | 0.6 | no | automatic | 2 | `M5.A.1` |
+| `OVERFUNCTION` | move | +1 | +1 | 0.2 | 0.5 | no | automatic | 1 | `M5.A.1` |
+| `UNDERFUNCTION` | move | +1 | +1 | 0.2 | 0 | yes | automatic | 1 | `M5.A.1` |
+| `TRIANGLE` | move | +1 | +1 | 0.3 | 0 | no | automatic | 2 | `M5.A.1` |
+| `CUTOFF` | move | +1 | +1 | 0 | 0 | no | automatic | 0 | `M5.A.1` |
+| `I-POSITION` | move | +1 | +1 | 0.2 | 0.1 | no | self | — | `M5.A.1` |
+| `STAY-IN-CONTACT` | move | +1 | +1 | 0.5 | 0 | no | self | — | `M5.A.1` |
+| `DETRIANGLE` | move | +1 | +1 | 0.2 | 0 | no | — | — | `M5.B.1` |
+| `PREVENT_ALIGNMENT` | move | +1 | +1 | 0.2 | 0 | no | — | — | `M5.B.2` |
+| `REDUCE_CUTOFF` | move | +1 | +1 | 0.5 | 0.1 | no | — | — | `M5.B.3` |
+| `PROVOKE` | move | +1 | +1 | 0.2 | 0.4 | no | — | — | `M5.B.6` |
+| `SPLIT` | move | +1 | +1 | 0.1 | 0.2 | no | — | — | `M5.B.4` |
+| `FRAME_AMBIGUITY` | move | +1 | +1 | 0.1 | 0.2 | no | — | — | `M5.B.4` |
+| `DISPLACE` | move | +1 | +1 | 0.1 | 0.2 | no | — | — | `M5.B.4` |
+| `TRIGGER` | trigger | +1 | +1 | 0 | 0 | no | — | — | `M4.A.2` |
+| `RECONCILIATION` | reconciliation | +1 | +1 | 0 | 0 | no | — | — | `M4.A.3` |
+| `INSTITUTIONALIZE` | institutionalize | +1 | +1 | 0 | 0 | no | — | — | `M4.A.4` |
+| `BINDER_UNAVAILABLE` | binder_unavailable | +1 | +1 | 0 | 0 | no | — | — | `M1.F.9` |
+| `JOB_LOSS` | exogenous_stressor | +1 | +1 | 0 | 0 | no | — | — | `M1.F.6` |
+| `SYMPTOM_ONSET` | endogenous_symptom | +1 | +1 | 0 | 0 | no | — | — | `M7.D.1` |

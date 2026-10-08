@@ -1660,6 +1660,27 @@ The core moves keep their names but each is one act. The pattern of the same nam
 
 None of these acts knows its consequences. Whether anyone repeats an act is left to what it relieves (§19.3).
 
+**How a person chooses, as built (Phase C step 6, 2026-10-07).** Every form and rate is `[I]`.
+- **What the person can see.** Each week a person sees only their own state, their own ties as they
+  experience them, their beliefs, the triangles they belong to, and what reached them.
+- **What they can do.** The acts actually open to them: no act across a severed tie, no `TRIANGLE`
+  without a closed triad, and no `I-POSITION` while financially dependent.
+- **Automatic channel.** It holds the seven reactive acts. Until anything is learned they are equally
+  likely, except that newer acts lose availability at low functional level.
+- **Self-directed channel.** It holds `I-POSITION`, `STAY-IN-CONTACT` and `WITHHOLD`, and is weighted by
+  how far the person is from holding a position, not by relief. Its share grows with functional level,
+  and only with functional level.
+- **Two results of these forms.**
+  - Because level both opens the self-directed channel and narrows the gap to a position, the chance of
+    an `I-POSITION` peaks at a middle-high level instead of rising steadily.
+  - Undecided competing urges add anxiety.
+- **`WITHHOLD`.** It picks the reactive act that was about to happen, does not send it, and leaves
+  attention on that tie.
+
+Before learning (step 7) this is close to uniform within each channel. In the scripted family's events,
+ties were cut and nothing could reopen them: `REDUCE_CUTOFF` belongs to no channel. That is an open
+decision, not a finding.
+
 ### 19.5 Calmer contact (spec `M4.C.10`)
 
 Contact with a less anxious person lowers anxiety on every tie, generalising the external agent's burden-transfer term (`M1.E.5`). Seeking such contact is learned. Under Bowen theory this is the ordinary lending of self (`M1.A.5d`), and its cost is tested: learned reliance on a calming tie raises the anxiety released when it is lost (`M11.C.43`). The name *social buffering* comes from the stress-physiology literature, outside the six sources; it is `[I]` here and is not cited until a source is recorded.

@@ -96,6 +96,11 @@ class SelectionRecord:
     draw: float | None = None
     beliefs_used: tuple[tuple[str, float], ...] = ()
     legal_set: tuple[str, ...] = ()
+    # M4.D.1b: the automatic act a WITHHOLD computed and did not emit, and toward whom.
+    withheld: str | None = None
+    withheld_toward: PersonId | None = None
+    # M4.D.1f: the declared rule that produced a FALLBACK outcome.
+    fallback_rule: str | None = None
     record_type = "selection"
 
 

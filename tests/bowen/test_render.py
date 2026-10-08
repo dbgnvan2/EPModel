@@ -126,8 +126,10 @@ def test_m16c2_an_unknown_mechanism_raises_instead_of_vanishing():
 def test_m16c2_policy_selections_and_belief_writes_are_not_silently_skipped():
     from src.bowen.engine.log_records import BeliefWriteRecord, DecidedBy, SelectionRecord
 
+    # From Phase C step 6 a policy selection renders; one that emitted nothing and is neither
+    # a WITHHOLD nor a fallback has no meaning and must raise, not vanish.
     policy = SelectionRecord(tick=1, actor=PersonId("ravi"), decided_by=DecidedBy.POLICY, event_id=None)
-    with pytest.raises(UnrenderableRecord, match="Phase C"):
+    with pytest.raises(UnrenderableRecord, match="emitted nothing"):
         render(RECORDS[:3] + [policy], NAMES)
     belief = BeliefWriteRecord(tick=1, holder=PersonId("ravi"), subject="x", value=1.0, true_value=0.0)
     with pytest.raises(UnrenderableRecord, match="Phase D"):
@@ -150,3 +152,16 @@ def test_m16c4_a_view_of_no_one_is_refused():
 def test_m1f6_the_trace_says_a_stressor_acts_once():
     job_loss = next(r for r in event_rows(TEXT) if r[2] == "JOB_LOSS")
     assert "one-time effect; a 34-week spell, recorded" in job_loss[5]
+
+
+def test_m16c2_withheld_and_fallback_outcomes_get_their_own_rows():
+    """M4.D.1b, M4.D.1f: an outcome that emits nothing still appears in the trace."""
+    from src.bowen.engine.log_records import DecidedBy, SelectionRecord
+
+    held = SelectionRecord(tick=1, actor=PersonId("ravi"), decided_by=DecidedBy.POLICY, event_id=None,
+                           withheld="PURSUE", withheld_toward=PersonId("marta"))
+    fallback = SelectionRecord(tick=1, actor=PersonId("bruno"), decided_by=DecidedBy.FALLBACK, event_id=None,
+                               fallback_rule="hold")
+    text = render(RECORDS[:3] + [held, fallback], NAMES)
+    assert "| WITHHOLD | Marta |" in text and "held back PURSUE" in text
+    assert "fallback (hold): no legal act" in text

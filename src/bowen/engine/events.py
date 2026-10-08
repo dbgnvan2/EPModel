@@ -53,6 +53,11 @@ class EventKinds:
     components: Mapping[str, tuple[float, float]] = field(default_factory=lambda: MappingProxyType({}))
     # M1.A.9a, FE03.1: the kinds that give way to the other (the inward axis).
     accommodating: frozenset[str] = frozenset()
+    # M4.D.1a: the policy channel each move belongs to — "automatic", "self", or absent
+    # (not selectable by the policy). M4.D.3a: each automatic kind's capacity layer,
+    # 0 the oldest. Both editorial, from config (Phase C step 6).
+    channels: Mapping[str, str] = field(default_factory=lambda: MappingProxyType({}))
+    layers: Mapping[str, int] = field(default_factory=lambda: MappingProxyType({}))
 
     def __post_init__(self) -> None:
         object.__setattr__(self, "mechanisms", MappingProxyType(dict(self.mechanisms)))
@@ -62,6 +67,12 @@ class EventKinds:
         if any(not (-1.0 <= c <= 1.0 and -1.0 <= i <= 1.0) for c, i in self.components.values()):
             raise ValueError("a contact or impingement component is in [-1, 1]")
         object.__setattr__(self, "components", MappingProxyType(dict(self.components)))
+        if any(c not in ("automatic", "self") for c in self.channels.values()):
+            raise ValueError("a policy channel is 'automatic' or 'self'")
+        if set(self.layers) != {k for k, c in self.channels.items() if c == "automatic"}:
+            raise ValueError("every automatic kind, and only those, has a capacity layer (M4.D.3a)")
+        object.__setattr__(self, "channels", MappingProxyType(dict(self.channels)))
+        object.__setattr__(self, "layers", MappingProxyType(dict(self.layers)))
 
     def sign(self, kind: str, position: "SourcePosition") -> int:
         if position is SourcePosition.NONE:
@@ -76,6 +87,9 @@ class EventKinds:
             return self.mechanisms[kind]
         except KeyError:
             raise ValueError(f"unknown event kind {kind!r}") from None
+
+    def in_channel(self, channel: str) -> tuple[str, ...]:
+        return tuple(sorted(k for k, c in self.channels.items() if c == channel))
 
     def moves(self) -> frozenset[str]:
         return frozenset(k for k, m in self.mechanisms.items() if m is Mechanism.MOVE)

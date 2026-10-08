@@ -61,6 +61,15 @@ class EngineParams:
     balance_harden_rate: float    # M1.B.6, L05.3 — share of the gap to the balance the habit closes per tick
     reversal_asymmetry: float     # M1.B.7 — how much harder it is to raise a marked under-functioner
     pseudo_self_transfer_gain: float # M6.I.4 — pseudo-self points one over/underfunctioning act moves per unit scaled intensity
+    self_channel_exponent: float  # M4.D.1a — mixing weight of the self-directed channel = (functional_level / 100) ** this
+    policy_temperature: float     # M4.D.1 — the softmax temperature over each channel's scores
+    anxiety_band_low: float       # M4.D.3(b) — excess acute anxiety at the top of the low band
+    anxiety_band_high: float      # M4.D.3(b) — excess acute anxiety at the bottom of the high band
+    capacity_level_per_layer: float # M4.D.3a — functional level a newer layer needs, per layer, for full availability
+    competing_urge_gain: float    # M4.D.1d — acute anxiety added per tick at a fully undecided automatic channel
+    withhold_investment_gain: float # M4.D.1b — attention a withheld move still puts into its tie
+    loaded_tie_threshold: float   # M4.D.3b — a tie whose deviation exceeds this is loaded
+    policy_intensity: float                # M4.D.1 — the intensity of every act the policy emits, Phase C step 6
     belief_rate: float                     # M9.8 — share of the gap to a witnessed observation closed per tick, at full fidelity
 
     def __post_init__(self) -> None:
@@ -86,6 +95,12 @@ class EngineParams:
                 raise ValueError(f"{name} must be in [0, 1]")
         if self.assault_gain < 0:
             raise ValueError("assault_gain must be non-negative")
+        if min(self.self_channel_exponent, self.policy_temperature, self.capacity_level_per_layer, self.policy_intensity) <= 0:
+            raise ValueError("self_channel_exponent, policy_temperature, capacity_level_per_layer and policy_intensity must be positive")
+        if not 0 <= self.anxiety_band_low <= self.anxiety_band_high:
+            raise ValueError("anxiety bands need 0 <= low <= high")
+        if min(self.competing_urge_gain, self.withhold_investment_gain, self.loaded_tie_threshold) < 0:
+            raise ValueError("competing_urge_gain, withhold_investment_gain and loaded_tie_threshold are non-negative")
         if self.outsider_positional_gain < 0 or self.pseudo_self_transfer_gain < 0:
             raise ValueError("outsider_positional_gain and pseudo_self_transfer_gain must be non-negative")
         for name in ("witness_weight", "calm_transfer_rate", "symptom_leak_rate", "symptom_rearm_fraction",

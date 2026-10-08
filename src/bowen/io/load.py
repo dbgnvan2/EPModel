@@ -10,9 +10,11 @@ from __future__ import annotations
 from pathlib import Path
 
 from src.bowen.engine.events import EventKinds
+from src.bowen.policy.rules import PolicyRules
 from src.bowen.scenario.constants import RETIRED, SCHEMA, Constants, parse_constants
 from src.bowen.scenario.event_kinds import parse_event_kinds
 from src.bowen.scenario.family import FamilyInstance, build_family
+from src.bowen.scenario.policy_rules import parse_policy_rules
 from src.bowen.scenario.scripted_source import ScriptedSource, build_script
 
 CONFIG_DIR = Path(__file__).resolve().parents[3] / "config" / "bowen"
@@ -82,3 +84,11 @@ def load_spec_revision(path: Path = SPEC_PATH) -> str:
         if line.startswith("version:"):
             return line.split(":", 1)[1].strip()
     raise ValueError(f"{path}: no version line in the front matter")
+
+
+def load_policy_rules(path: Path = CONFIG_DIR / "policy.md") -> PolicyRules:
+    """Purpose: read the policy's declared tie-break and fallback rules.
+    Spec:    docs/bowen_agent_model_spec_v2.md#M4.D.1f
+    Tests:   tests/bowen/test_policy.py::test_m4d1f_rules_come_from_config
+    """
+    return parse_policy_rules(read_text(path), source=str(path))

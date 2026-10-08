@@ -12,7 +12,9 @@ import re
 from src.bowen.engine.events import EventKinds, Mechanism, SourcePosition
 from src.bowen.scenario.config_parse import ConfigError, parse_table_document
 
-COLUMNS = ("kind", "mechanism", "inside_sign", "outside_sign", "contact", "impingement", "accommodates", "spec")
+COLUMNS = ("kind", "mechanism", "inside_sign", "outside_sign", "contact", "impingement", "accommodates", "channel",
+           "layer", "spec")
+_CHANNELS = {"automatic", "self", "—"}
 _SIGNS = {"+1": 1, "-1": -1}
 _KIND = re.compile(r"^[A-Z][A-Z_-]*$")
 
@@ -24,6 +26,8 @@ def parse_event_kinds(text: str, *, source: str = "<event kinds>") -> EventKinds
     signs: dict[tuple[str, SourcePosition], int] = {}
     components: dict[str, tuple[float, float]] = {}
     accommodating: set[str] = set()
+    channels: dict[str, str] = {}
+    layers: dict[str, int] = {}
     for row, line in zip(document.rows, document.row_lines):
         where = f"{source}:{line}"
         kind = row["kind"].strip("`")
@@ -52,6 +56,18 @@ def parse_event_kinds(text: str, *, source: str = "<event kinds>") -> EventKinds
             raise ConfigError(f"{where}: accommodates must be yes or no, got {row['accommodates']!r}")
         if row["accommodates"] == "yes":
             accommodating.add(kind)
+        if row["channel"] not in _CHANNELS:
+            raise ConfigError(f"{where}: channel must be automatic, self or —, got {row['channel']!r}")
+        if row["channel"] != "—":
+            if mechanisms[kind] is not Mechanism.MOVE:
+                raise ConfigError(f"{where}: only a move has a policy channel")
+            channels[kind] = row["channel"]
+        if row["channel"] == "automatic":
+            if not row["layer"].isdigit():
+                raise ConfigError(f"{where}: an automatic kind needs a capacity layer (0, 1, 2 …), got {row['layer']!r}")
+            layers[kind] = int(row["layer"])
+        elif row["layer"] != "—":
+            raise ConfigError(f"{where}: only an automatic kind has a capacity layer")
     if not mechanisms:
         raise ConfigError(f"{source}: no event kinds declared")
-    return EventKinds(mechanisms, signs, components, frozenset(accommodating))
+    return EventKinds(mechanisms, signs, components, frozenset(accommodating), channels, layers)

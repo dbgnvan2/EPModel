@@ -135,11 +135,18 @@ def run_tick(
         raise SelectionFromInactivePerson(f"selections for {sorted(set(actors) - set(active))}")
     if len(actors) != len(set(actors)):
         raise ValueError("a person selected more than once in one tick")
+    # M4.D.1d: competing urges raise the person's acute anxiety, whatever the outcome — a
+    # source in M6.4's table, logged by name. A scripted selection carries none.
+    urges = tuple(sorted((s.actor, s.urge) for s in selections if s.urge))
+    for actor, urge in urges:
+        state.people[actor].acute_anxiety += urge
+    if urges:
+        records.append(EffectRecord(state.tick, "competing_urges", None, acute_anxiety=urges))
     steps.append("select")
 
     # 8 — act.
     for selection in sorted(selections, key=lambda s: (s.actor, s.index)):
-        records += act(state, selection, visibility)
+        records += act(state, selection, visibility, params)
     steps.append("act")
 
     # 9 — consolidate, then the invariants assert (M4.G.2). The integrator reads this

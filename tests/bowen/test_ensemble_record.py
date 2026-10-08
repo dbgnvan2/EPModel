@@ -48,11 +48,11 @@ _sspec = importlib.util.spec_from_file_location("sweep_record_tool", REPO / "too
 _sweep = importlib.util.module_from_spec(_sspec)
 sys.modules[_sspec.name] = _sweep
 
-_mspec = importlib.util.spec_from_file_location("mutation_record_tool", REPO / "tools" / "mutation_record.py")
+# Loaded under its real module name, so the sweep tool's `from tools.mutation_record import ...` reuses this
+# copy (one load), and the module's __name__ matches the name it is registered under.
+_mspec = importlib.util.spec_from_file_location("tools.mutation_record", REPO / "tools" / "mutation_record.py")
 _mutants = importlib.util.module_from_spec(_mspec)
 sys.modules[_mspec.name] = _mutants  # its dataclass resolves its own module
-# The sweep tool imports `tools.mutation_record`; registering this copy under that name keeps it to one load.
-sys.modules["tools.mutation_record"] = _mutants
 _mspec.loader.exec_module(_mutants)
 _sspec.loader.exec_module(_sweep)  # after the mutation tool: it imports from it
 
@@ -136,8 +136,9 @@ def test_criteria_settings_are_parsed_strictly(tmp_path):
 
 
 def test_sweep_tool_shares_the_loaded_mutation_tool():
-    """One copy of the mutation tool, not two (third gate finding 3)."""
+    """One copy of the mutation tool, not two (third gate finding 3), registered under its own name (fourth gate)."""
     assert _sweep.Mutant is _mutants.Mutant and _sweep.run_mutant is _mutants.run_mutant
+    assert _mutants.__name__ == "tools.mutation_record" and sys.modules["tools.mutation_record"] is _mutants
 
 
 def _setting_reads():

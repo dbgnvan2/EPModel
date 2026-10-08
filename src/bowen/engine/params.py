@@ -76,6 +76,21 @@ class EngineParams:
     cross_person_weight: float # M4.D.6e — weight on the target's and witnesses' change in anxiety
     habituation_rate: float    # M4.G.3 — relief credited to the n-th recent repetition is scaled by habituation_rate ** n
     habituation_window: int    # M4.G.3 — how far back an identical act counts as a repetition
+    prepare_ticks: int         # M5.D.2a — weeks of private preparation before DEFINE
+    rehearsal_rate: float      # M1.A.9, M5.D.2a — private rehearsal lowers each impingement axis by this share per PREPARE tick
+    assertion_perspective_threshold: float # M5.F.4 — below this, I-POSITION executes as the assertion form
+    anger_threshold: float     # M5.D.4, M5.D.4a — the mover's too-much side on the tie above which the mover is angry
+    assertion_gain: float      # M5.F.4 — extra impingement an assertion-form I-POSITION delivers
+    assertion_evidence_gain: float # M5.F.2a — claiming a position raises the claimant's outward axis
+    opposition_window: int     # M5.E.3 — weeks after DEFINE in which no opposition means the move did not land
+    hold_gain: float           # M5.D.3 — capacity to hold = hold_gain × functional_level × efficacy
+    stall_limit: int           # M5.D.4 — angry weeks in HOLD before the sequence lapses
+    hold_window: int           # M5.D.2 — weeks in HOLD without a final attack before the sequence settles without a peak
+    pull_up_rate: float        # M5.D.5 — on RESOLVE the opposition's functional level closes this share of the gap to the mover's
+    exchange_gain: float       # M5.D.7, M5.D.7a — a completed exchange's functional-level increment; small by design
+    triangle_floor_decrement: float # M1.C.5 — a completed exchange's permanent decrement in each triangle holding the pair
+    respect_gain: float        # M5.E.8 — a completed exchange lowers both parties' impingement axes by this share
+    debit_gain: float          # M5.E.7 — contact the mover withdraws from the other with a genuine I-POSITION
     belief_rate: float                     # M9.8 — share of the gap to a witnessed observation closed per tick, at full fidelity
 
     def __post_init__(self) -> None:
@@ -112,6 +127,15 @@ class EngineParams:
                 raise ValueError(f"{name} must be in [0, 1]")
         if self.credit_horizon < 1 or self.habituation_window < 1:
             raise ValueError("credit_horizon and habituation_window must be at least 1")
+        for name in ("rehearsal_rate", "assertion_perspective_threshold", "pull_up_rate", "respect_gain",
+                     "triangle_floor_decrement"):
+            if not 0.0 <= getattr(self, name) <= 1.0:
+                raise ValueError(f"{name} must be in [0, 1]")
+        if min(self.prepare_ticks, self.opposition_window, self.stall_limit, self.hold_window) < 1:
+            raise ValueError("prepare_ticks, opposition_window, stall_limit and hold_window must be at least 1")
+        if min(self.anger_threshold, self.assertion_gain, self.assertion_evidence_gain, self.hold_gain,
+               self.exchange_gain, self.debit_gain) < 0:
+            raise ValueError("the I-POSITION gains and thresholds are non-negative")
         if self.outsider_positional_gain < 0 or self.pseudo_self_transfer_gain < 0:
             raise ValueError("outsider_positional_gain and pseudo_self_transfer_gain must be non-negative")
         for name in ("witness_weight", "calm_transfer_rate", "symptom_leak_rate", "symptom_rearm_fraction",

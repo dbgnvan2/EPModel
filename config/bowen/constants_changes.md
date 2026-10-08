@@ -62,3 +62,18 @@
 | `cross_person_weight` | — | 0.5 | 2026-10-07 | — (new mechanism; Phase C step 7) | no |
 | `habituation_rate` | — | 0.7 | 2026-10-07 | — (new mechanism; Phase C step 7) | no |
 | `habituation_window` | — | 8 | 2026-10-07 | — (new mechanism; Phase C step 7) | no |
+| `prepare_ticks` | — | 4 | 2026-10-07 | — (new mechanism; Phase C step 8) | no |
+| `rehearsal_rate` | — | 0.05 | 2026-10-07 | — (new mechanism; Phase C step 8) | no |
+| `assertion_perspective_threshold` | — | 0.3 | 2026-10-07 | — (new mechanism; Phase C step 8) | no |
+| `anger_threshold` | — | 0.3 | 2026-10-07 | — (new mechanism; Phase C step 8) | no |
+| `assertion_gain` | — | 0.5 | 2026-10-07 | — (new mechanism; Phase C step 8) | no |
+| `assertion_evidence_gain` | — | 0.05 | 2026-10-07 | — (new mechanism; Phase C step 8) | no |
+| `opposition_window` | — | 3 | 2026-10-07 | — (new mechanism; Phase C step 8) | no |
+| `hold_gain` | — | 0.3 | 2026-10-07 | — (new mechanism; Phase C step 8). **Chosen against a requirement:** at 0.5 most movers held at first opposition (86 of 113 over 40 seeds), contrary to `M5.D.3`'s "the usual outcome"; at 0.3 most abort (62 of 110). Measured on the reference family with Ravi given systems perspective 1.0 | no |
+| `stall_limit` | — | 4 | 2026-10-07 | — (new mechanism; Phase C step 8) | no |
+| `hold_window` | — | 6 | 2026-10-07 | — (new mechanism; Phase C step 8) | no |
+| `pull_up_rate` | — | 0.2 | 2026-10-07 | — (new mechanism; Phase C step 8) | no |
+| `exchange_gain` | — | 0.5 | 2026-10-07 | — (new mechanism; Phase C step 8) | no |
+| `triangle_floor_decrement` | — | 0.1 | 2026-10-07 | — (new mechanism; Phase C step 8) | no |
+| `respect_gain` | — | 0.2 | 2026-10-07 | — (new mechanism; Phase C step 8) | no |
+| `debit_gain` | — | 0.3 | 2026-10-07 | — (new mechanism; Phase C step 8) | no |

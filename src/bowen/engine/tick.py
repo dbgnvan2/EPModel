@@ -19,8 +19,10 @@ The nine steps, and where each lives:
                               move's own effect (``moves.apply_move_effects``, plan D5)
 5. involvement .............. ``recompute.recompute_involvement``
 6. triangles ................ ``recompute.recompute_triangles``
-7. select ................... the activation component names who selects; the
-                              source supplies their selections (a script, in Phase B)
+7. select ................... ``iposition.advance_sequences`` (M5.D); a person owed a
+                              sequence step has it as the week's outcome; the activation
+                              component names who else selects and the source supplies
+                              their selections (a script, or the policy from Phase C)
 8. act ...................... ``act.act``
 9. consolidate .............. ``symptoms.accumulate_symptoms`` (the integrator and onset,
                               M4.C.3, M7.D.1); ``reactive.update_attention_state``
@@ -47,6 +49,7 @@ from src.bowen.engine.event_effects import STRUCTURAL, apply_delivered_cutoffs, 
 from src.bowen.engine.events import Event
 from src.bowen.engine.identifiers import PersonId
 from src.bowen.engine.invariants import assert_invariants, snapshot
+from src.bowen.engine.iposition import advance_sequences, redirect_to_sequence_tie, sequence_selections
 from src.bowen.engine.learner import learn, register_acts
 from src.bowen.engine.moves import apply_move_effects, settle_functioning
 from src.bowen.engine.log_records import EffectRecord, Emitter, TickRecord
@@ -130,9 +133,15 @@ def run_tick(
     records += recompute_triangles(state, params)
     steps.append("triangles")
 
-    # 7 — select.
+    # 7 — select. I-POSITION sequences move on first; a person owed a step this week has it
+    # as the week's outcome, and the source selects for everyone else (M5.D.9).
+    records += advance_sequences(state, params)
+    owed, deferred = sequence_selections(state, params)
+    records += deferred
     active = activation.active(state.tick, state.people.values())
-    selections = source.selections(state.tick, active, state)
+    stepping = {s.actor for s in owed}
+    chosen = source.selections(state.tick, tuple(p for p in active if p not in stepping), state)
+    selections = tuple(owed) + tuple(redirect_to_sequence_tie(state, s) for s in chosen)
     actors = [s.actor for s in selections]
     if not set(actors) <= set(active):
         raise SelectionFromInactivePerson(f"selections for {sorted(set(actors) - set(active))}")

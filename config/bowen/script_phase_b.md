@@ -12,7 +12,9 @@
 > points to about ten. Every delivery falls inside the 40 weeks.
 >
 > In Phase B every move is scripted and none is chosen; an `I-POSITION` here is a
-> move record only — its state machine (`M5.D`) is Phase C.
+> move record only — its state machine (`M5.D`) is Phase C. *From Phase C step 8 the scripted
+> `I-POSITION` goes through the engine like a chosen one: Marta has no systems perspective, so it
+> executes as the assertion form (`M5.F.4`), not as a sequence.*
 >
 > **A stressor acts once, on arrival.** Its duration is recorded (the job loss is a
 > 34-week spell, `M1.F.6`) but in Phase B nothing reads it: how a spell weighs on

@@ -345,5 +345,17 @@
  "M4.D.6b": {
   "status": "partial",
   "note": "the horizon is declared in config and only acts inside it are credited (step 7); the sweep with the learning rate and temperature is Phase C step 16"
+ },
+ "M5.D.5": {
+  "status": "partial",
+  "note": "the opposition pulls up to the mover's level, not a mean, and the gain is outside M6.I.4 (step 8); the payoff propagating to subsequent movers is not built"
+ },
+ "M5.E.7": {
+  "status": "partial",
+  "note": "a genuine I-POSITION withdraws felt contact the other was receiving (step 8) — a contact proxy: life_energy (M1.A.10, M6.I.3) is not built"
+ },
+ "M5.F.2a": {
+  "status": "partial",
+  "note": "one of the five forms is built: an assertion-form I-POSITION raises the claimant's outward axis (step 8); declaring non-involvement and the other forms are not"
  }
 }

@@ -157,6 +157,8 @@ class Person:
     # M4.D.6, plan D4: the person's automatic acts still inside the credit horizon,
     # each accumulating its signal. Written by ``learner.register_acts`` and ``learner.learn``.
     eligible_acts: list = field(default_factory=list)
+    # M5.D: the person's I-POSITION sequence in progress, or None. Written by ``iposition``.
+    iposition_state: object | None = None
     systems_perspective: float | None = None
     reactive_state: dict[str, float] | None = None
     pseudo_self: float | None = None

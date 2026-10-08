@@ -47,7 +47,7 @@ TABLE_HEAD = "| Week | Who | Move | Toward | Witnesses | What it did |\n|---|---
 # Every mechanism the engine emits, and how the trace treats it. Anything else
 # raises: a record the renderer does not understand must not vanish (P2, P19).
 CAUSED = frozenset({"appraisal", "calm_contact", "symptom_onset", "distance_binding", "triangle_transfer",
-                    "functioning_shift", "reduce_cutoff", "trigger", "cutoff", "reconciliation", "institutionalize", "binder_unavailable"})
+                    "functioning_shift", "reduce_cutoff", "assertion", "debit", "trigger", "cutoff", "reconciliation", "institutionalize", "binder_unavailable"})
 SYSTEM_SHOWN = frozenset({"triangle_recompute", "consolidation", "slow_tick"})
 SYSTEM_SUMMARISED = frozenset({
     "standing_load", "acute_decay", "contact_relaxation", "symptom_accumulation", "investment", "reactive_state",
@@ -157,6 +157,12 @@ def _what_it_did(event: Event, index: _Index, names: _Names, view: PersonId | No
             if gained:
                 (p, v), = gained
                 parts.append(f"{names(p)} takes {v:.1f} of functioning from the other")
+        elif effect.mechanism == "assertion":
+            parts.append("assertion form (no systems perspective, or angry): extra impingement; "
+                         "claiming the position raises the sender's outward axis")
+        elif effect.mechanism == "debit":
+            for tie, field, v in effect.ties:
+                parts.append(f"withdraws contact {names(PersonId(field.split(':', 1)[1]))} was receiving ({v:+.2f})")
         elif effect.mechanism == "reduce_cutoff":
             parts += [f"{names.tie(t)} reopened" for t, f, _ in effect.ties if f == "interactive"]
             released = [f"{names(p)} {_signed(v)}" for p, v in effect.acute_anxiety if view is None or p == view]
@@ -197,6 +203,17 @@ def _system_rows(effect: EffectRecord, names: _Names) -> list[str]:
                 rows.append(f"{names.tie(tie)} bond energy {_signed(value)}")
             else:
                 raise UnrenderableRecord(f"no template for consolidation field {field!r}")
+    elif effect.mechanism == "iposition":
+        for person, field, value in effect.people:
+            if field.startswith("iposition:"):
+                _, what, stage = field.split(":")
+                rows.append(f"{names(person)}'s I-POSITION sequence: {what} {stage.lower().replace('_', ' ')}")
+            elif field == "functional_level":
+                rows.append(f"{names(person)} functional level {_signed(value)}")
+            else:
+                raise UnrenderableRecord(f"no template for I-POSITION field {field!r}")
+        for tri, field, value in effect.triangles:
+            rows.append(f"{names.triangle(tri)} triangle: permanent intensity floor now {float(value):.2f}")
     elif effect.mechanism == "slow_tick":
         rows.append("slow tick (yearly) fired — nothing runs on it in Phase B")
     elif effect.mechanism not in SYSTEM_SUMMARISED:

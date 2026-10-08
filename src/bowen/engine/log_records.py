@@ -31,6 +31,8 @@ class DecidedBy(enum.Enum):
     POLICY = "policy"
     TIE_BREAK = "tie_break"
     FALLBACK = "fallback"
+    # M5.D.9: a step of an I-POSITION sequence, owed that week — chosen by the state machine, not drawn.
+    SEQUENCE = "sequence"
 
 
 class InvariantStatus(enum.Enum):
@@ -101,6 +103,8 @@ class SelectionRecord:
     withheld_toward: PersonId | None = None
     # M4.D.1f: the declared rule that produced a FALLBACK outcome.
     fallback_rule: str | None = None
+    # M5.D.9: the I-POSITION sequence step this outcome was, if any.
+    sequence_step: str | None = None
     record_type = "selection"
 
 

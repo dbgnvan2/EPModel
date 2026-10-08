@@ -128,10 +128,11 @@ def triangle_position(obs: Observation, params: EngineParams) -> tuple[str, tupl
     return ("outside" if outside else "inside"), tuple(used)
 
 
-def value_key(obs: Observation, kind: str, target: PersonId, params: EngineParams) -> str:
+def value_key(obs: Observation, kind: str, target: PersonId, params: EngineParams, position: str | None = None) -> str:
     about = obs.triangle_for.get(target) if kind == TRIANGLE else None
     where = "/".join(m.value for m in about.members) if about is not None else target.value
-    return f"{band(obs, params)}|{triangle_position(obs, params)[0]}|{kind}|{where}"
+    position = position if position is not None else triangle_position(obs, params)[0]
+    return f"{band(obs, params)}|{position}|{kind}|{where}"
 
 
 def legal_outcomes(obs: Observation, kinds: EventKinds, params: EngineParams) -> list[Outcome]:
@@ -140,6 +141,7 @@ def legal_outcomes(obs: Observation, kinds: EventKinds, params: EngineParams) ->
     Tests:   tests/bowen/test_policy.py::test_m4d1e_legal_set_excludes_impossible_and_gated_acts
     """
     legal = []
+    position = triangle_position(obs, params)[0]
     for view in obs.ties:
         if not view.other_alive or view.other_external:
             continue
@@ -154,7 +156,7 @@ def legal_outcomes(obs: Observation, kinds: EventKinds, params: EngineParams) ->
                 continue
             if kind == I_POSITION and obs.financially_dependent:
                 continue  # M5.C.1: fails outright, so it is removed, not degraded
-            key = value_key(obs, kind, view.other, params) if channel == AUTOMATIC else ""
+            key = value_key(obs, kind, view.other, params, position) if channel == AUTOMATIC else ""
             legal.append(Outcome(kind, view.other, channel, key))
     if any(o.channel == AUTOMATIC for o in legal):
         legal.append(Outcome(WITHHOLD, None, SELF))

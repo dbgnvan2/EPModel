@@ -187,6 +187,9 @@ class Event:
     attention: Attention = Attention.NONE
     # M1.A.18a, M1.A.19: an evaluation of the target, -1 blame, +1 praise, 0 none. Two-sided by design.
     valence: int = 0
+    # M5.F.4, M5.D.4a: an I-POSITION executed as the assertion form — raises reactivity on the
+    # tie and counts against the claimant (M5.F.2a). Set by the engine at act, never by a policy.
+    assertion: bool = False
 
     def __post_init__(self) -> None:
         if self.valence not in (-1, 0, 1):

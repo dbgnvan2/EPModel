@@ -80,8 +80,8 @@ from src.bowen.engine.params import EngineParams
 from src.bowen.engine.state import RunState
 
 # M5.A.1 and M5.B fix the repertoire; these names are the spec's.
-DISTANCE, TRIANGLE, OVERFUNCTION, UNDERFUNCTION, REDUCE_CUTOFF = (
-    "DISTANCE", "TRIANGLE", "OVERFUNCTION", "UNDERFUNCTION", "REDUCE_CUTOFF",
+DISTANCE, TRIANGLE, OVERFUNCTION, UNDERFUNCTION, REDUCE_CUTOFF, I_POSITION = (
+    "DISTANCE", "TRIANGLE", "OVERFUNCTION", "UNDERFUNCTION", "REDUCE_CUTOFF", "I-POSITION",
 )
 # The single area every tie holds until the family declares its areas of joint activity (M1.B.9).
 DEFAULT_AREA = "joint"
@@ -173,7 +173,8 @@ def triangle_transfer(state: RunState, event: Event, target: PersonId, params: E
         return None
     tri_id, outsider = found
     insiders = (state.people[event.sender], state.people[target])
-    capacity = routing_capacity((*insiders, state.people[outsider]))
+    # M1.C.5: a completed exchange's permanent decrement never reverts.
+    capacity = routing_capacity((*insiders, state.people[outsider])) * (1.0 - state.triangles[tri_id].intensity_floor)
     rate = params.triangle_transfer_rate * capacity * _strength(event, params)
     moved = [(p.id, min(excess(p), rate * excess(p))) for p in insiders]
     total = sum(m for _, m in moved)
@@ -292,6 +293,25 @@ def reduce_cutoff(state: RunState, event: Event, tie: Relationship) -> EffectRec
     return EffectRecord(state.tick, "reduce_cutoff", event.id, acute_anxiety=released, ties=tuple(ties))
 
 
+# --- I-POSITION ----------------------------------------------------------------------------
+
+
+def iposition_effect(state: RunState, event: Event, tie: Relationship, target: PersonId, params: EngineParams) -> EffectRecord:
+    """Purpose: a genuine I-POSITION withdraws contact the other was receiving; an assertion counts against its sender.
+    Spec:    docs/bowen_agent_model_spec_v2.md#M5.E.7, #M5.F.2a, #M5.F.4
+    Tests:   tests/bowen/test_iposition.py::test_m5f4_low_perspective_executes_the_assertion_form
+    """
+    if event.assertion:
+        sender = state.people[event.sender]
+        before = sender.outside_ness_outward
+        sender.outside_ness_outward = min(1.0, before + params.assertion_evidence_gain)
+        return EffectRecord(state.tick, "assertion", event.id,
+                            people=((sender.id, "outside_ness_outward", sender.outside_ness_outward - before),))
+    before = tie.felt_contact[target]
+    tie.felt_contact[target] = max(0.0, before - params.debit_gain * _strength(event, params))
+    return EffectRecord(state.tick, "debit", event.id, ties=((tie.id, f"felt_contact:{target}", tie.felt_contact[target] - before),))
+
+
 # --- the step-4 pass -----------------------------------------------------------------------
 
 
@@ -320,6 +340,8 @@ def apply_move_effects(state: RunState, batch: tuple[Delivery, ...], params: Eng
             record = functioning_shift(state, event, tie, delivery.recipient, params)
         elif event.kind == REDUCE_CUTOFF:
             record = reduce_cutoff(state, event, tie)
+        elif event.kind == I_POSITION:
+            record = iposition_effect(state, event, tie, delivery.recipient, params)
         else:
             record = None
         if record is not None:

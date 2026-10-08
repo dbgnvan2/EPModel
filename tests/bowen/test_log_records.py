@@ -86,7 +86,7 @@ def test_m16a3_selection_record_present_for_scripted_moves():
     assert body["decided_by"] == "scripted"                                           # M16.A.3c
     for name in ("propensities", "draw", "beliefs_used", "legal_set"):                # M16.A.3, .3a, .3b
         assert name in body
-    assert {d.value for d in DecidedBy} == {"scripted", "policy", "tie_break", "fallback"}
+    assert {d.value for d in DecidedBy} == {"scripted", "policy", "tie_break", "fallback", "sequence"}
 
 
 def test_m16a4_effects_recorded_beside_cause():

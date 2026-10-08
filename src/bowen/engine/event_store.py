@@ -27,31 +27,42 @@ class EventStore:
     def __init__(self) -> None:
         self._events: dict[EventId, Event] = {}
         self._deliveries: list[Delivery] = []
+        # Indexes and a sorted cache, kept so per-tick queries do not re-sort the whole run.
+        # They hold nothing the two primary stores do not; every answer is the same.
+        self._sorted: tuple[Event, ...] | None = None
+        self._by_sender: dict[PersonId, list[Event]] = {}
+        self._by_recipient: dict[PersonId, list[Delivery]] = {}
 
     def record_event(self, event: Event) -> None:
         if event.id in self._events:
             raise ValueError(f"event {event.id} recorded twice")
         self._events[event.id] = event
+        self._sorted = None
+        if event.sender is not None:
+            self._by_sender.setdefault(event.sender, []).append(event)
 
     def record_delivery(self, delivery: Delivery) -> None:
         if delivery.event_id not in self._events:
             raise ValueError(f"delivery for unrecorded event {delivery.event_id}")
         self._deliveries.append(delivery)
+        self._by_recipient.setdefault(delivery.recipient, []).append(delivery)
 
     def event(self, event_id: EventId) -> Event:
         return self._events[event_id]
 
     def events(self) -> tuple[Event, ...]:
-        return tuple(self._events[k] for k in sorted(self._events))
+        if self._sorted is None:
+            self._sorted = tuple(self._events[k] for k in sorted(self._events))
+        return self._sorted
 
     def sent_by(self, person: PersonId) -> tuple[Event, ...]:
-        return tuple(e for e in self.events() if e.sender == person)
+        return tuple(sorted(self._by_sender.get(person, ()), key=lambda e: e.id))
 
     def delivered_to(self, person: PersonId, role: Role | None = None) -> tuple[Delivery, ...]:
         return tuple(
             d
-            for d in sorted(self._deliveries)
-            if d.recipient == person and (role is None or d.role is role)
+            for d in sorted(self._by_recipient.get(person, ()))
+            if role is None or d.role is role
         )
 
     def view_of(self, person: PersonId) -> tuple[Event, ...]:

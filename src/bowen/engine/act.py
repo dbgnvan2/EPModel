@@ -8,7 +8,10 @@ Tests:   tests/bowen/test_mechanisms.py::test_m4e1_scripted_move_becomes_full_ev
 
 from __future__ import annotations
 
+import dataclasses
 from dataclasses import dataclass
+
+from src.bowen.engine import iposition
 
 from src.bowen.engine.events import Channel, Event, EventId, Mechanism, SourcePosition
 from src.bowen.engine.identifiers import PersonId
@@ -20,6 +23,7 @@ from src.bowen.engine.visibility import HouseholdConductanceVisibility
 
 # M4.D.1b: the outcome that is not a move. The spec's name.
 WITHHOLD = "WITHHOLD"
+I_POSITION = "I-POSITION"
 
 
 @dataclass(frozen=True)
@@ -50,6 +54,8 @@ class Selection:
     value_key: str = ""
     # M16.A.3a: the beliefs the policy read for this selection.
     beliefs_used: tuple[tuple[str, float], ...] = ()
+    # M5.D.9: the I-POSITION sequence step this outcome is, if it is one (DEFINE, ABORT, FOLLOW_UP).
+    sequence_step: str | None = None
 
 
 def _record(state: RunState, selection: Selection, event_id) -> SelectionRecord:
@@ -59,7 +65,7 @@ def _record(state: RunState, selection: Selection, event_id) -> SelectionRecord:
         beliefs_used=selection.beliefs_used,
         withheld=selection.withheld,
         withheld_toward=selection.targets[0] if selection.withheld and selection.targets else None,
-        fallback_rule=selection.fallback_rule,
+        fallback_rule=selection.fallback_rule, sequence_step=selection.sequence_step,
     )
 
 
@@ -94,6 +100,15 @@ def act(state: RunState, selection: Selection, visibility: HouseholdConductanceV
         if params is None:
             raise ValueError("a withheld outcome needs the engine parameters")
         return withhold(state, selection, params)
+    assertion = False
+    if selection.kind == I_POSITION and selection.sequence_step is None and params is not None:
+        # M5.D.1, M5.D.2a, M5.F.4: a freshly selected I-POSITION either starts a sequence,
+        # emitting nothing this week, or executes at once as the assertion form.
+        target = selection.targets[0]
+        if not iposition.assertion_form(state, selection.actor, target, params):
+            started = iposition.begin(state, selection.actor, target)
+            return [_record(state, dataclasses.replace(selection, sequence_step=iposition.PREPARE), None), started]
+        assertion = True
     if state.kinds.mechanism_of(selection.kind) is not Mechanism.MOVE:
         raise ValueError(f"{selection.kind} is not a move")
     event = Event(
@@ -110,12 +125,16 @@ def act(state: RunState, selection: Selection, visibility: HouseholdConductanceV
         channel=Channel.SCRIPTED if selection.decided_by is DecidedBy.SCRIPTED else Channel.AUTOMATIC,
         route=selection.route,
         fidelity=visibility.fidelity_for(selection.route),
+        assertion=assertion,
     )
     resolved = visibility.resolve(event, state.people, state.ties)
     state.store.record_event(resolved.event)
     for delivery in resolved.deliveries:
         state.queue.schedule(delivery)
-    return [_record(state, selection, event.id), EmittedRecord(resolved.event)]
+    records = [_record(state, selection, event.id), EmittedRecord(resolved.event)]
+    if selection.sequence_step in iposition.OUTCOME_STEPS and params is not None:
+        records += iposition.step_done(state, selection.actor, params)
+    return records
 
 
 def inject(state: RunState, event: Event, visibility: HouseholdConductanceVisibility) -> list:

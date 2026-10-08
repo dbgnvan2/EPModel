@@ -1700,6 +1700,27 @@ severed tie is usually loaded, so without systems perspective the act carries no
 this family, therefore, a cutoff is still not reopened without a coach. That follows from the gate as
 written; it is not a rule against reopening.
 
+**The `I-POSITION` sequence, as built (Phase C step 8, 2026-10-07).** Every form and rate is `[I]`.
+- **The assertion form.** A person without systems perspective, or angry on the tie, does not run a
+  sequence. Their `I-POSITION` is one forceful claim: it adds impingement, and claiming the position
+  counts against them.
+- **Otherwise, a sequence over weeks:**
+  - **`PREPARE`.** Weeks of private rehearsal lower both impingement axes. It fails if anxiety
+    outruns the person's defences. If the other raises the issue first, the person defines unprepared.
+  - **`DEFINE`.** The person states their position, and the other loses some of the contact they were
+    receiving.
+  - **First opposition.** The mover holds only if their anxiety fits their capacity (level × efficacy);
+    otherwise they defend, counterattack or go silent, and return to where they started.
+  - **`HOLD`.** An angry mover stalls; no peak comes. A calm one who meets the next attack resolves.
+  - **`RESOLVE`.** The other rises toward the mover's level.
+  - **`FOLLOW_UP`.** Contact the next week completes the exchange. It brings a small level gain, a
+    permanent drop in the triangle's intensity, and lower impingement on both sides of the tie.
+- **No reaction is not success.** It means the move did not land.
+
+In the reference family, with Ravi given perspective, most attempts fail in preparation, most that meet
+opposition abort, and the first success comes after many attempts. The rate at which movers hold
+(`hold_gain`) was set so that aborting is the usual outcome, which the spec requires (`M5.D.3`).
+
 ### 19.5 Calmer contact (spec `M4.C.10`)
 
 Contact with a less anxious person lowers anxiety on every tie, generalising the external agent's burden-transfer term (`M1.E.5`). Seeking such contact is learned. Under Bowen theory this is the ordinary lending of self (`M1.A.5d`), and its cost is tested: learned reliance on a calming tie raises the anxiety released when it is lost (`M11.C.43`). The name *social buffering* comes from the stress-physiology literature, outside the six sources; it is `[I]` here and is not cited until a source is recorded.

@@ -44,6 +44,17 @@
 > `initial_impingement_scale` down are new and logged. At 0.8, the Phase B adults (basic level about 40) start
 > near 0.5 on both axes, at the gate's thresholds: the gate passes or fails on behaviour, not on the start.
 > `hollow_gain` and `assault_gain` at 0.5 keep act identity smaller than the move's own components. All `[I]`.
+>
+> **Phase C steps 4–7, 2026-10-07** — beliefs (`belief_rate`), move physics (`distance_binding_rate` …
+> `pseudo_self_transfer_gain`), the policy (`self_channel_exponent` … `policy_intensity`) and the learner
+> (`learning_rate` … `habituation_window`). Each is new and logged in `constants_changes.md`. All `[I]`.
+>
+> **Phase C step 8, 2026-10-07 — the `I-POSITION` state machine** (`M5.D`, `M5.E`, `M5.F.4`, `M1.C.5`), from
+> `prepare_ticks` to `debit_gain`. All `[I]`. **`exchange_gain` is small on purpose (`M5.D.7a`):** half a point
+> of functional level per completed exchange, against basic levels around 40, and `basic_level` is never
+> written by an exchange. No realistic number of exchanges in a run should read as differentiation: the KB
+> interviews call that reading "grotesque". **`hold_gain` was chosen against `M5.D.3`**, so that aborts are the
+> usual outcome at first opposition; `constants_changes.md` records the measurement.
 
 frozen_at: 2026-10-06
 activation_regime: synchronous
@@ -105,6 +116,21 @@ activation_regime: synchronous
 | `cross_person_weight` | 0.5 | [I] | weight on the others' mean relief | `M4.D.6e` |
 | `habituation_rate` | 0.7 | [I] | relief kept per earlier repetition | `M4.G.3` |
 | `habituation_window` | 8 | [I] | fast ticks | `M4.G.3` |
+| `prepare_ticks` | 4 | [I] | fast ticks | `M5.D.2a` |
+| `rehearsal_rate` | 0.05 | [I] | share of each axis per tick | `M1.A.9` |
+| `assertion_perspective_threshold` | 0.3 | [I] | systems perspective | `M5.F.4` |
+| `anger_threshold` | 0.3 | [I] | too-much deviation | `M5.D.4` |
+| `assertion_gain` | 0.5 | [I] | impingement per unit scaled intensity | `M5.F.4` |
+| `assertion_evidence_gain` | 0.05 | [I] | outward impingement per assertion | `M5.F.2a` |
+| `opposition_window` | 3 | [I] | fast ticks | `M5.E.3` |
+| `hold_gain` | 0.3 | [I] | excess anxiety per point of functional level at full efficacy | `M5.D.3` |
+| `stall_limit` | 4 | [I] | fast ticks | `M5.D.4` |
+| `hold_window` | 6 | [I] | fast ticks | `M5.D.2` |
+| `pull_up_rate` | 0.2 | [I] | share of the level gap | `M5.D.5` |
+| `exchange_gain` | 0.5 | [I] | functional-level points | `M5.D.7a` |
+| `triangle_floor_decrement` | 0.1 | [I] | share of routing capacity | `M1.C.5` |
+| `respect_gain` | 0.2 | [I] | share of each axis | `M5.E.8` |
+| `debit_gain` | 0.3 | [I] | felt contact per unit scaled intensity | `M5.E.7` |
 | `distance_binding_rate` | 0.3 | [I] | share of excess bound per unit scaled intensity | `M1.D.2a` |
 | `triangle_transfer_rate` | 0.3 | [I] | share of each insider's excess passed per unit scaled intensity | `M1.C.1` |
 | `outsider_positional_gain` | 0.5 | [I] | positional anxiety per unit transferred | `M1.C.1` |

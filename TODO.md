@@ -43,6 +43,16 @@ Phase C steps 0–16 are built. **Its gate does not pass** (`docs/phase_c_comple
 - [ ] **Bruno falls back every week.** His one tie starts cut off, `REDUCE_CUTOFF` is his only legal act, and it
   carries no weight without systems perspective, so the family runs' fallback rate is 0.26–0.41 (`M11.D.18` flags
   it). Decide whether that is the intended reading of `M4.D.3b`.
+- [ ] **Re-gate finding A, 2026-10-08 (medium, P6/P19), not fixed — required before Phase D or before the records
+  are next regenerated** (`docs/cycles/2026-10-08_phase-c-qa-gate-2.md`). `RULE_KEYS` in `tools/ensemble_record.py`
+  chooses which constants become the ensemble rules, so it is an input to all three records, but no record's
+  `code_hash` covers `tools/ensemble_record.py`. Add it to both `HASHED_TOOLS` tuples and to the ensemble record's
+  own hash, correct the `code_hash` docstring ("the ensemble record's verdicts do not depend on any tool" is wrong),
+  and regenerate all three records. Carried rather than fixed because it needs a third full regeneration and a
+  third gate; the second gate approved the batch as it stands.
+- [ ] **Re-gate finding B (low, P19):** `tests/bowen/test_ensemble_record.py`'s sweep staleness test copies the sweep
+  tool's `HASHED_TOOLS` instead of importing it, so a change there would fail with a misleading "rerun" message. Load
+  `tools/sweep_record.py` and use its tuple. Do it with finding A.
 - [ ] **Hermes gate finding 4, 2026-10-08 (low, P4), not fixed:** `src/bowen/ensemble/criteria.py` holds the
   declared spell (JOB_LOSS, intensity 120, every 4 weeks from week 4) and each criterion's horizon and arms as
   literals outside `M11.D.2`'s magic-literal scan. They are declared `[I]` in the module docstring and were fixed

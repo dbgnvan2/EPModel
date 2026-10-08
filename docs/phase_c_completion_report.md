@@ -208,3 +208,9 @@ result, not a code defect. Three findings were fixed in the same session, each w
 
 The fourth (low, P4: the declared spell and horizons are literals in `criteria.py`, outside `M11.D.2`'s scan) is
 in `TODO.md`. Fixing it changes the code hash and every record, so it is left for before Phase D.
+
+A second gate on the final state (`docs/cycles/2026-10-08_phase-c-qa-gate-2.md`) verified the three fixes and
+**APPROVED**. It found one more medium guard gap of the same kind (A): `RULE_KEYS` in `tools/ensemble_record.py` is an
+input to all three records, and no record's hash covers it. It also found one low (B), a copied tuple in a test.
+Neither gives a wrong result in the tree today. Both are in `TODO.md` as required before Phase D or before the
+records are next regenerated.

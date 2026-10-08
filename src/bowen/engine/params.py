@@ -99,6 +99,9 @@ class EngineParams:
     contact_window: int        # M1.E.8 — the window over which contacts are counted
     perspective_gain: float    # M1.E.7 — a landed contact raises systems_perspective by this share of its distance from 1
     delayed_view_weeks: int    # M16.D.2 — the delay of the delayed view: six months, as Bowen suggested
+    sink_window: int           # M1.D.1 — weeks of acts that weight each sink
+    sink_rate: float           # M1.D.1 — share of the gap to its target share each allocation closes per tick
+    exchange_budget_reduction: float # M6.I.1, M5.D.7 — what a completed differentiating exchange removes from the budget
     belief_rate: float                     # M9.8 — share of the gap to a witnessed observation closed per tick, at full fidelity
 
     def __post_init__(self) -> None:
@@ -149,6 +152,8 @@ class EngineParams:
                 raise ValueError(f"{name} must be in [0, 1]")
         if min(self.session_interval_weeks, self.contact_optimum, self.contact_window) < 1 or self.delayed_view_weeks < 0 or self.delayed_view_bonus < 0:
             raise ValueError("the external-agent windows must be at least 1; delayed_view_weeks and delayed_view_bonus non-negative")
+        if self.sink_window < 1 or not 0.0 <= self.sink_rate <= 1.0 or self.exchange_budget_reduction < 0:
+            raise ValueError("sink_window >= 1, sink_rate in [0, 1], exchange_budget_reduction non-negative")
         if self.outsider_positional_gain < 0 or self.pseudo_self_transfer_gain < 0:
             raise ValueError("outsider_positional_gain and pseudo_self_transfer_gain must be non-negative")
         for name in ("witness_weight", "calm_transfer_rate", "symptom_leak_rate", "symptom_rearm_fraction",

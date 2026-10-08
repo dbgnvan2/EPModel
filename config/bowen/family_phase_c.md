@@ -10,12 +10,15 @@
 > Ravi and Marta are thin — conductance 0.3, bond energy 10 — because the coach tie must stay thin
 > (`M1.E.7e`). All `[I]`.
 >
+> The undifferentiation budget is 90, `[I]` (Phase C step 10): the quantity the three sinks absorb
+> (`M1.D.1`). The spec gives no magnitude; it starts unallocated and moves into the sinks as the family acts.
+>
 > Relations: as in `family_reduced.md`, plus `professional` for an external agent's ties.
 
 instance_id: phase_c
 grade: [I]
 nuclear_household: ravi_marta
-undifferentiation_budget: 0
+undifferentiation_budget: 90
 
 ## People
 

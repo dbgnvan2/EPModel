@@ -55,7 +55,8 @@ nothing is emitted that week (`M5.D.2a`).
   ``exchange_gain`` (`M5.D.7a`; ``basic_level`` is never written), every triangle holding
   the pair takes a permanent ``triangle_floor_decrement`` (`M1.C.5`), and the tie is left
   more solid (`M5.E.8`): both parties' axes fall by ``respect_gain`` of themselves and the
-  tie's functioning habit returns to zero.
+  tie's functioning habit returns to zero. The family's undifferentiation budget falls by
+  ``exchange_budget_reduction`` (`M6.I.1`'s one logged sink, ``sinks.reduce_budget``).
 
 **One outcome a week** (`M5.D.9`): on a week a step is due, the person's outcome is that
 step; on other weeks the person selects normally, and an act toward ``T`` is made as
@@ -74,6 +75,7 @@ from src.bowen.engine.moves import DEFAULT_AREA
 from src.bowen.engine.objects import Person, TieState
 from src.bowen.engine.outside_ness import axes, efficacy
 from src.bowen.engine.params import EngineParams
+from src.bowen.engine.sinks import reduce_budget
 from src.bowen.engine.state import RunState
 
 PREPARE, DEFINE, OPPOSITION, ABORT, HOLD, PEAK, RESOLVE, FOLLOW_UP = (
@@ -274,11 +276,11 @@ def step_done(state: RunState, mover: PersonId, params: EngineParams) -> list[Ef
         restore_prior_balance(state, mover)
         return [end(state, mover, "aborted")]
     if step == FOLLOW_UP:
-        return [complete(state, mover, params)]
+        return complete(state, mover, params)
     raise ValueError(f"{step} is not an outcome step")
 
 
-def complete(state: RunState, mover: PersonId, params: EngineParams) -> EffectRecord:
+def complete(state: RunState, mover: PersonId, params: EngineParams) -> list[EffectRecord]:
     """Purpose: a completed exchange — small level gain, permanent triangle decrement, a more solid tie.
     Spec:    docs/bowen_agent_model_spec_v2.md#M5.D.7, #M5.D.7a, #M1.C.5, #M5.E.8
     Tests:   tests/bowen/test_iposition.py::test_m5e8_completion_leaves_the_tie_more_solid
@@ -299,8 +301,10 @@ def complete(state: RunState, mover: PersonId, params: EngineParams) -> EffectRe
         p.outside_ness_inward = inward * (1 - params.respect_gain)
     state.tie_between(mover, target).functioning_habit[DEFAULT_AREA] = 0.0
     person.iposition_state = None
-    return EffectRecord(state.tick, "iposition", None, triangles=tuple(lowered), people=(
+    done = EffectRecord(state.tick, "iposition", None, triangles=tuple(lowered), people=(
         (mover, "iposition:end:completed", 1.0), (mover, "functional_level", params.exchange_gain)))
+    budget = reduce_budget(state, params, None)  # M6.I.1: the budget's one sink
+    return [done] + ([budget] if budget is not None else [])
 
 
 def skip_follow_up(state: RunState, mover: PersonId) -> EffectRecord:

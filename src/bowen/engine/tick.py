@@ -51,6 +51,7 @@ from src.bowen.engine.events import Event
 from src.bowen.engine.identifiers import PersonId
 from src.bowen.engine.invariants import assert_invariants, snapshot
 from src.bowen.engine.external import apply_landed_contacts
+from src.bowen.engine.sinks import allocate_sinks
 from src.bowen.engine.iposition import advance_sequences, redirect_to_sequence_tie, sequence_selections
 from src.bowen.engine.learner import learn, register_acts
 from src.bowen.engine.moves import apply_move_effects, settle_functioning
@@ -171,11 +172,12 @@ def run_tick(
     records += update_attention_state(state, attended, params)
     records += update_outside_ness(state, readings, params)
     records += settle_functioning(state, params)
+    records += allocate_sinks(state, params)
     records += consolidate(state, params)
     # M4.D.6: the tick's felt change, decay included, is credited after consolidation.
     records += learn(state, start_acute, params)
     steps.append("consolidate")
-    records.append(assert_invariants(state, before, loaded, tuple(steps), params.invariant_tolerance))
+    records.append(assert_invariants(state, before, loaded, tuple(steps), params.invariant_tolerance, tuple(records)))
 
     if (state.tick + 1) % params.slow_tick_fast_ticks == 0:
         records.append(EffectRecord(state.tick, "slow_tick", None))

@@ -192,11 +192,12 @@
   "note": "enforced for every declared spouse pair; the spec's Teodor/Ana (34/37) still breaks it — Phase D (review C)"
  },
  "M6.I.1": {
-  "status": "partial",
+  "status": "done",
   "evidence": [
-   "tests/bowen/test_mechanisms.py::test_m4g2_invariants_asserted_every_tick"
+   "tests/bowen/test_sinks.py::test_m6i1_allocation_conserves_the_budget",
+   "tests/bowen/test_sinks.py::test_m6i1_only_a_completed_exchange_reduces_the_budget"
   ],
-  "note": "asserted every tick; nothing moves the sinks until Phase C"
+  "note": "allocation conserves the budget; a completed exchange is its one logged sink (step 10)"
  },
  "M6.I.2": {
   "status": "partial",
@@ -227,8 +228,12 @@
   "note": "asserted every tick; basic_level does not move until the Phase D estimator"
  },
  "M6.I.6": {
-  "status": "not done",
-  "note": "disabled by M4.G.2a until restated (external review A3); a Phase C prerequisite"
+  "status": "done",
+  "evidence": [
+   "tests/bowen/test_ledger.py::test_m6i6_transfers_balance_every_tick",
+   "tests/bowen/test_ledger.py::test_m6i6_an_unbalanced_transfer_is_caught"
+  ],
+  "note": "restated at revision 12 and asserted every tick from Phase C step 10 as M6.4's ledger"
  },
  "M6.I.7": {
   "status": "partial",
@@ -376,5 +381,19 @@
    "tests/bowen/test_external.py::test_m16d2_default_delay_is_six_months_and_zero_is_only_an_arm"
   ],
   "note": "default 26 weeks; the SHOULD arm showing the delayed view lands where the instant one does not is not built"
+ },
+ "M6.4": {
+  "status": "done",
+  "evidence": [
+   "tests/bowen/test_ledger.py::test_m64_every_stock_change_is_logged_by_name"
+  ],
+  "note": "the table is invariants.LEDGER; Triangle.bound_anxiety is in the table but no Phase C mechanism writes it"
+ },
+ "M1.D.1": {
+  "status": "done",
+  "evidence": [
+   "tests/bowen/test_sinks.py::test_m1d1_marital_conflict_draws_the_budget_to_its_sink"
+  ],
+  "note": "one budget, three sinks, allocated from the family's acts (step 10)"
  }
 }

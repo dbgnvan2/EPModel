@@ -114,8 +114,8 @@ def test_m16c5_a_log_without_its_header_is_refused():
 def test_m16c2_an_unknown_mechanism_raises_instead_of_vanishing():
     from src.bowen.engine.log_records import EffectRecord
 
-    stray = EffectRecord(tick=3, mechanism="sink_allocation", cause=None)
-    with pytest.raises(UnrenderableRecord, match="sink_allocation"):
+    stray = EffectRecord(tick=3, mechanism="unheard_of_weekly_thing", cause=None)
+    with pytest.raises(UnrenderableRecord, match="unheard_of_weekly_thing"):
         render(RECORDS[:5] + [stray], NAMES)
     first_event = next(r.event for r in RECORDS if isinstance(r, EmittedRecord))
     caused = EffectRecord(tick=3, mechanism="new_thing", cause=first_event.id)

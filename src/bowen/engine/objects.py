@@ -261,6 +261,12 @@ class Family:
     differentiation_capacity: bool | None = None
     tolerance: dict[PersonId, float] = field(default_factory=dict)
     ambient_anxiety: float = 0.0
+    # M1.D.1, M1.D.3: the structure sink allocation reads — the nuclear marital tie, the
+    # nuclear parent–child ties, and the nuclear adults' family-of-origin ties. Declared
+    # data, set from the family definition (Phase C step 10).
+    marital_tie: TieId | None = None
+    parent_child_ties: tuple[TieId, ...] = ()
+    origin_ties: tuple[TieId, ...] = ()
 
     def __post_init__(self) -> None:
         if set(self.sink_allocations) != set(Sink):

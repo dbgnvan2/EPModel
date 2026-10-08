@@ -246,6 +246,12 @@ def build_family(text: str, constants: Constants, *, source: str = "<family>") -
     # M2.3 / M1.D.8: the nuclear family is not closed — each of its adults has a
     # family-of-origin tie.
     adults = instance.nuclear_adults()
+    nuclear = {p for p, person in people.items() if person.household_id == meta["nuclear_household"]}
+    instance.family.marital_tie = next(
+        (t for t, r in relations.items() if r is Relation.SPOUSE and set(t.members()) <= nuclear), None)
+    instance.family.parent_child_ties = tuple(sorted(
+        t for t, r in relations.items() if r is Relation.PARENT_OF and set(t.members()) <= nuclear))
+    instance.family.origin_ties = tuple(sorted({t for a in adults for t in instance.family_of_origin_ties(a)}))
     if not adults:
         raise ConfigError(f"{source}: no adult in nuclear household {meta['nuclear_household']!r}")
     for adult in adults:

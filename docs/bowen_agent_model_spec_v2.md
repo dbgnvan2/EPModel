@@ -1546,9 +1546,12 @@ Classes are `M14.A.1`'s four: exogenous-homogeneous (EH), exogenous-heterogeneou
 | `bound_anxiety` | Triangle | DV | triangle binding through the sinks (`M1.D.1`); `binder_unavailable` releases it (`M1.F.9`) | C; B |
 | `activation_memory` | Triangle | DV | triangle recompute, step 6 (`M1.C.4`) | B |
 | `intensity_floor` | Triangle | DV | a completed `I-POSITION` exchange (`M1.C.5`) ⟦rev12 · Phase C step 8, 2026-10-07⟧ | C |
-| `undifferentiation_budget` | Family | DV | family definition; `binder_unavailable` return (`M1.F.9`) | B |
-| `sink_allocations` | Family | DV | sink allocation (`M1.D.1`) | C |
-| `overflow` | Family | DV | sink allocation (`M1.D.3`) | C |
+| `undifferentiation_budget` | Family | DV | family definition; `binder_unavailable` return (`M1.F.9`); a completed differentiating exchange (`M6.I.1`) ⟦rev12 · Phase C step 10, 2026-10-07⟧ | B; C |
+| `sink_allocations` | Family | DV | sink allocation, step 9, from the family's recent acts (`M1.D.1`) ⟦rev12 · Phase C step 10, 2026-10-07⟧; scaled down by a budget reduction | C |
+| `overflow` | Family | DV | sink allocation, step 9 (`M1.D.3`) ⟦rev12 · Phase C step 10, 2026-10-07⟧ | C |
+| `marital_tie` | Family | EX | family definition: the nuclear spouses' tie (`M1.D.1`) ⟦rev12 · Phase C step 10, 2026-10-07⟧ | C |
+| `parent_child_ties` | Family | EX | family definition: the nuclear parent–child ties (`M1.D.1`) ⟦rev12 · Phase C step 10, 2026-10-07⟧ | C |
+| `origin_ties` | Family | EX | family definition: the nuclear adults' family-of-origin ties (`M1.D.3`, `M1.D.8`) ⟦rev12 · Phase C step 10, 2026-10-07⟧ | C |
 | `leadership_office` | Family | DV | family definition; recognition (`M1.D.4`) | B; C |
 | `differentiation_capacity` | Family | DV | derivation (`M1.D.4a`) | C |
 | `tolerance` | Family | DV | tolerance update (`M7.D.4`) | D |
@@ -1576,6 +1579,7 @@ Classes are `M14.A.1`'s four: exogenous-homogeneous (EH), exogenous-heterogeneou
 | `I-POSITION` sequence (`M5.D.1`–`M5.D.9`, `M5.E.3`, `M5.E.8`, `M1.C.5`) | Person | synchronous batch, step 7, before selection; step 8 for its outcome steps | a sequence in progress; an `I-POSITION` selected | the mover's own anxiety, functional level, efficacy and own felt state on the tie; moves delivered to it this tick; its own learned values for the abort branch | `Person.iposition_state`, own axes and functional level | the other's `functional_level` (pull-up), `Triangle.intensity_floor`, the tie's functioning balance and habit, the other's axes on completion ⟦rev12 · Phase C step 8, 2026-10-07⟧ | C |
 | `I-POSITION` delivered (`M5.E.7`, `M5.F.2a`, `M5.F.4`) | engine | synchronous batch, step 4, after appraisal | an `I-POSITION` delivered to its target | the event's assertion flag; the tie | — | the target's `Relationship.felt_contact` (genuine), the sender's `Person.outside_ness_outward` (assertion) ⟦rev12 · Phase C step 8, 2026-10-07⟧ | C |
 | Landed contact (`M1.E.7`, `M1.E.7c`, `M1.E.7d`, `M1.E.8`) | engine | synchronous batch, step 4, after move physics | an external agent's move delivered to a family member | the coach's two axes; the recipient's symptom load, threshold and delayed view (`M16.D`); the coach's recent contacts; a keyed draw | — | the recipient's `Person.systems_perspective` ⟦rev12 · Phase C step 9, 2026-10-07⟧ | C |
+| Sink allocation (`M1.D.1`, `M1.D.3`, `M6.I.1`) | engine | synchronous batch, step 9 | every tick | the family's moves in the event store over the sink window; the family structure | — | `Family.sink_allocations`, `Family.overflow` ⟦rev12 · Phase C step 10, 2026-10-07⟧ | C |
 | Visibility (`M3.E.1`, `M1.F.1b`) | engine | called from step 8 | event created | `household_id`; tie `conductance`; route | — | `Event.witnesses` | B |
 | Consolidate (`M4.G.1`, `M1.A.8`, `M4.C.1c`) | engine | synchronous batch, step 9 | every tick | tie event history; `chronic_anxiety`; the optimum's inputs | — | `Relationship.tie_state`, `Relationship.bond_energy`, `Person.acute_anxiety`; `Relationship.felt_contact`, `felt_impingement` (contact relaxation, ⟦rev11 · Phase C step 1, 2026-10-07⟧) *(built in B, rebuilt in C)* | C |
 | Invariants (`M4.G.2`, `M4.G.2a`) | engine | synchronous batch, step 9 | every tick | all state | — | — | B |

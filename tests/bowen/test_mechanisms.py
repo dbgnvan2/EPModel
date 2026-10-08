@@ -20,7 +20,8 @@ from src.bowen.engine.events import (
     BinderKind, BinderRef, Channel, Delivery, Event, EventId, EventKinds, Mechanism, Role, SourcePosition,
 )
 from src.bowen.engine.identifiers import PersonId, TieId, TriangleId
-from src.bowen.engine.invariants import InvariantViolation, M6I6NotRestated, assert_invariants, check_m6i6, snapshot
+from src.bowen.engine.invariants import InvariantViolation, assert_invariants, snapshot
+from src.bowen.engine.log_records import InvariantStatus
 from src.bowen.engine.objects import TieState
 from src.bowen.engine.recompute import is_member, recompute_involvement, recompute_triangles
 from src.bowen.engine.standing_load import apply_standing_load, self_term, tie_term
@@ -405,17 +406,17 @@ def test_m4e1_scripted_move_becomes_full_event():
 
 def _checked(state, mutate=None, steps=("standing_load", "deliver")):
     before = snapshot(state)
-    _, loaded = apply_standing_load(state, PARAMS)
+    effects, loaded = apply_standing_load(state, PARAMS)
     if mutate:
         loaded = mutate(state, loaded)
-    return assert_invariants(state, before, loaded, steps, PARAMS.invariant_tolerance)
+    return assert_invariants(state, before, loaded, steps, PARAMS.invariant_tolerance, tuple(effects))
 
 
 def test_m4g2_invariants_asserted_every_tick():
     record = _checked(fresh())
     statuses = dict(record.results)
     assert set(statuses) == {f"M6.I.{i}" for i in range(1, 9)}
-    assert statuses["M6.I.6"].value == "disabled"
+    assert statuses["M6.I.6"].value == "passed"  # restated at revision 12, asserted from Phase C step 10
     assert all(s.value == "passed" for k, s in statuses.items() if k != "M6.I.6")
 
 
@@ -434,9 +435,13 @@ def test_m4g2_a_violation_raises(invariant, mutate, steps):
         _checked(fresh(), mutate, steps)
 
 
-def test_m4g2a_m6i6_cannot_be_enabled():
-    with pytest.raises(M6I6NotRestated):
-        check_m6i6(enabled=True)
+def test_m4g2a_m6i6_is_asserted_once_restated():
+    """M4.G.2a held M6.I.6 back until revision 12 restated it; from Phase C step 10 it is asserted."""
+    record = _checked(fresh(), None, ("standing_load", "deliver"))
+    assert dict(record.results)["M6.I.6"] is InvariantStatus.PASSED
+    with pytest.raises(InvariantViolation, match="M6.I.6"):
+        _checked(fresh(), lambda s, l: (setattr(s.people[RAVI], "acute_anxiety", 99.0), l)[1],
+                 ("standing_load", "deliver"))
 
 
 def test_m1f5_a_witness_takes_no_more_than_the_edge_it_overheard():

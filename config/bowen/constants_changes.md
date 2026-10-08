@@ -85,3 +85,6 @@
 | `contact_window` | — | 26 | 2026-10-07 | — (new mechanism; Phase C step 9) | no |
 | `perspective_gain` | — | 0.1 | 2026-10-07 | — (new mechanism; Phase C step 9) | no |
 | `delayed_view_weeks` | — | 26 | 2026-10-07 | — (new mechanism; Phase C step 9) | no |
+| `sink_window` | — | 8 | 2026-10-07 | — (new mechanism; Phase C step 10) | no |
+| `sink_rate` | — | 0.1 | 2026-10-07 | — (new mechanism; Phase C step 10) | no |
+| `exchange_budget_reduction` | — | 2.0 | 2026-10-07 | — (new mechanism; Phase C step 10) | no |

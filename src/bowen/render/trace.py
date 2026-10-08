@@ -51,7 +51,7 @@ CAUSED = frozenset({"appraisal", "calm_contact", "symptom_onset", "distance_bind
 SYSTEM_SHOWN = frozenset({"triangle_recompute", "consolidation", "slow_tick"})
 SYSTEM_SUMMARISED = frozenset({
     "standing_load", "acute_decay", "contact_relaxation", "symptom_accumulation", "investment", "reactive_state",
-    "outside_ness", "belief", "functioning_settle", "competing_urges", "withhold", "learning",
+    "outside_ness", "belief", "functioning_settle", "competing_urges", "withhold", "learning", "sink_allocation",
 })  # every week, everyone; stated once
 
 
@@ -217,6 +217,8 @@ def _system_rows(effect: EffectRecord, names: _Names) -> list[str]:
                 raise UnrenderableRecord(f"no template for I-POSITION field {field!r}")
         for tri, field, value in effect.triangles:
             rows.append(f"{names.triangle(tri)} triangle: permanent intensity floor now {float(value):.2f}")
+    elif effect.mechanism == "differentiating_exchange":
+        rows += [f"undifferentiation budget {_signed(v)} (a completed differentiating exchange)" for _, v in effect.sinks]
     elif effect.mechanism == "slow_tick":
         rows.append("slow tick (yearly) fired — nothing runs on it in Phase B")
     elif effect.mechanism not in SYSTEM_SUMMARISED:

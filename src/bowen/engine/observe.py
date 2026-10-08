@@ -35,7 +35,7 @@ from src.bowen.engine.contact import deviation, excess
 from src.bowen.engine.events import Role as DeliveryRole
 from src.bowen.engine.identifiers import PersonId, TieId, TriangleId
 from src.bowen.engine.moves import triangle_outsider
-from src.bowen.engine.objects import Role, TieState
+from src.bowen.engine.objects import SCALE_MAX, Role, TieState  # SCALE_MAX re-exported for the policy
 from src.bowen.engine.outside_ness import axes
 from src.bowen.engine.params import EngineParams
 from src.bowen.engine.state import RunState

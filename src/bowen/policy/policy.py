@@ -69,7 +69,7 @@ from src.bowen.engine.draws import DrawKey, DrawService
 from src.bowen.engine.events import EventKinds
 from src.bowen.engine.identifiers import PersonId, TieId
 from src.bowen.engine.log_records import DecidedBy
-from src.bowen.engine.observe import Observation
+from src.bowen.engine.observe import SCALE_MAX, Observation
 from src.bowen.engine.params import EngineParams
 from src.bowen.policy.rules import PolicyRules
 
@@ -177,7 +177,7 @@ def self_channel_weight(functional_level: float, params: EngineParams) -> float:
     Spec:    docs/bowen_agent_model_spec_v2.md#M4.D.1a
     Tests:   tests/bowen/test_policy.py::test_m4d1a_mixing_weight_reads_functional_level_only
     """
-    return min(1.0, max(0.0, functional_level / 100.0)) ** params.self_channel_exponent
+    return min(1.0, max(0.0, functional_level / SCALE_MAX)) ** params.self_channel_exponent
 
 
 def availability(kind: str, obs: Observation, kinds: EventKinds, params: EngineParams) -> float:

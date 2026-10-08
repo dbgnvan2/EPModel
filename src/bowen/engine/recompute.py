@@ -40,6 +40,7 @@ from src.bowen.engine.events import Mechanism
 from src.bowen.engine.identifiers import PersonId, TieId
 from src.bowen.engine.live_positions import Occupant, positions_live
 from src.bowen.engine.log_records import EffectRecord
+from src.bowen.engine.objects import SCALE_MAX
 from src.bowen.engine.params import EngineParams
 from src.bowen.engine.state import RunState
 
@@ -50,7 +51,7 @@ PREVENT_ALIGNMENT_KIND = "PREVENT_ALIGNMENT"
 
 
 def involvement(state: RunState, person: PersonId) -> float:
-    return sum(t.bond_energy for t in state.ties_of(person)) / 100.0
+    return sum(t.bond_energy for t in state.ties_of(person)) / SCALE_MAX
 
 
 def is_member(state: RunState, person: PersonId, params: EngineParams) -> bool:

@@ -19,7 +19,7 @@ probability
   reached ``binder_failure_fraction`` of its threshold; 0 otherwise (`M1.E.7`: pain is
   necessary). Without it no contact lands.
 * **frequency** (`M1.E.8`) — with ``n`` contacts from the agent to the recipient in the last
-  ``contact_window`` weeks, 1 up to ``contact_optimum`` and ``(optimum / n) ** 2`` above it,
+  ``contact_window`` weeks, 1 up to ``contact_optimum`` and ``(optimum / n) ** contact_excess_exponent`` above it,
   so more coaching past a low rate is worse, not better.
 * **own log** — 1 if the recipient's delayed view (`M16.D`: its own events older than
   ``delayed_view_weeks``) holds any move it sent, else 0: `M1.E.7c`'s fourth form, delayed
@@ -66,7 +66,7 @@ def landing_probability(state: RunState, coach, recipient, params: EngineParams)
         if e.mechanism is Mechanism.MOVE and recipient.id in e.targets
         and state.tick - params.contact_window < e.timestamp <= state.tick
     )
-    frequency = 1.0 if recent <= params.contact_optimum else (params.contact_optimum / recent) ** 2
+    frequency = 1.0 if recent <= params.contact_optimum else (params.contact_optimum / recent) ** params.contact_excess_exponent
     own_log = any(e.sender == recipient.id and e.mechanism is Mechanism.MOVE
                   for e in state.store.delayed_view(recipient.id, state.tick, params.delayed_view_weeks))
     p = params.landing_rate * efficacy(coach) * frequency * (1.0 + params.delayed_view_bonus * own_log)

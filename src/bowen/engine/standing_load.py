@@ -32,8 +32,8 @@ from __future__ import annotations
 from src.bowen.engine.contact import steepness, too_little
 from src.bowen.engine.identifiers import PersonId, TieId
 from src.bowen.engine.log_records import EffectRecord
+from src.bowen.engine.objects import SCALE_MAX, Person, Relationship
 from src.bowen.engine.params import EngineParams
-from src.bowen.engine.objects import Person, Relationship
 from src.bowen.engine.state import RunState
 
 
@@ -54,7 +54,7 @@ def self_term(person: Person, params: EngineParams) -> float:
     Spec:    docs/bowen_agent_model_spec_v2.md#M4.A.5
     Tests:   tests/bowen/test_mechanisms.py::test_m4a5_self_generated_load_derives_from_basic_level
     """
-    return params.standing_load_gain * (100.0 - person.basic_level) / 100.0
+    return params.standing_load_gain * (SCALE_MAX - person.basic_level) / SCALE_MAX
 
 
 def apply_standing_load(state: RunState, params: EngineParams) -> tuple[list[EffectRecord], frozenset[TieId]]:

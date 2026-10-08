@@ -232,7 +232,8 @@ def witness_delta(state: RunState, witness: Person, event: Event, params: Engine
     """
     to_sender = _conductance(state, witness.id, event.sender) if event.sender is not None else 1.0
     to_targets = [_conductance(state, witness.id, t) for t in event.targets] or [0.0]
-    reach = (to_sender + max(to_targets)) / 2.0
+    ends = (to_sender, max(to_targets))
+    reach = sum(ends) / len(ends)  # the mean of its tie to each party
     return params.witness_weight * _scale(event, reach, params) * steepness(witness, params)
 
 

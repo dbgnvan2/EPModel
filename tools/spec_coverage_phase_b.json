@@ -184,8 +184,11 @@
   "note": "beliefs exist from Phase C step 4 and true_counterpart gives each one's true-state side (tests/bowen/test_beliefs.py::test_m98_belief_can_differ_from_the_true_state); the log records belief changes, not the tie's true levels, so a per-tick discrepancy is not yet recoverable from the log alone"
  },
  "M16.T.3": {
-  "status": "partial",
-  "note": "passes in Phase B, where it is vacuous (no policy reads the log); must be rerun at the end of Phases C and D"
+  "status": "done",
+  "evidence": [
+   "tests/bowen/test_engineering_gates.py::test_m16t3_sink_does_not_change_results_under_the_policy"
+  ],
+  "note": "rerun at Phase C step 13 with the policy and the learner reading the store; to be rerun at the end of Phase D"
  },
  "M2.A.0e": {
   "status": "partial",

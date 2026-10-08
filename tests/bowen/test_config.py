@@ -97,6 +97,7 @@ GOOD_ROWS = (
     "| `contact_window` | 26 | [I] | u | `M1.E.8` |\n"
     "| `perspective_gain` | 0.1 | [I] | u | `M1.E.7` |\n"
     "| `delayed_view_weeks` | 26 | [I] | u | `M16.D.2` |\n"
+    "| `contact_excess_exponent` | 2.0 | [I] | u | `M1.E.8` |\n"
     "| `sink_window` | 8 | [I] | u | `M1.D.1` |\n"
     "| `sink_rate` | 0.1 | [I] | u | `M1.D.1` |\n"
     "| `exchange_budget_reduction` | 2.0 | [I] | u | `M6.I.1` |\n"

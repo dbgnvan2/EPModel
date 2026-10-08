@@ -72,7 +72,7 @@ from src.bowen.engine.events import Mechanism, Role
 from src.bowen.engine.identifiers import PersonId, TieId
 from src.bowen.engine.log_records import EffectRecord
 from src.bowen.engine.moves import DEFAULT_AREA
-from src.bowen.engine.objects import Person, TieState
+from src.bowen.engine.objects import SCALE_MAX, Person, TieState
 from src.bowen.engine.outside_ness import axes, efficacy
 from src.bowen.engine.params import EngineParams
 from src.bowen.engine.sinks import reduce_budget
@@ -287,7 +287,7 @@ def complete(state: RunState, mover: PersonId, params: EngineParams) -> list[Eff
     """
     person = state.people[mover]
     target = person.iposition_state.target
-    person.functional_level = min(100.0, person.functional_level + params.exchange_gain)
+    person.functional_level = min(SCALE_MAX, person.functional_level + params.exchange_gain)
     lowered = []
     for tri_id in sorted(state.triangles):
         if mover in tri_id.members and target in tri_id.members:

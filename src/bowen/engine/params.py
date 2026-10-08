@@ -102,6 +102,7 @@ class EngineParams:
     sink_window: int           # M1.D.1 — weeks of acts that weight each sink
     sink_rate: float           # M1.D.1 — share of the gap to its target share each allocation closes per tick
     exchange_budget_reduction: float # M6.I.1, M5.D.7 — what a completed differentiating exchange removes from the budget
+    contact_excess_exponent: float         # M1.E.8 — past the optimum, landing falls as (optimum / n) ** this
     belief_rate: float                     # M9.8 — share of the gap to a witnessed observation closed per tick, at full fidelity
 
     def __post_init__(self) -> None:

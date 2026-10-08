@@ -139,6 +139,7 @@ activation_regime: synchronous
 | `contact_window` | 26 | [I] | fast ticks | `M1.E.8` |
 | `perspective_gain` | 0.1 | [I] | share of the gap to 1 | `M1.E.7` |
 | `delayed_view_weeks` | 26 | [I] | fast ticks | `M16.D.2` |
+| `contact_excess_exponent` | 2.0 | [I] | exponent | `M1.E.8` |
 | `sink_window` | 8 | [I] | fast ticks | `M1.D.1` |
 | `sink_rate` | 0.1 | [I] | share of the gap per tick | `M1.D.1` |
 | `exchange_budget_reduction` | 2.0 | [I] | budget units per completed exchange | `M6.I.1` |

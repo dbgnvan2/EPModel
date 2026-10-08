@@ -226,3 +226,7 @@ Neither gave a wrong result in the tree.
 
 All three records were regenerated. Apart from the hash line they are byte-identical to the previous ones: every
 verdict, seed count, difference and mutant result is unchanged, so the move to config changed no behaviour.
+
+A third gate on those fixes (`docs/cycles/2026-10-08_phase-c-qa-gate-3.md`) verified all three, including the
+claim that the regenerated records are identical, and **APPROVED**, with three low findings and no high or
+medium. They are in `TODO.md`.

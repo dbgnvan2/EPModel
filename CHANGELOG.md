@@ -70,6 +70,10 @@ the per-criterion status is in `docs/phase_c_completion_report.md`.
 - **`M11.C.1` and `.38` stay premise, 2026-10-08.** No new class: every level-reading rule states the direction, so a
   pass is not a finding. The spec's `M11.5` rows now list the nine rules and name the joint level-blind mutant as the
   proof; plan §3's single-rule mutant cannot prove them.
+- **The ensemble precision rule, 2026-10-08.** The stopping rule compares the half-width with 0.25 of the pooled sd of
+  the two arms, not the baseline arm's (`ensemble_precision`'s unit changed, logged post hoc). Decided and committed
+  before rerunning. `M11.C.16` now passes, but survives its named learner mutants, so its direction does not come
+  from learning; `M11.C.41`'s [light: lower level] cell now fails instead of undetermined. Report §10.
 - From the tenth gate (APPROVED, four low findings): `M11.5`'s premise definition now admits a result several rules
   state redundantly; the `M11.C.38` note says no single-rule mutant reds all three pairs (four of six red none); an
   "exactly zero" claim no committed record holds was removed; this file's `.45` entry corrected.

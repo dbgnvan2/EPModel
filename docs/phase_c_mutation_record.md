@@ -7,27 +7,28 @@ is **red** when the criterion stops passing and **survived** when it still passe
 mutant does not prove the criterion. A representation mutant (`M11.1c`) should leave every verdict
 unchanged; a change is reported as an **encoding artefact**.
 
-code_hash: ce8a1c52f46bfe93435e6b40bf2ab8b71db2a76827e3f0409051f1c684626f5c
+code_hash: 3aca4e4cce611a18faa0ed651d54bff54900a4cefd1461364679625b986a7127
 
 | Mutant | Kind | What it changes | Criterion | Verdict under mutant | Seeds | Result |
 |---|---|---|---|---|---|---|
 | `steepness-level-independent` | named | M4.C.1a's steepness made independent of functional_level (fixed at its value for level 50) | `M11.C.1` | PASS | 100 | **survived** |
-| `steepness-level-independent` | named | M4.C.1a's steepness made independent of functional_level (fixed at its value for level 50) | `M11.C.38[-0 vs -5]` | PASS | 50 | **survived** |
+| `steepness-level-independent` | named | M4.C.1a's steepness made independent of functional_level (fixed at its value for level 50) | `M11.C.38[-0 vs -5]` | PASS | 100 | **survived** |
 | `steepness-level-independent` | named | M4.C.1a's steepness made independent of functional_level (fixed at its value for level 50) | `M11.C.38[-5 vs -10]` | PASS | 100 | **survived** |
 | `steepness-level-independent` | named | M4.C.1a's steepness made independent of functional_level (fixed at its value for level 50) | `M11.C.38[-10 vs -15]` | PASS | 50 | **survived** |
 | `triangle-transfer-removed` | named | M1.C.1's transfer removed | `M11.C.3` | FAIL | 50 | **red** |
+| `learner-disabled` | named | M4.D.6 disabled in both arms: no learned value ever moves | `M11.C.16` | PASS | 150 | **survived** |
 | `axes-collapsed` | named | M5.F.2b's two axes collapsed to their mean | `M11.C.19` | FAIL | 50 | **red** |
 | `sex-term-in-pole` | named | a sex term added to pole assignment: a female over-functioner pushes four times as hard | `M11.C.25` | FAIL | 100 | **red** |
 | `one-sided-deviation` | named | M4.C.1 made one-sided: only too little contact is felt | `M11.C.27[unstable,remove_one]` | FAIL | 50 | **red** |
-| `anger-gate-inverted` | named | M5.D.4's anger gate inverted | `M11.C.32` | FAIL | 350 | **red** |
-| `witness-position-blind` | named | witness appraisal made a copy that reads neither of the witness's ties | `M11.C.35` | FAIL | 150 | **red** |
+| `anger-gate-inverted` | named | M5.D.4's anger gate inverted | `M11.C.32` | FAIL | 150 | **red** |
+| `witness-position-blind` | named | witness appraisal made a copy that reads neither of the witness's ties | `M11.C.35` | FAIL | 100 | **red** |
 | `threshold-level-independent` | deletion | M1.A.6's symptom threshold made independent of functional_level (fixed at its value for level 50) | `M11.C.1` | PASS | 100 | **survived** |
 | `threshold-level-independent` | deletion | M1.A.6's symptom threshold made independent of functional_level (fixed at its value for level 50) | `M11.C.38[-0 vs -5]` | PASS | 100 | **survived** |
 | `threshold-level-independent` | deletion | M1.A.6's symptom threshold made independent of functional_level (fixed at its value for level 50) | `M11.C.38[-5 vs -10]` | PASS | 150 | **survived** |
 | `threshold-level-independent` | deletion | M1.A.6's symptom threshold made independent of functional_level (fixed at its value for level 50) | `M11.C.38[-10 vs -15]` | PASS | 50 | **survived** |
-| `threshold-level-inverted` | sign-inverted | M1.A.6's symptom threshold falls as functional_level rises | `M11.C.1` | PASS | 150 | **survived** |
+| `threshold-level-inverted` | sign-inverted | M1.A.6's symptom threshold falls as functional_level rises | `M11.C.1` | PASS | 100 | **survived** |
 | `threshold-level-inverted` | sign-inverted | M1.A.6's symptom threshold falls as functional_level rises | `M11.C.38[-0 vs -5]` | FAIL | 100 | **red** |
-| `threshold-level-inverted` | sign-inverted | M1.A.6's symptom threshold falls as functional_level rises | `M11.C.38[-5 vs -10]` | PASS | 150 | **survived** |
+| `threshold-level-inverted` | sign-inverted | M1.A.6's symptom threshold falls as functional_level rises | `M11.C.38[-5 vs -10]` | PASS | 100 | **survived** |
 | `threshold-level-inverted` | sign-inverted | M1.A.6's symptom threshold falls as functional_level rises | `M11.C.38[-10 vs -15]` | PASS | 50 | **survived** |
 | `standing-load-level-independent` | deletion | M4.A.5's self term made independent of basic_level (fixed at its value for level 50) | `M11.C.1` | PASS | 100 | **survived** |
 | `standing-load-level-independent` | deletion | M4.A.5's self term made independent of basic_level (fixed at its value for level 50) | `M11.C.38[-0 vs -5]` | PASS | 100 | **survived** |
@@ -42,31 +43,34 @@ code_hash: ce8a1c52f46bfe93435e6b40bf2ab8b71db2a76827e3f0409051f1c684626f5c
 | `level-blind` | deletion | every rule that reads level made level-independent at once: steepness, band, threshold, mixing weight, layer availability, M4.A.5's self term, initial outside-ness, triangle routing capacity and I-POSITION hold capacity | `M11.C.38[-5 vs -10]` | FAIL | 50 | **red** |
 | `level-blind` | deletion | every rule that reads level made level-independent at once: steepness, band, threshold, mixing weight, layer availability, M4.A.5's self term, initial outside-ness, triangle routing capacity and I-POSITION hold capacity | `M11.C.38[-10 vs -15]` | FAIL | 50 | **red** |
 | `triangle-roles-swapped` | sign-inverted | M1.C.1's roles swapped back to step 5's alliance reading: sender and target inside, the partner outside | `M11.C.3` | FAIL | 50 | **red** |
-| `steepness-inverted` | sign-inverted | M4.C.1a's steepness rises with functional_level instead of falling | `M11.C.1` | PASS | 150 | **survived** |
+| `steepness-inverted` | sign-inverted | M4.C.1a's steepness rises with functional_level instead of falling | `M11.C.1` | PASS | 100 | **survived** |
 | `steepness-inverted` | sign-inverted | M4.C.1a's steepness rises with functional_level instead of falling | `M11.C.38[-0 vs -5]` | FAIL | 100 | **red** |
-| `steepness-inverted` | sign-inverted | M4.C.1a's steepness rises with functional_level instead of falling | `M11.C.38[-5 vs -10]` | PASS | 150 | **survived** |
-| `steepness-inverted` | sign-inverted | M4.C.1a's steepness rises with functional_level instead of falling | `M11.C.38[-10 vs -15]` | FAIL | 100 | **red** |
+| `steepness-inverted` | sign-inverted | M4.C.1a's steepness rises with functional_level instead of falling | `M11.C.38[-5 vs -10]` | PASS | 100 | **survived** |
+| `steepness-inverted` | sign-inverted | M4.C.1a's steepness rises with functional_level instead of falling | `M11.C.38[-10 vs -15]` | FAIL | 50 | **red** |
+| `learner-inverted` | sign-inverted | M4.D.6 inverted: relief lowers an act's learned value, distress raises it | `M11.C.16` | PASS | 150 | **survived** |
 | `axes-swapped` | sign-inverted | M5.F.2b's axes read the wrong way round | `M11.C.19` | FAIL | 50 | **red** |
 | `deviation-inverted` | sign-inverted | M4.C.1's deviation inverted: moving away from the optimum relieves | `M11.C.27[unstable,remove_one]` | FAIL | 100 | **red** |
-| `anger-gate-removed` | deletion | M5.D.4's anger gate removed: the mover is never angry | `M11.C.32` | FAIL | 100 | **red** |
-| `witness-reach-inverted` | sign-inverted | the witness feels more through weaker ties | `M11.C.35` | FAIL | 300 | **red** |
+| `anger-gate-removed` | deletion | M5.D.4's anger gate removed: the mover is never angry | `M11.C.32` | FAIL | 50 | **red** |
+| `witness-reach-inverted` | sign-inverted | the witness feels more through weaker ties | `M11.C.35` | FAIL | 100 | **red** |
 | `appraisal-sum-order-reversed` | representation | same-tick appraisal summed in reverse order (M1.F.8: order-free up to float rounding) | `M11.C.1` | PASS | 100 | **unchanged** |
 | `appraisal-sum-order-reversed` | representation | same-tick appraisal summed in reverse order (M1.F.8: order-free up to float rounding) | `M11.C.3` | PASS | 50 | **unchanged** |
+| `appraisal-sum-order-reversed` | representation | same-tick appraisal summed in reverse order (M1.F.8: order-free up to float rounding) | `M11.C.16` | PASS | 150 | **unchanged** |
 | `appraisal-sum-order-reversed` | representation | same-tick appraisal summed in reverse order (M1.F.8: order-free up to float rounding) | `M11.C.19` | PASS | 50 | **unchanged** |
 | `appraisal-sum-order-reversed` | representation | same-tick appraisal summed in reverse order (M1.F.8: order-free up to float rounding) | `M11.C.25` | PASS | 50 | **unchanged** |
 | `appraisal-sum-order-reversed` | representation | same-tick appraisal summed in reverse order (M1.F.8: order-free up to float rounding) | `M11.C.32` | PASS | 100 | **unchanged** |
-| `appraisal-sum-order-reversed` | representation | same-tick appraisal summed in reverse order (M1.F.8: order-free up to float rounding) | `M11.C.35` | PASS | 200 | **unchanged** |
-| `appraisal-sum-order-reversed` | representation | same-tick appraisal summed in reverse order (M1.F.8: order-free up to float rounding) | `M11.C.27[unstable,remove_one]` | PASS | 100 | **unchanged** |
+| `appraisal-sum-order-reversed` | representation | same-tick appraisal summed in reverse order (M1.F.8: order-free up to float rounding) | `M11.C.35` | PASS | 100 | **unchanged** |
+| `appraisal-sum-order-reversed` | representation | same-tick appraisal summed in reverse order (M1.F.8: order-free up to float rounding) | `M11.C.27[unstable,remove_one]` | PASS | 50 | **unchanged** |
 | `appraisal-sum-order-reversed` | representation | same-tick appraisal summed in reverse order (M1.F.8: order-free up to float rounding) | `M11.C.38[-0 vs -5]` | PASS | 100 | **unchanged** |
 | `appraisal-sum-order-reversed` | representation | same-tick appraisal summed in reverse order (M1.F.8: order-free up to float rounding) | `M11.C.38[-5 vs -10]` | PASS | 100 | **unchanged** |
 | `appraisal-sum-order-reversed` | representation | same-tick appraisal summed in reverse order (M1.F.8: order-free up to float rounding) | `M11.C.38[-10 vs -15]` | PASS | 100 | **unchanged** |
 | `clamp-within-tolerance` | representation | felt contact and impingement clamped 1e-12 inside [0, 1] | `M11.C.1` | PASS | 100 | **unchanged** |
 | `clamp-within-tolerance` | representation | felt contact and impingement clamped 1e-12 inside [0, 1] | `M11.C.3` | PASS | 50 | **unchanged** |
+| `clamp-within-tolerance` | representation | felt contact and impingement clamped 1e-12 inside [0, 1] | `M11.C.16` | PASS | 150 | **unchanged** |
 | `clamp-within-tolerance` | representation | felt contact and impingement clamped 1e-12 inside [0, 1] | `M11.C.19` | PASS | 50 | **unchanged** |
 | `clamp-within-tolerance` | representation | felt contact and impingement clamped 1e-12 inside [0, 1] | `M11.C.25` | PASS | 50 | **unchanged** |
 | `clamp-within-tolerance` | representation | felt contact and impingement clamped 1e-12 inside [0, 1] | `M11.C.32` | PASS | 100 | **unchanged** |
-| `clamp-within-tolerance` | representation | felt contact and impingement clamped 1e-12 inside [0, 1] | `M11.C.35` | PASS | 200 | **unchanged** |
-| `clamp-within-tolerance` | representation | felt contact and impingement clamped 1e-12 inside [0, 1] | `M11.C.27[unstable,remove_one]` | PASS | 100 | **unchanged** |
+| `clamp-within-tolerance` | representation | felt contact and impingement clamped 1e-12 inside [0, 1] | `M11.C.35` | PASS | 100 | **unchanged** |
+| `clamp-within-tolerance` | representation | felt contact and impingement clamped 1e-12 inside [0, 1] | `M11.C.27[unstable,remove_one]` | PASS | 50 | **unchanged** |
 | `clamp-within-tolerance` | representation | felt contact and impingement clamped 1e-12 inside [0, 1] | `M11.C.38[-0 vs -5]` | PASS | 100 | **unchanged** |
 | `clamp-within-tolerance` | representation | felt contact and impingement clamped 1e-12 inside [0, 1] | `M11.C.38[-5 vs -10]` | PASS | 100 | **unchanged** |
 | `clamp-within-tolerance` | representation | felt contact and impingement clamped 1e-12 inside [0, 1] | `M11.C.38[-10 vs -15]` | PASS | 100 | **unchanged** |
@@ -84,7 +88,6 @@ criterion.
 - `mixing-weight-level-independent` → `M11.C.41[heavy: lower level]`
 - `mixing-weight-level-independent` → `M11.C.41[higher level: heavier stress]`
 - `mixing-weight-level-independent` → `M11.C.41[lower level: heavier stress]`
-- `learner-disabled` → `M11.C.16`
 - `learner-disabled` → `M11.C.42`
 - `one-sided-deviation` → `M11.C.44`
 - `one-sided-deviation` → `M11.C.27[stable,add_third]`
@@ -119,7 +122,6 @@ criterion.
 - `mixing-weight-inverted` → `M11.C.41[heavy: lower level]`
 - `mixing-weight-inverted` → `M11.C.41[higher level: heavier stress]`
 - `mixing-weight-inverted` → `M11.C.41[lower level: heavier stress]`
-- `learner-inverted` → `M11.C.16`
 - `learner-inverted` → `M11.C.42`
 - `deviation-inverted` → `M11.C.44`
 - `deviation-inverted` → `M11.C.27[stable,add_third]`
@@ -165,6 +167,13 @@ criterion.
   "criterion": "M11.C.3",
   "outcome": "FAIL",
   "result": "red"
+ },
+ {
+  "mutant": "learner-disabled",
+  "kind": "named",
+  "criterion": "M11.C.16",
+  "outcome": "PASS",
+  "result": "survived"
  },
  {
   "mutant": "axes-collapsed",
@@ -377,6 +386,13 @@ criterion.
   "result": "red"
  },
  {
+  "mutant": "learner-inverted",
+  "kind": "sign-inverted",
+  "criterion": "M11.C.16",
+  "outcome": "PASS",
+  "result": "survived"
+ },
+ {
   "mutant": "axes-swapped",
   "kind": "sign-inverted",
   "criterion": "M11.C.19",
@@ -415,6 +431,13 @@ criterion.
   "mutant": "appraisal-sum-order-reversed",
   "kind": "representation",
   "criterion": "M11.C.3",
+  "outcome": "PASS",
+  "result": "unchanged"
+ },
+ {
+  "mutant": "appraisal-sum-order-reversed",
+  "kind": "representation",
+  "criterion": "M11.C.16",
   "outcome": "PASS",
   "result": "unchanged"
  },
@@ -485,6 +508,13 @@ criterion.
   "mutant": "clamp-within-tolerance",
   "kind": "representation",
   "criterion": "M11.C.3",
+  "outcome": "PASS",
+  "result": "unchanged"
+ },
+ {
+  "mutant": "clamp-within-tolerance",
+  "kind": "representation",
+  "criterion": "M11.C.16",
   "outcome": "PASS",
   "result": "unchanged"
  },

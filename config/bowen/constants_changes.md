@@ -104,3 +104,4 @@
 | `fallback_flag_rate` | — | 0.2 | 2026-10-07 | — (ensemble rule; Phase C step 12) | no |
 | `equivalence_margin` | — | 0.5 | 2026-10-07 | — (ensemble rule; Phase C step 12) | no |
 | `contact_excess_exponent` | — | 2.0 | 2026-10-07 | — (promoted from a literal by M11.D.2; Phase C step 13) | no |
+| `ensemble_precision` | 0.25 | 0.25 (unit changed: pooled seed-to-seed sd of the two arms, was the baseline arm's) | 2026-10-08 | — (owner request; `docs/phase_c_completion_report.md` §10, decided before rerunning) | yes |

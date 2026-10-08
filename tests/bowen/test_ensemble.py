@@ -84,3 +84,19 @@ def test_m11d18_fallback_rate_is_reported_and_flagged():
     verdict = run_criterion(crit(effect=1.0, fallbacks=5), RULES)
     assert verdict.fallback_rate == pytest.approx(0.5) and verdict.fallback_by_person == {"ravi": 0.5}
     assert verdict.outcome == PASS and any("fallback" in f for f in verdict.flagged)
+
+
+def test_m17a1_precision_is_measured_against_both_arms_spread():
+    """A treatment arm much noisier than the baseline converges (decided 2026-10-08, report §10).
+
+    Against the baseline arm's sd alone (0.2 here) the half-width would need ~6,000 seeds; against the pooled sd
+    it converges well inside the cap. This is M11.C.16's shape: lower level makes the treatment arm more variable.
+    """
+    verdict = run_criterion(crit(effect=1.0, noise=0.2, extra_noise=2.0), RULES)
+    assert verdict.outcome == PASS and verdict.seeds < RULES["ensemble_cap"]
+
+
+def test_m17a1_stopping_does_not_depend_on_which_arm_is_called_baseline():
+    noisy_treatment = run_criterion(crit(effect=1.0, noise=0.2, extra_noise=2.0), RULES)
+    noisy_baseline = run_criterion(crit(effect=1.0, noise=0.2, baseline_extra_noise=2.0), RULES)
+    assert noisy_treatment.seeds == noisy_baseline.seeds

@@ -15,10 +15,14 @@ module level so worker processes can run it, returning an ``ArmResult`` per (arm
   counting as zero (`M17.A.4`), Holm-corrected across the readouts (`M11.4e`).
 * **Stopping** (`M17.A.1`, `M13.4`). Seeds come in blocks of ``ensemble_block``. After each
   block, every readout's interval half-width, ``1.96 × sd(d) / √n``, is compared with
-  ``ensemble_precision`` baseline sds. All within: stop. At ``ensemble_cap`` without that:
-  **UNDETERMINED**, which does not pass.
-* **Margin and precision** are relative to the baseline arm's seed-to-seed sd (plan D8), so
-  they are unit-free. A baseline with no spread uses the differences' sd.
+  ``ensemble_precision`` times the **pooled** seed-to-seed sd of the two arms,
+  ``√((sd_baseline² + sd_treatment²) / 2)``. All within: stop. At ``ensemble_cap`` without that:
+  **UNDETERMINED**, which does not pass. *Decided 2026-10-08* (``docs/phase_c_completion_report.md``
+  §10): the baseline arm alone is the wrong ruler when the arms differ in spread, and a ruler must
+  not depend on which arm is called baseline; the differences' own sd would make the rule a fixed
+  seed count, since half-width over its own sd is 1.96/√n.
+* **Margin** (and a null's equivalence bound) is relative to the baseline arm's seed-to-seed sd
+  (plan D8), so it is unit-free. A scale with no spread falls back to the differences' sd.
 * **A null** (`M11.4a`) passes only if the whole interval lies within ``equivalence_margin``
   baseline sds of zero; it reports the interval and the n reached.
 * **A required move that never occurs** fails the criterion (`M11.1f`).
@@ -120,6 +124,16 @@ def _arrays(criterion, results, name):
     return base, treat
 
 
+def _pooled_scale(base, treat, diff) -> float:
+    """The precision ruler: the pooled seed-to-seed sd of the two arms (decided 2026-10-08)."""
+    if len(base) < 2:
+        return 0.0
+    sd = math.sqrt((float(np.var(base, ddof=1)) + float(np.var(treat, ddof=1))) / 2)
+    if sd == 0.0:
+        sd = float(np.std(diff, ddof=1))
+    return sd
+
+
 def _scale(base, diff) -> float:
     sd = float(np.std(base, ddof=1)) if len(base) > 1 else 0.0
     if sd == 0.0:
@@ -137,7 +151,7 @@ def _converged(criterion, results, rules) -> bool:
             continue
         base, treat = _arrays(criterion, results, readout.name)
         diff = treat - base
-        scale = _scale(base, diff)
+        scale = _pooled_scale(base, treat, diff)
         if scale == 0.0:
             continue  # no spread anywhere: nothing more to learn
         if _half_width(diff) >= rules["ensemble_precision"] * scale:
@@ -156,7 +170,8 @@ def _verdict(criterion, results, converged, rules) -> Verdict:
         if math.isfinite(lo) and math.isfinite(hi) and hi > lo:
             position = float((np.mean(base) - lo) / (hi - lo))
         row = {"readout": readout.name, "direction": readout.direction, "mean_difference": float(np.mean(diff)),
-               "half_width": _half_width(diff), "baseline_sd": scale, "baseline_position": position}
+               "half_width": _half_width(diff), "baseline_sd": scale, "pooled_sd": _pooled_scale(base, treat, diff),
+               "baseline_position": position}
         if readout.report_only:
             row["report_only"] = True
         elif readout.direction == 0:

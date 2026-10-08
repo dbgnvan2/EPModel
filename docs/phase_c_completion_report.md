@@ -12,14 +12,15 @@ a hash goes stale.
 | `docs/phase_c_sweep_record.md` | `tools/sweep_record.py` | each composite criterion at half and double α, H and temperature (plan D9) |
 | `docs/spec_coverage.md` | `tools/spec_coverage.py` | every spec ID: done / partial / not done |
 
-Default suite: **490 tests pass** (`python3 -m pytest tests/`). The 19 ensemble-marked criterion tests are
+Default suite: **492 tests pass** (`python3 -m pytest tests/`). The 19 ensemble-marked criterion tests are
 deselected there and run with `python3 -m pytest -m ensemble`.
 
 **Read this first.** Phase C's gate does **not** pass. Of the 16 criteria built, 7 pass at the frozen
-constants and are proved by a mutant (C.1, C.3, C.19, C.25, C.32, C.35, C.38), 1 passes in one of its four cells
-(C.27), 1 is undetermined at the seed cap (C.16), and 7 fail (C.4, C.5, C.29, C.41, C.42, C.44, C.45). 3 criteria
-are not built. **These are the verdicts after the `TRIANGLE` decision of 2026-10-08 (§8)**, which made C.3 pass and
-took C.42, C.45, one cell of C.27 and one cell of C.41 below significance or the wrong way. A premise that passes confirms that the code renders the spec. It
+constants and are proved by a mutant (C.1, C.3, C.19, C.25, C.32, C.35, C.38). 1 passes but survives its named mutant
+(C.16, §10), 1 passes in one of its four cells (C.27), and 7 fail (C.4, C.5, C.29, C.41, C.42, C.44, C.45). 3 criteria
+are not built. **These are the verdicts after the `TRIANGLE` decision (§8) and the precision decision (§10), both of
+2026-10-08.** The first made C.3 pass and took C.42, C.45, one cell of C.27 and one cell of C.41 below significance or
+the wrong way. The second let C.16 converge. A premise that passes confirms that the code renders the spec. It
 is not a finding about families (`M11.5`). Nothing here speaks about a real family (`M11.F.9`).
 
 ---
@@ -34,22 +35,22 @@ column follows the global completion standard.
 |---|---|---|---|---|---|
 | `M11.C.1` lower level reaches threshold sooner | premise | PASS (100 seeds) | **only by the joint `level-blind` mutant** — see §2 | — | done (proved only jointly; plan §3's named mutant survives, §2) |
 | `M11.C.3` triangle relieves pair, costs third | premise | PASS (50) — pair −2.22, third +4.02 | yes: `triangle-transfer-removed`, `triangle-roles-swapped` | — | done — after the `TRIANGLE` decision, §8 |
-| `M11.C.4` cutoff trades now against later | premise | **FAIL** — the "now" limb holds (−1.24); the "later" limb does not (−0.24, p 0.72) | not run | — | partial — §3.2 |
+| `M11.C.4` cutoff trades now against later | premise | **FAIL** — the "now" limb holds (−1.02); the "later" limb does not (+0.07, p 0.43) | not run | — | partial — §3.2 |
 | `M11.C.5` change-back reaction | composite | **FAIL** — neither readout significant | not run | at least one readout reverses at 5 of 6 settings | not done — §3.3 |
 | `M11.C.7` topology not coach skill | premise | not built | — | — | not done — needs `M8.2`/`M8.3`'s position predicates; declares no direction for its arms |
 | `M11.C.13` help relocates, not reduces | premise | not built | — | — | not done — needs incidents located in a community |
 | `M11.C.14` technique null under marital distance | premise (null) | not built | — | — | not done — needs `M5.C.1`'s marital-distance gate |
-| `M11.C.16` repertoire concentration depends on level | composite | **UNDETERMINED** at 500 seeds; entropy −0.062 ± 0.013 (p ≈ 1e-44) | not run | same direction at all 6 settings, undetermined at each | partial — §3.4 |
+| `M11.C.16` repertoire concentration depends on level | composite | PASS (150) — entropy −0.066 ± 0.023 (p ≈ 1e-16), after §10's precision rule; undetermined at 500 seeds before | **no** — `learner-disabled` and `learner-inverted` both survive | passes at all 6 settings | partial — passes, not proved; §10 |
 | `M11.C.19` counterfeit axis identified | check | PASS (50) | yes: `axes-collapsed`, `axes-swapped` | — | done |
 | `M11.C.25` dominant pole independent of sex | premise (null) | PASS (50); difference exactly 0 in every seed | yes: `sex-term-in-pole` | — | done — readout corrected post hoc, §4.2 |
 | `M11.C.27` twosome 2×2 | composite | 1 of 4 cells passes: [unstable, remove one]. [stable, add third] passed before §8 and is now +0.003 (p 0.49) | the passing cell, by `one-sided-deviation` and `deviation-inverted` | the passing cell holds at all 6 settings | partial — §3.5 |
 | `M11.C.29` relief vs differentiation time course | premise | **FAIL** — budget −0.07 (p 0.17); third's symptom weeks 0 in both arms | not run | — | not done — §3.6 |
 | `M11.C.32` mover's anger stalls and degrades | premise | PASS (100) | yes: `anger-gate-inverted`, `anger-gate-removed` | — | done |
-| `M11.C.35` witness appraisal depends on both ties | check | PASS (200) | yes: `witness-position-blind`, `witness-reach-inverted` | — | done |
+| `M11.C.35` witness appraisal depends on both ties | check | PASS (100) | yes: `witness-position-blind`, `witness-reach-inverted` | — | done |
 | `M11.C.38` graded level orders time to threshold | premise | PASS, all 3 adjacent pairs | every pair red under the joint `level-blind` mutant; single-rule mutants red on some pairs only (§2) | — | done (proved only jointly, §2) |
 | `M11.C.41` level and stress each exacerbate | mixed | **FAIL** — no cell passes. [lower level: heavier stress] passed before §8; its reactive-share limb is now +0.004 (p 0.16). [light: lower level] is undetermined. In both "lower level" cells anxiety rises but the reactive share **falls** | not run | — | not done — §3.7 |
 | `M11.C.42` a relieving triangle is reused | composite | **FAIL** — reuse +0.26 ± 0.33 (p 0.084), under §9's spec-conforming arms and readout | not run | passes only at H = 6; reverses at 3 of 6 | not done — §3.8, §9 |
-| `M11.C.44` position value inverts with load | composite | **FAIL** — +0.010 (p 0.73) | not run | passes at 3 of 6 off-central settings (α 0.1, H 2, T 2.0); only the central setting gates | not done |
+| `M11.C.44` position value inverts with load | composite | **FAIL** — +0.010 (p 0.73) | not run | passes at 2 of 6 off-central settings (α 0.1, T 2.0); only the central setting gates | not done |
 | `M11.C.45` triangles quiet when calm | composite | **FAIL** — +0.0020 TRIANGLE selections per person-week (p 0.20), under §9's readout | not run | fails at all 6 settings; reverses at 4 | not done — §3.8, §9 |
 
 **Representation mutants (`M11.1c`).** Two re-encodings ran on every passing entry: same-tick appraisal summed
@@ -111,17 +112,17 @@ pass would be tuning against it. Each needs an owner decision.
    over 22 weeks at the frozen rates to show at one nodal event.
 3. **`M11.C.5`** has wide intervals (±17 on a difference of +6), and the sign changes across the sweep. The
    ladder is learned, per `M5.E.0`, and 60 weeks may not be long enough for it to form.
-4. **`M11.C.16`** holds its direction with p ≈ 1e-44, but it does not converge. The precision rule asks for a
-   half-width below 0.25 of the *baseline arm's* seed-to-seed sd. The entropy's baseline sd is small next to
-   the spread of the paired difference, so 500 seeds do not reach it. `UNDETERMINED` does not pass (`M13.4`).
-   Whether the precision rule should scale by the difference's sd is a plan-level question.
+4. **`M11.C.16` — resolved by §10's precision rule; it now passes, but is not proved.** Its interval never reached
+   0.25 of the baseline arm's sd. Under the pooled sd it converges at 150 seeds. Neither learner mutant turns it red,
+   so its direction does not come from learning. §10.
 5. **`M11.C.27`'s [stable, remove one]** and **[unstable, add third]** cells go the opposite way at every
    setting, before and after §8. [stable, add third] passed before §8 and is now flat (+0.003). For a stable twosome, removing one member *lowers* the pair's deviation, where the criterion
    expects a rise. For an unstable twosome, adding a third *raises* it, where the criterion expects a fall.
 6. **`M11.C.29`.** The third person accumulates no symptom weeks in either arm (0 in both), so the readout cannot
    move. The budget difference is the right sign but not significant.
 7. **`M11.C.41`'s reactive-share limb.** No cell passes after §8: [lower level: heavier stress] passed before and
-   its reactive-share limb is now +0.004 (p 0.16). At a lower level the mean acute anxiety rises, as expected and
+   its reactive-share limb is now +0.002 (p 0.32). [light: lower level] was undetermined before §10 and now fails:
+   its reactive share falls (−0.013). At a lower level the mean acute anxiety rises, as expected and
    strongly. The *share* of automatic acts **falls**, though the mixing weight should raise it. One possible
    cause, not verified: lower level also lowers layer availability (`M4.D.3a`), which removes automatic acts
    from the legal set.
@@ -350,3 +351,23 @@ Rejected:
 This changes when every criterion stops, not only C.16, so all three records are rerun and every verdict that moves
 is reported here. No constant's value changes; `ensemble_precision`'s unit changes, and that is logged in
 `config/bowen/constants_changes.md`.
+
+**Results, run after the decision was committed (`d33df13`).** Every criterion's stopping point is recomputed. Two
+verdicts change; the rest keep their verdicts with different seed counts.
+
+| Criterion | Before §10 | After §10 |
+|---|---|---|
+| `M11.C.16` | UNDETERMINED at 500, entropy −0.063 ± 0.012 | **PASS** at 150, −0.066 ± 0.023 (p ≈ 1e-16) |
+| `M11.C.41` [light: lower level] | UNDETERMINED at 500 | **FAIL** at 150: anxiety rises (+16.4), reactive share falls (−0.013) |
+| `M11.C.4` | FAIL at 50 | FAIL at 100 |
+| `M11.C.35` | PASS at 200 | PASS at 100 |
+| `M11.C.27` [unstable, remove one] | PASS at 100 | PASS at 50 |
+| `M11.C.41`'s other three cells | FAIL at 200–300 | FAIL at 150 |
+
+**What C.16's pass does not show.** The plan's named mutant for C.16, `M4.D.6` disabled in both arms, **survives**,
+and so does the learner inverted. The sweep agrees: C.16 passes at all six settings of α, H and temperature. So the
+repertoire narrows at lower level whether or not anything is learned. Revision 11 classes C.16 composite, "restated"
+so that learning produces it; on this evidence it is produced by a rule that reads level. One possible rule, not
+tested: `M4.D.3a`'s layer availability removes acts from the legal set at a lower level, which lowers the entropy of
+what is chosen. Coverage marks C.16 partial, passing but not proved. Whether to reclassify it, and which mutant would
+prove it, is the owner's.

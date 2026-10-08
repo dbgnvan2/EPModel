@@ -36,9 +36,12 @@ Phase C steps 0–16 are built. **Its gate does not pass** (`docs/phase_c_comple
   C.42's reuse is −0.17 and it fails at every sweep setting; C.45 has the right sign, without significance.
   Decide whether either criterion's arms still test what it claims, now that the act loads the recruited third.
   Report §3.8 and §8.
-- [ ] **`M13.4`'s precision rule and `M11.C.16`.** *Decided 2026-10-08 (report §10): precision against the pooled sd of the two arms. Rerun pending.* The direction holds at p ≈ 1e-44, but the half-width never falls
-  below 0.25 of the baseline arm's sd, so it is `UNDETERMINED` at 500 seeds. Decide whether precision should
-  scale by the paired difference's sd. Report §3.4.
+- [x] ~~**`M13.4`'s precision rule and `M11.C.16`.**~~ *Decided 2026-10-08 (report §10): precision against the pooled sd
+  of the two arms. C.16 now passes at 150 seeds; C.41's [light: lower level] cell now fails instead of undetermined.*
+- [ ] **`M11.C.16` passes but is not proved.** Its named mutant (`M4.D.6` disabled) survives, and so does the learner
+  inverted, and it passes at all six sweep settings: the narrowing does not come from learning. Decide whether to
+  reclassify it (revision 11 calls it composite) and which mutant should prove it. One untested candidate:
+  `M4.D.3a`'s layer availability. Report §10.
 - [ ] **The failing criteria** — `M11.C.4` (later limb), `.5`, `.29` (the third person never accumulates symptom
   weeks), `.41` (no cell passes; the reactive share falls with level), `.42`, `.44`, `.45`, and three cells of `.27`.
   Report §3.

@@ -379,7 +379,7 @@ mutant has turned each entry red in `docs/phase_c_mutation_record.md`; the D9 sw
 | M11.C.12 | not done | — | Phase D |
 | M11.C.13 | not done | `tests/bowen/test_phase_c_gate.py::test_m11c13_help_relocates_not_reduces` | not built in Phase C — docs/phase_c_ensemble_record.md says why |
 | M11.C.14 | not done | `tests/bowen/test_phase_c_gate.py::test_m11c14_technique_null_under_marital_distance` | not built in Phase C — docs/phase_c_ensemble_record.md says why |
-| M11.C.16 | partial | `tests/bowen/test_phase_c_gate.py::test_m11c16_repertoire_concentration_depends_on_level` | ensemble record: M11.C.16 UNDETERMINED |
+| M11.C.16 | partial | `tests/bowen/test_phase_c_gate.py::test_m11c16_repertoire_concentration_depends_on_level` | ensemble record: M11.C.16 PASS; passes, but no mutant has turned every entry red (docs/phase_c_mutation_record.md) |
 | M11.C.15 | not done | — | Phase D |
 | M11.C.17 | not done | — | Phase D |
 | M11.C.18 | not done | — | Phase D |
@@ -405,7 +405,7 @@ mutant has turned each entry red in `docs/phase_c_mutation_record.md`; the D9 sw
 | M11.C.38 | done | `tests/bowen/test_phase_c_gate.py::test_m11c38_graded_parameter_orders_primary_readout` | ensemble record: M11.C.38[-0 vs -5] PASS; M11.C.38[-5 vs -10] PASS; M11.C.38[-10 vs -15] PASS |
 | M11.C.39 | not done | — | Phase D |
 | M11.C.40 | not done | — | Phase D |
-| M11.C.41 | partial | `tests/bowen/test_phase_c_gate.py::test_m11c41_level_and_stress_each_exacerbate_the_pattern` | ensemble record: M11.C.41[light: lower level] UNDETERMINED; M11.C.41[heavy: lower level] FAIL; M11.C.41[higher level: heavier stress] FAIL; M11.C.41[lower level: heavier stress] FAIL |
+| M11.C.41 | partial | `tests/bowen/test_phase_c_gate.py::test_m11c41_level_and_stress_each_exacerbate_the_pattern` | ensemble record: M11.C.41[light: lower level] FAIL; M11.C.41[heavy: lower level] FAIL; M11.C.41[higher level: heavier stress] FAIL; M11.C.41[lower level: heavier stress] FAIL |
 | M11.C.42 | partial | `tests/bowen/test_phase_c_criteria.py::test_m11c42_absence_changes_nothing_before_its_tick`<br>`tests/bowen/test_phase_c_criteria.py::test_m11c42_absence_forms_no_triangle_holding_the_absent_member`<br>`tests/bowen/test_phase_c_criteria.py::test_m11c42_absence_removes_the_third_from_the_pairs_choices_that_tick`<br>`tests/bowen/test_phase_c_criteria.py::test_m11c42_readout_counts_the_whole_pairs_triangles`<br>`tests/bowen/test_phase_c_gate.py::test_m11c42_relieving_triangle_is_reused` | ensemble record: M11.C.42 FAIL |
 | M11.C.43 | not done | — | Phase D |
 | M11.C.44 | partial | `tests/bowen/test_phase_c_gate.py::test_m11c44_position_value_inverts_with_load` | ensemble record: M11.C.44 FAIL |
@@ -524,7 +524,7 @@ mutant has turned each entry red in `docs/phase_c_mutation_record.md`; the D9 sw
 | M16.T.6 | done | `tests/bowen/test_external.py::test_m16t6_event_store_is_load_bearing` | — |
 | M16.T.4 | done | `tests/bowen/test_external.py::test_m16t4_delayed_view_is_scoped_and_lagged` | — |
 | M16.T.5 | done | `tests/bowen/test_log.py::test_m16t5_same_seed_same_log_with_header` | — |
-| M17.A.1 | done | `tests/bowen/test_ensemble.py::test_m17a1_a_real_effect_passes_and_records_the_seeds`<br>`tests/bowen/test_ensemble.py::test_m17a1_undetermined_at_cap_does_not_pass` | — |
+| M17.A.1 | done | `tests/bowen/test_ensemble.py::test_m17a1_a_real_effect_passes_and_records_the_seeds`<br>`tests/bowen/test_ensemble.py::test_m17a1_precision_is_measured_against_both_arms_spread`<br>`tests/bowen/test_ensemble.py::test_m17a1_stopping_does_not_depend_on_which_arm_is_called_baseline`<br>`tests/bowen/test_ensemble.py::test_m17a1_undetermined_at_cap_does_not_pass` | — |
 | M17.A.2 | not done | — | Phase E |
 | M17.A.3 | done | `tests/bowen/test_ensemble.py::test_m114e_signed_rank_matches_table` | the runner tests per-seed paired differences only, never an unpaired comparison (step 12) |
 | M17.A.4 | done | `tests/bowen/test_ensemble.py::test_m17a4_differences_below_the_margin_do_not_count` | — |

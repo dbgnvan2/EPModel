@@ -44,7 +44,7 @@ def test_m11d18_record_reports_the_fallback_rate():
     assert "## Fallback rate by person (`M11.D.18`)" in record_text()
 
 
-_sspec = importlib.util.spec_from_file_location("sweep_record_tool", REPO / "tools" / "sweep_record.py")
+_sspec = importlib.util.spec_from_file_location("tools.sweep_record", REPO / "tools" / "sweep_record.py")
 _sweep = importlib.util.module_from_spec(_sspec)
 sys.modules[_sspec.name] = _sweep
 
@@ -136,9 +136,10 @@ def test_criteria_settings_are_parsed_strictly(tmp_path):
 
 
 def test_sweep_tool_shares_the_loaded_mutation_tool():
-    """One copy of the mutation tool, not two (third gate finding 3), registered under its own name (fourth gate)."""
+    """One copy of the mutation tool, not two (third gate finding 3); both tools registered under their own names (fourth and fifth gates)."""
     assert _sweep.Mutant is _mutants.Mutant and _sweep.run_mutant is _mutants.run_mutant
     assert _mutants.__name__ == "tools.mutation_record" and sys.modules["tools.mutation_record"] is _mutants
+    assert _sweep.__name__ == "tools.sweep_record" and sys.modules["tools.sweep_record"] is _sweep
 
 
 def _setting_reads():

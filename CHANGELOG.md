@@ -49,6 +49,8 @@ the per-criterion status is in `docs/phase_c_completion_report.md`.
 - From the third gate (`docs/cycles/2026-10-08_phase-c-qa-gate-3.md`, APPROVED, three low findings): a static test
   ties the criteria's `REQUIRED` settings to what each arm reads, in both directions; the `criteria.py` docstring
   no longer restates the spell's numbers; the mutation tool loads once in the tests. 485 tests pass.
+- From the fourth and fifth gates: a stale suite count in this file fixed, and the tests load both tools under their
+  real module names (`tools.mutation_record`, `tools.sweep_record`).
 
 ## [Unreleased] — 2026-10-06
 

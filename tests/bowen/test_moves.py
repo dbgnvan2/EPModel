@@ -102,28 +102,34 @@ def test_m1d2a_bound_anxiety_returns_when_distancing_is_prevented():
 
 
 def test_m1c1_triangle_relieves_the_insiders_and_loads_the_outsider():
-    """The outsider absorbs the insiders' anxiety and generates its own on top (KS03.1)."""
+    """The tense pair passes anxiety to the third it recruits, who generates more on top (KS03.1)."""
     state = fresh()
-    anxious(state, RAVI, NADIA)
+    anxious(state, RAVI, MARTA)
+    state.ties[TieId.of(RAVI, MARTA)].felt_impingement[RAVI] = 1.0  # Ravi's most strained tie: the tense pair
     before = {p: state.people[p].acute_anxiety for p in (RAVI, NADIA, MARTA)}
     deliver(state, move("TRIANGLE", RAVI, NADIA))
-    given = sum(before[p] - state.people[p].acute_anxiety for p in (RAVI, NADIA))
-    absorbed = state.people[MARTA].acute_anxiety - before[MARTA]
-    assert state.people[RAVI].acute_anxiety < before[RAVI] and state.people[NADIA].acute_anxiety < before[NADIA]
+    given = sum(before[p] - state.people[p].acute_anxiety for p in (RAVI, MARTA))
+    absorbed = state.people[NADIA].acute_anxiety - before[NADIA]
+    assert state.people[RAVI].acute_anxiety < before[RAVI] and state.people[MARTA].acute_anxiety < before[MARTA]
     assert given > 0 and absorbed - given > 0.1 * given  # not conservative: the outsider's position generates anxiety
 
 
-def test_m1c1_outsider_is_the_third_on_the_tie_being_turned_away_from():
-    """Ravi turning to Marta leaves outside whichever child his own tie is most strained with."""
-    outsiders = {}
+def test_m1c1_the_target_is_recruited_into_the_senders_most_strained_twosome():
+    """Ravi turning to Marta relieves whichever child his own tie is most strained with; Marta absorbs.
+
+    Decided 2026-10-08: the target is the recruited third (outside), not an ally (M1.F.1b, M11.C.3).
+    """
+    relieved, absorbed = {}, {}
     for strained in (NADIA, PIA):
         state = fresh()
-        anxious(state, RAVI, MARTA)
+        anxious(state, RAVI, NADIA, PIA)
         state.ties[TieId.of(RAVI, strained)].felt_impingement[RAVI] = 1.0
-        before = {p: state.people[p].acute_anxiety for p in (NADIA, PIA)}
+        before = {p: state.people[p].acute_anxiety for p in (MARTA, NADIA, PIA)}
         deliver(state, move("TRIANGLE", RAVI, MARTA))
-        outsiders[strained] = {p for p in (NADIA, PIA) if state.people[p].acute_anxiety > before[p]}
-    assert outsiders == {NADIA: {NADIA}, PIA: {PIA}}
+        relieved[strained] = {p for p in (NADIA, PIA) if state.people[p].acute_anxiety < before[p]}
+        absorbed[strained] = state.people[MARTA].acute_anxiety > before[MARTA]
+    assert relieved == {NADIA: {NADIA}, PIA: {PIA}}
+    assert absorbed == {NADIA: True, PIA: True}
 
 
 def test_m1c3a_better_differentiated_triangle_routes_less():
@@ -132,10 +138,10 @@ def test_m1c3a_better_differentiated_triangle_routes_less():
         state = fresh()
         for p in (RAVI, NADIA, MARTA):
             state.people[p].functional_level += lift
-        anxious(state, RAVI, NADIA)
-        before = state.people[MARTA].acute_anxiety
-        deliver(state, move("TRIANGLE", RAVI, NADIA))
-        routed[lift] = state.people[MARTA].acute_anxiety - before
+        anxious(state, RAVI, MARTA)
+        before = state.people[NADIA].acute_anxiety
+        deliver(state, move("TRIANGLE", RAVI, NADIA))  # Nadia is recruited into Ravi and Marta's twosome
+        routed[lift] = state.people[NADIA].acute_anxiety - before
     assert routed[30.0] < routed[0.0]
 
 
@@ -265,7 +271,7 @@ def triangle_after(state, *events):
 
 def test_m5b1_detriangle_returns_the_third_to_neutral_with_knowledge_intact():
     aligned = triangle_after(fresh(), move("TRIANGLE", RAVI, NADIA))
-    assert aligned.active and aligned.outside == MARTA
+    assert aligned.active and aligned.outside == NADIA  # the recruited third (decided 2026-10-08)
     state = fresh()
     triangle_after(state, move("TRIANGLE", RAVI, NADIA))
     knowledge = copy.deepcopy(state.people[NADIA].tie_beliefs)

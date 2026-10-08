@@ -355,7 +355,7 @@ neither the constitutional prior nor the family-focus term. It reads directly of
 
 ### M1.C `Triangle`
 
-**M1.C.1** A `Triangle` **MUST** hold three members, the current inside pair, the outside member, and `bound_anxiety`.
+**M1.C.1** A `Triangle` **MUST** hold three members, the current inside pair, the outside member, and `bound_anxiety`. *Decided 2026-10-08 (Phase C, owner request):* a `TRIANGLE` act's target is the third party it recruits and stands outside; the inside pair is the sender and the member of the triad the sender is most strained with — the tense twosome. This is the reading `M1.F.1b` ("`TRIANGLE` addressed to a third party"), `M11.C.3`, `M11.C.42` and `M6.4` ("`TRIANGLE` pair → outsider") already state, and L09.3's "tension above threshold recruits a third". Phase C step 5 had built the opposite (sender and target inside, the partner outside), which inverted `M11.C.3`.
 
 **M1.C.2** Position value **MUST** invert with load: the outside position **MUST** be unfavoured when calm and favoured under tension. A fixed preference is a failing implementation. **Amended at revision 11: the inversion is a result, not a rule.** It **MUST** arise from `M4.C.1`'s two-sided appraisal — under tension the inside pair stands near the "too much" edge and the outside position relieves it; when calm, the outsider stands on the "too little" side — together with `M4.D.6`'s learning. The policy **MUST NOT** carry a position-preference term that reads load. `M11.C.44` asserts the inversion. → §6.1 ⟦rev11 · owner decision 2026-10-06 · A4⟧
 
@@ -1264,7 +1264,7 @@ Each criterion **MUST** have a named test, **MUST** assert a direction of differ
 |---|---|---|---|
 | M11.C.1 | Premise (joint) | every rule that reads level, jointly | Bowen's central premise, entered as an input. *Corrected 2026-10-08 from `M11.1d`'s mutants (`docs/phase_c_mutation_record.md`): `M4.C.1a`'s steepness, `M1.A.6`'s threshold and `M4.A.5`'s self term each survive deletion and inversion alone; only the joint level-blind mutant turns it red. No single rule carries it.* |
 | M11.C.2 | Composite | — | target follows from where parental focus is relieved (`M7.E.1c` amended, `M4.D.6e`) |
-| M11.C.3 | Premise | `M1.C.1` transfer | physics of the act |
+| M11.C.3 | Premise | `M1.C.1` transfer | physics of the act. *Confirmed 2026-10-08, after the `M1.C.1` decision: removing the transfer turns it red.* |
 | M11.C.4 | Premise | `M4.C.1c`'s accrual over time | the immediate limb is the impingement side's removal; the later limb is the accrual and the nodal-event spike (amended for finding 6) |
 | M11.C.5 | Composite | — | the ladder is the others' learned response to `M5.E.7`'s debit (`M5.E.0`) |
 | M11.C.6 | Composite | — | partial: estimator over the child's history; generations 1–2 are initial conditions (`M2.A.0a`) |
@@ -1288,7 +1288,7 @@ Each criterion **MUST** have a named test, **MUST** assert a direction of differ
 | M11.C.24 | Premise | `M6.I.4` transfer | as `M11.C.21` |
 | M11.C.25 | Premise | `M2.A.0g` | deliberate structural null. *Confirmed 2026-10-08: the difference is exactly 0 in every seed; a sex term in pole assignment turns it red.* |
 | M11.C.26 | Premise | `M9.6` attribution write | composite only if beliefs are formed from witnessed events; not decided |
-| M11.C.27 | Composite | — | follows from `M4.C.1`'s two-sided shape; no prior-state term. *Checked 2026-10-08: the two passing cells flip only under inversion of `M4.C.1`'s deviation, the sign of all appraisal; kept composite.* |
+| M11.C.27 | Composite | — | follows from `M4.C.1`'s two-sided shape; no prior-state term. *Checked 2026-10-08: after the `M1.C.1` decision one cell passes ([unstable, remove one]); it flips only under inversion of `M4.C.1`'s deviation, the sign of all appraisal; kept composite.* |
 | M11.C.28 | Composite | — | arm input; outcome through `M4.C.3`'s integrator |
 | M11.C.29 | Premise | `M6.I.1` budget reduction |  |
 | M11.C.30 | Premise | `M7.D.2c` |  |
@@ -1303,10 +1303,10 @@ Each criterion **MUST** have a named test, **MUST** assert a direction of differ
 | M11.C.39 | Composite | — | "No persistence rule is written" |
 | M11.C.40 | Premise | the learning rule itself | plus a check that the self-directed channel is not reinforced |
 | M11.C.41 | Mixed | `M4.C.1a`; `M4.D.1a` mixing weight | anxiety and reactive-share limbs are premise through the mixing weight (`M4.D.3` amended); which reactive acts rise is learned |
-| M11.C.42 | Composite | — | new at revision 11. *Checked 2026-10-08: deleting the learner turns it red, but inverting the learner does not. The direction needs a learner, not relief's sign, so the row's mechanism is not what produces it. Fails at 5 of 6 sweep settings.* |
+| M11.C.42 | Composite | — | new at revision 11. *2026-10-08: under step 5's alliance reading it passed, but survived an inverted learner. After the `M1.C.1` decision of the same day it fails at the central setting (reuse −0.17).* |
 | M11.C.43 | Composite | — | new at revision 11 |
 | M11.C.44 | Composite | — | new at revision 11 |
-| M11.C.45 | Premise | `M1.C.1`'s relief in proportion to the insiders' excess | new at revision 11. *Corrected 2026-10-08: the direction flips when that one rule is inverted (`relief-tension-inverted`), so under `M11.1d` it is a programmed premise. It also reverses at 3 of 6 sweep settings.* |
+| M11.C.45 | Composite | — | new at revision 11. *2026-10-08: under step 5's alliance reading of `TRIANGLE` it passed and flipped when `M1.C.1`'s relief was inverted, which would make it a premise. After the `M1.C.1` decision of the same day it no longer passes at the central setting, so the reclassification is withdrawn until it passes again.* |
 
 ### M11.D — Engineering criteria
 

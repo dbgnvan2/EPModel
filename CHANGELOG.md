@@ -22,7 +22,7 @@ the per-criterion status is in `docs/phase_c_completion_report.md`.
 
 ### Results
 
-- At the frozen constants, 6 criteria pass and are proved by a mutant (`M11.C.1`, `.19`, `.25`, `.32`, `.35`, `.38`);
+- At the frozen constants, as first built: 6 criteria pass and are proved by a mutant (`M11.C.1`, `.19`, `.25`, `.32`, `.35`, `.38`);
   `.42` and `.45` pass but reverse in the sweep; `.27` and `.41` pass in some cells; `.16` is undetermined at the
   cap; `.3`, `.4`, `.5`, `.29` and `.44` fail; `.7`, `.13` and `.14` are not built.
 - `M11.5` corrected from the real mutants and dated in the spec: `M11.C.1` and `.38` are joint premises, `.45` a
@@ -51,6 +51,15 @@ the per-criterion status is in `docs/phase_c_completion_report.md`.
   no longer restates the spell's numbers; the mutation tool loads once in the tests. 485 tests pass.
 - From the fourth and fifth gates: a stale suite count in this file fixed, and the tests load both tools under their
   real module names (`tools.mutation_record`, `tools.sweep_record`).
+
+### Decided
+
+- **`TRIANGLE`'s roles (`M1.C.1`), 2026-10-08.** The target is the third party the act recruits and stands outside;
+  the inside pair is the sender and its most strained partner. The spec already read it this way in `M1.F.1b`,
+  `M11.C.3`, `M11.C.42` and `M6.4`; step 5 had built an alliance reading instead. A rule change after the freeze,
+  made from the spec's text and reported (`docs/phase_c_completion_report.md` §8). `M11.C.3` now passes and is
+  proved, including by a mutant that restores the old reading. `M11.C.42`, `.45`, one cell of `.27` and one of `.41`
+  stopped passing; they are reported, not recovered. 7 criteria now pass and are proved, 7 fail.
 
 ## [Unreleased] — 2026-10-06
 

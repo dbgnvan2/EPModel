@@ -18,19 +18,19 @@ ones below are the project's, graded [I]:
   quiet in a calm system is a result — with little tension a triangle gives little
   relief and is not reinforced — and forbade a calm-system threshold in this step.
   *Changed at Phase C step 1; Phase B used ``tension_activation_threshold``.*
-* While active, its inside pair is the sender and target of the latest
-  ``TRIANGLE`` act within the window, and the third member is outside.
+* While active, its outside member is the target of the latest ``TRIANGLE`` act within
+  the window — the third party the act recruits — and the sender and the remaining
+  member are the inside pair (`M1.C.1`; decided 2026-10-08, see ``moves.py``).
   ``activation_memory`` counts the ticks it has been active (M1.C.4's record,
   which the learner reads from Phase C step 7).
 * **`DETRIANGLE`** (`M5.B.1`) from a member of the triangle to another member returns
-  that member to neutral: every `TRIANGLE` act in the triangle that put them in the
-  inside pair, up to the tick of the `DETRIANGLE`, stops counting. Nothing else
+  that member to neutral: every `TRIANGLE` act in the triangle that they sent or were
+  the target of, up to the tick of the `DETRIANGLE`, stops counting. Nothing else
   changes — the person's beliefs (`M9.8`) and every other field are untouched, so
   their knowledge is intact and only their position moves.
 * **`PREVENT_ALIGNMENT`** (`M5.B.2`) from a member to another member acts before any
   alignment exists: for ``triangle_activity_window`` ticks from its own tick, a
-  `TRIANGLE` act that would put the target in an inside pair without the sender does
-  not count. It is available whether or not the triangle is active. *Phase C step 5.*
+  `TRIANGLE` act between the target and a member other than the sender does not count. It is available whether or not the triangle is active. *Phase C step 5.*
 
 """
 
@@ -127,8 +127,8 @@ def recompute_triangles(state: RunState, params: EngineParams) -> list[EffectRec
         active = move is not None and live == 3
         inside, outside = None, None
         if active:
-            inside = TieId.of(move.sender, move.targets[0])
-            outside = next(m for m in members if m not in inside.members())
+            outside = move.targets[0]
+            inside = TieId.of(*(m for m in members if m != outside))
         changes = []
         if active != triangle.active:
             changes.append((tri_id, "active", str(active).lower()))

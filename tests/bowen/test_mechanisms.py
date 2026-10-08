@@ -382,7 +382,8 @@ def test_m1c3_triangle_move_sets_the_inside_pair():
     act(state, Selection(RAVI, "TRIANGLE", (NADIA,), 3.0), VIS)
     recompute_triangles(state, PARAMS)
     triangle = state.triangles[TriangleId.of(RAVI, MARTA, NADIA)]
-    assert triangle.inside_pair == TieId.of(RAVI, NADIA) and triangle.outside == MARTA
+    # The target is the recruited third, outside; the sender and the remaining member are inside (2026-10-08).
+    assert triangle.inside_pair == TieId.of(RAVI, MARTA) and triangle.outside == NADIA
     assert triangle.activation_memory == 1
 
 

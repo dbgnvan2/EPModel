@@ -22,11 +22,16 @@ excess) out of themself and into the tie's ``distance_bound_anxiety``. It persis
 members, split equally, on `RECONCILIATION` (``event_effects``). Total anxiety is
 unchanged by the act: distance is not a way of destroying it.
 
-**`TRIANGLE`** (`M1.C.1`, `KS03.1`). The sender turns to the target. The triangle is
-the closed triad holding both whose third member stands furthest from the sender's
-optimum on the sender's tie to them (ties broken by identifier) — the tie the sender
-is turning away from. The sender and the target are the inside pair; the third is
-outside, as step 6's readout has it. Each insider moves
+**`TRIANGLE`** (`M1.C.1`, `KS03.1`). The sender turns to the target, a third party
+it recruits into a tense twosome (`M1.F.1b`: the act is addressed to the third party;
+L09.3: "tension above threshold recruits a third"). The tense twosome is the sender and
+the partner it is most strained with: among the closed triads holding the sender and the
+target, the third member who stands furthest from the sender's optimum on the sender's
+tie to them (ties broken by identifier). The sender and that partner are the inside pair;
+the target is outside, as step 6's readout has it. *Decided 2026-10-08 (owner request,
+`TODO.md`):* step 5 first read the act as an alliance — sender and target inside, the
+partner outside — which contradicted `M1.F.1b`, `M11.C.3`, `M11.C.42` and `M6.4`'s
+"`TRIANGLE` pair → outsider". Each insider moves
 ``triangle_transfer_rate × capacity × s`` of its excess to the outsider, and the
 outsider generates ``outsider_positional_gain`` times the total on top: "outsiders
 both generate their own anxiety and absorb anxiety from insiders". ``capacity`` is
@@ -134,11 +139,11 @@ def _triads_holding(state: RunState, a: PersonId, b: PersonId) -> list[tuple[Tri
     ]
 
 
-def triangle_outsider(state: RunState, sender: PersonId, target: PersonId, params: EngineParams):
-    """The triad and outsider a TRIANGLE act from ``sender`` to ``target`` forms, or None.
+def triangle_partner(state: RunState, sender: PersonId, target: PersonId, params: EngineParams):
+    """The triad and the sender's inside partner a TRIANGLE act from ``sender`` to ``target`` forms, or None.
 
-    The outsider is the third member furthest from the sender's optimum on the
-    sender's tie to them — the tie being turned away from.
+    The partner is the third member furthest from the sender's optimum on the sender's
+    tie to them — the tense twosome the target is recruited into. The target is outside.
     """
     candidates = [
         (tri_id, third) for tri_id, third in _triads_holding(state, sender, target)
@@ -168,11 +173,12 @@ def triangle_transfer(state: RunState, event: Event, target: PersonId, params: E
     Spec:    docs/bowen_agent_model_spec_v2.md#M1.C.1, #M1.C.3a, #M6.4
     Tests:   tests/bowen/test_moves.py::test_m1c1_triangle_relieves_the_insiders_and_loads_the_outsider
     """
-    found = triangle_outsider(state, event.sender, target, params)
+    found = triangle_partner(state, event.sender, target, params)
     if found is None:
         return None
-    tri_id, outsider = found
-    insiders = (state.people[event.sender], state.people[target])
+    tri_id, partner = found
+    outsider = target
+    insiders = (state.people[event.sender], state.people[partner])
     # M1.C.5: a completed exchange's permanent decrement never reverts.
     capacity = routing_capacity((*insiders, state.people[outsider])) * (1.0 - state.triangles[tri_id].intensity_floor)
     rate = params.triangle_transfer_rate * capacity * _strength(event, params)

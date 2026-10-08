@@ -1660,9 +1660,11 @@ The core moves keep their names but each is one act. The pattern of the same nam
 **What each act does, as built (Phase C step 5, 2026-10-07).** Every form and rate is `[I]`.
 - **`DISTANCE`** moves part of the distancer's excess anxiety into the tie, where it stays. It returns to the
   pair on reconciliation. Total anxiety is unchanged.
-- **`TRIANGLE`** makes the sender and the person they turn to the inside pair. Each passes part of their
-  anxiety to the third, who also generates more of their own (`KS03.1`). Less passes among
-  better-differentiated members.
+- **`TRIANGLE`** recruits the person the sender turns to into the sender's most strained twosome. The
+  sender and that partner are the inside pair; each passes part of their anxiety to the recruited third, who
+  also generates more of their own (`KS03.1`). Less passes among better-differentiated members. *Decided
+  2026-10-08: step 5 had first made the sender and the person turned to the inside pair, which contradicted
+  `M1.F.1b`, `M11.C.3`, `M11.C.42` and `M6.4`.*
 - **Taking charge and giving way** push the tie's functioning balance toward one person's pole, and move
   pseudo-self and functional level between the two, conserved.
   - The balance has no stable middle and hardens with time.

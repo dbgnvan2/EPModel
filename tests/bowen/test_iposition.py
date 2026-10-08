@@ -301,14 +301,14 @@ def test_m1c5_the_triangle_decrement_is_permanent_and_lowers_routing():
     from src.bowen.engine.moves import triangle_transfer
 
     def routed(state):
-        for pid in (RAVI, NADIA):
+        for pid in (RAVI, MARTA):  # the tense pair; Nadia is recruited (decided 2026-10-08)
             state.people[pid].acute_anxiety = state.people[pid].chronic_anxiety + 20
-        marta = state.people[MARTA].acute_anxiety
+        nadia = state.people[NADIA].acute_anxiety
         event = Event(id=EventId(state.tick, "ravi", 9), kind="TRIANGLE", mechanism=Mechanism.MOVE, sender=RAVI,
                       targets=(NADIA,), intensity=100.0, timestamp=state.tick, duration=1, exogenous=False,
                       source_position=SourcePosition.NONE, channel=Channel.SCRIPTED)
         triangle_transfer(state, event, NADIA, PARAMS)
-        return state.people[MARTA].acute_anxiety - marta
+        return state.people[NADIA].acute_anxiety - nadia
 
     plain, decremented = fresh(), fresh()
     complete_one(decremented)

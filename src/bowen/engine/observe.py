@@ -18,7 +18,7 @@ What counts as the person's own:
 * public facts about the other end: alive, and whether it is an external agent;
 * the closed triads it belongs to — topology, not state — and, for each person it
   could turn to, the triad a `TRIANGLE` act would form. That is read from its own
-  deviation on its own ties (``moves.triangle_outsider``), as the act's physics reads it;
+  deviation on its own ties (``moves.triangle_partner``), as the act's physics reads it;
 * its beliefs (`M9.8`) and this tick's deliveries to it.
 
 Nothing here reads another person's anxiety, outside-ness or felt state, or the state
@@ -34,7 +34,7 @@ from typing import Mapping
 from src.bowen.engine.contact import deviation, excess
 from src.bowen.engine.events import Role as DeliveryRole
 from src.bowen.engine.identifiers import PersonId, TieId, TriangleId
-from src.bowen.engine.moves import triangle_outsider
+from src.bowen.engine.moves import triangle_partner
 from src.bowen.engine.objects import SCALE_MAX, Role, TieState  # SCALE_MAX re-exported for the policy
 from src.bowen.engine.outside_ness import axes
 from src.bowen.engine.params import EngineParams
@@ -103,7 +103,7 @@ def observe(state: RunState, person: PersonId, params: EngineParams) -> Observat
         ))
     triangle_for = {}
     for view in ties:
-        found = triangle_outsider(state, person, view.other, params) if view.live and view.other_alive else None
+        found = triangle_partner(state, person, view.other, params) if view.live and view.other_alive else None
         if found is not None:
             triangle_for[view.other] = found[0]
     inbox = tuple(

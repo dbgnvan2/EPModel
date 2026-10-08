@@ -15,10 +15,11 @@ a hash goes stale.
 Default suite: **485 tests pass** (`python3 -m pytest tests/`). The 19 ensemble-marked criterion tests are
 deselected there and run with `python3 -m pytest -m ensemble`.
 
-**Read this first.** Phase C's gate does **not** pass. Of the 16 criteria built, 6 pass at the frozen
-constants and are proved by a mutant (C.1, C.19, C.25, C.32, C.35, C.38), 2 more pass but are fragile across the
-sweep (C.42, C.45), 2 pass in only some of their cells (C.27, C.41), 1 is undetermined at the seed
-cap, and 5 fail (C.3, C.4, C.5, C.29, C.44). 3 criteria are not built. A premise that passes confirms that the code renders the spec. It
+**Read this first.** Phase C's gate does **not** pass. Of the 16 criteria built, 7 pass at the frozen
+constants and are proved by a mutant (C.1, C.3, C.19, C.25, C.32, C.35, C.38), 1 passes in one of its four cells
+(C.27), 1 is undetermined at the seed cap (C.16), and 7 fail (C.4, C.5, C.29, C.41, C.42, C.44, C.45). 3 criteria
+are not built. **These are the verdicts after the `TRIANGLE` decision of 2026-10-08 (§8)**, which made C.3 pass and
+took C.42, C.45, one cell of C.27 and one cell of C.41 below significance or the wrong way. A premise that passes confirms that the code renders the spec. It
 is not a finding about families (`M11.5`). Nothing here speaks about a real family (`M11.F.9`).
 
 ---
@@ -32,7 +33,7 @@ column follows the global completion standard.
 | Criterion | Class (by reading) | Verdict at central | Proved by mutant | Sweep (composites) | Status |
 |---|---|---|---|---|---|
 | `M11.C.1` lower level reaches threshold sooner | premise | PASS (100 seeds) | **only by the joint `level-blind` mutant** — see §2 | — | done (proved only jointly; plan §3's named mutant survives, §2) |
-| `M11.C.3` triangle relieves pair, costs third | premise | **FAIL** — pair +2.59, third −1.21: both the wrong way | not run (fails) | — | not done — §3.1 |
+| `M11.C.3` triangle relieves pair, costs third | premise | PASS (50) — pair −2.22, third +4.02 | yes: `triangle-transfer-removed`, `triangle-roles-swapped` | — | done — after the `TRIANGLE` decision, §8 |
 | `M11.C.4` cutoff trades now against later | premise | **FAIL** — the "now" limb holds (−1.24); the "later" limb does not (−0.24, p 0.72) | not run | — | partial — §3.2 |
 | `M11.C.5` change-back reaction | composite | **FAIL** — neither readout significant | not run | at least one readout reverses at 5 of 6 settings | not done — §3.3 |
 | `M11.C.7` topology not coach skill | premise | not built | — | — | not done — needs `M8.2`/`M8.3`'s position predicates; declares no direction for its arms |
@@ -41,15 +42,15 @@ column follows the global completion standard.
 | `M11.C.16` repertoire concentration depends on level | composite | **UNDETERMINED** at 500 seeds; entropy −0.062 ± 0.013 (p ≈ 1e-44) | not run | same direction at all 6 settings, undetermined at each | partial — §3.4 |
 | `M11.C.19` counterfeit axis identified | check | PASS (50) | yes: `axes-collapsed`, `axes-swapped` | — | done |
 | `M11.C.25` dominant pole independent of sex | premise (null) | PASS (50); difference exactly 0 in every seed | yes: `sex-term-in-pole` | — | done — readout corrected post hoc, §4.2 |
-| `M11.C.27` twosome 2×2 | composite | 2 of 4 cells pass: [stable, add third] and [unstable, remove one] | [unstable, remove one] by both mutants; [stable, add third] only by `deviation-inverted` | the passing cells hold direction at all 6 settings; [stable, add third] loses significance at 2 | partial — §3.5 |
+| `M11.C.27` twosome 2×2 | composite | 1 of 4 cells passes: [unstable, remove one]. [stable, add third] passed before §8 and is now +0.003 (p 0.49) | the passing cell, by `one-sided-deviation` and `deviation-inverted` | the passing cell holds at all 6 settings | partial — §3.5 |
 | `M11.C.29` relief vs differentiation time course | premise | **FAIL** — budget −0.07 (p 0.17); third's symptom weeks 0 in both arms | not run | — | not done — §3.6 |
 | `M11.C.32` mover's anger stalls and degrades | premise | PASS (100) | yes: `anger-gate-inverted`, `anger-gate-removed` | — | done |
 | `M11.C.35` witness appraisal depends on both ties | check | PASS (200) | yes: `witness-position-blind`, `witness-reach-inverted` | — | done |
 | `M11.C.38` graded level orders time to threshold | premise | PASS, all 3 adjacent pairs | every pair red under the joint `level-blind` mutant; single-rule mutants red on some pairs only (§2) | — | done (proved only jointly, §2) |
-| `M11.C.41` level and stress each exacerbate | mixed | 1 of 4 cells passes ([lower level: heavier stress]); in both "lower level" cells anxiety rises but the reactive share **falls** | the passing cell: by the mixing-weight, threshold and level-blind mutants | — | partial — §3.7 |
-| `M11.C.42` a relieving triangle is reused | composite | PASS (100) | `learner-disabled` red; **`learner-inverted` survives** | **fails at 5 of 6 settings; reverses at T = 0.5** | partial — §3.8 |
-| `M11.C.44` position value inverts with load | composite | **FAIL** — −0.03 (p 0.65) | not run | — | not done |
-| `M11.C.45` triangles quiet when calm | composite | PASS (150) | yes: `relief-tension-independent`, `relief-tension-inverted` | **reverses at 3 of 6 settings** | partial — fragile, §3.8 |
+| `M11.C.41` level and stress each exacerbate | mixed | **FAIL** — no cell passes. [lower level: heavier stress] passed before §8; its reactive-share limb is now +0.004 (p 0.16). [light: lower level] is undetermined. In both "lower level" cells anxiety rises but the reactive share **falls** | not run | — | not done — §3.7 |
+| `M11.C.42` a relieving triangle is reused | composite | **FAIL** — reuse −0.17 (p 0.85); passed before §8 | not run | fails at all 6 settings; reverses at 3 | not done — §3.8 |
+| `M11.C.44` position value inverts with load | composite | **FAIL** — +0.010 (p 0.73) | not run | passes at 3 of 6 off-central settings (α 0.1, H 2, T 2.0); only the central setting gates | not done |
+| `M11.C.45` triangles quiet when calm | composite | **FAIL** — +0.0024 (p 0.17); passed before §8 | not run | fails at all 6 settings; reverses at 4 | not done — §3.8 |
 
 **Representation mutants (`M11.1c`).** Two re-encodings ran on every passing entry: same-tick appraisal summed
 in reverse order, and felt contact clamped 1e-12 inside [0, 1]. No verdict changed, so no encoding artefact was
@@ -77,15 +78,15 @@ These are recorded in the spec's `M11.5` table with today's date.
   sense. It is a *joint* premise. Proposed class: **premise (joint)**, with the rule set listed.
 - **`M11.C.38`** is the same, pair by pair. Each single-rule mutant reds some pairs and not others; the joint
   `level-blind` mutant reds all three.
-- **`M11.C.45` flips under one rule's inversion** (`M1.C.1`'s relief made to fall with the pair's tension). By
-  `M11.1d` it is a programmed premise, not a composite. Proposed class: **premise** (`M1.C.1`'s relief
-  proportional to the insiders' excess).
-- **`M11.C.27`'s passing cells flip under `deviation-inverted`**, the inversion of `M4.C.1`'s deviation. That
+- **`M11.C.3`** is confirmed premise after §8's decision. Removing `M1.C.1`'s transfer turns it red, and so does
+  swapping the roles back to step 5's alliance reading.
+- **`M11.C.27`'s passing cell flips under `deviation-inverted`**, the inversion of `M4.C.1`'s deviation. That
   rule is the whole sign of appraisal, so nearly any criterion would flip under it. The cell stays
   **composite**, with a note that the only single-rule inversion that flips it is the broadest one there is.
-- **`M11.C.42` does not flip under inversion of the learner.** It needs the learner to exist, since deletion
-  turns it red, but reversing the learner's sign does not reverse the direction. It stays **composite**, but
-  the mechanism its row names ("a triangle that relieved is reused") is not what produces the direction. §3.8.
+- **`M11.C.45` and `M11.C.42`, under step 5's alliance reading, before §8.** C.45 passed and flipped when
+  `M1.C.1`'s relief was inverted, which would have made it a premise. C.42 passed but survived an inverted
+  learner, so its direction did not come from relief's sign. Neither passes after §8, so neither correction
+  stands; the spec's `M11.5` notes record both.
 - **`M11.C.32`** is confirmed premise: both the gate's inversion and its removal turn it red. **`M11.C.19`** and
   **`M11.C.35`** are confirmed checks. **`M11.C.25`** is confirmed a structural null: the difference is exactly 0
   in every seed, because sex is read by no rule (`M2.A.0g`), and the test fails when a sex term is added.
@@ -95,11 +96,8 @@ These are recorded in the spec's `M11.5` table with today's date.
 These are reported, not fixed. The constants are frozen (`M10.B.4`), and changing a rule to make a criterion
 pass would be tuning against it. Each needs an owner decision.
 
-1. **`M11.C.3` comes from step 5's alliance reading of `TRIANGLE`.** The inside pair is the sender and its
-   target; the outsider is the third member furthest from the sender's optimum. In the triad, a parent
-   triangling the child makes the parent and child the inside pair and leaves the *other parent* outside. The
-   criterion's "pair" is the parents and its "third" is the child, so it reads the opposite of what the physics
-   does. Either the criterion's roles or step 5's reading must change. **Owner decision.**
+1. **`M11.C.3` — resolved by §8's decision.** It failed under step 5's alliance reading of `TRIANGLE`, which
+   left the other parent outside. It passes now.
 2. **`M11.C.4`'s later limb.** The cutoff relieves at once, as expected. At the nodal event 22 weeks later, the
    family's anxiety is no higher in the cutoff arm. `M4.C.1c`'s accrual on a severed tie does not build enough
    over 22 weeks at the frozen rates to show at one nodal event.
@@ -110,18 +108,21 @@ pass would be tuning against it. Each needs an owner decision.
    the spread of the paired difference, so 500 seeds do not reach it. `UNDETERMINED` does not pass (`M13.4`).
    Whether the precision rule should scale by the difference's sd is a plan-level question.
 5. **`M11.C.27`'s [stable, remove one]** and **[unstable, add third]** cells go the opposite way at every
-   setting. For a stable twosome, removing one member *lowers* the pair's deviation, where the criterion
+   setting, before and after §8. [stable, add third] passed before §8 and is now flat (+0.003). For a stable twosome, removing one member *lowers* the pair's deviation, where the criterion
    expects a rise. For an unstable twosome, adding a third *raises* it, where the criterion expects a fall.
 6. **`M11.C.29`.** The third person accumulates no symptom weeks in either arm (0 in both), so the readout cannot
    move. The budget difference is the right sign but not significant.
-7. **`M11.C.41`'s reactive-share limb.** At a lower level the mean acute anxiety rises, as expected and
+7. **`M11.C.41`'s reactive-share limb.** No cell passes after §8: [lower level: heavier stress] passed before and
+   its reactive-share limb is now +0.004 (p 0.16). At a lower level the mean acute anxiety rises, as expected and
    strongly. The *share* of automatic acts **falls**, though the mixing weight should raise it. One possible
    cause, not verified: lower level also lowers layer availability (`M4.D.3a`), which removes automatic acts
    from the legal set.
-8. **`M11.C.42` and `M11.C.45` pass only near the frozen constants.** C.42 fails at 5 of 6 off-central
-   settings and reverses at temperature 0.5. C.45 reverses at 3 of 6. Under plan D9 only the central setting
-   gates, so both stand as passes, but they are fragile, and the sweep record flags each reversal. C.42 also
-   survives the inverted learner (§2), so "relief reinforces the triangle" is not what produces its direction.
+8. **`M11.C.42` and `M11.C.45` no longer pass.** Both passed under step 5's alliance reading, and both were
+   already fragile in that sweep. After §8, C.42's reuse is −0.17 (p 0.85) and it fails at every sweep setting.
+   C.45's calm-against-spell difference is +0.0024 (p 0.17), the right sign but not significant, and it reverses
+   at 4 of 6 settings. One possible reason, not verified: in the triad, a parent's `TRIANGLE` now loads the child
+   rather than the other parent. The relief the act brings, and so what the learner reinforces, now depends on
+   the parents' tie being strained rather than on the parent–child tie.
 
 ## 4. Changes made after the constants were frozen
 
@@ -186,7 +187,7 @@ mutation record, not from the mere existence of its test.
 
 - **Plan §9's human reviews are not done.** These are `docs/readouts_phase_c.md` (whether the readouts name the
   patterns Bowen named), a rendered 104-week trace of the Phase C instance, and `M5.F.2`'s threshold.
-- **Owner decisions** on §3.1 (`TRIANGLE`'s inside pair), the `M11.5` reclassifications in §2, and whether
+- **Owner decisions** on what C.42 and C.45 test after the `TRIANGLE` decision (§8), the `M11.5` reclassifications in §2, and whether
   `M13.4`'s precision rule should scale by the difference's spread (§3.4).
 - **Phase C cannot be declared done** while its gate fails. Phase D should not start on this gate.
 
@@ -234,3 +235,37 @@ in both directions (`test_criteria_required_matches_what_the_arms_read`); the `c
 config file instead of restating the spell; and the tests load the mutation tool once
 (`test_sweep_tool_shares_the_loaded_mutation_tool`). The records were regenerated again and are identical apart from
 the hash.
+
+## 8. The `TRIANGLE` decision, 2026-10-08
+
+The owner asked for a decision on `TRIANGLE`'s inside pair (`M11.C.3`). **Decided: the target is the third party
+the act recruits, and stands outside; the inside pair is the sender and the member of the triad the sender is
+most strained with.** The spec already read the act this way in four places. `M1.F.1b` says "`TRIANGLE`
+addressed to a third party". `M11.C.3` says it "relieves the pair and costs the third". `M11.C.42` speaks of "a
+`TRIANGLE` from the tense pair toward a third member". `M6.4`'s table says "`TRIANGLE` pair → outsider". The
+corpus ledger's L09.3 says "tension above threshold recruits a third". Step 5 had built the opposite: the sender
+and target inside, as an alliance, with the partner left outside. That was an implementation choice, not a
+reading of the spec.
+
+The decision was made from the spec's text, before the criteria ran under it. It changes a rule after the
+constants freeze, which is reported here. No constant changed. The change is to the roles in `M1.C.1`'s
+transfer (`src/bowen/engine/moves.py`) and to step 6's readout of the inside pair
+(`src/bowen/engine/recompute.py`). `DETRIANGLE` and `PREVENT_ALIGNMENT` key on the act's two parties as before.
+Three unit tests encode the new roles, and each fails when the old reading is restored. The mutation record
+gains `triangle-roles-swapped`, which is the old reading as a sign-inverted mutant, and it turns C.3 red. The
+decision is recorded in the spec at `M1.C.1`.
+
+What the change did to the gate, with the same seeds and rules:
+
+| Criterion | Before | After |
+|---|---|---|
+| `M11.C.3` | FAIL (pair +2.59, third −1.21) | **PASS** (pair −2.22, third +4.02), proved |
+| `M11.C.42` | PASS (+0.22) | **FAIL** (−0.17) |
+| `M11.C.45` | PASS (+0.0051) | **FAIL** (+0.0024, p 0.17) |
+| `M11.C.27` [stable, add third] | PASS (+0.044) | **FAIL** (+0.003) |
+| `M11.C.41` [lower level: heavier stress] | PASS | **FAIL** (reactive share +0.004, p 0.16) |
+| `M11.C.41` [light: lower level] | FAIL | UNDETERMINED |
+| all other entries | — | verdict unchanged |
+
+The four entries that stopped passing are reported, not recovered. Changing a rule or constant to make them pass
+again would be tuning against them.

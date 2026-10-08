@@ -20,21 +20,23 @@ Deferred and adjacent items. Each carries enough context to act on later without
 
 Phase C steps 0–16 are built. **Its gate does not pass** (`docs/phase_c_completion_report.md`). These need a person.
 
-- [ ] **Decide `TRIANGLE`'s inside pair (`M11.C.3`).** Step 5 reads the act as an alliance: the sender and its target
-  are the inside pair, and the third member furthest from the sender is outside. In the triad, a parent triangling
-  the child leaves the *other parent* outside, so `M11.C.3`'s pair (the parents) and third (the child) read the
-  opposite way. Change the criterion's roles or the physics. Report §3.1.
+- [x] ~~**Decide `TRIANGLE`'s inside pair (`M11.C.3`).**~~ *Decided 2026-10-08: the target is the recruited third,
+  outside; the inside pair is the sender and its most strained partner, as `M1.F.1b`, `M11.C.3`, `M11.C.42` and
+  `M6.4` already read it. C.3 now passes and is proved; C.42, C.45, one cell of C.27 and one of C.41 stopped
+  passing. Recorded at spec `M1.C.1`; report §8.*
 - [ ] **Accept or revise the `M11.5` reclassifications** recorded 2026-10-08 in the spec's table: `M11.C.1` and
-  `.38` as joint premises (no single level-reading rule carries them), and `M11.C.45` as a premise (it flips when
-  `M1.C.1`'s relief is inverted). Report §2.
-- [ ] **`M11.C.42` and `.45` pass only near the frozen constants.** C.42 fails at 5 of 6 sweep settings and
-  survives an inverted learner; C.45 reverses at 3 of 6. Decide whether a composite that reverses within half and
-  double of its constants should gate. Report §3.8.
+  `.38` as joint premises (no single level-reading rule carries them). `M11.C.45`'s reclassification as a premise
+  was withdrawn when it stopped passing after the `TRIANGLE` decision. Report §2.
+- [ ] **`M11.C.42` and `.45` stopped passing after the `TRIANGLE` decision.** Both were already fragile in the sweep.
+  C.42's reuse is −0.17 and it fails at every sweep setting; C.45 has the right sign, without significance.
+  Decide whether either criterion's arms still test what it claims, now that the act loads the recruited third.
+  Report §3.8 and §8.
 - [ ] **`M13.4`'s precision rule and `M11.C.16`.** The direction holds at p ≈ 1e-44, but the half-width never falls
   below 0.25 of the baseline arm's sd, so it is `UNDETERMINED` at 500 seeds. Decide whether precision should
   scale by the paired difference's sd. Report §3.4.
 - [ ] **The failing criteria** — `M11.C.4` (later limb), `.5`, `.29` (the third person never accumulates symptom
-  weeks), `.44`, two cells of `.27`, three of `.41` (the reactive share falls with level). Report §3.
+  weeks), `.41` (no cell passes; the reactive share falls with level), `.42`, `.44`, `.45`, and three cells of `.27`.
+  Report §3.
 - [ ] **Plan §9's human reviews:** `docs/readouts_phase_c.md`, a rendered 104-week Phase C trace, and `M5.F.2`'s
   threshold.
 - [ ] **Not built:** `M11.C.7` (needs `M8.2`/`M8.3`'s predicates and a direction), `.13` (needs a community),

@@ -7,7 +7,7 @@ criterion is **done** only when every entry passes in `docs/phase_c_ensemble_rec
 mutant has turned each entry red in `docs/phase_c_mutation_record.md`; the D9 sweep
 (`docs/phase_c_sweep_record.md`) is reported, not gated. Phases D and E build most of the rest.
 
-**542 IDs: 217 done, 44 partial, 281 not done.**
+**542 IDs: 216 done, 45 partial, 281 not done.**
 
 | ID | Status | Evidence | Note |
 |---|---|---|---|
@@ -84,7 +84,7 @@ mutant has turned each entry red in `docs/phase_c_mutation_record.md`; the D9 sw
 | M1.B.11 | not done | — | Phase C or D — the phase that builds its mechanism (plan Appendix B) |
 | M1.B.12 | not done | — | Phase C or D — the phase that builds its mechanism (plan Appendix B) |
 | M1.B.13 | done | `tests/bowen/test_objects.py::test_m1b13_tie_id_is_unordered_pair` | — |
-| M1.C.1 | done | `tests/bowen/test_moves.py::test_m1c1_outsider_is_the_third_on_the_tie_being_turned_away_from`<br>`tests/bowen/test_moves.py::test_m1c1_triangle_relieves_the_insiders_and_loads_the_outsider`<br>`tests/bowen/test_objects.py::test_m1c1_triangle_holds_members_inside_pair_outside_and_bound_anxiety` | — |
+| M1.C.1 | done | `tests/bowen/test_moves.py::test_m1c1_the_target_is_recruited_into_the_senders_most_strained_twosome`<br>`tests/bowen/test_moves.py::test_m1c1_triangle_relieves_the_insiders_and_loads_the_outsider`<br>`tests/bowen/test_objects.py::test_m1c1_triangle_holds_members_inside_pair_outside_and_bound_anxiety` | — |
 | M1.C.2 | not done | — | Phase C or D — the phase that builds its mechanism (plan Appendix B) |
 | M1.C.3 | done | `tests/bowen/test_mechanisms.py::test_m1c3_activity_is_a_readout_of_recent_triangle_acts`<br>`tests/bowen/test_mechanisms.py::test_m1c3_calm_and_tense_systems_get_no_threshold`<br>`tests/bowen/test_mechanisms.py::test_m1c3_topology_is_the_closed_triads`<br>`tests/bowen/test_mechanisms.py::test_m1c3_triangle_move_sets_the_inside_pair`<br>`tests/bowen/test_objects.py::test_m1c3_topology_is_stored_apart_from_activity` | — |
 | M1.C.3a | partial | `tests/bowen/test_moves.py::test_m1c3a_better_differentiated_triangle_routes_less` | routing capacity falls with the members' functional level (step 5); 'activate only under real load, resolve when the load passes' is left to the learner (step 7) and is not yet tested |
@@ -367,7 +367,7 @@ mutant has turned each entry red in `docs/phase_c_mutation_record.md`; the D9 sw
 | M11.3 | not done | — | Phase C — acceptance-test rules |
 | M11.C.1 | done | `tests/bowen/test_phase_c_gate.py::test_m11c1_lower_c_reaches_threshold_sooner` | ensemble record: M11.C.1 PASS |
 | M11.C.2 | not done | — | Phase D |
-| M11.C.3 | partial | `tests/bowen/test_phase_c_gate.py::test_m11c3_triangle_relieves_pair_costs_third` | ensemble record: M11.C.3 FAIL |
+| M11.C.3 | done | `tests/bowen/test_phase_c_gate.py::test_m11c3_triangle_relieves_pair_costs_third` | ensemble record: M11.C.3 PASS |
 | M11.C.4 | partial | `tests/bowen/test_phase_c_gate.py::test_m11c4_cutoff_trades_now_against_later` | ensemble record: M11.C.4 FAIL |
 | M11.C.5 | partial | `tests/bowen/test_phase_c_gate.py::test_m11c5_change_back_reaction_shape` | ensemble record: M11.C.5 FAIL |
 | M11.C.6 | not done | — | Phase D |
@@ -391,7 +391,7 @@ mutant has turned each entry red in `docs/phase_c_mutation_record.md`; the D9 sw
 | M11.C.19 | done | `tests/bowen/test_phase_c_gate.py::test_m11c19_counterfeit_axis_is_identified` | ensemble record: M11.C.19 PASS |
 | M11.C.25 | done | `tests/bowen/test_phase_c_gate.py::test_m11c25_dominant_pole_independent_of_sex` | ensemble record: M11.C.25 PASS |
 | M11.C.26 | not done | — | Phase D |
-| M11.C.27 | partial | `tests/bowen/test_phase_c_gate.py::test_m11c27_twosome_two_by_two_all_cells` | ensemble record: M11.C.27[stable,add_third] PASS; M11.C.27[stable,remove_one] FAIL; M11.C.27[unstable,add_third] FAIL; M11.C.27[unstable,remove_one] PASS |
+| M11.C.27 | partial | `tests/bowen/test_phase_c_gate.py::test_m11c27_twosome_two_by_two_all_cells` | ensemble record: M11.C.27[stable,add_third] FAIL; M11.C.27[stable,remove_one] FAIL; M11.C.27[unstable,add_third] FAIL; M11.C.27[unstable,remove_one] PASS |
 | M11.C.28 | not done | — | Phase D |
 | M11.C.29 | partial | `tests/bowen/test_phase_c_gate.py::test_m11c29_relief_and_differentiation_differ_in_time_course` | ensemble record: M11.C.29 FAIL |
 | M11.C.30 | not done | — | Phase D |
@@ -405,11 +405,11 @@ mutant has turned each entry red in `docs/phase_c_mutation_record.md`; the D9 sw
 | M11.C.38 | done | `tests/bowen/test_phase_c_gate.py::test_m11c38_graded_parameter_orders_primary_readout` | ensemble record: M11.C.38[-0 vs -5] PASS; M11.C.38[-5 vs -10] PASS; M11.C.38[-10 vs -15] PASS |
 | M11.C.39 | not done | — | Phase D |
 | M11.C.40 | not done | — | Phase D |
-| M11.C.41 | partial | `tests/bowen/test_phase_c_gate.py::test_m11c41_level_and_stress_each_exacerbate_the_pattern` | ensemble record: M11.C.41[light: lower level] FAIL; M11.C.41[heavy: lower level] FAIL; M11.C.41[higher level: heavier stress] FAIL; M11.C.41[lower level: heavier stress] PASS |
-| M11.C.42 | done | `tests/bowen/test_phase_c_gate.py::test_m11c42_relieving_triangle_is_reused` | ensemble record: M11.C.42 PASS |
+| M11.C.41 | partial | `tests/bowen/test_phase_c_gate.py::test_m11c41_level_and_stress_each_exacerbate_the_pattern` | ensemble record: M11.C.41[light: lower level] UNDETERMINED; M11.C.41[heavy: lower level] FAIL; M11.C.41[higher level: heavier stress] FAIL; M11.C.41[lower level: heavier stress] FAIL |
+| M11.C.42 | partial | `tests/bowen/test_phase_c_gate.py::test_m11c42_relieving_triangle_is_reused` | ensemble record: M11.C.42 FAIL |
 | M11.C.43 | not done | — | Phase D |
 | M11.C.44 | partial | `tests/bowen/test_phase_c_gate.py::test_m11c44_position_value_inverts_with_load` | ensemble record: M11.C.44 FAIL |
-| M11.C.45 | done | `tests/bowen/test_phase_c_gate.py::test_m11c45_triangles_quiet_when_calm` | ensemble record: M11.C.45 PASS |
+| M11.C.45 | partial | `tests/bowen/test_phase_c_gate.py::test_m11c45_triangles_quiet_when_calm` | ensemble record: M11.C.45 FAIL |
 | M11.5 | not done | — | Phase C — acceptance-test rules |
 | M11.D.1 | done | `tests/bowen/test_engine_purity.py::test_m11d1_engine_has_no_io`<br>`tests/bowen/test_engine_purity.py::test_m11d1_the_scans_find_what_they_look_for` | — |
 | M11.D.2 | done | `tests/bowen/test_engineering_gates.py::test_m11d2_check_catches_a_literal_in_the_criteria`<br>`tests/bowen/test_engineering_gates.py::test_m11d2_check_catches_a_literal_in_the_policy`<br>`tests/bowen/test_engineering_gates.py::test_m11d2_no_magic_literals_in_engine` | — |

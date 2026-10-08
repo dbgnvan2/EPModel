@@ -55,7 +55,7 @@ The v2 specification is **approved** — 542 numbered requirements over 17 modul
 
 **Phase B is built and closed** (`src/bowen/`): the objects, the weekly loop, the standing load, the base appraisal, the event record, the scripted source, the run log and the renderer. See `docs/phase_b_completion_report.md`.
 
-**Phase C is built, and its acceptance gate does not pass** (2026-10-08). Agents now select acts through a policy and learn from felt relief. Of 16 criteria built, 6 pass and are mutation-proved, and 5 fail; the rest pass only in part, only near the frozen constants, or are undetermined. The status of each criterion and the owner decisions it needs are in `docs/phase_c_completion_report.md`; coverage in `docs/spec_coverage.md`.
+**Phase C is built, and its acceptance gate does not pass** (2026-10-08). Agents now select acts through a policy and learn from felt relief. Of 16 criteria built, 7 pass and are mutation-proved, 7 fail, 1 passes in one of its four cells and 1 is undetermined. The status of each criterion and the owner decisions it needs are in `docs/phase_c_completion_report.md`; coverage in `docs/spec_coverage.md`.
 
 The criteria run outside the default suite, over ensembles. On 10 cores the ensemble record takes about 5 minutes, the mutation record about 15 and the sweep about 20:
 

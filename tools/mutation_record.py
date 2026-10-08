@@ -152,6 +152,10 @@ MUTANTS = (
            "and I-POSITION hold capacity",
            also=LEVEL_BLIND),
     # --- M11.1d: sign-inverted mutants of each passing criterion's core rule --------------------
+    Mutant("triangle-roles-swapped", SIGN, ("M11.C.3",), "src/bowen/engine/moves.py",
+           "    outsider = target\n    insiders = (state.people[event.sender], state.people[partner])\n",
+           "    outsider = partner\n    insiders = (state.people[event.sender], state.people[target])\n",
+           "M1.C.1's roles swapped back to step 5's alliance reading: sender and target inside, the partner outside"),
     Mutant("steepness-inverted", SIGN, LEVEL, "src/bowen/engine/contact.py",
            "return SCALE_MAX / max(person.functional_level, params.functional_level_floor)",
            "return max(person.functional_level, params.functional_level_floor) / (SCALE_MAX / 4)",

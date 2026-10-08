@@ -43,6 +43,9 @@ Phase C steps 0–16 are built. **Its gate does not pass** (`docs/phase_c_comple
 - [ ] **Bruno falls back every week.** His one tie starts cut off, `REDUCE_CUTOFF` is his only legal act, and it
   carries no weight without systems perspective, so the family runs' fallback rate is 0.26–0.41 (`M11.D.18` flags
   it). Decide whether that is the intended reading of `M4.D.3b`.
+- [ ] **Fifth gate's low finding, 2026-10-08 (informational)** (`docs/cycles/2026-10-08_phase-c-qa-gate-5.md`,
+  APPROVED): `tests/bowen/test_ensemble_record.py` loads `tools/sweep_record.py` under the alias `sweep_record_tool`.
+  Load it as `tools.sweep_record`, as the mutation tool now is. No wrong result today.
 - [x] ~~**Third gate's low findings, 2026-10-08.**~~ *Fixed 2026-10-08:
   `test_criteria_required_matches_what_the_arms_read` ties `REQUIRED` to every arm's reads in both directions; the
   `criteria.py` docstring points at `config/bowen/criteria.md` instead of restating the spell; the mutation tool is

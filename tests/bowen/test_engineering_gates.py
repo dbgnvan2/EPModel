@@ -83,6 +83,8 @@ STRUCTURAL = {
     ("objects.py", 100.0),           # SCALE_MAX, the 0-100 scale, defined once
 }
 SCANNED = ("src/bowen/engine", "src/bowen/policy")
+# The criteria's declared settings live in config/bowen/criteria.md (Hermes gate finding 4, 2026-10-08).
+SCANNED_FILES = ("src/bowen/ensemble/criteria.py",)
 
 
 def magic_literals(paths) -> list[str]:
@@ -97,8 +99,17 @@ def magic_literals(paths) -> list[str]:
 
 
 def test_m11d2_no_magic_literals_in_engine():
-    paths = sorted(p for d in SCANNED for p in (REPO / d).glob("*.py"))
+    paths = sorted(p for d in SCANNED for p in (REPO / d).glob("*.py")) + [REPO / f for f in SCANNED_FILES]
     assert magic_literals(paths) == []
+
+
+def test_m11d2_check_catches_a_literal_in_the_criteria(tmp_path):
+    mutant = tmp_path / "criteria.py"
+    text = (REPO / "src/bowen/ensemble/criteria.py").read_text()
+    old = 'intensity = SETTINGS["scripted_act"]["intensity"]'
+    assert text.count(old) == 1
+    mutant.write_text(text.replace(old, "intensity = 100.0"))
+    assert [f.split(": ")[1] for f in magic_literals([mutant])] == ["100.0"]
 
 
 def test_m11d2_check_catches_a_literal_in_the_policy(tmp_path):

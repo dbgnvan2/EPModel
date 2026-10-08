@@ -30,8 +30,9 @@ sys.path.insert(0, str(REPO))
 from tools.mutation_record import ENSEMBLE_RECORD, Mutant, run_mutant  # noqa: E402
 
 RECORD = REPO / "docs" / "phase_c_sweep_record.md"
-# The settings here and the mutant machinery in mutation_record.py are inputs to the record.
-HASHED_TOOLS = (Path(__file__).resolve(), REPO / "tools" / "mutation_record.py")
+# The settings here, the mutant machinery in mutation_record.py and RULE_KEYS in ensemble_record.py
+# are inputs to the record.
+HASHED_TOOLS = (Path(__file__).resolve(), REPO / "tools" / "mutation_record.py", REPO / "tools" / "ensemble_record.py")
 CONSTANTS = "config/bowen/constants.md"
 SETTINGS = (  # (constant, central as written in constants.md, low, high)
     ("learning_rate", "0.2", "0.1", "0.4"),

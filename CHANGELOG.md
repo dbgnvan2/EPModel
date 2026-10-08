@@ -41,6 +41,11 @@ the per-criterion status is in `docs/phase_c_completion_report.md`.
   coverage reads `NOT_BUILT` from the criteria module, not the record's prose; the belief store's
   "no `true_counterpart`" check is an AST name check tied to the function, with its own mutation test. The fourth
   (low) finding is in `TODO.md`.
+- From the second gate (`docs/cycles/2026-10-08_phase-c-qa-gate-2.md`, APPROVED), and the first gate's fourth finding:
+  every record's hash now covers `tools/ensemble_record.py`, whose `RULE_KEYS` feeds every verdict (A, medium); the
+  sweep staleness test imports the sweep tool's `HASHED_TOOLS` (B, low); the criteria's declared settings moved,
+  unchanged, to `config/bowen/criteria.md`, and `M11.D.2`'s magic-literal scan covers `criteria.py` (4, low). All
+  three records regenerated; apart from the hash they are byte-identical. 483 tests pass.
 
 ## [Unreleased] — 2026-10-06
 

@@ -24,6 +24,7 @@ from __future__ import annotations
 
 import dataclasses
 import math
+import re
 from collections import Counter
 
 from src.bowen.engine.act import Selection
@@ -63,19 +64,72 @@ def load_roles(path=CONFIG_DIR / "criterion_roles.md") -> dict[tuple[str, str], 
 
 
 ROLES = load_roles()
+
+# Every setting a criterion reads, by section; config/bowen/criteria.md must hold exactly these.
+REQUIRED = {
+    "spell": ("kind", "intensity", "every", "from", "light_every", "light_parents"),
+    "scripted_act": ("intensity",),
+    "M11.C.1": ("weeks", "level_baseline", "level_treatment"),
+    "M11.C.3": ("t0", "run_after", "latency"),
+    "M11.C.4": ("t0", "nodal", "run_after_nodal"),
+    "M11.C.5": ("weeks", "t0"),
+    "M11.C.16": ("weeks", "level_baseline", "level_treatment", "window"),
+    "M11.C.19": ("weeks", "low_axis", "high_axis"),
+    "M11.C.25": ("weeks", "no_pole"),
+    "M11.C.27": ("t0", "run_after", "unstable_impingement"),
+    "M11.C.29": ("weeks", "t0", "disguise_span", "disguise_every"),
+    "M11.C.32": ("weeks", "t0", "angry_impingement"),
+    "M11.C.35": ("t0", "run_after", "conductance_high", "conductance_low"),
+    "M11.C.38": ("weeks", "level_1", "level_2", "level_3", "level_4"),
+    "M11.C.41": ("weeks", "level_higher", "level_lower"),
+    "M11.C.42": ("t0", "weeks"),
+    "M11.C.44": ("weeks",),
+    "M11.C.45": ("weeks",),
+}
+
+
+def _value(text: str):
+    """An integer, a float, or (for an event kind) the word itself."""
+    if re.fullmatch(r"-?\d+", text):
+        return int(text)
+    try:
+        return float(text)
+    except ValueError:
+        return text
+
+
+def load_settings(path=CONFIG_DIR / "criteria.md") -> dict[str, dict]:
+    """Purpose: each criterion's declared settings from config, strictly (Hermes gate finding 4, M11.D.2)."""
+    document = parse_table_document(path.read_text(encoding="utf-8"), columns=("criterion", "setting", "value"),
+                                    metadata_keys=frozenset(), source=str(path))
+    settings: dict[str, dict] = {}
+    for row, line in zip(document.rows, document.row_lines):
+        section, name = row["criterion"], row["setting"]
+        if name not in REQUIRED.get(section, ()):
+            raise ConfigError(f"{path}:{line}: {section} has no setting {name!r}")
+        if name in settings.setdefault(section, {}):
+            raise ConfigError(f"{path}:{line}: duplicate setting {section} {name}")
+        settings[section][name] = _value(row["value"])
+    missing = [f"{s} {n}" for s, names in REQUIRED.items() for n in names if n not in settings.get(s, {})]
+    if missing:
+        raise ConfigError(f"{path}: missing settings {missing}")
+    return settings
+
+
+SETTINGS = load_settings()
+SPELL = SETTINGS["spell"]
 PARENTS = {"phase_c": (ROLES["phase_c", "parent_1"], ROLES["phase_c", "parent_2"]), "dyad": (P("a"), P("b")), "triad": (P("f"), P("m")),
            "four": (P("f"), P("m"))}
-SPELL_INTENSITY, SPELL_EVERY, SPELL_FROM = 120.0, 4, 4
 AUTOMATIC = ("PURSUE", "DISTANCE", "CONFLICT", "OVERFUNCTION", "UNDERFUNCTION", "TRIANGLE", "CUTOFF")
 
 
-def spell(family: str, weeks: int, start: int = SPELL_FROM) -> tuple[Event, ...]:
+def spell(family: str, weeks: int, every: int | None = None, parents: int | None = None) -> tuple[Event, ...]:
     events = []
-    for t in range(start, weeks, SPELL_EVERY):
-        for i, parent in enumerate(PARENTS[family]):
+    for t in range(SPELL["from"], weeks, every or SPELL["every"]):
+        for i, parent in enumerate(PARENTS[family][:parents]):
             events.append(Event(
-                id=EventId(t, "spell", i), kind="JOB_LOSS", mechanism=Mechanism.EXOGENOUS_STRESSOR, sender=None,
-                targets=(parent,), intensity=SPELL_INTENSITY, timestamp=t, duration=1, exogenous=True,
+                id=EventId(t, "spell", i), kind=SPELL["kind"], mechanism=Mechanism.EXOGENOUS_STRESSOR, sender=None,
+                targets=(parent,), intensity=SPELL["intensity"], timestamp=t, duration=1, exogenous=True,
                 source_position=SourcePosition.NONE, channel=Channel.EXOGENOUS,
             ))
     return tuple(events)
@@ -180,7 +234,8 @@ def first_onset(records, horizon: int) -> float:
     return float(horizon + 1)  # censored: no onset within the horizon
 
 
-def act(actor, kind, target, tick, intensity=100.0):
+def act(actor, kind, target, tick):
+    intensity = SETTINGS["scripted_act"]["intensity"]
     return {(tick, P(actor)): Selection(actor=P(actor), kind=kind, targets=(P(target),), intensity=intensity)}
 
 
@@ -209,10 +264,10 @@ def _acute_at(records, tick, people):
 
 
 def arm_c3(arm, seed, settings):
-    t0, weeks = settings["t0"], settings["t0"] + 2
+    t0, weeks = settings["t0"], settings["t0"] + settings["run_after"]
     forced = act("f", "TRIANGLE", "c", t0) if arm == "treatment" else act("f", "STAY-IN-CONTACT", "m", t0)
     state, records = scenario("triad", seed, weeks, forced=forced)
-    delivered = t0 + 1  # latency 1: the act's effect lands in the next tick
+    delivered = t0 + settings["latency"]  # the act's effect lands after the tie's latency
     change = _acute_at(records, delivered, (P("f"), P("m"), P("c")))
     return result({"pair_anxiety": change[P("f")] + change[P("m")], "third_anxiety": change[P("c")]}, records)
 
@@ -222,9 +277,9 @@ def arm_c3(arm, seed, settings):
 
 def arm_c4(arm, seed, settings):
     t0, nodal = settings["t0"], settings["nodal"]
-    weeks = nodal + 2
-    nodal_event = (Event(id=EventId(nodal, "nodal", 0), kind="JOB_LOSS", mechanism=Mechanism.EXOGENOUS_STRESSOR,
-                         sender=None, targets=(P("a"),), intensity=SPELL_INTENSITY, timestamp=nodal, duration=1,
+    weeks = nodal + settings["run_after_nodal"]
+    nodal_event = (Event(id=EventId(nodal, "nodal", 0), kind=SPELL["kind"], mechanism=Mechanism.EXOGENOUS_STRESSOR,
+                         sender=None, targets=(P("a"),), intensity=SPELL["intensity"], timestamp=nodal, duration=1,
                          exogenous=True, source_position=SourcePosition.NONE, channel=Channel.EXOGENOUS),)
     forced = act("a", "CUTOFF", "b", t0) if arm == "treatment" else act("a", "STAY-IN-CONTACT", "b", t0)
     state, records = scenario("dyad", seed, weeks, spells=nodal_event, forced=forced)
@@ -269,7 +324,7 @@ def arm_c16(arm, seed, settings):
     weeks = settings["weeks"]
     by = settings["levels"][0 if arm == "baseline" else 1]
     state, records = scenario("phase_c", seed, weeks, spells=spell("phase_c", weeks), setup=lowered(by))
-    entropy, top = _automatic_entropy(records, weeks - 52)
+    entropy, top = _automatic_entropy(records, weeks - settings["window"])
     return result({"repertoire_entropy": entropy, "top_move_share": top}, records)
 
 
@@ -277,7 +332,8 @@ def arm_c16(arm, seed, settings):
 
 
 def arm_c19(arm, seed, settings):
-    axes = (0.2, 0.8) if arm == "baseline" else (0.8, 0.2)  # accommodator, then declarer: equal magnitude
+    low, high = settings["low_axis"], settings["high_axis"]
+    axes = (low, high) if arm == "baseline" else (high, low)  # accommodator, then declarer: equal magnitude
 
     def setup(state):
         state.people[P("a")].outside_ness_outward, state.people[P("a")].outside_ness_inward = axes
@@ -311,7 +367,7 @@ def arm_c25(arm, seed, settings):
     # docs/phase_c_completion_report.md).
     balance = state.ties[TieId.of(P("a"), P("b"))].functioning_balance["joint"]
     if balance == 0:
-        return result({"first_dominant": 0.5}, records)  # no pole
+        return result({"first_dominant": settings["no_pole"]}, records)  # no pole: neither spouse holds it
     return result({"first_dominant": float(balance > 0)}, records)  # the tie's first member, a, over-functioning
 
 
@@ -334,7 +390,7 @@ def arm_c27(arm, seed, settings):
         if unstable:
             tie = state.ties[TieId.of(P("f"), P("m"))]
             for m in tie.id.members():
-                tie.felt_impingement[m] = 0.8
+                tie.felt_impingement[m] = settings["unstable_impingement"]
 
     if arm == "baseline":
         forced = act("f", "STAY-IN-CONTACT", "m", t0)
@@ -342,7 +398,7 @@ def arm_c27(arm, seed, settings):
         forced = act("f", "TRIANGLE", "c", t0)
     else:  # remove one: f severs contact with m for the cell's window
         forced = act("f", "CUTOFF", "m", t0)
-    state, records = scenario("triad", seed, t0 + 3, forced=forced, setup=setup)
+    state, records = scenario("triad", seed, t0 + settings["run_after"], forced=forced, setup=setup)
     return result({"pair_deviation": _pair_deviation(state)}, records)
 
 
@@ -358,7 +414,8 @@ def arm_c29(arm, seed, settings):
     if arm == "treatment":  # a genuine I-POSITION
         forced = act("f", "I-POSITION", "m", t0)
     else:  # distance in disguise: withdrawals over the same weeks
-        forced = {k: v for t in range(t0, t0 + 8, 2) for k, v in act("f", "DISTANCE", "m", t).items()}
+        span, every = settings["disguise_span"], settings["disguise_every"]
+        forced = {k: v for t in range(t0, t0 + span, every) for k, v in act("f", "DISTANCE", "m", t).items()}
     state, records = scenario("triad", seed, weeks, spells=spell("triad", weeks), forced=forced, setup=perspective)
     symptom_weeks = sum(1 for r in records if isinstance(r, EffectRecord) and r.mechanism == "symptom_accumulation"
                         and any(p == P("c") and v > 0 for p, _, v in r.people))
@@ -378,7 +435,7 @@ def arm_c32(arm, seed, settings):
     def anger(state):
         setup(state)
         if arm == "treatment":
-            state.ties[TieId.of(P("a"), P("b"))].felt_impingement[P("a")] = 1.0
+            state.ties[TieId.of(P("a"), P("b"))].felt_impingement[P("a")] = settings["angry_impingement"]
 
     state, records = scenario("dyad", seed, settings["weeks"], forced=act("a", "I-POSITION", "b", t0), setup=anger)
     assertion = sum(1 for r in records if isinstance(r, EmittedRecord) and r.event.assertion)
@@ -394,10 +451,11 @@ def arm_c35(arm, seed, settings):
     t0 = settings["t0"]
 
     def setup(state):
-        state.ties[TieId.of(P("c"), P("f"))].conductance = 1.0 if arm == "treatment" else 0.4
+        high, low = settings["conductance_high"], settings["conductance_low"]
+        state.ties[TieId.of(P("c"), P("f"))].conductance = high if arm == "treatment" else low
 
     forced = act("f", "CONFLICT", "m", t0)
-    state, records = scenario("triad", seed, t0 + 2, forced=forced, setup=setup)
+    state, records = scenario("triad", seed, t0 + settings["run_after"], forced=forced, setup=setup)
     event_id = EventId(t0, "f", 0)
     witness = sum(v for r in records if isinstance(r, EffectRecord) and r.mechanism == "appraisal"
                   and r.cause == event_id for p, v in r.acute_anxiety if p == P("c"))
@@ -410,7 +468,8 @@ def arm_c35(arm, seed, settings):
 def arm_c41(arm, seed, settings):
     weeks = settings["weeks"]
     level, stress = settings["arms"][0 if arm == "baseline" else 1]
-    spells = spell("phase_c", weeks) if stress == "heavy" else spell("phase_c", weeks)[::4]
+    light = spell("phase_c", weeks, every=SPELL["light_every"], parents=SPELL["light_parents"])
+    spells = spell("phase_c", weeks) if stress == "heavy" else light
     state, records = scenario("phase_c", seed, weeks, spells=spells, setup=lowered(level))
     acute = sum(p.acute_anxiety for p in state.people.values() if p.role.value == "member")
     emitted = [r.event.kind for r in records if isinstance(r, EmittedRecord) and r.event.mechanism is Mechanism.MOVE
@@ -455,59 +514,61 @@ def arm_spell_triad(arm, seed, settings):
 C = Criterion
 CRITERIA: dict[str, Criterion] = {
     "M11.C.1": C("M11.C.1", "premise", ("baseline", "treatment"), (Readout("time_to_threshold", -1),), arm_c1,
-                 settings={"weeks": 104, "levels": (0.0, 10.0)}),
+                 settings={**SETTINGS["M11.C.1"], "levels": (SETTINGS["M11.C.1"]["level_baseline"], SETTINGS["M11.C.1"]["level_treatment"])}),
     "M11.C.3": C("M11.C.3", "premise", ("baseline", "treatment"),
                  (Readout("pair_anxiety", -1), Readout("third_anxiety", +1)), arm_c3, ("TRIANGLE",),
-                 settings={"t0": 12}),
+                 settings=SETTINGS["M11.C.3"]),
     "M11.C.4": C("M11.C.4", "premise", ("baseline", "treatment"),
                  (Readout("actor_relief_now", -1), Readout("family_anxiety_at_nodal", +1)), arm_c4, ("CUTOFF",),
-                 settings={"t0": 8, "nodal": 30}),
+                 settings=SETTINGS["M11.C.4"]),
     "M11.C.5": C("M11.C.5", "composite", ("baseline", "treatment"),
                  (Readout("target_reaction", +1), Readout("third_person_symptom_load", +1)), arm_c5,
-                 settings={"weeks": 60, "t0": 4}),
+                 settings=SETTINGS["M11.C.5"]),
     "M11.C.16": C("M11.C.16", "composite", ("baseline", "treatment"),
                   (Readout("repertoire_entropy", -1), Readout("top_move_share", +1, report_only=True)), arm_c16,
-                  settings={"weeks": 104, "levels": (0.0, 15.0)}),
+                  settings={**SETTINGS["M11.C.16"], "levels": (SETTINGS["M11.C.16"]["level_baseline"], SETTINGS["M11.C.16"]["level_treatment"])}),
     "M11.C.19": C("M11.C.19", "check", ("baseline", "treatment"),
                   (Readout("outward_failed", +1, (0, 1)), Readout("inward_failed", -1, (0, 1))), arm_c19,
-                  settings={"weeks": 1}),
+                  settings=SETTINGS["M11.C.19"]),
     "M11.C.25": C("M11.C.25", "premise", ("baseline", "treatment"), (Readout("first_dominant", 0, (0, 1)),),
-                  arm_c25, settings={"weeks": 52}),
+                  arm_c25, settings=SETTINGS["M11.C.25"]),
     "M11.C.29": C("M11.C.29", "premise", ("baseline", "treatment"),
                   (Readout("budget", -1), Readout("third_symptom_weeks", -1)), arm_c29,
-                  settings={"weeks": 80, "t0": 4}),
+                  settings=SETTINGS["M11.C.29"]),
     "M11.C.32": C("M11.C.32", "premise", ("baseline", "treatment"),
                   (Readout("assertion_form", +1), Readout("reached_peak", -1)), arm_c32, ("I-POSITION",),
-                  settings={"weeks": 30, "t0": 0}),
+                  settings=SETTINGS["M11.C.32"]),
     "M11.C.35": C("M11.C.35", "check", ("baseline", "treatment"), (Readout("witness_appraisal", +1),), arm_c35,
-                  settings={"t0": 6}),
+                  settings=SETTINGS["M11.C.35"]),
     "M11.C.42": C("M11.C.42", "composite", ("baseline", "treatment"), (Readout("triangle_reuse", +1),), arm_c42,
-                  ("TRIANGLE",), settings={"t0": 10, "weeks": 40}),
+                  ("TRIANGLE",), settings=SETTINGS["M11.C.42"]),
     "M11.C.44": C("M11.C.44", "composite", ("baseline", "treatment"), (Readout("outside_inside_ratio", +1),),
-                  arm_spell_triad, settings={"weeks": 80}),
+                  arm_spell_triad, settings=SETTINGS["M11.C.44"]),
     "M11.C.45": C("M11.C.45", "composite", ("baseline", "treatment"), (Readout("triangle_rate", +1),),
-                  arm_spell_triad, ("TRIANGLE",), settings={"weeks": 80}),
+                  arm_spell_triad, ("TRIANGLE",), settings=SETTINGS["M11.C.45"]),
 }
 # M11.C.27: four cells, each a two-arm direction (M11.4, P9).
 for twosome, change, direction in (("stable", "add_third", +1), ("stable", "remove_one", +1),
                                    ("unstable", "add_third", -1), ("unstable", "remove_one", -1)):
     cid = f"M11.C.27[{twosome},{change}]"
     CRITERIA[cid] = C(cid, "composite", ("baseline", "treatment"), (Readout("pair_deviation", direction),), arm_c27,
-                      settings={"t0": 8, "twosome": twosome, "change": change})
+                      settings={**SETTINGS["M11.C.27"], "twosome": twosome, "change": change})
 # M11.C.38: four basic levels, a monotone ordering, as three adjacent two-arm directions (M11.4).
-for lo, hi in ((0.0, 5.0), (5.0, 10.0), (10.0, 15.0)):
+_levels = [v for k, v in sorted(SETTINGS["M11.C.38"].items()) if k.startswith("level_")]
+for lo, hi in zip(_levels, _levels[1:]):
     cid = f"M11.C.38[-{lo:g} vs -{hi:g}]"
     CRITERIA[cid] = C(cid, "premise", ("baseline", "treatment"), (Readout("time_to_threshold", -1),), arm_c1,
-                      settings={"weeks": 104, "levels": (lo, hi)})
+                      settings={"weeks": SETTINGS["M11.C.38"]["weeks"], "levels": (lo, hi)})
 # M11.C.41: the 2x2 of level and stress, four two-arm directions on two readouts each.
-for name, base, treat in (("light: lower level", (0.0, "light"), (10.0, "light")),
-                          ("heavy: lower level", (0.0, "heavy"), (10.0, "heavy")),
-                          ("higher level: heavier stress", (0.0, "light"), (0.0, "heavy")),
-                          ("lower level: heavier stress", (10.0, "light"), (10.0, "heavy"))):
+_hi, _lo = SETTINGS["M11.C.41"]["level_higher"], SETTINGS["M11.C.41"]["level_lower"]
+for name, base, treat in (("light: lower level", (_hi, "light"), (_lo, "light")),
+                          ("heavy: lower level", (_hi, "heavy"), (_lo, "heavy")),
+                          ("higher level: heavier stress", (_hi, "light"), (_hi, "heavy")),
+                          ("lower level: heavier stress", (_lo, "light"), (_lo, "heavy"))):
     cid = f"M11.C.41[{name}]"
     CRITERIA[cid] = C(cid, "mixed", ("baseline", "treatment"),
                       (Readout("mean_acute", +1), Readout("reactive_share", +1)), arm_c41,
-                      settings={"weeks": 80, "arms": (base, treat)})
+                      settings={"weeks": SETTINGS["M11.C.41"]["weeks"], "arms": (base, treat)})
 
 NOT_BUILT = {
     "M11.C.7": "needs M8.2/M8.3's position predicates; the criterion declares no direction for its topology arms",

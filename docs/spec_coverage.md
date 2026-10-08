@@ -412,7 +412,7 @@ mutant has turned each entry red in `docs/phase_c_mutation_record.md`; the D9 sw
 | M11.C.45 | done | `tests/bowen/test_phase_c_gate.py::test_m11c45_triangles_quiet_when_calm` | ensemble record: M11.C.45 PASS |
 | M11.5 | not done | — | Phase C — acceptance-test rules |
 | M11.D.1 | done | `tests/bowen/test_engine_purity.py::test_m11d1_engine_has_no_io`<br>`tests/bowen/test_engine_purity.py::test_m11d1_the_scans_find_what_they_look_for` | — |
-| M11.D.2 | done | `tests/bowen/test_engineering_gates.py::test_m11d2_check_catches_a_literal_in_the_policy`<br>`tests/bowen/test_engineering_gates.py::test_m11d2_no_magic_literals_in_engine` | — |
+| M11.D.2 | done | `tests/bowen/test_engineering_gates.py::test_m11d2_check_catches_a_literal_in_the_criteria`<br>`tests/bowen/test_engineering_gates.py::test_m11d2_check_catches_a_literal_in_the_policy`<br>`tests/bowen/test_engineering_gates.py::test_m11d2_no_magic_literals_in_engine` | — |
 | M11.D.3 | done | `tests/bowen/test_config.py::test_m11d3_config_rejects_duplicate_key`<br>`tests/bowen/test_config.py::test_m11d3_config_rejects_float_for_integer_key`<br>`tests/bowen/test_config.py::test_m11d3_config_rejects_malformed_line`<br>`tests/bowen/test_config.py::test_m11d3_config_rejects_missing_frozen_at`<br>`tests/bowen/test_config.py::test_m11d3_config_rejects_missing_required_key`<br>`tests/bowen/test_config.py::test_m11d3_config_rejects_non_numeric_value`<br>`tests/bowen/test_config.py::test_m11d3_config_rejects_unknown_key`<br>`tests/bowen/test_config.py::test_m11d3_config_rejects_unknown_metadata_key`<br>`tests/bowen/test_config.py::test_m11d3_config_rejects_wrong_cell_count`<br>`tests/bowen/test_config.py::test_m11d3_config_rejects_wrong_table_header`<br>`tests/bowen/test_config.py::test_m11d3_good_document_parses` | — |
 | M11.D.4 | done | `tests/bowen/test_engine_purity.py::test_m11d4_invented_constants_labelled`<br>`tests/bowen/test_engine_purity.py::test_m11d4_scan_finds_a_constant_described_as_sourced` | — |
 | M11.D.5 | done | `tests/bowen/test_determinism.py::test_m11d5_a_different_seed_is_recorded_in_the_header`<br>`tests/bowen/test_determinism.py::test_m11d5_same_seed_same_log` | — |
@@ -458,7 +458,7 @@ mutant has turned each entry red in `docs/phase_c_mutation_record.md`; the D9 sw
 | M13.2 | done | `tests/test_simulator.py` | the frozen engine's 37 tests pass unchanged; gate G14 |
 | M13.2a | done | `tests/test_spec_consistency.py::test_m11d11_every_criterion_gates_its_phase` | — |
 | M13.3 | partial | — | no M15 importer exists under src/bowen; no test guards against one being built |
-| M13.4 | done | `tests/bowen/test_ensemble.py::test_m17a1_undetermined_at_cap_does_not_pass`<br>`tests/bowen/test_ensemble_record.py::test_m134_ensemble_record_is_current`<br>`tests/bowen/test_ensemble_record.py::test_m134_record_covers_every_criterion_and_names_what_is_not_built` | Phase C stops adaptively; UNDETERMINED at the cap does not pass (step 12) |
+| M13.4 | done | `tests/bowen/test_ensemble.py::test_m17a1_undetermined_at_cap_does_not_pass`<br>`tests/bowen/test_ensemble_record.py::test_m134_ensemble_record_is_current`<br>`tests/bowen/test_ensemble_record.py::test_m134_every_record_hashes_the_ensemble_tool`<br>`tests/bowen/test_ensemble_record.py::test_m134_record_covers_every_criterion_and_names_what_is_not_built` | Phase C stops adaptively; UNDETERMINED at the cap does not pass (step 12) |
 | M14.1 | done | `tests/bowen/test_spec_coverage.py::test_m141_spec_coverage_is_current`<br>`tests/bowen/test_spec_coverage.py::test_m141_every_done_names_an_existing_test`<br>`tests/bowen/test_spec_coverage.py::test_m141_excluded_evidence_is_not_shown`<br>`tests/bowen/test_spec_coverage.py::test_m141_no_id_resolves_to_an_unassigned_phase` | this file |
 | M14.2 | not done | — | Phase every phase |
 | M14.A.1 | done | `tests/test_spec_consistency.py::test_m11d17_register_has_no_orphans`<br>`tests/bowen/test_register.py::test_m14a_register_matches_object_fields` | — |
@@ -554,12 +554,13 @@ mutant has turned each entry red in `docs/phase_c_mutation_record.md`; the D9 sw
 | M17.G.2 | not done | — | Phase E |
 | M17.G.3 | not done | — | Phase E |
 
-## Tests named for no spec ID (57)
+## Tests named for no spec ID (58)
 
 Their names embed no requirement ID, so they count only where an override cites them (marked *cited*). The rest check spec documents, tooling or helpers.
 
 - `tests/bowen/test_config.py::test_m0_1_grade_must_match_the_spec` — *cited*
 - `tests/bowen/test_config.py::test_m0_1_unknown_grade_rejected` — *cited*
+- `tests/bowen/test_ensemble_record.py::test_criteria_settings_are_parsed_strictly`
 - `tests/bowen/test_ensemble_record.py::test_d9_sweep_record_is_current`
 - `tests/bowen/test_family.py::test_m2_family_declaration_must_be_graded_invented`
 - `tests/bowen/test_family.py::test_m2a_values_match_the_spec_table` — *cited*

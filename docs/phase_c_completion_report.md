@@ -12,7 +12,7 @@ a hash goes stale.
 | `docs/phase_c_sweep_record.md` | `tools/sweep_record.py` | each composite criterion at half and double α, H and temperature (plan D9) |
 | `docs/spec_coverage.md` | `tools/spec_coverage.py` | every spec ID: done / partial / not done |
 
-Default suite: **480 tests pass** (`python3 -m pytest tests/`). The 19 ensemble-marked criterion tests are
+Default suite: **483 tests pass** (`python3 -m pytest tests/`). The 19 ensemble-marked criterion tests are
 deselected there and run with `python3 -m pytest -m ensemble`.
 
 **Read this first.** Phase C's gate does **not** pass. Of the 16 criteria built, 6 pass at the frozen
@@ -206,11 +206,23 @@ result, not a code defect. Three findings were fixed in the same session, each w
 - **low:** the belief store's "no `true_counterpart`" check was a bare substring. It is now an AST name check tied
   to the function object, with a mutation test (`test_m98_check_catches_an_update_calling_true_counterpart`).
 
-The fourth (low, P4: the declared spell and horizons are literals in `criteria.py`, outside `M11.D.2`'s scan) is
-in `TODO.md`. Fixing it changes the code hash and every record, so it is left for before Phase D.
+The fourth (low, P4: the declared spell and horizons were literals in `criteria.py`, outside `M11.D.2`'s scan) was
+deferred at first and is fixed below.
 
 A second gate on the final state (`docs/cycles/2026-10-08_phase-c-qa-gate-2.md`) verified the three fixes and
 **APPROVED**. It found one more medium guard gap of the same kind (A): `RULE_KEYS` in `tools/ensemble_record.py` is an
 input to all three records, and no record's hash covers it. It also found one low (B), a copied tuple in a test.
-Neither gives a wrong result in the tree today. Both are in `TODO.md` as required before Phase D or before the
-records are next regenerated.
+Neither gave a wrong result in the tree.
+
+**Findings A, B and 4 were then fixed (2026-10-08):**
+
+- **A:** every record's hash covers `tools/ensemble_record.py`, and each generating tool names its inputs in
+  `HASHED_TOOLS` (`test_m134_every_record_hashes_the_ensemble_tool`).
+- **B:** the sweep staleness test imports the sweep tool's tuple instead of copying it.
+- **4:** the criteria's declared settings (the spell, horizons, scripted-act weeks, levels and starting states) moved,
+  unchanged, to `config/bowen/criteria.md`. The file is parsed strictly
+  (`test_criteria_settings_are_parsed_strictly`), and `M11.D.2`'s magic-literal scan now covers
+  `src/bowen/ensemble/criteria.py` (`test_m11d2_check_catches_a_literal_in_the_criteria`).
+
+All three records were regenerated. Apart from the hash line they are byte-identical to the previous ones: every
+verdict, seed count, difference and mutant result is unchanged, so the move to config changed no behaviour.

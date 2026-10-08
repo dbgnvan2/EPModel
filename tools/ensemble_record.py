@@ -26,6 +26,7 @@ REPO = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO))
 
 RECORD = REPO / "docs" / "phase_c_ensemble_record.md"
+HASHED_TOOLS = (Path(__file__).resolve(),)  # RULE_KEYS below is an input to the verdicts
 RULE_KEYS = ("ensemble_block", "ensemble_cap", "ensemble_precision", "ensemble_margin", "ensemble_alpha",
              "fallback_flag_rate", "equivalence_margin")
 
@@ -33,9 +34,10 @@ RULE_KEYS = ("ensemble_block", "ensemble_cap", "ensemble_precision", "ensemble_m
 def code_hash(*tools: Path) -> str:
     """Hash of everything a verdict depends on: engine, policy, scenario, ensemble, readouts and config.
 
-    ``tools`` adds the generating tools whose own content is an input to a record — the mutant list
-    of ``tools/mutation_record.py``, the settings of ``tools/sweep_record.py`` — so changing a mutant
-    or a setting makes that record stale too. The ensemble record's verdicts do not depend on any tool.
+    ``tools`` adds the generating tools whose own content is an input to a record, so changing one
+    makes that record stale too: this file's ``RULE_KEYS`` (which constants become the ensemble rules,
+    an input to every record), the mutant list of ``tools/mutation_record.py`` and the settings of
+    ``tools/sweep_record.py``. Each record names its tools in its own ``HASHED_TOOLS``.
     """
     digest = hashlib.sha256()
     paths = sorted((REPO / "src" / "bowen").rglob("*.py")) + sorted((REPO / "config" / "bowen").rglob("*.md"))
@@ -116,7 +118,7 @@ def main() -> int:
     parser.add_argument("--only", nargs="*")
     args = parser.parse_args()
     verdicts, not_built, rules = run(args.workers, args.only)
-    RECORD.write_text(render(verdicts, not_built, rules, code_hash()), encoding="utf-8")
+    RECORD.write_text(render(verdicts, not_built, rules, code_hash(*HASHED_TOOLS)), encoding="utf-8")
     print(f"wrote {RECORD.relative_to(REPO)}")
     return 0
 

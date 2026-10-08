@@ -40,7 +40,8 @@ sys.path.insert(0, str(REPO))
 
 RECORD = REPO / "docs" / "phase_c_mutation_record.md"
 ENSEMBLE_RECORD = REPO / "docs" / "phase_c_ensemble_record.md"
-HASHED_TOOLS = (Path(__file__).resolve(),)  # the mutant list is an input to the record
+# The mutant list here, and RULE_KEYS in tools/ensemble_record.py, are inputs to the record.
+HASHED_TOOLS = (Path(__file__).resolve(), REPO / "tools" / "ensemble_record.py")
 DELETION, NAMED, SIGN, REPRESENTATION = "deletion", "named", "sign-inverted", "representation"
 LEVEL = ("M11.C.1", "M11.C.38", "M11.C.41")
 

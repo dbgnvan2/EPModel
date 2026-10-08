@@ -7,7 +7,7 @@ temperature (`policy_temperature`), one constant at a time. **Only the central s
 opposite sign to the declared direction is marked **reversed**. Plan D9's fourth constant, each
 criterion's dominant constant, is not swept: plan §3 names none.
 
-code_hash: f94444abcb2e34cd6b5c988854dbfd68891c6addce21ebae0b67a5d56c7140cc
+code_hash: 8f0afcbde9230064118611ed96a651c4e9bb32bf95176294059fcb04ba1b50c7
 
 | Criterion | Central verdict | Setting | Verdict | Seeds | Readouts (mean difference; direction) |
 |---|---|---|---|---|---|

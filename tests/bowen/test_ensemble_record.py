@@ -29,7 +29,7 @@ def record_text() -> str:
 def test_m134_ensemble_record_is_current():
     match = re.search(r"^code_hash: ([0-9a-f]{64})$", record_text(), re.M)
     assert match, "the record carries no code hash"
-    assert match.group(1) == _tool.code_hash(), "stale: rerun python3 tools/ensemble_record.py"
+    assert match.group(1) == _tool.code_hash(*_tool.HASHED_TOOLS), "stale: rerun python3 tools/ensemble_record.py"
 
 
 def test_m134_record_covers_every_criterion_and_names_what_is_not_built():
@@ -44,10 +44,15 @@ def test_m11d18_record_reports_the_fallback_rate():
     assert "## Fallback rate by person (`M11.D.18`)" in record_text()
 
 
+_sspec = importlib.util.spec_from_file_location("sweep_record_tool", REPO / "tools" / "sweep_record.py")
+_sweep = importlib.util.module_from_spec(_sspec)
+sys.modules[_sspec.name] = _sweep
+
 _mspec = importlib.util.spec_from_file_location("mutation_record_tool", REPO / "tools" / "mutation_record.py")
 _mutants = importlib.util.module_from_spec(_mspec)
 sys.modules[_mspec.name] = _mutants  # its dataclass resolves its own module
 _mspec.loader.exec_module(_mutants)
+_sspec.loader.exec_module(_sweep)  # after the mutation tool: it imports from it
 
 
 def mutation_text() -> str:
@@ -86,8 +91,7 @@ def test_d9_sweep_record_is_current():
     """Plan D9: every composite criterion was swept at low and high α, H and temperature on the current code."""
     text = (REPO / "docs" / "phase_c_sweep_record.md").read_text(encoding="utf-8")
     match = re.search(r"^code_hash: ([0-9a-f]{64})$", text, re.M)
-    tools = (REPO / "tools" / "sweep_record.py", REPO / "tools" / "mutation_record.py")
-    assert match and match.group(1) == _tool.code_hash(*tools), "stale: rerun python3 tools/sweep_record.py"
+    assert match and match.group(1) == _tool.code_hash(*_sweep.HASHED_TOOLS), "stale: rerun python3 tools/sweep_record.py"
     rows = _mutants.json.loads(re.search(r"```json\n(.*?)\n```", text, re.S).group(1))
     swept = {(r["criterion"], r["setting"]) for r in rows}
     for cid, criterion in CRITERIA.items():
@@ -101,3 +105,29 @@ def test_m111d_mutation_hash_covers_the_mutant_list():
     tool = REPO / "tools" / "mutation_record.py"
     assert _tool.code_hash(tool) != _tool.code_hash()
     assert tool.resolve() in _mutants.HASHED_TOOLS
+
+
+def test_m134_every_record_hashes_the_ensemble_tool():
+    """RULE_KEYS in tools/ensemble_record.py feeds every record, so every record's hash covers it (re-gate A)."""
+    ensemble_tool = (REPO / "tools" / "ensemble_record.py").resolve()
+    for tools in (_tool.HASHED_TOOLS, _mutants.HASHED_TOOLS, _sweep.HASHED_TOOLS):
+        assert ensemble_tool in {Path(t).resolve() for t in tools}
+    assert _tool.code_hash(ensemble_tool) != _tool.code_hash()
+
+
+def test_criteria_settings_are_parsed_strictly(tmp_path):
+    """config/bowen/criteria.md: a setting the criteria do not read, or one missing, raises (M11.D.3's rule)."""
+    import pytest
+
+    from src.bowen.ensemble.criteria import load_settings
+    from src.bowen.scenario.config_parse import ConfigError
+
+    text = (REPO / "config" / "bowen" / "criteria.md").read_text(encoding="utf-8")
+    extra = tmp_path / "extra.md"
+    extra.write_text(text + "| M11.C.1 | horizon | 5 |\n", encoding="utf-8")
+    with pytest.raises(ConfigError, match="no setting 'horizon'"):
+        load_settings(extra)
+    missing = tmp_path / "missing.md"
+    missing.write_text(text.replace("| M11.C.42 | weeks | 40 |\n", ""), encoding="utf-8")
+    with pytest.raises(ConfigError, match="M11.C.42 weeks"):
+        load_settings(missing)

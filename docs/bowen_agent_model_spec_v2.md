@@ -1262,7 +1262,7 @@ Each criterion **MUST** have a named test, **MUST** assert a direction of differ
 
 | Criterion | Class | The single rule it rests on | Note |
 |---|---|---|---|
-| M11.C.1 | Premise (joint) | every rule that reads level, jointly | Bowen's central premise, entered as an input. *Corrected 2026-10-08 from `M11.1d`'s mutants (`docs/phase_c_mutation_record.md`): `M4.C.1a`'s steepness, `M1.A.6`'s threshold and `M4.A.5`'s self term each survive deletion and inversion alone; only the joint level-blind mutant turns it red. No single rule carries it.* |
+| M11.C.1 | Premise | level, stated redundantly by nine rules: `M4.C.1a`'s steepness and band, `M1.A.6`'s threshold, `M4.A.5`'s self term, `M4.D.1a`'s mixing weight, `M4.D.3a`'s layer availability, `M1.A.9`'s initial outside-ness, `M1.C.3a`'s routing capacity, `M5.D.3`'s hold capacity | Bowen's central premise, entered as an input. *Rule column corrected 2026-10-08 from `M11.1d`'s mutants (`docs/phase_c_mutation_record.md`): steepness, threshold and self term each survive deletion and inversion alone, so none is necessary; only the joint level-blind mutant, which makes all nine level-independent, turns it red, and it leaves the arms' difference at exactly zero. Class kept premise by owner request 2026-10-08: every rule in the set states the direction, so the result is written in, not produced by learning or time, and a pass is not a finding. Surviving single-rule mutants shows redundancy, not emergence. The joint mutant is its proof; plan §3's single-rule mutant cannot prove it.* |
 | M11.C.2 | Composite | — | target follows from where parental focus is relieved (`M7.E.1c` amended, `M4.D.6e`) |
 | M11.C.3 | Premise | `M1.C.1` transfer | physics of the act. *Confirmed 2026-10-08, after the `M1.C.1` decision: removing the transfer turns it red.* |
 | M11.C.4 | Premise | `M4.C.1c`'s accrual over time | the immediate limb is the impingement side's removal; the later limb is the accrual and the nodal-event spike (amended for finding 6) |
@@ -1299,7 +1299,7 @@ Each criterion **MUST** have a named test, **MUST** assert a direction of differ
 | M11.C.35 | Check | `M4.C.9` | architecture |
 | M11.C.36 | Check | `M4.B.2` | architecture |
 | M11.C.37 | Check | `M6.3` | conservation |
-| M11.C.38 | Premise (joint) | every rule that reads level, jointly | as `M11.C.1`. *Corrected 2026-10-08: each single-rule mutant reds some adjacent pairs and not others; the joint level-blind mutant reds all three.* |
+| M11.C.38 | Premise | as `M11.C.1`: level, stated redundantly by the same nine rules | as `M11.C.1`. *Rule column corrected 2026-10-08: each single-rule mutant reds some adjacent pairs and not others; the joint level-blind mutant reds all three. Class kept premise, for `M11.C.1`'s reason.* |
 | M11.C.39 | Composite | — | "No persistence rule is written" |
 | M11.C.40 | Premise | the learning rule itself | plus a check that the self-directed channel is not reinforced |
 | M11.C.41 | Mixed | `M4.C.1a`; `M4.D.1a` mixing weight | anxiety and reactive-share limbs are premise through the mixing weight (`M4.D.3` amended); which reactive acts rise is learned |

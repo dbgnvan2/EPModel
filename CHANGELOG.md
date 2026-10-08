@@ -25,7 +25,7 @@ the per-criterion status is in `docs/phase_c_completion_report.md`.
 - At the frozen constants, as first built: 6 criteria pass and are proved by a mutant (`M11.C.1`, `.19`, `.25`, `.32`, `.35`, `.38`);
   `.42` and `.45` pass but reverse in the sweep; `.27` and `.41` pass in some cells; `.16` is undetermined at the
   cap; `.3`, `.4`, `.5`, `.29` and `.44` fail; `.7`, `.13` and `.14` are not built.
-- `M11.5` corrected from the real mutants and dated in the spec: `M11.C.1` and `.38` are joint premises, `.45` a
+- `M11.5` corrected from the real mutants and dated in the spec: `M11.C.1` and `.38` first proposed as joint premises (decided later the same day: they stay premise, with the nine rules listed), `.45` a
   premise.
 
 ### Changed after the freeze, and reported
@@ -67,6 +67,9 @@ the per-criterion status is in `docs/phase_c_completion_report.md`.
 - From the eighth gate (APPROVED, four test-strength findings): the absence and readout tests for `M11.C.42` and
   `.45` now compare every record before the absence, check that no triangle can form during it, and check the
   pair-wide count. Tests only; no record changes.
+- **`M11.C.1` and `.38` stay premise, 2026-10-08.** No new class: every level-reading rule states the direction, so a
+  pass is not a finding. The spec's `M11.5` rows now list the nine rules and name the joint level-blind mutant as the
+  proof; plan §3's single-rule mutant cannot prove them.
 
 ## [Unreleased] — 2026-10-06
 

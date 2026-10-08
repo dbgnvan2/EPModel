@@ -24,9 +24,10 @@ Phase C steps 0–16 are built. **Its gate does not pass** (`docs/phase_c_comple
   outside; the inside pair is the sender and its most strained partner, as `M1.F.1b`, `M11.C.3`, `M11.C.42` and
   `M6.4` already read it. C.3 now passes and is proved; C.42, C.45, one cell of C.27 and one of C.41 stopped
   passing. Recorded at spec `M1.C.1`; report §8.*
-- [ ] **Accept or revise the `M11.5` reclassifications** recorded 2026-10-08 in the spec's table: `M11.C.1` and
-  `.38` as joint premises (no single level-reading rule carries them). `M11.C.45`'s reclassification as a premise
-  was withdrawn when it stopped passing after the `TRIANGLE` decision. Report §2.
+- [x] ~~**Accept or revise the `M11.5` reclassifications.**~~ *Decided 2026-10-08: `M11.C.1` and `.38` stay
+  **premise**, with no new class. Every level-reading rule states the direction, so a pass is not a finding; the rule
+  column now lists the nine rules, and the proof is the joint level-blind mutant. `M11.C.45`'s reclassification as a
+  premise was withdrawn when it stopped passing after the `TRIANGLE` decision. Report §2.*
 - [ ] **`M11.C.42` and `.45` stopped passing after the `TRIANGLE` decision.** *What each tests decided 2026-10-08
   (report §9): C.42's baseline arm and readout, and C.45's readout, brought to the spec's text. Rerun: both still
   fail. C.42 is +0.26 (p 0.084) and its sign depends on the learner's constants; C.45 is +0.0020 per person-week

@@ -75,7 +75,14 @@ These are recorded in the spec's `M11.5` table with today's date.
   once. Level reaches onset through about nine rules (steepness, band, threshold, mixing weight, layer
   availability, standing load, initial outside-ness, triangle routing capacity, hold capacity), and any one of
   them carries the direction. It is still level entered as an input, so it is not emergent in revision 11's
-  sense. It is a *joint* premise. Proposed class: **premise (joint)**, with the rule set listed.
+  sense. **Decided 2026-10-08 (owner request): the class stays premise.** M11.5 has no "joint premise" class, and
+  none is needed. Every rule in the set states the direction, so the result is written in, not produced by learning
+  or time, and its pass is not a finding. Calling it composite would let that pass be reported as one. Surviving
+  each single-rule mutant shows that the rules overlap, not that the direction emerges: `M11.1d`'s single-rule
+  flip is a sufficient sign of a premise, not a necessary one. What the mutants corrected is the rule column, now
+  the nine rules, and the proof, which is the joint mutant and not plan §3's single-rule one. The mutants show
+  that no single rule is necessary. They do not show which rule would be enough alone, and the class does not
+  depend on it.
 - **`M11.C.38`** is the same, pair by pair. Each single-rule mutant reds some pairs and not others; the joint
   `level-blind` mutant reds all three.
 - **`M11.C.3`** is confirmed premise after §8's decision. Removing `M1.C.1`'s transfer turns it red, and so does

@@ -88,3 +88,7 @@
 | `sink_window` | — | 8 | 2026-10-07 | — (new mechanism; Phase C step 10) | no |
 | `sink_rate` | — | 0.1 | 2026-10-07 | — (new mechanism; Phase C step 10) | no |
 | `exchange_budget_reduction` | — | 2.0 | 2026-10-07 | — (new mechanism; Phase C step 10) | no |
+| `pattern_window` | — | 8 | 2026-10-07 | — (new readout; Phase C step 11) | no |
+| `pattern_min_acts` | — | 2 | 2026-10-07 | — (new readout; Phase C step 11) | no |
+| `pattern_pole` | — | 0.5 | 2026-10-07 | — (new readout; Phase C step 11) | no |
+| `pattern_fixed_activations` | — | 3 | 2026-10-07 | — (new readout; Phase C step 11) | no |

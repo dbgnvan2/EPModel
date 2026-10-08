@@ -142,6 +142,10 @@ activation_regime: synchronous
 | `sink_window` | 8 | [I] | fast ticks | `M1.D.1` |
 | `sink_rate` | 0.1 | [I] | share of the gap per tick | `M1.D.1` |
 | `exchange_budget_reduction` | 2.0 | [I] | budget units per completed exchange | `M6.I.1` |
+| `pattern_window` | 8 | [I] | fast ticks | `M5.A.1a` |
+| `pattern_min_acts` | 2 | [I] | acts per member in the window | `M5.A.1a` |
+| `pattern_pole` | 0.5 | [I] | functioning habit | `M5.A.1a` |
+| `pattern_fixed_activations` | 3 | [I] | consecutive activations | `M5.A.1a` |
 | `distance_binding_rate` | 0.3 | [I] | share of excess bound per unit scaled intensity | `M1.D.2a` |
 | `triangle_transfer_rate` | 0.3 | [I] | share of each insider's excess passed per unit scaled intensity | `M1.C.1` |
 | `outsider_positional_gain` | 0.5 | [I] | positional anxiety per unit transferred | `M1.C.1` |

@@ -395,5 +395,9 @@
    "tests/bowen/test_sinks.py::test_m1d1_marital_conflict_draws_the_budget_to_its_sink"
   ],
   "note": "one budget, three sinks, allocated from the family's acts (step 10)"
+ },
+ "M5.A.1a": {
+  "status": "partial",
+  "note": "each move is one act; five pattern readouts are declared in docs/readouts_phase_c.md and refused if undeclared (step 11); projection is Phase D; the definitions await the owner's review (plan §9)"
  }
 }

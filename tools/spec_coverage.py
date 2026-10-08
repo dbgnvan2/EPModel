@@ -60,8 +60,10 @@ def ensemble_verdicts() -> tuple[dict[str, list[tuple[str, str]]], set[str]]:
     verdicts: dict[str, list[tuple[str, str]]] = {}
     for row in rows:
         verdicts.setdefault(row["criterion"].split("[")[0], []).append((row["criterion"], row["outcome"]))
-    not_built = set(re.findall(r"^- `(M11\.C\.\d+)` —", text, re.M))
-    return verdicts, not_built
+    sys.path.insert(0, str(REPO))
+    from src.bowen.ensemble.criteria import NOT_BUILT  # the source of truth, not the record's prose
+
+    return verdicts, set(NOT_BUILT)
 
 _consistency_spec = importlib.util.spec_from_file_location("spec_consistency", REPO / "tests" / "test_spec_consistency.py")
 _consistency = importlib.util.module_from_spec(_consistency_spec)

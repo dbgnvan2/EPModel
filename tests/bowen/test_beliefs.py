@@ -144,5 +144,19 @@ def test_m4b2_check_catches_a_belief_update_reading_the_tie():
     assert true_state_reads(mutant) == {"ties", "felt_impingement"}
 
 
+def names_used(source: str) -> set[str]:
+    tree = ast.parse(textwrap.dedent(source))
+    return {n.id for n in ast.walk(tree) if isinstance(n, ast.Name)} | {
+        n.attr for n in ast.walk(tree) if isinstance(n, ast.Attribute)}
+
+
 def test_m98_true_counterpart_is_not_called_by_the_update():
-    assert "true_counterpart" not in inspect.getsource(update_beliefs)
+    # Named through the imported function, so renaming it breaks this test rather than emptying it.
+    assert true_counterpart.__name__ not in names_used(inspect.getsource(update_beliefs))
+
+
+def test_m98_check_catches_an_update_calling_true_counterpart():
+    mutant = inspect.getsource(update_beliefs).replace(
+        "clamp_unit(max(0.0, impingement) * strength)", "true_counterpart(tie).tension")
+    assert mutant != inspect.getsource(update_beliefs)
+    assert true_counterpart.__name__ in names_used(mutant)

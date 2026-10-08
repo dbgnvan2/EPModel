@@ -2,6 +2,46 @@
 
 All notable changes to this project are recorded here. Dates are ISO.
 
+## [Unreleased] — 2026-10-08
+
+**Phase C built** (steps 0–16 of `docs/implementation_plan_phase_c.md`). **Its acceptance gate does not pass**;
+the per-criterion status is in `docs/phase_c_completion_report.md`.
+
+### Added
+
+- Phase C of the agent model: revision 11's two-sided appraisal and standing load, the belief store (`M9.8`),
+  move physics, the policy (two channels, `WITHHOLD`, competing urges, keyed selection), the learner, the
+  `I-POSITION` state machine, the external agent and landed contact, `M6.4`'s ledger with `M6.I.6` asserted every
+  tick, sink allocation, pattern readouts (`docs/readouts_phase_c.md`), the ensemble runner (paired signed-rank,
+  Holm, adaptive stopping), the engineering gates, and the fixture families.
+- The criteria as paired arms (`src/bowen/ensemble/criteria.py`) and three generated, hash-stamped records:
+  `docs/phase_c_ensemble_record.md`, `docs/phase_c_mutation_record.md` (named, deletion, sign-inverted, a joint
+  level-blind, and representation mutants, each run on a temporary copy of the repository) and
+  `docs/phase_c_sweep_record.md` (plan D9). Default-suite tests fail when any record is stale.
+- Constants frozen 2026-10-07 (`config/bowen/constants_frozen.md`), before any criterion ran.
+
+### Results
+
+- At the frozen constants, 6 criteria pass and are proved by a mutant (`M11.C.1`, `.19`, `.25`, `.32`, `.35`, `.38`);
+  `.42` and `.45` pass but reverse in the sweep; `.27` and `.41` pass in some cells; `.16` is undetermined at the
+  cap; `.3`, `.4`, `.5`, `.29` and `.44` fail; `.7`, `.13` and `.14` are not built.
+- `M11.5` corrected from the real mutants and dated in the spec: `M11.C.1` and `.38` are joint premises, `.45` a
+  premise.
+
+### Changed after the freeze, and reported
+
+- Three numerical fixes to the policy (a shift-invariant softmax, no `WITHHOLD` weight with no automatic act, the
+  withheld act drawn from within-channel weights), each with a unit test proved by reverting it.
+- `M11.C.25`'s readout, which could not fail, corrected after its mutant survived.
+
+### Fixed
+
+- From the Hermes `learning-qa-sweep` gate of 2026-10-08 (`docs/cycles/2026-10-08_phase-c-qa-gate.md`, APPROVED with
+  1 medium and 3 low findings): the mutation and sweep records now hash the tools that generate them (medium);
+  coverage reads `NOT_BUILT` from the criteria module, not the record's prose; the belief store's
+  "no `true_counterpart`" check is an AST name check tied to the function, with its own mutation test. The fourth
+  (low) finding is in `TODO.md`.
+
 ## [Unreleased] — 2026-10-06
 
 Spec revision 10 approved, the Phase B plan approved, and **Phase B built** (`src/bowen/`).

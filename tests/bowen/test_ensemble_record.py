@@ -64,7 +64,7 @@ def test_m111a_every_mutant_applies_exactly_once():
 def test_m111d_mutation_record_is_current():
     match = re.search(r"^code_hash: ([0-9a-f]{64})$", mutation_text(), re.M)
     assert match, "the mutation record carries no code hash"
-    assert match.group(1) == _tool.code_hash(), "stale: rerun python3 tools/mutation_record.py"
+    assert match.group(1) == _tool.code_hash(*_mutants.HASHED_TOOLS), "stale: rerun python3 tools/mutation_record.py"
 
 
 def test_m111d_every_passing_criterion_has_a_mutant_run():
@@ -86,10 +86,18 @@ def test_d9_sweep_record_is_current():
     """Plan D9: every composite criterion was swept at low and high α, H and temperature on the current code."""
     text = (REPO / "docs" / "phase_c_sweep_record.md").read_text(encoding="utf-8")
     match = re.search(r"^code_hash: ([0-9a-f]{64})$", text, re.M)
-    assert match and match.group(1) == _tool.code_hash(), "stale: rerun python3 tools/sweep_record.py"
+    tools = (REPO / "tools" / "sweep_record.py", REPO / "tools" / "mutation_record.py")
+    assert match and match.group(1) == _tool.code_hash(*tools), "stale: rerun python3 tools/sweep_record.py"
     rows = _mutants.json.loads(re.search(r"```json\n(.*?)\n```", text, re.S).group(1))
     swept = {(r["criterion"], r["setting"]) for r in rows}
     for cid, criterion in CRITERIA.items():
         if criterion.cls == "composite":
             for name in ("learning_rate", "credit_horizon", "policy_temperature"):
                 assert sum(1 for c, s in swept if c == cid and s.startswith(name)) == 2, (cid, name)
+
+
+def test_m111d_mutation_hash_covers_the_mutant_list():
+    """Changing a mutant must make the mutation record stale (gate finding 2026-10-08, P6)."""
+    tool = REPO / "tools" / "mutation_record.py"
+    assert _tool.code_hash(tool) != _tool.code_hash()
+    assert tool.resolve() in _mutants.HASHED_TOOLS

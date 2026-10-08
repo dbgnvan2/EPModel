@@ -30,6 +30,8 @@ sys.path.insert(0, str(REPO))
 from tools.mutation_record import ENSEMBLE_RECORD, Mutant, run_mutant  # noqa: E402
 
 RECORD = REPO / "docs" / "phase_c_sweep_record.md"
+# The settings here and the mutant machinery in mutation_record.py are inputs to the record.
+HASHED_TOOLS = (Path(__file__).resolve(), REPO / "tools" / "mutation_record.py")
 CONSTANTS = "config/bowen/constants.md"
 SETTINGS = (  # (constant, central as written in constants.md, low, high)
     ("learning_rate", "0.2", "0.1", "0.4"),
@@ -100,7 +102,7 @@ def main() -> int:
             for result in run_mutant(mutant, ids, args.workers):
                 rows.append((mutant.what.split(" (")[0], result))
                 print(f"{mutant.id} → {result['criterion']}: {result['outcome']}", flush=True)
-    RECORD.write_text(render(rows, centrals, code_hash()), encoding="utf-8")
+    RECORD.write_text(render(rows, centrals, code_hash(*HASHED_TOOLS)), encoding="utf-8")
     print(f"wrote {RECORD.relative_to(REPO)}")
     return 0
 

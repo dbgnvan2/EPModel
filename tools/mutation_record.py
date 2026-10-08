@@ -40,6 +40,7 @@ sys.path.insert(0, str(REPO))
 
 RECORD = REPO / "docs" / "phase_c_mutation_record.md"
 ENSEMBLE_RECORD = REPO / "docs" / "phase_c_ensemble_record.md"
+HASHED_TOOLS = (Path(__file__).resolve(),)  # the mutant list is an input to the record
 DELETION, NAMED, SIGN, REPRESENTATION = "deletion", "named", "sign-inverted", "representation"
 LEVEL = ("M11.C.1", "M11.C.38", "M11.C.41")
 
@@ -311,7 +312,7 @@ def main() -> int:
             rows.append((mutant, result))
             print(f"{mutant.id} → {result['criterion']}: {result['outcome']} ({judge(mutant, result['outcome'])})",
                   flush=True)
-    RECORD.write_text(render(rows, skipped, code_hash()), encoding="utf-8")
+    RECORD.write_text(render(rows, skipped, code_hash(*HASHED_TOOLS)), encoding="utf-8")
     print(f"wrote {RECORD.relative_to(REPO)}")
     return 0
 

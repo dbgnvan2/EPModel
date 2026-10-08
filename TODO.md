@@ -16,6 +16,39 @@ Deferred and adjacent items. Each carries enough context to act on later without
   - `M11.C.11` shape — "three phases, not a step down" is a claim about curve shape; any automated version embeds an invented tolerance.
   - `M5.F.2` — the threshold separating a counterfeit move from a genuine one is invented and sets the result. **This is the model's most consequential invented constant.**
 
+## Phase C — open after the build, 2026-10-08
+
+Phase C steps 0–16 are built. **Its gate does not pass** (`docs/phase_c_completion_report.md`). These need a person.
+
+- [ ] **Decide `TRIANGLE`'s inside pair (`M11.C.3`).** Step 5 reads the act as an alliance: the sender and its target
+  are the inside pair, and the third member furthest from the sender is outside. In the triad, a parent triangling
+  the child leaves the *other parent* outside, so `M11.C.3`'s pair (the parents) and third (the child) read the
+  opposite way. Change the criterion's roles or the physics. Report §3.1.
+- [ ] **Accept or revise the `M11.5` reclassifications** recorded 2026-10-08 in the spec's table: `M11.C.1` and
+  `.38` as joint premises (no single level-reading rule carries them), and `M11.C.45` as a premise (it flips when
+  `M1.C.1`'s relief is inverted). Report §2.
+- [ ] **`M11.C.42` and `.45` pass only near the frozen constants.** C.42 fails at 5 of 6 sweep settings and
+  survives an inverted learner; C.45 reverses at 3 of 6. Decide whether a composite that reverses within half and
+  double of its constants should gate. Report §3.8.
+- [ ] **`M13.4`'s precision rule and `M11.C.16`.** The direction holds at p ≈ 1e-44, but the half-width never falls
+  below 0.25 of the baseline arm's sd, so it is `UNDETERMINED` at 500 seeds. Decide whether precision should
+  scale by the paired difference's sd. Report §3.4.
+- [ ] **The failing criteria** — `M11.C.4` (later limb), `.5`, `.29` (the third person never accumulates symptom
+  weeks), `.44`, two cells of `.27`, three of `.41` (the reactive share falls with level). Report §3.
+- [ ] **Plan §9's human reviews:** `docs/readouts_phase_c.md`, a rendered 104-week Phase C trace, and `M5.F.2`'s
+  threshold.
+- [ ] **Not built:** `M11.C.7` (needs `M8.2`/`M8.3`'s predicates and a direction), `.13` (needs a community),
+  `.14` (needs `M5.C.1`'s marital-distance gate); two of `M11.1c`'s four re-encodings (rescaled state range,
+  integer against float ticks); `M11.1b`'s severing mutants; plan D9's "dominant constant" (§3 names none).
+- [ ] **Bruno falls back every week.** His one tie starts cut off, `REDUCE_CUTOFF` is his only legal act, and it
+  carries no weight without systems perspective, so the family runs' fallback rate is 0.26–0.41 (`M11.D.18` flags
+  it). Decide whether that is the intended reading of `M4.D.3b`.
+- [ ] **Hermes gate finding 4, 2026-10-08 (low, P4), not fixed:** `src/bowen/ensemble/criteria.py` holds the
+  declared spell (JOB_LOSS, intensity 120, every 4 weeks from week 4) and each criterion's horizon and arms as
+  literals outside `M11.D.2`'s magic-literal scan. They are declared `[I]` in the module docstring and were fixed
+  before any criterion ran. Moving them to config would change the code hash and every record. Do it before
+  Phase D.
+
 ## Spec revision 10 — deferred at the owner's review, 2026-09-22
 
 Revision 10 (branch `spec-rev10-draft`) folds the method literature into the spec. The owner answered its

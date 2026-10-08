@@ -12,7 +12,7 @@ a hash goes stale.
 | `docs/phase_c_sweep_record.md` | `tools/sweep_record.py` | each composite criterion at half and double α, H and temperature (plan D9) |
 | `docs/spec_coverage.md` | `tools/spec_coverage.py` | every spec ID: done / partial / not done |
 
-Default suite: **478 tests pass** (`python3 -m pytest tests/`). The 19 ensemble-marked criterion tests are
+Default suite: **480 tests pass** (`python3 -m pytest tests/`). The 19 ensemble-marked criterion tests are
 deselected there and run with `python3 -m pytest -m ensemble`.
 
 **Read this first.** Phase C's gate does **not** pass. Of the 16 criteria built, 6 pass at the frozen
@@ -189,3 +189,22 @@ mutation record, not from the mere existence of its test.
 - **Owner decisions** on §3.1 (`TRIANGLE`'s inside pair), the `M11.5` reclassifications in §2, and whether
   `M13.4`'s precision rule should scale by the difference's spread (§3.4).
 - **Phase C cannot be declared done** while its gate fails. Phase D should not start on this gate.
+
+## 7. Independent review
+
+The Hermes `learning-qa-sweep` gate reviewed `origin/plan-phase-b..HEAD` on 2026-10-08
+(`docs/cycles/2026-10-08_phase-c-qa-gate.md`). Verdict: **APPROVED** on the failure-pattern sweep, with 1 medium
+and 3 low findings. The gate states separately that the acceptance gate does not pass, and that this is a domain
+result, not a code defect. Three findings were fixed in the same session, each with a test:
+
+- **medium (P6):** the mutation and sweep records stamped a hash that did not cover their own tools, so a changed
+  mutant or sweep setting would have left a stale record passing its staleness test. Both records now hash their
+  generating tools (`test_m111d_mutation_hash_covers_the_mutant_list`). Both were regenerated, and their results
+  are unchanged.
+- **low:** coverage read the not-built criteria from the record's prose. It now imports them from
+  `src/bowen/ensemble/criteria.py`.
+- **low:** the belief store's "no `true_counterpart`" check was a bare substring. It is now an AST name check tied
+  to the function object, with a mutation test (`test_m98_check_catches_an_update_calling_true_counterpart`).
+
+The fourth (low, P4: the declared spell and horizons are literals in `criteria.py`, outside `M11.D.2`'s scan) is
+in `TODO.md`. Fixing it changes the code hash and every record, so it is left for before Phase D.

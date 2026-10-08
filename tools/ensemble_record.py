@@ -30,10 +30,16 @@ RULE_KEYS = ("ensemble_block", "ensemble_cap", "ensemble_precision", "ensemble_m
              "fallback_flag_rate", "equivalence_margin")
 
 
-def code_hash() -> str:
-    """Hash of everything a verdict depends on: engine, policy, scenario, ensemble, readouts and config."""
+def code_hash(*tools: Path) -> str:
+    """Hash of everything a verdict depends on: engine, policy, scenario, ensemble, readouts and config.
+
+    ``tools`` adds the generating tools whose own content is an input to a record — the mutant list
+    of ``tools/mutation_record.py``, the settings of ``tools/sweep_record.py`` — so changing a mutant
+    or a setting makes that record stale too. The ensemble record's verdicts do not depend on any tool.
+    """
     digest = hashlib.sha256()
     paths = sorted((REPO / "src" / "bowen").rglob("*.py")) + sorted((REPO / "config" / "bowen").rglob("*.md"))
+    paths += sorted(Path(t).resolve() for t in tools)
     for path in paths:
         if path.name == "constants_changes.md":
             continue  # a log of changes, not an input

@@ -53,7 +53,17 @@ Requires Python 3, NumPy and Pygame. `requirements.txt` is present but not yet t
 
 The v2 specification is **approved** — 542 numbered requirements over 17 modules, 45 acceptance criteria, at revision 12 (approved 2026-10-07).
 
-**Phase B is built** (`src/bowen/`): the objects, the weekly loop, the standing load, the base appraisal, the event record, the scripted source, the run log and the renderer. Every automated exit criterion passes and each is mutation-proved; the owner's read of the rendered trace is the one item left before Phase B is declared done. See `docs/phase_b_completion_report.md` and `docs/spec_coverage.md`.
+**Phase B is built and closed** (`src/bowen/`): the objects, the weekly loop, the standing load, the base appraisal, the event record, the scripted source, the run log and the renderer. See `docs/phase_b_completion_report.md`.
+
+**Phase C is built, and its acceptance gate does not pass** (2026-10-08). Agents now select acts through a policy and learn from felt relief. Of 16 criteria built, 6 pass and are mutation-proved, and 5 fail; the rest pass only in part, only near the frozen constants, or are undetermined. The status of each criterion and the owner decisions it needs are in `docs/phase_c_completion_report.md`; coverage in `docs/spec_coverage.md`.
+
+The criteria run outside the default suite, over ensembles. On 10 cores the ensemble record takes about 5 minutes, the mutation record about 15 and the sweep about 20:
+
+```
+python3 tools/ensemble_record.py     # docs/phase_c_ensemble_record.md
+python3 tools/mutation_record.py     # docs/phase_c_mutation_record.md
+python3 tools/sweep_record.py        # docs/phase_c_sweep_record.md
+```
 
 ```
 python3 -m src.bowen.run --seed 7 --log runs/phase_b.jsonl --trace runs/phase_b_trace.md

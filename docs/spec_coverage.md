@@ -7,7 +7,7 @@ criterion is **done** only when every entry passes in `docs/phase_c_ensemble_rec
 mutant has turned each entry red in `docs/phase_c_mutation_record.md`; the D9 sweep
 (`docs/phase_c_sweep_record.md`) is reported, not gated. Phases D and E build most of the rest.
 
-**542 IDs: 219 done, 42 partial, 281 not done.**
+**542 IDs: 217 done, 44 partial, 281 not done.**
 
 | ID | Status | Evidence | Note |
 |---|---|---|---|
@@ -328,7 +328,7 @@ mutant has turned each entry red in `docs/phase_c_mutation_record.md`; the D9 sw
 | M9.5 | not done | — | Phase D |
 | M9.6 | not done | — | Phase D |
 | M9.7 | not done | — | Phase D |
-| M9.8 | done | `tests/bowen/test_beliefs.py::test_m98_a_party_to_the_tie_holds_no_belief_about_it`<br>`tests/bowen/test_beliefs.py::test_m98_belief_can_differ_from_the_true_state`<br>`tests/bowen/test_beliefs.py::test_m98_belief_written_only_from_delivered_events`<br>`tests/bowen/test_beliefs.py::test_m98_every_person_believes_about_each_tie_it_is_not_party_to`<br>`tests/bowen/test_beliefs.py::test_m98_true_counterpart_is_not_called_by_the_update`<br>`tests/bowen/test_beliefs.py::test_m98_true_state_without_delivery_leaves_belief_unchanged` | — |
+| M9.8 | done | `tests/bowen/test_beliefs.py::test_m98_a_party_to_the_tie_holds_no_belief_about_it`<br>`tests/bowen/test_beliefs.py::test_m98_belief_can_differ_from_the_true_state`<br>`tests/bowen/test_beliefs.py::test_m98_belief_written_only_from_delivered_events`<br>`tests/bowen/test_beliefs.py::test_m98_check_catches_an_update_calling_true_counterpart`<br>`tests/bowen/test_beliefs.py::test_m98_every_person_believes_about_each_tie_it_is_not_party_to`<br>`tests/bowen/test_beliefs.py::test_m98_true_counterpart_is_not_called_by_the_update`<br>`tests/bowen/test_beliefs.py::test_m98_true_state_without_delivery_leaves_belief_unchanged` | — |
 | M10.1 | done | `tests/bowen/test_config.py::test_m101_repository_constants_load_and_are_graded` | — |
 | M10.A.1 | not done | — | Phase C or D |
 | M10.A.1a | not done | — | Phase C or D |
@@ -351,9 +351,9 @@ mutant has turned each entry red in `docs/phase_c_mutation_record.md`; the D9 sw
 | M10.C.3a | not done | — | Phase C or D |
 | M11.1 | not done | — | Phase C — acceptance-test rules |
 | M11.1a | done | `tests/bowen/test_ensemble_record.py::test_m111a_every_mutant_applies_exactly_once` | — |
-| M11.1b | not done | — | Phase C — acceptance-test rules |
-| M11.1c | done | `tests/bowen/test_ensemble_record.py::test_m111c_representation_mutants_ran_on_every_passing_criterion` | — |
-| M11.1d | done | `tests/bowen/test_ensemble_record.py::test_m111d_every_passing_criterion_has_a_mutant_run`<br>`tests/bowen/test_ensemble_record.py::test_m111d_mutation_record_is_current` | — |
+| M11.1b | not done | — | SHOULD; matched-magnitude severing mutants were not built in Phase C (plan step 15: where cheap; none was) |
+| M11.1c | partial | `tests/bowen/test_ensemble_record.py::test_m111c_representation_mutants_ran_on_every_passing_criterion` | two of the four re-encodings run on every passing entry (same-tick summation order, clamp within tolerance), no verdict changed; a rescaled state range and integer against float tick counters are not built (docs/phase_c_completion_report.md §1) |
+| M11.1d | partial | `tests/bowen/test_ensemble_record.py::test_m111d_every_passing_criterion_has_a_mutant_run`<br>`tests/bowen/test_ensemble_record.py::test_m111d_mutation_hash_covers_the_mutant_list`<br>`tests/bowen/test_ensemble_record.py::test_m111d_mutation_record_is_current` | deletion and sign-inverted mutants run on every passing criterion's core rule (docs/phase_c_mutation_record.md); the minimal rule set per criterion is not listed in full, and criteria that fail at the central setting were not audited |
 | M11.1e | not done | — | Phase C — acceptance-test rules |
 | M11.1f | done | `tests/bowen/test_ensemble.py::test_m111f_a_criterion_fails_when_its_move_never_occurs` | — |
 | M11.2 | done | `tests/test_spec_consistency.py::test_m112_is_not_bounded_by_a_stale_numeric_range` | — |

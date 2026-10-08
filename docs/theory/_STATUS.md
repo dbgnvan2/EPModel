@@ -1,6 +1,11 @@
 # Run status — HANDOFF
 
-> ## ▶ STATE — the corpus is closed and the spec is current. **Next is the implementation plan.**
+> ## ▶ STATE — the corpus is closed and the spec is current. **Phase C is built; its gate does not pass.**
+>
+> **2026-10-08 — Phase C built (steps 0–16).** The gate does not pass: 6 criteria pass and are mutation-proved, `M11.C.42` and
+> `.45` pass but reverse in the D9 sweep, `.27` and `.41` pass in some cells, `.16` is undetermined, and `.3`, `.4`, `.5`, `.29`
+> and `.44` fail. `.7`, `.13` and `.14` are not built. **Next: the owner's decisions** in `docs/phase_c_completion_report.md`
+> §6 and `TODO.md` ("Phase C — open after the build"). Phase D should not start on this gate.
 >
 > **2026-10-06 — Phase B built.** All 14 automated exit criteria pass, each mutation-proved
 > (`docs/phase_b_mutation_record.md`). Pending: the owner's read of the rendered trace, then the

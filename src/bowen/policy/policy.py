@@ -11,9 +11,10 @@ the channel and capacity layer of each act in ``config/bowen/event_kinds.md``, t
 tie-break and fallback rules in ``config/bowen/policy.md``.
 
 **Outcomes** are an act toward one person, or ``WITHHOLD``. The legal set (`M4.D.1e`)
-is formed first, from structural preconditions — a live tie to a living person who is
-not an external agent; `CUTOFF` only on a live tie; `TRIANGLE` only toward someone a
-closed triad holds — and the `M5.C` gates that remove an act: `I-POSITION` is removed
+is formed first, from structural preconditions — a tie to a living person who is not an
+external agent; across a severed tie only `REDUCE_CUTOFF`, and `REDUCE_CUTOFF` only there;
+`TRIANGLE`, `DETRIANGLE` and `PREVENT_ALIGNMENT` only toward someone a closed triad holds —
+and the `M5.C` gates that remove an act: `I-POSITION` is removed
 for a financially dependent person (`M5.C.1`: it "MUST fail outright"). ``WITHHOLD`` is
 legal when an automatic act is.
 
@@ -29,7 +30,8 @@ automatic channel has the rest. If one channel has nothing legal the other has a
   ``min(1, functional_level / (k × capacity_level_per_layer))``; layer 0 always. No term
   reads anxiety and raises a reactive act (`M4.D.3`).
 * **Self-directed:** scored by `M5.F.5`'s position, never by relief. With efficacy
-  ``e = 1 − max(outward, inward)``, `I-POSITION` and ``WITHHOLD`` score the gap ``1 − e`` —
+  ``e = 1 − max(outward, inward)``, `I-POSITION`, ``WITHHOLD`` and the four `M5.B` family
+  moves score the gap ``1 − e`` —
   the position is not held, so take or hold one — and `STAY-IN-CONTACT` scores ``e`` —
   held, so stay in contact. The scores are in [0, 1] and enter as a softmax over their
   logarithms, ``score ** (1 / temperature)``, so a position fully held gives `I-POSITION`
@@ -70,8 +72,10 @@ from src.bowen.engine.params import EngineParams
 from src.bowen.policy.rules import PolicyRules
 
 AUTOMATIC, SELF = "automatic", "self"
-# M5.A.1 and M5.C.1 name these acts; the names are the spec's.
+# M5.A.1, M5.B and M5.C.1 name these acts; the names are the spec's.
 CUTOFF, TRIANGLE, I_POSITION, STAY_IN_CONTACT = "CUTOFF", "TRIANGLE", "I-POSITION", "STAY-IN-CONTACT"
+REDUCE_CUTOFF, DETRIANGLE, PREVENT_ALIGNMENT = "REDUCE_CUTOFF", "DETRIANGLE", "PREVENT_ALIGNMENT"
+NEEDS_TRIAD = frozenset({TRIANGLE, DETRIANGLE, PREVENT_ALIGNMENT})
 
 
 @dataclass(frozen=True)
@@ -111,10 +115,16 @@ def legal_outcomes(obs: Observation, kinds: EventKinds, params: EngineParams) ->
     """
     legal = []
     for view in obs.ties:
-        if not (view.live and view.other_alive) or view.other_external:
+        if not view.other_alive or view.other_external:
             continue
         for kind, channel in sorted(kinds.channels.items()):
-            if kind == TRIANGLE and view.other not in obs.triangle_for:
+            # Across a severed tie the one legal act is to reduce the cutoff; on a live tie it is not legal.
+            if kind == REDUCE_CUTOFF:
+                if not view.severed:
+                    continue
+            elif not view.live:
+                continue
+            if kind in NEEDS_TRIAD and view.other not in obs.triangle_for:
                 continue
             if kind == I_POSITION and obs.financially_dependent:
                 continue  # M5.C.1: fails outright, so it is removed, not degraded

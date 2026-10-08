@@ -1678,8 +1678,12 @@ None of these acts knows its consequences. Whether anyone repeats an act is left
   attention on that tie.
 
 Before learning (step 7) this is close to uniform within each channel. In the scripted family's events,
-ties were cut and nothing could reopen them: `REDUCE_CUTOFF` belongs to no channel. That is an open
-decision, not a finding.
+ties were cut and nothing could reopen them, because `REDUCE_CUTOFF` belonged to no channel. *Owner decision,
+2026-10-07:* the four family moves of `M5.B` are now in the self-directed channel, scored by the position
+gap. `REDUCE_CUTOFF` is legal only across a severed tie, and it is the only act that can cross one. A
+severed tie is usually loaded, so without systems perspective the act carries no weight (`M4.D.3b`). In
+this family, therefore, a cutoff is still not reopened without a coach. That follows from the gate as
+written; it is not a rule against reopening.
 
 ### 19.5 Calmer contact (spec `M4.C.10`)
 

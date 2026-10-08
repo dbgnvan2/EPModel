@@ -29,7 +29,8 @@ the rule. The rule below is the project's, graded [I]:
 A TRIGGER or RECONCILIATION names a tie and has no targets; it produces no
 deliveries and no witnesses (M4.A.2: no contact). A move addressed across a
 non-interactive tie — cut off, or a worry edge — is refused (M1.B.3: a cut-off
-tie carries no events), loudly, rather than dropped.
+tie carries no events), loudly, rather than dropped. The exception is `REDUCE_CUTOFF`
+across a cut-off tie, the act that reopens it (M5.B.3).
 """
 
 from __future__ import annotations
@@ -40,7 +41,10 @@ from typing import Mapping
 from src.bowen.engine.events import Delivery, Event, Role
 from src.bowen.engine.identifiers import PersonId, TieId
 from src.bowen.engine.live_positions import Occupant, positions_live
-from src.bowen.engine.objects import Person, Relationship
+from src.bowen.engine.objects import Person, Relationship, TieState
+
+# M5.B.3 names the move; the name is the spec's.
+REDUCE_CUTOFF_KIND = "REDUCE_CUTOFF"
 
 
 class MissingTie(ValueError):
@@ -50,8 +54,8 @@ class MissingTie(ValueError):
 class InactiveTie(ValueError):
     """A move was addressed across a cut-off or worry-edge tie, which carries no events (M1.B.3).
 
-    `REDUCE_CUTOFF` (M5.B.3) is the move meant to act on a severed tie; its
-    behaviour is Phase C, and it will need its own path across this rule then.
+    `REDUCE_CUTOFF` (M5.B.3) is the move meant to act on a severed tie, and it alone
+    crosses a cut-off tie (not a worry edge).
     """
 
 
@@ -124,7 +128,10 @@ class HouseholdConductanceVisibility:
                 tie = ties.get(TieId.of(event.sender, target))
                 if tie is None:
                     raise MissingTie(f"{event.sender} has no tie to {target}")
-                if not tie.interactive:
+                # M5.B.3: the one move meant to act on a severed tie crosses it; a worry edge
+                # (M4.A.4) and every other move are still refused (Phase C step 7).
+                crosses = event.kind == REDUCE_CUTOFF_KIND and tie.tie_state is TieState.CUT_OFF
+                if not tie.interactive and not crosses:
                     raise InactiveTie(f"{event.kind} from {event.sender} to {target}: the tie carries no events")
                 latency = tie.latency
             target_deliveries.append(

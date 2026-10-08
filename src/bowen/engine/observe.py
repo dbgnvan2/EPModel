@@ -47,7 +47,8 @@ class TieView:
 
     other: PersonId
     live: bool                # interactive and not cut off
-    cut_off: bool
+    cut_off: bool             # not live: cut off, or a worry edge
+    severed: bool             # cut off (M1.B.3), the one non-live state REDUCE_CUTOFF can act on
     deviation: float          # the person's own deviation on the tie (M4.C.1)
     other_alive: bool
     other_external: bool
@@ -94,7 +95,7 @@ def observe(state: RunState, person: PersonId, params: EngineParams) -> Observat
         other = next(m for m in tie.id.members() if m != person)
         cut = tie.tie_state is TieState.CUT_OFF
         ties.append(TieView(
-            other=other, live=tie.interactive and not cut, cut_off=cut or not tie.interactive,
+            other=other, live=tie.interactive and not cut, cut_off=cut or not tie.interactive, severed=cut,
             deviation=deviation(me, tie, params),
             other_alive=state.people[other].alive, other_external=state.people[other].role is Role.EXTERNAL,
         ))

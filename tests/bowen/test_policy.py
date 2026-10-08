@@ -102,7 +102,11 @@ def test_m4d1e_legal_set_excludes_impossible_and_gated_acts():
     state.ties[TieId.of(RAVI, MARTA)].tie_state = TieState.CUT_OFF
     ravi = observe(state, RAVI, PARAMS)
     labels = {o.label for o in legal_outcomes(ravi, KINDS, PARAMS)}
-    assert not any(label.endswith(">marta") for label in labels)  # nothing crosses a cut-off tie
+    # Across a severed tie the one legal act is to reduce the cutoff, and it is legal nowhere else.
+    assert {label for label in labels if label.endswith(">marta")} == {"REDUCE_CUTOFF>marta"}
+    assert not any(o.kind == "REDUCE_CUTOFF" for o in legal_outcomes(observe(fresh(), RAVI, PARAMS), KINDS, PARAMS))
+    for kind in ("DETRIANGLE", "PREVENT_ALIGNMENT"):
+        assert {o.target for o in legal_outcomes(ravi, KINDS, PARAMS) if o.kind == kind} == set(ravi.triangle_for)
     assert {o.kind for o in legal_outcomes(ravi, KINDS, PARAMS)} <= set(KINDS.channels) | {WITHHOLD}
     triangles = {o.target for o in legal_outcomes(ravi, KINDS, PARAMS) if o.kind == "TRIANGLE"}
     assert triangles == set(ravi.triangle_for) and triangles  # only toward someone a closed triad holds
@@ -124,8 +128,10 @@ def test_m16a3b_selection_record_carries_the_legal_set_and_the_decider():
     _, records = policy_run(ticks=1)
     selections = [r for r in records if isinstance(r, SelectionRecord)]
     for record in selections:
-        if record.decided_by is DecidedBy.FALLBACK:  # Bruno: his one tie starts cut off
-            assert record.legal_set == () and record.fallback_rule == "hold"
+        if record.decided_by is DecidedBy.FALLBACK:
+            # Bruno: his one tie starts cut off; reducing it is legal but, on a loaded tie without
+            # systems perspective, has no weight (M4.D.3b), so nothing can be drawn.
+            assert record.actor == P("bruno") and record.fallback_rule == "hold"
             continue
         assert record.decided_by is DecidedBy.POLICY and record.legal_set and record.draw is not None
         assert {label for label, _ in record.propensities} == set(record.legal_set)
@@ -242,7 +248,9 @@ def test_m4d1d_competing_urges_raise_anxiety_by_entropy():
 def test_m4d1f_fallback_on_empty_legal_set_is_flagged():
     state = fresh()
     for tie in state.ties_of(ANA):
-        tie.interactive, tie.tie_state = False, TieState.CUT_OFF
+        other = next(m for m in tie.id.members() if m != ANA)
+        state.people[other].alive = False  # no one left to act toward
+    assert legal_outcomes(observe(state, ANA, PARAMS), KINDS, PARAMS) == []
     decision = decide(observe(state, ANA, PARAMS), KINDS, PARAMS, RULES, DrawService(0))
     assert decision.selection.decided_by is DecidedBy.FALLBACK and decision.selection.fallback_rule == "hold"
     assert decision.selection.withheld is None and not decision.selection.targets
@@ -321,3 +329,24 @@ def test_m4b2_observation_holds_no_other_persons_state():
     marta.acute_anxiety, marta.outside_ness_outward = 99.0, 1.0
     changed.ties[TieId.of(MARTA, NADIA)].felt_impingement[MARTA] = 1.0  # a tie Ravi is not party to
     assert observe(base, RAVI, PARAMS) == observe(changed, RAVI, PARAMS)
+
+
+def test_m4d1f_zero_total_weight_falls_back():
+    """Bruno's one tie is severed and loaded: REDUCE_CUTOFF is legal but carries no weight without perspective."""
+    obs = observe(fresh(), P("bruno"), PARAMS)
+    assert [o.label for o in legal_outcomes(obs, KINDS, PARAMS)] == ["REDUCE_CUTOFF>ana"]
+    assert decide(obs, KINDS, PARAMS, RULES, DrawService(0)).selection.decided_by is DecidedBy.FALLBACK
+    with_perspective = dataclasses.replace(obs, systems_perspective=1.0)
+    assert decide(with_perspective, KINDS, PARAMS, RULES, DrawService(0)).selection.kind == "REDUCE_CUTOFF"
+
+
+def test_m5b3_reduce_cutoff_crosses_a_cut_off_tie_and_nothing_else_does():
+    from src.bowen.engine.act import Selection
+    from src.bowen.engine.visibility import InactiveTie
+
+    state = fresh()
+    visibility = HouseholdConductanceVisibility(PARAMS.per_hop_fidelity)
+    reach = Selection(actor=ANA, kind="REDUCE_CUTOFF", targets=(P("bruno"),), intensity=60.0)
+    assert any(isinstance(r, EmittedRecord) for r in act(state, reach, visibility, PARAMS))
+    with pytest.raises(InactiveTie):
+        act(state, dataclasses.replace(reach, kind="PURSUE", index=1), visibility, PARAMS)

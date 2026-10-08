@@ -56,7 +56,7 @@
 > interviews call that reading "grotesque". **`hold_gain` was chosen against `M5.D.3`**, so that aborts are the
 > usual outcome at first opposition; `constants_changes.md` records the measurement.
 
-frozen_at: 2026-10-06
+frozen_at: 2026-10-07
 activation_regime: synchronous
 
 | key | value | grade | unit | spec |

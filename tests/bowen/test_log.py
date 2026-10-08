@@ -85,7 +85,7 @@ def test_m16a7_header_flags_constants_changed_after_freeze():
     constants, frozen = load_constants(), load_frozen_constants()
     since_freeze = {k for k in constants.values if k not in frozen.values or constants[k] != frozen[k]}
     baseline = {k for k, flag in header().constant_changed_after_freeze if flag}
-    assert baseline == since_freeze and "appraisal_gain" in baseline  # added at Phase C step 1, logged
+    assert baseline == since_freeze == set()  # re-frozen for Phase C at step 14: nothing changed since
     changed = dataclasses.replace(
         constants,
         values=MappingProxyType({**constants.values,

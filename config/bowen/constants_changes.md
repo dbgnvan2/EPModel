@@ -6,6 +6,10 @@
 > `tests/bowen/test_phase_b_gate.py::test_m10b4_constants_frozen_before_suite` fails if
 > a value differs from `constants_frozen.md` without a row here.
 
+> **Re-frozen for Phase C on 2026-10-07** (`constants_frozen.md`). The rows above that date record the
+> changes from the Phase B snapshot (`constants_frozen_phase_b.md`) made while Phase C was built, before any
+> Phase C criterion ran. Rows dated after the re-freeze are changes against the Phase C snapshot.
+
 | key | frozen_value | new_value | date | criterion | post_hoc |
 |---|---|---|---|---|---|
 | `standing_load_gain` | 0.2 | 0.2 (meaning changed: scales the "too little" side, M4.C.1c) | 2026-10-07 | — (spec revision 11 replaced the mechanism; Phase C step 1) | no |

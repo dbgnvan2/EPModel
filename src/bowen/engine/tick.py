@@ -27,7 +27,8 @@ The nine steps, and where each lives:
                               (investment, M1.B.8; the detectors, M1.A.19);
                               ``outside_ness.update_outside_ness`` (M1.A.9, M4.C.5);
                               ``moves.settle_functioning`` (M1.B.5, M1.B.6);
-                              ``consolidate.consolidate``; then the invariants assert
+                              ``consolidate.consolidate``; ``learner.learn`` (M4.D.6,
+                              crediting the tick's felt change); then the invariants assert
 
 The slow tick (M3.B.1) fires after the 52nd, 104th, … fast tick. In Phase B it
 does nothing but record that it fired; its contents are Phase D.
@@ -46,6 +47,7 @@ from src.bowen.engine.event_effects import STRUCTURAL, apply_delivered_cutoffs, 
 from src.bowen.engine.events import Event
 from src.bowen.engine.identifiers import PersonId
 from src.bowen.engine.invariants import assert_invariants, snapshot
+from src.bowen.engine.learner import learn, register_acts
 from src.bowen.engine.moves import apply_move_effects, settle_functioning
 from src.bowen.engine.log_records import EffectRecord, Emitter, TickRecord
 from src.bowen.engine.params import EngineParams
@@ -92,6 +94,7 @@ def run_tick(
     steps: list[str] = []
     records: list = [TickRecord(state.tick)]
     before = snapshot(state)
+    start_acute = {pid: p.acute_anxiety for pid, p in state.people.items()}  # the learner's baseline
 
     # 1 — standing load, before anything is delivered (M3.D.2, M6.I.8).
     effects, loaded = apply_standing_load(state, params)
@@ -147,6 +150,7 @@ def run_tick(
     # 8 — act.
     for selection in sorted(selections, key=lambda s: (s.actor, s.index)):
         records += act(state, selection, visibility, params)
+    register_acts(state, selections, params)  # M4.D.6: the policy's automatic acts open their accounts
     steps.append("act")
 
     # 9 — consolidate, then the invariants assert (M4.G.2). The integrator reads this
@@ -156,6 +160,8 @@ def run_tick(
     records += update_outside_ness(state, readings, params)
     records += settle_functioning(state, params)
     records += consolidate(state, params)
+    # M4.D.6: the tick's felt change, decay included, is credited after consolidation.
+    records += learn(state, start_acute, params)
     steps.append("consolidate")
     records.append(assert_invariants(state, before, loaded, tuple(steps), params.invariant_tolerance))
 

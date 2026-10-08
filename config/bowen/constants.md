@@ -99,6 +99,12 @@ activation_regime: synchronous
 | `withhold_investment_gain` | 0.2 | [I] | share of attention per unit scaled intensity | `M4.D.1b` |
 | `loaded_tie_threshold` | 0.2 | [I] | deviation units | `M4.D.3b` |
 | `policy_intensity` | 100.0 | [I] | intensity units | `M4.D.1` |
+| `learning_rate` | 0.2 | [I] | share of the gap to the signal per update | `M4.D.6` |
+| `credit_horizon` | 3 | [I] | fast ticks | `M4.D.6b` |
+| `credit_discount` | 0.7 | [I] | weight per tick of age | `M4.D.6` |
+| `cross_person_weight` | 0.5 | [I] | weight on the others' mean relief | `M4.D.6e` |
+| `habituation_rate` | 0.7 | [I] | relief kept per earlier repetition | `M4.G.3` |
+| `habituation_window` | 8 | [I] | fast ticks | `M4.G.3` |
 | `distance_binding_rate` | 0.3 | [I] | share of excess bound per unit scaled intensity | `M1.D.2a` |
 | `triangle_transfer_rate` | 0.3 | [I] | share of each insider's excess passed per unit scaled intensity | `M1.C.1` |
 | `outsider_positional_gain` | 0.5 | [I] | positional anxiety per unit transferred | `M1.C.1` |

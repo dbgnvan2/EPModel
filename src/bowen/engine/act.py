@@ -46,12 +46,17 @@ class Selection:
     fallback_rule: str | None = None
     # M4.D.1d: acute anxiety the unresolved competition adds this tick; the engine applies it.
     urge: float = 0.0
+    # M4.D.6: the learned-value key of an automatic act, which the learner credits; "" otherwise.
+    value_key: str = ""
+    # M16.A.3a: the beliefs the policy read for this selection.
+    beliefs_used: tuple[tuple[str, float], ...] = ()
 
 
 def _record(state: RunState, selection: Selection, event_id) -> SelectionRecord:
     return SelectionRecord(
         tick=state.tick, actor=selection.actor, decided_by=selection.decided_by, event_id=event_id,
         propensities=selection.propensities, draw=selection.draw, legal_set=selection.legal_set,
+        beliefs_used=selection.beliefs_used,
         withheld=selection.withheld,
         withheld_toward=selection.targets[0] if selection.withheld and selection.targets else None,
         fallback_rule=selection.fallback_rule,

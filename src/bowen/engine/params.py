@@ -70,6 +70,12 @@ class EngineParams:
     withhold_investment_gain: float # M4.D.1b — attention a withheld move still puts into its tie
     loaded_tie_threshold: float   # M4.D.3b — a tie whose deviation exceeds this is loaded
     policy_intensity: float                # M4.D.1 — the intensity of every act the policy emits, Phase C step 6
+    learning_rate: float       # M4.D.6, plan D4 — value ← value + learning_rate × (signal − value)
+    credit_horizon: int        # M4.D.6b — weeks after an act over which its felt effect is credited to it
+    credit_discount: float     # M4.D.6, plan D4 — the signal an act receives at age k is weighted credit_discount ** k
+    cross_person_weight: float # M4.D.6e — weight on the target's and witnesses' change in anxiety
+    habituation_rate: float    # M4.G.3 — relief credited to the n-th recent repetition is scaled by habituation_rate ** n
+    habituation_window: int    # M4.G.3 — how far back an identical act counts as a repetition
     belief_rate: float                     # M9.8 — share of the gap to a witnessed observation closed per tick, at full fidelity
 
     def __post_init__(self) -> None:
@@ -101,6 +107,11 @@ class EngineParams:
             raise ValueError("anxiety bands need 0 <= low <= high")
         if min(self.competing_urge_gain, self.withhold_investment_gain, self.loaded_tie_threshold) < 0:
             raise ValueError("competing_urge_gain, withhold_investment_gain and loaded_tie_threshold are non-negative")
+        for name in ("learning_rate", "credit_discount", "cross_person_weight", "habituation_rate"):
+            if not 0.0 <= getattr(self, name) <= 1.0:
+                raise ValueError(f"{name} must be in [0, 1]")
+        if self.credit_horizon < 1 or self.habituation_window < 1:
+            raise ValueError("credit_horizon and habituation_window must be at least 1")
         if self.outsider_positional_gain < 0 or self.pseudo_self_transfer_gain < 0:
             raise ValueError("outsider_positional_gain and pseudo_self_transfer_gain must be non-negative")
         for name in ("witness_weight", "calm_transfer_rate", "symptom_leak_rate", "symptom_rearm_fraction",

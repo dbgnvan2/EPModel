@@ -154,6 +154,9 @@ class Person:
     # keyed as text. Absent means the shared initial value 0 — equal for every legal act
     # (plan D3). Written by the learner from Phase C step 7.
     learned_values: dict[str, float] = field(default_factory=dict)
+    # M4.D.6, plan D4: the person's automatic acts still inside the credit horizon,
+    # each accumulating its signal. Written by ``learner.register_acts`` and ``learner.learn``.
+    eligible_acts: list = field(default_factory=list)
     systems_perspective: float | None = None
     reactive_state: dict[str, float] | None = None
     pseudo_self: float | None = None

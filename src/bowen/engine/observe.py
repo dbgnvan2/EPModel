@@ -74,6 +74,7 @@ class Observation:
     systems_perspective: float
     financially_dependent: bool
     ties: tuple[TieView, ...]
+    triads: tuple[TriangleId, ...]                # every closed triad the person belongs to (topology)
     triangle_for: Mapping[PersonId, TriangleId]   # target → the triad a TRIANGLE act to them forms
     beliefs: Mapping[TieId, tuple[float, float]]  # tie → (believed tension, believed contact)
     learned_values: Mapping[str, float]
@@ -114,7 +115,8 @@ def observe(state: RunState, person: PersonId, params: EngineParams) -> Observat
         tick=state.tick, person=person, acute_excess=excess(me), functional_level=me.functional_level,
         outside_ness_outward=outward, outside_ness_inward=inward,
         systems_perspective=me.systems_perspective or 0.0, financially_dependent=me.financially_dependent,
-        ties=tuple(ties), triangle_for=MappingProxyType(triangle_for),
+        ties=tuple(ties), triads=tuple(t for t in sorted(state.triangles) if person in t.members),
+        triangle_for=MappingProxyType(triangle_for),
         beliefs=MappingProxyType({t: (b.tension, b.contact) for t, b in (me.tie_beliefs or {}).items()}),
         learned_values=MappingProxyType(dict(me.learned_values)), inbox=inbox,
     )

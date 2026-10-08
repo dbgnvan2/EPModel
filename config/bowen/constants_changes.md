@@ -56,3 +56,9 @@
 | `withhold_investment_gain` | — | 0.2 | 2026-10-07 | — (new mechanism; Phase C step 6) | no |
 | `loaded_tie_threshold` | — | 0.2 | 2026-10-07 | — (new mechanism; Phase C step 6) | no |
 | `policy_intensity` | — | 100.0 | 2026-10-07 | — (new mechanism; Phase C step 6) | no |
+| `learning_rate` | — | 0.2 | 2026-10-07 | — (new mechanism; Phase C step 7) | no |
+| `credit_horizon` | — | 3 | 2026-10-07 | — (new mechanism; Phase C step 7) | no |
+| `credit_discount` | — | 0.7 | 2026-10-07 | — (new mechanism; Phase C step 7) | no |
+| `cross_person_weight` | — | 0.5 | 2026-10-07 | — (new mechanism; Phase C step 7) | no |
+| `habituation_rate` | — | 0.7 | 2026-10-07 | — (new mechanism; Phase C step 7) | no |
+| `habituation_window` | — | 8 | 2026-10-07 | — (new mechanism; Phase C step 7) | no |

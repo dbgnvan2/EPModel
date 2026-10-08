@@ -1638,6 +1638,21 @@ is built during Phases B–D except the stopping rule, which the owner brought i
 
 The automatic channel learns from felt relief over a short horizon. The form approved at G3 (2026-08-24) forbade this signal on the ground that it would punish the differentiating moves; those moves are in the self-directed channel, which is never reinforced (`M4.D.6d`), so the ground does not hold. Relief that keeps the anxious pattern in place is the corpus's own account: blaming each other is "calming for both" while the anxiety stays bound (`KS04.13`, `[T]` `[K]`). Whether a family's repertoire collapses onto one move is now measured (`M11.C.16`), not prevented. The ledger entries that argued against this signal (`FE05.4`, which defines regression as acting to relieve the anxiety of the moment; `FE03.19`; `KS21.1`; `K03.2`) argue that differentiated action and a helper's objective are not relief-driven. That still holds: relief drives only the automatic channel, which is the regressed mode, and the self-directed channel is never scored by relief (`M5.F.5`). **The risk** is that a collapse comes from the learner — its rate, horizon or selection temperature — rather than from any family process, so all three are swept (`M4.D.6b`, `M17.E.1`).
 
+**As built (Phase C step 7, 2026-10-07).** Every form and rate is `[I]`.
+- **What is credited.** Each automatic act a person sends is credited for three weeks with how their
+  own anxiety changed, plus half the average change of the person they addressed and anyone who
+  watched. The cross-person part is how calming another person can teach an act (`FE07.4`).
+- **Discounting and the horizon.** Later weeks count less. Nothing after the third week reaches the
+  act, so a cost that comes later is felt but credited to whatever was done just before it.
+- **Habituation.** Relief from the same act toward the same person shrinks with each recent repetition.
+  Costs do not shrink.
+- **What is learned separately.** Values are kept apart by anxiety band and by triangle position. A
+  person counts as "outside" a triangle when they have seen the other two closer than a tie at rest:
+  the position is read through belief, never from the tie itself.
+- **Never learned.** The self-directed channel.
+- **Over 200 weeks.** Each seed ends with a different repertoire, and severed ties are cut and reopened
+  repeatedly. These runs are a check that the parts work, not a finding.
+
 ### 19.4 Acts and patterns (spec `M5.A.1a`)
 
 The core moves keep their names but each is one act. The pattern of the same name is a readout over a tie's history. Kerr: each pattern "solves the dilemma… in a different way" (`KS04.14`, `[T]` `[K]`), so the patterns are alternative solutions to one problem, not primitives.

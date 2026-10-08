@@ -53,8 +53,9 @@ equal probability in the softmax, so no tie-break draw is made; an empty legal s
 non-finite weight, gives the fallback — the person holds, nothing is emitted and no
 automatic act is computed — flagged ``FALLBACK``.
 
-The policy reads no belief yet: its one belief reader, `M4.D.2`'s triangle position, is
-left to the learner's conditioning (step 7). ``beliefs_used`` is therefore empty.
+**Triangle position** (`M4.D.2`), from Phase C step 7: the automatic values are kept per
+(band, position, act, target or triad), the position read through belief by
+``triangle_position``; the beliefs read are recorded in ``beliefs_used`` (`M16.A.3a`).
 """
 
 from __future__ import annotations
@@ -65,7 +66,7 @@ from dataclasses import dataclass
 from src.bowen.engine.act import WITHHOLD, Selection
 from src.bowen.engine.draws import DrawKey, DrawService
 from src.bowen.engine.events import EventKinds
-from src.bowen.engine.identifiers import PersonId
+from src.bowen.engine.identifiers import PersonId, TieId
 from src.bowen.engine.log_records import DecidedBy
 from src.bowen.engine.observe import Observation
 from src.bowen.engine.params import EngineParams
@@ -102,10 +103,35 @@ def band(obs: Observation, params: EngineParams) -> str:
     return "mid" if obs.acute_excess < params.anxiety_band_high else "high"
 
 
+def triangle_position(obs: Observation, params: EngineParams) -> tuple[str, tuple[tuple[str, float], ...]]:
+    """Purpose: the person's position in its triangles, read through belief — and the beliefs read.
+    Spec:    docs/bowen_agent_model_spec_v2.md#M4.D.2, #M4.B.2, #M9.8, #M16.A.3a
+    Tests:   tests/bowen/test_learner.py::test_m4d2_triangle_position_is_read_through_belief
+
+    "outside" when, in any closed triad the person belongs to, the person believes the other
+    two are closer than a tie at rest — believed contact above the belief prior,
+    ``interactive_resting_contact`` (`M9.8`) — that is, has seen them allied (`KS03.1`: the
+    insiders' "alliance, togetherness, or fusion"); otherwise "inside". Read through belief
+    only, against the prior, so both sides of the comparison are on the belief's scale. [I]
+    """
+    used = []
+    outside = False
+    for triad in obs.triads:
+        a, b = (m for m in triad.members if m != obs.person)
+        pair = TieId.of(a, b)
+        if pair not in obs.beliefs:
+            continue
+        believed = obs.beliefs[pair][1]
+        used.append((f"{pair}.contact", believed))
+        if believed > params.interactive_resting_contact:
+            outside = True
+    return ("outside" if outside else "inside"), tuple(used)
+
+
 def value_key(obs: Observation, kind: str, target: PersonId, params: EngineParams) -> str:
     about = obs.triangle_for.get(target) if kind == TRIANGLE else None
     where = "/".join(m.value for m in about.members) if about is not None else target.value
-    return f"{band(obs, params)}|{kind}|{where}"
+    return f"{band(obs, params)}|{triangle_position(obs, params)[0]}|{kind}|{where}"
 
 
 def legal_outcomes(obs: Observation, kinds: EventKinds, params: EngineParams) -> list[Outcome]:
@@ -244,6 +270,7 @@ def decide(obs: Observation, kinds: EventKinds, params: EngineParams, rules: Pol
     rationale = dict(
         decided_by=DecidedBy.POLICY, legal_set=legal, draw=u,
         propensities=tuple((o.label, p) for o, p in zip(outcomes, probs)),
+        beliefs_used=triangle_position(obs, params)[1],
     )
     if chosen.kind == WITHHOLD:
         auto = [(o, p) for o, p in zip(outcomes, probs) if o.channel == AUTOMATIC]
@@ -254,7 +281,7 @@ def decide(obs: Observation, kinds: EventKinds, params: EngineParams, rules: Pol
         ), urge)
     return Decision(Selection(
         actor=obs.person, kind=chosen.kind, targets=(chosen.target,), intensity=params.policy_intensity,
-        **rationale,
+        value_key=chosen.value_key, **rationale,
     ), urge)
 
 

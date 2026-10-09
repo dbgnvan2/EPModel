@@ -371,10 +371,10 @@ verdicts change; the rest keep their verdicts with different seed counts.
 **What C.16's pass does not show.** The plan's named mutant for C.16, `M4.D.6` disabled in both arms, **survives**,
 and so does the learner inverted. The sweep agrees: C.16 passes at all six settings of α, H and temperature. So the
 repertoire narrows at lower level whether or not anything is learned. Revision 11 classes C.16 composite, "restated"
-so that learning produces it; on this evidence learning is not what produces it. §11 tests which rules do. One possible rule, not
-tested: `M4.D.3a`'s layer availability removes acts from the legal set at a lower level, which lowers the entropy of
-what is chosen. Coverage marks C.16 partial, passing but not proved. Whether to reclassify it was decided in §11:
-it stays composite, and that candidate rule turned out not to carry it.
+so that learning produces it; on this evidence learning is not what produces it. §11 tests which rules do,
+including `M4.D.3a`'s layer availability, which removes acts from the legal set at a lower level; it does not carry
+the direction either. Coverage marks C.16 partial, passing but not proved. §11 decides its class: it stays
+composite.
 
 ## 11. Whether `M11.C.16` is reclassified — decided 2026-10-08
 

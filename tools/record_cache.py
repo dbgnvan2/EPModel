@@ -26,6 +26,9 @@ sys.path.insert(0, str(REPO))
 from tools.mutant_runner import Mutant, run_in_copy  # noqa: E402
 
 CACHE_DIR = REPO / "docs" / "records_cache"
+ERRORED = ("RAISED", "BROKEN")
+# Errors of the machine running the child, not of the mutated model: never a result (learning-qa, 2026-10-09).
+INFRASTRUCTURE_ERRORS = ("BrokenProcessPool", "MemoryError", "OSError", "TimeoutError", "KeyboardInterrupt")
 ENGINE_TOOLS = (REPO / "tools" / "ensemble_record.py", REPO / "tools" / "mutant_runner.py")
 
 
@@ -56,10 +59,18 @@ class Cache:
         self.used.add(key)  # stored as it will be reloaded (sorted keys), so a fresh and a cached result render alike
         self.entries[key] = json.loads(json.dumps(result, sort_keys=True, default=float))
 
+    def flush(self) -> None:
+        """Write every entry, pruning nothing: called after each run, so a later failure loses no finished result."""
+        self._write(self.entries)
+
     def save(self) -> None:
+        """Write the entries used since loading: called once a whole record has been built."""
+        self._write({k: self.entries[k] for k in self.used if k in self.entries})
+
+    def _write(self, entries: dict) -> None:
         CACHE_DIR.mkdir(parents=True, exist_ok=True)
-        kept = {k: self.entries[k] for k in sorted(self.used) if k in self.entries}
-        self.path.write_text(json.dumps(kept, indent=1, sort_keys=True, default=float) + "\n", encoding="utf-8")
+        self.path.write_text(json.dumps(dict(sorted(entries.items())), indent=1, sort_keys=True, default=float) + "\n",
+                             encoding="utf-8")
 
 
 def run_cached(cache: Cache, mutant: Mutant, ids: list[str], workers: int, label: str | None = None) -> list[dict]:
@@ -68,8 +79,16 @@ def run_cached(cache: Cache, mutant: Mutant, ids: list[str], workers: int, label
     engine = engine_hash()
     keys = {cid: result_key(engine, mutant.definition(), cid) for cid in ids}
     missing = [cid for cid in ids if cache.get(keys[cid]) is None]
+    fresh = {}
     if missing:
         for result in run_in_copy(mutant, "mutant_runner.py", "--child", *missing, "--workers", str(workers)):
-            cache.put(keys[result["criterion"]], result)
+            error = result.get("error", "")
+            if error.split(":")[0] in INFRASTRUCTURE_ERRORS:
+                raise SystemExit(f"{label or mutant.id} → {result['criterion']}: the run failed, not the model "
+                                 f"({error}); nothing was cached for it")
+            fresh[result["criterion"]] = result
+            if result["outcome"] not in ERRORED:  # an errored row is reported but rerun next time, never cached
+                cache.put(keys[result["criterion"]], result)
+        cache.flush()
         print(f"{label or mutant.id}: ran {len(missing)} of {len(ids)}", flush=True)
-    return [cache.get(keys[cid]) for cid in ids]
+    return [fresh.get(cid) or cache.get(keys[cid]) for cid in ids]

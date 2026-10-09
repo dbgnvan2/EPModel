@@ -49,6 +49,11 @@ Phase C steps 0–16 are built. **Its gate does not pass** (`docs/phase_c_comple
   at level 20 and below (40.6% of the lowered arm's member-weeks under it, 45.2% over the entropy's window;
   `docs/phase_c_level_occupancy.md`), so "cancels without reversing" is shown for that inversion only. A stronger
   inversion was not tried. Report §11.
+- [ ] **The record caches are trusted, not proved.** A test re-renders each record from `docs/records_cache/` and
+  compares, but nothing binds a cached result to a run: editing a value in the cache and re-rendering passes. The
+  key hashes the inputs, not the result. Only a rerun checks it (learning-qa, 2026-10-09).
+- [ ] **`docs/phase_c_level_occupancy.md` is checked by its hash line only**, not re-rendered from cached rows like
+  the mutation and sweep records, so a hand-edited table would pass (learning-qa, 2026-10-09).
 - [ ] **Record-parsing duplication.** The record JSON regex and `json.loads` appear about six times across
   `tools/mutation_record.py`, `tools/sweep_record.py`, `tools/spec_coverage.py` and the tests; one helper would serve
   them (correctness review, 2026-10-09).

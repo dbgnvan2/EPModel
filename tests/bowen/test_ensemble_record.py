@@ -423,3 +423,22 @@ def test_m115_report_section_11_is_generated():
     spec.loader.exec_module(report)
     text = report.REPORT.read_text(encoding="utf-8")
     assert text[text.index(report.HEADING):] == report.SECTION, "stale: rerun python3 tools/c16_report.py"
+
+
+def test_m111d_run_cached_never_caches_an_errored_row(tmp_path, monkeypatch):
+    """An engine exception is reported (red) but rerun next time; a failure of the machine stops the run instead of
+    becoming a cached red; finished results are flushed before a later failure (learning-qa, 2026-10-09)."""
+    import pytest
+
+    monkeypatch.setattr(_cache, "CACHE_DIR", tmp_path)
+    mutant = next(m for m in _mutants.MUTANTS if m.id == "level-blind")
+    rows = {"A": {"criterion": "A", "outcome": "PASS", "seeds": 50, "readouts": []},
+            "B": {"criterion": "B", "outcome": "RAISED", "seeds": 0, "error": "AssertionError: invariant"}}
+    monkeypatch.setattr(_cache, "run_in_copy", lambda m, tool, *args, **kw: [rows[c] for c in args[1:-2]])
+    cache = Cache("probe")
+    assert [r["outcome"] for r in _cache.run_cached(cache, mutant, ["A", "B"], 1)] == ["PASS", "RAISED"]
+    stored = _mutants.json.loads((tmp_path / "probe.json").read_text())
+    assert [r["outcome"] for r in stored.values()] == ["PASS"]
+    rows["B"] = {"criterion": "B", "outcome": "RAISED", "seeds": 0, "error": "BrokenProcessPool: a worker died"}
+    with pytest.raises(SystemExit, match="the run failed, not the model"):
+        _cache.run_cached(Cache("probe"), mutant, ["A", "B"], 1)

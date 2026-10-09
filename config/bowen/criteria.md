@@ -11,6 +11,18 @@
 >   *light* stress is the first parent only, every `light_every` weeks from the same week.
 > * `run_after` — weeks run after the scripted act's week, so the run is `t0 + run_after` weeks long.
 > * `level_*` — how far every member's basic and functional level is lowered in that arm.
+>
+> **Post-hoc restatement, 2026-10-09 (step S of `docs/DECISIONS — PHASE C FAILING.md`, approved by the owner).**
+> The declared weeks stand, but in both arms of every criterion that scripts an act, the ties its scripted acts
+> cross are held open from week 0 until the act (`M11.C.29`: until its last withdrawal): neither member may cut
+> them, so `CUTOFF` across them is not in their legal set. Without the hold the act was illegal in 25–60% of seeds,
+> and a skipped seed added a difference of exactly 0. The approved first choice, scripting each act at the latest
+> week legal in every seed of the ensemble's cap (500), gave week 0 for every criterion (`s-scripted-weeks` in
+> `docs/phase_c_diagnostic_record.md`), and week 0 cannot be used: every member starts on their chronic floor, and
+> decay lifts anyone below the floor back to it, so no relief can show (a run at week 0 measured `M11.C.3`'s pair
+> relief at +0.09 against −2.2 at week 12). So the approved fallback, holding the tie open, applies to every
+> criterion. This is a test restatement: no readout was looked at in choosing it, and the week-0 run was discarded
+> for the floor, not for its verdicts.
 
 | criterion | setting | value |
 |---|---|---|

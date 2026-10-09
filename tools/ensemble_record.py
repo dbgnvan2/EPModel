@@ -68,6 +68,13 @@ def run(workers: int, only: list[str] | None):
     return verdicts, NOT_BUILT, rules
 
 
+def scripted_cell(scripted: dict) -> str:
+    """Each arm's scripted acts not made, of all it scripted: "—" for a criterion that scripts none."""
+    if not scripted:
+        return "—"
+    return "; ".join(f"{arm} {c['not legal'] + c['not selecting']} of {sum(c.values())}" for arm, c in scripted.items())
+
+
 def render(verdicts, not_built, rules, hash_: str) -> str:
     lines = [
         "# Phase C ensemble record",
@@ -81,8 +88,8 @@ def render(verdicts, not_built, rules, hash_: str) -> str:
         "",
         "Rules: " + ", ".join(f"`{k}` = {v}" for k, v in rules.items()) + ".",
         "",
-        "| Criterion | Class | Verdict | Seeds | Readouts (difference treatment − baseline; ± half-width; p after Holm where tested) | Fallback rate | Flags |",
-        "|---|---|---|---|---|---|---|",
+        "| Criterion | Class | Verdict | Seeds | Readouts (difference treatment − baseline; ± half-width; p after Holm where tested) | Scripted acts not made (not legal + not selecting, of all scripted) | Fallback rate | Flags |",
+        "|---|---|---|---|---|---|---|---|",
     ]
     for v, _ in verdicts:
         parts = []
@@ -97,7 +104,7 @@ def render(verdicts, not_built, rules, hash_: str) -> str:
             parts.append(text)
         flags = list(v.flagged) + [f"move never occurred: {m}" for m in v.missing_moves]
         lines.append(f"| `{v.criterion}` | {v.cls} | **{v.outcome}** | {v.seeds} | {'; '.join(parts)} | "
-                     f"{v.fallback_rate:.2f} | {'; '.join(flags) or '—'} |")
+                     f"{scripted_cell(v.scripted)} | {v.fallback_rate:.2f} | {'; '.join(flags) or '—'} |")
     lines += ["", "## Not built in Phase C", ""]
     lines += [f"- `{cid}` — {why}." for cid, why in not_built.items()]
     lines += ["", "## Fallback rate by person (`M11.D.18`)", ""]
@@ -107,7 +114,7 @@ def render(verdicts, not_built, rules, hash_: str) -> str:
     lines += ["", "## Machine-readable", "", "```json",
               json.dumps([{"criterion": v.criterion, "class": v.cls, "outcome": v.outcome, "seeds": v.seeds,
                            "readouts": v.readouts, "fallback_rate": v.fallback_rate, "flags": v.flagged,
-                           "missing_moves": v.missing_moves} for v, _ in verdicts], indent=1, default=float),
+                           "missing_moves": v.missing_moves, "scripted": v.scripted} for v, _ in verdicts], indent=1, default=float),
               "```", ""]
     return "\n".join(lines)
 

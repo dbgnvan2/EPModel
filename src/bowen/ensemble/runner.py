@@ -86,6 +86,7 @@ class Verdict:
     fallback_by_person: dict
     flagged: list[str]
     missing_moves: list[str]
+    scripted: dict = field(default_factory=dict)  # arm -> {"made", "not legal", "not selecting"}, over all seeds
 
 
 def _run_seed(args):
@@ -210,4 +211,23 @@ def _verdict(criterion, results, converged, rules) -> Verdict:
     for r in rows:
         if r["direction"] == 0 and r.get("assay_limit"):
             flagged.append(f"{r['readout']}: baseline at a bound — an assay limit, not evidence (M11.4d)")
-    return Verdict(criterion.id, criterion.cls, outcome, len(results), rows, rate, by_person, flagged, missing)
+    return Verdict(criterion.id, criterion.cls, outcome, len(results), rows, rate, by_person, flagged, missing,
+                   scripted_counts(criterion, results))
+
+
+SCRIPTED = {"made": "(scripted act made)", "not legal": "(scripted act not legal, skipped)",
+            "not selecting": "(scripted act not made, actor not selecting)"}
+
+
+def scripted_counts(criterion: Criterion, results) -> dict:
+    """Purpose: each arm's scripted acts over all seeds, made or not, so a skip rate is reported beside the verdict
+             (a skipped seed adds a difference of exactly 0; step S of docs/DECISIONS — PHASE C FAILING.md).
+    Spec:    docs/bowen_agent_model_spec_v2.md#M17.D.3
+    Tests:   tests/bowen/test_ensemble.py::test_m17d3_verdict_reports_scripted_acts_not_made
+    """
+    counts = {}
+    for name, index in zip(criterion.arms, (1, 2)):
+        totals = {k: sum(r[index].moves[label] for r in results) for k, label in SCRIPTED.items()}
+        if any(totals.values()):
+            counts[name] = totals
+    return counts

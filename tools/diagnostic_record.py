@@ -40,7 +40,7 @@ CONSTANTS = "config/bowen/constants.md"
 @dataclass(frozen=True)
 class Diagnostic:
     id: str
-    step: str                      # the plan's step: D1-D6
+    step: str                      # the plan's step (D1-D7) or the decision memo's (S, Q3)
     what: str
     mutant: str | None = None      # a mutant id from tools/mutation_record.py, or None for the unmodified model
     criteria: tuple[str, ...] = () # criterion ids, or prefixes ending in "["
@@ -93,6 +93,16 @@ DIAGNOSTICS = (
                "skipped because it was not legal that week", probe="scripted_acts", seeds=20),
     Diagnostic("d5-spell-effect", "D5", "Is M11.C.44/.45's calm arm calm? Each triad member's mean acute anxiety and "
                "share of weeks above the chronic floor, per arm", probe="spell_effect", seeds=20),
+    Diagnostic("s-scripted-weeks", "S", "Step S: for every criterion that scripts an act, the first week at or before "
+               "its declared t0 at which the arm's acts would not all be made, per seed (t0 + 1 if none), in the "
+               "policy's own run without any tie held open. The minimum over seeds, less one, is the latest week legal "
+               "in every seed from week 0 on; over the ensemble's seed cap", probe="scripted_weeks", seeds=500),
+    Diagnostic("d7-rest-state", "D7", "X1: is there a calm state? Each member's excess over the chronic floor with no "
+               "spell and no scripted act, on both fixtures, at the fixture's own levels and with every member set to "
+               "each level, and the steady excess each source of input alone would hold", probe="rest_state", seeds=20),
+    Diagnostic("q3-act-effects", "Q3", "What a TRIANGLE does to the sender, the other in the pair and the third, "
+               "against other automatic acts: M11.C.3's design at its declared week with its ties held open, treatment "
+               "minus baseline per week through the learner's horizon", probe="act_effects", seeds=50),
 )
 
 
@@ -142,14 +152,14 @@ def results(cache: Cache, d: Diagnostic, workers: int | None) -> list[dict]:
 
 
 def summarise(rows: list[dict]) -> list[str]:
-    """A probe's rows grouped by every text field except the seed: per number, the mean, the median, the maximum
-    and the share of seeds above zero (a heavy tail moves the mean; the median and the share do not)."""
+    """A probe's rows grouped by every text field except the seed: per number, the mean, the median, the minimum,
+    the maximum and the share of seeds above zero (a heavy tail moves the mean; the median and the share do not)."""
     groups: dict[tuple, list[dict]] = {}
     for r in rows:
         groups.setdefault(tuple((k, v) for k, v in r.items() if isinstance(v, str)), []).append(r)
     numbers = [k for k, v in rows[0].items() if not isinstance(v, str) and k != "seed"]
     names = [k for k, _ in next(iter(groups))]
-    lines = ["| " + " | ".join(names + ["seeds"] + [f"{n} (mean / median / max / >0)" for n in numbers]) + " |",
+    lines = ["| " + " | ".join(names + ["seeds"] + [f"{n} (mean / median / min / max / >0)" for n in numbers]) + " |",
              "|" + "---|" * (len(names) + 1 + len(numbers))]
     for group, members in groups.items():
         cells = [v for _, v in group] + [str(len(members))]
@@ -160,7 +170,8 @@ def summarise(rows: list[dict]) -> list[str]:
                 continue
             median = (values[(len(values) - 1) // 2] + values[len(values) // 2]) / 2
             above = sum(v > 0 for v in values) / len(values)
-            cells.append(f"{sum(values) / len(values):.3g} / {median:.3g} / {values[-1]:.3g} / {above:.0%}")
+            cells.append(f"{sum(values) / len(values):.3g} / {median:.3g} / {values[0]:.3g} / {values[-1]:.3g} / "
+                         f"{above:.0%}")
         lines.append("| " + " | ".join(cells) + " |")
     return lines
 
@@ -182,7 +193,7 @@ def render(sections: list[tuple[Diagnostic, list[dict]]], engine: str) -> str:
                    f"under `{d.mutant}`" if d.mutant else "unmodified")
         lines += ["", f"## {d.step} · `{d.id}`", "", f"{d.what}. Model: {variant}."]
         if d.probe:
-            lines += ["", f"Probe `{d.probe}` over {d.seeds} seeds; per group over seeds: mean / median / maximum / "
+            lines += ["", f"Probe `{d.probe}` over {d.seeds} seeds; per group over seeds: mean / median / minimum / maximum / "
                       "share above zero (a seed with nothing to measure is left out).", ""]
             lines += summarise(rows)
         else:

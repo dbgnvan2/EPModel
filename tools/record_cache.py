@@ -93,4 +93,6 @@ def run_cached(cache: Cache, mutant: Mutant | None, ids: list[str], workers: int
                 cache.put(keys[result["criterion"]], result)
         cache.flush()
         print(f"{label}: ran {len(missing)} of {len(ids)}", flush=True)
-    return [fresh.get(cid) or cache.get(keys[cid]) for cid in ids]
+    # The cached copy first: it is normalised as a reload gives it, so a record built in the run that produced its
+    # results renders the same as its later re-render from the cache. An errored row is only in ``fresh``.
+    return [cache.get(keys[cid]) or fresh.get(cid) for cid in ids]

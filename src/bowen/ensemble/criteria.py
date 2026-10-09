@@ -147,11 +147,18 @@ class Forced:
     any act by ``actors``, nor complete a triad for them (`M11.C.42`'s declared absence, `M17.D.3`).
     Each actor's selection is drawn again, under the same keyed draw, from its legal set without
     ``absent``. Every other week, and every other person, is the policy's own.
+
+    ``held_open`` is ``(pairs, weeks)``: in those weeks neither member of a pair may cut the tie between
+    them, so ``CUTOFF`` across it is not in their legal set and each one's selection is drawn again, under
+    the same keyed draw, without it (step S of ``docs/DECISIONS — PHASE C FAILING.md``: a scripted act's
+    ties are held open until it is made, so it is legal in every seed).
     """
 
-    def __init__(self, policy: PolicySource, forced: dict, unavailable: dict | None = None):
+    def __init__(self, policy: PolicySource, forced: dict, unavailable: dict | None = None,
+                 held_open: tuple | None = None):
         self.policy, self.forced, self.unavailable = policy, forced, unavailable or {}
-        self.made, self.skipped = 0, 0
+        self.held_open = held_open
+        self.made, self.skipped, self.owed_step = 0, 0, 0
 
     def scheduled(self, tick):
         return self.policy.scheduled(tick)
@@ -166,8 +173,17 @@ class Forced:
             for actor in sorted(set(actors) & set(active)):
                 if state.people[actor].alive:
                     chosen = [s for s in chosen if s.actor != actor] + [self._without(state, actor, absent)]
+        if self.held_open and tick in self.held_open[1]:
+            pairs = self.held_open[0]
+            for actor in sorted({m for pair in pairs for m in pair} & set(active)):
+                if state.people[actor].alive:
+                    excluded = frozenset(f"CUTOFF>{o}" for pair in pairs if actor in pair for o in pair if o != actor)
+                    chosen = [s for s in chosen if s.actor != actor] + [self._without(state, actor, excluded=excluded)]
         for (t, actor), selection in self.forced.items():
-            if t != tick or actor not in active:
+            if t != tick:
+                continue
+            if actor not in active:  # owed an I-POSITION step this week (`M5.D.9`), or dead: nothing to replace
+                self.owed_step += 1
                 continue
             legal = {o.label for o in legal_outcomes(observe(state, actor, self.policy.params), state.kinds,
                                                      self.policy.params)}
@@ -179,38 +195,43 @@ class Forced:
         return tuple(chosen)
 
 
-    def _without(self, state, actor, absent):
+    def _without(self, state, actor, absent=None, excluded: frozenset[str] = frozenset()):
+        """The actor's selection drawn again without ``absent`` (a person) or the ``excluded`` outcomes."""
         from types import MappingProxyType
 
         from src.bowen.engine.observe import observe
         from src.bowen.policy.policy import decide
 
         obs = observe(state, actor, self.policy.params)
-        obs = dataclasses.replace(
-            obs,
-            ties=tuple(v for v in obs.ties if v.other != absent),
-            triangle_for=MappingProxyType({t: tri for t, tri in obs.triangle_for.items()
-                                           if t != absent and absent not in tri.members}),
-        )
-        decision = decide(obs, state.kinds, self.policy.params, self.policy.rules, state.draws)
+        if absent is not None:
+            obs = dataclasses.replace(
+                obs,
+                ties=tuple(v for v in obs.ties if v.other != absent),
+                triangle_for=MappingProxyType({t: tri for t, tri in obs.triangle_for.items()
+                                               if t != absent and absent not in tri.members}),
+            )
+        decision = decide(obs, state.kinds, self.policy.params, self.policy.rules, state.draws, excluded)
         return dataclasses.replace(decision.selection, urge=decision.urge)
 
 
 def scenario(family: str, seed: int, weeks: int, *, spells=(), forced=None, setup=None, until=None,
-             unavailable=None):
-    """Run one arm; return (state, records). ``until`` stops early at that week (exclusive)."""
+             unavailable=None, held_open=None, watch=None):
+    """Run one arm; return (state, records). ``until`` stops early at that week (exclusive); ``watch(state)``, if
+    given, is called after every tick and must only read."""
     constants, kinds = load_constants(), load_event_kinds()
     fam = load_family(FAMILIES[family])
     events = ScriptedSource(f"{family}-arm", weeks, tuple(spells), ())
     parts = assemble(constants, kinds, fam, events, seed=seed)
     if setup:
         setup(parts.state)
-    source = Forced(PolicySource(events, parts.params, load_policy_rules()), forced or {}, unavailable)
+    source = Forced(PolicySource(events, parts.params, load_policy_rules()), forced or {}, unavailable, held_open)
     records = []
     scenario.last_source = source
     sink = type("Sink", (), {"emit": lambda self, r: records.append(r)})()
     for _ in range(until if until is not None else weeks):
         run_tick(parts.state, source, parts.params, parts.visibility, parts.activation, sink)
+        if watch:
+            watch(parts.state)
     return parts.state, records
 
 
@@ -234,6 +255,7 @@ def result(readouts, records) -> ArmResult:
     if source is not None and source.forced:
         moves["(scripted act made)"] += source.made
         moves["(scripted act not legal, skipped)"] += source.skipped
+        moves["(scripted act not made, actor not selecting)"] += source.owed_step
     return ArmResult(readouts, moves, fallbacks, selections)
 
 
@@ -261,6 +283,12 @@ def first_onset(records, horizon: int) -> float:
         if isinstance(r, EffectRecord) and r.mechanism == "symptom_onset":
             return float(r.tick)
     return float(horizon + 1)  # censored: no onset within the horizon
+
+
+def held(until: int, *pairs: str) -> tuple:
+    """Step S (post hoc, 2026-10-09): the ties ``pairs`` (e.g. "f-m") held open from week 0 until ``until``
+    (exclusive), the same in both arms. See ``Forced`` and ``config/bowen/criteria.md``."""
+    return tuple(tuple(P(m) for m in pair.split("-")) for pair in pairs), range(0, until)
 
 
 def act(actor, kind, target, tick):
@@ -295,7 +323,7 @@ def _acute_at(records, tick, people):
 def arm_c3(arm, seed, settings):
     t0, weeks = settings["t0"], settings["t0"] + settings["run_after"]
     forced = act("f", "TRIANGLE", "c", t0) if arm == "treatment" else act("f", "STAY-IN-CONTACT", "m", t0)
-    state, records = scenario("triad", seed, weeks, forced=forced)
+    state, records = scenario("triad", seed, weeks, forced=forced, held_open=held(t0, "f-m", "f-c"))
     delivered = t0 + settings["latency"]  # the act's effect lands after the tie's latency
     change = _acute_at(records, delivered, (P("f"), P("m"), P("c")))
     return result({"pair_anxiety": change[P("f")] + change[P("m")], "third_anxiety": change[P("c")]}, records)
@@ -311,7 +339,7 @@ def arm_c4(arm, seed, settings):
                          sender=None, targets=(P("a"),), intensity=SPELL["intensity"], timestamp=nodal, duration=1,
                          exogenous=True, source_position=SourcePosition.NONE, channel=Channel.EXOGENOUS),)
     forced = act("a", "CUTOFF", "b", t0) if arm == "treatment" else act("a", "STAY-IN-CONTACT", "b", t0)
-    state, records = scenario("dyad", seed, weeks, spells=nodal_event, forced=forced)
+    state, records = scenario("dyad", seed, weeks, spells=nodal_event, forced=forced, held_open=held(t0, "a-b"))
     now = _acute_at(records, t0 + 1, (P("a"),))[P("a")] - _acute_at(records, t0 - 1, (P("a"),))[P("a")]
     later = _acute_at(records, nodal + 1, (P("a"), P("b")))
     return result({"actor_relief_now": now, "family_anxiety_at_nodal": later[P("a")] + later[P("b")]}, records)
@@ -328,7 +356,8 @@ def arm_c5(arm, seed, settings):
 
     mover, target, third = (ROLES["phase_c", r] for r in ("mover", "target", "third"))
     forced = act(mover.value, "I-POSITION", target.value, settings["t0"]) if arm == "treatment" else {}
-    state, records = scenario("phase_c", seed, weeks, spells=spell("phase_c", weeks), forced=forced, setup=perspective)
+    state, records = scenario("phase_c", seed, weeks, spells=spell("phase_c", weeks), forced=forced, setup=perspective,
+                              held_open=held(settings["t0"], f"{mover.value}-{target.value}"))
     reaction = sum(v for r in records if isinstance(r, EffectRecord) and r.tick > settings["t0"]
                    for p, v in r.acute_anxiety if p == target and v > 0)
     load = sum(state.people[third].symptom_load.values())
@@ -427,7 +456,9 @@ def arm_c27(arm, seed, settings):
         forced = act("f", "TRIANGLE", "c", t0)
     else:  # remove one: f severs contact with m for the cell's window
         forced = act("f", "CUTOFF", "m", t0)
-    state, records = scenario("triad", seed, t0 + settings["run_after"], forced=forced, setup=setup)
+    ties = ("f-m", "f-c") if settings["change"] == "add_third" else ("f-m",)
+    state, records = scenario("triad", seed, t0 + settings["run_after"], forced=forced, setup=setup,
+                              held_open=held(t0, *ties))
     return result({"pair_deviation": _pair_deviation(state)}, records)
 
 
@@ -440,15 +471,25 @@ def arm_c29(arm, seed, settings):
     def perspective(state):
         state.people[P("f")].systems_perspective = 1.0
 
+    span, every = settings["disguise_span"], settings["disguise_every"]
     if arm == "treatment":  # a genuine I-POSITION
         forced = act("f", "I-POSITION", "m", t0)
     else:  # distance in disguise: withdrawals over the same weeks
-        span, every = settings["disguise_span"], settings["disguise_every"]
         forced = {k: v for t in range(t0, t0 + span, every) for k, v in act("f", "DISTANCE", "m", t).items()}
-    state, records = scenario("triad", seed, weeks, spells=spell("triad", weeks), forced=forced, setup=perspective)
-    symptom_weeks = sum(1 for r in records if isinstance(r, EffectRecord) and r.mechanism == "symptom_accumulation"
-                        and any(p == P("c") and v > 0 for p, _, v in r.people))
-    return result({"budget": state.family.undifferentiation_budget, "third_symptom_weeks": float(symptom_weeks)},
+    # The readout, restated post hoc on 2026-10-09 (X1 of docs/DECISIONS — PHASE C FAILING.md): the weeks the third
+    # person's symptom is active, from onset (`M1.A.6`) until the load falls below the re-arm fraction of the
+    # threshold. The declared readout counted weeks with any symptom accumulation, which is positive whenever acute
+    # anxiety is above the chronic floor; the model rests a few points above it by design (D7), so that count sat at
+    # its maximum in both arms.
+    active = []
+
+    def watch(state):
+        third = state.people[P("c")]
+        active.append(third.channel_prior is not None and third.symptom_active[third.channel_prior])
+
+    state, records = scenario("triad", seed, weeks, spells=spell("triad", weeks), forced=forced, setup=perspective,
+                              held_open=held(t0 + span, "f-m"), watch=watch)
+    return result({"budget": state.family.undifferentiation_budget, "third_symptom_weeks": float(sum(active))},
                   records)
 
 
@@ -484,7 +525,8 @@ def arm_c35(arm, seed, settings):
         state.ties[TieId.of(P("c"), P("f"))].conductance = high if arm == "treatment" else low
 
     forced = act("f", "CONFLICT", "m", t0)
-    state, records = scenario("triad", seed, t0 + settings["run_after"], forced=forced, setup=setup)
+    state, records = scenario("triad", seed, t0 + settings["run_after"], forced=forced, setup=setup,
+                              held_open=held(t0, "f-m"))
     event_id = EventId(t0, "f", 0)
     witness = sum(v for r in records if isinstance(r, EffectRecord) and r.mechanism == "appraisal"
                   and r.cause == event_id for p, v in r.acute_anxiety if p == P("c"))
@@ -501,10 +543,24 @@ def arm_c41(arm, seed, settings):
     spells = spell("phase_c", weeks) if stress == "heavy" else light
     state, records = scenario("phase_c", seed, weeks, spells=spells, setup=lowered(level))
     acute = sum(p.acute_anxiety for p in state.people.values() if p.role.value == "member")
-    emitted = [r.event.kind for r in records if isinstance(r, EmittedRecord) and r.event.mechanism is Mechanism.MOVE
-               and r.event.sender is not None]
-    reactive = sum(1 for k in emitted if k in AUTOMATIC) / max(1, len(emitted))
-    return result({"mean_acute": acute, "reactive_share": reactive}, records)
+    return result({"mean_acute": acute, "reactive_per_offered": reactive_per_offered(records)}, records)
+
+
+def reactive_per_offered(records) -> float:
+    """Reactive acts selected over reactive acts offered, summed over every selection of the run.
+
+    Restated post hoc on 2026-10-09 (Q2 of ``docs/DECISIONS — PHASE C FAILING.md``, approved by the owner). The
+    declared readout, reactive moves over all moves, conflicts with `M4.D.3a`: a lower level closes layers 1 and 2,
+    which hold five of the seven reactive acts, while the self-directed acts stay available, so the share fell at a
+    lower level even as acute anxiety rose. Dividing by what the legal set offered removes that availability effect.
+    """
+    kinds = {r.event.id: r.event.kind for r in records if isinstance(r, EmittedRecord)}
+    selected = offered = 0
+    for r in records:
+        if isinstance(r, SelectionRecord):
+            selected += kinds.get(r.event_id) in AUTOMATIC
+            offered += sum(1 for label in r.legal_set if label.split(">")[0] in AUTOMATIC)
+    return selected / max(1, offered)
 
 
 # --- M11.C.42: a triangle that relieved is reused ----------------------------------------------
@@ -520,7 +576,7 @@ def arm_c42(arm, seed, settings):
     else:
         forced, unavailable = {}, {t0: (pair, third)}
     state, records = scenario("triad", seed, weeks, spells=spell("triad", weeks), forced=forced,
-                              setup=settings.get("setup"), unavailable=unavailable)
+                              setup=settings.get("setup"), unavailable=unavailable, held_open=held(t0, "f-c"))
     reused = sum(1 for r in records if isinstance(r, EmittedRecord) and r.event.sender in pair
                  and r.event.kind == "TRIANGLE" and r.event.targets == (third,) and r.event.timestamp > t0)
     return result({"triangle_reuse": float(reused)}, records)
@@ -604,7 +660,7 @@ for name, base, treat in (("light: lower level", (_hi, "light"), (_lo, "light"))
                           ("lower level: heavier stress", (_lo, "light"), (_lo, "heavy"))):
     cid = f"M11.C.41[{name}]"
     CRITERIA[cid] = C(cid, "mixed", ("baseline", "treatment"),
-                      (Readout("mean_acute", +1), Readout("reactive_share", +1)), arm_c41,
+                      (Readout("mean_acute", +1), Readout("reactive_per_offered", +1)), arm_c41,
                       settings={"weeks": SETTINGS["M11.C.41"]["weeks"], "arms": (base, treat)})
 
 NOT_BUILT = {

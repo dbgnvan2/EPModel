@@ -45,15 +45,17 @@ def sampling(criteria, sample):
 
 
 def made(criteria) -> str:
-    """Whether the last scenario's scripted acts were made: "made", "skipped" (not legal that week), "partly" (some
-    of each), "not reached" (neither), or "none" (the arm scripts no act). Every arm calls ``scenario`` once, which
-    sets ``last_source``; an arm that called it twice would report its last call."""
+    """Whether the last scenario's scripted acts were made: "made", "skipped" (not made: not legal that week, or the
+    actor was not selecting), "partly" (some of each), "not reached" (neither: the run ended first), or "none" (the
+    arm scripts no act). Every arm calls ``scenario`` once, which sets ``last_source``; an arm that called it twice
+    would report its last call."""
     source = getattr(criteria.scenario, "last_source", None)
     if source is None or not source.forced:
         return "none"
-    if source.made == 0 and source.skipped == 0:
-        return "not reached"  # neither made nor skipped: the actor was inactive that week, or the run ended first
-    if source.skipped == 0:
+    missed = source.skipped + getattr(source, "owed_step", 0)
+    if source.made == 0 and missed == 0:
+        return "not reached"
+    if missed == 0:
         return "made"
     return "skipped" if source.made == 0 else "partly"
 
@@ -279,13 +281,184 @@ def scripted_acts(seeds: int) -> list[dict]:
                 criterion.arm(arm, seed, criterion.settings)
                 source = criteria.scenario.last_source
                 rows.append({"criterion": cid, "arm": arm, "act": made(criteria), "seed": seed,
-                             "made": source.made if source else 0, "skipped": source.skipped if source else 0})
+                             "made": source.made if source else 0, "skipped": source.skipped if source else 0,
+                             "not_selecting": source.owed_step if source else 0})
+    return rows
+
+
+def _scan_arm(cid: str, arm: str, seed: int) -> dict | None:
+    """One arm and seed of ``scripted_weeks``: None if the arm scripts no act."""
+    import src.bowen.ensemble.criteria as criteria
+    from src.bowen.engine.observe import observe
+    from src.bowen.policy.policy import legal_outcomes
+
+    criterion = criteria.CRITERIA[cid]
+    t0 = criterion.settings["t0"]
+    seen: dict = {}
+
+    class Scan(criteria.Forced):
+        """The policy's own run (no act is made, no tie held open), recording each tick whether each scripted act
+        would be."""
+
+        def __init__(self, policy, forced, unavailable=None, held_open=None):
+            super().__init__(policy, {}, unavailable, None)
+            self.script = {(t - t0, s.actor, s.kind, s.targets[0]) for (t, _), s in forced.items()}
+            seen["script"] = self.script
+
+        def selections(self, tick, active, state):
+            chosen = super().selections(tick, active, state)
+            for offset, actor, kind, target in self.script:
+                legal = actor in active and f"{kind}>{target}" in {
+                    o.label for o in legal_outcomes(observe(state, actor, self.policy.params), state.kinds,
+                                                    self.policy.params)}
+                seen[(tick, offset)] = seen.get((tick, offset), True) and legal
+            return chosen
+
+    original_forced, original_scenario = criteria.Forced, criteria.scenario
+
+    def short(family, seed, weeks, **kwargs):  # every act's latest possible week is t0 + its offset
+        offsets = [t - t0 for t, _ in (kwargs.get("forced") or {})]
+        return original_scenario(family, seed, weeks, until=min(weeks, t0 + max(offsets, default=0) + 1), **kwargs)
+
+    criteria.Forced, criteria.scenario = Scan, short
+    try:
+        criterion.arm(arm, seed, criterion.settings)
+    finally:
+        criteria.Forced, criteria.scenario = original_forced, original_scenario
+    script = seen.get("script")
+    if not script:
+        return None
+    first = next((w for w in range(t0 + 1) if not all(seen.get((w + o, o), False) for o, *_ in script)), t0 + 1)
+    acts = ", ".join(sorted(f"{a}:{k}>{t}" + (f"@+{o}" if o else "") for o, a, k, t in script))
+    return {"criterion": cid, "arm": arm, "acts": acts, "declared": f"t0={t0}", "seed": seed,
+            "first_week_not_made": first}
+
+
+def scripted_weeks(seeds: int) -> list[dict]:
+    """Step S (docs/DECISIONS — PHASE C FAILING.md): for every criterion that scripts an act, the first week w at
+    or before its declared t0 at which, scripted at w, the arm's acts would not all be made (illegal, `M4.D.1e`, or
+    the actor inactive), per seed; t0 + 1 if none. The latest week made in every seed from week 0 on is the minimum
+    over both arms' seeds, less one. The run is the policy's own, without step S's held-open ties: this is the
+    measurement that showed only week 0 works (so the ties are now held open). For an arm that scripts several acts
+    (`M11.C.29`'s disguise), the later acts are checked in that unforced run, not after the earlier ones were made.
+    Whether the restated arms make their acts is ``scripted_acts``, and the ensemble record's skip column."""
+    import os
+    from concurrent.futures import ProcessPoolExecutor
+
+    import src.bowen.ensemble.criteria as criteria
+
+    jobs = [(cid, arm, seed) for cid, c in criteria.CRITERIA.items()
+            if any(cid == f or (f.endswith("[") and cid.startswith(f)) for f in FORCED)
+            for arm in c.arms for seed in range(seeds)]
+    with ProcessPoolExecutor(os.cpu_count() or 1) as pool:
+        rows = list(pool.map(_scan_arm, *zip(*jobs), chunksize=25))
+    return [r for r in rows if r is not None]
+
+
+REST_WEEKS, REST_BURN_IN = 80, 20                    # [I], declared here: M11.C.44/.45's horizon; weeks left out
+REST_LEVELS = (None, 20.0, 60.0, 80.0, 95.0)         # [I]: the fixture's own levels, then every member set to each
+REST_TOLERANCE = 5.0                                 # [I]: "a few points" above the floor, the constants' own design
+REST_SOURCES = {"standing_load": "ties", "appraisal": "appraisal", "competing_urges": "urges",
+                "cutoff": "relief", "distance_binding": "relief", "calm_contact": "relief"}  # every other: "other"
+
+
+def rest_state(seeds: int) -> list[dict]:
+    """D7 (X1): is there a calm state? Each member's excess over the chronic floor with no spell and no scripted act,
+    on both fixtures, at the fixture's own levels and with every member set to each of REST_LEVELS, and where that
+    excess comes from. A source's share is its mean input per week times (1 − decay) / decay, the steady excess that
+    input alone would hold (consolidate sheds ``acute_decay_rate`` of the excess each week); the self term is
+    `M4.A.5`'s, separated from the ties' standing load. The parts need not sum to the mean excess: decay clamps at
+    the floor and the window is finite. Weeks before REST_BURN_IN are left out."""
+    import src.bowen.ensemble.criteria as criteria
+    from src.bowen.engine.contact import excess
+    from src.bowen.engine.log_records import EffectRecord
+    from src.bowen.engine.standing_load import self_term
+    from src.bowen.io.load import load_constants
+    from src.bowen.scenario.params import engine_params
+
+    params = engine_params(load_constants())
+    factor = (1 - params.acute_decay_rate) / params.acute_decay_rate
+    rows = []
+    for family in ("triad", "phase_c"):
+        for level in REST_LEVELS:
+            def setup(state, level=level):
+                if level is None:
+                    return
+                for p in state.people.values():
+                    if p.role.value == "member":
+                        p.basic_level = p.functional_level = level
+                        p.pseudo_self = p.swing
+                criteria._reinitialise(state)
+
+            for seed in range(seeds):
+                samples: dict = {}
+
+                def sample(state):
+                    if state.tick >= REST_BURN_IN:
+                        for p in state.people.values():
+                            if p.role.value == "member" and p.alive:
+                                samples.setdefault(p.id, []).append(excess(p))
+
+                with sampling(criteria, sample):
+                    state, records = criteria.scenario(family, seed, REST_WEEKS, setup=setup)
+                weeks = REST_WEEKS - REST_BURN_IN
+                inputs: dict = {}
+                for r in records:
+                    if isinstance(r, EffectRecord) and r.tick >= REST_BURN_IN and r.mechanism != "acute_decay":
+                        for pid, v in r.acute_anxiety:
+                            key = (pid, REST_SOURCES.get(r.mechanism, "other"))
+                            inputs[key] = inputs.get(key, 0.0) + v
+                for pid, values in sorted(samples.items()):
+                    person = state.people[pid]
+                    own = self_term(person, params)
+                    part = {s: inputs.get((pid, s), 0.0) / weeks * factor for s in
+                            ("ties", "appraisal", "urges", "relief", "other")}
+                    part["ties"] -= own * factor
+                    rows.append({"fixture": family, "level": "own" if level is None else f"{level:g}",
+                                 "person": str(pid), "seed": seed, "floor": person.chronic_anxiety,
+                                 "mean_excess": sum(values) / len(values),
+                                 "share_weeks_within_tolerance": sum(v <= REST_TOLERANCE for v in values) / len(values),
+                                 "from_self": own * factor, **{f"from_{s}": v for s, v in part.items()}})
+    return rows
+
+
+ACT_EFFECT_ACTS = (("TRIANGLE", "c"), ("DISTANCE", "m"), ("CONFLICT", "m"), ("PURSUE", "m"))  # [I], declared here
+
+
+def act_effects(seeds: int) -> list[dict]:
+    """Q3: what a TRIANGLE does to the sender, the other in the pair and the third, against other automatic acts.
+    M11.C.3's design (triad, no spell, its declared t0, its ties held open until then): f makes the act, against
+    STAY-IN-CONTACT toward m in the baseline, on the same seed; per person, treatment minus baseline acute anxiety
+    at the end of each week from t0 through the learner's horizon (`credit_horizon`). This is the act's own effect, which the learner's credit (`d3-…`) is not:
+    the credit also holds decay and everything else that happened in those weeks."""
+    import src.bowen.ensemble.criteria as criteria
+    from src.bowen.engine.identifiers import PersonId
+    from src.bowen.io.load import load_constants
+
+    horizon = int(load_constants()["credit_horizon"])
+    t0 = criteria.SETTINGS["M11.C.3"]["t0"]
+    held = criteria.held(t0, "f-m", "f-c")  # every act here crosses f-m or f-c
+    people = tuple(PersonId(p) for p in ("f", "m", "c"))
+    rows = []
+    for seed in range(seeds):
+        _, base = criteria.scenario("triad", seed, t0 + horizon + 1, held_open=held,
+                                    forced=criteria.act("f", "STAY-IN-CONTACT", "m", t0))
+        base_made = made(criteria)
+        for kind, target in ACT_EFFECT_ACTS:
+            _, treat = criteria.scenario("triad", seed, t0 + horizon + 1, held_open=held,
+                                         forced=criteria.act("f", kind, target, t0))
+            status = made(criteria) if base_made == "made" else f"baseline {base_made}"
+            for week in range(horizon + 1):
+                b, t = criteria._acute_at(base, t0 + week, people), criteria._acute_at(treat, t0 + week, people)
+                rows.append({"act": f"{kind}>{target}", "made": status, "week": f"t0+{week}", "seed": seed,
+                             **{f"{p}_difference": t[p] - b[p] for p in people}})
     return rows
 
 
 PROBES = {"c29_third_person": c29_third_person, "triangle_relief": triangle_relief,
           "c27_deviation_terms": c27_deviation_terms, "c44_act_counts": c44_act_counts, "horizons": horizons,
-          "c29_third_person_calm": c29_third_person_calm, "spell_effect": spell_effect, "scripted_acts": scripted_acts}
+          "c29_third_person_calm": c29_third_person_calm, "spell_effect": spell_effect, "scripted_acts": scripted_acts,
+          "scripted_weeks": scripted_weeks, "rest_state": rest_state, "act_effects": act_effects}
 
 
 def main() -> int:

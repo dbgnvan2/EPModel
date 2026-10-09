@@ -100,3 +100,24 @@ def test_m17a1_stopping_does_not_depend_on_which_arm_is_called_baseline():
     noisy_treatment = run_criterion(crit(effect=1.0, noise=0.2, extra_noise=2.0), RULES)
     noisy_baseline = run_criterion(crit(effect=1.0, noise=0.2, baseline_extra_noise=2.0), RULES)
     assert noisy_treatment.seeds == noisy_baseline.seeds
+
+
+def test_m17d3_verdict_reports_scripted_acts_not_made():
+    """Each arm's scripted acts, made or not, summed over the seeds: a skipped seed adds a difference of exactly 0,
+    so the verdict carries the skip rate (step S of docs/DECISIONS — PHASE C FAILING.md)."""
+    from collections import Counter
+
+    from src.bowen.ensemble.runner import ArmResult, scripted_counts
+
+    def arm(made, skipped, not_selecting):
+        return ArmResult({}, Counter({"(scripted act made)": made, "(scripted act not legal, skipped)": skipped,
+                                      "(scripted act not made, actor not selecting)": not_selecting}),
+                         Counter(), Counter())
+
+    results = [(0, arm(1, 0, 0), arm(0, 1, 0)), (1, arm(1, 0, 0), arm(0, 0, 1)), (2, arm(1, 0, 0), arm(1, 0, 0))]
+    counts = scripted_counts(crit(), results)
+    assert counts == {"baseline": {"made": 3, "not legal": 0, "not selecting": 0},
+                      "treatment": {"made": 1, "not legal": 1, "not selecting": 1}}
+    unscripted = [(0, ArmResult({}, Counter(), Counter(), Counter()), ArmResult({}, Counter(), Counter(), Counter()))]
+    assert scripted_counts(crit(), unscripted) == {}
+    assert run_criterion(crit(effect=1.0), RULES).scripted == {}  # the toy arms script nothing

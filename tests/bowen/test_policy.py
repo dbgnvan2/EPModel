@@ -391,3 +391,14 @@ def test_m4d1b_nothing_to_withhold_when_no_automatic_act_has_weight():
     with mock.patch.object(policy, "availability", lambda kind, obs, kinds, params: 0.0):
         outcomes, probs = propensities(obs, KINDS, PARAMS)
     assert dict((o.kind, p) for o, p in zip(outcomes, probs))[WITHHOLD] == 0.0
+
+
+def test_m17d3_excluded_outcome_is_not_legal():
+    """A declared scenario may remove one outcome (`M11.C.29`'s held-open tie); nothing else in the set changes."""
+    ravi = observe(fresh(), RAVI, PARAMS)
+    full = {o.label for o in legal_outcomes(ravi, KINDS, PARAMS)}
+    assert "CUTOFF>marta" in full
+    held = {o.label for o in legal_outcomes(ravi, KINDS, PARAMS, frozenset({"CUTOFF>marta"}))}
+    assert held == full - {"CUTOFF>marta"}
+    outcomes, _ = propensities(ravi, KINDS, PARAMS, frozenset({"CUTOFF>marta"}))
+    assert "CUTOFF>marta" not in {o.label for o in outcomes}

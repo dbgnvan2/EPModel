@@ -129,9 +129,17 @@ REPORT = REPO / "docs" / "phase_c_completion_report.md"
 HEADING = "## 11. Whether `M11.C.16` is reclassified"
 
 
+def bounds(text: str) -> tuple[int, int]:
+    """Where §11 starts and ends in the report: from its heading to the next top-level heading, or the end."""
+    start = text.index(HEADING)
+    end = text.find("\n## ", start + len(HEADING))
+    return start, (len(text) if end < 0 else end + 1)
+
+
 def main() -> int:
     text = REPORT.read_text(encoding="utf-8")
-    REPORT.write_text(text[:text.index(HEADING)] + SECTION, encoding="utf-8")
+    start, end = bounds(text)
+    REPORT.write_text(text[:start] + SECTION + ("\n" + text[end:] if end < len(text) else ""), encoding="utf-8")
     print(f"wrote {REPORT.relative_to(REPO)} §11")
     return 0
 

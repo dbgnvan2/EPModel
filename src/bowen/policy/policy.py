@@ -140,10 +140,15 @@ def value_key(obs: Observation, kind: str, target: PersonId, params: EngineParam
     return f"{band(obs, params)}|{position}|{kind}|{where}"
 
 
-def legal_outcomes(obs: Observation, kinds: EventKinds, params: EngineParams) -> list[Outcome]:
+def legal_outcomes(obs: Observation, kinds: EventKinds, params: EngineParams,
+                   excluded: frozenset[str] = frozenset()) -> list[Outcome]:
     """Purpose: the legal set, formed before selection from structure and the removing gates.
-    Spec:    docs/bowen_agent_model_spec_v2.md#M4.D.1e, #M5.C.1
-    Tests:   tests/bowen/test_policy.py::test_m4d1e_legal_set_excludes_impossible_and_gated_acts
+    Spec:    docs/bowen_agent_model_spec_v2.md#M4.D.1e, #M5.C.1, #M17.D.3
+    Tests:   tests/bowen/test_policy.py::test_m4d1e_legal_set_excludes_impossible_and_gated_acts,
+             tests/bowen/test_policy.py::test_m17d3_excluded_outcome_is_not_legal
+
+    ``excluded`` holds outcome labels a declared scenario removes (an acceptance arm's held-open tie,
+    `M17.D.3`); the engine's own selection never passes it.
     """
     legal = []
     position = triangle_position(obs, params)[0]
@@ -165,6 +170,8 @@ def legal_outcomes(obs: Observation, kinds: EventKinds, params: EngineParams) ->
                 continue
             if kind == I_POSITION and obs.financially_dependent:
                 continue  # M5.C.1: fails outright, so it is removed, not degraded
+            if f"{kind}>{view.other}" in excluded:
+                continue
             key = value_key(obs, kind, view.other, params, position) if channel == AUTOMATIC else ""
             legal.append(Outcome(kind, view.other, channel, key))
     if any(o.channel == AUTOMATIC for o in legal):
@@ -229,12 +236,13 @@ def channel_weights(outcomes: list[Outcome], obs: Observation, kinds: EventKinds
     return weights
 
 
-def propensities(obs: Observation, kinds: EventKinds, params: EngineParams) -> tuple[list[Outcome], list[float]]:
+def propensities(obs: Observation, kinds: EventKinds, params: EngineParams,
+                 excluded: frozenset[str] = frozenset()) -> tuple[list[Outcome], list[float]]:
     """Purpose: the legal set and its mixed selection probabilities.
     Spec:    docs/bowen_agent_model_spec_v2.md#M4.D.1, #M4.D.1a, #M4.D.2
     Tests:   tests/bowen/test_policy.py::test_m4d4_iposition_not_monotone_in_level
     """
-    outcomes = legal_outcomes(obs, kinds, params)
+    outcomes = legal_outcomes(obs, kinds, params, excluded)
     weights = channel_weights(outcomes, obs, kinds, params)
     if any(not math.isfinite(w) for w in weights):
         return outcomes, [math.nan] * len(outcomes)
@@ -271,12 +279,12 @@ def _key(obs: Observation, purpose: str) -> DrawKey:
 
 
 def decide(obs: Observation, kinds: EventKinds, params: EngineParams, rules: PolicyRules,
-           draws: DrawService) -> Decision:
+           draws: DrawService, excluded: frozenset[str] = frozenset()) -> Decision:
     """Purpose: resolve exactly one outcome for one person this tick, with its rationale.
     Spec:    docs/bowen_agent_model_spec_v2.md#M4.D.1, #M4.D.1b, #M4.D.1f, #M16.A.3, #M16.A.3b, #M16.A.3c
     Tests:   tests/bowen/test_policy.py::test_m4d1_exactly_one_outcome_per_person_per_tick
     """
-    outcomes, probs = propensities(obs, kinds, params)
+    outcomes, probs = propensities(obs, kinds, params, excluded)
     legal = tuple(o.label for o in outcomes)
     if not outcomes or any(not math.isfinite(p) for p in probs) or sum(probs) <= 0:
         return Decision(Selection(

@@ -422,7 +422,9 @@ def test_m115_report_section_11_is_generated():
     report = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(report)
     text = report.REPORT.read_text(encoding="utf-8")
-    assert text[text.index(report.HEADING):] == report.SECTION, "stale: rerun python3 tools/c16_report.py"
+    start, end = report.bounds(text)
+    assert text[start:end].rstrip("\n") == report.SECTION.rstrip("\n"), "stale: rerun python3 tools/c16_report.py"
+    assert "## 12." in text[end:], "the section after §11 was lost"
 
 
 def test_m111d_run_cached_never_caches_an_errored_row(tmp_path, monkeypatch):
@@ -445,6 +447,20 @@ def test_m111d_run_cached_never_caches_an_errored_row(tmp_path, monkeypatch):
         _cache.run_cached(Cache("probe"), mutant, ["A", "B"], 1)
     stored = _mutants.json.loads((tmp_path / "probe.json").read_text())
     assert [r["outcome"] for r in stored.values()] == ["PASS"]  # A, finished before B failed, was kept
+
+
+def test_m111d_run_cached_returns_a_fresh_row_as_a_reload_would(tmp_path, monkeypatch):
+    """A row run now and the same row read back from the cache render alike (key order included); otherwise a
+    record written in the run that produced it fails its own currency test (found 2026-10-09)."""
+    monkeypatch.setattr(_cache, "CACHE_DIR", tmp_path)
+    mutant = next(m for m in _mutants.MUTANTS if m.id == "level-blind")
+    row = {"outcome": "PASS", "criterion": "A", "seeds": 50, "readouts": [{"readout": "x", "direction": 1}]}
+    monkeypatch.setattr(_cache, "run_in_copy", lambda m, tool, *args, **kw: [row])
+    fresh = _cache.run_cached(Cache("probe"), mutant, ["A"], 1)
+    reloaded = _cache.run_cached(Cache("probe"), mutant, ["A"], 1)
+    dump = lambda rows: _mutants.json.dumps(rows)  # noqa: E731 — order-sensitive, as rendering is
+    assert dump(fresh) == dump(reloaded)
+    assert list(fresh[0]) == sorted(row)
 
 
 _dspec = importlib.util.spec_from_file_location("tools.diagnostic_record", REPO / "tools" / "diagnostic_record.py")
@@ -509,4 +525,4 @@ def test_d0_made_classifies_every_case():
 def test_d0_summarise_leaves_out_seeds_with_nothing_to_measure():
     rows = [{"arm": "a", "seed": 0, "x": None}, {"arm": "a", "seed": 1, "x": 2.0}, {"arm": "a", "seed": 2, "x": 4.0}]
     line = _diagnostic.summarise(rows)[2]
-    assert line == "| a | 3 | 3 / 3 / 4 / 100% |"
+    assert line == "| a | 3 | 3 / 3 / 2 / 4 / 100% |"

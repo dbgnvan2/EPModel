@@ -445,3 +445,38 @@ def test_m111d_run_cached_never_caches_an_errored_row(tmp_path, monkeypatch):
         _cache.run_cached(Cache("probe"), mutant, ["A", "B"], 1)
     stored = _mutants.json.loads((tmp_path / "probe.json").read_text())
     assert [r["outcome"] for r in stored.values()] == ["PASS"]  # A, finished before B failed, was kept
+
+
+_dspec = importlib.util.spec_from_file_location("tools.diagnostic_record", REPO / "tools" / "diagnostic_record.py")
+_diagnostic = importlib.util.module_from_spec(_dspec)
+sys.modules[_dspec.name] = _diagnostic
+_dspec.loader.exec_module(_diagnostic)
+
+
+def test_d0_diagnostic_record_is_current():
+    """The diagnostic record is what its cache renders for the current engine, variants and probes."""
+    try:
+        rendered = _diagnostic.build(Cache("diagnostic"))
+    except KeyError as missing:
+        raise AssertionError(f"stale: rerun python3 tools/diagnostic_record.py ({missing})") from None
+    assert rendered == _diagnostic.RECORD.read_text(encoding="utf-8"), "stale or edited: rerun the tool"
+
+
+def test_d0_diagnostics_never_count_as_proof():
+    """Coverage reads mutation proof from the mutation record alone; a diagnostic, even a red one, is not proof."""
+    import importlib
+
+    coverage = importlib.import_module("tools.spec_coverage")
+    assert coverage.MUTATION_RECORD.resolve() == (REPO / "docs" / "phase_c_mutation_record.md").resolve()
+    assert _diagnostic.RECORD.resolve() != coverage.MUTATION_RECORD.resolve()
+    assert not {d.mutant for d in _diagnostic.DIAGNOSTICS if d.mutant} - {m.id for m in _mutants.MUTANTS}
+
+
+def test_d0_a_probe_key_holds_its_own_source():
+    """Editing one probe reruns that probe only: its key holds its source, its seeds and its variant's edits."""
+    import dataclasses
+
+    d = next(x for x in _diagnostic.DIAGNOSTICS if x.probe)
+    key = _diagnostic.probe_key("0" * 64, d)
+    assert _diagnostic.probe_key("0" * 64, dataclasses.replace(d, seeds=d.seeds + 1)) != key
+    assert _diagnostic.probe_key("0" * 64, dataclasses.replace(d, what="relabelled")) == key

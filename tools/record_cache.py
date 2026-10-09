@@ -73,11 +73,12 @@ class Cache:
                              encoding="utf-8")
 
 
-def run_cached(cache: Cache, mutant: Mutant, ids: list[str], workers: int, label: str | None = None) -> list[dict]:
-    """Each criterion's result under ``mutant``: from the cache where its key is present, otherwise run (all the
-    missing ones in one child) and cached. Results come back in ``ids`` order."""
+def run_cached(cache: Cache, mutant: Mutant | None, ids: list[str], workers: int, label: str | None = None) -> list[dict]:
+    """Each criterion's result under ``mutant`` (``None``: the unmodified model): from the cache where its key is
+    present, otherwise run (all the missing ones in one child) and cached. Results come back in ``ids`` order."""
     engine = engine_hash()
-    keys = {cid: result_key(engine, mutant.definition(), cid) for cid in ids}
+    label = label or (mutant.id if mutant else "unmodified")
+    keys = {cid: result_key(engine, mutant.definition() if mutant else None, cid) for cid in ids}
     missing = [cid for cid in ids if cache.get(keys[cid]) is None]
     fresh = {}
     if missing:
@@ -85,11 +86,11 @@ def run_cached(cache: Cache, mutant: Mutant, ids: list[str], workers: int, label
             error = result.get("error", "")
             if error.split(":")[0] in INFRASTRUCTURE_ERRORS:
                 cache.flush()  # keep the rows this child finished before it failed
-                raise SystemExit(f"{label or mutant.id} → {result['criterion']}: the run failed, not the model "
+                raise SystemExit(f"{label} → {result['criterion']}: the run failed, not the model "
                                  f"({error}); nothing was cached for it")
             fresh[result["criterion"]] = result
             if result["outcome"] not in ERRORED:  # an errored row is reported but rerun next time, never cached
                 cache.put(keys[result["criterion"]], result)
         cache.flush()
-        print(f"{label or mutant.id}: ran {len(missing)} of {len(ids)}", flush=True)
+        print(f"{label}: ran {len(missing)} of {len(ids)}", flush=True)
     return [fresh.get(cid) or cache.get(keys[cid]) for cid in ids]

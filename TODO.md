@@ -38,14 +38,13 @@ Phase C steps 0–16 are built. **Its gate does not pass** (`docs/phase_c_comple
   Report §3.8 and §8.
 - [x] ~~**`M13.4`'s precision rule and `M11.C.16`.**~~ *Decided 2026-10-08 (report §10): precision against the pooled sd
   of the two arms. C.16 now passes at 150 seeds; C.41's [light: lower level] cell now fails instead of undetermined.*
-- [x] ~~**Decide whether to reclassify `M11.C.16`.**~~ *Decided 2026-10-08: it is a **premise**, carried by `M4.D.3a`'s
-  layer availability: inverting availability alone turns it red (`M11.1d`). The first decision that day kept it
-  composite on an availability inversion that saturated at the layer clamp; that mutant was replaced. The learner
-  disabled or inverted leaves it passing, so its row's rationale and mutation clause are not met, and coverage keeps
-  it partial. Report §11.*
+- [x] ~~**Decide whether to reclassify `M11.C.16`.**~~ *Decided 2026-10-08: it stays **composite** (owner decision).
+  No single rule's inversion reverses it. Inverting `M4.D.3a`'s availability cancels it (both intervals span zero),
+  and removing availability halves it; all nine level-reading rules were run. The learner changes its size, not its
+  sign, so its row's rationale and mutation clause are not met, and coverage keeps it partial. Report §11.*
 - [ ] **`M11.C.16`'s mutation clause is not met.** The spec requires that disabling `M4.D.6` turn it red, and it does
   not. Decide whether to restate the criterion so that a learned contribution is what it tests (for example, hold
-  level-reading availability fixed and compare learning on against off), or to accept it as a premise on `M4.D.3a`.
+  level-reading availability fixed and compare learning on against off), or to accept it as a level result.
 - [ ] **The failing criteria** — `M11.C.4` (later limb), `.5`, `.29` (the third person never accumulates symptom
   weeks), `.41` (no cell passes; the reactive share falls with level), `.42`, `.44`, `.45`, and three cells of `.27`.
   Report §3.

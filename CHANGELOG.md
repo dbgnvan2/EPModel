@@ -74,13 +74,15 @@ the per-criterion status is in `docs/phase_c_completion_report.md`.
   the two arms, not the baseline arm's (`ensemble_precision`'s unit changed, logged post hoc). Decided and committed
   before rerunning. `M11.C.16` now passes, but survives its named learner mutants, so its direction does not come
   from learning; `M11.C.41`'s [light: lower level] cell now fails instead of undetermined. Report §10.
-- **`M11.C.16` is a premise, 2026-10-08.** A first decision kept it composite, on mutants that included an availability
-  inversion saturating at the layer clamp: over C.16's levels it removed availability instead of inverting it (csdp
-  sweep). With that mutant replaced, inverting `M4.D.3a`'s layer availability alone turns C.16 red, so `M11.1d` makes
-  it a premise. All nine level-reading rules now run as deletion and inversion mutants on C.16; `M5.D.3`'s hold
-  capacity never acts in its runs. The learner disabled or inverted leaves it passing, so its rationale (learning
-  produces it) and its mutation clause are not met, and coverage keeps it partial. The mutation record now gives each
-  mutant's mean difference and half-width. Report §11.
+- **`M11.C.16` stays composite, 2026-10-08.** The first check ran an availability inversion that saturated at the layer
+  clamp over C.16's levels, so it removed availability instead of inverting it (csdp sweep). It was replaced, and all
+  nine level-reading rules now run as deletion and inversion mutants on C.16. Inverting availability now cancels C.16
+  (both readouts' intervals span zero) but does not reverse it; removing it halves the result. A reclassification to
+  premise, which read that cancellation as `M11.1d`'s flip, was withdrawn the same day by owner decision. `M5.D.3`'s hold
+  capacity never acts in C.16's runs. The learner changes the result's size, not its sign, so the row's rationale and
+  mutation clause are not met, and coverage keeps it partial. The mutation record now gives each mutant's mean
+  difference and half-width, and marks a red mutant **reversed** only when every readout's interval lies on the
+  opposite side. Report §11.
 - From the tenth gate (APPROVED, four low findings): `M11.5`'s premise definition now admits a result several rules
   state redundantly; the `M11.C.38` note says no single-rule mutant reds all three pairs (four of six red none); an
   "exactly zero" claim no committed record holds was removed; this file's `.45` entry corrected.

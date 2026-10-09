@@ -176,7 +176,7 @@ MUTANTS = (
            "return SCALE_MAX / max(person.functional_level, params.functional_level_floor)",
            "return max(person.functional_level, params.functional_level_floor) / (SCALE_MAX / 4)",
            "M4.C.1a's steepness rises with functional_level instead of falling"),
-    Mutant("mixing-weight-inverted", SIGN, ("M11.C.41",), "src/bowen/policy/policy.py",
+    Mutant("mixing-weight-inverted", SIGN, ("M11.C.41", "M11.C.16"), "src/bowen/policy/policy.py",
            "return min(1.0, max(0.0, functional_level / SCALE_MAX)) ** params.self_channel_exponent",
            "return min(1.0, max(0.0, 1.0 - functional_level / SCALE_MAX)) ** params.self_channel_exponent",
            "M4.D.1a's mixing weight falls with functional_level instead of rising"),

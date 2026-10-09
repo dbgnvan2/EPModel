@@ -39,8 +39,8 @@ Phase C steps 0–16 are built. **Its gate does not pass** (`docs/phase_c_comple
 - [x] ~~**`M13.4`'s precision rule and `M11.C.16`.**~~ *Decided 2026-10-08 (report §10): precision against the pooled sd
   of the two arms. C.16 now passes at 150 seeds; C.41's [light: lower level] cell now fails instead of undetermined.*
 - [x] ~~**Decide whether to reclassify `M11.C.16`.**~~ *Decided 2026-10-08: it stays **composite**. No single rule carries
-  it: the learner, layer availability and the mixing weight each survive deletion, availability survives inversion,
-  and availability with the learner removed still passes; only the joint level-blind mutant turns it red. Its row's
+  it: the learner, layer availability and the mixing weight each survive both deletion and inversion, and
+  availability with the learner removed still passes; only the joint level-blind mutant turns it red. Its row's
   rationale (learning produces it) and its mutation clause are not met, so coverage keeps it partial. Report §11.*
 - [ ] **`M11.C.16`'s mutation clause is not met.** The spec requires that disabling `M4.D.6` turn it red, and it does
   not. Decide whether to restate the criterion so that a learned contribution is what it tests (for example, hold

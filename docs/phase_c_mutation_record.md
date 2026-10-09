@@ -7,7 +7,7 @@ is **red** when the criterion stops passing and **survived** when it still passe
 mutant does not prove the criterion. A representation mutant (`M11.1c`) should leave every verdict
 unchanged; a change is reported as an **encoding artefact**.
 
-code_hash: 2e69bcfffe3faa648b24a6a64f77063913399cf2da5e7fbbcd75321858287b04
+code_hash: e0a73051212c260b0b1902dda5a13bebe20d454bb84eac2d8e3cdd95838e5fe9
 
 | Mutant | Kind | What it changes | Criterion | Verdict under mutant | Seeds | Result |
 |---|---|---|---|---|---|---|
@@ -52,6 +52,7 @@ code_hash: 2e69bcfffe3faa648b24a6a64f77063913399cf2da5e7fbbcd75321858287b04
 | `steepness-inverted` | sign-inverted | M4.C.1a's steepness rises with functional_level instead of falling | `M11.C.38[-0 vs -5]` | FAIL | 100 | **red** |
 | `steepness-inverted` | sign-inverted | M4.C.1a's steepness rises with functional_level instead of falling | `M11.C.38[-5 vs -10]` | PASS | 100 | **survived** |
 | `steepness-inverted` | sign-inverted | M4.C.1a's steepness rises with functional_level instead of falling | `M11.C.38[-10 vs -15]` | FAIL | 50 | **red** |
+| `mixing-weight-inverted` | sign-inverted | M4.D.1a's mixing weight falls with functional_level instead of rising | `M11.C.16` | PASS | 150 | **survived** |
 | `learner-inverted` | sign-inverted | M4.D.6 inverted: relief lowers an act's learned value, distress raises it | `M11.C.16` | PASS | 150 | **survived** |
 | `axes-swapped` | sign-inverted | M5.F.2b's axes read the wrong way round | `M11.C.19` | FAIL | 50 | **red** |
 | `deviation-inverted` | sign-inverted | M4.C.1's deviation inverted: moving away from the optimum relieves | `M11.C.27[unstable,remove_one]` | FAIL | 100 | **red** |
@@ -424,6 +425,13 @@ criterion.
   "criterion": "M11.C.38[-10 vs -15]",
   "outcome": "FAIL",
   "result": "red"
+ },
+ {
+  "mutant": "mixing-weight-inverted",
+  "kind": "sign-inverted",
+  "criterion": "M11.C.16",
+  "outcome": "PASS",
+  "result": "survived"
  },
  {
   "mutant": "learner-inverted",

@@ -74,9 +74,9 @@ the per-criterion status is in `docs/phase_c_completion_report.md`.
   the two arms, not the baseline arm's (`ensemble_precision`'s unit changed, logged post hoc). Decided and committed
   before rerunning. `M11.C.16` now passes, but survives its named learner mutants, so its direction does not come
   from learning; `M11.C.41`'s [light: lower level] cell now fails instead of undetermined. Report §10.
-- **`M11.C.16` stays composite, 2026-10-08.** Six new and existing mutants on C.16 all survive: the learner disabled or
-  inverted, `M4.D.3a`'s availability made level-independent or inverted, the mixing weight made level-independent,
-  and availability and learner removed together. Only the joint level-blind mutant turns it red. No single rule
+- **`M11.C.16` stays composite, 2026-10-08.** Seven new and existing mutants on C.16 all survive: the learner disabled or
+  inverted, `M4.D.3a`'s availability made level-independent or inverted, the mixing weight made level-independent or
+  inverted, and availability and learner removed together. Only the joint level-blind mutant turns it red. No single rule
   carries it, and none states it, so it is not a premise. But its rationale (learning produces it) and its
   mutation clause are not met, so coverage keeps it partial. Report §11.
 - From the tenth gate (APPROVED, four low findings): `M11.5`'s premise definition now admits a result several rules

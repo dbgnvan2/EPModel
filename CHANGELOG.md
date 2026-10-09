@@ -78,7 +78,9 @@ the per-criterion status is in `docs/phase_c_completion_report.md`.
   clamp over C.16's levels, so it removed availability instead of inverting it (csdp sweep). It was replaced, and all
   nine level-reading rules now run as deletion and inversion mutants on C.16. Inverting availability now cancels C.16
   (both readouts' intervals span zero) but does not reverse it; removing it halves the result. That inversion equals
-  the deletion over most of the lowered arm's levels, so the cancellation holds for it alone. Composite rests on
+  the deletion at level 20 and below, where the lowered arm spends 40.6% of member-weeks under it
+  (`docs/phase_c_level_occupancy.md`, a new generated record), so the cancellation holds for it alone. The mutant
+  removing the four rules C.16's criterion row cites (`c16-grounds-removed`) turns it red. Composite rests on
   reading only availability as naming a narrower repertoire; report §11 says why that reading is contestable. A reclassification to
   premise, which read that cancellation as `M11.1d`'s flip, was withdrawn the same day by owner decision. `M5.D.3`'s hold
   capacity never acts in C.16's runs. The learner changes the result's size, not its sign, so the row's rationale and

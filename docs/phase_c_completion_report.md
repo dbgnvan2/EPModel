@@ -12,7 +12,7 @@ a hash goes stale.
 | `docs/phase_c_sweep_record.md` | `tools/sweep_record.py` | each composite criterion at half and double α, H and temperature (plan D9) |
 | `docs/spec_coverage.md` | `tools/spec_coverage.py` | every spec ID: done / partial / not done |
 
-Default suite: **496 tests pass** (`python3 -m pytest tests/`). The 19 ensemble-marked criterion tests are
+Default suite: **499 tests pass** (`python3 -m pytest tests/`). The 19 ensemble-marked criterion tests are
 deselected there and run with `python3 -m pytest -m ensemble`.
 
 **Read this first.** Phase C's gate does **not** pass. Of the 16 criteria built, 7 pass at the frozen
@@ -40,7 +40,7 @@ column follows the global completion standard.
 | `M11.C.7` topology not coach skill | premise | not built | — | — | not done — needs `M8.2`/`M8.3`'s position predicates; declares no direction for its arms |
 | `M11.C.13` help relocates, not reduces | premise | not built | — | — | not done — needs incidents located in a community |
 | `M11.C.14` technique null under marital distance | premise (null) | not built | — | — | not done — needs `M5.C.1`'s marital-distance gate |
-| `M11.C.16` repertoire concentration depends on level | composite (§11) | PASS (150) — after §10's precision rule; undetermined at 500 seeds before | by the joint `level-blind` mutant, and by `availability-level-inverted`, which cancels it without reversing it; its required mutant, the learner disabled, survives (§11) | passes at all 6 settings | partial — passes; its mutation clause is not met, §11 |
+| `M11.C.16` repertoire concentration depends on level | composite (§11) | PASS (150) — after §10's precision rule; undetermined at 500 seeds before | by the joint `level-blind` and `c16-grounds-removed` mutants, and by `availability-level-inverted`, which cancels it without reversing it; its required mutant, the learner disabled, survives (§11) | passes at all 6 settings | partial — passes; its mutation clause is not met, §11 |
 | `M11.C.19` counterfeit axis identified | check | PASS (50) | yes: `axes-collapsed`, `axes-swapped` | — | done |
 | `M11.C.25` dominant pole independent of sex | premise (null) | PASS (50); difference exactly 0 in every seed | yes: `sex-term-in-pole` | — | done — readout corrected post hoc, §4.2 |
 | `M11.C.27` twosome 2×2 | composite | 1 of 4 cells passes: [unstable, remove one]. [stable, add third] passed before §8 and is now +0.003 (p 0.49) | the passing cell, by `one-sided-deviation` and `deviation-inverted` | the passing cell holds at all 6 settings | partial — §3.5 |
@@ -97,7 +97,9 @@ These are recorded in the spec's `M11.5` table with today's date.
   `M1.C.1`'s relief was inverted, which would have made it a premise. C.42 passed but survived an inverted
   learner, so its direction did not come from relief's sign. Neither passes after §8, so neither correction
   stands; the spec's `M11.5` notes record both.
-- **`M11.C.16` stays composite.** No single rule's inversion reverses it; inverting `M4.D.3a`'s availability cancels it. §11.
+- **`M11.C.16` stays composite, by owner decision.** No inversion run reverses it; inverting `M4.D.3a`'s availability,
+  as run, cancels it. Removing the four rules its criterion row cites turns it red, which a premise reading would
+  take as proof. §11.
 - **`M11.C.32`** is confirmed premise: both the gate's inversion and its removal turn it red. **`M11.C.19`** and
   **`M11.C.35`** are confirmed checks. **`M11.C.25`** is confirmed a structural null: the difference is exactly 0
   in every seed, because sex is read by no rule (`M2.A.0g`), and the test fails when a sex term is added.
@@ -389,7 +391,8 @@ config, that it falls between the arms and that the saturated form and the delet
 level-reading rule `M11.C.1` lists was then run as a deletion and an inversion mutant on C.16; before, only two of the
 nine had been. Second, the corrected inversion turned C.16 red, and this section briefly called it a premise. The
 re-sweep found that the inversion cancels the result rather than reversing it, which is not `M11.1d`'s flip, and the
-owner kept C.16 composite.*
+owner kept C.16 composite. Third, that sweep asked for the mutant that removes the rules C.16's own criterion row
+cites as its grounds, which `M11.5`'s redundancy clause needs as its proof; it was run, and it turns C.16 red (below).*
 
 The table is generated from `docs/phase_c_mutation_record.md`. Differences are the lowered arm minus the baseline arm,
 mean ± 95% half-width, at the central setting. The criterion tests a negative entropy difference; the top-move share
@@ -418,22 +421,27 @@ lies wholly on the opposite side; none here is.
 | `routing-level-inverted` | sign-inverted | -0.039 ± 0.012 | +0.042 ± 0.011 | survived |
 | `hold-level-independent` | deletion | -0.066 ± 0.023 | +0.052 ± 0.017 | survived |
 | `hold-level-inverted` | sign-inverted | -0.066 ± 0.023 | +0.052 ± 0.017 | survived |
+| `c16-grounds-removed` | deletion | -0.000 ± 0.006 | +0.000 ± 0.008 | **red** |
 | `steepness-inverted` | sign-inverted | -0.030 ± 0.007 | +0.027 ± 0.008 | survived |
 | `mixing-weight-inverted` | sign-inverted | -0.047 ± 0.008 | +0.057 ± 0.009 | survived |
 | `learner-inverted` | sign-inverted | -0.178 ± 0.035 | +0.145 ± 0.030 | survived |
 
 What this shows:
 
-- **No single rule's inversion reverses C.16.** Inverting `M4.D.3a`'s availability cancels it: entropy
+- **No inversion run reverses C.16.** Inverting `M4.D.3a`'s availability cancels it: entropy
   -0.008 ± 0.020 and top-move share -0.012 ± 0.013, both intervals spanning zero.
   That is a FAIL, so the mutant is red, but the direction is not flipped. **This inversion is weak where C.16 runs.**
   It equals the deletion (every layer fully available) at level 20 and below on both layers, and at 40 and below on
-  layer 1. Under the unmodified model the lowered arm's members spend 39.5% of member-weeks at level 20 or below and
-  94.7% at 40 or below; the baseline arm's, 1.8% and 58.2% (20 seeds, measured 2026-10-08). So it mostly reverses
-  layer 2 only. "Cancels without reversing" holds for this inversion; a stronger one was not tried.
+  layer 1. Under the mutant, the lowered arm's members spend 40.6% of member-weeks at level 20 or below and
+  93.3% at 40 or below; the baseline arm's, 1.1% and 59.4%
+  (`docs/phase_c_level_occupancy.md`, which also gives the unmodified shares). So it mostly reverses layer 2 only.
+  "Cancels without reversing" holds for this inversion; a stronger one was not tried.
 - **Availability carries part of the narrowing, not all of it.** Removing it leaves entropy at
   -0.033 ± 0.008, against -0.066 ± 0.023 unmutated. No other single rule removes
   the result; the level-blind mutant, which removes all nine at once, leaves no difference at all.
+- **The rules C.16's criterion row cites, removed together, turn it red.** `c16-grounds-removed` makes `M4.C.1a`'s
+  steepness and band, `M1.C.3a`'s routing capacity and `M4.D.3a`'s availability level-independent at once: entropy
+  -0.000 ± 0.006, top-move share +0.000 ± 0.008.
 - `M5.D.3`'s hold capacity never acts in C.16's runs: both hold mutants reproduce the unmutated numbers exactly. Those
   two mutants test nothing here.
 - **Learning changes the result's size, not its sign.** `M4.D.6` disabled leaves entropy at
@@ -449,13 +457,16 @@ Why composite, and not premise:
 - `M11.5`'s redundancy clause makes a result a premise when several rules each state it, as at `M11.C.1`, where every
   level-reading rule states earlier onset at a lower level. C.16's pattern of mutants looks the same (each single
   deletion survives and only the joint one removes it), but of the nine rules only availability states a narrower
-  repertoire at a lower level. The others state other things: a steeper appraisal, a narrower band, a lower threshold,
-  a larger self term, more outside-ness, more routing. A narrower repertoire follows from them jointly; their
-  formulas do not name it. On that reading the clause does not apply, and the owner kept C.16 composite. **The reading
+  repertoire at a lower level. The other eight state other things: `M4.C.1a` a steeper appraisal and a narrower
+  band, `M1.A.6` a lower symptom threshold, `M4.A.5` a larger self term, `M4.D.1a` a larger automatic share of each
+  selection, `M1.A.9` more initial outside-ness, `M1.C.3a` more triangle routing, `M5.D.3` less I-POSITION hold. A
+  narrower repertoire follows from them jointly; their formulas do not name it. On that reading the clause does not apply, and the owner kept C.16 composite. **The reading
   is contestable:** C.16's own criterion row gives as its grounds `M4.C.1a`'s source text (poorly differentiated
   people "are very prone to shut down and distance or to react aggressively", KS03.2) and `M1.C.3a`'s "stays fixed".
-  If those rules are read as stating the narrowing, the redundancy clause makes C.16 a premise. This is a judgement
-  about what the rules state, not a mutant result.
+  If those rules are read as stating the narrowing, the redundancy clause makes C.16 a premise, and
+  `c16-grounds-removed` turning it red is that clause's proof. Which reading holds is a judgement about what the rules
+  state, not a mutant result; the mutants are consistent with both. The class stays composite by owner decision, and
+  `TODO.md` puts the reading back to the owner with this result.
 
 What does not hold:
 

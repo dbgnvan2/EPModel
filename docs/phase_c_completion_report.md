@@ -61,7 +61,8 @@ without a scale constant threaded through every form, and integer against float 
 **`M11.1b` severing mutants** were not built. The plan made them conditional ("where cheap"), and none was.
 
 **Fallback rate (`M11.D.18`).** The rate is reported per criterion and per person. It is above the 0.2 flag
-rate in the Phase C family runs (0.26–0.41). Most of it is Bruno: his one tie starts cut off, so his only legal
+rate in every run of the Phase C family (C.1, C.5, C.16, C.38, C.41); each criterion's rate is in
+`docs/phase_c_ensemble_record.md`, which this report does not copy. Most of it is Bruno: his one tie starts cut off, so his only legal
 act is `REDUCE_CUTOFF`, which has no weight without systems perspective, and he holds every week (rate 1.00).
 The flag is shown beside each passing verdict it applies to.
 

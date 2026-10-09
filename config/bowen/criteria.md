@@ -13,16 +13,24 @@
 > * `level_*` — how far every member's basic and functional level is lowered in that arm.
 >
 > **Post-hoc restatement, 2026-10-09 (step S of `docs/DECISIONS — PHASE C FAILING.md`, approved by the owner).**
-> The declared weeks stand, but in both arms of every criterion that scripts an act, the ties its scripted acts
-> cross are held open from week 0 until the act (`M11.C.29`: until its last withdrawal): neither member may cut
-> them, so `CUTOFF` across them is not in their legal set. Without the hold the act was illegal in 25–60% of seeds,
-> and a skipped seed added a difference of exactly 0. The approved first choice, scripting each act at the latest
-> week legal in every seed of the ensemble's cap (500), gave week 0 for every criterion (`s-scripted-weeks` in
-> `docs/phase_c_diagnostic_record.md`), and week 0 cannot be used: every member starts on their chronic floor, and
-> decay lifts anyone below the floor back to it, so no relief can show (a run at week 0 measured `M11.C.3`'s pair
-> relief at +0.09 against −2.2 at week 12). So the approved fallback, holding the tie open, applies to every
-> criterion. This is a test restatement: no readout was looked at in choosing it, and the week-0 run was discarded
-> for the floor, not for its verdicts.
+> The declared weeks stand, but in both arms of every criterion that scripts an act after week 0, the ties its
+> scripted acts cross are held open from week 0 until the act (`M11.C.29`: until its last withdrawal): neither
+> member may cut them, so `CUTOFF` across them is not in their legal set. Without the hold the act was illegal in
+> 25–60% of seeds, and a seed where both arms skipped added a difference of exactly 0. The approved first choice
+> was to script each act at the latest week legal in every seed of the ensemble's cap (500). Measured
+> (`s-scripted-weeks` in `docs/phase_c_diagnostic_record.md`): that week is 0 for every criterion, and for
+> `M11.C.29`'s distance in disguise no week works. Week 0 was not used, for a reason that follows from the code:
+> every member starts on their chronic floor, and decay lifts anyone below the floor back to it, so no relief
+> can show there. One run with every act at week 0 was made and its verdicts were seen before it was discarded
+> (`M11.C.3`'s pair relief came out at +0.09); it is not kept. So the approved fallback, holding the ties open,
+> applies to every criterion.
+>
+> **Longer horizons, 2026-10-09 (owner decision, after step S).** With every act made, `M11.C.4`'s later limb and
+> three of `M11.C.27`'s cells still failed at their declared horizons (`M11.C.4`'s nodal event at week 30;
+> `M11.C.27` read 3 weeks after its act). The owner allowed a longer horizon. The rule, fixed before running: one
+> value, the longest horizon any Phase C criterion already declares (104 weeks, `M11.C.1`, `.16`, `.38`), run once
+> and reported whatever it shows. So `M11.C.4`'s nodal event moves to week 104, and `M11.C.27` is read 104 weeks
+> after its act. The earlier verdicts stay in `docs/DECISIONS — PHASE C FAILING.md`.
 
 | criterion | setting | value |
 |---|---|---|
@@ -40,7 +48,7 @@
 | M11.C.3 | run_after | 2 |
 | M11.C.3 | latency | 1 |
 | M11.C.4 | t0 | 8 |
-| M11.C.4 | nodal | 30 |
+| M11.C.4 | nodal | 104 |
 | M11.C.4 | run_after_nodal | 2 |
 | M11.C.5 | weeks | 60 |
 | M11.C.5 | t0 | 4 |
@@ -54,7 +62,7 @@
 | M11.C.25 | weeks | 52 |
 | M11.C.25 | no_pole | 0.5 |
 | M11.C.27 | t0 | 8 |
-| M11.C.27 | run_after | 3 |
+| M11.C.27 | run_after | 104 |
 | M11.C.27 | unstable_impingement | 0.8 |
 | M11.C.29 | weeks | 80 |
 | M11.C.29 | t0 | 4 |

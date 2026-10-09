@@ -19,7 +19,7 @@ from src.bowen.engine.log_records import DeliveredRecord, EmittedRecord, Selecti
 import src.bowen.ensemble.criteria as criteria
 from src.bowen.engine.events import EventId
 from src.bowen.ensemble.criteria import (CRITERIA, SETTINGS, act, arm_c29, arm_c42, arm_spell_triad,
-                                         reactive_per_offered, scenario, spell)
+                                         reactive_over_chance, scenario, spell)
 
 P = PersonId
 PAIR, THIRD = (P("f"), P("m")), P("c")
@@ -105,8 +105,48 @@ def test_m11c45_triangle_rate_is_per_person_week():
 
 # --- Step S: each scripted act's ties held open until it is made, the same in both arms ------------
 
-SCRIPTED = [cid for cid in CRITERIA if cid in ("M11.C.3", "M11.C.4", "M11.C.5", "M11.C.29", "M11.C.35", "M11.C.42")
-            or cid.startswith("M11.C.27[")]  # M11.C.32 scripts its act at week 0: there is nothing to hold
+def _scripting():
+    """Every criterion whose arms script an act, found by running each arm's setup, not from a typed list."""
+    found = set()
+    original = criteria.scenario
+
+    def capture(family, seed, weeks, **kwargs):
+        if kwargs.get("forced"):
+            found.add(cid)
+        raise StopIteration
+
+    criteria.scenario = capture
+    try:
+        for cid, criterion in CRITERIA.items():
+            for arm in criterion.arms:
+                try:
+                    criterion.arm(arm, 0, criterion.settings)
+                except StopIteration:
+                    pass
+    finally:
+        criteria.scenario = original
+    return found
+
+
+SCRIPTING = _scripting()
+SCRIPTED = sorted(cid for cid in SCRIPTING if CRITERIA[cid].settings["t0"] > 0)  # at week 0 there is nothing to hold
+
+
+def test_s_scripted_criteria_are_found_by_running_them():
+    """The probes' list and this file's both come from running the arms (learning-qa, 2026-10-09)."""
+    assert SCRIPTING == set(_diag_probes().scripted_criteria())
+    assert set(SCRIPTING) - set(SCRIPTED) == {"M11.C.32"} and len(SCRIPTED) == 10
+
+
+def _diag_probes():
+    import importlib.util
+    from pathlib import Path
+
+    path = Path(__file__).resolve().parents[2] / "tools" / "probes.py"
+    spec = importlib.util.spec_from_file_location("tools.probes", path)
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
 
 
 def test_s_every_scripted_criterion_holds_the_same_ties_in_both_arms(monkeypatch):
@@ -121,21 +161,30 @@ def test_s_every_scripted_criterion_holds_the_same_ties_in_both_arms(monkeypatch
         for arm in CRITERIA[cid].arms:
             with pytest.raises(StopIteration):
                 CRITERIA[cid].arm(arm, 0, CRITERIA[cid].settings)
-    assert set(seen) == set(SCRIPTED) and len(SCRIPTED) == 10
+    assert set(seen) == set(SCRIPTED)
     for cid, holds in seen.items():
         assert holds[0] is not None and holds[0][0] and holds[0] == holds[1], cid
         assert holds[0][1].start == 0 and holds[0][1].stop >= CRITERIA[cid].settings["t0"], cid
 
 
+# M11.C.29's actor has full systems perspective and may be inside their own I-POSITION sequence with the same
+# person: on a step week they select nothing, and an act toward them is rewritten to STAY-IN-CONTACT (M5.D.9).
+OWN_SEQUENCE = {"M11.C.29": {"owed a step", "rewritten"}}
+
+
 @pytest.mark.parametrize("cid", SCRIPTED)
 def test_s_every_scripted_act_is_made_with_the_hold(cid):
-    """Without the hold these skipped in 25-60% of seeds (docs/DECISIONS — PHASE C FAILING.md, step S)."""
+    """Made means emitted as scripted (or an I-POSITION sequence begun), not merely placed. Without the hold, acts
+    were skipped in 25-60% of seeds (docs/DECISIONS — PHASE C FAILING.md, step S)."""
     criterion = CRITERIA[cid]
     for arm in criterion.arms:
         for seed in range(8):
-            criteria.scenario.last_source = None
-            criterion.arm(arm, seed, criterion.settings)
-            assert criteria.scenario.last_source.skipped == 0, (cid, arm, seed)
+            moves = criterion.arm(arm, seed, criterion.settings).moves
+            scripted = moves["(scripted acts)"]
+            missed = {k[len("(scripted act: "):-1]: n for k, n in moves.items()
+                      if k.startswith("(scripted act: ") and k != "(scripted act: made)" and n}
+            assert set(missed) <= OWN_SEQUENCE.get(cid, set()), (cid, arm, seed, missed)
+            assert moves["(scripted act: made)"] + sum(missed.values()) == scripted, (cid, arm, seed)
 
 
 # --- M11.C.29: the f-m tie held open through the disguise span ----------------------------------
@@ -161,14 +210,14 @@ def test_m11c29_held_tie_is_not_cut_while_held():
 
 
 def test_m11c29_hold_lets_every_withdrawal_be_made():
-    """With the hold, the disguise's four withdrawals are never illegal; without it, some are (measured: 162 of
-    500 seeds skipped one, docs/DECISIONS — PHASE C FAILING.md step S)."""
+    """With the hold, the disguise's four withdrawals are never illegal; without it, some are (s-scripted-weeks in
+    docs/phase_c_diagnostic_record.md: no week is legal in every seed for this arm)."""
     settings = CRITERIA["M11.C.29"].settings
     unheld = 0
     original = criteria.scenario
     for seed in range(20):
         arm_c29("baseline", seed, settings)
-        assert criteria.scenario.last_source.skipped == 0
+        assert criteria.scenario.last_source.skipped == 0  # not legal: the case the hold removes
         try:
             criteria.scenario = lambda *a, held_open=None, **k: original(*a, **k)  # noqa: E731
             criteria.scenario.last_source = None
@@ -209,42 +258,39 @@ def _emitted(kind, tick, actor):
     return EmittedRecord(SimpleNamespace(id=EventId(tick, actor, 0), kind=kind))
 
 
-def test_m11c41_reactive_per_offered_divides_by_what_the_legal_set_offered():
+def test_m11c41_reactive_over_chance_is_zero_for_a_chooser_at_random_at_any_set_size():
+    """Adversarial (P7): the first restatement rose whenever the legal set shrank. A chooser that picks uniformly
+    must score 0 here whether layers 1 and 2 are open or closed; one that prefers reactive acts must score above."""
+    import itertools
+
     wide = ("CONFLICT>m", "PURSUE>m", "TRIANGLE>c", "DISTANCE>m", "CUTOFF>m", "I-POSITION>m")
     narrow = ("DISTANCE>m", "CUTOFF>m", "I-POSITION>m")  # a lower level: layers 1 and 2 closed (M4.D.3a)
-    # Both runs choose one reactive act out of two weeks; only what was offered differs.
-    a = [_selection(0, "f", EventId(0, "f", 0), wide), _emitted("CONFLICT", 0, "f"),
-         _selection(1, "f", EventId(1, "f", 0), wide), _emitted("I-POSITION", 1, "f")]
-    b = [_selection(0, "f", EventId(0, "f", 0), narrow), _emitted("DISTANCE", 0, "f"),
-         _selection(1, "f", EventId(1, "f", 0), narrow), _emitted("I-POSITION", 1, "f")]
-    assert reactive_per_offered(a) == pytest.approx(1 / 10)
-    assert reactive_per_offered(b) == pytest.approx(1 / 4)
-    # The share of all moves, the declared readout, cannot tell them apart; this one rises where fewer were offered.
-    assert reactive_per_offered(b) > reactive_per_offered(a)
+
+    def uniform(legal):  # every outcome chosen once: the expectation of a uniform chooser
+        records = []
+        for week, label in enumerate(legal):
+            records += [_selection(week, "f", EventId(week, "f", 0), legal), _emitted(label.split(">")[0], week, "f")]
+        return records
+
+    assert reactive_over_chance(uniform(wide)) == pytest.approx(0.0)
+    assert reactive_over_chance(uniform(narrow)) == pytest.approx(0.0)
+    always = list(itertools.chain.from_iterable(
+        [_selection(w, "f", EventId(w, "f", 0), narrow), _emitted("DISTANCE", w, "f")] for w in range(3)))
+    assert reactive_over_chance(always) == pytest.approx(1 - 2 / 3)  # always reactive, where chance is 2 of 3
     withheld = [_selection(0, "f", None, narrow)]  # a WITHHOLD emits nothing: offered, not selected
-    assert reactive_per_offered(withheld) == 0.0
+    assert reactive_over_chance(withheld) == pytest.approx(-2 / 3)
+    assert reactive_over_chance([_selection(0, "f", None, ())]) == 0.0  # a fallback with no legal set is left out
 
 
-def test_m11c29_readout_counts_the_weeks_the_third_persons_symptom_is_active(monkeypatch):
-    """The restated readout (X1): weeks from onset to re-arm, not weeks with any accumulation, which is positive
-    whenever acute anxiety is above the floor (the old count, saturated in both arms)."""
-    original = criteria.scenario
-    seen = []
-
-    def wrapped(*args, watch=None, **kwargs):
-        def both(state):
-            watch(state)
-            c = state.people[P("c")]
-            seen.append((c.symptom_active[c.channel_prior], c.symptom_load[c.channel_prior]))
-        return original(*args, watch=both, **kwargs)
-
-    monkeypatch.setattr(criteria, "scenario", wrapped)
-    accumulating = active = 0
-    for seed in range(4):
-        seen.clear()
-        readout = arm_c29("baseline", seed, CRITERIA["M11.C.29"].settings).readouts["third_symptom_weeks"]
-        assert len(seen) == C29["weeks"]  # the watcher ran once per week
-        assert readout == sum(a for a, _ in seen)
-        accumulating += sum(load > 0 for _, load in seen)
-        active += readout
-    assert active < accumulating, "the symptom was active in every week with any load: the check would be vacuous"
+def test_s_absence_and_hold_in_the_same_week_both_apply():
+    """One redraw carries every constraint: before, the hold's redraw replaced the absence's (correctness review,
+    2026-10-09; latent, since no criterion yet sets both for one week)."""
+    week = 5
+    for seed in range(6):
+        _, records = scenario("triad", seed, week + 1, unavailable={week: (PAIR, THIRD)},
+                              held_open=(((P("f"), P("m")),), range(0, week + 1)))
+        legal = [label for r in records if isinstance(r, SelectionRecord) and r.tick == week and r.actor in PAIR
+                 for label in r.legal_set]
+        assert legal, "no selection for the pair that week"
+        assert not [x for x in legal if x.endswith(">c") or x.startswith("TRIANGLE>")]  # the absence
+        assert not [x for x in legal if x in ("CUTOFF>m", "CUTOFF>f")]  # the hold

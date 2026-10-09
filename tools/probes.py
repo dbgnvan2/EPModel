@@ -44,14 +44,21 @@ def sampling(criteria, sample):
     return Patch()
 
 
-def made(criteria) -> str:
-    """Whether the last scenario's scripted acts were made: "made", "skipped" (not made: not legal that week, or the
-    actor was not selecting), "partly" (some of each), "not reached" (neither: the run ended first), or "none" (the
-    arm scripts no act). Every arm calls ``scenario`` once, which sets ``last_source``; an arm that called it twice
-    would report its last call."""
+def made(criteria, records=None) -> str:
+    """Whether the last scenario's scripted acts were made: "made", "skipped" (none made), "partly" (some of each),
+    "not reached" (the run ended first), or "none" (the arm scripts no act). With the run's ``records``, "made" means
+    emitted as scripted (``Forced.outcomes``); without them, placed in the week's selections, which an act rewritten
+    afterwards also counts as. Every arm calls ``scenario`` once, which sets ``last_source``; an arm that called it
+    twice would report its last call."""
     source = getattr(criteria.scenario, "last_source", None)
     if source is None or not source.forced:
         return "none"
+    if records is not None:
+        counts = source.outcomes(records)
+        done, missed = counts["made"], sum(counts.values()) - counts["made"] - counts["not reached"]
+        if done == 0 and missed == 0:
+            return "not reached"
+        return "made" if missed == 0 else ("skipped" if done == 0 else "partly")
     missed = source.skipped + getattr(source, "owed_step", 0)
     if source.made == 0 and missed == 0:
         return "not reached"
@@ -263,26 +270,52 @@ def spell_effect(seeds: int) -> list[dict]:
     return rows
 
 
-FORCED = ("M11.C.3", "M11.C.4", "M11.C.5", "M11.C.27[", "M11.C.29", "M11.C.32", "M11.C.35", "M11.C.42")
+def scripted_criteria() -> list[str]:
+    """Every criterion whose arms script an act, found by running each arm up to its scenario, not from a typed
+    list (learning-qa, 2026-10-09: a new scripted criterion would otherwise go unchecked)."""
+    import src.bowen.ensemble.criteria as criteria
+
+    found, original = [], criteria.scenario
+
+    class Stop(Exception):
+        pass
+
+    def capture(family, seed, weeks, **kwargs):
+        if kwargs.get("forced"):
+            found.append(cid)
+        raise Stop
+
+    criteria.scenario = capture
+    try:
+        for cid, criterion in criteria.CRITERIA.items():
+            for arm in criterion.arms:
+                try:
+                    criterion.arm(arm, 0, criterion.settings)
+                except Stop:
+                    pass
+    finally:
+        criteria.scenario = original
+    return list(dict.fromkeys(found))
 
 
 def scripted_acts(seeds: int) -> list[dict]:
-    """Every criterion whose arms script an act: in how many seeds the act was made, or skipped because it was not
-    legal that week (for example, the policy had already cut the tie the act crosses)."""
+    """Every criterion whose arms script an act: per seed, how many of its scripted acts were made (emitted as
+    scripted), and how many were not, by reason (``Forced.outcomes``)."""
     import src.bowen.ensemble.criteria as criteria
+    from src.bowen.ensemble.runner import SCRIPTED_STATUSES
 
     rows = []
-    for cid, criterion in criteria.CRITERIA.items():
-        if not any(cid == f or (f.endswith("[") and cid.startswith(f)) for f in FORCED):
-            continue
+    for cid in scripted_criteria():
+        criterion = criteria.CRITERIA[cid]
         for arm in criterion.arms:
             for seed in range(seeds):
-                criteria.scenario.last_source = None
-                criterion.arm(arm, seed, criterion.settings)
-                source = criteria.scenario.last_source
-                rows.append({"criterion": cid, "arm": arm, "act": made(criteria), "seed": seed,
-                             "made": source.made if source else 0, "skipped": source.skipped if source else 0,
-                             "not_selecting": source.owed_step if source else 0})
+                moves = criterion.arm(arm, seed, criterion.settings).moves
+                if not moves["(scripted acts)"]:
+                    continue  # this arm scripts none (the other arm does)
+                counts = {s.replace(" ", "_"): moves[f"(scripted act: {s})"] for s in SCRIPTED_STATUSES}
+                missed = moves["(scripted acts)"] - counts["made"]
+                status = "made" if not missed else ("skipped" if not counts["made"] else "partly")
+                rows.append({"criterion": cid, "arm": arm, "act": status, "seed": seed, **counts})
     return rows
 
 
@@ -347,9 +380,8 @@ def scripted_weeks(seeds: int) -> list[dict]:
 
     import src.bowen.ensemble.criteria as criteria
 
-    jobs = [(cid, arm, seed) for cid, c in criteria.CRITERIA.items()
-            if any(cid == f or (f.endswith("[") and cid.startswith(f)) for f in FORCED)
-            for arm in c.arms for seed in range(seeds)]
+    jobs = [(cid, arm, seed) for cid in scripted_criteria()
+            for arm in criteria.CRITERIA[cid].arms for seed in range(seeds)]
     with ProcessPoolExecutor(os.cpu_count() or 1) as pool:
         rows = list(pool.map(_scan_arm, *zip(*jobs), chunksize=25))
     return [r for r in rows if r is not None]
@@ -443,11 +475,11 @@ def act_effects(seeds: int) -> list[dict]:
     for seed in range(seeds):
         _, base = criteria.scenario("triad", seed, t0 + horizon + 1, held_open=held,
                                     forced=criteria.act("f", "STAY-IN-CONTACT", "m", t0))
-        base_made = made(criteria)
+        base_made = made(criteria, base)
         for kind, target in ACT_EFFECT_ACTS:
             _, treat = criteria.scenario("triad", seed, t0 + horizon + 1, held_open=held,
                                          forced=criteria.act("f", kind, target, t0))
-            status = made(criteria) if base_made == "made" else f"baseline {base_made}"
+            status = made(criteria, treat) if base_made == "made" else f"baseline {base_made}"
             for week in range(horizon + 1):
                 b, t = criteria._acute_at(base, t0 + week, people), criteria._acute_at(treat, t0 + week, people)
                 rows.append({"act": f"{kind}>{target}", "made": status, "week": f"t0+{week}", "seed": seed,

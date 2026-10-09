@@ -158,7 +158,8 @@ class Forced:
                  held_open: tuple | None = None):
         self.policy, self.forced, self.unavailable = policy, forced, unavailable or {}
         self.held_open = held_open
-        self.made, self.skipped, self.owed_step = 0, 0, 0
+        self.made, self.skipped, self.owed_step = 0, 0, 0  # placement counts; ``outcomes`` is what was made
+        self.status: dict = {}  # (week, actor) -> "placed", "not legal", "owed a step" or "dead"
 
     def scheduled(self, tick):
         return self.policy.scheduled(tick)
@@ -168,31 +169,51 @@ class Forced:
         from src.bowen.policy.policy import legal_outcomes
 
         chosen = list(self.policy.selections(tick, active, state))
-        if tick in self.unavailable:
-            actors, absent = self.unavailable[tick]
-            for actor in sorted(set(actors) & set(active)):
-                if state.people[actor].alive:
-                    chosen = [s for s in chosen if s.actor != actor] + [self._without(state, actor, absent)]
-        if self.held_open and tick in self.held_open[1]:
-            pairs = self.held_open[0]
-            for actor in sorted({m for pair in pairs for m in pair} & set(active)):
-                if state.people[actor].alive:
-                    excluded = frozenset(f"CUTOFF>{o}" for pair in pairs if actor in pair for o in pair if o != actor)
-                    chosen = [s for s in chosen if s.actor != actor] + [self._without(state, actor, excluded=excluded)]
+        # One redraw per actor, with every constraint on it this week: a declared absence and the held-open ties.
+        absent = dict.fromkeys(self.unavailable[tick][0], self.unavailable[tick][1]) if tick in self.unavailable else {}
+        pairs = self.held_open[0] if self.held_open and tick in self.held_open[1] else ()
+        excluded = {a: frozenset(f"CUTOFF>{o}" for pair in pairs if a in pair for o in pair if o != a)
+                    for pair in pairs for a in pair}
+        for actor in sorted((set(absent) | set(excluded)) & set(active)):
+            if state.people[actor].alive:
+                redrawn = self._without(state, actor, absent.get(actor), excluded.get(actor, frozenset()))
+                chosen = [s for s in chosen if s.actor != actor] + [redrawn]
         for (t, actor), selection in self.forced.items():
             if t != tick:
                 continue
-            if actor not in active:  # owed an I-POSITION step this week (`M5.D.9`), or dead: nothing to replace
+            if actor not in active:  # dead, or owed an I-POSITION step this week (`M5.D.9`): nothing to replace
                 self.owed_step += 1
+                self.status[t, actor] = "owed a step" if state.people[actor].alive else "dead"
                 continue
             legal = {o.label for o in legal_outcomes(observe(state, actor, self.policy.params), state.kinds,
                                                      self.policy.params)}
             if f"{selection.kind}>{selection.targets[0]}" not in legal:
                 self.skipped += 1
+                self.status[t, actor] = "not legal"
                 continue
             self.made += 1
+            self.status[t, actor] = "placed"
             chosen = [s for s in chosen if s.actor != actor] + [selection]
         return tuple(chosen)
+
+    def outcomes(self, records) -> Counter:
+        """What became of each scripted act, from the run's records: "made" only if the act emitted was the one
+        scripted. A placed act can still be rewritten after selection, e.g. to STAY-IN-CONTACT toward the actor's
+        open I-POSITION sequence's other (`M5.D.9`); a week the run never reached is "not reached"."""
+        emitted = {(r.event.sender, r.event.timestamp, r.event.kind, r.event.targets[:1]) for r in records
+                   if isinstance(r, EmittedRecord) and r.event.mechanism is Mechanism.MOVE}
+        # An I-POSITION is made either as an act or as the start of a sequence, which emits nothing that week (M5.D.9).
+        begun = {(pid, r.tick) for r in records if isinstance(r, EffectRecord) and r.mechanism == "iposition"
+                 for pid, flag, _ in r.people if flag.startswith("iposition:begin")}
+        counts = Counter()
+        for (t, actor), selection in self.forced.items():
+            status = self.status.get((t, actor), "not reached")
+            if status == "placed":
+                same = ((actor, t, selection.kind, selection.targets[:1]) in emitted
+                        or (selection.kind == "I-POSITION" and (actor, t) in begun))
+                status = "made" if same else "rewritten"
+            counts[status] += 1
+        return counts
 
 
     def _without(self, state, actor, absent=None, excluded: frozenset[str] = frozenset()):
@@ -253,9 +274,9 @@ def result(readouts, records) -> ArmResult:
     moves, fallbacks, selections = bookkeeping(records)
     source = getattr(scenario, "last_source", None)
     if source is not None and source.forced:
-        moves["(scripted act made)"] += source.made
-        moves["(scripted act not legal, skipped)"] += source.skipped
-        moves["(scripted act not made, actor not selecting)"] += source.owed_step
+        for status, n in source.outcomes(records).items():
+            moves[f"(scripted act: {status})"] += n
+        moves["(scripted acts)"] += len(source.forced)
     return ArmResult(readouts, moves, fallbacks, selections)
 
 
@@ -543,24 +564,30 @@ def arm_c41(arm, seed, settings):
     spells = spell("phase_c", weeks) if stress == "heavy" else light
     state, records = scenario("phase_c", seed, weeks, spells=spells, setup=lowered(level))
     acute = sum(p.acute_anxiety for p in state.people.values() if p.role.value == "member")
-    return result({"mean_acute": acute, "reactive_per_offered": reactive_per_offered(records)}, records)
+    return result({"mean_acute": acute, "reactive_over_chance": reactive_over_chance(records)}, records)
 
 
-def reactive_per_offered(records) -> float:
-    """Reactive acts selected over reactive acts offered, summed over every selection of the run.
+def reactive_over_chance(records) -> float:
+    """Per selection, whether the act chosen was reactive, less the reactive share of that selection's legal set;
+    the mean over every selection whose legal set offered a reactive act.
 
     Restated post hoc on 2026-10-09 (Q2 of ``docs/DECISIONS — PHASE C FAILING.md``, approved by the owner). The
     declared readout, reactive moves over all moves, conflicts with `M4.D.3a`: a lower level closes layers 1 and 2,
-    which hold five of the seven reactive acts, while the self-directed acts stay available, so the share fell at a
-    lower level even as acute anxiety rose. Dividing by what the legal set offered removes that availability effect.
+    which hold five of the seven reactive acts, so the share fell at a lower level even as acute anxiety rose. The
+    first restatement (reactive selected over reactive offered) was confounded the other way, found by review
+    before it was relied on: a chooser picking uniformly at random scores 1/N on it, so it rose whenever the legal
+    set shrank. A uniform chooser scores 0 on this one at any set size, so it reads a preference for reactive acts
+    beyond what the legal set makes likely.
     """
     kinds = {r.event.id: r.event.kind for r in records if isinstance(r, EmittedRecord)}
-    selected = offered = 0
+    excess, n = 0.0, 0
     for r in records:
-        if isinstance(r, SelectionRecord):
-            selected += kinds.get(r.event_id) in AUTOMATIC
-            offered += sum(1 for label in r.legal_set if label.split(">")[0] in AUTOMATIC)
-    return selected / max(1, offered)
+        if isinstance(r, SelectionRecord) and r.legal_set:
+            offered = sum(1 for label in r.legal_set if label.split(">")[0] in AUTOMATIC)
+            if offered:
+                excess += (kinds.get(r.event_id) in AUTOMATIC) - offered / len(r.legal_set)
+                n += 1
+    return excess / max(1, n)
 
 
 # --- M11.C.42: a triangle that relieved is reused ----------------------------------------------
@@ -660,7 +687,7 @@ for name, base, treat in (("light: lower level", (_hi, "light"), (_lo, "light"))
                           ("lower level: heavier stress", (_lo, "light"), (_lo, "heavy"))):
     cid = f"M11.C.41[{name}]"
     CRITERIA[cid] = C(cid, "mixed", ("baseline", "treatment"),
-                      (Readout("mean_acute", +1), Readout("reactive_per_offered", +1)), arm_c41,
+                      (Readout("mean_acute", +1), Readout("reactive_over_chance", +1)), arm_c41,
                       settings={"weeks": SETTINGS["M11.C.41"]["weeks"], "arms": (base, treat)})
 
 NOT_BUILT = {

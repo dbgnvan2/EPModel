@@ -103,21 +103,24 @@ def test_m17a1_stopping_does_not_depend_on_which_arm_is_called_baseline():
 
 
 def test_m17d3_verdict_reports_scripted_acts_not_made():
-    """Each arm's scripted acts, made or not, summed over the seeds: a skipped seed adds a difference of exactly 0,
-    so the verdict carries the skip rate (step S of docs/DECISIONS — PHASE C FAILING.md)."""
+    """Each arm's scripted acts by what became of them, summed over the seeds; an arm that scripted acts is
+    reported even when none was made, an arm that scripted none is left out (step S)."""
     from collections import Counter
 
-    from src.bowen.ensemble.runner import ArmResult, scripted_counts
+    from src.bowen.ensemble.runner import SCRIPTED_STATUSES, ArmResult, scripted_counts
 
-    def arm(made, skipped, not_selecting):
-        return ArmResult({}, Counter({"(scripted act made)": made, "(scripted act not legal, skipped)": skipped,
-                                      "(scripted act not made, actor not selecting)": not_selecting}),
-                         Counter(), Counter())
+    def arm(scripted=1, **status):
+        moves = Counter({f"(scripted act: {s.replace('_', ' ')})": n for s, n in status.items()})
+        if scripted:
+            moves["(scripted acts)"] = scripted
+        return ArmResult({}, moves, Counter(), Counter())
 
-    results = [(0, arm(1, 0, 0), arm(0, 1, 0)), (1, arm(1, 0, 0), arm(0, 0, 1)), (2, arm(1, 0, 0), arm(1, 0, 0))]
+    results = [(0, arm(made=1), arm(not_legal=1)), (1, arm(made=1), arm(rewritten=1)),
+               (2, arm(made=1), arm(not_reached=1))]
     counts = scripted_counts(crit(), results)
-    assert counts == {"baseline": {"made": 3, "not legal": 0, "not selecting": 0},
-                      "treatment": {"made": 1, "not legal": 1, "not selecting": 1}}
-    unscripted = [(0, ArmResult({}, Counter(), Counter(), Counter()), ArmResult({}, Counter(), Counter(), Counter()))]
+    assert counts["baseline"] == dict.fromkeys(SCRIPTED_STATUSES, 0) | {"made": 3}
+    assert counts["treatment"] == dict.fromkeys(SCRIPTED_STATUSES, 0) | {"not legal": 1, "rewritten": 1,
+                                                                         "not reached": 1}
+    unscripted = [(0, arm(scripted=0), arm(scripted=0))]
     assert scripted_counts(crit(), unscripted) == {}
     assert run_criterion(crit(effect=1.0), RULES).scripted == {}  # the toy arms script nothing

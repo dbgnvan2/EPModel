@@ -69,10 +69,14 @@ def run(workers: int, only: list[str] | None):
 
 
 def scripted_cell(scripted: dict) -> str:
-    """Each arm's scripted acts not made, of all it scripted: "—" for a criterion that scripts none."""
+    """Each arm's scripted acts not made, of all it scripted, and why: "—" for a criterion that scripts none."""
     if not scripted:
         return "—"
-    return "; ".join(f"{arm} {c['not legal'] + c['not selecting']} of {sum(c.values())}" for arm, c in scripted.items())
+    cells = []
+    for arm, c in scripted.items():
+        why = ", ".join(f"{n} {s}" for s, n in c.items() if s != "made" and n)
+        cells.append(f"{arm} {sum(c.values()) - c['made']} of {sum(c.values())}" + (f" ({why})" if why else ""))
+    return "; ".join(cells)
 
 
 def render(verdicts, not_built, rules, hash_: str) -> str:
@@ -88,7 +92,7 @@ def render(verdicts, not_built, rules, hash_: str) -> str:
         "",
         "Rules: " + ", ".join(f"`{k}` = {v}" for k, v in rules.items()) + ".",
         "",
-        "| Criterion | Class | Verdict | Seeds | Readouts (difference treatment − baseline; ± half-width; p after Holm where tested) | Scripted acts not made (not legal + not selecting, of all scripted) | Fallback rate | Flags |",
+        "| Criterion | Class | Verdict | Seeds | Readouts (difference treatment − baseline; ± half-width; p after Holm where tested) | Scripted acts not made, of all scripted (why) | Fallback rate | Flags |",
         "|---|---|---|---|---|---|---|---|",
     ]
     for v, _ in verdicts:

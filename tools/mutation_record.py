@@ -20,7 +20,8 @@ Outcomes:
   not proved by that mutant and is reported as such. A red mutant is **reversed** when every
   gating readout's interval lies wholly on the side opposite its direction: the result flipped
   rather than vanished (`M11.1d`). Report-only and equivalence readouts are not gating. A mutant
-  whose code raised is **raised**: it proves nothing and is not counted as red.
+  whose replacement text is broken (NameError, ImportError, SyntaxError) is **broken**: it proves
+  nothing and is not counted as red. An engine exception under a mutant is a red.
 * representation mutant — **unchanged** if the criterion still passes, otherwise an
   **encoding artefact** (`M11.1c`).
 """
@@ -28,37 +29,24 @@ Outcomes:
 from __future__ import annotations
 
 import argparse
-import json
 import os
+import json
 import re
-import shutil
-import subprocess
 import sys
-import tempfile
-from dataclasses import dataclass
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO))
 
+from tools.mutant_runner import BROKEN_ERRORS, Mutant, apply  # noqa: E402,F401
+from tools.record_cache import Cache, engine_hash, result_key, run_cached  # noqa: E402
+
 RECORD = REPO / "docs" / "phase_c_mutation_record.md"
 ENSEMBLE_RECORD = REPO / "docs" / "phase_c_ensemble_record.md"
 # The mutant list here, and RULE_KEYS in tools/ensemble_record.py, are inputs to the record.
-HASHED_TOOLS = (Path(__file__).resolve(), REPO / "tools" / "ensemble_record.py")
 DELETION, NAMED, SIGN, REPRESENTATION = "deletion", "named", "sign-inverted", "representation"
 LEVEL = ("M11.C.1", "M11.C.38", "M11.C.41", "M11.C.16")
 
-
-@dataclass(frozen=True)
-class Mutant:
-    id: str
-    kind: str
-    criteria: tuple[str, ...]  # criterion ids, or a prefix ending in "[" for expanded families
-    file: str
-    old: str
-    new: str
-    what: str
-    also: tuple[tuple[str, str, str], ...] = ()  # further (file, old, new) for a joint mutant (M11.1a: name every write)
 
 
 AVAILABILITY = "return min(1.0, max(0.0, obs.functional_level / (layer * params.capacity_level_per_layer)))"
@@ -288,66 +276,17 @@ def targets(mutant: Mutant, all_ids, passed: set[str]) -> tuple[list[str], list[
     return [c for c in chosen if c in passed], [c for c in chosen if c not in passed]
 
 
-def apply(root: Path, mutant: Mutant) -> None:
-    for file, old, new in ((mutant.file, mutant.old, mutant.new), *mutant.also):
-        path = root / file
-        text = path.read_text(encoding="utf-8")
-        count = text.count(old)
-        if count != 1:
-            raise SystemExit(f"mutant {mutant.id}: the replaced text occurs {count} times in {file}, not once")
-        path.write_text(text.replace(old, new), encoding="utf-8")
-
-
-def child(ids: list[str], workers: int) -> None:
-    """Run in the mutated copy: print one JSON line per criterion."""
-    from src.bowen.ensemble.criteria import CRITERIA
-    from src.bowen.ensemble.runner import run_criterion
-    from src.bowen.io.load import load_constants
-    from tools.ensemble_record import RULE_KEYS
-
-    constants = load_constants()
-    rules = {k: constants[k] for k in RULE_KEYS}
-    for cid in ids:
-        try:
-            v = run_criterion(CRITERIA[cid], rules, workers=workers)
-            readouts = [{"readout": r["readout"], "direction": r["direction"], "mean_difference": r["mean_difference"],
-                         "half_width": r["half_width"], "report_only": r.get("report_only", False)} for r in v.readouts]
-            print(json.dumps({"criterion": cid, "outcome": v.outcome, "seeds": v.seeds, "readouts": readouts},
-                             default=float), flush=True)
-        except Exception as error:  # an invariant raising under a mutant is a red, reported with its cause
-            print(json.dumps({"criterion": cid, "outcome": "RAISED", "seeds": 0,
-                              "error": f"{type(error).__name__}: {str(error)[:160]}"}), flush=True)
-
-
-def run_in_copy(mutant: Mutant | None, tool: str, *args: str, timeout: int = 7200) -> list[dict]:
-    """Run ``tool`` with ``args`` in a temporary copy of the repository, ``mutant`` applied there (never to the
-    working tree); return the JSON lines it prints."""
-    with tempfile.TemporaryDirectory(prefix="bowen-mutant-") as tmp:
-        root = Path(tmp)
-        for part in ("src", "config", "tools"):
-            shutil.copytree(REPO / part, root / part, ignore=shutil.ignore_patterns("__pycache__"))
-        if mutant is not None:
-            apply(root, mutant)
-        out = subprocess.run([sys.executable, str(root / "tools" / tool), *args], cwd=root, capture_output=True,
-                             text=True, timeout=timeout)
-        if out.returncode != 0:
-            raise SystemExit(f"{tool} under {mutant.id if mutant else 'no mutant'} failed:\n{out.stderr[-2000:]}")
-        return [json.loads(line) for line in out.stdout.splitlines() if line.startswith("{")]
-
-
-def run_mutant(mutant: Mutant, ids: list[str], workers: int) -> list[dict]:
-    return run_in_copy(mutant, "mutation_record.py", "--child", *ids, "--workers", str(workers))
-
-
 def judge(mutant: Mutant, outcome: str, readouts=()) -> str:
     """A red mutant is **reversed** when every gating readout's interval lies wholly on the side opposite its
-    direction. Report-only readouts (never tested) and equivalence readouts (direction 0) are not gating."""
+    direction. Report-only readouts (never tested) and equivalence readouts (direction 0) are not gating. A mutant
+    whose replacement text is broken is **broken** for every kind and never counts as proof; an engine exception
+    under a mutant (RAISED) is a red, as the criterion can no longer pass."""
+    if outcome == "BROKEN":
+        return "broken"
     if mutant.kind == REPRESENTATION:
         return "unchanged" if outcome == "PASS" else "encoding artefact"
     if outcome == "PASS":
         return "survived"
-    if outcome == "RAISED":  # the mutated code crashed: no evidence either way, never counted as proof
-        return "raised"
     gating = [x for x in readouts if x["direction"] and not x.get("report_only")]
     if gating and all(x["mean_difference"] * x["direction"] < 0 and abs(x["mean_difference"]) > x["half_width"]
                       for x in gating):
@@ -355,7 +294,7 @@ def judge(mutant: Mutant, outcome: str, readouts=()) -> str:
     return "red"
 
 
-def render(rows, skipped, hash_: str) -> str:
+def render(rows, skipped, engine: str) -> str:
     lines = [
         "# Phase C mutation record",
         "",
@@ -365,12 +304,15 @@ def render(rows, skipped, hash_: str) -> str:
         "is **red** when the criterion stops passing and **survived** when it still passes; a survivor means that",
         "mutant does not prove the criterion. A red mutant is marked **reversed** when every gating readout's interval",
         "lies wholly on the side opposite its declared direction: the result flipped, rather than vanished (`M11.1d`).",
-        "Report-only and equivalence readouts are not gating. A mutant whose code raised is **raised** and proves",
-        "nothing. A",
+        "Report-only and equivalence readouts are not gating. A mutant whose replacement text is broken (an",
+        "unimported name) is **broken** and proves nothing; an engine exception under a mutant is a red. A",
         "representation mutant (`M11.1c`) should leave every verdict",
         "unchanged; a change is reported as an **encoding artefact**.",
         "",
-        f"code_hash: {hash_}",
+        f"engine_hash: {engine}",
+        "",
+        "Results are cached by `tools/mutant_runner.py` under the engine hash and each mutant's own edits",
+        "(`docs/records_cache/mutation.json`); this file is rendered from that cache.",
         "",
         "| Mutant | Kind | What it changes | Criterion | Verdict under mutant | Seeds | Difference under mutant | Result |",
         "|---|---|---|---|---|---|---|---|",
@@ -388,41 +330,44 @@ def render(rows, skipped, hash_: str) -> str:
     lines += [f"- `{m.id}` → `{cid}`" for m, cid in skipped] or ["- none"]
     lines += ["", "## Machine-readable", "", "```json",
               json.dumps([{"mutant": m.id, "kind": m.kind, "criterion": r["criterion"], "outcome": r["outcome"],
-                           "result": judge(m, r["outcome"], r.get("readouts", ())), "readouts": r.get("readouts", [])} for m, r in rows],
+                           "seeds": r["seeds"], "result": judge(m, r["outcome"], r.get("readouts", ())),
+                           "readouts": r.get("readouts", []), **({"error": r["error"]} if r.get("error") else {})}
+                          for m, r in rows],
                          indent=1, default=float),
               "```", ""]
     return "\n".join(lines)
 
 
-def main() -> int:
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--workers", type=int, default=os.cpu_count() or 1)
-    parser.add_argument("--only", nargs="*")
-    parser.add_argument("--child", nargs="*")
-    args = parser.parse_args()
-    if args.child is not None:
-        child(args.child, args.workers)
-        return 0
+def build(cache: Cache, workers: int | None = None) -> str:
+    """The record, from the cache. With ``workers``, missing results are run first; without, a missing result raises
+    KeyError, so a test can check the committed record without running anything."""
     from src.bowen.ensemble.criteria import CRITERIA
-    from tools.ensemble_record import code_hash
 
-    passed = passing()
+    passed, engine = passing(), engine_hash()
     rows, skipped = [], []
     for mutant in MUTANTS:
-        if args.only and mutant.id not in args.only:
-            continue
         run_ids, not_run = targets(mutant, list(CRITERIA), passed)
         skipped += [(mutant, cid) for cid in not_run if mutant.criteria != ("*",)]
         if not run_ids:
             continue
-        for result in run_mutant(mutant, run_ids, args.workers):
-            rows.append((mutant, result))
-            print(f"{mutant.id} → {result['criterion']}: {result['outcome']} ({judge(mutant, result['outcome'], result.get('readouts', ()))})",
-                  flush=True)
-    if args.only:  # a subset would replace the whole record under a current hash (P31)
-        print(f"--only ran a subset; {RECORD.name} not written")
-        return 0
-    RECORD.write_text(render(rows, skipped, code_hash(*HASHED_TOOLS)), encoding="utf-8")
+        if workers is not None:
+            results = run_cached(cache, mutant, run_ids, workers)
+        else:
+            results = [cache.get(result_key(engine, mutant.definition(), cid)) for cid in run_ids]
+            if None in results:
+                raise KeyError(f"{mutant.id}: no cached result for the current engine and edits")
+        rows += [(mutant, result) for result in results]
+    return render(rows, skipped, engine)
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--workers", type=int, default=os.cpu_count() or 1)
+    args = parser.parse_args()
+    cache = Cache("mutation")
+    text = build(cache, args.workers)
+    cache.save()
+    RECORD.write_text(text, encoding="utf-8")
     print(f"wrote {RECORD.relative_to(REPO)}")
     return 0
 

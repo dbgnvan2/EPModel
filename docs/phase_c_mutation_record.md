@@ -6,12 +6,15 @@ to a temporary copy of the repository, run against the criteria that pass in
 is **red** when the criterion stops passing and **survived** when it still passes; a survivor means that
 mutant does not prove the criterion. A red mutant is marked **reversed** when every gating readout's interval
 lies wholly on the side opposite its declared direction: the result flipped, rather than vanished (`M11.1d`).
-Report-only and equivalence readouts are not gating. A mutant whose code raised is **raised** and proves
-nothing. A
+Report-only and equivalence readouts are not gating. A mutant whose replacement text is broken (an
+unimported name) is **broken** and proves nothing; an engine exception under a mutant is a red. A
 representation mutant (`M11.1c`) should leave every verdict
 unchanged; a change is reported as an **encoding artefact**.
 
-code_hash: c3280b7f4236e26bd54640095eae3d4bb279d598d82397993f16067d153c48d4
+engine_hash: 8a033677bb8ecb4bd72bfa0b6f37e13f8269b9504bbe56925422aae07ca051a6
+
+Results are cached by `tools/mutant_runner.py` under the engine hash and each mutant's own edits
+(`docs/records_cache/mutation.json`); this file is rendered from that cache.
 
 | Mutant | Kind | What it changes | Criterion | Verdict under mutant | Seeds | Difference under mutant | Result |
 |---|---|---|---|---|---|---|---|
@@ -164,13 +167,14 @@ criterion.
   "kind": "named",
   "criterion": "M11.C.1",
   "outcome": "PASS",
+  "seeds": 100,
   "result": "survived",
   "readouts": [
    {
-    "readout": "time_to_threshold",
     "direction": -1,
-    "mean_difference": -0.96,
     "half_width": 0.16696353681646364,
+    "mean_difference": -0.96,
+    "readout": "time_to_threshold",
     "report_only": false
    }
   ]
@@ -180,20 +184,21 @@ criterion.
   "kind": "named",
   "criterion": "M11.C.16",
   "outcome": "PASS",
+  "seeds": 150,
   "result": "survived",
   "readouts": [
    {
-    "readout": "repertoire_entropy",
     "direction": -1,
-    "mean_difference": -0.037061575629461704,
     "half_width": 0.014025958752400477,
+    "mean_difference": -0.037061575629461704,
+    "readout": "repertoire_entropy",
     "report_only": false
    },
    {
-    "readout": "top_move_share",
     "direction": 1,
-    "mean_difference": 0.032291915849371286,
     "half_width": 0.012831866516032995,
+    "mean_difference": 0.032291915849371286,
+    "readout": "top_move_share",
     "report_only": true
    }
   ]
@@ -203,13 +208,14 @@ criterion.
   "kind": "named",
   "criterion": "M11.C.38[-0 vs -5]",
   "outcome": "PASS",
+  "seeds": 100,
   "result": "survived",
   "readouts": [
    {
-    "readout": "time_to_threshold",
     "direction": -1,
-    "mean_difference": -0.51,
     "half_width": 0.1261181040200659,
+    "mean_difference": -0.51,
+    "readout": "time_to_threshold",
     "report_only": false
    }
   ]
@@ -219,13 +225,14 @@ criterion.
   "kind": "named",
   "criterion": "M11.C.38[-5 vs -10]",
   "outcome": "PASS",
+  "seeds": 100,
   "result": "survived",
   "readouts": [
    {
-    "readout": "time_to_threshold",
     "direction": -1,
-    "mean_difference": -0.45,
     "half_width": 0.14307037189135743,
+    "mean_difference": -0.45,
+    "readout": "time_to_threshold",
     "report_only": false
    }
   ]
@@ -235,13 +242,14 @@ criterion.
   "kind": "named",
   "criterion": "M11.C.38[-10 vs -15]",
   "outcome": "PASS",
+  "seeds": 50,
   "result": "survived",
   "readouts": [
    {
-    "readout": "time_to_threshold",
     "direction": -1,
-    "mean_difference": -0.52,
     "half_width": 0.15068058932722556,
+    "mean_difference": -0.52,
+    "readout": "time_to_threshold",
     "report_only": false
    }
   ]
@@ -251,20 +259,21 @@ criterion.
   "kind": "named",
   "criterion": "M11.C.16",
   "outcome": "PASS",
+  "seeds": 150,
   "result": "survived",
   "readouts": [
    {
-    "readout": "repertoire_entropy",
     "direction": -1,
-    "mean_difference": -0.03821330433569659,
     "half_width": 0.009490617539338699,
+    "mean_difference": -0.03821330433569659,
+    "readout": "repertoire_entropy",
     "report_only": false
    },
    {
-    "readout": "top_move_share",
     "direction": 1,
-    "mean_difference": 0.04425948323504383,
     "half_width": 0.009726100313692768,
+    "mean_difference": 0.04425948323504383,
+    "readout": "top_move_share",
     "report_only": true
    }
   ]
@@ -274,20 +283,21 @@ criterion.
   "kind": "named",
   "criterion": "M11.C.3",
   "outcome": "FAIL",
+  "seeds": 50,
   "result": "reversed",
   "readouts": [
    {
-    "readout": "pair_anxiety",
     "direction": -1,
-    "mean_difference": 0.7187075486194269,
     "half_width": 0.3881284191135461,
+    "mean_difference": 0.7187075486194269,
+    "readout": "pair_anxiety",
     "report_only": false
    },
    {
-    "readout": "third_anxiety",
     "direction": 1,
-    "mean_difference": -0.3868544898847807,
     "half_width": 0.22686178446729094,
+    "mean_difference": -0.3868544898847807,
+    "readout": "third_anxiety",
     "report_only": false
    }
   ]
@@ -297,20 +307,21 @@ criterion.
   "kind": "named",
   "criterion": "M11.C.16",
   "outcome": "PASS",
+  "seeds": 150,
   "result": "survived",
   "readouts": [
    {
-    "readout": "repertoire_entropy",
     "direction": -1,
-    "mean_difference": -0.05694379277387502,
     "half_width": 0.02440211949470566,
+    "mean_difference": -0.05694379277387502,
+    "readout": "repertoire_entropy",
     "report_only": false
    },
    {
-    "readout": "top_move_share",
     "direction": 1,
-    "mean_difference": 0.03459591809490617,
     "half_width": 0.010683892237811467,
+    "mean_difference": 0.03459591809490617,
+    "readout": "top_move_share",
     "report_only": true
    }
   ]
@@ -320,20 +331,21 @@ criterion.
   "kind": "named",
   "criterion": "M11.C.19",
   "outcome": "FAIL",
+  "seeds": 50,
   "result": "red",
   "readouts": [
    {
-    "readout": "outward_failed",
     "direction": 1,
-    "mean_difference": 0.0,
     "half_width": 0.0,
+    "mean_difference": 0.0,
+    "readout": "outward_failed",
     "report_only": false
    },
    {
-    "readout": "inward_failed",
     "direction": -1,
-    "mean_difference": 0.0,
     "half_width": 0.0,
+    "mean_difference": 0.0,
+    "readout": "inward_failed",
     "report_only": false
    }
   ]
@@ -343,13 +355,14 @@ criterion.
   "kind": "named",
   "criterion": "M11.C.25",
   "outcome": "FAIL",
+  "seeds": 100,
   "result": "red",
   "readouts": [
    {
-    "readout": "first_dominant",
     "direction": 0,
-    "mean_difference": -0.38,
     "half_width": 0.09561501931805443,
+    "mean_difference": -0.38,
+    "readout": "first_dominant",
     "report_only": false
    }
   ]
@@ -359,13 +372,14 @@ criterion.
   "kind": "named",
   "criterion": "M11.C.27[unstable,remove_one]",
   "outcome": "FAIL",
+  "seeds": 50,
   "result": "reversed",
   "readouts": [
    {
-    "readout": "pair_deviation",
     "direction": -1,
-    "mean_difference": 0.07345535158371122,
     "half_width": 0.037872004907809974,
+    "mean_difference": 0.07345535158371122,
+    "readout": "pair_deviation",
     "report_only": false
    }
   ]
@@ -375,20 +389,21 @@ criterion.
   "kind": "named",
   "criterion": "M11.C.32",
   "outcome": "FAIL",
+  "seeds": 150,
   "result": "reversed",
   "readouts": [
    {
-    "readout": "assertion_form",
     "direction": 1,
-    "mean_difference": -1.1933333333333334,
     "half_width": 0.27356352744762935,
+    "mean_difference": -1.1933333333333334,
+    "readout": "assertion_form",
     "report_only": false
    },
    {
-    "readout": "reached_peak",
     "direction": -1,
-    "mean_difference": 0.15333333333333332,
     "half_width": 0.06871839150002336,
+    "mean_difference": 0.15333333333333332,
+    "readout": "reached_peak",
     "report_only": false
    }
   ]
@@ -398,13 +413,14 @@ criterion.
   "kind": "named",
   "criterion": "M11.C.35",
   "outcome": "FAIL",
+  "seeds": 100,
   "result": "red",
   "readouts": [
    {
-    "readout": "witness_appraisal",
     "direction": 1,
-    "mean_difference": 0.16044058463960414,
     "half_width": 0.16294869762324513,
+    "mean_difference": 0.16044058463960414,
+    "readout": "witness_appraisal",
     "report_only": false
    }
   ]
@@ -414,13 +430,14 @@ criterion.
   "kind": "deletion",
   "criterion": "M11.C.1",
   "outcome": "PASS",
+  "seeds": 100,
   "result": "survived",
   "readouts": [
    {
-    "readout": "time_to_threshold",
     "direction": -1,
-    "mean_difference": -0.96,
     "half_width": 0.17379604440408025,
+    "mean_difference": -0.96,
+    "readout": "time_to_threshold",
     "report_only": false
    }
   ]
@@ -430,20 +447,21 @@ criterion.
   "kind": "deletion",
   "criterion": "M11.C.16",
   "outcome": "PASS",
+  "seeds": 150,
   "result": "survived",
   "readouts": [
    {
-    "readout": "repertoire_entropy",
     "direction": -1,
-    "mean_difference": -0.05065107816800189,
     "half_width": 0.01966413611950596,
+    "mean_difference": -0.05065107816800189,
+    "readout": "repertoire_entropy",
     "report_only": false
    },
    {
-    "readout": "top_move_share",
     "direction": 1,
-    "mean_difference": 0.03424966177166424,
     "half_width": 0.011375867264953822,
+    "mean_difference": 0.03424966177166424,
+    "readout": "top_move_share",
     "report_only": true
    }
   ]
@@ -453,13 +471,14 @@ criterion.
   "kind": "deletion",
   "criterion": "M11.C.38[-0 vs -5]",
   "outcome": "PASS",
+  "seeds": 100,
   "result": "survived",
   "readouts": [
    {
-    "readout": "time_to_threshold",
     "direction": -1,
-    "mean_difference": -0.51,
     "half_width": 0.14339547067498684,
+    "mean_difference": -0.51,
+    "readout": "time_to_threshold",
     "report_only": false
    }
   ]
@@ -469,13 +488,14 @@ criterion.
   "kind": "deletion",
   "criterion": "M11.C.38[-5 vs -10]",
   "outcome": "PASS",
+  "seeds": 150,
   "result": "survived",
   "readouts": [
    {
-    "readout": "time_to_threshold",
     "direction": -1,
-    "mean_difference": -0.42,
     "half_width": 0.1340474496109627,
+    "mean_difference": -0.42,
+    "readout": "time_to_threshold",
     "report_only": false
    }
   ]
@@ -485,100 +505,106 @@ criterion.
   "kind": "deletion",
   "criterion": "M11.C.38[-10 vs -15]",
   "outcome": "PASS",
+  "seeds": 50,
   "result": "survived",
   "readouts": [
    {
-    "readout": "time_to_threshold",
     "direction": -1,
-    "mean_difference": -0.42,
     "half_width": 0.16883791043483096,
-    "report_only": false
-   }
-  ]
- },
- {
-  "mutant": "threshold-level-inverted",
-  "kind": "sign-inverted",
-  "criterion": "M11.C.1",
-  "outcome": "PASS",
-  "result": "survived",
-  "readouts": [
-   {
-    "readout": "time_to_threshold",
-    "direction": -1,
-    "mean_difference": -0.49,
-    "half_width": 0.23719607539295037,
-    "report_only": false
-   }
-  ]
- },
- {
-  "mutant": "threshold-level-inverted",
-  "kind": "sign-inverted",
-  "criterion": "M11.C.16",
-  "outcome": "PASS",
-  "result": "survived",
-  "readouts": [
-   {
-    "readout": "repertoire_entropy",
-    "direction": -1,
-    "mean_difference": -0.0693113124057392,
-    "half_width": 0.024905766302697377,
-    "report_only": false
-   },
-   {
-    "readout": "top_move_share",
-    "direction": 1,
-    "mean_difference": 0.05350730973780769,
-    "half_width": 0.017783876432038465,
-    "report_only": true
-   }
-  ]
- },
- {
-  "mutant": "threshold-level-inverted",
-  "kind": "sign-inverted",
-  "criterion": "M11.C.38[-0 vs -5]",
-  "outcome": "FAIL",
-  "result": "red",
-  "readouts": [
-   {
-    "readout": "time_to_threshold",
-    "direction": -1,
-    "mean_difference": -0.12,
-    "half_width": 0.16779812787147452,
-    "report_only": false
-   }
-  ]
- },
- {
-  "mutant": "threshold-level-inverted",
-  "kind": "sign-inverted",
-  "criterion": "M11.C.38[-5 vs -10]",
-  "outcome": "PASS",
-  "result": "survived",
-  "readouts": [
-   {
-    "readout": "time_to_threshold",
-    "direction": -1,
-    "mean_difference": -0.37,
-    "half_width": 0.25327249987300077,
-    "report_only": false
-   }
-  ]
- },
- {
-  "mutant": "threshold-level-inverted",
-  "kind": "sign-inverted",
-  "criterion": "M11.C.38[-10 vs -15]",
-  "outcome": "PASS",
-  "result": "survived",
-  "readouts": [
-   {
-    "readout": "time_to_threshold",
-    "direction": -1,
     "mean_difference": -0.42,
+    "readout": "time_to_threshold",
+    "report_only": false
+   }
+  ]
+ },
+ {
+  "mutant": "threshold-level-inverted",
+  "kind": "sign-inverted",
+  "criterion": "M11.C.1",
+  "outcome": "PASS",
+  "seeds": 100,
+  "result": "survived",
+  "readouts": [
+   {
+    "direction": -1,
+    "half_width": 0.23719607539295037,
+    "mean_difference": -0.49,
+    "readout": "time_to_threshold",
+    "report_only": false
+   }
+  ]
+ },
+ {
+  "mutant": "threshold-level-inverted",
+  "kind": "sign-inverted",
+  "criterion": "M11.C.16",
+  "outcome": "PASS",
+  "seeds": 150,
+  "result": "survived",
+  "readouts": [
+   {
+    "direction": -1,
+    "half_width": 0.024905766302697377,
+    "mean_difference": -0.0693113124057392,
+    "readout": "repertoire_entropy",
+    "report_only": false
+   },
+   {
+    "direction": 1,
+    "half_width": 0.017783876432038465,
+    "mean_difference": 0.05350730973780769,
+    "readout": "top_move_share",
+    "report_only": true
+   }
+  ]
+ },
+ {
+  "mutant": "threshold-level-inverted",
+  "kind": "sign-inverted",
+  "criterion": "M11.C.38[-0 vs -5]",
+  "outcome": "FAIL",
+  "seeds": 100,
+  "result": "red",
+  "readouts": [
+   {
+    "direction": -1,
+    "half_width": 0.16779812787147452,
+    "mean_difference": -0.12,
+    "readout": "time_to_threshold",
+    "report_only": false
+   }
+  ]
+ },
+ {
+  "mutant": "threshold-level-inverted",
+  "kind": "sign-inverted",
+  "criterion": "M11.C.38[-5 vs -10]",
+  "outcome": "PASS",
+  "seeds": 100,
+  "result": "survived",
+  "readouts": [
+   {
+    "direction": -1,
+    "half_width": 0.25327249987300077,
+    "mean_difference": -0.37,
+    "readout": "time_to_threshold",
+    "report_only": false
+   }
+  ]
+ },
+ {
+  "mutant": "threshold-level-inverted",
+  "kind": "sign-inverted",
+  "criterion": "M11.C.38[-10 vs -15]",
+  "outcome": "PASS",
+  "seeds": 50,
+  "result": "survived",
+  "readouts": [
+   {
+    "direction": -1,
     "half_width": 0.2632,
+    "mean_difference": -0.42,
+    "readout": "time_to_threshold",
     "report_only": false
    }
   ]
@@ -588,13 +614,14 @@ criterion.
   "kind": "deletion",
   "criterion": "M11.C.1",
   "outcome": "PASS",
+  "seeds": 100,
   "result": "survived",
   "readouts": [
    {
-    "readout": "time_to_threshold",
     "direction": -1,
-    "mean_difference": -1.29,
     "half_width": 0.14285322834463648,
+    "mean_difference": -1.29,
+    "readout": "time_to_threshold",
     "report_only": false
    }
   ]
@@ -604,20 +631,21 @@ criterion.
   "kind": "deletion",
   "criterion": "M11.C.16",
   "outcome": "PASS",
+  "seeds": 150,
   "result": "survived",
   "readouts": [
    {
-    "readout": "repertoire_entropy",
     "direction": -1,
-    "mean_difference": -0.04940466098703902,
     "half_width": 0.01943228960285506,
+    "mean_difference": -0.04940466098703902,
+    "readout": "repertoire_entropy",
     "report_only": false
    },
    {
-    "readout": "top_move_share",
     "direction": 1,
-    "mean_difference": 0.05027788586907744,
     "half_width": 0.01630498341765011,
+    "mean_difference": 0.05027788586907744,
+    "readout": "top_move_share",
     "report_only": true
    }
   ]
@@ -627,13 +655,14 @@ criterion.
   "kind": "deletion",
   "criterion": "M11.C.38[-0 vs -5]",
   "outcome": "PASS",
+  "seeds": 100,
   "result": "survived",
   "readouts": [
    {
-    "readout": "time_to_threshold",
     "direction": -1,
-    "mean_difference": -0.71,
     "half_width": 0.11915703245649575,
+    "mean_difference": -0.71,
+    "readout": "time_to_threshold",
     "report_only": false
    }
   ]
@@ -643,13 +672,14 @@ criterion.
   "kind": "deletion",
   "criterion": "M11.C.38[-5 vs -10]",
   "outcome": "PASS",
+  "seeds": 100,
   "result": "survived",
   "readouts": [
    {
-    "readout": "time_to_threshold",
     "direction": -1,
-    "mean_difference": -0.58,
     "half_width": 0.11546890612986807,
+    "mean_difference": -0.58,
+    "readout": "time_to_threshold",
     "report_only": false
    }
   ]
@@ -659,100 +689,106 @@ criterion.
   "kind": "deletion",
   "criterion": "M11.C.38[-10 vs -15]",
   "outcome": "PASS",
+  "seeds": 100,
   "result": "survived",
   "readouts": [
    {
-    "readout": "time_to_threshold",
     "direction": -1,
-    "mean_difference": -0.73,
     "half_width": 0.1143715087782006,
-    "report_only": false
-   }
-  ]
- },
- {
-  "mutant": "standing-load-level-inverted",
-  "kind": "sign-inverted",
-  "criterion": "M11.C.1",
-  "outcome": "PASS",
-  "result": "survived",
-  "readouts": [
-   {
-    "readout": "time_to_threshold",
-    "direction": -1,
-    "mean_difference": -1.3,
-    "half_width": 0.14608977452998628,
-    "report_only": false
-   }
-  ]
- },
- {
-  "mutant": "standing-load-level-inverted",
-  "kind": "sign-inverted",
-  "criterion": "M11.C.16",
-  "outcome": "PASS",
-  "result": "survived",
-  "readouts": [
-   {
-    "readout": "repertoire_entropy",
-    "direction": -1,
-    "mean_difference": -0.04859886996219515,
-    "half_width": 0.01584726122059632,
-    "report_only": false
-   },
-   {
-    "readout": "top_move_share",
-    "direction": 1,
-    "mean_difference": 0.042682853003567826,
-    "half_width": 0.010870238923250617,
-    "report_only": true
-   }
-  ]
- },
- {
-  "mutant": "standing-load-level-inverted",
-  "kind": "sign-inverted",
-  "criterion": "M11.C.38[-0 vs -5]",
-  "outcome": "PASS",
-  "result": "survived",
-  "readouts": [
-   {
-    "readout": "time_to_threshold",
-    "direction": -1,
-    "mean_difference": -0.72,
-    "half_width": 0.12168657205370617,
-    "report_only": false
-   }
-  ]
- },
- {
-  "mutant": "standing-load-level-inverted",
-  "kind": "sign-inverted",
-  "criterion": "M11.C.38[-5 vs -10]",
-  "outcome": "PASS",
-  "result": "survived",
-  "readouts": [
-   {
-    "readout": "time_to_threshold",
-    "direction": -1,
-    "mean_difference": -0.58,
-    "half_width": 0.11205796479834655,
-    "report_only": false
-   }
-  ]
- },
- {
-  "mutant": "standing-load-level-inverted",
-  "kind": "sign-inverted",
-  "criterion": "M11.C.38[-10 vs -15]",
-  "outcome": "PASS",
-  "result": "survived",
-  "readouts": [
-   {
-    "readout": "time_to_threshold",
-    "direction": -1,
     "mean_difference": -0.73,
+    "readout": "time_to_threshold",
+    "report_only": false
+   }
+  ]
+ },
+ {
+  "mutant": "standing-load-level-inverted",
+  "kind": "sign-inverted",
+  "criterion": "M11.C.1",
+  "outcome": "PASS",
+  "seeds": 100,
+  "result": "survived",
+  "readouts": [
+   {
+    "direction": -1,
+    "half_width": 0.14608977452998628,
+    "mean_difference": -1.3,
+    "readout": "time_to_threshold",
+    "report_only": false
+   }
+  ]
+ },
+ {
+  "mutant": "standing-load-level-inverted",
+  "kind": "sign-inverted",
+  "criterion": "M11.C.16",
+  "outcome": "PASS",
+  "seeds": 150,
+  "result": "survived",
+  "readouts": [
+   {
+    "direction": -1,
+    "half_width": 0.01584726122059632,
+    "mean_difference": -0.04859886996219515,
+    "readout": "repertoire_entropy",
+    "report_only": false
+   },
+   {
+    "direction": 1,
+    "half_width": 0.010870238923250617,
+    "mean_difference": 0.042682853003567826,
+    "readout": "top_move_share",
+    "report_only": true
+   }
+  ]
+ },
+ {
+  "mutant": "standing-load-level-inverted",
+  "kind": "sign-inverted",
+  "criterion": "M11.C.38[-0 vs -5]",
+  "outcome": "PASS",
+  "seeds": 100,
+  "result": "survived",
+  "readouts": [
+   {
+    "direction": -1,
+    "half_width": 0.12168657205370617,
+    "mean_difference": -0.72,
+    "readout": "time_to_threshold",
+    "report_only": false
+   }
+  ]
+ },
+ {
+  "mutant": "standing-load-level-inverted",
+  "kind": "sign-inverted",
+  "criterion": "M11.C.38[-5 vs -10]",
+  "outcome": "PASS",
+  "seeds": 100,
+  "result": "survived",
+  "readouts": [
+   {
+    "direction": -1,
+    "half_width": 0.11205796479834655,
+    "mean_difference": -0.58,
+    "readout": "time_to_threshold",
+    "report_only": false
+   }
+  ]
+ },
+ {
+  "mutant": "standing-load-level-inverted",
+  "kind": "sign-inverted",
+  "criterion": "M11.C.38[-10 vs -15]",
+  "outcome": "PASS",
+  "seeds": 100,
+  "result": "survived",
+  "readouts": [
+   {
+    "direction": -1,
     "half_width": 0.11092682818922214,
+    "mean_difference": -0.73,
+    "readout": "time_to_threshold",
     "report_only": false
    }
   ]
@@ -762,13 +798,14 @@ criterion.
   "kind": "deletion",
   "criterion": "M11.C.1",
   "outcome": "FAIL",
+  "seeds": 50,
   "result": "red",
   "readouts": [
    {
-    "readout": "time_to_threshold",
     "direction": -1,
-    "mean_difference": 0.0,
     "half_width": 0.0,
+    "mean_difference": 0.0,
+    "readout": "time_to_threshold",
     "report_only": false
    }
   ]
@@ -778,20 +815,21 @@ criterion.
   "kind": "deletion",
   "criterion": "M11.C.16",
   "outcome": "FAIL",
+  "seeds": 50,
   "result": "red",
   "readouts": [
    {
-    "readout": "repertoire_entropy",
     "direction": -1,
-    "mean_difference": 0.0,
     "half_width": 0.0,
+    "mean_difference": 0.0,
+    "readout": "repertoire_entropy",
     "report_only": false
    },
    {
-    "readout": "top_move_share",
     "direction": 1,
-    "mean_difference": 0.0,
     "half_width": 0.0,
+    "mean_difference": 0.0,
+    "readout": "top_move_share",
     "report_only": true
    }
   ]
@@ -801,13 +839,14 @@ criterion.
   "kind": "deletion",
   "criterion": "M11.C.38[-0 vs -5]",
   "outcome": "FAIL",
+  "seeds": 50,
   "result": "red",
   "readouts": [
    {
-    "readout": "time_to_threshold",
     "direction": -1,
-    "mean_difference": 0.0,
     "half_width": 0.0,
+    "mean_difference": 0.0,
+    "readout": "time_to_threshold",
     "report_only": false
    }
   ]
@@ -817,13 +856,14 @@ criterion.
   "kind": "deletion",
   "criterion": "M11.C.38[-5 vs -10]",
   "outcome": "FAIL",
+  "seeds": 50,
   "result": "red",
   "readouts": [
    {
-    "readout": "time_to_threshold",
     "direction": -1,
-    "mean_difference": 0.0,
     "half_width": 0.0,
+    "mean_difference": 0.0,
+    "readout": "time_to_threshold",
     "report_only": false
    }
   ]
@@ -833,13 +873,14 @@ criterion.
   "kind": "deletion",
   "criterion": "M11.C.38[-10 vs -15]",
   "outcome": "FAIL",
+  "seeds": 50,
   "result": "red",
   "readouts": [
    {
-    "readout": "time_to_threshold",
     "direction": -1,
-    "mean_difference": 0.0,
     "half_width": 0.0,
+    "mean_difference": 0.0,
+    "readout": "time_to_threshold",
     "report_only": false
    }
   ]
@@ -849,20 +890,21 @@ criterion.
   "kind": "deletion",
   "criterion": "M11.C.16",
   "outcome": "PASS",
+  "seeds": 150,
   "result": "survived",
   "readouts": [
    {
-    "readout": "repertoire_entropy",
     "direction": -1,
-    "mean_difference": -0.03325201484009732,
     "half_width": 0.007631388757330043,
+    "mean_difference": -0.03325201484009732,
+    "readout": "repertoire_entropy",
     "report_only": false
    },
    {
-    "readout": "top_move_share",
     "direction": 1,
-    "mean_difference": 0.028862434765465322,
     "half_width": 0.009341906662222241,
+    "mean_difference": 0.028862434765465322,
+    "readout": "top_move_share",
     "report_only": true
    }
   ]
@@ -872,20 +914,21 @@ criterion.
   "kind": "sign-inverted",
   "criterion": "M11.C.16",
   "outcome": "FAIL",
+  "seeds": 150,
   "result": "red",
   "readouts": [
    {
-    "readout": "repertoire_entropy",
     "direction": -1,
-    "mean_difference": -0.00818659047723772,
     "half_width": 0.01976231755692592,
+    "mean_difference": -0.00818659047723772,
+    "readout": "repertoire_entropy",
     "report_only": false
    },
    {
-    "readout": "top_move_share",
     "direction": 1,
-    "mean_difference": -0.012073164606209073,
     "half_width": 0.012919076679572492,
+    "mean_difference": -0.012073164606209073,
+    "readout": "top_move_share",
     "report_only": true
    }
   ]
@@ -895,20 +938,21 @@ criterion.
   "kind": "deletion",
   "criterion": "M11.C.16",
   "outcome": "PASS",
+  "seeds": 150,
   "result": "survived",
   "readouts": [
    {
-    "readout": "repertoire_entropy",
     "direction": -1,
-    "mean_difference": -0.015439501390328028,
     "half_width": 0.013509469943720447,
+    "mean_difference": -0.015439501390328028,
+    "readout": "repertoire_entropy",
     "report_only": false
    },
    {
-    "readout": "top_move_share",
     "direction": 1,
-    "mean_difference": 0.0020903090079630957,
     "half_width": 0.004500357736863715,
+    "mean_difference": 0.0020903090079630957,
+    "readout": "top_move_share",
     "report_only": true
    }
   ]
@@ -918,20 +962,21 @@ criterion.
   "kind": "deletion",
   "criterion": "M11.C.16",
   "outcome": "PASS",
+  "seeds": 150,
   "result": "survived",
   "readouts": [
    {
-    "readout": "repertoire_entropy",
     "direction": -1,
-    "mean_difference": -0.04156062968496036,
     "half_width": 0.014445258293689098,
+    "mean_difference": -0.04156062968496036,
+    "readout": "repertoire_entropy",
     "report_only": false
    },
    {
-    "readout": "top_move_share",
     "direction": 1,
-    "mean_difference": 0.03455493521692368,
     "half_width": 0.010213560311410817,
+    "mean_difference": 0.03455493521692368,
+    "readout": "top_move_share",
     "report_only": true
    }
   ]
@@ -941,20 +986,21 @@ criterion.
   "kind": "sign-inverted",
   "criterion": "M11.C.16",
   "outcome": "PASS",
+  "seeds": 150,
   "result": "survived",
   "readouts": [
    {
-    "readout": "repertoire_entropy",
     "direction": -1,
-    "mean_difference": -0.03934117971009479,
     "half_width": 0.015233990958333986,
+    "mean_difference": -0.03934117971009479,
+    "readout": "repertoire_entropy",
     "report_only": false
    },
    {
-    "readout": "top_move_share",
     "direction": 1,
-    "mean_difference": 0.04084543188934095,
     "half_width": 0.01525784908433158,
+    "mean_difference": 0.04084543188934095,
+    "readout": "top_move_share",
     "report_only": true
    }
   ]
@@ -964,20 +1010,21 @@ criterion.
   "kind": "deletion",
   "criterion": "M11.C.16",
   "outcome": "PASS",
+  "seeds": 150,
   "result": "survived",
   "readouts": [
    {
-    "readout": "repertoire_entropy",
     "direction": -1,
-    "mean_difference": -0.043856761420328155,
     "half_width": 0.012237394303912512,
+    "mean_difference": -0.043856761420328155,
+    "readout": "repertoire_entropy",
     "report_only": false
    },
    {
-    "readout": "top_move_share",
     "direction": 1,
-    "mean_difference": 0.04170820617556571,
     "half_width": 0.011296601642367848,
+    "mean_difference": 0.04170820617556571,
+    "readout": "top_move_share",
     "report_only": true
    }
   ]
@@ -987,20 +1034,21 @@ criterion.
   "kind": "sign-inverted",
   "criterion": "M11.C.16",
   "outcome": "PASS",
+  "seeds": 150,
   "result": "survived",
   "readouts": [
    {
-    "readout": "repertoire_entropy",
     "direction": -1,
-    "mean_difference": -0.057082982292899175,
     "half_width": 0.022879803344503024,
+    "mean_difference": -0.057082982292899175,
+    "readout": "repertoire_entropy",
     "report_only": false
    },
    {
-    "readout": "top_move_share",
     "direction": 1,
-    "mean_difference": 0.04543195882014621,
     "half_width": 0.017116255636852987,
+    "mean_difference": 0.04543195882014621,
+    "readout": "top_move_share",
     "report_only": true
    }
   ]
@@ -1010,20 +1058,21 @@ criterion.
   "kind": "deletion",
   "criterion": "M11.C.16",
   "outcome": "PASS",
+  "seeds": 150,
   "result": "survived",
   "readouts": [
    {
-    "readout": "repertoire_entropy",
     "direction": -1,
-    "mean_difference": -0.057593235242936615,
     "half_width": 0.01925667588433605,
+    "mean_difference": -0.057593235242936615,
+    "readout": "repertoire_entropy",
     "report_only": false
    },
    {
-    "readout": "top_move_share",
     "direction": 1,
-    "mean_difference": 0.04674285177022147,
     "half_width": 0.013202626272994148,
+    "mean_difference": 0.04674285177022147,
+    "readout": "top_move_share",
     "report_only": true
    }
   ]
@@ -1033,20 +1082,21 @@ criterion.
   "kind": "sign-inverted",
   "criterion": "M11.C.16",
   "outcome": "PASS",
+  "seeds": 150,
   "result": "survived",
   "readouts": [
    {
-    "readout": "repertoire_entropy",
     "direction": -1,
-    "mean_difference": -0.03884103074302763,
     "half_width": 0.012280758589522241,
+    "mean_difference": -0.03884103074302763,
+    "readout": "repertoire_entropy",
     "report_only": false
    },
    {
-    "readout": "top_move_share",
     "direction": 1,
-    "mean_difference": 0.04212321059527346,
     "half_width": 0.010928593382798123,
+    "mean_difference": 0.04212321059527346,
+    "readout": "top_move_share",
     "report_only": true
    }
   ]
@@ -1056,20 +1106,21 @@ criterion.
   "kind": "deletion",
   "criterion": "M11.C.16",
   "outcome": "PASS",
+  "seeds": 150,
   "result": "survived",
   "readouts": [
    {
-    "readout": "repertoire_entropy",
     "direction": -1,
-    "mean_difference": -0.06566881026935012,
     "half_width": 0.022573579509214504,
+    "mean_difference": -0.06566881026935012,
+    "readout": "repertoire_entropy",
     "report_only": false
    },
    {
-    "readout": "top_move_share",
     "direction": 1,
-    "mean_difference": 0.0522591498603099,
     "half_width": 0.016930620350842283,
+    "mean_difference": 0.0522591498603099,
+    "readout": "top_move_share",
     "report_only": true
    }
   ]
@@ -1079,20 +1130,21 @@ criterion.
   "kind": "sign-inverted",
   "criterion": "M11.C.16",
   "outcome": "PASS",
+  "seeds": 150,
   "result": "survived",
   "readouts": [
    {
-    "readout": "repertoire_entropy",
     "direction": -1,
-    "mean_difference": -0.06566881026935012,
     "half_width": 0.022573579509214504,
+    "mean_difference": -0.06566881026935012,
+    "readout": "repertoire_entropy",
     "report_only": false
    },
    {
-    "readout": "top_move_share",
     "direction": 1,
-    "mean_difference": 0.0522591498603099,
     "half_width": 0.016930620350842283,
+    "mean_difference": 0.0522591498603099,
+    "readout": "top_move_share",
     "report_only": true
    }
   ]
@@ -1102,20 +1154,21 @@ criterion.
   "kind": "deletion",
   "criterion": "M11.C.16",
   "outcome": "PASS",
+  "seeds": 150,
   "result": "survived",
   "readouts": [
    {
-    "readout": "repertoire_entropy",
     "direction": -1,
-    "mean_difference": -0.03432901996565752,
     "half_width": 0.006772306609623937,
+    "mean_difference": -0.03432901996565752,
+    "readout": "repertoire_entropy",
     "report_only": false
    },
    {
-    "readout": "top_move_share",
     "direction": 1,
-    "mean_difference": 0.038858122203044694,
     "half_width": 0.008493411615624573,
+    "mean_difference": 0.038858122203044694,
+    "readout": "top_move_share",
     "report_only": true
    }
   ]
@@ -1125,20 +1178,21 @@ criterion.
   "kind": "deletion",
   "criterion": "M11.C.16",
   "outcome": "FAIL",
+  "seeds": 100,
   "result": "red",
   "readouts": [
    {
-    "readout": "repertoire_entropy",
     "direction": -1,
-    "mean_difference": -0.0004950111324080475,
     "half_width": 0.005674691041742864,
+    "mean_difference": -0.0004950111324080475,
+    "readout": "repertoire_entropy",
     "report_only": false
    },
    {
-    "readout": "top_move_share",
     "direction": 1,
-    "mean_difference": 2.983102574996871e-05,
     "half_width": 0.008122613128329945,
+    "mean_difference": 2.983102574996871e-05,
+    "readout": "top_move_share",
     "report_only": true
    }
   ]
@@ -1148,20 +1202,21 @@ criterion.
   "kind": "sign-inverted",
   "criterion": "M11.C.3",
   "outcome": "FAIL",
+  "seeds": 50,
   "result": "reversed",
   "readouts": [
    {
-    "readout": "pair_anxiety",
     "direction": -1,
-    "mean_difference": 2.5918312799937144,
     "half_width": 0.8584202957072907,
+    "mean_difference": 2.5918312799937144,
+    "readout": "pair_anxiety",
     "report_only": false
    },
    {
-    "readout": "third_anxiety",
     "direction": 1,
-    "mean_difference": -1.2087229133334942,
     "half_width": 0.5096200320694462,
+    "mean_difference": -1.2087229133334942,
+    "readout": "third_anxiety",
     "report_only": false
    }
   ]
@@ -1171,13 +1226,14 @@ criterion.
   "kind": "sign-inverted",
   "criterion": "M11.C.1",
   "outcome": "PASS",
+  "seeds": 100,
   "result": "survived",
   "readouts": [
    {
-    "readout": "time_to_threshold",
     "direction": -1,
-    "mean_difference": -0.26,
     "half_width": 0.26372781806286955,
+    "mean_difference": -0.26,
+    "readout": "time_to_threshold",
     "report_only": false
    }
   ]
@@ -1187,20 +1243,21 @@ criterion.
   "kind": "sign-inverted",
   "criterion": "M11.C.16",
   "outcome": "PASS",
+  "seeds": 150,
   "result": "survived",
   "readouts": [
    {
-    "readout": "repertoire_entropy",
     "direction": -1,
-    "mean_difference": -0.029985717787777245,
     "half_width": 0.006996628512491263,
+    "mean_difference": -0.029985717787777245,
+    "readout": "repertoire_entropy",
     "report_only": false
    },
    {
-    "readout": "top_move_share",
     "direction": 1,
-    "mean_difference": 0.026728514045284615,
     "half_width": 0.0076650019505521885,
+    "mean_difference": 0.026728514045284615,
+    "readout": "top_move_share",
     "report_only": true
    }
   ]
@@ -1210,13 +1267,14 @@ criterion.
   "kind": "sign-inverted",
   "criterion": "M11.C.38[-0 vs -5]",
   "outcome": "FAIL",
+  "seeds": 100,
   "result": "red",
   "readouts": [
    {
-    "readout": "time_to_threshold",
     "direction": -1,
-    "mean_difference": -0.1,
     "half_width": 0.1588163287027699,
+    "mean_difference": -0.1,
+    "readout": "time_to_threshold",
     "report_only": false
    }
   ]
@@ -1226,13 +1284,14 @@ criterion.
   "kind": "sign-inverted",
   "criterion": "M11.C.38[-5 vs -10]",
   "outcome": "PASS",
+  "seeds": 100,
   "result": "survived",
   "readouts": [
    {
-    "readout": "time_to_threshold",
     "direction": -1,
-    "mean_difference": -0.16,
     "half_width": 0.2579256615164277,
+    "mean_difference": -0.16,
+    "readout": "time_to_threshold",
     "report_only": false
    }
   ]
@@ -1242,13 +1301,14 @@ criterion.
   "kind": "sign-inverted",
   "criterion": "M11.C.38[-10 vs -15]",
   "outcome": "FAIL",
+  "seeds": 50,
   "result": "red",
   "readouts": [
    {
-    "readout": "time_to_threshold",
     "direction": -1,
-    "mean_difference": 0.04,
     "half_width": 0.29076891168073665,
+    "mean_difference": 0.04,
+    "readout": "time_to_threshold",
     "report_only": false
    }
   ]
@@ -1258,20 +1318,21 @@ criterion.
   "kind": "sign-inverted",
   "criterion": "M11.C.16",
   "outcome": "PASS",
+  "seeds": 150,
   "result": "survived",
   "readouts": [
    {
-    "readout": "repertoire_entropy",
     "direction": -1,
-    "mean_difference": -0.04718307703511832,
     "half_width": 0.007933020285939204,
+    "mean_difference": -0.04718307703511832,
+    "readout": "repertoire_entropy",
     "report_only": false
    },
    {
-    "readout": "top_move_share",
     "direction": 1,
-    "mean_difference": 0.05675029390945236,
     "half_width": 0.00945661481375429,
+    "mean_difference": 0.05675029390945236,
+    "readout": "top_move_share",
     "report_only": true
    }
   ]
@@ -1281,20 +1342,21 @@ criterion.
   "kind": "sign-inverted",
   "criterion": "M11.C.16",
   "outcome": "PASS",
+  "seeds": 150,
   "result": "survived",
   "readouts": [
    {
-    "readout": "repertoire_entropy",
     "direction": -1,
-    "mean_difference": -0.17799300009534988,
     "half_width": 0.034810579699871357,
+    "mean_difference": -0.17799300009534988,
+    "readout": "repertoire_entropy",
     "report_only": false
    },
    {
-    "readout": "top_move_share",
     "direction": 1,
-    "mean_difference": 0.1452354927478642,
     "half_width": 0.029882765062634407,
+    "mean_difference": 0.1452354927478642,
+    "readout": "top_move_share",
     "report_only": true
    }
   ]
@@ -1304,20 +1366,21 @@ criterion.
   "kind": "sign-inverted",
   "criterion": "M11.C.19",
   "outcome": "FAIL",
+  "seeds": 50,
   "result": "reversed",
   "readouts": [
    {
-    "readout": "outward_failed",
     "direction": 1,
-    "mean_difference": -1.0,
     "half_width": 0.0,
+    "mean_difference": -1.0,
+    "readout": "outward_failed",
     "report_only": false
    },
    {
-    "readout": "inward_failed",
     "direction": -1,
-    "mean_difference": 1.0,
     "half_width": 0.0,
+    "mean_difference": 1.0,
+    "readout": "inward_failed",
     "report_only": false
    }
   ]
@@ -1327,13 +1390,14 @@ criterion.
   "kind": "sign-inverted",
   "criterion": "M11.C.27[unstable,remove_one]",
   "outcome": "FAIL",
+  "seeds": 100,
   "result": "reversed",
   "readouts": [
    {
-    "readout": "pair_deviation",
     "direction": -1,
-    "mean_difference": 0.22421207074443394,
     "half_width": 0.060693181309849464,
+    "mean_difference": 0.22421207074443394,
+    "readout": "pair_deviation",
     "report_only": false
    }
   ]
@@ -1343,20 +1407,21 @@ criterion.
   "kind": "deletion",
   "criterion": "M11.C.32",
   "outcome": "FAIL",
+  "seeds": 50,
   "result": "red",
   "readouts": [
    {
-    "readout": "assertion_form",
     "direction": 1,
-    "mean_difference": -0.04,
     "half_width": 0.24384125983926505,
+    "mean_difference": -0.04,
+    "readout": "assertion_form",
     "report_only": false
    },
    {
-    "readout": "reached_peak",
     "direction": -1,
-    "mean_difference": 0.12,
     "half_width": 0.1443019057393214,
+    "mean_difference": 0.12,
+    "readout": "reached_peak",
     "report_only": false
    }
   ]
@@ -1366,13 +1431,14 @@ criterion.
   "kind": "sign-inverted",
   "criterion": "M11.C.35",
   "outcome": "FAIL",
+  "seeds": 100,
   "result": "red",
   "readouts": [
    {
-    "readout": "witness_appraisal",
     "direction": 1,
-    "mean_difference": -0.03646100719917508,
     "half_width": 0.1631068120740729,
+    "mean_difference": -0.03646100719917508,
+    "readout": "witness_appraisal",
     "report_only": false
    }
   ]
@@ -1382,13 +1448,14 @@ criterion.
   "kind": "representation",
   "criterion": "M11.C.1",
   "outcome": "PASS",
+  "seeds": 100,
   "result": "unchanged",
   "readouts": [
    {
-    "readout": "time_to_threshold",
     "direction": -1,
-    "mean_difference": -1.32,
     "half_width": 0.1389564338382736,
+    "mean_difference": -1.32,
+    "readout": "time_to_threshold",
     "report_only": false
    }
   ]
@@ -1398,20 +1465,21 @@ criterion.
   "kind": "representation",
   "criterion": "M11.C.3",
   "outcome": "PASS",
+  "seeds": 50,
   "result": "unchanged",
   "readouts": [
    {
-    "readout": "pair_anxiety",
     "direction": -1,
-    "mean_difference": -2.2158710186181603,
     "half_width": 0.7646405067959127,
+    "mean_difference": -2.2158710186181603,
+    "readout": "pair_anxiety",
     "report_only": false
    },
    {
-    "readout": "third_anxiety",
     "direction": 1,
-    "mean_difference": 4.016051110386052,
     "half_width": 0.9833756205653951,
+    "mean_difference": 4.016051110386052,
+    "readout": "third_anxiety",
     "report_only": false
    }
   ]
@@ -1421,20 +1489,21 @@ criterion.
   "kind": "representation",
   "criterion": "M11.C.16",
   "outcome": "PASS",
+  "seeds": 150,
   "result": "unchanged",
   "readouts": [
    {
-    "readout": "repertoire_entropy",
     "direction": -1,
-    "mean_difference": -0.06566881026935012,
     "half_width": 0.022573579509214504,
+    "mean_difference": -0.06566881026935012,
+    "readout": "repertoire_entropy",
     "report_only": false
    },
    {
-    "readout": "top_move_share",
     "direction": 1,
-    "mean_difference": 0.0522591498603099,
     "half_width": 0.016930620350842283,
+    "mean_difference": 0.0522591498603099,
+    "readout": "top_move_share",
     "report_only": true
    }
   ]
@@ -1444,20 +1513,21 @@ criterion.
   "kind": "representation",
   "criterion": "M11.C.19",
   "outcome": "PASS",
+  "seeds": 50,
   "result": "unchanged",
   "readouts": [
    {
-    "readout": "outward_failed",
     "direction": 1,
-    "mean_difference": 1.0,
     "half_width": 0.0,
+    "mean_difference": 1.0,
+    "readout": "outward_failed",
     "report_only": false
    },
    {
-    "readout": "inward_failed",
     "direction": -1,
-    "mean_difference": -1.0,
     "half_width": 0.0,
+    "mean_difference": -1.0,
+    "readout": "inward_failed",
     "report_only": false
    }
   ]
@@ -1467,13 +1537,14 @@ criterion.
   "kind": "representation",
   "criterion": "M11.C.25",
   "outcome": "PASS",
+  "seeds": 50,
   "result": "unchanged",
   "readouts": [
    {
-    "readout": "first_dominant",
     "direction": 0,
-    "mean_difference": 0.0,
     "half_width": 0.0,
+    "mean_difference": 0.0,
+    "readout": "first_dominant",
     "report_only": false
    }
   ]
@@ -1483,20 +1554,21 @@ criterion.
   "kind": "representation",
   "criterion": "M11.C.32",
   "outcome": "PASS",
+  "seeds": 100,
   "result": "unchanged",
   "readouts": [
    {
-    "readout": "assertion_form",
     "direction": 1,
-    "mean_difference": 1.02,
     "half_width": 0.29347819012800264,
+    "mean_difference": 1.02,
+    "readout": "assertion_form",
     "report_only": false
    },
    {
-    "readout": "reached_peak",
     "direction": -1,
-    "mean_difference": -0.09,
     "half_width": 0.1045890003293797,
+    "mean_difference": -0.09,
+    "readout": "reached_peak",
     "report_only": false
    }
   ]
@@ -1506,13 +1578,14 @@ criterion.
   "kind": "representation",
   "criterion": "M11.C.35",
   "outcome": "PASS",
+  "seeds": 100,
   "result": "unchanged",
   "readouts": [
    {
-    "readout": "witness_appraisal",
     "direction": 1,
-    "mean_difference": 0.4133873721090351,
     "half_width": 0.13727152816675384,
+    "mean_difference": 0.4133873721090351,
+    "readout": "witness_appraisal",
     "report_only": false
    }
   ]
@@ -1522,13 +1595,14 @@ criterion.
   "kind": "representation",
   "criterion": "M11.C.27[unstable,remove_one]",
   "outcome": "PASS",
+  "seeds": 50,
   "result": "unchanged",
   "readouts": [
    {
-    "readout": "pair_deviation",
     "direction": -1,
-    "mean_difference": -0.1082959149758905,
     "half_width": 0.06950704849184434,
+    "mean_difference": -0.1082959149758905,
+    "readout": "pair_deviation",
     "report_only": false
    }
   ]
@@ -1538,13 +1612,14 @@ criterion.
   "kind": "representation",
   "criterion": "M11.C.38[-0 vs -5]",
   "outcome": "PASS",
+  "seeds": 100,
   "result": "unchanged",
   "readouts": [
    {
-    "readout": "time_to_threshold",
     "direction": -1,
-    "mean_difference": -0.73,
     "half_width": 0.11771543156393227,
+    "mean_difference": -0.73,
+    "readout": "time_to_threshold",
     "report_only": false
    }
   ]
@@ -1554,13 +1629,14 @@ criterion.
   "kind": "representation",
   "criterion": "M11.C.38[-5 vs -10]",
   "outcome": "PASS",
+  "seeds": 100,
   "result": "unchanged",
   "readouts": [
    {
-    "readout": "time_to_threshold",
     "direction": -1,
-    "mean_difference": -0.59,
     "half_width": 0.11850393336181808,
+    "mean_difference": -0.59,
+    "readout": "time_to_threshold",
     "report_only": false
    }
   ]
@@ -1570,13 +1646,14 @@ criterion.
   "kind": "representation",
   "criterion": "M11.C.38[-10 vs -15]",
   "outcome": "PASS",
+  "seeds": 100,
   "result": "unchanged",
   "readouts": [
    {
-    "readout": "time_to_threshold",
     "direction": -1,
-    "mean_difference": -0.7,
     "half_width": 0.11653932444207038,
+    "mean_difference": -0.7,
+    "readout": "time_to_threshold",
     "report_only": false
    }
   ]
@@ -1586,13 +1663,14 @@ criterion.
   "kind": "representation",
   "criterion": "M11.C.1",
   "outcome": "PASS",
+  "seeds": 100,
   "result": "unchanged",
   "readouts": [
    {
-    "readout": "time_to_threshold",
     "direction": -1,
-    "mean_difference": -1.32,
     "half_width": 0.1389564338382736,
+    "mean_difference": -1.32,
+    "readout": "time_to_threshold",
     "report_only": false
    }
   ]
@@ -1602,20 +1680,21 @@ criterion.
   "kind": "representation",
   "criterion": "M11.C.3",
   "outcome": "PASS",
+  "seeds": 50,
   "result": "unchanged",
   "readouts": [
    {
-    "readout": "pair_anxiety",
     "direction": -1,
-    "mean_difference": -2.2158710186202764,
     "half_width": 0.7646405067961983,
+    "mean_difference": -2.2158710186202764,
+    "readout": "pair_anxiety",
     "report_only": false
    },
    {
-    "readout": "third_anxiety",
     "direction": 1,
-    "mean_difference": 4.016051110388955,
     "half_width": 0.9833756205660047,
+    "mean_difference": 4.016051110388955,
+    "readout": "third_anxiety",
     "report_only": false
    }
   ]
@@ -1625,20 +1704,21 @@ criterion.
   "kind": "representation",
   "criterion": "M11.C.16",
   "outcome": "PASS",
+  "seeds": 150,
   "result": "unchanged",
   "readouts": [
    {
-    "readout": "repertoire_entropy",
     "direction": -1,
-    "mean_difference": -0.06566881026935012,
     "half_width": 0.022573579509214504,
+    "mean_difference": -0.06566881026935012,
+    "readout": "repertoire_entropy",
     "report_only": false
    },
    {
-    "readout": "top_move_share",
     "direction": 1,
-    "mean_difference": 0.0522591498603099,
     "half_width": 0.016930620350842283,
+    "mean_difference": 0.0522591498603099,
+    "readout": "top_move_share",
     "report_only": true
    }
   ]
@@ -1648,20 +1728,21 @@ criterion.
   "kind": "representation",
   "criterion": "M11.C.19",
   "outcome": "PASS",
+  "seeds": 50,
   "result": "unchanged",
   "readouts": [
    {
-    "readout": "outward_failed",
     "direction": 1,
-    "mean_difference": 1.0,
     "half_width": 0.0,
+    "mean_difference": 1.0,
+    "readout": "outward_failed",
     "report_only": false
    },
    {
-    "readout": "inward_failed",
     "direction": -1,
-    "mean_difference": -1.0,
     "half_width": 0.0,
+    "mean_difference": -1.0,
+    "readout": "inward_failed",
     "report_only": false
    }
   ]
@@ -1671,13 +1752,14 @@ criterion.
   "kind": "representation",
   "criterion": "M11.C.25",
   "outcome": "PASS",
+  "seeds": 50,
   "result": "unchanged",
   "readouts": [
    {
-    "readout": "first_dominant",
     "direction": 0,
-    "mean_difference": 0.0,
     "half_width": 0.0,
+    "mean_difference": 0.0,
+    "readout": "first_dominant",
     "report_only": false
    }
   ]
@@ -1687,20 +1769,21 @@ criterion.
   "kind": "representation",
   "criterion": "M11.C.32",
   "outcome": "PASS",
+  "seeds": 100,
   "result": "unchanged",
   "readouts": [
    {
-    "readout": "assertion_form",
     "direction": 1,
-    "mean_difference": 1.02,
     "half_width": 0.29347819012800264,
+    "mean_difference": 1.02,
+    "readout": "assertion_form",
     "report_only": false
    },
    {
-    "readout": "reached_peak",
     "direction": -1,
-    "mean_difference": -0.09,
     "half_width": 0.1045890003293797,
+    "mean_difference": -0.09,
+    "readout": "reached_peak",
     "report_only": false
    }
   ]
@@ -1710,13 +1793,14 @@ criterion.
   "kind": "representation",
   "criterion": "M11.C.35",
   "outcome": "PASS",
+  "seeds": 100,
   "result": "unchanged",
   "readouts": [
    {
-    "readout": "witness_appraisal",
     "direction": 1,
-    "mean_difference": 0.41338737210888127,
     "half_width": 0.13727152816658672,
+    "mean_difference": 0.41338737210888127,
+    "readout": "witness_appraisal",
     "report_only": false
    }
   ]
@@ -1726,13 +1810,14 @@ criterion.
   "kind": "representation",
   "criterion": "M11.C.27[unstable,remove_one]",
   "outcome": "PASS",
+  "seeds": 50,
   "result": "unchanged",
   "readouts": [
    {
-    "readout": "pair_deviation",
     "direction": -1,
-    "mean_difference": -0.10829591497588734,
     "half_width": 0.06950704849181454,
+    "mean_difference": -0.10829591497588734,
+    "readout": "pair_deviation",
     "report_only": false
    }
   ]
@@ -1742,13 +1827,14 @@ criterion.
   "kind": "representation",
   "criterion": "M11.C.38[-0 vs -5]",
   "outcome": "PASS",
+  "seeds": 100,
   "result": "unchanged",
   "readouts": [
    {
-    "readout": "time_to_threshold",
     "direction": -1,
-    "mean_difference": -0.73,
     "half_width": 0.11771543156393227,
+    "mean_difference": -0.73,
+    "readout": "time_to_threshold",
     "report_only": false
    }
   ]
@@ -1758,13 +1844,14 @@ criterion.
   "kind": "representation",
   "criterion": "M11.C.38[-5 vs -10]",
   "outcome": "PASS",
+  "seeds": 100,
   "result": "unchanged",
   "readouts": [
    {
-    "readout": "time_to_threshold",
     "direction": -1,
-    "mean_difference": -0.59,
     "half_width": 0.11850393336181808,
+    "mean_difference": -0.59,
+    "readout": "time_to_threshold",
     "report_only": false
    }
   ]
@@ -1774,13 +1861,14 @@ criterion.
   "kind": "representation",
   "criterion": "M11.C.38[-10 vs -15]",
   "outcome": "PASS",
+  "seeds": 100,
   "result": "unchanged",
   "readouts": [
    {
-    "readout": "time_to_threshold",
     "direction": -1,
-    "mean_difference": -0.7,
     "half_width": 0.11653932444207038,
+    "mean_difference": -0.7,
+    "readout": "time_to_threshold",
     "report_only": false
    }
   ]

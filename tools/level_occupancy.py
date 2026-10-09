@@ -27,10 +27,14 @@ from pathlib import Path
 REPO = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO))
 
-from tools.mutation_record import INVERSION_PIVOT, MUTANTS, run_in_copy  # noqa: E402
+from tools.mutant_runner import run_in_copy  # noqa: E402
+from tools.record_cache import result_key  # noqa: E402
+from tools.mutation_record import INVERSION_PIVOT, MUTANTS  # noqa: E402
 
 RECORD = REPO / "docs" / "phase_c_level_occupancy.md"
-HASHED_TOOLS = (Path(__file__).resolve(), REPO / "tools" / "mutation_record.py", REPO / "tools" / "ensemble_record.py")
+# The record's hash covers this tool, the runner, RULE_KEYS and the engine, plus each variant's own edits: not the
+# rest of mutation_record.py, so adding or relabelling another mutant does not make it stale.
+HASHED_TOOLS = (Path(__file__).resolve(), REPO / "tools" / "mutant_runner.py", REPO / "tools" / "ensemble_record.py")
 SEEDS = 20
 VARIANTS = (None, "availability-level-inverted")
 
@@ -48,7 +52,7 @@ def bands() -> dict[str, tuple[str, float]]:
             "layers_above_0_unavailable": ("ge", pivot)}
 
 
-def child() -> None:
+def child() -> None:  # levels are sampled as each tick starts, before that tick's own steps move them
     """Run in the (possibly mutated) copy: print one JSON line per arm."""
     import src.bowen.ensemble.criteria as criteria
 
@@ -74,9 +78,9 @@ def child() -> None:
             return {name: sum(1 for v in levels if (v <= edge if op == "le" else v >= edge)) / len(levels)
                     for name, (op, edge) in edges.items()}
 
-        print(json.dumps({"arm": arm, "member_weeks": len(seen),
-                          "whole_run": shares([v for _, v in seen]),
-                          "window": shares([v for tick, v in seen if tick >= weeks - window])}), flush=True)
+        late = [v for tick, v in seen if tick >= weeks - window]
+        print(json.dumps({"arm": arm, "member_weeks": {"whole_run": len(seen), "window": len(late)},
+                          "whole_run": shares([v for _, v in seen]), "window": shares(late)}), flush=True)
 
 
 def render(rows: list[dict], edges: dict, hash_: str) -> str:
@@ -99,9 +103,16 @@ def render(rows: list[dict], edges: dict, hash_: str) -> str:
     for r in rows:
         for span in ("whole_run", "window"):
             cells = " | ".join(f"{r[span][n]:.1%}" for n in names)
-            lines.append(f"| {r['variant']} | {r['arm']} | {span} | {r['member_weeks']} | {cells} |")
+            lines.append(f"| {r['variant']} | {r['arm']} | {span} | {r['member_weeks'][span]} | {cells} |")
     lines += ["", "## Machine-readable", "", "```json", json.dumps(rows, indent=1), "```", ""]
     return "\n".join(lines)
+
+
+def record_hash() -> str:
+    from tools.ensemble_record import code_hash
+
+    variants = [next(m for m in MUTANTS if m.id == v).definition() if v else None for v in VARIANTS]
+    return result_key(code_hash(*HASHED_TOOLS), {"variants": variants}, "occupancy")
 
 
 def main() -> int:
@@ -119,7 +130,7 @@ def main() -> int:
         for r in run_in_copy(mutant, "level_occupancy.py", "--child", timeout=3600):
             rows.append({"variant": variant or "unmodified", **r})
             print(f"{variant or 'unmodified'} {r['arm']}: {r['whole_run']} / window {r['window']}", flush=True)
-    RECORD.write_text(render(rows, bands(), code_hash(*HASHED_TOOLS)), encoding="utf-8")
+    RECORD.write_text(render(rows, bands(), record_hash()), encoding="utf-8")
     print(f"wrote {RECORD.relative_to(REPO)}")
     return 0
 

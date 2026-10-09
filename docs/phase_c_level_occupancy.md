@@ -6,18 +6,18 @@ which members' functional level lies in each band, over 20 seeds, unmodified and
 reads. In the first band that mutant equals the deletion on every layer; in the second, on layer 1; in the
 third it makes every layer above 0 unavailable.
 
-code_hash: ab06249003c3876f9ebb4e3a1a8c0f1ee19b39db906355f424a7fbf82715bc22
+code_hash: f0b12434655579c8f7848908892c8a24130fb1101cf552a42616c73c1f95aae3
 
 | Variant | Arm | Span | Member-weeks | deletion_on_every_layer (≤ 20) | deletion_on_layer_1 (≤ 40) | layers_above_0_unavailable (≥ 60) |
 |---|---|---|---|---|---|---|
 | unmodified | baseline | whole_run | 14560 | 1.8% | 58.2% | 1.7% |
-| unmodified | baseline | window | 14560 | 3.0% | 59.5% | 3.2% |
+| unmodified | baseline | window | 7280 | 3.0% | 59.5% | 3.2% |
 | unmodified | treatment | whole_run | 14560 | 39.5% | 94.7% | 0.7% |
-| unmodified | treatment | window | 14560 | 44.5% | 92.4% | 1.3% |
+| unmodified | treatment | window | 7280 | 44.5% | 92.4% | 1.3% |
 | availability-level-inverted | baseline | whole_run | 14560 | 1.1% | 59.4% | 1.8% |
-| availability-level-inverted | baseline | window | 14560 | 1.9% | 60.7% | 3.0% |
+| availability-level-inverted | baseline | window | 7280 | 1.9% | 60.7% | 3.0% |
 | availability-level-inverted | treatment | whole_run | 14560 | 40.6% | 93.3% | 0.5% |
-| availability-level-inverted | treatment | window | 14560 | 45.2% | 90.5% | 1.0% |
+| availability-level-inverted | treatment | window | 7280 | 45.2% | 90.5% | 1.0% |
 
 ## Machine-readable
 
@@ -26,7 +26,10 @@ code_hash: ab06249003c3876f9ebb4e3a1a8c0f1ee19b39db906355f424a7fbf82715bc22
  {
   "variant": "unmodified",
   "arm": "baseline",
-  "member_weeks": 14560,
+  "member_weeks": {
+   "whole_run": 14560,
+   "window": 7280
+  },
   "whole_run": {
    "deletion_on_every_layer": 0.0176510989010989,
    "deletion_on_layer_1": 0.581662087912088,
@@ -41,7 +44,10 @@ code_hash: ab06249003c3876f9ebb4e3a1a8c0f1ee19b39db906355f424a7fbf82715bc22
  {
   "variant": "unmodified",
   "arm": "treatment",
-  "member_weeks": 14560,
+  "member_weeks": {
+   "whole_run": 14560,
+   "window": 7280
+  },
   "whole_run": {
    "deletion_on_every_layer": 0.39505494505494504,
    "deletion_on_layer_1": 0.9473901098901099,
@@ -56,7 +62,10 @@ code_hash: ab06249003c3876f9ebb4e3a1a8c0f1ee19b39db906355f424a7fbf82715bc22
  {
   "variant": "availability-level-inverted",
   "arm": "baseline",
-  "member_weeks": 14560,
+  "member_weeks": {
+   "whole_run": 14560,
+   "window": 7280
+  },
   "whole_run": {
    "deletion_on_every_layer": 0.010851648351648351,
    "deletion_on_layer_1": 0.5944368131868132,
@@ -71,7 +80,10 @@ code_hash: ab06249003c3876f9ebb4e3a1a8c0f1ee19b39db906355f424a7fbf82715bc22
  {
   "variant": "availability-level-inverted",
   "arm": "treatment",
-  "member_weeks": 14560,
+  "member_weeks": {
+   "whole_run": 14560,
+   "window": 7280
+  },
   "whole_run": {
    "deletion_on_every_layer": 0.4063186813186813,
    "deletion_on_layer_1": 0.9331043956043956,

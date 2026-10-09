@@ -27,12 +27,13 @@ from pathlib import Path
 REPO = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO))
 
-from tools.mutation_record import ENSEMBLE_RECORD, Mutant, run_mutant  # noqa: E402
+from tools.mutant_runner import Mutant  # noqa: E402
+from tools.record_cache import Cache, engine_hash, result_key, run_cached  # noqa: E402
+from tools.mutation_record import ENSEMBLE_RECORD  # noqa: E402
 
 RECORD = REPO / "docs" / "phase_c_sweep_record.md"
-# The settings here, the mutant machinery in mutation_record.py and RULE_KEYS in ensemble_record.py
-# are inputs to the record.
-HASHED_TOOLS = (Path(__file__).resolve(), REPO / "tools" / "mutation_record.py", REPO / "tools" / "ensemble_record.py")
+# Results are cached by tools/mutant_runner.py under the engine hash and each setting's edit; this file only
+# chooses the settings and renders, so editing it reruns nothing unless a setting changes.
 CONSTANTS = "config/bowen/constants.md"
 SETTINGS = (  # (constant, central as written in constants.md, low, high)
     ("learning_rate", "0.2", "0.1", "0.4"),
@@ -57,7 +58,7 @@ def central() -> dict[str, dict]:
     return {row["criterion"]: row for row in data}
 
 
-def render(rows, centrals, hash_: str) -> str:
+def render(rows, centrals, engine: str) -> str:
     lines = [
         "# Phase C sweep record (plan D9)",
         "",
@@ -70,20 +71,25 @@ def render(rows, centrals, hash_: str) -> str:
         "readout reported beside the verdict and never tested is marked *(report only)*. Plan D9's fourth",
         "constant, each criterion's dominant constant, is not swept: plan §3 names none.",
         "",
-        f"code_hash: {hash_}",
+        f"engine_hash: {engine}",
+        "",
+        "Results are cached by `tools/mutant_runner.py` (`docs/records_cache/sweep.json`); this file is rendered",
+        "from that cache.",
         "",
         "| Criterion | Central verdict | Setting | Verdict | Seeds | Readouts (mean difference; direction) |",
         "|---|---|---|---|---|---|",
     ]
     for setting, r in rows:
         parts = []
-        for x in r["readouts"]:
+        for x in r.get("readouts", ()):  # a RAISED or BROKEN row carries none
             mark = ""
             if x["direction"] and x["mean_difference"] * x["direction"] < 0:
                 mark = " **opposite sign**"
             if x.get("report_only"):
                 mark += " *(report only)*"
             parts.append(f"`{x['readout']}` {x['mean_difference']:+.3g}{mark}")
+        if r.get("error"):
+            parts.append(f"*{r['error']}*")
         lines.append(f"| `{r['criterion']}` | {centrals[r['criterion']]['outcome']} | {setting} | {r['outcome']} | "
                      f"{r['seeds']} | {'; '.join(parts)} |")
     lines += ["", "## Machine-readable", "", "```json",
@@ -91,23 +97,35 @@ def render(rows, centrals, hash_: str) -> str:
     return "\n".join(lines)
 
 
-def main() -> int:
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--workers", type=int, default=os.cpu_count() or 1)
-    args = parser.parse_args()
+def build(cache: Cache, workers: int | None = None) -> str:
+    """The record, from the cache. With ``workers``, missing results are run first; without, a missing result raises
+    KeyError, so a test can check the committed record without running anything."""
     from src.bowen.ensemble.criteria import CRITERIA
-    from tools.ensemble_record import code_hash
 
-    centrals = central()
+    centrals, engine = central(), engine_hash()
     ids = [cid for cid, c in CRITERIA.items() if c.cls == "composite"]
     rows = []
     for name, middle, low, high in SETTINGS:
         for value in (low, high):
             mutant = row_mutant(name, middle, value)
-            for result in run_mutant(mutant, ids, args.workers):
-                rows.append((mutant.what.split(" (")[0], result))
-                print(f"{mutant.id} → {result['criterion']}: {result['outcome']}", flush=True)
-    RECORD.write_text(render(rows, centrals, code_hash(*HASHED_TOOLS)), encoding="utf-8")
+            if workers is not None:
+                results = run_cached(cache, mutant, ids, workers)
+            else:
+                results = [cache.get(result_key(engine, mutant.definition(), cid)) for cid in ids]
+                if None in results:
+                    raise KeyError(f"{mutant.id}: no cached result for the current engine and setting")
+            rows += [(mutant.what.split(" (")[0], result) for result in results]
+    return render(rows, centrals, engine)
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--workers", type=int, default=os.cpu_count() or 1)
+    args = parser.parse_args()
+    cache = Cache("sweep")
+    text = build(cache, args.workers)
+    cache.save()
+    RECORD.write_text(text, encoding="utf-8")
     print(f"wrote {RECORD.relative_to(REPO)}")
     return 0
 

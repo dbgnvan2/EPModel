@@ -55,6 +55,9 @@ _mspec = importlib.util.spec_from_file_location("tools.mutation_record", REPO / 
 _mutants = importlib.util.module_from_spec(_mspec)
 sys.modules[_mspec.name] = _mutants  # its dataclass resolves its own module
 _mspec.loader.exec_module(_mutants)
+from tools.record_cache import Cache, engine_hash, result_key  # noqa: E402  (the cache both tools share)
+import tools.mutant_runner as _runner  # noqa: E402
+import tools.record_cache as _cache  # noqa: E402
 _sspec.loader.exec_module(_sweep)  # after the mutation tool: it imports from it
 
 
@@ -78,9 +81,13 @@ def test_m111a_every_mutant_applies_exactly_once(tmp_path):
 
 
 def test_m111d_mutation_record_is_current():
-    match = re.search(r"^code_hash: ([0-9a-f]{64})$", mutation_text(), re.M)
-    assert match, "the mutation record carries no code hash"
-    assert match.group(1) == _tool.code_hash(*_mutants.HASHED_TOOLS), "stale: rerun python3 tools/mutation_record.py"
+    """The record is exactly what its cache renders for the current engine and every mutant's current edits: a changed
+    engine or mutant has no cached result (KeyError: rerun the tool), and a hand edit does not match."""
+    try:
+        rendered = _mutants.build(Cache("mutation"))
+    except KeyError as missing:
+        raise AssertionError(f"stale: rerun python3 tools/mutation_record.py ({missing})") from None
+    assert rendered == mutation_text(), "stale or edited: rerun python3 tools/mutation_record.py"
 
 
 def test_m111d_every_passing_criterion_has_a_mutant_run():
@@ -101,8 +108,11 @@ def test_m111c_representation_mutants_ran_on_every_passing_criterion():
 def test_d9_sweep_record_is_current():
     """Plan D9: every composite criterion was swept at low and high α, H and temperature on the current code."""
     text = (REPO / "docs" / "phase_c_sweep_record.md").read_text(encoding="utf-8")
-    match = re.search(r"^code_hash: ([0-9a-f]{64})$", text, re.M)
-    assert match and match.group(1) == _tool.code_hash(*_sweep.HASHED_TOOLS), "stale: rerun python3 tools/sweep_record.py"
+    try:
+        rendered = _sweep.build(Cache("sweep"))
+    except KeyError as missing:
+        raise AssertionError(f"stale: rerun python3 tools/sweep_record.py ({missing})") from None
+    assert rendered == text, "stale or edited: rerun python3 tools/sweep_record.py"
     rows = _mutants.json.loads(re.search(r"```json\n(.*?)\n```", text, re.S).group(1))
     swept = {(r["criterion"], r["setting"]) for r in rows}
     for cid, criterion in CRITERIA.items():
@@ -111,18 +121,31 @@ def test_d9_sweep_record_is_current():
                 assert sum(1 for c, s in swept if c == cid and s.startswith(name)) == 2, (cid, name)
 
 
-def test_m111d_mutation_hash_covers_the_mutant_list():
-    """Changing a mutant must make the mutation record stale (gate finding 2026-10-08, P6)."""
-    tool = REPO / "tools" / "mutation_record.py"
-    assert _tool.code_hash(tool) != _tool.code_hash()
-    assert tool.resolve() in _mutants.HASHED_TOOLS
+def test_m111d_a_result_is_keyed_on_the_engine_and_the_mutants_edits():
+    """A changed edit or engine makes a cached result unusable; a changed label does not (2026-10-09: relabelling a
+    mutant no longer reruns anything)."""
+    import dataclasses
+
+    mutant = next(m for m in _mutants.MUTANTS if m.id == "level-blind")
+    engine = engine_hash()
+    key = result_key(engine, mutant.definition(), "M11.C.16")
+    relabelled = dataclasses.replace(mutant, what="another description", criteria=("M11.C.1",))
+    assert result_key(engine, relabelled.definition(), "M11.C.16") == key
+    edited = dataclasses.replace(mutant, new=mutant.new + " ")
+    assert result_key(engine, edited.definition(), "M11.C.16") != key
+    assert result_key("0" * 64, mutant.definition(), "M11.C.16") != key
+    assert result_key(engine, mutant.definition(), "M11.C.1") != key
 
 
 def test_m134_every_record_hashes_the_ensemble_tool():
-    """RULE_KEYS in tools/ensemble_record.py feeds every record, so every record's hash covers it (re-gate A)."""
+    """RULE_KEYS in tools/ensemble_record.py feeds every record, and the runner's child produces the cached results,
+    so the engine hash covers both, as does the occupancy record's (re-gate A; 2026-10-09)."""
     ensemble_tool = (REPO / "tools" / "ensemble_record.py").resolve()
-    for tools in (_tool.HASHED_TOOLS, _mutants.HASHED_TOOLS, _sweep.HASHED_TOOLS, _occupancy.HASHED_TOOLS):
+    runner = (REPO / "tools" / "mutant_runner.py").resolve()
+    for tools in (_tool.HASHED_TOOLS, _occupancy.HASHED_TOOLS):
         assert ensemble_tool in {Path(t).resolve() for t in tools}
+    assert runner in {Path(t).resolve() for t in _occupancy.HASHED_TOOLS}
+    assert engine_hash() == _tool.code_hash(ensemble_tool, runner)
     assert _tool.code_hash(ensemble_tool) != _tool.code_hash()
 
 
@@ -145,8 +168,8 @@ def test_criteria_settings_are_parsed_strictly(tmp_path):
 
 
 def test_sweep_tool_shares_the_loaded_mutation_tool():
-    """One copy of the mutation tool, not two (third gate finding 3); both tools registered under their own names (fourth and fifth gates)."""
-    assert _sweep.Mutant is _mutants.Mutant and _sweep.run_mutant is _mutants.run_mutant
+    """One copy of the runner, not two (third gate finding 3); both tools registered under their own names (fourth and fifth gates)."""
+    assert _sweep.Mutant is _mutants.Mutant is _runner.Mutant and _sweep.run_cached is _mutants.run_cached
     assert _mutants.__name__ == "tools.mutation_record" and sys.modules["tools.mutation_record"] is _mutants
     assert _sweep.__name__ == "tools.sweep_record" and sys.modules["tools.sweep_record"] is _sweep
 
@@ -311,9 +334,7 @@ def occupancy_rows() -> list[dict]:
 def test_m111a_level_occupancy_record_is_current():
     text = (REPO / "docs" / "phase_c_level_occupancy.md").read_text(encoding="utf-8")
     match = re.search(r"^code_hash: ([0-9a-f]{64})$", text, re.M)
-    assert match and match.group(1) == _tool.code_hash(*_occupancy.HASHED_TOOLS), \
-        "stale: rerun python3 tools/level_occupancy.py"
-    assert (REPO / "tools" / "mutation_record.py").resolve() in _occupancy.HASHED_TOOLS  # it holds the mutant
+    assert match and match.group(1) == _occupancy.record_hash(), "stale: rerun python3 tools/level_occupancy.py"
     assert {(r["variant"], r["arm"]) for r in occupancy_rows()} == {
         (v, a) for v in ("unmodified", "availability-level-inverted") for a in ("baseline", "treatment")}
 
@@ -329,6 +350,9 @@ def test_m111a_occupancy_bands_are_where_the_inversion_clamps():
     assert _availability(inverted, every + 1, max(layers)) < 1.0
     assert _availability(inverted, layer_1, 1) == 1.0 > _availability(inverted, layer_1 + 1, 1)
     assert all(_availability(inverted, none, k) == 0.0 for k in layers)
+    assert _availability(inverted, none - 1, 1) > 0.0
+    assert [edges[k][0] for k in ("deletion_on_every_layer", "deletion_on_layer_1", "layers_above_0_unavailable")] \
+        == ["le", "le", "ge"]
 
 
 def test_m111a_availability_deletion_is_full_on_every_layer():
@@ -338,8 +362,10 @@ def test_m111a_availability_deletion_is_full_on_every_layer():
 
 
 def test_m111a_availability_inversion_acts_over_c16s_run():
-    """In each arm, over the whole run and over C.16's window, the inversion differs from the deletion for at least a
-    quarter of member-weeks, so it is not a deletion in disguise (csdp sweep finding: a bare > 0 could not tell)."""
+    """In each arm, over the whole run and over C.16's window, at least a quarter of member-weeks lie in the partial
+    band (above the every-layer deletion edge, below the pivot), where the inversion falls with level, so it is not a
+    deletion in disguise (csdp sweep finding: a bare > 0 could not tell). The quarter is [I], declared here: well
+    below today's shares (about 0.54 to 0.97) and far above a saturated inversion's (near 0)."""
     for r in occupancy_rows():
         if r["variant"] == "availability-level-inverted":
             for span in ("whole_run", "window"):
@@ -347,19 +373,28 @@ def test_m111a_availability_inversion_acts_over_c16s_run():
                 assert 1.0 - s["deletion_on_every_layer"] - s["layers_above_0_unavailable"] >= 0.25, (r["arm"], span)
 
 
-def test_m111d_a_raised_mutant_is_not_proof():
-    """A mutant whose code crashes (a name its file does not import) proves nothing (correctness review)."""
+def test_m111d_a_broken_mutant_is_not_proof():
+    """A mutant whose replacement text is broken (a name its file does not import) proves nothing, whatever its kind;
+    an engine exception under a mutant is a red (correctness reviews)."""
     named = next(m for m in _mutants.MUTANTS if m.kind == _mutants.SIGN)
-    assert _mutants.judge(named, "RAISED") == "raised"
+    representation = next(m for m in _mutants.MUTANTS if m.kind == _mutants.REPRESENTATION)
+    assert _mutants.judge(named, "BROKEN") == "broken"
+    assert _mutants.judge(representation, "BROKEN") == "broken"
+    assert _mutants.judge(named, "RAISED") == "red"
+    assert NameError in _mutants.BROKEN_ERRORS and AssertionError not in _mutants.BROKEN_ERRORS
 
 
-def test_m111d_only_does_not_overwrite_the_record(tmp_path, monkeypatch):
-    """--only runs a subset; writing it would replace the record under a current hash (P31)."""
-    record = tmp_path / "record.md"
-    monkeypatch.setattr(_mutants, "RECORD", record)
-    monkeypatch.setattr(sys, "argv", ["mutation_record.py", "--only", "no-such-mutant"])
-    assert _mutants.main() == 0
-    assert not record.exists()
+def test_m111d_cache_save_keeps_only_results_in_use(tmp_path, monkeypatch):
+    """A rerun drops cached results no current mutant uses, so the committed cache does not grow stale entries."""
+    monkeypatch.setattr(_cache, "CACHE_DIR", tmp_path)
+    cache = Cache("probe")
+    cache.put("a", {"x": 1})
+    cache.put("b", {"x": 2})
+    cache.save()
+    again = Cache("probe")
+    assert again.get("a") == {"x": 1}
+    again.save()
+    assert _mutants.json.loads((tmp_path / "probe.json").read_text()) == {"a": {"x": 1}}
 
 
 def test_d9_sweep_marks_opposite_sign_and_report_only():
@@ -369,4 +404,22 @@ def test_d9_sweep_marks_opposite_sign_and_report_only():
     text = _sweep.render([("learning_rate=0.1", row)], {"M11.C.16": {"outcome": "PASS"}}, "0" * 64)
     assert "`repertoire_entropy` +0.01 **opposite sign**" in text
     assert "`top_move_share` +0.02 *(report only)*" in text
-    assert "**reversed**" not in text.split("## Machine-readable")[0].split("code_hash")[1]
+    assert "**reversed**" not in text.split("## Machine-readable")[0].split("engine_hash")[1]
+
+
+def test_d9_sweep_renders_a_row_without_readouts():
+    """A RAISED or BROKEN child row carries no readouts; the sweep record must still render (correctness review)."""
+    row = {"criterion": "M11.C.16", "outcome": "RAISED", "seeds": 0, "error": "AssertionError: invariant"}
+    text = _sweep.render([("learning_rate=0.1", row)], {"M11.C.16": {"outcome": "PASS"}}, "0" * 64)
+    assert "| RAISED | 0 | *AssertionError: invariant* |" in text
+
+
+def test_m115_report_section_11_is_generated():
+    """Every number in report §11 comes from the records: the section equals what tools/c16_report.py renders."""
+    import importlib
+
+    spec = importlib.util.spec_from_file_location("tools.c16_report", REPO / "tools" / "c16_report.py")
+    report = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(report)
+    text = report.REPORT.read_text(encoding="utf-8")
+    assert text[text.index(report.HEADING):] == report.SECTION, "stale: rerun python3 tools/c16_report.py"

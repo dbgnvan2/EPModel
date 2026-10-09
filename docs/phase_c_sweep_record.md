@@ -9,7 +9,10 @@ the mutation record's **reversed**, which needs every gating interval wholly on 
 readout reported beside the verdict and never tested is marked *(report only)*. Plan D9's fourth
 constant, each criterion's dominant constant, is not swept: plan §3 names none.
 
-code_hash: dd403b2bb52ac372f7d2df448a840088a49f3a23425628f00b66e502080e7de8
+engine_hash: 8a033677bb8ecb4bd72bfa0b6f37e13f8269b9504bbe56925422aae07ca051a6
+
+Results are cached by `tools/mutant_runner.py` (`docs/records_cache/sweep.json`); this file is rendered
+from that cache.
 
 | Criterion | Central verdict | Setting | Verdict | Seeds | Readouts (mean difference; direction) |
 |---|---|---|---|---|---|
@@ -76,895 +79,895 @@ code_hash: dd403b2bb52ac372f7d2df448a840088a49f3a23425628f00b66e502080e7de8
   "setting": "learning_rate 0.1",
   "criterion": "M11.C.5",
   "outcome": "FAIL",
-  "seeds": 100,
   "readouts": [
    {
-    "readout": "target_reaction",
     "direction": 1,
-    "mean_difference": -7.798229775624174,
     "half_width": 15.408665649074754,
+    "mean_difference": -7.798229775624174,
+    "readout": "target_reaction",
     "report_only": false
    },
    {
-    "readout": "third_person_symptom_load",
     "direction": 1,
-    "mean_difference": 0.38875309381150513,
     "half_width": 10.135376987608748,
+    "mean_difference": 0.38875309381150513,
+    "readout": "third_person_symptom_load",
     "report_only": false
    }
-  ]
+  ],
+  "seeds": 100
  },
  {
   "setting": "learning_rate 0.1",
   "criterion": "M11.C.16",
   "outcome": "PASS",
-  "seeds": 150,
   "readouts": [
    {
-    "readout": "repertoire_entropy",
     "direction": -1,
-    "mean_difference": -0.06402510249963508,
     "half_width": 0.020738307202972137,
+    "mean_difference": -0.06402510249963508,
+    "readout": "repertoire_entropy",
     "report_only": false
    },
    {
-    "readout": "top_move_share",
     "direction": 1,
-    "mean_difference": 0.058327971822744844,
     "half_width": 0.015090698910472928,
+    "mean_difference": 0.058327971822744844,
+    "readout": "top_move_share",
     "report_only": true
    }
-  ]
+  ],
+  "seeds": 150
  },
  {
   "setting": "learning_rate 0.1",
   "criterion": "M11.C.42",
   "outcome": "FAIL",
-  "seeds": 100,
   "readouts": [
    {
-    "readout": "triangle_reuse",
     "direction": 1,
-    "mean_difference": -0.2,
     "half_width": 0.2974444689706166,
+    "mean_difference": -0.2,
+    "readout": "triangle_reuse",
     "report_only": false
    }
-  ]
+  ],
+  "seeds": 100
  },
  {
   "setting": "learning_rate 0.1",
   "criterion": "M11.C.44",
   "outcome": "PASS",
-  "seeds": 150,
   "readouts": [
    {
-    "readout": "outside_inside_ratio",
     "direction": 1,
-    "mean_difference": 0.0782584075045165,
     "half_width": 0.10963716959438508,
+    "mean_difference": 0.0782584075045165,
+    "readout": "outside_inside_ratio",
     "report_only": false
    }
-  ]
+  ],
+  "seeds": 150
  },
  {
   "setting": "learning_rate 0.1",
   "criterion": "M11.C.45",
   "outcome": "FAIL",
-  "seeds": 100,
   "readouts": [
    {
-    "readout": "triangle_rate",
     "direction": 1,
-    "mean_difference": -0.003291666666666667,
     "half_width": 0.004533348989253022,
+    "mean_difference": -0.003291666666666667,
+    "readout": "triangle_rate",
     "report_only": false
    }
-  ]
+  ],
+  "seeds": 100
  },
  {
   "setting": "learning_rate 0.1",
   "criterion": "M11.C.27[stable,add_third]",
   "outcome": "FAIL",
-  "seeds": 50,
   "readouts": [
    {
-    "readout": "pair_deviation",
     "direction": 1,
-    "mean_difference": -0.006706617087545896,
     "half_width": 0.04063936636449177,
+    "mean_difference": -0.006706617087545896,
+    "readout": "pair_deviation",
     "report_only": false
    }
-  ]
+  ],
+  "seeds": 50
  },
  {
   "setting": "learning_rate 0.1",
   "criterion": "M11.C.27[stable,remove_one]",
   "outcome": "FAIL",
-  "seeds": 50,
   "readouts": [
    {
-    "readout": "pair_deviation",
     "direction": 1,
-    "mean_difference": -0.11606495958828533,
     "half_width": 0.07107695171123965,
+    "mean_difference": -0.11606495958828533,
+    "readout": "pair_deviation",
     "report_only": false
    }
-  ]
+  ],
+  "seeds": 50
  },
  {
   "setting": "learning_rate 0.1",
   "criterion": "M11.C.27[unstable,add_third]",
   "outcome": "FAIL",
-  "seeds": 50,
   "readouts": [
    {
-    "readout": "pair_deviation",
     "direction": -1,
-    "mean_difference": 0.01510968596896073,
     "half_width": 0.03988345506161381,
+    "mean_difference": 0.01510968596896073,
+    "readout": "pair_deviation",
     "report_only": false
    }
-  ]
+  ],
+  "seeds": 50
  },
  {
   "setting": "learning_rate 0.1",
   "criterion": "M11.C.27[unstable,remove_one]",
   "outcome": "PASS",
-  "seeds": 100,
   "readouts": [
    {
-    "readout": "pair_deviation",
     "direction": -1,
-    "mean_difference": -0.10163767065115598,
     "half_width": 0.05127810595515723,
+    "mean_difference": -0.10163767065115598,
+    "readout": "pair_deviation",
     "report_only": false
    }
-  ]
+  ],
+  "seeds": 100
  },
  {
   "setting": "learning_rate 0.4",
   "criterion": "M11.C.5",
   "outcome": "FAIL",
-  "seeds": 100,
   "readouts": [
    {
-    "readout": "target_reaction",
     "direction": 1,
-    "mean_difference": -26.796577500112644,
     "half_width": 32.14254092131459,
+    "mean_difference": -26.796577500112644,
+    "readout": "target_reaction",
     "report_only": false
    },
    {
-    "readout": "third_person_symptom_load",
     "direction": 1,
-    "mean_difference": -1.1829637302968656,
     "half_width": 11.372434588761092,
+    "mean_difference": -1.1829637302968656,
+    "readout": "third_person_symptom_load",
     "report_only": false
    }
-  ]
+  ],
+  "seeds": 100
  },
  {
   "setting": "learning_rate 0.4",
   "criterion": "M11.C.16",
   "outcome": "PASS",
-  "seeds": 150,
   "readouts": [
    {
-    "readout": "repertoire_entropy",
     "direction": -1,
-    "mean_difference": -0.06295671365680798,
     "half_width": 0.0217425147129458,
+    "mean_difference": -0.06295671365680798,
+    "readout": "repertoire_entropy",
     "report_only": false
    },
    {
-    "readout": "top_move_share",
     "direction": 1,
-    "mean_difference": 0.04091145310210352,
     "half_width": 0.012827185289236424,
+    "mean_difference": 0.04091145310210352,
+    "readout": "top_move_share",
     "report_only": true
    }
-  ]
+  ],
+  "seeds": 150
  },
  {
   "setting": "learning_rate 0.4",
   "criterion": "M11.C.42",
   "outcome": "FAIL",
-  "seeds": 100,
   "readouts": [
    {
-    "readout": "triangle_reuse",
     "direction": 1,
-    "mean_difference": 0.15,
     "half_width": 0.35058778926225875,
+    "mean_difference": 0.15,
+    "readout": "triangle_reuse",
     "report_only": false
    }
-  ]
+  ],
+  "seeds": 100
  },
  {
   "setting": "learning_rate 0.4",
   "criterion": "M11.C.44",
   "outcome": "FAIL",
-  "seeds": 150,
   "readouts": [
    {
-    "readout": "outside_inside_ratio",
     "direction": 1,
-    "mean_difference": 0.07872831728469631,
     "half_width": 0.1259111721365161,
+    "mean_difference": 0.07872831728469631,
+    "readout": "outside_inside_ratio",
     "report_only": false
    }
-  ]
+  ],
+  "seeds": 150
  },
  {
   "setting": "learning_rate 0.4",
   "criterion": "M11.C.45",
   "outcome": "FAIL",
-  "seeds": 150,
   "readouts": [
    {
-    "readout": "triangle_rate",
     "direction": 1,
-    "mean_difference": -0.0016944444444444444,
     "half_width": 0.004822096814659517,
+    "mean_difference": -0.0016944444444444444,
+    "readout": "triangle_rate",
     "report_only": false
    }
-  ]
+  ],
+  "seeds": 150
  },
  {
   "setting": "learning_rate 0.4",
   "criterion": "M11.C.27[stable,add_third]",
   "outcome": "FAIL",
-  "seeds": 50,
   "readouts": [
    {
-    "readout": "pair_deviation",
     "direction": 1,
-    "mean_difference": -0.0068558391696950825,
     "half_width": 0.03314230276264426,
+    "mean_difference": -0.0068558391696950825,
+    "readout": "pair_deviation",
     "report_only": false
    }
-  ]
+  ],
+  "seeds": 50
  },
  {
   "setting": "learning_rate 0.4",
   "criterion": "M11.C.27[stable,remove_one]",
   "outcome": "FAIL",
-  "seeds": 100,
   "readouts": [
    {
-    "readout": "pair_deviation",
     "direction": 1,
-    "mean_difference": -0.10653515362400696,
     "half_width": 0.0538125082145585,
+    "mean_difference": -0.10653515362400696,
+    "readout": "pair_deviation",
     "report_only": false
    }
-  ]
+  ],
+  "seeds": 100
  },
  {
   "setting": "learning_rate 0.4",
   "criterion": "M11.C.27[unstable,add_third]",
   "outcome": "FAIL",
-  "seeds": 50,
   "readouts": [
    {
-    "readout": "pair_deviation",
     "direction": -1,
-    "mean_difference": 0.03122760047606755,
     "half_width": 0.05056322658611962,
+    "mean_difference": 0.03122760047606755,
+    "readout": "pair_deviation",
     "report_only": false
    }
-  ]
+  ],
+  "seeds": 50
  },
  {
   "setting": "learning_rate 0.4",
   "criterion": "M11.C.27[unstable,remove_one]",
   "outcome": "PASS",
-  "seeds": 100,
   "readouts": [
    {
-    "readout": "pair_deviation",
     "direction": -1,
-    "mean_difference": -0.07800020236500475,
     "half_width": 0.049954430951526664,
+    "mean_difference": -0.07800020236500475,
+    "readout": "pair_deviation",
     "report_only": false
    }
-  ]
+  ],
+  "seeds": 100
  },
  {
   "setting": "credit_horizon 2",
   "criterion": "M11.C.5",
   "outcome": "FAIL",
-  "seeds": 100,
   "readouts": [
    {
-    "readout": "target_reaction",
     "direction": 1,
-    "mean_difference": -7.8244366962164404,
     "half_width": 18.950586805400025,
+    "mean_difference": -7.8244366962164404,
+    "readout": "target_reaction",
     "report_only": false
    },
    {
-    "readout": "third_person_symptom_load",
     "direction": 1,
-    "mean_difference": 2.732037572061308,
     "half_width": 7.993558818719241,
+    "mean_difference": 2.732037572061308,
+    "readout": "third_person_symptom_load",
     "report_only": false
    }
-  ]
+  ],
+  "seeds": 100
  },
  {
   "setting": "credit_horizon 2",
   "criterion": "M11.C.16",
   "outcome": "PASS",
-  "seeds": 150,
   "readouts": [
    {
-    "readout": "repertoire_entropy",
     "direction": -1,
-    "mean_difference": -0.06501981969210063,
     "half_width": 0.023182009600058513,
+    "mean_difference": -0.06501981969210063,
+    "readout": "repertoire_entropy",
     "report_only": false
    },
    {
-    "readout": "top_move_share",
     "direction": 1,
-    "mean_difference": 0.04172745378318254,
     "half_width": 0.01392429643493914,
+    "mean_difference": 0.04172745378318254,
+    "readout": "top_move_share",
     "report_only": true
    }
-  ]
+  ],
+  "seeds": 150
  },
  {
   "setting": "credit_horizon 2",
   "criterion": "M11.C.42",
   "outcome": "FAIL",
-  "seeds": 100,
   "readouts": [
    {
-    "readout": "triangle_reuse",
     "direction": 1,
-    "mean_difference": -0.15,
     "half_width": 0.3241325953895094,
+    "mean_difference": -0.15,
+    "readout": "triangle_reuse",
     "report_only": false
    }
-  ]
+  ],
+  "seeds": 100
  },
  {
   "setting": "credit_horizon 2",
   "criterion": "M11.C.44",
   "outcome": "FAIL",
-  "seeds": 100,
   "readouts": [
    {
-    "readout": "outside_inside_ratio",
     "direction": 1,
-    "mean_difference": 0.07106558914876142,
     "half_width": 0.13686974676421598,
+    "mean_difference": 0.07106558914876142,
+    "readout": "outside_inside_ratio",
     "report_only": false
    }
-  ]
+  ],
+  "seeds": 100
  },
  {
   "setting": "credit_horizon 2",
   "criterion": "M11.C.45",
   "outcome": "FAIL",
-  "seeds": 100,
   "readouts": [
    {
-    "readout": "triangle_rate",
     "direction": 1,
-    "mean_difference": -0.002625000000000001,
     "half_width": 0.004961014486034054,
+    "mean_difference": -0.002625000000000001,
+    "readout": "triangle_rate",
     "report_only": false
    }
-  ]
+  ],
+  "seeds": 100
  },
  {
   "setting": "credit_horizon 2",
   "criterion": "M11.C.27[stable,add_third]",
   "outcome": "FAIL",
-  "seeds": 50,
   "readouts": [
    {
-    "readout": "pair_deviation",
     "direction": 1,
-    "mean_difference": 0.0021422885017932524,
     "half_width": 0.03831340184230024,
+    "mean_difference": 0.0021422885017932524,
+    "readout": "pair_deviation",
     "report_only": false
    }
-  ]
+  ],
+  "seeds": 50
  },
  {
   "setting": "credit_horizon 2",
   "criterion": "M11.C.27[stable,remove_one]",
   "outcome": "FAIL",
-  "seeds": 100,
   "readouts": [
    {
-    "readout": "pair_deviation",
     "direction": 1,
-    "mean_difference": -0.09718190987882382,
     "half_width": 0.05597344461508267,
+    "mean_difference": -0.09718190987882382,
+    "readout": "pair_deviation",
     "report_only": false
    }
-  ]
+  ],
+  "seeds": 100
  },
  {
   "setting": "credit_horizon 2",
   "criterion": "M11.C.27[unstable,add_third]",
   "outcome": "FAIL",
-  "seeds": 50,
   "readouts": [
    {
-    "readout": "pair_deviation",
     "direction": -1,
-    "mean_difference": 0.025553621715128136,
     "half_width": 0.0353459083779166,
+    "mean_difference": 0.025553621715128136,
+    "readout": "pair_deviation",
     "report_only": false
    }
-  ]
+  ],
+  "seeds": 50
  },
  {
   "setting": "credit_horizon 2",
   "criterion": "M11.C.27[unstable,remove_one]",
   "outcome": "PASS",
-  "seeds": 50,
   "readouts": [
    {
-    "readout": "pair_deviation",
     "direction": -1,
-    "mean_difference": -0.09726342344581829,
     "half_width": 0.07330387569880019,
+    "mean_difference": -0.09726342344581829,
+    "readout": "pair_deviation",
     "report_only": false
    }
-  ]
+  ],
+  "seeds": 50
  },
  {
   "setting": "credit_horizon 6",
   "criterion": "M11.C.5",
   "outcome": "FAIL",
-  "seeds": 100,
   "readouts": [
    {
-    "readout": "target_reaction",
     "direction": 1,
-    "mean_difference": -2.062460768091167,
     "half_width": 22.791133126763874,
+    "mean_difference": -2.062460768091167,
+    "readout": "target_reaction",
     "report_only": false
    },
    {
-    "readout": "third_person_symptom_load",
     "direction": 1,
-    "mean_difference": -0.6757458679715103,
     "half_width": 10.472057128969574,
+    "mean_difference": -0.6757458679715103,
+    "readout": "third_person_symptom_load",
     "report_only": false
    }
-  ]
+  ],
+  "seeds": 100
  },
  {
   "setting": "credit_horizon 6",
   "criterion": "M11.C.16",
   "outcome": "PASS",
-  "seeds": 150,
   "readouts": [
    {
-    "readout": "repertoire_entropy",
     "direction": -1,
-    "mean_difference": -0.04371510736970698,
     "half_width": 0.015248809641098275,
+    "mean_difference": -0.04371510736970698,
+    "readout": "repertoire_entropy",
     "report_only": false
    },
    {
-    "readout": "top_move_share",
     "direction": 1,
-    "mean_difference": 0.035747911157655576,
     "half_width": 0.011772485020185203,
+    "mean_difference": 0.035747911157655576,
+    "readout": "top_move_share",
     "report_only": true
    }
-  ]
+  ],
+  "seeds": 150
  },
  {
   "setting": "credit_horizon 6",
   "criterion": "M11.C.42",
   "outcome": "PASS",
-  "seeds": 100,
   "readouts": [
    {
-    "readout": "triangle_reuse",
     "direction": 1,
-    "mean_difference": 0.37,
     "half_width": 0.3021750940675744,
+    "mean_difference": 0.37,
+    "readout": "triangle_reuse",
     "report_only": false
    }
-  ]
+  ],
+  "seeds": 100
  },
  {
   "setting": "credit_horizon 6",
   "criterion": "M11.C.44",
   "outcome": "FAIL",
-  "seeds": 100,
   "readouts": [
    {
-    "readout": "outside_inside_ratio",
     "direction": 1,
-    "mean_difference": -0.05798726139551192,
     "half_width": 0.11011406175740315,
+    "mean_difference": -0.05798726139551192,
+    "readout": "outside_inside_ratio",
     "report_only": false
    }
-  ]
+  ],
+  "seeds": 100
  },
  {
   "setting": "credit_horizon 6",
   "criterion": "M11.C.45",
   "outcome": "FAIL",
-  "seeds": 100,
   "readouts": [
    {
-    "readout": "triangle_rate",
     "direction": 1,
-    "mean_difference": 0.0024583333333333336,
     "half_width": 0.0046489756634571005,
+    "mean_difference": 0.0024583333333333336,
+    "readout": "triangle_rate",
     "report_only": false
    }
-  ]
+  ],
+  "seeds": 100
  },
  {
   "setting": "credit_horizon 6",
   "criterion": "M11.C.27[stable,add_third]",
   "outcome": "FAIL",
-  "seeds": 50,
   "readouts": [
    {
-    "readout": "pair_deviation",
     "direction": 1,
-    "mean_difference": 0.022459386153489854,
     "half_width": 0.040175952042176125,
+    "mean_difference": 0.022459386153489854,
+    "readout": "pair_deviation",
     "report_only": false
    }
-  ]
+  ],
+  "seeds": 50
  },
  {
   "setting": "credit_horizon 6",
   "criterion": "M11.C.27[stable,remove_one]",
   "outcome": "FAIL",
-  "seeds": 50,
   "readouts": [
    {
-    "readout": "pair_deviation",
     "direction": 1,
-    "mean_difference": -0.1257672694580057,
     "half_width": 0.07427032447879746,
+    "mean_difference": -0.1257672694580057,
+    "readout": "pair_deviation",
     "report_only": false
    }
-  ]
+  ],
+  "seeds": 50
  },
  {
   "setting": "credit_horizon 6",
   "criterion": "M11.C.27[unstable,add_third]",
   "outcome": "FAIL",
-  "seeds": 50,
   "readouts": [
    {
-    "readout": "pair_deviation",
     "direction": -1,
-    "mean_difference": 0.026311536612328403,
     "half_width": 0.03977295848023757,
+    "mean_difference": 0.026311536612328403,
+    "readout": "pair_deviation",
     "report_only": false
    }
-  ]
+  ],
+  "seeds": 50
  },
  {
   "setting": "credit_horizon 6",
   "criterion": "M11.C.27[unstable,remove_one]",
   "outcome": "PASS",
-  "seeds": 100,
   "readouts": [
    {
-    "readout": "pair_deviation",
     "direction": -1,
-    "mean_difference": -0.09440447163291159,
     "half_width": 0.05373029945160882,
+    "mean_difference": -0.09440447163291159,
+    "readout": "pair_deviation",
     "report_only": false
    }
-  ]
+  ],
+  "seeds": 100
  },
  {
   "setting": "policy_temperature 0.5",
   "criterion": "M11.C.5",
   "outcome": "FAIL",
-  "seeds": 100,
   "readouts": [
    {
-    "readout": "target_reaction",
     "direction": 1,
-    "mean_difference": 18.96440747763285,
     "half_width": 29.419449886727477,
+    "mean_difference": 18.96440747763285,
+    "readout": "target_reaction",
     "report_only": false
    },
    {
-    "readout": "third_person_symptom_load",
     "direction": 1,
-    "mean_difference": 2.7875245105820476,
     "half_width": 14.268795582662623,
+    "mean_difference": 2.7875245105820476,
+    "readout": "third_person_symptom_load",
     "report_only": false
    }
-  ]
+  ],
+  "seeds": 100
  },
  {
   "setting": "policy_temperature 0.5",
   "criterion": "M11.C.16",
   "outcome": "PASS",
-  "seeds": 150,
   "readouts": [
    {
-    "readout": "repertoire_entropy",
     "direction": -1,
-    "mean_difference": -0.03856001306310255,
     "half_width": 0.015929989622728867,
+    "mean_difference": -0.03856001306310255,
+    "readout": "repertoire_entropy",
     "report_only": false
    },
    {
-    "readout": "top_move_share",
     "direction": 1,
-    "mean_difference": 0.029816687074730588,
     "half_width": 0.013287921838975661,
+    "mean_difference": 0.029816687074730588,
+    "readout": "top_move_share",
     "report_only": true
    }
-  ]
+  ],
+  "seeds": 150
  },
  {
   "setting": "policy_temperature 0.5",
   "criterion": "M11.C.42",
   "outcome": "FAIL",
-  "seeds": 100,
   "readouts": [
    {
-    "readout": "triangle_reuse",
     "direction": 1,
-    "mean_difference": -0.13,
     "half_width": 0.30345653442104076,
+    "mean_difference": -0.13,
+    "readout": "triangle_reuse",
     "report_only": false
    }
-  ]
+  ],
+  "seeds": 100
  },
  {
   "setting": "policy_temperature 0.5",
   "criterion": "M11.C.44",
   "outcome": "FAIL",
-  "seeds": 100,
   "readouts": [
    {
-    "readout": "outside_inside_ratio",
     "direction": 1,
-    "mean_difference": 0.1031147891428957,
     "half_width": 0.162546446322797,
+    "mean_difference": 0.1031147891428957,
+    "readout": "outside_inside_ratio",
     "report_only": false
    }
-  ]
+  ],
+  "seeds": 100
  },
  {
   "setting": "policy_temperature 0.5",
   "criterion": "M11.C.45",
   "outcome": "FAIL",
-  "seeds": 100,
   "readouts": [
    {
-    "readout": "triangle_rate",
     "direction": 1,
-    "mean_difference": -0.0022916666666666667,
     "half_width": 0.0047241269925512,
+    "mean_difference": -0.0022916666666666667,
+    "readout": "triangle_rate",
     "report_only": false
    }
-  ]
+  ],
+  "seeds": 100
  },
  {
   "setting": "policy_temperature 0.5",
   "criterion": "M11.C.27[stable,add_third]",
   "outcome": "FAIL",
-  "seeds": 50,
   "readouts": [
    {
-    "readout": "pair_deviation",
     "direction": 1,
-    "mean_difference": 0.0007611391857574656,
     "half_width": 0.027274887116402337,
+    "mean_difference": 0.0007611391857574656,
+    "readout": "pair_deviation",
     "report_only": false
    }
-  ]
+  ],
+  "seeds": 50
  },
  {
   "setting": "policy_temperature 0.5",
   "criterion": "M11.C.27[stable,remove_one]",
   "outcome": "FAIL",
-  "seeds": 50,
   "readouts": [
    {
-    "readout": "pair_deviation",
     "direction": 1,
-    "mean_difference": -0.09458906688602432,
     "half_width": 0.06955031184971441,
+    "mean_difference": -0.09458906688602432,
+    "readout": "pair_deviation",
     "report_only": false
    }
-  ]
+  ],
+  "seeds": 50
  },
  {
   "setting": "policy_temperature 0.5",
   "criterion": "M11.C.27[unstable,add_third]",
   "outcome": "FAIL",
-  "seeds": 50,
   "readouts": [
    {
-    "readout": "pair_deviation",
     "direction": -1,
-    "mean_difference": 0.00930585651804485,
     "half_width": 0.031076565826078435,
+    "mean_difference": 0.00930585651804485,
+    "readout": "pair_deviation",
     "report_only": false
    }
-  ]
+  ],
+  "seeds": 50
  },
  {
   "setting": "policy_temperature 0.5",
   "criterion": "M11.C.27[unstable,remove_one]",
   "outcome": "PASS",
-  "seeds": 50,
   "readouts": [
    {
-    "readout": "pair_deviation",
     "direction": -1,
-    "mean_difference": -0.07052167319026871,
     "half_width": 0.06289973607647731,
+    "mean_difference": -0.07052167319026871,
+    "readout": "pair_deviation",
     "report_only": false
    }
-  ]
+  ],
+  "seeds": 50
  },
  {
   "setting": "policy_temperature 2.0",
   "criterion": "M11.C.5",
   "outcome": "FAIL",
-  "seeds": 100,
   "readouts": [
    {
-    "readout": "target_reaction",
     "direction": 1,
-    "mean_difference": -3.3746923738466985,
     "half_width": 14.387247706524827,
+    "mean_difference": -3.3746923738466985,
+    "readout": "target_reaction",
     "report_only": false
    },
    {
-    "readout": "third_person_symptom_load",
     "direction": 1,
-    "mean_difference": 6.205438115626776,
     "half_width": 10.111565567245666,
+    "mean_difference": 6.205438115626776,
+    "readout": "third_person_symptom_load",
     "report_only": false
    }
-  ]
+  ],
+  "seeds": 100
  },
  {
   "setting": "policy_temperature 2.0",
   "criterion": "M11.C.16",
   "outcome": "PASS",
-  "seeds": 150,
   "readouts": [
    {
-    "readout": "repertoire_entropy",
     "direction": -1,
-    "mean_difference": -0.0741260043382484,
     "half_width": 0.025083222209059015,
+    "mean_difference": -0.0741260043382484,
+    "readout": "repertoire_entropy",
     "report_only": false
    },
    {
-    "readout": "top_move_share",
     "direction": 1,
-    "mean_difference": 0.05475027346001404,
     "half_width": 0.01652517642025679,
+    "mean_difference": 0.05475027346001404,
+    "readout": "top_move_share",
     "report_only": true
    }
-  ]
+  ],
+  "seeds": 150
  },
  {
   "setting": "policy_temperature 2.0",
   "criterion": "M11.C.42",
   "outcome": "FAIL",
-  "seeds": 100,
   "readouts": [
    {
-    "readout": "triangle_reuse",
     "direction": 1,
-    "mean_difference": 0.14,
     "half_width": 0.2974705594464328,
+    "mean_difference": 0.14,
+    "readout": "triangle_reuse",
     "report_only": false
    }
-  ]
+  ],
+  "seeds": 100
  },
  {
   "setting": "policy_temperature 2.0",
   "criterion": "M11.C.44",
   "outcome": "PASS",
-  "seeds": 100,
   "readouts": [
    {
-    "readout": "outside_inside_ratio",
     "direction": 1,
-    "mean_difference": 0.09362697973625433,
     "half_width": 0.09430827008052996,
+    "mean_difference": 0.09362697973625433,
+    "readout": "outside_inside_ratio",
     "report_only": false
    }
-  ]
+  ],
+  "seeds": 100
  },
  {
   "setting": "policy_temperature 2.0",
   "criterion": "M11.C.45",
   "outcome": "FAIL",
-  "seeds": 100,
   "readouts": [
    {
-    "readout": "triangle_rate",
     "direction": 1,
-    "mean_difference": 0.0004583333333333325,
     "half_width": 0.0044804337656520555,
+    "mean_difference": 0.0004583333333333325,
+    "readout": "triangle_rate",
     "report_only": false
    }
-  ]
+  ],
+  "seeds": 100
  },
  {
   "setting": "policy_temperature 2.0",
   "criterion": "M11.C.27[stable,add_third]",
   "outcome": "FAIL",
-  "seeds": 50,
   "readouts": [
    {
-    "readout": "pair_deviation",
     "direction": 1,
-    "mean_difference": -0.019509365204403956,
     "half_width": 0.05303205260979769,
+    "mean_difference": -0.019509365204403956,
+    "readout": "pair_deviation",
     "report_only": false
    }
-  ]
+  ],
+  "seeds": 50
  },
  {
   "setting": "policy_temperature 2.0",
   "criterion": "M11.C.27[stable,remove_one]",
   "outcome": "FAIL",
-  "seeds": 50,
   "readouts": [
    {
-    "readout": "pair_deviation",
     "direction": 1,
-    "mean_difference": -0.11254957414439799,
     "half_width": 0.07263567744169323,
+    "mean_difference": -0.11254957414439799,
+    "readout": "pair_deviation",
     "report_only": false
    }
-  ]
+  ],
+  "seeds": 50
  },
  {
   "setting": "policy_temperature 2.0",
   "criterion": "M11.C.27[unstable,add_third]",
   "outcome": "FAIL",
-  "seeds": 50,
   "readouts": [
    {
-    "readout": "pair_deviation",
     "direction": -1,
-    "mean_difference": 0.01648904867369183,
     "half_width": 0.03933892564303286,
+    "mean_difference": 0.01648904867369183,
+    "readout": "pair_deviation",
     "report_only": false
    }
-  ]
+  ],
+  "seeds": 50
  },
  {
   "setting": "policy_temperature 2.0",
   "criterion": "M11.C.27[unstable,remove_one]",
   "outcome": "PASS",
-  "seeds": 100,
   "readouts": [
    {
-    "readout": "pair_deviation",
     "direction": -1,
-    "mean_difference": -0.10312869751094053,
     "half_width": 0.05255820777897892,
+    "mean_difference": -0.10312869751094053,
+    "readout": "pair_deviation",
     "report_only": false
    }
-  ]
+  ],
+  "seeds": 100
  }
 ]
 ```

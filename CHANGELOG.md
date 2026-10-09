@@ -74,12 +74,13 @@ the per-criterion status is in `docs/phase_c_completion_report.md`.
   the two arms, not the baseline arm's (`ensemble_precision`'s unit changed, logged post hoc). Decided and committed
   before rerunning. `M11.C.16` now passes, but survives its named learner mutants, so its direction does not come
   from learning; `M11.C.41`'s [light: lower level] cell now fails instead of undetermined. Report §10.
-- **`M11.C.16` stays composite, 2026-10-08.** Seven new and existing mutants on C.16 all survive: the learner disabled or
-  inverted, `M4.D.3a`'s availability made level-independent or inverted, the mixing weight made level-independent or
-  inverted, and availability and learner removed together. Only the joint level-blind mutant turns it red. No single rule
-  carries it, and no rule states the result on its own (inverting availability, the one rule that narrows the
-  repertoire with level, does not flip it), so it is not a premise. But its rationale (learning produces it) and its
-  mutation clause are not met, so coverage keeps it partial. Report §11.
+- **`M11.C.16` is a premise, 2026-10-08.** A first decision kept it composite, on mutants that included an availability
+  inversion saturating at the layer clamp: over C.16's levels it removed availability instead of inverting it (csdp
+  sweep). With that mutant replaced, inverting `M4.D.3a`'s layer availability alone turns C.16 red, so `M11.1d` makes
+  it a premise. All nine level-reading rules now run as deletion and inversion mutants on C.16; `M5.D.3`'s hold
+  capacity never acts in its runs. The learner disabled or inverted leaves it passing, so its rationale (learning
+  produces it) and its mutation clause are not met, and coverage keeps it partial. The mutation record now gives each
+  mutant's mean difference and half-width. Report §11.
 - From the tenth gate (APPROVED, four low findings): `M11.5`'s premise definition now admits a result several rules
   state redundantly; the `M11.C.38` note says no single-rule mutant reds all three pairs (four of six red none); an
   "exactly zero" claim no committed record holds was removed; this file's `.45` entry corrected.

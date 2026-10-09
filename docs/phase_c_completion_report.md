@@ -12,12 +12,12 @@ a hash goes stale.
 | `docs/phase_c_sweep_record.md` | `tools/sweep_record.py` | each composite criterion at half and double α, H and temperature (plan D9) |
 | `docs/spec_coverage.md` | `tools/spec_coverage.py` | every spec ID: done / partial / not done |
 
-Default suite: **492 tests pass** (`python3 -m pytest tests/`). The 19 ensemble-marked criterion tests are
+Default suite: **494 tests pass** (`python3 -m pytest tests/`). The 19 ensemble-marked criterion tests are
 deselected there and run with `python3 -m pytest -m ensemble`.
 
 **Read this first.** Phase C's gate does **not** pass. Of the 16 criteria built, 7 pass at the frozen
 constants and are proved by a mutant (C.1, C.3, C.19, C.25, C.32, C.35, C.38). 1 passes but survives its named mutant
-(C.16, §10), 1 passes in one of its four cells (C.27), and 7 fail (C.4, C.5, C.29, C.41, C.42, C.44, C.45). 3 criteria
+(C.16, §10; a premise, §11), 1 passes in one of its four cells (C.27), and 7 fail (C.4, C.5, C.29, C.41, C.42, C.44, C.45). 3 criteria
 are not built. **These are the verdicts after the `TRIANGLE` decision (§8) and the precision decision (§10), both of
 2026-10-08.** The first made C.3 pass and took C.42, C.45, one cell of C.27 and one cell of C.41 below significance or
 the wrong way. The second let C.16 converge. A premise that passes confirms that the code renders the spec. It
@@ -40,7 +40,7 @@ column follows the global completion standard.
 | `M11.C.7` topology not coach skill | premise | not built | — | — | not done — needs `M8.2`/`M8.3`'s position predicates; declares no direction for its arms |
 | `M11.C.13` help relocates, not reduces | premise | not built | — | — | not done — needs incidents located in a community |
 | `M11.C.14` technique null under marital distance | premise (null) | not built | — | — | not done — needs `M5.C.1`'s marital-distance gate |
-| `M11.C.16` repertoire concentration depends on level | composite | PASS (150) — after §10's precision rule; undetermined at 500 seeds before | **only by the joint `level-blind` mutant**; its required mutant, the learner disabled, survives, as do the 6 other single-rule and paired mutants run on it (§11) | passes at all 6 settings | partial — passes; its mutation clause is not met, §11 |
+| `M11.C.16` repertoire concentration depends on level | **premise** (was composite; §11) | PASS (150) — after §10's precision rule; undetermined at 500 seeds before | by `availability-level-inverted` and the joint `level-blind` mutant; its required mutant, the learner disabled, survives (§11) | passes at all 6 settings | partial — passes; its mutation clause is not met, §11 |
 | `M11.C.19` counterfeit axis identified | check | PASS (50) | yes: `axes-collapsed`, `axes-swapped` | — | done |
 | `M11.C.25` dominant pole independent of sex | premise (null) | PASS (50); difference exactly 0 in every seed | yes: `sex-term-in-pole` | — | done — readout corrected post hoc, §4.2 |
 | `M11.C.27` twosome 2×2 | composite | 1 of 4 cells passes: [unstable, remove one]. [stable, add third] passed before §8 and is now +0.003 (p 0.49) | the passing cell, by `one-sided-deviation` and `deviation-inverted` | the passing cell holds at all 6 settings | partial — §3.5 |
@@ -97,6 +97,7 @@ These are recorded in the spec's `M11.5` table with today's date.
   `M1.C.1`'s relief was inverted, which would have made it a premise. C.42 passed but survived an inverted
   learner, so its direction did not come from relief's sign. Neither passes after §8, so neither correction
   stands; the spec's `M11.5` notes record both.
+- **`M11.C.16` is a premise, not composite.** Inverting `M4.D.3a`'s layer availability alone turns it red; §11.
 - **`M11.C.32`** is confirmed premise: both the gate's inversion and its removal turn it red. **`M11.C.19`** and
   **`M11.C.35`** are confirmed checks. **`M11.C.25`** is confirmed a structural null: the difference is exactly 0
   in every seed, because sex is read by no rule (`M2.A.0g`), and the test fails when a sex term is added.
@@ -116,7 +117,7 @@ pass would be tuning against it. Each needs an owner decision.
    ladder is learned, per `M5.E.0`, and 60 weeks may not be long enough for it to form.
 4. **`M11.C.16` — resolved by §10's precision rule; it now passes, but is not proved.** Its interval never reached
    0.25 of the baseline arm's sd. Under the pooled sd it converges at 150 seeds. Neither learner mutant turns it red,
-   so its direction does not come from learning. §10.
+   so its direction does not come from learning. Inverting `M4.D.3a`'s availability does, so it is a premise. §10, §11.
 5. **`M11.C.27`'s [stable, remove one]** and **[unstable, add third]** cells go the opposite way at every
    setting, before and after §8. [stable, add third] passed before §8 and is now flat (+0.003). For a stable twosome, removing one member *lowers* the pair's deviation, where the criterion
    expects a rise. For an unstable twosome, adding a third *raises* it, where the criterion expects a fall.
@@ -371,45 +372,71 @@ verdicts change; the rest keep their verdicts with different seed counts.
 **What C.16's pass does not show.** The plan's named mutant for C.16, `M4.D.6` disabled in both arms, **survives**,
 and so does the learner inverted. The sweep agrees: C.16 passes at all six settings of α, H and temperature. So the
 repertoire narrows at lower level whether or not anything is learned. Revision 11 classes C.16 composite, "restated"
-so that learning produces it; on this evidence learning is not what produces it. §11 tests which rules do,
-including `M4.D.3a`'s layer availability, which removes acts from the legal set at a lower level; it does not carry
-the direction either. Coverage marks C.16 partial, passing but not proved. §11 decides its class: it stays
-composite.
+so that learning produces it; on this evidence learning is not what produces it. §11 tests which rules do: `M4.D.3a`'s
+layer availability, which removes acts from the legal set at a lower level, carries the direction, and inverting it
+alone turns C.16 red. Coverage marks C.16 partial, passing but not proved. §11 decides its class: premise.
 
 ## 11. Whether `M11.C.16` is reclassified — decided 2026-10-08
 
 The owner asked whether C.16 should be reclassified, now that it passes but survives its named mutant. **Decided: it
-stays composite.** Its row's rationale, and the mutation clause it carries, are not met.
+is a premise**, carried by `M4.D.3a`'s layer availability. Its row's rationale, and the mutation clause it carries,
+are not met.
 
-The mutation record holds the evidence; the mutants were added to `tools/mutation_record.py` after scratch probes
-pointed to them. On C.16, at the central setting:
+*This section first kept C.16 composite. That decision rested on an availability inversion that saturated at the
+layer clamp over C.16's levels, so it removed availability instead of inverting it (csdp sweep, 2026-10-08). The
+mutant now reflects availability about level 30, and `tests/bowen/test_ensemble_record.py` checks that it inverts at
+C.16's levels and that the saturated form would be caught. Every level-reading rule `M11.C.1` lists was also added as
+a deletion and an inversion mutant on C.16; before, only two of the nine had been run.*
 
-| Mutant | Result |
-|---|---|
-| `learner-disabled` (`M4.D.6` off in both arms — the spec's required mutant) | survived |
-| `learner-inverted` | survived |
-| `availability-level-independent` (`M4.D.3a`) | survived |
-| `availability-level-inverted` | survived |
-| `availability-and-learner-removed` | survived |
-| `mixing-weight-level-independent` (`M4.D.1a`) | survived |
-| `mixing-weight-inverted` | survived |
-| `level-blind` (every rule that reads level) | **red** |
+The mutation record holds the evidence. Differences are lower-level arm minus higher-level arm, mean ± 95% half-width,
+from `docs/phase_c_mutation_record.md` at the central setting. The criterion asks for a negative entropy difference
+(a narrower repertoire at the lower level):
 
-Why composite, and not premise:
+| Mutant | Kind | Entropy difference | Top-move share difference | Result |
+|---|---|---|---|---|
+| *none (any representation mutant: unchanged)* | — | -0.066 ± 0.023 | +0.052 ± 0.017 | pass |
+| `steepness-level-independent` | named | -0.037 ± 0.014 | +0.032 ± 0.013 | survived |
+| `mixing-weight-level-independent` | named | -0.038 ± 0.009 | +0.044 ± 0.010 | survived |
+| `learner-disabled` | named | -0.057 ± 0.024 | +0.035 ± 0.011 | survived |
+| `threshold-level-independent` | deletion | -0.051 ± 0.020 | +0.034 ± 0.011 | survived |
+| `threshold-level-inverted` | sign-inverted | -0.069 ± 0.025 | +0.054 ± 0.018 | survived |
+| `standing-load-level-independent` | deletion | -0.049 ± 0.019 | +0.050 ± 0.016 | survived |
+| `standing-load-level-inverted` | sign-inverted | -0.049 ± 0.016 | +0.043 ± 0.011 | survived |
+| `level-blind` | deletion | +0.000 ± 0.000 | +0.000 ± 0.000 | **red** |
+| `availability-level-independent` | deletion | -0.033 ± 0.008 | +0.029 ± 0.009 | survived |
+| `availability-level-inverted` | sign-inverted | -0.008 ± 0.020 | -0.012 ± 0.013 | **red** |
+| `availability-and-learner-removed` | deletion | -0.015 ± 0.014 | +0.002 ± 0.005 | survived |
+| `band-level-independent` | deletion | -0.042 ± 0.014 | +0.035 ± 0.010 | survived |
+| `band-level-inverted` | sign-inverted | -0.039 ± 0.015 | +0.041 ± 0.015 | survived |
+| `outside-ness-level-independent` | deletion | -0.044 ± 0.012 | +0.042 ± 0.011 | survived |
+| `outside-ness-level-inverted` | sign-inverted | -0.057 ± 0.023 | +0.045 ± 0.017 | survived |
+| `routing-level-independent` | deletion | -0.058 ± 0.019 | +0.047 ± 0.013 | survived |
+| `routing-level-inverted` | sign-inverted | -0.039 ± 0.012 | +0.042 ± 0.011 | survived |
+| `hold-level-independent` | deletion | -0.066 ± 0.023 | +0.052 ± 0.017 | survived |
+| `hold-level-inverted` | sign-inverted | -0.066 ± 0.023 | +0.052 ± 0.017 | survived |
+| `steepness-inverted` | sign-inverted | -0.030 ± 0.007 | +0.027 ± 0.008 | survived |
+| `mixing-weight-inverted` | sign-inverted | -0.047 ± 0.008 | +0.057 ± 0.009 | survived |
+| `learner-inverted` | sign-inverted | -0.178 ± 0.035 | +0.145 ± 0.030 | survived |
 
-- No single rule carries the direction: each of the three removed, and each inverted, leaves it passing.
-- `M11.C.1` is a premise because each of its level-reading rules states its result on its own, redundantly.
-  Here only `M4.D.3a`'s availability states a narrowing with level, and inverting it does not flip C.16. So
-  `M11.1d`'s premise test does not fire, and the narrowing is not written into the rules. It arises from level acting
-  through several mechanisms over time, which is M11.5's composite.
+What this shows:
+
+- **Inverting availability alone turns C.16 red.** Under `M11.1d` a criterion that flips under one rule's inversion
+  is a premise. Availability states the narrowing: a lower level leaves fewer layers' acts in the legal set.
+- Removing availability does not turn it red. The other level-reading rules leave a smaller narrowing of the same
+  sign, and none of them flips it alone. The level-blind mutant, which removes all nine, leaves no difference at all.
+- `M5.D.3`'s hold capacity never acts in C.16's runs: both hold mutants reproduce the unmutated numbers exactly. Those
+  two mutants test nothing here.
+- **The record shows no learned contribution.** `M4.D.6` disabled moves the entropy difference by less than its
+  half-width. Inverted, it deepens the narrowing instead of reversing it. With availability already removed, removing
+  the learner as well moves the difference toward zero, but the two intervals overlap. An earlier draft of this
+  section said learning contributes; the record does not support that, so the claim is withdrawn.
 
 What does not hold:
 
-- *The row's rationale.* Revision 11 restated C.16 so that learning produces the narrowing. Learning contributes, but
-  the direction survives with it disabled.
-- *The row's mutation clause*, "disabling `M4.D.6` … MUST turn this red". It does not. C.16 is red only under the
-  level-blind mutant, which removes the arms' difference altogether. That shows the test can fail, not which mechanism
-  carries it.
+- *The row's rationale.* Revision 11 restated C.16 so that learning produces the narrowing. The narrowing comes from
+  availability, with the other level-reading rules adding to it.
+- *The row's mutation clause*, "disabling `M4.D.6` … MUST turn this red". It does not.
 
-So C.16 stays partial in `docs/spec_coverage.md` (an override records why), the spec's `M11.5` row and criterion row
-say the clause is not met, and `TODO.md` asks whether to restate the criterion so that it tests a learned contribution.
+So C.16 is a premise in the spec's `M11.5` table. A pass confirms that the code renders `M4.D.3a`; it is not a
+finding. It stays partial in `docs/spec_coverage.md` (an override records why), because its required mutant survives.
+`TODO.md` asks whether to restate the criterion so that it tests a learned contribution.

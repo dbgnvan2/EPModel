@@ -350,7 +350,7 @@ mutant has turned each entry red in `docs/phase_c_mutation_record.md`; the D9 sw
 | M10.C.3 | not done | — | Phase C or D |
 | M10.C.3a | not done | — | Phase C or D |
 | M11.1 | not done | — | Phase C — acceptance-test rules |
-| M11.1a | done | `tests/bowen/test_ensemble_record.py::test_m111a_every_mutant_applies_exactly_once` | — |
+| M11.1a | done | `tests/bowen/test_ensemble_record.py::test_m111a_availability_inversion_inverts_at_c16s_levels`<br>`tests/bowen/test_ensemble_record.py::test_m111a_every_mutant_applies_exactly_once`<br>`tests/bowen/test_ensemble_record.py::test_m111a_the_saturated_inversion_would_be_caught` | — |
 | M11.1b | not done | — | SHOULD; matched-magnitude severing mutants were not built in Phase C (plan step 15: where cheap; none was) |
 | M11.1c | partial | `tests/bowen/test_ensemble_record.py::test_m111c_representation_mutants_ran_on_every_passing_criterion` | two of the four re-encodings run on every passing entry (same-tick summation order, clamp within tolerance), no verdict changed; a rescaled state range and integer against float tick counters are not built (docs/phase_c_completion_report.md §1) |
 | M11.1d | partial | `tests/bowen/test_ensemble_record.py::test_m111d_every_passing_criterion_has_a_mutant_run`<br>`tests/bowen/test_ensemble_record.py::test_m111d_mutation_hash_covers_the_mutant_list`<br>`tests/bowen/test_ensemble_record.py::test_m111d_mutation_record_is_current` | deletion and sign-inverted mutants run on every passing criterion's core rule (docs/phase_c_mutation_record.md); the minimal rule set per criterion is not listed in full, and criteria that fail at the central setting were not audited |
@@ -379,7 +379,7 @@ mutant has turned each entry red in `docs/phase_c_mutation_record.md`; the D9 sw
 | M11.C.12 | not done | — | Phase D |
 | M11.C.13 | not done | `tests/bowen/test_phase_c_gate.py::test_m11c13_help_relocates_not_reduces` | not built in Phase C — docs/phase_c_ensemble_record.md says why |
 | M11.C.14 | not done | `tests/bowen/test_phase_c_gate.py::test_m11c14_technique_null_under_marital_distance` | not built in Phase C — docs/phase_c_ensemble_record.md says why |
-| M11.C.16 | partial | `tests/bowen/test_phase_c_gate.py::test_m11c16_repertoire_concentration_depends_on_level` | passes (docs/phase_c_ensemble_record.md), but its required mutant, M4.D.6 disabled, survives; only the joint level-blind mutant turns it red (docs/phase_c_mutation_record.md). The row's mutation clause is not met (spec M11.5, 2026-10-08) |
+| M11.C.16 | partial | `tests/bowen/test_phase_c_gate.py::test_m11c16_repertoire_concentration_depends_on_level` | passes (docs/phase_c_ensemble_record.md), but its required mutant, M4.D.6 disabled, survives; availability-level-inverted and the joint level-blind mutant turn it red (docs/phase_c_mutation_record.md). A premise on M4.D.3a; the row's mutation clause is not met (spec M11.5, 2026-10-08) |
 | M11.C.15 | not done | — | Phase D |
 | M11.C.17 | not done | — | Phase D |
 | M11.C.18 | not done | — | Phase D |

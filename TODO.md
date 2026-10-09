@@ -60,7 +60,8 @@ Phase C steps 0–16 are built. **Its gate does not pass** (`docs/phase_c_comple
   criterion yields `None` silently (learning-qa, 2026-10-09).
 - [ ] **Diagnostic probes, minor (batch review 2026-10-09).** `c44_act_counts` re-runs `arm_spell_triad`'s scenario
   instead of calling the arm; probes sample at tick start, so the last tick is missed; `summarise` takes its columns
-  from the first group and assumes every row has the same keys. None changes a current number.
+  from the first group and assumes every row has the same keys. None changes a current number. The
+  "no rows" and "names no criterion" exits of `tools/diagnostic_record.py` have no test.
 - [ ] **Record-parsing duplication.** The record JSON regex and `json.loads` appear about six times across
   `tools/mutation_record.py`, `tools/sweep_record.py`, `tools/spec_coverage.py` and the tests; one helper would serve
   them (correctness review, 2026-10-09).

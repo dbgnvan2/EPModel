@@ -45,11 +45,14 @@ def sampling(criteria, sample):
 
 
 def made(criteria) -> str:
-    """Whether the last scenario's scripted acts were made: "made", "skipped" (not legal that week), "none" (no
-    scripted act) or "partly" (some made, some skipped)."""
+    """Whether the last scenario's scripted acts were made: "made", "skipped" (not legal that week), "partly" (some
+    of each), "not reached" (neither), or "none" (the arm scripts no act). Every arm calls ``scenario`` once, which
+    sets ``last_source``; an arm that called it twice would report its last call."""
     source = getattr(criteria.scenario, "last_source", None)
     if source is None or not source.forced:
         return "none"
+    if source.made == 0 and source.skipped == 0:
+        return "not reached"  # neither made nor skipped: the actor was inactive that week, or the run ended first
     if source.skipped == 0:
         return "made"
     return "skipped" if source.made == 0 else "partly"

@@ -488,3 +488,25 @@ def test_d0_a_probe_key_covers_the_whole_probe_module():
 
     for d in (x for x in _diagnostic.DIAGNOSTICS if x.probe):
         assert inspect.getsource(_diagnostic.probes) in _diagnostic.probe_source(d.probe)
+
+
+def test_d0_made_classifies_every_case():
+    """A scripted act that was neither made nor skipped is not reported as made (narrow re-check, 2026-10-09)."""
+    from types import SimpleNamespace
+
+    def status(forced, made, skipped):
+        fake = SimpleNamespace(scenario=SimpleNamespace(last_source=SimpleNamespace(forced=forced, made=made,
+                                                                                   skipped=skipped)))
+        return _diagnostic.probes.made(fake)
+
+    assert status({1: 1}, 1, 0) == "made"
+    assert status({1: 1}, 0, 1) == "skipped"
+    assert status({1: 1}, 1, 1) == "partly"
+    assert status({1: 1}, 0, 0) == "not reached"
+    assert status({}, 0, 0) == "none"
+
+
+def test_d0_summarise_leaves_out_seeds_with_nothing_to_measure():
+    rows = [{"arm": "a", "seed": 0, "x": None}, {"arm": "a", "seed": 1, "x": 2.0}, {"arm": "a", "seed": 2, "x": 4.0}]
+    line = _diagnostic.summarise(rows)[2]
+    assert line == "| a | 3 | 3 / 3 / 4 / 100% |"

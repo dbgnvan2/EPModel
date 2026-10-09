@@ -43,12 +43,12 @@ MUTATION_RECORD = REPO / "docs" / "phase_c_mutation_record.md"
 
 
 def mutation_reds() -> set[str]:
-    """Criterion entries that at least one deletion, named or sign-inverted mutant turned red."""
+    """Criterion entries that at least one deletion, named or sign-inverted mutant turned red (or reversed)."""
     if not MUTATION_RECORD.exists():
         return set()
     text = MUTATION_RECORD.read_text(encoding="utf-8")
     rows = json.loads(re.search(r"```json\n(.*?)\n```", text, re.S).group(1))
-    return {r["criterion"] for r in rows if r["kind"] != "representation" and r["result"] == "red"}
+    return {r["criterion"] for r in rows if r["kind"] != "representation" and r["result"] in ("red", "reversed")}
 
 
 def ensemble_verdicts() -> tuple[dict[str, list[tuple[str, str]]], set[str]]:

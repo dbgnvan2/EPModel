@@ -60,15 +60,15 @@ class Mutant:
 
 LEVEL_BLIND = (  # every remaining read of level on the path to onset, made level-independent at level 50
     ("src/bowen/engine/contact.py", "return params.contact_band_max * person.functional_level / SCALE_MAX",
-     "return params.contact_band_max * 50.0 / SCALE_MAX"),
+     "return params.contact_band_max * (SCALE_MAX / 2) / SCALE_MAX"),
     ("src/bowen/engine/symptoms.py", "return params.symptom_threshold_gain * person.functional_level",
-     "return params.symptom_threshold_gain * 50.0"),
+     "return params.symptom_threshold_gain * 50.0"),  # SCALE_MAX / 2; symptoms.py does not import SCALE_MAX
     ("src/bowen/policy/policy.py",
      "return min(1.0, max(0.0, functional_level / SCALE_MAX)) ** params.self_channel_exponent",
      "return 0.5 ** params.self_channel_exponent"),
     ("src/bowen/policy/policy.py",
      "return min(1.0, max(0.0, obs.functional_level / (layer * params.capacity_level_per_layer)))",
-     "return min(1.0, max(0.0, 50.0 / (layer * params.capacity_level_per_layer)))"),
+     "return min(1.0, max(0.0, (SCALE_MAX / 2) / (layer * params.capacity_level_per_layer)))"),
     ("src/bowen/engine/standing_load.py",
      "return params.standing_load_gain * (SCALE_MAX - person.basic_level) / SCALE_MAX",
      "return params.standing_load_gain * 0.5"),
@@ -80,13 +80,16 @@ LEVEL_BLIND = (  # every remaining read of level on the path to onset, made leve
      "return 0.5"),
     ("src/bowen/engine/iposition.py",
      "return params.hold_gain * person.functional_level * efficacy(person)",
-     "return params.hold_gain * 50.0 * efficacy(person)"),
+     "return params.hold_gain * (SCALE_MAX / 2) * efficacy(person)"),
 )
 
 
 AVAILABILITY = "return min(1.0, max(0.0, obs.functional_level / (layer * params.capacity_level_per_layer)))"
-# Reflected about level 30 (0.3 of the scale), the middle of C.16's levels, so the inversion falls with level there
-# instead of saturating at 1 in both arms. Tested by test_m111a_availability_inversion_inverts_at_c16s_levels.
+# Reflected about level 30 (0.3 of the scale, so SCALE_MAX * 0.6 - level), between C.16's two arms' starting levels
+# (about 24 and 39), so the inversion falls with level there instead of saturating at 1 in both arms. It is clamped
+# to 1 below level 40 on layer 1 and 20 on layer 2, and to 0 above 60; members occupy roughly 8-54 during C.16's runs
+# (middle 90% of member-weeks over 20 seeds, measured 2026-10-08). Tested by
+# test_m111a_availability_inversion_inverts_at_c16s_levels, which reads the starting levels from config.
 AVAILABILITY_INVERTED = ("return min(1.0, max(0.0, (SCALE_MAX * 0.6 - obs.functional_level) "
                          "/ (layer * params.capacity_level_per_layer)))")
 BAND = "return params.contact_band_max * person.functional_level / SCALE_MAX"
@@ -163,8 +166,8 @@ MUTANTS = (
            also=LEVEL_BLIND),
     # --- M11.C.16 (2026-10-08): its named mutant, the learner disabled, survives, so which rule carries it?
     # --- Each level-reading rule is run on it alone, deleted and inverted (M11.1d). The steepness, threshold and
-    # --- standing-load mutants above reach C.16 through LEVEL. An inversion is written to stay inside its clamp at
-    # --- C.16's levels (functional level about 14-44), or it is a deletion in disguise (M11.1a; csdp sweep finding).
+    # --- standing-load mutants above reach C.16 through LEVEL. An inversion must change behaviour between C.16's two
+    # --- arms' levels, or it is a deletion in disguise (M11.1a; csdp sweep finding). See AVAILABILITY_INVERTED.
     Mutant("availability-level-independent", DELETION, ("M11.C.16",), "src/bowen/policy/policy.py",
            AVAILABILITY, "return min(1.0, max(0.0, (SCALE_MAX / 2) / (layer * params.capacity_level_per_layer)))",
            "M4.D.3a's layer availability removed: every layer fully available at every level"),
@@ -303,10 +306,16 @@ def run_mutant(mutant: Mutant, ids: list[str], workers: int) -> list[dict]:
         return [json.loads(line) for line in out.stdout.splitlines() if line.startswith("{")]
 
 
-def judge(mutant: Mutant, outcome: str) -> str:
+def judge(mutant: Mutant, outcome: str, readouts=()) -> str:
+    """A red mutant is **reversed** when every readout's interval lies wholly on the side opposite its direction."""
     if mutant.kind == REPRESENTATION:
         return "unchanged" if outcome == "PASS" else "encoding artefact"
-    return "survived" if outcome == "PASS" else "red"
+    if outcome == "PASS":
+        return "survived"
+    if readouts and all(x["direction"] and x["mean_difference"] * x["direction"] < 0
+                        and abs(x["mean_difference"]) > x["half_width"] for x in readouts):
+        return "reversed"
+    return "red"
 
 
 def render(rows, skipped, hash_: str) -> str:
@@ -317,7 +326,9 @@ def render(rows, skipped, hash_: str) -> str:
         "to a temporary copy of the repository, run against the criteria that pass in",
         "`docs/phase_c_ensemble_record.md`, with the same adaptive rules. A deletion, named or sign-inverted mutant",
         "is **red** when the criterion stops passing and **survived** when it still passes; a survivor means that",
-        "mutant does not prove the criterion. A representation mutant (`M11.1c`) should leave every verdict",
+        "mutant does not prove the criterion. A red mutant is marked **reversed** when every readout's interval lies",
+        "wholly on the side opposite its declared direction: the result flipped, rather than vanished (`M11.1d`). A",
+        "representation mutant (`M11.1c`) should leave every verdict",
         "unchanged; a change is reported as an **encoding artefact**.",
         "",
         f"code_hash: {hash_}",
@@ -331,14 +342,14 @@ def render(rows, skipped, hash_: str) -> str:
                           for x in result.get("readouts", ()))
         lines.append(f"| `{mutant.id}` | {mutant.kind} | {mutant.what} | `{result['criterion']}` | "
                      f"{result['outcome']}{note} | {result['seeds']} | {diffs or '—'} | "
-                     f"**{judge(mutant, result['outcome'])}** |")
+                     f"**{judge(mutant, result['outcome'], result.get('readouts', ()))}** |")
     lines += ["", "## Not run", "",
               "Criteria a mutant targets that do not pass at the central setting — a mutant cannot prove a failing",
               "criterion.", ""]
     lines += [f"- `{m.id}` → `{cid}`" for m, cid in skipped] or ["- none"]
     lines += ["", "## Machine-readable", "", "```json",
               json.dumps([{"mutant": m.id, "kind": m.kind, "criterion": r["criterion"], "outcome": r["outcome"],
-                           "result": judge(m, r["outcome"]), "readouts": r.get("readouts", [])} for m, r in rows],
+                           "result": judge(m, r["outcome"], r.get("readouts", ())), "readouts": r.get("readouts", [])} for m, r in rows],
                          indent=1, default=float),
               "```", ""]
     return "\n".join(lines)

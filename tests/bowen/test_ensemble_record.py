@@ -198,22 +198,66 @@ def _availability(source: str, level: float, layer: int) -> float:
                 {"obs": SimpleNamespace(functional_level=level), "layer": layer, "params": params})
 
 
+def _c16_levels() -> tuple[float, float]:
+    """C.16's two arms' mean initial member functional level, read from the family file and the criterion's settings.
+
+    Levels move during a run (measured 2026-10-08 over 20 seeds: the middle 90% of member-weeks is about 8-41 in the
+    lowered arm and 25-54 in the baseline arm), so these are where the arms start, not the whole range they occupy.
+    """
+    from src.bowen.ensemble.criteria import FAMILIES, SETTINGS
+    from src.bowen.io.load import load_family
+
+    settings = SETTINGS["M11.C.16"]
+    members = [p.functional_level for p in load_family(FAMILIES["phase_c"]).people.values()
+               if p.role.value == "member"]
+    mean = sum(members) / len(members)
+    return max(0.0, mean - settings["level_treatment"]), max(0.0, mean - settings["level_baseline"])
+
+
+def _layers() -> list[int]:
+    from src.bowen.io.load import load_event_kinds
+
+    return sorted({layer for layer in load_event_kinds().layers.values() if layer})
+
+
+def _falls(source: str, low: float, high: float) -> list[int]:
+    """The layers on which an availability line is lower at ``high`` than at ``low``."""
+    return [layer for layer in _layers() if _availability(source, low, layer) > _availability(source, high, layer)]
+
+
 def test_m111a_availability_inversion_inverts_at_c16s_levels():
     """An inversion must change behaviour where the criterion runs, not saturate into a deletion (csdp sweep finding).
 
-    C.16's members sit at functional level about 14 (lowered arm) to 44 (baseline). The rule rises with level there;
-    its inverted mutant must fall, on a layer the clamp does not hide.
+    Between C.16's two arms' starting levels the rule never falls; its inverted mutant never rises, and falls on at
+    least one layer the clamp does not hide.
     """
     inverted = next(m for m in _mutants.MUTANTS if m.id == "availability-level-inverted")
-    low, high = 14.0, 44.0
-    for layer in (1, 2):
-        assert _availability(_mutants.AVAILABILITY, low, layer) <= _availability(_mutants.AVAILABILITY, high, layer)
-    falls = [layer for layer in (1, 2)
-             if _availability(inverted.new, low, layer) > _availability(inverted.new, high, layer)]
-    assert falls, "the inversion is flat at C.16's levels: it is a deletion, not an inversion"
+    low, high = _c16_levels()
+    assert low < high
+    assert _falls(_mutants.AVAILABILITY, low, high) == []
+    assert all(_availability(inverted.new, low, layer) >= _availability(inverted.new, high, layer)
+               for layer in _layers())
+    assert _falls(inverted.new, low, high), "the inversion is flat at C.16's levels: it is a deletion, not an inversion"
 
 
 def test_m111a_the_saturated_inversion_would_be_caught():
-    """The first inversion, (100 − level), clamps to 1 at both of C.16's levels on every layer."""
+    """The first inversion, (100 - level), and the deletion both fail the check above at C.16's levels."""
     saturated = "return min(1.0, max(0.0, (100.0 - obs.functional_level) / (layer * params.capacity_level_per_layer)))"
-    assert all(_availability(saturated, level, layer) == 1.0 for level in (14.0, 44.0) for layer in (1, 2))
+    deleted = next(m for m in _mutants.MUTANTS if m.id == "availability-level-independent").new
+    low, high = _c16_levels()
+    assert _falls(saturated, low, high) == []
+    assert _falls(deleted, low, high) == []
+
+
+def test_m111d_a_mutant_is_reversed_only_when_every_interval_flips():
+    """`reversed` is a flip of the result; a result that merely vanishes stays `red` (csdp re-sweep finding 1)."""
+    named = next(m for m in _mutants.MUTANTS if m.kind == _mutants.SIGN)
+
+    def readout(mean, half, direction=-1):
+        return {"readout": "r", "direction": direction, "mean_difference": mean, "half_width": half}
+
+    assert _mutants.judge(named, "FAIL", [readout(+0.05, 0.02)]) == "reversed"
+    assert _mutants.judge(named, "FAIL", [readout(-0.008, 0.02)]) == "red"  # C.16 under the availability inversion
+    assert _mutants.judge(named, "FAIL", [readout(+0.01, 0.02)]) == "red"  # opposite sign, interval spans zero
+    assert _mutants.judge(named, "FAIL", [readout(+0.05, 0.02), readout(+0.01, 0.02, +1)]) == "red"
+    assert _mutants.judge(named, "PASS", [readout(-0.05, 0.02)]) == "survived"

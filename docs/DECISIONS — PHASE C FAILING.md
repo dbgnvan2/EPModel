@@ -14,17 +14,23 @@ regenerated after the changes below. Every change is a pre-declared test restate
 `config/bowen/criteria.md` and at the readout in `src/bowen/ensemble/criteria.py`.
 
 **S — done, by (b) for every criterion, not (a).**
-- (a) was measured first (`s-scripted-weeks`, 500 seeds, no tie held): the latest week legal in every seed is
-  week 0 for every criterion. By week 1 the act is already illegal in some seeds (minimum 1 in every row).
-- Week 0 cannot be used. Every member starts on their chronic floor, and decay lifts anyone below it back, so no
-  relief can show. One run with every act at week 0 measured `M11.C.3`'s pair relief at +0.09, against −2.2 at
-  week 12. That run was discarded for this reason, not for its verdicts, and is not kept.
+- (a) was measured first (`s-scripted-weeks`, 500 seeds, no tie held). The column is the first week at which the
+  arm's acts would not all be made, or t0 + 1 if never. Its minimum is 1 in every row but one, so the latest week
+  legal in every seed is week 0. The exception is `M11.C.29`'s baseline (four withdrawals), where the minimum is 0:
+  no week works for it.
+- Week 0 was not used. Every member starts on their chronic floor (checked on all three fixtures), and decay lifts
+  anyone below it back, so no relief can show there. One run with every act at week 0 was made and its verdicts
+  were seen before it was discarded (`M11.C.3`'s pair relief came out at +0.09); it is not kept.
 - So the fallback applies everywhere. The declared weeks stand, and in both arms the ties the scripted acts cross
   are held open from week 0 until the act (`M11.C.29`: until its last withdrawal). `CUTOFF` across a held tie
   is not in either member's legal set (`Forced`, `legal_outcomes(excluded=…)`).
-- The ensemble record now reports each arm's scripted acts not made, beside the verdict. Every act is made in
-  every seed, except `M11.C.29`'s 8 of 600 (baseline) and 5 of 150 (treatment). Those were not illegal: the
-  actor owed a step of their own I-POSITION sequence that week (`M5.D.9`).
+- The ensemble record now reports each arm's scripted acts not made, and why, beside the verdict. "Made" means
+  emitted as scripted, or an I-POSITION sequence begun (`Forced.outcomes`); an act placed in the week's selections
+  can still be rewritten afterwards. Every act is made in every seed except `M11.C.29`'s: 12 of 600 in the
+  baseline (8 owed a step, 4 rewritten) and 8 of 150 in the treatment (5 owed a step, 3 rewritten). None was
+  illegal. Its actor has full systems perspective and can be inside their own I-POSITION sequence with the same
+  person, so on a step week they select nothing, and an act toward that person is rewritten to `STAY-IN-CONTACT`
+  (`M5.D.9`).
 
 **Verdicts after S, Q2 and the C.29 readout** (before → after):
 
@@ -36,26 +42,33 @@ regenerated after the changes below. Every change is a pre-declared test restate
 | `M11.C.27` | 1 of 4 cells | 1 of 4: only `[unstable,remove_one]` passes; `[stable,remove_one]` is −0.24 ± 0.06, the opposite way |
 | `M11.C.29` | FAIL, readout pinned at 0 | FAIL, budget +0.04 ± 0.10; symptom weeks −0.23 ± 0.36 (p 0.37) |
 | `M11.C.35` | PASS | PASS, +0.33 ± 0.06 |
-| `M11.C.41` level limbs | FAIL (share fell) | **PASS**, `reactive_per_offered` +0.013 ± 0.002 in both |
-| `M11.C.41` stress limbs | FAIL | FAIL, `reactive_per_offered` −0.0002 and +0.0003 |
+| `M11.C.41` level limbs | FAIL (share fell) | **PASS**, `reactive_over_chance` +0.065 ± 0.005 and +0.067 ± 0.005 |
+| `M11.C.41` stress limbs | FAIL | FAIL, `reactive_over_chance` −0.0008 and +0.0016 |
 | `M11.C.42` | FAIL, +0.26 | FAIL, +0.12 ± 0.40 |
 
-**X1 (D7, `d7-rest-state`) — the model has no calm state near the floor; recommend (b), a finding.**
-- With no spell and no scripted act, the triad's f, m and c rest at a mean excess of 8.4–8.9 over the floor, and
-  are within 5 points of it in 15–28% of weeks. With every member set to level 60, 80 or 95 the excess is still
-  about 7–8. The grandparents, with one tie each, rest at about 3.5.
+**X1 (D7, `d7-rest-state`) — members with several ties have no calm state near the floor; recommend (b), a
+finding.**
+- With no spell and no scripted act, the triad's f, m and c rest at a mean excess of 8.4–8.9 over the floor at
+  their own level (40), within 5 points of it in 15–28% of weeks. The excess falls as level rises but stays well
+  above the floor: 9–14 at level 20, 7–8 at 60, 6.6–7.5 at 80, 5.5–6.7 at 95, and never within 5 points in more
+  than 30% of weeks.
+- On `family_phase_c` at its own levels, the parents rest at 11.9–12.4 and the others at 4.5–10.3.
+- Members with one tie rest near the floor: the triad's grandparents at about 3, Bruno (one cut tie) at 0.3–2.7.
 - The excess comes from the members' own acts on one another: appraisal of delivered acts holds about +8, relief
   from cutoff and distance about −3 to −6, competing urges about +1.5. The standing load the constants were
   designed around (`M4.A.5`'s self term and the ties' "too little" side) holds only about 1.5–2.7.
 - So (a), a calmer declared starting state, would not help: every run already starts on the floor, and the
   excess re-forms from the policy's own acts within the 20-week burn-in.
-- What this means for `M11.C.44`/`.45`: the calm arm is the model's resting state, about 8–9 above the floor, and
+- What this means for `M11.C.44`/`.45`: the calm arm is the triad's resting state, about 8–9 above the floor, and
   the declared spell adds about 2 (`d5-spell-effect`). The arms differ by little. Whether the spell is too light is
   a question about a declared `[I]` input. Changing it now would be tuning after the freeze, so it is left to the
   owner (TODO).
 
-**Q2 — done.** `M11.C.41`'s readout is now reactive acts selected over reactive acts offered by the legal set.
-Both level limbs pass. The stress limbs do not move.
+**Q2 — done.** `M11.C.41`'s readout is now `reactive_over_chance`: per selection, whether the act chosen was
+reactive, less the reactive share of that selection's legal set, averaged. A chooser at random scores 0 at any set
+size. The first restatement (reactive selected over reactive offered) was found by the batch review to score 1/N for
+such a chooser, so it rose whenever the legal set shrank; it was replaced before being relied on. Both level limbs
+pass. The stress limbs do not move.
 
 **`M11.C.29`'s readout — restated.** It now counts the weeks the third person's symptom is active (onset,
 `M1.A.6`, until the load falls below the re-arm fraction of the threshold). The old count, weeks with any symptom
@@ -81,6 +94,24 @@ findings about the model, unless the owner wants a longer declared horizon (B). 
 both readouts (p 0.10 and 0.08), but its verdict is a converged FAIL, not UNDETERMINED. The approved rule allowed a
 longer horizon only if it stayed undetermined, so none was tried; choosing one after seeing this result would be
 tuning. Owner decision (TODO).
+
+## The owner's decisions on the results (2026-10-09)
+
+1. **Q3:** the owner described how triangling works (either of a pair may seek their own third; the seeker's
+   anxiety goes down if the third is a positive experience; a third aligned with the partner, or very anxious,
+   does not help). The model differs in what the act relieves and in what the seeker learns from. Written up as a
+   spec proposal for approval: `docs/PROPOSAL — TRIANGLE RELIEF AND CREDIT.md`. Nothing is built yet.
+2. **X1:** accepted as a finding. Members with several ties rest well above the chronic floor at every level,
+   from their own acts; the declared spell is not revisited.
+3. **`M11.C.5`:** its converged FAIL at the declared horizon is reported; no longer horizon (the approved rule).
+4. **`M11.C.4`'s later limb and `M11.C.27`:** a longer horizon allowed. Rule, fixed before running: one value,
+   the longest any Phase C criterion declares (104 weeks), run once. Result: no effect remains.
+   - `M11.C.4`'s later limb, nodal event at week 104: +0.14 ± 0.99 (p 0.76). Its "now" limb still holds (−2.55).
+   - `M11.C.27`, read 104 weeks after the act: every cell within ±0.05 of zero, none passes. This includes
+     `[unstable, remove one]`, which passed at 3 weeks (−0.28 ± 0.06) and is now +0.05 ± 0.06.
+   - So a single act's effect on the pair's deviation is gone by two years, and a cutoff's later cost does not
+     show at a nodal event within two years. Both are findings at this horizon. Whether `M11.C.27` should be read
+     at 3 weeks (its passing cell) or 104 is the owner's to say; the record holds the declared 104.
 
 ## Summary (diagnosis, before the steps above)
 

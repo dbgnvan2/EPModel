@@ -15,19 +15,31 @@ the per-criterion status is in `docs/phase_c_completion_report.md`.
     `legal_outcomes(excluded=…)`), so every act is made; the ensemble record reports each arm's acts not made. The
     approved first choice, the latest week legal in every seed, measured as week 0 for every criterion, where every
     member is on the chronic floor and no relief can show, so it was not used.
-  - **Q2:** `M11.C.41`'s readout is reactive acts selected over reactive acts offered (`reactive_per_offered`); both
-    level limbs now pass. **`M11.C.29`** counts the weeks the third person's symptom is active.
-  - **Diagnostics:** `s-scripted-weeks`, `d7-rest-state` (the model rests 8–9 points above the floor at every level,
+  - **Q2:** `M11.C.41`'s readout is the reactive choice less the legal set's reactive share (`reactive_over_chance`, centred
+    on a chooser at random); both level limbs now pass. **`M11.C.29`** counts the weeks the third person's symptom is active.
+  - **Diagnostics:** `s-scripted-weeks`, `d7-rest-state` (members with several ties rest well above the floor at every level,
     from the members' own acts) and `q3-act-effects` (a `TRIANGLE` relieves the pair; `M4.D.6e`'s cross-person
     credit counts the third's cost). Summary tables now show the minimum.
   - Verdicts: `M11.C.3` passes more strongly (pair −5.27); `M11.C.41` passes in 2 of 4 cells; C.4, C.5, C.29, C.42,
-    C.44, C.45 and three C.27 cells still fail. Four owner decisions remain (`TODO.md`).
+    C.44, C.45 and C.27 fail.
+  - **Owner decisions on the results:** X1 a finding; `M11.C.5`'s FAIL reported; `M11.C.4`'s nodal event and
+    `M11.C.27`'s reading moved to 104 weeks (one declared value, run once): no effect remains in either, and
+    C.27's one passing cell no longer passes. The owner's account of triangling is a proposal
+    (`docs/PROPOSAL — TRIANGLE RELIEF AND CREDIT.md`), not built.
 
 ### Fixed
 
 - **A record built in the run that produced its results did not match its own re-render** (2026-10-09):
   `run_cached` returned the fresh row in the child's key order rather than the cached, normalised copy.
 - **`tools/c16_report.py` dropped everything after report §11**; it now replaces §11 only.
+- **A scripted act was counted as made when it was placed, not when it was emitted** (batch review, 2026-10-09):
+  an act toward the actor's open I-POSITION sequence's other is rewritten to `STAY-IN-CONTACT` after selection.
+  `Forced.outcomes` now classifies each act from the run's records (made, not legal, owed a step, dead,
+  rewritten, not reached); the scripted criteria are found by running the arms, not from typed lists.
+- **The first Q2 readout scored 1/N for a chooser at random**, so it rose whenever the legal set shrank (batch
+  review); replaced by `reactive_over_chance` before it was relied on.
+- **A held-open tie's redraw replaced a declared absence's redraw in the same week** (latent): one redraw now
+  carries both.
 
 ### Added (earlier)
 

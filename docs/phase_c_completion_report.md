@@ -14,16 +14,16 @@ a hash goes stale.
 | §11 of this report | `tools/c16_report.py` | `M11.C.16`'s class, every number taken from the two records above |
 | `docs/spec_coverage.md` | `tools/spec_coverage.py` | every spec ID: done / partial / not done |
 
-Default suite: **532 tests pass** (`python3 -m pytest tests/`). The 19 ensemble-marked criterion tests are
+Default suite: **533 tests pass** (`python3 -m pytest tests/`). The 19 ensemble-marked criterion tests are
 deselected there and run with `python3 -m pytest -m ensemble`.
 
 **Read this first.** Phase C's gate does **not** pass. Of the 16 criteria built, 7 pass at the frozen
 constants and are proved by a mutant (C.1, C.3, C.19, C.25, C.32, C.35, C.38). 1 passes but survives its named mutant
-(C.16, §10, §11), 1 passes in one of its four cells (C.27), 1 passes in two of its four (C.41), and 6 fail (C.4, C.5,
-C.29, C.42, C.44, C.45). 3 criteria are not built and moved to Phase D (owner decision 2026-10-09). **These are the
+(C.16, §10, §11), 1 passes in two of its four cells (C.41), and 7 fail (C.4, C.5, C.27, C.29, C.42, C.44, C.45). 3 criteria are not built and moved to Phase D (owner decision 2026-10-09). **These are the
 verdicts after the `TRIANGLE` decision (§8), the precision decision (§10), both of 2026-10-08, and the failing-criteria
-decisions of 2026-10-09 (§12): every scripted act is now made (its ties are held open until it), `M11.C.41`'s reactive
-share counts what the legal set offered, and `M11.C.29` counts the weeks the third person's symptom is active.** The first made C.3 pass and took C.42, C.45, one cell of C.27 and one cell of C.41 below significance or
+decisions of 2026-10-09 (§12): every scripted act is now made (its ties are held open until it), `M11.C.41`'s readout
+is the reactive choice beyond the legal set's reactive share, `M11.C.29` counts the weeks the third person's symptom
+is active, and `M11.C.4` and `M11.C.27` are read at 104 weeks.** The first made C.3 pass and took C.42, C.45, one cell of C.27 and one cell of C.41 below significance or
 the wrong way. The second let C.16 converge. A premise that passes confirms that the code renders the spec. It
 is not a finding about families (`M11.5`). Nothing here speaks about a real family (`M11.F.9`).
 
@@ -39,7 +39,7 @@ column follows the global completion standard.
 |---|---|---|---|---|---|
 | `M11.C.1` lower level reaches threshold sooner | premise | PASS (100 seeds) | **only by the joint `level-blind` mutant** — see §2 | — | done (proved only jointly; plan §3's named mutant survives, §2) |
 | `M11.C.3` triangle relieves pair, costs third | premise | PASS (50) — pair −5.27, third +8.85 | yes: `triangle-transfer-removed`, `triangle-roles-swapped` | — | done — after the `TRIANGLE` decision, §8 |
-| `M11.C.4` cutoff trades now against later | premise | **FAIL** — the "now" limb holds (−2.55); the "later" limb does not (−0.59, p 0.84) | not run | — | partial — §3.2 |
+| `M11.C.4` cutoff trades now against later | premise | **FAIL** — the "now" limb holds (−2.55); the "later" limb does not, at a nodal event at week 104 (+0.14, p 0.76) | not run | — | partial — §3.2 |
 | `M11.C.5` change-back reaction | composite | **FAIL** — both readouts the claimed sign, neither significant (p 0.10, 0.08) | not run | at least one readout reverses at 5 of 6 settings | not done — §3.3 |
 | `M11.C.7` topology not coach skill | premise | not built | — | — | Phase D (moved 2026-10-09) — needs `M8.2`/`M8.3`'s position predicates; declares no direction for its arms |
 | `M11.C.13` help relocates, not reduces | premise | not built | — | — | Phase D (moved 2026-10-09) — needs incidents located in a community |
@@ -47,12 +47,12 @@ column follows the global completion standard.
 | `M11.C.16` repertoire concentration depends on level | composite (§11) | PASS (150) — after §10's precision rule; undetermined at 500 seeds before | by the joint `level-blind` and `c16-grounds-removed` (cited grounds with availability) mutants, and by `availability-level-inverted`, which cancels it without reversing it; its required mutant, the learner disabled, survives (§11) | passes at all 6 settings | partial — passes; its mutation clause is not met, §11 |
 | `M11.C.19` counterfeit axis identified | check | PASS (50) | yes: `axes-collapsed`, `axes-swapped` | — | done |
 | `M11.C.25` dominant pole independent of sex | premise (null) | PASS (50); difference exactly 0 in every seed | yes: `sex-term-in-pole` | — | done — readout corrected post hoc, §4.2 |
-| `M11.C.27` twosome 2×2 | composite | 1 of 4 cells passes: [unstable, remove one]. [stable, add third] is +0.010 (p 0.29); [stable, remove one] goes the opposite way (−0.24) | the passing cell, by `one-sided-deviation` and `deviation-inverted` | the passing cell holds at all 6 settings | partial — §3.5 |
+| `M11.C.27` twosome 2×2 | composite | **FAIL** — read 104 weeks after the act, no cell passes; every cell is within ±0.05 of zero. At 3 weeks one cell passed ([unstable, remove one], −0.28) | not run | see `docs/phase_c_sweep_record.md` | not done — §3.5 |
 | `M11.C.29` relief vs differentiation time course | premise | **FAIL** — budget +0.04 (p 0.85); symptom-active weeks −0.23 (p 0.37), readout restated 2026-10-09 | not run | — | not done — §3.6 |
 | `M11.C.32` mover's anger stalls and degrades | premise | PASS (100) | yes: `anger-gate-inverted`, `anger-gate-removed` | — | done |
 | `M11.C.35` witness appraisal depends on both ties | check | PASS (50) | yes: `witness-position-blind`, `witness-reach-inverted` | — | done |
 | `M11.C.38` graded level orders time to threshold | premise | PASS, all 3 adjacent pairs | every pair red under the joint `level-blind` mutant; single-rule mutants red on some pairs only (§2) | — | done (proved only jointly, §2) |
-| `M11.C.41` level and stress each exacerbate | mixed | **2 of 4 cells pass**: both "lower level" cells, under the restated readout (reactive acts selected over offered, +0.013). Both "heavier stress" cells fail on it (−0.0002, +0.0003) | the passing cells by the named `steepness-level-independent`, and by `steepness-inverted` and `mixing-weight-inverted`; the other named mutant, `mixing-weight-level-independent`, survives | — | partial — §3.7 |
+| `M11.C.41` level and stress each exacerbate | mixed | **2 of 4 cells pass**: both "lower level" cells, under the restated readout (reactive choice beyond the legal set's reactive share, +0.065, +0.067). Both "heavier stress" cells fail on it (−0.0008, +0.0016) | yes: both named mutants turn a passing cell red, as the spec requires (`steepness-level-independent` both cells, `mixing-weight-level-independent` the light one), and so do `steepness-inverted`, `mixing-weight-inverted` and the joint `level-blind` | — | partial — 2 of 4 cells; §3.7 |
 | `M11.C.42` a relieving triangle is reused | composite | **FAIL** — reuse +0.12 ± 0.40 (p 0.32), under §9's arms and readout | not run | passes only at H = 2; reverses at 4 of 6 | not done — §3.8, §9 |
 | `M11.C.44` position value inverts with load | composite | **FAIL** — +0.010 (p 0.73) | not run | passes at 2 of 6 off-central settings (α 0.1, T 2.0); only the central setting gates | not done |
 | `M11.C.45` triangles quiet when calm | composite | **FAIL** — +0.0020 TRIANGLE selections per person-week (p 0.20), under §9's readout | not run | fails at all 6 settings; reverses at 4 | not done — §3.8, §9 |
@@ -115,33 +115,36 @@ pass would be tuning against it. Each needs an owner decision.
 
 1. **`M11.C.3` — resolved by §8's decision.** It failed under step 5's alliance reading of `TRIANGLE`, which
    left the other parent outside. It passes now.
-2. **`M11.C.4`'s later limb.** The cutoff relieves at once (−2.55). At the nodal event 22 weeks later, the
-   family's anxiety is not higher in the cutoff arm (−0.59 ± 1.0, p 0.84), now with the cutoff made in every seed
-   (§12). `M4.C.1c`'s accrual on a severed tie does not build enough over 22 weeks at the frozen rates to show at
-   one nodal event.
+2. **`M11.C.4`'s later limb.** The cutoff relieves at once (−2.55). At a nodal event 22 weeks later, the family's
+   anxiety was not higher in the cutoff arm (−0.59 ± 1.0), with the cutoff made in every seed (§12). The owner
+   allowed one longer horizon; at week 104 it is still not higher (+0.14 ± 0.99, p 0.76). A cutoff's later cost
+   does not show at one nodal event within two years at the frozen rates.
 3. **`M11.C.5`** has wide intervals (target reaction +8.45 ± 16; third's load +6.12 ± 10; both the claimed sign,
    p 0.10 and 0.08), and the target reaction's sign changes across the sweep. The
    ladder is learned, per `M5.E.0`, and 60 weeks may not be long enough for it to form.
 4. **`M11.C.16` — resolved by §10's precision rule; it now passes, but is not proved.** Its interval never reached
    0.25 of the baseline arm's sd. Under the pooled sd it converges at 150 seeds. Neither learner mutant turns it red,
    so its direction does not come from learning. Inverting `M4.D.3a`'s availability cancels it without reversing it. §10, §11.
-5. **`M11.C.27`'s [stable, remove one]** and **[unstable, add third]** cells go the opposite way at every
-   setting, before and after §8 and §12. [stable, add third] is flat (+0.010). For a stable twosome, removing one member *lowers* the pair's deviation, where the criterion
-   expects a rise. For an unstable twosome, adding a third *raises* it, where the criterion expects a fall.
+5. **`M11.C.27`.** Read 3 weeks after the act, only [unstable, remove one] passed, and [stable, remove one] and
+   [unstable, add third] went the opposite way at every setting. Read at 104 weeks (owner decision, §12), every
+   cell is within ±0.05 of zero: a single act's effect on the pair's deviation is gone by two years. Which
+   horizon the criterion means is an owner question (`TODO.md`). At 3 weeks, for a stable twosome, removing one
+   member *lowered* the pair's deviation, where the criterion expects a rise; for an unstable twosome, adding a
+   third *raised* it, where the criterion expects a fall.
 6. **`M11.C.29`.** The declared readout was pinned at its maximum: the third person's symptom load is above zero in
    every week of both arms, since the model rests above the chronic floor (D1, D7). It now counts the weeks their
    symptom is active, onset to re-arm (§12). That readout moves but does not separate the arms (−0.23 ± 0.36,
    p 0.37), and the budget difference is flat (+0.04).
 7. **`M11.C.41`'s stress limbs.** The share of all moves that were reactive fell at a lower level, because
-   `M4.D.3a` closes the layers holding five of the seven reactive acts (D2). Restated as reactive acts selected
-   over reactive acts offered (§12), both "lower level" cells pass. Heavier stress raises mean acute anxiety but
-   not that ratio (−0.0002, +0.0003).
+   `M4.D.3a` closes the layers holding five of the seven reactive acts (D2). Restated as the reactive choice beyond the
+   reactive share of the legal set (§12), both "lower level" cells pass. Heavier stress raises mean acute anxiety
+   but not that readout (−0.0008, +0.0016).
 8. **`M11.C.42` and `M11.C.45` no longer pass.** Both passed under step 5's alliance reading. After §9 and §12,
    C.42's reuse is +0.12 ± 0.40 (p 0.32) and passes only at H = 2 in the sweep, reversing at 4 of 6. C.45's rate is
    +0.0020 per person-week (p 0.20) and reverses at 4 of 6 settings. Measured cause (§12, Q3): the act relieves
    both of the pair (sender −3.6, partner −1.6) and costs the third +8.9, but `M4.D.6e`'s cross-person credit
    counts the third's cost, so a `TRIANGLE` is credited below a `DISTANCE` and is not reinforced. C.45 also
-   compares two close states: the model rests 8–9 points above the floor and the spell adds about 2 (D7).
+   compares two close states: the triad rests 8–9 points above the floor and the spell adds about 2 (D7).
 
 ## 4. Changes made after the constants were frozen
 
@@ -491,12 +494,16 @@ step found is at the top of that memo; the measurements are in `docs/phase_c_dia
 - **S.** A scripted act is made only if legal that week, and it was skipped in 25–60% of seeds, each adding a
   difference of exactly 0. The only week legal in every seed is week 0, where every member is on their floor and
   no relief can show, so instead each scripted act's ties are held open, in both arms, until the act. Every act is
-  now made, except 13 of `M11.C.29`'s, whose actor owed an I-POSITION step; the ensemble record reports the count.
-- **X1 (D7).** The model rests 8–9 points above the floor at every level, from the members' own acts; a calmer
+  now made (emitted as scripted), except 20 of `M11.C.29`'s 750, whose actor was inside their own I-POSITION
+  sequence; the ensemble record reports the count and the reason.
+- **X1 (D7).** Members with several ties rest well above the floor at every level (the triad's 5.5–14), from their own acts; a calmer
   starting state would not stay calm. Recommended as a finding.
-- **Q2.** `M11.C.41`'s reactive share is now over what the legal set offered.
+- **Q2.** `M11.C.41`'s readout is now the reactive choice beyond the reactive share of the legal set, so a
+  chooser at random scores 0 whatever the set's size.
 - **`M11.C.29`'s readout** now counts the weeks the third person's symptom is active.
 - **Q3.** A `TRIANGLE` relieves the pair as `M1.C.1` states; the learner's cross-person credit is why it is not
   reinforced. Owner decision: a finding (recommended) or a change to `M4.D.6e`.
-- **Q4/Q5.** `M11.C.4`'s later limb and three `M11.C.27` cells fail with every act made; `M11.C.5` points the
-  claimed way but converged to FAIL, so no longer horizon was tried. Owner decisions, in `TODO.md`.
+- **Owner decisions on the results.** X1 is a finding. `M11.C.5`'s FAIL is reported (it points the claimed way
+  but converged). `M11.C.4` and `M11.C.27` were read at 104 weeks, the longest horizon any criterion declares, run
+  once: no effect remains in either. The owner's account of triangling is written up as a proposal
+  (`docs/PROPOSAL — TRIANGLE RELIEF AND CREDIT.md`), not yet built.

@@ -77,16 +77,13 @@ Phase C steps 0–16 are built. **Its gate does not pass** (`docs/phase_c_comple
 - [x] ~~**Carry out the approved decisions**~~ *done 2026-10-09; results at the top of
   `docs/DECISIONS — PHASE C FAILING.md`.* S by holding each scripted act's ties open (week 0, the only week legal in
   every seed, sits on the chronic floor); X1 by D7; Q2's readout; Q3's paired measurement; Q4/Q5 rerun.
-- [ ] **Owner decisions left by the approved steps** (`docs/DECISIONS — PHASE C FAILING.md`, results section):
-  1. **Q3:** the learner's cross-person credit (`M4.D.6e`, weight 0.5) counts the recruited third's +8.9, so a
-     `TRIANGLE` that relieves the pair is credited below a `DISTANCE`. (a) report as a finding (recommended), or
-     (c) exempt the recruited third (a spec change).
-  2. **X1:** the model rests 8–9 points above the floor at every level, from the members' own acts; the declared
-     spell adds about 2. Accept as a finding (recommended), or revisit the declared spell (`[I]`, after the freeze).
-  3. **`M11.C.5`:** both readouts point the claimed way (p 0.10, 0.08) but the verdict is a converged FAIL; a
-     longer declared horizon was not tried, since the approved rule allowed it only if undetermined.
-  4. **`M11.C.4`'s later limb and three `M11.C.27` cells:** with every act made they still fail
-     (`[stable,remove_one]` the opposite way): findings (C), or a longer declared horizon (B).
+- [x] ~~**Owner decisions left by the approved steps**~~ *decided 2026-10-09* (memo, "The owner's decisions"): X1 a
+  finding; `M11.C.5`'s FAIL reported; `M11.C.4` and `M11.C.27` run at 104 weeks (no effect remains).
+- [ ] **Approve or amend `docs/PROPOSAL — TRIANGLE RELIEF AND CREDIT.md`** (owner): the seeker's relief depends on
+  the third's response, and a `TRIANGLE` is credited by the seeker's own relief. One question first: when A
+  triangles C, is B relieved too (`M11.C.3` says "the pair")? Then spec → tests → code → one rerun.
+- [ ] **`M11.C.27`'s horizon** (owner): at 3 weeks one cell passed; at the declared 104 weeks none does. Say which
+  the criterion means.
 - [x] ~~**Run the approved plan for the failing criteria**~~ *D0-D6 done 2026-10-09; see the decision memo.* (`docs/plan_phase_c_failing_criteria.md`, approved 2026-10-09):
   D0 diagnostic record, D1-D6 diagnoses, one decision memo. `M11.C.7`, `.13` and `.14` moved to Phase D the same day.
 - [ ] **The failing criteria** (after step S, 2026-10-09) — `M11.C.4` (later limb), `.5`, `.29` (restated readout

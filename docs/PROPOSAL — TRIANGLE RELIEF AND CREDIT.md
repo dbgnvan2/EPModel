@@ -39,12 +39,13 @@ state the model already holds; no new constant.
 change only. The recruited third's change is left out of the cross-person term for this act. The cross-person term
 stays for every other act, where `M4.D.6e`'s projection account applies.
 
-**Question for the owner — B's relief.** When A seeks C, does B's anxiety also go down? The twosome's tension
-eases, but your account names only A. Today B is relieved too, and `M11.C.3` asserts that a triangle "relieves the
-pair". Options:
-- (a) Only A is relieved. Then `M11.C.3` is restated to "relieves the seeker and costs the third".
-- (b) A is relieved by C's help, and B by a smaller share, as the strain between A and B eases.
-- (c) Both are relieved as now, scaled by C's help.
+**B's relief — answered by the owner, 2026-10-09: option (a).** "B's does not go down unless B also connects
+with another person." When A triangles C, only A can be relieved, and only as far as C helps. B's anxiety eases
+only through B's own act, such as B seeking D. So:
+- `triangle_transfer` stops relieving the partner; the partner is still the one A is strained with, and still
+  defines the triad.
+- `M11.C.3`'s claim is restated from "relieves the pair and costs the third" to "relieves the seeker and costs
+  the third", and its readout from the pair's change to the seeker's.
 
 ## Acceptance criteria and tests (if approved)
 
@@ -52,13 +53,14 @@ pair". Options:
 |---|---|---|
 | P1.1 | A's relief falls as C's excess rises, others equal | `tests/bowen/test_moves.py::test_m1c1_anxious_third_helps_less` |
 | P1.2 | A's relief falls as C's bond to B rises against C's bond to A | `tests/bowen/test_moves.py::test_m1c1_third_aligned_with_partner_helps_less` |
-| P1.3 | B's relief follows the owner's answer to the question above | `tests/bowen/test_moves.py::test_m1c1_partner_relief_as_decided` |
+| P1.3 | The partner B is not relieved by A's `TRIANGLE` | `tests/bowen/test_moves.py::test_m1c1_partner_not_relieved_by_seekers_triangle` |
+| P1.4 | `M11.C.3` reads the seeker's change, not the pair's | `tests/bowen/test_phase_c_criteria.py::test_m11c3_reads_the_seekers_relief` |
 | P2.1 | A `TRIANGLE`'s signal excludes the recruited third's change; other acts keep the cross-person term | `tests/bowen/test_learner.py::test_m4d6e_triangle_credit_excludes_recruited_third` |
 | P2.2 | Adversarial: a `TRIANGLE` that relieves A but loads C heavily is still reinforced; one where C is anxious and aligned with B is not | `tests/bowen/test_learner.py::test_m4d6e_triangle_reinforced_only_when_third_helps` |
 | — | Mutation: `triangle-help-ignored` (P1 removed) and `triangle-credit-cross-person` (P2 removed) are named mutants; each must turn at least one of `M11.C.3`, `.42`, `.45` red | `docs/phase_c_mutation_record.md` |
 
-Order: decide B's relief → amend the spec (`M1.C.1`, `M4.D.6e`, perhaps `M11.C.3`) → tests first → code → one
-rerun of every record → report. This is a change after the constants freeze, and it is logged as one.
+Order: amend the spec (`M1.C.1`, `M4.D.6e`, `M11.C.3`) → tests first → code → one rerun of every record (about
+an hour) → report. This is a change after the constants freeze, and it is logged as one.
 
 ## What it would not do
 

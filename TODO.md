@@ -81,7 +81,7 @@ Phase C steps 0–16 are built. **Its gate does not pass** (`docs/phase_c_comple
   finding; `M11.C.5`'s FAIL reported; `M11.C.4` and `M11.C.27` run at 104 weeks (no effect remains).
 - [ ] **Approve or amend `docs/PROPOSAL — TRIANGLE RELIEF AND CREDIT.md`** (owner): the seeker's relief depends on
   the third's response, and a `TRIANGLE` is credited by the seeker's own relief. One question first: when A
-  triangles C, is B relieved too (`M11.C.3` says "the pair")? Then spec → tests → code → one rerun.
+  triangles C, B is not relieved (owner, 2026-10-09). Awaiting approval to build: spec → tests → code → one rerun.
 - [ ] **`M11.C.27`'s horizon** (owner): at 3 weeks one cell passed; at the declared 104 weeks none does. Say which
   the criterion means.
 - [ ] **Re-sweep notes, 2026-10-09** (fix range `da57f87..996bb7a`; deferred, not fixed now):

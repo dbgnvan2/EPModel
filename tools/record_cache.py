@@ -84,6 +84,7 @@ def run_cached(cache: Cache, mutant: Mutant, ids: list[str], workers: int, label
         for result in run_in_copy(mutant, "mutant_runner.py", "--child", *missing, "--workers", str(workers)):
             error = result.get("error", "")
             if error.split(":")[0] in INFRASTRUCTURE_ERRORS:
+                cache.flush()  # keep the rows this child finished before it failed
                 raise SystemExit(f"{label or mutant.id} → {result['criterion']}: the run failed, not the model "
                                  f"({error}); nothing was cached for it")
             fresh[result["criterion"]] = result

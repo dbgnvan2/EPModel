@@ -54,6 +54,10 @@ Phase C steps 0–16 are built. **Its gate does not pass** (`docs/phase_c_comple
   key hashes the inputs, not the result. Only a rerun checks it (learning-qa, 2026-10-09).
 - [ ] **`docs/phase_c_level_occupancy.md` is checked by its hash line only**, not re-rendered from cached rows like
   the mutation and sweep records, so a hand-edited table would pass (learning-qa, 2026-10-09).
+- [ ] **`tools/record_cache.py`'s infrastructure-error match is by exact class name.** Subclasses
+  (`FileNotFoundError`, `BrokenPipeError`, `BrokenExecutor`) fall through to an uncached red instead of stopping the run;
+  `KeyboardInterrupt` in the list is dead (it is not an `Exception`); a child that returns no row for a requested
+  criterion yields `None` silently (learning-qa, 2026-10-09).
 - [ ] **Record-parsing duplication.** The record JSON regex and `json.loads` appear about six times across
   `tools/mutation_record.py`, `tools/sweep_record.py`, `tools/spec_coverage.py` and the tests; one helper would serve
   them (correctness review, 2026-10-09).

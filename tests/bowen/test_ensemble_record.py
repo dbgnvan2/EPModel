@@ -439,6 +439,9 @@ def test_m111d_run_cached_never_caches_an_errored_row(tmp_path, monkeypatch):
     assert [r["outcome"] for r in _cache.run_cached(cache, mutant, ["A", "B"], 1)] == ["PASS", "RAISED"]
     stored = _mutants.json.loads((tmp_path / "probe.json").read_text())
     assert [r["outcome"] for r in stored.values()] == ["PASS"]
+    (tmp_path / "probe.json").unlink()
     rows["B"] = {"criterion": "B", "outcome": "RAISED", "seeds": 0, "error": "BrokenProcessPool: a worker died"}
     with pytest.raises(SystemExit, match="the run failed, not the model"):
         _cache.run_cached(Cache("probe"), mutant, ["A", "B"], 1)
+    stored = _mutants.json.loads((tmp_path / "probe.json").read_text())
+    assert [r["outcome"] for r in stored.values()] == ["PASS"]  # A, finished before B failed, was kept

@@ -7,7 +7,7 @@ temperature (`policy_temperature`), one constant at a time. **Only the central s
 opposite sign to the declared direction is marked **reversed**. Plan D9's fourth constant, each
 criterion's dominant constant, is not swept: plan §3 names none.
 
-code_hash: 7ebed707a841660d8ac559dfa92b826e6ae63d78aa65c2a4f064b50ac9cd2135
+code_hash: 5e29e43758f7f5be22f915ac45d6cc5c23e8a34393229bd600b0ced237e68ff9
 
 | Criterion | Central verdict | Setting | Verdict | Seeds | Readouts (mean difference; direction) |
 |---|---|---|---|---|---|
@@ -80,13 +80,15 @@ code_hash: 7ebed707a841660d8ac559dfa92b826e6ae63d78aa65c2a4f064b50ac9cd2135
     "readout": "target_reaction",
     "direction": 1,
     "mean_difference": -7.798229775624174,
-    "half_width": 15.408665649074754
+    "half_width": 15.408665649074754,
+    "report_only": false
    },
    {
     "readout": "third_person_symptom_load",
     "direction": 1,
     "mean_difference": 0.38875309381150513,
-    "half_width": 10.135376987608748
+    "half_width": 10.135376987608748,
+    "report_only": false
    }
   ]
  },
@@ -100,13 +102,15 @@ code_hash: 7ebed707a841660d8ac559dfa92b826e6ae63d78aa65c2a4f064b50ac9cd2135
     "readout": "repertoire_entropy",
     "direction": -1,
     "mean_difference": -0.06402510249963508,
-    "half_width": 0.020738307202972137
+    "half_width": 0.020738307202972137,
+    "report_only": false
    },
    {
     "readout": "top_move_share",
     "direction": 1,
     "mean_difference": 0.058327971822744844,
-    "half_width": 0.015090698910472928
+    "half_width": 0.015090698910472928,
+    "report_only": true
    }
   ]
  },
@@ -120,7 +124,8 @@ code_hash: 7ebed707a841660d8ac559dfa92b826e6ae63d78aa65c2a4f064b50ac9cd2135
     "readout": "triangle_reuse",
     "direction": 1,
     "mean_difference": -0.2,
-    "half_width": 0.2974444689706166
+    "half_width": 0.2974444689706166,
+    "report_only": false
    }
   ]
  },
@@ -134,7 +139,8 @@ code_hash: 7ebed707a841660d8ac559dfa92b826e6ae63d78aa65c2a4f064b50ac9cd2135
     "readout": "outside_inside_ratio",
     "direction": 1,
     "mean_difference": 0.0782584075045165,
-    "half_width": 0.10963716959438508
+    "half_width": 0.10963716959438508,
+    "report_only": false
    }
   ]
  },
@@ -148,7 +154,8 @@ code_hash: 7ebed707a841660d8ac559dfa92b826e6ae63d78aa65c2a4f064b50ac9cd2135
     "readout": "triangle_rate",
     "direction": 1,
     "mean_difference": -0.003291666666666667,
-    "half_width": 0.004533348989253022
+    "half_width": 0.004533348989253022,
+    "report_only": false
    }
   ]
  },
@@ -162,7 +169,8 @@ code_hash: 7ebed707a841660d8ac559dfa92b826e6ae63d78aa65c2a4f064b50ac9cd2135
     "readout": "pair_deviation",
     "direction": 1,
     "mean_difference": -0.006706617087545896,
-    "half_width": 0.04063936636449177
+    "half_width": 0.04063936636449177,
+    "report_only": false
    }
   ]
  },
@@ -176,7 +184,8 @@ code_hash: 7ebed707a841660d8ac559dfa92b826e6ae63d78aa65c2a4f064b50ac9cd2135
     "readout": "pair_deviation",
     "direction": 1,
     "mean_difference": -0.11606495958828533,
-    "half_width": 0.07107695171123965
+    "half_width": 0.07107695171123965,
+    "report_only": false
    }
   ]
  },
@@ -190,7 +199,8 @@ code_hash: 7ebed707a841660d8ac559dfa92b826e6ae63d78aa65c2a4f064b50ac9cd2135
     "readout": "pair_deviation",
     "direction": -1,
     "mean_difference": 0.01510968596896073,
-    "half_width": 0.03988345506161381
+    "half_width": 0.03988345506161381,
+    "report_only": false
    }
   ]
  },
@@ -204,7 +214,8 @@ code_hash: 7ebed707a841660d8ac559dfa92b826e6ae63d78aa65c2a4f064b50ac9cd2135
     "readout": "pair_deviation",
     "direction": -1,
     "mean_difference": -0.10163767065115598,
-    "half_width": 0.05127810595515723
+    "half_width": 0.05127810595515723,
+    "report_only": false
    }
   ]
  },
@@ -218,13 +229,15 @@ code_hash: 7ebed707a841660d8ac559dfa92b826e6ae63d78aa65c2a4f064b50ac9cd2135
     "readout": "target_reaction",
     "direction": 1,
     "mean_difference": -26.796577500112644,
-    "half_width": 32.14254092131459
+    "half_width": 32.14254092131459,
+    "report_only": false
    },
    {
     "readout": "third_person_symptom_load",
     "direction": 1,
     "mean_difference": -1.1829637302968656,
-    "half_width": 11.372434588761092
+    "half_width": 11.372434588761092,
+    "report_only": false
    }
   ]
  },
@@ -238,13 +251,15 @@ code_hash: 7ebed707a841660d8ac559dfa92b826e6ae63d78aa65c2a4f064b50ac9cd2135
     "readout": "repertoire_entropy",
     "direction": -1,
     "mean_difference": -0.06295671365680798,
-    "half_width": 0.0217425147129458
+    "half_width": 0.0217425147129458,
+    "report_only": false
    },
    {
     "readout": "top_move_share",
     "direction": 1,
     "mean_difference": 0.04091145310210352,
-    "half_width": 0.012827185289236424
+    "half_width": 0.012827185289236424,
+    "report_only": true
    }
   ]
  },
@@ -258,7 +273,8 @@ code_hash: 7ebed707a841660d8ac559dfa92b826e6ae63d78aa65c2a4f064b50ac9cd2135
     "readout": "triangle_reuse",
     "direction": 1,
     "mean_difference": 0.15,
-    "half_width": 0.35058778926225875
+    "half_width": 0.35058778926225875,
+    "report_only": false
    }
   ]
  },
@@ -272,7 +288,8 @@ code_hash: 7ebed707a841660d8ac559dfa92b826e6ae63d78aa65c2a4f064b50ac9cd2135
     "readout": "outside_inside_ratio",
     "direction": 1,
     "mean_difference": 0.07872831728469631,
-    "half_width": 0.1259111721365161
+    "half_width": 0.1259111721365161,
+    "report_only": false
    }
   ]
  },
@@ -286,7 +303,8 @@ code_hash: 7ebed707a841660d8ac559dfa92b826e6ae63d78aa65c2a4f064b50ac9cd2135
     "readout": "triangle_rate",
     "direction": 1,
     "mean_difference": -0.0016944444444444444,
-    "half_width": 0.004822096814659517
+    "half_width": 0.004822096814659517,
+    "report_only": false
    }
   ]
  },
@@ -300,7 +318,8 @@ code_hash: 7ebed707a841660d8ac559dfa92b826e6ae63d78aa65c2a4f064b50ac9cd2135
     "readout": "pair_deviation",
     "direction": 1,
     "mean_difference": -0.0068558391696950825,
-    "half_width": 0.03314230276264426
+    "half_width": 0.03314230276264426,
+    "report_only": false
    }
   ]
  },
@@ -314,7 +333,8 @@ code_hash: 7ebed707a841660d8ac559dfa92b826e6ae63d78aa65c2a4f064b50ac9cd2135
     "readout": "pair_deviation",
     "direction": 1,
     "mean_difference": -0.10653515362400696,
-    "half_width": 0.0538125082145585
+    "half_width": 0.0538125082145585,
+    "report_only": false
    }
   ]
  },
@@ -328,7 +348,8 @@ code_hash: 7ebed707a841660d8ac559dfa92b826e6ae63d78aa65c2a4f064b50ac9cd2135
     "readout": "pair_deviation",
     "direction": -1,
     "mean_difference": 0.03122760047606755,
-    "half_width": 0.05056322658611962
+    "half_width": 0.05056322658611962,
+    "report_only": false
    }
   ]
  },
@@ -342,7 +363,8 @@ code_hash: 7ebed707a841660d8ac559dfa92b826e6ae63d78aa65c2a4f064b50ac9cd2135
     "readout": "pair_deviation",
     "direction": -1,
     "mean_difference": -0.07800020236500475,
-    "half_width": 0.049954430951526664
+    "half_width": 0.049954430951526664,
+    "report_only": false
    }
   ]
  },
@@ -356,13 +378,15 @@ code_hash: 7ebed707a841660d8ac559dfa92b826e6ae63d78aa65c2a4f064b50ac9cd2135
     "readout": "target_reaction",
     "direction": 1,
     "mean_difference": -7.8244366962164404,
-    "half_width": 18.950586805400025
+    "half_width": 18.950586805400025,
+    "report_only": false
    },
    {
     "readout": "third_person_symptom_load",
     "direction": 1,
     "mean_difference": 2.732037572061308,
-    "half_width": 7.993558818719241
+    "half_width": 7.993558818719241,
+    "report_only": false
    }
   ]
  },
@@ -376,13 +400,15 @@ code_hash: 7ebed707a841660d8ac559dfa92b826e6ae63d78aa65c2a4f064b50ac9cd2135
     "readout": "repertoire_entropy",
     "direction": -1,
     "mean_difference": -0.06501981969210063,
-    "half_width": 0.023182009600058513
+    "half_width": 0.023182009600058513,
+    "report_only": false
    },
    {
     "readout": "top_move_share",
     "direction": 1,
     "mean_difference": 0.04172745378318254,
-    "half_width": 0.01392429643493914
+    "half_width": 0.01392429643493914,
+    "report_only": true
    }
   ]
  },
@@ -396,7 +422,8 @@ code_hash: 7ebed707a841660d8ac559dfa92b826e6ae63d78aa65c2a4f064b50ac9cd2135
     "readout": "triangle_reuse",
     "direction": 1,
     "mean_difference": -0.15,
-    "half_width": 0.3241325953895094
+    "half_width": 0.3241325953895094,
+    "report_only": false
    }
   ]
  },
@@ -410,7 +437,8 @@ code_hash: 7ebed707a841660d8ac559dfa92b826e6ae63d78aa65c2a4f064b50ac9cd2135
     "readout": "outside_inside_ratio",
     "direction": 1,
     "mean_difference": 0.07106558914876142,
-    "half_width": 0.13686974676421598
+    "half_width": 0.13686974676421598,
+    "report_only": false
    }
   ]
  },
@@ -424,7 +452,8 @@ code_hash: 7ebed707a841660d8ac559dfa92b826e6ae63d78aa65c2a4f064b50ac9cd2135
     "readout": "triangle_rate",
     "direction": 1,
     "mean_difference": -0.002625000000000001,
-    "half_width": 0.004961014486034054
+    "half_width": 0.004961014486034054,
+    "report_only": false
    }
   ]
  },
@@ -438,7 +467,8 @@ code_hash: 7ebed707a841660d8ac559dfa92b826e6ae63d78aa65c2a4f064b50ac9cd2135
     "readout": "pair_deviation",
     "direction": 1,
     "mean_difference": 0.0021422885017932524,
-    "half_width": 0.03831340184230024
+    "half_width": 0.03831340184230024,
+    "report_only": false
    }
   ]
  },
@@ -452,7 +482,8 @@ code_hash: 7ebed707a841660d8ac559dfa92b826e6ae63d78aa65c2a4f064b50ac9cd2135
     "readout": "pair_deviation",
     "direction": 1,
     "mean_difference": -0.09718190987882382,
-    "half_width": 0.05597344461508267
+    "half_width": 0.05597344461508267,
+    "report_only": false
    }
   ]
  },
@@ -466,7 +497,8 @@ code_hash: 7ebed707a841660d8ac559dfa92b826e6ae63d78aa65c2a4f064b50ac9cd2135
     "readout": "pair_deviation",
     "direction": -1,
     "mean_difference": 0.025553621715128136,
-    "half_width": 0.0353459083779166
+    "half_width": 0.0353459083779166,
+    "report_only": false
    }
   ]
  },
@@ -480,7 +512,8 @@ code_hash: 7ebed707a841660d8ac559dfa92b826e6ae63d78aa65c2a4f064b50ac9cd2135
     "readout": "pair_deviation",
     "direction": -1,
     "mean_difference": -0.09726342344581829,
-    "half_width": 0.07330387569880019
+    "half_width": 0.07330387569880019,
+    "report_only": false
    }
   ]
  },
@@ -494,13 +527,15 @@ code_hash: 7ebed707a841660d8ac559dfa92b826e6ae63d78aa65c2a4f064b50ac9cd2135
     "readout": "target_reaction",
     "direction": 1,
     "mean_difference": -2.062460768091167,
-    "half_width": 22.791133126763874
+    "half_width": 22.791133126763874,
+    "report_only": false
    },
    {
     "readout": "third_person_symptom_load",
     "direction": 1,
     "mean_difference": -0.6757458679715103,
-    "half_width": 10.472057128969574
+    "half_width": 10.472057128969574,
+    "report_only": false
    }
   ]
  },
@@ -514,13 +549,15 @@ code_hash: 7ebed707a841660d8ac559dfa92b826e6ae63d78aa65c2a4f064b50ac9cd2135
     "readout": "repertoire_entropy",
     "direction": -1,
     "mean_difference": -0.04371510736970698,
-    "half_width": 0.015248809641098275
+    "half_width": 0.015248809641098275,
+    "report_only": false
    },
    {
     "readout": "top_move_share",
     "direction": 1,
     "mean_difference": 0.035747911157655576,
-    "half_width": 0.011772485020185203
+    "half_width": 0.011772485020185203,
+    "report_only": true
    }
   ]
  },
@@ -534,7 +571,8 @@ code_hash: 7ebed707a841660d8ac559dfa92b826e6ae63d78aa65c2a4f064b50ac9cd2135
     "readout": "triangle_reuse",
     "direction": 1,
     "mean_difference": 0.37,
-    "half_width": 0.3021750940675744
+    "half_width": 0.3021750940675744,
+    "report_only": false
    }
   ]
  },
@@ -548,7 +586,8 @@ code_hash: 7ebed707a841660d8ac559dfa92b826e6ae63d78aa65c2a4f064b50ac9cd2135
     "readout": "outside_inside_ratio",
     "direction": 1,
     "mean_difference": -0.05798726139551192,
-    "half_width": 0.11011406175740315
+    "half_width": 0.11011406175740315,
+    "report_only": false
    }
   ]
  },
@@ -562,7 +601,8 @@ code_hash: 7ebed707a841660d8ac559dfa92b826e6ae63d78aa65c2a4f064b50ac9cd2135
     "readout": "triangle_rate",
     "direction": 1,
     "mean_difference": 0.0024583333333333336,
-    "half_width": 0.0046489756634571005
+    "half_width": 0.0046489756634571005,
+    "report_only": false
    }
   ]
  },
@@ -576,7 +616,8 @@ code_hash: 7ebed707a841660d8ac559dfa92b826e6ae63d78aa65c2a4f064b50ac9cd2135
     "readout": "pair_deviation",
     "direction": 1,
     "mean_difference": 0.022459386153489854,
-    "half_width": 0.040175952042176125
+    "half_width": 0.040175952042176125,
+    "report_only": false
    }
   ]
  },
@@ -590,7 +631,8 @@ code_hash: 7ebed707a841660d8ac559dfa92b826e6ae63d78aa65c2a4f064b50ac9cd2135
     "readout": "pair_deviation",
     "direction": 1,
     "mean_difference": -0.1257672694580057,
-    "half_width": 0.07427032447879746
+    "half_width": 0.07427032447879746,
+    "report_only": false
    }
   ]
  },
@@ -604,7 +646,8 @@ code_hash: 7ebed707a841660d8ac559dfa92b826e6ae63d78aa65c2a4f064b50ac9cd2135
     "readout": "pair_deviation",
     "direction": -1,
     "mean_difference": 0.026311536612328403,
-    "half_width": 0.03977295848023757
+    "half_width": 0.03977295848023757,
+    "report_only": false
    }
   ]
  },
@@ -618,7 +661,8 @@ code_hash: 7ebed707a841660d8ac559dfa92b826e6ae63d78aa65c2a4f064b50ac9cd2135
     "readout": "pair_deviation",
     "direction": -1,
     "mean_difference": -0.09440447163291159,
-    "half_width": 0.05373029945160882
+    "half_width": 0.05373029945160882,
+    "report_only": false
    }
   ]
  },
@@ -632,13 +676,15 @@ code_hash: 7ebed707a841660d8ac559dfa92b826e6ae63d78aa65c2a4f064b50ac9cd2135
     "readout": "target_reaction",
     "direction": 1,
     "mean_difference": 18.96440747763285,
-    "half_width": 29.419449886727477
+    "half_width": 29.419449886727477,
+    "report_only": false
    },
    {
     "readout": "third_person_symptom_load",
     "direction": 1,
     "mean_difference": 2.7875245105820476,
-    "half_width": 14.268795582662623
+    "half_width": 14.268795582662623,
+    "report_only": false
    }
   ]
  },
@@ -652,13 +698,15 @@ code_hash: 7ebed707a841660d8ac559dfa92b826e6ae63d78aa65c2a4f064b50ac9cd2135
     "readout": "repertoire_entropy",
     "direction": -1,
     "mean_difference": -0.03856001306310255,
-    "half_width": 0.015929989622728867
+    "half_width": 0.015929989622728867,
+    "report_only": false
    },
    {
     "readout": "top_move_share",
     "direction": 1,
     "mean_difference": 0.029816687074730588,
-    "half_width": 0.013287921838975661
+    "half_width": 0.013287921838975661,
+    "report_only": true
    }
   ]
  },
@@ -672,7 +720,8 @@ code_hash: 7ebed707a841660d8ac559dfa92b826e6ae63d78aa65c2a4f064b50ac9cd2135
     "readout": "triangle_reuse",
     "direction": 1,
     "mean_difference": -0.13,
-    "half_width": 0.30345653442104076
+    "half_width": 0.30345653442104076,
+    "report_only": false
    }
   ]
  },
@@ -686,7 +735,8 @@ code_hash: 7ebed707a841660d8ac559dfa92b826e6ae63d78aa65c2a4f064b50ac9cd2135
     "readout": "outside_inside_ratio",
     "direction": 1,
     "mean_difference": 0.1031147891428957,
-    "half_width": 0.162546446322797
+    "half_width": 0.162546446322797,
+    "report_only": false
    }
   ]
  },
@@ -700,7 +750,8 @@ code_hash: 7ebed707a841660d8ac559dfa92b826e6ae63d78aa65c2a4f064b50ac9cd2135
     "readout": "triangle_rate",
     "direction": 1,
     "mean_difference": -0.0022916666666666667,
-    "half_width": 0.0047241269925512
+    "half_width": 0.0047241269925512,
+    "report_only": false
    }
   ]
  },
@@ -714,7 +765,8 @@ code_hash: 7ebed707a841660d8ac559dfa92b826e6ae63d78aa65c2a4f064b50ac9cd2135
     "readout": "pair_deviation",
     "direction": 1,
     "mean_difference": 0.0007611391857574656,
-    "half_width": 0.027274887116402337
+    "half_width": 0.027274887116402337,
+    "report_only": false
    }
   ]
  },
@@ -728,7 +780,8 @@ code_hash: 7ebed707a841660d8ac559dfa92b826e6ae63d78aa65c2a4f064b50ac9cd2135
     "readout": "pair_deviation",
     "direction": 1,
     "mean_difference": -0.09458906688602432,
-    "half_width": 0.06955031184971441
+    "half_width": 0.06955031184971441,
+    "report_only": false
    }
   ]
  },
@@ -742,7 +795,8 @@ code_hash: 7ebed707a841660d8ac559dfa92b826e6ae63d78aa65c2a4f064b50ac9cd2135
     "readout": "pair_deviation",
     "direction": -1,
     "mean_difference": 0.00930585651804485,
-    "half_width": 0.031076565826078435
+    "half_width": 0.031076565826078435,
+    "report_only": false
    }
   ]
  },
@@ -756,7 +810,8 @@ code_hash: 7ebed707a841660d8ac559dfa92b826e6ae63d78aa65c2a4f064b50ac9cd2135
     "readout": "pair_deviation",
     "direction": -1,
     "mean_difference": -0.07052167319026871,
-    "half_width": 0.06289973607647731
+    "half_width": 0.06289973607647731,
+    "report_only": false
    }
   ]
  },
@@ -770,13 +825,15 @@ code_hash: 7ebed707a841660d8ac559dfa92b826e6ae63d78aa65c2a4f064b50ac9cd2135
     "readout": "target_reaction",
     "direction": 1,
     "mean_difference": -3.3746923738466985,
-    "half_width": 14.387247706524827
+    "half_width": 14.387247706524827,
+    "report_only": false
    },
    {
     "readout": "third_person_symptom_load",
     "direction": 1,
     "mean_difference": 6.205438115626776,
-    "half_width": 10.111565567245666
+    "half_width": 10.111565567245666,
+    "report_only": false
    }
   ]
  },
@@ -790,13 +847,15 @@ code_hash: 7ebed707a841660d8ac559dfa92b826e6ae63d78aa65c2a4f064b50ac9cd2135
     "readout": "repertoire_entropy",
     "direction": -1,
     "mean_difference": -0.0741260043382484,
-    "half_width": 0.025083222209059015
+    "half_width": 0.025083222209059015,
+    "report_only": false
    },
    {
     "readout": "top_move_share",
     "direction": 1,
     "mean_difference": 0.05475027346001404,
-    "half_width": 0.01652517642025679
+    "half_width": 0.01652517642025679,
+    "report_only": true
    }
   ]
  },
@@ -810,7 +869,8 @@ code_hash: 7ebed707a841660d8ac559dfa92b826e6ae63d78aa65c2a4f064b50ac9cd2135
     "readout": "triangle_reuse",
     "direction": 1,
     "mean_difference": 0.14,
-    "half_width": 0.2974705594464328
+    "half_width": 0.2974705594464328,
+    "report_only": false
    }
   ]
  },
@@ -824,7 +884,8 @@ code_hash: 7ebed707a841660d8ac559dfa92b826e6ae63d78aa65c2a4f064b50ac9cd2135
     "readout": "outside_inside_ratio",
     "direction": 1,
     "mean_difference": 0.09362697973625433,
-    "half_width": 0.09430827008052996
+    "half_width": 0.09430827008052996,
+    "report_only": false
    }
   ]
  },
@@ -838,7 +899,8 @@ code_hash: 7ebed707a841660d8ac559dfa92b826e6ae63d78aa65c2a4f064b50ac9cd2135
     "readout": "triangle_rate",
     "direction": 1,
     "mean_difference": 0.0004583333333333325,
-    "half_width": 0.0044804337656520555
+    "half_width": 0.0044804337656520555,
+    "report_only": false
    }
   ]
  },
@@ -852,7 +914,8 @@ code_hash: 7ebed707a841660d8ac559dfa92b826e6ae63d78aa65c2a4f064b50ac9cd2135
     "readout": "pair_deviation",
     "direction": 1,
     "mean_difference": -0.019509365204403956,
-    "half_width": 0.05303205260979769
+    "half_width": 0.05303205260979769,
+    "report_only": false
    }
   ]
  },
@@ -866,7 +929,8 @@ code_hash: 7ebed707a841660d8ac559dfa92b826e6ae63d78aa65c2a4f064b50ac9cd2135
     "readout": "pair_deviation",
     "direction": 1,
     "mean_difference": -0.11254957414439799,
-    "half_width": 0.07263567744169323
+    "half_width": 0.07263567744169323,
+    "report_only": false
    }
   ]
  },
@@ -880,7 +944,8 @@ code_hash: 7ebed707a841660d8ac559dfa92b826e6ae63d78aa65c2a4f064b50ac9cd2135
     "readout": "pair_deviation",
     "direction": -1,
     "mean_difference": 0.01648904867369183,
-    "half_width": 0.03933892564303286
+    "half_width": 0.03933892564303286,
+    "report_only": false
    }
   ]
  },
@@ -894,7 +959,8 @@ code_hash: 7ebed707a841660d8ac559dfa92b826e6ae63d78aa65c2a4f064b50ac9cd2135
     "readout": "pair_deviation",
     "direction": -1,
     "mean_difference": -0.10312869751094053,
-    "half_width": 0.05255820777897892
+    "half_width": 0.05255820777897892,
+    "report_only": false
    }
   ]
  }

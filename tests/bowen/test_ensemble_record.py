@@ -261,3 +261,16 @@ def test_m111d_a_mutant_is_reversed_only_when_every_interval_flips():
     assert _mutants.judge(named, "FAIL", [readout(+0.01, 0.02)]) == "red"  # opposite sign, interval spans zero
     assert _mutants.judge(named, "FAIL", [readout(+0.05, 0.02), readout(+0.01, 0.02, +1)]) == "red"
     assert _mutants.judge(named, "PASS", [readout(-0.05, 0.02)]) == "survived"
+    assert _mutants.judge(named, "FAIL", [readout(+0.02, 0.02)]) == "red"  # the interval's edge touches zero
+
+
+def test_m111d_reversed_ignores_readouts_that_do_not_gate():
+    """A report-only readout (C.16's top-move share) or an equivalence readout cannot block or make `reversed`."""
+    named = next(m for m in _mutants.MUTANTS if m.kind == _mutants.SIGN)
+    entropy_flipped = {"readout": "e", "direction": -1, "mean_difference": +0.05, "half_width": 0.02}
+    top_share_kept = {"readout": "t", "direction": 1, "mean_difference": +0.03, "half_width": 0.01, "report_only": True}
+    equivalence = {"readout": "q", "direction": 0, "mean_difference": +0.0, "half_width": 0.01}
+    assert _mutants.judge(named, "FAIL", [entropy_flipped, top_share_kept]) == "reversed"
+    assert _mutants.judge(named, "FAIL", [entropy_flipped, equivalence]) == "reversed"
+    assert _mutants.judge(named, "FAIL", [{**top_share_kept, "mean_difference": -0.05}]) == "red"
+    assert _mutants.judge(named, "FAIL", [equivalence]) == "red"

@@ -17,7 +17,9 @@ Outcomes:
 
 * deletion, named or sign-inverted mutant — **red** if the criterion no longer passes
   (FAIL or UNDETERMINED), **survived** if it still passes. A survivor means the criterion is
-  not proved by that mutant and is reported as such.
+  not proved by that mutant and is reported as such. A red mutant is **reversed** when every
+  gating readout's interval lies wholly on the side opposite its direction: the result flipped
+  rather than vanished (`M11.1d`). Report-only and equivalence readouts are not gating.
 * representation mutant — **unchanged** if the criterion still passes, otherwise an
   **encoding artefact** (`M11.1c`).
 """
@@ -285,7 +287,7 @@ def child(ids: list[str], workers: int) -> None:
         try:
             v = run_criterion(CRITERIA[cid], rules, workers=workers)
             readouts = [{"readout": r["readout"], "direction": r["direction"], "mean_difference": r["mean_difference"],
-                         "half_width": r["half_width"]} for r in v.readouts]
+                         "half_width": r["half_width"], "report_only": r.get("report_only", False)} for r in v.readouts]
             print(json.dumps({"criterion": cid, "outcome": v.outcome, "seeds": v.seeds, "readouts": readouts},
                              default=float), flush=True)
         except Exception as error:  # an invariant raising under a mutant is a red, reported with its cause
@@ -307,13 +309,15 @@ def run_mutant(mutant: Mutant, ids: list[str], workers: int) -> list[dict]:
 
 
 def judge(mutant: Mutant, outcome: str, readouts=()) -> str:
-    """A red mutant is **reversed** when every readout's interval lies wholly on the side opposite its direction."""
+    """A red mutant is **reversed** when every gating readout's interval lies wholly on the side opposite its
+    direction. Report-only readouts (never tested) and equivalence readouts (direction 0) are not gating."""
     if mutant.kind == REPRESENTATION:
         return "unchanged" if outcome == "PASS" else "encoding artefact"
     if outcome == "PASS":
         return "survived"
-    if readouts and all(x["direction"] and x["mean_difference"] * x["direction"] < 0
-                        and abs(x["mean_difference"]) > x["half_width"] for x in readouts):
+    gating = [x for x in readouts if x["direction"] and not x.get("report_only")]
+    if gating and all(x["mean_difference"] * x["direction"] < 0 and abs(x["mean_difference"]) > x["half_width"]
+                      for x in gating):
         return "reversed"
     return "red"
 
@@ -326,8 +330,9 @@ def render(rows, skipped, hash_: str) -> str:
         "to a temporary copy of the repository, run against the criteria that pass in",
         "`docs/phase_c_ensemble_record.md`, with the same adaptive rules. A deletion, named or sign-inverted mutant",
         "is **red** when the criterion stops passing and **survived** when it still passes; a survivor means that",
-        "mutant does not prove the criterion. A red mutant is marked **reversed** when every readout's interval lies",
-        "wholly on the side opposite its declared direction: the result flipped, rather than vanished (`M11.1d`). A",
+        "mutant does not prove the criterion. A red mutant is marked **reversed** when every gating readout's interval",
+        "lies wholly on the side opposite its declared direction: the result flipped, rather than vanished (`M11.1d`).",
+        "Report-only and equivalence readouts are not gating. A",
         "representation mutant (`M11.1c`) should leave every verdict",
         "unchanged; a change is reported as an **encoding artefact**.",
         "",
@@ -378,7 +383,7 @@ def main() -> int:
             continue
         for result in run_mutant(mutant, run_ids, args.workers):
             rows.append((mutant, result))
-            print(f"{mutant.id} → {result['criterion']}: {result['outcome']} ({judge(mutant, result['outcome'])})",
+            print(f"{mutant.id} → {result['criterion']}: {result['outcome']} ({judge(mutant, result['outcome'], result.get('readouts', ()))})",
                   flush=True)
     RECORD.write_text(render(rows, skipped, code_hash(*HASHED_TOOLS)), encoding="utf-8")
     print(f"wrote {RECORD.relative_to(REPO)}")

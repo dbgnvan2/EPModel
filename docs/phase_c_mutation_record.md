@@ -7,7 +7,7 @@ is **red** when the criterion stops passing and **survived** when it still passe
 mutant does not prove the criterion. A representation mutant (`M11.1c`) should leave every verdict
 unchanged; a change is reported as an **encoding artefact**.
 
-code_hash: 3aca4e4cce611a18faa0ed651d54bff54900a4cefd1461364679625b986a7127
+code_hash: 2e69bcfffe3faa648b24a6a64f77063913399cf2da5e7fbbcd75321858287b04
 
 | Mutant | Kind | What it changes | Criterion | Verdict under mutant | Seeds | Result |
 |---|---|---|---|---|---|---|
@@ -15,6 +15,7 @@ code_hash: 3aca4e4cce611a18faa0ed651d54bff54900a4cefd1461364679625b986a7127
 | `steepness-level-independent` | named | M4.C.1a's steepness made independent of functional_level (fixed at its value for level 50) | `M11.C.38[-0 vs -5]` | PASS | 100 | **survived** |
 | `steepness-level-independent` | named | M4.C.1a's steepness made independent of functional_level (fixed at its value for level 50) | `M11.C.38[-5 vs -10]` | PASS | 100 | **survived** |
 | `steepness-level-independent` | named | M4.C.1a's steepness made independent of functional_level (fixed at its value for level 50) | `M11.C.38[-10 vs -15]` | PASS | 50 | **survived** |
+| `mixing-weight-level-independent` | named | M4.D.1a's mixing weight made independent of functional_level | `M11.C.16` | PASS | 150 | **survived** |
 | `triangle-transfer-removed` | named | M1.C.1's transfer removed | `M11.C.3` | FAIL | 50 | **red** |
 | `learner-disabled` | named | M4.D.6 disabled in both arms: no learned value ever moves | `M11.C.16` | PASS | 150 | **survived** |
 | `axes-collapsed` | named | M5.F.2b's two axes collapsed to their mean | `M11.C.19` | FAIL | 50 | **red** |
@@ -39,9 +40,13 @@ code_hash: 3aca4e4cce611a18faa0ed651d54bff54900a4cefd1461364679625b986a7127
 | `standing-load-level-inverted` | sign-inverted | M4.A.5's self term rises with basic_level instead of falling | `M11.C.38[-5 vs -10]` | PASS | 100 | **survived** |
 | `standing-load-level-inverted` | sign-inverted | M4.A.5's self term rises with basic_level instead of falling | `M11.C.38[-10 vs -15]` | PASS | 100 | **survived** |
 | `level-blind` | deletion | every rule that reads level made level-independent at once: steepness, band, threshold, mixing weight, layer availability, M4.A.5's self term, initial outside-ness, triangle routing capacity and I-POSITION hold capacity | `M11.C.1` | FAIL | 50 | **red** |
+| `level-blind` | deletion | every rule that reads level made level-independent at once: steepness, band, threshold, mixing weight, layer availability, M4.A.5's self term, initial outside-ness, triangle routing capacity and I-POSITION hold capacity | `M11.C.16` | FAIL | 50 | **red** |
 | `level-blind` | deletion | every rule that reads level made level-independent at once: steepness, band, threshold, mixing weight, layer availability, M4.A.5's self term, initial outside-ness, triangle routing capacity and I-POSITION hold capacity | `M11.C.38[-0 vs -5]` | FAIL | 50 | **red** |
 | `level-blind` | deletion | every rule that reads level made level-independent at once: steepness, band, threshold, mixing weight, layer availability, M4.A.5's self term, initial outside-ness, triangle routing capacity and I-POSITION hold capacity | `M11.C.38[-5 vs -10]` | FAIL | 50 | **red** |
 | `level-blind` | deletion | every rule that reads level made level-independent at once: steepness, band, threshold, mixing weight, layer availability, M4.A.5's self term, initial outside-ness, triangle routing capacity and I-POSITION hold capacity | `M11.C.38[-10 vs -15]` | FAIL | 50 | **red** |
+| `availability-level-independent` | deletion | M4.D.3a's layer availability made independent of functional_level (fixed at level 50) | `M11.C.16` | PASS | 150 | **survived** |
+| `availability-level-inverted` | sign-inverted | M4.D.3a's layer availability rises as functional_level falls | `M11.C.16` | PASS | 150 | **survived** |
+| `availability-and-learner-removed` | deletion | M4.D.3a's availability made level-independent and M4.D.6 disabled, together | `M11.C.16` | PASS | 150 | **survived** |
 | `triangle-roles-swapped` | sign-inverted | M1.C.1's roles swapped back to step 5's alliance reading: sender and target inside, the partner outside | `M11.C.3` | FAIL | 50 | **red** |
 | `steepness-inverted` | sign-inverted | M4.C.1a's steepness rises with functional_level instead of falling | `M11.C.1` | PASS | 100 | **survived** |
 | `steepness-inverted` | sign-inverted | M4.C.1a's steepness rises with functional_level instead of falling | `M11.C.38[-0 vs -5]` | FAIL | 100 | **red** |
@@ -158,6 +163,13 @@ criterion.
   "mutant": "steepness-level-independent",
   "kind": "named",
   "criterion": "M11.C.38[-10 vs -15]",
+  "outcome": "PASS",
+  "result": "survived"
+ },
+ {
+  "mutant": "mixing-weight-level-independent",
+  "kind": "named",
+  "criterion": "M11.C.16",
   "outcome": "PASS",
   "result": "survived"
  },
@@ -332,6 +344,13 @@ criterion.
  {
   "mutant": "level-blind",
   "kind": "deletion",
+  "criterion": "M11.C.16",
+  "outcome": "FAIL",
+  "result": "red"
+ },
+ {
+  "mutant": "level-blind",
+  "kind": "deletion",
   "criterion": "M11.C.38[-0 vs -5]",
   "outcome": "FAIL",
   "result": "red"
@@ -349,6 +368,27 @@ criterion.
   "criterion": "M11.C.38[-10 vs -15]",
   "outcome": "FAIL",
   "result": "red"
+ },
+ {
+  "mutant": "availability-level-independent",
+  "kind": "deletion",
+  "criterion": "M11.C.16",
+  "outcome": "PASS",
+  "result": "survived"
+ },
+ {
+  "mutant": "availability-level-inverted",
+  "kind": "sign-inverted",
+  "criterion": "M11.C.16",
+  "outcome": "PASS",
+  "result": "survived"
+ },
+ {
+  "mutant": "availability-and-learner-removed",
+  "kind": "deletion",
+  "criterion": "M11.C.16",
+  "outcome": "PASS",
+  "result": "survived"
  },
  {
   "mutant": "triangle-roles-swapped",

@@ -379,7 +379,7 @@ mutant has turned each entry red in `docs/phase_c_mutation_record.md`; the D9 sw
 | M11.C.12 | not done | — | Phase D |
 | M11.C.13 | not done | `tests/bowen/test_phase_c_gate.py::test_m11c13_help_relocates_not_reduces` | not built in Phase C — docs/phase_c_ensemble_record.md says why |
 | M11.C.14 | not done | `tests/bowen/test_phase_c_gate.py::test_m11c14_technique_null_under_marital_distance` | not built in Phase C — docs/phase_c_ensemble_record.md says why |
-| M11.C.16 | partial | `tests/bowen/test_phase_c_gate.py::test_m11c16_repertoire_concentration_depends_on_level` | ensemble record: M11.C.16 PASS; passes, but no mutant has turned every entry red (docs/phase_c_mutation_record.md) |
+| M11.C.16 | partial | `tests/bowen/test_phase_c_gate.py::test_m11c16_repertoire_concentration_depends_on_level` | passes (docs/phase_c_ensemble_record.md), but its required mutant, M4.D.6 disabled, survives; only the joint level-blind mutant turns it red (docs/phase_c_mutation_record.md). The row's mutation clause is not met (spec M11.5, 2026-10-08) |
 | M11.C.15 | not done | — | Phase D |
 | M11.C.17 | not done | — | Phase D |
 | M11.C.18 | not done | — | Phase D |

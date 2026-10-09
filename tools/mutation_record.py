@@ -84,13 +84,15 @@ LEVEL_BLIND = (  # every remaining read of level on the path to onset, made leve
 )
 
 
+AVAILABILITY = "return min(1.0, max(0.0, obs.functional_level / (layer * params.capacity_level_per_layer)))"
+
 MUTANTS = (
     # --- plan §3's named mutations --------------------------------------------------------------
     Mutant("steepness-level-independent", NAMED, LEVEL, "src/bowen/engine/contact.py",
            "return SCALE_MAX / max(person.functional_level, params.functional_level_floor)",
            "return SCALE_MAX / max(SCALE_MAX / 2, params.functional_level_floor)",
            "M4.C.1a's steepness made independent of functional_level (fixed at its value for level 50)"),
-    Mutant("mixing-weight-level-independent", NAMED, ("M11.C.41",), "src/bowen/policy/policy.py",
+    Mutant("mixing-weight-level-independent", NAMED, ("M11.C.41", "M11.C.16"), "src/bowen/policy/policy.py",
            "return min(1.0, max(0.0, functional_level / SCALE_MAX)) ** params.self_channel_exponent",
            "return 0.5 ** params.self_channel_exponent",
            "M4.D.1a's mixing weight made independent of functional_level"),
@@ -144,13 +146,27 @@ MUTANTS = (
            "return params.standing_load_gain * (SCALE_MAX - person.basic_level) / SCALE_MAX",
            "return params.standing_load_gain * person.basic_level / SCALE_MAX",
            "M4.A.5's self term rises with basic_level instead of falling"),
-    Mutant("level-blind", DELETION, LEVEL, "src/bowen/engine/contact.py",
+    Mutant("level-blind", DELETION, (*LEVEL, "M11.C.16"), "src/bowen/engine/contact.py",
            "return SCALE_MAX / max(person.functional_level, params.functional_level_floor)",
            "return SCALE_MAX / max(SCALE_MAX / 2, params.functional_level_floor)",
            "every rule that reads level made level-independent at once: steepness, band, threshold, mixing "
            "weight, layer availability, M4.A.5's self term, initial outside-ness, triangle routing capacity "
            "and I-POSITION hold capacity",
            also=LEVEL_BLIND),
+    # --- M11.C.16 (2026-10-08): its named mutant, the learner disabled, survives, so which rule carries it?
+    # --- M4.D.3a's layer availability is the one rule that narrows the automatic repertoire with level.
+    Mutant("availability-level-independent", DELETION, ("M11.C.16",), "src/bowen/policy/policy.py",
+           AVAILABILITY, "return min(1.0, max(0.0, 50.0 / (layer * params.capacity_level_per_layer)))",
+           "M4.D.3a's layer availability made independent of functional_level (fixed at level 50)"),
+    Mutant("availability-level-inverted", SIGN, ("M11.C.16",), "src/bowen/policy/policy.py",
+           AVAILABILITY,
+           "return min(1.0, max(0.0, (100.0 - obs.functional_level) / (layer * params.capacity_level_per_layer)))",
+           "M4.D.3a's layer availability rises as functional_level falls"),
+    Mutant("availability-and-learner-removed", DELETION, ("M11.C.16",), "src/bowen/policy/policy.py",
+           AVAILABILITY, "return min(1.0, max(0.0, 50.0 / (layer * params.capacity_level_per_layer)))",
+           "M4.D.3a's availability made level-independent and M4.D.6 disabled, together",
+           also=(("src/bowen/engine/learner.py", "delta = params.learning_rate * (signal - value)",
+                  "delta = 0.0 * (signal - value)"),)),
     # --- M11.1d: sign-inverted mutants of each passing criterion's core rule --------------------
     Mutant("triangle-roles-swapped", SIGN, ("M11.C.3",), "src/bowen/engine/moves.py",
            "    outsider = target\n    insiders = (state.people[event.sender], state.people[partner])\n",

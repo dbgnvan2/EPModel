@@ -431,5 +431,10 @@
   "status": "not done",
   "evidence": [],
   "note": "SHOULD; matched-magnitude severing mutants were not built in Phase C (plan step 15: where cheap; none was)"
+ },
+ "M11.C.16": {
+  "status": "partial",
+  "evidence": [],
+  "note": "passes (docs/phase_c_ensemble_record.md), but its required mutant, M4.D.6 disabled, survives; only the joint level-blind mutant turns it red (docs/phase_c_mutation_record.md). The row's mutation clause is not met (spec M11.5, 2026-10-08)"
  }
 }

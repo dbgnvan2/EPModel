@@ -38,10 +38,13 @@ Phase C steps 0–16 are built. **Its gate does not pass** (`docs/phase_c_comple
   Report §3.8 and §8.
 - [x] ~~**`M13.4`'s precision rule and `M11.C.16`.**~~ *Decided 2026-10-08 (report §10): precision against the pooled sd
   of the two arms. C.16 now passes at 150 seeds; C.41's [light: lower level] cell now fails instead of undetermined.*
-- [ ] **`M11.C.16` passes but is not proved.** Its named mutant (`M4.D.6` disabled) survives, and so does the learner
-  inverted, and it passes at all six sweep settings: the narrowing does not come from learning. Decide whether to
-  reclassify it (revision 11 calls it composite) and which mutant should prove it. One untested candidate:
-  `M4.D.3a`'s layer availability. Report §10.
+- [x] ~~**Decide whether to reclassify `M11.C.16`.**~~ *Decided 2026-10-08: it stays **composite**. No single rule carries
+  it: the learner, layer availability and the mixing weight each survive deletion, availability survives inversion,
+  and availability with the learner removed still passes; only the joint level-blind mutant turns it red. Its row's
+  rationale (learning produces it) and its mutation clause are not met, so coverage keeps it partial. Report §11.*
+- [ ] **`M11.C.16`'s mutation clause is not met.** The spec requires that disabling `M4.D.6` turn it red, and it does
+  not. Decide whether to restate the criterion so that a learned contribution is what it tests (for example, hold
+  level-reading availability fixed and compare learning on against off), or to accept it as a level result.
 - [ ] **The failing criteria** — `M11.C.4` (later limb), `.5`, `.29` (the third person never accumulates symptom
   weeks), `.41` (no cell passes; the reactive share falls with level), `.42`, `.44`, `.45`, and three cells of `.27`.
   Report §3.

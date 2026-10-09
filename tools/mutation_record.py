@@ -43,7 +43,7 @@ ENSEMBLE_RECORD = REPO / "docs" / "phase_c_ensemble_record.md"
 # The mutant list here, and RULE_KEYS in tools/ensemble_record.py, are inputs to the record.
 HASHED_TOOLS = (Path(__file__).resolve(), REPO / "tools" / "ensemble_record.py")
 DELETION, NAMED, SIGN, REPRESENTATION = "deletion", "named", "sign-inverted", "representation"
-LEVEL = ("M11.C.1", "M11.C.38", "M11.C.41")
+LEVEL = ("M11.C.1", "M11.C.38", "M11.C.41", "M11.C.16")
 
 
 @dataclass(frozen=True)
@@ -85,6 +85,14 @@ LEVEL_BLIND = (  # every remaining read of level on the path to onset, made leve
 
 
 AVAILABILITY = "return min(1.0, max(0.0, obs.functional_level / (layer * params.capacity_level_per_layer)))"
+# Reflected about level 30 (0.3 of the scale), the middle of C.16's levels, so the inversion falls with level there
+# instead of saturating at 1 in both arms. Tested by test_m111a_availability_inversion_inverts_at_c16s_levels.
+AVAILABILITY_INVERTED = ("return min(1.0, max(0.0, (SCALE_MAX * 0.6 - obs.functional_level) "
+                         "/ (layer * params.capacity_level_per_layer)))")
+BAND = "return params.contact_band_max * person.functional_level / SCALE_MAX"
+OUTSIDE_NESS = "start = params.initial_impingement_scale * (1.0 - person.basic_level / SCALE_MAX)"
+ROUTING = "return max(0.0, 1.0 - sum(p.functional_level for p in members) / (len(members) * SCALE_MAX))"
+HOLD = "return params.hold_gain * person.functional_level * efficacy(person)"
 
 MUTANTS = (
     # --- plan §3's named mutations --------------------------------------------------------------
@@ -146,7 +154,7 @@ MUTANTS = (
            "return params.standing_load_gain * (SCALE_MAX - person.basic_level) / SCALE_MAX",
            "return params.standing_load_gain * person.basic_level / SCALE_MAX",
            "M4.A.5's self term rises with basic_level instead of falling"),
-    Mutant("level-blind", DELETION, (*LEVEL, "M11.C.16"), "src/bowen/engine/contact.py",
+    Mutant("level-blind", DELETION, LEVEL, "src/bowen/engine/contact.py",
            "return SCALE_MAX / max(person.functional_level, params.functional_level_floor)",
            "return SCALE_MAX / max(SCALE_MAX / 2, params.functional_level_floor)",
            "every rule that reads level made level-independent at once: steepness, band, threshold, mixing "
@@ -154,19 +162,43 @@ MUTANTS = (
            "and I-POSITION hold capacity",
            also=LEVEL_BLIND),
     # --- M11.C.16 (2026-10-08): its named mutant, the learner disabled, survives, so which rule carries it?
-    # --- M4.D.3a's layer availability is the one rule that narrows the automatic repertoire with level.
+    # --- Each level-reading rule is run on it alone, deleted and inverted (M11.1d). The steepness, threshold and
+    # --- standing-load mutants above reach C.16 through LEVEL. An inversion is written to stay inside its clamp at
+    # --- C.16's levels (functional level about 14-44), or it is a deletion in disguise (M11.1a; csdp sweep finding).
     Mutant("availability-level-independent", DELETION, ("M11.C.16",), "src/bowen/policy/policy.py",
-           AVAILABILITY, "return min(1.0, max(0.0, 50.0 / (layer * params.capacity_level_per_layer)))",
-           "M4.D.3a's layer availability made independent of functional_level (fixed at level 50)"),
+           AVAILABILITY, "return min(1.0, max(0.0, (SCALE_MAX / 2) / (layer * params.capacity_level_per_layer)))",
+           "M4.D.3a's layer availability removed: every layer fully available at every level"),
     Mutant("availability-level-inverted", SIGN, ("M11.C.16",), "src/bowen/policy/policy.py",
-           AVAILABILITY,
-           "return min(1.0, max(0.0, (100.0 - obs.functional_level) / (layer * params.capacity_level_per_layer)))",
-           "M4.D.3a's layer availability rises as functional_level falls"),
+           AVAILABILITY, AVAILABILITY_INVERTED,
+           "M4.D.3a's layer availability reflected about level 30, so it falls as level rises over C.16's levels"),
     Mutant("availability-and-learner-removed", DELETION, ("M11.C.16",), "src/bowen/policy/policy.py",
-           AVAILABILITY, "return min(1.0, max(0.0, 50.0 / (layer * params.capacity_level_per_layer)))",
-           "M4.D.3a's availability made level-independent and M4.D.6 disabled, together",
+           AVAILABILITY, "return min(1.0, max(0.0, (SCALE_MAX / 2) / (layer * params.capacity_level_per_layer)))",
+           "M4.D.3a's availability removed and M4.D.6 disabled, together",
            also=(("src/bowen/engine/learner.py", "delta = params.learning_rate * (signal - value)",
                   "delta = 0.0 * (signal - value)"),)),
+    Mutant("band-level-independent", DELETION, ("M11.C.16",), "src/bowen/engine/contact.py",
+           BAND, "return params.contact_band_max * (SCALE_MAX / 2) / SCALE_MAX",
+           "M4.C.1a's band made independent of functional_level (fixed at level 50)"),
+    Mutant("band-level-inverted", SIGN, ("M11.C.16",), "src/bowen/engine/contact.py",
+           BAND, "return params.contact_band_max * (SCALE_MAX - person.functional_level) / SCALE_MAX",
+           "M4.C.1a's band narrows as functional_level rises"),
+    Mutant("outside-ness-level-independent", DELETION, ("M11.C.16",), "src/bowen/engine/outside_ness.py",
+           OUTSIDE_NESS, "start = params.initial_impingement_scale * 0.5",
+           "M1.A.9's initial outside-ness made independent of basic_level (fixed at level 50)"),
+    Mutant("outside-ness-level-inverted", SIGN, ("M11.C.16",), "src/bowen/engine/outside_ness.py",
+           OUTSIDE_NESS, "start = params.initial_impingement_scale * (person.basic_level / SCALE_MAX)",
+           "M1.A.9's initial outside-ness rises with basic_level"),
+    Mutant("routing-level-independent", DELETION, ("M11.C.16",), "src/bowen/engine/moves.py",
+           ROUTING, "return 0.5", "M1.C.3a's routing capacity made independent of functional_level"),
+    Mutant("routing-level-inverted", SIGN, ("M11.C.16",), "src/bowen/engine/moves.py",
+           ROUTING, "return max(0.0, sum(p.functional_level for p in members) / (len(members) * SCALE_MAX))",
+           "M1.C.3a's routing capacity rises with the members' functional_level"),
+    Mutant("hold-level-independent", DELETION, ("M11.C.16",), "src/bowen/engine/iposition.py",
+           HOLD, "return params.hold_gain * (SCALE_MAX / 2) * efficacy(person)",
+           "M5.D.3's hold capacity made independent of functional_level (fixed at level 50)"),
+    Mutant("hold-level-inverted", SIGN, ("M11.C.16",), "src/bowen/engine/iposition.py",
+           HOLD, "return params.hold_gain * (SCALE_MAX - person.functional_level) * efficacy(person)",
+           "M5.D.3's hold capacity falls as functional_level rises"),
     # --- M11.1d: sign-inverted mutants of each passing criterion's core rule --------------------
     Mutant("triangle-roles-swapped", SIGN, ("M11.C.3",), "src/bowen/engine/moves.py",
            "    outsider = target\n    insiders = (state.people[event.sender], state.people[partner])\n",
@@ -290,20 +322,24 @@ def render(rows, skipped, hash_: str) -> str:
         "",
         f"code_hash: {hash_}",
         "",
-        "| Mutant | Kind | What it changes | Criterion | Verdict under mutant | Seeds | Result |",
-        "|---|---|---|---|---|---|---|",
+        "| Mutant | Kind | What it changes | Criterion | Verdict under mutant | Seeds | Difference under mutant | Result |",
+        "|---|---|---|---|---|---|---|---|",
     ]
     for mutant, result in rows:
         note = f" ({result['error']})" if result.get("error") else ""
+        diffs = "; ".join(f"`{x['readout']}` {x['mean_difference']:+.3g} ± {x['half_width']:.2g}"
+                          for x in result.get("readouts", ()))
         lines.append(f"| `{mutant.id}` | {mutant.kind} | {mutant.what} | `{result['criterion']}` | "
-                     f"{result['outcome']}{note} | {result['seeds']} | **{judge(mutant, result['outcome'])}** |")
+                     f"{result['outcome']}{note} | {result['seeds']} | {diffs or '—'} | "
+                     f"**{judge(mutant, result['outcome'])}** |")
     lines += ["", "## Not run", "",
               "Criteria a mutant targets that do not pass at the central setting — a mutant cannot prove a failing",
               "criterion.", ""]
     lines += [f"- `{m.id}` → `{cid}`" for m, cid in skipped] or ["- none"]
     lines += ["", "## Machine-readable", "", "```json",
               json.dumps([{"mutant": m.id, "kind": m.kind, "criterion": r["criterion"], "outcome": r["outcome"],
-                           "result": judge(m, r["outcome"])} for m, r in rows], indent=1),
+                           "result": judge(m, r["outcome"]), "readouts": r.get("readouts", [])} for m, r in rows],
+                         indent=1, default=float),
               "```", ""]
     return "\n".join(lines)
 

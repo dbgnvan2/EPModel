@@ -15,6 +15,7 @@ import sys
 from pathlib import Path
 
 from src.bowen.ensemble.criteria import CRITERIA, NOT_BUILT
+from src.bowen.io.load import load_constants
 
 REPO = Path(__file__).resolve().parents[2]
 _spec = importlib.util.spec_from_file_location("ensemble_record_tool", REPO / "tools" / "ensemble_record.py")
@@ -183,3 +184,36 @@ def test_criteria_required_matches_what_the_arms_read():
     unread = {(s, k) for s, names in REQUIRED.items() for k in names} - read - level_rows
     assert not unread, f"declared in REQUIRED but read nowhere: {sorted(unread)}"
     assert not (read - {(s, k) for s, names in REQUIRED.items() for k in names}), "read but not declared"
+
+
+def _availability(source: str, level: float, layer: int) -> float:
+    """Evaluate an availability return line (the rule or a mutant of it) at a functional level and layer."""
+    from types import SimpleNamespace
+
+    from src.bowen.engine.objects import SCALE_MAX
+
+    params = SimpleNamespace(capacity_level_per_layer=load_constants()["capacity_level_per_layer"])
+    expression = source.strip().removeprefix("return ")
+    return eval(expression, {"min": min, "max": max, "SCALE_MAX": SCALE_MAX},
+                {"obs": SimpleNamespace(functional_level=level), "layer": layer, "params": params})
+
+
+def test_m111a_availability_inversion_inverts_at_c16s_levels():
+    """An inversion must change behaviour where the criterion runs, not saturate into a deletion (csdp sweep finding).
+
+    C.16's members sit at functional level about 14 (lowered arm) to 44 (baseline). The rule rises with level there;
+    its inverted mutant must fall, on a layer the clamp does not hide.
+    """
+    inverted = next(m for m in _mutants.MUTANTS if m.id == "availability-level-inverted")
+    low, high = 14.0, 44.0
+    for layer in (1, 2):
+        assert _availability(_mutants.AVAILABILITY, low, layer) <= _availability(_mutants.AVAILABILITY, high, layer)
+    falls = [layer for layer in (1, 2)
+             if _availability(inverted.new, low, layer) > _availability(inverted.new, high, layer)]
+    assert falls, "the inversion is flat at C.16's levels: it is a deletion, not an inversion"
+
+
+def test_m111a_the_saturated_inversion_would_be_caught():
+    """The first inversion, (100 − level), clamps to 1 at both of C.16's levels on every layer."""
+    saturated = "return min(1.0, max(0.0, (100.0 - obs.functional_level) / (layer * params.capacity_level_per_layer)))"
+    assert all(_availability(saturated, level, layer) == 1.0 for level in (14.0, 44.0) for layer in (1, 2))

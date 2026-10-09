@@ -84,6 +84,15 @@ Phase C steps 0–16 are built. **Its gate does not pass** (`docs/phase_c_comple
   triangles C, is B relieved too (`M11.C.3` says "the pair")? Then spec → tests → code → one rerun.
 - [ ] **`M11.C.27`'s horizon** (owner): at 3 weeks one cell passed; at the declared 104 weeks none does. Say which
   the criterion means.
+- [ ] **Re-sweep notes, 2026-10-09** (fix range `da57f87..996bb7a`; deferred, not fixed now):
+  1. `reactive_over_chance` averages in `FALLBACK` selections (always WITHHOLD), at fallback rates of 0.26–0.35
+     in `M11.C.41`'s arms. A uniform chooser still scores 0, but a fallback rate that differs between arms shifts
+     it. Restrict it to `decided_by is POLICY` (or report both) with the next engine change; it changes the engine
+     hash, so it reruns every record (about an hour). The level cells' mutant evidence is mostly `mean_acute`.
+  2. Three probes (`c27_deviation_terms`, `horizons`; `tools/probes.py`) call `made(criteria)` without records,
+     so they count placed acts as made. Diagnostics only; pass the records at the next probe edit.
+  3. Low: a scripted week the run reached but never offered would read "not reached"; the scripted-criteria
+     scans stop at an arm's first `scenario` call (every arm calls it once today).
 - [x] ~~**Run the approved plan for the failing criteria**~~ *D0-D6 done 2026-10-09; see the decision memo.* (`docs/plan_phase_c_failing_criteria.md`, approved 2026-10-09):
   D0 diagnostic record, D1-D6 diagnoses, one decision memo. `M11.C.7`, `.13` and `.14` moved to Phase D the same day.
 - [ ] **The failing criteria** (after step S, 2026-10-09) — `M11.C.4` (later limb), `.5`, `.29` (restated readout

@@ -294,3 +294,28 @@ def test_s_absence_and_hold_in_the_same_week_both_apply():
         assert legal, "no selection for the pair that week"
         assert not [x for x in legal if x.endswith(">c") or x.startswith("TRIANGLE>")]  # the absence
         assert not [x for x in legal if x in ("CUTOFF>m", "CUTOFF>f")]  # the hold
+
+
+def test_s_outcomes_classifies_every_case_from_the_records():
+    """`Forced.outcomes` against hand-built records: an act placed but emitted as something else is "rewritten",
+    not made; an I-POSITION is made as an act or as a sequence begun (re-sweep finding, 2026-10-09)."""
+    from types import SimpleNamespace
+
+    from src.bowen.engine.log_records import EffectRecord
+
+    def emitted(sender, week, kind, target):
+        return EmittedRecord(SimpleNamespace(sender=P(sender), timestamp=week, kind=kind, targets=(P(target),),
+                                             mechanism=Mechanism.MOVE))
+
+    forced = {**act("f", "DISTANCE", "m", 1), **act("f", "DISTANCE", "m", 2), **act("m", "I-POSITION", "f", 3),
+              **act("f", "I-POSITION", "m", 4), **act("f", "CUTOFF", "m", 5), **act("c", "TRIANGLE", "f", 6),
+              **act("m", "PURSUE", "f", 7), **act("f", "CONFLICT", "m", 8)}
+    source = criteria.Forced(None, forced)
+    source.status = {(1, P("f")): "placed", (2, P("f")): "placed", (3, P("m")): "placed", (4, P("f")): "placed",
+                     (5, P("f")): "not legal", (6, P("c")): "owed a step", (7, P("m")): "dead"}
+    records = [emitted("f", 1, "DISTANCE", "m"),
+               emitted("f", 2, "STAY-IN-CONTACT", "m"),  # placed, then rewritten toward the sequence's other
+               EffectRecord(3, "iposition", None, people=((P("m"), "iposition:begin:PREPARE", 1.0),)),
+               emitted("f", 4, "STAY-IN-CONTACT", "m")]  # an I-POSITION neither emitted nor begun
+    assert source.outcomes(records) == {"made": 2, "rewritten": 2, "not legal": 1, "owed a step": 1, "dead": 1,
+                                        "not reached": 1}

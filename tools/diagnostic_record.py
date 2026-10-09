@@ -10,7 +10,10 @@ Tests:   tests/bowen/test_ensemble_record.py::test_d0_diagnostic_record_is_curre
 
 A diagnostic either runs criteria (failing ones included) under the unmodified model or a mutant from
 tools/mutation_record.py, or runs a probe from tools/probes.py. Results are cached like the mutation record's
-(tools/record_cache.py): a probe's key also holds its own source, so editing one probe reruns only it.
+(tools/record_cache.py): a probe's key holds the whole of tools/probes.py, so any edit to it reruns the probes.
+
+The record's freshness test is in the default suite on purpose: the decision memo cites this record, and a stale one
+would mislead. An engine edit therefore needs a rerun of this tool (minutes) as well as of the other records.
 """
 
 from __future__ import annotations
@@ -86,6 +89,8 @@ DIAGNOSTICS = (
                "weight set to 0, so an act is credited with the actor's own relief only: is the loaded third's "
                "distress what makes TRIANGLE a cost?", constant=("cross_person_weight", "0.0"),
                probe="triangle_relief", seeds=20),
+    Diagnostic("d0-scripted-acts", "D0", "Every criterion whose arms script an act: in how many seeds it was made, or "
+               "skipped because it was not legal that week", probe="scripted_acts", seeds=20),
     Diagnostic("d5-spell-effect", "D5", "Is M11.C.44/.45's calm arm calm? Each triad member's mean acute anxiety and "
                "share of weeks above the chronic floor, per arm", probe="spell_effect", seeds=20),
 )
@@ -98,10 +103,9 @@ def ids_for(d: Diagnostic) -> list[str]:
 
 
 def probe_source(name: str) -> str:
-    """The probe's source, the shared sampling helper's, and that of any other probe it calls by name."""
-    own = inspect.getsource(probes.PROBES[name])
-    called = [inspect.getsource(f) for other, f in sorted(probes.PROBES.items()) if other != name and f"{other}(" in own]
-    return "\n".join([own, inspect.getsource(probes.sampling), *called])
+    """The whole of tools/probes.py, and the probe's name: a probe reads helpers, other probes and module constants
+    (a narrower key missed `horizons`' constants), so any edit to the file reruns the probes, which take minutes."""
+    return f"{name}\n" + inspect.getsource(probes)
 
 
 def probe_key(engine: str, d: Diagnostic) -> str:
@@ -118,11 +122,16 @@ def results(cache: Cache, d: Diagnostic, workers: int | None) -> list[dict]:
         if cache.get(key) is None:
             if workers is None:
                 raise KeyError(f"{d.id}: no cached result for the current engine, edits and probe")
-            cache.put(key, {"rows": run_in_copy(mutant(d), "probes.py", "--probe", d.probe, "--seeds", str(d.seeds))})
+            rows = run_in_copy(mutant(d), "probes.py", "--probe", d.probe, "--seeds", str(d.seeds))
+            if not rows:
+                raise SystemExit(f"{d.id}: probe {d.probe} returned no rows")
+            cache.put(key, {"rows": rows})
             cache.flush()
             print(f"{d.id}: ran", flush=True)
         return cache.get(key)["rows"]
     ids = ids_for(d)
+    if not ids:
+        raise SystemExit(f"{d.id}: names no criterion ({d.criteria})")
     if workers is not None:
         return run_cached(cache, mutant(d), ids, workers, label=d.id)
     m = mutant(d)
@@ -145,7 +154,10 @@ def summarise(rows: list[dict]) -> list[str]:
     for group, members in groups.items():
         cells = [v for _, v in group] + [str(len(members))]
         for n in numbers:
-            values = sorted(float(m[n]) for m in members)
+            values = sorted(float(m[n]) for m in members if m[n] is not None)  # None: nothing to measure that seed
+            if not values:
+                cells.append("—")
+                continue
             median = (values[(len(values) - 1) // 2] + values[len(values) // 2]) / 2
             above = sum(v > 0 for v in values) / len(values)
             cells.append(f"{sum(values) / len(values):.3g} / {median:.3g} / {values[-1]:.3g} / {above:.0%}")
@@ -171,7 +183,7 @@ def render(sections: list[tuple[Diagnostic, list[dict]]], engine: str) -> str:
         lines += ["", f"## {d.step} · `{d.id}`", "", f"{d.what}. Model: {variant}."]
         if d.probe:
             lines += ["", f"Probe `{d.probe}` over {d.seeds} seeds; per group over seeds: mean / median / maximum / "
-                      "share above zero.", ""]
+                      "share above zero (a seed with nothing to measure is left out).", ""]
             lines += summarise(rows)
         else:
             lines += ["", "| Criterion | Outcome | Seeds | Readouts (mean difference ± half-width) |", "|---|---|---|---|"]

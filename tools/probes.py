@@ -9,7 +9,10 @@ Tests:   tests/bowen/test_ensemble_record.py::test_d0_diagnostic_record_is_curre
     python3 tools/probes.py --probe NAME [--seeds N]
 
 A probe samples state as each tick starts by patching ``criteria.run_tick``, as tools/level_occupancy.py does, and
-calls the criterion's arm function, so the arms are the criterion's own.
+calls the criterion's arm function, so the arms are the criterion's own (``c44_act_counts`` re-runs the arm's
+scenario to read its records, and must be kept in step with ``arm_spell_triad``). Sampling at tick start misses the
+last tick and reads anxiety after the previous tick's decay, so peaks are slightly understated. A forced arm's rows
+say whether its scripted act was made (``made``): an act that is not legal that week is skipped.
 """
 
 from __future__ import annotations
@@ -39,6 +42,17 @@ def sampling(criteria, sample):
             criteria.run_tick = self.original
 
     return Patch()
+
+
+def made(criteria) -> str:
+    """Whether the last scenario's scripted acts were made: "made", "skipped" (not legal that week), "none" (no
+    scripted act) or "partly" (some made, some skipped)."""
+    source = getattr(criteria.scenario, "last_source", None)
+    if source is None or not source.forced:
+        return "none"
+    if source.skipped == 0:
+        return "made"
+    return "skipped" if source.made == 0 else "partly"
 
 
 def c29_third_person(seeds: int) -> list[dict]:
@@ -90,15 +104,15 @@ def triangle_relief(seeds: int) -> list[dict]:
         for arm in criterion.arms:
             for seed in range(seeds):
                 closed: list[tuple[str, float]] = []
-                final_values: dict[str, float] = {}
+                final_values: dict[tuple[str, str], float] = {}
 
                 def learn(state, start_acute, params):
                     due = [a for p in state.people.values() for a in p.eligible_acts
                            if state.tick - a.tick >= params.credit_horizon - 1]
                     out = original(state, start_acute, params)
                     closed.extend((a.key.split("|")[2], a.signal) for a in due)
-                    for p in state.people.values():
-                        final_values.update(p.learned_values)
+                    for pid, p in state.people.items():
+                        final_values.update({(pid.value, k): v for k, v in p.learned_values.items()})
                     return out
 
                 tick.learn = learn
@@ -108,11 +122,11 @@ def triangle_relief(seeds: int) -> list[dict]:
                     tick.learn = original
                 for group, pick in (("TRIANGLE", lambda k: k == "TRIANGLE"), ("other", lambda k: k != "TRIANGLE")):
                     signals = [s for k, s in closed if pick(k)]
-                    values = [v for k, v in final_values.items() if pick(k.split("|")[2])]
+                    values = [v for (_, k), v in final_values.items() if pick(k.split("|")[2])]
                     rows.append({"criterion": cid, "arm": arm, "acts": group, "seed": seed, "count": len(signals),
-                                 "mean_signal": sum(signals) / len(signals) if signals else 0.0,
-                                 "share_relieved": sum(s > 0 for s in signals) / len(signals) if signals else 0.0,
-                                 "mean_learned_value": sum(values) / len(values) if values else 0.0})
+                                 "mean_signal": sum(signals) / len(signals) if signals else None,
+                                 "share_relieved": sum(s > 0 for s in signals) / len(signals) if signals else None,
+                                 "mean_learned_value": sum(values) / len(values) if values else None})
     return rows
 
 
@@ -148,8 +162,9 @@ def c27_deviation_terms(seeds: int) -> list[dict]:
                     criterion.arm(arm, seed, criterion.settings)
                 finally:
                     criteria._pair_deviation = original
+                status = made(criteria)
                 for member, terms in captured.items():
-                    rows.append({"cell": cid, "arm": arm, "member": member, "seed": seed, **terms})
+                    rows.append({"cell": cid, "arm": arm, "act": status, "member": member, "seed": seed, **terms})
     return rows
 
 
@@ -194,10 +209,12 @@ def horizons(seeds: int) -> list[dict]:
             settings = {**criterion.settings, key: value}
             for seed in range(seeds):
                 base = criterion.arm("baseline", seed, settings).readouts
+                base_act = made(criteria)
                 treat = criterion.arm("treatment", seed, settings).readouts
+                acts = f"treatment {made(criteria)}, baseline {base_act}"
                 for readout in base:
-                    rows.append({"criterion": cid, "horizon": f"{key}={value}", "readout": readout, "seed": seed,
-                                 "difference": treat[readout] - base[readout]})
+                    rows.append({"criterion": cid, "horizon": f"{key}={value}", "acts": acts, "readout": readout,
+                                 "seed": seed, "difference": treat[readout] - base[readout]})
     return rows
 
 
@@ -241,9 +258,31 @@ def spell_effect(seeds: int) -> list[dict]:
     return rows
 
 
+FORCED = ("M11.C.3", "M11.C.4", "M11.C.5", "M11.C.27[", "M11.C.29", "M11.C.32", "M11.C.35", "M11.C.42")
+
+
+def scripted_acts(seeds: int) -> list[dict]:
+    """Every criterion whose arms script an act: in how many seeds the act was made, or skipped because it was not
+    legal that week (for example, the policy had already cut the tie the act crosses)."""
+    import src.bowen.ensemble.criteria as criteria
+
+    rows = []
+    for cid, criterion in criteria.CRITERIA.items():
+        if not any(cid == f or (f.endswith("[") and cid.startswith(f)) for f in FORCED):
+            continue
+        for arm in criterion.arms:
+            for seed in range(seeds):
+                criteria.scenario.last_source = None
+                criterion.arm(arm, seed, criterion.settings)
+                source = criteria.scenario.last_source
+                rows.append({"criterion": cid, "arm": arm, "act": made(criteria), "seed": seed,
+                             "made": source.made if source else 0, "skipped": source.skipped if source else 0})
+    return rows
+
+
 PROBES = {"c29_third_person": c29_third_person, "triangle_relief": triangle_relief,
           "c27_deviation_terms": c27_deviation_terms, "c44_act_counts": c44_act_counts, "horizons": horizons,
-          "c29_third_person_calm": c29_third_person_calm, "spell_effect": spell_effect}
+          "c29_third_person_calm": c29_third_person_calm, "spell_effect": spell_effect, "scripted_acts": scripted_acts}
 
 
 def main() -> int:

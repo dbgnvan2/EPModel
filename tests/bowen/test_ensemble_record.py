@@ -480,3 +480,11 @@ def test_d0_a_probe_key_holds_its_own_source():
     key = _diagnostic.probe_key("0" * 64, d)
     assert _diagnostic.probe_key("0" * 64, dataclasses.replace(d, seeds=d.seeds + 1)) != key
     assert _diagnostic.probe_key("0" * 64, dataclasses.replace(d, what="relabelled")) == key
+
+
+def test_d0_a_probe_key_covers_the_whole_probe_module():
+    """A probe reads helpers and module constants (`horizons` reads C4_NODAL_WEEKS); its key holds them all."""
+    import inspect
+
+    for d in (x for x in _diagnostic.DIAGNOSTICS if x.probe):
+        assert inspect.getsource(_diagnostic.probes) in _diagnostic.probe_source(d.probe)

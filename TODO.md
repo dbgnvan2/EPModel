@@ -58,6 +58,9 @@ Phase C steps 0–16 are built. **Its gate does not pass** (`docs/phase_c_comple
   (`FileNotFoundError`, `BrokenPipeError`, `BrokenExecutor`) fall through to an uncached red instead of stopping the run;
   `KeyboardInterrupt` in the list is dead (it is not an `Exception`); a child that returns no row for a requested
   criterion yields `None` silently (learning-qa, 2026-10-09).
+- [ ] **Diagnostic probes, minor (batch review 2026-10-09).** `c44_act_counts` re-runs `arm_spell_triad`'s scenario
+  instead of calling the arm; probes sample at tick start, so the last tick is missed; `summarise` takes its columns
+  from the first group and assumes every row has the same keys. None changes a current number.
 - [ ] **Record-parsing duplication.** The record JSON regex and `json.loads` appear about six times across
   `tools/mutation_record.py`, `tools/sweep_record.py`, `tools/spec_coverage.py` and the tests; one helper would serve
   them (correctness review, 2026-10-09).

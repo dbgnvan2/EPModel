@@ -12,7 +12,7 @@ engine_hash: 8a033677bb8ecb4bd72bfa0b6f37e13f8269b9504bbe56925422aae07ca051a6
 
 M11.C.29's three members: weeks above the chronic floor, peak excess, and peak symptom load against the onset threshold, per arm. Model: unmodified.
 
-Probe `c29_third_person` over 20 seeds; per group over seeds: mean / median / maximum / share above zero.
+Probe `c29_third_person` over 20 seeds; per group over seeds: mean / median / maximum / share above zero (a seed with nothing to measure is left out).
 
 | arm | person | seeds | chronic (mean / median / max / >0) | peak_acute (mean / median / max / >0) | peak_excess (mean / median / max / >0) | peak_load (mean / median / max / >0) | threshold_at_peak_load (mean / median / max / >0) | weeks_above_floor (mean / median / max / >0) |
 |---|---|---|---|---|---|---|---|---|
@@ -49,66 +49,82 @@ M11.C.41's four cells with M4.D.3a's availability made level-independent (every 
 
 What the learner credits a TRIANGLE with, against every other automatic act, in M11.C.42's and M11.C.45's arms: closed signal, share relieved, learned value at the end. Model: unmodified.
 
-Probe `triangle_relief` over 20 seeds; per group over seeds: mean / median / maximum / share above zero.
+Probe `triangle_relief` over 20 seeds; per group over seeds: mean / median / maximum / share above zero (a seed with nothing to measure is left out).
 
 | acts | arm | criterion | seeds | count (mean / median / max / >0) | mean_learned_value (mean / median / max / >0) | mean_signal (mean / median / max / >0) | share_relieved (mean / median / max / >0) |
 |---|---|---|---|---|---|---|---|
-| TRIANGLE | baseline | M11.C.42 | 20 | 7.1 / 6 / 14 / 100% | -1.06 / -0.982 / 0.0445 / 5% | -3.49 / -3.65 / 1.1 / 5% | 0.233 / 0.236 / 0.615 / 70% |
-| other | baseline | M11.C.42 | 20 | 127 / 128 / 138 / 100% | -0.317 / -0.308 / -0.0598 / 0% | -0.818 / -0.819 / -0.25 / 0% | 0.455 / 0.454 / 0.544 / 100% |
-| TRIANGLE | treatment | M11.C.42 | 20 | 7.9 / 7 / 17 / 100% | -0.976 / -1.05 / -0.159 / 0% | -2.92 / -3.33 / 0.32 / 5% | 0.254 / 0.211 / 0.647 / 85% |
-| other | treatment | M11.C.42 | 20 | 125 / 128 / 146 / 100% | -0.371 / -0.358 / -0.219 / 0% | -0.915 / -0.873 / -0.591 / 0% | 0.438 / 0.456 / 0.529 / 100% |
-| TRIANGLE | baseline | M11.C.45 | 20 | 10.1 / 9 / 20 / 100% | -0.91 / -0.899 / 0.0274 / 5% | -2.31 / -2.11 / 0.202 / 5% | 0.244 / 0.25 / 0.5 / 90% |
-| other | baseline | M11.C.45 | 20 | 244 / 253 / 273 / 100% | -0.359 / -0.332 / -0.233 / 0% | -0.586 / -0.586 / -0.248 / 0% | 0.437 / 0.44 / 0.484 / 100% |
-| TRIANGLE | treatment | M11.C.45 | 20 | 11.6 / 11.5 / 19 / 100% | -0.812 / -0.874 / 0.772 / 5% | -2.08 / -1.59 / -0.126 / 0% | 0.323 / 0.333 / 0.533 / 100% |
-| other | treatment | M11.C.45 | 20 | 244 / 258 / 277 / 100% | -0.43 / -0.415 / -0.264 / 0% | -0.524 / -0.504 / -0.266 / 0% | 0.465 / 0.465 / 0.528 / 100% |
+| TRIANGLE | baseline | M11.C.42 | 20 | 7.1 / 6 / 14 / 100% | -1.02 / -0.966 / -0.274 / 0% | -3.49 / -3.65 / 1.1 / 5% | 0.233 / 0.236 / 0.615 / 70% |
+| other | baseline | M11.C.42 | 20 | 127 / 128 / 138 / 100% | -0.404 / -0.393 / -0.213 / 0% | -0.818 / -0.819 / -0.25 / 0% | 0.455 / 0.454 / 0.544 / 100% |
+| TRIANGLE | treatment | M11.C.42 | 20 | 7.9 / 7 / 17 / 100% | -1.02 / -1.08 / -0.207 / 0% | -2.92 / -3.33 / 0.32 / 5% | 0.254 / 0.211 / 0.647 / 85% |
+| other | treatment | M11.C.42 | 20 | 125 / 128 / 146 / 100% | -0.453 / -0.433 / -0.3 / 0% | -0.915 / -0.873 / -0.591 / 0% | 0.438 / 0.456 / 0.529 / 100% |
+| TRIANGLE | baseline | M11.C.45 | 20 | 10.1 / 9 / 20 / 100% | -0.876 / -0.934 / -0.117 / 0% | -2.31 / -2.11 / 0.202 / 5% | 0.244 / 0.25 / 0.5 / 90% |
+| other | baseline | M11.C.45 | 20 | 244 / 253 / 273 / 100% | -0.434 / -0.422 / -0.284 / 0% | -0.586 / -0.586 / -0.248 / 0% | 0.437 / 0.44 / 0.484 / 100% |
+| TRIANGLE | treatment | M11.C.45 | 20 | 11.6 / 11.5 / 19 / 100% | -0.914 / -0.742 / -0.288 / 0% | -2.08 / -1.59 / -0.126 / 0% | 0.323 / 0.333 / 0.533 / 100% |
+| other | treatment | M11.C.45 | 20 | 244 / 258 / 277 / 100% | -0.515 / -0.5 / -0.343 / 0% | -0.524 / -0.504 / -0.266 / 0% | 0.465 / 0.465 / 0.528 / 100% |
 
 ## D3 · `d3-triangle-relief-old-roles`
 
 The same under step 5's alliance reading of TRIANGLE (the other parent loaded), for comparison. Model: under `triangle-roles-swapped`.
 
-Probe `triangle_relief` over 20 seeds; per group over seeds: mean / median / maximum / share above zero.
+Probe `triangle_relief` over 20 seeds; per group over seeds: mean / median / maximum / share above zero (a seed with nothing to measure is left out).
 
 | acts | arm | criterion | seeds | count (mean / median / max / >0) | mean_learned_value (mean / median / max / >0) | mean_signal (mean / median / max / >0) | share_relieved (mean / median / max / >0) |
 |---|---|---|---|---|---|---|---|
-| TRIANGLE | baseline | M11.C.42 | 20 | 8.3 / 8.5 / 16 / 100% | -0.449 / -0.458 / 0.686 / 30% | -1.46 / -0.59 / 1.2 / 40% | 0.464 / 0.5 / 0.667 / 95% |
-| other | baseline | M11.C.42 | 20 | 124 / 126 / 137 / 100% | -0.39 / -0.379 / -0.166 / 0% | -1.06 / -1.1 / -0.509 / 0% | 0.41 / 0.421 / 0.465 / 100% |
-| TRIANGLE | treatment | M11.C.42 | 20 | 8.6 / 8 / 18 / 100% | -0.642 / -0.652 / 0.639 / 20% | -1.28 / -1.01 / 2.15 / 20% | 0.458 / 0.5 / 0.875 / 100% |
-| other | treatment | M11.C.42 | 20 | 121 / 124 / 142 / 100% | -0.409 / -0.373 / -0.145 / 0% | -1.17 / -1.07 / -0.607 / 0% | 0.424 / 0.437 / 0.515 / 100% |
-| TRIANGLE | baseline | M11.C.45 | 20 | 14.7 / 13.5 / 25 / 100% | -0.524 / -0.572 / 0.548 / 20% | -0.812 / -0.575 / 0.718 / 35% | 0.423 / 0.419 / 0.75 / 100% |
-| other | baseline | M11.C.45 | 20 | 238 / 245 / 265 / 100% | -0.381 / -0.365 / -0.223 / 0% | -0.572 / -0.574 / -0.351 / 0% | 0.419 / 0.418 / 0.479 / 100% |
-| TRIANGLE | treatment | M11.C.45 | 20 | 12.9 / 12 / 27 / 100% | -0.546 / -0.577 / 1.13 / 15% | -1.3 / -0.523 / 1.88 / 30% | 0.432 / 0.408 / 0.75 / 95% |
-| other | treatment | M11.C.45 | 20 | 235 / 248 / 272 / 100% | -0.462 / -0.44 / -0.179 / 0% | -0.718 / -0.62 / -0.247 / 0% | 0.445 / 0.45 / 0.494 / 100% |
+| TRIANGLE | baseline | M11.C.42 | 20 | 8.3 / 8.5 / 16 / 100% | -0.537 / -0.45 / 0.167 / 20% | -1.46 / -0.59 / 1.2 / 40% | 0.464 / 0.5 / 0.667 / 95% |
+| other | baseline | M11.C.42 | 20 | 124 / 126 / 137 / 100% | -0.48 / -0.506 / -0.277 / 0% | -1.06 / -1.1 / -0.509 / 0% | 0.41 / 0.421 / 0.465 / 100% |
+| TRIANGLE | treatment | M11.C.42 | 20 | 8.6 / 8 / 18 / 100% | -0.584 / -0.527 / 0.471 / 15% | -1.28 / -1.01 / 2.15 / 20% | 0.458 / 0.5 / 0.875 / 100% |
+| other | treatment | M11.C.42 | 20 | 121 / 124 / 142 / 100% | -0.492 / -0.447 / -0.294 / 0% | -1.17 / -1.07 / -0.607 / 0% | 0.424 / 0.437 / 0.515 / 100% |
+| TRIANGLE | baseline | M11.C.45 | 20 | 14.7 / 13.5 / 25 / 100% | -0.543 / -0.447 / 0.157 / 20% | -0.812 / -0.575 / 0.718 / 35% | 0.423 / 0.419 / 0.75 / 100% |
+| other | baseline | M11.C.45 | 20 | 238 / 245 / 265 / 100% | -0.449 / -0.433 / -0.306 / 0% | -0.572 / -0.574 / -0.351 / 0% | 0.419 / 0.418 / 0.479 / 100% |
+| TRIANGLE | treatment | M11.C.45 | 20 | 12.9 / 12 / 27 / 100% | -0.669 / -0.61 / 0.194 / 5% | -1.3 / -0.523 / 1.88 / 30% | 0.432 / 0.408 / 0.75 / 95% |
+| other | treatment | M11.C.45 | 20 | 235 / 248 / 272 / 100% | -0.556 / -0.52 / -0.257 / 0% | -0.718 / -0.62 / -0.247 / 0% | 0.445 / 0.45 / 0.494 / 100% |
 
 ## D4 · `d4-c27-deviation-terms`
 
 M11.C.27's pair deviation at the end of each arm, by side and term, per member. Model: unmodified.
 
-Probe `c27_deviation_terms` over 20 seeds; per group over seeds: mean / median / maximum / share above zero.
+Probe `c27_deviation_terms` over 20 seeds; per group over seeds: mean / median / maximum / share above zero (a seed with nothing to measure is left out).
 
-| arm | cell | member | seeds | band (mean / median / max / >0) | contact (mean / median / max / >0) | impingement (mean / median / max / >0) | optimum (mean / median / max / >0) | too_little (mean / median / max / >0) | too_much (mean / median / max / >0) |
-|---|---|---|---|---|---|---|---|---|---|
-| baseline | M11.C.27[stable,add_third] | f | 20 | 0.08 / 0.082 / 0.1 / 100% | 0.408 / 0.401 / 0.84 / 100% | 0.138 / 0 / 0.607 / 45% | 0.649 / 0.647 / 0.695 / 100% | 0.21 / 0.144 / 0.53 / 75% | 0.101 / 0 / 0.543 / 40% |
-| baseline | M11.C.27[stable,add_third] | m | 20 | 0.0764 / 0.074 / 0.092 / 100% | 0.641 / 0.752 / 0.933 / 100% | 0.142 / 0 / 0.602 / 45% | 0.645 / 0.641 / 0.699 / 100% | 0.0932 / 0 / 0.443 / 30% | 0.109 / 0 / 0.53 / 45% |
-| treatment | M11.C.27[stable,add_third] | f | 20 | 0.0794 / 0.084 / 0.1 / 100% | 0.407 / 0.405 / 0.869 / 100% | 0.13 / 0 / 0.607 / 40% | 0.641 / 0.642 / 0.662 / 100% | 0.206 / 0.132 / 0.534 / 75% | 0.0966 / 0 / 0.543 / 35% |
-| treatment | M11.C.27[stable,add_third] | m | 20 | 0.0768 / 0.076 / 0.096 / 100% | 0.496 / 0.509 / 0.839 / 100% | 0.0864 / 0 / 0.343 / 40% | 0.641 / 0.641 / 0.678 / 100% | 0.117 / 0.0324 / 0.443 / 70% | 0.0576 / 0 / 0.279 / 40% |
-| baseline | M11.C.27[stable,remove_one] | f | 20 | 0.08 / 0.082 / 0.1 / 100% | 0.408 / 0.401 / 0.84 / 100% | 0.138 / 0 / 0.607 / 45% | 0.649 / 0.647 / 0.695 / 100% | 0.21 / 0.144 / 0.53 / 75% | 0.101 / 0 / 0.543 / 40% |
-| baseline | M11.C.27[stable,remove_one] | m | 20 | 0.0764 / 0.074 / 0.092 / 100% | 0.641 / 0.752 / 0.933 / 100% | 0.142 / 0 / 0.602 / 45% | 0.645 / 0.641 / 0.699 / 100% | 0.0932 / 0 / 0.443 / 30% | 0.109 / 0 / 0.53 / 45% |
-| treatment | M11.C.27[stable,remove_one] | f | 20 | 0.0796 / 0.082 / 0.096 / 100% | 0.362 / 0.374 / 0.832 / 100% | 0.0304 / 0 / 0.607 / 5% | 0.642 / 0.639 / 0.681 / 100% | 0.231 / 0.184 / 0.504 / 80% | 0.0272 / 0 / 0.543 / 5% |
-| treatment | M11.C.27[stable,remove_one] | m | 20 | 0.0768 / 0.076 / 0.096 / 100% | 0.484 / 0.527 / 0.932 / 100% | 0.00757 / 0 / 0.151 / 5% | 0.638 / 0.635 / 0.681 / 100% | 0.125 / 0.058 / 0.443 / 65% | 0.00317 / 0 / 0.0634 / 5% |
-| baseline | M11.C.27[unstable,add_third] | f | 20 | 0.0788 / 0.08 / 0.096 / 100% | 0.45 / 0.407 / 0.887 / 100% | 0.189 / 0.12 / 0.7 / 60% | 0.649 / 0.65 / 0.694 / 100% | 0.19 / 0.149 / 0.53 / 70% | 0.14 / 0.0398 / 0.616 / 60% |
-| baseline | M11.C.27[unstable,add_third] | m | 20 | 0.0768 / 0.078 / 0.092 / 100% | 0.645 / 0.773 / 0.933 / 100% | 0.157 / 0.107 / 0.638 / 55% | 0.643 / 0.641 / 0.677 / 100% | 0.0932 / 0 / 0.443 / 35% | 0.116 / 0.0374 / 0.57 / 55% |
-| treatment | M11.C.27[unstable,add_third] | f | 20 | 0.079 / 0.08 / 0.1 / 100% | 0.454 / 0.412 / 0.891 / 100% | 0.181 / 0.12 / 0.7 / 55% | 0.644 / 0.643 / 0.66 / 100% | 0.185 / 0.139 / 0.534 / 70% | 0.135 / 0.0277 / 0.616 / 55% |
-| treatment | M11.C.27[unstable,add_third] | m | 20 | 0.077 / 0.078 / 0.096 / 100% | 0.506 / 0.497 / 0.933 / 100% | 0.122 / 0.00791 / 0.7 / 50% | 0.641 / 0.641 / 0.678 / 100% | 0.127 / 0.0593 / 0.443 / 60% | 0.0902 / 0 / 0.632 / 40% |
-| baseline | M11.C.27[unstable,remove_one] | f | 20 | 0.0788 / 0.08 / 0.096 / 100% | 0.45 / 0.407 / 0.887 / 100% | 0.189 / 0.12 / 0.7 / 60% | 0.649 / 0.65 / 0.694 / 100% | 0.19 / 0.149 / 0.53 / 70% | 0.14 / 0.0398 / 0.616 / 60% |
-| baseline | M11.C.27[unstable,remove_one] | m | 20 | 0.0768 / 0.078 / 0.092 / 100% | 0.645 / 0.773 / 0.933 / 100% | 0.157 / 0.107 / 0.638 / 55% | 0.643 / 0.641 / 0.677 / 100% | 0.0932 / 0 / 0.443 / 35% | 0.116 / 0.0374 / 0.57 / 55% |
-| treatment | M11.C.27[unstable,remove_one] | f | 20 | 0.0782 / 0.078 / 0.096 / 100% | 0.392 / 0.344 / 0.887 / 100% | 0.0374 / 0 / 0.607 / 10% | 0.642 / 0.639 / 0.678 / 100% | 0.223 / 0.221 / 0.504 / 75% | 0.0294 / 0 / 0.543 / 10% |
-| treatment | M11.C.27[unstable,remove_one] | m | 20 | 0.0776 / 0.076 / 0.096 / 100% | 0.47 / 0.487 / 0.932 / 100% | 0.00757 / 0 / 0.151 / 5% | 0.636 / 0.633 / 0.661 / 100% | 0.135 / 0.091 / 0.443 / 60% | 0.00317 / 0 / 0.0634 / 5% |
+| act | arm | cell | member | seeds | band (mean / median / max / >0) | contact (mean / median / max / >0) | impingement (mean / median / max / >0) | optimum (mean / median / max / >0) | too_little (mean / median / max / >0) | too_much (mean / median / max / >0) |
+|---|---|---|---|---|---|---|---|---|---|---|
+| made | baseline | M11.C.27[stable,add_third] | f | 14 | 0.0829 / 0.082 / 0.1 / 100% | 0.454 / 0.471 / 0.84 / 100% | 0.154 / 0.0898 / 0.577 / 57% | 0.654 / 0.652 / 0.695 / 100% | 0.169 / 0.109 / 0.53 / 71% | 0.105 / 0.0186 / 0.501 / 50% |
+| made | baseline | M11.C.27[stable,add_third] | m | 14 | 0.0743 / 0.072 / 0.092 / 100% | 0.815 / 0.833 / 0.933 / 100% | 0.203 / 0.205 / 0.602 / 64% | 0.652 / 0.65 / 0.699 / 100% | 0 / 0 / 0 / 0% | 0.155 / 0.131 / 0.53 / 64% |
+| skipped | baseline | M11.C.27[stable,add_third] | f | 6 | 0.0733 / 0.076 / 0.088 / 100% | 0.301 / 0.179 / 0.832 / 100% | 0.101 / 0 / 0.607 / 17% | 0.639 / 0.636 / 0.663 / 100% | 0.304 / 0.365 / 0.478 / 83% | 0.0906 / 0 / 0.543 / 17% |
+| skipped | baseline | M11.C.27[stable,add_third] | m | 6 | 0.0813 / 0.082 / 0.092 / 100% | 0.236 / 0.227 / 0.382 / 100% | 0 / 0 / 0 / 0% | 0.629 / 0.629 / 0.639 / 100% | 0.311 / 0.326 / 0.443 / 100% | 0 / 0 / 0 / 0% |
+| made | treatment | M11.C.27[stable,add_third] | f | 12 | 0.0803 / 0.084 / 0.1 / 100% | 0.445 / 0.45 / 0.869 / 100% | 0.129 / 0 / 0.607 / 42% | 0.644 / 0.646 / 0.662 / 100% | 0.188 / 0.101 / 0.478 / 75% | 0.0924 / 0 / 0.543 / 33% |
+| made | treatment | M11.C.27[stable,add_third] | m | 12 | 0.076 / 0.076 / 0.092 / 100% | 0.452 / 0.479 / 0.773 / 100% | 0.106 / 0 / 0.343 / 42% | 0.635 / 0.635 / 0.652 / 100% | 0.143 / 0.0733 / 0.443 / 67% | 0.077 / 0 / 0.279 / 42% |
+| skipped | treatment | M11.C.27[stable,add_third] | f | 8 | 0.078 / 0.08 / 0.088 / 100% | 0.351 / 0.373 / 0.705 / 100% | 0.132 / 0 / 0.521 / 38% | 0.637 / 0.641 / 0.652 / 100% | 0.234 / 0.176 / 0.534 / 75% | 0.103 / 0 / 0.449 / 38% |
+| skipped | treatment | M11.C.27[stable,add_third] | m | 8 | 0.078 / 0.076 / 0.096 / 100% | 0.561 / 0.554 / 0.839 / 100% | 0.0571 / 0 / 0.161 / 38% | 0.65 / 0.645 / 0.678 / 100% | 0.0786 / 0.00531 / 0.288 / 75% | 0.0286 / 0 / 0.0888 / 38% |
+| made | baseline | M11.C.27[stable,remove_one] | f | 14 | 0.0829 / 0.082 / 0.1 / 100% | 0.454 / 0.471 / 0.84 / 100% | 0.154 / 0.0898 / 0.577 / 57% | 0.654 / 0.652 / 0.695 / 100% | 0.169 / 0.109 / 0.53 / 71% | 0.105 / 0.0186 / 0.501 / 50% |
+| made | baseline | M11.C.27[stable,remove_one] | m | 14 | 0.0743 / 0.072 / 0.092 / 100% | 0.815 / 0.833 / 0.933 / 100% | 0.203 / 0.205 / 0.602 / 64% | 0.652 / 0.65 / 0.699 / 100% | 0 / 0 / 0 / 0% | 0.155 / 0.131 / 0.53 / 64% |
+| skipped | baseline | M11.C.27[stable,remove_one] | f | 6 | 0.0733 / 0.076 / 0.088 / 100% | 0.301 / 0.179 / 0.832 / 100% | 0.101 / 0 / 0.607 / 17% | 0.639 / 0.636 / 0.663 / 100% | 0.304 / 0.365 / 0.478 / 83% | 0.0906 / 0 / 0.543 / 17% |
+| skipped | baseline | M11.C.27[stable,remove_one] | m | 6 | 0.0813 / 0.082 / 0.092 / 100% | 0.236 / 0.227 / 0.382 / 100% | 0 / 0 / 0 / 0% | 0.629 / 0.629 / 0.639 / 100% | 0.311 / 0.326 / 0.443 / 100% | 0 / 0 / 0 / 0% |
+| made | treatment | M11.C.27[stable,remove_one] | f | 14 | 0.0823 / 0.082 / 0.096 / 100% | 0.388 / 0.424 / 0.743 / 100% | 0 / 0 / 0 / 0% | 0.644 / 0.64 / 0.681 / 100% | 0.199 / 0.145 / 0.504 / 79% | 0 / 0 / 0 / 0% |
+| made | treatment | M11.C.27[stable,remove_one] | m | 14 | 0.0749 / 0.072 / 0.096 / 100% | 0.59 / 0.572 / 0.932 / 100% | 0.0108 / 0 / 0.151 / 7% | 0.642 / 0.64 / 0.681 / 100% | 0.0452 / 0.00177 / 0.264 / 50% | 0.00453 / 0 / 0.0634 / 7% |
+| skipped | treatment | M11.C.27[stable,remove_one] | f | 6 | 0.0733 / 0.076 / 0.088 / 100% | 0.301 / 0.179 / 0.832 / 100% | 0.101 / 0 / 0.607 / 17% | 0.639 / 0.636 / 0.663 / 100% | 0.304 / 0.365 / 0.478 / 83% | 0.0906 / 0 / 0.543 / 17% |
+| skipped | treatment | M11.C.27[stable,remove_one] | m | 6 | 0.0813 / 0.082 / 0.092 / 100% | 0.236 / 0.227 / 0.382 / 100% | 0 / 0 / 0 / 0% | 0.629 / 0.629 / 0.639 / 100% | 0.311 / 0.326 / 0.443 / 100% | 0 / 0 / 0 / 0% |
+| made | baseline | M11.C.27[unstable,add_third] | f | 14 | 0.0809 / 0.08 / 0.096 / 100% | 0.514 / 0.467 / 0.887 / 100% | 0.226 / 0.186 / 0.7 / 79% | 0.654 / 0.652 / 0.694 / 100% | 0.141 / 0.122 / 0.53 / 64% | 0.161 / 0.0983 / 0.616 / 79% |
+| made | baseline | M11.C.27[unstable,add_third] | m | 14 | 0.0743 / 0.072 / 0.092 / 100% | 0.821 / 0.852 / 0.933 / 100% | 0.224 / 0.214 / 0.638 / 79% | 0.65 / 0.65 / 0.677 / 100% | 0.00244 / 0 / 0.0342 / 7% | 0.165 / 0.136 / 0.57 / 79% |
+| skipped | baseline | M11.C.27[unstable,add_third] | f | 6 | 0.074 / 0.078 / 0.084 / 100% | 0.301 / 0.179 / 0.834 / 100% | 0.101 / 0 / 0.607 / 17% | 0.639 / 0.633 / 0.661 / 100% | 0.304 / 0.362 / 0.472 / 83% | 0.0906 / 0 / 0.543 / 17% |
+| skipped | baseline | M11.C.27[unstable,add_third] | m | 6 | 0.0827 / 0.084 / 0.092 / 100% | 0.237 / 0.228 / 0.382 / 100% | 0 / 0 / 0 / 0% | 0.625 / 0.623 / 0.639 / 100% | 0.305 / 0.309 / 0.443 / 100% | 0 / 0 / 0 / 0% |
+| made | treatment | M11.C.27[unstable,add_third] | f | 12 | 0.081 / 0.084 / 0.1 / 100% | 0.486 / 0.455 / 0.891 / 100% | 0.165 / 0.12 / 0.607 / 58% | 0.644 / 0.643 / 0.66 / 100% | 0.176 / 0.0966 / 0.472 / 67% | 0.115 / 0.0277 / 0.543 / 58% |
+| made | treatment | M11.C.27[unstable,add_third] | m | 12 | 0.0753 / 0.076 / 0.092 / 100% | 0.445 / 0.433 / 0.933 / 100% | 0.101 / 0.00791 / 0.343 / 50% | 0.635 / 0.635 / 0.651 / 100% | 0.162 / 0.113 / 0.443 / 67% | 0.0719 / 0 / 0.279 / 33% |
+| skipped | treatment | M11.C.27[unstable,add_third] | f | 8 | 0.076 / 0.078 / 0.084 / 100% | 0.406 / 0.384 / 0.734 / 100% | 0.205 / 0.08 / 0.7 / 50% | 0.644 / 0.643 / 0.657 / 100% | 0.197 / 0.171 / 0.534 / 75% | 0.166 / 0.042 / 0.616 / 50% |
+| skipped | treatment | M11.C.27[unstable,add_third] | m | 8 | 0.0795 / 0.078 / 0.096 / 100% | 0.596 / 0.571 / 0.844 / 100% | 0.155 / 0.0674 / 0.7 / 50% | 0.649 / 0.644 / 0.678 / 100% | 0.0726 / 0.00271 / 0.267 / 50% | 0.118 / 0.0294 / 0.632 / 50% |
+| made | baseline | M11.C.27[unstable,remove_one] | f | 14 | 0.0809 / 0.08 / 0.096 / 100% | 0.514 / 0.467 / 0.887 / 100% | 0.226 / 0.186 / 0.7 / 79% | 0.654 / 0.652 / 0.694 / 100% | 0.141 / 0.122 / 0.53 / 64% | 0.161 / 0.0983 / 0.616 / 79% |
+| made | baseline | M11.C.27[unstable,remove_one] | m | 14 | 0.0743 / 0.072 / 0.092 / 100% | 0.821 / 0.852 / 0.933 / 100% | 0.224 / 0.214 / 0.638 / 79% | 0.65 / 0.65 / 0.677 / 100% | 0.00244 / 0 / 0.0342 / 7% | 0.165 / 0.136 / 0.57 / 79% |
+| skipped | baseline | M11.C.27[unstable,remove_one] | f | 6 | 0.074 / 0.078 / 0.084 / 100% | 0.301 / 0.179 / 0.834 / 100% | 0.101 / 0 / 0.607 / 17% | 0.639 / 0.633 / 0.661 / 100% | 0.304 / 0.362 / 0.472 / 83% | 0.0906 / 0 / 0.543 / 17% |
+| skipped | baseline | M11.C.27[unstable,remove_one] | m | 6 | 0.0827 / 0.084 / 0.092 / 100% | 0.237 / 0.228 / 0.382 / 100% | 0 / 0 / 0 / 0% | 0.625 / 0.623 / 0.639 / 100% | 0.305 / 0.309 / 0.443 / 100% | 0 / 0 / 0 / 0% |
+| made | treatment | M11.C.27[unstable,remove_one] | f | 14 | 0.08 / 0.078 / 0.096 / 100% | 0.431 / 0.397 / 0.887 / 100% | 0.0101 / 0 / 0.141 / 7% | 0.642 / 0.64 / 0.678 / 100% | 0.188 / 0.178 / 0.504 / 71% | 0.00322 / 0 / 0.0451 / 7% |
+| made | treatment | M11.C.27[unstable,remove_one] | m | 14 | 0.0754 / 0.072 / 0.096 / 100% | 0.57 / 0.58 / 0.932 / 100% | 0.0108 / 0 / 0.151 / 7% | 0.641 / 0.639 / 0.661 / 100% | 0.0619 / 0 / 0.318 / 43% | 0.00453 / 0 / 0.0634 / 7% |
+| skipped | treatment | M11.C.27[unstable,remove_one] | f | 6 | 0.074 / 0.078 / 0.084 / 100% | 0.301 / 0.179 / 0.834 / 100% | 0.101 / 0 / 0.607 / 17% | 0.639 / 0.633 / 0.661 / 100% | 0.304 / 0.362 / 0.472 / 83% | 0.0906 / 0 / 0.543 / 17% |
+| skipped | treatment | M11.C.27[unstable,remove_one] | m | 6 | 0.0827 / 0.084 / 0.092 / 100% | 0.237 / 0.228 / 0.382 / 100% | 0 / 0 / 0 / 0% | 0.625 / 0.623 / 0.639 / 100% | 0.305 / 0.309 / 0.443 / 100% | 0 / 0 / 0 / 0% |
 
 ## D5 · `d5-c44-act-counts`
 
 The act counts behind M11.C.44's outside/inside ratio, per arm. Model: unmodified.
 
-Probe `c44_act_counts` over 50 seeds; per group over seeds: mean / median / maximum / share above zero.
+Probe `c44_act_counts` over 50 seeds; per group over seeds: mean / median / maximum / share above zero (a seed with nothing to measure is left out).
 
 | arm | seeds | cutoffs (mean / median / max / >0) | distances (mean / median / max / >0) | inside_acts (mean / median / max / >0) | moves (mean / median / max / >0) | outside_acts (mean / median / max / >0) | pursues (mean / median / max / >0) | triangles (mean / median / max / >0) |
 |---|---|---|---|---|---|---|---|---|
@@ -119,30 +135,44 @@ Probe `c44_act_counts` over 50 seeds; per group over seeds: mean / median / maxi
 
 M11.C.4 with its nodal event later and M11.C.5 with a longer run: treatment minus baseline per readout, every other setting the criterion's own. Model: unmodified.
 
-Probe `horizons` over 20 seeds; per group over seeds: mean / median / maximum / share above zero.
+Probe `horizons` over 20 seeds; per group over seeds: mean / median / maximum / share above zero (a seed with nothing to measure is left out).
 
-| criterion | horizon | readout | seeds | difference (mean / median / max / >0) |
-|---|---|---|---|---|
-| M11.C.4 | nodal=30 | actor_relief_now | 20 | -1.28 / 0 / 0 / 0% |
-| M11.C.4 | nodal=30 | family_anxiety_at_nodal | 20 | -0.606 / 0 / 5.22 / 15% |
-| M11.C.4 | nodal=60 | actor_relief_now | 20 | -1.28 / 0 / 0 / 0% |
-| M11.C.4 | nodal=60 | family_anxiety_at_nodal | 20 | -1.12 / 0 / 2.13 / 15% |
-| M11.C.4 | nodal=120 | actor_relief_now | 20 | -1.28 / 0 / 0 / 0% |
-| M11.C.4 | nodal=120 | family_anxiety_at_nodal | 20 | 0.437 / 0 / 5.91 / 20% |
-| M11.C.4 | nodal=240 | actor_relief_now | 20 | -1.28 / 0 / 0 / 0% |
-| M11.C.4 | nodal=240 | family_anxiety_at_nodal | 20 | 9.94 / 0 / 206 / 20% |
-| M11.C.5 | weeks=60 | target_reaction | 20 | -11.1 / 0 / 76.6 / 35% |
-| M11.C.5 | weeks=60 | third_person_symptom_load | 20 | -13.1 / -14.6 / 91.7 / 20% |
-| M11.C.5 | weeks=120 | target_reaction | 20 | -48.3 / 0 / 254 / 40% |
-| M11.C.5 | weeks=120 | third_person_symptom_load | 20 | -1.43 / 0 / 125 / 35% |
-| M11.C.5 | weeks=260 | target_reaction | 20 | 189 / 0 / 2.95e+03 / 40% |
-| M11.C.5 | weeks=260 | third_person_symptom_load | 20 | 149 / 31.2 / 1.93e+03 / 55% |
+| acts | criterion | horizon | readout | seeds | difference (mean / median / max / >0) |
+|---|---|---|---|---|---|
+| treatment skipped, baseline skipped | M11.C.4 | nodal=30 | actor_relief_now | 12 | 0 / 0 / 0 / 0% |
+| treatment skipped, baseline skipped | M11.C.4 | nodal=30 | family_anxiety_at_nodal | 12 | 0 / 0 / 0 / 0% |
+| treatment made, baseline made | M11.C.4 | nodal=30 | actor_relief_now | 8 | -3.21 / -3.08 / -0.784 / 0% |
+| treatment made, baseline made | M11.C.4 | nodal=30 | family_anxiety_at_nodal | 8 | -1.51 / -0.907 / 5.22 / 38% |
+| treatment skipped, baseline skipped | M11.C.4 | nodal=60 | actor_relief_now | 12 | 0 / 0 / 0 / 0% |
+| treatment skipped, baseline skipped | M11.C.4 | nodal=60 | family_anxiety_at_nodal | 12 | 0 / 0 / 0 / 0% |
+| treatment made, baseline made | M11.C.4 | nodal=60 | actor_relief_now | 8 | -3.21 / -3.08 / -0.784 / 0% |
+| treatment made, baseline made | M11.C.4 | nodal=60 | family_anxiety_at_nodal | 8 | -2.81 / -1.84 / 2.13 / 38% |
+| treatment skipped, baseline skipped | M11.C.4 | nodal=120 | actor_relief_now | 12 | 0 / 0 / 0 / 0% |
+| treatment skipped, baseline skipped | M11.C.4 | nodal=120 | family_anxiety_at_nodal | 12 | 0 / 0 / 0 / 0% |
+| treatment made, baseline made | M11.C.4 | nodal=120 | actor_relief_now | 8 | -3.21 / -3.08 / -0.784 / 0% |
+| treatment made, baseline made | M11.C.4 | nodal=120 | family_anxiety_at_nodal | 8 | 1.09 / 0.357 / 5.91 / 50% |
+| treatment skipped, baseline skipped | M11.C.4 | nodal=240 | actor_relief_now | 12 | 0 / 0 / 0 / 0% |
+| treatment skipped, baseline skipped | M11.C.4 | nodal=240 | family_anxiety_at_nodal | 12 | 0 / 0 / 0 / 0% |
+| treatment made, baseline made | M11.C.4 | nodal=240 | actor_relief_now | 8 | -3.21 / -3.08 / -0.784 / 0% |
+| treatment made, baseline made | M11.C.4 | nodal=240 | family_anxiety_at_nodal | 8 | 24.8 / 0.405 / 206 / 50% |
+| treatment made, baseline none | M11.C.5 | weeks=60 | target_reaction | 15 | -14.8 / -13 / 76.6 / 47% |
+| treatment made, baseline none | M11.C.5 | weeks=60 | third_person_symptom_load | 15 | -17.5 / -27.8 / 91.7 / 27% |
+| treatment skipped, baseline none | M11.C.5 | weeks=60 | target_reaction | 5 | 0 / 0 / 0 / 0% |
+| treatment skipped, baseline none | M11.C.5 | weeks=60 | third_person_symptom_load | 5 | 0 / 0 / 0 / 0% |
+| treatment made, baseline none | M11.C.5 | weeks=120 | target_reaction | 15 | -64.4 / 26.1 / 254 / 53% |
+| treatment made, baseline none | M11.C.5 | weeks=120 | third_person_symptom_load | 15 | -1.91 / -11.4 / 125 / 47% |
+| treatment skipped, baseline none | M11.C.5 | weeks=120 | target_reaction | 5 | 0 / 0 / 0 / 0% |
+| treatment skipped, baseline none | M11.C.5 | weeks=120 | third_person_symptom_load | 5 | 0 / 0 / 0 / 0% |
+| treatment made, baseline none | M11.C.5 | weeks=260 | target_reaction | 15 | 252 / 60.5 / 2.95e+03 / 53% |
+| treatment made, baseline none | M11.C.5 | weeks=260 | third_person_symptom_load | 15 | 199 / 61.2 / 1.93e+03 / 73% |
+| treatment skipped, baseline none | M11.C.5 | weeks=260 | target_reaction | 5 | 0 / 0 / 0 / 0% |
+| treatment skipped, baseline none | M11.C.5 | weeks=260 | third_person_symptom_load | 5 | 0 / 0 / 0 / 0% |
 
 ## D1 · `d1-c29-third-person-calm`
 
 The same as d1-c29-third-person with the declared spell removed from both arms: does the third person then stay below threshold?. Model: unmodified.
 
-Probe `c29_third_person_calm` over 20 seeds; per group over seeds: mean / median / maximum / share above zero.
+Probe `c29_third_person_calm` over 20 seeds; per group over seeds: mean / median / maximum / share above zero (a seed with nothing to measure is left out).
 
 | arm | person | seeds | chronic (mean / median / max / >0) | peak_acute (mean / median / max / >0) | peak_excess (mean / median / max / >0) | peak_load (mean / median / max / >0) | threshold_at_peak_load (mean / median / max / >0) | weeks_above_floor (mean / median / max / >0) |
 |---|---|---|---|---|---|---|---|---|
@@ -157,24 +187,74 @@ Probe `c29_third_person_calm` over 20 seeds; per group over seeds: mean / median
 
 The same as d3-triangle-relief with M4.D.6e's cross-person weight set to 0, so an act is credited with the actor's own relief only: is the loaded third's distress what makes TRIANGLE a cost?. Model: with `cross_person_weight` = 0.0.
 
-Probe `triangle_relief` over 20 seeds; per group over seeds: mean / median / maximum / share above zero.
+Probe `triangle_relief` over 20 seeds; per group over seeds: mean / median / maximum / share above zero (a seed with nothing to measure is left out).
 
 | acts | arm | criterion | seeds | count (mean / median / max / >0) | mean_learned_value (mean / median / max / >0) | mean_signal (mean / median / max / >0) | share_relieved (mean / median / max / >0) |
 |---|---|---|---|---|---|---|---|
-| TRIANGLE | baseline | M11.C.42 | 20 | 8.2 / 8 / 14 / 100% | -0.236 / -0.196 / 0.837 / 35% | -1.21 / -1.45 / 1.78 / 30% | 0.396 / 0.414 / 0.833 / 95% |
-| other | baseline | M11.C.42 | 20 | 127 / 128 / 141 / 100% | -0.237 / -0.229 / -0.118 / 0% | -0.547 / -0.511 / -0.27 / 0% | 0.41 / 0.405 / 0.525 / 100% |
-| TRIANGLE | treatment | M11.C.42 | 20 | 7.4 / 7 / 13 / 100% | -0.396 / -0.527 / 0.889 / 25% | -1.52 / -2.26 / 2.5 / 25% | 0.36 / 0.367 / 0.75 / 90% |
-| other | treatment | M11.C.42 | 20 | 128 / 130 / 137 / 100% | -0.237 / -0.24 / -0.0675 / 0% | -0.539 / -0.52 / -0.226 / 0% | 0.41 / 0.405 / 0.461 / 100% |
-| TRIANGLE | baseline | M11.C.45 | 20 | 14.2 / 14 / 25 / 100% | -0.325 / -0.329 / 0.476 / 40% | -0.464 / -0.484 / 1.68 / 45% | 0.465 / 0.485 / 0.667 / 100% |
-| other | baseline | M11.C.45 | 20 | 243 / 254 / 273 / 100% | -0.258 / -0.231 / -0.103 / 0% | -0.321 / -0.304 / -0.139 / 0% | 0.433 / 0.437 / 0.468 / 100% |
-| TRIANGLE | treatment | M11.C.45 | 20 | 12.4 / 10.5 / 31 / 100% | -0.436 / -0.534 / 0.492 / 30% | -1.16 / -1.48 / 2.1 / 35% | 0.389 / 0.382 / 0.727 / 95% |
-| other | treatment | M11.C.45 | 20 | 247 / 250 / 276 / 100% | -0.266 / -0.249 / -0.136 / 0% | -0.311 / -0.299 / -0.169 / 0% | 0.429 / 0.428 / 0.476 / 100% |
+| TRIANGLE | baseline | M11.C.42 | 20 | 8.2 / 8 / 14 / 100% | -0.461 / -0.484 / 0.394 / 10% | -1.21 / -1.45 / 1.78 / 30% | 0.396 / 0.414 / 0.833 / 95% |
+| other | baseline | M11.C.42 | 20 | 127 / 128 / 141 / 100% | -0.302 / -0.29 / -0.203 / 0% | -0.547 / -0.511 / -0.27 / 0% | 0.41 / 0.405 / 0.525 / 100% |
+| TRIANGLE | treatment | M11.C.42 | 20 | 7.4 / 7 / 13 / 100% | -0.544 / -0.687 / 0.5 / 25% | -1.52 / -2.26 / 2.5 / 25% | 0.36 / 0.367 / 0.75 / 90% |
+| other | treatment | M11.C.42 | 20 | 128 / 130 / 137 / 100% | -0.309 / -0.295 / -0.191 / 0% | -0.539 / -0.52 / -0.226 / 0% | 0.41 / 0.405 / 0.461 / 100% |
+| TRIANGLE | baseline | M11.C.45 | 20 | 14.2 / 14 / 25 / 100% | -0.345 / -0.33 / 0.577 / 20% | -0.464 / -0.484 / 1.68 / 45% | 0.465 / 0.485 / 0.667 / 100% |
+| other | baseline | M11.C.45 | 20 | 243 / 254 / 273 / 100% | -0.308 / -0.295 / -0.188 / 0% | -0.321 / -0.304 / -0.139 / 0% | 0.433 / 0.437 / 0.468 / 100% |
+| TRIANGLE | treatment | M11.C.45 | 20 | 12.4 / 10.5 / 31 / 100% | -0.49 / -0.549 / 0.614 / 10% | -1.16 / -1.48 / 2.1 / 35% | 0.389 / 0.382 / 0.727 / 95% |
+| other | treatment | M11.C.45 | 20 | 247 / 250 / 276 / 100% | -0.333 / -0.325 / -0.243 / 0% | -0.311 / -0.299 / -0.169 / 0% | 0.429 / 0.428 / 0.476 / 100% |
+
+## D0 · `d0-scripted-acts`
+
+Every criterion whose arms script an act: in how many seeds it was made, or skipped because it was not legal that week. Model: unmodified.
+
+Probe `scripted_acts` over 20 seeds; per group over seeds: mean / median / maximum / share above zero (a seed with nothing to measure is left out).
+
+| act | arm | criterion | seeds | made (mean / median / max / >0) | skipped (mean / median / max / >0) |
+|---|---|---|---|---|---|
+| skipped | baseline | M11.C.3 | 9 | 0 / 0 / 0 / 0% | 1 / 1 / 1 / 100% |
+| made | baseline | M11.C.3 | 11 | 1 / 1 / 1 / 100% | 0 / 0 / 0 / 0% |
+| skipped | treatment | M11.C.3 | 10 | 0 / 0 / 0 / 0% | 1 / 1 / 1 / 100% |
+| made | treatment | M11.C.3 | 10 | 1 / 1 / 1 / 100% | 0 / 0 / 0 / 0% |
+| skipped | baseline | M11.C.4 | 12 | 0 / 0 / 0 / 0% | 1 / 1 / 1 / 100% |
+| made | baseline | M11.C.4 | 8 | 1 / 1 / 1 / 100% | 0 / 0 / 0 / 0% |
+| skipped | treatment | M11.C.4 | 12 | 0 / 0 / 0 / 0% | 1 / 1 / 1 / 100% |
+| made | treatment | M11.C.4 | 8 | 1 / 1 / 1 / 100% | 0 / 0 / 0 / 0% |
+| none | baseline | M11.C.5 | 20 | 0 / 0 / 0 / 0% | 0 / 0 / 0 / 0% |
+| made | treatment | M11.C.5 | 15 | 1 / 1 / 1 / 100% | 0 / 0 / 0 / 0% |
+| skipped | treatment | M11.C.5 | 5 | 0 / 0 / 0 / 0% | 1 / 1 / 1 / 100% |
+| made | baseline | M11.C.29 | 10 | 4 / 4 / 4 / 100% | 0 / 0 / 0 / 0% |
+| skipped | baseline | M11.C.29 | 3 | 0 / 0 / 0 / 0% | 4 / 4 / 4 / 100% |
+| partly | baseline | M11.C.29 | 7 | 1.71 / 1 / 3 / 100% | 2.29 / 3 / 3 / 100% |
+| made | treatment | M11.C.29 | 15 | 1 / 1 / 1 / 100% | 0 / 0 / 0 / 0% |
+| skipped | treatment | M11.C.29 | 5 | 0 / 0 / 0 / 0% | 1 / 1 / 1 / 100% |
+| made | baseline | M11.C.32 | 20 | 1 / 1 / 1 / 100% | 0 / 0 / 0 / 0% |
+| made | treatment | M11.C.32 | 20 | 1 / 1 / 1 / 100% | 0 / 0 / 0 / 0% |
+| made | baseline | M11.C.35 | 12 | 1 / 1 / 1 / 100% | 0 / 0 / 0 / 0% |
+| skipped | baseline | M11.C.35 | 8 | 0 / 0 / 0 / 0% | 1 / 1 / 1 / 100% |
+| made | treatment | M11.C.35 | 13 | 1 / 1 / 1 / 100% | 0 / 0 / 0 / 0% |
+| skipped | treatment | M11.C.35 | 7 | 0 / 0 / 0 / 0% | 1 / 1 / 1 / 100% |
+| none | baseline | M11.C.42 | 20 | 0 / 0 / 0 / 0% | 0 / 0 / 0 / 0% |
+| made | treatment | M11.C.42 | 13 | 1 / 1 / 1 / 100% | 0 / 0 / 0 / 0% |
+| skipped | treatment | M11.C.42 | 7 | 0 / 0 / 0 / 0% | 1 / 1 / 1 / 100% |
+| made | baseline | M11.C.27[stable,add_third] | 14 | 1 / 1 / 1 / 100% | 0 / 0 / 0 / 0% |
+| skipped | baseline | M11.C.27[stable,add_third] | 6 | 0 / 0 / 0 / 0% | 1 / 1 / 1 / 100% |
+| made | treatment | M11.C.27[stable,add_third] | 12 | 1 / 1 / 1 / 100% | 0 / 0 / 0 / 0% |
+| skipped | treatment | M11.C.27[stable,add_third] | 8 | 0 / 0 / 0 / 0% | 1 / 1 / 1 / 100% |
+| made | baseline | M11.C.27[stable,remove_one] | 14 | 1 / 1 / 1 / 100% | 0 / 0 / 0 / 0% |
+| skipped | baseline | M11.C.27[stable,remove_one] | 6 | 0 / 0 / 0 / 0% | 1 / 1 / 1 / 100% |
+| made | treatment | M11.C.27[stable,remove_one] | 14 | 1 / 1 / 1 / 100% | 0 / 0 / 0 / 0% |
+| skipped | treatment | M11.C.27[stable,remove_one] | 6 | 0 / 0 / 0 / 0% | 1 / 1 / 1 / 100% |
+| made | baseline | M11.C.27[unstable,add_third] | 14 | 1 / 1 / 1 / 100% | 0 / 0 / 0 / 0% |
+| skipped | baseline | M11.C.27[unstable,add_third] | 6 | 0 / 0 / 0 / 0% | 1 / 1 / 1 / 100% |
+| made | treatment | M11.C.27[unstable,add_third] | 12 | 1 / 1 / 1 / 100% | 0 / 0 / 0 / 0% |
+| skipped | treatment | M11.C.27[unstable,add_third] | 8 | 0 / 0 / 0 / 0% | 1 / 1 / 1 / 100% |
+| made | baseline | M11.C.27[unstable,remove_one] | 14 | 1 / 1 / 1 / 100% | 0 / 0 / 0 / 0% |
+| skipped | baseline | M11.C.27[unstable,remove_one] | 6 | 0 / 0 / 0 / 0% | 1 / 1 / 1 / 100% |
+| made | treatment | M11.C.27[unstable,remove_one] | 14 | 1 / 1 / 1 / 100% | 0 / 0 / 0 / 0% |
+| skipped | treatment | M11.C.27[unstable,remove_one] | 6 | 0 / 0 / 0 / 0% | 1 / 1 / 1 / 100% |
 
 ## D5 · `d5-spell-effect`
 
 Is M11.C.44/.45's calm arm calm? Each triad member's mean acute anxiety and share of weeks above the chronic floor, per arm. Model: unmodified.
 
-Probe `spell_effect` over 20 seeds; per group over seeds: mean / median / maximum / share above zero.
+Probe `spell_effect` over 20 seeds; per group over seeds: mean / median / maximum / share above zero (a seed with nothing to measure is left out).
 
 | arm | person | seeds | mean_acute (mean / median / max / >0) | share_weeks_above_floor (mean / median / max / >0) |
 |---|---|---|---|---|

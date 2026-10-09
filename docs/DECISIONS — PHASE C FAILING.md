@@ -1,113 +1,142 @@
 # Decisions — Phase C's failing criteria
 
-> Written 2026-10-09, step 3 of `docs/plan_phase_c_failing_criteria.md`. **Awaiting the owner's decisions.**
-> Evidence: `docs/phase_c_diagnostic_record.md` (generated, cached, never a verdict). The rows named below as
-> `d1-…` to `d6-…` are its sections. Nothing in the engine, config or criteria has changed. Every number here is
-> copied from that record and rounded.
+> Written 2026-10-09, step 3 of `docs/plan_phase_c_failing_criteria.md`, and revised the same day after the batch
+> review. **Awaiting the owner's decisions.**
+> Evidence: `docs/phase_c_diagnostic_record.md` (generated, cached, never a verdict); `d0-…` to `d6-…` name its
+> sections. The fixture's level comes from `config/bowen/fixtures/triad.md`, and the act layers from
+> `config/bowen/event_kinds.md`; every other number is from the record, rounded. Nothing in the engine, config or
+> criteria has changed.
 
 ## Summary
 
-| Criterion | Outcome | One-line cause | Decision needed |
+| Criterion | Status | Cause, as far as the record shows | Decision |
 |---|---|---|---|
-| `M11.C.29` | **A**, blocked by X1 | The readout is pinned at its maximum: everyone is above threshold all run | X1, then a readout |
+| all criteria that script an act | **A** | The scripted act is skipped in 25–60% of seeds, because it is not legal that week; a skipped seed adds a difference of exactly 0 | **S** (first) |
+| `M11.C.4` later limb | open, after S | Over the 8 seeds where the cutoff was made, the later cost is mixed (median −0.9 at week 30, +0.4 at weeks 120 and 240) | S, then perhaps B |
+| `M11.C.5` | likely **B**, after S | Over the made seeds, the reaction grows with the run: target median −13, +26, +60 at 60, 120, 260 weeks | S, then Q5 |
+| `M11.C.27` | open, after S | 30–40% of seeds skipped; the made-seed subsets are not paired across arms; read at 3 weeks only | S |
+| `M11.C.42` | **C**, and S | The learner credits `TRIANGLE` less than other acts; 35% of seeds skipped | S, Q3 |
+| `M11.C.45` | **C**, and X1 | The same credit gap; the calm arm may not be calm | Q3, X1 |
+| `M11.C.29` | **A**, and S, X1 | The readout is pinned at its maximum (the third person is above their floor all run); 25–50% skipped | S, X1, then a readout |
+| `M11.C.44` | open, X1 | The spell barely changes any act count | X1 |
 | `M11.C.41` level limb | **A** | The readout conflicts with `M4.D.3a`: 5 of the 7 reactive acts sit in layers a lower level closes | Q2 |
-| `M11.C.41` stress limb | blocked by X1 | The spell adds little anxiety to a system already above its floor | X1 |
-| `M11.C.44` | blocked by X1 | The spell changes no act counts | X1 |
-| `M11.C.45` | **C**, and X1 | `TRIANGLE` does not relieve; there is also no calm arm | Q3, X1 |
-| `M11.C.42` | **C** | `TRIANGLE` relieves the sender no more than other acts, so it is not learned | Q3 |
-| `M11.C.4` later limb | **C** | A cutoff's cost never outweighs its relief, at any horizon to 240 weeks | Q4 |
-| `M11.C.27` remove-one cells | **C** | The same: a cutoff removes impingement at once; "too little" grows slowly | Q4 |
-| `M11.C.27` add-third cells | **C** | Adding a third barely moves the pair | Q4 |
-| `M11.C.5` | **C**, perhaps X1 | No consistent reaction at 60, 120 or 260 weeks | Q5 |
+| `M11.C.41` stress limb | possibly **B**, X1 | It points the right way, but the intervals cross zero at 150 seeds | X1 |
 
-A = test defect, B = underpowered or too short, C = a finding about the model (plan §0). **No criterion is B.**
-Every horizon that was lengthened (C.4 to 240 weeks, C.5 to 260) left the median difference at 0.
+A = test defect, B = underpowered or too short, C = a finding about the model (plan §0). **This revision withdraws
+three claims of the first version:** "no criterion is B", "a cutoff is a net relief at every horizon", and "TRIANGLE
+does not relieve the sender". The first two came from medians over seeds in which the cutoff was never made. The
+third read a learning credit as a causal effect.
 
 ---
 
-## X1 — the model has no calm state at the fixtures' levels (most consequential)
+## S — the scripted act is often not made (decide first)
 
-**Evidence.**
-- In M11.C.29's triad, every member is above their chronic floor in 79 of 79 weeks, and their peak symptom load is about 3 times the onset threshold: the third person at 217 against 63 (`d1-c29-third-person`).
-- Removing the declared spell changes almost nothing: still 79 of 79 weeks, and the third person's load is 188 against 60 (`d1-c29-third-person-calm`).
-- In M11.C.44/.45's "calm" arm, members are above the floor in 98.8% of weeks, at a mean acute anxiety of about 54 against a chronic floor of 45. The spell arm is 56 (`d5-spell-effect`).
-- Act counts are the same in both arms: outside acts 63 against 62.5, inside acts 33 against 34, triangles 11.2 against 11.3 (`d5-c44-act-counts`).
+**Evidence** (`d0-scripted-acts`, 20 seeds per arm). A criterion's scripted act is made only if it is legal that week (`M4.D.1e`); otherwise it is skipped and counted. It was skipped in:
 
-**What it means.** Every criterion that compares calm against a spell (C.44, C.45, C.41's stress limb), or that reads a symptom's time course (C.29), compares two saturated states. They cannot pass whatever the mechanisms do. Either the fixtures start too tense, or the model has no reachable resting state near the floor at these levels (about 40).
+| Criterion | Seeds skipped |
+|---|---|
+| `M11.C.3` (passing) | 9–10 of 20 |
+| `M11.C.4` | 12 of 20, in both arms |
+| `M11.C.5` | 5 of 20 |
+| `M11.C.29` | 5 of 20 in the treatment arm; in the baseline arm, 3 fully and 7 partly |
+| `M11.C.35` (passing) | 7–8 of 20 |
+| `M11.C.42` | 7 of 20 |
+| `M11.C.27` | 6–8 of 20 per cell |
+| `M11.C.32` | 0 of 20 |
+
+In C.4 the cause is visible in the selection record: at week 8 the dyad's tie is usually already cut, because the policy cut it spontaneously, so a scripted `CUTOFF` is not legal. The "no cutoff" baseline is then cut too.
+
+**What it means.** In a skipped seed both arms run the same history, and the difference is exactly 0. Every affected criterion's effect is diluted toward zero by its skip rate. C.4 runs at about 40% of its seeds. The two passing criteria pass despite this; their effect sizes are understated.
 
 **Options.**
-- (a) **Restate the arms (A).** Give these criteria a declared starting state that rests near the floor (for example, a higher level or a less tense starting tie). Declare it before the rerun, and log it as post hoc.
-- (b) **Treat it as a finding (C).** The resting state is set by `M4.A.5`'s standing load and the tie appraisal (`M4.C.1`), and restating the fixtures would hide it.
+- (a) **Script the act where it is legal in every seed.** Choose each criterion's scripted week as the latest week at which the act is legal in all seeds, measured by a diagnostic before any rerun and then declared.
+- (b) **Hold the affected tie open until the scripted week.** Declare that the scripted actor's policy cannot cut that tie before t0. This changes the scenario, not the model.
+- (c) **Analyse only seeds where the act was made in both arms**, and report the skip rate. This is not recommended: whether the act is legal depends on the seed's history, so the kept seeds are a selected sample.
 
-**Recommendation: first one more diagnostic (D7, minutes)**, then choose. D7 would decompose what holds acute anxiety above the floor at rest (the standing load, against each tie's deviation), and would test whether any level in range reaches a calm state. If one does, (a) is honest. If none does, it is (b), and the spec or model question goes ahead of every criterion above.
+**Recommendation: (a)**, with (b) for any criterion where no week works. Both are pre-declared test restatements (A), logged as post hoc. The made/skipped counts already appear in each arm's `moves` in the ensemble record, but no readout used them. The ensemble record should also report each criterion's skip rate beside its verdict, so the defect stays visible.
+
+## X1 — is there a calm state? (hypothesis; D7 needed)
+
+**Evidence, triad fixture only** (level 40, the fixture of C.29, C.42, C.44 and C.45):
+- Every member is above the chronic floor (any positive excess) in 79 of 80 tick-start samples, in both arms; the first sample is the initial state.
+- The third person's peak symptom load is 217 against a threshold of 63 (`d1-c29-third-person`).
+- With the declared spell removed, this is unchanged: 79 of 80, and 188 against 60 (`d1-c29-third-person-calm`).
+- In C.45's calm arm, members are above the floor in 98.8% of samples, at a mean acute anxiety of about 54 against a floor of 45; the spell arm is about 56 (`d5-spell-effect`).
+- The spell barely changes act counts: outside acts 63.0 against 62.5, inside acts 33.1 against 34.4, triangles 11.2 against 11.3 (`d5-c44-act-counts`).
+
+**What it might mean.** In the triad, the calm arm may not be calm, so calm-against-spell criteria compare two tense states. Two limits on that:
+- "Above floor" has no tolerance, and the probe has not measured by how much.
+- The `family_phase_c` fixture (C.41, C.5) has not been measured at all.
+
+**Recommendation: D7 before deciding.** D7 would measure:
+1. the mean excess over the floor with a declared tolerance, on both fixtures;
+2. what holds acute anxiety above the floor at rest: `M4.A.5`'s standing load, against each tie's deviation;
+3. whether any level in range rests near the floor.
+
+Then decide between (a) restating the arms with a calmer declared starting state and (b) reporting it as a finding. Reporting it as a finding would mean the resting state is a property of the model.
 
 ## Q2 — `M11.C.41`'s level limb conflicts with `M4.D.3a`
 
 **Evidence.**
 - At a lower level, mean acute anxiety rises as claimed: +16 and +18 in the two "lower level" cells (`d2-c41-unmodified`).
-- But the reactive share falls: −0.013 and −0.017.
-- With availability held level-independent, the share rises: +0.003 (light) and +0.010 (heavy; this cell then passes) (`d2-c41-availability-fixed`).
+- The reactive share falls: −0.013 and −0.017.
+- With availability held level-independent, the share rises: +0.003 and +0.010; the heavy cell then passes (`d2-c41-availability-fixed`).
 
-**Cause.** Of the seven reactive acts, only `CUTOFF` and `DISTANCE` are in layer 0. `OVERFUNCTION` and `UNDERFUNCTION` are in layer 1, and `CONFLICT`, `PURSUE` and `TRIANGLE` in layer 2. `M4.D.3a` closes layers 1 and 2 as level falls, so a lower level removes most reactive options, while the self-directed acts stay. The criterion and `M4.D.3a` pull against each other within the spec.
+**Cause.** Of the seven reactive acts, only `CUTOFF` and `DISTANCE` are in layer 0. `OVERFUNCTION` and `UNDERFUNCTION` are in layer 1, and `CONFLICT`, `PURSUE` and `TRIANGLE` in layer 2. `M4.D.3a` closes layers 1 and 2 as level falls, while the self-directed acts stay available.
 
 **Options.**
-- (a) Restate the readout as the reactive share of what the legal set offered: reactive acts selected, over reactive acts available. Declared before the rerun.
-- (b) Accept it as a finding: in this model, a lower level narrows reactivity to its oldest forms.
-- (c) Revisit `M4.D.3a`'s layering of the reactive acts.
+- (a) Restate the readout as reactive acts selected over reactive acts offered by the legal set.
+- (b) Accept it as a finding: a lower level narrows reactivity to its oldest forms.
+- (c) Revisit `M4.D.3a`'s layering.
 
-**Recommendation: (a)**, because the criterion's claim is about the pressure toward reactivity, and (a) measures that without undoing `M4.D.3a`. (b) is defensible if the owner reads Bowen as saying that the poorly differentiated have fewer forms of reactivity, not more of it.
+**Recommendation: (a).** C.41 runs no scripted act, so S does not affect it.
 
-## Q3 — `TRIANGLE` does not relieve the sender under the spec's roles (`M11.C.42`, `M11.C.45`)
+## Q3 — the learner credits `TRIANGLE` less than other acts (`M11.C.42`, `M11.C.45`)
 
-**Evidence** (`d3-triangle-relief`, 20 seeds per arm):
-- Under the current roles (the 2026-10-08 `TRIANGLE` decision, report §8), the learner credits a `TRIANGLE` with a mean signal of −2.1 to −3.5, against −0.5 to −0.9 for other automatic acts.
-- 23–32% of triangles relieve, against 44–47% of other acts.
-- Its learned value ends at about −0.8 to −1.1, against −0.3 to −0.4.
-- Under step 5's alliance reading (`d3-triangle-relief-old-roles`), triangles look like any other act: 42–46% relieve.
-- With only the actor's own relief credited (`cross_person_weight` 0; `d3-triangle-relief-own-relief-only`), the gap narrows but stays: signal −0.5 to −1.5 against −0.3 to −0.5, and 36–47% relieve against 41–43%.
+**Evidence** (`d3-triangle-relief`, 20 seeds per arm; learned values per person and key):
+- Under the current roles (report §8), a `TRIANGLE`'s closed learning signal averages −2.1 to −3.5, against −0.5 to −0.9 for other automatic acts.
+- 23–32% of triangles are followed by relief, against 44–47% of other acts.
+- Its learned values end at about −0.9 to −1.0, against −0.4 to −0.5.
+- Under step 5's alliance reading (`d3-triangle-relief-old-roles`), triangles are credited like any other act (42–46% relieved).
+- With `cross_person_weight` at 0 (`d3-triangle-relief-own-relief-only`), the gap narrows: 36–47% against 41–43%. In C.45's baseline the learned values are then close (−0.35 against −0.31).
 
-**What it means.**
-- Part of the cost is the loaded third person's distress, credited through `M4.D.6e`.
-- The rest is that the sender's own relief from triangling is no better than from other acts.
-- A learner that repeats what relieves therefore cannot learn to reuse triangles (C.42), or to use them more under a spell (C.45). The criteria fail because, as specified, the act is not relieving.
+**What it shows, and what it does not.** This is the credit the learner assigns: the actor's change in acute anxiety over the horizon, which includes decay and everything else that happened in those weeks. It explains why triangling is not learned under the current roles, which is enough for C.42 and C.45 to fail. It does not show what the act itself does. The run with the cross-person weight at 0 is a different trajectory, not a decomposition, so "part of the cost is the third's distress" is an inference.
 
 **Options.**
 - (a) Report it as a finding about §8's reading.
-- (b) The spec intends a triangle to relieve the twosome (`M1.C.1`'s transfer). If so, the transfer as built does not achieve that, and fixing it to do what `M1.C.1` states is implementing the spec, not tuning. Diagnose the transfer's size and route first.
+- (b) Measure the act's own effect with a paired forced-act comparison, as C.3 does, and fix `M1.C.1`'s transfer if it does not relieve the twosome as the spec states.
 - (c) Exempt the recruited third from `M4.D.6e`'s cross-person credit.
 
-**Recommendation: (b), diagnosis first.** The corpus is clear that triangling relieves the twosome. So a model in which it does not is more likely a defect in the transfer than a finding. (c) changes a rule's scope, so it is the owner's call on the theory.
+**Recommendation: (b)** after S, since C.42 also skips 35% of its seeds.
 
-## Q4 — a cutoff is a net relief at every horizon (`M11.C.4` later limb, `M11.C.27`)
+## Q4 — `M11.C.4`'s later limb and `M11.C.27`: decide after S
 
-**Evidence.**
-- With C.4's nodal event at 30, 60, 120 and 240 weeks, the median difference in family anxiety is 0 at every horizon, with 15–20% of seeds positive. The mean at 240 weeks (+9.9) comes from one seed (`d6-horizons`).
-- In C.27's remove-one cells, the cutoff drives the "too much" side of the pair's deviation to about 0 (f 0.10 → 0.03, m 0.11 → 0.003). The "too little" side rises only modestly (f 0.21 → 0.23, m 0.09 → 0.13). Net deviation falls, where the stable cell expects a rise (`d4-c27-deviation-terms`).
-- Adding a third (the add-third cells) moves the pair by a few hundredths on either side.
+**Evidence, made seeds only** (`d6-horizons`; C.4 made its cutoff in 8 of 20 seeds):
+- The cutoff relieves now: −3.2 median.
+- Family anxiety at the nodal event, treatment minus baseline, has median −0.9, −1.8, +0.4 and +0.4 at weeks 30, 60, 120 and 240, with 38–50% of seeds positive. Eight seeds cannot settle that.
+- C.27 is read 3 weeks after its act. In its remove-one cells the cutoff removes the "too much" side of the pair's deviation at once, while the "too little" side rises less over those 3 weeks (`d4-c27-deviation-terms`). Its made-seed groups differ between arms, so they are not paired, and no longer horizon was tried.
 
-**What it means.** `M4.C.1c`'s accrual on a severed tie never builds enough to outweigh the relief of losing the impingement. This is one mechanism behind two criteria's failures, and a longer run does not change it (not B).
+**Recommendation:** rerun both under S's fix. Only then consider a longer declared horizon (B) or a finding (C).
 
-**Options.**
-- (a) Report it as a finding.
-- (b) If `M4.C.1c` is meant to make a cutoff's cost exceed its relief over time ("cutoff trades now against later"), then the accrual as built does not, and fixing it is implementing the spec. Diagnose first.
-- (c) Restate C.27's remove-one cells. A cutoff may not be the right operationalisation of "removing one".
+## Q5 — `M11.C.5`: likely too short
 
-**Recommendation: (b), diagnosis first**, because the spec's own wording for C.4 states the trade. The add-third cells are the same question as Q3: if a triangle does not move the pair, it does not stabilise or destabilise it.
+**Evidence, made seeds only** (15 of 20):
+- The target's reaction, treatment minus baseline, has median −13, +26 and +60 at 60, 120 and 260 weeks.
+- The third person's load has median −28, −11 and +61, positive in 27%, 47% and 73% of seeds.
+- The reaction appears to develop over years, not within the 60 weeks declared.
 
-## Q5 — `M11.C.5`: no consistent reaction
-
-**Evidence** (`d6-horizons`). Target reaction: the median difference is 0 at 60, 120 and 260 weeks, with 35–40% of seeds positive and heavy tails (the mean swings from −48 to +189). The third person's load: median −15, 0 and +31, with 20–55% positive.
-
-**Recommendation: decide after X1.** The target is above its floor throughout (X1), so a "reaction" is hard to tell apart from the baseline. If X1 is restated, rerun C.5 under it. Otherwise report it as a finding: the change-back ladder (`M5.E.0`) does not form.
+**Recommendation:** after S, one declared longer horizon (B). C.5 runs on `family_phase_c`, which X1's evidence does not cover.
 
 ---
 
 ## What the owner is asked to decide
 
-1. **X1:** run D7 first (recommended), or decide (a) or (b) now.
-2. **Q2:** (a) the share of the offered reactive acts (recommended), (b) a finding, or (c) revisit `M4.D.3a`.
-3. **Q3:** (b) diagnose `M1.C.1`'s transfer (recommended), (a) a finding, or (c) exempt the third from cross-person credit.
-4. **Q4:** (b) diagnose `M4.C.1c`'s accrual (recommended), (a) a finding, or (c) restate C.27's remove-one cells.
-5. **Q5:** after X1 (recommended).
+1. **S:** (a) script each act at a week where it is legal in every seed (recommended), (b) hold the tie open, or (c) made-seed analysis (not recommended).
+2. **X1:** run D7 first (recommended).
+3. **Q2:** (a) the share of offered reactive acts (recommended), (b) a finding, or (c) revisit `M4.D.3a`.
+4. **Q3:** (b) a paired forced-act measurement of `TRIANGLE`'s own effect, after S (recommended), (a) a finding, or (c) exempt the third.
+5. **Q4 and Q5:** rerun after S; then C.5's horizon (recommended B).
 
-**Corrections made while diagnosing.** Report §3.6 said the third person in C.29 accumulates no symptom weeks. In fact they are symptomatic in every week of both arms; the +0 was a difference, not a count. Corrected in the report and TODO.
+**Corrections made while diagnosing.**
+- Report §3.6 said the third person in C.29 accumulates no symptom weeks. They are above zero in every week of both arms. Corrected in the report and TODO.
+- The first version of this memo drew Q4 and "no criterion is B" from medians over unmade seeds. Withdrawn above.

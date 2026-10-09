@@ -10,9 +10,11 @@ a hash goes stale.
 | `docs/phase_c_ensemble_record.md` | `tools/ensemble_record.py` | each criterion's verdict at the central (frozen) constants |
 | `docs/phase_c_mutation_record.md` | `tools/mutation_record.py` | each passing criterion under its named, deletion, sign-inverted and representation mutants |
 | `docs/phase_c_sweep_record.md` | `tools/sweep_record.py` | each composite criterion at half and double α, H and temperature (plan D9) |
+| `docs/phase_c_level_occupancy.md` | `tools/level_occupancy.py` | the levels C.16's members occupy, unmodified and under the availability inversion |
+| §11 of this report | `tools/c16_report.py` | `M11.C.16`'s class, every number taken from the two records above |
 | `docs/spec_coverage.md` | `tools/spec_coverage.py` | every spec ID: done / partial / not done |
 
-Default suite: **504 tests pass** (`python3 -m pytest tests/`). The 19 ensemble-marked criterion tests are
+Default suite: **506 tests pass** (`python3 -m pytest tests/`). The 19 ensemble-marked criterion tests are
 deselected there and run with `python3 -m pytest -m ensemble`.
 
 **Read this first.** Phase C's gate does **not** pass. Of the 16 criteria built, 7 pass at the frozen
@@ -444,7 +446,7 @@ What this shows:
   the result; the level-blind mutant, which removes all nine at once, leaves no difference at all.
 - **C.16's cited grounds.** Its criterion row cites `M4.C.1a` (KS03.2: steepness and band) and `M1.C.3a` (routing).
   Removing those together with `M4.D.3a`'s availability (`c16-grounds-removed`) turns it red: entropy
-  -0.000 ± 0.006. Removing the two cited rules alone, with availability kept (`c16-cited-grounds-removed`), leaves it passing: entropy -0.034 ± 0.007. So the cited rules do not carry it without availability.
+  -0.000 ± 0.006. Removing the two cited rules alone, with availability kept (`c16-cited-grounds-removed`), leaves it passing: entropy -0.034 ± 0.007. Removing availability alone also leaves it passing (-0.033 ± 0.008). Either set alone keeps a passing result; only removing both removes it, which is the pattern `M11.5`'s redundancy clause describes.
 - `M5.D.3`'s hold capacity never acts in C.16's runs: both hold mutants reproduce the unmutated numbers exactly. Those
   two mutants test nothing here.
 - **Learning changes the result's size, not its sign.** `M4.D.6` disabled leaves entropy at
@@ -466,7 +468,7 @@ Why composite, and not premise:
   narrower repertoire follows from them jointly; their formulas do not name it. On that reading the clause does not apply, and the owner kept C.16 composite. **The reading
   is contestable:** C.16's own criterion row gives as its grounds `M4.C.1a`'s source text (poorly differentiated
   people "are very prone to shut down and distance or to react aggressively", KS03.2) and `M1.C.3a`'s "stays fixed".
-  If those rules are read as stating the narrowing, the redundancy clause would make C.16 a premise; the clause's proof would have to remove availability with them, as `c16-grounds-removed` does; removing the cited rules alone leaves it passing. Which reading holds is a judgement about what the rules
+  If those rules are read as stating the narrowing, the redundancy clause would make C.16 a premise; `c16-grounds-removed`, which removes availability with them, would be that clause's proof; either set alone leaves it passing. Which reading holds is a judgement about what the rules
   state, not a mutant result; the mutants are consistent with both. The class stays composite by owner decision, and
   `TODO.md` puts the reading back to the owner with this result.
 

@@ -57,12 +57,14 @@ The v2 specification is **approved** — 542 numbered requirements over 17 modul
 
 **Phase C is built, and its acceptance gate does not pass** (2026-10-08). Agents now select acts through a policy and learn from felt relief. Of 16 criteria built, 7 pass and are mutation-proved, 1 passes without a mutant proof, 1 passes in one of its four cells, and 7 fail. The status of each criterion and the owner decisions it needs are in `docs/phase_c_completion_report.md`; coverage in `docs/spec_coverage.md`.
 
-The criteria run outside the default suite, over ensembles. On 10 cores the ensemble record takes about 5 minutes, the mutation record about 15 and the sweep about 20:
+The criteria run outside the default suite, over ensembles. On 10 cores the ensemble record takes about 5 minutes. The mutation and sweep records cache each result by the engine hash and the mutant's or setting's own edits (`tools/record_cache.py`, `docs/records_cache/`): a regeneration reruns only what changed, so re-rendering takes under a second, one new mutant a few minutes, and only an engine change reruns everything (about 40 and 20 minutes):
 
 ```
 python3 tools/ensemble_record.py     # docs/phase_c_ensemble_record.md
-python3 tools/mutation_record.py     # docs/phase_c_mutation_record.md
-python3 tools/sweep_record.py        # docs/phase_c_sweep_record.md
+python3 tools/mutation_record.py     # docs/phase_c_mutation_record.md (cached)
+python3 tools/sweep_record.py        # docs/phase_c_sweep_record.md (cached)
+python3 tools/level_occupancy.py     # docs/phase_c_level_occupancy.md (about 3 minutes)
+python3 tools/c16_report.py          # report §11, generated from the records
 ```
 
 ```

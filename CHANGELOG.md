@@ -9,6 +9,15 @@ the per-criterion status is in `docs/phase_c_completion_report.md`.
 
 ### Added
 
+- **Diagnosis of the failing Phase C criteria, 2026-10-09** (`docs/plan_phase_c_failing_criteria.md`, approved).
+  `tools/diagnostic_record.py` and `tools/probes.py` write `docs/phase_c_diagnostic_record.md`; the owner's decisions
+  are asked in `docs/DECISIONS — PHASE C FAILING.md`. The main finding: at the fixtures' levels the model has no calm
+  state. Members sit above their chronic floor in about 99% of weeks with or without the spell, which alone blocks
+  C.29, C.44, C.45 and C.41's stress limb. Also: C.41's level limb conflicts with `M4.D.3a` (5 of 7 reactive acts are
+  in layers a lower level closes); `TRIANGLE` relieves the sender no more than other acts under §8's roles (C.42,
+  C.45); a cutoff is a net relief at every horizon to 240 weeks (C.4, C.27). No criterion is merely underpowered.
+  `M11.C.7`, `.13` and `.14` moved to Phase D. Report §3.6's account of C.29 was wrong (the third person is
+  symptomatic in every week, not none) and is corrected.
 - **Cached records, 2026-10-09.** The mutation and sweep records cache each result under the engine hash (engine,
   config, `RULE_KEYS` and `tools/mutant_runner.py`, the child that computes results) plus the mutant's or setting's
   own edits (`tools/record_cache.py`, `docs/records_cache/`). A record's test re-renders it from its cache and

@@ -14,7 +14,7 @@ a hash goes stale.
 | §11 of this report | `tools/c16_report.py` | `M11.C.16`'s class, every number taken from the two records above |
 | `docs/spec_coverage.md` | `tools/spec_coverage.py` | every spec ID: done / partial / not done |
 
-Default suite: **507 tests pass** (`python3 -m pytest tests/`). The 19 ensemble-marked criterion tests are
+Default suite: **510 tests pass** (`python3 -m pytest tests/`). The 19 ensemble-marked criterion tests are
 deselected there and run with `python3 -m pytest -m ensemble`.
 
 **Read this first.** Phase C's gate does **not** pass. Of the 16 criteria built, 7 pass at the frozen
@@ -46,7 +46,7 @@ column follows the global completion standard.
 | `M11.C.19` counterfeit axis identified | check | PASS (50) | yes: `axes-collapsed`, `axes-swapped` | — | done |
 | `M11.C.25` dominant pole independent of sex | premise (null) | PASS (50); difference exactly 0 in every seed | yes: `sex-term-in-pole` | — | done — readout corrected post hoc, §4.2 |
 | `M11.C.27` twosome 2×2 | composite | 1 of 4 cells passes: [unstable, remove one]. [stable, add third] passed before §8 and is now +0.003 (p 0.49) | the passing cell, by `one-sided-deviation` and `deviation-inverted` | the passing cell holds at all 6 settings | partial — §3.5 |
-| `M11.C.29` relief vs differentiation time course | premise | **FAIL** — budget −0.08 (p 0.09); third's symptom weeks 0 in both arms | not run | — | not done — §3.6 |
+| `M11.C.29` relief vs differentiation time course | premise | **FAIL** — budget −0.08 (p 0.09); third's symptom weeks at the maximum in both arms (corrected 2026-10-09, D1) | not run | — | not done — §3.6 |
 | `M11.C.32` mover's anger stalls and degrades | premise | PASS (100) | yes: `anger-gate-inverted`, `anger-gate-removed` | — | done |
 | `M11.C.35` witness appraisal depends on both ties | check | PASS (100) | yes: `witness-position-blind`, `witness-reach-inverted` | — | done |
 | `M11.C.38` graded level orders time to threshold | premise | PASS, all 3 adjacent pairs | every pair red under the joint `level-blind` mutant; single-rule mutants red on some pairs only (§2) | — | done (proved only jointly, §2) |
@@ -125,8 +125,9 @@ pass would be tuning against it. Each needs an owner decision.
 5. **`M11.C.27`'s [stable, remove one]** and **[unstable, add third]** cells go the opposite way at every
    setting, before and after §8. [stable, add third] passed before §8 and is now flat (+0.003). For a stable twosome, removing one member *lowers* the pair's deviation, where the criterion
    expects a rise. For an unstable twosome, adding a third *raises* it, where the criterion expects a fall.
-6. **`M11.C.29`.** The third person accumulates no symptom weeks in either arm (0 in both), so the readout cannot
-   move. The budget difference is the right sign but not significant.
+6. **`M11.C.29`.** The third person's readout is pinned at its maximum: their symptom load is above zero in every
+   week of both arms, so the difference is +0 ± 0 and cannot move (`docs/phase_c_diagnostic_record.md`, D1). *Corrected
+   2026-10-09: this item first said they accumulate no symptom weeks, which misread the +0 difference.* The budget difference is the right sign but not significant.
 7. **`M11.C.41`'s reactive-share limb.** No cell passes after §8: [lower level: heavier stress] passed before and
    its reactive-share limb is now +0.002 (p 0.32). [light: lower level] was undetermined before §10 and now fails:
    its reactive share falls (−0.013). At a lower level the mean acute anxiety rises, as expected and

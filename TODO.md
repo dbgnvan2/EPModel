@@ -68,10 +68,12 @@ Phase C steps 0–16 are built. **Its gate does not pass** (`docs/phase_c_comple
 - [ ] **`M11.C.16`'s mutation clause is not met.** The spec requires that disabling `M4.D.6` turn it red, and it does
   not. Decide whether to restate the criterion so that a learned contribution is what it tests (for example, hold
   level-reading availability fixed and compare learning on against off), or to accept it as a level result.
-- [ ] **Run the approved plan for the failing criteria** (`docs/plan_phase_c_failing_criteria.md`, approved 2026-10-09):
+- [ ] **Owner: decide X1 and Q2-Q5** in `docs/DECISIONS — PHASE C FAILING.md` (written 2026-10-09). The diagnosis
+  (D0-D6) is done; the restatements and reruns wait on these decisions.
+- [x] ~~**Run the approved plan for the failing criteria**~~ *D0-D6 done 2026-10-09; see the decision memo.* (`docs/plan_phase_c_failing_criteria.md`, approved 2026-10-09):
   D0 diagnostic record, D1-D6 diagnoses, one decision memo. `M11.C.7`, `.13` and `.14` moved to Phase D the same day.
-- [ ] **The failing criteria** — `M11.C.4` (later limb), `.5`, `.29` (the third person never accumulates symptom
-  weeks), `.41` (no cell passes; the reactive share falls with level), `.42`, `.44`, `.45`, and three cells of `.27`.
+- [ ] **The failing criteria** — `M11.C.4` (later limb), `.5`, `.29` (the third person's symptom weeks are pinned at
+  the maximum in both arms), `.41` (no cell passes; the reactive share falls with level), `.42`, `.44`, `.45`, and three cells of `.27`.
   Report §3.
 - [ ] **Plan §9's human reviews:** `docs/readouts_phase_c.md`, a rendered 104-week Phase C trace, and `M5.F.2`'s
   threshold.

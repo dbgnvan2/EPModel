@@ -391,9 +391,9 @@ mutant has turned each entry red in `docs/phase_c_mutation_record.md`; the D9 sw
 | M11.C.19 | done | `tests/bowen/test_phase_c_gate.py::test_m11c19_counterfeit_axis_is_identified` | ensemble record: M11.C.19 PASS |
 | M11.C.25 | done | `tests/bowen/test_phase_c_gate.py::test_m11c25_dominant_pole_independent_of_sex` | ensemble record: M11.C.25 PASS |
 | M11.C.26 | not done | — | Phase D |
-| M11.C.27 | partial | `tests/bowen/test_phase_c_gate.py::test_m11c27_twosome_two_by_two_all_cells` | ensemble record: M11.C.27[stable,add_third] FAIL; M11.C.27[stable,remove_one] FAIL; M11.C.27[unstable,add_third] FAIL; M11.C.27[unstable,remove_one] PASS |
+| M11.C.27 | partial | `tests/bowen/test_phase_c_gate.py::test_m11c27_twosome_two_by_two_all_cells` | ensemble record: M11.C.27[stable,add_third] FAIL; M11.C.27[stable,remove_one] FAIL; M11.C.27[unstable,add_third] FAIL; M11.C.27[unstable,remove_one] FAIL |
 | M11.C.28 | not done | — | Phase D |
-| M11.C.29 | partial | `tests/bowen/test_phase_c_criteria.py::test_m11c29_held_tie_is_not_cut_while_held`<br>`tests/bowen/test_phase_c_criteria.py::test_m11c29_hold_is_the_same_in_both_arms`<br>`tests/bowen/test_phase_c_criteria.py::test_m11c29_hold_lets_every_withdrawal_be_made`<br>`tests/bowen/test_phase_c_criteria.py::test_m11c29_readout_counts_the_weeks_the_third_persons_symptom_is_active`<br>`tests/bowen/test_phase_c_gate.py::test_m11c29_relief_and_differentiation_differ_in_time_course` | ensemble record: M11.C.29 FAIL |
+| M11.C.29 | partial | `tests/bowen/test_phase_c_criteria.py::test_m11c29_held_tie_is_not_cut_while_held`<br>`tests/bowen/test_phase_c_criteria.py::test_m11c29_hold_is_the_same_in_both_arms`<br>`tests/bowen/test_phase_c_criteria.py::test_m11c29_hold_lets_every_withdrawal_be_made`<br>`tests/bowen/test_phase_c_gate.py::test_m11c29_relief_and_differentiation_differ_in_time_course` | ensemble record: M11.C.29 FAIL |
 | M11.C.30 | not done | — | Phase D |
 | M11.C.31 | not done | — | Phase D |
 | M11.C.32 | done | `tests/bowen/test_phase_c_gate.py::test_m11c32_mover_anger_stalls_and_degrades` | ensemble record: M11.C.32 PASS |
@@ -405,7 +405,7 @@ mutant has turned each entry red in `docs/phase_c_mutation_record.md`; the D9 sw
 | M11.C.38 | done | `tests/bowen/test_phase_c_gate.py::test_m11c38_graded_parameter_orders_primary_readout` | ensemble record: M11.C.38[-0 vs -5] PASS; M11.C.38[-5 vs -10] PASS; M11.C.38[-10 vs -15] PASS |
 | M11.C.39 | not done | — | Phase D |
 | M11.C.40 | not done | — | Phase D |
-| M11.C.41 | partial | `tests/bowen/test_phase_c_criteria.py::test_m11c41_reactive_per_offered_divides_by_what_the_legal_set_offered`<br>`tests/bowen/test_phase_c_gate.py::test_m11c41_level_and_stress_each_exacerbate_the_pattern` | ensemble record: M11.C.41[light: lower level] PASS; M11.C.41[heavy: lower level] PASS; M11.C.41[higher level: heavier stress] FAIL; M11.C.41[lower level: heavier stress] FAIL |
+| M11.C.41 | partial | `tests/bowen/test_phase_c_criteria.py::test_m11c41_reactive_over_chance_is_zero_for_a_chooser_at_random_at_any_set_size`<br>`tests/bowen/test_phase_c_gate.py::test_m11c41_level_and_stress_each_exacerbate_the_pattern` | ensemble record: M11.C.41[light: lower level] PASS; M11.C.41[heavy: lower level] PASS; M11.C.41[higher level: heavier stress] FAIL; M11.C.41[lower level: heavier stress] FAIL |
 | M11.C.42 | partial | `tests/bowen/test_phase_c_criteria.py::test_m11c42_absence_changes_nothing_before_its_tick`<br>`tests/bowen/test_phase_c_criteria.py::test_m11c42_absence_forms_no_triangle_holding_the_absent_member`<br>`tests/bowen/test_phase_c_criteria.py::test_m11c42_absence_removes_the_third_from_the_pairs_choices_that_tick`<br>`tests/bowen/test_phase_c_criteria.py::test_m11c42_readout_counts_the_whole_pairs_triangles`<br>`tests/bowen/test_phase_c_gate.py::test_m11c42_relieving_triangle_is_reused` | ensemble record: M11.C.42 FAIL |
 | M11.C.43 | not done | — | Phase D |
 | M11.C.44 | partial | `tests/bowen/test_phase_c_gate.py::test_m11c44_position_value_inverts_with_load` | ensemble record: M11.C.44 FAIL |
@@ -554,7 +554,7 @@ mutant has turned each entry red in `docs/phase_c_mutation_record.md`; the D9 sw
 | M17.G.2 | not done | — | Phase E |
 | M17.G.3 | not done | — | Phase E |
 
-## Tests named for no spec ID (70)
+## Tests named for no spec ID (72)
 
 Their names embed no requirement ID, so they count only where an override cites them (marked *cited*). The rest check spec documents, tooling or helpers.
 
@@ -575,8 +575,10 @@ Their names embed no requirement ID, so they count only where an override cites 
 - `tests/bowen/test_family.py::test_m2_family_declaration_must_be_graded_invented`
 - `tests/bowen/test_family.py::test_m2a_values_match_the_spec_table` — *cited*
 - `tests/bowen/test_phase_b_gate.py::test_m13_phase_b_scripted_40_week_trace_runs`
+- `tests/bowen/test_phase_c_criteria.py::test_s_absence_and_hold_in_the_same_week_both_apply`
 - `tests/bowen/test_phase_c_criteria.py::test_s_every_scripted_act_is_made_with_the_hold`
 - `tests/bowen/test_phase_c_criteria.py::test_s_every_scripted_criterion_holds_the_same_ties_in_both_arms`
+- `tests/bowen/test_phase_c_criteria.py::test_s_scripted_criteria_are_found_by_running_them`
 - `tests/bowen/test_register.py::test_m14a_check_catches_a_field_with_no_row`
 - `tests/bowen/test_register.py::test_m14a_register_matches_object_fields` — *cited*
 - `tests/bowen/test_script.py::test_m13_script_parses_and_validates`

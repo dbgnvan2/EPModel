@@ -9,7 +9,7 @@ the mutation record's **reversed**, which needs every gating interval wholly on 
 readout reported beside the verdict and never tested is marked *(report only)*. Plan D9's fourth
 constant, each criterion's dominant constant, is not swept: plan §3 names none.
 
-engine_hash: 7bb4406ecb910ca827a807d6f6f856928af52075c90156b0053dc8417579a472
+engine_hash: cbdb4124b74c5df8079141381fcc056c95cd8c34dc0b7be93be89f3e011474db
 
 Results are cached by `tools/mutant_runner.py` (`docs/records_cache/sweep.json`); this file is rendered
 from that cache.
@@ -21,55 +21,55 @@ from that cache.
 | `M11.C.42` | FAIL | learning_rate 0.1 | FAIL | 100 | `triangle_reuse` -0.09 **opposite sign** |
 | `M11.C.44` | FAIL | learning_rate 0.1 | PASS | 150 | `outside_inside_ratio` +0.0783 |
 | `M11.C.45` | FAIL | learning_rate 0.1 | FAIL | 100 | `triangle_rate` -0.00329 **opposite sign** |
-| `M11.C.27[stable,add_third]` | FAIL | learning_rate 0.1 | FAIL | 50 | `pair_deviation` +0.0205 |
-| `M11.C.27[stable,remove_one]` | FAIL | learning_rate 0.1 | FAIL | 100 | `pair_deviation` -0.266 **opposite sign** |
-| `M11.C.27[unstable,add_third]` | FAIL | learning_rate 0.1 | FAIL | 50 | `pair_deviation` +0.0292 **opposite sign** |
-| `M11.C.27[unstable,remove_one]` | PASS | learning_rate 0.1 | PASS | 100 | `pair_deviation` -0.294 |
+| `M11.C.27[stable,add_third]` | FAIL | learning_rate 0.1 | FAIL | 100 | `pair_deviation` +0.0299 |
+| `M11.C.27[stable,remove_one]` | FAIL | learning_rate 0.1 | FAIL | 150 | `pair_deviation` +0.035 |
+| `M11.C.27[unstable,add_third]` | FAIL | learning_rate 0.1 | FAIL | 150 | `pair_deviation` +0.0158 **opposite sign** |
+| `M11.C.27[unstable,remove_one]` | FAIL | learning_rate 0.1 | FAIL | 150 | `pair_deviation` +0.0771 **opposite sign** |
 | `M11.C.5` | FAIL | learning_rate 0.4 | FAIL | 150 | `target_reaction` -3.96 **opposite sign**; `third_person_symptom_load` +1.76 |
 | `M11.C.16` | PASS | learning_rate 0.4 | PASS | 150 | `repertoire_entropy` -0.063; `top_move_share` +0.0409 *(report only)* |
 | `M11.C.42` | FAIL | learning_rate 0.4 | FAIL | 100 | `triangle_reuse` -0.11 **opposite sign** |
 | `M11.C.44` | FAIL | learning_rate 0.4 | FAIL | 150 | `outside_inside_ratio` +0.0787 |
 | `M11.C.45` | FAIL | learning_rate 0.4 | FAIL | 150 | `triangle_rate` -0.00169 **opposite sign** |
-| `M11.C.27[stable,add_third]` | FAIL | learning_rate 0.4 | FAIL | 50 | `pair_deviation` +0.0217 |
-| `M11.C.27[stable,remove_one]` | FAIL | learning_rate 0.4 | FAIL | 100 | `pair_deviation` -0.252 **opposite sign** |
-| `M11.C.27[unstable,add_third]` | FAIL | learning_rate 0.4 | FAIL | 50 | `pair_deviation` +0.0301 **opposite sign** |
-| `M11.C.27[unstable,remove_one]` | PASS | learning_rate 0.4 | PASS | 100 | `pair_deviation` -0.252 |
+| `M11.C.27[stable,add_third]` | FAIL | learning_rate 0.4 | FAIL | 150 | `pair_deviation` +0.0397 |
+| `M11.C.27[stable,remove_one]` | FAIL | learning_rate 0.4 | PASS | 100 | `pair_deviation` +0.0659 |
+| `M11.C.27[unstable,add_third]` | FAIL | learning_rate 0.4 | FAIL | 150 | `pair_deviation` +0.0464 **opposite sign** |
+| `M11.C.27[unstable,remove_one]` | FAIL | learning_rate 0.4 | FAIL | 100 | `pair_deviation` +0.0639 **opposite sign** |
 | `M11.C.5` | FAIL | credit_horizon 2 | FAIL | 100 | `target_reaction` +3.85; `third_person_symptom_load` +2.2 |
 | `M11.C.16` | PASS | credit_horizon 2 | PASS | 150 | `repertoire_entropy` -0.065; `top_move_share` +0.0417 *(report only)* |
 | `M11.C.42` | FAIL | credit_horizon 2 | PASS | 100 | `triangle_reuse` +0.42 |
 | `M11.C.44` | FAIL | credit_horizon 2 | FAIL | 100 | `outside_inside_ratio` +0.0711 |
 | `M11.C.45` | FAIL | credit_horizon 2 | FAIL | 100 | `triangle_rate` -0.00263 **opposite sign** |
-| `M11.C.27[stable,add_third]` | FAIL | credit_horizon 2 | PASS | 50 | `pair_deviation` +0.0498 |
-| `M11.C.27[stable,remove_one]` | FAIL | credit_horizon 2 | FAIL | 100 | `pair_deviation` -0.328 **opposite sign** |
-| `M11.C.27[unstable,add_third]` | FAIL | credit_horizon 2 | FAIL | 50 | `pair_deviation` +0.0415 **opposite sign** |
-| `M11.C.27[unstable,remove_one]` | PASS | credit_horizon 2 | PASS | 100 | `pair_deviation` -0.303 |
+| `M11.C.27[stable,add_third]` | FAIL | credit_horizon 2 | FAIL | 150 | `pair_deviation` +0.0222 |
+| `M11.C.27[stable,remove_one]` | FAIL | credit_horizon 2 | FAIL | 100 | `pair_deviation` +0.0328 |
+| `M11.C.27[unstable,add_third]` | FAIL | credit_horizon 2 | FAIL | 150 | `pair_deviation` +0.0173 **opposite sign** |
+| `M11.C.27[unstable,remove_one]` | FAIL | credit_horizon 2 | FAIL | 150 | `pair_deviation` +0.00495 **opposite sign** |
 | `M11.C.5` | FAIL | credit_horizon 6 | FAIL | 100 | `target_reaction` -3.23 **opposite sign**; `third_person_symptom_load` +2.14 |
 | `M11.C.16` | PASS | credit_horizon 6 | PASS | 150 | `repertoire_entropy` -0.0437; `top_move_share` +0.0357 *(report only)* |
 | `M11.C.42` | FAIL | credit_horizon 6 | FAIL | 100 | `triangle_reuse` +0.26 |
 | `M11.C.44` | FAIL | credit_horizon 6 | FAIL | 100 | `outside_inside_ratio` -0.058 **opposite sign** |
 | `M11.C.45` | FAIL | credit_horizon 6 | FAIL | 100 | `triangle_rate` +0.00246 |
-| `M11.C.27[stable,add_third]` | FAIL | credit_horizon 6 | FAIL | 50 | `pair_deviation` +0.0506 |
-| `M11.C.27[stable,remove_one]` | FAIL | credit_horizon 6 | FAIL | 100 | `pair_deviation` -0.273 **opposite sign** |
-| `M11.C.27[unstable,add_third]` | FAIL | credit_horizon 6 | FAIL | 50 | `pair_deviation` +0.0428 **opposite sign** |
-| `M11.C.27[unstable,remove_one]` | PASS | credit_horizon 6 | PASS | 150 | `pair_deviation` -0.264 |
+| `M11.C.27[stable,add_third]` | FAIL | credit_horizon 6 | FAIL | 100 | `pair_deviation` +0.012 |
+| `M11.C.27[stable,remove_one]` | FAIL | credit_horizon 6 | PASS | 150 | `pair_deviation` +0.048 |
+| `M11.C.27[unstable,add_third]` | FAIL | credit_horizon 6 | FAIL | 100 | `pair_deviation` +0.056 **opposite sign** |
+| `M11.C.27[unstable,remove_one]` | FAIL | credit_horizon 6 | FAIL | 150 | `pair_deviation` +0.0472 **opposite sign** |
 | `M11.C.5` | FAIL | policy_temperature 0.5 | FAIL | 150 | `target_reaction` -22 **opposite sign**; `third_person_symptom_load` -0.34 **opposite sign** |
 | `M11.C.16` | PASS | policy_temperature 0.5 | PASS | 150 | `repertoire_entropy` -0.0386; `top_move_share` +0.0298 *(report only)* |
 | `M11.C.42` | FAIL | policy_temperature 0.5 | FAIL | 100 | `triangle_reuse` -0.11 **opposite sign** |
 | `M11.C.44` | FAIL | policy_temperature 0.5 | FAIL | 100 | `outside_inside_ratio` +0.103 |
 | `M11.C.45` | FAIL | policy_temperature 0.5 | FAIL | 100 | `triangle_rate` -0.00229 **opposite sign** |
-| `M11.C.27[stable,add_third]` | FAIL | policy_temperature 0.5 | FAIL | 50 | `pair_deviation` +0.0176 |
-| `M11.C.27[stable,remove_one]` | FAIL | policy_temperature 0.5 | FAIL | 100 | `pair_deviation` -0.256 **opposite sign** |
-| `M11.C.27[unstable,add_third]` | FAIL | policy_temperature 0.5 | FAIL | 50 | `pair_deviation` +0.0363 **opposite sign** |
-| `M11.C.27[unstable,remove_one]` | PASS | policy_temperature 0.5 | PASS | 100 | `pair_deviation` -0.259 |
+| `M11.C.27[stable,add_third]` | FAIL | policy_temperature 0.5 | FAIL | 100 | `pair_deviation` +0.0765 |
+| `M11.C.27[stable,remove_one]` | FAIL | policy_temperature 0.5 | PASS | 150 | `pair_deviation` +0.0486 |
+| `M11.C.27[unstable,add_third]` | FAIL | policy_temperature 0.5 | FAIL | 150 | `pair_deviation` -0.0161 |
+| `M11.C.27[unstable,remove_one]` | FAIL | policy_temperature 0.5 | FAIL | 150 | `pair_deviation` +0.0299 **opposite sign** |
 | `M11.C.5` | FAIL | policy_temperature 2.0 | FAIL | 100 | `target_reaction` -3.79 **opposite sign**; `third_person_symptom_load` +1.01 |
 | `M11.C.16` | PASS | policy_temperature 2.0 | PASS | 150 | `repertoire_entropy` -0.0741; `top_move_share` +0.0548 *(report only)* |
 | `M11.C.42` | FAIL | policy_temperature 2.0 | FAIL | 100 | `triangle_reuse` -0.09 **opposite sign** |
 | `M11.C.44` | FAIL | policy_temperature 2.0 | PASS | 100 | `outside_inside_ratio` +0.0936 |
 | `M11.C.45` | FAIL | policy_temperature 2.0 | FAIL | 100 | `triangle_rate` +0.000458 |
-| `M11.C.27[stable,add_third]` | FAIL | policy_temperature 2.0 | FAIL | 50 | `pair_deviation` +0.0241 |
-| `M11.C.27[stable,remove_one]` | FAIL | policy_temperature 2.0 | FAIL | 100 | `pair_deviation` -0.259 **opposite sign** |
-| `M11.C.27[unstable,add_third]` | FAIL | policy_temperature 2.0 | FAIL | 50 | `pair_deviation` +0.0422 **opposite sign** |
-| `M11.C.27[unstable,remove_one]` | PASS | policy_temperature 2.0 | PASS | 100 | `pair_deviation` -0.295 |
+| `M11.C.27[stable,add_third]` | FAIL | policy_temperature 2.0 | FAIL | 100 | `pair_deviation` +0.0442 |
+| `M11.C.27[stable,remove_one]` | FAIL | policy_temperature 2.0 | FAIL | 150 | `pair_deviation` +0.0292 |
+| `M11.C.27[unstable,add_third]` | FAIL | policy_temperature 2.0 | FAIL | 150 | `pair_deviation` +0.0241 **opposite sign** |
+| `M11.C.27[unstable,remove_one]` | FAIL | policy_temperature 2.0 | FAIL | 100 | `pair_deviation` +0.0262 **opposite sign** |
 
 ## Machine-readable
 
@@ -171,13 +171,13 @@ from that cache.
   "readouts": [
    {
     "direction": 1,
-    "half_width": 0.0391601634556334,
-    "mean_difference": 0.020457350171325803,
+    "half_width": 0.05943706424973004,
+    "mean_difference": 0.02988832774956875,
     "readout": "pair_deviation",
     "report_only": false
    }
   ],
-  "seeds": 50
+  "seeds": 100
  },
  {
   "setting": "learning_rate 0.1",
@@ -186,13 +186,13 @@ from that cache.
   "readouts": [
    {
     "direction": 1,
-    "half_width": 0.06396533822522094,
-    "mean_difference": -0.26638460999828334,
+    "half_width": 0.05717378785850507,
+    "mean_difference": 0.03501681011308064,
     "readout": "pair_deviation",
     "report_only": false
    }
   ],
-  "seeds": 100
+  "seeds": 150
  },
  {
   "setting": "learning_rate 0.1",
@@ -201,28 +201,28 @@ from that cache.
   "readouts": [
    {
     "direction": -1,
-    "half_width": 0.03872627724525476,
-    "mean_difference": 0.02919589360012723,
+    "half_width": 0.05240933643388593,
+    "mean_difference": 0.01578826135433241,
     "readout": "pair_deviation",
     "report_only": false
    }
   ],
-  "seeds": 50
+  "seeds": 150
  },
  {
   "setting": "learning_rate 0.1",
   "criterion": "M11.C.27[unstable,remove_one]",
-  "outcome": "PASS",
+  "outcome": "FAIL",
   "readouts": [
    {
     "direction": -1,
-    "half_width": 0.06633930096543314,
-    "mean_difference": -0.29366140935566415,
+    "half_width": 0.05740476559403276,
+    "mean_difference": 0.07708781603277046,
     "readout": "pair_deviation",
     "report_only": false
    }
   ],
-  "seeds": 100
+  "seeds": 150
  },
  {
   "setting": "learning_rate 0.4",
@@ -320,23 +320,23 @@ from that cache.
   "readouts": [
    {
     "direction": 1,
-    "half_width": 0.029909669388415418,
-    "mean_difference": 0.021664470633782313,
+    "half_width": 0.05878688982999215,
+    "mean_difference": 0.039735772163462274,
     "readout": "pair_deviation",
     "report_only": false
    }
   ],
-  "seeds": 50
+  "seeds": 150
  },
  {
   "setting": "learning_rate 0.4",
   "criterion": "M11.C.27[stable,remove_one]",
-  "outcome": "FAIL",
+  "outcome": "PASS",
   "readouts": [
    {
     "direction": 1,
-    "half_width": 0.06605868164148157,
-    "mean_difference": -0.25160164048594885,
+    "half_width": 0.05809813028402733,
+    "mean_difference": 0.06591421500476459,
     "readout": "pair_deviation",
     "report_only": false
    }
@@ -350,23 +350,23 @@ from that cache.
   "readouts": [
    {
     "direction": -1,
-    "half_width": 0.0330258140129389,
-    "mean_difference": 0.030136788664542658,
+    "half_width": 0.06144120481455984,
+    "mean_difference": 0.0463522323513296,
     "readout": "pair_deviation",
     "report_only": false
    }
   ],
-  "seeds": 50
+  "seeds": 150
  },
  {
   "setting": "learning_rate 0.4",
   "criterion": "M11.C.27[unstable,remove_one]",
-  "outcome": "PASS",
+  "outcome": "FAIL",
   "readouts": [
    {
     "direction": -1,
-    "half_width": 0.06243259944918796,
-    "mean_difference": -0.25199296007565225,
+    "half_width": 0.05660908023677426,
+    "mean_difference": 0.06393817886546689,
     "readout": "pair_deviation",
     "report_only": false
    }
@@ -465,17 +465,17 @@ from that cache.
  {
   "setting": "credit_horizon 2",
   "criterion": "M11.C.27[stable,add_third]",
-  "outcome": "PASS",
+  "outcome": "FAIL",
   "readouts": [
    {
     "direction": 1,
-    "half_width": 0.034708982845406,
-    "mean_difference": 0.04979429272134271,
+    "half_width": 0.05554452959310373,
+    "mean_difference": 0.022170361604158202,
     "readout": "pair_deviation",
     "report_only": false
    }
   ],
-  "seeds": 50
+  "seeds": 150
  },
  {
   "setting": "credit_horizon 2",
@@ -484,8 +484,8 @@ from that cache.
   "readouts": [
    {
     "direction": 1,
-    "half_width": 0.06878040455670036,
-    "mean_difference": -0.3281475821801269,
+    "half_width": 0.06100693230586353,
+    "mean_difference": 0.032774245507086526,
     "readout": "pair_deviation",
     "report_only": false
    }
@@ -499,28 +499,28 @@ from that cache.
   "readouts": [
    {
     "direction": -1,
-    "half_width": 0.03327810704496421,
-    "mean_difference": 0.04151992413837943,
+    "half_width": 0.052292564498621234,
+    "mean_difference": 0.01727780495818286,
     "readout": "pair_deviation",
     "report_only": false
    }
   ],
-  "seeds": 50
+  "seeds": 150
  },
  {
   "setting": "credit_horizon 2",
   "criterion": "M11.C.27[unstable,remove_one]",
-  "outcome": "PASS",
+  "outcome": "FAIL",
   "readouts": [
    {
     "direction": -1,
-    "half_width": 0.0646025348527014,
-    "mean_difference": -0.3031096260066911,
+    "half_width": 0.05729030960614345,
+    "mean_difference": 0.004946154637278541,
     "readout": "pair_deviation",
     "report_only": false
    }
   ],
-  "seeds": 100
+  "seeds": 150
  },
  {
   "setting": "credit_horizon 6",
@@ -618,23 +618,8 @@ from that cache.
   "readouts": [
    {
     "direction": 1,
-    "half_width": 0.05351820716338928,
-    "mean_difference": 0.05059959236737633,
-    "readout": "pair_deviation",
-    "report_only": false
-   }
-  ],
-  "seeds": 50
- },
- {
-  "setting": "credit_horizon 6",
-  "criterion": "M11.C.27[stable,remove_one]",
-  "outcome": "FAIL",
-  "readouts": [
-   {
-    "direction": 1,
-    "half_width": 0.06696547426205178,
-    "mean_difference": -0.27309113685133984,
+    "half_width": 0.07069459861608415,
+    "mean_difference": 0.011994164271488084,
     "readout": "pair_deviation",
     "report_only": false
    }
@@ -643,28 +628,43 @@ from that cache.
  },
  {
   "setting": "credit_horizon 6",
+  "criterion": "M11.C.27[stable,remove_one]",
+  "outcome": "PASS",
+  "readouts": [
+   {
+    "direction": 1,
+    "half_width": 0.05936258133402659,
+    "mean_difference": 0.04801787462789933,
+    "readout": "pair_deviation",
+    "report_only": false
+   }
+  ],
+  "seeds": 150
+ },
+ {
+  "setting": "credit_horizon 6",
   "criterion": "M11.C.27[unstable,add_third]",
   "outcome": "FAIL",
   "readouts": [
    {
     "direction": -1,
-    "half_width": 0.04393815226554573,
-    "mean_difference": 0.04281752952752646,
+    "half_width": 0.05437666172606629,
+    "mean_difference": 0.055956630516285015,
     "readout": "pair_deviation",
     "report_only": false
    }
   ],
-  "seeds": 50
+  "seeds": 100
  },
  {
   "setting": "credit_horizon 6",
   "criterion": "M11.C.27[unstable,remove_one]",
-  "outcome": "PASS",
+  "outcome": "FAIL",
   "readouts": [
    {
     "direction": -1,
-    "half_width": 0.05612804732416927,
-    "mean_difference": -0.26356887587505007,
+    "half_width": 0.05293335756250024,
+    "mean_difference": 0.04716457015873829,
     "readout": "pair_deviation",
     "report_only": false
    }
@@ -767,28 +767,28 @@ from that cache.
   "readouts": [
    {
     "direction": 1,
-    "half_width": 0.03194615876043014,
-    "mean_difference": 0.01760577080170421,
-    "readout": "pair_deviation",
-    "report_only": false
-   }
-  ],
-  "seeds": 50
- },
- {
-  "setting": "policy_temperature 0.5",
-  "criterion": "M11.C.27[stable,remove_one]",
-  "outcome": "FAIL",
-  "readouts": [
-   {
-    "direction": 1,
-    "half_width": 0.06439101839794736,
-    "mean_difference": -0.25557855530568646,
+    "half_width": 0.06457896243057734,
+    "mean_difference": 0.0765013336175727,
     "readout": "pair_deviation",
     "report_only": false
    }
   ],
   "seeds": 100
+ },
+ {
+  "setting": "policy_temperature 0.5",
+  "criterion": "M11.C.27[stable,remove_one]",
+  "outcome": "PASS",
+  "readouts": [
+   {
+    "direction": 1,
+    "half_width": 0.05989648137686388,
+    "mean_difference": 0.048561845021630856,
+    "readout": "pair_deviation",
+    "report_only": false
+   }
+  ],
+  "seeds": 150
  },
  {
   "setting": "policy_temperature 0.5",
@@ -797,28 +797,28 @@ from that cache.
   "readouts": [
    {
     "direction": -1,
-    "half_width": 0.03231566627541639,
-    "mean_difference": 0.036309583648042244,
+    "half_width": 0.05879800623856017,
+    "mean_difference": -0.016079146030283955,
     "readout": "pair_deviation",
     "report_only": false
    }
   ],
-  "seeds": 50
+  "seeds": 150
  },
  {
   "setting": "policy_temperature 0.5",
   "criterion": "M11.C.27[unstable,remove_one]",
-  "outcome": "PASS",
+  "outcome": "FAIL",
   "readouts": [
    {
     "direction": -1,
-    "half_width": 0.06538836564076864,
-    "mean_difference": -0.2589652426663756,
+    "half_width": 0.05224052259091308,
+    "mean_difference": 0.029891739964487934,
     "readout": "pair_deviation",
     "report_only": false
    }
   ],
-  "seeds": 100
+  "seeds": 150
  },
  {
   "setting": "policy_temperature 2.0",
@@ -916,23 +916,8 @@ from that cache.
   "readouts": [
    {
     "direction": 1,
-    "half_width": 0.03946909340530236,
-    "mean_difference": 0.02412017154136445,
-    "readout": "pair_deviation",
-    "report_only": false
-   }
-  ],
-  "seeds": 50
- },
- {
-  "setting": "policy_temperature 2.0",
-  "criterion": "M11.C.27[stable,remove_one]",
-  "outcome": "FAIL",
-  "readouts": [
-   {
-    "direction": 1,
-    "half_width": 0.06316781582754435,
-    "mean_difference": -0.259037883658986,
+    "half_width": 0.06637348967165485,
+    "mean_difference": 0.04416399406704441,
     "readout": "pair_deviation",
     "report_only": false
    }
@@ -941,28 +926,43 @@ from that cache.
  },
  {
   "setting": "policy_temperature 2.0",
+  "criterion": "M11.C.27[stable,remove_one]",
+  "outcome": "FAIL",
+  "readouts": [
+   {
+    "direction": 1,
+    "half_width": 0.05402725116560713,
+    "mean_difference": 0.029189517593454124,
+    "readout": "pair_deviation",
+    "report_only": false
+   }
+  ],
+  "seeds": 150
+ },
+ {
+  "setting": "policy_temperature 2.0",
   "criterion": "M11.C.27[unstable,add_third]",
   "outcome": "FAIL",
   "readouts": [
    {
     "direction": -1,
-    "half_width": 0.038564611730974675,
-    "mean_difference": 0.042217339901690895,
+    "half_width": 0.0589293375712919,
+    "mean_difference": 0.024131933925819624,
     "readout": "pair_deviation",
     "report_only": false
    }
   ],
-  "seeds": 50
+  "seeds": 150
  },
  {
   "setting": "policy_temperature 2.0",
   "criterion": "M11.C.27[unstable,remove_one]",
-  "outcome": "PASS",
+  "outcome": "FAIL",
   "readouts": [
    {
     "direction": -1,
-    "half_width": 0.06672254688844935,
-    "mean_difference": -0.29514392468588696,
+    "half_width": 0.06098265633363775,
+    "mean_difference": 0.026184719465304714,
     "readout": "pair_deviation",
     "report_only": false
    }

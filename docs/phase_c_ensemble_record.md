@@ -5,36 +5,36 @@ seeds (`M3.D.4a`), stopped adaptively (`M17.A.1`, `M13.4`): `UNDETERMINED` at th
 pass. Every verdict carries its class (`M11.5`). **A premise passing confirms that the code renders the
 spec; it is not a finding about families.** The constants are the Phase C freeze of 2026-10-07.
 
-code_hash: a820a5e7e2664f9d4a3920470a42d59f52805ea0d11e006aed2b613a9571d459
+code_hash: 17ec10def19ecdeaa5fb515ac7a4291d8664384e8a052c13549c7e97fc77d115
 
 Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25, `ensemble_margin` = 0.1, `ensemble_alpha` = 0.05, `fallback_flag_rate` = 0.2, `equivalence_margin` = 0.5.
 
-| Criterion | Class | Verdict | Seeds | Readouts (difference treatment − baseline; ± half-width; p after Holm where tested) | Scripted acts not made (not legal + not selecting, of all scripted) | Fallback rate | Flags |
+| Criterion | Class | Verdict | Seeds | Readouts (difference treatment − baseline; ± half-width; p after Holm where tested) | Scripted acts not made, of all scripted (why) | Fallback rate | Flags |
 |---|---|---|---|---|---|---|---|
 | `M11.C.1` | premise | **PASS** | 100 | `time_to_threshold` -1.32 ± 0.14, p 1.05e-17, holds | — | 0.33 | fallback rate 0.33 above 0.2 |
 | `M11.C.3` | premise | **PASS** | 50 | `pair_anxiety` -5.27 ± 0.51, p 3.9e-10, holds; `third_anxiety` +8.85 ± 0.64, p 3.9e-10, holds | baseline 0 of 50; treatment 0 of 50 | 0.02 | — |
-| `M11.C.4` | premise | **FAIL** | 150 | `actor_relief_now` -2.55 ± 0.32, p 1.5e-22, holds; `family_anxiety_at_nodal` -0.585 ± 1, p 0.835, does not hold | baseline 0 of 150; treatment 0 of 150 | 0.05 | — |
+| `M11.C.4` | premise | **FAIL** | 150 | `actor_relief_now` -2.55 ± 0.32, p 1.5e-22, holds; `family_anxiety_at_nodal` +0.136 ± 0.99, p 0.757, does not hold | baseline 0 of 150; treatment 0 of 150 | 0.07 | — |
 | `M11.C.5` | composite | **FAIL** | 150 | `target_reaction` +8.45 ± 16, p 0.102, does not hold; `third_person_symptom_load` +6.12 ± 10, p 0.0764, does not hold | treatment 0 of 150 | 0.24 | — |
 | `M11.C.16` | composite | **PASS** | 150 | `repertoire_entropy` -0.0657 ± 0.023, p 1.15e-16, holds; `top_move_share` +0.0523 ± 0.017 (reported only) | — | 0.37 | fallback rate 0.37 above 0.2 |
 | `M11.C.19` | check | **PASS** | 50 | `outward_failed` +1 ± 0, p 8e-13, holds; `inward_failed` -1 ± 0, p 8e-13, holds | — | 0.00 | — |
 | `M11.C.25` | premise | **PASS** | 50 | `first_dominant` +0 ± 0, equivalence bound 0.225, within | — | 0.02 | — |
-| `M11.C.29` | premise | **FAIL** | 150 | `budget` +0.04 ± 0.1, p 0.846, does not hold; `third_symptom_weeks` -0.227 ± 0.36, p 0.372, does not hold | baseline 8 of 600; treatment 5 of 150 | 0.08 | — |
+| `M11.C.29` | premise | **FAIL** | 150 | `budget` +0.04 ± 0.1, p 0.846, does not hold; `third_symptom_weeks` -0.227 ± 0.36, p 0.372, does not hold | baseline 12 of 600 (8 owed a step, 4 rewritten); treatment 8 of 150 (5 owed a step, 3 rewritten) | 0.08 | — |
 | `M11.C.32` | premise | **PASS** | 100 | `assertion_form` +1.02 ± 0.29, p 5.5e-09, holds; `reached_peak` -0.09 ± 0.1, p 0.0488, holds | baseline 0 of 100; treatment 0 of 100 | 0.03 | — |
 | `M11.C.35` | check | **PASS** | 50 | `witness_appraisal` +0.326 ± 0.057, p 2e-08, holds | baseline 0 of 50; treatment 0 of 50 | 0.01 | — |
 | `M11.C.42` | composite | **FAIL** | 100 | `triangle_reuse` +0.12 ± 0.4, p 0.315, does not hold | treatment 0 of 100 | 0.03 | — |
 | `M11.C.44` | composite | **FAIL** | 150 | `outside_inside_ratio` +0.0103 ± 0.12, p 0.735, does not hold | — | 0.07 | — |
 | `M11.C.45` | composite | **FAIL** | 100 | `triangle_rate` +0.00204 ± 0.0041, p 0.197, does not hold | — | 0.06 | — |
-| `M11.C.27[stable,add_third]` | composite | **FAIL** | 50 | `pair_deviation` +0.0103 ± 0.063, p 0.286, does not hold | baseline 0 of 50; treatment 0 of 50 | 0.02 | — |
-| `M11.C.27[stable,remove_one]` | composite | **FAIL** | 100 | `pair_deviation` -0.237 ± 0.063, p 1, does not hold | baseline 0 of 100; treatment 0 of 100 | 0.02 | — |
-| `M11.C.27[unstable,add_third]` | composite | **FAIL** | 50 | `pair_deviation` +0.0163 ± 0.033, p 0.809, does not hold | baseline 0 of 50; treatment 0 of 50 | 0.01 | — |
-| `M11.C.27[unstable,remove_one]` | composite | **PASS** | 100 | `pair_deviation` -0.28 ± 0.063, p 8.19e-12, holds | baseline 0 of 100; treatment 0 of 100 | 0.02 | — |
+| `M11.C.27[stable,add_third]` | composite | **FAIL** | 150 | `pair_deviation` +0.00862 ± 0.059, p 0.353, does not hold | baseline 0 of 150; treatment 0 of 150 | 0.11 | — |
+| `M11.C.27[stable,remove_one]` | composite | **FAIL** | 150 | `pair_deviation` -0.00146 ± 0.049, p 0.273, does not hold | baseline 0 of 150; treatment 0 of 150 | 0.11 | — |
+| `M11.C.27[unstable,add_third]` | composite | **FAIL** | 150 | `pair_deviation` -0.0178 ± 0.05, p 0.174, does not hold | baseline 0 of 150; treatment 0 of 150 | 0.10 | — |
+| `M11.C.27[unstable,remove_one]` | composite | **FAIL** | 150 | `pair_deviation` +0.0469 ± 0.061, p 0.938, does not hold | baseline 0 of 150; treatment 0 of 150 | 0.10 | — |
 | `M11.C.38[-0 vs -5]` | premise | **PASS** | 100 | `time_to_threshold` -0.73 ± 0.12, p 7.51e-15, holds | — | 0.30 | fallback rate 0.30 above 0.2 |
 | `M11.C.38[-5 vs -10]` | premise | **PASS** | 100 | `time_to_threshold` -0.59 ± 0.12, p 1.47e-12, holds | — | 0.36 | fallback rate 0.36 above 0.2 |
 | `M11.C.38[-10 vs -15]` | premise | **PASS** | 100 | `time_to_threshold` -0.7 ± 0.12, p 1.74e-14, holds | — | 0.42 | fallback rate 0.42 above 0.2 |
-| `M11.C.41[light: lower level]` | mixed | **PASS** | 150 | `mean_acute` +16.4 ± 8.2, p 6.59e-06, holds; `reactive_per_offered` +0.0128 ± 0.0016, p 9.55e-23, holds | — | 0.30 | fallback rate 0.30 above 0.2 |
-| `M11.C.41[heavy: lower level]` | mixed | **PASS** | 150 | `mean_acute` +17.6 ± 12, p 4.1e-06, holds; `reactive_per_offered` +0.0133 ± 0.0015, p 1.51e-24, holds | — | 0.31 | fallback rate 0.31 above 0.2 |
-| `M11.C.41[higher level: heavier stress]` | mixed | **FAIL** | 150 | `mean_acute` +5.98 ± 6.1, p 0.0164, holds; `reactive_per_offered` -0.000196 ± 0.001, p 0.668, does not hold | — | 0.26 | — |
-| `M11.C.41[lower level: heavier stress]` | mixed | **FAIL** | 150 | `mean_acute` +7.16 ± 12, p 0.0255, does not hold; `reactive_per_offered` +0.000288 ± 0.0012, p 0.472, does not hold | — | 0.35 | — |
+| `M11.C.41[light: lower level]` | mixed | **PASS** | 150 | `mean_acute` +16.4 ± 8.2, p 6.59e-06, holds; `reactive_over_chance` +0.0647 ± 0.005, p 1.01e-25, holds | — | 0.30 | fallback rate 0.30 above 0.2 |
+| `M11.C.41[heavy: lower level]` | mixed | **PASS** | 150 | `mean_acute` +17.6 ± 12, p 4.1e-06, holds; `reactive_over_chance` +0.0671 ± 0.005, p 3.29e-26, holds | — | 0.31 | fallback rate 0.31 above 0.2 |
+| `M11.C.41[higher level: heavier stress]` | mixed | **FAIL** | 150 | `mean_acute` +5.98 ± 6.1, p 0.0164, holds; `reactive_over_chance` -0.000769 ± 0.0038, p 0.753, does not hold | — | 0.26 | — |
+| `M11.C.41[lower level: heavier stress]` | mixed | **FAIL** | 150 | `mean_acute` +7.16 ± 12, p 0.0255, does not hold; `reactive_over_chance` +0.00161 ± 0.0042, p 0.401, does not hold | — | 0.35 | — |
 
 ## Not built in Phase C
 
@@ -46,7 +46,7 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
 
 - `M11.C.1`: bruno 1.00, halim 0.37, nadia 0.34
 - `M11.C.3`: pf 0.07, pm 0.04, c 0.00
-- `M11.C.4`: pb 0.09, pa 0.09, a 0.01
+- `M11.C.4`: pa 0.10, pb 0.09, a 0.03
 - `M11.C.5`: bruno 1.00, ana 0.21, halim 0.21
 - `M11.C.16`: bruno 1.00, halim 0.40, nadia 0.38
 - `M11.C.19`: a 0.00, b 0.00, pa 0.00
@@ -57,10 +57,10 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
 - `M11.C.42`: pf 0.07, pm 0.05, c 0.04
 - `M11.C.44`: c 0.13, pf 0.11, pm 0.07
 - `M11.C.45`: c 0.12, pf 0.10, pm 0.07
-- `M11.C.27[stable,add_third]`: pf 0.05, pm 0.03, c 0.00
-- `M11.C.27[stable,remove_one]`: pf 0.04, pm 0.03, c 0.01
-- `M11.C.27[unstable,add_third]`: pf 0.03, pm 0.03, c 0.00
-- `M11.C.27[unstable,remove_one]`: pm 0.04, pf 0.04, c 0.01
+- `M11.C.27[stable,add_third]`: pf 0.22, c 0.15, pm 0.12
+- `M11.C.27[stable,remove_one]`: c 0.20, pf 0.16, pm 0.14
+- `M11.C.27[unstable,add_third]`: pf 0.17, c 0.16, pm 0.14
+- `M11.C.27[unstable,remove_one]`: c 0.18, pm 0.14, pf 0.14
 - `M11.C.38[-0 vs -5]`: bruno 1.00, halim 0.38, ana 0.29
 - `M11.C.38[-5 vs -10]`: bruno 1.00, halim 0.38, ana 0.38
 - `M11.C.38[-10 vs -15]`: bruno 1.00, pia 0.48, nadia 0.46
@@ -140,12 +140,18 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
    "baseline": {
     "made": 50,
     "not legal": 0,
-    "not selecting": 0
+    "owed a step": 0,
+    "dead": 0,
+    "rewritten": 0,
+    "not reached": 0
    },
    "treatment": {
     "made": 50,
     "not legal": 0,
-    "not selecting": 0
+    "owed a step": 0,
+    "dead": 0,
+    "rewritten": 0,
+    "not reached": 0
    }
   }
  },
@@ -171,30 +177,36 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
    {
     "readout": "family_anxiety_at_nodal",
     "direction": 1,
-    "mean_difference": -0.5851281491069398,
-    "half_width": 1.0030841686979592,
-    "baseline_sd": 4.988113297292041,
-    "pooled_sd": 4.7959278753656625,
+    "mean_difference": 0.13620519398817496,
+    "half_width": 0.9919518769154942,
+    "baseline_sd": 4.081699559417816,
+    "pooled_sd": 4.7744271368424345,
     "baseline_position": null,
-    "w_plus": 3428.0,
-    "n_nonzero": 123,
-    "p": 0.8347262930616628,
+    "w_plus": 3365.0,
+    "n_nonzero": 120,
+    "p": 0.7565693960608524,
     "holds": false
    }
   ],
-  "fallback_rate": 0.05057291666666667,
+  "fallback_rate": 0.065,
   "flags": [],
   "missing_moves": [],
   "scripted": {
    "baseline": {
     "made": 150,
     "not legal": 0,
-    "not selecting": 0
+    "owed a step": 0,
+    "dead": 0,
+    "rewritten": 0,
+    "not reached": 0
    },
    "treatment": {
     "made": 150,
     "not legal": 0,
-    "not selecting": 0
+    "owed a step": 0,
+    "dead": 0,
+    "rewritten": 0,
+    "not reached": 0
    }
   }
  },
@@ -238,7 +250,10 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
    "treatment": {
     "made": 150,
     "not legal": 0,
-    "not selecting": 0
+    "owed a step": 0,
+    "dead": 0,
+    "rewritten": 0,
+    "not reached": 0
    }
   }
  },
@@ -379,14 +394,20 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
   "missing_moves": [],
   "scripted": {
    "baseline": {
-    "made": 592,
+    "made": 588,
     "not legal": 0,
-    "not selecting": 8
+    "owed a step": 8,
+    "dead": 0,
+    "rewritten": 4,
+    "not reached": 0
    },
    "treatment": {
-    "made": 145,
+    "made": 142,
     "not legal": 0,
-    "not selecting": 5
+    "owed a step": 5,
+    "dead": 0,
+    "rewritten": 3,
+    "not reached": 0
    }
   }
  },
@@ -430,12 +451,18 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
    "baseline": {
     "made": 100,
     "not legal": 0,
-    "not selecting": 0
+    "owed a step": 0,
+    "dead": 0,
+    "rewritten": 0,
+    "not reached": 0
    },
    "treatment": {
     "made": 100,
     "not legal": 0,
-    "not selecting": 0
+    "owed a step": 0,
+    "dead": 0,
+    "rewritten": 0,
+    "not reached": 0
    }
   }
  },
@@ -466,12 +493,18 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
    "baseline": {
     "made": 50,
     "not legal": 0,
-    "not selecting": 0
+    "owed a step": 0,
+    "dead": 0,
+    "rewritten": 0,
+    "not reached": 0
    },
    "treatment": {
     "made": 50,
     "not legal": 0,
-    "not selecting": 0
+    "owed a step": 0,
+    "dead": 0,
+    "rewritten": 0,
+    "not reached": 0
    }
   }
  },
@@ -502,7 +535,10 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
    "treatment": {
     "made": 100,
     "not legal": 0,
-    "not selecting": 0
+    "owed a step": 0,
+    "dead": 0,
+    "rewritten": 0,
+    "not reached": 0
    }
   }
  },
@@ -560,35 +596,41 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
   "criterion": "M11.C.27[stable,add_third]",
   "class": "composite",
   "outcome": "FAIL",
-  "seeds": 50,
+  "seeds": 150,
   "readouts": [
    {
     "readout": "pair_deviation",
     "direction": 1,
-    "mean_difference": 0.010325002110561412,
-    "half_width": 0.0630201143732262,
-    "baseline_sd": 0.3245841245826647,
-    "pooled_sd": 0.3175462119562489,
+    "mean_difference": 0.008624538948439406,
+    "half_width": 0.059077502330567126,
+    "baseline_sd": 0.27053406494452475,
+    "pooled_sd": 0.26114909708443523,
     "baseline_position": null,
-    "w_plus": 544.0,
-    "n_nonzero": 44,
-    "p": 0.28569541523403397,
+    "w_plus": 3294.0,
+    "n_nonzero": 112,
+    "p": 0.3534751650325166,
     "holds": false
    }
   ],
-  "fallback_rate": 0.016,
+  "fallback_rate": 0.1057797619047619,
   "flags": [],
   "missing_moves": [],
   "scripted": {
    "baseline": {
-    "made": 50,
+    "made": 150,
     "not legal": 0,
-    "not selecting": 0
+    "owed a step": 0,
+    "dead": 0,
+    "rewritten": 0,
+    "not reached": 0
    },
    "treatment": {
-    "made": 50,
+    "made": 150,
     "not legal": 0,
-    "not selecting": 0
+    "owed a step": 0,
+    "dead": 0,
+    "rewritten": 0,
+    "not reached": 0
    }
   }
  },
@@ -596,35 +638,41 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
   "criterion": "M11.C.27[stable,remove_one]",
   "class": "composite",
   "outcome": "FAIL",
-  "seeds": 100,
+  "seeds": 150,
   "readouts": [
    {
     "readout": "pair_deviation",
     "direction": 1,
-    "mean_difference": -0.23698414226322026,
-    "half_width": 0.06274334329844948,
-    "baseline_sd": 0.30029168713842436,
-    "pooled_sd": 0.26904167341956414,
+    "mean_difference": -0.0014595432115953274,
+    "half_width": 0.048757247715512764,
+    "baseline_sd": 0.19025013878338407,
+    "pooled_sd": 0.21116979082380152,
     "baseline_position": null,
-    "w_plus": 541.0,
-    "n_nonzero": 90,
-    "p": 0.9999999993348699,
+    "w_plus": 3492.0,
+    "n_nonzero": 114,
+    "p": 0.27256870257970445,
     "holds": false
    }
   ],
-  "fallback_rate": 0.017636363636363638,
+  "fallback_rate": 0.10617261904761904,
   "flags": [],
   "missing_moves": [],
   "scripted": {
    "baseline": {
-    "made": 100,
+    "made": 150,
     "not legal": 0,
-    "not selecting": 0
+    "owed a step": 0,
+    "dead": 0,
+    "rewritten": 0,
+    "not reached": 0
    },
    "treatment": {
-    "made": 100,
+    "made": 150,
     "not legal": 0,
-    "not selecting": 0
+    "owed a step": 0,
+    "dead": 0,
+    "rewritten": 0,
+    "not reached": 0
    }
   }
  },
@@ -632,71 +680,83 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
   "criterion": "M11.C.27[unstable,add_third]",
   "class": "composite",
   "outcome": "FAIL",
-  "seeds": 50,
+  "seeds": 150,
   "readouts": [
    {
     "readout": "pair_deviation",
     "direction": -1,
-    "mean_difference": 0.01632487834386376,
-    "half_width": 0.03313309471991828,
-    "baseline_sd": 0.3276390274080138,
-    "pooled_sd": 0.3177048000125236,
+    "mean_difference": -0.017777737088821802,
+    "half_width": 0.04998476021609998,
+    "baseline_sd": 0.2144395349490507,
+    "pooled_sd": 0.23026065910477028,
     "baseline_position": null,
-    "w_plus": 401.0,
-    "n_nonzero": 43,
-    "p": 0.8093311105228485,
+    "w_plus": 3250.0,
+    "n_nonzero": 108,
+    "p": 0.17374574884306,
     "holds": false
    }
   ],
-  "fallback_rate": 0.01309090909090909,
+  "fallback_rate": 0.10264285714285715,
   "flags": [],
   "missing_moves": [],
   "scripted": {
    "baseline": {
-    "made": 50,
+    "made": 150,
     "not legal": 0,
-    "not selecting": 0
+    "owed a step": 0,
+    "dead": 0,
+    "rewritten": 0,
+    "not reached": 0
    },
    "treatment": {
-    "made": 50,
+    "made": 150,
     "not legal": 0,
-    "not selecting": 0
+    "owed a step": 0,
+    "dead": 0,
+    "rewritten": 0,
+    "not reached": 0
    }
   }
  },
  {
   "criterion": "M11.C.27[unstable,remove_one]",
   "class": "composite",
-  "outcome": "PASS",
-  "seeds": 100,
+  "outcome": "FAIL",
+  "seeds": 150,
   "readouts": [
    {
     "readout": "pair_deviation",
     "direction": -1,
-    "mean_difference": -0.2801052504481686,
-    "half_width": 0.06277927330876812,
-    "baseline_sd": 0.2854892224871374,
-    "pooled_sd": 0.25984461406381726,
+    "mean_difference": 0.046876470273236555,
+    "half_width": 0.06143874477655816,
+    "baseline_sd": 0.3035023840162369,
+    "pooled_sd": 0.2742790070931206,
     "baseline_position": null,
-    "w_plus": 4095.0,
-    "n_nonzero": 95,
-    "p": 8.18698141471477e-12,
-    "holds": true
+    "w_plus": 2257.0,
+    "n_nonzero": 104,
+    "p": 0.9376657056248987,
+    "holds": false
    }
   ],
-  "fallback_rate": 0.01809090909090909,
+  "fallback_rate": 0.10032142857142858,
   "flags": [],
   "missing_moves": [],
   "scripted": {
    "baseline": {
-    "made": 100,
+    "made": 150,
     "not legal": 0,
-    "not selecting": 0
+    "owed a step": 0,
+    "dead": 0,
+    "rewritten": 0,
+    "not reached": 0
    },
    "treatment": {
-    "made": 100,
+    "made": 150,
     "not legal": 0,
-    "not selecting": 0
+    "owed a step": 0,
+    "dead": 0,
+    "rewritten": 0,
+    "not reached": 0
    }
   }
  },
@@ -801,16 +861,16 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
     "holds": true
    },
    {
-    "readout": "reactive_per_offered",
+    "readout": "reactive_over_chance",
     "direction": 1,
-    "mean_difference": 0.01281293593879834,
-    "half_width": 0.001586755320302503,
-    "baseline_sd": 0.007720423843729815,
-    "pooled_sd": 0.008641232614256622,
+    "mean_difference": 0.06470617779430553,
+    "half_width": 0.005028224131980364,
+    "baseline_sd": 0.02930913071627801,
+    "pooled_sd": 0.0318711372965213,
     "baseline_position": null,
-    "w_plus": 10605.0,
-    "n_nonzero": 148,
-    "p": 9.545913016635235e-23,
+    "w_plus": 11086.0,
+    "n_nonzero": 149,
+    "p": 1.0128378728130846e-25,
     "holds": true
    }
   ],
@@ -841,16 +901,16 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
     "holds": true
    },
    {
-    "readout": "reactive_per_offered",
+    "readout": "reactive_over_chance",
     "direction": 1,
-    "mean_difference": 0.013297274519384979,
-    "half_width": 0.0014838009766676172,
-    "baseline_sd": 0.007725791097657056,
-    "pooled_sd": 0.008475094285444304,
+    "mean_difference": 0.06708741976518023,
+    "half_width": 0.005047988924218981,
+    "baseline_sd": 0.02882949940724703,
+    "pooled_sd": 0.030153180285488804,
     "baseline_position": null,
-    "w_plus": 10566.0,
-    "n_nonzero": 146,
-    "p": 1.5147540875833996e-24,
+    "w_plus": 11012.0,
+    "n_nonzero": 148,
+    "p": 3.291377141242526e-26,
     "holds": true
    }
   ],
@@ -881,16 +941,16 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
     "holds": true
    },
    {
-    "readout": "reactive_per_offered",
+    "readout": "reactive_over_chance",
     "direction": 1,
-    "mean_difference": -0.00019589814790017202,
-    "half_width": 0.0010241921444752995,
-    "baseline_sd": 0.007720423843729815,
-    "pooled_sd": 0.007723107936947044,
+    "mean_difference": -0.0007686777635100517,
+    "half_width": 0.0037502485871311973,
+    "baseline_sd": 0.02930913071627801,
+    "pooled_sd": 0.029070304258954082,
     "baseline_position": null,
-    "w_plus": 4327.0,
-    "n_nonzero": 134,
-    "p": 0.6683195109679863,
+    "w_plus": 4344.0,
+    "n_nonzero": 136,
+    "p": 0.7527435392341858,
     "holds": false
    }
   ],
@@ -919,16 +979,16 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
     "holds": false
    },
    {
-    "readout": "reactive_per_offered",
+    "readout": "reactive_over_chance",
     "direction": 1,
-    "mean_difference": 0.00028844043268646933,
-    "half_width": 0.001163061849451043,
-    "baseline_sd": 0.009472954019763467,
-    "pooled_sd": 0.009319427452109308,
+    "mean_difference": 0.0016125642073646492,
+    "half_width": 0.004212727750089387,
+    "baseline_sd": 0.03424198653413015,
+    "pooled_sd": 0.03286184845979814,
     "baseline_position": null,
-    "w_plus": 3904.0,
-    "n_nonzero": 124,
-    "p": 0.4716711105361238,
+    "w_plus": 4774.0,
+    "n_nonzero": 136,
+    "p": 0.400951098351459,
     "holds": false
    }
   ],

@@ -1,7 +1,7 @@
 # Decisions — Phase C's failing criteria
 
 > Written 2026-10-09, step 3 of `docs/plan_phase_c_failing_criteria.md`, and revised the same day after the batch
-> review. **Awaiting the owner's decisions.**
+> review. **Decided 2026-10-09: the owner approved every recommendation** (S (a)/(b), X1 via D7, Q2 (a), Q3 (b), Q4/Q5 rerun after S).
 > Evidence: `docs/phase_c_diagnostic_record.md` (generated, cached, never a verdict); `d0-…` to `d6-…` name its
 > sections. The fixture's level comes from `config/bowen/fixtures/triad.md`, and the act layers from
 > `config/bowen/event_kinds.md`; every other number is from the record, rounded. Nothing in the engine, config or

@@ -42,6 +42,11 @@ Phase C steps 0–16 are built. **Its gate does not pass** (`docs/phase_c_comple
   No single rule's inversion reverses it. Inverting `M4.D.3a`'s availability cancels it (both intervals span zero),
   and removing availability halves it; all nine level-reading rules were run. The learner changes its size, not its
   sign, so its row's rationale and mutation clause are not met, and coverage keeps it partial. Report §11.*
+- [ ] **`M11.C.16`'s class rests on a reading.** Composite holds if only `M4.D.3a` states a narrower repertoire; if
+  `M4.C.1a`'s KS03.2 text or `M1.C.3a`'s "stays fixed" is read as stating it, `M11.5`'s redundancy clause makes it a
+  premise. Separately, the availability inversion run equals the deletion at level 20 and below (39.5% of the lowered
+  arm's member-weeks), so "cancels without reversing" is shown for that inversion only. A stronger inversion was not
+  tried. Report §11.
 - [ ] **`M11.C.16`'s mutation clause is not met.** The spec requires that disabling `M4.D.6` turn it red, and it does
   not. Decide whether to restate the criterion so that a learned contribution is what it tests (for example, hold
   level-reading availability fixed and compare learning on against off), or to accept it as a level result.

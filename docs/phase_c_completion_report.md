@@ -12,7 +12,7 @@ a hash goes stale.
 | `docs/phase_c_sweep_record.md` | `tools/sweep_record.py` | each composite criterion at half and double α, H and temperature (plan D9) |
 | `docs/spec_coverage.md` | `tools/spec_coverage.py` | every spec ID: done / partial / not done |
 
-Default suite: **495 tests pass** (`python3 -m pytest tests/`). The 19 ensemble-marked criterion tests are
+Default suite: **496 tests pass** (`python3 -m pytest tests/`). The 19 ensemble-marked criterion tests are
 deselected there and run with `python3 -m pytest -m ensemble`.
 
 **Read this first.** Phase C's gate does **not** pass. Of the 16 criteria built, 7 pass at the frozen
@@ -392,9 +392,9 @@ re-sweep found that the inversion cancels the result rather than reversing it, w
 owner kept C.16 composite.*
 
 The table is generated from `docs/phase_c_mutation_record.md`. Differences are the lowered arm minus the baseline arm,
-mean ± 95% half-width, at the central setting. The criterion asks for a negative entropy difference and a positive
-top-move share difference. A red mutant is marked **reversed** only when every readout's interval lies wholly on the
-opposite side; none here is.
+mean ± 95% half-width, at the central setting. The criterion tests a negative entropy difference; the top-move share
+is reported beside it and never tested. A red mutant is marked **reversed** only when every gating readout's interval
+lies wholly on the opposite side; none here is.
 
 | Mutant | Kind | Entropy difference | Top-move share difference | Result |
 |---|---|---|---|---|
@@ -426,7 +426,11 @@ What this shows:
 
 - **No single rule's inversion reverses C.16.** Inverting `M4.D.3a`'s availability cancels it: entropy
   -0.008 ± 0.020 and top-move share -0.012 ± 0.013, both intervals spanning zero.
-  That is a FAIL, so the mutant is red, but the direction is not flipped.
+  That is a FAIL, so the mutant is red, but the direction is not flipped. **This inversion is weak where C.16 runs.**
+  It equals the deletion (every layer fully available) at level 20 and below on both layers, and at 40 and below on
+  layer 1. Under the unmodified model the lowered arm's members spend 39.5% of member-weeks at level 20 or below and
+  94.7% at 40 or below; the baseline arm's, 1.8% and 58.2% (20 seeds, measured 2026-10-08). So it mostly reverses
+  layer 2 only. "Cancels without reversing" holds for this inversion; a stronger one was not tried.
 - **Availability carries part of the narrowing, not all of it.** Removing it leaves entropy at
   -0.033 ± 0.008, against -0.066 ± 0.023 unmutated. No other single rule removes
   the result; the level-blind mutant, which removes all nine at once, leaves no difference at all.
@@ -440,15 +444,23 @@ What this shows:
 
 Why composite, and not premise:
 
-- `M11.1d`'s premise test is a flip under one rule's inversion. No inversion here flips C.16.
-- `M11.C.1` is a premise because each of its level-reading rules states its result on its own, redundantly. Here only
-  availability acts on the repertoire directly, and it carries part of the result. The rest comes from level acting
-  through the other rules and through learning over the run, which is `M11.5`'s composite.
+- `M11.1d`'s flip is sufficient for a premise, not necessary. No inversion run here flips C.16, so that test does not
+  make it one.
+- `M11.5`'s redundancy clause makes a result a premise when several rules each state it, as at `M11.C.1`, where every
+  level-reading rule states earlier onset at a lower level. C.16's pattern of mutants looks the same (each single
+  deletion survives and only the joint one removes it), but of the nine rules only availability states a narrower
+  repertoire at a lower level. The others state other things: a steeper appraisal, a narrower band, a lower threshold,
+  a larger self term, more outside-ness, more routing. A narrower repertoire follows from them jointly; their
+  formulas do not name it. On that reading the clause does not apply, and the owner kept C.16 composite. **The reading
+  is contestable:** C.16's own criterion row gives as its grounds `M4.C.1a`'s source text (poorly differentiated
+  people "are very prone to shut down and distance or to react aggressively", KS03.2) and `M1.C.3a`'s "stays fixed".
+  If those rules are read as stating the narrowing, the redundancy clause makes C.16 a premise. This is a judgement
+  about what the rules state, not a mutant result.
 
 What does not hold:
 
 - *The row's rationale.* Revision 11 restated C.16 so that learning produces the narrowing. Learning moves its size,
-  but the direction survives with the learner disabled.
+  but the direction survives with the learner disabled, and with availability and the learner removed together.
 - *The row's mutation clause*, "disabling `M4.D.6` … MUST turn this red". It does not.
 
 So C.16 stays partial in `docs/spec_coverage.md` (an override records why), the spec's `M11.5` row and criterion row

@@ -77,12 +77,14 @@ the per-criterion status is in `docs/phase_c_completion_report.md`.
 - **`M11.C.16` stays composite, 2026-10-08.** The first check ran an availability inversion that saturated at the layer
   clamp over C.16's levels, so it removed availability instead of inverting it (csdp sweep). It was replaced, and all
   nine level-reading rules now run as deletion and inversion mutants on C.16. Inverting availability now cancels C.16
-  (both readouts' intervals span zero) but does not reverse it; removing it halves the result. A reclassification to
+  (both readouts' intervals span zero) but does not reverse it; removing it halves the result. That inversion equals
+  the deletion over most of the lowered arm's levels, so the cancellation holds for it alone. Composite rests on
+  reading only availability as naming a narrower repertoire; report §11 says why that reading is contestable. A reclassification to
   premise, which read that cancellation as `M11.1d`'s flip, was withdrawn the same day by owner decision. `M5.D.3`'s hold
   capacity never acts in C.16's runs. The learner changes the result's size, not its sign, so the row's rationale and
   mutation clause are not met, and coverage keeps it partial. The mutation record now gives each mutant's mean
-  difference and half-width, and marks a red mutant **reversed** only when every readout's interval lies on the
-  opposite side. Report §11.
+  difference and half-width, and marks a red mutant **reversed** only when every gating readout's interval lies on
+  the opposite side (report-only and equivalence readouts do not gate). Report §11.
 - From the tenth gate (APPROVED, four low findings): `M11.5`'s premise definition now admits a result several rules
   state redundantly; the `M11.C.38` note says no single-rule mutant reds all three pairs (four of six red none); an
   "exactly zero" claim no committed record holds was removed; this file's `.45` entry corrected.

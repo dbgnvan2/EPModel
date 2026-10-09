@@ -19,7 +19,8 @@ Outcomes:
   (FAIL or UNDETERMINED), **survived** if it still passes. A survivor means the criterion is
   not proved by that mutant and is reported as such. A red mutant is **reversed** when every
   gating readout's interval lies wholly on the side opposite its direction: the result flipped
-  rather than vanished (`M11.1d`). Report-only and equivalence readouts are not gating.
+  rather than vanished (`M11.1d`). Report-only and equivalence readouts are not gating. A mutant
+  whose code raised is **raised**: it proves nothing and is not counted as red.
 * representation mutant — **unchanged** if the criterion still passes, otherwise an
   **encoding artefact** (`M11.1c`).
 """
@@ -60,6 +61,12 @@ class Mutant:
     also: tuple[tuple[str, str, str], ...] = ()  # further (file, old, new) for a joint mutant (M11.1a: name every write)
 
 
+AVAILABILITY = "return min(1.0, max(0.0, obs.functional_level / (layer * params.capacity_level_per_layer)))"
+# Every layer fully available at every level: the rule at level 50, which clamps to 1 on every layer while
+# capacity_level_per_layer x the highest layer <= 50 (tested by test_m111a_availability_deletion_is_full_on_every_layer).
+AVAILABILITY_DELETED = "return min(1.0, max(0.0, (SCALE_MAX / 2) / (layer * params.capacity_level_per_layer)))"
+INVERSION_PIVOT = 0.6  # [I] the inversion is (INVERSION_PIVOT x SCALE_MAX - level) / (layer x capacity): reflected about 0.3
+
 LEVEL_BLIND = (  # every remaining read of level on the path to onset, made level-independent at level 50
     ("src/bowen/engine/contact.py", "return params.contact_band_max * person.functional_level / SCALE_MAX",
      "return params.contact_band_max * (SCALE_MAX / 2) / SCALE_MAX"),
@@ -70,7 +77,7 @@ LEVEL_BLIND = (  # every remaining read of level on the path to onset, made leve
      "return 0.5 ** params.self_channel_exponent"),
     ("src/bowen/policy/policy.py",
      "return min(1.0, max(0.0, obs.functional_level / (layer * params.capacity_level_per_layer)))",
-     "return min(1.0, max(0.0, (SCALE_MAX / 2) / (layer * params.capacity_level_per_layer)))"),
+     AVAILABILITY_DELETED),
     ("src/bowen/engine/standing_load.py",
      "return params.standing_load_gain * (SCALE_MAX - person.basic_level) / SCALE_MAX",
      "return params.standing_load_gain * 0.5"),
@@ -86,13 +93,11 @@ LEVEL_BLIND = (  # every remaining read of level on the path to onset, made leve
 )
 
 
-AVAILABILITY = "return min(1.0, max(0.0, obs.functional_level / (layer * params.capacity_level_per_layer)))"
-# Reflected about level 30 (0.3 of the scale, so SCALE_MAX * 0.6 - level), between C.16's two arms' starting levels
-# (about 24 and 39), so the inversion falls with level there instead of saturating at 1 in both arms. It is clamped
-# to 1 below level 40 on layer 1 and 20 on layer 2, and to 0 above 60; members occupy roughly 8-54 during C.16's runs
-# (middle 90% of member-weeks over 20 seeds, measured 2026-10-08). Tested by
-# test_m111a_availability_inversion_inverts_at_c16s_levels, which reads the starting levels from config.
-AVAILABILITY_INVERTED = ("return min(1.0, max(0.0, (SCALE_MAX * 0.6 - obs.functional_level) "
+# Reflected about level 30, between C.16's two arms' starting levels (about 24 and 39), so the inversion falls with
+# level there instead of saturating at 1 in both arms. It equals the deletion wherever it clamps to 1, and makes a
+# layer unavailable above the pivot; docs/phase_c_level_occupancy.md (tools/level_occupancy.py) gives how much of each
+# C.16 arm lies in those ranges. Tested by test_m111a_availability_inversion_inverts_at_c16s_levels.
+AVAILABILITY_INVERTED = (f"return min(1.0, max(0.0, (SCALE_MAX * {INVERSION_PIVOT} - obs.functional_level) "
                          "/ (layer * params.capacity_level_per_layer)))")
 BAND = "return params.contact_band_max * person.functional_level / SCALE_MAX"
 OUTSIDE_NESS = "start = params.initial_impingement_scale * (1.0 - person.basic_level / SCALE_MAX)"
@@ -171,13 +176,13 @@ MUTANTS = (
     # --- standing-load mutants above reach C.16 through LEVEL. An inversion must change behaviour between C.16's two
     # --- arms' levels, or it is a deletion in disguise (M11.1a; csdp sweep finding). See AVAILABILITY_INVERTED.
     Mutant("availability-level-independent", DELETION, ("M11.C.16",), "src/bowen/policy/policy.py",
-           AVAILABILITY, "return min(1.0, max(0.0, (SCALE_MAX / 2) / (layer * params.capacity_level_per_layer)))",
+           AVAILABILITY, AVAILABILITY_DELETED,
            "M4.D.3a's layer availability removed: every layer fully available at every level"),
     Mutant("availability-level-inverted", SIGN, ("M11.C.16",), "src/bowen/policy/policy.py",
            AVAILABILITY, AVAILABILITY_INVERTED,
            "M4.D.3a's layer availability reflected about level 30, so it falls as level rises over C.16's levels"),
     Mutant("availability-and-learner-removed", DELETION, ("M11.C.16",), "src/bowen/policy/policy.py",
-           AVAILABILITY, "return min(1.0, max(0.0, (SCALE_MAX / 2) / (layer * params.capacity_level_per_layer)))",
+           AVAILABILITY, AVAILABILITY_DELETED,
            "M4.D.3a's availability removed and M4.D.6 disabled, together",
            also=(("src/bowen/engine/learner.py", "delta = params.learning_rate * (signal - value)",
                   "delta = 0.0 * (signal - value)"),)),
@@ -204,13 +209,20 @@ MUTANTS = (
     Mutant("hold-level-inverted", SIGN, ("M11.C.16",), "src/bowen/engine/iposition.py",
            HOLD, "return params.hold_gain * (SCALE_MAX - person.functional_level) * efficacy(person)",
            "M5.D.3's hold capacity falls as functional_level rises"),
-    # --- M11.C.16's cited grounds removed together (csdp sweep finding, 2026-10-08). Its criterion row cites M4.C.1a
-    # --- (steepness and band) and M1.C.3a (routing); with M4.D.3a's availability, those are the rules that could be
-    # --- read as stating the narrowing. M11.5's redundancy clause proves such a premise by removing the whole set.
+    # --- M11.C.16's grounds (csdp sweeps, 2026-10-08). Its criterion row cites M4.C.1a (KS03.2: steepness and band)
+    # --- and M1.C.3a (routing). M11.5's redundancy clause proves a premise by removing the whole set, so the cited
+    # --- grounds are removed together, alone and with M4.D.3a's availability, the one rule that names the repertoire.
+    Mutant("c16-cited-grounds-removed", DELETION, ("M11.C.16",), "src/bowen/engine/contact.py",
+           "return SCALE_MAX / max(person.functional_level, params.functional_level_floor)",
+           "return SCALE_MAX / max(SCALE_MAX / 2, params.functional_level_floor)",
+           "M4.C.1a's steepness and band and M1.C.3a's routing capacity, the rules C.16's criterion row cites, "
+           "made level-independent together; availability kept",
+           also=(("src/bowen/engine/contact.py", BAND, "return params.contact_band_max * (SCALE_MAX / 2) / SCALE_MAX"),
+                 ("src/bowen/engine/moves.py", ROUTING, "return 0.5"))),
     Mutant("c16-grounds-removed", DELETION, ("M11.C.16",), "src/bowen/policy/policy.py",
-           AVAILABILITY, "return min(1.0, max(0.0, (SCALE_MAX / 2) / (layer * params.capacity_level_per_layer)))",
-           "M4.C.1a's steepness and band, M1.C.3a's routing capacity and M4.D.3a's availability made "
-           "level-independent together: the rules C.16's criterion row cites as its grounds",
+           AVAILABILITY, AVAILABILITY_DELETED,
+           "M4.C.1a's steepness and band and M1.C.3a's routing capacity, which C.16's criterion row cites, made "
+           "level-independent together with M4.D.3a's availability",
            also=(("src/bowen/engine/contact.py",
                   "return SCALE_MAX / max(person.functional_level, params.functional_level_floor)",
                   "return SCALE_MAX / max(SCALE_MAX / 2, params.functional_level_floor)"),
@@ -307,17 +319,24 @@ def child(ids: list[str], workers: int) -> None:
                               "error": f"{type(error).__name__}: {str(error)[:160]}"}), flush=True)
 
 
-def run_mutant(mutant: Mutant, ids: list[str], workers: int) -> list[dict]:
+def run_in_copy(mutant: Mutant | None, tool: str, *args: str, timeout: int = 7200) -> list[dict]:
+    """Run ``tool`` with ``args`` in a temporary copy of the repository, ``mutant`` applied there (never to the
+    working tree); return the JSON lines it prints."""
     with tempfile.TemporaryDirectory(prefix="bowen-mutant-") as tmp:
         root = Path(tmp)
         for part in ("src", "config", "tools"):
             shutil.copytree(REPO / part, root / part, ignore=shutil.ignore_patterns("__pycache__"))
-        apply(root, mutant)
-        out = subprocess.run([sys.executable, str(root / "tools" / "mutation_record.py"), "--child", *ids,
-                              "--workers", str(workers)], cwd=root, capture_output=True, text=True, timeout=7200)
+        if mutant is not None:
+            apply(root, mutant)
+        out = subprocess.run([sys.executable, str(root / "tools" / tool), *args], cwd=root, capture_output=True,
+                             text=True, timeout=timeout)
         if out.returncode != 0:
-            raise SystemExit(f"mutant {mutant.id} child failed:\n{out.stderr[-2000:]}")
+            raise SystemExit(f"{tool} under {mutant.id if mutant else 'no mutant'} failed:\n{out.stderr[-2000:]}")
         return [json.loads(line) for line in out.stdout.splitlines() if line.startswith("{")]
+
+
+def run_mutant(mutant: Mutant, ids: list[str], workers: int) -> list[dict]:
+    return run_in_copy(mutant, "mutation_record.py", "--child", *ids, "--workers", str(workers))
 
 
 def judge(mutant: Mutant, outcome: str, readouts=()) -> str:
@@ -327,6 +346,8 @@ def judge(mutant: Mutant, outcome: str, readouts=()) -> str:
         return "unchanged" if outcome == "PASS" else "encoding artefact"
     if outcome == "PASS":
         return "survived"
+    if outcome == "RAISED":  # the mutated code crashed: no evidence either way, never counted as proof
+        return "raised"
     gating = [x for x in readouts if x["direction"] and not x.get("report_only")]
     if gating and all(x["mean_difference"] * x["direction"] < 0 and abs(x["mean_difference"]) > x["half_width"]
                       for x in gating):
@@ -344,7 +365,8 @@ def render(rows, skipped, hash_: str) -> str:
         "is **red** when the criterion stops passing and **survived** when it still passes; a survivor means that",
         "mutant does not prove the criterion. A red mutant is marked **reversed** when every gating readout's interval",
         "lies wholly on the side opposite its declared direction: the result flipped, rather than vanished (`M11.1d`).",
-        "Report-only and equivalence readouts are not gating. A",
+        "Report-only and equivalence readouts are not gating. A mutant whose code raised is **raised** and proves",
+        "nothing. A",
         "representation mutant (`M11.1c`) should leave every verdict",
         "unchanged; a change is reported as an **encoding artefact**.",
         "",
@@ -398,7 +420,7 @@ def main() -> int:
             print(f"{mutant.id} → {result['criterion']}: {result['outcome']} ({judge(mutant, result['outcome'], result.get('readouts', ()))})",
                   flush=True)
     if args.only:  # a subset would replace the whole record under a current hash (P31)
-        print(f"--only ran a subset; {RECORD.relative_to(REPO)} not written")
+        print(f"--only ran a subset; {RECORD.name} not written")
         return 0
     RECORD.write_text(render(rows, skipped, code_hash(*HASHED_TOOLS)), encoding="utf-8")
     print(f"wrote {RECORD.relative_to(REPO)}")

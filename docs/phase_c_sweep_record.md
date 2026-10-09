@@ -9,7 +9,7 @@ the mutation record's **reversed**, which needs every gating interval wholly on 
 readout reported beside the verdict and never tested is marked *(report only)*. Plan D9's fourth
 constant, each criterion's dominant constant, is not swept: plan §3 names none.
 
-code_hash: ea83d8edd9f4822a72bfc756d4df60fc617ee6d8a9983aef1fd3012a05baf6af
+code_hash: dd403b2bb52ac372f7d2df448a840088a49f3a23425628f00b66e502080e7de8
 
 | Criterion | Central verdict | Setting | Verdict | Seeds | Readouts (mean difference; direction) |
 |---|---|---|---|---|---|

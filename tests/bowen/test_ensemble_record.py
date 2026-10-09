@@ -62,11 +62,19 @@ def mutation_text() -> str:
     return (REPO / "docs" / "phase_c_mutation_record.md").read_text(encoding="utf-8")
 
 
-def test_m111a_every_mutant_applies_exactly_once():
+def test_m111a_every_mutant_applies_exactly_once(tmp_path):
+    """Through apply() itself, on a copy: joint mutants replace in sequence, so each later `old` is counted in the
+    text the earlier replacements left (correctness review)."""
+    import shutil
+
     for mutant in _mutants.MUTANTS:
-        for file, old, _ in ((mutant.file, mutant.old, mutant.new), *mutant.also):
-            text = (REPO / file).read_text(encoding="utf-8")
-            assert text.count(old) == 1, f"{mutant.id}: a mutant that does not apply proves nothing (M11.1a)"
+        root = tmp_path / mutant.id
+        for file in {f for f, _, _ in ((mutant.file, mutant.old, mutant.new), *mutant.also)}:
+            (root / file).parent.mkdir(parents=True, exist_ok=True)
+            shutil.copy(REPO / file, root / file)
+        _mutants.apply(root, mutant)  # raises SystemExit unless every replacement occurs exactly once
+        for file, _, new in ((mutant.file, mutant.old, mutant.new), *mutant.also):
+            assert new in (root / file).read_text(encoding="utf-8"), mutant.id
 
 
 def test_m111d_mutation_record_is_current():
@@ -113,7 +121,7 @@ def test_m111d_mutation_hash_covers_the_mutant_list():
 def test_m134_every_record_hashes_the_ensemble_tool():
     """RULE_KEYS in tools/ensemble_record.py feeds every record, so every record's hash covers it (re-gate A)."""
     ensemble_tool = (REPO / "tools" / "ensemble_record.py").resolve()
-    for tools in (_tool.HASHED_TOOLS, _mutants.HASHED_TOOLS, _sweep.HASHED_TOOLS):
+    for tools in (_tool.HASHED_TOOLS, _mutants.HASHED_TOOLS, _sweep.HASHED_TOOLS, _occupancy.HASHED_TOOLS):
         assert ensemble_tool in {Path(t).resolve() for t in tools}
     assert _tool.code_hash(ensemble_tool) != _tool.code_hash()
 
@@ -305,14 +313,60 @@ def test_m111a_level_occupancy_record_is_current():
     match = re.search(r"^code_hash: ([0-9a-f]{64})$", text, re.M)
     assert match and match.group(1) == _tool.code_hash(*_occupancy.HASHED_TOOLS), \
         "stale: rerun python3 tools/level_occupancy.py"
+    assert (REPO / "tools" / "mutation_record.py").resolve() in _occupancy.HASHED_TOOLS  # it holds the mutant
     assert {(r["variant"], r["arm"]) for r in occupancy_rows()} == {
         (v, a) for v in ("unmodified", "availability-level-inverted") for a in ("baseline", "treatment")}
 
 
+def test_m111a_occupancy_bands_are_where_the_inversion_clamps():
+    """The record's band edges are read from the constants and the shared pivot, and are where the inverted rule
+    meets the deletion (1 on a layer) or makes a layer unavailable (0), so a changed constant cannot leave them stale."""
+    edges = _occupancy.bands()
+    inverted, layers = _mutants.AVAILABILITY_INVERTED, _layers()
+    every, layer_1, none = (edges[k][1] for k in ("deletion_on_every_layer", "deletion_on_layer_1",
+                                                    "layers_above_0_unavailable"))
+    assert all(_availability(inverted, every, k) == 1.0 for k in layers)
+    assert _availability(inverted, every + 1, max(layers)) < 1.0
+    assert _availability(inverted, layer_1, 1) == 1.0 > _availability(inverted, layer_1 + 1, 1)
+    assert all(_availability(inverted, none, k) == 0.0 for k in layers)
+
+
+def test_m111a_availability_deletion_is_full_on_every_layer():
+    """`availability-level-independent` is described as every layer fully available at every level."""
+    assert all(_availability(_mutants.AVAILABILITY_DELETED, level, k) == 1.0
+               for level in (0.0, 50.0, 100.0) for k in _layers())
+
+
 def test_m111a_availability_inversion_acts_over_c16s_run():
-    """Over the run, not only at the starting levels, the inversion differs from the deletion in each arm for some
-    member-weeks: between 0.2 and 0.6 of the scale it restricts layer 2 (csdp sweep finding)."""
+    """In each arm, over the whole run and over C.16's window, the inversion differs from the deletion for at least a
+    quarter of member-weeks, so it is not a deletion in disguise (csdp sweep finding: a bare > 0 could not tell)."""
     for r in occupancy_rows():
         if r["variant"] == "availability-level-inverted":
-            s = r["shares"]
-            assert 1.0 - s["at_or_below_0.2"] - s["above_0.6"] > 0, r["arm"]
+            for span in ("whole_run", "window"):
+                s = r[span]
+                assert 1.0 - s["deletion_on_every_layer"] - s["layers_above_0_unavailable"] >= 0.25, (r["arm"], span)
+
+
+def test_m111d_a_raised_mutant_is_not_proof():
+    """A mutant whose code crashes (a name its file does not import) proves nothing (correctness review)."""
+    named = next(m for m in _mutants.MUTANTS if m.kind == _mutants.SIGN)
+    assert _mutants.judge(named, "RAISED") == "raised"
+
+
+def test_m111d_only_does_not_overwrite_the_record(tmp_path, monkeypatch):
+    """--only runs a subset; writing it would replace the record under a current hash (P31)."""
+    record = tmp_path / "record.md"
+    monkeypatch.setattr(_mutants, "RECORD", record)
+    monkeypatch.setattr(sys, "argv", ["mutation_record.py", "--only", "no-such-mutant"])
+    assert _mutants.main() == 0
+    assert not record.exists()
+
+
+def test_d9_sweep_marks_opposite_sign_and_report_only():
+    row = {"criterion": "M11.C.16", "outcome": "PASS", "seeds": 50, "readouts": [
+        {"readout": "repertoire_entropy", "direction": -1, "mean_difference": 0.01, "half_width": 0.05},
+        {"readout": "top_move_share", "direction": 1, "mean_difference": 0.02, "half_width": 0.01, "report_only": True}]}
+    text = _sweep.render([("learning_rate=0.1", row)], {"M11.C.16": {"outcome": "PASS"}}, "0" * 64)
+    assert "`repertoire_entropy` +0.01 **opposite sign**" in text
+    assert "`top_move_share` +0.02 *(report only)*" in text
+    assert "**reversed**" not in text.split("## Machine-readable")[0].split("code_hash")[1]

@@ -7,94 +7,99 @@ Tests:   tests/bowen/test_ensemble_record.py::test_m111a_level_occupancy_record_
 
     python3 tools/level_occupancy.py
 
-Each variant runs in a temporary copy of the repository (the mutant from ``tools/mutation_record.py`` applied there,
-never to the working tree), over C.16's own arms, settings and declared spell. Every member's functional level is
-sampled at the start of every week. The thresholds are where the inversion, (0.6 × SCALE_MAX − level) /
-(layer × capacity_level_per_layer), clamps: at or below 0.2 × SCALE_MAX it equals the deletion on both layers, at or
-below 0.4 × SCALE_MAX on layer 1, and above 0.6 × SCALE_MAX it is 0 on every layer. SEEDS is [I], declared here: an
-occupancy share is a mean over thousands of member-weeks and does not need the criterion's seed count.
+Each variant runs in a temporary copy of the repository (``run_in_copy``: the mutant applied there, never to the
+working tree), through C.16's own arm function, so its arms, settings and spell are the criterion's. Every member's
+functional level is sampled at the start of every week, over the whole run and over the last ``window`` weeks, the
+weeks C.16's entropy reads. The band edges are where the inversion, (INVERSION_PIVOT × SCALE_MAX − level) /
+(layer × capacity_level_per_layer), clamps, derived from the loaded constants: at or below the pivot less the
+highest layer's capacity it equals the deletion on every layer; at or below the pivot less one layer's capacity, on
+layer 1; at or above the pivot, every layer above 0 is unavailable. SEEDS is [I], declared here: an occupancy share
+is a mean over thousands of member-weeks and does not need the criterion's seed count.
 """
 
 from __future__ import annotations
 
 import argparse
 import json
-import shutil
-import subprocess
 import sys
-import tempfile
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO))
 
-from tools.mutation_record import MUTANTS, apply  # noqa: E402
+from tools.mutation_record import INVERSION_PIVOT, MUTANTS, run_in_copy  # noqa: E402
 
 RECORD = REPO / "docs" / "phase_c_level_occupancy.md"
 HASHED_TOOLS = (Path(__file__).resolve(), REPO / "tools" / "mutation_record.py", REPO / "tools" / "ensemble_record.py")
 SEEDS = 20
 VARIANTS = (None, "availability-level-inverted")
-THRESHOLDS = (("at_or_below_0.2", 0.2, "le"), ("at_or_below_0.4", 0.4, "le"), ("above_0.6", 0.6, "gt"))
+
+
+def bands() -> dict[str, tuple[str, float]]:
+    """Each band's name, comparison and edge (a functional level), from the constants and the inversion's pivot."""
+    from src.bowen.engine.objects import SCALE_MAX
+    from src.bowen.io.load import load_constants, load_event_kinds
+
+    capacity = load_constants()["capacity_level_per_layer"]
+    top = max(load_event_kinds().layers.values())
+    pivot = INVERSION_PIVOT * SCALE_MAX
+    return {"deletion_on_every_layer": ("le", pivot - top * capacity),
+            "deletion_on_layer_1": ("le", pivot - capacity),
+            "layers_above_0_unavailable": ("ge", pivot)}
 
 
 def child() -> None:
     """Run in the (possibly mutated) copy: print one JSON line per arm."""
     import src.bowen.ensemble.criteria as criteria
-    from src.bowen.engine.objects import SCALE_MAX
 
-    settings = criteria.SETTINGS["M11.C.16"]
+    criterion = criteria.CRITERIA["M11.C.16"]
+    weeks, window = criterion.settings["weeks"], criterion.settings["window"]
+    edges = bands()
     original = criteria.run_tick
-    for arm, by in (("baseline", settings["level_baseline"]), ("treatment", settings["level_treatment"])):
-        seen: list[float] = []
+    for arm in criterion.arms:
+        seen: list[tuple[int, float]] = []
 
         def sampled(state, *args, **kwargs):
-            seen.extend(p.functional_level for p in state.people.values() if p.role.value == "member")
+            seen.extend((state.tick, p.functional_level) for p in state.people.values() if p.role.value == "member")
             return original(state, *args, **kwargs)
 
         criteria.run_tick = sampled
         try:
             for seed in range(SEEDS):
-                criteria.scenario("phase_c", seed, settings["weeks"], spells=criteria.spell("phase_c", settings["weeks"]),
-                                  setup=criteria.lowered(by))
+                criterion.arm(arm, seed, criterion.settings)
         finally:
             criteria.run_tick = original
-        shares = {name: sum(1 for v in seen if (v <= f * SCALE_MAX if op == "le" else v > f * SCALE_MAX)) / len(seen)
-                  for name, f, op in THRESHOLDS}
-        print(json.dumps({"arm": arm, "member_weeks": len(seen), "shares": shares}), flush=True)
+
+        def shares(levels: list[float]) -> dict[str, float]:
+            return {name: sum(1 for v in levels if (v <= edge if op == "le" else v >= edge)) / len(levels)
+                    for name, (op, edge) in edges.items()}
+
+        print(json.dumps({"arm": arm, "member_weeks": len(seen),
+                          "whole_run": shares([v for _, v in seen]),
+                          "window": shares([v for tick, v in seen if tick >= weeks - window])}), flush=True)
 
 
-def run_variant(mutant_id: str | None) -> list[dict]:
-    with tempfile.TemporaryDirectory(prefix="bowen-occupancy-") as tmp:
-        root = Path(tmp)
-        for part in ("src", "config", "tools"):
-            shutil.copytree(REPO / part, root / part, ignore=shutil.ignore_patterns("__pycache__"))
-        if mutant_id:
-            apply(root, next(m for m in MUTANTS if m.id == mutant_id))
-        out = subprocess.run([sys.executable, str(root / "tools" / "level_occupancy.py"), "--child"], cwd=root,
-                             capture_output=True, text=True, timeout=3600)
-        if out.returncode != 0:
-            raise SystemExit(f"variant {mutant_id} failed:\n{out.stderr[-2000:]}")
-        return [json.loads(line) for line in out.stdout.splitlines() if line.startswith("{")]
-
-
-def render(rows: list[dict], hash_: str) -> str:
+def render(rows: list[dict], edges: dict, hash_: str) -> str:
+    names = list(edges)
+    head = " | ".join(f"{n} ({'≤' if edges[n][0] == 'le' else '≥'} {edges[n][1]:g})" for n in names)
     lines = [
         "# M11.C.16 level occupancy",
         "",
         "Generated by `tools/level_occupancy.py`; do not edit. The share of member-weeks in each of C.16's arms at",
-        f"which members' functional level lies in each range, over {SEEDS} seeds, unmodified and under",
-        "`availability-level-inverted`. At or below 0.2 of the scale that mutant equals the deletion on both layers;",
-        "at or below 0.4, on layer 1; above 0.6 it makes layers 1 and 2 unavailable.",
+        f"which members' functional level lies in each band, over {SEEDS} seeds, unmodified and under",
+        "`availability-level-inverted`: over the whole run, and over the last `window` weeks, which C.16's entropy",
+        "reads. In the first band that mutant equals the deletion on every layer; in the second, on layer 1; in the",
+        "third it makes every layer above 0 unavailable.",
         "",
         f"code_hash: {hash_}",
         "",
-        "| Variant | Arm | Member-weeks | ≤ 0.2 | ≤ 0.4 | > 0.6 |",
-        "|---|---|---|---|---|---|",
+        f"| Variant | Arm | Span | Member-weeks | {head} |",
+        "|---|---|---|---|" + "---|" * len(names),
     ]
     for r in rows:
-        s = r["shares"]
-        lines.append(f"| {r['variant']} | {r['arm']} | {r['member_weeks']} | {s['at_or_below_0.2']:.1%} | "
-                     f"{s['at_or_below_0.4']:.1%} | {s['above_0.6']:.1%} |")
+        for span in ("whole_run", "window"):
+            cells = " | ".join(f"{r[span][n]:.1%}" for n in names)
+            lines.append(f"| {r['variant']} | {r['arm']} | {span} | {r['member_weeks']} | {cells} |")
     lines += ["", "## Machine-readable", "", "```json", json.dumps(rows, indent=1), "```", ""]
     return "\n".join(lines)
 
@@ -110,10 +115,11 @@ def main() -> int:
 
     rows = []
     for variant in VARIANTS:
-        for r in run_variant(variant):
+        mutant = next(m for m in MUTANTS if m.id == variant) if variant else None
+        for r in run_in_copy(mutant, "level_occupancy.py", "--child", timeout=3600):
             rows.append({"variant": variant or "unmodified", **r})
-            print(f"{variant or 'unmodified'} {r['arm']}: {r['shares']}", flush=True)
-    RECORD.write_text(render(rows, code_hash(*HASHED_TOOLS)), encoding="utf-8")
+            print(f"{variant or 'unmodified'} {r['arm']}: {r['whole_run']} / window {r['window']}", flush=True)
+    RECORD.write_text(render(rows, bands(), code_hash(*HASHED_TOOLS)), encoding="utf-8")
     print(f"wrote {RECORD.relative_to(REPO)}")
     return 0
 

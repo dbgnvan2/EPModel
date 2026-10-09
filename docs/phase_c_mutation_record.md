@@ -6,11 +6,12 @@ to a temporary copy of the repository, run against the criteria that pass in
 is **red** when the criterion stops passing and **survived** when it still passes; a survivor means that
 mutant does not prove the criterion. A red mutant is marked **reversed** when every gating readout's interval
 lies wholly on the side opposite its declared direction: the result flipped, rather than vanished (`M11.1d`).
-Report-only and equivalence readouts are not gating. A
+Report-only and equivalence readouts are not gating. A mutant whose code raised is **raised** and proves
+nothing. A
 representation mutant (`M11.1c`) should leave every verdict
 unchanged; a change is reported as an **encoding artefact**.
 
-code_hash: 0066571c69a706b988dc09328e3c01bf865916bfe3930fe5dcee94293347580f
+code_hash: c3280b7f4236e26bd54640095eae3d4bb279d598d82397993f16067d153c48d4
 
 | Mutant | Kind | What it changes | Criterion | Verdict under mutant | Seeds | Difference under mutant | Result |
 |---|---|---|---|---|---|---|---|
@@ -63,7 +64,8 @@ code_hash: 0066571c69a706b988dc09328e3c01bf865916bfe3930fe5dcee94293347580f
 | `routing-level-inverted` | sign-inverted | M1.C.3a's routing capacity rises with the members' functional_level | `M11.C.16` | PASS | 150 | `repertoire_entropy` -0.0388 ± 0.012; `top_move_share` +0.0421 ± 0.011 | **survived** |
 | `hold-level-independent` | deletion | M5.D.3's hold capacity made independent of functional_level (fixed at level 50) | `M11.C.16` | PASS | 150 | `repertoire_entropy` -0.0657 ± 0.023; `top_move_share` +0.0523 ± 0.017 | **survived** |
 | `hold-level-inverted` | sign-inverted | M5.D.3's hold capacity falls as functional_level rises | `M11.C.16` | PASS | 150 | `repertoire_entropy` -0.0657 ± 0.023; `top_move_share` +0.0523 ± 0.017 | **survived** |
-| `c16-grounds-removed` | deletion | M4.C.1a's steepness and band, M1.C.3a's routing capacity and M4.D.3a's availability made level-independent together: the rules C.16's criterion row cites as its grounds | `M11.C.16` | FAIL | 100 | `repertoire_entropy` -0.000495 ± 0.0057; `top_move_share` +2.98e-05 ± 0.0081 | **red** |
+| `c16-cited-grounds-removed` | deletion | M4.C.1a's steepness and band and M1.C.3a's routing capacity, the rules C.16's criterion row cites, made level-independent together; availability kept | `M11.C.16` | PASS | 150 | `repertoire_entropy` -0.0343 ± 0.0068; `top_move_share` +0.0389 ± 0.0085 | **survived** |
+| `c16-grounds-removed` | deletion | M4.C.1a's steepness and band and M1.C.3a's routing capacity, which C.16's criterion row cites, made level-independent together with M4.D.3a's availability | `M11.C.16` | FAIL | 100 | `repertoire_entropy` -0.000495 ± 0.0057; `top_move_share` +2.98e-05 ± 0.0081 | **red** |
 | `triangle-roles-swapped` | sign-inverted | M1.C.1's roles swapped back to step 5's alliance reading: sender and target inside, the partner outside | `M11.C.3` | FAIL | 50 | `pair_anxiety` +2.59 ± 0.86; `third_anxiety` -1.21 ± 0.51 | **reversed** |
 | `steepness-inverted` | sign-inverted | M4.C.1a's steepness rises with functional_level instead of falling | `M11.C.1` | PASS | 100 | `time_to_threshold` -0.26 ± 0.26 | **survived** |
 | `steepness-inverted` | sign-inverted | M4.C.1a's steepness rises with functional_level instead of falling | `M11.C.16` | PASS | 150 | `repertoire_entropy` -0.03 ± 0.007; `top_move_share` +0.0267 ± 0.0077 | **survived** |
@@ -1091,6 +1093,29 @@ criterion.
     "direction": 1,
     "mean_difference": 0.0522591498603099,
     "half_width": 0.016930620350842283,
+    "report_only": true
+   }
+  ]
+ },
+ {
+  "mutant": "c16-cited-grounds-removed",
+  "kind": "deletion",
+  "criterion": "M11.C.16",
+  "outcome": "PASS",
+  "result": "survived",
+  "readouts": [
+   {
+    "readout": "repertoire_entropy",
+    "direction": -1,
+    "mean_difference": -0.03432901996565752,
+    "half_width": 0.006772306609623937,
+    "report_only": false
+   },
+   {
+    "readout": "top_move_share",
+    "direction": 1,
+    "mean_difference": 0.038858122203044694,
+    "half_width": 0.008493411615624573,
     "report_only": true
    }
   ]

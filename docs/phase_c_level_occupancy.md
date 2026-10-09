@@ -6,7 +6,7 @@ which members' functional level lies in each band, over 20 seeds, unmodified and
 reads. In the first band that mutant equals the deletion on every layer; in the second, on layer 1; in the
 third it makes every layer above 0 unavailable.
 
-code_hash: f0b12434655579c8f7848908892c8a24130fb1101cf552a42616c73c1f95aae3
+code_hash: 8f81a4fbb91db4664870d7b247304efe07a2fb59c3944d10b07fa6a186a1de0e
 
 | Variant | Arm | Span | Member-weeks | deletion_on_every_layer (≤ 20) | deletion_on_layer_1 (≤ 40) | layers_above_0_unavailable (≥ 60) |
 |---|---|---|---|---|---|---|

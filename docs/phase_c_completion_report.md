@@ -44,7 +44,7 @@ column follows the global completion standard.
 | `M11.C.19` counterfeit axis identified | check | PASS (50) | yes: `axes-collapsed`, `axes-swapped` | — | done |
 | `M11.C.25` dominant pole independent of sex | premise (null) | PASS (50); difference exactly 0 in every seed | yes: `sex-term-in-pole` | — | done — readout corrected post hoc, §4.2 |
 | `M11.C.27` twosome 2×2 | composite | 1 of 4 cells passes: [unstable, remove one]. [stable, add third] passed before §8 and is now +0.003 (p 0.49) | the passing cell, by `one-sided-deviation` and `deviation-inverted` | the passing cell holds at all 6 settings | partial — §3.5 |
-| `M11.C.29` relief vs differentiation time course | premise | **FAIL** — budget −0.07 (p 0.17); third's symptom weeks 0 in both arms | not run | — | not done — §3.6 |
+| `M11.C.29` relief vs differentiation time course | premise | **FAIL** — budget −0.08 (p 0.09); third's symptom weeks 0 in both arms | not run | — | not done — §3.6 |
 | `M11.C.32` mover's anger stalls and degrades | premise | PASS (100) | yes: `anger-gate-inverted`, `anger-gate-removed` | — | done |
 | `M11.C.35` witness appraisal depends on both ties | check | PASS (100) | yes: `witness-position-blind`, `witness-reach-inverted` | — | done |
 | `M11.C.38` graded level orders time to threshold | premise | PASS, all 3 adjacent pairs | every pair red under the joint `level-blind` mutant; single-rule mutants red on some pairs only (§2) | — | done (proved only jointly, §2) |
@@ -108,9 +108,10 @@ pass would be tuning against it. Each needs an owner decision.
 1. **`M11.C.3` — resolved by §8's decision.** It failed under step 5's alliance reading of `TRIANGLE`, which
    left the other parent outside. It passes now.
 2. **`M11.C.4`'s later limb.** The cutoff relieves at once, as expected. At the nodal event 22 weeks later, the
-   family's anxiety is no higher in the cutoff arm. `M4.C.1c`'s accrual on a severed tie does not build enough
+   family's anxiety is not detectably higher in the cutoff arm (+0.07, p 0.43). `M4.C.1c`'s accrual on a severed tie does not build enough
    over 22 weeks at the frozen rates to show at one nodal event.
-3. **`M11.C.5`** has wide intervals (±17 on a difference of +6), and the sign changes across the sweep. The
+3. **`M11.C.5`** has wide intervals (target reaction −7.4 ± 19; it was +5.9 ± 17 before §8, so even the sign is not
+   settled), and the sign changes across the sweep. The
    ladder is learned, per `M5.E.0`, and 60 weeks may not be long enough for it to form.
 4. **`M11.C.16` — resolved by §10's precision rule; it now passes, but is not proved.** Its interval never reached
    0.25 of the baseline arm's sd. Under the pooled sd it converges at 150 seeds. Neither learner mutant turns it red,
@@ -127,16 +128,18 @@ pass would be tuning against it. Each needs an owner decision.
    cause, not verified: lower level also lowers layer availability (`M4.D.3a`), which removes automatic acts
    from the legal set.
 8. **`M11.C.42` and `M11.C.45` no longer pass.** Both passed under step 5's alliance reading, and both were
-   already fragile in that sweep. After §8, C.42's reuse is −0.17 (p 0.85) and it fails at every sweep setting.
-   C.45's calm-against-spell difference is +0.0024 (p 0.17), the right sign but not significant, and it reverses
-   at 4 of 6 settings. One possible reason, not verified: in the triad, a parent's `TRIANGLE` now loads the child
+   already fragile in that sweep. After §9 brought their arms and readouts to the spec, C.42's reuse is +0.26
+   (p 0.084), the claimed sign but not significant, and it passes only at H = 6 in the sweep, reversing at 3 of 6.
+   C.45's rate is +0.0020 per person-week (p 0.20), the claimed sign but not significant, and it reverses at 4 of
+   6 settings. One possible reason, not verified: in the triad, a parent's `TRIANGLE` now loads the child
    rather than the other parent. The relief the act brings, and so what the learner reinforces, now depends on
    the parents' tie being strained rather than on the parent–child tie.
 
 ## 4. Changes made after the constants were frozen
 
-The constants themselves were not changed after the freeze (`constants_frozen.md`, 2026-10-07).
-`constants_changes.md` has no entry after the freeze. These code changes came after the freeze, and each is
+No constant's *value* changed after the freeze (`constants_frozen.md`, 2026-10-07). One constant's *unit* did:
+`ensemble_precision` is now measured against the pooled sd of the two arms (§10), logged post hoc in
+`constants_changes.md`, its only entry after the freeze. These code changes came after the freeze, and each is
 reported here:
 
 1. **Three numerical fixes to the policy** (step 14). The first ensemble runs crashed. Each fix has a unit test

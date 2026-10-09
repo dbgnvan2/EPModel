@@ -7,7 +7,7 @@ criterion is **done** only when every entry passes in `docs/phase_c_ensemble_rec
 mutant has turned each entry red in `docs/phase_c_mutation_record.md`; the D9 sweep
 (`docs/phase_c_sweep_record.md`) is reported, not gated. Phases D and E build most of the rest.
 
-**542 IDs: 217 done, 45 partial, 280 not done.**
+**542 IDs: 218 done, 45 partial, 279 not done.**
 
 | ID | Status | Evidence | Note |
 |---|---|---|---|
@@ -353,7 +353,7 @@ mutant has turned each entry red in `docs/phase_c_mutation_record.md`; the D9 sw
 | M11.1a | done | `tests/bowen/test_ensemble_record.py::test_m111a_availability_deletion_is_full_on_every_layer`<br>`tests/bowen/test_ensemble_record.py::test_m111a_availability_inversion_acts_over_c16s_run`<br>`tests/bowen/test_ensemble_record.py::test_m111a_availability_inversion_inverts_at_c16s_levels`<br>`tests/bowen/test_ensemble_record.py::test_m111a_every_mutant_applies_exactly_once`<br>`tests/bowen/test_ensemble_record.py::test_m111a_level_occupancy_record_is_current`<br>`tests/bowen/test_ensemble_record.py::test_m111a_occupancy_bands_are_where_the_inversion_clamps`<br>`tests/bowen/test_ensemble_record.py::test_m111a_the_saturated_inversion_would_be_caught` | — |
 | M11.1b | not done | — | SHOULD; matched-magnitude severing mutants were not built in Phase C (plan step 15: where cheap; none was) |
 | M11.1c | partial | `tests/bowen/test_ensemble_record.py::test_m111c_representation_mutants_ran_on_every_passing_criterion` | two of the four re-encodings run on every passing entry (same-tick summation order, clamp within tolerance), no verdict changed; a rescaled state range and integer against float tick counters are not built (docs/phase_c_completion_report.md §1) |
-| M11.1d | partial | `tests/bowen/test_ensemble_record.py::test_m111d_a_broken_mutant_is_not_proof`<br>`tests/bowen/test_ensemble_record.py::test_m111d_a_mutant_is_reversed_only_when_every_interval_flips`<br>`tests/bowen/test_ensemble_record.py::test_m111d_a_result_is_keyed_on_the_engine_and_the_mutants_edits`<br>`tests/bowen/test_ensemble_record.py::test_m111d_cache_save_keeps_only_results_in_use`<br>`tests/bowen/test_ensemble_record.py::test_m111d_every_passing_criterion_has_a_mutant_run`<br>`tests/bowen/test_ensemble_record.py::test_m111d_mutation_record_is_current`<br>`tests/bowen/test_ensemble_record.py::test_m111d_record_results_match_judge_and_the_declared_readouts`<br>`tests/bowen/test_ensemble_record.py::test_m111d_reversed_ignores_readouts_that_do_not_gate`<br>`tests/bowen/test_ensemble_record.py::test_m111d_run_cached_never_caches_an_errored_row` | deletion and sign-inverted mutants run on every passing criterion's core rule (docs/phase_c_mutation_record.md); the minimal rule set per criterion is not listed in full, and criteria that fail at the central setting were not audited |
+| M11.1d | partial | `tests/bowen/test_ensemble_record.py::test_m111d_a_broken_mutant_is_not_proof`<br>`tests/bowen/test_ensemble_record.py::test_m111d_a_mutant_is_reversed_only_when_every_interval_flips`<br>`tests/bowen/test_ensemble_record.py::test_m111d_a_result_is_keyed_on_the_engine_and_the_mutants_edits`<br>`tests/bowen/test_ensemble_record.py::test_m111d_cache_save_keeps_only_results_in_use`<br>`tests/bowen/test_ensemble_record.py::test_m111d_every_passing_criterion_has_a_mutant_run`<br>`tests/bowen/test_ensemble_record.py::test_m111d_mutation_record_is_current`<br>`tests/bowen/test_ensemble_record.py::test_m111d_record_results_match_judge_and_the_declared_readouts`<br>`tests/bowen/test_ensemble_record.py::test_m111d_reversed_ignores_readouts_that_do_not_gate`<br>`tests/bowen/test_ensemble_record.py::test_m111d_run_cached_never_caches_an_errored_row`<br>`tests/bowen/test_ensemble_record.py::test_m111d_run_cached_returns_a_fresh_row_as_a_reload_would` | deletion and sign-inverted mutants run on every passing criterion's core rule (docs/phase_c_mutation_record.md); the minimal rule set per criterion is not listed in full, and criteria that fail at the central setting were not audited |
 | M11.1e | not done | — | Phase C — acceptance-test rules |
 | M11.1f | done | `tests/bowen/test_ensemble.py::test_m111f_a_criterion_fails_when_its_move_never_occurs` | — |
 | M11.2 | done | `tests/test_spec_consistency.py::test_m112_is_not_bounded_by_a_stale_numeric_range` | — |
@@ -393,7 +393,7 @@ mutant has turned each entry red in `docs/phase_c_mutation_record.md`; the D9 sw
 | M11.C.26 | not done | — | Phase D |
 | M11.C.27 | partial | `tests/bowen/test_phase_c_gate.py::test_m11c27_twosome_two_by_two_all_cells` | ensemble record: M11.C.27[stable,add_third] FAIL; M11.C.27[stable,remove_one] FAIL; M11.C.27[unstable,add_third] FAIL; M11.C.27[unstable,remove_one] PASS |
 | M11.C.28 | not done | — | Phase D |
-| M11.C.29 | partial | `tests/bowen/test_phase_c_gate.py::test_m11c29_relief_and_differentiation_differ_in_time_course` | ensemble record: M11.C.29 FAIL |
+| M11.C.29 | partial | `tests/bowen/test_phase_c_criteria.py::test_m11c29_held_tie_is_not_cut_while_held`<br>`tests/bowen/test_phase_c_criteria.py::test_m11c29_hold_is_the_same_in_both_arms`<br>`tests/bowen/test_phase_c_criteria.py::test_m11c29_hold_lets_every_withdrawal_be_made`<br>`tests/bowen/test_phase_c_criteria.py::test_m11c29_readout_counts_the_weeks_the_third_persons_symptom_is_active`<br>`tests/bowen/test_phase_c_gate.py::test_m11c29_relief_and_differentiation_differ_in_time_course` | ensemble record: M11.C.29 FAIL |
 | M11.C.30 | not done | — | Phase D |
 | M11.C.31 | not done | — | Phase D |
 | M11.C.32 | done | `tests/bowen/test_phase_c_gate.py::test_m11c32_mover_anger_stalls_and_degrades` | ensemble record: M11.C.32 PASS |
@@ -405,7 +405,7 @@ mutant has turned each entry red in `docs/phase_c_mutation_record.md`; the D9 sw
 | M11.C.38 | done | `tests/bowen/test_phase_c_gate.py::test_m11c38_graded_parameter_orders_primary_readout` | ensemble record: M11.C.38[-0 vs -5] PASS; M11.C.38[-5 vs -10] PASS; M11.C.38[-10 vs -15] PASS |
 | M11.C.39 | not done | — | Phase D |
 | M11.C.40 | not done | — | Phase D |
-| M11.C.41 | partial | `tests/bowen/test_phase_c_gate.py::test_m11c41_level_and_stress_each_exacerbate_the_pattern` | ensemble record: M11.C.41[light: lower level] FAIL; M11.C.41[heavy: lower level] FAIL; M11.C.41[higher level: heavier stress] FAIL; M11.C.41[lower level: heavier stress] FAIL |
+| M11.C.41 | partial | `tests/bowen/test_phase_c_criteria.py::test_m11c41_reactive_per_offered_divides_by_what_the_legal_set_offered`<br>`tests/bowen/test_phase_c_gate.py::test_m11c41_level_and_stress_each_exacerbate_the_pattern` | ensemble record: M11.C.41[light: lower level] PASS; M11.C.41[heavy: lower level] PASS; M11.C.41[higher level: heavier stress] FAIL; M11.C.41[lower level: heavier stress] FAIL |
 | M11.C.42 | partial | `tests/bowen/test_phase_c_criteria.py::test_m11c42_absence_changes_nothing_before_its_tick`<br>`tests/bowen/test_phase_c_criteria.py::test_m11c42_absence_forms_no_triangle_holding_the_absent_member`<br>`tests/bowen/test_phase_c_criteria.py::test_m11c42_absence_removes_the_third_from_the_pairs_choices_that_tick`<br>`tests/bowen/test_phase_c_criteria.py::test_m11c42_readout_counts_the_whole_pairs_triangles`<br>`tests/bowen/test_phase_c_gate.py::test_m11c42_relieving_triangle_is_reused` | ensemble record: M11.C.42 FAIL |
 | M11.C.43 | not done | — | Phase D |
 | M11.C.44 | partial | `tests/bowen/test_phase_c_gate.py::test_m11c44_position_value_inverts_with_load` | ensemble record: M11.C.44 FAIL |
@@ -539,7 +539,7 @@ mutant has turned each entry red in `docs/phase_c_mutation_record.md`; the D9 sw
 | M17.C.3 | not done | — | Phase E |
 | M17.D.1 | not done | — | Phase E |
 | M17.D.2 | not done | — | Phase E |
-| M17.D.3 | not done | — | Phase E |
+| M17.D.3 | done | `tests/bowen/test_ensemble.py::test_m17d3_verdict_reports_scripted_acts_not_made`<br>`tests/bowen/test_policy.py::test_m17d3_excluded_outcome_is_not_legal` | — |
 | M17.D.4 | not done | — | Phase E |
 | M17.D.5 | not done | — | Phase E |
 | M17.E.1 | not done | — | Phase E |
@@ -554,7 +554,7 @@ mutant has turned each entry red in `docs/phase_c_mutation_record.md`; the D9 sw
 | M17.G.2 | not done | — | Phase E |
 | M17.G.3 | not done | — | Phase E |
 
-## Tests named for no spec ID (68)
+## Tests named for no spec ID (70)
 
 Their names embed no requirement ID, so they count only where an override cites them (marked *cited*). The rest check spec documents, tooling or helpers.
 
@@ -575,6 +575,8 @@ Their names embed no requirement ID, so they count only where an override cites 
 - `tests/bowen/test_family.py::test_m2_family_declaration_must_be_graded_invented`
 - `tests/bowen/test_family.py::test_m2a_values_match_the_spec_table` — *cited*
 - `tests/bowen/test_phase_b_gate.py::test_m13_phase_b_scripted_40_week_trace_runs`
+- `tests/bowen/test_phase_c_criteria.py::test_s_every_scripted_act_is_made_with_the_hold`
+- `tests/bowen/test_phase_c_criteria.py::test_s_every_scripted_criterion_holds_the_same_ties_in_both_arms`
 - `tests/bowen/test_register.py::test_m14a_check_catches_a_field_with_no_row`
 - `tests/bowen/test_register.py::test_m14a_register_matches_object_fields` — *cited*
 - `tests/bowen/test_script.py::test_m13_script_parses_and_validates`

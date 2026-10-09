@@ -74,25 +74,24 @@ Phase C steps 0–16 are built. **Its gate does not pass** (`docs/phase_c_comple
   level-reading availability fixed and compare learning on against off), or to accept it as a level result.
 - [x] ~~**Owner: decide S, X1 and Q2-Q5**~~ *Approved 2026-10-09: every recommendation in
   `docs/DECISIONS — PHASE C FAILING.md`.*
-- [ ] **Carry out the approved decisions, in order:**
-  1. **S:** measure, per scripted criterion (C.3, C.4, C.5, C.27, C.29, C.35, C.42), the latest week at which its act
-     is legal in every seed (a probe; before any rerun). Declare that week in `config/bowen/criteria.md` as a post-hoc
-     restatement; where no week works, hold the tie open until t0 (declared). Report each criterion's skip rate in
-     the ensemble record. Rerun the affected criteria (cached: only they run).
-  2. **X1:** D7 — mean excess over the floor with a declared tolerance on both fixtures; what holds acute above the
-     floor at rest (`M4.A.5` standing load against tie deviation); whether any level rests near the floor. Then
-     propose (a) a calmer declared starting state or (b) a finding.
-  3. **Q2:** restate C.41's reactive share as reactive acts selected over reactive acts offered by the legal set.
-  4. **Q3:** after S, a paired forced-act measurement of `TRIANGLE`'s own effect on the twosome; if it does not
-     relieve as `M1.C.1` states, diagnose the transfer.
-  5. **Q4/Q5:** rerun C.4, C.27 and C.5 after S; a longer declared horizon for C.5 only if still undetermined.
-  Readout and arm changes edit `src/bowen/ensemble/criteria.py` or config, which changes the engine hash and reruns
-  the cached records (about an hour); batch them into one engine change where possible.
+- [x] ~~**Carry out the approved decisions**~~ *done 2026-10-09; results at the top of
+  `docs/DECISIONS — PHASE C FAILING.md`.* S by holding each scripted act's ties open (week 0, the only week legal in
+  every seed, sits on the chronic floor); X1 by D7; Q2's readout; Q3's paired measurement; Q4/Q5 rerun.
+- [ ] **Owner decisions left by the approved steps** (`docs/DECISIONS — PHASE C FAILING.md`, results section):
+  1. **Q3:** the learner's cross-person credit (`M4.D.6e`, weight 0.5) counts the recruited third's +8.9, so a
+     `TRIANGLE` that relieves the pair is credited below a `DISTANCE`. (a) report as a finding (recommended), or
+     (c) exempt the recruited third (a spec change).
+  2. **X1:** the model rests 8–9 points above the floor at every level, from the members' own acts; the declared
+     spell adds about 2. Accept as a finding (recommended), or revisit the declared spell (`[I]`, after the freeze).
+  3. **`M11.C.5`:** both readouts point the claimed way (p 0.10, 0.08) but the verdict is a converged FAIL; a
+     longer declared horizon was not tried, since the approved rule allowed it only if undetermined.
+  4. **`M11.C.4`'s later limb and three `M11.C.27` cells:** with every act made they still fail
+     (`[stable,remove_one]` the opposite way): findings (C), or a longer declared horizon (B).
 - [x] ~~**Run the approved plan for the failing criteria**~~ *D0-D6 done 2026-10-09; see the decision memo.* (`docs/plan_phase_c_failing_criteria.md`, approved 2026-10-09):
   D0 diagnostic record, D1-D6 diagnoses, one decision memo. `M11.C.7`, `.13` and `.14` moved to Phase D the same day.
-- [ ] **The failing criteria** — `M11.C.4` (later limb), `.5`, `.29` (the third person's symptom weeks are pinned at
-  the maximum in both arms), `.41` (no cell passes; the reactive share falls with level), `.42`, `.44`, `.45`, and three cells of `.27`.
-  Report §3.
+- [ ] **The failing criteria** (after step S, 2026-10-09) — `M11.C.4` (later limb), `.5`, `.29` (restated readout
+  does not separate the arms), `.41` (the two stress limbs; both level limbs pass under the restated readout), `.42`,
+  `.44`, `.45`, and three cells of `.27`. Report §3.
 - [ ] **Plan §9's human reviews:** `docs/readouts_phase_c.md`, a rendered 104-week Phase C trace, and `M5.F.2`'s
   threshold.
 - [ ] **Not built:** `M11.C.7` (needs `M8.2`/`M8.3`'s predicates and a direction), `.13` (needs a community),

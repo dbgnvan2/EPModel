@@ -9,6 +9,28 @@ the per-criterion status is in `docs/phase_c_completion_report.md`.
 
 ### Added
 
+- **The approved failing-criteria decisions, carried out 2026-10-09** (results at the top of
+  `docs/DECISIONS — PHASE C FAILING.md`, report §12). All test restatements, logged as post hoc:
+  - **S:** every scripted act's ties are held open, in both arms, from week 0 until the act (`Forced(held_open=…)`,
+    `legal_outcomes(excluded=…)`), so every act is made; the ensemble record reports each arm's acts not made. The
+    approved first choice, the latest week legal in every seed, measured as week 0 for every criterion, where every
+    member is on the chronic floor and no relief can show, so it was not used.
+  - **Q2:** `M11.C.41`'s readout is reactive acts selected over reactive acts offered (`reactive_per_offered`); both
+    level limbs now pass. **`M11.C.29`** counts the weeks the third person's symptom is active.
+  - **Diagnostics:** `s-scripted-weeks`, `d7-rest-state` (the model rests 8–9 points above the floor at every level,
+    from the members' own acts) and `q3-act-effects` (a `TRIANGLE` relieves the pair; `M4.D.6e`'s cross-person
+    credit counts the third's cost). Summary tables now show the minimum.
+  - Verdicts: `M11.C.3` passes more strongly (pair −5.27); `M11.C.41` passes in 2 of 4 cells; C.4, C.5, C.29, C.42,
+    C.44, C.45 and three C.27 cells still fail. Four owner decisions remain (`TODO.md`).
+
+### Fixed
+
+- **A record built in the run that produced its results did not match its own re-render** (2026-10-09):
+  `run_cached` returned the fresh row in the child's key order rather than the cached, normalised copy.
+- **`tools/c16_report.py` dropped everything after report §11**; it now replaces §11 only.
+
+### Added (earlier)
+
 - **Diagnosis of the failing Phase C criteria, 2026-10-09** (`docs/plan_phase_c_failing_criteria.md`, approved).
   `tools/diagnostic_record.py` and `tools/probes.py` write `docs/phase_c_diagnostic_record.md`; the owner's decisions
   are asked in `docs/DECISIONS — PHASE C FAILING.md`. The main finding is a test defect: a criterion's scripted act is

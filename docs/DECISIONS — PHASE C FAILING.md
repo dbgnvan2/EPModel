@@ -7,7 +7,82 @@
 > `config/bowen/event_kinds.md`; every other number is from the record, rounded. Nothing in the engine, config or
 > criteria has changed.
 
-## Summary
+## Results of the approved steps (2026-10-09)
+
+Numbers are from `docs/phase_c_ensemble_record.md` and `docs/phase_c_diagnostic_record.md` (sections named), both
+regenerated after the changes below. Every change is a pre-declared test restatement, logged as post hoc in
+`config/bowen/criteria.md` and at the readout in `src/bowen/ensemble/criteria.py`.
+
+**S — done, by (b) for every criterion, not (a).**
+- (a) was measured first (`s-scripted-weeks`, 500 seeds, no tie held): the latest week legal in every seed is
+  week 0 for every criterion. By week 1 the act is already illegal in some seeds (minimum 1 in every row).
+- Week 0 cannot be used. Every member starts on their chronic floor, and decay lifts anyone below it back, so no
+  relief can show. One run with every act at week 0 measured `M11.C.3`'s pair relief at +0.09, against −2.2 at
+  week 12. That run was discarded for this reason, not for its verdicts, and is not kept.
+- So the fallback applies everywhere. The declared weeks stand, and in both arms the ties the scripted acts cross
+  are held open from week 0 until the act (`M11.C.29`: until its last withdrawal). `CUTOFF` across a held tie
+  is not in either member's legal set (`Forced`, `legal_outcomes(excluded=…)`).
+- The ensemble record now reports each arm's scripted acts not made, beside the verdict. Every act is made in
+  every seed, except `M11.C.29`'s 8 of 600 (baseline) and 5 of 150 (treatment). Those were not illegal: the
+  actor owed a step of their own I-POSITION sequence that week (`M5.D.9`).
+
+**Verdicts after S, Q2 and the C.29 readout** (before → after):
+
+| Criterion | Before | After |
+|---|---|---|
+| `M11.C.3` | PASS, pair −2.22, third +4.02 | PASS, pair −5.27 ± 0.51, third +8.85 ± 0.64 |
+| `M11.C.4` | FAIL, now −1.02, later +0.07 | FAIL, now −2.55 ± 0.32 holds; later −0.59 ± 1.0, p 0.84 |
+| `M11.C.5` | FAIL | FAIL, reaction +8.45 ± 16 (p 0.10); third's load +6.12 ± 10 (p 0.08) |
+| `M11.C.27` | 1 of 4 cells | 1 of 4: only `[unstable,remove_one]` passes; `[stable,remove_one]` is −0.24 ± 0.06, the opposite way |
+| `M11.C.29` | FAIL, readout pinned at 0 | FAIL, budget +0.04 ± 0.10; symptom weeks −0.23 ± 0.36 (p 0.37) |
+| `M11.C.35` | PASS | PASS, +0.33 ± 0.06 |
+| `M11.C.41` level limbs | FAIL (share fell) | **PASS**, `reactive_per_offered` +0.013 ± 0.002 in both |
+| `M11.C.41` stress limbs | FAIL | FAIL, `reactive_per_offered` −0.0002 and +0.0003 |
+| `M11.C.42` | FAIL, +0.26 | FAIL, +0.12 ± 0.40 |
+
+**X1 (D7, `d7-rest-state`) — the model has no calm state near the floor; recommend (b), a finding.**
+- With no spell and no scripted act, the triad's f, m and c rest at a mean excess of 8.4–8.9 over the floor, and
+  are within 5 points of it in 15–28% of weeks. With every member set to level 60, 80 or 95 the excess is still
+  about 7–8. The grandparents, with one tie each, rest at about 3.5.
+- The excess comes from the members' own acts on one another: appraisal of delivered acts holds about +8, relief
+  from cutoff and distance about −3 to −6, competing urges about +1.5. The standing load the constants were
+  designed around (`M4.A.5`'s self term and the ties' "too little" side) holds only about 1.5–2.7.
+- So (a), a calmer declared starting state, would not help: every run already starts on the floor, and the
+  excess re-forms from the policy's own acts within the 20-week burn-in.
+- What this means for `M11.C.44`/`.45`: the calm arm is the model's resting state, about 8–9 above the floor, and
+  the declared spell adds about 2 (`d5-spell-effect`). The arms differ by little. Whether the spell is too light is
+  a question about a declared `[I]` input. Changing it now would be tuning after the freeze, so it is left to the
+  owner (TODO).
+
+**Q2 — done.** `M11.C.41`'s readout is now reactive acts selected over reactive acts offered by the legal set.
+Both level limbs pass. The stress limbs do not move.
+
+**`M11.C.29`'s readout — restated.** It now counts the weeks the third person's symptom is active (onset,
+`M1.A.6`, until the load falls below the re-arm fraction of the threshold). The old count, weeks with any symptom
+accumulation, was positive in every week above the floor, and D7 shows the model never rests on it. The new
+readout moves (−0.23 ± 0.36) but does not separate the arms.
+
+**Q3 (`q3-act-effects`, 50 seeds, `M11.C.3`'s week and holds) — the act relieves the pair; the credit does not
+reward it.**
+- One week after a `TRIANGLE`, against `STAY-IN-CONTACT`: sender −3.6, partner −1.6, third +8.9. That is what
+  `M1.C.1` states, so its transfer needs no fix.
+- `DISTANCE` relieves the sender more (−6.0) and costs the partner +1.8. `CONFLICT` and `PURSUE` relieve no one.
+- The learner credits an act with the actor's own relief plus `cross_person_weight` (0.5) times the others' mean
+  relief (`M4.D.6e`). The recruited third's +8.9 enters that mean, so a `TRIANGLE` (own −3.6, third +8.9) is
+  credited well below a `DISTANCE` (own −6.0, partner +1.8). This is why triangling is not reinforced
+  (`M11.C.42`, `.45`), and it is a property of `M4.D.6e` under §8's reading, not a defect in the act.
+- **Owner decision needed:** (a) report it as a finding, or (c) exempt the recruited third from the cross-person
+  credit (a spec change to `M4.D.6e`). Recommendation: (a). The spec's cross-person credit is
+  deliberate, and exempting one role for one act would write the outcome the criterion tests.
+
+**Q4/Q5 — rerun under S.** With every act made, nothing is diluted any more. `M11.C.4`'s later limb
+(−0.59 ± 1.0) and three of `M11.C.27`'s cells still fail, one of them the opposite way: they are now class C,
+findings about the model, unless the owner wants a longer declared horizon (B). `M11.C.5` points the claimed way on
+both readouts (p 0.10 and 0.08), but its verdict is a converged FAIL, not UNDETERMINED. The approved rule allowed a
+longer horizon only if it stayed undetermined, so none was tried; choosing one after seeing this result would be
+tuning. Owner decision (TODO).
+
+## Summary (diagnosis, before the steps above)
 
 | Criterion | Status | Cause, as far as the record shows | Decision |
 |---|---|---|---|

@@ -65,8 +65,10 @@ def render(rows, centrals, hash_: str) -> str:
         "the central value of the learner's α (`learning_rate`), horizon (`credit_horizon`) and the policy",
         "temperature (`policy_temperature`), one constant at a time. **Only the central setting gates**",
         "(`docs/phase_c_ensemble_record.md`); these are reported. A readout whose mean difference has the",
-        "opposite sign to the declared direction is marked **reversed**. Plan D9's fourth constant, each",
-        "criterion's dominant constant, is not swept: plan §3 names none.",
+        "opposite sign to the declared direction is marked **opposite sign**, whatever its interval; this is not",
+        "the mutation record's **reversed**, which needs every gating interval wholly on the opposite side. A",
+        "readout reported beside the verdict and never tested is marked *(report only)*. Plan D9's fourth",
+        "constant, each criterion's dominant constant, is not swept: plan §3 names none.",
         "",
         f"code_hash: {hash_}",
         "",
@@ -78,7 +80,9 @@ def render(rows, centrals, hash_: str) -> str:
         for x in r["readouts"]:
             mark = ""
             if x["direction"] and x["mean_difference"] * x["direction"] < 0:
-                mark = " **reversed**"
+                mark = " **opposite sign**"
+            if x.get("report_only"):
+                mark += " *(report only)*"
             parts.append(f"`{x['readout']}` {x['mean_difference']:+.3g}{mark}")
         lines.append(f"| `{r['criterion']}` | {centrals[r['criterion']]['outcome']} | {setting} | {r['outcome']} | "
                      f"{r['seeds']} | {'; '.join(parts)} |")

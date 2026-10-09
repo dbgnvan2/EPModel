@@ -204,6 +204,18 @@ MUTANTS = (
     Mutant("hold-level-inverted", SIGN, ("M11.C.16",), "src/bowen/engine/iposition.py",
            HOLD, "return params.hold_gain * (SCALE_MAX - person.functional_level) * efficacy(person)",
            "M5.D.3's hold capacity falls as functional_level rises"),
+    # --- M11.C.16's cited grounds removed together (csdp sweep finding, 2026-10-08). Its criterion row cites M4.C.1a
+    # --- (steepness and band) and M1.C.3a (routing); with M4.D.3a's availability, those are the rules that could be
+    # --- read as stating the narrowing. M11.5's redundancy clause proves such a premise by removing the whole set.
+    Mutant("c16-grounds-removed", DELETION, ("M11.C.16",), "src/bowen/policy/policy.py",
+           AVAILABILITY, "return min(1.0, max(0.0, (SCALE_MAX / 2) / (layer * params.capacity_level_per_layer)))",
+           "M4.C.1a's steepness and band, M1.C.3a's routing capacity and M4.D.3a's availability made "
+           "level-independent together: the rules C.16's criterion row cites as its grounds",
+           also=(("src/bowen/engine/contact.py",
+                  "return SCALE_MAX / max(person.functional_level, params.functional_level_floor)",
+                  "return SCALE_MAX / max(SCALE_MAX / 2, params.functional_level_floor)"),
+                 ("src/bowen/engine/contact.py", BAND, "return params.contact_band_max * (SCALE_MAX / 2) / SCALE_MAX"),
+                 ("src/bowen/engine/moves.py", ROUTING, "return 0.5"))),
     # --- M11.1d: sign-inverted mutants of each passing criterion's core rule --------------------
     Mutant("triangle-roles-swapped", SIGN, ("M11.C.3",), "src/bowen/engine/moves.py",
            "    outsider = target\n    insiders = (state.people[event.sender], state.people[partner])\n",
@@ -385,6 +397,9 @@ def main() -> int:
             rows.append((mutant, result))
             print(f"{mutant.id} → {result['criterion']}: {result['outcome']} ({judge(mutant, result['outcome'], result.get('readouts', ()))})",
                   flush=True)
+    if args.only:  # a subset would replace the whole record under a current hash (P31)
+        print(f"--only ran a subset; {RECORD.relative_to(REPO)} not written")
+        return 0
     RECORD.write_text(render(rows, skipped, code_hash(*HASHED_TOOLS)), encoding="utf-8")
     print(f"wrote {RECORD.relative_to(REPO)}")
     return 0

@@ -274,3 +274,45 @@ def test_m111d_reversed_ignores_readouts_that_do_not_gate():
     assert _mutants.judge(named, "FAIL", [entropy_flipped, equivalence]) == "reversed"
     assert _mutants.judge(named, "FAIL", [{**top_share_kept, "mean_difference": -0.05}]) == "red"
     assert _mutants.judge(named, "FAIL", [equivalence]) == "red"
+
+
+def test_m111d_record_results_match_judge_and_the_declared_readouts():
+    """Each row's result is judge() recomputed from its readouts, and each readout carries the report_only flag its
+    criterion declares, so a renamed runner key cannot let a report-only readout gate again (csdp sweep finding)."""
+    rows = _mutants.json.loads(re.search(r"```json\n(.*?)\n```", mutation_text(), re.S).group(1))
+    by_id = {m.id: m for m in _mutants.MUTANTS}
+    assert any(x.get("report_only") for r in rows for x in r["readouts"]), "no report-only readout in the record"
+    for r in rows:
+        assert r["result"] == _mutants.judge(by_id[r["mutant"]], r["outcome"], r["readouts"]), r["mutant"]
+        declared = {x.name: x.report_only for x in CRITERIA[r["criterion"]].readouts}
+        for x in r["readouts"]:
+            assert x["report_only"] is declared[x["readout"]], (r["mutant"], r["criterion"], x["readout"])
+
+
+_ospec = importlib.util.spec_from_file_location("tools.level_occupancy", REPO / "tools" / "level_occupancy.py")
+_occupancy = importlib.util.module_from_spec(_ospec)
+sys.modules[_ospec.name] = _occupancy
+_ospec.loader.exec_module(_occupancy)
+
+
+def occupancy_rows() -> list[dict]:
+    text = (REPO / "docs" / "phase_c_level_occupancy.md").read_text(encoding="utf-8")
+    return _mutants.json.loads(re.search(r"```json\n(.*?)\n```", text, re.S).group(1))
+
+
+def test_m111a_level_occupancy_record_is_current():
+    text = (REPO / "docs" / "phase_c_level_occupancy.md").read_text(encoding="utf-8")
+    match = re.search(r"^code_hash: ([0-9a-f]{64})$", text, re.M)
+    assert match and match.group(1) == _tool.code_hash(*_occupancy.HASHED_TOOLS), \
+        "stale: rerun python3 tools/level_occupancy.py"
+    assert {(r["variant"], r["arm"]) for r in occupancy_rows()} == {
+        (v, a) for v in ("unmodified", "availability-level-inverted") for a in ("baseline", "treatment")}
+
+
+def test_m111a_availability_inversion_acts_over_c16s_run():
+    """Over the run, not only at the starting levels, the inversion differs from the deletion in each arm for some
+    member-weeks: between 0.2 and 0.6 of the scale it restricts layer 2 (csdp sweep finding)."""
+    for r in occupancy_rows():
+        if r["variant"] == "availability-level-inverted":
+            s = r["shares"]
+            assert 1.0 - s["at_or_below_0.2"] - s["above_0.6"] > 0, r["arm"]

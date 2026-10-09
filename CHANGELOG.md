@@ -78,15 +78,18 @@ the per-criterion status is in `docs/phase_c_completion_report.md`.
   clamp over C.16's levels, so it removed availability instead of inverting it (csdp sweep). It was replaced, and all
   nine level-reading rules now run as deletion and inversion mutants on C.16. Inverting availability now cancels C.16
   (both readouts' intervals span zero) but does not reverse it; removing it halves the result. That inversion equals
-  the deletion at level 20 and below, where the lowered arm spends 40.6% of member-weeks under it
-  (`docs/phase_c_level_occupancy.md`, a new generated record), so the cancellation holds for it alone. The mutant
-  removing the four rules C.16's criterion row cites (`c16-grounds-removed`) turns it red. Composite rests on
+  the deletion at level 20 and below, where the lowered arm spends 40.6% of member-weeks under it over the run and
+  45.2% over the entropy's window (`docs/phase_c_level_occupancy.md`, a new generated record), so the cancellation
+  holds for it alone. Removing the rules C.16's criterion row cites, `M4.C.1a` and `M1.C.3a`, leaves it passing
+  (`c16-cited-grounds-removed`); removing them with `M4.D.3a`'s availability turns it red (`c16-grounds-removed`). Composite rests on
   reading only availability as naming a narrower repertoire; report §11 says why that reading is contestable. A reclassification to
   premise, which read that cancellation as `M11.1d`'s flip, was withdrawn the same day by owner decision. `M5.D.3`'s hold
   capacity never acts in C.16's runs. The learner changes the result's size, not its sign, so the row's rationale and
   mutation clause are not met, and coverage keeps it partial. The mutation record now gives each mutant's mean
-  difference and half-width, and marks a red mutant **reversed** only when every gating readout's interval lies on
-  the opposite side (report-only and equivalence readouts do not gate). Report §11.
+  difference and half-width, marks a red mutant **reversed** only when every gating readout's interval lies on
+  the opposite side (report-only and equivalence readouts do not gate), and marks a mutant whose code raised
+  **raised**, which coverage does not count as proof. The sweep record says **opposite sign** for a sign-only
+  reversal. Report §11.
 - From the tenth gate (APPROVED, four low findings): `M11.5`'s premise definition now admits a result several rules
   state redundantly; the `M11.C.38` note says no single-rule mutant reds all three pairs (four of six red none); an
   "exactly zero" claim no committed record holds was removed; this file's `.45` entry corrected.

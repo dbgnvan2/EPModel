@@ -43,14 +43,19 @@ Phase C steps 0–16 are built. **Its gate does not pass** (`docs/phase_c_comple
   and removing availability halves it; all nine level-reading rules were run. The learner changes its size, not its
   sign, so its row's rationale and mutation clause are not met, and coverage keeps it partial. Report §11.*
 - [ ] **Owner: `M11.C.16`'s class rests on a reading.** Composite holds if only `M4.D.3a` states a narrower repertoire;
-  if `M4.C.1a`'s KS03.2 text or `M1.C.3a`'s "stays fixed" is read as stating it, `M11.5`'s redundancy clause makes it a
-  premise, and `c16-grounds-removed` (those rules and availability removed together) turning it red is the proof.
-  Separately, the availability inversion run equals the deletion at level 20 and below (40.6% of the lowered arm's
-  member-weeks under it, `docs/phase_c_level_occupancy.md`), so "cancels without reversing" is shown for that
-  inversion only. A stronger inversion was not tried. Report §11.
-- [ ] **`AVAILABILITY_INVERTED`'s comment in `tools/mutation_record.py` cites a scratch measurement** ("roughly 8-54",
-  20 seeds). Point it at `docs/phase_c_level_occupancy.md` the next time the tool changes; editing it alone would force
-  a 40-minute regeneration of two records for a comment.
+  if `M4.C.1a`'s KS03.2 text or `M1.C.3a`'s "stays fixed" is read as stating it, `M11.5`'s redundancy clause would make
+  it a premise. Removing those two rules alone leaves C.16 passing (`c16-cited-grounds-removed`); removing them with
+  availability turns it red (`c16-grounds-removed`). Separately, the availability inversion run equals the deletion
+  at level 20 and below (40.6% of the lowered arm's member-weeks under it, 45.2% over the entropy's window;
+  `docs/phase_c_level_occupancy.md`), so "cancels without reversing" is shown for that inversion only. A stronger
+  inversion was not tried. Report §11.
+- [ ] **Record-parsing duplication.** The record JSON regex and `json.loads` appear about six times across
+  `tools/mutation_record.py`, `tools/sweep_record.py`, `tools/spec_coverage.py` and the tests; one helper would serve
+  them (correctness review, 2026-10-09).
+- [ ] **`M11.C.16`'s coverage override is hand-written** (`tools/spec_coverage_phase_b.json`) and says "passes"; it
+  will not update if the ensemble verdict changes (correctness review, 2026-10-09).
+- [ ] **A child failure or timeout in `run_in_copy` aborts the whole record run** and discards earlier mutants'
+  results; a timed-out child's worker pool may be orphaned. Pre-existing (correctness review, 2026-10-09).
 - [ ] **`M11.C.16`'s mutation clause is not met.** The spec requires that disabling `M4.D.6` turn it red, and it does
   not. Decide whether to restate the criterion so that a learned contribution is what it tests (for example, hold
   level-reading availability fixed and compare learning on against off), or to accept it as a level result.

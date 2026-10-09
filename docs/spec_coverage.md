@@ -350,10 +350,10 @@ mutant has turned each entry red in `docs/phase_c_mutation_record.md`; the D9 sw
 | M10.C.3 | not done | — | Phase C or D |
 | M10.C.3a | not done | — | Phase C or D |
 | M11.1 | not done | — | Phase C — acceptance-test rules |
-| M11.1a | done | `tests/bowen/test_ensemble_record.py::test_m111a_availability_inversion_acts_over_c16s_run`<br>`tests/bowen/test_ensemble_record.py::test_m111a_availability_inversion_inverts_at_c16s_levels`<br>`tests/bowen/test_ensemble_record.py::test_m111a_every_mutant_applies_exactly_once`<br>`tests/bowen/test_ensemble_record.py::test_m111a_level_occupancy_record_is_current`<br>`tests/bowen/test_ensemble_record.py::test_m111a_the_saturated_inversion_would_be_caught` | — |
+| M11.1a | done | `tests/bowen/test_ensemble_record.py::test_m111a_availability_deletion_is_full_on_every_layer`<br>`tests/bowen/test_ensemble_record.py::test_m111a_availability_inversion_acts_over_c16s_run`<br>`tests/bowen/test_ensemble_record.py::test_m111a_availability_inversion_inverts_at_c16s_levels`<br>`tests/bowen/test_ensemble_record.py::test_m111a_every_mutant_applies_exactly_once`<br>`tests/bowen/test_ensemble_record.py::test_m111a_level_occupancy_record_is_current`<br>`tests/bowen/test_ensemble_record.py::test_m111a_occupancy_bands_are_where_the_inversion_clamps`<br>`tests/bowen/test_ensemble_record.py::test_m111a_the_saturated_inversion_would_be_caught` | — |
 | M11.1b | not done | — | SHOULD; matched-magnitude severing mutants were not built in Phase C (plan step 15: where cheap; none was) |
 | M11.1c | partial | `tests/bowen/test_ensemble_record.py::test_m111c_representation_mutants_ran_on_every_passing_criterion` | two of the four re-encodings run on every passing entry (same-tick summation order, clamp within tolerance), no verdict changed; a rescaled state range and integer against float tick counters are not built (docs/phase_c_completion_report.md §1) |
-| M11.1d | partial | `tests/bowen/test_ensemble_record.py::test_m111d_a_mutant_is_reversed_only_when_every_interval_flips`<br>`tests/bowen/test_ensemble_record.py::test_m111d_every_passing_criterion_has_a_mutant_run`<br>`tests/bowen/test_ensemble_record.py::test_m111d_mutation_hash_covers_the_mutant_list`<br>`tests/bowen/test_ensemble_record.py::test_m111d_mutation_record_is_current`<br>`tests/bowen/test_ensemble_record.py::test_m111d_record_results_match_judge_and_the_declared_readouts`<br>`tests/bowen/test_ensemble_record.py::test_m111d_reversed_ignores_readouts_that_do_not_gate` | deletion and sign-inverted mutants run on every passing criterion's core rule (docs/phase_c_mutation_record.md); the minimal rule set per criterion is not listed in full, and criteria that fail at the central setting were not audited |
+| M11.1d | partial | `tests/bowen/test_ensemble_record.py::test_m111d_a_mutant_is_reversed_only_when_every_interval_flips`<br>`tests/bowen/test_ensemble_record.py::test_m111d_a_raised_mutant_is_not_proof`<br>`tests/bowen/test_ensemble_record.py::test_m111d_every_passing_criterion_has_a_mutant_run`<br>`tests/bowen/test_ensemble_record.py::test_m111d_mutation_hash_covers_the_mutant_list`<br>`tests/bowen/test_ensemble_record.py::test_m111d_mutation_record_is_current`<br>`tests/bowen/test_ensemble_record.py::test_m111d_only_does_not_overwrite_the_record`<br>`tests/bowen/test_ensemble_record.py::test_m111d_record_results_match_judge_and_the_declared_readouts`<br>`tests/bowen/test_ensemble_record.py::test_m111d_reversed_ignores_readouts_that_do_not_gate` | deletion and sign-inverted mutants run on every passing criterion's core rule (docs/phase_c_mutation_record.md); the minimal rule set per criterion is not listed in full, and criteria that fail at the central setting were not audited |
 | M11.1e | not done | — | Phase C — acceptance-test rules |
 | M11.1f | done | `tests/bowen/test_ensemble.py::test_m111f_a_criterion_fails_when_its_move_never_occurs` | — |
 | M11.2 | done | `tests/test_spec_consistency.py::test_m112_is_not_bounded_by_a_stale_numeric_range` | — |
@@ -554,7 +554,7 @@ mutant has turned each entry red in `docs/phase_c_mutation_record.md`; the D9 sw
 | M17.G.2 | not done | — | Phase E |
 | M17.G.3 | not done | — | Phase E |
 
-## Tests named for no spec ID (60)
+## Tests named for no spec ID (61)
 
 Their names embed no requirement ID, so they count only where an override cites them (marked *cited*). The rest check spec documents, tooling or helpers.
 
@@ -562,6 +562,7 @@ Their names embed no requirement ID, so they count only where an override cites 
 - `tests/bowen/test_config.py::test_m0_1_unknown_grade_rejected` — *cited*
 - `tests/bowen/test_ensemble_record.py::test_criteria_required_matches_what_the_arms_read`
 - `tests/bowen/test_ensemble_record.py::test_criteria_settings_are_parsed_strictly`
+- `tests/bowen/test_ensemble_record.py::test_d9_sweep_marks_opposite_sign_and_report_only`
 - `tests/bowen/test_ensemble_record.py::test_d9_sweep_record_is_current`
 - `tests/bowen/test_ensemble_record.py::test_sweep_tool_shares_the_loaded_mutation_tool`
 - `tests/bowen/test_family.py::test_m2_family_declaration_must_be_graded_invented`

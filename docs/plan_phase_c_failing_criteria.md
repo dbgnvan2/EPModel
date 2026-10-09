@@ -1,6 +1,6 @@
 # Plan — the failing and unbuilt Phase C criteria
 
-> Proposed 2026-10-09. **Not approved.** No code until the owner approves this plan.
+> Proposed 2026-10-09. **Approved by the owner 2026-10-09**, with `M11.C.7`, `.13` and `.14` moved to Phase D (§4).
 > Status of each criterion: `docs/phase_c_completion_report.md` §1 and §3. Coverage: `docs/spec_coverage.md`.
 
 ## 0. What this plan does and does not do
@@ -62,10 +62,10 @@ Each needs engine work that does not exist yet:
 | `M11.C.13` help relocates, not reduces | Incidents located in a community; blocked by plan P1 (`M6.I.6` restated) | Large |
 | `M11.C.14` technique null under marital distance | `M5.C.1`'s marital-distance gate | Medium |
 
-**Recommendation:** decide whether these belong in Phase C or move to Phase D. Building them inside a failing gate adds three more criteria to diagnose, and C.13 cannot start before P1.
+**Decided 2026-10-09: moved to Phase D.** The spec's criterion rows now carry phase D.
 
 ## 5. Cost and process
 
 - **Diagnostics:** D0 about an hour. D1–D6 run in minutes each with the cache; the work is in the traces.
 - **Reviews:** one full `learning-qa` pass and one correctness pass at the end of each batch (D0; D1–D6; the restatements). Fix loops get narrow passes on a cheaper model. Three or fewer minor items go to TODO (`CLAUDE.md`, "keep the loop cheap").
-- **Stops:** after D0, after the diagnostic record and memo (for the owner's decisions), and after the restated reruns.
+- **Stops:** after the diagnostic record and memo (for the owner's decisions), and after the restated reruns.

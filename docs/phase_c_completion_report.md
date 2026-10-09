@@ -20,7 +20,7 @@ deselected there and run with `python3 -m pytest -m ensemble`.
 **Read this first.** Phase C's gate does **not** pass. Of the 16 criteria built, 7 pass at the frozen
 constants and are proved by a mutant (C.1, C.3, C.19, C.25, C.32, C.35, C.38). 1 passes but survives its named mutant
 (C.16, §10, §11), 1 passes in one of its four cells (C.27), and 7 fail (C.4, C.5, C.29, C.41, C.42, C.44, C.45). 3 criteria
-are not built. **These are the verdicts after the `TRIANGLE` decision (§8) and the precision decision (§10), both of
+are not built and moved to Phase D (owner decision 2026-10-09). **These are the verdicts after the `TRIANGLE` decision (§8) and the precision decision (§10), both of
 2026-10-08.** The first made C.3 pass and took C.42, C.45, one cell of C.27 and one cell of C.41 below significance or
 the wrong way. The second let C.16 converge. A premise that passes confirms that the code renders the spec. It
 is not a finding about families (`M11.5`). Nothing here speaks about a real family (`M11.F.9`).
@@ -39,9 +39,9 @@ column follows the global completion standard.
 | `M11.C.3` triangle relieves pair, costs third | premise | PASS (50) — pair −2.22, third +4.02 | yes: `triangle-transfer-removed`, `triangle-roles-swapped` | — | done — after the `TRIANGLE` decision, §8 |
 | `M11.C.4` cutoff trades now against later | premise | **FAIL** — the "now" limb holds (−1.02); the "later" limb does not (+0.07, p 0.43) | not run | — | partial — §3.2 |
 | `M11.C.5` change-back reaction | composite | **FAIL** — neither readout significant | not run | at least one readout reverses at 5 of 6 settings | not done — §3.3 |
-| `M11.C.7` topology not coach skill | premise | not built | — | — | not done — needs `M8.2`/`M8.3`'s position predicates; declares no direction for its arms |
-| `M11.C.13` help relocates, not reduces | premise | not built | — | — | not done — needs incidents located in a community |
-| `M11.C.14` technique null under marital distance | premise (null) | not built | — | — | not done — needs `M5.C.1`'s marital-distance gate |
+| `M11.C.7` topology not coach skill | premise | not built | — | — | Phase D (moved 2026-10-09) — needs `M8.2`/`M8.3`'s position predicates; declares no direction for its arms |
+| `M11.C.13` help relocates, not reduces | premise | not built | — | — | Phase D (moved 2026-10-09) — needs incidents located in a community |
+| `M11.C.14` technique null under marital distance | premise (null) | not built | — | — | Phase D (moved 2026-10-09) — needs `M5.C.1`'s marital-distance gate |
 | `M11.C.16` repertoire concentration depends on level | composite (§11) | PASS (150) — after §10's precision rule; undetermined at 500 seeds before | by the joint `level-blind` and `c16-grounds-removed` (cited grounds with availability) mutants, and by `availability-level-inverted`, which cancels it without reversing it; its required mutant, the learner disabled, survives (§11) | passes at all 6 settings | partial — passes; its mutation clause is not met, §11 |
 | `M11.C.19` counterfeit axis identified | check | PASS (50) | yes: `axes-collapsed`, `axes-swapped` | — | done |
 | `M11.C.25` dominant pole independent of sex | premise (null) | PASS (50); difference exactly 0 in every seed | yes: `sex-term-in-pole` | — | done — readout corrected post hoc, §4.2 |

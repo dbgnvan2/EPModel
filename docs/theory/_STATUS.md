@@ -4,7 +4,7 @@
 >
 > **2026-10-08 — Phase C built (steps 0–16), and `TRIANGLE`'s roles decided.** The gate does not pass: 7 criteria pass and are
 > mutation-proved (`M11.C.1`, `.3`, `.19`, `.25`, `.32`, `.35`, `.38`), `.16` passes but is not proved, `.27` passes in one cell, and
-> `.4`, `.5`, `.29`, `.41`, `.42`, `.44` and `.45` fail. `.7`, `.13` and `.14` are not built. **Next: the owner's decisions** in `docs/phase_c_completion_report.md`
+> `.4`, `.5`, `.29`, `.41`, `.42`, `.44` and `.45` fail. `.7`, `.13` and `.14` moved to Phase D (2026-10-09). **Next:** the approved plan for the failing criteria, `docs/plan_phase_c_failing_criteria.md`, then the owner's decisions in `docs/phase_c_completion_report.md`
 > §6 and `TODO.md` ("Phase C — open after the build"). Phase D should not start on this gate.
 >
 > **2026-10-06 — Phase B built.** All 14 automated exit criteria pass, each mutation-proved

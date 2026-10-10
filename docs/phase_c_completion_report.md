@@ -103,7 +103,7 @@ These are recorded in the spec's `M11.5` table with today's date.
   `M1.C.1`'s relief was inverted, which would have made it a premise. C.42 passed but survived an inverted
   learner, so its direction did not come from relief's sign. Neither passes after §8, so neither correction
   stands; the spec's `M11.5` notes record both.
-- **`M11.C.16` stays composite, by owner decision of 2026-10-08, which is now back with the owner.** Then, inverting
+- **`M11.C.16` stays composite, by owner decision of 2026-10-08, confirmed 2026-10-09.** Then, inverting
   `M4.D.3a`'s availability cancelled it; since §12's triangle change it reverses it, which `M11.1d` counts as
   sufficient for a premise. Removing the rules its criterion row cites leaves it passing, with or without
   availability. §11.
@@ -390,7 +390,7 @@ repertoire narrows at lower level whether or not anything is learned. Revision 1
 so that learning produces it; on this evidence learning is not what produces it. §11 tests which rules do: `M4.D.3a`'s
 layer availability, which removes acts from the legal set at a lower level, carries about half of it; inverting it
 cancelled C.16 when this was written, and reverses it since §12's triangle change. Coverage marks C.16 partial,
-passing but not proved. §11 decided its class (composite); the reversal puts that back to the owner.
+passing but not proved. §11 decided its class (composite); after the reversal the owner kept it (2026-10-09).
 
 ## 11. Whether `M11.C.16` is reclassified — decided 2026-10-08
 
@@ -442,7 +442,7 @@ lies wholly on the opposite side; here `availability-level-inverted` is.
 
 What this shows:
 
-- **Inverting `M4.D.3a`'s availability reverses C.16**: entropy +0.011 ± 0.009 and top-move share -0.020 ± 0.010; the gating readout's interval lies wholly on the opposite side. When the owner kept C.16 composite (2026-10-08) this inversion only cancelled it; since the triangle change of 2026-10-09 it reverses it, so the class goes back to the owner (`TODO.md`). **This inversion is still weak where C.16 runs.**
+- **Inverting `M4.D.3a`'s availability reverses C.16**: entropy +0.011 ± 0.009 and top-move share -0.020 ± 0.010; the gating readout's interval lies wholly on the opposite side. When the owner kept C.16 composite (2026-10-08) this inversion only cancelled it; since the triangle change of 2026-10-09 it reverses it. The owner was asked again and kept it composite (2026-10-09). **This inversion is still weak where C.16 runs.**
   It equals the deletion (every layer fully available) at level 20 and below on both layers, and at 40 and below on
   layer 1. Under the mutant, over the whole run, the lowered arm's members spend 37.2% of member-weeks at level 20 or
   below and 95.1% at 40 or below; the baseline arm's, 2.4% and 54.6%. Over the last
@@ -466,7 +466,7 @@ What this shows:
 
 Why composite, and not premise:
 
-- `M11.1d`'s flip is sufficient for a premise, not necessary. The availability inversion now flips C.16, which by that test would make it one; the owner's decision to keep it composite was made when it only cancelled, and is put back to the owner.
+- `M11.1d`'s flip is sufficient for a premise, not necessary. The availability inversion now flips C.16, which by that test would make it one. The owner kept it composite when the inversion only cancelled it (2026-10-08), and again when asked after it began to reverse it (2026-10-09).
 - `M11.5`'s redundancy clause makes a result a premise when several rules each state it, as at `M11.C.1`, where every
   level-reading rule states earlier onset at a lower level. C.16's pattern of mutants looks the same (each single
   deletion survives and only joint deletions remove it), but of the nine rules only availability states a narrower

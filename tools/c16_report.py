@@ -72,11 +72,11 @@ if inverted == "reversed":
                  f"{N('availability-level-inverted','top_move_share')}; the gating readout's interval lies wholly on the "
                  "opposite side. "
                  "When the owner kept C.16 composite (2026-10-08) this inversion only cancelled it; since the triangle "
-                 "change of 2026-10-09 it reverses it, so the class goes back to the owner (`TODO.md`). **This inversion "
+                 "change of 2026-10-09 it reverses it. The owner was asked again and kept it composite (2026-10-09). **This inversion "
                  "is still weak where C.16 runs.**")
     FLIP = ("`M11.1d`'s flip is sufficient for a premise, not necessary. The availability inversion now flips C.16, "
-            "which by that test would make it one; the owner's decision to keep it composite was made when it only "
-            "cancelled, and is put back to the owner.")
+            "which by that test would make it one. The owner kept it composite when the inversion only cancelled it "
+            "(2026-10-08), and again when asked after it began to reverse it (2026-10-09).")
 else:
     INVERSION = (f"- **No inversion run reverses C.16.** Inverting `M4.D.3a`'s availability "
                  f"{'cancels it' if inverted == 'red' else 'leaves it passing'}: entropy "

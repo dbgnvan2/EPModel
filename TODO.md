@@ -83,10 +83,8 @@ Phase C steps 0–16 are built. **Its gate does not pass** (`docs/phase_c_comple
   seeker alone is relieved, as far as the third helps; a `TRIANGLE` is credited by the seeker's own relief.*
 - [x] ~~**`M11.C.27`'s horizon**~~ *decided 2026-10-09: read week by week; it gates on the week the act lands.*
   1 of 4 cells passes; removing one stabilises first and destabilises from week 6; adding a third barely moves it.
-- [ ] **`M11.C.16`'s class, again** (owner): since the triangle change, `availability-level-inverted` *reverses* C.16
-  (entropy +0.011 ± 0.009, top-move share −0.020 ± 0.010), which `M11.1d` counts as sufficient for a premise. It
-  was kept composite on 2026-10-08 when this inversion only cancelled it. `c16-grounds-removed` now survives.
-  Report §11 (generated) states both.
+- [x] ~~**`M11.C.16`'s class, again**~~ *owner decision 2026-10-09: it stays composite, although
+  `availability-level-inverted` now reverses it (report §11).*
 - [ ] **The triangle change is not proved by an acceptance criterion** (2026-10-09): `triangle-help-ignored`
   survives on `M11.C.3` (a direction, not a size), and `triangle-credit-cross-person` has no passing criterion.
   Both rules have unit tests. A criterion that reads the size of the seeker's relief against the third's help, or

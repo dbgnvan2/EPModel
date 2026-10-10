@@ -84,7 +84,7 @@ mutant has turned each entry red in `docs/phase_c_mutation_record.md`; the D9 sw
 | M1.B.11 | not done | — | Phase C or D — the phase that builds its mechanism (plan Appendix B) |
 | M1.B.12 | not done | — | Phase C or D — the phase that builds its mechanism (plan Appendix B) |
 | M1.B.13 | done | `tests/bowen/test_objects.py::test_m1b13_tie_id_is_unordered_pair` | — |
-| M1.C.1 | done | `tests/bowen/test_moves.py::test_m1c1_the_target_is_recruited_into_the_senders_most_strained_twosome`<br>`tests/bowen/test_moves.py::test_m1c1_triangle_relieves_the_insiders_and_loads_the_outsider`<br>`tests/bowen/test_objects.py::test_m1c1_triangle_holds_members_inside_pair_outside_and_bound_anxiety` | — |
+| M1.C.1 | done | `tests/bowen/test_moves.py::test_m1c1_anxious_third_helps_less`<br>`tests/bowen/test_moves.py::test_m1c1_partner_not_relieved_by_seekers_triangle`<br>`tests/bowen/test_moves.py::test_m1c1_third_aligned_with_partner_helps_less`<br>`tests/bowen/test_moves.py::test_m1c1_triangle_relieves_the_seeker_and_loads_the_third`<br>`tests/bowen/test_objects.py::test_m1c1_triangle_holds_members_inside_pair_outside_and_bound_anxiety` | — |
 | M1.C.2 | not done | — | Phase C or D — the phase that builds its mechanism (plan Appendix B) |
 | M1.C.3 | done | `tests/bowen/test_mechanisms.py::test_m1c3_activity_is_a_readout_of_recent_triangle_acts`<br>`tests/bowen/test_mechanisms.py::test_m1c3_calm_and_tense_systems_get_no_threshold`<br>`tests/bowen/test_mechanisms.py::test_m1c3_topology_is_the_closed_triads`<br>`tests/bowen/test_mechanisms.py::test_m1c3_triangle_move_sets_the_inside_pair`<br>`tests/bowen/test_objects.py::test_m1c3_topology_is_stored_apart_from_activity` | — |
 | M1.C.3a | partial | `tests/bowen/test_moves.py::test_m1c3a_better_differentiated_triangle_routes_less` | routing capacity falls with the members' functional level (step 5); 'activate only under real load, resolve when the load passes' is left to the learner (step 7) and is not yet tested |
@@ -218,7 +218,7 @@ mutant has turned each entry red in `docs/phase_c_mutation_record.md`; the D9 sw
 | M4.D.6b | partial | `tests/bowen/test_learner.py::test_m4d6b_nothing_outside_the_horizon_is_credited` | the horizon is declared in config and only acts inside it are credited (step 7); the sweep with the learning rate and temperature is Phase C step 16 |
 | M4.D.6c | not done | — | Phase C |
 | M4.D.6d | done | `tests/bowen/test_learner.py::test_m4d6d_self_directed_channel_is_never_reinforced` | — |
-| M4.D.6e | done | `tests/bowen/test_learner.py::test_m4d6e_another_persons_calming_reinforces` | — |
+| M4.D.6e | done | `tests/bowen/test_learner.py::test_m4d6e_another_persons_calming_reinforces`<br>`tests/bowen/test_learner.py::test_m4d6e_triangle_credit_excludes_recruited_third`<br>`tests/bowen/test_learner.py::test_m4d6e_triangle_reinforced_when_it_relieves_the_seeker_whatever_it_costs_the_third` | — |
 | M4.E.1 | done | `tests/bowen/test_mechanisms.py::test_m4e1_scripted_move_becomes_full_event` | — |
 | M1.F.1a | done | `tests/bowen/test_events.py::test_m1f1a_mixed_channel_carries_a_weight` | — |
 | M4.E.1a | done | `tests/bowen/test_activation_visibility.py::test_m4e1a_witnesses_filled_by_visibility_not_script` | — |
@@ -367,7 +367,7 @@ mutant has turned each entry red in `docs/phase_c_mutation_record.md`; the D9 sw
 | M11.3 | not done | — | Phase C — acceptance-test rules |
 | M11.C.1 | done | `tests/bowen/test_phase_c_gate.py::test_m11c1_lower_c_reaches_threshold_sooner` | ensemble record: M11.C.1 PASS |
 | M11.C.2 | not done | — | Phase D |
-| M11.C.3 | done | `tests/bowen/test_phase_c_gate.py::test_m11c3_triangle_relieves_pair_costs_third` | ensemble record: M11.C.3 PASS |
+| M11.C.3 | done | `tests/bowen/test_phase_c_gate.py::test_m11c3_triangle_relieves_seeker_costs_third` | ensemble record: M11.C.3 PASS |
 | M11.C.4 | partial | `tests/bowen/test_phase_c_gate.py::test_m11c4_cutoff_trades_now_against_later` | ensemble record: M11.C.4 FAIL |
 | M11.C.5 | partial | `tests/bowen/test_phase_c_gate.py::test_m11c5_change_back_reaction_shape` | ensemble record: M11.C.5 FAIL |
 | M11.C.6 | not done | — | Phase D |
@@ -391,7 +391,7 @@ mutant has turned each entry red in `docs/phase_c_mutation_record.md`; the D9 sw
 | M11.C.19 | done | `tests/bowen/test_phase_c_gate.py::test_m11c19_counterfeit_axis_is_identified` | ensemble record: M11.C.19 PASS |
 | M11.C.25 | done | `tests/bowen/test_phase_c_gate.py::test_m11c25_dominant_pole_independent_of_sex` | ensemble record: M11.C.25 PASS |
 | M11.C.26 | not done | — | Phase D |
-| M11.C.27 | partial | `tests/bowen/test_phase_c_gate.py::test_m11c27_twosome_two_by_two_all_cells` | ensemble record: M11.C.27[stable,add_third] FAIL; M11.C.27[stable,remove_one] FAIL; M11.C.27[unstable,add_third] FAIL; M11.C.27[unstable,remove_one] FAIL |
+| M11.C.27 | partial | `tests/bowen/test_phase_c_criteria.py::test_m11c27_reads_the_week_the_act_lands_and_reports_each_week_after`<br>`tests/bowen/test_phase_c_gate.py::test_m11c27_twosome_two_by_two_all_cells` | ensemble record: M11.C.27[stable,add_third] FAIL; M11.C.27[stable,remove_one] FAIL; M11.C.27[unstable,add_third] FAIL; M11.C.27[unstable,remove_one] PASS |
 | M11.C.28 | not done | — | Phase D |
 | M11.C.29 | partial | `tests/bowen/test_phase_c_criteria.py::test_m11c29_held_tie_is_not_cut_while_held`<br>`tests/bowen/test_phase_c_criteria.py::test_m11c29_hold_is_the_same_in_both_arms`<br>`tests/bowen/test_phase_c_criteria.py::test_m11c29_hold_lets_every_withdrawal_be_made`<br>`tests/bowen/test_phase_c_gate.py::test_m11c29_relief_and_differentiation_differ_in_time_course` | ensemble record: M11.C.29 FAIL |
 | M11.C.30 | not done | — | Phase D |

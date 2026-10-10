@@ -2,6 +2,29 @@
 
 All notable changes to this project are recorded here. Dates are ISO.
 
+## [Unreleased] — 2026-10-10
+
+### Added — run visualization (`docs/PROPOSAL — RUN VISUALIZATION MAPPING.md`, plan V1–V7, owner-approved)
+
+- **The pattern readouts are the owner's** (V1, V2; `docs/readouts_phase_c.md`, `src/bowen/readouts/patterns.py`).
+  - A pattern is 3 or more acts in 4 weeks (`pattern_window` 8 → 4, `pattern_min_acts` 2 → 3, `pattern_pole` retired;
+    logged in `constants_changes.md`).
+  - No interaction is an emerging level of distance. Cutoff is refusal of approaches, not absence.
+  - Pursuit reads as fusion, over/underfunctioning or projection. Projection and fusion are new readouts.
+  - `current_patterns`: a pattern ends only when a new one emerges.
+  - No criterion reads these readouts, so no verdict moved.
+- **Spec revision 13** (V3): `M2.A` is the owner's family. Bruno and Toma leave; Viktor (Sofia's husband) and Dario (Ravi's
+  brother, cut off) join. Leo is declared male. Teodor's `basic_level` is proposed at 36. `M2.A.1`'s fixture is now Iris and
+  Dario. New `config/bowen/family_phase_d.md`, not yet run; the Phase B and C families are unchanged.
+- **`docs/DECISIONS — CUTOFF SEMANTICS.md`** (V4): open. Should the engine's CUTOFF become rejection?
+- **`tools/famdiag_export.py`** (V5) writes a run as a fam-diag diagram (`docs/review/phase_c_famdiag_seed7.json`).
+  - One fam-diag year is one 4-week block, 2001–2026.
+  - The drawing rules are in `config/viz/famdiag.md`, outside the engine hash.
+  - Every line traces back to the run's acts (`tests/bowen/test_famdiag_export.py`).
+- **fam-diag** (V6, branch `timeline-hides-ended-lines`, not pushed): an ended line and a dated triangle hide after
+  their end year.
+- **Opened in fam-diag** (V7): blocks 1, 13 and 26 match the export, and the trace agrees at blocks 9 and 26.
+
 ## [Unreleased] — 2026-10-08
 
 **Phase C built** (steps 0–16 of `docs/implementation_plan_phase_c.md`). **Its acceptance gate does not pass**;

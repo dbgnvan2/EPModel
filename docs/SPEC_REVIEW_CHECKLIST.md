@@ -29,6 +29,7 @@ These define what the model does. A run that disagrees with them is a defect.
 - [ ] [../config/bowen/event_kinds.md](../config/bowen/event_kinds.md) — the kinds of act and their layers.
 - [ ] [../config/bowen/policy.md](../config/bowen/policy.md) — the selection policy.
 - [ ] [../config/bowen/family_phase_c.md](../config/bowen/family_phase_c.md) — the family run in Phase C.
+- [ ] [../config/bowen/family_phase_d.md](../config/bowen/family_phase_d.md) — the owner's reference family (spec `M2.A`, revision 13); not yet run.
 - [ ] [../config/bowen/family_reduced.md](../config/bowen/family_reduced.md) — the reduced family.
 - [ ] [../config/bowen/fixtures/](../config/bowen/fixtures/) — the test families (dyad, triad, nuclear four) the
       criteria run on.
@@ -63,6 +64,7 @@ Decision records. For each, confirm the decision appears in the spec as approved
 - [ ] [proposal_rev11_emergence.md](proposal_rev11_emergence.md) — revision 11 (set / random / emergent). Where it
       and the spec differ, the spec wins.
 - [ ] [<DECISIONS — PHASE C FAILING.md>](<DECISIONS — PHASE C FAILING.md>) — the failing Phase C criteria.
+- [ ] [<DECISIONS — CUTOFF SEMANTICS.md>](<DECISIONS — CUTOFF SEMANTICS.md>) — whether the engine's CUTOFF should become rejection (open).
 - [ ] [<PROPOSAL — TRIANGLE RELIEF AND CREDIT.md>](<PROPOSAL — TRIANGLE RELIEF AND CREDIT.md>) — what a triangle
       relieves (`M1.C.1`, `M4.D.6e`, `M11.C.3`). Built.
 
@@ -112,8 +114,8 @@ Kept for history or as build process. None of these defines current behavior.
 [agent_raising_design_prompt.md](agent_raising_design_prompt.md),
 [conversation_agents_maturity_emotion_2026-09.md](conversation_agents_maturity_emotion_2026-09.md).
 
-**Not built yet:** [<PROPOSAL — RUN VISUALIZATION MAPPING.md>](<PROPOSAL — RUN VISUALIZATION MAPPING.md>) (drawing a
-run as a diagram; build plan awaiting approval).
+**Built 2026-10-10:** [<PROPOSAL — RUN VISUALIZATION MAPPING.md>](<PROPOSAL — RUN VISUALIZATION MAPPING.md>) (drawing a
+run as a fam-diag diagram; `tools/famdiag_export.py`, `config/viz/famdiag.md`).
 
 **Earlier phases and build process:**
 [implementation_plan_phase_b.md](implementation_plan_phase_b.md),

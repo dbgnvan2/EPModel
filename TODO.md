@@ -113,8 +113,26 @@ Phase C steps 0–16 are built. **Its gate does not pass** (`docs/phase_c_comple
   D0 diagnostic record, D1-D6 diagnoses, one decision memo. `M11.C.7`, `.13` and `.14` moved to Phase D the same day.
 - [x] ~~**The failing criteria**~~ *closed 2026-10-09: Phase C closed with its gate failing (owner decision); each
   failure is recorded as a finding with its measured cause, and what the next phase inherits, in report §13.*
-- [ ] **Plan §9's human reviews:** `docs/readouts_phase_c.md`, a rendered 104-week Phase C trace, and `M5.F.2`'s
-  threshold.
+- [ ] **Plan §9's human reviews:** ~~`docs/readouts_phase_c.md`~~ *the owner gave the definitions, 2026-10-10
+  (visualization plan V1)*; a rendered 104-week Phase C trace (now also drawable in fam-diag:
+  `docs/review/phase_c_famdiag_seed7.json`); and `M5.F.2`'s threshold.
+- [ ] **Owner review of the run-visualization choices** (`docs/PROPOSAL — RUN VISUALIZATION MAPPING.md`, built
+  2026-10-10). Each is `[I]`:
+  - the readouts' tie-break (more acts, then the earlier first act);
+  - silence not replacing a cutoff;
+  - the level bands in `config/viz/famdiag.md`;
+  - Viktor's and Dario's values, Teodor's `basic_level` 34 → 36 (34 broke `M2.A.0e`'s ±1 with Ana), and the Phase D
+    family's tie values (`config/bowen/family_phase_d.md`).
+- [ ] **Open decision: the engine's CUTOFF** (`docs/DECISIONS — CUTOFF SEMANTICS.md`; recommendation C, Phase D).
+- [ ] **The pattern readouts read `state.tick` as "now"**, but after `run_tick` it is the next week's tick. The exporter
+  steps it back and restores it (`tools/famdiag_export.py:simulate`). A `now` argument on the readouts would be
+  cleaner. It is an engine-hash change, so do it with the next engine change.
+- [ ] **fam-diag branch `timeline-hides-ended-lines`** (commit `4ec320f`, not pushed). Needs fam-diag's
+  learning-qa gate file and the owner's go-ahead to merge. Found there and not fixed: loading drops every
+  triangle's notes and events (`normalizeTriangles`), sent to a separate task.
+- [ ] **What the seed-7 picture shows**, for the owner's review. Most parent–child and marital ties go silent
+  for months: Marta–Nadia has no act for up to 102 weeks, Marta–Ravi for 67. No cutoff pattern forms, although there are 62
+  CUTOFF acts: no one refuses 3 approaches in 4 weeks. Sofia → Ravi projection holds for 20 blocks.
 - [ ] **Not built:** `M11.C.7` (needs `M8.2`/`M8.3`'s predicates and a direction), `.13` (needs a community),
   `.14` (needs `M5.C.1`'s marital-distance gate); two of `M11.1c`'s four re-encodings (rescaled state range,
   integer against float ticks); `M11.1b`'s severing mutants; plan D9's "dominant constant" (§3 names none).

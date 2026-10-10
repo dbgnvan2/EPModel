@@ -12,13 +12,13 @@
 | Header | |
 |---|---|
 | seed | 7 |
-| config hash | `aaf9870af8a5758155142a85fc249b47a9b6cc358141784fb1820d311133e352` |
+| config hash | `b413d6afcc0e9c81e25f39c0eb13dbb8872c8a73e9ecc9f9637c6d7faa68297e` |
 | spec revision | 2.0, revision 13 |
 | family instance | phase_c |
 | activation | synchronous_activation v1 (synchronous) |
 | visibility | household_conductance_visibility v1 |
 | constants frozen | 2026-10-07 |
-| constants changed since freeze | pattern_min_acts, pattern_window |
+| constants changed since freeze | pattern_min_acts, pattern_projection_hold, pattern_window |
 
 The standing load, the decay toward each person's floor, the relaxation of felt contact, symptom accumulation, investment, the reactive detectors and outside-ness run every week for everyone and are not listed line by line. Effects are shown beside the event that caused them.
 

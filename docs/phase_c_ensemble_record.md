@@ -5,7 +5,7 @@ seeds (`M3.D.4a`), stopped adaptively (`M17.A.1`, `M13.4`): `UNDETERMINED` at th
 pass. Every verdict carries its class (`M11.5`). **A premise passing confirms that the code renders the
 spec; it is not a finding about families.** The constants are the Phase C freeze of 2026-10-07.
 
-code_hash: d986506c5f52153747eee3c840248072c55d53eb5fc7930a643c2f88044e6bac
+code_hash: 52feb0abfaac268c9a9f8217ced88e93666947e2373aeee7b1c92eca7b4953ba
 
 Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25, `ensemble_margin` = 0.1, `ensemble_alpha` = 0.05, `fallback_flag_rate` = 0.2, `equivalence_margin` = 0.5.
 

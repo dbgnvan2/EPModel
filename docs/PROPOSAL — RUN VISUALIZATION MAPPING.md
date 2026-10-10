@@ -1,116 +1,132 @@
 # Proposal — drawing a run as a fam-diag diagram
 
-> **Status: draft for owner approval, 2026-10-10.** Nothing is built. This sets how one run's
-> activity becomes fam-diag symbols. Every threshold below is invented (`[I]`); none comes from the
-> corpus.
+> **Status: revision 2, draft for owner approval, 2026-10-10.** Nothing is built. Revision 1 drafted act-count
+> rules for each line; the owner corrected them the same day (§1). Every threshold below is invented (`[I]`).
 
-## 1. What this is for, and what it must not do
+## 1. Owner corrections to revision 1 (2026-10-10)
 
-- **Purpose.** To show one run as a family diagram you can step through, so that your review
-  (plan §9; the Run Review Log) is done against a picture rather than only `docs/review/phase_c_trace_seed7.md`.
-- **It is a readout, not a criterion.** Nothing in it passes or fails. It changes nothing the engine computes.
-  The exporter goes in `tools/` (outside the engine hash), and the mapping table goes in config (§6).
-- **It must not draw a pattern the run did not produce.** Every line, event and triangle in the file
-  must trace back to records or state from that run. The tests in §7 check this.
-- **It is not a real family** (`M11.F.9`). The people are the invented Phase C family, and the dates are
-  synthetic (§3). The diagram carries a page note saying so.
+- **Two kinds of line.** *Relationship lines* show structure: partners, parent and child. They are always drawn.
+  *Emotional pattern lines* show a **repeating** pattern of activity: **3 or more times in a month** (4 weeks). A single act is
+  an event, not a line.
+- **A pattern line ends when behaviour shows the pattern has ended**, not just when acts stop. For example, sustained
+  interaction ends a cutoff.
+- **Cutoff is not the absence of interaction.** Absence is distance. Cutoff is the **intensity of rejecting
+  interaction**: A refuses to interact with B.
+- **Pursuit is fusion, projection, or over/underfunctioning:** going along to stay in agreement with the other.
+  It is not a separate line.
+- **Projection must be in the model.** It is an important emotional pattern and part of the triangling process.
+- **The family:** grandparents (4), parents (2), children (3), the parents' siblings (2), the coach (1). See §6.
+- **Block size of 4 weeks: approved.**
 
-## 2. Which run
+## 2. What this is for, and what it must not do
 
-- `M11.C.1`'s baseline arm, seed 7, 104 weeks. This is the same run as `docs/review/phase_c_trace_seed7.md`,
-  so anything in the picture can be checked against the trace text.
-- The seed and the arm are options on the exporter, so later runs can be drawn the same way.
+- To show one run as a family diagram you can step through, for the plan §9 review and the Run Review Log.
+- It is a readout. Nothing in it passes or fails, and it changes nothing the engine computes.
+- It must not draw a pattern the run did not produce. Every line must trace back to that run (§8).
+- It is not a real family (`M11.F.9`). The years are synthetic (1001–1026), and a page note says so.
 
-## 3. Time
+## 3. One definition of each pattern, not two
 
-- **One fam-diag "year" is one block of 4 weeks.** 104 weeks become 26 steps on the slider, played back
-  one step per second.
-- **The years are synthetic.** Block 1 is year 1001, block 26 is year 1026, so that no date looks like a real one.
-  Each event's date is the first day of its block's year. If fam-diag cannot parse years before 1900, the fallback is 2001–2026,
-  with the page note.
-- **The run is read in state at each block's end, not rebuilt from the log.** The log carries changes,
-  not levels. So the exporter runs the simulation itself, as `tools/phase_c_trace.py` does, and takes a
-  copy of the tie, triangle and person state after weeks 4, 8, … 104. Act counts come from the log's emitted
-  events for the same block.
+The model already declares pattern readouts: `docs/readouts_phase_c.md`, code `src/bowen/readouts/patterns.py`.
+They were written for criteria, and are still awaiting your plan §9 review. Revision 1 invented separate rules for the
+picture, which would have given "conflict" two meanings. **Revision 2 proposes changing the declared
+readouts to your definitions, and the picture uses them.** Your corrections are therefore also the §9 review of
+`readouts_phase_c.md`.
 
-## 4. The mapping
+- No criterion reads these readouts today (checked: `src/bowen/ensemble/criteria.py` imports none of them). So
+  changing them moves no criterion result.
+- Cost: the readouts and their constants are inside the engine hash, so the change triggers the full record
+  regeneration (about 1 hour). Recommended: batch it with the next engine change, as `CLAUDE.md` asks.
 
-"In the block" means the 4 weeks of that step. A *tie* is a pair from the family file.
+## 4. The patterns, as proposed
 
-| # | fam-diag symbol | Drawn when | Strength (`lineStyle` level 1–5) | Model source |
+"Repeating" = **3 or more acts in 4 weeks** (owner). Counts are of acts between the two people in either direction unless
+stated. Each pattern has a start rule and an **end rule based on behaviour**. The end rules are my proposals.
+
+| Pattern | fam-diag symbol | Starts when, in 4 weeks | Ends when, in 4 weeks | Change from the declared readout |
 |---|---|---|---|---|
-| M1 | **Conflict** line | at least 2 CONFLICT acts between the pair in the block, either direction | by count: 2, 3–4, 5–6, 7–9, 10+ | emitted `CONFLICT` events (sender → target) |
-| M2 | **Distance** line | at least 2 DISTANCE acts between the pair in the block, **or** the tie's state is `distant` at block end | by count, as M1; level 3 if drawn only from tie state | emitted `DISTANCE`; `Relationship.tie_state` |
-| M3 | **Cutoff** line | the tie is non-interactive (`interactive = no`) at the end of at least 3 of the block's 4 weeks | single style (fam-diag has one) | `Relationship.interactive`; `CUTOFF` / `REDUCE_CUTOFF` shown as events (M8) |
-| M4 | **Over/underfunctioning**: fusion line with the over side marked (`adequatePersonId`) | the tie's functioning balance is at least 0.2 from even at block end | by size of the balance: 0.2, 0.4, 0.6, 0.8, 0.9+ | `Relationship.functioning_balance["joint"]` ∈ [−1, 1]; its sign gives the over side |
-| M5 | **Triangle** | the triangle is active at the end of at least 2 of the block's weeks | low / medium / high by the number of TRIANGLE acts in it in the block: 0, 1–2, 3+ | `Triangle.active`, `inside_pair`, `outside`; emitted `TRIANGLE` |
-| M6 | **Open connection** line | at least 2 STAY-IN-CONTACT acts between the pair in the block and nothing from M1–M4 on that tie | by count, as M1 | emitted `STAY-IN-CONTACT` |
-| M7 | Not drawn: **projection** | — | — | §5, decision D4 |
+| **Conflict** | conflict line | ≥ 3 CONFLICT acts on the tie, **both** members contributing | ≥ 3 calm approaches (STAY-IN-CONTACT) on the tie and no CONFLICT | was ≥ 2 from each member in 8 weeks |
+| **Distance** | distance line | ≥ 3 DISTANCE acts, more than the approaches | approaches outnumber withdrawals | was 8 weeks; "both below their contact optimum" kept |
+| **Over/underfunctioning** (fusion with the over side marked) | fusion line, `adequatePersonId` = over side | ≥ 3 acts in which one member takes charge (OVERFUNCTION) or the other gives way (UNDERFUNCTION) or goes along (PURSUE, §5), all in the same direction | ≥ 3 of these acts in the reverse direction, or the hardened habit leaves its pole | adds PURSUE; was "habit at pole plus one act in 8 weeks" |
+| **Fusion** (no over side) | fusion line | ≥ 3 PURSUE / going-along acts **both ways** between the two | either member's DISTANCE or I-POSITION reaches ≥ 3 | new |
+| **Projection** | projection line, parent → child | ≥ 3 acts from a parent focused on a child: OVERFUNCTION or PURSUE toward the child, or TRIANGLE that recruits the child | the parent's child-focused acts fall below 3 while the child's functioning holds | new; §5 |
+| **Cutoff** | cutoff line, from the one refusing | ≥ 3 refusals by A: A sends CUTOFF to B within a week of an approach from B (the model's "withheld" acts are acts A held back, not refusals, so they do not count) | **sustained interaction**: contact acts on the tie in each of the 4 weeks with no refusal | was "tie non-interactive for 8 weeks". That is absence, which you say is distance; see §5 |
+| **Fixed triangle** | triangle | the same outsider across ≥ 3 activations in a row (unchanged) | a different outsider, or the triangle stays inactive for 4 weeks | end rule added |
 
-**Events, on the line or person they belong to** (fam-diag's dated events; one per act, with week and
-direction in the event's notes):
+**Events** (single acts, dated, on the line or person): every act above, plus I-POSITION, DETRIANGLE, SYMPTOM_ONSET
+(the person), JOB_LOSS and other exogenous events (NODAL), and Dr Halim's sessions.
+"Open connection" from revision 1 is dropped as a line, because it is not a pattern. STAY-IN-CONTACT shows as an event.
 
-| # | Event | Where it goes | fam-diag type / category |
+## 5. Questions about the model these corrections raise
+
+These are about the engine and the spec, not about the picture.
+
+- **Q1 — CUTOFF in the engine is "end contact".** A delivered `CUTOFF` makes the tie non-interactive and cut off
+  (`src/bowen/engine/event_effects.py:120`, spec `M1.B.3`, explainer table: "End contact"). `REDUCE_CUTOFF` restores it.
+  In the seed-7 run that happens 62 and 70 times, so ties are severed and restored about every other week.
+  - On your definition, the act of severing is a refusal, so it fits. But the **state** the engine leaves behind (no
+    interaction) is what you call distance.
+  - The readout in §4 follows your definition and does not read the state.
+  - **Whether the engine should change** (for example, a cutoff that keeps the tie interactive but makes the cutter
+    reject what arrives) is a spec decision. It would go to `docs/DECISIONS — …` as its own item.
+- **Q2 — projection is specified but not built.** The spec has it as Phase D work:
+  - the child-projection sink (`M1.D.1`), which `src/bowen/engine/sinks.py` already counts from OVERFUNCTION, PURSUE and
+    TRIANGLE from a spouse to a child;
+  - cross-person reinforcement (`M4.D.6e`);
+  - `M11.C.2` (symptoms concentrate on the projection target) and `M2.A.2` (Nadia becomes the target as an
+    outcome, not by assignment).
+
+  The §4 readout uses the same act set as the sink, so the picture and the sink agree.
+  It can show only what the current engine does; the engine does not yet *learn* projection (`M4.D.6e`).
+  Building projection is the first Phase D item, not part of this exporter.
+- **Q3 — pursuit.** Today PURSUE is one of the seven core acts (`M5.A.1a`). On your reading, the act stays and its
+  **pattern** is fusion, over/underfunctioning, or projection depending on who pursues whom; §4 does that.
+  No engine change is needed unless you want PURSUE to stop being its own act.
+
+## 6. The family: the spec and your description differ
+
+Spec `M2.A` declares eleven family members plus Dr Halim. The Phase C runs simulate only eight of them (`config/bowen/family_phase_c.md`).
+
+| Generation | Spec `M2.A` | In the Phase C run | Your description |
 |---|---|---|---|
-| M8 | CUTOFF, REDUCE_CUTOFF | the tie's line | EPE / Cutoff |
-| M9 | OVERFUNCTION, UNDERFUNCTION | the tie's line | EPE / +/- Adequate |
-| M10 | PURSUE | the tie's line | EPE / Distance, subtype "pursue" (decision D3) |
-| M11 | TRIANGLE (seeker → third, about the partner) | the triangle | TRIANGLE / Primary |
-| M12 | I-POSITION, DETRIANGLE | the person | EPE, subtype as the act |
-| M13 | SYMPTOM_ONSET | the person | SYMPTOM, with the channel |
-| M14 | JOB_LOSS and other exogenous events | the person | NODAL |
-| M15 | Dr Halim's sessions | his ties | EPE, subtype "session" |
+| 1 | Teodor (Ana's husband), Ana, Sofia (Ravi's mother; no husband listed), Bruno (Ana's brother) | Ana, Sofia, Bruno | 4 grandparents |
+| 2 | Ravi ("eldest of 3", siblings not listed), Marta, Iris (Marta's sister) | Ravi, Marta | 2 parents + 2 siblings |
+| 3 | Leo (launched), Nadia, Pia, Toma (Iris's son) | Nadia, Pia | 3 children |
+| — | Dr Halim | Dr Halim | coach |
 
-**When a tie qualifies for more than one line in a block**, all of them are drawn as separate lines.
-For example, the same pair can have conflict and over/underfunctioning lines at once. That is what the run did, and
-choosing one would hide the other.
+- Your count reads as four grandparents. That would be Teodor, Ana, Sofia and Sofia's husband, the last of whom is not in the spec.
+  It also reads as one sibling for each parent: Iris for Marta, and one of Ravi's two unlisted siblings.
+- The spec has Bruno (a great-uncle, cut off) and Toma (a cousin) in place of those.
+- **Which is right is a spec question**, decision D5 below. Until the four Phase D members run, the diagram would draw
+  them greyed, labelled "not simulated in this run", with relationship lines only.
 
-**People and layout.** Laid out by generation from the family file: Ana, Sofia, Bruno on top; Ravi and
-Marta's partnership in the middle; Nadia and Pia below; Dr Halim set apart to the side, joined only by his
-two lines. Positions are fixed for the whole run (option 1).
+## 7. Decisions for you
 
-## 5. Decisions for you
+- **D1 — make §4 the declared readouts** (one definition, batched regeneration). Recommended: yes.
+- **D2 — the end rules in §4.** These are mine; you set the start rule. Approve or correct each one.
+- **D3 — CUTOFF in the engine (Q1).** Draw cutoff by your definition now, and open a decision item on the engine.
+  Recommended: yes.
+- **D4 — projection.** Draw it now from the readout in §4, and keep building it into the model as the first Phase D item.
+  Recommended: yes.
+- **D5 — the family.** Correct the spec's `M2.A` to your description, or confirm the spec. Either way, the picture
+  greys whoever is not simulated.
 
-- **D1 — threshold of 2 acts per block for a line (M1, M2, M6).** One act draws nothing; it shows only as an event.
-  Recommended: 2. The concern is that 1 makes every tie look active, and 3 hides short episodes.
-- **D2 — line persistence.** fam-diag hides a line only before its start date. An ended line stays drawn
-  (labelled "ended"). Under option 1, a conflict episode in block 5 stays on screen through block 26.
-  - **(a)** Accept it for option 1. Each episode is a separate line with start and end dates, and the slider shows patterns building up.
-  - **(b)** Change fam-diag so that a line is also hidden after its end date: one function, `isVisibleAtCutoff`.
-    That is a small change to your app, and it falls under fam-diag's UI regression rules.
+## 8. How it is checked
 
-  Recommended: (b). Without it the picture shows only accumulation, not change.
-- **D3 — PURSUE.** fam-diag has no pursuit symbol. Recommended: an event on the tie's line (M10), not a line type.
-  Alternative: a distance line with an arrow ending (`lineEnding`) pointing at the one pursued.
-- **D4 — projection.** The model has no projection act. The nearest readouts are a parent's
-  `investment` in a child, and a person's `inside_other_problem` urge. Neither is projection as Bowen
-  describes it. Recommended: leave it undrawn rather than draw a symbol the model does not produce.
-- **D5 — the parents and spouses the model does not include.** Ana and Bruno are siblings with no parents in
-  the file, and Ana's and Sofia's spouses are absent. fam-diag draws a child from a partnership.
-  - Recommended: a greyed placeholder partner labelled "not in model", only where a child line needs one.
-  - Alternative: no child lines for the grandparents' generation.
-- **D6 — block size.** Recommended: 4 weeks, which gives 26 steps. Two weeks gives 52 steps but more flicker. Under option 2 this goes away
-  (week by week).
+- **Trace-back test.** For every pattern line in the output, the start condition holds in that block. Every ended line has its
+  end condition in the block where it ends.
+- **Adversarial tests:**
+  - CONFLICT removed from every repertoire produces no conflict lines.
+  - A tie that is non-interactive with no refusals produces **no** cutoff line. This is your correction, as a test.
+  - Two CONFLICT acts in a block produce an event and no line.
+- **Format test.** The keys fam-diag's import needs are present, every referenced id exists, and every date parses.
+- **Not automated:** fam-diag drawing it correctly. I open it in fam-diag and compare the first, middle and last block with
+  `docs/review/phase_c_trace_seed7.md`, then report what I saw.
 
-## 6. Where the mapping lives
+## 9. Effort
 
-The table in §4 (thresholds, bands, which act goes to which symbol) goes in `config/bowen/viz_famdiag.md`.
-It is editorial content, so it stays out of the tool's code. Changing a threshold is a config edit followed by a
-re-export, which reruns one 104-week run and nothing else.
-
-## 7. How it is checked
-
-- **Trace-back test.** For every line in the output, the stated condition holds in that block's state or log
-  (for example, ≥ 2 CONFLICT acts between that pair). Run on the seed-7 run.
-- **Adversarial test.** A run with CONFLICT removed from every repertoire produces no conflict lines. A tie
-  held interactive produces no cutoff line.
-- **Format test.** The output has the keys fam-diag's import check needs (`people`, `partnerships`,
-  `emotionalLines`), every id it references exists, and every date parses.
-- **Not automated:** whether fam-diag opens and draws it correctly. I open it in fam-diag
-  (`npm run dev`) and check the first, middle and last block against the trace, then report what I saw.
-
-## 8. Effort
-
-- Option 1 (exporter only, D2a): about a day, including the tests and config.
-- D2b adds a small fam-diag change and its test.
-- Week-by-week playback and moving positions (option 2) remain a separate decision after you have seen option 1.
+- Exporter, config and tests: about a day.
+- fam-diag hiding a line after its end date: a small change to your app, under its UI regression rules. It is needed
+  now, because pattern lines end.
+- The readout change rides the next engine regeneration (about 1 hour, batched).
+- Projection in the model and the CUTOFF engine question are Phase D and decision items, sized separately.

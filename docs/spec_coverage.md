@@ -152,7 +152,7 @@ mutant has turned each entry red in `docs/phase_c_mutation_record.md`; the D9 sw
 | M2.A.0d | not done | — | Phase D — the twelve-person reference family |
 | M2.A.0g | not done | — | Phase D — the twelve-person reference family |
 | M2.A.0h | done | `tests/bowen/test_objects.py::test_m1a20_identifiers_are_declared_not_counted`<br>`tests/bowen/test_family.py::test_m21_family_declared_in_markdown` | — |
-| M2.A.0i | done | `tests/bowen/test_family.py::test_m1a21_sex_must_be_declared`<br>`tests/bowen/test_family.py::test_m2a_values_match_the_spec_table` | Leo and Dr Halim still to declare before Phase D |
+| M2.A.0i | done | `tests/bowen/test_family.py::test_m1a21_sex_must_be_declared`<br>`tests/bowen/test_family.py::test_m2a_values_match_the_spec_table`<br>`tests/bowen/test_family.py::test_m2a0i_leo_declared_male` | Leo and Dr Halim still to declare before Phase D |
 | M2.A.1 | not done | — | Phase D — the twelve-person reference family |
 | M2.A.2 | not done | — | Phase D — the twelve-person reference family |
 | M2.B.1 | done | `tests/bowen/test_family.py::test_m2b1_only_declared_ties_are_instantiated` | — |
@@ -227,7 +227,7 @@ mutant has turned each entry red in `docs/phase_c_mutation_record.md`; the D9 sw
 | M4.G.2a | done | `tests/bowen/test_mechanisms.py::test_m4g2a_m6i6_is_asserted_once_restated` | — |
 | M4.G.3 | done | `tests/bowen/test_learner.py::test_m4g3_repeated_relief_habituates`<br>`tests/bowen/test_learner.py::test_m4g3_repetitions_count_identical_recent_acts` | — |
 | M5.A.1 | partial | `tests/bowen/test_events.py::test_m5a1_configured_moves_are_exactly_the_spec_repertoire` | the configured repertoire is exactly M5.A.1 and M5.B; moves carry no behaviour until the Phase C policy |
-| M5.A.1a | partial | `tests/bowen/test_patterns.py::test_m5a1a_an_undeclared_pattern_is_refused`<br>`tests/bowen/test_patterns.py::test_m5a1a_conflict_needs_both_sides`<br>`tests/bowen/test_patterns.py::test_m5a1a_cutoff_needs_a_severed_tie_held_for_the_window`<br>`tests/bowen/test_patterns.py::test_m5a1a_distance_needs_withdrawal_and_too_little_contact`<br>`tests/bowen/test_patterns.py::test_m5a1a_fixed_triangle_is_the_same_outsider_across_activations`<br>`tests/bowen/test_patterns.py::test_m5a1a_over_underfunctioning_needs_a_hardened_pole_and_matching_acts`<br>`tests/bowen/test_patterns.py::test_m5a1a_readouts_doc_and_code_agree` | each move is one act; five pattern readouts are declared in docs/readouts_phase_c.md and refused if undeclared (step 11); projection is Phase D; the definitions await the owner's review (plan §9) |
+| M5.A.1a | partial | `tests/bowen/test_patterns.py::test_m5a1a_an_undeclared_pattern_is_refused`<br>`tests/bowen/test_patterns.py::test_m5a1a_conflict_needs_three_acts_in_four_weeks`<br>`tests/bowen/test_patterns.py::test_m5a1a_continuing_pattern_keeps_its_start`<br>`tests/bowen/test_patterns.py::test_m5a1a_cutoff_needs_refusals_of_approaches`<br>`tests/bowen/test_patterns.py::test_m5a1a_distance_level_rises_with_weeks_without_interaction`<br>`tests/bowen/test_patterns.py::test_m5a1a_distance_needs_withdrawal_and_too_little_contact`<br>`tests/bowen/test_patterns.py::test_m5a1a_fixed_triangle_is_the_same_outsider_across_activations`<br>`tests/bowen/test_patterns.py::test_m5a1a_no_interaction_reads_distance_not_cutoff`<br>`tests/bowen/test_patterns.py::test_m5a1a_over_underfunctioning_needs_three_acts_one_way`<br>`tests/bowen/test_patterns.py::test_m5a1a_pattern_holds_until_a_new_one_emerges`<br>`tests/bowen/test_patterns.py::test_m5a1a_projection_reads_parent_to_child_acts`<br>`tests/bowen/test_patterns.py::test_m5a1a_pursuit_reads_as_fusion_over_under_or_projection`<br>`tests/bowen/test_patterns.py::test_m5a1a_quiet_block_keeps_the_current_pattern`<br>`tests/bowen/test_patterns.py::test_m5a1a_readouts_doc_and_code_agree`<br>`tests/bowen/test_patterns.py::test_m5a1a_silence_does_not_replace_a_cutoff`<br>`tests/bowen/test_patterns.py::test_m5a1a_tie_break_is_more_acts_then_earlier_start`<br>`tests/bowen/test_patterns.py::test_m5a1a_window_and_threshold_are_the_owners` | each move is one act; five pattern readouts are declared in docs/readouts_phase_c.md and refused if undeclared (step 11); projection is Phase D; the definitions await the owner's review (plan §9) |
 | M5.A.2 | not done | — | Phase C |
 | M5.B.1 | done | `tests/bowen/test_moves.py::test_m5b1_detriangle_returns_the_third_to_neutral_with_knowledge_intact` | — |
 | M5.B.2 | done | `tests/bowen/test_moves.py::test_m5b2_prevent_alignment_acts_before_any_alignment_forms` | acts before any alignment exists (step 5) and is legal toward anyone a closed triad holds, whether or not a triangle is active (step 7 change to the policy) |
@@ -554,7 +554,7 @@ mutant has turned each entry red in `docs/phase_c_mutation_record.md`; the D9 sw
 | M17.G.2 | not done | — | Phase E |
 | M17.G.3 | not done | — | Phase E |
 
-## Tests named for no spec ID (76)
+## Tests named for no spec ID (78)
 
 Their names embed no requirement ID, so they count only where an override cites them (marked *cited*). The rest check spec documents, tooling or helpers.
 
@@ -573,6 +573,8 @@ Their names embed no requirement ID, so they count only where an override cites 
 - `tests/bowen/test_ensemble_record.py::test_d9_sweep_renders_a_row_without_readouts`
 - `tests/bowen/test_ensemble_record.py::test_sweep_tool_shares_the_loaded_mutation_tool`
 - `tests/bowen/test_family.py::test_m2_family_declaration_must_be_graded_invented`
+- `tests/bowen/test_family.py::test_m2a_phase_d_family_matches_spec_table`
+- `tests/bowen/test_family.py::test_m2a_ravi_sibling_starts_cut_off`
 - `tests/bowen/test_family.py::test_m2a_values_match_the_spec_table` — *cited*
 - `tests/bowen/test_phase_b_gate.py::test_m13_phase_b_scripted_40_week_trace_runs`
 - `tests/bowen/test_phase_c_criteria.py::test_s_absence_and_hold_in_the_same_week_both_apply`

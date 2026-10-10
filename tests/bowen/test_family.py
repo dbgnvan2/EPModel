@@ -14,7 +14,7 @@ from pathlib import Path
 import pytest
 
 from src.bowen.engine.identifiers import PersonId, TieId
-from src.bowen.engine.objects import Sex, TieState
+from src.bowen.engine.objects import Role, Sex, TieState
 from src.bowen.io.load import CONFIG_DIR, load_constants, load_family
 from src.bowen.scenario.config_parse import ConfigError
 from src.bowen.scenario.family import build_family
@@ -61,15 +61,25 @@ def test_m23a_instance_matches_the_spec():
     assert len(expected_ties) == 8 and set(instance.ties) == expected_ties
 
 
-def test_m2a_values_match_the_spec_table():
-    """Every value M2.A states for these seven people is the value the config declares."""
+# Bruno left M2.A at revision 13 (owner decision D5, 2026-10-10); the closed phases' instances keep him.
+LEFT_M2A_AT_REVISION_13 = {"bruno"}
+
+
+def spec_rows():
     rows = {}
     for line in SPEC.splitlines():
-        m = re.match(r"^\| \d+ \| (\w+) \| (\d) \| (\d+) \| (\w+) \| (\d+) \| (\d+) \| ([^|]+) \| \**(yes|no)\** \|", line)
+        m = re.match(r"^\| \d+a? \| (\w+) \| (\d) \| (\d+) \| (\w+) \| (\d+) \| (\d+) \| ([^|]+) \| \**(yes|no)\** \|", line)
         if m:
             rows[m.group(1).lower()] = m.groups()
-    instance = load_family()
+    return rows
+
+
+def assert_matches_spec_table(instance, exempt=frozenset()):
+    rows = spec_rows()
+    assert {p.value for p in instance.people if p.value not in rows} == set(exempt)
     for pid, person in instance.people.items():
+        if pid.value in exempt:
+            continue
         _, gen, age, sex, basic, chronic, _sib, dependent = rows[pid.value]
         assert instance.generations[pid] == int(gen)
         assert instance.ages_years[pid] == int(age)
@@ -77,6 +87,37 @@ def test_m2a_values_match_the_spec_table():
         assert person.basic_level == float(basic)
         assert person.chronic_anxiety == float(chronic)
         assert person.financially_dependent is (dependent == "yes")
+
+
+def test_m2a_values_match_the_spec_table():
+    """Every value M2.A states for the Phase B people is the value the config declares; Bruno is history."""
+    assert_matches_spec_table(load_family(), LEFT_M2A_AT_REVISION_13)
+
+
+PHASE_D = REPO / "config" / "bowen" / "family_phase_d.md"
+
+
+def test_m2a_phase_d_family_matches_spec_table():
+    """Revision 13: the owner's family — 4 grandparents, 2 parents, 2 parents' siblings, 3 children, the coach."""
+    instance = load_family(PHASE_D)
+    halim = {p for p, person in instance.people.items() if person.role is Role.EXTERNAL}
+    assert_matches_spec_table(instance, {p.value for p in halim})
+    by_generation = {g: sorted(p.value for p in instance.people if instance.generations[p] == g and p not in halim)
+                     for g in (1, 2, 3)}
+    assert by_generation == {1: ["ana", "sofia", "teodor", "viktor"], 2: ["dario", "iris", "marta", "ravi"],
+                             3: ["leo", "nadia", "pia"]}
+    assert len(halim) == 1
+
+
+def test_m2a_ravi_sibling_starts_cut_off():
+    instance = load_family(PHASE_D)
+    tie = TieId.of(P("ravi"), P("dario"))
+    assert instance.ties[tie].tie_state is TieState.CUT_OFF and not instance.ties[tie].interactive
+    assert tie in instance.family_of_origin_ties(P("ravi"))
+
+
+def test_m2a0i_leo_declared_male():
+    assert load_family(PHASE_D).people[P("leo")].sex is Sex.MALE
 
 
 def test_m23_reduced_instance_is_not_closed():

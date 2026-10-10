@@ -1,7 +1,7 @@
 ---
 tags: [model-bt, spec]
-version: 2.0, revision 12
-status: APPROVED 2026-10-07 (revision 10 and 11 on 2026-10-06; revision 12, the Phase C prerequisites, on 2026-10-07) — no code until the implementation plan is also approved
+version: 2.0, revision 13
+status: APPROVED 2026-10-07 (revision 10 and 11 on 2026-10-06; revision 12, the Phase C prerequisites, on 2026-10-07; revision 13, the owner's reference family and pattern readouts, decided 2026-10-10) — no code until the implementation plan is also approved
 date: 2026-10-06
 supersedes: bowen_individual_family_model_spec.md (v1.2, frozen)
 ---
@@ -511,18 +511,20 @@ The instance everything is tested against. It is **invented and tunable** — va
 
 | # | Name | Gen | Age | Sex | `basic_level` | `chronic_anxiety` | `sibling_position` | `financially_dependent` | `structural_importance` | Note |
 |---|---|---|---|---|---|---|---|---|---|---|
-| 1 | Teodor | 1 | 81 | male | 34 | 42 | eldest of 2 | no | shadow | Ana's husband |
+| 1 | Teodor | 1 | 81 | male | 36 | 42 | eldest of 2 | no | shadow | Ana's husband; *`basic_level` was 34, 3 from Ana's 37 and outside `M2.A.0e`'s ±1; 36 proposed at revision 13, as Ravi's was corrected — awaiting owner review* ⟦rev13⟧ |
 | 2 | Ana | 1 | 78 | female | 37 | 38 | eldest of 2 | no | **central** | Marta's mother |
-| 3 | Bruno | 1 | 74 | male | 29 | 55 | youngest of 2 | no | peripheral | Ana's brother; **cut off since t0 − 17y** |
+| 3 | Viktor | 1 | 78 | male | 40 | 36 | youngest of 2 | no | shadow | Sofia's husband; Ravi's father ⟦rev13⟧ |
 | 4 | Sofia | 1 | 76 | female | 41 | 35 | only | no | shadow | Ravi's mother; lives 200 miles away |
 | 5 | Ravi | 2 | 52 | male | 39 | 44 | eldest of 3 | no | **head of household** | married to Marta |
 | 6 | Marta | 2 | 50 | female | 40 | 46 | eldest of 2 | no | **head of household** | Ana's daughter |
 | 7 | Iris | 2 | 47 | female | 43 | 33 | youngest of 2 | no | peripheral | Marta's sister; low contact, **resolved** |
-| 8 | Leo | 3 | 22 | not stated | 36 | 48 | eldest of 3 | no | peripheral | launched |
+| 7a | Dario | 2 | 49 | male | 36 | 50 | middle of 3 | no | peripheral | Ravi's brother; **cut off from Ravi since t0 − 10y** ⟦rev13⟧ |
+| 8 | Leo | 3 | 22 | male | 36 | 48 | eldest of 3 | no | peripheral | launched |
 | 9 | Nadia | 3 | 17 | female | 41 | 52 | middle of 3 | **yes** | peripheral | at home; becomes the projection target |
 | 10 | Pia | 3 | 14 | female | 44 | 37 | youngest of 3 | **yes** | peripheral | minimally involved |
-| 11 | Toma | 3 | 20 | male | 39 | 40 | only | **yes** | peripheral | Iris's son |
 | 12 | Dr Halim | — | 55 | not stated | 55 | 30 | — | no | — | `role = EXTERNAL`; counsellor, **not a family member** |
+
+**Revision 13 — the owner's reference family.** The owner's account of the family is: grandparents (4), parents (2), children (3), the parents' siblings (2), and the coach (1). Bruno (Ana's cut-off brother) and Toma (Iris's son) leave the table. Viktor (Sofia's husband, Ravi's father) and Dario (Ravi's brother, cut off from Ravi) join it. Their values are `[I]`, drafted for the owner's review. Ravi stays "eldest of 3"; the third sibling is not in the instance. The Phase B and Phase C instances (`M2.3a`, `config/bowen/family_phase_c.md`) are the closed phases' records and keep Bruno. ⟦rev13 · owner decision 2026-10-10 · D5⟧
 
 **M2.A.0** The instance declares **eleven family members plus one external agent**. "Twelve-person reference family" is loose shorthand: Dr Halim is `role = EXTERNAL` and **MUST NOT** be counted in family membership, in the tie matrix of M2.B.1, or in `positions_live` unless the live-position test of M8 admits him. The nuclear family for M2.3 is **Ravi, Marta, Nadia and Pia** — Leo is launched and is not part of the Phase B spike.
 
@@ -544,9 +546,9 @@ The instance everything is tested against. It is **invented and tunable** — va
 
 **M2.A.0h** The reference family's declaration **MUST** assign each member the fixed identifier `M1.A.20` requires. Display names **MUST NOT** serve as identifiers. → `model_explainer.md` §18 · C2 ⟦rev10 · C2 · Buffalo 2026⟧
 
-**M2.A.0i** — *the `Sex` column.* It carries `M1.A.21`'s field. Where the table's own relationship words fix a member's sex (mother, daughter, sister, brother, husband, son) the column states it; Ravi, Nadia and Pia were declared by the owner on 2026-10-06. **Leo and Dr Halim are not stated** and **MUST** be declared before Phase D, the first phase whose instance includes them. ⟦owner decision 2026-10-06 · Phase B step 5⟧
+**M2.A.0i** — *the `Sex` column.* It carries `M1.A.21`'s field. Where the table's own relationship words fix a member's sex (mother, daughter, sister, brother, husband, son) the column states it; Ravi, Nadia and Pia were declared by the owner on 2026-10-06. **Leo and Dr Halim are not stated** and **MUST** be declared before Phase D, the first phase whose instance includes them. *Leo declared male by the owner, 2026-10-10.* ⟦rev13 · owner decision 2026-10-10 · D5⟧ ⟦owner decision 2026-10-06 · Phase B step 5⟧
 
-**M2.A.1** `Iris` and `Bruno` **MUST** have comparable contact frequency and **MUST** differ in bond energy. This pair is the fixture for M11.C.4 and the direct test of M1.B.3.
+**M2.A.1** `Iris` and `Dario` **MUST** have comparable contact frequency and **MUST** differ in bond energy. This pair is the fixture for M11.C.4 and the direct test of M1.B.3. *Revision 13: Dario replaces Bruno, who left the table; Phase C's `M11.C.4` ran on its own dyad fixture and is unaffected.* ⟦rev13 · owner decision 2026-10-10 · D5⟧
 
 **M2.A.2** `Nadia` **MUST** become the projection target as an **outcome** of accumulated witnessed events, not by assignment at initialisation. → §9.4
 
@@ -554,7 +556,7 @@ The instance everything is tested against. It is **invented and tunable** — va
 
 **M2.B.1** Eleven family members give 55 possible pairs (Dr Halim is external and is not in this matrix — M2.A.0); the instance **MUST** declare only the ties that carry traffic, and **MUST NOT** instantiate the full matrix.
 
-**M2.B.2** The declared set **MUST** include: the Ravi–Marta marriage; both parental ties to each of Leo, Nadia and Pia; Marta–Ana; Ravi–Sofia; Ana–Bruno (cut off); Marta–Iris (resolved, low contact); Ana–Teodor; Iris–Toma; and Dr Halim's tie to whichever member is being coached.
+**M2.B.2** *Amended at revision 13* ⟦rev13 · owner decision 2026-10-10 · D5⟧. The declared set **MUST** include: the Ravi–Marta marriage; both parental ties to each of Leo, Nadia and Pia; Marta–Ana; Ravi–Sofia; Ravi–Viktor; Sofia–Viktor; Ravi–Dario (cut off); Marta–Iris (resolved, low contact); Ana–Teodor; and Dr Halim's tie to whichever member is being coached.
 
 ---
 
@@ -774,7 +776,7 @@ It is also what makes `M1.A.5c`'s pseudo-self sign computable.
 
 **M5.A.1** The core repertoire **MUST** be exactly: `PURSUE`, `DISTANCE`, `CONFLICT`, `OVERFUNCTION`, `UNDERFUNCTION`, `TRIANGLE`, `CUTOFF`, `I-POSITION`, `STAY-IN-CONTACT`. → §5.1
 
-**M5.A.1a** — *each core move is a single act; the pattern of the same name is a readout.* `PURSUE`, `DISTANCE`, `CONFLICT`, `OVERFUNCTION`, `UNDERFUNCTION`, `TRIANGLE` and `CUTOFF` **MUST** each be one act on one tick: one approach, one withdrawal, one critical push, one instance of taking charge, one of giving way, one turn to a third person, one severing. The patterns Bowen named — conflict, over- and underfunctioning, distance, cutoff, projection, a fixed triangle — **MUST** be readouts over a tie's or a triangle's history of reciprocal acts, hardened by `M4.G.1`, and **MUST NOT** be selectable as units. "**Each of the three patterns solves the dilemma**… Each pattern solves it in a different way" (`kerr_book/ks04.md` · KS04.14): the patterns are solutions that substitute for one another, not acts. Each pattern readout's definition is `[I]` and **MUST** be declared before any criterion that reads it is run. → `model_explainer.md` §19 ⟦rev11 · owner decision 2026-10-06 · A3, option (a)⟧
+**M5.A.1a** — *each core move is a single act; the pattern of the same name is a readout.* `PURSUE`, `DISTANCE`, `CONFLICT`, `OVERFUNCTION`, `UNDERFUNCTION`, `TRIANGLE` and `CUTOFF` **MUST** each be one act on one tick: one approach, one withdrawal, one critical push, one instance of taking charge, one of giving way, one turn to a third person, one severing. The patterns Bowen named — conflict, over- and underfunctioning, distance, cutoff, projection, a fixed triangle — **MUST** be readouts over a tie's or a triangle's history of reciprocal acts, hardened by `M4.G.1`, and **MUST NOT** be selectable as units. "**Each of the three patterns solves the dilemma**… Each pattern solves it in a different way" (`kerr_book/ks04.md` · KS04.14): the patterns are solutions that substitute for one another, not acts. Each pattern readout's definition is `[I]` and **MUST** be declared before any criterion that reads it is run. → `model_explainer.md` §19 ⟦rev11 · owner decision 2026-10-06 · A3, option (a)⟧ *Revision 13:* the owner gave the readouts' definitions on 2026-10-10 (`docs/readouts_phase_c.md`). A pattern is a **repeating** pattern of activity, 3 or more acts in 4 weeks, and it ends only when a new pattern emerges. No interaction is an emerging level of distance. Cutoff is rejection, not absence. Pursuit reads as fusion, over/underfunctioning or projection. Projection is declared as a readout now; its learning (`M4.D.6e`) stays Phase D. ⟦rev13 · owner decisions 2026-10-10 · D1, D2, D4⟧
 
 **M5.A.2** No move outside M5.A.1 and M5.B **MAY** be added without a citation in the explainer.
 

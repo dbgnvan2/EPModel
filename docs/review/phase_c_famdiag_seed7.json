@@ -3794,7 +3794,7 @@
    "relationshipType": "cutoff",
    "lineStyle": "cutoff",
    "lineEnding": "none",
-   "notes": "cutoff, blocks 1–26; peak 0 acts in a block (declared cut off at the start).",
+   "notes": "cutoff, blocks 1–26; first read from acts; declared cut off at the start.",
    "notesEnabled": false,
    "events": []
   },
@@ -3807,7 +3807,7 @@
    "relationshipType": "distance",
    "lineStyle": "distance-dashed-wide",
    "lineEnding": "none",
-   "notes": "distance, blocks 1–26; peak 11 weeks without interaction.",
+   "notes": "distance, blocks 1–26; first read from silence; peak 11 weeks without interaction.",
    "notesEnabled": false,
    "events": [
     {
@@ -4315,7 +4315,7 @@
    "relationshipType": "distance",
    "lineStyle": "distance-dotted-wide",
    "lineEnding": "none",
-   "notes": "distance, blocks 2–26; peak 102 weeks without interaction.",
+   "notes": "distance, blocks 2–26; first read from silence; peak 102 weeks without interaction.",
    "notesEnabled": false,
    "events": []
   },
@@ -4328,7 +4328,7 @@
    "relationshipType": "distance",
    "lineStyle": "distance-dotted-wide",
    "lineEnding": "none",
-   "notes": "distance, blocks 2–26; peak 67 weeks without interaction.",
+   "notes": "distance, blocks 2–26; first read from silence; peak 67 weeks without interaction.",
    "notesEnabled": false,
    "events": [
     {
@@ -4779,7 +4779,7 @@
    "relationshipType": "fusion",
    "lineStyle": "fusion-dotted-wide",
    "lineEnding": "none",
-   "notes": "over/underfunctioning, blocks 2–5; peak 3 acts in a block.",
+   "notes": "over/underfunctioning, blocks 2–5; first read from acts; peak 3 acts in a block.",
    "notesEnabled": false,
    "events": [
     {
@@ -5080,7 +5080,7 @@
    "relationshipType": "distance",
    "lineStyle": "distance-dotted-wide",
    "lineEnding": "none",
-   "notes": "distance, blocks 3–26; peak 71 weeks without interaction.",
+   "notes": "distance, blocks 3–26; first read from silence; peak 71 weeks without interaction.",
    "notesEnabled": false,
    "events": [
     {
@@ -5170,7 +5170,7 @@
    "relationshipType": "fusion",
    "lineStyle": "fusion-dotted-wide",
    "lineEnding": "none",
-   "notes": "over/underfunctioning, blocks 3–4; peak 3 acts in a block.",
+   "notes": "over/underfunctioning, blocks 3–4; first read from acts; peak 3 acts in a block.",
    "notesEnabled": false,
    "events": [
     {
@@ -5281,7 +5281,7 @@
    "relationshipType": "distance",
    "lineStyle": "distance-dotted-wide",
    "lineEnding": "none",
-   "notes": "distance, blocks 5–26; peak 90 weeks without interaction.",
+   "notes": "distance, blocks 5–26; first read from silence; peak 90 weeks without interaction.",
    "notesEnabled": false,
    "events": []
   },
@@ -5294,7 +5294,7 @@
    "relationshipType": "fusion",
    "lineStyle": "fusion-dotted-wide",
    "lineEnding": "none",
-   "notes": "over/underfunctioning, blocks 5–5; peak 3 acts in a block.",
+   "notes": "over/underfunctioning, blocks 5–5; first read from acts; peak 3 acts in a block.",
    "notesEnabled": false,
    "events": [
     {
@@ -5443,7 +5443,7 @@
    "relationshipType": "distance",
    "lineStyle": "distance-dotted-tight",
    "lineEnding": "none",
-   "notes": "distance, blocks 6–26; peak 42 weeks without interaction.",
+   "notes": "distance, blocks 6–26; first read from silence; peak 42 weeks without interaction.",
    "notesEnabled": false,
    "events": [
     {
@@ -6597,7 +6597,7 @@
    "relationshipType": "projection",
    "lineStyle": "projection-1",
    "lineEnding": "arrow-p1-to-p2",
-   "notes": "projection, blocks 6–25; peak 3 acts in a block.",
+   "notes": "projection, blocks 6–25; first read from acts; peak 3 acts in a block.",
    "notesEnabled": false,
    "events": [
     {
@@ -8341,7 +8341,7 @@
    "relationshipType": "fusion",
    "lineStyle": "fusion-dotted-wide",
    "lineEnding": "none",
-   "notes": "over/underfunctioning, blocks 9–15; peak 3 acts in a block.",
+   "notes": "over/underfunctioning, blocks 9–15; first read from acts; peak 3 acts in a block.",
    "notesEnabled": false,
    "events": [
     {
@@ -8984,7 +8984,7 @@
    "relationshipType": "fusion",
    "lineStyle": "fusion-dotted-wide",
    "lineEnding": "none",
-   "notes": "over/underfunctioning, blocks 14–26; peak 3 acts in a block.",
+   "notes": "over/underfunctioning, blocks 14–26; first read from acts; peak 3 acts in a block.",
    "notesEnabled": false,
    "events": [
     {
@@ -10880,7 +10880,7 @@
    "relationshipType": "distance",
    "lineStyle": "distance-dotted-tight",
    "lineEnding": "none",
-   "notes": "distance, blocks 16–26; peak 45 weeks without interaction.",
+   "notes": "distance, blocks 16–26; first read from silence; peak 45 weeks without interaction.",
    "notesEnabled": false,
    "events": []
   },
@@ -10893,7 +10893,7 @@
    "relationshipType": "conflict",
    "lineStyle": "conflict-dotted-wide",
    "lineEnding": "none",
-   "notes": "conflict, blocks 26–26; peak 3 acts in a block.",
+   "notes": "conflict, blocks 26–26; first read from acts; peak 3 acts in a block.",
    "notesEnabled": false,
    "events": [
     {

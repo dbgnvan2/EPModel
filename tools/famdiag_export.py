@@ -134,8 +134,12 @@ def simulate(seed: int, mapping: Mapping) -> Run:
         held = current_patterns(held, readings)
         blocks.append(dict(held))
 
+    weeks = criteria.SETTINGS["M11.C.1"]["weeks"]
+    if weeks % mapping.block_weeks:
+        raise SystemExit(f"{weeks} weeks is not a whole number of {mapping.block_weeks}-week blocks: the last "
+                         f"{weeks % mapping.block_weeks} would not be drawn")
     records = trace_records(seed, after_tick)
-    return Run(records=records, held=blocks, weeks=criteria.SETTINGS["M11.C.1"]["weeks"])
+    return Run(records=records, held=blocks, weeks=weeks)
 
 
 def _level(bands: list, value: int) -> int:
@@ -270,9 +274,15 @@ def build_diagram(run: Run, mapping: Mapping, seed: int) -> dict:
                               "notesEnabled": False, "events": [], "tpls": tpls})
             continue
         relationship_type, styles, ending = mapping.patterns[pattern]
-        silent = all(r.silent for r in readings)
-        peak = max(r.count for r in readings)
-        style = styles[min(_level(mapping.levels["silent_weeks" if silent else "acts"], peak), len(styles) - 1)]
+        # One held distance can be read from acts in some blocks and from silence in others (owner D2: the same
+        # pattern). Acts and weeks are different units, so each is banded and reported on its own scale.
+        peaks = {measure: max((r.count for r in readings if r.silent == (measure == "silent_weeks")), default=None)
+                 for measure in ("acts", "silent_weeks")}
+        level = max(_level(mapping.levels[m], p) for m, p in peaks.items() if p is not None)
+        style = styles[min(level, len(styles) - 1)]
+        declared = first == 0 and readings[0].count == 0 and not readings[0].silent
+        described = "; ".join(f"peak {p} {'weeks without interaction' if m == 'silent_weeks' else 'acts in a block'}"
+                              for m, p in peaks.items() if p is not None and not (declared and m == "acts" and p == 0))
         a, b = subject.members()
         toward = readings[0].toward
         if ending == "arrow_from_toward" and toward is not None:
@@ -281,9 +291,10 @@ def build_diagram(run: Run, mapping: Mapping, seed: int) -> dict:
                 "person2_id": pid(b), "startDate": start, "status": "ended" if ended else "ongoing",
                 "relationshipType": relationship_type, "lineStyle": style,
                 "lineEnding": "arrow-p1-to-p2" if ending == "arrow_from_toward" and toward is not None else "none",
-                "notes": (f"{pattern.replace('_', '/')}, blocks {first + 1}–{last + 1}; peak "
-                          f"{peak} {'weeks without interaction' if silent else 'acts in a block'}"
-                          + (" (declared cut off at the start)" if first == 0 and peak == 0 else "") + "."),
+                "notes": (f"{pattern.replace('_', '/')}, blocks {first + 1}–{last + 1}; "
+                          f"first read {'from silence' if readings[0].silent else 'from acts'}"
+                          + ("; declared cut off at the start" if declared else "")
+                          + (f"; {described}" if described else "") + "."),
                 "notesEnabled": False, "events": []}
         if ended:
             line["endDate"] = _end(mapping, last)
@@ -317,15 +328,19 @@ def build_diagram(run: Run, mapping: Mapping, seed: int) -> dict:
                  "observations": f"Week {week + 1}: {kind}"
                                  + (f" by {names[event.sender]}" if event.sender else "")
                                  + (f" to {', '.join(names[t] for t in event.targets)}" if event.targets else "") + "."}
-        line = None  # only an act belongs on a tie's line; a symptom or a stressor belongs to a person
-        if event.mechanism is Mechanism.MOVE and event.sender is not None and len(event.targets) == 1:
-            line = line_at.get((TieId.of(event.sender, event.targets[0]), week // mapping.block_weeks))
+        # Only an act belongs on a tie's line; a symptom or a stressor belongs to a person. An act to several
+        # people counts on each of those ties in the readouts; it is placed once, on the first of them with a line.
+        line = None
+        if event.mechanism is Mechanism.MOVE and event.sender is not None:
+            line = next((found for target in event.targets if target != event.sender
+                         if (found := line_at.get((TieId.of(event.sender, target), week // mapping.block_weeks)))),
+                        None)
         if line is not None:
             line["events"].append({**entry, "anchorType": "EMOTIONAL_PROCESS_EP", "anchorId": line["id"]})
             continue
         anchor = event.sender if event.sender is not None else (event.targets[0] if event.targets else None)
         if anchor is None:
-            continue
+            raise SystemExit(f"event {event.id} has no sender and no target: nowhere to place it")
         person_entry[pid(anchor)]["events"].append({**entry, "anchorType": "PERSON", "anchorId": pid(anchor)})
 
     total = len(run.held) * mapping.block_weeks

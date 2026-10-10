@@ -89,6 +89,7 @@ What is built:
 The runs:
 
 - [ ] [review/phase_c_trace_seed7.md](review/phase_c_trace_seed7.md) — the readable 104-week trace (M16).
+- [ ] [review/phase_c_famdiag_seed7.json](review/phase_c_famdiag_seed7.json) — the same run as a fam-diag diagram; open it in fam-diag (`tools/famdiag_export.py`).
 - [ ] [phase_c_ensemble_record.md](phase_c_ensemble_record.md) — criterion results over seeds.
 - [ ] [phase_c_mutation_record.md](phase_c_mutation_record.md) — each criterion proved failing by mutation.
 - [ ] [phase_c_sweep_record.md](phase_c_sweep_record.md) — parameter sweeps.

@@ -81,6 +81,17 @@ def test_v5_mapping_covers_every_declared_pattern(mapping):
 
 def test_v5_every_line_traces_back_to_its_reading(run, diagram, mapping):
     """Read from the records, not the readouts: each line's first block holds what its pattern needs."""
+    assert_traces_back(run, diagram, mapping)
+
+
+@pytest.mark.parametrize("seed", [1, 3])
+def test_v5_every_line_traces_back_on_other_seeds(seed, mapping):
+    """Seeds 1 and 3 have distance lines read from acts and from silence in turn (review 2026-10-10)."""
+    other = tool.simulate(seed, mapping)
+    assert_traces_back(other, tool.build_diagram(other, mapping, seed), mapping)
+
+
+def assert_traces_back(run, diagram, mapping):
     family = load_family(REPO / "config" / "bowen" / "family_phase_c.md")
     for line in diagram["emotionalLines"]:
         pattern = line["id"].split("-")[1]
@@ -91,22 +102,82 @@ def test_v5_every_line_traces_back_to_its_reading(run, diagram, mapping):
         if pattern == "cutoff" and block == 0 and not acts:
             assert not family.ties[tie].interactive  # declared cut off in the family file
             continue
-        if pattern == "distance" and "without interaction" in line["notes"]:
+        if pattern == "distance" and "first read from silence" in line["notes"]:
             assert acts == [], line["id"]  # silence is distance (owner D2)
             continue
         supporting = [e for e in acts if e.kind in SUPPORTING[pattern]]
         assert len(supporting) >= RP.min_acts, (line["id"], Counter(e.kind for e in acts))
 
 
-def test_v5_no_line_from_a_single_act(run, diagram, mapping):
-    """Adversarial: a tie with fewer than 3 acts in every block, and never silent for a block, draws no line."""
-    drawn = {(l["person1_id"], l["person2_id"]) for l in diagram["emotionalLines"]}
-    drawn |= {(b, a) for a, b in drawn}
-    for tie in load_family(REPO / "config" / "bowen" / "family_phase_c.md").ties:
-        counts = [len(acts_on(run, tie, block, mapping)) for block in range(len(run.held))]
-        if all(0 < n < RP.min_acts for n in counts):
-            a, b = (f"p-{m.value}" for m in tie.members())
-            assert (a, b) not in drawn, tie
+def _blocks_of_conflict(per_block: int, rp, blocks: int = 3):
+    """Ravi and Marta exchange ``per_block`` CONFLICT acts in each of ``blocks`` blocks, read as the exporter reads."""
+    from src.bowen.engine.events import Channel, Event, EventId, SourcePosition
+    from src.bowen.engine.initialise import initialise_run
+    from src.bowen.engine.state import new_run_state
+    from src.bowen.io.load import load_event_kinds
+    from src.bowen.readouts.patterns import current_patterns, tie_readings
+    from src.bowen.scenario.params import engine_params
+
+    params = engine_params(load_constants())
+    fam = load_family()
+    state = initialise_run(new_run_state(dict(fam.people), dict(fam.ties), fam.family, load_event_kinds()), params)
+    ravi, marta = PersonId("ravi"), PersonId("marta")
+    held, out = {}, []
+    for block in range(blocks):
+        for i in range(per_block):
+            sender, target = (ravi, marta) if i % 2 == 0 else (marta, ravi)
+            week = block * rp.window + i
+            state.store.record_event(Event(
+                id=EventId(week, sender.value, i), kind="CONFLICT", mechanism=Mechanism.MOVE, sender=sender,
+                targets=(target,), intensity=50.0, timestamp=week, duration=1, exogenous=False,
+                source_position=SourcePosition.NONE, channel=Channel.SCRIPTED))
+        state.tick = (block + 1) * rp.window - 1
+        held = current_patterns(held, tie_readings(state, TieId.of(ravi, marta), params, rp))
+        out.append(dict(held))
+    return out
+
+
+def test_v5_no_line_from_two_acts_a_block(mapping):
+    """Adversarial: two CONFLICT acts in every block draw no conflict line; three do. The mutant with a threshold
+    of 2 draws one, so the test can fail (review 2026-10-10: the earlier version's precondition never held)."""
+    import dataclasses
+
+    def conflict_lines(held):
+        run = tool.Run(records=_header_only(), held=held, weeks=len(held) * mapping.block_weeks)
+        return [l for l in tool.build_diagram(run, mapping, 0)["emotionalLines"] if l["relationshipType"] == "conflict"]
+
+    assert conflict_lines(_blocks_of_conflict(2, RP)) == []
+    assert len(conflict_lines(_blocks_of_conflict(3, RP))) == 1
+    assert len(conflict_lines(_blocks_of_conflict(2, dataclasses.replace(RP, min_acts=2)))) == 1
+
+
+def test_v5_a_line_read_from_acts_and_silence_reports_both(mapping):
+    """Review 2026-10-10: weeks of silence were banded and labelled as acts. Each is now on its own scale."""
+    tie = TieId.of(PersonId("marta"), PersonId("pia"))
+    held = [{tie: Reading("distance", tie, 3, 0)}] + [
+        {tie: Reading("distance", tie, 4 * k, 0, silent=True)} for k in range(1, 15)]
+    run = tool.Run(records=_header_only(), held=held, weeks=len(held) * mapping.block_weeks)
+    [line] = tool.build_diagram(run, mapping, 0)["emotionalLines"]
+    assert "first read from acts" in line["notes"]
+    assert "peak 3 acts in a block" in line["notes"] and "peak 56 weeks without interaction" in line["notes"]
+    assert line["lineStyle"] == "distance-dotted-tight"  # 56 silent weeks: level 4; 3 acts alone would be level 1
+
+
+def test_v5_simulate_is_a_pure_observer(run, mapping):
+    """The export's weekly reading must not change the run (M16.B's rule, applied to the tool)."""
+    from tools.phase_c_trace import records
+
+    assert run.records == records(7)
+    again = tool.simulate(7, mapping)
+    assert again.held == run.held and again.records == run.records
+
+
+def test_v5_projection_reads_the_sinks_act_set():
+    """patterns.PROJECTION_ACTS is the child-projection sink's act set; they must not drift apart."""
+    from src.bowen.engine import sinks
+    from src.bowen.readouts.patterns import PROJECTION_ACTS
+
+    assert PROJECTION_ACTS == {sinks.OVERFUNCTION, sinks.PURSUE, sinks.TRIANGLE}
 
 
 def test_v5_silent_severed_tie_draws_distance_not_cutoff(mapping):
@@ -128,7 +199,7 @@ def test_v5_episodes_split_where_the_pattern_changes():
         (0, 1, "conflict"), (2, 2, "distance"), (3, 3, "over_underfunctioning"), (4, 4, "over_underfunctioning")]
 
 
-def test_v5_diagram_has_what_famdiag_imports(diagram, mapping):
+def test_v5_diagram_has_what_famdiag_imports(run, diagram, mapping):
     assert all(isinstance(diagram[k], list) for k in ("people", "partnerships", "emotionalLines"))
     people = {p["id"] for p in diagram["people"]}
     unions = {u["id"] for u in diagram["partnerships"]}
@@ -153,7 +224,7 @@ def test_v5_diagram_has_what_famdiag_imports(diagram, mapping):
             assert (tpl.get("startDate"), tpl.get("endDate")) == (tri["startDate"], tri.get("endDate"))
     for p in diagram["people"]:
         years += [dt.date.fromisoformat(e["date"]).year for e in p["events"]]
-    blocks = 104 // mapping.block_weeks
+    blocks = run.weeks // mapping.block_weeks
     assert mapping.first_year <= min(years) and max(years) <= mapping.first_year + blocks
 
 

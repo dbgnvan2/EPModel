@@ -76,7 +76,7 @@ full table.
 - New work goes in a new package `src/bowen/` alongside `engine.py`. The old engine and its tests stay
   green until the new one passes the acceptance tests.
 - Run tests before declaring done: `python3 -m pytest tests/`
-- **A red suite is never normal — all 542 tests pass** (measured 2026-10-09, as collected by the default run; the 19 `ensemble`-marked criterion tests are deselected by `pytest.ini` and run with `python3 -m pytest -m ensemble`). The previously documented flake in
+- **A red suite is never normal — all 544 tests pass** (measured 2026-10-10, as collected by the default run; the 19 `ensemble`-marked criterion tests are deselected by `pytest.ini` and run with `python3 -m pytest -m ensemble`). The previously documented flake in
   `test_spouse_dysfunction_asymmetric_penalty` was fixed on 2026-08-22 (measured 12/12, plus 20 clean
   full-suite runs); `test_triangle_mechanism_attaches_and_releases_circle` had the same latent fault at
   a ~2.7% rate and was fixed with it.
@@ -89,6 +89,21 @@ full table.
   `tests/test_simulator.py`, which seeds the global NumPy RNG and restores the prior state on cleanup so
   later tests keep varying inputs, and select the family by `family_member_counts == 2` rather than by
   `family_ids[0]`.
+
+## Documentation stays current with the build (owner rule, 2026-10-10)
+
+The documents are the contract the owner reviews runs against, so a document that disagrees with the code is a
+defect, not a lag.
+
+- **Same commit.** A change that alters what a run computes (`src/bowen/`, `config/bowen/`, a readout) updates, in
+  the same commit, every document that describes it: the spec (`docs/bowen_agent_model_spec_v2.md`),
+  `docs/model_explainer.md`, `docs/readouts_phase_c.md`, `config/bowen/constants_changes.md`, and any generated
+  record whose numbers it changes. A commit that changes behavior without the matching document change is not done.
+- **Status lines are claims (P6).** When a proposal is built or a decision is propagated, update the status line at
+  the top of that document in the same commit.
+- **The index.** `docs/SPEC_REVIEW_CHECKLIST.md` lists every file under `docs/` and `config/bowen/`. Add, rename or
+  remove a document and update the checklist in the same commit; `tests/test_doc_checklist.py` fails otherwise.
+- **Before reporting work done**, state which documents were updated, or why none needed to be.
 
 ## Generated records and reviews — keep the loop cheap (2026-10-09, learnings P38)
 

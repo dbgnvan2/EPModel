@@ -1,6 +1,6 @@
 ---
 tags: [model-bt, decisions]
-status: APPROVED 2026-08-25 — propagation outstanding
+status: APPROVED 2026-08-25 — propagation complete (theory/_STATUS.md, step 2)
 date: 2026-08-23
 ---
 

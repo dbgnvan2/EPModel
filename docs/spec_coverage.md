@@ -554,7 +554,7 @@ mutant has turned each entry red in `docs/phase_c_mutation_record.md`; the D9 sw
 | M17.G.2 | not done | — | Phase E |
 | M17.G.3 | not done | — | Phase E |
 
-## Tests named for no spec ID (74)
+## Tests named for no spec ID (76)
 
 Their names embed no requirement ID, so they count only where an override cites them (marked *cited*). The rest check spec documents, tooling or helpers.
 
@@ -585,6 +585,8 @@ Their names embed no requirement ID, so they count only where an override cites 
 - `tests/bowen/test_register.py::test_m14a_register_matches_object_fields` — *cited*
 - `tests/bowen/test_script.py::test_m13_script_parses_and_validates`
 - `tests/bowen/test_script.py::test_m13_without_removes_one_kind_only`
+- `tests/test_doc_checklist.py::test_every_checklist_link_exists`
+- `tests/test_doc_checklist.py::test_every_document_is_in_the_checklist`
 - `tests/test_simulator.py::test_birth_candidate_priority_order`
 - `tests/test_simulator.py::test_birth_child_c_is_clamped_to_80`
 - `tests/test_simulator.py::test_birth_replaces_identity_in_reused_slot`

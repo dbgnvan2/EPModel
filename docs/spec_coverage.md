@@ -554,7 +554,7 @@ mutant has turned each entry red in `docs/phase_c_mutation_record.md`; the D9 sw
 | M17.G.2 | not done | — | Phase E |
 | M17.G.3 | not done | — | Phase E |
 
-## Tests named for no spec ID (78)
+## Tests named for no spec ID (94)
 
 Their names embed no requirement ID, so they count only where an override cites them (marked *cited*). The rest check spec documents, tooling or helpers.
 
@@ -572,6 +572,22 @@ Their names embed no requirement ID, so they count only where an override cites 
 - `tests/bowen/test_ensemble_record.py::test_d9_sweep_record_is_current`
 - `tests/bowen/test_ensemble_record.py::test_d9_sweep_renders_a_row_without_readouts`
 - `tests/bowen/test_ensemble_record.py::test_sweep_tool_shares_the_loaded_mutation_tool`
+- `tests/bowen/test_famdiag_export.py::test_v5_a_line_read_from_acts_and_silence_reports_both`
+- `tests/bowen/test_famdiag_export.py::test_v5_diagram_has_what_famdiag_imports`
+- `tests/bowen/test_famdiag_export.py::test_v5_episodes_split_where_the_pattern_changes`
+- `tests/bowen/test_famdiag_export.py::test_v5_events_carry_what_famdiag_requires`
+- `tests/bowen/test_famdiag_export.py::test_v5_every_act_is_an_event_once`
+- `tests/bowen/test_famdiag_export.py::test_v5_every_line_traces_back_on_other_seeds`
+- `tests/bowen/test_famdiag_export.py::test_v5_every_line_traces_back_to_its_reading`
+- `tests/bowen/test_famdiag_export.py::test_v5_export_is_deterministic`
+- `tests/bowen/test_famdiag_export.py::test_v5_greyed_people_are_those_the_run_does_not_simulate`
+- `tests/bowen/test_famdiag_export.py::test_v5_mapping_covers_every_declared_pattern`
+- `tests/bowen/test_famdiag_export.py::test_v5_no_line_from_two_acts_a_block`
+- `tests/bowen/test_famdiag_export.py::test_v5_only_acts_sit_on_pattern_lines`
+- `tests/bowen/test_famdiag_export.py::test_v5_projection_reads_the_sinks_act_set`
+- `tests/bowen/test_famdiag_export.py::test_v5_says_it_is_not_a_real_family`
+- `tests/bowen/test_famdiag_export.py::test_v5_silent_severed_tie_draws_distance_not_cutoff`
+- `tests/bowen/test_famdiag_export.py::test_v5_simulate_is_a_pure_observer`
 - `tests/bowen/test_family.py::test_m2_family_declaration_must_be_graded_invented`
 - `tests/bowen/test_family.py::test_m2a_phase_d_family_matches_spec_table`
 - `tests/bowen/test_family.py::test_m2a_ravi_sibling_starts_cut_off`

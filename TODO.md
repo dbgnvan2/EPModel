@@ -147,9 +147,11 @@ Phase C steps 0–16 are built. **Its gate does not pass** (`docs/phase_c_comple
 - [ ] **The pattern readouts read `state.tick` as "now"**, but after `run_tick` it is the next week's tick. The exporter
   steps it back and restores it (`tools/famdiag_export.py:simulate`). A `now` argument on the readouts would be
   cleaner. It is an engine-hash change, so do it with the next engine change.
-- [ ] **fam-diag branch `timeline-hides-ended-lines`** (commit `4ec320f`, not pushed). Needs fam-diag's
-  learning-qa gate file and the owner's go-ahead to merge. Found there and not fixed: loading drops every
-  triangle's notes and events (`normalizeTriangles`), sent to a separate task.
+- [ ] **fam-diag branch `timeline-hides-ended-lines`** (4 commits, not pushed or merged). The gate was approved on
+  2026-10-10 (`docs/cycles/gate_2026-10-10_timeline-hides-ended-lines.md` in fam-diag).
+  - End-date hiding is opt-in per line (`hideAfterEnd`), so existing diagrams are unchanged.
+  - Triangle notes and events now survive File > Open.
+  - The fam-diag folder is left on `main`. Merging needs the owner's go-ahead.
 - [ ] **What the seed-7 picture shows**, for the owner's review. Most parent–child and marital ties go silent
   for months: Marta–Nadia has no act for up to 102 weeks, Marta–Ravi for 67. No cutoff pattern forms, although there are 62
   CUTOFF acts: no one refuses 3 approaches in 4 weeks. Sofia → Ravi projection holds for 20 blocks.

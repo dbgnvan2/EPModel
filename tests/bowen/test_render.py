@@ -179,4 +179,4 @@ def test_m16c1_phase_c_trace_renders():
     text = tool.trace_text(7)
     assert "| family instance | phase_c |" in text
     assert "no one in it\n> chose anything" not in text and "selected by the policy" in text
-    assert "| 103 |" in text  # all 104 weeks (0-103) reached the trace
+    assert "| 103 |" in text and "| 104 |" not in text  # exactly M11.C.1's 104 weeks (0-103)

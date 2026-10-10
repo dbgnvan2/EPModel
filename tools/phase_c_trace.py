@@ -38,6 +38,7 @@ def records(seed: int) -> list:
     family = load_family(criteria.FAMILIES["phase_c"])
     script = ScriptedSource("phase_c-trace", weeks, tuple(criteria.spell("phase_c", weeks)), ())
     parts = assemble(constants, kinds, family, script, seed=seed)
+    criteria.lowered(criteria.SETTINGS["M11.C.1"]["level_baseline"])(parts.state)  # arm_c1's baseline setup, exactly
     source = PolicySource(script, parts.params, load_policy_rules())
     collector = CollectingEmitter()
     collector.emit(build_header(
@@ -63,6 +64,8 @@ def trace_text(seed: int, view=None) -> str:
     from src.bowen.render.trace import render
 
     names = load_family(criteria.FAMILIES["phase_c"]).display_names
+    if view is not None and view not in names:
+        raise SystemExit(f"--view {view.value!r} is not in the Phase C family: {sorted(p.value for p in names)}")
     text = render(records(seed), names, view=view)
     if PHASE_B_FRAMING not in text:
         raise SystemExit("the renderer's framing changed: update PHASE_B_FRAMING in tools/phase_c_trace.py")

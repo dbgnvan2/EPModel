@@ -22,7 +22,7 @@ from src.bowen.engine.state import new_run_state
 from src.bowen.io.load import load_constants, load_event_kinds, load_family
 from src.bowen.readouts.patterns import (
     PATTERNS, Reading, ReadoutParams, UndeclaredPattern, current_patterns, cutoff, distance, fixed_triangle,
-    over_underfunctioning, read_pattern, tie_readings,
+    last_projection_act, over_underfunctioning, read_pattern, tie_readings,
 )
 from src.bowen.scenario.params import engine_params
 
@@ -200,3 +200,42 @@ def test_m5a1a_silence_does_not_replace_a_cutoff():
 def test_m5a1a_tie_break_is_more_acts_then_earlier_start():
     assert current_patterns({}, [R("conflict", 3), R("distance", 4)])[MARITAL].pattern == "distance"
     assert current_patterns({}, [R("conflict", 3, first=2), R("fusion", 3, first=1)])[MARITAL].pattern == "fusion"
+
+
+def test_m5a1a_lopsided_pursuit_is_over_underfunctioning_not_fusion():
+    """The owner, 2026-10-10: A pursues B five times, B pursues A once — over/underfunctioning, B over."""
+    lopsided = at(fresh(), 2, *[("PURSUE", RAVI, MARTA)] * 5, ("PURSUE", MARTA, RAVI))
+    found = {r.pattern: r for r in tie_readings(lopsided, MARITAL, PARAMS, RP)}
+    assert "fusion" not in found and found["over_underfunctioning"].toward == MARTA
+    balanced = at(fresh(), 2, *[("PURSUE", RAVI, MARTA)] * 2, *[("PURSUE", MARTA, RAVI)] * 2)
+    assert {r.pattern for r in tie_readings(balanced, MARITAL, PARAMS, RP)} == {"fusion"}
+
+
+def test_m5a1a_last_projection_act_counts_single_acts():
+    state = at(fresh(), 5, ("OVERFUNCTION", RAVI, NADIA))
+    assert last_projection_act(state, RAVI_NADIA, RAVI) == 5
+    assert last_projection_act(state, RAVI_NADIA, None) is None
+    assert last_projection_act(at(fresh(), 5, ("OVERFUNCTION", NADIA, RAVI)), RAVI_NADIA, RAVI) is None
+
+
+def test_m5a1a_projection_holds_until_twelve_weeks_without_evidence():
+    """The owner, 2026-10-10: projection stays until 12 turns show it has changed or stopped."""
+    hold = RP.projection_hold
+    assert hold == 12
+    proj = Reading("projection", RAVI_NADIA, 3, 0, toward=RAVI)
+    louder = Reading("conflict", RAVI_NADIA, 5, 8)
+    held = current_patterns({}, [proj])
+    # a louder pattern, 8 weeks after the last projection act: the projection holds
+    kept = current_patterns(held, [louder], now=10, projection_last={RAVI_NADIA: 2}, projection_hold=hold)
+    assert kept[RAVI_NADIA].pattern == "projection"
+    # the same, 12 weeks after the last projection act: the new pattern replaces it
+    changed = current_patterns(held, [louder], now=14, projection_last={RAVI_NADIA: 2}, projection_hold=hold)
+    assert changed[RAVI_NADIA].pattern == "conflict"
+    # 12 weeks without a projection act and nothing new read: the projection has stopped
+    stopped = current_patterns(held, [], now=14, projection_last={RAVI_NADIA: 2}, projection_hold=hold)
+    assert RAVI_NADIA not in stopped
+    # read again inside the hold alongside a louder pattern: it continues
+    again = current_patterns(held, [louder, Reading("projection", RAVI_NADIA, 3, 9, toward=RAVI)], now=10,
+                             projection_last={RAVI_NADIA: 9}, projection_hold=hold)
+    assert again[RAVI_NADIA].pattern == "projection" and again[RAVI_NADIA].first == 0
+

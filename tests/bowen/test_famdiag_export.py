@@ -199,6 +199,15 @@ def test_v5_episodes_split_where_the_pattern_changes():
         (0, 1, "conflict"), (2, 2, "distance"), (3, 3, "over_underfunctioning"), (4, 4, "over_underfunctioning")]
 
 
+def test_v5_a_stopped_pattern_ends_where_it_stopped():
+    """A projection can stop with nothing after it (owner, 2026-10-10); its line ends in its last block, not at the
+    next pattern read on that tie (found when the hold was added)."""
+    tie = TieId.of(PersonId("ravi"), PersonId("sofia"))
+    proj, conf = Reading("projection", tie, 3, 0, toward=PersonId("sofia")), Reading("conflict", tie, 3, 20)
+    eps = tool.episodes([{tie: proj}, {tie: proj}, {}, {}, {tie: conf}])
+    assert [(e[1], e[2], e[3][0].pattern) for e in eps] == [(0, 1, "projection"), (4, 4, "conflict")]
+
+
 def test_v5_diagram_has_what_famdiag_imports(run, diagram, mapping):
     assert all(isinstance(diagram[k], list) for k in ("people", "partnerships", "emotionalLines"))
     people = {p["id"] for p in diagram["people"]}
@@ -214,6 +223,7 @@ def test_v5_diagram_has_what_famdiag_imports(run, diagram, mapping):
         assert line.get("adequatePersonId", line["person1_id"]) in (line["person1_id"], line["person2_id"])
         years += [dt.date.fromisoformat(line[k]).year for k in ("startDate", "endDate") if k in line]
         years += [dt.date.fromisoformat(e["date"]).year for e in line["events"]]
+        assert line["hideAfterEnd"] is True  # fam-diag's opt-in: without it an ended line never hides
         if "endDate" in line:  # fam-diag hides a line after its end year: a successor must not share it
             assert line["endDate"].endswith("-12-31")
     for tri in diagram["triangles"]:

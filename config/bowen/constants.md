@@ -146,6 +146,7 @@ activation_regime: synchronous
 | `pattern_window` | 4 | [I] | fast ticks | `M5.A.1a` |
 | `pattern_min_acts` | 3 | [I] | acts on the tie in the window | `M5.A.1a` |
 | `pattern_fixed_activations` | 3 | [I] | consecutive activations | `M5.A.1a` |
+| `pattern_projection_hold` | 12 | [I] | fast ticks without a projection act | `M5.A.1a` |
 | `ensemble_block` | 50 | [I] | seeds per block | `M17.A.1` |
 | `ensemble_cap` | 500 | [I] | seeds | `M17.A.1` |
 | `ensemble_precision` | 0.25 | [I] | pooled seed-to-seed sd of the two arms | `M17.A.1` |

@@ -1,6 +1,6 @@
 ---
 tags: [model-bt, decisions]
-status: OPEN — for owner decision; raised 2026-10-10 (visualization proposal, D3)
+status: HELD FOR PHASE D — owner decision 2026-10-10 (option C)
 date: 2026-10-10
 ---
 
@@ -47,4 +47,20 @@ alongside Phase D's projection and triangle work, which also reads refusals. Unt
 owner's meaning, and the explainer and spec gain a note that the engine's `CUTOFF` is the act of severing, not the
 pattern.
 
-**Owner decision:** _open_
+**Owner decision (2026-10-10):** hold for Phase D (option C). No engine change now.
+
+## Evidence added 2026-10-10: the long silences are severed ties
+
+The owner, reviewing the seed-7 picture: "most ties go silent for long stretches" is not normal. Measured on that
+run (`M11.C.1` baseline, seed 7):
+- The silences are ties the engine's `CUTOFF` severed, not quiet ties. Each person makes one act a week, chosen
+  among their live ties.
+- Weeks severed out of 104: Marta–Nadia 102, Marta–Pia 90, Dr Halim–Marta 71, Marta–Ravi 67, Nadia–Ravi 55,
+  Pia–Ravi 50, Ana–Marta 23, Ravi–Sofia 22, Dr Halim–Ravi 7. Ana–Bruno is severed all 104, as declared.
+- Marta cut Nadia off in week 1, and neither reopened the tie.
+- Why severed ties stay severed:
+  - a cutoff relieves at once (`M11.C.4`'s finding);
+  - `REDUCE_CUTOFF` carries no pull without systems perspective (the same cause as Bruno's weekly fallback, `TODO.md`).
+- So this belongs with option B: a cutoff that rejects without severing would leave the tie interactive. The
+  Phase D design should also give reconnection a pull, or the silences will move rather than end.
+

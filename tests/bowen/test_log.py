@@ -87,7 +87,7 @@ def test_m16a7_header_flags_constants_changed_after_freeze():
     baseline = {k for k, flag in header().constant_changed_after_freeze if flag}
     # Re-frozen for Phase C at step 14. Changed since, logged in constants_changes.md: the pattern readouts'
     # window and threshold (owner decision D1, 2026-10-10; no criterion reads them). pattern_pole was retired.
-    assert baseline == since_freeze == {"pattern_window", "pattern_min_acts"}
+    assert baseline == since_freeze == {"pattern_window", "pattern_min_acts", "pattern_projection_hold"}
     changed = dataclasses.replace(
         constants,
         values=MappingProxyType({**constants.values,

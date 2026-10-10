@@ -95,6 +95,7 @@ SCHEMA: Mapping[str, KeySpec] = MappingProxyType(
         "pattern_window": KeySpec(int, "[I]", "M5.A.1a"),
         "pattern_min_acts": KeySpec(int, "[I]", "M5.A.1a"),
         "pattern_fixed_activations": KeySpec(int, "[I]", "M5.A.1a"),
+        "pattern_projection_hold": KeySpec(int, "[I]", "M5.A.1a"),
         "sink_window": KeySpec(int, "[I]", "M1.D.1"),
         "sink_rate": KeySpec(float, "[I]", "M1.D.1"),
         "exchange_budget_reduction": KeySpec(float, "[I]", "M6.I.1"),

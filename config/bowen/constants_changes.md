@@ -108,3 +108,4 @@
 | `pattern_window` | 8 | 4 | 2026-10-10 | — (owner decision D1, 2026-10-10, `docs/PROPOSAL — RUN VISUALIZATION MAPPING.md`: the owner's pattern definitions; no criterion reads the pattern readouts) | no |
 | `pattern_min_acts` | 2 | 3 (unit changed: acts on the tie, was acts per member) | 2026-10-10 | — (owner decision D1, 2026-10-10, `docs/PROPOSAL — RUN VISUALIZATION MAPPING.md`: the owner's pattern definitions; no criterion reads the pattern readouts) | no |
 | `pattern_pole` | 0.5 | retired | 2026-10-10 | — (owner decision D1, 2026-10-10, `docs/PROPOSAL — RUN VISUALIZATION MAPPING.md`: the owner's pattern definitions; no criterion reads the pattern readouts) | no |
+| `pattern_projection_hold` | — | 12 | 2026-10-10 | — (owner, 2026-10-10: projection holds until 12 turns without evidence; no criterion reads the pattern readouts) | no |

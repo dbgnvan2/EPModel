@@ -45,10 +45,12 @@ class ReadoutParams:
     window: int
     min_acts: int
     fixed_activations: int
+    projection_hold: int = 0
 
     @classmethod
     def from_constants(cls, constants) -> "ReadoutParams":
-        return cls(constants["pattern_window"], constants["pattern_min_acts"], constants["pattern_fixed_activations"])
+        return cls(constants["pattern_window"], constants["pattern_min_acts"], constants["pattern_fixed_activations"],
+                   constants["pattern_projection_hold"])
 
 
 @dataclass(frozen=True)
@@ -149,6 +151,17 @@ def fusion(state: RunState, tie: TieId, rp: ReadoutParams, parent: PersonId | No
     return Reading("fusion", tie, len(hits), _first(hits))
 
 
+def last_projection_act(state: RunState, tie: TieId, parent: PersonId | None) -> int | None:
+    """The week of the parent's latest projection act toward the child, of any count; None if never. Every such act
+    is evidence the projection continues (the owner, 2026-10-10)."""
+    if parent is None:
+        return None
+    child = tie.other(parent)
+    return max((e.timestamp for e in state.store.events()
+                if e.mechanism is Mechanism.MOVE and e.sender == parent and child in e.targets
+                and e.kind in PROJECTION_ACTS and e.timestamp <= state.tick), default=None)
+
+
 def projection(state: RunState, tie: TieId, rp: ReadoutParams, parent: PersonId | None) -> Reading | None:
     """At least ``min_acts`` acts in W from a parent focused on the child: OVERFUNCTION or PURSUE toward the
     child, or a TRIANGLE that recruits the child. The act set is the child-projection sink's."""
@@ -212,8 +225,12 @@ def tie_readings(state: RunState, tie: TieId, params: EngineParams, rp: ReadoutP
     Tests:   tests/bowen/test_patterns.py::test_m5a1a_pursuit_reads_as_fusion_over_under_or_projection
     ``parent`` is the tie's parent when it is a parent–child tie, else None.
     """
-    found = (conflict(state, tie, rp), distance(state, tie, params, rp), over_underfunctioning(state, tie, rp, parent),
-             fusion(state, tie, rp, parent), projection(state, tie, rp, parent), cutoff(state, tie, rp))
+    over_under = over_underfunctioning(state, tie, rp, parent)
+    # Lopsided pursuit is over/underfunctioning, not fusion (the owner, 2026-10-10): fusion is read only when
+    # neither side's going-along outweighs the other's.
+    found = (conflict(state, tie, rp), distance(state, tie, params, rp), over_under,
+             None if over_under is not None else fusion(state, tie, rp, parent), projection(state, tie, rp, parent),
+             cutoff(state, tie, rp))
     return [r for r in found if r is not None]
 
 
@@ -236,7 +253,8 @@ def _winner(readings: list[Reading]) -> Reading:
     return min(readings, key=lambda r: (-r.count, r.first, r.pattern))
 
 
-def current_patterns(previous: Mapping, readings: list[Reading]) -> dict:
+def current_patterns(previous: Mapping, readings: list[Reading], now: int | None = None,
+                     projection_last: Mapping | None = None, projection_hold: int = 0) -> dict:
     """Purpose: the pattern each subject holds after one read — a pattern ends only when a new one emerges.
     Spec:    docs/bowen_agent_model_spec_v2.md#M5.A.1a (owner decision D2, 2026-10-10)
     Tests:   tests/bowen/test_patterns.py::test_m5a1a_pattern_holds_until_a_new_one_emerges
@@ -246,11 +264,29 @@ def current_patterns(previous: Mapping, readings: list[Reading]) -> dict:
     one and its start stays where the pattern began. A different pattern, or the same pattern
     pointing the other way, replaces it. One exception, `[I]`: silence does not replace a cutoff,
     because the silence is the cutoff continuing, not a new pattern.
+
+    **Projection holds longer** (the owner, 2026-10-10): once read, it stays until ``projection_hold`` (12) weeks
+    pass with no projection act from that parent to that child (``projection_last``, acts of any count). Until then
+    no other reading replaces it. After that, the current reading replaces it, or, with none, the projection ends.
+    With ``now`` absent the hold does not apply.
     """
     held = dict(previous)
     by_subject: dict = {}
     for r in readings:
         by_subject.setdefault(r.subject, []).append(r)
+    if now is not None and projection_hold:
+        for subject, old in list(held.items()):
+            if old.pattern != "projection":
+                continue
+            last = (projection_last or {}).get(subject)
+            if last is not None and now - last < projection_hold:
+                again = [r for r in by_subject.get(subject, ()) if r.pattern == "projection" and r.toward == old.toward]
+                if again:
+                    by_subject[subject] = again  # read again: it continues, whatever else was read
+                else:
+                    by_subject.pop(subject, None)  # evidence within the hold: nothing replaces it
+            elif subject not in by_subject:
+                del held[subject]  # stopped: 12 weeks without a projection act, and nothing new to take its place
     for subject, found in by_subject.items():
         new = _winner(found)
         old = held.get(subject)

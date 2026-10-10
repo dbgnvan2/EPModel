@@ -62,10 +62,12 @@ undifferentiation_budget: 90
 | `ana` | `marta` | parent_of | 0.6 | 40 | 1 | ordinary | yes |
 | `teodor` | `marta` | parent_of | 0.5 | 35 | 1 | ordinary | yes |
 | `ana` | `iris` | parent_of | 0.5 | 35 | 1 | ordinary | yes |
+| `teodor` | `iris` | parent_of | 0.4 | 30 | 1 | ordinary | yes |
 | `sofia` | `viktor` | spouse | 1.0 | 55 | 1 | ordinary | yes |
 | `sofia` | `ravi` | parent_of | 0.6 | 40 | 2 | ordinary | yes |
 | `viktor` | `ravi` | parent_of | 0.5 | 35 | 2 | ordinary | yes |
 | `sofia` | `dario` | parent_of | 0.6 | 40 | 2 | ordinary | yes |
+| `viktor` | `dario` | parent_of | 0.5 | 35 | 2 | ordinary | yes |
 | `marta` | `iris` | sibling | 0.4 | 35 | 2 | ordinary | yes |
 | `ravi` | `dario` | sibling | 0.8 | 55 | 1 | cut_off | no |
 | `halim` | `ravi` | professional | 0.3 | 10 | 1 | ordinary | yes |

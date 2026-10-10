@@ -107,7 +107,9 @@ def simulate(seed: int, mapping: Mapping) -> Run:
     import src.bowen.ensemble.criteria as criteria
     from src.bowen.engine.objects import TieState
     from src.bowen.io.load import load_constants, load_family
-    from src.bowen.readouts.patterns import Reading, ReadoutParams, current_patterns, fixed_triangle, tie_readings
+    from src.bowen.readouts.patterns import (
+        Reading, ReadoutParams, current_patterns, fixed_triangle, last_projection_act, tie_readings,
+    )
     from tools.phase_c_trace import records as trace_records
 
     rp = ReadoutParams.from_constants(load_constants())
@@ -129,9 +131,11 @@ def simulate(seed: int, mapping: Mapping) -> Run:
             readings = [r for tie in state.ties
                         for r in tie_readings(state, tie, params, rp, family.parent_on_tie.get(tie))]
             readings += [r for tri in state.triangles if (r := fixed_triangle(records, tri, rp)) is not None]
+            evidence = {tie: last for tie, parent in family.parent_on_tie.items()
+                        if (last := last_projection_act(state, tie, parent)) is not None}
         finally:
             state.tick = week + 1
-        held = current_patterns(held, readings)
+        held = current_patterns(held, readings, now=week, projection_last=evidence, projection_hold=rp.projection_hold)
         blocks.append(dict(held))
 
     weeks = criteria.SETTINGS["M11.C.1"]["weeks"]
@@ -175,6 +179,9 @@ def episodes(held: list) -> list:
     """
     out, open_ = [], {}
     for block, state in enumerate(held):
+        for subject in [s for s in open_ if s not in state]:  # a pattern that stopped with nothing after it
+            key, first, _, readings = open_.pop(subject)
+            out.append((subject, first, block - 1, readings))
         for subject, reading in state.items():
             key = (reading.pattern, reading.toward)
             current = open_.get(subject)
@@ -264,6 +271,7 @@ def build_diagram(run: Run, mapping: Mapping, seed: int) -> dict:
             # undated ones if none are given, which would show at every year. These carry the triangle's span. They
             # are fam-diag's triangle symbol, not pattern readings, and say so.
             tpls = [{"id": f"{tri_id}-tpl-{i}", "person1_id": x, "person2_id": y, "relationshipType": "fusion",
+                     "hideAfterEnd": True,
                      "lineStyle": "fusion-dotted-wide", "lineEnding": "none",
                      "status": "ended" if ended else "ongoing", **span, "events": [], "notesEnabled": False,
                      "notes": "Part of the triangle symbol; not a pattern reading."}
@@ -289,11 +297,13 @@ def build_diagram(run: Run, mapping: Mapping, seed: int) -> dict:
             a, b = toward, subject.other(toward)
         line = {"id": f"l-{pattern}-{subject.a.value}-{subject.b.value}-{first}", "person1_id": pid(a),
                 "person2_id": pid(b), "startDate": start, "status": "ended" if ended else "ongoing",
+                # fam-diag hides a line after its end year only when it opts in; the app's own lines never do
+                "hideAfterEnd": True,
                 "relationshipType": relationship_type, "lineStyle": style,
                 "lineEnding": "arrow-p1-to-p2" if ending == "arrow_from_toward" and toward is not None else "none",
                 "notes": (f"{pattern.replace('_', '/')}, blocks {first + 1}–{last + 1}; "
-                          f"first read {'from silence' if readings[0].silent else 'from acts'}"
-                          + ("; declared cut off at the start" if declared else "")
+                          + ("declared cut off at the start" if declared else
+                             f"first read {'from silence' if readings[0].silent else 'from acts'}")
                           + (f"; {described}" if described else "") + "."),
                 "notesEnabled": False, "events": []}
         if ended:

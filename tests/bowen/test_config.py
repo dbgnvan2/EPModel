@@ -104,6 +104,7 @@ GOOD_ROWS = (
     "| `pattern_window` | 4 | [I] | u | `M5.A.1a` |\n"
     "| `pattern_min_acts` | 3 | [I] | u | `M5.A.1a` |\n"
     "| `pattern_fixed_activations` | 3 | [I] | u | `M5.A.1a` |\n"
+    "| `pattern_projection_hold` | 12 | [I] | u | `M5.A.1a` |\n"
     "| `ensemble_block` | 50 | [I] | u | `M17.A.1` |\n"
     "| `ensemble_cap` | 500 | [I] | u | `M17.A.1` |\n"
     "| `ensemble_precision` | 0.25 | [I] | u | `M17.A.1` |\n"

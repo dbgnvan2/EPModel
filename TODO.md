@@ -116,21 +116,23 @@ Phase C steps 0–16 are built. **Its gate does not pass** (`docs/phase_c_comple
 - [ ] **Plan §9's human reviews:** ~~`docs/readouts_phase_c.md`~~ *the owner gave the definitions, 2026-10-10
   (visualization plan V1)*; a rendered 104-week Phase C trace (now also drawable in fam-diag:
   `docs/review/phase_c_famdiag_seed7.json`); and `M5.F.2`'s threshold.
-- [ ] **Owner review of the run-visualization choices** (`docs/PROPOSAL — RUN VISUALIZATION MAPPING.md`, built
+- [x] ~~**Owner review of the run-visualization choices**~~ *2026-10-10: the owner accepts the invented values
+  ("make it up"). The tie-break and silence exception stay `[I]`.* (`docs/PROPOSAL — RUN VISUALIZATION MAPPING.md`, built
   2026-10-10). Each is `[I]`:
   - the readouts' tie-break (more acts, then the earlier first act);
   - silence not replacing a cutoff;
   - the level bands in `config/viz/famdiag.md`;
   - Viktor's and Dario's values, Teodor's `basic_level` 34 → 36 (34 broke `M2.A.0e`'s ±1 with Ana), and the Phase D
     family's tie values (`config/bowen/family_phase_d.md`).
-- [ ] **Readout questions from the 2026-10-10 review, for the owner** (no criterion reads these readouts; changing them is
-  an engine-hash change, so do it with the next engine change):
+- [x] ~~**Readout questions from the 2026-10-10 review**~~ *answered by the owner the same day and built:
+  lopsided pursuit is over/underfunctioning; a parent's acts toward a child are projection, which holds until 12 weeks
+  pass without a projection act (`pattern_projection_hold`).* The questions were:
   1. **Fusion usually beats over/underfunctioning when pursuit is lopsided.** Every PURSUE counts toward fusion. So
      A→B 5 times and B→A once reads as fusion (6 acts) over over/underfunctioning (5 vs 1). Pursuit reads as
      over/underfunctioning only when it is strictly one-way. Should lopsided pursuit read as over/underfunctioning?
   2. **A parent's OVERFUNCTION or PURSUE toward a child never counts for over/underfunctioning,** even in a block
      where projection does not reach 3 acts. Should those acts count when projection is not read?
-- [ ] **`family_phase_d.md` lacks Teodor–Iris and Viktor–Dario parent ties** (the owner's family has Iris as Teodor's
+- [x] ~~**`family_phase_d.md` lacks Teodor–Iris and Viktor–Dario parent ties**~~ *added 2026-10-10.* (the owner's family has Iris as Teodor's
   daughter and Dario as Viktor's son). Add them with the next engine-hash change, since `config/bowen` is hashed.
 - [ ] **Rule 9 debt:** the readouts' act sets (`APPROACH`, `PROJECTION_ACTS`, the over/under lists in
   `src/bowen/readouts/patterns.py`) are classification rules in Python. `PROJECTION_ACTS` is tied to the sink's
@@ -138,7 +140,10 @@ Phase C steps 0–16 are built. **Its gate does not pass** (`docs/phase_c_comple
 - [ ] **fam-diag, found in review, not fixed** (pre-existing; neither affects File > Open of an export):
   - merge import collapses two episodes of the same pattern on one pair into one line (`utils/diagramMerge.ts`);
   - `FamilyCutoffArc` ignores the timeline (`DiagramCanvas.tsx`).
-- [ ] **Open decision: the engine's CUTOFF** (`docs/DECISIONS — CUTOFF SEMANTICS.md`; recommendation C, Phase D).
+- [ ] **Phase D: severed ties stay severed — the cause of the long silences** (owner: "not normal", 2026-10-10).
+  On seed 7, Marta–Nadia is severed 102 of 104 weeks, from a cutoff in week 1. Evidence and design notes are in
+  `docs/DECISIONS — CUTOFF SEMANTICS.md`.
+- [ ] **Engine CUTOFF semantics, held for Phase D** (owner, 2026-10-10) (`docs/DECISIONS — CUTOFF SEMANTICS.md`; recommendation C, Phase D).
 - [ ] **The pattern readouts read `state.tick` as "now"**, but after `run_tick` it is the next week's tick. The exporter
   steps it back and restores it (`tools/famdiag_export.py:simulate`). A `now` argument on the readouts would be
   cleaner. It is an engine-hash change, so do it with the next engine change.

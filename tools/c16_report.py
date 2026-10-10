@@ -39,6 +39,9 @@ occ = json.loads(re.search(r"```json\n(.*?)\n```", (REPO / "docs" / "phase_c_lev
 O = lambda variant, arm, key, span="whole_run": f"{next(r for r in occ if r['variant'] == variant and r['arm'] == arm)[span][key]:.1%}"
 cited = c16["c16-cited-grounds-removed"]
 cited_red = cited["result"] != "survived"
+RED = lambda result: "turns it red" if result != "survived" else "leaves it passing"
+avail_alone = c16["availability-level-independent"]["result"]
+
 if cited_red:
     CITED = (f"Removing the two cited rules alone, with availability kept (`c16-cited-grounds-removed`), also turns it red: "
              f"entropy {N('c16-cited-grounds-removed','repertoire_entropy')}.")
@@ -46,24 +49,28 @@ if cited_red:
                    "cited rules alone.")
 else:
     CITED = (f"Removing the two cited rules alone, with availability kept (`c16-cited-grounds-removed`), leaves it passing: "
-             f"entropy {N('c16-cited-grounds-removed','repertoire_entropy')}. Removing availability alone also leaves it "
-             f"passing ({N('availability-level-independent','repertoire_entropy')}). "
+             f"entropy {N('c16-cited-grounds-removed','repertoire_entropy')}. Removing availability alone "
+             f"{RED(avail_alone)} ({N('availability-level-independent','repertoire_entropy')}). "
              + ("Either set alone keeps a passing result; only removing both removes it, which is the pattern "
                 "`M11.5`'s redundancy clause describes." if c16["c16-grounds-removed"]["result"] != "survived" else
-                "Removing both together also leaves it passing, though much reduced (above), so no removal of these "
-                "rules turns it red, and the redundancy pattern is not shown."))
+                f"Removing both together also leaves it passing ({N('c16-grounds-removed','repertoire_entropy')}), so "
+                "no removal of these rules turns it red, and the redundancy pattern is not shown."))
     CITED_PROOF = ("`c16-grounds-removed`, which removes availability with them, would be that clause's proof; either set "
                    "alone leaves it passing.")
 inverted = c16["availability-level-inverted"]["result"]
 grounds = c16["c16-grounds-removed"]["result"]
+for name, result in (("availability-level-inverted", inverted), ("c16-grounds-removed", grounds),
+                     ("c16-cited-grounds-removed", cited["result"])):
+    if result not in ("reversed", "red", "survived"):  # "broken" proves nothing; write no sentence about it
+        raise SystemExit(f"{name}: result {result!r} has no wording in §11; fix the run or the generator")
 reversed_ = [m for m, r in c16.items() if r["result"] == "reversed"]
-RED = lambda result: "turns it red" if result != "survived" else "leaves it passing"
 REVERSED_NOTE = ("none here is" if not reversed_ else
                  "here " + ", ".join(f"`{m}`" for m in reversed_) + (" is" if len(reversed_) == 1 else " are"))
 if inverted == "reversed":
     INVERSION = (f"- **Inverting `M4.D.3a`'s availability reverses C.16**: entropy "
                  f"{N('availability-level-inverted','repertoire_entropy')} and top-move share "
-                 f"{N('availability-level-inverted','top_move_share')}, both intervals wholly on the opposite side. "
+                 f"{N('availability-level-inverted','top_move_share')}; the gating readout's interval lies wholly on the "
+                 "opposite side. "
                  "When the owner kept C.16 composite (2026-10-08) this inversion only cancelled it; since the triangle "
                  "change of 2026-10-09 it reverses it, so the class goes back to the owner (`TODO.md`). **This inversion "
                  "is still weak where C.16 runs.**")
@@ -79,7 +86,7 @@ else:
                  + "**This inversion is weak where C.16 runs.**")
     FLIP = ("`M11.1d`'s flip is sufficient for a premise, not necessary. No inversion run here flips C.16, so that "
             "test does not make it one.")
-if grounds == "survived":
+if grounds == "survived" and not cited_red:
     CITED_PROOF = ("but no mutant here proves it: `c16-grounds-removed`, which removes the cited rules with "
                    "availability, now leaves C.16 passing.")
 sec = f"""## 11. Whether `M11.C.16` is reclassified — decided 2026-10-08

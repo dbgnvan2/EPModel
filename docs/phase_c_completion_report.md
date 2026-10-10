@@ -442,7 +442,7 @@ lies wholly on the opposite side; here `availability-level-inverted` is.
 
 What this shows:
 
-- **Inverting `M4.D.3a`'s availability reverses C.16**: entropy +0.011 ± 0.009 and top-move share -0.020 ± 0.010, both intervals wholly on the opposite side. When the owner kept C.16 composite (2026-10-08) this inversion only cancelled it; since the triangle change of 2026-10-09 it reverses it, so the class goes back to the owner (`TODO.md`). **This inversion is still weak where C.16 runs.**
+- **Inverting `M4.D.3a`'s availability reverses C.16**: entropy +0.011 ± 0.009 and top-move share -0.020 ± 0.010; the gating readout's interval lies wholly on the opposite side. When the owner kept C.16 composite (2026-10-08) this inversion only cancelled it; since the triangle change of 2026-10-09 it reverses it, so the class goes back to the owner (`TODO.md`). **This inversion is still weak where C.16 runs.**
   It equals the deletion (every layer fully available) at level 20 and below on both layers, and at 40 and below on
   layer 1. Under the mutant, over the whole run, the lowered arm's members spend 37.2% of member-weeks at level 20 or
   below and 95.1% at 40 or below; the baseline arm's, 2.4% and 54.6%. Over the last
@@ -455,7 +455,7 @@ What this shows:
   the result; the level-blind mutant, which removes all nine at once, leaves no difference at all.
 - **C.16's cited grounds.** Its criterion row cites `M4.C.1a` (KS03.2: steepness and band) and `M1.C.3a` (routing).
   Removing those together with `M4.D.3a`'s availability (`c16-grounds-removed`) leaves it passing: entropy
-  -0.006 ± 0.005. Removing the two cited rules alone, with availability kept (`c16-cited-grounds-removed`), leaves it passing: entropy -0.034 ± 0.014. Removing availability alone also leaves it passing (-0.032 ± 0.015). Removing both together also leaves it passing, though much reduced (above), so no removal of these rules turns it red, and the redundancy pattern is not shown.
+  -0.006 ± 0.005. Removing the two cited rules alone, with availability kept (`c16-cited-grounds-removed`), leaves it passing: entropy -0.034 ± 0.014. Removing availability alone leaves it passing (-0.032 ± 0.015). Removing both together also leaves it passing (-0.006 ± 0.005), so no removal of these rules turns it red, and the redundancy pattern is not shown.
 - `M5.D.3`'s hold capacity never acts in C.16's runs: both hold mutants reproduce the unmutated numbers exactly. Those
   two mutants test nothing here.
 - **Learning changes the result's size, not its sign.** `M4.D.6` disabled leaves entropy at

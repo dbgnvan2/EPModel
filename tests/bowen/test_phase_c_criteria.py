@@ -360,7 +360,9 @@ def test_s_declared_latency_matches_the_fixtures_ties():
     from src.bowen.io.load import load_family
 
     ties = load_family(criteria.FAMILIES["triad"]).ties
-    for cid, crossed in (("M11.C.3", ("f-m", "f-c")), ("M11.C.27[stable,add_third]", ("f-m", "f-c"))):
+    cells = [(cid, ("f-m", "f-c")) for cid in CRITERIA if cid.startswith("M11.C.27[")]
+    assert len(cells) == 4
+    for cid, crossed in [("M11.C.3", ("f-m", "f-c")), *cells]:
         declared = CRITERIA[cid].settings["latency"]
         for pair in crossed:
             a, b = pair.split("-")

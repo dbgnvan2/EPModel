@@ -91,6 +91,13 @@ Phase C steps 0–16 are built. **Its gate does not pass** (`docs/phase_c_comple
   survives on `M11.C.3` (a direction, not a size), and `triangle-credit-cross-person` has no passing criterion.
   Both rules have unit tests. A criterion that reads the size of the seeker's relief against the third's help, or
   `M11.C.42`/`.45` passing, would prove them.
+- [ ] **`code_text` (the engine hash) has two latent gaps** (re-sweep of `d7ce2b3..`, 2026-10-09): it drops a whole
+  docstring line, so code sharing that line (`"""doc"""; x = 1`) is invisible to the hash; and it strips blank lines
+  and trailing spaces inside ordinary multi-line strings. No current file has either pattern (checked: the fixed
+  version gives every file the same text). Not fixed now because `tools/ensemble_record.py`, which holds
+  `code_text`, is itself hashed, so any edit to it reruns every record (about an hour). With the next engine
+  change: blank only a docstring's own span, keep the inside of strings exactly, and hash `RULE_KEYS`' values
+  rather than the whole file, so the hashing code can change without changing the hash.
 - [ ] **Re-sweep notes, 2026-10-09** (fix range `da57f87..996bb7a`; deferred, not fixed now):
   1. ~~`reactive_over_chance` averaged in `FALLBACK` selections~~ *done 2026-10-09: policy draws only; the
      verdicts did not change.*

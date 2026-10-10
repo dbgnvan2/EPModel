@@ -22,8 +22,9 @@ REPO = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO))
 
 
-def records(seed: int) -> list:
-    """The run's records, opening with its header (`M16.A.1`)."""
+def records(seed: int, after_tick=None) -> list:
+    """The run's records, opening with its header (`M16.A.1`). ``after_tick(state, records, params)``, when given,
+    is called after every week; `tools/famdiag_export.py` reads its patterns there. It observes and changes nothing."""
     import src.bowen.ensemble.criteria as criteria
     from src.bowen.engine.log_records import CollectingEmitter
     from src.bowen.engine.tick import run_tick
@@ -47,6 +48,8 @@ def records(seed: int) -> list:
     ))
     for _ in range(weeks):
         run_tick(parts.state, source, parts.params, parts.visibility, parts.activation, collector)
+        if after_tick is not None:
+            after_tick(parts.state, collector.records, parts.params)
     return collector.records
 
 

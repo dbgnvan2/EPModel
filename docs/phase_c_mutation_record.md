@@ -11,7 +11,7 @@ unimported name) is **broken** and proves nothing; an engine exception under a m
 representation mutant (`M11.1c`) should leave every verdict
 unchanged; a change is reported as an **encoding artefact**.
 
-engine_hash: dd483bf6ead81d8bbe1a3035f02202b4f71f7dce924534fb41c853c87f8382d0
+engine_hash: c730a701f23408f2051e0a11140fb4f92ec9ddb4d33eb920154f20f753f13752
 
 Results are cached by `tools/mutant_runner.py` under the engine hash and each mutant's own edits
 (`docs/records_cache/mutation.json`); this file is rendered from that cache.
@@ -29,6 +29,7 @@ Results are cached by `tools/mutant_runner.py` under the engine hash and each mu
 | `mixing-weight-level-independent` | named | M4.D.1a's mixing weight made independent of functional_level | `M11.C.41[light: lower level]` | FAIL | 150 | `mean_acute` +28.8 ± 14; `reactive_over_chance` -0.000681 ± 0.0045 | **red** |
 | `mixing-weight-level-independent` | named | M4.D.1a's mixing weight made independent of functional_level | `M11.C.41[heavy: lower level]` | FAIL | 150 | `mean_acute` +20.1 ± 12; `reactive_over_chance` -0.0016 ± 0.0051 | **red** |
 | `triangle-transfer-removed` | named | M1.C.1's transfer removed | `M11.C.3` | FAIL | 50 | `seeker_anxiety` -0.0448 ± 0.029; `third_anxiety` -0.794 ± 0.18; `partner_anxiety` +0.966 ± 0.24 | **red** |
+| `seeker-relief-removed` | deletion | M1.C.1's relief of the seeker removed; the third still absorbs, now all of it a logged source, so the ledger balances (proves M11.C.3's seeker readout, which the transfer and roles mutants reach only through the third's) | `M11.C.3` | FAIL | 50 | `seeker_anxiety` -0.0424 ± 0.03; `third_anxiety` +1.18 ± 0.27; `partner_anxiety` +0.857 ± 0.23 | **red** |
 | `triangle-help-ignored` | named | M1.C.1's dependence on the third's help removed (owner decision 2026-10-09): every third helps fully | `M11.C.3` | PASS | 50 | `seeker_anxiety` -3.27 ± 0.31; `third_anxiety` +4.08 ± 0.55; `partner_anxiety` +0.882 ± 0.22 | **survived** |
 | `learner-disabled` | named | M4.D.6 disabled in both arms: no learned value ever moves | `M11.C.16` | PASS | 150 | `repertoire_entropy` -0.0607 ± 0.026; `top_move_share` +0.0325 ± 0.0096 | **survived** |
 | `axes-collapsed` | named | M5.F.2b's two axes collapsed to their mean | `M11.C.19` | FAIL | 50 | `outward_failed` +0 ± 0; `inward_failed` +0 ± 0 | **red** |
@@ -84,7 +85,7 @@ Results are cached by `tools/mutant_runner.py` under the engine hash and each mu
 | `hold-level-inverted` | sign-inverted | M5.D.3's hold capacity falls as functional_level rises | `M11.C.16` | PASS | 150 | `repertoire_entropy` -0.0682 ± 0.023; `top_move_share` +0.0532 ± 0.017 | **survived** |
 | `c16-cited-grounds-removed` | deletion | M4.C.1a's steepness and band and M1.C.3a's routing capacity, the rules C.16's criterion row cites, made level-independent together; availability kept | `M11.C.16` | PASS | 150 | `repertoire_entropy` -0.0342 ± 0.014; `top_move_share` +0.0354 ± 0.012 | **survived** |
 | `c16-grounds-removed` | deletion | M4.C.1a's steepness and band and M1.C.3a's routing capacity, which C.16's criterion row cites, made level-independent together with M4.D.3a's availability | `M11.C.16` | PASS | 100 | `repertoire_entropy` -0.00594 ± 0.0052; `top_move_share` +0.00411 ± 0.0072 | **survived** |
-| `triangle-roles-swapped` | sign-inverted | M1.C.1's roles swapped back to step 5's alliance reading: sender and target inside, the partner outside | `M11.C.3` | FAIL | 50 | `seeker_anxiety` -1.3 ± 0.11; `third_anxiety` -0.808 ± 0.17; `partner_anxiety` +2.79 ± 0.24 | **red** |
+| `triangle-roles-swapped` | sign-inverted | M1.C.1's partner and target swapped: the sender's tense partner is loaded as the outsider, and the target the act recruits is neither relieved nor loaded | `M11.C.3` | FAIL | 50 | `seeker_anxiety` -1.3 ± 0.11; `third_anxiety` -0.808 ± 0.17; `partner_anxiety` +2.79 ± 0.24 | **red** |
 | `steepness-inverted` | sign-inverted | M4.C.1a's steepness rises with functional_level instead of falling | `M11.C.1` | PASS | 150 | `time_to_threshold` -0.267 ± 0.24 | **survived** |
 | `steepness-inverted` | sign-inverted | M4.C.1a's steepness rises with functional_level instead of falling | `M11.C.16` | PASS | 150 | `repertoire_entropy` -0.0282 ± 0.01; `top_move_share` +0.0251 ± 0.0087 | **survived** |
 | `steepness-inverted` | sign-inverted | M4.C.1a's steepness rises with functional_level instead of falling | `M11.C.38[-0 vs -5]` | FAIL | 100 | `time_to_threshold` -0.1 ± 0.18 | **red** |
@@ -409,6 +410,37 @@ criterion.
     "direction": 0,
     "half_width": 0.23764453551227055,
     "mean_difference": 0.9662347052905541,
+    "readout": "partner_anxiety",
+    "report_only": true
+   }
+  ]
+ },
+ {
+  "mutant": "seeker-relief-removed",
+  "kind": "deletion",
+  "criterion": "M11.C.3",
+  "outcome": "FAIL",
+  "seeds": 50,
+  "result": "red",
+  "readouts": [
+   {
+    "direction": -1,
+    "half_width": 0.02966590518824588,
+    "mean_difference": -0.04243651586540544,
+    "readout": "seeker_anxiety",
+    "report_only": false
+   },
+   {
+    "direction": 1,
+    "half_width": 0.2651874041003409,
+    "mean_difference": 1.1777341987991088,
+    "readout": "third_anxiety",
+    "report_only": false
+   },
+   {
+    "direction": 0,
+    "half_width": 0.22516925183378614,
+    "mean_difference": 0.8574867233647031,
     "readout": "partner_anxiety",
     "report_only": true
    }

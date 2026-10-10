@@ -458,7 +458,7 @@ mutant has turned each entry red in `docs/phase_c_mutation_record.md`; the D9 sw
 | M13.2 | done | `tests/test_simulator.py` | the frozen engine's 37 tests pass unchanged; gate G14 |
 | M13.2a | done | `tests/test_spec_consistency.py::test_m11d11_every_criterion_gates_its_phase` | — |
 | M13.3 | partial | — | no M15 importer exists under src/bowen; no test guards against one being built |
-| M13.4 | done | `tests/bowen/test_ensemble.py::test_m17a1_undetermined_at_cap_does_not_pass`<br>`tests/bowen/test_ensemble_record.py::test_m134_ensemble_record_is_current`<br>`tests/bowen/test_ensemble_record.py::test_m134_every_record_hashes_the_ensemble_tool`<br>`tests/bowen/test_ensemble_record.py::test_m134_record_covers_every_criterion_and_names_what_is_not_built` | Phase C stops adaptively; UNDETERMINED at the cap does not pass (step 12) |
+| M13.4 | done | `tests/bowen/test_ensemble.py::test_m17a1_undetermined_at_cap_does_not_pass`<br>`tests/bowen/test_ensemble_record.py::test_m134_code_hash_ignores_prose_but_not_code`<br>`tests/bowen/test_ensemble_record.py::test_m134_ensemble_record_is_current`<br>`tests/bowen/test_ensemble_record.py::test_m134_every_record_hashes_the_ensemble_tool`<br>`tests/bowen/test_ensemble_record.py::test_m134_record_covers_every_criterion_and_names_what_is_not_built` | Phase C stops adaptively; UNDETERMINED at the cap does not pass (step 12) |
 | M14.1 | done | `tests/bowen/test_spec_coverage.py::test_m141_spec_coverage_is_current`<br>`tests/bowen/test_spec_coverage.py::test_m141_every_done_names_an_existing_test`<br>`tests/bowen/test_spec_coverage.py::test_m141_excluded_evidence_is_not_shown`<br>`tests/bowen/test_spec_coverage.py::test_m141_no_id_resolves_to_an_unassigned_phase` | this file |
 | M14.2 | not done | — | Phase every phase |
 | M14.A.1 | done | `tests/test_spec_consistency.py::test_m11d17_register_has_no_orphans`<br>`tests/bowen/test_register.py::test_m14a_register_matches_object_fields` | — |
@@ -554,7 +554,7 @@ mutant has turned each entry red in `docs/phase_c_mutation_record.md`; the D9 sw
 | M17.G.2 | not done | — | Phase E |
 | M17.G.3 | not done | — | Phase E |
 
-## Tests named for no spec ID (73)
+## Tests named for no spec ID (74)
 
 Their names embed no requirement ID, so they count only where an override cites them (marked *cited*). The rest check spec documents, tooling or helpers.
 
@@ -576,6 +576,7 @@ Their names embed no requirement ID, so they count only where an override cites 
 - `tests/bowen/test_family.py::test_m2a_values_match_the_spec_table` — *cited*
 - `tests/bowen/test_phase_b_gate.py::test_m13_phase_b_scripted_40_week_trace_runs`
 - `tests/bowen/test_phase_c_criteria.py::test_s_absence_and_hold_in_the_same_week_both_apply`
+- `tests/bowen/test_phase_c_criteria.py::test_s_declared_latency_matches_the_fixtures_ties`
 - `tests/bowen/test_phase_c_criteria.py::test_s_every_scripted_act_is_made_with_the_hold`
 - `tests/bowen/test_phase_c_criteria.py::test_s_every_scripted_criterion_holds_the_same_ties_in_both_arms`
 - `tests/bowen/test_phase_c_criteria.py::test_s_outcomes_classifies_every_case_from_the_records`

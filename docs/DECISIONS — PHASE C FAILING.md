@@ -113,9 +113,10 @@ tuning. Owner decision (TODO).
      show at a nodal event within two years.
 5. **`M11.C.27`, read week by week** (owner: "the effect is almost immediate and a long time horizon is
    distorted by other effects"). It gates on the week the act lands (t0 + 1) and reports weeks 1–12 beside it.
-   - Removing one (f cuts m) lowers the pair's deviation at once in both couples (−0.34 in week 1, about −0.15 by
-     week 3, gone by week 5). From week 6 it turns into a rise that lasts to week 12 (+0.15 to +0.19).
-   - So `[unstable, remove one]` passes (stabilised at once, −0.34 ± 0.06). `[stable, remove one]` fails: the
+   - Removing one (f cuts m) lowers the pair's deviation at once in both couples (−0.36 in week 1, −0.17 to −0.19
+     by week 3, gone by week 5). From week 6 it turns into a rise (+0.07 to +0.11 at week 6, +0.13 to +0.20 over
+     weeks 8–12).
+   - So `[unstable, remove one]` passes (stabilised at once, −0.36 ± 0.05). `[stable, remove one]` fails: the
      criterion expects destabilising, and the model stabilises first and destabilises only from week 6.
    - Adding a third (f triangles c) barely moves the pair's deviation in any week; both add-third cells fail. A
      `TRIANGLE` changes anxiety, not contact, and the pair's deviation is about contact.

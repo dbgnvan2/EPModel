@@ -14,7 +14,7 @@ a hash goes stale.
 | §11 of this report | `tools/c16_report.py` | `M11.C.16`'s class, every number taken from the two records above |
 | `docs/spec_coverage.md` | `tools/spec_coverage.py` | every spec ID: done / partial / not done |
 
-Default suite: **539 tests pass** (`python3 -m pytest tests/`). The 19 ensemble-marked criterion tests are
+Default suite: **541 tests pass** (`python3 -m pytest tests/`). The 19 ensemble-marked criterion tests are
 deselected there and run with `python3 -m pytest -m ensemble`.
 
 **Read this first.** Phase C's gate does **not** pass. Of the 16 criteria built, 7 pass at the frozen
@@ -40,13 +40,13 @@ column follows the global completion standard.
 | Criterion | Class (by reading) | Verdict at central | Proved by mutant | Sweep (composites) | Status |
 |---|---|---|---|---|---|
 | `M11.C.1` lower level reaches threshold sooner | premise | PASS (100 seeds) | **only by the joint `level-blind` mutant** — see §2 | — | done (proved only jointly; plan §3's named mutant survives, §2) |
-| `M11.C.3` triangle relieves the seeker, costs third (restated 2026-10-09) | premise | PASS (50) — seeker −1.29, third +1.10; partner +0.93, reported | yes: `triangle-transfer-removed`, `triangle-roles-swapped`; the new `triangle-help-ignored` survives (it changes the size, not the direction) | — | done — §8, §12 |
+| `M11.C.3` triangle relieves the seeker, costs third (restated 2026-10-09) | premise | PASS (50) — seeker −1.29, third +1.10; partner +0.93, reported | yes: the seeker readout by `seeker-relief-removed`, the third's by `triangle-transfer-removed` and `triangle-roles-swapped`; `triangle-help-ignored` survives (it changes the size, not the direction) | — | done — §8, §12 |
 | `M11.C.4` cutoff trades now against later | premise | **FAIL** — the "now" limb holds (−2.55); the "later" limb does not, at a nodal event at week 104 (+0.14, p 0.76) | not run | — | partial — §3.2 |
 | `M11.C.5` change-back reaction | composite | **FAIL** — target reaction +3.3 (p 0.18); third's load −7.3 (p 0.95) | not run | at least one readout reverses at 5 of 6 settings | not done — §3.3 |
 | `M11.C.7` topology not coach skill | premise | not built | — | — | Phase D (moved 2026-10-09) — needs `M8.2`/`M8.3`'s position predicates; declares no direction for its arms |
 | `M11.C.13` help relocates, not reduces | premise | not built | — | — | Phase D (moved 2026-10-09) — needs incidents located in a community |
 | `M11.C.14` technique null under marital distance | premise (null) | not built | — | — | Phase D (moved 2026-10-09) — needs `M5.C.1`'s marital-distance gate |
-| `M11.C.16` repertoire concentration depends on level | composite (§11) | PASS (150) — after §10's precision rule; undetermined at 500 seeds before | by the joint `level-blind` and `c16-grounds-removed` (cited grounds with availability) mutants, and by `availability-level-inverted`, which cancels it without reversing it; its required mutant, the learner disabled, survives (§11) | passes at all 6 settings | partial — passes; its mutation clause is not met, §11 |
+| `M11.C.16` repertoire concentration depends on level | composite (§11) | PASS (150) — after §10's precision rule; undetermined at 500 seeds before | by the joint `level-blind`, and reversed by `availability-level-inverted` (since §12's triangle change; it only cancelled before); `c16-grounds-removed` now survives; its required mutant, the learner disabled, survives (§11) | passes at all 6 settings | partial — passes; its mutation clause is not met, §11 |
 | `M11.C.19` counterfeit axis identified | check | PASS (50) | yes: `axes-collapsed`, `axes-swapped` | — | done |
 | `M11.C.25` dominant pole independent of sex | premise (null) | PASS (50); difference exactly 0 in every seed | yes: `sex-term-in-pole` | — | done — readout corrected post hoc, §4.2 |
 | `M11.C.27` twosome 2×2 | composite | 1 of 4 cells passes, read in the week the act lands: [unstable, remove one] (−0.36). Weeks 1–12 reported (§3.5) | the passing cell, by `one-sided-deviation` and `deviation-inverted` | the passing cell holds at all 6 settings | partial — §3.5 |
@@ -103,9 +103,10 @@ These are recorded in the spec's `M11.5` table with today's date.
   `M1.C.1`'s relief was inverted, which would have made it a premise. C.42 passed but survived an inverted
   learner, so its direction did not come from relief's sign. Neither passes after §8, so neither correction
   stands; the spec's `M11.5` notes record both.
-- **`M11.C.16` stays composite, by owner decision.** No inversion run reverses it; inverting `M4.D.3a`'s availability,
-  as run, cancels it. Removing the rules its criterion row cites (`M4.C.1a`, `M1.C.3a`) leaves it passing;
-  removing them with availability turns it red. §11.
+- **`M11.C.16` stays composite, by owner decision of 2026-10-08, which is now back with the owner.** Then, inverting
+  `M4.D.3a`'s availability cancelled it; since §12's triangle change it reverses it, which `M11.1d` counts as
+  sufficient for a premise. Removing the rules its criterion row cites leaves it passing, with or without
+  availability. §11.
 - **`M11.C.32`** is confirmed premise: both the gate's inversion and its removal turn it red. **`M11.C.19`** and
   **`M11.C.35`** are confirmed checks. **`M11.C.25`** is confirmed a structural null: the difference is exactly 0
   in every seed, because sex is read by no rule (`M2.A.0g`), and the test fails when a sex term is added.
@@ -127,10 +128,11 @@ pass would be tuning against it. Each needs an owner decision.
    ladder is learned, per `M5.E.0`, and 60 weeks may not be long enough for it to form.
 4. **`M11.C.16` — resolved by §10's precision rule; it now passes, but is not proved.** Its interval never reached
    0.25 of the baseline arm's sd. Under the pooled sd it converges at 150 seeds. Neither learner mutant turns it red,
-   so its direction does not come from learning. Inverting `M4.D.3a`'s availability cancels it without reversing it. §10, §11.
+   so its direction does not come from learning. Inverting `M4.D.3a`'s availability reverses it (since §12; it cancelled
+   it before). §10, §11.
 5. **`M11.C.27`.** Read at 104 weeks every cell was near zero, so the owner decided it is read week by week and
    gates on the week the act lands (§12). Removing one lowers the pair's deviation at once in both couples (−0.36
-   in week 1), and from week 6 raises it (+0.15 to +0.19 by weeks 8–12): [unstable, remove one] passes, and
+   in week 1), and from week 6 raises it (+0.13 to +0.20 over weeks 8–12): [unstable, remove one] passes, and
    [stable, remove one] fails because it stabilises first. Adding a third barely moves the pair's deviation in any
    week, so both add-third cells fail: a `TRIANGLE` changes anxiety, not contact.
 6. **`M11.C.29`.** The declared readout was pinned at its maximum: the third person's symptom load is above zero in
@@ -140,7 +142,7 @@ pass would be tuning against it. Each needs an owner decision.
 7. **`M11.C.41`'s stress limbs.** The share of all moves that were reactive fell at a lower level, because
    `M4.D.3a` closes the layers holding five of the seven reactive acts (D2). Restated as the reactive choice beyond the
    reactive share of the legal set (§12), both "lower level" cells pass. Heavier stress raises mean acute anxiety
-   but not that readout (−0.0008, +0.0016).
+   but not that readout (+0.00003, +0.002).
 8. **`M11.C.42` and `M11.C.45` no longer pass.** Both passed under step 5's alliance reading. Q3 then found that
    `M4.D.6e`'s cross-person credit counted the recruited third's cost, so a `TRIANGLE` was credited below a
    `DISTANCE`. The owner's triangle decision (§12) removed that, and made the seeker's relief depend on the third's
@@ -386,9 +388,9 @@ verdicts change; the rest keep their verdicts with different seed counts.
 and so does the learner inverted. The sweep agrees: C.16 passes at all six settings of α, H and temperature. So the
 repertoire narrows at lower level whether or not anything is learned. Revision 11 classes C.16 composite, "restated"
 so that learning produces it; on this evidence learning is not what produces it. §11 tests which rules do: `M4.D.3a`'s
-layer availability, which removes acts from the legal set at a lower level, carries about half of it, and inverting it
-cancels C.16 without reversing it. Coverage marks C.16 partial, passing but not proved. §11 decides its class:
-composite.
+layer availability, which removes acts from the legal set at a lower level, carries about half of it; inverting it
+cancelled C.16 when this was written, and reverses it since §12's triangle change. Coverage marks C.16 partial,
+passing but not proved. §11 decided its class (composite); the reversal puts that back to the owner.
 
 ## 11. Whether `M11.C.16` is reclassified — decided 2026-10-08
 
@@ -408,7 +410,7 @@ cites as its grounds, which `M11.5`'s redundancy clause needs as its proof, with
 The table is generated from `docs/phase_c_mutation_record.md`. Differences are the lowered arm minus the baseline arm,
 mean ± 95% half-width, at the central setting. The criterion tests a negative entropy difference; the top-move share
 is reported beside it and never tested. A red mutant is marked **reversed** only when every gating readout's interval
-lies wholly on the opposite side; none here is.
+lies wholly on the opposite side; here `availability-level-inverted` is.
 
 | Mutant | Kind | Entropy difference | Top-move share difference | Result |
 |---|---|---|---|---|
@@ -440,22 +442,20 @@ lies wholly on the opposite side; none here is.
 
 What this shows:
 
-- **No inversion run reverses C.16.** Inverting `M4.D.3a`'s availability cancels it: entropy
-  +0.011 ± 0.009 and top-move share -0.020 ± 0.010, both intervals spanning zero.
-  That is a FAIL, so the mutant is red, but the direction is not flipped. **This inversion is weak where C.16 runs.**
+- **Inverting `M4.D.3a`'s availability reverses C.16**: entropy +0.011 ± 0.009 and top-move share -0.020 ± 0.010, both intervals wholly on the opposite side. When the owner kept C.16 composite (2026-10-08) this inversion only cancelled it; since the triangle change of 2026-10-09 it reverses it, so the class goes back to the owner (`TODO.md`). **This inversion is still weak where C.16 runs.**
   It equals the deletion (every layer fully available) at level 20 and below on both layers, and at 40 and below on
   layer 1. Under the mutant, over the whole run, the lowered arm's members spend 37.2% of member-weeks at level 20 or
   below and 95.1% at 40 or below; the baseline arm's, 2.4% and 54.6%. Over the last
   52 weeks, which the entropy reads, the lowered arm's are 41.7% and 92.2%
   (`docs/phase_c_level_occupancy.md`, which also gives the unmodified shares; these are shares of member-weeks, not
-  of selections). So it mostly reverses layer 2 only.
-  "Cancels without reversing" holds for this inversion; a stronger one was not tried.
+  of selections). So it mostly reverses layer 2 only. A stronger
+  inversion was not tried.
 - **Availability carries part of the narrowing, not all of it.** Removing it leaves entropy at
   -0.032 ± 0.015, against -0.068 ± 0.023 unmutated. No other single rule removes
   the result; the level-blind mutant, which removes all nine at once, leaves no difference at all.
 - **C.16's cited grounds.** Its criterion row cites `M4.C.1a` (KS03.2: steepness and band) and `M1.C.3a` (routing).
-  Removing those together with `M4.D.3a`'s availability (`c16-grounds-removed`) turns it red: entropy
-  -0.006 ± 0.005. Removing the two cited rules alone, with availability kept (`c16-cited-grounds-removed`), leaves it passing: entropy -0.034 ± 0.014. Removing availability alone also leaves it passing (-0.032 ± 0.015). Either set alone keeps a passing result; only removing both removes it, which is the pattern `M11.5`'s redundancy clause describes.
+  Removing those together with `M4.D.3a`'s availability (`c16-grounds-removed`) leaves it passing: entropy
+  -0.006 ± 0.005. Removing the two cited rules alone, with availability kept (`c16-cited-grounds-removed`), leaves it passing: entropy -0.034 ± 0.014. Removing availability alone also leaves it passing (-0.032 ± 0.015). Removing both together also leaves it passing, though much reduced (above), so no removal of these rules turns it red, and the redundancy pattern is not shown.
 - `M5.D.3`'s hold capacity never acts in C.16's runs: both hold mutants reproduce the unmutated numbers exactly. Those
   two mutants test nothing here.
 - **Learning changes the result's size, not its sign.** `M4.D.6` disabled leaves entropy at
@@ -466,8 +466,7 @@ What this shows:
 
 Why composite, and not premise:
 
-- `M11.1d`'s flip is sufficient for a premise, not necessary. No inversion run here flips C.16, so that test does not
-  make it one.
+- `M11.1d`'s flip is sufficient for a premise, not necessary. The availability inversion now flips C.16, which by that test would make it one; the owner's decision to keep it composite was made when it only cancelled, and is put back to the owner.
 - `M11.5`'s redundancy clause makes a result a premise when several rules each state it, as at `M11.C.1`, where every
   level-reading rule states earlier onset at a lower level. C.16's pattern of mutants looks the same (each single
   deletion survives and only joint deletions remove it), but of the nine rules only availability states a narrower
@@ -477,7 +476,7 @@ Why composite, and not premise:
   narrower repertoire follows from them jointly; their formulas do not name it. On that reading the clause does not apply, and the owner kept C.16 composite. **The reading
   is contestable:** C.16's own criterion row gives as its grounds `M4.C.1a`'s source text (poorly differentiated
   people "are very prone to shut down and distance or to react aggressively", KS03.2) and `M1.C.3a`'s "stays fixed".
-  If those rules are read as stating the narrowing, the redundancy clause would make C.16 a premise; `c16-grounds-removed`, which removes availability with them, would be that clause's proof; either set alone leaves it passing. Which reading holds is a judgement about what the rules
+  If those rules are read as stating the narrowing, the redundancy clause would make C.16 a premise; but no mutant here proves it: `c16-grounds-removed`, which removes the cited rules with availability, now leaves C.16 passing. Which reading holds is a judgement about what the rules
   state, not a mutant result; the mutants are consistent with both. The class stays composite by owner decision, and
   `TODO.md` puts the reading back to the owner with this result.
 

@@ -36,8 +36,20 @@ the per-criterion status is in `docs/phase_c_completion_report.md`.
   (no passing criterion to run on). `M11.C.27` is read week by week, and `M11.C.41`'s readout counts policy draws
   only.
 
+- **The engine hash ignores comments, docstrings and blank lines in Python source** (`code_text` in
+  `tools/ensemble_record.py`, learnings P38): fixing prose in `src/bowen/` no longer reruns every record (about an
+  hour). Docstrings are found with `ast` and comments with `tokenize`, by source position, which is stable across
+  the Python versions CI runs. Config `.md` files stay hashed whole: their headings decide which table a row is in.
+- **`seeker-relief-removed`**, a deletion mutant that proves `M11.C.3`'s seeker readout (the transfer and roles
+  mutants reach it only through the third's).
+- **Report §11's qualitative claims are generated** with its numbers: whether an inversion reverses `M11.C.16`, and
+  whether removing its grounds turns it red, are chosen from the mutant results.
+
 ### Fixed
 
+- **Report §11 said no inversion reverses `M11.C.16`**, a constant sentence in `tools/c16_report.py`; since the
+  triangle change `availability-level-inverted` reverses it, and `c16-grounds-removed` survives. The class goes
+  back to the owner (`TODO.md`).
 - **`scripted_weeks` read past its own shortened runs** once an arm read weekly readouts; the scan now stops the
   arm after scanning.
 - **A record built in the run that produced its results did not match its own re-render** (2026-10-09):

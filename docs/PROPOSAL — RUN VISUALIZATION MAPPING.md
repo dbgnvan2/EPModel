@@ -1,7 +1,24 @@
 # Proposal — drawing a run as a fam-diag diagram
 
-> **Status: revision 2, draft for owner approval, 2026-10-10.** Nothing is built. Revision 1 drafted act-count
+> **Status: revision 2; D1, D3, D4 and D5 approved and D2 corrected by the owner, 2026-10-10 (§0). The build plan (§10) awaits approval.** Nothing is built. Revision 1 drafted act-count
 > rules for each line; the owner corrected them the same day (§1). Every threshold below is invented (`[I]`).
+
+## 0. Owner decisions on revision 2 (2026-10-10)
+
+- **D1 — yes.** §4's definitions become the declared readouts (`docs/readouts_phase_c.md`).
+- **D2 — corrected: a pattern ends when a new pattern emerges.** No end rules of their own. §4's "Ends when" column is
+  replaced by this rule.
+  - **No interaction is an emerging level of distance.** A tie with no interaction reads as distance, and the level rises the
+    longer it lasts.
+- **D3 — yes.** Cutoff is drawn as rejection now. The engine's CUTOFF ("end contact") is opened as a separate decision item.
+- **D4 — yes.** Projection is drawn now from §4's readout, and built into the model as the first Phase D item.
+- **D5 — the owner's family.** Confirmed reading:
+  - Grandparents: Teodor and Ana (Marta's parents); Sofia and a new husband (Ravi's parents).
+  - Parents: Ravi and Marta.
+  - Parents' siblings: Iris (Marta's sister) and one new sibling of Ravi, **cut off from Ravi at the start**.
+  - Children: Leo, Nadia and Pia.
+  - Coach: Dr Halim.
+  - Bruno and Toma leave `M2.A`.
 
 ## 1. Owner corrections to revision 1 (2026-10-10)
 
@@ -130,3 +147,34 @@ Spec `M2.A` declares eleven family members plus Dr Halim. The Phase C runs simul
   now, because pattern lines end.
 - The readout change rides the next engine regeneration (about 1 hour, batched).
 - Projection in the model and the CUTOFF engine question are Phase D and decision items, sized separately.
+
+## 10. Build plan (awaiting approval)
+
+IDs `V1`–`V7` are local to this proposal. Spec IDs are used verbatim.
+
+**One regeneration, not two.** The engine hash covers `src/bowen/**` and every `config/bowen/*.md`
+(`tools/ensemble_record.py:code_hash`). So both the readout change (V1) and the new family file (V3) make every record
+stale, and each would cost the hour-long regeneration. They are therefore built together and regenerated once.
+
+| ID | Deliverable | Spec | Verified by |
+|---|---|---|---|
+| **V1** | `docs/readouts_phase_c.md`, `src/bowen/readouts/patterns.py` and the `pattern_*` constants rewritten to §4 + §0: <ul><li>window 4 weeks, 3 acts</li><li>conflict, distance (including no interaction, with a level), over/underfunctioning, fusion, projection, cutoff as rejection, fixed triangle</li></ul> | `M5.A.1a` | `tests/bowen/test_patterns.py`: <ul><li>`test_m5a1a_conflict_needs_three_acts_in_four_weeks`: two acts read no pattern</li><li>`test_m5a1a_no_interaction_reads_distance_not_cutoff`: adversarial</li><li>`test_m5a1a_distance_level_rises_with_weeks_without_interaction`</li><li>`test_m5a1a_cutoff_needs_refusals_of_approaches`</li><li>`test_m5a1a_projection_reads_parent_to_child_acts`</li><li>`test_m5a1a_pursuit_reads_as_fusion_over_under_or_projection`</li><li>the existing document/code agreement test</li></ul> |
+| **V2** | The current-pattern rule: a tie holds its pattern until a different pattern's start condition is met. If two start in the same block, the one with more acts wins, then the earlier first act `[I]`. | `M5.A.1a`, owner D2 | `test_m5a1a_pattern_holds_until_a_new_one_emerges`, `test_m5a1a_quiet_block_keeps_the_current_pattern` |
+| **V3** | Spec revision 13: `M2.A` changed to the owner's family; `M2.A.0` count restated; the new members' values `[I]`, drafted for owner review. New `config/bowen/family_phase_d.md`. **Phase B and C families unchanged** (they are the closed phases' records); Bruno stays in them as history. | `M2.A`, `M2.A.0` | `tests/bowen/test_family.py::test_m2a_phase_d_family_matches_spec_table`, `test_m2a_ravi_sibling_starts_cut_off` |
+| **V4** | Decision item for the engine's CUTOFF semantics (owner D3), written to `docs/DECISIONS — …` with the evidence in §5 Q1. No engine change. | `M1.B.3`, `M5.B.3` | the document |
+| **V5** | `tools/famdiag_export.py` + `config/bowen/viz_famdiag.md` (symbol table, block size 4, synthetic years). Reads V1/V2's readouts; it does not define patterns itself. | `M11.F.9` (page note) | `tests/bowen/test_famdiag_export.py`: <ul><li>trace-back: every line's pattern holds in its block</li><li>a run without CONFLICT draws no conflict line</li><li>format: keys, ids and dates</li><li>the page note is present</li></ul> |
+| **V6** | fam-diag: a pattern line is hidden after its end date (`isVisibleAtCutoff`). A change to your app, under its `standards/ui-regression.md`. | — | a Vitest test in fam-diag for the hide rule; the existing fam-diag suite stays green |
+| **V7** | Export of the seed-7 Phase C run, opened in fam-diag. | — | **not automatable**: I compare blocks 1, 13 and 26 with `docs/review/phase_c_trace_seed7.md` and report what I saw |
+
+**Order:** V4 (document only) → V1 + V2 → V3 → one regeneration and a sweep → V5 → V6 → V7.
+
+**Cost:**
+- V1–V3 and the regeneration: about a day, plus the hour-long regeneration.
+- V5: about a day.
+- V6: half a day.
+
+**Not in this plan:**
+- Building projection into the engine (`M4.D.6e`, Phase D's first item).
+- Any change to the engine's CUTOFF.
+- Simulating the four new Phase D members. The picture greys anyone not simulated in the run it draws.
+

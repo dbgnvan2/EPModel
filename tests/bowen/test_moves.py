@@ -101,35 +101,55 @@ def test_m1d2a_bound_anxiety_returns_when_distancing_is_prevented():
 # --- TRIANGLE ------------------------------------------------------------------------------
 
 
-def test_m1c1_triangle_relieves_the_insiders_and_loads_the_outsider():
-    """The tense pair passes anxiety to the third it recruits, who generates more on top (KS03.1)."""
+def triangle_relief(state, seeker=RAVI, third=MARTA):
+    """Deliver the seeker's TRIANGLE toward the third; return each person's change and the transfer record."""
+    before = {p: q.acute_anxiety for p, q in state.people.items()}
+    records = deliver(state, move("TRIANGLE", seeker, third))
+    change = {p: state.people[p].acute_anxiety - before[p] for p in before}
+    return change, [r for r in records if r.mechanism == "triangle_transfer"]
+
+
+def strained_with_nadia():
+    """Ravi is anxious and most strained with Nadia, so a TRIANGLE toward Marta recruits her into that twosome."""
     state = fresh()
-    anxious(state, RAVI, MARTA)
-    state.ties[TieId.of(RAVI, MARTA)].felt_impingement[RAVI] = 1.0  # Ravi's most strained tie: the tense pair
-    before = {p: state.people[p].acute_anxiety for p in (RAVI, NADIA, MARTA)}
-    deliver(state, move("TRIANGLE", RAVI, NADIA))
-    given = sum(before[p] - state.people[p].acute_anxiety for p in (RAVI, MARTA))
-    absorbed = state.people[NADIA].acute_anxiety - before[NADIA]
-    assert state.people[RAVI].acute_anxiety < before[RAVI] and state.people[MARTA].acute_anxiety < before[MARTA]
-    assert given > 0 and absorbed - given > 0.1 * given  # not conservative: the outsider's position generates anxiety
+    anxious(state, RAVI, NADIA)
+    state.ties[RAVI_NADIA].felt_impingement[RAVI] = 1.0
+    return state
 
 
-def test_m1c1_the_target_is_recruited_into_the_senders_most_strained_twosome():
-    """Ravi turning to Marta relieves whichever child his own tie is most strained with; Marta absorbs.
+def test_m1c1_triangle_relieves_the_seeker_and_loads_the_third():
+    """Owner decision 2026-10-09: only the seeker is relieved; the partner's anxiety eases only through their own
+    act. The third absorbs what the seeker passes on, and generates more (KS03.1)."""
+    change, records = triangle_relief(strained_with_nadia())
+    assert change[RAVI] < 0 and records
+    assert change[NADIA] == 0.0  # the partner, the other in the tense twosome, is not relieved
+    given = -change[RAVI]
+    assert change[MARTA] - given > 0.1 * given  # not conservative: the outsider's position generates anxiety
 
-    Decided 2026-10-08: the target is the recruited third (outside), not an ally (M1.F.1b, M11.C.3).
-    """
-    relieved, absorbed = {}, {}
+
+def test_m1c1_partner_not_relieved_by_seekers_triangle():
     for strained in (NADIA, PIA):
         state = fresh()
         anxious(state, RAVI, NADIA, PIA)
         state.ties[TieId.of(RAVI, strained)].felt_impingement[RAVI] = 1.0
-        before = {p: state.people[p].acute_anxiety for p in (MARTA, NADIA, PIA)}
-        deliver(state, move("TRIANGLE", RAVI, MARTA))
-        relieved[strained] = {p for p in (NADIA, PIA) if state.people[p].acute_anxiety < before[p]}
-        absorbed[strained] = state.people[MARTA].acute_anxiety > before[MARTA]
-    assert relieved == {NADIA: {NADIA}, PIA: {PIA}}
-    assert absorbed == {NADIA: True, PIA: True}
+        change, records = triangle_relief(state)
+        assert change[RAVI] < 0 and change[NADIA] == change[PIA] == 0.0
+        # The partner still defines the triad: the one Ravi is most strained with.
+        assert strained in next(tri for tri, _, _ in records[0].triangles).members
+
+
+def test_m1c1_anxious_third_helps_less():
+    calm, tense = strained_with_nadia(), strained_with_nadia()
+    anxious(tense, MARTA, by=60.0)
+    assert triangle_relief(tense)[0][RAVI] > triangle_relief(calm)[0][RAVI] < 0  # less relief from a tense third
+
+
+def test_m1c1_third_aligned_with_partner_helps_less():
+    """A third closer to the partner than to the seeker is on the partner's side, and helps the seeker less."""
+    with_seeker, with_partner = strained_with_nadia(), strained_with_nadia()
+    with_seeker.ties[TieId.of(NADIA, MARTA)].bond_energy = 10.0
+    with_partner.ties[TieId.of(NADIA, MARTA)].bond_energy = 90.0
+    assert triangle_relief(with_partner)[0][RAVI] > triangle_relief(with_seeker)[0][RAVI] < 0
 
 
 def test_m1c3a_better_differentiated_triangle_routes_less():

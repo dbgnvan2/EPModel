@@ -21,6 +21,8 @@ eligible act of age ``k`` (0 in the tick it was sent) gains
 
     credit_discount ** k × ( −Δ(actor) + cross_person_weight × mean −Δ(target, witnesses) )
 
+except that a ``TRIANGLE``'s recruited third is left out of the mean (owner decision 2026-10-09).
+
 Relief is positive. The cross-person term is how a child learns that acting as the
 parent's image predicts calms the parent (`FE07.4`). Nothing outside ``credit_horizon``
 ticks is credited: an act's account closes when its age reaches ``credit_horizon − 1``,
@@ -44,6 +46,7 @@ from src.bowen.engine.events import EventId, Mechanism
 from src.bowen.engine.identifiers import PersonId
 from src.bowen.engine.log_records import DecidedBy, EffectRecord
 from src.bowen.engine.params import EngineParams
+from src.bowen.engine.recompute import TRIANGLE_KIND
 from src.bowen.engine.state import RunState
 
 
@@ -70,13 +73,17 @@ def repetitions(state: RunState, actor: PersonId, kind: str, targets: tuple[Pers
 def register_acts(state: RunState, selections: tuple[Selection, ...], params: EngineParams) -> None:
     """Purpose: make each emitted automatic act of the policy an eligible act of its actor.
     Spec:    docs/bowen_agent_model_spec_v2.md#M4.D.6, #M4.D.6d
-    Tests:   tests/bowen/test_learner.py::test_m4d6d_self_directed_channel_is_never_reinforced
+    Tests:   tests/bowen/test_learner.py::test_m4d6d_self_directed_channel_is_never_reinforced,
+             tests/bowen/test_learner.py::test_m4d6e_triangle_credit_excludes_recruited_third
     """
     for selection in sorted(selections, key=lambda s: (s.actor, s.index)):
         if selection.decided_by is not DecidedBy.POLICY or not selection.value_key:
             continue
         event = state.store.event(EventId(state.tick, str(selection.actor), selection.index))
-        others = tuple(p for p in (*event.targets, *event.witnesses) if state.people[p].alive)
+        # Owner decision 2026-10-09: a TRIANGLE is credited by the seeker's own relief; the third it recruits is
+        # not in the cross-person term (M4.D.6e's term is the projection account, not a recruit's distress).
+        recruited = set(event.targets) if event.kind == TRIANGLE_KIND else set()
+        others = tuple(p for p in (*event.targets, *event.witnesses) if state.people[p].alive and p not in recruited)
         state.people[selection.actor].eligible_acts.append(EligibleAct(
             tick=state.tick, key=selection.value_key, others=others,
             repetitions=repetitions(state, selection.actor, event.kind, event.targets, params),

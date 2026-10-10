@@ -201,3 +201,33 @@ def test_m4d2_triangle_position_is_read_through_belief():
     assert position["believed"][0] == "outside"
     assert position["base"][0] == position["true"][0] == "inside"
     assert ("marta~ravi.contact", 1.0) in position["believed"][1]  # the belief read is recorded
+
+
+def _registered(kind, target=MARTA):
+    state = fresh()
+    visibility = HouseholdConductanceVisibility(PARAMS.per_hop_fidelity)
+    selection = Selection(actor=RAVI, kind=kind, targets=(target,), intensity=50.0, decided_by=DecidedBy.POLICY,
+                          value_key=f"mid|inside|{kind}|{target.value}")
+    act(state, selection, visibility, PARAMS)
+    register_acts(state, (selection,), PARAMS)
+    return state, state.people[RAVI].eligible_acts[-1]
+
+
+def test_m4d6e_triangle_credit_excludes_recruited_third():
+    """Owner decision 2026-10-09: the seeker learns from the seeker's own relief; the third it recruits is left out
+    of the cross-person term. Every other act keeps its target in it (FE07.4)."""
+    _, triangle = _registered("TRIANGLE")
+    _, pursue = _registered("PURSUE")
+    assert MARTA not in triangle.others
+    assert MARTA in pursue.others
+
+
+def test_m4d6e_triangle_reinforced_when_it_relieves_the_seeker_whatever_it_costs_the_third():
+    """Adversarial: the same felt changes reinforce a TRIANGLE (the third's cost is not its signal) and punish a
+    PURSUE toward the same person (whose distress is)."""
+    results = {}
+    for kind in ("TRIANGLE", "PURSUE"):
+        state, eligible_act = _registered(kind)
+        run_horizon(state, {RAVI: -2.0, MARTA: +15.0})  # PURSUE: 2 − 0.5 × 15 / 3 (target and two witnesses) < 0
+        results[kind] = state.people[RAVI].learned_values.get(eligible_act.key, 0.0)
+    assert results["TRIANGLE"] > 0 > results["PURSUE"]

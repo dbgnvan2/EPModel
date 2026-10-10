@@ -31,6 +31,12 @@
 > value, the longest horizon any Phase C criterion already declares (104 weeks, `M11.C.1`, `.16`, `.38`), run once
 > and reported whatever it shows. So `M11.C.4`'s nodal event moves to week 104, and `M11.C.27` is read 104 weeks
 > after its act. The earlier verdicts stay in `docs/DECISIONS — PHASE C FAILING.md`.
+>
+> **`M11.C.27` read week by week, 2026-10-09 (owner decision, after the 104-week run).** The owner: "the effect
+> is almost immediate and a long time horizon is distorted by other effects. Measure week by week." So the
+> criterion gates on the pair's deviation at the end of the week the act's effect lands (`latency`, 1 week after
+> t0, as `M11.C.3`), and reports every week from t0 + 1 to t0 + `report_weeks` (12, `[I]`) beside it, never gating.
+> `run_after` is retired. `M11.C.4`'s nodal event stays at week 104.
 
 | criterion | setting | value |
 |---|---|---|
@@ -62,7 +68,8 @@
 | M11.C.25 | weeks | 52 |
 | M11.C.25 | no_pole | 0.5 |
 | M11.C.27 | t0 | 8 |
-| M11.C.27 | run_after | 104 |
+| M11.C.27 | latency | 1 |
+| M11.C.27 | report_weeks | 12 |
 | M11.C.27 | unstable_impingement | 0.8 |
 | M11.C.29 | weeks | 80 |
 | M11.C.29 | t0 | 4 |

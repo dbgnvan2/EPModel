@@ -349,13 +349,19 @@ def _scan_arm(cid: str, arm: str, seed: int) -> dict | None:
 
     original_forced, original_scenario = criteria.Forced, criteria.scenario
 
+    class Scanned(Exception):
+        """Raised once the scan has run: the arm's readouts are not needed, and would read past the shortened run."""
+
     def short(family, seed, weeks, **kwargs):  # every act's latest possible week is t0 + its offset
         offsets = [t - t0 for t, _ in (kwargs.get("forced") or {})]
-        return original_scenario(family, seed, weeks, until=min(weeks, t0 + max(offsets, default=0) + 1), **kwargs)
+        original_scenario(family, seed, weeks, until=min(weeks, t0 + max(offsets, default=0) + 1), **kwargs)
+        raise Scanned
 
     criteria.Forced, criteria.scenario = Scan, short
     try:
         criterion.arm(arm, seed, criterion.settings)
+    except Scanned:
+        pass
     finally:
         criteria.Forced, criteria.scenario = original_forced, original_scenario
     script = seen.get("script")

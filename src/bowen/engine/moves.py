@@ -168,33 +168,58 @@ def routing_capacity(members: tuple[Person, ...]) -> float:
     return max(0.0, 1.0 - sum(p.functional_level for p in members) / (len(members) * SCALE_MAX))
 
 
+def third_help(state: RunState, seeker: PersonId, partner: PersonId, third: PersonId) -> float:
+    """Purpose: how far the recruited third can take the seeker's anxiety, in [0, 1].
+    Spec:    docs/bowen_agent_model_spec_v2.md#M1.C.1
+    Tests:   tests/bowen/test_moves.py::test_m1c1_anxious_third_helps_less,
+             tests/bowen/test_moves.py::test_m1c1_third_aligned_with_partner_helps_less
+
+    Owner decision 2026-10-09 (``docs/PROPOSAL — TRIANGLE RELIEF AND CREDIT.md``): the seeker is helped as far as
+    the third is a positive experience. A third who is very anxious, or on the partner's side, helps less. [I]:
+
+        help = (1 − third's excess / SCALE_MAX) × bond(seeker, third) / (bond(seeker, third) + bond(partner, third))
+
+    Every input is state the model already holds; there is no new constant.
+    """
+    calm = max(0.0, 1.0 - excess(state.people[third]) / SCALE_MAX)
+    with_seeker, with_partner = (state.tie_between(third, p) for p in (seeker, partner))
+    a = with_seeker.bond_energy if with_seeker else 0.0
+    b = with_partner.bond_energy if with_partner else 0.0
+    return calm * (a / (a + b) if a + b > 0 else 0.0)
+
+
 def triangle_transfer(state: RunState, event: Event, target: PersonId, params: EngineParams) -> EffectRecord | None:
-    """Purpose: the insiders pass anxiety to the outsider, who generates more of their own.
+    """Purpose: the seeker passes anxiety to the third it recruits, as far as the third helps; the third generates
+    more of their own.
     Spec:    docs/bowen_agent_model_spec_v2.md#M1.C.1, #M1.C.3a, #M6.4
-    Tests:   tests/bowen/test_moves.py::test_m1c1_triangle_relieves_the_insiders_and_loads_the_outsider
+    Tests:   tests/bowen/test_moves.py::test_m1c1_triangle_relieves_the_seeker_and_loads_the_third,
+             tests/bowen/test_moves.py::test_m1c1_partner_not_relieved_by_seekers_triangle
+
+    Owner decision 2026-10-09: only the seeker is relieved. The partner, the one the seeker is most strained with,
+    still defines the triad, and their anxiety eases only through their own act (for instance a third of their own).
     """
     found = triangle_partner(state, event.sender, target, params)
     if found is None:
         return None
     tri_id, partner = found
     outsider = target
-    insiders = (state.people[event.sender], state.people[partner])
+    seeker = state.people[event.sender]
     # M1.C.5: a completed exchange's permanent decrement never reverts.
-    capacity = routing_capacity((*insiders, state.people[outsider])) * (1.0 - state.triangles[tri_id].intensity_floor)
-    rate = params.triangle_transfer_rate * capacity * _strength(event, params)
-    moved = [(p.id, min(excess(p), rate * excess(p))) for p in insiders]
-    total = sum(m for _, m in moved)
-    if total <= 0:
+    capacity = routing_capacity((seeker, state.people[partner], state.people[outsider])) * (
+        1.0 - state.triangles[tri_id].intensity_floor)
+    help_ = third_help(state, seeker.id, partner, outsider)
+    rate = params.triangle_transfer_rate * capacity * _strength(event, params) * help_
+    moved = min(excess(seeker), rate * excess(seeker))
+    if moved <= 0:
         return None
-    for pid, amount in moved:
-        state.people[pid].acute_anxiety -= amount
-    generated = params.outsider_positional_gain * total
-    state.people[outsider].acute_anxiety += total + generated
+    seeker.acute_anxiety -= moved
+    generated = params.outsider_positional_gain * moved
+    state.people[outsider].acute_anxiety += moved + generated
     return EffectRecord(
         state.tick, "triangle_transfer", event.id,
-        acute_anxiety=tuple(sorted([(pid, -m) for pid, m in moved if m] + [(outsider, total + generated)])),
+        acute_anxiety=tuple(sorted([(seeker.id, -moved), (outsider, moved + generated)])),
         triangles=((tri_id, "outsider", outsider.value),),
-        # M6.4: of the outsider's rise, ``total`` is a transfer and this is a source, logged by name.
+        # M6.4: of the outsider's rise, ``moved`` is a transfer and this is a source, logged by name.
         people=((outsider, "positional_anxiety", generated),) if generated else (),
     )
 

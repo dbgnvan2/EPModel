@@ -44,7 +44,7 @@ def gate(prefix: str) -> None:
 def test_m11c1_lower_c_reaches_threshold_sooner():
     gate("M11.C.1")
 
-def test_m11c3_triangle_relieves_pair_costs_third():
+def test_m11c3_triangle_relieves_seeker_costs_third():
     gate("M11.C.3")
 
 def test_m11c4_cutoff_trades_now_against_later():

@@ -279,7 +279,12 @@ def test_m11c41_reactive_over_chance_is_zero_for_a_chooser_at_random_at_any_set_
     assert reactive_over_chance(always) == pytest.approx(1 - 2 / 3)  # always reactive, where chance is 2 of 3
     withheld = [_selection(0, "f", None, narrow)]  # a WITHHOLD emits nothing: offered, not selected
     assert reactive_over_chance(withheld) == pytest.approx(-2 / 3)
-    assert reactive_over_chance([_selection(0, "f", None, ())]) == 0.0  # a fallback with no legal set is left out
+    assert reactive_over_chance([_selection(0, "f", None, ())]) == 0.0  # no legal set: left out
+    from src.bowen.engine.log_records import DecidedBy
+
+    fallback = SelectionRecord(0, P("f"), DecidedBy.FALLBACK, None, legal_set=narrow)
+    assert reactive_over_chance([fallback]) == 0.0  # a fallback is a hold, not a choice: left out
+    assert reactive_over_chance([fallback, *always]) == reactive_over_chance(always)
 
 
 def test_s_absence_and_hold_in_the_same_week_both_apply():
@@ -319,3 +324,30 @@ def test_s_outcomes_classifies_every_case_from_the_records():
                emitted("f", 4, "STAY-IN-CONTACT", "m")]  # an I-POSITION neither emitted nor begun
     assert source.outcomes(records) == {"made": 2, "rewritten": 2, "not legal": 1, "owed a step": 1, "dead": 1,
                                         "not reached": 1}
+
+
+def test_m11c27_reads_the_week_the_act_lands_and_reports_each_week_after():
+    """Owner decision 2026-10-09: the effect is almost immediate, so the gate is the week the act lands (t0 +
+    latency); weeks t0+1 .. t0+report_weeks are reported, never gating."""
+    original = criteria.scenario
+    seen = []
+
+    def wrapped(*args, watch=None, **kwargs):
+        def both(state):
+            watch(state)
+            seen.append(criteria._pair_deviation(state))
+        return original(*args, watch=both, **kwargs)
+
+    cid = "M11.C.27[unstable,remove_one]"
+    settings = CRITERIA[cid].settings
+    t0, latency, weeks = settings["t0"], settings["latency"], settings["report_weeks"]
+    criteria.scenario = wrapped
+    try:
+        readouts = criteria.arm_c27("treatment", 0, settings).readouts
+    finally:
+        criteria.scenario = original
+    assert len(seen) == t0 + weeks + 1
+    assert readouts["pair_deviation"] == seen[t0 + latency]
+    assert [readouts[f"pair_deviation_week_{k}"] for k in range(1, weeks + 1)] == seen[t0 + 1:t0 + weeks + 1]
+    gating = [r for r in CRITERIA[cid].readouts if not r.report_only]
+    assert [r.name for r in gating] == ["pair_deviation"] and len(CRITERIA[cid].readouts) == weeks + 1

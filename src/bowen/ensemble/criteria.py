@@ -77,7 +77,7 @@ REQUIRED = {
     "M11.C.16": ("weeks", "level_baseline", "level_treatment", "window"),
     "M11.C.19": ("weeks", "low_axis", "high_axis"),
     "M11.C.25": ("weeks", "no_pole"),
-    "M11.C.27": ("t0", "run_after", "unstable_impingement"),
+    "M11.C.27": ("t0", "latency", "report_weeks", "unstable_impingement"),
     "M11.C.29": ("weeks", "t0", "disguise_span", "disguise_every"),
     "M11.C.32": ("weeks", "t0", "angry_impingement"),
     "M11.C.35": ("t0", "run_after", "conductance_high", "conductance_low"),
@@ -327,7 +327,7 @@ def arm_c1(arm, seed, settings):
     return result({"time_to_threshold": first_onset(records, weeks)}, records)
 
 
-# --- M11.C.3: a triangle relieves the pair and costs the third, within the tick --------------
+# --- M11.C.3: a triangle relieves the seeker and costs the third, within the tick ------------
 
 
 def _acute_at(records, tick, people):
@@ -347,7 +347,10 @@ def arm_c3(arm, seed, settings):
     state, records = scenario("triad", seed, weeks, forced=forced, held_open=held(t0, "f-m", "f-c"))
     delivered = t0 + settings["latency"]  # the act's effect lands after the tie's latency
     change = _acute_at(records, delivered, (P("f"), P("m"), P("c")))
-    return result({"pair_anxiety": change[P("f")] + change[P("m")], "third_anxiety": change[P("c")]}, records)
+    # Restated 2026-10-09 (owner decision, docs/PROPOSAL — TRIANGLE RELIEF AND CREDIT.md): a triangle relieves the
+    # seeker, not the pair, so the readout is the seeker's change; the partner's is reported.
+    return result({"seeker_anxiety": change[P("f")], "third_anxiety": change[P("c")],
+                   "partner_anxiety": change[P("m")]}, records)
 
 
 # --- M11.C.4: cutoff trades now against later --------------------------------------------------
@@ -478,9 +481,15 @@ def arm_c27(arm, seed, settings):
     else:  # remove one: f severs contact with m for the cell's window
         forced = act("f", "CUTOFF", "m", t0)
     ties = ("f-m", "f-c") if settings["change"] == "add_third" else ("f-m",)
-    state, records = scenario("triad", seed, t0 + settings["run_after"], forced=forced, setup=setup,
-                              held_open=held(t0, *ties))
-    return result({"pair_deviation": _pair_deviation(state)}, records)
+    # Read week by week (owner decision, 2026-10-09: the effect is almost immediate, and a long horizon is
+    # distorted by other effects). ``deviation[w]`` is the pair's deviation at the end of week w.
+    deviation = []
+    weeks = t0 + settings["report_weeks"] + 1
+    state, records = scenario("triad", seed, weeks, forced=forced, setup=setup, held_open=held(t0, *ties),
+                              watch=lambda s: deviation.append(_pair_deviation(s)))
+    readouts = {"pair_deviation": deviation[t0 + settings["latency"]]}
+    readouts |= {f"pair_deviation_week_{k}": deviation[t0 + k] for k in range(1, settings["report_weeks"] + 1)}
+    return result(readouts, records)
 
 
 # --- M11.C.29: relief and differentiation, by the third person's time course -------------------
@@ -577,12 +586,14 @@ def reactive_over_chance(records) -> float:
     first restatement (reactive selected over reactive offered) was confounded the other way, found by review
     before it was relied on: a chooser picking uniformly at random scores 1/N on it, so it rose whenever the legal
     set shrank. A uniform chooser scores 0 on this one at any set size, so it reads a preference for reactive acts
-    beyond what the legal set makes likely.
+    beyond what the legal set makes likely. Only the policy's own draws count: a ``FALLBACK`` is always a hold
+    (`M4.D.1f`), not a choice, and a fallback rate that differed between arms would otherwise shift the readout
+    (re-sweep, 2026-10-09).
     """
     kinds = {r.event.id: r.event.kind for r in records if isinstance(r, EmittedRecord)}
     excess, n = 0.0, 0
     for r in records:
-        if isinstance(r, SelectionRecord) and r.legal_set:
+        if isinstance(r, SelectionRecord) and r.decided_by is DecidedBy.POLICY and r.legal_set:
             offered = sum(1 for label in r.legal_set if label.split(">")[0] in AUTOMATIC)
             if offered:
                 excess += (kinds.get(r.event_id) in AUTOMATIC) - offered / len(r.legal_set)
@@ -636,7 +647,8 @@ CRITERIA: dict[str, Criterion] = {
     "M11.C.1": C("M11.C.1", "premise", ("baseline", "treatment"), (Readout("time_to_threshold", -1),), arm_c1,
                  settings={**SETTINGS["M11.C.1"], "levels": (SETTINGS["M11.C.1"]["level_baseline"], SETTINGS["M11.C.1"]["level_treatment"])}),
     "M11.C.3": C("M11.C.3", "premise", ("baseline", "treatment"),
-                 (Readout("pair_anxiety", -1), Readout("third_anxiety", +1)), arm_c3, ("TRIANGLE",),
+                 (Readout("seeker_anxiety", -1), Readout("third_anxiety", +1),
+                                                 Readout("partner_anxiety", 0, report_only=True)), arm_c3, ("TRIANGLE",),
                  settings=SETTINGS["M11.C.3"]),
     "M11.C.4": C("M11.C.4", "premise", ("baseline", "treatment"),
                  (Readout("actor_relief_now", -1), Readout("family_anxiety_at_nodal", +1)), arm_c4, ("CUTOFF",),
@@ -671,8 +683,10 @@ CRITERIA: dict[str, Criterion] = {
 for twosome, change, direction in (("stable", "add_third", +1), ("stable", "remove_one", +1),
                                    ("unstable", "add_third", -1), ("unstable", "remove_one", -1)):
     cid = f"M11.C.27[{twosome},{change}]"
-    CRITERIA[cid] = C(cid, "composite", ("baseline", "treatment"), (Readout("pair_deviation", direction),), arm_c27,
-                      settings={**SETTINGS["M11.C.27"], "twosome": twosome, "change": change})
+    weekly = tuple(Readout(f"pair_deviation_week_{k}", direction, report_only=True)
+                   for k in range(1, SETTINGS["M11.C.27"]["report_weeks"] + 1))
+    CRITERIA[cid] = C(cid, "composite", ("baseline", "treatment"), (Readout("pair_deviation", direction), *weekly),
+                      arm_c27, settings={**SETTINGS["M11.C.27"], "twosome": twosome, "change": change})
 # M11.C.38: four basic levels, a monotone ordering, as three adjacent two-arm directions (M11.4).
 _levels = [v for k, v in sorted(SETTINGS["M11.C.38"].items()) if k.startswith("level_")]
 for lo, hi in zip(_levels, _levels[1:]):

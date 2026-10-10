@@ -41,7 +41,7 @@ column follows the global completion standard.
 |---|---|---|---|---|---|
 | `M11.C.1` lower level reaches threshold sooner | premise | PASS (100 seeds) | **only by the joint `level-blind` mutant** — see §2 | — | done (proved only jointly; plan §3's named mutant survives, §2) |
 | `M11.C.3` triangle relieves the seeker, costs third (restated 2026-10-09) | premise | PASS (50) — seeker −1.29, third +1.10; partner +0.93, reported | yes: the seeker readout by `seeker-relief-removed`, the third's by `triangle-transfer-removed` and `triangle-roles-swapped`; `triangle-help-ignored` survives (it changes the size, not the direction) | — | done — §8, §12 |
-| `M11.C.4` cutoff trades now against later | premise | **FAIL** — the "now" limb holds (−2.55); the "later" limb does not, at a nodal event at week 104 (+0.14, p 0.76) | not run | — | partial — §3.2 |
+| `M11.C.4` cutoff trades now against later | premise | **FAIL** — the "now" limb holds (−2.55); the "later" limb does not, at a nodal event at week 104 (+0.14, p 0.76) | not run | — | not done — the later limb fails; §3.2 |
 | `M11.C.5` change-back reaction | composite | **FAIL** — target reaction +3.3 (p 0.18); third's load −7.3 (p 0.95) | not run | at least one readout reverses at 5 of 6 settings | not done — §3.3 |
 | `M11.C.7` topology not coach skill | premise | not built | — | — | Phase D (moved 2026-10-09) — needs `M8.2`/`M8.3`'s position predicates; declares no direction for its arms |
 | `M11.C.13` help relocates, not reduces | premise | not built | — | — | Phase D (moved 2026-10-09) — needs incidents located in a community |
@@ -545,7 +545,7 @@ about a real family (`M11.5`, `M11.F.9`).
 | `M11.C.5` | not done | target reaction +3.3 ± 12; third's load −7.3 ± 9.2 | No settled change-back reaction over 60 weeks; before the triangle change both readouts pointed the claimed way, not significantly. |
 | `M11.C.29` | not done | budget −0.04 ± 0.18; symptom-active weeks −0.25 ± 0.37 | A genuine I-POSITION and distance in disguise leave the third person's symptom course the same. |
 | `M11.C.42` | not done | reuse +0.08 ± 0.39; no sweep setting passes | A `TRIANGLE` relieves its seeker (−1.29) far less than a `DISTANCE` (−4.97), so it is not learned. |
-| `M11.C.44` | not done | +0.039 ± 0.11 | The outside position's value does not invert with load: the calm arm is the triad's resting state, 8–9 points above the floor, and the declared spell adds about 2 (D7). |
+| `M11.C.44` | not done | +0.039 ± 0.11 | The outside position's value does not invert with load: the calm arm is the triad's resting state, with its three members who have several ties 8–9 points above the floor, and the declared spell adds about 2 (D7). |
 | `M11.C.45` | not done | −0.0008 ± 0.0044 per person-week | Same two causes as C.42 and C.44. |
 | `M11.C.7`, `.13`, `.14` | not built | moved to Phase D (2026-10-09) | Each needs machinery the model does not have (§1). |
 

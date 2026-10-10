@@ -46,8 +46,35 @@ def code_hash(*tools: Path) -> str:
         if path.name == "constants_changes.md":
             continue  # a log of changes, not an input
         digest.update(path.relative_to(REPO).as_posix().encode())
-        digest.update(path.read_bytes())
+        digest.update(code_text(path).encode() if path.suffix == ".py" else path.read_bytes())
     return digest.hexdigest()
+
+
+def code_text(path: Path) -> str:
+    """A Python file as the hash sees it: without comments, docstrings or blank lines, so editing prose in the
+    engine does not rerun every record (learnings P38). The docstrings are found with ``ast`` and the comments
+    with ``tokenize``; both report source positions, which do not change across Python versions, unlike
+    ``ast.dump``'s output. A docstring on the same line as its ``def`` is kept, with its code.
+    """
+    import ast
+    import io
+    import tokenize
+
+    source = path.read_text(encoding="utf-8")
+    lines = source.splitlines()
+    dropped = set()
+    for node in ast.walk(ast.parse(source)):
+        if isinstance(node, (ast.Module, ast.ClassDef, ast.FunctionDef, ast.AsyncFunctionDef)) and node.body:
+            first = node.body[0]
+            if (isinstance(first, ast.Expr) and isinstance(first.value, ast.Constant)
+                    and isinstance(first.value.value, str) and first.lineno != getattr(node, "lineno", 0)):
+                dropped.update(range(first.lineno, first.end_lineno + 1))
+    for token in tokenize.generate_tokens(io.StringIO(source).readline):
+        if token.type == tokenize.COMMENT:
+            row, col = token.start
+            lines[row - 1] = lines[row - 1][:col]
+    kept = [line.rstrip() for number, line in enumerate(lines, 1) if number not in dropped]
+    return "\n".join(line for line in kept if line)
 
 
 def run(workers: int, only: list[str] | None):

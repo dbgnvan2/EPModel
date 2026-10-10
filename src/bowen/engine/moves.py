@@ -31,10 +31,12 @@ tie to them (ties broken by identifier). The sender and that partner are the ins
 the target is outside, as step 6's readout has it. *Decided 2026-10-08 (owner request,
 `TODO.md`):* step 5 first read the act as an alliance — sender and target inside, the
 partner outside — which contradicted `M1.F.1b`, `M11.C.3`, `M11.C.42` and `M6.4`'s
-"`TRIANGLE` pair → outsider". Each insider moves
-``triangle_transfer_rate × capacity × s`` of its excess to the outsider, and the
-outsider generates ``outsider_positional_gain`` times the total on top: "outsiders
-both generate their own anxiety and absorb anxiety from insiders". ``capacity`` is
+"`TRIANGLE` pair → outsider". *Decided 2026-10-09 (owner):* only the seeker (the sender)
+moves anxiety, ``triangle_transfer_rate × capacity × s × third_help`` of its excess, to the
+outsider; the partner is not relieved. ``third_help`` is the outsider's calm times their bond
+with the seeker over their bonds with seeker and partner. The outsider generates
+``outsider_positional_gain`` times what it absorbs on top: "outsiders both generate their own
+anxiety and absorb anxiety from insiders". ``capacity`` is
 ``1 − mean functional_level / 100`` of the three, so the same topology routes less
 among better-differentiated members (`M1.C.3a`). With no closed triad there is no
 transfer; the move's components still land.

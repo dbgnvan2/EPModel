@@ -54,7 +54,7 @@ class EngineParams:
     outside_ness_threshold_inward: float   # M5.C.1, revision 12 P9 — and above this on the inward axis
     involvement_membership_threshold: float  # M1.A.12 — membership is a threshold over involvement
     distance_binding_rate: float  # M1.D.2a — share of the distancer's excess bound into the tie per unit scaled intensity
-    triangle_transfer_rate: float # M1.C.1 — share of each insider's excess passed to the outsider per unit scaled intensity, before capacity
+    triangle_transfer_rate: float # M1.C.1 — share of the seeker's excess passed to the outsider per unit scaled intensity, before capacity and the third's help
     outsider_positional_gain: float # M1.C.1, KS03.1 — the outsider's own positional anxiety per unit absorbed
     balance_push_gain: float      # M1.B.5 — how far one act pushes the functioning balance per unit scaled intensity
     balance_settle_rate: float    # M1.B.5 — share of the gap to its pole a balance closes per tick

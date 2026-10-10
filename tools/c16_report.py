@@ -7,8 +7,9 @@ Tests:   tests/bowen/test_ensemble_record.py::test_m115_report_section_11_is_gen
 
     python3 tools/c16_report.py
 
-§11 is the last section of the report; this rewrites it from its heading to the end of the file. The module computes
-``SECTION`` when imported.
+This rewrites §11 from its heading to the next top-level heading (``bounds``). The module computes ``SECTION`` when
+imported. Its qualitative claims (whether an inversion reverses C.16, whether removing its grounds turns it red) are
+chosen from the mutant results too, so a regenerated record cannot leave a false sentence behind.
 """
 
 from __future__ import annotations
@@ -46,10 +47,41 @@ if cited_red:
 else:
     CITED = (f"Removing the two cited rules alone, with availability kept (`c16-cited-grounds-removed`), leaves it passing: "
              f"entropy {N('c16-cited-grounds-removed','repertoire_entropy')}. Removing availability alone also leaves it "
-             f"passing ({N('availability-level-independent','repertoire_entropy')}). Either set alone keeps a passing "
-             "result; only removing both removes it, which is the pattern `M11.5`'s redundancy clause describes.")
+             f"passing ({N('availability-level-independent','repertoire_entropy')}). "
+             + ("Either set alone keeps a passing result; only removing both removes it, which is the pattern "
+                "`M11.5`'s redundancy clause describes." if c16["c16-grounds-removed"]["result"] != "survived" else
+                "Removing both together also leaves it passing, though much reduced (above), so no removal of these "
+                "rules turns it red, and the redundancy pattern is not shown."))
     CITED_PROOF = ("`c16-grounds-removed`, which removes availability with them, would be that clause's proof; either set "
                    "alone leaves it passing.")
+inverted = c16["availability-level-inverted"]["result"]
+grounds = c16["c16-grounds-removed"]["result"]
+reversed_ = [m for m, r in c16.items() if r["result"] == "reversed"]
+RED = lambda result: "turns it red" if result != "survived" else "leaves it passing"
+REVERSED_NOTE = ("none here is" if not reversed_ else
+                 "here " + ", ".join(f"`{m}`" for m in reversed_) + (" is" if len(reversed_) == 1 else " are"))
+if inverted == "reversed":
+    INVERSION = (f"- **Inverting `M4.D.3a`'s availability reverses C.16**: entropy "
+                 f"{N('availability-level-inverted','repertoire_entropy')} and top-move share "
+                 f"{N('availability-level-inverted','top_move_share')}, both intervals wholly on the opposite side. "
+                 "When the owner kept C.16 composite (2026-10-08) this inversion only cancelled it; since the triangle "
+                 "change of 2026-10-09 it reverses it, so the class goes back to the owner (`TODO.md`). **This inversion "
+                 "is still weak where C.16 runs.**")
+    FLIP = ("`M11.1d`'s flip is sufficient for a premise, not necessary. The availability inversion now flips C.16, "
+            "which by that test would make it one; the owner's decision to keep it composite was made when it only "
+            "cancelled, and is put back to the owner.")
+else:
+    INVERSION = (f"- **No inversion run reverses C.16.** Inverting `M4.D.3a`'s availability "
+                 f"{'cancels it' if inverted == 'red' else 'leaves it passing'}: entropy "
+                 f"{N('availability-level-inverted','repertoire_entropy')} and top-move share "
+                 f"{N('availability-level-inverted','top_move_share')}. "
+                 + ("That is a FAIL, so the mutant is red, but the direction is not flipped. " if inverted == "red" else "")
+                 + "**This inversion is weak where C.16 runs.**")
+    FLIP = ("`M11.1d`'s flip is sufficient for a premise, not necessary. No inversion run here flips C.16, so that "
+            "test does not make it one.")
+if grounds == "survived":
+    CITED_PROOF = ("but no mutant here proves it: `c16-grounds-removed`, which removes the cited rules with "
+                   "availability, now leaves C.16 passing.")
 sec = f"""## 11. Whether `M11.C.16` is reclassified — decided 2026-10-08
 
 The owner asked whether C.16 should be reclassified, now that it passes but survives its named mutant. **Decided: it
@@ -68,27 +100,25 @@ cites as its grounds, which `M11.5`'s redundancy clause needs as its proof, with
 The table is generated from `docs/phase_c_mutation_record.md`. Differences are the lowered arm minus the baseline arm,
 mean ± 95% half-width, at the central setting. The criterion tests a negative entropy difference; the top-move share
 is reported beside it and never tested. A red mutant is marked **reversed** only when every gating readout's interval
-lies wholly on the opposite side; none here is.
+lies wholly on the opposite side; {REVERSED_NOTE}.
 
 """ + "\n".join(rows) + f"""
 
 What this shows:
 
-- **No inversion run reverses C.16.** Inverting `M4.D.3a`'s availability cancels it: entropy
-  {N('availability-level-inverted','repertoire_entropy')} and top-move share {N('availability-level-inverted','top_move_share')}, both intervals spanning zero.
-  That is a FAIL, so the mutant is red, but the direction is not flipped. **This inversion is weak where C.16 runs.**
+{INVERSION}
   It equals the deletion (every layer fully available) at level 20 and below on both layers, and at 40 and below on
   layer 1. Under the mutant, over the whole run, the lowered arm's members spend {O('availability-level-inverted','treatment','deletion_on_every_layer')} of member-weeks at level 20 or
   below and {O('availability-level-inverted','treatment','deletion_on_layer_1')} at 40 or below; the baseline arm's, {O('availability-level-inverted','baseline','deletion_on_every_layer')} and {O('availability-level-inverted','baseline','deletion_on_layer_1')}. Over the last
   52 weeks, which the entropy reads, the lowered arm's are {O('availability-level-inverted','treatment','deletion_on_every_layer','window')} and {O('availability-level-inverted','treatment','deletion_on_layer_1','window')}
   (`docs/phase_c_level_occupancy.md`, which also gives the unmodified shares; these are shares of member-weeks, not
-  of selections). So it mostly reverses layer 2 only.
-  "Cancels without reversing" holds for this inversion; a stronger one was not tried.
+  of selections). So it mostly reverses layer 2 only. A stronger
+  inversion was not tried.
 - **Availability carries part of the narrowing, not all of it.** Removing it leaves entropy at
   {N('availability-level-independent','repertoire_entropy')}, against {v(central,'repertoire_entropy')} unmutated. No other single rule removes
   the result; the level-blind mutant, which removes all nine at once, leaves no difference at all.
 - **C.16's cited grounds.** Its criterion row cites `M4.C.1a` (KS03.2: steepness and band) and `M1.C.3a` (routing).
-  Removing those together with `M4.D.3a`'s availability (`c16-grounds-removed`) turns it red: entropy
+  Removing those together with `M4.D.3a`'s availability (`c16-grounds-removed`) {RED(grounds)}: entropy
   {N('c16-grounds-removed','repertoire_entropy')}. {CITED}
 - `M5.D.3`'s hold capacity never acts in C.16's runs: both hold mutants reproduce the unmutated numbers exactly. Those
   two mutants test nothing here.
@@ -100,8 +130,7 @@ What this shows:
 
 Why composite, and not premise:
 
-- `M11.1d`'s flip is sufficient for a premise, not necessary. No inversion run here flips C.16, so that test does not
-  make it one.
+- {FLIP}
 - `M11.5`'s redundancy clause makes a result a premise when several rules each state it, as at `M11.C.1`, where every
   level-reading rule states earlier onset at a lower level. C.16's pattern of mutants looks the same (each single
   deletion survives and only joint deletions remove it), but of the nine rules only availability states a narrower

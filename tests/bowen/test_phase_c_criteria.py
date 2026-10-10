@@ -351,3 +351,17 @@ def test_m11c27_reads_the_week_the_act_lands_and_reports_each_week_after():
     assert [readouts[f"pair_deviation_week_{k}"] for k in range(1, weeks + 1)] == seen[t0 + 1:t0 + weeks + 1]
     gating = [r for r in CRITERIA[cid].readouts if not r.report_only]
     assert [r.name for r in gating] == ["pair_deviation"] and len(CRITERIA[cid].readouts) == weeks + 1
+
+
+def test_s_declared_latency_matches_the_fixtures_ties():
+    """`M11.C.3` and `M11.C.27` read the week an act lands as t0 + latency; that must be the latency of the ties the
+    act crosses in the triad fixture, or they read a week where nothing has landed (re-sweep, 2026-10-09)."""
+    from src.bowen.engine.identifiers import TieId
+    from src.bowen.io.load import load_family
+
+    ties = load_family(criteria.FAMILIES["triad"]).ties
+    for cid, crossed in (("M11.C.3", ("f-m", "f-c")), ("M11.C.27[stable,add_third]", ("f-m", "f-c"))):
+        declared = CRITERIA[cid].settings["latency"]
+        for pair in crossed:
+            a, b = pair.split("-")
+            assert ties[TieId.of(P(a), P(b))].latency == declared, (cid, pair)

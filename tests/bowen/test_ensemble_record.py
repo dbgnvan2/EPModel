@@ -526,3 +526,24 @@ def test_d0_summarise_leaves_out_seeds_with_nothing_to_measure():
     rows = [{"arm": "a", "seed": 0, "x": None}, {"arm": "a", "seed": 1, "x": 2.0}, {"arm": "a", "seed": 2, "x": 4.0}]
     line = _diagnostic.summarise(rows)[2]
     assert line == "| a | 3 | 3 / 3 / 2 / 4 / 100% |"
+
+
+def test_m134_code_hash_ignores_prose_but_not_code(tmp_path):
+    """Editing a comment or docstring in the engine must not rerun every record; editing code must (learnings P38).
+    A docstring on its def's own line is code-adjacent and kept."""
+    from tools.ensemble_record import code_text
+
+    base = 'def f(x):\n    """Doc."""\n    # a comment\n    return x + 1  # trailing\n\ndef g(): "inline"; return 2\n'
+    variants = {
+        "prose": base.replace("Doc.", "Changed doc.").replace("a comment", "another comment").replace("trailing", "t"),
+        "code": base.replace("x + 1", "x + 2"),
+        "inline docstring": base.replace('"inline"', '"other"'),
+    }
+    path = tmp_path / "m.py"
+    path.write_text(base)
+    original = code_text(path)
+    seen = {}
+    for name, text in variants.items():
+        path.write_text(text)
+        seen[name] = code_text(path) == original
+    assert seen == {"prose": True, "code": False, "inline docstring": False}

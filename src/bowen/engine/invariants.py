@@ -45,7 +45,7 @@ LEDGER = {
     "acute_decay": SINK,            # M1.A.8, toward the chronic floor
     "calm_contact": TRANSFER,       # M4.C.10
     "distance_binding": TRANSFER,   # M1.D.2a, person to tie
-    "triangle_transfer": TRANSFER,  # M1.C.1, insiders to outsider, plus KS03.1's source
+    "triangle_transfer": TRANSFER,  # M1.C.1, seeker to outsider, plus KS03.1's source
     "reconciliation": TRANSFER,     # M4.A.3, tie back to its members
     "reduce_cutoff": TRANSFER,      # M5.B.3, tie to the third party (L22.6)
     "binder_unavailable": TRANSFER, # M1.F.9, a binder's hold back to the family budget

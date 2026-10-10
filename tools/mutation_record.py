@@ -106,6 +106,18 @@ MUTANTS = (
            "    if moved <= 0:\n        return None\n    seeker.acute_anxiety -= moved",
            "    if True:\n        return None\n    seeker.acute_anxiety -= moved",
            "M1.C.1's transfer removed"),
+    Mutant("seeker-relief-removed", DELETION, ("M11.C.3",), "src/bowen/engine/moves.py",
+           "    seeker.acute_anxiety -= moved\n",
+           "    pass\n",
+           "M1.C.1's relief of the seeker removed; the third still absorbs, now all of it a logged source, so the "
+           "ledger balances (proves M11.C.3's seeker readout, which the transfer and roles mutants reach only "
+           "through the third's)",
+           also=(("src/bowen/engine/moves.py",
+                  "acute_anxiety=tuple(sorted([(seeker.id, -moved), (outsider, moved + generated)])),",
+                  "acute_anxiety=((outsider, moved + generated),),"),
+                 ("src/bowen/engine/moves.py",
+                  "people=((outsider, \"positional_anxiety\", generated),) if generated else (),",
+                  "people=((outsider, \"positional_anxiety\", moved + generated),),"))),
     Mutant("triangle-help-ignored", NAMED, ("M11.C.3", "M11.C.42", "M11.C.45"), "src/bowen/engine/moves.py",
            "    help_ = third_help(state, seeker.id, partner, outsider)\n",
            "    help_ = 1.0\n",
@@ -228,7 +240,8 @@ MUTANTS = (
     Mutant("triangle-roles-swapped", SIGN, ("M11.C.3",), "src/bowen/engine/moves.py",
            "    outsider = target\n    seeker = state.people[event.sender]\n",
            "    outsider, partner = partner, target\n    seeker = state.people[event.sender]\n",
-           "M1.C.1's roles swapped back to step 5's alliance reading: sender and target inside, the partner outside"),
+           "M1.C.1's partner and target swapped: the sender's tense partner is loaded as the outsider, and the "
+           "target the act recruits is neither relieved nor loaded"),
     Mutant("steepness-inverted", SIGN, LEVEL, "src/bowen/engine/contact.py",
            "return SCALE_MAX / max(person.functional_level, params.functional_level_floor)",
            "return max(person.functional_level, params.functional_level_floor) / (SCALE_MAX / 4)",

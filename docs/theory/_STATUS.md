@@ -1,6 +1,13 @@
 # Run status — HANDOFF
 
-> ## ▶ STATE — the corpus is closed and the spec is current. **Phase C is built; its gate does not pass.**
+> ## ▶ STATE — the corpus is closed and the spec is current. **Phase C is closed with its gate failing (owner decision, 2026-10-09).**
+>
+> **2026-10-09 — Phase C closed.** The approved failing-criteria decisions were carried out (`docs/DECISIONS — PHASE C
+> FAILING.md`), the owner's triangle account was built (`docs/PROPOSAL — TRIANGLE RELIEF AND CREDIT.md`), and the owner
+> closed Phase C with its gate failing. Done: `M11.C.1`, `.3`, `.19`, `.25`, `.32`, `.35`, `.38`. Partial: `.16`, `.27`
+> (1 of 4 cells), `.41` (2 of 4). Not done: `.4`, `.5`, `.29`, `.42`, `.44`, `.45`, recorded as findings with their
+> measured causes in `docs/phase_c_completion_report.md` §13, which also lists what the next phase inherits. **Open:**
+> plan §9's human reviews and Bruno's weekly fallback. **Next:** those, then plan Phase D or a theory revision.
 >
 > **2026-10-08 — Phase C built (steps 0–16), and `TRIANGLE`'s roles decided.** The gate does not pass: 7 criteria pass and are
 > mutation-proved (`M11.C.1`, `.3`, `.19`, `.25`, `.32`, `.35`, `.38`), `.16` passes but is not proved, `.27` passes in one cell, and

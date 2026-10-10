@@ -6,8 +6,10 @@ Deferred and adjacent items. Each carries enough context to act on later without
 
 - [x] ~~**Approve or revise `docs/bowen_agent_model_spec_v2.md`.**~~ *Approved 2026-08-25; revisions 1–6 applied, the last on 2026-08-28.*
 - [x] ~~**Approve spec revision 10.**~~ *Approved 2026-10-06. Terms in the spec's revision-10 section under* Approval.
-- [ ] **Read the Phase B trace end to end and record the result** (plan §7) — the last item before Phase B is declared done. `docs/review/phase_b_trace_seed7.md` and `docs/review/phase_b_trace_seed7_nadia.md`; report at `docs/phase_b_completion_report.md`.
-- [ ] **Run the `learning-qa` review over the Phase B diff before pushing** (global working process, step 5).
+- [x] ~~**Read the Phase B trace end to end and record the result** (plan §7)~~ *done 2026-10-07: the owner read both
+  traces, no findings; Phase B closed (`docs/phase_b_completion_report.md`). This entry was stale until 2026-10-09.* — the last item before Phase B is declared done. `docs/review/phase_b_trace_seed7.md` and `docs/review/phase_b_trace_seed7_nadia.md`; report at `docs/phase_b_completion_report.md`.
+- [x] ~~**Run the `learning-qa` review over the Phase B diff before pushing**~~ *superseded: Phase B was pushed and
+  closed 2026-10-07, and every Phase C batch since has had its own sweep.*
 - [x] ~~**Build Phase B.**~~ *Steps 0–15 done 2026-10-06; all 14 automated exit criteria pass, 17 of 17 mutations proved.*
 - [x] ~~**Approve the Phase B implementation plan**~~ *Approved 2026-10-06, D1–D9 as written.* — drafted 2026-10-06 at `docs/implementation_plan_phase_b.md` (branch `plan-phase-b`). Its §1 holds nine decisions (D1–D9) the owner must answer before code, and Appendix A is the `M14.A` register draft for review. *Was: write the implementation plan — Phase B only* (owner decision 2026-10-06, following the external review's recommendation 9). The 2026-09-23 review's findings go in the plan as blockers on the phases they affect. The next gate, and the only thing between here and code. Every acceptance criterion mapped to the file and module that satisfies it, in dependency order, with the mutation that proves each one. Spec convention is spec → plan → build, each approved before the next. Inputs: the 33 criteria in `M11.C`, the 5 in `M16.F`, the engineering criteria in `M11.D`, and the phase table at `M13`.
 - [x] ~~**Decide four criteria that cannot be made code-testable in Phases B–D** (spec §M11.E).~~ *Accepted as written by the owner, 2026-10-06, at approval of revision 10.* Each has a human-review proposal:
@@ -105,9 +107,8 @@ Phase C steps 0–16 are built. **Its gate does not pass** (`docs/phase_c_comple
      scans stop at an arm's first `scenario` call (every arm calls it once today).
 - [x] ~~**Run the approved plan for the failing criteria**~~ *D0-D6 done 2026-10-09; see the decision memo.* (`docs/plan_phase_c_failing_criteria.md`, approved 2026-10-09):
   D0 diagnostic record, D1-D6 diagnoses, one decision memo. `M11.C.7`, `.13` and `.14` moved to Phase D the same day.
-- [ ] **The failing criteria** (after step S, 2026-10-09) — `M11.C.4` (later limb), `.5`, `.29` (restated readout
-  does not separate the arms), `.41` (the two stress limbs; both level limbs pass under the restated readout), `.42`,
-  `.44`, `.45`, and three cells of `.27`. Report §3.
+- [x] ~~**The failing criteria**~~ *closed 2026-10-09: Phase C closed with its gate failing (owner decision); each
+  failure is recorded as a finding with its measured cause, and what the next phase inherits, in report §13.*
 - [ ] **Plan §9's human reviews:** `docs/readouts_phase_c.md`, a rendered 104-week Phase C trace, and `M5.F.2`'s
   threshold.
 - [ ] **Not built:** `M11.C.7` (needs `M8.2`/`M8.3`'s predicates and a direction), `.13` (needs a community),

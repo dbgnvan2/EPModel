@@ -9,6 +9,9 @@ the per-criterion status is in `docs/phase_c_completion_report.md`.
 
 ### Added
 
+- **Phase C closed, 2026-10-09, with its gate failing** (owner decision; report §13). Done: C.1, C.3, C.19, C.25,
+  C.32, C.35, C.38. Partial: C.16, C.27, C.41. Not done, recorded as findings: C.4, C.5, C.29, C.42, C.44, C.45. §13
+  lists what the next phase inherits. Open: plan §9's human reviews and Bruno's weekly fallback.
 - **The approved failing-criteria decisions, carried out 2026-10-09** (results at the top of
   `docs/DECISIONS — PHASE C FAILING.md`, report §12). All test restatements, logged as post hoc:
   - **S:** every scripted act's ties are held open, in both arms, from week 0 until the act (`Forced(held_open=…)`,

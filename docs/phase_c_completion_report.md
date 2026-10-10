@@ -17,7 +17,7 @@ a hash goes stale.
 Default suite: **541 tests pass** (`python3 -m pytest tests/`). The 19 ensemble-marked criterion tests are
 deselected there and run with `python3 -m pytest -m ensemble`.
 
-**Read this first.** Phase C's gate does **not** pass. Of the 16 criteria built, 7 pass at the frozen
+**Read this first.** **Phase C is closed, 2026-10-09, with its gate failing (owner decision; §13).** Phase C's gate does **not** pass. Of the 16 criteria built, 7 pass at the frozen
 constants and are proved by a mutant (C.1, C.3, C.19, C.25, C.32, C.35, C.38). 1 passes but survives its named mutant
 (C.16, §10, §11), 1 passes in two of its four cells (C.41), 1 in one of its four (C.27), and 6 fail (C.4, C.5,
 C.29, C.42, C.44, C.45). 3 criteria are not built and moved to Phase D (owner decision 2026-10-09). **These are the
@@ -218,7 +218,8 @@ mutation record, not from the mere existence of its test.
   patterns Bowen named), a rendered 104-week trace of the Phase C instance, and `M5.F.2`'s threshold.
 - **Owner decisions** on what C.42 and C.45 test after the `TRIANGLE` decision (§8), the `M11.5` reclassifications in §2, and whether
   `M13.4`'s precision rule should scale by the difference's spread (§3.4).
-- **Phase C cannot be declared done** while its gate fails. Phase D should not start on this gate.
+- *Superseded 2026-10-09:* the owner closed Phase C with its gate failing (§13). The §9 reviews and Bruno's
+  fallback remain open after close-out.
 
 ## 7. Independent review
 
@@ -518,3 +519,52 @@ step found is at the top of that memo; the measurements are in `docs/phase_c_dia
   mutants added for it, `triangle-help-ignored` survives on `M11.C.3` (it changes the size of the relief, not its
   direction), and `triangle-credit-cross-person` has no passing criterion to run on; both rules are covered by
   unit tests only, so the change is not proved by an acceptance criterion.
+
+## 13. Phase C close-out — 2026-10-09
+
+**Decided by the owner, 2026-10-09: Phase C is closed with its gate failing.** The gate (`M13`) requires every
+built criterion to pass and be proved by a mutant; it does not. Phase C is closed as built and measured, not as
+passed. The failures below are recorded as findings about the model at the frozen constants and the decisions of
+§8–§12, not as defects to fix in Phase C. Every scripted act is now made (§12), so none of them comes from a test
+that did not run its intervention. A premise that passes confirms the code renders the spec; nothing here speaks
+about a real family (`M11.5`, `M11.F.9`).
+
+**Final status of each built criterion** (numbers from `docs/phase_c_ensemble_record.md` and
+`docs/phase_c_mutation_record.md`):
+
+| Criterion | Status | Evidence | What the measurements show |
+|---|---|---|---|
+| `M11.C.1` | done | PASS; proved jointly (`level-blind`) | — |
+| `M11.C.3` | done | PASS, seeker −1.29, third +1.10; each readout proved | — |
+| `M11.C.19`, `.25`, `.32`, `.35` | done | PASS; each proved | — |
+| `M11.C.38` | done | PASS, all three pairs; proved jointly | — |
+| `M11.C.16` | partial | PASS; its required mutant (learner disabled) survives; `availability-level-inverted` reverses it | The repertoire narrows at a lower level whether or not anything is learned; availability carries about half. Composite by owner decision (§11). |
+| `M11.C.41` | partial | 2 of 4 cells pass (lower level: `reactive_over_chance` +0.062); both named mutants turn a cell red | Heavier stress raises acute anxiety (+4.7, significant; +5.9 at the lower level, not significant) but not the reactive choice beyond chance (+0.00003, +0.002). |
+| `M11.C.27` | partial | 1 of 4 cells passes ([unstable, remove one], −0.36), read in the week the act lands | Removing one steadies either couple for about four weeks, then unsettles it from week 6; adding a third barely moves the pair's contact in any week (a `TRIANGLE` changes anxiety, not contact). |
+| `M11.C.4` | not done | now-limb holds (−2.55); later limb +0.14 ± 0.99 at a nodal event at week 104 | A cutoff relieves at once; its later cost does not show at one nodal event within two years at the frozen rates. |
+| `M11.C.5` | not done | target reaction +3.3 ± 12; third's load −7.3 ± 9.2 | No settled change-back reaction over 60 weeks; before the triangle change both readouts pointed the claimed way, not significantly. |
+| `M11.C.29` | not done | budget −0.04 ± 0.18; symptom-active weeks −0.25 ± 0.37 | A genuine I-POSITION and distance in disguise leave the third person's symptom course the same. |
+| `M11.C.42` | not done | reuse +0.08 ± 0.39; no sweep setting passes | A `TRIANGLE` relieves its seeker (−1.29) far less than a `DISTANCE` (−4.97), so it is not learned. |
+| `M11.C.44` | not done | +0.039 ± 0.11 | The outside position's value does not invert with load: the calm arm is the triad's resting state, 8–9 points above the floor, and the declared spell adds about 2 (D7). |
+| `M11.C.45` | not done | −0.0008 ± 0.0044 per person-week | Same two causes as C.42 and C.44. |
+| `M11.C.7`, `.13`, `.14` | not built | moved to Phase D (2026-10-09) | Each needs machinery the model does not have (§1). |
+
+**What the next phase inherits.** These are questions for Phase D or a theory revision, in the order they block
+the most criteria:
+
+1. **Triangling is not learned** (`M11.C.42`, `.45`). Under the owner's account of triangling (§12), a `TRIANGLE`'s
+   relief depends on the third's help, and in the triad it relieves the seeker less than distancing does. Whether
+   that is the model being right about these families or the relief being mis-sized is open.
+2. **No calm state near the floor** (X1, `M11.C.44`, `.45`). Members with several ties rest well above the floor at
+   every level, from their own acts; the declared spell barely moves them. Recorded as a finding (owner, 2026-10-09).
+3. **Delayed costs do not show** (`M11.C.4`'s later limb, `M11.C.29`'s time course, `M11.C.5`'s reaction). The
+   model's later consequences of one act wash out within weeks to months.
+4. **`M11.C.16` is not learned.** Its spec says learning produces the narrowing; the mutants say it does not.
+5. **The triangle change is not proved by an acceptance criterion** (§12): a criterion that reads the size of the
+   seeker's relief against the third's help would prove it.
+
+**Open after close-out, needing a person:**
+- Plan §9's human reviews: `docs/readouts_phase_c.md`, a rendered 104-week Phase C trace, and `M5.F.2`'s threshold.
+- Bruno's weekly fallback (`TODO.md`): whether it is the intended reading of `M4.D.3b`.
+
+Phase B was closed on 2026-10-07 (owner's trace read, no findings; `docs/phase_b_completion_report.md`).

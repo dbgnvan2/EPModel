@@ -14,7 +14,7 @@ a hash goes stale.
 | §11 of this report | `tools/c16_report.py` | `M11.C.16`'s class, every number taken from the two records above |
 | `docs/spec_coverage.md` | `tools/spec_coverage.py` | every spec ID: done / partial / not done |
 
-Default suite: **541 tests pass** (`python3 -m pytest tests/`). The 19 ensemble-marked criterion tests are
+Default suite: **542 tests pass** (`python3 -m pytest tests/`). The 19 ensemble-marked criterion tests are
 deselected there and run with `python3 -m pytest -m ensemble`.
 
 **Read this first.** **Phase C is closed, 2026-10-09, with its gate failing (owner decision; §13).** Phase C's gate does **not** pass. Of the 16 criteria built, 7 pass at the frozen
@@ -564,7 +564,9 @@ the most criteria:
    seeker's relief against the third's help would prove it.
 
 **Open after close-out, needing a person:**
-- Plan §9's human reviews: `docs/readouts_phase_c.md`, a rendered 104-week Phase C trace, and `M5.F.2`'s threshold.
+- Plan §9's human reviews: `docs/readouts_phase_c.md`; the rendered 104-week Phase C trace,
+  `docs/review/phase_c_trace_seed7.md` (`M11.C.1`'s baseline arm under the policy, seed 7 as in Phase B;
+  `python3 tools/phase_c_trace.py --view <id>` renders one person's view); and `M5.F.2`'s threshold.
 - Bruno's weekly fallback (`TODO.md`): whether it is the intended reading of `M4.D.3b`.
 
 Phase B was closed on 2026-10-07 (owner's trace read, no findings; `docs/phase_b_completion_report.md`).

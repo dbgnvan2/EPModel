@@ -165,3 +165,18 @@ def test_m16c2_withheld_and_fallback_outcomes_get_their_own_rows():
     text = render(RECORDS[:3] + [held, fallback], NAMES)
     assert "| WITHHOLD | Marta |" in text and "held back PURSUE" in text
     assert "fallback (hold): no legal act" in text
+
+
+def test_m16c1_phase_c_trace_renders():
+    """The Phase C review trace (plan §9) renders a policy run of the Phase C family, and does not carry the Phase B
+    framing that no one chose anything."""
+    import importlib.util
+
+    path = Path(__file__).resolve().parents[2] / "tools" / "phase_c_trace.py"
+    spec = importlib.util.spec_from_file_location("tools.phase_c_trace", path)
+    tool = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(tool)
+    text = tool.trace_text(7)
+    assert "| family instance | phase_c |" in text
+    assert "no one in it\n> chose anything" not in text and "selected by the policy" in text
+    assert "| 103 |" in text  # all 104 weeks (0-103) reached the trace

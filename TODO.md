@@ -91,6 +91,10 @@ Phase C steps 0–16 are built. **Its gate does not pass** (`docs/phase_c_comple
   survives on `M11.C.3` (a direction, not a size), and `triangle-credit-cross-person` has no passing criterion.
   Both rules have unit tests. A criterion that reads the size of the seeker's relief against the third's help, or
   `M11.C.42`/`.45` passing, would prove them.
+- [ ] **The trace renderer's framing says every run is scripted** ("no one in it chose anything (Phase B)"),
+  which is false for a Phase C run. `tools/phase_c_trace.py` replaces the sentence and fails if it moves. Fix it in
+  `src/bowen/render/trace.py` (choose the sentence from the header) with the next engine change, since that file
+  is in the engine hash.
 - [ ] **`code_text` (the engine hash) has two latent gaps** (re-sweep of `d7ce2b3..`, 2026-10-09): it drops a whole
   docstring line, so code sharing that line (`"""doc"""; x = 1`) is invisible to the hash; and it strips blank lines
   and trailing spaces inside ordinary multi-line strings. No current file has either pattern (checked: the fixed

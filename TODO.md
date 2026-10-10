@@ -79,16 +79,17 @@ Phase C steps 0–16 are built. **Its gate does not pass** (`docs/phase_c_comple
   every seed, sits on the chronic floor); X1 by D7; Q2's readout; Q3's paired measurement; Q4/Q5 rerun.
 - [x] ~~**Owner decisions left by the approved steps**~~ *decided 2026-10-09* (memo, "The owner's decisions"): X1 a
   finding; `M11.C.5`'s FAIL reported; `M11.C.4` and `M11.C.27` run at 104 weeks (no effect remains).
-- [ ] **Approve or amend `docs/PROPOSAL — TRIANGLE RELIEF AND CREDIT.md`** (owner): the seeker's relief depends on
-  the third's response, and a `TRIANGLE` is credited by the seeker's own relief. One question first: when A
-  triangles C, B is not relieved (owner, 2026-10-09). Awaiting approval to build: spec → tests → code → one rerun.
-- [ ] **`M11.C.27`'s horizon** (owner): at 3 weeks one cell passed; at the declared 104 weeks none does. Say which
-  the criterion means.
+- [x] ~~**Approve or amend `docs/PROPOSAL — TRIANGLE RELIEF AND CREDIT.md`**~~ *approved and built 2026-10-09: the
+  seeker alone is relieved, as far as the third helps; a `TRIANGLE` is credited by the seeker's own relief.*
+- [x] ~~**`M11.C.27`'s horizon**~~ *decided 2026-10-09: read week by week; it gates on the week the act lands.*
+  1 of 4 cells passes; removing one stabilises first and destabilises from week 6; adding a third barely moves it.
+- [ ] **The triangle change is not proved by an acceptance criterion** (2026-10-09): `triangle-help-ignored`
+  survives on `M11.C.3` (a direction, not a size), and `triangle-credit-cross-person` has no passing criterion.
+  Both rules have unit tests. A criterion that reads the size of the seeker's relief against the third's help, or
+  `M11.C.42`/`.45` passing, would prove them.
 - [ ] **Re-sweep notes, 2026-10-09** (fix range `da57f87..996bb7a`; deferred, not fixed now):
-  1. `reactive_over_chance` averages in `FALLBACK` selections (always WITHHOLD), at fallback rates of 0.26–0.35
-     in `M11.C.41`'s arms. A uniform chooser still scores 0, but a fallback rate that differs between arms shifts
-     it. Restrict it to `decided_by is POLICY` (or report both) with the next engine change; it changes the engine
-     hash, so it reruns every record (about an hour). The level cells' mutant evidence is mostly `mean_acute`.
+  1. ~~`reactive_over_chance` averaged in `FALLBACK` selections~~ *done 2026-10-09: policy draws only; the
+     verdicts did not change.*
   2. Three probes (`c27_deviation_terms`, `horizons`; `tools/probes.py`) call `made(criteria)` without records,
      so they count placed acts as made. Diagnostics only; pass the records at the next probe edit.
   3. Low: a scripted week the run reached but never offered would read "not reached"; the scripted-criteria

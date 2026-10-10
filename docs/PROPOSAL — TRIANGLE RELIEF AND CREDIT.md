@@ -1,7 +1,8 @@
 # Proposal — what a `TRIANGLE` relieves, and what the seeker learns from it
 
-> Written 2026-10-09, from the owner's answer to Q3 of `docs/DECISIONS — PHASE C FAILING.md`. **A proposal for
-> approval; no code until approved.** It changes the spec (`M1.C.1`, `M4.D.6e`), so it changes the engine and needs
+> Written 2026-10-09, from the owner's answer to Q3 of `docs/DECISIONS — PHASE C FAILING.md`. **Approved by the
+> owner 2026-10-09 and built the same day** (`third_help` and `triangle_transfer` in `src/bowen/engine/moves.py`,
+> `register_acts` in `src/bowen/engine/learner.py`, `M11.C.3`'s readout; spec `M1.C.1`, `M4.D.6e`, `M11.C.3`). It changes the spec (`M1.C.1`, `M4.D.6e`), so it changes the engine and needs
 > one full rerun of the records (about an hour).
 
 ## The owner's account (2026-10-09)

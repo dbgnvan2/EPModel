@@ -24,11 +24,22 @@ the per-criterion status is in `docs/phase_c_completion_report.md`.
     C.44, C.45 and C.27 fail.
   - **Owner decisions on the results:** X1 a finding; `M11.C.5`'s FAIL reported; `M11.C.4`'s nodal event and
     `M11.C.27`'s reading moved to 104 weeks (one declared value, run once): no effect remains in either, and
-    C.27's one passing cell no longer passes. The owner's account of triangling is a proposal
+    C.27's one passing cell no longer passed. The owner then decided `M11.C.27` is read week by week, gating on
+    the week the act lands: 1 of 4 cells passes. `M11.C.41`'s readout counts the policy's draws only. The owner's account of triangling is a proposal
     (`docs/PROPOSAL — TRIANGLE RELIEF AND CREDIT.md`), not built.
+
+- **The triangle change, approved and built 2026-10-09** (`docs/PROPOSAL — TRIANGLE RELIEF AND CREDIT.md`; spec
+  `M1.C.1`, `M4.D.6e`, `M11.C.3`). A `TRIANGLE` relieves only its seeker, scaled by `third_help` (the third's calm
+  times their alignment with the seeker rather than the partner); the partner is not relieved. Its credit leaves the
+  recruited third out of the cross-person term. `M11.C.3` now reads the seeker's change and passes; `M11.C.42` and
+  `.45` still fail. New named mutants `triangle-help-ignored` (survives on C.3) and `triangle-credit-cross-person`
+  (no passing criterion to run on). `M11.C.27` is read week by week, and `M11.C.41`'s readout counts policy draws
+  only.
 
 ### Fixed
 
+- **`scripted_weeks` read past its own shortened runs** once an arm read weekly readouts; the scan now stops the
+  arm after scanning.
 - **A record built in the run that produced its results did not match its own re-render** (2026-10-09):
   `run_cached` returned the fresh row in the child's key order rather than the cached, normalised copy.
 - **`tools/c16_report.py` dropped everything after report §11**; it now replaces §11 only.

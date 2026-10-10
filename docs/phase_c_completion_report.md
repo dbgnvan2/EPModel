@@ -14,16 +14,18 @@ a hash goes stale.
 | §11 of this report | `tools/c16_report.py` | `M11.C.16`'s class, every number taken from the two records above |
 | `docs/spec_coverage.md` | `tools/spec_coverage.py` | every spec ID: done / partial / not done |
 
-Default suite: **534 tests pass** (`python3 -m pytest tests/`). The 19 ensemble-marked criterion tests are
+Default suite: **539 tests pass** (`python3 -m pytest tests/`). The 19 ensemble-marked criterion tests are
 deselected there and run with `python3 -m pytest -m ensemble`.
 
 **Read this first.** Phase C's gate does **not** pass. Of the 16 criteria built, 7 pass at the frozen
 constants and are proved by a mutant (C.1, C.3, C.19, C.25, C.32, C.35, C.38). 1 passes but survives its named mutant
-(C.16, §10, §11), 1 passes in two of its four cells (C.41), and 7 fail (C.4, C.5, C.27, C.29, C.42, C.44, C.45). 3 criteria are not built and moved to Phase D (owner decision 2026-10-09). **These are the
+(C.16, §10, §11), 1 passes in two of its four cells (C.41), 1 in one of its four (C.27), and 6 fail (C.4, C.5,
+C.29, C.42, C.44, C.45). 3 criteria are not built and moved to Phase D (owner decision 2026-10-09). **These are the
 verdicts after the `TRIANGLE` decision (§8), the precision decision (§10), both of 2026-10-08, and the failing-criteria
 decisions of 2026-10-09 (§12): every scripted act is now made (its ties are held open until it), `M11.C.41`'s readout
 is the reactive choice beyond the legal set's reactive share, `M11.C.29` counts the weeks the third person's symptom
-is active, and `M11.C.4` and `M11.C.27` are read at 104 weeks.** The first made C.3 pass and took C.42, C.45, one cell of C.27 and one cell of C.41 below significance or
+is active, `M11.C.4`'s nodal event is at week 104, `M11.C.27` is read week by week, and a `TRIANGLE` relieves only
+its seeker, as far as the third helps, and is credited by the seeker's own relief (§12).** The first made C.3 pass and took C.42, C.45, one cell of C.27 and one cell of C.41 below significance or
 the wrong way. The second let C.16 converge. A premise that passes confirms that the code renders the spec. It
 is not a finding about families (`M11.5`). Nothing here speaks about a real family (`M11.F.9`).
 
@@ -38,24 +40,24 @@ column follows the global completion standard.
 | Criterion | Class (by reading) | Verdict at central | Proved by mutant | Sweep (composites) | Status |
 |---|---|---|---|---|---|
 | `M11.C.1` lower level reaches threshold sooner | premise | PASS (100 seeds) | **only by the joint `level-blind` mutant** — see §2 | — | done (proved only jointly; plan §3's named mutant survives, §2) |
-| `M11.C.3` triangle relieves pair, costs third | premise | PASS (50) — pair −5.27, third +8.85 | yes: `triangle-transfer-removed`, `triangle-roles-swapped` | — | done — after the `TRIANGLE` decision, §8 |
+| `M11.C.3` triangle relieves the seeker, costs third (restated 2026-10-09) | premise | PASS (50) — seeker −1.29, third +1.10; partner +0.93, reported | yes: `triangle-transfer-removed`, `triangle-roles-swapped`; the new `triangle-help-ignored` survives (it changes the size, not the direction) | — | done — §8, §12 |
 | `M11.C.4` cutoff trades now against later | premise | **FAIL** — the "now" limb holds (−2.55); the "later" limb does not, at a nodal event at week 104 (+0.14, p 0.76) | not run | — | partial — §3.2 |
-| `M11.C.5` change-back reaction | composite | **FAIL** — both readouts the claimed sign, neither significant (p 0.10, 0.08) | not run | at least one readout reverses at 5 of 6 settings | not done — §3.3 |
+| `M11.C.5` change-back reaction | composite | **FAIL** — target reaction +3.3 (p 0.18); third's load −7.3 (p 0.95) | not run | at least one readout reverses at 5 of 6 settings | not done — §3.3 |
 | `M11.C.7` topology not coach skill | premise | not built | — | — | Phase D (moved 2026-10-09) — needs `M8.2`/`M8.3`'s position predicates; declares no direction for its arms |
 | `M11.C.13` help relocates, not reduces | premise | not built | — | — | Phase D (moved 2026-10-09) — needs incidents located in a community |
 | `M11.C.14` technique null under marital distance | premise (null) | not built | — | — | Phase D (moved 2026-10-09) — needs `M5.C.1`'s marital-distance gate |
 | `M11.C.16` repertoire concentration depends on level | composite (§11) | PASS (150) — after §10's precision rule; undetermined at 500 seeds before | by the joint `level-blind` and `c16-grounds-removed` (cited grounds with availability) mutants, and by `availability-level-inverted`, which cancels it without reversing it; its required mutant, the learner disabled, survives (§11) | passes at all 6 settings | partial — passes; its mutation clause is not met, §11 |
 | `M11.C.19` counterfeit axis identified | check | PASS (50) | yes: `axes-collapsed`, `axes-swapped` | — | done |
 | `M11.C.25` dominant pole independent of sex | premise (null) | PASS (50); difference exactly 0 in every seed | yes: `sex-term-in-pole` | — | done — readout corrected post hoc, §4.2 |
-| `M11.C.27` twosome 2×2 | composite | **FAIL** — read 104 weeks after the act, no cell passes; every cell is within ±0.05 of zero. At 3 weeks one cell passed ([unstable, remove one], −0.28) | not run | see `docs/phase_c_sweep_record.md` | not done — §3.5 |
-| `M11.C.29` relief vs differentiation time course | premise | **FAIL** — budget +0.04 (p 0.85); symptom-active weeks −0.23 (p 0.37), readout restated 2026-10-09 | not run | — | not done — §3.6 |
+| `M11.C.27` twosome 2×2 | composite | 1 of 4 cells passes, read in the week the act lands: [unstable, remove one] (−0.36). Weeks 1–12 reported (§3.5) | the passing cell, by `one-sided-deviation` and `deviation-inverted` | the passing cell holds at all 6 settings | partial — §3.5 |
+| `M11.C.29` relief vs differentiation time course | premise | **FAIL** — budget −0.04 (p 0.42); symptom-active weeks −0.25 (p 0.12), readout restated 2026-10-09 | not run | — | not done — §3.6 |
 | `M11.C.32` mover's anger stalls and degrades | premise | PASS (100) | yes: `anger-gate-inverted`, `anger-gate-removed` | — | done |
 | `M11.C.35` witness appraisal depends on both ties | check | PASS (50) | yes: `witness-position-blind`, `witness-reach-inverted` | — | done |
 | `M11.C.38` graded level orders time to threshold | premise | PASS, all 3 adjacent pairs | every pair red under the joint `level-blind` mutant; single-rule mutants red on some pairs only (§2) | — | done (proved only jointly, §2) |
-| `M11.C.41` level and stress each exacerbate | mixed | **2 of 4 cells pass**: both "lower level" cells, under the restated readout (reactive choice beyond the legal set's reactive share, +0.065, +0.067). Both "heavier stress" cells fail on it (−0.0008, +0.0016) | yes: both named mutants turn a passing cell red, as the spec requires (`steepness-level-independent` both cells, `mixing-weight-level-independent` the light one), and so do `steepness-inverted`, `mixing-weight-inverted` and the joint `level-blind` | — | partial — 2 of 4 cells; §3.7 |
-| `M11.C.42` a relieving triangle is reused | composite | **FAIL** — reuse +0.12 ± 0.40 (p 0.32), under §9's arms and readout | not run | passes only at H = 2; reverses at 4 of 6 | not done — §3.8, §9 |
-| `M11.C.44` position value inverts with load | composite | **FAIL** — +0.010 (p 0.73) | not run | passes at 2 of 6 off-central settings (α 0.1, T 2.0); only the central setting gates | not done |
-| `M11.C.45` triangles quiet when calm | composite | **FAIL** — +0.0020 TRIANGLE selections per person-week (p 0.20), under §9's readout | not run | fails at all 6 settings; reverses at 4 | not done — §3.8, §9 |
+| `M11.C.41` level and stress each exacerbate | mixed | **2 of 4 cells pass**: both "lower level" cells, under the restated readout (reactive choice beyond the legal set's reactive share, +0.062, +0.062). Both "heavier stress" cells fail on it (+0.00003, +0.002) | yes: both named mutants turn a passing cell red, as the spec requires (`steepness-level-independent` both cells, `mixing-weight-level-independent` the light one), and so do `steepness-inverted`, `mixing-weight-inverted` and the joint `level-blind` | — | partial — 2 of 4 cells; §3.7 |
+| `M11.C.42` a relieving triangle is reused | composite | **FAIL** — reuse +0.08 ± 0.39 (p 0.21), under §9's arms and readout, after §12's triangle change | not run | passes at no setting; reverses at 3 of 6 | not done — §3.8, §9 |
+| `M11.C.44` position value inverts with load | composite | **FAIL** — +0.039 (p 0.36) | not run | passes at no setting; reverses at 1 of 6 | not done |
+| `M11.C.45` triangles quiet when calm | composite | **FAIL** — −0.0008 TRIANGLE selections per person-week (p 0.69), under §9's readout | not run | fails at all 6 settings; reverses at 2 | not done — §3.8, §9 |
 
 **Representation mutants (`M11.1c`).** Two re-encodings ran on every passing entry: same-tick appraisal summed
 in reverse order, and felt contact clamped 1e-12 inside [0, 1]. No verdict changed, so no encoding artefact was
@@ -119,32 +121,34 @@ pass would be tuning against it. Each needs an owner decision.
    anxiety was not higher in the cutoff arm (−0.59 ± 1.0), with the cutoff made in every seed (§12). The owner
    allowed one longer horizon; at week 104 it is still not higher (+0.14 ± 0.99, p 0.76). A cutoff's later cost
    does not show at one nodal event within two years at the frozen rates.
-3. **`M11.C.5`** has wide intervals (target reaction +8.45 ± 16; third's load +6.12 ± 10; both the claimed sign,
-   p 0.10 and 0.08), and the target reaction's sign changes across the sweep. The
+3. **`M11.C.5`** has wide intervals (target reaction +3.3 ± 12; third's load −7.3 ± 9.2, after §12's triangle
+   change; before it, both readouts had the claimed sign at p 0.10 and 0.08), and the target reaction's sign
+   changes across the sweep. The
    ladder is learned, per `M5.E.0`, and 60 weeks may not be long enough for it to form.
 4. **`M11.C.16` — resolved by §10's precision rule; it now passes, but is not proved.** Its interval never reached
    0.25 of the baseline arm's sd. Under the pooled sd it converges at 150 seeds. Neither learner mutant turns it red,
    so its direction does not come from learning. Inverting `M4.D.3a`'s availability cancels it without reversing it. §10, §11.
-5. **`M11.C.27`.** Read 3 weeks after the act, only [unstable, remove one] passed, and [stable, remove one] and
-   [unstable, add third] went the opposite way at every setting. Read at 104 weeks (owner decision, §12), every
-   cell is within ±0.05 of zero: a single act's effect on the pair's deviation is gone by two years. Which
-   horizon the criterion means is an owner question (`TODO.md`). At 3 weeks, for a stable twosome, removing one
-   member *lowered* the pair's deviation, where the criterion expects a rise; for an unstable twosome, adding a
-   third *raised* it, where the criterion expects a fall.
+5. **`M11.C.27`.** Read at 104 weeks every cell was near zero, so the owner decided it is read week by week and
+   gates on the week the act lands (§12). Removing one lowers the pair's deviation at once in both couples (−0.36
+   in week 1), and from week 6 raises it (+0.15 to +0.19 by weeks 8–12): [unstable, remove one] passes, and
+   [stable, remove one] fails because it stabilises first. Adding a third barely moves the pair's deviation in any
+   week, so both add-third cells fail: a `TRIANGLE` changes anxiety, not contact.
 6. **`M11.C.29`.** The declared readout was pinned at its maximum: the third person's symptom load is above zero in
    every week of both arms, since the model rests above the chronic floor (D1, D7). It now counts the weeks their
-   symptom is active, onset to re-arm (§12). That readout moves but does not separate the arms (−0.23 ± 0.36,
-   p 0.37), and the budget difference is flat (+0.04).
+   symptom is active, onset to re-arm (§12). That readout moves but does not separate the arms (−0.25 ± 0.37,
+   p 0.12), and the budget difference is flat (−0.04).
 7. **`M11.C.41`'s stress limbs.** The share of all moves that were reactive fell at a lower level, because
    `M4.D.3a` closes the layers holding five of the seven reactive acts (D2). Restated as the reactive choice beyond the
    reactive share of the legal set (§12), both "lower level" cells pass. Heavier stress raises mean acute anxiety
    but not that readout (−0.0008, +0.0016).
-8. **`M11.C.42` and `M11.C.45` no longer pass.** Both passed under step 5's alliance reading. After §9 and §12,
-   C.42's reuse is +0.12 ± 0.40 (p 0.32) and passes only at H = 2 in the sweep, reversing at 4 of 6. C.45's rate is
-   +0.0020 per person-week (p 0.20) and reverses at 4 of 6 settings. Measured cause (§12, Q3): the act relieves
-   both of the pair (sender −3.6, partner −1.6) and costs the third +8.9, but `M4.D.6e`'s cross-person credit
-   counts the third's cost, so a `TRIANGLE` is credited below a `DISTANCE` and is not reinforced. C.45 also
-   compares two close states: the triad rests 8–9 points above the floor and the spell adds about 2 (D7).
+8. **`M11.C.42` and `M11.C.45` no longer pass.** Both passed under step 5's alliance reading. Q3 then found that
+   `M4.D.6e`'s cross-person credit counted the recruited third's cost, so a `TRIANGLE` was credited below a
+   `DISTANCE`. The owner's triangle decision (§12) removed that, and made the seeker's relief depend on the third's
+   help. Neither criterion passes after it: C.42's reuse is +0.08 ± 0.39 (p 0.21), C.45's rate −0.0008 per
+   person-week (p 0.69), and neither passes at any sweep setting. The seeker's own relief from a `TRIANGLE` is now
+   smaller (−1.29 against `DISTANCE`'s −4.97 one week after, `q3-act-effects`), so the policy still has more
+   reason to distance than to triangle. C.45 also compares two close states: the triad rests 8–9 points above the
+   floor and the spell adds about 2 (D7).
 
 ## 4. Changes made after the constants were frozen
 
@@ -408,57 +412,57 @@ lies wholly on the opposite side; none here is.
 
 | Mutant | Kind | Entropy difference | Top-move share difference | Result |
 |---|---|---|---|---|
-| *none (representation mutants: unchanged)* | — | -0.066 ± 0.023 | +0.052 ± 0.017 | pass |
-| `steepness-level-independent` | named | -0.037 ± 0.014 | +0.032 ± 0.013 | survived |
-| `mixing-weight-level-independent` | named | -0.038 ± 0.009 | +0.044 ± 0.010 | survived |
-| `learner-disabled` | named | -0.057 ± 0.024 | +0.035 ± 0.011 | survived |
-| `threshold-level-independent` | deletion | -0.051 ± 0.020 | +0.034 ± 0.011 | survived |
-| `threshold-level-inverted` | sign-inverted | -0.069 ± 0.025 | +0.054 ± 0.018 | survived |
-| `standing-load-level-independent` | deletion | -0.049 ± 0.019 | +0.050 ± 0.016 | survived |
-| `standing-load-level-inverted` | sign-inverted | -0.049 ± 0.016 | +0.043 ± 0.011 | survived |
+| *none (representation mutants: unchanged)* | — | -0.068 ± 0.023 | +0.053 ± 0.017 | pass |
+| `steepness-level-independent` | named | -0.035 ± 0.007 | +0.034 ± 0.009 | survived |
+| `mixing-weight-level-independent` | named | -0.043 ± 0.008 | +0.050 ± 0.009 | survived |
+| `learner-disabled` | named | -0.061 ± 0.026 | +0.033 ± 0.010 | survived |
+| `threshold-level-independent` | deletion | -0.055 ± 0.021 | +0.053 ± 0.018 | survived |
+| `threshold-level-inverted` | sign-inverted | -0.049 ± 0.019 | +0.039 ± 0.015 | survived |
+| `standing-load-level-independent` | deletion | -0.053 ± 0.021 | +0.043 ± 0.015 | survived |
+| `standing-load-level-inverted` | sign-inverted | -0.050 ± 0.021 | +0.048 ± 0.017 | survived |
 | `level-blind` | deletion | +0.000 ± 0.000 | +0.000 ± 0.000 | **red** |
-| `availability-level-independent` | deletion | -0.033 ± 0.008 | +0.029 ± 0.009 | survived |
-| `availability-level-inverted` | sign-inverted | -0.008 ± 0.020 | -0.012 ± 0.013 | **red** |
-| `availability-and-learner-removed` | deletion | -0.015 ± 0.014 | +0.002 ± 0.005 | survived |
-| `band-level-independent` | deletion | -0.042 ± 0.014 | +0.035 ± 0.010 | survived |
-| `band-level-inverted` | sign-inverted | -0.039 ± 0.015 | +0.041 ± 0.015 | survived |
-| `outside-ness-level-independent` | deletion | -0.044 ± 0.012 | +0.042 ± 0.011 | survived |
-| `outside-ness-level-inverted` | sign-inverted | -0.057 ± 0.023 | +0.045 ± 0.017 | survived |
-| `routing-level-independent` | deletion | -0.058 ± 0.019 | +0.047 ± 0.013 | survived |
-| `routing-level-inverted` | sign-inverted | -0.039 ± 0.012 | +0.042 ± 0.011 | survived |
-| `hold-level-independent` | deletion | -0.066 ± 0.023 | +0.052 ± 0.017 | survived |
-| `hold-level-inverted` | sign-inverted | -0.066 ± 0.023 | +0.052 ± 0.017 | survived |
-| `c16-cited-grounds-removed` | deletion | -0.034 ± 0.007 | +0.039 ± 0.008 | survived |
-| `c16-grounds-removed` | deletion | -0.000 ± 0.006 | +0.000 ± 0.008 | **red** |
-| `steepness-inverted` | sign-inverted | -0.030 ± 0.007 | +0.027 ± 0.008 | survived |
-| `mixing-weight-inverted` | sign-inverted | -0.047 ± 0.008 | +0.057 ± 0.009 | survived |
-| `learner-inverted` | sign-inverted | -0.178 ± 0.035 | +0.145 ± 0.030 | survived |
+| `availability-level-independent` | deletion | -0.032 ± 0.015 | +0.032 ± 0.014 | survived |
+| `availability-level-inverted` | sign-inverted | +0.011 ± 0.009 | -0.020 ± 0.010 | **reversed** |
+| `availability-and-learner-removed` | deletion | -0.013 ± 0.013 | +0.004 ± 0.005 | survived |
+| `band-level-independent` | deletion | -0.040 ± 0.017 | +0.033 ± 0.012 | survived |
+| `band-level-inverted` | sign-inverted | -0.040 ± 0.014 | +0.039 ± 0.010 | survived |
+| `outside-ness-level-independent` | deletion | -0.046 ± 0.013 | +0.050 ± 0.012 | survived |
+| `outside-ness-level-inverted` | sign-inverted | -0.046 ± 0.015 | +0.040 ± 0.012 | survived |
+| `routing-level-independent` | deletion | -0.041 ± 0.013 | +0.036 ± 0.011 | survived |
+| `routing-level-inverted` | sign-inverted | -0.046 ± 0.017 | +0.031 ± 0.010 | survived |
+| `hold-level-independent` | deletion | -0.068 ± 0.023 | +0.053 ± 0.017 | survived |
+| `hold-level-inverted` | sign-inverted | -0.068 ± 0.023 | +0.053 ± 0.017 | survived |
+| `c16-cited-grounds-removed` | deletion | -0.034 ± 0.014 | +0.035 ± 0.012 | survived |
+| `c16-grounds-removed` | deletion | -0.006 ± 0.005 | +0.004 ± 0.007 | survived |
+| `steepness-inverted` | sign-inverted | -0.028 ± 0.010 | +0.025 ± 0.009 | survived |
+| `mixing-weight-inverted` | sign-inverted | -0.045 ± 0.008 | +0.052 ± 0.010 | survived |
+| `learner-inverted` | sign-inverted | -0.137 ± 0.026 | +0.110 ± 0.022 | survived |
 
 What this shows:
 
 - **No inversion run reverses C.16.** Inverting `M4.D.3a`'s availability cancels it: entropy
-  -0.008 ± 0.020 and top-move share -0.012 ± 0.013, both intervals spanning zero.
+  +0.011 ± 0.009 and top-move share -0.020 ± 0.010, both intervals spanning zero.
   That is a FAIL, so the mutant is red, but the direction is not flipped. **This inversion is weak where C.16 runs.**
   It equals the deletion (every layer fully available) at level 20 and below on both layers, and at 40 and below on
-  layer 1. Under the mutant, over the whole run, the lowered arm's members spend 40.6% of member-weeks at level 20 or
-  below and 93.3% at 40 or below; the baseline arm's, 1.1% and 59.4%. Over the last
-  52 weeks, which the entropy reads, the lowered arm's are 45.2% and 90.5%
+  layer 1. Under the mutant, over the whole run, the lowered arm's members spend 37.2% of member-weeks at level 20 or
+  below and 95.1% at 40 or below; the baseline arm's, 2.4% and 54.6%. Over the last
+  52 weeks, which the entropy reads, the lowered arm's are 41.7% and 92.2%
   (`docs/phase_c_level_occupancy.md`, which also gives the unmodified shares; these are shares of member-weeks, not
   of selections). So it mostly reverses layer 2 only.
   "Cancels without reversing" holds for this inversion; a stronger one was not tried.
 - **Availability carries part of the narrowing, not all of it.** Removing it leaves entropy at
-  -0.033 ± 0.008, against -0.066 ± 0.023 unmutated. No other single rule removes
+  -0.032 ± 0.015, against -0.068 ± 0.023 unmutated. No other single rule removes
   the result; the level-blind mutant, which removes all nine at once, leaves no difference at all.
 - **C.16's cited grounds.** Its criterion row cites `M4.C.1a` (KS03.2: steepness and band) and `M1.C.3a` (routing).
   Removing those together with `M4.D.3a`'s availability (`c16-grounds-removed`) turns it red: entropy
-  -0.000 ± 0.006. Removing the two cited rules alone, with availability kept (`c16-cited-grounds-removed`), leaves it passing: entropy -0.034 ± 0.007. Removing availability alone also leaves it passing (-0.033 ± 0.008). Either set alone keeps a passing result; only removing both removes it, which is the pattern `M11.5`'s redundancy clause describes.
+  -0.006 ± 0.005. Removing the two cited rules alone, with availability kept (`c16-cited-grounds-removed`), leaves it passing: entropy -0.034 ± 0.014. Removing availability alone also leaves it passing (-0.032 ± 0.015). Either set alone keeps a passing result; only removing both removes it, which is the pattern `M11.5`'s redundancy clause describes.
 - `M5.D.3`'s hold capacity never acts in C.16's runs: both hold mutants reproduce the unmutated numbers exactly. Those
   two mutants test nothing here.
 - **Learning changes the result's size, not its sign.** `M4.D.6` disabled leaves entropy at
-  -0.057 ± 0.024, within the half-width of the unmutated difference, and lowers the top-move share
-  difference to +0.035 ± 0.011. Inverted, it deepens the narrowing
-  (-0.178 ± 0.035). With availability already removed, removing the learner as well takes the
-  top-move share difference from +0.029 ± 0.009 to +0.002 ± 0.005.
+  -0.061 ± 0.026, within the half-width of the unmutated difference, and lowers the top-move share
+  difference to +0.033 ± 0.010. Inverted, it deepens the narrowing
+  (-0.137 ± 0.026). With availability already removed, removing the learner as well takes the
+  top-move share difference from +0.032 ± 0.014 to +0.004 ± 0.005.
 
 Why composite, and not premise:
 
@@ -504,6 +508,14 @@ step found is at the top of that memo; the measurements are in `docs/phase_c_dia
 - **Q3.** A `TRIANGLE` relieves the pair as `M1.C.1` states; the learner's cross-person credit is why it is not
   reinforced. Owner decision: a finding (recommended) or a change to `M4.D.6e`.
 - **Owner decisions on the results.** X1 is a finding. `M11.C.5`'s FAIL is reported (it points the claimed way
-  but converged). `M11.C.4` and `M11.C.27` were read at 104 weeks, the longest horizon any criterion declares, run
-  once: no effect remains in either. The owner's account of triangling is written up as a proposal
-  (`docs/PROPOSAL — TRIANGLE RELIEF AND CREDIT.md`), not yet built.
+  but converged). `M11.C.4`'s nodal event moved to week 104, the longest horizon any criterion declares: no later
+  cost shows. `M11.C.27` at 104 weeks showed nothing, so it is read week by week and gates on the week the act
+  lands: 1 of 4 cells passes.
+- **Triangling (owner decision, approved and built 2026-10-09; `docs/PROPOSAL — TRIANGLE RELIEF AND CREDIT.md`).**
+  A `TRIANGLE` relieves only its seeker, scaled by the recruited third's help (less if the third is anxious or
+  closer to the partner); the partner is not relieved, and eases only through their own act. A `TRIANGLE` is
+  credited by the seeker's own relief; the third is out of `M4.D.6e`'s cross-person term. `M11.C.3` is restated to
+  "relieves the seeker and costs the third" and passes. `M11.C.42` and `M11.C.45` still fail. Of the two named
+  mutants added for it, `triangle-help-ignored` survives on `M11.C.3` (it changes the size of the relief, not its
+  direction), and `triangle-credit-cross-person` has no passing criterion to run on; both rules are covered by
+  unit tests only, so the change is not proved by an acceptance criterion.

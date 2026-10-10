@@ -110,8 +110,27 @@ tuning. Owner decision (TODO).
    - `M11.C.27`, read 104 weeks after the act: every cell within ±0.05 of zero, none passes. This includes
      `[unstable, remove one]`, which passed at 3 weeks (−0.28 ± 0.06) and is now +0.05 ± 0.06.
    - So a single act's effect on the pair's deviation is gone by two years, and a cutoff's later cost does not
-     show at a nodal event within two years. Both are findings at this horizon. Whether `M11.C.27` should be read
-     at 3 weeks (its passing cell) or 104 is the owner's to say; the record holds the declared 104.
+     show at a nodal event within two years.
+5. **`M11.C.27`, read week by week** (owner: "the effect is almost immediate and a long time horizon is
+   distorted by other effects"). It gates on the week the act lands (t0 + 1) and reports weeks 1–12 beside it.
+   - Removing one (f cuts m) lowers the pair's deviation at once in both couples (−0.34 in week 1, about −0.15 by
+     week 3, gone by week 5). From week 6 it turns into a rise that lasts to week 12 (+0.15 to +0.19).
+   - So `[unstable, remove one]` passes (stabilised at once, −0.34 ± 0.06). `[stable, remove one]` fails: the
+     criterion expects destabilising, and the model stabilises first and destabilises only from week 6.
+   - Adding a third (f triangles c) barely moves the pair's deviation in any week; both add-third cells fail. A
+     `TRIANGLE` changes anxiety, not contact, and the pair's deviation is about contact.
+
+## The triangle change, approved and built (2026-10-09)
+
+`docs/PROPOSAL — TRIANGLE RELIEF AND CREDIT.md`. A `TRIANGLE` relieves only its seeker, scaled by the recruited
+third's help; the partner is not relieved. It is credited by the seeker's own relief, without the third's change.
+- `M11.C.3`, restated to "relieves the seeker and costs the third", passes: seeker −1.29 ± 0.10, third +1.10 ±
+  0.26; the partner, reported, +0.93.
+- `M11.C.42` (+0.08 ± 0.39) and `M11.C.45` (−0.0008) still fail, at every sweep setting. One week after the act
+  (`q3-act-effects`), a `TRIANGLE` relieves the seeker by 1.29 and a `DISTANCE` by 4.97: with the third's help
+  scaling the relief, distancing still relieves more, so the learner still has little reason to triangle.
+- Not proved by an acceptance criterion: `triangle-help-ignored` survives on `M11.C.3`, which tests a direction,
+  not a size; `triangle-credit-cross-person` has no passing criterion to run on. Both rules have unit tests.
 
 ## Summary (diagnosis, before the steps above)
 

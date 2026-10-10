@@ -94,7 +94,6 @@ SCHEMA: Mapping[str, KeySpec] = MappingProxyType(
         "equivalence_margin": KeySpec(float, "[I]", "M11.4a"),
         "pattern_window": KeySpec(int, "[I]", "M5.A.1a"),
         "pattern_min_acts": KeySpec(int, "[I]", "M5.A.1a"),
-        "pattern_pole": KeySpec(float, "[I]", "M5.A.1a"),
         "pattern_fixed_activations": KeySpec(int, "[I]", "M5.A.1a"),
         "sink_window": KeySpec(int, "[I]", "M1.D.1"),
         "sink_rate": KeySpec(float, "[I]", "M1.D.1"),
@@ -152,11 +151,13 @@ SCHEMA: Mapping[str, KeySpec] = MappingProxyType(
 # replaced. A retired key is accepted only when parsing a snapshot, never in the
 # live register, and its removal is logged in constants_changes.md (M10.B.4).
 # Retired at Phase C step 1 by spec revision 11 (M4.C.1c replaced the standing
-# load's interactive fraction; amended M1.C.3 forbade the tension threshold).
+# load's interactive fraction; amended M1.C.3 forbade the tension threshold). `pattern_pole`
+# retired 2026-10-10: the owner's over/underfunctioning readout reads acts, not the hardened habit.
 RETIRED: Mapping[str, KeySpec] = MappingProxyType(
     {
         "interactive_standing_fraction": KeySpec(float, "[I]", "M4.A.3"),
         "tension_activation_threshold": KeySpec(float, "[I]", "M1.C.3"),
+        "pattern_pole": KeySpec(float, "[I]", "M5.A.1a"),
     }
 )
 

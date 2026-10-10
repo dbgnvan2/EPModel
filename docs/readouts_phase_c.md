@@ -6,18 +6,36 @@ below is `[I]`. Each is declared here before any criterion reads it. The code is
 `src/bowen/readouts/patterns.py`; `read_pattern` refuses a name not listed here, and
 `tests/bowen/test_patterns.py` fails if this document and the code disagree.
 
-**W** is `pattern_window` (8 weeks). The other parameters are in `config/bowen/constants.md`.
+**W** is `pattern_window` (4 weeks); **N** is `pattern_min_acts` (3). The other parameters are in
+`config/bowen/constants.md`.
+
+**The owner's definitions, 2026-10-10** (`docs/PROPOSAL — RUN VISUALIZATION MAPPING.md` §0 and §4; this is the
+plan §9 review of this document):
+- An emotional pattern is a **repeating** pattern of activity: N or more acts in W. A single act is an event, not a pattern.
+- **A pattern ends only when a new pattern emerges** on the same subject (`current_patterns`).
+- **No interaction is an emerging level of distance.**
+- **Cutoff is rejection, not absence.**
+- **Pursuit** is fusion, over/underfunctioning or projection, depending on who pursues whom.
+
+Acts count when they pass between the two members of the tie, in either direction unless stated.
 
 | Pattern | Reads | Definition |
 |---|---|---|
-| `conflict` | a tie | Both members emit `CONFLICT` toward each other, each at least `pattern_min_acts` (2) times in W. |
-| `over_underfunctioning` | a tie | The tie's hardened functioning habit is at or beyond `pattern_pole` (0.5) toward one member. In W, that member emitted `OVERFUNCTION` toward the other, or the other emitted `UNDERFUNCTION`. |
-| `distance` | a tie | `DISTANCE` acts on the tie outnumber approaches (`PURSUE`, `STAY-IN-CONTACT`, `REDUCE_CUTOFF`) in W, and both members are below their contact optimum on the tie. |
-| `cutoff` | a tie | The tie is non-interactive, and no `CUTOFF` was sent on it within W, so it has been severed for at least W. |
+| `conflict` | a tie | At least N `CONFLICT` acts on the tie in W, with **both** members contributing. |
+| `distance` | a tie | Either at least N `DISTANCE` acts in W, more than the approaches (`PURSUE`, `STAY-IN-CONTACT`, `REDUCE_CUTOFF`), with both members below their contact optimum on the tie; **or no act on the tie for at least W weeks**, at a level equal to the weeks without interaction. |
+| `over_underfunctioning` | a tie | At least N acts in W in one direction, more than in the other. An act counts for X as the over side when X takes charge of Y (`OVERFUNCTION`), or Y gives way to X (`UNDERFUNCTION`) or goes along with X (`PURSUE`). A parent's acts that count as projection do not count here. |
+| `fusion` | a tie | At least N `PURSUE` acts in W, with **both** members pursuing: each going along with the other. |
+| `projection` | a tie | A parent–child tie: at least N acts in W from the parent focused on the child: `OVERFUNCTION` or `PURSUE` toward the child, or a `TRIANGLE` that recruits the child. The act set is the child-projection sink's (`src/bowen/engine/sinks.py`), on every parent–child tie of the family. |
+| `cutoff` | a tie | At least N refusals in W by one member. A refusal is a `CUTOFF` sent to the other in the same or the next week after an approach from them. A severed tie that is only silent reads as `distance`. |
 | `fixed_triangle` | a triangle | The same outsider across the last `pattern_fixed_activations` (3) activations of the triangle. |
 
-**Projection** is Phase D: it needs a child-focused readout.
+**Which pattern a subject holds** (`current_patterns`; owner decision D2):
+- A subject keeps its pattern until a different pattern's start condition holds, or the same pattern holds pointing
+  the other way: a different over side, parent or refuser, or a different outsider.
+- When two patterns start in the same read, the one with more acts wins, then the one whose first act was earlier `[I]`.
+- One exception, `[I]`: silence does not replace a cutoff, because the silence is the cutoff continuing.
 
-> **Human review before step 14** (plan §9). A definition can be applied correctly and still name the
-> wrong thing. These need the owner's reading, and one rendered trace per pattern, before any criterion
-> that reads them is believed. *Not yet reviewed.*
+**Not reviewed by the owner:** the tie-break rule and the silence exception.
+
+> **Owner review (plan §9), 2026-10-10:** the definitions above are the owner's. Rendering one trace per pattern is
+> done by the run visualization (`tools/famdiag_export.py`). No criterion reads these readouts (checked 2026-10-10).

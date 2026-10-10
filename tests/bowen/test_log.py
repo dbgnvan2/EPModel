@@ -63,7 +63,7 @@ def header(constants=None, frozen=None, script=None):
 def test_m16a1_header_hashes_the_resolved_config():
     h = header()
     assert isinstance(h, LogHeader) and len(h.config_hash) == 64
-    assert h.spec_revision == "2.0, revision 12"
+    assert h.spec_revision == "2.0, revision 13"
     assert h == header()  # stable
     # A changed value changes the hash; the script's events are part of the config.
     assert header(script=load_script().without("TRIGGER")).config_hash != h.config_hash
@@ -85,7 +85,9 @@ def test_m16a7_header_flags_constants_changed_after_freeze():
     constants, frozen = load_constants(), load_frozen_constants()
     since_freeze = {k for k in constants.values if k not in frozen.values or constants[k] != frozen[k]}
     baseline = {k for k, flag in header().constant_changed_after_freeze if flag}
-    assert baseline == since_freeze == set()  # re-frozen for Phase C at step 14: nothing changed since
+    # Re-frozen for Phase C at step 14. Changed since, logged in constants_changes.md: the pattern readouts'
+    # window and threshold (owner decision D1, 2026-10-10; no criterion reads them). pattern_pole was retired.
+    assert baseline == since_freeze == {"pattern_window", "pattern_min_acts"}
     changed = dataclasses.replace(
         constants,
         values=MappingProxyType({**constants.values,

@@ -112,7 +112,11 @@ Kept for history or as build process. None of these defines current behavior.
 [agent_raising_design_prompt.md](agent_raising_design_prompt.md),
 [conversation_agents_maturity_emotion_2026-09.md](conversation_agents_maturity_emotion_2026-09.md).
 
-**For approval:** [<PROPOSAL — PHASE D DEFINITIONS.md>](<PROPOSAL — PHASE D DEFINITIONS.md>) — the definitions of C.14's technique,
+**For approval:** [<PROPOSAL — NODAL EVENTS, CUTOFF FROM BEHAVIOUR, C.17.md>](<PROPOSAL — NODAL EVENTS, CUTOFF FROM BEHAVIOUR, C.17.md>)
+— what counts as a nodal event, the cutoff readout read from behaviour, and `M11.C.17` rewritten (a coach helps and is
+not required).
+
+**Approved 2026-10-11:** [<PROPOSAL — PHASE D DEFINITIONS.md>](<PROPOSAL — PHASE D DEFINITIONS.md>) — the definitions of C.14's technique,
 C.23's expressed-emotion and suppression terms, C.28's mobility term, and a criterion proving the triangle change.
 
 **Approved 2026-10-10:** [implementation_plan_phase_d.md](implementation_plan_phase_d.md) — the Phase D plan (2026-10-10):

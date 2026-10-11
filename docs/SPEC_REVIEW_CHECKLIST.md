@@ -112,8 +112,11 @@ Kept for history or as build process. None of these defines current behavior.
 [agent_raising_design_prompt.md](agent_raising_design_prompt.md),
 [conversation_agents_maturity_emotion_2026-09.md](conversation_agents_maturity_emotion_2026-09.md).
 
-**For approval:** [implementation_plan_phase_d.md](implementation_plan_phase_d.md) — the Phase D plan (2026-10-10):
-the owner decisions P1–P17 it needs, and the proposed split into D-I and D-II.
+**For approval:** [<PROPOSAL — PHASE D DEFINITIONS.md>](<PROPOSAL — PHASE D DEFINITIONS.md>) — the definitions of C.14's technique,
+C.23's expressed-emotion and suppression terms, C.28's mobility term, and a criterion proving the triangle change.
+
+**Approved 2026-10-10:** [implementation_plan_phase_d.md](implementation_plan_phase_d.md) — the Phase D plan (2026-10-10):
+the owner decisions it needs (§1a records them), and the split into D-I and D-II.
 
 **Built 2026-10-10:** [<PROPOSAL — RUN VISUALIZATION MAPPING.md>](<PROPOSAL — RUN VISUALIZATION MAPPING.md>) (drawing a
 run as a fam-diag diagram; `tools/famdiag_export.py`, `config/viz/famdiag.md`).

@@ -2,6 +2,31 @@
 
 All notable changes to this project are recorded here. Dates are ISO.
 
+## [Unreleased] — 2026-10-11
+
+### Spec revision 15 (546 numbered requirements, 46 acceptance criteria)
+
+The owner approved `docs/PROPOSAL — PHASE D DEFINITIONS.md`:
+- **C.14:** "management technique" is a parent's weekly act toward the symptomatic child (firmness, permissiveness,
+  punishment, talking it out).
+- **C.23:** the expressed-emotion term (hostility, criticism and over-involvement, read through appraisal) and the
+  suppression term (a factor on symptom accumulation, 0.5).
+- **C.28:** the mobility term (the decay of the activation memory that holds the family's focus).
+- **New `M11.C.46`:** a triangle relieves its seeker in proportion to the third's help, so the mutant
+  `triangle-help-ignored` must turn it red.
+
+### Phase D engine work, 2026-10-10/11
+
+- **B1:** windowed event-store indexes, so a run's cost per week is flat. Seeded runs are byte-identical; a 40-year
+  run of the twelve-person family takes 12.9 s, against about 110 s.
+- **B2:** the batched TODO items.
+  - The trace framing is read from the run.
+  - The engine hash is the same on every Python version.
+  - The readouts take `now`.
+  - The readouts' act sets are in `config/bowen/pattern_acts.md`.
+  - One shared C.44/C.45 filter.
+  - Review fixes for each.
+
 ## [Unreleased] — 2026-10-10
 
 ### Phase D plan approved; spec revision 14 (545 numbered requirements)

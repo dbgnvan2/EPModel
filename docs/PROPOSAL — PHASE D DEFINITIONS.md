@@ -1,6 +1,6 @@
 # Proposal — the Phase D definitions the owner asked me to draft
 
-> **Status: draft for owner approval, 2026-10-10.** Plan decisions P7 and P12 (`docs/implementation_plan_phase_d.md`
+> **Status: approved by the owner, 2026-10-11 (§1–§4 all approved); applied at spec revision 15.** Drafted 2026-10-10. Plan decisions P7 and P12 (`docs/implementation_plan_phase_d.md`
 > §1a). Each definition is `[I]`. None is built until approved, and each goes into spec revision 15 with its
 > criterion.
 

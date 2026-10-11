@@ -2,6 +2,8 @@
 
 > ## ▶ STATE — the corpus is closed and the spec is current. **Phase C is closed with its gate failing (owner decision, 2026-10-09).**
 >
+> **2026-10-11 — spec revision 15 (546 unique IDs, 46 acceptance criteria):** the owner approved the Phase D definitions (C.14, C.23, C.28) and the new `M11.C.46`, which proves the triangle change.
+>
 > **2026-10-10 — Phase D plan approved; spec revisions 13 and 14 (545 unique IDs); run visualization built.**
 > - **Spec revision 13.** `M2.A` is the owner's family: Bruno and Toma out, Viktor and Dario in, Leo male. The family
 >   file is `config/bowen/family_phase_d.md`.

@@ -7,7 +7,7 @@ criterion is **done** only when every entry passes in `docs/phase_c_ensemble_rec
 mutant has turned each entry red in `docs/phase_c_mutation_record.md`; the D9 sweep
 (`docs/phase_c_sweep_record.md`) is reported, not gated. Phases D and E build most of the rest.
 
-**545 IDs: 218 done, 45 partial, 282 not done.**
+**546 IDs: 218 done, 45 partial, 283 not done.**
 
 | ID | Status | Evidence | Note |
 |---|---|---|---|
@@ -413,6 +413,7 @@ mutant has turned each entry red in `docs/phase_c_mutation_record.md`; the D9 sw
 | M11.C.43 | not done | — | Phase D |
 | M11.C.44 | partial | `tests/bowen/test_phase_c_gate.py::test_m11c44_position_value_inverts_with_load` | ensemble record: M11.C.44 FAIL |
 | M11.C.45 | partial | `tests/bowen/test_phase_c_criteria.py::test_m11c45_triangle_rate_is_per_person_week`<br>`tests/bowen/test_phase_c_gate.py::test_m11c45_triangles_quiet_when_calm` | ensemble record: M11.C.45 FAIL |
+| M11.C.46 | not done | — | Phase D |
 | M11.5 | done | `tests/bowen/test_ensemble_record.py::test_m115_report_section_11_is_generated` | — |
 | M11.D.1 | done | `tests/bowen/test_engine_purity.py::test_m11d1_engine_has_no_io`<br>`tests/bowen/test_engine_purity.py::test_m11d1_the_scans_find_what_they_look_for` | — |
 | M11.D.2 | done | `tests/bowen/test_engineering_gates.py::test_m11d2_check_catches_a_literal_in_the_criteria`<br>`tests/bowen/test_engineering_gates.py::test_m11d2_check_catches_a_literal_in_the_policy`<br>`tests/bowen/test_engineering_gates.py::test_m11d2_no_magic_literals_in_engine` | — |
@@ -557,7 +558,7 @@ mutant has turned each entry red in `docs/phase_c_mutation_record.md`; the D9 sw
 | M17.G.2 | not done | — | Phase E |
 | M17.G.3 | not done | — | Phase E |
 
-## Tests named for no spec ID (101)
+## Tests named for no spec ID (107)
 
 Their names embed no requirement ID, so they count only where an override cites them (marked *cited*). The rest check spec documents, tooling or helpers.
 
@@ -565,6 +566,8 @@ Their names embed no requirement ID, so they count only where an override cites 
 - `tests/bowen/test_config.py::test_m0_1_unknown_grade_rejected` — *cited*
 - `tests/bowen/test_engine_golden.py::test_b1_seeded_run_log_is_unchanged`
 - `tests/bowen/test_ensemble_record.py::test_b2_code_text_drops_only_docstrings_and_comments`
+- `tests/bowen/test_ensemble_record.py::test_b2_code_text_is_the_same_on_every_python_version`
+- `tests/bowen/test_ensemble_record.py::test_b2_code_text_keeps_fstring_text_exactly`
 - `tests/bowen/test_ensemble_record.py::test_criteria_required_matches_what_the_arms_read`
 - `tests/bowen/test_ensemble_record.py::test_criteria_settings_are_parsed_strictly`
 - `tests/bowen/test_ensemble_record.py::test_d0_a_probe_key_covers_the_whole_probe_module`
@@ -600,8 +603,11 @@ Their names embed no requirement ID, so they count only where an override cites 
 - `tests/bowen/test_family.py::test_m2a_phase_d_family_matches_spec_table`
 - `tests/bowen/test_family.py::test_m2a_ravi_sibling_starts_cut_off`
 - `tests/bowen/test_family.py::test_m2a_values_match_the_spec_table` — *cited*
+- `tests/bowen/test_patterns.py::test_b2_a_misspelt_act_in_config_raises`
+- `tests/bowen/test_patterns.py::test_b2_now_must_be_the_week_just_run`
 - `tests/bowen/test_patterns.py::test_b2_now_reads_as_of_that_week`
 - `tests/bowen/test_patterns.py::test_b2_pattern_act_sets_come_from_config`
+- `tests/bowen/test_patterns.py::test_b2_silence_ignores_acts_after_the_reading_week`
 - `tests/bowen/test_phase_b_gate.py::test_m13_phase_b_scripted_40_week_trace_runs`
 - `tests/bowen/test_phase_c_criteria.py::test_s_absence_and_hold_in_the_same_week_both_apply`
 - `tests/bowen/test_phase_c_criteria.py::test_s_declared_latency_matches_the_fixtures_ties`
@@ -611,6 +617,7 @@ Their names embed no requirement ID, so they count only where an override cites 
 - `tests/bowen/test_phase_c_criteria.py::test_s_scripted_criteria_are_found_by_running_them`
 - `tests/bowen/test_register.py::test_m14a_check_catches_a_field_with_no_row`
 - `tests/bowen/test_register.py::test_m14a_register_matches_object_fields` — *cited*
+- `tests/bowen/test_render.py::test_b2_framing_says_who_chose_the_acts`
 - `tests/bowen/test_script.py::test_m13_script_parses_and_validates`
 - `tests/bowen/test_script.py::test_m13_without_removes_one_kind_only`
 - `tests/test_doc_checklist.py::test_every_checklist_link_exists`

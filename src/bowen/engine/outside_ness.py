@@ -43,7 +43,6 @@ arrives with the external agent and peripheral ties (step 9).
 from __future__ import annotations
 
 from src.bowen.engine.contact import clamp_unit
-from src.bowen.engine.events import Mechanism
 from src.bowen.engine.identifiers import PersonId
 from src.bowen.engine.log_records import EffectRecord
 from src.bowen.engine.objects import SCALE_MAX, Person
@@ -83,8 +82,8 @@ def initialise_outside_ness(people: dict[PersonId, Person], params: EngineParams
 
 def outward_target(state: RunState, person: PersonId, params: EngineParams) -> float:
     delivered = 0.0
-    for event in state.store.events():
-        if event.timestamp == state.tick and event.sender == person and event.mechanism is Mechanism.MOVE:
+    for event in state.store.moves_in(state.tick - 1, state.tick):
+        if event.sender == person:
             _, impingement = state.kinds.components_of(event.kind)
             delivered += max(0.0, impingement) * event.intensity / params.intensity_scale
     return clamp_unit(delivered)
@@ -93,9 +92,8 @@ def outward_target(state: RunState, person: PersonId, params: EngineParams) -> f
 def inward_target(state: RunState, person: PersonId, reading: float, params: EngineParams) -> float:
     gave_way = sum(
         event.intensity / params.intensity_scale
-        for event in state.store.events()
-        if event.timestamp == state.tick and event.sender == person
-        and event.mechanism is Mechanism.MOVE and event.kind in state.kinds.accommodating
+        for event in state.store.moves_in(state.tick - 1, state.tick)
+        if event.sender == person and event.kind in state.kinds.accommodating
     )
     return clamp_unit(reading + gave_way)
 

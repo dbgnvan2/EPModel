@@ -109,8 +109,7 @@ def observe(state: RunState, person: PersonId, params: EngineParams) -> Observat
     inbox = tuple(
         Delivered(state.store.event(d.event_id).kind, state.store.event(d.event_id).sender,
                   d.role is DeliveryRole.WITNESS)
-        for d in state.store.delivered_to(person)
-        if d.delivered_tick == state.tick
+        for d in state.store.delivered_at(person, state.tick)
     )
     return Observation(
         tick=state.tick, person=person, acute_excess=excess(me), functional_level=me.functional_level,

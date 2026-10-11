@@ -20,7 +20,6 @@ Tests:   tests/bowen/test_mechanisms.py
 from __future__ import annotations
 
 from src.bowen.engine.contact import relax_contact
-from src.bowen.engine.events import Mechanism
 from src.bowen.engine.identifiers import TieId
 from src.bowen.engine.log_records import EffectRecord
 from src.bowen.engine.objects import TieState
@@ -33,16 +32,9 @@ DISTANCE_KIND = "DISTANCE"
 
 def _recent_moves_on(state: RunState, tie: TieId, count: int) -> list[str]:
     a, b = tie.members()
-    kinds = [
-        e.kind
-        for e in state.store.events()
-        if e.mechanism is Mechanism.MOVE
-        and e.timestamp <= state.tick
-        and e.sender in (a, b)
-        # A move counts on this tie when it goes from one member to the other,
-        # whoever else it is also addressed to (review, 2026-10-06).
-        and ({a, b} - {e.sender}) <= set(e.targets)
-    ]
+    # A move counts on this tie when it goes from one member to the other,
+    # whoever else it is also addressed to (review, 2026-10-06): the store's pair index.
+    kinds = [e.kind for e in state.store.moves_on_pair(a, b) if e.timestamp <= state.tick]
     return kinds[-count:]
 
 

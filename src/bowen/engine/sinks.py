@@ -28,7 +28,6 @@ scaled down so their total stays within it.
 
 from __future__ import annotations
 
-from src.bowen.engine.events import Mechanism
 from src.bowen.engine.identifiers import PersonId
 from src.bowen.engine.log_records import EffectRecord
 from src.bowen.engine.objects import Sink
@@ -55,11 +54,7 @@ def sink_weights(state: RunState, params: EngineParams) -> dict[str, float]:
     weights = {Sink.MARITAL_CONFLICT.value: 0.0, Sink.SPOUSE_DYSFUNCTION.value: 0.0,
                Sink.CHILD_PROJECTION.value: 0.0, OVERFLOW: 0.0}
     spouses: set[PersonId] = set(family.marital_tie.members()) if family.marital_tie else set()
-    for event in state.store.events():
-        if event.mechanism is not Mechanism.MOVE or event.sender is None:
-            continue
-        if not state.tick - params.sink_window < event.timestamp <= state.tick:
-            continue
+    for event in state.store.moves_in(state.tick - params.sink_window, state.tick):
         if family.marital_tie and _on(event, family.marital_tie):
             if event.kind == CONFLICT:
                 weights[Sink.MARITAL_CONFLICT.value] += 1

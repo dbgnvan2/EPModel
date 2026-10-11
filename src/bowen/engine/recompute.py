@@ -36,7 +36,6 @@ ones below are the project's, graded [I]:
 
 from __future__ import annotations
 
-from src.bowen.engine.events import Mechanism
 from src.bowen.engine.identifiers import PersonId, TieId
 from src.bowen.engine.live_positions import Occupant, positions_live
 from src.bowen.engine.log_records import EffectRecord
@@ -71,10 +70,11 @@ def recompute_involvement(state: RunState) -> None:
         state.people[pid].involvement_weight = involvement(state, pid)
 
 
-def _counter_moves(state: RunState, members: tuple[PersonId, PersonId, PersonId]):
+def _counter_moves(state: RunState, members: tuple[PersonId, PersonId, PersonId], after: int):
+    """DETRIANGLE and PREVENT_ALIGNMENT among the members, emitted in (after, now]."""
     found = []
-    for event in state.store.events():
-        if event.mechanism is not Mechanism.MOVE or event.sender is None or event.timestamp > state.tick:
+    for event in state.store.moves_in(after, state.tick):
+        if event.kind not in (DETRIANGLE_KIND, PREVENT_ALIGNMENT_KIND):
             continue
         if event.kind in (DETRIANGLE_KIND, PREVENT_ALIGNMENT_KIND) and len(event.targets) == 1:
             if {event.sender, event.targets[0]} <= set(members):
@@ -102,13 +102,15 @@ def _voided(move, counters, window: int) -> bool:
 
 def _latest_triangle_move(state: RunState, members: tuple[PersonId, PersonId, PersonId], window: int):
     latest = None
-    counters = _counter_moves(state, members)
-    for event in state.store.events():
-        if event.kind != TRIANGLE_KIND or event.mechanism is not Mechanism.MOVE or event.sender is None:
+    # Only a TRIANGLE inside the window can be the latest, and only a counter from the window before it can void
+    # one (a DETRIANGLE at or after the move; a PREVENT_ALIGNMENT up to ``window`` before it), so both reads are
+    # windowed (plan B1); the answer is the full scan's.
+    counters = _counter_moves(state, members, state.tick - window - window)
+    for event in state.store.moves_in(state.tick - window, state.tick):
+        if event.kind != TRIANGLE_KIND:
             continue
         involved = {event.sender, *event.targets}
-        recent = state.tick - window < event.timestamp <= state.tick
-        if len(event.targets) == 1 and involved <= set(members) and recent and not _voided(event, counters, window):
+        if len(event.targets) == 1 and involved <= set(members) and not _voided(event, counters, window):
             latest = event
     return latest
 

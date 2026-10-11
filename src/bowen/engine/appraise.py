@@ -142,11 +142,7 @@ def attention_factor(person: Person, event: Event, params: EngineParams) -> floa
 def own_share(state: RunState, person: PersonId, other: PersonId, window: int) -> float:
     """Share of the moves between two people in the last ``window`` ticks that ``person`` sent (M4.C.6)."""
     sent = total = 0
-    for event in state.store.events():
-        if event.mechanism is not Mechanism.MOVE or event.sender is None:
-            continue
-        if not state.tick - window < event.timestamp <= state.tick:
-            continue
+    for event in state.store.moves_in(state.tick - window, state.tick):
         if {event.sender, *event.targets} >= {person, other} and event.sender in (person, other):
             total += 1
             sent += event.sender == person

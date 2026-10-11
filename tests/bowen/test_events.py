@@ -317,3 +317,53 @@ def test_m4c1_conflict_carries_both_components():
     """KS04.13: conflict keeps contact and enforces distance at once — the configured kind carries both."""
     contact, impingement = load_event_kinds().components_of("CONFLICT")
     assert contact > 0 and impingement > 0
+
+
+# --- Phase D plan B1: the store's windowed indexes answer as a full scan would --------------
+
+
+def _scan_moves(store, after, upto):
+    return [e for e in store.events() if e.mechanism is Mechanism.MOVE and e.sender is not None
+            and after < e.timestamp <= upto]
+
+
+def test_b1_indexes_match_a_full_scan():
+    """Purpose: every index query equals filtering events(), including for events recorded out of id order.
+    Spec:    docs/bowen_agent_model_spec_v2.md#M16.B.3; docs/implementation_plan_phase_d.md B1
+    """
+    rng = random.Random(3)
+    people = (RAVI, MARTA, NADIA, PIA)
+    events = []
+    for i in range(300):
+        tick = rng.randrange(0, 40)
+        sender = rng.choice(people)
+        targets = tuple(rng.sample([p for p in people if p != sender], rng.choice((1, 2))))
+        kind = rng.choice(("CONFLICT", "TRIANGLE", "DETRIANGLE", "PURSUE"))
+        events.append(move(tick=tick, sender=sender, targets=targets, index=i, kind=kind))
+    events.append(move(tick=5, sender=None, index=999, mechanism=Mechanism.EXOGENOUS_STRESSOR, exogenous=True,
+                       channel=Channel.EXOGENOUS))  # not a move: never in a move index
+    rng.shuffle(events)  # dirty state: the store must not rely on arrival order
+    store = EventStore()
+    for e in events:
+        store.record_event(e)
+    for after, upto in ((-1, 39), (10, 14), (20, 21), (39, 50)):
+        assert store.moves_in(after, upto) == _scan_moves(store, after, upto)
+    for kind in ("TRIANGLE", "DETRIANGLE", "NONE"):
+        assert store.moves_of_kind(kind) == [e for e in _scan_moves(store, -1, 99) if e.kind == kind]
+    for a, b in ((RAVI, MARTA), (NADIA, PIA), (MARTA, RAVI)):
+        expected = [e for e in _scan_moves(store, -1, 99) if e.sender in (a, b) and ({a, b} - {e.sender}) <= set(e.targets)]
+        assert store.moves_on_pair(a, b) == expected
+    store.record_event(move(tick=12, sender=MARTA, targets=(RAVI,), index=1000))  # an index read, then a new event
+    assert store.moves_in(10, 14) == _scan_moves(store, 10, 14)
+    assert store.moves_on_pair(RAVI, MARTA)[-1].id.index in {e.id.index for e in store.events()}
+
+
+def test_b1_delivered_at_matches_delivered_to_filtered():
+    store = EventStore()
+    first, second = move(tick=1, index=0), move(tick=1, sender=NADIA, index=1)
+    for e in (first, second):
+        store.record_event(e)
+    for d in (delivery(second, MARTA, 2), delivery(first, MARTA, 1), delivery(first, PIA, 1, Role.WITNESS)):
+        store.record_delivery(d)
+    for tick in (2, 3):
+        assert store.delivered_at(MARTA, tick) == tuple(d for d in store.delivered_to(MARTA) if d.delivered_tick == tick)

@@ -47,7 +47,15 @@ class RunState:
     draws: DrawService = field(default_factory=lambda: DrawService(0))
 
     def ties_of(self, person: PersonId) -> tuple[Relationship, ...]:
-        return tuple(self.ties[t] for t in sorted(self.ties) if person in t.members())
+        # Cached per person while the set of ties is unchanged (plan B1); the tie objects are the live ones.
+        key = tuple(self.ties)
+        cache = self.__dict__.setdefault("_ties_of_cache", {})
+        if cache.get("key") != key:
+            cache.clear()
+            cache["key"] = key
+        if person not in cache:
+            cache[person] = tuple(t for t in sorted(self.ties) if person in t.members())
+        return tuple(self.ties[t] for t in cache[person])
 
     def tie_between(self, a: PersonId, b: PersonId) -> Relationship | None:
         return self.ties.get(TieId.of(a, b))

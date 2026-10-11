@@ -28,7 +28,6 @@ directed. A tie with an external agent accumulates none (`M1.E.7e`: the coach ti
 from __future__ import annotations
 
 from src.bowen.engine.contact import deviation, excess, too_much
-from src.bowen.engine.events import Mechanism
 from src.bowen.engine.identifiers import PersonId, TieId
 from src.bowen.engine.log_records import EffectRecord
 from src.bowen.engine.objects import REACTIVE_DETECTORS, SCALE_MAX, Role
@@ -70,10 +69,7 @@ def update_investment(
 
 
 def _evaluations(state: RunState, person: PersonId) -> int:
-    return sum(
-        1 for e in state.store.events()
-        if e.timestamp == state.tick and e.sender == person and e.mechanism is Mechanism.MOVE and e.valence != 0
-    )
+    return sum(1 for e in state.store.moves_in(state.tick - 1, state.tick) if e.sender == person and e.valence != 0)
 
 
 def detector_targets(state: RunState, person: PersonId, params: EngineParams) -> dict[str, float]:

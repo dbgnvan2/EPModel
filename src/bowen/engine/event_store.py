@@ -14,7 +14,7 @@ The delayed, scoped view of `M16.D` is built on these queries in Phase C.
 
 from __future__ import annotations
 
-from src.bowen.engine.events import Delivery, Event, EventId, Role
+from src.bowen.engine.events import Delivery, Event, EventId, Mechanism, Role
 from src.bowen.engine.identifiers import PersonId
 
 
@@ -32,6 +32,15 @@ class EventStore:
         self._sorted: tuple[Event, ...] | None = None
         self._by_sender: dict[PersonId, list[Event]] = {}
         self._by_recipient: dict[PersonId, list[Delivery]] = {}
+        # Phase D (plan B1): windowed indexes, so a mechanism reads only the moves it needs instead of the whole
+        # run every tick. Each holds a subset of ``_events`` and is sorted by id when read, so every query returns
+        # exactly what filtering ``events()`` would (tests/bowen/test_events.py::test_b1_indexes_match_a_full_scan).
+        self._moves_at: dict[int, list[Event]] = {}
+        self._moves_of_kind: dict[str, list[Event]] = {}
+        self._moves_on_pair: dict[frozenset, list[Event]] = {}
+        self._dirty: set = set()
+        self._recipient_sorted: dict[PersonId, tuple[Delivery, ...]] = {}
+        self._by_recipient_tick: dict[tuple[PersonId, int], list[Delivery]] = {}
 
     def record_event(self, event: Event) -> None:
         if event.id in self._events:
@@ -40,12 +49,52 @@ class EventStore:
         self._sorted = None
         if event.sender is not None:
             self._by_sender.setdefault(event.sender, []).append(event)
+            if event.mechanism is Mechanism.MOVE:
+                self._index_move(event)
+
+    def _index_move(self, event: Event) -> None:
+        for key, index in ((event.timestamp, self._moves_at), (event.kind, self._moves_of_kind)):
+            index.setdefault(key, []).append(event)
+            self._dirty.add((id(index), key))
+        for target in dict.fromkeys(event.targets):
+            if target == event.sender:
+                continue
+            pair = frozenset((event.sender, target))
+            self._moves_on_pair.setdefault(pair, []).append(event)
+            self._dirty.add((id(self._moves_on_pair), pair))
+
+    def _read(self, index: dict, key) -> list[Event]:
+        found = index.get(key)
+        if found is None:
+            return []
+        if (id(index), key) in self._dirty:
+            found.sort(key=lambda e: e.id)
+            self._dirty.discard((id(index), key))
+        return found
+
+    def moves_in(self, after: int, upto: int) -> list[Event]:
+        """Moves (with a sender) whose timestamp is in (after, upto], in id order."""
+        out: list[Event] = []
+        for tick in range(after + 1, upto + 1):
+            out.extend(self._read(self._moves_at, tick))
+        out.sort(key=lambda e: e.id)
+        return out
+
+    def moves_of_kind(self, kind: str) -> list[Event]:
+        """Every move (with a sender) of one kind, in id order."""
+        return list(self._read(self._moves_of_kind, kind))
+
+    def moves_on_pair(self, a: PersonId, b: PersonId) -> list[Event]:
+        """Every move (with a sender) from one of the two to the other, whoever else it also targets, in id order."""
+        return list(self._read(self._moves_on_pair, frozenset((a, b))))
 
     def record_delivery(self, delivery: Delivery) -> None:
         if delivery.event_id not in self._events:
             raise ValueError(f"delivery for unrecorded event {delivery.event_id}")
         self._deliveries.append(delivery)
         self._by_recipient.setdefault(delivery.recipient, []).append(delivery)
+        self._recipient_sorted.pop(delivery.recipient, None)
+        self._by_recipient_tick.setdefault((delivery.recipient, delivery.delivered_tick), []).append(delivery)
 
     def event(self, event_id: EventId) -> Event:
         return self._events[event_id]
@@ -59,11 +108,14 @@ class EventStore:
         return tuple(sorted(self._by_sender.get(person, ()), key=lambda e: e.id))
 
     def delivered_to(self, person: PersonId, role: Role | None = None) -> tuple[Delivery, ...]:
-        return tuple(
-            d
-            for d in sorted(self._by_recipient.get(person, ()))
-            if role is None or d.role is role
-        )
+        ordered = self._recipient_sorted.get(person)
+        if ordered is None:
+            ordered = self._recipient_sorted[person] = tuple(sorted(self._by_recipient.get(person, ())))
+        return ordered if role is None else tuple(d for d in ordered if d.role is role)
+
+    def delivered_at(self, person: PersonId, tick: int) -> tuple[Delivery, ...]:
+        """The deliveries that reached the person at one tick, in the order ``delivered_to`` gives them."""
+        return tuple(sorted(self._by_recipient_tick.get((person, tick), ())))
 
     def delayed_view(self, person: PersonId, now: int, delay: int) -> tuple[Event, ...]:
         """Purpose: one agent's own events, older than the delay, and nothing else (M16.D.1).

@@ -1,7 +1,7 @@
 # Proposal — drawing a run as a fam-diag diagram
 
 > **Status: built 2026-10-10.** D1, D3, D4 and D5 were approved and D2 corrected by the owner (§0). The plan (§10) was
-> approved the same day and built. The status report is §11. Nothing is built. Revision 1 drafted act-count
+> approved the same day and built. The status report is §11. Revision 1 drafted act-count
 > rules for each line; the owner corrected them the same day (§1). Every threshold below is invented (`[I]`).
 
 ## 0. Owner decisions on revision 2 (2026-10-10)

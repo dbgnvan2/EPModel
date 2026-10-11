@@ -32,8 +32,8 @@ Phase C steps 0–16 are built. **Its gate does not pass** (`docs/phase_c_comple
   premise was withdrawn when it stopped passing after the `TRIANGLE` decision. Report §2.*
 - [ ] **`M11.C.42` and `.45` stopped passing after the `TRIANGLE` decision.** *What each tests decided 2026-10-08
   (report §9): C.42's baseline arm and readout, and C.45's readout, brought to the spec's text. Rerun: both still
-  fail. C.42 is +0.26 (p 0.084) and its sign depends on the learner's constants; C.45 is +0.0020 per person-week
-  (p 0.20) and reverses at 4 of 6 sweep settings. What remains is whether the learner should produce these
+  fail. Current figures (`docs/phase_c_ensemble_record.md`, 2026-10-10): C.42 +0.08 ± 0.39 (p 0.21); C.45
+  −0.0008 ± 0.0044 per person-week (p 0.69). The 2026-10-08 figures were C.42 +0.26 and C.45 +0.0020. What remains is whether the learner should produce these
   effects at all, which is a model question, not a test question.* Both were already fragile in the sweep.
   C.42's reuse is −0.17 and it fails at every sweep setting; C.45 has the right sign, without significance.
   Decide whether either criterion's arms still test what it claims, now that the act loads the recruited third.
@@ -41,16 +41,15 @@ Phase C steps 0–16 are built. **Its gate does not pass** (`docs/phase_c_comple
 - [x] ~~**`M13.4`'s precision rule and `M11.C.16`.**~~ *Decided 2026-10-08 (report §10): precision against the pooled sd
   of the two arms. C.16 now passes at 150 seeds; C.41's [light: lower level] cell now fails instead of undetermined.*
 - [x] ~~**Decide whether to reclassify `M11.C.16`.**~~ *Decided 2026-10-08: it stays **composite** (owner decision).
-  No inversion run reverses it. Inverting `M4.D.3a`'s availability cancels it (both intervals span zero),
-  and removing availability halves it; all nine level-reading rules were run. The learner changes its size, not its
+  *Superseded 2026-10-09: `availability-level-inverted` now reverses it (`repertoire_entropy` +0.0115 ± 0.0094;
+  `docs/phase_c_mutation_record.md`), and the owner kept it composite.* As first written: no inversion run reversed
+  it; inverting `M4.D.3a`'s availability cancelled it, and removing availability halved it; all nine level-reading rules were run. The learner changes its size, not its
   sign, so its row's rationale and mutation clause are not met, and coverage keeps it partial. Report §11.*
 - [ ] **Owner: `M11.C.16`'s class rests on a reading.** Composite holds if only `M4.D.3a` states a narrower repertoire;
   if `M4.C.1a`'s KS03.2 text or `M1.C.3a`'s "stays fixed" is read as stating it, `M11.5`'s redundancy clause would make
-  it a premise. Removing those two rules alone leaves C.16 passing (`c16-cited-grounds-removed`); removing them with
-  availability turns it red (`c16-grounds-removed`). Separately, the availability inversion run equals the deletion
-  at level 20 and below (40.6% of the lowered arm's member-weeks under it, 45.2% over the entropy's window;
-  `docs/phase_c_level_occupancy.md`), so "cancels without reversing" is shown for that inversion only. A stronger
-  inversion was not tried. Report §11.
+  it a premise. Removing those two rules alone leaves C.16 passing (`c16-cited-grounds-removed`). Removing them with
+  availability now also survives (`c16-grounds-removed`, −0.006 ± 0.005), while the availability inversion reverses it
+  (`docs/phase_c_mutation_record.md`). Occupancy figures are in `docs/phase_c_level_occupancy.md`. Report §11.
 - [ ] **The record caches are trusted, not proved.** A test re-renders each record from `docs/records_cache/` and
   compares, but nothing binds a cached result to a run: editing a value in the cache and re-rendering passes. The
   key hashes the inputs, not the result. Only a rerun checks it (learning-qa, 2026-10-09).
@@ -136,7 +135,7 @@ Phase C steps 0–16 are built. **Its gate does not pass** (`docs/phase_c_comple
   2. **A parent's OVERFUNCTION or PURSUE toward a child never counts for over/underfunctioning,** even in a block
      where projection does not reach 3 acts. Should those acts count when projection is not read?
 - [x] ~~**`family_phase_d.md` lacks Teodor–Iris and Viktor–Dario parent ties**~~ *added 2026-10-10.* (the owner's family has Iris as Teodor's
-  daughter and Dario as Viktor's son). Add them with the next engine-hash change, since `config/bowen` is hashed.
+  daughter and Dario as Viktor's son).
 - [ ] **Rule 9 debt:** the readouts' act sets (`APPROACH`, `PROJECTION_ACTS`, the over/under lists in
   `src/bowen/readouts/patterns.py`) are classification rules in Python. `PROJECTION_ACTS` is tied to the sink's
   set by `test_v5_projection_reads_the_sinks_act_set`. Move them to config with the next engine change.

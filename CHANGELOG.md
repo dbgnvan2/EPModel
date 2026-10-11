@@ -16,7 +16,8 @@ All notable changes to this project are recorded here. Dates are ISO.
 - **Spec revision 13** (V3): `M2.A` is the owner's family. Bruno and Toma leave; Viktor (Sofia's husband) and Dario (Ravi's
   brother, cut off) join. Leo is declared male. Teodor's `basic_level` is proposed at 36. `M2.A.1`'s fixture is now Iris and
   Dario. New `config/bowen/family_phase_d.md`, not yet run; the Phase B and C families are unchanged.
-- **`docs/DECISIONS — CUTOFF SEMANTICS.md`** (V4): open. Should the engine's CUTOFF become rejection?
+- **`docs/DECISIONS — CUTOFF SEMANTICS.md`** (V4): should the engine's CUTOFF become rejection? Held for Phase D
+  (owner, 2026-10-10, option C).
 - **`tools/famdiag_export.py`** (V5) writes a run as a fam-diag diagram (`docs/review/phase_c_famdiag_seed7.json`).
   - One fam-diag year is one 4-week block, 2001–2026.
   - The drawing rules are in `config/viz/famdiag.md`, outside the engine hash.
@@ -53,8 +54,8 @@ the per-criterion status is in `docs/phase_c_completion_report.md`.
   - **Owner decisions on the results:** X1 a finding; `M11.C.5`'s FAIL reported; `M11.C.4`'s nodal event and
     `M11.C.27`'s reading moved to 104 weeks (one declared value, run once): no effect remains in either, and
     C.27's one passing cell no longer passed. The owner then decided `M11.C.27` is read week by week, gating on
-    the week the act lands: 1 of 4 cells passes. `M11.C.41`'s readout counts the policy's draws only. The owner's account of triangling is a proposal
-    (`docs/PROPOSAL — TRIANGLE RELIEF AND CREDIT.md`), not built.
+    the week the act lands: 1 of 4 cells passes. `M11.C.41`'s readout counts the policy's draws only. The owner's account of triangling became a proposal
+    (`docs/PROPOSAL — TRIANGLE RELIEF AND CREDIT.md`), built the same day (next entry).
 
 - **The triangle change, approved and built 2026-10-09** (`docs/PROPOSAL — TRIANGLE RELIEF AND CREDIT.md`; spec
   `M1.C.1`, `M4.D.6e`, `M11.C.3`). A `TRIANGLE` relieves only its seeker, scaled by `third_help` (the third's calm

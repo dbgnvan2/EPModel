@@ -567,6 +567,7 @@ the most criteria:
 - Plan §9's human reviews: `docs/readouts_phase_c.md`; the rendered 104-week Phase C trace,
   `docs/review/phase_c_trace_seed7.md` (`M11.C.1`'s baseline arm under the policy, seed 7 as in Phase B;
   `python3 tools/phase_c_trace.py --view <id>` renders one person's view); and `M5.F.2`'s threshold.
-- Bruno's weekly fallback (`TODO.md`): whether it is the intended reading of `M4.D.3b`.
+- ~~Bruno's weekly fallback~~ *recorded as a Phase C finding, not fixed (owner, 2026-10-10): Bruno left the
+  reference family at spec revision 13.*
 
 Phase B was closed on 2026-10-07 (owner's trace read, no findings; `docs/phase_b_completion_report.md`).

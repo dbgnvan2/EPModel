@@ -61,8 +61,8 @@ finding.**
   excess re-forms from the policy's own acts within the 20-week burn-in.
 - What this means for `M11.C.44`/`.45`: the calm arm is the triad's resting state, about 8–9 above the floor, and
   the declared spell adds about 2 (`d5-spell-effect`). The arms differ by little. Whether the spell is too light is
-  a question about a declared `[I]` input. Changing it now would be tuning after the freeze, so it is left to the
-  owner (TODO).
+  a question about a declared `[I]` input. Changing it now would be tuning after the freeze. *Owner decision (below):
+  the spell is not revisited.*
 
 **Q2 — done.** `M11.C.41`'s readout is now `reactive_over_chance`: per selection, whether the act chosen was
 reactive, less the reactive share of that selection's legal set, averaged. A chooser at random scores 0 at any set

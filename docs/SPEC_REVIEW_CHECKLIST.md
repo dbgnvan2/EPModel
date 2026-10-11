@@ -18,7 +18,7 @@ Reviewer: ________  Started: ________  Spec revision reviewed: ________
 
 These define what the model does. A run that disagrees with them is a defect.
 
-- [ ] [bowen_agent_model_spec_v2.md](bowen_agent_model_spec_v2.md) — the spec (v2.0, revision 12). Objects (M1),
+- [ ] [bowen_agent_model_spec_v2.md](bowen_agent_model_spec_v2.md) — the spec (v2.0, revision 13). Objects (M1),
       reference family (M2), clocks and ordering (M3), the fast tick (M4), moves (M5), invariants (M6), the slow tick
       (M7), live positions (M8), beliefs (M9), parameters (M10), acceptance criteria (M11), framing (M11.F), the
       readout schema (M11.G), out of scope (M12), the run log and trace (M16).
@@ -110,6 +110,9 @@ Kept for history or as build process. None of these defines current behavior.
 [REVIEW_spec_rev10_2026-09-23.md](REVIEW_spec_rev10_2026-09-23.md),
 [agent_raising_design_prompt.md](agent_raising_design_prompt.md),
 [conversation_agents_maturity_emotion_2026-09.md](conversation_agents_maturity_emotion_2026-09.md).
+
+**For approval:** [implementation_plan_phase_d.md](implementation_plan_phase_d.md) — the Phase D plan (2026-10-10):
+the owner decisions P1–P17 it needs, and the proposed split into D-I and D-II.
 
 **Built 2026-10-10:** [<PROPOSAL — RUN VISUALIZATION MAPPING.md>](<PROPOSAL — RUN VISUALIZATION MAPPING.md>) (drawing a
 run as a fam-diag diagram; `tools/famdiag_export.py`, `config/viz/famdiag.md`).

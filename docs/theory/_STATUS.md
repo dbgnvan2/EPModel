@@ -2,6 +2,18 @@
 
 > ## ▶ STATE — the corpus is closed and the spec is current. **Phase C is closed with its gate failing (owner decision, 2026-10-09).**
 >
+> **2026-10-10 — Phase D planned; spec revision 13; run visualization built.**
+> - **Spec revision 13.** `M2.A` is the owner's family: Bruno and Toma out, Viktor and Dario in, Leo male. The family
+>   file is `config/bowen/family_phase_d.md`.
+> - **Pattern readouts.** The owner's definitions (`docs/readouts_phase_c.md`): 3 acts in 4 weeks; a pattern ends when a
+>   new one emerges; projection holds 12 weeks.
+> - **Cutoff.** Rejection, not severing, held for Phase D (`docs/DECISIONS — CUTOFF SEMANTICS.md`). The long silences in
+>   the seed-7 run are ties the engine's CUTOFF severed.
+> - **Visualization.** Runs are drawn in **EPModel Fam-Diag** (`../epmodel-fam-diag`), a copy of fam-diag; the owner's
+>   fam-diag is unchanged.
+> - **Open:** the Phase C trace review and `M5.F.2`'s threshold. Bruno's fallback was recorded as a Phase C finding.
+> - **Next:** the owner's decisions and approval of `docs/implementation_plan_phase_d.md`. No Phase D code before that.
+>
 > **2026-10-09 — Phase C closed.** The approved failing-criteria decisions were carried out (`docs/DECISIONS — PHASE C
 > FAILING.md`), the owner's triangle account was built (`docs/PROPOSAL — TRIANGLE RELIEF AND CREDIT.md`), and the owner
 > closed Phase C with its gate failing. Done: `M11.C.1`, `.3`, `.19`, `.25`, `.32`, `.35`, `.38`. Partial: `.16`, `.27`

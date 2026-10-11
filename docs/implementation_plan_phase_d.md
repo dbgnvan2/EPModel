@@ -1,7 +1,6 @@
 # Implementation plan — Phase D
 
-> **Status: approved by the owner, 2026-10-10 ("Proceed"), with the decisions in §1a.** P9 (C.7's direction) is open
-> pending details; P13–P16 wait for D-II. **Built:** B1 and B2 (2026-10-10/11); B3 and B4 (2026-10-11, spec revision 16); B5 and B6 (2026-10-11).
+> **Status: approved by the owner, 2026-10-10 ("Proceed"), with the decisions in §1a.** P9 decided 2026-10-11; P13–P16 wait for D-II. **Built:** B1 and B2 (2026-10-10/11); B3 and B4 (2026-10-11, spec revision 16); B5 and B6 (2026-10-11).
 > Spec: `docs/bowen_agent_model_spec_v2.md`, revision 13. Phase C closed with its gate failing (owner decision,
 > `docs/phase_c_completion_report.md` §13). Spec IDs are used verbatim. The inventories behind this plan were made on
 > 2026-10-10 from the spec, `src/bowen`, `TODO.md` and the Phase C documents; their findings are cited where used.
@@ -101,7 +100,9 @@ Decisions marked **D-I** block the first part; **D-II** decisions can wait until
   - I draft definitions of C.14's "technique", C.23's EE and suppression terms, and C.28's mobility term, for approval
     before those criteria are built.
   - C.13 leaves Phase D.
-- **P9: details requested.** See below. Open.
+- **P9: decided 2026-10-11.** Yes, with the one-spouse arm. The owner: "if both are working to improve, couples go
+  faster. But a principle of systems applies — change 1 part and the system will shift, so it is effective to work with
+  1 person. In both cases the coach must not take sides." C.7's direction: joint > one spouse > sided (spec revision 17).
 - **P17: week 0 is the starting point, not a step.** The first slow tick is at the end of week 51, as the code has it.
   `M2.A.0b`'s "`t0`, the first slow tick" is corrected in revision 14: `t0` is the start.
 - **Read as approved by "Proceed", unless the owner says otherwise:**
@@ -391,7 +392,7 @@ run, an `M11.1d` audit (deletion plus sign-inverted mutant) and the fallback-rat
 | C.11 | nuclear four | `test_m11c11_removal_three_phase_shape` | `M6.I.6` | B7; conservation limb under the `M11.4` exception; the curve shape goes to human review (`M11.E`) |
 | C.12 | dyad | `test_m11c12_symptom_relief_raises_conflict` | released bound anxiety discarded (`M6.I.1`) | B7 |
 | C.14 | nuclear four | `test_m11c14_technique_null_under_marital_distance` | `M5.C.1`'s marital-distance gate removed | P7, P8; the gate |
-| C.17 | Phase C family with Dr Halim | `test_m11c17_no_basic_level_drift_without_coach` | `systems_perspective` allowed to rise spontaneously | B6, P8, `M7.E.4` |
+| C.17 | Phase C family with Dr Halim | `test_m11c17_coach_helps_and_is_not_required` | `systems_perspective` allowed to rise spontaneously | B6, P8, `M7.E.4` |
 | C.18 | any | `test_m11c18_estimator_separates_cutoff_from_iposition` | `M1.A.4b`'s load weighting flattened | B6, B3 |
 | C.20 | any | `test_m11c20_estimator_separates_borrowed_from_basic` | as C.18 | B6 |
 | C.21 | nuclear four | `test_m11c21_reciprocity_inverts_on_projector_collapse` | `M6.I.4`'s transfer made one-way | — |

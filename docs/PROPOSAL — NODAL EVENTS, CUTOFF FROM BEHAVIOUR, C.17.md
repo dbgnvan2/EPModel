@@ -1,6 +1,6 @@
 # Proposal — nodal events, cutoff read from behaviour, and C.17
 
-> **Status: draft for the owner, 2026-10-11.** It follows the owner's answers of 2026-10-11 on B4–B6. Each item is
+> **Status: approved by the owner, 2026-10-11 (§1, §2, §3); applied at spec revision 17.** Drafted 2026-10-11. It follows the owner's answers of 2026-10-11 on B4–B6. Each item is
 > `[I]` where it goes beyond the owner's words. Nothing here is built until approved. §1 changes the estimator's
 > breadth. §2 changes the `cutoff` pattern readout. §3 rewrites `M11.C.17` (spec revision 17).
 

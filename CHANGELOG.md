@@ -4,6 +4,22 @@ All notable changes to this project are recorded here. Dates are ISO.
 
 ## [Unreleased] — 2026-10-10
 
+### Phase D plan approved; spec revision 14 (545 numbered requirements)
+
+- `docs/implementation_plan_phase_d.md`, approved by the owner with decisions P1–P5, P7 and P17 (§1a). Phase D splits
+  into D-I (foundations) and D-II (the life course).
+- Revision 14 applies them:
+  - `M1.B.3c`: cutoff is rejection, not severing.
+  - `M4.C.1c`: the reconnection pull.
+  - `M5.F.2c`: the counterfeit flip is gradual, crossing at 0.5.
+  - `M1.A.4k`: the estimator's form.
+  - `M7.B.1`: chronic anxiety is fixed and moves only with a rise in `basic_level`.
+  - `M7.E.4`: chronic anxiety wears on ties; the bond-energy accrual is withdrawn.
+  - `M2.A.0b`: `t0` is week 0, not a slow tick.
+  - `M11.4` gains `M11.C.14`'s null.
+  - `M11.C.13` moves to Phase E.
+  - The blank line splitting the criteria table is removed.
+
 ### Added — run visualization (`docs/PROPOSAL — RUN VISUALIZATION MAPPING.md`, plan V1–V7, owner-approved)
 
 - **The pattern readouts are the owner's** (V1, V2; `docs/readouts_phase_c.md`, `src/bowen/readouts/patterns.py`).

@@ -2,7 +2,7 @@
 
 > ## ▶ STATE — the corpus is closed and the spec is current. **Phase C is closed with its gate failing (owner decision, 2026-10-09).**
 >
-> **2026-10-10 — Phase D planned; spec revision 13; run visualization built.**
+> **2026-10-10 — Phase D plan approved; spec revisions 13 and 14 (545 unique IDs); run visualization built.**
 > - **Spec revision 13.** `M2.A` is the owner's family: Bruno and Toma out, Viktor and Dario in, Leo male. The family
 >   file is `config/bowen/family_phase_d.md`.
 > - **Pattern readouts.** The owner's definitions (`docs/readouts_phase_c.md`): 3 acts in 4 weeks; a pattern ends when a

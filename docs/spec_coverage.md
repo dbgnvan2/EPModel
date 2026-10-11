@@ -7,7 +7,7 @@ criterion is **done** only when every entry passes in `docs/phase_c_ensemble_rec
 mutant has turned each entry red in `docs/phase_c_mutation_record.md`; the D9 sweep
 (`docs/phase_c_sweep_record.md`) is reported, not gated. Phases D and E build most of the rest.
 
-**542 IDs: 218 done, 45 partial, 279 not done.**
+**545 IDs: 218 done, 45 partial, 282 not done.**
 
 | ID | Status | Evidence | Note |
 |---|---|---|---|
@@ -27,6 +27,7 @@ mutant has turned each entry red in `docs/phase_c_mutation_record.md`; the D9 sw
 | M1.A.4a | not done | — | Phase C or D — the phase that builds its mechanism (plan Appendix B) |
 | M1.A.4b | not done | — | Phase C or D — the phase that builds its mechanism (plan Appendix B) |
 | M1.A.4c | not done | — | Phase C or D — the phase that builds its mechanism (plan Appendix B) |
+| M1.A.4k | not done | — | Phase C or D — the phase that builds its mechanism (plan Appendix B) |
 | M1.A.4d | not done | — | Phase C or D — the phase that builds its mechanism (plan Appendix B) |
 | M1.A.4e | not done | — | Phase C or D — the phase that builds its mechanism (plan Appendix B) |
 | M1.A.4g | not done | — | Phase C or D — the phase that builds its mechanism (plan Appendix B) |
@@ -73,6 +74,7 @@ mutant has turned each entry red in `docs/phase_c_mutation_record.md`; the D9 sw
 | M1.B.1 | done | `tests/bowen/test_objects.py::test_m1b1_tie_connects_exactly_two_persons` | — |
 | M1.B.2 | done | `tests/bowen/test_objects.py::test_m1b2_conductance_has_no_distance_or_contact_input` | — |
 | M1.B.3 | done | `tests/bowen/test_activation_visibility.py::test_m1b3_no_move_crosses_a_cut_off_tie`<br>`tests/bowen/test_family.py::test_m1b3_cut_off_tie_cannot_be_interactive`<br>`tests/bowen/test_mechanisms.py::test_m1b3_four_tie_states_are_distinct`<br>`tests/bowen/test_objects.py::test_m1b3_four_tie_states_are_representable` | no move crosses a non-interactive tie (review, 2026-10-06) |
+| M1.B.3c | not done | — | Phase C or D — the phase that builds its mechanism (plan Appendix B) |
 | M1.B.4 | done | `tests/bowen/test_mechanisms.py::test_m1b4_reunion_restores_coupling_immediately` | — |
 | M1.B.5 | partial | `tests/bowen/test_moves.py::test_m1b5_balance_has_no_stable_midpoint` | directed, bistable with no stable midpoint and not a trait; held in one area (`joint`) until the family declares areas of joint activity (M1.B.9) |
 | M1.B.6 | done | `tests/bowen/test_moves.py::test_m1b6_a_flip_reverts_unless_sustained`<br>`tests/bowen/test_moves.py::test_m1b6_flip_is_relative_and_immediate` | — |
@@ -265,6 +267,7 @@ mutant has turned each entry red in `docs/phase_c_mutation_record.md`; the D9 sw
 | M5.E.9 | not done | — | Phase C |
 | M5.F.1 | done | `tests/bowen/test_outside_ness.py::test_m5f1_a_compliant_senders_contact_lands_hollow`<br>`tests/bowen/test_outside_ness.py::test_m5f1_sender_state_scales_what_the_move_delivers` | — |
 | M5.F.2 | done | `tests/bowen/test_outside_ness.py::test_m5f2_same_move_can_land_with_the_opposite_sign` | — |
+| M5.F.2c | not done | — | Phase C |
 | M5.F.2a | partial | — | one of the five forms is built: an assertion-form I-POSITION raises the claimant's outward axis (step 8); declaring non-involvement and the other forms are not |
 | M5.F.2b | done | `tests/bowen/test_outside_ness.py::test_m5f2b_detector_reports_which_axis_failed` | — |
 | M5.F.4 | done | `tests/bowen/test_iposition.py::test_m5f4_low_perspective_executes_the_assertion_form` | — |

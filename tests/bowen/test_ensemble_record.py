@@ -154,6 +154,32 @@ def test_m134_every_record_hashes_the_rule_keys():
     assert _tool.code_hash() == base
 
 
+def test_b2_code_text_is_the_same_on_every_python_version():
+    """3.12 splits an f-string into several tokens where 3.11 gives one; the hash text must not differ by version
+    (review 2026-10-10). Run on this interpreter and, where present, on python3.11 and python3.13."""
+    import shutil
+    import subprocess
+    import sys
+
+    script = ("import sys; sys.path.insert(0, {repo!r}); from pathlib import Path; import hashlib; "
+              "from tools.ensemble_record import code_text; "
+              "print(hashlib.sha256(''.join(code_text(p) for p in sorted(Path({repo!r}, 'src', 'bowen').rglob('*.py'))).encode()).hexdigest())"
+              ).format(repo=str(REPO))
+    results = set()
+    for exe in {sys.executable, shutil.which("python3.11"), shutil.which("python3.13")} - {None}:
+        out = subprocess.run([exe, "-c", script], capture_output=True, text=True, timeout=120)
+        assert out.returncode == 0, out.stderr
+        results.add(out.stdout.strip())
+    assert len(results) == 1, results
+
+
+def test_b2_code_text_keeps_fstring_text_exactly(tmp_path):
+    a, b = tmp_path / "a.py", tmp_path / "b.py"
+    a.write_text('x = 1\ns = f"{x=}"\n')
+    b.write_text('x = 1\ns = f"{x =}"\n')
+    assert _tool.code_text(a) != _tool.code_text(b)  # they print different text, so they must hash differently
+
+
 def test_b2_code_text_drops_only_docstrings_and_comments(tmp_path):
     """The hash ignores prose, keeps code on a docstring's line, and keeps the inside of strings exactly."""
     a = tmp_path / "a.py"
@@ -162,7 +188,7 @@ def test_b2_code_text_drops_only_docstrings_and_comments(tmp_path):
     b.write_text('"""Other doc."""\ndef f():\n    """Changed."""; x = 1\n    s = """one\n\n  two  """\n    return x\n')
     assert _tool.code_text(a) == _tool.code_text(b)
     text = _tool.code_text(a)
-    assert "x=1" in text.replace(" ", "") and "one\n\n  two  " in text and "note" not in text and "Doc." not in text
+    assert "x\x00=\x001" in text and "one\n\n  two  " in text and "note" not in text and "Doc." not in text
     c = tmp_path / "c.py"
     c.write_text('def f():\n    """Doc."""; x = 2\n    s = """one\n\n  two  """\n    return x\n')
     assert _tool.code_text(c) != _tool.code_text(b)  # code on a docstring's line is hashed

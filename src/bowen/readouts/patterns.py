@@ -82,7 +82,14 @@ class _At:
         self._state, self.tick = state, tick
 
     def __getattr__(self, name):
+        if name == "_state":  # not yet set (a copy or unpickle): no recursion
+            raise AttributeError(name)
         return getattr(self._state, name)
+
+    def __setattr__(self, name, value):
+        if name not in ("_state", "tick"):
+            raise AttributeError(f"a read-only view of the state; {name!r} not writable")
+        object.__setattr__(self, name, value)
 
 
 def _as_of(state: RunState, now: int | None):

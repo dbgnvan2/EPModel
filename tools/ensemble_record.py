@@ -57,24 +57,56 @@ def code_text(path: Path) -> str:
     """A Python file as the hash sees it: its tokens without comments, docstrings or blank lines, so editing prose in
     the engine does not rerun every record (learnings P38). Only a docstring's own token is dropped, so code sharing
     its line stays hashed, and every other string is kept exactly, blank lines and spaces inside it included (Phase D
-    plan B2; the two gaps found 2026-10-09). Docstrings are found with ``ast``, by source position.
+    plan B2; the two gaps found 2026-10-09).
+
+    The text is the tokens' strings joined by a separator, not ``untokenize``'s output, and an f-string is taken as its
+    exact source text: Python 3.12 splits an f-string into several tokens where 3.11 gives one, so anything built from
+    the split tokens would hash differently by version (review 2026-10-10; the suite runs on 3.11 in CI). Docstrings
+    are found with ``ast``, whose column offsets count UTF-8 bytes, converted to the characters ``tokenize`` counts.
     """
     import ast
     import io
     import tokenize
 
     source = path.read_text(encoding="utf-8")
+    lines = source.splitlines(keepends=True)
+
+    def chars(row: int, byte_col: int) -> int:
+        return len(lines[row - 1].encode("utf-8")[:byte_col].decode("utf-8", errors="ignore"))
+
+    def text_between(start: tuple[int, int], end: tuple[int, int]) -> str:
+        (r0, c0), (r1, c1) = start, end
+        if r0 == r1:
+            return lines[r0 - 1][c0:c1]
+        return lines[r0 - 1][c0:] + "".join(lines[r0:r1 - 1]) + lines[r1 - 1][:c1]
+
     docstrings = set()
     for node in ast.walk(ast.parse(source)):
         if isinstance(node, (ast.Module, ast.ClassDef, ast.FunctionDef, ast.AsyncFunctionDef)) and node.body:
             first = node.body[0]
             if isinstance(first, ast.Expr) and isinstance(first.value, ast.Constant) and isinstance(first.value.value, str):
-                docstrings.add((first.value.lineno, first.value.col_offset))
-    skip = {tokenize.COMMENT, tokenize.NL, tokenize.ENCODING}
-    kept = [(token.type, token.string) for token in tokenize.generate_tokens(io.StringIO(source).readline)
-            if token.type not in skip
-            and not (token.type == tokenize.STRING and (token.start[0], token.start[1]) in docstrings)]
-    return tokenize.untokenize(kept)
+                docstrings.add((first.value.lineno, chars(first.value.lineno, first.value.col_offset)))
+    fstring_start = getattr(tokenize, "FSTRING_START", None)
+    fstring_end = getattr(tokenize, "FSTRING_END", None)
+    kept, depth, opened = [], 0, None
+    for token in tokenize.generate_tokens(io.StringIO(source).readline):
+        if fstring_start is not None and token.type == fstring_start:
+            depth += 1
+            opened = opened or token.start
+            continue
+        if depth:
+            if token.type == fstring_end:
+                depth -= 1
+                if not depth:
+                    kept.append(text_between(opened, token.end))
+                    opened = None
+            continue
+        if token.type in (tokenize.COMMENT, tokenize.NL, tokenize.ENCODING, tokenize.ENDMARKER):
+            continue
+        if token.type == tokenize.STRING and token.start in docstrings:
+            continue
+        kept.append(token.string)
+    return "\x00".join(kept)
 
 
 def run(workers: int, only: list[str] | None):

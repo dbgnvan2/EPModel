@@ -49,7 +49,9 @@ POLICY = ("This run is not scripted: each person's outcome is\n> selected by the
 
 
 def framing(records) -> str:
-    chosen = any(isinstance(r, SelectionRecord) and r.decided_by is DecidedBy.POLICY for r in records)
+    # Every selection a scripted source makes is SCRIPTED; any other (policy, fallback, tie-break, a sequence step)
+    # means the run's people chose (review 2026-10-10).
+    chosen = any(isinstance(r, SelectionRecord) and r.decided_by is not DecidedBy.SCRIPTED for r in records)
     return FRAMING.format(how=POLICY if chosen else SCRIPTED)
 
 TABLE_HEAD = "| Week | Who | Move | Toward | Witnesses | What it did |\n|---|---|---|---|---|---|"

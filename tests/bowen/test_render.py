@@ -180,3 +180,18 @@ def test_m16c1_phase_c_trace_renders():
     assert "| family instance | phase_c |" in text
     assert "no one in it\n> chose anything" not in text and "selected by the policy" in text
     assert "| 103 |" in text and "| 104 |" not in text  # exactly M11.C.1's 104 weeks (0-103)
+
+
+def test_b2_framing_says_who_chose_the_acts():
+    """The sentence is read from the run's own selections: any selection not SCRIPTED means the people chose (Phase D
+    plan B2; review 2026-10-10 found FALLBACK missed); a run with only scripted selections, or none, is scripted."""
+    from src.bowen.engine.identifiers import PersonId
+    from src.bowen.engine.log_records import DecidedBy, SelectionRecord
+    from src.bowen.render.trace import POLICY, SCRIPTED, framing
+
+    def selection(by):
+        return SelectionRecord(tick=0, actor=PersonId("ravi"), decided_by=by, event_id=None)
+
+    assert POLICY in framing([selection(DecidedBy.FALLBACK)]) and POLICY in framing([selection(DecidedBy.POLICY)])
+    assert SCRIPTED in framing([]) and SCRIPTED in framing([selection(DecidedBy.SCRIPTED)])
+    assert POLICY in framing([selection(DecidedBy.SCRIPTED), selection(DecidedBy.SEQUENCE)])

@@ -1,6 +1,7 @@
 # Implementation plan — Phase D
 
-> **Status: draft for owner approval, 2026-10-10.** No Phase D code until this plan is approved (planning rules).
+> **Status: approved by the owner, 2026-10-10 ("Proceed"), with the decisions in §1a.** P9 (C.7's direction) is open
+> pending details; P13–P16 wait for D-II.
 > Spec: `docs/bowen_agent_model_spec_v2.md`, revision 13. Phase C closed with its gate failing (owner decision,
 > `docs/phase_c_completion_report.md` §13). Spec IDs are used verbatim. The inventories behind this plan were made on
 > 2026-10-10 from the spec, `src/bowen`, `TODO.md` and the Phase C documents; their findings are cited where used.
@@ -78,7 +79,63 @@ Decisions marked **D-I** block the first part; **D-II** decisions can wait until
 | **P14** | **Births, partners and life stage.** Birth prior spread and the age the estimate is taken (`M7.E.1`'s named plan items); where generation 3's partners come from (the spec is silent); when a person starts and stops acting. **D-II** | C.6, C.10, the 40-year run | Partners enter as new people drawn at the pairing tolerance (`M2.A.0e`, `M2.A.0f`); children act from a declared age `[I]` |
 | **P15** | **Family data.** Dr Halim's sex and values (spec says 55, "not stated"; config says 60, male); Teodor at 36; Marta–Iris "resolved, low contact" (config says ordinary); Halim tied to both spouses where `M2.B.2` says "whichever member is being coached". **D-II** | the twelve-person runs | Set the spec to the config (60, male, both ties), Marta–Iris resolved; owner confirms |
 | **P16** | **Bowen's two falsifiers and three chapter items** (`L09.2`, `L16.2`, `L15.1`, `L03.4`, `L03.5`; revision 12 P10). **D-II** | — | Add as criteria in a later revision, not this plan |
-| **P17** | **`t0` and the first slow tick.** `M2.A.0b` calls `t0` the first slow tick; today it fires at the end of week 51. **D-I** | the slow-tick step | Week 0 is a slow tick |
+| **P17** | **`t0` and the first slow tick.** `M2.A.0b` calls `t0` the first slow tick; today it fires at the end of week 51. **D-I** | the slow-tick step | *Decided: week 0 is the start, not a step (§1a)* |
+
+## 1a. Owner decisions, 2026-10-10
+
+- **P1: yes.** Cutoff is rejection; the tie stays interactive.
+- **P2: agreed.** The "too little" side grows while a tie is cut, and approaching relieves it.
+- **P3: agreed.** A gradual flip, crossing at 0.5 `[I]`.
+- **P4: okay.** The estimator as recommended.
+- **P5, the owner's words:** "chronic anxiety stays fixed unless level of differentiation goes up, thus it's fixed for
+  some time. It wears on ties, which is why the other emotional patterns act up from time to time, often triggered by
+  other stressors."
+  - Chronic anxiety is fixed and changes only when `basic_level` rises: it falls with a rise, never drifts on its own,
+    and does not rise when `basic_level` falls.
+  - **It wears on ties.** `M7.E.4`'s slow-clock deterioration is driven by chronic anxiety.
+  - Patterns flare when a stressor meets a worn tie. That needs no new rule: a worn tie has less slack, so a spell
+    pushes it past where the patterns are relieving.
+  - This also settles **P6**: conductance wears down on the slow tick at a rate set by the two members' chronic anxiety,
+    offset by contact. Bond energy stays as `M1.B.4` has it.
+- **P7: agreed.**
+  - I draft definitions of C.14's "technique", C.23's EE and suppression terms, and C.28's mobility term, for approval
+    before those criteria are built.
+  - C.13 leaves Phase D.
+- **P9: details requested.** See below. Open.
+- **P17: week 0 is the starting point, not a step.** The first slow tick is at the end of week 51, as the code has it.
+  `M2.A.0b`'s "`t0`, the first slow tick" is corrected in revision 14: `t0` is the start.
+- **Read as approved by "Proceed", unless the owner says otherwise:**
+  - R0's split into D-I and D-II;
+  - P8 (C.14 and C.17 added to `M11.4` with declared margins);
+  - P10 (C.9 kept as the three-arm comparison);
+  - P11 (C.42, C.45 and C.16 not rebuilt in Phase D);
+  - P12 (I draft the triangle criterion).
+
+### P9 in detail: what C.7 tests, and the direction proposed
+
+- **The claim.** C.7's claim is "position, not skill". Whether coaching helps depends on where the coach stands in the
+  family's emotional process, not on how good the coach is.
+- **The test.** Hold every one of Dr Halim's parameters fixed and change only the topology, who talks to whom in whose
+  presence.
+- **The predicate.** `M8.2` and `M8.3` supply it. A coach in the *outside position* (in contact with both spouses, taking
+  neither side) counts as a live position. A coach who *has taken a side* has fused into one of the two and does not
+  count.
+- **What the spec leaves out.** It says only that "the topology arms MUST differ". That names no direction, so a result
+  either way would pass. `M0.4` forbids that.
+- **The arms.** Same coach parameters and the same session schedule in each:
+  - **Outside, joint:** sessions with both spouses; Dr Halim stays in contact with each and sides with neither.
+  - **Outside, one spouse:** sessions with Ravi alone; Dr Halim still sides with neither. In Bowen's practice a coach can
+    work through one person if he stays outside.
+  - **Sided:** sessions with both spouses, but Dr Halim is drawn in on Marta's side (`TRIANGLE` toward him from her,
+    and he goes along).
+- **Proposed direction.** The couple's reactivity on the marital tie falls more in both outside arms than in the sided
+  arm. The two outside arms are not required to differ.
+  - Readout: the spouses' combined `M4.C.1` deviation on their own tie over the coaching weeks.
+- **Mutation.** Make the `M8` predicate position-blind (a sided coach still counts as live). The outside and sided arms
+  then come out alike, and the test turns red.
+- **What the owner decides:**
+  - whether this is the right reading of "position, not skill";
+  - whether the one-spouse arm belongs in it.
 
 ## 2. Build decisions (D-I)
 

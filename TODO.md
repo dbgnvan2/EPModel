@@ -145,6 +145,11 @@ Phase C steps 0–16 are built. **Its gate does not pass** (`docs/phase_c_comple
 - [ ] **Phase D: severed ties stay severed — the cause of the long silences** (owner: "not normal", 2026-10-10).
   On seed 7, Marta–Nadia is severed 102 of 104 weeks, from a cutoff in week 1. Evidence and design notes are in
   `docs/DECISIONS — CUTOFF SEMANTICS.md`.
+- [ ] **`code_text` splits lines differently from `tokenize`** (re-sweep, 2026-10-11, latent). `tools/ensemble_record.py`
+  builds `lines` with `str.splitlines`, which also splits on form feed, `\x1c`–`\x1e`, `\x85`, U+2028/9 and a bare
+  `\r`; `tokenize` splits on `\n` only. A source file with one of those characters would hash differently by Python
+  version. No file has one today. Fix: `io.StringIO(source).readlines()`. Do it with the next change to that file
+  (it is in the ensemble record's stamp).
 - [ ] **Engine CUTOFF semantics, held for Phase D** (owner, 2026-10-10) (`docs/DECISIONS — CUTOFF SEMANTICS.md`; recommendation C, Phase D).
 - [ ] **The pattern readouts read `state.tick` as "now"**, but after `run_tick` it is the next week's tick. The exporter
   steps it back and restores it (`tools/famdiag_export.py:simulate`). A `now` argument on the readouts would be

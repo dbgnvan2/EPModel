@@ -113,9 +113,12 @@ Phase C steps 0–16 are built. **Its gate does not pass** (`docs/phase_c_comple
   D0 diagnostic record, D1-D6 diagnoses, one decision memo. `M11.C.7`, `.13` and `.14` moved to Phase D the same day.
 - [x] ~~**The failing criteria**~~ *closed 2026-10-09: Phase C closed with its gate failing (owner decision); each
   failure is recorded as a finding with its measured cause, and what the next phase inherits, in report §13.*
-- [ ] **Plan §9's human reviews:** ~~`docs/readouts_phase_c.md`~~ *the owner gave the definitions, 2026-10-10
-  (visualization plan V1)*; a rendered 104-week Phase C trace (now also drawable in fam-diag:
-  `docs/review/phase_c_famdiag_seed7.json`); and `M5.F.2`'s threshold.
+- [ ] **Plan §9's human reviews:**
+  - ~~`docs/readouts_phase_c.md`~~ *the owner gave the definitions, 2026-10-10 (visualization plan V1).*
+  - **The 104-week Phase C trace is not reviewed** (owner, 2026-10-10: viewing the seed-7 diagram was not the trace
+    review). Read `docs/review/phase_c_trace_seed7.md`, or the diagram in EPModel Fam-Diag.
+  - **`M5.F.2`'s threshold is open.** The owner found the first explanation unclear (2026-10-10), so it was
+    re-explained.
 - [x] ~~**Owner review of the run-visualization choices**~~ *2026-10-10: the owner accepts the invented values
   ("make it up"). The tie-break and silence exception stay `[I]`.* (`docs/PROPOSAL — RUN VISUALIZATION MAPPING.md`, built
   2026-10-10). Each is `[I]`:
@@ -158,7 +161,7 @@ Phase C steps 0–16 are built. **Its gate does not pass** (`docs/phase_c_comple
 - [ ] **Not built:** `M11.C.7` (needs `M8.2`/`M8.3`'s predicates and a direction), `.13` (needs a community),
   `.14` (needs `M5.C.1`'s marital-distance gate); two of `M11.1c`'s four re-encodings (rescaled state range,
   integer against float ticks); `M11.1b`'s severing mutants; plan D9's "dominant constant" (§3 names none).
-- [ ] **Bruno falls back every week.** His one tie starts cut off, `REDUCE_CUTOFF` is his only legal act, and it
+- [x] ~~**Bruno falls back every week.**~~ *Recorded as a Phase C finding, not fixed (owner, 2026-10-10): Bruno left the reference family at spec revision 13, so this affects only the closed Phase C runs.* His one tie starts cut off, `REDUCE_CUTOFF` is his only legal act, and it
   carries no weight without systems perspective, so the family runs' fallback rate is 0.26–0.41 (`M11.D.18` flags
   it). Decide whether that is the intended reading of `M4.D.3b`.
 - [ ] **Ninth gate's notes, 2026-10-08** (`docs/cycles/2026-10-08_phase-c-qa-gate-9.md`, APPROVED, nothing medium or

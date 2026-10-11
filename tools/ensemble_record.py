@@ -26,9 +26,11 @@ REPO = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO))
 
 RECORD = REPO / "docs" / "phase_c_ensemble_record.md"
-# RULE_KEYS is an input to every verdict; ``code_hash`` hashes its value, not this file, so the hashing code can
-# change without changing the hash (Phase D plan B2). This record's own tools add nothing beyond that.
-HASHED_TOOLS: tuple[Path, ...] = ()
+# RULE_KEYS is an input to every verdict; ``code_hash`` hashes its value, so the other records' cache keys do not
+# change when this file's hashing code does (Phase D plan B2). This record's own stamp also covers this file, because
+# its renderer writes the labels and the JSON spec_coverage parses, and the record is not re-rendered from a cache
+# (review 2026-10-10).
+HASHED_TOOLS = (Path(__file__).resolve(),)
 RULE_KEYS = ("ensemble_block", "ensemble_cap", "ensemble_precision", "ensemble_margin", "ensemble_alpha",
              "fallback_flag_rate", "equivalence_margin")
 

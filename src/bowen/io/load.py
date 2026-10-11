@@ -101,6 +101,9 @@ def load_pattern_acts(path: Path = CONFIG_DIR / "pattern_acts.md") -> dict[str, 
     sets = {row["set"]: frozenset(a.strip() for a in row["acts"].split(",") if a.strip()) for row in doc.rows}
     if set(sets) != PATTERN_SETS or len(sets) != len(doc.rows):
         raise ConfigError(f"{path}: the sets must be exactly {sorted(PATTERN_SETS)}, each once; found {sorted(sets)}")
+    unknown = sorted(a for acts in sets.values() for a in acts if a not in load_event_kinds().moves())
+    if unknown:  # a misspelt act would match nothing and the pattern would silently never read (review 2026-10-10)
+        raise ConfigError(f"{path}: not a declared move: {unknown}")
     return sets
 
 

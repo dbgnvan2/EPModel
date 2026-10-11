@@ -22,7 +22,7 @@ from src.bowen.engine.state import new_run_state
 from src.bowen.io.load import load_constants, load_event_kinds, load_family
 from src.bowen.readouts.patterns import (
     PATTERNS, Reading, ReadoutParams, UndeclaredPattern, current_patterns, cutoff, distance, fixed_triangle,
-    last_projection_act, over_underfunctioning, read_pattern, tie_readings,
+    last_projection_act, over_underfunctioning, read_pattern, silent_weeks, tie_readings,
 )
 from src.bowen.scenario.params import engine_params
 
@@ -256,11 +256,34 @@ def test_b2_pattern_act_sets_come_from_config(tmp_path):
 
 
 def test_b2_now_reads_as_of_that_week():
-    """A reading with ``now`` equals one taken with state.tick at that week, and leaves state.tick alone."""
-    state = at(fresh(), 2, ("CONFLICT", RAVI, MARTA), ("CONFLICT", MARTA, RAVI), ("CONFLICT", RAVI, MARTA))
+    """A reading with ``now`` takes the window ending at that week, and leaves state.tick alone."""
+    state = at(fresh(), 3, ("CONFLICT", RAVI, MARTA), ("CONFLICT", MARTA, RAVI), ("CONFLICT", RAVI, MARTA))
+    assert [r.pattern for r in tie_readings(state, MARITAL, PARAMS, RP)] == ["conflict"]  # window ends at week 3
+    assert "conflict" not in [r.pattern for r in tie_readings(state, MARITAL, PARAMS, RP, now=2)]  # ends at week 2
+    assert state.tick == 3
+
+def test_b2_now_must_be_the_week_just_run():
+    """Contact is read as it is, so an earlier ``now`` would mix old acts with current contact: it raises."""
+    state = fresh()
     state.tick = 9
-    at_nine = [r.pattern for r in tie_readings(state, MARITAL, PARAMS, RP)]
-    assert "conflict" not in at_nine and at_nine == ["distance"]  # week 9: the acts are out of the window, silence
-    found = tie_readings(state, MARITAL, PARAMS, RP, now=3)
-    assert [r.pattern for r in found] == ["conflict"] and state.tick == 9
+    tie_readings(state, MARITAL, PARAMS, RP, now=8)
+    with pytest.raises(ValueError):
+        tie_readings(state, MARITAL, PARAMS, RP, now=3)
+
+
+def test_b2_silence_ignores_acts_after_the_reading_week():
+    state = at(fresh(), 7, ("CONFLICT", RAVI, MARTA))
+    state.tick = 5  # the act at week 7 is after the reading week
+    assert silent_weeks(state, MARITAL) == 6
+
+
+def test_b2_a_misspelt_act_in_config_raises(tmp_path):
+    from src.bowen.io.load import load_pattern_acts
+    from src.bowen.scenario.config_parse import ConfigError
+
+    text = (REPO / "config" / "bowen" / "pattern_acts.md").read_text().replace("| withdrawal | DISTANCE |", "| withdrawal | WITHDRAW |")
+    bad = tmp_path / "bad.md"
+    bad.write_text(text)
+    with pytest.raises(ConfigError, match="WITHDRAW"):
+        load_pattern_acts(bad)
 

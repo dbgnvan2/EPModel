@@ -143,9 +143,7 @@ def distance(state: RunState, tie: TieId, params: EngineParams, rp: ReadoutParam
 def silent_weeks(state: RunState, tie: TieId) -> int:
     """Weeks since the last act on the tie in either direction, counting from the run's start."""
     a, b = tie.members()
-    last = max((e.timestamp for e in state.store.events()
-                if e.mechanism is Mechanism.MOVE and e.sender in (a, b) and ({a, b} - {e.sender}) <= set(e.targets)),
-               default=-1)
+    last = max((e.timestamp for e in state.store.moves_on_pair(a, b) if e.timestamp <= state.tick), default=-1)
     return state.tick - last
 
 
@@ -251,8 +249,11 @@ def tie_readings(state: RunState, tie: TieId, params: EngineParams, rp: ReadoutP
     Spec:    docs/bowen_agent_model_spec_v2.md#M5.A.1a
     Tests:   tests/bowen/test_patterns.py::test_m5a1a_pursuit_reads_as_fusion_over_under_or_projection
     ``parent`` is the tie's parent when it is a parent–child tie, else None. ``now`` reads the window ending at that
-    week instead of at ``state.tick``.
+    week instead of at ``state.tick``. Only the acts are read as of ``now``; contact (``distance``'s optimum test) is
+    the state as it is, so ``now`` must be the week just run or the current one (review 2026-10-10).
     """
+    if now is not None and not state.tick - 1 <= now <= state.tick:
+        raise ValueError(f"now={now}: contact is read as it is, so now must be week {state.tick - 1} or {state.tick}")
     state = _as_of(state, now)
     over_under = over_underfunctioning(state, tie, rp, parent)
     # Lopsided pursuit is over/underfunctioning, not fusion (the owner, 2026-10-10): fusion is read only when

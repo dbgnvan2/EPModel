@@ -98,4 +98,4 @@ def test_m4a2_g3_trigger_on_dormant_tie_moves_anxiety_without_contact():
             or state.store.event(d.event_id).on_tie == tie
         ]
         assert crossing == []
-        assert not state.ties[tie].interactive
+        assert state.ties[tie].interactive  # M1.B.3c: a cut-off tie stays open; nothing crossed it in this script

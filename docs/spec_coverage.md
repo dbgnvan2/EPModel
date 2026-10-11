@@ -7,7 +7,7 @@ criterion is **done** only when every entry passes in `docs/phase_c_ensemble_rec
 mutant has turned each entry red in `docs/phase_c_mutation_record.md`; the D9 sweep
 (`docs/phase_c_sweep_record.md`) is reported, not gated. Phases D and E build most of the rest.
 
-**546 IDs: 218 done, 45 partial, 283 not done.**
+**546 IDs: 218 done, 46 partial, 282 not done.**
 
 | ID | Status | Evidence | Note |
 |---|---|---|---|
@@ -73,9 +73,9 @@ mutant has turned each entry red in `docs/phase_c_mutation_record.md`; the D9 sw
 | M1.A.22 | done | `tests/bowen/test_objects.py::test_m1a22_household_is_required` | — |
 | M1.B.1 | done | `tests/bowen/test_objects.py::test_m1b1_tie_connects_exactly_two_persons` | — |
 | M1.B.2 | done | `tests/bowen/test_objects.py::test_m1b2_conductance_has_no_distance_or_contact_input` | — |
-| M1.B.3 | done | `tests/bowen/test_activation_visibility.py::test_m1b3_no_move_crosses_a_cut_off_tie`<br>`tests/bowen/test_family.py::test_m1b3_cut_off_tie_cannot_be_interactive`<br>`tests/bowen/test_mechanisms.py::test_m1b3_four_tie_states_are_distinct`<br>`tests/bowen/test_objects.py::test_m1b3_four_tie_states_are_representable` | no move crosses a non-interactive tie (review, 2026-10-06) |
-| M1.B.3c | not done | — | Phase C or D — the phase that builds its mechanism (plan Appendix B) |
-| M1.B.4 | done | `tests/bowen/test_mechanisms.py::test_m1b4_reunion_restores_coupling_immediately` | — |
+| M1.B.3 | done | `tests/bowen/test_mechanisms.py::test_m1b3_four_tie_states_are_distinct`<br>`tests/bowen/test_objects.py::test_m1b3_four_tie_states_are_representable` | no move crosses a non-interactive tie (review, 2026-10-06) |
+| M1.B.3c | done | `tests/bowen/test_activation_visibility.py::test_m1b3c_a_move_crosses_a_cut_off_tie_but_not_a_worry_edge`<br>`tests/bowen/test_family.py::test_m1b3c_cut_off_tie_must_stay_interactive`<br>`tests/bowen/test_rejection.py::test_m1b3c_a_declared_cutoff_starts_open_with_both_members_rejecting`<br>`tests/bowen/test_rejection.py::test_m1b3c_a_delivered_cutoff_leaves_the_tie_open_as_the_cutters_rejection`<br>`tests/bowen/test_rejection.py::test_m1b3c_a_distant_tie_is_distant_again_when_the_cutoff_ends`<br>`tests/bowen/test_rejection.py::test_m1b3c_a_refused_approach_never_reaches_the_cutter_and_costs_the_sender`<br>`tests/bowen/test_rejection.py::test_m1b3c_a_refused_move_is_never_recorded_as_delivered`<br>`tests/bowen/test_rejection.py::test_m1b3c_cutoff_and_reduce_cutoff_are_never_refused`<br>`tests/bowen/test_rejection.py::test_m1b3c_i_position_is_not_legal_across_a_cut_off_tie`<br>`tests/bowen/test_rejection.py::test_m1b3c_rejection_refuses_only_above_its_threshold`<br>`tests/bowen/test_rejection.py::test_m1b3c_repeated_refusals_raise_rejection_to_its_ceiling`<br>`tests/bowen/test_rejection.py::test_m1b3c_the_invariant_catches_a_cut_off_tie_with_no_rejection`<br>`tests/bowen/test_rejection.py::test_m1b3c_unrenewed_rejection_fades_and_the_tie_reopens` | — |
+| M1.B.4 | done | `tests/bowen/test_mechanisms.py::test_m1b4_reunion_restores_coupling_immediately`<br>`tests/bowen/test_rejection.py::test_m1b4_reconciliation_clears_rejection` | — |
 | M1.B.5 | partial | `tests/bowen/test_moves.py::test_m1b5_balance_has_no_stable_midpoint` | directed, bistable with no stable midpoint and not a trait; held in one area (`joint`) until the family declares areas of joint activity (M1.B.9) |
 | M1.B.6 | done | `tests/bowen/test_moves.py::test_m1b6_a_flip_reverts_unless_sustained`<br>`tests/bowen/test_moves.py::test_m1b6_flip_is_relative_and_immediate` | — |
 | M1.B.7 | done | `tests/bowen/test_moves.py::test_m1b7_raising_a_marked_underfunctioner_costs_more_than_reducing_the_overfunctioner` | — |
@@ -186,7 +186,7 @@ mutant has turned each entry red in `docs/phase_c_mutation_record.md`; the D9 sw
 | M4.C.1 | done | `tests/bowen/test_contact.py::test_m4c1_delivered_event_is_appraised_by_its_change_in_deviation`<br>`tests/bowen/test_contact.py::test_m4c1_deviation_counts_on_both_sides`<br>`tests/bowen/test_contact.py::test_m4c1_the_drives_are_given_and_the_same_for_every_person`<br>`tests/bowen/test_events.py::test_m4c1_conflict_carries_both_components`<br>`tests/bowen/test_events.py::test_m4c1_event_kind_components_parse_and_are_bounded`<br>`tests/bowen/test_mechanisms.py::test_m4c1_delivered_event_raises_receiver_anxiety` | — |
 | M4.C.1a | done | `tests/bowen/test_contact.py::test_m4c1a_steepness_falls_and_band_widens_with_level`<br>`tests/bowen/test_contact.py::test_m4c1a_the_same_event_weighs_more_at_lower_level` | — |
 | M4.C.1b | done | `tests/bowen/test_contact.py::test_m4c1b_anxiety_moves_the_optimum_toward_closeness` | — |
-| M4.C.1c | done | `tests/bowen/test_contact.py::test_m4c1c_impingement_relaxes_toward_none`<br>`tests/bowen/test_contact.py::test_m4c1c_initial_contact_is_resting_and_a_cut_tie_starts_empty`<br>`tests/bowen/test_contact.py::test_m4c1c_standing_load_is_the_too_little_side`<br>`tests/bowen/test_contact.py::test_m4c1c_too_little_builds_over_time_on_a_severed_tie`<br>`tests/bowen/test_contact.py::test_m4c1c_uninitialised_contact_raises` | — |
+| M4.C.1c | done | `tests/bowen/test_contact.py::test_m4c1c_impingement_relaxes_toward_none`<br>`tests/bowen/test_contact.py::test_m4c1c_initial_contact_is_resting_and_a_cut_tie_starts_empty`<br>`tests/bowen/test_contact.py::test_m4c1c_standing_load_is_the_too_little_side`<br>`tests/bowen/test_contact.py::test_m4c1c_too_little_builds_over_time_on_a_severed_tie`<br>`tests/bowen/test_contact.py::test_m4c1c_uninitialised_contact_raises`<br>`tests/bowen/test_rejection.py::test_m4c1c_a_cut_tie_pulls_both_members_until_it_reopens` | — |
 | M4.C.2 | done | `tests/bowen/test_appraise.py::test_m4c2_content_is_defended_against_above_threshold` | — |
 | M4.C.3 | not done | — | Phase C |
 | M4.C.3a | done | `tests/bowen/test_symptoms.py::test_m4c3a_one_sustained_excursion_builds_more_than_several_resolved` | — |
@@ -222,7 +222,7 @@ mutant has turned each entry red in `docs/phase_c_mutation_record.md`; the D9 sw
 | M4.D.6d | done | `tests/bowen/test_learner.py::test_m4d6d_self_directed_channel_is_never_reinforced` | — |
 | M4.D.6e | done | `tests/bowen/test_learner.py::test_m4d6e_another_persons_calming_reinforces`<br>`tests/bowen/test_learner.py::test_m4d6e_triangle_credit_excludes_recruited_third`<br>`tests/bowen/test_learner.py::test_m4d6e_triangle_reinforced_when_it_relieves_the_seeker_whatever_it_costs_the_third` | — |
 | M4.E.1 | done | `tests/bowen/test_mechanisms.py::test_m4e1_scripted_move_becomes_full_event` | — |
-| M1.F.1a | done | `tests/bowen/test_events.py::test_m1f1a_mixed_channel_carries_a_weight` | — |
+| M1.F.1a | done | `tests/bowen/test_events.py::test_m1f1a_mixed_channel_carries_a_weight`<br>`tests/bowen/test_rejection.py::test_m1f1a_a_policy_act_is_stamped_with_its_kinds_channel`<br>`tests/bowen/test_rejection.py::test_m1f1a_the_channel_names_agree` | — |
 | M4.E.1a | done | `tests/bowen/test_activation_visibility.py::test_m4e1a_witnesses_filled_by_visibility_not_script` | — |
 | M4.G.1 | done | `tests/bowen/test_mechanisms.py::test_m4g1_a_withdrawal_addressed_to_several_still_counts_on_each_tie`<br>`tests/bowen/test_mechanisms.py::test_m4g1_three_withdrawals_register_as_distant_tie`<br>`tests/bowen/test_mechanisms.py::test_m4g1_withdrawals_separated_by_other_traffic_do_not_harden` | — |
 | M4.G.2 | done | `tests/bowen/test_mechanisms.py::test_m4g2_a_violation_raises`<br>`tests/bowen/test_mechanisms.py::test_m4g2_invariants_asserted_every_tick` | — |
@@ -234,7 +234,7 @@ mutant has turned each entry red in `docs/phase_c_mutation_record.md`; the D9 sw
 | M5.B.1 | done | `tests/bowen/test_moves.py::test_m5b1_detriangle_returns_the_third_to_neutral_with_knowledge_intact` | — |
 | M5.B.2 | done | `tests/bowen/test_moves.py::test_m5b2_prevent_alignment_acts_before_any_alignment_forms` | acts before any alignment exists (step 5) and is legal toward anyone a closed triad holds, whether or not a triangle is active (step 7 change to the policy) |
 | M5.B.3a | not done | — | Phase C |
-| M5.B.3 | done | `tests/bowen/test_moves.py::test_m5b3_reduce_cutoff_cost_lands_on_the_third_party`<br>`tests/bowen/test_moves.py::test_m5b3_reduce_cutoff_lowers_anxiety_and_never_raises_basic_level`<br>`tests/bowen/test_policy.py::test_m5b3_reduce_cutoff_crosses_a_cut_off_tie_and_nothing_else_does` | — |
+| M5.B.3 | done | `tests/bowen/test_moves.py::test_m5b3_reduce_cutoff_cost_lands_on_the_third_party`<br>`tests/bowen/test_moves.py::test_m5b3_reduce_cutoff_lowers_anxiety_and_never_raises_basic_level`<br>`tests/bowen/test_policy.py::test_m5b3_reduce_cutoff_crosses_a_cut_off_tie_and_nothing_else_does`<br>`tests/bowen/test_rejection.py::test_m5b3_accepted_contact_lowers_both_rejections_and_reopens_the_tie_at_zero`<br>`tests/bowen/test_rejection.py::test_m5b3_reduce_cutoff_leaves_a_worry_edge_a_worry_edge` | — |
 | M5.B.4 | done | `tests/bowen/test_external.py::test_m5b4_family_to_external_moves_exist_and_go_only_to_an_external_agent` | — |
 | M5.B.6 | partial | `tests/bowen/test_moves.py::test_m5b6_provoke_intensity_is_a_dial_separate_from_content` | the intensity dial is separate from the content (step 5); its use in M5.C.1a's peace-agree technique and the live-issue gate arrives with the I-POSITION state machine (step 8) |
 | M5.B.5 | not done | — | Phase C |
@@ -396,10 +396,10 @@ mutant has turned each entry red in `docs/phase_c_mutation_record.md`; the D9 sw
 | M11.C.26 | not done | — | Phase D |
 | M11.C.27 | partial | `tests/bowen/test_phase_c_criteria.py::test_m11c27_reads_the_week_the_act_lands_and_reports_each_week_after`<br>`tests/bowen/test_phase_c_gate.py::test_m11c27_twosome_two_by_two_all_cells` | ensemble record: M11.C.27[stable,add_third] FAIL; M11.C.27[stable,remove_one] FAIL; M11.C.27[unstable,add_third] FAIL; M11.C.27[unstable,remove_one] PASS |
 | M11.C.28 | not done | — | Phase D |
-| M11.C.29 | partial | `tests/bowen/test_phase_c_criteria.py::test_m11c29_held_tie_is_not_cut_while_held`<br>`tests/bowen/test_phase_c_criteria.py::test_m11c29_hold_is_the_same_in_both_arms`<br>`tests/bowen/test_phase_c_criteria.py::test_m11c29_hold_lets_every_withdrawal_be_made`<br>`tests/bowen/test_phase_c_gate.py::test_m11c29_relief_and_differentiation_differ_in_time_course` | ensemble record: M11.C.29 FAIL |
+| M11.C.29 | partial | `tests/bowen/test_phase_c_criteria.py::test_m11c29_every_withdrawal_is_made_with_or_without_the_hold`<br>`tests/bowen/test_phase_c_criteria.py::test_m11c29_held_tie_is_not_cut_while_held`<br>`tests/bowen/test_phase_c_criteria.py::test_m11c29_hold_is_the_same_in_both_arms`<br>`tests/bowen/test_phase_c_gate.py::test_m11c29_relief_and_differentiation_differ_in_time_course` | ensemble record: M11.C.29 FAIL |
 | M11.C.30 | not done | — | Phase D |
 | M11.C.31 | not done | — | Phase D |
-| M11.C.32 | done | `tests/bowen/test_phase_c_gate.py::test_m11c32_mover_anger_stalls_and_degrades` | ensemble record: M11.C.32 PASS |
+| M11.C.32 | partial | `tests/bowen/test_phase_c_gate.py::test_m11c32_mover_anger_stalls_and_degrades` | ensemble record: M11.C.32 FAIL |
 | M11.C.34 | not done | — | Phase D |
 | M11.C.33 | not done | — | Phase D |
 | M11.C.35 | done | `tests/bowen/test_phase_c_gate.py::test_m11c35_witness_appraisal_depends_on_both_ties` | ensemble record: M11.C.35 PASS |
@@ -512,7 +512,7 @@ mutant has turned each entry red in `docs/phase_c_mutation_record.md`; the D9 sw
 | M16.B.1 | done | `tests/bowen/test_log.py::test_m16b1_a_failed_run_leaves_no_complete_looking_log`<br>`tests/bowen/test_log_records.py::test_m16b1_emitter_collects_without_writing` | — |
 | M16.B.2 | done | `tests/bowen/test_engine_purity.py::test_m16t2_engine_writes_nothing` | the frozen engine's audit-file pattern is the G9 mutation |
 | M16.B.3 | done | `tests/bowen/test_events.py::test_m16b3_event_store_answers_per_person_queries`<br>`tests/bowen/test_events.py::test_m16b3_event_store_has_no_off_switch`<br>`tests/bowen/test_events.py::test_m16b3_store_refuses_orphan_and_duplicate_records` | — |
-| M16.C.1 | done | `tests/bowen/test_render.py::test_m16c1_phase_c_trace_renders`<br>`tests/bowen/test_render.py::test_m16c1_renderer_is_deterministic` | — |
+| M16.C.1 | done | `tests/bowen/test_rejection.py::test_m16c1_refusal_and_reconciliation_render_their_own_anxiety_lines`<br>`tests/bowen/test_render.py::test_m16c1_phase_c_trace_renders`<br>`tests/bowen/test_render.py::test_m16c1_renderer_is_deterministic` | — |
 | M16.C.2 | done | `tests/bowen/test_render.py::test_m16t1_trace_renders_scripted_run`<br>`tests/bowen/test_render.py::test_m16t1_effects_are_reported_in_reader_units`<br>`tests/bowen/test_render.py::test_m16c2_an_unknown_mechanism_raises_instead_of_vanishing`<br>`tests/bowen/test_render.py::test_m16c2_invariant_sentence_reconciles_with_the_records`<br>`tests/bowen/test_render.py::test_m16c2_policy_selections_and_belief_writes_are_not_silently_skipped`<br>`tests/bowen/test_render.py::test_m16c2_withheld_and_fallback_outcomes_get_their_own_rows` | gate G2 |
 | M16.C.3 | partial | `tests/bowen/test_render.py::test_m16t1_trace_renders_scripted_run` | renderer built in Phase B; the owner's end-to-end read of the trace (plan §7) is pending |
 | M16.C.4 | done | `tests/bowen/test_render.py::test_m16c4_a_view_of_no_one_is_refused`<br>`tests/bowen/test_render.py::test_m16c4_single_agent_view` | — |

@@ -4,6 +4,37 @@ All notable changes to this project are recorded here. Dates are ISO.
 
 ## [Unreleased] — 2026-10-11
 
+### Spec revision 16 and Phase D B3/B4: cutoff as rejection
+
+- **B3, channel stamping.** A policy act is logged with its kind's channel, so `I-POSITION`, `STAY-IN-CONTACT` and
+  the other `self` acts are `self_directed`, not `automatic`. This changes the log only.
+- **B4, cutoff as rejection** (owner decisions P1 and P2; spec `M1.B.3c`):
+  - **The tie stays open.** A `CUTOFF` raises the cutter's `rejection`, and the tie stays interactive.
+  - **Refusal.** Moves sent to the cutter are refused while their rejection is above 0.3. A refused move does not
+    reach the cutter, raises their rejection, and costs the sender anxiety.
+  - **Lowering rejection.** `REDUCE_CUTOFF` lowers both members' rejection. Rejection also fades by 0.05 a week, and
+    `RECONCILIATION` clears it.
+  - **The pull.** A cut tie rests at no contact for both members.
+  - **Declared cutoffs.** Ana–Bruno and Ravi–Dario start open, with both members rejecting.
+- **Spec revision 16 (owner, 2026-10-11): graded rejection.**
+  - **Why:** as first built, refusal at any rejection above zero left 80–88% of tie-weeks cut off.
+  - **The values:** the refusal threshold is 0.3, not the 0.5 first proposed, because at 0.5 one cutoff refused
+    nothing.
+- **Measured effects** (Phase C family, seeds 7, 1 and 3, two years; `docs/implementation_plan_phase_d.md` B4):
+  - **Cut tie-weeks** are near the pre-B4 level.
+  - **The nuclear family runs more anxious,** because a cut tie is no longer silent.
+  - **The `I-POSITION` ensemble tests** now run on the triad fixture, where preparation can happen (owner, option a).
+  - **The `M11.C.29` test** now asserts that every withdrawal is legal without the hold.
+  - **The dyad symmetry test** uses 200 seeds.
+- Seven `[I]` constants were added and logged in `constants_changes.md`. The golden fingerprints moved (B3, B4).
+- **Review:** `learning-qa` and a correctness pass found 10 items, all fixed with tests. The new `M1.B.3c` invariant
+  checks each week that a tie is cut off exactly while rejection is held.
+- **Records regenerated under the B4 engine.**
+  - **One Phase C verdict moved:** `M11.C.32`, PASS → FAIL. Its `reached_peak` difference shrank to −0.02 ± 0.022,
+    because `PREPARE` now usually fails on anxiety in both arms.
+  - Every other verdict is unchanged.
+  - Suite: 609 tests.
+
 ### Spec revision 15 (546 numbered requirements, 46 acceptance criteria)
 
 The owner approved `docs/PROPOSAL — PHASE D DEFINITIONS.md`:

@@ -59,8 +59,8 @@ TABLE_HEAD = "| Week | Who | Move | Toward | Witnesses | What it did |\n|---|---
 # Every mechanism the engine emits, and how the trace treats it. Anything else
 # raises: a record the renderer does not understand must not vanish (P2, P19).
 CAUSED = frozenset({"appraisal", "calm_contact", "symptom_onset", "distance_binding", "triangle_transfer",
-                    "functioning_shift", "reduce_cutoff", "assertion", "debit", "landed_contact", "trigger", "cutoff", "reconciliation", "institutionalize", "binder_unavailable"})
-SYSTEM_SHOWN = frozenset({"triangle_recompute", "consolidation", "slow_tick"})
+                    "functioning_shift", "reduce_cutoff", "refusal", "assertion", "debit", "landed_contact", "trigger", "cutoff", "reconciliation", "institutionalize", "binder_unavailable"})
+SYSTEM_SHOWN = frozenset({"triangle_recompute", "consolidation", "rejection_fade", "slow_tick"})
 SYSTEM_SUMMARISED = frozenset({
     "standing_load", "acute_decay", "contact_relaxation", "symptom_accumulation", "investment", "reactive_state",
     "outside_ness", "belief", "functioning_settle", "competing_urges", "withhold", "learning", "sink_allocation",
@@ -142,15 +142,23 @@ def _what_it_did(event: Event, index: _Index, names: _Names, view: PersonId | No
                     f"for {event.duration} week{'s' if event.duration != 1 else ''}; no event crosses the tie"
                 )
         elif effect.mechanism == "cutoff":
-            parts += [f"{names.tie(t)} now cut off (no events; bond energy kept)" for t, _, _ in effect.ties]
+            parts += [f"{names(PersonId(f.split(':', 1)[1]))} rejects the other on {names.tie(t)} "
+                      f"(rejection {v:+.2f}; the tie stays open)" for t, f, v in effect.ties]
             relief = [f"{names(p)} {_signed(v)}" for p, v in effect.acute_anxiety if view is None or p == view]
             if relief:
                 parts.append("impingement removed at once, anxiety " + ", ".join(relief))
         elif effect.mechanism == "reconciliation":
             parts += [f"{names.tie(t)} reconnected" for t, f, _ in effect.ties if f == "interactive"]
+            parts += [f"{names(PersonId(f.split(':', 1)[1]))}'s rejection ends" for _, f, _ in effect.ties
+                      if f.startswith("rejection:")]
             returned = [f"{names(p)} {_signed(v)}" for p, v in effect.acute_anxiety if view is None or p == view]
             if returned:
                 parts.append("anxiety bound by distancing returns: " + ", ".join(returned))
+        elif effect.mechanism == "refusal":
+            parts += [f"refused by {names(PersonId(f.split(':', 1)[1]))} (rejection {v:+.2f})" for _, f, v in effect.ties]
+            cost = [f"{names(p)} {_signed(v)}" for p, v in effect.acute_anxiety if view is None or p == view]
+            if cost:
+                parts.append("the sender bears the refusal: anxiety " + ", ".join(cost))
         elif effect.mechanism == "distance_binding":
             for tie, _, v in effect.ties:
                 parts.append(f"{v:.1f} of the sender's anxiety bound into {names.tie(tie)}")
@@ -179,7 +187,8 @@ def _what_it_did(event: Event, index: _Index, names: _Names, view: PersonId | No
             for tie, field, v in effect.ties:
                 parts.append(f"withdraws contact {names(PersonId(field.split(':', 1)[1]))} was receiving ({v:+.2f})")
         elif effect.mechanism == "reduce_cutoff":
-            parts += [f"{names.tie(t)} reopened" for t, f, _ in effect.ties if f == "interactive"]
+            parts += [f"{names(PersonId(f.split(':', 1)[1]))}'s rejection {v:+.2f}" for _, f, v in effect.ties
+                      if f.startswith("rejection:")]
             released = [f"{names(p)} {_signed(v)}" for p, v in effect.acute_anxiety if view is None or p == view]
             if released:
                 parts.append("bound anxiety released to the third party: " + ", ".join(released))
@@ -218,6 +227,10 @@ def _system_rows(effect: EffectRecord, names: _Names) -> list[str]:
                 rows.append(f"{names.tie(tie)} bond energy {_signed(value)}")
             else:
                 raise UnrenderableRecord(f"no template for consolidation field {field!r}")
+    elif effect.mechanism == "rejection_fade":
+        # Every held rejection fades every week; only a tie that reopens is shown.
+        rows += [f"{names.tie(tie)}: rejection has faded; the tie is no longer cut off ({field.split('_', 2)[2]})"
+                 for tie, field, _ in effect.ties if field.startswith("tie_state_")]
     elif effect.mechanism == "iposition":
         for person, field, value in effect.people:
             if field.startswith("iposition:"):

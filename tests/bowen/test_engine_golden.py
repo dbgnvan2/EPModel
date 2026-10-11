@@ -6,8 +6,9 @@ Spec:    docs/implementation_plan_phase_d.md B1; docs/bowen_agent_model_spec_v2.
 Tests:   this file
 
 **Updating a fingerprint is a decision, not a fix.** Change one only in the commit of an engine change meant to
-alter behaviour (plan B4 onward), and say in that commit which change moved it. Fingerprints taken 2026-10-10 at
-the engine of commit 713458a (spec revision 14, before B1).
+alter behaviour (plan B4 onward), and say in that commit which change moved it. Fingerprints first taken
+2026-10-10 at the engine of commit 713458a (spec revision 14, before B1). Moved 2026-10-11 by B3 (channel stamping:
+the log only) and B4 (cutoff as rejection, spec revisions 14 and 16: behaviour).
 """
 
 from __future__ import annotations
@@ -28,8 +29,8 @@ from src.bowen.scenario.scripted_source import ScriptedSource
 REPO = Path(__file__).resolve().parents[2]
 GOLDEN = {
     # (family, seed, weeks): fingerprint
-    ("phase_c", 7, 104): "fa570c314cd2ee94b8e1626d491a26ff66c7eff1f0fae103531ac25d2a1993e1",
-    ("phase_d", 11, 208): "c182b37fffc874cd698af660266bec1158151a2b68ce6ccea6b3bac867b05818",
+    ("phase_c", 7, 104): "1552c22a3a522517e787eb259deb5a55fa5f940bb623c8d90085b6dba51b2225",
+    ("phase_d", 11, 208): "f8f3c1902060b40c6dd306e52d2b9377a40d38c9f109485ed1023d5eaf9c47e2",
 }
 
 

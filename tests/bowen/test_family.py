@@ -112,7 +112,7 @@ def test_m2a_phase_d_family_matches_spec_table():
 def test_m2a_ravi_sibling_starts_cut_off():
     instance = load_family(PHASE_D)
     tie = TieId.of(P("ravi"), P("dario"))
-    assert instance.ties[tie].tie_state is TieState.CUT_OFF and not instance.ties[tie].interactive
+    assert instance.ties[tie].tie_state is TieState.CUT_OFF and instance.ties[tie].interactive  # M1.B.3c
     assert tie in instance.family_of_origin_ties(P("ravi"))
 
 
@@ -133,7 +133,7 @@ def test_m23_reduced_instance_is_not_closed():
 def test_m23a_dormant_family_of_origin_tie_is_ana_bruno():
     instance = load_family()
     tie = instance.ties[TieId.of(P("ana"), P("bruno"))]
-    assert tie.tie_state is TieState.CUT_OFF and not tie.interactive
+    assert tie.tie_state is TieState.CUT_OFF and tie.interactive  # M1.B.3c: a cutoff is rejection, not severing
     assert TieId.of(P("ana"), P("bruno")) in instance.family_of_origin_ties(P("ana"))
 
 
@@ -169,9 +169,9 @@ def test_m1a21_sex_must_be_declared():
         build(edit("| `pia` | Pia | 3 | 14 | female |", "| `pia` | Pia | 3 | 14 | not stated |"))
 
 
-def test_m1b3_cut_off_tie_cannot_be_interactive():
+def test_m1b3c_cut_off_tie_must_stay_interactive():
     with pytest.raises(ConfigError, match="cut-off"):
-        build(edit("| 0.8 | 55 | 1 | cut_off | no |", "| 0.8 | 55 | 1 | cut_off | yes |"))
+        build(edit("| 0.8 | 55 | 1 | cut_off | yes |", "| 0.8 | 55 | 1 | cut_off | no |"))
 
 
 def test_m2_family_declaration_must_be_graded_invented():

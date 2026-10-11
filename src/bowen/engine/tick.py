@@ -11,7 +11,9 @@ The nine steps, and where each lives:
 1. standing load ............ ``standing_load.apply_standing_load``
 2. deliver .................. scheduled inputs enter (``act.inject``), structural
                               events apply (``event_effects``), the tick's batch is
-                              released and recorded
+                              released and recorded, and moves sent to a person who
+                              rejects their sender are refused (``rejection.refuse``,
+                              M1.B.3c)
 3. perceive ................. ``appraise.perceive``; each person's beliefs about ties
                               they are not party to move toward what was delivered
                               (``beliefs.update_beliefs``, M9.8)
@@ -30,7 +32,8 @@ The nine steps, and where each lives:
                               (investment, M1.B.8; the detectors, M1.A.19);
                               ``outside_ness.update_outside_ness`` (M1.A.9, M4.C.5);
                               ``moves.settle_functioning`` (M1.B.5, M1.B.6);
-                              ``consolidate.consolidate``; ``learner.learn`` (M4.D.6,
+                              ``consolidate.consolidate``; ``rejection.fade_rejection``
+                              (M1.B.3c); ``learner.learn`` (M4.D.6,
                               crediting the tick's felt change); then the invariants assert
 
 The slow tick (M3.B.1) fires after the 52nd, 104th, … fast tick. In Phase B it
@@ -59,6 +62,7 @@ from src.bowen.engine.log_records import EffectRecord, Emitter, TickRecord
 from src.bowen.engine.params import EngineParams
 from src.bowen.engine.outside_ness import update_outside_ness
 from src.bowen.engine.reactive import update_attention_state
+from src.bowen.engine.rejection import fade_rejection, refuse
 from src.bowen.engine.recompute import recompute_involvement, recompute_triangles
 from src.bowen.engine.standing_load import apply_standing_load
 from src.bowen.engine.state import RunState
@@ -115,6 +119,10 @@ def run_tick(
         if event.mechanism in STRUCTURAL:
             records += apply_structural_event(state, state.store.event(event.id), params)
     batch = state.queue.release(state.tick)
+    # M1.B.3c: what a rejecting person is sent is refused, at the sender's cost. It is never recorded as delivered,
+    # so nothing downstream sees it reach them: perception, appraisal, the inbox, an I-POSITION's opposition.
+    batch, refusals = refuse(state, batch, params)
+    records += refusals
     records += record_deliveries(state, batch)
     steps.append("deliver")
 
@@ -174,6 +182,7 @@ def run_tick(
     records += settle_functioning(state, params)
     records += allocate_sinks(state, params)
     records += consolidate(state, params)
+    records += fade_rejection(state, params)  # M1.B.3c, revision 16: unrenewed rejection wears off
     # M4.D.6: the tick's felt change, decay included, is credited after consolidation.
     records += learn(state, start_acute, params)
     steps.append("consolidate")

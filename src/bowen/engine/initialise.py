@@ -17,10 +17,12 @@ from src.bowen.engine.contact import initialise_contact
 from src.bowen.engine.moves import initialise_functioning
 from src.bowen.engine.outside_ness import initialise_outside_ness
 from src.bowen.engine.params import EngineParams
+from src.bowen.engine.rejection import seed_declared_rejection
 from src.bowen.engine.state import RunState
 
 
 def initialise_run(state: RunState, params: EngineParams) -> RunState:
+    seed_declared_rejection(state.ties, params)  # M1.B.3c: before contact, so a declared cutoff starts empty
     initialise_contact(state.people, state.ties, params)
     initialise_outside_ness(state.people, params)
     initialise_beliefs(state.people, state.ties, params)

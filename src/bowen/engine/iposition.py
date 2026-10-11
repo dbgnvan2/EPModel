@@ -387,5 +387,5 @@ def redirect_to_sequence_tie(state: RunState, selection):
     if seq is None or selection.targets != (seq.target,) or selection.kind in (STAY_IN_CONTACT, "WITHHOLD"):
         return selection
     if not _live(state, selection.actor, seq.target):
-        return selection  # across a severed tie the act stays what it is (only REDUCE_CUTOFF is legal there)
+        return selection  # across a cut-off tie the act stays what it is (M1.B.3c)
     return dataclasses.replace(selection, kind=STAY_IN_CONTACT, value_key="", withheld=None)

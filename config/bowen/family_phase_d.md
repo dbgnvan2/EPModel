@@ -18,7 +18,9 @@
 > Teodor's `basic_level` is 36, not the table's former 34: 34 broke `M2.A.0e`'s ±1 pairing with Ana (37).
 > Proposed at revision 13, as Ravi's 38 was corrected to 39; awaiting owner review.
 >
-> Ravi–Dario mirrors the Ana–Bruno tie it replaces: high bond energy, cut off, not interactive (`M1.B.3`).
+> Ravi–Dario mirrors the Ana–Bruno tie it replaces: high bond energy, cut off (`M1.B.3`). From Phase D B4 a cut-off
+> tie stays interactive and both members start rejecting the other (`M1.B.3c`); which brother cut off the other is
+> not stated.
 > Iris and Dario have comparable, low contact and differ in bond energy (`M2.A.1`).
 > Leo's sex was declared male by the owner on 2026-10-10 (`M2.A.0i`).
 >
@@ -69,6 +71,6 @@ undifferentiation_budget: 90
 | `sofia` | `dario` | parent_of | 0.6 | 40 | 2 | ordinary | yes |
 | `viktor` | `dario` | parent_of | 0.5 | 35 | 2 | ordinary | yes |
 | `marta` | `iris` | sibling | 0.4 | 35 | 2 | ordinary | yes |
-| `ravi` | `dario` | sibling | 0.8 | 55 | 1 | cut_off | no |
+| `ravi` | `dario` | sibling | 0.8 | 55 | 1 | cut_off | yes |
 | `halim` | `ravi` | professional | 0.3 | 10 | 1 | ordinary | yes |
 | `halim` | `marta` | professional | 0.3 | 10 | 1 | ordinary | yes |

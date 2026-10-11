@@ -25,6 +25,9 @@ from src.bowen.engine.visibility import HouseholdConductanceVisibility
 # M4.D.1b: the outcome that is not a move. The spec's name.
 WITHHOLD = "WITHHOLD"
 I_POSITION = "I-POSITION"
+# The self-directed channel's name in config/bowen/event_kinds.md; the same as policy.SELF, which act cannot import
+# (policy imports act). tests/bowen/test_rejection.py::test_m1f1a_the_channel_names_agree checks they match.
+SELF_CHANNEL = "self"
 
 
 @dataclass(frozen=True)
@@ -93,6 +96,21 @@ def withhold(state: RunState, selection: Selection, params: EngineParams) -> lis
     return records
 
 
+def stamp(state: RunState, selection: Selection) -> Channel:
+    """Purpose: the channel an act is logged with — scripted, or the channel its kind belongs to.
+    Spec:    docs/bowen_agent_model_spec_v2.md#M1.F.1a, #M4.D.1a, #M1.A.4h
+    Tests:   tests/bowen/test_rejection.py::test_m1f1a_a_policy_act_is_stamped_with_its_kinds_channel
+
+    Each policy act belongs to exactly one channel (``config/bowen/event_kinds.md``), so the channel that selected
+    it is its kind's. An ``I-POSITION`` sequence's steps are stamped the same way (Phase D plan B3).
+    """
+    if selection.decided_by is DecidedBy.SCRIPTED:
+        return Channel.SCRIPTED
+    if selection.kind not in state.kinds.channels:
+        raise ValueError(f"{selection.kind} has no channel in config/bowen/event_kinds.md, so its act cannot be stamped")
+    return Channel.SELF_DIRECTED if state.kinds.channels[selection.kind] == SELF_CHANNEL else Channel.AUTOMATIC
+
+
 def act(state: RunState, selection: Selection, visibility: HouseholdConductanceVisibility,
         params: EngineParams | None = None) -> list:
     """Purpose: make a selection into an event and queue its deliveries, or record a withheld outcome.
@@ -125,7 +143,7 @@ def act(state: RunState, selection: Selection, visibility: HouseholdConductanceV
         duration=1,
         exogenous=False,
         source_position=selection.source_position,
-        channel=Channel.SCRIPTED if selection.decided_by is DecidedBy.SCRIPTED else Channel.AUTOMATIC,
+        channel=stamp(state, selection),
         route=selection.route,
         fidelity=visibility.fidelity_for(selection.route),
         assertion=assertion,

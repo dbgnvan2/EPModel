@@ -1,7 +1,7 @@
 # Implementation plan — Phase D
 
 > **Status: approved by the owner, 2026-10-10 ("Proceed"), with the decisions in §1a.** P9 (C.7's direction) is open
-> pending details; P13–P16 wait for D-II.
+> pending details; P13–P16 wait for D-II. **Built:** B1 and B2 (2026-10-10/11); B3 and B4 (2026-10-11, spec revision 16).
 > Spec: `docs/bowen_agent_model_spec_v2.md`, revision 13. Phase C closed with its gate failing (owner decision,
 > `docs/phase_c_completion_report.md` §13). Spec IDs are used verbatim. The inventories behind this plan were made on
 > 2026-10-10 from the spec, `src/bowen`, `TODO.md` and the Phase C documents; their findings are cited where used.
@@ -165,13 +165,19 @@ Each gets the test its TODO entry names.
 `act.py:128` stamps every policy act `AUTOMATIC`, including `I-POSITION` and `STAY-IN-CONTACT`. `M1.A.4h` (the
 estimator's primary signal) and `M1.A.11c` both read the channel. Stamp the channel the policy selected. A test that a
 self-directed selection is logged self-directed.
+- **Build note (2026-10-11).** Each policy act belongs to one channel, declared in `config/bowen/event_kinds.md`, so
+  the channel an act is stamped with is its kind's: `self` kinds are logged `self_directed`, the rest `automatic`. An
+  `I-POSITION` sequence's steps are stamped the same way. Nothing reads the channel until B6, so B3 changes the log
+  and the golden fingerprints but not what a run computes. It shares B4's regeneration.
 
 ### B4. Cutoff as rejection and the reconnection pull (P1, P2)
 - Per the decision memo. New tie field: `rejection`, owned by the cutter's side.
 - `apply_delivered_cutoffs` no longer sets `interactive = False`.
 - Appraisal reads rejection.
 - `REDUCE_CUTOFF` lowers rejection.
-- The pattern readouts' cutoff definition is unchanged; it already reads refusals.
+- The pattern readouts' cutoff definition is unchanged. *Corrected 2026-10-11 (review):* it does not read the
+  engine's refusals. It counts `CUTOFF` acts sent after an approach (`config/bowen/pattern_acts.md`). Whether it
+  should also count the engine's `refusal` records is open for the owner (`TODO.md`).
 - **Tests:**
   - a cut tie stays interactive;
   - repeated refusals raise rejection;
@@ -179,6 +185,89 @@ self-directed selection is logged self-directed.
   - a silent tie reads as distance, not cutoff;
   - the seed-7 silences shrink (a readout, not an assertion);
   - P2's pull: a cut tie's "too little" deviation rises with time, and an approach relieves it.
+- **Build notes (2026-10-11, read from `M1.B.3c`, `M4.C.1c` and `M5.B.3`; each choice `[I]`, for the owner to correct):**
+  - **The field.** `Relationship.rejection`, per member, in [0, 1]. A tie is cut while either member holds rejection
+    above zero; `tie_state` reads `cut_off` exactly then and returns to `ordinary` when both reach zero. The tie stays
+    interactive throughout.
+  - **A delivered `CUTOFF`** raises the sender's rejection by `rejection_cutoff_gain` × strength and clears the
+    sender's own felt impingement at once (the immediate relief, `M11.C.4`). The target appraises the act as any other.
+  - **A refusal.** A move delivered to a person who holds rejection toward its sender, other than `CUTOFF` and
+    `REDUCE_CUTOFF`, is refused. It is not appraised by, and has no effect on, the cutter. The cutter's rejection rises
+    by `rejection_refusal_gain` × strength, and the sender bears the refusal: acute anxiety
+    `refusal_cost_gain` × strength × conductance × steepness. Each refusal is logged by name (`M6.4`). Witnesses
+    still see the move. Exogenous and symptom events are not moves and are not refused.
+  - **Accepted contact.** `REDUCE_CUTOFF` is the move the cutter accepts. Its delivery lowers both members' rejection
+    by `rejection_relief` × strength, so the actor's own and the cutter's fall together (`M5.B.3`).
+  - **The pull.** While a tie is cut, resting contact is zero for both members, so felt contact relaxes toward none
+    and the "too little" side grows (`M4.C.1c`). An accepted approach restores resting contact once rejection is gone.
+    No pull term is written.
+  - **Legality.** Every act is legal on a cut tie, since it is interactive. `REDUCE_CUTOFF` stays legal only on a cut
+    tie. An `I-POSITION` sequence still cannot run across one.
+  - **Declared cutoffs.** A family row with `tie_state` `cut_off` is interactive, and both members start with
+    `declared_rejection`. Ana–Bruno (Phase C) and Ravi–Dario (Phase D) are declared this way. Which member is the
+    cutter is not stated in either family, so both hold it.
+- **Measured before regenerating (2026-10-11, Phase C family, seeds 7, 1 and 3, 104 weeks). Held for the owner.**
+
+  | | before B4 | B4 as built |
+  |---|---|---|
+  | tie-weeks cut off, of 1,040 | 591–699 | 835–911 |
+  | mean excess anxiety, first / last 26 weeks | 7.8–9.7 / 5.1–7.1 | 12.9–13.6 / 16.2–17.3 |
+  | `CUTOFF` acts | 48–62 | 97–118 |
+  | `REDUCE_CUTOFF` acts | 47–70 | 1–3 |
+  | refusals | — | 353–376 |
+
+  - **Why:** rejection falls only through `REDUCE_CUTOFF`. Before B4 that act was chosen often because it was the
+    only act legal across a severed tie. Now every act is legal on a cut tie, so `REDUCE_CUTOFF` competes with all of
+    them, and a self-directed act weighted by functional level is rarely drawn. Cut ties therefore stay cut.
+  - **Variants tried (same seeds):**
+    - the cutter's own contact also lowering rejection: no change;
+    - rejection fading by 5% a week: no change, since only "above zero" has any effect;
+    - no repeat `CUTOFF` toward a person already rejected: 15–16 cutoffs, but still 828–911 cut tie-weeks;
+    - refused only above 0.5, with accepted contact wearing rejection down: 715–867 cut tie-weeks.
+  - **Consequences in the suite:**
+    - the `I-POSITION` ensemble (`test_m5d3`, `test_m5d8`): PREPARE now fails on excess anxiety in 1,830 of 1,862
+      attempts;
+    - `M11.C.29`'s vacuity check: no seed skips a withdrawal without the hold.
+- **Owner decision 2026-10-11: graded rejection (spec revision 16).** Built with threshold 0.5 and fade 0.05 a week.
+  Measured on the same seeds:
+  - cut tie-weeks 542–592, back to the pre-B4 level;
+  - mean excess 11–13, still above the pre-B4 5–10.
+- **Found after building (2026-10-11), decided below:**
+  - **A flaw in the values I proposed.** One `CUTOFF` raises rejection to exactly 0.5, and refusal needs more than
+    0.5, so a single cutoff refuses nothing.
+    - Threshold 0.3: one cutoff refuses for about four weeks, and each refusal renews it by two. Cut tie-weeks
+      601–647; excess 13–15.
+    - Threshold 0.25: cut tie-weeks 588–666; excess 13–17.
+  - **Family anxiety stays higher under every B4 variant.** It does not depend on the refusal values or the refusal
+    cost (cost 0: unchanged).
+    - Mean excess per person over three seeds, before → after: Ravi 12.9 → 21.7, Marta 14.0 → 20.5, Nadia 7.8 → 14.4,
+      Pia 8.6 → 17.7, Bruno 1.9 → 11.7.
+    - The likely cause: a cut tie is no longer silent. Before, severing stopped every act on the tie. Now automatic
+      acts keep crossing it, which is the owner's definition (cutoff is not absence of interaction).
+    - The marital tie is cut less: 70 tie-weeks against 214.
+  - **The `I-POSITION` ensemble** (`test_m5d3`, `test_m5d8`): Ravi's excess is above `defence_threshold` (15) most
+    weeks, so PREPARE fails in 1,907 of 1,941 attempts and no sequence completes. Those two tests fail.
+- **Owner decision 2026-10-11:**
+  - **The threshold is 0.3.**
+  - **Option (a):** the more anxious family is the emergent result.
+  - **Test changes that follow:**
+    - the `I-POSITION` ensemble tests run on the triad fixture. Measured there over 24 seeds: 21 aborts, 13 holds,
+      4 completed sequences;
+    - `M11.C.29`'s hold test asserts that every withdrawal is legal without the hold;
+    - the dyad symmetry test uses 200 seeds (over 1,000 seeds: difference 0.03, standard error 0.14).
+- **Review and regeneration (2026-10-11):**
+  - `learning-qa` and a correctness pass found 10 items. All are fixed with tests:
+    - refused moves were still recorded as delivered;
+    - `I-POSITION` was legal across a cut tie;
+    - a trace line was misplaced;
+    - `REDUCE_CUTOFF` reopened worry edges;
+    - an ended cutoff erased a distant tie.
+    A new invariant, `M1.B.3c`, holds each week. A narrow re-sweep was clean.
+  - **The Phase C verdicts re-read under the B4 engine (information, not a gate). One moved:** `M11.C.32`, PASS →
+    FAIL.
+    - Its `reached_peak` difference shrank from −0.09 ± 0.10 to −0.02 ± 0.022.
+    - Under B4 the calm arm also rarely reaches `PEAK`, since `PREPARE` fails on anxiety (above).
+    - Every other verdict is unchanged.
 
 ### B5. The slow-tick step
 - A `slow_tick(state, params, emitter)` phase runs after the fast tick on every slow tick (P17). It has its own

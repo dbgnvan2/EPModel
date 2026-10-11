@@ -13,7 +13,7 @@ tie-break and fallback rules in ``config/bowen/policy.md``.
 **Outcomes** are an act toward one person, or ``WITHHOLD``. The legal set (`M4.D.1e`)
 is formed first, from structural preconditions — a tie to a living person; the
 family→external moves (`M5.B.4`) only toward an external agent, and an external agent only
-from its own repertoire (`M5.B.5`); across a severed tie only `REDUCE_CUTOFF`, and `REDUCE_CUTOFF` only there;
+from its own repertoire (`M5.B.5`); `REDUCE_CUTOFF` only across a cut-off tie, which stays open to every other act too (`M1.B.3c`);
 `TRIANGLE`, `DETRIANGLE` and `PREVENT_ALIGNMENT` only toward someone a closed triad holds —
 and the `M5.C` gates that remove an act: `I-POSITION` is removed
 for a financially dependent person (`M5.C.1`: it "MUST fail outright"). ``WITHHOLD`` is
@@ -160,7 +160,8 @@ def legal_outcomes(obs: Observation, kinds: EventKinds, params: EngineParams,
                 continue
             if (kind in FAMILY_TO_EXTERNAL) != (view.other_external and not obs.external):
                 continue
-            # Across a severed tie the one legal act is to reduce the cutoff; on a live tie it is not legal.
+            # REDUCE_CUTOFF is legal only across a cut-off tie; every other act needs the tie interactive,
+            # which a cut-off tie is (M1.B.3c).
             if kind == REDUCE_CUTOFF:
                 if not view.severed:
                     continue
@@ -168,6 +169,8 @@ def legal_outcomes(obs: Observation, kinds: EventKinds, params: EngineParams,
                 continue
             if kind in NEEDS_TRIAD and view.other not in obs.triangle_for:
                 continue
+            if kind == I_POSITION and view.severed:
+                continue  # M1.B.3c: a sequence cannot run across a cut-off tie (iposition._live)
             if kind == I_POSITION and obs.financially_dependent:
                 continue  # M5.C.1: fails outright, so it is removed, not degraded
             if f"{kind}>{view.other}" in excluded:

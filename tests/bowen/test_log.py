@@ -63,7 +63,7 @@ def header(constants=None, frozen=None, script=None):
 def test_m16a1_header_hashes_the_resolved_config():
     h = header()
     assert isinstance(h, LogHeader) and len(h.config_hash) == 64
-    assert h.spec_revision == "2.0, revision 15"
+    assert h.spec_revision == "2.0, revision 16"
     assert h == header()  # stable
     # A changed value changes the hash; the script's events are part of the config.
     assert header(script=load_script().without("TRIGGER")).config_hash != h.config_hash
@@ -87,7 +87,11 @@ def test_m16a7_header_flags_constants_changed_after_freeze():
     baseline = {k for k, flag in header().constant_changed_after_freeze if flag}
     # Re-frozen for Phase C at step 14. Changed since, logged in constants_changes.md: the pattern readouts'
     # window and threshold (owner decision D1, 2026-10-10; no criterion reads them). pattern_pole was retired.
-    assert baseline == since_freeze == {"pattern_window", "pattern_min_acts", "pattern_projection_hold"}
+    # Phase D B4 (2026-10-11) added the seven rejection constants (M1.B.3c, revisions 14 and 16).
+    assert baseline == since_freeze == {"pattern_window", "pattern_min_acts", "pattern_projection_hold",
+                                        "rejection_cutoff_gain", "rejection_refusal_gain", "rejection_relief",
+                                        "refusal_cost_gain", "declared_rejection", "rejection_refusal_threshold",
+                                        "rejection_fade"}
     changed = dataclasses.replace(
         constants,
         values=MappingProxyType({**constants.values,

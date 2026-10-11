@@ -18,6 +18,18 @@ Deferred and adjacent items. Each carries enough context to act on later without
   - `M11.C.11` shape — "three phases, not a step down" is a claim about curve shape; any automated version embeds an invented tolerance.
   - `M5.F.2` — the threshold separating a counterfeit move from a genuine one is invented and sets the result. **This is the model's most consequential invented constant.**
 
+## Phase D — open from B3/B4, 2026-10-11
+
+- [ ] **Owner: should the `cutoff` pattern readout count the engine's refusals?**
+  - **Today:** the readout counts `CUTOFF` acts sent after an approach (`src/bowen/readouts/patterns.py`;
+    `config/bowen/pattern_acts.md`).
+  - **Since B4:** the engine also refuses moves sent to a cutter (`refusal` records; `Relationship.rejection`).
+  - **The gap:** a tie held cut by engine refusals, with fewer than 3 `CUTOFF` acts in 4 weeks, does not read as
+    cutoff.
+  - Raised by the B3/B4 `learning-qa` review.
+- [ ] **Pre-existing unused imports in `tests/bowen/test_engineering_gates.py`:** `clamp_unit`, `dataclasses`,
+  `EventStore`, `legal_outcomes`. Found while checking the B3/B4 diff. Not touched, since they predate it.
+
 ## Phase C — open after the build, 2026-10-08
 
 Phase C steps 0–16 are built. **Its gate does not pass** (`docs/phase_c_completion_report.md`). These need a person.

@@ -23,6 +23,7 @@ What each check means from Phase C step 10:
   name (the outsider's positional anxiety). An unnamed or unlogged change raises.
 * M6.I.7 — no person and no tie has left the field.
 * M6.I.8 — the standing load ran before delivery this tick, on every tie.
+* M1.B.3c — a tie is cut off exactly while a member holds rejection, and rejection is in [0, 1] (Phase D B4).
 """
 
 from __future__ import annotations
@@ -31,7 +32,7 @@ from dataclasses import dataclass
 
 from src.bowen.engine.identifiers import PersonId, TieId
 from src.bowen.engine.log_records import EffectRecord, InvariantRecord, InvariantStatus
-from src.bowen.engine.objects import Sink
+from src.bowen.engine.objects import Sink, TieState
 from src.bowen.engine.state import RunState
 
 SOURCE, SINK, TRANSFER = "source", "sink", "transfer"
@@ -42,6 +43,7 @@ LEDGER = {
     "appraisal": SOURCE,            # M4.C.1, including the speaker's echo (M4.C.7)
     "cutoff": SOURCE,               # M4.C.1: the relief a delivered CUTOFF is appraised as
     "competing_urges": SOURCE,      # M4.D.1d
+    "refusal": SOURCE,              # M1.B.3c, a refused move's cost to its sender
     "acute_decay": SINK,            # M1.A.8, toward the chronic floor
     "calm_contact": TRANSFER,       # M4.C.10
     "distance_binding": TRANSFER,   # M1.D.2a, person to tie
@@ -187,6 +189,12 @@ def assert_invariants(
             frozenset(state.people) >= before.people and frozenset(state.ties) >= before.ties,
             "M6.I.7",
             "a person or tie left the field",
+        ),
+        require(
+            all((t.tie_state is TieState.CUT_OFF) == t.rejected() and all(0.0 <= v <= 1.0 for v in t.rejection.values())
+                for t in state.ties.values()),
+            "M1.B.3c",
+            "a tie is cut off without rejection held, or holds rejection without being cut off, or outside [0, 1]",
         ),
         require(
             loaded_ties == frozenset(state.ties)

@@ -210,23 +210,26 @@ def test_m11c29_held_tie_is_not_cut_while_held():
     assert held == []
 
 
-def test_m11c29_hold_lets_every_withdrawal_be_made():
-    """With the hold, the disguise's four withdrawals are never illegal; without it, some are (s-scripted-weeks in
-    docs/phase_c_diagnostic_record.md: no week is legal in every seed for this arm)."""
+def test_m11c29_every_withdrawal_is_made_with_or_without_the_hold():
+    """The disguise's four withdrawals are never illegal. Before Phase D B4 that needed the hold, since a CUTOFF
+    severed the tie; from B4 a cut-off tie stays open (M1.B.3c), so they are legal without it too, and the hold's
+    one remaining job is keeping the tie from being cut (test_m11c29_held_tie_is_not_cut_while_held)."""
     settings = CRITERIA["M11.C.29"].settings
-    unheld = 0
+    unheld = made = 0
     original = criteria.scenario
     for seed in range(20):
         arm_c29("baseline", seed, settings)
         assert criteria.scenario.last_source.skipped == 0  # not legal: the case the hold removes
+        assert criteria.scenario.last_source.made > 0      # not vacuous: withdrawals were attempted
         try:
             criteria.scenario = lambda *a, held_open=None, **k: original(*a, **k)  # noqa: E731
             criteria.scenario.last_source = None
             arm_c29("baseline", seed, settings)
             unheld += criteria.scenario.last_source.skipped  # scenario sets it on the module's current name
+            made += criteria.scenario.last_source.made
         finally:
             criteria.scenario = original
-    assert unheld, "no seed skipped a withdrawal without the hold: the check would be vacuous"
+    assert unheld == 0 and made > 0
 
 
 def test_m11c29_hold_is_the_same_in_both_arms(monkeypatch):

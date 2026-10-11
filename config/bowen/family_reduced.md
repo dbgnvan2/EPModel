@@ -11,7 +11,8 @@
 > - Households: the nuclear four share one; Ana, Sofia and Bruno each have their own
 >   (Sofia "lives 200 miles away", `M2.A`; Ana's household with Teodor is outside this instance).
 > - Ties: conductance, bond energy (0–100) and latency (whole weeks, `M3.C.2`).
->   Ana–Bruno is cut off: no events, high bond energy (`M1.B.3`), so not interactive.
+>   Ana–Bruno is cut off, with high bond energy (`M1.B.3`). From Phase D B4 a cut-off tie stays interactive and
+>   both members start rejecting the other (`M1.B.3c`).
 >   Ravi–Sofia has latency 2 for distance; conductance does not depend on distance (`M1.B.2`).
 > - The undifferentiation budget starts at 0. The spec gives no relation between the
 >   budget and anxiety (external review A3); in Phase B only `binder_unavailable` writes it.
@@ -51,4 +52,4 @@ undifferentiation_budget: 0
 | `marta` | `pia` | parent_of | 1.0 | 50 | 1 | ordinary | yes |
 | `ana` | `marta` | parent_of | 0.6 | 40 | 1 | ordinary | yes |
 | `sofia` | `ravi` | parent_of | 0.6 | 40 | 2 | ordinary | yes |
-| `ana` | `bruno` | sibling | 0.8 | 55 | 1 | cut_off | no |
+| `ana` | `bruno` | sibling | 0.8 | 55 | 1 | cut_off | yes |

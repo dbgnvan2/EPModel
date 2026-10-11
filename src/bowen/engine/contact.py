@@ -67,7 +67,7 @@ def optimum(person: Person, tie: Relationship, params: EngineParams) -> float:
 
 
 def resting_contact(person: Person, tie: Relationship, params: EngineParams) -> float:
-    if not tie.interactive:
+    if not tie.interactive or tie.rejected():  # M1.B.3c, M4.C.1c (P2): a cut tie rests at no contact for both
         return 0.0
     return params.interactive_resting_contact * optimum(person, tie, params)
 

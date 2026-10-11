@@ -8,11 +8,13 @@ Tests:   tests/bowen/test_mechanisms.py
 Tie events (TRIGGER, RECONCILIATION) and INSTITUTIONALIZE are applied at step 2
 of the tick they are scheduled for. They have no recipients — a TRIGGER is "no
 contact at all" (M4.A.2) — so they never pass through delivery. A CUTOFF is a
-move: it is delivered like any other and, on delivery, makes its tie
-non-interactive. No tie is ever removed (M6.I.7: there is no exit from the field).
+move: it is delivered like any other and, on delivery, raises its sender's rejection
+of the target (M1.B.3c, Phase D plan B4); the tie stays interactive. No tie is ever
+removed (M6.I.7: there is no exit from the field).
 
 Revision 11 (Phase C step 1, plan D2): a delivered CUTOFF also removes felt
-impingement on the tie at once, for both members, and that change is appraised —
+impingement on the tie at once, and that change is appraised — from Phase D, for
+the cutter only, since the target is the one rejected (M1.B.3c) —
 the relief `M11.C.4` needs now. Felt contact is not touched: it relaxes toward
 zero over the following ticks, which is the cost that comes later (`M4.C.1c`).
 RECONCILIATION restores resting contact at once (`M1.B.4`: zero re-activation latency),
@@ -29,6 +31,7 @@ from src.bowen.engine.log_records import EffectRecord
 from src.bowen.engine.moves import release_bound_distance
 from src.bowen.engine.objects import SymptomChannel, TieState
 from src.bowen.engine.params import EngineParams
+from src.bowen.engine.rejection import raise_rejection
 from src.bowen.engine.state import ActiveTrigger, RunState
 
 # M5.A.1 fixes the move repertoire, so this name is the spec's, not editorial content.
@@ -56,13 +59,15 @@ def apply_structural_event(state: RunState, event: Event, params: EngineParams) 
         # M1.B.4: reunion restores full coupling with zero re-activation latency — bond energy is untouched.
         tie.interactive = True
         tie.tie_state = TieState.ORDINARY
+        cleared = [(tie.id, f"rejection:{m}", -tie.rejection[m]) for m in sorted(tie.rejection) if tie.rejection[m]]
+        tie.rejection.clear()  # M1.B.3c: reunion ends the rejection with the separation
         for member in tie.id.members():
             tie.felt_contact[member] = resting_contact(state.people[member], tie, params)
         # M1.D.2a (c), M6.4: distancing prevented, the anxiety it bound returns to the tie's members.
         returned = release_bound_distance(
             state, tie, tuple(m for m in tie.id.members() if state.people[m].alive)
         )
-        ties = [(tie.id, "interactive", 1.0)]
+        ties = [(tie.id, "interactive", 1.0)] + cleared
         if returned:
             ties.append((tie.id, "distance_bound_anxiety", -sum(v for _, v in returned)))
         return [EffectRecord(state.tick, "reconciliation", event.id, acute_anxiety=returned, ties=tuple(ties))]
@@ -118,9 +123,10 @@ def _triangle_id(text: str) -> TriangleId:
 
 
 def apply_delivered_cutoffs(state: RunState, batch: tuple[Delivery, ...], params: EngineParams) -> list[EffectRecord]:
-    """Purpose: a delivered CUTOFF makes its tie non-interactive and cut off, and removes impingement at once.
-    Spec:    docs/bowen_agent_model_spec_v2.md#M1.B.3, #M6.I.7, #M4.C.1c
-    Tests:   tests/bowen/test_mechanisms.py::test_m1b3_four_tie_states_are_distinct
+    """Purpose: a delivered CUTOFF raises its sender's rejection of the target, and removes the sender's impingement at once.
+    Spec:    docs/bowen_agent_model_spec_v2.md#M1.B.3c, #M1.B.3, #M6.I.7, #M4.C.1c
+    Tests:   tests/bowen/test_rejection.py::test_m1b3c_a_delivered_cutoff_leaves_the_tie_open_as_the_cutters_rejection,
+             tests/bowen/test_mechanisms.py::test_m1b3_four_tie_states_are_distinct
     """
     records = []
     for delivery in sorted(batch):
@@ -130,18 +136,17 @@ def apply_delivered_cutoffs(state: RunState, batch: tuple[Delivery, ...], params
         if event.kind != CUTOFF_KIND or event.sender is None:
             continue
         tie = state.tie_between(event.sender, delivery.recipient)
-        tie.interactive = False
-        tie.tie_state = TieState.CUT_OFF
+        rose = raise_rejection(tie, event.sender, params.rejection_cutoff_gain * event.intensity / params.intensity_scale)
         relief = []
-        for member in tie.id.members():
-            person = state.people[member]
-            before = deviation(person, tie, params)
-            tie.felt_impingement[member] = 0.0
-            delta = params.appraisal_gain * steepness(person, params) * (deviation(person, tie, params) - before)
-            if delta:
-                person.acute_anxiety += delta
-                relief.append((member, delta))
+        person = state.people[event.sender]
+        before = deviation(person, tie, params)
+        tie.felt_impingement[event.sender] = 0.0
+        delta = params.appraisal_gain * steepness(person, params) * (deviation(person, tie, params) - before)
+        if delta:
+            person.acute_anxiety += delta
+            relief.append((event.sender, delta))
         records.append(EffectRecord(
-            state.tick, "cutoff", event.id, acute_anxiety=tuple(relief), ties=((tie.id, "interactive", 0.0),),
+            state.tick, "cutoff", event.id, acute_anxiety=tuple(relief),
+            ties=((tie.id, f"rejection:{event.sender}", rose),),
         ))
     return records

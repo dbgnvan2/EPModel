@@ -3,7 +3,7 @@
 Purpose: apply, on delivery, each move's specific effect on state — binding by
          `DISTANCE`, the triangle's transfer to its outsider, the functioning
          balance and pseudo-self exchange of over- and underfunctioning, and the
-         release of a severed tie by `REDUCE_CUTOFF` — and settle the
+         lowering of rejection by `REDUCE_CUTOFF` — and settle the
          functioning balance once a tick.
 Spec:    docs/bowen_agent_model_spec_v2.md#M1.D.2a, #M1.C.1, #M1.C.3a, #M1.B.5, #M1.B.6, #M1.B.7, #M6.I.4, #M5.B.3, #M5.B.3a, #M5.B.6, #M6.4
 Tests:   tests/bowen/test_moves.py
@@ -63,8 +63,8 @@ has no stable midpoint (`M1.B.5`); the configuration hardens with time (`L05.3`)
 flip against a hardened habit reverts unless the mover sustains it long enough for the
 habit to cross (`M1.B.6`).
 
-**`REDUCE_CUTOFF`** (`M5.B.3`, `M5.B.3a`, `L22.6`). On delivery the tie becomes
-interactive and ordinary. More contact is never penalised as contact; its
+**`REDUCE_CUTOFF`** (`M5.B.3`, `M5.B.3a`, `L22.6`). On delivery it lowers both members'
+rejection (`M1.B.3c`, Phase D B4); the tie stops being cut off when none is left. More contact is never penalised as contact; its
 impingement component can still carry the receiver past its optimum (`M4.C.1`). The
 tie's bound anxiety is released to the third members of the closed triads holding the
 tie, split equally — the transient cost lands on the third party whose distancing is
@@ -82,8 +82,9 @@ from src.bowen.engine.contact import deviation, excess
 from src.bowen.engine.events import Delivery, Event, Mechanism, Role
 from src.bowen.engine.identifiers import PersonId, TieId, TriangleId
 from src.bowen.engine.log_records import EffectRecord
-from src.bowen.engine.objects import SCALE_MAX, Person, Relationship, TieState
+from src.bowen.engine.objects import SCALE_MAX, Person, Relationship
 from src.bowen.engine.params import EngineParams
+from src.bowen.engine.rejection import lower_rejection
 from src.bowen.engine.state import RunState
 
 # M5.A.1 and M5.B fix the repertoire; these names are the spec's.
@@ -309,18 +310,23 @@ def settle_functioning(state: RunState, params: EngineParams) -> list[EffectReco
 # --- REDUCE_CUTOFF -------------------------------------------------------------------------
 
 
-def reduce_cutoff(state: RunState, event: Event, tie: Relationship) -> EffectRecord:
-    """Purpose: reopen a severed tie; its bound anxiety goes to the third party whose distancing is stripped.
-    Spec:    docs/bowen_agent_model_spec_v2.md#M5.B.3, #M5.B.3a, #M6.4
-    Tests:   tests/bowen/test_moves.py::test_m5b3_reduce_cutoff_cost_lands_on_the_third_party
+def reduce_cutoff(state: RunState, event: Event, tie: Relationship, params: EngineParams) -> EffectRecord:
+    """Purpose: lower both members' rejection; its bound anxiety goes to the third party whose distancing is stripped.
+    Spec:    docs/bowen_agent_model_spec_v2.md#M5.B.3, #M5.B.3a, #M1.B.3c, #M6.4
+    Tests:   tests/bowen/test_moves.py::test_m5b3_reduce_cutoff_cost_lands_on_the_third_party,
+             tests/bowen/test_rejection.py::test_m5b3_accepted_contact_lowers_both_rejections_and_reopens_the_tie_at_zero
+
+    M1.B.3c (Phase D plan B4): the act lowers the actor's own rejection, and it is the contact the cutter accepts, so
+    it lowers the target's too. The tie stops being cut off when neither holds any. Since a cutoff no longer makes a
+    tie non-interactive, the act does not touch ``interactive``: a worry edge (M4.A.4) stays one.
     """
-    was_cut = not tie.interactive or tie.tie_state is TieState.CUT_OFF
-    tie.interactive = True
-    tie.tie_state = TieState.ORDINARY
+    relief = params.rejection_relief * event.intensity / params.intensity_scale
+    lowered = [(tie.id, f"rejection:{m}", change) for m in tie.id.members()
+               if (change := lower_rejection(tie, m, relief))]
     a, b = tie.id.members()
     thirds = tuple(sorted({third for _, third in _triads_holding(state, a, b) if state.people[third].alive}))
     released = release_bound_distance(state, tie, thirds)
-    ties = [(tie.id, "interactive", 1.0)] if was_cut else []
+    ties = list(lowered)
     if released:
         ties.append((tie.id, "distance_bound_anxiety", -sum(v for _, v in released)))
     return EffectRecord(state.tick, "reduce_cutoff", event.id, acute_anxiety=released, ties=tuple(ties))
@@ -372,7 +378,7 @@ def apply_move_effects(state: RunState, batch: tuple[Delivery, ...], params: Eng
         elif event.kind in (OVERFUNCTION, UNDERFUNCTION):
             record = functioning_shift(state, event, tie, delivery.recipient, params)
         elif event.kind == REDUCE_CUTOFF:
-            record = reduce_cutoff(state, event, tie)
+            record = reduce_cutoff(state, event, tie, params)
         elif event.kind == I_POSITION:
             record = iposition_effect(state, event, tie, delivery.recipient, params)
         else:

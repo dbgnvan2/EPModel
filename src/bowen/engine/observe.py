@@ -13,7 +13,7 @@ What counts as the person's own:
 * its own fields — acute and chronic anxiety, functional level, the two outside-ness
   axes, systems perspective, financial dependence, learned values;
 * for each tie it is party to: who is on the other end, whether the tie is live
-  (interactive, not cut off), and its **own** deviation on it (its own felt contact and
+  (interactive; from Phase D B4 a cut-off tie stays live, M1.B.3c), whether it is cut off, and its **own** deviation on it (its own felt contact and
   impingement against its own optimum);
 * public facts about the other end: alive, and whether it is an external agent;
 * the closed triads it belongs to — topology, not state — and, for each person it
@@ -46,9 +46,9 @@ class TieView:
     """One of the person's own ties, as the person has it."""
 
     other: PersonId
-    live: bool                # interactive and not cut off
-    cut_off: bool             # not live: cut off, or a worry edge
-    severed: bool             # cut off (M1.B.3), the one non-live state REDUCE_CUTOFF can act on
+    live: bool                # interactive; a cut-off tie stays live (M1.B.3c)
+    cut_off: bool             # cut off, or a worry edge
+    severed: bool             # cut off (M1.B.3c: rejection held), the state REDUCE_CUTOFF acts on
     deviation: float          # the person's own deviation on the tie (M4.C.1)
     other_alive: bool
     other_external: bool
@@ -97,7 +97,7 @@ def observe(state: RunState, person: PersonId, params: EngineParams) -> Observat
         other = next(m for m in tie.id.members() if m != person)
         cut = tie.tie_state is TieState.CUT_OFF
         ties.append(TieView(
-            other=other, live=tie.interactive and not cut, cut_off=cut or not tie.interactive, severed=cut,
+            other=other, live=tie.interactive, cut_off=cut or not tie.interactive, severed=cut,
             deviation=deviation(me, tie, params),
             other_alive=state.people[other].alive, other_external=state.people[other].role is Role.EXTERNAL,
         ))

@@ -55,6 +55,16 @@
 > written by an exchange. No realistic number of exchanges in a run should read as differentiation: the KB
 > interviews call that reading "grotesque". **`hold_gain` was chosen against `M5.D.3`**, so that aborts are the
 > usual outcome at first opposition; `constants_changes.md` records the measurement.
+>
+> **Phase D B4, 2026-10-11 — cutoff as rejection** (`M1.B.3c`, owner decisions P1 and P2), from
+> `rejection_cutoff_gain` to `declared_rejection`. All `[I]`. One `CUTOFF` at the policy's intensity takes rejection
+> halfway to its ceiling; four accepted `REDUCE_CUTOFF` acts clear it; a refusal adds a tenth. A refusal costs its
+> sender about as much as being met with conflict. Neither family states who cut off whom, so both members of a
+> declared cut-off tie start fully rejecting. **Revision 16 (owner, 2026-10-11, graded rejection):** a move is refused
+> only above `rejection_refusal_threshold`, and rejection fades by `rejection_fade` a week. One cutoff (0.5) refuses for
+> about four weeks and each refusal renews it by about two; unrenewed, it is gone in ten weeks, a declared cutoff in
+> twenty. The threshold is 0.3, not the 0.5 first proposed: at 0.5 a single cutoff (exactly 0.5) refused nothing
+> (owner decision 2026-10-11). Measured in `docs/implementation_plan_phase_d.md` B4.
 
 frozen_at: 2026-10-07
 activation_regime: synchronous
@@ -101,6 +111,13 @@ activation_regime: synchronous
 | `outside_ness_threshold_outward` | 0.5 | [I] | outward impingement | `M5.C.1` |
 | `outside_ness_threshold_inward` | 0.5 | [I] | inward impingement | `M5.C.1` |
 | `belief_rate` | 0.3 | [I] | share of the gap to an observation per tick, at full fidelity | `M9.8` |
+| `rejection_cutoff_gain` | 0.5 | [I] | rejection per unit strength of a delivered CUTOFF | `M1.B.3c` |
+| `rejection_refusal_gain` | 0.1 | [I] | rejection per unit strength of a refused move | `M1.B.3c` |
+| `rejection_relief` | 0.25 | [I] | rejection removed per unit strength of an accepted REDUCE_CUTOFF | `M1.B.3c` |
+| `refusal_cost_gain` | 1.0 | [I] | anxiety per unit strength × conductance × steepness | `M1.B.3c` |
+| `declared_rejection` | 1.0 | [I] | rejection, each member of a declared cut-off tie | `M1.B.3c` |
+| `rejection_refusal_threshold` | 0.3 | [I] | rejection above which a move is refused | `M1.B.3c` |
+| `rejection_fade` | 0.05 | [I] | rejection lost per fast tick | `M1.B.3c` |
 | `self_channel_exponent` | 2.0 | [I] | exponent on functional_level / 100 | `M4.D.1a` |
 | `policy_temperature` | 1.0 | [I] | learned-value units | `M4.D.1` |
 | `anxiety_band_low` | 5.0 | [I] | points of excess anxiety | `M4.D.3` |

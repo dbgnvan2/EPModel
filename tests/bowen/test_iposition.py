@@ -29,7 +29,7 @@ from src.bowen.engine.outside_ness import axes
 from src.bowen.engine.state import new_run_state
 from src.bowen.engine.tick import run_tick
 from src.bowen.engine.visibility import HouseholdConductanceVisibility
-from src.bowen.io.load import load_constants, load_event_kinds, load_family, load_policy_rules, load_script
+from src.bowen.io.load import load_constants, load_event_kinds, load_family, load_policy_rules
 from src.bowen.scenario.assemble import assemble
 from src.bowen.scenario.params import engine_params
 from src.bowen.scenario.policy_source import PolicySource
@@ -376,14 +376,21 @@ def test_m5d9_a_step_that_cannot_be_made_is_deferred_and_logged():
 
 @lru_cache(maxsize=1)
 def attempts_over_seeds(seeds=24, weeks=100):
-    """Ravi, given perspective, keeps taking positions with Marta while the family runs on the policy."""
-    constants, family = load_constants(), load_family()
-    script = load_script(kinds=KINDS, family=family)
-    events = ScriptedSource("events", weeks, script.events, ())
+    """F, given perspective, keeps taking positions with M while the triad fixture runs on the policy.
+
+    The triad, not the Phase C family (owner decision 2026-10-11, option a): from Phase D B4 a cut-off tie stays
+    open (M1.B.3c), the Phase C family runs more anxious, and Ravi's excess sits above ``defence_threshold`` most
+    weeks, so PREPARE failed in 1,907 of 1,941 attempts and no sequence completed. These tests are about the
+    sequence, so they run where preparation can happen. Measured 2026-10-11 in the triad: 21 aborts, 13 holds,
+    4 completed sequences over 24 seeds.
+    """
+    constants, family = load_constants(), load_family(REPO / "config" / "bowen" / "fixtures" / "triad.md")
+    mover, target = P("f"), P("m")
+    events = ScriptedSource("events", weeks, (), ())
     outcomes = []
     for seed in range(seeds):
         parts = assemble(constants, KINDS, family, events, seed=seed)
-        parts.state.people[RAVI].systems_perspective = 1.0
+        parts.state.people[mover].systems_perspective = 1.0
         policy = PolicySource(events, parts.params, load_policy_rules())
 
         class Source:
@@ -391,11 +398,11 @@ def attempts_over_seeds(seeds=24, weeks=100):
                 return policy.scheduled(tick)
 
             def selections(self, tick, active, state):
-                chosen = [s for s in policy.selections(tick, active, state) if s.actor != RAVI or RAVI not in active]
-                if RAVI in active and state.people[RAVI].iposition_state is None:
-                    chosen.append(Selection(actor=RAVI, kind="I-POSITION", targets=(MARTA,), intensity=100.0))
-                elif RAVI in active:
-                    chosen += [s for s in policy.selections(tick, (RAVI,), state)]
+                chosen = [s for s in policy.selections(tick, active, state) if s.actor != mover or mover not in active]
+                if mover in active and state.people[mover].iposition_state is None:
+                    chosen.append(Selection(actor=mover, kind="I-POSITION", targets=(target,), intensity=100.0))
+                elif mover in active:
+                    chosen += [s for s in policy.selections(tick, (mover,), state)]
                 return tuple(chosen)
 
         out = []
@@ -403,7 +410,7 @@ def attempts_over_seeds(seeds=24, weeks=100):
         for _ in range(weeks):
             run_tick(parts.state, Source(), parts.params, parts.visibility, parts.activation, sink)
         marks = [f for r in out if isinstance(r, EffectRecord) and r.mechanism == "iposition"
-                 for p, f, _ in r.people if p == RAVI and f.startswith("iposition:")]
+                 for p, f, _ in r.people if p == mover and f.startswith("iposition:")]
         outcomes.append(tuple(marks))
     return tuple(outcomes)
 

@@ -23,6 +23,7 @@ import pytest
 from src.bowen.engine.events import Mechanism
 from src.bowen.engine.identifiers import PersonId, TieId
 from src.bowen.engine.log_records import EmittedRecord
+from src.bowen.engine.objects import TieState
 from src.bowen.io.load import load_constants, load_family
 from src.bowen.readouts.patterns import PATTERNS, Reading, ReadoutParams
 
@@ -99,9 +100,8 @@ def assert_traces_back(run, diagram, mapping):
         tie = TieId.of(a, b)
         block = int(line["startDate"][:4]) - mapping.first_year
         acts = acts_on(run, tie, block, mapping)
-        if pattern == "cutoff" and block == 0 and not acts:
-            assert not family.ties[tie].interactive  # declared cut off in the family file
-            continue
+        if pattern == "cutoff" and block == 0 and family.ties[tie].tie_state is TieState.CUT_OFF:
+            continue  # declared cut off in the family file; from B4 the tie is open, so it may carry acts
         if pattern == "distance" and "first read from silence" in line["notes"]:
             assert acts == [], line["id"]  # silence is distance (owner D2)
             continue

@@ -1,6 +1,6 @@
 ---
 tags: [model-bt, decisions]
-status: HELD FOR PHASE D — owner decision 2026-10-10 (option C)
+status: BUILT 2026-10-11 — option B, at Phase D B4 (spec `M1.B.3c`, revisions 14 and 16: graded rejection)
 date: 2026-10-10
 ---
 

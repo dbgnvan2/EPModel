@@ -23,8 +23,8 @@ from src.bowen.engine.draws import DrawService
 from src.bowen.engine.identifiers import PersonId, TieId
 from src.bowen.engine.initialise import initialise_run
 from src.bowen.engine.log_records import DecidedBy, EmittedRecord, SelectionRecord
-from src.bowen.engine.objects import TieState
 from src.bowen.engine.observe import observe
+from src.bowen.engine.rejection import raise_rejection
 from src.bowen.engine.state import new_run_state
 from src.bowen.engine.tick import run
 from src.bowen.engine.visibility import HouseholdConductanceVisibility
@@ -98,12 +98,17 @@ def test_m4d1_exactly_one_outcome_per_person_per_tick():
 
 def test_m4d1e_legal_set_excludes_impossible_and_gated_acts():
     state = fresh()
-    state.ties[TieId.of(RAVI, MARTA)].interactive = False
-    state.ties[TieId.of(RAVI, MARTA)].tie_state = TieState.CUT_OFF
+    raise_rejection(state.ties[TieId.of(RAVI, MARTA)], MARTA, 0.5)
     ravi = observe(state, RAVI, PARAMS)
     labels = {o.label for o in legal_outcomes(ravi, KINDS, PARAMS)}
-    # Across a severed tie the one legal act is to reduce the cutoff, and it is legal nowhere else.
-    assert {label for label in labels if label.endswith(">marta")} == {"REDUCE_CUTOFF>marta"}
+    # M1.B.3c: a cut tie stays open, so everything stays legal on it, and reducing the cutoff becomes legal too.
+    open_labels = {o.label for o in legal_outcomes(observe(fresh(), RAVI, PARAMS), KINDS, PARAMS)}
+    # ... except I-POSITION, since a sequence cannot run across a cut-off tie.
+    assert {label for label in labels if label.endswith(">marta")} == (
+        {label for label in open_labels if label.endswith(">marta")} - {"I-POSITION>marta"} | {"REDUCE_CUTOFF>marta"})
+    worry = fresh()
+    worry.ties[TieId.of(RAVI, MARTA)].interactive = False  # a worry edge (M4.A.4) carries nothing
+    assert not any(o.target == MARTA for o in legal_outcomes(observe(worry, RAVI, PARAMS), KINDS, PARAMS))
     assert not any(o.kind == "REDUCE_CUTOFF" for o in legal_outcomes(observe(fresh(), RAVI, PARAMS), KINDS, PARAMS))
     for kind in ("DETRIANGLE", "PREVENT_ALIGNMENT"):
         assert {o.target for o in legal_outcomes(ravi, KINDS, PARAMS) if o.kind == kind} == set(ravi.triangle_for)
@@ -129,13 +134,13 @@ def test_m16a3b_selection_record_carries_the_legal_set_and_the_decider():
     selections = [r for r in records if isinstance(r, SelectionRecord)]
     for record in selections:
         if record.decided_by is DecidedBy.FALLBACK:
-            # Bruno: his one tie starts cut off; reducing it is legal but, on a loaded tie without
-            # systems perspective, has no weight (M4.D.3b), so nothing can be drawn.
-            assert record.actor == P("bruno") and record.fallback_rule == "hold"
+            assert record.fallback_rule == "hold"
             continue
         assert record.decided_by is DecidedBy.POLICY and record.legal_set and record.draw is not None
         assert {label for label, _ in record.propensities} == set(record.legal_set)
-    assert {r.decided_by for r in selections} == {DecidedBy.POLICY, DecidedBy.FALLBACK}
+    # From Phase D B4 Bruno's cut-off tie stays open (M1.B.3c), so he is no longer left with only a weightless
+    # REDUCE_CUTOFF and no longer falls back every week; test_m4d1f covers the fallback itself.
+    assert {r.decided_by for r in selections} == {DecidedBy.POLICY}
 
 
 # --- the two channels ----------------------------------------------------------------------
@@ -332,8 +337,10 @@ def test_m4b2_observation_holds_no_other_persons_state():
 
 
 def test_m4d1f_zero_total_weight_falls_back():
-    """Bruno's one tie is severed and loaded: REDUCE_CUTOFF is legal but carries no weight without perspective."""
-    obs = observe(fresh(), P("bruno"), PARAMS)
+    """Bruno's one tie is cut and carries no events but REDUCE_CUTOFF, which has no weight without perspective."""
+    state = fresh()
+    state.ties[TieId.of(ANA, P("bruno"))].interactive = False
+    obs = observe(state, P("bruno"), PARAMS)
     assert [o.label for o in legal_outcomes(obs, KINDS, PARAMS)] == ["REDUCE_CUTOFF>ana"]
     assert decide(obs, KINDS, PARAMS, RULES, DrawService(0)).selection.decided_by is DecidedBy.FALLBACK
     with_perspective = dataclasses.replace(obs, systems_perspective=1.0)
@@ -345,6 +352,7 @@ def test_m5b3_reduce_cutoff_crosses_a_cut_off_tie_and_nothing_else_does():
     from src.bowen.engine.visibility import InactiveTie
 
     state = fresh()
+    state.ties[TieId.of(ANA, P("bruno"))].interactive = False  # cut, and carrying no events (M4.A.4)
     visibility = HouseholdConductanceVisibility(PARAMS.per_hop_fidelity)
     reach = Selection(actor=ANA, kind="REDUCE_CUTOFF", targets=(P("bruno"),), intensity=60.0)
     assert any(isinstance(r, EmittedRecord) for r in act(state, reach, visibility, PARAMS))

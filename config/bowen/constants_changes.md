@@ -109,3 +109,11 @@
 | `pattern_min_acts` | 2 | 3 (unit changed: acts on the tie, was acts per member) | 2026-10-10 | — (owner decision D1, 2026-10-10, `docs/PROPOSAL — RUN VISUALIZATION MAPPING.md`: the owner's pattern definitions; no criterion reads the pattern readouts) | no |
 | `pattern_pole` | 0.5 | retired | 2026-10-10 | — (owner decision D1, 2026-10-10, `docs/PROPOSAL — RUN VISUALIZATION MAPPING.md`: the owner's pattern definitions; no criterion reads the pattern readouts) | no |
 | `pattern_projection_hold` | — | 12 | 2026-10-10 | — (owner, 2026-10-10: projection holds until 12 turns without evidence; no criterion reads the pattern readouts) | no |
+| `rejection_cutoff_gain` | — | 0.5 | 2026-10-11 | — (new mechanism; Phase D B4, owner decisions P1 and P2: cutoff as rejection) | no |
+| `rejection_refusal_gain` | — | 0.1 | 2026-10-11 | — (new mechanism; Phase D B4, owner decisions P1 and P2: cutoff as rejection) | no |
+| `rejection_relief` | — | 0.25 | 2026-10-11 | — (new mechanism; Phase D B4, owner decisions P1 and P2: cutoff as rejection) | no |
+| `refusal_cost_gain` | — | 1.0 | 2026-10-11 | — (new mechanism; Phase D B4, owner decisions P1 and P2: cutoff as rejection) | no |
+| `declared_rejection` | — | 1.0 | 2026-10-11 | — (new mechanism; Phase D B4, owner decisions P1 and P2: cutoff as rejection) | no |
+| `rejection_refusal_threshold` | — | 0.5 | 2026-10-11 | — (new mechanism; spec revision 16, owner decision 2026-10-11: graded rejection) | no |
+| `rejection_refusal_threshold` | 0.5 | 0.3 | 2026-10-11 | — (owner decision 2026-10-11: at 0.5 a single cutoff, exactly 0.5, refused nothing; before any record was regenerated) | no |
+| `rejection_fade` | — | 0.05 | 2026-10-11 | — (new mechanism; spec revision 16, owner decision 2026-10-11: graded rejection) | no |

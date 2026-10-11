@@ -397,7 +397,8 @@ REST_WEEKS, REST_BURN_IN = 80, 20                    # [I], declared here: M11.C
 REST_LEVELS = (None, 20.0, 60.0, 80.0, 95.0)         # [I]: the fixture's own levels, then every member set to each
 REST_TOLERANCE = 5.0                                 # [I]: "a few points" above the floor, the constants' own design
 REST_SOURCES = {"standing_load": "ties", "appraisal": "appraisal", "competing_urges": "urges",
-                "cutoff": "relief", "distance_binding": "relief", "calm_contact": "relief"}  # every other: "other"
+                "cutoff": "relief", "distance_binding": "relief", "calm_contact": "relief",
+                "refusal": "refusal"}  # every other: "other"
 
 
 def rest_state(seeds: int) -> list[dict]:
@@ -450,7 +451,7 @@ def rest_state(seeds: int) -> list[dict]:
                     person = state.people[pid]
                     own = self_term(person, params)
                     part = {s: inputs.get((pid, s), 0.0) / weeks * factor for s in
-                            ("ties", "appraisal", "urges", "relief", "other")}
+                            ("ties", "appraisal", "urges", "relief", "refusal", "other")}
                     part["ties"] -= own * factor
                     rows.append({"fixture": family, "level": "own" if level is None else f"{level:g}",
                                  "person": str(pid), "seed": seed, "floor": person.chronic_anxiety,

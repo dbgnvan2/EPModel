@@ -505,9 +505,25 @@ Feeds the standing load (§7.2) every tick whether or not anything happened.
 
 ### 4.8 `cutoff_flag`
 
-**For:** marking the tie as severed.
+**For:** marking the tie as cut off.
 
 **Does:** stops interaction; leaves bond energy high; raises system tension.
+
+**As built from Phase D (B4, spec `M1.B.3c`, owner decision P1, 2026-10-10):** a cutoff is **rejection, not
+severing**. The tie stays open. Each member holds a `rejection` in [0, 1]; the tie is cut while either holds any.
+- A `CUTOFF` raises the sender's rejection and clears their own felt impingement at once.
+- While a person rejects the other, what the other sends them is **refused**:
+  - it does not reach them;
+  - their rejection rises;
+  - the sender bears the cost as acute anxiety.
+- `REDUCE_CUTOFF` is the one move the cutter accepts. It lowers both members' rejection. At zero, the tie is ordinary
+  again.
+- **Graded (spec revision 16, owner 2026-10-11):**
+  - refusal holds only while rejection is above 0.3;
+  - rejection fades by 0.05 a week;
+  - so one cutoff refuses for about four weeks, unless the other keeps approaching and renews it.
+- Absence of interaction is distance, not cutoff (owner, 2026-10-10).
+- Every rate is `[I]`.
 
 **Source:** `[T]` Ch10 · L10.3 — cutting off raises system tension, enlarging the system lowers it, because anxiety dilutes over nodes. `[M]` Ch16 · L16.3 — the corpus's clearest positive feedback loop: the more intense the cutoff, the more exaggerated the parental problem in one's own marriage, and the more intense the next generation's cutoff.
 
@@ -535,7 +551,7 @@ Every fast tick, each person selects **exactly one** move. The repertoire is del
 | `OVERFUNCTION` | Do for, advise, take over the other's responsibility | `[T]` Ch03, Ch05 · L03.1, L05.3 |
 | `UNDERFUNCTION` | Defer, collapse, hand responsibility over | `[T]` Ch03, Ch05 · same |
 | `TRIANGLE` | Route it through a third — recruit an ally, talk about, focus on a child | `[T]` Ch09 · L09.3 |
-| `CUTOFF` | End contact | `[T]` Ch10 · L10.5 |
+| `CUTOFF` | Reject the other: the tie stays open and what they send is refused (from Phase D, `M1.B.3c`; before, end contact) | `[T]` Ch10 · L10.5 |
 | `I-POSITION` | State a self without attacking or accommodating | `[T]` Ch13, Ch21 · L13.3, L21.4 |
 | `STAY-IN-CONTACT` | Remain present under tension without acting | `[T]` Ch22 · L22.1 |
 
@@ -638,7 +654,7 @@ At low level a person is nearly all automatic; as level rises a real self-direct
 | Move | What it does | Source |
 |---|---|---|
 | `DETRIANGLE` | Actively push an ally back out of the position they took | `[T]` Ch21 · L21.2 — "detriangle any ally who tried to come over to my side" |
-| `REDUCE_CUTOFF` | Increase contact on a severed tie | `[T]` Ch22 · L22.1, L22.6 — visits "as frequently as possible"; **no optimum rate** |
+| `REDUCE_CUTOFF` | Increase contact on a cut-off tie (from Phase D: lower rejection, `M1.B.3c`) | `[T]` Ch22 · L22.1, L22.6 — visits "as frequently as possible"; **no optimum rate** |
 | `SPLIT` | Consult an external agent without telling the others; withhold history so the opinion is uncheckable | `[T]` Ch19 · L19.3 |
 | `FRAME_AMBIGUITY` | Speak symptoms as social talk, in the professional's presence, so "his response **or lack of it**" carries professional weight | `[T]` Ch19 · L19.3 — **silence is captured; abstention is not an exit** |
 | `DISPLACE` | Take over another member's contact with an external agent; mildest form is "simply invite himself to be also present" | `[T]` Ch19 · L19.3 |
@@ -1672,7 +1688,8 @@ The core moves keep their names but each is one act. The pattern of the same nam
     reverts unless sustained.
   - Raising a marked under-functioner is harder than toning down the over-functioner.
 - **`REDUCE_CUTOFF`** reopens a severed tie, and the anxiety the cutoff held goes to the third parties
-  around it (`L22.6`).
+  around it (`L22.6`). *From Phase D (B4):* it lowers both members' rejection, and the tie reopens when none is
+  left.
 - **`DETRIANGLE` and `PREVENT_ALIGNMENT`** change only who counts as aligned. No one's beliefs change.
 
 None of these acts knows its consequences. Whether anyone repeats an act is left to what it relieves (§19.3).
@@ -1680,7 +1697,8 @@ None of these acts knows its consequences. Whether anyone repeats an act is left
 **How a person chooses, as built (Phase C step 6, 2026-10-07).** Every form and rate is `[I]`.
 - **What the person can see.** Each week a person sees only their own state, their own ties as they
   experience them, their beliefs, the triangles they belong to, and what reached them.
-- **What they can do.** The acts actually open to them: no act across a severed tie, no `TRIANGLE`
+- **What they can do.** The acts actually open to them: no act across a severed tie (from Phase D B4, a cut-off
+  tie stays open: see below), no `TRIANGLE`
   without a closed triad, and no `I-POSITION` while financially dependent.
 - **Automatic channel.** It holds the seven reactive acts. Until anything is learned they are equally
   likely, except that newer acts lose availability at low functional level.
@@ -1701,6 +1719,15 @@ gap. `REDUCE_CUTOFF` is legal only across a severed tie, and it is the only act 
 severed tie is usually loaded, so without systems perspective the act carries no weight (`M4.D.3b`). In
 this family, therefore, a cutoff is still not reopened without a coach. That follows from the gate as
 written; it is not a rule against reopening.
+
+*From Phase D (B4, owner decisions P1 and P2):*
+- **A cut tie stays open.** Every act stays legal on it except `I-POSITION`, since a sequence cannot run across a
+  cut tie. `REDUCE_CUTOFF` is legal only there. This supersedes the two paragraphs above.
+- **Refusal.** While the cutter's rejection is above a threshold, what the rejected person sends is refused, at
+  their own cost. Pursuing a person who has cut you off raises their rejection.
+- **Fading.** Unrenewed rejection fades week by week, and the tie reopens at zero.
+- **The pull.** While the tie is cut, neither member rests at any contact, so both members' "too little" side grows
+  (`M4.C.1c`). Reopening the tie relieves it. No pull term is written.
 
 **The `I-POSITION` sequence, as built (Phase C step 8, 2026-10-07).** Every form and rate is `[I]`.
 - **The assertion form.** A person without systems perspective, or angry on the tie, does not run a

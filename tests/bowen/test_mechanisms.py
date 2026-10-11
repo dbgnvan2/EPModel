@@ -266,20 +266,20 @@ def test_m1f9_binder_unavailable_returns_held_anxiety_to_budget():
 
 
 def test_m1b3_four_tie_states_are_distinct():
-    """Cut off and resolved low-contact both carry no events; only energy separates them."""
+    """Cut off and resolved low-contact both rest at no contact; energy separates them."""
     state = fresh()
     ana = state.people[ANA]
     cut_off = state.ties[ANA_BRUNO]
-    resolved = dataclasses.replace(cut_off, tie_state=TieState.RESOLVED_LOW_CONTACT, interactive=True, bond_energy=10.0)
+    resolved = dataclasses.replace(cut_off, tie_state=TieState.RESOLVED_LOW_CONTACT, rejection={}, bond_energy=10.0)
     assert tie_term(ana, cut_off, 0, PARAMS) > tie_term(ana, resolved, 0, PARAMS)
-    # A delivered CUTOFF makes a tie cut off and non-interactive, and keeps it.
+    # M1.B.3c: a delivered CUTOFF makes a tie cut off and keeps its energy; the tie stays open.
     act(state, Selection(RAVI, "CUTOFF", (SOFIA,), 4.0), VIS)
     batch = state.queue.release(1) + state.queue.release(2)
     state.tick = 2
     record_deliveries(state, batch)
     apply_delivered_cutoffs(state, batch, PARAMS)
     tie = state.ties[TieId.of(RAVI, SOFIA)]
-    assert tie.tie_state is TieState.CUT_OFF and not tie.interactive and tie.bond_energy == 40
+    assert tie.tie_state is TieState.CUT_OFF and tie.interactive and tie.bond_energy == 40
 
 
 def test_m1b4_reunion_restores_coupling_immediately():
@@ -416,7 +416,7 @@ def _checked(state, mutate=None, steps=("standing_load", "deliver")):
 def test_m4g2_invariants_asserted_every_tick():
     record = _checked(fresh())
     statuses = dict(record.results)
-    assert set(statuses) == {f"M6.I.{i}" for i in range(1, 9)}
+    assert set(statuses) == {f"M6.I.{i}" for i in range(1, 9)} | {"M1.B.3c"}  # cut off ⇔ rejection held (B4)
     assert statuses["M6.I.6"].value == "passed"  # restated at revision 12, asserted from Phase C step 10
     assert all(s.value == "passed" for k, s in statuses.items() if k != "M6.I.6")
 

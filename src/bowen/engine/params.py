@@ -104,6 +104,13 @@ class EngineParams:
     exchange_budget_reduction: float # M6.I.1, M5.D.7 — what a completed differentiating exchange removes from the budget
     contact_excess_exponent: float         # M1.E.8 — past the optimum, landing falls as (optimum / n) ** this
     belief_rate: float                     # M9.8 — share of the gap to a witnessed observation closed per tick, at full fidelity
+    rejection_cutoff_gain: float           # M1.B.3c — the cutter's rejection a CUTOFF adds per unit strength
+    rejection_refusal_gain: float          # M1.B.3c — rejection each refused move adds per unit strength
+    rejection_relief: float                # M1.B.3c, M5.B.3 — rejection an accepted REDUCE_CUTOFF removes per unit strength
+    refusal_cost_gain: float               # M1.B.3c — the refused sender's acute anxiety per unit strength × conductance × steepness
+    declared_rejection: float              # M1.B.3c — each member's rejection on a tie the family declares cut off
+    rejection_refusal_threshold: float     # M1.B.3c, revision 16 — rejection above which a move is refused
+    rejection_fade: float                  # M1.B.3c, revision 16 — rejection lost per week
 
     def __post_init__(self) -> None:
         for name in (
@@ -160,13 +167,18 @@ class EngineParams:
         for name in ("witness_weight", "calm_transfer_rate", "symptom_leak_rate", "symptom_rearm_fraction",
                      "reactive_rate", "investment_leak_rate", "attention_gain", "belief_rate",
                      "distance_binding_rate", "triangle_transfer_rate", "balance_push_gain", "balance_settle_rate",
-                     "balance_harden_rate", "reversal_asymmetry"):
+                     "balance_harden_rate", "reversal_asymmetry", "rejection_cutoff_gain",
+                     "rejection_refusal_gain", "rejection_relief", "rejection_fade"):
             if not 0.0 <= getattr(self, name) <= 1.0:
                 raise ValueError(f"{name} must be in [0, 1]")
         if min(self.defence_threshold, self.perspective_anxiety_scale, self.symptom_threshold_gain) <= 0:
             raise ValueError("defence_threshold, perspective_anxiety_scale and symptom_threshold_gain must be positive")
         if self.reappraisal_window < 1 or self.speaker_echo_gain < 0 or self.symptom_event_intensity < 0:
             raise ValueError("reappraisal_window >= 1; speaker_echo_gain and symptom_event_intensity non-negative")
+        if self.refusal_cost_gain < 0 or not 0.0 < self.declared_rejection <= 1.0:
+            raise ValueError("refusal_cost_gain must be non-negative and declared_rejection in (0, 1]")
+        if not 0.0 <= self.rejection_refusal_threshold < 1.0:
+            raise ValueError("rejection_refusal_threshold must be in [0, 1)")
         if self.triangle_activity_window < 1:
             raise ValueError("triangle_activity_window must be at least 1")
         if self.hardening_run_length < 2:

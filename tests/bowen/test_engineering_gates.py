@@ -120,7 +120,7 @@ def test_m11d2_check_catches_a_literal_in_the_policy(tmp_path):
 
 # --- M11.D.8 / M11.D.9 --------------------------------------------------------------------------
 
-EXPECTED_SPEC_REFERENCES = 583  # M11.D.9: an exact count, not a floor; update it when references change
+EXPECTED_SPEC_REFERENCES = 600  # M11.D.9: an exact count, not a floor; update it when references change
 
 
 def spec_anchors() -> set[str]:
@@ -198,7 +198,9 @@ def test_m11d16_symmetric_family_is_permutation_equivariant():
     """In distribution, not byte for byte (P7): keyed draws are keyed by identifier."""
     dyad = CONFIG_DIR / "fixtures" / "dyad.md"
     a, b = [], []
-    for seed in range(40):
+    # 200 seeds, not 40: from Phase D B4 a cut-off tie stays cut for weeks, which widens the spread, and seeds 0-39
+    # alone fell 4.0 standard errors apart. Measured 2026-10-11 over 1,000 seeds: difference 0.03, standard error 0.14.
+    for seed in range(200):
         state = policy_run(seed=seed, weeks=30, family_path=dyad)
         a.append(state.people[P("a")].acute_anxiety)
         b.append(state.people[P("b")].acute_anxiety)

@@ -180,10 +180,10 @@ def test_m1f4_fidelity_degrades_per_private_hop(vis):
     assert vis.fidelity_for((ANA, SOFIA)) < vis.fidelity_for((ANA,)) < vis.fidelity_for(())
 
 
-def test_m1b3_no_move_crosses_a_cut_off_tie(family, vis):
-    """Review finding (2026-10-06): Ana's CONFLICT reached Bruno across the cut-off tie."""
-    with pytest.raises(InactiveTie):
-        vis.resolve(move(ANA, (BRUNO,)), family.people, family.ties)
+def test_m1b3c_a_move_crosses_a_cut_off_tie_but_not_a_worry_edge(family, vis):
+    """M1.B.3c (Phase D B4): a cut-off tie is rejection, not severing, so a move reaches the cutter and is refused
+    there (``rejection.refuse``). Only a non-interactive tie — a worry edge (M4.A.4) — carries nothing."""
+    assert vis.resolve(move(ANA, (BRUNO,)), family.people, family.ties).deliveries
     ties = dict(family.ties)
     ties[TieId.of(RAVI, MARTA)] = dataclasses.replace(ties[TieId.of(RAVI, MARTA)], interactive=False)
     with pytest.raises(InactiveTie):

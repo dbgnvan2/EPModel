@@ -2,6 +2,8 @@
 
 > ## ▶ STATE — the corpus is closed and the spec is current. **Phase C is closed with its gate failing (owner decision, 2026-10-09).**
 >
+> **2026-10-11 — spec revision 16:** graded rejection. `M1.B.3c`'s refusal holds only above a threshold, and rejection fades weekly unless renewed (owner decision, after B4 as first built left most ties cut off). No new IDs.
+>
 > **2026-10-11 — spec revision 15 (546 unique IDs, 46 acceptance criteria):** the owner approved the Phase D definitions (C.14, C.23, C.28) and the new `M11.C.46`, which proves the triangle change.
 >
 > **2026-10-10 — Phase D plan approved; spec revisions 13 and 14 (545 unique IDs); run visualization built.**

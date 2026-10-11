@@ -44,6 +44,6 @@ undifferentiation_budget: 90
 | `marta` | `pia` | parent_of | 1.0 | 50 | 1 | ordinary | yes |
 | `ana` | `marta` | parent_of | 0.6 | 40 | 1 | ordinary | yes |
 | `sofia` | `ravi` | parent_of | 0.6 | 40 | 2 | ordinary | yes |
-| `ana` | `bruno` | sibling | 0.8 | 55 | 1 | cut_off | no |
+| `ana` | `bruno` | sibling | 0.8 | 55 | 1 | cut_off | yes |
 | `halim` | `ravi` | professional | 0.3 | 10 | 1 | ordinary | yes |
 | `halim` | `marta` | professional | 0.3 | 10 | 1 | ordinary | yes |

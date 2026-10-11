@@ -203,8 +203,8 @@ def build_family(text: str, constants: Constants, *, source: str = "<family>") -
         relation = _choice(row["relation"], relations_by_value, where, "relation")
         state = _choice(row["tie_state"], states, where, "tie_state")
         interactive = _choice(row["interactive"], _YES_NO, where, "interactive")
-        if state is TieState.CUT_OFF and interactive:
-            raise ConfigError(f"{where}: a cut-off tie carries no events, so it cannot be interactive (M1.B.3)")
+        if state is TieState.CUT_OFF and not interactive:
+            raise ConfigError(f"{where}: a cut-off tie is rejection, not severing, so it stays interactive (M1.B.3c)")
         try:
             ties[tie_id] = Relationship(
                 id=tie_id,

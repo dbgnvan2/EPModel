@@ -19,6 +19,7 @@ from src.bowen.engine.initialise import initialise_run
 from src.bowen.engine.moves import DEFAULT_AREA, apply_move_effects, settle_functioning
 from src.bowen.engine.objects import TieState
 from src.bowen.engine.recompute import recompute_triangles
+from src.bowen.engine.rejection import raise_rejection
 from src.bowen.engine.state import new_run_state
 from src.bowen.io.load import load_constants, load_event_kinds, load_family
 from src.bowen.scenario.params import engine_params
@@ -239,7 +240,7 @@ def test_m6i4_pseudo_self_moves_with_functional_level_and_is_conserved():
 
 def cut_with_bound(state, held=6.0):
     tie = state.ties[MARITAL]
-    tie.interactive, tie.tie_state = False, TieState.CUT_OFF
+    raise_rejection(tie, MARTA, PARAMS.rejection_relief)  # one accepted REDUCE_CUTOFF reopens it
     tie.distance_bound_anxiety = held
 
 

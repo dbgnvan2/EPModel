@@ -198,6 +198,11 @@ class Relationship:
     felt_contact: dict[PersonId, float] = field(default_factory=dict)
     felt_impingement: dict[PersonId, float] = field(default_factory=dict)
     distance_bound_anxiety: float = 0.0
+    # M1.B.3c (Phase D plan B4): how hard each member rejects the other, in [0, 1]. The tie is cut while either
+    # member holds any; it stays interactive. Written by ``rejection``, a delivered CUTOFF and REDUCE_CUTOFF.
+    rejection: dict[PersonId, float] = field(default_factory=dict)
+    # M1.B.3c: the state a cutoff replaced (ordinary or distant), restored when no rejection is left.
+    uncut_state: TieState = TieState.ORDINARY
     functioning_balance: dict[str, float] = field(default_factory=dict)
     # M1.B.6, L05.3: the hardened configuration a flipped balance reverts toward unless sustained.
     functioning_habit: dict[str, float] = field(default_factory=dict)
@@ -207,6 +212,10 @@ class Relationship:
     dyad_age: int = 0
     basic_togetherness: float | None = None
     functional_togetherness: float | None = None
+
+    def rejected(self) -> bool:
+        """M1.B.3c: the tie is cut off while either member holds rejection."""
+        return any(v > 0 for v in self.rejection.values())
 
     def __post_init__(self) -> None:
         # M3.C.2: a whole number of fast ticks, at least one.

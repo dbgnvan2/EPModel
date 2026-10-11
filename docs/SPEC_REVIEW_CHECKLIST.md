@@ -1,7 +1,6 @@
 # Spec review checklist
 
-This file is the index to every document that defines, justifies or records the agent model. It is the starting
-point for a review of the spec and, after that, a review of runs against the spec.
+This file is the index to every document that defines, justifies or records the agent model. It is the starting point for a review of the spec and, after that, a review of runs against the spec.
 
 **This list is kept current.** Every file under `docs/` and `config/bowen/` must be linked here, either as a document
 to review or under "Not for review". `tests/test_doc_checklist.py` fails when a file is added, renamed or removed
@@ -41,14 +40,11 @@ These define what the model does. A run that disagrees with them is a defect.
 
 ## Part 2 — Why the contract says what it says
 
-Check the spec against these: that every claim marked as sourced is sourced, and that every approved decision
-reached the spec.
+Check the spec against these: that every claim marked as sourced is sourced, and that every approved decision reached the spec.
 
-- [ ] [model_explainer.md](model_explainer.md) — every part of the model: what it is for, what it does, which
-      chapter it implements, and its evidence grade. Read it beside the spec. §19 is set / random / emergent.
+- [ ] [model_explainer.md](model_explainer.md) — every part of the model: what it is for, what it does, which chapter it implements, and its evidence grade. Read it beside the spec. §19 is set / random / emergent.
 - [ ] [theory/_LEDGER.md](theory/_LEDGER.md) — what the six corpus sources say. The source of truth for citations.
-- [ ] [theory/_CONVERGENCES.md](theory/_CONVERGENCES.md) — the ten cross-chapter convergences and the independence
-      audit.
+- [ ] [theory/_CONVERGENCES.md](theory/_CONVERGENCES.md) — the ten cross-chapter convergences and the independence audit.
 - [ ] [theory/_STATUS.md](theory/_STATUS.md) — run state, standing decisions, order of work.
 - [ ] [theory/_RESOLUTIONS.md](theory/_RESOLUTIONS.md) — how the live contradictions were resolved.
 - [ ] [theory/_PASS2_CORRECTIONS.md](theory/_PASS2_CORRECTIONS.md) — corrections to the first extraction pass.
@@ -89,7 +85,7 @@ What is built:
 The runs:
 
 - [ ] [review/phase_c_trace_seed7.md](review/phase_c_trace_seed7.md) — the readable 104-week trace (M16).
-- [ ] [review/phase_c_famdiag_seed7.json](review/phase_c_famdiag_seed7.json) — the same run as a fam-diag diagram; open it in fam-diag (`tools/famdiag_export.py`).
+- [ ] [review/phase_c_famdiag_seed7.json](review/phase_c_famdiag_seed7.json) — the same run as a fam-diag diagram; open it in EPModel Fam-Diag (`../epmodel-fam-diag`, port 5174; `tools/famdiag_export.py`).
 - [ ] [phase_c_ensemble_record.md](phase_c_ensemble_record.md) — criterion results over seeds.
 - [ ] [phase_c_mutation_record.md](phase_c_mutation_record.md) — each criterion proved failing by mutation.
 - [ ] [phase_c_sweep_record.md](phase_c_sweep_record.md) — parameter sweeps.

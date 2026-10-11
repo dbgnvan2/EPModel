@@ -147,11 +147,11 @@ Phase C steps 0–16 are built. **Its gate does not pass** (`docs/phase_c_comple
 - [ ] **The pattern readouts read `state.tick` as "now"**, but after `run_tick` it is the next week's tick. The exporter
   steps it back and restores it (`tools/famdiag_export.py:simulate`). A `now` argument on the readouts would be
   cleaner. It is an engine-hash change, so do it with the next engine change.
-- [ ] **fam-diag branch `timeline-hides-ended-lines`** (4 commits, not pushed or merged). The gate was approved on
-  2026-10-10 (`docs/cycles/gate_2026-10-10_timeline-hides-ended-lines.md` in fam-diag).
-  - End-date hiding is opt-in per line (`hideAfterEnd`), so existing diagrams are unchanged.
-  - Triangle notes and events now survive File > Open.
-  - The fam-diag folder is left on `main`. Merging needs the owner's go-ahead.
+- [x] ~~**fam-diag branch `timeline-hides-ended-lines`**~~ *2026-10-10: the owner's fam-diag stays as it is. The work
+  became a separate app, **EPModel Fam-Diag**: `/Users/davemini2/ProjectsLocal/epmodel-fam-diag`, port 5174,
+  private repository `dbgnvan2/epmodel-fam-diag`. Its gate file is
+  `docs/cycles/gate_2026-10-10_timeline-hides-ended-lines.md` there. The branch was removed from fam-diag, and fam-diag's
+  `main` matches GitHub at `e61ae13`.*
 - [ ] **What the seed-7 picture shows**, for the owner's review. Most parent–child and marital ties go silent
   for months: Marta–Nadia has no act for up to 102 weeks, Marta–Ravi for 67. No cutoff pattern forms, although there are 62
   CUTOFF acts: no one refuses 3 approaches in 4 weeks. Sofia → Ravi projection holds for 20 blocks.

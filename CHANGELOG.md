@@ -21,8 +21,10 @@ All notable changes to this project are recorded here. Dates are ISO.
   - One fam-diag year is one 4-week block, 2001–2026.
   - The drawing rules are in `config/viz/famdiag.md`, outside the engine hash.
   - Every line traces back to the run's acts (`tests/bowen/test_famdiag_export.py`).
-- **fam-diag** (V6, branch `timeline-hides-ended-lines`, not pushed): an ended line and a dated triangle hide after
-  their end year.
+- **EPModel Fam-Diag** (V6): a separate copy of fam-diag (`../epmodel-fam-diag`, port 5174, private repository
+  `dbgnvan2/epmodel-fam-diag`), so the owner's fam-diag stays as it is.
+  - A line marked `hideAfterEnd` hides after its end year, and a dated triangle shows only inside its span.
+  - Triangles keep their notes and events on load.
 - **Opened in fam-diag** (V7): blocks 1, 13 and 26 match the export, and the trace agrees at blocks 9 and 26.
 
 ## [Unreleased] — 2026-10-08

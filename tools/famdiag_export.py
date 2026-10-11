@@ -7,7 +7,9 @@ Tests:   tests/bowen/test_famdiag_export.py
 
     python3 tools/famdiag_export.py [--seed 7]
 
-Writes ``docs/review/phase_c_famdiag_seed<seed>.json``; open it in fam-diag with File > Open.
+Writes ``docs/review/phase_c_famdiag_seed<seed>.json``. Open it with File > Open in **EPModel Fam-Diag**
+(``/Users/davemini2/ProjectsLocal/epmodel-fam-diag``, http://localhost:5174). That app is a copy of fam-diag whose
+timeline hides a line after its end year when the line sets ``hideAfterEnd``. The owner's fam-diag is not changed.
 
 What it draws, and from where:
 - **People and relationship lines** from the run's family file, plus the reference family

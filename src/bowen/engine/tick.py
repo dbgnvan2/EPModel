@@ -36,8 +36,9 @@ The nine steps, and where each lives:
                               (M1.B.3c); ``learner.learn`` (M4.D.6,
                               crediting the tick's felt change); then the invariants assert
 
-The slow tick (M3.B.1) fires after the 52nd, 104th, … fast tick. In Phase B it
-does nothing but record that it fired; its contents are Phase D.
+The slow tick (M3.B.1) fires after the 52nd, 104th, … fast tick (``slow_tick.run_slow_tick``,
+Phase D plan B5): the basic-level estimator, chronic anxiety's fall with a rise, tie wear and
+dyad age. Each week's history for the estimator is recorded first (``slow_tick.record_week``).
 """
 
 from __future__ import annotations
@@ -55,6 +56,7 @@ from src.bowen.engine.identifiers import PersonId
 from src.bowen.engine.invariants import assert_invariants, snapshot
 from src.bowen.engine.external import apply_landed_contacts
 from src.bowen.engine.sinks import allocate_sinks
+from src.bowen.engine.slow_tick import record_week, run_slow_tick
 from src.bowen.engine.iposition import advance_sequences, redirect_to_sequence_tie, sequence_selections
 from src.bowen.engine.learner import learn, register_acts
 from src.bowen.engine.moves import apply_move_effects, settle_functioning
@@ -145,6 +147,8 @@ def run_tick(
     records += recompute_triangles(state, params)
     steps.append("triangles")
 
+    # M1.A.4k: the load each person carries as they choose, for the estimator's history.
+    load_at_selection = {pid: max(0.0, p.acute_anxiety - p.chronic_anxiety) for pid, p in state.people.items()}
     # 7 — select. I-POSITION sequences move on first; a person owed a step this week has it
     # as the week's outcome, and the source selects for everyone else (M5.D.9).
     records += advance_sequences(state, params)
@@ -187,9 +191,11 @@ def run_tick(
     records += learn(state, start_acute, params)
     steps.append("consolidate")
     records.append(assert_invariants(state, before, loaded, tuple(steps), params.invariant_tolerance, tuple(records)))
-
+    record_week(state, params, load_at_selection, selections, batch)
+    # The slow tick (M3.B.1, plan B5): after the fast tick's invariants, at the end of week 51, 103, … — week 0 is
+    # the start, not a step (M2.A.0b). It checks its own invariants.
     if (state.tick + 1) % params.slow_tick_fast_ticks == 0:
-        records.append(EffectRecord(state.tick, "slow_tick", None))
+        records += run_slow_tick(state, params)
 
     for record in records:
         emitter.emit(record)

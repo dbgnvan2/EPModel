@@ -245,7 +245,9 @@ def _system_rows(effect: EffectRecord, names: _Names) -> list[str]:
     elif effect.mechanism == "differentiating_exchange":
         rows += [f"undifferentiation budget {_signed(v)} (a completed differentiating exchange)" for _, v in effect.sinks]
     elif effect.mechanism == "slow_tick":
-        rows.append("slow tick (yearly) fired — nothing runs on it in Phase B")
+        worn = sum(1 for _, field, _ in effect.ties if field == "conductance")
+        rows.append(f"slow tick (yearly): {worn} ties wore (conductance); every dyad a year older")
+        rows += [f"{names(p)} {field.replace('_', ' ')} {_signed(v)}" for p, field, v in effect.people]
     elif effect.mechanism not in SYSTEM_SUMMARISED:
         raise UnrenderableRecord(f"no template for weekly mechanism {effect.mechanism!r}")
     return [f"| {effect.tick} | — | (system) | — | — | {text} |" for text in rows]

@@ -1,7 +1,7 @@
 # Implementation plan — Phase D
 
 > **Status: approved by the owner, 2026-10-10 ("Proceed"), with the decisions in §1a.** P9 (C.7's direction) is open
-> pending details; P13–P16 wait for D-II. **Built:** B1 and B2 (2026-10-10/11); B3 and B4 (2026-10-11, spec revision 16).
+> pending details; P13–P16 wait for D-II. **Built:** B1 and B2 (2026-10-10/11); B3 and B4 (2026-10-11, spec revision 16); B5 and B6 (2026-10-11).
 > Spec: `docs/bowen_agent_model_spec_v2.md`, revision 13. Phase C closed with its gate failing (owner decision,
 > `docs/phase_c_completion_report.md` §13). Spec IDs are used verbatim. The inventories behind this plan were made on
 > 2026-10-10 from the spec, `src/bowen`, `TODO.md` and the Phase C documents; their findings are cited where used.
@@ -279,6 +279,24 @@ self-directed selection is logged self-directed.
   - `M7.E.4`'s conductance decay (P6);
   - `dyad_age`;
   - the life-stage update hook, which stays empty until D-II.
+- **Build notes (2026-10-11; each choice `[I]`, for the owner to correct):**
+  - **Where it runs.** At the end of every 52nd fast tick, after that tick's invariants, as its own step. A
+    slow-tick invariant check runs after it:
+    - `basic_level` only rose;
+    - nobody financially dependent rose;
+    - `chronic_anxiety` never rose.
+  - **Chronic anxiety (P5, `M7.B.1`).** It changes only when `basic_level` rises, keeping its share of the distance to
+    the top of the scale: `chronic × (100 − new) / (100 − old)`. It never drifts and never rises. Nobody is born in a
+    D-I run, so P5's derivation for the newborn is a hook for D-II.
+  - **Tie wear (P6, `M7.E.4`).**
+    - **The rate:** each slow tick, conductance falls by `tie_wear_rate × (mean chronic anxiety of the two) / 100` of
+      itself.
+    - **The offset:** that loss is reduced by `wear_offset_per_act` for each `STAY-IN-CONTACT` sent on the tie that
+      year, down to none.
+    - **Not covered:** completed exchanges also offset in the spec, but they are not counted yet, since no exchange
+      is logged per tie.
+    - Bond energy is untouched (`M1.B.4`).
+  - **`dyad_age`** counts slow ticks. Nothing reads it yet.
 
 ### B6. The estimator (`M1.A.4a`–`4c`, `M7.A.1a`; P4)
 - A per-person history of `functional_level` and the load that tick imposed, kept in state.
@@ -289,6 +307,44 @@ self-directed selection is logged self-directed.
   - a benign window does not raise `basic_level`;
   - a nodal-loaded, stable window does;
   - a dependent twin does not.
+- **Build notes (2026-10-11; each choice `[I]`, for the owner to correct):**
+  - **The history.** Kept per person, for each fast tick of the last `estimator_window` slow ticks:
+    - `functional_level` at the end of the week;
+    - the load carried that week: excess acute anxiety over the chronic floor, at selection;
+    - which channel the person acted in (self-directed, `WITHHOLD`, or automatic). A scripted act counts by its
+      kind, since a criterion arm that scripts `I-POSITION` or exchanges is declaring that behaviour (C.18, C.33);
+    - the kinds of nodal event that reached them: the exogenous stressors delivered to them.
+  - **The estimate, on each slow tick once the window is full** (so from the third slow tick):
+    - load-weighted mean `m` and standard deviation `sd` of `functional_level`, weighted by load (`M1.A.4b`);
+    - breadth `b`: the number of distinct *kinds* of nodal event in the window. A stressor that recurs is one
+      situation: the Phase C spell, a job loss every two weeks, would otherwise count 78 "situations" in three years;
+    - self-directed share under load `q`: the load-weighted share of weeks acted in the self-directed channel or
+      withheld (`M1.A.4h`'s primary signal);
+    - evidence `e = m − estimator_sd_weight × sd − basic_level`.
+  - **The update.** `basic_level` rises by `estimator_rate × (basic_level / 100) × q × e` only if all of these hold:
+    - `e > 0`;
+    - `b ≥ estimator_breadth`;
+    - the person is not financially dependent (`M7.A.1a`).
+
+    The factor `basic_level / 100` is `M1.A.4d`'s falloff toward the bottom, with no hard gate.
+  - **`basic_level` does not fall in D-I.** A fall belongs to the child's estimator in D-II (`M7.E.1`). With
+    `functional_level` mostly at or below `basic_level` under load, a two-way estimator would pull every adult down
+    each year.
+  - **A known limit, for C.18 and C.20.** Anxiety does not move `functional_level` in the engine. Only borrowing
+    (over- and underfunctioning) and `I-POSITION` exchanges and pull-ups do. So load weighting can separate a
+    borrowed gain from a basic one only where the borrowing reverts under load. C.18 and C.20 will show whether it
+    does. If not, that is a finding for the owner, not something to tune.
+  - **Sensitivity (`M1.A.4c`):** window and breadth join the sweep record when C.18 is built, since no criterion reads
+    the estimator before then.
+  - **Review (2026-10-11).** No scenario has more than one kind of nodal event, so no rise has happened. That is the
+    breadth gate, not a result. Without a coach, evidence is already positive for several people, so C.17 must be
+    built with three nodal kinds in both arms (`TODO.md`).
+  - **Fixes from the review:**
+    - only a `STAY-IN-CONTACT` that reached the other offsets tie wear;
+    - the history test exercises a stressor and the channel;
+    - `dyad_age` is logged.
+    - contact is counted in the year it arrives.
+  - **Records regenerated (2026-10-11):** no Phase C verdict moved from the B4 records.
 
 ### B7. Symptom channels (`M7.D.2`, `2a`–`2d`, `M7.D.4`, `M1.A.11c`)
 - Load can move between the three channels.

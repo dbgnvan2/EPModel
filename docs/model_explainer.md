@@ -223,6 +223,27 @@ The **self-directed channel** (§5.2) writes the **swing** directly — a person
 - `[#]` `KS05.10`, `KS11.7` — the observables and their **asymmetric** reading rules: occupation is uninformative when high but informative when **low despite opportunity**; health is read through the **adaptation**, not the diagnosis; longevity is **not** a proxy, but a long-lived generation above a dysfunctional one is *evidence of projection*; **both** tails of courtship length are informative. `M1.A.4e`
 - `[T]` `KS06.8` — contexts are **not** comparable: "*In terms of solid self, one's personal life is where the rubber meets the road*", and occupational success "*is not a reliable measure*."
 
+**As built (Phase D B6, 2026-10-11; spec `M1.A.4k`; every form `[I]`).** Once a year the slow tick reads each person's
+last three years of weeks:
+- **What it reads:**
+  - the load-weighted mean and spread of `functional_level`;
+  - how many **kinds** of nodal event reached them (a recurring stressor is one situation);
+  - the load-weighted share of weeks they acted **self-directed or withheld**, which is `M1.A.4h`'s channel signal.
+- **When it rises.** `basic_level` rises only if all of these hold:
+  - the mean, less one spread, is above the current level;
+  - at least three kinds of nodal event reached them;
+  - they are not financially dependent.
+- **How far:** half the gap a year, scaled by the self-directed share and by `basic_level / 100` (the falloff toward the
+  bottom, `M1.A.4d`).
+- **A benign window carries no load, so no evidence.** `basic_level` does not fall in D-I; falls belong with the
+  child's estimator in D-II.
+- **No rises yet, and that is not a result.** No scenario has more than one kind of nodal event, so the breadth gate
+  is never met. Without a coach, several people already show positive evidence. `M11.C.17` (no coach-free drift) is
+  untested until a window holds three kinds.
+- **A limit.** Anxiety does not move `functional_level` in the engine. Only over- and underfunctioning and
+  `I-POSITION` move it. So the load weighting separates a borrowed gain from a basic one only where the borrowing
+  reverts under load. `M11.C.18` and `M11.C.20` test this.
+
 ### 3.2b Which channel raised it — and why the sign of pseudo-self flips
 
 The **same** rise in `functional_level` means opposite things depending on what produced it. `M1.A.5c`
@@ -243,6 +264,14 @@ The **same** rise in `functional_level` means opposite things depending on what 
 **`programmed_reactivity`** — the disposition. Fixed in childhood from the child's own **witnessed event history**, never from a family average. `M1.A.7`
 
 **`chronic_anxiety`** — the state, **derived** each slow tick from three terms: that reactivity, **the field** (the system's differentiation and current load), and **the person's functioning position**, which changes. It acts as the floor acute anxiety decays toward but never below. `M1.A.7a`
+
+**Superseded at revision 14 for everyone past the fixation age** (owner, P5: "chronic anxiety stays fixed unless level
+of differentiation goes up"; `M7.B.1`).
+- **As built (Phase D B5):** chronic anxiety changes only when `basic_level` rises. It keeps its share of the distance
+  to 100: `chronic × (100 − new) / (100 − old)`. It never drifts and never rises.
+- **It wears on ties.** Each slow tick, a tie's conductance falls by `tie_wear_rate × mean chronic / 100` of itself, and
+  each `STAY-IN-CONTACT` on the tie that year offsets a tenth of that (`M7.E.4`). Bond energy is untouched.
+- Only a `STAY-IN-CONTACT` that reached the other offsets wear; one refused under `M1.B.3c` does not.
 
 **Why the split matters:** `[T]` `KS10.2` — "*chronic anxiety is a consequence of various types of social interaction and, consequently, is **most usefully conceptualized as a property of the emotional field***", set by two processes "*not under individual control*" — the system's differentiation, and "*the person's functioning position in the system*." A model with only the fixed childhood term cannot produce a removal that helps some members and harms others, nor a reciprocity inversion, because **both act through position**.
 

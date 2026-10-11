@@ -4,6 +4,34 @@ All notable changes to this project are recorded here. Dates are ISO.
 
 ## [Unreleased] — 2026-10-11
 
+### Phase D B5 and B6: the slow tick and the basic-level estimator
+
+- **B5, the slow tick** (`M3.B.1`; owner decisions P5, P6, P17).
+  - **When:** it runs at the end of weeks 51, 103 and so on (week 0 is the start), after the fast tick's invariants,
+    with its own invariant check.
+  - **What it does:**
+    - chronic anxiety falls only with a rise in `basic_level`;
+    - ties wear by their members' chronic anxiety, offset by `STAY-IN-CONTACT`, with bond energy untouched;
+    - `dyad_age` counts years.
+- **B6, the estimator** (`M1.A.4a`–`4d`, `4h`, `4k`, `M7.A.1a`; owner decision P4). Over three years of weekly history
+  it takes:
+  - the load-weighted mean and spread of `functional_level`;
+  - the breadth in kinds of nodal event;
+  - the self-directed share under load.
+
+  `basic_level` rises only on a loaded, stable, broad window, never for a dependent person, and never falls in D-I.
+- Six `[I]` constants.
+- **No rises yet, and that is not a result.** No scenario has more than one kind of nodal event, so the breadth gate is
+  never met. Without a coach, several people already show positive evidence. Whether the coach-free arm stays flat
+  (`M11.C.17`) is untested until a window holds three kinds (open risk in `TODO.md`).
+- **Review fixes:**
+  - a refused `STAY-IN-CONTACT` no longer offsets wear;
+  - the history test exercises a stressor, the channel and the week's own level;
+  - the one-year contact window is tested;
+  - `dyad_age` is logged;
+  - contact counts in the year it arrives.
+- **Records regenerated:** no Phase C verdict moved. Suite: 627 tests.
+
 ### Spec revision 16 and Phase D B3/B4: cutoff as rejection
 
 - **B3, channel stamping.** A policy act is logged with its kind's channel, so `I-POSITION`, `STAY-IN-CONTACT` and

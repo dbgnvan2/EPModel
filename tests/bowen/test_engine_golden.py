@@ -8,7 +8,8 @@ Tests:   this file
 **Updating a fingerprint is a decision, not a fix.** Change one only in the commit of an engine change meant to
 alter behaviour (plan B4 onward), and say in that commit which change moved it. Fingerprints first taken
 2026-10-10 at the engine of commit 713458a (spec revision 14, before B1). Moved 2026-10-11 by B3 (channel stamping:
-the log only) and B4 (cutoff as rejection, spec revisions 14 and 16: behaviour).
+the log only), B4 (cutoff as rejection, spec revisions 14 and 16: behaviour) and B5/B6 (the slow tick: tie wear
+and the estimator).
 """
 
 from __future__ import annotations
@@ -29,8 +30,8 @@ from src.bowen.scenario.scripted_source import ScriptedSource
 REPO = Path(__file__).resolve().parents[2]
 GOLDEN = {
     # (family, seed, weeks): fingerprint
-    ("phase_c", 7, 104): "1552c22a3a522517e787eb259deb5a55fa5f940bb623c8d90085b6dba51b2225",
-    ("phase_d", 11, 208): "f8f3c1902060b40c6dd306e52d2b9377a40d38c9f109485ed1023d5eaf9c47e2",
+    ("phase_c", 7, 104): "0bf4bc6c9c28dddc76f53726f6e400de5731d2c6933ddd019c07eef48bb25e9a",
+    ("phase_d", 11, 208): "749d48ac81d777cb6e2a6ed196e789308c840d6970b496eeb434e98a164c72f8",
 }
 
 

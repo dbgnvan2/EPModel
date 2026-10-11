@@ -65,6 +65,15 @@
 > about four weeks and each refusal renews it by about two; unrenewed, it is gone in ten weeks, a declared cutoff in
 > twenty. The threshold is 0.3, not the 0.5 first proposed: at 0.5 a single cutoff (exactly 0.5) refused nothing
 > (owner decision 2026-10-11). Measured in `docs/implementation_plan_phase_d.md` B4.
+>
+> **Phase D B5 and B6, 2026-10-11 — the slow tick and the estimator** (`M1.A.4k`, `M7.E.4`; owner decisions P4–P6),
+> from `estimator_window` to `wear_offset_per_act`. All `[I]`.
+> - **The estimator** reads three years of history and wants three distinct kinds of nodal event in it. It turns half of the
+>   evidence a year into a rise, scaled by the falloff and the self-directed share.
+> - **Tie wear.** At mean chronic anxiety 40, a tie loses 2% of its conductance a year; ten `STAY-IN-CONTACT` acts on it
+>   offset that year's wear entirely.
+> - **The sweep.** `M1.A.4c`'s sensitivity sweep over window and breadth is added when `M11.C.18` first reads the
+>   estimator.
 
 frozen_at: 2026-10-07
 activation_regime: synchronous
@@ -118,6 +127,12 @@ activation_regime: synchronous
 | `declared_rejection` | 1.0 | [I] | rejection, each member of a declared cut-off tie | `M1.B.3c` |
 | `rejection_refusal_threshold` | 0.3 | [I] | rejection above which a move is refused | `M1.B.3c` |
 | `rejection_fade` | 0.05 | [I] | rejection lost per fast tick | `M1.B.3c` |
+| `estimator_window` | 3 | [I] | slow ticks | `M1.A.4k` |
+| `estimator_breadth` | 3 | [I] | distinct kinds of nodal event | `M1.A.4k` |
+| `estimator_sd_weight` | 1.0 | [I] | standard deviations | `M1.A.4k` |
+| `estimator_rate` | 0.5 | [I] | share of the evidence per slow tick | `M1.A.4k` |
+| `tie_wear_rate` | 0.05 | [I] | share of conductance per slow tick at mean chronic anxiety 100 | `M7.E.4` |
+| `wear_offset_per_act` | 0.1 | [I] | share of a year's wear per STAY-IN-CONTACT | `M7.E.4` |
 | `self_channel_exponent` | 2.0 | [I] | exponent on functional_level / 100 | `M4.D.1a` |
 | `policy_temperature` | 1.0 | [I] | learned-value units | `M4.D.1` |
 | `anxiety_band_low` | 5.0 | [I] | points of excess anxiety | `M4.D.3` |

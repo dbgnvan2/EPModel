@@ -45,6 +45,8 @@ class RunState:
     triggers: list[ActiveTrigger] = field(default_factory=list)
     tick: int = 0
     draws: DrawService = field(default_factory=lambda: DrawService(0))
+    # M1.A.4k (Phase D plan B6): each person's last estimator_window slow ticks of weeks (slow_tick.Week).
+    estimator_history: dict = field(default_factory=dict)
 
     def ties_of(self, person: PersonId) -> tuple[Relationship, ...]:
         # Cached per person while the set of ties is unchanged (plan B1); the tie objects are the live ones.

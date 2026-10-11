@@ -7,7 +7,7 @@ criterion is **done** only when every entry passes in `docs/phase_c_ensemble_rec
 mutant has turned each entry red in `docs/phase_c_mutation_record.md`; the D9 sweep
 (`docs/phase_c_sweep_record.md`) is reported, not gated. Phases D and E build most of the rest.
 
-**546 IDs: 218 done, 46 partial, 282 not done.**
+**546 IDs: 226 done, 46 partial, 274 not done.**
 
 | ID | Status | Evidence | Note |
 |---|---|---|---|
@@ -25,13 +25,13 @@ mutant has turned each entry red in `docs/phase_c_mutation_record.md`; the D9 sw
 | M1.A.3a | not done | — | Phase C or D — the phase that builds its mechanism (plan Appendix B) |
 | M1.A.4 | not done | — | Phase C or D — the phase that builds its mechanism (plan Appendix B) |
 | M1.A.4a | not done | — | Phase C or D — the phase that builds its mechanism (plan Appendix B) |
-| M1.A.4b | not done | — | Phase C or D — the phase that builds its mechanism (plan Appendix B) |
+| M1.A.4b | done | `tests/bowen/test_slow_tick.py::test_m1a4b_a_benign_window_does_not_raise_basic_level` | — |
 | M1.A.4c | not done | — | Phase C or D — the phase that builds its mechanism (plan Appendix B) |
-| M1.A.4k | not done | — | Phase C or D — the phase that builds its mechanism (plan Appendix B) |
-| M1.A.4d | not done | — | Phase C or D — the phase that builds its mechanism (plan Appendix B) |
+| M1.A.4k | done | `tests/bowen/test_slow_tick.py::test_m1a4k_a_loaded_stable_broad_window_raises_basic_level`<br>`tests/bowen/test_slow_tick.py::test_m1a4k_a_recurring_stressor_is_one_situation`<br>`tests/bowen/test_slow_tick.py::test_m1a4k_an_unstable_window_raises_less`<br>`tests/bowen/test_slow_tick.py::test_m1a4k_history_records_load_channel_and_nodal_events`<br>`tests/bowen/test_slow_tick.py::test_m1a4k_the_estimator_waits_for_a_full_window` | — |
+| M1.A.4d | done | `tests/bowen/test_slow_tick.py::test_m1a4d_the_capacity_to_rise_falls_off_toward_the_bottom` | — |
 | M1.A.4e | not done | — | Phase C or D — the phase that builds its mechanism (plan Appendix B) |
 | M1.A.4g | not done | — | Phase C or D — the phase that builds its mechanism (plan Appendix B) |
-| M1.A.4h | not done | — | Phase C or D — the phase that builds its mechanism (plan Appendix B) |
+| M1.A.4h | done | `tests/bowen/test_slow_tick.py::test_m1a4h_carrying_load_counts_and_discharging_it_does_not` | — |
 | M1.A.4i | not done | — | Phase C or D — the phase that builds its mechanism (plan Appendix B) |
 | M1.A.4j | not done | — | Phase C or D — the phase that builds its mechanism (plan Appendix B) |
 | M1.A.4f | not done | — | Phase C or D — the phase that builds its mechanism (plan Appendix B) |
@@ -160,7 +160,7 @@ mutant has turned each entry red in `docs/phase_c_mutation_record.md`; the D9 sw
 | M2.B.1 | done | `tests/bowen/test_family.py::test_m2b1_only_declared_ties_are_instantiated` | — |
 | M2.B.2 | not done | — | Phase D — the twelve-person reference family |
 | M3.A.1 | done | `tests/bowen/test_config.py::test_m3a1_fast_tick_is_one_week_and_graded_invented`<br>`tests/bowen/test_tick.py::test_m3a1_one_record_per_fast_tick` | — |
-| M3.B.1 | done | `tests/bowen/test_config.py::test_m3b1_slow_tick_is_52_fast_ticks`<br>`tests/bowen/test_tick.py::test_m3b1_slow_tick_fires_every_52_fast_ticks` | — |
+| M3.B.1 | done | `tests/bowen/test_config.py::test_m3b1_slow_tick_is_52_fast_ticks`<br>`tests/bowen/test_slow_tick.py::test_m3b1_a_long_run_keeps_its_slow_invariants`<br>`tests/bowen/test_slow_tick.py::test_m3b1_slow_tick_fires_at_the_end_of_week_51_not_at_week_0`<br>`tests/bowen/test_tick.py::test_m3b1_slow_tick_fires_every_52_fast_ticks` | — |
 | M3.C.1 | done | `tests/bowen/test_events.py::test_m3c1_queue_refuses_late_or_skipped_deliveries`<br>`tests/bowen/test_events.py::test_m3c1_queue_releases_each_delivery_at_its_tick`<br>`tests/bowen/test_tick.py::test_m3c1_delivery_uses_edge_latency` | — |
 | M3.C.2 | done | `tests/bowen/test_activation_visibility.py::test_m3c2_a_move_needs_a_tie`<br>`tests/bowen/test_activation_visibility.py::test_m3c2_exogenous_event_arrives_in_its_own_tick`<br>`tests/bowen/test_activation_visibility.py::test_m3c2_target_latency_comes_from_the_tie`<br>`tests/bowen/test_activation_visibility.py::test_m3c2_witness_hears_with_the_earliest_target`<br>`tests/bowen/test_events.py::test_m3c2_delivery_tick_is_emitted_plus_latency`<br>`tests/bowen/test_objects.py::test_m3c2_latency_is_whole_ticks_at_least_one` | — |
 | M3.D.1 | done | `tests/bowen/test_tick.py::test_m3d1_steps_run_in_spec_order` | — |
@@ -285,12 +285,12 @@ mutant has turned each entry red in `docs/phase_c_mutation_record.md`; the D9 sw
 | M6.2 | not done | — | Phase C |
 | M6.4 | done | `tests/bowen/test_ledger.py::test_m64_every_stock_change_is_logged_by_name` | the table is invariants.LEDGER; Triangle.bound_anxiety is in the table but no Phase C mechanism writes it |
 | M6.3 | not done | — | open owner decision (disposition at death); blocks M11.C.37 and Phase D |
-| M7.A.1 | not done | — | Phase D |
-| M7.A.1a | not done | — | Phase D |
+| M7.A.1 | done | `tests/bowen/test_slow_tick.py::test_m7a1_basic_level_never_falls_on_the_slow_tick` | — |
+| M7.A.1a | done | `tests/bowen/test_slow_tick.py::test_m7a1a_a_dependent_twin_does_not_rise` | — |
 | M7.A.2 | not done | — | Phase D |
 | M7.A.2a | not done | — | Phase D |
 | M7.A.2b | not done | — | Phase D |
-| M7.B.1 | not done | — | Phase D |
+| M7.B.1 | done | `tests/bowen/test_slow_tick.py::test_m7b1_chronic_anxiety_falls_only_with_a_rise`<br>`tests/bowen/test_slow_tick.py::test_m7b1_slow_invariants_catch_a_rise_in_chronic_anxiety` | — |
 | M7.C.1 | not done | — | Phase D |
 | M7.C.1a | not done | — | Phase D |
 | M7.C.1b | not done | — | Phase D |
@@ -304,7 +304,7 @@ mutant has turned each entry red in `docs/phase_c_mutation_record.md`; the D9 sw
 | M7.D.2c | not done | — | Phase D |
 | M7.D.2d | not done | — | Phase D |
 | M7.D.3 | not done | — | Phase D |
-| M7.E.4 | not done | — | Phase D |
+| M7.E.4 | done | `tests/bowen/test_slow_tick.py::test_m7e4_contact_counts_in_the_year_it_lands`<br>`tests/bowen/test_slow_tick.py::test_m7e4_contact_offsets_tie_wear_only_in_its_year`<br>`tests/bowen/test_slow_tick.py::test_m7e4_refused_contact_offsets_nothing`<br>`tests/bowen/test_slow_tick.py::test_m7e4_ties_wear_by_their_members_chronic_anxiety` | — |
 | M7.D.4 | not done | — | Phase D |
 | M7.E.1 | not done | — | Phase D |
 | M7.E.1a | not done | — | Phase D |

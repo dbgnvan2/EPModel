@@ -27,6 +27,17 @@ Deferred and adjacent items. Each carries enough context to act on later without
   - **The gap:** a tie held cut by engine refusals, with fewer than 3 `CUTOFF` acts in 4 weeks, does not read as
     cutoff.
   - Raised by the B3/B4 `learning-qa` review.
+- [ ] **Open risk for `M11.C.17`: coach-free rises once breadth is met.**
+  - **Why nothing has risen:** no scenario delivers more than one kind of nodal event, so the B6 estimator's breadth
+    gate (3 kinds) is never met.
+  - **Why it is a risk:** without a coach, several people already show positive evidence and a real self-directed
+    share. The B5/B6 review saw this in ad hoc probes; no record holds it yet.
+  - **Next step:** build C.17 with at least three nodal kinds in both arms before reading this.
+- [ ] **Which mechanisms count as nodal events for the estimator** (owner, `[I]`).
+  - **Today:** only exogenous stressors.
+  - **Not counted:** structural events (deaths, departures, reconciliation, institutionalization). In the theory
+    these are the main nodal events.
+  - **When:** decide before D-II, which is when deaths start.
 - [ ] **Pre-existing unused imports in `tests/bowen/test_engineering_gates.py`:** `clamp_unit`, `dataclasses`,
   `EventStore`, `legal_outcomes`. Found while checking the B3/B4 diff. Not touched, since they predate it.
 

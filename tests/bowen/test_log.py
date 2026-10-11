@@ -91,7 +91,9 @@ def test_m16a7_header_flags_constants_changed_after_freeze():
     assert baseline == since_freeze == {"pattern_window", "pattern_min_acts", "pattern_projection_hold",
                                         "rejection_cutoff_gain", "rejection_refusal_gain", "rejection_relief",
                                         "refusal_cost_gain", "declared_rejection", "rejection_refusal_threshold",
-                                        "rejection_fade"}
+                                        "rejection_fade", "estimator_window", "estimator_breadth",
+                                        "estimator_sd_weight", "estimator_rate", "tie_wear_rate",
+                                        "wear_offset_per_act"}
     changed = dataclasses.replace(
         constants,
         values=MappingProxyType({**constants.values,

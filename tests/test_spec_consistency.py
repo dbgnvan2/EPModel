@@ -421,11 +421,12 @@ def test_m11d17_register_has_no_orphans():
 
 def test_m11d17_check_catches_a_missing_writer():
     """The check is proved able to fail: blank one writer and it must say so."""
-    text = _spec_text().replace(
-        "| `conductance` | Relationship | EX | family definition (`M1.B.2`) | B |",
-        "| `conductance` | Relationship | EX | — | B |",
-    )
-    assert "variable `conductance` has no writer" in register_orphans(text)
+    spec = _spec_text()
+    row = next(line for line in spec.splitlines() if line.startswith("| `conductance` | Relationship |"))
+    cells = row.split(" | ")
+    blanked = " | ".join(cells[:3] + ["—"] + cells[4:])  # the writer column, whatever it says today
+    assert blanked != row
+    assert "variable `conductance` has no writer" in register_orphans(spec.replace(row, blanked))
 
 
 def test_m11d17_check_catches_an_unplaced_mechanism():

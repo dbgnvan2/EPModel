@@ -1507,10 +1507,10 @@ Classes are `M14.A.1`'s four: exogenous-homogeneous (EH), exogenous-heterogeneou
 | `role` | Person | EX | family definition (`M1.A.17`) | B |
 | `sex` | Person | EX | family definition (`M1.A.21`) | B |
 | `household_id` | Person | EX | family definition; life-stage update (`M1.A.22`) | B; D |
-| `basic_level` | Person | DV | family definition at `t0`; the estimator (`M1.A.4a`, `M7.A.1`) | B; D |
+| `basic_level` | Person | DV | family definition at `t0`; the estimator on the slow tick (`M1.A.4a`, `M1.A.4k`, `M7.A.1`), which only raises it in D-I ⟦Phase D B5/B6, 2026-10-11⟧ | B; D |
 | `functional_level` | Person | DV | `basic_level` plus swing (`M1.A.5a`); swing written by consolidation and the self-directed channel; the pseudo-self exchange of `OVERFUNCTION` and `UNDERFUNCTION` (`M6.I.4`) ⟦rev12 · Phase C step 5, 2026-10-07⟧; `RESOLVE`'s pull-up (`M5.D.5`) and a completed exchange (`M5.D.7`) ⟦rev12 · Phase C step 8, 2026-10-07⟧ | B; C |
 | `acute_anxiety` | Person | DV | standing load (`M4.A.1`); base appraisal (`M4.C.1`); consolidation decay (`M1.A.8`); speaker echo (`M4.C.7`) and calm transfer (`M4.C.10`) ⟦rev12 · Phase C step 2, 2026-10-07⟧; `DISTANCE` binding (`M1.D.2a`), the `TRIANGLE` transfer and the outsider's positional anxiety (`M1.C.1`), release of tie-bound anxiety on `RECONCILIATION` and `REDUCE_CUTOFF` ⟦rev12 · Phase C step 5, 2026-10-07⟧; competing urges (`M4.D.1d`), step 7 ⟦rev12 · Phase C step 6, 2026-10-07⟧ | B; C |
-| `chronic_anxiety` | Person | DV | family definition at `t0` (`M2.A.0a`); slow-tick derivation (`M1.A.7a`) | B; D |
+| `chronic_anxiety` | Person | DV | family definition at `t0` (`M2.A.0a`); on the slow tick, only with a rise in `basic_level`, keeping its share of the distance to 100 (`M7.B.1`) ⟦Phase D B5/B6, 2026-10-11⟧ | B; D |
 | `programmed_reactivity` | Person | DV | family definition at `t0`; childhood fixation (`M1.A.7`) | B; D |
 | `outside_ness_outward` | Person | DV | initialisation from `basic_level`; step-9 drift toward the impingement the person's own moves delivered (`M1.A.9`); selection (`M5.F`, step 6). Holds outward **impingement**: low is differentiated (`M1.A.9a`) ⟦rev12 · Phase C step 3, 2026-10-07⟧; `PREPARE`'s rehearsal (`M5.D.2a`), an abort's restore (`M5.D.3`), a completed exchange (`M5.E.8`), an assertion-form claim (`M5.F.2a`) ⟦rev12 · Phase C step 8, 2026-10-07⟧ | C |
 | `outside_ness_inward` | Person | DV | initialisation from `basic_level`; step-9 drift toward `M4.C.5`'s inward reading and the person's accommodating acts (`M1.A.9`); selection (`M5.F`, step 6). Holds inward **impingement**: low is differentiated ⟦rev12 · Phase C step 3, 2026-10-07⟧; `PREPARE`'s rehearsal (`M5.D.2a`), an abort's restore (`M5.D.3`), a completed exchange (`M5.E.8`) ⟦rev12 · Phase C step 8, 2026-10-07⟧ | C |
@@ -1533,7 +1533,7 @@ Classes are `M14.A.1`'s four: exogenous-homogeneous (EH), exogenous-heterogeneou
 | `pseudo_self` | Person | DV | initialisation as the swing (`M1.A.5a`); dyadic exchange by `OVERFUNCTION` and `UNDERFUNCTION` (`M6.I.4`) ⟦rev12 · Phase C step 5, 2026-10-07⟧; estimator | C; D |
 | `alive` | Person | DV | mortality (`M7.C.1`, `M6.3`) | D |
 | `id` | Relationship | EX | family definition (`M1.B.13`) | B |
-| `conductance` | Relationship | EX | family definition (`M1.B.2`) | B |
+| `conductance` | Relationship | EX | family definition (`M1.B.2`); slow-tick wear by the members' chronic anxiety, offset by `STAY-IN-CONTACT` (`M7.E.4`) ⟦Phase D B5/B6, 2026-10-11⟧ | B; D |
 | `bond_energy` | Relationship | DV | family definition; `TRIGGER`, `RECONCILIATION` and `INSTITUTIONALIZE` handling (`M4.A.2`–`M4.A.4`) | B |
 | `interactive` | Relationship | DV | `CUTOFF`, `RECONCILIATION` and `INSTITUTIONALIZE` handling (`M4.A.3`, `M4.A.4`); `REDUCE_CUTOFF` (`M5.B.3`) ⟦rev12 · Phase C step 5, 2026-10-07⟧ | B; C |
 | `felt_contact` | Relationship | DV | contact initialisation (`M4.C.1c`); appraisal of a delivered event (`M4.C.1`); `RECONCILIATION` (`M1.B.4`); contact relaxation, step 9 (`M4.C.1c`) ⟦rev11 · Phase C step 1, 2026-10-07⟧; a genuine `I-POSITION`'s debit (`M5.E.7`) ⟦rev12 · Phase C step 8, 2026-10-07⟧ | C |
@@ -1605,7 +1605,7 @@ Classes are `M14.A.1`'s four: exogenous-homogeneous (EH), exogenous-heterogeneou
 | Outside-ness drift (`M1.A.9`, `M4.C.5`) | engine | synchronous batch, step 9 | every tick | the person's own emitted moves this tick and their kinds' components; `M4.C.5`'s inward reading from step 4 | — | `Person.outside_ness_outward`, `Person.outside_ness_inward` ⟦rev12 · Phase C step 3, 2026-10-07⟧ | C |
 | Move physics (`M1.D.2a`, `M1.C.1`, `M1.C.3a`, `M1.B.5`–`M1.B.7`, `M6.I.4`, `M5.B.3`) | engine | synchronous batch, step 4, after appraisal | a `DISTANCE`, `TRIANGLE`, `OVERFUNCTION`, `UNDERFUNCTION` or `REDUCE_CUTOFF` delivered to its target | the sender's and target's acute and chronic anxiety and `functional_level`; the tie; the triangle topology and the sender's deviation on its ties | — | `Person.acute_anxiety`, `Person.functional_level`, `Person.pseudo_self`; `Relationship.distance_bound_anxiety`, `functioning_balance`, `interactive`, `tie_state` ⟦rev12 · Phase C step 5, 2026-10-07⟧ | C |
 | Functioning settle (`M1.B.5`, `M1.B.6`) | engine | synchronous batch, step 9 | every tick | each tie's balance and habit | — | `Relationship.functioning_balance`, `Relationship.functioning_habit` ⟦rev12 · Phase C step 5, 2026-10-07⟧ | C |
-| Slow-tick hook (`M3.B.1`) | engine | slow tick | every 52 fast ticks | — | — | — | B |
+| Slow tick (`M3.B.1`, `M1.A.4k`, `M7.B.1`, `M7.E.4`) | engine | slow tick, after the fast tick's invariants | every 52 fast ticks, first at the end of week 51 (`M2.A.0b`) | each person's estimator history (`functional_level`, load at selection, channel, nodal kinds); `financially_dependent`; each tie's members' `chronic_anxiety` and the year's `STAY-IN-CONTACT` acts | — | `Person.basic_level` (up only), `Person.chronic_anxiety` (down only, with a rise); `Relationship.conductance`, `dyad_age`; its own invariant check ⟦Phase D B5/B6, 2026-10-11⟧ | D |
 | Same-tick batching (`M1.F.8`) | engine | documented composite | same-tick events | the batch | — | — | B |
 
 ---

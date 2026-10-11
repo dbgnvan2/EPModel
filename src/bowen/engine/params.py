@@ -111,6 +111,12 @@ class EngineParams:
     declared_rejection: float              # M1.B.3c — each member's rejection on a tie the family declares cut off
     rejection_refusal_threshold: float     # M1.B.3c, revision 16 — rejection above which a move is refused
     rejection_fade: float                  # M1.B.3c, revision 16 — rejection lost per week
+    estimator_window: int                  # M1.A.4k — slow ticks of functioning history the estimator reads
+    estimator_breadth: int                 # M1.A.4k — distinct kinds of nodal event the window must include
+    estimator_sd_weight: float             # M1.A.4k — how far the load-weighted spread discounts the mean
+    estimator_rate: float                  # M1.A.4k — share of the evidence a slow tick turns into a rise
+    tie_wear_rate: float                   # M7.E.4 — conductance lost per slow tick per unit mean chronic anxiety / 100
+    wear_offset_per_act: float             # M7.E.4 — share of a year's wear each STAY-IN-CONTACT on the tie offsets
 
     def __post_init__(self) -> None:
         for name in (
@@ -177,6 +183,11 @@ class EngineParams:
             raise ValueError("reappraisal_window >= 1; speaker_echo_gain and symptom_event_intensity non-negative")
         if self.refusal_cost_gain < 0 or not 0.0 < self.declared_rejection <= 1.0:
             raise ValueError("refusal_cost_gain must be non-negative and declared_rejection in (0, 1]")
+        if self.estimator_window < 1 or self.estimator_breadth < 0 or self.estimator_sd_weight < 0:
+            raise ValueError("estimator_window >= 1; estimator_breadth and estimator_sd_weight non-negative")
+        for name in ("estimator_rate", "tie_wear_rate", "wear_offset_per_act"):
+            if not 0.0 <= getattr(self, name) <= 1.0:
+                raise ValueError(f"{name} must be in [0, 1]")
         if not 0.0 <= self.rejection_refusal_threshold < 1.0:
             raise ValueError("rejection_refusal_threshold must be in [0, 1)")
         if self.triangle_activity_window < 1:

@@ -117,3 +117,9 @@
 | `rejection_refusal_threshold` | — | 0.5 | 2026-10-11 | — (new mechanism; spec revision 16, owner decision 2026-10-11: graded rejection) | no |
 | `rejection_refusal_threshold` | 0.5 | 0.3 | 2026-10-11 | — (owner decision 2026-10-11: at 0.5 a single cutoff, exactly 0.5, refused nothing; before any record was regenerated) | no |
 | `rejection_fade` | — | 0.05 | 2026-10-11 | — (new mechanism; spec revision 16, owner decision 2026-10-11: graded rejection) | no |
+| `estimator_window` | — | 3 | 2026-10-11 | — (new mechanism; Phase D B5/B6, owner decisions P4–P6) | no |
+| `estimator_breadth` | — | 3 | 2026-10-11 | — (new mechanism; Phase D B5/B6, owner decisions P4–P6) | no |
+| `estimator_sd_weight` | — | 1.0 | 2026-10-11 | — (new mechanism; Phase D B5/B6, owner decisions P4–P6) | no |
+| `estimator_rate` | — | 0.5 | 2026-10-11 | — (new mechanism; Phase D B5/B6, owner decisions P4–P6) | no |
+| `tie_wear_rate` | — | 0.05 | 2026-10-11 | — (new mechanism; Phase D B5/B6, owner decisions P4–P6) | no |
+| `wear_offset_per_act` | — | 0.1 | 2026-10-11 | — (new mechanism; Phase D B5/B6, owner decisions P4–P6) | no |

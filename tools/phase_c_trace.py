@@ -53,15 +53,8 @@ def records(seed: int, after_tick=None) -> list:
     return collector.records
 
 
-PHASE_B_FRAMING = "This run is scripted: no one in it\n> chose anything (Phase B)."
-PHASE_C_FRAMING = ("This run is not scripted: each person's outcome is\n> selected by the policy, and the automatic "
-                   "channel learns from felt relief (Phase C).")
-
-
 def trace_text(seed: int, view=None) -> str:
-    """The rendered trace, with the renderer's Phase B framing sentence replaced (it says no one chose anything,
-    which is false here). The renderer is in the engine hash, so its framing is fixed with the next engine change
-    (``TODO.md``); until then this replacement fails loudly if the sentence moves."""
+    """The rendered trace. The renderer reads from the records that the policy chose the acts (Phase D plan B2)."""
     import src.bowen.ensemble.criteria as criteria
     from src.bowen.io.load import load_family
     from src.bowen.render.trace import render
@@ -69,10 +62,7 @@ def trace_text(seed: int, view=None) -> str:
     names = load_family(criteria.FAMILIES["phase_c"]).display_names
     if view is not None and view not in names:
         raise SystemExit(f"--view {view.value!r} is not in the Phase C family: {sorted(p.value for p in names)}")
-    text = render(records(seed), names, view=view)
-    if PHASE_B_FRAMING not in text:
-        raise SystemExit("the renderer's framing changed: update PHASE_B_FRAMING in tools/phase_c_trace.py")
-    return text.replace(PHASE_B_FRAMING, PHASE_C_FRAMING)
+    return render(records(seed), names, view=view)
 
 
 def main() -> int:

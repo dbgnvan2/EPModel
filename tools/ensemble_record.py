@@ -26,7 +26,9 @@ REPO = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO))
 
 RECORD = REPO / "docs" / "phase_c_ensemble_record.md"
-HASHED_TOOLS = (Path(__file__).resolve(),)  # RULE_KEYS below is an input to the verdicts
+# RULE_KEYS is an input to every verdict; ``code_hash`` hashes its value, not this file, so the hashing code can
+# change without changing the hash (Phase D plan B2). This record's own tools add nothing beyond that.
+HASHED_TOOLS: tuple[Path, ...] = ()
 RULE_KEYS = ("ensemble_block", "ensemble_cap", "ensemble_precision", "ensemble_margin", "ensemble_alpha",
              "fallback_flag_rate", "equivalence_margin")
 
@@ -40,6 +42,7 @@ def code_hash(*tools: Path) -> str:
     ``tools/sweep_record.py``. Each record names its tools in its own ``HASHED_TOOLS``.
     """
     digest = hashlib.sha256()
+    digest.update(f"RULE_KEYS={RULE_KEYS!r}".encode())
     paths = sorted((REPO / "src" / "bowen").rglob("*.py")) + sorted((REPO / "config" / "bowen").rglob("*.md"))
     paths += sorted(Path(t).resolve() for t in tools)
     for path in paths:
@@ -51,30 +54,27 @@ def code_hash(*tools: Path) -> str:
 
 
 def code_text(path: Path) -> str:
-    """A Python file as the hash sees it: without comments, docstrings or blank lines, so editing prose in the
-    engine does not rerun every record (learnings P38). The docstrings are found with ``ast`` and the comments
-    with ``tokenize``; both report source positions, which do not change across Python versions, unlike
-    ``ast.dump``'s output. A docstring on the same line as its ``def`` is kept, with its code.
+    """A Python file as the hash sees it: its tokens without comments, docstrings or blank lines, so editing prose in
+    the engine does not rerun every record (learnings P38). Only a docstring's own token is dropped, so code sharing
+    its line stays hashed, and every other string is kept exactly, blank lines and spaces inside it included (Phase D
+    plan B2; the two gaps found 2026-10-09). Docstrings are found with ``ast``, by source position.
     """
     import ast
     import io
     import tokenize
 
     source = path.read_text(encoding="utf-8")
-    lines = source.splitlines()
-    dropped = set()
+    docstrings = set()
     for node in ast.walk(ast.parse(source)):
         if isinstance(node, (ast.Module, ast.ClassDef, ast.FunctionDef, ast.AsyncFunctionDef)) and node.body:
             first = node.body[0]
-            if (isinstance(first, ast.Expr) and isinstance(first.value, ast.Constant)
-                    and isinstance(first.value.value, str) and first.lineno != getattr(node, "lineno", 0)):
-                dropped.update(range(first.lineno, first.end_lineno + 1))
-    for token in tokenize.generate_tokens(io.StringIO(source).readline):
-        if token.type == tokenize.COMMENT:
-            row, col = token.start
-            lines[row - 1] = lines[row - 1][:col]
-    kept = [line.rstrip() for number, line in enumerate(lines, 1) if number not in dropped]
-    return "\n".join(line for line in kept if line)
+            if isinstance(first, ast.Expr) and isinstance(first.value, ast.Constant) and isinstance(first.value.value, str):
+                docstrings.add((first.value.lineno, first.value.col_offset))
+    skip = {tokenize.COMMENT, tokenize.NL, tokenize.ENCODING}
+    kept = [(token.type, token.string) for token in tokenize.generate_tokens(io.StringIO(source).readline)
+            if token.type not in skip
+            and not (token.type == tokenize.STRING and (token.start[0], token.start[1]) in docstrings)]
+    return tokenize.untokenize(kept)
 
 
 def run(workers: int, only: list[str] | None):

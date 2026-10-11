@@ -39,8 +39,18 @@ FRAMING = """\
 > not a prediction, and not a "virtual family" in the predictive sense (spec `M11.F.10`).
 > It does not concern any real family or person, and nothing here is advice (`M11.F.9`).
 > Every number in it comes from invented constants (`[I]`); only differences between
-> two runs that share them carry meaning (`M0.4`). This run is scripted: no one in it
-> chose anything (Phase B)."""
+> two runs that share them carry meaning (`M0.4`). {how}"""
+
+# The last sentence says how the run's acts were chosen, read from its own selection records (Phase D plan B2):
+# a run with any policy selection is not scripted.
+SCRIPTED = "This run is scripted: no one in it\n> chose anything (Phase B)."
+POLICY = ("This run is not scripted: each person's outcome is\n> selected by the policy, and the automatic channel "
+          "learns from felt relief (Phase C).")
+
+
+def framing(records) -> str:
+    chosen = any(isinstance(r, SelectionRecord) and r.decided_by is DecidedBy.POLICY for r in records)
+    return FRAMING.format(how=POLICY if chosen else SCRIPTED)
 
 TABLE_HEAD = "| Week | Who | Move | Toward | Witnesses | What it did |\n|---|---|---|---|---|---|"
 
@@ -260,7 +270,7 @@ def render(
     lines = [
         "# Run trace" + (f" — {label(view)}'s view" if view else ""),
         "",
-        FRAMING,
+        framing(records),
         "",
         "| Header | |",
         "|---|---|",

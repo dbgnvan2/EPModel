@@ -29,6 +29,7 @@ These define what the model does. A run that disagrees with them is a defect.
 - [ ] [../config/bowen/policy.md](../config/bowen/policy.md) — the selection policy.
 - [ ] [../config/bowen/family_phase_c.md](../config/bowen/family_phase_c.md) — the family run in Phase C.
 - [ ] [../config/bowen/family_phase_d.md](../config/bowen/family_phase_d.md) — the owner's reference family (spec `M2.A`, revision 13); not yet run.
+- [ ] [../config/bowen/pattern_acts.md](../config/bowen/pattern_acts.md) — which acts each pattern readout counts.
 - [ ] [../config/bowen/family_reduced.md](../config/bowen/family_reduced.md) — the reduced family.
 - [ ] [../config/bowen/fixtures/](../config/bowen/fixtures/) — the test families (dyad, triad, nuclear four) the
       criteria run on.

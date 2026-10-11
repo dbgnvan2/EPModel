@@ -57,6 +57,8 @@ def tick_of(record) -> int:
         return record.event.timestamp
     if isinstance(record, DeliveredRecord):
         return record.delivery.delivered_tick
+    if not hasattr(record, "tick"):
+        raise TypeError(f"{type(record).__name__} has no tick")  # a LogHeader: total, not a silent default
     return record.tick
 
 
@@ -97,8 +99,7 @@ def test_m11c45_triangle_rate_is_per_person_week():
         rate = arm_spell_triad(arm, 3, {"weeks": weeks}).readouts["triangle_rate"]
         spells = spell("triad", weeks) if arm == "treatment" else ()
         _, records = scenario("triad", 3, weeks, spells=spells)
-        triangles = sum(1 for r in records if isinstance(r, EmittedRecord) and r.event.mechanism is Mechanism.MOVE
-                        and r.event.kind == "TRIANGLE" and r.event.sender in {*PAIR, THIRD})
+        triangles = sum(1 for e in criteria.moves_by(records, {*PAIR, THIRD}) if e.kind == "TRIANGLE")
         assert triangles > 0 or arm == "baseline"
         assert rate * 3 * weeks == pytest.approx(triangles)
 

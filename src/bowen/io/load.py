@@ -86,6 +86,24 @@ def load_spec_revision(path: Path = SPEC_PATH) -> str:
     raise ValueError(f"{path}: no version line in the front matter")
 
 
+PATTERN_SETS = frozenset({"approach", "conflict", "withdrawal", "over", "under", "fusion", "projection", "refusal"})
+
+
+def load_pattern_acts(path: Path = CONFIG_DIR / "pattern_acts.md") -> dict[str, frozenset[str]]:
+    """Purpose: read which acts each pattern readout counts; every set must be declared, and no other.
+    Spec:    docs/bowen_agent_model_spec_v2.md#M5.A.1a
+    Tests:   tests/bowen/test_patterns.py::test_b2_pattern_act_sets_come_from_config
+    """
+    from src.bowen.scenario.config_parse import ConfigError, parse_table_document
+
+    doc = parse_table_document(read_text(path), columns=("set", "acts", "used by"), metadata_keys=frozenset(),
+                               source=str(path))
+    sets = {row["set"]: frozenset(a.strip() for a in row["acts"].split(",") if a.strip()) for row in doc.rows}
+    if set(sets) != PATTERN_SETS or len(sets) != len(doc.rows):
+        raise ConfigError(f"{path}: the sets must be exactly {sorted(PATTERN_SETS)}, each once; found {sorted(sets)}")
+    return sets
+
+
 def load_policy_rules(path: Path = CONFIG_DIR / "policy.md") -> PolicyRules:
     """Purpose: read the policy's declared tie-break and fallback rules.
     Spec:    docs/bowen_agent_model_spec_v2.md#M4.D.1f

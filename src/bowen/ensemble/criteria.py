@@ -625,13 +625,18 @@ def arm_c42(arm, seed, settings):
 OUTSIDE_ACTS, INSIDE_ACTS = ("DISTANCE", "CUTOFF"), ("TRIANGLE", "PURSUE")  # [I], declared here
 
 
+def moves_by(records, senders) -> list:
+    """The moves the given people emitted: C.44's and C.45's readouts, and the tests that check them, share it."""
+    return [r.event for r in records if isinstance(r, EmittedRecord) and r.event.mechanism is Mechanism.MOVE
+            and r.event.sender in senders]
+
+
 def arm_spell_triad(arm, seed, settings):
     weeks = settings["weeks"]
     spells = spell("triad", weeks) if arm == "treatment" else ()
     state, records = scenario("triad", seed, weeks, spells=spells)
     triad = {P("f"), P("m"), P("c")}
-    acts_ = [r.event for r in records if isinstance(r, EmittedRecord) and r.event.mechanism is Mechanism.MOVE
-             and r.event.sender in triad]
+    acts_ = moves_by(records, triad)
     outside = sum(1 for e in acts_ if e.kind in OUTSIDE_ACTS)
     inside = sum(1 for e in acts_ if e.kind in INSIDE_ACTS)
     # M11.C.45's "rate of TRIANGLE selection": one selection per person per week (M4.D.1), so the rate is

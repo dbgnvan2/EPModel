@@ -137,17 +137,38 @@ def test_m111d_a_result_is_keyed_on_the_engine_and_the_mutants_edits():
     assert result_key(engine, mutant.definition(), "M11.C.1") != key
 
 
-def test_m134_every_record_hashes_the_ensemble_tool():
-    """RULE_KEYS in tools/ensemble_record.py feeds every record, and the runner's child produces the cached results,
-    so the engine hash covers both, as does the occupancy record's (re-gate A; 2026-10-09)."""
-    ensemble_tool = (REPO / "tools" / "ensemble_record.py").resolve()
+def test_m134_every_record_hashes_the_rule_keys():
+    """RULE_KEYS feeds every record, so every hash covers its value; the runner's child produces the cached results, so
+    the engine hash and the occupancy record's cover it too (re-gate A, 2026-10-09; Phase D plan B2: the value, not the
+    whole file, so the hashing code can change without changing the hash)."""
     runner = (REPO / "tools" / "mutant_runner.py").resolve()
-    for tools in (_tool.HASHED_TOOLS, _occupancy.HASHED_TOOLS):
-        assert ensemble_tool in {Path(t).resolve() for t in tools}
     assert runner in {Path(t).resolve() for t in _occupancy.HASHED_TOOLS}
-    assert engine_hash() == _tool.code_hash(ensemble_tool, runner)
-    assert _tool.code_hash(ensemble_tool) != _tool.code_hash()
+    assert engine_hash() == _tool.code_hash(runner)
+    base = _tool.code_hash()
+    original = _tool.RULE_KEYS
+    try:
+        _tool.RULE_KEYS = original + ("a_new_rule",)
+        assert _tool.code_hash() != base
+    finally:
+        _tool.RULE_KEYS = original
+    assert _tool.code_hash() == base
 
+
+def test_b2_code_text_drops_only_docstrings_and_comments(tmp_path):
+    """The hash ignores prose, keeps code on a docstring's line, and keeps the inside of strings exactly."""
+    a = tmp_path / "a.py"
+    a.write_text('"""Module doc."""\n\n\ndef f():\n    """Doc."""; x = 1  # note\n    s = """one\n\n  two  """\n    return x\n')
+    b = tmp_path / "b.py"
+    b.write_text('"""Other doc."""\ndef f():\n    """Changed."""; x = 1\n    s = """one\n\n  two  """\n    return x\n')
+    assert _tool.code_text(a) == _tool.code_text(b)
+    text = _tool.code_text(a)
+    assert "x=1" in text.replace(" ", "") and "one\n\n  two  " in text and "note" not in text and "Doc." not in text
+    c = tmp_path / "c.py"
+    c.write_text('def f():\n    """Doc."""; x = 2\n    s = """one\n\n  two  """\n    return x\n')
+    assert _tool.code_text(c) != _tool.code_text(b)  # code on a docstring's line is hashed
+    d = tmp_path / "d.py"
+    d.write_text('def f():\n    """Doc."""; x = 1\n    s = """one\n  two  """\n    return x\n')
+    assert _tool.code_text(d) != _tool.code_text(b)  # a blank line inside a string is content
 
 def test_criteria_settings_are_parsed_strictly(tmp_path):
     """config/bowen/criteria.md: a setting the criteria do not read, or one missing, raises (M11.D.3's rule)."""
@@ -530,7 +551,8 @@ def test_d0_summarise_leaves_out_seeds_with_nothing_to_measure():
 
 def test_m134_code_hash_ignores_prose_but_not_code(tmp_path):
     """Editing a comment or docstring in the engine must not rerun every record; editing code must (learnings P38).
-    A docstring on its def's own line is code-adjacent and kept."""
+    Phase D plan B2: a docstring on its def's own line is prose too, and only its token is dropped, so the code that
+    shares the line is still hashed."""
     from tools.ensemble_record import code_text
 
     base = 'def f(x):\n    """Doc."""\n    # a comment\n    return x + 1  # trailing\n\ndef g(): "inline"; return 2\n'
@@ -538,6 +560,7 @@ def test_m134_code_hash_ignores_prose_but_not_code(tmp_path):
         "prose": base.replace("Doc.", "Changed doc.").replace("a comment", "another comment").replace("trailing", "t"),
         "code": base.replace("x + 1", "x + 2"),
         "inline docstring": base.replace('"inline"', '"other"'),
+        "code on a docstring's line": base.replace("return 2", "return 3"),
     }
     path = tmp_path / "m.py"
     path.write_text(base)
@@ -546,4 +569,4 @@ def test_m134_code_hash_ignores_prose_but_not_code(tmp_path):
     for name, text in variants.items():
         path.write_text(text)
         seen[name] = code_text(path) == original
-    assert seen == {"prose": True, "code": False, "inline docstring": False}
+    assert seen == {"prose": True, "code": False, "inline docstring": True, "code on a docstring's line": False}

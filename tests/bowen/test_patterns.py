@@ -239,3 +239,28 @@ def test_m5a1a_projection_holds_until_twelve_weeks_without_evidence():
                              projection_last={RAVI_NADIA: 9}, projection_hold=hold)
     assert again[RAVI_NADIA].pattern == "projection" and again[RAVI_NADIA].first == 0
 
+
+def test_b2_pattern_act_sets_come_from_config(tmp_path):
+    """Rule 9: the readouts' act sets are config (config/bowen/pattern_acts.md); a missing or extra set raises."""
+    from src.bowen.io.load import load_pattern_acts
+    from src.bowen.readouts import patterns
+    from src.bowen.scenario.config_parse import ConfigError
+
+    acts = load_pattern_acts()
+    assert patterns.ACTS == acts and patterns.APPROACH == acts["approach"] and acts["under"] == {"UNDERFUNCTION", "PURSUE"}
+    text = (REPO / "config" / "bowen" / "pattern_acts.md").read_text()
+    missing = tmp_path / "missing.md"
+    missing.write_text("\n".join(l for l in text.splitlines() if not l.startswith("| refusal")))
+    with pytest.raises(ConfigError):
+        load_pattern_acts(missing)
+
+
+def test_b2_now_reads_as_of_that_week():
+    """A reading with ``now`` equals one taken with state.tick at that week, and leaves state.tick alone."""
+    state = at(fresh(), 2, ("CONFLICT", RAVI, MARTA), ("CONFLICT", MARTA, RAVI), ("CONFLICT", RAVI, MARTA))
+    state.tick = 9
+    at_nine = [r.pattern for r in tie_readings(state, MARITAL, PARAMS, RP)]
+    assert "conflict" not in at_nine and at_nine == ["distance"]  # week 9: the acts are out of the window, silence
+    found = tie_readings(state, MARITAL, PARAMS, RP, now=3)
+    assert [r.pattern for r in found] == ["conflict"] and state.tick == 9
+

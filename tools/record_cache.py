@@ -29,7 +29,7 @@ CACHE_DIR = REPO / "docs" / "records_cache"
 ERRORED = ("RAISED", "BROKEN")
 # Errors of the machine running the child, not of the mutated model: never a result (learning-qa, 2026-10-09).
 INFRASTRUCTURE_ERRORS = ("BrokenProcessPool", "MemoryError", "OSError", "TimeoutError", "KeyboardInterrupt")
-ENGINE_TOOLS = (REPO / "tools" / "ensemble_record.py", REPO / "tools" / "mutant_runner.py")
+ENGINE_TOOLS = (REPO / "tools" / "mutant_runner.py",)  # RULE_KEYS is in every hash (code_hash), not by file
 
 
 def engine_hash() -> str:

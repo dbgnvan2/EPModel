@@ -128,15 +128,11 @@ def simulate(seed: int, mapping: Mapping) -> Run:
         if (week + 1) % mapping.block_weeks:
             return
         nonlocal held
-        state.tick = week  # the readouts read the window ending at state.tick
-        try:
-            readings = [r for tie in state.ties
-                        for r in tie_readings(state, tie, params, rp, family.parent_on_tie.get(tie))]
-            readings += [r for tri in state.triangles if (r := fixed_triangle(records, tri, rp)) is not None]
-            evidence = {tie: last for tie, parent in family.parent_on_tie.items()
-                        if (last := last_projection_act(state, tie, parent)) is not None}
-        finally:
-            state.tick = week + 1
+        readings = [r for tie in state.ties
+                    for r in tie_readings(state, tie, params, rp, family.parent_on_tie.get(tie), now=week)]
+        readings += [r for tri in state.triangles if (r := fixed_triangle(records, tri, rp)) is not None]
+        evidence = {tie: last for tie, parent in family.parent_on_tie.items()
+                    if (last := last_projection_act(state, tie, parent, now=week)) is not None}
         held = current_patterns(held, readings, now=week, projection_last=evidence, projection_hold=rp.projection_hold)
         blocks.append(dict(held))
 

@@ -31,9 +31,13 @@ from src.bowen.engine.log_records import EffectRecord
 from src.bowen.engine.params import EngineParams
 from src.bowen.engine.state import RunState
 
-APPROACH = frozenset({"PURSUE", "STAY-IN-CONTACT", "REDUCE_CUTOFF"})
+from src.bowen.io.load import load_pattern_acts
+
+# Which acts each readout counts: config/bowen/pattern_acts.md (Phase D plan B2; rule 9).
+ACTS = load_pattern_acts()
+APPROACH = ACTS["approach"]
 # The act set the child-projection sink counts (src/bowen/engine/sinks.py), from a parent to a child.
-PROJECTION_ACTS = frozenset({"OVERFUNCTION", "PURSUE", "TRIANGLE"})
+PROJECTION_ACTS = ACTS["projection"]
 
 
 class UndeclaredPattern(KeyError):
@@ -70,6 +74,21 @@ class Reading:
     silent: bool = False
 
 
+class _At:
+    """The run's state read as of week ``tick``: every attribute is the state's except ``tick``. Lets a caller read the
+    patterns at a week other than ``state.tick`` without changing the state (Phase D plan B2)."""
+
+    def __init__(self, state: RunState, tick: int) -> None:
+        self._state, self.tick = state, tick
+
+    def __getattr__(self, name):
+        return getattr(self._state, name)
+
+
+def _as_of(state: RunState, now: int | None):
+    return state if now is None else _At(state, now)
+
+
 def _moves_on(state: RunState, tie: TieId, window: int):
     a, b = tie.members()
     return [
@@ -89,7 +108,7 @@ def _projection_acts(moves, parent: PersonId | None):
 
 def conflict(state: RunState, tie: TieId, rp: ReadoutParams) -> Reading | None:
     """At least ``min_acts`` CONFLICT acts on the tie in W, with both members contributing."""
-    hits = [e for e in _moves_on(state, tie, rp.window) if e.kind == "CONFLICT"]
+    hits = [e for e in _moves_on(state, tie, rp.window) if e.kind in ACTS["conflict"]]
     if len(hits) < rp.min_acts or {e.sender for e in hits} != set(tie.members()):
         return None
     return Reading("conflict", tie, len(hits), _first(hits))
@@ -105,7 +124,7 @@ def distance(state: RunState, tie: TieId, params: EngineParams, rp: ReadoutParam
         if silent >= rp.window:
             return Reading("distance", tie, silent, state.tick - silent + 1, silent=True)
         return None
-    withdrawals = [e for e in moves if e.kind == "DISTANCE"]
+    withdrawals = [e for e in moves if e.kind in ACTS["withdrawal"]]
     approaches = sum(1 for e in moves if e.kind in APPROACH)
     relationship = state.ties[tie]
     below = all(too_little(state.people[m], relationship, params) > 0 for m in tie.members())
@@ -133,8 +152,8 @@ def over_underfunctioning(state: RunState, tie: TieId, rp: ReadoutParams,
     sides = {}
     for over in tie.members():
         under = tie.other(over)
-        sides[over] = [e for e in moves if (e.sender == over and e.kind == "OVERFUNCTION")
-                       or (e.sender == under and e.kind in ("UNDERFUNCTION", "PURSUE"))]
+        sides[over] = [e for e in moves if (e.sender == over and e.kind in ACTS["over"])
+                       or (e.sender == under and e.kind in ACTS["under"])]
     over = max(tie.members(), key=lambda m: len(sides[m]))
     hits, reverse = sides[over], sides[tie.other(over)]
     if len(hits) < rp.min_acts or len(hits) <= len(reverse):
@@ -145,15 +164,16 @@ def over_underfunctioning(state: RunState, tie: TieId, rp: ReadoutParams,
 def fusion(state: RunState, tie: TieId, rp: ReadoutParams, parent: PersonId | None = None) -> Reading | None:
     """At least ``min_acts`` PURSUE acts in W, both members pursuing: each going along with the other."""
     projected = set(map(id, _projection_acts(_moves_on(state, tie, rp.window), parent)))
-    hits = [e for e in _moves_on(state, tie, rp.window) if e.kind == "PURSUE" and id(e) not in projected]
+    hits = [e for e in _moves_on(state, tie, rp.window) if e.kind in ACTS["fusion"] and id(e) not in projected]
     if len(hits) < rp.min_acts or {e.sender for e in hits} != set(tie.members()):
         return None
     return Reading("fusion", tie, len(hits), _first(hits))
 
 
-def last_projection_act(state: RunState, tie: TieId, parent: PersonId | None) -> int | None:
+def last_projection_act(state: RunState, tie: TieId, parent: PersonId | None, now: int | None = None) -> int | None:
     """The week of the parent's latest projection act toward the child, of any count; None if never. Every such act
-    is evidence the projection continues (the owner, 2026-10-10)."""
+    is evidence the projection continues (the owner, 2026-10-10). ``now`` reads as of that week."""
+    state = _as_of(state, now)
     if parent is None:
         return None
     child = tie.other(parent)
@@ -178,7 +198,7 @@ def cutoff(state: RunState, tie: TieId, rp: ReadoutParams) -> Reading | None:
     for refuser in tie.members():
         other = tie.other(refuser)
         approaches = [e.timestamp for e in moves if e.sender == other and e.kind in APPROACH]
-        refusals = [e for e in moves if e.sender == refuser and e.kind == "CUTOFF"
+        refusals = [e for e in moves if e.sender == refuser and e.kind in ACTS["refusal"]
                     and e.timestamp > state.tick - rp.window
                     and any(e.timestamp - 1 <= t <= e.timestamp for t in approaches)]
         if len(refusals) >= rp.min_acts:
@@ -219,12 +239,14 @@ PATTERNS = {
 
 
 def tie_readings(state: RunState, tie: TieId, params: EngineParams, rp: ReadoutParams,
-                 parent: PersonId | None = None) -> list[Reading]:
+                 parent: PersonId | None = None, now: int | None = None) -> list[Reading]:
     """Purpose: every declared tie pattern whose start condition holds on ``tie`` at ``state.tick``.
     Spec:    docs/bowen_agent_model_spec_v2.md#M5.A.1a
     Tests:   tests/bowen/test_patterns.py::test_m5a1a_pursuit_reads_as_fusion_over_under_or_projection
-    ``parent`` is the tie's parent when it is a parent–child tie, else None.
+    ``parent`` is the tie's parent when it is a parent–child tie, else None. ``now`` reads the window ending at that
+    week instead of at ``state.tick``.
     """
+    state = _as_of(state, now)
     over_under = over_underfunctioning(state, tie, rp, parent)
     # Lopsided pursuit is over/underfunctioning, not fusion (the owner, 2026-10-10): fusion is read only when
     # neither side's going-along outweighs the other's.

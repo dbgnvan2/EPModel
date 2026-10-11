@@ -34,7 +34,7 @@ from tools.mutation_record import INVERSION_PIVOT, MUTANTS  # noqa: E402
 RECORD = REPO / "docs" / "phase_c_level_occupancy.md"
 # The record's hash covers this tool, the runner, RULE_KEYS and the engine, plus each variant's own edits: not the
 # rest of mutation_record.py, so adding or relabelling another mutant does not make it stale.
-HASHED_TOOLS = (Path(__file__).resolve(), REPO / "tools" / "mutant_runner.py", REPO / "tools" / "ensemble_record.py")
+HASHED_TOOLS = (Path(__file__).resolve(), REPO / "tools" / "mutant_runner.py")  # RULE_KEYS: in every code_hash
 SEEDS = 20
 VARIANTS = (None, "availability-level-inverted")
 

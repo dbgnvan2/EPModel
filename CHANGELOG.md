@@ -4,6 +4,20 @@ All notable changes to this project are recorded here. Dates are ISO.
 
 ## [Unreleased] — 2026-10-11
 
+### Spec revision 20: the system's adjustment settles back; `M11.C.18` and `M11.C.20` restated
+
+From the owner's decisions of 2026-10-11:
+- **The system's adjustment settles back** (`M1.E.7`). The gain the other person takes when a held stance works is
+  kept in their `adjust_swing` and shed by `response_relaxation_rate` each calm week, as the stress-moved part is. While
+  they are loaded it holds. Whether the estimator may read it is open for the owner (`TODO.md`).
+- **`M11.C.18` and `M11.C.20`'s mutation clauses** now name the mechanism that carries each: the stress response
+  (`M1.A.5e`) for C.18, and the estimator reading functioning without borrowed pseudo-self (`M1.A.4k`) for C.20.
+  Flattening `M1.A.4b`'s load weighting leaves both passing; the load weighting stays proved by its unit test.
+- **Result (ad hoc, not yet in a record).** All four estimator criteria pass; each restated mutation turns only its
+  own criterion red (`docs/implementation_plan_phase_d.md`, step 6). Single ad hoc runs; the Phase D record confirms them.
+- **Records regenerated:** no Phase C verdict moved. Suite: 649 tests.
+- **New constants:** none.
+
 ### Spec revision 19: the stress floor, self-discovered perspective, the system adjusting, the soothing review
 
 From the owner's answers of 2026-10-11, after tracing why `M11.C.17` ran the wrong way:
@@ -22,7 +36,7 @@ From the owner's answers of 2026-10-11, after tracing why `M11.C.17` ran the wro
 - **`M11.C.20`.** Perspective only in the basic arm.
 - **`M11.C.17`.** Ten years, reading the people the coach reaches.
 - **Result (ad hoc, 150 seeds).** All four estimator criteria pass, and each is turned red by removing the mechanism
-  that carries it. The spec's load-weighting mutation leaves C.18 and C.20 passing, which is open for the owner.
+  that carries it. The spec's load-weighting mutation leaves C.18 and C.20 passing, which was open for the owner (restated at revision 20).
 - **Records regenerated:** no Phase C verdict moved. Suite: 647 tests.
 - **New constants:** six `[I]`.
 

@@ -135,3 +135,33 @@ def test_m1a5e_a_clamped_swing_still_decays():
     respond(state, (), {RAVI: 0.0}, PARAMS)
     assert person.functional_level == person.basic_level - PARAMS.stress_floor_below_basic
     assert person.stress_swing == pytest.approx(5.0 * (1 - PARAMS.response_relaxation_rate))
+
+
+def test_m1e7_the_systems_adjustment_settles_back_when_calm_and_holds_under_load():
+    """Revision 20 (owner decision 2026-10-11): the functioning gained when someone else's held stance worked settles
+    back when calm, at the rate the stress-moved swing does; it does not settle while the person is loaded."""
+    state = fresh()
+    person = state.people[RAVI]
+    person.functional_level += 1.0
+    person.adjust_swing = 1.0
+    level = person.functional_level
+    respond(state, (), {RAVI: LOADED}, PARAMS)
+    assert person.functional_level == level and person.adjust_swing == 1.0
+    respond(state, (), {RAVI: 0.0}, PARAMS)
+    assert level - person.functional_level == pytest.approx(PARAMS.response_relaxation_rate)
+    assert person.adjust_swing == pytest.approx(1.0 - PARAMS.response_relaxation_rate)
+    for _ in range(500):
+        respond(state, (), {RAVI: 0.0}, PARAMS)
+    assert person.functional_level == pytest.approx(level - 1.0, abs=1e-3)
+
+
+def test_m1e7_a_calm_week_sheds_both_swings_together_even_of_opposite_sign():
+    """Review 2026-10-11: the calm change is the rate times the sum of both swings, and each decays by its own share."""
+    state = fresh()
+    person = state.people[RAVI]
+    person.stress_swing, person.adjust_swing = -3.0, 1.0
+    level = person.functional_level
+    respond(state, (), {RAVI: 0.0}, PARAMS)
+    assert person.functional_level - level == pytest.approx(PARAMS.response_relaxation_rate * 2.0)
+    assert person.stress_swing == pytest.approx(-3.0 * (1 - PARAMS.response_relaxation_rate))
+    assert person.adjust_swing == pytest.approx(1.0 - PARAMS.response_relaxation_rate)

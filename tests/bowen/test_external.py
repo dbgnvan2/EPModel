@@ -13,6 +13,8 @@ from __future__ import annotations
 import dataclasses
 from unittest import mock
 
+import pytest
+
 from src.bowen.engine.event_store import EventStore
 from src.bowen.engine.events import Channel, Delivery, Event, EventId, Mechanism, Role, SourcePosition
 from src.bowen.engine.external import landing_probability
@@ -312,6 +314,15 @@ def test_m1e7_the_system_adjusts_once_per_stance_and_only_under_load():
         state.tick = week
         self_practice(state, (), {}, PARAMS)
     assert state.people[marta].functional_level - before == PARAMS.system_adjust_gain
+    assert state.people[marta].adjust_swing == PARAMS.system_adjust_gain  # revision 20: tracked, so it settles back
+    near_top = fresh()                                             # only what actually moved is tracked
+    near_top.ties[tie_id].felt_impingement[ravi] = 0.6
+    near_top.people[marta].functional_level = 100.0 - PARAMS.system_adjust_gain / 2
+    self_practice(near_top, (Selection(ravi, "STAY-IN-CONTACT", (marta,), 100.0),), loaded, PARAMS)
+    near_top.ties[tie_id].felt_impingement[ravi] = 0.0
+    near_top.tick = PARAMS.practice_window
+    self_practice(near_top, (), {}, PARAMS)
+    assert near_top.people[marta].adjust_swing == pytest.approx(PARAMS.system_adjust_gain / 2)
     calm = fresh()
     self_practice(calm, (Selection(ravi, "STAY-IN-CONTACT", (marta,), 100.0),), {ravi: PARAMS.anxiety_band_low / 2},
                   PARAMS)

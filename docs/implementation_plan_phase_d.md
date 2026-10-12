@@ -398,6 +398,25 @@ pass. What carries them is the mechanism in the table: the stress response for C
 borrowed functioning for C.20. By `M11.5` a survivor does not prove the criterion. Either the mutation clause is
 restated to the mechanism that carries each, or the load weighting is shown to matter in some other test.
 
+**After spec revision 20 (2026-10-11): the system's adjustment settles back, and the clauses are restated.** The owner
+chose to restate the mutation clause of `M11.C.18` and `M11.C.20` to the mechanism that carries each. Ad hoc runs on
+the revision 20 engine, not yet in a record (the Phase D record is step 12):
+
+| Criterion | Verdict | Readout | Mutation (rerun at revision 20) |
+|---|---|---|---|
+| `M11.C.33` | **PASS**, 150 seeds | +0.18 ± 0.04 | not rerun |
+| `M11.C.18` | **PASS**, 100 seeds | +0.12 ± 0.05 | coping and soothing removed, the calm settling kept: **FAIL**, +0.02 ± 0.03 (p 0.22), 150 seeds |
+| `M11.C.20` | **PASS**, 150 seeds | +0.13 ± 0.04 | borrowed functioning read again: **FAIL, reversed**, −0.80 ± 0.46, 100 seeds |
+| `M11.C.17` | **PASS**, 100 seeds | coached +0.66 ± 0.30; family +0.22 ± 0.09 (reported) | not rerun |
+
+Each mutation turns only its own criterion red: with coping and soothing removed `M11.C.20` still passes (+0.06 ± 0.04),
+and with borrowed functioning read `M11.C.18` still passes (+0.39 ± 0.27). With the load weighting flattened (every
+week of the window weighted equally, loaded or not) both still pass: C.18 +1.61 ± 0.58, C.20 +1.92 ± 0.44. A first
+C.18 mutant that switched off the whole stress response step, the calm settling with it, failed only narrowly
+(+0.03 ± 0.03, p 0.06); the review of 2026-10-11 pointed out it removed more than the clause names, so the narrower
+mutant above is the one the clause describes. Both are single ad hoc runs on the runner's seeds; the step-12 record
+confirms them.
+
 ### B7. Symptom channels (`M7.D.2`, `2a`–`2d`, `M7.D.4`, `M1.A.11c`)
 - Load can move between the three channels.
 - Lock-in lowers family anxiety until a severity peak, then raises it.
@@ -444,8 +463,8 @@ run, an `M11.1d` audit (deletion plus sign-inverted mutant) and the fallback-rat
 | C.12 | dyad | `test_m11c12_symptom_relief_raises_conflict` | released bound anxiety discarded (`M6.I.1`) | B7 |
 | C.14 | nuclear four | `test_m11c14_technique_null_under_marital_distance` | `M5.C.1`'s marital-distance gate removed | P7, P8; the gate |
 | C.17 | Phase C family with Dr Halim | `test_m11c17_coach_helps_and_is_not_required` | `systems_perspective` allowed to rise spontaneously | B6, P8, `M7.E.4` |
-| C.18 | any | `test_m11c18_estimator_separates_cutoff_from_iposition` | `M1.A.4b`'s load weighting flattened | B6, B3 |
-| C.20 | any | `test_m11c20_estimator_separates_borrowed_from_basic` | as C.18 | B6 |
+| C.18 | any | `test_m11c18_estimator_separates_cutoff_from_iposition` | the stress response's coping and soothing removed (`M1.A.5e`; restated at revision 20) | B6, B3 |
+| C.20 | any | `test_m11c20_estimator_separates_borrowed_from_basic` | the estimator reads borrowed pseudo-self again (`M1.A.4k`; restated at revision 20) | B6 |
 | C.21 | nuclear four | `test_m11c21_reciprocity_inverts_on_projector_collapse` | `M6.I.4`'s transfer made one-way | — |
 | C.22 | nuclear four | `test_m11c22_symptom_lock_in_is_non_monotone` | `M7.D.2a` flattened and `M7.D.2d` removed | B7 |
 | C.23 | nuclear four | `test_m11c23_expressed_emotion_dominates_suppression` | the EE term zeroed | P7 |

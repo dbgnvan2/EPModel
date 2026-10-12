@@ -25,7 +25,8 @@ vs. no job for 15 turns." (``docs/PROPOSAL — STRESS ON FUNCTIONING, COACHING A
   sizes scale with it.
 * **Settling** — a person whose load is below ``anxiety_band_low`` sheds ``response_relaxation_rate`` of their
   ``stress_swing`` each week: slowly, and not as a symmetric restoring force (`M7.A.1`). What lasts is what the
-  person kept doing.
+  person kept doing. The same calm week sheds the same share of ``adjust_swing``, the functioning the person gained
+  when someone else's held stance worked (`M1.E.7`, revision 20): the owner decided that gain settles back.
 
 ``functional_level`` stays in [0, 100], and stress never pushes it below ``basic_level − stress_floor_below_basic``
 (revision 19, owner decision 2026-10-11): without that floor, soothing lowered functioning, which steepened
@@ -77,8 +78,9 @@ def stressor_load(state: RunState, params: EngineParams) -> list[EffectRecord]:
 
 def respond(state: RunState, selections, load: dict, params: EngineParams) -> list[EffectRecord]:
     """Purpose: what a person does under load moves their functioning; calm, it settles back slowly.
-    Spec:    docs/bowen_agent_model_spec_v2.md#M1.A.5e (revision 18), #M7.A.1
-    Tests:   tests/bowen/test_stress_response.py::test_m1a5e_coping_raises_functioning_and_soothing_lowers_it
+    Spec:    docs/bowen_agent_model_spec_v2.md#M1.A.5e (revision 18), #M7.A.1, #M1.E.7 (revision 20)
+    Tests:   tests/bowen/test_stress_response.py::test_m1a5e_coping_raises_functioning_and_soothing_lowers_it,
+             tests/bowen/test_stress_response.py::test_m1e7_the_systems_adjustment_settles_back_when_calm_and_holds_under_load
     """
     # A fallback hold (nothing legal, or no finite score) is not a choice, so it is not coping (review 2026-10-11).
     chose = {s.actor: s.kind for s in selections if s.decided_by is not DecidedBy.FALLBACK}
@@ -98,7 +100,7 @@ def respond(state: RunState, selections, load: dict, params: EngineParams) -> li
             else:
                 change = 0.0
         else:
-            change = -params.response_relaxation_rate * person.stress_swing
+            change = -params.response_relaxation_rate * (person.stress_swing + person.adjust_swing)
         relaxing = carried <= params.anxiety_band_low
         before = person.functional_level
         if change < 0:  # revision 19: stress pushes functioning down to a floor below basic level, and no further
@@ -108,8 +110,11 @@ def respond(state: RunState, selections, load: dict, params: EngineParams) -> li
         moved = person.functional_level - before
         # Calm, the swing decays by its own share whether or not a bound let functioning move: a clamped relaxation
         # must not leave an amount behind to take back later from an unrelated gain (review 2026-10-11).
-        person.stress_swing = person.stress_swing * (1.0 - params.response_relaxation_rate) if relaxing \
-            else person.stress_swing + moved
+        if relaxing:
+            person.stress_swing *= 1.0 - params.response_relaxation_rate
+            person.adjust_swing *= 1.0 - params.response_relaxation_rate  # revision 20: the system's adjustment too
+        else:
+            person.stress_swing += moved
         if moved:
             rows.append((pid, "functional_level", moved))
     return [EffectRecord(state.tick, "stress_response", None, people=tuple(rows))] if rows else []

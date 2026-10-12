@@ -133,6 +133,8 @@ def self_practice(state: RunState, selections, load: dict, params: EngineParams)
     reinforced by relief (`M4.D.6d`).
 
     When a stance works, the other functions up by ``system_adjust_gain`` (revision 19): they are not going to win.
+    That gain is kept in the other's ``adjust_swing`` and settles back when they are calm (revision 20,
+    ``stress_response.respond``); while they are loaded it holds.
     """
     rows = []
     due = [p for p in state.practice if p.tick + params.practice_window <= state.tick]
@@ -162,6 +164,7 @@ def self_practice(state: RunState, selections, load: dict, params: EngineParams)
             partner.functional_level = min(SCALE_MAX, before_level + params.system_adjust_gain)
             if partner.functional_level != before_level:
                 state.adjusted[(actor, other)] = state.tick  # only an adjustment that happened uses up the window
+                partner.adjust_swing += partner.functional_level - before_level  # revision 20: it settles back
                 rows.append((other, "functional_level", partner.functional_level - before_level))
     for selection in sorted(selections, key=lambda s: s.actor):
         person = state.people[selection.actor]

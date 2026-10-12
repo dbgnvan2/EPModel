@@ -29,14 +29,21 @@ Deferred and adjacent items. Each carries enough context to act on later without
 - [x] ~~**Which mechanisms count as nodal events for the estimator**~~ *Decided 2026-10-11 (spec revision 17): any
   major event on a person; the list is `config/bowen/nodal_events.md`. Births, deaths, marriages, divorces and launches
   are added with the D-II life course.*
-- [ ] **Decided 2026-10-11 (owner): the other's gain from "the system adjusts" settles back. To build after compaction** (spec revision 19, `M1.E.7`): track it like `stress_swing` and let it relax when calm.
-  - **Today:** when a held stance works, the other person's `functional_level` rises by `system_adjust_gain` (1.0),
-    once per stance, and stays. It is not tracked like `stress_swing`, and the estimator reads it as that person's
-    own functioning.
-  - **Raised by:** the review of revisions 17–19.
-- [ ] **Decided 2026-10-11 (owner): restate `M11.C.18` and `M11.C.20`'s mutation clause. To do after compaction.** The spec names `M1.A.4b`'s load weighting, and flattening
-  it leaves both passing. What turns each red is the stress response (C.18) and the estimator ignoring borrowed
-  functioning (C.20). Restate the clause, or show the load weighting matters elsewhere.
+- [x] ~~**Decided 2026-10-11 (owner): the other's gain from "the system adjusts" settles back.**~~ *Built at spec
+  revision 20 (`M1.E.7`): the gain is kept in the other's `adjust_swing` and shed by `response_relaxation_rate` each
+  calm week (`src/bowen/engine/stress_response.py`;
+  `tests/bowen/test_stress_response.py::test_m1e7_the_systems_adjustment_settles_back_when_calm_and_holds_under_load`).*
+- [x] ~~**Decided 2026-10-11 (owner): restate `M11.C.18` and `M11.C.20`'s mutation clause.**~~ *Done at spec revision
+  20: C.18 names the stress response, C.20 the estimator ignoring borrowed functioning. Measured on the revision 20
+  engine in `docs/implementation_plan_phase_d.md` (step 6); recorded with the Phase D record (step 12).*
+- [ ] **For the owner: may the estimator read the system's adjustment?** (review of revision 20, 2026-10-11.) The
+  gain the other takes when a held stance works (`adjust_swing`, `M1.E.7`) settles back when they are calm, but holds
+  while they are loaded, and the estimator reads it as their own functioning (`src/bowen/engine/slow_tick.py`), weighted
+  by load. A slow-tick rise in `basic_level` never falls, so a held adjustment can become a lasting basic rise. It
+  still needs the person's own self-directed share and breadth (`M1.A.4h`). Options: (a) the estimator leaves it out,
+  as it leaves out borrowed pseudo-self; (b) it reads it, as the person's real improvement while it lasts.
+- [ ] **Review of revision 20, minor (2026-10-11):** no full-tick test that a calm partner sheds part of the gain in the
+  week it arrives (`self_practice` runs before `respond` in `tick.py`; consistent with the rule, not pinned).
 - [ ] **Pre-existing unused imports in `tests/bowen/test_engineering_gates.py`:** `clamp_unit`, `dataclasses`,
   `EventStore`, `legal_outcomes`. Found while checking the B3/B4 diff. Not touched, since they predate it.
 

@@ -417,37 +417,37 @@ lies wholly on the opposite side; here `availability-level-inverted`, `availabil
 |---|---|---|---|---|
 | *none (representation mutants: unchanged)* | — | -0.049 ± 0.005 | +0.062 ± 0.007 | pass |
 | `steepness-level-independent` | named | -0.029 ± 0.003 | +0.037 ± 0.004 | survived |
-| `mixing-weight-level-independent` | named | -0.038 ± 0.004 | +0.053 ± 0.007 | survived |
+| `mixing-weight-level-independent` | named | -0.037 ± 0.004 | +0.052 ± 0.007 | survived |
 | `learner-disabled` | named | -0.046 ± 0.002 | +0.063 ± 0.004 | survived |
-| `threshold-level-independent` | deletion | -0.048 ± 0.005 | +0.059 ± 0.008 | survived |
+| `threshold-level-independent` | deletion | -0.049 ± 0.005 | +0.060 ± 0.008 | survived |
 | `threshold-level-inverted` | sign-inverted | -0.048 ± 0.005 | +0.063 ± 0.007 | survived |
 | `standing-load-level-independent` | deletion | -0.049 ± 0.005 | +0.061 ± 0.007 | survived |
-| `standing-load-level-inverted` | sign-inverted | -0.046 ± 0.004 | +0.058 ± 0.006 | survived |
+| `standing-load-level-inverted` | sign-inverted | -0.046 ± 0.004 | +0.059 ± 0.006 | survived |
 | `level-blind` | deletion | -0.000 ± 0.003 | +0.001 ± 0.006 | **red** |
 | `availability-level-independent` | deletion | -0.028 ± 0.004 | +0.034 ± 0.007 | survived |
 | `availability-level-inverted` | sign-inverted | +0.006 ± 0.005 | -0.006 ± 0.007 | **reversed** |
 | `availability-and-learner-removed` | deletion | +0.002 ± 0.001 | -0.003 ± 0.003 | **reversed** |
 | `band-level-independent` | deletion | -0.043 ± 0.005 | +0.053 ± 0.007 | survived |
 | `band-level-inverted` | sign-inverted | -0.047 ± 0.004 | +0.058 ± 0.006 | survived |
-| `outside-ness-level-independent` | deletion | -0.045 ± 0.005 | +0.060 ± 0.007 | survived |
-| `outside-ness-level-inverted` | sign-inverted | -0.040 ± 0.005 | +0.055 ± 0.008 | survived |
-| `routing-level-independent` | deletion | -0.050 ± 0.005 | +0.061 ± 0.007 | survived |
+| `outside-ness-level-independent` | deletion | -0.046 ± 0.005 | +0.060 ± 0.007 | survived |
+| `outside-ness-level-inverted` | sign-inverted | -0.041 ± 0.005 | +0.055 ± 0.008 | survived |
+| `routing-level-independent` | deletion | -0.051 ± 0.005 | +0.062 ± 0.007 | survived |
 | `routing-level-inverted` | sign-inverted | -0.049 ± 0.005 | +0.063 ± 0.008 | survived |
 | `hold-level-independent` | deletion | -0.049 ± 0.005 | +0.062 ± 0.007 | survived |
 | `hold-level-inverted` | sign-inverted | -0.049 ± 0.005 | +0.062 ± 0.007 | survived |
 | `c16-cited-grounds-removed` | deletion | -0.028 ± 0.003 | +0.035 ± 0.005 | survived |
 | `c16-grounds-removed` | deletion | -0.001 ± 0.003 | +0.001 ± 0.004 | **red** |
-| `steepness-inverted` | sign-inverted | -0.019 ± 0.003 | +0.022 ± 0.005 | survived |
-| `mixing-weight-inverted` | sign-inverted | -0.023 ± 0.004 | +0.045 ± 0.008 | survived |
-| `learner-inverted` | sign-inverted | -0.054 ± 0.006 | +0.068 ± 0.009 | survived |
+| `steepness-inverted` | sign-inverted | -0.020 ± 0.003 | +0.023 ± 0.005 | survived |
+| `mixing-weight-inverted` | sign-inverted | -0.022 ± 0.004 | +0.044 ± 0.008 | survived |
+| `learner-inverted` | sign-inverted | -0.055 ± 0.006 | +0.068 ± 0.009 | survived |
 
 What this shows:
 
 - **Inverting `M4.D.3a`'s availability reverses C.16**: entropy +0.006 ± 0.005 and top-move share -0.006 ± 0.007; the gating readout's interval lies wholly on the opposite side. When the owner kept C.16 composite (2026-10-08) this inversion only cancelled it; since the triangle change of 2026-10-09 it reverses it. The owner was asked again and kept it composite (2026-10-09). **This inversion is still weak where C.16 runs.**
   It equals the deletion (every layer fully available) at level 20 and below on both layers, and at 40 and below on
   layer 1. Under the mutant, over the whole run, the lowered arm's members spend 47.0% of member-weeks at level 20 or
-  below and 98.1% at 40 or below; the baseline arm's, 0.0% and 56.7%. Over the last
-  52 weeks, which the entropy reads, the lowered arm's are 58.1% and 97.2%
+  below and 98.1% at 40 or below; the baseline arm's, 0.0% and 56.8%. Over the last
+  52 weeks, which the entropy reads, the lowered arm's are 58.2% and 97.2%
   (`docs/phase_c_level_occupancy.md`, which also gives the unmodified shares; these are shares of member-weeks, not
   of selections). So it mostly reverses layer 2 only. A stronger
   inversion was not tried.
@@ -462,7 +462,7 @@ What this shows:
 - **Learning changes the result's size, not its sign.** `M4.D.6` disabled leaves entropy at
   -0.046 ± 0.002, within the half-width of the unmutated difference, and lowers the top-move share
   difference to +0.063 ± 0.004. Inverted, it deepens the narrowing
-  (-0.054 ± 0.006). With availability already removed, removing the learner as well takes the
+  (-0.055 ± 0.006). With availability already removed, removing the learner as well takes the
   top-move share difference from +0.034 ± 0.007 to -0.003 ± 0.003.
 
 Why composite, and not premise:

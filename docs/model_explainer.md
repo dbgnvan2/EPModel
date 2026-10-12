@@ -244,8 +244,8 @@ last three years of weeks:
   - `M11.C.20`: the estimator ignoring borrowed functioning;
   - `M11.C.17`: the coach's landed contact.
 
-  The spec's own mutation for C.18 and C.20, flattening the load weighting, leaves both passing. That is open for the
-  owner (`docs/implementation_plan_phase_d.md`, step 6 result).
+  Flattening the load weighting leaves C.18 and C.20 passing, so at revision 20 their mutation clauses were restated
+  to the mechanisms above (owner decision, 2026-10-11; `docs/implementation_plan_phase_d.md`, step 6 result).
 - **What counts as a nodal event (revision 17).** Any major event on a person: the owner lists deaths, births,
   marriages, serious illnesses, big moves, big job changes, a child moving out or back in, and divorces. The engine's
   kinds are listed in `config/bowen/nodal_events.md`. An event counts for whom it happens to and for everyone it
@@ -261,7 +261,9 @@ last three years of weeks:
     worked: they held their position and the tie calmed.
   - **What it does:** it opens the self-directed channel, steers away from triangling and blaming, and toward
     detriangling.
-  - **The system adjusts:** when a held stance works, the other functions up.
+  - **The system adjusts:** when a held stance works, the other functions up. That gain is kept apart
+    (`adjust_swing`) and settles back when the other is calm, as the stress-moved part does (revision 20). While they
+    are loaded it holds; whether the estimator may read it is open for the owner.
   - **The soothing review:** now and then a person asks whether soothing helped, and if not, it loses its appeal.
 - **The estimator reads functioning without what over-functioning borrowed (revision 19).** The owner:
   "Overfunctioning is a dysfunctional behaviour — pseudo-self looks better."

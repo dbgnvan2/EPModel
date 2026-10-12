@@ -2,6 +2,12 @@
 
 > ## ▶ STATE — the corpus is closed and the spec is current. **Phase C is closed with its gate failing (owner decision, 2026-10-09).**
 >
+> **2026-10-11 — spec revision 20:**
+> - the other's gain when a held stance works settles back when they are calm (`M1.E.7`, `adjust_swing`);
+> - `M11.C.18`'s mutation clause names the stress response, and `M11.C.20`'s names the estimator ignoring borrowed functioning.
+>
+> No new IDs.
+>
 > **2026-10-11 — spec revision 19:**
 > - stress pushes functioning at most 15 below basic level (`M1.A.5e`);
 > - perspective is self-discovered: practice counts only when a self-directed act worked (`M1.E.7`);

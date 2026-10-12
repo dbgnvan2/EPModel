@@ -9,7 +9,8 @@ Tests:   this file
 alter behaviour (plan B4 onward), and say in that commit which change moved it. Fingerprints first taken
 2026-10-10 at the engine of commit 713458a (spec revision 14, before B1). Moved 2026-10-11 by B3 (channel stamping:
 the log only), B4 (cutoff as rejection, spec revisions 14 and 16: behaviour) and B5/B6 (the slow tick: tie wear
-and the estimator), and spec revisions 17-19 (nodal events, stress response, perspective, soothing review).
+and the estimator), spec revisions 17-19 (nodal events, stress response, perspective, soothing review), and revision 20 (the
+system's adjustment settles back).
 """
 
 from __future__ import annotations
@@ -30,8 +31,8 @@ from src.bowen.scenario.scripted_source import ScriptedSource
 REPO = Path(__file__).resolve().parents[2]
 GOLDEN = {
     # (family, seed, weeks): fingerprint
-    ("phase_c", 7, 104): "a02286832df56174e81b3580205f2fdd28925debcb085e821cc7e2e0e5536f5f",
-    ("phase_d", 11, 208): "67c2539d732c847c3a9a07de32ddfaf19f9ed5312b0b07bb64a73921f5e1a4eb",
+    ("phase_c", 7, 104): "564cbddef26dfb6e4979853c5fc0746db8cdc47c628858d6f60559b09f6158e5",
+    ("phase_d", 11, 208): "858dd9debc98b8c81f4876475a04b6612da9542b4df5010429e6dc851d65fa48",
 }
 
 

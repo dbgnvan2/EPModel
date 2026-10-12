@@ -142,7 +142,7 @@ activation_regime: synchronous
 | `stress_floor_below_basic` | 15.0 | [I] | points of functional level below basic_level | `M1.A.5e` |
 | `practice_window` | 4 | [I] | fast ticks | `M1.E.7` |
 | `perspective_steer_gain` | 0.5 | [I] | share of a steered act's weight at full perspective | `M4.D.1a` |
-| `system_adjust_gain` | 1.0 | [I] | points of functional level the other gains when a held stance works | `M1.E.7` |
+| `system_adjust_gain` | 1.0 | [I] | points of functional level the other is up by while a held stance works: a level, renewed, not stacked (revision 20) | `M1.E.7` |
 | `soothing_review_every` | 12 | [I] | fast ticks | `M4.D.6` |
 | `soothing_review_penalty` | 0.5 | [I] | share of the learned value | `M4.D.6` |
 | `self_channel_exponent` | 2.0 | [I] | exponent on functional_level / 100 | `M4.D.1a` |

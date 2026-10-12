@@ -314,3 +314,17 @@ def test_m1a4k_a_nodal_event_counts_for_everyone_it_reaches():
     assert reached_by(state, stressor) == {RAVI, MARTA}
     with pytest.raises(ValueError, match="reaches no one"):
         reached_by(state, ev("MOVE", Mechanism.EXOGENOUS_STRESSOR))
+
+
+def test_m1a4k_the_estimator_leaves_out_the_systems_adjustment():
+    """Revision 20 (owner decision 2026-10-11): the gain taken when someone else's held stance worked (adjust_swing,
+    M1.E.7) is not the person's own functioning, so the history reads functioning without it — as without borrowed
+    pseudo-self."""
+    from src.bowen.engine.slow_tick import record_week
+
+    state = fresh()
+    person = state.people[RAVI]
+    person.pseudo_self = 0.0
+    person.functional_level, person.adjust_swing = 55.0, 4.0
+    record_week(state, PARAMS, {RAVI: 10.0}, (), ())
+    assert [w.functional_level for w in state.estimator_history[RAVI]] == [51.0]

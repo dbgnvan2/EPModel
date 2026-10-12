@@ -166,8 +166,8 @@ class Person:
     # settles back slowly when calm (stress_response.respond). Kept apart from borrowed pseudo-self (M6.I.4).
     stress_swing: float = 0.0
     # Spec revision 20: the part of functional_level gained when someone's held stance worked and "the system adjusts"
-    # (external.self_practice). It settles back when calm at the same rate as stress_swing (owner decision 2026-10-11);
-    # while the person is loaded it holds.
+    # (external.self_practice): a level up to system_adjust_gain, not a stack. It settles back when calm at the rate
+    # stress_swing does. Every change to functional_level goes to exactly one ledger. Owner decisions 2026-10-11/12.
     adjust_swing: float = 0.0
     alive: bool = True
 

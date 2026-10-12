@@ -263,7 +263,8 @@ last three years of weeks:
     detriangling.
   - **The system adjusts:** when a held stance works, the other functions up. That gain is kept apart
     (`adjust_swing`) and settles back when the other is calm, as the stress-moved part does (revision 20). While they
-    are loaded it holds; whether the estimator may read it is open for the owner.
+    are loaded it holds. It is a level of at most `system_adjust_gain`, renewed while the stance keeps working, never
+    stacked. The estimator leaves it out, as it leaves out borrowed functioning (owner decisions).
   - **The soothing review:** now and then a person asks whether soothing helped, and if not, it loses its appeal.
 - **The estimator reads functioning without what over-functioning borrowed (revision 19).** The owner:
   "Overfunctioning is a dysfunctional behaviour — pseudo-self looks better."

@@ -36,12 +36,21 @@ Deferred and adjacent items. Each carries enough context to act on later without
 - [x] ~~**Decided 2026-10-11 (owner): restate `M11.C.18` and `M11.C.20`'s mutation clause.**~~ *Done at spec revision
   20: C.18 names the stress response, C.20 the estimator ignoring borrowed functioning. Measured on the revision 20
   engine in `docs/implementation_plan_phase_d.md` (step 6); recorded with the Phase D record (step 12).*
-- [ ] **For the owner: may the estimator read the system's adjustment?** (review of revision 20, 2026-10-11.) The
-  gain the other takes when a held stance works (`adjust_swing`, `M1.E.7`) settles back when they are calm, but holds
-  while they are loaded, and the estimator reads it as their own functioning (`src/bowen/engine/slow_tick.py`), weighted
-  by load. A slow-tick rise in `basic_level` never falls, so a held adjustment can become a lasting basic rise. It
-  still needs the person's own self-directed share and breadth (`M1.A.4h`). Options: (a) the estimator leaves it out,
-  as it leaves out borrowed pseudo-self; (b) it reads it, as the person's real improvement while it lasts.
+- [x] ~~**For the owner: may the estimator read the system's adjustment?**~~ *Decided 2026-10-11 (owner): (a), the
+  estimator leaves it out. Built at revision 20 (`M1.A.4k`; `src/bowen/engine/slow_tick.py`;
+  `tests/bowen/test_slow_tick.py::test_m1a4k_the_estimator_leaves_out_the_systems_adjustment`).*
+- [ ] **For the owner: `M11.C.17` fails on the revision 20 engine (2026-10-12).** Nobody's basic level rises in ten
+  years in either arm. Coaching changes behaviour (perspective 0.63, self-directed weeks 0.37 against 0.11), but
+  everyone is loaded in nearly every week, functioning falls in both arms (40 → 28–30) and the estimator's evidence
+  stays at −11 to −15 (`docs/implementation_plan_phase_d.md`, step 6, the trace). Questions: is C.17's declared load
+  (nodal events to every member, so nobody is ever calm) the right test bed; where the coached people's fall outside
+  the stress swing comes from (next trace); and can the estimator (`M1.A.4k`) register improvement that shows as
+  falling less rather than rising. The +0.63 (revision 19) and +0.66 (`a35a962`) passes were carried by the stacked
+  system adjustment.
+- [ ] **`M11.C.44` moved FAIL → PASS at revision 20 (2026-10-12), with both mutants surviving.** p went from 0.055 to
+  0.012 on an engine change that does not touch the outside position (the system's adjustment as a level). A criterion
+  that flips on an unrelated change is on its threshold; with `one-sided-deviation` and `deviation-inverted` both
+  surviving, the pass is not evidence (`M11.5`). For the owner when Phase C's gate is next looked at.
 - [ ] **Review of revision 20, minor (2026-10-11):** no full-tick test that a calm partner sheds part of the gain in the
   week it arrives (`self_practice` runs before `respond` in `tick.py`; consistent with the rule, not pinned).
 - [ ] **Pre-existing unused imports in `tests/bowen/test_engineering_gates.py`:** `clamp_unit`, `dataclasses`,

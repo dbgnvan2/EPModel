@@ -323,6 +323,15 @@ def test_m1e7_the_system_adjusts_once_per_stance_and_only_under_load():
     near_top.tick = PARAMS.practice_window
     self_practice(near_top, (), {}, PARAMS)
     assert near_top.people[marta].adjust_swing == pytest.approx(PARAMS.system_adjust_gain / 2)
+    again = fresh()                                                # a level, not a stack (revision 20, 2026-10-12)
+    for start in (0, 2 * PARAMS.practice_window):
+        again.ties[tie_id].felt_impingement[ravi] = 0.6
+        again.tick = start
+        self_practice(again, (Selection(ravi, "STAY-IN-CONTACT", (marta,), 100.0),), loaded, PARAMS)
+        again.ties[tie_id].felt_impingement[ravi] = 0.0
+        again.tick = start + PARAMS.practice_window
+        self_practice(again, (), {}, PARAMS)
+    assert again.people[marta].adjust_swing == PARAMS.system_adjust_gain
     calm = fresh()
     self_practice(calm, (Selection(ravi, "STAY-IN-CONTACT", (marta,), 100.0),), {ravi: PARAMS.anxiety_band_low / 2},
                   PARAMS)

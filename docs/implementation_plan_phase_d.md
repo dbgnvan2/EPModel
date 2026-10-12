@@ -382,8 +382,9 @@ they join a record when the Phase D record is built (step 12). The run was repea
   - So coaching barely changes behaviour the estimator sees. How a coach's effect should reach behaviour is for the
     owner.
 
-**After spec revisions 18 and 19 (2026-10-11), on the final engine, after the review fixes.** Ad hoc runs, not yet in
-a record; 150 seeds each (C.17: 100):
+**After spec revisions 18 and 19 (2026-10-11), on the final engine, after the review fixes — superseded below.** The
+system's adjustment there added to functioning with no ledger and no settling back, and stacked; these numbers, C.17's
+above all, were carried by it. Ad hoc runs, not yet in a record; 150 seeds each (C.17: 100):
 
 | Criterion | Verdict | Readout | The mutation that turns it red (run before the review fixes) |
 |---|---|---|---|
@@ -398,7 +399,8 @@ pass. What carries them is the mechanism in the table: the stress response for C
 borrowed functioning for C.20. By `M11.5` a survivor does not prove the criterion. Either the mutation clause is
 restated to the mechanism that carries each, or the load weighting is shown to matter in some other test.
 
-**After spec revision 20 (2026-10-11): the system's adjustment settles back, and the clauses are restated.** The owner
+**After spec revision 20 as first pushed (`a35a962`, 2026-10-11) — superseded below.** The adjustment there stacked,
+and these numbers, C.17's above all, were carried by that defect. The owner
 chose to restate the mutation clause of `M11.C.18` and `M11.C.20` to the mechanism that carries each. Ad hoc runs on
 the revision 20 engine, not yet in a record (the Phase D record is step 12):
 
@@ -416,6 +418,60 @@ C.18 mutant that switched off the whole stress response step, the calm settling 
 (+0.03 ± 0.03, p 0.06); the review of 2026-10-11 pointed out it removed more than the clause names, so the narrower
 mutant above is the one the clause describes. Both are single ad hoc runs on the runner's seeds; the step-12 record
 confirms them.
+
+**Revision 20 completed (2026-10-12): the estimator leaves the adjustment out, and the adjustment is a level.**
+
+- **What went wrong first:** under the criteria's steady nodal load nobody is ever calm (the trace below: loaded in
+  97–100% of weeks), so the stacked adjustment never settled and grew to 20–35 points. The estimator read it as each
+  person's own functioning. The owner chose (a), leave it out. With the stack still in place and left out, C.17's
+  coached rise fell to +0.02 ± 0.02.
+- **The fix:** the adjustment is a level of at most `system_adjust_gain`, renewed while the stance works. A first
+  version also took falls through giving way or soothing off the adjustment. The review of 2026-10-12 found that
+  recorded each fall in two ledgers, so functioning drifted above where its ledgers put it and a renewed stance refilled
+  the adjustment: the stack came back through the stress swing and pseudo-self, and C.17 passed on it (+0.52 ± 0.16).
+  It was removed; every change to functioning is now in exactly one ledger
+  (`tests/bowen/test_stress_response.py::test_m1e7_every_change_lands_in_one_ledger_so_calm_returns_functioning_to_its_start`).
+
+Ad hoc, the revision 20 engine as committed, the runner's seeds:
+
+| Criterion | Verdict | Readout | Its mutation |
+|---|---|---|---|
+| `M11.C.33` | **PASS**, 150 seeds | +0.05 ± 0.01 | not rerun |
+| `M11.C.18` | **PASS**, 150 seeds | +0.05 ± 0.01 | coping and soothing removed: **FAIL**, 0.00 ± 0.00, 50 seeds |
+| `M11.C.20` | **PASS**, 150 seeds | +0.05 ± 0.01 | borrowed pseudo-self read again: **FAIL, reversed**, −0.74 ± 0.30, 100 seeds |
+| `M11.C.17` | **FAIL**, 150 seeds | coached −0.00 ± 0.00; family −0.00 ± 0.00 (reported) | landed contact removed: FAIL, 0.00 ± 0.00, 50 seeds — not a test while the criterion is red |
+
+With coping and soothing removed nobody's basic level rises in either arm of C.18 or C.20, so the stress response
+carries both (C.20 fails under it too). Reading borrowed pseudo-self leaves C.18 passing (+0.16 ± 0.19).
+
+**The trace of the coached people (owner request, 2026-10-12).** `M11.C.17`'s ten years, 20 seeds per arm, the two
+people the coach is in contact with; yearly means (ad hoc script, not a record):
+
+| Year | Arm | Perspective | Self-directed weeks | Soothing weeks | Functioning | Stress swing | Estimator's evidence | People who rose |
+|---|---|---|---|---|---|---|---|---|
+| 1 | coach-free | 0.001 | 0.15 | 0.51 | 39.6 | −1.6 | — (window not full) | 0/40 |
+| 1 | coached | 0.06 | 0.14 | 0.45 | 37.6 | −1.4 | — | 0/40 |
+| 4 | coach-free | 0.006 | 0.16 | 0.54 | 35.6 | −6.2 | −10.7 | 0/40 |
+| 4 | coached | 0.30 | 0.23 | 0.44 | 32.0 | −4.5 | −12.4 | 0/40 |
+| 7 | coach-free | 0.011 | 0.14 | 0.54 | 34.2 | −10.3 | −13.5 | 0/40 |
+| 7 | coached | 0.50 | 0.31 | 0.42 | 31.6 | −6.3 | −14.0 | 0/40 |
+| 10 | coach-free | 0.015 | 0.11 | 0.57 | 30.1 | −13.9 | −15.4 | 0/40 |
+| 10 | coached | 0.63 | 0.37 | 0.35 | 27.9 | −6.4 | −14.7 | 0/40 |
+
+What it shows:
+- **Coaching changes behaviour.** Perspective climbs to 0.63; self-directed weeks rise from 0.14 to 0.37 while the
+  coach-free arm's fall to 0.11; soothing weeks fall; the stress-moved swing ends at −6.4 against −13.9.
+- **Functioning still falls in both arms**, from about 40 to 28–30, toward the stress floor (basic − 15 = 24.5).
+  Everyone is under load in essentially every week, so the stress response never settles back. By year 10 the
+  coached people's functioning (27.9) sits 11.6 below basic: 6.4 of it is the stress swing and about 5 is elsewhere.
+  The coach-free people's (30.1) sits 9.4 below basic with a stress swing of −13.9, so about 4.5 elsewhere is up. Where
+  "elsewhere" is (giving way and pseudo-self, the `I-POSITION` pull, the adjustment) is not yet traced.
+- **So the estimator never sees a rise.** Its evidence (load-weighted own functioning, less one standard deviation,
+  less basic level) is −10.7 to −15.4 in both arms; nobody rises in ten years.
+- **Questions for the owner** (`TODO.md`): whether C.17's declared load (a nodal event to every member every few weeks,
+  so nobody is ever calm) is the right test bed; why the coached people's functioning falls despite coping more —
+  the next trace is the ledgers other than the stress swing; and whether the estimator's form (`M1.A.4k`), which needs
+  the loaded mean above basic level, can register improvement that shows as falling less rather than rising.
 
 ### B7. Symptom channels (`M7.D.2`, `2a`–`2d`, `M7.D.4`, `M1.A.11c`)
 - Load can move between the three channels.

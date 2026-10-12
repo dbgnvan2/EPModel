@@ -133,8 +133,9 @@ def self_practice(state: RunState, selections, load: dict, params: EngineParams)
     reinforced by relief (`M4.D.6d`).
 
     When a stance works, the other functions up by ``system_adjust_gain`` (revision 19): they are not going to win.
-    That gain is kept in the other's ``adjust_swing`` and settles back when they are calm (revision 20,
-    ``stress_response.respond``); while they are loaded it holds.
+    That gain is kept in the other's ``adjust_swing`` as a level up to ``system_adjust_gain``, renewed when the stance
+    works again, never stacked (revision 20). It settles back when they are calm (``stress_response.respond``), and the
+    estimator does not read it (`M1.A.4k`).
     """
     rows = []
     due = [p for p in state.practice if p.tick + params.practice_window <= state.tick]
@@ -161,10 +162,13 @@ def self_practice(state: RunState, selections, load: dict, params: EngineParams)
             continue
         if partner.alive:
             before_level = partner.functional_level
-            partner.functional_level = min(SCALE_MAX, before_level + params.system_adjust_gain)
+            # Revision 20 (owner decision 2026-10-12): a level, not a stack. The other is up by system_adjust_gain
+            # while the stance keeps working; a renewed stance tops it back up, and it never accumulates past the gain.
+            top_up = max(0.0, params.system_adjust_gain - partner.adjust_swing)
+            partner.functional_level = min(SCALE_MAX, before_level + top_up)
             if partner.functional_level != before_level:
                 state.adjusted[(actor, other)] = state.tick  # only an adjustment that happened uses up the window
-                partner.adjust_swing += partner.functional_level - before_level  # revision 20: it settles back
+                partner.adjust_swing += partner.functional_level - before_level
                 rows.append((other, "functional_level", partner.functional_level - before_level))
     for selection in sorted(selections, key=lambda s: s.actor):
         person = state.people[selection.actor]

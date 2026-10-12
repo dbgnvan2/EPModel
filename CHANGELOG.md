@@ -9,13 +9,25 @@ All notable changes to this project are recorded here. Dates are ISO.
 From the owner's decisions of 2026-10-11:
 - **The system's adjustment settles back** (`M1.E.7`). The gain the other person takes when a held stance works is
   kept in their `adjust_swing` and shed by `response_relaxation_rate` each calm week, as the stress-moved part is. While
-  they are loaded it holds. Whether the estimator may read it is open for the owner (`TODO.md`).
+  they are loaded it holds. The estimator leaves it out (`M1.A.4k`), as it leaves out borrowed pseudo-self: the
+  owner chose this after the review showed a held adjustment could otherwise become a lasting basic rise.
+- **It is a level, not a stack** (2026-10-12). Built first as a stack, it grew to 20–35 points under the criteria's
+  steady load and carried `M11.C.17`'s pass (the +0.66 reported for `a35a962`, and revision 19's +0.63, were that
+  defect). Now the other is up by at most `system_adjust_gain`, renewed while the stance works. A first fix also took
+  falls off the adjustment; the review found that recorded each fall in two ledgers and let the stack return, so it was
+  removed. Every change to functioning is now in exactly one ledger.
 - **`M11.C.18` and `M11.C.20`'s mutation clauses** now name the mechanism that carries each: the stress response
   (`M1.A.5e`) for C.18, and the estimator reading functioning without borrowed pseudo-self (`M1.A.4k`) for C.20.
   Flattening `M1.A.4b`'s load weighting leaves both passing; the load weighting stays proved by its unit test.
-- **Result (ad hoc, not yet in a record).** All four estimator criteria pass; each restated mutation turns only its
-  own criterion red (`docs/implementation_plan_phase_d.md`, step 6). Single ad hoc runs; the Phase D record confirms them.
-- **Records regenerated:** no Phase C verdict moved. Suite: 649 tests.
+- **Result (ad hoc, not yet in a record).** `M11.C.33`, `M11.C.18` and `M11.C.20` pass, and each restated mutation
+  turns its criterion red. **`M11.C.17` fails**: in ten years nobody's basic level rises in either arm. A ten-year trace
+  of the coached people (`docs/implementation_plan_phase_d.md`, step 6) shows coaching changes behaviour, but under
+  load in every week functioning falls in both arms and the estimator's evidence stays far below zero. Open for the
+  owner (`TODO.md`).
+- **Records regenerated.** One Phase C verdict moved: `M11.C.44` FAIL → PASS (`outside_inside_ratio` +0.067 ± 0.078,
+  p 0.055, became +0.101 ± 0.082, p 0.012). It sat on the edge before, and both its mutants survive, so by `M11.5` it
+  is not proved (`docs/spec_coverage.md` keeps it partial). The mutation record's survivors went from 55 to 57: those
+  two. Suite: 651 tests.
 - **New constants:** none.
 
 ### Spec revision 19: the stress floor, self-discovered perspective, the system adjusting, the soothing review

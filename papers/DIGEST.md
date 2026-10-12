@@ -5,6 +5,53 @@ Completely separate from the Bowen corpus in `docs/theory/`.
 
 ---
 
+## 2026-10-12 — 6 new papers
+
+Method note: all six facet queries returned via `export.arxiv.org/api` (explicit
+`Accept: application/atom+xml` header, curl; urllib hit an SSL issuer error this run).
+Window: arXiv submitted >= 2026-09-28 (last digest); all six new papers are 2610.xxxxx
+(2026-10-01 … 2026-10-09). Version suffixes preserved (all v1). Six PDFs downloaded and
+verified (`%%EOF` trailer, non-trivial size). One TRAIT hit — "Thin Evidence, Thick
+Priors" (2610.07798) — is marked withdrawn in its summary and was dropped (also
+out-of-scope financial-advice identity work). Semantic Scholar citation tracking skipped
+(optional; nothing new expected from seeds). No arXiv failures.
+
+1. **"Hot-Blooded" vs "Cold-Blooded": Simulating the Behavioral Phenotypes of Childhood Aggression via Generative Agents** — 2610.11951 — Liping Fu — ARCH. Construct validity of LLM generative agents simulating reactive/proactive/co-occurring childhood aggression; four agents theory-parameterized from the social information processing model, 1,920 simulations.
+2. **Socio-Foundation: A Model for Generalizable Individual Behavior Simulation via Hierarchical Capability Distillation** — 2610.08967 — Liang Wang, Wenxuan Xie, Xinyi Mou, Yixin Luo, Zhongyu Wei — ARCH. Distills persona-preserving, context-adaptive individual behaviour simulation so distinct personas are not flattened by general-purpose LLMs.
+3. **Enhancing LLMs with Cognitive-Affective Personality Inference for Simulating Human Social-Psychological Behavior** — 2610.08328 — Zhibo Deng, Dongyuan Li, Shuwen Ge, Ziqing Zhang, Ying Zhang, Renhe Jiang — TRAIT. Cognitive-affective personality inference that disentangles stable dispositions from situation-specific interpretation, instead of static persona prompting.
+4. **MASC: A Multi-Agent Self-Calibration Framework with Latent Construct Alignment for Consistent Client Role-Playing in Psychological Counseling** — 2610.08250 — Shixin Peng, Kun Jiang, Jiaxing Zheng, Qihao Yang, Jingying Chen — ARCH. Multi-agent self-calibration so simulated counselling clients stay psychologically coherent across extended interactions (counsellor-training domain).
+5. **PAIR: Perceptual Affective Inference and Regulation in a Real-Time Multimodal Conversational Agent** — 2610.07523 — Kexin Quan, Zijian Ding, Jiaye Yong, Qinshi Zhang, Dong Wang, Jessie Chin — TRAIT. Real-time multimodal agent that reconstructs how an event is appraised into an emotional state, for sustained (cross-encounter) emotion support.
+6. **Polarization Dynamics under Algorithmic Recommendations in LLM-based Online Social Networks** — 2610.13351 — Ali Safarpoor Dehkordi, Mohammad Shirzadi, Mehwish Nasim, Ahad N. Zehmakan — DYNAMICS. LLM-based online-social-network simulation of opinion dynamics/polarization under algorithmic recommendation.
+
+Facets with nothing new in window: FIDELITY (top hits all already catalogued or
+pre-window), ADAPT (self-improvement *training*, robotics, and coding agents — out of
+scope, same as prior weeks), MECH (all pre-window or out of scope).
+
+### Deep-review candidates (individual/small-group ABM, for the EPModel spec)
+
+Screened 2026-10-12 against the level criterion (design/build/testing of an ABM at
+individual or small-group scale). **Four candidates** this week:
+
+- **Hot-Blooded vs Cold-Blooded** (2610.11951) — candidate. Four theory-parameterized
+  generative agents simulating individual childhood-aggression phenotypes (social
+  information processing architecture), tested across 1,920 simulations — individual-level
+  behavioural-phenotype fidelity with an explicit processing architecture.
+- **MASC** (2610.08250) — candidate. Multi-agent simulation of counselling clients
+  (criterion a+b), small-group client/counsellor, individual-level psychological coherence
+  across long interactions — the closest analogue yet to EPModel's counsellor + family
+  setting.
+- **Cognitive-Affective Personality Inference** (2610.08328) — candidate. Individual-level
+  social-psychological behaviour simulation; the disposition×situation disentangling maps
+  directly onto EPModel's appraisal→state→move separation.
+- **Socio-Foundation** (2610.08967) — candidate. Individual behaviour simulation preserving
+  persona traits under dynamic social context (criterion b).
+
+- *Adjacent:* **PAIR** (2610.07523) — individual emotion-regulation agent (appraisal→state),
+  a TRAIT building block but a single agent, not an interaction model. **Polarization
+  Dynamics** (2610.13351) — out on level grounds (population/network-scale opinion dynamics).
+
+---
+
 ## 2026-09-28 — 5 new papers
 
 Method note: all six facet queries returned via `export.arxiv.org/api` (explicit

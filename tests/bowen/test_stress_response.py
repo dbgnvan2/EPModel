@@ -165,3 +165,19 @@ def test_m1e7_a_calm_week_sheds_both_swings_together_even_of_opposite_sign():
     assert person.functional_level - level == pytest.approx(PARAMS.response_relaxation_rate * 2.0)
     assert person.stress_swing == pytest.approx(-3.0 * (1 - PARAMS.response_relaxation_rate))
     assert person.adjust_swing == pytest.approx(1.0 - PARAMS.response_relaxation_rate)
+
+
+
+def test_m1e7_every_change_lands_in_one_ledger_so_calm_returns_functioning_to_its_start():
+    """Review 2026-10-12: a fall recorded in two ledgers (the stress swing, and taken off the adjustment too) left
+    functioning above its start once calm, and a renewed stance refilled the adjustment, so the stack came back through
+    the other ledger. Soothe under load while adjusted, then stay calm: functioning returns to where the ledgers say."""
+    state = fresh()
+    person = state.people[RAVI]
+    start = person.functional_level
+    person.functional_level, person.adjust_swing = start + 1.0, 1.0
+    respond(state, (Selection(RAVI, "DISTANCE", (MARTA,), 100.0),), {RAVI: LOADED}, PARAMS)
+    assert person.functional_level < start + 1.0 and person.adjust_swing == 1.0  # the fall is the stress swing's
+    for _ in range(1500):
+        respond(state, (), {RAVI: 0.0}, PARAMS)
+    assert person.functional_level == pytest.approx(start, abs=1e-6)

@@ -54,7 +54,7 @@ from src.bowen.engine.event_effects import STRUCTURAL, apply_delivered_cutoffs, 
 from src.bowen.engine.events import Event
 from src.bowen.engine.identifiers import PersonId
 from src.bowen.engine.invariants import assert_invariants, snapshot
-from src.bowen.engine.external import apply_landed_contacts, self_practice
+from src.bowen.engine.external import apply_landed_contacts, record_stances, self_practice
 from src.bowen.engine.sinks import allocate_sinks
 from src.bowen.engine.slow_tick import record_week, run_slow_tick
 from src.bowen.engine.iposition import advance_sequences, redirect_to_sequence_tie, sequence_selections
@@ -180,6 +180,7 @@ def run_tick(
         records += act(state, selection, visibility, params)
     register_acts(state, selections, params)  # M4.D.6: the policy's automatic acts open their accounts
     records += self_practice(state, selections, load_at_selection, params)  # M1.E.7, revision 18
+    record_stances(state, selections, params)  # M1.B.5, revision 21: whom each person is holding a position toward
     records += respond(state, selections, load_at_selection, params)  # M1.A.5e, revision 18: coping or soothing
     steps.append("act")
 

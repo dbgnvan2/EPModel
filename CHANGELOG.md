@@ -4,6 +4,26 @@ All notable changes to this project are recorded here. Dates are ISO.
 
 ## [Unreleased] — 2026-10-11
 
+### Spec revision 21: holding a position stops the functioning exchange (2026-10-12)
+
+- **`M1.B.5`.** An `OVERFUNCTION` or `UNDERFUNCTION` delivered to a person holding a position toward its sender moves
+  no functioning, pseudo-self or balance, either way (owner decision). Holding a position is read from behaviour: a
+  self-directed act or `WITHHOLD` toward that person in the last `practice_window` weeks, and no reactive act toward
+  them since — any automatic act toward them, or triangling someone in about them (owner decision, after review)
+  (`src/bowen/engine/moves.py::holds_position`, `external.record_stances`). Logged as `position_held`.
+- **`M11.C.20`** reports the share of its borrowed arm's scripted support that a held position blocked (report only;
+  owner decision: keep the rule, show it).
+- **Why.** A trace showed coached people stopped over-functioning, and others then took charge of them more, taking
+  functioning from them each time (`docs/implementation_plan_phase_d.md`, step 6).
+- **Result (ad hoc).** `M11.C.33`, `M11.C.18`, `M11.C.20` pass, none of them carried by this change. `M11.C.17` passes the
+  runner's test (+0.01 ± 0.01, p 0.02) but is **not counted**: the interval includes zero and no coached person's basic
+  level rose in the trace. With stances ending on any reactive act, coached people fall as far as coach-free ones
+  (−11.4 against −11.1); with soothing alone ending them they fell less (−8.0 against −12.3). Under constant load
+  nobody's basic level rises; the owner's questions on C.17's load and the estimator's form remain.
+- **Records regenerated.** `M11.C.44` moved back PASS → FAIL, as it had moved FAIL → PASS at revision 20: it sits on its
+  threshold (see `TODO.md`). No other Phase C verdict moved. Suite: 656 tests.
+- **New constants:** none.
+
 ### Spec revision 20: the system's adjustment settles back; `M11.C.18` and `M11.C.20` restated
 
 From the owner's decisions of 2026-10-11:

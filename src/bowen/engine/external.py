@@ -44,7 +44,8 @@ from src.bowen.engine.contact import deviation
 from src.bowen.engine.draws import DrawKey
 from src.bowen.engine.events import Delivery, Mechanism, Role
 from src.bowen.engine.identifiers import PersonId
-from src.bowen.engine.log_records import EffectRecord
+from src.bowen.engine.log_records import DecidedBy, EffectRecord
+from src.bowen.engine.moves import TRIANGLE, triangle_partner
 from src.bowen.engine.objects import SCALE_MAX, Role as PersonRole
 from src.bowen.engine.outside_ness import efficacy
 from src.bowen.engine.params import EngineParams
@@ -107,6 +108,34 @@ def apply_landed_contacts(state: RunState, batch: tuple[Delivery, ...], params: 
             records.append(EffectRecord(state.tick, "landed_contact", event.id, people=(
                 (recipient.id, "systems_perspective", recipient.systems_perspective - before),)))
     return records
+
+
+def record_stances(state: RunState, selections, params: EngineParams) -> None:
+    """Purpose: remember, per pair, the week a person took a stance toward the other, and end it on a reactive act.
+    Spec:    docs/bowen_agent_model_spec_v2.md#M1.B.5 (revision 21)
+    Tests:   tests/bowen/test_moves.py::test_m1b5_holding_a_position_stops_the_exchange_both_ways,
+             tests/bowen/test_moves.py::test_m1b5_a_stance_lapses_with_time_or_a_reactive_act
+
+    A self-directed act or ``WITHHOLD`` toward someone takes a stance toward them. Any automatic act toward them ends
+    it — over-functioning, pursuing, conflict, distancing, cutting off, giving way — and so does triangling a third
+    person in about them, the inside partner the ``TRIANGLE`` would form (owner decision 2026-10-12: a stance is
+    broken by behaving reactively toward that person). A fallback hold has no target and is not a stance.
+    """
+    for selection in selections:
+        if not selection.targets or selection.decided_by is DecidedBy.FALLBACK:
+            continue
+        if selection.kind == WITHHOLD or state.kinds.channels.get(selection.kind) == SELF_CHANNEL:
+            for other in selection.targets:
+                state.stances[(selection.actor, other)] = state.tick
+            continue
+        about = set(selection.targets)
+        if selection.kind == TRIANGLE:
+            for target in selection.targets:
+                found = triangle_partner(state, selection.actor, target, params)
+                if found is not None:
+                    about.add(found[1])
+        for other in about:
+            state.stances.pop((selection.actor, other), None)
 
 
 class Practice(NamedTuple):

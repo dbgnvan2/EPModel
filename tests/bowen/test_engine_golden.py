@@ -10,7 +10,8 @@ alter behaviour (plan B4 onward), and say in that commit which change moved it. 
 2026-10-10 at the engine of commit 713458a (spec revision 14, before B1). Moved 2026-10-11 by B3 (channel stamping:
 the log only), B4 (cutoff as rejection, spec revisions 14 and 16: behaviour) and B5/B6 (the slow tick: tie wear
 and the estimator), spec revisions 17-19 (nodal events, stress response, perspective, soothing review), and revision 20 (the
-system's adjustment settles back; then, 2026-10-12, a level the estimator leaves out).
+system's adjustment settles back; then, 2026-10-12, a level the estimator leaves out), and revision 21
+(holding a position stops the functioning exchange).
 """
 
 from __future__ import annotations
@@ -31,8 +32,8 @@ from src.bowen.scenario.scripted_source import ScriptedSource
 REPO = Path(__file__).resolve().parents[2]
 GOLDEN = {
     # (family, seed, weeks): fingerprint
-    ("phase_c", 7, 104): "31a44c8ca78a0bd0b597b8c39b11eddaa22edeff7288db36f7dbbc6ac182677d",
-    ("phase_d", 11, 208): "62c64c57ef061858e97015ac17278fea39885fa7d340d8be5775d65fb8118dcf",
+    ("phase_c", 7, 104): "6b33a3d1d783a8e419e03bf885d2362eeea433a8fc7856e312e9cac9d25163ab",
+    ("phase_d", 11, 208): "6dea00c2590d01d79d833cd5fe6cec77e4eef4cbfc28d30ef10d18d4557af173",
 }
 
 

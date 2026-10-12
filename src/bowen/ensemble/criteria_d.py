@@ -35,6 +35,7 @@ from __future__ import annotations
 from src.bowen.engine.act import Selection
 from src.bowen.engine.events import Channel, Event, EventId, Mechanism, SourcePosition
 from src.bowen.engine.identifiers import PersonId
+from src.bowen.engine.log_records import EffectRecord, EmittedRecord
 from src.bowen.engine.objects import Role
 from src.bowen.ensemble.criteria import FAMILIES, ROLES, SETTINGS, result, scenario
 from src.bowen.ensemble.runner import Criterion, Readout
@@ -89,7 +90,20 @@ def arm_c20(arm, seed, settings):
     # support, which is part differentiation (the borrowed arm then rose more, −8.1 ± 0.7).
     state, records = scenario("triad", seed, weeks, spells=nodal(weeks, (MOVER,)),
                               setup=_with_perspective if arm == "treatment" else None, forced=forced)
-    return result({"rise": _rise(state, "triad", (MOVER,))}, records)
+    # The basic arm has no scripted support, so it reports 0: the runner's difference is then minus the borrowed
+    # arm's share (report only).
+    blocked = support_blocked(records) if arm == "baseline" else 0.0
+    return result({"rise": _rise(state, "triad", (MOVER,)), "support_blocked": blocked}, records)
+
+
+def support_blocked(records) -> float:
+    """Report only (revision 21, owner decision 2026-10-12): the share of the partner's ``UNDERFUNCTION`` toward the
+    mover that moved nothing because the mover held a position (`M1.B.5`). The borrowed arm's borrowing is what is
+    left; this shows how much that is."""
+    events = {r.event.id: r.event for r in records if isinstance(r, EmittedRecord)}
+    support = [e.id for e in events.values() if e.kind == "UNDERFUNCTION" and e.sender == OTHER and MOVER in e.targets]
+    held = {r.cause for r in records if isinstance(r, EffectRecord) and r.mechanism == "position_held"}
+    return sum(1 for e in support if e in held) / len(support) if support else 0.0
 
 
 YEAR = load_constants()["slow_tick_fast_ticks"]
@@ -143,7 +157,8 @@ C = Criterion
 CRITERIA_D: dict[str, Criterion] = {
     "M11.C.18": C("M11.C.18", "check", ("baseline", "treatment"), (Readout("rise", +1),), arm_c18,
                   ("CUTOFF", "I-POSITION"), settings=SETTINGS["M11.C.18"]),
-    "M11.C.20": C("M11.C.20", "check", ("baseline", "treatment"), (Readout("rise", +1),), arm_c20,
+    "M11.C.20": C("M11.C.20", "check", ("baseline", "treatment"),
+                  (Readout("rise", +1), Readout("support_blocked", -1, report_only=True)), arm_c20,
                   ("UNDERFUNCTION", "I-POSITION"), settings=SETTINGS["M11.C.20"]),
     "M11.C.33": C("M11.C.33", "premise", ("baseline", "treatment"), (Readout("rise", +1),), arm_c33,
                   ("I-POSITION",), settings=SETTINGS["M11.C.33"]),

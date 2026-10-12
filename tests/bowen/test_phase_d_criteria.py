@@ -75,3 +75,23 @@ def test_m11c33_arms_differ_only_at_the_slow_tick():
                           if isinstance(r, SelectionRecord) and r.actor == MOVER]
         assert picks["baseline"] == picks["treatment"], seed
         assert any(e is not None and "I-POSITION" in str(labels) for _, labels, e in picks["baseline"])
+
+
+def test_m11c20_reports_how_much_scripted_support_a_held_position_blocked():
+    """Revision 21 (owner decision 2026-10-12): the borrowed arm keeps the rule, and reports the share of its
+    scripted support that moved nothing because the mover held a position."""
+    from src.bowen.engine.events import Channel, Event, EventId, Mechanism, SourcePosition
+    from src.bowen.engine.log_records import EffectRecord, EmittedRecord
+    from src.bowen.ensemble.criteria_d import MOVER, OTHER, support_blocked
+
+    def support(i):
+        return Event(id=EventId(i, "m", 0), kind="UNDERFUNCTION", mechanism=Mechanism.MOVE, sender=OTHER,
+                     targets=(MOVER,), intensity=100.0, timestamp=i, duration=1, exogenous=False,
+                     source_position=SourcePosition.NONE, channel=Channel.SCRIPTED)
+
+    events = [support(i) for i in range(4)]
+    records = [EmittedRecord(e) for e in events]
+    records.append(EffectRecord(1, "position_held", events[1].id, people=((MOVER, "position_held", 1.0),)))
+    assert support_blocked(records) == 0.25
+    assert support_blocked([]) == 0.0
+    assert "support_blocked" in {r.name for r in CRITERIA_D["M11.C.20"].readouts if r.report_only}

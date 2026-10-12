@@ -124,7 +124,7 @@ class EngineParams:
     response_down_gain: float              # M1.A.5e, revision 18 — functioning lost per unit load by soothing, at basic level 0
     response_relaxation_rate: float        # M1.A.5e, M7.A.1 — share of the stress-moved swing shed per calm week
     stress_floor_below_basic: float        # M1.A.5e, revision 19 — how far below basic_level stress can push functioning
-    practice_window: int                   # M1.E.7, revision 19 — weeks after a self-directed act before it is judged to have worked
+    practice_window: int                   # M1.E.7, revision 19 — weeks after a self-directed act before it is judged to have worked; M1.B.5, revision 21 — how long a stance holds
     perspective_steer_gain: float          # M4.D.1a, revision 19 — how far full perspective scales a steered act's weight
     system_adjust_gain: float              # M1.E.7, revision 19 — functioning the other gains when a held stance works
     soothing_review_every: int             # M4.D.6, revision 19 — weeks between a person's chances to ask whether soothing helped

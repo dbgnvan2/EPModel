@@ -140,7 +140,7 @@ activation_regime: synchronous
 | `response_down_gain` | 0.5 | [I] | functioning per unit load (load / 100), at basic level 0 | `M1.A.5e` |
 | `response_relaxation_rate` | 0.02 | [I] | share of the stress-moved swing, and of the system's adjustment (`M1.E.7`, revision 20), shed per calm week | `M1.A.5e` |
 | `stress_floor_below_basic` | 15.0 | [I] | points of functional level below basic_level | `M1.A.5e` |
-| `practice_window` | 4 | [I] | fast ticks | `M1.E.7` |
+| `practice_window` | 4 | [I] | fast ticks; also how long a stance holds (`M1.B.5`, revision 21) | `M1.E.7` |
 | `perspective_steer_gain` | 0.5 | [I] | share of a steered act's weight at full perspective | `M4.D.1a` |
 | `system_adjust_gain` | 1.0 | [I] | points of functional level the other is up by while a held stance works: a level, renewed, not stacked (revision 20) | `M1.E.7` |
 | `soothing_review_every` | 12 | [I] | fast ticks | `M4.D.6` |

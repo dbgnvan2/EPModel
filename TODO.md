@@ -44,13 +44,14 @@ Deferred and adjacent items. Each carries enough context to act on later without
   everyone is loaded in nearly every week, functioning falls in both arms (40 → 28–30) and the estimator's evidence
   stays at −11 to −15 (`docs/implementation_plan_phase_d.md`, step 6, the trace). Questions: is C.17's declared load
   (nodal events to every member, so nobody is ever calm) the right test bed; where the coached people's fall outside
-  the stress swing comes from (traced 2026-10-12: being over-functioned for, see the plan, step 6); and can the estimator (`M1.A.4k`) register improvement that shows as
+  the stress swing comes from (traced 2026-10-12: being over-functioned for; revision 21 stops that for a person holding a position, and C.17 still fails, see the plan, step 6); and can the estimator (`M1.A.4k`) register improvement that shows as
   falling less rather than rising. The +0.63 (revision 19) and +0.66 (`a35a962`) passes were carried by the stacked
   system adjustment.
 - [ ] **`M11.C.44` moved FAIL → PASS at revision 20 (2026-10-12), with both mutants surviving.** p went from 0.055 to
   0.012 on an engine change that does not touch the outside position (the system's adjustment as a level). A criterion
   that flips on an unrelated change is on its threshold; with `one-sided-deviation` and `deviation-inverted` both
-  surviving, the pass is not evidence (`M11.5`). For the owner when Phase C's gate is next looked at.
+  surviving, the pass is not evidence (`M11.5`). At revision 21 it moved back to FAIL. For the owner when Phase C's gate is
+  next looked at.
 - [ ] **Review of revision 20's completion, minor (2026-10-12; the correctness pass, which read the version with
   `shed_adjustment`, since removed):**
   - At the stress floor a calm week decays `adjust_swing` while functioning cannot fall, so the estimator's `own`
@@ -58,8 +59,18 @@ Deferred and adjacent items. Each carries enough context to act on later without
   - No test pins a partial top-up (0 < `adjust_swing` < `system_adjust_gain`) in `external.self_practice`.
   - The once-per-stance gate is now mostly redundant with the level (a top-up at the gain adds nothing); it only limits
     renewal to once per `practice_window`.
+- [ ] **For the owner: nobody in the Phase C family is ever calm (traced 2026-10-12).** The coached people's excess anxiety
+  sits at 30–35 against the calm band's edge of 5, with or without nodal events; the standing load alone would hold
+  about 6–7 (`docs/implementation_plan_phase_d.md`, step 6). So the stress response never settles and C.17 cannot
+  show a rise. Options: read "calm" against each person's usual level; set the bands from the engine's operating point;
+  or make the family's traffic carry less anxiety.
 - [ ] **Review of revision 20, minor (2026-10-11):** no full-tick test that a calm partner sheds part of the gain in the
   week it arrives (`self_practice` runs before `respond` in `tick.py`; consistent with the rule, not pinned).
+- [ ] **Adjacent, not fixed (review of revision 21, 2026-10-12): two checks are written out more than once.** "Self-directed
+  or a hold" (`kind == WITHHOLD or channels.get(kind) == SELF_CHANNEL`) appears in `external.py` (twice),
+  `stress_response.py` and `slow_tick.py`; "held their position" is `moves.holds_position` and, separately,
+  `external.self_practice`'s soothing check (which judges only the first target). One shared helper each would keep them
+  from drifting apart.
 - [ ] **Pre-existing unused imports in `tests/bowen/test_engineering_gates.py`:** `clamp_unit`, `dataclasses`,
   `EventStore`, `legal_outcomes`. Found while checking the B3/B4 diff. Not touched, since they predate it.
 

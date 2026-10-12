@@ -90,7 +90,7 @@ def test_m16c4_single_agent_view():
 
 
 def test_m16c5_trace_carries_header_and_framing():
-    for needle in ("seed | 7", "config hash", "spec revision | 2.0, revision 20", "phase_b_reduced",
+    for needle in ("seed | 7", "config hash", "spec revision | 2.0, revision 21", "phase_b_reduced",
                    "constants frozen | 2026-10-07", "M11.F.9", "M11.F.10", "invented", "virtual family"):
         assert needle in TEXT, needle
     assert TEXT.index("What this is") < TEXT.index(TABLE_HEAD)
@@ -196,3 +196,15 @@ def test_b2_framing_says_who_chose_the_acts():
     assert POLICY in framing([selection(DecidedBy.FALLBACK)]) and POLICY in framing([selection(DecidedBy.POLICY)])
     assert SCRIPTED in framing([]) and SCRIPTED in framing([selection(DecidedBy.SCRIPTED)])
     assert POLICY in framing([selection(DecidedBy.SCRIPTED), selection(DecidedBy.SEQUENCE)])
+
+
+def test_m16c2_a_held_position_renders():
+    """Revision 21 (review 2026-10-12): the seed-7 trace emits no position_held, so its sentence is pinned here."""
+    from src.bowen.engine.log_records import EffectRecord
+
+    first_event = next(r.event for r in RECORDS if isinstance(r, EmittedRecord))
+    target = first_event.targets[0]
+    held = EffectRecord(tick=first_event.timestamp, mechanism="position_held", cause=first_event.id,
+                        people=((target, "position_held", 1.0),))
+    text = render(RECORDS + [held], NAMES)
+    assert f"{NAMES.get(target, target.value)} holds a position: no functioning changes hands" in text

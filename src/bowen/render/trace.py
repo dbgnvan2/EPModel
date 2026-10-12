@@ -59,7 +59,7 @@ TABLE_HEAD = "| Week | Who | Move | Toward | Witnesses | What it did |\n|---|---
 # Every mechanism the engine emits, and how the trace treats it. Anything else
 # raises: a record the renderer does not understand must not vanish (P2, P19).
 CAUSED = frozenset({"appraisal", "calm_contact", "symptom_onset", "distance_binding", "triangle_transfer",
-                    "functioning_shift", "reduce_cutoff", "refusal", "stressor_load", "assertion", "debit", "landed_contact", "trigger", "cutoff", "reconciliation", "institutionalize", "binder_unavailable"})
+                    "functioning_shift", "position_held", "reduce_cutoff", "refusal", "stressor_load", "assertion", "debit", "landed_contact", "trigger", "cutoff", "reconciliation", "institutionalize", "binder_unavailable"})
 SYSTEM_SHOWN = frozenset({"triangle_recompute", "consolidation", "rejection_fade", "slow_tick"})
 SYSTEM_SUMMARISED = frozenset({
     "standing_load", "acute_decay", "contact_relaxation", "symptom_accumulation", "investment", "reactive_state",
@@ -182,6 +182,9 @@ def _what_it_did(event: Event, index: _Index, names: _Names, view: PersonId | No
             if gained:
                 (p, v), = gained
                 parts.append(f"{names(p)} takes {v:.1f} of functioning from the other")
+        elif effect.mechanism == "position_held":
+            for p, _, _ in effect.people:
+                parts.append(f"{names(p)} holds a position: no functioning changes hands")
         elif effect.mechanism == "assertion":
             parts.append("assertion form (no systems perspective, or angry): extra impingement; "
                          "claiming the position raises the sender's outward axis")

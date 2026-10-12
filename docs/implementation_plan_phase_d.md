@@ -509,6 +509,75 @@ What it shows:
   from them at all (the exchange takes two, `M1.B.5`), or whether this is the change-back reaction the system goes
   through before it adjusts (`M1.E.7`), which here never settles because nobody is ever calm.
 
+**After spec revision 21 (2026-10-12): holding a position stops the exchange.** The owner chose (1): an `OVERFUNCTION`
+or `UNDERFUNCTION` delivered to someone holding a position toward the sender moves nothing (`M1.B.5`). After the
+review, the owner chose that any reactive act toward that person ends the stance — any automatic act toward them, or
+triangling someone in about them — not only a soothing one. Ad hoc, same scripts and seeds, on the engine as
+committed:
+
+| | Coach-free | Coached |
+|---|---|---|
+| Ten-year change in functioning, per coached person | −11.1 | −11.4 |
+| of which giving way, net | +2.7 | −4.7 |
+| of which the stress response, net | −14.8 | −7.7 |
+| Gave to someone else's `OVERFUNCTION` (people other than the spouse) | −57.8 | −61.6 |
+| Estimator's evidence, year 10 | −15.9 | −14.7 |
+| People whose basic level rose, any year | 0 of 40 | 0 of 40 |
+
+| Criterion | Runner's verdict | Readout | Its mutation |
+|---|---|---|---|
+| `M11.C.33` | PASS, 150 seeds | +0.05 ± 0.01 | not rerun |
+| `M11.C.18` | PASS, 150 seeds | +0.05 ± 0.01 | coping and soothing removed: FAIL, 0.00 ± 0.00, 50 seeds |
+| `M11.C.20` | PASS, 150 seeds | +0.05 ± 0.01; scripted support blocked by a held position 10% ± 2% (report only) | borrowed pseudo-self read: FAIL, reversed, −0.67 ± 0.26, 100 seeds |
+| `M11.C.17` | PASS, 150 seeds, **not counted** | coached +0.01 ± 0.01 (p 0.02); family +0.00 ± 0.00 | landed contact removed: FAIL, −0.00 ± 0.00 |
+
+With holding a position switched off (`holds_position` always false), C.33, C.18 and C.20 still pass (+0.05 each) and
+C.17 fails (−0.00 ± 0.00, p 0.69): revision 21 carries none of the first three. With borrowed pseudo-self read, C.18
+now fails too (+0.08 ± 0.14).
+
+What it shows:
+- **C.17's pass is not evidence.** Its interval includes zero, and in the trace's 20 seeds per arm no coached person's
+  basic level rose in any year. It passes the runner's signed-rank test on a handful of small rises.
+- **Ending a stance on any reactive act takes back most of the first version's gain.** The coached people still make
+  many automatic acts toward the people they took a stance with, so their stances end often; they fall as far as the
+  coach-free (−11.4 against −11.1), where with soothing alone ending a stance they fell less (−8.0 against −12.3).
+- **The blocker is unchanged:** everyone is loaded in nearly every week, functioning falls in both arms, and the
+  estimator's evidence stays at −15 to −16. The owner's first and third questions (C.17's declared load, and whether
+  the estimator can register falling less) are what is left.
+
+**What keeps everyone above the calm band (owner request, 2026-10-12).** First, nodal events less often (the owner's
+"make C.17 calmer"): every 8, 16, 26 or 52 weeks, or none, the coached people are loaded in 100% of weeks, in both arms,
+and nobody's basic level rises (ad hoc, 20 seeds per arm). So the load is not the nodal events. Then each week's change
+in the coached people's acute anxiety, years 8–10, summed by the mechanism that logged it (ad hoc, 20 seeds per arm,
+nodal events as C.17 declares them; per person-week; nothing unlogged):
+
+| | Coach-free | Coached |
+|---|---|---|
+| Excess anxiety at selection (the calm band's edge is 5) | 32.6 | 36.3 |
+| Appraisal of others' acts (over-functioning, conflict, distance, cutoff, pursuit, …) | +3.0 | +3.4 |
+| Appraisal of their own acts | +1.4 | +1.6 |
+| Appraisal of the nodal events | +0.5 | +0.5 |
+| Standing load (`M4.A.1`) | +1.3 | +1.2 |
+| Refusals (`M1.B.3c`) | +1.0 | +0.7 |
+| Released cut-off anxiety (`REDUCE_CUTOFF`) | +0.7 | +1.3 |
+| Competing urges, triangle transfer | +0.5 | +0.4 |
+| Decay (`acute_decay_rate` 0.2 of the excess a week) | −6.6 | −7.3 |
+| Bound by distance, calm contact, cutoff | −1.8 | −1.8 |
+
+What it shows:
+- **No single source; the family's own traffic.** About 8.4 points a week flow in (9.1 coached), spread over many
+  acts; decay takes 0.2 of the excess a week and binding about 1.8, so the excess settles near 30–35, six to seven
+  times the calm band's edge. The nodal events are about 0.5 of it.
+- **The calm band cannot be reached even in a quiet family.** `config/bowen/constants.md` records that the standing load
+  alone was set to hold a person "a few points above their chronic floor": its 1.2–1.3 a week over a decay of 0.2 is an
+  excess of about 6–7, already above the band's edge of 5. Two `[I]` constants disagree: nobody in this family can ever
+  be calm, so the stress response never settles back and the system's adjustment never fades.
+- **Coaching adds load here:** the coached people reopen cut-off ties more (`REDUCE_CUTOFF`, releasing what the cutoff
+  held) and sit higher (36.3 against 32.6).
+- **For the owner:** whether "calm" should be read against each person's own usual level rather than a fixed 5 points,
+  whether the bands should be set from the operating point the engine actually runs at, or whether the family's
+  traffic itself should carry less anxiety.
+
 ### B7. Symptom channels (`M7.D.2`, `2a`–`2d`, `M7.D.4`, `M1.A.11c`)
 - Load can move between the three channels.
 - Lock-in lowers family anxiety until a severity peak, then raises it.

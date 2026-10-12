@@ -237,15 +237,17 @@ last three years of weeks:
   bottom, `M1.A.4d`).
 - **A benign window carries no load, so no evidence.** `basic_level` does not fall in D-I; falls belong with the
   child's estimator in D-II.
-- **What the criteria show (2026-10-11, after revisions 18 and 19; ad hoc runs):** all four pass, each with three
-  kinds of nodal event. Each fails when the mechanism behind it is removed:
-  - `M11.C.33`: the slow-clock dependence gate;
-  - `M11.C.18`: the stress response;
-  - `M11.C.20`: the estimator ignoring borrowed functioning;
-  - `M11.C.17`: the coach's landed contact.
+- **What the criteria show (2026-10-12, revision 21; ad hoc runs, not yet a record):** each with three kinds of nodal
+  event.
+  - `M11.C.33`, `M11.C.18` and `M11.C.20` pass. Each fails when the mechanism behind it is removed: the slow-clock
+    dependence gate, the stress response, and the estimator ignoring borrowed functioning. C.20 also reports how much
+    of its borrowed arm's scripted support a held position blocked (about 10%).
+  - `M11.C.17` **does not pass in any way that counts.** Nobody's basic level rises in ten years, coached or not: under
+    the criterion's constant load functioning falls in both arms. Its earlier passes (revisions 19 and 20) were carried
+    by a defect, the system's adjustment stacking.
 
   Flattening the load weighting leaves C.18 and C.20 passing, so at revision 20 their mutation clauses were restated
-  to the mechanisms above (owner decision, 2026-10-11; `docs/implementation_plan_phase_d.md`, step 6 result).
+  to the mechanisms above (owner decision, 2026-10-11; `docs/implementation_plan_phase_d.md`, step 6).
 - **What counts as a nodal event (revision 17).** Any major event on a person: the owner lists deaths, births,
   marriages, serious illnesses, big moves, big job changes, a child moving out or back in, and divorces. The engine's
   kinds are listed in `config/bowen/nodal_events.md`. An event counts for whom it happens to and for everyone it
@@ -1749,6 +1751,11 @@ The core moves keep their names but each is one act. The pattern of the same nam
   - A flip is immediate when one person's assertion outweighs the other's current domination, but it
     reverts unless sustained.
   - Raising a marked under-functioner is harder than toning down the over-functioner.
+  - **The exchange takes two (revision 21, `M1.B.5`).** A person holding a position toward the sender is not taken
+    over, and does not take over for someone who under-functions toward them: nothing moves. Holding a position is read
+    from behaviour: a self-directed act or holding back toward that person in the last `practice_window` weeks, and
+    no reactive act toward them since — any automatic act toward them, or triangling someone in about them. The owner
+    (2026-10-12): "holding a position stops the transfer".
 - **`REDUCE_CUTOFF`** reopens a severed tie, and the anxiety the cutoff held goes to the third parties
   around it (`L22.6`). *From Phase D (B4):* it lowers both members' rejection, and the tie reopens when none is
   left.

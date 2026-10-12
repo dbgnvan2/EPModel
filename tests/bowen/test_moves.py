@@ -16,6 +16,7 @@ from src.bowen.engine.event_effects import apply_structural_event
 from src.bowen.engine.events import Channel, Delivery, Event, EventId, Mechanism, Role, SourcePosition
 from src.bowen.engine.identifiers import PersonId, TieId, TriangleId
 from src.bowen.engine.initialise import initialise_run
+from src.bowen.engine.log_records import DecidedBy
 from src.bowen.engine.moves import DEFAULT_AREA, apply_move_effects, settle_functioning
 from src.bowen.engine.objects import TieState
 from src.bowen.engine.recompute import recompute_triangles
@@ -321,3 +322,92 @@ def test_m1a5e_giving_way_cannot_take_the_giver_below_the_floor():
     deliver(state, move("UNDERFUNCTION", MARTA, RAVI, tick=1))
     assert giver.functional_level == floor                         # nothing more to give
 
+
+
+def _stance(state, holder, other, kind="STAY-IN-CONTACT", tick=0):
+    from src.bowen.engine.act import Selection
+    from src.bowen.engine.external import record_stances
+
+    state.tick = tick
+    record_stances(state, (Selection(holder, kind, (other,), 100.0),), PARAMS)
+
+
+def _exchange(state, kind, sender, target, tick):
+    """Deliver one exchange at ``tick`` and return what moved: (sender's, target's) functional level, the balance."""
+    state.tick = tick
+    before = (state.people[sender].functional_level, state.people[target].functional_level,
+              state.ties[TieId.of(sender, target)].functioning_balance[DEFAULT_AREA])
+    records = deliver(state, move(kind, sender, target, tick=tick - 1, index=tick))
+    after = (state.people[sender].functional_level, state.people[target].functional_level,
+             state.ties[TieId.of(sender, target)].functioning_balance[DEFAULT_AREA])
+    return tuple(a - b for a, b in zip(after, before)), records
+
+
+def test_m1b5_holding_a_position_stops_the_exchange_both_ways():
+    """Revision 21 (owner decision 2026-10-12): the exchange takes two. A person holding a position toward the sender
+    is not taken over by an OVERFUNCTION and does not take over for an UNDERFUNCTION; without a stance both move."""
+    for kind in ("OVERFUNCTION", "UNDERFUNCTION"):
+        held, plain = fresh(), fresh()
+        _stance(held, RAVI, NADIA)
+        moved, records = _exchange(held, kind, NADIA, RAVI, tick=2)
+        assert moved == (0.0, 0.0, 0.0), kind
+        assert [r.mechanism for r in records] == ["position_held"]
+        moved, _ = _exchange(plain, kind, NADIA, RAVI, tick=2)
+        assert moved[0] != 0 and moved[1] != 0 and moved[2] != 0, kind
+    withheld = fresh()                                               # holding back counts as a stance too
+    _stance(withheld, RAVI, NADIA, kind="WITHHOLD")
+    assert _exchange(withheld, "OVERFUNCTION", NADIA, RAVI, tick=2)[0] == (0.0, 0.0, 0.0)
+
+
+def test_m1b5_a_stance_lapses_with_time_or_a_reactive_act():
+    """Held means a self-directed act or hold toward that person in the last practice_window weeks, and no reactive
+    act toward them since: any automatic act toward them, or triangling someone in about them (owner decision
+    2026-10-12). Toward someone else, or by the other person, it changes nothing."""
+    from src.bowen.engine.act import Selection
+    from src.bowen.engine.external import record_stances
+
+    edge = fresh()                                                   # still held at the window's last week
+    _stance(edge, RAVI, NADIA)
+    assert _exchange(edge, "OVERFUNCTION", NADIA, RAVI, tick=PARAMS.practice_window)[0] == (0.0, 0.0, 0.0)
+    late = fresh()
+    _stance(late, RAVI, NADIA)
+    assert _exchange(late, "OVERFUNCTION", NADIA, RAVI, tick=PARAMS.practice_window + 1)[0][1] != 0
+    for kind in ("DISTANCE", "PURSUE", "OVERFUNCTION", "CONFLICT"):  # a reactive act toward them ends it
+        broken = fresh()
+        _stance(broken, RAVI, NADIA)
+        _stance(broken, RAVI, NADIA, kind=kind, tick=1)
+        assert _exchange(broken, "OVERFUNCTION", NADIA, RAVI, tick=2)[0][1] != 0, kind
+    earlier = fresh()                                                # a reactive act before the stance does not undo it
+    _stance(earlier, RAVI, NADIA, kind="DISTANCE", tick=0)
+    _stance(earlier, RAVI, NADIA, tick=1)
+    assert _exchange(earlier, "OVERFUNCTION", NADIA, RAVI, tick=3)[0] == (0.0, 0.0, 0.0)
+    theirs = fresh()                                                 # the other person's reactive act does not end it
+    _stance(theirs, RAVI, NADIA)
+    _stance(theirs, NADIA, RAVI, kind="DISTANCE", tick=1)
+    assert _exchange(theirs, "OVERFUNCTION", NADIA, RAVI, tick=2)[0] == (0.0, 0.0, 0.0)
+    elsewhere = fresh()                                              # a stance toward someone else gives no cover
+    _stance(elsewhere, RAVI, MARTA)
+    assert _exchange(elsewhere, "OVERFUNCTION", NADIA, RAVI, tick=2)[0][1] != 0
+    reactive_elsewhere = fresh()                                     # nor does a reactive act toward someone else end it
+    _stance(reactive_elsewhere, RAVI, NADIA)
+    _stance(reactive_elsewhere, RAVI, PIA, kind="CONFLICT", tick=1)
+    assert _exchange(reactive_elsewhere, "OVERFUNCTION", NADIA, RAVI, tick=2)[0] == (0.0, 0.0, 0.0)
+    automatic = fresh()                                              # an automatic act is not a stance
+    _stance(automatic, RAVI, NADIA, kind="OVERFUNCTION")
+    assert automatic.stances == {}
+    forced = fresh()                                                 # a fallback hold is not a stance
+    forced.tick = 0
+    record_stances(forced, (Selection(RAVI, "WITHHOLD", (NADIA,), 0.0, decided_by=DecidedBy.FALLBACK),), PARAMS)
+    assert forced.stances == {}
+
+
+def test_m1b5_triangling_someone_in_about_them_ends_the_stance():
+    """Triangling Marta in to get away from Nadia ends Ravi's stance toward Nadia, the inside partner the TRIANGLE
+    forms, though the act is aimed at Marta (owner decision 2026-10-12)."""
+    from src.bowen.engine.moves import triangle_partner
+
+    state = strained_with_nadia()
+    assert triangle_partner(state, RAVI, MARTA, PARAMS)[1] == NADIA
+    _stance(state, RAVI, NADIA)
+    _stance(state, RAVI, MARTA, kind="TRIANGLE", tick=1)
+    assert (RAVI, NADIA) not in state.stances

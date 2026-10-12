@@ -247,11 +247,30 @@ def initialise_functioning(people: dict[PersonId, Person], ties: dict[TieId, Rel
         ties[tid].functioning_habit = {DEFAULT_AREA: 0.0}
 
 
+def holds_position(state: RunState, holder: PersonId, other: PersonId, params: EngineParams) -> bool:
+    """Purpose: whether a person is holding a position toward another, read from behaviour (revision 21).
+    Spec:    docs/bowen_agent_model_spec_v2.md#M1.B.5, #M1.E.7
+    Tests:   tests/bowen/test_moves.py::test_m1b5_a_stance_lapses_with_time_or_a_reactive_act
+
+    Held when, within the last ``practice_window`` weeks, the person made a self-directed act or held back toward
+    the other, at any load, and has made no reactive act toward them since (``external.record_stances`` ends the
+    stance on one). Every avoiding or soothing act is automatic, so this includes `M1.E.7`'s test for "held their
+    position"; unlike `M1.E.7` it does not require the act to be under load (owner decisions 2026-10-12).
+    """
+    since = state.stances.get((holder, other))
+    return since is not None and 0 < state.tick - since <= params.practice_window
+
+
 def functioning_shift(state: RunState, event: Event, tie: Relationship, target: PersonId, params: EngineParams) -> EffectRecord:
     """Purpose: push the tie's balance toward a pole and move pseudo-self with it, conserved.
     Spec:    docs/bowen_agent_model_spec_v2.md#M1.B.5, #M1.B.6, #M1.B.7, #M6.I.4
-    Tests:   tests/bowen/test_moves.py::test_m1b6_flip_is_relative_and_immediate
+    Tests:   tests/bowen/test_moves.py::test_m1b6_flip_is_relative_and_immediate,
+             tests/bowen/test_moves.py::test_m1b5_holding_a_position_stops_the_exchange_both_ways
     """
+    # Revision 21 (owner decision 2026-10-12): the exchange takes two. A person holding a position toward the sender
+    # neither gives way to being taken over nor takes over for someone who under-functions toward them.
+    if holds_position(state, target, event.sender, params):
+        return EffectRecord(state.tick, "position_held", event.id, people=((target, "position_held", 1.0),))
     taking_charge = event.kind == OVERFUNCTION
     over, under = (event.sender, target) if taking_charge else (target, event.sender)
     direction = _pole_of(tie, over)

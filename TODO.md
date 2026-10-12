@@ -51,6 +51,13 @@ Deferred and adjacent items. Each carries enough context to act on later without
   0.012 on an engine change that does not touch the outside position (the system's adjustment as a level). A criterion
   that flips on an unrelated change is on its threshold; with `one-sided-deviation` and `deviation-inverted` both
   surviving, the pass is not evidence (`M11.5`). For the owner when Phase C's gate is next looked at.
+- [ ] **Review of revision 20's completion, minor (2026-10-12; the correctness pass, which read the version with
+  `shed_adjustment`, since removed):**
+  - At the stress floor a calm week decays `adjust_swing` while functioning cannot fall, so the estimator's `own`
+    is overstated by at most `response_relaxation_rate × system_adjust_gain` (0.02). Intended, as for `stress_swing`.
+  - No test pins a partial top-up (0 < `adjust_swing` < `system_adjust_gain`) in `external.self_practice`.
+  - The once-per-stance gate is now mostly redundant with the level (a top-up at the gain adds nothing); it only limits
+    renewal to once per `practice_window`.
 - [ ] **Review of revision 20, minor (2026-10-11):** no full-tick test that a calm partner sheds part of the gain in the
   week it arrives (`self_practice` runs before `respond` in `tick.py`; consistent with the rule, not pinned).
 - [ ] **Pre-existing unused imports in `tests/bowen/test_engineering_gates.py`:** `clamp_unit`, `dataclasses`,

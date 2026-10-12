@@ -44,7 +44,7 @@ Deferred and adjacent items. Each carries enough context to act on later without
   everyone is loaded in nearly every week, functioning falls in both arms (40 → 28–30) and the estimator's evidence
   stays at −11 to −15 (`docs/implementation_plan_phase_d.md`, step 6, the trace). Questions: is C.17's declared load
   (nodal events to every member, so nobody is ever calm) the right test bed; where the coached people's fall outside
-  the stress swing comes from (next trace); and can the estimator (`M1.A.4k`) register improvement that shows as
+  the stress swing comes from (traced 2026-10-12: being over-functioned for, see the plan, step 6); and can the estimator (`M1.A.4k`) register improvement that shows as
   falling less rather than rising. The +0.63 (revision 19) and +0.66 (`a35a962`) passes were carried by the stacked
   system adjustment.
 - [ ] **`M11.C.44` moved FAIL → PASS at revision 20 (2026-10-12), with both mutants surviving.** p went from 0.055 to

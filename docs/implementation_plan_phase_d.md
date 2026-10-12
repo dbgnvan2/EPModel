@@ -473,6 +473,42 @@ What it shows:
   the next trace is the ledgers other than the stress swing; and whether the estimator's form (`M1.A.4k`), which needs
   the loaded mean above basic level, can register improvement that shows as falling less rather than rising.
 
+**Where the coached people's fall comes from (owner request, 2026-10-12).** The same ten years, 20 seeds per arm, the
+two coached people; each change to their `functional_level` summed by the mechanism that logged it (ad hoc scripts,
+not a record; nothing changed functioning without a log row):
+
+| Ten-year change, per person | Coach-free | Coached |
+|---|---|---|
+| Stress response: down (soothing) | −17.5 | −15.9 |
+| Stress response: up (coping) | +3.7 | +9.5 |
+| Giving way, net (`M1.B.5`'s pseudo-self exchange) | +3.5 | −6.2 |
+| The system adjusts | +1.0 | +1.0 |
+| **Total** | **−9.4** | **−11.7** |
+
+Coaching gains 7.4 points through the stress response and loses 9.7 through giving way. The giving-way loss is all with
+people other than the spouse (between the two spouses, both coached, it nets to zero). Split by which act started it:
+
+| Functioning moved, per person, with people other than the spouse | Coach-free | Coached |
+|---|---|---|
+| Gave: someone else's `OVERFUNCTION` toward them | −62.8 | −79.7 |
+| Gave: their own `UNDERFUNCTION` | −25.5 | −19.4 |
+| Took: someone else's `UNDERFUNCTION` | +64.7 | +69.0 |
+| Took: their own `OVERFUNCTION` | +27.1 | +23.8 |
+
+What it shows:
+- **The coached people stop over-functioning, as the owner described improved functioning** ("one person, in defining
+  self, chooses to stop overfunctioning for the other"): their own `OVERFUNCTION` acts fall from 63 to 45 in ten years,
+  and `UNDERFUNCTION` from 56 to 47. They also make fewer `CONFLICT`, `DISTANCE` and `TRIANGLE` acts, and many more
+  `STAY-IN-CONTACT` (14 → 58) and `DETRIANGLE` (4 → 15).
+- **The others then take charge of them more** (−62.8 → −79.7). Every delivered `OVERFUNCTION` moves functioning from
+  the person it is aimed at to the one who makes it, whatever the person aimed at is doing: holding a position does not
+  stop it. So stepping back from over-functioning costs functioning in the model.
+- **That is the coached fall.** The stress response's gain from coaching (+7.4) is outweighed by being
+  over-functioned for (−16.8 more), less the over-functioning they gave up.
+- **For the owner:** whether an `OVERFUNCTION` aimed at a person who is holding a position should move functioning
+  from them at all (the exchange takes two, `M1.B.5`), or whether this is the change-back reaction the system goes
+  through before it adjusts (`M1.E.7`), which here never settles because nobody is ever calm.
+
 ### B7. Symptom channels (`M7.D.2`, `2a`–`2d`, `M7.D.4`, `M1.A.11c`)
 - Load can move between the three channels.
 - Lock-in lowers family anxiety until a severity peak, then raises it.

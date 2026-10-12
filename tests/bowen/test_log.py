@@ -63,7 +63,7 @@ def header(constants=None, frozen=None, script=None):
 def test_m16a1_header_hashes_the_resolved_config():
     h = header()
     assert isinstance(h, LogHeader) and len(h.config_hash) == 64
-    assert h.spec_revision == "2.0, revision 17"
+    assert h.spec_revision == "2.0, revision 19"
     assert h == header()  # stable
     # A changed value changes the hash; the script's events are part of the config.
     assert header(script=load_script().without("TRIGGER")).config_hash != h.config_hash
@@ -79,6 +79,13 @@ def test_m16a1_header_hash_ignores_comments_but_not_values():
                                  "acute_decay_rate": dataclasses.replace(constants.values["acute_decay_rate"], value=0.25)}),
     )
     assert config_hash(resolved_config(bumped, kinds, family, script)) != base
+    # Review 2026-10-11: which kinds are nodal changes the estimator's breadth, so it is part of the config.
+    fewer = dataclasses.replace(kinds, nodal=kinds.nodal - {"MOVE"},
+                                nodal_reach={k: r for k, r in kinds.nodal_reach.items() if k != "MOVE"})
+    assert config_hash(resolved_config(constants, fewer, family, script)) != base
+    for changed in (dataclasses.replace(kinds, soothing=kinds.soothing - {"DISTANCE"}),
+                    dataclasses.replace(kinds, steering={k: d for k, d in kinds.steering.items() if k != "TRIANGLE"})):
+        assert config_hash(resolved_config(constants, changed, family, script)) != base
 
 
 def test_m16a7_header_flags_constants_changed_after_freeze():
@@ -93,7 +100,11 @@ def test_m16a7_header_flags_constants_changed_after_freeze():
                                         "refusal_cost_gain", "declared_rejection", "rejection_refusal_threshold",
                                         "rejection_fade", "estimator_window", "estimator_breadth",
                                         "estimator_sd_weight", "estimator_rate", "tie_wear_rate",
-                                        "wear_offset_per_act"}
+                                        "wear_offset_per_act", "perspective_channel_gain", "self_practice_gain",
+                                        "stressor_persistence", "response_up_gain", "response_down_gain",
+                                        "response_relaxation_rate", "stress_floor_below_basic", "practice_window",
+                                        "perspective_steer_gain", "system_adjust_gain", "soothing_review_every",
+                                        "soothing_review_penalty"}
     changed = dataclasses.replace(
         constants,
         values=MappingProxyType({**constants.values,

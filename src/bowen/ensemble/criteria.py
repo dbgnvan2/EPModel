@@ -86,6 +86,12 @@ REQUIRED = {
     "M11.C.42": ("t0", "weeks"),
     "M11.C.44": ("weeks",),
     "M11.C.45": ("weeks",),
+    # Phase D (src/bowen/ensemble/criteria_d.py), spec revision 17.
+    "nodal": ("kind_1", "kind_2", "kind_3", "every", "intensity"),
+    "M11.C.17": ("weeks",),
+    "M11.C.18": ("weeks", "act_every"),
+    "M11.C.20": ("weeks", "support_weeks", "support_every", "act_every"),
+    "M11.C.33": ("weeks", "act_every"),
 }
 
 
@@ -155,9 +161,12 @@ class Forced:
     """
 
     def __init__(self, policy: PolicySource, forced: dict, unavailable: dict | None = None,
-                 held_open: tuple | None = None):
+                 held_open: tuple | None = None, withheld: dict | None = None):
         self.policy, self.forced, self.unavailable = policy, forced, unavailable or {}
         self.held_open = held_open
+        # ``withheld`` maps a week to {actor: kinds}: those kinds are not in the actor's legal set that week, toward
+        # anyone (M17.D.3; M11.C.33 keeps both arms' legal sets equal on its slow-tick weeks).
+        self.withheld = withheld or {}
         self.made, self.skipped, self.owed_step = 0, 0, 0  # placement counts; ``outcomes`` is what was made
         self.status: dict = {}  # (week, actor) -> "placed", "not legal", "owed a step" or "dead"
 
@@ -174,6 +183,9 @@ class Forced:
         pairs = self.held_open[0] if self.held_open and tick in self.held_open[1] else ()
         excluded = {a: frozenset(f"CUTOFF>{o}" for pair in pairs if a in pair for o in pair if o != a)
                     for pair in pairs for a in pair}
+        for actor, kinds in self.withheld.get(tick, {}).items():
+            others = {t.id.other(actor) for t in state.ties_of(actor)}
+            excluded[actor] = excluded.get(actor, frozenset()) | {f"{k}>{o}" for k in kinds for o in others}
         for actor in sorted((set(absent) | set(excluded)) & set(active)):
             if state.people[actor].alive:
                 redrawn = self._without(state, actor, absent.get(actor), excluded.get(actor, frozenset()))
@@ -236,20 +248,24 @@ class Forced:
 
 
 def scenario(family: str, seed: int, weeks: int, *, spells=(), forced=None, setup=None, until=None,
-             unavailable=None, held_open=None, watch=None):
+             unavailable=None, held_open=None, watch=None, before=None, withheld=None):
     """Run one arm; return (state, records). ``until`` stops early at that week (exclusive); ``watch(state)``, if
-    given, is called after every tick and must only read."""
+    given, is called after every tick and must only read; ``before(state)``, if given, is called before every tick
+    and may set a declared condition for that week (`M11.C.33`'s dependence at the slow tick)."""
     constants, kinds = load_constants(), load_event_kinds()
     fam = load_family(FAMILIES[family])
     events = ScriptedSource(f"{family}-arm", weeks, tuple(spells), ())
     parts = assemble(constants, kinds, fam, events, seed=seed)
     if setup:
         setup(parts.state)
-    source = Forced(PolicySource(events, parts.params, load_policy_rules()), forced or {}, unavailable, held_open)
+    source = Forced(PolicySource(events, parts.params, load_policy_rules()), forced or {}, unavailable, held_open,
+                    withheld=withheld)
     records = []
     scenario.last_source = source
     sink = type("Sink", (), {"emit": lambda self, r: records.append(r)})()
     for _ in range(until if until is not None else weeks):
+        if before:
+            before(parts.state)
         run_tick(parts.state, source, parts.params, parts.visibility, parts.activation, sink)
         if watch:
             watch(parts.state)

@@ -333,8 +333,8 @@ def _scan_arm(cid: str, arm: str, seed: int) -> dict | None:
         """The policy's own run (no act is made, no tie held open), recording each tick whether each scripted act
         would be."""
 
-        def __init__(self, policy, forced, unavailable=None, held_open=None):
-            super().__init__(policy, {}, unavailable, None)
+        def __init__(self, policy, forced, unavailable=None, held_open=None, withheld=None):
+            super().__init__(policy, {}, unavailable, None, withheld)
             self.script = {(t - t0, s.actor, s.kind, s.targets[0]) for (t, _), s in forced.items()}
             seen["script"] = self.script
 

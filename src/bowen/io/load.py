@@ -7,6 +7,7 @@ Tests:   tests/bowen/test_config.py::test_m101_repository_constants_load_and_are
 
 from __future__ import annotations
 
+import dataclasses
 from pathlib import Path
 
 from src.bowen.engine.events import EventKinds
@@ -37,7 +38,60 @@ def load_event_kinds(path: Path = CONFIG_DIR / "event_kinds.md") -> EventKinds:
     Spec:    docs/bowen_agent_model_spec_v2.md#M10.B.1
     Tests:   tests/bowen/test_events.py::test_m10b1_event_kinds_come_from_config
     """
-    return parse_event_kinds(read_text(path), source=str(path))
+    kinds = parse_event_kinds(read_text(path), source=str(path))
+    reach = load_nodal_reach(kinds)
+    return dataclasses.replace(kinds, nodal=frozenset(reach), nodal_reach=reach, soothing=load_soothing(kinds),
+                               steering=load_steering(kinds))
+
+
+def load_steering(kinds: EventKinds, path: Path = CONFIG_DIR / "perspective_steering.md") -> dict[str, int]:
+    """Purpose: read which acts systems perspective steers toward or away from (spec revision 19).
+    Spec:    docs/bowen_agent_model_spec_v2.md#M4.D.1a
+    Tests:   tests/bowen/test_policy.py::test_m4d1a_perspective_steers_away_from_triangling_and_blaming
+    """
+    from src.bowen.scenario.config_parse import ConfigError, parse_table_document
+
+    doc = parse_table_document(read_text(path), columns=("kind", "direction", "why"), metadata_keys=frozenset(),
+                               source=str(path))
+    rows = [(row["kind"].strip("`"), row["direction"].strip()) for row in doc.rows]
+    unknown = sorted(k for k, _ in rows if k not in kinds.moves())
+    if unknown or len({k for k, _ in rows}) != len(rows) or any(d not in ("toward", "away") for _, d in rows):
+        raise ConfigError(f"{path}: each steered act a declared move, once, 'toward' or 'away'; not declared: {unknown}")
+    return {k: 1 if d == "toward" else -1 for k, d in rows}
+
+
+def load_soothing(kinds: EventKinds, path: Path = CONFIG_DIR / "stress_response.md") -> frozenset[str]:
+    """Purpose: read which acts avoid or soothe under load (spec revision 18).
+    Spec:    docs/bowen_agent_model_spec_v2.md#M1.A.5e
+    Tests:   tests/bowen/test_stress_response.py::test_m1a5e_soothing_acts_come_from_config
+    """
+    from src.bowen.scenario.config_parse import ConfigError, parse_table_document
+
+    doc = parse_table_document(read_text(path), columns=("kind", "why it avoids or soothes"),
+                               metadata_keys=frozenset(), source=str(path))
+    acts = [row["kind"].strip("`") for row in doc.rows]
+    unknown = sorted(a for a in acts if a not in kinds.moves())
+    if unknown or len(set(acts)) != len(acts):  # a misspelt act would never lower anyone's functioning
+        raise ConfigError(f"{path}: every soothing act must be a declared move, once; not declared: {unknown}")
+    return frozenset(acts)
+
+
+def load_nodal_reach(kinds: EventKinds, path: Path = CONFIG_DIR / "nodal_events.md") -> dict[str, str]:
+    """Purpose: read which event kinds are nodal events — any major event on a person — and how far each reaches.
+    Spec:    docs/bowen_agent_model_spec_v2.md#M1.A.4k
+    Tests:   tests/bowen/test_slow_tick.py::test_m1a4k_nodal_kinds_come_from_config
+    """
+    from src.bowen.scenario.config_parse import ConfigError, parse_table_document
+
+    doc = parse_table_document(read_text(path), columns=("kind", "reach", "what it is"), metadata_keys=frozenset(),
+                               source=str(path))
+    rows = [(row["kind"].strip("`"), row["reach"].strip()) for row in doc.rows]
+    unknown = sorted(k for k, _ in rows if k not in kinds.mechanisms)
+    if unknown or len({k for k, _ in rows}) != len(rows):  # a misspelt kind would never count; breadth would fall
+        raise ConfigError(f"{path}: every nodal kind must be a declared event kind, once; not declared: {unknown}")
+    if any(r not in ("reached", "ties") for _, r in rows):
+        raise ConfigError(f"{path}: reach is 'reached' or 'ties'")
+    return dict(rows)
 
 
 def load_family(path: Path = CONFIG_DIR / "family_reduced.md", constants: Constants | None = None) -> FamilyInstance:

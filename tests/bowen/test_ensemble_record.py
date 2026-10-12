@@ -222,10 +222,13 @@ def test_sweep_tool_shares_the_loaded_mutation_tool():
 
 
 def _setting_reads():
-    """Each top-level function's literal ``settings["k"]`` reads, and every literal ``SETTINGS["s"]["k"]`` / ``SPELL["k"]``."""
+    """Each top-level function's literal ``settings["k"]`` reads, and every literal ``SETTINGS["s"]["k"]`` /
+    ``SPELL["k"]`` / ``NODAL["k"]``, over both criteria modules (Phase C and Phase D)."""
     import ast
 
-    tree = ast.parse((REPO / "src" / "bowen" / "ensemble" / "criteria.py").read_text(encoding="utf-8"))
+    tree = ast.Module(body=[node for name in ("criteria.py", "criteria_d.py")
+                            for node in ast.parse((REPO / "src" / "bowen" / "ensemble" / name)
+                                                  .read_text(encoding="utf-8")).body], type_ignores=[])
 
     def key(node):
         return node.slice.value if isinstance(node.slice, ast.Constant) and isinstance(node.slice.value, str) else None
@@ -237,8 +240,8 @@ def _setting_reads():
                                      and isinstance(n.value, ast.Name) and n.value.id == "settings" and key(n)}
     for n in ast.walk(tree):
         if isinstance(n, ast.Subscript) and key(n):
-            if isinstance(n.value, ast.Name) and n.value.id == "SPELL":
-                module.add(("spell", key(n)))
+            if isinstance(n.value, ast.Name) and n.value.id in ("SPELL", "NODAL"):
+                module.add((n.value.id.lower(), key(n)))
             elif isinstance(n.value, ast.Subscript) and isinstance(n.value.value, ast.Name) \
                     and n.value.value.id == "SETTINGS" and key(n.value):
                 module.add((key(n.value), key(n)))
@@ -249,14 +252,17 @@ def test_criteria_required_matches_what_the_arms_read():
     """REQUIRED, the config's schema, and the arms' reads agree in both directions (third gate finding 1)."""
     from src.bowen.ensemble.criteria import INJECTED, REQUIRED
 
+    from src.bowen.ensemble.criteria_d import CRITERIA_D
+
     by_function, module = _setting_reads()
+    criteria = {**CRITERIA, **CRITERIA_D}
     # Forward: every key an arm reads is in the settings that criterion is given (else KeyError at ensemble time).
-    for cid, criterion in CRITERIA.items():
+    for cid, criterion in criteria.items():
         missing = by_function[criterion.arm.__name__] - set(criterion.settings)
         assert not missing, f"{cid}: its arm reads {sorted(missing)}, which its settings do not hold"
     # Reverse: every required setting is read — by an arm of its section, or by name at module level.
     read = set(module)
-    for cid, criterion in CRITERIA.items():
+    for cid, criterion in criteria.items():
         read |= {(cid.split("[")[0], k) for k in by_function[criterion.arm.__name__] - INJECTED}
     level_rows = {("M11.C.38", k) for k in REQUIRED["M11.C.38"] if k.startswith("level_")}  # read by prefix
     unread = {(s, k) for s, names in REQUIRED.items() for k in names} - read - level_rows

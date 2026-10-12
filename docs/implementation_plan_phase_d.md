@@ -314,7 +314,7 @@ self-directed selection is logged self-directed.
     - the load carried that week: excess acute anxiety over the chronic floor, at selection;
     - which channel the person acted in (self-directed, `WITHHOLD`, or automatic). A scripted act counts by its
       kind, since a criterion arm that scripts `I-POSITION` or exchanges is declaring that behaviour (C.18, C.33);
-    - the kinds of nodal event that reached them: the exogenous stressors delivered to them.
+    - the kinds of nodal event that reached them (revision 17: any major event on a person, `config/bowen/nodal_events.md`).
   - **The estimate, on each slow tick once the window is full** (so from the third slow tick):
     - load-weighted mean `m` and standard deviation `sd` of `functional_level`, weighted by load (`M1.A.4b`);
     - breadth `b`: the number of distinct *kinds* of nodal event in the window. A stressor that recurs is one
@@ -346,6 +346,57 @@ self-directed selection is logged self-directed.
     - `dyad_age` is logged.
     - contact is counted in the year it arrives.
   - **Records regenerated (2026-10-11):** no Phase C verdict moved from the B4 records.
+
+### Step 6 result: the estimator's four criteria (2026-10-11, spec revision 17)
+
+Built in `src/bowen/ensemble/criteria_d.py`. Every arm carries the declared nodal load (three kinds;
+`config/bowen/criteria.md`) and runs 208 weeks.
+
+The adaptive ensemble, with the same rules as Phase C. These numbers come from an ad hoc run, not a committed record;
+they join a record when the Phase D record is built (step 12). The run was repeated after the review fixes:
+- C.33's arms now differ only at the slow tick;
+- C.17's nodal load goes to every member.
+
+| Criterion | Verdict | Readout, treatment − baseline (± half-width) | Mutation |
+|---|---|---|---|
+| `M11.C.33` dependence gate (premise) | **PASS**, 150 seeds | rise +0.23 ± 0.09 | gate and its invariant removed: arms equal (+0.003 ± 0.03), FAIL, so proved. With the gate alone removed, the slow-tick invariant raises. |
+| `M11.C.18` binder against the real thing (check) | **FAIL**, 150 seeds | rise +0.05 ± 0.11 (p 0.06) | not run |
+| `M11.C.20` borrowed against basic (check) | **FAIL, reversed**, 150 seeds | rise −3.05 ± 0.60: the borrowed arm rises more | not run |
+| `M11.C.17` a coach helps (composite) | **FAIL**, 150 seeds | mean rise −0.03 ± 0.03: no coach effect | not run |
+
+**Why the three fail, as far as the code shows (for the owner, not tuned):**
+- **C.20, and most of C.18: anxiety does not move `functional_level`.** This is the limit B6 recorded.
+  - A gain borrowed by over/underfunctioning stays after the support is withdrawn, because nothing under load pulls it
+    back.
+  - The estimator reads that steady, elevated functioning as evidence.
+  - The spec has the missing relationship: `M1.A.5`, and `M1.A.4d`'s source, "their functional levels of
+    differentiation can change as the level of chronic anxiety fluctuates"; `M1.A.5c`, a borrowed rise is pseudo-self
+    and "does not survive withdrawal of the source".
+  - Building it means `functional_level`'s swing falls under load, more at a lower basic level. That is an engine
+    change, for the owner to approve.
+- **C.17: the coach cannot reach what the estimator reads.**
+  - A landed contact raises `systems_perspective`.
+  - The estimator reads functioning, load and the self-directed share.
+  - The self-directed channel's weight reads `functional_level` only (`M4.D.1a`). Perspective changes only a few
+    gates (`M4.D.3b`, `M5.F.4`).
+  - So coaching barely changes behaviour the estimator sees. How a coach's effect should reach behaviour is for the
+    owner.
+
+**After spec revisions 18 and 19 (2026-10-11), on the final engine, after the review fixes.** Ad hoc runs, not yet in
+a record; 150 seeds each (C.17: 100):
+
+| Criterion | Verdict | Readout | The mutation that turns it red (run before the review fixes) |
+|---|---|---|---|
+| `M11.C.33` | **PASS** | +0.18 ± 0.04 | the slow-clock gate with its invariant (FAIL, +0.003) |
+| `M11.C.18` | **PASS** | +0.10 ± 0.04 | the stress response removed (FAIL, +0.03 ± 0.05) |
+| `M11.C.20` | **PASS** | +0.13 ± 0.04 | borrowed functioning read again (FAIL, reversed −1.08 ± 0.48) |
+| `M11.C.17` | **PASS** | coached +0.63 ± 0.32 | the coach's landed contact removed (FAIL, −0.45 ± 0.38) |
+
+**For the owner.** The spec names `M1.A.4b`'s load weighting as the mutation for `M11.C.18` and `M11.C.20`. With it
+flattened, both still pass: C.18 +0.13 ± 0.05, C.20 +0.15 ± 0.05. With the self-directed share removed they also still
+pass. What carries them is the mechanism in the table: the stress response for C.18, and the estimator ignoring
+borrowed functioning for C.20. By `M11.5` a survivor does not prove the criterion. Either the mutation clause is
+restated to the mechanism that carries each, or the load weighting is shown to matter in some other test.
 
 ### B7. Symptom channels (`M7.D.2`, `2a`–`2d`, `M7.D.4`, `M1.A.11c`)
 - Load can move between the three channels.

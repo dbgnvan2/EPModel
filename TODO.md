@@ -20,24 +20,23 @@ Deferred and adjacent items. Each carries enough context to act on later without
 
 ## Phase D — open from B3/B4, 2026-10-11
 
-- [ ] **Owner: should the `cutoff` pattern readout count the engine's refusals?**
-  - **Today:** the readout counts `CUTOFF` acts sent after an approach (`src/bowen/readouts/patterns.py`;
-    `config/bowen/pattern_acts.md`).
-  - **Since B4:** the engine also refuses moves sent to a cutter (`refusal` records; `Relationship.rejection`).
-  - **The gap:** a tie held cut by engine refusals, with fewer than 3 `CUTOFF` acts in 4 weeks, does not read as
-    cutoff.
-  - Raised by the B3/B4 `learning-qa` review.
-- [ ] **Open risk for `M11.C.17`: coach-free rises once breadth is met.**
-  - **Why nothing has risen:** no scenario delivers more than one kind of nodal event, so the B6 estimator's breadth
-    gate (3 kinds) is never met.
-  - **Why it is a risk:** without a coach, several people already show positive evidence and a real self-directed
-    share. The B5/B6 review saw this in ad hoc probes; no record holds it yet.
-  - **Next step:** build C.17 with at least three nodal kinds in both arms before reading this.
-- [ ] **Which mechanisms count as nodal events for the estimator** (owner, `[I]`).
-  - **Today:** only exogenous stressors.
-  - **Not counted:** structural events (deaths, departures, reconciliation, institutionalization). In the theory
-    these are the main nodal events.
-  - **When:** decide before D-II, which is when deaths start.
+- [x] ~~**Owner: should the `cutoff` pattern readout count the engine's refusals?**~~ *Decided 2026-10-11 (spec
+  revision 17): cutoff is read from behaviour — the other's approaches refused, by the engine or by answer, and none
+  made. Built in `src/bowen/readouts/patterns.py`.*
+- [x] ~~**Open risk for `M11.C.17`: coach-free rises once breadth is met.**~~ *Superseded 2026-10-11: the owner
+  rewrote `M11.C.17` (revision 17). A person can rise without a coach, and the coach helps. Built with three nodal
+  kinds in both arms (`src/bowen/ensemble/criteria_d.py`).*
+- [x] ~~**Which mechanisms count as nodal events for the estimator**~~ *Decided 2026-10-11 (spec revision 17): any
+  major event on a person; the list is `config/bowen/nodal_events.md`. Births, deaths, marriages, divorces and launches
+  are added with the D-II life course.*
+- [ ] **Decided 2026-10-11 (owner): the other's gain from "the system adjusts" settles back. To build after compaction** (spec revision 19, `M1.E.7`): track it like `stress_swing` and let it relax when calm.
+  - **Today:** when a held stance works, the other person's `functional_level` rises by `system_adjust_gain` (1.0),
+    once per stance, and stays. It is not tracked like `stress_swing`, and the estimator reads it as that person's
+    own functioning.
+  - **Raised by:** the review of revisions 17–19.
+- [ ] **Decided 2026-10-11 (owner): restate `M11.C.18` and `M11.C.20`'s mutation clause. To do after compaction.** The spec names `M1.A.4b`'s load weighting, and flattening
+  it leaves both passing. What turns each red is the stress response (C.18) and the estimator ignoring borrowed
+  functioning (C.20). Restate the clause, or show the load weighting matters elsewhere.
 - [ ] **Pre-existing unused imports in `tests/bowen/test_engineering_gates.py`:** `clamp_unit`, `dataclasses`,
   `EventStore`, `legal_outcomes`. Found while checking the B3/B4 diff. Not touched, since they predate it.
 

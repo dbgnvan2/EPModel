@@ -308,3 +308,15 @@ def test_m5b2_prevent_alignment_acts_before_any_alignment_forms():
     assert not triangle.active
     open_ = triangle_after(fresh(), move("TRIANGLE", RAVI, NADIA, tick=1))
     assert open_.active
+
+
+def test_m1a5e_giving_way_cannot_take_the_giver_below_the_floor():
+    """Revision 19: the stress floor bounds the pseudo-self exchange too; without it 2 of 20 runs still ran away."""
+    state = fresh()
+    giver = state.people[MARTA]
+    floor = giver.basic_level - PARAMS.stress_floor_below_basic
+    giver.functional_level = floor + 0.5
+    deliver(state, move("UNDERFUNCTION", MARTA, RAVI))
+    assert giver.functional_level == floor
+    deliver(state, move("UNDERFUNCTION", MARTA, RAVI, tick=1))
+    assert giver.functional_level == floor                         # nothing more to give

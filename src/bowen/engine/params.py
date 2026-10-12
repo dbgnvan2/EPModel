@@ -117,6 +117,18 @@ class EngineParams:
     estimator_rate: float                  # M1.A.4k — share of the evidence a slow tick turns into a rise
     tie_wear_rate: float                   # M7.E.4 — conductance lost per slow tick per unit mean chronic anxiety / 100
     wear_offset_per_act: float             # M7.E.4 — share of a year's wear each STAY-IN-CONTACT on the tie offsets
+    perspective_channel_gain: float        # M4.D.1a, revision 18 — how far perspective opens the self-directed channel
+    self_practice_gain: float              # M1.E.7, revision 18 — perspective a self-directed act under load adds, of its distance from 1
+    stressor_persistence: float            # M1.F.6, revision 18 — each later week of a lasting stressor, as a share of its arrival
+    response_up_gain: float                # M1.A.5e, revision 18 — functioning gained per unit load by coping, at basic level 100
+    response_down_gain: float              # M1.A.5e, revision 18 — functioning lost per unit load by soothing, at basic level 0
+    response_relaxation_rate: float        # M1.A.5e, M7.A.1 — share of the stress-moved swing shed per calm week
+    stress_floor_below_basic: float        # M1.A.5e, revision 19 — how far below basic_level stress can push functioning
+    practice_window: int                   # M1.E.7, revision 19 — weeks after a self-directed act before it is judged to have worked
+    perspective_steer_gain: float          # M4.D.1a, revision 19 — how far full perspective scales a steered act's weight
+    system_adjust_gain: float              # M1.E.7, revision 19 — functioning the other gains when a held stance works
+    soothing_review_every: int             # M4.D.6, revision 19 — weeks between a person's chances to ask whether soothing helped
+    soothing_review_penalty: float         # M4.D.6, revision 19 — share of a soothing act's learned value lost when it did not help
 
     def __post_init__(self) -> None:
         for name in (
@@ -185,9 +197,17 @@ class EngineParams:
             raise ValueError("refusal_cost_gain must be non-negative and declared_rejection in (0, 1]")
         if self.estimator_window < 1 or self.estimator_breadth < 0 or self.estimator_sd_weight < 0:
             raise ValueError("estimator_window >= 1; estimator_breadth and estimator_sd_weight non-negative")
-        for name in ("estimator_rate", "tie_wear_rate", "wear_offset_per_act"):
+        for name in ("estimator_rate", "tie_wear_rate", "wear_offset_per_act", "perspective_channel_gain",
+                     "self_practice_gain", "stressor_persistence", "response_up_gain", "response_down_gain",
+                     "response_relaxation_rate", "perspective_steer_gain"):
             if not 0.0 <= getattr(self, name) <= 1.0:
                 raise ValueError(f"{name} must be in [0, 1]")
+        if self.soothing_review_every < 1 or not 0.0 <= self.soothing_review_penalty <= 1.0:
+            raise ValueError("soothing_review_every >= 1; soothing_review_penalty in [0, 1]")
+        if self.system_adjust_gain < 0:
+            raise ValueError("system_adjust_gain must be non-negative")
+        if self.stress_floor_below_basic < 0 or self.practice_window < 1:
+            raise ValueError("stress_floor_below_basic must be non-negative and practice_window at least 1")
         if not 0.0 <= self.rejection_refusal_threshold < 1.0:
             raise ValueError("rejection_refusal_threshold must be in [0, 1)")
         if self.triangle_activity_window < 1:

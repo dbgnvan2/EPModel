@@ -58,9 +58,31 @@ class EventKinds:
     # 0 the oldest. Both editorial, from config (Phase C step 6).
     channels: Mapping[str, str] = field(default_factory=lambda: MappingProxyType({}))
     layers: Mapping[str, int] = field(default_factory=lambda: MappingProxyType({}))
+    # M1.A.4k, revision 17: the kinds that are nodal events — any major event on a person. Editorial, from
+    # config/bowen/nodal_events.md; the estimator's breadth counts them.
+    nodal: frozenset[str] = frozenset()
+    # How far each nodal kind reaches: "reached" (whom it happens to, its targets, witnesses and named tie) or "ties"
+    # (also everyone tied to its targets: a member leaving). From config/bowen/nodal_events.md.
+    nodal_reach: Mapping[str, str] = field(default_factory=lambda: MappingProxyType({}))
+    # Revision 18 (M1.A.5e): the acts that avoid or soothe under load. From config/bowen/stress_response.md.
+    soothing: frozenset[str] = frozenset()
+    # Revision 19 (M4.D.1a): +1 for an act perspective steers toward, -1 for one it steers away from.
+    # From config/bowen/perspective_steering.md.
+    steering: Mapping[str, int] = field(default_factory=lambda: MappingProxyType({}))
 
     def __post_init__(self) -> None:
         object.__setattr__(self, "mechanisms", MappingProxyType(dict(self.mechanisms)))
+        if not set(self.nodal) <= set(self.mechanisms) or any(
+                self.mechanisms[k] is Mechanism.MOVE for k in self.nodal):
+            raise ValueError("a nodal kind is a declared event kind, and never a move (M1.A.4k)")
+        if set(self.nodal_reach) - set(self.nodal) or any(r not in ("reached", "ties") for r in self.nodal_reach.values()):
+            raise ValueError("a nodal reach is 'reached' or 'ties', for a nodal kind only (M1.A.4k)")
+        object.__setattr__(self, "nodal_reach", MappingProxyType(dict(self.nodal_reach)))
+        if any(self.mechanisms.get(k) is not Mechanism.MOVE for k in self.soothing):
+            raise ValueError("a soothing kind is a declared move (M1.A.5e)")
+        if any(self.mechanisms.get(k) is not Mechanism.MOVE or d not in (1, -1) for k, d in self.steering.items()):
+            raise ValueError("a steered kind is a declared move, steered +1 or -1 (M4.D.1a)")
+        object.__setattr__(self, "steering", MappingProxyType(dict(self.steering)))
         if any(v not in (1, -1) for v in self.signs.values()):
             raise ValueError("a source-position sign is +1 or -1")
         object.__setattr__(self, "signs", MappingProxyType(dict(self.signs)))

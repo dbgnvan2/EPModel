@@ -237,12 +237,36 @@ last three years of weeks:
   bottom, `M1.A.4d`).
 - **A benign window carries no load, so no evidence.** `basic_level` does not fall in D-I; falls belong with the
   child's estimator in D-II.
-- **No rises yet, and that is not a result.** No scenario has more than one kind of nodal event, so the breadth gate
-  is never met. Without a coach, several people already show positive evidence. `M11.C.17` (no coach-free drift) is
-  untested until a window holds three kinds.
-- **A limit.** Anxiety does not move `functional_level` in the engine. Only over- and underfunctioning and
-  `I-POSITION` move it. So the load weighting separates a borrowed gain from a basic one only where the borrowing
-  reverts under load. `M11.C.18` and `M11.C.20` test this.
+- **What the criteria show (2026-10-11, after revisions 18 and 19; ad hoc runs):** all four pass, each with three
+  kinds of nodal event. Each fails when the mechanism behind it is removed:
+  - `M11.C.33`: the slow-clock dependence gate;
+  - `M11.C.18`: the stress response;
+  - `M11.C.20`: the estimator ignoring borrowed functioning;
+  - `M11.C.17`: the coach's landed contact.
+
+  The spec's own mutation for C.18 and C.20, flattening the load weighting, leaves both passing. That is open for the
+  owner (`docs/implementation_plan_phase_d.md`, step 6 result).
+- **What counts as a nodal event (revision 17).** Any major event on a person: the owner lists deaths, births,
+  marriages, serious illnesses, big moves, big job changes, a child moving out or back in, and divorces. The engine's
+  kinds are listed in `config/bowen/nodal_events.md`. An event counts for whom it happens to and for everyone it
+  reaches.
+- **A coach helps and is not required (revision 17, `M11.C.17` rewritten).** A person can rise without a coach, as
+  long as their own behaviour under load shows it.
+- **Stress moves functioning (revisions 18 and 19, `M1.A.5e`).** Under load, coping raises functioning and soothing
+  lowers it, each scaled by basic level. Coping is a self-directed act or holding back. Soothing is distancing, cutting
+  off, triangling or giving way. Functioning cannot be pushed more than 15 below basic level. A stressor weighs for its
+  declared duration.
+- **Systems perspective is self-discovered (revisions 18 and 19, `M1.E.7`, `M4.D.1a`).**
+  - **How it grows:** coaching raises it in steps. A person's own self-directed act raises it slowly, and only if it
+    worked: they held their position and the tie calmed.
+  - **What it does:** it opens the self-directed channel, steers away from triangling and blaming, and toward
+    detriangling.
+  - **The system adjusts:** when a held stance works, the other functions up.
+  - **The soothing review:** now and then a person asks whether soothing helped, and if not, it loses its appeal.
+- **The estimator reads functioning without what over-functioning borrowed (revision 19).** The owner:
+  "Overfunctioning is a dysfunctional behaviour — pseudo-self looks better."
+- **The earlier limit is closed (revision 18).** Anxiety now moves `functional_level` through the stress response.
+  A borrowed gain met with soothing fades, and the estimator no longer reads borrowed functioning.
 
 ### 3.2b Which channel raised it — and why the sign of pseudo-self flips
 
@@ -552,6 +576,12 @@ severing**. The tie stays open. Each member holds a `rejection` in [0, 1]; the t
   - rejection fades by 0.05 a week;
   - so one cutoff refuses for about four weeks, unless the other keeps approaching and renews it.
 - Absence of interaction is distance, not cutoff (owner, 2026-10-10).
+- **What reads as cutoff is behaviour (revision 17).** The owner: a `CUTOFF` act is "just words that need behaviour to
+  back it up". The cutoff pattern needs both of these:
+  - the other's approaches refused, at least 3 times in 4 weeks;
+  - no approach of one's own.
+
+  A `CUTOFF` act alone reads as nothing (`docs/readouts_phase_c.md`).
 - Every rate is `[I]`.
 
 **Source:** `[T]` Ch10 · L10.3 — cutting off raises system tension, enlarging the system lowers it, because anxiety dilutes over nodes. `[M]` Ch16 · L16.3 — the corpus's clearest positive feedback loop: the more intense the cutoff, the more exaggerated the parental problem in one's own marriage, and the more intense the next generation's cutoff.

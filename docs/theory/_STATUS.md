@@ -2,6 +2,20 @@
 
 > ## ▶ STATE — the corpus is closed and the spec is current. **Phase C is closed with its gate failing (owner decision, 2026-10-09).**
 >
+> **2026-10-11 — spec revision 19:**
+> - stress pushes functioning at most 15 below basic level (`M1.A.5e`);
+> - perspective is self-discovered: practice counts only when a self-directed act worked (`M1.E.7`);
+> - perspective steers away from triangling and blaming and toward detriangling (`M4.D.1a`);
+> - the floor bounds giving way too;
+> - when a held stance works, the other functions up;
+> - the estimator ignores borrowed functioning;
+> - a periodic soothing review lowers soothing that did not help (`M4.D.6`);
+> - `M11.C.20`'s and `M11.C.17`'s arms are restated.
+>
+> No new IDs.
+>
+> **2026-10-11 — spec revision 18 (547 unique IDs, 46 acceptance criteria):** stress moves functioning — coping raises it, soothing lowers it, scaled by basic level (new `M1.A.5e`); a stressor weighs for its declared duration (`M1.F.6`); systems perspective opens the self-directed channel (`M4.D.1a`) and grows by a person's own practice as well as by coaching (`M1.E.7`).
+>
 > **2026-10-11 — spec revision 17:** the owner approved what counts as a nodal event (any major event on a person), the cutoff readout read from behaviour, `M11.C.17` rewritten ("a coach helps and is not required"), and C.7's direction (joint > one spouse > sided; the coach never takes sides). No new IDs.
 >
 > **2026-10-11 — spec revision 16:** graded rejection. `M1.B.3c`'s refusal holds only above a threshold, and rejection fades weekly unless renewed (owner decision, after B4 as first built left most ties cut off). No new IDs.

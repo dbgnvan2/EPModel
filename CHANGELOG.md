@@ -4,6 +4,61 @@ All notable changes to this project are recorded here. Dates are ISO.
 
 ## [Unreleased] — 2026-10-11
 
+### Spec revision 19: the stress floor, self-discovered perspective, the system adjusting, the soothing review
+
+From the owner's answers of 2026-10-11, after tracing why `M11.C.17` ran the wrong way:
+- **Stress floor.** Stress, and giving way to a partner, cannot push functioning below basic level − 15
+  (`M1.A.5e`). Without the floor, soothing spiralled and anxiety ran away in 11 of 20 four-year runs. With the floor on
+  stress alone, 2 of 20 still did. With it on both, none of 20.
+- **Self-discovered perspective** (`M1.E.7`). A self-directed act builds perspective only if it worked: the person held
+  their position, and their reactivity on that tie came down over 4 weeks.
+- **The system adjusts** (`M1.E.7`). When a held stance works, the other person functions up.
+- **Perspective steers** (`M4.D.1a`; `config/bowen/perspective_steering.md`): away from triangling and blaming, toward
+  detriangling.
+- **The estimator ignores borrowed functioning** (`M1.A.4k`). It reads functioning less the positive pseudo-self that
+  over-functioning took.
+- **The soothing review** (`M4.D.6`). Now and then a person asks whether soothing helped, more often at a higher level
+  and perspective. If it did not, soothing loses its learned appeal.
+- **`M11.C.20`.** Perspective only in the basic arm.
+- **`M11.C.17`.** Ten years, reading the people the coach reaches.
+- **Result (ad hoc, 150 seeds).** All four estimator criteria pass, and each is turned red by removing the mechanism
+  that carries it. The spec's load-weighting mutation leaves C.18 and C.20 passing, which is open for the owner.
+- **Records regenerated:** no Phase C verdict moved. Suite: 647 tests.
+- **New constants:** six `[I]`.
+
+### Spec revision 18 (547 numbered requirements, 46 acceptance criteria): stress, coaching and self-work
+
+From the owner's answers of 2026-10-11 (`docs/PROPOSAL — STRESS ON FUNCTIONING, COACHING AND SELF-WORK.md`, approved):
+- **Stress moves functioning** (new `M1.A.5e`). Under load, coping (a self-directed act or holding back) raises
+  `functional_level` and avoiding or soothing lowers it, each scaled by basic level. The soothing acts are listed in
+  `config/bowen/stress_response.md`. The moved part settles back slowly when calm (`src/bowen/engine/stress_response.py`).
+- **A stressor lasts** (`M1.F.6`): it weighs on its targets for its declared duration.
+- **Systems perspective opens the self-directed channel** (`M4.D.1a`).
+- **Perspective grows by a person's own practice** as well as by coaching (`M1.E.7`): 0.001 per self-directed act
+  under load. At 0.01 nearly everyone saturated within ten years.
+- **New constants:** six `[I]`.
+
+### Spec revision 17 and the estimator's criteria
+
+- **Revision 17** (owner, 2026-10-11):
+  - nodal events are any major event on a person (`config/bowen/nodal_events.md`; new kinds `JOB_CHANGE`, `MOVE`,
+    `SERIOUS_ILLNESS`);
+  - cutoff is read from behaviour (`src/bowen/readouts/patterns.py`);
+  - `M11.C.17` rewritten: a coach helps and is not required;
+  - `M11.C.7`'s direction: joint > one spouse > sided.
+- **The estimator's criteria**, in `src/bowen/ensemble/criteria_d.py`, each with a declared three-kind nodal load. Ad hoc
+  run, not yet in a record:
+
+  | Criterion | Verdict |
+  |---|---|
+  | `M11.C.33` | passes, and is proved by mutation |
+  | `M11.C.18` | fails: +0.05 ± 0.11 |
+  | `M11.C.20` | fails, reversed: the borrowed gain rises more |
+  | `M11.C.17` | fails: no coach effect |
+- **The causes,** recorded for the owner in the plan's step 6 result:
+  - anxiety does not move `functional_level`;
+  - the coach's effect does not reach the behaviour the estimator reads.
+
 ### Phase D B5 and B6: the slow tick and the basic-level estimator
 
 - **B5, the slow tick** (`M3.B.1`; owner decisions P5, P6, P17).
@@ -21,7 +76,7 @@ All notable changes to this project are recorded here. Dates are ISO.
 
   `basic_level` rises only on a loaded, stable, broad window, never for a dependent person, and never falls in D-I.
 - Six `[I]` constants.
-- **No rises yet, and that is not a result.** No scenario has more than one kind of nodal event, so the breadth gate is
+- *(Superseded below by revision 17's criteria, which carry three nodal kinds.)* **No rises yet, and that is not a result.** No scenario has more than one kind of nodal event, so the breadth gate is
   never met. Without a coach, several people already show positive evidence. Whether the coach-free arm stays flat
   (`M11.C.17`) is untested until a window holds three kinds (open risk in `TODO.md`).
 - **Review fixes:**

@@ -30,6 +30,11 @@ def resolved_config(constants: Constants, kinds: EventKinds, family: FamilyInsta
         "activation_regime": constants.activation_regime,
         "event_kinds": {k: m.value for k, m in sorted(kinds.mechanisms.items())},
         "signs": sorted([k, p.value, s] for (k, p), s in kinds.signs.items()),
+        "nodal": [[k, kinds.nodal_reach.get(k, "")] for k in sorted(kinds.nodal)],  # M1.A.4k, revision 17
+        "soothing": sorted(kinds.soothing),                                      # M1.A.5e, revision 18
+        "steering": sorted([k, d] for k, d in kinds.steering.items()),          # M4.D.1a, revision 19
+        "channels": sorted([k, c] for k, c in kinds.channels.items()),          # M4.D.1a (review 2026-10-11)
+        "layers": sorted([k, n] for k, n in kinds.layers.items()),              # M4.D.3a (review 2026-10-11)
         "family": {
             "instance_id": family.instance_id,
             "nuclear_household": family.nuclear_household,

@@ -12,6 +12,14 @@
 > * `run_after` — weeks run after the scripted act's week, so the run is `t0 + run_after` weeks long.
 > * `level_*` — how far every member's basic and functional level is lowered in that arm.
 >
+> **Phase D, 2026-10-11** (`src/bowen/ensemble/criteria_d.py`; the estimator's criteria, spec revision 17):
+> * `nodal` — the declared nodal load: one event every `every` weeks to each named person, cycling through the three
+>   kinds, so every estimator window holds all three (`estimator_breadth`).
+> * `weeks` 208 — four years: the estimator first reads at the end of week 155 and again at week 207. `M11.C.17`
+>   runs 520 weeks, ten years (owner decision 2026-10-11: coaching lands slowly).
+> * `act_every` — a scripted act every that many weeks; `M11.C.20`'s support (a partner giving way) runs for its first
+>   `support_weeks`, every `support_every` weeks, and is then withdrawn.
+>
 > **Post-hoc restatement, 2026-10-09 (step S of `docs/DECISIONS — PHASE C FAILING.md`, approved by the owner).**
 > The declared weeks stand, but in both arms of every criterion that scripts an act after week 0, the ties its
 > scripted acts cross are held open from week 0 until the act (`M11.C.29`: until its last withdrawal): neither
@@ -94,3 +102,17 @@
 | M11.C.42 | weeks | 40 |
 | M11.C.44 | weeks | 80 |
 | M11.C.45 | weeks | 80 |
+| nodal | kind_1 | JOB_CHANGE |
+| nodal | kind_2 | MOVE |
+| nodal | kind_3 | SERIOUS_ILLNESS |
+| nodal | every | 8 |
+| nodal | intensity | 50.0 |
+| M11.C.17 | weeks | 520 |
+| M11.C.18 | weeks | 208 |
+| M11.C.18 | act_every | 6 |
+| M11.C.20 | weeks | 208 |
+| M11.C.20 | support_weeks | 104 |
+| M11.C.20 | support_every | 3 |
+| M11.C.20 | act_every | 6 |
+| M11.C.33 | weeks | 208 |
+| M11.C.33 | act_every | 6 |

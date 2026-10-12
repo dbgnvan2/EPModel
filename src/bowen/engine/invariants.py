@@ -44,6 +44,7 @@ LEDGER = {
     "cutoff": SOURCE,               # M4.C.1: the relief a delivered CUTOFF is appraised as
     "competing_urges": SOURCE,      # M4.D.1d
     "refusal": SOURCE,              # M1.B.3c, a refused move's cost to its sender
+    "stressor_load": SOURCE,        # M1.F.6, revision 18: a lasting stressor's later weeks
     "acute_decay": SINK,            # M1.A.8, toward the chronic floor
     "calm_contact": TRANSFER,       # M4.C.10
     "distance_binding": TRANSFER,   # M1.D.2a, person to tie

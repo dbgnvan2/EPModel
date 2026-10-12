@@ -133,6 +133,18 @@ activation_regime: synchronous
 | `estimator_rate` | 0.5 | [I] | share of the evidence per slow tick | `M1.A.4k` |
 | `tie_wear_rate` | 0.05 | [I] | share of conductance per slow tick at mean chronic anxiety 100 | `M7.E.4` |
 | `wear_offset_per_act` | 0.1 | [I] | share of a year's wear per STAY-IN-CONTACT | `M7.E.4` |
+| `perspective_channel_gain` | 0.5 | [I] | share of the automatic channel's weight full perspective moves to the self-directed | `M4.D.1a` |
+| `self_practice_gain` | 0.001 | [I] | share of the distance to 1, per self-directed act under load that worked (revision 19) | `M1.E.7` |
+| `stressor_persistence` | 0.5 | [I] | share of the arrival's load, per later week | `M1.F.6` |
+| `response_up_gain` | 0.5 | [I] | functioning per unit load (load / 100), at basic level 100 | `M1.A.5e` |
+| `response_down_gain` | 0.5 | [I] | functioning per unit load (load / 100), at basic level 0 | `M1.A.5e` |
+| `response_relaxation_rate` | 0.02 | [I] | share of the stress-moved swing per calm week | `M1.A.5e` |
+| `stress_floor_below_basic` | 15.0 | [I] | points of functional level below basic_level | `M1.A.5e` |
+| `practice_window` | 4 | [I] | fast ticks | `M1.E.7` |
+| `perspective_steer_gain` | 0.5 | [I] | share of a steered act's weight at full perspective | `M4.D.1a` |
+| `system_adjust_gain` | 1.0 | [I] | points of functional level the other gains when a held stance works | `M1.E.7` |
+| `soothing_review_every` | 12 | [I] | fast ticks | `M4.D.6` |
+| `soothing_review_penalty` | 0.5 | [I] | share of the learned value | `M4.D.6` |
 | `self_channel_exponent` | 2.0 | [I] | exponent on functional_level / 100 | `M4.D.1a` |
 | `policy_temperature` | 1.0 | [I] | learned-value units | `M4.D.1` |
 | `anxiety_band_low` | 5.0 | [I] | points of excess anxiety | `M4.D.3` |

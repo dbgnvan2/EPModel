@@ -90,7 +90,7 @@ def test_m16c4_single_agent_view():
 
 
 def test_m16c5_trace_carries_header_and_framing():
-    for needle in ("seed | 7", "config hash", "spec revision | 2.0, revision 17", "phase_b_reduced",
+    for needle in ("seed | 7", "config hash", "spec revision | 2.0, revision 19", "phase_b_reduced",
                    "constants frozen | 2026-10-07", "M11.F.9", "M11.F.10", "invented", "virtual family"):
         assert needle in TEXT, needle
     assert TEXT.index("What this is") < TEXT.index(TABLE_HEAD)
@@ -149,9 +149,10 @@ def test_m16c4_a_view_of_no_one_is_refused():
         render(RECORDS, NAMES, view=PersonId("nobody"))
 
 
-def test_m1f6_the_trace_says_a_stressor_acts_once():
+def test_m1f6_the_trace_says_a_stressor_weighs_for_its_duration():
+    """Revision 18: a 34-week job loss weighs for its weeks, and its row says so."""
     job_loss = next(r for r in event_rows(TEXT) if r[2] == "JOB_LOSS")
-    assert "one-time effect; a 34-week spell, recorded" in job_loss[5]
+    assert "a 34-week spell" in job_loss[5] and "still weighing this week" in job_loss[5]
 
 
 def test_m16c2_withheld_and_fallback_outcomes_get_their_own_rows():

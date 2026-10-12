@@ -25,7 +25,7 @@ from collections.abc import Mapping
 from dataclasses import dataclass, replace
 
 from src.bowen.engine.contact import too_little
-from src.bowen.engine.events import Mechanism
+from src.bowen.engine.events import Mechanism, Role
 from src.bowen.engine.identifiers import PersonId, TieId, TriangleId
 from src.bowen.engine.log_records import EffectRecord
 from src.bowen.engine.params import EngineParams
@@ -90,6 +90,12 @@ class _At:
         if name not in ("_state", "tick"):
             raise AttributeError(f"a read-only view of the state; {name!r} not writable")
         object.__setattr__(self, name, value)
+
+
+def _last_run_week(state) -> int:
+    """The last week the run has completed: the live state's tick is the next week, not yet run."""
+    live = state._state if isinstance(state, _At) else state
+    return live.tick - 1
 
 
 def _as_of(state: RunState, now: int | None):
@@ -197,17 +203,31 @@ def projection(state: RunState, tie: TieId, rp: ReadoutParams, parent: PersonId 
 
 
 def cutoff(state: RunState, tie: TieId, rp: ReadoutParams) -> Reading | None:
-    """At least ``min_acts`` refusals in W by one member: a CUTOFF sent to the other in the same or the next
-    week after an approach from them. Rejection, not absence (the owner, 2026-10-10)."""
+    """Purpose: member A's cutoff of B, read from what A does: B's approaches refused, and none made by A.
+    Spec:    docs/bowen_agent_model_spec_v2.md#M5.A.1a (revision 17), #M1.B.3c
+    Tests:   tests/bowen/test_patterns.py::test_m5a1a_cutoff_is_read_from_behaviour_not_words
+
+    In the window, at least ``min_acts`` of B's approaches to A were refused — the engine refused them (A held
+    rejection, so the delivery to A was never recorded), or A answered within a week of the approach arriving with a
+    refusing act — and A sent
+    B nothing with contact. A ``CUTOFF`` act on its own is words (the owner, 2026-10-11): without that behaviour it
+    reads as nothing. No interaction either way is distance, not cutoff.
+    """
     moves = _moves_on(state, tie, rp.window + 1)
+    latency = state.ties[tie].latency
+    ran = min(state.tick, _last_run_week(state))  # an approach not yet due to arrive is neither received nor refused
     for refuser in tie.members():
         other = tie.other(refuser)
-        approaches = [e.timestamp for e in moves if e.sender == other and e.kind in APPROACH]
-        refusals = [e for e in moves if e.sender == refuser and e.kind in ACTS["refusal"]
-                    and e.timestamp > state.tick - rp.window
-                    and any(e.timestamp - 1 <= t <= e.timestamp for t in approaches)]
-        if len(refusals) >= rp.min_acts:
-            return Reading("cutoff", tie, len(refusals), _first(refusals), toward=refuser)
+        received = {d.event_id for d in state.store.delivered_to(refuser, Role.TARGET)}
+        answers = [e.timestamp for e in moves if e.sender == refuser and e.kind in ACTS["refusal"]]
+        refused = [e for e in moves if e.sender == other and e.kind in APPROACH
+                   and e.timestamp > state.tick - rp.window and e.timestamp + latency <= ran
+                   and (e.id not in received
+                        or any(e.timestamp + latency <= t <= e.timestamp + latency + 1 for t in answers))]
+        approached = any(e.sender == refuser and e.timestamp > state.tick - rp.window
+                         and state.kinds.components_of(e.kind)[0] > 0 for e in moves)
+        if len(refused) >= rp.min_acts and not approached:
+            return Reading("cutoff", tie, len(refused), _first(refused), toward=refuser)
     return None
 
 

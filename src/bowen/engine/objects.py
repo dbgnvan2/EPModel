@@ -162,6 +162,9 @@ class Person:
     systems_perspective: float | None = None
     reactive_state: dict[str, float] | None = None
     pseudo_self: float | None = None
+    # Spec revision 18: the part of functional_level that stress moved — up by coping, down by soothing — which
+    # settles back slowly when calm (stress_response.respond). Kept apart from borrowed pseudo-self (M6.I.4).
+    stress_swing: float = 0.0
     alive: bool = True
 
     def __post_init__(self) -> None:

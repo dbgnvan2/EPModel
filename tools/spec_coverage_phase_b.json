@@ -284,8 +284,11 @@
   "note": "open owner decision (disposition at death); blocks M11.C.37 and Phase D"
  },
  "M1.F.6": {
-  "status": "partial",
-  "note": "stressors are spells with a start and a duration, never per-tick draws; in Phase B a stressor acts once on arrival and its duration is recorded, not used (owner, 2026-10-06)"
+  "status": "done",
+  "evidence": [
+   "tests/bowen/test_stress_response.py::test_m1f6_a_long_stressor_weighs_for_its_duration"
+  ],
+  "note": "stressors are spells with a start and a duration, never per-tick draws; from spec revision 18 a stressor weighs on its target for its declared duration (stressor_persistence)"
  },
  "M1.B.3": {
   "status": "done",
@@ -373,7 +376,7 @@
  "M1.E.7": {
   "status": "done",
   "evidence": [
-   "tests/bowen/test_external.py::test_m1e7_perspective_rises_only_on_a_landed_contact",
+   "tests/bowen/test_external.py::test_m1e7_perspective_rises_only_on_a_landed_contact_or_own_practice",
    "tests/bowen/test_external.py::test_m1e7_contact_lands_only_when_binders_fail"
   ],
   "note": "rises only on a landed contact, conditioned on binders failing, at a low rate; never spontaneously, never reinforced (step 9)"

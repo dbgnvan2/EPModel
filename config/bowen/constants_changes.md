@@ -123,3 +123,15 @@
 | `estimator_rate` | — | 0.5 | 2026-10-11 | — (new mechanism; Phase D B5/B6, owner decisions P4–P6) | no |
 | `tie_wear_rate` | — | 0.05 | 2026-10-11 | — (new mechanism; Phase D B5/B6, owner decisions P4–P6) | no |
 | `wear_offset_per_act` | — | 0.1 | 2026-10-11 | — (new mechanism; Phase D B5/B6, owner decisions P4–P6) | no |
+| `perspective_channel_gain` | — | 0.5 | 2026-10-11 | — (new mechanism; spec revision 18, owner decision 2026-10-11: coaching or a person's own practice opens the self-directed channel) | no |
+| `self_practice_gain` | — | 0.001 | 2026-10-11 | — (new mechanism; spec revision 18, owner decision 2026-10-11: coaching or a person's own practice opens the self-directed channel) | no |
+| `stressor_persistence` | — | 0.5 | 2026-10-11 | — (new mechanism; spec revision 18, owner decision 2026-10-11: stress moves functioning up or down) | no |
+| `response_up_gain` | — | 0.5 | 2026-10-11 | — (new mechanism; spec revision 18, owner decision 2026-10-11: stress moves functioning up or down) | no |
+| `response_down_gain` | — | 0.5 | 2026-10-11 | — (new mechanism; spec revision 18, owner decision 2026-10-11: stress moves functioning up or down) | no |
+| `response_relaxation_rate` | — | 0.02 | 2026-10-11 | — (new mechanism; spec revision 18, owner decision 2026-10-11: stress moves functioning up or down) | no |
+| `stress_floor_below_basic` | — | 15.0 | 2026-10-11 | — (new mechanism; spec revision 19, owner decision 2026-10-11) | no |
+| `practice_window` | — | 4 | 2026-10-11 | — (new mechanism; spec revision 19, owner decision 2026-10-11) | no |
+| `perspective_steer_gain` | — | 0.5 | 2026-10-11 | — (new mechanism; spec revision 19, owner decision 2026-10-11) | no |
+| `system_adjust_gain` | — | 1.0 | 2026-10-11 | — (new mechanism; spec revision 19, owner decision 2026-10-11: the system adjusts to a held stance) | no |
+| `soothing_review_every` | — | 12 | 2026-10-11 | — (new mechanism; spec revision 19, owner decision 2026-10-11: "is soothing helping me?") | no |
+| `soothing_review_penalty` | — | 0.5 | 2026-10-11 | — (new mechanism; spec revision 19, owner decision 2026-10-11: "is soothing helping me?") | no |

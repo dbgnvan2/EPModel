@@ -166,6 +166,11 @@ def coverage(overrides: dict) -> list[dict]:
                 note += "; passes, but no mutant has turned every entry red (docs/phase_c_mutation_record.md)"
             passed = passed and proved
             rows.append({"id": spec_id, "status": "done" if passed else "partial", "evidence": named, "note": note})
+        elif named and spec_id.startswith("M11.C."):
+            # An M11.C test is ensemble-marked, outside the default suite: without a recorded verdict nothing says it
+            # passes (review 2026-10-11: the Phase D criteria were read as done while three of them fail).
+            rows.append({"id": spec_id, "status": "partial", "evidence": named,
+                         "note": "built; no recorded ensemble verdict yet (the Phase D record is plan step 12)"})
         elif named:
             rows.append({"id": spec_id, "status": "done", "evidence": named, "note": ""})
         else:

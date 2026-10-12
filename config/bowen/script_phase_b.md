@@ -16,9 +16,10 @@
 > `I-POSITION` goes through the engine like a chosen one: Marta has no systems perspective, so it
 > executes as the assertion form (`M5.F.4`), not as a sequence.*
 >
-> **A stressor acts once, on arrival.** Its duration is recorded (the job loss is a
-> 34-week spell, `M1.F.6`) but in Phase B nothing reads it: how a spell weighs on
-> people across its weeks is decided with the symptom channels (owner, 2026-10-06).
+> **A stressor acted once, on arrival, in Phase B.** Its duration (the job loss is a 34-week spell, `M1.F.6`) was
+> recorded and nothing read it. *From spec revision 18 (2026-10-11) a stressor weighs on its target for its declared
+> duration: each later week adds `stressor_persistence` of the arrival's load. The Phase B trace in
+> `docs/review/phase_b_trace_seed7.md` is the record of the Phase B engine and is not regenerated.*
 
 script_id: phase_b_40_weeks
 instance_id: phase_b_reduced

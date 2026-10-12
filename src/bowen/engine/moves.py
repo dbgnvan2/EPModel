@@ -266,9 +266,12 @@ def functioning_shift(state: RunState, event: Event, tie: Relationship, target: 
     tie.functioning_balance[DEFAULT_AREA] = new_balance
 
     giver, taker = state.people[under], state.people[over]
+    # Revision 19 (owner decision 2026-10-11): giving way cannot take the giver below basic_level −
+    # stress_floor_below_basic, the same floor stress has (M1.A.5e); without it 2 of 20 runs still ran away.
     amount = min(
         params.pseudo_self_transfer_gain * _strength(event, params),
-        giver.functional_level, SCALE_MAX - taker.functional_level,
+        max(0.0, giver.functional_level - max(0.0, giver.basic_level - params.stress_floor_below_basic)),
+        SCALE_MAX - taker.functional_level,
     )
     amount = max(0.0, amount)
     for person, sign in ((taker, 1.0), (giver, -1.0)):

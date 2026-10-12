@@ -92,17 +92,21 @@ def test_m1a4k_history_records_load_channel_and_nodal_events():
     parts = assemble(load_constants(), load_event_kinds(), load_family(), ScriptedSource("q", 3, (), ()), seed=0)
     state = parts.state
     state.people[RAVI].acute_anxiety = state.people[RAVI].chronic_anxiety + 7.0
-    levels = []
+    levels, own = [], []
     for _ in range(3):
         run_tick(state, Script(), parts.params, parts.visibility, parts.activation, CollectingEmitter())
         levels.append(state.people[RAVI].functional_level)
+        own.append(state.people[RAVI].functional_level - max(0.0, state.people[RAVI].pseudo_self or 0.0))
     weeks = state.estimator_history[RAVI]
     assert [w.tick for w in weeks] == [0, 1, 2]
     # the excess at selection: the 7 set here, plus week 0's standing load and appraisals before selection
     assert weeks[0].load > 7.0
     assert [w.self_directed for w in weeks] == [True, False, False]       # STAY-IN-CONTACT, OVERFUNCTION, none
     assert [w.nodal for w in weeks] == [(), ("JOB_LOSS",), ()]
-    assert [w.functional_level for w in weeks] == levels and levels[2] != levels[1]  # OVERFUNCTION landed in week 2
+    # Revision 19: the estimator reads functioning less the borrowed part. OVERFUNCTION (week 1, landing week 2) raised
+    # Ravi's functional level by borrowing, and the reading does not count it.
+    assert [w.functional_level for w in weeks] == pytest.approx(own)
+    assert levels[2] > levels[1] and own[2] == pytest.approx(own[1])
 
 
 def test_m7e4_ties_wear_by_their_members_chronic_anxiety():
@@ -266,3 +270,47 @@ def test_m7e4_contact_counts_in_the_year_it_lands():
     run_slow_tick(late, PARAMS)
     run_slow_tick(none, PARAMS)
     assert late.ties[MARITAL].conductance > none.ties[MARITAL].conductance
+
+
+def test_m1a4k_nodal_kinds_come_from_config(tmp_path):
+    from src.bowen.engine.events import EventKinds
+    from src.bowen.io.load import load_nodal_reach
+    from src.bowen.scenario.config_parse import ConfigError
+
+    kinds = load_event_kinds()
+    assert {"JOB_LOSS", "MOVE", "SERIOUS_ILLNESS", "SYMPTOM_ONSET", "INSTITUTIONALIZE"} <= kinds.nodal
+    assert "PURSUE" not in kinds.nodal and "TRIGGER" not in kinds.nodal
+    assert kinds.nodal_reach["INSTITUTIONALIZE"] == "ties" and kinds.nodal_reach["MOVE"] == "reached"
+    head = "| kind | reach | what it is |\n|---|---|---|\n"
+    for body, match in (("| `JOB_LOSSS` | reached | a typo |\n", "JOB_LOSSS"),
+                        ("| `MOVE` | reached | a |\n| `MOVE` | reached | b |\n", "once"),
+                        ("| `MOVE` | far | a |\n", "reach")):
+        bad = tmp_path / "nodal.md"
+        bad.write_text(head + body)
+        with pytest.raises(ConfigError, match=match):
+            load_nodal_reach(kinds, bad)
+    with pytest.raises(ValueError, match="never a move"):
+        EventKinds(mechanisms=kinds.mechanisms, nodal=frozenset({"PURSUE"}))
+
+
+def test_m1a4k_a_nodal_event_counts_for_everyone_it_reaches():
+    """A symptom happens to its bearer and reaches those it is addressed to; a member moving out reaches everyone
+    tied to them; a stressor reaches its target and its witnesses."""
+    from src.bowen.engine.events import Channel, Event, EventId, Mechanism, SourcePosition
+    from src.bowen.engine.slow_tick import reached_by
+
+    state = fresh()
+    def ev(kind, mechanism, sender=None, targets=(), witnesses=()):
+        e = Event(id=EventId(0, "t", 0), kind=kind, mechanism=mechanism, sender=sender, targets=targets,
+                  intensity=1.0, timestamp=0, duration=1, exogenous=sender is None,
+                  source_position=SourcePosition.NONE,
+                  channel=Channel.EXOGENOUS if sender is None else Channel.ENDOGENOUS)
+        return e.with_witnesses(witnesses) if witnesses else e
+    onset = ev("SYMPTOM_ONSET", Mechanism.ENDOGENOUS_SYMPTOM, sender=NADIA, targets=(MARTA,))
+    assert reached_by(state, onset) == {NADIA, MARTA}
+    leaving = ev("INSTITUTIONALIZE", Mechanism.INSTITUTIONALIZE, targets=(NADIA,))
+    assert reached_by(state, leaving) == {NADIA} | {m for t in state.ties_of(NADIA) for m in t.id.members()}
+    stressor = ev("MOVE", Mechanism.EXOGENOUS_STRESSOR, targets=(RAVI,), witnesses=(MARTA,))
+    assert reached_by(state, stressor) == {RAVI, MARTA}
+    with pytest.raises(ValueError, match="reaches no one"):
+        reached_by(state, ev("MOVE", Mechanism.EXOGENOUS_STRESSOR))

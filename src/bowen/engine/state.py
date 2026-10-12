@@ -24,6 +24,17 @@ from src.bowen.engine.objects import Family, Person, Relationship, Triangle
 
 
 @dataclass(frozen=True)
+class ActiveStressor:
+    """An exogenous stressor that lasts: it keeps loading its target each week after its arrival (revision 18)."""
+
+    event_id: object
+    target: PersonId
+    intensity: float
+    first_tick: int
+    last_tick: int
+
+
+@dataclass(frozen=True)
 class ActiveTrigger:
     """A TRIGGER's spike on one tie's standing term, for the ticks it lasts (M4.A.2)."""
 
@@ -43,6 +54,10 @@ class RunState:
     queue: EventQueue = field(default_factory=EventQueue)
     store: EventStore = field(default_factory=EventStore)
     triggers: list[ActiveTrigger] = field(default_factory=list)
+    stressors: list[ActiveStressor] = field(default_factory=list)  # revision 18: stressors that last
+    # Revision 19 (M1.E.7): self-directed acts under load awaiting judgement (external.Practice).
+    practice: list = field(default_factory=list)
+    adjusted: dict = field(default_factory=dict)  # revision 19: (actor, other) -> the week the other last adjusted
     tick: int = 0
     draws: DrawService = field(default_factory=lambda: DrawService(0))
     # M1.A.4k (Phase D plan B6): each person's last estimator_window slow ticks of weeks (slow_tick.Week).

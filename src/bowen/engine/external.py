@@ -27,17 +27,25 @@ probability
 
 The occasion (`M1.E.7d`) is one keyed uniform per contact (``landed_contact``, dyad-keyed).
 A landed contact raises the recipient's ``systems_perspective`` by ``perspective_gain`` of
-its distance from 1. Nothing else writes it: it never rises spontaneously and is never a
-reinforcement target (`M1.E.7`, `M4.D.6d`). The other two forms of `M1.E.7c` (instance and
+its distance from 1. *Spec revisions 18 and 19 (owner, 2026-10-11):* a person's own practice also raises it — a
+self-directed act (or ``WITHHOLD``) made under load that worked (the person held their position and the tie calmed
+over ``practice_window`` weeks) adds ``self_practice_gain`` of its distance from 1 (``self_practice``): perspective is
+self-discovered. Coaching gives larger, regular boosts to the same loop. It is never a reinforcement target
+(`M4.D.6d`). The other two forms of `M1.E.7c` (instance and
 category supply) are not built.
 """
 
 from __future__ import annotations
 
+from typing import NamedTuple
+
+from src.bowen.engine.act import SELF_CHANNEL, WITHHOLD
+from src.bowen.engine.contact import deviation
 from src.bowen.engine.draws import DrawKey
 from src.bowen.engine.events import Delivery, Mechanism, Role
+from src.bowen.engine.identifiers import PersonId
 from src.bowen.engine.log_records import EffectRecord
-from src.bowen.engine.objects import Role as PersonRole
+from src.bowen.engine.objects import SCALE_MAX, Role as PersonRole
 from src.bowen.engine.outside_ness import efficacy
 from src.bowen.engine.params import EngineParams
 from src.bowen.engine.state import RunState
@@ -76,7 +84,7 @@ def landing_probability(state: RunState, coach, recipient, params: EngineParams)
 def apply_landed_contacts(state: RunState, batch: tuple[Delivery, ...], params: EngineParams) -> list[EffectRecord]:
     """Purpose: step 4 — each external agent's move delivered to a family member lands or does not.
     Spec:    docs/bowen_agent_model_spec_v2.md#M1.E.7, #M1.E.7d
-    Tests:   tests/bowen/test_external.py::test_m1e7_perspective_rises_only_on_a_landed_contact
+    Tests:   tests/bowen/test_external.py::test_m1e7_perspective_rises_only_on_a_landed_contact_or_own_practice
     """
     records = []
     for delivery in sorted(batch):
@@ -99,3 +107,71 @@ def apply_landed_contacts(state: RunState, batch: tuple[Delivery, ...], params: 
             records.append(EffectRecord(state.tick, "landed_contact", event.id, people=(
                 (recipient.id, "systems_perspective", recipient.systems_perspective - before),)))
     return records
+
+
+class Practice(NamedTuple):
+    """A self-directed act under load awaiting judgement (revision 19)."""
+
+    actor: PersonId
+    other: PersonId
+    tick: int
+    deviation: float
+
+
+def self_practice(state: RunState, selections, load: dict, params: EngineParams) -> list[EffectRecord]:
+    """Purpose: a self-directed act that worked builds the person's systems perspective, slowly — self-discovered.
+    Spec:    docs/bowen_agent_model_spec_v2.md#M1.E.7 (revisions 18, 19)
+    Tests:   tests/bowen/test_external.py::test_m1e7_a_self_directed_act_that_worked_builds_perspective
+
+    The owner, 2026-10-11: perspective "should be 'self discovered' and emerge from learned behaviour. If an agent
+    happens to do a 'systems' type behaviour and it works, the agent should be able to 'remember' that." It works when
+    the person held their position and the tie calmed (decided the same day): a self-directed act, or ``WITHHOLD``,
+    made toward someone under load is judged ``practice_window`` weeks later. It counts if, over those weeks, the
+    person made no avoiding or soothing act toward that person, and their own deviation on the tie is lower than when
+    they acted. Then perspective rises by ``self_practice_gain`` of its distance from 1. Immediate relief does not
+    count: a systems move often feels worse first (the change-back reaction), and the self-directed channel is never
+    reinforced by relief (`M4.D.6d`).
+
+    When a stance works, the other functions up by ``system_adjust_gain`` (revision 19): they are not going to win.
+    """
+    rows = []
+    due = [p for p in state.practice if p.tick + params.practice_window <= state.tick]
+    state.practice = [p for p in state.practice if p.tick + params.practice_window > state.tick]
+    for actor, other, tick, before in due:
+        person, tie = state.people[actor], state.tie_between(actor, other)
+        if not person.alive or tie is None:
+            continue
+        soothed = any(e.sender == actor and e.kind in state.kinds.soothing and tick < e.timestamp <= state.tick
+                      for e in state.store.moves_on_pair(actor, other))
+        if soothed or deviation(person, tie, params) >= before:
+            continue
+        gained = person.systems_perspective or 0.0
+        person.systems_perspective = gained + params.self_practice_gain * (1.0 - gained)
+        rows.append((actor, "systems_perspective", person.systems_perspective - gained))
+        # Revision 19, the system adjusts (owner decision 2026-10-11): the other, finding they are not going to win,
+        # functions up. "If the person doesn't change back, the system adjusts — the other agents realize that they
+        # aren't going to win and improve their functioning."
+        partner = state.people[other]
+        # Once per stance, not once per act (review 2026-10-11): weekly acts toward the same person open overlapping
+        # windows, and each would otherwise add the gain again.
+        last = state.adjusted.get((actor, other))
+        if last is not None and state.tick - last < params.practice_window:
+            continue
+        if partner.alive:
+            before_level = partner.functional_level
+            partner.functional_level = min(SCALE_MAX, before_level + params.system_adjust_gain)
+            if partner.functional_level != before_level:
+                state.adjusted[(actor, other)] = state.tick  # only an adjustment that happened uses up the window
+                rows.append((other, "functional_level", partner.functional_level - before_level))
+    for selection in sorted(selections, key=lambda s: s.actor):
+        person = state.people[selection.actor]
+        self_directed = selection.kind == WITHHOLD or state.kinds.channels.get(selection.kind) == SELF_CHANNEL
+        # Under load means above the calm band, as for the stress response (M1.A.5e; review 2026-10-11).
+        if not (self_directed and person.alive and selection.targets
+                and load.get(selection.actor, 0.0) > params.anxiety_band_low):
+            continue
+        other = selection.targets[0]
+        tie = state.tie_between(selection.actor, other)
+        if tie is not None:
+            state.practice.append(Practice(selection.actor, other, state.tick, deviation(person, tie, params)))
+    return [EffectRecord(state.tick, "self_practice", None, people=tuple(rows))] if rows else []

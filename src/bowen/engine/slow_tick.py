@@ -7,9 +7,11 @@ Spec:    docs/bowen_agent_model_spec_v2.md#M3.B.1, #M1.A.4a, #M1.A.4b, #M1.A.4d,
          #M7.A.1a, #M7.B.1, #M7.E.4, #M2.A.0b, #M6.I.5
 Tests:   tests/bowen/test_slow_tick.py
 
-**The history** (``record_week``, at the end of every fast tick): per person, the week's ``functional_level``, the
+**The history** (``record_week``, at the end of every fast tick): per person, the week's ``functional_level`` less
+any borrowed pseudo-self (revision 19), the
 load they carried when they chose (excess acute anxiety over the chronic floor), whether they acted in the
-self-directed channel or withheld, and the kinds of nodal event — exogenous stressor — delivered to them. It keeps the last
+self-directed channel or withheld, and the kinds of nodal event that reached them: any major event on a person,
+listed in ``config/bowen/nodal_events.md`` (spec revision 17). It keeps the last
 ``estimator_window`` slow ticks of weeks.
 
 **The estimate** (``estimate``; owner decision P4, spec ``M1.A.4k``). Once the window is full:
@@ -44,10 +46,11 @@ from src.bowen.engine.events import Mechanism, Role
 from src.bowen.engine.iposition import STAY_IN_CONTACT
 from src.bowen.engine.identifiers import PersonId
 from src.bowen.engine.invariants import InvariantViolation
-from src.bowen.engine.log_records import EffectRecord
+from src.bowen.engine.log_records import DecidedBy, EffectRecord
 from src.bowen.engine.objects import SCALE_MAX
 from src.bowen.engine.params import EngineParams
 from src.bowen.engine.state import RunState
+
 
 
 
@@ -59,29 +62,51 @@ class Week:
     functional_level: float
     load: float
     self_directed: bool
-    nodal: tuple[str, ...]  # the kinds of nodal event delivered that week: a recurring stressor is one situation
+    nodal: tuple[str, ...]  # the kinds of nodal event that reached them that week: a recurring stressor is one situation
+    soothed: bool = False   # revision 19: they met the week with an avoiding or soothing act (the soothing review)
 
 
 def history_length(params: EngineParams) -> int:
     return params.estimator_window * params.slow_tick_fast_ticks
 
 
-def record_week(state: RunState, params: EngineParams, load: dict, selections, batch) -> None:
+def reached_by(state: RunState, event) -> set[PersonId]:
+    """Purpose: everyone a nodal event counts for — whom it happens to and whom it reaches (spec revision 17).
+    Spec:    docs/bowen_agent_model_spec_v2.md#M1.A.4k
+    Tests:   tests/bowen/test_slow_tick.py::test_m1a4k_a_nodal_event_counts_for_everyone_it_reaches
+
+    Its targets and witnesses; the sender of an event that is not a move (a symptom happens to its bearer); the
+    members of the tie it names; and, where config gives its reach as ``ties`` (a member leaving), everyone tied
+    to its targets. A nodal event that reaches no one raises rather than counting for no one.
+    """
+    people = set(event.targets) | set(event.witnesses)
+    if event.sender is not None and event.mechanism is not Mechanism.MOVE:
+        people.add(event.sender)
+    if event.on_tie is not None:
+        people |= set(event.on_tie.members())
+    if state.kinds.nodal_reach.get(event.kind) == "ties":
+        people |= {m for target in event.targets for tie in state.ties_of(target) for m in tie.id.members()}
+    if not people:
+        raise ValueError(f"nodal event {event.id} ({event.kind}) reaches no one, so it would count for no one")
+    return people
+
+
+def record_week(state: RunState, params: EngineParams, load: dict, selections, events) -> None:
     """Purpose: add this week to each living person's estimator history.
     Spec:    docs/bowen_agent_model_spec_v2.md#M1.A.4k, #M1.A.4b, #M1.A.4h
     Tests:   tests/bowen/test_slow_tick.py::test_m1a4k_history_records_load_channel_and_nodal_events
 
-    ``load`` is each person's excess acute anxiety at selection; ``selections`` are the week's outcomes; ``batch``
-    is the week's accepted deliveries. The channel is the kind's, whoever decided it: a scripted act counts by what
+    ``load`` is each person's excess acute anxiety at selection; ``selections`` are the week's outcomes; ``events``
+    are the events the week emitted. A nodal event is one whose kind is in ``state.kinds.nodal`` (config). The channel is the kind's, whoever decided it: a scripted act counts by what
     it is (a criterion arm that scripts ``I-POSITION`` or exchanges is declaring that behaviour, M11.C.18, M11.C.33),
     although the log stamps it ``scripted``.
     """
-    chose = {s.actor: s.kind for s in selections}
+    chose = {s.actor: s.kind for s in selections if s.decided_by is not DecidedBy.FALLBACK}  # a fallback is no choice
     nodal: dict[PersonId, set[str]] = {}
-    for delivery in batch:
-        event = state.store.event(delivery.event_id)
-        if event.mechanism is Mechanism.EXOGENOUS_STRESSOR:
-            nodal.setdefault(delivery.recipient, set()).add(event.kind)
+    for event in events:
+        if event.kind in state.kinds.nodal:
+            for pid in reached_by(state, event):
+                nodal.setdefault(pid, set()).add(event.kind)
     size = history_length(params)
     for pid in sorted(state.people):
         person = state.people[pid]
@@ -90,8 +115,12 @@ def record_week(state: RunState, params: EngineParams, load: dict, selections, b
         kind = chose.get(pid)
         self_directed = kind == WITHHOLD or (kind is not None and state.kinds.channels.get(kind) == SELF_CHANNEL)
         weeks = state.estimator_history.setdefault(pid, deque(maxlen=size))
-        weeks.append(Week(state.tick, person.functional_level, load.get(pid, 0.0), self_directed,
-                          tuple(sorted(nodal.get(pid, ())))))
+        # Revision 19 (owner decision 2026-10-11): the borrowed part — positive pseudo-self taken by over-functioning
+        # — is not read. "Overfunctioning is a dysfunctional behaviour — pseudo-self looks better. It's not principle
+        # based improved functioning" (M1.A.5c: a borrowed rise does not survive withdrawal of the source).
+        own = person.functional_level - max(0.0, person.pseudo_self or 0.0)
+        weeks.append(Week(state.tick, own, load.get(pid, 0.0), self_directed,
+                          tuple(sorted(nodal.get(pid, ()))), kind in state.kinds.soothing))
 
 
 @dataclass(frozen=True)

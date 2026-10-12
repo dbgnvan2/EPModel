@@ -17,6 +17,7 @@ from src.bowen.engine.event_store import EventStore
 from src.bowen.engine.events import Channel, Delivery, Event, EventId, Mechanism, Role, SourcePosition
 from src.bowen.engine.external import landing_probability
 from src.bowen.engine.identifiers import PersonId, TieId
+from src.bowen.engine.visibility import HouseholdConductanceVisibility
 from src.bowen.engine.initialise import initialise_run
 from src.bowen.engine.log_records import EffectRecord
 from src.bowen.engine.objects import Role as PersonRole
@@ -158,21 +159,33 @@ def test_m1e7c_delayed_self_observation_makes_landing_likelier():
         plain, plain.people[HALIM], plain.people[RAVI], PARAMS)
 
 
-def test_m1e7_perspective_rises_only_on_a_landed_contact():
+def test_m1e7_perspective_rises_only_on_a_landed_contact_or_own_practice():
+    """Every rise in perspective is logged as a landed contact or as the person's own practice (revision 18); none
+    is spontaneous."""
+    def sources(records):
+        totals = {}
+        for r in records:
+            if isinstance(r, EffectRecord) and r.mechanism in ("landed_contact", "self_practice"):
+                for pid, field, v in r.people:
+                    if field != "systems_perspective":
+                        continue
+                    totals.setdefault(r.mechanism, {}).setdefault(pid, 0.0)
+                    totals[r.mechanism][pid] += v
+        return totals
+
     with mock.patch("src.bowen.engine.external.binders_failing", lambda person, params: True):
         state, records = phase_c_run(weeks=120, seed=2)
-    landed = {}
-    for r in records:
-        if isinstance(r, EffectRecord) and r.mechanism == "landed_contact":
-            for pid, _, v in r.people:
-                landed[pid] = landed.get(pid, 0.0) + v
+    found = sources(records)
     for pid, person in state.people.items():
         if person.role is PersonRole.EXTERNAL:
             continue
-        assert abs((person.systems_perspective or 0.0) - landed.get(pid, 0.0)) < 1e-12, pid
-    assert landed, "no contact landed in 120 weeks with every binder failing"
-    without_agent, _ = phase_c_run(weeks=120, seed=2, family_path=CONFIG_DIR / "family_reduced.md")
-    assert all((p.systems_perspective or 0.0) == 0.0 for p in without_agent.people.values())  # never spontaneously
+        logged = found.get("landed_contact", {}).get(pid, 0.0) + found.get("self_practice", {}).get(pid, 0.0)
+        assert abs((person.systems_perspective or 0.0) - logged) < 1e-9, pid
+    assert found.get("landed_contact"), "no contact landed in 120 weeks with every binder failing"
+    without_agent, records = phase_c_run(weeks=120, seed=2, family_path=CONFIG_DIR / "family_reduced.md")
+    practice = sources(records).get("self_practice", {})
+    assert all(abs((p.systems_perspective or 0.0) - practice.get(pid, 0.0)) < 1e-9
+               for pid, p in without_agent.people.items())  # without a coach, only practice moves it
 
 
 # --- the delayed view (M16.D) --------------------------------------------------------------
@@ -215,3 +228,91 @@ def test_m16t6_event_store_is_load_bearing():
         with mock.patch.object(EventStore, "delayed_view", lambda self, person, now, delay: ()):
             emptied = arms(range(8))
     assert any(a != b for a, b in zip(live, emptied))
+
+
+def test_m1e7_a_self_directed_act_that_worked_builds_perspective():
+    """Revision 19: perspective is self-discovered. A self-directed act under load counts only when it worked — the
+    person held their position (no soothing toward that person) and their reactivity on the tie came down over
+    practice_window weeks. Feeling better at once does not count; an automatic act never counts."""
+    from src.bowen.engine.act import Selection
+    from src.bowen.engine.external import self_practice
+
+    ravi, marta = P("ravi"), P("marta")
+    tie_id = TieId.of(ravi, marta)
+    window = PARAMS.practice_window
+
+    def judged(after):
+        state = fresh()
+        state.ties[tie_id].felt_impingement[ravi] = 0.6           # reactive on the tie when he acts
+        self_practice(state, (Selection(ravi, "STAY-IN-CONTACT", (marta,), 100.0),), {ravi: PARAMS.anxiety_band_low + 5.0}, PARAMS)
+        assert (state.people[ravi].systems_perspective or 0) == 0  # nothing at once
+        after(state)
+        state.tick = window
+        self_practice(state, (), {}, PARAMS)
+        return state.people[ravi].systems_perspective or 0
+
+    def calmed(state):
+        state.ties[tie_id].felt_impingement[ravi] = 0.0
+
+    def calmed_but_soothed(state):
+        calmed(state)
+        state.tick = 1
+        from src.bowen.engine.act import act
+        act(state, Selection(ravi, "DISTANCE", (marta,), 100.0), HouseholdConductanceVisibility(PARAMS.per_hop_fidelity))
+
+    assert judged(calmed) == PARAMS.self_practice_gain
+    assert judged(lambda state: None) == 0                         # the tie did not calm
+    assert judged(calmed_but_soothed) == 0                         # he did not hold his position
+    automatic = fresh()
+    self_practice(automatic, (Selection(ravi, "PURSUE", (marta,), 100.0),), {ravi: PARAMS.anxiety_band_low + 5.0}, PARAMS)
+    assert automatic.practice == []
+    assert PARAMS.self_practice_gain < PARAMS.perspective_gain
+
+
+def test_m1e7_when_a_held_stance_works_the_other_functions_up():
+    """Revision 19 (the owner: "if the person doesn't change back, the system adjusts — the other agents realize that
+    they aren't going to win and improve their functioning"): only when the stance worked."""
+    from src.bowen.engine.act import Selection
+    from src.bowen.engine.external import self_practice
+
+    ravi, marta = P("ravi"), P("marta")
+    tie_id = TieId.of(ravi, marta)
+
+    def marta_after(calmed):
+        state = fresh()
+        state.ties[tie_id].felt_impingement[ravi] = 0.6
+        self_practice(state, (Selection(ravi, "WITHHOLD", (marta,), 100.0),), {ravi: PARAMS.anxiety_band_low + 5.0}, PARAMS)
+        before = state.people[marta].functional_level
+        if calmed:
+            state.ties[tie_id].felt_impingement[ravi] = 0.0
+        state.tick = PARAMS.practice_window
+        self_practice(state, (), {}, PARAMS)
+        return state.people[marta].functional_level - before
+
+    assert marta_after(True) == PARAMS.system_adjust_gain > 0 == marta_after(False)
+
+
+def test_m1e7_the_system_adjusts_once_per_stance_and_only_under_load():
+    """Review 2026-10-11: weekly acts toward one person open overlapping windows; the other adjusts once per stance,
+    not once per act. And an act below the calm band is not practice under load."""
+    from src.bowen.engine.act import Selection
+    from src.bowen.engine.external import self_practice
+
+    ravi, marta = P("ravi"), P("marta")
+    tie_id = TieId.of(ravi, marta)
+    state = fresh()
+    state.ties[tie_id].felt_impingement[ravi] = 0.6
+    loaded = {ravi: PARAMS.anxiety_band_low + 5.0}
+    for week in range(3):                                          # three acts in a row
+        state.tick = week
+        self_practice(state, (Selection(ravi, "STAY-IN-CONTACT", (marta,), 100.0),), loaded, PARAMS)
+    state.ties[tie_id].felt_impingement[ravi] = 0.0
+    before = state.people[marta].functional_level
+    for week in range(3, 3 + PARAMS.practice_window):
+        state.tick = week
+        self_practice(state, (), {}, PARAMS)
+    assert state.people[marta].functional_level - before == PARAMS.system_adjust_gain
+    calm = fresh()
+    self_practice(calm, (Selection(ravi, "STAY-IN-CONTACT", (marta,), 100.0),), {ravi: PARAMS.anxiety_band_low / 2},
+                  PARAMS)
+    assert calm.practice == []

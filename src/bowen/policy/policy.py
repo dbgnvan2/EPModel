@@ -182,12 +182,18 @@ def legal_outcomes(obs: Observation, kinds: EventKinds, params: EngineParams,
     return legal
 
 
-def self_channel_weight(functional_level: float, params: EngineParams) -> float:
-    """Purpose: the mixing weight — a function of functional level only.
+def self_channel_weight(functional_level: float, params: EngineParams, perspective: float = 0.0) -> float:
+    """Purpose: the mixing weight — functional level, opened further by systems perspective (spec revision 18).
     Spec:    docs/bowen_agent_model_spec_v2.md#M4.D.1a
-    Tests:   tests/bowen/test_policy.py::test_m4d1a_mixing_weight_reads_functional_level_only
+    Tests:   tests/bowen/test_policy.py::test_m4d1a_mixing_weight_reads_functional_level_only,
+             tests/bowen/test_policy.py::test_m4d1a_perspective_opens_the_self_directed_channel
+
+    ``f = (functional_level / 100) ** self_channel_exponent``, and ``w = f + perspective_channel_gain × perspective ×
+    (1 − f)``: with no perspective, exactly as before; coaching or a person's own practice raises it (the owner,
+    2026-10-11: "more self directed behaviour … can be outcomes of coaching OR agents can get to this on their own").
     """
-    return min(1.0, max(0.0, functional_level / SCALE_MAX)) ** params.self_channel_exponent
+    f = min(1.0, max(0.0, functional_level / SCALE_MAX)) ** params.self_channel_exponent
+    return f + params.perspective_channel_gain * min(1.0, max(0.0, perspective)) * (1.0 - f)
 
 
 def availability(kind: str, obs: Observation, kinds: EventKinds, params: EngineParams) -> float:
@@ -222,8 +228,10 @@ def _loaded_gate(outcome: Outcome, obs: Observation, params: EngineParams) -> fl
     return obs.systems_perspective if view.deviation > params.loaded_tie_threshold else 1.0
 
 
-def channel_weights(outcomes: list[Outcome], obs: Observation, kinds: EventKinds, params: EngineParams) -> list[float]:
-    """Unnormalised within-channel weights, before mixing."""
+def channel_weights(outcomes: list[Outcome], obs: Observation, kinds: EventKinds, params: EngineParams,
+                    steered: bool = False) -> list[float]:
+    """Unnormalised within-channel weights, before mixing. ``steered`` applies perspective's steering (revision 19),
+    which bears on what is chosen only, not on competing urges or on which act a hold withholds (review 2026-10-11)."""
     weights = []
     values = [obs.learned_values.get(o.value_key, 0.0) for o in outcomes if o.channel == AUTOMATIC]
     # The softmax is shift-invariant within the channel; subtracting the largest value keeps exp() finite
@@ -233,10 +241,23 @@ def channel_weights(outcomes: list[Outcome], obs: Observation, kinds: EventKinds
     for o in outcomes:
         if o.channel == AUTOMATIC:
             value = obs.learned_values.get(o.value_key, 0.0)
-            weights.append(math.exp((value - top) / params.policy_temperature) * availability(o.kind, obs, kinds, params))
+            weight = math.exp((value - top) / params.policy_temperature) * availability(o.kind, obs, kinds, params)
         else:
-            weights.append(self_score(o, obs) ** (1.0 / params.policy_temperature) * _loaded_gate(o, obs, params))
+            weight = self_score(o, obs) ** (1.0 / params.policy_temperature) * _loaded_gate(o, obs, params)
+        weights.append(weight * (steer(o.kind, obs, kinds, params) if steered else 1.0))
     return weights
+
+
+def steer(kind: str, obs: Observation, kinds: EventKinds, params: EngineParams) -> float:
+    """Purpose: systems perspective steers away from triangling and blaming, and toward detriangling (revision 19).
+    Spec:    docs/bowen_agent_model_spec_v2.md#M4.D.1a
+    Tests:   tests/bowen/test_policy.py::test_m4d1a_perspective_steers_away_from_triangling_and_blaming
+
+    ``1 + direction × perspective_steer_gain × perspective`` for a kind in ``config/bowen/perspective_steering.md``;
+    1 for every other kind, and for everyone with no perspective.
+    """
+    direction = kinds.steering.get(kind, 0)
+    return 1.0 + direction * params.perspective_steer_gain * min(1.0, max(0.0, obs.systems_perspective))
 
 
 def propensities(obs: Observation, kinds: EventKinds, params: EngineParams,
@@ -246,14 +267,14 @@ def propensities(obs: Observation, kinds: EventKinds, params: EngineParams,
     Tests:   tests/bowen/test_policy.py::test_m4d4_iposition_not_monotone_in_level
     """
     outcomes = legal_outcomes(obs, kinds, params, excluded)
-    weights = channel_weights(outcomes, obs, kinds, params)
+    weights = channel_weights(outcomes, obs, kinds, params, steered=True)
     if any(not math.isfinite(w) for w in weights):
         return outcomes, [math.nan] * len(outcomes)
     if sum(w for o, w in zip(outcomes, weights) if o.channel == AUTOMATIC) <= 0:
         # Nothing automatic carries weight, so there is nothing to withhold (M4.D.1b).
         weights = [0.0 if o.kind == WITHHOLD else w for o, w in zip(outcomes, weights)]
     totals = {c: sum(w for o, w in zip(outcomes, weights) if o.channel == c) for c in (AUTOMATIC, SELF)}
-    mix = {SELF: self_channel_weight(obs.functional_level, params)}
+    mix = {SELF: self_channel_weight(obs.functional_level, params, obs.systems_perspective)}
     mix[AUTOMATIC] = 1.0 - mix[SELF]
     live = {c for c in totals if totals[c] > 0}
     if live and sum(mix[c] for c in live) <= 0:

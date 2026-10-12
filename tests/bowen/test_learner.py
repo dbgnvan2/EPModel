@@ -231,3 +231,28 @@ def test_m4d6e_triangle_reinforced_when_it_relieves_the_seeker_whatever_it_costs
         run_horizon(state, {RAVI: -2.0, MARTA: +15.0})  # PURSUE: 2 − 0.5 × 15 / 3 (target and two witnesses) < 0
         results[kind] = state.people[RAVI].learned_values.get(eligible_act.key, 0.0)
     assert results["TRIANGLE"] > 0 > results["PURSUE"]
+
+
+def test_m4d6_a_soothing_review_lowers_soothing_that_did_not_help():
+    """Revision 19: a person who asks, and finds their load no lower after soothing, loses the taste for it;
+    one whose soothing did help keeps it; and a person who never asks keeps it."""
+    from src.bowen.engine.learner import soothing_review
+    from src.bowen.engine.slow_tick import Week
+
+    every, window = PARAMS.soothing_review_every, PARAMS.practice_window
+
+    def reviewed(after_load, basic=100.0):
+        state = fresh()
+        person = state.people[RAVI]
+        person.basic_level, person.systems_perspective = basic, 1.0 if basic else 0.0
+        person.learned_values = {"high|none|DISTANCE|marta": 4.0, "high|none|PURSUE|marta": 4.0}
+        state.estimator_history[RAVI] = [Week(t, 40.0, 10.0 if t == 0 else after_load, False, (), t == 0)
+                                         for t in range(every + window)]
+        state.tick = every - 1
+        soothing_review(state, PARAMS)
+        return person.learned_values
+
+    unhelped = reviewed(after_load=12.0)
+    assert unhelped["high|none|DISTANCE|marta"] < 4.0 and unhelped["high|none|PURSUE|marta"] == 4.0
+    assert reviewed(after_load=3.0)["high|none|DISTANCE|marta"] == 4.0
+    assert reviewed(after_load=12.0, basic=0.0)["high|none|DISTANCE|marta"] == 4.0   # never asks

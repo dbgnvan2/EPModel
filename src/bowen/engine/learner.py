@@ -42,9 +42,11 @@ from __future__ import annotations
 from dataclasses import dataclass
 
 from src.bowen.engine.act import Selection
+from src.bowen.engine.draws import DrawKey
 from src.bowen.engine.events import EventId, Mechanism
 from src.bowen.engine.identifiers import PersonId
 from src.bowen.engine.log_records import DecidedBy, EffectRecord
+from src.bowen.engine.objects import SCALE_MAX
 from src.bowen.engine.params import EngineParams
 from src.bowen.engine.recompute import TRIANGLE_KIND
 from src.bowen.engine.state import RunState
@@ -121,3 +123,48 @@ def learn(state: RunState, start_acute: dict[PersonId, float], params: EnginePar
                 changes.append((pid, f"learned_value[{act.key}]", delta))
         person.eligible_acts = still_open
     return [EffectRecord(state.tick, "learning", None, people=tuple(changes))] if changes else []
+
+
+def soothing_review(state: RunState, params: EngineParams) -> list[EffectRecord]:
+    """Purpose: now and then a person asks "is soothing helping me?" — and if it did not, soothing loses its appeal.
+    Spec:    docs/bowen_agent_model_spec_v2.md#M4.D.6 (revision 19)
+    Tests:   tests/bowen/test_learner.py::test_m4d6_a_soothing_review_lowers_soothing_that_did_not_help
+
+    The owner, 2026-10-11: "If soothing outnumbers coping, that's often because of lower basic level. Some people
+    learn, eventually, that soothing isn't really the answer. … from time to time … an agent should ask — is soothing
+    helping me?" Every ``soothing_review_every`` weeks each person asks with probability
+    ``(basic_level / 100 + systems_perspective) / 2`` (one keyed draw). Looking back over that stretch, soothing
+    helped if their load ``practice_window`` weeks after soothing was lower than when they soothed. If it did not,
+    every positive learned value of an avoiding or soothing act is cut by ``soothing_review_penalty`` of itself.
+    The automatic channel otherwise learns only from immediate relief (`M4.D.6`), which soothing always gives.
+    """
+    if (state.tick + 1) % params.soothing_review_every:
+        return []
+    rows = []
+    for pid in sorted(state.people):
+        person = state.people[pid]
+        weeks = list(state.estimator_history.get(pid, ()))[-params.soothing_review_every - params.practice_window:]
+        if not person.alive or not weeks:
+            continue
+        signals = (person.basic_level / SCALE_MAX, person.systems_perspective or 0.0)
+        asks = min(1.0, sum(signals) / len(signals))
+        draw = state.draws.uniform(DrawKey.make("soothing_review", tick=state.tick, actor=pid, purpose="ask", index=0))
+        if draw >= asks:
+            continue
+        by_tick = {w.tick: w.load for w in weeks}
+        pairs = [(w.load, by_tick[w.tick + params.practice_window]) for w in weeks
+                 if w.soothed and w.tick + params.practice_window in by_tick]
+        if not pairs or sum(after for _, after in pairs) < sum(before for before, _ in pairs):
+            continue  # soothing helped, or there was none to judge
+        for key in sorted(person.learned_values):
+            value = person.learned_values[key]
+            if value > 0 and _act_of(key) in state.kinds.soothing:
+                person.learned_values[key] = value * (1.0 - params.soothing_review_penalty)
+                rows.append((pid, f"learned_value[{key}]", person.learned_values[key] - value))
+    return [EffectRecord(state.tick, "soothing_review", None, people=tuple(rows))] if rows else []
+
+
+def _act_of(key: str) -> str:
+    """The act a learned-value key names: keys read ``band|position|act|where`` (policy.value_key)."""
+    _band, _position, act, _where = key.split("|")
+    return act

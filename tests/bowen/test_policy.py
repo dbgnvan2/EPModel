@@ -382,7 +382,7 @@ def test_m4d1b_withheld_act_is_drawn_when_the_automatic_channel_has_no_share():
     import src.bowen.policy.policy as policy
 
     obs = observe(fresh(ravi={"functional_level": 60.0}), RAVI, PARAMS)
-    with mock.patch.object(policy, "self_channel_weight", lambda level, params: 1.0):
+    with mock.patch.object(policy, "self_channel_weight", lambda level, params, perspective=0.0: 1.0):
         withheld = [d.selection for d in (decide(obs, KINDS, PARAMS, RULES, DrawService(s)) for s in range(300))
                     if d.selection.kind == WITHHOLD]
     assert withheld, "WITHHOLD never drawn in 300 seeds"
@@ -410,3 +410,41 @@ def test_m17d3_excluded_outcome_is_not_legal():
     assert held == full - {"CUTOFF>marta"}
     outcomes, _ = propensities(ravi, KINDS, PARAMS, frozenset({"CUTOFF>marta"}))
     assert "CUTOFF>marta" not in {o.label for o in outcomes}
+
+
+def test_m4d1a_perspective_opens_the_self_directed_channel():
+    """Revision 18: at the same functional level, perspective moves weight to the self-directed channel; with none,
+    the weight is exactly functional level's."""
+    level = 40.0
+    plain = self_channel_weight(level, PARAMS)
+    assert self_channel_weight(level, PARAMS, 0.0) == plain
+    assert plain < self_channel_weight(level, PARAMS, 0.5) < self_channel_weight(level, PARAMS, 1.0) <= 1.0
+
+
+def test_m4d1a_perspective_steers_away_from_triangling_and_blaming():
+    """Revision 19: perspective lowers TRIANGLE's and CONFLICT's weight and raises DETRIANGLE's; with none, no change."""
+    from src.bowen.policy.policy import steer
+
+    obs = observe(fresh(), RAVI, PARAMS)
+    seen = dataclasses.replace(obs, systems_perspective=1.0)
+    for kind in ("TRIANGLE", "CONFLICT"):
+        assert steer(kind, seen, KINDS, PARAMS) < steer(kind, obs, KINDS, PARAMS) == 1.0
+    assert steer("DETRIANGLE", seen, KINDS, PARAMS) > steer("DETRIANGLE", obs, KINDS, PARAMS) == 1.0
+    assert steer("PURSUE", seen, KINDS, PARAMS) == 1.0
+
+
+def test_m4d1a_steering_bears_on_choice_not_on_competing_urges():
+    """Review 2026-10-11: perspective lowers TRIANGLE's chance of being chosen, and leaves competing urges alone."""
+    obs = observe(fresh(), RAVI, PARAMS)
+    seen = dataclasses.replace(obs, systems_perspective=1.0)
+    plain = dataclasses.replace(obs, systems_perspective=0.0)
+
+    def chance(o, kind):
+        outcomes, probs = propensities(o, KINDS, PARAMS)
+        total = sum(p for out, p in zip(outcomes, probs) if out.channel == AUTOMATIC)
+        return sum(p for out, p in zip(outcomes, probs) if out.kind == kind) / total if total else 0.0
+
+    assert any(o.kind == "TRIANGLE" for o in legal_outcomes(obs, KINDS, PARAMS)), "fixture: TRIANGLE must be legal"
+    assert chance(seen, "TRIANGLE") < chance(plain, "TRIANGLE")
+    outcomes = legal_outcomes(obs, KINDS, PARAMS)
+    assert competing_urges(outcomes, seen, KINDS, PARAMS) == competing_urges(outcomes, plain, KINDS, PARAMS)

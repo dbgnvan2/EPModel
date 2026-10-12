@@ -10,11 +10,11 @@
 
 | set | acts | used by |
 |---|---|---|
-| approach | PURSUE, STAY-IN-CONTACT, REDUCE_CUTOFF | distance (approaches outnumbered); cutoff (the approach refused) |
+| approach | PURSUE, STAY-IN-CONTACT, REDUCE_CUTOFF | distance (approaches outnumbered); cutoff (the other's approach, refused) |
 | conflict | CONFLICT | conflict |
 | withdrawal | DISTANCE | distance |
 | over | OVERFUNCTION | over/underfunctioning: the over side taking charge |
 | under | UNDERFUNCTION, PURSUE | over/underfunctioning: the under side giving way or going along |
 | fusion | PURSUE | fusion: both going along |
 | projection | OVERFUNCTION, PURSUE, TRIANGLE | projection: a parent's acts focused on a child |
-| refusal | CUTOFF | cutoff: the refusing act |
+| refusal | CUTOFF, DISTANCE | cutoff: an act answering the other's approach within a week (revision 17: one of the ways an approach is refused) |

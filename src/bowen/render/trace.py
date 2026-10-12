@@ -59,11 +59,12 @@ TABLE_HEAD = "| Week | Who | Move | Toward | Witnesses | What it did |\n|---|---
 # Every mechanism the engine emits, and how the trace treats it. Anything else
 # raises: a record the renderer does not understand must not vanish (P2, P19).
 CAUSED = frozenset({"appraisal", "calm_contact", "symptom_onset", "distance_binding", "triangle_transfer",
-                    "functioning_shift", "reduce_cutoff", "refusal", "assertion", "debit", "landed_contact", "trigger", "cutoff", "reconciliation", "institutionalize", "binder_unavailable"})
+                    "functioning_shift", "reduce_cutoff", "refusal", "stressor_load", "assertion", "debit", "landed_contact", "trigger", "cutoff", "reconciliation", "institutionalize", "binder_unavailable"})
 SYSTEM_SHOWN = frozenset({"triangle_recompute", "consolidation", "rejection_fade", "slow_tick"})
 SYSTEM_SUMMARISED = frozenset({
     "standing_load", "acute_decay", "contact_relaxation", "symptom_accumulation", "investment", "reactive_state",
     "outside_ness", "belief", "functioning_settle", "competing_urges", "withhold", "learning", "sink_allocation",
+    "self_practice", "stress_response", "soothing_review",
 })  # every week, everyone; stated once
 
 
@@ -118,8 +119,8 @@ def _what_it_did(event: Event, index: _Index, names: _Names, view: PersonId | No
         parts.append(f"arrives week {', '.join(str(t) for t in sorted(arrival))}")
     roles = {d.recipient: d.role for d in delivered}
     if event.mechanism is Mechanism.EXOGENOUS_STRESSOR:
-        # Phase B appraises a stressor once; the spell's length is recorded, not yet used.
-        parts.append(f"one-time effect; a {event.duration}-week spell, recorded")
+        # Revision 18 (M1.F.6): a stressor weighs for its declared duration; later weeks show as "still weighing".
+        parts.append(f"a {event.duration}-week spell" + ("" if event.duration > 1 else ", one week"))
     for effect in index.effects.get(event.id, []):
         if effect.mechanism == "appraisal":
             changes = [
@@ -154,6 +155,10 @@ def _what_it_did(event: Event, index: _Index, names: _Names, view: PersonId | No
             returned = [f"{names(p)} {_signed(v)}" for p, v in effect.acute_anxiety if view is None or p == view]
             if returned:
                 parts.append("anxiety bound by distancing returns: " + ", ".join(returned))
+        elif effect.mechanism == "stressor_load":
+            weighs = [f"{names(p)} {_signed(v)}" for p, v in effect.acute_anxiety if view is None or p == view]
+            if weighs:
+                parts.append("still weighing this week: anxiety " + ", ".join(weighs))
         elif effect.mechanism == "refusal":
             parts += [f"refused by {names(PersonId(f.split(':', 1)[1]))} (rejection {v:+.2f})" for _, f, v in effect.ties]
             cost = [f"{names(p)} {_signed(v)}" for p, v in effect.acute_anxiety if view is None or p == view]

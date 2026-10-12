@@ -54,19 +54,20 @@ from src.bowen.engine.event_effects import STRUCTURAL, apply_delivered_cutoffs, 
 from src.bowen.engine.events import Event
 from src.bowen.engine.identifiers import PersonId
 from src.bowen.engine.invariants import assert_invariants, snapshot
-from src.bowen.engine.external import apply_landed_contacts
+from src.bowen.engine.external import apply_landed_contacts, self_practice
 from src.bowen.engine.sinks import allocate_sinks
 from src.bowen.engine.slow_tick import record_week, run_slow_tick
 from src.bowen.engine.iposition import advance_sequences, redirect_to_sequence_tie, sequence_selections
-from src.bowen.engine.learner import learn, register_acts
+from src.bowen.engine.learner import learn, register_acts, soothing_review
 from src.bowen.engine.moves import apply_move_effects, settle_functioning
-from src.bowen.engine.log_records import EffectRecord, Emitter, TickRecord
+from src.bowen.engine.log_records import EffectRecord, EmittedRecord, Emitter, TickRecord
 from src.bowen.engine.params import EngineParams
 from src.bowen.engine.outside_ness import update_outside_ness
 from src.bowen.engine.reactive import update_attention_state
 from src.bowen.engine.rejection import fade_rejection, refuse
 from src.bowen.engine.recompute import recompute_involvement, recompute_triangles
 from src.bowen.engine.standing_load import apply_standing_load
+from src.bowen.engine.stress_response import register_stressors, respond, stressor_load
 from src.bowen.engine.state import RunState
 from src.bowen.engine.symptoms import accumulate_symptoms
 from src.bowen.engine.visibility import HouseholdConductanceVisibility
@@ -111,6 +112,7 @@ def run_tick(
     # 1 — standing load, before anything is delivered (M3.D.2, M6.I.8).
     effects, loaded = apply_standing_load(state, params)
     records += effects
+    records += stressor_load(state, params)  # revision 18: a lasting stressor keeps weighing (M1.F.6)
     steps.append("standing_load")
 
     # 2 — deliver.
@@ -118,6 +120,7 @@ def run_tick(
         if event.timestamp != state.tick:
             raise ValueError(f"source scheduled {event.id} for tick {state.tick}")
         records += inject(state, event, visibility)
+        register_stressors(state, (event,))
         if event.mechanism in STRUCTURAL:
             records += apply_structural_event(state, state.store.event(event.id), params)
     batch = state.queue.release(state.tick)
@@ -176,6 +179,8 @@ def run_tick(
     for selection in sorted(selections, key=lambda s: (s.actor, s.index)):
         records += act(state, selection, visibility, params)
     register_acts(state, selections, params)  # M4.D.6: the policy's automatic acts open their accounts
+    records += self_practice(state, selections, load_at_selection, params)  # M1.E.7, revision 18
+    records += respond(state, selections, load_at_selection, params)  # M1.A.5e, revision 18: coping or soothing
     steps.append("act")
 
     # 9 — consolidate, then the invariants assert (M4.G.2). The integrator reads this
@@ -189,9 +194,11 @@ def run_tick(
     records += fade_rejection(state, params)  # M1.B.3c, revision 16: unrenewed rejection wears off
     # M4.D.6: the tick's felt change, decay included, is credited after consolidation.
     records += learn(state, start_acute, params)
+    records += soothing_review(state, params)  # revision 19: "is soothing helping me?"
     steps.append("consolidate")
     records.append(assert_invariants(state, before, loaded, tuple(steps), params.invariant_tolerance, tuple(records)))
-    record_week(state, params, load_at_selection, selections, batch)
+    emitted = [r.event for r in records if isinstance(r, EmittedRecord)]
+    record_week(state, params, load_at_selection, selections, emitted)
     # The slow tick (M3.B.1, plan B5): after the fast tick's invariants, at the end of week 51, 103, … — week 0 is
     # the start, not a step (M2.A.0b). It checks its own invariants.
     if (state.tick + 1) % params.slow_tick_fast_ticks == 0:

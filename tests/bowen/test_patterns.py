@@ -14,7 +14,7 @@ from pathlib import Path
 
 import pytest
 
-from src.bowen.engine.events import Channel, Event, EventId, Mechanism, SourcePosition
+from src.bowen.engine.events import Channel, Event, EventId, Mechanism, Role, SourcePosition
 from src.bowen.engine.identifiers import PersonId, TieId, TriangleId
 from src.bowen.engine.initialise import initialise_run
 from src.bowen.engine.log_records import EffectRecord
@@ -102,14 +102,51 @@ def test_m5a1a_distance_level_rises_with_weeks_without_interaction():
     assert a.silent and b.silent and b.count > a.count >= RP.window
 
 
-def test_m5a1a_cutoff_needs_refusals_of_approaches():
-    refused = fresh()
-    for week in (1, 2, 3):
-        at(refused, week, ("PURSUE", RAVI, MARTA), ("CUTOFF", MARTA, RAVI))
-    unprompted = at(fresh(), 3, *[("CUTOFF", MARTA, RAVI)] * 3)
-    reading = cutoff(refused, MARITAL, RP)
-    assert reading is not None and reading.toward == MARTA
-    assert not read("cutoff", unprompted)
+def delivered(state, sender, target):
+    """Record the delivery of every move ``sender`` sent ``target`` so far: the approach reached them."""
+    from src.bowen.engine.events import Delivery
+
+    for e in state.store.events():
+        if e.sender == sender and target in e.targets:
+            state.store.record_delivery(Delivery(e.timestamp + 1, e.id, target, Role.TARGET, emitted_tick=e.timestamp,
+                                                 latency=1))
+    return state
+
+
+def _cutoff_at(state, now=4):
+    """Read the cutoff as of week ``now`` with weeks 0..now run, the way the fam-diag export reads."""
+    from src.bowen.readouts.patterns import _At
+
+    state.tick = now + 1
+    return cutoff(_At(state, now), MARITAL, RP)
+
+
+def test_m5a1a_cutoff_is_read_from_behaviour_not_words():
+    """Revision 17 (the owner: "just words that need behaviour to back it up"): cutoff is the other's approaches
+    refused and none made; a CUTOFF act alone, or a refusal followed by approaching, is not cutoff."""
+    def approaches(state, *also):
+        for week in (1, 2, 3):
+            at(state, week, ("PURSUE", RAVI, MARTA), *[(k, MARTA, RAVI) for k, w in also if w == 0])
+            at(state, week + 1, *[(k, MARTA, RAVI) for k, w in also if w == 1])
+        return state
+
+    # The engine refused Ravi's approaches (never delivered to Marta) and Marta made none: cutoff.
+    assert _cutoff_at(approaches(fresh())).toward == MARTA
+    # They reached her, and she answered each the week it arrived with CUTOFF, and made none: cutoff.
+    assert _cutoff_at(delivered(approaches(fresh(), ("CUTOFF", 1)), RAVI, MARTA)).toward == MARTA
+    # An act in the approach's own week was chosen before it arrived: not an answer.
+    assert _cutoff_at(delivered(approaches(fresh(), ("DISTANCE", 0)), RAVI, MARTA)) is None
+    # Words: the same CUTOFF answers, but she keeps approaching him too.
+    assert _cutoff_at(delivered(approaches(fresh(), ("CUTOFF", 1), ("STAY-IN-CONTACT", 1)), RAVI, MARTA)) is None
+    # Words with no approach to refuse: three CUTOFFs and nothing else.
+    assert not read("cutoff", at(fresh(), 3, *[("CUTOFF", MARTA, RAVI)] * 3))
+    # Approaches that reached her and were simply not answered are not refused.
+    assert _cutoff_at(delivered(approaches(fresh()), RAVI, MARTA)) is None
+    # Review 2026-10-11: read with the last week's approach still in transit, it is neither received nor refused.
+    transit = fresh()
+    for week in (2, 3, 4):
+        at(transit, week, ("PURSUE", RAVI, MARTA))
+    assert _cutoff_at(transit) is None              # week 4's approach is due at week 5, not yet run
 
 
 def test_m5a1a_over_underfunctioning_needs_three_acts_one_way():

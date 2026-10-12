@@ -19,7 +19,6 @@ back in, divorces are 'nodal' events. Any major event on a person (a node) is a 
   | `JOB_LOSS` | a big job change |
   | `SYMPTOM_ONSET` | a serious illness: a symptom crossing its threshold (`M7.D.1`) |
   | `INSTITUTIONALIZE` | a member moving out of the household |
-  | `BINDER_UNAVAILABLE` | losing what a person was bound to |
 
 - **New kinds, so scenarios can carry several nodal kinds in D-I:**
 

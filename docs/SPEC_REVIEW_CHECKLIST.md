@@ -18,7 +18,7 @@ Reviewer: ________  Started: ________  Spec revision reviewed: ________
 
 These define what the model does. A run that disagrees with them is a defect.
 
-- [ ] [bowen_agent_model_spec_v2.md](bowen_agent_model_spec_v2.md) — the spec (v2.0, revision 17). Objects (M1),
+- [ ] [bowen_agent_model_spec_v2.md](bowen_agent_model_spec_v2.md) — the spec (v2.0, revision 19). Objects (M1),
       reference family (M2), clocks and ordering (M3), the fast tick (M4), moves (M5), invariants (M6), the slow tick
       (M7), live positions (M8), beliefs (M9), parameters (M10), acceptance criteria (M11), framing (M11.F), the
       readout schema (M11.G), out of scope (M12), the run log and trace (M16).
@@ -30,6 +30,12 @@ These define what the model does. A run that disagrees with them is a defect.
 - [ ] [../config/bowen/family_phase_c.md](../config/bowen/family_phase_c.md) — the family run in Phase C.
 - [ ] [../config/bowen/family_phase_d.md](../config/bowen/family_phase_d.md) — the owner's reference family (spec `M2.A`, revision 13); not yet run.
 - [ ] [../config/bowen/pattern_acts.md](../config/bowen/pattern_acts.md) — which acts each pattern readout counts.
+- [ ] [../config/bowen/stress_response.md](../config/bowen/stress_response.md) — which acts avoid or soothe under load
+  (spec revisions 18-19).
+- [ ] [../config/bowen/perspective_steering.md](../config/bowen/perspective_steering.md) — which acts systems perspective
+  steers toward or away from (spec revision 19).
+- [ ] [../config/bowen/nodal_events.md](../config/bowen/nodal_events.md) — which event kinds are nodal events for the
+  basic-level estimator (spec revision 17).
 - [ ] [../config/bowen/family_reduced.md](../config/bowen/family_reduced.md) — the reduced family.
 - [ ] [../config/bowen/fixtures/](../config/bowen/fixtures/) — the test families (dyad, triad, nuclear four) the
       criteria run on.
@@ -111,6 +117,9 @@ Kept for history or as build process. None of these defines current behavior.
 [REVIEW_spec_rev10_2026-09-23.md](REVIEW_spec_rev10_2026-09-23.md),
 [agent_raising_design_prompt.md](agent_raising_design_prompt.md),
 [conversation_agents_maturity_emotion_2026-09.md](conversation_agents_maturity_emotion_2026-09.md).
+
+**Approved 2026-10-11:** [<PROPOSAL — STRESS ON FUNCTIONING, COACHING AND SELF-WORK.md>](<PROPOSAL — STRESS ON FUNCTIONING, COACHING AND SELF-WORK.md>)
+— functioning drops under stress (a strain term); how coaching and a person's own practice reach behaviour.
 
 **Approved 2026-10-11:** [<PROPOSAL — NODAL EVENTS, CUTOFF FROM BEHAVIOUR, C.17.md>](<PROPOSAL — NODAL EVENTS, CUTOFF FROM BEHAVIOUR, C.17.md>)
 — what counts as a nodal event, the cutoff readout read from behaviour, and `M11.C.17` rewritten (a coach helps and is

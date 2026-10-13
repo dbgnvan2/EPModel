@@ -4,6 +4,14 @@ All notable changes to this project are recorded here. Dates are ISO.
 
 ## [Unreleased] — 2026-10-11
 
+### Spec revision 28 (566 numbered requirements, 46 acceptance criteria): the life course (2026-10-13)
+
+- Applies the owner's answers to P13–P15 (`docs/implementation_plan_phase_d.md` §1b): what happens at a death
+  (`M6.3a`–`M6.3i`), finding work after a lost income (`M5.B.7`), starting ages as settings (`M2.A.0j`), the coach's
+  career and single tie (`M2.A.0k`, `M2.B.2`), acting from 10, launch, partners, births and mortality
+  (`M7.C.1f`–`1j`), chronic anxiety before 12 (`M7.B.1a`), and a child's development from 5 to 20 (`M7.E.1f`). The
+  forms are Claude's recommendation, pending owner review. Nothing is built; the config changes with plan step L1.
+
 ### The Phase D ensemble record (2026-10-13)
 
 - **`tools/phase_d_record.py`** writes `docs/phase_d_ensemble_record.md`: every Phase D part I criterion built so far

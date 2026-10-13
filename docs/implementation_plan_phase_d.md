@@ -1,6 +1,6 @@
 # Implementation plan — Phase D
 
-> **Status: approved by the owner, 2026-10-10 ("Proceed"), with the decisions in §1a.** P9 decided 2026-10-11; P13–P16 answered 2026-10-13 (§1b), with two P15 points still open. **Built:** B1 and B2 (2026-10-10/11); B3 and B4 (2026-10-11, spec revision 16); B5 and B6 (2026-10-11); B7, B8 and B9 and part of step 10 (2026-10-12, spec revisions 24–27, Claude's recommendation pending owner review: the owner asked for the work to proceed overnight without waiting for input).
+> **Status: approved by the owner, 2026-10-10 ("Proceed"), with the decisions in §1a.** P9 decided 2026-10-11; P13–P16 answered 2026-10-13 (§1b), with two P15 points still open. **Part II planned 2026-10-13 (§4), awaiting approval.** **Built:** B1 and B2 (2026-10-10/11); B3 and B4 (2026-10-11, spec revision 16); B5 and B6 (2026-10-11); B7, B8 and B9 and part of step 10 (2026-10-12, spec revisions 24–27, Claude's recommendation pending owner review: the owner asked for the work to proceed overnight without waiting for input).
 > Spec: `docs/bowen_agent_model_spec_v2.md`, revision 13. Phase C closed with its gate failing (owner decision,
 > `docs/phase_c_completion_report.md` §13). Spec IDs are used verbatim. The inventories behind this plan were made on
 > 2026-10-10 from the spec, `src/bowen`, `TODO.md` and the Phase C documents; their findings are cited where used.
@@ -135,9 +135,9 @@ open points are the owner's.
 - **P14, births, partners, life stage.**
   1. A child's basic level starts at age 5 and develops each year, levelling off at age 20, ending within ±2% of the
      parents' level depending on circumstances and on how the parents are functioning: the parents functioning up
-     raises it, functioning down lowers it. **Reading:** the estimator reads a child's own history from 5 to 20,
-     bounded to ±2% of the parents' mean basic level, and the parents' functional level over those years moves it
-     within that band. **Answered 2026-10-13:** "Level x .02, not two more points": the band is ±2% of the parents'
+     raises it, functioning down lowers it. **Reading:** from 5 to 20 the child's level moves within ±2% of the
+     parents' mean basic level, pushed by the parents' functioning and the child's own; spec revision 28 writes this as
+     a rule in place of the estimator (`M7.E.1f`, Claude's recommendation). **Answered 2026-10-13:** "Level x .02, not two more points": the band is ±2% of the parents'
      level (about ±0.8 points at 40).
   2. Partners: provide "settings" for partners: a partner is drawn from declared settings in config, not invented by
      the engine. **Reading (no objection 2026-10-13):** a config table of the people who can enter as partners.
@@ -1080,12 +1080,92 @@ run, an `M11.1d` audit (deletion plus sign-inverted mutant) and the fallback-rat
 
 **Moved out of Phase D:** C.13. It has no community to host it (P7). It returns when one is modelled.
 
-## 4. The D-II gate (planned in detail after D-I)
-- **Criteria:** C.6, C.10, C.15, C.37, and C.2 on the full twelve-person family.
+## 4. Part II (D-II): the life course — plan, 2026-10-13
+
+> **Status: drafted 2026-10-13, awaiting owner approval. No code until it is approved.** It builds spec revision 28,
+> which applies the owner's P13–P15 answers (§1b). The forms in revision 28 are Claude's recommendation, pending owner
+> review; the steps below build them as written unless the owner changes them.
+
+### 4.1 What part II must deliver
+- **Criteria:** `M11.C.6`, `.10`, `.15`, `.37`, and `M11.C.2` on the twelve-person family. Each runs over an ensemble
+  with its mutation run, as in part I.
 - **Re-runs:** the `M16.T.3` re-run with the slow clock, Dr Halim and the belief channel active.
-- **The 40-year run:** 2,080 weeks and 40 slow ticks, carrying everything `M3.B.1` lists.
-- **Blocked by:** P13, P14, P15; the life-course mechanisms (`M7.C.1`–`1e`, `M7.E.1`–`1e`); several `Family` objects
-  (today only `ravi_marta` has a budget and sinks, `family.py:238`); and topology that can change (`state.py:55`).
+- **The 40-year run:** 2,080 weeks and 40 slow ticks of the twelve-person family that completes, with every invariant
+  holding, carrying everything `M3.B.1` lists.
+- **Carried from part I:** B11 (who acts), which the life course needs.
+
+### 4.2 What exists, and what has to change first
+- `RunState` holds one `Family` (`state.py:51`), and only the `ravi_marta` family has a budget and sinks
+  (`family.py:238`). Partnering creates families, so the state needs a set of them, keyed by household.
+- The people and ties are fixed at assembly. Births and partners add both during a run, so the people, ties, triads
+  and the event store's indexes must accept additions. Identifiers come from `M1.A.20`, never a counter.
+- Activation selects every living person (`activation.py:34`). It must read age (`M7.C.1f`).
+- No `Person` carries an age. The loader reads ages (`family.py:144`) and drops them after checking the fixation age.
+
+### 4.3 Build steps
+
+Each step: tests first, then code, then the documents it changes (spec status, explainer, config docs, records).
+
+| Step | What | Spec | Tests (each name carries the spec ID) |
+|---|---|---|---|
+| **L0** | Topology that can grow: several `Family` objects keyed by household; people, ties and triads added in a run; `Person.age_weeks`, advanced on the slow tick; `Person.earner` | `M1.D.1`, `M1.A.20`, `M7.C.1f` | `test_m1d1_each_household_couple_has_its_own_family`; `test_m1a20_a_birth_identifier_is_stable_across_arms`; `test_m7c1f_age_advances_on_the_slow_tick`; the golden run unchanged until L1 (`test_engine_golden.py`) |
+| **L1** | The family data: the three starting-age settings and per-person gaps; Dr Halim female, 35; one coach tie, to the coachee (`M11.C.7`'s joint arm keeps both); the children's chronic anxiety derived and their levels at the parents' mean; Leo in the household; an `earner` column. The golden run is re-recorded here, once | `M2.A.0j`, `M2.A.0k`, `M2.B.2` | `test_m2a0j_ages_come_from_the_three_settings`; `test_m2a0j_changing_a_setting_changes_only_ages`; `test_m2b2_the_coach_is_tied_to_the_coachee_only`; `test_m2a_phase_d_family_matches_spec_table` (updated with the spec's Age column) |
+| **L2** | Who acts (B11): activation from `acting_age`; younger children perceive, appraise and witness | `M7.C.1f`, `M3.E.1` | `test_m7c1f_a_child_under_ten_never_selects`; `test_m7c1f_a_child_under_ten_still_witnesses` |
+| **L3** | Chronic anxiety before 12 | `M7.B.1a` | `test_m7b1a_child_chronic_reads_parents_and_witnessed_history`; `test_m7b1a_chronic_is_fixed_at_the_fixation_age` |
+| **L4** | A child's development from 5 to 20 | `M7.E.1f`, `M7.E.1` | `test_m7e1f_level_held_at_parents_mean_before_five`; `test_m7e1f_parents_functioning_up_raises_the_level`; `test_m7e1f_level_never_leaves_two_percent_band` (adversarial: a long run of high functioning must stop at the band); `test_m7e1f_development_stops_at_twenty` |
+| **L5** | Mortality and the disposition at death | `M7.C.1j`, `M6.3a`–`3g`, `M6.I.4` | `test_m7c1j_age_at_death_drawn_once_at_entry`; `test_m7c1j_hazard_rises_with_age`; `test_m63b_no_share_to_an_external_agent`; `test_m63b_falls_back_to_the_household`; `test_m63b_anxiety_split_by_bond_energy`; `test_m63c_tie_and_triangle_holdings_go_to_the_living`; `test_m63d_investment_redistributed_over_other_ties`; `test_m63e_balances_settle_back_after_a_death`; `test_m63f_sinks_naming_the_dead_return_to_the_family`; `test_m63g_grief_lasts_one_to_three_years_by_bond_energy`; `test_m11c37_anxiety_conserved_across_death` |
+| **L6** | Lost income and `FIND_WORK` | `M6.3h`, `M5.B.7` | `test_m63h_income_loss_lasts_until_someone_finds_work`; `test_m5b7_find_work_leaves_twenty_percent_and_sets_earner`; `test_m5b7_find_work_unavailable_without_a_loss`; `test_m5b7_find_work_is_learned_not_scheduled` (across seeds, who takes it and in which week vary, and a member whose earlier goal-directed acts were relieved takes it sooner) |
+| **L7** | Launch, partners from settings, births, new families | `M7.C.1g`–`1i`, `M7.C.1a`, `M6.4` | `test_m64_entry_and_new_budget_are_logged_sources`; `test_m7c1g_launch_moves_household_and_ends_dependence`; `test_m7c1h_partner_level_within_pairing_tolerance`; `test_m7c1h_partner_comes_only_from_settings`; `test_m7c1h_new_couple_gets_a_family_with_derived_budget`; `test_m7c1i_birth_ties_redistribute_investment`; `test_m7e1c_birth_situations_add_focus_not_a_target` |
+| **L8** | The coach's retirement and successor | `M2.A.0k` | `test_m2a0k_successor_enters_at_retirement_and_learning_is_kept` |
+| **L9** | The 40-year run: completes, invariants hold every tick, timed outside the suite; the `M16.T.3` re-run | `M3.B.1`, `M16.T.3` | `test_m3b1_forty_year_run_completes` (one seed, ensemble-marked); the `M16.T.3` test re-pointed |
+| **L10** | The criteria, the D record and the completion report | §4.4 | §4.4 |
+
+**Order and dependencies.** L0 → L1 → L2 → (L3, L4) → L5 → L6 → L7 → L8 → L9 → L10. L1 is the one change that alters the
+golden run; every later step that changes a run is behind a config flag for the Phase C family and the fixtures, so
+part I's records do not move. One regeneration of the part I record at the end, not one per step.
+
+### 4.4 The criteria
+
+| Criterion | Arms | Readout | Mutation that must turn it red |
+|---|---|---|---|
+| `M11.C.37` | one run with a death (an `M11.4` exception, like C.31) | total anxiety before and after `M6.3b`–`3c`, to `M6.1`'s tolerance | the dead person's anxiety discarded |
+| `M11.C.15` | three arms from one state with spouse dysfunction carried by Marta: Marta dies; Marta recovers (her binder removed, `M1.F.9`); neither. Grief, lost income and `M6.3b`'s transfer are set to zero in every arm (`M10.B.5`), so only the release of what was bound acts | the living members' summed excess above usual over the next 52 weeks; both treatment arms above the control | the bound anxiety discarded at the death |
+| `M11.C.6` | the twelve-person family, 40 years | the change in basic level from parents to child by age 20, for the child who received the most projection-type acts against the others | each child's level fixed at the anchor (`M7.E.1f` removed) |
+| `M11.C.10` | with the Ravi–Dario cutoff at `t0`; without it (the tie ordinary) | cut-off ties (rejection, `M1.B.3c`) in generation 3 by year 40 | `M1.D.8`'s family-of-origin input removed; and, separately, learning from witnessed cutoff removed |
+| `M11.C.2` | the twelve-person family | as in part I: projection-type acts counted early, symptom load read late | the witness path (`M1.F.5`) |
+| `M16.T.3` | — | the re-run with the slow clock, Dr Halim and the belief channel | — |
+
+**Three limits, stated now so they are not found later:**
+- **C.6 cannot see three generations in 40 years.** Generation 4 is born after the partner years (about year 20 on the
+  draft rows) and is not 20 by year 40. Part II tests one transmission, generation 2 to 3, and reports generation 4's
+  levels as a readout. Shape limit (a), a fall from top to bottom within about ten generations, **cannot be met under the ±2% band** (about 18 points in ten generations at most). This is an open owner decision (spec `M7.E.1f`), not a readout.
+- **C.6's effect is small by the owner's rule.** The band is ±2% of the parents' level, about ±0.8 points at 40, so a
+  child can end at most 0.8 points from its parents, and two siblings at most 1.6 points apart. The test asserts a direction, and the ensemble may need more
+  seeds; the cost is measured at L9 before it is promised.
+- **C.10's witnessed-cutoff learning has no mechanism** (§8). `M4.D.6` reinforces only the actor's own moves, and
+  `M4.D.6e`'s cross-person term reads relief, not cutoff. The second mutation may have nothing to remove; if so, C.10 runs
+  through `M1.D.8` alone and the report says so.
+
+### 4.5 What the owner still decides, and the defaults part II builds meanwhile
+
+| Point | Default built unless the owner says otherwise |
+|---|---|
+| Marta–Iris: "resolved, low contact" or ordinary | ordinary, as the config has it |
+| The ±2% band against `M11.C.6`'s traversal limit (a): which one changes | neither; (a) is reported as failing by construction |
+| A child's development: the rule in `M7.E.1f`, or the estimator bounded to the band | the `M7.E.1f` rule |
+| Teodor's basic level | 36 (34 broke `M2.A.0e`'s pairing with Ana) |
+| `M11.C.17`'s gate: load above usual, or an active symptom | an active symptom, as now (part I) |
+| Launch age | 20 (`M7.C.1g`) |
+| When people die | a Gompertz hazard, median near 80 (`M7.C.1j`) |
+| The partner rows: who, when, how many children | drafted in `config/bowen/partners_phase_d.md` at L7 for the owner to edit: Leo pairs at 28, Nadia at 27, Pia at 29; two children each, at 2 and 5 years after pairing |
+| Grief size, income-loss size, working age | 20, 15, 16 (all `[I]`) |
+| The new coach's sex | female, as Dr Halim |
+
+### 4.6 Compute
+- A part I criterion runs on families of four or fewer for about 5 years. Part II's runs are 40 years of 11 to about 20
+  people.
+- B1 made the cost per tick flat. The cost of one 40-year run is measured at L9, and the ensemble budget for C.6, C.10
+  and C.2 is stated from that measurement before those criteria run.
 
 ## 5. Build order (D-I)
 

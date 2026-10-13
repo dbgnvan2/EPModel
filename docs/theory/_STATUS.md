@@ -2,6 +2,13 @@
 
 > ## ▶ STATE — the corpus is closed and the spec is current. **Phase C is closed with its gate failing (owner decision, 2026-10-09).**
 >
+> **2026-10-13 — spec revision 28 (566 unique IDs, 46 acceptance criteria):** the life course, from the owner's P13–P15
+> answers (plan §1b): the disposition at death (`M6.3a`–`M6.3i`: anxiety to the living by tie, grief for one to three
+> years, lost income found again by `FIND_WORK` at 80%); starting ages as three settings (`M2.A.0j`); the coach's
+> career (`M2.A.0k`); acting from 10, launch, partners and births from settings, mortality (`M7.C.1f`–`1j`); chronic
+> anxiety before 12 (`M7.B.1a`); a child's level developing from 5 to 20 within 2% of the parents' (`M7.E.1f`). The
+> forms are Claude's recommendation, pending owner review. Not built.
+>
 > **2026-10-11 — spec revision 20:**
 > - the other's gain when a held stance works settles back when they are calm (`M1.E.7`, `adjust_swing`);
 > - `M11.C.18`'s mutation clause names the stress response, and `M11.C.20`'s names the estimator ignoring borrowed functioning.

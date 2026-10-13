@@ -7,7 +7,7 @@ criterion is **done** only when every entry passes in `docs/phase_c_ensemble_rec
 mutant has turned each entry red in `docs/phase_c_mutation_record.md`; the D9 sweep
 (`docs/phase_c_sweep_record.md`) is reported, not gated. Phases D and E build most of the rest.
 
-**547 IDs: 242 done, 64 partial, 241 not done.**
+**566 IDs: 242 done, 64 partial, 260 not done.**
 
 | ID | Status | Evidence | Note |
 |---|---|---|---|
@@ -156,6 +156,8 @@ mutant has turned each entry red in `docs/phase_c_mutation_record.md`; the D9 sw
 | M2.A.0g | not done | — | Phase D — the twelve-person reference family |
 | M2.A.0h | done | `tests/bowen/test_objects.py::test_m1a20_identifiers_are_declared_not_counted`<br>`tests/bowen/test_family.py::test_m21_family_declared_in_markdown` | — |
 | M2.A.0i | done | `tests/bowen/test_family.py::test_m1a21_sex_must_be_declared`<br>`tests/bowen/test_family.py::test_m2a_values_match_the_spec_table`<br>`tests/bowen/test_family.py::test_m2a0i_leo_declared_male` | Leo and Dr Halim still to declare before Phase D |
+| M2.A.0j | not done | — | Phase D — the twelve-person reference family |
+| M2.A.0k | not done | — | Phase D — the twelve-person reference family |
 | M2.A.1 | not done | — | Phase D — the twelve-person reference family |
 | M2.A.2 | not done | — | Phase D — the twelve-person reference family |
 | M2.B.1 | done | `tests/bowen/test_family.py::test_m2b1_only_declared_ties_are_instantiated` | — |
@@ -238,6 +240,7 @@ mutant has turned each entry red in `docs/phase_c_mutation_record.md`; the D9 sw
 | M5.B.3 | done | `tests/bowen/test_moves.py::test_m5b3_reduce_cutoff_cost_lands_on_the_third_party`<br>`tests/bowen/test_moves.py::test_m5b3_reduce_cutoff_lowers_anxiety_and_never_raises_basic_level`<br>`tests/bowen/test_policy.py::test_m5b3_reduce_cutoff_crosses_a_cut_off_tie_and_nothing_else_does`<br>`tests/bowen/test_rejection.py::test_m5b3_accepted_contact_lowers_both_rejections_and_reopens_the_tie_at_zero`<br>`tests/bowen/test_rejection.py::test_m5b3_reduce_cutoff_leaves_a_worry_edge_a_worry_edge` | — |
 | M5.B.4 | done | `tests/bowen/test_external.py::test_m5b4_family_to_external_moves_exist_and_go_only_to_an_external_agent` | — |
 | M5.B.6 | partial | `tests/bowen/test_moves.py::test_m5b6_provoke_intensity_is_a_dial_separate_from_content` | the intensity dial is separate from the content (step 5); its use in M5.C.1a's peace-agree technique and the live-issue gate arrives with the I-POSITION state machine (step 8) |
+| M5.B.7 | not done | — | Phase C |
 | M5.B.5 | not done | — | Phase C |
 | M5.C.1 | partial | `tests/bowen/test_attribution.py::test_m5c1_under_marital_distance_no_move_improves_the_symptom_bearer` | financial dependence removes I-POSITION from the legal set (step 6) and the outside-ness thresholds exist (step 3); the other gates act on I-POSITION's outcome and arrive with its state machine (step 8); decision ownership is Phase D |
 | M5.C.1a | not done | — | Phase C |
@@ -286,18 +289,33 @@ mutant has turned each entry red in `docs/phase_c_mutation_record.md`; the D9 sw
 | M6.2 | not done | — | Phase C |
 | M6.4 | done | `tests/bowen/test_ledger.py::test_m64_every_stock_change_is_logged_by_name`<br>`tests/bowen/test_symptoms.py::test_m64_an_unlogged_change_to_a_symptoms_hold_is_caught` | the table is invariants.LEDGER; Triangle.bound_anxiety is in the table but no Phase C mechanism writes it |
 | M6.3 | not done | — | open owner decision (disposition at death); blocks M11.C.37 and Phase D |
+| M6.3a | not done | — | Phase C |
+| M6.3b | not done | — | Phase C |
+| M6.3c | not done | — | Phase C |
+| M6.3d | not done | — | Phase C |
+| M6.3e | not done | — | Phase C |
+| M6.3f | not done | — | Phase C |
+| M6.3g | not done | — | Phase C |
+| M6.3h | not done | — | Phase C |
+| M6.3i | not done | — | Phase C |
 | M7.A.1 | done | `tests/bowen/test_slow_tick.py::test_m7a1_basic_level_never_falls_on_the_slow_tick` | — |
 | M7.A.1a | done | `tests/bowen/test_slow_tick.py::test_m7a1a_a_dependent_twin_does_not_rise` | — |
 | M7.A.2 | not done | — | Phase D |
 | M7.A.2a | not done | — | Phase D |
 | M7.A.2b | not done | — | Phase D |
 | M7.B.1 | done | `tests/bowen/test_slow_tick.py::test_m7b1_chronic_anxiety_falls_only_with_a_rise`<br>`tests/bowen/test_slow_tick.py::test_m7b1_slow_invariants_catch_a_rise_in_chronic_anxiety` | — |
+| M7.B.1a | not done | — | Phase D |
 | M7.C.1 | not done | — | Phase D |
 | M7.C.1a | not done | — | Phase D |
 | M7.C.1b | not done | — | Phase D |
 | M7.C.1c | not done | — | Phase D |
 | M7.C.1d | not done | — | Phase D |
 | M7.C.1e | not done | — | Phase D |
+| M7.C.1f | not done | — | Phase D |
+| M7.C.1g | not done | — | Phase D |
+| M7.C.1h | not done | — | Phase D |
+| M7.C.1i | not done | — | Phase D |
+| M7.C.1j | not done | — | Phase D |
 | M7.D.1 | done | `tests/bowen/test_symptoms.py::test_m7d1_threshold_crossing_emits_endogenous_event` | — |
 | M7.D.2 | done | `tests/bowen/test_symptoms.py::test_m7d2_a_channel_that_is_not_fed_can_still_cross_and_each_crossing_is_reported`<br>`tests/bowen/test_symptoms.py::test_m7d2_every_channel_leaks_and_re_arms_on_its_own` | — |
 | M7.D.2a | done | `tests/bowen/test_symptoms.py::test_m7d2a_a_partner_gives_only_what_is_above_their_usual_level`<br>`tests/bowen/test_symptoms.py::test_m7d2a_a_symptom_ending_returns_what_it_held`<br>`tests/bowen/test_symptoms.py::test_m7d2a_removal_stops_the_hold`<br>`tests/bowen/test_symptoms.py::test_m7d2a_the_family_calms_around_a_mild_symptom` | — |
@@ -313,6 +331,7 @@ mutant has turned each entry red in `docs/phase_c_mutation_record.md`; the D9 sw
 | M7.E.1c | not done | — | Phase D |
 | M7.E.1d | not done | — | Phase D |
 | M7.E.1e | not done | — | Phase D |
+| M7.E.1f | not done | — | Phase D |
 | M7.E.2 | not done | — | Phase D |
 | M7.E.3 | not done | — | Phase D |
 | M8.1 | done | `tests/bowen/test_live_positions.py::test_m81_avoidance_is_a_step_at_three`<br>`tests/bowen/test_live_positions.py::test_m81_fusion_outside_the_group_does_not_remove_a_position`<br>`tests/bowen/test_live_positions.py::test_m81_input_validation`<br>`tests/bowen/test_live_positions.py::test_m81_positions_live_counts_unfused_present_occupants` | — |

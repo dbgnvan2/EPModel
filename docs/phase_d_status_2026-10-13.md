@@ -2,8 +2,8 @@
 
 > **Status: a report, not an approval.** The owner asked for the work to proceed overnight without waiting for
 > input. Spec revisions 24–27 are Claude's recommendations, pending owner review; none is an owner decision. Every
-> criterion result below is an ad hoc run on the final code (`final25.sh` / `final25.out` in the session scratchpad),
-> not yet a record (plan step 12). Details, mutations and diagnoses: `docs/implementation_plan_phase_d.md`, steps 6–10.
+> criterion's verdict below is in the generated record, `docs/phase_d_ensemble_record.md` (plan step 12); the numbers
+> quoted are from the ad hoc run on the same code (`final25.out`), which gave the same verdicts. Details, mutations and diagnoses: `docs/implementation_plan_phase_d.md`, steps 6–10.
 
 ## Build items
 
@@ -46,8 +46,8 @@
 | `M11.C.28` | not done: the sink allocation feeds no behaviour | — | — |
 | `M11.D.20` | done | `tests/bowen/test_evaluation.py::test_m11d20_readout_ordering_matches_run_log_ordering` | — |
 
-**Not done in part I:** the Phase D record (plan step 12, records over the D criteria), and the D-I completion
-report. Part II (the life course, the 40-year run, `M11.C.6`, `.10`, `.15`, `.37`) is not started; it needs the owner's
+**Not done in part I:** a generated mutation record for the D criteria (the mutations are in the plan, run ad hoc),
+and the D-I completion report. Part II (the life course, the 40-year run, `M11.C.6`, `.10`, `.15`, `.37`) is not started; it needs the owner's
 P13–P16.
 
 ## For the owner, first

@@ -559,7 +559,7 @@ mutant has turned each entry red in `docs/phase_c_mutation_record.md`; the D9 sw
 | M17.G.2 | not done | — | Phase E |
 | M17.G.3 | not done | — | Phase E |
 
-## Tests named for no spec ID (107)
+## Tests named for no spec ID (110)
 
 Their names embed no requirement ID, so they count only where an override cites them (marked *cited*). The rest check spec documents, tooling or helpers.
 
@@ -616,6 +616,9 @@ Their names embed no requirement ID, so they count only where an override cites 
 - `tests/bowen/test_phase_c_criteria.py::test_s_every_scripted_criterion_holds_the_same_ties_in_both_arms`
 - `tests/bowen/test_phase_c_criteria.py::test_s_outcomes_classifies_every_case_from_the_records`
 - `tests/bowen/test_phase_c_criteria.py::test_s_scripted_criteria_are_found_by_running_them`
+- `tests/bowen/test_phase_d_record.py::test_phase_d_record_carries_no_phase_c_wording_and_its_table_matches_its_json`
+- `tests/bowen/test_phase_d_record.py::test_phase_d_record_covers_every_criterion_and_names_what_is_not_built`
+- `tests/bowen/test_phase_d_record.py::test_phase_d_record_is_current`
 - `tests/bowen/test_register.py::test_m14a_check_catches_a_field_with_no_row`
 - `tests/bowen/test_register.py::test_m14a_register_matches_object_fields` — *cited*
 - `tests/bowen/test_render.py::test_b2_framing_says_who_chose_the_acts`

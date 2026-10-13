@@ -60,8 +60,8 @@ The v2 specification is **approved** — 547 numbered requirements over 17 modul
 **Phase D, part I, is being built** (`docs/implementation_plan_phase_d.md`). Built: engine speed, channel stamping,
 cutoff as rejection, the slow tick and the basic-level estimator (B1–B6); the three symptom channels with lock-in (B7);
 beliefs as a channel (B8); the tie-weighted cross-person term (B9); the `M11.G` family-evaluation readout (B10); and
-borrowed pseudo-self settling back. Spec revisions 24–27 are Claude's recommendations, pending owner review. Criteria
-run on the final code, ad hoc and not yet a record: `M11.C.17` (weakly), `.18`, `.20`, `.33`, `.30`, `.22`, `.31`,
+borrowed pseudo-self settling back. Spec revisions 24–27 are Claude's recommendations, pending owner review. Criteria,
+from `docs/phase_d_ensemble_record.md`: `M11.C.17` (weakly), `.18`, `.20`, `.33`, `.30`, `.22`, `.31`,
 `.11`, `.26`, `.36`, `.39` and `.24` pass; `.12`, `.14`, `.2`, `.40`, `.43`, `.34`, `.21` and `.23` fail. `M11.C.7`,
 `.9` and `.28` need mechanisms first; who acts (B11) moves to part II.
 
@@ -73,6 +73,7 @@ python3 tools/mutation_record.py     # docs/phase_c_mutation_record.md (cached)
 python3 tools/sweep_record.py        # docs/phase_c_sweep_record.md (cached)
 python3 tools/level_occupancy.py     # docs/phase_c_level_occupancy.md (about 3 minutes)
 python3 tools/c16_report.py          # report §11, generated from the records
+python3 tools/phase_d_record.py      # docs/phase_d_ensemble_record.md (about 10 minutes)
 ```
 
 ```

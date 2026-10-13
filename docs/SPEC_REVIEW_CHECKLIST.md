@@ -133,6 +133,9 @@ C.23's expressed-emotion and suppression terms, C.28's mobility term, and a crit
 **Approved 2026-10-10:** [implementation_plan_phase_d.md](implementation_plan_phase_d.md) — the Phase D plan (2026-10-10):
 the owner decisions it needs (§1a records them), and the split into D-I and D-II.
 
+**Generated, 2026-10-13:** [phase_d_ensemble_record.md](phase_d_ensemble_record.md) — the Phase D part I criteria's
+verdicts over ensembles (`tools/phase_d_record.py`; plan step 12). Mutations are reported in the plan, not here.
+
 **For review, 2026-10-13:** [phase_d_status_2026-10-13.md](phase_d_status_2026-10-13.md) — Phase D part I after the
 overnight run: every build item and D-I criterion as done, partial or not done, and what the owner should look at
 first (spec revisions 24–27 are Claude's recommendations, pending owner review).

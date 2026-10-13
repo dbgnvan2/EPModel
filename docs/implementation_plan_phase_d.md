@@ -1039,6 +1039,8 @@ run, an `M11.1d` audit (deletion plus sign-inverted mutant) and the fallback-rat
 10. **B11 activation, the `M8` predicates.** Then C.7, C.9, C.21, C.24, C.23, C.28, C.34, C.39, C.40, C.43.
 11. **B10 `M11.G`.** Then `M11.D.20`.
 12. **Ensemble, mutation and sweep records.** One review pass and one correctness pass per batch (`CLAUDE.md`).
+    *2026-10-13:* the ensemble record is built (`tools/phase_d_record.py`, `docs/phase_d_ensemble_record.md`); the
+    mutation and sweep records for the D criteria are not, and their mutations are reported ad hoc in steps 6–10.
     Then the D-I completion report.
 
 Each step: tests first, then code, then docs.

@@ -4,6 +4,13 @@ All notable changes to this project are recorded here. Dates are ISO.
 
 ## [Unreleased] — 2026-10-11
 
+### The Phase D ensemble record (2026-10-13)
+
+- **`tools/phase_d_record.py`** writes `docs/phase_d_ensemble_record.md`: every Phase D part I criterion built so far
+  over adaptive ensembles, stamped with the code hash, and the three not built with the reason (plan step 12). A
+  default-suite test (`tests/bowen/test_phase_d_record.py`) fails when it is stale. 12 PASS, 8 FAIL, the same verdicts
+  as the ad hoc runs. The mutations are not yet a record. Suite: 711 tests.
+
 ### Spec revisions 25–27: beliefs as a channel, projection, and step 10's criteria (2026-10-12) — Claude's recommendations, pending owner review
 
 The owner asked for the work to proceed overnight without waiting for input; none of these is an owner decision.

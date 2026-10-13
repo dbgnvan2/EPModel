@@ -103,6 +103,9 @@ Deferred and adjacent items. Each carries enough context to act on later without
 - [ ] **`M11.C.7`, `M11.C.9` and `M11.C.28` are not built**: C.7 needs the coach's landing to read the coach's position
   (`M8`'s predicate exists, unused); C.9 needs sibling position to gate behaviour (`M1.A.14c`); C.28 needs the sink
   allocation to feed some behaviour, or its mobility can change no symptom.
+- [ ] **Phase D record, review of 2026-10-13, minor, not fixed:** `tools/spec_coverage.py` reads only the Phase C
+  ensemble record, so `docs/spec_coverage.md` gives the Phase D criteria no verdict; and the README's and the status
+  report's lists of passing and failing D criteria are not checked against `docs/phase_d_ensemble_record.md` by a test.
 - [ ] **B7 (spec revision 24, 2026-10-12): for the owner's review.** Every B7 choice is Claude's recommendation, made
   overnight at the owner's request: the symptom integrand read above the usual level, the channel weights, mutual
   protection, the lock-in curve and its spill past the turn, removal by tolerance, and `M11.C.22`'s control arm.

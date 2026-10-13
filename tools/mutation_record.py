@@ -58,7 +58,8 @@ INVERSION_PIVOT = 0.6  # [I] the inversion is (INVERSION_PIVOT x SCALE_MAX - lev
 LEVEL_BLIND = (  # every remaining read of level on the path to onset, made level-independent at level 50
     ("src/bowen/engine/contact.py", "return params.contact_band_max * person.functional_level / SCALE_MAX",
      "return params.contact_band_max * (SCALE_MAX / 2) / SCALE_MAX"),
-    ("src/bowen/engine/symptoms.py", "return params.symptom_threshold_gain * person.functional_level",
+    ("src/bowen/engine/symptoms.py",
+     "return params.symptom_threshold_gain * max(person.functional_level, params.functional_level_floor)",
      "return params.symptom_threshold_gain * 50.0"),  # SCALE_MAX / 2; symptoms.py does not import SCALE_MAX
     ("src/bowen/policy/policy.py",
      "f = min(1.0, max(0.0, functional_level / SCALE_MAX)) ** params.self_channel_exponent",
@@ -156,12 +157,12 @@ MUTANTS = (
     # --- added after steepness-level-independent survived on M11.C.1/.38/.41: the other rule that
     # --- reads level on the path to onset (M1.A.6's threshold)
     Mutant("threshold-level-independent", DELETION, LEVEL, "src/bowen/engine/symptoms.py",
-           "return params.symptom_threshold_gain * person.functional_level",
+           "return params.symptom_threshold_gain * max(person.functional_level, params.functional_level_floor)",
            "return params.symptom_threshold_gain * 50.0",
            "M1.A.6's symptom threshold made independent of functional_level (fixed at its value for level 50)"),
     Mutant("threshold-level-inverted", SIGN, LEVEL, "src/bowen/engine/symptoms.py",
-           "return params.symptom_threshold_gain * person.functional_level",
-           "return params.symptom_threshold_gain * (100.0 - person.functional_level)",
+           "return params.symptom_threshold_gain * max(person.functional_level, params.functional_level_floor)",
+           "return params.symptom_threshold_gain * max(100.0 - person.functional_level, params.functional_level_floor)",
            "M1.A.6's symptom threshold falls as functional_level rises"),
     # --- and M4.A.5's self term, the standing load a lower basic level carries every tick
     Mutant("standing-load-level-independent", DELETION, LEVEL, "src/bowen/engine/standing_load.py",

@@ -3,7 +3,8 @@
 Purpose: one gate test per criterion, each running its paired arms through the ensemble runner and requiring PASS
          (``ensemble``-marked, so excluded from the default run), and fast checks that each arm runs and differs only
          in its declared channel.
-Spec:    docs/bowen_agent_model_spec_v2.md#M11.C.17, #M11.C.18, #M11.C.20, #M11.C.33, #M11.2, #M13.4
+Spec:    docs/bowen_agent_model_spec_v2.md#M11.C.17, #M11.C.18, #M11.C.20, #M11.C.33, #M11.C.11, #M11.C.12, #M11.C.22,
+         #M11.C.30, #M11.C.31, #M11.2, #M13.4
 Tests:   this file
 """
 
@@ -95,3 +96,106 @@ def test_m11c20_reports_how_much_scripted_support_a_held_position_blocked():
     assert support_blocked(records) == 0.25
     assert support_blocked([]) == 0.0
     assert "support_blocked" in {r.name for r in CRITERIA_D["M11.C.20"].readouts if r.report_only}
+
+
+# --- Phase D step 7, the symptom channels (B7, spec revision 24) ---
+
+
+@pytest.mark.ensemble
+def test_m11c11_removal_three_phase_shape():
+    gate("M11.C.11")
+
+
+@pytest.mark.ensemble
+def test_m11c12_symptom_relief_raises_conflict():
+    gate("M11.C.12")
+
+
+@pytest.mark.ensemble
+def test_m11c22_symptom_lock_in_is_non_monotone():
+    gate("M11.C.22")
+
+
+@pytest.mark.ensemble
+def test_m11c30_channels_are_mutually_protective():
+    gate("M11.C.30")
+
+
+@pytest.mark.ensemble
+def test_m11c31_binder_removal_releases_bound_anxiety():
+    gate("M11.C.31")
+
+
+def test_m11c22_the_held_severity_is_what_the_arm_declares():
+    """Each week the child's symptom is held at the declared severity, active only when it is above zero."""
+    from src.bowen.ensemble.criteria import scenario
+    from src.bowen.ensemble.criteria_d import CHILD, ENGINE, held_symptom
+    from src.bowen.engine.symptoms import threshold
+
+    settings = CRITERIA_D["M11.C.22"].settings
+    assert 0 < settings["mild"] < C["lock_in_turn"] < settings["severe"]  # one limb either side of the turn
+    for severity in (0.0, settings["mild"], settings["severe"]):
+        seen = []
+
+        def watch(state):
+            person = state.people[CHILD]
+            seen.append((person.symptom_active[person.channel_prior],
+                         person.symptom_load[person.channel_prior] / threshold(person, ENGINE)))
+
+        scenario("four", 1, 6, before=held_symptom(CHILD, severity), watch=watch)
+        # held before each tick; the week's leak and feed then move it a little
+        assert all(active == (severity > 0) for active, _ in seen)
+        assert all(abs(x - severity) <= max(0.2 * severity, 0.5) for _, x in seen)
+
+
+def test_m11c31_the_budget_rises_by_exactly_what_the_binder_held():
+    """M11.C.31's equality limb, which the runner (directions only) cannot assert: the budget rises at the release by
+    exactly what the tie's distance held then, and by nothing else in that tick."""
+    from src.bowen.engine.identifiers import TieId
+    from src.bowen.ensemble.criteria import scenario
+    from src.bowen.ensemble.criteria_d import FATHER, MOTHER, arm_c31
+
+    settings = CRITERIA_D["M11.C.31"].settings
+    t0, tie = settings["t0"], TieId.of(FATHER, MOTHER)
+    held, budget = {}, {}
+
+    def watch(state):
+        held[state.tick] = state.ties[tie].distance_bound_anxiety
+        budget[state.tick] = state.family.undifferentiation_budget
+
+    import src.bowen.ensemble.criteria_d as module
+
+    original = module.scenario
+    module.scenario = lambda *a, **k: original(*a, **{**k, "watch": watch})
+    try:
+        arm_c31("treatment", 2, settings)
+    finally:
+        module.scenario = original
+    # watch runs after each tick, when state.tick has already moved on: key t + 1 is the end of week t
+    assert held[t0 + 1] == 0.0 and held[t0] > 0
+    assert budget[t0 + 1] - budget[t0] == pytest.approx(held[t0])
+
+
+def test_m11c30_the_arms_differ_only_in_the_load_carried_elsewhere():
+    """Until an onset, the two arms of M11.C.30 make the same choices: the held mental load is read by nothing but the
+    integrator."""
+    from src.bowen.engine.log_records import SelectionRecord
+    from src.bowen.ensemble import criteria_d as module
+
+    picks = {}
+    original = module.scenario
+    for arm in ("baseline", "treatment"):
+        captured = {}
+
+        def capture(*a, **k):
+            state, records = original(*a, **k)
+            captured["records"] = records
+            return state, records
+
+        module.scenario = capture
+        try:
+            module.arm_c30(arm, 4, {**CRITERIA_D["M11.C.30"].settings, "weeks": 12})
+        finally:
+            module.scenario = original
+        picks[arm] = [(r.tick, r.actor, r.event_id) for r in captured["records"] if isinstance(r, SelectionRecord)]
+    assert picks["baseline"] == picks["treatment"]

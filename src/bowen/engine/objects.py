@@ -174,6 +174,13 @@ class Person:
     # is driven by the load above it. None until the first week; usual_weeks counts the weeks it has seen.
     usual_excess: float | None = None
     usual_weeks: int = 0
+    # Spec revision 24 (B7, Claude's recommendation pending owner review): what the family attends to in this person,
+    # per channel (M1.A.11c's family-focus term; written by B8 from belief, until then by a scenario), and how strongly
+    # the constitutional prior holds against it (1 overrides any focus). symptom_bound is the anxiety the family's
+    # focus on an active symptom holds (M7.D.2a), a stock in M6.4's table.
+    channel_focus: dict[SymptomChannel, float] = field(default_factory=dict)
+    constitution_strength: float | None = None  # None: the declared constant, constitution_strength
+    symptom_bound: float = 0.0
     alive: bool = True
 
     def __post_init__(self) -> None:
@@ -185,6 +192,10 @@ class Person:
             raise ValueError(f"reactive_state must hold exactly the M1.A.19 detectors {REACTIVE_DETECTORS}")
         if not self.household_id:
             raise ValueError("household_id is required (M1.A.22)")
+        if self.constitution_strength is not None and not 0.0 <= self.constitution_strength <= 1.0:
+            raise ValueError("constitution_strength is in [0, 1] (M1.A.11c)")
+        if set(self.channel_focus) - set(SymptomChannel) or any(v < 0 for v in self.channel_focus.values()):
+            raise ValueError("channel_focus holds non-negative weights on the M1.A.11 channels only")
 
     @property
     def swing(self) -> float:
@@ -281,6 +292,8 @@ class Family:
     overflow: float = 0.0
     differentiation_capacity: bool | None = None
     tolerance: dict[PersonId, float] = field(default_factory=dict)
+    # M5.C.1, M7.D.4 (spec revision 24): decision ownership relocated outside the family suppresses removal.
+    decision_ownership_external: bool = False
     ambient_anxiety: float = 0.0
     # M1.D.1, M1.D.3: the structure sink allocation reads — the nuclear marital tie, the
     # nuclear parent–child ties, and the nuclear adults' family-of-origin ties. Declared

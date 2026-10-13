@@ -15,7 +15,8 @@ system's adjustment settles back; then, 2026-10-12, a level the estimator leaves
 Revision 23 (the estimator reads pseudo-self with its sign) did not move them, and that says nothing about it: the
 phase_c run is 104 weeks and never fills the estimator's 156-week window, and the phase_d run has no nodal events, so
 no one's breadth reaches `estimator_breadth` and no rise is possible under any reading (review 2026-10-12). M1.A.4k's
-reading is pinned by tests/bowen/test_slow_tick.py instead.
+reading is pinned by tests/bowen/test_slow_tick.py instead. Moved 2026-10-12 by revision 24 (B7: the symptom integrand
+read above the usual level, the channels, lock-in and removal; behaviour).
 """
 
 from __future__ import annotations
@@ -36,8 +37,8 @@ from src.bowen.scenario.scripted_source import ScriptedSource
 REPO = Path(__file__).resolve().parents[2]
 GOLDEN = {
     # (family, seed, weeks): fingerprint
-    ("phase_c", 7, 104): "8c4fc25c68219acf06044b22be70bcbb5a824186a1f498f98165bee0a92b65e4",
-    ("phase_d", 11, 208): "8c238f3ea7842df8d45bb5e5cfadc6a6efcb43d6f225bab6d206a766b2659e66",
+    ("phase_c", 7, 104): "d05ccae98cb30f24531e361a09002e7b6568a1db187adf0de0dc6c20537dfca1",
+    ("phase_d", 11, 208): "ddb756571ecc5927f6b0364e32a24152aec4ff4a83fc11c1784bead7379749f2",
 }
 
 

@@ -51,7 +51,8 @@ LEDGER = {
     "triangle_transfer": TRANSFER,  # M1.C.1, seeker to outsider, plus KS03.1's source
     "reconciliation": TRANSFER,     # M4.A.3, tie back to its members
     "reduce_cutoff": TRANSFER,      # M5.B.3, tie to the third party (L22.6)
-    "binder_unavailable": TRANSFER, # M1.F.9, a binder's hold back to the family budget
+    "binder_unavailable": TRANSFER, # M1.F.9, a binder's hold back to the family budget; a symptom's to its partners
+    "lock_in": TRANSFER,            # M7.D.2a, M7.D.2d (revision 24): partners to a symptom's bound stock and back
 }
 # Named sources a transfer record may carry on top of its balance (logged in ``people``).
 NAMED_SOURCES = {"positional_anxiety"}
@@ -71,6 +72,7 @@ class Snapshot:
     acute: tuple[tuple[PersonId, float], ...] = ()
     tie_bound: tuple[tuple[TieId, float], ...] = ()
     budget: float = 0.0
+    symptom_bound: tuple[tuple[PersonId, float], ...] = ()
 
 
 def snapshot(state: RunState) -> Snapshot:
@@ -82,6 +84,7 @@ def snapshot(state: RunState) -> Snapshot:
         acute=tuple((p, state.people[p].acute_anxiety) for p in sorted(state.people)),
         tie_bound=tuple((t, state.ties[t].distance_bound_anxiety) for t in sorted(state.ties)),
         budget=state.family.undifferentiation_budget,
+        symptom_bound=tuple((p, state.people[p].symptom_bound) for p in sorted(state.people)),
     )
 
 
@@ -93,6 +96,7 @@ def ledger_problems(state: RunState, before: Snapshot, records, tolerance: float
     problems = []
     logged_acute: dict[PersonId, float] = {}
     logged_bound: dict[TieId, float] = {}
+    logged_held: dict[PersonId, float] = {}  # revision 24: what symptoms hold (M7.D.2a)
     for record in records:
         if not isinstance(record, EffectRecord):
             continue
@@ -100,14 +104,18 @@ def ledger_problems(state: RunState, before: Snapshot, records, tolerance: float
         bound = sum(v for _, f, v in record.ties if f == "distance_bound_anxiety")
         budget = sum(v for name, v in record.sinks if name == BUDGET)
         named = sum(v for _, f, v in record.people if f in NAMED_SOURCES)
-        if not (record.acute_anxiety or bound):
+        held = sum(v for _, f, v in record.people if f == "symptom_bound")
+        if not (record.acute_anxiety or bound or held):
             continue
         kind = LEDGER.get(record.mechanism)
         if kind is None:
             problems.append(f"{record.mechanism} changed an anxiety stock and is not in M6.4's table")
             continue
-        if kind == TRANSFER and abs(acute + bound + budget - named) > tolerance:
-            problems.append(f"{record.mechanism} transfer does not balance: {acute + bound + budget - named:+.6g}")
+        if kind == TRANSFER and abs(acute + bound + budget + held - named) > tolerance:
+            problems.append(f"{record.mechanism} transfer does not balance: {acute + bound + budget + held - named:+.6g}")
+        for pid, f, v in record.people:
+            if f == "symptom_bound":
+                logged_held[pid] = logged_held.get(pid, 0.0) + v
         for pid, v in record.acute_anxiety:
             logged_acute[pid] = logged_acute.get(pid, 0.0) + v
         for tid, f, v in record.ties:
@@ -119,6 +127,12 @@ def ledger_problems(state: RunState, before: Snapshot, records, tolerance: float
         moved = state.people[pid].acute_anxiety - was
         if abs(moved - logged_acute.get(pid, 0.0)) > tolerance:
             problems.append(f"{pid}'s acute anxiety moved {moved:+.6g}, logged {logged_acute.get(pid, 0.0):+.6g}")
+    for pid, was in before.symptom_bound:
+        if pid not in state.people:
+            continue
+        moved = state.people[pid].symptom_bound - was
+        if abs(moved - logged_held.get(pid, 0.0)) > tolerance:
+            problems.append(f"{pid}'s symptom-bound anxiety moved {moved:+.6g}, logged {logged_held.get(pid, 0.0):+.6g}")
     for tid, was in before.tie_bound:
         if tid not in state.ties:
             continue  # a tie that left the field is M6.I.7's to report

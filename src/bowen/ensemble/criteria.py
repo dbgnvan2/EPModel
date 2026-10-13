@@ -92,6 +92,12 @@ REQUIRED = {
     "M11.C.18": ("weeks", "act_every"),
     "M11.C.20": ("weeks", "support_weeks", "support_every", "act_every"),
     "M11.C.33": ("weeks", "act_every"),
+    # Phase D step 7, the symptom channels (B7, spec revision 24).
+    "M11.C.30": ("weeks", "held_load"),
+    "M11.C.22": ("removal_week", "after", "mild", "severe"),
+    "M11.C.12": ("remission_week", "after", "severity"),
+    "M11.C.31": ("t0", "weeks", "held"),
+    "M11.C.11": ("removal_week", "away", "window"),
 }
 
 

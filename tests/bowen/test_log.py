@@ -63,7 +63,7 @@ def header(constants=None, frozen=None, script=None):
 def test_m16a1_header_hashes_the_resolved_config():
     h = header()
     assert isinstance(h, LogHeader) and len(h.config_hash) == 64
-    assert h.spec_revision == "2.0, revision 23"
+    assert h.spec_revision == "2.0, revision 24"
     assert h == header()  # stable
     # A changed value changes the hash; the script's events are part of the config.
     assert header(script=load_script().without("TRIGGER")).config_hash != h.config_hash
@@ -104,7 +104,8 @@ def test_m16a7_header_flags_constants_changed_after_freeze():
                                         "stressor_persistence", "response_up_gain", "response_down_gain",
                                         "response_relaxation_rate", "stress_floor_below_basic", "practice_window",
                                         "perspective_steer_gain", "system_adjust_gain", "soothing_review_every",
-                                        "soothing_review_penalty", "usual_level_rate"}
+                                        "soothing_review_penalty", "usual_level_rate",
+                                        "constitution_strength", "channel_protection", "lock_in_gain", "lock_in_turn"}
     changed = dataclasses.replace(
         constants,
         values=MappingProxyType({**constants.values,

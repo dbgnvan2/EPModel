@@ -80,12 +80,23 @@ def apply_structural_event(state: RunState, event: Event, params: EngineParams) 
                 changed.append((tie.id, "interactive", 0.0))
         return [EffectRecord(state.tick, "institutionalize", event.id, ties=tuple(sorted(changed)))]
     if event.mechanism is Mechanism.BINDER_UNAVAILABLE:
-        return [_release_binder(state, event)]
+        records = [_release_binder(state, event)]
+        if event.binder.kind is BinderKind.SYMPTOM_CHANNEL:
+            # Revision 24 (M7.D.2a): what the family's focus on the symptom held goes back to the partners.
+            from src.bowen.engine.symptoms import release_bound
+
+            bearer = PersonId(event.binder.target.split(":")[0])
+            moved = release_bound(state, bearer)
+            if moved:
+                records.append(EffectRecord(state.tick, "lock_in", event.id, acute_anxiety=moved,
+                                            people=((bearer, "symptom_bound", -sum(v for _, v in moved)),)))
+        return records
     raise ValueError(f"{event.mechanism} is not a structural event")
 
 
 def _release_binder(state: RunState, event: Event) -> EffectRecord:
-    """M1.F.9: the binder's held anxiety returns to the family budget; none is discarded."""
+    """M1.F.9: the binder's held anxiety returns to the family budget; none is discarded. A symptom channel's hold
+    returns to the partners instead (revision 24)."""
     binder = event.binder
     if binder.kind is BinderKind.TIE_DISTANCE:
         a, b = binder.target.split("~")
@@ -102,8 +113,12 @@ def _release_binder(state: RunState, event: Event) -> EffectRecord:
     elif binder.kind is BinderKind.SYMPTOM_CHANNEL:
         person_id, channel = binder.target.split(":")
         person = state.people[PersonId(person_id)]
-        held = person.symptom_load[SymptomChannel(channel)]
+        # Revision 24 (review 2026-10-12): the symptom ends, and its load — an integral of weeks above the usual level,
+        # not an anxiety stock — is not credited to the budget. What the symptom held of the family's anxiety is its
+        # hold (symptom_bound), which apply_structural_event returns to the partners.
+        held = 0.0
         person.symptom_load[SymptomChannel(channel)] = 0.0
+        person.symptom_active[SymptomChannel(channel)] = False
         detail = ()
         triangles = ()
     else:

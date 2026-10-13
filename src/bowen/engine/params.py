@@ -130,6 +130,10 @@ class EngineParams:
     soothing_review_every: int             # M4.D.6, revision 19 — weeks between a person's chances to ask whether soothing helped
     soothing_review_penalty: float         # M4.D.6, revision 19 — share of a soothing act's learned value lost when it did not help
     usual_level_rate: float                # M1.A.5e, revision 22 — share per week by which a person's usual level follows their excess
+    constitution_strength: float           # M1.A.11c, revision 24 — how strongly the constitutional channel prior holds against a family focus
+    channel_protection: float              # M7.D.2c, revision 24 — how much load in other channels slows a channel's feed
+    lock_in_gain: float                    # M7.D.2a, revision 24 — scale of the share of a partner's excess an active symptom holds
+    lock_in_turn: float                    # M7.D.2d, revision 24 — the severity (load over threshold) past which lock-in turns over
 
     def __post_init__(self) -> None:
         for name in (
@@ -209,6 +213,10 @@ class EngineParams:
             raise ValueError("system_adjust_gain must be non-negative")
         if not 0.0 < self.usual_level_rate <= 1.0:
             raise ValueError("usual_level_rate must be in (0, 1]")
+        if not 0.0 <= self.constitution_strength <= 1.0:
+            raise ValueError("constitution_strength must be in [0, 1]")
+        if self.channel_protection < 0 or self.lock_in_gain < 0 or self.lock_in_turn <= 0:
+            raise ValueError("channel_protection and lock_in_gain non-negative; lock_in_turn positive")
         if self.stress_floor_below_basic < 0 or self.practice_window < 1:
             raise ValueError("stress_floor_below_basic must be non-negative and practice_window at least 1")
         if not 0.0 <= self.rejection_refusal_threshold < 1.0:

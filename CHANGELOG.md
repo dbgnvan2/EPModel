@@ -4,6 +4,33 @@ All notable changes to this project are recorded here. Dates are ISO.
 
 ## [Unreleased] — 2026-10-11
 
+### Spec revision 24: the symptom channels, Phase D B7 (2026-10-12) — Claude's recommendation, pending owner review
+
+The owner asked for the work to proceed overnight without waiting for input. Every choice here is Claude's
+recommendation, labelled so in the spec, and none is an owner decision.
+- **`M4.C.3a`, amended.** Symptom load builds from the excess above the person's usual level (revision 22's
+  yardstick), not above the chronic floor. Measured before it: in ten-year runs of the nuclear-four fixture every
+  person crossed the threshold in the first weeks and stayed there.
+- **Built:** the expressed channel moved by a family focus and overridden by constitution (`M1.A.11c`, `M7.D.2`);
+  mutual protection between channels (`M7.D.2c`); lock-in with its turn, through a new stock `Person.symptom_bound` in
+  `M6.4`'s table (`M7.D.2a`, `M7.D.2d`); a remitted symptom's hold returns to the partners (`M1.F.9`); removal fired
+  by the others' tolerance, suppressed by external decision ownership (`M7.D.4`). A remitted symptom's load is no
+  longer credited to the family budget (it is not an anxiety stock). The symptom threshold is floored at
+  `functional_level_floor`, as steepness is (`M1.A.6`), and every channel is checked for onset, each crossing its own
+  event (`M7.D.1`).
+- **New constants** (`[I]`): `constitution_strength` 0.5, `channel_protection` 1.0, `lock_in_gain` 0.2,
+  `lock_in_turn` 3.0. **New fields:** `Person.channel_focus`, `constitution_strength`, `symptom_bound`;
+  `Family.decision_ownership_external`.
+- **`M11.C.22` restated** to read each limb against removing the same member with no symptom.
+- **Result (ad hoc):** `M11.C.30`, `M11.C.22`, `M11.C.31` and `M11.C.11` pass. C.30 and C.22 turn red under their own
+  mutations; C.31's mutant cannot run, because discarding the held anxiety breaks the `M6.I.6` ledger at the release
+  week. `M11.C.12` fails on the dyad.
+- **Test fixed:** `tests/bowen/test_famdiag_export.py` still counted `CUTOFF` acts as a cutoff's support; since
+  revision 17 a cutoff is read from the other's refused approaches. Seed 3's run under this engine was the first to
+  read a cutoff with no `CUTOFF` act in its block.
+- **Records regenerated.** `M11.C.44` moved FAIL → PASS again: it sits on its threshold (see `TODO.md`). No other
+  Phase C verdict moved. The golden fingerprints moved (behaviour). Suite: 683 tests.
+
 ### Spec revision 23: the estimator reads pseudo-self with its sign (2026-10-12)
 
 - **`M1.A.4k`.** The estimator's history reads `functional_level` less pseudo-self with its sign: what was given way is

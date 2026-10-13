@@ -439,6 +439,28 @@ That is the fixture test 15 needs: two counterfeits at **equal magnitude of the 
 >
 > ⚠ **The lock-in curve turns over, and this amends the above.** As stated, the stabilising effect grows without limit, so a severe enough symptom would be maximally stabilising. Three independent statements say otherwise: past a severity threshold the symptom **destabilises** the very configuration it was holding up, and removal then brings relief rather than resistance. **That is what reconciles resistance-to-removal with relief-on-removal** — they are the same curve on either side of the turn, not two mechanisms. `[T]` `FE03.9`, `FE07.15`; `M7.D.2d`. Test 22 must assert **both limbs**; a test written only on the rising limb passes a monotone implementation.
 
+**How it is built (Phase D B7, spec revision 24, 2026-10-12; Claude's recommendation, pending owner review).**
+- **What feeds a symptom** `[I]`: the excess above the person's own usual level, not above the chronic floor
+  (`M4.C.3a`, amended). Measured above the floor, the family's own traffic held everyone 15–35 points up, so every
+  person carried an active symptom from the first weeks of every run. It is still time above a floor, not peak.
+- **Which channel** `[I]`: the prior, unless what the family focuses on in the person outweighs it
+  (`constitution_strength`, 0.5 by default; 1 overrides any focus). What writes the focus from the family's attention
+  is a belief, built with `M9.6` (B8); until then a scenario sets it. `M1.A.11c`
+- **Protection** `[I]`: load in the other channels divides what enters this one. `M7.D.2c`
+- **Lock-in and its turn** `[I]`: while a symptom is active and below its turn, each partner gives part of their excess
+  above usual to the symptom's hold (`symptom_bound`). Past the turn the hold goes back, and the bearer's own excess
+  spills to the partners too. When the symptom ends, or is remitted, the whole hold goes back. Removal stops it either
+  way. No rule writes resistance to removal or relief on it; they follow from the curve. `M7.D.2a`, `M7.D.2d`
+- **Not built:** the hold does not feed the bearer's integrator, so lock-in calms the family but does not by itself
+  make a symptom chronic.
+- **Removal by tolerance** `[I]`: a member whose excess above usual passes their declared tolerance removes the member
+  carrying the most active symptom load. It reads the others, not the bearer's severity, and is suppressed while
+  decision ownership is held outside the family. `M7.D.4`
+- **What the criteria show** (ad hoc, not yet a record): `M11.C.30`, `M11.C.22` (both limbs, against removing the
+  same member with no symptom), `M11.C.31` and `M11.C.11` pass; about half of C.11's direction is the removed member's symptom hold, released on their return. `M11.C.12` fails: released anxiety raises the other
+  spouse's excess, but in this engine more anxiety does not select conflict in particular
+  (`docs/implementation_plan_phase_d.md`, step 7).
+
 ### 3.10 `structural_importance`
 
 **For:** how much the system is disturbed if this person is lost. Separate from how well they are functioning, and separate from how much they are grieved.

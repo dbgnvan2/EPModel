@@ -166,3 +166,185 @@ CRITERIA_D: dict[str, Criterion] = {
                   (Readout("coached_rise", +1), Readout("family_rise", +1, report_only=True)), arm_c17,
                   settings=SETTINGS["M11.C.17"]),
 }
+
+
+# --- Phase D step 7: the symptom channels (B7, spec revision 24; Claude's recommendation, pending owner review) ---
+#
+# Every arm runs the nuclear-four fixture (config/bowen/fixtures/nuclear_four.md), except M11.C.12 on the dyad, as the
+# plan's §3 has it. A held severity is a declared
+# condition, set before every tick as M11.C.33's dependence is: driving a symptom by stressors does not reach a chosen
+# severity (ad hoc, 2026-10-12: the person's usual level catches up and the engine's own episodes dominate).
+
+from src.bowen.scenario.params import engine_params
+
+ENGINE = engine_params(load_constants())
+CHILD, PARTNER = P("c1"), P("c2")
+FATHER, MOTHER = P("f"), P("m")
+
+
+def _structural(mechanism: Mechanism, kind: str, t: int, *, targets=(), on_tie=None, binder=None, n=0) -> Event:
+    return Event(id=EventId(t, kind.lower(), n), kind=kind, mechanism=mechanism, sender=None, targets=targets,
+                 intensity=0.0, timestamp=t, duration=1, exogenous=True, source_position=SourcePosition.NONE,
+                 channel=Channel.EXOGENOUS, on_tie=on_tie, binder=binder)
+
+
+def removal(t: int, who: PersonId) -> Event:
+    return _structural(Mechanism.INSTITUTIONALIZE, "INSTITUTIONALIZE", t, targets=(who,))
+
+
+def returning(t: int, who: PersonId, family: str = "four") -> tuple[Event, ...]:
+    """The removed member comes back: every one of their ties reconciled (`M4.A.3`)."""
+    ties = sorted(tie.id for tie in load_family(FAMILIES[family]).ties.values() if who in tie.id.members())
+    return tuple(_structural(Mechanism.RECONCILIATION, "RECONCILIATION", t, on_tie=tie, n=i)
+                 for i, tie in enumerate(ties))
+
+
+def remission(t: int, who: PersonId, channel) -> Event:
+    from src.bowen.engine.events import BinderKind, BinderRef
+
+    return _structural(Mechanism.BINDER_UNAVAILABLE, "BINDER_UNAVAILABLE", t,
+                       binder=BinderRef(BinderKind.SYMPTOM_CHANNEL, f"{who.value}:{channel.value}"))
+
+
+def held_symptom(who: PersonId, severity: float, until: int | None = None):
+    """A ``before`` hook: ``who`` carries an active symptom of ``severity`` (load ÷ threshold) in their prior channel,
+    until week ``until`` (exclusive)."""
+    from src.bowen.engine.symptoms import threshold
+
+    def hold(state):
+        if until is not None and state.tick >= until:
+            return
+        person = state.people[who]
+        person.symptom_load[person.channel_prior] = severity * threshold(person, ENGINE)
+        person.symptom_active[person.channel_prior] = severity > 0
+    return hold
+
+
+def _mean_excess(state, who) -> float:
+    from src.bowen.engine.contact import excess
+
+    return sum(excess(state.people[p]) for p in who) / len(who)
+
+
+def arm_c30(arm, seed, settings):
+    """M11.C.30: C1's family focus is on the social channel from week 0 in both arms; in the treatment C1 also
+    carries ``held_load`` of the threshold in the mental channel (below onset, so nothing else differs)."""
+    from src.bowen.engine.objects import SymptomChannel
+    from src.bowen.engine.symptoms import threshold
+
+    weeks = settings["weeks"]
+
+    def focus(state):
+        person = state.people[CHILD]
+        person.constitution_strength, person.channel_focus = 0.0, {SymptomChannel.SOCIAL: 1.0}
+
+    def carry(state):
+        if arm == "treatment":
+            person = state.people[CHILD]
+            person.symptom_load[SymptomChannel.MENTAL] = settings["held_load"] * threshold(person, ENGINE)
+
+    social = []
+    state, records = scenario("four", seed, weeks, spells=nodal(weeks, (CHILD,)), setup=focus, before=carry,
+                              watch=lambda s: social.append(s.people[CHILD].symptom_load[SymptomChannel.SOCIAL]))
+    return result({"social_load": sum(social) / len(social)}, records)
+
+
+def _removal_effect(seed, at, after, severity):
+    """The family's mean excess over ``after`` weeks from removal, removed minus kept, with C1 held at ``severity``."""
+    means = {}
+    for removed in (False, True):
+        window = []
+        state, records = scenario(
+            "four", seed, at + after, spells=(removal(at, CHILD),) if removed else (),
+            before=held_symptom(CHILD, severity),
+            watch=lambda s: window.append(_mean_excess(s, (FATHER, MOTHER, PARTNER))) if s.tick > at else None)
+        means[removed] = sum(window) / len(window)
+    return means[True] - means[False], records
+
+
+def arm_c22(arm, seed, settings):
+    """M11.C.22 (restated at revision 24): the effect of removing C1 is read against removing C1 with no symptom. In
+    the baseline both limbs are that control; in the treatment one limb holds C1 mildly symptomatic (at the peak),
+    the other severely (past the turn)."""
+    at, after = settings["removal_week"], settings["after"]
+    if arm == "baseline":
+        effect, records = _removal_effect(seed, at, after, 0.0)
+        return result({"mild_removal_effect": effect, "severe_removal_effect": effect}, records)
+    mild, _ = _removal_effect(seed, at, after, settings["mild"])
+    severe, records = _removal_effect(seed, at, after, settings["severe"])
+    return result({"mild_removal_effect": mild, "severe_removal_effect": severe}, records)
+
+
+def _conflict_between(records, a, b, start) -> int:
+    return sum(1 for r in records if isinstance(r, EmittedRecord) and r.event.kind == "CONFLICT"
+               and r.event.timestamp >= start and r.event.sender in (a, b) and ({a, b} - {r.event.sender}) <= set(r.event.targets))
+
+
+SPOUSE_A, SPOUSE_B = P("a"), P("b")  # the dyad fixture's spouses (config/bowen/fixtures/dyad.md)
+
+
+def arm_c12(arm, seed, settings):
+    """M11.C.12, on the dyad (plan §3): A carries a mild symptom (held at ``severity``) until ``remission_week``; in the
+    treatment it remits then (``binder_unavailable`` on A's channel, the functioning balance untouched); in the
+    baseline it continues. Read: the spouses' ``CONFLICT`` acts from the remission week on."""
+    at, after = settings["remission_week"], settings["after"]
+    channel = load_family(FAMILIES["dyad"]).people[SPOUSE_A].channel_prior
+    if arm == "treatment":
+        hold, spells = held_symptom(SPOUSE_A, settings["severity"], until=at), (remission(at, SPOUSE_A, channel),)
+    else:
+        hold, spells = held_symptom(SPOUSE_A, settings["severity"]), ()
+    state, records = scenario("dyad", seed, at + after, spells=spells, before=hold)
+    return result({"marital_conflict": float(_conflict_between(records, SPOUSE_A, SPOUSE_B, at))}, records)
+
+
+def arm_c31(arm, seed, settings):
+    """M11.C.31: the spouses' tie holds ``held`` of distance-bound anxiety in a calm family (no stressor); in the
+    treatment a ``binder_unavailable`` names it at ``t0``. Read: the budget's rise from the start."""
+    from src.bowen.engine.events import BinderKind, BinderRef
+    from src.bowen.engine.identifiers import TieId
+
+    tie = TieId.of(FATHER, MOTHER)
+
+    def bind(state):
+        state.ties[tie].distance_bound_anxiety = settings["held"]
+
+    start = load_family(FAMILIES["four"]).family.undifferentiation_budget
+    spells = ()
+    if arm == "treatment":
+        spells = (_structural(Mechanism.BINDER_UNAVAILABLE, "BINDER_UNAVAILABLE", settings["t0"],
+                              binder=BinderRef(BinderKind.TIE_DISTANCE, f"{FATHER.value}~{MOTHER.value}")),)
+    state, records = scenario("four", seed, settings["weeks"], spells=spells, setup=bind)
+    return result({"budget_rise": state.family.undifferentiation_budget - start}, records)
+
+
+def arm_c11(arm, seed, settings):
+    """M11.C.11: C1 is removed at ``removal_week``. In the baseline C1 stays away; in the treatment C1 returns after
+    ``away`` weeks. Each arm reports one disturbance: the family's mean excess over ``window`` weeks after the change
+    minus over ``window`` weeks before it — removal in the baseline, return in the treatment."""
+    at, away, window = settings["removal_week"], settings["away"], settings["window"]
+    back = at + away
+    spells = (removal(at, CHILD),) + (returning(back, CHILD) if arm == "treatment" else ())
+    change = at if arm == "baseline" else back
+    trace = {}
+    # watch runs after each tick, when state.tick has moved on: key the trace by the week just run (review 2026-10-12:
+    # keyed by state.tick, both windows sat one week early)
+    state, records = scenario("four", seed, back + window, spells=spells,
+                              watch=lambda s: trace.__setitem__(s.tick - 1, _mean_excess(s, (FATHER, MOTHER, PARTNER))))
+    before = sum(trace[t] for t in range(change - window, change)) / window
+    after = sum(trace[t] for t in range(change, change + window)) / window
+    return result({"disturbance": after - before}, records)
+
+
+CRITERIA_D.update({
+    "M11.C.30": C("M11.C.30", "premise", ("baseline", "treatment"), (Readout("social_load", -1),), arm_c30,
+                  settings=SETTINGS["M11.C.30"]),
+    "M11.C.22": C("M11.C.22", "premise", ("baseline", "treatment"),
+                  (Readout("mild_removal_effect", +1), Readout("severe_removal_effect", -1)), arm_c22,
+                  settings=SETTINGS["M11.C.22"]),
+    "M11.C.12": C("M11.C.12", "composite", ("baseline", "treatment"), (Readout("marital_conflict", +1),), arm_c12,
+                  ("CONFLICT",), settings=SETTINGS["M11.C.12"]),
+    "M11.C.31": C("M11.C.31", "check", ("baseline", "treatment"), (Readout("budget_rise", +1),), arm_c31,
+                  settings=SETTINGS["M11.C.31"]),
+    "M11.C.11": C("M11.C.11", "mixed", ("baseline", "treatment"), (Readout("disturbance", +1),), arm_c11,
+                  settings=SETTINGS["M11.C.11"]),
+})

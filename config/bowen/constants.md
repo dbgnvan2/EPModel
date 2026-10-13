@@ -94,7 +94,7 @@ activation_regime: synchronous
 | `interactive_resting_contact` | 0.5 | [I] | share of the optimum | `M4.C.1c` |
 | `contact_relaxation_rate` | 0.1 | [I] | share of the gap to resting contact closed per tick | `M4.C.1c` |
 | `impingement_relaxation_rate` | 0.3 | [I] | share of felt impingement shed per tick | `M4.C.1` |
-| `functional_level_floor` | 1.0 | [I] | functional-level point | `M4.C.1` |
+| `functional_level_floor` | 1.0 | [I] | functional-level point; also floors the symptom threshold (`M1.A.6`, revision 24) | `M4.C.1` |
 | `acute_decay_rate` | 0.2 | [I] | fraction of excess per tick | `M1.A.8` |
 | `route_damping` | 0.5 | [I] | gain per neutral third | `M1.F.3` |
 | `hardening_run_length` | 3 | [I] | consecutive moves | `M4.G.1` |
@@ -146,6 +146,10 @@ activation_regime: synchronous
 | `soothing_review_every` | 12 | [I] | fast ticks | `M4.D.6` |
 | `soothing_review_penalty` | 0.5 | [I] | share of the learned value | `M4.D.6` |
 | `usual_level_rate` | 0.02 | [I] | share per week: a person's usual level follows their excess anxiety over about a year | `M1.A.5e` |
+| `constitution_strength` | 0.5 | [I] | weight of the constitutional channel prior against a family focus; a person's own value overrides it (revision 24) | `M1.A.11c` |
+| `channel_protection` | 1.0 | [I] | divisor per threshold of load carried in the other channels (revision 24) | `M7.D.2c` |
+| `lock_in_gain` | 0.2 | [I] | scale of the share of a partner's excess above usual an active symptom holds each week (revision 24) | `M7.D.2a` |
+| `lock_in_turn` | 3.0 | [I] | severity (load ÷ threshold) past which lock-in releases instead of holding; peak at half of it (revision 24) | `M7.D.2d` |
 | `self_channel_exponent` | 2.0 | [I] | exponent on functional_level / 100 | `M4.D.1a` |
 | `policy_temperature` | 1.0 | [I] | learned-value units | `M4.D.1` |
 | `anxiety_band_low` | 5.0 | [I] | points of excess anxiety | `M4.D.3` |

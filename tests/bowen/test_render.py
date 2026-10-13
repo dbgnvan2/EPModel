@@ -90,7 +90,7 @@ def test_m16c4_single_agent_view():
 
 
 def test_m16c5_trace_carries_header_and_framing():
-    for needle in ("seed | 7", "config hash", "spec revision | 2.0, revision 23", "phase_b_reduced",
+    for needle in ("seed | 7", "config hash", "spec revision | 2.0, revision 24", "phase_b_reduced",
                    "constants frozen | 2026-10-07", "M11.F.9", "M11.F.10", "invented", "virtual family"):
         assert needle in TEXT, needle
     assert TEXT.index("What this is") < TEXT.index(TABLE_HEAD)
@@ -208,3 +208,32 @@ def test_m16c2_a_held_position_renders():
                         people=((target, "position_held", 1.0),))
     text = render(RECORDS + [held], NAMES)
     assert f"{NAMES.get(target, target.value)} holds a position: no functioning changes hands" in text
+
+
+def test_m16c2_lock_in_renders():
+    """Revision 24 (M7.D.2a, M7.D.2d): a remission's return of a symptom's hold is shown beside the event; the weekly
+    hold, giving back and spill are summarised once, not listed (review 2026-10-12)."""
+    from src.bowen.engine.log_records import EffectRecord
+
+    marta, ravi = PersonId("marta"), PersonId("ravi")
+    first = next(r.event for r in RECORDS if isinstance(r, EmittedRecord))
+    sentences = {1.0: "Marta's symptom holds 1.0", -1.0: "Marta's symptom gives back 1.0", 0.0: "past its turn"}
+    for change, needle in sentences.items():
+        caused = EffectRecord(first.timestamp, "lock_in", first.id, acute_anxiety=((ravi, -change or 2.0),),
+                              people=((marta, "symptom_bound", change),))
+        assert needle in render(RECORDS + [caused], NAMES), needle
+    weekly = EffectRecord(first.timestamp, "lock_in", None, acute_anxiety=((ravi, -1.0),),
+                          people=((marta, "symptom_bound", 1.0),))
+    text = render(RECORDS + [weekly], NAMES)
+    assert "Marta's symptom holds" not in text and "lock-in" in text
+
+
+def test_m16c2_a_remitted_symptom_renders_as_ending():
+    """Revision 24 (re-sweep 2026-10-12): a symptom channel's release credits nothing to the budget, so its row says the
+    symptom ends rather than "0.0 returned to the family budget"."""
+    from src.bowen.engine.log_records import EffectRecord
+
+    first = next(r.event for r in RECORDS if isinstance(r, EmittedRecord))
+    zero = EffectRecord(first.timestamp, "binder_unavailable", first.id, sinks=(("undifferentiation_budget", 0.0),))
+    text = render(RECORDS + [zero], NAMES)
+    assert "the symptom ends" in text and "0.0 returned to the family budget" not in text

@@ -52,6 +52,7 @@ Deferred and adjacent items. Each carries enough context to act on later without
   that flips on an unrelated change is on its threshold; with `one-sided-deviation` and `deviation-inverted` both
   surviving, the pass is not evidence (`M11.5`). At revision 21 it moved back to FAIL. For the owner when Phase C's gate is
   next looked at.
+  Revision 24 (2026-10-12): it moved FAIL → PASS again with B7's symptom channels. Still on its threshold.
 - [ ] **Review of revision 20's completion, minor (2026-10-12; the correctness pass, which read the version with
   `shed_adjustment`, since removed):**
   - At the stress floor a calm week decays `adjust_swing` while functioning cannot fall, so the estimator's `own`
@@ -68,6 +69,30 @@ Deferred and adjacent items. Each carries enough context to act on later without
   functioning (positive pseudo-self, revision 19) but keeps what a person gave way, so its reading sits about 8–9
   points below basic level; leaving out the whole exchange, with its sign, puts the reading at basic level
   (`docs/implementation_plan_phase_d.md`, step 6). The load weighting is not the cause.
+- [ ] **B7 (spec revision 24, 2026-10-12): for the owner's review.** Every B7 choice is Claude's recommendation, made
+  overnight at the owner's request: the symptom integrand read above the usual level, the channel weights, mutual
+  protection, the lock-in curve and its spill past the turn, removal by tolerance, and `M11.C.22`'s control arm.
+- [ ] **`M11.C.12` fails** (B7, 2026-10-12): released anxiety raises the other spouse's excess, but more anxiety does
+  not select `CONFLICT` in particular (dyad, 20 seeds: 55 against 56 conflict acts between the spouses). Whether the criterion, the
+  readout or the policy is wrong is the owner's question; nothing was changed to make it pass.
+- [ ] **`M11.C.11`'s direction limb has no mutant** (B7): the return's disturbance exceeds the removal's. About half
+  is the removed member's symptom hold, frozen while they are away (no partners to release to) and released on
+  return; decide whether a removed member should keep the hold. Reunion's restored contact is not what carries the
+  rest. Find what does, and declare it.
+- [ ] **Lock-in does not make a symptom chronic** (B7): the hold does not feed the bearer's integrator, because
+  feeding it made every bearer climb to the turn and stay there. `KS23.1`'s "fosters it becoming chronic" is not
+  produced.
+- [ ] **Correctness pass on B7, minor (2026-10-12), not fixed:**
+  - On the dyad, a remission's returned hold is split between the spouse and the bearer's parent, so half of it
+    reaches the marriage.
+  - The hold is one stock per person, not per channel: remitting one channel returns all of it, though another
+    channel may still be active.
+  - Lock-in runs in person order: a partner of two bearers gives more to the first, and one bearer's spill is
+    counted in the next one's excess. Deterministic, but not symmetric between people.
+  - `M11.C.30` reads mean social *load*, a stand-in for the onset hazard its row names.
+  - `arm_c11` and `arm_c12` have no fast test; a window or arm error shows only in the ensemble run.
+- [ ] **`Family.tolerance` is declared, never updated** (B7): `M7.D.4`'s "tolerance update" in the register is not
+  built, and no fixture declares a tolerance, so removal by tolerance never fires in any run.
 - [ ] **Review of revision 23, minor (2026-10-12):** `functional_level` is clamped at 100 (and at the stress floor) by the
   stress response, the I-POSITION gain and the system's adjustment, while pseudo-self is not, so a person at a bound
   can read slightly off basic level in the estimator. The exchange itself clamps its amount and is exact.

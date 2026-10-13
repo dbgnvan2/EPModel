@@ -25,7 +25,7 @@ from src.bowen.engine.identifiers import PersonId, TieId
 from src.bowen.engine.log_records import EmittedRecord
 from src.bowen.engine.objects import TieState
 from src.bowen.io.load import load_constants, load_family
-from src.bowen.readouts.patterns import PATTERNS, Reading, ReadoutParams
+from src.bowen.readouts.patterns import APPROACH, PATTERNS, Reading, ReadoutParams
 
 REPO = Path(__file__).resolve().parents[2]
 _spec = importlib.util.spec_from_file_location("tools.famdiag_export", REPO / "tools" / "famdiag_export.py")
@@ -46,7 +46,10 @@ FAMDIAG_STYLES = {
 FAMDIAG_ENDINGS = {"none", "arrow-p1-to-p2", "arrow-p2-to-p1", "arrow-bidirectional"}
 SUPPORTING = {"conflict": {"CONFLICT"}, "fusion": {"PURSUE"},
               "over_underfunctioning": {"OVERFUNCTION", "UNDERFUNCTION", "PURSUE"},
-              "projection": {"OVERFUNCTION", "PURSUE", "TRIANGLE"}, "distance": {"DISTANCE"}, "cutoff": {"CUTOFF"}}
+              "projection": {"OVERFUNCTION", "PURSUE", "TRIANGLE"}, "distance": {"DISTANCE"},
+              # Revision 17: cutoff is read from the other's refused approaches, not from CUTOFF acts (words). Found
+              # 2026-10-12 when seed 3's run first read a cutoff whose block held no CUTOFF act.
+              "cutoff": set(APPROACH)}
 
 
 @pytest.fixture(scope="module")

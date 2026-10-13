@@ -59,12 +59,13 @@ TABLE_HEAD = "| Week | Who | Move | Toward | Witnesses | What it did |\n|---|---
 # Every mechanism the engine emits, and how the trace treats it. Anything else
 # raises: a record the renderer does not understand must not vanish (P2, P19).
 CAUSED = frozenset({"appraisal", "calm_contact", "symptom_onset", "distance_binding", "triangle_transfer",
-                    "functioning_shift", "position_held", "reduce_cutoff", "refusal", "stressor_load", "assertion", "debit", "landed_contact", "trigger", "cutoff", "reconciliation", "institutionalize", "binder_unavailable"})
+                    "functioning_shift", "position_held", "reduce_cutoff", "refusal", "stressor_load", "assertion", "debit", "landed_contact", "trigger", "cutoff", "reconciliation", "institutionalize", "binder_unavailable", "lock_in"})
 SYSTEM_SHOWN = frozenset({"triangle_recompute", "consolidation", "rejection_fade", "slow_tick"})
 SYSTEM_SUMMARISED = frozenset({
     "standing_load", "acute_decay", "contact_relaxation", "symptom_accumulation", "investment", "reactive_state",
     "outside_ness", "belief", "functioning_settle", "competing_urges", "withhold", "learning", "sink_allocation",
     "self_practice", "stress_response", "soothing_review",
+    "lock_in",  # revision 24: every week for every active symptom (one bearer gave 121 rows a year; review 2026-10-12)
 })  # every week, everyone; stated once
 
 
@@ -203,7 +204,10 @@ def _what_it_did(event: Event, index: _Index, names: _Names, view: PersonId | No
         elif effect.mechanism == "institutionalize":
             parts.append(f"{len(effect.ties)} ties become worry edges (no events; bond energy kept)")
         elif effect.mechanism == "binder_unavailable":
-            parts += [f"{v:.1f} returned to the family budget" for _, v in effect.sinks]
+            # Revision 24: a symptom channel's release credits nothing to the budget; its hold returns as lock_in.
+            parts += [f"{v:.1f} returned to the family budget" for _, v in effect.sinks if v] or ["the symptom ends"]
+        elif effect.mechanism == "lock_in":
+            parts.append(_lock_in_text(effect, names))
         else:
             raise UnrenderableRecord(f"no template for caused mechanism {effect.mechanism!r}")
     return "; ".join(parts) or "—"
@@ -214,6 +218,17 @@ def _event_row(event: Event, index: _Index, names: _Names, view: PersonId | None
     witnesses = ", ".join(names(w) for w in event.witnesses) or "—"
     who = names(event.sender) if event.sender else "(from outside)"
     return f"| {event.timestamp} | {who} | {event.kind} | {toward} | {witnesses} | {_what_it_did(event, index, names, view)} |"
+
+
+def _lock_in_text(effect: EffectRecord, names: _Names) -> str:
+    """Revision 24 (M7.D.2a, M7.D.2d): what an active symptom took from the partners, or gave back."""
+    [(bearer, _, change)] = effect.people
+    moved = ", ".join(f"{names(p)} {_signed(v)}" for p, v in effect.acute_anxiety)
+    if change > 0:
+        return f"{names(bearer)}'s symptom holds {change:.1f} of the family's anxiety ({moved})"
+    if change < 0:
+        return f"{names(bearer)}'s symptom gives back {-change:.1f} ({moved})"
+    return f"{names(bearer)}'s symptom is past its turn and holds their anxiety no longer ({moved})"
 
 
 def _system_rows(effect: EffectRecord, names: _Names) -> list[str]:
@@ -310,7 +325,8 @@ def render(
         f"{', '.join(k for k, changed in header.constant_changed_after_freeze if changed) or 'none'} |",
         "",
         "The standing load, the decay toward each person's floor, the relaxation of felt contact, "
-        "symptom accumulation, investment, the reactive detectors and outside-ness run every week for everyone "
+        "symptom accumulation, a symptom's hold on the family's anxiety (lock-in), investment, the reactive "
+        "detectors and outside-ness run every week for everyone "
         "and are not listed line by line. Effects are shown beside the event that caused them.",
         "",
         TABLE_HEAD,

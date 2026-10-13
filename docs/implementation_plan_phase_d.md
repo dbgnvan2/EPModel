@@ -1,6 +1,6 @@
 # Implementation plan — Phase D
 
-> **Status: approved by the owner, 2026-10-10 ("Proceed"), with the decisions in §1a.** P9 decided 2026-10-11; P13–P16 wait for D-II. **Built:** B1 and B2 (2026-10-10/11); B3 and B4 (2026-10-11, spec revision 16); B5 and B6 (2026-10-11).
+> **Status: approved by the owner, 2026-10-10 ("Proceed"), with the decisions in §1a.** P9 decided 2026-10-11; P13–P16 wait for D-II. **Built:** B1 and B2 (2026-10-10/11); B3 and B4 (2026-10-11, spec revision 16); B5 and B6 (2026-10-11); B7 (2026-10-12, spec revision 24, Claude's recommendation pending owner review: the owner asked for the work to proceed overnight without waiting for input).
 > Spec: `docs/bowen_agent_model_spec_v2.md`, revision 13. Phase C closed with its gate failing (owner decision,
 > `docs/phase_c_completion_report.md` §13). Spec IDs are used verbatim. The inventories behind this plan were made on
 > 2026-10-10 from the spec, `src/bowen`, `TODO.md` and the Phase C documents; their findings are cited where used.
@@ -685,6 +685,114 @@ What it shows:
 - Removal fires off the others' tolerance.
 - Every shape is `[I]` and declared.
 
+#### B7 design (spec revision 24, 2026-10-12): Claude's recommendation, pending owner review
+
+The owner asked for the project to be carried forward overnight without waiting for input (2026-10-12). Every choice
+below is Claude's recommendation, labelled as such in the spec and the CHANGELOG, and none is an owner decision.
+
+**What was found first.** In ten-year policy runs of the nuclear-four fixture (3 seeds, ad hoc), every person crossed
+the symptom threshold within the first weeks and stayed there, at 4 to 31 times the threshold. The integrand is excess
+above the chronic floor (`M4.C.3a`), and the family's own traffic holds everyone 15–25 points above it. The calm-band
+trace for revision 22 found the same thing at 30–35 points in the Phase C family. The threshold was set (Phase C step
+2) to sit above "the integral a steady few points of excess reach, so onset needs a sustained excursion". The steady
+level is no longer a few points, so that intent no longer holds. With every channel saturated, no symptom criterion
+can tell its arms apart.
+
+1. **The integrand reads excess above the person's usual level** (`M4.C.3a`, amended). It is the same yardstick
+   revision 22 gave the stress response. It is still time above a floor, not peak, so many resolved excursions and one
+   unresolved excursion still differ. A family's steady state is no longer a symptom in itself; a sustained rise above
+   it is. *Cost:* a rise that lasts long enough becomes usual (about a year), so a symptom with nothing holding it
+   remits. What can hold it is item 4.
+2. **Substitutable channels and the family's focus** (`M7.D.2`, `M1.A.11b`, `M1.A.11c`).
+   - Each person gets `channel_focus`, one weight per channel, 0 by default, and `constitution_strength` in [0, 1],
+     0.5 by default `[I]`.
+   - The expressed channel is the one with the largest
+     `constitution_strength × [c = channel_prior] + (1 − constitution_strength) × channel_focus[c]`. Ties go to the
+     prior.
+   - With no focus the prior is expressed (`M1.A.11b`). A focus can move it (`M1.A.11c` term 2). A constitution
+     strength of 1 overrides any focus (term 3).
+   - **Not built here:** what writes `channel_focus` from the family's attention under anxiety. That is a belief, so it
+     is B8's. Until then a criterion or scenario sets it.
+3. **Mutual protection** (`M7.D.2c`). What enters channel *c* each week is divided by
+   `1 + channel_protection × Σ_{c' ≠ c} load[c'] / threshold` (`channel_protection` 1.0, `[I]`). Load already carried
+   in another channel lowers the hazard on this one.
+4. **Lock-in, with its turn** (`M7.D.2a`, `M7.D.2d`).
+   - Each person gets a new stock, `symptom_bound`: anxiety the family's focus on their symptom holds.
+   - Each week, for a bearer with severity `x = load[expressed] / threshold`, the stabilising coefficient is
+     `s(x) = lock_in_gain × x × (1 − x / lock_in_turn)` (`lock_in_gain` 0.05, `lock_in_turn` 2, both `[I]`). It
+     rises to a peak at `x = lock_in_turn / 2`, is zero at the turn, and is negative past it.
+   - **Below the turn** (`s > 0`): each partner on an interactive tie moves `s × max(0, above_usual)` of their acute
+     anxiety into the bearer's `symptom_bound`. This is a transfer, logged. The family calms around the symptom, and
+     the bound stock adds to the bearer's integrand, which fosters chronicity (KS23.1).
+   - **Past the turn** (`s < 0`): the bound stock is released back to the partners at `|s|` of it a week. It is a
+     transfer, logged, and the configuration destabilises.
+   - **Removal** (`INSTITUTIONALIZE`) makes the bearer's ties non-interactive, so both directions stop. Below the turn
+     the family loses what was holding its anxiety, so removal is resisted. Past the turn the release stops, so removal
+     brings relief. Both limbs come from the same curve; no rule writes either.
+   - **Remission** (`binder_unavailable` on a symptom channel, `M1.F.9`): the channel's load returns to the family
+     budget, as built. Its `symptom_bound` returns to the partners who are on interactive ties, split equally. That is
+     what `M11.C.12` reads (`M6.I.1`'s release, carried by their learned patterns).
+   - `M6.4` gains the stock `Person.symptom_bound`, with its transfers.
+5. **Removal fired by tolerance** (`M7.D.4`, `M1.D.5`).
+   - The family gets `tolerance`, per person, `None` by default, meaning never.
+   - Each week, if some member has an active symptom, and the mean above-usual excess of the remaining members on an
+     interactive tie to that member exceeds their tolerance, the member with the most symptom load is removed
+     (`INSTITUTIONALIZE`, endogenous). This depends on the others' anxiety, not on the bearer's severity.
+   - Removal is suppressed while an external agent holds the family's decision ownership (`M5.C.1`).
+   - No D-I criterion depends on it, and it is pinned by a unit test only.
+
+**As built, four changes from the draft above.**
+- **The lock-in constants were set when the code was written, before any run:** `lock_in_gain` 0.2 and
+  `lock_in_turn` 3, not 0.05 and 2. An active symptom starts at severity 1. A turn at 2 would put the peak at 1,
+  the onset point; at 3 the peak, 1.5, lies inside the active range, and a gain of 0.2 makes the peak share 0.15.
+- **Removal fires when any one partner passes their own tolerance**, not on the partners' mean: `M7.D.4` names each
+  member's tolerance (`M1.D.5`: per agent).
+- **Past the turn** the symptom also stops holding the bearer's own anxiety: the same share of the bearer's excess
+  above usual spills to the partners, split equally (a transfer, logged as `lock_in`). Giving back only what had been
+  held was too little for a severe symptom to unsettle anything, since a symptom held past the turn from the start
+  has held nothing.
+- **The hold does not feed the bearer's integrator.** Feeding it made every bearer's symptom climb to the turn and
+  stay there. So lock-in calms the family but does not by itself make a symptom chronic (recorded in `TODO.md`).
+
+**Step 7 result (2026-10-12, spec revision 24; ad hoc runs of `CRITERIA_D` with the declared settings, not yet a
+record).** On the nuclear-four fixture, except `M11.C.12` on the dyad, as §3 plans.
+
+| Criterion | Arms | Runner's verdict | Readout (treatment − baseline) | Its mutation |
+|---|---|---|---|---|
+| `M11.C.30` | C1's focus on the social channel in both; the treatment also carries 0.9 of the threshold in the mental channel, held | **PASS**, 50 seeds | social load −20.8 ± 1.7 | cross-channel term zeroed: **FAIL**, 0.0 |
+| `M11.C.22` | removal of C1 at week 52, read against removal with no symptom; C1 held at 1.5 (mild) and 4.5 (severe) | **PASS**, 150 seeds | mild +0.33 ± 0.36 (p 0.027); severe −0.80 ± 0.44 | lock-in flattened to its peak, no turn: **FAIL** (the severe limb, +0.50); its stabilising half removed: **FAIL** (the mild limb, 0.0) |
+| `M11.C.31` | the spouses' tie holds 20 of distance-bound anxiety; a `binder_unavailable` names it at week 10 | **PASS**, 150 seeds | budget +21.9 ± 0.6 | the held anxiety discarded: the run raises `M6.I.6` at the release week |
+| `M11.C.11` | C1 removed at week 52; the treatment brings C1 back at week 104 | **PASS**, 150 seeds | the return's disturbance exceeds the removal's by +2.35 ± 0.86 (first run, with both windows one week early: +1.76 ± 0.85) | the conservation limb is the ledger, asserted every tick; the direction limb has no declared mutant. Probes: reunion not restoring contact, +1.61 ± 0.84 (first run); a symptom ending returning nothing, +1.21 ± 0.73 |
+| `M11.C.12` | spouse A holds a mild symptom (1.5) to week 52; the treatment remits it then | **FAIL**, 50 seeds | marital `CONFLICT` 0.0 ± 0.24 | not run |
+
+The numbers above are from `mut24b.sh` and `c12_trace_dyad.py` (scratch, 2026-10-12), run after both reviews' fixes.
+
+What it shows:
+- **`M11.C.30` and `M11.C.22` pass and are proved by mutation**, each of C.22's limbs by its own half of the curve.
+  They are premises: they confirm the code does what M7.D.2c and M7.D.2a/2d say, and are not findings. **`M11.C.31`
+  passes**; its mutant cannot run, because discarding the held anxiety breaks the `M6.I.6` ledger.
+- **`M11.C.22`'s mild limb is weak**: the interval reaches below zero, and it passes on its one-sided test. The
+  severe limb is clearer. **Unrestated, the mild limb fails**: removing a mildly symptomatic member still relieves the
+  family a little (−0.09, against −0.83 with no symptom, 30 seeds ad hoc); it relieves it less.
+- **`M11.C.11` passes, and about half its direction is the removed member's hold coming back.** A removed bearer has no
+  partners, so their symptom's hold is frozen while they are away and released into the return's window; with that
+  release removed the return still exceeds the removal (+1.21 ± 0.73). What carries the rest is not identified. Its
+  declared mutation is the conservation invariant, which every run asserts. Its curve shape stays with the owner
+  (`M11.E`).
+- **`M11.C.12` fails, and the traces say why.**
+  - On the dyad (20 seeds, the 26 weeks after week 52): A's symptom held 33.5 at remission (median; 26–47), half of
+    it returned to B (the other half to A's parent). B's mean excess over those weeks was 13.8 in the remission arm
+    against 10.3 in the arm where the symptom continued. But the spouses' acts toward each other barely moved:
+    `CONFLICT` 55 against 56, while `PURSUE` (63 → 75) and `UNDERFUNCTION` (52 → 65) rose. More anxiety in this
+    engine does not select conflict in particular.
+  - It was first run on the nuclear four (100 seeds, FAIL, −0.16 ± 0.35). Its trace (40 seeds) showed the husband's
+    excess rising (17.2 → 20.9), the remitted symptom returning (42 onsets against 6: relapse on cure), and between
+    the spouses `CONFLICT` falling (57 → 38) while `TRIANGLE` (46 → 61) and `OVERFUNCTION` (54 → 66) rose.
+  - The released anxiety goes into the family's learned patterns, as `M7.D.3` (withdrawn) requires; they are not
+    conflict. Nothing has been changed to make it pass.
+- **`M11.C.22` was restated at revision 24 to read against a control arm.** Removing anyone relieves this family a
+  little (−0.83 ± 0.76 with no symptom, 30 seeds ad hoc), so "resists removal" is read against that.
+
 ### B8. Beliefs as a channel (`M9.6`, `M9.7`, `M9.1`)
 - **Attribution store:** each person's view of where the family's difficulty lies, written from witnessed events.
 - **Appraisal reads it:** appraisal reads the receiver's belief about the sender and the situation, not the true
@@ -733,7 +841,7 @@ run, an `M11.1d` audit (deletion plus sign-inverted mutant) and the fallback-rat
 | C.26 | nuclear four | `test_m11c26_sink_recoverable_from_belief_configuration` | `M9.6`'s attribution write randomised | B8 |
 | C.28 | nuclear four | `test_m11c28_sink_mobility_is_protective` | the mobility term pinned | P7 |
 | C.30 | any | `test_m11c30_channels_are_mutually_protective` | `M7.D.2c`'s cross-channel term zeroed | B7 |
-| C.31 | calm family | `test_m11c31_binder_removal_releases_bound_anxiety` | the held anxiety discarded (`M1.F.9`) | — (mechanism built) |
+| C.31 | nuclear four, no stressor | `test_m11c31_binder_removal_releases_bound_anxiety` | the held anxiety discarded (`M1.F.9`) | — (mechanism built) |
 | C.33 | dyad | `test_m11c33_dependence_gate_blocks_basic_level_rise` | `M7.A.1a`'s gate removed | B6 |
 | C.34 | any | `test_m11c34_system_reaction_to_symptom_discriminates_level` | `M1.A.19`'s detectors made level-independent | B3, P3 |
 | C.36 | triad | `test_m11c36_policy_reads_belief_not_true_state` | `M4.B.2` reads the true state | B8 |

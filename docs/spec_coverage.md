@@ -7,7 +7,7 @@ criterion is **done** only when every entry passes in `docs/phase_c_ensemble_rec
 mutant has turned each entry red in `docs/phase_c_mutation_record.md`; the D9 sweep
 (`docs/phase_c_sweep_record.md`) is reported, not gated. Phases D and E build most of the rest.
 
-**566 IDs: 242 done, 64 partial, 260 not done.**
+**566 IDs: 264 done, 68 partial, 234 not done.**
 
 | ID | Status | Evidence | Note |
 |---|---|---|---|
@@ -69,7 +69,7 @@ mutant has turned each entry red in `docs/phase_c_mutation_record.md`; the D9 sw
 | M1.A.18d | not done | — | Phase C or D — the phase that builds its mechanism (plan Appendix B) |
 | M1.A.18b | not done | — | Phase C or D — the phase that builds its mechanism (plan Appendix B) |
 | M1.A.19 | done | `tests/bowen/test_reactive.py::test_m1a19_evaluating_detector_is_two_sided`<br>`tests/bowen/test_reactive.py::test_m1a19_every_person_carries_three_drifting_detectors` | — |
-| M1.A.20 | done | `tests/bowen/test_objects.py::test_m1a20_child_id_depends_only_on_parents_and_order`<br>`tests/bowen/test_objects.py::test_m1a20_derived_id_cannot_collide_with_a_founder`<br>`tests/bowen/test_objects.py::test_m1a20_identifiers_are_declared_not_counted` | — |
+| M1.A.20 | done | `tests/bowen/test_life_course.py::test_m1a20_a_birth_identifier_is_stable_across_arms`<br>`tests/bowen/test_objects.py::test_m1a20_child_id_depends_only_on_parents_and_order`<br>`tests/bowen/test_objects.py::test_m1a20_derived_id_cannot_collide_with_a_founder`<br>`tests/bowen/test_objects.py::test_m1a20_identifiers_are_declared_not_counted` | — |
 | M1.A.21 | done | `tests/bowen/test_family.py::test_m1a21_sex_must_be_declared` | — |
 | M1.A.22 | done | `tests/bowen/test_objects.py::test_m1a22_household_is_required` | — |
 | M1.B.1 | done | `tests/bowen/test_objects.py::test_m1b1_tie_connects_exactly_two_persons` | — |
@@ -97,7 +97,7 @@ mutant has turned each entry red in `docs/phase_c_mutation_record.md`; the D9 sw
 | M1.C.5 | done | `tests/bowen/test_iposition.py::test_m1c5_the_triangle_decrement_is_permanent_and_lowers_routing` | — |
 | M1.C.6 | not done | — | Phase C or D — the phase that builds its mechanism (plan Appendix B) |
 | M1.C.7 | done | `tests/bowen/test_objects.py::test_m1c7_triangle_id_is_sorted_triple` | — |
-| M1.D.1 | done | `tests/bowen/test_sinks.py::test_m1d1_marital_conflict_draws_the_budget_to_its_sink`<br>`tests/bowen/test_objects.py::test_m1d1_exactly_three_sinks`<br>`tests/bowen/test_sinks.py::test_m1d1_each_sink_has_its_own_acts`<br>`tests/bowen/test_sinks.py::test_m1d1_no_acts_no_movement` | one budget, three sinks, allocated from the family's acts (step 10) |
+| M1.D.1 | done | `tests/bowen/test_sinks.py::test_m1d1_marital_conflict_draws_the_budget_to_its_sink`<br>`tests/bowen/test_life_course.py::test_m1d1_each_household_couple_has_its_own_family`<br>`tests/bowen/test_objects.py::test_m1d1_exactly_three_sinks`<br>`tests/bowen/test_sinks.py::test_m1d1_each_sink_has_its_own_acts`<br>`tests/bowen/test_sinks.py::test_m1d1_no_acts_no_movement` | one budget, three sinks, allocated from the family's acts (step 10) |
 | M1.D.2 | done | `tests/bowen/test_objects.py::test_m1d2_distance_is_not_a_sink` | — |
 | M1.D.2a | done | `tests/bowen/test_moves.py::test_m1d2a_bound_anxiety_returns_when_distancing_is_prevented`<br>`tests/bowen/test_moves.py::test_m1d2a_distance_binds_anxiety_into_the_tie_without_destroying_it` | — |
 | M1.D.3 | done | `tests/bowen/test_sinks.py::test_m1d3_overflow_goes_to_conflict_with_the_families_of_origin` | — |
@@ -147,7 +147,7 @@ mutant has turned each entry red in `docs/phase_c_mutation_record.md`; the D9 sw
 | M2.3 | done | `tests/bowen/test_family.py::test_m23_reduced_instance_is_not_closed` | — |
 | M2.3a | done | `tests/bowen/test_family.py::test_m23a_dormant_family_of_origin_tie_is_ana_bruno`<br>`tests/bowen/test_family.py::test_m23a_instance_matches_the_spec` | — |
 | M2.A.0 | not done | — | Phase D — the twelve-person reference family |
-| M2.A.0a | done | `tests/bowen/test_family.py::test_m2a0a_supplied_chronic_anxiety_only_past_fixation_age` | — |
+| M2.A.0a | done | `tests/bowen/test_family.py::test_m2a0a_supplied_chronic_anxiety_only_past_fixation_age`<br>`tests/bowen/test_life_course.py::test_m2a0a_a_child_carries_no_supplied_chronic_anxiety` | — |
 | M2.A.0b | not done | — | Phase D — the twelve-person reference family |
 | M2.A.0c | done | `tests/bowen/test_family.py::test_m2a0c_pairing_uses_basic_not_functional_level` | — |
 | M2.A.0e | partial | `tests/bowen/test_family.py::test_m2a0e_spouses_within_tolerance` | enforced for every declared spouse pair; the spec's Teodor/Ana (34/37) still breaks it — Phase D (review C) |
@@ -156,14 +156,14 @@ mutant has turned each entry red in `docs/phase_c_mutation_record.md`; the D9 sw
 | M2.A.0g | not done | — | Phase D — the twelve-person reference family |
 | M2.A.0h | done | `tests/bowen/test_objects.py::test_m1a20_identifiers_are_declared_not_counted`<br>`tests/bowen/test_family.py::test_m21_family_declared_in_markdown` | — |
 | M2.A.0i | done | `tests/bowen/test_family.py::test_m1a21_sex_must_be_declared`<br>`tests/bowen/test_family.py::test_m2a_values_match_the_spec_table`<br>`tests/bowen/test_family.py::test_m2a0i_leo_declared_male` | Leo and Dr Halim still to declare before Phase D |
-| M2.A.0j | not done | — | Phase D — the twelve-person reference family |
-| M2.A.0k | not done | — | Phase D — the twelve-person reference family |
+| M2.A.0j | done | `tests/bowen/test_life_course.py::test_m2a0j_a_gap_must_put_the_anchor_at_zero`<br>`tests/bowen/test_life_course.py::test_m2a0j_ages_come_from_the_three_settings`<br>`tests/bowen/test_life_course.py::test_m2a0j_changing_a_setting_changes_only_ages` | — |
+| M2.A.0k | done | `tests/bowen/test_life_course.py::test_m2a0k_successor_enters_at_retirement_and_learning_is_kept`<br>`tests/bowen/test_life_course.py::test_m2a0k_the_coachees_investment_leaves_the_retired_coach` | — |
 | M2.A.1 | not done | — | Phase D — the twelve-person reference family |
 | M2.A.2 | not done | — | Phase D — the twelve-person reference family |
 | M2.B.1 | done | `tests/bowen/test_family.py::test_m2b1_only_declared_ties_are_instantiated` | — |
-| M2.B.2 | not done | — | Phase D — the twelve-person reference family |
+| M2.B.2 | done | `tests/bowen/test_life_course.py::test_m2b2_the_coach_is_tied_to_the_coachee_only` | — |
 | M3.A.1 | done | `tests/bowen/test_config.py::test_m3a1_fast_tick_is_one_week_and_graded_invented`<br>`tests/bowen/test_tick.py::test_m3a1_one_record_per_fast_tick` | — |
-| M3.B.1 | done | `tests/bowen/test_config.py::test_m3b1_slow_tick_is_52_fast_ticks`<br>`tests/bowen/test_slow_tick.py::test_m3b1_a_long_run_keeps_its_slow_invariants`<br>`tests/bowen/test_slow_tick.py::test_m3b1_slow_tick_fires_at_the_end_of_week_51_not_at_week_0`<br>`tests/bowen/test_tick.py::test_m3b1_slow_tick_fires_every_52_fast_ticks` | — |
+| M3.B.1 | done | `tests/bowen/test_config.py::test_m3b1_slow_tick_is_52_fast_ticks`<br>`tests/bowen/test_life_course.py::test_m3b1_forty_year_run_completes`<br>`tests/bowen/test_slow_tick.py::test_m3b1_a_long_run_keeps_its_slow_invariants`<br>`tests/bowen/test_slow_tick.py::test_m3b1_slow_tick_fires_at_the_end_of_week_51_not_at_week_0`<br>`tests/bowen/test_tick.py::test_m3b1_slow_tick_fires_every_52_fast_ticks` | — |
 | M3.C.1 | done | `tests/bowen/test_events.py::test_m3c1_queue_refuses_late_or_skipped_deliveries`<br>`tests/bowen/test_events.py::test_m3c1_queue_releases_each_delivery_at_its_tick`<br>`tests/bowen/test_tick.py::test_m3c1_delivery_uses_edge_latency` | — |
 | M3.C.2 | done | `tests/bowen/test_activation_visibility.py::test_m3c2_a_move_needs_a_tie`<br>`tests/bowen/test_activation_visibility.py::test_m3c2_exogenous_event_arrives_in_its_own_tick`<br>`tests/bowen/test_activation_visibility.py::test_m3c2_target_latency_comes_from_the_tie`<br>`tests/bowen/test_activation_visibility.py::test_m3c2_witness_hears_with_the_earliest_target`<br>`tests/bowen/test_events.py::test_m3c2_delivery_tick_is_emitted_plus_latency`<br>`tests/bowen/test_objects.py::test_m3c2_latency_is_whole_ticks_at_least_one` | — |
 | M3.D.1 | done | `tests/bowen/test_tick.py::test_m3d1_steps_run_in_spec_order` | — |
@@ -240,7 +240,6 @@ mutant has turned each entry red in `docs/phase_c_mutation_record.md`; the D9 sw
 | M5.B.3 | done | `tests/bowen/test_moves.py::test_m5b3_reduce_cutoff_cost_lands_on_the_third_party`<br>`tests/bowen/test_moves.py::test_m5b3_reduce_cutoff_lowers_anxiety_and_never_raises_basic_level`<br>`tests/bowen/test_policy.py::test_m5b3_reduce_cutoff_crosses_a_cut_off_tie_and_nothing_else_does`<br>`tests/bowen/test_rejection.py::test_m5b3_accepted_contact_lowers_both_rejections_and_reopens_the_tie_at_zero`<br>`tests/bowen/test_rejection.py::test_m5b3_reduce_cutoff_leaves_a_worry_edge_a_worry_edge` | — |
 | M5.B.4 | done | `tests/bowen/test_external.py::test_m5b4_family_to_external_moves_exist_and_go_only_to_an_external_agent` | — |
 | M5.B.6 | partial | `tests/bowen/test_moves.py::test_m5b6_provoke_intensity_is_a_dial_separate_from_content` | the intensity dial is separate from the content (step 5); its use in M5.C.1a's peace-agree technique and the live-issue gate arrives with the I-POSITION state machine (step 8) |
-| M5.B.7 | not done | — | Phase C |
 | M5.B.5 | not done | — | Phase C |
 | M5.C.1 | partial | `tests/bowen/test_attribution.py::test_m5c1_under_marital_distance_no_move_improves_the_symptom_bearer` | financial dependence removes I-POSITION from the legal set (step 6) and the outside-ness thresholds exist (step 3); the other gates act on I-POSITION's outcome and arrive with its state machine (step 8); decision ownership is Phase D |
 | M5.C.1a | not done | — | Phase C |
@@ -287,16 +286,16 @@ mutant has turned each entry red in `docs/phase_c_mutation_record.md`; the D9 sw
 | M6.I.8 | done | `tests/bowen/test_mechanisms.py::test_m4g2_a_violation_raises`<br>`tests/bowen/test_tick.py::test_m3d2_standing_load_precedes_delivery` | — |
 | M6.1 | done | `tests/bowen/test_mechanisms.py::test_m4g2_invariants_asserted_every_tick` | invariant_tolerance 1e-9, [I], in config/bowen/constants.md |
 | M6.2 | not done | — | Phase C |
-| M6.4 | done | `tests/bowen/test_ledger.py::test_m64_every_stock_change_is_logged_by_name`<br>`tests/bowen/test_symptoms.py::test_m64_an_unlogged_change_to_a_symptoms_hold_is_caught` | the table is invariants.LEDGER; Triangle.bound_anxiety is in the table but no Phase C mechanism writes it |
+| M6.4 | done | `tests/bowen/test_ledger.py::test_m64_every_stock_change_is_logged_by_name`<br>`tests/bowen/test_life_course.py::test_m64_entry_and_new_budget_are_logged_sources`<br>`tests/bowen/test_symptoms.py::test_m64_an_unlogged_change_to_a_symptoms_hold_is_caught` | the table is invariants.LEDGER; Triangle.bound_anxiety is in the table but no Phase C mechanism writes it |
 | M6.3 | not done | — | open owner decision (disposition at death); blocks M11.C.37 and Phase D |
-| M6.3a | not done | — | Phase C |
-| M6.3b | not done | — | Phase C |
-| M6.3c | not done | — | Phase C |
-| M6.3d | not done | — | Phase C |
-| M6.3e | not done | — | Phase C |
-| M6.3f | not done | — | Phase C |
-| M6.3g | not done | — | Phase C |
-| M6.3h | not done | — | Phase C |
+| M6.3a | done | `tests/bowen/test_life_course.py::test_m63a_a_death_with_no_living_mourner_queues_no_nodal_event` | — |
+| M6.3b | done | `tests/bowen/test_life_course.py::test_m63b_anxiety_split_by_bond_energy`<br>`tests/bowen/test_life_course.py::test_m63b_falls_back_to_the_household`<br>`tests/bowen/test_life_course.py::test_m63b_no_share_to_an_external_agent` | — |
+| M6.3c | done | `tests/bowen/test_life_course.py::test_m63c_tie_and_triangle_holdings_go_to_the_living` | — |
+| M6.3d | done | `tests/bowen/test_life_course.py::test_m63d_investment_redistributed_over_other_ties` | — |
+| M6.3e | done | `tests/bowen/test_life_course.py::test_m63e_balances_settle_back_after_a_death` | — |
+| M6.3f | done | `tests/bowen/test_life_course.py::test_m63f_sinks_naming_the_dead_return_to_the_family` | — |
+| M6.3g | done | `tests/bowen/test_life_course.py::test_m63g_grief_lasts_one_to_three_years_by_bond_energy` | — |
+| M6.3h | done | `tests/bowen/test_life_course.py::test_m63h_income_loss_lasts_until_someone_finds_work` | — |
 | M6.3i | not done | — | Phase C |
 | M7.A.1 | done | `tests/bowen/test_slow_tick.py::test_m7a1_basic_level_never_falls_on_the_slow_tick` | — |
 | M7.A.1a | done | `tests/bowen/test_slow_tick.py::test_m7a1a_a_dependent_twin_does_not_rise` | — |
@@ -304,18 +303,19 @@ mutant has turned each entry red in `docs/phase_c_mutation_record.md`; the D9 sw
 | M7.A.2a | not done | — | Phase D |
 | M7.A.2b | not done | — | Phase D |
 | M7.B.1 | done | `tests/bowen/test_slow_tick.py::test_m7b1_chronic_anxiety_falls_only_with_a_rise`<br>`tests/bowen/test_slow_tick.py::test_m7b1_slow_invariants_catch_a_rise_in_chronic_anxiety` | — |
-| M7.B.1a | not done | — | Phase D |
-| M7.C.1 | not done | — | Phase D |
-| M7.C.1a | not done | — | Phase D |
+| M7.B.1a | done | `tests/bowen/test_life_course.py::test_m7b1a_child_chronic_reads_parents_and_witnessed_history`<br>`tests/bowen/test_life_course.py::test_m7b1a_chronic_is_fixed_at_the_fixation_age` | — |
+| M7.C.1 | done | `tests/bowen/test_life_course.py::test_m7c1_a_missed_life_event_raises` | — |
+| M7.C.1a | done | `tests/bowen/test_life_course.py::test_m7c1a_an_older_sibling_and_the_coachee_redistribute_too` | — |
 | M7.C.1b | not done | — | Phase D |
 | M7.C.1c | not done | — | Phase D |
 | M7.C.1d | not done | — | Phase D |
 | M7.C.1e | not done | — | Phase D |
-| M7.C.1f | not done | — | Phase D |
-| M7.C.1g | not done | — | Phase D |
-| M7.C.1h | not done | — | Phase D |
-| M7.C.1i | not done | — | Phase D |
-| M7.C.1j | not done | — | Phase D |
+| M7.C.1f | done | `tests/bowen/test_life_course.py::test_m7c1f_a_child_under_ten_never_selects`<br>`tests/bowen/test_life_course.py::test_m7c1f_a_child_under_ten_still_witnesses`<br>`tests/bowen/test_life_course.py::test_m7c1f_age_advances_on_the_slow_tick` | — |
+| M7.C.1g | done | `tests/bowen/test_life_course.py::test_m7c1g_launch_moves_household_and_ends_dependence` | — |
+| M7.C.1h | done | `tests/bowen/test_life_course.py::test_m7c1h_a_new_tie_completes_its_triangles`<br>`tests/bowen/test_life_course.py::test_m7c1h_a_partner_row_that_could_never_fire_is_refused`<br>`tests/bowen/test_life_course.py::test_m7c1h_new_couple_gets_a_family_with_derived_budget`<br>`tests/bowen/test_life_course.py::test_m7c1h_partner_comes_only_from_settings`<br>`tests/bowen/test_life_course.py::test_m7c1h_partner_level_within_pairing_tolerance` | — |
+| M7.C.1i | done | `tests/bowen/test_life_course.py::test_m7c1i_birth_ties_redistribute_investment` | — |
+| M7.C.1j | done | `tests/bowen/test_life_course.py::test_m7c1j_age_at_death_drawn_once_at_entry`<br>`tests/bowen/test_life_course.py::test_m7c1j_hazard_rises_with_age` | — |
+| M7.C.1k | done | `tests/bowen/test_life_course.py::test_m7c1k_find_work_follows_pressure_not_a_schedule`<br>`tests/bowen/test_life_course.py::test_m7c1k_find_work_leaves_twenty_percent_and_sets_earner`<br>`tests/bowen/test_life_course.py::test_m7c1k_find_work_unavailable_without_a_loss`<br>`tests/bowen/test_life_course.py::test_m7c1k_finding_work_reaches_a_household_with_no_ties_between_its_members` | — |
 | M7.D.1 | done | `tests/bowen/test_symptoms.py::test_m7d1_threshold_crossing_emits_endogenous_event` | — |
 | M7.D.2 | done | `tests/bowen/test_symptoms.py::test_m7d2_a_channel_that_is_not_fed_can_still_cross_and_each_crossing_is_reported`<br>`tests/bowen/test_symptoms.py::test_m7d2_every_channel_leaks_and_re_arms_on_its_own` | — |
 | M7.D.2a | done | `tests/bowen/test_symptoms.py::test_m7d2a_a_partner_gives_only_what_is_above_their_usual_level`<br>`tests/bowen/test_symptoms.py::test_m7d2a_a_symptom_ending_returns_what_it_held`<br>`tests/bowen/test_symptoms.py::test_m7d2a_removal_stops_the_hold`<br>`tests/bowen/test_symptoms.py::test_m7d2a_the_family_calms_around_a_mild_symptom` | — |
@@ -328,10 +328,10 @@ mutant has turned each entry red in `docs/phase_c_mutation_record.md`; the D9 sw
 | M7.E.1 | not done | — | Phase D |
 | M7.E.1a | not done | — | Phase D |
 | M7.E.1b | not done | — | Phase D |
-| M7.E.1c | not done | — | Phase D |
+| M7.E.1c | done | `tests/bowen/test_life_course.py::test_m7e1c_birth_situations_add_focus_not_a_target` | — |
 | M7.E.1d | not done | — | Phase D |
 | M7.E.1e | not done | — | Phase D |
-| M7.E.1f | not done | — | Phase D |
+| M7.E.1f | done | `tests/bowen/test_life_course.py::test_m7e1f_an_orphan_reads_no_dead_parent`<br>`tests/bowen/test_life_course.py::test_m7e1f_development_stops_at_twenty`<br>`tests/bowen/test_life_course.py::test_m7e1f_level_held_at_parents_mean_before_five`<br>`tests/bowen/test_life_course.py::test_m7e1f_level_never_leaves_two_percent_band`<br>`tests/bowen/test_life_course.py::test_m7e1f_parents_functioning_up_raises_the_level`<br>`tests/bowen/test_life_course.py::test_m7e1f_the_estimator_does_not_run_on_a_developing_child` | — |
 | M7.E.2 | not done | — | Phase D |
 | M7.E.3 | not done | — | Phase D |
 | M8.1 | done | `tests/bowen/test_live_positions.py::test_m81_avoidance_is_a_step_at_three`<br>`tests/bowen/test_live_positions.py::test_m81_fusion_outside_the_group_does_not_remove_a_position`<br>`tests/bowen/test_live_positions.py::test_m81_input_validation`<br>`tests/bowen/test_live_positions.py::test_m81_positions_live_counts_unfused_present_occupants` | — |
@@ -389,21 +389,21 @@ mutant has turned each entry red in `docs/phase_c_mutation_record.md`; the D9 sw
 | M11.4f | not done | — | Phase C — acceptance-test rules |
 | M11.3 | not done | — | Phase C — acceptance-test rules |
 | M11.C.1 | done | `tests/bowen/test_phase_c_gate.py::test_m11c1_lower_c_reaches_threshold_sooner` | ensemble record: M11.C.1 PASS |
-| M11.C.2 | partial | `tests/bowen/test_phase_d_criteria.py::test_m11c2_symptom_concentrates_on_projection_target` | built; no recorded ensemble verdict yet (the Phase D record is plan step 12) |
+| M11.C.2 | partial | `tests/bowen/test_phase_d2_criteria.py::test_m11c2_symptom_concentrates_on_projection_target_in_the_twelve_person_family`<br>`tests/bowen/test_phase_d_criteria.py::test_m11c2_symptom_concentrates_on_projection_target` | built; no recorded ensemble verdict yet (the Phase D record is plan step 12) |
 | M11.C.3 | done | `tests/bowen/test_phase_c_gate.py::test_m11c3_triangle_relieves_seeker_costs_third` | ensemble record: M11.C.3 PASS |
 | M11.C.4 | partial | `tests/bowen/test_phase_c_gate.py::test_m11c4_cutoff_trades_now_against_later` | ensemble record: M11.C.4 FAIL |
 | M11.C.5 | partial | `tests/bowen/test_phase_c_gate.py::test_m11c5_change_back_reaction_shape` | ensemble record: M11.C.5 FAIL |
-| M11.C.6 | not done | — | Phase D |
+| M11.C.6 | partial | `tests/bowen/test_phase_d2_criteria.py::test_m11c6_multigenerational_decline_in_projection_line`<br>`tests/bowen/test_phase_d2_criteria.py::test_m11c6_the_children_are_read_at_twenty` | built; no recorded ensemble verdict yet (the Phase D record is plan step 12) |
 | M11.C.7 | not done | `tests/bowen/test_phase_c_gate.py::test_m11c7_topology_not_coach_skill` | not built in Phase C — docs/phase_c_ensemble_record.md says why |
 | M11.C.8 | not done | — | Phase E |
 | M11.C.9 | not done | — | Phase D |
-| M11.C.10 | not done | — | Phase D |
+| M11.C.10 | partial | `tests/bowen/test_phase_d2_criteria.py::test_m11c10_cutoff_begets_cutoff` | built; no recorded ensemble verdict yet (the Phase D record is plan step 12) |
 | M11.C.11 | partial | `tests/bowen/test_phase_d_criteria.py::test_m11c11_removal_three_phase_shape` | built; no recorded ensemble verdict yet (the Phase D record is plan step 12) |
 | M11.C.12 | partial | `tests/bowen/test_phase_d_criteria.py::test_m11c12_symptom_relief_raises_conflict` | built; no recorded ensemble verdict yet (the Phase D record is plan step 12) |
 | M11.C.13 | not done | `tests/bowen/test_phase_c_gate.py::test_m11c13_help_relocates_not_reduces` | not built in Phase C — docs/phase_c_ensemble_record.md says why |
 | M11.C.14 | not done | `tests/bowen/test_phase_c_gate.py::test_m11c14_technique_null_under_marital_distance`<br>`tests/bowen/test_phase_d_criteria.py::test_m11c14_technique_null_under_marital_distance` | not built in Phase C — docs/phase_c_ensemble_record.md says why |
 | M11.C.16 | partial | `tests/bowen/test_phase_c_gate.py::test_m11c16_repertoire_concentration_depends_on_level` | passes (docs/phase_c_ensemble_record.md), but its required mutant, M4.D.6 disabled, survives; the joint level-blind mutant turns it red, and availability-level-inverted reverses it (docs/phase_c_mutation_record.md). Composite; the row's mutation clause is not met (spec M11.5, 2026-10-08) |
-| M11.C.15 | not done | — | Phase D |
+| M11.C.15 | partial | `tests/bowen/test_phase_d2_criteria.py::test_m11c15_death_destabilises_like_recovery`<br>`tests/bowen/test_phase_d2_criteria.py::test_m11c15_only_the_release_acts_in_every_arm` | built; no recorded ensemble verdict yet (the Phase D record is plan step 12) |
 | M11.C.17 | partial | `tests/bowen/test_phase_d_criteria.py::test_m11c17_coach_helps_and_is_not_required` | built; no recorded ensemble verdict yet (the Phase D record is plan step 12) |
 | M11.C.18 | partial | `tests/bowen/test_phase_d_criteria.py::test_m11c18_estimator_separates_cutoff_from_iposition`<br>`tests/bowen/test_phase_d_criteria.py::test_m11c18_the_nodal_load_fills_every_window_with_three_kinds` | built; no recorded ensemble verdict yet (the Phase D record is plan step 12) |
 | M11.C.24 | partial | `tests/bowen/test_phase_d_criteria.py::test_m11c24_whisper_of_nature_reverses_on_dissolution` | built; no recorded ensemble verdict yet (the Phase D record is plan step 12) |
@@ -424,7 +424,7 @@ mutant has turned each entry red in `docs/phase_c_mutation_record.md`; the D9 sw
 | M11.C.33 | partial | `tests/bowen/test_phase_d_criteria.py::test_m11c33_arms_differ_only_at_the_slow_tick`<br>`tests/bowen/test_phase_d_criteria.py::test_m11c33_dependence_gate_blocks_basic_level_rise` | built; no recorded ensemble verdict yet (the Phase D record is plan step 12) |
 | M11.C.35 | done | `tests/bowen/test_phase_c_gate.py::test_m11c35_witness_appraisal_depends_on_both_ties` | ensemble record: M11.C.35 PASS |
 | M11.C.36 | partial | `tests/bowen/test_phase_d_criteria.py::test_m11c36_policy_reads_belief_not_true_state` | built; no recorded ensemble verdict yet (the Phase D record is plan step 12) |
-| M11.C.37 | not done | — | Phase D |
+| M11.C.37 | partial | `tests/bowen/test_life_course.py::test_m11c37_a_run_raises_when_a_death_loses_anxiety`<br>`tests/bowen/test_life_course.py::test_m11c37_anxiety_conserved_across_death`<br>`tests/bowen/test_life_course.py::test_m11c37_mutation_discarding_the_dead_persons_anxiety_turns_it_red` | built; no recorded ensemble verdict yet (the Phase D record is plan step 12) |
 | M11.C.38 | done | `tests/bowen/test_phase_c_gate.py::test_m11c38_graded_parameter_orders_primary_readout` | ensemble record: M11.C.38[-0 vs -5] PASS; M11.C.38[-5 vs -10] PASS; M11.C.38[-10 vs -15] PASS |
 | M11.C.39 | partial | `tests/bowen/test_phase_d_criteria.py::test_m11c39_pattern_outlasts_spell_only_with_learning` | built; no recorded ensemble verdict yet (the Phase D record is plan step 12) |
 | M11.C.40 | partial | `tests/bowen/test_phase_d_criteria.py::test_m11c40_leaked_reinforcement_raises_self_directed_entropy` | built; no recorded ensemble verdict yet (the Phase D record is plan step 12) |
@@ -544,7 +544,7 @@ mutant has turned each entry red in `docs/phase_c_mutation_record.md`; the D9 sw
 | M16.E.3 | not done | — | Phase F |
 | M16.T.1 | done | `tests/bowen/test_render.py::test_m16t1_effects_are_reported_in_reader_units`<br>`tests/bowen/test_render.py::test_m16t1_trace_renders_scripted_run` | — |
 | M16.T.2 | done | `tests/bowen/test_engine_purity.py::test_m16t2_engine_writes_nothing` | — |
-| M16.T.3 | done | `tests/bowen/test_engineering_gates.py::test_m16t3_sink_does_not_change_results_under_the_policy`<br>`tests/bowen/test_log.py::test_m16t3_sink_does_not_change_results` | rerun at Phase C step 13 with the policy and the learner reading the store; to be rerun at the end of Phase D |
+| M16.T.3 | done | `tests/bowen/test_engineering_gates.py::test_m16t3_sink_does_not_change_results_under_the_policy`<br>`tests/bowen/test_life_course.py::test_m16t3_sink_does_not_change_a_life_course_run`<br>`tests/bowen/test_log.py::test_m16t3_sink_does_not_change_results` | rerun at Phase C step 13 with the policy and the learner reading the store; to be rerun at the end of Phase D |
 | M16.T.6 | done | `tests/bowen/test_external.py::test_m16t6_event_store_is_load_bearing` | — |
 | M16.T.4 | done | `tests/bowen/test_external.py::test_m16t4_delayed_view_is_scoped_and_lagged` | — |
 | M16.T.5 | done | `tests/bowen/test_log.py::test_m16t5_same_seed_same_log_with_header` | — |
@@ -578,7 +578,7 @@ mutant has turned each entry red in `docs/phase_c_mutation_record.md`; the D9 sw
 | M17.G.2 | not done | — | Phase E |
 | M17.G.3 | not done | — | Phase E |
 
-## Tests named for no spec ID (110)
+## Tests named for no spec ID (112)
 
 Their names embed no requirement ID, so they count only where an override cites them (marked *cited*). The rest check spec documents, tooling or helpers.
 
@@ -635,6 +635,8 @@ Their names embed no requirement ID, so they count only where an override cites 
 - `tests/bowen/test_phase_c_criteria.py::test_s_every_scripted_criterion_holds_the_same_ties_in_both_arms`
 - `tests/bowen/test_phase_c_criteria.py::test_s_outcomes_classifies_every_case_from_the_records`
 - `tests/bowen/test_phase_c_criteria.py::test_s_scripted_criteria_are_found_by_running_them`
+- `tests/bowen/test_phase_d_record.py::test_phase_d2_record_covers_every_criterion_and_names_what_is_not_run`
+- `tests/bowen/test_phase_d_record.py::test_phase_d2_record_is_current`
 - `tests/bowen/test_phase_d_record.py::test_phase_d_record_carries_no_phase_c_wording_and_its_table_matches_its_json`
 - `tests/bowen/test_phase_d_record.py::test_phase_d_record_covers_every_criterion_and_names_what_is_not_built`
 - `tests/bowen/test_phase_d_record.py::test_phase_d_record_is_current`

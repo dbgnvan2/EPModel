@@ -189,6 +189,14 @@ class Person:
     # person sent or was delivered; empty at the start (no one blamed).
     attribution: dict[PersonId, float] = field(default_factory=dict)
     alive: bool = True
+    # Spec revision 28 (Phase D part II, Claude's recommendation pending owner review). ``age_years`` is advanced on
+    # the slow tick (M7.C.1f); None means the run does not track ages, and the person acts from the start. ``earner``:
+    # the person is a source of household income (M6.3h), declared in config and set by FIND_WORK (M5.B.7).
+    # ``inactive``: present in the field but selecting no act — a retired coach (M2.A.0k) or a partner's
+    # family-of-origin holder (M7.C.1h, in M2.3's bond-energy-only form).
+    age_years: int | None = None
+    earner: bool = False
+    inactive: bool = False
 
     def __post_init__(self) -> None:
         _check_scale("basic_level", self.basic_level)
@@ -308,6 +316,10 @@ class Family:
     marital_tie: TieId | None = None
     parent_child_ties: tuple[TieId, ...] = ()
     origin_ties: tuple[TieId, ...] = ()
+    # Spec revision 28 (M7.C.1h, M6.3f): the household this family is, and whether both spouses have died, after which
+    # it takes no allocations. The reference family's household is the declaration's nuclear household.
+    household: str | None = None
+    dissolved: bool = False
 
     def __post_init__(self) -> None:
         if set(self.sink_allocations) != set(Sink):

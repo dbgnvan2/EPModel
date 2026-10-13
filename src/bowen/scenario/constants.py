@@ -116,6 +116,29 @@ SCHEMA: Mapping[str, KeySpec] = MappingProxyType(
         "lock_in_turn": KeySpec(float, "[I]", "M7.D.2d"),
         "pseudo_self_relaxation_rate": KeySpec(float, "[I]", "M6.I.4"),
         "exchange_window": KeySpec(int, "[I]", "M6.I.4"),
+        "acting_age_years": KeySpec(int, "[I]", "M7.C.1f"),  # spec revision 28
+        "development_start_age_years": KeySpec(int, "[I]", "M7.E.1f"),  # spec revision 28
+        "development_end_age_years": KeySpec(int, "[I]", "M7.E.1f"),  # spec revision 28
+        "development_band": KeySpec(float, "[I]", "M7.E.1f"),  # spec revision 28
+        "development_rate": KeySpec(float, "[I]", "M7.E.1f"),  # spec revision 28
+        "witnessed_gain": KeySpec(float, "[I]", "M7.B.1a"),  # spec revision 28
+        "launch_age_years": KeySpec(int, "[I]", "M7.C.1g"),  # spec revision 28
+        "working_age_years": KeySpec(int, "[I]", "M5.B.7"),  # spec revision 28
+        "find_work_rate": KeySpec(float, "[I]", "M5.B.7"),  # spec revision 28
+        "find_work_pressure_scale": KeySpec(float, "[I]", "M5.B.7"),  # spec revision 28
+        "grief_scale": KeySpec(float, "[I]", "M6.3g"),  # spec revision 28
+        "grief_min_weeks": KeySpec(int, "[I]", "M6.3g"),  # spec revision 28
+        "grief_extra_weeks": KeySpec(int, "[I]", "M6.3g"),  # spec revision 28
+        "income_loss_intensity": KeySpec(float, "[I]", "M6.3h"),  # spec revision 28
+        "income_shortfall_share": KeySpec(float, "[I]", "M6.3h"),  # spec revision 28
+        "mortality_a": KeySpec(float, "[I]", "M7.C.1j"),  # spec revision 28
+        "mortality_b": KeySpec(float, "[I]", "M7.C.1j"),  # spec revision 28
+        "budget_per_undifferentiation": KeySpec(float, "[I]", "M7.C.1h"),  # spec revision 28
+        "coach_start_age_years": KeySpec(int, "[I]", "M2.A.0k"),  # spec revision 28
+        "coach_retirement_age_years": KeySpec(int, "[I]", "M2.A.0k"),  # spec revision 28
+        "new_tie_investment_share": KeySpec(float, "[I]", "M7.C.1a"),  # spec revision 28
+        "birth_focus_gain": KeySpec(float, "[I]", "M7.E.1c"),  # spec revision 28
+        "death_transfer_share": KeySpec(float, "[I]", "M6.3b"),  # spec revision 28
         "attribution_rate": KeySpec(float, "[I]", "M9.6"),
         "focus_rate": KeySpec(float, "[I]", "M1.A.11c"),
         "belief_appraisal_gain": KeySpec(float, "[I]", "M9.7"),

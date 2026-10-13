@@ -68,7 +68,7 @@ def stressor_load(state: RunState, params: EngineParams) -> list[EffectRecord]:
     Spec:    docs/bowen_agent_model_spec_v2.md#M1.F.6 (revision 18), #M6.4
     Tests:   tests/bowen/test_stress_response.py::test_m1f6_a_long_stressor_weighs_for_its_duration
     """
-    state.stressors = [s for s in state.stressors if s.last_tick >= state.tick]
+    state.stressors = [s for s in state.stressors if s.last_tick is None or s.last_tick >= state.tick]
     records = []
     for stressor in sorted((s for s in state.stressors if s.first_tick <= state.tick), key=lambda s: (str(s.event_id), s.target.value)):
         person = state.people[stressor.target]

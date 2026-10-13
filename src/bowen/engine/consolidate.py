@@ -46,6 +46,8 @@ def consolidate(state: RunState, params: EngineParams) -> list[EffectRecord]:
     decay = []
     for pid in sorted(state.people):
         person = state.people[pid]
+        if not person.alive:
+            continue  # M6.3b, revision 28: a dead person's anxiety went to the living; nothing decays back to them
         before = person.acute_anxiety
         excess = max(0.0, before - person.chronic_anxiety)
         person.acute_anxiety = person.chronic_anxiety + excess * (1.0 - params.acute_decay_rate)

@@ -65,6 +65,11 @@ from `docs/phase_d_ensemble_record.md`: `M11.C.17` (weakly), `.18`, `.20`, `.33`
 `.11`, `.26`, `.36`, `.39` and `.24` pass; `.12`, `.14`, `.2`, `.40`, `.43`, `.34`, `.21` and `.23` fail. `M11.C.7`,
 `.9` and `.28` need mechanisms first; who acts (B11) moves to part II.
 
+**Phase D, part II (the life course, spec revision 28) is built**: ages, childhood, launch, partners and births,
+death and its disposition, lost income and finding work, and the coach's successor, over a 40-year run. From
+`docs/phase_d2_ensemble_record.md`: `M11.C.15`, `.6`, `.10` and `.2` on the twelve-person family fail; `M11.C.37` passes
+as a test. Status: `docs/phase_d2_status_2026-10-13.md`.
+
 The criteria run outside the default suite, over ensembles. On 10 cores the ensemble record takes about 5 minutes. The mutation and sweep records cache each result by the engine hash and the mutant's or setting's own edits (`tools/record_cache.py`, `docs/records_cache/`): a regeneration reruns only what changed, so re-rendering takes under a second, one new mutant a few minutes, and only an engine change reruns everything (about 40 and 20 minutes):
 
 ```
@@ -74,6 +79,7 @@ python3 tools/sweep_record.py        # docs/phase_c_sweep_record.md (cached)
 python3 tools/level_occupancy.py     # docs/phase_c_level_occupancy.md (about 3 minutes)
 python3 tools/c16_report.py          # report §11, generated from the records
 python3 tools/phase_d_record.py      # docs/phase_d_ensemble_record.md (about 10 minutes)
+python3 tools/phase_d_record.py --part 2   # docs/phase_d2_ensemble_record.md (about 50 minutes)
 ```
 
 ```

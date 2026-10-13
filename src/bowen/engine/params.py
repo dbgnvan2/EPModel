@@ -139,6 +139,31 @@ class EngineParams:
     belief_appraisal_gain: float           # M9.7, revision 25 — how much a witness's believed tension of the tie scales its appraisal
     pseudo_self_relaxation_rate: float     # M6.I.4, revision 27 — weekly share of a pair's opposite pseudo-self that settles back
     exchange_window: int                   # M6.I.4, revision 27 — weeks without over/under-functioning before it settles
+    acting_age_years: int                  # M7.C.1f, revision 28 — a person selects acts from this age until death
+    development_start_age_years: int       # M7.E.1f, revision 28 — a child's basic level is fixed to its anchor and develops from this age
+    development_end_age_years: int         # M7.E.1f, revision 28 — development levels off; the estimator governs from here
+    development_band: float                # M7.E.1f, revision 28 — how far a child's level may end from the anchor
+    development_rate: float                # M7.E.1f, revision 28 — how far a year's functioning moves a developing child's level
+    witnessed_gain: float                  # M7.B.1a, revision 28 — a child's own load raises its chronic anxiety above the parents' before the fixation age
+    chronic_anxiety_fixation_age_years: int  # M2.A.0a, M7.B.1a — revision 28 reads it: a child's chronic anxiety is derived until this age
+    spouse_basic_level_tolerance: float    # M2.A.0e — revision 28 reads it: a partner's level is drawn within it (M7.C.1h)
+    launch_age_years: int                  # M7.C.1g, revision 28 — a child leaves the household and supports themselves
+    working_age_years: int                 # M5.B.7, revision 28 — the youngest who can take FIND_WORK
+    find_work_rate: float                  # M5.B.7, revision 28 — how readily a pressed member finds work
+    find_work_pressure_scale: float        # M5.B.7, revision 28 — the load above usual at which the pressure to find work is full
+    grief_scale: float                     # M6.3g, revision 28 — the size of grief, in proportion to the tie
+    grief_min_weeks: int                   # M6.3g, revision 28 — grief on the weakest tie lasts a year (the owner's 1-3 years)
+    grief_extra_weeks: int                 # M6.3g, revision 28 — grief on the strongest tie lasts two more years
+    income_loss_intensity: float           # M6.3h, revision 28 — the size of the stress of a lost income
+    income_shortfall_share: float          # M6.3h, revision 28 — what remains of the stress once someone finds work
+    mortality_a: float                     # M7.C.1j, revision 28 — the Gompertz curve's level: with mortality_b, a median age at death near 80
+    mortality_b: float                     # M7.C.1j, revision 28 — the Gompertz curve's rise with age
+    budget_per_undifferentiation: float    # M7.C.1h, revision 28 — a new family's budget; 1.49 gives about 90 at the ravi_marta family's 39.5
+    coach_start_age_years: int             # M2.A.0k, revision 28 — a new coach's age at entry
+    coach_retirement_age_years: int        # M2.A.0k, revision 28 — the coach retires and a new one starts over
+    new_tie_investment_share: float        # M7.C.1a, revision 28 — what a new tie claims of a person's investment at partnering or birth
+    birth_focus_gain: float                # M7.E.1c, revision 28 — each of the five situations at a birth adds anxious focus
+    death_transfer_share: float            # M6.3b, revision 28 — 1 is the rule; a criterion may set 0 (M11.C.15)
     lock_in_turn: float                    # M7.D.2d, revision 24 — the severity (load over threshold) past which lock-in turns over
 
     def __post_init__(self) -> None:

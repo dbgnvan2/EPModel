@@ -176,6 +176,8 @@ def run_slow_tick(state: RunState, params: EngineParams) -> list[EffectRecord]:
         person = state.people[pid]
         if not person.alive:
             continue
+        if person.age_years is not None and person.age_years < params.development_end_age_years:
+            continue  # M7.E.1f, revision 28: a child's level develops by its own rule until 20
         reading = estimate(state.estimator_history.get(pid, ()), person.basic_level, person.financially_dependent,
                            params)
         if reading is None or reading.rise <= 0:

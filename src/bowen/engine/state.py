@@ -31,7 +31,7 @@ class ActiveStressor:
     target: PersonId
     intensity: float
     first_tick: int
-    last_tick: int
+    last_tick: int | None  # None: no end (spec revision 28, M6.3h: a lost income lasts until someone finds work)
 
 
 @dataclass(frozen=True)
@@ -64,6 +64,51 @@ class RunState:
     draws: DrawService = field(default_factory=lambda: DrawService(0))
     # M1.A.4k (Phase D plan B6): each person's last estimator_window slow ticks of weeks (slow_tick.Week).
     estimator_history: dict = field(default_factory=dict)
+    # Spec revision 28 (Phase D part II): the families other than the reference one, keyed by household (M7.C.1h), and
+    # the life course's own state (``life_course.LifeCourse``); None when the run has no life course, as every run
+    # before part II.
+    other_families: dict = field(default_factory=dict)
+    life: object | None = None
+
+    def families(self) -> tuple[Family, ...]:
+        """The reference family, then the others in household order."""
+        return (self.family,) + tuple(self.other_families[h] for h in sorted(self.other_families))
+
+    def family_of(self, person: PersonId) -> Family:
+        """The family whose household the person lives in; the reference family when their household has none."""
+        return self.other_families.get(self.people[person].household_id, self.family)
+
+    def add_person(self, person: Person) -> None:
+        """Purpose: a person enters the field during a run, at birth or partnering (M7.C.1h, M7.C.1i).
+        Spec:    docs/bowen_agent_model_spec_v2.md#M7.C.1h, #M7.C.1i, #M1.A.20
+        Tests:   tests/bowen/test_life_course.py::test_m1a20_a_birth_identifier_is_stable_across_arms
+        """
+        if person.id in self.people:
+            raise ValueError(f"{person.id} is already in the field")
+        self.people[person.id] = person
+
+    def add_tie(self, tie: Relationship) -> tuple[TriangleId, ...]:
+        """Purpose: a tie enters the field; the closed triads it completes become triangles (M1.C.3).
+        Spec:    docs/bowen_agent_model_spec_v2.md#M7.C.1a, #M1.C.3
+        Tests:   tests/bowen/test_life_course.py::test_m7c1h_a_new_tie_completes_its_triangles
+        """
+        if tie.id in self.ties:
+            raise ValueError(f"{tie.id} is already in the field")
+        for end in tie.id.members():
+            if end not in self.people:
+                raise ValueError(f"{tie.id} names {end}, who is not in the field")
+        self.ties[tie.id] = tie
+        a, b = tie.id.members()
+        added = []
+        for third in sorted(self.people):
+            if third in (a, b):
+                continue
+            if TieId.of(a, third) in self.ties and TieId.of(b, third) in self.ties:
+                trio = TriangleId.of(a, b, third)
+                if trio not in self.triangles:
+                    self.triangles[trio] = Triangle(trio)
+                    added.append(trio)
+        return tuple(added)
 
     def ties_of(self, person: PersonId) -> tuple[Relationship, ...]:
         # Cached per person while the set of ties is unchanged (plan B1); the tie objects are the live ones.
@@ -126,6 +171,8 @@ def canonical_state(state: RunState) -> str:
         "ties": [plain(state.ties[k]) for k in sorted(state.ties)],
         "triangles": [plain(state.triangles[k]) for k in sorted(state.triangles)],
         "family": plain(state.family),
+        **({"other_families": [plain(state.other_families[h]) for h in sorted(state.other_families)]}
+           if state.other_families else {}),
         "events": [plain(e) for e in state.store.events()],
     }
     return json.dumps(body, sort_keys=True, separators=(",", ":"), default=str)

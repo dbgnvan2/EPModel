@@ -1,6 +1,6 @@
 # Implementation plan — Phase D
 
-> **Status: approved by the owner, 2026-10-10 ("Proceed"), with the decisions in §1a.** P9 decided 2026-10-11; P13–P16 answered 2026-10-13 (§1b), with two P15 points still open. **Part II planned 2026-10-13 (§4), awaiting approval.** **Built:** B1 and B2 (2026-10-10/11); B3 and B4 (2026-10-11, spec revision 16); B5 and B6 (2026-10-11); B7, B8 and B9 and part of step 10 (2026-10-12, spec revisions 24–27, Claude's recommendation pending owner review: the owner asked for the work to proceed overnight without waiting for input).
+> **Status: approved by the owner, 2026-10-10 ("Proceed"), with the decisions in §1a.** P9 decided 2026-10-11; P13–P16 answered 2026-10-13 (§1b), with two P15 points still open. **Part II planned 2026-10-13 (§4) and approved by the owner the same day ("approved"); L0–L9 built 2026-10-13; L10's criteria built and run: `M11.C.37` passes, `M11.C.15`, `.6`, `.10` and `.2` fail (§4.7).** **Built:** B1 and B2 (2026-10-10/11); B3 and B4 (2026-10-11, spec revision 16); B5 and B6 (2026-10-11); B7, B8 and B9 and part of step 10 (2026-10-12, spec revisions 24–27, Claude's recommendation pending owner review: the owner asked for the work to proceed overnight without waiting for input).
 > Spec: `docs/bowen_agent_model_spec_v2.md`, revision 13. Phase C closed with its gate failing (owner decision,
 > `docs/phase_c_completion_report.md` §13). Spec IDs are used verbatim. The inventories behind this plan were made on
 > 2026-10-10 from the spec, `src/bowen`, `TODO.md` and the Phase C documents; their findings are cited where used.
@@ -1082,7 +1082,7 @@ run, an `M11.1d` audit (deletion plus sign-inverted mutant) and the fallback-rat
 
 ## 4. Part II (D-II): the life course — plan, 2026-10-13
 
-> **Status: drafted 2026-10-13, awaiting owner approval. No code until it is approved.** It builds spec revision 28,
+> **Status: approved by the owner 2026-10-13 ("approved"); built the same day (§4.7).** It builds spec revision 28,
 > which applies the owner's P13–P15 answers (§1b). The forms in revision 28 are Claude's recommendation, pending owner
 > review; the steps below build them as written unless the owner changes them.
 
@@ -1114,7 +1114,7 @@ Each step: tests first, then code, then the documents it changes (spec status, e
 | **L3** | Chronic anxiety before 12 | `M7.B.1a` | `test_m7b1a_child_chronic_reads_parents_and_witnessed_history`; `test_m7b1a_chronic_is_fixed_at_the_fixation_age` |
 | **L4** | A child's development from 5 to 20 | `M7.E.1f`, `M7.E.1` | `test_m7e1f_level_held_at_parents_mean_before_five`; `test_m7e1f_parents_functioning_up_raises_the_level`; `test_m7e1f_level_never_leaves_two_percent_band` (adversarial: a long run of high functioning must stop at the band); `test_m7e1f_development_stops_at_twenty` |
 | **L5** | Mortality and the disposition at death | `M7.C.1j`, `M6.3a`–`3g`, `M6.I.4` | `test_m7c1j_age_at_death_drawn_once_at_entry`; `test_m7c1j_hazard_rises_with_age`; `test_m63b_no_share_to_an_external_agent`; `test_m63b_falls_back_to_the_household`; `test_m63b_anxiety_split_by_bond_energy`; `test_m63c_tie_and_triangle_holdings_go_to_the_living`; `test_m63d_investment_redistributed_over_other_ties`; `test_m63e_balances_settle_back_after_a_death`; `test_m63f_sinks_naming_the_dead_return_to_the_family`; `test_m63g_grief_lasts_one_to_three_years_by_bond_energy`; `test_m11c37_anxiety_conserved_across_death` |
-| **L6** | Lost income and `FIND_WORK` | `M6.3h`, `M5.B.7` | `test_m63h_income_loss_lasts_until_someone_finds_work`; `test_m5b7_find_work_leaves_twenty_percent_and_sets_earner`; `test_m5b7_find_work_unavailable_without_a_loss`; `test_m5b7_find_work_is_learned_not_scheduled` (across seeds, who takes it and in which week vary, and a member whose earlier goal-directed acts were relieved takes it sooner) |
+| **L6** | Lost income and `FIND_WORK` | `M6.3h`, `M7.C.1k` | `test_m63h_income_loss_lasts_until_someone_finds_work`; `test_m7c1k_find_work_leaves_twenty_percent_and_sets_earner`; `test_m7c1k_find_work_unavailable_without_a_loss`; `test_m7c1k_find_work_is_learned_not_scheduled` (across seeds, who takes it and in which week vary, and a member whose earlier goal-directed acts were relieved takes it sooner) |
 | **L7** | Launch, partners from settings, births, new families | `M7.C.1g`–`1i`, `M7.C.1a`, `M6.4` | `test_m64_entry_and_new_budget_are_logged_sources`; `test_m7c1g_launch_moves_household_and_ends_dependence`; `test_m7c1h_partner_level_within_pairing_tolerance`; `test_m7c1h_partner_comes_only_from_settings`; `test_m7c1h_new_couple_gets_a_family_with_derived_budget`; `test_m7c1i_birth_ties_redistribute_investment`; `test_m7e1c_birth_situations_add_focus_not_a_target` |
 | **L8** | The coach's retirement and successor | `M2.A.0k` | `test_m2a0k_successor_enters_at_retirement_and_learning_is_kept` |
 | **L9** | The 40-year run: completes, invariants hold every tick, timed outside the suite; the `M16.T.3` re-run | `M3.B.1`, `M16.T.3` | `test_m3b1_forty_year_run_completes` (one seed, ensemble-marked); the `M16.T.3` test re-pointed |
@@ -1166,6 +1166,63 @@ part I's records do not move. One regeneration of the part I record at the end, 
   people.
 - B1 made the cost per tick flat. The cost of one 40-year run is measured at L9, and the ensemble budget for C.6, C.10
   and C.2 is stated from that measurement before those criteria run.
+
+### 4.7 What was built, and what the criteria showed (2026-10-13)
+
+**Build steps.** Every test named in §4.3 exists in `tests/bowen/test_life_course.py`, with two departures:
+- **L6:** `test_m7c1k_find_work_is_learned_not_scheduled` was built as
+  `test_m7c1k_find_work_follows_pressure_not_a_schedule`. Revision 28 (`M7.C.1k`) makes `FIND_WORK` a goal-directed act of
+  the life course taken with a probability that rises with the member's load above their usual level, not a move the
+  policy learns. Who takes it and when still varies across seeds and follows each member's state.
+- **L9:** the `M16.T.3` re-run is a new test, `test_m16t3_sink_does_not_change_a_life_course_run`. It runs the twelve-person
+  family for 22 years, through the first pairing and birth, with the sink on and off, and compares the final state
+  including the life course. `canonical_state` does not include `state.life`, so the test compares it separately.
+  Changing `canonical_state` would change the engine hash and make every record stale; that is left for the next
+  engine change (TODO).
+
+L0 to L8 are done. For L9, the 40-year run completes with every invariant holding: `test_m3b1_forty_year_run_completes`
+is ensemble-marked and covers one seed, and the three 40-year ensembles (300 seeds in all) completed with no crash. The
+Phase C golden run and every Phase C and part I verdict are unchanged: `state.life` is None unless a family declares a
+life course, and both regenerations changed only hashes and header lines.
+
+**Departures from §4.4 in the criteria as built** (all declared in `src/bowen/ensemble/criteria_d2.py` before any ran):
+- **`M11.C.15` runs on the nuclear-four fixture,** not on Marta in the twelve-person family. The mother carries a symptom
+  held below lock-in. The read is the living others' mean excess over `after` weeks (`config/bowen/criteria.md`), not
+  a sum over 52 weeks.
+- **`M11.C.10` counts cut-off acts** sent by the third generation and their children, not cut-off ties at year 40.
+- **Mutations:** only `M11.C.37`'s mutation was run. It is a test,
+  `test_m11c37_mutation_discarding_the_dead_persons_anxiety_turns_it_red`, through the real `die`. The other four
+  criteria fail, so they have no mutation to prove.
+
+**Verdicts** (`docs/phase_d2_ensemble_record.md`, code hash `9337f5d8…ffff`):
+
+| Criterion | Verdict | Seeds | Result (treatment − baseline) |
+|---|---|---|---|
+| `M11.C.37` | PASS (test, with its mutant) | — | conserved to `M6.1`'s tolerance |
+| `M11.C.15` | FAIL | 100 | death +0.212 ± 0.35 (p 0.135); recovery +3.11 ± 0.35 (p 8.2e-18) |
+| `M11.C.6` | FAIL | 50 | +0.0177 ± 0.028 (p 0.894): the most-projected child's development is not lower |
+| `M11.C.10` | FAIL | 100 | −12.6 ± 28 (p 0.795) |
+| `M11.C.2` (twelve-person family) | FAIL | 150 | −0.13 ± 1.6 (p 0.456) |
+
+**Compute** (wall time from the regeneration log, 10 cores): `M11.C.6`'s 50 seeds took 374 s,
+`M11.C.10`'s 100 seeds 1,615 s, and `M11.C.2`'s 150 seeds 1,119 s. The part II record took 52 minutes in all.
+
+**Diagnosis of `M11.C.15`** (an ad hoc run, 30 seeds, not a record). With `death_transfer_share` at 0, as the arm design
+sets it, `die` discards the mother's own acute anxiety. What her symptom held is released by `release_bound`, as at a
+remission, so that part is the same in both treatments. The death arm therefore also loses her as an anxious member who
+keeps passing load through her ties, and the recovery arm keeps her.
+- With the share at 1 (the rule's value), the death rise was +1.17 (sd 2.0).
+- With the share at 0, it was +0.22 (sd 2.0), against +3.13 (sd 2.2) for recovery.
+
+So the arm design, not the release mechanism, is what holds the death arm near zero. Whether `M11.C.15` should keep
+the transfer is an owner decision. It is not changed here, because changing an arm after seeing its result would be
+tuning.
+
+**`M11.C.6`'s size.** Under the ±2% band a child can end at most about 0.8 points from the parents' level (§4.4). The
+difference measured is 0.018, of the right sign for "not lower" only by chance (p 0.89). The test cannot tell the band
+from the absence of an effect. That is the open band decision in §4.5.
+
+**`M11.C.10` and `M11.C.2`.** No diagnosis has been run. The spread of `M11.C.10` (±28 acts) is wide against its mean.
 
 ## 5. Build order (D-I)
 

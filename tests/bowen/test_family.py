@@ -68,13 +68,15 @@ LEFT_M2A_AT_REVISION_13 = {"bruno"}
 def spec_rows():
     rows = {}
     for line in SPEC.splitlines():
-        m = re.match(r"^\| \d+a? \| (\w+) \| (\d) \| (\d+) \| (\w+) \| (\d+) \| (\d+) \| ([^|]+) \| \**(yes|no)\** \|", line)
+        m = re.match(r"^\| \d+a? \| (\w+) \| (\d) \| (\d+) \| (\w+) \| ([\d.]+) \| ([\d.]+) \| ([^|]+) \| \**(yes|no)\** \|",
+                     line)
         if m:
             rows[m.group(1).lower()] = m.groups()
     return rows
 
 
-def assert_matches_spec_table(instance, exempt=frozenset()):
+def assert_matches_spec_table(instance, exempt=frozenset(), *, values=True):
+    """``values=False`` checks generation and sex only: the closed phases keep the values M2.A had before revision 28."""
     rows = spec_rows()
     assert {p.value for p in instance.people if p.value not in rows} == set(exempt)
     for pid, person in instance.people.items():
@@ -82,6 +84,9 @@ def assert_matches_spec_table(instance, exempt=frozenset()):
             continue
         _, gen, age, sex, basic, chronic, _sib, dependent = rows[pid.value]
         assert instance.generations[pid] == int(gen)
+        assert person.sex is Sex(sex)
+        if not values:
+            continue
         assert instance.ages_years[pid] == int(age)
         assert person.sex is Sex(sex)
         assert person.basic_level == float(basic)
@@ -90,8 +95,9 @@ def assert_matches_spec_table(instance, exempt=frozenset()):
 
 
 def test_m2a_values_match_the_spec_table():
-    """Every value M2.A states for the Phase B people is the value the config declares; Bruno is history."""
-    assert_matches_spec_table(load_family(), LEFT_M2A_AT_REVISION_13)
+    """The Phase B people are M2.A's by generation and sex; Bruno is history. Their ages and values are the closed
+    phase's record: M2.A's moved with the life course at revision 28 (M2.A.0j), and the Phase B instance did not."""
+    assert_matches_spec_table(load_family(), LEFT_M2A_AT_REVISION_13, values=False)
 
 
 PHASE_D = REPO / "config" / "bowen" / "family_phase_d.md"

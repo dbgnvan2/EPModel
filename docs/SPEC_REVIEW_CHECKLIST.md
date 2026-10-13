@@ -28,7 +28,8 @@ These define what the model does. A run that disagrees with them is a defect.
 - [ ] [../config/bowen/event_kinds.md](../config/bowen/event_kinds.md) — the kinds of act and their layers.
 - [ ] [../config/bowen/policy.md](../config/bowen/policy.md) — the selection policy.
 - [ ] [../config/bowen/family_phase_c.md](../config/bowen/family_phase_c.md) — the family run in Phase C.
-- [ ] [../config/bowen/family_phase_d.md](../config/bowen/family_phase_d.md) — the owner's reference family (spec `M2.A`, revision 13); not yet run.
+- [ ] [../config/bowen/family_phase_d.md](../config/bowen/family_phase_d.md) — the owner's reference family (spec `M2.A`, revision 13), with its life course from revision 28: starting ages as settings, who earns, the coachee (`M2.A.0j`, `M2.A.0k`).
+- [ ] [../config/bowen/partners_phase_d.md](../config/bowen/partners_phase_d.md) — the reference family's partners and their children, drafted for the owner to edit (spec `M7.C.1h`, `M7.C.1i`, revision 28).
 - [ ] [../config/bowen/pattern_acts.md](../config/bowen/pattern_acts.md) — which acts each pattern readout counts.
 - [ ] [../config/bowen/stress_response.md](../config/bowen/stress_response.md) — which acts avoid or soothe under load
   (spec revisions 18-19).
@@ -136,9 +137,13 @@ the owner decisions it needs (§1a records them), and the split into D-I and D-I
 **Generated, 2026-10-13:** [phase_d_ensemble_record.md](phase_d_ensemble_record.md) — the Phase D part I criteria's
 verdicts over ensembles (`tools/phase_d_record.py`; plan step 12). Mutations are reported in the plan, not here.
 
+**Generated, 2026-10-13:** [phase_d2_ensemble_record.md](phase_d2_ensemble_record.md) — the Phase D part II criteria (the life course, spec revision 28) over adaptive ensembles, from `tools/phase_d_record.py --part 2`; a default-suite test fails when it is stale.
+
 **For review, 2026-10-13:** [phase_d_status_2026-10-13.md](phase_d_status_2026-10-13.md) — Phase D part I after the
 overnight run: every build item and D-I criterion as done, partial or not done, and what the owner should look at
 first (spec revisions 24–27 are Claude's recommendations, pending owner review).
+
+**For review, 2026-10-13:** [phase_d2_status_2026-10-13.md](phase_d2_status_2026-10-13.md) — Phase D part II (the life course) after the build: each step and criterion with its evidence, and what the owner decides next.
 
 **Built 2026-10-10:** [<PROPOSAL — RUN VISUALIZATION MAPPING.md>](<PROPOSAL — RUN VISUALIZATION MAPPING.md>) (drawing a
 run as a fam-diag diagram; `tools/famdiag_export.py`, `config/viz/famdiag.md`).

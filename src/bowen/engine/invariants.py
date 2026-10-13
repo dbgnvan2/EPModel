@@ -157,6 +157,10 @@ def budget_problems(state: RunState, before: Snapshot, records, tolerance: float
         problems.append(f"a negative allocation: {dict(family.sink_allocations)}, overflow {family.overflow}")
     if sum(allocations) > family.undifferentiation_budget + tolerance:
         problems.append(f"allocations {sum(allocations)} exceed the budget {family.undifferentiation_budget}")
+    for other in state.families()[1:]:  # spec revision 28: the families partnering makes; their budgets do not move
+        allocated = [*other.sink_allocations.values(), other.overflow]
+        if any(v < -tolerance for v in allocated) or sum(allocated) > other.undifferentiation_budget + tolerance:
+            problems.append(f"{other.household}: allocations {allocated} outside its budget {other.undifferentiation_budget}")
     return problems
 
 

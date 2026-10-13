@@ -51,3 +51,28 @@ def test_phase_d_record_carries_no_phase_c_wording_and_its_table_matches_its_jso
     table = dict(re.findall(r"^\| `(M11\.C\.\d+)` \| \w+ \| \*\*(\w+)\*\* \|", text, re.M))
     block = json.loads(text.split("```json", 1)[1].split("```", 1)[0])
     assert table == {v["criterion"]: v["outcome"] for v in block} and table
+
+
+# --- Part II, the life course (plan §4.4; spec revision 28) ---
+
+
+def record_text_2() -> str:
+    return (REPO / "docs" / "phase_d2_ensemble_record.md").read_text(encoding="utf-8")
+
+
+def test_phase_d2_record_is_current():
+    match = re.search(r"^code_hash: ([0-9a-f]{64})$", record_text_2(), re.M)
+    assert match, "the record carries no code hash"
+    assert match.group(1) == _tool._record.code_hash(*_tool.HASHED_TOOLS), \
+        "stale: rerun python3 tools/phase_d_record.py --part 2"
+
+
+def test_phase_d2_record_covers_every_criterion_and_names_what_is_not_run():
+    from src.bowen.ensemble.criteria_d2 import CRITERIA_D2
+
+    text = record_text_2()
+    for criterion in CRITERIA_D2.values():
+        assert f"| `{criterion.id}` |" in text, criterion.id
+    for cid in _tool.NOT_RUN_2:
+        assert f"- `{cid}` —" in text, cid
+    assert "Phase C" not in text

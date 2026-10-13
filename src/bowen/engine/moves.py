@@ -354,7 +354,9 @@ def relax_pseudo_self(state: RunState, params: EngineParams) -> list[EffectRecor
         tie = state.ties[tid]
         balance = tie.functioning_balance.get(DEFAULT_AREA, 0.0)
         a, b = (state.people[m] for m in tid.members())
-        if balance == 0 or not (a.alive and b.alive):
+        # M6.3e, revision 28: a balance with someone who has died settles back too, nothing returned to or taken from
+        # the dead beyond the conserved transfer itself.
+        if balance == 0 or not (a.alive or b.alive):
             continue
         borrower, lender = (a, b) if balance * _pole_of(tie, a.id) > 0 else (b, a)  # the over-functioner borrowed
         if (borrower.pseudo_self or 0.0) <= 0 or (lender.pseudo_self or 0.0) >= 0:

@@ -18,7 +18,10 @@ no one's breadth reaches `estimator_breadth` and no rise is possible under any r
 reading is pinned by tests/bowen/test_slow_tick.py instead. Moved 2026-10-12 by revision 24 (B7: the symptom integrand
 read above the usual level, the channels, lock-in and removal; behaviour), and by revisions 25-27 (attribution and the
 family's focus, belief in the witness's appraisal, the marital-distance gate, the tie-weighted cross-person term, and
-borrowed pseudo-self settling back; behaviour).
+borrowed pseudo-self settling back; behaviour). Moved 2026-10-13 by spec revision 28 (Phase D part II, plan step L1:
+the phase_d family now carries its life course — the owner's starting ages, the children's derived values, the coach
+tied to the coachee only — so its run changed; behaviour). The phase_c fingerprint did not move: a run with no life
+course is unchanged by part II.
 """
 
 from __future__ import annotations
@@ -40,7 +43,7 @@ REPO = Path(__file__).resolve().parents[2]
 GOLDEN = {
     # (family, seed, weeks): fingerprint
     ("phase_c", 7, 104): "61787089648f79bab229711b614af1cb8d89af801ce98fab4152179f4854af2d",
-    ("phase_d", 11, 208): "d860880a9b5b45e92e0d65cbcbab1b74e297f9000982149792b2ec8d9b563cf9",
+    ("phase_d", 11, 208): "9da734a291dfbbb97167edf3868bf4a556390e84dfc95a9f57619de1e126146f",
 }
 
 

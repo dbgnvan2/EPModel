@@ -45,16 +45,20 @@ def _on(event, tie) -> bool:
     return event.sender in (a, b) and ({a, b} - {event.sender}) <= set(event.targets)
 
 
-def sink_weights(state: RunState, params: EngineParams) -> dict[str, float]:
+def sink_weights(state: RunState, params: EngineParams, family=None) -> dict[str, float]:
     """Purpose: how strongly the family's recent acts express each sink and the overflow.
     Spec:    docs/bowen_agent_model_spec_v2.md#M1.D.1, #M1.D.3
     Tests:   tests/bowen/test_sinks.py::test_m1d1_marital_conflict_draws_the_budget_to_its_sink
+
+    ``family`` defaults to the reference family; spec revision 28 adds the families partnering makes (`M7.C.1h`).
     """
-    family = state.family
+    family = family or state.family
     weights = {Sink.MARITAL_CONFLICT.value: 0.0, Sink.SPOUSE_DYSFUNCTION.value: 0.0,
                Sink.CHILD_PROJECTION.value: 0.0, OVERFLOW: 0.0}
     spouses: set[PersonId] = set(family.marital_tie.members()) if family.marital_tie else set()
     for event in state.store.moves_in(state.tick - params.sink_window, state.tick):
+        if any(not state.people[p].alive for p in (event.sender, *event.targets) if p is not None):
+            continue  # M6.3f, revision 28: an act with someone since dead no longer draws the budget
         if family.marital_tie and _on(event, family.marital_tie):
             if event.kind == CONFLICT:
                 weights[Sink.MARITAL_CONFLICT.value] += 1
@@ -73,23 +77,33 @@ def allocate_sinks(state: RunState, params: EngineParams) -> list[EffectRecord]:
     Spec:    docs/bowen_agent_model_spec_v2.md#M1.D.1, #M1.D.3, #M6.I.1
     Tests:   tests/bowen/test_sinks.py::test_m6i1_allocation_conserves_the_budget
     """
-    family = state.family
-    weights = sink_weights(state, params)
+    records = []
+    for family in state.families():
+        if family.dissolved:
+            continue  # M6.3f, revision 28: both spouses have died
+        records += _allocate(state, params, family)
+    return records
+
+
+def _allocate(state: RunState, params: EngineParams, family) -> list[EffectRecord]:
+    weights = sink_weights(state, params, family)
     total = sum(weights.values())
     if total <= 0 or family.undifferentiation_budget <= 0:
         return []
+    # The reference family's rows keep their names; another family's carry its household (revision 28).
+    prefix = "" if family is state.family else f"{family.household}/"
     changes = []
     for sink in Sink:
         target = family.undifferentiation_budget * weights[sink.value] / total
         delta = params.sink_rate * (target - family.sink_allocations[sink])
         family.sink_allocations[sink] += delta
         if delta:
-            changes.append((f"sink:{sink.value}", delta))
+            changes.append((f"{prefix}sink:{sink.value}", delta))
     target = family.undifferentiation_budget * weights[OVERFLOW] / total
     delta = params.sink_rate * (target - family.overflow)
     family.overflow += delta
     if delta:
-        changes.append((f"sink:{OVERFLOW}", delta))
+        changes.append((f"{prefix}sink:{OVERFLOW}", delta))
     return [EffectRecord(state.tick, "sink_allocation", None, sinks=tuple(changes))] if changes else []
 
 

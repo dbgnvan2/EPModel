@@ -59,7 +59,7 @@ def test_m11g4_belief_and_truth_are_reported_apart_and_the_framing_travels():
     assert set(pattern) == {"truth", "belief"}
     assert abs(sum(pattern["truth"].values()) - 1.0) < 1e-9 or sum(pattern["truth"].values()) == 0
     assert "M11.F.9" in EVALUATION["framing"] and "M11.F.10" in EVALUATION["framing"]
-    assert "not computable" in EVALUATION["multigenerational"]["projection_line"]
+    assert "not built" in EVALUATION["multigenerational"]["projection_line"]
     assert set(EVALUATION["multigenerational"]["basic_level_by_generation"]) == {1, 2, 3}
 
 

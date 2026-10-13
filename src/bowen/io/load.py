@@ -14,7 +14,7 @@ from src.bowen.engine.events import EventKinds
 from src.bowen.policy.rules import PolicyRules
 from src.bowen.scenario.constants import RETIRED, SCHEMA, Constants, parse_constants
 from src.bowen.scenario.event_kinds import parse_event_kinds
-from src.bowen.scenario.family import FamilyInstance, build_family
+from src.bowen.scenario.family import FamilyInstance, build_family, partners_file
 from src.bowen.scenario.policy_rules import parse_policy_rules
 from src.bowen.scenario.scripted_source import ScriptedSource, build_script
 
@@ -119,7 +119,12 @@ def load_family(path: Path = CONFIG_DIR / "family_reduced.md", constants: Consta
     Spec:    docs/bowen_agent_model_spec_v2.md#M2.1
     Tests:   tests/bowen/test_family.py::test_m21_family_declared_in_markdown
     """
-    return build_family(read_text(path), constants or load_constants(), source=str(path))
+    text = read_text(path)
+    partners = partners_file(text)  # spec revision 28: a family with a life course names its partner settings
+    partners_path = Path(path).parent / partners if partners else None
+    return build_family(text, constants or load_constants(), source=str(path),
+                        partners_text=read_text(partners_path) if partners_path else None,
+                        partners_source=str(partners_path))
 
 
 def load_script(

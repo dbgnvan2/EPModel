@@ -12,13 +12,13 @@
 | Header | |
 |---|---|
 | seed | 7 |
-| config hash | `8486d2fcb574e4161b284eb2903e55232ff35250db5b6980624caf59fbe09eb7` |
-| spec revision | 2.0, revision 27 |
+| config hash | `f853e082d890d1bbd21f70abaeaba468b15fb3f017cd42ca9998537b194d908f` |
+| spec revision | 2.0, revision 28 |
 | family instance | phase_c |
 | activation | synchronous_activation v1 (synchronous) |
 | visibility | household_conductance_visibility v1 |
 | constants frozen | 2026-10-07 |
-| constants changed since freeze | attribution_rate, belief_appraisal_gain, channel_protection, constitution_strength, declared_rejection, estimator_breadth, estimator_rate, estimator_sd_weight, estimator_window, exchange_window, focus_rate, lock_in_gain, lock_in_turn, marital_distance_fraction, pattern_min_acts, pattern_projection_hold, pattern_window, perspective_channel_gain, perspective_steer_gain, practice_window, pseudo_self_relaxation_rate, refusal_cost_gain, rejection_cutoff_gain, rejection_fade, rejection_refusal_gain, rejection_refusal_threshold, rejection_relief, response_down_gain, response_relaxation_rate, response_up_gain, self_practice_gain, soothing_review_every, soothing_review_penalty, stress_floor_below_basic, stressor_persistence, system_adjust_gain, tie_wear_rate, usual_level_rate, wear_offset_per_act |
+| constants changed since freeze | acting_age_years, attribution_rate, belief_appraisal_gain, birth_focus_gain, budget_per_undifferentiation, channel_protection, coach_retirement_age_years, coach_start_age_years, constitution_strength, death_transfer_share, declared_rejection, development_band, development_end_age_years, development_rate, development_start_age_years, estimator_breadth, estimator_rate, estimator_sd_weight, estimator_window, exchange_window, find_work_pressure_scale, find_work_rate, focus_rate, grief_extra_weeks, grief_min_weeks, grief_scale, income_loss_intensity, income_shortfall_share, launch_age_years, lock_in_gain, lock_in_turn, marital_distance_fraction, mortality_a, mortality_b, new_tie_investment_share, pattern_min_acts, pattern_projection_hold, pattern_window, perspective_channel_gain, perspective_steer_gain, practice_window, pseudo_self_relaxation_rate, refusal_cost_gain, rejection_cutoff_gain, rejection_fade, rejection_refusal_gain, rejection_refusal_threshold, rejection_relief, response_down_gain, response_relaxation_rate, response_up_gain, self_practice_gain, soothing_review_every, soothing_review_penalty, stress_floor_below_basic, stressor_persistence, system_adjust_gain, tie_wear_rate, usual_level_rate, wear_offset_per_act, witnessed_gain, working_age_years |
 
 The standing load, the decay toward each person's floor, the relaxation of felt contact, symptom accumulation, a symptom's hold on the family's anxiety (lock-in), investment, the reactive detectors, outside-ness, attribution, the family's focus and borrowed pseudo-self settling back run every week for everyone and are not listed line by line. Effects are shown beside the event that caused them.
 

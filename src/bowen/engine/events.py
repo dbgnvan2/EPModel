@@ -31,6 +31,8 @@ class Mechanism(enum.Enum):
     BINDER_UNAVAILABLE = "binder_unavailable"  # M1.F.9
     EXOGENOUS_STRESSOR = "exogenous_stressor"  # M1.F.6 — a spell, never a per-tick draw
     ENDOGENOUS_SYMPTOM = "endogenous_symptom"  # M7.D.1 — emitted when symptom load crosses threshold (M1.F.7)
+    LIFE_EVENT = "life_event"                  # M7.C.1, revision 28 — a death, birth, partnering, launch or FIND_WORK:
+                                               # delivered so it counts as a nodal event, never appraised
 
 
 TIE_MECHANISMS = frozenset({Mechanism.TRIGGER, Mechanism.RECONCILIATION})

@@ -13,8 +13,8 @@ the forms are Claude's recommendation, pending owner review.
 2. **Binding pattern** — the sink allocation's shares (truth) and the sink the spouses' attributions name (belief).
 3. **Intensity** — the budget's occupancy (the allocations and overflow over the budget) and the members' mean
    excess anxiety at the end.
-4. **The multigenerational picture** — mean basic level by generation. *The projection line needs children born in
-   the run, which is Phase D part II; it is reported as not computable.*
+4. **The multigenerational picture** — mean basic level by generation. *Children are born in the run from Phase D
+   part II (spec revision 28), but the projection line is not yet read; it is reported as not built.*
 5. **Cutoff with the families of origin** — each origin tie's bond energy and whether it is cut off.
 6. **Stress** — the exogenous and endogenous events in the window, counted and summed by intensity, separately.
 7. **Adaptiveness** — derived: the members' automatic acts in the window per unit of exogenous stress intensity.
@@ -47,7 +47,9 @@ def evaluate(state: RunState, records, params: EngineParams, framing: str, windo
     Spec:    docs/bowen_agent_model_spec_v2.md#M11.G.1, #M11.G.2, #M11.G.3, #M11.G.4
     Tests:   tests/bowen/test_evaluation.py::test_m11g1_the_evaluation_has_exactly_components_one_to_eight
     """
-    members = sorted(p for p, person in state.people.items() if person.role is Role.MEMBER and person.alive)
+    # Revision 28: an inactive family-of-origin holder is not counted as a member (M7.C.1h).
+    members = sorted(p for p, person in state.people.items()
+                     if person.role is Role.MEMBER and person.alive and not person.inactive)
     since = state.tick - window
     family = state.family
     spouses = tuple(sorted(family.marital_tie.members())) if family.marital_tie else ()
@@ -96,7 +98,7 @@ def evaluate(state: RunState, records, params: EngineParams, framing: str, windo
         },
         "multigenerational": {
             "basic_level_by_generation": {g: sum(v) / len(v) for g, v in sorted(by_generation.items())},
-            "projection_line": "not computable: needs children born in the run (Phase D part II)",
+            "projection_line": "not built: children are born in the run from Phase D part II, but the line is not yet read",
         },
         "cutoff": {str(t): {"bond_energy": state.ties[t].bond_energy, "cut_off": state.ties[t].rejected()}
                    for t in family.origin_ties if t in state.ties},

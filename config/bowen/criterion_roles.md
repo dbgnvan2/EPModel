@@ -14,3 +14,7 @@
 | phase_c | target | marta |
 | phase_c | third | nadia |
 | phase_c | coach | halim |
+| phase_d | parent_1 | ravi |
+| phase_d | parent_2 | marta |
+| phase_d | cut_off_a | ravi |
+| phase_d | cut_off_b | dario |

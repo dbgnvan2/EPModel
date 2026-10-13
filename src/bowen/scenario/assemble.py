@@ -13,6 +13,7 @@ from dataclasses import dataclass
 
 from src.bowen.engine.activation import SynchronousActivation, activation_for
 from src.bowen.engine.initialise import initialise_run
+from src.bowen.engine.life_course import new_life_course
 from src.bowen.engine.events import EventKinds
 from src.bowen.engine.params import EngineParams
 from src.bowen.engine.state import RunState, new_run_state
@@ -43,10 +44,13 @@ def assemble(
         params = dataclasses.replace(params, **overrides)
     state = new_run_state(dict(family.people), dict(family.ties), family.family, kinds, seed=seed)
     initialise_run(state, params)
+    if family.life is not None:  # spec revision 28: the life course (Phase D part II)
+        new_life_course(state, family.life, {p: tuple(sorted(family.parents_of(p))) for p in family.people
+                                             if family.parents_of(p)}, params)
     return Assembled(
         state=state,
         source=source,
         params=params,
         visibility=HouseholdConductanceVisibility(params.per_hop_fidelity),
-        activation=activation_for(constants.activation_regime),
+        activation=activation_for(constants.activation_regime, params.acting_age_years),
     )

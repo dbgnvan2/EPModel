@@ -12,6 +12,11 @@
 > * `run_after` — weeks run after the scripted act's week, so the run is `t0 + run_after` weeks long.
 > * `level_*` — how far every member's basic and functional level is lowered in that arm.
 >
+> **Phase D part II, 2026-10-13** (`src/bowen/ensemble/criteria_d2.py`; the life course, spec revision 28, Claude's
+> recommendation pending owner review): `M11.C.15`'s mother carries a symptom held at `severity` (as `M11.C.12`'s)
+> until `change_week`, when she dies or recovers, and the others are read for `after` weeks; `M11.C.6`, `M11.C.10`
+> and the twelve-person `M11.C.2` run the reference family for `years`.
+>
 > **Phase D, 2026-10-11** (`src/bowen/ensemble/criteria_d.py`; the estimator's criteria, spec revision 17):
 > * `nodal` — the declared nodal load: one event every `every` weeks to each named person, cycling through the three
 >   kinds, so every estimator window holds all three (`estimator_breadth`).
@@ -140,6 +145,12 @@
 | M11.C.14 | act_every | 2 |
 | M11.C.14 | start_severity | 1.2 |
 | M11.C.2 | weeks | 520 |
+| M11.C.2 | years | 40 |
+| M11.C.15 | severity | 1.5 |
+| M11.C.15 | change_week | 52 |
+| M11.C.15 | after | 52 |
+| M11.C.6 | years | 40 |
+| M11.C.10 | years | 40 |
 | M11.C.39 | spell_weeks | 26 |
 | M11.C.39 | after | 52 |
 | M11.C.39 | quiet | 8 |

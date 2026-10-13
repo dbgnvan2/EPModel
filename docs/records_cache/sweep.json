@@ -1,2217 +1,5 @@
 {
- "02cd8235cb113143a38a818beb030a7a3063dd6de17432c26c5b66fc60c1f5fb": {
-  "criterion": "M11.C.27[unstable,add_third]",
-  "outcome": "FAIL",
-  "readouts": [
-   {
-    "direction": -1,
-    "half_width": 0.03774079548316174,
-    "mean_difference": 0.026590645045879827,
-    "readout": "pair_deviation",
-    "report_only": false
-   },
-   {
-    "direction": -1,
-    "half_width": 0.03774079548316174,
-    "mean_difference": 0.026590645045879827,
-    "readout": "pair_deviation_week_1",
-    "report_only": true
-   },
-   {
-    "direction": -1,
-    "half_width": 0.05861371642195247,
-    "mean_difference": 0.06902052026757803,
-    "readout": "pair_deviation_week_2",
-    "report_only": true
-   },
-   {
-    "direction": -1,
-    "half_width": 0.05660253783226654,
-    "mean_difference": 0.06918391043345534,
-    "readout": "pair_deviation_week_3",
-    "report_only": true
-   },
-   {
-    "direction": -1,
-    "half_width": 0.044432536713712605,
-    "mean_difference": 0.08997197824607532,
-    "readout": "pair_deviation_week_4",
-    "report_only": true
-   },
-   {
-    "direction": -1,
-    "half_width": 0.04372111597411097,
-    "mean_difference": 0.07282391178498587,
-    "readout": "pair_deviation_week_5",
-    "report_only": true
-   },
-   {
-    "direction": -1,
-    "half_width": 0.039232623761045256,
-    "mean_difference": 0.07965873581232524,
-    "readout": "pair_deviation_week_6",
-    "report_only": true
-   },
-   {
-    "direction": -1,
-    "half_width": 0.04176780565107691,
-    "mean_difference": 0.0897727823573605,
-    "readout": "pair_deviation_week_7",
-    "report_only": true
-   },
-   {
-    "direction": -1,
-    "half_width": 0.04561033927860561,
-    "mean_difference": 0.10694572895913501,
-    "readout": "pair_deviation_week_8",
-    "report_only": true
-   },
-   {
-    "direction": -1,
-    "half_width": 0.04644311409322921,
-    "mean_difference": 0.06008271530809486,
-    "readout": "pair_deviation_week_9",
-    "report_only": true
-   },
-   {
-    "direction": -1,
-    "half_width": 0.04972223095124541,
-    "mean_difference": 0.050067167937523686,
-    "readout": "pair_deviation_week_10",
-    "report_only": true
-   },
-   {
-    "direction": -1,
-    "half_width": 0.06184213319596536,
-    "mean_difference": 0.021797023287776246,
-    "readout": "pair_deviation_week_11",
-    "report_only": true
-   },
-   {
-    "direction": -1,
-    "half_width": 0.06435930187175003,
-    "mean_difference": 0.050383742849841734,
-    "readout": "pair_deviation_week_12",
-    "report_only": true
-   }
-  ],
-  "seeds": 50
- },
- "0d09af1997ba22221c8b4a2af63ec1f0952d29c5b69a58596a36c228153d3690": {
-  "criterion": "M11.C.16",
-  "outcome": "PASS",
-  "readouts": [
-   {
-    "direction": -1,
-    "half_width": 0.004792530942363414,
-    "mean_difference": -0.032606138316790025,
-    "readout": "repertoire_entropy",
-    "report_only": false
-   },
-   {
-    "direction": 1,
-    "half_width": 0.00741958741904796,
-    "mean_difference": 0.04178382275946281,
-    "readout": "top_move_share",
-    "report_only": true
-   }
-  ],
-  "seeds": 150
- },
- "11532e2a7adf5b832d12dd0f0785640ca118aee55bc161ba1c808738cf8434f4": {
-  "criterion": "M11.C.45",
-  "outcome": "FAIL",
-  "readouts": [
-   {
-    "direction": 1,
-    "half_width": 0.00473641065138844,
-    "mean_difference": -0.003333333333333333,
-    "readout": "triangle_rate",
-    "report_only": false
-   }
-  ],
-  "seeds": 100
- },
- "16e7dc201fd229b71225410f778f6452e2cb43f15155b984be4104ac950f82de": {
-  "criterion": "M11.C.27[unstable,add_third]",
-  "outcome": "FAIL",
-  "readouts": [
-   {
-    "direction": -1,
-    "half_width": 0.03563524369496292,
-    "mean_difference": 0.027822957083966822,
-    "readout": "pair_deviation",
-    "report_only": false
-   },
-   {
-    "direction": -1,
-    "half_width": 0.03563524369496292,
-    "mean_difference": 0.027822957083966822,
-    "readout": "pair_deviation_week_1",
-    "report_only": true
-   },
-   {
-    "direction": -1,
-    "half_width": 0.038167656966989094,
-    "mean_difference": 0.04911749287481158,
-    "readout": "pair_deviation_week_2",
-    "report_only": true
-   },
-   {
-    "direction": -1,
-    "half_width": 0.04978314334513207,
-    "mean_difference": 0.08704576682874463,
-    "readout": "pair_deviation_week_3",
-    "report_only": true
-   },
-   {
-    "direction": -1,
-    "half_width": 0.05097441841682424,
-    "mean_difference": 0.06458347697988903,
-    "readout": "pair_deviation_week_4",
-    "report_only": true
-   },
-   {
-    "direction": -1,
-    "half_width": 0.04211209713723366,
-    "mean_difference": 0.06572181109382483,
-    "readout": "pair_deviation_week_5",
-    "report_only": true
-   },
-   {
-    "direction": -1,
-    "half_width": 0.04770237537018739,
-    "mean_difference": 0.0928984598188878,
-    "readout": "pair_deviation_week_6",
-    "report_only": true
-   },
-   {
-    "direction": -1,
-    "half_width": 0.04384707356982533,
-    "mean_difference": 0.07899232469333016,
-    "readout": "pair_deviation_week_7",
-    "report_only": true
-   },
-   {
-    "direction": -1,
-    "half_width": 0.04542889315267235,
-    "mean_difference": 0.029184616248918296,
-    "readout": "pair_deviation_week_8",
-    "report_only": true
-   },
-   {
-    "direction": -1,
-    "half_width": 0.059031516502111185,
-    "mean_difference": 0.07599576853497667,
-    "readout": "pair_deviation_week_9",
-    "report_only": true
-   },
-   {
-    "direction": -1,
-    "half_width": 0.04985016872606571,
-    "mean_difference": 0.06588612044677149,
-    "readout": "pair_deviation_week_10",
-    "report_only": true
-   },
-   {
-    "direction": -1,
-    "half_width": 0.06669175951780143,
-    "mean_difference": 0.0340745256167989,
-    "readout": "pair_deviation_week_11",
-    "report_only": true
-   },
-   {
-    "direction": -1,
-    "half_width": 0.06280106230507418,
-    "mean_difference": 0.04665150977128282,
-    "readout": "pair_deviation_week_12",
-    "report_only": true
-   }
-  ],
-  "seeds": 50
- },
- "1b6662421aeac31ba76318b9efdad980082d5f68258d02f2018ecd663dd0afea": {
-  "criterion": "M11.C.27[unstable,remove_one]",
-  "outcome": "PASS",
-  "readouts": [
-   {
-    "direction": -1,
-    "half_width": 0.059363041382292654,
-    "mean_difference": -0.06572228259648628,
-    "readout": "pair_deviation",
-    "report_only": false
-   },
-   {
-    "direction": -1,
-    "half_width": 0.059363041382292654,
-    "mean_difference": -0.06572228259648628,
-    "readout": "pair_deviation_week_1",
-    "report_only": true
-   },
-   {
-    "direction": -1,
-    "half_width": 0.06546826043648496,
-    "mean_difference": -0.03356938973197736,
-    "readout": "pair_deviation_week_2",
-    "report_only": true
-   },
-   {
-    "direction": -1,
-    "half_width": 0.06661443643423863,
-    "mean_difference": 0.00860654839769133,
-    "readout": "pair_deviation_week_3",
-    "report_only": true
-   },
-   {
-    "direction": -1,
-    "half_width": 0.06638924087025577,
-    "mean_difference": 0.10391340190929013,
-    "readout": "pair_deviation_week_4",
-    "report_only": true
-   },
-   {
-    "direction": -1,
-    "half_width": 0.06562470498970811,
-    "mean_difference": 0.16506397276235127,
-    "readout": "pair_deviation_week_5",
-    "report_only": true
-   },
-   {
-    "direction": -1,
-    "half_width": 0.06493317038992301,
-    "mean_difference": 0.21017150252719405,
-    "readout": "pair_deviation_week_6",
-    "report_only": true
-   },
-   {
-    "direction": -1,
-    "half_width": 0.06164177039325826,
-    "mean_difference": 0.2722298743137951,
-    "readout": "pair_deviation_week_7",
-    "report_only": true
-   },
-   {
-    "direction": -1,
-    "half_width": 0.07831158336392505,
-    "mean_difference": 0.2680307629069126,
-    "readout": "pair_deviation_week_8",
-    "report_only": true
-   },
-   {
-    "direction": -1,
-    "half_width": 0.07566036595545311,
-    "mean_difference": 0.2562219866608006,
-    "readout": "pair_deviation_week_9",
-    "report_only": true
-   },
-   {
-    "direction": -1,
-    "half_width": 0.10171750375550435,
-    "mean_difference": 0.2774067447508417,
-    "readout": "pair_deviation_week_10",
-    "report_only": true
-   },
-   {
-    "direction": -1,
-    "half_width": 0.09176451162921066,
-    "mean_difference": 0.24117830187235179,
-    "readout": "pair_deviation_week_11",
-    "report_only": true
-   },
-   {
-    "direction": -1,
-    "half_width": 0.08410622397947015,
-    "mean_difference": 0.24529838753372624,
-    "readout": "pair_deviation_week_12",
-    "report_only": true
-   }
-  ],
-  "seeds": 50
- },
- "1b6da984eb900064f4389d0ad1685eb13c254462e0a7f535dd9e42745e6e2896": {
-  "criterion": "M11.C.27[stable,remove_one]",
-  "outcome": "FAIL",
-  "readouts": [
-   {
-    "direction": 1,
-    "half_width": 0.06039843407641476,
-    "mean_difference": -0.07627580828386642,
-    "readout": "pair_deviation",
-    "report_only": false
-   },
-   {
-    "direction": 1,
-    "half_width": 0.06039843407641476,
-    "mean_difference": -0.07627580828386642,
-    "readout": "pair_deviation_week_1",
-    "report_only": true
-   },
-   {
-    "direction": 1,
-    "half_width": 0.06572191542084328,
-    "mean_difference": -0.03493263859799575,
-    "readout": "pair_deviation_week_2",
-    "report_only": true
-   },
-   {
-    "direction": 1,
-    "half_width": 0.05369779822859424,
-    "mean_difference": 0.025551653790806848,
-    "readout": "pair_deviation_week_3",
-    "report_only": true
-   },
-   {
-    "direction": 1,
-    "half_width": 0.056095023431336405,
-    "mean_difference": 0.10296260747844975,
-    "readout": "pair_deviation_week_4",
-    "report_only": true
-   },
-   {
-    "direction": 1,
-    "half_width": 0.060001936350001873,
-    "mean_difference": 0.14356840202944265,
-    "readout": "pair_deviation_week_5",
-    "report_only": true
-   },
-   {
-    "direction": 1,
-    "half_width": 0.06352840321710256,
-    "mean_difference": 0.1756833958716693,
-    "readout": "pair_deviation_week_6",
-    "report_only": true
-   },
-   {
-    "direction": 1,
-    "half_width": 0.06829699808199018,
-    "mean_difference": 0.24782199623838838,
-    "readout": "pair_deviation_week_7",
-    "report_only": true
-   },
-   {
-    "direction": 1,
-    "half_width": 0.06344552140378967,
-    "mean_difference": 0.2551654422200826,
-    "readout": "pair_deviation_week_8",
-    "report_only": true
-   },
-   {
-    "direction": 1,
-    "half_width": 0.06674235979306942,
-    "mean_difference": 0.2749225661281587,
-    "readout": "pair_deviation_week_9",
-    "report_only": true
-   },
-   {
-    "direction": 1,
-    "half_width": 0.07857887667441155,
-    "mean_difference": 0.2953014670407287,
-    "readout": "pair_deviation_week_10",
-    "report_only": true
-   },
-   {
-    "direction": 1,
-    "half_width": 0.0861216872272481,
-    "mean_difference": 0.33516054845060766,
-    "readout": "pair_deviation_week_11",
-    "report_only": true
-   },
-   {
-    "direction": 1,
-    "half_width": 0.08060881616775069,
-    "mean_difference": 0.2917187002880729,
-    "readout": "pair_deviation_week_12",
-    "report_only": true
-   }
-  ],
-  "seeds": 50
- },
- "1cab4048294961598c5853f68089f6ed9bbcec0c74ce50f1a8af634141c5783d": {
-  "criterion": "M11.C.44",
-  "outcome": "FAIL",
-  "readouts": [
-   {
-    "direction": 1,
-    "half_width": 0.10630111428853753,
-    "mean_difference": -0.037623416450723056,
-    "readout": "outside_inside_ratio",
-    "report_only": false
-   }
-  ],
-  "seeds": 150
- },
- "2137ca4bbe09d91017539497412bfd4a31a8f9be9b30631b0eed5ece82ea98fb": {
-  "criterion": "M11.C.27[unstable,add_third]",
-  "outcome": "FAIL",
-  "readouts": [
-   {
-    "direction": -1,
-    "half_width": 0.037433050020568064,
-    "mean_difference": 0.024163649873301905,
-    "readout": "pair_deviation",
-    "report_only": false
-   },
-   {
-    "direction": -1,
-    "half_width": 0.037433050020568064,
-    "mean_difference": 0.024163649873301905,
-    "readout": "pair_deviation_week_1",
-    "report_only": true
-   },
-   {
-    "direction": -1,
-    "half_width": 0.05823722257420771,
-    "mean_difference": 0.06527420103484358,
-    "readout": "pair_deviation_week_2",
-    "report_only": true
-   },
-   {
-    "direction": -1,
-    "half_width": 0.05587941678714392,
-    "mean_difference": 0.07595238478492404,
-    "readout": "pair_deviation_week_3",
-    "report_only": true
-   },
-   {
-    "direction": -1,
-    "half_width": 0.04669217207405238,
-    "mean_difference": 0.07147763256459305,
-    "readout": "pair_deviation_week_4",
-    "report_only": true
-   },
-   {
-    "direction": -1,
-    "half_width": 0.040671233983062,
-    "mean_difference": 0.07096441223278341,
-    "readout": "pair_deviation_week_5",
-    "report_only": true
-   },
-   {
-    "direction": -1,
-    "half_width": 0.03466665392836319,
-    "mean_difference": 0.06933830874798474,
-    "readout": "pair_deviation_week_6",
-    "report_only": true
-   },
-   {
-    "direction": -1,
-    "half_width": 0.03566696163469134,
-    "mean_difference": 0.09055048000250673,
-    "readout": "pair_deviation_week_7",
-    "report_only": true
-   },
-   {
-    "direction": -1,
-    "half_width": 0.041788809590065784,
-    "mean_difference": 0.07707054287136259,
-    "readout": "pair_deviation_week_8",
-    "report_only": true
-   },
-   {
-    "direction": -1,
-    "half_width": 0.04594149692142813,
-    "mean_difference": 0.05312481388571591,
-    "readout": "pair_deviation_week_9",
-    "report_only": true
-   },
-   {
-    "direction": -1,
-    "half_width": 0.048575665395572155,
-    "mean_difference": 0.037435631332548756,
-    "readout": "pair_deviation_week_10",
-    "report_only": true
-   },
-   {
-    "direction": -1,
-    "half_width": 0.05013998697026882,
-    "mean_difference": 0.02191385661164643,
-    "readout": "pair_deviation_week_11",
-    "report_only": true
-   },
-   {
-    "direction": -1,
-    "half_width": 0.04837773347539633,
-    "mean_difference": 0.06152715026475538,
-    "readout": "pair_deviation_week_12",
-    "report_only": true
-   }
-  ],
-  "seeds": 50
- },
- "23b21a4851345e8bb40a91b5f27359c3c95823f1b01eb1836acdbaf5dfd94ecb": {
-  "criterion": "M11.C.27[unstable,remove_one]",
-  "outcome": "FAIL",
-  "readouts": [
-   {
-    "direction": -1,
-    "half_width": 0.06035985105686796,
-    "mean_difference": -0.05175636487031171,
-    "readout": "pair_deviation",
-    "report_only": false
-   },
-   {
-    "direction": -1,
-    "half_width": 0.06035985105686796,
-    "mean_difference": -0.05175636487031171,
-    "readout": "pair_deviation_week_1",
-    "report_only": true
-   },
-   {
-    "direction": -1,
-    "half_width": 0.06373450076235097,
-    "mean_difference": -0.019735090700607284,
-    "readout": "pair_deviation_week_2",
-    "report_only": true
-   },
-   {
-    "direction": -1,
-    "half_width": 0.06773717033432992,
-    "mean_difference": 0.041594918005653465,
-    "readout": "pair_deviation_week_3",
-    "report_only": true
-   },
-   {
-    "direction": -1,
-    "half_width": 0.06601718414518214,
-    "mean_difference": 0.06494434603642363,
-    "readout": "pair_deviation_week_4",
-    "report_only": true
-   },
-   {
-    "direction": -1,
-    "half_width": 0.06498788058545775,
-    "mean_difference": 0.10380808635486558,
-    "readout": "pair_deviation_week_5",
-    "report_only": true
-   },
-   {
-    "direction": -1,
-    "half_width": 0.06270609844991246,
-    "mean_difference": 0.16951850720021702,
-    "readout": "pair_deviation_week_6",
-    "report_only": true
-   },
-   {
-    "direction": -1,
-    "half_width": 0.05750370284393332,
-    "mean_difference": 0.2248116995554981,
-    "readout": "pair_deviation_week_7",
-    "report_only": true
-   },
-   {
-    "direction": -1,
-    "half_width": 0.052023925157118,
-    "mean_difference": 0.20723276673050095,
-    "readout": "pair_deviation_week_8",
-    "report_only": true
-   },
-   {
-    "direction": -1,
-    "half_width": 0.05370610976236496,
-    "mean_difference": 0.1805197013971277,
-    "readout": "pair_deviation_week_9",
-    "report_only": true
-   },
-   {
-    "direction": -1,
-    "half_width": 0.0540546650475681,
-    "mean_difference": 0.21256120640689669,
-    "readout": "pair_deviation_week_10",
-    "report_only": true
-   },
-   {
-    "direction": -1,
-    "half_width": 0.07366174746421873,
-    "mean_difference": 0.24016574166217228,
-    "readout": "pair_deviation_week_11",
-    "report_only": true
-   },
-   {
-    "direction": -1,
-    "half_width": 0.07195663726857056,
-    "mean_difference": 0.26395964378997383,
-    "readout": "pair_deviation_week_12",
-    "report_only": true
-   }
-  ],
-  "seeds": 50
- },
- "2650675e5bd99110b3bbab5b859b2f1b0b7c3c2c82adc3583d2ff8cff93b4fb9": {
-  "criterion": "M11.C.45",
-  "outcome": "FAIL",
-  "readouts": [
-   {
-    "direction": 1,
-    "half_width": 0.005609453387987904,
-    "mean_difference": 0.0006250000000000001,
-    "readout": "triangle_rate",
-    "report_only": false
-   }
-  ],
-  "seeds": 100
- },
- "35b53aef23aea0fdd1847127e829e728c7cfb3bc530dc66759f20f7724a34a84": {
-  "criterion": "M11.C.27[unstable,remove_one]",
-  "outcome": "PASS",
-  "readouts": [
-   {
-    "direction": -1,
-    "half_width": 0.060568992212078655,
-    "mean_difference": -0.08402788513797539,
-    "readout": "pair_deviation",
-    "report_only": false
-   },
-   {
-    "direction": -1,
-    "half_width": 0.060568992212078655,
-    "mean_difference": -0.08402788513797539,
-    "readout": "pair_deviation_week_1",
-    "report_only": true
-   },
-   {
-    "direction": -1,
-    "half_width": 0.06847917295498199,
-    "mean_difference": -0.026206566927885016,
-    "readout": "pair_deviation_week_2",
-    "report_only": true
-   },
-   {
-    "direction": -1,
-    "half_width": 0.05916850149897691,
-    "mean_difference": 0.02662370139049755,
-    "readout": "pair_deviation_week_3",
-    "report_only": true
-   },
-   {
-    "direction": -1,
-    "half_width": 0.05606993114221004,
-    "mean_difference": 0.10381900053002592,
-    "readout": "pair_deviation_week_4",
-    "report_only": true
-   },
-   {
-    "direction": -1,
-    "half_width": 0.053609147646869276,
-    "mean_difference": 0.16411035722894896,
-    "readout": "pair_deviation_week_5",
-    "report_only": true
-   },
-   {
-    "direction": -1,
-    "half_width": 0.05250341143240543,
-    "mean_difference": 0.2307982578135783,
-    "readout": "pair_deviation_week_6",
-    "report_only": true
-   },
-   {
-    "direction": -1,
-    "half_width": 0.0722816842223676,
-    "mean_difference": 0.245139859677833,
-    "readout": "pair_deviation_week_7",
-    "report_only": true
-   },
-   {
-    "direction": -1,
-    "half_width": 0.06909437095798357,
-    "mean_difference": 0.225984069104637,
-    "readout": "pair_deviation_week_8",
-    "report_only": true
-   },
-   {
-    "direction": -1,
-    "half_width": 0.07438975249171134,
-    "mean_difference": 0.2245649105855612,
-    "readout": "pair_deviation_week_9",
-    "report_only": true
-   },
-   {
-    "direction": -1,
-    "half_width": 0.06452331659362232,
-    "mean_difference": 0.26609645316233504,
-    "readout": "pair_deviation_week_10",
-    "report_only": true
-   },
-   {
-    "direction": -1,
-    "half_width": 0.07268510402176705,
-    "mean_difference": 0.31940422938167534,
-    "readout": "pair_deviation_week_11",
-    "report_only": true
-   },
-   {
-    "direction": -1,
-    "half_width": 0.07462436196318296,
-    "mean_difference": 0.2821494234671449,
-    "readout": "pair_deviation_week_12",
-    "report_only": true
-   }
-  ],
-  "seeds": 50
- },
- "366d2a15e84f82a1ee515c5238f5ac72d40c8b48c2dfb887fd751c2b184c0083": {
-  "criterion": "M11.C.45",
-  "outcome": "FAIL",
-  "readouts": [
-   {
-    "direction": 1,
-    "half_width": 0.004930283941871376,
-    "mean_difference": -0.0003749999999999988,
-    "readout": "triangle_rate",
-    "report_only": false
-   }
-  ],
-  "seeds": 100
- },
- "37cd1ebce5270bd943d3ccab804fa2096384a9b44801af1fc040e1447d195f05": {
-  "criterion": "M11.C.27[unstable,add_third]",
-  "outcome": "FAIL",
-  "readouts": [
-   {
-    "direction": -1,
-    "half_width": 0.038671735366346605,
-    "mean_difference": 0.03608936958547922,
-    "readout": "pair_deviation",
-    "report_only": false
-   },
-   {
-    "direction": -1,
-    "half_width": 0.038671735366346605,
-    "mean_difference": 0.03608936958547922,
-    "readout": "pair_deviation_week_1",
-    "report_only": true
-   },
-   {
-    "direction": -1,
-    "half_width": 0.06080059594210934,
-    "mean_difference": 0.07165154207109523,
-    "readout": "pair_deviation_week_2",
-    "report_only": true
-   },
-   {
-    "direction": -1,
-    "half_width": 0.04531383990830954,
-    "mean_difference": 0.06782571091323754,
-    "readout": "pair_deviation_week_3",
-    "report_only": true
-   },
-   {
-    "direction": -1,
-    "half_width": 0.049734926916781094,
-    "mean_difference": 0.07014090072163581,
-    "readout": "pair_deviation_week_4",
-    "report_only": true
-   },
-   {
-    "direction": -1,
-    "half_width": 0.04008118702265068,
-    "mean_difference": 0.06548288526823934,
-    "readout": "pair_deviation_week_5",
-    "report_only": true
-   },
-   {
-    "direction": -1,
-    "half_width": 0.04421372081727419,
-    "mean_difference": 0.051323990056042185,
-    "readout": "pair_deviation_week_6",
-    "report_only": true
-   },
-   {
-    "direction": -1,
-    "half_width": 0.03805825224106089,
-    "mean_difference": 0.05412438621871083,
-    "readout": "pair_deviation_week_7",
-    "report_only": true
-   },
-   {
-    "direction": -1,
-    "half_width": 0.042017252634799634,
-    "mean_difference": 0.0699605110643505,
-    "readout": "pair_deviation_week_8",
-    "report_only": true
-   },
-   {
-    "direction": -1,
-    "half_width": 0.053068006117162975,
-    "mean_difference": 0.05775980432845845,
-    "readout": "pair_deviation_week_9",
-    "report_only": true
-   },
-   {
-    "direction": -1,
-    "half_width": 0.05005696872856836,
-    "mean_difference": 0.05325662192173932,
-    "readout": "pair_deviation_week_10",
-    "report_only": true
-   },
-   {
-    "direction": -1,
-    "half_width": 0.05841702728662245,
-    "mean_difference": 0.0465807468002943,
-    "readout": "pair_deviation_week_11",
-    "report_only": true
-   },
-   {
-    "direction": -1,
-    "half_width": 0.07143249270462508,
-    "mean_difference": 0.03522412757551474,
-    "readout": "pair_deviation_week_12",
-    "report_only": true
-   }
-  ],
-  "seeds": 50
- },
- "3a5dc5711bb5e30993eb468df975340eb6152edf682f29e4fab514cc574298f9": {
-  "criterion": "M11.C.5",
-  "outcome": "FAIL",
-  "readouts": [
-   {
-    "direction": 1,
-    "half_width": 10.926607171767811,
-    "mean_difference": 1.2757843753744567,
-    "readout": "target_reaction",
-    "report_only": false
-   },
-   {
-    "direction": 1,
-    "half_width": 5.2229010918092085,
-    "mean_difference": 0.6968149314863217,
-    "readout": "third_person_symptom_load",
-    "report_only": false
-   }
-  ],
-  "seeds": 150
- },
- "3f3d9434561eaa28fdbef3ea79d5fdbc3bf98fe07ca56e102ad5357046dadd0f": {
-  "criterion": "M11.C.44",
-  "outcome": "FAIL",
-  "readouts": [
-   {
-    "direction": 1,
-    "half_width": 0.10258186461531611,
-    "mean_difference": 0.046404539639483565,
-    "readout": "outside_inside_ratio",
-    "report_only": false
-   }
-  ],
-  "seeds": 100
- },
- "4f7e8ca6a16c720e7a38204176272abb32285148c625452410e341b1e58fe282": {
-  "criterion": "M11.C.42",
-  "outcome": "FAIL",
-  "readouts": [
-   {
-    "direction": 1,
-    "half_width": 0.3117948043184812,
-    "mean_difference": 0.0,
-    "readout": "triangle_reuse",
-    "report_only": false
-   }
-  ],
-  "seeds": 50
- },
- "5215dedf9192556db0eeb460ab3a1406d8194397ab899c5cc5f08e93feaf5b60": {
-  "criterion": "M11.C.27[stable,add_third]",
-  "outcome": "FAIL",
-  "readouts": [
-   {
-    "direction": 1,
-    "half_width": 0.03973881763353719,
-    "mean_difference": 0.035379307859383945,
-    "readout": "pair_deviation",
-    "report_only": false
-   },
-   {
-    "direction": 1,
-    "half_width": 0.03973881763353719,
-    "mean_difference": 0.035379307859383945,
-    "readout": "pair_deviation_week_1",
-    "report_only": true
-   },
-   {
-    "direction": 1,
-    "half_width": 0.049561241013247624,
-    "mean_difference": 0.04586652406612364,
-    "readout": "pair_deviation_week_2",
-    "report_only": true
-   },
-   {
-    "direction": 1,
-    "half_width": 0.03980012641058173,
-    "mean_difference": 0.04576847087109408,
-    "readout": "pair_deviation_week_3",
-    "report_only": true
-   },
-   {
-    "direction": 1,
-    "half_width": 0.04537421232096569,
-    "mean_difference": 0.05971219292697802,
-    "readout": "pair_deviation_week_4",
-    "report_only": true
-   },
-   {
-    "direction": 1,
-    "half_width": 0.042744345014533294,
-    "mean_difference": 0.06133421725903267,
-    "readout": "pair_deviation_week_5",
-    "report_only": true
-   },
-   {
-    "direction": 1,
-    "half_width": 0.03832322488704535,
-    "mean_difference": 0.0500298444074206,
-    "readout": "pair_deviation_week_6",
-    "report_only": true
-   },
-   {
-    "direction": 1,
-    "half_width": 0.03303699704109589,
-    "mean_difference": 0.06143770620610371,
-    "readout": "pair_deviation_week_7",
-    "report_only": true
-   },
-   {
-    "direction": 1,
-    "half_width": 0.04037870864130686,
-    "mean_difference": 0.06670104508001408,
-    "readout": "pair_deviation_week_8",
-    "report_only": true
-   },
-   {
-    "direction": 1,
-    "half_width": 0.05924686585415072,
-    "mean_difference": 0.07194149279983098,
-    "readout": "pair_deviation_week_9",
-    "report_only": true
-   },
-   {
-    "direction": 1,
-    "half_width": 0.04747679440631451,
-    "mean_difference": 0.04003895313118286,
-    "readout": "pair_deviation_week_10",
-    "report_only": true
-   },
-   {
-    "direction": 1,
-    "half_width": 0.05078586986942291,
-    "mean_difference": 0.04623235330350375,
-    "readout": "pair_deviation_week_11",
-    "report_only": true
-   },
-   {
-    "direction": 1,
-    "half_width": 0.06610097923721979,
-    "mean_difference": 0.06344169124179538,
-    "readout": "pair_deviation_week_12",
-    "report_only": true
-   }
-  ],
-  "seeds": 50
- },
- "52dcd435614a35aea5ee78056b532c8edd0cc24e9801a6cd892a42ffed9119cd": {
-  "criterion": "M11.C.27[stable,remove_one]",
-  "outcome": "FAIL",
-  "readouts": [
-   {
-    "direction": 1,
-    "half_width": 0.043993787443341995,
-    "mean_difference": -0.031963350954459915,
-    "readout": "pair_deviation",
-    "report_only": false
-   },
-   {
-    "direction": 1,
-    "half_width": 0.043993787443341995,
-    "mean_difference": -0.031963350954459915,
-    "readout": "pair_deviation_week_1",
-    "report_only": true
-   },
-   {
-    "direction": 1,
-    "half_width": 0.04843172009538551,
-    "mean_difference": -0.0252101139475829,
-    "readout": "pair_deviation_week_2",
-    "report_only": true
-   },
-   {
-    "direction": 1,
-    "half_width": 0.04421631716963749,
-    "mean_difference": 0.04630985158896457,
-    "readout": "pair_deviation_week_3",
-    "report_only": true
-   },
-   {
-    "direction": 1,
-    "half_width": 0.04201778573212651,
-    "mean_difference": 0.08852197112564951,
-    "readout": "pair_deviation_week_4",
-    "report_only": true
-   },
-   {
-    "direction": 1,
-    "half_width": 0.04182416047711871,
-    "mean_difference": 0.14216192416560472,
-    "readout": "pair_deviation_week_5",
-    "report_only": true
-   },
-   {
-    "direction": 1,
-    "half_width": 0.041637301843123205,
-    "mean_difference": 0.20996860554277422,
-    "readout": "pair_deviation_week_6",
-    "report_only": true
-   },
-   {
-    "direction": 1,
-    "half_width": 0.047074334149492116,
-    "mean_difference": 0.23807973333817045,
-    "readout": "pair_deviation_week_7",
-    "report_only": true
-   },
-   {
-    "direction": 1,
-    "half_width": 0.05425534010556852,
-    "mean_difference": 0.22895748927509874,
-    "readout": "pair_deviation_week_8",
-    "report_only": true
-   },
-   {
-    "direction": 1,
-    "half_width": 0.0486350058478267,
-    "mean_difference": 0.23680817755963254,
-    "readout": "pair_deviation_week_9",
-    "report_only": true
-   },
-   {
-    "direction": 1,
-    "half_width": 0.05339667364895632,
-    "mean_difference": 0.25668077032610304,
-    "readout": "pair_deviation_week_10",
-    "report_only": true
-   },
-   {
-    "direction": 1,
-    "half_width": 0.05368659443320166,
-    "mean_difference": 0.27023774349436147,
-    "readout": "pair_deviation_week_11",
-    "report_only": true
-   },
-   {
-    "direction": 1,
-    "half_width": 0.052314259254913766,
-    "mean_difference": 0.28441820995134615,
-    "readout": "pair_deviation_week_12",
-    "report_only": true
-   }
-  ],
-  "seeds": 100
- },
- "5bf0a69868fff2a7748e06025731f443fa155334351b3e1dfff1bee6438c4ad2": {
-  "criterion": "M11.C.27[stable,add_third]",
-  "outcome": "FAIL",
-  "readouts": [
-   {
-    "direction": 1,
-    "half_width": 0.03656741257621665,
-    "mean_difference": 0.015577686256045768,
-    "readout": "pair_deviation",
-    "report_only": false
-   },
-   {
-    "direction": 1,
-    "half_width": 0.03656741257621665,
-    "mean_difference": 0.015577686256045768,
-    "readout": "pair_deviation_week_1",
-    "report_only": true
-   },
-   {
-    "direction": 1,
-    "half_width": 0.05960009065917594,
-    "mean_difference": 0.03324142312346963,
-    "readout": "pair_deviation_week_2",
-    "report_only": true
-   },
-   {
-    "direction": 1,
-    "half_width": 0.04333841304556448,
-    "mean_difference": 0.03470387186130119,
-    "readout": "pair_deviation_week_3",
-    "report_only": true
-   },
-   {
-    "direction": 1,
-    "half_width": 0.03626438347973492,
-    "mean_difference": 0.03631529068645856,
-    "readout": "pair_deviation_week_4",
-    "report_only": true
-   },
-   {
-    "direction": 1,
-    "half_width": 0.0426219244745511,
-    "mean_difference": 0.05215965127448551,
-    "readout": "pair_deviation_week_5",
-    "report_only": true
-   },
-   {
-    "direction": 1,
-    "half_width": 0.05287076393597324,
-    "mean_difference": 0.08502539423154863,
-    "readout": "pair_deviation_week_6",
-    "report_only": true
-   },
-   {
-    "direction": 1,
-    "half_width": 0.04855192562423936,
-    "mean_difference": 0.10535919542382147,
-    "readout": "pair_deviation_week_7",
-    "report_only": true
-   },
-   {
-    "direction": 1,
-    "half_width": 0.045502232648990205,
-    "mean_difference": 0.08293317802046582,
-    "readout": "pair_deviation_week_8",
-    "report_only": true
-   },
-   {
-    "direction": 1,
-    "half_width": 0.04561018218077989,
-    "mean_difference": 0.0809388368270006,
-    "readout": "pair_deviation_week_9",
-    "report_only": true
-   },
-   {
-    "direction": 1,
-    "half_width": 0.04607495503898301,
-    "mean_difference": 0.06939051922642181,
-    "readout": "pair_deviation_week_10",
-    "report_only": true
-   },
-   {
-    "direction": 1,
-    "half_width": 0.04178790203384587,
-    "mean_difference": 0.07035480443791314,
-    "readout": "pair_deviation_week_11",
-    "report_only": true
-   },
-   {
-    "direction": 1,
-    "half_width": 0.05033536716674921,
-    "mean_difference": 0.06618323981332543,
-    "readout": "pair_deviation_week_12",
-    "report_only": true
-   }
-  ],
-  "seeds": 50
- },
- "5cf7b510f18ea4bf6487c8c410569bfde921ad6d21d50a6074bb6203f224af17": {
-  "criterion": "M11.C.27[unstable,remove_one]",
-  "outcome": "PASS",
-  "readouts": [
-   {
-    "direction": -1,
-    "half_width": 0.06222856722322677,
-    "mean_difference": -0.07316914281957566,
-    "readout": "pair_deviation",
-    "report_only": false
-   },
-   {
-    "direction": -1,
-    "half_width": 0.06222856722322677,
-    "mean_difference": -0.07316914281957566,
-    "readout": "pair_deviation_week_1",
-    "report_only": true
-   },
-   {
-    "direction": -1,
-    "half_width": 0.06787311567531445,
-    "mean_difference": -0.043162021937473476,
-    "readout": "pair_deviation_week_2",
-    "report_only": true
-   },
-   {
-    "direction": -1,
-    "half_width": 0.06906216795395975,
-    "mean_difference": 0.02351680461798094,
-    "readout": "pair_deviation_week_3",
-    "report_only": true
-   },
-   {
-    "direction": -1,
-    "half_width": 0.056339927202545784,
-    "mean_difference": 0.0724134204273877,
-    "readout": "pair_deviation_week_4",
-    "report_only": true
-   },
-   {
-    "direction": -1,
-    "half_width": 0.06249609446244958,
-    "mean_difference": 0.12906448676869783,
-    "readout": "pair_deviation_week_5",
-    "report_only": true
-   },
-   {
-    "direction": -1,
-    "half_width": 0.0607180133289659,
-    "mean_difference": 0.19122462529006637,
-    "readout": "pair_deviation_week_6",
-    "report_only": true
-   },
-   {
-    "direction": -1,
-    "half_width": 0.052331359378176706,
-    "mean_difference": 0.229910729427274,
-    "readout": "pair_deviation_week_7",
-    "report_only": true
-   },
-   {
-    "direction": -1,
-    "half_width": 0.05447758094037334,
-    "mean_difference": 0.22677470793645033,
-    "readout": "pair_deviation_week_8",
-    "report_only": true
-   },
-   {
-    "direction": -1,
-    "half_width": 0.0619186722088398,
-    "mean_difference": 0.19043161071287593,
-    "readout": "pair_deviation_week_9",
-    "report_only": true
-   },
-   {
-    "direction": -1,
-    "half_width": 0.057506438481524966,
-    "mean_difference": 0.23830356119509144,
-    "readout": "pair_deviation_week_10",
-    "report_only": true
-   },
-   {
-    "direction": -1,
-    "half_width": 0.06827036221599954,
-    "mean_difference": 0.2609015954376813,
-    "readout": "pair_deviation_week_11",
-    "report_only": true
-   },
-   {
-    "direction": -1,
-    "half_width": 0.06763824846157225,
-    "mean_difference": 0.2683629077563199,
-    "readout": "pair_deviation_week_12",
-    "report_only": true
-   }
-  ],
-  "seeds": 50
- },
- "5d04c1b19eb9d438c358c75d86686eddc9a078fa7afe823028456d9fad7c2e1b": {
-  "criterion": "M11.C.5",
-  "outcome": "FAIL",
-  "readouts": [
-   {
-    "direction": 1,
-    "half_width": 8.693532273390714,
-    "mean_difference": -8.572671121958175,
-    "readout": "target_reaction",
-    "report_only": false
-   },
-   {
-    "direction": 1,
-    "half_width": 5.331749458853421,
-    "mean_difference": -1.8428838192746582,
-    "readout": "third_person_symptom_load",
-    "report_only": false
-   }
-  ],
-  "seeds": 100
- },
- "60844749978d3dd97bd7311dc52ada24d6987180ecf576eafb7bd4e326a1c8cb": {
-  "criterion": "M11.C.27[stable,remove_one]",
-  "outcome": "FAIL",
-  "readouts": [
-   {
-    "direction": 1,
-    "half_width": 0.06238238999139901,
-    "mean_difference": -0.05564822611742787,
-    "readout": "pair_deviation",
-    "report_only": false
-   },
-   {
-    "direction": 1,
-    "half_width": 0.06238238999139901,
-    "mean_difference": -0.05564822611742787,
-    "readout": "pair_deviation_week_1",
-    "report_only": true
-   },
-   {
-    "direction": 1,
-    "half_width": 0.06893007886765821,
-    "mean_difference": -0.0012456662021218046,
-    "readout": "pair_deviation_week_2",
-    "report_only": true
-   },
-   {
-    "direction": 1,
-    "half_width": 0.06928240615562138,
-    "mean_difference": 0.08839862427916013,
-    "readout": "pair_deviation_week_3",
-    "report_only": true
-   },
-   {
-    "direction": 1,
-    "half_width": 0.0640918702254455,
-    "mean_difference": 0.1309266427419695,
-    "readout": "pair_deviation_week_4",
-    "report_only": true
-   },
-   {
-    "direction": 1,
-    "half_width": 0.07150739288595695,
-    "mean_difference": 0.1534232409066392,
-    "readout": "pair_deviation_week_5",
-    "report_only": true
-   },
-   {
-    "direction": 1,
-    "half_width": 0.06739897368372652,
-    "mean_difference": 0.19684574169486024,
-    "readout": "pair_deviation_week_6",
-    "report_only": true
-   },
-   {
-    "direction": 1,
-    "half_width": 0.06157874236119618,
-    "mean_difference": 0.22142037163578915,
-    "readout": "pair_deviation_week_7",
-    "report_only": true
-   },
-   {
-    "direction": 1,
-    "half_width": 0.06112935485099535,
-    "mean_difference": 0.22797216040383358,
-    "readout": "pair_deviation_week_8",
-    "report_only": true
-   },
-   {
-    "direction": 1,
-    "half_width": 0.05869451922735311,
-    "mean_difference": 0.21408837337665187,
-    "readout": "pair_deviation_week_9",
-    "report_only": true
-   },
-   {
-    "direction": 1,
-    "half_width": 0.04705393623482844,
-    "mean_difference": 0.23399640184708456,
-    "readout": "pair_deviation_week_10",
-    "report_only": true
-   },
-   {
-    "direction": 1,
-    "half_width": 0.056196579013881386,
-    "mean_difference": 0.26119357714294617,
-    "readout": "pair_deviation_week_11",
-    "report_only": true
-   },
-   {
-    "direction": 1,
-    "half_width": 0.0658286637495431,
-    "mean_difference": 0.27640257935121576,
-    "readout": "pair_deviation_week_12",
-    "report_only": true
-   }
-  ],
-  "seeds": 50
- },
- "726837290caf4e1aa011229302140b7eadc15a124d9a871559d5fe226282e4ab": {
-  "criterion": "M11.C.42",
-  "outcome": "FAIL",
-  "readouts": [
-   {
-    "direction": 1,
-    "half_width": 0.4050235558681504,
-    "mean_difference": -0.15,
-    "readout": "triangle_reuse",
-    "report_only": false
-   }
-  ],
-  "seeds": 100
- },
- "77ab761b57e528ae37e77d20b903fdbb661d510035b1b7a29feaadf702fdce43": {
-  "criterion": "M11.C.16",
-  "outcome": "PASS",
-  "readouts": [
-   {
-    "direction": -1,
-    "half_width": 0.003800006168547098,
-    "mean_difference": -0.02766741422215613,
-    "readout": "repertoire_entropy",
-    "report_only": false
-   },
-   {
-    "direction": 1,
-    "half_width": 0.0062908840199887945,
-    "mean_difference": 0.03936746349187859,
-    "readout": "top_move_share",
-    "report_only": true
-   }
-  ],
-  "seeds": 100
- },
- "7f1c197a0977901b11811ca8b40121cd022307b007cfdc83eef682ed7c4707fe": {
-  "criterion": "M11.C.45",
-  "outcome": "FAIL",
-  "readouts": [
-   {
-    "direction": 1,
-    "half_width": 0.004939726317231961,
-    "mean_difference": 0.001361111111111112,
-    "readout": "triangle_rate",
-    "report_only": false
-   }
-  ],
-  "seeds": 150
- },
- "814e4fd9ff2e8fec61f4a12d667a0dcd32a7d227d357ecb12cc337217fcd58ff": {
-  "criterion": "M11.C.16",
-  "outcome": "PASS",
-  "readouts": [
-   {
-    "direction": -1,
-    "half_width": 0.0035194769606753007,
-    "mean_difference": -0.027853490867862984,
-    "readout": "repertoire_entropy",
-    "report_only": false
-   },
-   {
-    "direction": 1,
-    "half_width": 0.005227049527576466,
-    "mean_difference": 0.039844751350443186,
-    "readout": "top_move_share",
-    "report_only": true
-   }
-  ],
-  "seeds": 150
- },
- "81d365b7ff7f006b8ec28d1d0da404b266b960f2919ec8cdb6d18536dbe2ff9a": {
-  "criterion": "M11.C.44",
-  "outcome": "FAIL",
-  "readouts": [
-   {
-    "direction": 1,
-    "half_width": 0.06647359740719251,
-    "mean_difference": 0.015179935313617283,
-    "readout": "outside_inside_ratio",
-    "report_only": false
-   }
-  ],
-  "seeds": 100
- },
- "8303b192163e8a4c99498e19b4e638402789ce8c329466df628f46c17ed5c884": {
-  "criterion": "M11.C.27[stable,add_third]",
-  "outcome": "FAIL",
-  "readouts": [
-   {
-    "direction": 1,
-    "half_width": 0.03641754674889667,
-    "mean_difference": 0.027792253165868485,
-    "readout": "pair_deviation",
-    "report_only": false
-   },
-   {
-    "direction": 1,
-    "half_width": 0.03641754674889667,
-    "mean_difference": 0.027792253165868485,
-    "readout": "pair_deviation_week_1",
-    "report_only": true
-   },
-   {
-    "direction": 1,
-    "half_width": 0.043517518552785704,
-    "mean_difference": 0.04918318004049735,
-    "readout": "pair_deviation_week_2",
-    "report_only": true
-   },
-   {
-    "direction": 1,
-    "half_width": 0.045264583079908674,
-    "mean_difference": 0.05416667413058403,
-    "readout": "pair_deviation_week_3",
-    "report_only": true
-   },
-   {
-    "direction": 1,
-    "half_width": 0.047008224442185095,
-    "mean_difference": 0.05363716771806953,
-    "readout": "pair_deviation_week_4",
-    "report_only": true
-   },
-   {
-    "direction": 1,
-    "half_width": 0.05385518117437896,
-    "mean_difference": 0.016784057707115017,
-    "readout": "pair_deviation_week_5",
-    "report_only": true
-   },
-   {
-    "direction": 1,
-    "half_width": 0.054452239607566934,
-    "mean_difference": 0.05518599559482164,
-    "readout": "pair_deviation_week_6",
-    "report_only": true
-   },
-   {
-    "direction": 1,
-    "half_width": 0.047262939968267505,
-    "mean_difference": 0.07924842218309416,
-    "readout": "pair_deviation_week_7",
-    "report_only": true
-   },
-   {
-    "direction": 1,
-    "half_width": 0.05283115657433042,
-    "mean_difference": 0.09673717309471591,
-    "readout": "pair_deviation_week_8",
-    "report_only": true
-   },
-   {
-    "direction": 1,
-    "half_width": 0.06782285059244633,
-    "mean_difference": 0.08174960250483392,
-    "readout": "pair_deviation_week_9",
-    "report_only": true
-   },
-   {
-    "direction": 1,
-    "half_width": 0.0821821490254619,
-    "mean_difference": 0.10019886985170867,
-    "readout": "pair_deviation_week_10",
-    "report_only": true
-   },
-   {
-    "direction": 1,
-    "half_width": 0.07697659556081515,
-    "mean_difference": 0.07238534553137047,
-    "readout": "pair_deviation_week_11",
-    "report_only": true
-   },
-   {
-    "direction": 1,
-    "half_width": 0.07728875349877477,
-    "mean_difference": 0.007055801578240964,
-    "readout": "pair_deviation_week_12",
-    "report_only": true
-   }
-  ],
-  "seeds": 50
- },
- "8bbaf0840dae546de70978ee35e8c265a56b87556d7f2455dc052f18de8c0ecd": {
-  "criterion": "M11.C.42",
-  "outcome": "FAIL",
-  "readouts": [
-   {
-    "direction": 1,
-    "half_width": 0.31083783553486527,
-    "mean_difference": -0.26,
-    "readout": "triangle_reuse",
-    "report_only": false
-   }
-  ],
-  "seeds": 50
- },
- "8bfd71ba94a6fb11a1e6d59cf591cbf1c7a0bc7a87938b0b8ae9e23b9e4069a1": {
-  "criterion": "M11.C.42",
-  "outcome": "FAIL",
-  "readouts": [
-   {
-    "direction": 1,
-    "half_width": 0.30767895113201515,
-    "mean_difference": -0.02,
-    "readout": "triangle_reuse",
-    "report_only": false
-   }
-  ],
-  "seeds": 100
- },
- "98e0cf1cbbceb163b55a8b735160ebd00fc7f3d82976826eada9e443ec0b4ca8": {
-  "criterion": "M11.C.45",
-  "outcome": "FAIL",
-  "readouts": [
-   {
-    "direction": 1,
-    "half_width": 0.005850423030113872,
-    "mean_difference": -0.002722222222222222,
-    "readout": "triangle_rate",
-    "report_only": false
-   }
-  ],
-  "seeds": 150
- },
- "999e62b4c601d612b20efee066cd6dc640a3b731adc1b1cbdf5848a1bf9e5ad3": {
-  "criterion": "M11.C.27[stable,add_third]",
-  "outcome": "PASS",
-  "readouts": [
-   {
-    "direction": 1,
-    "half_width": 0.038120811912239524,
-    "mean_difference": 0.034881576249454,
-    "readout": "pair_deviation",
-    "report_only": false
-   },
-   {
-    "direction": 1,
-    "half_width": 0.038120811912239524,
-    "mean_difference": 0.034881576249454,
-    "readout": "pair_deviation_week_1",
-    "report_only": true
-   },
-   {
-    "direction": 1,
-    "half_width": 0.04868024755873621,
-    "mean_difference": 0.05958538438817963,
-    "readout": "pair_deviation_week_2",
-    "report_only": true
-   },
-   {
-    "direction": 1,
-    "half_width": 0.03935174936290089,
-    "mean_difference": 0.05169184990987096,
-    "readout": "pair_deviation_week_3",
-    "report_only": true
-   },
-   {
-    "direction": 1,
-    "half_width": 0.04138513709783061,
-    "mean_difference": 0.03308343282236579,
-    "readout": "pair_deviation_week_4",
-    "report_only": true
-   },
-   {
-    "direction": 1,
-    "half_width": 0.06075255569954383,
-    "mean_difference": 0.0318218468784818,
-    "readout": "pair_deviation_week_5",
-    "report_only": true
-   },
-   {
-    "direction": 1,
-    "half_width": 0.055401231674128276,
-    "mean_difference": 0.0692656636220054,
-    "readout": "pair_deviation_week_6",
-    "report_only": true
-   },
-   {
-    "direction": 1,
-    "half_width": 0.04587581380995498,
-    "mean_difference": 0.08040151449909468,
-    "readout": "pair_deviation_week_7",
-    "report_only": true
-   },
-   {
-    "direction": 1,
-    "half_width": 0.04242334401611661,
-    "mean_difference": 0.05951538563354403,
-    "readout": "pair_deviation_week_8",
-    "report_only": true
-   },
-   {
-    "direction": 1,
-    "half_width": 0.051481773580407154,
-    "mean_difference": 0.05820943232856452,
-    "readout": "pair_deviation_week_9",
-    "report_only": true
-   },
-   {
-    "direction": 1,
-    "half_width": 0.05854575518158548,
-    "mean_difference": 0.06344753524851586,
-    "readout": "pair_deviation_week_10",
-    "report_only": true
-   },
-   {
-    "direction": 1,
-    "half_width": 0.06141070034790153,
-    "mean_difference": 0.07437870938553601,
-    "readout": "pair_deviation_week_11",
-    "report_only": true
-   },
-   {
-    "direction": 1,
-    "half_width": 0.05202084198359642,
-    "mean_difference": 0.04308177032898011,
-    "readout": "pair_deviation_week_12",
-    "report_only": true
-   }
-  ],
-  "seeds": 50
- },
- "a23988720173d2b4f7ab08b4220c759dfa7b72c9c19ab130c12c986095fd61c7": {
-  "criterion": "M11.C.44",
-  "outcome": "FAIL",
-  "readouts": [
-   {
-    "direction": 1,
-    "half_width": 0.0865795685046835,
-    "mean_difference": 0.010821177407440407,
-    "readout": "outside_inside_ratio",
-    "report_only": false
-   }
-  ],
-  "seeds": 100
- },
- "a71e34c1433a245fde19babe0d94f3594b75260981c2501dc71f90edb8157eea": {
-  "criterion": "M11.C.45",
-  "outcome": "FAIL",
-  "readouts": [
-   {
-    "direction": 1,
-    "half_width": 0.005303402373361912,
-    "mean_difference": -0.0025833333333333337,
-    "readout": "triangle_rate",
-    "report_only": false
-   }
-  ],
-  "seeds": 150
- },
- "a736f413b69c5ba0b7abe573a8f046525ffe5f71b24763cfbf0603bb5217e2ec": {
-  "criterion": "M11.C.27[stable,remove_one]",
-  "outcome": "FAIL",
-  "readouts": [
-   {
-    "direction": 1,
-    "half_width": 0.046098516420657924,
-    "mean_difference": -0.04072029874722704,
-    "readout": "pair_deviation",
-    "report_only": false
-   },
-   {
-    "direction": 1,
-    "half_width": 0.046098516420657924,
-    "mean_difference": -0.04072029874722704,
-    "readout": "pair_deviation_week_1",
-    "report_only": true
-   },
-   {
-    "direction": 1,
-    "half_width": 0.04744731484825716,
-    "mean_difference": -0.03927344863286991,
-    "readout": "pair_deviation_week_2",
-    "report_only": true
-   },
-   {
-    "direction": 1,
-    "half_width": 0.043262564964947924,
-    "mean_difference": 0.02177007351622241,
-    "readout": "pair_deviation_week_3",
-    "report_only": true
-   },
-   {
-    "direction": 1,
-    "half_width": 0.04309293009428607,
-    "mean_difference": 0.0693864021307422,
-    "readout": "pair_deviation_week_4",
-    "report_only": true
-   },
-   {
-    "direction": 1,
-    "half_width": 0.04706933433026206,
-    "mean_difference": 0.1321365863208929,
-    "readout": "pair_deviation_week_5",
-    "report_only": true
-   },
-   {
-    "direction": 1,
-    "half_width": 0.04750455633431083,
-    "mean_difference": 0.1865446430240538,
-    "readout": "pair_deviation_week_6",
-    "report_only": true
-   },
-   {
-    "direction": 1,
-    "half_width": 0.045203306494088574,
-    "mean_difference": 0.19884025436249236,
-    "readout": "pair_deviation_week_7",
-    "report_only": true
-   },
-   {
-    "direction": 1,
-    "half_width": 0.05000041931620262,
-    "mean_difference": 0.21424150401878897,
-    "readout": "pair_deviation_week_8",
-    "report_only": true
-   },
-   {
-    "direction": 1,
-    "half_width": 0.050923978931483524,
-    "mean_difference": 0.22930111545935636,
-    "readout": "pair_deviation_week_9",
-    "report_only": true
-   },
-   {
-    "direction": 1,
-    "half_width": 0.053613217240675595,
-    "mean_difference": 0.20847216469399954,
-    "readout": "pair_deviation_week_10",
-    "report_only": true
-   },
-   {
-    "direction": 1,
-    "half_width": 0.06194438450292228,
-    "mean_difference": 0.24091190430184475,
-    "readout": "pair_deviation_week_11",
-    "report_only": true
-   },
-   {
-    "direction": 1,
-    "half_width": 0.05871090540219467,
-    "mean_difference": 0.21043819865155344,
-    "readout": "pair_deviation_week_12",
-    "report_only": true
-   }
-  ],
-  "seeds": 100
- },
- "ae6625d12a9ef2b5a11c17c60bfeafa56e25dda061d0d5b76cd647d3807af6f4": {
-  "criterion": "M11.C.27[unstable,add_third]",
-  "outcome": "FAIL",
-  "readouts": [
-   {
-    "direction": -1,
-    "half_width": 0.03657055315494326,
-    "mean_difference": 0.035587518231928905,
-    "readout": "pair_deviation",
-    "report_only": false
-   },
-   {
-    "direction": -1,
-    "half_width": 0.03657055315494326,
-    "mean_difference": 0.035587518231928905,
-    "readout": "pair_deviation_week_1",
-    "report_only": true
-   },
-   {
-    "direction": -1,
-    "half_width": 0.04626488537003293,
-    "mean_difference": 0.06681343884058379,
-    "readout": "pair_deviation_week_2",
-    "report_only": true
-   },
-   {
-    "direction": -1,
-    "half_width": 0.03529369154144611,
-    "mean_difference": 0.08366370493953816,
-    "readout": "pair_deviation_week_3",
-    "report_only": true
-   },
-   {
-    "direction": -1,
-    "half_width": 0.030475871223393677,
-    "mean_difference": 0.06706006272988987,
-    "readout": "pair_deviation_week_4",
-    "report_only": true
-   },
-   {
-    "direction": -1,
-    "half_width": 0.03910765280352329,
-    "mean_difference": 0.07179973510450313,
-    "readout": "pair_deviation_week_5",
-    "report_only": true
-   },
-   {
-    "direction": -1,
-    "half_width": 0.04967184160311861,
-    "mean_difference": 0.10649096202022897,
-    "readout": "pair_deviation_week_6",
-    "report_only": true
-   },
-   {
-    "direction": -1,
-    "half_width": 0.04949624230023674,
-    "mean_difference": 0.11507737952600464,
-    "readout": "pair_deviation_week_7",
-    "report_only": true
-   },
-   {
-    "direction": -1,
-    "half_width": 0.04937877746901923,
-    "mean_difference": 0.0789680892867547,
-    "readout": "pair_deviation_week_8",
-    "report_only": true
-   },
-   {
-    "direction": -1,
-    "half_width": 0.05800853000447862,
-    "mean_difference": 0.05610376532356939,
-    "readout": "pair_deviation_week_9",
-    "report_only": true
-   },
-   {
-    "direction": -1,
-    "half_width": 0.07046731382993723,
-    "mean_difference": 0.01565174903574729,
-    "readout": "pair_deviation_week_10",
-    "report_only": true
-   },
-   {
-    "direction": -1,
-    "half_width": 0.07037938426420619,
-    "mean_difference": 0.009474596039727994,
-    "readout": "pair_deviation_week_11",
-    "report_only": true
-   },
-   {
-    "direction": -1,
-    "half_width": 0.0732586896440523,
-    "mean_difference": 0.004835518459658464,
-    "readout": "pair_deviation_week_12",
-    "report_only": true
-   }
-  ],
-  "seeds": 50
- },
- "b5de8d1c2fd973455a2dc1567bc82fb3f16f3ecd71518b63a4a6f1e8dc103fed": {
-  "criterion": "M11.C.27[stable,remove_one]",
-  "outcome": "FAIL",
-  "readouts": [
-   {
-    "direction": 1,
-    "half_width": 0.043393833226082104,
-    "mean_difference": -0.023067805285662376,
-    "readout": "pair_deviation",
-    "report_only": false
-   },
-   {
-    "direction": 1,
-    "half_width": 0.043393833226082104,
-    "mean_difference": -0.023067805285662376,
-    "readout": "pair_deviation_week_1",
-    "report_only": true
-   },
-   {
-    "direction": 1,
-    "half_width": 0.04940258451418974,
-    "mean_difference": -0.012701875019017676,
-    "readout": "pair_deviation_week_2",
-    "report_only": true
-   },
-   {
-    "direction": 1,
-    "half_width": 0.04545312044475021,
-    "mean_difference": 0.04638686553236714,
-    "readout": "pair_deviation_week_3",
-    "report_only": true
-   },
-   {
-    "direction": 1,
-    "half_width": 0.0478494601137555,
-    "mean_difference": 0.08642945824402391,
-    "readout": "pair_deviation_week_4",
-    "report_only": true
-   },
-   {
-    "direction": 1,
-    "half_width": 0.04416639601898405,
-    "mean_difference": 0.1090729360736617,
-    "readout": "pair_deviation_week_5",
-    "report_only": true
-   },
-   {
-    "direction": 1,
-    "half_width": 0.04532152013886492,
-    "mean_difference": 0.16456155879276285,
-    "readout": "pair_deviation_week_6",
-    "report_only": true
-   },
-   {
-    "direction": 1,
-    "half_width": 0.04724406428939467,
-    "mean_difference": 0.21239830354415365,
-    "readout": "pair_deviation_week_7",
-    "report_only": true
-   },
-   {
-    "direction": 1,
-    "half_width": 0.04339222109254455,
-    "mean_difference": 0.22833612952081306,
-    "readout": "pair_deviation_week_8",
-    "report_only": true
-   },
-   {
-    "direction": 1,
-    "half_width": 0.04907949521977336,
-    "mean_difference": 0.2336109144397206,
-    "readout": "pair_deviation_week_9",
-    "report_only": true
-   },
-   {
-    "direction": 1,
-    "half_width": 0.05314143639529012,
-    "mean_difference": 0.2631430068344718,
-    "readout": "pair_deviation_week_10",
-    "report_only": true
-   },
-   {
-    "direction": 1,
-    "half_width": 0.0530230349562739,
-    "mean_difference": 0.261548595140599,
-    "readout": "pair_deviation_week_11",
-    "report_only": true
-   },
-   {
-    "direction": 1,
-    "half_width": 0.04413631326233552,
-    "mean_difference": 0.2811298120076184,
-    "readout": "pair_deviation_week_12",
-    "report_only": true
-   }
-  ],
-  "seeds": 100
- },
- "c09c37e05ffb71a3d92cd97caeb2340b180714425c393d544144b8ee9ee09e7d": {
-  "criterion": "M11.C.16",
-  "outcome": "PASS",
-  "readouts": [
-   {
-    "direction": -1,
-    "half_width": 0.005900828355204716,
-    "mean_difference": -0.011637827808337017,
-    "readout": "repertoire_entropy",
-    "report_only": false
-   },
-   {
-    "direction": 1,
-    "half_width": 0.008722658830610259,
-    "mean_difference": 0.011349928687499152,
-    "readout": "top_move_share",
-    "report_only": true
-   }
-  ],
-  "seeds": 150
- },
- "c5e18008118742e428cf986659ac82941bc42b40445d672b0dc870805b608a3c": {
-  "criterion": "M11.C.42",
-  "outcome": "FAIL",
-  "readouts": [
-   {
-    "direction": 1,
-    "half_width": 0.2552944697063105,
-    "mean_difference": -0.02,
-    "readout": "triangle_reuse",
-    "report_only": false
-   }
-  ],
-  "seeds": 100
- },
- "c79409620e0d9c1c7537bbffd6bf9053000cc45f46f5d35237dc3f11fd56440b": {
-  "criterion": "M11.C.27[unstable,add_third]",
-  "outcome": "FAIL",
-  "readouts": [
-   {
-    "direction": -1,
-    "half_width": 0.03556405234805683,
-    "mean_difference": 0.019688319269405334,
-    "readout": "pair_deviation",
-    "report_only": false
-   },
-   {
-    "direction": -1,
-    "half_width": 0.03556405234805683,
-    "mean_difference": 0.019688319269405334,
-    "readout": "pair_deviation_week_1",
-    "report_only": true
-   },
-   {
-    "direction": -1,
-    "half_width": 0.03649022211388447,
-    "mean_difference": 0.029794105143659676,
-    "readout": "pair_deviation_week_2",
-    "report_only": true
-   },
-   {
-    "direction": -1,
-    "half_width": 0.04296928208791471,
-    "mean_difference": 0.06643282331587017,
-    "readout": "pair_deviation_week_3",
-    "report_only": true
-   },
-   {
-    "direction": -1,
-    "half_width": 0.05172638450722512,
-    "mean_difference": 0.055595638553464895,
-    "readout": "pair_deviation_week_4",
-    "report_only": true
-   },
-   {
-    "direction": -1,
-    "half_width": 0.0473002908812073,
-    "mean_difference": 0.06144921696713075,
-    "readout": "pair_deviation_week_5",
-    "report_only": true
-   },
-   {
-    "direction": -1,
-    "half_width": 0.05688137076487155,
-    "mean_difference": 0.06699356646572363,
-    "readout": "pair_deviation_week_6",
-    "report_only": true
-   },
-   {
-    "direction": -1,
-    "half_width": 0.05200331664978405,
-    "mean_difference": 0.08194958273572844,
-    "readout": "pair_deviation_week_7",
-    "report_only": true
-   },
-   {
-    "direction": -1,
-    "half_width": 0.04660626150302247,
-    "mean_difference": 0.05619203866433005,
-    "readout": "pair_deviation_week_8",
-    "report_only": true
-   },
-   {
-    "direction": -1,
-    "half_width": 0.05668617875005054,
-    "mean_difference": 0.047377022078722145,
-    "readout": "pair_deviation_week_9",
-    "report_only": true
-   },
-   {
-    "direction": -1,
-    "half_width": 0.06964598586450409,
-    "mean_difference": 0.025028036491403345,
-    "readout": "pair_deviation_week_10",
-    "report_only": true
-   },
-   {
-    "direction": -1,
-    "half_width": 0.07407729599006393,
-    "mean_difference": 0.009393720092899294,
-    "readout": "pair_deviation_week_11",
-    "report_only": true
-   },
-   {
-    "direction": -1,
-    "half_width": 0.07694600765514586,
-    "mean_difference": 0.08187348154410248,
-    "readout": "pair_deviation_week_12",
-    "report_only": true
-   }
-  ],
-  "seeds": 50
- },
- "cb9945656a9c7b20a9a7ccec367afa116dfd826925bf95b0fdb4d7c858cbe063": {
-  "criterion": "M11.C.42",
-  "outcome": "FAIL",
-  "readouts": [
-   {
-    "direction": 1,
-    "half_width": 0.34266185352120226,
-    "mean_difference": -0.29,
-    "readout": "triangle_reuse",
-    "report_only": false
-   }
-  ],
-  "seeds": 100
- },
- "cc335d9fc656c48fa83d7edc491be3d2cb19921bb14912050038c957ba9ffdbe": {
+ "075c969c7c1c88c820ebbafa5d0b3ba9f827d899ce290f35eb408e70777e0362": {
   "criterion": "M11.C.27[unstable,remove_one]",
   "outcome": "PASS",
   "readouts": [
@@ -2309,140 +97,7 @@
   ],
   "seeds": 50
  },
- "cfc4b2c8f3eb85885781f1e06149e7a4dd140a729555312197855965e4a22cf7": {
-  "criterion": "M11.C.27[stable,remove_one]",
-  "outcome": "FAIL",
-  "readouts": [
-   {
-    "direction": 1,
-    "half_width": 0.04337134090416212,
-    "mean_difference": -0.028159831436089605,
-    "readout": "pair_deviation",
-    "report_only": false
-   },
-   {
-    "direction": 1,
-    "half_width": 0.04337134090416212,
-    "mean_difference": -0.028159831436089605,
-    "readout": "pair_deviation_week_1",
-    "report_only": true
-   },
-   {
-    "direction": 1,
-    "half_width": 0.050202301484156754,
-    "mean_difference": -0.021036715355888864,
-    "readout": "pair_deviation_week_2",
-    "report_only": true
-   },
-   {
-    "direction": 1,
-    "half_width": 0.04424307046702504,
-    "mean_difference": 0.041659964661293264,
-    "readout": "pair_deviation_week_3",
-    "report_only": true
-   },
-   {
-    "direction": 1,
-    "half_width": 0.04559322334551526,
-    "mean_difference": 0.09589582891427266,
-    "readout": "pair_deviation_week_4",
-    "report_only": true
-   },
-   {
-    "direction": 1,
-    "half_width": 0.04356117695170855,
-    "mean_difference": 0.10997914218739722,
-    "readout": "pair_deviation_week_5",
-    "report_only": true
-   },
-   {
-    "direction": 1,
-    "half_width": 0.04424489814274766,
-    "mean_difference": 0.15927281567186174,
-    "readout": "pair_deviation_week_6",
-    "report_only": true
-   },
-   {
-    "direction": 1,
-    "half_width": 0.043349348025447806,
-    "mean_difference": 0.2177802569716193,
-    "readout": "pair_deviation_week_7",
-    "report_only": true
-   },
-   {
-    "direction": 1,
-    "half_width": 0.046955865322010217,
-    "mean_difference": 0.24757710774821856,
-    "readout": "pair_deviation_week_8",
-    "report_only": true
-   },
-   {
-    "direction": 1,
-    "half_width": 0.050322160698572,
-    "mean_difference": 0.24688382916927104,
-    "readout": "pair_deviation_week_9",
-    "report_only": true
-   },
-   {
-    "direction": 1,
-    "half_width": 0.05022588190870471,
-    "mean_difference": 0.2536418354659728,
-    "readout": "pair_deviation_week_10",
-    "report_only": true
-   },
-   {
-    "direction": 1,
-    "half_width": 0.04940822468570507,
-    "mean_difference": 0.24708662590702107,
-    "readout": "pair_deviation_week_11",
-    "report_only": true
-   },
-   {
-    "direction": 1,
-    "half_width": 0.047223017489813654,
-    "mean_difference": 0.2585436550864634,
-    "readout": "pair_deviation_week_12",
-    "report_only": true
-   }
-  ],
-  "seeds": 100
- },
- "d2a26d06c44e55f6ea1e0cc4e47505d8b73b8383ce5623d0775208c580fbde5d": {
-  "criterion": "M11.C.5",
-  "outcome": "FAIL",
-  "readouts": [
-   {
-    "direction": 1,
-    "half_width": 10.255556386154645,
-    "mean_difference": 2.7874987730597707,
-    "readout": "target_reaction",
-    "report_only": false
-   },
-   {
-    "direction": 1,
-    "half_width": 5.398599053248049,
-    "mean_difference": -1.8068604794832621,
-    "readout": "third_person_symptom_load",
-    "report_only": false
-   }
-  ],
-  "seeds": 100
- },
- "d86a5eaf96ee13c40076903975fb6dbd8d82321e885a0dffd4ac6d03e3bed28f": {
-  "criterion": "M11.C.44",
-  "outcome": "FAIL",
-  "readouts": [
-   {
-    "direction": 1,
-    "half_width": 0.08224054990037036,
-    "mean_difference": 0.06731498956138887,
-    "readout": "outside_inside_ratio",
-    "report_only": false
-   }
-  ],
-  "seeds": 100
- },
- "da74503bc5a26b7b4018358f0591624a49440d265185524aff681b91149d7a0b": {
+ "089f82df7f453c130d79d30117225e97c060176b495e65a2b1683eec59ef72a7": {
   "criterion": "M11.C.27[stable,add_third]",
   "outcome": "FAIL",
   "readouts": [
@@ -2540,7 +195,1393 @@
   ],
   "seeds": 50
  },
- "ddacd4ec4c292cb1f1f5a0a5c5d81c20697e2e80c6621c1336e9a4988963f04a": {
+ "0ac200fd6b8a44940db45216a11f690bf47a6857072d93080968d8983463873d": {
+  "criterion": "M11.C.27[stable,add_third]",
+  "outcome": "FAIL",
+  "readouts": [
+   {
+    "direction": 1,
+    "half_width": 0.03641754674889667,
+    "mean_difference": 0.027792253165868485,
+    "readout": "pair_deviation",
+    "report_only": false
+   },
+   {
+    "direction": 1,
+    "half_width": 0.03641754674889667,
+    "mean_difference": 0.027792253165868485,
+    "readout": "pair_deviation_week_1",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.043517518552785704,
+    "mean_difference": 0.04918318004049735,
+    "readout": "pair_deviation_week_2",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.045264583079908674,
+    "mean_difference": 0.05416667413058403,
+    "readout": "pair_deviation_week_3",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.047008224442185095,
+    "mean_difference": 0.05363716771806953,
+    "readout": "pair_deviation_week_4",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.05385518117437896,
+    "mean_difference": 0.016784057707115017,
+    "readout": "pair_deviation_week_5",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.054452239607566934,
+    "mean_difference": 0.05518599559482164,
+    "readout": "pair_deviation_week_6",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.047262939968267505,
+    "mean_difference": 0.07924842218309416,
+    "readout": "pair_deviation_week_7",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.05283115657433042,
+    "mean_difference": 0.09673717309471591,
+    "readout": "pair_deviation_week_8",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.06782285059244633,
+    "mean_difference": 0.08174960250483392,
+    "readout": "pair_deviation_week_9",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.0821821490254619,
+    "mean_difference": 0.10019886985170867,
+    "readout": "pair_deviation_week_10",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.07697659556081515,
+    "mean_difference": 0.07238534553137047,
+    "readout": "pair_deviation_week_11",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.07728875349877477,
+    "mean_difference": 0.007055801578240964,
+    "readout": "pair_deviation_week_12",
+    "report_only": true
+   }
+  ],
+  "seeds": 50
+ },
+ "0f1fee6bb5c922bb69b808d87f6a24af4af8e049a32993479a58964e2312b44e": {
+  "criterion": "M11.C.45",
+  "outcome": "FAIL",
+  "readouts": [
+   {
+    "direction": 1,
+    "half_width": 0.004930283941871376,
+    "mean_difference": -0.0003749999999999988,
+    "readout": "triangle_rate",
+    "report_only": false
+   }
+  ],
+  "seeds": 100
+ },
+ "20b95366363bdf36ec599684aa8cdd07cd43055dc5af238ddce9ca0466234da9": {
+  "criterion": "M11.C.27[unstable,remove_one]",
+  "outcome": "PASS",
+  "readouts": [
+   {
+    "direction": -1,
+    "half_width": 0.06222856722322677,
+    "mean_difference": -0.07316914281957566,
+    "readout": "pair_deviation",
+    "report_only": false
+   },
+   {
+    "direction": -1,
+    "half_width": 0.06222856722322677,
+    "mean_difference": -0.07316914281957566,
+    "readout": "pair_deviation_week_1",
+    "report_only": true
+   },
+   {
+    "direction": -1,
+    "half_width": 0.06787311567531445,
+    "mean_difference": -0.043162021937473476,
+    "readout": "pair_deviation_week_2",
+    "report_only": true
+   },
+   {
+    "direction": -1,
+    "half_width": 0.06906216795395975,
+    "mean_difference": 0.02351680461798094,
+    "readout": "pair_deviation_week_3",
+    "report_only": true
+   },
+   {
+    "direction": -1,
+    "half_width": 0.056339927202545784,
+    "mean_difference": 0.0724134204273877,
+    "readout": "pair_deviation_week_4",
+    "report_only": true
+   },
+   {
+    "direction": -1,
+    "half_width": 0.06249609446244958,
+    "mean_difference": 0.12906448676869783,
+    "readout": "pair_deviation_week_5",
+    "report_only": true
+   },
+   {
+    "direction": -1,
+    "half_width": 0.0607180133289659,
+    "mean_difference": 0.19122462529006637,
+    "readout": "pair_deviation_week_6",
+    "report_only": true
+   },
+   {
+    "direction": -1,
+    "half_width": 0.052331359378176706,
+    "mean_difference": 0.229910729427274,
+    "readout": "pair_deviation_week_7",
+    "report_only": true
+   },
+   {
+    "direction": -1,
+    "half_width": 0.05447758094037334,
+    "mean_difference": 0.22677470793645033,
+    "readout": "pair_deviation_week_8",
+    "report_only": true
+   },
+   {
+    "direction": -1,
+    "half_width": 0.0619186722088398,
+    "mean_difference": 0.19043161071287593,
+    "readout": "pair_deviation_week_9",
+    "report_only": true
+   },
+   {
+    "direction": -1,
+    "half_width": 0.057506438481524966,
+    "mean_difference": 0.23830356119509144,
+    "readout": "pair_deviation_week_10",
+    "report_only": true
+   },
+   {
+    "direction": -1,
+    "half_width": 0.06827036221599954,
+    "mean_difference": 0.2609015954376813,
+    "readout": "pair_deviation_week_11",
+    "report_only": true
+   },
+   {
+    "direction": -1,
+    "half_width": 0.06763824846157225,
+    "mean_difference": 0.2683629077563199,
+    "readout": "pair_deviation_week_12",
+    "report_only": true
+   }
+  ],
+  "seeds": 50
+ },
+ "2269d411cbbdf26e1b8b437a831e2ca49049b6cdc9e91b789ead3fc4a9932520": {
+  "criterion": "M11.C.27[unstable,remove_one]",
+  "outcome": "PASS",
+  "readouts": [
+   {
+    "direction": -1,
+    "half_width": 0.060568992212078655,
+    "mean_difference": -0.08402788513797539,
+    "readout": "pair_deviation",
+    "report_only": false
+   },
+   {
+    "direction": -1,
+    "half_width": 0.060568992212078655,
+    "mean_difference": -0.08402788513797539,
+    "readout": "pair_deviation_week_1",
+    "report_only": true
+   },
+   {
+    "direction": -1,
+    "half_width": 0.06847917295498199,
+    "mean_difference": -0.026206566927885016,
+    "readout": "pair_deviation_week_2",
+    "report_only": true
+   },
+   {
+    "direction": -1,
+    "half_width": 0.05916850149897691,
+    "mean_difference": 0.02662370139049755,
+    "readout": "pair_deviation_week_3",
+    "report_only": true
+   },
+   {
+    "direction": -1,
+    "half_width": 0.05606993114221004,
+    "mean_difference": 0.10381900053002592,
+    "readout": "pair_deviation_week_4",
+    "report_only": true
+   },
+   {
+    "direction": -1,
+    "half_width": 0.053609147646869276,
+    "mean_difference": 0.16411035722894896,
+    "readout": "pair_deviation_week_5",
+    "report_only": true
+   },
+   {
+    "direction": -1,
+    "half_width": 0.05250341143240543,
+    "mean_difference": 0.2307982578135783,
+    "readout": "pair_deviation_week_6",
+    "report_only": true
+   },
+   {
+    "direction": -1,
+    "half_width": 0.0722816842223676,
+    "mean_difference": 0.245139859677833,
+    "readout": "pair_deviation_week_7",
+    "report_only": true
+   },
+   {
+    "direction": -1,
+    "half_width": 0.06909437095798357,
+    "mean_difference": 0.225984069104637,
+    "readout": "pair_deviation_week_8",
+    "report_only": true
+   },
+   {
+    "direction": -1,
+    "half_width": 0.07438975249171134,
+    "mean_difference": 0.2245649105855612,
+    "readout": "pair_deviation_week_9",
+    "report_only": true
+   },
+   {
+    "direction": -1,
+    "half_width": 0.06452331659362232,
+    "mean_difference": 0.26609645316233504,
+    "readout": "pair_deviation_week_10",
+    "report_only": true
+   },
+   {
+    "direction": -1,
+    "half_width": 0.07268510402176705,
+    "mean_difference": 0.31940422938167534,
+    "readout": "pair_deviation_week_11",
+    "report_only": true
+   },
+   {
+    "direction": -1,
+    "half_width": 0.07462436196318296,
+    "mean_difference": 0.2821494234671449,
+    "readout": "pair_deviation_week_12",
+    "report_only": true
+   }
+  ],
+  "seeds": 50
+ },
+ "23c3b65f1e97f9d09c5d3205a5c1375426bcb8a99ad44d5d3ce46d4d7c775556": {
+  "criterion": "M11.C.27[unstable,add_third]",
+  "outcome": "FAIL",
+  "readouts": [
+   {
+    "direction": -1,
+    "half_width": 0.037433050020568064,
+    "mean_difference": 0.024163649873301905,
+    "readout": "pair_deviation",
+    "report_only": false
+   },
+   {
+    "direction": -1,
+    "half_width": 0.037433050020568064,
+    "mean_difference": 0.024163649873301905,
+    "readout": "pair_deviation_week_1",
+    "report_only": true
+   },
+   {
+    "direction": -1,
+    "half_width": 0.05823722257420771,
+    "mean_difference": 0.06527420103484358,
+    "readout": "pair_deviation_week_2",
+    "report_only": true
+   },
+   {
+    "direction": -1,
+    "half_width": 0.05587941678714392,
+    "mean_difference": 0.07595238478492404,
+    "readout": "pair_deviation_week_3",
+    "report_only": true
+   },
+   {
+    "direction": -1,
+    "half_width": 0.04669217207405238,
+    "mean_difference": 0.07147763256459305,
+    "readout": "pair_deviation_week_4",
+    "report_only": true
+   },
+   {
+    "direction": -1,
+    "half_width": 0.040671233983062,
+    "mean_difference": 0.07096441223278341,
+    "readout": "pair_deviation_week_5",
+    "report_only": true
+   },
+   {
+    "direction": -1,
+    "half_width": 0.03466665392836319,
+    "mean_difference": 0.06933830874798474,
+    "readout": "pair_deviation_week_6",
+    "report_only": true
+   },
+   {
+    "direction": -1,
+    "half_width": 0.03566696163469134,
+    "mean_difference": 0.09055048000250673,
+    "readout": "pair_deviation_week_7",
+    "report_only": true
+   },
+   {
+    "direction": -1,
+    "half_width": 0.041788809590065784,
+    "mean_difference": 0.07707054287136259,
+    "readout": "pair_deviation_week_8",
+    "report_only": true
+   },
+   {
+    "direction": -1,
+    "half_width": 0.04594149692142813,
+    "mean_difference": 0.05312481388571591,
+    "readout": "pair_deviation_week_9",
+    "report_only": true
+   },
+   {
+    "direction": -1,
+    "half_width": 0.048575665395572155,
+    "mean_difference": 0.037435631332548756,
+    "readout": "pair_deviation_week_10",
+    "report_only": true
+   },
+   {
+    "direction": -1,
+    "half_width": 0.05013998697026882,
+    "mean_difference": 0.02191385661164643,
+    "readout": "pair_deviation_week_11",
+    "report_only": true
+   },
+   {
+    "direction": -1,
+    "half_width": 0.04837773347539633,
+    "mean_difference": 0.06152715026475538,
+    "readout": "pair_deviation_week_12",
+    "report_only": true
+   }
+  ],
+  "seeds": 50
+ },
+ "2aff76f6f3409c82bb8c464325ca94ae48c5c3425fac9d0851a9e72f5c9d1acc": {
+  "criterion": "M11.C.27[stable,add_third]",
+  "outcome": "FAIL",
+  "readouts": [
+   {
+    "direction": 1,
+    "half_width": 0.03656741257621665,
+    "mean_difference": 0.015577686256045768,
+    "readout": "pair_deviation",
+    "report_only": false
+   },
+   {
+    "direction": 1,
+    "half_width": 0.03656741257621665,
+    "mean_difference": 0.015577686256045768,
+    "readout": "pair_deviation_week_1",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.05960009065917594,
+    "mean_difference": 0.03324142312346963,
+    "readout": "pair_deviation_week_2",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.04333841304556448,
+    "mean_difference": 0.03470387186130119,
+    "readout": "pair_deviation_week_3",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.03626438347973492,
+    "mean_difference": 0.03631529068645856,
+    "readout": "pair_deviation_week_4",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.0426219244745511,
+    "mean_difference": 0.05215965127448551,
+    "readout": "pair_deviation_week_5",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.05287076393597324,
+    "mean_difference": 0.08502539423154863,
+    "readout": "pair_deviation_week_6",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.04855192562423936,
+    "mean_difference": 0.10535919542382147,
+    "readout": "pair_deviation_week_7",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.045502232648990205,
+    "mean_difference": 0.08293317802046582,
+    "readout": "pair_deviation_week_8",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.04561018218077989,
+    "mean_difference": 0.0809388368270006,
+    "readout": "pair_deviation_week_9",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.04607495503898301,
+    "mean_difference": 0.06939051922642181,
+    "readout": "pair_deviation_week_10",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.04178790203384587,
+    "mean_difference": 0.07035480443791314,
+    "readout": "pair_deviation_week_11",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.05033536716674921,
+    "mean_difference": 0.06618323981332543,
+    "readout": "pair_deviation_week_12",
+    "report_only": true
+   }
+  ],
+  "seeds": 50
+ },
+ "307c253f0e64549e9b5a9766d3748d3ca3190000701bc4aa56251c2c9d385ecd": {
+  "criterion": "M11.C.16",
+  "outcome": "PASS",
+  "readouts": [
+   {
+    "direction": -1,
+    "half_width": 0.005494958026415699,
+    "mean_difference": -0.020535200610198756,
+    "readout": "repertoire_entropy",
+    "report_only": false
+   },
+   {
+    "direction": 1,
+    "half_width": 0.008296196058281847,
+    "mean_difference": 0.019382209736155433,
+    "readout": "top_move_share",
+    "report_only": true
+   }
+  ],
+  "seeds": 150
+ },
+ "30e855bbc3c20124b6d5cbf8c735874e5705219329cee5f614d48c46b9dc3e75": {
+  "criterion": "M11.C.5",
+  "outcome": "FAIL",
+  "readouts": [
+   {
+    "direction": 1,
+    "half_width": 13.321304276301683,
+    "mean_difference": 7.607504293702342,
+    "readout": "target_reaction",
+    "report_only": false
+   },
+   {
+    "direction": 1,
+    "half_width": 6.792486837917783,
+    "mean_difference": -2.6023180612737575,
+    "readout": "third_person_symptom_load",
+    "report_only": false
+   }
+  ],
+  "seeds": 100
+ },
+ "35d70bcf6a38b3e8bdd350eb983c1128584ef9c6385d332226a2fabbe6f099ed": {
+  "criterion": "M11.C.27[stable,remove_one]",
+  "outcome": "FAIL",
+  "readouts": [
+   {
+    "direction": 1,
+    "half_width": 0.043393833226082104,
+    "mean_difference": -0.023067805285662376,
+    "readout": "pair_deviation",
+    "report_only": false
+   },
+   {
+    "direction": 1,
+    "half_width": 0.043393833226082104,
+    "mean_difference": -0.023067805285662376,
+    "readout": "pair_deviation_week_1",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.04940258451418974,
+    "mean_difference": -0.012701875019017676,
+    "readout": "pair_deviation_week_2",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.04545312044475021,
+    "mean_difference": 0.04638686553236714,
+    "readout": "pair_deviation_week_3",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.0478494601137555,
+    "mean_difference": 0.08642945824402391,
+    "readout": "pair_deviation_week_4",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.04416639601898405,
+    "mean_difference": 0.1090729360736617,
+    "readout": "pair_deviation_week_5",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.04532152013886492,
+    "mean_difference": 0.16456155879276285,
+    "readout": "pair_deviation_week_6",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.04724406428939467,
+    "mean_difference": 0.21239830354415365,
+    "readout": "pair_deviation_week_7",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.04339222109254455,
+    "mean_difference": 0.22833612952081306,
+    "readout": "pair_deviation_week_8",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.04907949521977336,
+    "mean_difference": 0.2336109144397206,
+    "readout": "pair_deviation_week_9",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.05314143639529012,
+    "mean_difference": 0.2631430068344718,
+    "readout": "pair_deviation_week_10",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.0530230349562739,
+    "mean_difference": 0.261548595140599,
+    "readout": "pair_deviation_week_11",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.04413631326233552,
+    "mean_difference": 0.2811298120076184,
+    "readout": "pair_deviation_week_12",
+    "report_only": true
+   }
+  ],
+  "seeds": 100
+ },
+ "3b701b9c4530b9826c950d422827f897e2afb6393387a2723ccb25cb902282ff": {
+  "criterion": "M11.C.27[stable,remove_one]",
+  "outcome": "FAIL",
+  "readouts": [
+   {
+    "direction": 1,
+    "half_width": 0.043993787443341995,
+    "mean_difference": -0.031963350954459915,
+    "readout": "pair_deviation",
+    "report_only": false
+   },
+   {
+    "direction": 1,
+    "half_width": 0.043993787443341995,
+    "mean_difference": -0.031963350954459915,
+    "readout": "pair_deviation_week_1",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.04843172009538551,
+    "mean_difference": -0.0252101139475829,
+    "readout": "pair_deviation_week_2",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.04421631716963749,
+    "mean_difference": 0.04630985158896457,
+    "readout": "pair_deviation_week_3",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.04201778573212651,
+    "mean_difference": 0.08852197112564951,
+    "readout": "pair_deviation_week_4",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.04182416047711871,
+    "mean_difference": 0.14216192416560472,
+    "readout": "pair_deviation_week_5",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.041637301843123205,
+    "mean_difference": 0.20996860554277422,
+    "readout": "pair_deviation_week_6",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.047074334149492116,
+    "mean_difference": 0.23807973333817045,
+    "readout": "pair_deviation_week_7",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.05425534010556852,
+    "mean_difference": 0.22895748927509874,
+    "readout": "pair_deviation_week_8",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.0486350058478267,
+    "mean_difference": 0.23680817755963254,
+    "readout": "pair_deviation_week_9",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.05339667364895632,
+    "mean_difference": 0.25668077032610304,
+    "readout": "pair_deviation_week_10",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.05368659443320166,
+    "mean_difference": 0.27023774349436147,
+    "readout": "pair_deviation_week_11",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.052314259254913766,
+    "mean_difference": 0.28441820995134615,
+    "readout": "pair_deviation_week_12",
+    "report_only": true
+   }
+  ],
+  "seeds": 100
+ },
+ "456cbab76024a50c285077237153ba8a546bd8b654716f4d46683d46f1903e79": {
+  "criterion": "M11.C.27[stable,add_third]",
+  "outcome": "PASS",
+  "readouts": [
+   {
+    "direction": 1,
+    "half_width": 0.038120811912239524,
+    "mean_difference": 0.034881576249454,
+    "readout": "pair_deviation",
+    "report_only": false
+   },
+   {
+    "direction": 1,
+    "half_width": 0.038120811912239524,
+    "mean_difference": 0.034881576249454,
+    "readout": "pair_deviation_week_1",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.04868024755873621,
+    "mean_difference": 0.05958538438817963,
+    "readout": "pair_deviation_week_2",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.03935174936290089,
+    "mean_difference": 0.05169184990987096,
+    "readout": "pair_deviation_week_3",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.04138513709783061,
+    "mean_difference": 0.03308343282236579,
+    "readout": "pair_deviation_week_4",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.06075255569954383,
+    "mean_difference": 0.0318218468784818,
+    "readout": "pair_deviation_week_5",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.055401231674128276,
+    "mean_difference": 0.0692656636220054,
+    "readout": "pair_deviation_week_6",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.04587581380995498,
+    "mean_difference": 0.08040151449909468,
+    "readout": "pair_deviation_week_7",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.04242334401611661,
+    "mean_difference": 0.05951538563354403,
+    "readout": "pair_deviation_week_8",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.051481773580407154,
+    "mean_difference": 0.05820943232856452,
+    "readout": "pair_deviation_week_9",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.05854575518158548,
+    "mean_difference": 0.06344753524851586,
+    "readout": "pair_deviation_week_10",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.06141070034790153,
+    "mean_difference": 0.07437870938553601,
+    "readout": "pair_deviation_week_11",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.05202084198359642,
+    "mean_difference": 0.04308177032898011,
+    "readout": "pair_deviation_week_12",
+    "report_only": true
+   }
+  ],
+  "seeds": 50
+ },
+ "4835d54ddeca5ebf26250d025e3ffda06b2d8cdfdfc51d4a620956f8699dcc31": {
+  "criterion": "M11.C.44",
+  "outcome": "FAIL",
+  "readouts": [
+   {
+    "direction": 1,
+    "half_width": 0.10258186461531611,
+    "mean_difference": 0.046404539639483565,
+    "readout": "outside_inside_ratio",
+    "report_only": false
+   }
+  ],
+  "seeds": 100
+ },
+ "4c907efbfa7f1b7d65742015b82e98bd69a39aad95d7f5cc42cb3de85b6550f7": {
+  "criterion": "M11.C.27[stable,remove_one]",
+  "outcome": "FAIL",
+  "readouts": [
+   {
+    "direction": 1,
+    "half_width": 0.06039843407641476,
+    "mean_difference": -0.07627580828386642,
+    "readout": "pair_deviation",
+    "report_only": false
+   },
+   {
+    "direction": 1,
+    "half_width": 0.06039843407641476,
+    "mean_difference": -0.07627580828386642,
+    "readout": "pair_deviation_week_1",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.06572191542084328,
+    "mean_difference": -0.03493263859799575,
+    "readout": "pair_deviation_week_2",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.05369779822859424,
+    "mean_difference": 0.025551653790806848,
+    "readout": "pair_deviation_week_3",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.056095023431336405,
+    "mean_difference": 0.10296260747844975,
+    "readout": "pair_deviation_week_4",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.060001936350001873,
+    "mean_difference": 0.14356840202944265,
+    "readout": "pair_deviation_week_5",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.06352840321710256,
+    "mean_difference": 0.1756833958716693,
+    "readout": "pair_deviation_week_6",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.06829699808199018,
+    "mean_difference": 0.24782199623838838,
+    "readout": "pair_deviation_week_7",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.06344552140378967,
+    "mean_difference": 0.2551654422200826,
+    "readout": "pair_deviation_week_8",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.06674235979306942,
+    "mean_difference": 0.2749225661281587,
+    "readout": "pair_deviation_week_9",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.07857887667441155,
+    "mean_difference": 0.2953014670407287,
+    "readout": "pair_deviation_week_10",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.0861216872272481,
+    "mean_difference": 0.33516054845060766,
+    "readout": "pair_deviation_week_11",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.08060881616775069,
+    "mean_difference": 0.2917187002880729,
+    "readout": "pair_deviation_week_12",
+    "report_only": true
+   }
+  ],
+  "seeds": 50
+ },
+ "54d5ce35a25cf992ebd17f590a15319fdf7e235abc02a0aa2f9c76c1e56cc412": {
+  "criterion": "M11.C.44",
+  "outcome": "FAIL",
+  "readouts": [
+   {
+    "direction": 1,
+    "half_width": 0.10630111428853753,
+    "mean_difference": -0.037623416450723056,
+    "readout": "outside_inside_ratio",
+    "report_only": false
+   }
+  ],
+  "seeds": 150
+ },
+ "5506a50da89c3465946b34afa860137187d48ea764cb7fef3192ee2437323bf9": {
+  "criterion": "M11.C.42",
+  "outcome": "FAIL",
+  "readouts": [
+   {
+    "direction": 1,
+    "half_width": 0.3117948043184812,
+    "mean_difference": 0.0,
+    "readout": "triangle_reuse",
+    "report_only": false
+   }
+  ],
+  "seeds": 50
+ },
+ "585afc0538323913e87dd8ab7d60b1551810364eb717be6167872972f76bf58d": {
+  "criterion": "M11.C.27[stable,add_third]",
+  "outcome": "FAIL",
+  "readouts": [
+   {
+    "direction": 1,
+    "half_width": 0.03973881763353719,
+    "mean_difference": 0.035379307859383945,
+    "readout": "pair_deviation",
+    "report_only": false
+   },
+   {
+    "direction": 1,
+    "half_width": 0.03973881763353719,
+    "mean_difference": 0.035379307859383945,
+    "readout": "pair_deviation_week_1",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.049561241013247624,
+    "mean_difference": 0.04586652406612364,
+    "readout": "pair_deviation_week_2",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.03980012641058173,
+    "mean_difference": 0.04576847087109408,
+    "readout": "pair_deviation_week_3",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.04537421232096569,
+    "mean_difference": 0.05971219292697802,
+    "readout": "pair_deviation_week_4",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.042744345014533294,
+    "mean_difference": 0.06133421725903267,
+    "readout": "pair_deviation_week_5",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.03832322488704535,
+    "mean_difference": 0.0500298444074206,
+    "readout": "pair_deviation_week_6",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.03303699704109589,
+    "mean_difference": 0.06143770620610371,
+    "readout": "pair_deviation_week_7",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.04037870864130686,
+    "mean_difference": 0.06670104508001408,
+    "readout": "pair_deviation_week_8",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.05924686585415072,
+    "mean_difference": 0.07194149279983098,
+    "readout": "pair_deviation_week_9",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.04747679440631451,
+    "mean_difference": 0.04003895313118286,
+    "readout": "pair_deviation_week_10",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.05078586986942291,
+    "mean_difference": 0.04623235330350375,
+    "readout": "pair_deviation_week_11",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.06610097923721979,
+    "mean_difference": 0.06344169124179538,
+    "readout": "pair_deviation_week_12",
+    "report_only": true
+   }
+  ],
+  "seeds": 50
+ },
+ "586cb55cd15d31be7371a6e50c754feaf1053a473b1d79f6c1d752783c48d62b": {
+  "criterion": "M11.C.27[unstable,add_third]",
+  "outcome": "FAIL",
+  "readouts": [
+   {
+    "direction": -1,
+    "half_width": 0.03657055315494326,
+    "mean_difference": 0.035587518231928905,
+    "readout": "pair_deviation",
+    "report_only": false
+   },
+   {
+    "direction": -1,
+    "half_width": 0.03657055315494326,
+    "mean_difference": 0.035587518231928905,
+    "readout": "pair_deviation_week_1",
+    "report_only": true
+   },
+   {
+    "direction": -1,
+    "half_width": 0.04626488537003293,
+    "mean_difference": 0.06681343884058379,
+    "readout": "pair_deviation_week_2",
+    "report_only": true
+   },
+   {
+    "direction": -1,
+    "half_width": 0.03529369154144611,
+    "mean_difference": 0.08366370493953816,
+    "readout": "pair_deviation_week_3",
+    "report_only": true
+   },
+   {
+    "direction": -1,
+    "half_width": 0.030475871223393677,
+    "mean_difference": 0.06706006272988987,
+    "readout": "pair_deviation_week_4",
+    "report_only": true
+   },
+   {
+    "direction": -1,
+    "half_width": 0.03910765280352329,
+    "mean_difference": 0.07179973510450313,
+    "readout": "pair_deviation_week_5",
+    "report_only": true
+   },
+   {
+    "direction": -1,
+    "half_width": 0.04967184160311861,
+    "mean_difference": 0.10649096202022897,
+    "readout": "pair_deviation_week_6",
+    "report_only": true
+   },
+   {
+    "direction": -1,
+    "half_width": 0.04949624230023674,
+    "mean_difference": 0.11507737952600464,
+    "readout": "pair_deviation_week_7",
+    "report_only": true
+   },
+   {
+    "direction": -1,
+    "half_width": 0.04937877746901923,
+    "mean_difference": 0.0789680892867547,
+    "readout": "pair_deviation_week_8",
+    "report_only": true
+   },
+   {
+    "direction": -1,
+    "half_width": 0.05800853000447862,
+    "mean_difference": 0.05610376532356939,
+    "readout": "pair_deviation_week_9",
+    "report_only": true
+   },
+   {
+    "direction": -1,
+    "half_width": 0.07046731382993723,
+    "mean_difference": 0.01565174903574729,
+    "readout": "pair_deviation_week_10",
+    "report_only": true
+   },
+   {
+    "direction": -1,
+    "half_width": 0.07037938426420619,
+    "mean_difference": 0.009474596039727994,
+    "readout": "pair_deviation_week_11",
+    "report_only": true
+   },
+   {
+    "direction": -1,
+    "half_width": 0.0732586896440523,
+    "mean_difference": 0.004835518459658464,
+    "readout": "pair_deviation_week_12",
+    "report_only": true
+   }
+  ],
+  "seeds": 50
+ },
+ "6a1fe8ef16b9346bec1abd3e772e0deae2aad25abfcce8dc5d19d79bf2453b7c": {
+  "criterion": "M11.C.45",
+  "outcome": "FAIL",
+  "readouts": [
+   {
+    "direction": 1,
+    "half_width": 0.00473641065138844,
+    "mean_difference": -0.003333333333333333,
+    "readout": "triangle_rate",
+    "report_only": false
+   }
+  ],
+  "seeds": 100
+ },
+ "6d052c185d1750f10b26008992735037af8264815a1bef3b9a7aec485b04762a": {
+  "criterion": "M11.C.27[unstable,add_third]",
+  "outcome": "FAIL",
+  "readouts": [
+   {
+    "direction": -1,
+    "half_width": 0.03556405234805683,
+    "mean_difference": 0.019688319269405334,
+    "readout": "pair_deviation",
+    "report_only": false
+   },
+   {
+    "direction": -1,
+    "half_width": 0.03556405234805683,
+    "mean_difference": 0.019688319269405334,
+    "readout": "pair_deviation_week_1",
+    "report_only": true
+   },
+   {
+    "direction": -1,
+    "half_width": 0.03649022211388447,
+    "mean_difference": 0.029794105143659676,
+    "readout": "pair_deviation_week_2",
+    "report_only": true
+   },
+   {
+    "direction": -1,
+    "half_width": 0.04296928208791471,
+    "mean_difference": 0.06643282331587017,
+    "readout": "pair_deviation_week_3",
+    "report_only": true
+   },
+   {
+    "direction": -1,
+    "half_width": 0.05172638450722512,
+    "mean_difference": 0.055595638553464895,
+    "readout": "pair_deviation_week_4",
+    "report_only": true
+   },
+   {
+    "direction": -1,
+    "half_width": 0.0473002908812073,
+    "mean_difference": 0.06144921696713075,
+    "readout": "pair_deviation_week_5",
+    "report_only": true
+   },
+   {
+    "direction": -1,
+    "half_width": 0.05688137076487155,
+    "mean_difference": 0.06699356646572363,
+    "readout": "pair_deviation_week_6",
+    "report_only": true
+   },
+   {
+    "direction": -1,
+    "half_width": 0.05200331664978405,
+    "mean_difference": 0.08194958273572844,
+    "readout": "pair_deviation_week_7",
+    "report_only": true
+   },
+   {
+    "direction": -1,
+    "half_width": 0.04660626150302247,
+    "mean_difference": 0.05619203866433005,
+    "readout": "pair_deviation_week_8",
+    "report_only": true
+   },
+   {
+    "direction": -1,
+    "half_width": 0.05668617875005054,
+    "mean_difference": 0.047377022078722145,
+    "readout": "pair_deviation_week_9",
+    "report_only": true
+   },
+   {
+    "direction": -1,
+    "half_width": 0.06964598586450409,
+    "mean_difference": 0.025028036491403345,
+    "readout": "pair_deviation_week_10",
+    "report_only": true
+   },
+   {
+    "direction": -1,
+    "half_width": 0.07407729599006393,
+    "mean_difference": 0.009393720092899294,
+    "readout": "pair_deviation_week_11",
+    "report_only": true
+   },
+   {
+    "direction": -1,
+    "half_width": 0.07694600765514586,
+    "mean_difference": 0.08187348154410248,
+    "readout": "pair_deviation_week_12",
+    "report_only": true
+   }
+  ],
+  "seeds": 50
+ },
+ "6e47c74618fbcadb649d73726d9983e331a8e31a1b2b9be979f0d70edef76520": {
+  "criterion": "M11.C.27[stable,remove_one]",
+  "outcome": "FAIL",
+  "readouts": [
+   {
+    "direction": 1,
+    "half_width": 0.06238238999139901,
+    "mean_difference": -0.05564822611742787,
+    "readout": "pair_deviation",
+    "report_only": false
+   },
+   {
+    "direction": 1,
+    "half_width": 0.06238238999139901,
+    "mean_difference": -0.05564822611742787,
+    "readout": "pair_deviation_week_1",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.06893007886765821,
+    "mean_difference": -0.0012456662021218046,
+    "readout": "pair_deviation_week_2",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.06928240615562138,
+    "mean_difference": 0.08839862427916013,
+    "readout": "pair_deviation_week_3",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.0640918702254455,
+    "mean_difference": 0.1309266427419695,
+    "readout": "pair_deviation_week_4",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.07150739288595695,
+    "mean_difference": 0.1534232409066392,
+    "readout": "pair_deviation_week_5",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.06739897368372652,
+    "mean_difference": 0.19684574169486024,
+    "readout": "pair_deviation_week_6",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.06157874236119618,
+    "mean_difference": 0.22142037163578915,
+    "readout": "pair_deviation_week_7",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.06112935485099535,
+    "mean_difference": 0.22797216040383358,
+    "readout": "pair_deviation_week_8",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.05869451922735311,
+    "mean_difference": 0.21408837337665187,
+    "readout": "pair_deviation_week_9",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.04705393623482844,
+    "mean_difference": 0.23399640184708456,
+    "readout": "pair_deviation_week_10",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.056196579013881386,
+    "mean_difference": 0.26119357714294617,
+    "readout": "pair_deviation_week_11",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.0658286637495431,
+    "mean_difference": 0.27640257935121576,
+    "readout": "pair_deviation_week_12",
+    "report_only": true
+   }
+  ],
+  "seeds": 50
+ },
+ "7babd9abec5dc9ae8465663503b293a3b02b3fbda6f714f10aa7af1160020088": {
   "criterion": "M11.C.27[stable,add_third]",
   "outcome": "FAIL",
   "readouts": [
@@ -2638,91 +1679,252 @@
   ],
   "seeds": 50
  },
- "debd66f1f08b0b533beedf4adae3ecd77338bb11454418fd06f5602b0b887234": {
+ "80e36736891f1ba5aed65d61ef1c30e673d4afbd6240b9d6f71c8c5fdd8cca2a": {
+  "criterion": "M11.C.42",
+  "outcome": "FAIL",
+  "readouts": [
+   {
+    "direction": 1,
+    "half_width": 0.4050235558681504,
+    "mean_difference": -0.15,
+    "readout": "triangle_reuse",
+    "report_only": false
+   }
+  ],
+  "seeds": 100
+ },
+ "80e4221c2962f2b2100bff5f41c383c3c2440b78f989433dd0852a84b4146941": {
+  "criterion": "M11.C.27[unstable,remove_one]",
+  "outcome": "PASS",
+  "readouts": [
+   {
+    "direction": -1,
+    "half_width": 0.059363041382292654,
+    "mean_difference": -0.06572228259648628,
+    "readout": "pair_deviation",
+    "report_only": false
+   },
+   {
+    "direction": -1,
+    "half_width": 0.059363041382292654,
+    "mean_difference": -0.06572228259648628,
+    "readout": "pair_deviation_week_1",
+    "report_only": true
+   },
+   {
+    "direction": -1,
+    "half_width": 0.06546826043648496,
+    "mean_difference": -0.03356938973197736,
+    "readout": "pair_deviation_week_2",
+    "report_only": true
+   },
+   {
+    "direction": -1,
+    "half_width": 0.06661443643423863,
+    "mean_difference": 0.00860654839769133,
+    "readout": "pair_deviation_week_3",
+    "report_only": true
+   },
+   {
+    "direction": -1,
+    "half_width": 0.06638924087025577,
+    "mean_difference": 0.10391340190929013,
+    "readout": "pair_deviation_week_4",
+    "report_only": true
+   },
+   {
+    "direction": -1,
+    "half_width": 0.06562470498970811,
+    "mean_difference": 0.16506397276235127,
+    "readout": "pair_deviation_week_5",
+    "report_only": true
+   },
+   {
+    "direction": -1,
+    "half_width": 0.06493317038992301,
+    "mean_difference": 0.21017150252719405,
+    "readout": "pair_deviation_week_6",
+    "report_only": true
+   },
+   {
+    "direction": -1,
+    "half_width": 0.06164177039325826,
+    "mean_difference": 0.2722298743137951,
+    "readout": "pair_deviation_week_7",
+    "report_only": true
+   },
+   {
+    "direction": -1,
+    "half_width": 0.07831158336392505,
+    "mean_difference": 0.2680307629069126,
+    "readout": "pair_deviation_week_8",
+    "report_only": true
+   },
+   {
+    "direction": -1,
+    "half_width": 0.07566036595545311,
+    "mean_difference": 0.2562219866608006,
+    "readout": "pair_deviation_week_9",
+    "report_only": true
+   },
+   {
+    "direction": -1,
+    "half_width": 0.10171750375550435,
+    "mean_difference": 0.2774067447508417,
+    "readout": "pair_deviation_week_10",
+    "report_only": true
+   },
+   {
+    "direction": -1,
+    "half_width": 0.09176451162921066,
+    "mean_difference": 0.24117830187235179,
+    "readout": "pair_deviation_week_11",
+    "report_only": true
+   },
+   {
+    "direction": -1,
+    "half_width": 0.08410622397947015,
+    "mean_difference": 0.24529838753372624,
+    "readout": "pair_deviation_week_12",
+    "report_only": true
+   }
+  ],
+  "seeds": 50
+ },
+ "85919d3e010d1bf9e46004879f832992b868ec64436b8322530648994e098d3a": {
+  "criterion": "M11.C.27[unstable,add_third]",
+  "outcome": "FAIL",
+  "readouts": [
+   {
+    "direction": -1,
+    "half_width": 0.038671735366346605,
+    "mean_difference": 0.03608936958547922,
+    "readout": "pair_deviation",
+    "report_only": false
+   },
+   {
+    "direction": -1,
+    "half_width": 0.038671735366346605,
+    "mean_difference": 0.03608936958547922,
+    "readout": "pair_deviation_week_1",
+    "report_only": true
+   },
+   {
+    "direction": -1,
+    "half_width": 0.06080059594210934,
+    "mean_difference": 0.07165154207109523,
+    "readout": "pair_deviation_week_2",
+    "report_only": true
+   },
+   {
+    "direction": -1,
+    "half_width": 0.04531383990830954,
+    "mean_difference": 0.06782571091323754,
+    "readout": "pair_deviation_week_3",
+    "report_only": true
+   },
+   {
+    "direction": -1,
+    "half_width": 0.049734926916781094,
+    "mean_difference": 0.07014090072163581,
+    "readout": "pair_deviation_week_4",
+    "report_only": true
+   },
+   {
+    "direction": -1,
+    "half_width": 0.04008118702265068,
+    "mean_difference": 0.06548288526823934,
+    "readout": "pair_deviation_week_5",
+    "report_only": true
+   },
+   {
+    "direction": -1,
+    "half_width": 0.04421372081727419,
+    "mean_difference": 0.051323990056042185,
+    "readout": "pair_deviation_week_6",
+    "report_only": true
+   },
+   {
+    "direction": -1,
+    "half_width": 0.03805825224106089,
+    "mean_difference": 0.05412438621871083,
+    "readout": "pair_deviation_week_7",
+    "report_only": true
+   },
+   {
+    "direction": -1,
+    "half_width": 0.042017252634799634,
+    "mean_difference": 0.0699605110643505,
+    "readout": "pair_deviation_week_8",
+    "report_only": true
+   },
+   {
+    "direction": -1,
+    "half_width": 0.053068006117162975,
+    "mean_difference": 0.05775980432845845,
+    "readout": "pair_deviation_week_9",
+    "report_only": true
+   },
+   {
+    "direction": -1,
+    "half_width": 0.05005696872856836,
+    "mean_difference": 0.05325662192173932,
+    "readout": "pair_deviation_week_10",
+    "report_only": true
+   },
+   {
+    "direction": -1,
+    "half_width": 0.05841702728662245,
+    "mean_difference": 0.0465807468002943,
+    "readout": "pair_deviation_week_11",
+    "report_only": true
+   },
+   {
+    "direction": -1,
+    "half_width": 0.07143249270462508,
+    "mean_difference": 0.03522412757551474,
+    "readout": "pair_deviation_week_12",
+    "report_only": true
+   }
+  ],
+  "seeds": 50
+ },
+ "8d61671659ec0a283fd50adf9ad2e90fffb674db10397b8a6d9bdc3361c86e91": {
   "criterion": "M11.C.5",
   "outcome": "FAIL",
   "readouts": [
    {
     "direction": 1,
-    "half_width": 10.001472407662535,
-    "mean_difference": 0.9745115589607924,
+    "half_width": 8.693532273390714,
+    "mean_difference": -8.572671121958175,
     "readout": "target_reaction",
     "report_only": false
    },
    {
     "direction": 1,
-    "half_width": 6.0653576573750625,
-    "mean_difference": -0.08330426590963687,
-    "readout": "third_person_symptom_load",
-    "report_only": false
-   }
-  ],
-  "seeds": 150
- },
- "dfd5123d79001700850c92747e1b20cb4b472187b345eb28a756c46fef65a383": {
-  "criterion": "M11.C.16",
-  "outcome": "PASS",
-  "readouts": [
-   {
-    "direction": -1,
-    "half_width": 0.004276351816242377,
-    "mean_difference": -0.019890670445952045,
-    "readout": "repertoire_entropy",
-    "report_only": false
-   },
-   {
-    "direction": 1,
-    "half_width": 0.006636199527714876,
-    "mean_difference": 0.02652759056090659,
-    "readout": "top_move_share",
-    "report_only": true
-   }
-  ],
-  "seeds": 150
- },
- "e0493c9dbb5b070e1a9a9ceed17847497b90ef7beac5b79629121d1f94525e48": {
-  "criterion": "M11.C.16",
-  "outcome": "PASS",
-  "readouts": [
-   {
-    "direction": -1,
-    "half_width": 0.005494958026415699,
-    "mean_difference": -0.020535200610198756,
-    "readout": "repertoire_entropy",
-    "report_only": false
-   },
-   {
-    "direction": 1,
-    "half_width": 0.008296196058281847,
-    "mean_difference": 0.019382209736155433,
-    "readout": "top_move_share",
-    "report_only": true
-   }
-  ],
-  "seeds": 150
- },
- "e41b7499cbd953277779dacb8ee9cbc4653cfaffeefeb0220f5068f4d1c51eee": {
-  "criterion": "M11.C.5",
-  "outcome": "FAIL",
-  "readouts": [
-   {
-    "direction": 1,
-    "half_width": 13.321304276301683,
-    "mean_difference": 7.607504293702342,
-    "readout": "target_reaction",
-    "report_only": false
-   },
-   {
-    "direction": 1,
-    "half_width": 6.792486837917783,
-    "mean_difference": -2.6023180612737575,
+    "half_width": 5.331749458853421,
+    "mean_difference": -1.8428838192746582,
     "readout": "third_person_symptom_load",
     "report_only": false
    }
   ],
   "seeds": 100
  },
- "ed6690c3f5492a894c96df3079e70b068d178788aa31bdc183ad77837ed94ee7": {
+ "8e00229a2a3e2efe06a9da49cd99000f0e07f75a4196360ef18ec719e9c517ea": {
+  "criterion": "M11.C.45",
+  "outcome": "FAIL",
+  "readouts": [
+   {
+    "direction": 1,
+    "half_width": 0.005609453387987904,
+    "mean_difference": 0.0006250000000000001,
+    "readout": "triangle_rate",
+    "report_only": false
+   }
+  ],
+  "seeds": 100
+ },
+ "95d231143227c6a68388fe939d97b38f8a38ac46bf4864d0818e8c3604395a01": {
   "criterion": "M11.C.27[unstable,remove_one]",
   "outcome": "PASS",
   "readouts": [
@@ -2820,7 +2022,308 @@
   ],
   "seeds": 50
  },
- "f5596fc8999ededf640c0779020eabf6690bef565df8cebe55a777bbc756a443": {
+ "9692af704ff6361ad2f28985c8be91de40ce9b4a5c56fed8af3b0cc6ed573c68": {
+  "criterion": "M11.C.16",
+  "outcome": "PASS",
+  "readouts": [
+   {
+    "direction": -1,
+    "half_width": 0.004792530942363414,
+    "mean_difference": -0.032606138316790025,
+    "readout": "repertoire_entropy",
+    "report_only": false
+   },
+   {
+    "direction": 1,
+    "half_width": 0.00741958741904796,
+    "mean_difference": 0.04178382275946281,
+    "readout": "top_move_share",
+    "report_only": true
+   }
+  ],
+  "seeds": 150
+ },
+ "971161cbe2aad587f01e63811cca3aed2197862731a672727095c3ed1421ac30": {
+  "criterion": "M11.C.27[stable,remove_one]",
+  "outcome": "FAIL",
+  "readouts": [
+   {
+    "direction": 1,
+    "half_width": 0.046098516420657924,
+    "mean_difference": -0.04072029874722704,
+    "readout": "pair_deviation",
+    "report_only": false
+   },
+   {
+    "direction": 1,
+    "half_width": 0.046098516420657924,
+    "mean_difference": -0.04072029874722704,
+    "readout": "pair_deviation_week_1",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.04744731484825716,
+    "mean_difference": -0.03927344863286991,
+    "readout": "pair_deviation_week_2",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.043262564964947924,
+    "mean_difference": 0.02177007351622241,
+    "readout": "pair_deviation_week_3",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.04309293009428607,
+    "mean_difference": 0.0693864021307422,
+    "readout": "pair_deviation_week_4",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.04706933433026206,
+    "mean_difference": 0.1321365863208929,
+    "readout": "pair_deviation_week_5",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.04750455633431083,
+    "mean_difference": 0.1865446430240538,
+    "readout": "pair_deviation_week_6",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.045203306494088574,
+    "mean_difference": 0.19884025436249236,
+    "readout": "pair_deviation_week_7",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.05000041931620262,
+    "mean_difference": 0.21424150401878897,
+    "readout": "pair_deviation_week_8",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.050923978931483524,
+    "mean_difference": 0.22930111545935636,
+    "readout": "pair_deviation_week_9",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.053613217240675595,
+    "mean_difference": 0.20847216469399954,
+    "readout": "pair_deviation_week_10",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.06194438450292228,
+    "mean_difference": 0.24091190430184475,
+    "readout": "pair_deviation_week_11",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.05871090540219467,
+    "mean_difference": 0.21043819865155344,
+    "readout": "pair_deviation_week_12",
+    "report_only": true
+   }
+  ],
+  "seeds": 100
+ },
+ "975b6eb07c8eaf5cf472e4d29d54062af68ad5f58d9a896c9079b41cae98bc85": {
+  "criterion": "M11.C.16",
+  "outcome": "PASS",
+  "readouts": [
+   {
+    "direction": -1,
+    "half_width": 0.003800006168547098,
+    "mean_difference": -0.02766741422215613,
+    "readout": "repertoire_entropy",
+    "report_only": false
+   },
+   {
+    "direction": 1,
+    "half_width": 0.0062908840199887945,
+    "mean_difference": 0.03936746349187859,
+    "readout": "top_move_share",
+    "report_only": true
+   }
+  ],
+  "seeds": 100
+ },
+ "97d05c76db59c199c75a9d81f4b3df910ec2078a5ac7386e04fc1e04716d8aec": {
+  "criterion": "M11.C.5",
+  "outcome": "FAIL",
+  "readouts": [
+   {
+    "direction": 1,
+    "half_width": 10.926607171767811,
+    "mean_difference": 1.2757843753744567,
+    "readout": "target_reaction",
+    "report_only": false
+   },
+   {
+    "direction": 1,
+    "half_width": 5.2229010918092085,
+    "mean_difference": 0.6968149314863217,
+    "readout": "third_person_symptom_load",
+    "report_only": false
+   }
+  ],
+  "seeds": 150
+ },
+ "9ffbc01d21f2d3362e003918de14e2b04809311630973c26364230e4031567a4": {
+  "criterion": "M11.C.5",
+  "outcome": "FAIL",
+  "readouts": [
+   {
+    "direction": 1,
+    "half_width": 10.255556386154645,
+    "mean_difference": 2.7874987730597707,
+    "readout": "target_reaction",
+    "report_only": false
+   },
+   {
+    "direction": 1,
+    "half_width": 5.398599053248049,
+    "mean_difference": -1.8068604794832621,
+    "readout": "third_person_symptom_load",
+    "report_only": false
+   }
+  ],
+  "seeds": 100
+ },
+ "a4109ed3c8b8631733c282baaf999ecc991a655fbee5cac395ea9b0e5d5f3de3": {
+  "criterion": "M11.C.27[stable,remove_one]",
+  "outcome": "FAIL",
+  "readouts": [
+   {
+    "direction": 1,
+    "half_width": 0.04337134090416212,
+    "mean_difference": -0.028159831436089605,
+    "readout": "pair_deviation",
+    "report_only": false
+   },
+   {
+    "direction": 1,
+    "half_width": 0.04337134090416212,
+    "mean_difference": -0.028159831436089605,
+    "readout": "pair_deviation_week_1",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.050202301484156754,
+    "mean_difference": -0.021036715355888864,
+    "readout": "pair_deviation_week_2",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.04424307046702504,
+    "mean_difference": 0.041659964661293264,
+    "readout": "pair_deviation_week_3",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.04559322334551526,
+    "mean_difference": 0.09589582891427266,
+    "readout": "pair_deviation_week_4",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.04356117695170855,
+    "mean_difference": 0.10997914218739722,
+    "readout": "pair_deviation_week_5",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.04424489814274766,
+    "mean_difference": 0.15927281567186174,
+    "readout": "pair_deviation_week_6",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.043349348025447806,
+    "mean_difference": 0.2177802569716193,
+    "readout": "pair_deviation_week_7",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.046955865322010217,
+    "mean_difference": 0.24757710774821856,
+    "readout": "pair_deviation_week_8",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.050322160698572,
+    "mean_difference": 0.24688382916927104,
+    "readout": "pair_deviation_week_9",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.05022588190870471,
+    "mean_difference": 0.2536418354659728,
+    "readout": "pair_deviation_week_10",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.04940822468570507,
+    "mean_difference": 0.24708662590702107,
+    "readout": "pair_deviation_week_11",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.047223017489813654,
+    "mean_difference": 0.2585436550864634,
+    "readout": "pair_deviation_week_12",
+    "report_only": true
+   }
+  ],
+  "seeds": 100
+ },
+ "a61860feb0d1e3aa062811e2e05371c4e7e2d185ae194369bee1e6263121e388": {
+  "criterion": "M11.C.16",
+  "outcome": "PASS",
+  "readouts": [
+   {
+    "direction": -1,
+    "half_width": 0.005900828355204716,
+    "mean_difference": -0.011637827808337017,
+    "readout": "repertoire_entropy",
+    "report_only": false
+   },
+   {
+    "direction": 1,
+    "half_width": 0.008722658830610259,
+    "mean_difference": 0.011349928687499152,
+    "readout": "top_move_share",
+    "report_only": true
+   }
+  ],
+  "seeds": 150
+ },
+ "a76a7fb8c9c961231ae6ff11c3d8b1664c2b0a7070e478f1b7ceac263b73d565": {
   "criterion": "M11.C.5",
   "outcome": "FAIL",
   "readouts": [
@@ -2841,7 +2344,7 @@
   ],
   "seeds": 100
  },
- "fcee0f9b5f206b1a4dff480c7c5e8a08e9691073609d65e7668896c718900bb3": {
+ "ad09ce78bbcf772560bde1bf18a05777c0a361e8a8c58bec8cb130d343493c6c": {
   "criterion": "M11.C.44",
   "outcome": "FAIL",
   "readouts": [
@@ -2849,6 +2352,503 @@
     "direction": 1,
     "half_width": 0.06660684921413138,
     "mean_difference": 0.0390150099244576,
+    "readout": "outside_inside_ratio",
+    "report_only": false
+   }
+  ],
+  "seeds": 100
+ },
+ "ada137b631e005f83fdcdb74854a948386e245c352a6e5fae9546e2a87763df5": {
+  "criterion": "M11.C.5",
+  "outcome": "FAIL",
+  "readouts": [
+   {
+    "direction": 1,
+    "half_width": 10.001472407662535,
+    "mean_difference": 0.9745115589607924,
+    "readout": "target_reaction",
+    "report_only": false
+   },
+   {
+    "direction": 1,
+    "half_width": 6.0653576573750625,
+    "mean_difference": -0.08330426590963687,
+    "readout": "third_person_symptom_load",
+    "report_only": false
+   }
+  ],
+  "seeds": 150
+ },
+ "b1168bc617fe66cca16d3c5bf67aa907367f87dce5f483e59ab831d1f77961ef": {
+  "criterion": "M11.C.42",
+  "outcome": "FAIL",
+  "readouts": [
+   {
+    "direction": 1,
+    "half_width": 0.30767895113201515,
+    "mean_difference": -0.02,
+    "readout": "triangle_reuse",
+    "report_only": false
+   }
+  ],
+  "seeds": 100
+ },
+ "badb5149256552c1d663ea1aafb741665e4b27f85b26f539c49361e43bde007a": {
+  "criterion": "M11.C.45",
+  "outcome": "FAIL",
+  "readouts": [
+   {
+    "direction": 1,
+    "half_width": 0.004939726317231961,
+    "mean_difference": 0.001361111111111112,
+    "readout": "triangle_rate",
+    "report_only": false
+   }
+  ],
+  "seeds": 150
+ },
+ "c043f37752bd65195beb6c5667906c9331f368790176dc46310ca6d8bc25f13c": {
+  "criterion": "M11.C.44",
+  "outcome": "FAIL",
+  "readouts": [
+   {
+    "direction": 1,
+    "half_width": 0.08224054990037036,
+    "mean_difference": 0.06731498956138887,
+    "readout": "outside_inside_ratio",
+    "report_only": false
+   }
+  ],
+  "seeds": 100
+ },
+ "c0948067ce6f10999ea4c16e3f09c9a7a850c52f257a49da3da4da4fcf8df4f3": {
+  "criterion": "M11.C.44",
+  "outcome": "FAIL",
+  "readouts": [
+   {
+    "direction": 1,
+    "half_width": 0.06647359740719251,
+    "mean_difference": 0.015179935313617283,
+    "readout": "outside_inside_ratio",
+    "report_only": false
+   }
+  ],
+  "seeds": 100
+ },
+ "c514656186930160ca5027bf5486da47d0778c5aaa6a9d22c9b74e001230beaf": {
+  "criterion": "M11.C.42",
+  "outcome": "FAIL",
+  "readouts": [
+   {
+    "direction": 1,
+    "half_width": 0.31083783553486527,
+    "mean_difference": -0.26,
+    "readout": "triangle_reuse",
+    "report_only": false
+   }
+  ],
+  "seeds": 50
+ },
+ "d3dbafb294f60f5e82d3a9cb6ffd3f38c919cbd6219cf7dd4d57cd5dd1197a7b": {
+  "criterion": "M11.C.42",
+  "outcome": "FAIL",
+  "readouts": [
+   {
+    "direction": 1,
+    "half_width": 0.2552944697063105,
+    "mean_difference": -0.02,
+    "readout": "triangle_reuse",
+    "report_only": false
+   }
+  ],
+  "seeds": 100
+ },
+ "d859efde09266b06da1ee407be241f2c345cbce173c920c3cf042b0c251f2a1c": {
+  "criterion": "M11.C.16",
+  "outcome": "PASS",
+  "readouts": [
+   {
+    "direction": -1,
+    "half_width": 0.004276351816242377,
+    "mean_difference": -0.019890670445952045,
+    "readout": "repertoire_entropy",
+    "report_only": false
+   },
+   {
+    "direction": 1,
+    "half_width": 0.006636199527714876,
+    "mean_difference": 0.02652759056090659,
+    "readout": "top_move_share",
+    "report_only": true
+   }
+  ],
+  "seeds": 150
+ },
+ "d9c968d98b50676d523da6093f589cf9da70cd2843d77b68f63cb37c0385d6c8": {
+  "criterion": "M11.C.27[unstable,add_third]",
+  "outcome": "FAIL",
+  "readouts": [
+   {
+    "direction": -1,
+    "half_width": 0.03563524369496292,
+    "mean_difference": 0.027822957083966822,
+    "readout": "pair_deviation",
+    "report_only": false
+   },
+   {
+    "direction": -1,
+    "half_width": 0.03563524369496292,
+    "mean_difference": 0.027822957083966822,
+    "readout": "pair_deviation_week_1",
+    "report_only": true
+   },
+   {
+    "direction": -1,
+    "half_width": 0.038167656966989094,
+    "mean_difference": 0.04911749287481158,
+    "readout": "pair_deviation_week_2",
+    "report_only": true
+   },
+   {
+    "direction": -1,
+    "half_width": 0.04978314334513207,
+    "mean_difference": 0.08704576682874463,
+    "readout": "pair_deviation_week_3",
+    "report_only": true
+   },
+   {
+    "direction": -1,
+    "half_width": 0.05097441841682424,
+    "mean_difference": 0.06458347697988903,
+    "readout": "pair_deviation_week_4",
+    "report_only": true
+   },
+   {
+    "direction": -1,
+    "half_width": 0.04211209713723366,
+    "mean_difference": 0.06572181109382483,
+    "readout": "pair_deviation_week_5",
+    "report_only": true
+   },
+   {
+    "direction": -1,
+    "half_width": 0.04770237537018739,
+    "mean_difference": 0.0928984598188878,
+    "readout": "pair_deviation_week_6",
+    "report_only": true
+   },
+   {
+    "direction": -1,
+    "half_width": 0.04384707356982533,
+    "mean_difference": 0.07899232469333016,
+    "readout": "pair_deviation_week_7",
+    "report_only": true
+   },
+   {
+    "direction": -1,
+    "half_width": 0.04542889315267235,
+    "mean_difference": 0.029184616248918296,
+    "readout": "pair_deviation_week_8",
+    "report_only": true
+   },
+   {
+    "direction": -1,
+    "half_width": 0.059031516502111185,
+    "mean_difference": 0.07599576853497667,
+    "readout": "pair_deviation_week_9",
+    "report_only": true
+   },
+   {
+    "direction": -1,
+    "half_width": 0.04985016872606571,
+    "mean_difference": 0.06588612044677149,
+    "readout": "pair_deviation_week_10",
+    "report_only": true
+   },
+   {
+    "direction": -1,
+    "half_width": 0.06669175951780143,
+    "mean_difference": 0.0340745256167989,
+    "readout": "pair_deviation_week_11",
+    "report_only": true
+   },
+   {
+    "direction": -1,
+    "half_width": 0.06280106230507418,
+    "mean_difference": 0.04665150977128282,
+    "readout": "pair_deviation_week_12",
+    "report_only": true
+   }
+  ],
+  "seeds": 50
+ },
+ "e714172e742f49350153e6c9a83b120b374efd8e039e9b9d89264e012fdbc137": {
+  "criterion": "M11.C.45",
+  "outcome": "FAIL",
+  "readouts": [
+   {
+    "direction": 1,
+    "half_width": 0.005850423030113872,
+    "mean_difference": -0.002722222222222222,
+    "readout": "triangle_rate",
+    "report_only": false
+   }
+  ],
+  "seeds": 150
+ },
+ "ef68f502f9c968fa978ce264d32fcf9a07a84b76b03b7a7d0deb961fd4c88b16": {
+  "criterion": "M11.C.27[unstable,remove_one]",
+  "outcome": "FAIL",
+  "readouts": [
+   {
+    "direction": -1,
+    "half_width": 0.06035985105686796,
+    "mean_difference": -0.05175636487031171,
+    "readout": "pair_deviation",
+    "report_only": false
+   },
+   {
+    "direction": -1,
+    "half_width": 0.06035985105686796,
+    "mean_difference": -0.05175636487031171,
+    "readout": "pair_deviation_week_1",
+    "report_only": true
+   },
+   {
+    "direction": -1,
+    "half_width": 0.06373450076235097,
+    "mean_difference": -0.019735090700607284,
+    "readout": "pair_deviation_week_2",
+    "report_only": true
+   },
+   {
+    "direction": -1,
+    "half_width": 0.06773717033432992,
+    "mean_difference": 0.041594918005653465,
+    "readout": "pair_deviation_week_3",
+    "report_only": true
+   },
+   {
+    "direction": -1,
+    "half_width": 0.06601718414518214,
+    "mean_difference": 0.06494434603642363,
+    "readout": "pair_deviation_week_4",
+    "report_only": true
+   },
+   {
+    "direction": -1,
+    "half_width": 0.06498788058545775,
+    "mean_difference": 0.10380808635486558,
+    "readout": "pair_deviation_week_5",
+    "report_only": true
+   },
+   {
+    "direction": -1,
+    "half_width": 0.06270609844991246,
+    "mean_difference": 0.16951850720021702,
+    "readout": "pair_deviation_week_6",
+    "report_only": true
+   },
+   {
+    "direction": -1,
+    "half_width": 0.05750370284393332,
+    "mean_difference": 0.2248116995554981,
+    "readout": "pair_deviation_week_7",
+    "report_only": true
+   },
+   {
+    "direction": -1,
+    "half_width": 0.052023925157118,
+    "mean_difference": 0.20723276673050095,
+    "readout": "pair_deviation_week_8",
+    "report_only": true
+   },
+   {
+    "direction": -1,
+    "half_width": 0.05370610976236496,
+    "mean_difference": 0.1805197013971277,
+    "readout": "pair_deviation_week_9",
+    "report_only": true
+   },
+   {
+    "direction": -1,
+    "half_width": 0.0540546650475681,
+    "mean_difference": 0.21256120640689669,
+    "readout": "pair_deviation_week_10",
+    "report_only": true
+   },
+   {
+    "direction": -1,
+    "half_width": 0.07366174746421873,
+    "mean_difference": 0.24016574166217228,
+    "readout": "pair_deviation_week_11",
+    "report_only": true
+   },
+   {
+    "direction": -1,
+    "half_width": 0.07195663726857056,
+    "mean_difference": 0.26395964378997383,
+    "readout": "pair_deviation_week_12",
+    "report_only": true
+   }
+  ],
+  "seeds": 50
+ },
+ "f07e0614e854199604270d17b6db1e335128eae4cd82b8e00a8891ed8bdc3ef0": {
+  "criterion": "M11.C.45",
+  "outcome": "FAIL",
+  "readouts": [
+   {
+    "direction": 1,
+    "half_width": 0.005303402373361912,
+    "mean_difference": -0.0025833333333333337,
+    "readout": "triangle_rate",
+    "report_only": false
+   }
+  ],
+  "seeds": 150
+ },
+ "f96356bf0d91e786cc29422101f5231210fd2f89c9ca3133fb3820b9499a04f8": {
+  "criterion": "M11.C.27[unstable,add_third]",
+  "outcome": "FAIL",
+  "readouts": [
+   {
+    "direction": -1,
+    "half_width": 0.03774079548316174,
+    "mean_difference": 0.026590645045879827,
+    "readout": "pair_deviation",
+    "report_only": false
+   },
+   {
+    "direction": -1,
+    "half_width": 0.03774079548316174,
+    "mean_difference": 0.026590645045879827,
+    "readout": "pair_deviation_week_1",
+    "report_only": true
+   },
+   {
+    "direction": -1,
+    "half_width": 0.05861371642195247,
+    "mean_difference": 0.06902052026757803,
+    "readout": "pair_deviation_week_2",
+    "report_only": true
+   },
+   {
+    "direction": -1,
+    "half_width": 0.05660253783226654,
+    "mean_difference": 0.06918391043345534,
+    "readout": "pair_deviation_week_3",
+    "report_only": true
+   },
+   {
+    "direction": -1,
+    "half_width": 0.044432536713712605,
+    "mean_difference": 0.08997197824607532,
+    "readout": "pair_deviation_week_4",
+    "report_only": true
+   },
+   {
+    "direction": -1,
+    "half_width": 0.04372111597411097,
+    "mean_difference": 0.07282391178498587,
+    "readout": "pair_deviation_week_5",
+    "report_only": true
+   },
+   {
+    "direction": -1,
+    "half_width": 0.039232623761045256,
+    "mean_difference": 0.07965873581232524,
+    "readout": "pair_deviation_week_6",
+    "report_only": true
+   },
+   {
+    "direction": -1,
+    "half_width": 0.04176780565107691,
+    "mean_difference": 0.0897727823573605,
+    "readout": "pair_deviation_week_7",
+    "report_only": true
+   },
+   {
+    "direction": -1,
+    "half_width": 0.04561033927860561,
+    "mean_difference": 0.10694572895913501,
+    "readout": "pair_deviation_week_8",
+    "report_only": true
+   },
+   {
+    "direction": -1,
+    "half_width": 0.04644311409322921,
+    "mean_difference": 0.06008271530809486,
+    "readout": "pair_deviation_week_9",
+    "report_only": true
+   },
+   {
+    "direction": -1,
+    "half_width": 0.04972223095124541,
+    "mean_difference": 0.050067167937523686,
+    "readout": "pair_deviation_week_10",
+    "report_only": true
+   },
+   {
+    "direction": -1,
+    "half_width": 0.06184213319596536,
+    "mean_difference": 0.021797023287776246,
+    "readout": "pair_deviation_week_11",
+    "report_only": true
+   },
+   {
+    "direction": -1,
+    "half_width": 0.06435930187175003,
+    "mean_difference": 0.050383742849841734,
+    "readout": "pair_deviation_week_12",
+    "report_only": true
+   }
+  ],
+  "seeds": 50
+ },
+ "fa76adda18e47df42f3421d5625d628f46923dd8d6d85aa58139da679773409a": {
+  "criterion": "M11.C.42",
+  "outcome": "FAIL",
+  "readouts": [
+   {
+    "direction": 1,
+    "half_width": 0.34266185352120226,
+    "mean_difference": -0.29,
+    "readout": "triangle_reuse",
+    "report_only": false
+   }
+  ],
+  "seeds": 100
+ },
+ "fc5e3e10b62d02b5e84d4bd30b24c2869d6d791a447a05c2b8ec54ffb611ecf5": {
+  "criterion": "M11.C.16",
+  "outcome": "PASS",
+  "readouts": [
+   {
+    "direction": -1,
+    "half_width": 0.0035194769606753007,
+    "mean_difference": -0.027853490867862984,
+    "readout": "repertoire_entropy",
+    "report_only": false
+   },
+   {
+    "direction": 1,
+    "half_width": 0.005227049527576466,
+    "mean_difference": 0.039844751350443186,
+    "readout": "top_move_share",
+    "report_only": true
+   }
+  ],
+  "seeds": 150
+ },
+ "fe2055d927827ffb4a239ca4bfa6addb6890024d3a675e56a33e5b6e86768b20": {
+  "criterion": "M11.C.44",
+  "outcome": "FAIL",
+  "readouts": [
+   {
+    "direction": 1,
+    "half_width": 0.0865795685046835,
+    "mean_difference": 0.010821177407440407,
     "readout": "outside_inside_ratio",
     "report_only": false
    }

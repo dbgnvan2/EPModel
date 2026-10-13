@@ -107,7 +107,16 @@ def test_m16a7_header_flags_constants_changed_after_freeze():
                                         "soothing_review_penalty", "usual_level_rate",
                                         "constitution_strength", "channel_protection", "lock_in_gain", "lock_in_turn",
                                         "attribution_rate", "focus_rate", "belief_appraisal_gain", "marital_distance_fraction",
-                                        "pseudo_self_relaxation_rate", "exchange_window"}
+                                        "pseudo_self_relaxation_rate", "exchange_window",
+                                        # spec revision 28, the life course (Phase D part II)
+                                        "acting_age_years", "development_start_age_years", "development_end_age_years",
+                                        "development_band", "development_rate", "witnessed_gain", "launch_age_years",
+                                        "working_age_years", "find_work_rate", "find_work_pressure_scale",
+                                        "grief_scale", "grief_min_weeks", "grief_extra_weeks", "income_loss_intensity",
+                                        "income_shortfall_share", "mortality_a", "mortality_b",
+                                        "budget_per_undifferentiation", "coach_start_age_years",
+                                        "coach_retirement_age_years", "new_tie_investment_share", "birth_focus_gain",
+                                        "death_transfer_share"}
     changed = dataclasses.replace(
         constants,
         values=MappingProxyType({**constants.values,

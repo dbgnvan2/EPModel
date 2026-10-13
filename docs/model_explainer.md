@@ -957,6 +957,43 @@ These are asserted every tick. They are what makes the engine a model of *this* 
 
 > **No per-generation decline rate exists.** `[T]` Ch16 · L16.3 — the rate is **stochastic**: fast for a few generations, static for one or two, then fast again, and reversible at both extremes. A "≈15 points per generation" constant was manufactured from a schematic whose steps are −15, −15, −10, −5, dropping Bowen's own cap sentence ("in the average situation the immaturity would progress at a much slower rate").
 
+### 8.1 The life course *(spec revision 28, built 2026-10-13: the owner's decisions of 2026-10-13, P13–P15; the forms are Claude's recommendation, pending owner review)*
+
+**What it is for.** Generational criteria (`M11.C.6`, `.10`, `.15`, `.37`) need people to be born, grow up, leave,
+pair and die inside a run. Everything below runs on the slow tick (`src/bowen/engine/life_course.py`), and only for a
+family that declares a life course; every earlier run is unchanged. Every value is `[I]`: the owner's decisions are
+project decisions, not corpus findings, and must never be cited as Bowen's.
+
+- **Ages and acting.** Starting ages are three settings (youngest grandchild 1, parents 30, grandparents 55; spec
+  `M2.A.0j`). A person selects acts from 10 until death (`M7.C.1f`); a younger child still witnesses, carries anxiety
+  and accumulates symptom load. `[I]` (owner)
+- **A child's chronic anxiety** before 12 is their parents' mean plus half their own mean load over the year
+  (`M7.B.1a`), then fixed. It is the one place a family's anxiety enters a child's floor; it compounds across
+  generations, which is the direction the corpus states (`[D]` Ch16) and a magnitude it does not (`[I]`).
+- **A child's basic level** is held at their parents' mean until 5, anchored there, and from 5 to 20 moved each year
+  by half the parents' and half the child's own functioning above basic, within ±2% of the anchor (`M7.E.1f`; the
+  owner: "level × .02"). Nothing names which child falls: the child whose own functioning the family pushes down
+  ends lower. **Consequence:** ten generations can fall at most about 18 points from the top, so `M11.C.6`'s "eight
+  to ten generations" from the top of the scale to the bottom cannot be met under this band — an open owner decision.
+- **Launch, partners, births.** A child leaves home at 20, supporting themselves (`M7.C.1g`, `[I]`). Partners come
+  from a settings file, never from the engine (`config/bowen/partners_phase_d.md`; `M7.C.1h`): their level is drawn
+  within ±1 of the member's (`M2.A.0e`), the couple forms a household and a family with its own budget, and the new
+  tie takes a share of each spouse's existing investment (`M7.C.1a`, `[T]` KS22.2). Children are born at the years
+  the settings declare; the five situations of `M7.E.1c` add a parent's focus, and none names a target.
+- **Death.** Each person's age at death is drawn once, at entry, from a rising (Gompertz) hazard with a median near
+  80 (`M7.C.1j`, `[I]`; the owner stated no rule). At the death (`M6.3`): the dead person's anxiety goes to the
+  living family members in proportion to their ties (the owner: "like chemical bond energy — it gets
+  redistributed"); what their ties, triangles and symptom held goes to the living; each living person's investment
+  in them moves to their other ties; borrowed pseudo-self settles back; each tied family member grieves for one to
+  three years, more on a stronger tie; and if the dead person earned, the household carries a lost income that lasts
+  until a member finds work, and then at 20% (the owner: "Trying equals finding, but at 20% less income"). Who looks
+  for work, and when, follows from the pressure on each member, not a schedule (`M7.C.1k`).
+- **The coach** (Dr Halim, female, 35) is tied to the person coached only, and retires at 68; a successor starts over
+  with the coachee, who keeps what they learned (`M2.A.0k`).
+
+**What is not built:** pairs that fail to form (`M2.A.0f`), divorce, a child moving back home, the redistribution
+moving `expectations` against `investment` (`M7.C.1b`), and the projection line in `M11.G`'s readout.
+
 ---
 
 ## 9. Events, routing and the belief layer

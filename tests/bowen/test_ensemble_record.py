@@ -226,7 +226,7 @@ def _setting_reads():
     ``SPELL["k"]`` / ``NODAL["k"]``, over both criteria modules (Phase C and Phase D)."""
     import ast
 
-    tree = ast.Module(body=[node for name in ("criteria.py", "criteria_d.py")
+    tree = ast.Module(body=[node for name in ("criteria.py", "criteria_d.py", "criteria_d2.py")
                             for node in ast.parse((REPO / "src" / "bowen" / "ensemble" / name)
                                                   .read_text(encoding="utf-8")).body], type_ignores=[])
 
@@ -253,9 +253,10 @@ def test_criteria_required_matches_what_the_arms_read():
     from src.bowen.ensemble.criteria import INJECTED, REQUIRED
 
     from src.bowen.ensemble.criteria_d import CRITERIA_D
+    from src.bowen.ensemble.criteria_d2 import CRITERIA_D2
 
     by_function, module = _setting_reads()
-    criteria = {**CRITERIA, **CRITERIA_D}
+    criteria = {**CRITERIA, **CRITERIA_D, **CRITERIA_D2}
     # Forward: every key an arm reads is in the settings that criterion is given (else KeyError at ensemble time).
     for cid, criterion in criteria.items():
         missing = by_function[criterion.arm.__name__] - set(criterion.settings)

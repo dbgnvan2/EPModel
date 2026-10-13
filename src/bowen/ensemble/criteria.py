@@ -45,6 +45,7 @@ FAMILIES = {
     "dyad": CONFIG_DIR / "fixtures" / "dyad.md",
     "triad": CONFIG_DIR / "fixtures" / "triad.md",
     "four": CONFIG_DIR / "fixtures" / "nuclear_four.md",
+    "phase_d": CONFIG_DIR / "family_phase_d.md",  # spec revision 28: the twelve-person family with its life course
 }
 
 
@@ -103,7 +104,11 @@ REQUIRED = {
     "M11.C.36": ("weeks", "act_every", "believed_tension"),
     "M11.C.14": ("weeks", "act_every", "start_severity"),
     # Phase D step 9, projection (B9, spec revision 26).
-    "M11.C.2": ("weeks",),
+    "M11.C.2": ("weeks", "years"),  # years: the twelve-person family's run (part II, spec revision 28)
+    # Phase D part II, the life course (spec revision 28).
+    "M11.C.15": ("severity", "change_week", "after"),
+    "M11.C.6": ("years",),
+    "M11.C.10": ("years",),
     # Phase D step 10, criteria on existing mechanisms.
     "M11.C.39": ("spell_weeks", "after", "quiet", "every", "intensity"),
     "M11.C.40": ("weeks", "window"),

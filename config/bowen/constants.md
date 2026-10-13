@@ -155,6 +155,29 @@ activation_regime: synchronous
 | `belief_appraisal_gain` | 1.0 | [I] | a witness's appraisal is scaled by 1 + this × its believed tension of the tie (revision 25) | `M9.7` |
 | `pseudo_self_relaxation_rate` | 0.05 | [I] | weekly share of a pair's opposite pseudo-self that settles back once their exchange stops (revision 27) | `M6.I.4` |
 | `exchange_window` | 8 | [I] | weeks without over/under-functioning between a pair before their pseudo-self settles (revision 27) | `M6.I.4` |
+| `acting_age_years` | 10 | [I] | year of age (the owner's, 2026-10-13) | `M7.C.1f` |
+| `development_start_age_years` | 5 | [I] | year of age (the owner's, 2026-10-13) | `M7.E.1f` |
+| `development_end_age_years` | 20 | [I] | year of age (the owner's, 2026-10-13) | `M7.E.1f` |
+| `development_band` | 0.02 | [I] | share of the parents' level (the owner's: level x .02) | `M7.E.1f` |
+| `development_rate` | 0.1 | [I] | basic-level points per point of mean functioning above basic, per year | `M7.E.1f` |
+| `witnessed_gain` | 0.5 | [I] | chronic-anxiety points per point of the year's mean load | `M7.B.1a` |
+| `launch_age_years` | 20 | [I] | year of age | `M7.C.1g` |
+| `working_age_years` | 16 | [I] | year of age | `M5.B.7` |
+| `find_work_rate` | 0.1 | [I] | probability per week at full pressure | `M5.B.7` |
+| `find_work_pressure_scale` | 10.0 | [I] | anxiety points above the usual level for full pressure | `M5.B.7` |
+| `grief_scale` | 20.0 | [I] | stressor intensity at bond energy 100 | `M6.3g` |
+| `grief_min_weeks` | 52 | [I] | fast ticks | `M6.3g` |
+| `grief_extra_weeks` | 104 | [I] | fast ticks at bond energy 100 | `M6.3g` |
+| `income_loss_intensity` | 15.0 | [I] | stressor intensity | `M6.3h` |
+| `income_shortfall_share` | 0.2 | [I] | share of the loss that stays (the owner's: 20% less income) | `M6.3h` |
+| `mortality_a` | 0.0000657 | [I] | annual hazard at age 0 | `M7.C.1j` |
+| `mortality_b` | 0.085 | [I] | per year of age | `M7.C.1j` |
+| `budget_per_undifferentiation` | 1.49 | [I] | budget units per point of the couple's distance below 100 | `M7.C.1h` |
+| `coach_start_age_years` | 35 | [I] | year of age (the owner's, 2026-10-13) | `M2.A.0k` |
+| `coach_retirement_age_years` | 68 | [I] | year of age (the owner's, 2026-10-13) | `M2.A.0k` |
+| `new_tie_investment_share` | 0.2 | [I] | share of the person's existing investment | `M7.C.1a` |
+| `birth_focus_gain` | 0.1 | [I] | share added to the parent's investment in the child per situation present | `M7.E.1c` |
+| `death_transfer_share` | 1.0 | [I] | share of the dead person's acute anxiety that goes to the living; 1 is the rule, and only a criterion's declared override sets 0 (`M11.C.15`) | `M6.3b` |
 | `lock_in_turn` | 3.0 | [I] | severity (load ÷ threshold) past which lock-in releases instead of holding; peak at half of it (revision 24) | `M7.D.2d` |
 | `self_channel_exponent` | 2.0 | [I] | exponent on functional_level / 100 | `M4.D.1a` |
 | `policy_temperature` | 1.0 | [I] | learned-value units | `M4.D.1` |

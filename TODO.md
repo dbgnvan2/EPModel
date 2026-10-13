@@ -18,6 +18,30 @@ Deferred and adjacent items. Each carries enough context to act on later without
   - `M11.C.11` shape — "three phases, not a step down" is a claim about curve shape; any automated version embeds an invented tolerance.
   - `M5.F.2` — the threshold separating a counterfeit move from a genuine one is invented and sets the result. **This is the model's most consequential invented constant.**
 
+## Phase D part II — open after the build, 2026-10-13
+
+Plan §4.7 and `docs/phase_d2_status_2026-10-13.md` hold the evidence.
+- [ ] **Owner: `M11.C.15`'s arm design.** `death_transfer_share` is 0 in every arm, which discards the dead mother's own
+  anxiety (`life_course.py::die`). Ad hoc, 30 seeds: death rise +1.17 with the share at 1, +0.22 at 0; recovery +3.13.
+  Keep the isolation or keep the transfer? Not changed after seeing the result.
+- [ ] **Owner: the ±2% band against `M11.C.6`'s traversal limit (a)**, and development as `M7.E.1f`'s rule against
+  the estimator bounded to the band. `M11.C.6` measured +0.018 ± 0.028 under a band of about ±0.8 points.
+- [ ] **Owner: still open.** Marta–Iris; Teodor's level 36; the `M11.C.17` gate; launch age, mortality, the partner
+  rows, the sizes of grief, income loss and working age, and the successor coach's sex (plan §4.5 defaults, all `[I]`).
+- [ ] **Diagnose `M11.C.10` and `M11.C.2` on the twelve-person family.** Both fail with wide spreads (C.10 −12.6 ± 28);
+  no diagnosis run yet. C.10's second mutation (learning from witnessed cutoff) has no mechanism to remove (§4.4).
+- [ ] **Chronic anxiety ratchets across generations.** A child's chronic anxiety is derived from the living parents'
+  values and its own witnessed history and then fixed at 12 (`M7.B.1a`); nothing in the run lowers it again for later
+  generations. Check over several generations whether it only rises; the 40-year run is too short to see it.
+- [ ] **Starting ages as settings in the fam-diag app.** The owner asked for them as settings in the app; they are
+  config settings (`M2.A.0j`) and the app was not touched (standing instruction). Deferred.
+- [ ] **`canonical_state` omits `state.life`.** The `M16.T.3` re-run compares it separately
+  (`test_m16t3_sink_does_not_change_a_life_course_run`). Fold it into `canonical_state` at the next engine change,
+  since the change alters the engine hash.
+- [ ] **Prove the part II `M16.T.3` re-run by mutation** (sweep note, 2026-10-13): e.g. a sink that touches
+  `state.life` must turn `test_m16t3_sink_does_not_change_a_life_course_run` red. Not done.
+- [ ] **A mutation record for part II.** Only `M11.C.37`'s mutant ran, as a test; the four failing criteria have none.
+
 ## Phase D — open from B3/B4, 2026-10-11
 
 - [x] ~~**Owner: should the `cutoff` pattern readout count the engine's refusals?**~~ *Decided 2026-10-11 (spec

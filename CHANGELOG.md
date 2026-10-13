@@ -4,13 +4,38 @@ All notable changes to this project are recorded here. Dates are ISO.
 
 ## [Unreleased] — 2026-10-11
 
+### Phase D part II built: the life course (2026-10-13)
+
+- **The life course** (spec revision 28, plan §4, steps L0–L10): a new module, `src/bowen/engine/life_course.py`. It
+  runs only when a family declares one, so Phase C, part I and their golden runs are unchanged.
+  - Ages, with acting from 10; a child's chronic anxiety before 12 and development from 5 to 20.
+  - Launch; partners and births from `config/bowen/partners_phase_d.md`, each new couple getting a family of its own.
+  - Mortality, and the disposition at death (`M6.3a`–`3i`).
+  - Grief and lost income, and `FIND_WORK` (`M7.C.1k`).
+  - The coach's retirement and successor.
+  - Life events are `Mechanism.LIFE_EVENT`, with no sender.
+- **Twelve-person family:** the coach is tied to the coachee only. Starting ages are three settings in
+  `config/bowen/family_phase_d.md`.
+- **Constants:** 23 new ones in `config/bowen/constants.md`, all `[I]`.
+- **Criteria** (`src/bowen/ensemble/criteria_d2.py`) and their record, `docs/phase_d2_ensemble_record.md`
+  (`python3 tools/phase_d_record.py --part 2`, 52 minutes on 10 cores).
+  - `M11.C.37` passes, with its mutant, as a test.
+  - Four fail: `M11.C.15` (death +0.212 ± 0.35, p 0.135; recovery +3.11, holds), `M11.C.6` (+0.018 ± 0.028),
+    `M11.C.10` (−12.6 ± 28) and `M11.C.2` on the twelve-person family (−0.13 ± 1.6).
+  - An ad hoc diagnosis puts `M11.C.15`'s death limb on its arm design, which discards the dead person's anxiety
+    (plan §4.7). It is an owner decision; no arm was changed.
+- **The `M16.T.3` re-run** on the life course passes (`test_m16t3_sink_does_not_change_a_life_course_run`).
+- **Records:** every record was regenerated; no Phase C or part I verdict moved.
+- **Suite:** 765 tests, plus 45 ensemble-marked tests.
+- **Report:** `docs/phase_d2_status_2026-10-13.md`.
+
 ### Spec revision 28 (566 numbered requirements, 46 acceptance criteria): the life course (2026-10-13)
 
 - Applies the owner's answers to P13–P15 (`docs/implementation_plan_phase_d.md` §1b): what happens at a death
-  (`M6.3a`–`M6.3i`), finding work after a lost income (`M5.B.7`), starting ages as settings (`M2.A.0j`), the coach's
+  (`M6.3a`–`M6.3i`), finding work after a lost income (`M7.C.1k`), starting ages as settings (`M2.A.0j`), the coach's
   career and single tie (`M2.A.0k`, `M2.B.2`), acting from 10, launch, partners, births and mortality
   (`M7.C.1f`–`1j`), chronic anxiety before 12 (`M7.B.1a`), and a child's development from 5 to 20 (`M7.E.1f`). The
-  forms are Claude's recommendation, pending owner review. Nothing is built; the config changes with plan step L1.
+  forms are Claude's recommendation, pending owner review. Built the same day (above).
 
 ### The Phase D ensemble record (2026-10-13)
 

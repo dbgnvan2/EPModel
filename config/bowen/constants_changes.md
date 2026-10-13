@@ -145,4 +145,27 @@
 | `belief_appraisal_gain` | — | 1.0 | 2026-10-12 | — (new mechanism; spec revision 25, B8, Claude's recommendation pending owner review: appraisal reads belief) | no |
 | `pseudo_self_relaxation_rate` | — | 0.05 | 2026-10-12 | — (new mechanism; spec revision 27, Claude's recommendation pending owner review: borrowed pseudo-self settles back) | no |
 | `exchange_window` | — | 8 | 2026-10-12 | — (new mechanism; spec revision 27, Claude's recommendation pending owner review) | no |
+| `acting_age_years` | — | 10 | 2026-10-13 | — (new mechanism; spec revision 28, the life course, plan part II) | no |
+| `development_start_age_years` | — | 5 | 2026-10-13 | — (new mechanism; spec revision 28, the life course, plan part II) | no |
+| `development_end_age_years` | — | 20 | 2026-10-13 | — (new mechanism; spec revision 28, the life course, plan part II) | no |
+| `development_band` | — | 0.02 | 2026-10-13 | — (new mechanism; spec revision 28, the life course, plan part II) | no |
+| `development_rate` | — | 0.1 | 2026-10-13 | — (new mechanism; spec revision 28, the life course, plan part II) | no |
+| `witnessed_gain` | — | 0.5 | 2026-10-13 | — (new mechanism; spec revision 28, the life course, plan part II) | no |
+| `launch_age_years` | — | 20 | 2026-10-13 | — (new mechanism; spec revision 28, the life course, plan part II) | no |
+| `working_age_years` | — | 16 | 2026-10-13 | — (new mechanism; spec revision 28, the life course, plan part II) | no |
+| `find_work_rate` | — | 0.1 | 2026-10-13 | — (new mechanism; spec revision 28, the life course, plan part II) | no |
+| `find_work_pressure_scale` | — | 10.0 | 2026-10-13 | — (new mechanism; spec revision 28, the life course, plan part II) | no |
+| `grief_scale` | — | 20.0 | 2026-10-13 | — (new mechanism; spec revision 28, the life course, plan part II) | no |
+| `grief_min_weeks` | — | 52 | 2026-10-13 | — (new mechanism; spec revision 28, the life course, plan part II) | no |
+| `grief_extra_weeks` | — | 104 | 2026-10-13 | — (new mechanism; spec revision 28, the life course, plan part II) | no |
+| `income_loss_intensity` | — | 15.0 | 2026-10-13 | — (new mechanism; spec revision 28, the life course, plan part II) | no |
+| `income_shortfall_share` | — | 0.2 | 2026-10-13 | — (new mechanism; spec revision 28, the life course, plan part II) | no |
+| `mortality_a` | — | 0.0000657 | 2026-10-13 | — (new mechanism; spec revision 28, the life course, plan part II) | no |
+| `mortality_b` | — | 0.085 | 2026-10-13 | — (new mechanism; spec revision 28, the life course, plan part II) | no |
+| `budget_per_undifferentiation` | — | 1.49 | 2026-10-13 | — (new mechanism; spec revision 28, the life course, plan part II) | no |
+| `coach_start_age_years` | — | 35 | 2026-10-13 | — (new mechanism; spec revision 28, the life course, plan part II) | no |
+| `coach_retirement_age_years` | — | 68 | 2026-10-13 | — (new mechanism; spec revision 28, the life course, plan part II) | no |
+| `new_tie_investment_share` | — | 0.2 | 2026-10-13 | — (new mechanism; spec revision 28, the life course, plan part II) | no |
+| `birth_focus_gain` | — | 0.1 | 2026-10-13 | — (new mechanism; spec revision 28, the life course, plan part II) | no |
+| `death_transfer_share` | — | 1.0 | 2026-10-13 | — (new mechanism; spec revision 28, the life course, plan part II) | no |
 | `lock_in_turn` | — | 3.0 | 2026-10-12 | — (new mechanism; spec revision 24, B7, Claude's recommendation pending owner review: lock-in's turn) | no |

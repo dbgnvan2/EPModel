@@ -59,6 +59,7 @@ from src.bowen.engine.sinks import allocate_sinks
 from src.bowen.engine.slow_tick import record_week, run_slow_tick
 from src.bowen.engine.iposition import advance_sequences, redirect_to_sequence_tie, sequence_selections
 from src.bowen.engine.learner import learn, register_acts, soothing_review
+from src.bowen.engine.life_course import due_events, find_work, yearly
 from src.bowen.engine.moves import apply_move_effects, relax_pseudo_self, settle_functioning
 from src.bowen.engine.log_records import EffectRecord, EmittedRecord, Emitter, TickRecord
 from src.bowen.engine.params import EngineParams
@@ -117,7 +118,9 @@ def run_tick(
     steps.append("standing_load")
 
     # 2 — deliver.
-    for event in sorted(source.scheduled(state.tick), key=lambda e: e.id):
+    # Spec revision 28: the life course's events of last year's slow tick (deaths, births, grief, lost income) arrive
+    # with the source's own.
+    for event in sorted(source.scheduled(state.tick) + due_events(state), key=lambda e: e.id):
         if event.timestamp != state.tick:
             raise ValueError(f"source scheduled {event.id} for tick {state.tick}")
         records += inject(state, event, visibility)
@@ -186,6 +189,7 @@ def run_tick(
     record_stances(state, selections, params)  # M1.B.5, revision 21: whom each person is holding a position toward
     records += respond(state, selections, load_at_selection, params)  # M1.A.5e, revision 18: coping or soothing
     update_usual(state, load_at_selection, params)  # M1.A.5e, revision 22: each person's usual level follows slowly
+    records += find_work(state, load_at_selection, params)  # M7.C.1k, revision 28: after a lost income
     steps.append("act")
 
     # 9 — consolidate, then the invariants assert (M4.G.2). The integrator reads this
@@ -209,6 +213,7 @@ def run_tick(
     # the start, not a step (M2.A.0b). It checks its own invariants.
     if (state.tick + 1) % params.slow_tick_fast_ticks == 0:
         records += run_slow_tick(state, params)
+        records += yearly(state, params)  # M7.C.1, revision 28: the life course, after the slow tick's invariants
 
     for record in records:
         emitter.emit(record)

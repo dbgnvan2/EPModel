@@ -47,8 +47,8 @@
 | `M11.D.20` | done | `tests/bowen/test_evaluation.py::test_m11d20_readout_ordering_matches_run_log_ordering` | — |
 
 **Not done in part I:** a generated mutation record for the D criteria (the mutations are in the plan, run ad hoc),
-and the D-I completion report. Part II (the life course, the 40-year run, `M11.C.6`, `.10`, `.15`, `.37`) is not started; it needs the owner's
-P13–P16.
+and the D-I completion report. Part II (the life course, the 40-year run, `M11.C.6`, `.10`, `.15`, `.37`) is not started. The owner answered
+P13–P16 on 2026-10-13 (plan §1b); Teodor's level and Marta–Iris are still open.
 
 ## For the owner, first
 

@@ -1,6 +1,6 @@
 # Implementation plan — Phase D
 
-> **Status: approved by the owner, 2026-10-10 ("Proceed"), with the decisions in §1a.** P9 decided 2026-10-11; P13–P16 wait for D-II. **Built:** B1 and B2 (2026-10-10/11); B3 and B4 (2026-10-11, spec revision 16); B5 and B6 (2026-10-11); B7, B8 and B9 and part of step 10 (2026-10-12, spec revisions 24–27, Claude's recommendation pending owner review: the owner asked for the work to proceed overnight without waiting for input).
+> **Status: approved by the owner, 2026-10-10 ("Proceed"), with the decisions in §1a.** P9 decided 2026-10-11; P13–P16 answered 2026-10-13 (§1b), with two P15 points still open. **Built:** B1 and B2 (2026-10-10/11); B3 and B4 (2026-10-11, spec revision 16); B5 and B6 (2026-10-11); B7, B8 and B9 and part of step 10 (2026-10-12, spec revisions 24–27, Claude's recommendation pending owner review: the owner asked for the work to proceed overnight without waiting for input).
 > Spec: `docs/bowen_agent_model_spec_v2.md`, revision 13. Phase C closed with its gate failing (owner decision,
 > `docs/phase_c_completion_report.md` §13). Spec IDs are used verbatim. The inventories behind this plan were made on
 > 2026-10-10 from the spec, `src/bowen`, `TODO.md` and the Phase C documents; their findings are cited where used.
@@ -125,7 +125,11 @@ open points are the owner's.
   2. The death itself is a stressor on each person, in proportion to their tie (grief). It dissipates over one to
      three years.
   3. If the dead person was a source of income, its loss is a financial stressor. "Finances have to get resolved
-     somehow." **Open:** how a loss of income resolves (a fixed duration, a family member's act, an external event).
+     somehow." **Answered 2026-10-13:** "family members have to find a job. They have to figure it out for
+     themselves. Trying equals finding, but at 20% less income." **Reading:** no rule restores the income. A living
+     member of the dead person's household can take an act of looking for work; the act always succeeds, and the
+     household's income from then on is 80% of what was lost. The remaining 20% stays a smaller financial stressor.
+     Who looks, and when, is learned like any other act (`M0.4`): it is not scheduled.
   4. Everyone's stress going up stresses the system reciprocally: no separate rule, the raised anxiety reaches the
      others through the ties as it does now.
 - **P14, births, partners, life stage.**
@@ -133,13 +137,23 @@ open points are the owner's.
      parents' level depending on circumstances and on how the parents are functioning: the parents functioning up
      raises it, functioning down lowers it. **Reading:** the estimator reads a child's own history from 5 to 20,
      bounded to ±2% of the parents' mean basic level, and the parents' functional level over those years moves it
-     within that band. **Open:** whether the ±2% is of the level (about ±0.8 points at 40) or 2 points.
+     within that band. **Answered 2026-10-13:** "Level x .02, not two more points": the band is ±2% of the parents'
+     level (about ±0.8 points at 40).
   2. Partners: provide "settings" for partners: a partner is drawn from declared settings in config, not invented by
-     the engine.
+     the engine. **Reading (no objection 2026-10-13):** a config table of the people who can enter as partners.
   3. A person starts acting at 10 and stops at death.
-- **P15, family data.** Dr Halim is female, age 35, retires at 68, and a new coach then starts over. **Open:** the
-  other three points of P15 — Teodor at 36; whether Marta–Iris is "resolved, low contact" or ordinary; and whether the
-  coach is tied to both spouses or only to the one coached.
+- **P15, family data.** Dr Halim is female, age 35, retires at 68, and a new coach then starts over.
+  - **The coach is tied to the coachee only (answered 2026-10-13).** This matches `M2.B.2` ("whichever member is
+    being coached"); the config's tie to both spouses is wrong and changes.
+  - **Starting ages (answered 2026-10-13):** "1 for 3rd generation's youngest child, 30 for second, 55 for third
+    [the grandparents]. Allow these as settings in app." **Reading:** three settings, one per generation: the youngest
+    third-generation child starts at 1, the second generation at 30, the first at 55. Each generation's other members
+    keep their current age gaps to that anchor; for the second and first generations the anchor is the generation's
+    eldest. At the current gaps that gives Pia 1, Nadia 4, Leo 9; Ravi 30, Marta 28, Dario 27, Iris 25; Teodor 55,
+    Ana 52, Viktor 52, Sofia 50. "Settings in app": the three anchors go in the family config; showing them in the
+    run visualization is a separate change (this repo does not touch the fam-diag app).
+  - **Still open:** Teodor's basic level 36 (Claude's recommendation stands: 34 broke `M2.A.0e`'s pairing with Ana);
+    and whether Marta–Iris is "resolved, low contact" or ordinary.
 - **P16:** agreed. Bowen's two falsifiers and the three chapter items become criteria in a later revision.
 
 ### P9 in detail: what C.7 tests, and the direction proposed

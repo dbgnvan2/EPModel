@@ -83,8 +83,10 @@ Deferred and adjacent items. Each carries enough context to act on later without
   cross-person term (revision 26) shaping a child's repertoire.
 - [ ] **`M11.C.34` fails** on reactions to the onset against a no-onset run; and its declared mutant cannot bite in any
   case: no selection reads `M1.A.19`'s detectors.
-- [ ] **`M11.C.17`'s coached rise nearly vanished** with revisions 24–27 (+0.021 → +0.0009). Probes: part revision 27's
-  settling back, part revision 24's integrand. The owner's question whether either change is wrong.
+- [ ] **`M11.C.17`'s coached rise nearly vanished** with revisions 24–27 (+0.021 → +0.0009). Traced 2026-10-13 (plan, step
+  10): the coach's contact lands only when binders fail (an active symptom), which at revision 23 was 99% of weeks only
+  because everyone was saturated; now about 40%, so landings and perspective halve. Owner's question: should the gate
+  read load above the usual level instead?
 - [ ] **Reviews of revisions 25–27 (2026-10-12), not fixed, with reasons:**
   - **`I-POSITION` sequences now rarely complete.** In the triad fixture, completion fell from about 10 in 96 seeds
     (revision 20) to 2 in 96 after B7, and 4 in 192 now. `tests/bowen/test_iposition.py::test_m5d8_*` was raised to

@@ -112,6 +112,36 @@ Decisions marked **D-I** block the first part; **D-II** decisions can wait until
   - P11 (C.42, C.45 and C.16 not rebuilt in Phase D);
   - P12 (I draft the triangle criterion).
 
+## 1b. Owner decisions for part II, 2026-10-13 (P13–P16)
+
+The owner's words, then Claude's reading of them. The readings are for the spec revision that applies them, and the
+open points are the owner's.
+
+- **P13, death (`M6.3`).** "Every family member has some 'tie' with anxiety bound up to the dead person. The dead
+  person has some level of chronic anxiety. Like chemical bond energy — it gets redistributed. A death is a stressor
+  on individuals as well … a major life stressor. If that person was an income source that source is now gone and
+  that's a stressor."
+  1. The dead person's chronic anxiety is redistributed to the living, in proportion to their ties to the dead person.
+  2. The death itself is a stressor on each person, in proportion to their tie (grief). It dissipates over one to
+     three years.
+  3. If the dead person was a source of income, its loss is a financial stressor. "Finances have to get resolved
+     somehow." **Open:** how a loss of income resolves (a fixed duration, a family member's act, an external event).
+  4. Everyone's stress going up stresses the system reciprocally: no separate rule, the raised anxiety reaches the
+     others through the ties as it does now.
+- **P14, births, partners, life stage.**
+  1. A child's basic level starts at age 5 and develops each year, levelling off at age 20, ending within ±2% of the
+     parents' level depending on circumstances and on how the parents are functioning: the parents functioning up
+     raises it, functioning down lowers it. **Reading:** the estimator reads a child's own history from 5 to 20,
+     bounded to ±2% of the parents' mean basic level, and the parents' functional level over those years moves it
+     within that band. **Open:** whether the ±2% is of the level (about ±0.8 points at 40) or 2 points.
+  2. Partners: provide "settings" for partners: a partner is drawn from declared settings in config, not invented by
+     the engine.
+  3. A person starts acting at 10 and stops at death.
+- **P15, family data.** Dr Halim is female, age 35, retires at 68, and a new coach then starts over. **Open:** the
+  other three points of P15 — Teodor at 36; whether Marta–Iris is "resolved, low contact" or ordinary; and whether the
+  coach is tied to both spouses or only to the one coached.
+- **P16:** agreed. Bowen's two falsifiers and the three chapter items become criteria in a later revision.
+
 ### P9 in detail: what C.7 tests, and the direction proposed
 
 - **The claim.** C.7's claim is "position, not skill". Whether coaching helps depends on where the coach stands in the
@@ -928,6 +958,25 @@ a config default.
   recorded with its numbers; nothing was changed to make any pass.
 - **`M11.C.34` first passed (−0.18) on a readout that counted all the others' acts with no onset fired**; the review
   found both. Fired, and counted as reactions to C1 against a no-onset run, the levels do not differ.
+
+**Why `M11.C.17`'s coached rise collapsed (trace, 2026-10-13; `c17_landing.py`, `trace_c17.py`, 20 seeds; ad hoc).**
+
+| Code | Coached people's binders failing (share of weeks) | Coach contacts landed (of about 66) | Perspective at year 10 | C.17 coached rise (150 seeds) |
+|---|---|---|---|---|
+| Revision 23 | 99% | 19.3 | 0.63 | +0.021 ± 0.009 |
+| Revision 24 (B7) | 43% | 8.0 | 0.34 | +0.0056 ± 0.0023 |
+| Revision 27 | 38% | 7.6 | 0.32 | +0.0009 ± 0.0008 |
+
+- A coach's contact lands only when the recipient's binders are failing: an active symptom, or symptom load near its
+  threshold (`M1.E.7`, "pain is necessary").
+- At revision 23 every person was symptomatic from the first weeks, the saturation revision 24 removed, so the coach's
+  gate was open 99% of the time. C.17's revision 23 pass was carried by that saturation.
+- With symptoms episodic, the gate is open about 40% of the time. Landings fall by more than half, so perspective
+  reaches half the level. The coached people then have fewer self-directed weeks (0.31 against 0.43) and the
+  estimator's evidence never turns positive: 3 of 40 coached people risen by year 10, against 16.
+- Revision 24 accounts for about three quarters of the fall; revisions 25–27 (chiefly 27's settling back) for the rest.
+- **For the owner:** whether "pain is necessary" should read an active symptom as it does, or the person's load above
+  their usual level (as the stress response does since revision 22). Nothing has been changed.
 
 **Every Phase D criterion on the final code of revision 27** (`final25.out`, 2026-10-12; ad hoc):
 

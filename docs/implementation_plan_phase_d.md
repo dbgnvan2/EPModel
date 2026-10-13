@@ -616,6 +616,35 @@ What it shows:
   functioning very little, so the estimator has little to read. C.33, C.18 and C.20 pass the runner's test; none of the
   four shows a rise that would count as evidence.
 
+**Why the estimator reads about 9 points below basic level (owner request, 2026-10-12).** Each coached person's last
+estimator window (years 8–10) at the year-10 slow tick, the reading rebuilt five ways, each less one standard
+deviation, against basic level 39.5 (ad hoc, 20 seeds per arm, revision 22 engine):
+
+| Reading | Coach-free: mean, sd, evidence | Coached: mean, sd, evidence |
+|---|---|---|
+| Plain mean of whole functioning | 41.8, 4.4, −2.0 | 37.5, 4.2, −6.1 |
+| Plain mean of own functioning | 33.4, 2.3, −8.4 | 32.5, 2.5, −9.6 |
+| Load-weighted, whole | 41.5, 4.2, −2.3 | 37.1, 4.2, −6.6 |
+| **Load-weighted, own — the estimator** | **33.2, 2.3, −8.6** | **32.2, 2.5, −9.9** |
+| Load-weighted, own, with functioning lent added back | 39.1, 0.3, −0.6 | 39.6, 0.2, −0.1 |
+
+Over the window, positive pseudo-self averages 7.8 coach-free and 4.4 coached; negative pseudo-self −5.8 and −7.2.
+
+What it shows:
+- **The load weighting barely matters** (0.2–0.5 points either way).
+- **The asymmetry in what is left out is the gap.** The estimator subtracts borrowed functioning (positive pseudo-self,
+  revision 19) but keeps functioning lent: a person who gave way is read at their lowered level, and a person who took
+  over has the gain removed. Pseudo-self is conserved within a pair (`M6.I.4`), so across a family the reading sits
+  below basic level by about the pseudo-self in play. Subtracting pseudo-self with its sign — leaving out both what was
+  borrowed and what was lent — puts own functioning at basic level (39.1 and 39.6) with almost no spread, and the
+  evidence near zero (−0.6 coach-free, −0.1 coached).
+- **With that reading the coached people sit slightly ahead** (39.6 against 39.1), but the evidence is still not above
+  zero: a rise needs own functioning held above basic by more than its spread, and with the background load no longer
+  counted, coping now moves functioning very little.
+- **For the owner:** should the estimator also add back functioning lent, so that it reads functioning with the whole
+  pseudo-self exchange left out? The owner's revision-19 words were about over-functioning ("pseudo-self looks
+  better"); they did not address the person who gave way.
+
 ### B7. Symptom channels (`M7.D.2`, `2a`–`2d`, `M7.D.4`, `M1.A.11c`)
 - Load can move between the three channels.
 - Lock-in lowers family anxiety until a severity peak, then raises it.

@@ -64,6 +64,10 @@ Deferred and adjacent items. Each carries enough context to act on later without
   about 6–7 (`docs/implementation_plan_phase_d.md`, step 6). So the stress response never settles and C.17 cannot
   show a rise. Options: read "calm" against each person's usual level; set the bands from the engine's operating point;
   or make the family's traffic carry less anxiety.
+- [ ] **For the owner: should the estimator also add back functioning lent? (traced 2026-10-12)** It leaves out borrowed
+  functioning (positive pseudo-self, revision 19) but keeps what a person gave way, so its reading sits about 8–9
+  points below basic level; leaving out the whole exchange, with its sign, puts the reading at basic level
+  (`docs/implementation_plan_phase_d.md`, step 6). The load weighting is not the cause.
 - [ ] **Review of revision 20, minor (2026-10-11):** no full-tick test that a calm partner sheds part of the gain in the
   week it arrives (`self_practice` runs before `respond` in `tick.py`; consistent with the rule, not pinned).
 - [ ] **Adjacent, not fixed (review of revision 21, 2026-10-12): two checks are written out more than once.** "Self-directed

@@ -4,6 +4,24 @@ All notable changes to this project are recorded here. Dates are ISO.
 
 ## [Unreleased] — 2026-10-11
 
+### Spec revision 22: calm is relative to the person (2026-10-12)
+
+- **`M1.A.5e`, `M1.E.7`.** Loaded and calm are read against each person's usual level: their excess anxiety averaged
+  over about a year (new `usual_level_rate`, 0.02, `[I]`; new Person fields `usual_excess`, `usual_weeks`). The stress response is
+  driven by the excess above it; at or below it a person is calm, and what stress moved and the system's adjustment
+  settle back. Self-discovered practice counts only above it. The policy's bands and the estimator's load weighting are
+  unchanged (owner decisions).
+- **Why.** A trace showed the Phase C family's own traffic holds the coached pair 30–35 points above chronic (the
+  others 2–25), with or without nodal events, so against a fixed band of 5 the coached pair were never calm.
+- **The usual level's start.** It is the plain mean of the weeks so far for the first year, then the one-year running
+  average (owner decision, after review: started from week 0 alone, the first year was over-load).
+- **Result (ad hoc, `docs/implementation_plan_phase_d.md`, step 6).** The stress response now settles, and coach-free
+  people's functioning no longer erodes (+2.7 over ten years). Coached people still fall a little (−2.2), through giving
+  way. The estimator's evidence stays near −9, and every criterion's readout is now tiny (about +0.002 a person):
+  C.33, C.18 and C.20 pass the runner's test, and `M11.C.17`'s pass (+0.003) is not counted.
+- **Records regenerated:** no Phase C verdict moved. Suite: 659 tests.
+- **New constants:** `usual_level_rate`.
+
 ### Spec revision 21: holding a position stops the functioning exchange (2026-10-12)
 
 - **`M1.B.5`.** An `OVERFUNCTION` or `UNDERFUNCTION` delivered to a person holding a position toward its sender moves

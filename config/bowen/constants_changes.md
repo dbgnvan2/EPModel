@@ -135,3 +135,4 @@
 | `system_adjust_gain` | — | 1.0 | 2026-10-11 | — (new mechanism; spec revision 19, owner decision 2026-10-11: the system adjusts to a held stance) | no |
 | `soothing_review_every` | — | 12 | 2026-10-11 | — (new mechanism; spec revision 19, owner decision 2026-10-11: "is soothing helping me?") | no |
 | `soothing_review_penalty` | — | 0.5 | 2026-10-11 | — (new mechanism; spec revision 19, owner decision 2026-10-11: "is soothing helping me?") | no |
+| `usual_level_rate` | — | 0.02 | 2026-10-12 | — (new mechanism; spec revision 22, owner decision 2026-10-12: calm relative to the person) | no |

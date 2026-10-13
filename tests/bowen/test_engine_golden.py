@@ -11,7 +11,7 @@ alter behaviour (plan B4 onward), and say in that commit which change moved it. 
 the log only), B4 (cutoff as rejection, spec revisions 14 and 16: behaviour) and B5/B6 (the slow tick: tie wear
 and the estimator), spec revisions 17-19 (nodal events, stress response, perspective, soothing review), and revision 20 (the
 system's adjustment settles back; then, 2026-10-12, a level the estimator leaves out), and revision 21
-(holding a position stops the functioning exchange).
+(holding a position stops the functioning exchange), and revision 22 (calm relative to the person).
 """
 
 from __future__ import annotations
@@ -32,8 +32,8 @@ from src.bowen.scenario.scripted_source import ScriptedSource
 REPO = Path(__file__).resolve().parents[2]
 GOLDEN = {
     # (family, seed, weeks): fingerprint
-    ("phase_c", 7, 104): "6b33a3d1d783a8e419e03bf885d2362eeea433a8fc7856e312e9cac9d25163ab",
-    ("phase_d", 11, 208): "6dea00c2590d01d79d833cd5fe6cec77e4eef4cbfc28d30ef10d18d4557af173",
+    ("phase_c", 7, 104): "8c4fc25c68219acf06044b22be70bcbb5a824186a1f498f98165bee0a92b65e4",
+    ("phase_d", 11, 208): "8c238f3ea7842df8d45bb5e5cfadc6a6efcb43d6f225bab6d206a766b2659e66",
 }
 
 

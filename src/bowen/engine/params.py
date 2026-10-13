@@ -129,6 +129,7 @@ class EngineParams:
     system_adjust_gain: float              # M1.E.7, revision 19 — functioning the other gains when a held stance works
     soothing_review_every: int             # M4.D.6, revision 19 — weeks between a person's chances to ask whether soothing helped
     soothing_review_penalty: float         # M4.D.6, revision 19 — share of a soothing act's learned value lost when it did not help
+    usual_level_rate: float                # M1.A.5e, revision 22 — share per week by which a person's usual level follows their excess
 
     def __post_init__(self) -> None:
         for name in (
@@ -206,6 +207,8 @@ class EngineParams:
             raise ValueError("soothing_review_every >= 1; soothing_review_penalty in [0, 1]")
         if self.system_adjust_gain < 0:
             raise ValueError("system_adjust_gain must be non-negative")
+        if not 0.0 < self.usual_level_rate <= 1.0:
+            raise ValueError("usual_level_rate must be in (0, 1]")
         if self.stress_floor_below_basic < 0 or self.practice_window < 1:
             raise ValueError("stress_floor_below_basic must be non-negative and practice_window at least 1")
         if not 0.0 <= self.rejection_refusal_threshold < 1.0:

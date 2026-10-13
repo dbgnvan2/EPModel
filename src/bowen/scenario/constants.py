@@ -109,6 +109,7 @@ SCHEMA: Mapping[str, KeySpec] = MappingProxyType(
         "system_adjust_gain": KeySpec(float, "[I]", "M1.E.7"),
         "soothing_review_every": KeySpec(int, "[I]", "M4.D.6"),
         "soothing_review_penalty": KeySpec(float, "[I]", "M4.D.6"),
+        "usual_level_rate": KeySpec(float, "[I]", "M1.A.5e"),
         "contact_excess_exponent": KeySpec(float, "[I]", "M1.E.8"),
         "ensemble_block": KeySpec(int, "[I]", "M17.A.1"),
         "ensemble_cap": KeySpec(int, "[I]", "M17.A.1"),

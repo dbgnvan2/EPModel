@@ -50,6 +50,7 @@ from src.bowen.engine.objects import SCALE_MAX, Role as PersonRole
 from src.bowen.engine.outside_ness import efficacy
 from src.bowen.engine.params import EngineParams
 from src.bowen.engine.state import RunState
+from src.bowen.engine.stress_response import above_usual
 from src.bowen.engine.symptoms import threshold
 
 
@@ -202,9 +203,9 @@ def self_practice(state: RunState, selections, load: dict, params: EngineParams)
     for selection in sorted(selections, key=lambda s: s.actor):
         person = state.people[selection.actor]
         self_directed = selection.kind == WITHHOLD or state.kinds.channels.get(selection.kind) == SELF_CHANNEL
-        # Under load means above the calm band, as for the stress response (M1.A.5e; review 2026-10-11).
+        # Under load means above the person's usual level, as for the stress response (M1.A.5e, revision 22).
         if not (self_directed and person.alive and selection.targets
-                and load.get(selection.actor, 0.0) > params.anxiety_band_low):
+                and above_usual(person, load.get(selection.actor, 0.0)) > 0):
             continue
         other = selection.targets[0]
         tie = state.tie_between(selection.actor, other)

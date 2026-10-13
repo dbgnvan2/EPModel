@@ -18,7 +18,7 @@ Reviewer: ________  Started: ________  Spec revision reviewed: ________
 
 These define what the model does. A run that disagrees with them is a defect.
 
-- [ ] [bowen_agent_model_spec_v2.md](bowen_agent_model_spec_v2.md) — the spec (v2.0, revision 21). Objects (M1),
+- [ ] [bowen_agent_model_spec_v2.md](bowen_agent_model_spec_v2.md) — the spec (v2.0, revision 22). Objects (M1),
       reference family (M2), clocks and ordering (M3), the fast tick (M4), moves (M5), invariants (M6), the slow tick
       (M7), live positions (M8), beliefs (M9), parameters (M10), acceptance criteria (M11), framing (M11.F), the
       readout schema (M11.G), out of scope (M12), the run log and trace (M16).

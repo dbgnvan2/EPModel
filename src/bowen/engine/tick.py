@@ -67,7 +67,7 @@ from src.bowen.engine.reactive import update_attention_state
 from src.bowen.engine.rejection import fade_rejection, refuse
 from src.bowen.engine.recompute import recompute_involvement, recompute_triangles
 from src.bowen.engine.standing_load import apply_standing_load
-from src.bowen.engine.stress_response import register_stressors, respond, stressor_load
+from src.bowen.engine.stress_response import register_stressors, respond, stressor_load, update_usual
 from src.bowen.engine.state import RunState
 from src.bowen.engine.symptoms import accumulate_symptoms
 from src.bowen.engine.visibility import HouseholdConductanceVisibility
@@ -182,6 +182,7 @@ def run_tick(
     records += self_practice(state, selections, load_at_selection, params)  # M1.E.7, revision 18
     record_stances(state, selections, params)  # M1.B.5, revision 21: whom each person is holding a position toward
     records += respond(state, selections, load_at_selection, params)  # M1.A.5e, revision 18: coping or soothing
+    update_usual(state, load_at_selection, params)  # M1.A.5e, revision 22: each person's usual level follows slowly
     steps.append("act")
 
     # 9 — consolidate, then the invariants assert (M4.G.2). The integrator reads this

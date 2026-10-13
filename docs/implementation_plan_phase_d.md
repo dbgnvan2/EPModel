@@ -578,6 +578,44 @@ What it shows:
   whether the bands should be set from the operating point the engine actually runs at, or whether the family's
   traffic itself should carry less anxiety.
 
+**After spec revision 22 (2026-10-12): calm is relative to the person.** The owner chose (1): loaded and calm are read
+against each person's usual level, and the stress response is driven by the excess above it; the policy's bands and the
+estimator's weighting are unchanged. After the review, the owner chose that the usual level is the plain mean of the
+weeks so far for its first year (started from week 0 alone it sat near 0.5 and the first year was over-load), then a
+running average over about a year (`usual_level_rate` 0.02). Ad hoc, same scripts and seeds, on the engine as
+committed:
+
+| Ten-year change in functioning, per coached person | Coach-free | Coached |
+|---|---|---|
+| Stress response, net | −3.7 | −3.6 |
+| Giving way, net | +2.4 | −3.1 |
+| The system adjusts | +4.0 | +4.5 |
+| **Total** | **+2.7** | **−2.2** |
+| Stress-moved swing, year 10 | −0.4 | −0.1 |
+| Estimator's evidence, year 10 | −8.6 | −9.9 |
+| People whose basic level rose, by year | 1 of 40 in years 7–8, 3 in years 9–10 | 4 of 40 in year 9, 5 in year 10 |
+
+| Criterion | Runner's verdict | Readout |
+|---|---|---|
+| `M11.C.33` | PASS, 150 seeds | +0.002 ± 0.001 |
+| `M11.C.18` | PASS, 150 seeds | +0.002 ± 0.001 |
+| `M11.C.20` | PASS, 150 seeds | +0.002 ± 0.001; support blocked 10% ± 2% (report only) |
+| `M11.C.17` | PASS, 150 seeds, **not counted** | coached +0.003 ± 0.003 (p 0.003) |
+
+What it shows:
+- **The stress response now settles.** The stress-moved swing stays near zero (−0.1 to −0.4, against −8 to −15 at
+  revision 21), and the system's adjustment settles and renews (+4.0 to +4.5 over ten years). Coach-free people's
+  functioning no longer erodes (+2.7).
+- **The coached people still fall a little, through giving way** (net −3.1 against +2.4): they are taken over more,
+  as the earlier trace found, and their stances end on any reactive act.
+- **Rises begin late in both arms.** From year 9 the coached arm has more people rising (4–5 of 40) than the coach-free
+  (3), but the estimator's evidence stays far below zero (−8.6 and −9.9 at year 10) although coach-free functioning
+  sits near basic (42 against 39.5): its reading (about 33) leaves out positive pseudo-self and weights the most loaded
+  weeks most.
+- **The criteria's readouts are now tiny** (+0.002 a person): with the background load no longer counted, coping moves
+  functioning very little, so the estimator has little to read. C.33, C.18 and C.20 pass the runner's test; none of the
+  four shows a rise that would count as evidence.
+
 ### B7. Symptom channels (`M7.D.2`, `2a`–`2d`, `M7.D.4`, `M1.A.11c`)
 - Load can move between the three channels.
 - Lock-in lowers family anxiety until a severity peak, then raises it.

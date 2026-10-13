@@ -258,6 +258,11 @@ last three years of weeks:
   lowers it, each scaled by basic level. Coping is a self-directed act or holding back. Soothing is distancing, cutting
   off, triangling or giving way. Functioning cannot be pushed more than 15 below basic level. A stressor weighs for its
   declared duration.
+  - **Calm is relative to the person (revision 22).** Each person keeps a usual level: the mean of their excess
+    anxiety over the weeks so far for the first year, then a running average over about a year. Loaded means above
+    it, and the response scales with how far above; at or below it they are calm and what stress moved settles back.
+    Before this, against a fixed band of 5, the Phase C family's coached pair, running 30–35 points above chronic on
+    the family's own traffic, were never calm. The policy's bands and the estimator's weighting are unchanged.
 - **Systems perspective is self-discovered (revisions 18 and 19, `M1.E.7`, `M4.D.1a`).**
   - **How it grows:** coaching raises it in steps. A person's own self-directed act raises it slowly, and only if it
     worked: they held their position and the tie calmed.

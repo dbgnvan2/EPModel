@@ -59,7 +59,7 @@ Deferred and adjacent items. Each carries enough context to act on later without
   - No test pins a partial top-up (0 < `adjust_swing` < `system_adjust_gain`) in `external.self_practice`.
   - The once-per-stance gate is now mostly redundant with the level (a top-up at the gain adds nothing); it only limits
     renewal to once per `practice_window`.
-- [ ] **For the owner: nobody in the Phase C family is ever calm (traced 2026-10-12).** The coached people's excess anxiety
+- [x] ~~**For the owner: nobody in the Phase C family is ever calm (traced 2026-10-12).**~~ *Decided 2026-10-12: calm relative to the person; built at spec revision 22.* The coached people's excess anxiety
   sits at 30–35 against the calm band's edge of 5, with or without nodal events; the standing load alone would hold
   about 6–7 (`docs/implementation_plan_phase_d.md`, step 6). So the stress response never settles and C.17 cannot
   show a rise. Options: read "calm" against each person's usual level; set the bands from the engine's operating point;

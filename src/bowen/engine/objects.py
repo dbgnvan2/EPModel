@@ -169,6 +169,11 @@ class Person:
     # (external.self_practice): a level up to system_adjust_gain, not a stack. It settles back when calm at the rate
     # stress_swing does. Every change to functional_level goes to exactly one ledger. Owner decisions 2026-10-11/12.
     adjust_swing: float = 0.0
+    # Spec revision 22: the person's usual excess anxiety — the plain mean of their weeks so far for the first
+    # 1 / usual_level_rate weeks, then a running average over about a year. Calm is at or below it; the stress response
+    # is driven by the load above it. None until the first week; usual_weeks counts the weeks it has seen.
+    usual_excess: float | None = None
+    usual_weeks: int = 0
     alive: bool = True
 
     def __post_init__(self) -> None:

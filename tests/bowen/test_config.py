@@ -84,6 +84,7 @@ GOOD_ROWS = (
     "| `system_adjust_gain` | 1.0 | [I] | u | `M1.E.7` |\n"
     "| `soothing_review_every` | 12 | [I] | u | `M4.D.6` |\n"
     "| `soothing_review_penalty` | 0.5 | [I] | u | `M4.D.6` |\n"
+    "| `usual_level_rate` | 0.02 | [I] | u | `M1.A.5e` |\n"
     "| `self_channel_exponent` | 2.0 | [I] | u | `M4.D.1a` |\n"
     "| `policy_temperature` | 1.0 | [I] | u | `M4.D.1` |\n"
     "| `anxiety_band_low` | 5.0 | [I] | u | `M4.D.3` |\n"

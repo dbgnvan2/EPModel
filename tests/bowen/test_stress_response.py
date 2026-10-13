@@ -23,13 +23,18 @@ from src.bowen.scenario.params import engine_params
 P = PersonId
 RAVI, MARTA = P("ravi"), P("marta")
 PARAMS = engine_params(load_constants())
-LOADED = PARAMS.anxiety_band_low + 10.0
+LOADED = 10.0  # above the usual level of 0 that fresh() gives everyone (revision 22)
 
 
 def fresh():
+    """The Phase B family, each person with a usual level of 0: a load in these tests is a load above usual
+    (revision 22)."""
     family = load_family()
     state = new_run_state(dict(family.people), dict(family.ties), family.family, load_event_kinds())
-    return initialise_run(state, PARAMS)
+    state = initialise_run(state, PARAMS)
+    for person in state.people.values():
+        person.usual_excess = 0.0
+    return state
 
 
 def stressor(duration, tick=0):
@@ -181,3 +186,71 @@ def test_m1e7_every_change_lands_in_one_ledger_so_calm_returns_functioning_to_it
     for _ in range(1500):
         respond(state, (), {RAVI: 0.0}, PARAMS)
     assert person.functional_level == pytest.approx(start, abs=1e-6)
+
+
+def test_m1a5e_calm_is_relative_to_the_persons_usual_level():
+    """Revision 22 (owner decision 2026-10-12): the load that drives the response is the excess above the person's own
+    usual level. A person whose usual level is 30 is calm at 30 and settles back; at 40 they respond as a person with a
+    usual level of 0 does at 10. Before revision 22 a fixed band of 5 left a family running at 30-35 never calm."""
+    high, low = fresh(), fresh()
+    high.people[RAVI].usual_excess = 30.0
+    for state, load in ((high, 40.0), (low, 10.0)):
+        state.people[RAVI].basic_level = state.people[RAVI].functional_level = 40.0
+        respond(state, (Selection(RAVI, "STAY-IN-CONTACT", (MARTA,), 100.0),), {RAVI: load}, PARAMS)
+    assert low.people[RAVI].stress_swing > 0
+    assert high.people[RAVI].stress_swing == pytest.approx(low.people[RAVI].stress_swing)
+    calm = fresh()
+    person = calm.people[RAVI]
+    person.usual_excess, person.stress_swing = 30.0, -4.0
+    person.functional_level -= 4.0
+    level = person.functional_level
+    respond(calm, (Selection(RAVI, "DISTANCE", (MARTA,), 100.0),), {RAVI: 30.0}, PARAMS)
+    assert person.functional_level > level                            # at usual: calm, so the swing settles back
+    assert person.stress_swing == pytest.approx(-4.0 * (1 - PARAMS.response_relaxation_rate))
+
+
+def test_m1a5e_the_usual_level_follows_slowly():
+    """Revision 22: for the first 1 / usual_level_rate weeks the usual level is the plain mean of the weeks so far, so it
+    catches up with the family's level; after that it follows at usual_level_rate a week, so a lasting stressor shows
+    as above usual for months. The dead keep no usual level."""
+    from src.bowen.engine.stress_response import update_usual
+
+    state = fresh()
+    person = state.people[RAVI]
+    person.usual_excess, person.usual_weeks = None, 0
+    loads = [10.0, 30.0, 20.0, 40.0]
+    for value in loads:
+        update_usual(state, {RAVI: value}, PARAMS)
+    assert person.usual_excess == pytest.approx(sum(loads) / len(loads))   # the plain mean, early on
+    steady = round(1 / PARAMS.usual_level_rate)
+    for _ in range(steady):
+        update_usual(state, {RAVI: 25.0}, PARAMS)
+    before = person.usual_excess
+    update_usual(state, {RAVI: 125.0}, PARAMS)
+    assert person.usual_excess == pytest.approx(before + PARAMS.usual_level_rate * (125.0 - before))
+    for _ in range(12):                                                # three months of a stressor
+        update_usual(state, {RAVI: 125.0}, PARAMS)
+    assert person.usual_excess < 75.0                                  # still well below: the stressor still counts
+    person.alive = False
+    before = person.usual_excess
+    update_usual(state, {RAVI: 999.0}, PARAMS)
+    assert person.usual_excess == before
+
+def test_m1a5e_soothing_also_scales_with_the_load_above_usual_and_week_0_is_calm():
+    """Review 2026-10-12: soothing at usual 30 and load 40 moves functioning as at usual 0 and load 10; and before a
+    person has a usual level (week 0) they are calm, so a heavy load neither moves them nor opens practice."""
+    from src.bowen.engine.external import self_practice
+
+    high, low = fresh(), fresh()
+    high.people[RAVI].usual_excess = 30.0
+    for state, load in ((high, 40.0), (low, 10.0)):
+        state.people[RAVI].basic_level = state.people[RAVI].functional_level = 40.0
+        respond(state, (Selection(RAVI, "DISTANCE", (MARTA,), 100.0),), {RAVI: load}, PARAMS)
+    assert low.people[RAVI].stress_swing < 0
+    assert high.people[RAVI].stress_swing == pytest.approx(low.people[RAVI].stress_swing)
+    new = fresh()
+    new.people[RAVI].usual_excess = None
+    before = new.people[RAVI].functional_level
+    respond(new, (Selection(RAVI, "DISTANCE", (MARTA,), 100.0),), {RAVI: 40.0}, PARAMS)
+    self_practice(new, (Selection(RAVI, "STAY-IN-CONTACT", (MARTA,), 100.0),), {RAVI: 40.0}, PARAMS)
+    assert new.people[RAVI].functional_level == before and new.practice == []

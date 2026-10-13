@@ -145,6 +145,7 @@ activation_regime: synchronous
 | `system_adjust_gain` | 1.0 | [I] | points of functional level the other is up by while a held stance works: a level, renewed, not stacked (revision 20) | `M1.E.7` |
 | `soothing_review_every` | 12 | [I] | fast ticks | `M4.D.6` |
 | `soothing_review_penalty` | 0.5 | [I] | share of the learned value | `M4.D.6` |
+| `usual_level_rate` | 0.02 | [I] | share per week: a person's usual level follows their excess anxiety over about a year | `M1.A.5e` |
 | `self_channel_exponent` | 2.0 | [I] | exponent on functional_level / 100 | `M4.D.1a` |
 | `policy_temperature` | 1.0 | [I] | learned-value units | `M4.D.1` |
 | `anxiety_band_low` | 5.0 | [I] | points of excess anxiety | `M4.D.3` |

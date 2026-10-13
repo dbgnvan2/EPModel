@@ -15,7 +15,8 @@ vs. no job for 15 turns." (``docs/PROPOSAL — STRESS ON FUNCTIONING, COACHING A
   as before; for its next *d − 1* weeks it adds ``stressor_persistence`` × its arrival's size (intensity ÷
   ``intensity_scale`` × the target's steepness) to the target's acute anxiety, at step 1. Logged by name
   (``stressor_load``, an `M6.4` source).
-* **The response** (``respond``, after the week's acts). With load = excess acute anxiety at selection:
+* **The response** (``respond``, after the week's acts). With load = excess acute anxiety at selection above the
+  person's usual level:
   - coping — a self-directed act or ``WITHHOLD`` — raises ``functional_level`` by
     ``response_up_gain × load / 100 × basic_level / 100``;
   - avoiding or soothing — a kind in ``config/bowen/stress_response.md`` — lowers it by
@@ -23,8 +24,13 @@ vs. no job for 15 turns." (``docs/PROPOSAL — STRESS ON FUNCTIONING, COACHING A
   - any other act leaves it.
   Nothing writes "a higher level copes": which channel a person chooses already rises with level (`M4.D.1a`), and the
   sizes scale with it.
-* **Settling** — a person whose load is below ``anxiety_band_low`` sheds ``response_relaxation_rate`` of their
-  ``stress_swing`` each week: slowly, and not as a symmetric restoring force (`M7.A.1`). What lasts is what the
+* **Calm is relative to the person** (revision 22, owner decisions 2026-10-12). Each person keeps a usual level: the
+  plain mean of their excess anxiety over the weeks so far for the first ``1 / usual_level_rate`` weeks, then a running
+  average over about a year (``update_usual``). The load that drives the response is the excess above it, and a person
+  at or below it is calm. Measured before it: the Phase C family's own traffic held the coached pair 30–35 points
+  above chronic (the others 2–25), so against a fixed band of 5 they were never calm.
+* **Settling** — a calm person sheds ``response_relaxation_rate`` of their ``stress_swing`` each week: slowly, and not
+  as a symmetric restoring force (`M7.A.1`). What lasts is what the
   person kept doing. The same calm week sheds the same share of ``adjust_swing``, the functioning the person gained
   when someone else's held stance worked (`M1.E.7`, revision 20): the owner decided that gain settles back.
 
@@ -76,6 +82,34 @@ def stressor_load(state: RunState, params: EngineParams) -> list[EffectRecord]:
     return records
 
 
+def above_usual(person, carried: float) -> float:
+    """Purpose: how far this week's excess is above the person's usual level; 0 before they have one (revision 22).
+    Spec:    docs/bowen_agent_model_spec_v2.md#M1.A.5e
+    Tests:   tests/bowen/test_stress_response.py::test_m1a5e_calm_is_relative_to_the_persons_usual_level
+    """
+    return 0.0 if person.usual_excess is None else carried - person.usual_excess
+
+
+def update_usual(state: RunState, load: dict, params: EngineParams) -> None:
+    """Purpose: each living person's usual level follows their excess anxiety, slowly (revision 22).
+    Spec:    docs/bowen_agent_model_spec_v2.md#M1.A.5e
+    Tests:   tests/bowen/test_stress_response.py::test_m1a5e_the_usual_level_follows_slowly
+
+    For the first ``1 / usual_level_rate`` weeks it is the plain mean of the weeks so far, so it catches up with the
+    family's own level within weeks; after that, a running average weighted ``usual_level_rate`` to the newest week
+    (owner decision 2026-10-12: started from week 0 alone, it sat near 0.5 while the family ran at 10-35, and the whole
+    first year was over-load).
+    """
+    for pid in sorted(state.people):
+        person = state.people[pid]
+        if not person.alive:
+            continue
+        person.usual_weeks += 1
+        rate = max(params.usual_level_rate, 1.0 / person.usual_weeks)
+        usual = person.usual_excess if person.usual_excess is not None else 0.0
+        person.usual_excess = usual + rate * (load.get(pid, 0.0) - usual)
+
+
 def respond(state: RunState, selections, load: dict, params: EngineParams) -> list[EffectRecord]:
     """Purpose: what a person does under load moves their functioning; calm, it settles back slowly.
     Spec:    docs/bowen_agent_model_spec_v2.md#M1.A.5e (revision 18), #M7.A.1, #M1.E.7 (revision 20)
@@ -89,19 +123,19 @@ def respond(state: RunState, selections, load: dict, params: EngineParams) -> li
         person = state.people[pid]
         if not person.alive:
             continue
-        carried, kind = load.get(pid, 0.0), chose.get(pid)
+        above, kind = above_usual(person, load.get(pid, 0.0)), chose.get(pid)
         level = person.basic_level / SCALE_MAX
-        if carried > params.anxiety_band_low:
+        if above > 0:  # revision 22: loaded means above their own usual level
             coped = kind == WITHHOLD or (kind is not None and state.kinds.channels.get(kind) == SELF_CHANNEL)
             if coped:
-                change = params.response_up_gain * carried / SCALE_MAX * level
+                change = params.response_up_gain * above / SCALE_MAX * level
             elif kind in state.kinds.soothing:
-                change = -params.response_down_gain * carried / SCALE_MAX * (1.0 - level)
+                change = -params.response_down_gain * above / SCALE_MAX * (1.0 - level)
             else:
                 change = 0.0
         else:
             change = -params.response_relaxation_rate * (person.stress_swing + person.adjust_swing)
-        relaxing = carried <= params.anxiety_band_low
+        relaxing = above <= 0
         before = person.functional_level
         if change < 0:  # revision 19: stress pushes functioning down to a floor below basic level, and no further
             floor = max(0.0, person.basic_level - params.stress_floor_below_basic)

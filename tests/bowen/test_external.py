@@ -41,10 +41,17 @@ KINDS = load_event_kinds()
 PHASE_C = CONFIG_DIR / "family_phase_c.md"
 
 
+ABOVE_USUAL = 5.0  # a load above the usual level of 0 that fresh() gives everyone (revision 22)
+
+
 def fresh():
+    """The Phase C family, each person with a usual level of 0, so a load is a load above usual (revision 22)."""
     family = load_family(PHASE_C)
     state = new_run_state(dict(family.people), dict(family.ties), family.family, KINDS)
-    return initialise_run(state, PARAMS)
+    state = initialise_run(state, PARAMS)
+    for person in state.people.values():
+        person.usual_excess = 0.0
+    return state
 
 
 def failing(state, pid=RAVI):
@@ -246,7 +253,7 @@ def test_m1e7_a_self_directed_act_that_worked_builds_perspective():
     def judged(after):
         state = fresh()
         state.ties[tie_id].felt_impingement[ravi] = 0.6           # reactive on the tie when he acts
-        self_practice(state, (Selection(ravi, "STAY-IN-CONTACT", (marta,), 100.0),), {ravi: PARAMS.anxiety_band_low + 5.0}, PARAMS)
+        self_practice(state, (Selection(ravi, "STAY-IN-CONTACT", (marta,), 100.0),), {ravi: ABOVE_USUAL}, PARAMS)
         assert (state.people[ravi].systems_perspective or 0) == 0  # nothing at once
         after(state)
         state.tick = window
@@ -266,7 +273,7 @@ def test_m1e7_a_self_directed_act_that_worked_builds_perspective():
     assert judged(lambda state: None) == 0                         # the tie did not calm
     assert judged(calmed_but_soothed) == 0                         # he did not hold his position
     automatic = fresh()
-    self_practice(automatic, (Selection(ravi, "PURSUE", (marta,), 100.0),), {ravi: PARAMS.anxiety_band_low + 5.0}, PARAMS)
+    self_practice(automatic, (Selection(ravi, "PURSUE", (marta,), 100.0),), {ravi: ABOVE_USUAL}, PARAMS)
     assert automatic.practice == []
     assert PARAMS.self_practice_gain < PARAMS.perspective_gain
 
@@ -283,7 +290,7 @@ def test_m1e7_when_a_held_stance_works_the_other_functions_up():
     def marta_after(calmed):
         state = fresh()
         state.ties[tie_id].felt_impingement[ravi] = 0.6
-        self_practice(state, (Selection(ravi, "WITHHOLD", (marta,), 100.0),), {ravi: PARAMS.anxiety_band_low + 5.0}, PARAMS)
+        self_practice(state, (Selection(ravi, "WITHHOLD", (marta,), 100.0),), {ravi: ABOVE_USUAL}, PARAMS)
         before = state.people[marta].functional_level
         if calmed:
             state.ties[tie_id].felt_impingement[ravi] = 0.0
@@ -296,7 +303,7 @@ def test_m1e7_when_a_held_stance_works_the_other_functions_up():
 
 def test_m1e7_the_system_adjusts_once_per_stance_and_only_under_load():
     """Review 2026-10-11: weekly acts toward one person open overlapping windows; the other adjusts once per stance,
-    not once per act. And an act below the calm band is not practice under load."""
+    not once per act. And an act at or below the person's usual level is not practice under load (revision 22)."""
     from src.bowen.engine.act import Selection
     from src.bowen.engine.external import self_practice
 
@@ -304,7 +311,7 @@ def test_m1e7_the_system_adjusts_once_per_stance_and_only_under_load():
     tie_id = TieId.of(ravi, marta)
     state = fresh()
     state.ties[tie_id].felt_impingement[ravi] = 0.6
-    loaded = {ravi: PARAMS.anxiety_band_low + 5.0}
+    loaded = {ravi: ABOVE_USUAL}
     for week in range(3):                                          # three acts in a row
         state.tick = week
         self_practice(state, (Selection(ravi, "STAY-IN-CONTACT", (marta,), 100.0),), loaded, PARAMS)
@@ -332,7 +339,9 @@ def test_m1e7_the_system_adjusts_once_per_stance_and_only_under_load():
         again.tick = start + PARAMS.practice_window
         self_practice(again, (), {}, PARAMS)
     assert again.people[marta].adjust_swing == PARAMS.system_adjust_gain
-    calm = fresh()
-    self_practice(calm, (Selection(ravi, "STAY-IN-CONTACT", (marta,), 100.0),), {ravi: PARAMS.anxiety_band_low / 2},
-                  PARAMS)
+    calm = fresh()                                                 # revision 22: at or below their usual level is calm
+    calm.people[ravi].usual_excess = 30.0
+    self_practice(calm, (Selection(ravi, "STAY-IN-CONTACT", (marta,), 100.0),), {ravi: 30.0}, PARAMS)
     assert calm.practice == []
+    self_practice(calm, (Selection(ravi, "STAY-IN-CONTACT", (marta,), 100.0),), {ravi: 31.0}, PARAMS)
+    assert len(calm.practice) == 1                                 # above it is under load, however high usual is

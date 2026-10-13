@@ -4,6 +4,43 @@ All notable changes to this project are recorded here. Dates are ISO.
 
 ## [Unreleased] — 2026-10-11
 
+### Spec revisions 25–27: beliefs as a channel, projection, and step 10's criteria (2026-10-12) — Claude's recommendations, pending owner review
+
+The owner asked for the work to proceed overnight without waiting for input; none of these is an owner decision.
+- **Revision 25, B8 (`M9.6`, `M9.7`, `M1.A.11c`, `M5.C.1`).** Each person holds where they believe the family's
+  difficulty lies, written from moves sent or delivered, by rules in a new config file `config/bowen/attribution.md`;
+  a readout (`src/bowen/readouts/attribution.py`) recovers the sink from it. A witness's appraisal reads its belief
+  about the tie it watches. The family's anxious focus writes the symptom channel. The marital-distance gate blocks
+  improvement in a symptomatic child. New constants (`[I]`): `attribution_rate` 0.05, `focus_rate` 0.05,
+  `belief_appraisal_gain` 1.0, `marital_distance_fraction` 0.25. New field: `Person.attribution`.
+- **Revision 26, B9 (`M4.D.6e`).** The cross-person learning term is weighted by the actor's bond energy on each tie.
+- **Revision 27 (`M6.I.4`).** Borrowed pseudo-self settles back, conserved, once a pair's exchange has stopped for
+  `exchange_window` weeks (8); new `pseudo_self_relaxation_rate` 0.05 (`[I]`). This changes every run in which lending
+  stops.
+- **`M10.B.5`.** Learning is switched off by an override the criterion declares (`scenario(overrides=...)`).
+- **B10, `M11.G`.** A family-evaluation readout (`src/bowen/readouts/evaluation.py`): components 1–8, adaptiveness
+  derived against stress, belief and truth apart, the framing carried; `M11.D.20`'s ordering check passes.
+- **`M11.C.23`'s suppression term**: new field `Person.symptom_suppression` (1 is none; set by a criterion only).
+- **Criteria (ad hoc on the final code, not yet a record).** Pass and proved by mutation: `M11.C.26`, `.36`, `.39`,
+  `.24`. Fail: `M11.C.14`, `.2` (acts counted early, load read late), `.40` (its second clause), `.43`, `.34` (reactions
+  to the onset against a no-onset run), `.21`, `.23` (reversed). Not built: `M11.C.7`, `.9`, `.28`, each needing a
+  mechanism first.
+- **`M11.C.17`'s coached rise nearly vanished** (+0.021 at revision 23, +0.0009 ± 0.0008 now; still PASS at p 0.011).
+  Probes put part of it on revision 27's settling back and part on revision 24's integrand. Recorded, not tuned.
+- **Reviews' fixes:** the marital-distance gate was on almost every week (being below the contact optimum is the
+  resting state); it now needs felt contact below `marital_distance_fraction` (0.25, `[I]`) and reaches only the
+  couple's children, not a symptomatic spouse. Pseudo-self settled between people who never exchanged; it now settles only on a tie with a
+  functioning balance. Criterion overrides are applied before assembly. `M11.C.34`, `M11.C.2`, `M11.C.40` and
+  `M11.C.26` readouts were corrected (see the plan, step 10); an empty entropy window no longer reads as zero. `TRIANGLE` no longer writes focus.
+- **`I-POSITION` completion fell** in the triad fixture (about 10 in 96 seeds at revision 20, 4 in 192 now);
+  `test_iposition.py`'s sequence test was raised to 192 seeds (P23).
+- **Status report:** `docs/phase_d_status_2026-10-13.md`, every build item and D-I criterion as done, partial or not
+  done.
+- **Records regenerated.** `M11.C.44` moved PASS → FAIL again, on its threshold. No other Phase C verdict moved. The
+  golden fingerprints moved (behaviour). Suite: 708 tests.
+- **Test fixed:** `tests/bowen/test_phase_c_criteria.py`'s C.42 check counted any event a pair member sent toward the
+  third, including a symptom onset, which is not a choice; it now counts moves only.
+
 ### Spec revision 24: the symptom channels, Phase D B7 (2026-10-12) — Claude's recommendation, pending owner review
 
 The owner asked for the work to proceed overnight without waiting for input. Every choice here is Claude's

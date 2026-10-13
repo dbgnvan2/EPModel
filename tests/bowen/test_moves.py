@@ -411,3 +411,76 @@ def test_m1b5_triangling_someone_in_about_them_ends_the_stance():
     _stance(state, RAVI, NADIA)
     _stance(state, RAVI, MARTA, kind="TRIANGLE", tick=1)
     assert (RAVI, NADIA) not in state.stances
+
+
+def test_m6i4_pseudo_self_settles_back_when_the_exchange_stops():
+    """Revision 27: with no over/under-functioning between a pair for exchange_window weeks, the borrower's pseudo-self
+    moves back to the lender, conserved, with functional level; a recent exchange, or same-signed pseudo-self, holds it."""
+    from src.bowen.engine.moves import _pole_of, relax_pseudo_self
+
+    def set_up(recent, balance=True, at=None):
+        state = fresh()
+        for pid, ps in ((RAVI, 6.0), (MARTA, -4.0)):
+            person = state.people[pid]
+            person.functional_level += ps - (person.pseudo_self or 0.0)
+            person.pseudo_self = ps
+        tie = state.ties[MARITAL]
+        tie.functioning_balance[DEFAULT_AREA] = 0.5 * _pole_of(tie, RAVI) if balance else 0.0  # Ravi took charge
+        state.tick = PARAMS.exchange_window + 2
+        if recent:
+            state.store.record_event(move("OVERFUNCTION", RAVI, MARTA, tick=state.tick - 1 if at is None else at))
+        return state
+
+    state = set_up(recent=False)
+    total, levels = sum(p.pseudo_self or 0.0 for p in state.people.values()), dict(
+        (p, state.people[p].functional_level) for p in (RAVI, MARTA))
+    relax_pseudo_self(state, PARAMS)
+    moved = PARAMS.pseudo_self_relaxation_rate * 4.0
+    assert state.people[RAVI].pseudo_self == 6.0 - moved and state.people[MARTA].pseudo_self == -4.0 + moved
+    assert state.people[RAVI].functional_level == levels[RAVI] - moved
+    assert state.people[MARTA].functional_level == levels[MARTA] + moved
+    assert sum(p.pseudo_self or 0.0 for p in state.people.values()) == total
+    state = set_up(recent=True)
+    relax_pseudo_self(state, PARAMS)
+    assert state.people[RAVI].pseudo_self == 6.0
+    # Review 2026-10-12: a pair that never exchanged (no balance on their tie) does not settle across it.
+    state = set_up(recent=False, balance=False)
+    relax_pseudo_self(state, PARAMS)
+    assert state.people[RAVI].pseudo_self == 6.0
+
+
+def test_m6i4_the_exchange_window_counts_the_last_exchange_window_weeks():
+    """An exchange exactly exchange_window weeks back is outside the window and lets the pair settle; one week later
+    it holds them."""
+    from src.bowen.engine.moves import _pole_of, relax_pseudo_self
+
+    def settles(age):
+        state = fresh()
+        for pid, ps in ((RAVI, 6.0), (MARTA, -4.0)):
+            state.people[pid].pseudo_self = ps
+        tie = state.ties[MARITAL]
+        tie.functioning_balance[DEFAULT_AREA] = 0.5 * _pole_of(tie, RAVI)
+        state.tick = PARAMS.exchange_window + 2
+        state.store.record_event(move("OVERFUNCTION", RAVI, MARTA, tick=state.tick - age))
+        relax_pseudo_self(state, PARAMS)
+        return state.people[RAVI].pseudo_self < 6.0
+
+    assert settles(PARAMS.exchange_window) and not settles(PARAMS.exchange_window - 1)
+
+
+def test_m6i4_a_borrower_still_exchanging_with_its_source_keeps_what_it_borrowed():
+    """Review 2026-10-12: pseudo-self settles back only on the tie it was exchanged on. Nadia borrowed from Marta and
+    is still exchanging with her; Ravi lent to someone else; nothing moves between Nadia and Ravi, whose tie carries no
+    balance, nor between Nadia and Marta, who are still exchanging."""
+    from src.bowen.engine.moves import _pole_of, relax_pseudo_self
+
+    state = fresh()
+    nadia, marta = P("nadia"), P("marta")
+    for pid, ps in ((nadia, 5.0), (marta, -5.0), (RAVI, -3.0)):
+        state.people[pid].pseudo_self = ps
+    tie = state.ties[TieId.of(marta, nadia)]
+    tie.functioning_balance[DEFAULT_AREA] = 0.5 * _pole_of(tie, nadia)
+    state.tick = PARAMS.exchange_window + 2
+    state.store.record_event(move("OVERFUNCTION", nadia, marta, tick=state.tick - 1))
+    relax_pseudo_self(state, PARAMS)
+    assert (state.people[nadia].pseudo_self, state.people[marta].pseudo_self, state.people[RAVI].pseudo_self) == (5.0, -5.0, -3.0)

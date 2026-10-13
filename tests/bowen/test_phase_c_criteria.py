@@ -28,9 +28,10 @@ SEEDS = range(12)
 
 
 def toward_third_at(records, tick):
-    """The pair's acts at ``tick`` that name the third member: emitted toward it, or withheld toward it."""
+    """The pair's acts at ``tick`` that name the third member: emitted toward it, or withheld toward it. Moves only: a
+    symptom onset is addressed to everyone on the bearer's ties and is not a choice (found 2026-10-12, revision 25)."""
     emitted = [r.event for r in records if isinstance(r, EmittedRecord) and r.event.timestamp == tick
-               and r.event.sender in PAIR and THIRD in r.event.targets]
+               and r.event.mechanism is Mechanism.MOVE and r.event.sender in PAIR and THIRD in r.event.targets]
     withheld = [r for r in records if isinstance(r, SelectionRecord) and r.tick == tick and r.actor in PAIR
                 and r.withheld_toward == THIRD]
     return emitted + withheld

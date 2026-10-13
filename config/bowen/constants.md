@@ -149,6 +149,12 @@ activation_regime: synchronous
 | `constitution_strength` | 0.5 | [I] | weight of the constitutional channel prior against a family focus; a person's own value overrides it (revision 24) | `M1.A.11c` |
 | `channel_protection` | 1.0 | [I] | divisor per threshold of load carried in the other channels (revision 24) | `M7.D.2c` |
 | `lock_in_gain` | 0.2 | [I] | scale of the share of a partner's excess above usual an active symptom holds each week (revision 24) | `M7.D.2a` |
+| `attribution_rate` | 0.05 | [I] | share per unit of fidelity by which a person's attribution moves toward what a move places (revision 25) | `M9.6` |
+| `focus_rate` | 0.05 | [I] | weekly decay of the family's focus on a person's channel, and what one anxious act adds (revision 25) | `M1.A.11c` |
+| `marital_distance_fraction` | 0.25 | [I] | share of the felt contact optimum below which, for both spouses, marital distance is high (revision 25) | `M5.C.1` |
+| `belief_appraisal_gain` | 1.0 | [I] | a witness's appraisal is scaled by 1 + this × its believed tension of the tie (revision 25) | `M9.7` |
+| `pseudo_self_relaxation_rate` | 0.05 | [I] | weekly share of a pair's opposite pseudo-self that settles back once their exchange stops (revision 27) | `M6.I.4` |
+| `exchange_window` | 8 | [I] | weeks without over/under-functioning between a pair before their pseudo-self settles (revision 27) | `M6.I.4` |
 | `lock_in_turn` | 3.0 | [I] | severity (load ÷ threshold) past which lock-in releases instead of holding; peak at half of it (revision 24) | `M7.D.2d` |
 | `self_channel_exponent` | 2.0 | [I] | exponent on functional_level / 100 | `M4.D.1a` |
 | `policy_temperature` | 1.0 | [I] | learned-value units | `M4.D.1` |

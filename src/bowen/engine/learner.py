@@ -19,9 +19,13 @@ registered, so it is never reinforced (`M4.D.6d`); nor are scripted or fallback 
 consolidation) each person's change in acute anxiety over the tick, ``Δ``, is known. An
 eligible act of age ``k`` (0 in the tick it was sent) gains
 
-    credit_discount ** k × ( −Δ(actor) + cross_person_weight × mean −Δ(target, witnesses) )
+    credit_discount ** k × ( −Δ(actor) + cross_person_weight × bond-weighted mean −Δ(target, witnesses) )
 
-except that a ``TRIANGLE``'s recruited third is left out of the mean (owner decision 2026-10-09).
+except that a ``TRIANGLE``'s recruited third is left out of the mean (owner decision 2026-10-09). *Revision 26 (Phase
+D B9; Claude's recommendation, pending owner review):* the mean is weighted by the actor's bond energy on its tie to
+each other person, so whose calming the act is credited with follows the tie: a child's tie to a parent outweighs a
+thin tie to a witness, which is "her calming is the reinforcement" (`M4.D.6e`) without naming a parent in any rule.
+Another person with no tie to the actor carries no weight.
 
 Relief is positive. The cross-person term is how a child learns that acting as the
 parent's image predicts calms the parent (`FE07.4`). Nothing outside ``credit_horizon``
@@ -92,6 +96,20 @@ def register_acts(state: RunState, selections: tuple[Selection, ...], params: En
         ))
 
 
+def cross_person_relief(state: RunState, actor: PersonId, others, relief: dict[PersonId, float]) -> float:
+    """Purpose: the others' relief after an act, weighted by the actor's bond energy on its tie to each (revision 26).
+    Spec:    docs/bowen_agent_model_spec_v2.md#M4.D.6e
+    Tests:   tests/bowen/test_learner.py::test_m4d6e_the_cross_person_term_weighs_the_closer_tie_more
+    """
+    weights = {}
+    for q in others:
+        tie = state.tie_between(actor, q)
+        if q in relief and tie is not None and tie.bond_energy > 0:
+            weights[q] = tie.bond_energy
+    total = sum(weights.values())
+    return sum(w * relief[q] for q, w in weights.items()) / total if total else 0.0
+
+
 def learn(state: RunState, start_acute: dict[PersonId, float], params: EngineParams) -> list[EffectRecord]:
     """Purpose: credit this tick's felt change to every eligible act, and close the accounts that are due.
     Spec:    docs/bowen_agent_model_spec_v2.md#M4.D.6a, #M4.D.6b, #M4.D.6e, #M4.G.3, #M4.B.3
@@ -107,10 +125,7 @@ def learn(state: RunState, start_acute: dict[PersonId, float], params: EnginePar
         still_open = []
         for act in person.eligible_acts:
             age = state.tick - act.tick
-            others = [relief[q] for q in act.others if q in relief]
-            felt = relief.get(pid, 0.0) + (
-                params.cross_person_weight * sum(others) / len(others) if others else 0.0
-            )
+            felt = relief.get(pid, 0.0) + params.cross_person_weight * cross_person_relief(state, pid, act.others, relief)
             act.signal += params.credit_discount ** age * felt
             if age < params.credit_horizon - 1:
                 still_open.append(act)

@@ -133,6 +133,12 @@ class EngineParams:
     constitution_strength: float           # M1.A.11c, revision 24 — how strongly the constitutional channel prior holds against a family focus
     channel_protection: float              # M7.D.2c, revision 24 — how much load in other channels slows a channel's feed
     lock_in_gain: float                    # M7.D.2a, revision 24 — scale of the share of a partner's excess an active symptom holds
+    attribution_rate: float                # M9.6, revision 25 — share per unit of fidelity by which attribution moves toward what a move places
+    focus_rate: float                      # M1.A.11c, revision 25 — weekly decay of the family's focus, and its gain per anxious act
+    marital_distance_fraction: float       # M5.C.1, revision 25 — felt contact below this share of optimum, both spouses, is marital distance
+    belief_appraisal_gain: float           # M9.7, revision 25 — how much a witness's believed tension of the tie scales its appraisal
+    pseudo_self_relaxation_rate: float     # M6.I.4, revision 27 — weekly share of a pair's opposite pseudo-self that settles back
+    exchange_window: int                   # M6.I.4, revision 27 — weeks without over/under-functioning before it settles
     lock_in_turn: float                    # M7.D.2d, revision 24 — the severity (load over threshold) past which lock-in turns over
 
     def __post_init__(self) -> None:
@@ -215,6 +221,12 @@ class EngineParams:
             raise ValueError("usual_level_rate must be in (0, 1]")
         if not 0.0 <= self.constitution_strength <= 1.0:
             raise ValueError("constitution_strength must be in [0, 1]")
+        if not (0.0 <= self.attribution_rate <= 1.0 and 0.0 <= self.focus_rate <= 1.0) or self.belief_appraisal_gain < 0:
+            raise ValueError("attribution_rate and focus_rate in [0, 1]; belief_appraisal_gain non-negative")
+        if not 0.0 < self.marital_distance_fraction <= 1.0:
+            raise ValueError("marital_distance_fraction must be in (0, 1]")
+        if not 0.0 <= self.pseudo_self_relaxation_rate <= 1.0 or self.exchange_window < 1:
+            raise ValueError("pseudo_self_relaxation_rate in [0, 1]; exchange_window at least 1")
         if self.channel_protection < 0 or self.lock_in_gain < 0 or self.lock_in_turn <= 0:
             raise ValueError("channel_protection and lock_in_gain non-negative; lock_in_turn positive")
         if self.stress_floor_below_basic < 0 or self.practice_window < 1:

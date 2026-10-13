@@ -375,7 +375,7 @@ def test_m5d9_a_step_that_cannot_be_made_is_deferred_and_logged():
 
 
 @lru_cache(maxsize=1)
-def attempts_over_seeds(seeds=96, weeks=100):
+def attempts_over_seeds(seeds=192, weeks=100):
     """F, given perspective, keeps taking positions with M while the triad fixture runs on the policy.
 
     The triad, not the Phase C family (owner decision 2026-10-11, option a): from Phase D B4 a cut-off tie stays
@@ -384,7 +384,8 @@ def attempts_over_seeds(seeds=96, weeks=100):
     sequence, so they run where preparation can happen. Measured 2026-10-11 in the triad: 21 aborts, 13 holds,
     4 completed sequences over 24 seeds. Raised to 96 seeds on 2026-10-12 (P23): completion runs at about one sequence
     in ten seeds (10 of 96 at spec revision 20 as first pushed, 9 of 96 after its fix), so 24 seeds expected about two
-    and an unrelated engine change drew none.
+    and an unrelated engine change drew none. Raised to 192 seeds on 2026-10-12 (spec revisions 24-27): completion fell
+    to 2 of 96 after B7's symptom channels; the statistics below need more than a handful of completed sequences.
     """
     constants, family = load_constants(), load_family(REPO / "config" / "bowen" / "fixtures" / "triad.md")
     mover, target = P("f"), P("m")

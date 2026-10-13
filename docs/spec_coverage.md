@@ -7,7 +7,7 @@ criterion is **done** only when every entry passes in `docs/phase_c_ensemble_rec
 mutant has turned each entry red in `docs/phase_c_mutation_record.md`; the D9 sweep
 (`docs/phase_c_sweep_record.md`) is reported, not gated. Phases D and E build most of the rest.
 
-**547 IDs: 235 done, 53 partial, 259 not done.**
+**547 IDs: 242 done, 64 partial, 241 not done.**
 
 | ID | Status | Evidence | Note |
 |---|---|---|---|
@@ -51,7 +51,7 @@ mutant has turned each entry red in `docs/phase_c_mutation_record.md`; the D9 sw
 | M1.A.11 | done | `tests/bowen/test_objects.py::test_m1a11_exactly_three_symptom_channels` | — |
 | M1.A.11a | not done | — | Phase C or D — the phase that builds its mechanism (plan Appendix B) |
 | M1.A.11b | done | `tests/bowen/test_symptoms.py::test_m1a11b_load_accumulates_in_the_constitutional_channel` | — |
-| M1.A.11c | done | `tests/bowen/test_symptoms.py::test_m1a11c_a_family_focus_moves_the_channel_and_constitution_overrides_it` | — |
+| M1.A.11c | done | `tests/bowen/test_attribution.py::test_m1a11c_an_anxious_familys_attention_moves_the_focus`<br>`tests/bowen/test_attribution.py::test_m1a11c_only_the_target_of_an_anxious_act_is_focused_on`<br>`tests/bowen/test_symptoms.py::test_m1a11c_a_family_focus_moves_the_channel_and_constitution_overrides_it` | — |
 | M1.A.12 | done | `tests/bowen/test_mechanisms.py::test_m1a12_membership_is_derived_from_involvement`<br>`tests/bowen/test_objects.py::test_m1a12_membership_is_not_a_stored_set` | — |
 | M1.A.13 | partial | `tests/bowen/test_objects.py::test_m1a13_exactly_three_structural_tiers` | exactly three tiers exist; the derivation (M1.A.13a) is Phase D |
 | M1.A.13a | not done | — | Phase C or D — the phase that builds its mechanism (plan Appendix B) |
@@ -221,7 +221,7 @@ mutant has turned each entry red in `docs/phase_c_mutation_record.md`; the D9 sw
 | M4.D.6b | partial | `tests/bowen/test_learner.py::test_m4d6b_nothing_outside_the_horizon_is_credited` | the horizon is declared in config and only acts inside it are credited (step 7); the sweep with the learning rate and temperature is Phase C step 16 |
 | M4.D.6c | not done | — | Phase C |
 | M4.D.6d | done | `tests/bowen/test_learner.py::test_m4d6d_self_directed_channel_is_never_reinforced` | — |
-| M4.D.6e | done | `tests/bowen/test_learner.py::test_m4d6e_another_persons_calming_reinforces`<br>`tests/bowen/test_learner.py::test_m4d6e_triangle_credit_excludes_recruited_third`<br>`tests/bowen/test_learner.py::test_m4d6e_triangle_reinforced_when_it_relieves_the_seeker_whatever_it_costs_the_third` | — |
+| M4.D.6e | done | `tests/bowen/test_learner.py::test_m4d6e_another_persons_calming_reinforces`<br>`tests/bowen/test_learner.py::test_m4d6e_the_cross_person_term_weighs_the_closer_tie_more`<br>`tests/bowen/test_learner.py::test_m4d6e_triangle_credit_excludes_recruited_third`<br>`tests/bowen/test_learner.py::test_m4d6e_triangle_reinforced_when_it_relieves_the_seeker_whatever_it_costs_the_third` | — |
 | M4.E.1 | done | `tests/bowen/test_mechanisms.py::test_m4e1_scripted_move_becomes_full_event` | — |
 | M1.F.1a | done | `tests/bowen/test_events.py::test_m1f1a_mixed_channel_carries_a_weight`<br>`tests/bowen/test_rejection.py::test_m1f1a_a_policy_act_is_stamped_with_its_kinds_channel`<br>`tests/bowen/test_rejection.py::test_m1f1a_the_channel_names_agree` | — |
 | M4.E.1a | done | `tests/bowen/test_activation_visibility.py::test_m4e1a_witnesses_filled_by_visibility_not_script` | — |
@@ -239,7 +239,7 @@ mutant has turned each entry red in `docs/phase_c_mutation_record.md`; the D9 sw
 | M5.B.4 | done | `tests/bowen/test_external.py::test_m5b4_family_to_external_moves_exist_and_go_only_to_an_external_agent` | — |
 | M5.B.6 | partial | `tests/bowen/test_moves.py::test_m5b6_provoke_intensity_is_a_dial_separate_from_content` | the intensity dial is separate from the content (step 5); its use in M5.C.1a's peace-agree technique and the live-issue gate arrives with the I-POSITION state machine (step 8) |
 | M5.B.5 | not done | — | Phase C |
-| M5.C.1 | partial | — | financial dependence removes I-POSITION from the legal set (step 6) and the outside-ness thresholds exist (step 3); the other gates act on I-POSITION's outcome and arrive with its state machine (step 8); decision ownership is Phase D |
+| M5.C.1 | partial | `tests/bowen/test_attribution.py::test_m5c1_under_marital_distance_no_move_improves_the_symptom_bearer` | financial dependence removes I-POSITION from the legal set (step 6) and the outside-ness thresholds exist (step 3); the other gates act on I-POSITION's outcome and arrive with its state machine (step 8); decision ownership is Phase D |
 | M5.C.1a | not done | — | Phase C |
 | M5.C.2 | not done | — | Phase C |
 | M5.D.1 | done | `tests/bowen/test_iposition.py::test_m5d1_iposition_is_not_a_single_tick_move` | — |
@@ -277,7 +277,7 @@ mutant has turned each entry red in `docs/phase_c_mutation_record.md`; the D9 sw
 | M6.I.1 | done | `tests/bowen/test_sinks.py::test_m6i1_allocation_conserves_the_budget`<br>`tests/bowen/test_sinks.py::test_m6i1_only_a_completed_exchange_reduces_the_budget` | allocation conserves the budget; a completed exchange is its one logged sink (step 10) |
 | M6.I.2 | partial | `tests/bowen/test_mechanisms.py::test_m4g2_invariants_asserted_every_tick`<br>`tests/bowen/test_ledger.py::test_m6i2_distance_runs_outside_the_budget` | asserted every tick (structural in Phase B) |
 | M6.I.3 | partial | `tests/bowen/test_mechanisms.py::test_m4g2_invariants_asserted_every_tick` | asserted every tick; life_energy is not used until Phase C |
-| M6.I.4 | done | `tests/bowen/test_mechanisms.py::test_m4g2_a_violation_raises`<br>`tests/bowen/test_moves.py::test_m6i4_pseudo_self_moves_with_functional_level_and_is_conserved` | asserted every tick; OVERFUNCTION and UNDERFUNCTION exchange pseudo-self from Phase C step 5 |
+| M6.I.4 | done | `tests/bowen/test_mechanisms.py::test_m4g2_a_violation_raises`<br>`tests/bowen/test_moves.py::test_m6i4_a_borrower_still_exchanging_with_its_source_keeps_what_it_borrowed`<br>`tests/bowen/test_moves.py::test_m6i4_pseudo_self_moves_with_functional_level_and_is_conserved`<br>`tests/bowen/test_moves.py::test_m6i4_pseudo_self_settles_back_when_the_exchange_stops`<br>`tests/bowen/test_moves.py::test_m6i4_the_exchange_window_counts_the_last_exchange_window_weeks` | asserted every tick; OVERFUNCTION and UNDERFUNCTION exchange pseudo-self from Phase C step 5 |
 | M6.I.5 | partial | `tests/bowen/test_mechanisms.py::test_m4g2_a_violation_raises` | asserted every tick; basic_level does not move until the Phase D estimator |
 | M6.I.6 | done | `tests/bowen/test_ledger.py::test_m6i6_transfers_balance_every_tick`<br>`tests/bowen/test_ledger.py::test_m6i6_an_unbalanced_transfer_is_caught` | restated at revision 12 and asserted every tick from Phase C step 10 as M6.4's ledger |
 | M6.I.7 | partial | `tests/bowen/test_mechanisms.py::test_m4g2_a_violation_raises` | asserted every tick; no Phase B mechanism removes anything |
@@ -330,8 +330,8 @@ mutant has turned each entry red in `docs/phase_c_mutation_record.md`; the D9 sw
 | M9.3 | not done | — | Phase D |
 | M9.4 | not done | — | Phase D |
 | M9.5 | not done | — | Phase D |
-| M9.6 | not done | — | Phase D |
-| M9.7 | not done | — | Phase D |
+| M9.6 | done | `tests/bowen/test_attribution.py::test_m96_a_tie_at_the_top_reads_as_no_pattern`<br>`tests/bowen/test_attribution.py::test_m96_a_witness_splits_a_conflict_between_the_two_sides_through_the_update`<br>`tests/bowen/test_attribution.py::test_m96_attribution_is_written_only_from_moves_sent_or_delivered`<br>`tests/bowen/test_attribution.py::test_m96_attribution_rules_come_from_config`<br>`tests/bowen/test_attribution.py::test_m96_each_side_of_a_conflict_says_the_other`<br>`tests/bowen/test_attribution.py::test_m96_giving_way_and_being_taken_care_of_place_it_with_the_same_one_for_both`<br>`tests/bowen/test_attribution.py::test_m96_the_dead_hold_no_new_attribution`<br>`tests/bowen/test_attribution.py::test_m96_the_readout_recovers_each_pattern`<br>`tests/bowen/test_attribution.py::test_m96_the_step_grows_with_summed_fidelity_and_a_faint_delivery_counts_less` | — |
+| M9.7 | done | `tests/bowen/test_attribution.py::test_m97_a_witness_appraises_through_its_belief_about_the_tie`<br>`tests/bowen/test_attribution.py::test_m97_belief_makes_a_witnessed_load_worse_and_leaves_a_relief_alone` | — |
 | M9.8 | done | `tests/bowen/test_beliefs.py::test_m98_a_party_to_the_tie_holds_no_belief_about_it`<br>`tests/bowen/test_beliefs.py::test_m98_belief_can_differ_from_the_true_state`<br>`tests/bowen/test_beliefs.py::test_m98_belief_written_only_from_delivered_events`<br>`tests/bowen/test_beliefs.py::test_m98_check_catches_an_update_calling_true_counterpart`<br>`tests/bowen/test_beliefs.py::test_m98_every_person_believes_about_each_tie_it_is_not_party_to`<br>`tests/bowen/test_beliefs.py::test_m98_true_counterpart_is_not_called_by_the_update`<br>`tests/bowen/test_beliefs.py::test_m98_true_state_without_delivery_leaves_belief_unchanged` | — |
 | M10.1 | done | `tests/bowen/test_config.py::test_m101_repository_constants_load_and_are_graded` | — |
 | M10.A.1 | not done | — | Phase C or D |
@@ -341,7 +341,7 @@ mutant has turned each entry red in `docs/phase_c_mutation_record.md`; the D9 sw
 | M10.B.2 | done | `tests/bowen/test_events.py::test_m10b2_event_kinds_parse_strictly`<br>`tests/bowen/test_family.py::test_m10b2_family_sections_parse_strictly`<br>`tests/bowen/test_script.py::test_m10b2_script_parses_strictly` | — |
 | M10.B.3 | not done | — | Phase C or D |
 | M10.B.4 | done | `tests/bowen/test_config.py::test_m10b4_a_retired_key_is_rejected_in_the_live_register`<br>`tests/bowen/test_config.py::test_m10b4_frozen_at_parses_a_date_and_rejects_anything_else`<br>`tests/bowen/test_phase_b_gate.py::test_m10b4_constants_frozen_before_suite` | — |
-| M10.B.5 | not done | — | Phase C or D |
+| M10.B.5 | done | `tests/bowen/test_phase_d_criteria.py::test_m10b5_learning_is_switched_off_only_by_a_declared_override` | — |
 | M10.C.1 | partial | — | every Phase B constant is labelled [I] in config/bowen/constants.md; later phases add theirs |
 | M10.C.1a | partial | — | the activation regime is recorded as [I]; the other entries are Phase C and later |
 | M10.C.2 | not done | — | Phase C or D |
@@ -370,7 +370,7 @@ mutant has turned each entry red in `docs/phase_c_mutation_record.md`; the D9 sw
 | M11.4f | not done | — | Phase C — acceptance-test rules |
 | M11.3 | not done | — | Phase C — acceptance-test rules |
 | M11.C.1 | done | `tests/bowen/test_phase_c_gate.py::test_m11c1_lower_c_reaches_threshold_sooner` | ensemble record: M11.C.1 PASS |
-| M11.C.2 | not done | — | Phase D |
+| M11.C.2 | partial | `tests/bowen/test_phase_d_criteria.py::test_m11c2_symptom_concentrates_on_projection_target` | built; no recorded ensemble verdict yet (the Phase D record is plan step 12) |
 | M11.C.3 | done | `tests/bowen/test_phase_c_gate.py::test_m11c3_triangle_relieves_seeker_costs_third` | ensemble record: M11.C.3 PASS |
 | M11.C.4 | partial | `tests/bowen/test_phase_c_gate.py::test_m11c4_cutoff_trades_now_against_later` | ensemble record: M11.C.4 FAIL |
 | M11.C.5 | partial | `tests/bowen/test_phase_c_gate.py::test_m11c5_change_back_reaction_shape` | ensemble record: M11.C.5 FAIL |
@@ -382,37 +382,37 @@ mutant has turned each entry red in `docs/phase_c_mutation_record.md`; the D9 sw
 | M11.C.11 | partial | `tests/bowen/test_phase_d_criteria.py::test_m11c11_removal_three_phase_shape` | built; no recorded ensemble verdict yet (the Phase D record is plan step 12) |
 | M11.C.12 | partial | `tests/bowen/test_phase_d_criteria.py::test_m11c12_symptom_relief_raises_conflict` | built; no recorded ensemble verdict yet (the Phase D record is plan step 12) |
 | M11.C.13 | not done | `tests/bowen/test_phase_c_gate.py::test_m11c13_help_relocates_not_reduces` | not built in Phase C — docs/phase_c_ensemble_record.md says why |
-| M11.C.14 | not done | `tests/bowen/test_phase_c_gate.py::test_m11c14_technique_null_under_marital_distance` | not built in Phase C — docs/phase_c_ensemble_record.md says why |
+| M11.C.14 | not done | `tests/bowen/test_phase_c_gate.py::test_m11c14_technique_null_under_marital_distance`<br>`tests/bowen/test_phase_d_criteria.py::test_m11c14_technique_null_under_marital_distance` | not built in Phase C — docs/phase_c_ensemble_record.md says why |
 | M11.C.16 | partial | `tests/bowen/test_phase_c_gate.py::test_m11c16_repertoire_concentration_depends_on_level` | passes (docs/phase_c_ensemble_record.md), but its required mutant, M4.D.6 disabled, survives; the joint level-blind mutant turns it red, and availability-level-inverted reverses it (docs/phase_c_mutation_record.md). Composite; the row's mutation clause is not met (spec M11.5, 2026-10-08) |
 | M11.C.15 | not done | — | Phase D |
 | M11.C.17 | partial | `tests/bowen/test_phase_d_criteria.py::test_m11c17_coach_helps_and_is_not_required` | built; no recorded ensemble verdict yet (the Phase D record is plan step 12) |
 | M11.C.18 | partial | `tests/bowen/test_phase_d_criteria.py::test_m11c18_estimator_separates_cutoff_from_iposition`<br>`tests/bowen/test_phase_d_criteria.py::test_m11c18_the_nodal_load_fills_every_window_with_three_kinds` | built; no recorded ensemble verdict yet (the Phase D record is plan step 12) |
-| M11.C.24 | not done | — | Phase D |
+| M11.C.24 | partial | `tests/bowen/test_phase_d_criteria.py::test_m11c24_whisper_of_nature_reverses_on_dissolution` | built; no recorded ensemble verdict yet (the Phase D record is plan step 12) |
 | M11.C.20 | partial | `tests/bowen/test_phase_d_criteria.py::test_m11c20_estimator_separates_borrowed_from_basic`<br>`tests/bowen/test_phase_d_criteria.py::test_m11c20_reports_how_much_scripted_support_a_held_position_blocked` | built; no recorded ensemble verdict yet (the Phase D record is plan step 12) |
-| M11.C.21 | not done | — | Phase D |
+| M11.C.21 | partial | `tests/bowen/test_phase_d_criteria.py::test_m11c21_reciprocity_inverts_on_projector_collapse` | built; no recorded ensemble verdict yet (the Phase D record is plan step 12) |
 | M11.C.22 | partial | `tests/bowen/test_phase_d_criteria.py::test_m11c22_symptom_lock_in_is_non_monotone`<br>`tests/bowen/test_phase_d_criteria.py::test_m11c22_the_held_severity_is_what_the_arm_declares` | built; no recorded ensemble verdict yet (the Phase D record is plan step 12) |
-| M11.C.23 | not done | — | Phase D |
+| M11.C.23 | partial | `tests/bowen/test_phase_d_criteria.py::test_m11c23_expressed_emotion_dominates_suppression` | built; no recorded ensemble verdict yet (the Phase D record is plan step 12) |
 | M11.C.19 | done | `tests/bowen/test_phase_c_gate.py::test_m11c19_counterfeit_axis_is_identified` | ensemble record: M11.C.19 PASS |
 | M11.C.25 | done | `tests/bowen/test_phase_c_gate.py::test_m11c25_dominant_pole_independent_of_sex` | ensemble record: M11.C.25 PASS |
-| M11.C.26 | not done | — | Phase D |
+| M11.C.26 | partial | `tests/bowen/test_phase_d_criteria.py::test_m11c26_sink_recoverable_from_belief_configuration`<br>`tests/bowen/test_phase_d_criteria.py::test_m11c26_the_control_rotates_the_labels_of_the_same_runs` | built; no recorded ensemble verdict yet (the Phase D record is plan step 12) |
 | M11.C.27 | partial | `tests/bowen/test_phase_c_criteria.py::test_m11c27_reads_the_week_the_act_lands_and_reports_each_week_after`<br>`tests/bowen/test_phase_c_gate.py::test_m11c27_twosome_two_by_two_all_cells` | ensemble record: M11.C.27[stable,add_third] FAIL; M11.C.27[stable,remove_one] FAIL; M11.C.27[unstable,add_third] FAIL; M11.C.27[unstable,remove_one] PASS |
 | M11.C.28 | not done | — | Phase D |
 | M11.C.29 | partial | `tests/bowen/test_phase_c_criteria.py::test_m11c29_every_withdrawal_is_made_with_or_without_the_hold`<br>`tests/bowen/test_phase_c_criteria.py::test_m11c29_held_tie_is_not_cut_while_held`<br>`tests/bowen/test_phase_c_criteria.py::test_m11c29_hold_is_the_same_in_both_arms`<br>`tests/bowen/test_phase_c_gate.py::test_m11c29_relief_and_differentiation_differ_in_time_course` | ensemble record: M11.C.29 FAIL |
 | M11.C.30 | partial | `tests/bowen/test_phase_d_criteria.py::test_m11c30_channels_are_mutually_protective`<br>`tests/bowen/test_phase_d_criteria.py::test_m11c30_the_arms_differ_only_in_the_load_carried_elsewhere` | built; no recorded ensemble verdict yet (the Phase D record is plan step 12) |
 | M11.C.31 | partial | `tests/bowen/test_phase_d_criteria.py::test_m11c31_binder_removal_releases_bound_anxiety`<br>`tests/bowen/test_phase_d_criteria.py::test_m11c31_the_budget_rises_by_exactly_what_the_binder_held` | built; no recorded ensemble verdict yet (the Phase D record is plan step 12) |
 | M11.C.32 | partial | `tests/bowen/test_phase_c_gate.py::test_m11c32_mover_anger_stalls_and_degrades` | ensemble record: M11.C.32 FAIL |
-| M11.C.34 | not done | — | Phase D |
+| M11.C.34 | partial | `tests/bowen/test_phase_d_criteria.py::test_m11c34_system_reaction_to_symptom_discriminates_level` | built; no recorded ensemble verdict yet (the Phase D record is plan step 12) |
 | M11.C.33 | partial | `tests/bowen/test_phase_d_criteria.py::test_m11c33_arms_differ_only_at_the_slow_tick`<br>`tests/bowen/test_phase_d_criteria.py::test_m11c33_dependence_gate_blocks_basic_level_rise` | built; no recorded ensemble verdict yet (the Phase D record is plan step 12) |
 | M11.C.35 | done | `tests/bowen/test_phase_c_gate.py::test_m11c35_witness_appraisal_depends_on_both_ties` | ensemble record: M11.C.35 PASS |
-| M11.C.36 | not done | — | Phase D |
+| M11.C.36 | partial | `tests/bowen/test_phase_d_criteria.py::test_m11c36_policy_reads_belief_not_true_state` | built; no recorded ensemble verdict yet (the Phase D record is plan step 12) |
 | M11.C.37 | not done | — | Phase D |
 | M11.C.38 | done | `tests/bowen/test_phase_c_gate.py::test_m11c38_graded_parameter_orders_primary_readout` | ensemble record: M11.C.38[-0 vs -5] PASS; M11.C.38[-5 vs -10] PASS; M11.C.38[-10 vs -15] PASS |
-| M11.C.39 | not done | — | Phase D |
-| M11.C.40 | not done | — | Phase D |
+| M11.C.39 | partial | `tests/bowen/test_phase_d_criteria.py::test_m11c39_pattern_outlasts_spell_only_with_learning` | built; no recorded ensemble verdict yet (the Phase D record is plan step 12) |
+| M11.C.40 | partial | `tests/bowen/test_phase_d_criteria.py::test_m11c40_leaked_reinforcement_raises_self_directed_entropy` | built; no recorded ensemble verdict yet (the Phase D record is plan step 12) |
 | M11.C.41 | partial | `tests/bowen/test_phase_c_criteria.py::test_m11c41_reactive_over_chance_is_zero_for_a_chooser_at_random_at_any_set_size`<br>`tests/bowen/test_phase_c_gate.py::test_m11c41_level_and_stress_each_exacerbate_the_pattern` | ensemble record: M11.C.41[light: lower level] PASS; M11.C.41[heavy: lower level] PASS; M11.C.41[higher level: heavier stress] FAIL; M11.C.41[lower level: heavier stress] FAIL |
 | M11.C.42 | partial | `tests/bowen/test_phase_c_criteria.py::test_m11c42_absence_changes_nothing_before_its_tick`<br>`tests/bowen/test_phase_c_criteria.py::test_m11c42_absence_forms_no_triangle_holding_the_absent_member`<br>`tests/bowen/test_phase_c_criteria.py::test_m11c42_absence_removes_the_third_from_the_pairs_choices_that_tick`<br>`tests/bowen/test_phase_c_criteria.py::test_m11c42_readout_counts_the_whole_pairs_triangles`<br>`tests/bowen/test_phase_c_gate.py::test_m11c42_relieving_triangle_is_reused` | ensemble record: M11.C.42 FAIL |
-| M11.C.43 | not done | — | Phase D |
-| M11.C.44 | done | `tests/bowen/test_phase_c_gate.py::test_m11c44_position_value_inverts_with_load` | ensemble record: M11.C.44 PASS |
+| M11.C.43 | partial | `tests/bowen/test_phase_d_criteria.py::test_m11c43_learned_buffer_removal_costs_more` | built; no recorded ensemble verdict yet (the Phase D record is plan step 12) |
+| M11.C.44 | partial | `tests/bowen/test_phase_c_gate.py::test_m11c44_position_value_inverts_with_load` | ensemble record: M11.C.44 FAIL |
 | M11.C.45 | partial | `tests/bowen/test_phase_c_criteria.py::test_m11c45_triangle_rate_is_per_person_week`<br>`tests/bowen/test_phase_c_gate.py::test_m11c45_triangles_quiet_when_calm` | ensemble record: M11.C.45 FAIL |
 | M11.C.46 | not done | — | Phase D |
 | M11.5 | done | `tests/bowen/test_ensemble_record.py::test_m115_report_section_11_is_generated` | — |
@@ -435,7 +435,7 @@ mutant has turned each entry red in `docs/phase_c_mutation_record.md`; the D9 sw
 | M11.D.17 | done | `tests/test_spec_consistency.py::test_m11d17_check_catches_a_missing_writer`<br>`tests/test_spec_consistency.py::test_m11d17_check_catches_an_agent_reading_true_state`<br>`tests/test_spec_consistency.py::test_m11d17_check_catches_an_unplaced_mechanism`<br>`tests/test_spec_consistency.py::test_m11d17_register_has_no_orphans` | — |
 | M11.D.18 | done | `tests/bowen/test_ensemble.py::test_m11d18_fallback_rate_is_reported_and_flagged`<br>`tests/bowen/test_ensemble_record.py::test_m11d18_record_reports_the_fallback_rate` | — |
 | M11.D.19 | done | `tests/bowen/test_engineering_gates.py::test_m11d19_every_move_is_reachable_in_a_triad` | — |
-| M11.D.20 | not done | — | Phase C |
+| M11.D.20 | done | `tests/bowen/test_evaluation.py::test_m11d20_readout_ordering_matches_run_log_ordering` | — |
 | M11.D.21 | done | `tests/bowen/test_engineering_gates.py::test_m11d21_state_bounds_are_not_absorbing` | — |
 | M11.D.22 | done | `tests/bowen/test_engine_purity.py::test_m11d22_engine_modules_do_not_import_tests_or_readouts` | — |
 | M11.F.1 | not done | — | Phase C — acceptance-test rules |
@@ -449,10 +449,10 @@ mutant has turned each entry red in `docs/phase_c_mutation_record.md`; the D9 sw
 | M11.F.9 | partial | `tests/bowen/test_render.py::test_m16c5_trace_carries_header_and_framing` | the rendered trace carries the framing; readouts are Phase D |
 | M11.F.8 | not done | — | Phase C — acceptance-test rules |
 | M11.F.10 | partial | `tests/bowen/test_render.py::test_m16c5_trace_carries_header_and_framing` | the trace's framing names it; checked by review elsewhere |
-| M11.G.1 | not done | — | Phase D |
-| M11.G.2 | not done | — | Phase D |
-| M11.G.3 | not done | — | Phase D |
-| M11.G.4 | not done | — | Phase D |
+| M11.G.1 | done | `tests/bowen/test_evaluation.py::test_m11g1_the_evaluation_has_exactly_components_one_to_eight` | — |
+| M11.G.2 | done | `tests/bowen/test_evaluation.py::test_m11g2_adaptiveness_is_derived_against_stress_and_undefined_without_it` | — |
+| M11.G.3 | done | `tests/bowen/test_evaluation.py::test_m11g3_components_nine_and_ten_are_never_emitted` | — |
+| M11.G.4 | done | `tests/bowen/test_evaluation.py::test_m11g4_belief_and_truth_are_reported_apart_and_the_framing_travels` | — |
 | M12.1 | not done | — | Phase every phase — prohibitions, checked by review |
 | M12.2 | not done | — | Phase every phase — prohibitions, checked by review |
 | M12.2a | not done | — | Phase every phase — prohibitions, checked by review |

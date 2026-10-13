@@ -16,7 +16,9 @@ Revision 23 (the estimator reads pseudo-self with its sign) did not move them, a
 phase_c run is 104 weeks and never fills the estimator's 156-week window, and the phase_d run has no nodal events, so
 no one's breadth reaches `estimator_breadth` and no rise is possible under any reading (review 2026-10-12). M1.A.4k's
 reading is pinned by tests/bowen/test_slow_tick.py instead. Moved 2026-10-12 by revision 24 (B7: the symptom integrand
-read above the usual level, the channels, lock-in and removal; behaviour).
+read above the usual level, the channels, lock-in and removal; behaviour), and by revisions 25-27 (attribution and the
+family's focus, belief in the witness's appraisal, the marital-distance gate, the tie-weighted cross-person term, and
+borrowed pseudo-self settling back; behaviour).
 """
 
 from __future__ import annotations
@@ -37,8 +39,8 @@ from src.bowen.scenario.scripted_source import ScriptedSource
 REPO = Path(__file__).resolve().parents[2]
 GOLDEN = {
     # (family, seed, weeks): fingerprint
-    ("phase_c", 7, 104): "d05ccae98cb30f24531e361a09002e7b6568a1db187adf0de0dc6c20537dfca1",
-    ("phase_d", 11, 208): "ddb756571ecc5927f6b0364e32a24152aec4ff4a83fc11c1784bead7379749f2",
+    ("phase_c", 7, 104): "61787089648f79bab229711b614af1cb8d89af801ce98fab4152179f4854af2d",
+    ("phase_d", 11, 208): "d860880a9b5b45e92e0d65cbcbab1b74e297f9000982149792b2ec8d9b563cf9",
 }
 
 

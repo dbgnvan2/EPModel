@@ -52,6 +52,16 @@ its ties to **both** the sender and each target, and the exchange's intensity:
 It is not a copy of a target's appraisal. Being one step removed is also what
 makes the witnessed form less reactive for the listener (`M4.C.7`).
 
+*Revision 25 (`M9.7`; Claude's recommendation, pending owner review):* a witnessed load is also scaled by
+``1 + belief_appraisal_gain × believed tension`` of the most tense tie between the sender and a target, as the witness
+believes it (`M9.8`), so belief drives appraisal and the tie's true state is never read (`M4.B.2`). A witnessed relief
+is not scaled.
+
+**The marital-distance gate** (`M5.C.1`, revision 25). While both spouses' felt contact on the family's marital tie is
+below ``marital_distance_fraction`` of their optimum, a move addressed to one of the couple's children with an active
+symptom produces no improvement in them: its appraisal cannot lower their acute anxiety, and no calm transfer reaches
+them. It is engine-side, not a policy read.
+
 **The speaker** (`M4.C.7`) takes an echo of what it addressed:
 ``speaker_echo_gain × scale × steepness(speaker)``, using the conductance of its tie
 to the person addressed. Addressed to a neutral third on a thin tie, the echo is
@@ -216,21 +226,64 @@ def appraisal_delta(state: RunState, delivery: Delivery, event: Event, params: E
             * (1.0 - reattributed) * attention_factor(person, event, params)
         )
     if delivery.role is Role.WITNESS:
-        return witness_delta(state, person, event, params) * sign
+        return witness_delta(state, person, event, params, sign) * sign
     conductance = _conductance(state, person.id, event.sender)
     return _scale(event, conductance, params) * steepness(person, params) * sign * attention_factor(person, event, params)
 
 
-def witness_delta(state: RunState, witness: Person, event: Event, params: EngineParams) -> float:
-    """Purpose: a witness appraises from its own position, reading its ties to both parties.
-    Spec:    docs/bowen_agent_model_spec_v2.md#M4.C.9, #M4.C.7, #M1.F.5
+def believed_tension(witness: Person, event: Event) -> float:
+    """Purpose: how tense the witness believes the tie it watched is — its belief, never the tie's state (M9.7, M4.B.2).
+    Spec:    docs/bowen_agent_model_spec_v2.md#M9.7, #M9.8, #M4.B.2
+    Tests:   tests/bowen/test_attribution.py::test_m97_a_witness_appraises_through_its_belief_about_the_tie
+    """
+    if event.sender is None or not event.targets or witness.tie_beliefs is None:
+        return 0.0
+    # Every pair the exchange runs across, the most tense as believed (review 2026-10-12: the first target only).
+    beliefs = [witness.tie_beliefs.get(TieId.of(event.sender, t)) for t in event.targets if t != event.sender]
+    return max((b.tension for b in beliefs if b is not None), default=0.0)
+
+
+def witness_delta(state: RunState, witness: Person, event: Event, params: EngineParams, sign: int = 1) -> float:
+    """Purpose: a witness appraises from its own position, reading its ties to both parties and its belief about theirs.
+    Spec:    docs/bowen_agent_model_spec_v2.md#M4.C.9, #M4.C.7, #M1.F.5, #M9.7
     Tests:   tests/bowen/test_appraise.py::test_m4c9_witness_appraisal_reads_both_ties
     """
     to_sender = _conductance(state, witness.id, event.sender) if event.sender is not None else 1.0
     to_targets = [_conductance(state, witness.id, t) for t in event.targets] or [0.0]
     ends = (to_sender, max(to_targets))
     reach = sum(ends) / len(ends)  # the mean of its tie to each party
-    return params.witness_weight * _scale(event, reach, params) * steepness(witness, params)
+    # Believed tension makes a load more alarming; it does not make a relief more relieving (review 2026-10-12).
+    belief = 1.0 + params.belief_appraisal_gain * believed_tension(witness, event) if sign > 0 else 1.0
+    return params.witness_weight * _scale(event, reach, params) * steepness(witness, params) * belief
+
+
+def marital_distance_high(state: RunState, params: EngineParams) -> bool:
+    """Purpose: both spouses' felt contact on the family's marital tie is below ``marital_distance_fraction`` of their
+    optimum (M5.C.1's gate). Review 2026-10-12: below the optimum itself is the resting state, and the gate was on in
+    186-207 of 208 weeks of an ordinary run.
+    Spec:    docs/bowen_agent_model_spec_v2.md#M5.C.1, #M11.C.14
+    Tests:   tests/bowen/test_attribution.py::test_m5c1_under_marital_distance_no_move_improves_the_symptom_bearer
+    """
+    from src.bowen.engine.contact import optimum
+
+    tie_id = state.family.marital_tie
+    if tie_id is None or tie_id not in state.ties:
+        return False
+    tie = state.ties[tie_id]
+    return all(felt_contact(state.people[m], tie) < params.marital_distance_fraction * optimum(state.people[m], tie, params)
+               for m in tie_id.members())
+
+
+def _gated(state: RunState, recipient: PersonId, distant: bool) -> bool:
+    """The recipient is one of the couple's children and carries an active symptom while marital distance is high:
+    nothing addressed to them improves them (review 2026-10-12: scoped to the couple's children, not the family)."""
+    if not distant or not any(state.people[recipient].symptom_active.values()):
+        return False
+    spouses = set(state.family.marital_tie.members())
+    if recipient in spouses:  # re-sweep 2026-10-12: a symptomatic spouse is not one of the couple's children
+        return False
+    return any(recipient in tie.members() and (set(tie.members()) - {recipient}) & spouses
+               for tie in state.family.parent_child_ties)
 
 
 def speaker_echo(state: RunState, delivery: Delivery, event: Event, params: EngineParams) -> float:
@@ -299,8 +352,11 @@ def apply_appraisal(
             per_event.setdefault(event_id, {}).setdefault(person, 0.0)
             per_event[event_id][person] += value
 
+    distant = marital_distance_high(state, params)
     for delivery, event in items:
         delta = appraisal_delta(state, delivery, event, params)
+        if delta < 0 and delivery.role is Role.TARGET and _gated(state, delivery.recipient, distant):
+            delta = 0.0  # M5.C.1: no improvement under marital distance
         add(event.id, delivery.recipient, delta)
         add(event.id, event.sender, speaker_echo(state, delivery, event, params))
         change = _tie_change(state, delivery, event, params)
@@ -313,7 +369,7 @@ def apply_appraisal(
             readings[delivery.recipient] = readings.get(delivery.recipient, 0.0) + inward_reading(
                 state, delivery, event, params
             )
-        moved = calm_transfer(state, delivery, event, params)
+        moved = 0.0 if _gated(state, delivery.recipient, distant) else calm_transfer(state, delivery, event, params)
         if moved:
             transfers.setdefault(event.id, []).append((delivery.recipient, event.sender, moved))
 

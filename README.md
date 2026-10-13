@@ -51,17 +51,19 @@ Requires Python 3, NumPy and Pygame. `requirements.txt` is present but not yet t
 
 ## Status
 
-The v2 specification is **approved** — 547 numbered requirements over 17 modules, 46 acceptance criteria, at revision 24 (2026-10-12; revision 24 is Claude's recommendation pending owner review; revision 12 approved 2026-10-07).
+The v2 specification is **approved** — 547 numbered requirements over 17 modules, 46 acceptance criteria, at revision 27 (2026-10-12; revisions 24–27 are Claude's recommendations pending owner review; revision 12 approved 2026-10-07).
 
 **Phase B is built and closed** (`src/bowen/`): the objects, the weekly loop, the standing load, the base appraisal, the event record, the scripted source, the run log and the renderer. See `docs/phase_b_completion_report.md`.
 
 **Phase C is built, and its acceptance gate does not pass** (2026-10-08). Agents now select acts through a policy and learn from felt relief. Of 16 criteria built, 7 pass and are mutation-proved, 1 passes without a mutant proof, 1 passes in one of its four cells, and 7 fail. The status of each criterion and the owner decisions it needs are in `docs/phase_c_completion_report.md`; coverage in `docs/spec_coverage.md`.
 
 **Phase D, part I, is being built** (`docs/implementation_plan_phase_d.md`). Built: engine speed, channel stamping,
-cutoff as rejection, the slow tick and the basic-level estimator (B1–B6), and the three symptom channels with lock-in
-(B7, spec revision 24, Claude's recommendation pending owner review). Criteria run so far, ad hoc and not yet a record:
-`M11.C.17`, `.18`, `.20`, `.33`, `.11`, `.22`, `.30` and `.31` pass; `M11.C.12` fails. Beliefs as a channel, projection,
-who acts and the `M11.G` readouts (B8–B11) are not built.
+cutoff as rejection, the slow tick and the basic-level estimator (B1–B6); the three symptom channels with lock-in (B7);
+beliefs as a channel (B8); the tie-weighted cross-person term (B9); the `M11.G` family-evaluation readout (B10); and
+borrowed pseudo-self settling back. Spec revisions 24–27 are Claude's recommendations, pending owner review. Criteria
+run on the final code, ad hoc and not yet a record: `M11.C.17` (weakly), `.18`, `.20`, `.33`, `.30`, `.22`, `.31`,
+`.11`, `.26`, `.36`, `.39` and `.24` pass; `.12`, `.14`, `.2`, `.40`, `.43`, `.34`, `.21` and `.23` fail. `M11.C.7`,
+`.9` and `.28` need mechanisms first; who acts (B11) moves to part II.
 
 The criteria run outside the default suite, over ensembles. On 10 cores the ensemble record takes about 5 minutes. The mutation and sweep records cache each result by the engine hash and the mutant's or setting's own edits (`tools/record_cache.py`, `docs/records_cache/`): a regeneration reruns only what changed, so re-rendering takes under a second, one new mutant a few minutes, and only an engine change reruns everything (about 40 and 20 minutes):
 

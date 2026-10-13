@@ -64,7 +64,7 @@ SYSTEM_SHOWN = frozenset({"triangle_recompute", "consolidation", "rejection_fade
 SYSTEM_SUMMARISED = frozenset({
     "standing_load", "acute_decay", "contact_relaxation", "symptom_accumulation", "investment", "reactive_state",
     "outside_ness", "belief", "functioning_settle", "competing_urges", "withhold", "learning", "sink_allocation",
-    "self_practice", "stress_response", "soothing_review",
+    "self_practice", "stress_response", "soothing_review", "attribution", "family_focus", "pseudo_self_relaxation",
     "lock_in",  # revision 24: every week for every active symptom (one bearer gave 121 rows a year; review 2026-10-12)
 })  # every week, everyone; stated once
 
@@ -326,7 +326,8 @@ def render(
         "",
         "The standing load, the decay toward each person's floor, the relaxation of felt contact, "
         "symptom accumulation, a symptom's hold on the family's anxiety (lock-in), investment, the reactive "
-        "detectors and outside-ness run every week for everyone "
+        "detectors, outside-ness, attribution, the family's focus and borrowed pseudo-self settling back run every "
+        "week for everyone "
         "and are not listed line by line. Effects are shown beside the event that caused them.",
         "",
         TABLE_HEAD,

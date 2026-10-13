@@ -1,6 +1,6 @@
 # Implementation plan — Phase D
 
-> **Status: approved by the owner, 2026-10-10 ("Proceed"), with the decisions in §1a.** P9 decided 2026-10-11; P13–P16 wait for D-II. **Built:** B1 and B2 (2026-10-10/11); B3 and B4 (2026-10-11, spec revision 16); B5 and B6 (2026-10-11); B7 (2026-10-12, spec revision 24, Claude's recommendation pending owner review: the owner asked for the work to proceed overnight without waiting for input).
+> **Status: approved by the owner, 2026-10-10 ("Proceed"), with the decisions in §1a.** P9 decided 2026-10-11; P13–P16 wait for D-II. **Built:** B1 and B2 (2026-10-10/11); B3 and B4 (2026-10-11, spec revision 16); B5 and B6 (2026-10-11); B7, B8 and B9 and part of step 10 (2026-10-12, spec revisions 24–27, Claude's recommendation pending owner review: the owner asked for the work to proceed overnight without waiting for input).
 > Spec: `docs/bowen_agent_model_spec_v2.md`, revision 13. Phase C closed with its gate failing (owner decision,
 > `docs/phase_c_completion_report.md` §13). Spec IDs are used verbatim. The inventories behind this plan were made on
 > 2026-10-10 from the spec, `src/bowen`, `TODO.md` and the Phase C documents; their findings are cited where used.
@@ -800,6 +800,162 @@ What it shows:
 - **Projection gate:** the projection clause of `M4.B.2a` and `M5.C.1`'s "system calm" row read through belief.
 - **Ties created mid-run** get beliefs (needed in D-II).
 
+#### B8 design (spec revision 25, 2026-10-12): Claude's recommendation, pending owner review
+
+The owner asked for the work to proceed overnight without waiting for input. Every choice below is Claude's
+recommendation, labelled so in the spec and CHANGELOG, and none is an owner decision.
+
+1. **Attribution: where each person believes the family's difficulty lies** (`M9.6`, `M9.1`).
+   - Each person gets `attribution`, a weight per family member in [0, 1], summing to at most 1. It starts empty: no
+     one is blamed.
+   - It is written in step 3 from moves the person sent or was delivered (as target or witness, after fidelity).
+     Nothing undelivered writes it.
+   - Each such move names a locus by its kind, in config (`config/bowen/attribution.md`, editorial content):
+     - `CONFLICT`: the other party, as each side sees it, so each spouse says the other; a witness splits it between
+       the two.
+     - `OVERFUNCTION` and `PURSUE`: the target, the one being looked after or chased.
+     - `UNDERFUNCTION`: the sender, the one giving way.
+     - `DISTANCE` and `CUTOFF`: the other party.
+     - Every other kind names no locus.
+   - Each observation moves the weights toward the locus by `attribution_rate × fidelity` (0.05, `[I]`): every
+     weight decays by that share and the locus gains it. That is order-independent within a tick, as the tie
+     beliefs are.
+   - **No rule writes the three patterns.** "Each says the other", "both say the same one" and "both say the children"
+     follow from which acts the family makes.
+2. **The readout recovers the sink from belief, and the belief from the sink** (`M9.6`; `src/bowen/readouts/`,
+   outside the engine).
+   - Read the spouses' top loci:
+     - each is the other: marital conflict;
+     - both are the same spouse: spouse dysfunction;
+     - both are the same child, or both are children: child projection;
+     - anything else: none.
+   - Read in the other direction, the largest sink allocation predicts the pattern.
+3. **Appraisal reads belief** (`M9.7`).
+   - A witness appraises an event between two people it is not party to scaled by
+     `1 + belief_appraisal_gain × believed tension` of that tie (`M9.8`'s belief; `belief_appraisal_gain` 1.0,
+     `[I]`). The tie's true state is never read.
+   - Events addressed to the person already read the person's own tie, which is its own state (`M4.B.2`).
+4. **The family's focus writes the channel** (`M1.A.11c` term 2, left open by B7).
+   - When a person above their usual level sends a move to someone, the target's `channel_focus` for that kind's
+     channel gains `focus_rate` (0.05, `[I]`).
+   - The kinds and their channels are in config (`config/bowen/attribution.md`):
+     - caretaking (`OVERFUNCTION`): physical;
+     - worry and pursuit (`PURSUE`, `TRIANGLE`): mental;
+     - blame (`CONFLICT`): social.
+   - Every focus decays by `focus_rate` a week. What the family attends to under anxiety moves the channel; the
+     constitution term still overrides it.
+5. **The marital-distance gate** (`M5.C.1`).
+   - While both spouses sit below their felt contact optimum on the marital tie, a move targeting a member with an
+     active symptom produces no improvement in that member: its appraisal cannot lower their acute anxiety, and calm
+     contact (`M4.C.10`) does not reach them.
+   - It is engine-side, not a policy read, so it reads the tie's true state.
+   - **Premise:** `M11.C.14` is premise class, and this gate is the rule its null rests on.
+
+**Not in B8:** the projection clause of "system calm" (B9's), and beliefs for ties created mid-run (D-II).
+
+**As built, as drafted.**
+
+**Step 8 result (2026-10-12; ad hoc runs on the final code of revisions 25–27, not yet a record; `final25.sh` and
+`final25.out` in the session scratchpad, run after both reviews' fixes).**
+
+| Criterion | Fixture and arms | Runner's verdict | Readout | Its mutation |
+|---|---|---|---|---|
+| `M11.C.26` | nuclear four driven to each sink in turn for 52 weeks (scripted acts every 2 weeks); the baseline reads the same runs against the next driving's sink | **PASS**, 150 seeds | beliefs recover the sink +0.76 ± 0.04 (the reverse reading is the same comparison here, so it is reported, not tested) | attribution write randomised: **FAIL**, +0.01 ± 0.02 |
+| `M11.C.36` | triad; the spouses exchange `CONFLICT` weekly for 4 weeks; the treatment's witness believes their tie tense (0.8) at the start | **PASS**, 50 seeds | the witness's appraisal +3.07 ± 0.01 | appraisal reads the tie's true state: **FAIL**, 0.0 |
+| `M11.C.14` | nuclear four, the spouses' tie held at distance, C1 starting symptomatic; both parents' firmness against talking it out every 2 weeks | **FAIL**, 100 seeds (a null) | C1's symptom load, talking − firmness, −8.0 ± 1.9 against a bound of 5.6 | the gate removed: −6.7 ± 1.9, also outside (bound 5.1) |
+
+What it shows:
+- **`M11.C.26` and `M11.C.36` pass and are proved by mutation.** C.26 is a premise and C.36 a check: they confirm that
+  the code reads belief as `M9.6` and `M9.7` say. C.26's beliefs are the attribution table read back through scripted
+  acts, which is what a premise is.
+- **`M11.C.14` fails.** The gate stops any improvement in the symptomatic child, but firmness still impinges, and once
+  the symptom ends talking it out calms the child; with the gate removed the arms differ less, not more. The null needs
+  either a gate that also blocks harm, or a reading of "zero independent effect" that allows it; that is the owner's.
+- **The gate, as first built, was on almost every week** (review 2026-10-12: being below the contact optimum is the
+  resting state). It now needs both spouses' felt contact below `marital_distance_fraction` (0.25, `[I]`) of their
+  optimum, and reaches only the couple's children (a symptomatic spouse is not gated); in ordinary 208-week runs it is on 26–32 weeks in the nuclear four
+  and 18–70 in the Phase C family (3 seeds each, `gate_rate.py`).
+
+### B9 design (spec revision 26, 2026-10-12): Claude's recommendation, pending owner review
+
+- **The cross-person term is weighted by the tie** (`M4.D.6e`): the others' relief after an act is weighted by the
+  actor's bond energy on its tie to each, where it was their plain mean. A child's tie to a parent (bond 50) outweighs
+  a thin tie to a witness, and a person with no tie to the actor counts for nothing. "Her calming is the
+  reinforcement" without any rule naming a parent.
+- **`M11.C.2` as a composite**: the Phase C family under the policy for ten years, with the declared nodal load on the
+  parents. Each run counts the projection-type acts (`OVERFUNCTION`, `PURSUE`, `TRIANGLE`) each child received from the
+  parents; the treatment reads the most-projected child's mean symptom load, the baseline (same run) the
+  least-projected child's.
+
+**Step 9 result (ad hoc, on the final code).**
+
+| Criterion | Runner's verdict | Readout | Its mutations |
+|---|---|---|---|
+| `M11.C.2` | **FAIL**, 100 seeds | the later symptom load of the child who received the most projection-type acts early, less the least: +0.29 ± 2.20 (p 0.39) | not needed |
+
+- **`M11.C.2` fails.** Read over the same weeks it first passed (+1.73, then +1.31 ± 1.41 at p 0.045), but a
+  same-window comparison cannot tell projection raising load from load attracting projection (review 2026-10-12).
+  With acts counted in the first five years and load read in the last five, the most-projected child carries no more
+  load (+0.29 ± 2.20, p 0.39). The cross-person term (revision 26) is built and tested on its own (`test_learner.py`), but no criterion yet
+  shows it shaping a child's repertoire.
+
+### Step 10 (part): criteria on existing mechanisms, and revision 27 (2026-10-12): Claude's recommendation, pending owner review
+
+**Revision 27, borrowed pseudo-self settles back** (`M6.I.4`, `M1.A.5c`). `M11.C.24` (the whisper of nature) cannot
+pass without it: nothing returned pseudo-self once the exchange stopped. On a tie the pair has exchanged on (its
+functioning balance is not zero), whose over-functioning member carries borrowed pseudo-self and the other lent, and
+between whom no over/under-functioning was sent for `exchange_window` weeks (8, `[I]`),
+`pseudo_self_relaxation_rate` (0.05, `[I]`) of the smaller moves back each week, with functional level, conserved.
+This changes every run in which pseudo-self is lent and the lending stops. *Review 2026-10-12:* as first built it
+paired any opposite-signed tie, so pseudo-self moved between people who never exchanged; the balance condition
+fixes that.
+
+**`M10.B.5`, learning switched off by a declared override**: `scenario(..., overrides={"learning_rate": 0})`, never
+a config default.
+
+| Criterion | Fixture and arms | Runner's verdict | Readout | Its mutation |
+|---|---|---|---|---|
+| `M11.C.39` | triad; a 26-week spell on both spouses, then 52 calm weeks; learning off in the baseline | **PASS**, 100 seeds | `DISTANCE`/`CUTOFF` acts in the calm weeks +6.0 ± 1.1; time to remission +2.7 ± 2.6 weeks (reported) | learning off in both: **FAIL**, 0.0 |
+| `M11.C.40` | Phase C family, its declared spell, 208 weeks; learning off in the baseline | **FAIL**, 150 seeds | clause 1, automatic entropy fall +0.027 ± 0.006 (holds); clause 2, the automatic difference less the self-directed one, −0.0005 ± 0.041 (p 0.49, does not hold); no empty windows | learning off in both: **FAIL**, 0.0 |
+| `M11.C.43` | triad; F under a 26-week spell with M available (treatment) or absent from F's choices (baseline); M unavailable to F 13 weeks later | **FAIL**, 150 seeds | F's rise on losing M −0.54 ± 0.71 | not run |
+| `M11.C.34` | nuclear four 10 below and 10 above the fixture's level; the same onset in C1 at week 26 | **FAIL**, 150 seeds | the others' automatic acts toward C1 over 8 weeks, onset less no onset, higher arm −0.04 ± 0.10 | not run |
+| `M11.C.21` | nuclear four; both parents' functional level −10 at week 26 | **FAIL**, 100 seeds | C1's rise to the end of the run −0.52 ± 1.32 | not run |
+| `M11.C.23` | nuclear four; C1's symptom remits at week 4; parents' `CONFLICT` with suppression 0.5 against `STAY-IN-CONTACT` without | **FAIL, reversed**, 150 seeds | relapses −0.29 ± 0.08 | not run |
+| `M11.C.24` | dyad; A takes charge and B gives way every 2 weeks for 52 weeks, then the tie is dissolved (treatment) or the exchange goes on | **PASS**, 150 seeds | B's change +11.9 ± 0.4; A's −12.6 ± 0.5 | transfer zeroed: **FAIL**; revision 27's settling removed: **FAIL** (B −0.13 ± 0.26) |
+
+- **Pass and proved by mutation:** `M11.C.39`, `M11.C.24`.
+- **Fail:** `M11.C.40` (its second clause), `M11.C.43`, `M11.C.34`, `M11.C.21`, `M11.C.23` (reversed). Each is
+  recorded with its numbers; nothing was changed to make any pass.
+- **`M11.C.34` first passed (−0.18) on a readout that counted all the others' acts with no onset fired**; the review
+  found both. Fired, and counted as reactions to C1 against a no-onset run, the levels do not differ.
+
+**Every Phase D criterion on the final code of revision 27** (`final25.out`, 2026-10-12; ad hoc):
+
+| Criterion | Verdict | Readout (treatment − baseline) |
+|---|---|---|
+| `M11.C.18` | PASS | +0.015 ± 0.002 |
+| `M11.C.20` | PASS | +0.015 ± 0.002 |
+| `M11.C.33` | PASS | +0.016 ± 0.002 |
+| `M11.C.17` | PASS, weak | coached +0.0009 ± 0.0008 (p 0.011); +0.021 ± 0.009 at revision 23 |
+| `M11.C.30` | PASS | −21.4 ± 1.6 |
+| `M11.C.22` | PASS | mild +0.81 ± 0.38; severe −1.03 ± 0.44 |
+| `M11.C.31` | PASS | +22.1 ± 0.6 |
+| `M11.C.11` | PASS | +2.63 ± 0.92 |
+| `M11.C.12` | FAIL | −0.04 ± 0.24 |
+| `M11.C.26`, `.36`, `.39`, `.24` | PASS | above |
+| `M11.C.14`, `.2`, `.40`, `.43`, `.34`, `.21`, `.23` | FAIL | above |
+
+- **`M11.C.17`'s coached rise nearly vanished** between revisions 23 and 27. Two probes: without revision 27's
+  settling back it is +0.005 ± 0.002; with the symptom integrand read above the chronic floor again (before revision
+  24) +0.0018 ± 0.0010. So several of tonight's changes together shrink it; none alone restores it. Recorded, not
+  tuned (`c17probe.out`).
+
+- **Not built this night: `M11.C.7`, `M11.C.9`, `M11.C.28`.** Each needs a mechanism first:
+  - C.7: the coach's landing reads nothing of the coach's position (`M8`'s predicate exists but nothing calls it);
+  - C.9: sibling position does not gate any behaviour (`M1.A.14c`);
+  - C.28: the sink allocation feeds no behaviour, so pinning its mobility can change no symptom.
+
+
 ### B9. Projection in the model (the owner's D4)
 `M4.D.6e`'s term exists. What is missing:
 - a cross-person term that weighs the *parent's* calming specifically, where today it is the mean over all witnesses;
@@ -813,10 +969,19 @@ What it shows:
 - Belief and truth are reported separately.
 - Built in `src/bowen/readouts/`, outside the engine (`M11.D.22`).
 
+#### B10 as built (2026-10-12): Claude's recommendation, pending owner review
+- `src/bowen/readouts/evaluation.py` emits components 1–8 of `M11.G.1` from a finished run, and never 9 or 10.
+- Adaptiveness is derived against stress, and is undefined with no stress.
+- Belief and truth are reported apart, and the framing travels with the evaluation.
+- The multigenerational projection line is reported as not computable in part I.
+- Tests: `tests/bowen/test_evaluation.py`, including `M11.D.20`'s ordering check against the run log.
+
 ### B11. Who acts
 - Activation reads a declared life stage instead of selecting every living person (`activation.py:32`).
 - Dr Halim's session schedule moves from `policy_source.py:55` into the family or the script.
 - Needed in D-I so that fixture families can hold a member inactive.
+- **Not built (2026-10-12).** No D-I criterion built so far needs a member held inactive. It is needed for the life
+  course (D-II: children who do not yet act, the dead), so it moves there.
 
 ## 3. The D-I gate
 

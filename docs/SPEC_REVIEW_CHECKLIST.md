@@ -18,7 +18,7 @@ Reviewer: ________  Started: ________  Spec revision reviewed: ________
 
 These define what the model does. A run that disagrees with them is a defect.
 
-- [ ] [bowen_agent_model_spec_v2.md](bowen_agent_model_spec_v2.md) — the spec (v2.0, revision 24). Objects (M1),
+- [ ] [bowen_agent_model_spec_v2.md](bowen_agent_model_spec_v2.md) — the spec (v2.0, revision 27). Objects (M1),
       reference family (M2), clocks and ordering (M3), the fast tick (M4), moves (M5), invariants (M6), the slow tick
       (M7), live positions (M8), beliefs (M9), parameters (M10), acceptance criteria (M11), framing (M11.F), the
       readout schema (M11.G), out of scope (M12), the run log and trace (M16).
@@ -32,6 +32,8 @@ These define what the model does. A run that disagrees with them is a defect.
 - [ ] [../config/bowen/pattern_acts.md](../config/bowen/pattern_acts.md) — which acts each pattern readout counts.
 - [ ] [../config/bowen/stress_response.md](../config/bowen/stress_response.md) — which acts avoid or soothe under load
   (spec revisions 18-19).
+- [ ] [../config/bowen/attribution.md](../config/bowen/attribution.md) — where each act places the family's difficulty
+  (`M9.6`) and which symptom channel an anxious family's attention to the target focuses (`M1.A.11c`); revision 25.
 - [ ] [../config/bowen/perspective_steering.md](../config/bowen/perspective_steering.md) — which acts systems perspective
   steers toward or away from (spec revision 19).
 - [ ] [../config/bowen/nodal_events.md](../config/bowen/nodal_events.md) — which event kinds are nodal events for the
@@ -130,6 +132,10 @@ C.23's expressed-emotion and suppression terms, C.28's mobility term, and a crit
 
 **Approved 2026-10-10:** [implementation_plan_phase_d.md](implementation_plan_phase_d.md) — the Phase D plan (2026-10-10):
 the owner decisions it needs (§1a records them), and the split into D-I and D-II.
+
+**For review, 2026-10-13:** [phase_d_status_2026-10-13.md](phase_d_status_2026-10-13.md) — Phase D part I after the
+overnight run: every build item and D-I criterion as done, partial or not done, and what the owner should look at
+first (spec revisions 24–27 are Claude's recommendations, pending owner review).
 
 **Built 2026-10-10:** [<PROPOSAL — RUN VISUALIZATION MAPPING.md>](<PROPOSAL — RUN VISUALIZATION MAPPING.md>) (drawing a
 run as a fam-diag diagram; `tools/famdiag_export.py`, `config/viz/famdiag.md`).

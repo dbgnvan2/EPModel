@@ -59,7 +59,7 @@ from src.bowen.engine.sinks import allocate_sinks
 from src.bowen.engine.slow_tick import record_week, run_slow_tick
 from src.bowen.engine.iposition import advance_sequences, redirect_to_sequence_tie, sequence_selections
 from src.bowen.engine.learner import learn, register_acts, soothing_review
-from src.bowen.engine.moves import apply_move_effects, settle_functioning
+from src.bowen.engine.moves import apply_move_effects, relax_pseudo_self, settle_functioning
 from src.bowen.engine.log_records import EffectRecord, EmittedRecord, Emitter, TickRecord
 from src.bowen.engine.params import EngineParams
 from src.bowen.engine.outside_ness import update_outside_ness
@@ -67,6 +67,7 @@ from src.bowen.engine.reactive import update_attention_state
 from src.bowen.engine.rejection import fade_rejection, refuse
 from src.bowen.engine.recompute import recompute_involvement, recompute_triangles
 from src.bowen.engine.standing_load import apply_standing_load
+from src.bowen.engine.attribution import update_attribution, update_focus
 from src.bowen.engine.stress_response import register_stressors, respond, stressor_load, update_usual
 from src.bowen.engine.state import RunState
 from src.bowen.engine.symptoms import accumulate_symptoms
@@ -134,6 +135,8 @@ def run_tick(
     # 3 — perceive.
     perceived = perceive(state, batch)
     records += update_beliefs(state, perceived, params)
+    records += update_attribution(state, perceived, batch, params)  # M9.6, revision 25
+    records += update_focus(state, batch, params)  # M1.A.11c, revision 25: what the family's anxious attention focuses
     steps.append("perceive")
 
     # 4 — appraise.
@@ -191,6 +194,7 @@ def run_tick(
     records += update_attention_state(state, attended, params)
     records += update_outside_ness(state, readings, params)
     records += settle_functioning(state, params)
+    records += relax_pseudo_self(state, params)  # M6.I.4, revision 27: borrowed pseudo-self settles back
     records += allocate_sinks(state, params)
     records += consolidate(state, params)
     records += fade_rejection(state, params)  # M1.B.3c, revision 16: unrenewed rejection wears off

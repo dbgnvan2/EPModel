@@ -228,7 +228,7 @@ def test_m4d6e_triangle_reinforced_when_it_relieves_the_seeker_whatever_it_costs
     results = {}
     for kind in ("TRIANGLE", "PURSUE"):
         state, eligible_act = _registered(kind)
-        run_horizon(state, {RAVI: -2.0, MARTA: +15.0})  # PURSUE: 2 − 0.5 × 15 / 3 (target and two witnesses) < 0
+        run_horizon(state, {RAVI: -2.0, MARTA: +15.0})  # PURSUE: 2 − 0.5 × 15 × (Marta's share of the bond weight) < 0
         results[kind] = state.people[RAVI].learned_values.get(eligible_act.key, 0.0)
     assert results["TRIANGLE"] > 0 > results["PURSUE"]
 
@@ -256,3 +256,19 @@ def test_m4d6_a_soothing_review_lowers_soothing_that_did_not_help():
     assert unhelped["high|none|DISTANCE|marta"] < 4.0 and unhelped["high|none|PURSUE|marta"] == 4.0
     assert reviewed(after_load=3.0)["high|none|DISTANCE|marta"] == 4.0
     assert reviewed(after_load=12.0, basic=0.0)["high|none|DISTANCE|marta"] == 4.0   # never asks
+
+
+def test_m4d6e_the_cross_person_term_weighs_the_closer_tie_more():
+    """Revision 26 (B9): the others' relief is weighted by the actor's bond energy on its tie to each, so a parent's
+    calming outweighs a thin tie's, and a person with no tie to the actor counts for nothing."""
+    from src.bowen.engine.learner import cross_person_relief
+
+    state = fresh()
+    nadia, marta, ravi, ana = P("nadia"), P("marta"), P("ravi"), P("ana")
+    assert state.tie_between(nadia, ana) is None
+    assert cross_person_relief(state, nadia, (marta, ana), {marta: 10.0, ana: 0.0}) == pytest.approx(10.0)
+    state.ties[TieId.of(marta, nadia)].bond_energy = 80.0
+    state.ties[TieId.of(ravi, nadia)].bond_energy = 20.0
+    closer = cross_person_relief(state, nadia, (marta, ravi), {marta: 10.0, ravi: 0.0})
+    assert closer == pytest.approx(10.0 * 80 / 100)
+    assert cross_person_relief(state, nadia, (marta, ravi), {marta: 0.0, ravi: 10.0}) < closer

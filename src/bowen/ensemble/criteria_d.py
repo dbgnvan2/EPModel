@@ -39,7 +39,7 @@ from src.bowen.engine.log_records import EffectRecord, EmittedRecord
 from src.bowen.engine.objects import Role
 from src.bowen.ensemble.criteria import FAMILIES, ROLES, SETTINGS, result, scenario
 from src.bowen.ensemble.runner import Criterion, Readout
-from src.bowen.io.load import load_constants, load_family
+from src.bowen.io.load import load_constants, load_event_kinds, load_family
 
 P = PersonId
 NODAL = SETTINGS["nodal"]
@@ -347,4 +347,382 @@ CRITERIA_D.update({
                   settings=SETTINGS["M11.C.31"]),
     "M11.C.11": C("M11.C.11", "mixed", ("baseline", "treatment"), (Readout("disturbance", +1),), arm_c11,
                   settings=SETTINGS["M11.C.11"]),
+})
+
+
+# --- Phase D step 8: beliefs as a channel (B8, spec revision 25; Claude's recommendation, pending owner review) ---
+
+DRIVINGS = ("conflict", "dysfunction", "projection")
+
+
+def _driven(kind_of: str, weeks: int, every: int) -> dict:
+    """The scripted acts that drive the nuclear four toward one sink: the spouses fight; M gives way and F takes
+    over; or both parents focus on C1."""
+    if kind_of == "conflict":
+        return {**_scripted(FATHER, "CONFLICT", MOTHER, weeks, every), **_scripted(MOTHER, "CONFLICT", FATHER, weeks, every)}
+    if kind_of == "dysfunction":
+        return {**_scripted(MOTHER, "UNDERFUNCTION", FATHER, weeks, every),
+                **_scripted(FATHER, "OVERFUNCTION", MOTHER, weeks, every)}
+    return {**_scripted(FATHER, "OVERFUNCTION", CHILD, weeks, every), **_scripted(MOTHER, "PURSUE", CHILD, weeks, every)}
+
+
+def arm_c26(arm, seed, settings):
+    """M11.C.26: the nuclear four is driven toward each sink in turn (``weeks``, a scripted act every ``act_every``).
+    Read from the belief store only, the spouses' attributions name a sink, and the sink allocation names one; the
+    treatment compares each driving's readings with that driving, the baseline with the next driving's (a matched
+    control: the same runs, the labels rotated). Readouts: the share of drivings whose sink the beliefs recover, and
+    the share whose belief pattern the sink allocation recovers."""
+    from src.bowen.readouts.attribution import sink_from_allocations, sink_from_beliefs
+    from src.bowen.engine.objects import Sink
+
+    weeks, every = settings["weeks"], settings["act_every"]
+    names = {"conflict": Sink.MARITAL_CONFLICT, "dysfunction": Sink.SPOUSE_DYSFUNCTION, "projection": Sink.CHILD_PROJECTION}
+    children = frozenset({CHILD, PARTNER})
+    read_beliefs, read_sinks, records = [], [], []
+    for driving in DRIVINGS:
+        state, records = scenario("four", seed, weeks, forced=_driven(driving, weeks, every))
+        attributions = {p: dict(state.people[p].attribution) for p in (FATHER, MOTHER)}
+        read_beliefs.append(sink_from_beliefs(attributions, (FATHER, MOTHER), children))
+        read_sinks.append(sink_from_allocations(dict(state.family.sink_allocations)))
+    beliefs, sinks = score_c26(read_beliefs, read_sinks, [names[d] for d in DRIVINGS], 0 if arm == "treatment" else 1)
+    # Review 2026-10-12: here the largest allocation always names the driving's own sink, so reading the belief
+    # pattern from the allocation is the same comparison; it is reported, not tested.
+    return result({"belief_to_sink": beliefs, "sink_to_belief": sinks}, records)
+
+
+def score_c26(read_beliefs, read_sinks, driven, shift: int) -> tuple[float, float]:
+    """The shares of drivings whose sink the beliefs name, and whose belief pattern the sink allocation names, each
+    read against the driving ``shift`` places on (0: its own; 1: the next one's, the label-rotated control)."""
+    n = len(driven)
+    truth = [driven[(i + shift) % n] for i in range(n)]
+    rotated = list(read_sinks[shift:]) + list(read_sinks[:shift])
+    return (sum(b is not None and b == t for b, t in zip(read_beliefs, truth)) / n,
+            sum(b is not None and b == s for b, s in zip(read_beliefs, rotated)) / n)
+
+
+def arm_c36(arm, seed, settings):
+    """M11.C.36: on the triad, F and M exchange ``CONFLICT`` every ``act_every`` weeks, witnessed by C. The arms
+    differ only in C's belief about the F–M tie at the start: in the treatment C believes it tense
+    (``believed_tension``). Read: C's appraisal of the pair's events over the first ``weeks`` weeks."""
+    from src.bowen.engine.identifiers import TieId
+
+    weeks, every, child = settings["weeks"], settings["act_every"], P("c")
+    forced = {**_scripted(OTHER, "CONFLICT", MOVER, weeks, every), **_scripted(MOVER, "CONFLICT", OTHER, weeks, every)}
+
+    def believe(state):
+        if arm == "treatment":
+            state.people[child].tie_beliefs[TieId.of(MOVER, OTHER)].tension = settings["believed_tension"]
+
+    state, records = scenario("triad", seed, weeks, setup=believe, forced=forced)
+    pair = {r.event.id for r in records if isinstance(r, EmittedRecord) and r.event.sender in (MOVER, OTHER)
+            and set(r.event.targets) <= {MOVER, OTHER}}
+    response = sum(v for r in records if isinstance(r, EffectRecord) and r.mechanism == "appraisal"
+                   and r.cause in pair for p, v in r.acute_anxiety if p == child)
+    return result({"witness_response": response}, records)
+
+
+def arm_c14(arm, seed, settings):
+    """M11.C.14: the nuclear four, the spouses' tie held at distance (felt contact 0 for both, each week), and C1
+    starting with an active symptom (``start_severity`` of the threshold). Both parents use one technique toward C1
+    every ``act_every`` weeks: firmness (``OVERFUNCTION``) in the baseline, talking it out (``STAY-IN-CONTACT``) in
+    the treatment. Read: C1's mean symptom load over ``weeks``. A null (`M11.4`)."""
+    from src.bowen.engine.identifiers import TieId
+    from src.bowen.engine.symptoms import threshold
+
+    weeks, every = settings["weeks"], settings["act_every"]
+    kind = "OVERFUNCTION" if arm == "baseline" else "STAY-IN-CONTACT"
+    forced = {**_scripted(FATHER, kind, CHILD, weeks, every), **_scripted(MOTHER, kind, CHILD, weeks, every)}
+    marital = TieId.of(FATHER, MOTHER)
+
+    def start(state):
+        person = state.people[CHILD]
+        person.symptom_load[person.channel_prior] = settings["start_severity"] * threshold(person, ENGINE)
+        person.symptom_active[person.channel_prior] = True
+
+    def distant(state):
+        for m in marital.members():
+            state.ties[marital].felt_contact[m] = 0.0
+
+    loads = []
+    state, records = scenario("four", seed, weeks, setup=start, before=distant, forced=forced,
+                              watch=lambda s: loads.append(sum(s.people[CHILD].symptom_load.values())))
+    return result({"child_symptom_load": sum(loads) / len(loads)}, records)
+
+
+CRITERIA_D.update({
+    "M11.C.26": C("M11.C.26", "premise", ("baseline", "treatment"),
+                  (Readout("belief_to_sink", +1), Readout("sink_to_belief", +1, report_only=True)), arm_c26,
+                  settings=SETTINGS["M11.C.26"]),
+    "M11.C.36": C("M11.C.36", "check", ("baseline", "treatment"), (Readout("witness_response", +1),), arm_c36,
+                  ("CONFLICT",), settings=SETTINGS["M11.C.36"]),
+    "M11.C.14": C("M11.C.14", "premise", ("baseline", "treatment"), (Readout("child_symptom_load", 0),), arm_c14,
+                  ("OVERFUNCTION", "STAY-IN-CONTACT"), settings=SETTINGS["M11.C.14"]),
+})
+
+
+# --- Phase D step 9: projection in the model (B9, spec revision 26; Claude's recommendation, pending owner review) ---
+
+
+def arm_c2(arm, seed, settings):
+    """M11.C.2, a composite: the Phase C family under the policy for ``weeks``, with the declared nodal load on the
+    parents. Each run counts the projection-type acts (``PROJECTION_ACTS``) each child received from the parents and
+    each child's mean symptom load. The acts are counted in the first half of the run and the load read in the second
+    (review 2026-10-12: read over the same weeks, load could attract acts as well as follow them). The treatment
+    reports the later load of the child who received the most; the baseline, from the same run, that of the child who
+    received the fewest (a within-run control). Ties report 0 in both arms."""
+    from src.bowen.readouts.patterns import PROJECTION_ACTS
+
+    weeks = settings["weeks"]
+    family = load_family(FAMILIES["phase_c"])
+    parents = (ROLES["phase_c", "parent_1"], ROLES["phase_c", "parent_2"])
+    children = tuple(sorted({m for tie in family.family.parent_child_ties for m in tie.members()} - set(parents)))
+    loads = {c: 0.0 for c in children}
+    half = weeks // 2
+
+    def watch(state):
+        if state.tick > half:  # the end of weeks half .. weeks - 1
+            for c in children:
+                loads[c] += sum(state.people[c].symptom_load.values()) / (weeks - half)
+
+    state, records = scenario("phase_c", seed, weeks, spells=nodal(weeks, parents), watch=watch)
+    received = {c: sum(1 for r in records if isinstance(r, EmittedRecord) and r.event.kind in PROJECTION_ACTS
+                       and r.event.sender in parents and c in r.event.targets and r.event.timestamp < half)
+                for c in children}
+    ranked = sorted(children, key=lambda c: received[c])
+    if received[ranked[0]] == received[ranked[-1]]:
+        return result({"symptom_load": 0.0}, records)
+    pick = ranked[-1] if arm == "treatment" else ranked[0]
+    return result({"symptom_load": loads[pick]}, records)
+
+
+CRITERIA_D.update({
+    "M11.C.2": C("M11.C.2", "composite", ("baseline", "treatment"), (Readout("symptom_load", +1),), arm_c2,
+                 settings=SETTINGS["M11.C.2"]),
+})
+
+
+# --- Phase D step 10, criteria on existing mechanisms (Claude's recommendation, pending owner review) ---
+
+LEARNING_OFF = {"learning_rate": 0.0}  # M10.B.5: an override declared by the criterion, never a config default
+
+
+def _spell_on(who, start: int, stop: int, every: int, intensity: float) -> tuple[Event, ...]:
+    """A declared exogenous spell: one stressor event to each of ``who`` every ``every`` weeks from start to stop."""
+    return tuple(
+        Event(id=EventId(t, "spell", i), kind=NODAL["kind_3"], mechanism=Mechanism.EXOGENOUS_STRESSOR, sender=None,
+              targets=(p,), intensity=intensity, timestamp=t, duration=1, exogenous=True,
+              source_position=SourcePosition.NONE, channel=Channel.EXOGENOUS)
+        for t in range(start, stop, every) for i, p in enumerate(who))
+
+
+def _acts(records, kinds, senders, start, stop) -> int:
+    return sum(1 for r in records if isinstance(r, EmittedRecord) and r.event.kind in kinds
+               and r.event.sender in senders and start <= r.event.timestamp < stop)
+
+
+def arm_c39(arm, seed, settings):
+    """M11.C.39: on the triad, a heavy spell on both spouses for ``spell_weeks``; then ``after`` calm weeks. The
+    baseline has learning switched off (`M10.B.5`). Read: the spouses' ``DISTANCE`` and ``CUTOFF`` acts in the calm
+    weeks (the pattern's persistence); reported, the first calm week after which the spouses make none for
+    ``quiet`` weeks (time to remission)."""
+    spell_weeks, after, quiet = settings["spell_weeks"], settings["after"], settings["quiet"]
+    spouses = (MOVER, OTHER)
+    state, records = scenario("triad", seed, spell_weeks + after,
+                              spells=_spell_on(spouses, 0, spell_weeks, settings["every"], settings["intensity"]),
+                              overrides=LEARNING_OFF if arm == "baseline" else None)
+    persisted = _acts(records, ("DISTANCE", "CUTOFF"), spouses, spell_weeks, spell_weeks + after)
+    weekly = [_acts(records, ("DISTANCE", "CUTOFF"), spouses, t, t + 1) for t in range(spell_weeks, spell_weeks + after)]
+    remission = next((i for i in range(len(weekly)) if not any(weekly[i:i + quiet])), after)
+    return result({"pattern_after_spell": float(persisted), "time_to_remission": float(remission)}, records)
+
+
+def arm_c40(arm, seed, settings):
+    """M11.C.40: the Phase C family under its declared spell for ``weeks``; the baseline with learning off. Read: the
+    fall in automatic-channel repertoire entropy (`M16.A.9`) from the first ``window`` weeks to the last; reported,
+    the same fall for the self-directed channel."""
+    from src.bowen.ensemble.criteria import spell
+
+    weeks, window = settings["weeks"], settings["window"]
+    state, records = scenario("phase_c", seed, weeks, spells=spell("phase_c", weeks),
+                              overrides=LEARNING_OFF if arm == "baseline" else None)
+    windows = [_entropy(records, kinds, a, b) for kinds in (AUTOMATIC_KINDS, SELF_KINDS)
+               for a, b in ((0, window), (weeks - window, weeks))]
+    # Re-sweep 2026-10-12: a window with no acts has no entropy; a channel with one is read as no fall, and counted.
+    automatic = windows[0] - windows[1] if None not in windows[:2] else 0.0
+    self_ = windows[2] - windows[3] if None not in windows[2:] else 0.0
+    # Clause 2 as a readout (review 2026-10-12): its between-arm difference is the automatic channel's difference less
+    # the self-directed channel's, which MUST be positive.
+    return result({"automatic_entropy_fall": automatic, "automatic_less_self": automatic - self_,
+                   "self_entropy_fall": self_, "empty_windows": float(windows.count(None))}, records)
+
+
+def _entropy(records, kinds, start, stop) -> float:
+    import math
+    from collections import Counter
+
+    counts = Counter(r.event.kind for r in records if isinstance(r, EmittedRecord)
+                     and r.event.mechanism is Mechanism.MOVE and r.event.kind in kinds and start <= r.event.timestamp < stop)
+    total = sum(counts.values())
+    if total == 0:
+        return None
+    if len(kinds) < 2:
+        return 0.0
+    return -sum(n / total * math.log(n / total) for n in counts.values()) / math.log(len(kinds))
+
+
+AUTOMATIC_KINDS = load_event_kinds().in_channel("automatic")
+SELF_KINDS = load_event_kinds().in_channel("self")
+
+
+def arm_c43(arm, seed, settings):
+    """M11.C.43: on the triad, F carries a spell for ``spell_weeks`` while M, calmer, is available (treatment) or
+    absent from F's choices (baseline); then ``gap`` quiet weeks; then M becomes unavailable to F for ``window``
+    weeks. Read: the rise in F's mean acute anxiety over that window against the ``window`` weeks before it."""
+    spell_weeks, gap, window = settings["spell_weeks"], settings["gap"], settings["window"]
+    lost = spell_weeks + gap
+    weeks = lost + window
+    absent = {t: ((MOVER,), OTHER) for t in range(lost, weeks)}
+    if arm == "baseline":
+        absent.update({t: ((MOVER,), OTHER) for t in range(spell_weeks)})
+    trace = {}
+    state, records = scenario("triad", seed, weeks, unavailable=absent,
+                              spells=_spell_on((MOVER,), 0, spell_weeks, settings["every"], settings["intensity"]),
+                              watch=lambda s: trace.__setitem__(s.tick - 1, s.people[MOVER].acute_anxiety))
+    before = sum(trace[t] for t in range(lost - window, lost)) / window
+    after = sum(trace[t] for t in range(lost, weeks)) / window
+    return result({"loss_rise": after - before}, records)
+
+
+def arm_c34(arm, seed, settings):
+    """M11.C.34: the nuclear four at two family levels (``level_low`` below the fixture in the baseline,
+    ``level_high`` above it in the treatment), the same symptom onset in C1 at week ``t0``. Read: the other members'
+    automatic acts addressed to C1 in the ``window`` weeks from onset, less the same count in the same run with no
+    onset (review 2026-10-12: counting all their acts measured the level, not the reaction)."""
+    from src.bowen.ensemble.criteria import lowered
+    from src.bowen.engine.symptoms import threshold
+
+    t0, window = settings["t0"], settings["window"]
+    by = settings["level_low"] if arm == "baseline" else -settings["level_high"]
+
+    def onset(state):
+        # Load set so that after this week's leak it still crosses the threshold, with the symptom inactive: the onset
+        # fires at step 9 of week t0, as an endogenous event to C1's ties (review 2026-10-12: holding it active
+        # skipped the onset, and no one reacted to one).
+        if state.tick == t0:
+            person = state.people[CHILD]
+            for c in person.symptom_active:
+                person.symptom_active[c] = False
+            person.symptom_load[person.channel_prior] = (settings["severity"] * threshold(person, ENGINE)
+                                                         / (1.0 - ENGINE.symptom_leak_rate))
+
+    others = {FATHER, MOTHER, PARTNER}
+
+    def toward_child(records):
+        return sum(1 for r in records if isinstance(r, EmittedRecord) and r.event.mechanism is Mechanism.MOVE
+                   and r.event.sender in others and CHILD in r.event.targets and r.event.kind in AUTOMATIC_KINDS
+                   and t0 <= r.event.timestamp < t0 + window)
+
+    _, quiet = scenario("four", seed, t0 + window, setup=lowered(by))
+    state, records = scenario("four", seed, t0 + window, setup=lowered(by), before=onset)
+    return result({"automatic_reaction": float(toward_child(records) - toward_child(quiet))}, records)
+
+
+def arm_c21(arm, seed, settings):
+    """M11.C.21: the nuclear four; at week ``t0`` both parents' functional level drops by ``drop`` in the treatment
+    (none in the baseline), C1 untouched. Read: C1's functional level at the end of the run less at the end of week
+    ``t0`` (the week of the drop)."""
+    t0, after, drop = settings["t0"], settings["after"], settings["drop"]
+
+    def collapse(state):
+        if arm == "treatment" and state.tick == t0:
+            for parent in (FATHER, MOTHER):
+                person = state.people[parent]
+                person.functional_level = max(0.0, person.functional_level - drop)
+                person.stress_swing -= drop  # the fall is stress's, in its ledger (revision 20: one ledger each)
+
+    at = {}
+    state, records = scenario("four", seed, t0 + after, before=collapse,
+                              watch=lambda s: at.setdefault("t0", s.people[CHILD].functional_level) if s.tick == t0 + 1 else None)
+    return result({"target_rise": state.people[CHILD].functional_level - at["t0"]}, records)
+
+
+def arm_c23(arm, seed, settings):
+    """M11.C.23 (revision 15's definitions): C1 starts with an active symptom (``start_severity``) that remits at
+    ``t0``. Both parents act toward C1 every ``act_every`` weeks: ``CONFLICT`` (hostility and blame) in the
+    treatment, which also suppresses C1's symptom accumulation by ``suppression`` (medication); ``STAY-IN-CONTACT``
+    in the baseline, with no suppression. Read: C1's relapses, onsets after the remission."""
+    from src.bowen.engine.objects import SymptomChannel
+    from src.bowen.engine.symptoms import threshold
+
+    t0, weeks, every = settings["t0"], settings["weeks"], settings["act_every"]
+    kind = "CONFLICT" if arm == "treatment" else "STAY-IN-CONTACT"
+    forced = {**_scripted(FATHER, kind, CHILD, weeks, every), **_scripted(MOTHER, kind, CHILD, weeks, every)}
+    channel = load_family(FAMILIES["four"]).people[CHILD].channel_prior
+
+    def start(state):
+        person = state.people[CHILD]
+        person.symptom_load[channel] = settings["start_severity"] * threshold(person, ENGINE)
+        person.symptom_active[channel] = True
+        if arm == "treatment":
+            person.symptom_suppression = settings["suppression"]
+
+    state, records = scenario("four", seed, weeks, setup=start, forced=forced, spells=(remission(t0, CHILD, channel),))
+    relapses = sum(1 for r in records if isinstance(r, EffectRecord) and r.mechanism == "symptom_onset"
+                   and r.tick > t0 and r.cause is not None and r.cause.origin == f"symptom:{CHILD.value}")
+    return result({"relapses": float(relapses)}, records)
+
+
+CRITERIA_D.update({
+    "M11.C.39": C("M11.C.39", "composite", ("baseline", "treatment"),
+                  (Readout("pattern_after_spell", +1), Readout("time_to_remission", +1, report_only=True)), arm_c39,
+                  settings=SETTINGS["M11.C.39"]),
+    "M11.C.40": C("M11.C.40", "premise", ("baseline", "treatment"),
+                  (Readout("automatic_entropy_fall", +1), Readout("automatic_less_self", +1),
+                   Readout("self_entropy_fall", 0, report_only=True), Readout("empty_windows", 0, report_only=True)),
+                  arm_c40,
+                  settings=SETTINGS["M11.C.40"]),
+    "M11.C.43": C("M11.C.43", "composite", ("baseline", "treatment"), (Readout("loss_rise", +1),), arm_c43,
+                  settings=SETTINGS["M11.C.43"]),
+    "M11.C.34": C("M11.C.34", "mixed", ("baseline", "treatment"), (Readout("automatic_reaction", -1),), arm_c34,
+                  settings=SETTINGS["M11.C.34"]),
+    "M11.C.21": C("M11.C.21", "premise", ("baseline", "treatment"), (Readout("target_rise", +1),), arm_c21,
+                  settings=SETTINGS["M11.C.21"]),
+    "M11.C.23": C("M11.C.23", "premise", ("baseline", "treatment"), (Readout("relapses", +1),), arm_c23,
+                  ("CONFLICT", "STAY-IN-CONTACT"), settings=SETTINGS["M11.C.23"]),
+})
+
+
+def arm_c24(arm, seed, settings):
+    """M11.C.24 (with revision 27): on the dyad, A takes charge and B gives way every ``act_every`` weeks until
+    ``diverge_weeks``, so their functional levels diverge from a matched basic level. Then, in the treatment, the tie
+    is dissolved (non-interactive from that week on); in the baseline the exchange goes on. Read, over ``after`` weeks
+    from the dissolution: B's functional level change (MUST rise) and A's (MUST fall)."""
+    from src.bowen.engine.identifiers import TieId
+
+    split, after, every = settings["diverge_weeks"], settings["after"], settings["act_every"]
+    weeks = split + after
+    span = weeks if arm == "baseline" else split
+    forced = {**_scripted(SPOUSE_A, "OVERFUNCTION", SPOUSE_B, span, every),
+              **_scripted(SPOUSE_B, "UNDERFUNCTION", SPOUSE_A, span, every)}
+    tie = TieId.of(SPOUSE_A, SPOUSE_B)
+
+    def dissolve(state):
+        if arm == "treatment" and state.tick >= split:
+            state.ties[tie].interactive = False
+
+    at = {}
+
+    def watch(state):
+        if state.tick == split:  # the end of the last week before dissolution
+            at.update({p: state.people[p].functional_level for p in (SPOUSE_A, SPOUSE_B)})
+
+    state, records = scenario("dyad", seed, weeks, before=dissolve, forced=forced, watch=watch)
+    return result({"under_change": state.people[SPOUSE_B].functional_level - at[SPOUSE_B],
+                   "over_change": state.people[SPOUSE_A].functional_level - at[SPOUSE_A]}, records)
+
+
+CRITERIA_D.update({
+    "M11.C.24": C("M11.C.24", "premise", ("baseline", "treatment"),
+                  (Readout("under_change", +1), Readout("over_change", -1)), arm_c24,
+                  ("OVERFUNCTION", "UNDERFUNCTION"), settings=SETTINGS["M11.C.24"]),
 })

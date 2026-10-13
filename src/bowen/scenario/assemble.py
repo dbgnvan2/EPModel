@@ -8,6 +8,7 @@ Tests:   tests/bowen/test_phase_b_gate.py
 
 from __future__ import annotations
 
+import dataclasses
 from dataclasses import dataclass
 
 from src.bowen.engine.activation import SynchronousActivation, activation_for
@@ -32,10 +33,14 @@ class Assembled:
 
 
 def assemble(
-    constants: Constants, kinds: EventKinds, family: FamilyInstance, source: ScriptedSource, seed: int = 0
+    constants: Constants, kinds: EventKinds, family: FamilyInstance, source: ScriptedSource, seed: int = 0,
+    overrides: dict | None = None,
 ) -> Assembled:
-    """A fresh state every call, so two runs share nothing (M11.D.6)."""
+    """A fresh state every call, so two runs share nothing (M11.D.6). ``overrides`` replaces named engine parameters
+    before anything reads them (a criterion's declared override, `M10.B.5`)."""
     params = engine_params(constants)
+    if overrides:
+        params = dataclasses.replace(params, **overrides)
     state = new_run_state(dict(family.people), dict(family.ties), family.family, kinds, seed=seed)
     initialise_run(state, params)
     return Assembled(

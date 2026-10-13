@@ -3,8 +3,9 @@
 Purpose: one gate test per criterion, each running its paired arms through the ensemble runner and requiring PASS
          (``ensemble``-marked, so excluded from the default run), and fast checks that each arm runs and differs only
          in its declared channel.
-Spec:    docs/bowen_agent_model_spec_v2.md#M11.C.17, #M11.C.18, #M11.C.20, #M11.C.33, #M11.C.11, #M11.C.12, #M11.C.22,
-         #M11.C.30, #M11.C.31, #M11.2, #M13.4
+Spec:    docs/bowen_agent_model_spec_v2.md#M11.C.17, #M11.C.18, #M11.C.20, #M11.C.33, #M11.C.11, #M11.C.12,
+         #M11.C.22, #M11.C.30, #M11.C.31, #M11.C.2, #M11.C.14, #M11.C.21, #M11.C.23, #M11.C.24, #M11.C.26, #M11.C.34,
+         #M11.C.36, #M11.C.39, #M11.C.40, #M11.C.43, #M10.B.5, #M11.2, #M13.4
 Tests:   this file
 """
 
@@ -199,3 +200,90 @@ def test_m11c30_the_arms_differ_only_in_the_load_carried_elsewhere():
             module.scenario = original
         picks[arm] = [(r.tick, r.actor, r.event_id) for r in captured["records"] if isinstance(r, SelectionRecord)]
     assert picks["baseline"] == picks["treatment"]
+
+
+# --- Phase D steps 8-10: beliefs, projection, and criteria on existing mechanisms (spec revisions 25-27) ---
+
+
+@pytest.mark.ensemble
+def test_m11c26_sink_recoverable_from_belief_configuration():
+    gate("M11.C.26")
+
+
+@pytest.mark.ensemble
+def test_m11c36_policy_reads_belief_not_true_state():
+    gate("M11.C.36")
+
+
+@pytest.mark.ensemble
+def test_m11c14_technique_null_under_marital_distance():
+    gate("M11.C.14")
+
+
+@pytest.mark.ensemble
+def test_m11c2_symptom_concentrates_on_projection_target():
+    gate("M11.C.2")
+
+
+@pytest.mark.ensemble
+def test_m11c39_pattern_outlasts_spell_only_with_learning():
+    gate("M11.C.39")
+
+
+@pytest.mark.ensemble
+def test_m11c40_leaked_reinforcement_raises_self_directed_entropy():
+    """Both clauses, each a readout: the automatic channel's entropy falls more with learning, and the automatic
+    channel's between-arm difference exceeds the self-directed channel's (``automatic_less_self``)."""
+    gate("M11.C.40")
+
+
+@pytest.mark.ensemble
+def test_m11c43_learned_buffer_removal_costs_more():
+    gate("M11.C.43")
+
+
+@pytest.mark.ensemble
+def test_m11c34_system_reaction_to_symptom_discriminates_level():
+    gate("M11.C.34")
+
+
+@pytest.mark.ensemble
+def test_m11c21_reciprocity_inverts_on_projector_collapse():
+    gate("M11.C.21")
+
+
+@pytest.mark.ensemble
+def test_m11c23_expressed_emotion_dominates_suppression():
+    gate("M11.C.23")
+
+
+@pytest.mark.ensemble
+def test_m11c24_whisper_of_nature_reverses_on_dissolution():
+    gate("M11.C.24")
+
+
+def test_m11c26_the_control_rotates_the_labels_of_the_same_runs():
+    """The baseline reads the same three runs against the next driving's sink: a perfect reading scores 1 in the
+    treatment and 0 in the control; a reading that names one sink for every driving scores 1/3 in both; an unread
+    belief scores nothing (review 2026-10-12: the earlier check could not fail)."""
+    from src.bowen.engine.objects import Sink
+    from src.bowen.ensemble.criteria_d import score_c26
+
+    driven = [Sink.MARITAL_CONFLICT, Sink.SPOUSE_DYSFUNCTION, Sink.CHILD_PROJECTION]
+    assert score_c26(driven, driven, driven, 0) == (1.0, 1.0)
+    assert score_c26(driven, driven, driven, 1) == (0.0, 0.0)
+    same = [Sink.MARITAL_CONFLICT] * 3
+    assert score_c26(same, same, driven, 0)[0] == score_c26(same, same, driven, 1)[0] == pytest.approx(1 / 3)
+    assert score_c26([None] * 3, [None] * 3, driven, 0) == (0.0, 0.0)
+
+
+def test_m10b5_learning_is_switched_off_only_by_a_declared_override():
+    """M10.B.5: the learning-off arm's override is the criterion's, not a config default, and it stops learning."""
+    from src.bowen.ensemble.criteria import scenario
+    from src.bowen.ensemble.criteria_d import LEARNING_OFF
+
+    assert C["learning_rate"] > 0
+    state, _ = scenario("triad", 1, 30, overrides=LEARNING_OFF)
+    assert all(v == 0 for p in state.people.values() for v in p.learned_values.values())
+    state, _ = scenario("triad", 1, 30)
+    assert any(v != 0 for p in state.people.values() for v in p.learned_values.values())

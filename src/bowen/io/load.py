@@ -40,8 +40,28 @@ def load_event_kinds(path: Path = CONFIG_DIR / "event_kinds.md") -> EventKinds:
     """
     kinds = parse_event_kinds(read_text(path), source=str(path))
     reach = load_nodal_reach(kinds)
+    attribution, focus = load_attribution(kinds)
     return dataclasses.replace(kinds, nodal=frozenset(reach), nodal_reach=reach, soothing=load_soothing(kinds),
-                               steering=load_steering(kinds))
+                               steering=load_steering(kinds), attribution=attribution, focus=focus)
+
+
+def load_attribution(kinds: EventKinds, path: Path = CONFIG_DIR / "attribution.md") -> tuple[dict, dict]:
+    """Purpose: read where each act places the family's difficulty, and which channel it focuses (revision 25).
+    Spec:    docs/bowen_agent_model_spec_v2.md#M9.6, #M1.A.11c
+    Tests:   tests/bowen/test_attribution.py::test_m96_attribution_rules_come_from_config
+    """
+    from src.bowen.scenario.config_parse import ConfigError, parse_table_document
+
+    doc = parse_table_document(read_text(path), columns=("kind", "locus", "focus", "why"), metadata_keys=frozenset(),
+                               source=str(path))
+    rows = [(row["kind"].strip("`"), row["locus"].strip(), row["focus"].strip()) for row in doc.rows]
+    unknown = sorted(k for k, _, _ in rows if k not in kinds.moves())
+    if unknown or len({k for k, _, _ in rows}) != len(rows):  # a misspelt act would never place or focus anything
+        raise ConfigError(f"{path}: each act a declared move, once; not declared: {unknown}")
+    if any(l not in ("other", "target", "sender", "—") or f not in ("physical", "mental", "social", "—")
+           for _, l, f in rows):
+        raise ConfigError(f"{path}: locus is other, target, sender or —; focus a channel or —")
+    return ({k: l for k, l, _ in rows if l != "—"}, {k: f for k, _, f in rows if f != "—"})
 
 
 def load_steering(kinds: EventKinds, path: Path = CONFIG_DIR / "perspective_steering.md") -> dict[str, int]:

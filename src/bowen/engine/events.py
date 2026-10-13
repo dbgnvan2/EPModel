@@ -69,6 +69,10 @@ class EventKinds:
     # Revision 19 (M4.D.1a): +1 for an act perspective steers toward, -1 for one it steers away from.
     # From config/bowen/perspective_steering.md.
     steering: Mapping[str, int] = field(default_factory=lambda: MappingProxyType({}))
+    # Revision 25 (M9.6, M1.A.11c): where each act places the family's difficulty ("other", "target", "sender"), and
+    # the symptom channel a family's anxious attention by that act focuses. From config/bowen/attribution.md.
+    attribution: Mapping[str, str] = field(default_factory=lambda: MappingProxyType({}))
+    focus: Mapping[str, str] = field(default_factory=lambda: MappingProxyType({}))
 
     def __post_init__(self) -> None:
         object.__setattr__(self, "mechanisms", MappingProxyType(dict(self.mechanisms)))
@@ -83,6 +87,14 @@ class EventKinds:
         if any(self.mechanisms.get(k) is not Mechanism.MOVE or d not in (1, -1) for k, d in self.steering.items()):
             raise ValueError("a steered kind is a declared move, steered +1 or -1 (M4.D.1a)")
         object.__setattr__(self, "steering", MappingProxyType(dict(self.steering)))
+        if any(self.mechanisms.get(k) is not Mechanism.MOVE or v not in ("other", "target", "sender")
+               for k, v in self.attribution.items()):
+            raise ValueError("an attribution is for a declared move, and is 'other', 'target' or 'sender' (M9.6)")
+        if any(self.mechanisms.get(k) is not Mechanism.MOVE or v not in ("physical", "mental", "social")
+               for k, v in self.focus.items()):
+            raise ValueError("a focus is for a declared move, on one of the three channels (M1.A.11c)")
+        object.__setattr__(self, "attribution", MappingProxyType(dict(self.attribution)))
+        object.__setattr__(self, "focus", MappingProxyType(dict(self.focus)))
         if any(v not in (1, -1) for v in self.signs.values()):
             raise ValueError("a source-position sign is +1 or -1")
         object.__setattr__(self, "signs", MappingProxyType(dict(self.signs)))

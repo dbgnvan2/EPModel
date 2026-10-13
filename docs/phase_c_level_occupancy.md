@@ -6,18 +6,18 @@ which members' functional level lies in each band, over 20 seeds, unmodified and
 reads. In the first band that mutant equals the deletion on every layer; in the second, on layer 1; in the
 third it makes every layer above 0 unavailable.
 
-code_hash: d386c6a782156abef198f65baa9eb0d45f349af0d26c09ff76c839f4b040cce9
+code_hash: 53e586de8e56d501d2a544357c22ee102e7d0fe31726baacb7b680580e7a5e9e
 
 | Variant | Arm | Span | Member-weeks | deletion_on_every_layer (≤ 20) | deletion_on_layer_1 (≤ 40) | layers_above_0_unavailable (≥ 60) |
 |---|---|---|---|---|---|---|
-| unmodified | baseline | whole_run | 14560 | 0.0% | 56.9% | 0.3% |
-| unmodified | baseline | window | 7280 | 0.0% | 57.7% | 0.5% |
-| unmodified | treatment | whole_run | 14560 | 38.4% | 97.6% | 0.0% |
-| unmodified | treatment | window | 7280 | 43.3% | 97.1% | 0.0% |
-| availability-level-inverted | baseline | whole_run | 14560 | 0.0% | 55.3% | 0.6% |
-| availability-level-inverted | baseline | window | 7280 | 0.0% | 55.9% | 1.2% |
-| availability-level-inverted | treatment | whole_run | 14560 | 35.9% | 97.6% | 0.0% |
-| availability-level-inverted | treatment | window | 7280 | 40.2% | 95.7% | 0.0% |
+| unmodified | baseline | whole_run | 14560 | 0.0% | 55.7% | 0.1% |
+| unmodified | baseline | window | 7280 | 0.0% | 56.4% | 0.1% |
+| unmodified | treatment | whole_run | 14560 | 35.7% | 98.1% | 0.0% |
+| unmodified | treatment | window | 7280 | 39.9% | 96.8% | 0.0% |
+| availability-level-inverted | baseline | whole_run | 14560 | 0.0% | 54.3% | 0.0% |
+| availability-level-inverted | baseline | window | 7280 | 0.0% | 55.0% | 0.0% |
+| availability-level-inverted | treatment | whole_run | 14560 | 33.8% | 98.3% | 0.0% |
+| availability-level-inverted | treatment | window | 7280 | 36.5% | 97.2% | 0.0% |
 
 ## Machine-readable
 
@@ -32,13 +32,13 @@ code_hash: d386c6a782156abef198f65baa9eb0d45f349af0d26c09ff76c839f4b040cce9
   },
   "whole_run": {
    "deletion_on_every_layer": 0.0,
-   "deletion_on_layer_1": 0.5691620879120879,
-   "layers_above_0_unavailable": 0.0026098901098901097
+   "deletion_on_layer_1": 0.5569368131868132,
+   "layers_above_0_unavailable": 0.0006181318681318681
   },
   "window": {
    "deletion_on_every_layer": 0.0,
-   "deletion_on_layer_1": 0.5766483516483516,
-   "layers_above_0_unavailable": 0.0052197802197802195
+   "deletion_on_layer_1": 0.5641483516483516,
+   "layers_above_0_unavailable": 0.0012362637362637362
   }
  },
  {
@@ -49,13 +49,13 @@ code_hash: d386c6a782156abef198f65baa9eb0d45f349af0d26c09ff76c839f4b040cce9
    "window": 7280
   },
   "whole_run": {
-   "deletion_on_every_layer": 0.38358516483516486,
-   "deletion_on_layer_1": 0.9756181318681318,
+   "deletion_on_every_layer": 0.35707417582417583,
+   "deletion_on_layer_1": 0.9805631868131868,
    "layers_above_0_unavailable": 0.0
   },
   "window": {
-   "deletion_on_every_layer": 0.4331043956043956,
-   "deletion_on_layer_1": 0.9708791208791209,
+   "deletion_on_every_layer": 0.39903846153846156,
+   "deletion_on_layer_1": 0.9677197802197802,
    "layers_above_0_unavailable": 0.0
   }
  },
@@ -68,13 +68,13 @@ code_hash: d386c6a782156abef198f65baa9eb0d45f349af0d26c09ff76c839f4b040cce9
   },
   "whole_run": {
    "deletion_on_every_layer": 0.0,
-   "deletion_on_layer_1": 0.5529532967032967,
-   "layers_above_0_unavailable": 0.006387362637362637
+   "deletion_on_layer_1": 0.5426510989010989,
+   "layers_above_0_unavailable": 0.0
   },
   "window": {
    "deletion_on_every_layer": 0.0,
-   "deletion_on_layer_1": 0.5590659340659341,
-   "layers_above_0_unavailable": 0.011675824175824176
+   "deletion_on_layer_1": 0.5497252747252748,
+   "layers_above_0_unavailable": 0.0
   }
  },
  {
@@ -85,13 +85,13 @@ code_hash: d386c6a782156abef198f65baa9eb0d45f349af0d26c09ff76c839f4b040cce9
    "window": 7280
   },
   "whole_run": {
-   "deletion_on_every_layer": 0.3588598901098901,
-   "deletion_on_layer_1": 0.9762362637362637,
+   "deletion_on_every_layer": 0.3381181318681319,
+   "deletion_on_layer_1": 0.9833104395604395,
    "layers_above_0_unavailable": 0.0
   },
   "window": {
-   "deletion_on_every_layer": 0.4024725274725275,
-   "deletion_on_layer_1": 0.9572802197802198,
+   "deletion_on_every_layer": 0.36538461538461536,
+   "deletion_on_layer_1": 0.9718406593406593,
    "layers_above_0_unavailable": 0.0
   }
  }

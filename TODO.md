@@ -52,7 +52,7 @@ Deferred and adjacent items. Each carries enough context to act on later without
   that flips on an unrelated change is on its threshold; with `one-sided-deviation` and `deviation-inverted` both
   surviving, the pass is not evidence (`M11.5`). At revision 21 it moved back to FAIL. For the owner when Phase C's gate is
   next looked at.
-  Revision 24 (2026-10-12): it moved FAIL → PASS again with B7's symptom channels. Still on its threshold.
+  Revision 24 (2026-10-12): it moved FAIL → PASS again with B7's symptom channels. Still on its threshold. Revisions 25–27 moved it back to FAIL.
 - [ ] **Review of revision 20's completion, minor (2026-10-12; the correctness pass, which read the version with
   `shed_adjustment`, since removed):**
   - At the stress floor a calm week decays `adjust_swing` while functioning cannot fall, so the estimator's `own`
@@ -69,6 +69,40 @@ Deferred and adjacent items. Each carries enough context to act on later without
   functioning (positive pseudo-self, revision 19) but keeps what a person gave way, so its reading sits about 8–9
   points below basic level; leaving out the whole exchange, with its sign, puts the reading at basic level
   (`docs/implementation_plan_phase_d.md`, step 6). The load weighting is not the cause.
+- [ ] **Revisions 25–27 (2026-10-12): for the owner's review.** Attribution and its rules, belief in the witness's
+  appraisal, the family-focus writer, the marital-distance gate, the tie-weighted cross-person term, and borrowed
+  pseudo-self settling back. All Claude's recommendations, made overnight at the owner's request.
+- [ ] **Failing criteria from steps 8–10, each the owner's question; nothing was changed to make any pass:**
+  - `M11.C.14`: the gate blocks improvement but not harm, so firmness and talking it out still differ.
+  - `M11.C.40`: per seed, the automatic channel's entropy difference does not exceed the self-directed one's.
+  - `M11.C.43`: no larger cost on losing a calming member after learned reliance.
+  - `M11.C.21`: the target does not rise when both parents collapse.
+  - `M11.C.23`: reversed; halving symptom accumulation outweighs the hostility.
+- [ ] **`M11.C.2` fails** once projection acts are counted early and load read late (+0.29 ± 2.20, p 0.39); read over the
+  same weeks it passed, which cannot separate cause from attraction. No criterion yet shows the tie-weighted
+  cross-person term (revision 26) shaping a child's repertoire.
+- [ ] **`M11.C.34` fails** on reactions to the onset against a no-onset run; and its declared mutant cannot bite in any
+  case: no selection reads `M1.A.19`'s detectors.
+- [ ] **`M11.C.17`'s coached rise nearly vanished** with revisions 24–27 (+0.021 → +0.0009). Probes: part revision 27's
+  settling back, part revision 24's integrand. The owner's question whether either change is wrong.
+- [ ] **Reviews of revisions 25–27 (2026-10-12), not fixed, with reasons:**
+  - **`I-POSITION` sequences now rarely complete.** In the triad fixture, completion fell from about 10 in 96 seeds
+    (revision 20) to 2 in 96 after B7, and 4 in 192 now. `tests/bowen/test_iposition.py::test_m5d8_*` was raised to
+    192 seeds and still rests on four sequences (P23). Why B7 lowered it is not traced.
+  - The marital-distance gate blocks a symptomatic child's improvement, but the move's contact and impingement
+    still land on the tie and persist. Gating them as well made `M11.C.14` no closer to its null (measured: −8.4 to
+    −10.9 over 20 seeds), so it was left.
+  - `update_focus` reads the sender's true excess above usual: the family's focus is engine-side attention, not a
+    belief any policy reads (the spec says so).
+  - A refused move never reaches its sender's own attribution.
+  - `arm_c43` makes M unavailable to F, not F to M: M can still approach F in the loss window.
+  - `arm_c26` and `arm_c22` return one scenario's records, so their bookkeeping covers one run of several.
+  - `M11.C.36` measures appraisal only; its row says "appraisal and selection".
+  - `relax_pseudo_self` runs tie by tie, so a person relaxed on two ties in one week sees the first change before
+    the second: deterministic, but not `M1.F.8`'s batch rule.
+- [ ] **`M11.C.7`, `M11.C.9` and `M11.C.28` are not built**: C.7 needs the coach's landing to read the coach's position
+  (`M8`'s predicate exists, unused); C.9 needs sibling position to gate behaviour (`M1.A.14c`); C.28 needs the sink
+  allocation to feed some behaviour, or its mobility can change no symptom.
 - [ ] **B7 (spec revision 24, 2026-10-12): for the owner's review.** Every B7 choice is Claude's recommendation, made
   overnight at the owner's request: the symptom integrand read above the usual level, the channel weights, mutual
   protection, the lock-in curve and its spill past the turn, removal by tolerance, and `M11.C.22`'s control arm.

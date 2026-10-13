@@ -98,6 +98,20 @@ REQUIRED = {
     "M11.C.12": ("remission_week", "after", "severity"),
     "M11.C.31": ("t0", "weeks", "held"),
     "M11.C.11": ("removal_week", "away", "window"),
+    # Phase D step 8, beliefs as a channel (B8, spec revision 25).
+    "M11.C.26": ("weeks", "act_every"),
+    "M11.C.36": ("weeks", "act_every", "believed_tension"),
+    "M11.C.14": ("weeks", "act_every", "start_severity"),
+    # Phase D step 9, projection (B9, spec revision 26).
+    "M11.C.2": ("weeks",),
+    # Phase D step 10, criteria on existing mechanisms.
+    "M11.C.39": ("spell_weeks", "after", "quiet", "every", "intensity"),
+    "M11.C.40": ("weeks", "window"),
+    "M11.C.43": ("spell_weeks", "gap", "window", "every", "intensity"),
+    "M11.C.34": ("t0", "window", "level_low", "level_high", "severity"),
+    "M11.C.21": ("t0", "after", "drop"),
+    "M11.C.23": ("t0", "weeks", "act_every", "start_severity", "suppression"),
+    "M11.C.24": ("diverge_weeks", "after", "act_every"),
 }
 
 
@@ -254,14 +268,17 @@ class Forced:
 
 
 def scenario(family: str, seed: int, weeks: int, *, spells=(), forced=None, setup=None, until=None,
-             unavailable=None, held_open=None, watch=None, before=None, withheld=None):
+             unavailable=None, held_open=None, watch=None, before=None, withheld=None, overrides=None):
     """Run one arm; return (state, records). ``until`` stops early at that week (exclusive); ``watch(state)``, if
     given, is called after every tick and must only read; ``before(state)``, if given, is called before every tick
-    and may set a declared condition for that week (`M11.C.33`'s dependence at the slow tick)."""
+    and may set a declared condition for that week (`M11.C.33`'s dependence at the slow tick). ``overrides`` replaces
+    named engine parameters for this arm only: an experimental override declared by the criterion, never a config
+    default (`M10.B.5`: learning switched off for `M11.C.39` and `M11.C.40`)."""
     constants, kinds = load_constants(), load_event_kinds()
     fam = load_family(FAMILIES[family])
     events = ScriptedSource(f"{family}-arm", weeks, tuple(spells), ())
-    parts = assemble(constants, kinds, fam, events, seed=seed)
+    # Applied before assembly, so initialisation and visibility read them too (review 2026-10-12).
+    parts = assemble(constants, kinds, fam, events, seed=seed, overrides=overrides)
     if setup:
         setup(parts.state)
     source = Forced(PolicySource(events, parts.params, load_policy_rules()), forced or {}, unavailable, held_open,

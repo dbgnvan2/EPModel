@@ -181,6 +181,13 @@ class Person:
     channel_focus: dict[SymptomChannel, float] = field(default_factory=dict)
     constitution_strength: float | None = None  # None: the declared constant, constitution_strength
     symptom_bound: float = 0.0
+    # M11.C.23's suppression term ("medication", revision 15): scales what enters the person's symptom load each week,
+    # leaving appraisal and acute anxiety untouched. 1 is none; set by a criterion, never by config.
+    symptom_suppression: float = 1.0
+    # Spec revision 25 (B8, Claude's recommendation pending owner review): where this person believes the family's
+    # difficulty lies, a weight per family member summing to at most 1 (M9.6). Written in step 3 from the moves the
+    # person sent or was delivered; empty at the start (no one blamed).
+    attribution: dict[PersonId, float] = field(default_factory=dict)
     alive: bool = True
 
     def __post_init__(self) -> None:

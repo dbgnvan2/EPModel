@@ -104,7 +104,7 @@ def integrate(person: Person, params: EngineParams) -> tuple[SymptomChannel, ...
     limit = threshold(person, params)
     integrand = max(0.0, above_usual(person, excess(person)))
     others = sum(person.symptom_load[c] for c in CHANNELS if c is not channel)
-    fed = integrand / (1.0 + params.channel_protection * others / limit)
+    fed = person.symptom_suppression * integrand / (1.0 + params.channel_protection * others / limit)
     fired = []
     for c in CHANNELS:
         load = person.symptom_load[c] * (1.0 - params.symptom_leak_rate) + (fed if c is channel else 0.0)

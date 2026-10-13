@@ -555,6 +555,11 @@ Feeds the standing load (§7.2) every tick whether or not anything happened.
 - **The assignment hardens with time in configuration.** `[M]` Ch05, Ch12 · L05.3, L12.1.
 - **Reversal is direction-asymmetric:** far easier to tone down a "marked" overfunctioner than to raise a "marked" dysfunctioner. `[D]` Ch12 · L12.1 — and note Bowen explicitly withholds the reason. The organ analogy grounds the *duration* hysteresis, not this.
 
+**Revision 27 (2026-10-12; Claude's recommendation, pending owner review): a borrowed rise settles back.** When a pair
+who have over- and under-functioned for each other stop for eight weeks, what the one taking charge borrowed moves
+back to the other a little each week, conserved `[I]`. Pseudo-self does not move between people who never exchanged. Dissolve a discrepant pair and the discrepancy reverses (`M11.C.24`, the whisper of
+nature, passes ad hoc).
+
 > Implement as a **switch with hysteresis, indexed per area** — not a linear scalar and not a personal trait. The old engine's `functioning_balance` is close in name and wrong in shape.
 >
 > **Six chapters carry this, across about four independent settings** — the corpus's second-strongest convergence. Ch07 is *not* one of them: sixteen of its propositions rewrite Ch06's near-verbatim.
@@ -1007,6 +1012,22 @@ Three separate findings that all constrain how an event resolves:
 - `[T]` Ch15 · L15.2 — the shock wave reaching an unattached grandchild does **not** need a second edge type. The dependence is **denied — invisible to the family** — and the path is the ordinary two-hop one Bowen supplies: grandmother → daughter → son. **Belief layer plus multi-hop propagation, not new topology.**
 
 > A research instrument that reads out what *happened* while the family acts on what it *believes* is missing the mechanism.
+
+**How it is built (Phase D B8, spec revision 25, 2026-10-12; Claude's recommendation, pending owner review).**
+- **Where the difficulty lies** `[I]`: each person holds a weight per family member, written from the moves they
+  sent, received or watched. Each act places it somewhere by its kind (`config/bowen/attribution.md`): a conflict with
+  the other side, taking over with the one taken care of, giving way with the one who gives way. "Each says the
+  other", "both say the same one" and "both say the children" are not written; they follow from what the family does.
+  `M9.6`
+- **A readout recovers the sink from belief alone**, and the belief pattern from the sink allocation (`M11.C.26`
+  passes, ad hoc).
+- **Belief drives appraisal** `[I]`: a person watching two others reacts more when they believe that tie is tense,
+  whatever its true state. `M9.7`, `M11.C.36` (passes, ad hoc).
+- **What the family focuses on moves the symptom channel** `[I]`: anxious caretaking focuses the body, worry the mind,
+  blame conduct. `M1.A.11c`
+- **Marital distance blocks improvement** `[I]`: while both spouses' felt contact on their tie is below a quarter of
+  what they want, nothing addressed to a symptomatic child of theirs lowers the child's anxiety. `M5.C.1`.
+  `M11.C.14`'s null still fails: firmness keeps impinging, and talking it out calms once the symptom ends.
 
 ---
 
@@ -1753,7 +1774,10 @@ The automatic channel learns from felt relief over a short horizon. The form app
 **As built (Phase C step 7, 2026-10-07).** Every form and rate is `[I]`.
 - **What is credited.** Each automatic act a person sends is credited for three weeks with how their
   own anxiety changed, plus half the average change of the person they addressed and anyone who
-  watched. The cross-person part is how calming another person can teach an act (`FE07.4`).
+  watched. The cross-person part is how calming another person can teach an act (`FE07.4`). *Revision 26
+  (2026-10-12; Claude's recommendation, pending owner review):* that average is weighted by how strong the actor's tie
+  to each of them is, so a parent's calming counts for more than a witness's. Measured, `M11.C.2` fails: the child who
+  received the most projection-type acts early carries no more symptom load later.
 - **Discounting and the horizon.** Later weeks count less. Nothing after the third week reaches the
   act, so a cost that comes later is felt but credited to whatever was done just before it.
 - **Habituation.** Relief from the same act toward the same person shrinks with each recent repetition.

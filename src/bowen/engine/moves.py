@@ -329,6 +329,48 @@ def settle_functioning(state: RunState, params: EngineParams) -> list[EffectReco
     return [EffectRecord(state.tick, "functioning_settle", None, ties=tuple(changes))] if changes else []
 
 
+def relax_pseudo_self(state: RunState, params: EngineParams) -> list[EffectRecord]:
+    """Purpose: step 9 — on a tie with no over/under-functioning exchange for ``exchange_window`` weeks, the pair's
+    borrowed and lent pseudo-self settle back toward their own levels, as a conserved transfer (revision 27).
+    Spec:    docs/bowen_agent_model_spec_v2.md#M6.I.4, #M1.A.5c, #M11.C.24
+    Tests:   tests/bowen/test_moves.py::test_m6i4_pseudo_self_settles_back_when_the_exchange_stops
+
+    Revision 27 (Phase D step 10; Claude's recommendation, pending owner review): "a borrowed rise does not survive
+    withdrawal of the source" (`M1.A.5c`), and the whisper of nature (`M11.C.24`, KS07.2): dissolve a discrepant pair
+    and the discrepancy reverses. Each week, for each tie on which the pair has exchanged (its functioning balance is
+    not zero), whose over-functioning member carries borrowed pseudo-self and the other lent, and between whom no
+    ``OVERFUNCTION`` or ``UNDERFUNCTION`` was sent in the last ``exchange_window`` weeks,
+    ``pseudo_self_relaxation_rate × min(|borrowed|, |lent|)`` moves back from the one who borrowed to the one who lent,
+    with the same amount of ``functional_level``. Total pseudo-self is conserved (`M6.I.4`), and nothing rewrites
+    either person's basic level. Review 2026-10-12: without the balance condition pseudo-self moved between people who
+    never exchanged (2–6% of what moved), and a starting gap would relax from week 0.
+    """
+    exchanged = {TieId.of(e.sender, t) for e in state.store.moves_in(state.tick - params.exchange_window, state.tick)
+                 if e.kind in (OVERFUNCTION, UNDERFUNCTION) and e.sender is not None for t in e.targets if t != e.sender}
+    changes = []
+    for tid in sorted(state.ties):
+        if tid in exchanged:
+            continue
+        tie = state.ties[tid]
+        balance = tie.functioning_balance.get(DEFAULT_AREA, 0.0)
+        a, b = (state.people[m] for m in tid.members())
+        if balance == 0 or not (a.alive and b.alive):
+            continue
+        borrower, lender = (a, b) if balance * _pole_of(tie, a.id) > 0 else (b, a)  # the over-functioner borrowed
+        if (borrower.pseudo_self or 0.0) <= 0 or (lender.pseudo_self or 0.0) >= 0:
+            continue
+        amount = params.pseudo_self_relaxation_rate * min(borrower.pseudo_self, -lender.pseudo_self)
+        amount = max(0.0, min(amount, borrower.functional_level, SCALE_MAX - lender.functional_level))
+        if amount <= 0:
+            continue
+        borrower.pseudo_self -= amount
+        borrower.functional_level -= amount
+        lender.pseudo_self += amount
+        lender.functional_level += amount
+        changes += [(borrower.id, "pseudo_self", -amount), (lender.id, "pseudo_self", amount)]
+    return [EffectRecord(state.tick, "pseudo_self_relaxation", None, people=tuple(changes))] if changes else []
+
+
 # --- REDUCE_CUTOFF -------------------------------------------------------------------------
 
 

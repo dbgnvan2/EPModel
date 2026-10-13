@@ -139,4 +139,10 @@
 | `constitution_strength` | — | 0.5 | 2026-10-12 | — (new mechanism; spec revision 24, B7, Claude's recommendation pending owner review: the channel prior against a family focus) | no |
 | `channel_protection` | — | 1.0 | 2026-10-12 | — (new mechanism; spec revision 24, B7, Claude's recommendation pending owner review: channels are mutually protective) | no |
 | `lock_in_gain` | — | 0.2 | 2026-10-12 | — (new mechanism; spec revision 24, B7, Claude's recommendation pending owner review: lock-in) | no |
+| `attribution_rate` | — | 0.05 | 2026-10-12 | — (new mechanism; spec revision 25, B8, Claude's recommendation pending owner review: attribution) | no |
+| `focus_rate` | — | 0.05 | 2026-10-12 | — (new mechanism; spec revision 25, B8, Claude's recommendation pending owner review: the family's focus) | no |
+| `marital_distance_fraction` | — | 0.25 | 2026-10-12 | — (new mechanism; spec revision 25, Claude's recommendation pending owner review: the marital-distance gate) | no |
+| `belief_appraisal_gain` | — | 1.0 | 2026-10-12 | — (new mechanism; spec revision 25, B8, Claude's recommendation pending owner review: appraisal reads belief) | no |
+| `pseudo_self_relaxation_rate` | — | 0.05 | 2026-10-12 | — (new mechanism; spec revision 27, Claude's recommendation pending owner review: borrowed pseudo-self settles back) | no |
+| `exchange_window` | — | 8 | 2026-10-12 | — (new mechanism; spec revision 27, Claude's recommendation pending owner review) | no |
 | `lock_in_turn` | — | 3.0 | 2026-10-12 | — (new mechanism; spec revision 24, B7, Claude's recommendation pending owner review: lock-in's turn) | no |

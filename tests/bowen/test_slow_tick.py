@@ -96,15 +96,15 @@ def test_m1a4k_history_records_load_channel_and_nodal_events():
     for _ in range(3):
         run_tick(state, Script(), parts.params, parts.visibility, parts.activation, CollectingEmitter())
         levels.append(state.people[RAVI].functional_level)
-        own.append(state.people[RAVI].functional_level - max(0.0, state.people[RAVI].pseudo_self or 0.0))
+        own.append(state.people[RAVI].functional_level - (state.people[RAVI].pseudo_self or 0.0))
     weeks = state.estimator_history[RAVI]
     assert [w.tick for w in weeks] == [0, 1, 2]
     # the excess at selection: the 7 set here, plus week 0's standing load and appraisals before selection
     assert weeks[0].load > 7.0
     assert [w.self_directed for w in weeks] == [True, False, False]       # STAY-IN-CONTACT, OVERFUNCTION, none
     assert [w.nodal for w in weeks] == [(), ("JOB_LOSS",), ()]
-    # Revision 19: the estimator reads functioning less the borrowed part. OVERFUNCTION (week 1, landing week 2) raised
-    # Ravi's functional level by borrowing, and the reading does not count it.
+    # Revisions 19 and 23: the estimator reads functioning less pseudo-self, with its sign. OVERFUNCTION (week 1,
+    # landing week 2) raised Ravi's functional level by borrowing, and the reading does not count it.
     assert [w.functional_level for w in weeks] == pytest.approx(own)
     assert levels[2] > levels[1] and own[2] == pytest.approx(own[1])
 
@@ -328,3 +328,42 @@ def test_m1a4k_the_estimator_leaves_out_the_systems_adjustment():
     person.functional_level, person.adjust_swing = 55.0, 4.0
     record_week(state, PARAMS, {RAVI: 10.0}, (), ())
     assert [w.functional_level for w in state.estimator_history[RAVI]] == [51.0]
+
+
+def test_m1a4k_the_estimator_adds_back_what_was_given_way():
+    """Revision 23 (owner decision 2026-10-12): pseudo-self is read with its sign. A person who gave way is read at
+    their level before giving way, as one who took over is read without the gain; across the pair the reading is the
+    basic level the exchange left alone. Before it, a family's readings sat about 9 points below basic."""
+    from src.bowen.engine.slow_tick import record_week
+
+    state = fresh()
+    giver, taker = state.people[MARTA], state.people[RAVI]
+    for person, signed in ((giver, -6.0), (taker, +6.0)):
+        person.adjust_swing = 0.0
+        person.pseudo_self = signed
+        person.functional_level = person.basic_level + signed
+    record_week(state, PARAMS, {MARTA: 10.0, RAVI: 10.0}, (), ())
+    assert state.estimator_history[MARTA][-1].functional_level == pytest.approx(giver.basic_level)
+    assert state.estimator_history[RAVI][-1].functional_level == pytest.approx(taker.basic_level)
+
+
+def test_m1a4k_an_exchange_run_through_the_engine_leaves_both_readings_unchanged():
+    """Review 2026-10-12: a real OVERFUNCTION delivered through the move effects moves functioning and pseudo-self by
+    the same amount in both people, so neither person's estimator reading changes (revision 23)."""
+    from src.bowen.engine.events import Channel, Delivery, Event, EventId, Mechanism, Role, SourcePosition
+    from src.bowen.engine.moves import apply_move_effects
+    from src.bowen.engine.slow_tick import record_week
+
+    state = fresh()
+    record_week(state, PARAMS, {MARTA: 10.0, RAVI: 10.0}, (), ())
+    before = {p: state.estimator_history[p][-1].functional_level for p in (MARTA, RAVI)}
+    levels = {p: state.people[p].functional_level for p in (MARTA, RAVI)}
+    event = Event(id=EventId(0, "ravi", 0), kind="OVERFUNCTION", mechanism=Mechanism.MOVE, sender=RAVI, targets=(MARTA,),
+                  intensity=100.0, timestamp=0, duration=1, exogenous=False, source_position=SourcePosition.NONE,
+                  channel=Channel.SCRIPTED)
+    state.store.record_event(event)
+    apply_move_effects(state, (Delivery(1, event.id, MARTA, Role.TARGET, emitted_tick=0, latency=1),), PARAMS)
+    assert state.people[RAVI].functional_level > levels[RAVI] and state.people[MARTA].functional_level < levels[MARTA]
+    record_week(state, PARAMS, {MARTA: 10.0, RAVI: 10.0}, (), ())
+    for p in (MARTA, RAVI):
+        assert state.estimator_history[p][-1].functional_level == pytest.approx(before[p])

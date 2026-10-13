@@ -645,6 +645,39 @@ What it shows:
   pseudo-self exchange left out? The owner's revision-19 words were about over-functioning ("pseudo-self looks
   better"); they did not address the person who gave way.
 
+**After spec revision 23 (2026-10-12): the estimator reads pseudo-self with its sign.** The owner chose to add back what
+was given way. The estimator's reading of the coached people now sits at basic level (39.1 coach-free, 39.6 coached,
+spread 0.2–0.3), where before it sat near 33. Ad hoc, same scripts and seeds:
+
+| Criterion | Runner's verdict | Readout | Its mutation |
+|---|---|---|---|
+| `M11.C.33` | PASS, 150 seeds | +0.013 ± 0.002 | not rerun |
+| `M11.C.18` | PASS, 150 seeds | +0.013 ± 0.002 | coping and soothing removed: **FAIL**, 0.000 ± 0.001 (p 0.29) |
+| `M11.C.20` | PASS, 150 seeds | +0.013 ± 0.002; support blocked 10% ± 2% (report only) | pseudo-self of both signs read: **FAIL, reversed**, −0.87 ± 0.23. Borrowed pseudo-self read, given way still added back (the clause as restated): **FAIL, reversed**, −0.85 ± 0.23 |
+| `M11.C.17` | **PASS**, 150 seeds | coached **+0.021 ± 0.009**; family +0.006 ± 0.003 | landed contact removed: **FAIL**, 0.000 ± 0.001 (p 0.09). Borrowed pseudo-self read, given way still added back: **FAIL, reversed**, −0.76 ± 0.61 |
+
+| People whose basic level had risen, by year (of 40; 20-seed trace, two coached people per seed) | 4 | 6 | 8 | 10 |
+|---|---|---|---|---|
+| Coach-free | 0 | 0 | 1 | 4 |
+| Coached | 1 | 3 | 7 | 16 |
+
+The estimator's evidence at year 10 is −0.6 coach-free and −0.1 coached, and the coached arm's has been closing since
+year 7.
+
+What it shows:
+- **`M11.C.17` passes, and it is proved by mutation** (CLAUDE.md's bar for coverage). The interval excludes zero and
+  removing the coach's landed contact turns it red. In the 20-seed trace coached people rise from year 4, four times as
+  many as without a coach by year 10. No minimum meaningful effect is declared: the runner's margin is 0.1 of the
+  baseline's standard deviation.
+- **The effect is small**: about 0.02 points of basic level per coached person in ten years, on a 0–100 scale. Most of a
+  rise still has to come from own functioning held above basic level by more than its spread.
+- **C.17 also depends on leaving borrowed pseudo-self out**: reading it, with what was given way still added back, turns
+  C.17 red and reversed (−0.76 ± 0.61).
+- **What carries it is the coach, not the stress response.** With coping and soothing removed C.17 still passes
+  (+0.039 ± 0.010); with holding a position switched off it still passes (+0.017 ± 0.004).
+- **C.20 with coping and soothing removed** passes the runner on a readout of 0.000 (p 0.04) — a degenerate pass;
+  its own clause, reading borrowed pseudo-self, turns it red.
+
 ### B7. Symptom channels (`M7.D.2`, `2a`–`2d`, `M7.D.4`, `M1.A.11c`)
 - Load can move between the three channels.
 - Lock-in lowers family anxiety until a severity peak, then raises it.
@@ -692,7 +725,7 @@ run, an `M11.1d` audit (deletion plus sign-inverted mutant) and the fallback-rat
 | C.14 | nuclear four | `test_m11c14_technique_null_under_marital_distance` | `M5.C.1`'s marital-distance gate removed | P7, P8; the gate |
 | C.17 | Phase C family with Dr Halim | `test_m11c17_coach_helps_and_is_not_required` | `systems_perspective` allowed to rise spontaneously | B6, P8, `M7.E.4` |
 | C.18 | any | `test_m11c18_estimator_separates_cutoff_from_iposition` | the stress response's coping and soothing removed (`M1.A.5e`; restated at revision 20) | B6, B3 |
-| C.20 | any | `test_m11c20_estimator_separates_borrowed_from_basic` | the estimator reads borrowed pseudo-self again (`M1.A.4k`; restated at revision 20) | B6 |
+| C.20 | any | `test_m11c20_estimator_separates_borrowed_from_basic` | the estimator reads borrowed pseudo-self again, what was given way still added back (`M1.A.4k`; restated at revisions 20 and 23) | B6 |
 | C.21 | nuclear four | `test_m11c21_reciprocity_inverts_on_projector_collapse` | `M6.I.4`'s transfer made one-way | — |
 | C.22 | nuclear four | `test_m11c22_symptom_lock_in_is_non_monotone` | `M7.D.2a` flattened and `M7.D.2d` removed | B7 |
 | C.23 | nuclear four | `test_m11c23_expressed_emotion_dominates_suppression` | the EE term zeroed | P7 |

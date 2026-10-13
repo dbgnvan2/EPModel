@@ -8,7 +8,8 @@ Spec:    docs/bowen_agent_model_spec_v2.md#M3.B.1, #M1.A.4a, #M1.A.4b, #M1.A.4d,
 Tests:   tests/bowen/test_slow_tick.py
 
 **The history** (``record_week``, at the end of every fast tick): per person, the week's ``functional_level`` less
-any borrowed pseudo-self (revision 19) and any gain from the system adjusting to someone else's stance (revision 20), the
+its pseudo-self, borrowed or lent (revisions 19 and 23), and any gain from the system adjusting to someone else's stance
+(revision 20), the
 load they carried when they chose (excess acute anxiety over the chronic floor), whether they acted in the
 self-directed channel or withheld, and the kinds of nodal event that reached them: any major event on a person,
 listed in ``config/bowen/nodal_events.md`` (spec revision 17). It keeps the last
@@ -120,7 +121,11 @@ def record_week(state: RunState, params: EngineParams, load: dict, selections, e
         # based improved functioning" (M1.A.5c: a borrowed rise does not survive withdrawal of the source).
         # Revision 20 (owner decision 2026-10-11): nor the gain taken when someone else's held stance worked
         # (adjust_swing, M1.E.7). It is the system adjusting to another's stance, not this person's own functioning.
-        own = person.functional_level - max(0.0, person.pseudo_self or 0.0) - max(0.0, person.adjust_swing)
+        # Revision 23 (owner decision 2026-10-12): what was given way is added back too. Pseudo-self is read with its
+        # sign: the exchange shifts functional level in both people and leaves basic level alone, so neither the gain
+        # borrowed nor the loss lent is the person's own. Leaving out only the gain read the Phase C family's coached
+        # people about 9 points below basic (traced 2026-10-12).
+        own = person.functional_level - (person.pseudo_self or 0.0) - max(0.0, person.adjust_swing)
         weeks.append(Week(state.tick, own, load.get(pid, 0.0), self_directed,
                           tuple(sorted(nodal.get(pid, ()))), kind in state.kinds.soothing))
 

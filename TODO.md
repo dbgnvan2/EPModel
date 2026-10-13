@@ -39,7 +39,7 @@ Deferred and adjacent items. Each carries enough context to act on later without
 - [x] ~~**For the owner: may the estimator read the system's adjustment?**~~ *Decided 2026-10-11 (owner): (a), the
   estimator leaves it out. Built at revision 20 (`M1.A.4k`; `src/bowen/engine/slow_tick.py`;
   `tests/bowen/test_slow_tick.py::test_m1a4k_the_estimator_leaves_out_the_systems_adjustment`).*
-- [ ] **For the owner: `M11.C.17` fails on the revision 20 engine (2026-10-12).** Nobody's basic level rises in ten
+- [x] ~~**For the owner: `M11.C.17` fails on the revision 20 engine (2026-10-12).**~~ *Resolved by revisions 21-23 (2026-10-12): C.17 passes, small (+0.021 ± 0.009). Kept below as the record of how.* Nobody's basic level rises in ten
   years in either arm. Coaching changes behaviour (perspective 0.63, self-directed weeks 0.37 against 0.11), but
   everyone is loaded in nearly every week, functioning falls in both arms (40 → 28–30) and the estimator's evidence
   stays at −11 to −15 (`docs/implementation_plan_phase_d.md`, step 6, the trace). Questions: is C.17's declared load
@@ -64,10 +64,18 @@ Deferred and adjacent items. Each carries enough context to act on later without
   about 6–7 (`docs/implementation_plan_phase_d.md`, step 6). So the stress response never settles and C.17 cannot
   show a rise. Options: read "calm" against each person's usual level; set the bands from the engine's operating point;
   or make the family's traffic carry less anxiety.
-- [ ] **For the owner: should the estimator also add back functioning lent? (traced 2026-10-12)** It leaves out borrowed
+- [x] ~~**For the owner: should the estimator also add back functioning lent? (traced 2026-10-12)**~~ *Decided 2026-10-12: yes; built at spec revision 23. C.17 then passes (+0.021 ± 0.009).* It leaves out borrowed
   functioning (positive pseudo-self, revision 19) but keeps what a person gave way, so its reading sits about 8–9
   points below basic level; leaving out the whole exchange, with its sign, puts the reading at basic level
   (`docs/implementation_plan_phase_d.md`, step 6). The load weighting is not the cause.
+- [ ] **Review of revision 23, minor (2026-10-12):** `functional_level` is clamped at 100 (and at the stress floor) by the
+  stress response, the I-POSITION gain and the system's adjustment, while pseudo-self is not, so a person at a bound
+  can read slightly off basic level in the estimator. The exchange itself clamps its amount and is exact.
+- [ ] **Adjacent, found in the review of revision 23 (2026-10-12), not fixed:** the `M1.A.5c` table says a sustained
+  self-directed rise moves pseudo-self **down** ("converting toward solid"). Nothing implements that; only
+  `initialise_functioning` and `functioning_shift` write pseudo-self. If it is implemented, the signed estimator reading
+  (revision 23) would read each fall in pseudo-self as a rise in own functioning, on top of any rise in
+  `functional_level` itself. Decide the two together.
 - [ ] **Review of revision 20, minor (2026-10-11):** no full-tick test that a calm partner sheds part of the gain in the
   week it arrives (`self_practice` runs before `respond` in `tick.py`; consistent with the rule, not pinned).
 - [ ] **Adjacent, not fixed (review of revision 21, 2026-10-12): two checks are written out more than once.** "Self-directed

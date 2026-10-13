@@ -12,6 +12,10 @@ the log only), B4 (cutoff as rejection, spec revisions 14 and 16: behaviour) and
 and the estimator), spec revisions 17-19 (nodal events, stress response, perspective, soothing review), and revision 20 (the
 system's adjustment settles back; then, 2026-10-12, a level the estimator leaves out), and revision 21
 (holding a position stops the functioning exchange), and revision 22 (calm relative to the person).
+Revision 23 (the estimator reads pseudo-self with its sign) did not move them, and that says nothing about it: the
+phase_c run is 104 weeks and never fills the estimator's 156-week window, and the phase_d run has no nodal events, so
+no one's breadth reaches `estimator_breadth` and no rise is possible under any reading (review 2026-10-12). M1.A.4k's
+reading is pinned by tests/bowen/test_slow_tick.py instead.
 """
 
 from __future__ import annotations

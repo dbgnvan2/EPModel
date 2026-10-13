@@ -237,14 +237,16 @@ last three years of weeks:
   bottom, `M1.A.4d`).
 - **A benign window carries no load, so no evidence.** `basic_level` does not fall in D-I; falls belong with the
   child's estimator in D-II.
-- **What the criteria show (2026-10-12, revision 21; ad hoc runs, not yet a record):** each with three kinds of nodal
-  event.
-  - `M11.C.33`, `M11.C.18` and `M11.C.20` pass. Each fails when the mechanism behind it is removed: the slow-clock
-    dependence gate, the stress response, and the estimator ignoring borrowed functioning. C.20 also reports how much
-    of its borrowed arm's scripted support a held position blocked (about 10%).
-  - `M11.C.17` **does not pass in any way that counts.** Nobody's basic level rises in ten years, coached or not: under
-    the criterion's constant load functioning falls in both arms. Its earlier passes (revisions 19 and 20) were carried
-    by a defect, the system's adjustment stacking.
+- **What the criteria show (2026-10-12, revision 23; ad hoc runs over 150 seeds, not yet a record):** each with three
+  kinds of nodal event.
+  - `M11.C.18` and `M11.C.20` pass, and each fails when the mechanism behind it is removed: the stress response, and
+    the estimator reading borrowed functioning. C.20 also reports how much of its borrowed arm's scripted support a
+    held position blocked (about 10%). `M11.C.33` passes; its own mutation, the slow-clock dependence gate, was not
+    rerun at revision 23.
+  - `M11.C.17` passes, and it is proved by mutation: removing the coach's landed contact turns it red. Coached people
+    rise by +0.021 ± 0.009 points of basic level in ten years, the whole family by +0.006 ± 0.003. The effect is small.
+    Its passes at revisions 19 and 20 were carried by a defect, the system's adjustment stacking; at revisions 21 and 22
+    it did not pass in a way that counted.
 
   Flattening the load weighting leaves C.18 and C.20 passing, so at revision 20 their mutation clauses were restated
   to the mechanisms above (owner decision, 2026-10-11; `docs/implementation_plan_phase_d.md`, step 6).
@@ -275,6 +277,9 @@ last three years of weeks:
   - **The soothing review:** now and then a person asks whether soothing helped, and if not, it loses its appeal.
 - **The estimator reads functioning without what over-functioning borrowed (revision 19).** The owner:
   "Overfunctioning is a dysfunctional behaviour — pseudo-self looks better."
+  - **And with what was given way added back (revision 23).** Pseudo-self is read with its sign: the exchange shifts
+    functional level in both people and leaves basic level alone, so neither the gain borrowed nor the loss lent is the
+    person's own. Leaving out only the gain read the coached people about 9 points below basic level whatever they did.
 - **The earlier limit is closed (revision 18).** Anxiety now moves `functional_level` through the stress response.
   A borrowed gain met with soothing fades, and the estimator no longer reads borrowed functioning.
 

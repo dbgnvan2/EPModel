@@ -4,6 +4,22 @@ All notable changes to this project are recorded here. Dates are ISO.
 
 ## [Unreleased] — 2026-10-11
 
+### Spec revision 23: the estimator reads pseudo-self with its sign (2026-10-12)
+
+- **`M1.A.4k`.** The estimator's history reads `functional_level` less pseudo-self with its sign: what was given way is
+  added back, as what was borrowed was already left out (owner decision). The exchange shifts functional level in both
+  people and leaves basic level alone.
+- **Why.** A trace showed the load weighting barely mattered; leaving out only the borrowed part read the coached
+  people about 9 points below basic level whatever they did (`docs/implementation_plan_phase_d.md`, step 6).
+- **Result (ad hoc, 150 seeds).** **`M11.C.17` passes and is proved by mutation** (CLAUDE.md's bar: removing the
+  landed contact turns it red): coached +0.021 ± 0.009. No minimum meaningful effect is declared, and the effect is
+  small (about 0.02 points of basic level in ten years). In a 20-seed trace, 16 of 40 coached people had risen by year
+  10 against 4 of 40 without a coach. C.33, C.18 and C.20 pass (+0.013 each); C.18 and C.20 each turn red under their
+  own mutation, and C.33's own mutation (the slow-clock dependence gate) was not rerun.
+- **New constants:** none.
+- **Records regenerated:** no Phase C verdict moved. The golden fingerprints did not move; those runs do not exercise
+  the estimator (see `tests/bowen/test_engine_golden.py`). Suite: 661 tests.
+
 ### Spec revision 22: calm is relative to the person (2026-10-12)
 
 - **`M1.A.5e`, `M1.E.7`.** Loaded and calm are read against each person's usual level: their excess anxiety averaged

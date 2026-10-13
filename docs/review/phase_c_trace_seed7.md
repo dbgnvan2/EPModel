@@ -13,7 +13,7 @@
 |---|---|
 | seed | 7 |
 | config hash | `3e895a1915a8e75160508ece7fde73ba590d6c0db33fbb0430394ce3dbae15f1` |
-| spec revision | 2.0, revision 22 |
+| spec revision | 2.0, revision 23 |
 | family instance | phase_c |
 | activation | synchronous_activation v1 (synchronous) |
 | visibility | household_conductance_visibility v1 |

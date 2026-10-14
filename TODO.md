@@ -36,7 +36,7 @@ Plan §4.8 holds the evidence.
 - [ ] **`life_run`'s `acts_per_year` divides by the full run for a child who dies before `projection_until_age`**,
   and `_pick` drops a child with no load at the ages read without counting it (learning-qa, low). Neither happens with
   the reference family over 40 years.
-- [ ] **Owner: can an external agent receive a dead person's bound stocks?** `M6.3b` gives an external agent no share
+- [x] ~~**Owner: can an external agent receive a dead person's bound stocks?**~~ *Decided 2026-10-14: yes ("okay"); spec `M6.3c` says so.* `M6.3b` gives an external agent no share
   of the dead person's acute anxiety, but `M6.3c` sends a symptom's bound stock to its partners on interactive ties and
   discharges a triangle to all its living members, an external agent among them (found 2026-10-14, re-sweep of the
   revision 29 fixes; `test_m63b_no_share_to_an_external_agent` now isolates `M6.3b`). The code follows the spec as

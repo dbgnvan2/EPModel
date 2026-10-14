@@ -1405,6 +1405,86 @@ about 25 minutes (100 seeds, two arms, 40 years). Total about 3 hours, plus the 
 (0 completions against 3 in 192 seeds, within chance). Steering is switched off there by a declared override; the
 statistics rest on a handful of completions (TODO).
 
+### 4.9 After revision 29: why `M11.C.10` still fails, and what comes next — 2026-10-14
+
+> **Status: diagnosis done (ad hoc); the proposals below await the owner's decisions. No code until approved.**
+
+**Diagnosis of `M11.C.10`** (ad hoc, 20 seeds per arm, 40 years; script outside the repo, not a record):
+
+| | Baseline (held open) | Treatment (cutoff held) |
+|---|---|---|
+| Readout: cut-off tie-weeks, mean (sd) | 8,580 (925) | 8,550 (865) |
+| … generation 3 rejecting their own parents | 4,671 | 4,681 |
+| … rejecting their own children | 1,457 | 1,428 |
+| … partners and partners' kin | 1,163 | 1,181 |
+| Generation 3's own `CUTOFF` acts per run | 871 | 902 |
+| Witnessed-cutoff learning updates per run (rows written) | 9,389 | 11,027 |
+| Children's mean learned `CUTOFF` value, years 10 / 20 / 40 | −0.66 / −0.63 / −0.24 | −0.42 / −0.90 / −0.30 |
+
+Paired difference, treatment − baseline: −31 (sd 1,179).
+
+1. **The treatment is a small addition to a large stream.** The children witness the family's own cutoffs throughout
+   the run: about 9,400 learning updates without the treatment. The held cutoff adds about 1,600, roughly a sixth more.
+2. **What the children learn from witnessing is against cutoff, in both arms.** The family functions worse after a
+   cutoff, so `M4.D.6f` lowers the value (−0.2 to −0.9). The extra witnessing pushes the treatment the wrong way for
+   `M11.C.10`, which is the reversal the plan named as a risk.
+3. **The learned value is not what drives how often the children cut off.** Their values are negative, yet they make
+   about 900 cutoffs a run, a few more in the treatment (902 against 871). Cutoff follows load and the reconnection
+   pull more than learning.
+4. **The reactive cost reaches the children weakly.** It raises the cutter's anxiety (about +1 point of excess over
+   5 years, §8.2 of the explainer), and a child's chronic anxiety integrates the family's load only until 12.
+   Leo, Nadia and Pia are 9, 4 and 1 at `t0`.
+5. **The readout is mostly noise for this question.** More than half of it is generation 3 rejecting their own
+   parents, at about the same level in both arms, with a run-to-run sd near 900. At 100 seeds the test can see about
+   ±200 tie-weeks; at 400 seeds about ±115.
+
+In short: the model has no path by which a parent's cutoff makes a child more likely to cut off. Witnessing teaches the
+opposite, and the cost path ends when the child turns 12. The corpus's mechanism is `M1.D.8`: the degree of cutoff in
+the family of origin raises the intensity of the next generation's relationships. That is not built as a direct input.
+
+**Options for `M11.C.10`** (the owner decides; none is built):
+- **(a) Build `M1.D.8`'s input.** The degree of cutoff a person grew up with, read from the rejection their parents
+  held over their childhood, raises their intensity (`[I]` gain). It is a starting condition, not a written outcome:
+  how much cutoff follows is still left to the run. *Recommended.*
+- **(b) A stronger treatment:** the parents cut off from their own parents (generation 1), the family-of-origin
+  cutoff Bowen describes, instead of Ravi from his brother.
+- **(c) A readout of generation 3's own families only** (their partners and children), leaving out their rejection of
+  their parents, which is half the readout's noise. This changes the criterion after seeing it fail, so it needs the
+  owner's reason, not mine.
+- **(d) More seeds** (400). This narrows the test but cannot make a missing mechanism appear.
+
+**Point 4, a self-chosen principled cutoff.** The owner (2026-10-14): "refusing contact with a person that is abusive
+or is a serious threat (criminal, drug addict) where contact is very risky for one's safety." The engine has no notion
+of physical danger; `M5.F.1`'s "assault" is an intrusive move, not violence. Proposed (spec revision 30):
+- **`danger`**, a person field from 0 to 1, declared in the family config (optional, like `weakness`). The engine
+  never infers it.
+- **Contact with a dangerous person costs safety:** each accepted move from them adds `danger_gain` × `danger` to the
+  recipient's acute anxiety (`[I]`), logged as a `M6.4` source. Cutting them off removes the cost at once, so learning
+  that cutoff relieves follows from the run, not from a rule.
+- **A cutoff toward a dangerous person is principled in proportion:** the reactive cost and the "too little" term are
+  multiplied by (1 − `danger`). At `danger` 1 it is fully principled, at 0 fully reactive. This replaces the
+  config-only `principled_cutoffs` key as the way a person chooses it; the declared key stays for a cutoff made before
+  `t0`.
+- Tests: an adversarial pair (the same cutoff toward a dangerous and a safe person); the cost of contact; learning
+  that follows; the reference families declare no danger, so no record moves.
+
+**Point 5, the open items to complete.** From TODO, in order:
+
+| # | Item | Kind |
+|---|---|---|
+| 1 | `M11.C.10`: option (a), (b), (c) or (d) | owner decision, then build |
+| 2 | Point 4: `danger` and the self-chosen principled cutoff | build after approval |
+| 3 | `M11.C.17` (coaching) flipped to FAIL at revision 29: diagnose | diagnosis |
+| 4 | `M11.C.6` and the ±2% band | owner decision (open since 2026-10-13) |
+| 5 | `I-POSITION` tests: raise the triad seeds so they run with steering on | build |
+| 6 | A scripted act toward a dead target labelled "dead", not "not legal" | build |
+| 7 | Range checks on the revision 28 life-course constants | build |
+| 8 | `acts_per_year` for a child who dies young; `_pick` counting the children it drops | build |
+| 9 | Focus steering's size (`focus_steer_gain` 1.0 has no measurable effect in Phase C) | owner decision |
+| 10 | Part II owner points: Marta–Iris, Teodor's level 36, `M11.C.17`'s gate, the plan §4.5 defaults | owner decisions |
+
+Items 5 to 8 change the engine hash, so they are batched with 1 and 2 before one regeneration.
+
 ## 5. Build order (D-I)
 
 1. **The owner decides** P1–P12 and P17 (one session; I bring drafts for P4, P7, P9 and P12).

@@ -1283,6 +1283,12 @@ change to `state.life` alone changes it, so the `M16.T.3` re-run would see a sin
 > relationship for example). Child load is by age, chronic Anxiety builds overchildhood. Parents anxious focus CAN get
 > set on one child e.g. child has some real or percieved weakness."
 > The forms are Claude's recommendation, pending owner review.
+>
+> **Owner's answers on the defaults, 2026-10-13:** the gains okay; "no child named, it just evolves"; the other four
+> situations not at `t0`, okay; "Principled cutoff should teach that this is good action (it's functioning up)";
+> "Premise of witness cutoff is wrong. It depends on what the witness sees happen to the cutoff person and others"; the
+> mutation rule okay; "builds over childhood - correct". `M4.D.6f` was rewritten to learn from what follows a
+> witnessed cutoff, and the table below records each answer.
 
 **What changes in every run, and what does not.**
 - **Every run:** `M1.B.3d`'s reactive rise, `M4.D.6f`'s learning, `M1.B.8a`'s perceived weakness and `M4.D.1g`'s
@@ -1297,7 +1303,7 @@ change to `state.life` alone changes it, so the `M16.T.3` re-run would see a sin
 |---|---|---|---|
 | **R1** | Chronic anxiety as the mean of every observed childhood year | `M7.B.1a` | `test_m7b1a_chronic_integrates_every_childhood_year` (adversarial: a child with a hard early childhood and a calm year at 11 ends higher than a child calm throughout); `test_m7b1a_a_child_present_at_t0_counts_from_t0` |
 | **R2** | Reactive and principled cutoff: a `cutoff_kind` tie column (default reactive); the weekly reactive rise as a logged `M6.4` source; no rise and no "too little" deviation on a principled tie | `M1.B.3d` | `test_m1b3d_reactive_cutoff_raises_the_cutters_anxiety`; `test_m1b3d_a_less_differentiated_cutter_pays_more`; `test_m1b3d_principled_cutoff_raises_nothing_and_feels_no_loss`; `test_m1b3d_a_policy_cutoff_is_always_reactive`; `test_m1b3d_only_the_declared_member_is_exempt`; `test_m64_reactive_cutoff_rise_is_logged_by_name` (`M6.4`'s table, amended); `test_m4c1c_no_too_little_term_on_a_principled_cutters_tie` |
-| **R3** | Learning from a witnessed reactive cutoff, weighted by the bond to the cutter | `M4.D.6f` | `test_m4d6f_a_witnessed_cutoff_raises_the_witness_cutoff_value`; `test_m4d6f_a_closer_tie_to_the_cutter_teaches_more`; `test_m4d6f_a_principled_cutoff_teaches_nothing`; `test_m4d6f_a_child_at_home_witnesses_a_parents_cutoff` (the visibility check below) |
+| **R3** | Learning from what follows a witnessed cutoff: a record per witness, read `witness_window` weeks later, weighted by the witness's bond to each person | `M4.D.6f` | `test_m4d6f_a_family_that_functions_better_after_a_cutoff_teaches_cutoff`; `test_m4d6f_a_family_that_functions_worse_teaches_against_it` (adversarial: the same witnessed cutoff, opposite outcomes, opposite learning); `test_m4d6f_a_principled_cutoff_that_lets_the_cutter_function_up_teaches_it_is_good`; `test_m4d6f_closer_ties_weigh_more`; `test_m4d6f_the_kind_is_not_read`; `test_m4d6f_a_child_at_home_witnesses_a_parents_cutoff` (the visibility check below) |
 | **R4** | A child's declared `weakness`; perceived weakness while a parent is anxious; `M7.E.1c`'s situations at `t0` | `M1.B.8a`, `M7.E.1c` | `test_m1b8a_a_declared_weakness_adds_focus_at_t0`; `test_m1b8a_perceived_weakness_adds_focus_only_while_anxious`; `test_m1b8a_equal_children_get_equal_focus` (adversarial: no child is named); `test_m7e1c_a_declared_weakness_applies_at_t0`; `test_m1b8a_an_only_child_gains_no_perceived_focus` |
 | **R5** | Focus steers the automatic channel's targets | `M4.D.1g` | `test_m4d1g_focus_raises_the_chance_an_act_lands_on_that_tie`; `test_m4d1g_the_self_channel_is_not_steered`; `test_m4d1g_withdrawing_kinds_are_not_steered` (adversarial: a cut tie with high investment draws no extra `CUTOFF`); `test_m1b8a_focus_raises_the_focused_childs_load` (the loop closes only with `M4.D.1g` on); golden runs re-recorded here, once |
 | **R6** | The criteria: `M11.C.10` with a held cutoff, an open baseline and a tie-state readout; `M11.C.2` on the twelve-person family read by age | `M11.C.10`, `M11.C.2` | `test_m11c10_the_treatment_holds_the_cutoff_and_the_baseline_holds_it_open`; `test_m11c10_reads_cut_off_tie_weeks`; `test_m11c2_twelve_reads_load_by_age`. The mutations run ad hoc and are reported in this plan, as in part I |
@@ -1309,7 +1315,7 @@ change to `state.life` alone changes it, so the `M16.T.3` re-run would see a sin
 
 | Criterion | Arms | Readout | Mutation that must turn it red |
 |---|---|---|---|
-| `M11.C.10` (composite, with a premise path: `M4.D.6f` raises the propensity it reads) | treatment: the Ravi–Dario cutoff held for the run, renewed by a scripted reactive `CUTOFF` every `renew_every` weeks (a setting shorter than the fade below the refusal threshold); baseline: the tie ordinary and held open for the run | cut-off tie-weeks held by generation 3 and the children born to them in the run | `M4.D.6f` and `M1.B.3d`'s reactive rise both removed; each alone reported |
+| `M11.C.10` (composite) | treatment: the Ravi–Dario cutoff held for the run, renewed by a scripted reactive `CUTOFF` every `renew_every` weeks (a setting shorter than the fade below the refusal threshold); baseline: the tie ordinary and held open for the run | cut-off tie-weeks held by generation 3 and the children born to them in the run | `M4.D.6f` and `M1.B.3d`'s reactive rise both removed; each alone reported |
 | `M11.C.2` (twelve-person family) | as now: the child who received the most projection-type acts against the one who received the fewest | acts counted per year under `projection_until_age` (20); load as the mean over ages `load_from_age` to `load_to_age` (20 to 30) | the witness path (`M1.F.5`); and `M1.B.8a` with `M4.D.1g` removed |
 
 `M11.C.6` and `M11.C.15` are rerun unchanged in the regeneration. `M11.C.6` reads chronic anxiety's new form through
@@ -1323,29 +1329,33 @@ development.
   stays equal between equal children. After R5, the Phase C family's acts per tie are compared before and after, and
   any shift is reported.
 - **Every Phase C and part I verdict may move** (above). If one flips, it is reported, not tuned.
-- **`M11.C.16` is partly given from here.** `M4.D.6f` promotes `CUTOFF` drift, which `M11.C.16` reads. Its verdict after
-  the regeneration is reported with that caveat.
+- **`M11.C.10` may come out reversed.** A held reactive cutoff costs the cutter (`M1.B.3d`), and if the family functions
+  worse after each renewal, the children learn against cutoff. That would be a finding about the forms, reported as
+  such.
 - **`renew_every` sets how often the children witness a cutoff.** The `M11.C.10` effect through `M4.D.6f` scales with
   it, so its value is stated with the result.
+- **A child who learns that cutoff is good learns `CUTOFF`, which is reactive when they select it.** Only a declared
+  cutoff is principled. The spec states the gap (`M4.D.6f`).
 
 **What the owner still decides, and the defaults built meanwhile.**
 
 | Point | Default built unless the owner says otherwise |
 |---|---|
-| `reactive_cutoff_gain`, and scaling it by immaturity, (100 − `basic_level`) ÷ 100 | 0.1 a week at full rejection, scaled (`[I]`); the excess it adds over a year of held cutoff is measured at R2 and reported |
-| Does a principled cutoff teach a witnessing child? | no |
-| Toward whom does a witnessed cutoff raise the witness's `CUTOFF` value? | toward everyone the witness holds a tie to |
-| `witnessed_cutoff_gain`, `perceived_weakness_gain`, `focus_steer_gain` | 0.05, 0.01, 1.0 (`[I]`); each effect is measured at its step and reported |
+| `reactive_cutoff_gain`, and scaling it by immaturity, (100 − `basic_level`) ÷ 100 | *Accepted by the owner:* 0.1 a week at full rejection, scaled (`[I]`); the excess it adds over a year of held cutoff is measured at R2 and reported |
+| Does a principled cutoff teach a witnessing child? | *Decided by the owner:* yes, "that this is good action (it's functioning up)". `M4.D.6f` reads what follows, so it teaches through the cutter functioning up |
+| What a witness learns from (`M4.D.6f`) | *Decided by the owner:* "what the witness sees happen to the cutoff person and others". Built as the change in functional level of the cutter, the person cut off and the others the witness is tied to, over `witness_window` (13 weeks, `[I]`), weighted by the witness's bond to each. Functioning is read as it is, not through belief |
+| Toward whom the learned `CUTOFF` value moves | everyone the witness holds a tie to |
+| `witnessed_cutoff_gain`, `perceived_weakness_gain`, `focus_steer_gain` | *Accepted by the owner:* 0.05 (per point of functional change), 0.01, 1.0 (`[I]`); each effect is measured at its step and reported |
 | `M11.C.10`'s baseline | the tie held open for the run, rather than left to the run |
-| `M11.C.10`'s mutation | both paths removed must turn it red; each alone reported |
-| A declared weakness in the reference family | none: focus must come from perceived weakness. The owner may name a child and a size |
+| `M11.C.10`'s mutation | *Accepted by the owner:* both paths removed must turn it red; each alone reported |
+| A declared weakness in the reference family | *Decided by the owner:* none, "it just evolves" |
 | Perceived weakness reads the children's true functioning, not a parent's belief (`M9`) | true functioning |
 | `M11.C.2`'s ages | projection under 20; load over ages 20 to 30 |
-| `M7.E.1c`'s other four situations (firstborn, firstborn of a sex, high stress, last-born) at `t0` | not applied: no history before `t0` is declared. Applying them would raise the initial focus on Leo and Pia |
+| `M7.E.1c`'s other four situations (firstborn, firstborn of a sex, high stress, last-born) at `t0` | *Accepted by the owner:* not applied: no history before `t0` is declared. Applying them would raise the initial focus on Leo and Pia |
 | Who holds a principled cutoff | one named member of a tie; the other still feels the cut |
 | Every policy-selected `CUTOFF` is reactive | yes |
 | Which acts focus steers (`M4.D.1g`) | the `projection` row of `config/bowen/pattern_acts.md` (`OVERFUNCTION`, `PURSUE`, `TRIANGLE`); withdrawing kinds are not steered |
-| Chronic anxiety "builds over childhood" | the mean of the yearly loads over childhood, not a running sum: a sum would rise with the years observed, so a child present at `t0` aged 9 would get less than one born in the run |
+| Chronic anxiety "builds over childhood" | *Confirmed by the owner:* the mean of the yearly loads over childhood, not a running sum: a sum would rise with the years observed, so a child present at `t0` aged 9 would get less than one born in the run |
 | `renew_every` | 13 weeks (four renewals a year), shorter than the fade below the refusal threshold; checked at R6 |
 
 **Compute.** One full regeneration took about 1 hour 50 minutes on 10 cores (twice today). Each `M11.C.10` mutant is

@@ -1,6 +1,6 @@
 # Implementation plan — Phase D
 
-> **Status: approved by the owner, 2026-10-10 ("Proceed"), with the decisions in §1a.** P9 decided 2026-10-11; P13–P16 answered 2026-10-13 (§1b), with two P15 points still open. **Part II planned 2026-10-13 (§4) and approved by the owner the same day ("approved"); L0–L9 built 2026-10-13; L10's criteria built and run: `M11.C.37` and, after the owner's decision on its arms, `M11.C.15` pass; `M11.C.6`, `.10` and `.2` fail (§4.7). Spec revision 29 and its plan (§4.8) drafted 2026-10-13 after the owner's decisions on `.10` and `.2`, approved by the owner ("i approve proceed") and built 2026-10-14: `M11.C.2` on the twelve-person family now passes; `.10` and `.6` still fail (§4.8).** **Built:** B1 and B2 (2026-10-10/11); B3 and B4 (2026-10-11, spec revision 16); B5 and B6 (2026-10-11); B7, B8 and B9 and part of step 10 (2026-10-12, spec revisions 24–27, Claude's recommendation pending owner review: the owner asked for the work to proceed overnight without waiting for input).
+> **Status: approved by the owner, 2026-10-10 ("Proceed"), with the decisions in §1a.** P9 decided 2026-10-11; P13–P16 answered 2026-10-13 (§1b), with two P15 points still open. **Part II planned 2026-10-13 (§4) and approved by the owner the same day ("approved"); L0–L9 built 2026-10-13; L10's criteria built and run: `M11.C.37` and, after the owner's decision on its arms, `M11.C.15` pass; `M11.C.6`, `.10` and `.2` fail (§4.7). Spec revision 29 and its plan (§4.8) drafted 2026-10-13 after the owner's decisions on `.10` and `.2`, approved by the owner ("i approve proceed") and built 2026-10-14: `M11.C.2` on the twelve-person family now passes; `.10` and `.6` still fail (§4.8). §4.9 diagnoses `.10`; revision 30's plan (§4.10) is drafted, awaiting approval.** **Built:** B1 and B2 (2026-10-10/11); B3 and B4 (2026-10-11, spec revision 16); B5 and B6 (2026-10-11); B7, B8 and B9 and part of step 10 (2026-10-12, spec revisions 24–27, Claude's recommendation pending owner review: the owner asked for the work to proceed overnight without waiting for input).
 > Spec: `docs/bowen_agent_model_spec_v2.md`, revision 13. Phase C closed with its gate failing (owner decision,
 > `docs/phase_c_completion_report.md` §13). Spec IDs are used verbatim. The inventories behind this plan were made on
 > 2026-10-10 from the spec, `src/bowen`, `TODO.md` and the Phase C documents; their findings are cited where used.
@@ -1484,6 +1484,68 @@ of physical danger; `M5.F.1`'s "assault" is an intrusive move, not violence. Pro
 | 10 | Part II owner points: Marta–Iris, Teodor's level 36, `M11.C.17`'s gate, the plan §4.5 defaults | owner decisions |
 
 Items 5 to 8 change the engine hash, so they are batched with 1 and 2 before one regeneration.
+
+### 4.10 Revision 30: origin cutoff, danger, and focus that locks in — plan, 2026-10-14
+
+> **Status: drafted 2026-10-14, awaiting the owner's approval. No code until approved.** The spec text is written in
+> the build's first step and committed with the code. The forms are Claude's recommendation, pending owner review.
+
+**The owner's decisions (2026-10-14), quoted.**
+- `M11.C.10`: "a parent cutting off represents a lower level of differentiation and a higher level of intensity in a
+  system. Both of these should bear on the children to lower their level of functioning and increase their tendency
+  to fuse (pursuit a lot). a) yes b) that's a different arm c) It applies to one's partner's and parents, less to
+  one's children. d) seeds are expensive - 200 instead."
+- Danger: "Agreed - Agents, like people, can becoming demanding to the point of being abusive, either because of
+  tremendous stress or low level of differentiation. this might need a seed with a low level of differentiation and
+  higher stressors."
+- Focus: "In a family focus can get stuck onto mainly one child, once it starts, it tends to grow."
+- `M6.3c`: "okay" (recorded in the spec, 2026-10-14).
+
+**Measured before planning** (ad hoc, 20 seeds, the twelve-person family's first 20 years). The top child's share of
+the parents' projection-type acts rises from 0.41 to 0.50 with steering off and from 0.40 to 0.54 with it on. Over
+the same years the top child's share of the parents' *attention* falls from 0.62 to 0.47. Part of the rise in acts is
+mechanical: Leo leaves home at year 11. So focus does not lock in now. Attention grows only from what a parent
+appraises on a tie (`M1.B.8`), not from the parent's own anxious acts, so nothing closes the loop.
+
+**What is built.**
+
+| Step | What | Spec (new or amended) | Tests (each name carries the spec ID) |
+|---|---|---|---|
+| **S1** | **Origin cutoff as an input** (`M1.D.8`, option a). For each child, the *origin cutoff* is the mean, over the weeks from birth (or `t0`) to `development_end_age` (20), of the largest rejection either living parent holds on any tie. At 20 it sets two inputs for the rest of their life: chronic anxiety rises by `origin_cutoff_anxiety_gain` × origin cutoff (intensity), and the person's contact optimum on every tie is multiplied by 1 + `origin_fusion_gain` × origin cutoff (fusion). Functioning falls through the added load, as for any load, and pursuit follows from the larger "too little" gap; neither is written. | `M1.D.8a` (new) | `test_m1d8a_a_child_of_a_cutting_off_parent_carries_more_chronic_anxiety`; `test_m1d8a_and_seeks_more_closeness` (adversarial: the same family with the parent's rejection at zero gives neither); `test_m1d8a_read_from_the_parents_held_rejection_not_from_a_label`; `test_m1d8a_set_once_at_twenty` |
+| **S2** | **`M11.C.10`'s readout and seeds** (options c, d). The readout becomes the tie-weeks on which generation 3 hold rejection toward their partner or their own parents. Rejection of their own children is reported, not tested. Seeds: 200, a per-criterion setting. | `M11.C.10` amended | `test_m11c10_reads_rejection_toward_partners_and_parents`; `test_m11c10_runs_200_seeds` |
+| **S3** | **"A different arm"** (option b, as read): a second variant, `M11.C.10[family of origin]`, in which both parents' cutoffs from their own parents are held for the run, against the same ties held open. Reported with its own verdict. | `M11.C.10` amended | `test_m11c10_family_of_origin_arm_holds_both_parents_cutoffs` |
+| **S4** | **Danger, declared or read from behaviour** (`M1.B.3e`, new). A person's *felt danger* from another is a slow average (`danger_window` weeks) of the impingement they receive from that person above `danger_threshold`, scaled 0 to 1. A declared `danger` (family config, optional) sets a floor. A demanding, intrusive person is a low-level or heavily stressed one by the existing mechanisms, so danger emerges from stress and level; nothing names an abuser. Accepted contact from that person costs `danger_gain` × felt danger in acute anxiety (an `M6.4` source). A cutoff toward them is principled in proportion: `M1.B.3d`'s reactive cost and `M4.C.1c`'s "too little" term are multiplied by (1 − felt danger). | `M1.B.3e` (new), `M1.B.3d` amended | `test_m1b3e_felt_danger_rises_with_sustained_intrusion`; `test_m1b3e_contact_with_a_dangerous_person_costs_the_recipient`; `test_m1b3e_a_cutoff_toward_danger_is_principled_in_proportion` (adversarial: the same cutoff toward a safe person pays in full); `test_m1b3e_danger_is_never_named` |
+| **S5** | **The danger fixture** (the owner's "seed"): a small family in `config/bowen/fixtures/` with one person at a low level under repeated stressors, and its matched arm at a higher level with fewer stressors. Acceptance direction: felt danger toward that person, and principled cutoff of them, are higher in the low-level, stressed arm. A premise check: it confirms the code, not a finding. | `M11.C.47` (new, premise) | `test_m11c47_low_level_and_stress_breed_danger` (ensemble); its mutation: the impingement read removed |
+| **S6** | **Focus that locks in** (`M1.B.8b`, new). Each projection-type act a person sends adds `focus_reinforce_gain` × the act's intensity ÷ `intensity_scale` to their investment on that tie. With `M4.D.1g`'s steering this closes the loop: attention brings acts, and acts bring attention. Noise decides which child it settles on; no child is named. | `M1.B.8b` (new) | `test_m1b8b_a_projection_act_adds_to_the_senders_attention`; `test_m1b8b_focus_concentrates_and_grows` (ensemble, measured among the children still at home so leaving home is not counted); `test_m1b8b_no_child_is_favoured_across_seeds` (adversarial: each child is the focus in some seeds) |
+| **S7** | **The batch fixes** (plan §4.9, items 5–8): `I-POSITION`'s triad seeds raised until the tests pass with steering on; a scripted act toward a dead target labelled "dead"; range checks on the revision 28 constants; `acts_per_year` for a child who dies young, and `_pick` counting what it drops. Also diagnose `M11.C.17`'s flip (a report, no code). | — | each with its own test |
+| **S8** | One regeneration, the mutations (`M11.C.10`: `M1.D.8a` removed must turn it red, and each of its two inputs alone is reported; `M11.C.2`: `M1.B.8b` removed is reported), the documents, one `learning-qa` pass and one correctness pass, the report | — | the records' staleness tests |
+
+**Order.** S1 → S2 → S3 → S4 → S5 → S6 → S7 → S8. S1, S4, S6 and S7 change every run, so the regeneration waits.
+
+**Defaults built unless the owner says otherwise** (all `[I]`):
+
+| Point | Default |
+|---|---|
+| Origin cutoff window | birth (or `t0`) to 20, the years at home |
+| `origin_cutoff_anxiety_gain`, `origin_fusion_gain` | 10 points of chronic anxiety and +50% optimum at an origin cutoff of 1; measured at S1 and reported |
+| Generation 2 at `t0` | origin cutoff 0 unless declared (optional family metadata), since their childhood is not simulated |
+| `M11.C.10`'s readout: "one's partner's and parents" | read as the person's partner and the person's own parents. If it meant the partner's parents too, they are added |
+| "That's a different arm" | read as a second variant reported alongside, not a replacement. If it meant "not this criterion", S3 is dropped |
+| `danger_window`, `danger_threshold`, `danger_gain` | 26 weeks; the impingement of a `CONFLICT` at policy intensity; 2 points per accepted move at danger 1 |
+| `focus_reinforce_gain` | sized at S6 so that, with no other change, the top child's attention share grows over the years at home; reported |
+
+**Risks.**
+- S1 and S6 change every life-course run, so `M11.C.2`, `M11.C.6` and `M11.C.15` may move. They are reported, not
+  tuned.
+- S6 could lock focus in every family too hard, or onto a child for no reason the run shows. The adversarial test
+  checks that no child is favoured across seeds.
+- S4 adds a source of anxiety to every run in which someone is intrusive enough. The reference families declare no
+  danger, so any change comes from behaviour, and it is reported.
+- `M11.C.10` may still fail. S1 is the corpus's mechanism, so a failure would be a finding about the sizes or the run
+  length.
+
+**Compute.** One regeneration (about 2 hours). `M11.C.10` at 200 seeds is about 1 hour per variant, two variants.
+Its mutations at 200 seeds, three runs, about 3 hours. About 7 hours of runs in all, plus the build.
 
 ## 5. Build order (D-I)
 

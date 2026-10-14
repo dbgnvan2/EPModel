@@ -50,8 +50,9 @@ results are in git history. Revision 29 moved two other verdicts: `M11.C.44` FAI
      follows each child's age.
    - Each needs a design decision.
 4. **A child's development**: the `M7.E.1f` rule (built), or the estimator bounded to the band.
-5. Still open from part I: Marta–Iris, Teodor's level (36 built), and `M11.C.17`'s gate.
-6. The defaults built in plan §4.5, each `[I]`: launch age 20, a Gompertz mortality with a median near 80, the partner
+5. *Settled (corrected 2026-10-14):* Marta–Iris ordinary, Teodor 36, `M11.C.17`'s gate an active symptom, under the owner's
+   "proceed with your own recommendations" and approval of plan §4 on 2026-10-13. They were listed as open in error.
+6. *Settled the same way:* the defaults built in plan §4.5, each `[I]`: launch age 20, a Gompertz mortality with a median near 80, the partner
    rows, grief 20, income loss 15, working age 16, and a female successor coach.
 7. **No setting in the app yet.** Starting ages are config settings (`M2.A.0j`), but the fam-diag app was not touched;
    exposing them there is deferred.

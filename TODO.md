@@ -55,8 +55,12 @@ Plan §4.7 and `docs/phase_d2_status_2026-10-13.md` hold the evidence.
   (death +1.25 ± 0.38) and its mutation turns it red (ad hoc, plan §4.7).*
 - [ ] **Owner: the ±2% band against `M11.C.6`'s traversal limit (a)**, and development as `M7.E.1f`'s rule against
   the estimator bounded to the band. `M11.C.6` measured +0.018 ± 0.028 under a band of about ±0.8 points.
-- [ ] **Owner: still open.** Marta–Iris; Teodor's level 36; the `M11.C.17` gate; launch age, mortality, the partner
-  rows, the sizes of grief, income loss and working age, and the successor coach's sex (plan §4.5 defaults, all `[I]`).
+- [x] ~~**Owner: still open.** Marta–Iris; Teodor's level 36; the `M11.C.17` gate; the plan §4.5 defaults.~~
+  *Settled, corrected 2026-10-14:* the owner said on 2026-10-13 "proceed with your own recommendations" and approved
+  plan §4 ("approved"), whose §4.5 lists each default as built unless the owner says otherwise. They stand: Marta–Iris
+  ordinary, Teodor 36, the `M11.C.17` gate an active symptom, launch at 20, Gompertz mortality, the partner rows as
+  drafted, grief 20, income loss 15, working age 16, a female successor coach. This entry was carried as open in
+  error. The owner can still change any of them.
 - [x] ~~**Diagnose `M11.C.10` and `M11.C.2` on the twelve-person family.**~~ *Done 2026-10-13, ad hoc (plan §4.7).*
 - [ ] **Owner: `M11.C.10`.** The declared cutoff ends within about 2 years, and the uncut baseline is cut within weeks,
   so the arms run the same process. Witnessed-cutoff learning and origin cutoff as an input to intensity (`M1.D.8`)

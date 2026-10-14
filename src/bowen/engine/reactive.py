@@ -121,3 +121,40 @@ def update_attention_state(
     if detectors:
         records.append(EffectRecord(state.tick, "reactive_state", None, people=tuple(detectors)))
     return records
+
+
+def weakness_focus(state: RunState, load: dict, params: EngineParams) -> list[EffectRecord]:
+    """Purpose: step 9 — an anxious parent's attention grows toward a dependent child who shows a weakness.
+    Spec:    docs/bowen_agent_model_spec_v2.md#M1.B.8a
+    Tests:   tests/bowen/test_cutoff_and_focus.py::test_m1b8a_perceived_weakness_adds_focus_only_while_anxious
+
+    For each family, each living parent whose load at selection is above their usual level adds to their investment on
+    the tie to each dependent child: ``perceived_weakness_gain × load above usual ÷ 100 × shortfall``, [I]. The
+    shortfall is how far the child's functional level is below their dependent siblings' mean (none for an only child),
+    plus the child's declared ``weakness`` × 100. No child is named: it is what the children show (revision 29).
+    """
+    from src.bowen.engine.stress_response import above_usual  # stress_response imports this module's neighbours
+
+    rows = []
+    for family in state.families():
+        if family.marital_tie is None:
+            continue
+        parents = [p for p in family.marital_tie.members() if state.people[p].alive]
+        children = sorted({m for t in family.parent_child_ties for m in t.members()} - set(family.marital_tie.members()))
+        children = [c for c in children if state.people[c].alive and state.people[c].financially_dependent]
+        for parent in parents:
+            pressure = max(0.0, above_usual(state.people[parent], load.get(parent, 0.0)))
+            if pressure <= 0.0:
+                continue
+            for child in children:
+                tie = state.ties.get(TieId.of(parent, child))
+                if tie is None:
+                    continue
+                others = [state.people[c].functional_level for c in children if c != child]
+                shortfall = max(0.0, sum(others) / len(others) - state.people[child].functional_level) if others else 0.0
+                shortfall += state.people[child].weakness * SCALE_MAX
+                gain = params.perceived_weakness_gain * pressure / SCALE_MAX * shortfall
+                if gain > 0.0:
+                    tie.investment[parent] = tie.investment.get(parent, 0.0) + gain
+                    rows.append((tie.id, f"investment:{parent}", gain))
+    return [EffectRecord(state.tick, "weakness_focus", None, ties=tuple(rows))] if rows else []

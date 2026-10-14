@@ -168,4 +168,9 @@
 | `new_tie_investment_share` | — | 0.2 | 2026-10-13 | — (new mechanism; spec revision 28, the life course, plan part II) | no |
 | `birth_focus_gain` | — | 0.1 | 2026-10-13 | — (new mechanism; spec revision 28, the life course, plan part II) | no |
 | `death_transfer_share` | — | 1.0 | 2026-10-13 | — (new mechanism; spec revision 28, the life course, plan part II) | no |
+| `reactive_cutoff_gain` | — | 0.1 | 2026-10-14 | — (new mechanism; spec revision 29, plan §4.8; owner-accepted default) | no |
+| `witnessed_cutoff_gain` | — | 0.05 | 2026-10-14 | — (new mechanism; spec revision 29, plan §4.8; owner-accepted default) | no |
+| `witness_window` | — | 13 | 2026-10-14 | — (new mechanism; spec revision 29, plan §4.8) | no |
+| `perceived_weakness_gain` | — | 0.01 | 2026-10-14 | — (new mechanism; spec revision 29, plan §4.8; owner-accepted default) | no |
+| `focus_steer_gain` | — | 1.0 | 2026-10-14 | — (new mechanism; spec revision 29, plan §4.8; owner-accepted default) | no |
 | `lock_in_turn` | — | 3.0 | 2026-10-12 | — (new mechanism; spec revision 24, B7, Claude's recommendation pending owner review: lock-in's turn) | no |

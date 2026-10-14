@@ -104,11 +104,12 @@ REQUIRED = {
     "M11.C.36": ("weeks", "act_every", "believed_tension"),
     "M11.C.14": ("weeks", "act_every", "start_severity"),
     # Phase D step 9, projection (B9, spec revision 26).
-    "M11.C.2": ("weeks", "years"),  # years: the twelve-person family's run (part II, spec revision 28)
+    # years: the twelve-person family's run (part II, spec revision 28); the three ages read it by age (revision 29)
+    "M11.C.2": ("weeks", "years", "projection_until_age", "load_from_age", "load_to_age"),
     # Phase D part II, the life course (spec revision 28).
     "M11.C.15": ("severity", "change_week", "after"),
     "M11.C.6": ("years",),
-    "M11.C.10": ("years",),
+    "M11.C.10": ("years", "renew_every"),  # renew_every: the held cutoff's renewal (spec revision 29)
     # Phase D step 10, criteria on existing mechanisms.
     "M11.C.39": ("spell_weeks", "after", "quiet", "every", "intensity"),
     "M11.C.40": ("weeks", "window"),
@@ -314,14 +315,20 @@ def bookkeeping(records) -> tuple[Counter, Counter, Counter]:
     return moves, fallbacks, selections
 
 
-def result(readouts, records) -> ArmResult:
+def scripted_bookkeeping(records) -> tuple[Counter, Counter, Counter]:
+    """``bookkeeping`` plus, when the last scenario forced acts, how many it scripted and what became of each (made,
+    or skipped and why), so a skipped scripted act is never silent."""
     moves, fallbacks, selections = bookkeeping(records)
     source = getattr(scenario, "last_source", None)
     if source is not None and source.forced:
         for status, n in source.outcomes(records).items():
             moves[f"(scripted act: {status})"] += n
         moves["(scripted acts)"] += len(source.forced)
-    return ArmResult(readouts, moves, fallbacks, selections)
+    return moves, fallbacks, selections
+
+
+def result(readouts, records) -> ArmResult:
+    return ArmResult(readouts, *scripted_bookkeeping(records))
 
 
 def lowered(by: float):

@@ -69,7 +69,9 @@ from src.bowen.engine.draws import DrawKey, DrawService
 from src.bowen.engine.events import EventKinds
 from src.bowen.engine.identifiers import PersonId, TieId
 from src.bowen.engine.log_records import DecidedBy
-from src.bowen.engine.observe import SCALE_MAX, Observation
+from src.bowen.engine.observe import (
+    INSIDE, OUTSIDE, PROJECTION_KINDS, SCALE_MAX, Observation, band_of, learned_value_key,
+)
 from src.bowen.engine.params import EngineParams
 from src.bowen.policy.rules import PolicyRules
 
@@ -103,9 +105,7 @@ class Decision:
 
 
 def band(obs: Observation, params: EngineParams) -> str:
-    if obs.acute_excess < params.anxiety_band_low:
-        return "low"
-    return "mid" if obs.acute_excess < params.anxiety_band_high else "high"
+    return band_of(obs.acute_excess, params)
 
 
 def triangle_position(obs: Observation, params: EngineParams) -> tuple[str, tuple[tuple[str, float], ...]]:
@@ -130,14 +130,14 @@ def triangle_position(obs: Observation, params: EngineParams) -> tuple[str, tupl
         used.append((f"{pair}.contact", believed))
         if believed > params.interactive_resting_contact:
             outside = True
-    return ("outside" if outside else "inside"), tuple(used)
+    return (OUTSIDE if outside else INSIDE), tuple(used)
 
 
 def value_key(obs: Observation, kind: str, target: PersonId, params: EngineParams, position: str | None = None) -> str:
     about = obs.triangle_for.get(target) if kind == TRIANGLE else None
     where = "/".join(m.value for m in about.members) if about is not None else target.value
     position = position if position is not None else triangle_position(obs, params)[0]
-    return f"{band(obs, params)}|{position}|{kind}|{where}"
+    return learned_value_key(band(obs, params), position, kind, where)
 
 
 def legal_outcomes(obs: Observation, kinds: EventKinds, params: EngineParams,
@@ -238,14 +238,47 @@ def channel_weights(outcomes: list[Outcome], obs: Observation, kinds: EventKinds
     # and away from underflow when learned values grow large (Phase C step 14). A non-finite value still
     # reaches the fallback.
     top = max(values) if values and all(math.isfinite(v) for v in values) else 0.0
+    base = []
     for o in outcomes:
         if o.channel == AUTOMATIC:
             value = obs.learned_values.get(o.value_key, 0.0)
             weight = math.exp((value - top) / params.policy_temperature) * availability(o.kind, obs, kinds, params)
         else:
             weight = self_score(o, obs) ** (1.0 / params.policy_temperature) * _loaded_gate(o, obs, params)
-        weights.append(weight * (steer(o.kind, obs, kinds, params) if steered else 1.0))
-    return weights
+        base.append(weight)
+    if not steered:
+        return base
+    focused = focus(outcomes, base, obs, params)
+    return [w * steer(o.kind, obs, kinds, params) * f for o, w, f in zip(outcomes, base, focused)]
+
+
+def focus(outcomes: list[Outcome], weights: list[float], obs: Observation, params: EngineParams) -> list[float]:
+    """Purpose: a parent's focus steers whom projection-type acts land on, not how often they happen (revision 29).
+    Spec:    docs/bowen_agent_model_spec_v2.md#M4.D.1g
+    Tests:   tests/bowen/test_cutoff_and_focus.py::test_m4d1g_focus_raises_the_chance_an_act_lands_on_that_tie,
+             tests/bowen/test_cutoff_and_focus.py::test_m4d1g_focus_does_not_raise_how_often_a_kind_is_chosen
+
+    One factor per outcome, given the unsteered ``weights``. For an automatic outcome of a kind in the child-projection
+    set it is ``1 + focus_steer_gain × investment share`` on the tie to the target, rescaled so the kind's total weight
+    is unchanged (review 2026-10-14: as first built, focus also raised the kind's total weight). 1 for every other
+    outcome, withdrawing kinds and the self channel included. Like perspective's steering it bears on what is chosen
+    only, not on competing urges.
+    """
+    raw = []
+    for o in outcomes:
+        if o.channel != AUTOMATIC or o.kind not in PROJECTION_KINDS or o.target is None:
+            raw.append(None)
+            continue
+        view = obs.tie_to(o.target)
+        raw.append(1.0 + params.focus_steer_gain * (view.investment_share if view is not None else 0.0))
+    total: dict[str, float] = {}
+    steered: dict[str, float] = {}
+    for o, w, r in zip(outcomes, weights, raw):
+        if r is not None:
+            total[o.kind] = total.get(o.kind, 0.0) + w
+            steered[o.kind] = steered.get(o.kind, 0.0) + w * r
+    return [1.0 if r is None or steered[o.kind] <= 0 else r * total[o.kind] / steered[o.kind]
+            for o, r in zip(outcomes, raw)]
 
 
 def steer(kind: str, obs: Observation, kinds: EventKinds, params: EngineParams) -> float:

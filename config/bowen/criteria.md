@@ -16,7 +16,10 @@
 > recommendation pending owner review): `M11.C.15`'s mother carries a symptom held at `severity` (as `M11.C.12`'s)
 > until `change_week`, when she dies or recovers, and the others are read for `after` weeks. Grief and lost income are
 > off in every arm; `M6.3b`'s transfer stays at 1 (owner decision 2026-10-13); `M11.C.6`, `M11.C.10`
-> and the twelve-person `M11.C.2` run the reference family for `years`.
+> and the twelve-person `M11.C.2` run the reference family for `years`. *Revision 29 (2026-10-14):*
+> `M11.C.10`'s cutoff is renewed every `renew_every` weeks in the treatment and held open in the baseline; `M11.C.2`
+> on the twelve-person family counts projection-type acts per year under `projection_until_age` and reads load over
+> ages `load_from_age` to `load_to_age`.
 >
 > **Phase D, 2026-10-11** (`src/bowen/ensemble/criteria_d.py`; the estimator's criteria, spec revision 17):
 > * `nodal` — the declared nodal load: one event every `every` weeks to each named person, cycling through the three
@@ -147,11 +150,15 @@
 | M11.C.14 | start_severity | 1.2 |
 | M11.C.2 | weeks | 520 |
 | M11.C.2 | years | 40 |
+| M11.C.2 | projection_until_age | 20 |
+| M11.C.2 | load_from_age | 20 |
+| M11.C.2 | load_to_age | 30 |
 | M11.C.15 | severity | 1.5 |
 | M11.C.15 | change_week | 52 |
 | M11.C.15 | after | 52 |
 | M11.C.6 | years | 40 |
 | M11.C.10 | years | 40 |
+| M11.C.10 | renew_every | 13 |
 | M11.C.39 | spell_weeks | 26 |
 | M11.C.39 | after | 52 |
 | M11.C.39 | quiet | 8 |

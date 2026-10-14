@@ -116,7 +116,10 @@ def test_m16a7_header_flags_constants_changed_after_freeze():
                                         "income_shortfall_share", "mortality_a", "mortality_b",
                                         "budget_per_undifferentiation", "coach_start_age_years",
                                         "coach_retirement_age_years", "new_tie_investment_share", "birth_focus_gain",
-                                        "death_transfer_share"}
+                                        "death_transfer_share",
+                                        # spec revision 29, cutoff and focus (plan §4.8)
+                                        "reactive_cutoff_gain", "witnessed_cutoff_gain", "witness_window",
+                                        "perceived_weakness_gain", "focus_steer_gain"}
     changed = dataclasses.replace(
         constants,
         values=MappingProxyType({**constants.values,

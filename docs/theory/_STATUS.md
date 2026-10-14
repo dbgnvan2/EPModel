@@ -2,7 +2,7 @@
 
 > ## ▶ STATE — the corpus is closed and the spec is current. **Phase C is closed with its gate failing (owner decision, 2026-10-09).**
 >
-> **2026-10-13 — spec revision 29 (570 unique IDs, 46 acceptance criteria), drafted, not built:** the owner's
+> **2026-10-14 — spec revision 29 (570 unique IDs, 46 acceptance criteria), built** (plan §4.8, approved by the owner): the owner's
 > decisions after the `M11.C.10` and `M11.C.2` diagnosis (plan §4.7, §4.8): `M11.C.10` holds the cutoff and reads tie
 > states; learning from a witnessed cutoff (`M4.D.6f`); reactive and principled cutoff as a placeholder (`M1.B.3d`);
 > chronic anxiety built over childhood (`M7.B.1a`); focus on a child's real or perceived weakness (`M1.B.8a`, `M7.E.1c`)

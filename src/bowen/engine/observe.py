@@ -31,14 +31,17 @@ from dataclasses import dataclass
 from types import MappingProxyType
 from typing import Mapping
 
-from src.bowen.engine.contact import deviation, excess
+from src.bowen.engine.contact import band_of, deviation, excess  # band_of re-exported for the policy
 from src.bowen.engine.events import Role as DeliveryRole
 from src.bowen.engine.identifiers import PersonId, TieId, TriangleId
 from src.bowen.engine.moves import triangle_partner
 from src.bowen.engine.objects import SCALE_MAX, Role, TieState  # SCALE_MAX re-exported for the policy
 from src.bowen.engine.outside_ness import axes
 from src.bowen.engine.params import EngineParams
+from src.bowen.engine.reactive import investment_share
+from src.bowen.engine.sinks import PROJECTION_KINDS  # re-exported for the policy (M4.D.1g)
 from src.bowen.engine.state import RunState
+from src.bowen.engine.value_keys import INSIDE, OUTSIDE, learned_value_key  # re-exported for the policy
 
 
 @dataclass(frozen=True)
@@ -52,6 +55,7 @@ class TieView:
     deviation: float          # the person's own deviation on the tie (M4.C.1)
     other_alive: bool
     other_external: bool
+    investment_share: float = 0.0  # M1.B.8: the share of the person's attention this tie holds (M4.D.1g, revision 29)
 
 
 @dataclass(frozen=True)
@@ -100,6 +104,7 @@ def observe(state: RunState, person: PersonId, params: EngineParams) -> Observat
             other=other, live=tie.interactive, cut_off=cut or not tie.interactive, severed=cut,
             deviation=deviation(me, tie, params),
             other_alive=state.people[other].alive, other_external=state.people[other].role is Role.EXTERNAL,
+            investment_share=investment_share(state, person, tie.id),
         ))
     triangle_for = {}
     for view in ties:

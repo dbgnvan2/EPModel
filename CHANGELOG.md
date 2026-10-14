@@ -4,6 +4,27 @@ All notable changes to this project are recorded here. Dates are ISO.
 
 ## [Unreleased] — 2026-10-11
 
+### Spec revision 29 built: cutoff and focus (2026-10-14)
+
+- Built plan §4.8, R1–R7: reactive and principled cutoff (`M1.B.3d`), learning from what follows a witnessed cutoff
+  (`M4.D.6f`), chronic anxiety as the mean of the childhood years (`M7.B.1a`), focus on a child's real or perceived
+  weakness (`M1.B.8a`), focus steering projection-type acts (`M4.D.1g`), `M11.C.10` with a held cutoff and a tie-week
+  readout, and `M11.C.2` read by age. Five new `[I]` constants; two optional family-config keys (`principled_cutoffs`,
+  `weaknesses`).
+- Review fixes, each with a test: a declared weakness acts only through an anxious parent; the principled kind ends with
+  the declared rejection; focus keeps each projection kind's total weight; one learned-value key format
+  (`src/bowen/engine/value_keys.py`); range checks on the new constants; skipped scripted renewals counted.
+- Records regenerated (code hash `eeef3517…`):
+  - `M11.C.2` on the twelve-person family now **passes**: +1.31 ± 0.95 (p 0.005). Mutations (ad hoc): the witness path off +0.27 ± 0.75, `M1.B.8a` with `M4.D.1g` off +0.45 ± 0.99; neither interval excludes zero.
+  - `M11.C.10` still **fails**: −63.1 ± 200 (p 0.71). Removing `M4.D.6f`, the reactive rise, or both, moves nothing
+    detectable (ad hoc, 100 seeds each).
+  - `M11.C.6` fails (+0.030 ± 0.024); `M11.C.15` passes (death +1.34 ± 0.40).
+  - Elsewhere: `M11.C.44` FAIL → PASS, `M11.C.17` PASS → FAIL. No mutation proof lost.
+- `I-POSITION`'s ensemble tests run with focus steering off by a declared override (TODO: they rest on about three
+  completions). Two part II tests tightened (`M6.3b`, `M6.3e`).
+- Suite: 812 tests. Spec, plan §4.8, explainer §8.1–8.2, the part II status report, constants docs, criteria config,
+  README, `_STATUS.md`, CLAUDE.md and TODO updated.
+
 ### Spec revision 29 (570 numbered requirements, 46 acceptance criteria): cutoff and focus, drafted (2026-10-13)
 
 - Applies the owner's decisions after the diagnosis:

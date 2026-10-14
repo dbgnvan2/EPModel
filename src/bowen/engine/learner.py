@@ -46,14 +46,16 @@ from __future__ import annotations
 from dataclasses import dataclass
 
 from src.bowen.engine.act import Selection
+from src.bowen.engine.contact import anxiety_band
 from src.bowen.engine.draws import DrawKey
-from src.bowen.engine.events import EventId, Mechanism
+from src.bowen.engine.events import EventId, Mechanism, Role as DeliveryRole
 from src.bowen.engine.identifiers import PersonId
 from src.bowen.engine.log_records import DecidedBy, EffectRecord
-from src.bowen.engine.objects import SCALE_MAX
+from src.bowen.engine.objects import SCALE_MAX, Role
 from src.bowen.engine.params import EngineParams
 from src.bowen.engine.recompute import TRIANGLE_KIND
 from src.bowen.engine.state import RunState
+from src.bowen.engine.value_keys import POSITIONS, act_of, learned_value_key
 
 
 @dataclass
@@ -173,13 +175,81 @@ def soothing_review(state: RunState, params: EngineParams) -> list[EffectRecord]
             continue  # soothing helped, or there was none to judge
         for key in sorted(person.learned_values):
             value = person.learned_values[key]
-            if value > 0 and _act_of(key) in state.kinds.soothing:
+            if value > 0 and act_of(key) in state.kinds.soothing:
                 person.learned_values[key] = value * (1.0 - params.soothing_review_penalty)
                 rows.append((pid, f"learned_value[{key}]", person.learned_values[key] - value))
     return [EffectRecord(state.tick, "soothing_review", None, people=tuple(rows))] if rows else []
 
 
-def _act_of(key: str) -> str:
-    """The act a learned-value key names: keys read ``band|position|act|where`` (policy.value_key)."""
-    _band, _position, act, _where = key.split("|")
-    return act
+# --- M4.D.6f, revision 29: learning from what follows a witnessed cutoff -----------------------------------------
+
+CUTOFF_KIND = "CUTOFF"  # M5.A.1 fixes the repertoire, so the name is the spec's, not editorial content
+
+
+@dataclass
+class Witnessed:
+    """A cutoff one person witnessed, with how well each of their family was functioning then."""
+
+    witness: PersonId
+    tick: int
+    then: tuple[tuple[PersonId, float], ...]
+
+
+def _family_ties(state: RunState, pid: PersonId):
+    """The witness's ties to living family members (an external agent is excluded)."""
+    for tie in state.ties_of(pid):
+        other = state.people[tie.id.other(pid)]
+        if other.alive and other.role is Role.MEMBER:
+            yield other.id, tie
+
+
+def note_witnessed_cutoffs(state: RunState, deliveries) -> None:
+    """Purpose: step 2 — a person delivered a CUTOFF as a witness keeps a record of how their family was functioning.
+    Spec:    docs/bowen_agent_model_spec_v2.md#M4.D.6f
+    Tests:   tests/bowen/test_cutoff_and_focus.py::test_m4d6f_a_family_that_functions_better_after_a_cutoff_teaches_cutoff
+    """
+    for delivery in deliveries:
+        if delivery.role is not DeliveryRole.WITNESS or state.store.event(delivery.event_id).kind != CUTOFF_KIND:
+            continue
+        witness = state.people[delivery.recipient]
+        if not witness.alive or witness.role is not Role.MEMBER:
+            continue
+        then = tuple((pid, state.people[pid].functional_level) for pid, _ in _family_ties(state, witness.id))
+        state.witnessed.append(Witnessed(witness.id, state.tick, then))
+
+
+def learn_from_witnessed(state: RunState, params: EngineParams) -> list[EffectRecord]:
+    """Purpose: step 9 — ``witness_window`` weeks on, the witness learns from what followed a cutoff, not from the act.
+    Spec:    docs/bowen_agent_model_spec_v2.md#M4.D.6f
+    Tests:   tests/bowen/test_cutoff_and_focus.py::test_m4d6f_a_family_that_functions_worse_teaches_against_it
+
+    The change seen is the bond-weighted mean change in functional level of the family the witness is tied to: the
+    cutter, the person cut off and the others, read as it is (not through belief). Every learned value of ``CUTOFF``
+    in the witness's current band, in both positions, toward each family member they are tied to, takes a step of
+    ``witnessed_cutoff_gain`` toward it, the form of `M4.D.6a`'s update, so it stays bounded. The kind of cutoff is not
+    read: one that lets the cutter function up teaches that cutoff is good (the owner, 2026-10-13).
+    """
+    due = [w for w in state.witnessed if state.tick - w.tick >= params.witness_window]
+    if not due:
+        return []
+    state.witnessed = [w for w in state.witnessed if state.tick - w.tick < params.witness_window]
+    rows = []
+    for record in due:
+        person = state.people[record.witness]
+        if not person.alive:
+            continue
+        now = dict(_family_ties(state, record.witness))
+        weights = {pid: now[pid].bond_energy for pid, _ in record.then if pid in now}
+        total = sum(weights.values())
+        if total <= 0:
+            continue
+        seen = sum(weights[pid] / total * (state.people[pid].functional_level - level)
+                   for pid, level in record.then if pid in weights)
+        band_now = anxiety_band(person, params)
+        for other in sorted(now):
+            for position in POSITIONS:
+                key = learned_value_key(band_now, position, CUTOFF_KIND, other.value)
+                value = person.learned_values.get(key, 0.0)
+                person.learned_values[key] = value + params.witnessed_cutoff_gain * (seen - value)
+                rows.append((record.witness, f"learned_value[{key}]", person.learned_values[key] - value))
+    return [EffectRecord(state.tick, "witnessed_cutoff", None, people=tuple(rows))] if rows else []

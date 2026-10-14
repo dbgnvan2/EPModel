@@ -137,6 +137,7 @@ def parse_sectioned_document(
     sections: dict[str, tuple[str, ...]],
     metadata_keys: frozenset[str],
     source: str,
+    optional_keys: frozenset[str] = frozenset(),
 ) -> SectionedDocument:
     """Purpose: parse a document whose ``## name`` sections each hold exactly one table.
     Spec:    docs/bowen_agent_model_spec_v2.md#M10.B.2
@@ -144,7 +145,7 @@ def parse_sectioned_document(
 
     The preamble before the first section may hold headings, notes and the
     declared metadata, but no table. Every declared section must appear once;
-    an undeclared section raises.
+    an undeclared section raises. ``optional_keys`` may appear and need not (spec revision 29).
     """
     lines = text.splitlines()
     starts = [i for i, line in enumerate(lines) if line.startswith("## ")]
@@ -161,7 +162,7 @@ def parse_sectioned_document(
         if match is None:
             raise ConfigError(f"{where}: unrecognised line: {raw!r}")
         key, value = match.groups()
-        if key not in metadata_keys:
+        if key not in metadata_keys | optional_keys:
             raise ConfigError(f"{where}: unknown metadata key {key!r}")
         if key in metadata:
             raise ConfigError(f"{where}: duplicate metadata key {key!r}")

@@ -92,7 +92,7 @@ def deviation_at(person: Person, tie: Relationship, params: EngineParams, contac
     Spec:    docs/bowen_agent_model_spec_v2.md#M4.C.1
     Tests:   tests/bowen/test_contact.py::test_m4c1_deviation_counts_on_both_sides
     """
-    little = max(0.0, optimum(person, tie, params) - contact - band(person, params))
+    little = 0.0 if feels_no_loss(person, tie) else max(0.0, optimum(person, tie, params) - contact - band(person, params))
     much = max(0.0, impingement - band(person, params))
     return little + much
 
@@ -105,8 +105,18 @@ def too_little(person: Person, tie: Relationship, params: EngineParams, spike: f
     A TRIGGER re-opens the tie's absence in proportion to how much the tie matters:
     the spike adds ``spike × optimum`` (M4.A.2), [I].
     """
+    if feels_no_loss(person, tie):
+        return 0.0
     gap = optimum(person, tie, params) - felt_contact(person, tie) - band(person, params)
     return max(0.0, gap) + spike * optimum(person, tie, params)
+
+
+def feels_no_loss(person: Person, tie: Relationship) -> bool:
+    """Purpose: whether this person holds a principled cutoff on this tie, and so feels no "too little" side on it.
+    Spec:    docs/bowen_agent_model_spec_v2.md#M1.B.3d, #M4.C.1c
+    Tests:   tests/bowen/test_cutoff_and_focus.py::test_m4c1c_no_too_little_term_on_a_principled_cutters_tie
+    """
+    return person.id in tie.principled and tie.rejection.get(person.id, 0.0) > 0.0
 
 
 def too_much(person: Person, tie: Relationship, params: EngineParams) -> float:
@@ -166,3 +176,17 @@ def relax_contact(people: dict[PersonId, Person], ties: dict, params: EnginePara
             if shed:
                 changes.append((tie_id, "felt_impingement", member, -shed))
     return changes
+
+
+def anxiety_band(person: Person, params: EngineParams) -> str:
+    """Purpose: the anxiety band a person's learned values are keyed by (`M4.D.3`): low, mid or high excess.
+    Spec:    docs/bowen_agent_model_spec_v2.md#M4.D.3, #M4.D.6f
+    Tests:   tests/bowen/test_cutoff_and_focus.py::test_m4d6f_a_family_that_functions_better_after_a_cutoff_teaches_cutoff
+    """
+    return band_of(excess(person), params)
+
+
+def band_of(acute_excess: float, params: EngineParams) -> str:
+    if acute_excess < params.anxiety_band_low:
+        return "low"
+    return "mid" if acute_excess < params.anxiety_band_high else "high"

@@ -191,12 +191,14 @@ class Person:
     alive: bool = True
     # Spec revision 28 (Phase D part II, Claude's recommendation pending owner review). ``age_years`` is advanced on
     # the slow tick (M7.C.1f); None means the run does not track ages, and the person acts from the start. ``earner``:
-    # the person is a source of household income (M6.3h), declared in config and set by FIND_WORK (M5.B.7).
+    # the person is a source of household income (M6.3h), declared in config and set by FIND_WORK (M7.C.1k).
     # ``inactive``: present in the field but selecting no act — a retired coach (M2.A.0k) or a partner's
     # family-of-origin holder (M7.C.1h, in M2.3's bond-energy-only form).
     age_years: int | None = None
     earner: bool = False
     inactive: bool = False
+    # M1.B.8a, revision 29: a child's real weakness, 0 to 1, declared in config only; 0 for everyone else.
+    weakness: float = 0.0
 
     def __post_init__(self) -> None:
         _check_scale("basic_level", self.basic_level)
@@ -241,6 +243,10 @@ class Relationship:
     rejection: dict[PersonId, float] = field(default_factory=dict)
     # M1.B.3c: the state a cutoff replaced (ordinary or distant), restored when no rejection is left.
     uncut_state: TieState = TieState.ORDINARY
+    # M1.B.3d, revision 29: the members whose cutoff on this tie is principled (for safety), declared in config only.
+    # Every other held rejection is reactive. A holder leaves it when their declared rejection fades to zero or their
+    # own policy cuts off on the tie (``rejection.end_principled``).
+    principled: tuple[PersonId, ...] = ()
     functioning_balance: dict[str, float] = field(default_factory=dict)
     # M1.B.6, L05.3: the hardened configuration a flipped balance reverts toward unless sustained.
     functioning_habit: dict[str, float] = field(default_factory=dict)

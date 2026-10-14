@@ -60,6 +60,8 @@ class RunState:
     adjusted: dict = field(default_factory=dict)  # revision 19: (actor, other) -> the week the other last adjusted
     # Revision 21 (M1.B.5): (actor, other) -> the week of the actor's last self-directed act or hold toward the other.
     stances: dict = field(default_factory=dict)
+    # Revision 29 (M4.D.6f): witnessed cutoffs awaiting the reading of what followed them (learner.Witnessed).
+    witnessed: list = field(default_factory=list)
     tick: int = 0
     draws: DrawService = field(default_factory=lambda: DrawService(0))
     # M1.A.4k (Phase D plan B6): each person's last estimator_window slow ticks of weeks (slow_tick.Week).

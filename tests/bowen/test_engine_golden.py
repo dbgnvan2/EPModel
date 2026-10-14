@@ -21,7 +21,11 @@ family's focus, belief in the witness's appraisal, the marital-distance gate, th
 borrowed pseudo-self settling back; behaviour). Moved 2026-10-13 by spec revision 28 (Phase D part II, plan step L1:
 the phase_d family now carries its life course — the owner's starting ages, the children's derived values, the coach
 tied to the coachee only — so its run changed; behaviour). The phase_c fingerprint did not move: a run with no life
-course is unchanged by part II.
+course is unchanged by part II. Moved 2026-10-14 by spec revision 29 (plan §4.8: a reactive cutoff's cost, learning
+from what follows a witnessed cutoff, focus on a child's weakness and focus steering projection-type acts, and, in
+phase_d, chronic anxiety built over childhood; behaviour, both runs), and again the same day by the review fixes
+(focus steering made a redistribution among a kind's targets that keeps the kind's total weight; behaviour, both
+runs). The phase_b run is scripted and did not move.
 """
 
 from __future__ import annotations
@@ -42,8 +46,8 @@ from src.bowen.scenario.scripted_source import ScriptedSource
 REPO = Path(__file__).resolve().parents[2]
 GOLDEN = {
     # (family, seed, weeks): fingerprint
-    ("phase_c", 7, 104): "61787089648f79bab229711b614af1cb8d89af801ce98fab4152179f4854af2d",
-    ("phase_d", 11, 208): "9da734a291dfbbb97167edf3868bf4a556390e84dfc95a9f57619de1e126146f",
+    ("phase_c", 7, 104): "aaf44a5570c911c552de7ffbd6ae6bdc0d3733f5cd1f867e6605b3d92e9b15ea",
+    ("phase_d", 11, 208): "db068e0017c34270a38e33afb33ad2093d34aed2d31bc66a93f87abd90e34e7e",
 }
 
 

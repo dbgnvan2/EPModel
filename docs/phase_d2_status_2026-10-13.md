@@ -1,4 +1,4 @@
-# Phase D, part II (the life course): status, 2026-10-13
+# Phase D, part II (the life course): status, 2026-10-13, updated 2026-10-14 for spec revision 29
 
 > **Status: a report, not an approval.** The owner approved the part II plan on 2026-10-13. The forms in spec revision 28
 > are Claude's recommendation, pending owner review. Every verdict below comes from the generated record,
@@ -26,13 +26,14 @@
 | Criterion | Status | Result (treatment − baseline) | Proved by its mutation |
 |---|---|---|---|
 | `M11.C.37` | done | conserved across a death | yes: `test_m11c37_mutation_discarding_the_dead_persons_anxiety_turns_it_red` |
-| `M11.C.15` | done, after the owner's decision on its arms (transfer kept, share 1) | death +1.25 ± 0.38 (p 2.1e-08); recovery +3.11 ± 0.35 (p 8.2e-18) | yes, ad hoc: the bound anxiety discarded at the death gives death −2.03 ± 0.29 (plan §4.7) |
-| `M11.C.6` | not done: fails | +0.0177 ± 0.028 (p 0.894) | — |
-| `M11.C.10` | not done: fails | −12.6 ± 28 (p 0.795) | — |
-| `M11.C.2` (twelve-person family) | not done: fails | −0.13 ± 1.6 (p 0.456) | — |
+| `M11.C.15` | done, after the owner's decision on its arms (transfer kept, share 1) | death +1.34 ± 0.40 (p 1.3e-08); recovery +3.37 ± 0.29 (p 2.04e-18) | yes, ad hoc: the bound anxiety discarded at the death gives death −2.03 ± 0.29 (plan §4.7, before revision 29) |
+| `M11.C.6` | not done: fails | +0.0301 ± 0.024 (p 0.98) | — |
+| `M11.C.10` (revision 29: held cutoff, tie-weeks) | not done: fails | −63.1 ± 200 (p 0.71) | the mutations move nothing detectable (plan §4.8) |
+| `M11.C.2` (twelve-person family; revision 29: by age) | done: passes | +1.31 ± 0.95 (p 0.005) | ad hoc: the witness path off gives +0.27 ± 0.75, and `M1.B.8a` with `M4.D.1g` off +0.45 ± 0.99; neither excludes zero (plan §4.8) |
 
-Phase C and part I verdicts did not change: all three regenerations moved only hashes and header lines. Suite: 766
-tests pass; 45 ensemble-marked tests are deselected.
+Results above are from the regeneration of 2026-10-14 (spec revision 29, code hash `eeef3517…`); the 2026-10-13
+results are in git history. Revision 29 moved two other verdicts: `M11.C.44` FAIL → PASS and `M11.C.17` PASS → FAIL
+(plan §4.8). Suite: 812 tests pass; 45 ensemble-marked tests are deselected.
 
 ## For the owner
 
@@ -40,7 +41,9 @@ tests pass; 45 ensemble-marked tests are deselected.
    failed with the share at 0 (death +0.21, p 0.135) and passes at 1.
 2. **The ±2% band against `M11.C.6`.** At this band the effect `M11.C.6` looks for is at most about 0.8 points, and the
    test cannot separate it from noise. Which one changes: the band, the criterion, or neither?
-3. **`M11.C.10` and `M11.C.2` (diagnosed, plan §4.7).**
+3. **`M11.C.10` and `M11.C.2` (diagnosed, plan §4.7; revision 29 built, plan §4.8).** `M11.C.2` now passes read by
+   age. `M11.C.10` still fails with the cutoff held; neither witnessed-cutoff learning nor the reactive cost moves its
+   readout detectably. What it was before revision 29:
    - `M11.C.10`'s arms do not stay apart: the declared cutoff ends within about 2 years, and the baseline's tie is cut
      within weeks. Two links of its chain have no mechanism.
    - `M11.C.2`'s parents spread projection evenly over the children, and nothing carries it to later load, which

@@ -77,6 +77,7 @@ from src.bowen.engine.outside_ness import axes, efficacy
 from src.bowen.engine.params import EngineParams
 from src.bowen.engine.sinks import reduce_budget
 from src.bowen.engine.state import RunState
+from src.bowen.engine.value_keys import act_and_where
 
 PREPARE, DEFINE, OPPOSITION, ABORT, HOLD, PEAK, RESOLVE, FOLLOW_UP = (
     "PREPARE", "DEFINE", "OPPOSITION", "ABORT", "HOLD", "PEAK", "RESOLVE", "FOLLOW_UP",
@@ -335,7 +336,7 @@ def _abort_act(state: RunState, mover: PersonId, target: PersonId, params: Engin
     learned = state.people[mover].learned_values
     weights = []
     for kind in ABORT_ACTS:
-        values = [v for k, v in learned.items() if k.endswith(f"|{kind}|{target.value}")]
+        values = [v for k, v in learned.items() if act_and_where(k) == (kind, target.value)]
         mean = sum(values) / len(values) if values else 0.0
         weights.append(math.exp(mean / params.policy_temperature))
     key = DrawKey.make("move_selection", tick=state.tick, actor=mover, purpose="abort", index=0)

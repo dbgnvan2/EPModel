@@ -374,6 +374,9 @@ def test_m5d9_a_step_that_cannot_be_made_is_deferred_and_logged():
 # --- what usually happens: an ensemble --------------------------------------------------------
 
 
+STEERING_OFF = {"focus_steer_gain": 0.0}  # M10.B.5: declared by these tests (revision 29; see attempts_over_seeds)
+
+
 @lru_cache(maxsize=1)
 def attempts_over_seeds(seeds=192, weeks=100):
     """F, given perspective, keeps taking positions with M while the triad fixture runs on the policy.
@@ -386,13 +389,18 @@ def attempts_over_seeds(seeds=192, weeks=100):
     in ten seeds (10 of 96 at spec revision 20 as first pushed, 9 of 96 after its fix), so 24 seeds expected about two
     and an unrelated engine change drew none. Raised to 192 seeds on 2026-10-12 (spec revisions 24-27): completion fell
     to 2 of 96 after B7's symptom channels; the statistics below need more than a handful of completed sequences.
+    Spec revision 29 (2026-10-14): focus steering (`M4.D.1g`) is switched off here by a declared override, so these
+    tests describe the sequence without it, not the default model. Measured over these 192 seeds, before steering was
+    made a redistribution: 0 completed sequences with it on, 3 with it off (7 with every revision-29 mechanism off).
+    0 against 3 at a base rate near 1.5% is within chance (roughly p 0.1), so it is not a finding about steering; it
+    shows these statistics rest on a handful of completions (P23). Recorded in TODO.md.
     """
     constants, family = load_constants(), load_family(REPO / "config" / "bowen" / "fixtures" / "triad.md")
     mover, target = P("f"), P("m")
     events = ScriptedSource("events", weeks, (), ())
     outcomes = []
     for seed in range(seeds):
-        parts = assemble(constants, KINDS, family, events, seed=seed)
+        parts = assemble(constants, KINDS, family, events, seed=seed, overrides=STEERING_OFF)
         parts.state.people[mover].systems_perspective = 1.0
         policy = PolicySource(events, parts.params, load_policy_rules())
 

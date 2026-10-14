@@ -5,16 +5,16 @@ seeds (`M3.D.4a`), stopped adaptively (`M17.A.1`, `M13.4`): `UNDETERMINED` at th
 pass. Every verdict carries its class (`M11.5`). **A premise passing confirms that the code renders the
 spec; it is not a finding about families.** Spec revision 28 applies the owner's life-course decisions of 2026-10-13; its forms are Claude's recommendation, pending owner review.
 
-code_hash: 4dbf3f0f0fbbccda703c2d93ecb8dede21b3ed9a37dad759e62087b2fc562eab
+code_hash: eeef351782a5c228f7f93ec42b54973dea242182173fd23bb4a192f1d74d7d0b
 
 Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25, `ensemble_margin` = 0.1, `ensemble_alpha` = 0.05, `fallback_flag_rate` = 0.2, `equivalence_margin` = 0.5.
 
 | Criterion | Class | Verdict | Seeds | Readouts (difference treatment − baseline; ± half-width; p after Holm where tested) | Scripted acts not made, of all scripted (why) | Fallback rate | Flags |
 |---|---|---|---|---|---|---|---|
-| `M11.C.15` | composite | **PASS** | 100 | `death_rise` +1.25 ± 0.38, p 2.13e-08, holds; `recovery_rise` +3.11 ± 0.35, p 8.19e-18, holds | — | 0.00 | — |
-| `M11.C.6` | composite | **FAIL** | 50 | `development` +0.0177 ± 0.028, p 0.894, does not hold | — | 0.00 | — |
-| `M11.C.10` | composite | **FAIL** | 100 | `cutoff_acts` -12.6 ± 28, p 0.795, does not hold | — | 0.00 | — |
-| `M11.C.2` | composite | **FAIL** | 150 | `symptom_load` -0.13 ± 1.6, p 0.456, does not hold | — | 0.00 | — |
+| `M11.C.15` | composite | **PASS** | 100 | `death_rise` +1.34 ± 0.4, p 1.3e-08, holds; `recovery_rise` +3.37 ± 0.29, p 2.04e-18, holds | — | 0.00 | — |
+| `M11.C.6` | composite | **FAIL** | 100 | `development` +0.0301 ± 0.024, p 0.98, does not hold | — | 0.00 | — |
+| `M11.C.10` | composite | **FAIL** | 100 | `cut_off_tie_weeks` -63.1 ± 2e+02, p 0.713, does not hold | treatment 1866 of 16000 (983 not legal, 22 owed a step, 860 dead, 1 rewritten) | 0.00 | — |
+| `M11.C.2` | composite | **PASS** | 150 | `symptom_load` +1.31 ± 0.95, p 0.00503, holds | — | 0.00 | — |
 
 ## Not run as an ensemble in part II
 
@@ -23,7 +23,7 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
 ## Fallback rate by person (`M11.D.18`)
 
 - `M11.C.15`: c1 0.00, c2 0.00, f 0.00
-- `M11.C.6`: halim_successor 0.05, halim 0.03, iris 0.02
+- `M11.C.6`: halim_successor 0.05, halim 0.03, dario 0.02
 - `M11.C.10`: halim_successor 0.05, halim 0.03, dario 0.02
 - `M11.C.2`: halim_successor 0.05, halim 0.04, dario 0.02
 
@@ -40,27 +40,27 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
    {
     "readout": "death_rise",
     "direction": 1,
-    "mean_difference": 1.2514108291582384,
-    "half_width": 0.3778673974950308,
-    "baseline_sd": 1.3668965326201055,
-    "pooled_sd": 1.6945597028280346,
+    "mean_difference": 1.340447459200875,
+    "half_width": 0.3985119316501123,
+    "baseline_sd": 1.3696503047360504,
+    "pooled_sd": 1.8831168857352278,
     "baseline_position": null,
-    "w_plus": 3900.0,
+    "w_plus": 3924.0,
     "n_nonzero": 97,
-    "p": 2.1253017266355212e-08,
+    "p": 1.2997717833738036e-08,
     "holds": true
    },
    {
     "readout": "recovery_rise",
     "direction": 1,
-    "mean_difference": 3.108089839309569,
-    "half_width": 0.34579390252277514,
-    "baseline_sd": 1.3668965326201055,
-    "pooled_sd": 1.7543951342692248,
+    "mean_difference": 3.3692075625931426,
+    "half_width": 0.29386420005352787,
+    "baseline_sd": 1.3696503047360504,
+    "pooled_sd": 1.7329358993106379,
     "baseline_position": null,
-    "w_plus": 4744.0,
-    "n_nonzero": 97,
-    "p": 8.185560342219039e-18,
+    "w_plus": 5049.0,
+    "n_nonzero": 100,
+    "p": 2.038652654681078e-18,
     "holds": true
    }
   ],
@@ -73,23 +73,23 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
   "criterion": "M11.C.6",
   "class": "composite",
   "outcome": "FAIL",
-  "seeds": 50,
+  "seeds": 100,
   "readouts": [
    {
     "readout": "development",
     "direction": -1,
-    "mean_difference": 0.01771299934588342,
-    "half_width": 0.02804963560094338,
-    "baseline_sd": 0.15999475731097018,
-    "pooled_sd": 0.16837501747982797,
+    "mean_difference": 0.030139728238236855,
+    "half_width": 0.023569387047234998,
+    "baseline_sd": 0.08365415638550629,
+    "pooled_sd": 0.09627518005576557,
     "baseline_position": null,
-    "w_plus": 370.0,
-    "n_nonzero": 43,
-    "p": 0.8943059412027742,
+    "w_plus": 1652.0,
+    "n_nonzero": 93,
+    "p": 0.9796253010203045,
     "holds": false
    }
   ],
-  "fallback_rate": 0.003339435213282297,
+  "fallback_rate": 0.004144460520337968,
   "flags": [],
   "missing_moves": [],
   "scripted": {}
@@ -101,42 +101,51 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
   "seeds": 100,
   "readouts": [
    {
-    "readout": "cutoff_acts",
+    "readout": "cut_off_tie_weeks",
     "direction": 1,
-    "mean_difference": -12.59,
-    "half_width": 28.0136891217941,
-    "baseline_sd": 104.69205395643053,
-    "pooled_sd": 114.51125722086466,
+    "mean_difference": -63.11,
+    "half_width": 196.4303551270007,
+    "baseline_sd": 896.1823305533086,
+    "pooled_sd": 910.3925231525801,
     "baseline_position": null,
-    "w_plus": 1843.5,
-    "n_nonzero": 90,
-    "p": 0.7947052972638164,
+    "w_plus": 2175.0,
+    "n_nonzero": 96,
+    "p": 0.7125802964770257,
     "holds": false
    }
   ],
   "fallback_rate": 0.004144460520337968,
   "flags": [],
   "missing_moves": [],
-  "scripted": {}
+  "scripted": {
+   "treatment": {
+    "made": 14134,
+    "not legal": 983,
+    "owed a step": 22,
+    "dead": 860,
+    "rewritten": 1,
+    "not reached": 0
+   }
+  }
  },
  {
   "criterion": "M11.C.2",
   "class": "composite",
-  "outcome": "FAIL",
+  "outcome": "PASS",
   "seeds": 150,
   "readouts": [
    {
     "readout": "symptom_load",
     "direction": 1,
-    "mean_difference": -0.12999873720685742,
-    "half_width": 1.571686701770124,
-    "baseline_sd": 6.507507403996929,
-    "pooled_sd": 6.302168445353319,
+    "mean_difference": 1.3071009884046239,
+    "half_width": 0.9500156909795654,
+    "baseline_sd": 5.0718955420707434,
+    "pooled_sd": 4.629671780789163,
     "baseline_position": null,
-    "w_plus": 5203.0,
-    "n_nonzero": 143,
-    "p": 0.4562730091220298,
-    "holds": false
+    "w_plus": 6173.0,
+    "n_nonzero": 140,
+    "p": 0.005025174704191077,
+    "holds": true
    }
   ],
   "fallback_rate": 0.004418229304222789,

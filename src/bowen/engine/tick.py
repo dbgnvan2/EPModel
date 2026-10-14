@@ -58,14 +58,14 @@ from src.bowen.engine.external import apply_landed_contacts, record_stances, sel
 from src.bowen.engine.sinks import allocate_sinks
 from src.bowen.engine.slow_tick import record_week, run_slow_tick
 from src.bowen.engine.iposition import advance_sequences, redirect_to_sequence_tie, sequence_selections
-from src.bowen.engine.learner import learn, register_acts, soothing_review
+from src.bowen.engine.learner import learn, learn_from_witnessed, note_witnessed_cutoffs, register_acts, soothing_review
 from src.bowen.engine.life_course import due_events, find_work, yearly
 from src.bowen.engine.moves import apply_move_effects, relax_pseudo_self, settle_functioning
 from src.bowen.engine.log_records import EffectRecord, EmittedRecord, Emitter, TickRecord
 from src.bowen.engine.params import EngineParams
 from src.bowen.engine.outside_ness import update_outside_ness
-from src.bowen.engine.reactive import update_attention_state
-from src.bowen.engine.rejection import fade_rejection, refuse
+from src.bowen.engine.reactive import update_attention_state, weakness_focus
+from src.bowen.engine.rejection import fade_rejection, reactive_cutoff_cost, refuse
 from src.bowen.engine.recompute import recompute_involvement, recompute_triangles
 from src.bowen.engine.standing_load import apply_standing_load
 from src.bowen.engine.attribution import update_attribution, update_focus
@@ -115,6 +115,7 @@ def run_tick(
     effects, loaded = apply_standing_load(state, params)
     records += effects
     records += stressor_load(state, params)  # revision 18: a lasting stressor keeps weighing (M1.F.6)
+    records += reactive_cutoff_cost(state, params)  # revision 29: a held reactive cutoff costs its holder (M1.B.3d)
     steps.append("standing_load")
 
     # 2 — deliver.
@@ -133,6 +134,7 @@ def run_tick(
     batch, refusals = refuse(state, batch, params)
     records += refusals
     records += record_deliveries(state, batch)
+    note_witnessed_cutoffs(state, batch)  # revision 29: a witnessed cutoff is read for what follows it (M4.D.6f)
     steps.append("deliver")
 
     # 3 — perceive.
@@ -196,6 +198,7 @@ def run_tick(
     # tick's time above the floor before decay (M4.C.3a).
     records += accumulate_symptoms(state, params, visibility)
     records += update_attention_state(state, attended, params)
+    records += weakness_focus(state, load_at_selection, params)  # revision 29: focus on a child's weakness (M1.B.8a)
     records += update_outside_ness(state, readings, params)
     records += settle_functioning(state, params)
     records += relax_pseudo_self(state, params)  # M6.I.4, revision 27: borrowed pseudo-self settles back
@@ -205,6 +208,7 @@ def run_tick(
     # M4.D.6: the tick's felt change, decay included, is credited after consolidation.
     records += learn(state, start_acute, params)
     records += soothing_review(state, params)  # revision 19: "is soothing helping me?"
+    records += learn_from_witnessed(state, params)  # revision 29: what followed a witnessed cutoff (M4.D.6f)
     steps.append("consolidate")
     records.append(assert_invariants(state, before, loaded, tuple(steps), params.invariant_tolerance, tuple(records)))
     emitted = [r.event for r in records if isinstance(r, EmittedRecord)]

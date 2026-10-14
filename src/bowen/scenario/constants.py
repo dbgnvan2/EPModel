@@ -123,9 +123,9 @@ SCHEMA: Mapping[str, KeySpec] = MappingProxyType(
         "development_rate": KeySpec(float, "[I]", "M7.E.1f"),  # spec revision 28
         "witnessed_gain": KeySpec(float, "[I]", "M7.B.1a"),  # spec revision 28
         "launch_age_years": KeySpec(int, "[I]", "M7.C.1g"),  # spec revision 28
-        "working_age_years": KeySpec(int, "[I]", "M5.B.7"),  # spec revision 28
-        "find_work_rate": KeySpec(float, "[I]", "M5.B.7"),  # spec revision 28
-        "find_work_pressure_scale": KeySpec(float, "[I]", "M5.B.7"),  # spec revision 28
+        "working_age_years": KeySpec(int, "[I]", "M7.C.1k"),  # spec revision 28
+        "find_work_rate": KeySpec(float, "[I]", "M7.C.1k"),  # spec revision 28
+        "find_work_pressure_scale": KeySpec(float, "[I]", "M7.C.1k"),  # spec revision 28
         "grief_scale": KeySpec(float, "[I]", "M6.3g"),  # spec revision 28
         "grief_min_weeks": KeySpec(int, "[I]", "M6.3g"),  # spec revision 28
         "grief_extra_weeks": KeySpec(int, "[I]", "M6.3g"),  # spec revision 28
@@ -139,6 +139,11 @@ SCHEMA: Mapping[str, KeySpec] = MappingProxyType(
         "new_tie_investment_share": KeySpec(float, "[I]", "M7.C.1a"),  # spec revision 28
         "birth_focus_gain": KeySpec(float, "[I]", "M7.E.1c"),  # spec revision 28
         "death_transfer_share": KeySpec(float, "[I]", "M6.3b"),  # spec revision 28
+        "reactive_cutoff_gain": KeySpec(float, "[I]", "M1.B.3d"),  # spec revision 29
+        "witnessed_cutoff_gain": KeySpec(float, "[I]", "M4.D.6f"),  # spec revision 29
+        "witness_window": KeySpec(int, "[I]", "M4.D.6f"),  # spec revision 29
+        "perceived_weakness_gain": KeySpec(float, "[I]", "M1.B.8a"),  # spec revision 29
+        "focus_steer_gain": KeySpec(float, "[I]", "M4.D.1g"),  # spec revision 29
         "attribution_rate": KeySpec(float, "[I]", "M9.6"),
         "focus_rate": KeySpec(float, "[I]", "M1.A.11c"),
         "belief_appraisal_gain": KeySpec(float, "[I]", "M9.7"),

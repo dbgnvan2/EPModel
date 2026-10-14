@@ -148,9 +148,9 @@ class EngineParams:
     chronic_anxiety_fixation_age_years: int  # M2.A.0a, M7.B.1a — revision 28 reads it: a child's chronic anxiety is derived until this age
     spouse_basic_level_tolerance: float    # M2.A.0e — revision 28 reads it: a partner's level is drawn within it (M7.C.1h)
     launch_age_years: int                  # M7.C.1g, revision 28 — a child leaves the household and supports themselves
-    working_age_years: int                 # M5.B.7, revision 28 — the youngest who can take FIND_WORK
-    find_work_rate: float                  # M5.B.7, revision 28 — how readily a pressed member finds work
-    find_work_pressure_scale: float        # M5.B.7, revision 28 — the load above usual at which the pressure to find work is full
+    working_age_years: int                 # M7.C.1k, revision 28 — the youngest who can take FIND_WORK
+    find_work_rate: float                  # M7.C.1k, revision 28 — how readily a pressed member finds work
+    find_work_pressure_scale: float        # M7.C.1k, revision 28 — the load above usual at which the pressure to find work is full
     grief_scale: float                     # M6.3g, revision 28 — the size of grief, in proportion to the tie
     grief_min_weeks: int                   # M6.3g, revision 28 — grief on the weakest tie lasts a year (the owner's 1-3 years)
     grief_extra_weeks: int                 # M6.3g, revision 28 — grief on the strongest tie lasts two more years
@@ -164,6 +164,11 @@ class EngineParams:
     new_tie_investment_share: float        # M7.C.1a, revision 28 — what a new tie claims of a person's investment at partnering or birth
     birth_focus_gain: float                # M7.E.1c, revision 28 — each of the five situations at a birth adds anxious focus
     death_transfer_share: float            # M6.3b, revision 28 — 1 is the rule; only M11.C.37's mutant sets 0
+    reactive_cutoff_gain: float            # M1.B.3d, revision 29 — a held reactive cutoff's weekly cost to its holder
+    witnessed_cutoff_gain: float           # M4.D.6f, revision 29 — learning per point of functional change seen
+    witness_window: int                    # M4.D.6f, revision 29 — weeks between a witnessed cutoff and its reading
+    perceived_weakness_gain: float         # M1.B.8a, revision 29 — focus per point of a child's shortfall
+    focus_steer_gain: float                # M4.D.1g, revision 29 — how strongly focus steers projection-type acts
     lock_in_turn: float                    # M7.D.2d, revision 24 — the severity (load over threshold) past which lock-in turns over
 
     def __post_init__(self) -> None:
@@ -262,3 +267,8 @@ class EngineParams:
             raise ValueError("triangle_activity_window must be at least 1")
         if self.hardening_run_length < 2:
             raise ValueError("hardening_run_length must be at least 2")
+        # Revision 29 (learning-qa review 2026-10-14): the witnessed-cutoff step stays bounded only for a gain in [0, 1].
+        if not 0.0 <= self.witnessed_cutoff_gain <= 1.0 or self.witness_window < 1:
+            raise ValueError("witnessed_cutoff_gain must be in [0, 1] and witness_window at least 1")
+        if min(self.reactive_cutoff_gain, self.perceived_weakness_gain, self.focus_steer_gain) < 0:
+            raise ValueError("reactive_cutoff_gain, perceived_weakness_gain and focus_steer_gain must be non-negative")

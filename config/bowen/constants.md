@@ -162,9 +162,9 @@ activation_regime: synchronous
 | `development_rate` | 0.1 | [I] | basic-level points per point of mean functioning above basic, per year | `M7.E.1f` |
 | `witnessed_gain` | 0.5 | [I] | chronic-anxiety points per point of the year's mean load | `M7.B.1a` |
 | `launch_age_years` | 20 | [I] | year of age | `M7.C.1g` |
-| `working_age_years` | 16 | [I] | year of age | `M5.B.7` |
-| `find_work_rate` | 0.1 | [I] | probability per week at full pressure | `M5.B.7` |
-| `find_work_pressure_scale` | 10.0 | [I] | anxiety points above the usual level for full pressure | `M5.B.7` |
+| `working_age_years` | 16 | [I] | year of age | `M7.C.1k` |
+| `find_work_rate` | 0.1 | [I] | probability per week at full pressure | `M7.C.1k` |
+| `find_work_pressure_scale` | 10.0 | [I] | anxiety points above the usual level for full pressure | `M7.C.1k` |
 | `grief_scale` | 20.0 | [I] | stressor intensity at bond energy 100 | `M6.3g` |
 | `grief_min_weeks` | 52 | [I] | fast ticks | `M6.3g` |
 | `grief_extra_weeks` | 104 | [I] | fast ticks at bond energy 100 | `M6.3g` |
@@ -178,6 +178,11 @@ activation_regime: synchronous
 | `new_tie_investment_share` | 0.2 | [I] | share of the person's existing investment | `M7.C.1a` |
 | `birth_focus_gain` | 0.1 | [I] | share added to the parent's investment in the child per situation present | `M7.E.1c` |
 | `death_transfer_share` | 1.0 | [I] | share of the dead person's acute anxiety that goes to the living; 1 is the rule; only `M11.C.37`'s mutant sets it lower | `M6.3b` |
+| `reactive_cutoff_gain` | 0.1 | [I] | acute anxiety per week at full rejection, scaled by (100 − basic level) ÷ 100 (owner-accepted placeholder, 2026-10-13) | `M1.B.3d` |
+| `witnessed_cutoff_gain` | 0.05 | [I] | step in the learned `CUTOFF` value per point of weighted functional change seen | `M4.D.6f` |
+| `witness_window` | 13 | [I] | weeks between a witnessed cutoff and the reading of what followed | `M4.D.6f` |
+| `perceived_weakness_gain` | 0.01 | [I] | investment per point of load above usual ÷ 100, per point of a child's shortfall against their siblings, per week | `M1.B.8a` |
+| `focus_steer_gain` | 1.0 | [I] | multiplier on the investment share steering projection-type acts | `M4.D.1g` |
 | `lock_in_turn` | 3.0 | [I] | severity (load ÷ threshold) past which lock-in releases instead of holding; peak at half of it (revision 24) | `M7.D.2d` |
 | `self_channel_exponent` | 2.0 | [I] | exponent on functional_level / 100 | `M4.D.1a` |
 | `policy_temperature` | 1.0 | [I] | learned-value units | `M4.D.1` |

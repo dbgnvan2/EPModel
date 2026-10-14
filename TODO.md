@@ -18,6 +18,36 @@ Deferred and adjacent items. Each carries enough context to act on later without
   - `M11.C.11` shape — "three phases, not a step down" is a claim about curve shape; any automated version embeds an invented tolerance.
   - `M5.F.2` — the threshold separating a counterfeit move from a genuine one is invented and sets the result. **This is the model's most consequential invented constant.**
 
+## Spec revision 29 (cutoff and focus) — open after the build, 2026-10-14
+
+Plan §4.8 holds the evidence.
+- [ ] **`I-POSITION` sequence statistics rest on about three completions** (P23). `tests/bowen/test_iposition.py`'s
+  `attempts_over_seeds` runs 192 triad seeds with focus steering switched off by a declared override; with it on,
+  `test_m5d8_success_usually_follows_several_failures` fails (0 completions against 3, within chance). Either raise
+  the seed count until completions number in the tens, or loosen the assertions to what a few completions can
+  support. The tests do not describe the default model while the override stands.
+- [ ] **A person cannot choose a principled cutoff** (`M1.B.3d`). Principled is declared in the family config only;
+  a cutoff the policy selects is always reactive. Learning that cutoff is good therefore raises reactive cutoff. The
+  spec states the gap (`M4.D.6f`); closing it needs an owner decision on what a self-chosen principled cutoff is.
+- [ ] **Focus steering has no measurable effect in Phase C** after the review made it a redistribution (share 0.578
+  against 0.580 off, ad hoc, 20 seeds). Whether `focus_steer_gain` 1.0 is too small to matter is for the owner.
+- [ ] **Adjacent, not fixed: the revision 28 life-course constants are not range-checked** in
+  `EngineParams.__post_init__` (the revision 29 ones now are). Check each for a meaningful range and add it.
+- [ ] **`life_run`'s `acts_per_year` divides by the full run for a child who dies before `projection_until_age`**,
+  and `_pick` drops a child with no load at the ages read without counting it (learning-qa, low). Neither happens with
+  the reference family over 40 years.
+- [ ] **Owner: can an external agent receive a dead person's bound stocks?** `M6.3b` gives an external agent no share
+  of the dead person's acute anxiety, but `M6.3c` sends a symptom's bound stock to its partners on interactive ties and
+  discharges a triangle to all its living members, an external agent among them (found 2026-10-14, re-sweep of the
+  revision 29 fixes; `test_m63b_no_share_to_an_external_agent` now isolates `M6.3b`). The code follows the spec as
+  written.
+- [ ] **A scripted act toward a dead target is counted "not legal", not "dead"** (`src/bowen/ensemble/criteria.py`,
+  the forced source's `selections`). In `M11.C.10`'s record, 983 of 16,000 renewals read "not legal"; on seed 2 all 12
+  were after Dario died (checked ad hoc, one seed only). "dead" is used only when the actor has died. Add a status for a
+  dead target; it changes the engine hash, so batch it with the next engine change.
+- Dismissed with reason (correctness review, 2026-10-14): `weakness_focus` reads the usual level after this week's
+  `update_usual`. The symptom channels and `find_work` read it the same way at step 8 and 9, so it is consistent.
+
 ## Phase D part II — open after the build, 2026-10-13
 
 Plan §4.7 and `docs/phase_d2_status_2026-10-13.md` hold the evidence.

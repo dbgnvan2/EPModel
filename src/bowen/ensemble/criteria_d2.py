@@ -18,19 +18,23 @@ arm designs are Claude's recommendation, pending owner review, declared before a
   load, which the recovery arm keeps; that difference is the comparison's, not a confound removed. Read: the living others' mean excess over the ``after`` weeks. The treatment arm runs both
   changes and reports each against the same control: both MUST be higher.
 - **The twelve-person family over ``years``** (`M11.C.6`, `M11.C.10`, `M11.C.2`): the reference family with its life
-  course, under the policy, with the declared nodal load on the two parents (as part I's `M11.C.2`). One run per seed
-  serves `M11.C.6` and `M11.C.2` (each compares children within it); `M11.C.10`'s baseline is a second run in which
-  the parents' generation starts with no cutoff.
+  course, under the policy, with the declared nodal load on the two parents (as part I's `M11.C.2`). One run per seed,
+  the family as declared, serves `M11.C.6` and `M11.C.2` (each compares children within it); `M11.C.10` runs its own
+  two arms (spec revision 29).
   - `M11.C.6`: each child's basic level at 20 less its anchor at 5 (`M7.E.1f`). The treatment reports the child who
     received the most projection-type acts from the parents before turning 20; the baseline, the child who received
     the fewest. The most-projected child's change MUST be lower. One transmission (generation 2 to 3): the run is too
     short for three (plan §4.4).
-  - `M11.C.10`: cut-off acts sent over the run by the third generation and the children born to them (partners
-    excluded: they did not grow up in this family). Treatment: the parents' generation's declared
-    cutoff at ``t0`` (the reference family; its two ends are roles in config); baseline: that tie ordinary. More MUST
-    follow the cutoff.
-  - `M11.C.2`: as in part I — projection-type acts counted in the first half, each child's mean symptom load read in
-    the second; the most-projected child's load MUST be higher.
+  - `M11.C.10` (revision 29, the owner: "hold the cutoff for the run and read tie states"): the cut-off tie-weeks held
+    over the run by the third generation and the children born to them (partners excluded: they did not grow up in
+    this family) — each week, the ties on which one of them holds rejection (`M1.B.3c`). Treatment: the parents'
+    generation's declared cutoff (its two ends are roles in config) held for the run, renewed by a scripted reactive
+    ``CUTOFF`` every ``renew_every`` weeks. A renewal is skipped when either end has died or the act is not legal that
+    week; each skip and the weeks the cutter held rejection are counted in the arm's bookkeeping. Baseline: that tie ordinary at ``t0`` and held open for the run. More MUST
+    follow the held cutoff.
+  - `M11.C.2` (revision 29, the owner: "Child load is by age"): projection-type acts received per year while the child
+    is under ``projection_until_age``; symptom load as the child's mean over ages ``load_from_age`` to
+    ``load_to_age``. The most-projected child's load MUST be higher.
 """
 
 from __future__ import annotations
@@ -38,12 +42,13 @@ from __future__ import annotations
 import dataclasses
 import functools
 
+from src.bowen.engine.act import Selection
 from src.bowen.engine.contact import excess, resting_contact
 from src.bowen.engine.identifiers import PersonId
 from src.bowen.engine.life_course import LifeCourse, LifeSettings, TieValues, die
 from src.bowen.engine.log_records import EmittedRecord
 from src.bowen.engine.objects import Sex, TieState
-from src.bowen.ensemble.criteria import FAMILIES, ROLES, SETTINGS, bookkeeping, result, scenario
+from src.bowen.ensemble.criteria import FAMILIES, ROLES, SETTINGS, result, scenario, scripted_bookkeeping
 from src.bowen.ensemble.criteria_d import ENGINE, held_symptom, nodal, remission
 from src.bowen.ensemble.runner import ArmResult, Criterion, Readout
 from src.bowen.io.load import load_family
@@ -99,7 +104,8 @@ def arm_c15(arm, seed, settings):
 
 
 def _uncut(state) -> None:
-    """M11.C.10's baseline: the parents' generation starts with no cutoff (the tie ordinary, nobody rejecting)."""
+    """M11.C.10's baseline: the parents' generation starts with no cutoff (the tie ordinary, nobody rejecting); the
+    run holds it open as well (``life_run``)."""
     tie = state.tie_between(ROLES["phase_d", "cut_off_a"], ROLES["phase_d", "cut_off_b"])
     tie.rejection = {m: 0.0 for m in tie.id.members()}
     tie.tie_state = tie.uncut_state = TieState.ORDINARY
@@ -107,21 +113,49 @@ def _uncut(state) -> None:
         tie.felt_contact[m] = resting_contact(state.people[m], tie, ENGINE)
 
 
+def _renewals(weeks: int, every: int) -> dict:
+    """M11.C.10's treatment: the cutter renews the cutoff every ``every`` weeks, a scripted reactive CUTOFF."""
+    a, b = ROLES["phase_d", "cut_off_a"], ROLES["phase_d", "cut_off_b"]
+    return {(w, a): Selection(actor=a, kind="CUTOFF", targets=(b,), intensity=ENGINE.policy_intensity)
+            for w in range(0, weeks, every)}
+
+
+def cut_off_tie_weeks(state, children) -> int:
+    """Purpose: M11.C.10's weekly reading — the ties on which generation 3 or a child of theirs holds rejection.
+    Spec:    docs/bowen_agent_model_spec_v2.md#M11.C.10
+    Tests:   tests/bowen/test_phase_d2_criteria.py::test_m11c10_counts_only_rejection_held_by_generation_3_and_their_children
+
+    A tie counts once a week however many of them hold rejection on it; rejection held only by the parents' generation
+    (the declared pair, the partners' parents) does not count.
+    """
+    held_by = set(children) | {p for p, ps in state.life.parents.items() if set(ps) & set(children)}
+    return sum(1 for t in state.ties.values() if any(v > 0 and m in held_by for m, v in t.rejection.items()))
+
+
 @functools.lru_cache(maxsize=2)
-def life_run(seed: int, years: int, uncut: bool) -> dict:
+def life_run(seed: int, years: int, arm: str = "declared", renew_every: int = 0, ages: tuple = ()) -> dict:
     """Purpose: one run of the twelve-person family, summarised for the three criteria that read it; cached per
-    process so a seed's two arms of one criterion share it.
+    process, which spares only a repeated call with the same arguments (criteria run one after another, and each
+    worker has its own cache).
     Spec:    docs/bowen_agent_model_spec_v2.md#M11.C.6, #M11.C.10, #M11.C.2
     Tests:   tests/bowen/test_phase_d2_criteria.py::test_m11c6_the_children_are_read_at_twenty
+
+    ``arm`` is "declared" (the family as declared, for `M11.C.6` and `M11.C.2`), or `M11.C.10`'s "held" (the cutoff
+    renewed every ``renew_every`` weeks) or "open" (the tie ordinary and held open). ``ages`` is `M11.C.2`'s
+    (projection_until_age, load_from_age, load_to_age).
     """
     from src.bowen.readouts.patterns import PROJECTION_ACTS
 
     weeks = years * YEAR
     parents = (ROLES["phase_d", "parent_1"], ROLES["phase_d", "parent_2"])
+    pair = (ROLES["phase_d", "cut_off_a"], ROLES["phase_d", "cut_off_b"])
     family = load_family(FAMILIES["phase_d"])
     children = tuple(sorted(p for p in family.people if set(family.parents_of(p)) == set(parents)))
     half = weeks // 2
+    until, load_from, load_to = ages or (None, None, None)
     at_twenty, turned, loads = {}, {}, {c: 0.0 for c in children}
+    under, aged_load, aged_weeks = {}, {c: 0.0 for c in children}, {c: 0 for c in children}
+    cut_weeks, held = [0], [0]
     end = ENGINE.development_end_age_years
 
     def watch(state):
@@ -131,24 +165,41 @@ def life_run(seed: int, years: int, uncut: bool) -> dict:
                 at_twenty[c], turned[c] = person.basic_level - state.life.anchors[c], state.tick
             if state.tick > half:
                 loads[c] += sum(person.symptom_load.values()) / (weeks - half)
+            if until is not None and person.age_years is not None:
+                if c not in under and person.age_years >= until:
+                    under[c] = state.tick
+                if person.alive and load_from <= person.age_years < load_to:
+                    aged_load[c] += sum(person.symptom_load.values())
+                    aged_weeks[c] += 1
+        if arm != "declared":
+            cut_weeks[0] += cut_off_tie_weeks(state, children)
+            held[0] += state.tie_between(*pair).rejection.get(pair[0], 0.0) > 0
 
-    state, records = scenario("phase_d", seed, weeks, spells=nodal(weeks, parents), watch=watch,
-                              setup=_uncut if uncut else None)
+    state, records = scenario(
+        "phase_d", seed, weeks, spells=nodal(weeks, parents), watch=watch,
+        setup=_uncut if arm == "open" else None,
+        forced=_renewals(weeks, renew_every) if arm == "held" else None,
+        held_open=((pair,), range(weeks)) if arm == "open" else None)
     moves = [r.event for r in records if isinstance(r, EmittedRecord)]
+    books = scripted_bookkeeping(records)  # a skipped renewal is counted, never silent (learning-qa 2026-10-14)
+    if arm != "declared":
+        books[0]["(weeks the cutter held rejection on the declared tie)"] += held[0]
 
-    def received(c, until):
+    def received(c, until_tick):
         return sum(1 for e in moves if e.kind in PROJECTION_ACTS and e.sender in parents and c in e.targets
-                   and e.timestamp < until)
+                   and e.timestamp < until_tick)
 
-    generation_3 = set(children) | {p for p, ps in state.life.parents.items() if set(ps) & set(children)}
     return {
         "children": children,
         "development": at_twenty,
         "childhood_acts": {c: received(c, turned.get(c, weeks)) for c in children},
         "early_acts": {c: received(c, half) for c in children},
         "late_load": loads,
-        "cutoffs": float(sum(1 for e in moves if e.kind == "CUTOFF" and e.sender in generation_3)),
-        "books": bookkeeping(records),
+        # M11.C.2 by age: acts per year observed under ``until``; load over the ages read, where any week was.
+        "acts_per_year": {c: received(c, under.get(c, weeks)) / max(1, under.get(c, weeks)) * YEAR for c in children},
+        "aged_load": {c: aged_load[c] / aged_weeks[c] for c in children if aged_weeks[c]},
+        "cut_weeks": float(cut_weeks[0]),
+        "books": books,
     }
 
 
@@ -166,20 +217,21 @@ def _life_result(readouts: dict, summary: dict) -> ArmResult:
 
 def arm_c6(arm, seed, settings):
     """M11.C.6 (see the module docstring)."""
-    summary = life_run(seed, settings["years"], False)
+    summary = life_run(seed, settings["years"], "declared")
     return _life_result({"development": _pick(arm, summary["childhood_acts"], summary["development"])}, summary)
 
 
 def arm_c2_twelve(arm, seed, settings):
-    """M11.C.2 on the twelve-person family (see the module docstring)."""
-    summary = life_run(seed, settings["years"], False)
-    return _life_result({"symptom_load": _pick(arm, summary["early_acts"], summary["late_load"])}, summary)
+    """M11.C.2 on the twelve-person family, read by age (see the module docstring)."""
+    ages = settings["projection_until_age"], settings["load_from_age"], settings["load_to_age"]
+    summary = life_run(seed, settings["years"], "declared", 0, ages)
+    return _life_result({"symptom_load": _pick(arm, summary["acts_per_year"], summary["aged_load"])}, summary)
 
 
 def arm_c10(arm, seed, settings):
     """M11.C.10 (see the module docstring)."""
-    summary = life_run(seed, settings["years"], arm == "baseline")
-    return _life_result({"cutoff_acts": summary["cutoffs"]}, summary)
+    summary = life_run(seed, settings["years"], "open" if arm == "baseline" else "held", settings["renew_every"])
+    return _life_result({"cut_off_tie_weeks": summary["cut_weeks"]}, summary)
 
 
 C = Criterion
@@ -188,7 +240,7 @@ CRITERIA_D2: dict[str, Criterion] = {
                   (Readout("death_rise", +1), Readout("recovery_rise", +1)), arm_c15, settings=SETTINGS["M11.C.15"]),
     "M11.C.6": C("M11.C.6", "composite", ("baseline", "treatment"), (Readout("development", -1),), arm_c6,
                  settings=SETTINGS["M11.C.6"]),
-    "M11.C.10": C("M11.C.10", "composite", ("baseline", "treatment"), (Readout("cutoff_acts", +1),), arm_c10,
+    "M11.C.10": C("M11.C.10", "composite", ("baseline", "treatment"), (Readout("cut_off_tie_weeks", +1),), arm_c10,
                   ("CUTOFF",), settings=SETTINGS["M11.C.10"]),
     "M11.C.2[twelve-person family]": C("M11.C.2", "composite", ("baseline", "treatment"),
                                        (Readout("symptom_load", +1),), arm_c2_twelve, settings=SETTINGS["M11.C.2"]),

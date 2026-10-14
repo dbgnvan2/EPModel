@@ -29,7 +29,7 @@ from src.bowen.engine.contact import steepness
 from src.bowen.engine.events import Delivery, Mechanism, Role
 from src.bowen.engine.identifiers import PersonId
 from src.bowen.engine.log_records import EffectRecord
-from src.bowen.engine.objects import Relationship, TieState
+from src.bowen.engine.objects import SCALE_MAX, Relationship, TieState
 from src.bowen.engine.params import EngineParams
 from src.bowen.engine.state import RunState
 
@@ -64,9 +64,22 @@ def lower_rejection(tie: Relationship, member: PersonId, amount: float) -> float
     if before == 0:
         return 0.0
     tie.rejection[member] = max(0.0, before - amount)
+    if tie.rejection[member] == 0.0:
+        end_principled(tie, member)
     if tie.tie_state is TieState.CUT_OFF and not tie.rejected():
         tie.tie_state = tie.uncut_state
     return tie.rejection[member] - before
+
+
+def end_principled(tie: Relationship, member: PersonId) -> None:
+    """Purpose: a principled cutoff is the declared rejection only; once it is gone, or the holder's own policy cuts off
+    on the tie, what they hold there is reactive.
+    Spec:    docs/bowen_agent_model_spec_v2.md#M1.B.3d
+    Tests:   tests/bowen/test_cutoff_and_focus.py::test_m1b3d_a_policy_cutoff_after_a_principled_one_is_reactive,
+             tests/bowen/test_cutoff_and_focus.py::test_m1b3d_a_faded_principled_cutoff_does_not_return_as_principled
+    """
+    if member in tie.principled:
+        tie.principled = tuple(m for m in tie.principled if m != member)
 
 
 def strength(intensity: float, params: EngineParams) -> float:
@@ -135,10 +148,35 @@ def seed_declared_rejection(ties: dict, params: EngineParams) -> None:
     Spec:    docs/bowen_agent_model_spec_v2.md#M1.B.3c, #M2.A.1
     Tests:   tests/bowen/test_rejection.py::test_m1b3c_a_declared_cutoff_starts_open_with_both_members_rejecting
 
-    [I]: neither family says which member cut the other off, so both hold ``declared_rejection``.
+    [I]: neither family says which member cut the other off, so both hold ``declared_rejection``. A principled cutoff
+    names its holder (spec revision 29, `M1.B.3d`), so only that member holds it.
     """
     for tie_id in sorted(ties):
         tie = ties[tie_id]
         if tie.tie_state is TieState.CUT_OFF and not tie.rejected():
-            for member in tie_id.members():
+            for member in tie.principled or tie_id.members():
                 raise_rejection(tie, member, params.declared_rejection)
+
+
+def reactive_cutoff_cost(state: RunState, params: EngineParams) -> list[EffectRecord]:
+    """Purpose: step 1 — each person holding a reactive cutoff pays for it each week, more the less differentiated.
+    Spec:    docs/bowen_agent_model_spec_v2.md#M1.B.3d, #M6.4
+    Tests:   tests/bowen/test_cutoff_and_focus.py::test_m1b3d_reactive_cutoff_raises_the_cutters_anxiety
+
+    cost = reactive_cutoff_gain × rejection held × (100 − basic_level) ÷ 100, [I] (spec revision 29, a placeholder the
+    owner accepted 2026-10-13). A principled cutoff (``tie.principled``) costs nothing.
+    """
+    paid: dict[PersonId, float] = {}
+    for tie_id in sorted(state.ties):
+        tie = state.ties[tie_id]
+        for member, held in sorted(tie.rejection.items()):
+            person = state.people[member]
+            if held <= 0.0 or not person.alive or member in tie.principled:
+                continue
+            paid[member] = paid.get(member, 0.0) + (
+                params.reactive_cutoff_gain * held * (SCALE_MAX - person.basic_level) / SCALE_MAX)
+    for member, amount in paid.items():
+        state.people[member].acute_anxiety += amount
+    if not paid:
+        return []
+    return [EffectRecord(state.tick, "reactive_cutoff", None, acute_anxiety=tuple(sorted(paid.items())))]

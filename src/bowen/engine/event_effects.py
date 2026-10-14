@@ -31,7 +31,7 @@ from src.bowen.engine.log_records import EffectRecord
 from src.bowen.engine.moves import release_bound_distance
 from src.bowen.engine.objects import SymptomChannel, TieState
 from src.bowen.engine.params import EngineParams
-from src.bowen.engine.rejection import raise_rejection
+from src.bowen.engine.rejection import end_principled, raise_rejection
 from src.bowen.engine.state import ActiveTrigger, RunState
 
 # M5.A.1 fixes the move repertoire, so this name is the spec's, not editorial content.
@@ -61,6 +61,8 @@ def apply_structural_event(state: RunState, event: Event, params: EngineParams) 
         tie.tie_state = TieState.ORDINARY
         cleared = [(tie.id, f"rejection:{m}", -tie.rejection[m]) for m in sorted(tie.rejection) if tie.rejection[m]]
         tie.rejection.clear()  # M1.B.3c: reunion ends the rejection with the separation
+        for member in tie.id.members():
+            end_principled(tie, member)  # M1.B.3d: the declared rejection is gone, so is its kind
         for member in tie.id.members():
             tie.felt_contact[member] = resting_contact(state.people[member], tie, params)
         # M1.D.2a (c), M6.4: distancing prevented, the anxiety it bound returns to the tie's members.
@@ -151,6 +153,7 @@ def apply_delivered_cutoffs(state: RunState, batch: tuple[Delivery, ...], params
         if event.kind != CUTOFF_KIND or event.sender is None:
             continue
         tie = state.tie_between(event.sender, delivery.recipient)
+        end_principled(tie, event.sender)  # M1.B.3d: a cutoff the policy selects is reactive
         rose = raise_rejection(tie, event.sender, params.rejection_cutoff_gain * event.intensity / params.intensity_scale)
         relief = []
         person = state.people[event.sender]

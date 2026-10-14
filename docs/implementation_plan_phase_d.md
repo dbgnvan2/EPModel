@@ -1,6 +1,6 @@
 # Implementation plan — Phase D
 
-> **Status: approved by the owner, 2026-10-10 ("Proceed"), with the decisions in §1a.** P9 decided 2026-10-11; P13–P16 answered 2026-10-13 (§1b), with two P15 points still open. **Part II planned 2026-10-13 (§4) and approved by the owner the same day ("approved"); L0–L9 built 2026-10-13; L10's criteria built and run: `M11.C.37` and, after the owner's decision on its arms, `M11.C.15` pass; `M11.C.6`, `.10` and `.2` fail (§4.7). Spec revision 29 and its plan (§4.8) drafted 2026-10-13 after the owner's decisions on `.10` and `.2`, awaiting approval.** **Built:** B1 and B2 (2026-10-10/11); B3 and B4 (2026-10-11, spec revision 16); B5 and B6 (2026-10-11); B7, B8 and B9 and part of step 10 (2026-10-12, spec revisions 24–27, Claude's recommendation pending owner review: the owner asked for the work to proceed overnight without waiting for input).
+> **Status: approved by the owner, 2026-10-10 ("Proceed"), with the decisions in §1a.** P9 decided 2026-10-11; P13–P16 answered 2026-10-13 (§1b), with two P15 points still open. **Part II planned 2026-10-13 (§4) and approved by the owner the same day ("approved"); L0–L9 built 2026-10-13; L10's criteria built and run: `M11.C.37` and, after the owner's decision on its arms, `M11.C.15` pass; `M11.C.6`, `.10` and `.2` fail (§4.7). Spec revision 29 and its plan (§4.8) drafted 2026-10-13 after the owner's decisions on `.10` and `.2`, approved by the owner ("i approve proceed") and built 2026-10-14: `M11.C.2` on the twelve-person family now passes; `.10` and `.6` still fail (§4.8).** **Built:** B1 and B2 (2026-10-10/11); B3 and B4 (2026-10-11, spec revision 16); B5 and B6 (2026-10-11); B7, B8 and B9 and part of step 10 (2026-10-12, spec revisions 24–27, Claude's recommendation pending owner review: the owner asked for the work to proceed overnight without waiting for input).
 > Spec: `docs/bowen_agent_model_spec_v2.md`, revision 13. Phase C closed with its gate failing (owner decision,
 > `docs/phase_c_completion_report.md` §13). Spec IDs are used verbatim. The inventories behind this plan were made on
 > 2026-10-10 from the spec, `src/bowen`, `TODO.md` and the Phase C documents; their findings are cited where used.
@@ -1276,7 +1276,8 @@ change to `state.life` alone changes it, so the `M16.T.3` re-run would see a sin
 
 ### 4.8 Revision 29: cutoff and focus — plan, 2026-10-13
 
-> **Status: drafted 2026-10-13, awaiting the owner's approval. No code until approved.** It builds spec revision 29,
+> **Status: approved by the owner ("i approve proceed"); built 2026-10-14. Results under "Built" at the end of this
+> section.** It builds spec revision 29,
 > which applies the owner's decisions after the diagnosis in §4.7:
 > "hold the cutoff for the run and read tie states. But - add learning by witnessing cutoff and a place holder for the
 > impact of cut-off a increasing anxiety (reactive cutoff / imaturity) or a principled cutoff for safety (abusive
@@ -1360,6 +1361,49 @@ development.
 
 **Compute.** One full regeneration took about 1 hour 50 minutes on 10 cores (twice today). Each `M11.C.10` mutant is
 about 25 minutes (100 seeds, two arms, 40 years). Total about 3 hours, plus the build.
+
+**Built, 2026-10-14.** Steps R1–R7 are built. The records were regenerated once after the review fixes (code hash
+`eeef3517…`). Every number below comes from a generated record or is marked ad hoc.
+
+*The criteria* (`docs/phase_d2_ensemble_record.md`; ± is the half-width, p after Holm):
+
+| Criterion | Verdict | Result (treatment − baseline) | Mutations (ad hoc, 95% half-widths) |
+|---|---|---|---|
+| `M11.C.2` (twelve-person family, by age) | **PASS** (150 seeds) | `symptom_load` +1.31 ± 0.95, p 0.005 | witness path off (`M1.F.5`) +0.27 ± 0.75; `M1.B.8a` and `M4.D.1g` off +0.45 ± 0.99 (150 seeds each). Neither interval excludes zero, so each removal loses the effect. Run ad hoc, not through the runner's Holm test |
+| `M11.C.10` (held cutoff) | **FAIL** (100 seeds) | `cut_off_tie_weeks` −63.1 ± 200, p 0.71 | both paths off +104.8 ± 192.7; `M4.D.6f` off +37.7 ± 181.2; `M1.B.3d`'s reactive rise off +65.7 ± 169.9 (100 seeds each). None differs from the record or from zero: neither path has a detectable effect on this readout |
+| `M11.C.6` | **FAIL** (100 seeds) | `development` +0.0301 ± 0.024, p 0.98 | — |
+| `M11.C.15` | **PASS** (100 seeds) | `death_rise` +1.34 ± 0.40, p 1.3e-08; `recovery_rise` +3.37 ± 0.29 | unchanged from §4.7 |
+
+- **`M11.C.10`'s treatment held the cutoff while both ends lived.** 1,866 of 16,000 scheduled renewals were not made:
+  860 because the cutter had died, 983 "not legal", 22 owed a step and 1 rewritten. On seed 2 (checked ad hoc, one seed), all 12
+  "not legal" weeks came after Dario's death: the forced source labels a dead *target* "not legal" (TODO).
+- **Other verdicts that moved** (information, not gates): `M11.C.44` FAIL → PASS (`outside_inside_ratio` +0.152 ±
+  0.093, p 0.0047); `M11.C.17` PASS → FAIL (`coached_rise` +1.43e-05 ± 0.00029, p 0.23, from +0.000881, p 0.011). In
+  the mutation record no proof was lost: `M11.C.44` gains `one-sided-deviation` (red) and `deviation-inverted`
+  (survived); `steepness-level-independent` now turns `M11.C.41[heavy]` red; `c16-grounds-removed` moves from red to
+  reversed.
+
+*The review fixes* (one `learning-qa` pass, one correctness pass, one narrow re-sweep of the fixes; each fix has a test):
+- **A declared weakness acts through the anxious parent only.** It adds `weakness` × 100 to the weekly shortfall, from
+  `t0`, rather than to `M7.E.1c`'s birth situations, which multiply investment that is zero at birth (spec `M1.B.8a`,
+  `M7.E.1c` aligned). The pressure is the load *above usual*, as the spec now says.
+- **The principled kind belongs to the declared rejection.** It ends when that rejection fades to zero, at a reunion,
+  or when the holder's own policy cuts off on the tie (`rejection.end_principled`).
+- **Focus steering keeps each projection kind's total weight** (`M4.D.1g`). As first built it also raised it, which
+  `M11.C.2` and `M11.C.6` count. *Measured (ad hoc, Phase C, 20 seeds, 104 weeks):* the more-projected child's share
+  was 0.580 off, 0.626 with the first form, 0.578 after the fix. So `M11.C.2`'s pass does not come from steering
+  raising the rate of projection acts.
+- **One key format** for learned values (`src/bowen/engine/value_keys.py`), used by the policy, the learner and the
+  `I-POSITION` abort.
+- **The five new constants are range-checked**; `M11.C.10`'s skipped renewals and the weeks the cutter held rejection
+  are counted in the arm's bookkeeping.
+- **Two part II tests were tightened**, not loosened: `test_m63b_no_share_to_an_external_agent` isolates `M6.3b`
+  (`M6.3c` lets an external agent receive released stocks, an owner question in TODO), and
+  `test_m63e_balances_settle_back_after_a_death` reads the tie itself; its setup had set no balance.
+
+*`I-POSITION`.* With steering on, `test_m5d8_success_usually_follows_several_failures` fails in the triad ensemble
+(0 completions against 3 in 192 seeds, within chance). Steering is switched off there by a declared override; the
+statistics rest on a handful of completions (TODO).
 
 ## 5. Build order (D-I)
 

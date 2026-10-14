@@ -967,8 +967,9 @@ project decisions, not corpus findings, and must never be cited as Bowen's.
 - **Ages and acting.** Starting ages are three settings (youngest grandchild 1, parents 30, grandparents 55; spec
   `M2.A.0j`). A person selects acts from 10 until death (`M7.C.1f`); a younger child still witnesses, carries anxiety
   and accumulates symptom load. `[I]` (owner)
-- **A child's chronic anxiety** before 12 is their parents' mean plus half their own mean load over the year
-  (`M7.B.1a`), then fixed. It is the one place a family's anxiety enters a child's floor; it compounds across
+- **A child's chronic anxiety** before 12 is their parents' mean plus half their own mean load, averaged over every
+  year of childhood the run has seen (`M7.B.1a`; revision 29, the owner: "chronic Anxiety builds overchildhood"), then
+  fixed. It is the one place a family's anxiety enters a child's floor; it compounds across
   generations, which is the direction the corpus states (`[D]` Ch16) and a magnitude it does not (`[I]`).
 - **A child's basic level** is held at their parents' mean until 5, anchored there, and from 5 to 20 moved each year
   by half the parents' and half the child's own functioning above basic, within ±2% of the anchor (`M7.E.1f`; the
@@ -993,6 +994,36 @@ project decisions, not corpus findings, and must never be cited as Bowen's.
 
 **What is not built:** pairs that fail to form (`M2.A.0f`), divorce, a child moving back home, the redistribution
 moving `expectations` against `investment` (`M7.C.1b`), and the projection line in `M11.G`'s readout.
+
+### 8.2 Cutoff and focus *(spec revision 29, built 2026-10-14: the owner's decisions of 2026-10-13; the forms are Claude's recommendation, pending owner review)*
+
+**What it is for.** The diagnosis of 2026-10-13 (plan §4.7) found that `M11.C.10`'s chain had no link from a parent's
+cutoff to a child's, and that the parents spread their projection-type acts evenly over the children. Every value
+below is `[I]`; none is a corpus magnitude.
+
+- **Two kinds of cutoff** (`M1.B.3d`). A **reactive** cutoff, which is every cutoff the policy selects, costs the
+  person who holds it a little anxiety each week, more the less differentiated they are. A **principled** cutoff, for
+  safety (the owner's example: an abusive relationship), is declared in the family config for the one person who
+  cut off. That person pays nothing and does not feel the tie's absence. The other person still does. The kind belongs
+  to the declared rejection: once it fades to zero, or the holder's own policy cuts off on the tie, what they hold is
+  reactive. The engine has no concept of abuse and never infers one. The reference family declares none.
+- **Learning from a witnessed cutoff** (`M4.D.6f`). A person who witnesses a cutoff notes how well the family they are
+  tied to is functioning, and reads it again 13 weeks later. If the family, weighted by how close each tie is,
+  functions better, cutting off becomes more likely for them; if worse, less. The owner: "It depends on what the
+  witness sees happen to the cutoff person and others." The kind of cutoff is not read, so a principled cutoff that
+  lets the cutter function up teaches that cutoff is good. *Measured (ad hoc, 10 seeds, 5 years, after the review
+  fixes):* under a held reactive cutoff the children learned against cutoff (mean learned value −0.39, against −0.16
+  with this learning off and −0.09 with the reactive cost off).
+- **A parent's focus on a child's weakness** (`M1.B.8a`). An anxious parent's attention grows toward a dependent
+  child who functions below their siblings, or who has a declared weakness. A calm parent's focus does not move for
+  either. No child is named: focus can settle on
+  one child because a focused child carries more and functions lower. The owner: "no child named, it just evolves."
+- **Focus steers projection-type acts** (`M4.D.1g`). A parent's `OVERFUNCTION`, `PURSUE` and `TRIANGLE` land more
+  often on the tie holding more of their attention, and less often on the others: focus changes whom, not how often.
+  Withdrawing acts are not steered. It applies to everyone, in every run. *Measured (ad hoc, Phase C family, 20 seeds,
+  104 weeks):* as first built, focus also raised the total weight of these acts, and the more-projected child's share
+  rose from 0.580 to 0.626. After the review made it a pure redistribution, the share is 0.578 against 0.580 with
+  steering off: no measurable effect on this family over two years.
 
 ---
 

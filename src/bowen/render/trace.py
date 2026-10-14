@@ -62,9 +62,9 @@ CAUSED = frozenset({"appraisal", "calm_contact", "symptom_onset", "distance_bind
                     "functioning_shift", "position_held", "reduce_cutoff", "refusal", "stressor_load", "assertion", "debit", "landed_contact", "trigger", "cutoff", "reconciliation", "institutionalize", "binder_unavailable", "lock_in"})
 SYSTEM_SHOWN = frozenset({"triangle_recompute", "consolidation", "rejection_fade", "slow_tick"})
 SYSTEM_SUMMARISED = frozenset({
-    "standing_load", "acute_decay", "contact_relaxation", "symptom_accumulation", "investment", "reactive_state",
+    "standing_load", "reactive_cutoff", "weakness_focus", "acute_decay", "contact_relaxation", "symptom_accumulation", "investment", "reactive_state",
     "outside_ness", "belief", "functioning_settle", "competing_urges", "withhold", "learning", "sink_allocation",
-    "self_practice", "stress_response", "soothing_review", "attribution", "family_focus", "pseudo_self_relaxation",
+    "self_practice", "stress_response", "soothing_review", "witnessed_cutoff", "attribution", "family_focus", "pseudo_self_relaxation",
     "lock_in",  # revision 24: every week for every active symptom (one bearer gave 121 rows a year; review 2026-10-12)
 })  # every week, everyone; stated once
 

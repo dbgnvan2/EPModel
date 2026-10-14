@@ -38,6 +38,9 @@ OVERFLOW = "overflow"
 CONFLICT, OVERFUNCTION, UNDERFUNCTION, PURSUE, TRIANGLE = (
     "CONFLICT", "OVERFUNCTION", "UNDERFUNCTION", "PURSUE", "TRIANGLE",
 )
+# The child-projection sink's acts: equal to the projection row of config/bowen/pattern_acts.md (a test ties them), and
+# the kinds a parent's focus steers (M4.D.1g, revision 29).
+PROJECTION_KINDS = (OVERFUNCTION, PURSUE, TRIANGLE)
 
 
 def _on(event, tie) -> bool:
@@ -64,7 +67,7 @@ def sink_weights(state: RunState, params: EngineParams, family=None) -> dict[str
                 weights[Sink.MARITAL_CONFLICT.value] += 1
             elif event.kind in (OVERFUNCTION, UNDERFUNCTION):
                 weights[Sink.SPOUSE_DYSFUNCTION.value] += 1
-        if event.sender in spouses and event.kind in (OVERFUNCTION, PURSUE, TRIANGLE):
+        if event.sender in spouses and event.kind in PROJECTION_KINDS:
             if any(_on(event, t) for t in family.parent_child_ties):
                 weights[Sink.CHILD_PROJECTION.value] += 1
         if event.kind == CONFLICT and any(_on(event, t) for t in family.origin_ties):

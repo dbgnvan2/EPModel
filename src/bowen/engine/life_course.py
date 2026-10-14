@@ -121,6 +121,8 @@ class LifeCourse:
     income: dict[str, list] = field(default_factory=dict)  # household -> [[event id, resolved], ...]
     coach: PersonId | None = None
     coach_template: tuple | None = None  # the original coach's (basic, chronic, channel prior, tie values)
+    # M7.B.1a, revision 29: each child's mean load for every year of childhood the run has observed
+    childhood_loads: dict[PersonId, list] = field(default_factory=dict)
     slow_ticks: int = 0
 
 
@@ -345,8 +347,10 @@ def _childhood(state: RunState, params: EngineParams) -> list[tuple]:
                                           _parents_mean(state, pid, "basic_level"))
         # The age was just advanced, so the year lived at fixation − 1 is read here, then the value is fixed.
         if age <= params.chronic_anxiety_fixation_age_years and parents_chronic is not None:
-            load = _year_mean(state, pid, params, lambda w: w.load) or 0.0
-            chronic = parents_chronic + params.witnessed_gain * load
+            # Revision 29: chronic anxiety builds over childhood, the mean of every observed year's load (the owner).
+            years = life.childhood_loads.setdefault(pid, [])
+            years.append(_year_mean(state, pid, params, lambda w: w.load) or 0.0)
+            chronic = parents_chronic + params.witnessed_gain * math.fsum(years) / len(years)
             if chronic != person.chronic_anxiety:
                 rows.append((pid, "chronic_anxiety", chronic - person.chronic_anxiety))
                 person.chronic_anxiety = chronic
@@ -669,7 +673,8 @@ def _birth(state: RunState, row: PartnerRow, order: int, params: EngineParams) -
     _introduce(state, child, ties, params)
     family = state.other_families.get(household)
     # M7.E.1c: the firstborn; the firstborn of its sex; the last-born; a birth at a time of high stress (a parent above
-    # their usual level). A reality defect is not modelled.
+    # their usual level). A reality defect is a declared weakness (M1.B.8a, revision 29); no birth declares one, so it
+    # adds nothing here, and a declared weakness acts through weakness_focus instead.
     earlier = [child_id(a, b, k) for k in range(1, order)]
     earlier_sexes = {state.people[c].sex for c in earlier if c in state.people}  # living or dead (review 2026-10-13)
     situations = (order == 1) + (order > 1 and sex not in earlier_sexes) + (order == len(row.children_at_years))

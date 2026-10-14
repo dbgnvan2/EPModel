@@ -503,7 +503,9 @@ CRITERIA_D.update({
 
 # --- Phase D step 10, criteria on existing mechanisms (Claude's recommendation, pending owner review) ---
 
-LEARNING_OFF = {"learning_rate": 0.0}  # M10.B.5: an override declared by the criterion, never a config default
+# M10.B.5: an override declared by the criterion, never a config default. Revision 29 adds the second way the automatic
+# channel learns, from what follows a witnessed cutoff (M4.D.6f), so learning off stops both.
+LEARNING_OFF = {"learning_rate": 0.0, "witnessed_cutoff_gain": 0.0}
 
 
 def _spell_on(who, start: int, stop: int, every: int, intensity: float) -> tuple[Event, ...]:

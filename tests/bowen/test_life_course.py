@@ -16,6 +16,8 @@ from pathlib import Path
 
 import pytest
 
+from src.bowen.engine.moves import DEFAULT_AREA, _pole_of, relax_pseudo_self
+
 from src.bowen.engine.events import Mechanism, Role as DeliveryRole
 from src.bowen.engine.identifiers import PersonId, TieId, TriangleId, child_id
 from src.bowen.engine.life_course import (
@@ -212,6 +214,34 @@ def test_m7b1a_chronic_is_fixed_at_the_fixation_age():
     assert state.people[LEO].chronic_anxiety == before
 
 
+def test_m7b1a_chronic_integrates_every_childhood_year():
+    """Revision 29 (the owner: "chronic Anxiety builds overchildhood"). Adversarial: a hard early childhood followed by a
+    calm year at 11 must end higher than a childhood calm throughout; the year at 11 alone would read them the same."""
+    def chronic(loads):
+        built, _ = parts()
+        state, params = built.state, built.params
+        for pid in (RAVI, MARTA):
+            history(state, pid, 40.0)
+        for load in loads:
+            history(state, PIA, 39.5, load=load)
+            _childhood(state, params)
+        return state.people[PIA].chronic_anxiety, state, params
+
+    hard, state, params = chronic([20.0, 20.0, 0.0])
+    calm, _, _ = chronic([0.0, 0.0, 0.0])
+    parents = (state.people[RAVI].chronic_anxiety + state.people[MARTA].chronic_anxiety) / 2
+    assert hard == pytest.approx(parents + params.witnessed_gain * 40.0 / 3)
+    assert hard > calm == pytest.approx(parents)
+
+
+def test_m7b1a_a_child_present_at_t0_counts_from_t0():
+    """Leo is 9 at t0: only the years the run observed are averaged, three of them by his twelfth birthday."""
+    built, source = parts()
+    run_weeks(built, source, 52 * 3)
+    assert built.state.people[LEO].age_years == built.params.chronic_anxiety_fixation_age_years
+    assert len(built.state.life.childhood_loads[LEO]) == 3
+
+
 # --- L4: a child's development ----------------------------------------------------------------------------------
 
 
@@ -321,8 +351,16 @@ def test_m63b_anxiety_split_by_bond_energy():
 
 
 def test_m63b_no_share_to_an_external_agent():
+    """M6.3b's share only: bound stocks are emptied first, because M6.3c returns a symptom's bound stock to its
+    partners on interactive ties and discharges a triangle to its living members, an external agent among them (found
+    2026-10-14, when a changed run left Ravi's symptom holding anxiety)."""
     built = _ready_to_die()
     state = built.state
+    state.people[RAVI].symptom_bound = 0.0
+    for tie in state.ties_of(RAVI):
+        tie.distance_bound_anxiety = 0.0
+    for tri in state.triangles.values():
+        tri.bound_anxiety = 0.0
     before = state.people[HALIM].acute_anxiety
     die(state, RAVI, built.params)
     assert state.people[HALIM].acute_anxiety == before
@@ -388,14 +426,18 @@ def test_m63e_balances_settle_back_after_a_death():
     built, source = parts()
     state = built.state
     tie = state.tie_between(RAVI, MARTA)
-    tie.functioning_balance = {k: 1.0 for k in tie.functioning_balance}
+    # Ravi over-functioned for Marta (the balance on his pole); empty at t0, so it is set, not copied from the keys.
+    tie.functioning_balance = {DEFAULT_AREA: _pole_of(tie, RAVI) * 1.0}
     state.people[RAVI].pseudo_self, state.people[MARTA].pseudo_self = 4.0, -4.0
     state.people[RAVI].functional_level += 4.0
     state.people[MARTA].functional_level -= 4.0
     die(state, MARTA, built.params)
     total = sum(p.pseudo_self or 0.0 for p in state.people.values())
-    run_weeks(built, source, built.params.exchange_window + 20)
+    # Read on the tie itself (2026-10-14): over a run, Ravi's other exchanges move his pseudo-self as much as this does.
+    state.tick += built.params.exchange_window + 1  # no exchange with Marta since she died
+    relax_pseudo_self(state, built.params)
     assert state.people[RAVI].pseudo_self < 4.0  # the borrowed self does not survive the lender
+    assert state.people[MARTA].pseudo_self > -4.0
     assert sum(p.pseudo_self or 0.0 for p in state.people.values()) == pytest.approx(total)
 
 

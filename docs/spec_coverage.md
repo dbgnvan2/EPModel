@@ -7,7 +7,7 @@ criterion is **done** only when every entry passes in `docs/phase_c_ensemble_rec
 mutant has turned each entry red in `docs/phase_c_mutation_record.md`; the D9 sweep
 (`docs/phase_c_sweep_record.md`) is reported, not gated. Phases D and E build most of the rest.
 
-**566 IDs: 264 done, 68 partial, 234 not done.**
+**570 IDs: 264 done, 68 partial, 238 not done.**
 
 | ID | Status | Evidence | Note |
 |---|---|---|---|
@@ -76,11 +76,13 @@ mutant has turned each entry red in `docs/phase_c_mutation_record.md`; the D9 sw
 | M1.B.2 | done | `tests/bowen/test_objects.py::test_m1b2_conductance_has_no_distance_or_contact_input` | — |
 | M1.B.3 | done | `tests/bowen/test_mechanisms.py::test_m1b3_four_tie_states_are_distinct`<br>`tests/bowen/test_objects.py::test_m1b3_four_tie_states_are_representable` | no move crosses a non-interactive tie (review, 2026-10-06) |
 | M1.B.3c | done | `tests/bowen/test_activation_visibility.py::test_m1b3c_a_move_crosses_a_cut_off_tie_but_not_a_worry_edge`<br>`tests/bowen/test_family.py::test_m1b3c_cut_off_tie_must_stay_interactive`<br>`tests/bowen/test_rejection.py::test_m1b3c_a_declared_cutoff_starts_open_with_both_members_rejecting`<br>`tests/bowen/test_rejection.py::test_m1b3c_a_delivered_cutoff_leaves_the_tie_open_as_the_cutters_rejection`<br>`tests/bowen/test_rejection.py::test_m1b3c_a_distant_tie_is_distant_again_when_the_cutoff_ends`<br>`tests/bowen/test_rejection.py::test_m1b3c_a_refused_approach_never_reaches_the_cutter_and_costs_the_sender`<br>`tests/bowen/test_rejection.py::test_m1b3c_a_refused_move_is_never_recorded_as_delivered`<br>`tests/bowen/test_rejection.py::test_m1b3c_cutoff_and_reduce_cutoff_are_never_refused`<br>`tests/bowen/test_rejection.py::test_m1b3c_i_position_is_not_legal_across_a_cut_off_tie`<br>`tests/bowen/test_rejection.py::test_m1b3c_rejection_refuses_only_above_its_threshold`<br>`tests/bowen/test_rejection.py::test_m1b3c_repeated_refusals_raise_rejection_to_its_ceiling`<br>`tests/bowen/test_rejection.py::test_m1b3c_the_invariant_catches_a_cut_off_tie_with_no_rejection`<br>`tests/bowen/test_rejection.py::test_m1b3c_unrenewed_rejection_fades_and_the_tie_reopens` | — |
+| M1.B.3d | not done | — | Phase C or D — the phase that builds its mechanism (plan Appendix B) |
 | M1.B.4 | done | `tests/bowen/test_mechanisms.py::test_m1b4_reunion_restores_coupling_immediately`<br>`tests/bowen/test_rejection.py::test_m1b4_reconciliation_clears_rejection` | — |
 | M1.B.5 | partial | `tests/bowen/test_moves.py::test_m1b5_a_stance_lapses_with_time_or_a_reactive_act`<br>`tests/bowen/test_moves.py::test_m1b5_balance_has_no_stable_midpoint`<br>`tests/bowen/test_moves.py::test_m1b5_holding_a_position_stops_the_exchange_both_ways`<br>`tests/bowen/test_moves.py::test_m1b5_triangling_someone_in_about_them_ends_the_stance` | directed, bistable with no stable midpoint and not a trait; held in one area (`joint`) until the family declares areas of joint activity (M1.B.9) |
 | M1.B.6 | done | `tests/bowen/test_moves.py::test_m1b6_a_flip_reverts_unless_sustained`<br>`tests/bowen/test_moves.py::test_m1b6_flip_is_relative_and_immediate` | — |
 | M1.B.7 | done | `tests/bowen/test_moves.py::test_m1b7_raising_a_marked_underfunctioner_costs_more_than_reducing_the_overfunctioner` | — |
 | M1.B.8 | done | `tests/bowen/test_reactive.py::test_m1b8_conflict_registers_as_high_investment`<br>`tests/bowen/test_reactive.py::test_m1b8_investment_is_directed` | — |
+| M1.B.8a | not done | — | Phase C or D — the phase that builds its mechanism (plan Appendix B) |
 | M1.B.9 | not done | — | Phase C or D — the phase that builds its mechanism (plan Appendix B) |
 | M1.B.10 | not done | — | Phase C or D — the phase that builds its mechanism (plan Appendix B) |
 | M1.B.10a | not done | — | Phase C or D — the phase that builds its mechanism (plan Appendix B) |
@@ -207,6 +209,7 @@ mutant has turned each entry red in `docs/phase_c_mutation_record.md`; the D9 sw
 | M4.D.1d | done | `tests/bowen/test_policy.py::test_m4d1d_competing_urges_raise_anxiety_by_entropy` | — |
 | M4.D.1e | done | `tests/bowen/test_policy.py::test_m4d1e_legal_set_excludes_impossible_and_gated_acts`<br>`tests/bowen/test_policy.py::test_m4d1e_selection_is_renormalised_over_the_legal_set` | — |
 | M4.D.1f | done | `tests/bowen/test_policy.py::test_m4d1f_fallback_on_empty_legal_set_is_flagged`<br>`tests/bowen/test_policy.py::test_m4d1f_non_finite_score_falls_back`<br>`tests/bowen/test_policy.py::test_m4d1f_rules_come_from_config`<br>`tests/bowen/test_policy.py::test_m4d1f_zero_total_weight_falls_back` | declared in config/bowen/policy.md and refused at load if not implemented; life_energy is not built in Phase C, so the exhausted-life-energy case cannot arise yet |
+| M4.D.1g | not done | — | Phase C |
 | M4.D.1a | done | `tests/bowen/test_policy.py::test_m4d1a_low_level_is_nearly_all_automatic`<br>`tests/bowen/test_policy.py::test_m4d1a_mixing_weight_reads_functional_level_only`<br>`tests/bowen/test_policy.py::test_m4d1a_perspective_opens_the_self_directed_channel`<br>`tests/bowen/test_policy.py::test_m4d1a_perspective_steers_away_from_triangling_and_blaming`<br>`tests/bowen/test_policy.py::test_m4d1a_steering_bears_on_choice_not_on_competing_urges` | — |
 | M4.D.2 | done | `tests/bowen/test_policy.py::test_m4d4_iposition_not_monotone_in_level`<br>`tests/bowen/test_learner.py::test_m4d2_triangle_position_is_read_through_belief` | acute anxiety (band), functional_level (mixing, capacity), the tie's state (legal set, loaded-tie gate), triangle position read through belief and the learned repertoire (steps 6–7) |
 | M4.D.3 | done | `tests/bowen/test_learner.py::test_m4d3_values_are_kept_per_anxiety_band`<br>`tests/bowen/test_policy.py::test_m4d3_no_term_raises_reactive_acts_with_anxiety` | — |
@@ -224,6 +227,7 @@ mutant has turned each entry red in `docs/phase_c_mutation_record.md`; the D9 sw
 | M4.D.6c | not done | — | Phase C |
 | M4.D.6d | done | `tests/bowen/test_learner.py::test_m4d6d_self_directed_channel_is_never_reinforced` | — |
 | M4.D.6e | done | `tests/bowen/test_learner.py::test_m4d6e_another_persons_calming_reinforces`<br>`tests/bowen/test_learner.py::test_m4d6e_the_cross_person_term_weighs_the_closer_tie_more`<br>`tests/bowen/test_learner.py::test_m4d6e_triangle_credit_excludes_recruited_third`<br>`tests/bowen/test_learner.py::test_m4d6e_triangle_reinforced_when_it_relieves_the_seeker_whatever_it_costs_the_third` | — |
+| M4.D.6f | not done | — | Phase C |
 | M4.E.1 | done | `tests/bowen/test_mechanisms.py::test_m4e1_scripted_move_becomes_full_event` | — |
 | M1.F.1a | done | `tests/bowen/test_events.py::test_m1f1a_mixed_channel_carries_a_weight`<br>`tests/bowen/test_rejection.py::test_m1f1a_a_policy_act_is_stamped_with_its_kinds_channel`<br>`tests/bowen/test_rejection.py::test_m1f1a_the_channel_names_agree` | — |
 | M4.E.1a | done | `tests/bowen/test_activation_visibility.py::test_m4e1a_witnesses_filled_by_visibility_not_script` | — |

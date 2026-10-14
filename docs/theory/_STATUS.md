@@ -2,6 +2,12 @@
 
 > ## ▶ STATE — the corpus is closed and the spec is current. **Phase C is closed with its gate failing (owner decision, 2026-10-09).**
 >
+> **2026-10-13 — spec revision 29 (570 unique IDs, 46 acceptance criteria), drafted, not built:** the owner's
+> decisions after the `M11.C.10` and `M11.C.2` diagnosis (plan §4.7, §4.8): `M11.C.10` holds the cutoff and reads tie
+> states; learning from a witnessed cutoff (`M4.D.6f`); reactive and principled cutoff as a placeholder (`M1.B.3d`);
+> chronic anxiety built over childhood (`M7.B.1a`); focus on a child's real or perceived weakness (`M1.B.8a`, `M7.E.1c`)
+> and focus steering acts (`M4.D.1g`); `M11.C.2` read by age. Forms are Claude's recommendation, pending owner review.
+>
 > **2026-10-13 — spec revision 28 (566 unique IDs, 46 acceptance criteria):** the life course, from the owner's P13–P15
 > answers (plan §1b): the disposition at death (`M6.3a`–`M6.3i`: anxiety to the living by tie, grief for one to three
 > years, lost income found again by `FIND_WORK` at 80%); starting ages as three settings (`M2.A.0j`); the coach's

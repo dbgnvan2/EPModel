@@ -4,6 +4,18 @@ All notable changes to this project are recorded here. Dates are ISO.
 
 ## [Unreleased] — 2026-10-11
 
+### Spec revision 29 (570 numbered requirements, 46 acceptance criteria): cutoff and focus, drafted (2026-10-13)
+
+- Applies the owner's decisions after the diagnosis:
+  - `M11.C.10` holds the cutoff for the run and reads tie states.
+  - Learning from a witnessed cutoff (`M4.D.6f`).
+  - Reactive and principled cutoff, as a placeholder (`M1.B.3d`).
+  - Chronic anxiety built over childhood (`M7.B.1a`).
+  - A parent's focus on a child's real or perceived weakness (`M1.B.8a`, `M7.E.1c` at `t0`), and focus steering acts
+    (`M4.D.1g`).
+  - `M11.C.2` read by age.
+- The forms are Claude's recommendation, pending owner review. Plan §4.8, awaiting approval. Nothing is built.
+
 ### Why `M11.C.10` and `M11.C.2` fail on the twelve-person family (2026-10-13, ad hoc diagnosis)
 
 - `M11.C.10`: the declared Ravi–Dario cutoff ends within about 2 years, and the uncut baseline is cut within weeks, so

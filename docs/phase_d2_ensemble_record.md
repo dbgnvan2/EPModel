@@ -5,13 +5,13 @@ seeds (`M3.D.4a`), stopped adaptively (`M17.A.1`, `M13.4`): `UNDETERMINED` at th
 pass. Every verdict carries its class (`M11.5`). **A premise passing confirms that the code renders the
 spec; it is not a finding about families.** Spec revision 28 applies the owner's life-course decisions of 2026-10-13; its forms are Claude's recommendation, pending owner review.
 
-code_hash: 9337f5d8fe06a76e3b39371fc4d7b36f6b9614a56737a723aa2f0b5b4497ffff
+code_hash: 4dbf3f0f0fbbccda703c2d93ecb8dede21b3ed9a37dad759e62087b2fc562eab
 
 Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25, `ensemble_margin` = 0.1, `ensemble_alpha` = 0.05, `fallback_flag_rate` = 0.2, `equivalence_margin` = 0.5.
 
 | Criterion | Class | Verdict | Seeds | Readouts (difference treatment − baseline; ± half-width; p after Holm where tested) | Scripted acts not made, of all scripted (why) | Fallback rate | Flags |
 |---|---|---|---|---|---|---|---|
-| `M11.C.15` | composite | **FAIL** | 100 | `death_rise` +0.212 ± 0.35, p 0.135, does not hold; `recovery_rise` +3.11 ± 0.35, p 8.19e-18, holds | — | 0.00 | — |
+| `M11.C.15` | composite | **PASS** | 100 | `death_rise` +1.25 ± 0.38, p 2.13e-08, holds; `recovery_rise` +3.11 ± 0.35, p 8.19e-18, holds | — | 0.00 | — |
 | `M11.C.6` | composite | **FAIL** | 50 | `development` +0.0177 ± 0.028, p 0.894, does not hold | — | 0.00 | — |
 | `M11.C.10` | composite | **FAIL** | 100 | `cutoff_acts` -12.6 ± 28, p 0.795, does not hold | — | 0.00 | — |
 | `M11.C.2` | composite | **FAIL** | 150 | `symptom_load` -0.13 ± 1.6, p 0.456, does not hold | — | 0.00 | — |
@@ -34,21 +34,21 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
  {
   "criterion": "M11.C.15",
   "class": "composite",
-  "outcome": "FAIL",
+  "outcome": "PASS",
   "seeds": 100,
   "readouts": [
    {
     "readout": "death_rise",
     "direction": 1,
-    "mean_difference": 0.21182866910502096,
-    "half_width": 0.3503350094812171,
+    "mean_difference": 1.2514108291582384,
+    "half_width": 0.3778673974950308,
     "baseline_sd": 1.3668965326201055,
-    "pooled_sd": 1.606066990807511,
+    "pooled_sd": 1.6945597028280346,
     "baseline_position": null,
-    "w_plus": 2578.0,
-    "n_nonzero": 95,
-    "p": 0.13473624400974277,
-    "holds": false
+    "w_plus": 3900.0,
+    "n_nonzero": 97,
+    "p": 2.1253017266355212e-08,
+    "holds": true
    },
    {
     "readout": "recovery_rise",

@@ -163,7 +163,7 @@ class EngineParams:
     coach_retirement_age_years: int        # M2.A.0k, revision 28 — the coach retires and a new one starts over
     new_tie_investment_share: float        # M7.C.1a, revision 28 — what a new tie claims of a person's investment at partnering or birth
     birth_focus_gain: float                # M7.E.1c, revision 28 — each of the five situations at a birth adds anxious focus
-    death_transfer_share: float            # M6.3b, revision 28 — 1 is the rule; a criterion may set 0 (M11.C.15)
+    death_transfer_share: float            # M6.3b, revision 28 — 1 is the rule; only M11.C.37's mutant sets 0
     lock_in_turn: float                    # M7.D.2d, revision 24 — the severity (load over threshold) past which lock-in turns over
 
     def __post_init__(self) -> None:

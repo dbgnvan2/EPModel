@@ -21,7 +21,7 @@ from src.bowen.engine.identifiers import PersonId, TieId, TriangleId, child_id
 from src.bowen.engine.life_course import (
     GRIEF, INCOME_LOSS, age_at_death, die, due_events, find_work, total_anxiety, yearly, _birth, _childhood,
 )
-from src.bowen.engine.log_records import CollectingEmitter, Tee, plain, serialize
+from src.bowen.engine.log_records import CollectingEmitter, Tee, serialize
 from src.bowen.engine.objects import Relationship, Role, Sink
 from src.bowen.engine.slow_tick import Week
 from src.bowen.engine.state import canonical_state
@@ -658,9 +658,17 @@ def test_m16t3_sink_does_not_change_a_life_course_run(tmp_path):
             run_tick(attached.state, source, attached.params, attached.visibility, attached.activation, tee)
     assert {"partnering", "birth"} <= {getattr(r, "mechanism", None) for r in kept.records}
     assert canonical_state(attached.state) == canonical_state(detached.state)
-    assert repr(plain(attached.state.life)) == repr(plain(detached.state.life))  # canonical_state omits the life course
     assert path.read_text(encoding="utf-8").splitlines() == [serialize(r) for r in collected.records]
 
+
+
+def test_m16t3_canonical_state_sees_the_life_course():
+    """The comparison above would miss a sink that changed the life course if canonical_state left it out: a change to
+    state.life alone must change it."""
+    built, _ = parts()
+    before = canonical_state(built.state)
+    built.state.life.pending.append(None)
+    assert canonical_state(built.state) != before
 
 # --- review 2026-10-13 ---------------------------------------------------------------------------------------------
 

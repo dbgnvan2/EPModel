@@ -1,6 +1,6 @@
 # Implementation plan — Phase D
 
-> **Status: approved by the owner, 2026-10-10 ("Proceed"), with the decisions in §1a.** P9 decided 2026-10-11; P13–P16 answered 2026-10-13 (§1b), with two P15 points still open. **Part II planned 2026-10-13 (§4) and approved by the owner the same day ("approved"); L0–L9 built 2026-10-13; L10's criteria built and run: `M11.C.37` passes, `M11.C.15`, `.6`, `.10` and `.2` fail (§4.7).** **Built:** B1 and B2 (2026-10-10/11); B3 and B4 (2026-10-11, spec revision 16); B5 and B6 (2026-10-11); B7, B8 and B9 and part of step 10 (2026-10-12, spec revisions 24–27, Claude's recommendation pending owner review: the owner asked for the work to proceed overnight without waiting for input).
+> **Status: approved by the owner, 2026-10-10 ("Proceed"), with the decisions in §1a.** P9 decided 2026-10-11; P13–P16 answered 2026-10-13 (§1b), with two P15 points still open. **Part II planned 2026-10-13 (§4) and approved by the owner the same day ("approved"); L0–L9 built 2026-10-13; L10's criteria built and run: `M11.C.37` and, after the owner's decision on its arms, `M11.C.15` pass; `M11.C.6`, `.10` and `.2` fail (§4.7).** **Built:** B1 and B2 (2026-10-10/11); B3 and B4 (2026-10-11, spec revision 16); B5 and B6 (2026-10-11); B7, B8 and B9 and part of step 10 (2026-10-12, spec revisions 24–27, Claude's recommendation pending owner review: the owner asked for the work to proceed overnight without waiting for input).
 > Spec: `docs/bowen_agent_model_spec_v2.md`, revision 13. Phase C closed with its gate failing (owner decision,
 > `docs/phase_c_completion_report.md` §13). Spec IDs are used verbatim. The inventories behind this plan were made on
 > 2026-10-10 from the spec, `src/bowen`, `TODO.md` and the Phase C documents; their findings are cited where used.
@@ -1129,7 +1129,7 @@ part I's records do not move. One regeneration of the part I record at the end, 
 | Criterion | Arms | Readout | Mutation that must turn it red |
 |---|---|---|---|
 | `M11.C.37` | one run with a death (an `M11.4` exception, like C.31) | total anxiety before and after `M6.3b`–`3c`, to `M6.1`'s tolerance | the dead person's anxiety discarded |
-| `M11.C.15` | three arms from one state with spouse dysfunction carried by Marta: Marta dies; Marta recovers (her binder removed, `M1.F.9`); neither. Grief, lost income and `M6.3b`'s transfer are set to zero in every arm (`M10.B.5`), so only the release of what was bound acts | the living members' summed excess above usual over the next 52 weeks; both treatment arms above the control | the bound anxiety discarded at the death |
+| `M11.C.15` | three arms from one state with spouse dysfunction carried by Marta: Marta dies; Marta recovers (her binder removed, `M1.F.9`); neither. Grief and lost income are set to zero in every arm (`M10.B.5`). *Amended 2026-10-13 by the owner ("keep the transfer in C.15, share at 1"): `M6.3b`'s transfer stays at 1; it was 0 at first (§4.7)* | the living members' summed excess above usual over the next 52 weeks; both treatment arms above the control | the bound anxiety discarded at the death |
 | `M11.C.6` | the twelve-person family, 40 years | the change in basic level from parents to child by age 20, for the child who received the most projection-type acts against the others | each child's level fixed at the anchor (`M7.E.1f` removed) |
 | `M11.C.10` | with the Ravi–Dario cutoff at `t0`; without it (the tie ordinary) | cut-off ties (rejection, `M1.B.3c`) in generation 3 by year 40 | `M1.D.8`'s family-of-origin input removed; and, separately, learning from witnessed cutoff removed |
 | `M11.C.2` | the twelve-person family | as in part I: projection-type acts counted early, symptom load read late | the witness path (`M1.F.5`) |
@@ -1176,9 +1176,7 @@ part I's records do not move. One regeneration of the part I record at the end, 
   policy learns. Who takes it and when still varies across seeds and follows each member's state.
 - **L9:** the `M16.T.3` re-run is a new test, `test_m16t3_sink_does_not_change_a_life_course_run`. It runs the twelve-person
   family for 22 years, through the first pairing and birth, with the sink on and off, and compares the final state
-  including the life course. `canonical_state` does not include `state.life`, so the test compares it separately.
-  Changing `canonical_state` would change the engine hash and make every record stale; that is left for the next
-  engine change (TODO).
+  including the life course, which `canonical_state` now holds.
 
 L0 to L8 are done. For L9, the 40-year run completes with every invariant holding: `test_m3b1_forty_year_run_completes`
 is ensemble-marked and covers one seed, and the three 40-year ensembles (300 seeds in all) completed with no crash. The
@@ -1190,39 +1188,45 @@ life course, and both regenerations changed only hashes and header lines.
   held below lock-in. The read is the living others' mean excess over `after` weeks (`config/bowen/criteria.md`), not
   a sum over 52 weeks.
 - **`M11.C.10` counts cut-off acts** sent by the third generation and their children, not cut-off ties at year 40.
-- **Mutations:** only `M11.C.37`'s mutation was run. It is a test,
-  `test_m11c37_mutation_discarding_the_dead_persons_anxiety_turns_it_red`, through the real `die`. The other four
-  criteria fail, so they have no mutation to prove.
+- **Mutations:** `M11.C.37`'s is a test,
+  `test_m11c37_mutation_discarding_the_dead_persons_anxiety_turns_it_red`, through the real `die`; `M11.C.15`'s was
+  run ad hoc (below). The other three criteria fail, so they have no mutation to prove.
 
-**Verdicts** (`docs/phase_d2_ensemble_record.md`, code hash `9337f5d8…ffff`):
+**Verdicts** (`docs/phase_d2_ensemble_record.md`, code hash `4dbf3f0f…2eab`, after the owner's `M11.C.15` decision below):
 
-| Criterion | Verdict | Seeds | Result (treatment − baseline) |
-|---|---|---|---|
-| `M11.C.37` | PASS (test, with its mutant) | — | conserved to `M6.1`'s tolerance |
-| `M11.C.15` | FAIL | 100 | death +0.212 ± 0.35 (p 0.135); recovery +3.11 ± 0.35 (p 8.2e-18) |
-| `M11.C.6` | FAIL | 50 | +0.0177 ± 0.028 (p 0.894): the most-projected child's development is not lower |
-| `M11.C.10` | FAIL | 100 | −12.6 ± 28 (p 0.795) |
-| `M11.C.2` (twelve-person family) | FAIL | 150 | −0.13 ± 1.6 (p 0.456) |
+| Criterion | Verdict | Seeds | Result (treatment − baseline) | Proved by its mutation |
+|---|---|---|---|---|
+| `M11.C.37` | PASS (test, with its mutant) | — | conserved to `M6.1`'s tolerance | yes, a test |
+| `M11.C.15` | PASS | 100 | death +1.25 ± 0.38 (p 2.1e-08); recovery +3.11 ± 0.35 (p 8.2e-18) | yes, ad hoc: death −2.03 ± 0.29 |
+| `M11.C.6` | FAIL | 50 | +0.0177 ± 0.028 (p 0.894): the most-projected child's development is not lower | — |
+| `M11.C.10` | FAIL | 100 | −12.6 ± 28 (p 0.795) | — |
+| `M11.C.2` (twelve-person family) | FAIL | 150 | −0.13 ± 1.6 (p 0.456) | — |
 
-**Compute** (wall time from the regeneration log, 10 cores): `M11.C.6`'s 50 seeds took 374 s,
-`M11.C.10`'s 100 seeds 1,615 s, and `M11.C.2`'s 150 seeds 1,119 s. The part II record took 52 minutes in all.
+**Compute** (wall time from the regeneration log, 10 cores): `M11.C.6`'s 50 seeds took 378 s, `M11.C.10`'s 100 seeds
+1,518 s, and `M11.C.2`'s 150 seeds 1,084 s. The part II record took 50 minutes in all.
 
-**Diagnosis of `M11.C.15`** (an ad hoc run, 30 seeds, not a record). With `death_transfer_share` at 0, as the arm design
-sets it, `die` discards the mother's own acute anxiety. What her symptom held is released by `release_bound`, as at a
-remission, so that part is the same in both treatments. The death arm therefore also loses her as an anxious member who
-keeps passing load through her ties, and the recovery arm keeps her.
-- With the share at 1 (the rule's value), the death rise was +1.17 (sd 2.0).
-- With the share at 0, it was +0.22 (sd 2.0), against +3.13 (sd 2.2) for recovery.
-
-So the arm design, not the release mechanism, is what holds the death arm near zero. Whether `M11.C.15` should keep
-the transfer is an owner decision. It is not changed here, because changing an arm after seeing its result would be
-tuning.
+**`M11.C.15`: the first design, the diagnosis and the owner's decision.**
+- **First design.** As first built, every arm set `death_transfer_share` to 0, so that only the release of what was
+  bound acted. Then `die` discards the mother's own acute anxiety. What her symptom held is released by
+  `release_bound`, as at a remission, so that part is the same in both treatments, and the death arm also loses her as
+  an anxious member. The record at that design (code hash `9337f5d8…ffff`) read death +0.212 ± 0.35 (p 0.135), FAIL.
+- **Diagnosis** (ad hoc, 30 seeds): the death rise was +1.17 (sd 2.0) with the share at 1, against +0.22 (sd 2.0) at 0.
+- **Decision.** The owner, 2026-10-13: "keep the transfer in C.15, share at 1". Grief and lost income stay off in
+  every arm (`NO_GRIEF_OR_INCOME` in `criteria_d2.py`), and `death_transfer_share` is no longer overridden by any
+  criterion.
+- **Mutation** (ad hoc, 100 seeds; script not kept in the repository). §4.4 names "the bound anxiety discarded at the
+  death". The mutant zeroes the mother's symptom-bound anxiety and what her ties and triangles held just before `die`.
+  The death limb went from +1.25 ± 0.38 to −2.03 ± 0.29 (95%), so it turns red. The unmutated run reproduced the
+  record's number exactly. The recovery limb does not pass through `die`, so this mutant does not touch it.
 
 **`M11.C.6`'s size.** Under the ±2% band a child can end at most about 0.8 points from the parents' level (§4.4). The
-difference measured is 0.018, of the right sign for "not lower" only by chance (p 0.89). The test cannot tell the band
-from the absence of an effect. That is the open band decision in §4.5.
+difference measured is 0.018 (p 0.89), and the test cannot tell the band from the absence of an effect. That is the
+open band decision in §4.5.
 
 **`M11.C.10` and `M11.C.2`.** No diagnosis has been run. The spread of `M11.C.10` (±28 acts) is wide against its mean.
+
+**`canonical_state`** now includes the life course. `test_m16t3_canonical_state_sees_the_life_course` shows that a
+change to `state.life` alone changes it, so the `M16.T.3` re-run would see a sink that touched the life course.
 
 ## 5. Build order (D-I)
 

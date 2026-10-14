@@ -4,7 +4,21 @@ All notable changes to this project are recorded here. Dates are ISO.
 
 ## [Unreleased] — 2026-10-11
 
+### `M11.C.15` keeps the transfer at a death (2026-10-13, owner decision)
+
+- The owner: "keep the transfer in C.15, share at 1". `M11.C.15`'s arms now zero only grief and lost income
+  (`NO_GRIEF_OR_INCOME`, `src/bowen/ensemble/criteria_d2.py`); `death_transfer_share` stays at 1 and no criterion
+  overrides it.
+- `M11.C.15` now passes: death +1.25 ± 0.38 (p 2.1e-08), recovery +3.11 ± 0.35.
+- Its mutation, the bound anxiety discarded at the death, turns it red (death −2.03 ± 0.29; ad hoc, plan §4.7).
+- `canonical_state` now includes the life course, and a new test shows a change to the life course alone changes it.
+- Every record was regenerated (code hash `4dbf3f0f…`); no other verdict moved. Suite: 766 tests.
+- Spec `M6.3b`, plan §4.4 and §4.7, `config/bowen/criteria.md`, `config/bowen/constants.md`, the part II status report,
+  TODO and README updated.
+
 ### Phase D part II built: the life course (2026-10-13)
+
+*`M11.C.15`'s result below is superseded by the entry above: it passes since the owner kept the transfer.*
 
 - **The life course** (spec revision 28, plan §4, steps L0–L10): a new module, `src/bowen/engine/life_course.py`. It
   runs only when a family declares one, so Phase C, part I and their golden runs are unchanged.

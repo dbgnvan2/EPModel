@@ -418,8 +418,8 @@ def die(state: RunState, pid: PersonId, params: EngineParams) -> EffectRecord:
         weights = {p: 1.0 for p in (household or anyone)}
     if not weights:
         raise RuntimeError(f"{pid}'s death leaves their anxiety nowhere to go: no living family member (M6.3b)")
-    # death_transfer_share is 1 by the rule; only a criterion's declared override (M10.B.5) sets 0, to isolate the
-    # release of what the dead person's symptom held (M11.C.15). Below 1 the rest is discarded and M11.C.37 fails.
+    # death_transfer_share is 1 by the rule; only M11.C.37's mutant sets it lower. Below 1 the rest is discarded and
+    # M11.C.37 fails.
     held_acute, total = person.acute_anxiety, math.fsum(weights.values())
     stock = held_acute * params.death_transfer_share
     person.acute_anxiety = 0.0

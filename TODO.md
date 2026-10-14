@@ -21,9 +21,8 @@ Deferred and adjacent items. Each carries enough context to act on later without
 ## Phase D part II — open after the build, 2026-10-13
 
 Plan §4.7 and `docs/phase_d2_status_2026-10-13.md` hold the evidence.
-- [ ] **Owner: `M11.C.15`'s arm design.** `death_transfer_share` is 0 in every arm, which discards the dead mother's own
-  anxiety (`life_course.py::die`). Ad hoc, 30 seeds: death rise +1.17 with the share at 1, +0.22 at 0; recovery +3.13.
-  Keep the isolation or keep the transfer? Not changed after seeing the result.
+- [x] ~~**Owner: `M11.C.15`'s arm design.**~~ *Decided 2026-10-13: keep the transfer, share at 1. `M11.C.15` now passes
+  (death +1.25 ± 0.38) and its mutation turns it red (ad hoc, plan §4.7).*
 - [ ] **Owner: the ±2% band against `M11.C.6`'s traversal limit (a)**, and development as `M7.E.1f`'s rule against
   the estimator bounded to the band. `M11.C.6` measured +0.018 ± 0.028 under a band of about ±0.8 points.
 - [ ] **Owner: still open.** Marta–Iris; Teodor's level 36; the `M11.C.17` gate; launch age, mortality, the partner
@@ -35,12 +34,11 @@ Plan §4.7 and `docs/phase_d2_status_2026-10-13.md` hold the evidence.
   generations. Check over several generations whether it only rises; the 40-year run is too short to see it.
 - [ ] **Starting ages as settings in the fam-diag app.** The owner asked for them as settings in the app; they are
   config settings (`M2.A.0j`) and the app was not touched (standing instruction). Deferred.
-- [ ] **`canonical_state` omits `state.life`.** The `M16.T.3` re-run compares it separately
-  (`test_m16t3_sink_does_not_change_a_life_course_run`). Fold it into `canonical_state` at the next engine change,
-  since the change alters the engine hash.
-- [ ] **Prove the part II `M16.T.3` re-run by mutation** (sweep note, 2026-10-13): e.g. a sink that touches
-  `state.life` must turn `test_m16t3_sink_does_not_change_a_life_course_run` red. Not done.
-- [ ] **A mutation record for part II.** Only `M11.C.37`'s mutant ran, as a test; the four failing criteria have none.
+- [x] ~~**`canonical_state` omits `state.life`.**~~ *Folded in 2026-10-13 with the `M11.C.15` change.*
+- [x] ~~**Prove the part II `M16.T.3` re-run by mutation**~~ *2026-10-13: `test_m16t3_canonical_state_sees_the_life_course`
+  shows that a change to the life course alone changes the compared state.*
+- [ ] **A mutation record for part II.** `M11.C.37`'s mutant is a test; `M11.C.15`'s ran ad hoc (plan §4.7) and is not in
+  a record.
 
 ## Phase D — open from B3/B4, 2026-10-11
 

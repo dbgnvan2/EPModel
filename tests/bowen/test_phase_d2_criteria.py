@@ -12,7 +12,7 @@ import os
 
 import pytest
 
-from src.bowen.ensemble.criteria_d2 import CRITERIA_D2, RELEASE_ONLY, arm_c15, life_run
+from src.bowen.ensemble.criteria_d2 import CRITERIA_D2, NO_GRIEF_OR_INCOME, arm_c15, life_run
 from src.bowen.ensemble.runner import PASS, run_criterion
 from src.bowen.io.load import load_constants
 
@@ -47,10 +47,10 @@ def test_m11c2_symptom_concentrates_on_projection_target_in_the_twelve_person_fa
     gate("M11.C.2[twelve-person family]")
 
 
-def test_m11c15_only_the_release_acts_in_every_arm():
-    """M10.B.5: grief, lost income and M6.3b's transfer are off in every arm, and the control reads the same in both
-    readouts."""
-    assert RELEASE_ONLY == {"grief_scale": 0.0, "income_loss_intensity": 0.0, "death_transfer_share": 0.0}
+def test_m11c15_grief_and_income_off_and_the_transfer_kept_in_every_arm():
+    """M10.B.5: grief and lost income are off in every arm; M6.3b's transfer stays at 1 (owner decision 2026-10-13).
+    The control reads the same in both readouts."""
+    assert NO_GRIEF_OR_INCOME == {"grief_scale": 0.0, "income_loss_intensity": 0.0}
     settings = CRITERIA_D2["M11.C.15"].settings
     control = arm_c15("baseline", 0, settings).readouts
     assert control["death_rise"] == control["recovery_rise"]

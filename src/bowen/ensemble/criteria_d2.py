@@ -12,10 +12,10 @@ arm designs are Claude's recommendation, pending owner review, declared before a
 - **`M11.C.15`, death destabilises as recovery does.** The nuclear-four fixture; the mother carries a symptom held at
   ``severity`` (below lock-in's turn, so the family is calmed around it, `M7.D.2a`) until ``change_week``. Control:
   it continues. Recovery: it remits then (``binder_unavailable`` on her channel). Death: she dies then (`M6.3`).
-  Grief, lost income and `M6.3b`'s transfer are set to zero in every arm (`M10.B.5`), so what acts is the release
-  of what was bound: in recovery, the symptom's hold; at the death, the symptom's hold and what her ties and
-  triangles held (`M6.3c`). The death arm also loses her as a source of load, which the recovery arm keeps; that
-  difference is the comparison's, not a confound removed. Read: the living others' mean excess over the ``after`` weeks. The treatment arm runs both
+  Grief and lost income are set to zero in every arm (`M10.B.5`). `M6.3b`'s transfer stays at its rule, 1 (owner
+  decision 2026-10-13): at the death her own anxiety goes to the living, with what her symptom, ties and triangles
+  held (`M6.3c`); in recovery, the symptom's hold is released and she stays. The death arm loses her as a source of
+  load, which the recovery arm keeps; that difference is the comparison's, not a confound removed. Read: the living others' mean excess over the ``after`` weeks. The treatment arm runs both
   changes and reports each against the same control: both MUST be higher.
 - **The twelve-person family over ``years``** (`M11.C.6`, `M11.C.10`, `M11.C.2`): the reference family with its life
   course, under the policy, with the declared nodal load on the two parents (as part I's `M11.C.2`). One run per seed
@@ -50,8 +50,9 @@ from src.bowen.io.load import load_family
 
 P = PersonId
 FATHER, MOTHER, CHILD, PARTNER = P("f"), P("m"), P("c1"), P("c2")  # the nuclear-four fixture's ids
-# M11.C.15: only the release of what the symptom held acts (M10.B.5, an override declared by the criterion).
-RELEASE_ONLY = {"grief_scale": 0.0, "income_loss_intensity": 0.0, "death_transfer_share": 0.0}
+# M11.C.15: no grief and no lost income (M10.B.5, an override declared by the criterion). M6.3b's transfer stays at 1
+# (owner decision 2026-10-13: "keep the transfer in C.15, share at 1").
+NO_GRIEF_OR_INCOME = {"grief_scale": 0.0, "income_loss_intensity": 0.0}
 YEAR = ENGINE.slow_tick_fast_ticks
 
 
@@ -65,7 +66,7 @@ def arm_c15(arm, seed, settings):
     """M11.C.15 (see the module docstring)."""
     at, after = settings["change_week"], settings["after"]
     others = (FATHER, CHILD, PARTNER)
-    params = dataclasses.replace(ENGINE, **RELEASE_ONLY)
+    params = dataclasses.replace(ENGINE, **NO_GRIEF_OR_INCOME)
     channel = load_family(FAMILIES["four"]).people[MOTHER].channel_prior
 
     def run(change):
@@ -83,7 +84,7 @@ def arm_c15(arm, seed, settings):
 
         spells = (remission(at, MOTHER, channel),) if change == "recovery" else ()
         _, records = scenario("four", seed, at + after, spells=spells, setup=_mortal, before=before, watch=watch,
-                              overrides=RELEASE_ONLY)
+                              overrides=NO_GRIEF_OR_INCOME)
         return sum(sums) / len(sums), records
 
     if arm == "baseline":

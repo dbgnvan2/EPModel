@@ -14,7 +14,8 @@
 >
 > **Phase D part II, 2026-10-13** (`src/bowen/ensemble/criteria_d2.py`; the life course, spec revision 28, Claude's
 > recommendation pending owner review): `M11.C.15`'s mother carries a symptom held at `severity` (as `M11.C.12`'s)
-> until `change_week`, when she dies or recovers, and the others are read for `after` weeks; `M11.C.6`, `M11.C.10`
+> until `change_week`, when she dies or recovers, and the others are read for `after` weeks. Grief and lost income are
+> off in every arm; `M6.3b`'s transfer stays at 1 (owner decision 2026-10-13); `M11.C.6`, `M11.C.10`
 > and the twelve-person `M11.C.2` run the reference family for `years`.
 >
 > **Phase D, 2026-10-11** (`src/bowen/ensemble/criteria_d.py`; the estimator's criteria, spec revision 17):

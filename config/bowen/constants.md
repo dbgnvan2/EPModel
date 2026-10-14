@@ -177,7 +177,7 @@ activation_regime: synchronous
 | `coach_retirement_age_years` | 68 | [I] | year of age (the owner's, 2026-10-13) | `M2.A.0k` |
 | `new_tie_investment_share` | 0.2 | [I] | share of the person's existing investment | `M7.C.1a` |
 | `birth_focus_gain` | 0.1 | [I] | share added to the parent's investment in the child per situation present | `M7.E.1c` |
-| `death_transfer_share` | 1.0 | [I] | share of the dead person's acute anxiety that goes to the living; 1 is the rule, and only a criterion's declared override sets 0 (`M11.C.15`) | `M6.3b` |
+| `death_transfer_share` | 1.0 | [I] | share of the dead person's acute anxiety that goes to the living; 1 is the rule; only `M11.C.37`'s mutant sets it lower | `M6.3b` |
 | `lock_in_turn` | 3.0 | [I] | severity (load ÷ threshold) past which lock-in releases instead of holding; peak at half of it (revision 24) | `M7.D.2d` |
 | `self_channel_exponent` | 2.0 | [I] | exponent on functional_level / 100 | `M4.D.1a` |
 | `policy_temperature` | 1.0 | [I] | learned-value units | `M4.D.1` |

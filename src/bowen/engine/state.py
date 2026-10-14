@@ -173,6 +173,7 @@ def canonical_state(state: RunState) -> str:
         "family": plain(state.family),
         **({"other_families": [plain(state.other_families[h]) for h in sorted(state.other_families)]}
            if state.other_families else {}),
+        **({"life": plain(state.life)} if state.life is not None else {}),  # the life course, revision 28
         "events": [plain(e) for e in state.store.events()],
     }
     return json.dumps(body, sort_keys=True, separators=(",", ":"), default=str)

@@ -40,9 +40,15 @@ tests pass; 45 ensemble-marked tests are deselected.
    failed with the share at 0 (death +0.21, p 0.135) and passes at 1.
 2. **The ±2% band against `M11.C.6`.** At this band the effect `M11.C.6` looks for is at most about 0.8 points, and the
    test cannot separate it from noise. Which one changes: the band, the criterion, or neither?
-3. **A child's development**: the `M7.E.1f` rule (built), or the estimator bounded to the band.
-4. Still open from part I: Marta–Iris, Teodor's level (36 built), and `M11.C.17`'s gate.
-5. The defaults built in plan §4.5, each `[I]`: launch age 20, a Gompertz mortality with a median near 80, the partner
+3. **`M11.C.10` and `M11.C.2` (diagnosed, plan §4.7).**
+   - `M11.C.10`'s arms do not stay apart: the declared cutoff ends within about 2 years, and the baseline's tie is cut
+     within weeks. Two links of its chain have no mechanism.
+   - `M11.C.2`'s parents spread projection evenly over the children, and nothing carries it to later load, which
+     follows each child's age.
+   - Each needs a design decision.
+4. **A child's development**: the `M7.E.1f` rule (built), or the estimator bounded to the band.
+5. Still open from part I: Marta–Iris, Teodor's level (36 built), and `M11.C.17`'s gate.
+6. The defaults built in plan §4.5, each `[I]`: launch age 20, a Gompertz mortality with a median near 80, the partner
    rows, grief 20, income loss 15, working age 16, and a female successor coach.
-6. **No setting in the app yet.** Starting ages are config settings (`M2.A.0j`), but the fam-diag app was not touched;
+7. **No setting in the app yet.** Starting ages are config settings (`M2.A.0j`), but the fam-diag app was not touched;
    exposing them there is deferred.

@@ -1223,7 +1223,53 @@ life course, and both regenerations changed only hashes and header lines.
 difference measured is 0.018 (p 0.89), and the test cannot tell the band from the absence of an effect. That is the
 open band decision in §4.5.
 
-**`M11.C.10` and `M11.C.2`.** No diagnosis has been run. The spread of `M11.C.10` (±28 acts) is wide against its mean.
+**Diagnosis of `M11.C.10` and `M11.C.2`** (2026-10-13, ad hoc, not a record). Twenty seeds of the twelve-person family
+over 40 years, both `M11.C.10` arms; the `M11.C.2` numbers come from the treatment arm, which is the family as declared.
+A second run tracked the Ravi–Dario tie week by week for 10 years on 10 seeds. The scripts were not kept in the
+repository.
+
+*`M11.C.10`: the arms do not stay different, and two of the three links have no mechanism.*
+- **The condition does not hold.** In the treatment the declared cutoff ended after 28 to 97 weeks (10 seeds). In the
+  baseline the uncut tie was cut within 3 to 57 weeks, by week 14 in 8 of 10 seeds: Ravi and Dario cut each other on
+  their own. Over 40 years the tie was cut for 16.9 years (sd 9.0) in the treatment and 17.45 (sd 6.4) in the baseline,
+  and Ravi's mean excess was 21.18 against 21.21. After the first year or two the arms run the same process.
+- **Links two and three of `M7.E.3`'s chain are not built.**
+  - Link two: witnessing a cutoff teaches nothing. `M4.D.6` reinforces only the actor's own moves, and `M4.D.6e`'s
+    cross-person term reads relief, not cutoff (§4.4 foresaw this).
+  - Link three: nothing reads a family of origin's cutoff as an input to intensity. `M1.D.8` is built only as
+    requiring the ties to exist (`scenario/family.py`). In the engine a cut-off state is read only on that tie
+    (`observe.py`, `rejection.py`, `consolidate.py`).
+  - The one path left runs through the parents' anxiety, and Ravi's anxiety does not differ between the arms.
+- **The readout is mostly noise.** Generation 3 and their children sent 770 cut-off acts per run in the treatment
+  (sd 84) and 782 in the baseline (sd 97). Most went to their own parents: in seed 0, Nadia cut Ravi 142 times. The
+  paired difference ranged from −217 to +215. A cut-off act is a common short-term reaction here, not a lasting
+  cutoff, so counting acts measures reactivity to the parents.
+
+*`M11.C.2`: no child becomes the focus, and nothing carries early projection into later load.*
+- **The parents spread projection evenly.** In the first 20 years the three children received on average 79.7 (Leo),
+  83.0 (Nadia) and 79.7 (Pia) projection-type acts: `PURSUE`, `TRIANGLE` and `OVERFUNCTION` toward a child. The most
+  projected child was Nadia in 10 seeds and Leo or Pia in 5 each, so the treatment picks a child largely by chance.
+- **No lasting channel.**
+  - Chronic anxiety (`M7.B.1a`) is recomputed each year from the parents' mean plus `witnessed_gain` × that year's
+    load, and fixed at 12. It reflects only the year lived at 11, not the childhood. Its correlation with projection
+    received was −0.26 (Leo), −0.04 (Nadia) and −0.01 (Pia).
+  - The basic level at 20 was 39.31, 39.33 and 39.35: the ±2% band leaves no room.
+  - A child's acute anxiety in childhood decays and does not reach the readout 20 years later.
+- **Late load follows age.** Mean symptom load in years 20 to 40 was 24.9 (Leo, 29 to 49), 22.8 (Nadia) and 15.4 (Pia,
+  21 to 41). The window catches each child at a different point in adult life: Leo pairs in year 19, Pia in year 28.
+  Across all child-seeds, projection received and late load correlated at −0.13.
+- Part I's `M11.C.2` also fails. Whether it fails for the same reasons was not checked here.
+
+*What would make each testable* (owner decisions; nothing is changed):
+- **`M11.C.10`:**
+  - Hold the cutoff as a declared condition for the run, as `M11.C.15` holds a symptom.
+  - Read lasting cut-off ties (`M1.B.3c` rejection) rather than acts. §4.4 named that readout; the build counted acts.
+  - Decide whether to build link two or link three. Either is a spec change.
+- **`M11.C.2`:**
+  - Read each child's load over the same ages, not the same calendar years.
+  - Decide whether chronic anxiety should integrate childhood load rather than take one year (`M7.B.1a`, a spec
+    change).
+  - Ask why the parents' anxious focus (`M1.A.11c`) does not settle on one child. This was not diagnosed here.
 
 **`canonical_state`** now includes the life course. `test_m16t3_canonical_state_sees_the_life_course` shows that a
 change to `state.life` alone changes it, so the `M16.T.3` re-run would see a sink that touched the life course.

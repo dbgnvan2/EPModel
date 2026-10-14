@@ -4,6 +4,16 @@ All notable changes to this project are recorded here. Dates are ISO.
 
 ## [Unreleased] — 2026-10-11
 
+### Why `M11.C.10` and `M11.C.2` fail on the twelve-person family (2026-10-13, ad hoc diagnosis)
+
+- `M11.C.10`: the declared Ravi–Dario cutoff ends within about 2 years, and the uncut baseline is cut within weeks, so
+  the arms differ only at the start. Two of `M7.E.3`'s three links have no mechanism: witnessed-cutoff learning and
+  origin cutoff as an input to intensity. Cut-off acts number about 775 per run, mostly generation 3 cutting their own
+  parents.
+- `M11.C.2`: the parents spread projection evenly over the children (about 80 acts each). Chronic anxiety reflects only
+  the year at 11, and the level band leaves no room. Late load follows each child's age.
+- Plan §4.7; owner decisions in TODO. No code changed.
+
 ### `M11.C.15` keeps the transfer at a death (2026-10-13, owner decision)
 
 - The owner: "keep the transfer in C.15, share at 1". `M11.C.15`'s arms now zero only grief and lost income

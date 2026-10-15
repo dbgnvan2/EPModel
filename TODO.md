@@ -42,7 +42,7 @@ Plan §4.10 holds the evidence.
   middle of the paragraph on cost (move it to the end; left during the regeneration so the engine hash would not move);
   `arm_c47` reads only people with a tie to the person, so a removed tie would drop someone from both readouts
   silently (not possible on the fixture today).
-- [ ] **CI has been red on every push since 2026-10-09.** *Fix committed 2026-10-15; passes locally on 3.11 and 3.12; tick when the CI run is green.* Cause: the last bits of floats
+- [x] ~~**CI has been red on every push since 2026-10-09.**~~ *Fixed in `bfd46cc`; CI run 38763412772 green, 850 passed on 3.11, 3.12 and 3.13 (2026-10-15).* Cause: the last bits of floats
   differ between platforms and Python versions. Python 3.12 changed how `sum` adds floats, and the C maths library
   differs between macOS and Linux. NumPy 2.5.4 against 1.26.4 changed nothing here. The golden fingerprints now hash
   floats rounded to 8 significant digits (measured margin, in the test's docstring). The diagnostic record's mean uses

@@ -16,7 +16,7 @@ All notable changes to this project are recorded here. Dates are ISO.
   and a 1e-6 change moves it. With rounding turned off it fails.
 - `tools/diagnostic_record.py` takes its mean with `math.fsum`. The record is unchanged. 29 other `sum(...) / len(...)`
   means are left as they are and listed in TODO.
-- Suite: 850 tests.
+- Suite: 850 tests. CI run 38763412772 is green on Python 3.11, 3.12 and 3.13, the first since 2026-10-09.
 
 ### Spec revision 30 built: origin cutoff, danger, focus lock-in (2026-10-14)
 

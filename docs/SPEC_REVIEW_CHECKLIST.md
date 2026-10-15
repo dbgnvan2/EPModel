@@ -139,6 +139,8 @@ verdicts over ensembles (`tools/phase_d_record.py`; plan step 12). Mutations are
 
 **Generated, 2026-10-13:** [phase_d2_ensemble_record.md](phase_d2_ensemble_record.md) — the Phase D part II criteria (the life course, spec revision 28) over adaptive ensembles, from `tools/phase_d_record.py --part 2`; a default-suite test fails when it is stale.
 
+**Generated, 2026-10-15:** [phase_d_mutation_record.md](phase_d_mutation_record.md) — Phase D part II criteria under declared mutants (first: `M4.D.6f` removed on `M11.C.10[family of origin]`), from `tools/phase_d_mutation_record.py`, rendered from `records_cache/phase_d_mutation.json`; a default-suite test fails when it is stale.
+
 **For review, 2026-10-13:** [phase_d_status_2026-10-13.md](phase_d_status_2026-10-13.md) — Phase D part I after the
 overnight run: every build item and D-I criterion as done, partial or not done, and what the owner should look at
 first (spec revisions 24–27 are Claude's recommendations, pending owner review).

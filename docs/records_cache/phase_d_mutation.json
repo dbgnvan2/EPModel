@@ -1,0 +1,24 @@
+{
+ "1bea2a82da559328c79e468ad8293265a3c96fd98149dcbccb983b9f4e65a0b7": {
+  "criterion": "M11.C.10[family of origin]",
+  "outcome": "FAIL",
+  "readouts": [
+   {
+    "direction": 1,
+    "half_width": 132.19237675913215,
+    "mean_difference": -75.915,
+    "p": 0.9119112349599842,
+    "readout": "cut_off_tie_weeks",
+    "report_only": false
+   },
+   {
+    "direction": 1,
+    "half_width": 45.31073711211523,
+    "mean_difference": 48.375,
+    "readout": "child_cut_weeks",
+    "report_only": true
+   }
+  ],
+  "seeds": 200
+ }
+}

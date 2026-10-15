@@ -80,6 +80,7 @@ python3 tools/level_occupancy.py     # docs/phase_c_level_occupancy.md (about 3 
 python3 tools/c16_report.py          # report §11, generated from the records
 python3 tools/phase_d_record.py      # docs/phase_d_ensemble_record.md (about 10 minutes)
 python3 tools/phase_d_record.py --part 2   # docs/phase_d2_ensemble_record.md (about 50 minutes)
+python3 tools/phase_d_mutation_record.py   # docs/phase_d_mutation_record.md (cached; one new mutant about 30 minutes)
 ```
 
 ```

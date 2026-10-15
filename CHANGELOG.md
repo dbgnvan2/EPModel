@@ -18,6 +18,19 @@ All notable changes to this project are recorded here. Dates are ISO.
   means are left as they are and listed in TODO.
 - Suite: 850 tests. CI run 38763412772 is green on Python 3.11, 3.12 and 3.13, the first since 2026-10-09.
 
+### `M11.C.10[family of origin]`'s clause restated to `M4.D.6f`, and a Phase D mutation record (2026-10-15)
+
+- The owner: "restate the clause to M4.D.6f and add the mutant". The spec's `M11.C.10` row now requires `M4.D.6f`
+  removed to turn the family-of-origin variant red; `M1.D.8a` removed is reported. The main variant keeps `M1.D.8a`.
+- New `tools/phase_d_mutation_record.py` writes `docs/phase_d_mutation_record.md` from
+  `docs/records_cache/phase_d_mutation.json`. Its child, `tools/phase_d_mutant_child.py`, runs `CRITERIA_D2` in a mutated
+  copy; it is a separate file so the Phase C records' hash does not move. The part II record names two criteria
+  `M11.C.10`, so its rows are matched to `CRITERIA_D2` in order, each id checked.
+- First mutant, `witnessed-cutoff-learning-removed` (`witnessed_cutoff_gain` 0.05 → 0): **red**, FAIL,
+  `cut_off_tie_weeks` −75.9 ± 132, p 0.91, 200 seeds, the same values as the ad hoc run.
+- Tests: `tests/bowen/test_phase_d_mutation_record.py` (the mutant applies once, the record is current, and the variant
+  is red under it).
+
 ### `M11.C.10[family of origin]`: learning from a witnessed cutoff carries its pass (2026-10-15)
 
 - The three remaining candidate mutations, 200 seeds each, ad hoc: `M4.D.6f` removed (`witnessed_cutoff_gain` 0)

@@ -61,8 +61,13 @@ Plan §4.10 holds the evidence.
   danger and the principled part are higher. Trace why before reading the premise as a finding about cutoff.
 - [ ] **`M11.C.2` on the twelve-person family fails again at revision 30** (+0.70 ± 1.5, p 0.16; +1.31 ± 0.95 at
   revision 29). Which revision 30 change moved it is not yet measured (candidates: force, the focus shift).
-- [ ] **Run the `M11.C.10[family of origin]` mutation** (`M1.D.8a` removed must turn it red; about 1 hour at 200
-  seeds) and record it.
+- [x] ~~**Run the `M11.C.10[family of origin]` mutation**~~ *Run 2026-10-15:* `M1.D.8a` removed does not turn it
+  red, +240 ± 116 tie-weeks (`child_cut_weeks` +49.7 ± 44.1; 200 seeds, ad hoc, 2026-10-15), against +162 ± 120 with it.
+- [ ] **Find what carries `M11.C.10[family of origin]`'s pass** (the owner to decide whether to measure). Its readout
+  counts only the children's own rejection, so the parents' held cutoffs reach it through some mechanism other than
+  `M1.D.8a`. Candidates, one mutation each at 200 seeds (about 1 hour each): `M4.D.6f` (learning from a witnessed
+  cutoff) removed; `M1.B.3d`'s reactive rise removed; `M1.B.3e`'s danger removed. Until then the variant's pass is
+  not mutation-proved and must not be reported as support for `M1.D.8a`.
 - [ ] **rca: record findings and commit review fixes separately** (rca audit, 2026-10-14): with fixes folded into the
   feature commit, the audit cannot run a reproducer at the parent. Have csdp write `.rca/findings.md`.
 - Dismissed with reason (correctness review, 2026-10-14): intrusion is read by `tie_change` after the week's move

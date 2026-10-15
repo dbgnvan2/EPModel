@@ -18,6 +18,14 @@ All notable changes to this project are recorded here. Dates are ISO.
   means are left as they are and listed in TODO.
 - Suite: 850 tests. CI run 38763412772 is green on Python 3.11, 3.12 and 3.13, the first since 2026-10-09.
 
+### `M11.C.10[family of origin]`: its pass is not carried by `M1.D.8a` (2026-10-15)
+
+- The variant's mutation, `M1.D.8a` removed (both gains 0), does not turn it red: +240 ± 116 tie-weeks (`child_cut_weeks` +49.7 ± 44.1; 200 seeds, ad hoc, 2026-10-15), against
+  +162 ± 120 with it. The intervals overlap, so removing it is not shown to change the result either way. The spec
+  requires this mutation to turn the variant red, so the variant's pass has no mutation proof and is not evidence for
+  `M1.D.8a`. Something else carries the parents' held cutoffs to the children's rejection; not yet traced. Recorded in
+  the spec's `M11.C.10` row, plan §4.10 and TODO.
+
 ### Spec revision 30 built: origin cutoff, danger, focus lock-in (2026-10-14)
 
 - Built plan §4.10 (575 numbered requirements, 47 acceptance criteria): the cutoff a child grows up with raises their
@@ -43,8 +51,8 @@ All notable changes to this project are recorded here. Dates are ISO.
   - `M11.C.17` FAIL → PASS (+0.00053 ± 0.00063, p 0.013); `M11.C.44` PASS → FAIL (−0.030 ± 0.11). `M11.C.6` fails
     (+0.070 ± 0.039); `M11.C.15` passes. No mutation proof lost by a passing criterion.
   - Mutations: `M11.C.47` with the intrusion read removed reads exactly 0 in every seed (100 seeds, ad hoc), so it
-    cannot pass. The `M11.C.10[family of origin]` mutation is not yet run; `M11.C.10` and `M11.C.2` fail, so theirs are
-    moot.
+    cannot pass. The `M11.C.10[family of origin]` mutation is not yet run (run 2026-10-15: it does not turn the
+    variant red; see the entry above); `M11.C.10` and `M11.C.2` fail, so theirs are moot.
 - The `rca` skill (review convergence audit) added at `.claude/skills/rca/SKILL.md`, from the owner's trans-summary
   project; its first audit: MIXED / INSUFFICIENT DATA, and CI red on every push since 2026-10-09 (TODO).
 - Suite: 849 tests. Spec, plan §4.10, explainer §8.3, constants docs, criteria config, the danger fixture, README,

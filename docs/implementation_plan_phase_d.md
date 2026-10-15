@@ -1605,7 +1605,9 @@ repo), unless they come from a record.
 - `M11.C.47`: the low-level, stressed person is felt as more dangerous and the cutoff toward them is more principled,
   but they are cut off on fewer weeks than the calm baseline person. Reported, not explained yet.
 - Mutations: `M11.C.47` with the intrusion read removed reads 0 in every seed (100 seeds, ad hoc). The variant's
-  `M1.D.8a`-removed mutation is not yet run. `M11.C.10` and `M11.C.2` fail, so their mutations are moot.
+  `M1.D.8a`-removed mutation (run 2026-10-15) does **not** turn it red: +240 ± 116 tie-weeks (`child_cut_weeks` +49.7 ± 44.1; 200 seeds, ad hoc, 2026-10-15), against +162 ± 120
+  with it; the intervals overlap. The variant's pass is therefore not proved by its mutation and is not evidence for
+  `M1.D.8a`; what carries it is not yet traced. `M11.C.10` and `M11.C.2` fail, so their mutations are moot.
 
 ## 5. Build order (D-I)
 

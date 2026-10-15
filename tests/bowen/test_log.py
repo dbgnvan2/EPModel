@@ -119,7 +119,11 @@ def test_m16a7_header_flags_constants_changed_after_freeze():
                                         "death_transfer_share",
                                         # spec revision 29, cutoff and focus (plan §4.8)
                                         "reactive_cutoff_gain", "witnessed_cutoff_gain", "witness_window",
-                                        "perceived_weakness_gain", "focus_steer_gain"}
+                                        "perceived_weakness_gain", "focus_steer_gain",
+                                        # spec revision 30, origin cutoff, danger and focus (plan §4.10)
+                                        "origin_cutoff_anxiety_gain", "origin_fusion_gain", "danger_window",
+                                        "danger_threshold", "danger_gain", "focus_reinforce_gain",
+                                        "force_anxiety_gain", "focus_compound_gain"}
     changed = dataclasses.replace(
         constants,
         values=MappingProxyType({**constants.values,

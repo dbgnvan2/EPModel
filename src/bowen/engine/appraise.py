@@ -173,7 +173,7 @@ def _conductance(state: RunState, a: PersonId, b: PersonId | None) -> float:
     return tie.conductance if tie is not None else 0.0
 
 
-def _tie_change(state: RunState, delivery: Delivery, event: Event, params: EngineParams):
+def tie_change(state: RunState, delivery: Delivery, event: Event, params: EngineParams):
     """The tie and the (Δ contact, Δ impingement) a move delivered to its target makes, or None."""
     if event.mechanism is not Mechanism.MOVE or delivery.role is not Role.TARGET or event.sender is None:
         return None
@@ -194,7 +194,7 @@ def inward_reading(state: RunState, delivery: Delivery, event: Event, params: En
     Spec:    docs/bowen_agent_model_spec_v2.md#M4.C.5
     Tests:   tests/bowen/test_outside_ness.py::test_m4c5_hearing_criticism_raises_inward_impingement
     """
-    change = _tie_change(state, delivery, event, params)
+    change = tie_change(state, delivery, event, params)
     if change is None:
         return 0.0
     tie, _, d_imp = change
@@ -212,7 +212,7 @@ def appraisal_delta(state: RunState, delivery: Delivery, event: Event, params: E
     """
     person = state.people[delivery.recipient]
     sign = state.kinds.sign(event.kind, event.source_position)
-    change = _tie_change(state, delivery, event, params)
+    change = tie_change(state, delivery, event, params)
     if change is not None:
         tie, d_contact, d_imp = change
         contact, imp = felt_contact(person, tie), felt_impingement(person, tie)
@@ -359,7 +359,7 @@ def apply_appraisal(
             delta = 0.0  # M5.C.1: no improvement under marital distance
         add(event.id, delivery.recipient, delta)
         add(event.id, event.sender, speaker_echo(state, delivery, event, params))
-        change = _tie_change(state, delivery, event, params)
+        change = tie_change(state, delivery, event, params)
         if change is not None:
             tie, d_contact, d_imp = change
             key = (tie.id, delivery.recipient)

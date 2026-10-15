@@ -106,6 +106,29 @@ def update_reactive_state(state: RunState, params: EngineParams) -> list[tuple]:
     return changes
 
 
+def own_acts_attention(state: RunState, attended: dict, events, params: EngineParams) -> dict:
+    """Purpose: a projection-type act a person sends keeps their attention on that tie (revision 30).
+    Spec:    docs/bowen_agent_model_spec_v2.md#M1.B.8b
+    Tests:   tests/bowen/test_origin_danger_focus.py::test_m1b8b_a_projection_act_adds_to_the_senders_attention
+
+    Returns ``attended`` with ``focus_reinforce_gain`` × intensity ÷ ``intensity_scale`` added on the sender's side of
+    each tie a projection-type move (`M4.D.1g`'s set) crossed this week. With `M4.D.1g`'s steering it closes the loop:
+    attention brings acts, and acts bring attention, so focus can settle on one child and grow. No child is named.
+    """
+    from src.bowen.engine.sinks import PROJECTION_KINDS  # sinks is a leaf; imported here to keep this module's head
+
+    added = dict(attended)
+    for event in events:
+        if event.kind not in PROJECTION_KINDS or event.sender is None or not state.people[event.sender].alive:
+            continue
+        for target in event.targets:
+            tie = state.tie_between(event.sender, target)
+            if tie is not None:
+                key = (tie.id, event.sender)
+                added[key] = added.get(key, 0.0) + params.focus_reinforce_gain * event.intensity / params.intensity_scale
+    return added
+
+
 def update_attention_state(
     state: RunState, attended: dict[tuple[TieId, PersonId], float], params: EngineParams
 ) -> list[EffectRecord]:
@@ -125,13 +148,20 @@ def update_attention_state(
 
 def weakness_focus(state: RunState, load: dict, params: EngineParams) -> list[EffectRecord]:
     """Purpose: step 9 — an anxious parent's attention grows toward a dependent child who shows a weakness.
-    Spec:    docs/bowen_agent_model_spec_v2.md#M1.B.8a
-    Tests:   tests/bowen/test_cutoff_and_focus.py::test_m1b8a_perceived_weakness_adds_focus_only_while_anxious
+    Spec:    docs/bowen_agent_model_spec_v2.md#M1.B.8a, #M1.B.8b
+    Tests:   tests/bowen/test_cutoff_and_focus.py::test_m1b8a_perceived_weakness_adds_focus_only_while_anxious,
+             tests/bowen/test_origin_danger_focus.py::test_m1b8b_anxious_focus_compounds_where_it_already_is
 
     For each family, each living parent whose load at selection is above their usual level adds to their investment on
     the tie to each dependent child: ``perceived_weakness_gain × load above usual ÷ 100 × shortfall``, [I]. The
     shortfall is how far the child's functional level is below their dependent siblings' mean (none for an only child),
     plus the child's declared ``weakness`` × 100. No child is named: it is what the children show (revision 29).
+    Revision 30 (`M1.B.8b`): ``focus_compound_gain × load above usual ÷ 100 × total × share × (share − Σ share²)`` is
+    added, where share is the child's part of the parent's attention among the children and total that attention: a
+    child above the share-weighted mean share gains what the others lose, so anxious focus moves to where it already is
+    and, once it starts, tends to grow (the owner, 2026-10-14). It adds no investment, so the total stays bounded (the
+    owner, 2026-10-14, "saturate the investment"; the earlier form, in proportion to investment, grew without limit).
+    Equal children stay equal.
     """
     from src.bowen.engine.stress_response import above_usual  # stress_response imports this module's neighbours
 
@@ -146,6 +176,9 @@ def weakness_focus(state: RunState, load: dict, params: EngineParams) -> list[Ef
             pressure = max(0.0, above_usual(state.people[parent], load.get(parent, 0.0)))
             if pressure <= 0.0:
                 continue
+            held = {c: t.investment.get(parent, 0.0) for c in children if (t := state.ties.get(TieId.of(parent, c)))}
+            total = sum(held.values())
+            spread = sum((h / total) * (h / total) for h in held.values()) if total > 0 else 0.0  # Σ share²
             for child in children:
                 tie = state.ties.get(TieId.of(parent, child))
                 if tie is None:
@@ -154,7 +187,14 @@ def weakness_focus(state: RunState, load: dict, params: EngineParams) -> list[Ef
                 shortfall = max(0.0, sum(others) / len(others) - state.people[child].functional_level) if others else 0.0
                 shortfall += state.people[child].weakness * SCALE_MAX
                 gain = params.perceived_weakness_gain * pressure / SCALE_MAX * shortfall
-                if gain > 0.0:
+                # M1.B.8b, revision 30: anxious focus moves to where it already is — a child above the mean share gains
+                # what a child below it loses, so the larger share grows and the total is unchanged (zero-sum over the
+                # children, since Σ share × (share − Σ share²) = 0). Never below zero investment.
+                if total > 0.0:
+                    share = held[child] / total
+                    shift = params.focus_compound_gain * pressure / SCALE_MAX * total * share * (share - spread)
+                    gain += max(shift, -held[child])
+                if gain != 0.0:
                     tie.investment[parent] = tie.investment.get(parent, 0.0) + gain
                     rows.append((tie.id, f"investment:{parent}", gain))
     return [EffectRecord(state.tick, "weakness_focus", None, ties=tuple(rows))] if rows else []

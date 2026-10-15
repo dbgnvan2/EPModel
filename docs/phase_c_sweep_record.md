@@ -9,67 +9,67 @@ the mutation record's **reversed**, which needs every gating interval wholly on 
 readout reported beside the verdict and never tested is marked *(report only)*. Plan D9's fourth
 constant, each criterion's dominant constant, is not swept: plan §3 names none.
 
-engine_hash: 0fe655e515e708d7367d0803dc91d7c8491a72063edbf30315d13b2526229c2a
+engine_hash: 8f023276a166101d1274fef460d50a15ebaa8494eb3c8aafdee273bbb9ff2269
 
 Results are cached by `tools/mutant_runner.py` (`docs/records_cache/sweep.json`); this file is rendered
 from that cache.
 
 | Criterion | Central verdict | Setting | Verdict | Seeds | Readouts (mean difference; direction) |
 |---|---|---|---|---|---|
-| `M11.C.5` | FAIL | learning_rate 0.1 | FAIL | 100 | `target_reaction` -9.56 **opposite sign**; `third_person_symptom_load` +2.02 |
-| `M11.C.16` | PASS | learning_rate 0.1 | PASS | 150 | `repertoire_entropy` -0.0338; `top_move_share` +0.0463 *(report only)* |
-| `M11.C.42` | FAIL | learning_rate 0.1 | FAIL | 50 | `triangle_reuse` -0.14 **opposite sign** |
-| `M11.C.44` | PASS | learning_rate 0.1 | PASS | 100 | `outside_inside_ratio` +0.0773 |
-| `M11.C.45` | FAIL | learning_rate 0.1 | FAIL | 100 | `triangle_rate` -0.00663 **opposite sign** |
-| `M11.C.27[stable,add_third]` | FAIL | learning_rate 0.1 | FAIL | 50 | `pair_deviation` +0.0221; `pair_deviation_week_1` +0.0221 *(report only)*; `pair_deviation_week_2` +0.0596 *(report only)*; `pair_deviation_week_3` +0.0593 *(report only)*; `pair_deviation_week_4` +0.057 *(report only)*; `pair_deviation_week_5` +0.0658 *(report only)*; `pair_deviation_week_6` +0.0709 *(report only)*; `pair_deviation_week_7` +0.0953 *(report only)*; `pair_deviation_week_8` +0.072 *(report only)*; `pair_deviation_week_9` +0.032 *(report only)*; `pair_deviation_week_10` +0.0545 *(report only)*; `pair_deviation_week_11` +0.0508 *(report only)*; `pair_deviation_week_12` +0.07 *(report only)* |
-| `M11.C.27[stable,remove_one]` | FAIL | learning_rate 0.1 | FAIL | 100 | `pair_deviation` -0.0287 **opposite sign**; `pair_deviation_week_1` -0.0287 **opposite sign** *(report only)*; `pair_deviation_week_2` -0.0148 **opposite sign** *(report only)*; `pair_deviation_week_3` +0.0331 *(report only)*; `pair_deviation_week_4` +0.0851 *(report only)*; `pair_deviation_week_5` +0.134 *(report only)*; `pair_deviation_week_6` +0.184 *(report only)*; `pair_deviation_week_7` +0.222 *(report only)*; `pair_deviation_week_8` +0.199 *(report only)*; `pair_deviation_week_9` +0.243 *(report only)*; `pair_deviation_week_10` +0.25 *(report only)*; `pair_deviation_week_11` +0.255 *(report only)*; `pair_deviation_week_12` +0.271 *(report only)* |
-| `M11.C.27[unstable,add_third]` | FAIL | learning_rate 0.1 | FAIL | 50 | `pair_deviation` +0.00851 **opposite sign**; `pair_deviation_week_1` +0.00851 **opposite sign** *(report only)*; `pair_deviation_week_2` +0.0593 **opposite sign** *(report only)*; `pair_deviation_week_3` +0.0889 **opposite sign** *(report only)*; `pair_deviation_week_4` +0.0854 **opposite sign** *(report only)*; `pair_deviation_week_5` +0.0585 **opposite sign** *(report only)*; `pair_deviation_week_6` +0.0706 **opposite sign** *(report only)*; `pair_deviation_week_7` +0.0541 **opposite sign** *(report only)*; `pair_deviation_week_8` +0.0425 **opposite sign** *(report only)*; `pair_deviation_week_9` +0.011 **opposite sign** *(report only)*; `pair_deviation_week_10` +0.0297 **opposite sign** *(report only)*; `pair_deviation_week_11` +0.0344 **opposite sign** *(report only)*; `pair_deviation_week_12` +0.0464 **opposite sign** *(report only)* |
-| `M11.C.27[unstable,remove_one]` | PASS | learning_rate 0.1 | PASS | 100 | `pair_deviation` -0.0552; `pair_deviation_week_1` -0.0552 *(report only)*; `pair_deviation_week_2` -0.0295 *(report only)*; `pair_deviation_week_3` +0.0377 **opposite sign** *(report only)*; `pair_deviation_week_4` +0.0744 **opposite sign** *(report only)*; `pair_deviation_week_5` +0.113 **opposite sign** *(report only)*; `pair_deviation_week_6` +0.134 **opposite sign** *(report only)*; `pair_deviation_week_7` +0.181 **opposite sign** *(report only)*; `pair_deviation_week_8` +0.208 **opposite sign** *(report only)*; `pair_deviation_week_9` +0.242 **opposite sign** *(report only)*; `pair_deviation_week_10` +0.234 **opposite sign** *(report only)*; `pair_deviation_week_11` +0.249 **opposite sign** *(report only)*; `pair_deviation_week_12` +0.256 **opposite sign** *(report only)* |
-| `M11.C.5` | FAIL | learning_rate 0.4 | PASS | 150 | `target_reaction` +10.2; `third_person_symptom_load` +6.31 |
-| `M11.C.16` | PASS | learning_rate 0.4 | PASS | 150 | `repertoire_entropy` -0.0254; `top_move_share` +0.0345 *(report only)* |
-| `M11.C.42` | FAIL | learning_rate 0.4 | FAIL | 100 | `triangle_reuse` -0.3 **opposite sign** |
-| `M11.C.44` | PASS | learning_rate 0.4 | FAIL | 150 | `outside_inside_ratio` +0.0565 |
-| `M11.C.45` | FAIL | learning_rate 0.4 | FAIL | 150 | `triangle_rate` -0.0015 **opposite sign** |
-| `M11.C.27[stable,add_third]` | FAIL | learning_rate 0.4 | FAIL | 50 | `pair_deviation` +0.0195; `pair_deviation_week_1` +0.0195 *(report only)*; `pair_deviation_week_2` +0.0591 *(report only)*; `pair_deviation_week_3` +0.0816 *(report only)*; `pair_deviation_week_4` +0.07 *(report only)*; `pair_deviation_week_5` +0.0416 *(report only)*; `pair_deviation_week_6` +0.0782 *(report only)*; `pair_deviation_week_7` +0.0984 *(report only)*; `pair_deviation_week_8` +0.082 *(report only)*; `pair_deviation_week_9` +0.0635 *(report only)*; `pair_deviation_week_10` +0.0586 *(report only)*; `pair_deviation_week_11` +0.0343 *(report only)*; `pair_deviation_week_12` +0.0222 *(report only)* |
-| `M11.C.27[stable,remove_one]` | FAIL | learning_rate 0.4 | FAIL | 100 | `pair_deviation` -0.0414 **opposite sign**; `pair_deviation_week_1` -0.0414 **opposite sign** *(report only)*; `pair_deviation_week_2` -0.0256 **opposite sign** *(report only)*; `pair_deviation_week_3` +0.0464 *(report only)*; `pair_deviation_week_4` +0.0833 *(report only)*; `pair_deviation_week_5` +0.137 *(report only)*; `pair_deviation_week_6` +0.191 *(report only)*; `pair_deviation_week_7` +0.22 *(report only)*; `pair_deviation_week_8` +0.215 *(report only)*; `pair_deviation_week_9` +0.243 *(report only)*; `pair_deviation_week_10` +0.258 *(report only)*; `pair_deviation_week_11` +0.225 *(report only)*; `pair_deviation_week_12` +0.226 *(report only)* |
-| `M11.C.27[unstable,add_third]` | FAIL | learning_rate 0.4 | FAIL | 50 | `pair_deviation` +0.0105 **opposite sign**; `pair_deviation_week_1` +0.0105 **opposite sign** *(report only)*; `pair_deviation_week_2` +0.057 **opposite sign** *(report only)*; `pair_deviation_week_3` +0.0705 **opposite sign** *(report only)*; `pair_deviation_week_4` +0.0445 **opposite sign** *(report only)*; `pair_deviation_week_5` +0.0203 **opposite sign** *(report only)*; `pair_deviation_week_6` +0.0693 **opposite sign** *(report only)*; `pair_deviation_week_7` +0.0816 **opposite sign** *(report only)*; `pair_deviation_week_8` +0.0867 **opposite sign** *(report only)*; `pair_deviation_week_9` +0.0714 **opposite sign** *(report only)*; `pair_deviation_week_10` +0.0687 **opposite sign** *(report only)*; `pair_deviation_week_11` +0.0499 **opposite sign** *(report only)*; `pair_deviation_week_12` +0.0581 **opposite sign** *(report only)* |
-| `M11.C.27[unstable,remove_one]` | PASS | learning_rate 0.4 | PASS | 100 | `pair_deviation` -0.0503; `pair_deviation_week_1` -0.0503 *(report only)*; `pair_deviation_week_2` -0.0216 *(report only)*; `pair_deviation_week_3` +0.054 **opposite sign** *(report only)*; `pair_deviation_week_4` +0.104 **opposite sign** *(report only)*; `pair_deviation_week_5` +0.15 **opposite sign** *(report only)*; `pair_deviation_week_6` +0.201 **opposite sign** *(report only)*; `pair_deviation_week_7` +0.228 **opposite sign** *(report only)*; `pair_deviation_week_8` +0.211 **opposite sign** *(report only)*; `pair_deviation_week_9` +0.232 **opposite sign** *(report only)*; `pair_deviation_week_10` +0.225 **opposite sign** *(report only)*; `pair_deviation_week_11` +0.228 **opposite sign** *(report only)*; `pair_deviation_week_12` +0.197 **opposite sign** *(report only)* |
-| `M11.C.5` | FAIL | credit_horizon 2 | FAIL | 100 | `target_reaction` -8.06 **opposite sign**; `third_person_symptom_load` -3.77 **opposite sign** |
-| `M11.C.16` | PASS | credit_horizon 2 | PASS | 100 | `repertoire_entropy` -0.029; `top_move_share` +0.0432 *(report only)* |
-| `M11.C.42` | FAIL | credit_horizon 2 | FAIL | 50 | `triangle_reuse` -0.02 **opposite sign** |
-| `M11.C.44` | PASS | credit_horizon 2 | PASS | 150 | `outside_inside_ratio` +0.0686 |
-| `M11.C.45` | FAIL | credit_horizon 2 | FAIL | 150 | `triangle_rate` -0.00267 **opposite sign** |
-| `M11.C.27[stable,add_third]` | FAIL | credit_horizon 2 | PASS | 50 | `pair_deviation` +0.0272; `pair_deviation_week_1` +0.0272 *(report only)*; `pair_deviation_week_2` +0.0438 *(report only)*; `pair_deviation_week_3` +0.0693 *(report only)*; `pair_deviation_week_4` +0.0593 *(report only)*; `pair_deviation_week_5` +0.071 *(report only)*; `pair_deviation_week_6` +0.108 *(report only)*; `pair_deviation_week_7` +0.119 *(report only)*; `pair_deviation_week_8` +0.0761 *(report only)*; `pair_deviation_week_9` +0.081 *(report only)*; `pair_deviation_week_10` +0.0709 *(report only)*; `pair_deviation_week_11` +0.0383 *(report only)*; `pair_deviation_week_12` +0.0687 *(report only)* |
-| `M11.C.27[stable,remove_one]` | FAIL | credit_horizon 2 | FAIL | 100 | `pair_deviation` -0.0234 **opposite sign**; `pair_deviation_week_1` -0.0234 **opposite sign** *(report only)*; `pair_deviation_week_2` -0.0274 **opposite sign** *(report only)*; `pair_deviation_week_3` +0.0508 *(report only)*; `pair_deviation_week_4` +0.0985 *(report only)*; `pair_deviation_week_5` +0.14 *(report only)*; `pair_deviation_week_6` +0.201 *(report only)*; `pair_deviation_week_7` +0.229 *(report only)*; `pair_deviation_week_8` +0.233 *(report only)*; `pair_deviation_week_9` +0.219 *(report only)*; `pair_deviation_week_10` +0.229 *(report only)*; `pair_deviation_week_11` +0.262 *(report only)*; `pair_deviation_week_12` +0.273 *(report only)* |
-| `M11.C.27[unstable,add_third]` | FAIL | credit_horizon 2 | FAIL | 50 | `pair_deviation` +0.00556 **opposite sign**; `pair_deviation_week_1` +0.00556 **opposite sign** *(report only)*; `pair_deviation_week_2` +0.0604 **opposite sign** *(report only)*; `pair_deviation_week_3` +0.0904 **opposite sign** *(report only)*; `pair_deviation_week_4` +0.0801 **opposite sign** *(report only)*; `pair_deviation_week_5` +0.0555 **opposite sign** *(report only)*; `pair_deviation_week_6` +0.0705 **opposite sign** *(report only)*; `pair_deviation_week_7` +0.0762 **opposite sign** *(report only)*; `pair_deviation_week_8` +0.0616 **opposite sign** *(report only)*; `pair_deviation_week_9` +0.0578 **opposite sign** *(report only)*; `pair_deviation_week_10` +0.0554 **opposite sign** *(report only)*; `pair_deviation_week_11` +0.102 **opposite sign** *(report only)*; `pair_deviation_week_12` +0.0552 **opposite sign** *(report only)* |
-| `M11.C.27[unstable,remove_one]` | PASS | credit_horizon 2 | FAIL | 100 | `pair_deviation` -0.041; `pair_deviation_week_1` -0.041 *(report only)*; `pair_deviation_week_2` -0.017 *(report only)*; `pair_deviation_week_3` +0.0211 **opposite sign** *(report only)*; `pair_deviation_week_4` +0.071 **opposite sign** *(report only)*; `pair_deviation_week_5` +0.116 **opposite sign** *(report only)*; `pair_deviation_week_6` +0.173 **opposite sign** *(report only)*; `pair_deviation_week_7` +0.236 **opposite sign** *(report only)*; `pair_deviation_week_8` +0.252 **opposite sign** *(report only)*; `pair_deviation_week_9` +0.254 **opposite sign** *(report only)*; `pair_deviation_week_10` +0.253 **opposite sign** *(report only)*; `pair_deviation_week_11` +0.247 **opposite sign** *(report only)*; `pair_deviation_week_12` +0.259 **opposite sign** *(report only)* |
-| `M11.C.5` | FAIL | credit_horizon 6 | FAIL | 100 | `target_reaction` +1.61; `third_person_symptom_load` -0.443 **opposite sign** |
-| `M11.C.16` | PASS | credit_horizon 6 | PASS | 150 | `repertoire_entropy` -0.0281; `top_move_share` +0.0409 *(report only)* |
-| `M11.C.42` | FAIL | credit_horizon 6 | FAIL | 50 | `triangle_reuse` +0.24 |
-| `M11.C.44` | PASS | credit_horizon 6 | FAIL | 100 | `outside_inside_ratio` +0.0153 |
-| `M11.C.45` | FAIL | credit_horizon 6 | FAIL | 100 | `triangle_rate` -0.00375 **opposite sign** |
-| `M11.C.27[stable,add_third]` | FAIL | credit_horizon 6 | FAIL | 50 | `pair_deviation` +0.0271; `pair_deviation_week_1` +0.0271 *(report only)*; `pair_deviation_week_2` +0.049 *(report only)*; `pair_deviation_week_3` +0.0722 *(report only)*; `pair_deviation_week_4` +0.0783 *(report only)*; `pair_deviation_week_5` +0.0701 *(report only)*; `pair_deviation_week_6` +0.068 *(report only)*; `pair_deviation_week_7` +0.0855 *(report only)*; `pair_deviation_week_8` +0.0755 *(report only)*; `pair_deviation_week_9` +0.0696 *(report only)*; `pair_deviation_week_10` +0.0457 *(report only)*; `pair_deviation_week_11` +0.0414 *(report only)*; `pair_deviation_week_12` +0.0344 *(report only)* |
-| `M11.C.27[stable,remove_one]` | FAIL | credit_horizon 6 | FAIL | 100 | `pair_deviation` -0.0585 **opposite sign**; `pair_deviation_week_1` -0.0585 **opposite sign** *(report only)*; `pair_deviation_week_2` -0.0404 **opposite sign** *(report only)*; `pair_deviation_week_3` +0.0321 *(report only)*; `pair_deviation_week_4` +0.0887 *(report only)*; `pair_deviation_week_5` +0.14 *(report only)*; `pair_deviation_week_6` +0.197 *(report only)*; `pair_deviation_week_7` +0.226 *(report only)*; `pair_deviation_week_8` +0.259 *(report only)*; `pair_deviation_week_9` +0.298 *(report only)*; `pair_deviation_week_10` +0.31 *(report only)*; `pair_deviation_week_11` +0.297 *(report only)*; `pair_deviation_week_12` +0.282 *(report only)* |
-| `M11.C.27[unstable,add_third]` | FAIL | credit_horizon 6 | FAIL | 50 | `pair_deviation` +0.013 **opposite sign**; `pair_deviation_week_1` +0.013 **opposite sign** *(report only)*; `pair_deviation_week_2` +0.0558 **opposite sign** *(report only)*; `pair_deviation_week_3` +0.0816 **opposite sign** *(report only)*; `pair_deviation_week_4` +0.0728 **opposite sign** *(report only)*; `pair_deviation_week_5` +0.0826 **opposite sign** *(report only)*; `pair_deviation_week_6` +0.0909 **opposite sign** *(report only)*; `pair_deviation_week_7` +0.0851 **opposite sign** *(report only)*; `pair_deviation_week_8` +0.0715 **opposite sign** *(report only)*; `pair_deviation_week_9` +0.066 **opposite sign** *(report only)*; `pair_deviation_week_10` +0.0216 **opposite sign** *(report only)*; `pair_deviation_week_11` +0.0343 **opposite sign** *(report only)*; `pair_deviation_week_12` -0.0119 *(report only)* |
-| `M11.C.27[unstable,remove_one]` | PASS | credit_horizon 6 | PASS | 100 | `pair_deviation` -0.0626; `pair_deviation_week_1` -0.0626 *(report only)*; `pair_deviation_week_2` -0.0197 *(report only)*; `pair_deviation_week_3` +0.0435 **opposite sign** *(report only)*; `pair_deviation_week_4` +0.0876 **opposite sign** *(report only)*; `pair_deviation_week_5` +0.129 **opposite sign** *(report only)*; `pair_deviation_week_6` +0.198 **opposite sign** *(report only)*; `pair_deviation_week_7` +0.224 **opposite sign** *(report only)*; `pair_deviation_week_8` +0.226 **opposite sign** *(report only)*; `pair_deviation_week_9` +0.269 **opposite sign** *(report only)*; `pair_deviation_week_10` +0.26 **opposite sign** *(report only)*; `pair_deviation_week_11` +0.234 **opposite sign** *(report only)*; `pair_deviation_week_12` +0.224 **opposite sign** *(report only)* |
-| `M11.C.5` | FAIL | policy_temperature 0.5 | FAIL | 100 | `target_reaction` -3.81 **opposite sign**; `third_person_symptom_load` +0.415 |
-| `M11.C.16` | PASS | policy_temperature 0.5 | PASS | 150 | `repertoire_entropy` -0.0214; `top_move_share` +0.0186 *(report only)* |
-| `M11.C.42` | FAIL | policy_temperature 0.5 | FAIL | 100 | `triangle_reuse` -0.18 **opposite sign** |
-| `M11.C.44` | PASS | policy_temperature 0.5 | PASS | 100 | `outside_inside_ratio` +0.115 |
-| `M11.C.45` | FAIL | policy_temperature 0.5 | FAIL | 150 | `triangle_rate` -0.00289 **opposite sign** |
-| `M11.C.27[stable,add_third]` | FAIL | policy_temperature 0.5 | PASS | 50 | `pair_deviation` +0.0379; `pair_deviation_week_1` +0.0379 *(report only)*; `pair_deviation_week_2` +0.074 *(report only)*; `pair_deviation_week_3` +0.0639 *(report only)*; `pair_deviation_week_4` +0.0571 *(report only)*; `pair_deviation_week_5` +0.039 *(report only)*; `pair_deviation_week_6` +0.0564 *(report only)*; `pair_deviation_week_7` +0.0685 *(report only)*; `pair_deviation_week_8` +0.0494 *(report only)*; `pair_deviation_week_9` +0.0444 *(report only)*; `pair_deviation_week_10` +0.0485 *(report only)*; `pair_deviation_week_11` +0.00857 *(report only)*; `pair_deviation_week_12` -0.0149 **opposite sign** *(report only)* |
-| `M11.C.27[stable,remove_one]` | FAIL | policy_temperature 0.5 | FAIL | 100 | `pair_deviation` -0.0283 **opposite sign**; `pair_deviation_week_1` -0.0283 **opposite sign** *(report only)*; `pair_deviation_week_2` -0.0195 **opposite sign** *(report only)*; `pair_deviation_week_3` +0.0558 *(report only)*; `pair_deviation_week_4` +0.107 *(report only)*; `pair_deviation_week_5` +0.157 *(report only)*; `pair_deviation_week_6` +0.192 *(report only)*; `pair_deviation_week_7` +0.23 *(report only)*; `pair_deviation_week_8` +0.233 *(report only)*; `pair_deviation_week_9` +0.257 *(report only)*; `pair_deviation_week_10` +0.286 *(report only)*; `pair_deviation_week_11` +0.266 *(report only)*; `pair_deviation_week_12` +0.275 *(report only)* |
-| `M11.C.27[unstable,add_third]` | FAIL | policy_temperature 0.5 | FAIL | 50 | `pair_deviation` +0.00941 **opposite sign**; `pair_deviation_week_1` +0.00941 **opposite sign** *(report only)*; `pair_deviation_week_2` +0.0569 **opposite sign** *(report only)*; `pair_deviation_week_3` +0.0574 **opposite sign** *(report only)*; `pair_deviation_week_4` +0.0529 **opposite sign** *(report only)*; `pair_deviation_week_5` +0.0214 **opposite sign** *(report only)*; `pair_deviation_week_6` +0.0374 **opposite sign** *(report only)*; `pair_deviation_week_7` +0.0483 **opposite sign** *(report only)*; `pair_deviation_week_8` +0.0238 **opposite sign** *(report only)*; `pair_deviation_week_9` +0.00325 **opposite sign** *(report only)*; `pair_deviation_week_10` +0.00299 **opposite sign** *(report only)*; `pair_deviation_week_11` -0.0278 *(report only)*; `pair_deviation_week_12` -0.00509 *(report only)* |
-| `M11.C.27[unstable,remove_one]` | PASS | policy_temperature 0.5 | FAIL | 100 | `pair_deviation` -0.033; `pair_deviation_week_1` -0.033 *(report only)*; `pair_deviation_week_2` -0.0121 *(report only)*; `pair_deviation_week_3` +0.0659 **opposite sign** *(report only)*; `pair_deviation_week_4` +0.106 **opposite sign** *(report only)*; `pair_deviation_week_5` +0.178 **opposite sign** *(report only)*; `pair_deviation_week_6` +0.216 **opposite sign** *(report only)*; `pair_deviation_week_7` +0.23 **opposite sign** *(report only)*; `pair_deviation_week_8` +0.232 **opposite sign** *(report only)*; `pair_deviation_week_9` +0.246 **opposite sign** *(report only)*; `pair_deviation_week_10` +0.277 **opposite sign** *(report only)*; `pair_deviation_week_11` +0.252 **opposite sign** *(report only)*; `pair_deviation_week_12` +0.264 **opposite sign** *(report only)* |
-| `M11.C.5` | FAIL | policy_temperature 2.0 | FAIL | 100 | `target_reaction` -6.25 **opposite sign**; `third_person_symptom_load` +6.13 |
-| `M11.C.16` | PASS | policy_temperature 2.0 | PASS | 150 | `repertoire_entropy` -0.0327; `top_move_share` +0.0425 *(report only)* |
-| `M11.C.42` | FAIL | policy_temperature 2.0 | FAIL | 50 | `triangle_reuse` -0.1 **opposite sign** |
-| `M11.C.44` | PASS | policy_temperature 2.0 | FAIL | 100 | `outside_inside_ratio` +0.0569 |
-| `M11.C.45` | FAIL | policy_temperature 2.0 | FAIL | 100 | `triangle_rate` -0.00354 **opposite sign** |
-| `M11.C.27[stable,add_third]` | FAIL | policy_temperature 2.0 | FAIL | 50 | `pair_deviation` +0.026; `pair_deviation_week_1` +0.026 *(report only)*; `pair_deviation_week_2` +0.0625 *(report only)*; `pair_deviation_week_3` +0.0629 *(report only)*; `pair_deviation_week_4` +0.0673 *(report only)*; `pair_deviation_week_5` +0.0683 *(report only)*; `pair_deviation_week_6` +0.0848 *(report only)*; `pair_deviation_week_7` +0.0962 *(report only)*; `pair_deviation_week_8` +0.0943 *(report only)*; `pair_deviation_week_9` +0.0628 *(report only)*; `pair_deviation_week_10` +0.0345 *(report only)*; `pair_deviation_week_11` +0.0661 *(report only)*; `pair_deviation_week_12` +0.0572 *(report only)* |
-| `M11.C.27[stable,remove_one]` | FAIL | policy_temperature 2.0 | FAIL | 100 | `pair_deviation` -0.0296 **opposite sign**; `pair_deviation_week_1` -0.0296 **opposite sign** *(report only)*; `pair_deviation_week_2` -0.0195 **opposite sign** *(report only)*; `pair_deviation_week_3` +0.0332 *(report only)*; `pair_deviation_week_4` +0.0712 *(report only)*; `pair_deviation_week_5` +0.112 *(report only)*; `pair_deviation_week_6` +0.17 *(report only)*; `pair_deviation_week_7` +0.213 *(report only)*; `pair_deviation_week_8` +0.193 *(report only)*; `pair_deviation_week_9` +0.229 *(report only)*; `pair_deviation_week_10` +0.237 *(report only)*; `pair_deviation_week_11` +0.244 *(report only)*; `pair_deviation_week_12` +0.275 *(report only)* |
-| `M11.C.27[unstable,add_third]` | FAIL | policy_temperature 2.0 | FAIL | 50 | `pair_deviation` +0.00838 **opposite sign**; `pair_deviation_week_1` +0.00838 **opposite sign** *(report only)*; `pair_deviation_week_2` +0.0611 **opposite sign** *(report only)*; `pair_deviation_week_3` +0.0946 **opposite sign** *(report only)*; `pair_deviation_week_4` +0.0852 **opposite sign** *(report only)*; `pair_deviation_week_5` +0.0594 **opposite sign** *(report only)*; `pair_deviation_week_6` +0.0592 **opposite sign** *(report only)*; `pair_deviation_week_7` +0.0991 **opposite sign** *(report only)*; `pair_deviation_week_8` +0.105 **opposite sign** *(report only)*; `pair_deviation_week_9` +0.059 **opposite sign** *(report only)*; `pair_deviation_week_10` +0.0543 **opposite sign** *(report only)*; `pair_deviation_week_11` +0.0799 **opposite sign** *(report only)*; `pair_deviation_week_12` +0.0523 **opposite sign** *(report only)* |
-| `M11.C.27[unstable,remove_one]` | PASS | policy_temperature 2.0 | PASS | 100 | `pair_deviation` -0.0501; `pair_deviation_week_1` -0.0501 *(report only)*; `pair_deviation_week_2` -0.0292 *(report only)*; `pair_deviation_week_3` +0.0368 **opposite sign** *(report only)*; `pair_deviation_week_4` +0.0732 **opposite sign** *(report only)*; `pair_deviation_week_5` +0.106 **opposite sign** *(report only)*; `pair_deviation_week_6` +0.131 **opposite sign** *(report only)*; `pair_deviation_week_7` +0.162 **opposite sign** *(report only)*; `pair_deviation_week_8` +0.182 **opposite sign** *(report only)*; `pair_deviation_week_9` +0.224 **opposite sign** *(report only)*; `pair_deviation_week_10` +0.241 **opposite sign** *(report only)*; `pair_deviation_week_11` +0.225 **opposite sign** *(report only)*; `pair_deviation_week_12` +0.246 **opposite sign** *(report only)* |
+| `M11.C.5` | FAIL | learning_rate 0.1 | FAIL | 150 | `target_reaction` +6.14; `third_person_symptom_load` +7.95 |
+| `M11.C.16` | PASS | learning_rate 0.1 | PASS | 150 | `repertoire_entropy` -0.0306; `top_move_share` +0.0404 *(report only)* |
+| `M11.C.42` | FAIL | learning_rate 0.1 | FAIL | 50 | `triangle_reuse` +0.26 |
+| `M11.C.44` | FAIL | learning_rate 0.1 | FAIL | 100 | `outside_inside_ratio` +0.0156 |
+| `M11.C.45` | FAIL | learning_rate 0.1 | FAIL | 100 | `triangle_rate` +0.000917 |
+| `M11.C.27[stable,add_third]` | FAIL | learning_rate 0.1 | FAIL | 50 | `pair_deviation` +0.0102; `pair_deviation_week_1` +0.0102 *(report only)*; `pair_deviation_week_2` +0.0388 *(report only)*; `pair_deviation_week_3` +0.0496 *(report only)*; `pair_deviation_week_4` +0.103 *(report only)*; `pair_deviation_week_5` +0.108 *(report only)*; `pair_deviation_week_6` +0.114 *(report only)*; `pair_deviation_week_7` +0.0731 *(report only)*; `pair_deviation_week_8` +0.0706 *(report only)*; `pair_deviation_week_9` +0.0566 *(report only)*; `pair_deviation_week_10` +0.0883 *(report only)*; `pair_deviation_week_11` +0.0626 *(report only)*; `pair_deviation_week_12` +0.0249 *(report only)* |
+| `M11.C.27[stable,remove_one]` | FAIL | learning_rate 0.1 | FAIL | 100 | `pair_deviation` -0.0743 **opposite sign**; `pair_deviation_week_1` -0.0743 **opposite sign** *(report only)*; `pair_deviation_week_2` -0.0455 **opposite sign** *(report only)*; `pair_deviation_week_3` +0.00233 *(report only)*; `pair_deviation_week_4` +0.0526 *(report only)*; `pair_deviation_week_5` +0.108 *(report only)*; `pair_deviation_week_6` +0.136 *(report only)*; `pair_deviation_week_7` +0.144 *(report only)*; `pair_deviation_week_8` +0.21 *(report only)*; `pair_deviation_week_9` +0.234 *(report only)*; `pair_deviation_week_10` +0.26 *(report only)*; `pair_deviation_week_11` +0.24 *(report only)*; `pair_deviation_week_12` +0.208 *(report only)* |
+| `M11.C.27[unstable,add_third]` | FAIL | learning_rate 0.1 | FAIL | 50 | `pair_deviation` +0.00711 **opposite sign**; `pair_deviation_week_1` +0.00711 **opposite sign** *(report only)*; `pair_deviation_week_2` +0.041 **opposite sign** *(report only)*; `pair_deviation_week_3` +0.0791 **opposite sign** *(report only)*; `pair_deviation_week_4` +0.13 **opposite sign** *(report only)*; `pair_deviation_week_5` +0.0963 **opposite sign** *(report only)*; `pair_deviation_week_6` +0.0988 **opposite sign** *(report only)*; `pair_deviation_week_7` +0.0794 **opposite sign** *(report only)*; `pair_deviation_week_8` +0.0593 **opposite sign** *(report only)*; `pair_deviation_week_9` +0.0919 **opposite sign** *(report only)*; `pair_deviation_week_10` +0.0777 **opposite sign** *(report only)*; `pair_deviation_week_11` +0.0987 **opposite sign** *(report only)*; `pair_deviation_week_12` +0.0823 **opposite sign** *(report only)* |
+| `M11.C.27[unstable,remove_one]` | PASS | learning_rate 0.1 | PASS | 50 | `pair_deviation` -0.127; `pair_deviation_week_1` -0.127 *(report only)*; `pair_deviation_week_2` -0.101 *(report only)*; `pair_deviation_week_3` -0.0536 *(report only)*; `pair_deviation_week_4` +0.0405 **opposite sign** *(report only)*; `pair_deviation_week_5` +0.124 **opposite sign** *(report only)*; `pair_deviation_week_6` +0.141 **opposite sign** *(report only)*; `pair_deviation_week_7` +0.173 **opposite sign** *(report only)*; `pair_deviation_week_8` +0.201 **opposite sign** *(report only)*; `pair_deviation_week_9` +0.248 **opposite sign** *(report only)*; `pair_deviation_week_10` +0.255 **opposite sign** *(report only)*; `pair_deviation_week_11` +0.229 **opposite sign** *(report only)*; `pair_deviation_week_12` +0.242 **opposite sign** *(report only)* |
+| `M11.C.5` | FAIL | learning_rate 0.4 | FAIL | 150 | `target_reaction` -1.24 **opposite sign**; `third_person_symptom_load` +6.33 |
+| `M11.C.16` | PASS | learning_rate 0.4 | PASS | 150 | `repertoire_entropy` -0.0366; `top_move_share` +0.0485 *(report only)* |
+| `M11.C.42` | FAIL | learning_rate 0.4 | FAIL | 100 | `triangle_reuse` +0.21 |
+| `M11.C.44` | FAIL | learning_rate 0.4 | FAIL | 150 | `outside_inside_ratio` -0.0192 **opposite sign** |
+| `M11.C.45` | FAIL | learning_rate 0.4 | FAIL | 150 | `triangle_rate` +0.0015 |
+| `M11.C.27[stable,add_third]` | FAIL | learning_rate 0.4 | FAIL | 50 | `pair_deviation` +0.012; `pair_deviation_week_1` +0.012 *(report only)*; `pair_deviation_week_2` +0.0635 *(report only)*; `pair_deviation_week_3` +0.0715 *(report only)*; `pair_deviation_week_4` +0.109 *(report only)*; `pair_deviation_week_5` +0.105 *(report only)*; `pair_deviation_week_6` +0.126 *(report only)*; `pair_deviation_week_7` +0.0989 *(report only)*; `pair_deviation_week_8` +0.0876 *(report only)*; `pair_deviation_week_9` +0.104 *(report only)*; `pair_deviation_week_10` +0.0714 *(report only)*; `pair_deviation_week_11` +0.0642 *(report only)*; `pair_deviation_week_12` +0.0419 *(report only)* |
+| `M11.C.27[stable,remove_one]` | FAIL | learning_rate 0.4 | FAIL | 50 | `pair_deviation` -0.11 **opposite sign**; `pair_deviation_week_1` -0.11 **opposite sign** *(report only)*; `pair_deviation_week_2` -0.0528 **opposite sign** *(report only)*; `pair_deviation_week_3` -0.00163 **opposite sign** *(report only)*; `pair_deviation_week_4` +0.0643 *(report only)*; `pair_deviation_week_5` +0.143 *(report only)*; `pair_deviation_week_6` +0.2 *(report only)*; `pair_deviation_week_7` +0.219 *(report only)*; `pair_deviation_week_8` +0.215 *(report only)*; `pair_deviation_week_9` +0.234 *(report only)*; `pair_deviation_week_10` +0.22 *(report only)*; `pair_deviation_week_11` +0.174 *(report only)*; `pair_deviation_week_12` +0.193 *(report only)* |
+| `M11.C.27[unstable,add_third]` | FAIL | learning_rate 0.4 | FAIL | 50 | `pair_deviation` +0.0111 **opposite sign**; `pair_deviation_week_1` +0.0111 **opposite sign** *(report only)*; `pair_deviation_week_2` +0.0304 **opposite sign** *(report only)*; `pair_deviation_week_3` +0.0576 **opposite sign** *(report only)*; `pair_deviation_week_4` +0.0719 **opposite sign** *(report only)*; `pair_deviation_week_5` +0.102 **opposite sign** *(report only)*; `pair_deviation_week_6` +0.0849 **opposite sign** *(report only)*; `pair_deviation_week_7` +0.0917 **opposite sign** *(report only)*; `pair_deviation_week_8` +0.0703 **opposite sign** *(report only)*; `pair_deviation_week_9` +0.0825 **opposite sign** *(report only)*; `pair_deviation_week_10` -0.00246 *(report only)*; `pair_deviation_week_11` -0.00791 *(report only)*; `pair_deviation_week_12` +0.0057 **opposite sign** *(report only)* |
+| `M11.C.27[unstable,remove_one]` | PASS | learning_rate 0.4 | PASS | 50 | `pair_deviation` -0.121; `pair_deviation_week_1` -0.121 *(report only)*; `pair_deviation_week_2` -0.0771 *(report only)*; `pair_deviation_week_3` -0.0411 *(report only)*; `pair_deviation_week_4` +0.0598 **opposite sign** *(report only)*; `pair_deviation_week_5` +0.116 **opposite sign** *(report only)*; `pair_deviation_week_6` +0.193 **opposite sign** *(report only)*; `pair_deviation_week_7` +0.178 **opposite sign** *(report only)*; `pair_deviation_week_8` +0.211 **opposite sign** *(report only)*; `pair_deviation_week_9` +0.234 **opposite sign** *(report only)*; `pair_deviation_week_10` +0.202 **opposite sign** *(report only)*; `pair_deviation_week_11` +0.209 **opposite sign** *(report only)*; `pair_deviation_week_12` +0.23 **opposite sign** *(report only)* |
+| `M11.C.5` | FAIL | credit_horizon 2 | FAIL | 150 | `target_reaction` +8.49; `third_person_symptom_load` +12.3 |
+| `M11.C.16` | PASS | credit_horizon 2 | PASS | 150 | `repertoire_entropy` -0.0405; `top_move_share` +0.048 *(report only)* |
+| `M11.C.42` | FAIL | credit_horizon 2 | FAIL | 100 | `triangle_reuse` -0.01 **opposite sign** |
+| `M11.C.44` | FAIL | credit_horizon 2 | FAIL | 150 | `outside_inside_ratio` +0.0473 |
+| `M11.C.45` | FAIL | credit_horizon 2 | FAIL | 150 | `triangle_rate` -0.00311 **opposite sign** |
+| `M11.C.27[stable,add_third]` | FAIL | credit_horizon 2 | FAIL | 50 | `pair_deviation` -0.0175 **opposite sign**; `pair_deviation_week_1` -0.0175 **opposite sign** *(report only)*; `pair_deviation_week_2` +0.00294 *(report only)*; `pair_deviation_week_3` +0.0382 *(report only)*; `pair_deviation_week_4` +0.0156 *(report only)*; `pair_deviation_week_5` +0.0261 *(report only)*; `pair_deviation_week_6` +0.0328 *(report only)*; `pair_deviation_week_7` +0.041 *(report only)*; `pair_deviation_week_8` +0.0394 *(report only)*; `pair_deviation_week_9` +0.0182 *(report only)*; `pair_deviation_week_10` +0.0357 *(report only)*; `pair_deviation_week_11` +0.0102 *(report only)*; `pair_deviation_week_12` +0.0265 *(report only)* |
+| `M11.C.27[stable,remove_one]` | FAIL | credit_horizon 2 | FAIL | 50 | `pair_deviation` -0.107 **opposite sign**; `pair_deviation_week_1` -0.107 **opposite sign** *(report only)*; `pair_deviation_week_2` -0.0418 **opposite sign** *(report only)*; `pair_deviation_week_3` +0.0219 *(report only)*; `pair_deviation_week_4` +0.0594 *(report only)*; `pair_deviation_week_5` +0.146 *(report only)*; `pair_deviation_week_6` +0.202 *(report only)*; `pair_deviation_week_7` +0.213 *(report only)*; `pair_deviation_week_8` +0.233 *(report only)*; `pair_deviation_week_9` +0.219 *(report only)*; `pair_deviation_week_10` +0.256 *(report only)*; `pair_deviation_week_11` +0.267 *(report only)*; `pair_deviation_week_12` +0.236 *(report only)* |
+| `M11.C.27[unstable,add_third]` | FAIL | credit_horizon 2 | FAIL | 50 | `pair_deviation` -0.00063; `pair_deviation_week_1` -0.00063 *(report only)*; `pair_deviation_week_2` +0.0271 **opposite sign** *(report only)*; `pair_deviation_week_3` +0.0585 **opposite sign** *(report only)*; `pair_deviation_week_4` +0.0612 **opposite sign** *(report only)*; `pair_deviation_week_5` +0.0642 **opposite sign** *(report only)*; `pair_deviation_week_6` +0.0885 **opposite sign** *(report only)*; `pair_deviation_week_7` +0.1 **opposite sign** *(report only)*; `pair_deviation_week_8` +0.0662 **opposite sign** *(report only)*; `pair_deviation_week_9` +0.0705 **opposite sign** *(report only)*; `pair_deviation_week_10` +0.0112 **opposite sign** *(report only)*; `pair_deviation_week_11` +0.00873 **opposite sign** *(report only)*; `pair_deviation_week_12` -0.012 *(report only)* |
+| `M11.C.27[unstable,remove_one]` | PASS | credit_horizon 2 | PASS | 50 | `pair_deviation` -0.122; `pair_deviation_week_1` -0.122 *(report only)*; `pair_deviation_week_2` -0.0637 *(report only)*; `pair_deviation_week_3` -0.0329 *(report only)*; `pair_deviation_week_4` +0.023 **opposite sign** *(report only)*; `pair_deviation_week_5` +0.0934 **opposite sign** *(report only)*; `pair_deviation_week_6` +0.17 **opposite sign** *(report only)*; `pair_deviation_week_7` +0.21 **opposite sign** *(report only)*; `pair_deviation_week_8` +0.237 **opposite sign** *(report only)*; `pair_deviation_week_9` +0.233 **opposite sign** *(report only)*; `pair_deviation_week_10` +0.255 **opposite sign** *(report only)*; `pair_deviation_week_11` +0.249 **opposite sign** *(report only)*; `pair_deviation_week_12` +0.206 **opposite sign** *(report only)* |
+| `M11.C.5` | FAIL | credit_horizon 6 | FAIL | 150 | `target_reaction` -2.22 **opposite sign**; `third_person_symptom_load` +5.5 |
+| `M11.C.16` | PASS | credit_horizon 6 | PASS | 150 | `repertoire_entropy` -0.0294; `top_move_share` +0.0412 *(report only)* |
+| `M11.C.42` | FAIL | credit_horizon 6 | PASS | 100 | `triangle_reuse` +0.34 |
+| `M11.C.44` | FAIL | credit_horizon 6 | FAIL | 100 | `outside_inside_ratio` +0.00375 |
+| `M11.C.45` | FAIL | credit_horizon 6 | FAIL | 100 | `triangle_rate` +0.00292 |
+| `M11.C.27[stable,add_third]` | FAIL | credit_horizon 6 | FAIL | 50 | `pair_deviation` +0.013; `pair_deviation_week_1` +0.013 *(report only)*; `pair_deviation_week_2` +0.0415 *(report only)*; `pair_deviation_week_3` +0.0627 *(report only)*; `pair_deviation_week_4` +0.0906 *(report only)*; `pair_deviation_week_5` +0.0786 *(report only)*; `pair_deviation_week_6` +0.0651 *(report only)*; `pair_deviation_week_7` +0.0793 *(report only)*; `pair_deviation_week_8` +0.0766 *(report only)*; `pair_deviation_week_9` +0.0486 *(report only)*; `pair_deviation_week_10` +0.0604 *(report only)*; `pair_deviation_week_11` +0.0372 *(report only)*; `pair_deviation_week_12` +0.0962 *(report only)* |
+| `M11.C.27[stable,remove_one]` | FAIL | credit_horizon 6 | FAIL | 50 | `pair_deviation` -0.128 **opposite sign**; `pair_deviation_week_1` -0.128 **opposite sign** *(report only)*; `pair_deviation_week_2` -0.127 **opposite sign** *(report only)*; `pair_deviation_week_3` -0.0285 **opposite sign** *(report only)*; `pair_deviation_week_4` +0.0351 *(report only)*; `pair_deviation_week_5` +0.112 *(report only)*; `pair_deviation_week_6` +0.19 *(report only)*; `pair_deviation_week_7` +0.213 *(report only)*; `pair_deviation_week_8` +0.243 *(report only)*; `pair_deviation_week_9` +0.249 *(report only)*; `pair_deviation_week_10` +0.22 *(report only)*; `pair_deviation_week_11` +0.214 *(report only)*; `pair_deviation_week_12` +0.179 *(report only)* |
+| `M11.C.27[unstable,add_third]` | FAIL | credit_horizon 6 | FAIL | 50 | `pair_deviation` +0.0233 **opposite sign**; `pair_deviation_week_1` +0.0233 **opposite sign** *(report only)*; `pair_deviation_week_2` +0.0437 **opposite sign** *(report only)*; `pair_deviation_week_3` +0.0812 **opposite sign** *(report only)*; `pair_deviation_week_4` +0.0979 **opposite sign** *(report only)*; `pair_deviation_week_5` +0.0894 **opposite sign** *(report only)*; `pair_deviation_week_6` +0.0903 **opposite sign** *(report only)*; `pair_deviation_week_7` +0.0767 **opposite sign** *(report only)*; `pair_deviation_week_8` +0.0375 **opposite sign** *(report only)*; `pair_deviation_week_9` +0.0532 **opposite sign** *(report only)*; `pair_deviation_week_10` +0.0949 **opposite sign** *(report only)*; `pair_deviation_week_11` +0.062 **opposite sign** *(report only)*; `pair_deviation_week_12` +0.0728 **opposite sign** *(report only)* |
+| `M11.C.27[unstable,remove_one]` | PASS | credit_horizon 6 | PASS | 50 | `pair_deviation` -0.124; `pair_deviation_week_1` -0.124 *(report only)*; `pair_deviation_week_2` -0.157 *(report only)*; `pair_deviation_week_3` -0.049 *(report only)*; `pair_deviation_week_4` +0.0387 **opposite sign** *(report only)*; `pair_deviation_week_5` +0.121 **opposite sign** *(report only)*; `pair_deviation_week_6` +0.182 **opposite sign** *(report only)*; `pair_deviation_week_7` +0.233 **opposite sign** *(report only)*; `pair_deviation_week_8` +0.217 **opposite sign** *(report only)*; `pair_deviation_week_9` +0.21 **opposite sign** *(report only)*; `pair_deviation_week_10` +0.193 **opposite sign** *(report only)*; `pair_deviation_week_11` +0.202 **opposite sign** *(report only)*; `pair_deviation_week_12` +0.175 **opposite sign** *(report only)* |
+| `M11.C.5` | FAIL | policy_temperature 0.5 | FAIL | 100 | `target_reaction` +0.725; `third_person_symptom_load` -5.99 **opposite sign** |
+| `M11.C.16` | PASS | policy_temperature 0.5 | PASS | 150 | `repertoire_entropy` -0.0327; `top_move_share` +0.042 *(report only)* |
+| `M11.C.42` | FAIL | policy_temperature 0.5 | FAIL | 100 | `triangle_reuse` -0.46 **opposite sign** |
+| `M11.C.44` | FAIL | policy_temperature 0.5 | FAIL | 100 | `outside_inside_ratio` -0.00332 **opposite sign** |
+| `M11.C.45` | FAIL | policy_temperature 0.5 | FAIL | 100 | `triangle_rate` -0.00167 **opposite sign** |
+| `M11.C.27[stable,add_third]` | FAIL | policy_temperature 0.5 | FAIL | 50 | `pair_deviation` +0.0206; `pair_deviation_week_1` +0.0206 *(report only)*; `pair_deviation_week_2` +0.0558 *(report only)*; `pair_deviation_week_3` +0.0911 *(report only)*; `pair_deviation_week_4` +0.138 *(report only)*; `pair_deviation_week_5` +0.101 *(report only)*; `pair_deviation_week_6` +0.0975 *(report only)*; `pair_deviation_week_7` +0.0631 *(report only)*; `pair_deviation_week_8` -0.012 **opposite sign** *(report only)*; `pair_deviation_week_9` +0.0578 *(report only)*; `pair_deviation_week_10` +0.0519 *(report only)*; `pair_deviation_week_11` +0.0423 *(report only)*; `pair_deviation_week_12` -0.00211 **opposite sign** *(report only)* |
+| `M11.C.27[stable,remove_one]` | FAIL | policy_temperature 0.5 | FAIL | 100 | `pair_deviation` -0.0716 **opposite sign**; `pair_deviation_week_1` -0.0716 **opposite sign** *(report only)*; `pair_deviation_week_2` -0.0696 **opposite sign** *(report only)*; `pair_deviation_week_3` -0.0304 **opposite sign** *(report only)*; `pair_deviation_week_4` -0.00222 **opposite sign** *(report only)*; `pair_deviation_week_5` +0.0487 *(report only)*; `pair_deviation_week_6` +0.111 *(report only)*; `pair_deviation_week_7` +0.144 *(report only)*; `pair_deviation_week_8` +0.173 *(report only)*; `pair_deviation_week_9` +0.199 *(report only)*; `pair_deviation_week_10` +0.229 *(report only)*; `pair_deviation_week_11` +0.212 *(report only)*; `pair_deviation_week_12` +0.201 *(report only)* |
+| `M11.C.27[unstable,add_third]` | FAIL | policy_temperature 0.5 | FAIL | 50 | `pair_deviation` +0.00913 **opposite sign**; `pair_deviation_week_1` +0.00913 **opposite sign** *(report only)*; `pair_deviation_week_2` +0.0152 **opposite sign** *(report only)*; `pair_deviation_week_3` +0.0829 **opposite sign** *(report only)*; `pair_deviation_week_4` +0.0769 **opposite sign** *(report only)*; `pair_deviation_week_5` +0.0874 **opposite sign** *(report only)*; `pair_deviation_week_6` +0.0948 **opposite sign** *(report only)*; `pair_deviation_week_7` +0.0503 **opposite sign** *(report only)*; `pair_deviation_week_8` +0.0631 **opposite sign** *(report only)*; `pair_deviation_week_9` +0.11 **opposite sign** *(report only)*; `pair_deviation_week_10` +0.0497 **opposite sign** *(report only)*; `pair_deviation_week_11` +0.0439 **opposite sign** *(report only)*; `pair_deviation_week_12` +0.0378 **opposite sign** *(report only)* |
+| `M11.C.27[unstable,remove_one]` | PASS | policy_temperature 0.5 | PASS | 50 | `pair_deviation` -0.119; `pair_deviation_week_1` -0.119 *(report only)*; `pair_deviation_week_2` -0.0791 *(report only)*; `pair_deviation_week_3` -0.00281 *(report only)*; `pair_deviation_week_4` +0.0679 **opposite sign** *(report only)*; `pair_deviation_week_5` +0.122 **opposite sign** *(report only)*; `pair_deviation_week_6` +0.179 **opposite sign** *(report only)*; `pair_deviation_week_7` +0.196 **opposite sign** *(report only)*; `pair_deviation_week_8` +0.216 **opposite sign** *(report only)*; `pair_deviation_week_9` +0.242 **opposite sign** *(report only)*; `pair_deviation_week_10` +0.2 **opposite sign** *(report only)*; `pair_deviation_week_11` +0.21 **opposite sign** *(report only)*; `pair_deviation_week_12` +0.202 **opposite sign** *(report only)* |
+| `M11.C.5` | FAIL | policy_temperature 2.0 | FAIL | 100 | `target_reaction` +7.58; `third_person_symptom_load` +1.88 |
+| `M11.C.16` | PASS | policy_temperature 2.0 | PASS | 150 | `repertoire_entropy` -0.0344; `top_move_share` +0.0507 *(report only)* |
+| `M11.C.42` | FAIL | policy_temperature 2.0 | FAIL | 50 | `triangle_reuse` +0.18 |
+| `M11.C.44` | FAIL | policy_temperature 2.0 | FAIL | 100 | `outside_inside_ratio` +0.0308 |
+| `M11.C.45` | FAIL | policy_temperature 2.0 | FAIL | 100 | `triangle_rate` -0.00187 **opposite sign** |
+| `M11.C.27[stable,add_third]` | FAIL | policy_temperature 2.0 | FAIL | 50 | `pair_deviation` +0.0106; `pair_deviation_week_1` +0.0106 *(report only)*; `pair_deviation_week_2` +0.0368 *(report only)*; `pair_deviation_week_3` +0.0656 *(report only)*; `pair_deviation_week_4` +0.0931 *(report only)*; `pair_deviation_week_5` +0.0954 *(report only)*; `pair_deviation_week_6` +0.106 *(report only)*; `pair_deviation_week_7` +0.0711 *(report only)*; `pair_deviation_week_8` +0.0689 *(report only)*; `pair_deviation_week_9` +0.0513 *(report only)*; `pair_deviation_week_10` +0.0617 *(report only)*; `pair_deviation_week_11` +0.078 *(report only)*; `pair_deviation_week_12` +0.0842 *(report only)* |
+| `M11.C.27[stable,remove_one]` | FAIL | policy_temperature 2.0 | FAIL | 100 | `pair_deviation` -0.075 **opposite sign**; `pair_deviation_week_1` -0.075 **opposite sign** *(report only)*; `pair_deviation_week_2` -0.0431 **opposite sign** *(report only)*; `pair_deviation_week_3` +0.00543 *(report only)*; `pair_deviation_week_4` +0.0432 *(report only)*; `pair_deviation_week_5` +0.102 *(report only)*; `pair_deviation_week_6` +0.131 *(report only)*; `pair_deviation_week_7` +0.139 *(report only)*; `pair_deviation_week_8` +0.184 *(report only)*; `pair_deviation_week_9` +0.219 *(report only)*; `pair_deviation_week_10` +0.26 *(report only)*; `pair_deviation_week_11` +0.236 *(report only)*; `pair_deviation_week_12` +0.188 *(report only)* |
+| `M11.C.27[unstable,add_third]` | FAIL | policy_temperature 2.0 | FAIL | 50 | `pair_deviation` +0.00588 **opposite sign**; `pair_deviation_week_1` +0.00588 **opposite sign** *(report only)*; `pair_deviation_week_2` +0.037 **opposite sign** *(report only)*; `pair_deviation_week_3` +0.0728 **opposite sign** *(report only)*; `pair_deviation_week_4` +0.123 **opposite sign** *(report only)*; `pair_deviation_week_5` +0.0916 **opposite sign** *(report only)*; `pair_deviation_week_6` +0.1 **opposite sign** *(report only)*; `pair_deviation_week_7` +0.068 **opposite sign** *(report only)*; `pair_deviation_week_8` +0.0606 **opposite sign** *(report only)*; `pair_deviation_week_9` +0.0757 **opposite sign** *(report only)*; `pair_deviation_week_10` +0.0571 **opposite sign** *(report only)*; `pair_deviation_week_11` +0.0813 **opposite sign** *(report only)*; `pair_deviation_week_12` +0.077 **opposite sign** *(report only)* |
+| `M11.C.27[unstable,remove_one]` | PASS | policy_temperature 2.0 | PASS | 50 | `pair_deviation` -0.129; `pair_deviation_week_1` -0.129 *(report only)*; `pair_deviation_week_2` -0.109 *(report only)*; `pair_deviation_week_3` -0.0513 *(report only)*; `pair_deviation_week_4` +0.0213 **opposite sign** *(report only)*; `pair_deviation_week_5` +0.108 **opposite sign** *(report only)*; `pair_deviation_week_6` +0.149 **opposite sign** *(report only)*; `pair_deviation_week_7` +0.198 **opposite sign** *(report only)*; `pair_deviation_week_8` +0.212 **opposite sign** *(report only)*; `pair_deviation_week_9` +0.25 **opposite sign** *(report only)*; `pair_deviation_week_10` +0.307 **opposite sign** *(report only)*; `pair_deviation_week_11` +0.29 **opposite sign** *(report only)*; `pair_deviation_week_12` +0.28 **opposite sign** *(report only)* |
 
 ## Machine-readable
 
@@ -82,20 +82,20 @@ from that cache.
   "readouts": [
    {
     "direction": 1,
-    "half_width": 11.288206016552548,
-    "mean_difference": -9.561137891308787,
+    "half_width": 11.892471832520576,
+    "mean_difference": 6.1434961211102355,
     "readout": "target_reaction",
     "report_only": false
    },
    {
     "direction": 1,
-    "half_width": 6.010400813225659,
-    "mean_difference": 2.017831904029784,
+    "half_width": 8.40562822986043,
+    "mean_difference": 7.952638634698737,
     "readout": "third_person_symptom_load",
     "report_only": false
    }
   ],
-  "seeds": 100
+  "seeds": 150
  },
  {
   "setting": "learning_rate 0.1",
@@ -104,15 +104,15 @@ from that cache.
   "readouts": [
    {
     "direction": -1,
-    "half_width": 0.0036896058376220038,
-    "mean_difference": -0.03375926562630541,
+    "half_width": 0.004130151116807834,
+    "mean_difference": -0.030606168514999706,
     "readout": "repertoire_entropy",
     "report_only": false
    },
    {
     "direction": 1,
-    "half_width": 0.006322501384889608,
-    "mean_difference": 0.04627141414575023,
+    "half_width": 0.006916413199086683,
+    "mean_difference": 0.04038138911634402,
     "readout": "top_move_share",
     "report_only": true
    }
@@ -126,8 +126,8 @@ from that cache.
   "readouts": [
    {
     "direction": 1,
-    "half_width": 0.34976472091964905,
-    "mean_difference": -0.14,
+    "half_width": 0.31584198580936007,
+    "mean_difference": 0.26,
     "readout": "triangle_reuse",
     "report_only": false
    }
@@ -137,12 +137,12 @@ from that cache.
  {
   "setting": "learning_rate 0.1",
   "criterion": "M11.C.44",
-  "outcome": "PASS",
+  "outcome": "FAIL",
   "readouts": [
    {
     "direction": 1,
-    "half_width": 0.06861826623238242,
-    "mean_difference": 0.07731999128338138,
+    "half_width": 0.07721748843479406,
+    "mean_difference": 0.015647519905496093,
     "readout": "outside_inside_ratio",
     "report_only": false
    }
@@ -156,8 +156,8 @@ from that cache.
   "readouts": [
    {
     "direction": 1,
-    "half_width": 0.005204158580056422,
-    "mean_difference": -0.006625000000000001,
+    "half_width": 0.005090932708980008,
+    "mean_difference": 0.0009166666666666663,
     "readout": "triangle_rate",
     "report_only": false
    }
@@ -171,92 +171,92 @@ from that cache.
   "readouts": [
    {
     "direction": 1,
-    "half_width": 0.03318373026435065,
-    "mean_difference": 0.022073666119309266,
+    "half_width": 0.03361487735295729,
+    "mean_difference": 0.010153154933757378,
     "readout": "pair_deviation",
     "report_only": false
    },
    {
     "direction": 1,
-    "half_width": 0.03318373026435065,
-    "mean_difference": 0.022073666119309266,
+    "half_width": 0.03361487735295729,
+    "mean_difference": 0.010153154933757378,
     "readout": "pair_deviation_week_1",
     "report_only": true
    },
    {
     "direction": 1,
-    "half_width": 0.04375121579107958,
-    "mean_difference": 0.059593118783892354,
+    "half_width": 0.03742379542983875,
+    "mean_difference": 0.038778713898077875,
     "readout": "pair_deviation_week_2",
     "report_only": true
    },
    {
     "direction": 1,
-    "half_width": 0.03671074161084215,
-    "mean_difference": 0.05930781542187885,
+    "half_width": 0.03967929353831344,
+    "mean_difference": 0.04960199940991711,
     "readout": "pair_deviation_week_3",
     "report_only": true
    },
    {
     "direction": 1,
-    "half_width": 0.0321697177686324,
-    "mean_difference": 0.057026466349921055,
+    "half_width": 0.06158920166466162,
+    "mean_difference": 0.10268150049372857,
     "readout": "pair_deviation_week_4",
     "report_only": true
    },
    {
     "direction": 1,
-    "half_width": 0.031241484911256643,
-    "mean_difference": 0.06583855709221545,
+    "half_width": 0.043687311785056554,
+    "mean_difference": 0.10847654854005433,
     "readout": "pair_deviation_week_5",
     "report_only": true
    },
    {
     "direction": 1,
-    "half_width": 0.03561289701244186,
-    "mean_difference": 0.07088745162764652,
+    "half_width": 0.0496169338098377,
+    "mean_difference": 0.1140194632048598,
     "readout": "pair_deviation_week_6",
     "report_only": true
    },
    {
     "direction": 1,
-    "half_width": 0.037511735048744756,
-    "mean_difference": 0.09528267078436416,
+    "half_width": 0.047862607280884914,
+    "mean_difference": 0.07306844937329277,
     "readout": "pair_deviation_week_7",
     "report_only": true
    },
    {
     "direction": 1,
-    "half_width": 0.04332105734941462,
-    "mean_difference": 0.07195553575435287,
+    "half_width": 0.04344412264233299,
+    "mean_difference": 0.07055582784809018,
     "readout": "pair_deviation_week_8",
     "report_only": true
    },
    {
     "direction": 1,
-    "half_width": 0.05628493894136475,
-    "mean_difference": 0.03197275816197129,
+    "half_width": 0.04302162284677294,
+    "mean_difference": 0.05660177243822735,
     "readout": "pair_deviation_week_9",
     "report_only": true
    },
    {
     "direction": 1,
-    "half_width": 0.040396883639404545,
-    "mean_difference": 0.05446290441030713,
+    "half_width": 0.06586983609275587,
+    "mean_difference": 0.08829630314499191,
     "readout": "pair_deviation_week_10",
     "report_only": true
    },
    {
     "direction": 1,
-    "half_width": 0.04402144518016062,
-    "mean_difference": 0.050755140020440154,
+    "half_width": 0.05990576735482655,
+    "mean_difference": 0.06258911651666488,
     "readout": "pair_deviation_week_11",
     "report_only": true
    },
    {
     "direction": 1,
-    "half_width": 0.05368045072746214,
-    "mean_difference": 0.07002770208713961,
+    "half_width": 0.06497142711736503,
+    "mean_difference": 0.02487678749122113,
     "readout": "pair_deviation_week_12",
     "report_only": true
    }
@@ -270,92 +270,92 @@ from that cache.
   "readouts": [
    {
     "direction": 1,
-    "half_width": 0.04698914195313678,
-    "mean_difference": -0.028650872533025874,
+    "half_width": 0.04739447631945391,
+    "mean_difference": -0.0743081454171852,
     "readout": "pair_deviation",
     "report_only": false
    },
    {
     "direction": 1,
-    "half_width": 0.04698914195313678,
-    "mean_difference": -0.028650872533025874,
+    "half_width": 0.04739447631945391,
+    "mean_difference": -0.0743081454171852,
     "readout": "pair_deviation_week_1",
     "report_only": true
    },
    {
     "direction": 1,
-    "half_width": 0.05330751546683128,
-    "mean_difference": -0.014773896219706822,
+    "half_width": 0.057780982505230484,
+    "mean_difference": -0.045494206646196925,
     "readout": "pair_deviation_week_2",
     "report_only": true
    },
    {
     "direction": 1,
-    "half_width": 0.048434286430251,
-    "mean_difference": 0.03305084911961836,
+    "half_width": 0.05210873169540705,
+    "mean_difference": 0.0023254337429520944,
     "readout": "pair_deviation_week_3",
     "report_only": true
    },
    {
     "direction": 1,
-    "half_width": 0.04596106239369872,
-    "mean_difference": 0.08507845687245442,
+    "half_width": 0.05128681055362937,
+    "mean_difference": 0.05255392064951261,
     "readout": "pair_deviation_week_4",
     "report_only": true
    },
    {
     "direction": 1,
-    "half_width": 0.05635125282727166,
-    "mean_difference": 0.1336963102443668,
+    "half_width": 0.054040137144154565,
+    "mean_difference": 0.10804230302238672,
     "readout": "pair_deviation_week_5",
     "report_only": true
    },
    {
     "direction": 1,
-    "half_width": 0.04900399385083588,
-    "mean_difference": 0.1837815649375661,
+    "half_width": 0.05433366092268612,
+    "mean_difference": 0.1357118762325928,
     "readout": "pair_deviation_week_6",
     "report_only": true
    },
    {
     "direction": 1,
-    "half_width": 0.04523109132061183,
-    "mean_difference": 0.22179071657309596,
+    "half_width": 0.057212591863724196,
+    "mean_difference": 0.14386103581792975,
     "readout": "pair_deviation_week_7",
     "report_only": true
    },
    {
     "direction": 1,
-    "half_width": 0.048882073632718195,
-    "mean_difference": 0.19900870750179614,
+    "half_width": 0.05426946704813377,
+    "mean_difference": 0.21028353818205298,
     "readout": "pair_deviation_week_8",
     "report_only": true
    },
    {
     "direction": 1,
-    "half_width": 0.04660304627676547,
-    "mean_difference": 0.24275019777036114,
+    "half_width": 0.05574977018206284,
+    "mean_difference": 0.23443723389979787,
     "readout": "pair_deviation_week_9",
     "report_only": true
    },
    {
     "direction": 1,
-    "half_width": 0.04485726562087852,
-    "mean_difference": 0.24960674480746192,
+    "half_width": 0.056760716977484714,
+    "mean_difference": 0.2599228911110516,
     "readout": "pair_deviation_week_10",
     "report_only": true
    },
    {
     "direction": 1,
-    "half_width": 0.048508206719156344,
-    "mean_difference": 0.2553830669847544,
+    "half_width": 0.056541389542789644,
+    "mean_difference": 0.23963472281332937,
     "readout": "pair_deviation_week_11",
     "report_only": true
    },
    {
     "direction": 1,
-    "half_width": 0.04882976171953077,
-    "mean_difference": 0.27083265983475824,
+    "half_width": 0.05489014893616754,
+    "mean_difference": 0.20844386635045223,
     "readout": "pair_deviation_week_12",
     "report_only": true
    }
@@ -369,92 +369,92 @@ from that cache.
   "readouts": [
    {
     "direction": -1,
-    "half_width": 0.032698251032577584,
-    "mean_difference": 0.008507383427851633,
+    "half_width": 0.03273907983609222,
+    "mean_difference": 0.007105908455542427,
     "readout": "pair_deviation",
     "report_only": false
    },
    {
     "direction": -1,
-    "half_width": 0.032698251032577584,
-    "mean_difference": 0.008507383427851633,
+    "half_width": 0.03273907983609222,
+    "mean_difference": 0.007105908455542427,
     "readout": "pair_deviation_week_1",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.04239071043533162,
-    "mean_difference": 0.05929675717472575,
+    "half_width": 0.036477885676907205,
+    "mean_difference": 0.040975368772107126,
     "readout": "pair_deviation_week_2",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.04477086705556876,
-    "mean_difference": 0.08886261132572765,
+    "half_width": 0.041668102129805415,
+    "mean_difference": 0.07910585017962005,
     "readout": "pair_deviation_week_3",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.03833565736279908,
-    "mean_difference": 0.08539540479470702,
+    "half_width": 0.053775497706126045,
+    "mean_difference": 0.1304437423482181,
     "readout": "pair_deviation_week_4",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.0534189363659385,
-    "mean_difference": 0.058471058486725305,
+    "half_width": 0.05430138034593208,
+    "mean_difference": 0.09634627511865408,
     "readout": "pair_deviation_week_5",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.040231081570513805,
-    "mean_difference": 0.07062123676421103,
+    "half_width": 0.05665200845340642,
+    "mean_difference": 0.098813530933031,
     "readout": "pair_deviation_week_6",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.04356985554258998,
-    "mean_difference": 0.05410786091336592,
+    "half_width": 0.05542573276376223,
+    "mean_difference": 0.0794119388803162,
     "readout": "pair_deviation_week_7",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.04171704314099757,
-    "mean_difference": 0.042546663869283206,
+    "half_width": 0.06116364478899989,
+    "mean_difference": 0.05927455097335855,
     "readout": "pair_deviation_week_8",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.0488450717962734,
-    "mean_difference": 0.010973089624266281,
+    "half_width": 0.07297822914312536,
+    "mean_difference": 0.09189140746672059,
     "readout": "pair_deviation_week_9",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.045490275148076686,
-    "mean_difference": 0.029735095087499285,
+    "half_width": 0.07234018228868415,
+    "mean_difference": 0.07765803621175274,
     "readout": "pair_deviation_week_10",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.07154967432624773,
-    "mean_difference": 0.03435176197404413,
+    "half_width": 0.07289995279217337,
+    "mean_difference": 0.09870600286551266,
     "readout": "pair_deviation_week_11",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.06090144343995312,
-    "mean_difference": 0.04643990691405048,
+    "half_width": 0.06066522958576084,
+    "mean_difference": 0.08228277861229341,
     "readout": "pair_deviation_week_12",
     "report_only": true
    }
@@ -468,280 +468,92 @@ from that cache.
   "readouts": [
    {
     "direction": -1,
-    "half_width": 0.044447890690679864,
-    "mean_difference": -0.05521708421474762,
+    "half_width": 0.07108719845752533,
+    "mean_difference": -0.12655145634018766,
     "readout": "pair_deviation",
     "report_only": false
    },
    {
     "direction": -1,
-    "half_width": 0.044447890690679864,
-    "mean_difference": -0.05521708421474762,
+    "half_width": 0.07108719845752533,
+    "mean_difference": -0.12655145634018766,
     "readout": "pair_deviation_week_1",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.04719427748317158,
-    "mean_difference": -0.02951226931085143,
+    "half_width": 0.07435654118767629,
+    "mean_difference": -0.10108669263391747,
     "readout": "pair_deviation_week_2",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.03886598296271494,
-    "mean_difference": 0.0376583612168136,
+    "half_width": 0.05836418529172083,
+    "mean_difference": -0.0536105826231933,
     "readout": "pair_deviation_week_3",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.043467927945415555,
-    "mean_difference": 0.07440275423832791,
+    "half_width": 0.0561077365263273,
+    "mean_difference": 0.040484428200830085,
     "readout": "pair_deviation_week_4",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.05222858906680204,
-    "mean_difference": 0.11289123772964631,
+    "half_width": 0.05935670801038071,
+    "mean_difference": 0.12363505301472384,
     "readout": "pair_deviation_week_5",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.05400724595009454,
-    "mean_difference": 0.13398919156715056,
+    "half_width": 0.07807334456278485,
+    "mean_difference": 0.14131274776753722,
     "readout": "pair_deviation_week_6",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.04901382884649613,
-    "mean_difference": 0.18098510806528828,
+    "half_width": 0.07570035942186809,
+    "mean_difference": 0.17280597952309928,
     "readout": "pair_deviation_week_7",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.045749351755702425,
-    "mean_difference": 0.20810179940877227,
+    "half_width": 0.0748234457594286,
+    "mean_difference": 0.20065394616220586,
     "readout": "pair_deviation_week_8",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.0463680948411179,
-    "mean_difference": 0.24181633756418958,
+    "half_width": 0.06888042663346966,
+    "mean_difference": 0.24807603857088079,
     "readout": "pair_deviation_week_9",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.04578296088370428,
-    "mean_difference": 0.23446187881353786,
+    "half_width": 0.07801861623769464,
+    "mean_difference": 0.25529778375487955,
     "readout": "pair_deviation_week_10",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.048341555161529506,
-    "mean_difference": 0.24894635075299879,
+    "half_width": 0.08200248445669212,
+    "mean_difference": 0.22863802819599652,
     "readout": "pair_deviation_week_11",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.0487746072855011,
-    "mean_difference": 0.25563993360726023,
-    "readout": "pair_deviation_week_12",
-    "report_only": true
-   }
-  ],
-  "seeds": 100
- },
- {
-  "setting": "learning_rate 0.4",
-  "criterion": "M11.C.5",
-  "outcome": "PASS",
-  "readouts": [
-   {
-    "direction": 1,
-    "half_width": 10.684575671704948,
-    "mean_difference": 10.231432802661239,
-    "readout": "target_reaction",
-    "report_only": false
-   },
-   {
-    "direction": 1,
-    "half_width": 5.573068792553418,
-    "mean_difference": 6.30988861016822,
-    "readout": "third_person_symptom_load",
-    "report_only": false
-   }
-  ],
-  "seeds": 150
- },
- {
-  "setting": "learning_rate 0.4",
-  "criterion": "M11.C.16",
-  "outcome": "PASS",
-  "readouts": [
-   {
-    "direction": -1,
-    "half_width": 0.005734460462360472,
-    "mean_difference": -0.025374615199815615,
-    "readout": "repertoire_entropy",
-    "report_only": false
-   },
-   {
-    "direction": 1,
-    "half_width": 0.009057091691768264,
-    "mean_difference": 0.03448186307256684,
-    "readout": "top_move_share",
-    "report_only": true
-   }
-  ],
-  "seeds": 150
- },
- {
-  "setting": "learning_rate 0.4",
-  "criterion": "M11.C.42",
-  "outcome": "FAIL",
-  "readouts": [
-   {
-    "direction": 1,
-    "half_width": 0.3784004612720617,
-    "mean_difference": -0.3,
-    "readout": "triangle_reuse",
-    "report_only": false
-   }
-  ],
-  "seeds": 100
- },
- {
-  "setting": "learning_rate 0.4",
-  "criterion": "M11.C.44",
-  "outcome": "FAIL",
-  "readouts": [
-   {
-    "direction": 1,
-    "half_width": 0.09848076260975239,
-    "mean_difference": 0.05646384882165861,
-    "readout": "outside_inside_ratio",
-    "report_only": false
-   }
-  ],
-  "seeds": 150
- },
- {
-  "setting": "learning_rate 0.4",
-  "criterion": "M11.C.45",
-  "outcome": "FAIL",
-  "readouts": [
-   {
-    "direction": 1,
-    "half_width": 0.004890417176893672,
-    "mean_difference": -0.0015,
-    "readout": "triangle_rate",
-    "report_only": false
-   }
-  ],
-  "seeds": 150
- },
- {
-  "setting": "learning_rate 0.4",
-  "criterion": "M11.C.27[stable,add_third]",
-  "outcome": "FAIL",
-  "readouts": [
-   {
-    "direction": 1,
-    "half_width": 0.03390779587243175,
-    "mean_difference": 0.019515312286201614,
-    "readout": "pair_deviation",
-    "report_only": false
-   },
-   {
-    "direction": 1,
-    "half_width": 0.03390779587243175,
-    "mean_difference": 0.019515312286201614,
-    "readout": "pair_deviation_week_1",
-    "report_only": true
-   },
-   {
-    "direction": 1,
-    "half_width": 0.029804502579421886,
-    "mean_difference": 0.059078644032380195,
-    "readout": "pair_deviation_week_2",
-    "report_only": true
-   },
-   {
-    "direction": 1,
-    "half_width": 0.03968124706884935,
-    "mean_difference": 0.08155795252686232,
-    "readout": "pair_deviation_week_3",
-    "report_only": true
-   },
-   {
-    "direction": 1,
-    "half_width": 0.038661962587702256,
-    "mean_difference": 0.06999861701718228,
-    "readout": "pair_deviation_week_4",
-    "report_only": true
-   },
-   {
-    "direction": 1,
-    "half_width": 0.04298538333484759,
-    "mean_difference": 0.04162970451263917,
-    "readout": "pair_deviation_week_5",
-    "report_only": true
-   },
-   {
-    "direction": 1,
-    "half_width": 0.04413748736989951,
-    "mean_difference": 0.078175404344521,
-    "readout": "pair_deviation_week_6",
-    "report_only": true
-   },
-   {
-    "direction": 1,
-    "half_width": 0.04417400508017229,
-    "mean_difference": 0.0983938194026795,
-    "readout": "pair_deviation_week_7",
-    "report_only": true
-   },
-   {
-    "direction": 1,
-    "half_width": 0.04145913735443162,
-    "mean_difference": 0.08196556093376232,
-    "readout": "pair_deviation_week_8",
-    "report_only": true
-   },
-   {
-    "direction": 1,
-    "half_width": 0.0562598115352778,
-    "mean_difference": 0.0634721795122626,
-    "readout": "pair_deviation_week_9",
-    "report_only": true
-   },
-   {
-    "direction": 1,
-    "half_width": 0.06146566280816592,
-    "mean_difference": 0.05857869480879223,
-    "readout": "pair_deviation_week_10",
-    "report_only": true
-   },
-   {
-    "direction": 1,
-    "half_width": 0.05852330578538439,
-    "mean_difference": 0.034345563130153335,
-    "readout": "pair_deviation_week_11",
-    "report_only": true
-   },
-   {
-    "direction": 1,
-    "half_width": 0.06398752342578956,
-    "mean_difference": 0.02221005473994505,
+    "half_width": 0.08065586647415066,
+    "mean_difference": 0.24218668264989807,
     "readout": "pair_deviation_week_12",
     "report_only": true
    }
@@ -750,322 +562,510 @@ from that cache.
  },
  {
   "setting": "learning_rate 0.4",
-  "criterion": "M11.C.27[stable,remove_one]",
-  "outcome": "FAIL",
-  "readouts": [
-   {
-    "direction": 1,
-    "half_width": 0.04940281340090392,
-    "mean_difference": -0.041365820245632054,
-    "readout": "pair_deviation",
-    "report_only": false
-   },
-   {
-    "direction": 1,
-    "half_width": 0.04940281340090392,
-    "mean_difference": -0.041365820245632054,
-    "readout": "pair_deviation_week_1",
-    "report_only": true
-   },
-   {
-    "direction": 1,
-    "half_width": 0.051500392303862254,
-    "mean_difference": -0.025602303182656376,
-    "readout": "pair_deviation_week_2",
-    "report_only": true
-   },
-   {
-    "direction": 1,
-    "half_width": 0.04687934854155413,
-    "mean_difference": 0.04644864660046073,
-    "readout": "pair_deviation_week_3",
-    "report_only": true
-   },
-   {
-    "direction": 1,
-    "half_width": 0.04919269527137908,
-    "mean_difference": 0.08332224620254954,
-    "readout": "pair_deviation_week_4",
-    "report_only": true
-   },
-   {
-    "direction": 1,
-    "half_width": 0.05312142233232845,
-    "mean_difference": 0.13652009199420878,
-    "readout": "pair_deviation_week_5",
-    "report_only": true
-   },
-   {
-    "direction": 1,
-    "half_width": 0.05057368470109023,
-    "mean_difference": 0.1907413949198071,
-    "readout": "pair_deviation_week_6",
-    "report_only": true
-   },
-   {
-    "direction": 1,
-    "half_width": 0.05156280644536028,
-    "mean_difference": 0.21993149507531776,
-    "readout": "pair_deviation_week_7",
-    "report_only": true
-   },
-   {
-    "direction": 1,
-    "half_width": 0.05287955311719483,
-    "mean_difference": 0.21516063694848825,
-    "readout": "pair_deviation_week_8",
-    "report_only": true
-   },
-   {
-    "direction": 1,
-    "half_width": 0.05337311673959215,
-    "mean_difference": 0.24250631813842383,
-    "readout": "pair_deviation_week_9",
-    "report_only": true
-   },
-   {
-    "direction": 1,
-    "half_width": 0.05862895780984454,
-    "mean_difference": 0.25830940452011,
-    "readout": "pair_deviation_week_10",
-    "report_only": true
-   },
-   {
-    "direction": 1,
-    "half_width": 0.06050092965278655,
-    "mean_difference": 0.2251436106882052,
-    "readout": "pair_deviation_week_11",
-    "report_only": true
-   },
-   {
-    "direction": 1,
-    "half_width": 0.061504681925095596,
-    "mean_difference": 0.22590508994304184,
-    "readout": "pair_deviation_week_12",
-    "report_only": true
-   }
-  ],
-  "seeds": 100
- },
- {
-  "setting": "learning_rate 0.4",
-  "criterion": "M11.C.27[unstable,add_third]",
-  "outcome": "FAIL",
-  "readouts": [
-   {
-    "direction": -1,
-    "half_width": 0.03310548909303887,
-    "mean_difference": 0.010503802276927987,
-    "readout": "pair_deviation",
-    "report_only": false
-   },
-   {
-    "direction": -1,
-    "half_width": 0.03310548909303887,
-    "mean_difference": 0.010503802276927987,
-    "readout": "pair_deviation_week_1",
-    "report_only": true
-   },
-   {
-    "direction": -1,
-    "half_width": 0.031867699706780786,
-    "mean_difference": 0.05701059345257376,
-    "readout": "pair_deviation_week_2",
-    "report_only": true
-   },
-   {
-    "direction": -1,
-    "half_width": 0.0420251896000641,
-    "mean_difference": 0.0704935843247763,
-    "readout": "pair_deviation_week_3",
-    "report_only": true
-   },
-   {
-    "direction": -1,
-    "half_width": 0.05553852451339438,
-    "mean_difference": 0.044512354573743806,
-    "readout": "pair_deviation_week_4",
-    "report_only": true
-   },
-   {
-    "direction": -1,
-    "half_width": 0.055095799784574934,
-    "mean_difference": 0.020290364511930146,
-    "readout": "pair_deviation_week_5",
-    "report_only": true
-   },
-   {
-    "direction": -1,
-    "half_width": 0.04923254172776172,
-    "mean_difference": 0.06927547874512642,
-    "readout": "pair_deviation_week_6",
-    "report_only": true
-   },
-   {
-    "direction": -1,
-    "half_width": 0.06475538277602788,
-    "mean_difference": 0.08157091462369732,
-    "readout": "pair_deviation_week_7",
-    "report_only": true
-   },
-   {
-    "direction": -1,
-    "half_width": 0.05988508757209754,
-    "mean_difference": 0.08669455511580383,
-    "readout": "pair_deviation_week_8",
-    "report_only": true
-   },
-   {
-    "direction": -1,
-    "half_width": 0.06531648083609976,
-    "mean_difference": 0.07139128262627324,
-    "readout": "pair_deviation_week_9",
-    "report_only": true
-   },
-   {
-    "direction": -1,
-    "half_width": 0.07198923927927706,
-    "mean_difference": 0.06869158333458682,
-    "readout": "pair_deviation_week_10",
-    "report_only": true
-   },
-   {
-    "direction": -1,
-    "half_width": 0.07506137407492192,
-    "mean_difference": 0.049892344800816085,
-    "readout": "pair_deviation_week_11",
-    "report_only": true
-   },
-   {
-    "direction": -1,
-    "half_width": 0.08953516733284315,
-    "mean_difference": 0.058122929714688076,
-    "readout": "pair_deviation_week_12",
-    "report_only": true
-   }
-  ],
-  "seeds": 50
- },
- {
-  "setting": "learning_rate 0.4",
-  "criterion": "M11.C.27[unstable,remove_one]",
-  "outcome": "PASS",
-  "readouts": [
-   {
-    "direction": -1,
-    "half_width": 0.045467100979235356,
-    "mean_difference": -0.050319666321938426,
-    "readout": "pair_deviation",
-    "report_only": false
-   },
-   {
-    "direction": -1,
-    "half_width": 0.045467100979235356,
-    "mean_difference": -0.050319666321938426,
-    "readout": "pair_deviation_week_1",
-    "report_only": true
-   },
-   {
-    "direction": -1,
-    "half_width": 0.047740698836165656,
-    "mean_difference": -0.021628281003793118,
-    "readout": "pair_deviation_week_2",
-    "report_only": true
-   },
-   {
-    "direction": -1,
-    "half_width": 0.04586914862909975,
-    "mean_difference": 0.05403271409344798,
-    "readout": "pair_deviation_week_3",
-    "report_only": true
-   },
-   {
-    "direction": -1,
-    "half_width": 0.05100739147759688,
-    "mean_difference": 0.10405951228257873,
-    "readout": "pair_deviation_week_4",
-    "report_only": true
-   },
-   {
-    "direction": -1,
-    "half_width": 0.05149010688370957,
-    "mean_difference": 0.15009789079204094,
-    "readout": "pair_deviation_week_5",
-    "report_only": true
-   },
-   {
-    "direction": -1,
-    "half_width": 0.045540765825560964,
-    "mean_difference": 0.20140657666926795,
-    "readout": "pair_deviation_week_6",
-    "report_only": true
-   },
-   {
-    "direction": -1,
-    "half_width": 0.048690813469129866,
-    "mean_difference": 0.22840216411844425,
-    "readout": "pair_deviation_week_7",
-    "report_only": true
-   },
-   {
-    "direction": -1,
-    "half_width": 0.05342939511855101,
-    "mean_difference": 0.21119042777105396,
-    "readout": "pair_deviation_week_8",
-    "report_only": true
-   },
-   {
-    "direction": -1,
-    "half_width": 0.05273899039990078,
-    "mean_difference": 0.231581741191767,
-    "readout": "pair_deviation_week_9",
-    "report_only": true
-   },
-   {
-    "direction": -1,
-    "half_width": 0.05176120539733815,
-    "mean_difference": 0.22471813540304786,
-    "readout": "pair_deviation_week_10",
-    "report_only": true
-   },
-   {
-    "direction": -1,
-    "half_width": 0.05068354367004302,
-    "mean_difference": 0.2282024909394894,
-    "readout": "pair_deviation_week_11",
-    "report_only": true
-   },
-   {
-    "direction": -1,
-    "half_width": 0.052023509075041295,
-    "mean_difference": 0.19704348783633688,
-    "readout": "pair_deviation_week_12",
-    "report_only": true
-   }
-  ],
-  "seeds": 100
- },
- {
-  "setting": "credit_horizon 2",
   "criterion": "M11.C.5",
   "outcome": "FAIL",
   "readouts": [
    {
     "direction": 1,
-    "half_width": 11.623129128063997,
-    "mean_difference": -8.061713874705063,
+    "half_width": 15.849667545277716,
+    "mean_difference": -1.2426313757600715,
     "readout": "target_reaction",
     "report_only": false
    },
    {
     "direction": 1,
-    "half_width": 5.406701257054542,
-    "mean_difference": -3.7691574103718164,
+    "half_width": 8.40190784200818,
+    "mean_difference": 6.334246253019833,
     "readout": "third_person_symptom_load",
     "report_only": false
    }
   ],
+  "seeds": 150
+ },
+ {
+  "setting": "learning_rate 0.4",
+  "criterion": "M11.C.16",
+  "outcome": "PASS",
+  "readouts": [
+   {
+    "direction": -1,
+    "half_width": 0.006999039903475849,
+    "mean_difference": -0.03658789268993458,
+    "readout": "repertoire_entropy",
+    "report_only": false
+   },
+   {
+    "direction": 1,
+    "half_width": 0.01081169230440959,
+    "mean_difference": 0.04845828726262775,
+    "readout": "top_move_share",
+    "report_only": true
+   }
+  ],
+  "seeds": 150
+ },
+ {
+  "setting": "learning_rate 0.4",
+  "criterion": "M11.C.42",
+  "outcome": "FAIL",
+  "readouts": [
+   {
+    "direction": 1,
+    "half_width": 0.3559917352349006,
+    "mean_difference": 0.21,
+    "readout": "triangle_reuse",
+    "report_only": false
+   }
+  ],
   "seeds": 100
+ },
+ {
+  "setting": "learning_rate 0.4",
+  "criterion": "M11.C.44",
+  "outcome": "FAIL",
+  "readouts": [
+   {
+    "direction": 1,
+    "half_width": 0.09645955849251057,
+    "mean_difference": -0.019203656527944216,
+    "readout": "outside_inside_ratio",
+    "report_only": false
+   }
+  ],
+  "seeds": 150
+ },
+ {
+  "setting": "learning_rate 0.4",
+  "criterion": "M11.C.45",
+  "outcome": "FAIL",
+  "readouts": [
+   {
+    "direction": 1,
+    "half_width": 0.005489537940111484,
+    "mean_difference": 0.0014999999999999992,
+    "readout": "triangle_rate",
+    "report_only": false
+   }
+  ],
+  "seeds": 150
+ },
+ {
+  "setting": "learning_rate 0.4",
+  "criterion": "M11.C.27[stable,add_third]",
+  "outcome": "FAIL",
+  "readouts": [
+   {
+    "direction": 1,
+    "half_width": 0.03447474798378534,
+    "mean_difference": 0.012045272839639362,
+    "readout": "pair_deviation",
+    "report_only": false
+   },
+   {
+    "direction": 1,
+    "half_width": 0.03447474798378534,
+    "mean_difference": 0.012045272839639362,
+    "readout": "pair_deviation_week_1",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.05542746668075837,
+    "mean_difference": 0.06345243507826592,
+    "readout": "pair_deviation_week_2",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.056090222623847594,
+    "mean_difference": 0.07146597428102672,
+    "readout": "pair_deviation_week_3",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.05894517214030793,
+    "mean_difference": 0.10871366234845435,
+    "readout": "pair_deviation_week_4",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.046229910918660654,
+    "mean_difference": 0.1051255995723155,
+    "readout": "pair_deviation_week_5",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.0494561205533052,
+    "mean_difference": 0.12640117383880128,
+    "readout": "pair_deviation_week_6",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.05605878961955832,
+    "mean_difference": 0.09894501394584317,
+    "readout": "pair_deviation_week_7",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.06948362031400311,
+    "mean_difference": 0.08763581615990092,
+    "readout": "pair_deviation_week_8",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.08342351908064535,
+    "mean_difference": 0.1041473967667986,
+    "readout": "pair_deviation_week_9",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.07537946015191228,
+    "mean_difference": 0.0714121055687111,
+    "readout": "pair_deviation_week_10",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.08872418226476955,
+    "mean_difference": 0.06423014544450548,
+    "readout": "pair_deviation_week_11",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.0814710889513833,
+    "mean_difference": 0.0418577861896219,
+    "readout": "pair_deviation_week_12",
+    "report_only": true
+   }
+  ],
+  "seeds": 50
+ },
+ {
+  "setting": "learning_rate 0.4",
+  "criterion": "M11.C.27[stable,remove_one]",
+  "outcome": "FAIL",
+  "readouts": [
+   {
+    "direction": 1,
+    "half_width": 0.060999388017125476,
+    "mean_difference": -0.11041108069719069,
+    "readout": "pair_deviation",
+    "report_only": false
+   },
+   {
+    "direction": 1,
+    "half_width": 0.060999388017125476,
+    "mean_difference": -0.11041108069719069,
+    "readout": "pair_deviation_week_1",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.06250734386861105,
+    "mean_difference": -0.05280772301684559,
+    "readout": "pair_deviation_week_2",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.06745437078405682,
+    "mean_difference": -0.001627833645813055,
+    "readout": "pair_deviation_week_3",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.07165055738356035,
+    "mean_difference": 0.06427917656992024,
+    "readout": "pair_deviation_week_4",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.07731053862580034,
+    "mean_difference": 0.14288317449453175,
+    "readout": "pair_deviation_week_5",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.07368081019724412,
+    "mean_difference": 0.20046655355983703,
+    "readout": "pair_deviation_week_6",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.09389214406320137,
+    "mean_difference": 0.21858816103976694,
+    "readout": "pair_deviation_week_7",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.08804614729031585,
+    "mean_difference": 0.21524858489030002,
+    "readout": "pair_deviation_week_8",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.09639030775933269,
+    "mean_difference": 0.23356736269883008,
+    "readout": "pair_deviation_week_9",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.10647115661356799,
+    "mean_difference": 0.22034337036920476,
+    "readout": "pair_deviation_week_10",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.09342957097547112,
+    "mean_difference": 0.17405965605993068,
+    "readout": "pair_deviation_week_11",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.08391313073766217,
+    "mean_difference": 0.193185225395747,
+    "readout": "pair_deviation_week_12",
+    "report_only": true
+   }
+  ],
+  "seeds": 50
+ },
+ {
+  "setting": "learning_rate 0.4",
+  "criterion": "M11.C.27[unstable,add_third]",
+  "outcome": "FAIL",
+  "readouts": [
+   {
+    "direction": -1,
+    "half_width": 0.03196020167634498,
+    "mean_difference": 0.01107186782947588,
+    "readout": "pair_deviation",
+    "report_only": false
+   },
+   {
+    "direction": -1,
+    "half_width": 0.03196020167634498,
+    "mean_difference": 0.01107186782947588,
+    "readout": "pair_deviation_week_1",
+    "report_only": true
+   },
+   {
+    "direction": -1,
+    "half_width": 0.054080351820640166,
+    "mean_difference": 0.030401307949939685,
+    "readout": "pair_deviation_week_2",
+    "report_only": true
+   },
+   {
+    "direction": -1,
+    "half_width": 0.053184173493685725,
+    "mean_difference": 0.05764941855345321,
+    "readout": "pair_deviation_week_3",
+    "report_only": true
+   },
+   {
+    "direction": -1,
+    "half_width": 0.047800501352962016,
+    "mean_difference": 0.07185375185089234,
+    "readout": "pair_deviation_week_4",
+    "report_only": true
+   },
+   {
+    "direction": -1,
+    "half_width": 0.05031549931242144,
+    "mean_difference": 0.10173073876598387,
+    "readout": "pair_deviation_week_5",
+    "report_only": true
+   },
+   {
+    "direction": -1,
+    "half_width": 0.06198668717266103,
+    "mean_difference": 0.08487101931484675,
+    "readout": "pair_deviation_week_6",
+    "report_only": true
+   },
+   {
+    "direction": -1,
+    "half_width": 0.06897519558934047,
+    "mean_difference": 0.09174687253672469,
+    "readout": "pair_deviation_week_7",
+    "report_only": true
+   },
+   {
+    "direction": -1,
+    "half_width": 0.0795319305129471,
+    "mean_difference": 0.07032209175230293,
+    "readout": "pair_deviation_week_8",
+    "report_only": true
+   },
+   {
+    "direction": -1,
+    "half_width": 0.07805275654535189,
+    "mean_difference": 0.08251876965212031,
+    "readout": "pair_deviation_week_9",
+    "report_only": true
+   },
+   {
+    "direction": -1,
+    "half_width": 0.07682370987684618,
+    "mean_difference": -0.0024580750411144128,
+    "readout": "pair_deviation_week_10",
+    "report_only": true
+   },
+   {
+    "direction": -1,
+    "half_width": 0.08078741996211172,
+    "mean_difference": -0.007913990328900593,
+    "readout": "pair_deviation_week_11",
+    "report_only": true
+   },
+   {
+    "direction": -1,
+    "half_width": 0.07646553906682409,
+    "mean_difference": 0.005702183997757918,
+    "readout": "pair_deviation_week_12",
+    "report_only": true
+   }
+  ],
+  "seeds": 50
+ },
+ {
+  "setting": "learning_rate 0.4",
+  "criterion": "M11.C.27[unstable,remove_one]",
+  "outcome": "PASS",
+  "readouts": [
+   {
+    "direction": -1,
+    "half_width": 0.06773213497102135,
+    "mean_difference": -0.12055583992645172,
+    "readout": "pair_deviation",
+    "report_only": false
+   },
+   {
+    "direction": -1,
+    "half_width": 0.06773213497102135,
+    "mean_difference": -0.12055583992645172,
+    "readout": "pair_deviation_week_1",
+    "report_only": true
+   },
+   {
+    "direction": -1,
+    "half_width": 0.05951574836075163,
+    "mean_difference": -0.07709785532549693,
+    "readout": "pair_deviation_week_2",
+    "report_only": true
+   },
+   {
+    "direction": -1,
+    "half_width": 0.06048605085655657,
+    "mean_difference": -0.041117017907051905,
+    "readout": "pair_deviation_week_3",
+    "report_only": true
+   },
+   {
+    "direction": -1,
+    "half_width": 0.060781488075368865,
+    "mean_difference": 0.05982966961738526,
+    "readout": "pair_deviation_week_4",
+    "report_only": true
+   },
+   {
+    "direction": -1,
+    "half_width": 0.0647442986721585,
+    "mean_difference": 0.11636306193975451,
+    "readout": "pair_deviation_week_5",
+    "report_only": true
+   },
+   {
+    "direction": -1,
+    "half_width": 0.06077038534233852,
+    "mean_difference": 0.1934408888722967,
+    "readout": "pair_deviation_week_6",
+    "report_only": true
+   },
+   {
+    "direction": -1,
+    "half_width": 0.06513728824053407,
+    "mean_difference": 0.17785529958472918,
+    "readout": "pair_deviation_week_7",
+    "report_only": true
+   },
+   {
+    "direction": -1,
+    "half_width": 0.0807091530255145,
+    "mean_difference": 0.21061733106439298,
+    "readout": "pair_deviation_week_8",
+    "report_only": true
+   },
+   {
+    "direction": -1,
+    "half_width": 0.07876159933577724,
+    "mean_difference": 0.2338564585676316,
+    "readout": "pair_deviation_week_9",
+    "report_only": true
+   },
+   {
+    "direction": -1,
+    "half_width": 0.10016664193010624,
+    "mean_difference": 0.20153899225206667,
+    "readout": "pair_deviation_week_10",
+    "report_only": true
+   },
+   {
+    "direction": -1,
+    "half_width": 0.09264189161955626,
+    "mean_difference": 0.20886663525484803,
+    "readout": "pair_deviation_week_11",
+    "report_only": true
+   },
+   {
+    "direction": -1,
+    "half_width": 0.08848626167297552,
+    "mean_difference": 0.2296625058505168,
+    "readout": "pair_deviation_week_12",
+    "report_only": true
+   }
+  ],
+  "seeds": 50
+ },
+ {
+  "setting": "credit_horizon 2",
+  "criterion": "M11.C.5",
+  "outcome": "FAIL",
+  "readouts": [
+   {
+    "direction": 1,
+    "half_width": 15.513752444706961,
+    "mean_difference": 8.490724073736287,
+    "readout": "target_reaction",
+    "report_only": false
+   },
+   {
+    "direction": 1,
+    "half_width": 9.425914914636369,
+    "mean_difference": 12.250656723508925,
+    "readout": "third_person_symptom_load",
+    "report_only": false
+   }
+  ],
+  "seeds": 150
  },
  {
   "setting": "credit_horizon 2",
@@ -1074,20 +1074,20 @@ from that cache.
   "readouts": [
    {
     "direction": -1,
-    "half_width": 0.0060735582954048965,
-    "mean_difference": -0.028984427271356764,
+    "half_width": 0.0059496009329426,
+    "mean_difference": -0.040461729124713165,
     "readout": "repertoire_entropy",
     "report_only": false
    },
    {
     "direction": 1,
-    "half_width": 0.009376706321459819,
-    "mean_difference": 0.043227520994291,
+    "half_width": 0.009363455084377423,
+    "mean_difference": 0.047954833830247214,
     "readout": "top_move_share",
     "report_only": true
    }
   ],
-  "seeds": 100
+  "seeds": 150
  },
  {
   "setting": "credit_horizon 2",
@@ -1096,23 +1096,23 @@ from that cache.
   "readouts": [
    {
     "direction": 1,
-    "half_width": 0.43192666044133,
-    "mean_difference": -0.02,
+    "half_width": 0.3182368065615683,
+    "mean_difference": -0.01,
     "readout": "triangle_reuse",
     "report_only": false
    }
   ],
-  "seeds": 50
+  "seeds": 100
  },
  {
   "setting": "credit_horizon 2",
   "criterion": "M11.C.44",
-  "outcome": "PASS",
+  "outcome": "FAIL",
   "readouts": [
    {
     "direction": 1,
-    "half_width": 0.08144637780382656,
-    "mean_difference": 0.06864162104426907,
+    "half_width": 0.10007949949973041,
+    "mean_difference": 0.047285819126319954,
     "readout": "outside_inside_ratio",
     "report_only": false
    }
@@ -1126,8 +1126,8 @@ from that cache.
   "readouts": [
    {
     "direction": 1,
-    "half_width": 0.004745484733324223,
-    "mean_difference": -0.0026666666666666666,
+    "half_width": 0.0053868747483331965,
+    "mean_difference": -0.0031111111111111105,
     "readout": "triangle_rate",
     "report_only": false
    }
@@ -1137,96 +1137,96 @@ from that cache.
  {
   "setting": "credit_horizon 2",
   "criterion": "M11.C.27[stable,add_third]",
-  "outcome": "PASS",
+  "outcome": "FAIL",
   "readouts": [
    {
     "direction": 1,
-    "half_width": 0.03254159304699183,
-    "mean_difference": 0.027151781815131983,
+    "half_width": 0.030475583212835257,
+    "mean_difference": -0.017488933104463658,
     "readout": "pair_deviation",
     "report_only": false
    },
    {
     "direction": 1,
-    "half_width": 0.03254159304699183,
-    "mean_difference": 0.027151781815131983,
+    "half_width": 0.030475583212835257,
+    "mean_difference": -0.017488933104463658,
     "readout": "pair_deviation_week_1",
     "report_only": true
    },
    {
     "direction": 1,
-    "half_width": 0.03459904949821376,
-    "mean_difference": 0.043844040707383784,
+    "half_width": 0.045092008883883775,
+    "mean_difference": 0.002944572753609276,
     "readout": "pair_deviation_week_2",
     "report_only": true
    },
    {
     "direction": 1,
-    "half_width": 0.035392793767797796,
-    "mean_difference": 0.06926646337703883,
+    "half_width": 0.030660984826251042,
+    "mean_difference": 0.03820936451901909,
     "readout": "pair_deviation_week_3",
     "report_only": true
    },
    {
     "direction": 1,
-    "half_width": 0.038222192130011205,
-    "mean_difference": 0.05925509486820288,
+    "half_width": 0.04353079152895782,
+    "mean_difference": 0.015645428213223164,
     "readout": "pair_deviation_week_4",
     "report_only": true
    },
    {
     "direction": 1,
-    "half_width": 0.04747296781323092,
-    "mean_difference": 0.07104663482144362,
+    "half_width": 0.058654121684205265,
+    "mean_difference": 0.026128671904822317,
     "readout": "pair_deviation_week_5",
     "report_only": true
    },
    {
     "direction": 1,
-    "half_width": 0.0466929634488714,
-    "mean_difference": 0.10764795929843354,
+    "half_width": 0.05618505170876845,
+    "mean_difference": 0.03278918323285946,
     "readout": "pair_deviation_week_6",
     "report_only": true
    },
    {
     "direction": 1,
-    "half_width": 0.03852324826877769,
-    "mean_difference": 0.11860592233276496,
+    "half_width": 0.05340009119342054,
+    "mean_difference": 0.04097150740645003,
     "readout": "pair_deviation_week_7",
     "report_only": true
    },
    {
     "direction": 1,
-    "half_width": 0.058728592658794015,
-    "mean_difference": 0.07609341387111178,
+    "half_width": 0.049679198871360124,
+    "mean_difference": 0.03942853318657587,
     "readout": "pair_deviation_week_8",
     "report_only": true
    },
    {
     "direction": 1,
-    "half_width": 0.05197919287941238,
-    "mean_difference": 0.08097272832226016,
+    "half_width": 0.05285775561563968,
+    "mean_difference": 0.01824741586345978,
     "readout": "pair_deviation_week_9",
     "report_only": true
    },
    {
     "direction": 1,
-    "half_width": 0.05906642983684405,
-    "mean_difference": 0.0708647142414128,
+    "half_width": 0.056038930343218926,
+    "mean_difference": 0.03565276914704411,
     "readout": "pair_deviation_week_10",
     "report_only": true
    },
    {
     "direction": 1,
-    "half_width": 0.0605807319749792,
-    "mean_difference": 0.03828702226883405,
+    "half_width": 0.07146463917005769,
+    "mean_difference": 0.010202213064321794,
     "readout": "pair_deviation_week_11",
     "report_only": true
    },
    {
     "direction": 1,
-    "half_width": 0.07119428393749476,
-    "mean_difference": 0.06874015122623699,
+    "half_width": 0.06543027891174574,
+    "mean_difference": 0.02646387540535541,
     "readout": "pair_deviation_week_12",
     "report_only": true
    }
@@ -1240,97 +1240,97 @@ from that cache.
   "readouts": [
    {
     "direction": 1,
-    "half_width": 0.04719009683453497,
-    "mean_difference": -0.023402153076895516,
+    "half_width": 0.06309530127480165,
+    "mean_difference": -0.10665472840758466,
     "readout": "pair_deviation",
     "report_only": false
    },
    {
     "direction": 1,
-    "half_width": 0.04719009683453497,
-    "mean_difference": -0.023402153076895516,
+    "half_width": 0.06309530127480165,
+    "mean_difference": -0.10665472840758466,
     "readout": "pair_deviation_week_1",
     "report_only": true
    },
    {
     "direction": 1,
-    "half_width": 0.051082954230947296,
-    "mean_difference": -0.027375454209724488,
+    "half_width": 0.06771874636434813,
+    "mean_difference": -0.04179497043562543,
     "readout": "pair_deviation_week_2",
     "report_only": true
    },
    {
     "direction": 1,
-    "half_width": 0.040852326875337165,
-    "mean_difference": 0.05078350059131708,
+    "half_width": 0.06122382675598097,
+    "mean_difference": 0.021912139099140374,
     "readout": "pair_deviation_week_3",
     "report_only": true
    },
    {
     "direction": 1,
-    "half_width": 0.04203960006988984,
-    "mean_difference": 0.09852515020108181,
+    "half_width": 0.0634826837827903,
+    "mean_difference": 0.05941701690654077,
     "readout": "pair_deviation_week_4",
     "report_only": true
    },
    {
     "direction": 1,
-    "half_width": 0.04395067539559326,
-    "mean_difference": 0.13976058029123334,
+    "half_width": 0.06554214692056502,
+    "mean_difference": 0.14605665290641456,
     "readout": "pair_deviation_week_5",
     "report_only": true
    },
    {
     "direction": 1,
-    "half_width": 0.04754493770241838,
-    "mean_difference": 0.2005832194581803,
+    "half_width": 0.06406158597591473,
+    "mean_difference": 0.2022388849668897,
     "readout": "pair_deviation_week_6",
     "report_only": true
    },
    {
     "direction": 1,
-    "half_width": 0.045338425102699406,
-    "mean_difference": 0.22878942257068136,
+    "half_width": 0.06434968231110866,
+    "mean_difference": 0.21341691875693303,
     "readout": "pair_deviation_week_7",
     "report_only": true
    },
    {
     "direction": 1,
-    "half_width": 0.047082543233645836,
-    "mean_difference": 0.23274124537108848,
+    "half_width": 0.06812594769666705,
+    "mean_difference": 0.23260135431925844,
     "readout": "pair_deviation_week_8",
     "report_only": true
    },
    {
     "direction": 1,
-    "half_width": 0.049794666049197696,
-    "mean_difference": 0.2186880785539448,
+    "half_width": 0.07380003423725875,
+    "mean_difference": 0.21946016069572138,
     "readout": "pair_deviation_week_9",
     "report_only": true
    },
    {
     "direction": 1,
-    "half_width": 0.05220175315370994,
-    "mean_difference": 0.22921914925075446,
+    "half_width": 0.0719452471373671,
+    "mean_difference": 0.25611022509861914,
     "readout": "pair_deviation_week_10",
     "report_only": true
    },
    {
     "direction": 1,
-    "half_width": 0.04700494526639756,
-    "mean_difference": 0.2621062746417143,
+    "half_width": 0.07572820483281142,
+    "mean_difference": 0.26711396092750433,
     "readout": "pair_deviation_week_11",
     "report_only": true
    },
    {
     "direction": 1,
-    "half_width": 0.04844548871375119,
-    "mean_difference": 0.27319355906318227,
+    "half_width": 0.08240691526589486,
+    "mean_difference": 0.23620483160467842,
     "readout": "pair_deviation_week_12",
     "report_only": true
    }
   ],
-  "seeds": 100
+  "seeds": 50
  },
  {
   "setting": "credit_horizon 2",
@@ -1339,92 +1339,92 @@ from that cache.
   "readouts": [
    {
     "direction": -1,
-    "half_width": 0.03276040183866019,
-    "mean_difference": 0.005559152329324023,
+    "half_width": 0.031889480032419405,
+    "mean_difference": -0.0006295043673715706,
     "readout": "pair_deviation",
     "report_only": false
    },
    {
     "direction": -1,
-    "half_width": 0.03276040183866019,
-    "mean_difference": 0.005559152329324023,
+    "half_width": 0.031889480032419405,
+    "mean_difference": -0.0006295043673715706,
     "readout": "pair_deviation_week_1",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.03710076632781426,
-    "mean_difference": 0.060434653545496986,
+    "half_width": 0.0479735207187148,
+    "mean_difference": 0.02705582638339753,
     "readout": "pair_deviation_week_2",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.04385644243977008,
-    "mean_difference": 0.09039072599588295,
+    "half_width": 0.04918924656962869,
+    "mean_difference": 0.058459514923567026,
     "readout": "pair_deviation_week_3",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.04491965883157127,
-    "mean_difference": 0.08005691927015618,
+    "half_width": 0.05322312547914658,
+    "mean_difference": 0.0612417220001276,
     "readout": "pair_deviation_week_4",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.04672919041835617,
-    "mean_difference": 0.05550862058455052,
+    "half_width": 0.07315255110007468,
+    "mean_difference": 0.06422239495090373,
     "readout": "pair_deviation_week_5",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.050449045266570285,
-    "mean_difference": 0.07048297905782856,
+    "half_width": 0.07261372411561852,
+    "mean_difference": 0.08853815102416952,
     "readout": "pair_deviation_week_6",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.05006261900754903,
-    "mean_difference": 0.07615517524397193,
+    "half_width": 0.07441437891886382,
+    "mean_difference": 0.10024300994881184,
     "readout": "pair_deviation_week_7",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.04616806410750727,
-    "mean_difference": 0.0615838319965793,
+    "half_width": 0.06619864634007477,
+    "mean_difference": 0.06623839648758006,
     "readout": "pair_deviation_week_8",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.062219103043136166,
-    "mean_difference": 0.05779416093520427,
+    "half_width": 0.05442920842114793,
+    "mean_difference": 0.07047929690260063,
     "readout": "pair_deviation_week_9",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.04827425417683264,
-    "mean_difference": 0.05535958539040524,
+    "half_width": 0.053312402133795164,
+    "mean_difference": 0.011180144288898774,
     "readout": "pair_deviation_week_10",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.07769629569032241,
-    "mean_difference": 0.10178965969292365,
+    "half_width": 0.06495551146798326,
+    "mean_difference": 0.008732364917168778,
     "readout": "pair_deviation_week_11",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.07508652373988084,
-    "mean_difference": 0.05516131951700052,
+    "half_width": 0.08069731348073218,
+    "mean_difference": -0.012039892854277043,
     "readout": "pair_deviation_week_12",
     "report_only": true
    }
@@ -1434,101 +1434,101 @@ from that cache.
  {
   "setting": "credit_horizon 2",
   "criterion": "M11.C.27[unstable,remove_one]",
-  "outcome": "FAIL",
+  "outcome": "PASS",
   "readouts": [
    {
     "direction": -1,
-    "half_width": 0.044080619320552586,
-    "mean_difference": -0.040967445131517816,
+    "half_width": 0.06909853611312691,
+    "mean_difference": -0.12204536226743316,
     "readout": "pair_deviation",
     "report_only": false
    },
    {
     "direction": -1,
-    "half_width": 0.044080619320552586,
-    "mean_difference": -0.040967445131517816,
+    "half_width": 0.06909853611312691,
+    "mean_difference": -0.12204536226743316,
     "readout": "pair_deviation_week_1",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.04357074661531416,
-    "mean_difference": -0.017037244965477406,
+    "half_width": 0.0661592338589373,
+    "mean_difference": -0.06366531318679203,
     "readout": "pair_deviation_week_2",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.04383870712420802,
-    "mean_difference": 0.021055185991369223,
+    "half_width": 0.07368482831853047,
+    "mean_difference": -0.03289230412152513,
     "readout": "pair_deviation_week_3",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.04510731427073049,
-    "mean_difference": 0.07096741491680332,
+    "half_width": 0.07103190540369501,
+    "mean_difference": 0.023019239914979464,
     "readout": "pair_deviation_week_4",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.04522393115047857,
-    "mean_difference": 0.11622328881878233,
+    "half_width": 0.06934496494243397,
+    "mean_difference": 0.09337359354680713,
     "readout": "pair_deviation_week_5",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.04788238507256766,
-    "mean_difference": 0.17293645923413145,
+    "half_width": 0.07307369591231377,
+    "mean_difference": 0.1703297287757824,
     "readout": "pair_deviation_week_6",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.04264063772576511,
-    "mean_difference": 0.23575933590645368,
+    "half_width": 0.06863136547376232,
+    "mean_difference": 0.2099565559476096,
     "readout": "pair_deviation_week_7",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.04628254214556965,
-    "mean_difference": 0.25162395576382024,
+    "half_width": 0.07921808241476702,
+    "mean_difference": 0.23695148149656733,
     "readout": "pair_deviation_week_8",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.04977044521285974,
-    "mean_difference": 0.25440544802547654,
+    "half_width": 0.0750824587374318,
+    "mean_difference": 0.23323111417312062,
     "readout": "pair_deviation_week_9",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.05673519549267111,
-    "mean_difference": 0.25259687873605474,
+    "half_width": 0.08336979297545186,
+    "mean_difference": 0.25489085425027225,
     "readout": "pair_deviation_week_10",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.053880306814125235,
-    "mean_difference": 0.24653678976132373,
+    "half_width": 0.08016946054011331,
+    "mean_difference": 0.2491936405456436,
     "readout": "pair_deviation_week_11",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.04754778157075778,
-    "mean_difference": 0.2586379495880943,
+    "half_width": 0.09338435237583131,
+    "mean_difference": 0.20630426126614307,
     "readout": "pair_deviation_week_12",
     "report_only": true
    }
   ],
-  "seeds": 100
+  "seeds": 50
  },
  {
   "setting": "credit_horizon 6",
@@ -1537,20 +1537,20 @@ from that cache.
   "readouts": [
    {
     "direction": 1,
-    "half_width": 10.52399028534689,
-    "mean_difference": 1.6096549014141737,
+    "half_width": 13.382125895085393,
+    "mean_difference": -2.2235346529312685,
     "readout": "target_reaction",
     "report_only": false
    },
    {
     "direction": 1,
-    "half_width": 5.9312653599084175,
-    "mean_difference": -0.44264131458299383,
+    "half_width": 8.17025012878713,
+    "mean_difference": 5.495515011761731,
     "readout": "third_person_symptom_load",
     "report_only": false
    }
   ],
-  "seeds": 100
+  "seeds": 150
  },
  {
   "setting": "credit_horizon 6",
@@ -1559,15 +1559,15 @@ from that cache.
   "readouts": [
    {
     "direction": -1,
-    "half_width": 0.004469406940021745,
-    "mean_difference": -0.028057785526494416,
+    "half_width": 0.005933184870543068,
+    "mean_difference": -0.02939690238323239,
     "readout": "repertoire_entropy",
     "report_only": false
    },
    {
     "direction": 1,
-    "half_width": 0.006552041220072151,
-    "mean_difference": 0.0408686014264691,
+    "half_width": 0.008654990374103024,
+    "mean_difference": 0.04119319664150344,
     "readout": "top_move_share",
     "report_only": true
    }
@@ -1577,17 +1577,17 @@ from that cache.
  {
   "setting": "credit_horizon 6",
   "criterion": "M11.C.42",
-  "outcome": "FAIL",
+  "outcome": "PASS",
   "readouts": [
    {
     "direction": 1,
-    "half_width": 0.40210963679076384,
-    "mean_difference": 0.24,
+    "half_width": 0.26607159057879765,
+    "mean_difference": 0.34,
     "readout": "triangle_reuse",
     "report_only": false
    }
   ],
-  "seeds": 50
+  "seeds": 100
  },
  {
   "setting": "credit_horizon 6",
@@ -1596,8 +1596,8 @@ from that cache.
   "readouts": [
    {
     "direction": 1,
-    "half_width": 0.08425371592611937,
-    "mean_difference": 0.015253449338754744,
+    "half_width": 0.08886677425112913,
+    "mean_difference": 0.0037544327618059016,
     "readout": "outside_inside_ratio",
     "report_only": false
    }
@@ -1611,8 +1611,8 @@ from that cache.
   "readouts": [
    {
     "direction": 1,
-    "half_width": 0.005966913308673178,
-    "mean_difference": -0.0037500000000000016,
+    "half_width": 0.005938620530452658,
+    "mean_difference": 0.0029166666666666664,
     "readout": "triangle_rate",
     "report_only": false
    }
@@ -1626,92 +1626,92 @@ from that cache.
   "readouts": [
    {
     "direction": 1,
-    "half_width": 0.034573357382885896,
-    "mean_difference": 0.027055213502246902,
+    "half_width": 0.033914482460077236,
+    "mean_difference": 0.013035727007015932,
     "readout": "pair_deviation",
     "report_only": false
    },
    {
     "direction": 1,
-    "half_width": 0.034573357382885896,
-    "mean_difference": 0.027055213502246902,
+    "half_width": 0.033914482460077236,
+    "mean_difference": 0.013035727007015932,
     "readout": "pair_deviation_week_1",
     "report_only": true
    },
    {
     "direction": 1,
-    "half_width": 0.03114427508869502,
-    "mean_difference": 0.04900619234184003,
+    "half_width": 0.03394583465821807,
+    "mean_difference": 0.04145599914623859,
     "readout": "pair_deviation_week_2",
     "report_only": true
    },
    {
     "direction": 1,
-    "half_width": 0.037268168079038475,
-    "mean_difference": 0.07223997549390268,
+    "half_width": 0.032820869736685916,
+    "mean_difference": 0.0627412104724323,
     "readout": "pair_deviation_week_3",
     "report_only": true
    },
    {
     "direction": 1,
-    "half_width": 0.03587506781576273,
-    "mean_difference": 0.07829575965363549,
+    "half_width": 0.042969683759157946,
+    "mean_difference": 0.09058049309705853,
     "readout": "pair_deviation_week_4",
     "report_only": true
    },
    {
     "direction": 1,
-    "half_width": 0.03236181252834131,
-    "mean_difference": 0.0700654117360087,
+    "half_width": 0.04325943009272186,
+    "mean_difference": 0.0785800963633773,
     "readout": "pair_deviation_week_5",
     "report_only": true
    },
    {
     "direction": 1,
-    "half_width": 0.03189945735849352,
-    "mean_difference": 0.06801282069765767,
+    "half_width": 0.04661629766097858,
+    "mean_difference": 0.06508449159387854,
     "readout": "pair_deviation_week_6",
     "report_only": true
    },
    {
     "direction": 1,
-    "half_width": 0.02985204242006236,
-    "mean_difference": 0.0855092297161373,
+    "half_width": 0.04834457989257433,
+    "mean_difference": 0.07930895039103478,
     "readout": "pair_deviation_week_7",
     "report_only": true
    },
    {
     "direction": 1,
-    "half_width": 0.03674454922024531,
-    "mean_difference": 0.07547876071277294,
+    "half_width": 0.05443877775497327,
+    "mean_difference": 0.07655229855143138,
     "readout": "pair_deviation_week_8",
     "report_only": true
    },
    {
     "direction": 1,
-    "half_width": 0.04897203895077445,
-    "mean_difference": 0.06955196523152445,
+    "half_width": 0.07170713536703617,
+    "mean_difference": 0.04859332515721836,
     "readout": "pair_deviation_week_9",
     "report_only": true
    },
    {
     "direction": 1,
-    "half_width": 0.04062299743554129,
-    "mean_difference": 0.04567146080549321,
+    "half_width": 0.07069751493643,
+    "mean_difference": 0.06043589839094149,
     "readout": "pair_deviation_week_10",
     "report_only": true
    },
    {
     "direction": 1,
-    "half_width": 0.03986519518818369,
-    "mean_difference": 0.04144322121628438,
+    "half_width": 0.05568222372902522,
+    "mean_difference": 0.03719493553528254,
     "readout": "pair_deviation_week_11",
     "report_only": true
    },
    {
     "direction": 1,
-    "half_width": 0.05743463654121244,
-    "mean_difference": 0.03440981866027846,
+    "half_width": 0.0709353996812249,
+    "mean_difference": 0.09621713558366711,
     "readout": "pair_deviation_week_12",
     "report_only": true
    }
@@ -1725,97 +1725,97 @@ from that cache.
   "readouts": [
    {
     "direction": 1,
-    "half_width": 0.04514753877707917,
-    "mean_difference": -0.058476514993795865,
+    "half_width": 0.06952002729542665,
+    "mean_difference": -0.12820880200617463,
     "readout": "pair_deviation",
     "report_only": false
    },
    {
     "direction": 1,
-    "half_width": 0.04514753877707917,
-    "mean_difference": -0.058476514993795865,
+    "half_width": 0.06952002729542665,
+    "mean_difference": -0.12820880200617463,
     "readout": "pair_deviation_week_1",
     "report_only": true
    },
    {
     "direction": 1,
-    "half_width": 0.049358085030979354,
-    "mean_difference": -0.040393784309037395,
+    "half_width": 0.082398710224428,
+    "mean_difference": -0.1273130695903677,
     "readout": "pair_deviation_week_2",
     "report_only": true
    },
    {
     "direction": 1,
-    "half_width": 0.04405548778227154,
-    "mean_difference": 0.03207436481234946,
+    "half_width": 0.0689099631938096,
+    "mean_difference": -0.028474670084097927,
     "readout": "pair_deviation_week_3",
     "report_only": true
    },
    {
     "direction": 1,
-    "half_width": 0.04555613483655898,
-    "mean_difference": 0.08867472584634767,
+    "half_width": 0.07550975150163404,
+    "mean_difference": 0.035073511288901266,
     "readout": "pair_deviation_week_4",
     "report_only": true
    },
    {
     "direction": 1,
-    "half_width": 0.04687441401619795,
-    "mean_difference": 0.13970424051103658,
+    "half_width": 0.07179715814282905,
+    "mean_difference": 0.11193008039956948,
     "readout": "pair_deviation_week_5",
     "report_only": true
    },
    {
     "direction": 1,
-    "half_width": 0.04576428480163444,
-    "mean_difference": 0.19709599652456242,
+    "half_width": 0.0607419816570396,
+    "mean_difference": 0.1896002135263873,
     "readout": "pair_deviation_week_6",
     "report_only": true
    },
    {
     "direction": 1,
-    "half_width": 0.04468042877280816,
-    "mean_difference": 0.22583489127379874,
+    "half_width": 0.05847120157095003,
+    "mean_difference": 0.2125457865416265,
     "readout": "pair_deviation_week_7",
     "report_only": true
    },
    {
     "direction": 1,
-    "half_width": 0.04111890618995801,
-    "mean_difference": 0.258716771577436,
+    "half_width": 0.06432740123368258,
+    "mean_difference": 0.24262910123087933,
     "readout": "pair_deviation_week_8",
     "report_only": true
    },
    {
     "direction": 1,
-    "half_width": 0.046885649795325224,
-    "mean_difference": 0.29834443457617765,
+    "half_width": 0.05976462604431047,
+    "mean_difference": 0.2487354272843717,
     "readout": "pair_deviation_week_9",
     "report_only": true
    },
    {
     "direction": 1,
-    "half_width": 0.049814337300695774,
-    "mean_difference": 0.310141227350621,
+    "half_width": 0.08256374955844042,
+    "mean_difference": 0.21977927721060098,
     "readout": "pair_deviation_week_10",
     "report_only": true
    },
    {
     "direction": 1,
-    "half_width": 0.049520125829586495,
-    "mean_difference": 0.29701579486336027,
+    "half_width": 0.08633731711360419,
+    "mean_difference": 0.21422276266676502,
     "readout": "pair_deviation_week_11",
     "report_only": true
    },
    {
     "direction": 1,
-    "half_width": 0.05235362377175169,
-    "mean_difference": 0.28198409374972777,
+    "half_width": 0.0881435273218405,
+    "mean_difference": 0.178776457193491,
     "readout": "pair_deviation_week_12",
     "report_only": true
    }
   ],
-  "seeds": 100
+  "seeds": 50
  },
  {
   "setting": "credit_horizon 6",
@@ -1824,92 +1824,92 @@ from that cache.
   "readouts": [
    {
     "direction": -1,
-    "half_width": 0.03313114381915475,
-    "mean_difference": 0.013045892794758826,
+    "half_width": 0.03525216302708633,
+    "mean_difference": 0.02329923329312299,
     "readout": "pair_deviation",
     "report_only": false
    },
    {
     "direction": -1,
-    "half_width": 0.03313114381915475,
-    "mean_difference": 0.013045892794758826,
+    "half_width": 0.03525216302708633,
+    "mean_difference": 0.02329923329312299,
     "readout": "pair_deviation_week_1",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.046279106895656806,
-    "mean_difference": 0.05579645691624182,
+    "half_width": 0.03355335888258622,
+    "mean_difference": 0.043690825501661576,
     "readout": "pair_deviation_week_2",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.039635929722466594,
-    "mean_difference": 0.08158480832733557,
+    "half_width": 0.03590299558405976,
+    "mean_difference": 0.081222025455373,
     "readout": "pair_deviation_week_3",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.05284264679414336,
-    "mean_difference": 0.0727652701456521,
+    "half_width": 0.060101804213435917,
+    "mean_difference": 0.09785649062757328,
     "readout": "pair_deviation_week_4",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.044223478761547086,
-    "mean_difference": 0.08263187089904143,
+    "half_width": 0.05409772541727979,
+    "mean_difference": 0.08943875180223841,
     "readout": "pair_deviation_week_5",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.04666016830797009,
-    "mean_difference": 0.09092796078921635,
+    "half_width": 0.045727248472206855,
+    "mean_difference": 0.09033492428622544,
     "readout": "pair_deviation_week_6",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.03659321253703515,
-    "mean_difference": 0.08505409418770321,
+    "half_width": 0.03995426878365845,
+    "mean_difference": 0.07667233525703893,
     "readout": "pair_deviation_week_7",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.05405081480012728,
-    "mean_difference": 0.07147454717950302,
+    "half_width": 0.04099831295036105,
+    "mean_difference": 0.03750615547930814,
     "readout": "pair_deviation_week_8",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.05688100030298422,
-    "mean_difference": 0.06600593092712012,
+    "half_width": 0.03925160403157053,
+    "mean_difference": 0.05316736324595417,
     "readout": "pair_deviation_week_9",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.05464859687722788,
-    "mean_difference": 0.02159803104067048,
+    "half_width": 0.05089516943066495,
+    "mean_difference": 0.09492571796717324,
     "readout": "pair_deviation_week_10",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.06433917333641173,
-    "mean_difference": 0.034310845717171065,
+    "half_width": 0.05784046305142436,
+    "mean_difference": 0.062048414930111165,
     "readout": "pair_deviation_week_11",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.07047735911120373,
-    "mean_difference": -0.011894726418983316,
+    "half_width": 0.060887272848208926,
+    "mean_difference": 0.07281736040910823,
     "readout": "pair_deviation_week_12",
     "report_only": true
    }
@@ -1923,97 +1923,97 @@ from that cache.
   "readouts": [
    {
     "direction": -1,
-    "half_width": 0.046369204835158113,
-    "mean_difference": -0.0625980527996381,
+    "half_width": 0.06430678791948298,
+    "mean_difference": -0.12389145324319131,
     "readout": "pair_deviation",
     "report_only": false
    },
    {
     "direction": -1,
-    "half_width": 0.046369204835158113,
-    "mean_difference": -0.0625980527996381,
+    "half_width": 0.06430678791948298,
+    "mean_difference": -0.12389145324319131,
     "readout": "pair_deviation_week_1",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.04821922868363364,
-    "mean_difference": -0.019693190869219963,
+    "half_width": 0.08144254159129327,
+    "mean_difference": -0.15712571689583082,
     "readout": "pair_deviation_week_2",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.04134993613745662,
-    "mean_difference": 0.043481800895422223,
+    "half_width": 0.07126933472062737,
+    "mean_difference": -0.04895598846523584,
     "readout": "pair_deviation_week_3",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.04183915714043408,
-    "mean_difference": 0.0876424134409033,
+    "half_width": 0.06293304310575544,
+    "mean_difference": 0.038652747338381206,
     "readout": "pair_deviation_week_4",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.044472635687769754,
-    "mean_difference": 0.12871150414144883,
+    "half_width": 0.06137687451393867,
+    "mean_difference": 0.12054231902580172,
     "readout": "pair_deviation_week_5",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.04104264417311011,
-    "mean_difference": 0.19841563625818445,
+    "half_width": 0.06684772164991509,
+    "mean_difference": 0.18181988481447903,
     "readout": "pair_deviation_week_6",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.04271584288876899,
-    "mean_difference": 0.224388347721471,
+    "half_width": 0.05886153889694986,
+    "mean_difference": 0.2334236796415622,
     "readout": "pair_deviation_week_7",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.0395413149145266,
-    "mean_difference": 0.22642598962706262,
+    "half_width": 0.0688663241213288,
+    "mean_difference": 0.2172878026615599,
     "readout": "pair_deviation_week_8",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.044665471398580306,
-    "mean_difference": 0.26858145778205045,
+    "half_width": 0.06538598575473611,
+    "mean_difference": 0.21045679313300997,
     "readout": "pair_deviation_week_9",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.048666349980055805,
-    "mean_difference": 0.26014586678728635,
+    "half_width": 0.08795105731827993,
+    "mean_difference": 0.19258826867009016,
     "readout": "pair_deviation_week_10",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.051288643848766705,
-    "mean_difference": 0.23379227345261228,
+    "half_width": 0.10998711211352197,
+    "mean_difference": 0.20175075530017905,
     "readout": "pair_deviation_week_11",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.0505408708847224,
-    "mean_difference": 0.2238294210798028,
+    "half_width": 0.09301197091943882,
+    "mean_difference": 0.17473802196525917,
     "readout": "pair_deviation_week_12",
     "report_only": true
    }
   ],
-  "seeds": 100
+  "seeds": 50
  },
  {
   "setting": "policy_temperature 0.5",
@@ -2022,15 +2022,15 @@ from that cache.
   "readouts": [
    {
     "direction": 1,
-    "half_width": 12.716871873434192,
-    "mean_difference": -3.8092958453708143,
+    "half_width": 17.365795401700417,
+    "mean_difference": 0.7249645423829321,
     "readout": "target_reaction",
     "report_only": false
    },
    {
     "direction": 1,
-    "half_width": 6.689604360119075,
-    "mean_difference": 0.4146867438984944,
+    "half_width": 9.090647718849176,
+    "mean_difference": -5.989530051906043,
     "readout": "third_person_symptom_load",
     "report_only": false
    }
@@ -2044,15 +2044,15 @@ from that cache.
   "readouts": [
    {
     "direction": -1,
-    "half_width": 0.007202805655570395,
-    "mean_difference": -0.021425321237108896,
+    "half_width": 0.007761543239279353,
+    "mean_difference": -0.03270776583993886,
     "readout": "repertoire_entropy",
     "report_only": false
    },
    {
     "direction": 1,
-    "half_width": 0.010862421516669201,
-    "mean_difference": 0.018640901698808707,
+    "half_width": 0.011342127494038366,
+    "mean_difference": 0.04201795231348297,
     "readout": "top_move_share",
     "report_only": true
    }
@@ -2066,8 +2066,8 @@ from that cache.
   "readouts": [
    {
     "direction": 1,
-    "half_width": 0.39138578142159164,
-    "mean_difference": -0.18,
+    "half_width": 0.34952917018194746,
+    "mean_difference": -0.46,
     "readout": "triangle_reuse",
     "report_only": false
    }
@@ -2077,12 +2077,12 @@ from that cache.
  {
   "setting": "policy_temperature 0.5",
   "criterion": "M11.C.44",
-  "outcome": "PASS",
+  "outcome": "FAIL",
   "readouts": [
    {
     "direction": 1,
-    "half_width": 0.11777317802550986,
-    "mean_difference": 0.1150778733504576,
+    "half_width": 0.14917074711645884,
+    "mean_difference": -0.0033220597097234684,
     "readout": "outside_inside_ratio",
     "report_only": false
    }
@@ -2096,107 +2096,107 @@ from that cache.
   "readouts": [
    {
     "direction": 1,
-    "half_width": 0.005236173618229752,
-    "mean_difference": -0.002888888888888889,
+    "half_width": 0.0069033478922340364,
+    "mean_difference": -0.0016666666666666668,
     "readout": "triangle_rate",
     "report_only": false
    }
   ],
-  "seeds": 150
+  "seeds": 100
  },
  {
   "setting": "policy_temperature 0.5",
   "criterion": "M11.C.27[stable,add_third]",
-  "outcome": "PASS",
+  "outcome": "FAIL",
   "readouts": [
    {
     "direction": 1,
-    "half_width": 0.034547581852134315,
-    "mean_difference": 0.03792865695525706,
+    "half_width": 0.03435102642567735,
+    "mean_difference": 0.020571445474926568,
     "readout": "pair_deviation",
     "report_only": false
    },
    {
     "direction": 1,
-    "half_width": 0.034547581852134315,
-    "mean_difference": 0.03792865695525706,
+    "half_width": 0.03435102642567735,
+    "mean_difference": 0.020571445474926568,
     "readout": "pair_deviation_week_1",
     "report_only": true
    },
    {
     "direction": 1,
-    "half_width": 0.03210055217788668,
-    "mean_difference": 0.07400039327531295,
+    "half_width": 0.05628785417161452,
+    "mean_difference": 0.055764949074940555,
     "readout": "pair_deviation_week_2",
     "report_only": true
    },
    {
     "direction": 1,
-    "half_width": 0.034695444140032033,
-    "mean_difference": 0.06389770453543137,
+    "half_width": 0.0544406969784718,
+    "mean_difference": 0.09106290556233232,
     "readout": "pair_deviation_week_3",
     "report_only": true
    },
    {
     "direction": 1,
-    "half_width": 0.04625563210127962,
-    "mean_difference": 0.057095138886758115,
+    "half_width": 0.05649368193006821,
+    "mean_difference": 0.13817107446179133,
     "readout": "pair_deviation_week_4",
     "report_only": true
    },
    {
     "direction": 1,
-    "half_width": 0.053936831727654615,
-    "mean_difference": 0.03900861384965111,
+    "half_width": 0.04583868961862697,
+    "mean_difference": 0.1013090233586695,
     "readout": "pair_deviation_week_5",
     "report_only": true
    },
    {
     "direction": 1,
-    "half_width": 0.04779502913128316,
-    "mean_difference": 0.0564240342580116,
+    "half_width": 0.05814661897122654,
+    "mean_difference": 0.0974641589734823,
     "readout": "pair_deviation_week_6",
     "report_only": true
    },
    {
     "direction": 1,
-    "half_width": 0.05175414619688395,
-    "mean_difference": 0.06848065704122284,
+    "half_width": 0.08723864671024936,
+    "mean_difference": 0.06310965711315894,
     "readout": "pair_deviation_week_7",
     "report_only": true
    },
    {
     "direction": 1,
-    "half_width": 0.05746410653734019,
-    "mean_difference": 0.04937656043498677,
+    "half_width": 0.08063020626970535,
+    "mean_difference": -0.011991984904697916,
     "readout": "pair_deviation_week_8",
     "report_only": true
    },
    {
     "direction": 1,
-    "half_width": 0.06829124840969575,
-    "mean_difference": 0.0444198554072447,
+    "half_width": 0.08045601501542869,
+    "mean_difference": 0.057846329895094216,
     "readout": "pair_deviation_week_9",
     "report_only": true
    },
    {
     "direction": 1,
-    "half_width": 0.07978424396507741,
-    "mean_difference": 0.04849859709340031,
+    "half_width": 0.08184808681179462,
+    "mean_difference": 0.05189044573987167,
     "readout": "pair_deviation_week_10",
     "report_only": true
    },
    {
     "direction": 1,
-    "half_width": 0.08168236160015882,
-    "mean_difference": 0.008570198779810514,
+    "half_width": 0.08632906119674545,
+    "mean_difference": 0.04232258520471454,
     "readout": "pair_deviation_week_11",
     "report_only": true
    },
    {
     "direction": 1,
-    "half_width": 0.08085994604746176,
-    "mean_difference": -0.014861135014806624,
+    "half_width": 0.07387359953791396,
+    "mean_difference": -0.0021086740235349856,
     "readout": "pair_deviation_week_12",
     "report_only": true
    }
@@ -2210,92 +2210,92 @@ from that cache.
   "readouts": [
    {
     "direction": 1,
-    "half_width": 0.048933108937664976,
-    "mean_difference": -0.028272745554010322,
+    "half_width": 0.0459328746476713,
+    "mean_difference": -0.07159135054210676,
     "readout": "pair_deviation",
     "report_only": false
    },
    {
     "direction": 1,
-    "half_width": 0.048933108937664976,
-    "mean_difference": -0.028272745554010322,
+    "half_width": 0.0459328746476713,
+    "mean_difference": -0.07159135054210676,
     "readout": "pair_deviation_week_1",
     "report_only": true
    },
    {
     "direction": 1,
-    "half_width": 0.0501415168299579,
-    "mean_difference": -0.019517855489563404,
+    "half_width": 0.051374516286007435,
+    "mean_difference": -0.06955398065790941,
     "readout": "pair_deviation_week_2",
     "report_only": true
    },
    {
     "direction": 1,
-    "half_width": 0.04696690073151468,
-    "mean_difference": 0.05580201820375261,
+    "half_width": 0.0537654172247675,
+    "mean_difference": -0.030448601209519657,
     "readout": "pair_deviation_week_3",
     "report_only": true
    },
    {
     "direction": 1,
-    "half_width": 0.04732743814407217,
-    "mean_difference": 0.10740551261312373,
+    "half_width": 0.06070973946340759,
+    "mean_difference": -0.0022161086743178763,
     "readout": "pair_deviation_week_4",
     "report_only": true
    },
    {
     "direction": 1,
-    "half_width": 0.051863890828299154,
-    "mean_difference": 0.15695043671941433,
+    "half_width": 0.05494431081758835,
+    "mean_difference": 0.048730786949251946,
     "readout": "pair_deviation_week_5",
     "report_only": true
    },
    {
     "direction": 1,
-    "half_width": 0.04960894610160483,
-    "mean_difference": 0.19159771517473836,
+    "half_width": 0.05604200487153158,
+    "mean_difference": 0.11055497176054033,
     "readout": "pair_deviation_week_6",
     "report_only": true
    },
    {
     "direction": 1,
-    "half_width": 0.04619822068463526,
-    "mean_difference": 0.2302110807989065,
+    "half_width": 0.059680206141996636,
+    "mean_difference": 0.14389550662737124,
     "readout": "pair_deviation_week_7",
     "report_only": true
    },
    {
     "direction": 1,
-    "half_width": 0.053477064099169455,
-    "mean_difference": 0.23346654651747914,
+    "half_width": 0.06046379980972303,
+    "mean_difference": 0.1728512179746946,
     "readout": "pair_deviation_week_8",
     "report_only": true
    },
    {
     "direction": 1,
-    "half_width": 0.054728729825923375,
-    "mean_difference": 0.257112766551568,
+    "half_width": 0.06468882692052881,
+    "mean_difference": 0.1986616264333012,
     "readout": "pair_deviation_week_9",
     "report_only": true
    },
    {
     "direction": 1,
-    "half_width": 0.06388322225116298,
-    "mean_difference": 0.28613393097280404,
+    "half_width": 0.06363144146091639,
+    "mean_difference": 0.22933782996249336,
     "readout": "pair_deviation_week_10",
     "report_only": true
    },
    {
     "direction": 1,
-    "half_width": 0.06448500630453755,
-    "mean_difference": 0.26589119888294804,
+    "half_width": 0.06513925485946113,
+    "mean_difference": 0.2117108865854788,
     "readout": "pair_deviation_week_11",
     "report_only": true
    },
    {
     "direction": 1,
-    "half_width": 0.06399602837445471,
-    "mean_difference": 0.27530923785644756,
+    "half_width": 0.05737205124006187,
+    "mean_difference": 0.20120919283918526,
     "readout": "pair_deviation_week_12",
     "report_only": true
    }
@@ -2309,92 +2309,92 @@ from that cache.
   "readouts": [
    {
     "direction": -1,
-    "half_width": 0.03342761425540814,
-    "mean_difference": 0.00941282440061626,
+    "half_width": 0.03336478043908359,
+    "mean_difference": 0.009126694366140336,
     "readout": "pair_deviation",
     "report_only": false
    },
    {
     "direction": -1,
-    "half_width": 0.03342761425540814,
-    "mean_difference": 0.00941282440061626,
+    "half_width": 0.03336478043908359,
+    "mean_difference": 0.009126694366140336,
     "readout": "pair_deviation_week_1",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.03264191761829028,
-    "mean_difference": 0.05693739093515445,
+    "half_width": 0.05092154516336454,
+    "mean_difference": 0.015150162783510522,
     "readout": "pair_deviation_week_2",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.038697171243326965,
-    "mean_difference": 0.05743802503535662,
+    "half_width": 0.04969228776425347,
+    "mean_difference": 0.08288998816003158,
     "readout": "pair_deviation_week_3",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.05319234550854296,
-    "mean_difference": 0.05294019868232919,
+    "half_width": 0.047125456248362826,
+    "mean_difference": 0.07692454346019179,
     "readout": "pair_deviation_week_4",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.05530104795251722,
-    "mean_difference": 0.02144127401255905,
+    "half_width": 0.046374475817894376,
+    "mean_difference": 0.08741885035761986,
     "readout": "pair_deviation_week_5",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.04985865716149508,
-    "mean_difference": 0.037361686318119335,
+    "half_width": 0.062129879960415225,
+    "mean_difference": 0.0948350719396587,
     "readout": "pair_deviation_week_6",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.05511926659464985,
-    "mean_difference": 0.04831521445334824,
+    "half_width": 0.06865195798910227,
+    "mean_difference": 0.050270456870908066,
     "readout": "pair_deviation_week_7",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.05235335221151007,
-    "mean_difference": 0.023822528451903965,
+    "half_width": 0.07004870068028966,
+    "mean_difference": 0.06306248164670814,
     "readout": "pair_deviation_week_8",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.06488114414941752,
-    "mean_difference": 0.003253362162768124,
+    "half_width": 0.0745337826844497,
+    "mean_difference": 0.10972956582690431,
     "readout": "pair_deviation_week_9",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.06805086411730484,
-    "mean_difference": 0.002991655911695841,
+    "half_width": 0.08401394556577847,
+    "mean_difference": 0.049723060214225095,
     "readout": "pair_deviation_week_10",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.06345285655654044,
-    "mean_difference": -0.02778942840064402,
+    "half_width": 0.09199158031628912,
+    "mean_difference": 0.04385801863065988,
     "readout": "pair_deviation_week_11",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.07471285662636623,
-    "mean_difference": -0.005086237711273621,
+    "half_width": 0.0746803388238588,
+    "mean_difference": 0.03781715656336979,
     "readout": "pair_deviation_week_12",
     "report_only": true
    }
@@ -2404,101 +2404,101 @@ from that cache.
  {
   "setting": "policy_temperature 0.5",
   "criterion": "M11.C.27[unstable,remove_one]",
-  "outcome": "FAIL",
+  "outcome": "PASS",
   "readouts": [
    {
     "direction": -1,
-    "half_width": 0.04367335845349418,
-    "mean_difference": -0.03297155164489326,
+    "half_width": 0.06535183737338174,
+    "mean_difference": -0.11898538256971777,
     "readout": "pair_deviation",
     "report_only": false
    },
    {
     "direction": -1,
-    "half_width": 0.04367335845349418,
-    "mean_difference": -0.03297155164489326,
+    "half_width": 0.06535183737338174,
+    "mean_difference": -0.11898538256971777,
     "readout": "pair_deviation_week_1",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.049093721529432255,
-    "mean_difference": -0.012143859381111144,
+    "half_width": 0.06021681922168489,
+    "mean_difference": -0.07913723903643677,
     "readout": "pair_deviation_week_2",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.05589687189299571,
-    "mean_difference": 0.06587636167134243,
+    "half_width": 0.07691490401544403,
+    "mean_difference": -0.0028117587528393526,
     "readout": "pair_deviation_week_3",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.05399862433541234,
-    "mean_difference": 0.10612624795449001,
+    "half_width": 0.06530791826014118,
+    "mean_difference": 0.06785853457471683,
     "readout": "pair_deviation_week_4",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.05183345213100092,
-    "mean_difference": 0.17784797349372689,
+    "half_width": 0.0731088868224808,
+    "mean_difference": 0.12177488805651462,
     "readout": "pair_deviation_week_5",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.0491630553741609,
-    "mean_difference": 0.2159589082655805,
+    "half_width": 0.07495422899588715,
+    "mean_difference": 0.17915108028297294,
     "readout": "pair_deviation_week_6",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.04444746669201974,
-    "mean_difference": 0.22971432297051725,
+    "half_width": 0.07069744174784019,
+    "mean_difference": 0.19601580605943572,
     "readout": "pair_deviation_week_7",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.05223338439349222,
-    "mean_difference": 0.23226321370293462,
+    "half_width": 0.08092756967980982,
+    "mean_difference": 0.21560556572538647,
     "readout": "pair_deviation_week_8",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.053883668423549504,
-    "mean_difference": 0.24600054827371523,
+    "half_width": 0.08742654561087808,
+    "mean_difference": 0.24217593186631423,
     "readout": "pair_deviation_week_9",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.05126862815468121,
-    "mean_difference": 0.27651493902762747,
+    "half_width": 0.0917866689139461,
+    "mean_difference": 0.19971063717415605,
     "readout": "pair_deviation_week_10",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.053793094865227674,
-    "mean_difference": 0.2524612493444726,
+    "half_width": 0.09311432658850943,
+    "mean_difference": 0.20953546466380463,
     "readout": "pair_deviation_week_11",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.056386767965393825,
-    "mean_difference": 0.2638089972740348,
+    "half_width": 0.08367996161032093,
+    "mean_difference": 0.20155092208856407,
     "readout": "pair_deviation_week_12",
     "report_only": true
    }
   ],
-  "seeds": 100
+  "seeds": 50
  },
  {
   "setting": "policy_temperature 2.0",
@@ -2507,15 +2507,15 @@ from that cache.
   "readouts": [
    {
     "direction": 1,
-    "half_width": 11.221797397527393,
-    "mean_difference": -6.254220636725408,
+    "half_width": 14.416307563736314,
+    "mean_difference": 7.581748599300903,
     "readout": "target_reaction",
     "report_only": false
    },
    {
     "direction": 1,
-    "half_width": 5.448360438487711,
-    "mean_difference": 6.125123795267184,
+    "half_width": 9.93288557228945,
+    "mean_difference": 1.8819759958679496,
     "readout": "third_person_symptom_load",
     "report_only": false
    }
@@ -2529,15 +2529,15 @@ from that cache.
   "readouts": [
    {
     "direction": -1,
-    "half_width": 0.0032207580565458607,
-    "mean_difference": -0.03272258789889951,
+    "half_width": 0.004153616519575708,
+    "mean_difference": -0.034352515173319595,
     "readout": "repertoire_entropy",
     "report_only": false
    },
    {
     "direction": 1,
-    "half_width": 0.005720860660363001,
-    "mean_difference": 0.042541787881148645,
+    "half_width": 0.006435403572801295,
+    "mean_difference": 0.05069486184500775,
     "readout": "top_move_share",
     "report_only": true
    }
@@ -2551,8 +2551,8 @@ from that cache.
   "readouts": [
    {
     "direction": 1,
-    "half_width": 0.364,
-    "mean_difference": -0.1,
+    "half_width": 0.34379621871102656,
+    "mean_difference": 0.18,
     "readout": "triangle_reuse",
     "report_only": false
    }
@@ -2566,8 +2566,8 @@ from that cache.
   "readouts": [
    {
     "direction": 1,
-    "half_width": 0.06109301894287807,
-    "mean_difference": 0.05686611421351877,
+    "half_width": 0.07874389944122698,
+    "mean_difference": 0.030799286810690482,
     "readout": "outside_inside_ratio",
     "report_only": false
    }
@@ -2581,8 +2581,8 @@ from that cache.
   "readouts": [
    {
     "direction": 1,
-    "half_width": 0.00446911233550244,
-    "mean_difference": -0.003541666666666667,
+    "half_width": 0.0046696229062334095,
+    "mean_difference": -0.0018749999999999995,
     "readout": "triangle_rate",
     "report_only": false
    }
@@ -2596,92 +2596,92 @@ from that cache.
   "readouts": [
    {
     "direction": 1,
-    "half_width": 0.033034485520992654,
-    "mean_difference": 0.025999813922460212,
+    "half_width": 0.03253716348574073,
+    "mean_difference": 0.01063558134847604,
     "readout": "pair_deviation",
     "report_only": false
    },
    {
     "direction": 1,
-    "half_width": 0.033034485520992654,
-    "mean_difference": 0.025999813922460212,
+    "half_width": 0.03253716348574073,
+    "mean_difference": 0.01063558134847604,
     "readout": "pair_deviation_week_1",
     "report_only": true
    },
    {
     "direction": 1,
-    "half_width": 0.04375139459553404,
-    "mean_difference": 0.06254043632957777,
+    "half_width": 0.03315514350482185,
+    "mean_difference": 0.03675123066454637,
     "readout": "pair_deviation_week_2",
     "report_only": true
    },
    {
     "direction": 1,
-    "half_width": 0.037004358755579655,
-    "mean_difference": 0.06293343290245906,
+    "half_width": 0.0321043624472402,
+    "mean_difference": 0.06556326602434016,
     "readout": "pair_deviation_week_3",
     "report_only": true
    },
    {
     "direction": 1,
-    "half_width": 0.03669671543376521,
-    "mean_difference": 0.06728960036148476,
+    "half_width": 0.05166722716560083,
+    "mean_difference": 0.09306280978148251,
     "readout": "pair_deviation_week_4",
     "report_only": true
    },
    {
     "direction": 1,
-    "half_width": 0.040812228249227485,
-    "mean_difference": 0.0683055745145124,
+    "half_width": 0.05317184124184956,
+    "mean_difference": 0.09535085288589051,
     "readout": "pair_deviation_week_5",
     "report_only": true
    },
    {
     "direction": 1,
-    "half_width": 0.030631130685266454,
-    "mean_difference": 0.08479124388783528,
+    "half_width": 0.04785214398145372,
+    "mean_difference": 0.10629993906819213,
     "readout": "pair_deviation_week_6",
     "report_only": true
    },
    {
     "direction": 1,
-    "half_width": 0.029744893605299097,
-    "mean_difference": 0.09616249770258564,
+    "half_width": 0.0421460750273537,
+    "mean_difference": 0.07108739755718486,
     "readout": "pair_deviation_week_7",
     "report_only": true
    },
    {
     "direction": 1,
-    "half_width": 0.03489572350586931,
-    "mean_difference": 0.09425734185727454,
+    "half_width": 0.04704884942063029,
+    "mean_difference": 0.0688512303791355,
     "readout": "pair_deviation_week_8",
     "report_only": true
    },
    {
     "direction": 1,
-    "half_width": 0.04297180009462785,
-    "mean_difference": 0.06281229279300928,
+    "half_width": 0.04276242153888336,
+    "mean_difference": 0.05131835107601172,
     "readout": "pair_deviation_week_9",
     "report_only": true
    },
    {
     "direction": 1,
-    "half_width": 0.04963308011363097,
-    "mean_difference": 0.03450261433468479,
+    "half_width": 0.05161900020692037,
+    "mean_difference": 0.06170349575385057,
     "readout": "pair_deviation_week_10",
     "report_only": true
    },
    {
     "direction": 1,
-    "half_width": 0.06480305500079142,
-    "mean_difference": 0.06607649475419623,
+    "half_width": 0.065089382437284,
+    "mean_difference": 0.07798949125215592,
     "readout": "pair_deviation_week_11",
     "report_only": true
    },
    {
     "direction": 1,
-    "half_width": 0.06570835355348278,
-    "mean_difference": 0.057166099303479226,
+    "half_width": 0.07362753266315845,
+    "mean_difference": 0.08416914215973213,
     "readout": "pair_deviation_week_12",
     "report_only": true
    }
@@ -2695,92 +2695,92 @@ from that cache.
   "readouts": [
    {
     "direction": 1,
-    "half_width": 0.04704423442336264,
-    "mean_difference": -0.02959749873535153,
+    "half_width": 0.04647965906605995,
+    "mean_difference": -0.07501397359638264,
     "readout": "pair_deviation",
     "report_only": false
    },
    {
     "direction": 1,
-    "half_width": 0.04704423442336264,
-    "mean_difference": -0.02959749873535153,
+    "half_width": 0.04647965906605995,
+    "mean_difference": -0.07501397359638264,
     "readout": "pair_deviation_week_1",
     "report_only": true
    },
    {
     "direction": 1,
-    "half_width": 0.05234778574143868,
-    "mean_difference": -0.019504012760990598,
+    "half_width": 0.056995428351235534,
+    "mean_difference": -0.04307863458934429,
     "readout": "pair_deviation_week_2",
     "report_only": true
    },
    {
     "direction": 1,
-    "half_width": 0.04720829767166951,
-    "mean_difference": 0.03317616707015032,
+    "half_width": 0.05071404027588872,
+    "mean_difference": 0.005433762942613501,
     "readout": "pair_deviation_week_3",
     "report_only": true
    },
    {
     "direction": 1,
-    "half_width": 0.047102885547789665,
-    "mean_difference": 0.07121076085883861,
+    "half_width": 0.050292032839728676,
+    "mean_difference": 0.0431946029493632,
     "readout": "pair_deviation_week_4",
     "report_only": true
    },
    {
     "direction": 1,
-    "half_width": 0.05382476957925386,
-    "mean_difference": 0.11249217473639389,
+    "half_width": 0.054250746817153105,
+    "mean_difference": 0.10161682282801687,
     "readout": "pair_deviation_week_5",
     "report_only": true
    },
    {
     "direction": 1,
-    "half_width": 0.04872319105353079,
-    "mean_difference": 0.1701662067614929,
+    "half_width": 0.0536074739924758,
+    "mean_difference": 0.13107330161986627,
     "readout": "pair_deviation_week_6",
     "report_only": true
    },
    {
     "direction": 1,
-    "half_width": 0.04570681880334819,
-    "mean_difference": 0.21310386307961732,
+    "half_width": 0.053179227970325184,
+    "mean_difference": 0.13871698572446636,
     "readout": "pair_deviation_week_7",
     "report_only": true
    },
    {
     "direction": 1,
-    "half_width": 0.04972265684046728,
-    "mean_difference": 0.19311423192433919,
+    "half_width": 0.05332055842979465,
+    "mean_difference": 0.18393771656735428,
     "readout": "pair_deviation_week_8",
     "report_only": true
    },
    {
     "direction": 1,
-    "half_width": 0.04646927035401035,
-    "mean_difference": 0.2286983537727524,
+    "half_width": 0.05389078437628636,
+    "mean_difference": 0.2186283248253006,
     "readout": "pair_deviation_week_9",
     "report_only": true
    },
    {
     "direction": 1,
-    "half_width": 0.05032707404793109,
-    "mean_difference": 0.2374814897128674,
+    "half_width": 0.057407231127715355,
+    "mean_difference": 0.25987182974480605,
     "readout": "pair_deviation_week_10",
     "report_only": true
    },
    {
     "direction": 1,
-    "half_width": 0.05055645534374422,
-    "mean_difference": 0.2437484331078896,
+    "half_width": 0.05714759783154587,
+    "mean_difference": 0.23599417373778242,
     "readout": "pair_deviation_week_11",
     "report_only": true
    },
    {
     "direction": 1,
-    "half_width": 0.05075448703862536,
-    "mean_difference": 0.27514459458945917,
+    "half_width": 0.057495746189625774,
+    "mean_difference": 0.1882965689813741,
     "readout": "pair_deviation_week_12",
     "report_only": true
    }
@@ -2794,92 +2794,92 @@ from that cache.
   "readouts": [
    {
     "direction": -1,
-    "half_width": 0.03256021049391311,
-    "mean_difference": 0.008380073384138315,
+    "half_width": 0.03226860462809934,
+    "mean_difference": 0.005883779627721104,
     "readout": "pair_deviation",
     "report_only": false
    },
    {
     "direction": -1,
-    "half_width": 0.03256021049391311,
-    "mean_difference": 0.008380073384138315,
+    "half_width": 0.03226860462809934,
+    "mean_difference": 0.005883779627721104,
     "readout": "pair_deviation_week_1",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.042502973371836346,
-    "mean_difference": 0.061135850788777396,
+    "half_width": 0.036353920763922604,
+    "mean_difference": 0.03700129413383675,
     "readout": "pair_deviation_week_2",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.04781069568872224,
-    "mean_difference": 0.09464094440192766,
+    "half_width": 0.038137952395768095,
+    "mean_difference": 0.07276795364861205,
     "readout": "pair_deviation_week_3",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.0385482465709661,
-    "mean_difference": 0.08515356484271579,
+    "half_width": 0.05226921911378422,
+    "mean_difference": 0.12289039309732963,
     "readout": "pair_deviation_week_4",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.05380383438622555,
-    "mean_difference": 0.05939571166202384,
+    "half_width": 0.05782557686872201,
+    "mean_difference": 0.0915856328284919,
     "readout": "pair_deviation_week_5",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.04540463908401494,
-    "mean_difference": 0.05919463819693425,
+    "half_width": 0.06225632452968113,
+    "mean_difference": 0.10013908920930539,
     "readout": "pair_deviation_week_6",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.04712937256792016,
-    "mean_difference": 0.09911306636338932,
+    "half_width": 0.04809440790508572,
+    "mean_difference": 0.06798290069129587,
     "readout": "pair_deviation_week_7",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.04983974282357782,
-    "mean_difference": 0.10524985670124544,
+    "half_width": 0.05971007198733981,
+    "mean_difference": 0.060558993624779456,
     "readout": "pair_deviation_week_8",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.053789172981696796,
-    "mean_difference": 0.059016192724256976,
+    "half_width": 0.06981227596592811,
+    "mean_difference": 0.07571897069722575,
     "readout": "pair_deviation_week_9",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.05031167779114597,
-    "mean_difference": 0.054335121655413036,
+    "half_width": 0.06785037376278148,
+    "mean_difference": 0.05711211061389404,
     "readout": "pair_deviation_week_10",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.05787391057766924,
-    "mean_difference": 0.07991299375186517,
+    "half_width": 0.06841874112161302,
+    "mean_difference": 0.08128458346716584,
     "readout": "pair_deviation_week_11",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.06601059335289343,
-    "mean_difference": 0.05233380938430615,
+    "half_width": 0.06182053374683988,
+    "mean_difference": 0.07700865539624266,
     "readout": "pair_deviation_week_12",
     "report_only": true
    }
@@ -2893,97 +2893,97 @@ from that cache.
   "readouts": [
    {
     "direction": -1,
-    "half_width": 0.04456822889113404,
-    "mean_difference": -0.050148939336036105,
+    "half_width": 0.07073903247989678,
+    "mean_difference": -0.12927380876291625,
     "readout": "pair_deviation",
     "report_only": false
    },
    {
     "direction": -1,
-    "half_width": 0.04456822889113404,
-    "mean_difference": -0.050148939336036105,
+    "half_width": 0.07073903247989678,
+    "mean_difference": -0.12927380876291625,
     "readout": "pair_deviation_week_1",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.04710441337776684,
-    "mean_difference": -0.029161088902244378,
+    "half_width": 0.07497962344275372,
+    "mean_difference": -0.10913416121712953,
     "readout": "pair_deviation_week_2",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.03946632583937634,
-    "mean_difference": 0.0367689843056094,
+    "half_width": 0.060059700129210546,
+    "mean_difference": -0.05127285054516477,
     "readout": "pair_deviation_week_3",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.045555124193432064,
-    "mean_difference": 0.07321811441676099,
+    "half_width": 0.049564343976963667,
+    "mean_difference": 0.021289632073523624,
     "readout": "pair_deviation_week_4",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.05223599809342551,
-    "mean_difference": 0.1057779214222598,
+    "half_width": 0.06376008172984683,
+    "mean_difference": 0.10842367166549056,
     "readout": "pair_deviation_week_5",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.05387238430666582,
-    "mean_difference": 0.13094401272402018,
+    "half_width": 0.08061619562081886,
+    "mean_difference": 0.14914032556361131,
     "readout": "pair_deviation_week_6",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.0483156777550242,
-    "mean_difference": 0.16178294365392404,
+    "half_width": 0.07746926581676405,
+    "mean_difference": 0.19772609735593863,
     "readout": "pair_deviation_week_7",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.047893903608925606,
-    "mean_difference": 0.1824351988217298,
+    "half_width": 0.0804413693460769,
+    "mean_difference": 0.21186558212940887,
     "readout": "pair_deviation_week_8",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.04856535810770611,
-    "mean_difference": 0.22399623167514487,
+    "half_width": 0.07537233268178073,
+    "mean_difference": 0.24972278140597604,
     "readout": "pair_deviation_week_9",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.04798342964663731,
-    "mean_difference": 0.24135921909682104,
+    "half_width": 0.08726753880341309,
+    "mean_difference": 0.30711705732906397,
     "readout": "pair_deviation_week_10",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.044174848850688064,
-    "mean_difference": 0.22478997311309315,
+    "half_width": 0.09250693722732073,
+    "mean_difference": 0.2904034103242822,
     "readout": "pair_deviation_week_11",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.043697463935002304,
-    "mean_difference": 0.24563845173857873,
+    "half_width": 0.09065491510017051,
+    "mean_difference": 0.27993934762449757,
     "readout": "pair_deviation_week_12",
     "report_only": true
    }
   ],
-  "seeds": 100
+  "seeds": 50
  }
 ]
 ```

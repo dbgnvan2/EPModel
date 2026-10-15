@@ -73,6 +73,7 @@ class Criterion:
     requires_moves: tuple[str, ...] = ()
     settings: dict = field(default_factory=dict)
     note: str = ""
+    seeds: int | None = None            # a fixed seed count (M11.C.10, revision 30: "200 instead"); else adaptive
 
 
 @dataclass
@@ -106,12 +107,14 @@ def run_criterion(criterion: Criterion, rules: dict, workers: int = 1, first_see
     converged = False
     pool = ProcessPoolExecutor(workers) if workers > 1 else None
     try:
-        while len(results) < rules["ensemble_cap"]:
-            block = [(criterion, s) for s in range(seed, seed + rules["ensemble_block"])]
-            seed += rules["ensemble_block"]
+        target = criterion.seeds or rules["ensemble_cap"]
+        while len(results) < target:
+            size = min(rules["ensemble_block"], target - len(results))
+            block = [(criterion, s) for s in range(seed, seed + size)]
+            seed += size
             results += list(pool.map(_run_seed, block)) if pool else [_run_seed(b) for b in block]
             converged = _converged(criterion, results, rules)
-            if converged:
+            if converged and criterion.seeds is None:
                 break
     finally:
         if pool:
@@ -215,7 +218,7 @@ def _verdict(criterion, results, converged, rules) -> Verdict:
                    scripted_counts(criterion, results))
 
 
-SCRIPTED_STATUSES = ("made", "not legal", "owed a step", "dead", "rewritten", "not reached")
+SCRIPTED_STATUSES = ("made", "not legal", "owed a step", "dead", "target dead", "rewritten", "not reached")
 
 
 def scripted_counts(criterion: Criterion, results) -> dict:

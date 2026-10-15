@@ -11,7 +11,7 @@ from __future__ import annotations
 
 import copy
 
-from src.bowen.engine.appraise import _tie_change, appraisal_delta
+from src.bowen.engine.appraise import tie_change, appraisal_delta
 from src.bowen.engine.event_effects import apply_structural_event
 from src.bowen.engine.events import Channel, Delivery, Event, EventId, Mechanism, Role, SourcePosition
 from src.bowen.engine.identifiers import PersonId, TieId, TriangleId
@@ -276,7 +276,7 @@ def test_m5b6_provoke_intensity_is_a_dial_separate_from_content():
     for i, intensity in enumerate((40.0, 80.0)):
         event = move("PROVOKE", RAVI, MARTA, intensity=intensity, index=i)
         state.store.record_event(event)
-        _, d_contact, d_imp = _tie_change(state, Delivery(1, event.id, MARTA, Role.TARGET, emitted_tick=0, latency=1), event, PARAMS)
+        _, d_contact, d_imp = tie_change(state, Delivery(1, event.id, MARTA, Role.TARGET, emitted_tick=0, latency=1), event, PARAMS)
         changes.append((d_contact, d_imp))
     (c1, i1), (c2, i2) = changes
     assert abs(c1 / i1 - c2 / i2) < 1e-12  # the same content

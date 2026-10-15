@@ -51,7 +51,7 @@ Requires Python 3, NumPy and Pygame. `requirements.txt` is present but not yet t
 
 ## Status
 
-The v2 specification is **approved** — 570 numbered requirements over 17 modules, 46 acceptance criteria, at revision 29 (built 2026-10-14; revisions 24–27 are Claude's recommendations pending owner review, revision 28 applies the owner's life-course decisions in forms pending review, and revision 29 the owner's cutoff and focus decisions; revision 12 approved 2026-10-07).
+The v2 specification is **approved** — 575 numbered requirements over 17 modules, 47 acceptance criteria, at revision 30 (built 2026-10-14; revision 29 built 2026-10-14; revisions 24–27 are Claude's recommendations pending owner review, revision 28 applies the owner's life-course decisions in forms pending review, and revision 29 the owner's cutoff and focus decisions; revision 12 approved 2026-10-07).
 
 **Phase B is built and closed** (`src/bowen/`): the objects, the weekly loop, the standing load, the base appraisal, the event record, the scripted source, the run log and the renderer. See `docs/phase_b_completion_report.md`.
 

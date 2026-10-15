@@ -144,6 +144,14 @@ SCHEMA: Mapping[str, KeySpec] = MappingProxyType(
         "witness_window": KeySpec(int, "[I]", "M4.D.6f"),  # spec revision 29
         "perceived_weakness_gain": KeySpec(float, "[I]", "M1.B.8a"),  # spec revision 29
         "focus_steer_gain": KeySpec(float, "[I]", "M4.D.1g"),  # spec revision 29
+        "origin_cutoff_anxiety_gain": KeySpec(float, "[I]", "M1.D.8a"),  # spec revision 30
+        "origin_fusion_gain": KeySpec(float, "[I]", "M1.D.8a"),  # spec revision 30
+        "danger_window": KeySpec(int, "[I]", "M1.B.3e"),  # spec revision 30
+        "danger_threshold": KeySpec(float, "[I]", "M1.B.3e"),  # spec revision 30
+        "danger_gain": KeySpec(float, "[I]", "M1.B.3e"),  # spec revision 30
+        "focus_reinforce_gain": KeySpec(float, "[I]", "M1.B.8b"),  # spec revision 30
+        "force_anxiety_gain": KeySpec(float, "[I]", "M4.D.1h"),  # spec revision 30
+        "focus_compound_gain": KeySpec(float, "[I]", "M1.B.8b"),  # spec revision 30
         "attribution_rate": KeySpec(float, "[I]", "M9.6"),
         "focus_rate": KeySpec(float, "[I]", "M1.A.11c"),
         "belief_appraisal_gain": KeySpec(float, "[I]", "M9.7"),

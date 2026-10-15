@@ -1,6 +1,6 @@
 # Implementation plan — Phase D
 
-> **Status: approved by the owner, 2026-10-10 ("Proceed"), with the decisions in §1a.** P9 decided 2026-10-11; P13–P16 answered 2026-10-13 (§1b), with two P15 points still open. **Part II planned 2026-10-13 (§4) and approved by the owner the same day ("approved"); L0–L9 built 2026-10-13; L10's criteria built and run: `M11.C.37` and, after the owner's decision on its arms, `M11.C.15` pass; `M11.C.6`, `.10` and `.2` fail (§4.7). Spec revision 29 and its plan (§4.8) drafted 2026-10-13 after the owner's decisions on `.10` and `.2`, approved by the owner ("i approve proceed") and built 2026-10-14: `M11.C.2` on the twelve-person family now passes; `.10` and `.6` still fail (§4.8). §4.9 diagnoses `.10`; revision 30's plan (§4.10) is drafted, awaiting approval.** **Built:** B1 and B2 (2026-10-10/11); B3 and B4 (2026-10-11, spec revision 16); B5 and B6 (2026-10-11); B7, B8 and B9 and part of step 10 (2026-10-12, spec revisions 24–27, Claude's recommendation pending owner review: the owner asked for the work to proceed overnight without waiting for input).
+> **Status: approved by the owner, 2026-10-10 ("Proceed"), with the decisions in §1a.** P9 decided 2026-10-11; P13–P16 answered 2026-10-13 (§1b), with two P15 points still open. **Part II planned 2026-10-13 (§4) and approved by the owner the same day ("approved"); L0–L9 built 2026-10-13; L10's criteria built and run: `M11.C.37` and, after the owner's decision on its arms, `M11.C.15` pass; `M11.C.6`, `.10` and `.2` fail (§4.7). Spec revision 29 and its plan (§4.8) drafted 2026-10-13 after the owner's decisions on `.10` and `.2`, approved by the owner ("i approve proceed") and built 2026-10-14: `M11.C.2` on the twelve-person family now passes; `.10` and `.6` still fail (§4.8). §4.9 diagnoses `.10`; revision 30's plan (§4.10) approved and built 2026-10-14: the family-of-origin variant of `.10` passes, `.10` still fails, and `.2` on the twelve-person family fails again.** **Built:** B1 and B2 (2026-10-10/11); B3 and B4 (2026-10-11, spec revision 16); B5 and B6 (2026-10-11); B7, B8 and B9 and part of step 10 (2026-10-12, spec revisions 24–27, Claude's recommendation pending owner review: the owner asked for the work to proceed overnight without waiting for input).
 > Spec: `docs/bowen_agent_model_spec_v2.md`, revision 13. Phase C closed with its gate failing (owner decision,
 > `docs/phase_c_completion_report.md` §13). Spec IDs are used verbatim. The inventories behind this plan were made on
 > 2026-10-10 from the spec, `src/bowen`, `TODO.md` and the Phase C documents; their findings are cited where used.
@@ -1487,8 +1487,9 @@ Items 5 to 8 change the engine hash, so they are batched with 1 and 2 before one
 
 ### 4.10 Revision 30: origin cutoff, danger, and focus that locks in — plan, 2026-10-14
 
-> **Status: drafted 2026-10-14, awaiting the owner's approval. No code until approved.** The spec text is written in
-> the build's first step and committed with the code. The forms are Claude's recommendation, pending owner review.
+> **Status: approved by the owner 2026-10-14 ("approved, partner and own parents, b as second variant"); built
+> 2026-10-14 with the owner's two choices on danger and focus (below, "Built").**
+> The spec text is written in the build's first step and committed with the code. The forms are Claude's recommendation, pending owner review.
 
 **The owner's decisions (2026-10-14), quoted.**
 - `M11.C.10`: "a parent cutting off represents a lower level of differentiation and a higher level of intensity in a
@@ -1529,8 +1530,8 @@ appraises on a tie (`M1.B.8`), not from the parent's own anxious acts, so nothin
 | Origin cutoff window | birth (or `t0`) to 20, the years at home |
 | `origin_cutoff_anxiety_gain`, `origin_fusion_gain` | 10 points of chronic anxiety and +50% optimum at an origin cutoff of 1; measured at S1 and reported |
 | Generation 2 at `t0` | origin cutoff 0 unless declared (optional family metadata), since their childhood is not simulated |
-| `M11.C.10`'s readout: "one's partner's and parents" | read as the person's partner and the person's own parents. If it meant the partner's parents too, they are added |
-| "That's a different arm" | read as a second variant reported alongside, not a replacement. If it meant "not this criterion", S3 is dropped |
+| `M11.C.10`'s readout: "one's partner's and parents" | *Decided by the owner:* "partner and own parents" |
+| "That's a different arm" | *Decided by the owner:* "b as second variant" |
 | `danger_window`, `danger_threshold`, `danger_gain` | 26 weeks; the impingement of a `CONFLICT` at policy intensity; 2 points per accepted move at danger 1 |
 | `focus_reinforce_gain` | sized at S6 so that, with no other change, the top child's attention share grows over the years at home; reported |
 
@@ -1546,6 +1547,65 @@ appraises on a tie (`M1.B.8`), not from the parent's own anxious acts, so nothin
 
 **Compute.** One regeneration (about 2 hours). `M11.C.10` at 200 seeds is about 1 hour per variant, two variants.
 Its mutations at 200 seeds, three runs, about 3 hours. About 7 hours of runs in all, plus the build.
+
+**Built, 2026-10-14: what the build found, and the owner's two choices.** All numbers ad hoc (scripts outside the
+repo), unless they come from a record.
+- **Danger did not emerge as planned (S4, S5).** The plan assumed a low-level or stressed person already intrudes more.
+  Measured on the danger fixture (10 seeds, 5 years): the peak 26-week intrusion was 0.14 to 0.17 whether the couple
+  was at level 50 and calm or at level 15 under a stressor every 2 weeks, because every act had the same force, one a
+  week. *The owner chose, 2026-10-14:* "Force rises with anxiety" — `M4.D.1h`. Unbounded, force and the other's
+  anxiety fed each other and a run diverged within 23 weeks, so it saturates. Read from anxiety above usual it barely
+  moved, because the usual level follows a chronically stressed person up; so it reads excess. At `force_anxiety_gain`
+  2: felt danger 0.003 (calm, level 50) against 0.125 (level 15, stressed); at 4 the calm couple reached 0.046, so 2 is
+  built. `M11.C.47` passed at that setting in the build, but with both spouses lowered and danger read across the
+  whole household; the correctness review found that against S5 and the spec (one person, danger felt from them). With
+  one spouse lowered and stressed (8 seeds, ad hoc): felt danger from them +0.036 ± 0.082 (sd) over the baseline,
+  mostly the child's; their partner's alone was +0.001. The criterion now reads danger felt from that person by anyone
+  else at home.
+- **Felt danger faded once a cutoff worked** (correctness review): refused moves are never received, so the cutoff
+  turned reactive by itself within about 26 weeks. *The owner decided, 2026-10-14:* "hold felt danger while rejection is
+  held". Built in `M1.B.3e`.
+- **Focus did not lock in under S6's form.** Attention from one's own projection acts alone changed nothing at any
+  setting tried (steering 1 to 20, reinforcement 0 to 5; 20 seeds, 10 years): attention leaks 10% a week, and a
+  parent's one act a week is spread over about eight ties. *The owner chose, 2026-10-14:* "Anxious focus compounds" —
+  added to `M1.B.8b`. At `focus_compound_gain` 2 the top child's share of attention was 0.44, 0.85 and 0.76 in years
+  1, 3 and 9, against 0.41, 0.62 and 0.54 without it; at 5 and above one child took all attention within 3 years, so 2
+  is built. *Then (learning-qa):* that form had no ceiling — investment 14,000 median, 4 million max over 10 years
+  (20 seeds, the four fixture, children alike, ad hoc). *The owner:* "saturate the investment, pick a sensible
+  constant". A ceiling of 25 to 100, on each tie or on the parent's total, bounded it but left the top share at 0.59
+  to 0.67, as without compounding (0.61): the lock-in had come from the runaway. *The owner chose* "Shift, gain 10":
+  the term moves the parent's attention among the children toward the larger share and adds none. Built at 10: share
+  0.87, 0.84, 0.70 and 0.69 in years 1, 3, 5 and 10; peak investment 51 median, 94 max. No new constant.
+  `focus_reinforce_gain` is 1. The acts follow only weakly at steering 1 (act share 0.46 against 0.56 at 20),
+  so `focus_steer_gain` is left at the owner-accepted 1 and reported.
+- **`M11.C.17` (S7).** Run on the revision 29 code (150 seeds): switching off any one revision 29 gain leaves the
+  coached rise near zero; switching off all four reproduces revision 28's +0.000881 ± 0.000828 exactly. No single
+  mechanism flipped it. The pass was fragile: under a thousandth of a level point, its interval barely clear of zero.
+- **`I-POSITION` (S7).** With steering on and `M4.D.1h`, the triad's mover (level 40) completed 1 sequence in 192 seeds
+  and failed PREPARE 11,725 times. The tests are about the sequence, so the mover is set at level 60: 27 completions.
+  The steering override is gone. The mode assertion in `test_m5d8_success_usually_follows_several_failures` was
+  removed: first successes spread over attempts 1 to 62 and the only repeated value was 1, so the mode measured ties.
+- **`M11.C.10[family of origin]`.** A fresh scripted cutoff fades out in about 10 weeks, before a 13-week renewal, so
+  the variant starts each held cutoff at `declared_rejection`, as the family declares its own.
+
+**Results** (records regenerated 2026-10-14, code hash `c41fea60…`; numbers from `docs/phase_d2_ensemble_record.md`,
+`docs/phase_d_ensemble_record.md` and `docs/phase_c_ensemble_record.md`):
+
+| Criterion | Verdict | Readout, treatment − baseline (95%) | Seeds |
+|---|---|---|---|
+| `M11.C.10` | FAIL | `cut_off_tie_weeks` +6.64 ± 130, p 0.43 | 200 |
+| `M11.C.10[family of origin]` | **PASS** | `cut_off_tie_weeks` +162 ± 120, p 0.007 | 200 |
+| `M11.C.47` (premise) | PASS | `felt_danger` +0.050 ± 0.017; `principled_cutoff` +0.020 ± 0.008; `held_weeks` −16.6 ± 4.9 (reported) | 150 |
+| `M11.C.2[twelve-person family]` | FAIL | `symptom_load` +0.70 ± 1.5, p 0.16 (passed at revision 29, +1.31 ± 0.95) | 150 |
+| `M11.C.17` | PASS | `coached_rise` +0.00053 ± 0.00063, p 0.013 | 150 |
+| `M11.C.44` | FAIL | `outside_inside_ratio` −0.030 ± 0.11 (passed at revision 29) | 100 |
+
+- The record prints both `M11.C.10` rows under the one id; the second row is the family-of-origin variant (TODO).
+- In the variant, 35,688 of 128,000 scripted renewals were toward a dead grandparent ("target dead").
+- `M11.C.47`: the low-level, stressed person is felt as more dangerous and the cutoff toward them is more principled,
+  but they are cut off on fewer weeks than the calm baseline person. Reported, not explained yet.
+- Mutations: `M11.C.47` with the intrusion read removed reads 0 in every seed (100 seeds, ad hoc). The variant's
+  `M1.D.8a`-removed mutation is not yet run. `M11.C.10` and `M11.C.2` fail, so their mutations are moot.
 
 ## 5. Build order (D-I)
 

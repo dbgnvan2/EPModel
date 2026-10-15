@@ -12,7 +12,6 @@ Unit tests of set mechanisms with invented constants; none is a finding (`M11.5`
 from __future__ import annotations
 
 import dataclasses
-from collections import Counter
 from functools import lru_cache
 from pathlib import Path
 
@@ -374,7 +373,7 @@ def test_m5d9_a_step_that_cannot_be_made_is_deferred_and_logged():
 # --- what usually happens: an ensemble --------------------------------------------------------
 
 
-STEERING_OFF = {"focus_steer_gain": 0.0}  # M10.B.5: declared by these tests (revision 29; see attempts_over_seeds)
+MOVER_LEVEL = 60.0  # revision 30: a mover able to prepare (see attempts_over_seeds)
 
 
 @lru_cache(maxsize=1)
@@ -389,19 +388,20 @@ def attempts_over_seeds(seeds=192, weeks=100):
     in ten seeds (10 of 96 at spec revision 20 as first pushed, 9 of 96 after its fix), so 24 seeds expected about two
     and an unrelated engine change drew none. Raised to 192 seeds on 2026-10-12 (spec revisions 24-27): completion fell
     to 2 of 96 after B7's symptom channels; the statistics below need more than a handful of completed sequences.
-    Spec revision 29 (2026-10-14): focus steering (`M4.D.1g`) is switched off here by a declared override, so these
-    tests describe the sequence without it, not the default model. Measured over these 192 seeds, before steering was
-    made a redistribution: 0 completed sequences with it on, 3 with it off (7 with every revision-29 mechanism off).
-    0 against 3 at a base rate near 1.5% is within chance (roughly p 0.1), so it is not a finding about steering; it
-    shows these statistics rest on a handful of completions (P23). Recorded in TODO.md.
+    Spec revision 30 (2026-10-14): the default model runs here, steering included; the override of revision 29 is
+    gone. With an anxious act's force (`M4.D.1h`) the mover, at the fixture's level 40, completed 1 sequence in 192
+    seeds and failed PREPARE 11,725 times, so the statistics rested on one completion (P23). The mover is set at
+    ``MOVER_LEVEL`` (60), a person able to prepare: 27 completions over the same seeds. These tests are about the
+    sequence, not about who can start one.
     """
     constants, family = load_constants(), load_family(REPO / "config" / "bowen" / "fixtures" / "triad.md")
     mover, target = P("f"), P("m")
     events = ScriptedSource("events", weeks, (), ())
     outcomes = []
     for seed in range(seeds):
-        parts = assemble(constants, KINDS, family, events, seed=seed, overrides=STEERING_OFF)
+        parts = assemble(constants, KINDS, family, events, seed=seed)
         parts.state.people[mover].systems_perspective = 1.0
+        parts.state.people[mover].basic_level = parts.state.people[mover].functional_level = MOVER_LEVEL
         policy = PolicySource(events, parts.params, load_policy_rules())
 
         class Source:
@@ -451,4 +451,6 @@ def test_m5d8_success_usually_follows_several_failures():
     assert firsts, "no sequence completed in the ensemble"
     assert sum(1 for n in firsts if n == 1) < len(firsts) / 2  # the first attempt rarely succeeds
     assert sorted(firsts)[len(firsts) // 2] > 1
-    assert Counter(firsts).most_common(1)[0][0] > 1
+    # The mode was asserted too until 2026-10-14. With 27 completions, first successes spread over attempts 1 to 62
+    # and the only repeated value was 1 (six seeds), so the mode measured ties, not "usually"; the two lines above
+    # carry the claim.

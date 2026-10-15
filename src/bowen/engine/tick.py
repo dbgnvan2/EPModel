@@ -59,12 +59,13 @@ from src.bowen.engine.sinks import allocate_sinks
 from src.bowen.engine.slow_tick import record_week, run_slow_tick
 from src.bowen.engine.iposition import advance_sequences, redirect_to_sequence_tie, sequence_selections
 from src.bowen.engine.learner import learn, learn_from_witnessed, note_witnessed_cutoffs, register_acts, soothing_review
-from src.bowen.engine.life_course import due_events, find_work, yearly
+from src.bowen.engine.life_course import due_events, find_work, note_origin_cutoff, yearly
 from src.bowen.engine.moves import apply_move_effects, relax_pseudo_self, settle_functioning
 from src.bowen.engine.log_records import EffectRecord, EmittedRecord, Emitter, TickRecord
 from src.bowen.engine.params import EngineParams
 from src.bowen.engine.outside_ness import update_outside_ness
-from src.bowen.engine.reactive import update_attention_state, weakness_focus
+from src.bowen.engine.reactive import own_acts_attention, update_attention_state, weakness_focus
+from src.bowen.engine.danger import update_danger
 from src.bowen.engine.rejection import fade_rejection, reactive_cutoff_cost, refuse
 from src.bowen.engine.recompute import recompute_involvement, recompute_triangles
 from src.bowen.engine.standing_load import apply_standing_load
@@ -150,6 +151,7 @@ def run_tick(
     records += apply_delivered_cutoffs(state, batch, params)
     records += apply_move_effects(state, batch, params)
     records += apply_landed_contacts(state, batch, params)
+    records += update_danger(state, batch, params)  # M1.B.3e, revision 30: danger read from received intrusion
     steps.append("appraise")
 
     # 5, 6 — before selection, because gates and propensities read them (M3.D.3).
@@ -197,6 +199,8 @@ def run_tick(
     # 9 — consolidate, then the invariants assert (M4.G.2). The integrator reads this
     # tick's time above the floor before decay (M4.C.3a).
     records += accumulate_symptoms(state, params, visibility)
+    sent = [r.event for r in records if isinstance(r, EmittedRecord)]
+    attended = own_acts_attention(state, attended, sent, params)  # M1.B.8b, revision 30: attention follows acts
     records += update_attention_state(state, attended, params)
     records += weakness_focus(state, load_at_selection, params)  # revision 29: focus on a child's weakness (M1.B.8a)
     records += update_outside_ness(state, readings, params)
@@ -205,6 +209,7 @@ def run_tick(
     records += allocate_sinks(state, params)
     records += consolidate(state, params)
     records += fade_rejection(state, params)  # M1.B.3c, revision 16: unrenewed rejection wears off
+    note_origin_cutoff(state, params)  # M1.D.8a, revision 30: the cutoff each child grows up with
     # M4.D.6: the tick's felt change, decay included, is credited after consolidation.
     records += learn(state, start_acute, params)
     records += soothing_review(state, params)  # revision 19: "is soothing helping me?"

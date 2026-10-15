@@ -25,7 +25,11 @@ course is unchanged by part II. Moved 2026-10-14 by spec revision 29 (plan §4.8
 from what follows a witnessed cutoff, focus on a child's weakness and focus steering projection-type acts, and, in
 phase_d, chronic anxiety built over childhood; behaviour, both runs), and again the same day by the review fixes
 (focus steering made a redistribution among a kind's targets that keeps the kind's total weight; behaviour, both
-runs). The phase_b run is scripted and did not move.
+runs). Moved 2026-10-14 by spec revision 30 (plan §4.10: an anxious act lands with more force, received intrusion
+read as danger and its contact cost, focus that compounds and a projection act that adds to attention, and, in phase_d,
+the origin cutoff set at 20; behaviour, both runs), and in phase_d again the same day by felt danger held while
+rejection is held (the owner's decision; behaviour), and in both again by focus compounding made a shift among the
+children that adds no investment (the owner: "Shift, gain 10"; behaviour). The phase_b run is scripted and did not move.
 """
 
 from __future__ import annotations
@@ -46,8 +50,8 @@ from src.bowen.scenario.scripted_source import ScriptedSource
 REPO = Path(__file__).resolve().parents[2]
 GOLDEN = {
     # (family, seed, weeks): fingerprint
-    ("phase_c", 7, 104): "aaf44a5570c911c552de7ffbd6ae6bdc0d3733f5cd1f867e6605b3d92e9b15ea",
-    ("phase_d", 11, 208): "db068e0017c34270a38e33afb33ad2093d34aed2d31bc66a93f87abd90e34e7e",
+    ("phase_c", 7, 104): "15f564fcafcca968845acba25f9e0daf23b3cd89fc3866b63b8677dfcd25cf87",
+    ("phase_d", 11, 208): "5ae38f5db2a69cd9b4d4262c20f84d376a72feda2581a4fa91d2e86cd5305ccb",
 }
 
 

@@ -58,12 +58,14 @@ def excess(person: Person) -> float:
 
 
 def optimum(person: Person, tie: Relationship, params: EngineParams) -> float:
-    """Purpose: the person's felt contact optimum on a tie, moved toward closeness by anxiety.
-    Spec:    docs/bowen_agent_model_spec_v2.md#M4.C.1, #M4.C.1b
-    Tests:   tests/bowen/test_contact.py::test_m4c1b_anxiety_moves_the_optimum_toward_closeness
+    """Purpose: the person's felt contact optimum on a tie, moved toward closeness by anxiety and by origin cutoff.
+    Spec:    docs/bowen_agent_model_spec_v2.md#M4.C.1, #M4.C.1b, #M1.D.8a
+    Tests:   tests/bowen/test_contact.py::test_m4c1b_anxiety_moves_the_optimum_toward_closeness,
+             tests/bowen/test_origin_danger_focus.py::test_m1d8a_and_seeks_more_closeness
     """
     base = tie.bond_energy / SCALE_MAX
-    return min(1.0, base * (1.0 + params.anxiety_togetherness_gain * excess(person) / SCALE_MAX))
+    fusion = 1.0 + params.origin_fusion_gain * person.origin_cutoff  # M1.D.8a, revision 30: the cutoff grown up with
+    return min(1.0, base * fusion * (1.0 + params.anxiety_togetherness_gain * excess(person) / SCALE_MAX))
 
 
 def resting_contact(person: Person, tie: Relationship, params: EngineParams) -> float:
@@ -92,7 +94,7 @@ def deviation_at(person: Person, tie: Relationship, params: EngineParams, contac
     Spec:    docs/bowen_agent_model_spec_v2.md#M4.C.1
     Tests:   tests/bowen/test_contact.py::test_m4c1_deviation_counts_on_both_sides
     """
-    little = 0.0 if feels_no_loss(person, tie) else max(0.0, optimum(person, tie, params) - contact - band(person, params))
+    little = loss_weight(person, tie) * max(0.0, optimum(person, tie, params) - contact - band(person, params))
     much = max(0.0, impingement - band(person, params))
     return little + much
 
@@ -105,18 +107,28 @@ def too_little(person: Person, tie: Relationship, params: EngineParams, spike: f
     A TRIGGER re-opens the tie's absence in proportion to how much the tie matters:
     the spike adds ``spike × optimum`` (M4.A.2), [I].
     """
-    if feels_no_loss(person, tie):
+    weight = loss_weight(person, tie)
+    if weight == 0.0:
         return 0.0
     gap = optimum(person, tie, params) - felt_contact(person, tie) - band(person, params)
-    return max(0.0, gap) + spike * optimum(person, tie, params)
+    return weight * (max(0.0, gap) + spike * optimum(person, tie, params))
 
 
-def feels_no_loss(person: Person, tie: Relationship) -> bool:
-    """Purpose: whether this person holds a principled cutoff on this tie, and so feels no "too little" side on it.
-    Spec:    docs/bowen_agent_model_spec_v2.md#M1.B.3d, #M4.C.1c
-    Tests:   tests/bowen/test_cutoff_and_focus.py::test_m4c1c_no_too_little_term_on_a_principled_cutters_tie
+def loss_weight(person: Person, tie: Relationship) -> float:
+    """Purpose: how much of a cutoff this person holds is reactive, from 1 (all) to 0 (principled): the share of the
+    "too little" term they feel on the tie and of the reactive cost they pay.
+    Spec:    docs/bowen_agent_model_spec_v2.md#M1.B.3d, #M1.B.3e, #M4.C.1c
+    Tests:   tests/bowen/test_cutoff_and_focus.py::test_m4c1c_no_too_little_term_on_a_principled_cutters_tie,
+             tests/bowen/test_origin_danger_focus.py::test_m1b3e_a_cutoff_toward_danger_is_principled_in_proportion
+
+    A declared principled cutoff, while its rejection is held: 0. Any other held rejection: 1 − the danger the person
+    feels from the other (revision 30). No rejection held: 1.
     """
-    return person.id in tie.principled and tie.rejection.get(person.id, 0.0) > 0.0
+    if tie.rejection.get(person.id, 0.0) <= 0.0:
+        return 1.0
+    if person.id in tie.principled:
+        return 0.0
+    return 1.0 - tie.felt_danger.get(person.id, 0.0)
 
 
 def too_much(person: Person, tie: Relationship, params: EngineParams) -> float:

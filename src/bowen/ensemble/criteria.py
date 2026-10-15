@@ -46,6 +46,7 @@ FAMILIES = {
     "triad": CONFIG_DIR / "fixtures" / "triad.md",
     "four": CONFIG_DIR / "fixtures" / "nuclear_four.md",
     "phase_d": CONFIG_DIR / "family_phase_d.md",  # spec revision 28: the twelve-person family with its life course
+    "danger": CONFIG_DIR / "fixtures" / "danger.md",  # spec revision 30: M11.C.47
 }
 
 
@@ -109,7 +110,8 @@ REQUIRED = {
     # Phase D part II, the life course (spec revision 28).
     "M11.C.15": ("severity", "change_week", "after"),
     "M11.C.6": ("years",),
-    "M11.C.10": ("years", "renew_every"),  # renew_every: the held cutoff's renewal (spec revision 29)
+    "M11.C.10": ("years", "renew_every", "seeds"),  # renew_every (revision 29); seeds, fixed at 200 (revision 30)
+    "M11.C.47": ("weeks", "level_low", "level_high", "stress_every", "stress_kind", "stress_intensity"),  # revision 30
     # Phase D step 10, criteria on existing mechanisms.
     "M11.C.39": ("spell_weeks", "after", "quiet", "every", "intensity"),
     "M11.C.40": ("weeks", "window"),
@@ -152,7 +154,7 @@ def load_settings(path=CONFIG_DIR / "criteria.md") -> dict[str, dict]:
 SETTINGS = load_settings()
 SPELL = SETTINGS["spell"]
 PARENTS = {"phase_c": (ROLES["phase_c", "parent_1"], ROLES["phase_c", "parent_2"]), "dyad": (P("a"), P("b")), "triad": (P("f"), P("m")),
-           "four": (P("f"), P("m"))}
+           "four": (P("f"), P("m")), "danger": (P("f"), P("m"))}
 AUTOMATIC = ("PURSUE", "DISTANCE", "CONFLICT", "OVERFUNCTION", "UNDERFUNCTION", "TRIANGLE", "CUTOFF")
 
 
@@ -194,7 +196,7 @@ class Forced:
         # anyone (M17.D.3; M11.C.33 keeps both arms' legal sets equal on its slow-tick weeks).
         self.withheld = withheld or {}
         self.made, self.skipped, self.owed_step = 0, 0, 0  # placement counts; ``outcomes`` is what was made
-        self.status: dict = {}  # (week, actor) -> "placed", "not legal", "owed a step" or "dead"
+        self.status: dict = {}  # (week, actor) -> "placed", "not legal", "owed a step", "dead" or "target dead"
 
     def scheduled(self, tick):
         return self.policy.scheduled(tick)
@@ -222,6 +224,10 @@ class Forced:
             if actor not in active:  # dead, or owed an I-POSITION step this week (`M5.D.9`): nothing to replace
                 self.owed_step += 1
                 self.status[t, actor] = "owed a step" if state.people[actor].alive else "dead"
+                continue
+            if any(not state.people[t].alive for t in selection.targets):  # review 2026-10-14: not "not legal"
+                self.skipped += 1
+                self.status[t, actor] = "target dead"
                 continue
             legal = {o.label for o in legal_outcomes(observe(state, actor, self.policy.params), state.kinds,
                                                      self.policy.params)}

@@ -55,6 +55,16 @@ def test_m17a1_a_real_effect_passes_and_records_the_seeds():
     assert verdict.outcome == PASS and verdict.seeds >= RULES["ensemble_block"]
 
 
+def test_m17a1_a_fixed_seed_count_runs_exactly_that_many():
+    """M11.C.10, revision 30 ("200 instead"): a criterion with ``seeds`` set runs that many seeds, ignoring both early
+    convergence and the cap; the same effect without it stops at the first block that converges."""
+    import dataclasses
+    fixed = 3 * RULES["ensemble_block"] + 1
+    adaptive = run_criterion(crit(effect=1.0), RULES)
+    verdict = run_criterion(dataclasses.replace(crit(effect=1.0), seeds=fixed), dict(RULES, ensemble_cap=1))
+    assert adaptive.seeds < fixed and verdict.seeds == fixed and verdict.outcome == PASS
+
+
 def test_m17a1_undetermined_at_cap_does_not_pass():
     rules = dict(RULES, ensemble_cap=RULES["ensemble_block"])
     verdict = run_criterion(crit(effect=0.3, extra_noise=20.0), rules)

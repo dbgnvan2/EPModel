@@ -65,6 +65,7 @@ SYSTEM_SUMMARISED = frozenset({
     "standing_load", "reactive_cutoff", "weakness_focus", "acute_decay", "contact_relaxation", "symptom_accumulation", "investment", "reactive_state",
     "outside_ness", "belief", "functioning_settle", "competing_urges", "withhold", "learning", "sink_allocation",
     "self_practice", "stress_response", "soothing_review", "witnessed_cutoff", "attribution", "family_focus", "pseudo_self_relaxation",
+    "danger_contact", "felt_danger",  # revision 30: weekly, read from received intrusion (M1.B.3e)
     "lock_in",  # revision 24: every week for every active symptom (one bearer gave 121 rows a year; review 2026-10-12)
 })  # every week, everyone; stated once
 

@@ -123,6 +123,8 @@ class LifeCourse:
     coach_template: tuple | None = None  # the original coach's (basic, chronic, channel prior, tie values)
     # M7.B.1a, revision 29: each child's mean load for every year of childhood the run has observed
     childhood_loads: dict[PersonId, list] = field(default_factory=dict)
+    # M1.D.8a, revision 30: each child's sum of their parents' largest held rejection, and the weeks summed, until 20
+    origin_exposure: dict[PersonId, list] = field(default_factory=dict)
     slow_ticks: int = 0
 
 
@@ -354,6 +356,8 @@ def _childhood(state: RunState, params: EngineParams) -> list[tuple]:
             if chronic != person.chronic_anxiety:
                 rows.append((pid, "chronic_anxiety", chronic - person.chronic_anxiety))
                 person.chronic_anxiety = chronic
+        if age == params.development_end_age_years and pid in life.origin_exposure:
+            rows += _set_origin_cutoff(state, pid, params)
         if age > params.development_end_age_years:
             continue
         before = person.basic_level
@@ -379,6 +383,42 @@ def _childhood(state: RunState, params: EngineParams) -> list[tuple]:
         if person.basic_level != before:
             rows.append((pid, "basic_level", person.basic_level - before))
     return rows
+
+
+def note_origin_cutoff(state: RunState, params: EngineParams) -> None:
+    """Purpose: step 9 — each child at home adds the largest rejection a living parent holds this week (revision 30).
+    Spec:    docs/bowen_agent_model_spec_v2.md#M1.D.8a
+    Tests:   tests/bowen/test_origin_danger_focus.py::test_m1d8a_read_from_the_parents_held_rejection_not_from_a_label
+
+    Until ``development_end_age_years``, the years at home. Any tie counts: a parent's cutoff of their own parents,
+    siblings, partner or child. Read from the rejection held (`M1.B.3c`), never from a label.
+    """
+    life = state.life
+    if life is None:
+        return
+    for pid in sorted(life.parents):
+        person = state.people[pid]
+        if not person.alive or person.age_years is None or person.age_years >= params.development_end_age_years:
+            continue
+        parents = _living_parents(state, pid)
+        if not parents:
+            continue
+        held = max((tie.rejection.get(p, 0.0) for p in parents for tie in state.ties_of(p)), default=0.0)
+        exposure = life.origin_exposure.setdefault(pid, [0.0, 0])
+        exposure[0] += held
+        exposure[1] += 1
+
+
+def _set_origin_cutoff(state: RunState, pid: PersonId, params: EngineParams) -> list[tuple]:
+    """M1.D.8a, revision 30: at 20, the cutoff a person grew up with becomes an input for the rest of their life — more
+    chronic anxiety (intensity) and a larger pull toward closeness (fusion). Set once."""
+    total, weeks = state.life.origin_exposure.pop(pid)
+    person = state.people[pid]
+    before = person.origin_cutoff
+    person.origin_cutoff = total / weeks if weeks else 0.0
+    added = params.origin_cutoff_anxiety_gain * person.origin_cutoff
+    person.chronic_anxiety += added
+    return [(pid, "origin_cutoff", person.origin_cutoff - before)] + ([(pid, "chronic_anxiety", added)] if added else [])
 
 
 def _launch(state: RunState, params: EngineParams) -> list[tuple]:

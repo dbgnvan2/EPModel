@@ -183,6 +183,14 @@ activation_regime: synchronous
 | `witness_window` | 13 | [I] | weeks between a witnessed cutoff and the reading of what followed | `M4.D.6f` |
 | `perceived_weakness_gain` | 0.01 | [I] | investment per point of load above usual ÷ 100, per point of a child's shortfall against their siblings, per week | `M1.B.8a` |
 | `focus_steer_gain` | 1.0 | [I] | multiplier on the investment share steering projection-type acts | `M4.D.1g` |
+| `origin_cutoff_anxiety_gain` | 10.0 | [I] | chronic anxiety added at 20 per unit of origin cutoff (the mean rejection the parents held over the child's years at home) | `M1.D.8a` |
+| `origin_fusion_gain` | 0.5 | [I] | fractional rise in the contact optimum on every tie per unit of origin cutoff | `M1.D.8a` |
+| `danger_window` | 26 | [I] | weeks over which received intrusion is averaged for felt danger | `M1.B.3e` |
+| `danger_threshold` | 0.25 | [I] | weekly received impingement, averaged over the window, above which a person is felt as dangerous; measured: an ordinary family's most intrusive pair stays near 0.2 (plan §4.10) | `M1.B.3e` |
+| `danger_gain` | 2.0 | [I] | acute anxiety per accepted move from a person felt as fully dangerous, scaled by the move's intensity | `M1.B.3e` |
+| `focus_reinforce_gain` | 1.0 | [I] | investment added on a tie per projection-type act sent across it, scaled by the act's intensity | `M1.B.8b` |
+| `force_anxiety_gain` | 2.0 | [I] | the most an automatic act's intensity can rise, as a fraction: it rises by gain × a ÷ (a + 100), a the actor's excess anxiety | `M4.D.1h` |
+| `focus_compound_gain` | 10.0 | [I] | how fast an anxious parent's attention among the children moves to where it already is: weekly, gain × load above usual ÷ 100 × the parent's total investment in the children × share × (share − Σ share²), which sums to 0 over the children (raised from 2 when the form became a shift, the owner 2026-10-14) | `M1.B.8b` |
 | `lock_in_turn` | 3.0 | [I] | severity (load ÷ threshold) past which lock-in releases instead of holding; peak at half of it (revision 24) | `M7.D.2d` |
 | `self_channel_exponent` | 2.0 | [I] | exponent on functional_level / 100 | `M4.D.1a` |
 | `policy_temperature` | 1.0 | [I] | learned-value units | `M4.D.1` |

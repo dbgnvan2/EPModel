@@ -4,6 +4,38 @@ All notable changes to this project are recorded here. Dates are ISO.
 
 ## [Unreleased] — 2026-10-11
 
+### Spec revision 30 built: origin cutoff, danger, focus lock-in (2026-10-14)
+
+- Built plan §4.10 (575 numbered requirements, 47 acceptance criteria): the cutoff a child grows up with raises their
+  chronic anxiety and pull toward closeness at 20 (`M1.D.8a`); danger read from received intrusion, its contact cost,
+  and a cutoff principled in proportion to it (`M1.B.3e`); an anxious act lands with more force (`M4.D.1h`, the
+  owner's "force rises with anxiety"); anxious focus moves to where it already is (`M1.B.8b`, "anxious focus
+  compounds"); `M11.C.10` read on ties to partners and own parents at a fixed 200 seeds, with a family-of-origin
+  variant; the danger premise `M11.C.47` on a new fixture. Seven new `[I]` constants; one family-config key
+  (`dangers`).
+- The owner's decisions after the reviews: felt danger is held while rejection is held; focus compounding became a
+  shift among the children that adds no investment, at `focus_compound_gain` 10 ("Shift, gain 10"), after the first
+  form grew without limit and a ceiling removed the lock-in.
+- Review fixes, each with a test: `M11.C.47`'s arms differ in one person and read the danger felt from them (most of
+  it is the child's); the cached twelve-person run's move counts were shared between arms and double-counted; the
+  `origin_cutoffs` key, which the spec forbids, is removed; a dead person's declared danger stops being a floor; weak
+  tests strengthened and wiring tests added.
+- Records regenerated (code hash `c41fea60…`, Phase C `6a8c31f0…`):
+  - `M11.C.10[family of origin]` **passes**: +162 ± 120 tie-weeks (p 0.007, 200 seeds).
+  - `M11.C.10` still **fails**: +6.6 ± 130 (p 0.43, 200 seeds).
+  - `M11.C.47` passes (premise): felt danger +0.050 ± 0.017, principled cutoff +0.020 ± 0.008; but the weeks of
+    rejection held toward the low-level person are fewer, −16.6 ± 4.9 (reported only).
+  - `M11.C.2` on the twelve-person family now **fails**: +0.70 ± 1.5 (p 0.16), from a pass at revision 29.
+  - `M11.C.17` FAIL → PASS (+0.00053 ± 0.00063, p 0.013); `M11.C.44` PASS → FAIL (−0.030 ± 0.11). `M11.C.6` fails
+    (+0.070 ± 0.039); `M11.C.15` passes. No mutation proof lost by a passing criterion.
+  - Mutations: `M11.C.47` with the intrusion read removed reads exactly 0 in every seed (100 seeds, ad hoc), so it
+    cannot pass. The `M11.C.10[family of origin]` mutation is not yet run; `M11.C.10` and `M11.C.2` fail, so theirs are
+    moot.
+- The `rca` skill (review convergence audit) added at `.claude/skills/rca/SKILL.md`, from the owner's trans-summary
+  project; its first audit: MIXED / INSUFFICIENT DATA, and CI red on every push since 2026-10-09 (TODO).
+- Suite: 849 tests. Spec, plan §4.10, explainer §8.3, constants docs, criteria config, the danger fixture, README,
+  `_STATUS.md`, CLAUDE.md, the proposal and TODO updated.
+
 ### Spec revision 29 built: cutoff and focus (2026-10-14)
 
 - Built plan §4.8, R1–R7: reactive and principled cutoff (`M1.B.3d`), learning from what follows a witnessed cutoff

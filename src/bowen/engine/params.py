@@ -169,6 +169,14 @@ class EngineParams:
     witness_window: int                    # M4.D.6f, revision 29 — weeks between a witnessed cutoff and its reading
     perceived_weakness_gain: float         # M1.B.8a, revision 29 — focus per point of a child's shortfall
     focus_steer_gain: float                # M4.D.1g, revision 29 — how strongly focus steers projection-type acts
+    origin_cutoff_anxiety_gain: float        # M1.D.8a, revision 30 — intensity a child carries from the cutoff they grew up with
+    origin_fusion_gain: float                # M1.D.8a, revision 30 — the pull toward fusion a child carries from it
+    danger_window: int                       # M1.B.3e, revision 30 — weeks of received intrusion that make felt danger
+    danger_threshold: float                  # M1.B.3e, revision 30 — intrusion beyond ordinary family life
+    danger_gain: float                       # M1.B.3e, revision 30 — what contact with a dangerous person costs
+    focus_reinforce_gain: float              # M1.B.8b, revision 30 — attention follows one's own anxious acts
+    force_anxiety_gain: float                # M4.D.1h, revision 30 — an anxious person acts with more force
+    focus_compound_gain: float               # M1.B.8b, revision 30 — anxious focus grows where it already is
     lock_in_turn: float                    # M7.D.2d, revision 24 — the severity (load over threshold) past which lock-in turns over
 
     def __post_init__(self) -> None:
@@ -267,8 +275,30 @@ class EngineParams:
             raise ValueError("triangle_activity_window must be at least 1")
         if self.hardening_run_length < 2:
             raise ValueError("hardening_run_length must be at least 2")
+        # Revision 28's life course (review 2026-10-14, adjacent finding): ages ordered, shares in [0, 1], sizes non-negative.
+        if not (0 <= self.acting_age_years and 0 <= self.development_start_age_years <= self.development_end_age_years
+                and self.working_age_years <= self.launch_age_years
+                and 0 <= self.coach_start_age_years < self.coach_retirement_age_years):
+            raise ValueError("life-course ages out of order: development start <= end, working age <= launch age, "
+                             "coach start < retirement, all non-negative")
+        for name in ("development_band", "development_rate", "find_work_rate", "income_shortfall_share",
+                     "new_tie_investment_share", "death_transfer_share"):
+            if not 0.0 <= getattr(self, name) <= 1.0:
+                raise ValueError(f"{name} must be in [0, 1]")
+        if min(self.witnessed_gain, self.grief_scale, self.income_loss_intensity, self.mortality_a, self.mortality_b,
+               self.budget_per_undifferentiation, self.birth_focus_gain) < 0:
+            raise ValueError("witnessed_gain, grief_scale, income_loss_intensity, mortality_a, mortality_b, "
+                             "budget_per_undifferentiation and birth_focus_gain must be non-negative")
+        if self.find_work_pressure_scale <= 0 or self.grief_min_weeks < 0 or self.grief_extra_weeks < 0:
+            raise ValueError("find_work_pressure_scale must be positive and the grief weeks non-negative")
         # Revision 29 (learning-qa review 2026-10-14): the witnessed-cutoff step stays bounded only for a gain in [0, 1].
         if not 0.0 <= self.witnessed_cutoff_gain <= 1.0 or self.witness_window < 1:
             raise ValueError("witnessed_cutoff_gain must be in [0, 1] and witness_window at least 1")
         if min(self.reactive_cutoff_gain, self.perceived_weakness_gain, self.focus_steer_gain) < 0:
             raise ValueError("reactive_cutoff_gain, perceived_weakness_gain and focus_steer_gain must be non-negative")
+        if self.danger_window < 1 or self.danger_threshold <= 0:
+            raise ValueError("danger_window must be at least 1 and danger_threshold positive")
+        if min(self.origin_cutoff_anxiety_gain, self.origin_fusion_gain, self.danger_gain, self.focus_reinforce_gain,
+               self.force_anxiety_gain, self.focus_compound_gain) < 0:
+            raise ValueError("origin_cutoff_anxiety_gain, origin_fusion_gain, danger_gain, focus_reinforce_gain, "
+                             "force_anxiety_gain and focus_compound_gain must be non-negative")

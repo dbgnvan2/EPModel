@@ -19,7 +19,9 @@
 > and the twelve-person `M11.C.2` run the reference family for `years`. *Revision 29 (2026-10-14):*
 > `M11.C.10`'s cutoff is renewed every `renew_every` weeks in the treatment and held open in the baseline; `M11.C.2`
 > on the twelve-person family counts projection-type acts per year under `projection_until_age` and reads load over
-> ages `load_from_age` to `load_to_age`.
+> ages `load_from_age` to `load_to_age`. *Revision 30 (2026-10-14):* `M11.C.10` runs exactly `seeds` seeds (the owner:
+> "200 instead"), reads generation 3's rejection toward their partner and own parents, and has a second variant,
+> `M11.C.10[family of origin]`, holding each parent's cutoff of their own parents.
 >
 > **Phase D, 2026-10-11** (`src/bowen/ensemble/criteria_d.py`; the estimator's criteria, spec revision 17):
 > * `nodal` — the declared nodal load: one event every `every` weeks to each named person, cycling through the three
@@ -159,6 +161,13 @@
 | M11.C.6 | years | 40 |
 | M11.C.10 | years | 40 |
 | M11.C.10 | renew_every | 13 |
+| M11.C.10 | seeds | 200 |
+| M11.C.47 | weeks | 260 |
+| M11.C.47 | level_low | 15 |
+| M11.C.47 | level_high | 50 |
+| M11.C.47 | stress_every | 2 |
+| M11.C.47 | stress_kind | JOB_LOSS |
+| M11.C.47 | stress_intensity | 120.0 |
 | M11.C.39 | spell_weeks | 26 |
 | M11.C.39 | after | 52 |
 | M11.C.39 | quiet | 8 |

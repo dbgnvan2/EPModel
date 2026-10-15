@@ -787,3 +787,18 @@ def test_m7c1k_finding_work_reaches_a_household_with_no_ties_between_its_members
     reached = {d.recipient for d in visible.deliveries if d.role is DeliveryRole.TARGET}
     assert {LEO, NADIA} <= reached  # and it is delivered, at once, to everyone it names
     assert all(d.latency == 0 for d in visible.deliveries if d.role is DeliveryRole.TARGET)
+
+
+@pytest.mark.parametrize("name, value", [("development_band", 1.5), ("development_rate", -0.1), ("find_work_rate", 2.0),
+                                         ("income_shortfall_share", -0.1), ("death_transfer_share", 1.1),
+                                         ("grief_scale", -1.0), ("mortality_b", -0.1), ("find_work_pressure_scale", 0.0),
+                                         ("development_start_age_years", 30), ("working_age_years", 40),
+                                         ("coach_retirement_age_years", 20)])
+def test_m7c1_life_course_constants_out_of_range_are_refused(name, value):
+    """Review 2026-10-14 (adjacent finding): revision 28's constants had no range checks."""
+    import dataclasses
+
+    from src.bowen.io.load import load_constants
+    from src.bowen.scenario.params import engine_params
+    with pytest.raises(ValueError):
+        dataclasses.replace(engine_params(load_constants()), **{name: value})

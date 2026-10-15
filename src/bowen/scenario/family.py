@@ -34,8 +34,9 @@ PEOPLE_COLUMNS = (
 TIE_COLUMNS = ("a", "b", "relation", "conductance", "bond_energy", "latency", "tie_state", "interactive")
 METADATA = frozenset({"instance_id", "grade", "nuclear_household", "undifferentiation_budget"})
 # Spec revision 29: principled cutoffs (M1.B.3d), as ``holder>other`` pairs, and a child's real weakness (M1.B.8a), as
-# ``person=value`` pairs, each comma-separated, are declared only.
-OPTIONAL_METADATA = frozenset({"principled_cutoffs", "weaknesses"})
+# ``person=value`` pairs, each comma-separated, are declared only. Spec revision 30: a person's declared danger to others
+# (M1.B.3e), and the origin cutoff of a person whose childhood is not simulated (M1.D.8a), as ``person=value`` pairs.
+OPTIONAL_METADATA = frozenset({"principled_cutoffs", "weaknesses", "dangers"})
 # Spec revision 28 (M2.A.0j, M2.A.0k, M7.C.1h): a family with a life course declares its starting ages as three
 # settings, each person's gap to their generation's anchor, who earns, the coachee, the successor coach's sex, and the
 # file of partner settings. Children below the fixation age carry no chronic anxiety, and children below the end of
@@ -247,18 +248,18 @@ def _principled(declared: str, ties: dict, source: str) -> None:
         tie.principled = tuple(sorted(set(tie.principled) | {PersonId(holder.strip())}))
 
 
-def _weaknesses(declared: str, people: dict, source: str) -> None:
-    """M1.B.8a, revision 29: a child's declared real weakness, 0 to 1."""
+def _per_person(declared: str, people: dict, source: str, field: str, spec: str) -> None:
+    """A ``person=value`` list setting one 0-to-1 field on each person it names (M1.B.8a, M1.B.3e)."""
     for entry in (e.strip() for e in declared.split(",") if e.strip() not in _NONE):
         name, _, value = entry.partition("=")
         pid = PersonId(name.strip())
         try:
-            weakness = float(value)
+            number = float(value)
         except ValueError:
-            raise ConfigError(f"{source}: weakness {entry!r} is not person=value (M1.B.8a)") from None
-        if pid not in people or not 0.0 <= weakness <= 1.0:
-            raise ConfigError(f"{source}: weakness {entry!r} names no person or is outside 0 to 1 (M1.B.8a)")
-        people[pid].weakness = weakness
+            raise ConfigError(f"{source}: {field} {entry!r} is not person=value ({spec})") from None
+        if pid not in people or not 0.0 <= number <= 1.0:
+            raise ConfigError(f"{source}: {field} {entry!r} names no person or is outside 0 to 1 ({spec})")
+        setattr(people[pid], field, number)
 
 
 def build_family(text: str, constants: Constants, *, source: str = "<family>",
@@ -415,7 +416,8 @@ def build_family(text: str, constants: Constants, *, source: str = "<family>",
                 )
 
     _principled(meta.get("principled_cutoffs", ""), ties, source)
-    _weaknesses(meta.get("weaknesses", ""), people, source)
+    _per_person(meta.get("weaknesses", ""), people, source, "weakness", "M1.B.8a")
+    _per_person(meta.get("dangers", ""), people, source, "danger", "M1.B.3e")
     life_settings = None
     if life:
         life_settings = _life(meta, people, ties, ages, parent_on_tie, pending_children, constants, source,

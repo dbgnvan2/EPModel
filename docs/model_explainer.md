@@ -1025,6 +1025,42 @@ below is `[I]`; none is a corpus magnitude.
   rose from 0.580 to 0.626. After the review made it a pure redistribution, the share is 0.578 against 0.580 with
   steering off: no measurable effect on this family over two years.
 
+
+### 8.3 Origin cutoff, danger, force and focus that locks in *(spec revision 30, 2026-10-14: the owner's decisions of 2026-10-14; the forms are Claude's recommendation, pending owner review)*
+
+**What it is for.** After revision 29, `M11.C.10` still failed. The diagnosis (plan §4.9) found that nothing let a
+parent's cutoff make a child more likely to cut off. The owner then asked for danger and a cutoff chosen for safety,
+and for focus that "can get stuck onto mainly one child". Every value below is `[I]`.
+
+- **The cutoff a child grows up with** (`M1.D.8a`). Each week until 20, a child adds the largest rejection either
+  living parent holds on any tie. At 20 the mean becomes their *origin cutoff* for life: chronic anxiety rises by
+  10 points at an origin cutoff of 1 (intensity), and they want more contact on every tie, up to 50% more (fusion).
+  The owner: a parent's cutoff "represents a lower level of differentiation and a higher level of intensity", and it
+  should "lower their level of functioning and increase their tendency to fuse (pursuit a lot)". Lower functioning
+  follows from the load, and pursuit from the larger "too little" gap. Neither is written.
+- **An anxious act lands harder** (`M4.D.1h`). An automatic act's force rises with the actor's excess anxiety, up to
+  three times at the current gain. *Measured (ad hoc):* without it, a person at level 15 stressed every 2 weeks
+  intruded no more than a calm person at level 50, so danger could never emerge. With force unbounded, two people's
+  anxiety fed each other and a run diverged within 23 weeks; so it saturates.
+- **Danger, and the cutoff chosen for safety** (`M1.B.3e`). Each person keeps a 26-week average of the intrusion they
+  receive from each other person. Above a threshold set over ordinary family life, they feel that person as dangerous,
+  from 0 to 1. Contact from a dangerous person costs anxiety; cutting them off stops the cost at once; and the cutoff is
+  principled in proportion to the danger felt: no reactive cost and no sense of loss at 1. While the cutoff is held the
+  danger felt does not fade, though nothing more is received (the owner, 2026-10-14), so it stays principled. A person can also be
+  declared dangerous (a criminal, an addiction). Nobody is named an abuser: the owner, "Agents, like people, can become
+  demanding to the point of being abusive, either because of tremendous stress or low level of differentiation."
+  *Measured (ad hoc, the danger fixture, 10 seeds, 5 years):* felt danger 0.003 for a calm couple at level 50, 0.125
+  for a couple at level 15 under a stressor every 2 weeks. `M11.C.47` tests that direction with one spouse at level 15
+  and stressed; *measured (ad hoc, 8 seeds)*, most of the danger felt from them is their child's, not their partner's.
+- **Focus that locks in** (`M1.B.8b`). While a parent is anxious, their attention among the children moves toward
+  the child who already has more of it: that child gains what the others lose, so focus grows where it already is
+  without the parent's total attention growing. A projecting act also adds to the sender's attention on that tie.
+  *Measured (ad hoc, the four-person fixture with its children alike, 20 seeds, 10 years):* the top child's share of a
+  parent's attention was 0.87 in year 1, 0.84 in year 3, 0.70 in year 5 and 0.69 in year 10; about 0.61 without it.
+  An earlier form that grew the investment itself ran without limit, and a ceiling on it removed the lock-in. The acts
+  follow only weakly at the current steering (`M4.D.1g`), which the owner may size.
+
+
 ---
 
 ## 9. Events, routing and the belief layer

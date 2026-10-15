@@ -366,9 +366,28 @@ def decide(obs: Observation, kinds: EventKinds, params: EngineParams, rules: Pol
             withheld=held.kind, **rationale,
         ), urge)
     return Decision(Selection(
-        actor=obs.person, kind=chosen.kind, targets=(chosen.target,), intensity=params.policy_intensity,
+        actor=obs.person, kind=chosen.kind, targets=(chosen.target,), intensity=force(chosen, obs, params),
         value_key=chosen.value_key, **rationale,
     ), urge)
+
+
+def force(outcome: Outcome, obs: Observation, params: EngineParams) -> float:
+    """Purpose: an anxious person's automatic act lands with more force (revision 30).
+    Spec:    docs/bowen_agent_model_spec_v2.md#M4.D.1h
+    Tests:   tests/bowen/test_origin_danger_focus.py::test_m4d1h_an_anxious_act_has_more_force
+
+    ``policy_intensity × (1 + force_anxiety_gain × a ÷ (a + 100))``, a the actor's excess anxiety (acute above chronic),
+    for an automatic act; a self-directed act keeps ``policy_intensity``. It saturates at (1 + ``force_anxiety_gain``)
+    times: unbounded, force and the other's anxiety fed each other and a run diverged within 23 weeks. Excess, not the
+    excess above usual: the usual level follows a chronically stressed person up, and force read from it barely moved
+    (measured 2026-10-14, plan §4.10). The owner (2026-10-14): people "can become demanding to the point of being
+    abusive, either because of tremendous stress or low level of differentiation". Level enters through anxiety: a
+    less differentiated person's anxiety rises more steeply (`M4.C.1a`). [I]
+    """
+    if outcome.channel != AUTOMATIC:
+        return params.policy_intensity
+    a = obs.acute_excess
+    return params.policy_intensity * (1.0 + params.force_anxiety_gain * a / (a + SCALE_MAX))
 
 
 def _invert(u: float, weights: list[float]) -> int:

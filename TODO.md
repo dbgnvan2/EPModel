@@ -18,22 +18,65 @@ Deferred and adjacent items. Each carries enough context to act on later without
   - `M11.C.11` shape — "three phases, not a step down" is a claim about curve shape; any automated version embeds an invented tolerance.
   - `M5.F.2` — the threshold separating a counterfeit move from a genuine one is invented and sets the result. **This is the model's most consequential invented constant.**
 
+## Spec revision 30 (origin cutoff, danger, focus lock-in) — open after the build, 2026-10-14
+
+Plan §4.10 holds the evidence.
+- [x] ~~**Owner: felt danger fades once a cutoff works** (correctness review).~~ *Decided 2026-10-14, "hold felt danger while rejection is held"; built (`M1.B.3e`, `test_m1b3e_felt_danger_is_held_while_rejection_is_held`).* Refused moves are never delivered, so the
+  intrusion a person receives from the one they cut off decays over about `danger_window` weeks, felt danger falls to
+  0, and the cutoff turns reactive by itself: the full reactive cost and the full "too little" term return though
+  nothing about the other has changed. Should felt danger be held while rejection is held, or decay more slowly?
+- [x] ~~**Owner: focus compounding has no ceiling on investment** (learning-qa, medium).~~ *Decided 2026-10-14: "saturate the investment", then, after a ceiling removed the lock-in, "Shift, gain 10": the term now moves attention among the children and adds none (plan §4.10).* `M1.B.8b`'s term grows a
+  parent's investment in the child they focus on in proportion to that investment, so it grows exponentially while
+  pressure × share is above 5 (leak 0.1 a week). Measured (learning-qa, seed 0, ad hoc): the largest parent-to-child
+  investment over 10 years on the four fixture was 3,477 at gain 2, against 27.6 at gain 0. Every reader today uses
+  shares, so no result changes; a later reader of absolute investment would. An only child has share 1 and compounds
+  most. A saturating form needs a new constant; not changed unasked.
+- [ ] **`M11.C.10`'s input barely differs between its arms** (correctness review, 3 seeds, 12 years, ad hoc). The
+  origin cutoff of the first gen-3 child was 0.79 (open) against 0.87 (held), and 0.80 against 0.92 in the
+  family-of-origin variant: parents already hold some rejection on some tie most weeks, and the held cutoff adds 0.08
+  to 0.12. This limits what 200 seeds can detect.
+- [ ] **`M11.C.17` passes by a fragile margin, not by one mechanism** (ad hoc, 2026-10-14, the revision 29 worktree):
+  switching off any one of the four revision 29 gains leaves the coached rise at about 0; switching off all four
+  reproduces revision 28's +0.000881 ± 0.000828.
+- [ ] **Minor, from the fix re-sweep (2026-10-14):** `update_danger`'s docstring puts the dead-person sentence in the
+  middle of the paragraph on cost (move it to the end; left during the regeneration so the engine hash would not move);
+  `arm_c47` reads only people with a tie to the person, so a removed tie would drop someone from both readouts
+  silently (not possible on the fixture today).
+- [ ] **CI has been red on every push since 2026-10-09** (rca audit, 2026-10-14; confirmed with `gh run list`). The
+  golden fingerprints in `tests/bowen/test_engine_golden.py` fail on Python 3.11, 3.12 and 3.13 on the blank machine,
+  and `test_d0_diagnostic_record_is_current` on 3.11: they match this Mac only. A red build nobody reads is worse than
+  none (global rule). Find what differs (float formatting, dependency versions, ordering) and fix it.
+- [ ] **The phase D2 record prints `M11.C.10`'s two variants under one id** (and `M11.C.2`'s twelve-person variant as
+  `M11.C.2`). The renderer uses `Criterion.id`; it should print the criterion's key. A label change: render from the
+  cache, not by rerunning.
+- [ ] **`M11.C.47`: the dangerous person is cut off on fewer weeks** (−16.6 ± 4.9 `held_weeks`, 150 seeds), though felt
+  danger and the principled part are higher. Trace why before reading the premise as a finding about cutoff.
+- [ ] **`M11.C.2` on the twelve-person family fails again at revision 30** (+0.70 ± 1.5, p 0.16; +1.31 ± 0.95 at
+  revision 29). Which revision 30 change moved it is not yet measured (candidates: force, the focus shift).
+- [ ] **Run the `M11.C.10[family of origin]` mutation** (`M1.D.8a` removed must turn it red; about 1 hour at 200
+  seeds) and record it.
+- [ ] **rca: record findings and commit review fixes separately** (rca audit, 2026-10-14): with fixes folded into the
+  feature commit, the audit cannot run a reproducer at the parent. Have csdp write `.rca/findings.md`.
+- Dismissed with reason (correctness review, 2026-10-14): intrusion is read by `tie_change` after the week's move
+  effects and landed contacts, not on the state appraisal saw. Both read the same function; the spec now says which
+  state.
+
 ## Spec revision 29 (cutoff and focus) — open after the build, 2026-10-14
 
 Plan §4.8 holds the evidence.
-- [ ] **`I-POSITION` sequence statistics rest on about three completions** (P23). `tests/bowen/test_iposition.py`'s
+- [x] ~~**`I-POSITION` sequence statistics rest on about three completions** (P23).~~ *Done at revision 30: the steering override is gone; the mover starts at level 60 and completes 27 sequences in 192 seeds (ad hoc, 2026-10-14). The modal-length assertion, which a few dozen completions cannot support, was removed.* `tests/bowen/test_iposition.py`'s
   `attempts_over_seeds` runs 192 triad seeds with focus steering switched off by a declared override; with it on,
   `test_m5d8_success_usually_follows_several_failures` fails (0 completions against 3, within chance). Either raise
   the seed count until completions number in the tens, or loosen the assertions to what a few completions can
   support. The tests do not describe the default model while the override stands.
-- [ ] **A person cannot choose a principled cutoff** (`M1.B.3d`). Principled is declared in the family config only;
+- [x] ~~**A person cannot choose a principled cutoff** (`M1.B.3d`).~~ *Done at revision 30 (`M1.B.3e`): a cutoff is principled in proportion to the danger the person feels.* Principled is declared in the family config only;
   a cutoff the policy selects is always reactive. Learning that cutoff is good therefore raises reactive cutoff. The
   spec states the gap (`M4.D.6f`); closing it needs an owner decision on what a self-chosen principled cutoff is.
 - [ ] **Focus steering has no measurable effect in Phase C** after the review made it a redistribution (share 0.578
   against 0.580 off, ad hoc, 20 seeds). Whether `focus_steer_gain` 1.0 is too small to matter is for the owner.
-- [ ] **Adjacent, not fixed: the revision 28 life-course constants are not range-checked** in
+- [x] ~~**Adjacent, not fixed: the revision 28 life-course constants are not range-checked**~~ *Done at revision 30 (`tests/bowen/test_life_course.py`).* in
   `EngineParams.__post_init__` (the revision 29 ones now are). Check each for a meaningful range and add it.
-- [ ] **`life_run`'s `acts_per_year` divides by the full run for a child who dies before `projection_until_age`**,
+- [x] ~~**`life_run`'s `acts_per_year` divides by the full run~~ *Done at revision 30: the years lived are tracked, and a child never seen at the ages read is counted.* for a child who dies before `projection_until_age`**,
   and `_pick` drops a child with no load at the ages read without counting it (learning-qa, low). Neither happens with
   the reference family over 40 years.
 - [x] ~~**Owner: can an external agent receive a dead person's bound stocks?**~~ *Decided 2026-10-14: yes ("okay"); spec `M6.3c` says so.* `M6.3b` gives an external agent no share
@@ -41,7 +84,7 @@ Plan §4.8 holds the evidence.
   discharges a triangle to all its living members, an external agent among them (found 2026-10-14, re-sweep of the
   revision 29 fixes; `test_m63b_no_share_to_an_external_agent` now isolates `M6.3b`). The code follows the spec as
   written.
-- [ ] **A scripted act toward a dead target is counted "not legal", not "dead"** (`src/bowen/ensemble/criteria.py`,
+- [x] ~~**A scripted act toward a dead target is counted "not legal", not "dead"**~~ *Done at revision 30: status "target dead".* (`src/bowen/ensemble/criteria.py`,
   the forced source's `selections`). In `M11.C.10`'s record, 983 of 16,000 renewals read "not legal"; on seed 2 all 12
   were after Dario died (checked ad hoc, one seed only). "dead" is used only when the actor has died. Add a status for a
   dead target; it changes the engine hash, so batch it with the next engine change.
@@ -660,7 +703,7 @@ Recorded, not fixed. The engine is frozen in behaviour; these matter because the
 ## Repository hygiene
 
 - [ ] **Untracked files predating this batch need a decision.** Not staged, because they were not touched in this work: `requirements.txt`, `monte_carlo.py`, `monte_carlo_results.txt`, `data/`, `gemini.md`, `docs/background.md`, `docs/constitution.md`, `docs/logic_rules.md`, `docs/spec.md`, `docs/user_stories.md`. **`requirements.txt` is the urgent one** — the README tells people to install dependencies and the file is not in the repo.
-- [ ] **No CI workflow.** The project standard is that a repo with a test suite pushed to GitHub gets `.github/workflows/tests.yml` — checkout, install from the real dependency file, run the suite on each supported Python version. The value is the blank machine: it catches what "works on this Mac" hides, which matters more here because the repo is shared between two Macs. Blocked on `requirements.txt` being tracked.
+- [x] ~~**No CI workflow.**~~ *Out of date: `.github/workflows/tests.yml` exists (see the rca entry under revision 30).* The project standard is that a repo with a test suite pushed to GitHub gets `.github/workflows/tests.yml` — checkout, install from the real dependency file, run the suite on each supported Python version. The value is the blank machine: it catches what "works on this Mac" hides, which matters more here because the repo is shared between two Macs. Blocked on `requirements.txt` being tracked.
 - [ ] **No `LEARNINGS.md`.** The project convention is a repo-local fix log for repo-specific lessons, with generic patterns going to `~/.claude/standards/learnings.md`. Candidates: the ID-drift incident recorded in `M11.D.10`; the two unseeded flaky tests; and from 2026-08-28, **the `M5.D.4` heading inversion** — a requirement sourced from a summary heading rather than the sentence beneath it, which inverted silently and survived four spec revisions. The last of those may be general enough for the global catalogue rather than the repo-local log.
 - [ ] Stray file `docs/model_explainer copy.textClipping` in the working tree — not mine to delete, but it is clutter.
 

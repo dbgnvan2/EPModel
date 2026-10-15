@@ -25,7 +25,7 @@ Every rate is [I] (``config/bowen/constants.md``).
 
 from __future__ import annotations
 
-from src.bowen.engine.contact import steepness
+from src.bowen.engine.contact import loss_weight, steepness
 from src.bowen.engine.events import Delivery, Mechanism, Role
 from src.bowen.engine.identifiers import PersonId
 from src.bowen.engine.log_records import EffectRecord
@@ -164,16 +164,18 @@ def reactive_cutoff_cost(state: RunState, params: EngineParams) -> list[EffectRe
     Tests:   tests/bowen/test_cutoff_and_focus.py::test_m1b3d_reactive_cutoff_raises_the_cutters_anxiety
 
     cost = reactive_cutoff_gain × rejection held × (100 − basic_level) ÷ 100, [I] (spec revision 29, a placeholder the
-    owner accepted 2026-10-13). A principled cutoff (``tie.principled``) costs nothing.
+    owner accepted 2026-10-13). A principled cutoff (``tie.principled``) costs nothing; one toward a person felt as
+    dangerous costs in proportion to the danger not felt (`M1.B.3e`, revision 30).
     """
     paid: dict[PersonId, float] = {}
     for tie_id in sorted(state.ties):
         tie = state.ties[tie_id]
         for member, held in sorted(tie.rejection.items()):
             person = state.people[member]
-            if held <= 0.0 or not person.alive or member in tie.principled:
+            weight = loss_weight(person, tie)  # principled: 0; toward danger: 1 − the danger felt (revision 30)
+            if held <= 0.0 or not person.alive or weight == 0.0:
                 continue
-            paid[member] = paid.get(member, 0.0) + (
+            paid[member] = paid.get(member, 0.0) + weight * (
                 params.reactive_cutoff_gain * held * (SCALE_MAX - person.basic_level) / SCALE_MAX)
     for member, amount in paid.items():
         state.people[member].acute_anxiety += amount

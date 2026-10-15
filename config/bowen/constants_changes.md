@@ -173,4 +173,13 @@
 | `witness_window` | — | 13 | 2026-10-14 | — (new mechanism; spec revision 29, plan §4.8) | no |
 | `perceived_weakness_gain` | — | 0.01 | 2026-10-14 | — (new mechanism; spec revision 29, plan §4.8; owner-accepted default) | no |
 | `focus_steer_gain` | — | 1.0 | 2026-10-14 | — (new mechanism; spec revision 29, plan §4.8; owner-accepted default) | no |
+| `origin_cutoff_anxiety_gain` | — | 10.0 | 2026-10-14 | — (new mechanism; spec revision 30, plan §4.10) | no |
+| `origin_fusion_gain` | — | 0.5 | 2026-10-14 | — (new mechanism; spec revision 30, plan §4.10) | no |
+| `danger_window` | — | 26 | 2026-10-14 | — (new mechanism; spec revision 30, plan §4.10) | no |
+| `danger_threshold` | — | 0.25 | 2026-10-14 | — (new mechanism; spec revision 30, plan §4.10) | no |
+| `danger_gain` | — | 2.0 | 2026-10-14 | — (new mechanism; spec revision 30, plan §4.10) | no |
+| `focus_reinforce_gain` | — | 1.0 | 2026-10-14 | — (new mechanism; spec revision 30, plan §4.10) | no |
+| `force_anxiety_gain` | — | 2.0 | 2026-10-14 | — (new mechanism; spec revision 30, plan §4.10, the owner's choice of 2026-10-14) | no |
+| `focus_compound_gain` | — | 2.0 | 2026-10-14 | — (new mechanism; spec revision 30, plan §4.10, the owner's choice of 2026-10-14) | no |
+| `focus_compound_gain` | 2.0 | 10.0 | 2026-10-14 | the form became a shift among the children that adds no investment: learning-qa found the first form unbounded (peak 14,000 median, 4 million max, 20 seeds, 10 years, ad hoc), a ceiling bounded it but removed the lock-in, and the owner chose "Shift, gain 10" | no |
 | `lock_in_turn` | — | 3.0 | 2026-10-12 | — (new mechanism; spec revision 24, B7, Claude's recommendation pending owner review: lock-in's turn) | no |

@@ -2,6 +2,12 @@
 
 > ## ▶ STATE — the corpus is closed and the spec is current. **Phase C is closed with its gate failing (owner decision, 2026-10-09).**
 >
+> **2026-10-14 — spec revision 30 (575 unique IDs, 47 acceptance criteria), plan §4.10 approved and built:** origin cutoff
+> as an input to a child's intensity and fusion (`M1.D.8a`); danger read from received intrusion and the cutoff chosen
+> for safety (`M1.B.3e`); focus that locks in (`M1.B.8b`); `M11.C.10` on ties to partners and parents at 200 seeds,
+> with a family-of-origin variant; the danger premise `M11.C.47`. Result: the variant passes (+162 ± 120 tie-weeks),
+> `M11.C.10` still fails, `M11.C.47` passes, and `M11.C.2` on the twelve-person family fails again (CHANGELOG).
+>
 > **2026-10-14 — spec revision 29 (570 unique IDs, 46 acceptance criteria), built** (plan §4.8, approved by the owner): the owner's
 > decisions after the `M11.C.10` and `M11.C.2` diagnosis (plan §4.7, §4.8): `M11.C.10` holds the cutoff and reads tie
 > states; learning from a witnessed cutoff (`M4.D.6f`); reactive and principled cutoff as a placeholder (`M1.B.3d`);

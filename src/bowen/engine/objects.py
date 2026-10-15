@@ -199,6 +199,12 @@ class Person:
     inactive: bool = False
     # M1.B.8a, revision 29: a child's real weakness, 0 to 1, declared in config only; 0 for everyone else.
     weakness: float = 0.0
+    # M1.D.8a, revision 30: the mean rejection this person's parents held over their years at home, set at 20; 0 for a
+    # person whose childhood is not simulated. It raises their pull toward closeness on every tie.
+    origin_cutoff: float = 0.0
+    # M1.B.3e, revision 30: a declared danger to others, 0 to 1 (abusive, criminal, addicted); config only. A floor
+    # under what others come to feel from this person's behaviour.
+    danger: float = 0.0
 
     def __post_init__(self) -> None:
         _check_scale("basic_level", self.basic_level)
@@ -247,6 +253,10 @@ class Relationship:
     # Every other held rejection is reactive. A holder leaves it when their declared rejection fades to zero or their
     # own policy cuts off on the tie (``rejection.end_principled``).
     principled: tuple[PersonId, ...] = ()
+    # M1.B.3e, revision 30: each member's running average of the intrusion received from the other, and the danger
+    # they feel from the other (0 to 1) — read from behaviour, or the other's declared danger, whichever is larger.
+    received_intrusion: dict[PersonId, float] = field(default_factory=dict)
+    felt_danger: dict[PersonId, float] = field(default_factory=dict)
     functioning_balance: dict[str, float] = field(default_factory=dict)
     # M1.B.6, L05.3: the hardened configuration a flipped balance reverts toward unless sustained.
     functioning_habit: dict[str, float] = field(default_factory=dict)

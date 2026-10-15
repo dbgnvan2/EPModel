@@ -8,6 +8,7 @@ Tests:   this file
 
 from __future__ import annotations
 
+import dataclasses
 import os
 
 import pytest
@@ -15,7 +16,8 @@ import pytest
 from src.bowen.ensemble.criteria import ROLES, scenario
 from src.bowen.ensemble.criteria_d import nodal
 from src.bowen.ensemble.criteria_d2 import (
-    CRITERIA_D2, NO_GRIEF_OR_INCOME, _renewals, _uncut, arm_c10, arm_c15, cut_off_tie_weeks, life_run,
+    CRITERIA_D2, NO_GRIEF_OR_INCOME, _declared_pair, _origin_pairs, _renewals, _uncut, arm_c10, arm_c10_origin,
+    arm_c15, cut_off_tie_weeks, life_run, partner_of,
 )
 from src.bowen.ensemble.runner import PASS, run_criterion
 from src.bowen.io.load import load_constants
@@ -44,6 +46,11 @@ def test_m11c6_multigenerational_decline_in_projection_line():
 @pytest.mark.ensemble
 def test_m11c10_cutoff_begets_cutoff():
     gate("M11.C.10")
+
+
+@pytest.mark.ensemble
+def test_m11c10_cutoff_begets_cutoff_from_the_family_of_origin():
+    gate("M11.C.10[family of origin]")
 
 
 @pytest.mark.ensemble
@@ -84,14 +91,14 @@ def test_m11c10_the_treatment_holds_the_cutoff_and_the_baseline_holds_it_open():
     scenario("phase_d", 0, weeks, spells=nodal(weeks, parents), forced=_renewals(weeks, every),
              watch=lambda st: held.append(st.tie_between(a, b).rejection.get(a, 0.0)))
     renewals = scenario.last_source
-    scenario("phase_d", 0, weeks, spells=nodal(weeks, parents), setup=_uncut, held_open=(((a, b),), range(weeks)),
+    scenario("phase_d", 0, weeks, spells=nodal(weeks, parents), setup=_uncut(_declared_pair()), held_open=(((a, b),), range(weeks)),
              watch=lambda st: opened.append(max(st.tie_between(a, b).rejection.values(), default=0.0)))
     assert all(r > 0 for r in held)
     assert renewals.made == len(range(0, weeks, every)) and renewals.skipped == 0
     assert all(r == 0 for r in opened)
 
 
-HELD_WEEKS = "(weeks the cutter held rejection on the declared tie)"
+HELD_WEEKS = "(cutter-weeks holding rejection on the cutoffs the arm names)"
 
 
 def test_m11c10_each_arm_runs_what_it_names():
@@ -105,10 +112,24 @@ def test_m11c10_each_arm_runs_what_it_names():
     assert baseline.moves["(scripted acts)"] == 0
 
 
-def test_m11c10_counts_only_rejection_held_by_generation_3_and_their_children():
-    """Adversarial: rejection held by the parents' generation, the declared pair included, is not counted; the same
-    amount held by a third-generation child on the same kind of tie is."""
-    from src.bowen.engine.identifiers import PersonId
+def test_m11c10_family_of_origin_arm_holds_both_parents_cutoffs():
+    """The second variant (the owner: "b as second variant"): each parent cuts off each of their own parents, renewed
+    in successive weeks, and holds all four; its baseline holds those ties open."""
+    pairs = _origin_pairs()
+    parents = {ROLES["phase_d", "parent_1"], ROLES["phase_d", "parent_2"]}
+    assert len(pairs) == 4 and {a for a, _ in pairs} == parents
+    settings = {"years": 2, "renew_every": CRITERIA_D2["M11.C.10"].settings["renew_every"]}
+    treated, baseline = arm_c10_origin("treatment", 0, settings), arm_c10_origin("baseline", 0, settings)
+    assert treated.moves[HELD_WEEKS] == 4 * 2 * 52 and baseline.moves[HELD_WEEKS] == 0
+    assert treated.moves["(scripted act: made)"] == treated.moves["(scripted acts)"] > 0
+    forced = _renewals(52, 13, pairs)
+    assert len({w for w, a in forced if a == ROLES["phase_d", "parent_1"]}) == 8  # two ties, alternate weeks
+
+
+def test_m11c10_reads_rejection_toward_partners_and_parents():
+    """Adversarial (the owner: "partner and own parents", "less to one's children"): rejection held by anyone else
+    than generation 3, the declared pair and a parent rejecting the child among them, is not counted; toward a parent or partner it is; toward their
+    own child it is reported only."""
     state, _ = scenario("phase_d", 0, 1)
     parents = (ROLES["phase_d", "parent_1"], ROLES["phase_d", "parent_2"])
     children = tuple(sorted(p for p in state.people if set(state.life.parents.get(p, ())) == set(parents)))
@@ -117,17 +138,42 @@ def test_m11c10_counts_only_rejection_held_by_generation_3_and_their_children():
     a, b = ROLES["phase_d", "cut_off_a"], ROLES["phase_d", "cut_off_b"]
     state.tie_between(a, b).rejection = {a: 1.0, b: 1.0}
     state.tie_between(*parents).rejection = {parents[0]: 1.0}
-    assert cut_off_tie_weeks(state, children) == 0
-    child = children[0]
-    state.tie_between(parents[0], child).rejection = {PersonId(child.value): 0.5}
-    assert cut_off_tie_weeks(state, children) == 1
+    state.tie_between(parents[0], children[0]).rejection = {parents[0]: 1.0}  # the parent rejects, not the child
+    assert cut_off_tie_weeks(state, children) == (0, 0)
+    state.tie_between(parents[0], children[0]).rejection = {children[0]: 0.5}
+    assert cut_off_tie_weeks(state, children) == (1, 0)
+    # Generation 3 have no partner or child at t0, so one is given to the first child: a partner (the second child,
+    # by stand-in) and an own child (the third), each on a new tie the first child rejects on.
+    from unittest import mock
+
+    from src.bowen.ensemble import criteria_d2
+    from src.bowen.engine.identifiers import TieId
+    template = state.tie_between(parents[0], children[0])
+    for other in children[1:]:
+        state.add_tie(dataclasses.replace(template, id=TieId.of(children[0], other), rejection={children[0]: 1.0}))
+    state.life.parents[children[2]] = (children[0],)
+    with mock.patch.object(criteria_d2, "partner_of", lambda s, pid: children[1] if pid == children[0] else None):
+        assert cut_off_tie_weeks(state, children[:1]) == (2, 1)  # the parent and the partner; the child reported
+
+
+def test_m11c10_partner_of_reads_the_marital_tie():
+    state, _ = scenario("phase_d", 0, 1)
+    p1, p2 = ROLES["phase_d", "parent_1"], ROLES["phase_d", "parent_2"]
+    assert partner_of(state, p1) == p2 and partner_of(state, p2) == p1
+
+
+def test_m11c10_runs_200_seeds():
+    """The owner: "seeds are expensive - 200 instead": a fixed count, not the adaptive stop."""
+    for cid in ("M11.C.10", "M11.C.10[family of origin]"):
+        assert CRITERIA_D2[cid].seeds == 200
 
 
 def test_m11c10_reads_cut_off_tie_weeks():
-    """The readout is tie-weeks of rejection held by the third generation, not cut-off acts."""
+    """The readout is tie-weeks of rejection, not cut-off acts; rejection of one's own children is reported only."""
     summary = life_run(0, 2, "held", CRITERIA_D2["M11.C.10"].settings["renew_every"])
-    assert summary["cut_weeks"] > 0
-    assert [r.name for r in CRITERIA_D2["M11.C.10"].readouts] == ["cut_off_tie_weeks"]
+    assert summary["cut_weeks"] > 0 and summary["child_cut_weeks"] >= 0  # no gen-3 child has a child within 2 years
+    assert [(r.name, r.report_only) for r in CRITERIA_D2["M11.C.10"].readouts] == [
+        ("cut_off_tie_weeks", False), ("child_cut_weeks", True)]
 
 
 def test_m11c2_twelve_reads_load_by_age():
@@ -136,3 +182,21 @@ def test_m11c2_twelve_reads_load_by_age():
     summary = life_run(0, 3, "declared", 0, (10, 9, 11))
     assert len(summary["aged_load"]) == 1  # only one child is 9 to 11 within the first three years
     assert set(summary["acts_per_year"]) == set(summary["children"])
+
+
+def test_m11c10_a_renewal_toward_a_dead_target_is_counted_as_target_dead():
+    """Review 2026-10-14: a scripted act whose target has died was counted "not legal"; it is "target dead" now."""
+    from types import SimpleNamespace
+
+    from src.bowen.engine.act import Selection
+    from src.bowen.ensemble import criteria
+
+    from src.bowen.engine.identifiers import PersonId
+
+    state, _ = scenario("triad", 0, 1)
+    f, m = PersonId("f"), PersonId("m")
+    state.people[m].alive = False
+    policy = SimpleNamespace(selections=lambda tick, active, st: (), scheduled=lambda tick: (), params=None)
+    source = criteria.Forced(policy, {(1, f): Selection(actor=f, kind="CUTOFF", targets=(m,), intensity=100.0)})
+    source.selections(1, (f,), state)
+    assert source.status == {(1, f): "target dead"} and source.made == 0

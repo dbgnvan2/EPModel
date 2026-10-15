@@ -63,11 +63,13 @@ Plan §4.10 holds the evidence.
   revision 29). Which revision 30 change moved it is not yet measured (candidates: force, the focus shift).
 - [x] ~~**Run the `M11.C.10[family of origin]` mutation**~~ *Run 2026-10-15:* `M1.D.8a` removed does not turn it
   red, +240 ± 116 tie-weeks (`child_cut_weeks` +49.7 ± 44.1; 200 seeds, ad hoc, 2026-10-15), against +162 ± 120 with it.
-- [ ] **Find what carries `M11.C.10[family of origin]`'s pass** (the owner to decide whether to measure). Its readout
-  counts only the children's own rejection, so the parents' held cutoffs reach it through some mechanism other than
-  `M1.D.8a`. Candidates, one mutation each at 200 seeds (about 1 hour each): `M4.D.6f` (learning from a witnessed
-  cutoff) removed; `M1.B.3d`'s reactive rise removed; `M1.B.3e`'s danger removed. Until then the variant's pass is
-  not mutation-proved and must not be reported as support for `M1.D.8a`.
+- [x] ~~**Find what carries `M11.C.10[family of origin]`'s pass**~~ *Run 2026-10-15:* `M4.D.6f` removed (`witnessed_cutoff_gain` 0) gives −75.9 ± 132 tie-weeks; `M1.B.3d`'s reactive rise removed (`reactive_cutoff_gain` 0) gives +163 ± 117; `M1.B.3e`'s danger removed (felt danger from the declared floor only, 0 in this family) gives +102 ± 126 (`child_cut_weeks` +48.4 ± 45.3, +37.3 ± 46.7, +18.4 ± 42.3; 200 seeds each, ad hoc, 2026-10-15). Learning
+  from a witnessed cutoff carries it. The variant's pass is still not support for `M1.D.8a`.
+- [ ] **Decide what `M11.C.10[family of origin]`'s mutation clause names.** The spec says `M1.D.8a` removed must turn
+  it red, which it does not; `M4.D.6f` removed does (by the mean; the signed-rank test was not run on the mutant). The
+  owner decides whether to restate the clause to `M4.D.6f`, as was done for `M11.C.18` and `M11.C.20`, or to treat
+  the variant as not testing `M1.D.8a`. A record entry for the mutant (`tools/mutation_record.py`) would give it a
+  verdict.
 - [ ] **rca: record findings and commit review fixes separately** (rca audit, 2026-10-14): with fixes folded into the
   feature commit, the audit cannot run a reproducer at the parent. Have csdp write `.rca/findings.md`.
 - Dismissed with reason (correctness review, 2026-10-14): intrusion is read by `tie_change` after the week's move

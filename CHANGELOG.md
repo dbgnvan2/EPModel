@@ -18,6 +18,15 @@ All notable changes to this project are recorded here. Dates are ISO.
   means are left as they are and listed in TODO.
 - Suite: 850 tests. CI run 38763412772 is green on Python 3.11, 3.12 and 3.13, the first since 2026-10-09.
 
+### `M11.C.10[family of origin]`: learning from a witnessed cutoff carries its pass (2026-10-15)
+
+- The three remaining candidate mutations, 200 seeds each, ad hoc: `M4.D.6f` removed (`witnessed_cutoff_gain` 0)
+  gives −75.9 ± 132 tie-weeks; `M1.B.3d`'s reactive rise removed (`reactive_cutoff_gain` 0) gives +163 ± 117;
+  `M1.B.3e`'s danger removed (felt danger from the declared floor only, 0 in this family) gives +102 ± 126. Unmutated:
+  +162 ± 120. Only removing `M4.D.6f` puts the mean below zero, so the children learning from the renewals they witness
+  carries the pass. The criterion's own signed-rank test was not run on the mutants. The spec's clause still names
+  `M1.D.8a`; whether to restate it is in TODO. Recorded in the spec's `M11.C.10` row, plan §4.10 and TODO.
+
 ### `M11.C.10[family of origin]`: its pass is not carried by `M1.D.8a` (2026-10-15)
 
 - The variant's mutation, `M1.D.8a` removed (both gains 0), does not turn it red: +240 ± 116 tie-weeks (`child_cut_weeks` +49.7 ± 44.1; 200 seeds, ad hoc, 2026-10-15), against

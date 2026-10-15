@@ -42,10 +42,18 @@ Plan §4.10 holds the evidence.
   middle of the paragraph on cost (move it to the end; left during the regeneration so the engine hash would not move);
   `arm_c47` reads only people with a tie to the person, so a removed tie would drop someone from both readouts
   silently (not possible on the fixture today).
-- [ ] **CI has been red on every push since 2026-10-09** (rca audit, 2026-10-14; confirmed with `gh run list`). The
-  golden fingerprints in `tests/bowen/test_engine_golden.py` fail on Python 3.11, 3.12 and 3.13 on the blank machine,
-  and `test_d0_diagnostic_record_is_current` on 3.11: they match this Mac only. A red build nobody reads is worse than
-  none (global rule). Find what differs (float formatting, dependency versions, ordering) and fix it.
+- [ ] **CI has been red on every push since 2026-10-09.** *Fix committed 2026-10-15; passes locally on 3.11 and 3.12; tick when the CI run is green.* Cause: the last bits of floats
+  differ between platforms and Python versions. Python 3.12 changed how `sum` adds floats, and the C maths library
+  differs between macOS and Linux. NumPy 2.5.4 against 1.26.4 changed nothing here. The golden fingerprints now hash
+  floats rounded to 8 significant digits (measured margin, in the test's docstring). The diagnostic record's mean uses
+  `math.fsum`; its 0.938 was on a rounding boundary and printed 0.937 on 3.11.
+- [ ] **Adjacent, not fixed (2026-10-15):** `grep -rn "sum(.*) / len(" tools src/bowen | grep -v fsum` finds 29
+  lines that take a mean as `sum(...) / len(...)`. Some are integer or bool counts, which are exact; the review counted
+  about 18 over floats on one line each, plus 3 in mutant code in `tools/mutation_record.py`. The ones in the engine
+  (`reactive.py`, `appraise.py`, `iposition.py`, `slow_tick.py`, `life_course.py`, `beliefs.py`, `learner.py`) are the
+  likely source of the 3.11 against 3.12 drift in the run itself, not only in printing; in tools they can print
+  differently on a rounding boundary. None fails today: no other test failed on 3.11 in CI. Moving the engine to
+  `math.fsum` changes the engine hash and reruns the records, so batch it with the next engine change.
 - [ ] **The phase D2 record prints `M11.C.10`'s two variants under one id** (and `M11.C.2`'s twelve-person variant as
   `M11.C.2`). The renderer uses `Criterion.id`; it should print the criterion's key. A label change: render from the
   cache, not by rerunning.

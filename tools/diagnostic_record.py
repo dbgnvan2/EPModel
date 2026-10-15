@@ -20,6 +20,7 @@ from __future__ import annotations
 
 import argparse
 import inspect
+import math
 import os
 import sys
 from dataclasses import dataclass
@@ -170,7 +171,8 @@ def summarise(rows: list[dict]) -> list[str]:
                 continue
             median = (values[(len(values) - 1) // 2] + values[len(values) // 2]) / 2
             above = sum(v > 0 for v in values) / len(values)
-            cells.append(f"{sum(values) / len(values):.3g} / {median:.3g} / {values[0]:.3g} / {values[-1]:.3g} / "
+            # fsum: the same mean on every Python version (3.12 changed how sum adds floats)
+            cells.append(f"{math.fsum(values) / len(values):.3g} / {median:.3g} / {values[0]:.3g} / {values[-1]:.3g} / "
                          f"{above:.0%}")
         lines.append("| " + " | ".join(cells) + " |")
     return lines

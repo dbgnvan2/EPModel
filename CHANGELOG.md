@@ -4,6 +4,20 @@ All notable changes to this project are recorded here. Dates are ISO.
 
 ## [Unreleased] — 2026-10-11
 
+### Platform-independent fingerprints, for the red CI (2026-10-15)
+
+- CI had been red on every push since 2026-10-09. Only the golden fingerprints failed, and on Python 3.11 the
+  diagnostic record too. The cause was the last bits of floats: Python 3.12 changed how `sum` adds floats, and the C
+  maths library differs between macOS and Linux. Measured on this Mac, Python 3.11 against 3.12 on the same seeds:
+  no record differs in structure; 75,496 of 197,685 phase_d floats differ, by at most 1.7e-11 relative. NumPy 2.5.4
+  against 1.26.4 changed nothing.
+- `tests/bowen/test_engine_golden.py` now hashes canonical JSON with floats rounded to 8 significant digits. Both
+  fingerprints moved; the run itself did not change. A new test checks that a 1e-12 change leaves the fingerprint alone
+  and a 1e-6 change moves it. With rounding turned off it fails.
+- `tools/diagnostic_record.py` takes its mean with `math.fsum`. The record is unchanged. 29 other `sum(...) / len(...)`
+  means are left as they are and listed in TODO.
+- Suite: 850 tests.
+
 ### Spec revision 30 built: origin cutoff, danger, focus lock-in (2026-10-14)
 
 - Built plan §4.10 (575 numbered requirements, 47 acceptance criteria): the cutoff a child grows up with raises their

@@ -67,6 +67,11 @@ Plan §4.10 holds the evidence.
   from a witnessed cutoff carries it. The variant's pass is still not support for `M1.D.8a`.
 - [x] ~~**Decide what `M11.C.10[family of origin]`'s mutation clause names.**~~ *Decided 2026-10-15:* the owner restated
   it to `M4.D.6f`; its mutant is red in `docs/phase_d_mutation_record.md` (FAIL, p 0.91, 200 seeds).
+- [ ] **Phase D mutation record, three minor items** (re-review of 7c8a0fb, 2026-10-15): (1) `engine_hash` reads
+  `inspect.getsource` of `apply` and `run_in_copy`, comments included, so a docstring edit there reruns the record;
+  (2) `build()` does not flag an `AD_HOC` entry that now has a mutant or no longer passes (only the test checks the
+  first); (3) the spec's `M11.C.10` row still opens with the revision 11 and revision 29 mutation clauses, superseded by
+  the later amendments but not struck.
 - [ ] **rca: record findings and commit review fixes separately** (rca audit, 2026-10-14): with fixes folded into the
   feature commit, the audit cannot run a reproducer at the parent. Have csdp write `.rca/findings.md`.
 - Dismissed with reason (correctness review, 2026-10-14): intrusion is read by `tie_change` after the week's move

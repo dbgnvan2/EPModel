@@ -72,6 +72,14 @@ Plan §4.10 holds the evidence.
   (2) `build()` does not flag an `AD_HOC` entry that now has a mutant or no longer passes (only the test checks the
   first); (3) the spec's `M11.C.10` row still opens with the revision 11 and revision 29 mutation clauses, superseded by
   the later amendments but not struck.
+- [ ] **Owner: review spec revisions 24–30** in `docs/REVIEW_spec_revisions_24-30.md` (85 entries, built 2026-10-15). A
+  condition of version 1 (`docs/version_1_definition.md`, V4). Next session can start from there.
+- [ ] **Seven inconsistencies in the spec found while drafting the review form** (listed in
+  `docs/REVIEW_spec_revisions_24-30.md`, "Inconsistencies found while drafting"): `channel_focus` "from belief" (line
+  1630) against `M1.A.11c`; `tolerance` Family field (line 1679) against per person (`M7.D.4`); `TRIANGLE`'s channel in
+  the B8 plan against `attribution.md`; `M7.E.1c` "open owner decision" (line 1084) against plan line 1355; `M11.C.2`
+  settings "to be added" (line 1314) though present; criteria settings ungraded; revision 28 tags with no source. Fix
+  with the review's revision, so the spec moves once.
 - [ ] **rca: record findings and commit review fixes separately** (rca audit, 2026-10-14): with fixes folded into the
   feature commit, the audit cannot run a reproducer at the parent. Have csdp write `.rca/findings.md`.
 - Dismissed with reason (correctness review, 2026-10-14): intrusion is read by `tie_change` after the week's move

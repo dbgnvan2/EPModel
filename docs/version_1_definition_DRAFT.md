@@ -1,6 +1,8 @@
 # Version 1 of the agent model: a definition (DRAFT)
 
-**Status: DRAFT, 2026-10-15, for the owner to edit. Not approved. Nothing below is a decision.**
+**Status: DRAFT, 2026-10-15. Questions 1, 2, 3 and 8 decided by the owner on 2026-10-15 ("go with your proposals on
+the version 1 questions"): each takes the draft's proposal. Questions 4–7 carried no proposal and are open, so the
+definition is not yet approved.**
 
 The owner asked when version 1 will be finished. No document defined version 1, so no date could be given. This
 draft proposes a definition in which every item is checked by a test, a record line or an owner sign-off, so that
@@ -50,13 +52,15 @@ any `[I]` constant to data. Each is a candidate for version 1 or for later.
 
 ## 4. Questions for the owner
 
+Open: 4, 5, 6, 7.
+
 1. **What is version 1 for?** A model you can use to explore and that reports honestly what it does and does not
-   produce, or a model whose composite criteria pass? *Proposal: the first. Under the second, the end depends on
-   findings, not on work, and cannot be scheduled.*
-2. **Can a failing composite be accepted as a finding?** *Proposal: yes, with a written reason per criterion, since
-   a composite failing is a result about the model (`M11.5`).*
-3. **Must every failing premise be fixed before version 1?** *Proposal: yes. A premise failing says the code does not
-   do what its rule says.* Or the premise is restated or withdrawn by the owner.
+   produce, or a model whose composite criteria pass? **Decided 2026-10-15: the first.** Under the second, the end depends on
+   findings, not on work, and cannot be scheduled.
+2. **Can a failing composite be accepted as a finding?** **Decided 2026-10-15: yes,** with a written reason per criterion, since
+   a composite failing is a result about the model (`M11.5`).
+3. **Must every failing premise be fixed before version 1?** **Decided 2026-10-15: yes.** A premise failing says the code does not
+   do what its rule says. Or the premise is restated or withdrawn by the owner.
 4. **Are the four not-built criteria in or out?** `M11.C.7` (the coach's position), `M11.C.9` (sibling position),
    `M11.C.13` (incidents in a community), `M11.C.28` (the sink allocation feeds no behaviour).
 5. **Must every pass have a recorded mutation (V3), or are ad hoc runs reported in the plan enough?** Moving the ad
@@ -64,5 +68,5 @@ any `[I]` constant to data. Each is a candidate for version 1 or for later.
 6. **Is your review of revisions 24–30 a condition (V4)?**
 7. **Do any of the items in §3 belong in version 1?**
 8. **Is a spec revision that reopens a passed criterion allowed after version 1 is declared, or does version 1 freeze
-   the spec?** *Proposal: freeze the spec at version 1, as the grid spec v1.2 was frozen; later revisions start
-   version 2.*
+   the spec?** **Decided 2026-10-15: freeze the spec at version 1,** as the grid spec v1.2 was frozen; later revisions start
+   version 2.

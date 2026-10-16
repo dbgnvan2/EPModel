@@ -7,7 +7,7 @@ passes; a red mutant is **reversed** when every gating readout's interval lies w
 direction (`M11.1d`). Phase D's other mutation runs are ad hoc and reported in
 `docs/implementation_plan_phase_d.md`.
 
-engine_hash: f0c7372d7b2490b99ee6797c06b80772c1b3ce8ea2f6ac4603408e20ce49bd3c
+engine_hash: 9ad5762ce8a490151b425a48ed7c2a334d6192f411b4a8ef3ab14689dc70a65b
 
 | Mutant | Kind | What it changes | Criterion | Verdict under mutant | Seeds | Difference under mutant | Result |
 |---|---|---|---|---|---|---|---|
@@ -18,6 +18,13 @@ engine_hash: f0c7372d7b2490b99ee6797c06b80772c1b3ce8ea2f6ac4603408e20ce49bd3c
 Criteria a mutant targets that do not pass in the part II record.
 
 - none
+
+## Passing with no mutant in this record
+
+Part II criteria that pass but are not proved here; where their mutation is reported instead.
+
+- `M11.C.15`: run ad hoc, `docs/implementation_plan_phase_d.md` §4.4 (Mutations)
+- `M11.C.47`: a premise; run ad hoc, `docs/implementation_plan_phase_d.md` §4.10 (Results, Mutations)
 
 ## Machine-readable
 

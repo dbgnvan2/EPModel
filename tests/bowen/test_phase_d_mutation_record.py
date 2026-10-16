@@ -48,6 +48,18 @@ def test_m11c10_family_of_origin_variant_is_proved_red_by_removing_m4d6f():
     it red. Read from the committed record."""
     rows = _tool.json.loads(_tool.re.search(r"```json\n(.*?)\n```", _tool.RECORD.read_text(encoding="utf-8"),
                                             _tool.re.S).group(1))
-    row = next(r for r in rows if r["mutant"] == "witnessed-cutoff-learning-removed"
-               and r["criterion"] == "M11.C.10[family of origin]")
+    row = next((r for r in rows if r["mutant"] == "witnessed-cutoff-learning-removed"
+                and r["criterion"] == "M11.C.10[family of origin]"), None)
+    assert row is not None, "the variant was not run under M4.D.6f removed: does it still pass in the part II record?"
     assert row["result"] in ("red", "reversed"), row
+
+
+def test_m111d_every_passing_phase_d2_criterion_has_a_mutant_or_names_where_it_is_reported():
+    """Phase C's `test_m111d_every_passing_criterion_has_a_mutant_run`, for part II: a newly passing criterion with no
+    mutant here and no entry in `AD_HOC` fails, so the record cannot read as full coverage."""
+    rows = _tool.json.loads(_tool.re.search(r"```json\n(.*?)\n```", _tool.RECORD.read_text(encoding="utf-8"),
+                                            _tool.re.S).group(1))
+    recorded = {r["criterion"] for r in rows}
+    missing = sorted(_tool.passing() - recorded - set(_tool.AD_HOC))
+    assert not missing, f"passing with no mutant and not in AD_HOC: {missing}"
+    assert not set(_tool.AD_HOC) & recorded, "a criterion in AD_HOC now has a mutant here; remove it from AD_HOC"

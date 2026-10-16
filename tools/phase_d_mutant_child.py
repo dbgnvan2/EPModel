@@ -3,7 +3,8 @@ results.
 
 Purpose: the child ``tools/phase_d_mutation_record.py`` runs in each mutated copy, as ``tools/mutant_runner.py`` is for
          Phase C. It is a separate file so the Phase C records' engine hash, which covers ``mutant_runner.py``, does
-         not move. Its content is in this record's hash, so only code that changes what a run computes belongs here.
+         not move. Its content is in this record's hash, with the source of ``mutant_runner``'s ``apply`` and
+         ``run_in_copy``, so only code that changes what a run computes belongs here.
 Spec:    docs/bowen_agent_model_spec_v2.md#M11.1a, #M11.1d, #M11.C.10
 Tests:   tests/bowen/test_phase_d_mutation_record.py::test_m111d_phase_d_mutation_record_is_current
 """

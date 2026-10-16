@@ -28,8 +28,13 @@ All notable changes to this project are recorded here. Dates are ISO.
   `M11.C.10`, so its rows are matched to `CRITERIA_D2` in order, each id checked.
 - First mutant, `witnessed-cutoff-learning-removed` (`witnessed_cutoff_gain` 0.05 → 0): **red**, FAIL,
   `cut_off_tie_weeks` −75.9 ± 132, p 0.91, 200 seeds, the same values as the ad hoc run.
-- Tests: `tests/bowen/test_phase_d_mutation_record.py` (the mutant applies once, the record is current, and the variant
-  is red under it).
+- Tests: `tests/bowen/test_phase_d_mutation_record.py` (the mutant applies once, the record is current, the variant
+  is red under it, and every passing part II criterion has a mutant here or is named with where its mutation is
+  reported: `M11.C.15` and `M11.C.47`, both ad hoc in the plan).
+- Review fixes (learning-qa and a correctness pass): the cache key also covers `apply` and `run_in_copy`, which copy the
+  repository and apply the edit; an engine exception under a mutant is reported as a red and not cached, as in Phase C,
+  and finished results are kept if the machine fails; the spec's `M11.C.10` row states the restated clause in its
+  Mutations sentence, not only after it. The record was rerun under the new key.
 
 ### `M11.C.10[family of origin]`: learning from a witnessed cutoff carries its pass (2026-10-15)
 

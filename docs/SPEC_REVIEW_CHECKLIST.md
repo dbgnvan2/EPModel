@@ -141,7 +141,7 @@ verdicts over ensembles (`tools/phase_d_record.py`; plan step 12). Mutations are
 
 **Generated, 2026-10-15:** [phase_d_mutation_record.md](phase_d_mutation_record.md) — Phase D part II criteria under declared mutants (first: `M4.D.6f` removed on `M11.C.10[family of origin]`), from `tools/phase_d_mutation_record.py`, rendered from `records_cache/phase_d_mutation.json`; a default-suite test fails when it is stale.
 
-**For review, 2026-10-15:** [version_1_definition_DRAFT.md](version_1_definition_DRAFT.md) — a DRAFT definition of version 1 of the agent model, its conditions each checked by a test, a record or an owner sign-off, where the model stands against it, and the owner's questions; 1, 2, 3 and 8 decided 2026-10-15, 4–7 open. Not approved.
+**Approved, 2026-10-15:** [version_1_definition.md](version_1_definition.md) — what version 1 of the agent model is: seven conditions, each checked by a test, a record or an owner sign-off, where the model stands against them, and the owner's eight decisions.
 
 **For review, 2026-10-13:** [phase_d_status_2026-10-13.md](phase_d_status_2026-10-13.md) — Phase D part I after the
 overnight run: every build item and D-I criterion as done, partial or not done, and what the owner should look at

@@ -1,21 +1,21 @@
-# Version 1 of the agent model: a definition (DRAFT)
+# Version 1 of the agent model: a definition
 
-**Status: DRAFT, 2026-10-15. Questions 1, 2, 3 and 8 decided by the owner on 2026-10-15 ("go with your proposals on
-the version 1 questions"): each takes the draft's proposal. Questions 4–7 carried no proposal and are open, so the
-definition is not yet approved.**
+**Status: APPROVED 2026-10-15.** The owner took the draft's proposals for questions 1, 2, 3 and 8 ("go with your
+proposals on the version 1 questions") and for questions 4–7 ("I approve the revision list above", confirmed as both
+the question proposals and the review form). Drafted the same day as `version_1_definition_DRAFT.md`.
 
 The owner asked when version 1 will be finished. No document defined version 1, so no date could be given. This
-draft proposes a definition in which every item is checked by a test, a record line or an owner sign-off, so that
+document sets a definition in which every item is checked by a test, a record line or an owner sign-off, so that
 progress can be measured and a date estimated from measured run times. The questions in §4 are the owner's to answer;
-the draft's own answers are marked as proposals.
+each answer is recorded with its date.
 
-## 1. Proposed definition
+## 1. The definition
 
 Version 1 is finished when all of the following hold.
 
 | # | Condition | How it is checked |
 |---|---|---|
-| V1 | Every `M11.C` criterion has a final status: **pass**, proved by a recorded mutation; **fail accepted**, with the owner's written reason that it is a finding about the model; or **out of scope**, with the owner's reason. | a generated status table over the three ensemble records and the two mutation records, and a test that no criterion lacks a status (to build) |
+| V1 | Every `M11.C` criterion has a final status: **pass**, proved by a mutation (recorded for a composite; for a premise or check an ad hoc run reported in the plan is enough, §4 question 5); **fail accepted**, with the owner's written reason that it is a finding about the model; or **out of scope**, with the owner's reason (`M11.C.13` and `M11.C.28`, §4 question 4). | a generated status table over the three ensemble records and the two mutation records, and a test that no criterion lacks a status (to build) |
 | V2 | Every **premise** and **check** criterion passes. A failing premise means the code does not do what its rule says, which is a defect, not a finding (`M11.5`). | the same table, filtered by class |
 | V3 | Every passing **composite** criterion has a mutation in a record (`docs/phase_c_mutation_record.md` or `docs/phase_d_mutation_record.md`), not only an ad hoc run. | the record tests (`test_m111d_*`) |
 | V4 | The owner has reviewed spec revisions 24–30, and the spec's status line says so. | the status line; owner sign-off |
@@ -45,14 +45,14 @@ counted once per variant.
 - **Not counted here:** `M11.C.44` passed at revision 29 and fails in the Phase C record now; `M11.C.2` on the twelve-
   person family passed at revision 29. A revision can turn a passing criterion red, so a count can go down.
 
-## 3. What this does not include, unless the owner adds it
+## 3. What version 1 does not include (decided 2026-10-15, question 7)
 
 Retiring the frozen grid engine (`src/engine.py`); the `M15` import of real families; the fam-diag app; calibrating
-any `[I]` constant to data. Each is a candidate for version 1 or for later.
+any `[I]` constant to data. Each is for a later version.
 
 ## 4. Questions for the owner
 
-Open: 4, 5, 6, 7.
+All eight decided 2026-10-15.
 
 1. **What is version 1 for?** A model you can use to explore and that reports honestly what it does and does not
    produce, or a model whose composite criteria pass? **Decided 2026-10-15: the first.** Under the second, the end depends on
@@ -63,10 +63,15 @@ Open: 4, 5, 6, 7.
    do what its rule says. Or the premise is restated or withdrawn by the owner.
 4. **Are the four not-built criteria in or out?** `M11.C.7` (the coach's position), `M11.C.9` (sibling position),
    `M11.C.13` (incidents in a community), `M11.C.28` (the sink allocation feeds no behaviour).
+   **Decided 2026-10-15: `M11.C.13` and `M11.C.28` are out** (the first's mechanism does not exist, the second's affects
+   no behaviour); **`M11.C.7` and `M11.C.9` are in** (each needs one gate that is partly built).
 5. **Must every pass have a recorded mutation (V3), or are ad hoc runs reported in the plan enough?** Moving the ad
-   hoc ones into the record costs one run per mutant.
-6. **Is your review of revisions 24–30 a condition (V4)?**
-7. **Do any of the items in §3 belong in version 1?**
+   hoc ones into the record costs one run per mutant. **Decided 2026-10-15: a passing composite needs a recorded
+   mutation; a passing premise or check may rest on an ad hoc run reported in the plan,** since those passes confirm
+   the code rather than report a finding.
+6. **Is your review of revisions 24–30 a condition (V4)?** **Decided 2026-10-15: yes;** otherwise version 1 freezes
+   rules the owner has not approved. The review form is `docs/REVIEW_spec_revisions_24-30.md`.
+7. **Do any of the items in §3 belong in version 1?** **Decided 2026-10-15: no.**
 8. **Is a spec revision that reopens a passed criterion allowed after version 1 is declared, or does version 1 freeze
    the spec?** **Decided 2026-10-15: freeze the spec at version 1,** as the grid spec v1.2 was frozen; later revisions start
    version 2.

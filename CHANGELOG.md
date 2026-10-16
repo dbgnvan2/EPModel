@@ -18,6 +18,13 @@ All notable changes to this project are recorded here. Dates are ISO.
   means are left as they are and listed in TODO.
 - Suite: 850 tests. CI run 38763412772 is green on Python 3.11, 3.12 and 3.13, the first since 2026-10-09.
 
+### `M11.C.2` on the twelve-person family: no single revision 30 change explains the regression (2026-10-15)
+
+- Each revision 30 change removed alone, 150 seeds, ad hoc: unmodified +0.70 ± 1.5, p 0.16 (reproduces the record); `M4.D.1h`'s force removed +0.70 ± 0.97, p 0.13; `M1.B.8b`'s compounding removed +1.12 ± 1.7, p 0.09; `M1.B.8b`'s reinforcement removed +1.11 ± 1.6, p 0.093; `M1.D.8a` removed +0.96 ± 1.5, p 0.14; `M1.B.3e`'s danger removed +0.08 ± 1.8, p 0.46 (`symptom_load`, seeds 0–149, one-sided signed-rank with the runner's margin; ad hoc, 2026-10-15).
+- No single removal restores the pass. Removing the force narrows the spread to revision 29's (±0.95 then) without
+  raising the mean; removing either focus term raises the mean to about +1.1 with the wider spread. Recorded in plan
+  §4.10 and TODO.
+
 ### `M11.C.10[family of origin]`'s clause restated to `M4.D.6f`, and a Phase D mutation record (2026-10-15)
 
 - The owner: "restate the clause to M4.D.6f and add the mutant". The spec's `M11.C.10` row now requires `M4.D.6f`

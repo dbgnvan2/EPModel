@@ -60,7 +60,11 @@ Plan §4.10 holds the evidence.
 - [ ] **`M11.C.47`: the dangerous person is cut off on fewer weeks** (−16.6 ± 4.9 `held_weeks`, 150 seeds), though felt
   danger and the principled part are higher. Trace why before reading the premise as a finding about cutoff.
 - [ ] **`M11.C.2` on the twelve-person family fails again at revision 30** (+0.70 ± 1.5, p 0.16; +1.31 ± 0.95 at
-  revision 29). Which revision 30 change moved it is not yet measured (candidates: force, the focus shift).
+  revision 29). *Traced 2026-10-15, each revision 30 change removed alone:* unmodified +0.70 ± 1.5, p 0.16 (reproduces the record); `M4.D.1h`'s force removed +0.70 ± 0.97, p 0.13; `M1.B.8b`'s compounding removed +1.12 ± 1.7, p 0.09; `M1.B.8b`'s reinforcement removed +1.11 ± 1.6, p 0.093; `M1.D.8a` removed +0.96 ± 1.5, p 0.14; `M1.B.3e`'s danger removed +0.08 ± 1.8, p 0.46 (`symptom_load`, seeds 0–149, one-sided signed-rank with the runner's margin; ad hoc, 2026-10-15). No single removal brings
+  the pass back. Removing the force gives revision 29's spread with revision 30's mean (the two means agree to three
+  figures with different spreads; measured, not explained); removing either focus term gives back most of the mean
+  with the wider spread. Next, if wanted: force and both focus terms removed together, about 10 minutes. Under the
+  version 1 definition this composite can also be accepted as a finding.
 - [x] ~~**Run the `M11.C.10[family of origin]` mutation**~~ *Run 2026-10-15:* `M1.D.8a` removed does not turn it
   red, +240 ± 116 tie-weeks (`child_cut_weeks` +49.7 ± 44.1; 200 seeds, ad hoc, 2026-10-15), against +162 ± 120 with it.
 - [x] ~~**Find what carries `M11.C.10[family of origin]`'s pass**~~ *Run 2026-10-15:* `M4.D.6f` removed (`witnessed_cutoff_gain` 0) gives −75.9 ± 132 tie-weeks; `M1.B.3d`'s reactive rise removed (`reactive_cutoff_gain` 0) gives +163 ± 117; `M1.B.3e`'s danger removed (felt danger from the declared floor only, 0 in this family) gives +102 ± 126 (`child_cut_weeks` +48.4 ± 45.3, +37.3 ± 46.7, +18.4 ± 42.3; 200 seeds each, ad hoc, 2026-10-15). Learning

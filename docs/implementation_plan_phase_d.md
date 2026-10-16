@@ -1609,6 +1609,72 @@ repo), unless they come from a record.
   with it; the intervals overlap. The variant's pass is therefore not proved by its mutation and is not evidence for
   `M1.D.8a`. The other candidates (run 2026-10-15): `M4.D.6f` removed (`witnessed_cutoff_gain` 0) gives −75.9 ± 132 tie-weeks; `M1.B.3d`'s reactive rise removed (`reactive_cutoff_gain` 0) gives +163 ± 117; `M1.B.3e`'s danger removed (felt danger from the declared floor only, 0 in this family) gives +102 ± 126 (`child_cut_weeks` +48.4 ± 45.3, +37.3 ± 46.7, +18.4 ± 42.3; 200 seeds each, ad hoc, 2026-10-15). Only `M4.D.6f` removed puts the mean below zero, so learning from the witnessed renewals carries the pass. The owner restated the variant's clause to `M4.D.6f` (2026-10-15), and the mutant is now in `docs/phase_d_mutation_record.md` (`tools/phase_d_mutation_record.py`): **red**, FAIL, p 0.91, 200 seeds. `M11.C.10` and `M11.C.2` fail, so their mutations are moot. *`M11.C.2[twelve-person family]` traced 2026-10-15*, each revision 30 change removed alone: unmodified +0.70 ± 1.5, p 0.16 (reproduces the record); `M4.D.1h`'s force removed +0.70 ± 0.97, p 0.13; `M1.B.8b`'s compounding removed +1.12 ± 1.7, p 0.09; `M1.B.8b`'s reinforcement removed +1.11 ± 1.6, p 0.093; `M1.D.8a` removed +0.96 ± 1.5, p 0.14; `M1.B.3e`'s danger removed +0.08 ± 1.8, p 0.46 (`symptom_load`, seeds 0–149, one-sided signed-rank with the runner's margin; ad hoc, 2026-10-15). No single removal brings the pass back.
 
+### 4.11 Revision 31: apply the owner's review of revisions 24–30 — plan, 2026-10-16
+
+> **Status: DRAFT, for the owner's approval. Nothing below is built.** The review is
+> `docs/REVIEW_spec_revisions_24-30.md` (all 85 entries decided 2026-10-16: 82 approved as built, 3 changed). This
+> plan applies the 3 changes, the text fixes recorded on approved entries, the seven inconsistencies the form lists,
+> and the tags. It adds no mechanism and changes no constant.
+
+**Why two parts.** The records' hash (`tools/ensemble_record.py::code_hash`) covers every file under `src/bowen/` and
+`config/bowen/` except `constants_changes.md`. A one-line docstring fix there makes every ensemble, mutation and
+diagnostic record stale. So the work splits:
+
+- **Part A, documents only.** The spec, the explainer, `constants_changes.md`, this plan and the version 1
+  definition. No record moves, no run. Can be built and committed at once after approval.
+- **Part B, code and config.** Moves the hash, so every record is regenerated once. **Recommended: batch part B with
+  the version 1 premise fixes** (`M11.C.21`, `M11.C.23`, `M11.C.40`, V2 of `docs/version_1_definition.md`), so the
+  records are regenerated once for both (owner rule, 2026-10-09: batch before any slow rerun).
+
+**The owner's decisions applied (2026-10-16, quoted from the review form).** Revision 24: "as recommended". Revision
+25: "as recommended, with B for M11.C.14". Revisions 26 and 27: "as recommended, keeping the active-symptom reading
+for M11.C.17". Revision 28: "continue to finish the review process", read as "as recommended" with option A for the
+band (the form records the reading). Revisions 29 and 30: "as recommended".
+
+#### Part A — documents (no record moves)
+
+| ID | Change | Where | Verified by |
+|---|---|---|---|
+| R31.A1 | `channel_focus`'s register row says it is written from the moves delivered (engine-side attention), not "from belief" (inconsistency 1) | spec `M14.A`, line 1630 | `tests/test_review_rev31.py::test_r31a1_channel_focus_row_not_from_belief` |
+| R31.A2 | `tolerance`'s register row says Family, one declared value per member (inconsistency 2) | spec `M14.A`, line 1679 | `test_r31a2_tolerance_row_per_member` |
+| R31.A3 | `M11.C.6` limit (a) restated (option A): keep "**MUST NOT** complete in one or two generations"; drop "**MUST** be achievable within roughly ten". `M7.E.1f`'s "open conflict" sentence records the decision. The explainer marks the traversal claim (`KS11.1` and `FE08.2`, both `[K]`) `[X]` contested against the owner's ±2% band, at §8.1's consequence line (977) and the scale table (1432) | spec `M11.C.6`, `M7.E.1f`; `model_explainer.md` | `test_r31a3_c6_limit_a_restated`, `test_r31a3_explainer_marks_traversal_contested` |
+| R31.A4 | `M11.C.14` restated (option B): under high marital distance, **no technique lowers the child's symptom load against a no-technique arm**; the difference between techniques is reported, not tested. `M11.4`'s exceptions row for `M11.C.14` changes from a two-sided null to a one-sided bound. Its mutation clause: the marital-distance gate removed **MUST** turn at least one technique variant red | spec `M11.C.14` row, `M11.4` table; explainer line 1134 | `test_r31a4_c14_row_restated` (text); the criterion itself in part B |
+| R31.A5 | `M4.D.6f`'s gap sentence updated: since `M1.B.3e`, a chosen cutoff toward a person felt as dangerous is principled in proportion, so the gap is narrower than stated | spec `M4.D.6f` | `test_r31a5_m4d6f_gap_mentions_felt_danger` |
+| R31.A6 | `M7.E.1c` records the owner's decision (plan §4.8): the other four situations are not applied at `t0` (inconsistency 4) | spec `M7.E.1c` | `test_r31a6_m7e1c_not_open` |
+| R31.A7 | `M11.C.10`'s row: the superseded revision 11 and revision 29 mutation clauses struck | spec `M11.C.10` | `test_r31a7_c10_superseded_clauses_struck` |
+| R31.A8 | `M11.C.2`'s "are to be added" removed; the settings are in `criteria.md` (inconsistency 5) | spec `M11.C.2` | `test_r31a8_c2_settings_not_to_be_added` |
+| R31.A9 | Every revision 24–30 tag reading "pending owner review" becomes "approved by the owner 2026-10-16", or for the three changed entries "changed by the owner 2026-10-16, revision 31"; the revision 28 tags with no source (inconsistency 7) get the same tag as the rest of revision 28. Counted 2026-10-16: 64 in the spec, 7 in the explainer, 10 in `constants_changes.md` | spec, explainer, `constants_changes.md` | `test_r31a9_no_pending_review_tags_for_rev24_30` |
+| R31.A10 | `M7.C.1g`'s "The owner has not stated a launch age" becomes the owner's approval of 20 (2026-10-16) | spec `M7.C.1g` | `test_r31a10_launch_age_approved` |
+| R31.A11 | This plan: §4.9 item 9 (`focus_steer_gain`) closed at 1; step 10's "For the owner" on `M11.C.17`'s gate closed (active symptom kept) | `implementation_plan_phase_d.md` | read in review |
+| R31.A12 | Status lines: the spec's frontmatter `version` becomes revision 31 with part A built (it still reads revision 29, stale since revision 30 was built: found 2026-10-16). Every run log's header reads it (`M16.A.1`), and two tests pin the string (`tests/bowen/test_log.py::test_m16a1_header_hashes_the_resolved_config`, `tests/bowen/test_render.py::test_m16c5_trace_carries_header_and_framing`), so they change with it. The form and the version 1 definition (V4) updated | spec frontmatter, the two tests, form, `version_1_definition.md` | `test_r31a12_spec_status_names_revision_31` and the two tests above |
+
+Inconsistency 3 (`TRIANGLE`'s channel) needs no spec change: the owner approved the config as built; the B8 design
+draft above stays as the draft it was.
+
+#### Part B — code and config (the hash moves; one regeneration)
+
+| ID | Change | Where | Verified by |
+|---|---|---|---|
+| R31.B1 | `symptoms.py`'s stale docstring ("a belief, and is B8's") says `channel_focus` is written from the acts delivered | `src/bowen/engine/symptoms.py:26` | `test_r31b1_symptoms_docstring_not_belief` |
+| R31.B2 | The criteria settings carry a grade, `[I]` (`M11.C.2` ages, `renew_every`, `seeds`, the `M11.C.47` fixture values) (inconsistency 6) | `config/bowen/criteria.md` | `test_r31b2_criteria_settings_graded` |
+| R31.B3 | "pending owner review" in the headers of `attribution.md` and `criteria.md`, and in the record renderer's reworded line (`tools/phase_d_record.py`, `REWORDED`, `REWORDED_2`), updated | config, tool | `test_r31a9_no_pending_review_tags_for_rev24_30` extended to these files |
+| R31.B4 | `M11.C.14` as restated: two variants, `M11.C.14[firmness]` and `M11.C.14[talking it out]`. Each baseline is the same fixture with no scripted technique (the parents under their own policy); each treatment adds the technique. Readout `child_symptom_load`, one-sided: the variant passes if the interval's lower end lies above −(the equivalence bound). The former firmness-against-talking comparison is kept as a report-only row. The runner gains a one-sided bound mode for a `Readout` | `src/bowen/ensemble/criteria_d.py`, `src/bowen/ensemble/runner.py` | `tests/bowen/test_phase_d_criteria.py::test_m11c14_no_technique_lowers_load_under_marital_distance` (gate); adversarial unit test `tests/bowen/test_ensemble.py::test_m11c14_one_sided_bound_fails_when_interval_reaches_below` (an interval whose mean is inside but whose lower end crosses the bound must fail) |
+| R31.B5 | `M11.C.14`'s mutation: the gate removed must turn at least one variant red. Added to `docs/phase_d_mutation_record.md` | `tools/phase_d_mutation_record.py` | the record's `test_m111d_*` tests |
+| R31.B6 | Every record regenerated once, after part B and the batched premise fixes | `tools/phase_d_record.py --part 1/2`, `tools/ensemble_record.py`, the mutation records | the record-current tests |
+
+**Risk stated before the build.** If the gate-removed mutant does not turn either `M11.C.14` variant red (that is,
+no technique lowers the child's load even without the gate), the restated criterion would pass for a reason other
+than the gate. The build stops there and reports to the owner. It does not change the criterion to make it bite.
+
+**Compute.** Part A: none. Part B: one regeneration of every record. Revision 30's plan estimated about 2 hours for
+the ensemble records plus about 1 hour per `M11.C.10` variant at 200 seeds; the mutation records rerun in full
+because they key on the same hash. Not measured as one figure; it will be timed and reported. `M11.C.14`'s two
+variants add two short runs (52 weeks, the nuclear four).
+
+**Documents updated by the build.** Part A: the spec, `model_explainer.md`, `constants_changes.md`, this plan, the
+review form, `version_1_definition.md`, `TODO.md`. Part B: `config/bowen/criteria.md`, `config/bowen/attribution.md`,
+and the regenerated records (`docs/readouts_phase_c.md` does not mention `M11.C.14`, checked 2026-10-16).
+
 ## 5. Build order (D-I)
 
 1. **The owner decides** P1–P12 and P17 (one session; I bring drafts for P4, P7, P9 and P12).

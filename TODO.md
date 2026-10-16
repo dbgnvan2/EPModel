@@ -75,15 +75,20 @@ Plan §4.10 holds the evidence.
   `inspect.getsource` of `apply` and `run_in_copy`, comments included, so a docstring edit there reruns the record;
   (2) `build()` does not flag an `AD_HOC` entry that now has a mutant or no longer passes (only the test checks the
   first); (3) the spec's `M11.C.10` row still opens with the revision 11 and revision 29 mutation clauses, superseded by
-  the later amendments but not struck.
-- [ ] **Owner: review spec revisions 24–30** in `docs/REVIEW_spec_revisions_24-30.md` (85 entries, built 2026-10-15). A
-  condition of version 1 (`docs/version_1_definition.md`, V4). Next session can start from there.
+  the later amendments but not struck (item 3 is in revision 31's plan, approved in the review 2026-10-16).
+- [x] ~~**Owner: review spec revisions 24–30**~~ *Done 2026-10-16:* all 85 entries decided in `docs/REVIEW_spec_revisions_24-30.md`, 82 approved as built, 3 changed (`M14.A` rows, `M11.C.14` option B, `M11.C.6`
+  option A). V4 is met once revision 31 applies them.
+- [ ] **Spec revision 31: apply the review** (plan `docs/implementation_plan_phase_d.md` §4.11, drafted 2026-10-16,
+  **waiting for the owner's approval**). The three changes, the text fixes on approved entries, the seven
+  inconsistencies below, and the 64 inline "pending owner review" tags for revisions 24–30 in the spec (plus the
+  explainer, `constants_changes.md` and two config files).
 - [ ] **Seven inconsistencies in the spec found while drafting the review form** (listed in
   `docs/REVIEW_spec_revisions_24-30.md`, "Inconsistencies found while drafting"): `channel_focus` "from belief" (line
   1630) against `M1.A.11c`; `tolerance` Family field (line 1679) against per person (`M7.D.4`); `TRIANGLE`'s channel in
   the B8 plan against `attribution.md`; `M7.E.1c` "open owner decision" (line 1084) against plan line 1355; `M11.C.2`
   settings "to be added" (line 1314) though present; criteria settings ungraded; revision 28 tags with no source. Fix
-  with the review's revision, so the spec moves once.
+  with the review's revision, so the spec moves once. *2026-10-16:* all seven are in revision 31's plan (§4.11); the
+  `TRIANGLE` one needs no spec change (the owner approved the config as built).
 - [ ] **rca: record findings and commit review fixes separately** (rca audit, 2026-10-14): with fixes folded into the
   feature commit, the audit cannot run a reproducer at the parent. Have csdp write `.rca/findings.md`.
 - Dismissed with reason (correctness review, 2026-10-14): intrusion is read by `tie_change` after the week's move
@@ -204,11 +209,17 @@ Plan §4.7 and `docs/phase_d2_status_2026-10-13.md` hold the evidence.
   functioning (positive pseudo-self, revision 19) but keeps what a person gave way, so its reading sits about 8–9
   points below basic level; leaving out the whole exchange, with its sign, puts the reading at basic level
   (`docs/implementation_plan_phase_d.md`, step 6). The load weighting is not the cause.
-- [ ] **Revisions 25–27 (2026-10-12): for the owner's review.** Attribution and its rules, belief in the witness's
+- [x] ~~**Revisions 25–27 (2026-10-12): for the owner's review.**~~ *Reviewed 2026-10-16 with revisions 24–30.* Attribution and its rules, belief in the witness's
   appraisal, the family-focus writer, the marital-distance gate, the tie-weighted cross-person term, and borrowed
   pseudo-self settling back. All Claude's recommendations, made overnight at the owner's request.
 - [ ] **Failing criteria from steps 8–10, each the owner's question; nothing was changed to make any pass:**
-  - `M11.C.14`: the gate blocks improvement but not harm, so firmness and talking it out still differ.
+  - `M11.C.14`: the gate blocks improvement but not harm, so firmness and talking it out still differ. *Decided
+    2026-10-16 (review, option B):* restate it to "no technique lowers the child's load against a no-technique arm";
+    the difference between techniques is reported. Revision 31.
+  - *Version 1 (2026-10-16):* `M11.C.21`, `M11.C.23` and `M11.C.40` are failing **premises**, so V2 requires each to be
+    fixed or restated by the owner before version 1. `M11.C.21` and `M11.C.40` need a diagnosis run first;
+    `M11.C.23`'s direction is set by two `[I]` sizes, so bring the owner options. `M11.C.43` is a composite: the
+    owner accepts it as a finding or not (V1).
   - `M11.C.40`: per seed, the automatic channel's entropy difference does not exceed the self-directed one's.
   - `M11.C.43`: no larger cost on losing a calming member after learned reliance.
   - `M11.C.21`: the target does not rise when both parents collapse.
@@ -221,7 +232,8 @@ Plan §4.7 and `docs/phase_d2_status_2026-10-13.md` hold the evidence.
 - [ ] **`M11.C.17`'s coached rise nearly vanished** with revisions 24–27 (+0.021 → +0.0009). Traced 2026-10-13 (plan, step
   10): the coach's contact lands only when binders fail (an active symptom), which at revision 23 was 99% of weeks only
   because everyone was saturated; now about 40%, so landings and perspective halve. Owner's question: should the gate
-  read load above the usual level instead?
+  read load above the usual level instead? *Decided 2026-10-16 (review): no, it keeps reading an active symptom or
+  load near threshold.* The weak pass stands and needs a recorded mutation for V3.
 - [ ] **Reviews of revisions 25–27 (2026-10-12), not fixed, with reasons:**
   - **`I-POSITION` sequences now rarely complete.** In the triad fixture, completion fell from about 10 in 96 seeds
     (revision 20) to 2 in 96 after B7, and 4 in 192 now. `tests/bowen/test_iposition.py::test_m5d8_*` was raised to
@@ -252,7 +264,8 @@ Plan §4.7 and `docs/phase_d2_status_2026-10-13.md` hold the evidence.
 - [ ] **`M11.C.11`'s direction limb has no mutant** (B7): the return's disturbance exceeds the removal's. About half
   is the removed member's symptom hold, frozen while they are away (no partners to release to) and released on
   return; decide whether a removed member should keep the hold. Reunion's restored contact is not what carries the
-  rest. Find what does, and declare it.
+  rest. Find what does, and declare it. *Version 1 (2026-10-16):* `M11.5` classes this limb composite, so V3 needs a
+  recorded mutation for it.
 - [ ] **Lock-in does not make a symptom chronic** (B7): the hold does not feed the bearer's integrator, because
   feeding it made every bearer climb to the turn and stay there. `KS23.1`'s "fosters it becoming chronic" is not
   produced.

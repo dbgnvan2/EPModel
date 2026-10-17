@@ -83,7 +83,7 @@ Plan §4.10 holds the evidence.
   built 2026-10-16). **Batch with the V2 premise fixes** (`M11.C.21`, `M11.C.23`, `M11.C.40`; owner, 2026-10-16) so every
   record regenerates once: R31.B1–B6 (the `symptoms.py` docstring, the criteria settings' grades, the config headers and
   record renderer's "pending owner review", `M11.C.14` restated with its mutation) and **R31.B7, `M7.E.1f`'s band
-  opened by the parents' acts, whose form waits for the owner's approval** (the share form and its known weakness).
+  opened by the parents' acts, its form approved 2026-10-16** (the share form; its known weakness is recorded in the plan).
 - [ ] **Seven inconsistencies in the spec found while drafting the review form** (listed in
   `docs/REVIEW_spec_revisions_24-30.md`, "Inconsistencies found while drafting"): `channel_focus` "from belief" (line
   1630) against `M1.A.11c`; `tolerance` Family field (line 1679) against per person (`M7.D.4`); `TRIANGLE`'s channel in

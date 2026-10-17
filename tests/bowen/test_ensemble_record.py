@@ -205,13 +205,17 @@ def test_criteria_settings_are_parsed_strictly(tmp_path):
 
     text = (REPO / "config" / "bowen" / "criteria.md").read_text(encoding="utf-8")
     extra = tmp_path / "extra.md"
-    extra.write_text(text + "| M11.C.1 | horizon | 5 |\n", encoding="utf-8")
+    extra.write_text(text + "| M11.C.1 | horizon | 5 | [I] |\n", encoding="utf-8")
     with pytest.raises(ConfigError, match="no setting 'horizon'"):
         load_settings(extra)
     missing = tmp_path / "missing.md"
-    missing.write_text(text.replace("| M11.C.42 | weeks | 40 |\n", ""), encoding="utf-8")
+    missing.write_text(text.replace("| M11.C.42 | weeks | 40 | [I] |\n", ""), encoding="utf-8")
     with pytest.raises(ConfigError, match="M11.C.42 weeks"):
         load_settings(missing)
+    graded = tmp_path / "graded.md"
+    graded.write_text(text.replace("| M11.C.42 | weeks | 40 | [I] |", "| M11.C.42 | weeks | 40 | [T] |"), encoding="utf-8")
+    with pytest.raises(ConfigError, match="every setting is"):
+        load_settings(graded)  # R31.B2: a setting presented as sourced is refused
 
 
 def test_sweep_tool_shares_the_loaded_mutation_tool():

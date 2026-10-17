@@ -160,6 +160,8 @@ activation_regime: synchronous
 | `development_end_age_years` | 20 | [I] | year of age (the owner's, 2026-10-13) | `M7.E.1f` |
 | `development_band` | 0.02 | [I] | share of the parents' level (the owner's: level x .02) | `M7.E.1f` |
 | `development_rate` | 0.1 | [I] | basic-level points per point of mean functioning above basic, per year | `M7.E.1f` |
+| `development_band_projection` | 0.10 | [I] | share of the anchor the level may fall when every parental act to the child was projection-type (the owner's, 2026-10-16: "projection up to 10% negative") | `M7.E.1f` |
+| `development_band_support` | 0.05 | [I] | share of the anchor the level may rise when every parental act to the child was supportive (the owner's, 2026-10-16: "up to 5% growth") | `M7.E.1f` |
 | `witnessed_gain` | 0.5 | [I] | chronic-anxiety points per point of the year's mean load | `M7.B.1a` |
 | `launch_age_years` | 20 | [I] | year of age | `M7.C.1g` |
 | `working_age_years` | 16 | [I] | year of age | `M7.C.1k` |

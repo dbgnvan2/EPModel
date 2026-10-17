@@ -80,6 +80,21 @@ def test_m114a_a_null_passes_only_inside_its_equivalence_bound():
     assert run_criterion(crit((Readout("x", 0),), effect=1.0), RULES).outcome == FAIL
 
 
+def test_m11c14_one_sided_bound_fails_when_interval_reaches_below():
+    """Adversarial (R31.B4): under a one-sided bound (the treatment MUST NOT fall below the baseline by more than the
+    equivalence bound), an interval whose mean lies inside the bound but whose lower end crosses it fails; a large
+    rise, which a two-sided null refuses, passes."""
+    lower = Readout("x", 0, bound_side=+1)
+    verdict = run_criterion(crit((lower,), effect=-0.2, extra_noise=2.0), RULES)
+    row = verdict.readouts[0]
+    assert abs(row["mean_difference"]) < row["equivalence_bound"], row  # the mean alone would pass
+    assert row["mean_difference"] - row["half_width"] < -row["equivalence_bound"], row
+    assert verdict.outcome == FAIL and row["within_bound"] is False
+    rise = run_criterion(crit((lower,), effect=3.0, extra_noise=0.5), RULES)
+    assert rise.outcome == PASS
+    assert run_criterion(crit((Readout("x", 0),), effect=3.0, extra_noise=0.5), RULES).outcome == FAIL
+
+
 def test_m114d_a_null_at_a_bound_is_flagged_as_an_assay_limit():
     verdict = run_criterion(crit((Readout("bounded", 0, (0.0, 1.0)),), bounded=0.0), RULES)
     assert any("assay limit" in f for f in verdict.flagged)
@@ -134,3 +149,11 @@ def test_m17d3_verdict_reports_scripted_acts_not_made():
     unscripted = [(0, arm(scripted=0), arm(scripted=0))]
     assert scripted_counts(crit(), unscripted) == {}
     assert run_criterion(crit(effect=1.0), RULES).scripted == {}  # the toy arms script nothing
+
+
+def test_m11c14_bound_side_only_on_a_null():
+    """learning-qa 2026-10-16: a one-sided bound on a directional readout would be silently ignored, so it is refused."""
+    with pytest.raises(ValueError):
+        Readout("x", +1, bound_side=+1)
+    with pytest.raises(ValueError):
+        Readout("x", 0, bound_side=2)

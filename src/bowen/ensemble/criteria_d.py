@@ -32,7 +32,7 @@ The readout of each is the rise in estimated ``basic_level`` over the run (``M1.
 
 from __future__ import annotations
 
-from src.bowen.engine.act import Selection
+from src.bowen.engine.act import WITHHOLD, Selection
 from src.bowen.engine.events import Channel, Event, EventId, Mechanism, SourcePosition
 from src.bowen.engine.identifiers import PersonId
 from src.bowen.engine.log_records import EffectRecord, EmittedRecord
@@ -168,7 +168,7 @@ CRITERIA_D: dict[str, Criterion] = {
 }
 
 
-# --- Phase D step 7: the symptom channels (B7, spec revision 24; Claude's recommendation, pending owner review) ---
+# --- Phase D step 7: the symptom channels (B7, spec revision 24; Claude's recommendation, approved 2026-10-16) ---
 #
 # Every arm runs the nuclear-four fixture (config/bowen/fixtures/nuclear_four.md), except M11.C.12 on the dyad, as the
 # plan's §3 has it. A held severity is a declared
@@ -350,7 +350,7 @@ CRITERIA_D.update({
 })
 
 
-# --- Phase D step 8: beliefs as a channel (B8, spec revision 25; Claude's recommendation, pending owner review) ---
+# --- Phase D step 8: beliefs as a channel (B8, spec revision 25; Claude's recommendation, approved 2026-10-16) ---
 
 DRIVINGS = ("conflict", "dysfunction", "projection")
 
@@ -421,22 +421,29 @@ def arm_c36(arm, seed, settings):
     return result({"witness_response": response}, records)
 
 
-def arm_c14(arm, seed, settings):
-    """M11.C.14: the nuclear four, the spouses' tie held at distance (felt contact 0 for both, each week), and C1
-    starting with an active symptom (``start_severity`` of the threshold). Both parents use one technique toward C1
-    every ``act_every`` weeks: firmness (``OVERFUNCTION``) in the baseline, talking it out (``STAY-IN-CONTACT``) in
-    the treatment. Read: C1's mean symptom load over ``weeks``. A null (`M11.4`)."""
+# M11.C.14, restated at revision 31 (the owner, 2026-10-16, review option B): each technique against no technique.
+C14_TECHNIQUES = {"firmness": "OVERFUNCTION", "talking it out": "STAY-IN-CONTACT"}
+
+
+def _c14_run(seed, weeks, every, severity, kind):
+    """C1's mean symptom load over ``weeks`` on the nuclear four, the spouses' tie held at distance (felt contact 0 for
+    both, each week), C1 starting with an active symptom (``severity`` of the threshold); every ``every`` weeks both
+    parents send C1 ``kind``, or, when ``kind`` is None, hold back (``WITHHOLD``, no target). The owner, 2026-10-16
+    (option a): the baseline holds back on the same weeks, so both arms lose the same weeks of the parents' own acts
+    (a scripted act is the whole week's act). A hold is coping in the model (`M1.A.5e`), as talking it out is."""
     from src.bowen.engine.identifiers import TieId
     from src.bowen.engine.symptoms import threshold
 
-    weeks, every = settings["weeks"], settings["act_every"]
-    kind = "OVERFUNCTION" if arm == "baseline" else "STAY-IN-CONTACT"
-    forced = {**_scripted(FATHER, kind, CHILD, weeks, every), **_scripted(MOTHER, kind, CHILD, weeks, every)}
+    if kind is None:
+        forced = {(t, parent): Selection(actor=parent, kind=WITHHOLD, targets=(), intensity=0.0)
+                  for t in range(0, weeks, every) for parent in (FATHER, MOTHER)}
+    else:
+        forced = {**_scripted(FATHER, kind, CHILD, weeks, every), **_scripted(MOTHER, kind, CHILD, weeks, every)}
     marital = TieId.of(FATHER, MOTHER)
 
     def start(state):
         person = state.people[CHILD]
-        person.symptom_load[person.channel_prior] = settings["start_severity"] * threshold(person, ENGINE)
+        person.symptom_load[person.channel_prior] = severity * threshold(person, ENGINE)
         person.symptom_active[person.channel_prior] = True
 
     def distant(state):
@@ -446,7 +453,27 @@ def arm_c14(arm, seed, settings):
     loads = []
     state, records = scenario("four", seed, weeks, setup=start, before=distant, forced=forced,
                               watch=lambda s: loads.append(sum(s.people[CHILD].symptom_load.values())))
-    return result({"child_symptom_load": sum(loads) / len(loads)}, records)
+    return sum(loads) / len(loads), records
+
+
+def arm_c14(arm, seed, settings):
+    """M11.C.14[technique], revision 31: the baseline has both parents hold back on the technique's weeks; the
+    treatment has both parents use the
+    variant's technique toward C1 (firmness ``OVERFUNCTION``, talking it out ``STAY-IN-CONTACT``). Read: C1's mean
+    symptom load, one-sided (no technique lowers it by more than the equivalence bound, `M11.4`). The talking-it-out
+    variant also reports the former comparison, talking it out against firmness (``talking_less_firmness``): its
+    baseline reads firmness's load there, so the difference is talking it out's load less firmness's. Reported, never
+    tested."""
+    technique, given = settings["technique"], (settings["weeks"], settings["act_every"], settings["start_severity"])
+    firmness = None
+    if technique == "talking it out" and arm == "baseline":
+        # Run first: ``result`` books the scripted acts of the last scenario run, which must be this arm's own.
+        firmness, _ = _c14_run(seed, *given, C14_TECHNIQUES["firmness"])
+    load, records = _c14_run(seed, *given, None if arm == "baseline" else C14_TECHNIQUES[technique])
+    readouts = {"child_symptom_load": load}
+    if technique == "talking it out":
+        readouts["talking_less_firmness"] = load if arm == "treatment" else firmness
+    return result(readouts, records)
 
 
 CRITERIA_D.update({
@@ -455,12 +482,17 @@ CRITERIA_D.update({
                   settings=SETTINGS["M11.C.26"]),
     "M11.C.36": C("M11.C.36", "check", ("baseline", "treatment"), (Readout("witness_response", +1),), arm_c36,
                   ("CONFLICT",), settings=SETTINGS["M11.C.36"]),
-    "M11.C.14": C("M11.C.14", "premise", ("baseline", "treatment"), (Readout("child_symptom_load", 0),), arm_c14,
-                  ("OVERFUNCTION", "STAY-IN-CONTACT"), settings=SETTINGS["M11.C.14"]),
 })
+for _technique, _kind in C14_TECHNIQUES.items():
+    _cid = f"M11.C.14[{_technique}]"
+    _readouts = (Readout("child_symptom_load", 0, bound_side=+1),)
+    if _technique == "talking it out":
+        _readouts += (Readout("talking_less_firmness", 0, report_only=True),)
+    CRITERIA_D[_cid] = C(_cid, "premise", ("baseline", "treatment"), _readouts, arm_c14, (_kind,),
+                         settings={**SETTINGS["M11.C.14"], "technique": _technique})
 
 
-# --- Phase D step 9: projection in the model (B9, spec revision 26; Claude's recommendation, pending owner review) ---
+# --- Phase D step 9: projection in the model (B9, spec revision 26; Claude's recommendation, approved 2026-10-16) ---
 
 
 def arm_c2(arm, seed, settings):
@@ -501,7 +533,7 @@ CRITERIA_D.update({
 })
 
 
-# --- Phase D step 10, criteria on existing mechanisms (Claude's recommendation, pending owner review) ---
+# --- Phase D step 10, criteria on existing mechanisms (Claude's recommendation, approved 2026-10-16) ---
 
 # M10.B.5: an override declared by the criterion, never a config default. Revision 29 adds the second way the automatic
 # channel learns, from what follows a witnessed cutoff (M4.D.6f), so learning off stops both.
@@ -630,10 +662,15 @@ def arm_c34(arm, seed, settings):
 
 
 def arm_c21(arm, seed, settings):
-    """M11.C.21: the nuclear four; at week ``t0`` both parents' functional level drops by ``drop`` in the treatment
-    (none in the baseline), C1 untouched. Read: C1's functional level at the end of the run less at the end of week
-    ``t0`` (the week of the drop)."""
-    t0, after, drop = settings["t0"], settings["after"], settings["drop"]
+    """M11.C.21: the nuclear four. In both arms both parents over-function toward C1 every ``act_every`` weeks for the
+    whole run: they are projecting parents, and C1 has lent functioning when they collapse (the owner, 2026-10-16: build
+    the lent balance first). At week ``t0`` both parents' functional level drops by ``drop`` in the treatment (none in the
+    baseline), C1 untouched. Read: C1's functional level at the end of the run less at the end of week ``t0`` (the
+    week of the drop)."""
+    t0, after, drop, every = settings["t0"], settings["after"], settings["drop"], settings["act_every"]
+    weeks = t0 + after
+    forced = {**_scripted(FATHER, "OVERFUNCTION", CHILD, weeks, every),
+              **_scripted(MOTHER, "OVERFUNCTION", CHILD, weeks, every)}
 
     def collapse(state):
         if arm == "treatment" and state.tick == t0:
@@ -643,7 +680,7 @@ def arm_c21(arm, seed, settings):
                 person.stress_swing -= drop  # the fall is stress's, in its ledger (revision 20: one ledger each)
 
     at = {}
-    state, records = scenario("four", seed, t0 + after, before=collapse,
+    state, records = scenario("four", seed, weeks, before=collapse, forced=forced,
                               watch=lambda s: at.setdefault("t0", s.people[CHILD].functional_level) if s.tick == t0 + 1 else None)
     return result({"target_rise": state.people[CHILD].functional_level - at["t0"]}, records)
 
@@ -679,7 +716,9 @@ CRITERIA_D.update({
                   (Readout("pattern_after_spell", +1), Readout("time_to_remission", +1, report_only=True)), arm_c39,
                   settings=SETTINGS["M11.C.39"]),
     "M11.C.40": C("M11.C.40", "premise", ("baseline", "treatment"),
-                  (Readout("automatic_entropy_fall", +1), Readout("automatic_less_self", +1),
+                  # Clause 2 is reported, not tested (the owner, 2026-10-16, option a): the entropy readout cannot see
+                  # M4.D.6d removed in this fixture, so tests/bowen/test_learner.py proves it directly.
+                  (Readout("automatic_entropy_fall", +1), Readout("automatic_less_self", +1, report_only=True),
                    Readout("self_entropy_fall", 0, report_only=True), Readout("empty_windows", 0, report_only=True)),
                   arm_c40,
                   settings=SETTINGS["M11.C.40"]),
@@ -689,7 +728,8 @@ CRITERIA_D.update({
                   settings=SETTINGS["M11.C.34"]),
     "M11.C.21": C("M11.C.21", "premise", ("baseline", "treatment"), (Readout("target_rise", +1),), arm_c21,
                   settings=SETTINGS["M11.C.21"]),
-    "M11.C.23": C("M11.C.23", "premise", ("baseline", "treatment"), (Readout("relapses", +1),), arm_c23,
+    # Reclassified as a composite (the owner, 2026-10-16): it compares the sizes of two mechanisms (M11.5).
+    "M11.C.23": C("M11.C.23", "composite", ("baseline", "treatment"), (Readout("relapses", +1),), arm_c23,
                   ("CONFLICT", "STAY-IN-CONTACT"), settings=SETTINGS["M11.C.23"]),
 })
 

@@ -110,7 +110,8 @@ def test_m16a7_header_flags_constants_changed_after_freeze():
                                         "pseudo_self_relaxation_rate", "exchange_window",
                                         # spec revision 28, the life course (Phase D part II)
                                         "acting_age_years", "development_start_age_years", "development_end_age_years",
-                                        "development_band", "development_rate", "witnessed_gain", "launch_age_years",
+                                        "development_band", "development_rate", "development_band_projection",
+                                        "development_band_support", "witnessed_gain", "launch_age_years",
                                         "working_age_years", "find_work_rate", "find_work_pressure_scale",
                                         "grief_scale", "grief_min_weeks", "grief_extra_weeks", "income_loss_intensity",
                                         "income_shortfall_share", "mortality_a", "mortality_b",

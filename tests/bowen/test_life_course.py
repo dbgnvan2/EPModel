@@ -282,6 +282,115 @@ def test_m7e1f_level_never_leaves_two_percent_band():
     assert state.people[NADIA].basic_level == pytest.approx(39.5 * (1 + params.development_band))
 
 
+def _band_after(acts: list | None, functioning: float, parents_functioning: float | None = None):
+    """Nadia's level after 30 development years at 10 with the given parental-act counts ([all, projection,
+    supportive]; None for none received) and every year's functioning fixed."""
+    state, params = _developing(6)
+    if acts is not None:
+        state.life.parental_acts[NADIA] = list(acts)
+    for pid in (RAVI, MARTA):
+        history(state, pid, functioning if parents_functioning is None else parents_functioning)
+    history(state, NADIA, functioning)
+    for _ in range(30):
+        state.people[NADIA].age_years = 10
+        _childhood(state, params)
+    return state.people[NADIA].basic_level, params
+
+
+def test_m7e1f_no_parental_acts_keeps_two_percent_band():
+    """R31.B7: with no parental acts to the child, the band stays ±2% (`development_band`), both ways."""
+    high, params = _band_after(None, 90.0)
+    low, _ = _band_after(None, 5.0)
+    assert high == pytest.approx(39.5 * (1 + params.development_band))
+    assert low == pytest.approx(39.5 * (1 - params.development_band))
+
+
+def test_m7e1f_projection_opens_room_to_fall_to_ten_percent():
+    """R31.B7: when every parental act to the child was projection-type, the floor is −10%
+    (`development_band_projection`); half projection opens half the extra room."""
+    full, params = _band_after([20, 20, 0], 5.0)
+    half, _ = _band_after([20, 10, 0], 5.0)
+    assert full == pytest.approx(39.5 * (1 - params.development_band_projection))
+    extra = params.development_band_projection - params.development_band
+    assert half == pytest.approx(39.5 * (1 - params.development_band - extra / 2))
+
+
+def test_m7e1f_support_opens_room_to_rise_to_five_percent():
+    """R31.B7: when every parental act to the child was supportive, the ceiling is +5% (`development_band_support`)."""
+    full, params = _band_after([20, 0, 20], 90.0)
+    none_of_them, _ = _band_after([20, 0, 0], 90.0)
+    assert full == pytest.approx(39.5 * (1 + params.development_band_support))
+    assert none_of_them == pytest.approx(39.5 * (1 + params.development_band))
+
+
+def test_m7e1f_acts_open_room_but_do_not_push():
+    """Adversarial (R31.B7): a child who receives only projection acts, while everyone functions above basic, does not
+    fall. The acts set how far the level may move; the development rule alone moves it."""
+    level, params = _band_after([20, 20, 0], 60.0)
+    assert level == pytest.approx(39.5 * (1 + params.development_band))
+    # Everyone functioning at their own basic level: supportive acts alone do not raise the child's level.
+    state, params = _developing(10)
+    state.life.parental_acts[NADIA] = [20, 0, 20]
+    for pid in (RAVI, MARTA):
+        state.people[pid].basic_level = 40.0
+        history(state, pid, 40.0)
+    state.people[NADIA].basic_level = 39.5
+    history(state, NADIA, 39.5)
+    _childhood(state, params)
+    assert state.people[NADIA].basic_level == pytest.approx(39.5)
+
+
+def test_m7e1f_a_narrowing_band_does_not_move_the_level():
+    """Adversarial (learning-qa 2026-10-16): the shares change over childhood, so the band can narrow under a level
+    already at its old bound. The level must stay where it is unless the development rule moves it; the band only
+    limits a step. Projection's share falls while everyone functions below basic: the floor rises past the level, and
+    the level must not be pulled up toward it. The mirror for the ceiling."""
+    state, params = _developing(10)
+    anchor = 39.5
+    for pid in (RAVI, MARTA, NADIA):
+        history(state, pid, 5.0)                    # d < 0: the rule pulls down
+    state.people[NADIA].basic_level = anchor * (1 - params.development_band_projection)  # at the old floor
+    state.life.parental_acts[NADIA] = [40, 20, 0]  # projection's share halved: the floor is now higher
+    before = state.people[NADIA].basic_level
+    _childhood(state, params)
+    assert state.people[NADIA].basic_level == pytest.approx(before)
+    state, params = _developing(10)
+    for pid in (RAVI, MARTA, NADIA):
+        history(state, pid, 90.0)                   # d > 0: the rule pushes up
+    state.people[NADIA].basic_level = anchor * (1 + params.development_band_support)  # at the old ceiling
+    state.life.parental_acts[NADIA] = [40, 0, 20]  # support's share halved: the ceiling is now lower
+    before = state.people[NADIA].basic_level
+    _childhood(state, params)
+    assert state.people[NADIA].basic_level == pytest.approx(before)
+
+
+def test_m7e1f_parental_acts_counted_from_the_acts_sent():
+    """R31.B7: each week, the acts a living parent sends a child aged 5 to 19 are counted, by projection-type and
+    supportive kind, from what the week emitted."""
+    from src.bowen.engine.act import SELF_CHANNEL
+    from src.bowen.engine.log_records import EmittedRecord
+    from src.bowen.engine.sinks import PROJECTION_KINDS
+
+    built, source = parts()
+    state, params = built.state, built.params
+    ages = {pid: state.people[pid].age_years for pid in state.life.parents}
+    emitter = run_weeks(built, source, 52)  # ages advance at the end of week 51, after the week is counted
+    expected = {}
+    for record in emitter.records:
+        if not isinstance(record, EmittedRecord) or record.event.mechanism is not Mechanism.MOVE:
+            continue
+        event = record.event
+        for child, parents in state.life.parents.items():
+            if (event.sender in parents and child in event.targets
+                    and params.development_start_age_years <= ages[child] < params.development_end_age_years):
+                row = expected.setdefault(child, [0, 0, 0])
+                row[0] += 1
+                row[1] += event.kind in PROJECTION_KINDS
+                row[2] += state.kinds.channels.get(event.kind) == SELF_CHANNEL
+    assert expected, "no parental act reached a developing child in a year: the check is empty"
+    assert state.life.parental_acts == expected
+
+
 def test_m7e1f_development_stops_at_twenty():
     state, params = _developing(params_age := 21)
     for pid in (RAVI, MARTA, NADIA):

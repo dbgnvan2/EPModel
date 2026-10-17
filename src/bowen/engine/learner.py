@@ -22,7 +22,7 @@ eligible act of age ``k`` (0 in the tick it was sent) gains
     credit_discount ** k × ( −Δ(actor) + cross_person_weight × bond-weighted mean −Δ(target, witnesses) )
 
 except that a ``TRIANGLE``'s recruited third is left out of the mean (owner decision 2026-10-09). *Revision 26 (Phase
-D B9; Claude's recommendation, pending owner review):* the mean is weighted by the actor's bond energy on its tie to
+D B9; Claude's recommendation, approved 2026-10-16):* the mean is weighted by the actor's bond energy on its tie to
 each other person, so whose calming the act is credited with follows the tie: a child's tie to a parent outweighs a
 thin tie to a witness, which is "her calming is the reinforcement" (`M4.D.6e`) without naming a parent in any rule.
 Another person with no tie to the actor carries no weight.

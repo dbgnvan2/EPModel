@@ -7,8 +7,8 @@ Spec:    docs/bowen_agent_model_spec_v2.md#M4.C.3, #M4.C.3a, #M7.D.1, #M7.D.2, #
          #M7.D.4, #M1.A.6, #M1.A.11b, #M1.A.11c, #M1.F.7
 Tests:   tests/bowen/test_symptoms.py
 
-Phase C built `M7.D.1` (spec revision 12, P3); Phase D B7 (spec revision 24, Claude's recommendation pending owner
-review) builds the channels, lock-in and removal. The forms are the project's, [I]:
+Phase C built `M7.D.1` (spec revision 12, P3); Phase D B7 (spec revision 24, Claude's recommendation, approved by the
+owner 2026-10-16) builds the channels, lock-in and removal. The forms are the project's, [I]:
 
     integrand  = max(0, excess − usual_excess)                     (M4.C.3a, revision 24: above the usual level)
     into c     = integrand / (1 + channel_protection × Σ_{c'≠c} load[c'] / threshold)      (M7.D.2c)
@@ -23,7 +23,8 @@ traffic held everyone 15–35 points up and every person carried an active sympt
 **The expressed channel** (`M7.D.2`, `M1.A.11b`, `M1.A.11c`) is the one with the largest
 ``constitution_strength × [c = channel_prior] + (1 − constitution_strength) × channel_focus[c]``, ties to the prior.
 With no focus the prior is expressed; a family focus can move it; a constitution strength of 1 overrides any focus.
-What writes ``channel_focus`` from the family's attention is a belief, and is B8's.
+``channel_focus`` is written from the acts delivered (`M1.A.11c`, revision 25): engine-side attention, not a belief
+any policy reads.
 
 **Lock-in** (`M7.D.2a`, `M7.D.2d`). For a bearer with an active symptom of severity ``x = load / threshold``:
 

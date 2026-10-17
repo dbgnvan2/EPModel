@@ -105,6 +105,10 @@ def test_r31a9_no_pending_review_tags_for_rev24_30():
     assert "⟦rev28⟧" not in SPEC  # inconsistency 7: every revision 28 tag names its source
     assert "pending owner review" not in EXPLAINER
     assert "pending owner review" not in CHANGES
+    # R31.B3: the config headers and the part I and part II record renderer (constants defined below, with part B)
+    for name, text in (("attribution.md", ATTRIBUTION), ("criteria.md", CRITERIA_SETTINGS),
+                       ("tools/phase_d_record.py", RECORD_TOOL)):
+        assert "pending owner review" not in text, name
 
 
 def test_r31a9_tag_check_catches_a_pending_tag():
@@ -127,3 +131,25 @@ def test_r31a11_plan_closes_the_two_owner_questions():
 def test_r31a12_spec_status_names_revision_31():
     assert re.search(r"^version: 2\.0, revision 31$", SPEC, flags=re.M)
     assert "revision 31, the owner's review of revisions 24 to 30 applied" in SPEC.splitlines()[3]
+
+
+# --- Part B: code and config (plan §4.11, R31.B1-R31.B3) ---------------------------------------------------------
+
+SYMPTOMS = (REPO / "src" / "bowen" / "engine" / "symptoms.py").read_text(encoding="utf-8")
+CRITERIA_SETTINGS = (REPO / "config" / "bowen" / "criteria.md").read_text(encoding="utf-8")
+ATTRIBUTION = (REPO / "config" / "bowen" / "attribution.md").read_text(encoding="utf-8")
+RECORD_TOOL = (REPO / "tools" / "phase_d_record.py").read_text(encoding="utf-8")
+
+
+def test_r31b1_symptoms_docstring_not_belief():
+    assert "is a belief, and is B8's" not in SYMPTOMS
+    assert "``channel_focus`` is written from the acts delivered" in SYMPTOMS
+
+
+def test_r31b2_criteria_settings_graded():
+    """Inconsistency 6: every row of the criteria settings carries a grade, `[I]`."""
+    rows = [line for line in CRITERIA_SETTINGS.splitlines() if line.startswith("| ") and not line.startswith("|---")]
+    assert rows[0] == "| criterion | setting | value | grade |"
+    ungraded = [row for row in rows[1:] if not row.endswith("| [I] |")]
+    assert rows[1:] and ungraded == []
+

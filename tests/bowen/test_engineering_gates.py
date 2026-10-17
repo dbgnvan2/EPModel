@@ -120,7 +120,7 @@ def test_m11d2_check_catches_a_literal_in_the_policy(tmp_path):
 
 # --- M11.D.8 / M11.D.9 --------------------------------------------------------------------------
 
-EXPECTED_SPEC_REFERENCES = 784  # M11.D.9: an exact count, not a floor; update it when references change
+EXPECTED_SPEC_REFERENCES = 786  # M11.D.9: an exact count, not a floor; update it when references change
 
 
 def spec_anchors() -> set[str]:
@@ -263,16 +263,15 @@ def test_m11d21_state_bounds_are_not_absorbing():
     consolidate(state, PARAMS)
     assert marital.felt_contact[ravi] > 0.0 and marital.felt_impingement[ravi] < 1.0
     assert state.people[ravi].outside_ness_outward < 1.0
-    # functional level at 0 can rise (pseudo-self taken in an exchange)
-    from src.bowen.engine.events import Channel, Delivery, Event, EventId, Mechanism, Role, SourcePosition
-    from src.bowen.engine.moves import apply_move_effects
+    # functional level at 0 can rise: a calm person settles back from a stress-caused fall (M1.A.5e). Since revision
+    # 31 (M11.C.21, the owner's form) an exchange no longer lifts a taker at the stress floor, so it is not the way out.
+    from src.bowen.engine.stress_response import respond
 
-    state.people[ravi].functional_level = 0.0
-    event = Event(id=EventId(state.tick, "ravi", 7), kind="OVERFUNCTION", mechanism=Mechanism.MOVE, sender=ravi,
-                  targets=(marta,), intensity=100.0, timestamp=state.tick, duration=1, exogenous=False,
-                  source_position=SourcePosition.NONE, channel=Channel.SCRIPTED)
-    state.store.record_event(event)
-    apply_move_effects(state, (Delivery(state.tick + 1, event.id, marta, Role.TARGET, emitted_tick=state.tick, latency=1),), PARAMS)
+    person = state.people[ravi]
+    person.stress_swing -= person.functional_level
+    person.functional_level = 0.0
+    person.acute_anxiety = person.chronic_anxiety
+    respond(state, (), {ravi: 0.0}, PARAMS)
     assert state.people[ravi].functional_level > 0.0
 
 

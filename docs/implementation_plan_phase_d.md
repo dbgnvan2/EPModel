@@ -1612,7 +1612,9 @@ repo), unless they come from a record.
 ### 4.11 Revision 31: apply the owner's review of revisions 24–30 — plan, 2026-10-16
 
 > **Status: approved by the owner 2026-10-16 ("I approve revision 31's plan. Build part A now, and batch part B with
-> the V2 premise fixes"). Part A built 2026-10-16; part B not built, batched with the V2 premise fixes. R31.B7 was added
+> the V2 premise fixes"). Part A built 2026-10-16; part B built 2026-10-16 with the owner's V2 premise decisions, and every record regenerated
+once (R31.B6: about 3.5 h of runs on 10 cores, the part II record 1 h 41 min of it; the first attempt was stopped after the reviews found two code
+defects). R31.B7 was added
 > 2026-10-16 after approval, from the owner's decision on the band; its form approved the same day (2026-10-16: "Approve R31.B7's form as written (shares of the parents' acts to the child, acts open room but don't push)").** The review is
 > `docs/REVIEW_spec_revisions_24-30.md` (all 85 entries decided 2026-10-16: 82 approved as built, 3 changed; then
 > `M7.E.1f`'s band, changed by the owner the same day, R31.B7). This plan applies the changes, the text fixes recorded
@@ -1674,6 +1676,159 @@ than the gate. The build stops there and reports to the owner. It does not chang
 the ensemble records plus about 1 hour per `M11.C.10` variant at 200 seeds; the mutation records rerun in full
 because they key on the same hash. Not measured as one figure; it will be timed and reported. `M11.C.14`'s two
 variants add two short runs (52 weeks, the nuclear four).
+
+#### Part B built, and the batched premises diagnosed — for the owner, 2026-10-16
+
+**Built (not committed until the records regenerate):** R31.B1, B2, B3, B4, B5 and B7, each with the tests the table
+names. The fast suite passes except the record-current tests, which go red because the hash moved. Two changes the table
+did not list: (1) "pending owner review" also appeared in eleven code comments and docstrings for revisions 24–30
+(`criteria_d.py`, `criteria_d2.py`, `symptoms.py`, `attribution.py`, `objects.py`, `learner.py`, `appraise.py`,
+`moves.py`, `life_course.py`, the two readouts). They now read "approved by the owner 2026-10-16", since the hash moves
+anyway. (2) `criteria.md`'s loader now refuses a row whose grade is not `[I]`. One adjacent item, not changed:
+`config/bowen/family_phase_d.md` line 19 still reads "awaiting owner review" for revision 13. Every number below is ad
+hoc: run on this working tree, in-process or in a copy, never cached and never a verdict.
+
+**`M11.C.14`: the stated risk was reached in a different form. The build stops here for the owner.** As built, both
+variants **fail**: firmness lowers the child's load by 6.4 ± 3.6 against no technique, talking it out by 17.3 ± 2.9
+(100 seeds). With the gate removed: −5.6 ± 3.8 and −16.3 ± 3.1. The gate is not what decides the result. What the
+diagnosis found (40 seeds, the child's acute anxiety by mechanism):
+- *Displacement.* A scripted act is the parent's whole act for that week. The no-technique baseline is the parents under
+  their own policy, and they send the child about 30 acts a year (`CONFLICT` 3.3, `CUTOFF` 3.6, `DISTANCE` 4.0,
+  `TRIANGLE` 3.0, …). Scripting the technique every second week removes about half of those.
+- With the parents unable to address the child under their own policy in **both** arms (150 seeds): firmness −1.3 ± 1.5
+  (passes the one-sided bound, 3.8); talking it out −7.1 ± 1.3 (fails). The gate changes neither (−1.2, −7.0). Talking
+  it out's remaining effect is still displacement, through what the child **witnesses**. On scripted weeks the parents'
+  own acts toward each other are replaced, so the child receives 66 ± 8 less appraisal load as a witness. A further
+  7.4 ± 1.2 of standing load goes, as contact moves the parent–child tie toward its optimum. Neither is an improvement
+  addressed to the child, which is all `M5.C.1`'s gate blocks.
+- Options: **(a)** the baseline scripts the parents **holding back** (`WITHHOLD`) on the same weeks, so both arms lose
+  the same acts of their own (`Forced` must accept a selection with no target; not measured). **(b)** Read the
+  displacement as part of the model: a parent who spends the week talking with the child is not fighting with the
+  spouse. Then talking it out does lower the load, and `M11.C.14` is a finding, not a premise (reclassified by the
+  owner). **(c)** Widen `M5.C.1`'s gate to the tie's contact and standing load. This changes a rule to make a criterion
+  pass, and gating contact was tried in 2026-10 without bringing the result nearer the bound (`TODO.md`).
+  **Recommended: (a)**, then run once and report. If talking it out still lowers the load under (a), the remaining path
+  is contact, and (b) is the honest reading.
+
+**`M11.C.21` (premise, fails −1.79 ± 1.65 in the record).** Diagnosis (100 seeds, after the drop):
+- *The precondition is weak.* At the drop the child has lent on average only 1.1 points of functioning (pseudo-self
+  −1.08 ± 0.87), and 43% of seeds have lent none. At most about a point can come back.
+- *The collapse does not reach the exchange.* The drop is written to the parents' stress ledger, as `M11.C.21`'s arm
+  states it. Nothing in `functioning_shift` reads the over-functioner's capacity. A parent 10 points down takes just as
+  much when they over-function (−3.6 ± 0.8 from the child, against −1.4 ± 0.5 without the drop, as they send it more
+  often). The giver's floor (`stress_floor_below_basic`) means the collapsed parents give less when the child takes over:
+  4.1 against 4.7, and the child's `OVERFUNCTION` moves nothing 0.16 times per seed against 0.02. All the exchange acts
+  rise after the drop, in both directions. Net, the child gives more (−2.1 ± 1.6 through the exchange, against −0.1 ±
+  1.5). The direction runs against the criterion, and it follows from two rules, not from noise.
+- Options: **(a)** a new rule: what an over-functioner can take is limited by their own capacity, the mirror of the
+  giver's floor (`M6.I.4`; the owner's form; then rerun). This is the reading of the first instance: "a schizophrenic
+  brother becoming the family's functional member when both parents collapsed". **(b)** Restate the arm on the second
+  instance, "a projection target's symptoms fading after both parents died". First build a lent balance (the parents
+  over-function toward the target for a declared span, as `M11.C.24` does), then end the parents' over-functioning
+  (death, or their exchange acts withheld). Revision 27's settling-back returns what was lent. This largely repeats
+  `M11.C.24`. **(c)** Withdraw `M11.C.21` as unproducible by the current rules. **Recommended: (a)**. It is the only
+  option that tests reciprocity rather than settling-back, but it adds a mechanism, so the owner sets its form.
+
+**`M11.C.23` (premise, fails reversed −0.67 ± 0.09).** Its direction is **not** set by the suppression size. A grid over
+suppression 1.0 to 0.5 (150 seeds) shows high-EE with suppression against low-EE without: +0.01 ± 0.11 at 1.0 (no
+medication), −0.09 at 0.9, −0.28 at 0.8, −0.42 at 0.7, −0.54 at 0.6, −0.67 at 0.5. No suppression below 1 passes. What
+decides it: in the model, hostility barely raises relapse at all. The EE effect at equal suppression ranges from +0.007
+± 0.109 to +0.107 ± 0.098, while medication's effect is +0.68 ± 0.09. One explanation was tested and ruled out: the
+child's usual level adapting to constant hostility. Holding it fixed changed nothing (identical counts). Why
+`CONFLICT` and `STAY-IN-CONTACT` produce nearly the same relapse count is not traced.
+- Options: **(a)** trace why the EE term does not reach relapse before deciding (one diagnosis run, like those above).
+  **(b)** Strengthen the EE arm (more frequent or more intense hostility, both `[I]`). This would be tuning a size until
+  the criterion passes, and a pass would then confirm the chosen size, not the model. **(c)** Reclassify as a composite
+  (it compares the magnitudes of two mechanisms, which `M11.5` treats as a finding) and accept the failure as a finding
+  under V1. **(d)** Restate as the 2×2's within-row directions (EE raises relapse at each suppression level). Measured,
+  these are weak and mostly within noise. **Recommended: (a)**, then choose between (c) and a rule change.
+
+**`M11.C.40` (premise, clause 2 fails: +0.042 ± 0.044, p 0.05).** Clause 2's intent holds in the mean. Learning does not
+move the self-directed channel's entropy (between-arm difference −0.005 ± 0.054, 100 seeds), against +0.046 ± 0.008 for
+the automatic channel. The failure is noise: the self-directed channel has about 13 acts per 26-week window over six
+kinds, so its per-seed difference averages 0.22 in size, four times the automatic signal. **More important, the readout
+cannot detect `M4.D.6d`'s removal here.** A joint mutant that lets reinforcement reach the self-directed channel
+(`policy.py`, three literal edits; `I-POSITION` left out because a sequence start emits no event) moves that channel's
+difference only to +0.015 ± 0.049. A restated null would pass under the mutant, and so would the clause as written
+(FAIL, p 0.09 for clause 2).
+- Options: **(a)** keep clause 1 as the criterion. Prove clause 2 by the existing unit test
+  (`tests/bowen/test_learner.py::test_m4d6d_self_directed_channel_is_never_reinforced`) and report its ensemble reading
+  only. **(b)** Find a fixture with enough self-directed acts (a coached or higher-level family) and longer windows,
+  then check the mutant bites before restating. **(c)** Raise the seed count. This does not help: the mutant shows no
+  bite to detect. **Recommended: (a)**. If the owner wants the ensemble to carry clause 2, then (b), which is not yet
+  measured.
+
+**The owner's decisions, 2026-10-16** (answers to the four questions above, each the recommended option):
+`M11.C.14` (a), "Baseline holds back": the baseline scripts the parents holding back on the same weeks; run once and
+report. `M11.C.21` (a), "Taking capped by capacity": a new `M6.I.4` rule whose form the owner sets; then one rerun.
+`M11.C.23` (a), "Trace it first": one diagnosis run, then the owner chooses between reclassifying and a rule change.
+`M11.C.40` (a), "Unit test proves clause 2": clause 1 stays the ensemble criterion; clause 2 rests on
+`tests/bowen/test_learner.py::test_m4d6d_self_directed_channel_is_never_reinforced`, and its ensemble reading is reported.
+
+**Built after the decisions, and what each showed (ad hoc, 100–150 seeds, 2026-10-16):**
+- `M11.C.14` (a): the baseline scripts a targetless `WITHHOLD` on the technique's weeks (`Forced` now accepts it and
+  books it as made when the actor emits no move). Both variants **pass**: firmness +8.2 ± 3.0, talking it out −4.5 ± 2.2
+  (one-sided bound about 7). **The gate-removed mutant survives both** (+9.5 ± 3.0, −3.6 ± 2.3): the plan's stated stop
+  condition. Cause: in this fixture the gate has almost nothing to block. Over a run it zeroes 0.8–1.4 points of relief
+  to the child (one or two deliveries), against 28–99 points of load delivered while it is on, and no calming transfer.
+  The pass shows that no technique lowers the load here; it does not show that the gate is the reason. The hold is
+  coping in the model, as talking it out is; firmness is not.
+- `M11.C.21` (a): `functioning_shift` scales what the over-functioner takes by
+  `clip((f − (b − stress_floor_below_basic)) / stress_floor_below_basic, 0, 1)`
+  (`tests/bowen/test_moves.py::test_m6i4_collapsed_taker_takes_in_proportion_to_room`, and the adversarial
+  `::test_m6i4_capacity_does_not_limit_a_taker_above_basic`). The rerun: +0.26 ± 1.35 (was −1.79 ± 1.65). **Still
+  fails**, now in the stated direction. The precondition is unchanged: the child has lent about a point at the drop.
+- `M11.C.23` (a), traced (60 seeds, the child's acute anxiety by mechanism after the remission): hostility delivers
+  41 ± 10 more appraisal load than talking it out. Two things cancel it: higher anxiety decays faster (−33 ± 10), and
+  the child gets relief by cutting off (−7.5 ± 1.1) and distancing. Mean anxiety ends 2.8 points higher, and symptom
+  load is no higher (0.74 against 0.76 of threshold). Talking it out every second week loads the child with 83% of
+  hostility's appraisal load. Even against a hold-back arm, hostility does not raise relapse (+0.05 ± 0.11 without
+  suppression). Without suppression relapse is about 0.8 per seed in 48 weeks in every arm, close to the most a
+  52-week run allows.
+- `M11.C.40` (a): `automatic_less_self` is report-only; clause 1 gates
+  (`tests/bowen/test_phase_d_criteria.py::test_m11c40_clause_2_reported_and_proved_by_the_unit_test`).
+
+**The owner's second decisions, 2026-10-16** (each the recommended option, then "proceed with your recommendations"):
+`M11.C.14`, "Fixture the gate acts in"; `M11.C.21`, "Build the lent balance first"; `M11.C.23`, "Reclassify, accept
+finding". The capacity rule's form: "Proportional to room".
+- `M11.C.14`: a fixture with calmer parents was tried, lowering the parents' chronic and acute anxiety by 10, 20 and 30
+  (100 seeds each, a fresh process per setting). Removing the gate never turned a variant red; it made talking it out
+  slightly *worse* for the child (−3.0 → +0.4 at 30). No further fixture was searched, since that would be fishing for
+  a mutant that bites. The hold-back restatement is kept and passes. The mutation record shows the gate-removed mutant
+  as **survived**, and the spec marks the mutation clause **not met**, for the owner.
+- `M11.C.21`: the lent balance was built in two forms, both reported.
+  - First form: the parents over-function toward the child every second week until the drop, in both arms. The child
+    has lent 14.5 ± 0.5 at the drop; the result is −0.88 ± 1.05. The scripted over-functioning ends at the drop in both
+    arms, so lent functioning settles back in both (+6.6, +5.3). It settles back less in the collapse arm because more
+    exchange acts pause the settling.
+  - Second form, kept: the row says "both projecting parents", so they over-function throughout, in both arms, and the
+    arms differ only by the collapse. Result: +0.15 ± 0.19 (p 0.09, 50 seeds): **fails**. The child has lent down to its
+    own floor in both arms, so the capacity rule has nothing to change. The correctness review notes that with taking
+    in both arms the difference measures the capacity rule; that is the mechanism the row names (`M6.I.4`). It also
+    notes that capacity reads functional level, which already includes what the taker has lent, so a person who has
+    lent takes back more slowly (for the owner). **Open for the owner: accept as a finding, or withdraw.** Neither needs
+    a rerun.
+- `M11.C.23`: reclassified as a composite; the failure is accepted as a finding, with the trace above as the reason.
+
+**Reviews of the code diff, 2026-10-16** (one `learning-qa` pass, one correctness pass, before the regeneration that
+counts):
+- Fixed:
+  - The band clipped the level itself, so a share that fell over childhood moved the level with no development push
+    (both reviews; reproduced: +1.58 points while the rule pulled down). The band now only limits the step
+    (`tests/bowen/test_life_course.py::test_m7e1f_a_narrowing_band_does_not_move_the_level`).
+  - The taker's floor lacked the `max(0, …)` clamp the giver's and stress's have
+    (`tests/bowen/test_moves.py::test_m6i4_a_low_basic_taker_at_zero_takes_nothing`).
+  - The record rendered a one-sided bound as if two-sided, and the mutation child dropped the bound. Both now carry it.
+  - `passing_part_1` read an absent id as failing; it now refuses a stale part I record.
+  - `Readout` refuses `bound_side` on a directional readout (`test_m11c14_bound_side_only_on_a_null`).
+- The first regeneration was stopped after the Phase C ensemble record, and everything reruns once.
+- Minor, recorded in `TODO.md`:
+  - a scripted hold is booked "made" when its actor emitted no move, inferred rather than read from its selection
+    record;
+  - `bound_side = −1` has no caller and no test.
+
+**Nothing has been changed to make any criterion pass.** Once the owner has decided, the decisions are built and the
+records regenerate once (R31.B6; estimate in the status line of this section when started).
 
 **Documents updated by the build.** Part A: the spec, `model_explainer.md`, `constants_changes.md`, this plan, the
 review form, `version_1_definition.md`, `TODO.md`. Part B: `config/bowen/criteria.md`, `config/bowen/attribution.md`,

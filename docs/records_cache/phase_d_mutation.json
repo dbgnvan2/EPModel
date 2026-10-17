@@ -1,24 +1,95 @@
 {
- "ca7d5a8b884b5c7f419162486a4ac26c8ebe94626b70344839af0b7917b21cb3": {
+ "b211dd75d0da8a92b6601620f72c9f9d2e9dcdfe66a68d757ad69d338a1ae49f": {
+  "criterion": "M11.C.14[firmness]",
+  "outcome": "PASS",
+  "readouts": [
+   {
+    "bound_side": 1,
+    "direction": 0,
+    "equivalence_bound": 6.526561855741581,
+    "half_width": 2.996716969721125,
+    "mean_difference": 9.520708862715955,
+    "readout": "child_symptom_load",
+    "report_only": false,
+    "within_bound": true
+   }
+  ],
+  "seeds": 100
+ },
+ "d2062b7edfb84adcb5212962976f56253e4539fea0aee5c6d1403035811256f8": {
+  "criterion": "M11.C.2[twelve-person family]",
+  "outcome": "FAIL",
+  "readouts": [
+   {
+    "direction": 1,
+    "half_width": 1.775369356739023,
+    "mean_difference": 0.727659394464744,
+    "p": 0.38033795004808035,
+    "readout": "symptom_load",
+    "report_only": false
+   }
+  ],
+  "seeds": 150
+ },
+ "f42ee2d5a829d66e7e8a65217664da00a94c4d2729fa8bdf98025e1837f93244": {
   "criterion": "M11.C.10[family of origin]",
   "outcome": "FAIL",
   "readouts": [
    {
     "direction": 1,
-    "half_width": 132.19237675913215,
-    "mean_difference": -75.915,
-    "p": 0.9119112349599842,
+    "half_width": 129.20974886559586,
+    "mean_difference": 52.18,
+    "p": 0.14994116995336212,
     "readout": "cut_off_tie_weeks",
     "report_only": false
    },
    {
     "direction": 1,
-    "half_width": 45.31073711211523,
-    "mean_difference": 48.375,
+    "half_width": 55.531645436078975,
+    "mean_difference": 55.385,
     "readout": "child_cut_weeks",
     "report_only": true
    }
   ],
   "seeds": 200
+ },
+ "f77dbaadc94377e888dfff865bc5e2ce25aeaf6b68603bfe6f898384cab4ab14": {
+  "criterion": "M11.C.14[talking it out]",
+  "outcome": "PASS",
+  "readouts": [
+   {
+    "bound_side": 1,
+    "direction": 0,
+    "equivalence_bound": 6.526561855741581,
+    "half_width": 2.332721523067443,
+    "mean_difference": -3.5853545793626376,
+    "readout": "child_symptom_load",
+    "report_only": false,
+    "within_bound": true
+   },
+   {
+    "direction": 0,
+    "half_width": 2.7360419529806266,
+    "mean_difference": -13.10606344207859,
+    "readout": "talking_less_firmness",
+    "report_only": true
+   }
+  ],
+  "seeds": 100
+ },
+ "fa11fff01d325b0c22d3d689421fa5b745f3c03e6d90183e3e27edba4aa3c037": {
+  "criterion": "M11.C.2[twelve-person family]",
+  "outcome": "PASS",
+  "readouts": [
+   {
+    "direction": 1,
+    "half_width": 1.5330914873430603,
+    "mean_difference": 1.7190183202989389,
+    "p": 0.016752498816984318,
+    "readout": "symptom_load",
+    "report_only": false
+   }
+  ],
+  "seeds": 150
  }
 }

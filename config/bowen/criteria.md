@@ -2,7 +2,9 @@
 
 > Every number a Phase C criterion (`src/bowen/ensemble/criteria.py`) sets for its arms: horizons, the week of a
 > scripted act, the levels and stress compared, the declared spell (`M11.3`) and the state an arm starts from.
-> **All `[I]`, declared before any criterion ran** (2026-10-07). They moved here from the module on 2026-10-08,
+> **All `[I]`, declared before any criterion ran** (2026-10-07); each row says so in its `grade` column (revision
+> 31, R31.B2: the Phase D rows, `M11.C.2`'s ages, `M11.C.10`'s `renew_every` and `seeds`, `M11.C.47`'s fixture, are
+> `[I]` too). They moved here from the module on 2026-10-08,
 > unchanged, so that `M11.D.2`'s magic-literal scan covers the criteria (Hermes gate finding 4); the regenerated
 > ensemble record's verdicts are identical. Parsed strictly: a row the criteria do not read, or a setting they
 > read that is missing, raises at load.
@@ -13,7 +15,7 @@
 > * `level_*` — how far every member's basic and functional level is lowered in that arm.
 >
 > **Phase D part II, 2026-10-13** (`src/bowen/ensemble/criteria_d2.py`; the life course, spec revision 28, Claude's
-> recommendation pending owner review): `M11.C.15`'s mother carries a symptom held at `severity` (as `M11.C.12`'s)
+> recommendation, approved by the owner 2026-10-16): `M11.C.15`'s mother carries a symptom held at `severity` (as `M11.C.12`'s)
 > until `change_week`, when she dies or recovers, and the others are read for `after` weeks. Grief and lost income are
 > off in every arm; `M6.3b`'s transfer stays at 1 (owner decision 2026-10-13); `M11.C.6`, `M11.C.10`
 > and the twelve-person `M11.C.2` run the reference family for `years`. *Revision 29 (2026-10-14):*
@@ -57,142 +59,143 @@
 > t0, as `M11.C.3`), and reports every week from t0 + 1 to t0 + `report_weeks` (12, `[I]`) beside it, never gating.
 > `run_after` is retired. `M11.C.4`'s nodal event stays at week 104.
 
-| criterion | setting | value |
-|---|---|---|
-| spell | kind | JOB_LOSS |
-| spell | intensity | 120.0 |
-| spell | every | 4 |
-| spell | from | 4 |
-| spell | light_every | 8 |
-| spell | light_parents | 1 |
-| scripted_act | intensity | 100.0 |
-| M11.C.1 | weeks | 104 |
-| M11.C.1 | level_baseline | 0.0 |
-| M11.C.1 | level_treatment | 10.0 |
-| M11.C.3 | t0 | 12 |
-| M11.C.3 | run_after | 2 |
-| M11.C.3 | latency | 1 |
-| M11.C.4 | t0 | 8 |
-| M11.C.4 | nodal | 104 |
-| M11.C.4 | run_after_nodal | 2 |
-| M11.C.5 | weeks | 60 |
-| M11.C.5 | t0 | 4 |
-| M11.C.16 | weeks | 104 |
-| M11.C.16 | level_baseline | 0.0 |
-| M11.C.16 | level_treatment | 15.0 |
-| M11.C.16 | window | 52 |
-| M11.C.19 | weeks | 1 |
-| M11.C.19 | low_axis | 0.2 |
-| M11.C.19 | high_axis | 0.8 |
-| M11.C.25 | weeks | 52 |
-| M11.C.25 | no_pole | 0.5 |
-| M11.C.27 | t0 | 8 |
-| M11.C.27 | latency | 1 |
-| M11.C.27 | report_weeks | 12 |
-| M11.C.27 | unstable_impingement | 0.8 |
-| M11.C.29 | weeks | 80 |
-| M11.C.29 | t0 | 4 |
-| M11.C.29 | disguise_span | 8 |
-| M11.C.29 | disguise_every | 2 |
-| M11.C.32 | weeks | 30 |
-| M11.C.32 | t0 | 0 |
-| M11.C.32 | angry_impingement | 1.0 |
-| M11.C.35 | t0 | 6 |
-| M11.C.35 | run_after | 2 |
-| M11.C.35 | conductance_high | 1.0 |
-| M11.C.35 | conductance_low | 0.4 |
-| M11.C.38 | weeks | 104 |
-| M11.C.38 | level_1 | 0.0 |
-| M11.C.38 | level_2 | 5.0 |
-| M11.C.38 | level_3 | 10.0 |
-| M11.C.38 | level_4 | 15.0 |
-| M11.C.41 | weeks | 80 |
-| M11.C.41 | level_higher | 0.0 |
-| M11.C.41 | level_lower | 10.0 |
-| M11.C.42 | t0 | 10 |
-| M11.C.42 | weeks | 40 |
-| M11.C.44 | weeks | 80 |
-| M11.C.45 | weeks | 80 |
-| nodal | kind_1 | JOB_CHANGE |
-| nodal | kind_2 | MOVE |
-| nodal | kind_3 | SERIOUS_ILLNESS |
-| nodal | every | 8 |
-| nodal | intensity | 50.0 |
-| M11.C.17 | weeks | 520 |
-| M11.C.18 | weeks | 208 |
-| M11.C.18 | act_every | 6 |
-| M11.C.20 | weeks | 208 |
-| M11.C.20 | support_weeks | 104 |
-| M11.C.20 | support_every | 3 |
-| M11.C.20 | act_every | 6 |
-| M11.C.33 | weeks | 208 |
-| M11.C.33 | act_every | 6 |
-| M11.C.30 | weeks | 52 |
-| M11.C.30 | held_load | 0.9 |
-| M11.C.22 | removal_week | 52 |
-| M11.C.22 | after | 26 |
-| M11.C.22 | mild | 1.5 |
-| M11.C.22 | severe | 4.5 |
-| M11.C.12 | remission_week | 52 |
-| M11.C.12 | after | 26 |
-| M11.C.12 | severity | 1.5 |
-| M11.C.31 | t0 | 10 |
-| M11.C.31 | weeks | 20 |
-| M11.C.31 | held | 20.0 |
-| M11.C.11 | removal_week | 52 |
-| M11.C.11 | away | 52 |
-| M11.C.11 | window | 8 |
-| M11.C.26 | weeks | 52 |
-| M11.C.26 | act_every | 2 |
-| M11.C.36 | weeks | 4 |
-| M11.C.36 | act_every | 1 |
-| M11.C.36 | believed_tension | 0.8 |
-| M11.C.14 | weeks | 52 |
-| M11.C.14 | act_every | 2 |
-| M11.C.14 | start_severity | 1.2 |
-| M11.C.2 | weeks | 520 |
-| M11.C.2 | years | 40 |
-| M11.C.2 | projection_until_age | 20 |
-| M11.C.2 | load_from_age | 20 |
-| M11.C.2 | load_to_age | 30 |
-| M11.C.15 | severity | 1.5 |
-| M11.C.15 | change_week | 52 |
-| M11.C.15 | after | 52 |
-| M11.C.6 | years | 40 |
-| M11.C.10 | years | 40 |
-| M11.C.10 | renew_every | 13 |
-| M11.C.10 | seeds | 200 |
-| M11.C.47 | weeks | 260 |
-| M11.C.47 | level_low | 15 |
-| M11.C.47 | level_high | 50 |
-| M11.C.47 | stress_every | 2 |
-| M11.C.47 | stress_kind | JOB_LOSS |
-| M11.C.47 | stress_intensity | 120.0 |
-| M11.C.39 | spell_weeks | 26 |
-| M11.C.39 | after | 52 |
-| M11.C.39 | quiet | 8 |
-| M11.C.39 | every | 2 |
-| M11.C.39 | intensity | 100.0 |
-| M11.C.40 | weeks | 208 |
-| M11.C.40 | window | 26 |
-| M11.C.43 | spell_weeks | 26 |
-| M11.C.43 | gap | 13 |
-| M11.C.43 | window | 8 |
-| M11.C.43 | every | 2 |
-| M11.C.43 | intensity | 100.0 |
-| M11.C.34 | t0 | 26 |
-| M11.C.34 | window | 8 |
-| M11.C.34 | level_low | 10.0 |
-| M11.C.34 | level_high | 10.0 |
-| M11.C.34 | severity | 1.2 |
-| M11.C.21 | t0 | 26 |
-| M11.C.21 | after | 52 |
-| M11.C.21 | drop | 10.0 |
-| M11.C.23 | t0 | 4 |
-| M11.C.23 | weeks | 52 |
-| M11.C.23 | act_every | 2 |
-| M11.C.23 | start_severity | 1.2 |
-| M11.C.23 | suppression | 0.5 |
-| M11.C.24 | diverge_weeks | 52 |
-| M11.C.24 | after | 52 |
-| M11.C.24 | act_every | 2 |
+| criterion | setting | value | grade |
+|---|---|---|---|
+| spell | kind | JOB_LOSS | [I] |
+| spell | intensity | 120.0 | [I] |
+| spell | every | 4 | [I] |
+| spell | from | 4 | [I] |
+| spell | light_every | 8 | [I] |
+| spell | light_parents | 1 | [I] |
+| scripted_act | intensity | 100.0 | [I] |
+| M11.C.1 | weeks | 104 | [I] |
+| M11.C.1 | level_baseline | 0.0 | [I] |
+| M11.C.1 | level_treatment | 10.0 | [I] |
+| M11.C.3 | t0 | 12 | [I] |
+| M11.C.3 | run_after | 2 | [I] |
+| M11.C.3 | latency | 1 | [I] |
+| M11.C.4 | t0 | 8 | [I] |
+| M11.C.4 | nodal | 104 | [I] |
+| M11.C.4 | run_after_nodal | 2 | [I] |
+| M11.C.5 | weeks | 60 | [I] |
+| M11.C.5 | t0 | 4 | [I] |
+| M11.C.16 | weeks | 104 | [I] |
+| M11.C.16 | level_baseline | 0.0 | [I] |
+| M11.C.16 | level_treatment | 15.0 | [I] |
+| M11.C.16 | window | 52 | [I] |
+| M11.C.19 | weeks | 1 | [I] |
+| M11.C.19 | low_axis | 0.2 | [I] |
+| M11.C.19 | high_axis | 0.8 | [I] |
+| M11.C.25 | weeks | 52 | [I] |
+| M11.C.25 | no_pole | 0.5 | [I] |
+| M11.C.27 | t0 | 8 | [I] |
+| M11.C.27 | latency | 1 | [I] |
+| M11.C.27 | report_weeks | 12 | [I] |
+| M11.C.27 | unstable_impingement | 0.8 | [I] |
+| M11.C.29 | weeks | 80 | [I] |
+| M11.C.29 | t0 | 4 | [I] |
+| M11.C.29 | disguise_span | 8 | [I] |
+| M11.C.29 | disguise_every | 2 | [I] |
+| M11.C.32 | weeks | 30 | [I] |
+| M11.C.32 | t0 | 0 | [I] |
+| M11.C.32 | angry_impingement | 1.0 | [I] |
+| M11.C.35 | t0 | 6 | [I] |
+| M11.C.35 | run_after | 2 | [I] |
+| M11.C.35 | conductance_high | 1.0 | [I] |
+| M11.C.35 | conductance_low | 0.4 | [I] |
+| M11.C.38 | weeks | 104 | [I] |
+| M11.C.38 | level_1 | 0.0 | [I] |
+| M11.C.38 | level_2 | 5.0 | [I] |
+| M11.C.38 | level_3 | 10.0 | [I] |
+| M11.C.38 | level_4 | 15.0 | [I] |
+| M11.C.41 | weeks | 80 | [I] |
+| M11.C.41 | level_higher | 0.0 | [I] |
+| M11.C.41 | level_lower | 10.0 | [I] |
+| M11.C.42 | t0 | 10 | [I] |
+| M11.C.42 | weeks | 40 | [I] |
+| M11.C.44 | weeks | 80 | [I] |
+| M11.C.45 | weeks | 80 | [I] |
+| nodal | kind_1 | JOB_CHANGE | [I] |
+| nodal | kind_2 | MOVE | [I] |
+| nodal | kind_3 | SERIOUS_ILLNESS | [I] |
+| nodal | every | 8 | [I] |
+| nodal | intensity | 50.0 | [I] |
+| M11.C.17 | weeks | 520 | [I] |
+| M11.C.18 | weeks | 208 | [I] |
+| M11.C.18 | act_every | 6 | [I] |
+| M11.C.20 | weeks | 208 | [I] |
+| M11.C.20 | support_weeks | 104 | [I] |
+| M11.C.20 | support_every | 3 | [I] |
+| M11.C.20 | act_every | 6 | [I] |
+| M11.C.33 | weeks | 208 | [I] |
+| M11.C.33 | act_every | 6 | [I] |
+| M11.C.30 | weeks | 52 | [I] |
+| M11.C.30 | held_load | 0.9 | [I] |
+| M11.C.22 | removal_week | 52 | [I] |
+| M11.C.22 | after | 26 | [I] |
+| M11.C.22 | mild | 1.5 | [I] |
+| M11.C.22 | severe | 4.5 | [I] |
+| M11.C.12 | remission_week | 52 | [I] |
+| M11.C.12 | after | 26 | [I] |
+| M11.C.12 | severity | 1.5 | [I] |
+| M11.C.31 | t0 | 10 | [I] |
+| M11.C.31 | weeks | 20 | [I] |
+| M11.C.31 | held | 20.0 | [I] |
+| M11.C.11 | removal_week | 52 | [I] |
+| M11.C.11 | away | 52 | [I] |
+| M11.C.11 | window | 8 | [I] |
+| M11.C.26 | weeks | 52 | [I] |
+| M11.C.26 | act_every | 2 | [I] |
+| M11.C.36 | weeks | 4 | [I] |
+| M11.C.36 | act_every | 1 | [I] |
+| M11.C.36 | believed_tension | 0.8 | [I] |
+| M11.C.14 | weeks | 52 | [I] |
+| M11.C.14 | act_every | 2 | [I] |
+| M11.C.14 | start_severity | 1.2 | [I] |
+| M11.C.2 | weeks | 520 | [I] |
+| M11.C.2 | years | 40 | [I] |
+| M11.C.2 | projection_until_age | 20 | [I] |
+| M11.C.2 | load_from_age | 20 | [I] |
+| M11.C.2 | load_to_age | 30 | [I] |
+| M11.C.15 | severity | 1.5 | [I] |
+| M11.C.15 | change_week | 52 | [I] |
+| M11.C.15 | after | 52 | [I] |
+| M11.C.6 | years | 40 | [I] |
+| M11.C.10 | years | 40 | [I] |
+| M11.C.10 | renew_every | 13 | [I] |
+| M11.C.10 | seeds | 200 | [I] |
+| M11.C.47 | weeks | 260 | [I] |
+| M11.C.47 | level_low | 15 | [I] |
+| M11.C.47 | level_high | 50 | [I] |
+| M11.C.47 | stress_every | 2 | [I] |
+| M11.C.47 | stress_kind | JOB_LOSS | [I] |
+| M11.C.47 | stress_intensity | 120.0 | [I] |
+| M11.C.39 | spell_weeks | 26 | [I] |
+| M11.C.39 | after | 52 | [I] |
+| M11.C.39 | quiet | 8 | [I] |
+| M11.C.39 | every | 2 | [I] |
+| M11.C.39 | intensity | 100.0 | [I] |
+| M11.C.40 | weeks | 208 | [I] |
+| M11.C.40 | window | 26 | [I] |
+| M11.C.43 | spell_weeks | 26 | [I] |
+| M11.C.43 | gap | 13 | [I] |
+| M11.C.43 | window | 8 | [I] |
+| M11.C.43 | every | 2 | [I] |
+| M11.C.43 | intensity | 100.0 | [I] |
+| M11.C.34 | t0 | 26 | [I] |
+| M11.C.34 | window | 8 | [I] |
+| M11.C.34 | level_low | 10.0 | [I] |
+| M11.C.34 | level_high | 10.0 | [I] |
+| M11.C.34 | severity | 1.2 | [I] |
+| M11.C.21 | t0 | 26 | [I] |
+| M11.C.21 | after | 52 | [I] |
+| M11.C.21 | drop | 10.0 | [I] |
+| M11.C.21 | act_every | 2 | [I] |
+| M11.C.23 | t0 | 4 | [I] |
+| M11.C.23 | weeks | 52 | [I] |
+| M11.C.23 | act_every | 2 | [I] |
+| M11.C.23 | start_severity | 1.2 | [I] |
+| M11.C.23 | suppression | 0.5 | [I] |
+| M11.C.24 | diverge_weeks | 52 | [I] |
+| M11.C.24 | after | 52 | [I] |
+| M11.C.24 | act_every | 2 | [I] |

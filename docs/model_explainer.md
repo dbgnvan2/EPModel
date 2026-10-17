@@ -560,6 +560,15 @@ who have over- and under-functioned for each other stop for eight weeks, what th
 back to the other a little each week, conserved `[I]`. Pseudo-self does not move between people who never exchanged. Dissolve a discrepant pair and the discrepancy reverses (`M11.C.24`, the whisper of
 nature, passes ad hoc).
 
+**Revision 31 (2026-10-16; the owner's form): a collapsed over-functioner takes less.** What the one taking charge takes
+in an exchange is scaled by their own room above the stress floor: all of it at or above their basic level, a third at
+10 points below, nothing at the floor `[I]` (`M6.I.4`). It mirrors the floor that already stops the one giving way
+from going below it. It was added so that a collapse of the over-functioners reaches the exchange (`M11.C.21`, which
+still fails: the child in that arm has already lent down to its own floor, so there is nothing more for it to keep).
+What the rule did change: it turned the twelve-person family's `M11.C.2` from fail to pass (the child the parents focus
+on carries more symptom load), and it turned `M11.C.22`'s mild-removal limb and `M11.C.17`'s weak coached rise from
+pass to fail. With the rule removed, each run gives its earlier number exactly. Whether to keep it is the owner's.
+
 > Implement as a **switch with hysteresis, indexed per area** — not a linear scalar and not a personal trait. The old engine's `functioning_balance` is close in name and wrong in shape.
 >
 > **Six chapters carry this, across about four independent settings** — the corpus's second-strongest convergence. Ch07 is *not* one of them: sixteen of its propositions rewrite Ch06's near-verbatim.
@@ -976,7 +985,9 @@ project decisions, not corpus findings, and must never be cited as Bowen's.
   owner: "level × .02"). Nothing names which child falls: the child whose own functioning the family pushes down
   ends lower. **Consequence:** ten generations could fall at most about 18 points from the top under ±2%. *Revision 31
   (the owner, 2026-10-16):* the band opens with the parents' acts toward the child — ±2% with none, room to rise to +5%
-  with supportive acts, room to fall to −10% with projection (built in revision 31 part B). Ten generations can then fall
+  with supportive acts, room to fall to −10% with projection (built in revision 31 part B: the room is set by the
+  shares of the parents' acts to the child since 5 that were projection-type and supportive, `[I]`; the acts set how
+  far the level may go, and the parents' and child's functioning still decides where it goes). Ten generations can then fall
   at most from 100 to about 35, so `M11.C.6`'s "eight to ten generations" (`KS11.1`, `FE08.2`) is restated and
   `[X]` contested; a quantum jump of ~10 points a generation (`FE08.1`) is reachable only near the top of the scale, and
   a 5–10-point step (`FE07.7`) only for parents at level 50 or above.
@@ -1137,7 +1148,11 @@ Three separate findings that all constrain how an event resolves:
   what they want, nothing addressed to a symptomatic child of theirs lowers the child's anxiety. `M5.C.1`.
   `M11.C.14`'s null failed: firmness keeps impinging, and talking it out calms once the symptom ends. The owner
   restated it at revision 31 (2026-10-16): no technique may *lower* the child's load against a no-technique arm; the
-  difference between techniques is reported. The gate blocks help, not harm (built in revision 31 part B).
+  difference between techniques is reported. The gate blocks help, not harm. Built in revision 31 part B, with a
+  catch: a scripted act is the parent's whole week, so a technique also crowds out the parents' own acts, including
+  their conflict with each other that the child watches. The no-technique arm therefore has the parents hold back on
+  the same weeks. Both techniques then pass, but they pass with the gate removed too: in this family the gate has
+  almost nothing to block, so the pass shows that no technique helps, not that the gate is the reason.
 
 ---
 
@@ -1811,7 +1826,7 @@ Each is a rule about how a criterion is written or proved, not about what the mo
 | A null at a bound is an assay limit | `M11.4d` · C24 | A readout already at its floor or ceiling cannot move | `[SHOWN]` Prasad 2026 |
 | A statistic for zero-variance arms; multiplicity declared | `M11.4e`, `M17.A.3` · C25 | Some arms have no seed-to-seed variance; several readouts under one criterion need a correction | `[SHOWN]` Ye et al. 2026 (TRAILS) App. C.1, as method |
 | A criterion fails when the move it needs never occurs | `M11.1f` · DL §2.6 | High overall accuracy can hide total failure on rare classes | Mou, Wei & Huang 2024 |
-| Repertoire entropy, per channel | `M16.A.9`, `M11.C.40` · E-RE | The only observable for spec `M4.D.6d`: reinforcement should narrow the automatic channel and not the self-directed one. It measures concentration, **not** differentiation | DL §7.9, from SEAA |
+| Repertoire entropy, per channel | `M16.A.9`, `M11.C.40` · E-RE | The only observable for spec `M4.D.6d`: reinforcement should narrow the automatic channel and not the self-directed one. It measures concentration, **not** differentiation. *Revision 31:* it shows the first half (the automatic channel narrows with learning) but cannot show the second here: the self-directed channel has about 13 acts per half-year window, too few for its entropy to move even when reinforcement is let in. That half is proved by a unit test instead | DL §7.9, from SEAA |
 | Two views of one state agree in ordering | `M11.D.20` · DL §7.10(d) | Catches drift in the family-evaluation readout, which nothing else reads | SEAA §5.9 |
 | No bound is absorbing unless the theory says so | `M11.D.21` · C29 | A person started at a bound must be able to leave it | `[SHOWN]` Holland et al. 2026, Corollary 4.2 |
 | The engine cannot see which arm it is in | `M17.D.3`, `M11.D.22` · C35 | A code path that branches on the arm writes the result into the run | `[SHOWN]` PIMMUR §2.4 — when LLM agents could see what was being tested, the tested outcome became 1.77 times as frequent; `[INF]` |

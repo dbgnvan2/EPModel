@@ -174,7 +174,7 @@ class Person:
     # is driven by the load above it. None until the first week; usual_weeks counts the weeks it has seen.
     usual_excess: float | None = None
     usual_weeks: int = 0
-    # Spec revision 24 (B7, Claude's recommendation pending owner review): what the family attends to in this person,
+    # Spec revision 24 (B7, Claude's recommendation, approved 2026-10-16): what the family attends to in this person,
     # per channel (M1.A.11c's family-focus term; written by B8 from belief, until then by a scenario), and how strongly
     # the constitutional prior holds against it (1 overrides any focus). symptom_bound is the anxiety the family's
     # focus on an active symptom holds (M7.D.2a), a stock in M6.4's table.
@@ -184,12 +184,12 @@ class Person:
     # M11.C.23's suppression term ("medication", revision 15): scales what enters the person's symptom load each week,
     # leaving appraisal and acute anxiety untouched. 1 is none; set by a criterion, never by config.
     symptom_suppression: float = 1.0
-    # Spec revision 25 (B8, Claude's recommendation pending owner review): where this person believes the family's
+    # Spec revision 25 (B8, Claude's recommendation, approved 2026-10-16): where this person believes the family's
     # difficulty lies, a weight per family member summing to at most 1 (M9.6). Written in step 3 from the moves the
     # person sent or was delivered; empty at the start (no one blamed).
     attribution: dict[PersonId, float] = field(default_factory=dict)
     alive: bool = True
-    # Spec revision 28 (Phase D part II, Claude's recommendation pending owner review). ``age_years`` is advanced on
+    # Spec revision 28 (Phase D part II, Claude's recommendation, approved 2026-10-16). ``age_years`` is advanced on
     # the slow tick (M7.C.1f); None means the run does not track ages, and the person acts from the start. ``earner``:
     # the person is a source of household income (M6.3h), declared in config and set by FIND_WORK (M7.C.1k).
     # ``inactive``: present in the field but selecting no act — a retired coach (M2.A.0k) or a partner's

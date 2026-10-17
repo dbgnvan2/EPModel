@@ -7,7 +7,7 @@ Spec:    docs/bowen_agent_model_spec_v2.md#M11.C.15, #M11.C.6, #M11.C.10, #M11.C
 Tests:   tests/bowen/test_phase_d2_criteria.py
 
 Every number is in ``config/bowen/criteria.md`` and every person's role in ``config/bowen/criterion_roles.md``; the
-arm designs are Claude's recommendation, pending owner review, declared before any ran.
+arm designs are Claude's recommendation, declared before any ran, approved by the owner 2026-10-16.
 
 - **`M11.C.15`, death destabilises as recovery does.** The nuclear-four fixture; the mother carries a symptom held at
   ``severity`` (below lock-in's turn, so the family is calmed around it, `M7.D.2a`) until ``change_week``. Control:

@@ -1,7 +1,7 @@
 # EPModel v2 — where each act places the family's difficulty, and which channel it focuses
 
 > Read by `src/bowen/io/load.py` into `EventKinds.attribution` and `EventKinds.focus` (spec revision 25, Phase D B8;
-> Claude's recommendation, pending owner review). These are classification rules, so they live here and not in the
+> Claude's recommendation, approved by the owner 2026-10-16). These are classification rules, so they live here and not in the
 > code (rule 9). **Every row is `[I]`.**
 >
 > - `locus` is whom a person who sends, receives or witnesses the act takes the difficulty to lie with (`M9.6`):

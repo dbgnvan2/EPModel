@@ -144,6 +144,8 @@ class EngineParams:
     development_end_age_years: int         # M7.E.1f, revision 28 — development levels off; the estimator governs from here
     development_band: float                # M7.E.1f, revision 28 — how far a child's level may end from the anchor
     development_rate: float                # M7.E.1f, revision 28 — how far a year's functioning moves a developing child's level
+    development_band_projection: float     # M7.E.1f, revision 31 — the floor's room when every parental act to the child was projection
+    development_band_support: float        # M7.E.1f, revision 31 — the ceiling's room when every parental act to the child was supportive
     witnessed_gain: float                  # M7.B.1a, revision 28 — a child's own load raises its chronic anxiety above the parents' before the fixation age
     chronic_anxiety_fixation_age_years: int  # M2.A.0a, M7.B.1a — revision 28 reads it: a child's chronic anxiety is derived until this age
     spouse_basic_level_tolerance: float    # M2.A.0e — revision 28 reads it: a partner's level is drawn within it (M7.C.1h)
@@ -281,6 +283,9 @@ class EngineParams:
                 and 0 <= self.coach_start_age_years < self.coach_retirement_age_years):
             raise ValueError("life-course ages out of order: development start <= end, working age <= launch age, "
                              "coach start < retirement, all non-negative")
+        if not (self.development_band <= self.development_band_projection <= 1.0
+                and self.development_band <= self.development_band_support <= 1.0):
+            raise ValueError("development_band_projection and development_band_support must lie in [development_band, 1]")
         for name in ("development_band", "development_rate", "find_work_rate", "income_shortfall_share",
                      "new_tie_investment_share", "death_transfer_share"):
             if not 0.0 <= getattr(self, name) <= 1.0:

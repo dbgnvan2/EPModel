@@ -1,21 +1,22 @@
-"""Run Phase D part II criteria under declared mutants and write the committed Phase D mutation record.
+"""Run Phase D criteria under declared mutants and write the committed Phase D mutation record.
 
 Purpose: prove a passing Phase D criterion fails when the mechanism its spec row names is removed (`M11.1d`), as
          ``tools/mutation_record.py`` does for Phase C. Phase D's other mutation runs are reported in the plan, ad hoc.
-Spec:    docs/bowen_agent_model_spec_v2.md#M11.1a, #M11.1d, #M11.C.10
+Spec:    docs/bowen_agent_model_spec_v2.md#M11.1a, #M11.1d, #M11.C.10, #M11.C.14
 Tests:   tests/bowen/test_phase_d_mutation_record.py::test_m111d_phase_d_mutation_record_is_current
 
     python3 tools/phase_d_mutation_record.py [--workers N]
 
 A mutant is a literal replacement applied to a temporary copy of the repository, never to the working tree, and must
-match exactly once (`M11.1a`). Only criteria that pass in ``docs/phase_d2_ensemble_record.md`` are run. Results are
+match exactly once (`M11.1a`). Only criteria that pass in ``docs/phase_d2_ensemble_record.md`` (part II) or, for a
+part I criterion a mutant names (`M11.C.14`, revision 31), in ``docs/phase_d_ensemble_record.md`` are run. Results are
 cached in ``docs/records_cache/phase_d_mutation.json`` under the hash of the engine, the config and
 ``tools/phase_d_mutant_child.py`` and of ``apply`` and ``run_in_copy`` (which copy the repository and apply the edits),
 with each mutant's edits; the record is rendered from the cache. Outcomes are judged as in the Phase C record
 (``tools/mutation_record.py``'s ``judge``): an engine exception under a mutant (RAISED) is a red, reported and never
 cached, as is a broken replacement (BROKEN, no evidence); a failure of the machine running the child stops the build
-after keeping what finished. A passing criterion with no mutant here must be named in ``AD_HOC`` with where its
-mutation is reported.
+after keeping what finished. A passing part II criterion with no mutant here must be named in ``AD_HOC`` with where
+its mutation is reported; part I's other mutations are reported in the plan, ad hoc, and are not listed here.
 """
 
 from __future__ import annotations
@@ -38,11 +39,28 @@ from tools.record_cache import ERRORED, INFRASTRUCTURE_ERRORS, Cache, result_key
 
 RECORD = REPO / "docs" / "phase_d_mutation_record.md"
 ENSEMBLE_RECORD = REPO / "docs" / "phase_d2_ensemble_record.md"
+PART_1_RECORD = REPO / "docs" / "phase_d_ensemble_record.md"
 CHILD = REPO / "tools" / "phase_d_mutant_child.py"
 MUTANTS = (
     Mutant("witnessed-cutoff-learning-removed", NAMED, ("M11.C.10[family of origin]",), "config/bowen/constants.md",
            "| `witnessed_cutoff_gain` | 0.05 |", "| `witnessed_cutoff_gain` | 0.0 |",
            "M4.D.6f removed: a witness's learned CUTOFF value takes no step toward what followed a witnessed cutoff"),
+    # M11.C.2 on the twelve-person family passes at revision 31 (it failed at revision 30); its spec row names the
+    # witness path (M1.F.5). witness_weight is read only by witness appraisal (M4.C.9), so 0 removes the path.
+    Mutant("witness-path-removed", NAMED, ("M11.C.2[twelve-person family]",), "config/bowen/constants.md",
+           "| `witness_weight` | 0.5 |", "| `witness_weight` | 0.0 |",
+           "M1.F.5 removed: a witnessed exchange moves the witness's anxiety by nothing"),
+    # The second mutation the plan names for it (§4.8, revision 29): focus on a child's weakness with focus steering.
+    Mutant("weakness-focus-and-steering-removed", NAMED, ("M11.C.2[twelve-person family]",), "config/bowen/constants.md",
+           "| `perceived_weakness_gain` | 0.01 |", "| `perceived_weakness_gain` | 0.0 |",
+           "M1.B.8a and M4.D.1g removed: no focus on a child's weakness, and focus steers no projection-type act",
+           also=(("config/bowen/constants.md", "| `focus_steer_gain` | 1.0 |", "| `focus_steer_gain` | 0.0 |"),)),
+    # Revision 31 (R31.B5): the gate removed MUST turn at least one technique variant red.
+    Mutant("marital-distance-gate-removed", NAMED, ("M11.C.14[firmness]", "M11.C.14[talking it out]"),
+           "src/bowen/engine/appraise.py",
+           "    if not distant or not any(state.people[recipient].symptom_active.values()):\n        return False\n",
+           "    return False\n",
+           "M5.C.1 removed: a move addressed to a symptomatic child under marital distance improves them as any other"),
 )
 # Passing part II criteria with no mutant in this record, and where their mutation is reported.
 AD_HOC = {
@@ -75,10 +93,28 @@ def passing() -> set[str]:
     return {k for k, r in zip(keys, rows) if r["outcome"] == "PASS"}
 
 
+def passing_part_1() -> set[str]:
+    """The ``CRITERIA_D`` keys a mutant here names that pass in the part I record. Their ids are their keys."""
+    text = PART_1_RECORD.read_text(encoding="utf-8")
+    rows = json.loads(re.search(r"```json\n(.*?)\n```", text, re.S).group(1))
+    named = {c for m in MUTANTS for c in m.criteria} - set(_part_2_keys())  # part I criteria a mutant names
+    absent = sorted(named - {r["criterion"] for r in rows})
+    if absent:  # absent is not failing (correctness review 2026-10-16): the part I record is stale
+        raise SystemExit(f"{PART_1_RECORD.name} has no row for {absent}; rerun python3 tools/phase_d_record.py")
+    return {r["criterion"] for r in rows if r["outcome"] == "PASS" and r["criterion"] in named}
+
+
+def _part_2_keys():
+    from src.bowen.ensemble.criteria_d2 import CRITERIA_D2
+
+    return CRITERIA_D2
+
+
 def build(cache: Cache, workers: int | None = None) -> str:
     """The record, from the cache. With ``workers``, missing results are run first; without, a missing one raises
     KeyError, so a test can check the committed record without running anything."""
-    passed, engine = passing(), engine_hash()
+    part_2, engine = passing(), engine_hash()
+    passed = part_2 | passing_part_1()
     rows, skipped = [], []
     for mutant in MUTANTS:
         run_ids = [c for c in mutant.criteria if c in passed]
@@ -104,7 +140,7 @@ def build(cache: Cache, workers: int | None = None) -> str:
                 raise SystemExit(f"{mutant.id} → {c}: the child printed no result")
             rows.append((mutant, result))
     recorded = {r["criterion"] for _, r in rows}
-    unproved = sorted(passed - recorded - set(AD_HOC))
+    unproved = sorted(part_2 - recorded - set(AD_HOC))
     if unproved:
         raise SystemExit(f"passing in part II with no mutant here and none named in AD_HOC: {unproved}")
     return render(rows, skipped, engine)
@@ -115,8 +151,8 @@ def render(rows, skipped, engine: str) -> str:
         "# Phase D mutation record",
         "",
         "Generated by `tools/phase_d_mutation_record.py`; do not edit. Each mutant is a literal replacement applied to a",
-        "temporary copy of the repository and run against a criterion that passes in `docs/phase_d2_ensemble_record.md`,",
-        "with the same adaptive rules. A mutant is **red** when the criterion stops passing and **survived** when it still",
+        "temporary copy of the repository and run against a criterion that passes in `docs/phase_d2_ensemble_record.md`",
+        "(part II) or `docs/phase_d_ensemble_record.md` (part I), with the same adaptive rules. A mutant is **red** when the criterion stops passing and **survived** when it still",
         "passes; a red mutant is **reversed** when every gating readout's interval lies wholly on the side opposite its",
         "direction (`M11.1d`). Phase D's other mutation runs are ad hoc and reported in",
         "`docs/implementation_plan_phase_d.md`.",
@@ -134,7 +170,7 @@ def render(rows, skipped, engine: str) -> str:
         lines.append(f"| `{mutant.id}` | {mutant.kind} | {mutant.what} | `{result['criterion']}` | {result['outcome']}{note} "
                      f"| {result['seeds']} | {diffs or '—'} | "
                      f"**{judge(mutant, result['outcome'], result.get('readouts', ()))}** |")
-    lines += ["", "## Not run", "", "Criteria a mutant targets that do not pass in the part II record.", ""]
+    lines += ["", "## Not run", "", "Criteria a mutant targets that do not pass in their ensemble record.", ""]
     lines += [f"- `{m.id}` → `{cid}`" for m, cid in skipped] or ["- none"]
     lines += ["", "## Passing with no mutant in this record", "",
               "Part II criteria that pass but are not proved here; where their mutation is reported instead.", ""]

@@ -265,7 +265,8 @@ def functioning_shift(state: RunState, event: Event, tie: Relationship, target: 
     """Purpose: push the tie's balance toward a pole and move pseudo-self with it, conserved.
     Spec:    docs/bowen_agent_model_spec_v2.md#M1.B.5, #M1.B.6, #M1.B.7, #M6.I.4
     Tests:   tests/bowen/test_moves.py::test_m1b6_flip_is_relative_and_immediate,
-             tests/bowen/test_moves.py::test_m1b5_holding_a_position_stops_the_exchange_both_ways
+             tests/bowen/test_moves.py::test_m1b5_holding_a_position_stops_the_exchange_both_ways,
+             tests/bowen/test_moves.py::test_m6i4_collapsed_taker_takes_in_proportion_to_room
     """
     # Revision 21 (owner decision 2026-10-12): the exchange takes two. A person holding a position toward the sender
     # neither gives way to being taken over nor takes over for someone who under-functions toward them.
@@ -287,8 +288,15 @@ def functioning_shift(state: RunState, event: Event, tie: Relationship, target: 
     giver, taker = state.people[under], state.people[over]
     # Revision 19 (owner decision 2026-10-11): giving way cannot take the giver below basic_level −
     # stress_floor_below_basic, the same floor stress has (M1.A.5e); without it 2 of 20 runs still ran away.
+    # Revision 31 (`M11.C.21`, the owner's form 2026-10-16): what the over-functioner takes is scaled by their own room
+    # above the stress floor, full at or above basic, none at the floor; the mirror of the giver's floor, made gradual.
+    # The floor is clamped at 0, as the giver's and stress's are (learning-qa 2026-10-16).
+    floor_level = max(0.0, taker.basic_level - params.stress_floor_below_basic)
+    span = taker.basic_level - floor_level
+    room = taker.functional_level - floor_level
+    capacity = min(1.0, max(0.0, room / span)) if span > 0 else float(room > 0)
     amount = min(
-        params.pseudo_self_transfer_gain * _strength(event, params),
+        capacity * params.pseudo_self_transfer_gain * _strength(event, params),
         max(0.0, giver.functional_level - max(0.0, giver.basic_level - params.stress_floor_below_basic)),
         SCALE_MAX - taker.functional_level,
     )
@@ -335,7 +343,7 @@ def relax_pseudo_self(state: RunState, params: EngineParams) -> list[EffectRecor
     Spec:    docs/bowen_agent_model_spec_v2.md#M6.I.4, #M1.A.5c, #M11.C.24
     Tests:   tests/bowen/test_moves.py::test_m6i4_pseudo_self_settles_back_when_the_exchange_stops
 
-    Revision 27 (Phase D step 10; Claude's recommendation, pending owner review): "a borrowed rise does not survive
+    Revision 27 (Phase D step 10; Claude's recommendation, approved 2026-10-16): "a borrowed rise does not survive
     withdrawal of the source" (`M1.A.5c`), and the whisper of nature (`M11.C.24`, KS07.2): dissolve a discrepant pair
     and the discrepancy reverses. Each week, for each tie on which the pair has exchanged (its functioning balance is
     not zero), whose over-functioning member carries borrowed pseudo-self and the other lent, and between whom no

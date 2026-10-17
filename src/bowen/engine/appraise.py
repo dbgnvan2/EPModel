@@ -52,7 +52,7 @@ its ties to **both** the sender and each target, and the exchange's intensity:
 It is not a copy of a target's appraisal. Being one step removed is also what
 makes the witnessed form less reactive for the listener (`M4.C.7`).
 
-*Revision 25 (`M9.7`; Claude's recommendation, pending owner review):* a witnessed load is also scaled by
+*Revision 25 (`M9.7`; Claude's recommendation, approved 2026-10-16):* a witnessed load is also scaled by
 ``1 + belief_appraisal_gain × believed tension`` of the most tense tie between the sender and a target, as the witness
 believes it (`M9.8`), so belief drives appraisal and the tie's true state is never read (`M4.B.2`). A witnessed relief
 is not scaled.

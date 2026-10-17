@@ -9,6 +9,8 @@ Unit tests of set mechanisms with invented constants; none is a finding (`M11.5`
 
 from __future__ import annotations
 
+import pytest
+
 import copy
 
 from src.bowen.engine.appraise import tie_change, appraisal_delta
@@ -484,3 +486,51 @@ def test_m6i4_a_borrower_still_exchanging_with_its_source_keeps_what_it_borrowed
     state.store.record_event(move("OVERFUNCTION", nadia, marta, tick=state.tick - 1))
     relax_pseudo_self(state, PARAMS)
     assert (state.people[nadia].pseudo_self, state.people[marta].pseudo_self, state.people[RAVI].pseudo_self) == (5.0, -5.0, -3.0)
+
+
+def _taken_at(below_basic: float, kind: str = "OVERFUNCTION") -> float:
+    """What Ravi, the over-functioner, takes from Nadia in one exchange when his functional level is ``below_basic``
+    under his basic level (stress's part, as `M11.C.21`'s collapse writes it)."""
+    state = fresh()
+    ravi = state.people[RAVI]
+    ravi.functional_level = ravi.basic_level - below_basic
+    ravi.stress_swing -= below_basic
+    sender, target = (RAVI, NADIA) if kind == "OVERFUNCTION" else (NADIA, RAVI)
+    moved, _ = _exchange(state, kind, sender, target, tick=2)
+    return moved[0] if kind == "OVERFUNCTION" else moved[1]
+
+
+def test_m6i4_collapsed_taker_takes_in_proportion_to_room():
+    """Revision 31 (`M11.C.21`, the owner's form 2026-10-16): what an over-functioner takes is scaled by their room
+    above the stress floor, s = clip((f − (b − floor)) / floor, 0, 1): full at basic, a third at 10 below (floor 15),
+    none at the floor. The same whichever of the two sends the act."""
+    floor = PARAMS.stress_floor_below_basic
+    full = _taken_at(0.0)
+    assert full > 0
+    assert _taken_at(10.0) == pytest.approx(full * (floor - 10.0) / floor)
+    assert _taken_at(floor) == 0.0
+    assert _taken_at(10.0, kind="UNDERFUNCTION") == pytest.approx(_taken_at(0.0, kind="UNDERFUNCTION") * (floor - 10.0) / floor)
+
+
+def test_m6i4_a_low_basic_taker_at_zero_takes_nothing():
+    """learning-qa 2026-10-16: the floor is clamped at 0 as the giver's and stress's are. A taker with basic level 5 at
+    functional level 0 is at the floor and takes nothing; halfway between the floor and basic takes half."""
+    state = fresh()
+    ravi = state.people[RAVI]
+    ravi.basic_level, ravi.functional_level, ravi.pseudo_self, ravi.stress_swing = 5.0, 0.0, 0.0, -5.0
+    assert _exchange(state, "OVERFUNCTION", RAVI, NADIA, tick=2)[0][0] == 0.0
+    half = fresh()
+    ravi = half.people[RAVI]
+    ravi.basic_level, ravi.functional_level, ravi.pseudo_self, ravi.stress_swing = 5.0, 2.5, 0.0, -2.5
+    assert _exchange(half, "OVERFUNCTION", RAVI, NADIA, tick=2)[0][0] == pytest.approx(_taken_at(0.0) / 2)
+
+
+def test_m6i4_capacity_does_not_limit_a_taker_above_basic():
+    """Adversarial: a taker functioning above their basic level (borrowed pseudo-self) takes the full amount; the rule
+    limits a collapsed taker, it does not reward or tax ordinary over-functioning."""
+    state = fresh()
+    ravi = state.people[RAVI]
+    ravi.functional_level = ravi.basic_level + 5.0
+    ravi.pseudo_self = (ravi.pseudo_self or 0.0) + 5.0
+    above, _ = _exchange(state, "OVERFUNCTION", RAVI, NADIA, tick=2)
+    assert above[0] == pytest.approx(_taken_at(0.0))

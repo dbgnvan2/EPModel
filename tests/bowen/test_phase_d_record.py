@@ -48,7 +48,8 @@ def test_phase_d_record_carries_no_phase_c_wording_and_its_table_matches_its_jso
 
     text = record_text()
     assert "Phase C" not in text
-    table = dict(re.findall(r"^\| `(M11\.C\.\d+)` \| \w+ \| \*\*(\w+)\*\* \|", text, re.M))
+    # Variants carry a bracketed name (M11.C.14[firmness], revision 31).
+    table = dict(re.findall(r"^\| `(M11\.C\.\d+(?:\[[^\]]+\])?)` \| \w+ \| \*\*(\w+)\*\* \|", text, re.M))
     block = json.loads(text.split("```json", 1)[1].split("```", 1)[0])
     assert table == {v["criterion"]: v["outcome"] for v in block} and table
 

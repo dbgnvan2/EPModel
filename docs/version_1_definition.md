@@ -45,6 +45,30 @@ counted once per variant.
 - **Not counted here:** `M11.C.44` passed at revision 29 and fails in the Phase C record now; `M11.C.2` on the twelve-
   person family passed at revision 29. A revision can turn a passing criterion red, so a count can go down.
 
+## 2a. Where the model stands after revision 31 (measured 2026-10-16)
+
+Every record regenerated once, after revision 31 part B and the owner's decisions on the premises (plan §4.11).
+
+| Record | Pass | Fail | Not built or not run |
+|---|---|---|---|
+| `docs/phase_c_ensemble_record.md` | 12 | 12 | `M11.C.7`, `M11.C.13`, `M11.C.14` (unchanged) |
+| `docs/phase_d_ensemble_record.md` | 13 | 8 | `M11.C.7`, `M11.C.9`, `M11.C.28`; `M11.C.14` is now two variants |
+| `docs/phase_d2_ensemble_record.md` | 4 | 2 | `M11.C.37` (proved by a test instead) |
+
+- **Failing premises (V2): five.** `M11.C.4`, `M11.C.29`, `M11.C.32` (Phase C, unchanged); `M11.C.21`, still failing
+  after the capacity rule and the lent balance (+0.15 ± 0.19); and `M11.C.22`, **newly failing**, turned red by the
+  capacity rule (mild limb +0.57 ± 0.87; with the rule removed it passes exactly as before). Resolved: `M11.C.14`
+  passes as restated (its mutation clause is not met: the gate-removed mutant survives); `M11.C.40` passes (clause 2
+  reported, proved by a unit test); `M11.C.23` is a composite now, its failure accepted as a finding (the owner,
+  2026-10-16). *Recommended, pending the owner's review:* `M11.C.21` reclassified as a composite and accepted as a
+  finding; and a decision whether to keep the capacity rule, which made the twelve-person `M11.C.2` pass and turned
+  `M11.C.22` and `M11.C.17` red.
+- **Failing composites and mixed (V1):** as in §2, less `M11.C.2[twelve-person family]` (now passes, proved red by
+  removing focus on a child's weakness and focus steering), plus `M11.C.17` (turned red by the capacity rule) and
+  `M11.C.23` (accepted as a finding).
+- **V3:** `M11.C.2[twelve-person family]` has a recorded red mutant (`docs/phase_d_mutation_record.md`).
+- **V4: met.** Revision 31 is built, and the spec's status line says so.
+
 ## 3. What version 1 does not include (decided 2026-10-15, question 7)
 
 Retiring the frozen grid engine (`src/engine.py`); the `M15` import of real families; the fam-diag app; calibrating

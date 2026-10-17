@@ -121,6 +121,8 @@ SCHEMA: Mapping[str, KeySpec] = MappingProxyType(
         "development_end_age_years": KeySpec(int, "[I]", "M7.E.1f"),  # spec revision 28
         "development_band": KeySpec(float, "[I]", "M7.E.1f"),  # spec revision 28
         "development_rate": KeySpec(float, "[I]", "M7.E.1f"),  # spec revision 28
+        "development_band_projection": KeySpec(float, "[I]", "M7.E.1f"),  # spec revision 31 (R31.B7)
+        "development_band_support": KeySpec(float, "[I]", "M7.E.1f"),  # spec revision 31 (R31.B7)
         "witnessed_gain": KeySpec(float, "[I]", "M7.B.1a"),  # spec revision 28
         "launch_age_years": KeySpec(int, "[I]", "M7.C.1g"),  # spec revision 28
         "working_age_years": KeySpec(int, "[I]", "M7.C.1k"),  # spec revision 28

@@ -30,7 +30,10 @@ runs). Moved 2026-10-14 by spec revision 30 (plan §4.10: an anxious act lands w
 read as danger and its contact cost, focus that compounds and a projection act that adds to attention, and, in phase_d,
 the origin cutoff set at 20; behaviour, both runs), and in phase_d again the same day by felt danger held while
 rejection is held (the owner's decision; behaviour), and in both again by focus compounding made a shift among the
-children that adds no investment (the owner: "Shift, gain 10"; behaviour). The phase_b run is scripted and did not move.
+children that adds no investment (the owner: "Shift, gain 10"; behaviour). Moved 2026-10-16 by spec revision 31 part B:
+an over-functioner takes in proportion to their room above the stress floor (`M11.C.21`, the owner's form; behaviour,
+both runs) and, in phase_d, a child's development band opened by the parents' acts (R31.B7). The phase_b run is
+scripted and did not move.
 
 **Why the floats are rounded (2026-10-15).** The fingerprints were taken from the exact repr, and CI on Linux failed
 them while the Mac passed: the last bits of a float differ between platforms and Python versions (Python 3.12 changed
@@ -66,8 +69,8 @@ FINGERPRINT_DIGITS = 8  # significant digits kept per float; see the module docs
 ZERO_BELOW = 1e-12  # a float this close to zero is written as 0, so 1e-17 and -1e-17 agree
 GOLDEN = {
     # (family, seed, weeks): fingerprint
-    ("phase_c", 7, 104): "2c29b1723a3a171fdbba593fdd56f46e98ffe13aa290d214e3b053976c62c63d",
-    ("phase_d", 11, 208): "88883994d8792f3f52a56f3cbd0921b7cff253fff850618ad1f42aff77604f43",
+    ("phase_c", 7, 104): "824f90a3025fb2ebf10d6f739112d091056e208b73468fd1eaad16e2dab869d2",
+    ("phase_d", 11, 208): "1117c4fd7a0020032b9375234dd3fd7fda666990b56f335e33d2bc821f831230",
 }
 
 

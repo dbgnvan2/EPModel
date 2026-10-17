@@ -59,7 +59,7 @@ from src.bowen.engine.sinks import allocate_sinks
 from src.bowen.engine.slow_tick import record_week, run_slow_tick
 from src.bowen.engine.iposition import advance_sequences, redirect_to_sequence_tie, sequence_selections
 from src.bowen.engine.learner import learn, learn_from_witnessed, note_witnessed_cutoffs, register_acts, soothing_review
-from src.bowen.engine.life_course import due_events, find_work, note_origin_cutoff, yearly
+from src.bowen.engine.life_course import due_events, find_work, note_origin_cutoff, note_parental_acts, yearly
 from src.bowen.engine.moves import apply_move_effects, relax_pseudo_self, settle_functioning
 from src.bowen.engine.log_records import EffectRecord, EmittedRecord, Emitter, TickRecord
 from src.bowen.engine.params import EngineParams
@@ -218,6 +218,7 @@ def run_tick(
     records.append(assert_invariants(state, before, loaded, tuple(steps), params.invariant_tolerance, tuple(records)))
     emitted = [r.event for r in records if isinstance(r, EmittedRecord)]
     record_week(state, params, load_at_selection, selections, emitted)
+    note_parental_acts(state, emitted, params)  # M7.E.1f, revision 31: the acts that open a child's band
     # The slow tick (M3.B.1, plan B5): after the fast tick's invariants, at the end of week 51, 103, … — week 0 is
     # the start, not a step (M2.A.0b). It checks its own invariants.
     if (state.tick + 1) % params.slow_tick_fast_ticks == 0:

@@ -12,6 +12,7 @@ Tests:   this file
 from __future__ import annotations
 
 import os
+from pathlib import Path
 
 import pytest
 
@@ -216,8 +217,33 @@ def test_m11c36_policy_reads_belief_not_true_state():
 
 
 @pytest.mark.ensemble
-def test_m11c14_technique_null_under_marital_distance():
-    gate("M11.C.14")
+def test_m11c14_no_technique_lowers_load_under_marital_distance():
+    """Revision 31 (R31.B4): each technique, against a no-technique arm, does not lower the child's load by more than
+    the equivalence bound (one-sided)."""
+    gate("M11.C.14[firmness]")
+    gate("M11.C.14[talking it out]")
+
+
+def test_m11c14_variants_differ_from_their_baseline_only_by_the_technique():
+    """R31.B4, with the owner's option (a) of 2026-10-16: the baseline has both parents hold back (a targetless
+    ``WITHHOLD``) on the technique's weeks, every one made; each treatment scripts its technique from both parents to C1;
+    the report-only comparison is talking it out less firmness, so its baseline reads firmness's load."""
+    from src.bowen.ensemble.criteria_d import C14_TECHNIQUES, _c14_run
+
+    for technique, kind in C14_TECHNIQUES.items():
+        criterion = CRITERIA_D[f"M11.C.14[{technique}]"]
+        assert criterion.requires_moves == (kind,)
+        assert criterion.readouts[0].bound_side == +1 and criterion.readouts[0].direction == 0
+        base = criterion.arm("baseline", 0, criterion.settings)
+        treat = criterion.arm("treatment", 0, criterion.settings)
+        assert base.moves["(scripted acts)"] == treat.moves["(scripted acts)"] > 0  # the same weeks displaced
+        assert base.moves["(scripted act: made)"] == base.moves["(scripted acts)"]
+        if technique == "talking it out":
+            s = criterion.settings
+            firmness, _ = _c14_run(0, s["weeks"], s["act_every"], s["start_severity"], C14_TECHNIQUES["firmness"])
+            assert base.readouts["talking_less_firmness"] == firmness
+            assert treat.readouts["talking_less_firmness"] == treat.readouts["child_symptom_load"]
+    assert "M11.C.14" not in CRITERIA_D  # the revision 15 two-sided comparison is withdrawn
 
 
 @pytest.mark.ensemble
@@ -232,8 +258,10 @@ def test_m11c39_pattern_outlasts_spell_only_with_learning():
 
 @pytest.mark.ensemble
 def test_m11c40_leaked_reinforcement_raises_self_directed_entropy():
-    """Both clauses, each a readout: the automatic channel's entropy falls more with learning, and the automatic
-    channel's between-arm difference exceeds the self-directed channel's (``automatic_less_self``)."""
+    """Clause 1 gates: the automatic channel's entropy falls more with learning. Clause 2 (``automatic_less_self``)
+    is reported only (the owner, 2026-10-16): a mutant letting reinforcement reach the self-directed channel moved it
+    +0.015 ± 0.049, so the readout cannot see `M4.D.6d` removed. Clause 2 is proved by
+    tests/bowen/test_learner.py::test_m4d6d_self_directed_channel_is_never_reinforced."""
     gate("M11.C.40")
 
 
@@ -287,3 +315,12 @@ def test_m10b5_learning_is_switched_off_only_by_a_declared_override():
     assert all(v == 0 for p in state.people.values() for v in p.learned_values.values())
     state, _ = scenario("triad", 1, 30)
     assert any(v != 0 for p in state.people.values() for v in p.learned_values.values())
+
+
+def test_m11c40_clause_2_reported_and_proved_by_the_unit_test():
+    """The owner's option (a), 2026-10-16: clause 1 alone gates; clause 2 is a report-only readout."""
+    readouts = {r.name: r for r in CRITERIA_D["M11.C.40"].readouts}
+    assert not readouts["automatic_entropy_fall"].report_only
+    assert readouts["automatic_less_self"].report_only
+    learner_tests = (Path(__file__).parent / "test_learner.py").read_text(encoding="utf-8")
+    assert "def test_m4d6d_self_directed_channel_is_never_reinforced(" in learner_tests

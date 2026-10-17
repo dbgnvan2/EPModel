@@ -1,4 +1,4 @@
-"""Run Phase D part II criteria in a mutated copy of the repository: the code that produces the Phase D mutation record's
+"""Run Phase D criteria in a mutated copy of the repository: the code that produces the Phase D mutation record's
 results.
 
 Purpose: the child ``tools/phase_d_mutation_record.py`` runs in each mutated copy, as ``tools/mutant_runner.py`` is for
@@ -21,7 +21,9 @@ sys.path.insert(0, str(REPO))
 
 
 def child(keys: list[str], workers: int) -> None:
-    """Print one JSON line per criterion, keyed by its ``CRITERIA_D2`` key (two criteria there share an id)."""
+    """Print one JSON line per criterion, keyed by its ``CRITERIA_D2`` key (two criteria there share an id) or, for
+    part I (revision 31), its ``CRITERIA_D`` key."""
+    from src.bowen.ensemble.criteria_d import CRITERIA_D
     from src.bowen.ensemble.criteria_d2 import CRITERIA_D2
     from src.bowen.ensemble.runner import run_criterion
     from src.bowen.io.load import load_constants
@@ -32,10 +34,12 @@ def child(keys: list[str], workers: int) -> None:
     rules = {k: constants[k] for k in RULE_KEYS}
     for key in keys:
         try:
-            v = run_criterion(CRITERIA_D2[key], rules, workers=workers)
+            v = run_criterion({**CRITERIA_D, **CRITERIA_D2}[key], rules, workers=workers)
             readouts = [{"readout": r["readout"], "direction": r["direction"], "mean_difference": r["mean_difference"],
                          "half_width": r["half_width"], "report_only": r.get("report_only", False),
-                         **({"p": r["p"]} if "p" in r else {})} for r in v.readouts]
+                         **({"p": r["p"]} if "p" in r else {}),
+                         **{k: r[k] for k in ("equivalence_bound", "bound_side", "within_bound") if k in r}}
+                        for r in v.readouts]
             print(json.dumps({"criterion": key, "outcome": v.outcome, "seeds": v.seeds, "readouts": readouts},
                              default=float), flush=True)
         except BROKEN_ERRORS as error:  # the replacement text itself is broken: no evidence

@@ -183,3 +183,5 @@
 | `focus_compound_gain` | — | 2.0 | 2026-10-14 | — (new mechanism; spec revision 30, plan §4.10, the owner's choice of 2026-10-14) | no |
 | `focus_compound_gain` | 2.0 | 10.0 | 2026-10-14 | the form became a shift among the children that adds no investment: learning-qa found the first form unbounded (peak 14,000 median, 4 million max, 20 seeds, 10 years, ad hoc), a ceiling bounded it but removed the lock-in, and the owner chose "Shift, gain 10" | no |
 | `lock_in_turn` | — | 3.0 | 2026-10-12 | — (new mechanism; spec revision 24, B7, Claude's recommendation, approved by the owner 2026-10-16: lock-in's turn) | no |
+| `development_band_projection` | — | 0.10 | 2026-10-16 | — (new mechanism; spec revision 31, R31.B7: `M7.E.1f`'s band opened by the parents' acts, the owner's value: "projection up to 10% negative") | no |
+| `development_band_support` | — | 0.05 | 2026-10-16 | — (new mechanism; spec revision 31, R31.B7, the owner's value: "supportive, responsible behaviour attention - up to 5% growth") | no |

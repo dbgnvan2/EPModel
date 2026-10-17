@@ -163,7 +163,10 @@ def render(verdicts, not_built, rules, hash_: str) -> str:
             if r.get("report_only"):
                 text += " (reported only)"
             elif r["direction"] == 0:
-                text += f", equivalence bound {r['equivalence_bound']:.3g}, {'within' if r['within_bound'] else 'outside'}"
+                side = {1: " (one-sided: the treatment no lower than the baseline less the bound)",
+                        -1: " (one-sided: the treatment no higher than the baseline plus the bound)"}.get(r.get("bound_side"), "")
+                text += (f", equivalence bound {r['equivalence_bound']:.3g}{side}, "
+                         f"{'within' if r['within_bound'] else 'outside'}")
             else:
                 text += f", p {r['p']:.3g}, {'holds' if r.get('holds') else 'does not hold'}"
             parts.append(text)

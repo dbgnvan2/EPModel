@@ -53,6 +53,13 @@ class Readout:
     direction: int                      # +1: treatment > baseline; -1: treatment < baseline; 0: a null
     bounds: tuple[float, float] = (-math.inf, math.inf)
     report_only: bool = False           # reported beside the verdict, never tested (e.g. M11.C.16's top share)
+    # With direction 0: 0 is a two-sided null; +1 a one-sided bound, the treatment MUST NOT fall below the baseline
+    # by more than the equivalence bound (M11.C.14, revision 31: the interval's lower end above −bound); −1 the mirror.
+    bound_side: int = 0
+
+    def __post_init__(self):
+        if self.bound_side not in (-1, 0, 1) or (self.bound_side and self.direction != 0):
+            raise ValueError(f"{self.name}: bound_side is -1, 0 or 1, and only on a null (direction 0)")
 
 
 @dataclass
@@ -179,8 +186,16 @@ def _verdict(criterion, results, converged, rules) -> Verdict:
         if readout.report_only:
             row["report_only"] = True
         elif readout.direction == 0:
-            row["equivalence_bound"] = rules["equivalence_margin"] * scale
-            row["within_bound"] = abs(row["mean_difference"]) + row["half_width"] <= row["equivalence_bound"]
+            bound = row["equivalence_bound"] = rules["equivalence_margin"] * scale
+            mean, half = row["mean_difference"], row["half_width"]
+            if readout.bound_side > 0:
+                row["within_bound"] = mean - half >= -bound
+            elif readout.bound_side < 0:
+                row["within_bound"] = mean + half <= bound
+            else:
+                row["within_bound"] = abs(mean) + half <= bound
+            if readout.bound_side:
+                row["bound_side"] = readout.bound_side
             row["assay_limit"] = position is not None and (position <= 0.01 or position >= 0.99)
         else:
             w, n, p = signed_rank(readout.direction * diff, margin=rules["ensemble_margin"] * scale)

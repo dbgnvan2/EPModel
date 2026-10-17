@@ -100,6 +100,8 @@ GOOD_ROWS = (
     "| `development_end_age_years` | 20 | [I] | u | `M7.E.1f` |\n"
     "| `development_band` | 0.02 | [I] | u | `M7.E.1f` |\n"
     "| `development_rate` | 0.1 | [I] | u | `M7.E.1f` |\n"
+    "| `development_band_projection` | 0.10 | [I] | u | `M7.E.1f` |\n"
+    "| `development_band_support` | 0.05 | [I] | u | `M7.E.1f` |\n"
     "| `witnessed_gain` | 0.5 | [I] | u | `M7.B.1a` |\n"
     "| `launch_age_years` | 20 | [I] | u | `M7.C.1g` |\n"
     "| `working_age_years` | 16 | [I] | u | `M7.C.1k` |\n"

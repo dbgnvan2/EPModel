@@ -25,7 +25,7 @@ import math
 import re
 from collections import Counter
 
-from src.bowen.engine.act import Selection
+from src.bowen.engine.act import WITHHOLD, Selection
 from src.bowen.engine.events import Channel, Event, EventId, Mechanism, SourcePosition
 from src.bowen.engine.identifiers import PersonId, TieId
 from src.bowen.engine.log_records import DecidedBy, EffectRecord, EmittedRecord, SelectionRecord
@@ -66,7 +66,7 @@ def load_roles(path=CONFIG_DIR / "criterion_roles.md") -> dict[tuple[str, str], 
 ROLES = load_roles()
 
 # Keys the criteria table adds to an arm's settings itself, for expanded cells; never config.
-INJECTED = frozenset({"twosome", "change", "levels", "arms"})
+INJECTED = frozenset({"twosome", "change", "levels", "arms", "technique"})
 # Every setting a criterion reads, by section; config/bowen/criteria.md must hold exactly these.
 # tests/bowen/test_ensemble_record.py::test_criteria_required_matches_what_the_arms_read ties this to the code.
 REQUIRED = {
@@ -117,7 +117,7 @@ REQUIRED = {
     "M11.C.40": ("weeks", "window"),
     "M11.C.43": ("spell_weeks", "gap", "window", "every", "intensity"),
     "M11.C.34": ("t0", "window", "level_low", "level_high", "severity"),
-    "M11.C.21": ("t0", "after", "drop"),
+    "M11.C.21": ("t0", "after", "drop", "act_every"),  # act_every: the lent balance first (revision 31)
     "M11.C.23": ("t0", "weeks", "act_every", "start_severity", "suppression"),
     "M11.C.24": ("diverge_weeks", "after", "act_every"),
 }
@@ -135,11 +135,14 @@ def _value(text: str):
 
 def load_settings(path=CONFIG_DIR / "criteria.md") -> dict[str, dict]:
     """Purpose: each criterion's declared settings from config, strictly (Hermes gate finding 4, M11.D.2)."""
-    document = parse_table_document(path.read_text(encoding="utf-8"), columns=("criterion", "setting", "value"),
+    document = parse_table_document(path.read_text(encoding="utf-8"),
+                                    columns=("criterion", "setting", "value", "grade"),
                                     metadata_keys=frozenset(), source=str(path))
     settings: dict[str, dict] = {}
     for row, line in zip(document.rows, document.row_lines):
         section, name = row["criterion"], row["setting"]
+        if row["grade"] != "[I]":  # revision 31 (R31.B2): every declared setting is invented, and says so
+            raise ConfigError(f"{path}:{line}: {section} {name} has grade {row['grade']!r}; every setting is [I]")
         if name not in REQUIRED.get(section, ()):
             raise ConfigError(f"{path}:{line}: {section} has no setting {name!r}")
         if name in settings.setdefault(section, {}):
@@ -231,7 +234,9 @@ class Forced:
                 continue
             legal = {o.label for o in legal_outcomes(observe(state, actor, self.policy.params), state.kinds,
                                                      self.policy.params)}
-            if f"{selection.kind}>{selection.targets[0]}" not in legal:
+            # A scripted hold with no target is labelled by its kind alone (M11.C.14's baseline, revision 31).
+            label = f"{selection.kind}>{selection.targets[0]}" if selection.targets else selection.kind
+            if label not in legal:
                 self.skipped += 1
                 self.status[t, actor] = "not legal"
                 continue
@@ -249,12 +254,15 @@ class Forced:
         # An I-POSITION is made either as an act or as the start of a sequence, which emits nothing that week (M5.D.9).
         begun = {(pid, r.tick) for r in records if isinstance(r, EffectRecord) and r.mechanism == "iposition"
                  for pid, flag, _ in r.people if flag.startswith("iposition:begin")}
+        # A hold emits nothing: it was made if its actor emitted no move that week (revision 31).
+        moved = {(sender, t) for sender, t, _, _ in emitted}
         counts = Counter()
         for (t, actor), selection in self.forced.items():
             status = self.status.get((t, actor), "not reached")
             if status == "placed":
                 same = ((actor, t, selection.kind, selection.targets[:1]) in emitted
-                        or (selection.kind == "I-POSITION" and (actor, t) in begun))
+                        or (selection.kind == "I-POSITION" and (actor, t) in begun)
+                        or (selection.kind == WITHHOLD and not selection.targets and (actor, t) not in moved))
                 status = "made" if same else "rewritten"
             counts[status] += 1
         return counts

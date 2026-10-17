@@ -7,9 +7,9 @@ Spec:    docs/bowen_agent_model_spec_v2.md#M7.C.1, #M7.C.1a, #M7.C.1f, #M7.C.1g,
          #M6.3h, #M2.A.0k
 Tests:   tests/bowen/test_life_course.py
 
-Revision 28 applies the owner's decisions of 2026-10-13 (P13–P15); every form here is Claude's recommendation, pending
-owner review, and every constant is `[I]` unless the owner stated it (acting from 10, development from 5 to 20 within
-2% of the parents' level, the coach's ages, 20% less income).
+Revision 28 applies the owner's decisions of 2026-10-13 (P13–P15); every form here is Claude's recommendation, approved
+by the owner 2026-10-16, and every constant is `[I]` unless the owner stated it (acting from 10, development from 5
+to 20 within a band of the parents' level that the parents' acts open, revision 31; the coach's ages, 20% less income).
 
 A run has a life course only when its family declares one (``state.life`` is not None). Every run before Phase D part
 II has none and is unchanged.
@@ -20,8 +20,13 @@ II has none and is unchanged.
 2. a child under the fixation age has its chronic anxiety derived: the parents' mean, plus ``witnessed_gain`` × the
    child's mean load over the year (`M7.B.1a`);
 3. a child develops (`M7.E.1f`): held at the parents' mean before 5; anchored at 5; from 6 to 20 moved by
-   ``development_rate × d`` within ``anchor × (1 ± development_band)``, where ``d`` is half the parents' mean
-   functioning above basic over the year and half the child's own;
+   ``development_rate × d`` within a band around the anchor, where ``d`` is half the parents' mean functioning above
+   basic over the year and half the child's own. The band opens with the parents' acts to the child (revision 31,
+   R31.B7): from ``anchor × (1 − development_band − (development_band_projection − development_band) × p)`` to
+   ``anchor × (1 + development_band + (development_band_support − development_band) × s)``, where ``p`` and ``s``
+   are the shares of every act a living parent has sent the child since 5 that were projection-type and supportive
+   (``note_parental_acts``; 0 with none). The acts open room; they do not move the level: a band that narrows under
+   a level leaves it where it is, and only the development rule moves it;
 4. a child of ``launch_age_years`` leaves home, an earner and not dependent (`M7.C.1g`);
 5. whoever has reached the age at death drawn for them at entry dies (`M7.C.1j`), with the disposition of `M6.3`;
 6. a coach of ``coach_retirement_age_years`` retires and a successor enters (`M2.A.0k`);
@@ -32,7 +37,8 @@ The life events this produces are injected at the next week's delivery (``due_ev
 as nodal events, and grief and lost income arrive as stressors (`M1.F.6`).
 
 **Each week** (``find_work``), after the acts: a member of a household with an unresolved loss of income finds work
-with a chance set by the pressure on them (`M7.C.1k`).
+with a chance set by the pressure on them (`M7.C.1k`). After the week's record, ``note_parental_acts`` counts the
+acts each parent sent each child aged 5 to 19 (`M7.E.1f`, revision 31).
 """
 
 from __future__ import annotations
@@ -41,6 +47,7 @@ import dataclasses
 import math
 from dataclasses import dataclass, field
 
+from src.bowen.engine.act import SELF_CHANNEL
 from src.bowen.engine.beliefs import TieBelief
 from src.bowen.engine.contact import excess, initialise_contact
 from src.bowen.engine.draws import DrawKey
@@ -54,6 +61,7 @@ from src.bowen.engine.objects import (
 )
 from src.bowen.engine.outside_ness import initialise_outside_ness
 from src.bowen.engine.params import EngineParams
+from src.bowen.engine.sinks import PROJECTION_KINDS
 from src.bowen.engine.state import ActiveStressor, RunState
 from src.bowen.engine.stress_response import above_usual
 from src.bowen.engine.symptoms import release_bound
@@ -125,6 +133,8 @@ class LifeCourse:
     childhood_loads: dict[PersonId, list] = field(default_factory=dict)
     # M1.D.8a, revision 30: each child's sum of their parents' largest held rejection, and the weeks summed, until 20
     origin_exposure: dict[PersonId, list] = field(default_factory=dict)
+    # M7.E.1f, revision 31: each developing child's [all, projection-type, supportive] acts received from a parent
+    parental_acts: dict[PersonId, list] = field(default_factory=dict)
     slow_ticks: int = 0
 
 
@@ -378,11 +388,63 @@ def _childhood(state: RunState, params: EngineParams) -> list[tuple]:
             if theirs and parents_basic is not None:
                 terms.append(math.fsum(theirs) / len(theirs) - parents_basic)  # and the living parents'
             d = math.fsum(terms) / len(terms)
-            low, high = anchor * (1.0 - params.development_band), anchor * (1.0 + params.development_band)
-            person.basic_level = min(high, max(low, person.basic_level + params.development_rate * d))
+            low, high = development_band(life.parental_acts.get(pid), anchor, params)
+            # The band limits the step and never moves the level itself (the owner: "acts open room but don't push").
+            # The shares change over childhood, so a band can narrow under a level at its old bound; the level then
+            # stays unless the rule moves it back inside (learning-qa 2026-10-16).
+            level = person.basic_level
+            moved = level + params.development_rate * d
+            person.basic_level = min(max(moved, min(low, level)), max(high, level))
         if person.basic_level != before:
             rows.append((pid, "basic_level", person.basic_level - before))
     return rows
+
+
+def development_band(acts: list | None, anchor: float, params: EngineParams) -> tuple[float, float]:
+    """Purpose: how far a developing child's level may go from its anchor, opened by the parents' acts (R31.B7).
+    Spec:    docs/bowen_agent_model_spec_v2.md#M7.E.1f
+    Tests:   tests/bowen/test_life_course.py::test_m7e1f_projection_opens_room_to_fall_to_ten_percent,
+             ::test_m7e1f_support_opens_room_to_rise_to_five_percent, ::test_m7e1f_no_parental_acts_keeps_two_percent_band
+
+    ``acts`` is the child's [all, projection-type, supportive] count; with none, the band is ±``development_band``.
+    The owner, 2026-10-16: "No attention +-2%", "supportive, responsible behaviour attention - up to 5% growth",
+    "projection up to 10% negative".
+    """
+    p = s = 0.0
+    if acts:
+        total, projected, supported = acts
+        if total:
+            p, s = projected / total, supported / total
+    band = params.development_band
+    low = anchor * (1.0 - band - (params.development_band_projection - band) * p)
+    high = anchor * (1.0 + band + (params.development_band_support - band) * s)
+    return low, high
+
+
+def note_parental_acts(state: RunState, events, params: EngineParams) -> None:
+    """Purpose: after the week's record, count the acts each living parent sent each child aged 5 to 19 (revision 31).
+    Spec:    docs/bowen_agent_model_spec_v2.md#M7.E.1f
+    Tests:   tests/bowen/test_life_course.py::test_m7e1f_parental_acts_counted_from_the_acts_sent
+
+    ``events`` are the week's emitted events. A move counts once per child it is addressed to. Projection-type is the
+    child-projection sink's set (``PROJECTION_KINDS``, equal to ``config/bowen/pattern_acts.md``'s projection row);
+    supportive is a move of the self-directed channel (``config/bowen/event_kinds.md``).
+    """
+    life = state.life
+    if life is None:
+        return
+    for event in events:
+        if event.mechanism is not Mechanism.MOVE or event.sender is None:
+            continue
+        for child in event.targets:
+            parents = life.parents.get(child)
+            person = state.people.get(child)
+            if (not parents or event.sender not in parents or person is None or person.age_years is None
+                    or not params.development_start_age_years <= person.age_years < params.development_end_age_years):
+                continue
+            total, projected, supported = life.parental_acts.get(child, (0, 0, 0))
+            life.parental_acts[child] = [total + 1, projected + (event.kind in PROJECTION_KINDS),
+                                         supported + (state.kinds.channels.get(event.kind) == SELF_CHANNEL)]
 
 
 def note_origin_cutoff(state: RunState, params: EngineParams) -> None:

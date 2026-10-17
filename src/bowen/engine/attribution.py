@@ -5,7 +5,7 @@ Purpose: write, for each person, where they believe the family's difficulty lies
 Spec:    docs/bowen_agent_model_spec_v2.md#M9.6, #M9.1, #M1.A.11c, #M4.B.2
 Tests:   tests/bowen/test_attribution.py
 
-Revision 25 is Claude's recommendation, pending owner review (the owner asked for the work to proceed overnight).
+Revision 25 is Claude's recommendation, approved by the owner 2026-10-16 (the owner asked for the work to proceed overnight).
 
 **Attribution** (`M9.6`). Each move the person sent, or that was delivered to them as target or witness, names a
 locus by its kind (``EventKinds.attribution``, from ``config/bowen/attribution.md``):

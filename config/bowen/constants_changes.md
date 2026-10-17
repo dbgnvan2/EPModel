@@ -136,15 +136,15 @@
 | `soothing_review_every` | — | 12 | 2026-10-11 | — (new mechanism; spec revision 19, owner decision 2026-10-11: "is soothing helping me?") | no |
 | `soothing_review_penalty` | — | 0.5 | 2026-10-11 | — (new mechanism; spec revision 19, owner decision 2026-10-11: "is soothing helping me?") | no |
 | `usual_level_rate` | — | 0.02 | 2026-10-12 | — (new mechanism; spec revision 22, owner decision 2026-10-12: calm relative to the person) | no |
-| `constitution_strength` | — | 0.5 | 2026-10-12 | — (new mechanism; spec revision 24, B7, Claude's recommendation pending owner review: the channel prior against a family focus) | no |
-| `channel_protection` | — | 1.0 | 2026-10-12 | — (new mechanism; spec revision 24, B7, Claude's recommendation pending owner review: channels are mutually protective) | no |
-| `lock_in_gain` | — | 0.2 | 2026-10-12 | — (new mechanism; spec revision 24, B7, Claude's recommendation pending owner review: lock-in) | no |
-| `attribution_rate` | — | 0.05 | 2026-10-12 | — (new mechanism; spec revision 25, B8, Claude's recommendation pending owner review: attribution) | no |
-| `focus_rate` | — | 0.05 | 2026-10-12 | — (new mechanism; spec revision 25, B8, Claude's recommendation pending owner review: the family's focus) | no |
-| `marital_distance_fraction` | — | 0.25 | 2026-10-12 | — (new mechanism; spec revision 25, Claude's recommendation pending owner review: the marital-distance gate) | no |
-| `belief_appraisal_gain` | — | 1.0 | 2026-10-12 | — (new mechanism; spec revision 25, B8, Claude's recommendation pending owner review: appraisal reads belief) | no |
-| `pseudo_self_relaxation_rate` | — | 0.05 | 2026-10-12 | — (new mechanism; spec revision 27, Claude's recommendation pending owner review: borrowed pseudo-self settles back) | no |
-| `exchange_window` | — | 8 | 2026-10-12 | — (new mechanism; spec revision 27, Claude's recommendation pending owner review) | no |
+| `constitution_strength` | — | 0.5 | 2026-10-12 | — (new mechanism; spec revision 24, B7, Claude's recommendation, approved by the owner 2026-10-16: the channel prior against a family focus) | no |
+| `channel_protection` | — | 1.0 | 2026-10-12 | — (new mechanism; spec revision 24, B7, Claude's recommendation, approved by the owner 2026-10-16: channels are mutually protective) | no |
+| `lock_in_gain` | — | 0.2 | 2026-10-12 | — (new mechanism; spec revision 24, B7, Claude's recommendation, approved by the owner 2026-10-16: lock-in) | no |
+| `attribution_rate` | — | 0.05 | 2026-10-12 | — (new mechanism; spec revision 25, B8, Claude's recommendation, approved by the owner 2026-10-16: attribution) | no |
+| `focus_rate` | — | 0.05 | 2026-10-12 | — (new mechanism; spec revision 25, B8, Claude's recommendation, approved by the owner 2026-10-16: the family's focus) | no |
+| `marital_distance_fraction` | — | 0.25 | 2026-10-12 | — (new mechanism; spec revision 25, Claude's recommendation, approved by the owner 2026-10-16: the marital-distance gate) | no |
+| `belief_appraisal_gain` | — | 1.0 | 2026-10-12 | — (new mechanism; spec revision 25, B8, Claude's recommendation, approved by the owner 2026-10-16: appraisal reads belief) | no |
+| `pseudo_self_relaxation_rate` | — | 0.05 | 2026-10-12 | — (new mechanism; spec revision 27, Claude's recommendation, approved by the owner 2026-10-16: borrowed pseudo-self settles back) | no |
+| `exchange_window` | — | 8 | 2026-10-12 | — (new mechanism; spec revision 27, Claude's recommendation, approved by the owner 2026-10-16) | no |
 | `acting_age_years` | — | 10 | 2026-10-13 | — (new mechanism; spec revision 28, the life course, plan part II) | no |
 | `development_start_age_years` | — | 5 | 2026-10-13 | — (new mechanism; spec revision 28, the life course, plan part II) | no |
 | `development_end_age_years` | — | 20 | 2026-10-13 | — (new mechanism; spec revision 28, the life course, plan part II) | no |
@@ -182,4 +182,4 @@
 | `force_anxiety_gain` | — | 2.0 | 2026-10-14 | — (new mechanism; spec revision 30, plan §4.10, the owner's choice of 2026-10-14) | no |
 | `focus_compound_gain` | — | 2.0 | 2026-10-14 | — (new mechanism; spec revision 30, plan §4.10, the owner's choice of 2026-10-14) | no |
 | `focus_compound_gain` | 2.0 | 10.0 | 2026-10-14 | the form became a shift among the children that adds no investment: learning-qa found the first form unbounded (peak 14,000 median, 4 million max, 20 seeds, 10 years, ad hoc), a ceiling bounded it but removed the lock-in, and the owner chose "Shift, gain 10" | no |
-| `lock_in_turn` | — | 3.0 | 2026-10-12 | — (new mechanism; spec revision 24, B7, Claude's recommendation pending owner review: lock-in's turn) | no |
+| `lock_in_turn` | — | 3.0 | 2026-10-12 | — (new mechanism; spec revision 24, B7, Claude's recommendation, approved by the owner 2026-10-16: lock-in's turn) | no |

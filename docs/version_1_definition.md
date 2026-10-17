@@ -40,7 +40,7 @@ counted once per variant.
   three of four `M11.C.27` variants, two of four `M11.C.41` variants (Phase C); `M11.C.2`, `M11.C.12`, `M11.C.34`,
   `M11.C.43` (Phase D part I); `M11.C.6`, `M11.C.10`, `M11.C.2[twelve-person family]` (part II).
 - **Not built:** `M11.C.7`, `M11.C.9`, `M11.C.13`, `M11.C.28`.
-- **V4:** revisions 24–30 are pending owner review. *Updated 2026-10-16:* the owner reviewed all 85 entries (`docs/REVIEW_spec_revisions_24-30.md`) and the spec's status line says so; 3 entries were changed, to be applied by revision 31 (plan §4.11). V4 is met once revision 31 is built.
+- **V4:** revisions 24–30 are pending owner review. *Updated 2026-10-16:* the owner reviewed all 85 entries (`docs/REVIEW_spec_revisions_24-30.md`) and the spec's status line says so; 4 entries were changed (the fourth, `M7.E.1f`'s band, decided the same day), to be applied by revision 31 (plan §4.11). V4 is met once revision 31 is built.
 - **V5, V6:** met at commit `2af33db` (854 tests locally; the last CI run measured was 38763412772, at 850).
 - **Not counted here:** `M11.C.44` passed at revision 29 and fails in the Phase C record now; `M11.C.2` on the twelve-
   person family passed at revision 29. A revision can turn a passing criterion red, so a count can go down.

@@ -76,12 +76,14 @@ Plan §4.10 holds the evidence.
   (2) `build()` does not flag an `AD_HOC` entry that now has a mutant or no longer passes (only the test checks the
   first); (3) the spec's `M11.C.10` row still opens with the revision 11 and revision 29 mutation clauses, superseded by
   the later amendments but not struck (item 3 is in revision 31's plan, approved in the review 2026-10-16).
-- [x] ~~**Owner: review spec revisions 24–30**~~ *Done 2026-10-16:* all 85 entries decided in `docs/REVIEW_spec_revisions_24-30.md`, 82 approved as built, 3 changed (`M14.A` rows, `M11.C.14` option B, `M11.C.6`
-  option A). V4 is met once revision 31 applies them.
-- [ ] **Spec revision 31: apply the review** (plan `docs/implementation_plan_phase_d.md` §4.11, drafted 2026-10-16,
-  **waiting for the owner's approval**). The three changes, the text fixes on approved entries, the seven
-  inconsistencies below, and the 64 inline "pending owner review" tags for revisions 24–30 in the spec (plus the
-  explainer, `constants_changes.md` and two config files).
+- [x] ~~**Owner: review spec revisions 24–30**~~ *Done 2026-10-16:* all 85 entries decided in `docs/REVIEW_spec_revisions_24-30.md`, 81 approved as built, 4 changed (`M14.A` rows, `M11.C.14` option B, `M11.C.6`
+  option A, and `M7.E.1f`'s band: ±2% with no parental acts, to +5% with supportive acts, to −10% with projection,
+  decided the same day after Claude corrected its account of the band). V4 is met once revision 31 part B is built.
+- [ ] **Spec revision 31 part B** (plan `docs/implementation_plan_phase_d.md` §4.11; plan approved 2026-10-16, part A
+  built 2026-10-16). **Batch with the V2 premise fixes** (`M11.C.21`, `M11.C.23`, `M11.C.40`; owner, 2026-10-16) so every
+  record regenerates once: R31.B1–B6 (the `symptoms.py` docstring, the criteria settings' grades, the config headers and
+  record renderer's "pending owner review", `M11.C.14` restated with its mutation) and **R31.B7, `M7.E.1f`'s band
+  opened by the parents' acts, whose form waits for the owner's approval** (the share form and its known weakness).
 - [ ] **Seven inconsistencies in the spec found while drafting the review form** (listed in
   `docs/REVIEW_spec_revisions_24-30.md`, "Inconsistencies found while drafting"): `channel_focus` "from belief" (line
   1630) against `M1.A.11c`; `tolerance` Family field (line 1679) against per person (`M7.D.4`); `TRIANGLE`'s channel in

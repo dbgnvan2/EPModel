@@ -439,7 +439,7 @@ That is the fixture test 15 needs: two counterfeits at **equal magnitude of the 
 >
 > ⚠ **The lock-in curve turns over, and this amends the above.** As stated, the stabilising effect grows without limit, so a severe enough symptom would be maximally stabilising. Three independent statements say otherwise: past a severity threshold the symptom **destabilises** the very configuration it was holding up, and removal then brings relief rather than resistance. **That is what reconciles resistance-to-removal with relief-on-removal** — they are the same curve on either side of the turn, not two mechanisms. `[T]` `FE03.9`, `FE07.15`; `M7.D.2d`. Test 22 must assert **both limbs**; a test written only on the rising limb passes a monotone implementation.
 
-**How it is built (Phase D B7, spec revision 24, 2026-10-12; Claude's recommendation, pending owner review).**
+**How it is built (Phase D B7, spec revision 24, 2026-10-12; Claude's recommendation, approved by the owner 2026-10-16).**
 - **What feeds a symptom** `[I]`: the excess above the person's own usual level, not above the chronic floor
   (`M4.C.3a`, amended). Measured above the floor, the family's own traffic held everyone 15–35 points up, so every
   person carried an active symptom from the first weeks of every run. It is still time above a floor, not peak.
@@ -555,7 +555,7 @@ Feeds the standing load (§7.2) every tick whether or not anything happened.
 - **The assignment hardens with time in configuration.** `[M]` Ch05, Ch12 · L05.3, L12.1.
 - **Reversal is direction-asymmetric:** far easier to tone down a "marked" overfunctioner than to raise a "marked" dysfunctioner. `[D]` Ch12 · L12.1 — and note Bowen explicitly withholds the reason. The organ analogy grounds the *duration* hysteresis, not this.
 
-**Revision 27 (2026-10-12; Claude's recommendation, pending owner review): a borrowed rise settles back.** When a pair
+**Revision 27 (2026-10-12; Claude's recommendation, approved by the owner 2026-10-16): a borrowed rise settles back.** When a pair
 who have over- and under-functioned for each other stop for eight weeks, what the one taking charge borrowed moves
 back to the other a little each week, conserved `[I]`. Pseudo-self does not move between people who never exchanged. Dissolve a discrepant pair and the discrepancy reverses (`M11.C.24`, the whisper of
 nature, passes ad hoc).
@@ -957,7 +957,7 @@ These are asserted every tick. They are what makes the engine a model of *this* 
 
 > **No per-generation decline rate exists.** `[T]` Ch16 · L16.3 — the rate is **stochastic**: fast for a few generations, static for one or two, then fast again, and reversible at both extremes. A "≈15 points per generation" constant was manufactured from a schematic whose steps are −15, −15, −10, −5, dropping Bowen's own cap sentence ("in the average situation the immaturity would progress at a much slower rate").
 
-### 8.1 The life course *(spec revision 28, built 2026-10-13: the owner's decisions of 2026-10-13, P13–P15; the forms are Claude's recommendation, pending owner review)*
+### 8.1 The life course *(spec revision 28, built 2026-10-13: the owner's decisions of 2026-10-13, P13–P15; the forms are Claude's recommendation, approved by the owner 2026-10-16)*
 
 **What it is for.** Generational criteria (`M11.C.6`, `.10`, `.15`, `.37`) need people to be born, grow up, leave,
 pair and die inside a run. Everything below runs on the slow tick (`src/bowen/engine/life_course.py`), and only for a
@@ -974,8 +974,12 @@ project decisions, not corpus findings, and must never be cited as Bowen's.
 - **A child's basic level** is held at their parents' mean until 5, anchored there, and from 5 to 20 moved each year
   by half the parents' and half the child's own functioning above basic, within ±2% of the anchor (`M7.E.1f`; the
   owner: "level × .02"). Nothing names which child falls: the child whose own functioning the family pushes down
-  ends lower. **Consequence:** ten generations can fall at most about 18 points from the top, so `M11.C.6`'s "eight
-  to ten generations" from the top of the scale to the bottom cannot be met under this band — an open owner decision.
+  ends lower. **Consequence:** ten generations could fall at most about 18 points from the top under ±2%. *Revision 31
+  (the owner, 2026-10-16):* the band opens with the parents' acts toward the child — ±2% with none, room to rise to +5%
+  with supportive acts, room to fall to −10% with projection (built in revision 31 part B). Ten generations can then fall
+  at most from 100 to about 35, so `M11.C.6`'s "eight to ten generations" (`KS11.1`, `FE08.2`) is restated and
+  `[X]` contested; a quantum jump of ~10 points a generation (`FE08.1`) is reachable only near the top of the scale, and
+  a 5–10-point step (`FE07.7`) only for parents at level 50 or above.
 - **Launch, partners, births.** A child leaves home at 20, supporting themselves (`M7.C.1g`, `[I]`). Partners come
   from a settings file, never from the engine (`config/bowen/partners_phase_d.md`; `M7.C.1h`): their level is drawn
   within ±1 of the member's (`M2.A.0e`), the couple forms a household and a family with its own budget, and the new
@@ -995,7 +999,7 @@ project decisions, not corpus findings, and must never be cited as Bowen's.
 **What is not built:** pairs that fail to form (`M2.A.0f`), divorce, a child moving back home, the redistribution
 moving `expectations` against `investment` (`M7.C.1b`), and the projection line in `M11.G`'s readout.
 
-### 8.2 Cutoff and focus *(spec revision 29, built 2026-10-14: the owner's decisions of 2026-10-13; the forms are Claude's recommendation, pending owner review)*
+### 8.2 Cutoff and focus *(spec revision 29, built 2026-10-14: the owner's decisions of 2026-10-13; the forms are Claude's recommendation, approved by the owner 2026-10-16)*
 
 **What it is for.** The diagnosis of 2026-10-13 (plan §4.7) found that `M11.C.10`'s chain had no link from a parent's
 cutoff to a child's, and that the parents spread their projection-type acts evenly over the children. Every value
@@ -1026,7 +1030,7 @@ below is `[I]`; none is a corpus magnitude.
   steering off: no measurable effect on this family over two years.
 
 
-### 8.3 Origin cutoff, danger, force and focus that locks in *(spec revision 30, 2026-10-14: the owner's decisions of 2026-10-14; the forms are Claude's recommendation, pending owner review)*
+### 8.3 Origin cutoff, danger, force and focus that locks in *(spec revision 30, 2026-10-14: the owner's decisions of 2026-10-14; the forms are Claude's recommendation, approved by the owner 2026-10-16)*
 
 **What it is for.** After revision 29, `M11.C.10` still failed. The diagnosis (plan §4.9) found that nothing let a
 parent's cutoff make a child more likely to cut off. The owner then asked for danger and a cutoff chosen for safety,
@@ -1117,7 +1121,7 @@ Three separate findings that all constrain how an event resolves:
 
 > A research instrument that reads out what *happened* while the family acts on what it *believes* is missing the mechanism.
 
-**How it is built (Phase D B8, spec revision 25, 2026-10-12; Claude's recommendation, pending owner review).**
+**How it is built (Phase D B8, spec revision 25, 2026-10-12; Claude's recommendation, approved by the owner 2026-10-16).**
 - **Where the difficulty lies** `[I]`: each person holds a weight per family member, written from the moves they
   sent, received or watched. Each act places it somewhere by its kind (`config/bowen/attribution.md`): a conflict with
   the other side, taking over with the one taken care of, giving way with the one who gives way. "Each says the
@@ -1131,7 +1135,9 @@ Three separate findings that all constrain how an event resolves:
   blame conduct. `M1.A.11c`
 - **Marital distance blocks improvement** `[I]`: while both spouses' felt contact on their tie is below a quarter of
   what they want, nothing addressed to a symptomatic child of theirs lowers the child's anxiety. `M5.C.1`.
-  `M11.C.14`'s null still fails: firmness keeps impinging, and talking it out calms once the symptom ends.
+  `M11.C.14`'s null failed: firmness keeps impinging, and talking it out calms once the symptom ends. The owner
+  restated it at revision 31 (2026-10-16): no technique may *lower* the child's load against a no-technique arm; the
+  difference between techniques is reported. The gate blocks help, not harm (built in revision 31 part B).
 
 ---
 
@@ -1429,7 +1435,7 @@ The corpus almost never gives numbers, so the ones it does give are listed toget
 | Per-generation step, consequential | **5–10 points** | `[K]` `FE07.7` |
 | Parent-to-child bound | **never 30 points** | `[K]` `FE07.7` |
 | Quantum jump | ~**10 points/generation over two**, under three conjunctive conditions | `[K]` `FE08.1` |
-| Full traversal | 3 generations (quantum jump) to 5–10 (typical), **symmetric in both directions** | `[K]` `FE08.2` |
+| Full traversal | 3 generations (quantum jump) to 5–10 (typical), **symmetric in both directions** | `[K]` `FE08.2`; `[X]` contested against the owner's band (`M7.E.1f`, revision 31: about 100 to 35 in ten generations at most) |
 | Generation length | ~**25 years** | `[K]` `FE08.2` |
 | Sibling-position decay | ≥ **5-year** gap reduces predictability | `[K]` `FE10.7` |
 | Treatability floor | **upper two-thirds of the schizophrenic range** | **`[B]`** `FE11.10` |
@@ -1879,7 +1885,7 @@ The automatic channel learns from felt relief over a short horizon. The form app
 - **What is credited.** Each automatic act a person sends is credited for three weeks with how their
   own anxiety changed, plus half the average change of the person they addressed and anyone who
   watched. The cross-person part is how calming another person can teach an act (`FE07.4`). *Revision 26
-  (2026-10-12; Claude's recommendation, pending owner review):* that average is weighted by how strong the actor's tie
+  (2026-10-12; Claude's recommendation, approved by the owner 2026-10-16):* that average is weighted by how strong the actor's tie
   to each of them is, so a parent's calming counts for more than a witness's. Measured, `M11.C.2` fails: the child who
   received the most projection-type acts early carries no more symptom load later.
 - **Discounting and the horizon.** Later weeks count less. Nothing after the third week reaches the

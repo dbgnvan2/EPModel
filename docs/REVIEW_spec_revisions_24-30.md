@@ -1,6 +1,6 @@
 # Review form: spec revisions 24–30
 
-**Status: REVIEWED BY THE OWNER 2026-10-16.** All 85 entries decided, in chat, revision by revision, on Claude's recommendations: 82 approved as built, 3 changed (revision 24 `M14.A` register rows; revision 25 `M11.C.14`, option B; revision 28 `M11.C.6`, option A). Revision 28 was decided by the owner's "continue to finish the review process", read as "as recommended"; the entries say so. The changes, the text fixes noted on approved entries and the inconsistencies below go into spec revision 31 (`docs/implementation_plan_phase_d.md` §4.11), which waits for the owner's approval of its plan. *Drafted as:* FOR OWNER REVIEW, 2026-10-15. Under the version 1 definition
+**Status: REVIEWED BY THE OWNER 2026-10-16.** All 85 entries decided, in chat, revision by revision, on Claude's recommendations: 81 approved as built, 4 changed (revision 24 `M14.A` register rows; revision 25 `M11.C.14`, option B; revision 28 `M11.C.6`, option A, and `M7.E.1f`'s band, decided after the review). Revision 28 was decided by the owner's "continue to finish the review process", read as "as recommended"; the entries say so. The changes, the text fixes noted on approved entries and the inconsistencies below go into spec revision 31 (`docs/implementation_plan_phase_d.md` §4.11), which waits for the owner's approval of its plan. *Drafted as:* FOR OWNER REVIEW, 2026-10-15. Under the version 1 definition
 (`docs/version_1_definition.md`, condition V4 and question 6), the owner's review of revisions 24–30 is a condition of
 version 1.
 
@@ -490,7 +490,7 @@ The clauses `M6.3a`–`M6.3i` carry no tag of their own except `M6.3b`; the line
 - Constants: `development_start_age_years` = 5 [I], `development_end_age_years` = 20 [I], `development_band` = 0.02 [I] (the owner's values), `development_rate` = 0.1 [I] (`constants.md` lines 159–162).
 - Effect measured: basic level at 20 was 39.31, 39.33, 39.35 for the three children (ad hoc diagnosis, 20 seeds; plan line 1256). See `M11.C.6`.
 - **Owner decision still open** (plan §4.5, line 1154): which changes, the band or limit (a). Default built: neither; (a) reported as failing by construction.
-- [x] Approve  [ ] Change: ____  [ ] Reject — owner 2026-10-16 ("continue to finish the review process", read as: as recommended); option A: the ±2% band stays, and `M11.C.6` limit (a) is restated (see `M11.C.6`)
+- [ ] Approve  [x] Change: the band opens with the parents' acts toward the child — "No attention +-2%"; "supportive, responsible behaviour attention - up to 5% growth"; "projection up to 10% negative" (owner 2026-10-16, decided after the review, when Claude reported that ±2% also ruled out `FE07.7`'s 5–10-point step and `FE08.1`'s quantum jump; the first reading of revision 28 had kept ±2%). Form in plan §4.11, R31.B7  [ ] Reject
 
 #### Criteria and readouts
 

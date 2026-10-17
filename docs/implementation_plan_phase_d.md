@@ -989,7 +989,7 @@ a config default.
   reaches half the level. The coached people then have fewer self-directed weeks (0.31 against 0.43) and the
   estimator's evidence never turns positive: 3 of 40 coached people risen by year 10, against 16.
 - Revision 24 accounts for about three quarters of the fall; revisions 25–27 (chiefly 27's settling back) for the rest.
-- **For the owner:** whether "pain is necessary" should read an active symptom as it does, or the person's load above
+- *Decided 2026-10-16 (review of revisions 24–30): it keeps reading an active symptom.* Was, for the owner: whether "pain is necessary" should read an active symptom as it does, or the person's load above
   their usual level (as the stress response does since revision 22). Nothing has been changed.
 
 **Every Phase D criterion on the final code of revision 27** (`final25.out`, 2026-10-12; ad hoc):
@@ -1480,7 +1480,7 @@ of physical danger; `M5.F.1`'s "assault" is an intrusive move, not violence. Pro
 | 6 | A scripted act toward a dead target labelled "dead", not "not legal" | build |
 | 7 | Range checks on the revision 28 life-course constants | build |
 | 8 | `acts_per_year` for a child who dies young; `_pick` counting the children it drops | build |
-| 9 | Focus steering's size (`focus_steer_gain` 1.0 has no measurable effect in Phase C) | owner decision |
+| 9 | Focus steering's size (`focus_steer_gain` 1.0 has no measurable effect in Phase C) | *decided 2026-10-16 (review of revisions 24–30): stays at 1* |
 | 10 | Part II owner points: Marta–Iris, Teodor's level 36, `M11.C.17`'s gate, the plan §4.5 defaults | owner decisions |
 
 Items 5 to 8 change the engine hash, so they are batched with 1 and 2 before one regeneration.
@@ -1611,10 +1611,13 @@ repo), unless they come from a record.
 
 ### 4.11 Revision 31: apply the owner's review of revisions 24–30 — plan, 2026-10-16
 
-> **Status: DRAFT, for the owner's approval. Nothing below is built.** The review is
-> `docs/REVIEW_spec_revisions_24-30.md` (all 85 entries decided 2026-10-16: 82 approved as built, 3 changed). This
-> plan applies the 3 changes, the text fixes recorded on approved entries, the seven inconsistencies the form lists,
-> and the tags. It adds no mechanism and changes no constant.
+> **Status: approved by the owner 2026-10-16 ("I approve revision 31's plan. Build part A now, and batch part B with
+> the V2 premise fixes"). Part A built 2026-10-16; part B not built, batched with the V2 premise fixes. R31.B7 was added
+> 2026-10-16 after approval, from the owner's decision on the band; its form waits for the owner's approval.** The review is
+> `docs/REVIEW_spec_revisions_24-30.md` (all 85 entries decided 2026-10-16: 82 approved as built, 3 changed; then
+> `M7.E.1f`'s band, changed by the owner the same day, R31.B7). This plan applies the changes, the text fixes recorded
+> on approved entries, the seven inconsistencies the form lists, and the tags. Apart from R31.B7 it adds no mechanism
+> and changes no constant.
 
 **Why two parts.** The records' hash (`tools/ensemble_record.py::code_hash`) covers every file under `src/bowen/` and
 `config/bowen/` except `constants_changes.md`. A one-line docstring fix there makes every ensemble, mutation and
@@ -1637,7 +1640,7 @@ band (the form records the reading). Revisions 29 and 30: "as recommended".
 |---|---|---|---|
 | R31.A1 | `channel_focus`'s register row says it is written from the moves delivered (engine-side attention), not "from belief" (inconsistency 1) | spec `M14.A`, line 1630 | `tests/test_review_rev31.py::test_r31a1_channel_focus_row_not_from_belief` |
 | R31.A2 | `tolerance`'s register row says Family, one declared value per member (inconsistency 2) | spec `M14.A`, line 1679 | `test_r31a2_tolerance_row_per_member` |
-| R31.A3 | `M11.C.6` limit (a) restated (option A): keep "**MUST NOT** complete in one or two generations"; drop "**MUST** be achievable within roughly ten". `M7.E.1f`'s "open conflict" sentence records the decision. The explainer marks the traversal claim (`KS11.1` and `FE08.2`, both `[K]`) `[X]` contested against the owner's ±2% band, at §8.1's consequence line (977) and the scale table (1432) | spec `M11.C.6`, `M7.E.1f`; `model_explainer.md` | `test_r31a3_c6_limit_a_restated`, `test_r31a3_explainer_marks_traversal_contested` |
+| R31.A3 | `M11.C.6` limit (a) restated (option A): keep "**MUST NOT** complete in one or two generations"; drop "**MUST** be achievable within roughly ten". `M7.E.1f`'s "open conflict" sentence records the owner's decision of 2026-10-16, made after the review on the corrected account (the band also ruled out `FE07.7`'s 5–10-point step and `FE08.1`'s quantum jump): the band opens with the parents' acts toward the child, ±2% with none, to +5% with supportive acts, to −10% with projection (built as R31.B7). The explainer marks the traversal span (`KS11.1`, `FE08.2`) `[X]` contested and states what the new band allows | spec `M11.C.6`, `M7.E.1f`; `model_explainer.md` | `test_r31a3_c6_limit_a_restated`, `test_r31a3_explainer_marks_traversal_contested` |
 | R31.A4 | `M11.C.14` restated (option B): under high marital distance, **no technique lowers the child's symptom load against a no-technique arm**; the difference between techniques is reported, not tested. `M11.4`'s exceptions row for `M11.C.14` changes from a two-sided null to a one-sided bound. Its mutation clause: the marital-distance gate removed **MUST** turn at least one technique variant red | spec `M11.C.14` row, `M11.4` table; explainer line 1134 | `test_r31a4_c14_row_restated` (text); the criterion itself in part B |
 | R31.A5 | `M4.D.6f`'s gap sentence updated: since `M1.B.3e`, a chosen cutoff toward a person felt as dangerous is principled in proportion, so the gap is narrower than stated | spec `M4.D.6f` | `test_r31a5_m4d6f_gap_mentions_felt_danger` |
 | R31.A6 | `M7.E.1c` records the owner's decision (plan §4.8): the other four situations are not applied at `t0` (inconsistency 4) | spec `M7.E.1c` | `test_r31a6_m7e1c_not_open` |
@@ -1660,6 +1663,7 @@ draft above stays as the draft it was.
 | R31.B3 | "pending owner review" in the headers of `attribution.md` and `criteria.md`, and in the record renderer's reworded line (`tools/phase_d_record.py`, `REWORDED`, `REWORDED_2`), updated | config, tool | `test_r31a9_no_pending_review_tags_for_rev24_30` extended to these files |
 | R31.B4 | `M11.C.14` as restated: two variants, `M11.C.14[firmness]` and `M11.C.14[talking it out]`. Each baseline is the same fixture with no scripted technique (the parents under their own policy); each treatment adds the technique. Readout `child_symptom_load`, one-sided: the variant passes if the interval's lower end lies above −(the equivalence bound). The former firmness-against-talking comparison is kept as a report-only row. The runner gains a one-sided bound mode for a `Readout` | `src/bowen/ensemble/criteria_d.py`, `src/bowen/ensemble/runner.py` | `tests/bowen/test_phase_d_criteria.py::test_m11c14_no_technique_lowers_load_under_marital_distance` (gate); adversarial unit test `tests/bowen/test_ensemble.py::test_m11c14_one_sided_bound_fails_when_interval_reaches_below` (an interval whose mean is inside but whose lower end crosses the bound must fail) |
 | R31.B5 | `M11.C.14`'s mutation: the gate removed must turn at least one variant red. Added to `docs/phase_d_mutation_record.md` | `tools/phase_d_mutation_record.py` | the record's `test_m111d_*` tests |
+| R31.B7 | **`M7.E.1f`'s band opens with the parents' acts** (the owner, 2026-10-16: "No attention +-2%"; "supportive, responsible behaviour attention - up to 5% growth"; "projection up to 10% negative"). *Form, Claude's recommendation for the owner's approval:* from 5 to 20, count the acts either parent sends the child: projection-type (`OVERFUNCTION`, `PURSUE`, `TRIANGLE`, the `projection` set of `config/bowen/pattern_acts.md`) and supportive (the self-directed channel's moves addressed to the child: `STAY-IN-CONTACT`, `I-POSITION`, `DETRIANGLE`, `PREVENT_ALIGNMENT`, `REDUCE_CUTOFF`, `PROVOKE`, from `config/bowen/event_kinds.md`). With `p` and `s` the shares of all parental acts to the child so far that were projection and supportive (0 when there were none), the yearly clip becomes `a × (1 − 0.02 − 0.08 p)` to `a × (1 + 0.02 + 0.03 s)`. The development rule itself (`development_rate × d`) is unchanged: the acts open room, they do not push. Two new constants, the owner's values, `[I]`: `development_band_projection` 0.10 and `development_band_support` 0.05; `development_band` 0.02 stays as the no-attention band. **Known weakness of the share form:** a child who receives few acts, all projection, gets the full −10% room; an alternative weights the shares by the child's share of the parents' acts to all their children. Changes every run in which a child develops (part II: `M11.C.6`, `M11.C.2[twelve-person family]`, `M11.C.10`) | `src/bowen/engine/life_course.py` (development), `config/bowen/constants.md`, `constants_changes.md` | `tests/bowen/test_life_course.py::test_m7e1f_no_parental_acts_keeps_two_percent_band`, `::test_m7e1f_projection_opens_room_to_fall_to_ten_percent`, `::test_m7e1f_support_opens_room_to_rise_to_five_percent`; adversarial: `::test_m7e1f_acts_open_room_but_do_not_push` (a child who receives only projection acts, while the parents function above basic, does not fall) |
 | R31.B6 | Every record regenerated once, after part B and the batched premise fixes | `tools/phase_d_record.py --part 1/2`, `tools/ensemble_record.py`, the mutation records | the record-current tests |
 
 **Risk stated before the build.** If the gate-removed mutant does not turn either `M11.C.14` variant red (that is,

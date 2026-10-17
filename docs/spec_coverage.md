@@ -587,7 +587,7 @@ mutant has turned each entry red in `docs/phase_c_mutation_record.md`; the D9 sw
 | M17.G.2 | not done | — | Phase E |
 | M17.G.3 | not done | — | Phase E |
 
-## Tests named for no spec ID (113)
+## Tests named for no spec ID (127)
 
 Their names embed no requirement ID, so they count only where an override cites them (marked *cited*). The rest check spec documents, tooling or helpers.
 
@@ -657,6 +657,20 @@ Their names embed no requirement ID, so they count only where an override cites 
 - `tests/bowen/test_script.py::test_m13_without_removes_one_kind_only`
 - `tests/test_doc_checklist.py::test_every_checklist_link_exists`
 - `tests/test_doc_checklist.py::test_every_document_is_in_the_checklist`
+- `tests/test_review_rev31.py::test_r31a10_launch_age_approved`
+- `tests/test_review_rev31.py::test_r31a11_plan_closes_the_two_owner_questions`
+- `tests/test_review_rev31.py::test_r31a12_spec_status_names_revision_31`
+- `tests/test_review_rev31.py::test_r31a1_channel_focus_row_not_from_belief`
+- `tests/test_review_rev31.py::test_r31a2_tolerance_row_per_member`
+- `tests/test_review_rev31.py::test_r31a3_c6_limit_a_restated`
+- `tests/test_review_rev31.py::test_r31a3_explainer_marks_traversal_contested`
+- `tests/test_review_rev31.py::test_r31a4_c14_row_restated`
+- `tests/test_review_rev31.py::test_r31a5_m4d6f_gap_mentions_felt_danger`
+- `tests/test_review_rev31.py::test_r31a6_m7e1c_not_open`
+- `tests/test_review_rev31.py::test_r31a7_c10_superseded_clauses_struck`
+- `tests/test_review_rev31.py::test_r31a8_c2_settings_not_to_be_added`
+- `tests/test_review_rev31.py::test_r31a9_no_pending_review_tags_for_rev24_30`
+- `tests/test_review_rev31.py::test_r31a9_tag_check_catches_a_pending_tag`
 - `tests/test_simulator.py::test_birth_candidate_priority_order`
 - `tests/test_simulator.py::test_birth_child_c_is_clamped_to_80`
 - `tests/test_simulator.py::test_birth_replaces_identity_in_reused_slot`

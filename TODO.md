@@ -215,12 +215,12 @@ Plan §4.7 and `docs/phase_d2_status_2026-10-13.md` hold the evidence.
   appraisal, the family-focus writer, the marital-distance gate, the tie-weighted cross-person term, and borrowed
   pseudo-self settling back. All Claude's recommendations, made overnight at the owner's request.
 - [ ] **After revision 31 part B (2026-10-16), for the owner** (plan §4.11 holds the evidence):
-  - **Keep or revert `M6.I.4`'s capacity rule.** It did nothing for `M11.C.21` (+0.15 ± 0.19; +0.24 ± 1.36 without it),
+  - ~~**Keep or revert `M6.I.4`'s capacity rule.**~~ *Decided 2026-10-17: kept; `M11.C.22`'s failure accepted for now.* It did nothing for `M11.C.21` (+0.15 ± 0.19; +0.24 ± 1.36 without it),
     made the twelve-person `M11.C.2` pass (+3.14 ± 1.7, proved red by removing weakness focus and steering), and turned
     the premise `M11.C.22` (mild limb) and the composite `M11.C.17` red. With the rule removed each gives its earlier
     number exactly. Kept overnight as the owner's decision; reverting costs one regeneration (about 2.5 hours).
-  - **`M11.C.21`:** recommended reclassified as a composite and accepted as a finding (Claude, overnight, pending
-    review). The class is hashed code, so apply it with the next code change.
+  - **`M11.C.21`: apply the reclassification with the next code change** (owner, 2026-10-17: composite, failure
+    accepted as a finding). The class is hashed code; fold it in with the `criteria.md` header and the `span == 0` fix.
   - **`M11.C.14`'s mutation clause is not met:** the gate-removed mutant survives both variants; the gate blocks about a
     point of relief per run in this fixture, and calmer parents (up to 30 points) did not change that.
   - **Config prose waiting for the next hash move:** `config/bowen/criteria.md`'s header does not yet describe

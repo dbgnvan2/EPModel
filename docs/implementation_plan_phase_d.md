@@ -1827,6 +1827,8 @@ counts):
     record;
   - `bound_side = −1` has no caller and no test.
 
+**The owner's decision on the capacity rule, 2026-10-17** (the owner, 2026-10-17: "Keep the capacity rule. Accept M11.C.22 failing for now and apply M11.C.21's reclassification at the next code change"). The rule stays; `M11.C.22`'s failure is accepted for now; `M11.C.21` becomes a composite with its failure accepted as a finding, applied in the code with the next code change.
+
 **Nothing has been changed to make any criterion pass.** Once the owner has decided, the decisions are built and the
 records regenerate once (R31.B6; estimate in the status line of this section when started).
 

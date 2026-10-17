@@ -60,9 +60,9 @@ Every record regenerated once, after revision 31 part B and the owner's decision
   capacity rule (mild limb +0.57 ± 0.87; with the rule removed it passes exactly as before). Resolved: `M11.C.14`
   passes as restated (its mutation clause is not met: the gate-removed mutant survives); `M11.C.40` passes (clause 2
   reported, proved by a unit test); `M11.C.23` is a composite now, its failure accepted as a finding (the owner,
-  2026-10-16). *Recommended, pending the owner's review:* `M11.C.21` reclassified as a composite and accepted as a
-  finding; and a decision whether to keep the capacity rule, which made the twelve-person `M11.C.2` pass and turned
-  `M11.C.22` and `M11.C.17` red.
+  2026-10-16). *Decided 2026-10-17:* the capacity rule is kept and `M11.C.22`'s failure accepted for now; `M11.C.21`
+  becomes a composite with its failure accepted as a finding (in the code at the next code change). That leaves four
+  failing premises once applied: `M11.C.4`, `M11.C.29`, `M11.C.32` and `M11.C.22`.
 - **Failing composites and mixed (V1):** as in §2, less `M11.C.2[twelve-person family]` (now passes, proved red by
   removing focus on a child's weakness and focus steering), plus `M11.C.17` (turned red by the capacity rule) and
   `M11.C.23` (accepted as a finding).

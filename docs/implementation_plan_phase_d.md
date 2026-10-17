@@ -1829,6 +1829,14 @@ counts):
 
 **The owner's decision on the capacity rule, 2026-10-17** (the owner, 2026-10-17: "Keep the capacity rule. Accept M11.C.22 failing for now and apply M11.C.21's reclassification at the next code change"). The rule stays; `M11.C.22`'s failure is accepted for now; `M11.C.21` becomes a composite with its failure accepted as a finding, applied in the code with the next code change.
 
+**Applied 2026-10-17, with one regeneration.** Three hashed changes went in together: `M11.C.21`'s class in
+`src/bowen/ensemble/criteria_d.py`; `config/bowen/criteria.md`'s header, which now describes `M11.C.14`'s hold-back
+baseline and `M11.C.21`'s `act_every` arm; and the capacity rule at no span (basic level 0, or
+`stress_floor_below_basic` 0), where a taker exactly at basic now takes in full, as the rule says
+(`tests/bowen/test_moves.py::test_m6i4_a_taker_at_basic_zero_takes_in_full`,
+`::test_m6i4_with_no_floor_below_basic_a_taker_below_basic_takes_nothing`; both red on the old code). Every record
+regenerated once.
+
 **Nothing has been changed to make any criterion pass.** Once the owner has decided, the decisions are built and the
 records regenerate once (R31.B6; estimate in the status line of this section when started).
 

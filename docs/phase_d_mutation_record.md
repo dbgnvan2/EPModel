@@ -7,7 +7,7 @@ passes; a red mutant is **reversed** when every gating readout's interval lies w
 direction (`M11.1d`). Phase D's other mutation runs are ad hoc and reported in
 `docs/implementation_plan_phase_d.md`.
 
-engine_hash: 2015619922859f19a8f17200cfe76afb958fbe29c435de854e677305e7b98de2
+engine_hash: 8a823391e149e3822434bfd826f2e04d147f3e2a8f9f6c8e663bc7d5d68e7385
 
 | Mutant | Kind | What it changes | Criterion | Verdict under mutant | Seeds | Difference under mutant | Result |
 |---|---|---|---|---|---|---|---|

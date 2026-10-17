@@ -726,7 +726,8 @@ CRITERIA_D.update({
                   settings=SETTINGS["M11.C.43"]),
     "M11.C.34": C("M11.C.34", "mixed", ("baseline", "treatment"), (Readout("automatic_reaction", -1),), arm_c34,
                   settings=SETTINGS["M11.C.34"]),
-    "M11.C.21": C("M11.C.21", "premise", ("baseline", "treatment"), (Readout("target_rise", +1),), arm_c21,
+    # Reclassified as a composite (the owner, 2026-10-17): its failure is accepted as a finding (M11.5).
+    "M11.C.21": C("M11.C.21", "composite", ("baseline", "treatment"), (Readout("target_rise", +1),), arm_c21,
                   settings=SETTINGS["M11.C.21"]),
     # Reclassified as a composite (the owner, 2026-10-16): it compares the sizes of two mechanisms (M11.5).
     "M11.C.23": C("M11.C.23", "composite", ("baseline", "treatment"), (Readout("relapses", +1),), arm_c23,

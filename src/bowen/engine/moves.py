@@ -266,7 +266,9 @@ def functioning_shift(state: RunState, event: Event, tie: Relationship, target: 
     Spec:    docs/bowen_agent_model_spec_v2.md#M1.B.5, #M1.B.6, #M1.B.7, #M6.I.4
     Tests:   tests/bowen/test_moves.py::test_m1b6_flip_is_relative_and_immediate,
              tests/bowen/test_moves.py::test_m1b5_holding_a_position_stops_the_exchange_both_ways,
-             tests/bowen/test_moves.py::test_m6i4_collapsed_taker_takes_in_proportion_to_room
+             tests/bowen/test_moves.py::test_m6i4_collapsed_taker_takes_in_proportion_to_room,
+             tests/bowen/test_moves.py::test_m6i4_a_taker_at_basic_zero_takes_in_full,
+             tests/bowen/test_moves.py::test_m6i4_with_no_floor_below_basic_a_taker_below_basic_takes_nothing
     """
     # Revision 21 (owner decision 2026-10-12): the exchange takes two. A person holding a position toward the sender
     # neither gives way to being taken over nor takes over for someone who under-functions toward them.
@@ -290,11 +292,12 @@ def functioning_shift(state: RunState, event: Event, tie: Relationship, target: 
     # stress_floor_below_basic, the same floor stress has (M1.A.5e); without it 2 of 20 runs still ran away.
     # Revision 31 (`M11.C.21`, the owner's form 2026-10-16): what the over-functioner takes is scaled by their own room
     # above the stress floor, full at or above basic, none at the floor; the mirror of the giver's floor, made gradual.
-    # The floor is clamped at 0, as the giver's and stress's are (learning-qa 2026-10-16).
+    # The floor is clamped at 0, as the giver's and stress's are (learning-qa 2026-10-16). With no span (basic level 0,
+    # or no floor below basic) the floor is basic itself, and a taker at it takes in full (fix-loop re-sweep 2026-10-16).
     floor_level = max(0.0, taker.basic_level - params.stress_floor_below_basic)
     span = taker.basic_level - floor_level
     room = taker.functional_level - floor_level
-    capacity = min(1.0, max(0.0, room / span)) if span > 0 else float(room > 0)
+    capacity = min(1.0, max(0.0, room / span)) if span > 0 else float(room >= 0)
     amount = min(
         capacity * params.pseudo_self_transfer_gain * _strength(event, params),
         max(0.0, giver.functional_level - max(0.0, giver.basic_level - params.stress_floor_below_basic)),

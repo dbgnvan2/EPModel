@@ -9,7 +9,7 @@ the mutation record's **reversed**, which needs every gating interval wholly on 
 readout reported beside the verdict and never tested is marked *(report only)*. Plan D9's fourth
 constant, each criterion's dominant constant, is not swept: plan §3 names none.
 
-engine_hash: ce6ba44a6ec268200e1b115abf7787ff48f78ac5dbe8e6c13c398460f0961517
+engine_hash: 83c37ce608267d91c134344d28ce5f1175dd53e7c6450a7bc3ab9d267f1ca683
 
 Results are cached by `tools/mutant_runner.py` (`docs/records_cache/sweep.json`); this file is rendered
 from that cache.

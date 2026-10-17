@@ -5,7 +5,7 @@ seeds (`M3.D.4a`), stopped adaptively (`M17.A.1`, `M13.4`): `UNDETERMINED` at th
 pass. Every verdict carries its class (`M11.5`). **A premise passing confirms that the code renders the
 spec; it is not a finding about families.** Spec revisions 24–27 are Claude's recommendations, approved by the owner 2026-10-16 (revision 31).
 
-code_hash: ede06c1d54e256cf12f74489cf81383d7045f07c575e29cc1e8010618baa8a85
+code_hash: 79f44b926c987803e6d62dfa0615cbfadbd319fd4599c2218c37db72746cb871
 
 Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25, `ensemble_margin` = 0.1, `ensemble_alpha` = 0.05, `fallback_flag_rate` = 0.2, `equivalence_margin` = 0.5.
 
@@ -29,7 +29,7 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
 | `M11.C.40` | premise | **PASS** | 100 | `automatic_entropy_fall` +0.0397 ± 0.0072, p 6.55e-14, holds; `automatic_less_self` +0.017 ± 0.049 (reported only); `self_entropy_fall` +0.0226 ± 0.049 (reported only); `empty_windows` +0 ± 0 (reported only) | — | 0.00 | — |
 | `M11.C.43` | composite | **FAIL** | 150 | `loss_rise` -0.411 ± 1.1, p 0.674, does not hold | — | 0.00 | — |
 | `M11.C.34` | mixed | **FAIL** | 150 | `automatic_reaction` -0.0267 ± 0.11, p 0.35, does not hold | — | 0.00 | — |
-| `M11.C.21` | premise | **FAIL** | 50 | `target_rise` +0.153 ± 0.19, p 0.0881, does not hold | baseline 0 of 3900; treatment 0 of 3900 | 0.00 | — |
+| `M11.C.21` | composite | **FAIL** | 50 | `target_rise` +0.153 ± 0.19, p 0.0881, does not hold | baseline 0 of 3900; treatment 0 of 3900 | 0.00 | — |
 | `M11.C.23` | composite | **FAIL** | 150 | `relapses` -0.64 ± 0.099, p 1, does not hold | baseline 0 of 7800; treatment 0 of 7800 | 0.00 | — |
 | `M11.C.24` | premise | **PASS** | 150 | `under_change` +10.9 ± 0.55, p 1.73e-26, holds; `over_change` -11.3 ± 0.64, p 1.54e-26, holds | baseline 0 of 15600; treatment 0 of 7800 | 0.00 | — |
 
@@ -745,7 +745,7 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
  },
  {
   "criterion": "M11.C.21",
-  "class": "premise",
+  "class": "composite",
   "outcome": "FAIL",
   "seeds": 50,
   "readouts": [

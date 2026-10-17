@@ -1,37 +1,5 @@
 {
- "b211dd75d0da8a92b6601620f72c9f9d2e9dcdfe66a68d757ad69d338a1ae49f": {
-  "criterion": "M11.C.14[firmness]",
-  "outcome": "PASS",
-  "readouts": [
-   {
-    "bound_side": 1,
-    "direction": 0,
-    "equivalence_bound": 6.526561855741581,
-    "half_width": 2.996716969721125,
-    "mean_difference": 9.520708862715955,
-    "readout": "child_symptom_load",
-    "report_only": false,
-    "within_bound": true
-   }
-  ],
-  "seeds": 100
- },
- "d2062b7edfb84adcb5212962976f56253e4539fea0aee5c6d1403035811256f8": {
-  "criterion": "M11.C.2[twelve-person family]",
-  "outcome": "FAIL",
-  "readouts": [
-   {
-    "direction": 1,
-    "half_width": 1.775369356739023,
-    "mean_difference": 0.727659394464744,
-    "p": 0.38033795004808035,
-    "readout": "symptom_load",
-    "report_only": false
-   }
-  ],
-  "seeds": 150
- },
- "f42ee2d5a829d66e7e8a65217664da00a94c4d2729fa8bdf98025e1837f93244": {
+ "035a793156c8aceaae0595c764ef864145ed14bab66ca19dcfad902bfcda1a1e": {
   "criterion": "M11.C.10[family of origin]",
   "outcome": "FAIL",
   "readouts": [
@@ -53,7 +21,37 @@
   ],
   "seeds": 200
  },
- "f77dbaadc94377e888dfff865bc5e2ce25aeaf6b68603bfe6f898384cab4ab14": {
+ "11931728bce26abcfee9c2ba0693a08dc17bef643e9d51bd3932f2780b9fe7ea": {
+  "criterion": "M11.C.2[twelve-person family]",
+  "outcome": "FAIL",
+  "readouts": [
+   {
+    "direction": 1,
+    "half_width": 1.775369356739023,
+    "mean_difference": 0.727659394464744,
+    "p": 0.38033795004808035,
+    "readout": "symptom_load",
+    "report_only": false
+   }
+  ],
+  "seeds": 150
+ },
+ "22108a782ceb9277e05a1ce7b01a8896a2cee468db343b0836fdd7c72990717b": {
+  "criterion": "M11.C.2[twelve-person family]",
+  "outcome": "PASS",
+  "readouts": [
+   {
+    "direction": 1,
+    "half_width": 1.5330914873430603,
+    "mean_difference": 1.7190183202989389,
+    "p": 0.016752498816984318,
+    "readout": "symptom_load",
+    "report_only": false
+   }
+  ],
+  "seeds": 150
+ },
+ "79726ab89c2cb11f000db6afc9bfd694076bc7bc47fabc2adfe91c0ac1248c1f": {
   "criterion": "M11.C.14[talking it out]",
   "outcome": "PASS",
   "readouts": [
@@ -77,19 +75,21 @@
   ],
   "seeds": 100
  },
- "fa11fff01d325b0c22d3d689421fa5b745f3c03e6d90183e3e27edba4aa3c037": {
-  "criterion": "M11.C.2[twelve-person family]",
+ "b7f9edb14d542554daeae40aff11b1c350e80d772ae503abcfdcb4deb1bec1bc": {
+  "criterion": "M11.C.14[firmness]",
   "outcome": "PASS",
   "readouts": [
    {
-    "direction": 1,
-    "half_width": 1.5330914873430603,
-    "mean_difference": 1.7190183202989389,
-    "p": 0.016752498816984318,
-    "readout": "symptom_load",
-    "report_only": false
+    "bound_side": 1,
+    "direction": 0,
+    "equivalence_bound": 6.526561855741581,
+    "half_width": 2.996716969721125,
+    "mean_difference": 9.520708862715955,
+    "readout": "child_symptom_load",
+    "report_only": false,
+    "within_bound": true
    }
   ],
-  "seeds": 150
+  "seeds": 100
  }
 }

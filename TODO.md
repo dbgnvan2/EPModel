@@ -219,21 +219,23 @@ Plan §4.7 and `docs/phase_d2_status_2026-10-13.md` hold the evidence.
     made the twelve-person `M11.C.2` pass (+3.14 ± 1.7, proved red by removing weakness focus and steering), and turned
     the premise `M11.C.22` (mild limb) and the composite `M11.C.17` red. With the rule removed each gives its earlier
     number exactly. Kept overnight as the owner's decision; reverting costs one regeneration (about 2.5 hours).
-  - **`M11.C.21`: apply the reclassification with the next code change** (owner, 2026-10-17: composite, failure
-    accepted as a finding). The class is hashed code; fold it in with the `criteria.md` header and the `span == 0` fix.
+  - ~~**`M11.C.21`: apply the reclassification with the next code change**~~ *Done 2026-10-17, with the header and the
+    `span == 0` fix below; every record regenerated once (plan §4.11).* (owner, 2026-10-17: composite, failure
+    accepted as a finding).
   - **`M11.C.14`'s mutation clause is not met:** the gate-removed mutant survives both variants; the gate blocks about a
     point of relief per run in this fixture, and calmer parents (up to 30 points) did not change that.
-  - **Config prose waiting for the next hash move:** `config/bowen/criteria.md`'s header does not yet describe
+  - ~~**Config prose waiting for the next hash move:**~~ *Done 2026-10-17.* `config/bowen/criteria.md`'s header does not yet describe
     `M11.C.21`'s `act_every` or `M11.C.14`'s hold-back baseline. Config `.md` files are hashed byte for byte, unlike
     Python, whose comments and docstrings are not, so a header edit reruns every record.
   - Minor, from the reviews (2026-10-16): a scripted hold is booked "made" when its actor emitted no move, inferred
     rather than read from its selection record; `bound_side = −1` has no caller and no test.
-  - Minor, from the fix-loop re-sweep (2026-10-16): at `span == 0` (basic level 0, or `stress_floor_below_basic` 0)
-    the capacity rule gives a taker exactly at basic 0 rather than "full at or above basic" (`moves.py`, use `>= 0`;
-    hashed code, so with the next code change); `test_m11c14_gate_removed_…` checks the spec by a literal phrase.
-  - Adjacent, not fixed: `config/bowen/constants_changes.md` lists the five revision 28 rows `find_work_rate` …
-    `grief_extra_weeks` twice; `config/bowen/family_phase_d.md` line 19 still reads "awaiting owner review" for
-    revision 13.
+  - Minor, from the fix-loop re-sweep (2026-10-16): ~~at `span == 0` (basic level 0, or `stress_floor_below_basic` 0)
+    the capacity rule gives a taker exactly at basic 0 rather than "full at or above basic"~~ *(fixed 2026-10-17, two
+    tests)*; `test_m11c14_gate_removed_…` checks the spec by a literal phrase.
+  - ~~Adjacent, not fixed: `config/bowen/constants_changes.md` lists the five revision 28 rows twice~~ *(checked
+    2026-10-17: each row appears once now)*; `config/bowen/family_phase_d.md` line 19 reads "awaiting owner review" for
+    Teodor's 36 (revision 13). *Checked 2026-10-17: accurate, the spec's family table and plan P15 still list it as
+    open.* **For the owner: Teodor's basic level 36 or 34.**
 - [ ] **Failing criteria from steps 8–10, each the owner's question; nothing was changed to make any pass:**
   - `M11.C.14`: the gate blocks improvement but not harm, so firmness and talking it out still differ. *Decided
     2026-10-16 (review, option B):* restate it to "no technique lowers the child's load against a no-technique arm";
@@ -668,6 +670,27 @@ without `M11.F`'s framing) was entered in the spec text directly, marked ⟦prop
     - BP1 therefore depends on `M11.1d`'s rule sets being complete for every criterion.
   - **At approval of revision 10 or in revision 11.** The spec's line recording 2609.15849 and 2609.16395 as "read at
     abstract level only" is out of date. Left unchanged while revision 10 is under review.
+- [ ] **Method proposals from the 2026-10-12 batch.** Added 2026-10-17 by owner request; held for revision 11 on the
+  same terms as the earlier batches. Six papers read in full from the 2026-10-12 method-literature digest: Fu 2026,
+  *"Hot-Blooded" vs "Cold-Blooded"* (2610.11951; HB1, HB2), Peng et al. 2026, *MASC* (2610.08250; MC1, MC2), Deng et
+  al. 2026, *SPIN — Cognitive-Affective Personality Inference* (2610.08328; SP1, SP2, SP3), Wang et al. 2026,
+  *Socio-Foundation* (2610.08967; SF1, SF2), Wang et al. 2026, *Prompts versus Rules* (2610.11015; PR1, PR2, PR3,
+  PR4), and Fraile Navarro 2026, *Latent Identity Reversion* (2610.01490; IR1, IR2, IR3, narrator/LLM line only). The
+  four deep-review candidates flagged in `DIGEST.md` were Hot-Blooded, MASC, SPIN and Socio-Foundation (PAIR 2610.07523
+  was adjacent and not read in full); *Prompts versus Rules* and *Latent Identity Reversion* were surfaced by screening
+  the wider digest. In `papers/SWEEP_READING_REPORTS_2026-10-12.md`; plain-language version in
+  `papers/SPEC_CANDIDATES_plain_language_2026-10-12.md`.
+  - **Scope note.** Unlike the earlier batches, none of the sixteen candidates is a theory change — all are
+    inference-validity, reporting, or mutant-convention items for Phase E (`M17`). HB1/HB2 (per-readout reliability and
+    the over-discreteness flag), MC1/MC2 (scripted-trajectory control arm; readouts must not reuse decision-path
+    internals), SP1/SP2/SP3 (complexity-matched mutants; state-bypass collapse signature; tiny-N paired checks state
+    the minimum p-value), SF1/SF2 (report dispersion as SD with extrema, never SE/CI; normalization bounds fixed and
+    declared), PR1/PR2/PR3/PR4 (per-opportunity move rates; monotonicity on adjacent pairs with tie fraction; bound
+    non-linearity to the input distribution; dispersion readout for artificial uniformity).
+  - **Narrator-line items (do not enter the v2 spec).** IR1 (per-turn persona re-anchoring), IR2
+    (represented-vs-enacted identity probe), IR3 (log the scaffold state) — same treatment as the X-series.
+  - **Owner questions.** None about theory. The only owner decisions are adoption ones: whether to fold these into
+    Phase E (`M17`) reporting/mutant conventions, and whether IR1–IR3 join the existing X-series protocol items.
 
 ## Arising from the 2026-08-28 batch
 

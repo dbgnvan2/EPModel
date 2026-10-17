@@ -525,6 +525,40 @@ def test_m6i4_a_low_basic_taker_at_zero_takes_nothing():
     assert _exchange(half, "OVERFUNCTION", RAVI, NADIA, tick=2)[0][0] == pytest.approx(_taken_at(0.0) / 2)
 
 
+def test_m6i4_a_taker_at_basic_zero_takes_in_full():
+    """Fix-loop re-sweep 2026-10-16: with basic level 0 the floor and basic coincide (no span), and the rule still reads
+    "full at or above basic". A taker at basic 0 takes the full amount; below basic is not reachable (levels clamp at 0)."""
+    state = fresh()
+    ravi = state.people[RAVI]
+    ravi.basic_level, ravi.functional_level, ravi.pseudo_self, ravi.stress_swing = 0.0, 0.0, 0.0, 0.0
+    assert _exchange(state, "OVERFUNCTION", RAVI, NADIA, tick=2)[0][0] == pytest.approx(_taken_at(0.0))
+
+
+def test_m6i4_with_no_floor_below_basic_a_taker_below_basic_takes_nothing():
+    """Narrow review 2026-10-17: with ``stress_floor_below_basic`` 0 the floor is basic itself, so there is no span. A
+    taker at basic takes in full; one point below basic is below the floor and takes nothing. The giver's floor is
+    basic too, so Nadia starts 10 above hers to have something to give."""
+    import dataclasses
+
+    no_floor = dataclasses.replace(PARAMS, stress_floor_below_basic=0.0)
+    taken = []
+    for below in (0.0, 1.0):
+        state = fresh()
+        nadia = state.people[NADIA]
+        nadia.functional_level = nadia.basic_level + 10.0
+        nadia.pseudo_self = (nadia.pseudo_self or 0.0) + 10.0
+        ravi = state.people[RAVI]
+        ravi.functional_level -= below
+        ravi.stress_swing -= below
+        event = move("OVERFUNCTION", RAVI, NADIA, tick=1, index=2)
+        state.tick = 2
+        state.store.record_event(event)
+        apply_move_effects(state, (Delivery(2, event.id, NADIA, Role.TARGET, emitted_tick=1, latency=1),), no_floor)
+        taken.append(state.people[RAVI].functional_level - (ravi.basic_level - below))
+    assert taken[0] == pytest.approx(_taken_at(0.0))
+    assert taken[1] == 0.0
+
+
 def test_m6i4_capacity_does_not_limit_a_taker_above_basic():
     """Adversarial: a taker functioning above their basic level (borrowed pseudo-self) takes the full amount; the rule
     limits a collapsed taker, it does not reward or tax ordinary over-functioning."""

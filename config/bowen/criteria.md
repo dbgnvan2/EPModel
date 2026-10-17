@@ -33,6 +33,14 @@
 > * `act_every` — a scripted act every that many weeks; `M11.C.20`'s support (a partner giving way) runs for its first
 >   `support_weeks`, every `support_every` weeks, and is then withdrawn.
 >
+> **Revision 31, the owner's arm designs (2026-10-16):**
+> * `M11.C.14` — every `act_every` weeks for `weeks`, both parents use the variant's technique toward C1 in the
+>   treatment and hold back (`WITHHOLD`, no target) in the baseline, so both arms lose the same weeks of the parents'
+>   own acts. C1 starts with an active symptom at `start_severity` of its threshold.
+> * `M11.C.21` — in both arms both parents over-function toward C1 every `act_every` weeks for the whole run
+>   (`t0 + after` weeks), so C1 has lent functioning before the collapse; the arms differ only by the treatment's
+>   `drop` in both parents' functional level at week `t0`. A composite since 2026-10-17 (owner decision).
+>
 > **Post-hoc restatement, 2026-10-09 (step S of `docs/DECISIONS — PHASE C FAILING.md`, approved by the owner).**
 > The declared weeks stand, but in both arms of every criterion that scripts an act after week 0, the ties its
 > scripted acts cross are held open from week 0 until the act (`M11.C.29`: until its last withdrawal): neither

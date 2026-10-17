@@ -564,10 +564,12 @@ nature, passes ad hoc).
 in an exchange is scaled by their own room above the stress floor: all of it at or above their basic level, a third at
 10 points below, nothing at the floor `[I]` (`M6.I.4`). It mirrors the floor that already stops the one giving way
 from going below it. It was added so that a collapse of the over-functioners reaches the exchange (`M11.C.21`, which
-still fails: the child in that arm has already lent down to its own floor, so there is nothing more for it to keep).
+still fails: the child in that arm has already lent down to its own floor, so there is nothing more for it to keep; the
+owner reclassified it as a composite on 2026-10-17 and accepted its failure as a finding).
 What the rule did change: it turned the twelve-person family's `M11.C.2` from fail to pass (the child the parents focus
 on carries more symptom load), and it turned `M11.C.22`'s mild-removal limb and `M11.C.17`'s weak coached rise from
-pass to fail. With the rule removed, each run gives its earlier number exactly. Whether to keep it is the owner's.
+pass to fail. With the rule removed, each run gives its earlier number exactly. The owner kept it on 2026-10-17 and
+accepted `M11.C.22`'s failure for now.
 
 > Implement as a **switch with hysteresis, indexed per area** — not a linear scalar and not a personal trait. The old engine's `functioning_balance` is close in name and wrong in shape.
 >

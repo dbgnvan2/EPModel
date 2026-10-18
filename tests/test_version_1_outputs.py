@@ -24,6 +24,15 @@ def test_v7_every_rendered_trace_carries_the_framing_block():
         assert "`M11.F.10`" in text, trace.name
 
 
+def test_v7_every_rendered_chart_carries_the_framing_block():
+    charts = sorted((DOCS / "review").glob("*_chart_*.html"))
+    assert charts, "no rendered charts found"
+    for chart in charts:
+        text = chart.read_text(encoding="utf-8")
+        assert "It does not concern any real family or person, and nothing here is advice (M11.F.9)" in text, chart.name
+        assert "M11.F.10" in text, chart.name
+
+
 def test_v7_the_famdiag_export_says_it_is_not_a_real_family():
     for export in sorted((DOCS / "review").glob("*famdiag*.json")):
         assert "not a real family (spec M11.F.9)" in export.read_text(encoding="utf-8"), export.name

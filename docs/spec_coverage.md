@@ -541,7 +541,7 @@ mutant has turned each entry red in `docs/phase_c_mutation_record.md`; the D9 sw
 | M16.B.1 | done | `tests/bowen/test_log.py::test_m16b1_a_failed_run_leaves_no_complete_looking_log`<br>`tests/bowen/test_log_records.py::test_m16b1_emitter_collects_without_writing` | — |
 | M16.B.2 | done | `tests/bowen/test_engine_purity.py::test_m16t2_engine_writes_nothing` | the frozen engine's audit-file pattern is the G9 mutation |
 | M16.B.3 | done | `tests/bowen/test_events.py::test_m16b3_event_store_answers_per_person_queries`<br>`tests/bowen/test_events.py::test_m16b3_event_store_has_no_off_switch`<br>`tests/bowen/test_events.py::test_m16b3_store_refuses_orphan_and_duplicate_records` | — |
-| M16.C.1 | done | `tests/bowen/test_rejection.py::test_m16c1_refusal_and_reconciliation_render_their_own_anxiety_lines`<br>`tests/bowen/test_render.py::test_m16c1_phase_c_trace_renders`<br>`tests/bowen/test_render.py::test_m16c1_renderer_is_deterministic` | — |
+| M16.C.1 | done | `tests/bowen/test_rejection.py::test_m16c1_refusal_and_reconciliation_render_their_own_anxiety_lines`<br>`tests/bowen/test_render.py::test_m16c1_chart_a_name_cannot_close_the_script`<br>`tests/bowen/test_render.py::test_m16c1_chart_marks_outside_events_on_their_targets`<br>`tests/bowen/test_render.py::test_m16c1_chart_script_parses`<br>`tests/bowen/test_render.py::test_m16c1_chart_series_reads_state_each_week`<br>`tests/bowen/test_render.py::test_m16c1_phase_c_chart_renders`<br>`tests/bowen/test_render.py::test_m16c1_phase_c_trace_renders`<br>`tests/bowen/test_render.py::test_m16c1_renderer_is_deterministic` | — |
 | M16.C.2 | done | `tests/bowen/test_render.py::test_m16t1_trace_renders_scripted_run`<br>`tests/bowen/test_render.py::test_m16t1_effects_are_reported_in_reader_units`<br>`tests/bowen/test_render.py::test_m16c2_a_held_position_renders`<br>`tests/bowen/test_render.py::test_m16c2_a_remitted_symptom_renders_as_ending`<br>`tests/bowen/test_render.py::test_m16c2_an_unknown_mechanism_raises_instead_of_vanishing`<br>`tests/bowen/test_render.py::test_m16c2_invariant_sentence_reconciles_with_the_records`<br>`tests/bowen/test_render.py::test_m16c2_lock_in_renders`<br>`tests/bowen/test_render.py::test_m16c2_policy_selections_and_belief_writes_are_not_silently_skipped`<br>`tests/bowen/test_render.py::test_m16c2_withheld_and_fallback_outcomes_get_their_own_rows` | gate G2 |
 | M16.C.3 | partial | `tests/bowen/test_render.py::test_m16t1_trace_renders_scripted_run` | renderer built in Phase B; the owner's end-to-end read of the trace (plan §7) is pending |
 | M16.C.4 | done | `tests/bowen/test_render.py::test_m16c4_a_view_of_no_one_is_refused`<br>`tests/bowen/test_render.py::test_m16c4_single_agent_view` | — |
@@ -587,7 +587,7 @@ mutant has turned each entry red in `docs/phase_c_mutation_record.md`; the D9 sw
 | M17.G.2 | not done | — | Phase E |
 | M17.G.3 | not done | — | Phase E |
 
-## Tests named for no spec ID (149)
+## Tests named for no spec ID (150)
 
 Their names embed no requirement ID, so they count only where an override cites them (marked *cited*). The rest check spec documents, tooling or helpers.
 
@@ -726,6 +726,7 @@ Their names embed no requirement ID, so they count only where an override cites 
 - `tests/test_sweep.py::test_seen_is_keyed_unversioned_so_two_versions_are_one_candidate`
 - `tests/test_sweep.py::test_the_real_catalogue_contains_no_versioned_ids`
 - `tests/test_version_1_outputs.py::test_v7_every_ensemble_record_says_a_premise_pass_is_not_a_finding_about_families`
+- `tests/test_version_1_outputs.py::test_v7_every_rendered_chart_carries_the_framing_block`
 - `tests/test_version_1_outputs.py::test_v7_every_rendered_trace_carries_the_framing_block`
 - `tests/test_version_1_outputs.py::test_v7_the_famdiag_export_says_it_is_not_a_real_family`
 - `tests/test_version_1_outputs.py::test_v7_virtual_family_appears_only_where_it_is_framed`

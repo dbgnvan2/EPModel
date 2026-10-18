@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>__TITLE__</title>
+<!-- Filled by tools/run_chart.py: the title, the framing block, and the run's values as JSON. -->
+<style>
+/* One small-multiple panel per person on a shared week axis and a shared scale; hover any panel to read that week for everyone. */
+:root {
+  --bg: #f7f8f8; --surface: #ffffff; --rule: #dfe3e4; --grid: #eceff0;
+  --ink: #15191b; --ink-2: #4b5357; --ink-3: #737b80;
+  --anx: #eb6834; --func: #2a78d6; --event: #8a9298; --cross: #15191b;
+  --font-body: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  --font-data: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #121516; --surface: #1a1e1f; --rule: #2d3335; --grid: #242a2c;
+    --ink: #eef1f2; --ink-2: #b7bfc3; --ink-3: #8b9499;
+    --anx: #d95926; --func: #3987e5; --event: #7d878c; --cross: #eef1f2;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #121516; --surface: #1a1e1f; --rule: #2d3335; --grid: #242a2c;
+  --ink: #eef1f2; --ink-2: #b7bfc3; --ink-3: #8b9499;
+  --anx: #d95926; --func: #3987e5; --event: #7d878c; --cross: #eef1f2;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0; background: var(--bg); color: var(--ink); font-family: var(--font-body); font-size: 15px; line-height: 1.5;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 28px 48px;
+}
+.wrap { max-width: 1180px; margin: 0 auto; display: grid; gap: 22px; }
+header { display: grid; gap: 10px; }
+.eyebrow { font-family: var(--font-data); font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-3); }
+h1 { margin: 0; font-size: 26px; line-height: 1.2; font-weight: 700; text-wrap: balance; }
+.lede, .framing { margin: 0; color: var(--ink-2); max-width: 72ch; }
+.framing { font-size: 13px; color: var(--ink-3); }
+.legend { display: flex; flex-wrap: wrap; gap: 8px 22px; align-items: center; font-size: 13.5px; color: var(--ink-2); }
+.legend span { display: inline-flex; align-items: center; gap: 8px; }
+.legend svg { flex: none; }
+.grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+@media (max-width: 760px) { .grid { grid-template-columns: minmax(0, 1fr); } }
+.gen { grid-column: 1 / -1; font-family: var(--font-data); font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-3); padding-top: 8px; border-top: 1px solid var(--rule); }
+.panel { background: var(--surface); border: 1px solid var(--rule); border-radius: 6px; padding: 12px 14px 8px; min-width: 0; display: grid; gap: 4px; outline: none; }
+.panel:focus-visible { box-shadow: 0 0 0 2px var(--func); }
+.ph { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 2px 12px; }
+.ph h2 { margin: 0; font-size: 16px; font-weight: 600; }
+.ph .info { font-size: 12.5px; color: var(--ink-3); }
+.readout { font-family: var(--font-data); font-size: 12.5px; color: var(--ink-2); font-variant-numeric: tabular-nums; display: flex; flex-wrap: wrap; gap: 2px 14px; min-height: 1.5em; }
+.readout b { font-weight: 500; color: var(--ink); }
+.readout i { font-style: normal; display: inline-block; width: 10px; height: 2px; vertical-align: middle; margin-right: 6px; }
+.chart { width: 100%; height: 200px; display: block; touch-action: pan-y; }
+.chart text { font-family: var(--font-data); font-size: 10.5px; fill: var(--ink-3); }
+details { background: var(--surface); border: 1px solid var(--rule); border-radius: 6px; padding: 10px 14px; }
+summary { cursor: pointer; font-weight: 600; font-size: 14px; }
+summary:focus-visible { outline: 2px solid var(--func); outline-offset: 2px; }
+.tablewrap { overflow: auto; margin-top: 10px; max-height: 70vh; }
+table { border-collapse: collapse; font-family: var(--font-data); font-size: 12px; font-variant-numeric: tabular-nums; }
+th, td { padding: 3px 8px; text-align: right; border-bottom: 1px solid var(--grid); white-space: nowrap; }
+thead th { position: sticky; background: var(--surface); color: var(--ink-2); font-weight: 500; }
+thead tr:first-child th { top: 0; } thead tr:nth-child(2) th { top: 22px; }
+th.p { text-align: center; border-left: 1px solid var(--rule); }
+td.l { border-left: 1px solid var(--rule); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="eyebrow" id="eyebrow"></div>
+    <h1>Anxiety and functioning, week by week</h1>
+    <p class="lede">Each person's anxiety and functional level at the end of every week of the run whose trace sits beside this file. Both are on the model's 0–100 scale; anxiety can run past 100. Hover or tap a panel to read the same week for everyone; arrow keys step a focused panel (shift for four weeks).</p>
+    <p class="framing">__FRAMING__</p>
+    <div class="legend" aria-label="Legend">
+      <span><svg width="22" height="10" aria-hidden="true"><line x1="0" y1="5" x2="22" y2="5" stroke="var(--anx)" stroke-width="2"/></svg>Anxiety (acute)</span>
+      <span><svg width="22" height="10" aria-hidden="true"><line x1="0" y1="5" x2="22" y2="5" stroke="var(--func)" stroke-width="2"/></svg>Functional level</span>
+      <span><svg width="22" height="10" aria-hidden="true"><line x1="0" y1="5" x2="22" y2="5" stroke="var(--anx)" stroke-width="1" stroke-dasharray="3 3" opacity=".7"/></svg>Chronic anxiety (the floor anxiety decays toward)</span>
+      <span><svg width="22" height="10" aria-hidden="true"><line x1="0" y1="5" x2="22" y2="5" stroke="var(--func)" stroke-width="1" stroke-dasharray="3 3" opacity=".7"/></svg>Basic level</span>
+      <span><svg width="10" height="10" aria-hidden="true"><path d="M5 1 L9 9 L1 9 Z" fill="var(--event)"/></svg>Event from outside the family, on the person it lands on</span>
+    </div>
+  </header>
+
+  <div class="grid" id="grid"></div>
+
+  <details>
+    <summary>Table of values</summary>
+    <div class="tablewrap"><table id="tbl"></table></div>
+  </details>
+</div>
+
+<script>
+const RUN = __DATA__;
+const PEOPLE = RUN.people, WEEKS = RUN.weeks, YMAX = RUN.ymax;
+const YTICKS = []; for (let t = 0; t <= YMAX; t += 25) YTICKS.push(t);
+const XSTEP = Math.max(1, Math.ceil(WEEKS / 8));
+const NS = "http://www.w3.org/2000/svg";
+const M = { l: 30, r: 10, t: 8, b: 22 };
+const fmt = v => v === null ? "—" : v.toFixed(1);
+let current = WEEKS - 1;
+const panels = [];
+
+document.getElementById("eyebrow").textContent =
+  `${RUN.instance} · seed ${RUN.seed} · ${WEEKS} weeks · spec ${RUN.spec}`;
+
+function el(tag, attrs, parent) {
+  const e = document.createElementNS(NS, tag);
+  for (const k in attrs) e.setAttribute(k, attrs[k]);
+  if (parent) parent.appendChild(e);
+  return e;
+}
+function range(arr) {
+  const v = arr.filter(x => x !== null);
+  return v.length ? `${fmt(Math.min(...v))} to ${fmt(Math.max(...v))}` : "no values";
+}
+
+const grid = document.getElementById("grid");
+let group = null;
+for (const p of PEOPLE) {
+  if (p.group !== group) {
+    group = p.group;
+    const g = document.createElement("div"); g.className = "gen"; g.textContent = group; grid.appendChild(g);
+  }
+  const card = document.createElement("section");
+  card.className = "panel"; card.tabIndex = 0;
+  card.setAttribute("aria-label", `${p.name}: anxiety and functional level by week`);
+  const head = document.createElement("div"); head.className = "ph";
+  const h2 = document.createElement("h2"); h2.textContent = p.name;
+  const info = document.createElement("span"); info.className = "info"; info.textContent = p.info;
+  head.append(h2, info);
+  const readout = document.createElement("div"); readout.className = "readout";
+  const svg = el("svg", { class: "chart", role: "img",
+    "aria-label": `${p.name}: anxiety ${range(p.anxiety)}, functional level ${range(p.functioning)}` });
+  card.append(head, readout, svg);
+  grid.appendChild(card);
+  const panel = { p, card, svg, readout, eventWeeks: new Map() };
+  for (const [w, kind] of p.events) panel.eventWeeks.set(w, (panel.eventWeeks.get(w) || []).concat(kind));
+  panels.push(panel);
+  svg.addEventListener("pointermove", e => setWeek(weekAt(panel, e)));
+  svg.addEventListener("pointerdown", e => setWeek(weekAt(panel, e)));
+  card.addEventListener("keydown", e => {
+    const step = e.shiftKey ? 4 : 1;
+    if (e.key === "ArrowRight") { setWeek(Math.min(WEEKS - 1, current + step)); e.preventDefault(); }
+    if (e.key === "ArrowLeft") { setWeek(Math.max(0, current - step)); e.preventDefault(); }
+  });
+}
+
+function weekAt(panel, e) {
+  const r = panel.svg.getBoundingClientRect();
+  const x = (e.clientX - r.left - M.l) / (r.width - M.l - M.r);
+  return Math.max(0, Math.min(WEEKS - 1, Math.round(x * (WEEKS - 1))));
+}
+
+function path(arr, X, Y) {
+  let d = "", pen = false;
+  arr.forEach((v, w) => {
+    if (v === null) { pen = false; return; }
+    d += (pen ? "L" : "M") + X(w).toFixed(1) + " " + Y(v).toFixed(1);
+    pen = true;
+  });
+  return d;
+}
+
+function draw(panel) {
+  const { p, svg } = panel;
+  const W = svg.clientWidth || 500, H = svg.clientHeight || 200;
+  svg.setAttribute("viewBox", `0 0 ${W} ${H}`);
+  svg.replaceChildren();
+  const X = w => M.l + (W - M.l - M.r) * w / Math.max(1, WEEKS - 1);
+  const Y = v => M.t + (H - M.t - M.b) * (1 - v / YMAX);
+  for (const t of YTICKS) {
+    el("line", { x1: M.l, x2: W - M.r, y1: Y(t), y2: Y(t), stroke: t === 0 ? "var(--rule)" : "var(--grid)", "stroke-width": 1 }, svg);
+    el("text", { x: M.l - 6, y: Y(t) + 3.5, "text-anchor": "end" }, svg).textContent = t;
+  }
+  const step = W < 420 ? 2 * XSTEP : XSTEP;
+  for (let w = 0; w < WEEKS; w += step) {
+    el("text", { x: X(w), y: H - 6, "text-anchor": w === 0 ? "start" : "middle" }, svg).textContent = w === 0 ? "wk 0" : w;
+  }
+  const dashed = { fill: "none", "stroke-width": 1, "stroke-dasharray": "3 3", opacity: .7 };
+  el("path", { d: path(p.chronic, X, Y), stroke: "var(--anx)", ...dashed }, svg);
+  el("path", { d: path(p.basic, X, Y), stroke: "var(--func)", ...dashed }, svg);
+  for (const w of panel.eventWeeks.keys()) el("path", { d: `M${X(w)} ${H - M.b - 7} l4 7 l-8 0 z`, fill: "var(--event)" }, svg);
+  const solid = { fill: "none", "stroke-width": 2, "stroke-linejoin": "round", "stroke-linecap": "round" };
+  el("path", { d: path(p.functioning, X, Y), stroke: "var(--func)", ...solid }, svg);
+  el("path", { d: path(p.anxiety, X, Y), stroke: "var(--anx)", ...solid }, svg);
+  panel.cross = el("line", { y1: M.t, y2: H - M.b, stroke: "var(--cross)", "stroke-width": 1, opacity: .45 }, svg);
+  panel.dotA = el("circle", { r: 4, fill: "var(--anx)", stroke: "var(--surface)", "stroke-width": 2 }, svg);
+  panel.dotF = el("circle", { r: 4, fill: "var(--func)", stroke: "var(--surface)", "stroke-width": 2 }, svg);
+  panel.X = X; panel.Y = Y;
+}
+
+function place(dot, x, v, Y) {
+  dot.setAttribute("visibility", v === null ? "hidden" : "visible");
+  if (v !== null) { dot.setAttribute("cx", x); dot.setAttribute("cy", Y(v)); }
+}
+
+function setWeek(w) {
+  current = w;
+  for (const panel of panels) {
+    const { p } = panel, x = panel.X(w);
+    panel.cross.setAttribute("x1", x); panel.cross.setAttribute("x2", x);
+    place(panel.dotA, x, p.anxiety[w], panel.Y);
+    place(panel.dotF, x, p.functioning[w], panel.Y);
+    const kinds = panel.eventWeeks.get(w);
+    panel.readout.innerHTML =
+      `<span>week <b>${w}</b></span>` +
+      `<span><i style="background:var(--anx)"></i>anxiety <b>${fmt(p.anxiety[w])}</b></span>` +
+      `<span><i style="background:var(--func)"></i>functioning <b>${fmt(p.functioning[w])}</b></span>`;
+    if (kinds) {
+      const s = document.createElement("span"); s.textContent = kinds.join(", ").toLowerCase().replace(/_/g, " ");
+      panel.readout.appendChild(s);
+    }
+  }
+}
+
+function drawAll() { panels.forEach(draw); setWeek(current); }
+drawAll();
+if (window.ResizeObserver) new ResizeObserver(drawAll).observe(grid);
+
+const tbl = document.getElementById("tbl");
+const thead = tbl.createTHead(), r1 = thead.insertRow(), r2 = thead.insertRow();
+r1.appendChild(document.createElement("th"));
+const wk = document.createElement("th"); wk.textContent = "Week"; r2.appendChild(wk);
+for (const p of PEOPLE) {
+  const th = document.createElement("th"); th.className = "p"; th.colSpan = 2; th.textContent = p.name; r1.appendChild(th);
+  const a = document.createElement("th"); a.className = "p"; a.textContent = "Anx";
+  const f = document.createElement("th"); f.textContent = "Func";
+  r2.append(a, f);
+}
+const body = tbl.createTBody();
+for (let w = 0; w < WEEKS; w++) {
+  const row = body.insertRow();
+  row.insertCell().textContent = w;
+  for (const p of PEOPLE) {
+    const a = row.insertCell(); a.className = "l"; a.textContent = fmt(p.anxiety[w]);
+    row.insertCell().textContent = fmt(p.functioning[w]);
+  }
+}
+</script>
+</body>
+</html>

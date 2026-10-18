@@ -183,6 +183,125 @@ def test_m16c1_phase_c_trace_renders():
     assert "| 103 |" in text and "| 104 |" not in text  # exactly M11.C.1's 104 weeks (0-103)
 
 
+def _phase_c_tool():
+    import importlib.util
+
+    path = Path(__file__).resolve().parents[2] / "tools" / "phase_c_trace.py"
+    spec = importlib.util.spec_from_file_location("tools.phase_c_trace", path)
+    tool = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(tool)
+    return tool
+
+
+_OUTPUTS = {}
+
+
+def _phase_c_outputs(seed: int = 7) -> tuple[str, str]:
+    """The trace and chart of one seed-7 run, rendered once for the chart tests."""
+    if seed not in _OUTPUTS:
+        _OUTPUTS[seed] = _phase_c_tool().outputs(seed)
+    return _OUTPUTS[seed]
+
+
+def _chart_data(chart: str) -> dict:
+    import json
+
+    match = re.search(r"const RUN = (.*?);\n", chart)
+    assert match, "the chart carries its data as `const RUN = {...};`"
+    return json.loads(match.group(1).replace("<\\/", "</"))
+
+
+def test_m16c1_chart_series_reads_state_each_week():
+    """Each week's sample is a copy of that week's values: a later change to the state does not rewrite an earlier
+    week (adversarial: a sampler that kept references would show week 1's values in week 0). A dead person has no
+    value that week."""
+    from types import SimpleNamespace
+
+    from tools.run_chart import WeeklySeries
+
+    ravi = SimpleNamespace(alive=True, acute_anxiety=50.0, functional_level=40.0, chronic_anxiety=44.0, basic_level=39.0)
+    ana = SimpleNamespace(alive=True, acute_anxiety=60.0, functional_level=35.0, chronic_anxiety=38.0, basic_level=37.0)
+    state = SimpleNamespace(people={PersonId("ravi"): ravi, PersonId("ana"): ana})
+    series = WeeklySeries()
+    series.observe(state)
+    ravi.acute_anxiety, ravi.functional_level = 70.0, 30.0
+    ana.alive = False
+    series.observe(state)
+    assert series.weeks[0]["ravi"] == {"anxiety": 50.0, "functioning": 40.0, "chronic": 44.0, "basic": 39.0}
+    assert series.weeks[1]["ravi"]["anxiety"] == 70.0 and series.weeks[1]["ravi"]["functioning"] == 30.0
+    assert "ana" in series.weeks[0] and "ana" not in series.weeks[1]
+
+
+def test_m16c1_chart_marks_outside_events_on_their_targets():
+    """The chart's event marks are the trace's "(from outside)" rows of the same run, person by person and week by
+    week — two surfaces of one run that must agree — and no event a family member sent is marked."""
+    trace, chart = _phase_c_outputs()
+    names = {p["name"]: p for p in _chart_data(chart)["people"]}
+    from_trace = {}
+    for week, target in re.findall(r"^\| (\d+) \| \(from outside\) \| [A-Z_]+ \| ([^|]+?) \|", trace, re.M):
+        from_trace.setdefault(target, []).append(int(week))
+    assert from_trace, "the seed-7 Phase C run has events from outside (the declared spell, M11.3)"
+    from_chart = {name: [week for week, _ in p["events"]] for name, p in names.items() if p["events"]}
+    assert from_chart == from_trace
+
+
+def test_m16c1_phase_c_chart_renders():
+    """The chart is written from the same run as the trace: one panel per person, a value for every one of
+    M11.C.1's 104 weeks, the trace's own M11.F framing, every placeholder filled, and the trace it sits beside
+    unchanged by the sampling (the sampler only observes)."""
+    trace, chart = _phase_c_outputs()
+    assert trace == _phase_c_tool().trace_text(7)
+    data = _chart_data(chart)
+    assert data["seed"] == 7 and data["instance"] == "phase_c" and data["weeks"] == 104
+    people = data["people"]
+    assert sorted(p["name"] for p in people) == sorted(load_family_phase_c().display_names.values())
+    for p in people:
+        for key in ("anxiety", "functioning", "chronic", "basic"):
+            assert len(p[key]) == 104 and all(v is not None for v in p[key]), (p["name"], key)
+    assert max(v for p in people for v in p["anxiety"]) <= data["ymax"]
+    assert "It does not concern any real family or person, and nothing here is advice (M11.F.9)" in chart
+    assert "M11.F.10" in chart and "selected by the policy" in chart
+    assert "__TITLE__" not in chart and "__FRAMING__" not in chart and "__DATA__" not in chart
+
+
+def load_family_phase_c():
+    import src.bowen.ensemble.criteria as criteria
+
+    return load_family(criteria.FAMILIES["phase_c"])
+
+
+def test_m16c1_chart_a_name_cannot_close_the_script():
+    """Adversarial: a display name holding "</script>" must stay inside the data, or the page's script ends early."""
+    import dataclasses
+
+    from tools.run_chart import WeeklySeries, render_chart
+
+    family = load_family_phase_c()
+    hostile = dict(family.display_names)
+    first = next(iter(hostile))
+    hostile[first] = "</script><b>x"
+    series = WeeklySeries()
+    series.weeks = [{str(first): {"anxiety": 1.0, "functioning": 2.0, "chronic": 0.5, "basic": 2.0}}]
+    chart = render_chart(RECORDS[:1], series, dataclasses.replace(family, display_names=hostile))
+    assert chart.count("</script>") == 1
+    assert _chart_data(chart)["people"][0]["name"] == "</script><b>x"
+
+
+def test_m16c1_chart_script_parses(tmp_path):
+    """The page's script is valid JavaScript (global rule: syntax-check embedded code)."""
+    import shutil
+    import subprocess
+
+    node = shutil.which("node")
+    if node is None:
+        pytest.skip("node is not installed; the script's syntax is not checked here")
+    _, chart = _phase_c_outputs()
+    script = tmp_path / "chart.js"
+    script.write_text(re.search(r"<script>(.*)</script>", chart, re.S).group(1), encoding="utf-8")
+    result = subprocess.run([node, "--check", str(script)], capture_output=True, text=True, timeout=60)
+    assert result.returncode == 0, result.stderr
+
+
 def test_b2_framing_says_who_chose_the_acts():
     """The sentence is read from the run's own selections: any selection not SCRIPTED means the people chose (Phase D
     plan B2; review 2026-10-10 found FALLBACK missed); a run with only scripted selections, or none, is scripted."""

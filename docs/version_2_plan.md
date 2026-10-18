@@ -78,7 +78,10 @@ revisions, not here.
   tag (or its staleness test retired with a "frozen" status line). Owner question Q8.
 - **0.2** The owner's decisions on §1.2's three items, recorded in `docs/version_1_dispositions.md` and `TODO.md`.
 - **0.3** Render-only fixes that need no rerun (`docs/records_cache/`): the D2 record prints `M11.C.10`'s two variants
-  under one id.
+  under one id; and the trace hides lock-in. `src/bowen/render/trace.py` lists lock-in among the mechanisms that run
+  every week and are not shown line by line, so in the seed-7 trace week 74 shows Marta +226.4 and nothing of the 222.4
+  her lock-in spill moved on to five partners (§3, group G). Proposed: show a lock-in transfer above a declared size,
+  or any spill past the turn, as its own row. Regenerates the seed-7 trace and its chart only.
 
 ### Stage 1 — One engineering batch that moves the engine hash once
 
@@ -130,6 +133,27 @@ One proposal per chosen group from §1.1, written after the sweep reports. Candi
   rule.
 - **Learning by level, and asking "what can I do differently?"** — raised by the owner 2026-10-18, not one of §1.1's
   groups: `docs/PROPOSAL — LEARNING BY LEVEL, ASKING WHAT TO DO DIFFERENTLY.md` (draft). It touches groups E and F.
+- **Group G, how bound stocks are released** — found in a trace, not from a criterion (the seed-7 Phase C run, the
+  `M11.C.1` baseline arm, week 74; `docs/review/phase_c_trace_seed7.md`, `docs/review/phase_c_chart_seed7.html`;
+  reported by the session that built the chart, 2026-10-18). In week 73 Ravi chose `REDUCE_CUTOFF` toward Pia; the tie
+  held 226.4 of `distance_bound_anxiety` from 73 weeks of `DISTANCE`, and `reduce_cutoff` (`M5.B.3`) gave all of it to
+  Marta, the only third party in a triad on that tie. Her active symptom went from 1.06× to 6.47× its threshold, past
+  lock-in's turn, and lock-in (`M7.D.2a`, `M7.D.2d`) released her symptom-bound stock (95.3) and spilled her excess
+  above usual (222.4) to her five interactive partners in equal shares, the coach among them. Two rule questions:
+  - **G1. A tie-bound stock has no bound and no decay.** `distance_bound_anxiety` is only added to (`moves.py:115`) and
+    only emptied whole: by `release_bound_distance` on `REDUCE_CUTOFF` (`moves.py:124–127`) and on reconciliation
+    (`event_effects.py:100`), when the binder is unavailable (`event_effects.py:137`) and at death
+    (`life_course.py:542`). `REDUCE_CUTOFF` releases the whole stock though it lowers rejection only by
+    `rejection_relief` × intensity. At the end of week 73 the seed's stocks were 319.2, 226.4, 135.0 and 85.5 on four
+    ties. Should a bound stock settle back, be capped, or release in proportion to the cutoff reduced?
+  - **G2. Releases split equally, ignoring the tie.** `release_bound` and the lock-in spill divide by the number of
+    interactive partners (`symptoms.py:147`, `symptoms.py:198`). The coach, whose tie to Marta has conductance 0.3 and
+    bond energy 10 (`config/bowen/family_phase_c.md`), took the same 63.6 as Nadia. The learner's cross-person term
+    already weights by bond energy (`M4.D.6e`), and `M1.E.7e` requires the coach's tie to stay thin. Weight by bond
+    energy or conductance? Should a family member's symptom release reach an external agent at all?
+
+  Both change what every run with a `DISTANCE` or an active symptom computes, so if the owner takes group G it is a
+  candidate to build **before** the stage 2 pilot, so the sweep does not measure a release rule about to change (Q2).
 
 Each changed rule keeps the version 1 result beside the version 2 result in the status page. A criterion that turns
 green under a new rule is reported as a new result under a new rule, not as version 1's finding withdrawn.
@@ -179,7 +203,9 @@ the sweep record and shows the version 1 status beside each row. Built in stage 
 1. **What is version 2 for?** (a) measure how far version 1's results hold, then the rule questions you choose
    (recommended, §2); (b) rule questions only, no sweep; (c) the real-family import (`M15`); (d) something else.
 2. **Which finding groups (§1.1) should version 2 revisit?** Recommended: C (projection), F (`I-POSITION` at level 40,
-   since it reaches every `I-POSITION`) and A (triangling, five criteria). The rest stay accepted findings.
+   since it reaches every `I-POSITION`) and A (triangling, five criteria). The rest stay accepted findings. Group G
+   (how bound stocks are released, found in the seed-7 trace) is not a finding group; recommended in, and built
+   before the stage 2 pilot, since it reaches every run that binds anxiety.
 3. **Sweep scope.** Per criterion, only the constants its mechanism reads (recommended), or every `[I]` constant? And
    which of `M17.A.2`, `M17.B.1`, `M17.E.3`, `M17.E.6` come in? Recommended: none until the pilot reports.
 4. **The "narrow" fraction for W4.** Recommended: decide after the pilot, from what the measured distribution looks
@@ -200,6 +226,7 @@ the sweep record and shows the version 1 status beside each row. Built in stage 
 |---|---|---|---|
 | Stage 0 (freeze, loose ends, render-only fixes) | Q8, Q10 | no | render only |
 | Stage 1 (engineering batch) | Q6 | yes | one full (about 2 hours, 10 cores, plus the mutation records) |
+| Group G, if taken (proposal → revision → build) | stage 1, Q2 | yes | one full |
 | Stage 2.2 pilot | stage 1, Q3 | no | pilot only; timed and reported before 2.1 |
 | Stage 2.1 full sweep | pilot, Q3, Q4 | no | cost from the pilot |
 | Stage 3 proposals | stage 2 record, Q2 | per proposal | one full per batch of approved rules |

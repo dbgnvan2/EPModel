@@ -73,7 +73,7 @@ decision is Claude's recommendation, pending owner review.
   `M11.C.18`, `.20`, `.33`). Also found: the couple's own tie in the Phase C family is held cut off in 82–89% of
   last-year weeks in every arm; `M11.C.7`'s "joint" sessions are one target each; the coach's automatic-channel acts
   (61% of his contacts) land with full effect, though `M1.E.7c`(3) reads non-participation as the coach's default.
-- [ ] **Owner: `M11.C.6`, traced and restated** (the owner, 2026-10-17: "Trace it first"). The first arm picked by birth
+- [x] ~~**Owner: `M11.C.6`, traced and restated**~~ *Accepted as a finding by the owner, 2026-10-18; version 1 complete.* The rule question stays open below. (the owner, 2026-10-17: "Trace it first"). The first arm picked by birth
   order; the paired same-child arm (revision 32, post hoc) fails the other way (+0.096 ± 0.044, ad hoc). Recommended:
   accept as a finding; and a rule question: should projection push a child's development down (`M7.E.1f`)? (plan §4.12)
 - [x] ~~**`M11.C.6`'s reversal is not traced**~~ *Traced 2026-10-17, above.* (the owner, 2026-10-17: "Trace it first"): the most-projected child develops slightly more than the others

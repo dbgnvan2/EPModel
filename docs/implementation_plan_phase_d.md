@@ -1951,6 +1951,8 @@ seen; each is recorded as such.
 - `M11.C.17`: "Diagnose coaching" (with `M11.C.7`'s deviation limb). `M11.C.6`: "Trace it first".
 - V7: "Sign off, fix wording" ("the owner's family" now reads "the reference family the owner specified").
 - Then: "continue with your recommendations — I'm going to bed. Just keep working until version 1 is completed."
+- 2026-10-18, after the trace and the regeneration: `M11.C.6`, "Accept M11.C.6's failure as a finding, as recommended,
+  and record it so version 1 is complete."
 
 **The coaching diagnosis (`M11.C.17`, `M11.C.7`; the owner's "Diagnose coaching"; 60 seeds, 520 weeks, ad hoc, on the
 tree with the spike before its narrowing).** No defect: each link matches its rule. Halim's 32 contacts a spouse a run

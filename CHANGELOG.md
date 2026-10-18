@@ -4,6 +4,12 @@ All notable changes to this project are recorded here. Dates are ISO.
 
 ## [Unreleased] — 2026-10-11
 
+### Version 1 complete (2026-10-18)
+
+- The owner accepted `M11.C.6`'s failure as a finding ("Accept M11.C.6's failure as a finding, as recommended, and
+  record it so version 1 is complete"). `docs/version_1_status.md` reads V1, V2 and V3 met; V4–V7 hold. By the
+  version 1 definition's §4 question 8 the spec is frozen at version 1; later revisions start version 2.
+
 ### Spec revision 32, the owner's review: the nodal-event spike, `M11.C.6` restated (2026-10-17)
 
 - **The owner reviewed revision 32 one decision at a time** (plan §4.12, "The owner's decisions"): every decision

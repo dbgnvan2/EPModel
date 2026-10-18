@@ -4,8 +4,8 @@
 >
 > **2026-10-17 — spec revision 32, finishing version 1** (plan §4.12): built under the owner's "proceed using your own
 > recommendations", every decision pending owner review. Where version 1 stands is generated in
-> `docs/version_1_status.md`: V2 and V3 met; V1 waits on one row, `M11.C.6` (restated and failing; its acceptance
-> pending the owner, `docs/version_1_dispositions.md`); V7 signed off. The owner reviewed revision 32 one decision at a
+> `docs/version_1_status.md`: **version 1 complete, 2026-10-18** (V1–V3 met; the owner accepted `M11.C.6`'s failure
+> as a finding; V7 signed off). The spec is frozen at version 1; later revisions start version 2. The owner reviewed revision 32 one decision at a
 > time on 2026-10-17 and added `M4.C.1c`'s nodal-event spike; every record regenerated 2026-10-18.
 >
 > **2026-10-16/17 — spec revision 31** (plan §4.11): the owner's review of revisions 24–30 applied, with the owner's

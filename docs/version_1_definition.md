@@ -1,6 +1,6 @@
 # Version 1 of the agent model: a definition
 
-**Status: APPROVED 2026-10-15.** The owner took the draft's proposals for questions 1, 2, 3 and 8 ("go with your
+**Status: APPROVED 2026-10-15; met 2026-10-18 (§2b).** The owner took the draft's proposals for questions 1, 2, 3 and 8 ("go with your
 proposals on the version 1 questions") and for questions 4–7 ("I approve the revision list above", confirmed as both
 the question proposals and the review form). Drafted the same day as `version_1_definition_DRAFT.md`.
 
@@ -84,10 +84,13 @@ fails when it is stale), so it is not repeated here.
   of 2026-10-17 and 2026-10-18 the generated page reads **V2 met**: no failing premise or check is left.
 - **V3: met** on the generated page. `M11.C.11`, `M11.C.15` and `M11.C.39` have recorded mutants (`M11.C.39`'s is red by
   construction: its baseline is the mutation its row names).
-- **V1:** the owner accepted every proposed disposition on 2026-10-17 except two held for a diagnosis. `M11.C.17`
-  passes since the nodal-event spike, so it needs none. `M11.C.6`, traced and restated, fails; its acceptance as a
-  finding is Claude's recommendation, and **the owner's confirmation of it is the one thing V1 still needs**
-  (2026-10-18).
+- **V1: met (2026-10-18).** The owner accepted every proposed disposition on 2026-10-17 except two held for a
+  diagnosis. `M11.C.17` passes since the nodal-event spike, so it needs none. `M11.C.6`, traced and restated, fails, and
+  the owner accepted it as a finding on 2026-10-18.
+
+**Version 1 is complete (2026-10-18):** V1 to V7 hold (`docs/version_1_status.md` for V1–V3; V4 the spec's status line;
+V5 and V6 the suite and CI on the last commit; V7 the owner's sign-off). By §4 question 8 the spec is frozen at version
+1: later revisions start version 2.
 - **V7: met.** The owner signed off on 2026-10-17 (`docs/REVIEW_version_1_outputs.md`), and "the owner's family" now
   reads "the reference family the owner specified"; the framing each output carries is checked by
   `tests/test_version_1_outputs.py`.

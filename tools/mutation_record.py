@@ -261,6 +261,19 @@ MUTANTS = (
     Mutant("deviation-inverted", SIGN, ("M11.C.27[", "M11.C.44"), "src/bowen/engine/contact.py",
            "    return little + much\n", "    return -(little + much)\n",
            "M4.C.1's deviation inverted: moving away from the optimum relieves"),
+    # Version 1 (2026-10-17): M11.C.4's row names the standing load (M4.A.1). Alone it survives (ad hoc +4.83 ± 0.9):
+    # a cutoff's later cost also comes from refused approaches (M1.B.3c) and the reactive cutoff (M1.B.3d), so the joint
+    # mutant removes all three.
+    Mutant("standing-load-tie-term-removed", DELETION, ("M11.C.4",), "src/bowen/engine/standing_load.py",
+           "    return params.standing_load_gain * steepness(person, params) * too_little(person, tie, params, spike)\n",
+           "    return 0.0\n",
+           "M4.A.1's tie term removed: a tie's \"too little\" side adds no standing load"),
+    Mutant("cutoff-later-costs-removed", DELETION, ("M11.C.4",), "src/bowen/engine/standing_load.py",
+           "    return params.standing_load_gain * steepness(person, params) * too_little(person, tie, params, spike)\n",
+           "    return 0.0\n",
+           "M4.A.1's tie term, M1.B.3c's refusal cost (for every refused move) and M1.B.3d's reactive cutoff cost removed",
+           also=(("config/bowen/constants.md", "| `refusal_cost_gain` | 1.0 |", "| `refusal_cost_gain` | 0.0 |"),
+                 ("config/bowen/constants.md", "| `reactive_cutoff_gain` | 0.1 |", "| `reactive_cutoff_gain` | 0.0 |"))),
     Mutant("anger-gate-removed", DELETION, ("M11.C.32",), "src/bowen/engine/iposition.py",
            "return too_much(state.people[mover], tie, params) > params.anger_threshold",
            "return False",

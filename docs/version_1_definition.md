@@ -56,8 +56,9 @@ Every record regenerated once, after revision 31 part B and the owner's decision
 | `docs/phase_d2_ensemble_record.md` | 4 | 2 | `M11.C.37` (proved by a test instead) |
 
 - **Failing premises (V2): five.** `M11.C.4`, `M11.C.29`, `M11.C.32` (Phase C, unchanged); `M11.C.21`, still failing
-  after the capacity rule and the lent balance (+0.15 ± 0.19); and `M11.C.22`, **newly failing**, turned red by the
-  capacity rule (mild limb +0.57 ± 0.87; with the rule removed it passes exactly as before). Resolved: `M11.C.14`
+  after the capacity rule and the lent balance (+0.15 ± 0.19); and `M11.C.22`, **newly failing** (mild limb +0.57 ± 0.87; with the capacity rule removed the same 150 seeds
+  pass). *Corrected 2026-10-17:* over 600 seeds the rule shifts the mild limb by −0.15 ± 0.53 and the limb passes
+  (+1.00 ± 0.40), so the rule is not shown to cause the failure (plan §4.12). Resolved: `M11.C.14`
   passes as restated (its mutation clause is not met: the gate-removed mutant survives); `M11.C.40` passes (clause 2
   reported, proved by a unit test); `M11.C.23` is a composite now, its failure accepted as a finding (the owner,
   2026-10-16). *Decided 2026-10-17:* the capacity rule is kept and `M11.C.22`'s failure accepted for now; `M11.C.21`
@@ -68,6 +69,24 @@ Every record regenerated once, after revision 31 part B and the owner's decision
   `M11.C.23` (accepted as a finding).
 - **V3:** `M11.C.2[twelve-person family]` has a recorded red mutant (`docs/phase_d_mutation_record.md`).
 - **V4: met.** Revision 31 is built, and the spec's status line says so.
+
+## 2b. Where the model stands after revision 32 (2026-10-17)
+
+Revision 32 (plan §4.12) was built under the owner's instruction "proceed using your own recommendations"; every
+decision in it is Claude's recommendation, pending owner review. The status against V1–V3 is now generated, from the
+records and `docs/version_1_dispositions.md`, as **`docs/version_1_status.md`** (`tools/version_1_status.py`; a test
+fails when it is stale), so it is not repeated here.
+
+- **V2:** `M11.C.4` and `M11.C.32` pass after their arms were corrected (`M11.C.32`'s post hoc); `M11.C.29` and
+  `M11.C.22` are reclassified mixed; `M11.C.46` is built and passes; `M11.C.7` is built and mixed (its premise limb
+  holds; its composite limb fails); `M11.C.9` is proposed out of version 1. After the regeneration of 2026-10-17 the
+  generated page reads **V2 met**: no failing premise or check is left, if the owner confirms these decisions.
+- **V3: met** on the generated page. `M11.C.11`, `M11.C.15` and `M11.C.39` have recorded mutants (`M11.C.39`'s is red by
+  construction: its baseline is the mutation its row names).
+- **V1:** every failing composite and mixed criterion has a proposed disposition with its reason, and none is final
+  until the owner accepts it. This, with V7, is what remains for the owner.
+- **V7:** the review form is `docs/REVIEW_version_1_outputs.md`; the framing each output carries is checked by
+  `tests/test_version_1_outputs.py`. The sign-off is the owner's.
 
 ## 3. What version 1 does not include (decided 2026-10-15, question 7)
 

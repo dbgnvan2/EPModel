@@ -21,6 +21,14 @@ probability
 * **frequency** (`M1.E.8`) — with ``n`` contacts from the agent to the recipient in the last
   ``contact_window`` weeks, 1 up to ``contact_optimum`` and ``(optimum / n) ** contact_excess_exponent`` above it,
   so more coaching past a low rate is worse, not better.
+* **position** (`M8.2`, `M8.3`, `M8.5`; version 1, 2026-10-17, Claude's recommendation pending owner review) — 0 if
+  the agent holds no live position in a triangle it shares with the recipient: it has taken a side. P9's sided coach
+  is "drawn onto one spouse's side (``TRIANGLE`` toward him from her, and he goes along)", but a member cannot send an
+  external agent a ``TRIANGLE`` (`M5.B.4`, `M5.B.5`); the family-to-external move that draws a professional onto one
+  side is ``SPLIT``, consulting him without telling the others (Ch19 · L19.3). So the agent is on a member's side for
+  ``triangle_activity_window`` weeks after that member's ``SPLIT`` toward it; it has no move that declines, so it
+  always goes along. The count is ``positions_live``, the predicate `M8.5` requires. `M1.E.7e`'s lending of
+  pseudo-self by a sided coach is not built: a sided coach's contact lands nothing.
 * **own log** — 1 if the recipient's delayed view (`M16.D`: its own events older than
   ``delayed_view_weeks``) holds any move it sent, else 0: `M1.E.7c`'s fourth form, delayed
   self-observation, makes landing likelier. With the store emptied it never fires (`M16.T.6`).
@@ -44,6 +52,7 @@ from src.bowen.engine.contact import deviation
 from src.bowen.engine.draws import DrawKey
 from src.bowen.engine.events import Delivery, Mechanism, Role
 from src.bowen.engine.identifiers import PersonId
+from src.bowen.engine.live_positions import Occupant, positions_live
 from src.bowen.engine.log_records import DecidedBy, EffectRecord
 from src.bowen.engine.moves import TRIANGLE, triangle_partner
 from src.bowen.engine.objects import SCALE_MAX, Role as PersonRole
@@ -64,12 +73,51 @@ def binders_failing(person, params: EngineParams) -> bool:
     return max(person.symptom_load.values()) >= params.binder_failure_fraction * threshold(person, params)
 
 
+# The family-to-external move that draws an external agent onto its sender's side (M5.B.4; Ch19 · L19.3: consulting
+# him without telling the others). A classification, kept beside the rule that reads it, as FAMILY_TO_EXTERNAL is
+# beside the policy's legality rule.
+SIDE_TAKING = frozenset({"SPLIT"})
+
+
+def coach_side(state: RunState, coach: PersonId, members: tuple, params: EngineParams) -> PersonId | None:
+    """Purpose: the member of a triangle an external agent has been drawn in on, or None.
+    Spec:    docs/bowen_agent_model_spec_v2.md#M8.3, #M11.C.7
+    Tests:   tests/bowen/test_external.py::test_m8_3_a_coach_recruited_by_a_spouse_holds_no_live_position,
+             tests/bowen/test_external.py::test_m8_3_the_side_lapses_with_the_triangle_window
+
+    The sender of the latest ``SIDE_TAKING`` move toward the agent from another of the triangle's members within
+    ``triangle_activity_window`` weeks, the window a triangle act stays active (`M1.C.3`)."""
+    toward = [e for e in state.store.moves_in(state.tick - params.triangle_activity_window, state.tick)
+              if e.kind in SIDE_TAKING and e.targets == (coach,) and e.sender in members and e.sender != coach]
+    return toward[-1].sender if toward else None
+
+
+def coach_live(state: RunState, coach: PersonId, recipient: PersonId, params: EngineParams) -> bool:
+    """Purpose: whether an external agent holds a live position in every triangle it shares with the recipient.
+    Spec:    docs/bowen_agent_model_spec_v2.md#M8.1, #M8.2, #M8.3, #M8.5, #M11.C.7
+    Tests:   tests/bowen/test_external.py::test_m8_2_an_unrecruited_coach_is_live,
+             tests/bowen/test_external.py::test_m8_3_a_coach_recruited_by_a_spouse_holds_no_live_position
+    """
+    for tri_id in sorted(state.triangles):
+        members = tri_id.members
+        if coach not in members or recipient not in members:
+            continue
+        others = [Occupant(m, present=state.people[m].alive) for m in members if m != coach]
+        occupant = Occupant(coach, fused_into=coach_side(state, coach, members, params))
+        if positions_live([occupant, *others]) == positions_live(others):
+            return False
+    return True
+
+
 def landing_probability(state: RunState, coach, recipient, params: EngineParams) -> float:
     """Purpose: the chance one contact lands.
-    Spec:    docs/bowen_agent_model_spec_v2.md#M1.E.7, #M1.E.7c, #M1.E.7d, #M1.E.8
-    Tests:   tests/bowen/test_external.py::test_m1e8_more_contact_past_a_low_rate_lands_less
+    Spec:    docs/bowen_agent_model_spec_v2.md#M1.E.7, #M1.E.7c, #M1.E.7d, #M1.E.8, #M8.3
+    Tests:   tests/bowen/test_external.py::test_m1e8_more_contact_past_a_low_rate_lands_less,
+             tests/bowen/test_external.py::test_m11c7_a_sided_coachs_contact_never_lands
     """
     if not binders_failing(recipient, params):
+        return 0.0
+    if not coach_live(state, coach.id, recipient.id, params):
         return 0.0
     recent = sum(
         1 for e in state.store.sent_by(coach.id)

@@ -607,3 +607,28 @@ def test_m134_code_hash_ignores_prose_but_not_code(tmp_path):
         path.write_text(text)
         seen[name] = code_text(path) == original
     assert seen == {"prose": True, "code": False, "inline docstring": True, "code on a docstring's line": False}
+
+
+def test_criteria_modules_bind_no_top_level_name_twice():
+    """A criteria module that binds one top-level name twice changes every arm that read the first binding: on
+    2026-10-17 `M11.C.46`'s `PARTNER` (the triad's M) replaced `M11.C.22`'s and `M11.C.11`'s (the nuclear four's c2),
+    caught only by comparing seeds after a record had been regenerated. Loop variables named with a leading `_` may
+    repeat."""
+    import ast
+
+    for name in ("criteria.py", "criteria_d.py", "criteria_d2.py"):
+        tree = ast.parse((REPO / "src" / "bowen" / "ensemble" / name).read_text(encoding="utf-8"))
+        bound: dict[str, list[int]] = {}
+        for node in tree.body:
+            if isinstance(node, ast.Assign):
+                targets = node.targets
+            elif isinstance(node, (ast.AnnAssign, ast.For)):
+                targets = [node.target]
+            else:
+                continue
+            for target in targets:
+                for n in ast.walk(target):
+                    if isinstance(n, ast.Name) and not (isinstance(node, ast.For) and n.id.startswith("_")):
+                        bound.setdefault(n.id, []).append(node.lineno)
+        twice = {k: v for k, v in bound.items() if len(v) > 1}
+        assert twice == {}, f"{name}: {twice}"

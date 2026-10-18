@@ -89,11 +89,8 @@ def test_m11c44_position_value_inverts_with_load():
 def test_m11c45_triangles_quiet_when_calm():
     gate("M11.C.45")
 
-def test_m11c7_topology_not_coach_skill():
-    gate("M11.C.7")
-
 def test_m11c13_help_relocates_not_reduces():
     gate("M11.C.13")
 
-def test_m11c14_technique_null_under_marital_distance():
-    gate("M11.C.14")
+
+# M11.C.7 and M11.C.14 are built in Phase D: tests/bowen/test_phase_d_criteria.py.

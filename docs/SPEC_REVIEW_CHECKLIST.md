@@ -145,6 +145,12 @@ verdicts over ensembles (`tools/phase_d_record.py`; plan step 12). Mutations are
 
 **Approved, 2026-10-15:** [version_1_definition.md](version_1_definition.md) — what version 1 of the agent model is: seven conditions, each checked by a test, a record or an owner sign-off, where the model stands against them, and the owner's eight decisions.
 
+**For review, 2026-10-17:** [version_1_dispositions.md](version_1_dispositions.md) — for each criterion that does not pass, the disposition (accepted as a finding, out of scope, withdrawn, or a note) with its reason and who decided it; rows that are Claude's recommendation are pending owner review and do not count as final.
+
+**For review, 2026-10-17:** [REVIEW_version_1_outputs.md](REVIEW_version_1_outputs.md) — version 1's condition V7: every kind of output, the framing it carries (`M11.F.9`, `M11.F.10`), checked by `tests/test_version_1_outputs.py`, and the owner's sign-off.
+
+**Generated, 2026-10-17:** [version_1_status.md](version_1_status.md) — every `M11.C` criterion with its status under V1–V3, read from the ensemble and mutation records and the dispositions, from `tools/version_1_status.py`; a default-suite test fails when it is stale.
+
 **For review, 2026-10-13:** [phase_d_status_2026-10-13.md](phase_d_status_2026-10-13.md) — Phase D part I after the
 overnight run: every build item and D-I criterion as done, partial or not done, and what the owner should look at
 first (spec revisions 24–27 are Claude's recommendations, pending owner review).

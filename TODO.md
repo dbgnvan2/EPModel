@@ -18,6 +18,44 @@ Deferred and adjacent items. Each carries enough context to act on later without
   - `M11.C.11` shape — "three phases, not a step down" is a claim about curve shape; any automated version embeds an invented tolerance.
   - `M5.F.2` — the threshold separating a counterfeit move from a genuine one is invented and sets the result. **This is the model's most consequential invented constant.**
 
+## Revision 32 (finishing version 1) — open after the build, 2026-10-17
+
+Plan §4.12 holds the evidence. Built under the owner's instruction "proceed using your own recommendations"; every
+decision is Claude's recommendation, pending owner review.
+- [ ] **Owner: confirm or change the revision 32 decisions** (plan §4.12, R32.1–R32.9): `M11.C.4`'s baseline held open
+  for the whole run; `M11.C.32`'s mover at level 60 (post hoc); `M11.C.29` and `M11.C.22` reclassified mixed;
+  `M11.C.46` built on the "closer to the partner" form only (chosen after the anxious form failed); `M11.C.7` built with
+  "sided" read as a recent `SPLIT` toward the coach (P9 said `TRIANGLE`, which a member cannot send a professional);
+  `M11.C.9` out of version 1.
+- [ ] **Owner: accept or reject each pending disposition** in `docs/version_1_dispositions.md`. V1 counts none of them
+  as final until then; `docs/version_1_status.md` lists them.
+- [ ] **Owner: `M11.C.41`'s two stress cells and `M11.C.34` under V2.** `M11.5` classes their failing limbs premise
+  (through the mixing weight); the version 1 definition (§2) listed them for acceptance. One reading should be chosen.
+- [ ] **`M4.C.1c`'s nodal-event spike is not built** (a gap the spec now states): only a `TRIGGER` spikes a cut tie's
+  "too little" side. Building it is a new mechanism and a new `[I]` constant.
+- [ ] **A genuine `I-POSITION` at level 40 almost never completes** since revision 16 (0 of 200 seeds reach the peak in
+  `M11.C.32`'s calm arm at level 40). `hold_gain` and `defence_threshold` may be sized for the calmer model before
+  cutoff became rejection. A rule decision for every `I-POSITION`.
+- [ ] **Criteria near the runner's detection limit.** `M11.C.22`'s mild limb has about a 78% pass chance at the runner's
+  stop; others may be similar. A general rule (a fixed seed count when the effect is within a set multiple of the
+  precision) would change `M17.A.1` for all criteria.
+- [ ] **`M1.E.7e`'s lending of pseudo-self by a sided coach is not built**: a sided coach's contact lands nothing.
+- [ ] **`M11.C.29` could be redesigned instead of accepted**: its genuine `I-POSITION` never completes in the arm, so
+  its time-course limb is untested. A redesign needs an act week clear of the spell and a mover able to prepare; the
+  diagnosis found nothing that completes without weakening the third person's symptom (plan §4.12).
+- [ ] **Minor, from the revision 32 reviews (2026-10-17), not fixed:**
+  - `SIDE_TAKING` (`external.py`) is a classification kept in code, as `FAMILY_TO_EXTERNAL` is in `policy.py`; rule 9
+    puts it in config. Move both together.
+  - How long a coach stays on a side borrows `triangle_activity_window`, so tuning `M1.C.3` changes `M11.C.7` too.
+  - `arm_c7` scripts the `SPLIT` at `session − 1`; it stays inside the window at the landing tick only while the coach
+    tie's latency is 2 or less (it is 1).
+  - For V3 the status tool counts a red on any gating readout of a mixed criterion; it does not know which limb a
+    mutant reached. No passing mixed criterion depends on this today.
+  - Adjacent, not fixed: `recompute.py`'s triangle activity treats the coach as an unfused occupant, though `M8.5` says
+    the same predicate decides triangle activity.
+- [ ] **`M11.C.6`'s reversal is not traced**: the most-projected child develops slightly more than the others
+  (+0.118 ± 0.057) under revision 31's band.
+
 ## Spec revision 30 (origin cutoff, danger, focus lock-in) — open after the build, 2026-10-14
 
 Plan §4.10 holds the evidence.
@@ -157,7 +195,7 @@ Plan §4.7 and `docs/phase_d2_status_2026-10-13.md` hold the evidence.
 - [x] ~~**`canonical_state` omits `state.life`.**~~ *Folded in 2026-10-13 with the `M11.C.15` change.*
 - [x] ~~**Prove the part II `M16.T.3` re-run by mutation**~~ *2026-10-13: `test_m16t3_canonical_state_sees_the_life_course`
   shows that a change to the life course alone changes the compared state.*
-- [ ] **A mutation record for part II.** `M11.C.37`'s mutant is a test; `M11.C.15`'s ran ad hoc (plan §4.7) and is not in
+- [x] ~~**A mutation record for part II.**~~ *Done at revision 32 (2026-10-17): `M11.C.15`'s mutant (`death-bound-anxiety-discarded`) is in `docs/phase_d_mutation_record.md`.* `M11.C.37`'s mutant is a test; `M11.C.15`'s ran ad hoc (plan §4.7) and is not in
   a record.
 
 ## Phase D — open from B3/B4, 2026-10-11
@@ -259,7 +297,7 @@ Plan §4.7 and `docs/phase_d2_status_2026-10-13.md` hold the evidence.
   10): the coach's contact lands only when binders fail (an active symptom), which at revision 23 was 99% of weeks only
   because everyone was saturated; now about 40%, so landings and perspective halve. Owner's question: should the gate
   read load above the usual level instead? *Decided 2026-10-16 (review): no, it keeps reading an active symptom or
-  load near threshold.* The weak pass stands and needs a recorded mutation for V3.
+  load near threshold.* The weak pass stands and needs a recorded mutation for V3. *Superseded: `M11.C.17` fails at revision 31 (−0.00008 ± 0.0013); its failure is proposed for acceptance (`docs/version_1_dispositions.md`).*
 - [ ] **Reviews of revisions 25–27 (2026-10-12), not fixed, with reasons:**
   - **`I-POSITION` sequences now rarely complete.** In the triad fixture, completion fell from about 10 in 96 seeds
     (revision 20) to 2 in 96 after B7, and 4 in 192 now. `tests/bowen/test_iposition.py::test_m5d8_*` was raised to
@@ -275,7 +313,7 @@ Plan §4.7 and `docs/phase_d2_status_2026-10-13.md` hold the evidence.
   - `M11.C.36` measures appraisal only; its row says "appraisal and selection".
   - `relax_pseudo_self` runs tie by tie, so a person relaxed on two ties in one week sees the first change before
     the second: deterministic, but not `M1.F.8`'s batch rule.
-- [ ] **`M11.C.7`, `M11.C.9` and `M11.C.28` are not built**: C.7 needs the coach's landing to read the coach's position
+- [x] ~~**`M11.C.7`, `M11.C.9` and `M11.C.28` are not built**~~ *Revision 32 (2026-10-17): `M11.C.7` built (plan §4.12); `M11.C.9` proposed out of version 1 (no rule reads sibling position); `M11.C.28` out of scope (owner, 2026-10-15).* C.7 needs the coach's landing to read the coach's position
   (`M8`'s predicate exists, unused); C.9 needs sibling position to gate behaviour (`M1.A.14c`); C.28 needs the sink
   allocation to feed some behaviour, or its mobility can change no symptom.
 - [ ] **Phase D record, review of 2026-10-13, minor, not fixed:** `tools/spec_coverage.py` reads only the Phase C
@@ -287,7 +325,7 @@ Plan §4.7 and `docs/phase_d2_status_2026-10-13.md` hold the evidence.
 - [ ] **`M11.C.12` fails** (B7, 2026-10-12): released anxiety raises the other spouse's excess, but more anxiety does
   not select `CONFLICT` in particular (dyad, 20 seeds: 55 against 56 conflict acts between the spouses). Whether the criterion, the
   readout or the policy is wrong is the owner's question; nothing was changed to make it pass.
-- [ ] **`M11.C.11`'s direction limb has no mutant** (B7): the return's disturbance exceeds the removal's. About half
+- [x] ~~**`M11.C.11`'s direction limb has no mutant**~~ *Done at revision 32: carried by the removed member's hold (`lock_in` +12.1 of +2.34); `removed-member-hold-released-while-away` reverses it (−1.77 ± 1.61, ad hoc) and is in `docs/phase_d_mutation_record.md`. Whether a removed member should keep the hold is still open, below.* (B7): the return's disturbance exceeds the removal's. About half
   is the removed member's symptom hold, frozen while they are away (no partners to release to) and released on
   return; decide whether a removed member should keep the hold. Reunion's restored contact is not what carries the
   rest. Find what does, and declare it. *Version 1 (2026-10-16):* `M11.5` classes this limb composite, so V3 needs a

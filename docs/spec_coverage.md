@@ -7,7 +7,7 @@ criterion is **done** only when every entry passes in `docs/phase_c_ensemble_rec
 mutant has turned each entry red in `docs/phase_c_mutation_record.md`; the D9 sweep
 (`docs/phase_c_sweep_record.md`) is reported, not gated. Phases D and E build most of the rest.
 
-**575 IDs: 272 done, 69 partial, 234 not done.**
+**575 IDs: 274 done, 70 partial, 231 not done.**
 
 | ID | Status | Evidence | Note |
 |---|---|---|---|
@@ -399,17 +399,17 @@ mutant has turned each entry red in `docs/phase_c_mutation_record.md`; the D9 sw
 | M11.C.1 | done | `tests/bowen/test_phase_c_gate.py::test_m11c1_lower_c_reaches_threshold_sooner` | ensemble record: M11.C.1 PASS |
 | M11.C.2 | partial | `tests/bowen/test_origin_danger_focus.py::test_m11c2_twelve_arms_do_not_share_their_books`<br>`tests/bowen/test_phase_d2_criteria.py::test_m11c2_symptom_concentrates_on_projection_target_in_the_twelve_person_family`<br>`tests/bowen/test_phase_d2_criteria.py::test_m11c2_twelve_reads_load_by_age`<br>`tests/bowen/test_phase_d_criteria.py::test_m11c2_symptom_concentrates_on_projection_target` | built; no recorded ensemble verdict yet (the Phase D record is plan step 12) |
 | M11.C.3 | done | `tests/bowen/test_phase_c_gate.py::test_m11c3_triangle_relieves_seeker_costs_third` | ensemble record: M11.C.3 PASS |
-| M11.C.4 | partial | `tests/bowen/test_phase_c_gate.py::test_m11c4_cutoff_trades_now_against_later` | ensemble record: M11.C.4 FAIL |
+| M11.C.4 | done | `tests/bowen/test_phase_c_gate.py::test_m11c4_cutoff_trades_now_against_later` | ensemble record: M11.C.4 PASS |
 | M11.C.5 | partial | `tests/bowen/test_phase_c_gate.py::test_m11c5_change_back_reaction_shape` | ensemble record: M11.C.5 FAIL |
 | M11.C.6 | partial | `tests/bowen/test_phase_d2_criteria.py::test_m11c6_multigenerational_decline_in_projection_line`<br>`tests/bowen/test_phase_d2_criteria.py::test_m11c6_the_children_are_read_at_twenty` | built; no recorded ensemble verdict yet (the Phase D record is plan step 12) |
-| M11.C.7 | not done | `tests/bowen/test_phase_c_gate.py::test_m11c7_topology_not_coach_skill` | not built in Phase C — docs/phase_c_ensemble_record.md says why |
+| M11.C.7 | partial | `tests/bowen/test_external.py::test_m11c7_a_sided_coachs_contact_never_lands`<br>`tests/bowen/test_phase_d_criteria.py::test_m11c7_arms_differ_only_in_their_topology`<br>`tests/bowen/test_phase_d_criteria.py::test_m11c7_topology_not_coach_skill` | built; no recorded ensemble verdict yet (the Phase D record is plan step 12) |
 | M11.C.8 | not done | — | Phase E |
 | M11.C.9 | not done | — | Phase D |
 | M11.C.10 | partial | `tests/bowen/test_phase_d2_criteria.py::test_m11c10_a_renewal_toward_a_dead_target_is_counted_as_target_dead`<br>`tests/bowen/test_phase_d2_criteria.py::test_m11c10_cutoff_begets_cutoff`<br>`tests/bowen/test_phase_d2_criteria.py::test_m11c10_cutoff_begets_cutoff_from_the_family_of_origin`<br>`tests/bowen/test_phase_d2_criteria.py::test_m11c10_each_arm_runs_what_it_names`<br>`tests/bowen/test_phase_d2_criteria.py::test_m11c10_family_of_origin_arm_holds_both_parents_cutoffs`<br>`tests/bowen/test_phase_d2_criteria.py::test_m11c10_partner_of_reads_the_marital_tie`<br>`tests/bowen/test_phase_d2_criteria.py::test_m11c10_reads_cut_off_tie_weeks`<br>`tests/bowen/test_phase_d2_criteria.py::test_m11c10_reads_rejection_toward_partners_and_parents`<br>`tests/bowen/test_phase_d2_criteria.py::test_m11c10_runs_200_seeds`<br>`tests/bowen/test_phase_d2_criteria.py::test_m11c10_the_treatment_holds_the_cutoff_and_the_baseline_holds_it_open`<br>`tests/bowen/test_phase_d_mutation_record.py::test_m11c10_family_of_origin_variant_is_proved_red_by_removing_m4d6f` | built; no recorded ensemble verdict yet (the Phase D record is plan step 12) |
 | M11.C.11 | partial | `tests/bowen/test_phase_d_criteria.py::test_m11c11_removal_three_phase_shape` | built; no recorded ensemble verdict yet (the Phase D record is plan step 12) |
 | M11.C.12 | partial | `tests/bowen/test_phase_d_criteria.py::test_m11c12_symptom_relief_raises_conflict` | built; no recorded ensemble verdict yet (the Phase D record is plan step 12) |
 | M11.C.13 | not done | `tests/bowen/test_phase_c_gate.py::test_m11c13_help_relocates_not_reduces` | not built in Phase C — docs/phase_c_ensemble_record.md says why |
-| M11.C.14 | not done | `tests/bowen/test_ensemble.py::test_m11c14_bound_side_only_on_a_null`<br>`tests/bowen/test_ensemble.py::test_m11c14_one_sided_bound_fails_when_interval_reaches_below`<br>`tests/bowen/test_phase_c_gate.py::test_m11c14_technique_null_under_marital_distance`<br>`tests/bowen/test_phase_d_criteria.py::test_m11c14_no_technique_lowers_load_under_marital_distance`<br>`tests/bowen/test_phase_d_criteria.py::test_m11c14_variants_differ_from_their_baseline_only_by_the_technique`<br>`tests/bowen/test_phase_d_mutation_record.py::test_m11c14_gate_removed_is_run_on_both_variants_and_its_result_matches_the_spec` | not built in Phase C — docs/phase_c_ensemble_record.md says why |
+| M11.C.14 | partial | `tests/bowen/test_ensemble.py::test_m11c14_bound_side_only_on_a_null`<br>`tests/bowen/test_ensemble.py::test_m11c14_one_sided_bound_fails_when_interval_reaches_below`<br>`tests/bowen/test_phase_d_criteria.py::test_m11c14_no_technique_lowers_load_under_marital_distance`<br>`tests/bowen/test_phase_d_criteria.py::test_m11c14_variants_differ_from_their_baseline_only_by_the_technique`<br>`tests/bowen/test_phase_d_mutation_record.py::test_m11c14_gate_removed_is_run_on_both_variants_and_its_result_matches_the_spec` | built; no recorded ensemble verdict yet (the Phase D record is plan step 12) |
 | M11.C.16 | partial | `tests/bowen/test_phase_c_gate.py::test_m11c16_repertoire_concentration_depends_on_level` | passes (docs/phase_c_ensemble_record.md), but its required mutant, M4.D.6 disabled, survives; the joint level-blind mutant turns it red, and availability-level-inverted reverses it (docs/phase_c_mutation_record.md). Composite; the row's mutation clause is not met (spec M11.5, 2026-10-08) |
 | M11.C.15 | partial | `tests/bowen/test_phase_d2_criteria.py::test_m11c15_death_destabilises_like_recovery`<br>`tests/bowen/test_phase_d2_criteria.py::test_m11c15_grief_and_income_off_and_the_transfer_kept_in_every_arm` | built; no recorded ensemble verdict yet (the Phase D record is plan step 12) |
 | M11.C.17 | partial | `tests/bowen/test_phase_d_criteria.py::test_m11c17_coach_helps_and_is_not_required` | built; no recorded ensemble verdict yet (the Phase D record is plan step 12) |
@@ -427,7 +427,7 @@ mutant has turned each entry red in `docs/phase_c_mutation_record.md`; the D9 sw
 | M11.C.29 | partial | `tests/bowen/test_phase_c_criteria.py::test_m11c29_every_withdrawal_is_made_with_or_without_the_hold`<br>`tests/bowen/test_phase_c_criteria.py::test_m11c29_held_tie_is_not_cut_while_held`<br>`tests/bowen/test_phase_c_criteria.py::test_m11c29_hold_is_the_same_in_both_arms`<br>`tests/bowen/test_phase_c_gate.py::test_m11c29_relief_and_differentiation_differ_in_time_course` | ensemble record: M11.C.29 FAIL |
 | M11.C.30 | partial | `tests/bowen/test_phase_d_criteria.py::test_m11c30_channels_are_mutually_protective`<br>`tests/bowen/test_phase_d_criteria.py::test_m11c30_the_arms_differ_only_in_the_load_carried_elsewhere` | built; no recorded ensemble verdict yet (the Phase D record is plan step 12) |
 | M11.C.31 | partial | `tests/bowen/test_phase_d_criteria.py::test_m11c31_binder_removal_releases_bound_anxiety`<br>`tests/bowen/test_phase_d_criteria.py::test_m11c31_the_budget_rises_by_exactly_what_the_binder_held` | built; no recorded ensemble verdict yet (the Phase D record is plan step 12) |
-| M11.C.32 | partial | `tests/bowen/test_phase_c_gate.py::test_m11c32_mover_anger_stalls_and_degrades` | ensemble record: M11.C.32 FAIL |
+| M11.C.32 | done | `tests/bowen/test_phase_c_gate.py::test_m11c32_mover_anger_stalls_and_degrades` | ensemble record: M11.C.32 PASS |
 | M11.C.34 | partial | `tests/bowen/test_phase_d_criteria.py::test_m11c34_system_reaction_to_symptom_discriminates_level` | built; no recorded ensemble verdict yet (the Phase D record is plan step 12) |
 | M11.C.33 | partial | `tests/bowen/test_phase_d_criteria.py::test_m11c33_arms_differ_only_at_the_slow_tick`<br>`tests/bowen/test_phase_d_criteria.py::test_m11c33_dependence_gate_blocks_basic_level_rise` | built; no recorded ensemble verdict yet (the Phase D record is plan step 12) |
 | M11.C.35 | done | `tests/bowen/test_phase_c_gate.py::test_m11c35_witness_appraisal_depends_on_both_ties` | ensemble record: M11.C.35 PASS |
@@ -441,7 +441,7 @@ mutant has turned each entry red in `docs/phase_c_mutation_record.md`; the D9 sw
 | M11.C.43 | partial | `tests/bowen/test_phase_d_criteria.py::test_m11c43_learned_buffer_removal_costs_more` | built; no recorded ensemble verdict yet (the Phase D record is plan step 12) |
 | M11.C.44 | partial | `tests/bowen/test_phase_c_gate.py::test_m11c44_position_value_inverts_with_load` | ensemble record: M11.C.44 FAIL |
 | M11.C.45 | partial | `tests/bowen/test_phase_c_criteria.py::test_m11c45_triangle_rate_is_per_person_week`<br>`tests/bowen/test_phase_c_gate.py::test_m11c45_triangles_quiet_when_calm` | ensemble record: M11.C.45 FAIL |
-| M11.C.46 | not done | — | Phase D |
+| M11.C.46 | partial | `tests/bowen/test_phase_d_criteria.py::test_m11c46_arms_differ_only_in_the_thirds_bonds_and_the_triangle_lands`<br>`tests/bowen/test_phase_d_criteria.py::test_m11c46_triangle_relief_scales_with_third_help` | built; no recorded ensemble verdict yet (the Phase D record is plan step 12) |
 | M11.C.47 | partial | `tests/bowen/test_origin_danger_focus.py::test_m11c47_arms_differ_only_in_one_persons_level_and_stress`<br>`tests/bowen/test_origin_danger_focus.py::test_m11c47_low_level_and_stress_breed_danger`<br>`tests/bowen/test_origin_danger_focus.py::test_m11c47_principled_cutoff_reads_zero_without_rejection` | built; no recorded ensemble verdict yet (the Phase D record is plan step 12) |
 | M11.5 | done | `tests/bowen/test_ensemble_record.py::test_m115_report_section_11_is_generated` | — |
 | M11.D.1 | done | `tests/bowen/test_engine_purity.py::test_m11d1_engine_has_no_io`<br>`tests/bowen/test_engine_purity.py::test_m11d1_the_scans_find_what_they_look_for` | — |
@@ -587,7 +587,7 @@ mutant has turned each entry red in `docs/phase_c_mutation_record.md`; the D9 sw
 | M17.G.2 | not done | — | Phase E |
 | M17.G.3 | not done | — | Phase E |
 
-## Tests named for no spec ID (129)
+## Tests named for no spec ID (149)
 
 Their names embed no requirement ID, so they count only where an override cites them (marked *cited*). The rest check spec documents, tooling or helpers.
 
@@ -598,6 +598,7 @@ Their names embed no requirement ID, so they count only where an override cites 
 - `tests/bowen/test_ensemble_record.py::test_b2_code_text_drops_only_docstrings_and_comments`
 - `tests/bowen/test_ensemble_record.py::test_b2_code_text_is_the_same_on_every_python_version`
 - `tests/bowen/test_ensemble_record.py::test_b2_code_text_keeps_fstring_text_exactly`
+- `tests/bowen/test_ensemble_record.py::test_criteria_modules_bind_no_top_level_name_twice`
 - `tests/bowen/test_ensemble_record.py::test_criteria_required_matches_what_the_arms_read`
 - `tests/bowen/test_ensemble_record.py::test_criteria_settings_are_parsed_strictly`
 - `tests/bowen/test_ensemble_record.py::test_d0_a_probe_key_covers_the_whole_probe_module`
@@ -612,6 +613,9 @@ Their names embed no requirement ID, so they count only where an override cites 
 - `tests/bowen/test_ensemble_record.py::test_sweep_tool_shares_the_loaded_mutation_tool`
 - `tests/bowen/test_events.py::test_b1_delivered_at_matches_delivered_to_filtered`
 - `tests/bowen/test_events.py::test_b1_indexes_match_a_full_scan`
+- `tests/bowen/test_external.py::test_m8_2_an_unrecruited_coach_is_live`
+- `tests/bowen/test_external.py::test_m8_3_a_coach_recruited_by_a_spouse_holds_no_live_position`
+- `tests/bowen/test_external.py::test_m8_3_the_side_lapses_with_the_triangle_window`
 - `tests/bowen/test_famdiag_export.py::test_v5_a_line_read_from_acts_and_silence_reports_both`
 - `tests/bowen/test_famdiag_export.py::test_v5_a_stopped_pattern_ends_where_it_stopped`
 - `tests/bowen/test_famdiag_export.py::test_v5_diagram_has_what_famdiag_imports`
@@ -645,6 +649,7 @@ Their names embed no requirement ID, so they count only where an override cites 
 - `tests/bowen/test_phase_c_criteria.py::test_s_every_scripted_criterion_holds_the_same_ties_in_both_arms`
 - `tests/bowen/test_phase_c_criteria.py::test_s_outcomes_classifies_every_case_from_the_records`
 - `tests/bowen/test_phase_c_criteria.py::test_s_scripted_criteria_are_found_by_running_them`
+- `tests/bowen/test_phase_d_criteria.py::test_forced_withheld_label_withholds_that_act_toward_that_person_only`
 - `tests/bowen/test_phase_d_record.py::test_phase_d2_record_covers_every_criterion_and_names_what_is_not_run`
 - `tests/bowen/test_phase_d_record.py::test_phase_d2_record_is_current`
 - `tests/bowen/test_phase_d_record.py::test_phase_d_record_carries_no_phase_c_wording_and_its_table_matches_its_json`
@@ -720,3 +725,18 @@ Their names embed no requirement ID, so they count only where an override cites 
 - `tests/test_sweep.py::test_missing_index_yields_an_empty_set`
 - `tests/test_sweep.py::test_seen_is_keyed_unversioned_so_two_versions_are_one_candidate`
 - `tests/test_sweep.py::test_the_real_catalogue_contains_no_versioned_ids`
+- `tests/test_version_1_outputs.py::test_v7_every_ensemble_record_says_a_premise_pass_is_not_a_finding_about_families`
+- `tests/test_version_1_outputs.py::test_v7_every_rendered_trace_carries_the_framing_block`
+- `tests/test_version_1_outputs.py::test_v7_the_famdiag_export_says_it_is_not_a_real_family`
+- `tests/test_version_1_outputs.py::test_v7_virtual_family_appears_only_where_it_is_framed`
+- `tests/test_version_1_status.py::test_v1_a_disposition_on_a_passing_criterion_is_refused`
+- `tests/test_version_1_status.py::test_v1_a_disposition_that_cannot_apply_is_refused`
+- `tests/test_version_1_status.py::test_v1_a_failing_premise_cannot_be_accepted_as_a_finding`
+- `tests/test_version_1_status.py::test_v1_a_mixed_criterions_failing_premise_limb_blocks_v2_and_cannot_be_accepted`
+- `tests/test_version_1_status.py::test_v1_a_passing_composite_with_no_red_mutant_blocks_v3`
+- `tests/test_version_1_status.py::test_v1_a_pending_acceptance_is_not_final_and_an_owner_acceptance_is`
+- `tests/test_version_1_status.py::test_v1_a_registered_criterion_with_no_record_row_means_stale_records`
+- `tests/test_version_1_status.py::test_v1_a_row_after_a_break_in_the_dispositions_table_raises`
+- `tests/test_version_1_status.py::test_v1_a_spec_criterion_no_record_lists_is_flagged_not_built`
+- `tests/test_version_1_status.py::test_v1_every_spec_criterion_has_a_status_row`
+- `tests/test_version_1_status.py::test_v1_status_page_is_current`

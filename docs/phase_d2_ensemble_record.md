@@ -5,7 +5,7 @@ seeds (`M3.D.4a`), stopped adaptively (`M17.A.1`, `M13.4`): `UNDETERMINED` at th
 pass. Every verdict carries its class (`M11.5`). **A premise passing confirms that the code renders the
 spec; it is not a finding about families.** Spec revision 28 applies the owner's life-course decisions of 2026-10-13; its forms are Claude's recommendation, approved by the owner 2026-10-16.
 
-code_hash: 79f44b926c987803e6d62dfa0615cbfadbd319fd4599c2218c37db72746cb871
+code_hash: 43cd03b806d631cd7e8f78616a5e569b5e2bc7fdeaf07ed7a62cc8e0ad816efc
 
 Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25, `ensemble_margin` = 0.1, `ensemble_alpha` = 0.05, `fallback_flag_rate` = 0.2, `equivalence_margin` = 0.5.
 

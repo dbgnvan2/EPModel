@@ -103,12 +103,13 @@ def test_r31a9_no_pending_review_tags_for_rev24_30():
     pending = [m.group(0) for m in REVIEWED.finditer(SPEC) if "pending owner review" in m.group(0)]
     assert pending == []
     assert "⟦rev28⟧" not in SPEC  # inconsistency 7: every revision 28 tag names its source
-    assert "pending owner review" not in EXPLAINER
-    assert "pending owner review" not in CHANGES
-    # R31.B3: the config headers and the part I and part II record renderer (constants defined below, with part B)
-    for name, text in (("attribution.md", ATTRIBUTION), ("criteria.md", CRITERIA_SETTINGS),
+    # R31.B3: the config headers and the part I and part II record renderer (constants defined below, with part B).
+    # Revision 32 (2026-10-17) adds its own pending items; a line carrying "pending owner review" must be one of them.
+    for name, text in (("model_explainer.md", EXPLAINER), ("constants_changes.md", CHANGES),
+                       ("attribution.md", ATTRIBUTION), ("criteria.md", CRITERIA_SETTINGS),
                        ("tools/phase_d_record.py", RECORD_TOOL)):
-        assert "pending owner review" not in text, name
+        stale = [line for line in text.splitlines() if "pending owner review" in line and "2026-10-17" not in line]
+        assert stale == [], (name, stale[:2])
 
 
 def test_r31a9_tag_check_catches_a_pending_tag():
@@ -129,7 +130,8 @@ def test_r31a11_plan_closes_the_two_owner_questions():
 
 
 def test_r31a12_spec_status_names_revision_31():
-    assert re.search(r"^version: 2\.0, revision 31$", SPEC, flags=re.M)
+    # Revision 32 (2026-10-17) moved the version on; revision 31 stays named in the status line.
+    assert re.search(r"^version: 2\.0, revision 3[1-9]$", SPEC, flags=re.M)
     assert "revision 31, the owner's review of revisions 24 to 30 applied" in SPEC.splitlines()[3]
 
 

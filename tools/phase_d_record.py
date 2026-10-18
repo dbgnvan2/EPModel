@@ -36,8 +36,8 @@ _spec.loader.exec_module(_record)
 
 # Phase D part I criteria with no arm yet, and why (docs/implementation_plan_phase_d.md, step 10).
 NOT_BUILT = {
-    "M11.C.7": "needs the coach's landing to read the coach's position (`M8`'s predicate exists, nothing calls it)",
-    "M11.C.9": "needs sibling position to gate behaviour (`M1.A.14c`)",
+    "M11.C.9": "no rule reads sibling position, so building it means a new mechanism, not a gate (`M1.A.14c`); "
+               "out of version 1, Claude's recommendation 2026-10-17 pending owner review (`docs/version_1_dispositions.md`)",
     "M11.C.28": "the sink allocation feeds no behaviour, so pinning its mobility can change no symptom",
 }
 

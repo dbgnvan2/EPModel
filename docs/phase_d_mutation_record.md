@@ -7,7 +7,7 @@ passes; a red mutant is **reversed** when every gating readout's interval lies w
 direction (`M11.1d`). Phase D's other mutation runs are ad hoc and reported in
 `docs/implementation_plan_phase_d.md`.
 
-engine_hash: 8a823391e149e3822434bfd826f2e04d147f3e2a8f9f6c8e663bc7d5d68e7385
+engine_hash: ef5a9ba2dc25d3ce60bf88b338d86c12c092c430a3ade6686b25d048a957056e
 
 | Mutant | Kind | What it changes | Criterion | Verdict under mutant | Seeds | Difference under mutant | Result |
 |---|---|---|---|---|---|---|---|
@@ -16,18 +16,22 @@ engine_hash: 8a823391e149e3822434bfd826f2e04d147f3e2a8f9f6c8e663bc7d5d68e7385
 | `weakness-focus-and-steering-removed` | named | M1.B.8a and M4.D.1g removed: no focus on a child's weakness, and focus steers no projection-type act | `M11.C.2[twelve-person family]` | FAIL | 150 | `symptom_load` +0.728 ± 1.8, p 0.38 | **red** |
 | `marital-distance-gate-removed` | named | M5.C.1 removed: a move addressed to a symptomatic child under marital distance improves them as any other | `M11.C.14[firmness]` | PASS | 100 | `child_symptom_load` +9.52 ± 3 | **survived** |
 | `marital-distance-gate-removed` | named | M5.C.1 removed: a move addressed to a symptomatic child under marital distance improves them as any other | `M11.C.14[talking it out]` | PASS | 100 | `child_symptom_load` -3.59 ± 2.3; `talking_less_firmness` -13.1 ± 2.7 (reported) | **survived** |
+| `triangle-help-ignored` | named | M1.C.1's dependence on the third's help removed (owner decision 2026-10-09): every third helps fully | `M11.C.46` | FAIL | 150 | `seeker_relief` +0.131 ± 0.24, p 0.062; `third_excess` -0.746 ± 1 (reported); `seeker_change` -0.292 ± 0.62 (reported) | **red** |
+| `learning-off-in-both-arms` | named | M4.D.6 disabled in both arms: no learned value moves, as in the criterion's baseline (LEARNING_OFF) | `M11.C.39` | FAIL | 50 | `pattern_after_spell` +0 ± 0, p 1; `time_to_remission` +0 ± 0 (reported) | **red** |
+| `death-bound-anxiety-discarded` | named | M6.3c's release of the dead person's symptom-bound anxiety (M6.I.1) replaced by discarding it | `M11.C.15` | FAIL | 100 | `death_rise` +0.0611 ± 0.64, p 0.39; `recovery_rise` +5.25 ± 0.6, p 1.4e-17 | **red** |
+| `removed-member-hold-released-while-away` | named | M7.D.2a's hold released over every tie, worry edges and non-interactive ties included, at every release (a symptom's end, a death, past the turn, a binder lost): so a removed member's symptom gives back what it held while they are away, not on return | `M11.C.11` | FAIL | 150 | `disturbance` -1.77 ± 1.6, p 0.97 | **reversed** |
 
 ## Not run
 
 Criteria a mutant targets that do not pass in their ensemble record.
 
-- none
+- `coach-position-blind` → `M11.C.7[one spouse over sided]`
+- `coach-position-blind` → `M11.C.7[joint over sided]`
 
 ## Passing with no mutant in this record
 
 Part II criteria that pass but are not proved here; where their mutation is reported instead.
 
-- `M11.C.15`: run ad hoc, `docs/implementation_plan_phase_d.md` §4.4 (Mutations)
 - `M11.C.47`: a premise; run ad hoc, `docs/implementation_plan_phase_d.md` §4.10 (Results, Mutations)
 
 ## Machine-readable
@@ -139,6 +143,107 @@ Part II criteria that pass but are not proved here; where their mutation is repo
     "mean_difference": -13.10606344207859,
     "readout": "talking_less_firmness",
     "report_only": true
+   }
+  ]
+ },
+ {
+  "mutant": "triangle-help-ignored",
+  "kind": "named",
+  "criterion": "M11.C.46",
+  "outcome": "FAIL",
+  "seeds": 150,
+  "result": "red",
+  "readouts": [
+   {
+    "direction": 1,
+    "half_width": 0.23802259810301682,
+    "mean_difference": 0.1312976539767879,
+    "p": 0.06190006656974059,
+    "readout": "seeker_relief",
+    "report_only": false
+   },
+   {
+    "direction": 0,
+    "half_width": 1.0202147541697206,
+    "mean_difference": -0.7460415343902308,
+    "readout": "third_excess",
+    "report_only": true
+   },
+   {
+    "direction": -1,
+    "half_width": 0.623657419426796,
+    "mean_difference": -0.2919667389720672,
+    "readout": "seeker_change",
+    "report_only": true
+   }
+  ]
+ },
+ {
+  "mutant": "learning-off-in-both-arms",
+  "kind": "named",
+  "criterion": "M11.C.39",
+  "outcome": "FAIL",
+  "seeds": 50,
+  "result": "red",
+  "readouts": [
+   {
+    "direction": 1,
+    "half_width": 0.0,
+    "mean_difference": 0.0,
+    "p": 1.0,
+    "readout": "pattern_after_spell",
+    "report_only": false
+   },
+   {
+    "direction": 1,
+    "half_width": 0.0,
+    "mean_difference": 0.0,
+    "readout": "time_to_remission",
+    "report_only": true
+   }
+  ]
+ },
+ {
+  "mutant": "death-bound-anxiety-discarded",
+  "kind": "named",
+  "criterion": "M11.C.15",
+  "outcome": "FAIL",
+  "seeds": 100,
+  "result": "red",
+  "readouts": [
+   {
+    "direction": 1,
+    "half_width": 0.6448930001855386,
+    "mean_difference": 0.061115435942944066,
+    "p": 0.38576967232823045,
+    "readout": "death_rise",
+    "report_only": false
+   },
+   {
+    "direction": 1,
+    "half_width": 0.6008660609852227,
+    "mean_difference": 5.254839078161482,
+    "p": 1.4350063408329723e-17,
+    "readout": "recovery_rise",
+    "report_only": false
+   }
+  ]
+ },
+ {
+  "mutant": "removed-member-hold-released-while-away",
+  "kind": "named",
+  "criterion": "M11.C.11",
+  "outcome": "FAIL",
+  "seeds": 150,
+  "result": "reversed",
+  "readouts": [
+   {
+    "direction": 1,
+    "half_width": 1.607344579120695,
+    "mean_difference": -1.7739196626872027,
+    "p": 0.9656754128932571,
+    "readout": "disturbance",
+    "report_only": false
    }
   ]
  }

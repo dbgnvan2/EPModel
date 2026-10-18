@@ -338,7 +338,9 @@ def arm_c11(arm, seed, settings):
 CRITERIA_D.update({
     "M11.C.30": C("M11.C.30", "premise", ("baseline", "treatment"), (Readout("social_load", -1),), arm_c30,
                   settings=SETTINGS["M11.C.30"]),
-    "M11.C.22": C("M11.C.22", "premise", ("baseline", "treatment"),
+    # Version 1 (2026-10-17; Claude's recommendation, pending owner review): mixed. The severe limb is premise; the mild
+    # limb is the net of M7.D.2a's lock-in and other mechanisms (+7.3 against about -6.8, ad hoc), so it is composite.
+    "M11.C.22": C("M11.C.22", "mixed", ("baseline", "treatment"),
                   (Readout("mild_removal_effect", +1), Readout("severe_removal_effect", -1)), arm_c22,
                   settings=SETTINGS["M11.C.22"]),
     "M11.C.12": C("M11.C.12", "composite", ("baseline", "treatment"), (Readout("marital_conflict", +1),), arm_c12,
@@ -769,3 +771,138 @@ CRITERIA_D.update({
                   (Readout("under_change", +1), Readout("over_change", -1)), arm_c24,
                   ("OVERFUNCTION", "UNDERFUNCTION"), settings=SETTINGS["M11.C.24"]),
 })
+
+
+# --- M11.C.46: a triangle relieves its seeker in proportion to the third's help -------------------------------
+
+
+# The triad fixture's ids for M11.C.46 (config/bowen/fixtures/triad.md). Named apart from PARTNER above, which
+# M11.C.22 and M11.C.11 read: reusing the name rebound it (review, 2026-10-17).
+C46_SEEKER, C46_PARTNER, C46_THIRD = P("f"), P("m"), P("c")
+
+
+def arm_c46(arm, seed, settings):
+    """Purpose: `M11.C.46`, the seeker's relief from a ``TRIANGLE`` with a helpful third against an unhelpful one.
+    Spec:    docs/bowen_agent_model_spec_v2.md#M11.C.46, #M1.C.1
+    Tests:   tests/bowen/test_phase_d_criteria.py::test_m11c46_triangle_relief_scales_with_third_help
+
+    On the triad, F (the seeker) turns to C at week ``t0``, the ties held open as in `M11.C.3`; M is the partner. The
+    arms differ only in C's bonds, set at week 0: the baseline's C is closer to the partner (bond energy ``bond_far``
+    with F, ``bond_near`` with M), the treatment's closer to the seeker (the reverse). Gating readout: the anxiety the
+    triangle transfer took from F in the week the act lands (`M1.C.1`'s relief, read from its effect record), which
+    MUST be larger with the helpful third. Only the scripted act's own transfer counts: in some seeds F or M makes
+    another TRIANGLE that lands the same week (review 2026-10-17). Reported: C's excess at the end of the week before
+    the act lands, and F's net change across the week it lands. ``watch`` runs after each tick, when ``state.tick``
+    already names the next week, so the end of week ``w`` is ``state.tick == w + 1``.
+
+    The spec's other unhelpful third, an anxious one, was built and run first (version 1, 2026-10-17, ad hoc) and is
+    not registered: a declared stressor raised C's excess by only 4.1 points and loaded F as well, and the relief did
+    not differ (``docs/implementation_plan_phase_d.md`` §4.12). Choosing this form after seeing that is recorded there,
+    for the owner."""
+    from src.bowen.engine.contact import excess
+    from src.bowen.engine.identifiers import TieId
+    from src.bowen.ensemble.criteria import act, held
+
+    t0, delivered = settings["t0"], settings["t0"] + settings["latency"]
+    near, far = settings["bond_near"], settings["bond_far"]
+    helpful = arm == "treatment"
+
+    def setup(state):
+        state.ties[TieId.of(C46_SEEKER, C46_THIRD)].bond_energy = near if helpful else far
+        state.ties[TieId.of(C46_PARTNER, C46_THIRD)].bond_energy = far if helpful else near
+
+    seen = {}
+
+    def watch(state):
+        if state.tick == delivered:  # the end of the week before the act lands
+            seen["third_excess"] = excess(state.people[C46_THIRD])
+            seen["seeker_before"] = state.people[C46_SEEKER].acute_anxiety
+        elif state.tick == delivered + 1:  # the end of the week it lands
+            seen["seeker_after"] = state.people[C46_SEEKER].acute_anxiety
+
+    state, records = scenario("triad", seed, delivered + 1, setup=setup, forced=act("f", "TRIANGLE", "c", t0),
+                              held_open=held(t0, "f-m", "f-c"), watch=watch)
+    scripted = {r.event.id for r in records if isinstance(r, EmittedRecord) and r.event.sender == C46_SEEKER
+                and r.event.kind == "TRIANGLE" and r.event.timestamp == t0}
+    relief = -sum(v for r in records if isinstance(r, EffectRecord) and r.mechanism == "triangle_transfer"
+                  and r.cause in scripted for pid, v in r.acute_anxiety if pid == C46_SEEKER)
+    return result({"seeker_relief": relief, "third_excess": seen["third_excess"],
+                   "seeker_change": seen["seeker_after"] - seen["seeker_before"]}, records)
+
+
+CRITERIA_D.update({
+    "M11.C.46": C("M11.C.46", "premise", ("baseline", "treatment"),
+                  (Readout("seeker_relief", +1), Readout("third_excess", 0, report_only=True),
+                   Readout("seeker_change", -1, report_only=True)), arm_c46, ("TRIANGLE",),
+                  settings=SETTINGS["M11.C.46"]),
+})
+
+
+# --- M11.C.7: position, not skill --------------------------------------------------------------------------------
+
+
+C7_TOPOLOGIES = ("joint", "one spouse", "sided")
+
+
+def arm_c7(arm, seed, settings):
+    """Purpose: `M11.C.7`, one coaching topology on the Phase C family, with the coach's parameters and schedule fixed.
+    Spec:    docs/bowen_agent_model_spec_v2.md#M11.C.7, #M8.2, #M8.3, #M8.5
+    Tests:   tests/bowen/test_phase_d_criteria.py::test_m11c7_topology_not_coach_skill,
+             tests/bowen/test_phase_d_criteria.py::test_m11c7_arms_differ_only_in_their_topology
+
+    The family under `M11.C.17`'s nodal load for ``weeks``. Topologies (P9, owner 2026-10-11): **joint**, the coach
+    in contact with both spouses and siding with neither; **one spouse**, the coach's tie to the second spouse
+    non-interactive, so sessions reach the first only; **sided**, both ties, and the second spouse consults the coach
+    without telling the first (``SPLIT``, the family-to-external move that takes a professional's side, `M5.B.4`) the
+    week before each session from week 8 on (the session at week 0 has no week before it), so the coach is on her
+    side when the session's contact lands (`M8.3`). In every arm
+    neither spouse may ``SPLIT`` toward the coach on their own, so the only side taken is the scripted one.
+    Readouts: the fall in the spouses' combined `M4.C.1` deviation on their own tie, the mean over the first
+    ``window`` weeks less the mean over the last; and the coach's landed contacts."""
+    from src.bowen.engine.contact import deviation
+    from src.bowen.engine.identifiers import TieId
+    from src.bowen.ensemble.criteria import act
+    from src.bowen.scenario.params import engine_params
+
+    weeks, window = settings["weeks"], settings["window"]
+    topology = settings["topologies"][0 if arm == "baseline" else 1]
+    coach, first, second = ROLES["phase_c", "coach"], ROLES["phase_c", "parent_1"], ROLES["phase_c", "parent_2"]
+    params = engine_params(load_constants())
+    marital = TieId.of(first, second)
+
+    def setup(state):
+        if topology == "one spouse":
+            state.ties[TieId.of(coach, second)].interactive = False
+
+    no_recruiting = frozenset({f"SPLIT>{coach}"})
+    withheld = {t: {first: no_recruiting, second: no_recruiting} for t in range(weeks)}
+    forced = {}
+    if topology == "sided":
+        every = params.session_interval_weeks
+        for session in range(every, weeks, every):
+            forced.update(act(second.value, "SPLIT", coach.value, session - 1))
+    family = load_family(FAMILIES["phase_c"])
+    members = tuple(sorted(p for p, person in family.people.items() if person.role is Role.MEMBER))
+    combined = []
+
+    def watch(state):
+        tie = state.ties[marital]
+        combined.append(sum(deviation(state.people[p], tie, params) for p in (first, second)))
+
+    state, records = scenario("phase_c", seed, weeks, spells=nodal(weeks, members), setup=setup, forced=forced,
+                              withheld=withheld, watch=watch)
+    landed = sum(1 for r in records if isinstance(r, EffectRecord) and r.mechanism == "landed_contact")
+    fall = sum(combined[:window]) / window - sum(combined[-window:]) / window
+    return result({"deviation_fall": fall, "landed_contacts": float(landed)}, records)
+
+
+# Three ordered pairs for the ordering joint > one spouse > sided (M11.4: an ordering as adjacent two-arm directions,
+# as M11.C.38 is). Mixed (version 1, 2026-10-17, Claude's recommendation pending owner review): that a sided coach's
+# contact lands less is the gate's (premise); the deviation's ordering is written by no rule (composite).
+for _name, _pair, _landed_gates in (("joint over one spouse", ("one spouse", "joint"), False),
+                                    ("one spouse over sided", ("sided", "one spouse"), True),
+                                    ("joint over sided", ("sided", "joint"), True)):
+    _cid = f"M11.C.7[{_name}]"
+    CRITERIA_D[_cid] = C(_cid, "mixed", ("baseline", "treatment"),
+                         (Readout("deviation_fall", +1), Readout("landed_contacts", +1, report_only=not _landed_gates)),
+                         arm_c7, settings={**SETTINGS["M11.C.7"], "topologies": _pair})

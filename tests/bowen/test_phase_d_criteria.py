@@ -5,7 +5,7 @@ Purpose: one gate test per criterion, each running its paired arms through the e
          in its declared channel.
 Spec:    docs/bowen_agent_model_spec_v2.md#M11.C.17, #M11.C.18, #M11.C.20, #M11.C.33, #M11.C.11, #M11.C.12,
          #M11.C.22, #M11.C.30, #M11.C.31, #M11.C.2, #M11.C.14, #M11.C.21, #M11.C.23, #M11.C.24, #M11.C.26, #M11.C.34,
-         #M11.C.36, #M11.C.39, #M11.C.40, #M11.C.43, #M10.B.5, #M11.2, #M13.4
+         #M11.C.36, #M11.C.39, #M11.C.40, #M11.C.43, #M11.C.46, #M11.C.7, #M10.B.5, #M11.2, #M13.4
 Tests:   this file
 """
 
@@ -16,6 +16,7 @@ from pathlib import Path
 
 import pytest
 
+from src.bowen.engine.log_records import EmittedRecord
 from src.bowen.ensemble.criteria_d import CRITERIA_D, MOVER, c33_inputs, nodal
 from src.bowen.ensemble.runner import PASS, run_criterion
 from src.bowen.io.load import load_constants, load_event_kinds
@@ -324,3 +325,94 @@ def test_m11c40_clause_2_reported_and_proved_by_the_unit_test():
     assert readouts["automatic_less_self"].report_only
     learner_tests = (Path(__file__).parent / "test_learner.py").read_text(encoding="utf-8")
     assert "def test_m4d6d_self_directed_channel_is_never_reinforced(" in learner_tests
+
+
+@pytest.mark.ensemble
+def test_m11c46_triangle_relief_scales_with_third_help():
+    gate("M11.C.46")
+
+
+def test_m11c46_arms_differ_only_in_the_thirds_bonds_and_the_triangle_lands():
+    """`M11.C.46`'s arms (version 1, 2026-10-17): in the run itself, C's bonds with F and M are swapped between the
+    arms and every other tie's bond is the same; and the scripted TRIANGLE lands as a transfer in both arms, so the
+    readout is never a default 0."""
+    from unittest import mock
+
+    import src.bowen.ensemble.criteria_d as module
+    from src.bowen.engine.identifiers import PersonId, TieId
+
+    criterion, real, states, relief = CRITERIA_D["M11.C.46"], module.scenario, {}, {}
+    for arm in ("baseline", "treatment"):
+        def spy(*args, **kwargs):
+            states[arm], records = real(*args, **kwargs)
+            return states[arm], records
+        with mock.patch.object(module, "scenario", side_effect=spy):
+            relief[arm] = module.arm_c46(arm, 0, criterion.settings).readouts["seeker_relief"]
+    assert relief["baseline"] > 0 and relief["treatment"] > 0
+    f, m, c = PersonId("f"), PersonId("m"), PersonId("c")
+    s, base, treat = criterion.settings, states["baseline"], states["treatment"]
+    assert (base.ties[TieId.of(f, c)].bond_energy, base.ties[TieId.of(m, c)].bond_energy) == (s["bond_far"], s["bond_near"])
+    assert (treat.ties[TieId.of(f, c)].bond_energy, treat.ties[TieId.of(m, c)].bond_energy) == (s["bond_near"], s["bond_far"])
+    others = set(base.ties) - {TieId.of(f, c), TieId.of(m, c)}
+    assert others and all(base.ties[t].bond_energy == treat.ties[t].bond_energy for t in others)
+
+
+
+@pytest.mark.ensemble
+def test_m11c7_topology_not_coach_skill():
+    for cid in [c for c in CRITERIA_D if c.startswith("M11.C.7[")]:
+        gate(cid)
+
+
+def test_m11c7_arms_differ_only_in_their_topology():
+    """`M11.C.7`'s three topologies (version 1, 2026-10-17): only the one-spouse arm makes the second spouse's tie to the
+    coach non-interactive; only the sided arm scripts the second spouse's SPLIT toward the coach, every one placed; no
+    spouse SPLITs toward the coach on their own in any arm; and the sided coach's contact never lands while the joint
+    coach's does (review 2026-10-17: without the last, a run where nothing lands would pass)."""
+    from unittest import mock
+
+    import src.bowen.ensemble.criteria_d as module
+    from src.bowen.engine.identifiers import TieId
+    from src.bowen.ensemble.criteria import ROLES
+
+    coach, first, second = ROLES["phase_c", "coach"], ROLES["phase_c", "parent_1"], ROLES["phase_c", "parent_2"]
+    real, seen = module.scenario, {}
+    for topology in module.C7_TOPOLOGIES:
+        def spy(*args, **kwargs):
+            state, records = real(*args, **kwargs)
+            seen[topology] = (state, kwargs["forced"], real.last_source, records)
+            return state, records
+        settings = {**CRITERIA_D["M11.C.7[joint over sided]"].settings, "weeks": 104, "window": 8,
+                    "topologies": (topology, topology)}
+        with mock.patch.object(module, "scenario", side_effect=spy):
+            out = module.arm_c7("baseline", 0, settings)
+        seen[topology] += (out.readouts["landed_contacts"],)
+    assert [t for t in seen if not seen[t][0].ties[TieId.of(coach, second)].interactive] == ["one spouse"]
+    assert [t for t in seen if seen[t][1]] == ["sided"]
+    assert all(s.kind == "SPLIT" and s.targets == (coach,) for s in seen["sided"][1].values())
+    assert set(seen["sided"][2].status.values()) == {"placed"}
+    scripted = {(actor, week) for week, actor in seen["sided"][1]}
+    for topology, (_, _, _, records, _) in seen.items():
+        own = [r for r in records if isinstance(r, EmittedRecord) and r.event.kind == "SPLIT"
+               and r.event.targets == (coach,) and r.event.sender in (first, second)
+               and (r.event.sender, r.event.timestamp) not in scripted]
+        assert own == [], topology
+    assert seen["sided"][4] == 0 and seen["joint"][4] > 0
+
+
+def test_forced_withheld_label_withholds_that_act_toward_that_person_only():
+    """`Forced.withheld`'s `KIND>target` form (version 1, 2026-10-17): over the same seed, Marta's own SPLITs toward Dr
+    Halim stop when the label is withheld and occur without it; a label naming someone with no tie raises (P2)."""
+    from src.bowen.ensemble.criteria import ROLES, scenario
+
+    coach, second = ROLES["phase_c", "coach"], ROLES["phase_c", "parent_2"]
+
+    def splits(withheld):
+        _, records = scenario("phase_c", 0, 104, withheld=withheld)
+        return sum(1 for r in records if isinstance(r, EmittedRecord) and r.event.kind == "SPLIT"
+                   and r.event.sender == second and r.event.targets == (coach,))
+
+    assert splits(None) > 0
+    assert splits({t: {second: frozenset({f"SPLIT>{coach}"})} for t in range(104)}) == 0
+    with pytest.raises(ValueError, match="no tie"):
+        scenario("phase_c", 0, 2, withheld={0: {second: frozenset({"SPLIT>nobody"})}})

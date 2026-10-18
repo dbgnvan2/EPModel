@@ -61,10 +61,49 @@ MUTANTS = (
            "    if not distant or not any(state.people[recipient].symptom_active.values()):\n        return False\n",
            "    return False\n",
            "M5.C.1 removed: a move addressed to a symptomatic child under marital distance improves them as any other"),
+    # Version 1 (2026-10-17, V3 and the triangle change): mutants for passing part I and part II criteria whose
+    # mutation was ad hoc or missing.
+    Mutant("triangle-help-ignored", NAMED, ("M11.C.46",), "src/bowen/engine/moves.py",
+           "    help_ = third_help(state, seeker.id, partner, outsider)\n",
+           "    help_ = 1.0\n",
+           "M1.C.1's dependence on the third's help removed (owner decision 2026-10-09): every third helps fully"),
+    # M11.C.39's row names this mutation. Its baseline already has learning off, so the mutant makes the two arms the
+    # same by construction: it confirms the arms differ only in learning, and adds nothing beyond that (review
+    # 2026-10-17).
+    Mutant("learning-off-in-both-arms", NAMED, ("M11.C.39",), "config/bowen/constants.md",
+           "| `learning_rate` | 0.2 |", "| `learning_rate` | 0.0 |",
+           "M4.D.6 disabled in both arms: no learned value moves, as in the criterion's baseline (LEARNING_OFF)",
+           also=(("config/bowen/constants.md", "| `witnessed_cutoff_gain` | 0.05 |",
+                  "| `witnessed_cutoff_gain` | 0.0 |"),)),
+    Mutant("death-bound-anxiety-discarded", NAMED, ("M11.C.15",), "src/bowen/engine/life_course.py",
+           "    moved = release_bound(state, pid)  # as when a symptom ends (M7.D.2a); nothing if no partner is left\n",
+           "    moved = ()  # mutant: the symptom-bound anxiety is discarded at the death, not released\n"
+           "    if person.symptom_bound:\n"
+           "        people_rows.append((pid, \"symptom_bound\", -person.symptom_bound))\n"
+           "        person.symptom_bound = 0.0\n",
+           "M6.3c's release of the dead person's symptom-bound anxiety (M6.I.1) replaced by discarding it"),
+    # (M11.C.15's arm calls die() directly, not through yearly(), so the death check there is not on its path.)
+    # M11.C.7's row: M8.2/M8.3 made blind to position, so a sided coach counts as live and its contact can land.
+    # Not run on M11.C.7[joint over one spouse]: neither arm has a SPLIT toward the coach, so it would change nothing.
+    Mutant("coach-position-blind", NAMED, ("M11.C.7[one spouse over sided]", "M11.C.7[joint over sided]"),
+           "src/bowen/engine/external.py",
+           "        occupant = Occupant(coach, fused_into=coach_side(state, coach, members, params))\n",
+           "        occupant = Occupant(coach, fused_into=None)\n",
+           "M8.3 made position-blind: a coach drawn onto one spouse's side still counts as a live position"),
+    # M11.C.11's return limb (composite): a removed member's symptom hold is frozen while they are away (no
+    # interactive partner to release to) and comes back on return. Ad hoc 2026-10-17: lock_in +12.1 of the +2.3, and
+    # this mutant reverses it (-1.77 +/- 1.61, 150 seeds).
+    Mutant("removed-member-hold-released-while-away", NAMED, ("M11.C.11",), "src/bowen/engine/symptoms.py",
+           "    partners = _partners(state, pid)\n    amount = share * person.symptom_bound\n",
+           "    partners = tuple(sorted(o for t in state.ties_of(pid) for o in t.id.members()\n"
+           "                            if o != pid and state.people[o].alive))\n"
+           "    amount = share * person.symptom_bound\n",
+           "M7.D.2a's hold released over every tie, worry edges and non-interactive ties included, at every release "
+           "(a symptom's end, a death, past the turn, a binder lost): so a removed member's symptom gives back what it "
+           "held while they are away, not on return"),
 )
 # Passing part II criteria with no mutant in this record, and where their mutation is reported.
 AD_HOC = {
-    "M11.C.15": "run ad hoc, `docs/implementation_plan_phase_d.md` §4.4 (Mutations)",
     "M11.C.47": "a premise; run ad hoc, `docs/implementation_plan_phase_d.md` §4.10 (Results, Mutations)",
 }
 

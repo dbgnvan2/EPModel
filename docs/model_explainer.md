@@ -1239,6 +1239,38 @@ of functioning, such as more reactivity. It agrees with test 1 above and with §
 1979 Tape 5 ties to differentiation and principally anxiety. **Not** a readout of overt emotionality, which
 peaks mid-scale (§3.1).
 
+### 11.3 What revision 32 changed, to finish version 1  *(2026-10-17; Claude's recommendation, pending owner review)*
+
+Every item below was decided under the owner's instruction "proceed using your own recommendations" and is for the
+owner to confirm (`docs/implementation_plan_phase_d.md` §4.12). Where each criterion stands is generated in
+`docs/version_1_status.md`.
+
+- **Test 7, the coach's position, is built.** A coach takes a member's side when that member consults him without
+  telling the others (`SPLIT`, Ch19 · L19.3), and stays on it for the weeks a triangle act stays active. While on a
+  side he holds no live position (§13.1's `positions_live`), and his contact lands nothing. `[I]` in form; the rule
+  that a sided coach "does not count" is §13.1's `[T]`. P9 described the sided coach as drawn in by a `TRIANGLE`, but
+  a family member's moves toward a professional are `SPLIT`, `FRAME_AMBIGUITY` and `DISPLACE` (§5.7), so `SPLIT` is
+  the reading. The landed contacts follow the gate; whether the couple's reactivity falls more with a joint coach is
+  left to emerge, and in the runs it barely moves in any arm. **The gate acts in every run with a coach**, not only
+  in test 7's: under the policy the spouses `SPLIT` toward Dr Halim on their own (57 times in ten years on one seed),
+  and each time he holds no position for the following weeks. In `M11.C.17`'s coached arm this cut landed contacts from
+  8.2 to 5.5 over 12 seeds (ad hoc). Test 7's arms withhold the spouses' own `SPLIT`s toward him, so the only side
+  taken there is the scripted one.
+- **Test 4's arms.** The no-cutoff arm now holds the tie open for the whole run. Before, the policy cut the tie by
+  itself in every baseline seed, so both arms held a cutoff when the nodal event came. The later cost the test reads
+  builds while the cutoff holds (the "too little" side, refused approaches, a reactive cutoff's cost). **A nodal event
+  does not spike that cost**, though `M4.C.1c` says it should: only a `TRIGGER` does. This is a gap, not a design.
+- **Test 3's helper.** `M11.C.46` reads the seeker's relief with a third closer to the seeker against one closer to the
+  partner. An anxious third was tried first and did not lower the relief, because the stress that made the third
+  anxious reached the seeker too, and the calm term (`1 − excess / 100`) moves little at the triad's resting anxiety.
+- **The `I-POSITION` criteria and the mover's level.** Since cutoff became rejection (revision 16), a mover at level
+  40 is too anxious to hold past the first opposition, so no sequence completes. `M11.C.32` now declares a mover at
+  60. `M11.C.29`'s budget limb is proved by a unit test instead, and its time-course limb is reported as composite.
+  Whether `hold_gain` and `defence_threshold` (`[I]`) should be resized for the post-revision-16 model is the
+  owner's.
+- **Test 9 is proposed out of version 1.** No rule reads sibling position (§3.11), so it needs a mechanism, not a
+  gate.
+
 ---
 
 ## 12. What is deliberately not in the model

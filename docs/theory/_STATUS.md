@@ -2,6 +2,14 @@
 
 > ## ▶ STATE — the corpus is closed and the spec is current. **Phase C is closed with its gate failing (owner decision, 2026-10-09).**
 >
+> **2026-10-17 — spec revision 32, finishing version 1** (plan §4.12): built under the owner's "proceed using your own
+> recommendations", every decision pending owner review. Where version 1 stands is generated in
+> `docs/version_1_status.md`: V2 and V3 met; V1 waits on the owner's review of the proposed dispositions
+> (`docs/version_1_dispositions.md`); V7 on the review form `docs/REVIEW_version_1_outputs.md`.
+>
+> **2026-10-16/17 — spec revision 31** (plan §4.11): the owner's review of revisions 24–30 applied, with the owner's
+> version 1 premise decisions; every record regenerated.
+>
 > **2026-10-14 — spec revision 30 (575 unique IDs, 47 acceptance criteria), plan §4.10 approved and built:** origin cutoff
 > as an input to a child's intensity and fusion (`M1.D.8a`); danger read from received intrusion and the cutoff chosen
 > for safety (`M1.B.3e`); focus that locks in (`M1.B.8b`); `M11.C.10` on ties to partners and parents at 200 seeds,

@@ -4,6 +4,72 @@ All notable changes to this project are recorded here. Dates are ISO.
 
 ## [Unreleased] — 2026-10-11
 
+### Spec revision 32: finishing version 1 (2026-10-17)
+
+Built under the owner's instruction "proceed using your own recommendations"; every decision is Claude's
+recommendation, pending owner review (plan §4.12, `docs/version_1_dispositions.md`).
+
+- **The version 1 status table (V1).** `tools/version_1_status.py` writes `docs/version_1_status.md` from the three
+  ensemble records, the two mutation records and the dispositions file. It refuses a failing premise (or a mixed
+  criterion's failing premise limb) as a finding, a disposition that cannot apply, a row after a break in the table,
+  and records that are stale against the registered criteria. 11 tests in `tests/test_version_1_status.py`. It found
+  `M11.C.46`, a premise approved at revision 15 that no record listed.
+- **The failing premises (V2).**
+  - `M11.C.4`: the baseline now holds the tie open for the whole run; held open only to the act, the policy cut the tie
+    in every baseline seed, so both arms held a cutoff at the nodal event. `M4.C.1c`'s nodal-event spike is not built,
+    and the spec says so.
+  - `M11.C.32`: the mover is declared at level 60 in both arms (post hoc). At 40, since revision 16, the calm arm never
+    reached the peak.
+  - `M11.C.29` and `M11.C.22`: reclassified mixed. `M11.C.29`'s budget limb is proved by a unit test; its time-course
+    limb is untestable in the arm, since no genuine `I-POSITION` completes. `M11.C.22`'s mild limb is the net of
+    lock-in and other mechanisms; the earlier statement that the capacity rule caused its failure is corrected (over
+    600 seeds the rule shifts the limb by −0.15 ± 0.53, ad hoc).
+- **Built.** `M11.C.46` (the seeker's relief with a third closer to the seeker against one closer to the partner);
+  `M11.C.7` (the coach's position: a coach is on a member's side for `triangle_activity_window` weeks after that
+  member's `SPLIT` toward him, and a sided coach's contact lands nothing, by `positions_live`). The gate acts in every
+  run with a coach. `Forced.withheld` accepts a `KIND>target` label.
+- **Proposed out of version 1.** `M11.C.9` (no rule reads sibling position) and `M11.C.8` (Phase E).
+- **Recorded mutations (V3).** `M11.C.11`, `M11.C.15`, `M11.C.39`, `M11.C.46` and `M11.C.7` in the Phase D mutation
+  record; `M11.C.4`'s two in the Phase C record.
+- **V7.** `docs/REVIEW_version_1_outputs.md`, with its framing checks in `tests/test_version_1_outputs.py`.
+- **Reviews** (one `learning-qa` pass, one correctness pass, before the regeneration): fixed `M11.C.46`'s readouts (a
+  week early, and summing other transfers), `M11.C.32`'s mover not re-initialised, a no-op mutant target, a mutant edit
+  that never ran, two imprecise mutant descriptions, a silent `withheld` label, weak tests, and the status tool's
+  silent paths. Minor items are in `TODO.md`.
+- **Records.** Every record regenerated once after the fix (3 h 34 min on 10 cores; code hash `43cd03b8…`, Phase C
+  `2fc39cf9…`). Verdicts: `M11.C.4`, `M11.C.32` and `M11.C.46` pass; every `M11.C.7` pair fails on its deviation limb
+  and holds on the landed-contacts limb; the others as before, Phase C family numbers moved by the coach's gate. The
+  generated status page reads V2 met and V3 met; V1 waits on the owner's review of 23 proposed dispositions.
+  Suite: 909.
+- **A defect caught after the first regeneration was started.** `M11.C.46`'s module-level `SEEKER, PARTNER, THIRD`
+  rebound `PARTNER`, which `M11.C.22`'s and `M11.C.11`'s readouts read as the nuclear four's c2, so both changed with
+  no change to their own code. Found by comparing seed 0 of every Phase C and part I criterion against HEAD; the run
+  was stopped and restarted after the fix. Every criterion without a coach now matches HEAD exactly; those on the Phase
+  C family differ through the coach's gate. New test: no criteria module binds a top-level name twice
+  (`tests/bowen/test_ensemble_record.py::test_criteria_modules_bind_no_top_level_name_twice`).
+
+### Spec revision 31: the owner's review of revisions 24–30 applied (2026-10-16 and 2026-10-17)
+
+*Added 2026-10-17: these entries were missing from the changelog when revision 31 was built. Written from the commit
+messages of `6c95465`, `50c6eaf`, `224aa88`, `14b9df3`, `df33d68` and `1f0064f` and from plan §4.11.*
+
+- **The review (2026-10-16).** The owner decided all 85 entries of `docs/REVIEW_spec_revisions_24-30.md`: 81 approved as
+  built, 4 changed (`M14.A`'s `channel_focus` and `tolerance` rows; `M11.C.14` restated, option B; `M11.C.6` limit (a)
+  restated, option A; `M7.E.1f`'s band). Version 1's condition V4 is met.
+- **Part A, documents only.** The changed entries, the text fixes and the seven inconsistencies the form listed;
+  every revision 24–30 tag reads "approved by the owner 2026-10-16"; the spec's version reads revision 31.
+  `tests/test_review_rev31.py` pins each change.
+- **Part B, code and config.** `M11.C.14` as two technique variants, each against a baseline in which the parents hold
+  back on the same weeks, with a one-sided bound mode in the runner; its gate-removed mutant survives both (clause not
+  met, recorded). `M7.E.1f`'s band opened by the parents' acts: ±2% with none, to +5% with supportive acts, to −10%
+  with projection, limiting the step only. The criteria settings are graded `[I]` and the loader enforces it.
+- **The owner's premise decisions.** A capacity rule in `M6.I.4` (what an over-functioner takes is limited by their
+  own room above the stress floor); `M11.C.23` reclassified composite, its failure accepted as a finding; `M11.C.40`'s
+  clause 2 reported and proved by a unit test. On 2026-10-17 the owner kept the capacity rule, accepted `M11.C.22`'s
+  failure "for now", and had `M11.C.21` reclassified composite with its failure accepted.
+- **Records.** Every record regenerated (about 3.5 h on 10 cores), then again on 2026-10-17 with `M11.C.21`'s class and
+  the capacity rule's no-span fix (a taker exactly at basic level takes in full when there is no span). Suite: 886.
+
 ### Platform-independent fingerprints, for the red CI (2026-10-15)
 
 - CI had been red on every push since 2026-10-09. Only the golden fingerprints failed, and on Python 3.11 the

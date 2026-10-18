@@ -41,6 +41,21 @@
 >   (`t0 + after` weeks), so C1 has lent functioning before the collapse; the arms differ only by the treatment's
 >   `drop` in both parents' functional level at week `t0`. A composite since 2026-10-17 (owner decision).
 >
+> **Version 1, the premises' arms (2026-10-17; spec revision 32, Claude's recommendation, pending owner review):**
+> * `M11.C.4` — the exception to the held-open rule below: the baseline holds `a`–`b` open for the whole run, so it is
+>   the matched no-cutoff arm (held only to `t0`, the policy cut the tie by itself in every baseline seed); the
+>   treatment holds it to `t0` as before.
+> * `M11.C.32` — both arms' mover has basic and functional level `mover_level`, so the calm arm can complete the
+>   sequence (post hoc: at the fixture's 40 neither arm reached the peak after spec revision 16).
+> * `M11.C.7` — the Phase C family under the `nodal` load for `weeks`; the fall in the spouses' combined deviation is
+>   the mean over the first `window` weeks less the mean over the last `window`. The topologies and the scripted
+>   `SPLIT` are in `src/bowen/ensemble/criteria_d.py`'s `arm_c7`.
+>
+> **Version 1, `M11.C.46` (2026-10-17; the arm design is Claude's recommendation, pending owner review):** on the
+> triad, F turns to C (`TRIANGLE`) at week `t0`, the ties held open as in `M11.C.3`, and the act lands `latency`
+> weeks later. The arms differ only in C's bonds from week 0: the baseline's C has bond energy `bond_far` with F and
+> `bond_near` with M, the treatment's the reverse. Their sum is the fixture's (50 + 50).
+>
 > **Post-hoc restatement, 2026-10-09 (step S of `docs/DECISIONS — PHASE C FAILING.md`, approved by the owner).**
 > The declared weeks stand, but in both arms of every criterion that scripts an act after week 0, the ties its
 > scripted acts cross are held open from week 0 until the act (`M11.C.29`: until its last withdrawal): neither
@@ -107,6 +122,7 @@
 | M11.C.32 | weeks | 30 | [I] |
 | M11.C.32 | t0 | 0 | [I] |
 | M11.C.32 | angry_impingement | 1.0 | [I] |
+| M11.C.32 | mover_level | 60.0 | [I] |
 | M11.C.35 | t0 | 6 | [I] |
 | M11.C.35 | run_after | 2 | [I] |
 | M11.C.35 | conductance_high | 1.0 | [I] |
@@ -207,3 +223,9 @@
 | M11.C.24 | diverge_weeks | 52 | [I] |
 | M11.C.24 | after | 52 | [I] |
 | M11.C.24 | act_every | 2 | [I] |
+| M11.C.46 | t0 | 12 | [I] |
+| M11.C.46 | latency | 1 | [I] |
+| M11.C.46 | bond_near | 70 | [I] |
+| M11.C.46 | bond_far | 30 | [I] |
+| M11.C.7 | weeks | 520 | [I] |
+| M11.C.7 | window | 52 | [I] |

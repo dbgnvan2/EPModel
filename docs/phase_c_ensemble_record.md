@@ -5,7 +5,7 @@ seeds (`M3.D.4a`), stopped adaptively (`M17.A.1`, `M13.4`): `UNDETERMINED` at th
 pass. Every verdict carries its class (`M11.5`). **A premise passing confirms that the code renders the
 spec; it is not a finding about families.** The constants are the Phase C freeze of 2026-10-07.
 
-code_hash: 11c4e7c6b11aeb55a44065be808262781dfc155c1953d1d48a2665a3f08c4336
+code_hash: 2fc39cf99cd8f8cc29b0de0f2f769ff0c91603fecdc4771492a7324df12f08b0
 
 Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25, `ensemble_margin` = 0.1, `ensemble_alpha` = 0.05, `fallback_flag_rate` = 0.2, `equivalence_margin` = 0.5.
 
@@ -13,13 +13,13 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
 |---|---|---|---|---|---|---|---|
 | `M11.C.1` | premise | **PASS** | 100 | `time_to_threshold` -2.6 ± 0.24, p 1.05e-18, holds | — | 0.00 | — |
 | `M11.C.3` | premise | **PASS** | 50 | `seeker_anxiety` -1.29 ± 0.11, p 3.9e-10, holds; `third_anxiety` +1.14 ± 0.21, p 1.02e-08, holds; `partner_anxiety` +0.942 ± 0.21 (reported only) | baseline 0 of 50; treatment 0 of 50 | 0.00 | — |
-| `M11.C.4` | premise | **FAIL** | 50 | `actor_relief_now` -2.5 ± 0.49, p 1.82e-09, holds; `family_anxiety_at_nodal` -0.949 ± 0.94, p 0.965, does not hold | baseline 0 of 50; treatment 0 of 50 | 0.00 | — |
-| `M11.C.5` | composite | **FAIL** | 100 | `target_reaction` +1.86 ± 20, p 0.363, does not hold; `third_person_symptom_load` -6.84 ± 11, p 0.873, does not hold | treatment 1 of 100 (1 owed a step) | 0.00 | — |
-| `M11.C.16` | composite | **PASS** | 150 | `repertoire_entropy` -0.0347 ± 0.0055, p 2.59e-20, holds; `top_move_share` +0.0486 ± 0.0087 (reported only) | — | 0.00 | — |
+| `M11.C.4` | premise | **PASS** | 150 | `actor_relief_now` -2.77 ± 0.31, p 1.06e-23, holds; `family_anxiety_at_nodal` +7.65 ± 1.1, p 5.47e-21, holds | baseline 0 of 150; treatment 0 of 150 | 0.00 | — |
+| `M11.C.5` | composite | **FAIL** | 100 | `target_reaction` +0.595 ± 20, p 0.39, does not hold; `third_person_symptom_load` -8.38 ± 11, p 0.918, does not hold | treatment 1 of 100 (1 owed a step) | 0.00 | — |
+| `M11.C.16` | composite | **PASS** | 150 | `repertoire_entropy` -0.0341 ± 0.0055, p 4.88e-19, holds; `top_move_share` +0.0449 ± 0.009 (reported only) | — | 0.00 | — |
 | `M11.C.19` | check | **PASS** | 50 | `outward_failed` +1 ± 0, p 8e-13, holds; `inward_failed` -1 ± 0, p 8e-13, holds | — | 0.00 | — |
 | `M11.C.25` | premise | **PASS** | 50 | `first_dominant` +0 ± 0, equivalence bound 0.247, within | — | 0.00 | — |
-| `M11.C.29` | premise | **FAIL** | 50 | `budget` +0 ± 0, p 1, does not hold; `third_symptom_weeks` -0.32 ± 3.9, p 0.477, does not hold | baseline 3 of 200 (2 owed a step, 1 rewritten); treatment 3 of 50 (2 owed a step, 1 rewritten) | 0.00 | — |
-| `M11.C.32` | premise | **FAIL** | 100 | `assertion_form` +1.19 ± 0.23, p 1.31e-12, holds; `reached_peak` +0 ± 0, p 1, does not hold | baseline 0 of 100; treatment 0 of 100 | 0.00 | — |
+| `M11.C.29` | mixed | **FAIL** | 50 | `budget` +0 ± 0 (reported only); `third_symptom_weeks` -0.32 ± 3.9, p 0.477, does not hold | baseline 3 of 200 (2 owed a step, 1 rewritten); treatment 3 of 50 (2 owed a step, 1 rewritten) | 0.00 | — |
+| `M11.C.32` | premise | **PASS** | 100 | `assertion_form` +1.43 ± 0.26, p 9.33e-15, holds; `reached_peak` -0.25 ± 0.098, p 3.75e-06, holds | baseline 0 of 100; treatment 0 of 100 | 0.00 | — |
 | `M11.C.35` | check | **PASS** | 50 | `witness_appraisal` +0.485 ± 0.028, p 3.9e-10, holds | baseline 0 of 50; treatment 0 of 50 | 0.00 | — |
 | `M11.C.42` | composite | **FAIL** | 100 | `triangle_reuse` -0.18 ± 0.34, p 0.851, does not hold | treatment 0 of 100 | 0.00 | — |
 | `M11.C.44` | composite | **FAIL** | 150 | `outside_inside_ratio` +0.0076 ± 0.086, p 0.643, does not hold | — | 0.00 | — |
@@ -31,16 +31,14 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
 | `M11.C.38[-0 vs -5]` | premise | **PASS** | 50 | `time_to_threshold` -1.54 ± 0.28, p 1.96e-09, holds | — | 0.00 | — |
 | `M11.C.38[-5 vs -10]` | premise | **PASS** | 100 | `time_to_threshold` -1.14 ± 0.19, p 3.59e-15, holds | — | 0.00 | — |
 | `M11.C.38[-10 vs -15]` | premise | **PASS** | 100 | `time_to_threshold` -1 ± 0.12, p 2.66e-17, holds | — | 0.00 | — |
-| `M11.C.41[light: lower level]` | mixed | **PASS** | 150 | `mean_acute` +87.1 ± 9.2, p 1.59e-24, holds; `reactive_over_chance` +0.0631 ± 0.0031, p 1.16e-26, holds | — | 0.00 | — |
-| `M11.C.41[heavy: lower level]` | mixed | **PASS** | 150 | `mean_acute` +97 ± 11, p 5.44e-25, holds; `reactive_over_chance` +0.0647 ± 0.003, p 1.16e-26, holds | — | 0.00 | — |
-| `M11.C.41[higher level: heavier stress]` | mixed | **FAIL** | 150 | `mean_acute` +8.86 ± 6.5, p 0.0131, holds; `reactive_over_chance` -0.000223 ± 0.0025, p 0.391, does not hold | — | 0.00 | — |
-| `M11.C.41[lower level: heavier stress]` | mixed | **FAIL** | 150 | `mean_acute` +18.8 ± 12, p 0.00115, holds; `reactive_over_chance` +0.0014 ± 0.0024, p 0.151, does not hold | — | 0.00 | — |
+| `M11.C.41[light: lower level]` | mixed | **PASS** | 150 | `mean_acute` +89.8 ± 10, p 1.5e-24, holds; `reactive_over_chance` +0.064 ± 0.0031, p 1.16e-26, holds | — | 0.00 | — |
+| `M11.C.41[heavy: lower level]` | mixed | **PASS** | 150 | `mean_acute` +92.9 ± 11, p 1.74e-24, holds; `reactive_over_chance` +0.0648 ± 0.003, p 1.16e-26, holds | — | 0.00 | — |
+| `M11.C.41[higher level: heavier stress]` | mixed | **FAIL** | 150 | `mean_acute` +10.1 ± 6.6, p 0.00317, holds; `reactive_over_chance` +0.000282 ± 0.0025, p 0.325, does not hold | — | 0.00 | — |
+| `M11.C.41[lower level: heavier stress]` | mixed | **FAIL** | 150 | `mean_acute` +13.2 ± 12, p 0.0105, holds; `reactive_over_chance` +0.00112 ± 0.0023, p 0.172, does not hold | — | 0.00 | — |
 
 ## Not built in Phase C
 
-- `M11.C.7` — needs M8.2/M8.3's position predicates; the criterion declares no direction for its topology arms.
 - `M11.C.13` — needs incidents located in a community; the model has none.
-- `M11.C.14` — needs M5.C.1's marital-distance gate, which is not built.
 
 ## Fallback rate by person (`M11.D.18`)
 
@@ -168,34 +166,34 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
  {
   "criterion": "M11.C.4",
   "class": "premise",
-  "outcome": "FAIL",
-  "seeds": 50,
+  "outcome": "PASS",
+  "seeds": 150,
   "readouts": [
    {
     "readout": "actor_relief_now",
     "direction": -1,
-    "mean_difference": -2.503484655284638,
-    "half_width": 0.48518852786378,
-    "baseline_sd": 2.0289379429501353,
-    "pooled_sd": 2.185477618237613,
+    "mean_difference": -2.7739191812472477,
+    "half_width": 0.3113689533313549,
+    "baseline_sd": 2.60415351667816,
+    "pooled_sd": 2.5974639153767494,
     "baseline_position": null,
-    "w_plus": 1081.0,
-    "n_nonzero": 46,
-    "p": 1.8207955383170979e-09,
+    "w_plus": 8778.0,
+    "n_nonzero": 132,
+    "p": 1.0574847645401099e-23,
     "holds": true
    },
    {
     "readout": "family_anxiety_at_nodal",
     "direction": 1,
-    "mean_difference": -0.9487123615927487,
-    "half_width": 0.9413930264060361,
-    "baseline_sd": 3.9390482718163207,
-    "pooled_sd": 4.217504977934805,
+    "mean_difference": 7.64646011115358,
+    "half_width": 1.0902328100138021,
+    "baseline_sd": 5.991235189145507,
+    "pooled_sd": 5.297129670800404,
     "baseline_position": null,
-    "w_plus": 340.0,
-    "n_nonzero": 44,
-    "p": 0.9652161363975421,
-    "holds": false
+    "w_plus": 10140.0,
+    "n_nonzero": 146,
+    "p": 5.4707511568020124e-21,
+    "holds": true
    }
   ],
   "fallback_rate": 0.0,
@@ -203,7 +201,7 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
   "missing_moves": [],
   "scripted": {
    "baseline": {
-    "made": 50,
+    "made": 150,
     "not legal": 0,
     "owed a step": 0,
     "dead": 0,
@@ -212,7 +210,7 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
     "not reached": 0
    },
    "treatment": {
-    "made": 50,
+    "made": 150,
     "not legal": 0,
     "owed a step": 0,
     "dead": 0,
@@ -231,27 +229,27 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
    {
     "readout": "target_reaction",
     "direction": 1,
-    "mean_difference": 1.8642455105340088,
-    "half_width": 20.350839657565615,
-    "baseline_sd": 105.68158466670675,
-    "pooled_sd": 104.91416155076382,
+    "mean_difference": 0.5954486101457581,
+    "half_width": 20.29859118516004,
+    "baseline_sd": 104.54245962403667,
+    "pooled_sd": 103.90845642094145,
     "baseline_position": null,
-    "w_plus": 2182.0,
+    "w_plus": 2164.0,
     "n_nonzero": 91,
-    "p": 0.3630662852221609,
+    "p": 0.3901099927907071,
     "holds": false
    },
    {
     "readout": "third_person_symptom_load",
     "direction": 1,
-    "mean_difference": -6.8396483397495205,
-    "half_width": 10.633234176229651,
-    "baseline_sd": 45.28222944823323,
-    "pooled_sd": 43.558574068525736,
+    "mean_difference": -8.37526145669406,
+    "half_width": 10.556270898842849,
+    "baseline_sd": 44.63290862083023,
+    "pooled_sd": 43.06776110612415,
     "baseline_position": null,
-    "w_plus": 1931.0,
-    "n_nonzero": 94,
-    "p": 0.872611343985875,
+    "w_plus": 1906.0,
+    "n_nonzero": 95,
+    "p": 0.9177494297983934,
     "holds": false
    }
   ],
@@ -279,23 +277,23 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
    {
     "readout": "repertoire_entropy",
     "direction": -1,
-    "mean_difference": -0.03474646548957903,
-    "half_width": 0.005516450341198635,
-    "baseline_sd": 0.01782310398247042,
-    "pooled_sd": 0.024933026394509207,
+    "mean_difference": -0.03411243670348173,
+    "half_width": 0.005539097582928942,
+    "baseline_sd": 0.01827265644168011,
+    "pooled_sd": 0.02456386821865393,
     "baseline_position": null,
-    "w_plus": 9694.0,
-    "n_nonzero": 143,
-    "p": 2.5940564795759956e-20,
+    "w_plus": 9652.0,
+    "n_nonzero": 144,
+    "p": 4.882836848893219e-19,
     "holds": true
    },
    {
     "readout": "top_move_share",
     "direction": 1,
-    "mean_difference": 0.048610139057886206,
-    "half_width": 0.00873536657919984,
-    "baseline_sd": 0.03204982241272745,
-    "pooled_sd": 0.03991273302363919,
+    "mean_difference": 0.044924142278696684,
+    "half_width": 0.008986030845864265,
+    "baseline_sd": 0.0339774838252968,
+    "pooled_sd": 0.04018982098251884,
     "baseline_position": null,
     "report_only": true
    }
@@ -369,7 +367,7 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
  },
  {
   "criterion": "M11.C.29",
-  "class": "premise",
+  "class": "mixed",
   "outcome": "FAIL",
   "seeds": 50,
   "readouts": [
@@ -381,10 +379,7 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
     "baseline_sd": 0.0,
     "pooled_sd": 0.0,
     "baseline_position": null,
-    "w_plus": 0.0,
-    "n_nonzero": 0,
-    "p": 1.0,
-    "holds": false
+    "report_only": true
    },
    {
     "readout": "third_symptom_weeks",
@@ -427,34 +422,34 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
  {
   "criterion": "M11.C.32",
   "class": "premise",
-  "outcome": "FAIL",
+  "outcome": "PASS",
   "seeds": 100,
   "readouts": [
    {
     "readout": "assertion_form",
     "direction": 1,
-    "mean_difference": 1.19,
-    "half_width": 0.232570316074928,
-    "baseline_sd": 1.140396882889922,
-    "pooled_sd": 1.1921248324574136,
+    "mean_difference": 1.43,
+    "half_width": 0.25872929888400753,
+    "baseline_sd": 1.228409499714936,
+    "pooled_sd": 1.4081831549836825,
     "baseline_position": null,
-    "w_plus": 3523.0,
-    "n_nonzero": 87,
-    "p": 1.308271168299733e-12,
+    "w_plus": 3908.0,
+    "n_nonzero": 90,
+    "p": 9.333864231976059e-15,
     "holds": true
    },
    {
     "readout": "reached_peak",
     "direction": -1,
-    "mean_difference": 0.0,
-    "half_width": 0.0,
-    "baseline_sd": 0.0,
-    "pooled_sd": 0.0,
+    "mean_difference": -0.25,
+    "half_width": 0.098,
+    "baseline_sd": 0.49685881985598973,
+    "pooled_sd": 0.41820926567806926,
     "baseline_position": null,
-    "w_plus": 0.0,
-    "n_nonzero": 0,
-    "p": 1.0,
-    "holds": false
+    "w_plus": 448.0,
+    "n_nonzero": 31,
+    "p": 3.7513066239654117e-06,
+    "holds": true
    }
   ],
   "fallback_rate": 0.0,
@@ -1350,23 +1345,23 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
    {
     "readout": "mean_acute",
     "direction": 1,
-    "mean_difference": 87.10000665966722,
-    "half_width": 9.1713635908626,
-    "baseline_sd": 26.330640353569123,
-    "pooled_sd": 40.23067329443422,
+    "mean_difference": 89.79363734222437,
+    "half_width": 10.261500159668064,
+    "baseline_sd": 26.00879581766907,
+    "pooled_sd": 43.91903880367801,
     "baseline_position": null,
-    "w_plus": 10818.0,
-    "n_nonzero": 148,
-    "p": 1.586197145279743e-24,
+    "w_plus": 10949.0,
+    "n_nonzero": 149,
+    "p": 1.5013637581345765e-24,
     "holds": true
    },
    {
     "readout": "reactive_over_chance",
     "direction": 1,
-    "mean_difference": 0.0630563919900773,
-    "half_width": 0.003072655518117988,
-    "baseline_sd": 0.018226017551730627,
-    "pooled_sd": 0.017111280483021175,
+    "mean_difference": 0.06395239088058423,
+    "half_width": 0.003069464899174637,
+    "baseline_sd": 0.018083564363426095,
+    "pooled_sd": 0.016815225494441473,
     "baseline_position": null,
     "w_plus": 11325.0,
     "n_nonzero": 150,
@@ -1388,23 +1383,23 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
    {
     "readout": "mean_acute",
     "direction": 1,
-    "mean_difference": 97.04875952670967,
-    "half_width": 11.102587578507848,
-    "baseline_sd": 34.04804914647917,
-    "pooled_sd": 49.43249935765042,
+    "mean_difference": 92.8888304076142,
+    "half_width": 10.523840957576608,
+    "baseline_sd": 34.611713030136336,
+    "pooled_sd": 47.44129892978825,
     "baseline_position": null,
-    "w_plus": 11001.0,
-    "n_nonzero": 149,
-    "p": 5.438202168446659e-25,
+    "w_plus": 10559.0,
+    "n_nonzero": 146,
+    "p": 1.742646469751939e-24,
     "holds": true
    },
    {
     "readout": "reactive_over_chance",
     "direction": 1,
-    "mean_difference": 0.0646822989621628,
-    "half_width": 0.0029571102660493685,
-    "baseline_sd": 0.01822798701501481,
-    "pooled_sd": 0.01755268191769976,
+    "mean_difference": 0.06478850719244425,
+    "half_width": 0.0030058945090331406,
+    "baseline_sd": 0.018706136839918962,
+    "pooled_sd": 0.017813675811851302,
     "baseline_position": null,
     "w_plus": 11325.0,
     "n_nonzero": 150,
@@ -1426,27 +1421,27 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
    {
     "readout": "mean_acute",
     "direction": 1,
-    "mean_difference": 8.859391776602092,
-    "half_width": 6.472061146774195,
-    "baseline_sd": 26.330640353569123,
-    "pooled_sd": 30.434949253367122,
+    "mean_difference": 10.119008688564236,
+    "half_width": 6.55928829461667,
+    "baseline_sd": 26.00879581766907,
+    "pooled_sd": 30.61395220128977,
     "baseline_position": null,
-    "w_plus": 6169.0,
-    "n_nonzero": 142,
-    "p": 0.013081311468813937,
+    "w_plus": 6589.0,
+    "n_nonzero": 144,
+    "p": 0.003174355382076925,
     "holds": true
    },
    {
     "readout": "reactive_over_chance",
     "direction": 1,
-    "mean_difference": -0.00022262872816649257,
-    "half_width": 0.0025128977099413384,
-    "baseline_sd": 0.018226017551730627,
-    "pooled_sd": 0.018227002309973265,
+    "mean_difference": 0.0002821383938546414,
+    "half_width": 0.002534860149374786,
+    "baseline_sd": 0.018083564363426095,
+    "pooled_sd": 0.01839748427856303,
     "baseline_position": null,
-    "w_plus": 4786.0,
+    "w_plus": 4867.0,
     "n_nonzero": 136,
-    "p": 0.3909084232688922,
+    "p": 0.3253110144631224,
     "holds": false
    }
   ],
@@ -1464,27 +1459,27 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
    {
     "readout": "mean_acute",
     "direction": 1,
-    "mean_difference": 18.808144643644535,
-    "half_width": 12.289197375922319,
-    "baseline_sd": 50.43522108624094,
-    "pooled_sd": 55.99815113387745,
+    "mean_difference": 13.214201753954052,
+    "half_width": 12.26871663004543,
+    "baseline_sd": 56.4030715386383,
+    "pooled_sd": 56.941590636385,
     "baseline_position": null,
-    "w_plus": 6146.0,
+    "w_plus": 5801.0,
     "n_nonzero": 137,
-    "p": 0.0011489773353563736,
+    "p": 0.010513182477841125,
     "holds": true
    },
    {
     "readout": "reactive_over_chance",
     "direction": 1,
-    "mean_difference": 0.0014032782439189959,
-    "half_width": 0.0023907751336423597,
-    "baseline_sd": 0.01591867217267979,
-    "pooled_sd": 0.016391124093996567,
+    "mean_difference": 0.0011182547057146715,
+    "half_width": 0.002334522976495523,
+    "baseline_sd": 0.015443066948364068,
+    "pooled_sd": 0.016174406529411732,
     "baseline_position": null,
-    "w_plus": 5432.0,
-    "n_nonzero": 140,
-    "p": 0.15085875462336207,
+    "w_plus": 5095.0,
+    "n_nonzero": 136,
+    "p": 0.17152550046065757,
     "holds": false
    }
   ],

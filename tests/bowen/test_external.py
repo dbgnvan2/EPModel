@@ -345,3 +345,75 @@ def test_m1e7_the_system_adjusts_once_per_stance_and_only_under_load():
     assert calm.practice == []
     self_practice(calm, (Selection(ravi, "STAY-IN-CONTACT", (marta,), 100.0),), {ravi: 31.0}, PARAMS)
     assert len(calm.practice) == 1                                 # above it is under load, however high usual is
+
+
+# --- M8.2, M8.3 and M11.C.7: the coach's position (version 1, 2026-10-17) -------------------------------------
+
+
+def _recruit(state, sender, tick, kind="SPLIT", target=HALIM, index=0):
+    """``sender`` turns to ``target`` with ``kind`` at ``tick``, recorded in the store as the engine records a move."""
+    event = Event(
+        id=EventId(tick, f"{sender.value}-{kind}", index), kind=kind, mechanism=Mechanism.MOVE, sender=sender,
+        targets=(target,), intensity=50.0, timestamp=tick, duration=1, exogenous=False,
+        source_position=SourcePosition.NONE, channel=Channel.SCRIPTED,
+    )
+    state.store.record_event(event)
+    return event
+
+
+def test_m8_2_an_unrecruited_coach_is_live():
+    """A control for the M8.3 tests below: with no side taken, the coach is live for both spouses. It passes with the
+    gate removed too; the gate's tests are the ones that follow."""
+    from src.bowen.engine.external import coach_live, coach_side
+
+    state = fresh()
+    state.tick = 10
+    assert any({HALIM, RAVI, MARTA} <= set(t.members) for t in state.triangles), "the fixture's coach triangle"
+    assert coach_live(state, HALIM, RAVI, PARAMS) and coach_live(state, HALIM, MARTA, PARAMS)
+    assert all(coach_side(state, HALIM, t.members, PARAMS) is None for t in state.triangles if HALIM in t.members)
+
+
+def test_m8_3_a_coach_recruited_by_a_spouse_holds_no_live_position():
+    """M8.3: drawn onto Marta's side by her SPLIT toward him, the coach is fused into her and counts in neither
+    spouse's triangle. Adversarial: her other moves toward him (FRAME_AMBIGUITY, DISPLACE) and a SPLIT toward
+    someone else take no side."""
+    from src.bowen.engine.external import coach_live, coach_side
+
+    state = fresh()
+    state.tick = 10
+    _recruit(state, MARTA, 9)
+    triad = next(t.members for t in state.triangles if {HALIM, RAVI, MARTA} <= set(t.members))
+    assert coach_side(state, HALIM, triad, PARAMS) == MARTA
+    assert not coach_live(state, HALIM, RAVI, PARAMS) and not coach_live(state, HALIM, MARTA, PARAMS)
+    for kind, target in (("FRAME_AMBIGUITY", HALIM), ("DISPLACE", HALIM), ("SPLIT", RAVI)):
+        other = fresh()
+        other.tick = 10
+        _recruit(other, MARTA, 9, kind=kind, target=target)
+        assert coach_live(other, HALIM, RAVI, PARAMS), kind
+
+
+def test_m8_3_the_side_lapses_with_the_triangle_window():
+    from src.bowen.engine.external import coach_live
+
+    state = fresh()
+    _recruit(state, MARTA, 9)
+    state.tick = 9 + PARAMS.triangle_activity_window - 1
+    assert not coach_live(state, HALIM, RAVI, PARAMS)
+    state.tick = 9 + PARAMS.triangle_activity_window
+    assert coach_live(state, HALIM, RAVI, PARAMS)
+
+
+def test_m11c7_a_sided_coachs_contact_never_lands():
+    """The gate: with binders failing, a live coach's contact can land and a sided coach's cannot. Adversarial: the
+    position-blind predicate (fusion ignored, the mutant the spec names) lands for the sided coach."""
+    from src.bowen.engine import external
+
+    live, sided = fresh(), fresh()
+    for state in (live, sided):
+        failing(state)
+        state.tick = 10
+    _recruit(sided, MARTA, 9)
+    assert external.landing_probability(live, live.people[HALIM], live.people[RAVI], PARAMS) > 0.0
+    assert external.landing_probability(sided, sided.people[HALIM], sided.people[RAVI], PARAMS) == 0.0
+    with mock.patch.object(external, "coach_side", return_value=None):
+        assert external.landing_probability(sided, sided.people[HALIM], sided.people[RAVI], PARAMS) > 0.0

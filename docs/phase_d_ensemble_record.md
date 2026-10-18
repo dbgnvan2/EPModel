@@ -5,7 +5,7 @@ seeds (`M3.D.4a`), stopped adaptively (`M17.A.1`, `M13.4`): `UNDETERMINED` at th
 pass. Every verdict carries its class (`M11.5`). **A premise passing confirms that the code renders the
 spec; it is not a finding about families.** Spec revisions 24–27 are Claude's recommendations, approved by the owner 2026-10-16 (revision 31).
 
-code_hash: 79f44b926c987803e6d62dfa0615cbfadbd319fd4599c2218c37db72746cb871
+code_hash: 43cd03b806d631cd7e8f78616a5e569b5e2bc7fdeaf07ed7a62cc8e0ad816efc
 
 Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25, `ensemble_margin` = 0.1, `ensemble_alpha` = 0.05, `fallback_flag_rate` = 0.2, `equivalence_margin` = 0.5.
 
@@ -14,9 +14,9 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
 | `M11.C.18` | check | **PASS** | 150 | `rise` +0.0243 ± 0.0028, p 4.44e-24, holds | baseline 3 of 5250 (3 owed a step); treatment 3900 of 5250 (3885 not legal, 7 owed a step, 8 rewritten) | 0.00 | — |
 | `M11.C.20` | check | **PASS** | 150 | `rise` +0.0249 ± 0.003, p 3.39e-24, holds; `support_blocked` -0.0776 ± 0.016 (reported only) | baseline 0 of 5250; treatment 1845 of 2700 (1831 not legal, 7 owed a step, 7 rewritten) | 0.00 | — |
 | `M11.C.33` | premise | **PASS** | 150 | `rise` +0.0249 ± 0.0029, p 1.06e-23, holds | baseline 3869 of 5250 (3854 not legal, 7 owed a step, 8 rewritten); treatment 3869 of 5250 (3854 not legal, 7 owed a step, 8 rewritten) | 0.00 | — |
-| `M11.C.17` | composite | **FAIL** | 150 | `coached_rise` -8.17e-05 ± 0.0013, p 0.197, does not hold; `family_rise` +0.000223 ± 0.00047 (reported only) | — | 0.01 | — |
+| `M11.C.17` | composite | **FAIL** | 150 | `coached_rise` +0.000131 ± 0.0015, p 0.227, does not hold; `family_rise` +0.000388 ± 0.00057 (reported only) | — | 0.01 | — |
 | `M11.C.30` | premise | **PASS** | 50 | `social_load` -29.3 ± 3, p 4.14e-10, holds | — | 0.00 | — |
-| `M11.C.22` | premise | **FAIL** | 150 | `mild_removal_effect` +0.569 ± 0.87, p 0.0916, does not hold; `severe_removal_effect` -1.78 ± 0.78, p 2.24e-05, holds | — | 0.05 | — |
+| `M11.C.22` | mixed | **FAIL** | 150 | `mild_removal_effect` +0.569 ± 0.87, p 0.0916, does not hold; `severe_removal_effect` -1.78 ± 0.78, p 2.24e-05, holds | — | 0.05 | — |
 | `M11.C.12` | composite | **FAIL** | 50 | `marital_conflict` -0.08 ± 0.33, p 0.685, does not hold | — | 0.00 | — |
 | `M11.C.31` | check | **PASS** | 150 | `budget_rise` +24 ± 1.2, p 3.08e-28, holds | — | 0.00 | — |
 | `M11.C.11` | mixed | **PASS** | 200 | `disturbance` +2.34 ± 1.5, p 0.000559, holds | — | 0.08 | — |
@@ -24,19 +24,22 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
 | `M11.C.36` | check | **PASS** | 50 | `witness_response` +3.07 ± 0.011, p 3.89e-10, holds | baseline 0 of 400; treatment 0 of 400 | 0.00 | — |
 | `M11.C.14[firmness]` | premise | **PASS** | 100 | `child_symptom_load` +8.22 ± 3, equivalence bound 6.67 (one-sided: the treatment no lower than the baseline less the bound), within | baseline 0 of 5200; treatment 0 of 5200 | 0.00 | — |
 | `M11.C.14[talking it out]` | premise | **PASS** | 100 | `child_symptom_load` -4.46 ± 2.2, equivalence bound 6.67 (one-sided: the treatment no lower than the baseline less the bound), within; `talking_less_firmness` -12.7 ± 2.7 (reported only) | baseline 0 of 5200; treatment 0 of 5200 | 0.00 | — |
-| `M11.C.2` | composite | **FAIL** | 100 | `symptom_load` -0.926 ± 3.3, p 0.701, does not hold | — | 0.00 | — |
+| `M11.C.2` | composite | **FAIL** | 100 | `symptom_load` -2.14 ± 2.8, p 0.931, does not hold | — | 0.00 | — |
 | `M11.C.39` | composite | **PASS** | 150 | `pattern_after_spell` +7.46 ± 1.3, p 1.83e-18, holds; `time_to_remission` +3.8 ± 2.6 (reported only) | — | 0.00 | — |
-| `M11.C.40` | premise | **PASS** | 100 | `automatic_entropy_fall` +0.0397 ± 0.0072, p 6.55e-14, holds; `automatic_less_self` +0.017 ± 0.049 (reported only); `self_entropy_fall` +0.0226 ± 0.049 (reported only); `empty_windows` +0 ± 0 (reported only) | — | 0.00 | — |
+| `M11.C.40` | premise | **PASS** | 100 | `automatic_entropy_fall` +0.0468 ± 0.0075, p 1.39e-15, holds; `automatic_less_self` +0.0424 ± 0.053 (reported only); `self_entropy_fall` +0.00437 ± 0.052 (reported only); `empty_windows` +0 ± 0 (reported only) | — | 0.00 | — |
 | `M11.C.43` | composite | **FAIL** | 150 | `loss_rise` -0.411 ± 1.1, p 0.674, does not hold | — | 0.00 | — |
 | `M11.C.34` | mixed | **FAIL** | 150 | `automatic_reaction` -0.0267 ± 0.11, p 0.35, does not hold | — | 0.00 | — |
 | `M11.C.21` | composite | **FAIL** | 50 | `target_rise` +0.153 ± 0.19, p 0.0881, does not hold | baseline 0 of 3900; treatment 0 of 3900 | 0.00 | — |
 | `M11.C.23` | composite | **FAIL** | 150 | `relapses` -0.64 ± 0.099, p 1, does not hold | baseline 0 of 7800; treatment 0 of 7800 | 0.00 | — |
 | `M11.C.24` | premise | **PASS** | 150 | `under_change` +10.9 ± 0.55, p 1.73e-26, holds; `over_change` -11.3 ± 0.64, p 1.54e-26, holds | baseline 0 of 15600; treatment 0 of 7800 | 0.00 | — |
+| `M11.C.46` | premise | **PASS** | 100 | `seeker_relief` +1.43 ± 0.11, p 1.98e-18, holds; `third_excess` +0.0228 ± 0.9 (reported only); `seeker_change` -1.02 ± 0.54 (reported only) | baseline 0 of 100; treatment 0 of 100 | 0.00 | — |
+| `M11.C.7[joint over one spouse]` | mixed | **FAIL** | 100 | `deviation_fall` +0.0336 ± 0.068, p 0.112, does not hold; `landed_contacts` +0.24 ± 0.86 (reported only) | — | 0.00 | — |
+| `M11.C.7[one spouse over sided]` | mixed | **FAIL** | 150 | `deviation_fall` -0.00281 ± 0.052, p 0.787, does not hold; `landed_contacts` +9.3 ± 0.6, p 1.05e-26, holds | baseline 0 of 9600 | 0.00 | — |
+| `M11.C.7[joint over sided]` | mixed | **FAIL** | 150 | `deviation_fall` +0.0439 ± 0.054, p 0.0575, does not hold; `landed_contacts` +9.22 ± 0.51, p 1.48e-26, holds | baseline 0 of 9600 | 0.00 | — |
 
 ## Not built in Phase D part I
 
-- `M11.C.7` — needs the coach's landing to read the coach's position (`M8`'s predicate exists, nothing calls it).
-- `M11.C.9` — needs sibling position to gate behaviour (`M1.A.14c`).
+- `M11.C.9` — no rule reads sibling position, so building it means a new mechanism, not a gate (`M1.A.14c`); out of version 1, Claude's recommendation 2026-10-17 pending owner review (`docs/version_1_dispositions.md`).
 - `M11.C.28` — the sink allocation feeds no behaviour, so pinning its mobility can change no symptom.
 
 ## Fallback rate by person (`M11.D.18`)
@@ -62,6 +65,10 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
 - `M11.C.21`: c1 0.00, c2 0.00, f 0.00
 - `M11.C.23`: c1 0.00, c2 0.00, f 0.00
 - `M11.C.24`: a 0.00, b 0.00, pa 0.00
+- `M11.C.46`: c 0.00, f 0.00, m 0.00
+- `M11.C.7[joint over one spouse]`: ana 0.00, bruno 0.00, halim 0.00
+- `M11.C.7[one spouse over sided]`: ana 0.00, bruno 0.00, halim 0.00
+- `M11.C.7[joint over sided]`: ana 0.00, bruno 0.00, halim 0.00
 
 ## Machine-readable
 
@@ -218,23 +225,23 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
    {
     "readout": "coached_rise",
     "direction": 1,
-    "mean_difference": -8.168173919379739e-05,
-    "half_width": 0.0013287717880612444,
+    "mean_difference": 0.00013089168877700766,
+    "half_width": 0.001491020506868679,
     "baseline_sd": 0.006540865617373705,
-    "pooled_sd": 0.0057274716433802775,
+    "pooled_sd": 0.00641571122336778,
     "baseline_position": null,
-    "w_plus": 645.0,
-    "n_nonzero": 47,
-    "p": 0.1971448520965176,
+    "w_plus": 512.0,
+    "n_nonzero": 42,
+    "p": 0.22656116084926298,
     "holds": false
    },
    {
     "readout": "family_rise",
     "direction": 1,
-    "mean_difference": 0.0002226963431944893,
-    "half_width": 0.00046616930845359974,
+    "mean_difference": 0.0003881150398049185,
+    "half_width": 0.0005726526272637363,
     "baseline_sd": 0.002088301739490615,
-    "pooled_sd": 0.0019741898324992686,
+    "pooled_sd": 0.002435708438693675,
     "baseline_position": null,
     "report_only": true
    }
@@ -271,7 +278,7 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
  },
  {
   "criterion": "M11.C.22",
-  "class": "premise",
+  "class": "mixed",
   "outcome": "FAIL",
   "seeds": 150,
   "readouts": [
@@ -587,14 +594,14 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
    {
     "readout": "symptom_load",
     "direction": 1,
-    "mean_difference": -0.9259695117404817,
-    "half_width": 3.261794595994252,
-    "baseline_sd": 15.157316851119464,
-    "pooled_sd": 14.899953043178805,
+    "mean_difference": -2.1439838620339695,
+    "half_width": 2.8408873244606525,
+    "baseline_sd": 14.188036843079933,
+    "pooled_sd": 13.857242300200003,
     "baseline_position": null,
-    "w_plus": 2093.0,
-    "n_nonzero": 94,
-    "p": 0.7012263273761222,
+    "w_plus": 1564.0,
+    "n_nonzero": 87,
+    "p": 0.9310228914316147,
     "holds": false
    }
   ],
@@ -647,33 +654,33 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
    {
     "readout": "automatic_entropy_fall",
     "direction": 1,
-    "mean_difference": 0.039662611557734186,
-    "half_width": 0.007210885427274274,
-    "baseline_sd": 0.02497758481073654,
-    "pooled_sd": 0.030339073016923578,
+    "mean_difference": 0.04675836653336624,
+    "half_width": 0.007515058993483456,
+    "baseline_sd": 0.026317157543425725,
+    "pooled_sd": 0.0322526868936679,
     "baseline_position": null,
-    "w_plus": 4435.0,
-    "n_nonzero": 97,
-    "p": 6.549340724770822e-14,
+    "w_plus": 4328.0,
+    "n_nonzero": 94,
+    "p": 1.3933117648001187e-15,
     "holds": true
    },
    {
     "readout": "automatic_less_self",
     "direction": 1,
-    "mean_difference": 0.017025396836776154,
-    "half_width": 0.0491563992857598,
-    "baseline_sd": 0.18398433794578137,
-    "pooled_sd": 0.20260873587522618,
+    "mean_difference": 0.04238735859082519,
+    "half_width": 0.05302128840232166,
+    "baseline_sd": 0.200617039485055,
+    "pooled_sd": 0.2002243222523013,
     "baseline_position": null,
     "report_only": true
    },
    {
     "readout": "self_entropy_fall",
     "direction": 0,
-    "mean_difference": 0.022637214720958032,
-    "half_width": 0.048735101712841664,
-    "baseline_sd": 0.18248258337550638,
-    "pooled_sd": 0.20105075164629635,
+    "mean_difference": 0.0043710079425410475,
+    "half_width": 0.05249643986803602,
+    "baseline_sd": 0.19938661418970047,
+    "pooled_sd": 0.20019570004320725,
     "baseline_position": null,
     "report_only": true
    },
@@ -879,6 +886,201 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
    },
    "treatment": {
     "made": 7800,
+    "not legal": 0,
+    "owed a step": 0,
+    "dead": 0,
+    "target dead": 0,
+    "rewritten": 0,
+    "not reached": 0
+   }
+  }
+ },
+ {
+  "criterion": "M11.C.46",
+  "class": "premise",
+  "outcome": "PASS",
+  "seeds": 100,
+  "readouts": [
+   {
+    "readout": "seeker_relief",
+    "direction": 1,
+    "mean_difference": 1.4331473915180082,
+    "half_width": 0.11075366753213607,
+    "baseline_sd": 0.23997549966181467,
+    "pooled_sd": 0.4557890062058566,
+    "baseline_position": null,
+    "w_plus": 5050.0,
+    "n_nonzero": 100,
+    "p": 1.9779558044497787e-18,
+    "holds": true
+   },
+   {
+    "readout": "third_excess",
+    "direction": 0,
+    "mean_difference": 0.02275622057738957,
+    "half_width": 0.8985661153335023,
+    "baseline_sd": 4.961369171064054,
+    "pooled_sd": 4.853593824262881,
+    "baseline_position": null,
+    "report_only": true
+   },
+   {
+    "readout": "seeker_change",
+    "direction": -1,
+    "mean_difference": -1.016144063695163,
+    "half_width": 0.5384646744361228,
+    "baseline_sd": 2.252850009227457,
+    "pooled_sd": 2.4253025501521397,
+    "baseline_position": null,
+    "report_only": true
+   }
+  ],
+  "fallback_rate": 0.0,
+  "flags": [],
+  "missing_moves": [],
+  "scripted": {
+   "baseline": {
+    "made": 100,
+    "not legal": 0,
+    "owed a step": 0,
+    "dead": 0,
+    "target dead": 0,
+    "rewritten": 0,
+    "not reached": 0
+   },
+   "treatment": {
+    "made": 100,
+    "not legal": 0,
+    "owed a step": 0,
+    "dead": 0,
+    "target dead": 0,
+    "rewritten": 0,
+    "not reached": 0
+   }
+  }
+ },
+ {
+  "criterion": "M11.C.7[joint over one spouse]",
+  "class": "mixed",
+  "outcome": "FAIL",
+  "seeds": 100,
+  "readouts": [
+   {
+    "readout": "deviation_fall",
+    "direction": 1,
+    "mean_difference": 0.03361000297061658,
+    "half_width": 0.06832211007950593,
+    "baseline_sd": 0.27502468351033843,
+    "pooled_sd": 0.2857683007090854,
+    "baseline_position": null,
+    "w_plus": 2504.0,
+    "n_nonzero": 93,
+    "p": 0.11152713362712327,
+    "holds": false
+   },
+   {
+    "readout": "landed_contacts",
+    "direction": 1,
+    "mean_difference": 0.24,
+    "half_width": 0.862310004487008,
+    "baseline_sd": 3.373859702614988,
+    "pooled_sd": 3.2788116842243413,
+    "baseline_position": null,
+    "report_only": true
+   }
+  ],
+  "fallback_rate": 0.0,
+  "flags": [],
+  "missing_moves": [],
+  "scripted": {}
+ },
+ {
+  "criterion": "M11.C.7[one spouse over sided]",
+  "class": "mixed",
+  "outcome": "FAIL",
+  "seeds": 150,
+  "readouts": [
+   {
+    "readout": "deviation_fall",
+    "direction": 1,
+    "mean_difference": -0.0028061835910500577,
+    "half_width": 0.051978025462000706,
+    "baseline_sd": 0.2754788502425728,
+    "pooled_sd": 0.2786942361088657,
+    "baseline_position": null,
+    "w_plus": 4619.0,
+    "n_nonzero": 141,
+    "p": 0.7871206628869981,
+    "holds": false
+   },
+   {
+    "readout": "landed_contacts",
+    "direction": 1,
+    "mean_difference": 9.3,
+    "half_width": 0.5969931217962531,
+    "baseline_sd": 3.7304299192653834,
+    "pooled_sd": 2.6378122926537375,
+    "baseline_position": null,
+    "w_plus": 11325.0,
+    "n_nonzero": 150,
+    "p": 1.0494097662061203e-26,
+    "holds": true
+   }
+  ],
+  "fallback_rate": 0.0,
+  "flags": [],
+  "missing_moves": [],
+  "scripted": {
+   "baseline": {
+    "made": 9600,
+    "not legal": 0,
+    "owed a step": 0,
+    "dead": 0,
+    "target dead": 0,
+    "rewritten": 0,
+    "not reached": 0
+   }
+  }
+ },
+ {
+  "criterion": "M11.C.7[joint over sided]",
+  "class": "mixed",
+  "outcome": "FAIL",
+  "seeds": 150,
+  "readouts": [
+   {
+    "readout": "deviation_fall",
+    "direction": 1,
+    "mean_difference": 0.043874178553110946,
+    "half_width": 0.054250270136871157,
+    "baseline_sd": 0.2754788502425728,
+    "pooled_sd": 0.27637481084749643,
+    "baseline_position": null,
+    "w_plus": 5615.0,
+    "n_nonzero": 139,
+    "p": 0.05753484611617093,
+    "holds": false
+   },
+   {
+    "readout": "landed_contacts",
+    "direction": 1,
+    "mean_difference": 9.22,
+    "half_width": 0.5087358013892993,
+    "baseline_sd": 3.178936549208338,
+    "pooled_sd": 2.247847590906979,
+    "baseline_position": null,
+    "w_plus": 11175.0,
+    "n_nonzero": 149,
+    "p": 1.4821164938210477e-26,
+    "holds": true
+   }
+  ],
+  "fallback_rate": 0.0,
+  "flags": [],
+  "missing_moves": [],
+  "scripted": {
+   "baseline": {
+    "made": 9600,
     "not legal": 0,
     "owed a step": 0,
     "dead": 0,

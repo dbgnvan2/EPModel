@@ -66,7 +66,7 @@ def load_roles(path=CONFIG_DIR / "criterion_roles.md") -> dict[tuple[str, str], 
 ROLES = load_roles()
 
 # Keys the criteria table adds to an arm's settings itself, for expanded cells; never config.
-INJECTED = frozenset({"twosome", "change", "levels", "arms", "technique"})
+INJECTED = frozenset({"twosome", "change", "levels", "arms", "technique", "topologies"})
 # Every setting a criterion reads, by section; config/bowen/criteria.md must hold exactly these.
 # tests/bowen/test_ensemble_record.py::test_criteria_required_matches_what_the_arms_read ties this to the code.
 REQUIRED = {
@@ -81,7 +81,7 @@ REQUIRED = {
     "M11.C.25": ("weeks", "no_pole"),
     "M11.C.27": ("t0", "latency", "report_weeks", "unstable_impingement"),
     "M11.C.29": ("weeks", "t0", "disguise_span", "disguise_every"),
-    "M11.C.32": ("weeks", "t0", "angry_impingement"),
+    "M11.C.32": ("weeks", "t0", "angry_impingement", "mover_level"),
     "M11.C.35": ("t0", "run_after", "conductance_high", "conductance_low"),
     "M11.C.38": ("weeks", "level_1", "level_2", "level_3", "level_4"),
     "M11.C.41": ("weeks", "level_higher", "level_lower"),
@@ -120,6 +120,9 @@ REQUIRED = {
     "M11.C.21": ("t0", "after", "drop", "act_every"),  # act_every: the lent balance first (revision 31)
     "M11.C.23": ("t0", "weeks", "act_every", "start_severity", "suppression"),
     "M11.C.24": ("diverge_weeks", "after", "act_every"),
+    # Version 1 (2026-10-17): the triangle change proved (spec revision 15).
+    "M11.C.46": ("t0", "latency", "bond_near", "bond_far"),
+    "M11.C.7": ("weeks", "window"),
 }
 
 
@@ -196,7 +199,8 @@ class Forced:
         self.policy, self.forced, self.unavailable = policy, forced, unavailable or {}
         self.held_open = held_open
         # ``withheld`` maps a week to {actor: kinds}: those kinds are not in the actor's legal set that week, toward
-        # anyone (M17.D.3; M11.C.33 keeps both arms' legal sets equal on its slow-tick weeks).
+        # anyone (M17.D.3; M11.C.33 keeps both arms' legal sets equal on its slow-tick weeks). An entry ``KIND>target``
+        # withholds that act toward that one person only (M11.C.7: no spouse takes the coach's side on their own).
         self.withheld = withheld or {}
         self.made, self.skipped, self.owed_step = 0, 0, 0  # placement counts; ``outcomes`` is what was made
         self.status: dict = {}  # (week, actor) -> "placed", "not legal", "owed a step", "dead" or "target dead"
@@ -216,7 +220,11 @@ class Forced:
                     for pair in pairs for a in pair}
         for actor, kinds in self.withheld.get(tick, {}).items():
             others = {t.id.other(actor) for t in state.ties_of(actor)}
-            excluded[actor] = excluded.get(actor, frozenset()) | {f"{k}>{o}" for k in kinds for o in others}
+            strays = sorted(k for k in kinds if ">" in k and PersonId(k.split(">", 1)[1]) not in others)
+            if strays:  # P2: a label that names no tie partner would withhold nothing, silently (review 2026-10-17)
+                raise ValueError(f"week {tick}: {actor} has no tie to the person named in {strays}")
+            labels = {k for k in kinds if ">" in k} | {f"{k}>{o}" for k in kinds if ">" not in k for o in others}
+            excluded[actor] = excluded.get(actor, frozenset()) | labels
         for actor in sorted((set(absent) | set(excluded)) & set(active)):
             if state.people[actor].alive:
                 redrawn = self._without(state, actor, absent.get(actor), excluded.get(actor, frozenset()))
@@ -428,7 +436,11 @@ def arm_c4(arm, seed, settings):
                          sender=None, targets=(P("a"),), intensity=SPELL["intensity"], timestamp=nodal, duration=1,
                          exogenous=True, source_position=SourcePosition.NONE, channel=Channel.EXOGENOUS),)
     forced = act("a", "CUTOFF", "b", t0) if arm == "treatment" else act("a", "STAY-IN-CONTACT", "b", t0)
-    state, records = scenario("dyad", seed, weeks, spells=nodal_event, forced=forced, held_open=held(t0, "a-b"))
+    # Version 1 (2026-10-17; Claude's recommendation, pending owner review): the baseline holds a-b open for the whole
+    # run, so it is the matched no-cutoff arm the row names, as M11.C.10's baseline is. Held only to t0, the policy cut
+    # the tie by itself in 200 of 200 baseline seeds by week 104, and both arms held the cutoff at the nodal event.
+    open_until = t0 if arm == "treatment" else weeks
+    state, records = scenario("dyad", seed, weeks, spells=nodal_event, forced=forced, held_open=held(open_until, "a-b"))
     now = _acute_at(records, t0 + 1, (P("a"),))[P("a")] - _acute_at(records, t0 - 1, (P("a"),))[P("a")]
     later = _acute_at(records, nodal + 1, (P("a"), P("b")))
     return result({"actor_relief_now": now, "family_anxiety_at_nodal": later[P("a")] + later[P("b")]}, records)
@@ -595,7 +607,15 @@ def arm_c32(arm, seed, settings):
     t0 = settings["t0"]
 
     def setup(state):
-        state.people[P("a")].systems_perspective = 1.0
+        mover = state.people[P("a")]
+        # Version 1 (2026-10-17; post hoc, Claude's recommendation pending owner review): a mover able to complete the
+        # sequence when calm, as tests/bowen/test_iposition.py's MOVER_LEVEL is. At the fixture's 40 the calm arm reached
+        # the peak in 0 of 200 seeds after spec revision 16, so both arms read 0 and the gate went untested. What
+        # initialisation derives from level is derived again, as lowered() does (review 2026-10-17).
+        mover.basic_level = mover.functional_level = settings["mover_level"]
+        mover.pseudo_self = mover.swing
+        _reinitialise(state)
+        mover.systems_perspective = 1.0
 
     def anger(state):
         setup(state)
@@ -734,8 +754,11 @@ CRITERIA: dict[str, Criterion] = {
                   settings=SETTINGS["M11.C.19"]),
     "M11.C.25": C("M11.C.25", "premise", ("baseline", "treatment"), (Readout("first_dominant", 0, (0, 1)),),
                   arm_c25, settings=SETTINGS["M11.C.25"]),
-    "M11.C.29": C("M11.C.29", "premise", ("baseline", "treatment"),
-                  (Readout("budget", -1), Readout("third_symptom_weeks", -1)), arm_c29,
+    # Version 1 (2026-10-17; Claude's recommendation, pending owner review): the budget limb (M6.I.1) is proved by
+    # tests/bowen/test_sinks.py::test_m6i1_only_a_completed_exchange_reduces_the_budget and reported here; the third
+    # person's time course is emergent, so the criterion is mixed and gates on that limb alone.
+    "M11.C.29": C("M11.C.29", "mixed", ("baseline", "treatment"),
+                  (Readout("budget", -1, report_only=True), Readout("third_symptom_weeks", -1)), arm_c29,
                   settings=SETTINGS["M11.C.29"]),
     "M11.C.32": C("M11.C.32", "premise", ("baseline", "treatment"),
                   (Readout("assertion_form", +1), Readout("reached_peak", -1)), arm_c32, ("I-POSITION",),
@@ -775,7 +798,6 @@ for name, base, treat in (("light: lower level", (_hi, "light"), (_lo, "light"))
                       settings={"weeks": SETTINGS["M11.C.41"]["weeks"], "arms": (base, treat)})
 
 NOT_BUILT = {
-    "M11.C.7": "needs M8.2/M8.3's position predicates; the criterion declares no direction for its topology arms",
     "M11.C.13": "needs incidents located in a community; the model has none",
-    "M11.C.14": "needs M5.C.1's marital-distance gate, which is not built",
 }
+# M11.C.7 and M11.C.14 were not built in Phase C; both are built in Phase D (docs/phase_d_ensemble_record.md).

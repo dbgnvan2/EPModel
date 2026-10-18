@@ -165,8 +165,18 @@ def test_s_every_scripted_criterion_holds_the_same_ties_in_both_arms(monkeypatch
                 CRITERIA[cid].arm(arm, 0, CRITERIA[cid].settings)
     assert set(seen) == set(SCRIPTED)
     for cid, holds in seen.items():
-        assert holds[0] is not None and holds[0][0] and holds[0] == holds[1], cid
-        assert holds[0][1].start == 0 and holds[0][1].stop >= CRITERIA[cid].settings["t0"], cid
+        baseline, treatment = holds
+        assert baseline is not None and baseline[0] and baseline[0] == treatment[0], cid
+        assert baseline[1].start == treatment[1].start == 0 and treatment[1].stop >= CRITERIA[cid].settings["t0"], cid
+        if cid in HELD_LONGER_IN_THE_BASELINE:
+            assert baseline[1].stop > treatment[1].stop, cid
+        else:
+            assert baseline[1] == treatment[1], cid
+
+
+# Revision 32 (2026-10-17): M11.C.4's baseline is the matched no-cutoff arm, so it holds the tie open for the whole
+# run, as M11.C.10's baseline does; its treatment holds it only until the act, as every scripted criterion does.
+HELD_LONGER_IN_THE_BASELINE = {"M11.C.4"}
 
 
 # M11.C.29's actor has full systems perspective and may be inside their own I-POSITION sequence with the same

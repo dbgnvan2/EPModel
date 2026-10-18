@@ -1844,6 +1844,104 @@ records regenerate once (R31.B6; estimate in the status line of this section whe
 review form, `version_1_definition.md`, `TODO.md`. Part B: `config/bowen/criteria.md`, `config/bowen/attribution.md`,
 and the regenerated records (`docs/readouts_phase_c.md` does not mention `M11.C.14`, checked 2026-10-16).
 
+### 4.12 Revision 32: finishing version 1 — 2026-10-17
+
+> **Status: built 2026-10-17 under the owner's instruction "proceed using your own recommendations".** Every decision
+> below is Claude's recommendation, pending owner review, and is tagged so in the spec (⟦rev32 · Claude's
+> recommendation 2026-10-17, pending owner review⟧). Nothing was changed to make a criterion pass: where an arm was
+> changed after its failure was seen, the section says so.
+
+**What version 1 still lacked** (`docs/version_1_definition.md` §1, measured from the committed records on
+2026-10-17, now generated as `docs/version_1_status.md`):
+- V1: no generated status table and no test that every criterion has a status. Built: `tools/version_1_status.py`,
+  `docs/version_1_status.md`, the dispositions file `docs/version_1_dispositions.md`, and
+  `tests/test_version_1_status.py` (eleven tests; eight feed it an input it must refuse or flag).
+- V2: four failing premises (`M11.C.4`, `M11.C.29`, `M11.C.32`, `M11.C.22`) and three premises not built (`M11.C.7`,
+  `M11.C.9`, and `M11.C.46`, which no record listed: found by the status tool).
+- V3: three passing composite or mixed criteria with no recorded mutation (`M11.C.11`, `M11.C.15`, `M11.C.39`).
+- V6 was met at `1f0064f` (CI run 39066214552).
+
+**Diagnoses** (read-only agents on copies of the repository; every number ad hoc, 2026-10-17, mean ± 1.96·sd/√n;
+scripts in the session's scratchpad, not kept in the repository):
+
+- **`M11.C.4`.** The baseline arm was not the matched no-cutoff arm its row names: held open only to `t0`, the policy
+  cut the tie by itself in 200 of 200 baseline seeds by week 104, so both arms held the cutoff at the nodal event
+  (rejection over weeks 52–103: 0.725 against 0.726). Separately, `M4.C.1c`'s spike of a cut tie's "too little" side
+  by a nodal event is not built: only a `TRIGGER` adds to `state.triggers` (`event_effects.py`), so a nodal event adds
+  nothing at any week tried (12 to 60).
+- **`M11.C.32` and `M11.C.29`.** Since `779a76c` (spec revision 16, cutoff as rejection) a mover at level 40 is too
+  anxious to hold an `I-POSITION` past the first opposition: in `M11.C.32`'s calm arm 0 of 200 seeds reach the peak
+  (50 of 200 at Phase C close), so both arms read 0. The first-opposition check (`iposition.py`, excess 11.07 ± 0.39
+  against capacity 7.27 ± 0.15) stops it. In `M11.C.29` no sequence completes in either arm (0 of 100), so the budget
+  difference is exactly 0: 37 of the scripted acts run as the assertion form, 58 fail in PREPARE on the mover's own
+  excess (20.7 ± 0.85 against `defence_threshold` 15). Not a code defect: the anger gate does what `M5.D.4` says.
+- **`M11.C.22`.** The plan (§4.11) said the capacity rule caused the mild limb's failure. Over 600 seeds that is not
+  supported: with the rule the mild limb is +1.00 ± 0.40, and the rule shifts it by −0.15 ± 0.53. The record's first
+  150 seeds fail near the detection limit (effect 0.28 pooled sd; pass chance at the runner's stop about 78%). The
+  premise's mechanism is intact and the same size with and without the rule (F and M move 234 ± 9 against 235 ± 8 into
+  the hold). The readout is the net of `M7.D.2a`'s lock-in (+7.3) and other mechanisms (`REDUCE_CUTOFF` releases −2.4,
+  distance binding −1.7, decay −1.5).
+- **`M11.C.7` and `M11.C.9`** (design). `M11.C.7` needed a state the model did not have (a coach who has taken a side)
+  and one gate. `M11.C.9` has nothing to gate: no rule reads sibling position (`objects.py` documents it as never
+  read), so building it is a new mechanism whose content the spec leaves open, not the "one gate that is partly built"
+  the owner's decision of 2026-10-15 rested on.
+- **`M11.C.11`'s return limb.** Carried by the removed member's symptom hold, frozen while they are away (no
+  interactive partner to release to) and released on return: `lock_in` +12.1 ± 2.4 of the +2.34 total, 200 seeds.
+
+**Decisions and what was built:**
+
+| ID | Criterion | Decision (Claude's recommendation, pending owner review) | Measured, ad hoc |
+|---|---|---|---|
+| R32.1 | `M11.C.4` | The baseline holds the tie open for the whole run, as `M11.C.10`'s does. The nodal-event spike stays unbuilt and the spec records the gap at `M4.C.1c`: adding it is a new mechanism with a new constant, and the accrual already carries the limb | PASS, later limb +7.65 ± 1.1 (150 seeds). The standing load's tie term removed alone survives (+4.83 ± 0.9); with `M1.B.3c`'s refusal cost and `M1.B.3d`'s reactive cost also removed, red: the later limb reverses (−4.57 ± 0.74) while the immediate limb holds. Both mutants recorded in `docs/phase_c_mutation_record.md` (survived; red) |
+| R32.2 | `M11.C.32` | The mover's level is declared 60 in both arms (`mover_level`), as `tests/bowen/test_iposition.py`'s `MOVER_LEVEL` is. **Post hoc**: chosen after the diagnosis showed level 60 passes | PASS, `reached_peak` −0.273 ± 0.078 (150 seeds, before the review's re-initialisation fix); in the record, −0.25 ± 0.098 (100 seeds), with `anger-gate-inverted` reversed (+0.56 ± 0.11) and `anger-gate-removed` red (+0.04 ± 0.055) |
+| R32.3 | `M11.C.29` | Mixed. The budget limb (`M6.I.1`) is proved by `tests/bowen/test_sinks.py::test_m6i1_only_a_completed_exchange_reduces_the_budget` and reported in the ensemble; the third person's time course is written by no rule, so composite. Its failure is proposed for acceptance (dispositions) | FAIL, `third_symptom_weeks` −0.32 ± 3.9 (50 seeds, unchanged) |
+| R32.4 | `M11.C.22` | Mixed: the severe limb premise, the mild limb composite. The causal sentence in the spec, §4.11 and the version 1 definition is corrected. Its failure is proposed for acceptance | unchanged: mild +0.57 ± 0.87, severe −1.78 ± 0.78 (150 seeds) |
+| R32.5 | `M11.C.46` | Built on `M11.C.3`'s triad with the unhelpful third closer to the partner (bonds 30/70 swapped). The anxious form was built and run first and is **not** registered: the declared stressor raised the third's excess by only 4.1 ± 0.28 points, moving the calm factor by about 4%, and loaded the seeker too, and the relief did not differ (−0.12 ± 0.21, 100 seeds). The spec's "anxious, **or** closer to the partner" allows either; choosing this form after seeing the other is recorded for the owner | PASS before the review's fix, +1.42 ± 0.26 (150 seeds, every transfer that week); in the record, the scripted act's transfer only, +1.43 ± 0.11 (100 seeds), and `triangle-help-ignored` red, +0.131 ± 0.24 (150 seeds, `docs/phase_d_mutation_record.md`) |
+| R32.6 | `M11.C.7` | Built (below). Mixed: that a sided coach's contact lands less is the gate's (premise); the deviation ordering is written by no rule (composite) | see "M11.C.7" below |
+| R32.7 | `M11.C.9` | Out of version 1, for version 2 (dispositions). Needs the owner's confirmation: V1 counts it as not final until then | — |
+| R32.8 | V3 | Mutants recorded for `M11.C.15` (`death-bound-anxiety-discarded`, the ad hoc one of §4.7 written as a literal), `M11.C.39` (`learning-off-in-both-arms`), `M11.C.11` (`removed-member-hold-released-while-away`), `M11.C.46` and `M11.C.7` (`coach-position-blind`) in `docs/phase_d_mutation_record.md`; `M11.C.4`'s two in `docs/phase_c_mutation_record.md` | In `docs/phase_d_mutation_record.md`: `M11.C.11` reversed (−1.77 ± 1.6), `M11.C.15` red (death limb +0.06 ± 0.64), `M11.C.39` red (by construction: its baseline is the mutation), `M11.C.46` red; the `M11.C.7` pairs not run, as they fail |
+| R32.9 | V1 | Dispositions for every failing composite and mixed criterion, each with its measured reason, as Claude's recommendation for the owner to accept or not; `M11.C.8` out of scope (Phase E) | — |
+
+**`M11.C.7` as built.** `M8.3`'s sided coach is "drawn onto one spouse's side (`TRIANGLE` toward him from her, and he
+goes along)" (P9). A member cannot send an external agent a `TRIANGLE` (`M5.B.4`, `M5.B.5`: the family-to-external
+moves are `SPLIT`, `FRAME_AMBIGUITY` and `DISPLACE`), so the first build's scripted `TRIANGLE` was illegal in every
+week and the sided arm ran as the joint one. The move that draws a professional onto one side is `SPLIT`, "consult an
+external agent without telling the others" (Ch19 · L19.3). So: a coach is on a member's side for
+`triangle_activity_window` weeks after that member's `SPLIT` toward him (`external.coach_side`), and his contact lands
+only while he holds a live position, by `positions_live`, in every triangle he shares with the recipient
+(`external.coach_live`, the gate in `landing_probability`). A sided coach's contact lands nothing; `M1.E.7e`'s lending
+of pseudo-self is not built. Arms on the Phase C family under `M11.C.17`'s nodal load for 520 weeks: joint; one spouse
+(Halim–Marta non-interactive); sided (Marta's `SPLIT` toward Halim the week before each session). In every arm neither
+spouse may `SPLIT` toward the coach on their own (`Forced.withheld` now takes a `KIND>target` label). The sided arm's
+scripted act displaces Marta's own act in one week in eight; the other arms keep hers. The gate also acts in any run in
+which a member `SPLIT`s toward the coach, `M11.C.17` among them.
+
+**`M11.C.7` in the record** (`docs/phase_d_ensemble_record.md`): every pair fails on the deviation limb (`[joint over
+one spouse]` +0.034 ± 0.068, 100 seeds; `[one spouse over sided]` −0.003 ± 0.052; `[joint over sided]` +0.044 ± 0.054,
+p 0.058; 150 seeds each); the landed-contacts limb holds in both sided pairs (+9.3 ± 0.6, +9.2 ± 0.51). Coaching barely
+moves the couple's deviation in any arm. `M11.C.46` passes in the record, +1.43 ± 0.11 (100 seeds, scripted transfer
+only), and `M11.C.32` passes, −0.25 ± 0.098.
+
+**A defect found after the first regeneration was started (2026-10-17).** `M11.C.46`'s module-level
+`SEEKER, PARTNER, THIRD = ...` rebound `PARTNER`, which `M11.C.22` and `M11.C.11` read as the nuclear four's c2, so
+both readouts changed. Comparing seed 0 of every Phase C and part I criterion between HEAD and the working tree
+found it. The run was stopped and restarted after the rename. Afterwards 38 of 45 criteria matched HEAD exactly on seed
+0; `M11.C.4` differs by design, and `M11.C.2`, `M11.C.5`, `M11.C.40` and three `M11.C.41` cells, all on the Phase C
+family, through the coach's gate. A test now refuses a criteria module that binds a top-level name twice.
+
+**Risks stated before the regeneration.** The gate changes `M11.C.17`'s coached arm wherever a spouse `SPLIT`s toward
+Halim. The `M11.C.4`, `M11.C.32` and `M11.C.46` passes rest on arms or fixtures settled after their failures were
+seen; each is recorded as such.
+
+**For the owner, from the diagnoses (not acted on):**
+- A single genuine `I-POSITION` at level 40 almost never completes under the post-revision-16 model. `hold_gain` and
+  `defence_threshold` (`[I]`) look sized for the calmer model before cutoff became rejection. Changing them is a rule
+  decision for every `I-POSITION`, not a fix for `M11.C.29` or `M11.C.32`.
+- Many criteria sit near the runner's detection limit at its stop (`M11.C.22`'s pass chance about 78%). A general rule
+  (a fixed seed count when the effect is within a set multiple of the precision) would be a change to `M17.A.1` for all
+  criteria, not for one.
+- `M11.C.11`'s limb rests on the removed member keeping their hold while away, the design question TODO B7 leaves open.
+
 ## 5. Build order (D-I)
 
 1. **The owner decides** P1–P12 and P17 (one session; I bring drafts for P4, P7, P9 and P12).

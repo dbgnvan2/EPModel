@@ -1,5 +1,20 @@
 {
- "035a793156c8aceaae0595c764ef864145ed14bab66ca19dcfad902bfcda1a1e": {
+ "070febee7a0118416eedb1d08279cece252efd3e2dd1fd0db1f7645c7d200814": {
+  "criterion": "M11.C.2[twelve-person family]",
+  "outcome": "FAIL",
+  "readouts": [
+   {
+    "direction": 1,
+    "half_width": 1.775369356739023,
+    "mean_difference": 0.727659394464744,
+    "p": 0.38033795004808035,
+    "readout": "symptom_load",
+    "report_only": false
+   }
+  ],
+  "seeds": 150
+ },
+ "08637d5f1c7a09a82f96c48247214989b2ed850a619903fc1454cdc004fb412f": {
   "criterion": "M11.C.10[family of origin]",
   "outcome": "FAIL",
   "readouts": [
@@ -21,37 +36,7 @@
   ],
   "seeds": 200
  },
- "11931728bce26abcfee9c2ba0693a08dc17bef643e9d51bd3932f2780b9fe7ea": {
-  "criterion": "M11.C.2[twelve-person family]",
-  "outcome": "FAIL",
-  "readouts": [
-   {
-    "direction": 1,
-    "half_width": 1.775369356739023,
-    "mean_difference": 0.727659394464744,
-    "p": 0.38033795004808035,
-    "readout": "symptom_load",
-    "report_only": false
-   }
-  ],
-  "seeds": 150
- },
- "22108a782ceb9277e05a1ce7b01a8896a2cee468db343b0836fdd7c72990717b": {
-  "criterion": "M11.C.2[twelve-person family]",
-  "outcome": "PASS",
-  "readouts": [
-   {
-    "direction": 1,
-    "half_width": 1.5330914873430603,
-    "mean_difference": 1.7190183202989389,
-    "p": 0.016752498816984318,
-    "readout": "symptom_load",
-    "report_only": false
-   }
-  ],
-  "seeds": 150
- },
- "79726ab89c2cb11f000db6afc9bfd694076bc7bc47fabc2adfe91c0ac1248c1f": {
+ "35e9f3784b026267824b322167f060be5b535a278eb11fa591f573942d1255f9": {
   "criterion": "M11.C.14[talking it out]",
   "outcome": "PASS",
   "readouts": [
@@ -75,7 +60,22 @@
   ],
   "seeds": 100
  },
- "b7f9edb14d542554daeae40aff11b1c350e80d772ae503abcfdcb4deb1bec1bc": {
+ "385475eb5cd28ccea459836ad10ed7468b7a78b30dc9de05bf5c0b79a426b166": {
+  "criterion": "M11.C.11",
+  "outcome": "FAIL",
+  "readouts": [
+   {
+    "direction": 1,
+    "half_width": 1.607344579120695,
+    "mean_difference": -1.7739196626872027,
+    "p": 0.9656754128932571,
+    "readout": "disturbance",
+    "report_only": false
+   }
+  ],
+  "seeds": 150
+ },
+ "715dd758fe2664ad94a15a35b5d300bc4ee466006629f376efbe3f5585d3f16c": {
   "criterion": "M11.C.14[firmness]",
   "outcome": "PASS",
   "readouts": [
@@ -91,5 +91,94 @@
    }
   ],
   "seeds": 100
+ },
+ "8f988ee1cfdddb0080daebf84457f8ae34974eec27dd6e070405407b2c04b936": {
+  "criterion": "M11.C.15",
+  "outcome": "FAIL",
+  "readouts": [
+   {
+    "direction": 1,
+    "half_width": 0.6448930001855386,
+    "mean_difference": 0.061115435942944066,
+    "p": 0.38576967232823045,
+    "readout": "death_rise",
+    "report_only": false
+   },
+   {
+    "direction": 1,
+    "half_width": 0.6008660609852227,
+    "mean_difference": 5.254839078161482,
+    "p": 1.4350063408329723e-17,
+    "readout": "recovery_rise",
+    "report_only": false
+   }
+  ],
+  "seeds": 100
+ },
+ "b5915769c5d6a940381e4f0eb95631596caac53437b2e268e8f082346f183b75": {
+  "criterion": "M11.C.39",
+  "outcome": "FAIL",
+  "readouts": [
+   {
+    "direction": 1,
+    "half_width": 0.0,
+    "mean_difference": 0.0,
+    "p": 1.0,
+    "readout": "pattern_after_spell",
+    "report_only": false
+   },
+   {
+    "direction": 1,
+    "half_width": 0.0,
+    "mean_difference": 0.0,
+    "readout": "time_to_remission",
+    "report_only": true
+   }
+  ],
+  "seeds": 50
+ },
+ "b5b5725bcd4c605a015cc9ef45aeee42ce4e01c9d0efe75d33b77730d841a62e": {
+  "criterion": "M11.C.46",
+  "outcome": "FAIL",
+  "readouts": [
+   {
+    "direction": 1,
+    "half_width": 0.23802259810301682,
+    "mean_difference": 0.1312976539767879,
+    "p": 0.06190006656974059,
+    "readout": "seeker_relief",
+    "report_only": false
+   },
+   {
+    "direction": 0,
+    "half_width": 1.0202147541697206,
+    "mean_difference": -0.7460415343902308,
+    "readout": "third_excess",
+    "report_only": true
+   },
+   {
+    "direction": -1,
+    "half_width": 0.623657419426796,
+    "mean_difference": -0.2919667389720672,
+    "readout": "seeker_change",
+    "report_only": true
+   }
+  ],
+  "seeds": 150
+ },
+ "e9cb91a484e9fa49ca75baf6f57e3bf5599ce0a72fe71498c823c6993ba4fe28": {
+  "criterion": "M11.C.2[twelve-person family]",
+  "outcome": "PASS",
+  "readouts": [
+   {
+    "direction": 1,
+    "half_width": 1.5330914873430603,
+    "mean_difference": 1.7190183202989389,
+    "p": 0.016752498816984318,
+    "readout": "symptom_load",
+    "report_only": false
+   }
+  ],
+  "seeds": 150
  }
 }

@@ -146,6 +146,36 @@ One proposal per chosen group from §1.1, written after the sweep reports. Candi
     (`life_course.py:542`). `REDUCE_CUTOFF` releases the whole stock though it lowers rejection only by
     `rejection_relief` × intensity. At the end of week 73 the seed's stocks were 319.2, 226.4, 135.0 and 85.5 on four
     ties. Should a bound stock settle back, be capped, or release in proportion to the cutoff reduced?
+
+    **The owner's answer, 2026-10-18** (given in the chart session, verbatim): "Cutoff doesn't grow forever, it would
+    reach a thresshold and become chronic. I would rank it around that of a divorce, which like a divorce disappates
+    over time, but not to zero, down to 10% of peak after 5 years. Bridging the cutoff could be negative or positive.
+    Negative, takes it back to what it was at the peak. positive, takes 80% of the remaining anxiety away."
+
+    Reading, to confirm with the owner before a proposal is written:
+    - **Growth stops at a peak.** The stock rises to a threshold and then becomes chronic, with no further accumulation.
+    - **Size, "around a divorce".** Divorce is not modelled (`config/bowen/nodal_events.md`), so the peak needs an
+      anchor: a declared `[I]` cap in anxiety points, or the nearest modelled loss, a death (`M6.3a`). Death's grief is
+      a stressor intensity (`grief_scale` 20 at bond energy 100, `M6.3g`), not an anxiety stock, so it is not the same
+      unit and cannot be copied across directly.
+    - **Decay to 10% of peak after 5 years (260 weeks).** If exponential, the weekly factor is 0.1^(1/260) ≈ 0.99118,
+      about 0.88% a week, a half-life of about 78 weeks. "Not to zero" is read as a floor at 10% of peak; it could
+      instead be a point on a decay that continues.
+    - **Bridging** (`REDUCE_CUTOFF`, and presumably reconciliation): negative returns the stock to its peak; positive
+      removes 80% of what remains.
+
+    Open questions:
+    - **What makes a bridge negative or positive?** Not stated. Candidates: the contact refused or accepted (rejection
+      already distinguishes them), or the bridger's level or perspective, as with `I-POSITION`'s genuine and assertion
+      forms. A rule that writes the outcome directly would be a defect under §19, so the deciding input must be
+      something the people do or are, not the outcome.
+    - **Where the anxiety goes and comes from.** Today the released stock is a transfer to the triangle's third party,
+      checked by conservation (`M6.4`; `invariants.py` classes mechanisms as transfers). "Takes away" reads as removal,
+      and a return to peak creates anxiety, so both need their own invariant class, as decay has.
+    - **Which stocks.** The owner said "cutoff". Is the rule for every distance-bound stock, or only for a tie holding
+      rejection? Some of the largest stocks are on ties that are not cut off (Marta–Ravi 319.2 at week 73).
+    - **Which quantity.** The reading above applies the answer to the bound stock. The owner may mean the cutoff itself
+      (the rejection a person holds). Confirm which.
   - **G2. Releases split equally, ignoring the tie.** `release_bound` and the lock-in spill divide by the number of
     interactive partners (`symptoms.py:147`, `symptoms.py:198`). The coach, whose tie to Marta has conductance 0.3 and
     bond energy 10 (`config/bowen/family_phase_c.md`), took the same 63.6 as Nadia. The learner's cross-person term

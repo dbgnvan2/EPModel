@@ -94,6 +94,10 @@ What is built:
 
 The runs:
 
+- [ ] [REVIEW_version_1_guide.md](REVIEW_version_1_guide.md) — **for review, 2026-10-18:** the owner's guide for a
+      complete review of version 1, module by module (`M0`–`M17`): what each requires, its explainer section, its
+      config, its criteria with their status, and where to see it in the trace and the diagram below; Approve / Change /
+      Question per module, the open owner questions from `TODO.md`, and four inconsistencies found while drafting.
 - [ ] [review/phase_c_trace_seed7.md](review/phase_c_trace_seed7.md) — the readable 104-week trace (M16).
 - [ ] [review/phase_c_famdiag_seed7.json](review/phase_c_famdiag_seed7.json) — the same run as a fam-diag diagram; open it in EPModel Fam-Diag (`../epmodel-fam-diag`, port 5174; `tools/famdiag_export.py`).
 - [ ] [phase_c_ensemble_record.md](phase_c_ensemble_record.md) — criterion results over seeds.
@@ -173,7 +177,9 @@ run as a fam-diag diagram; `tools/famdiag_export.py`, `config/viz/famdiag.md`).
 [../config/bowen/constants_frozen_phase_b.md](../config/bowen/constants_frozen_phase_b.md),
 [../config/bowen/script_phase_b.md](../config/bowen/script_phase_b.md),
 [cycles/](cycles/) (QA-gate cycle logs), [records_cache/](records_cache/) (cached results the records render from),
-[theory/_TEMPLATE.md](theory/_TEMPLATE.md) (extraction template).
+[theory/_TEMPLATE.md](theory/_TEMPLATE.md) (extraction template),
+[review/](review/) (the folder of rendered runs; the files to review in it are listed above, and anything else there,
+such as a backup saved beside the fam-diag export, is not a record).
 
 **Stray file:** [<model_explainer copy.textClipping>](<model_explainer copy.textClipping>) — a macOS clipboard
 fragment, safe to delete.

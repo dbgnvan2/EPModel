@@ -158,6 +158,8 @@ verdicts over ensembles (`tools/phase_d_record.py`; plan step 12). Mutations are
 
 **Draft for review, 2026-10-18:** [version_2_plan.md](version_2_plan.md) — what version 2 of the agent model is for: version 1's accepted findings grouped by cause, its loose ends, four stages (freeze version 1, one engineering batch, the constant sweep, the rule questions the owner chooses), a proposed definition (W1–W8), and ten questions for the owner.
 
+**Draft for review, 2026-10-18:** [<PROPOSAL — LEARNING BY LEVEL, ASKING WHAT TO DO DIFFERENTLY.md>](<PROPOSAL — LEARNING BY LEVEL, ASKING WHAT TO DO DIFFERENTLY.md>) — version 2 rule question raised by the owner: every act teaches a felt lesson and a fact lesson, level sets how much the fact lesson guides choice and anxiety erodes it, a person under high anxiety may ask "what can I do differently?", and coaching raises the chance of asking and of pursuing the answer; what the corpus supports and does not; nine questions for the owner.
+
 **For review, 2026-10-13:** [phase_d_status_2026-10-13.md](phase_d_status_2026-10-13.md) — Phase D part I after the
 overnight run: every build item and D-I criterion as done, partial or not done, and what the owner should look at
 first (spec revisions 24–27 are Claude's recommendations, pending owner review).

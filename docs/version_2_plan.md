@@ -128,6 +128,8 @@ One proposal per chosen group from §1.1, written after the sweep reports. Candi
   the version 1 disposition. The theory work questions whether it earns a place at all (Ch13 omits it).
 - **A multi-generation check** that chronic anxiety only ratchets up (`M7.B.1a`); a readout over a longer run, not a
   rule.
+- **Learning by level, and asking "what can I do differently?"** — raised by the owner 2026-10-18, not one of §1.1's
+  groups: `docs/PROPOSAL — LEARNING BY LEVEL, ASKING WHAT TO DO DIFFERENTLY.md` (draft). It touches groups E and F.
 
 Each changed rule keeps the version 1 result beside the version 2 result in the status page. A criterion that turns
 green under a new rule is reported as a new result under a new rule, not as version 1's finding withdrawn.

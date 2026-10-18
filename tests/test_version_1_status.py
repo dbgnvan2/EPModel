@@ -73,7 +73,10 @@ def test_v1_a_mixed_criterions_failing_premise_limb_blocks_v2_and_cannot_be_acce
     """A mixed criterion whose declared premise limb does not hold is a failing premise: with `M11.C.22`'s severe
     limb failing, its proposed acceptance is refused; with no disposition, the row blocks V2."""
     rows = _with_row("M11.C.22", outcome="FAIL", fail_readouts=("severe_removal_effect",))
-    with mock.patch.object(tool, "record_rows", return_value=rows), pytest.raises(SystemExit, match="premise limb"):
+    accepted = {**tool.dispositions(), "M11.C.22": {"kind": "accepted finding", "owner": True,
+                                                     "decided": "owner 2026-10-17", "reason": "x"}}
+    with mock.patch.object(tool, "record_rows", return_value=rows), \
+            mock.patch.object(tool, "dispositions", return_value=accepted), pytest.raises(SystemExit, match="premise limb"):
         tool.statuses()
     bare = {k: v for k, v in tool.dispositions().items() if k != "M11.C.22"}
     with mock.patch.object(tool, "record_rows", return_value=rows), mock.patch.object(tool, "dispositions",
@@ -111,14 +114,18 @@ def test_v1_a_registered_criterion_with_no_record_row_means_stale_records():
 
 
 def test_v1_a_pending_acceptance_is_not_final_and_an_owner_acceptance_is():
+    """The same failing composite, with its acceptance pending and then decided by the owner. The rows are synthetic
+    (`M11.C.5`'s disposition set each way), so the test does not depend on which rows the owner has decided."""
     real = tool.dispositions()
-    assert not real["M11.C.5"]["owner"], "this test reads M11.C.5 as pending; pick another pending row"
-    pending = _by_key(tool.statuses())["M11.C.5"]
-    assert not pending.final and pending.blocks == {"V1"}
-    owned = {**real, "M11.C.5": {**real["M11.C.5"], "owner": True, "decided": "owner 2026-10-17"}}
+    base = {**real["M11.C.5"], "kind": "accepted finding"}
+    pending = {**real, "M11.C.5": {**base, "owner": False, "decided": "Claude's recommendation 2026-10-17, pending owner review"}}
+    owned = {**real, "M11.C.5": {**base, "owner": True, "decided": "owner 2026-10-17"}}
+    with mock.patch.object(tool, "dispositions", return_value=pending):
+        row = _by_key(tool.statuses())["M11.C.5"]
+    assert not row.final and row.blocks == {"V1"}
     with mock.patch.object(tool, "dispositions", return_value=owned):
-        decided = _by_key(tool.statuses())["M11.C.5"]
-    assert decided.final and not decided.blocks
+        row = _by_key(tool.statuses())["M11.C.5"]
+    assert row.final and not row.blocks
 
 
 def test_v1_a_passing_composite_with_no_red_mutant_blocks_v3():

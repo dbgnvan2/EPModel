@@ -109,7 +109,7 @@ REQUIRED = {
     "M11.C.2": ("weeks", "years", "projection_until_age", "load_from_age", "load_to_age"),
     # Phase D part II, the life course (spec revision 28).
     "M11.C.15": ("severity", "change_week", "after"),
-    "M11.C.6": ("years",),
+    "M11.C.6": ("child",),  # revision 32: the paired same-child arm
     "M11.C.10": ("years", "renew_every", "seeds"),  # renew_every (revision 29); seeds, fixed at 200 (revision 30)
     "M11.C.47": ("weeks", "level_low", "level_high", "stress_every", "stress_kind", "stress_intensity"),  # revision 30
     # Phase D step 10, criteria on existing mechanisms.

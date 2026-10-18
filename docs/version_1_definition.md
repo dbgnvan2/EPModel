@@ -72,21 +72,25 @@ Every record regenerated once, after revision 31 part B and the owner's decision
 
 ## 2b. Where the model stands after revision 32 (2026-10-17)
 
-Revision 32 (plan §4.12) was built under the owner's instruction "proceed using your own recommendations"; every
-decision in it is Claude's recommendation, pending owner review. The status against V1–V3 is now generated, from the
+Revision 32 (plan §4.12) was built under the owner's instruction "proceed using your own recommendations", and the
+owner reviewed it one decision at a time the same day: every decision approved, `M4.C.1c`'s nodal-event spike added, and
+`M11.C.17` and `M11.C.6` held for a diagnosis. The status against V1–V3 is now generated, from the
 records and `docs/version_1_dispositions.md`, as **`docs/version_1_status.md`** (`tools/version_1_status.py`; a test
 fails when it is stale), so it is not repeated here.
 
 - **V2:** `M11.C.4` and `M11.C.32` pass after their arms were corrected (`M11.C.32`'s post hoc); `M11.C.29` and
   `M11.C.22` are reclassified mixed; `M11.C.46` is built and passes; `M11.C.7` is built and mixed (its premise limb
-  holds; its composite limb fails); `M11.C.9` is proposed out of version 1. After the regeneration of 2026-10-17 the
-  generated page reads **V2 met**: no failing premise or check is left, if the owner confirms these decisions.
+  holds; with the nodal-event spike two of its three pairs pass); `M11.C.9` is out of version 1. After the regenerations
+  of 2026-10-17 and 2026-10-18 the generated page reads **V2 met**: no failing premise or check is left.
 - **V3: met** on the generated page. `M11.C.11`, `M11.C.15` and `M11.C.39` have recorded mutants (`M11.C.39`'s is red by
   construction: its baseline is the mutation its row names).
-- **V1:** every failing composite and mixed criterion has a proposed disposition with its reason, and none is final
-  until the owner accepts it. This, with V7, is what remains for the owner.
-- **V7:** the review form is `docs/REVIEW_version_1_outputs.md`; the framing each output carries is checked by
-  `tests/test_version_1_outputs.py`. The sign-off is the owner's.
+- **V1:** the owner accepted every proposed disposition on 2026-10-17 except two held for a diagnosis. `M11.C.17`
+  passes since the nodal-event spike, so it needs none. `M11.C.6`, traced and restated, fails; its acceptance as a
+  finding is Claude's recommendation, and **the owner's confirmation of it is the one thing V1 still needs**
+  (2026-10-18).
+- **V7: met.** The owner signed off on 2026-10-17 (`docs/REVIEW_version_1_outputs.md`), and "the owner's family" now
+  reads "the reference family the owner specified"; the framing each output carries is checked by
+  `tests/test_version_1_outputs.py`.
 
 ## 3. What version 1 does not include (decided 2026-10-15, question 7)
 

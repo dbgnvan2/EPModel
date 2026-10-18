@@ -22,16 +22,16 @@ Deferred and adjacent items. Each carries enough context to act on later without
 
 Plan §4.12 holds the evidence. Built under the owner's instruction "proceed using your own recommendations"; every
 decision is Claude's recommendation, pending owner review.
-- [ ] **Owner: confirm or change the revision 32 decisions** (plan §4.12, R32.1–R32.9): `M11.C.4`'s baseline held open
+- [x] ~~**Owner: confirm or change the revision 32 decisions**~~ *Done 2026-10-17, one at a time: all approved, with one change (build `M4.C.1c`'s nodal-event spike, "cut ties, as TRIGGER"; built). Plan §4.12, "The owner's decisions".* (plan §4.12, R32.1–R32.9): `M11.C.4`'s baseline held open
   for the whole run; `M11.C.32`'s mover at level 60 (post hoc); `M11.C.29` and `M11.C.22` reclassified mixed;
   `M11.C.46` built on the "closer to the partner" form only (chosen after the anxious form failed); `M11.C.7` built with
   "sided" read as a recent `SPLIT` toward the coach (P9 said `TRIANGLE`, which a member cannot send a professional);
   `M11.C.9` out of version 1.
-- [ ] **Owner: accept or reject each pending disposition** in `docs/version_1_dispositions.md`. V1 counts none of them
+- [x] ~~**Owner: accept or reject each pending disposition**~~ *Done 2026-10-17: all accepted except `M11.C.17` ("Diagnose coaching") and `M11.C.6` ("Trace it first"), below.* in `docs/version_1_dispositions.md`. V1 counts none of them
   as final until then; `docs/version_1_status.md` lists them.
-- [ ] **Owner: `M11.C.41`'s two stress cells and `M11.C.34` under V2.** `M11.5` classes their failing limbs premise
+- [x] ~~**Owner: `M11.C.41`'s two stress cells and `M11.C.34` under V2.**~~ *Decided 2026-10-17: "Composite, accept"; `M11.5` amended.* `M11.5` classes their failing limbs premise
   (through the mixing weight); the version 1 definition (§2) listed them for acceptance. One reading should be chosen.
-- [ ] **`M4.C.1c`'s nodal-event spike is not built** (a gap the spec now states): only a `TRIGGER` spikes a cut tie's
+- [x] ~~**`M4.C.1c`'s nodal-event spike is not built**~~ *Built 2026-10-17, the owner's form.* (a gap the spec stated): only a `TRIGGER` spikes a cut tie's
   "too little" side. Building it is a new mechanism and a new `[I]` constant.
 - [ ] **A genuine `I-POSITION` at level 40 almost never completes** since revision 16 (0 of 200 seeds reach the peak in
   `M11.C.32`'s calm arm at level 40). `hold_gain` and `defence_threshold` may be sized for the calmer model before
@@ -40,7 +40,21 @@ decision is Claude's recommendation, pending owner review.
   stop; others may be similar. A general rule (a fixed seed count when the effect is within a set multiple of the
   precision) would change `M17.A.1` for all criteria.
 - [ ] **`M1.E.7e`'s lending of pseudo-self by a sided coach is not built**: a sided coach's contact lands nothing.
-- [ ] **`M11.C.29` could be redesigned instead of accepted**: its genuine `I-POSITION` never completes in the arm, so
+- [ ] **Owner: `M11.C.46`'s mutation clause is not met at the edge** (2026-10-18). With the nodal spike,
+  `triangle-help-ignored` survives (+0.16 ± 0.23, p 0.041) against +1.45 unmutated: the bond swap's other channels
+  leave a small difference. Options: accept as for `M11.C.14`'s clause, or restate the readout as relief per unit of
+  the seeker's excess (isolates help; post hoc). A premise, so V3 does not apply.
+- [ ] **Owner: the nodal spike's narrowing** (2026-10-17, the spike's review): a cut tie is one holding rejection, not
+  every tie that is not interactive, so a retired coach's or a removed member's tie is not spiked. Claude's
+  recommendation, pending owner review (plan §4.12).
+- [ ] **Adjacent, not fixed (2026-10-17): the Phase B mutation record cannot be regenerated.** Gate G2's `expect`
+  fragment (`assert "Marta +5.0" in conflict[5]`) was removed from `tests/bowen/test_render.py` at Phase C step 1
+  (`1c20d44`), so `tools/mutation_gate.py` stops at G2. `docs/phase_b_mutation_record.md` stays the record of Phase B's
+  close. Gate G7's mutant was extended at revision 32 to remove the new trigger pruning too (the spike re-check found
+  that pruning hides the shared-list leak G7 plants); proved on a copy, not in the record.
+- [ ] **Adjacent, not fixed (spike review, 2026-10-17):** `canonical_state` leaves out `state.stressors`, so the
+  determinism tests cannot see a stressor still weighing after the last compared tick (the spikes are now in).
+- [ ] **`M11.C.29` could be redesigned** (the owner accepted its failure 2026-10-17; optional, for version 2): its genuine `I-POSITION` never completes in the arm, so
   its time-course limb is untested. A redesign needs an act week clear of the spell and a mover able to prepare; the
   diagnosis found nothing that completes without weakening the third person's symptom (plan §4.12).
 - [ ] **Minor, from the revision 32 reviews (2026-10-17), not fixed:**
@@ -53,7 +67,16 @@ decision is Claude's recommendation, pending owner review.
     mutant reached. No passing mixed criterion depends on this today.
   - Adjacent, not fixed: `recompute.py`'s triangle activity treats the coach as an unfused occupant, though `M8.5` says
     the same predicate decides triangle activity.
-- [ ] **`M11.C.6`'s reversal is not traced**: the most-projected child develops slightly more than the others
+- [x] ~~**Owner: `M11.C.17`, diagnosed**~~ *Passes since the nodal-event spike (2026-10-18, +0.00089 ± 0.0013, p 0.015), with a red recorded mutant; no acceptance needed. The diagnosis stays useful:* (the owner, 2026-10-17: "Diagnose coaching"). No defect; the effect dies at the
+  estimator's evidence test (own functioning stays below basic level in both arms). Recommended: accept as a finding
+  (plan §4.12). Levers if coaching should show within ten years: `M1.A.4k`'s evidence rule (owner decision; reruns
+  `M11.C.18`, `.20`, `.33`). Also found: the couple's own tie in the Phase C family is held cut off in 82–89% of
+  last-year weeks in every arm; `M11.C.7`'s "joint" sessions are one target each; the coach's automatic-channel acts
+  (61% of his contacts) land with full effect, though `M1.E.7c`(3) reads non-participation as the coach's default.
+- [ ] **Owner: `M11.C.6`, traced and restated** (the owner, 2026-10-17: "Trace it first"). The first arm picked by birth
+  order; the paired same-child arm (revision 32, post hoc) fails the other way (+0.096 ± 0.044, ad hoc). Recommended:
+  accept as a finding; and a rule question: should projection push a child's development down (`M7.E.1f`)? (plan §4.12)
+- [x] ~~**`M11.C.6`'s reversal is not traced**~~ *Traced 2026-10-17, above.* (the owner, 2026-10-17: "Trace it first"): the most-projected child develops slightly more than the others
   (+0.118 ± 0.057) under revision 31's band.
 
 ## Spec revision 30 (origin cutoff, danger, focus lock-in) — open after the build, 2026-10-14

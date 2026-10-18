@@ -173,6 +173,7 @@ class EngineParams:
     focus_steer_gain: float                # M4.D.1g, revision 29 — how strongly focus steers projection-type acts
     origin_cutoff_anxiety_gain: float        # M1.D.8a, revision 30 — intensity a child carries from the cutoff they grew up with
     origin_fusion_gain: float                # M1.D.8a, revision 30 — the pull toward fusion a child carries from it
+    nodal_spike_intensity: float             # M4.C.1c, revision 32 — a nodal event's spike on the cut ties of those it reaches
     danger_window: int                       # M1.B.3e, revision 30 — weeks of received intrusion that make felt danger
     danger_threshold: float                  # M1.B.3e, revision 30 — intrusion beyond ordinary family life
     danger_gain: float                       # M1.B.3e, revision 30 — what contact with a dangerous person costs
@@ -297,6 +298,8 @@ class EngineParams:
         if self.find_work_pressure_scale <= 0 or self.grief_min_weeks < 0 or self.grief_extra_weeks < 0:
             raise ValueError("find_work_pressure_scale must be positive and the grief weeks non-negative")
         # Revision 29 (learning-qa review 2026-10-14): the witnessed-cutoff step stays bounded only for a gain in [0, 1].
+        if self.nodal_spike_intensity < 0:
+            raise ValueError("nodal_spike_intensity must be non-negative")
         if not 0.0 <= self.witnessed_cutoff_gain <= 1.0 or self.witness_window < 1:
             raise ValueError("witnessed_cutoff_gain must be in [0, 1] and witness_window at least 1")
         if min(self.reactive_cutoff_gain, self.perceived_weakness_gain, self.focus_steer_gain) < 0:

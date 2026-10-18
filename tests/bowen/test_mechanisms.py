@@ -468,3 +468,129 @@ def test_m4g1_a_withdrawal_addressed_to_several_still_counts_on_each_tie():
     consolidate(state, PARAMS)
     assert state.ties[TieId.of(RAVI, MARTA)].tie_state is TieState.DISTANT
     assert state.ties[TieId.of(MARTA, NADIA)].tie_state is TieState.DISTANT
+
+
+# --- M4.C.1c: a nodal event spikes the cut ties of those it reaches (spec revision 32) ---------------------------
+
+
+def _cut(state, tie=ANA_BRUNO, holder=ANA):
+    from src.bowen.engine.rejection import raise_rejection
+
+    raise_rejection(state.ties[tie], holder, 0.5)  # the tie is then cut off, as M1.B.3c's invariant requires
+    return state
+
+
+def test_m4c1c_a_nodal_event_spikes_the_cut_ties_of_those_it_reaches():
+    """The owner's form (2026-10-17, "cut ties, as TRIGGER"): a JOB_LOSS to Ana spikes her cut tie to Bruno as a
+    TRIGGER would, from the next tick, and both members' standing load rises against the same state with no event."""
+    from src.bowen.engine.event_effects import nodal_spike
+
+    quiet, spiked = _cut(fresh()), _cut(fresh())
+    for state in (quiet, spiked):
+        state.tick = 10
+    event = scripted("JOB_LOSS", 10, targets=(ANA,), intensity=120.0)
+    inject(spiked, event, VIS)
+    records = nodal_spike(spiked, event, PARAMS)
+    assert [r.mechanism for r in records] == ["nodal_spike"]
+    assert ANA_BRUNO in {t for t, _, _ in records[0].ties}
+    assert any(t.tie == ANA_BRUNO and t.intensity == PARAMS.nodal_spike_intensity and t.first_tick == t.last_tick == 11
+               for t in spiked.triggers)
+    for state in (quiet, spiked):
+        state.tick = 11
+    apply_standing_load(quiet, PARAMS)
+    apply_standing_load(spiked, PARAMS)
+    assert acute(spiked, ANA) > acute(quiet, ANA) and acute(spiked, BRUNO) > acute(quiet, BRUNO)
+
+
+def test_m4c1c_a_nodal_event_leaves_uncut_ties_and_ties_to_the_dead_alone():
+    """Adversarial: no spike on a tie that is not cut, none from a kind that is not nodal, none on a tie to the dead,
+    and none at intensity 0."""
+    from src.bowen.engine.event_effects import nodal_spike
+
+    state = fresh()  # the fixture holds rejection on ana~bruno; Ana's tie to Marta is open
+    state.tick = 10
+    event = scripted("JOB_LOSS", 10, targets=(ANA,), intensity=120.0)
+    inject(state, event, VIS)
+    assert state.ties[ANA_BRUNO].rejected() and len(state.ties_of(ANA)) > 1
+    assert {t for r in nodal_spike(state, event, PARAMS) for t, _, _ in r.ties} == {ANA_BRUNO}
+
+    away = fresh()  # a tie that is only not interactive (a removal, a retirement, an arm) is not a cutoff
+    away.tick = 10
+    other = next(t for t in away.ties_of(ANA) if t.id != ANA_BRUNO)
+    other.interactive = False
+    inject(away, event, VIS)
+    assert other.id not in {t for r in nodal_spike(away, event, PARAMS) for t, _, _ in r.ties}
+
+    not_nodal = _cut(fresh())
+    not_nodal.tick = 10
+    trigger = scripted("TRIGGER", 10, on_tie=ANA_BRUNO)
+    inject(not_nodal, trigger, VIS)
+    assert nodal_spike(not_nodal, trigger, PARAMS) == []
+
+    dead = _cut(fresh())
+    dead.tick = 10
+    dead.people[BRUNO].alive = False
+    inject(dead, event, VIS)
+    assert ANA_BRUNO not in {t for r in nodal_spike(dead, event, PARAMS) for t, _, _ in r.ties}
+
+    off = _cut(fresh())
+    off.tick = 10
+    inject(off, event, VIS)
+    assert nodal_spike(off, event, dataclasses.replace(PARAMS, nodal_spike_intensity=0.0)) == []
+
+
+def test_m4c1c_the_tick_and_a_symptom_onset_both_spike_cut_ties():
+    """Wiring: a scheduled nodal event goes through tick step 2's spike, and a symptom onset (a nodal kind the engine
+    emits itself) through its own."""
+    from src.bowen.engine.objects import SymptomChannel
+    from src.bowen.engine.symptoms import _onset
+    from src.bowen.engine.events import Channel, Mechanism
+    from src.bowen.ensemble.criteria import scenario
+
+    a, b = P("a"), P("b")
+    loss = Event(id=EventId(2, "nodal", 0), kind="JOB_LOSS", mechanism=Mechanism.EXOGENOUS_STRESSOR, sender=None,
+                 targets=(a,), intensity=120.0, timestamp=2, duration=1, exogenous=True,
+                 source_position=SourcePosition.NONE, channel=Channel.EXOGENOUS)
+
+    def cut(state):
+        from src.bowen.engine.rejection import raise_rejection
+
+        raise_rejection(state.ties[TieId.of(a, b)], a, 0.9)
+
+    _, records = scenario("dyad", 0, 4, spells=(loss,), setup=cut)
+    assert any(getattr(r, "mechanism", None) == "nodal_spike" and r.cause == loss.id for r in records)
+
+    state = _cut(fresh())
+    state.tick = 5
+    onset = _onset(state, ANA, SymptomChannel.PHYSICAL, PARAMS, VIS)
+    assert any(getattr(r, "mechanism", None) == "nodal_spike" for r in onset)
+
+
+def test_m4c1c_the_spike_lasts_one_week_once_per_tie_and_expired_spikes_are_dropped():
+    """The owner's form is "for the event's week": a three-week event spikes for one. An event reaching both members
+    of a cut tie spikes it once. Spikes that have ended are dropped at tick step 1 (review 2026-10-17: unpruned, they
+    accumulated and slowed long runs)."""
+    from src.bowen.engine.event_effects import nodal_spike
+    from src.bowen.engine.events import Channel, Mechanism
+    from src.bowen.ensemble.criteria import scenario
+
+    state = _cut(fresh())
+    state.tick = 10
+    long = scripted("JOB_LOSS", 10, targets=(ANA, BRUNO), intensity=120.0, duration=3)
+    inject(state, long, VIS)
+    nodal_spike(state, long, PARAMS)
+    mine = [t for t in state.triggers if t.tie == ANA_BRUNO]
+    assert len(mine) == 1 and mine[0].first_tick == mine[0].last_tick == 11
+
+    a, b = P("a"), P("b")
+    loss = Event(id=EventId(1, "nodal", 0), kind="JOB_LOSS", mechanism=Mechanism.EXOGENOUS_STRESSOR, sender=None,
+                 targets=(a,), intensity=120.0, timestamp=1, duration=1, exogenous=True,
+                 source_position=SourcePosition.NONE, channel=Channel.EXOGENOUS)
+
+    def cut(s):
+        from src.bowen.engine.rejection import raise_rejection
+
+        raise_rejection(s.ties[TieId.of(a, b)], a, 0.9)
+
+    run_state, _ = scenario("dyad", 0, 6, spells=(loss,), setup=cut)
+    assert all(t.last_tick >= run_state.tick - 1 for t in run_state.triggers)

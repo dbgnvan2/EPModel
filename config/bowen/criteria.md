@@ -184,7 +184,7 @@
 | M11.C.15 | severity | 1.5 | [I] |
 | M11.C.15 | change_week | 52 | [I] |
 | M11.C.15 | after | 52 | [I] |
-| M11.C.6 | years | 40 | [I] |
+| M11.C.6 | child | nadia | [I] |
 | M11.C.10 | years | 40 | [I] |
 | M11.C.10 | renew_every | 13 | [I] |
 | M11.C.10 | seeds | 200 | [I] |

@@ -4,6 +4,31 @@ All notable changes to this project are recorded here. Dates are ISO.
 
 ## [Unreleased] — 2026-10-11
 
+### Spec revision 32, the owner's review: the nodal-event spike, `M11.C.6` restated (2026-10-17)
+
+- **The owner reviewed revision 32 one decision at a time** (plan §4.12, "The owner's decisions"): every decision
+  approved, every proposed disposition accepted except `M11.C.17` ("Diagnose coaching") and `M11.C.6` ("Trace it
+  first"), and V7 signed off with a wording fix ("the owner's family" now reads "the reference family the owner
+  specified" in the family file, `_STATUS.md` and the visualization proposal). Then: "continue with your
+  recommendations … keep working until version 1 is completed".
+- **`M4.C.1c`'s nodal-event spike built** (the owner's form, "cut ties, as TRIGGER"): a nodal event reaching a person
+  spikes each of their cut-off ties (rejection held, both members alive) by `nodal_spike_intensity` (1.0, `[I]`) for one
+  week, from the next tick (`event_effects.nodal_spike`; called at tick step 2, at a symptom onset and at removal by
+  tolerance). From its review: a tie only not interactive is not spiked (a narrowing, Claude's recommendation pending
+  owner review); ended spikes are pruned each tick (a 40-year run was about 50% slower without it, same results);
+  `canonical_state` holds the spikes still to land. Tests: `test_m4c1c_*` (unit, adversarial, wiring, one-week and
+  once-per-tie, removal). An `M11.C.4` mutant removes the spike alone. Phase B gate G7's mutant now removes the pruning
+  too.
+- **`M11.C.17` diagnosed:** no defect; the effect dies at the estimator's evidence test (own functioning stays below
+  basic level in both arms). With the spike it passes, weakly.
+- **Records.** Every record regenerated once (3 h 26 min; code hash `64e190be…`, Phase C `243ebedf…`). No Phase C verdict moved; `M11.C.17`,
+  `M11.C.22` and two `M11.C.7` pairs turned green, each with a red recorded mutant; `M11.C.46`'s named mutant now
+  survives at the edge (clause not met, recorded). The status page reads V2 and V3 met; V1 waits on `M11.C.6`, pending
+  the owner.
+- **`M11.C.6` traced and restated** (post hoc, pending the owner): the first arm picked by birth order; the new arm is
+  one child with the parents' projection-type acts as declared against withheld. It fails the other way (ad hoc
+  +0.096 ± 0.044). Recommended to accept as a finding, with a rule question on `M7.E.1f`.
+
 ### Spec revision 32: finishing version 1 (2026-10-17)
 
 Built under the owner's instruction "proceed using your own recommendations"; every decision is Claude's

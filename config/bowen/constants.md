@@ -92,6 +92,7 @@ activation_regime: synchronous
 | `contact_band_max` | 0.2 | [I] | deviation tolerated at functional level 100 | `M4.C.1a` |
 | `anxiety_togetherness_gain` | 0.5 | [I] | relative rise of the optimum per 100 points of excess anxiety | `M4.C.1b` |
 | `interactive_resting_contact` | 0.5 | [I] | share of the optimum | `M4.C.1c` |
+| `nodal_spike_intensity` | 1.0 | [I] | spike on a cut-off tie's (rejection held) "too little" side when a nodal event reaches one of its members, for the event's week; the size of the Phase B script's `TRIGGER` (the owner, 2026-10-17: "cut ties, as TRIGGER") | `M4.C.1c` |
 | `contact_relaxation_rate` | 0.1 | [I] | share of the gap to resting contact closed per tick | `M4.C.1c` |
 | `impingement_relaxation_rate` | 0.3 | [I] | share of felt impingement shed per tick | `M4.C.1` |
 | `functional_level_floor` | 1.0 | [I] | functional-level point; also floors the symptom threshold (`M1.A.6`, revision 24) | `M4.C.1` |

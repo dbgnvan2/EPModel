@@ -226,9 +226,9 @@ def tolerance_removal(state: RunState, params: EngineParams, visibility: Househo
                           mechanism=Mechanism.INSTITUTIONALIZE, sender=other, targets=(bearer,), intensity=0.0,
                           timestamp=state.tick, duration=1, exogenous=False, source_position=SourcePosition.NONE,
                           channel=Channel.ENDOGENOUS)
-            from src.bowen.engine.event_effects import apply_structural_event
+            from src.bowen.engine.event_effects import apply_structural_event, nodal_spike
 
-            records = inject(state, event, visibility)
+            records = inject(state, event, visibility) + nodal_spike(state, event, params)  # M4.C.1c, revision 32
             return records + apply_structural_event(state, state.store.event(event.id), params)
     return []
 
@@ -242,7 +242,9 @@ def _onset(state: RunState, pid: PersonId, channel: SymptomChannel, params: Engi
         intensity=params.symptom_event_intensity, timestamp=state.tick, duration=1, exogenous=False,
         source_position=SourcePosition.NONE, channel=Channel.ENDOGENOUS,
     )
-    return inject(state, event, visibility) + [
+    from src.bowen.engine.event_effects import nodal_spike  # event_effects imports from this module's neighbours
+
+    return inject(state, event, visibility) + nodal_spike(state, event, params) + [  # M4.C.1c, revision 32
         EffectRecord(state.tick, "symptom_onset", event.id, sinks=((f"symptom_load:{channel.value}", 1.0),))]
 
 

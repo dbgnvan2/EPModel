@@ -407,12 +407,14 @@ def test_forced_withheld_label_withholds_that_act_toward_that_person_only():
 
     coach, second = ROLES["phase_c", "coach"], ROLES["phase_c", "parent_2"]
 
-    def splits(withheld):
-        _, records = scenario("phase_c", 0, 104, withheld=withheld)
+    def splits(seed, withheld):
+        _, records = scenario("phase_c", seed, 104, withheld=withheld)
         return sum(1 for r in records if isinstance(r, EmittedRecord) and r.event.kind == "SPLIT"
                    and r.event.sender == second and r.event.targets == (coach,))
 
-    assert splits(None) > 0
-    assert splits({t: {second: frozenset({f"SPLIT>{coach}"})} for t in range(104)}) == 0
+    # The first seed whose run has such a SPLIT (P23: not one fixed seed, whose run any engine change can move).
+    seed = next((s for s in range(12) if splits(s, None) > 0), None)
+    assert seed is not None, "no seed in 12 has Marta SPLIT toward Dr Halim in 104 weeks"
+    assert splits(seed, {t: {second: frozenset({f"SPLIT>{coach}"})} for t in range(104)}) == 0
     with pytest.raises(ValueError, match="no tie"):
         scenario("phase_c", 0, 2, withheld={0: {second: frozenset({"SPLIT>nobody"})}})

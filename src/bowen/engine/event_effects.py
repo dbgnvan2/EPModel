@@ -42,6 +42,37 @@ STRUCTURAL = frozenset(
 )
 
 
+def nodal_spike(state: RunState, event: Event, params: EngineParams) -> list[EffectRecord]:
+    """Purpose: a nodal event re-opens the absence of the cut ties of everyone it reaches (`M4.C.1c`).
+    Spec:    docs/bowen_agent_model_spec_v2.md#M4.C.1c, #M4.A.2
+    Tests:   tests/bowen/test_mechanisms.py::test_m4c1c_a_nodal_event_spikes_the_cut_ties_of_those_it_reaches,
+             tests/bowen/test_mechanisms.py::test_m4c1c_a_nodal_event_leaves_uncut_ties_and_ties_to_the_dead_alone
+
+    Spec revision 32, the owner's form (2026-10-17: "cut ties, as TRIGGER"). Each tie of a person the event reaches
+    (``slow_tick.reached_by``, the estimator's reading of reach) that is cut off, with rejection held either way
+    (`M1.B.3c`: cutoff is rejection), and whose two members are alive, takes a spike of ``nodal_spike_intensity`` on its
+    standing term for the event's week, the next tick (this tick's standing load has run), as a ``TRIGGER`` on that tie
+    would. Like a ``TRIGGER``'s, the spike is on the tie, so both its members feel it. A tie reached through both
+    members is spiked once per event; spikes from separate events in one week add up, as ``TRIGGER``s do. Ties to the
+    dead are left out (a death's own disposition, `M6.3`, covers them), and so are ties that are only not interactive:
+    a retired coach's, a removed member's while away, a criterion's arm (review 2026-10-17; Claude's recommendation,
+    pending owner review, narrowing "or not interactive" in the form the owner approved).
+    """
+    if event.kind not in state.kinds.nodal or params.nodal_spike_intensity <= 0:
+        return []
+    from src.bowen.engine.slow_tick import reached_by  # slow_tick reads the estimator's history; imported late
+
+    stored = state.store.event(event.id)  # with the witnesses visibility resolved
+    cut = sorted({tie.id for pid in reached_by(state, stored) for tie in state.ties_of(pid)
+                  if tie.rejected() and all(state.people[m].alive for m in tie.id.members())})
+    for tie_id in cut:  # one week, whatever the event's own duration (the owner's form: "for the event's week")
+        state.triggers.append(ActiveTrigger(tie_id, params.nodal_spike_intensity, event.timestamp + 1, event.timestamp + 1))
+    if not cut:
+        return []
+    return [EffectRecord(state.tick, "nodal_spike", event.id,
+                         ties=tuple((tie_id, "standing_spike", params.nodal_spike_intensity) for tie_id in cut))]
+
+
 def apply_structural_event(state: RunState, event: Event, params: EngineParams) -> list[EffectRecord]:
     """Purpose: apply one structural event at its tick.
     Spec:    docs/bowen_agent_model_spec_v2.md#M4.A.2, #M4.A.3, #M4.A.4, #M1.F.9

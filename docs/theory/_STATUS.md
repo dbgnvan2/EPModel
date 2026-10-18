@@ -4,8 +4,9 @@
 >
 > **2026-10-17 — spec revision 32, finishing version 1** (plan §4.12): built under the owner's "proceed using your own
 > recommendations", every decision pending owner review. Where version 1 stands is generated in
-> `docs/version_1_status.md`: V2 and V3 met; V1 waits on the owner's review of the proposed dispositions
-> (`docs/version_1_dispositions.md`); V7 on the review form `docs/REVIEW_version_1_outputs.md`.
+> `docs/version_1_status.md`: V2 and V3 met; V1 waits on one row, `M11.C.6` (restated and failing; its acceptance
+> pending the owner, `docs/version_1_dispositions.md`); V7 signed off. The owner reviewed revision 32 one decision at a
+> time on 2026-10-17 and added `M4.C.1c`'s nodal-event spike; every record regenerated 2026-10-18.
 >
 > **2026-10-16/17 — spec revision 31** (plan §4.11): the owner's review of revisions 24–30 applied, with the owner's
 > version 1 premise decisions; every record regenerated.
@@ -56,7 +57,7 @@
 > **2026-10-11 — spec revision 15 (546 unique IDs, 46 acceptance criteria):** the owner approved the Phase D definitions (C.14, C.23, C.28) and the new `M11.C.46`, which proves the triangle change.
 >
 > **2026-10-10 — Phase D plan approved; spec revisions 13 and 14 (545 unique IDs); run visualization built.**
-> - **Spec revision 13.** `M2.A` is the owner's family: Bruno and Toma out, Viktor and Dario in, Leo male. The family
+> - **Spec revision 13.** `M2.A` is the reference family the owner specified: Bruno and Toma out, Viktor and Dario in, Leo male. The family
 >   file is `config/bowen/family_phase_d.md`.
 > - **Pattern readouts.** The owner's definitions (`docs/readouts_phase_c.md`): 3 acts in 4 weeks; a pattern ends when a
 >   new one emerges; projection holds 12 weeks.

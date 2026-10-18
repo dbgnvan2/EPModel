@@ -21,10 +21,13 @@ arm designs are Claude's recommendation, declared before any ran, approved by th
   course, under the policy, with the declared nodal load on the two parents (as part I's `M11.C.2`). One run per seed,
   the family as declared, serves `M11.C.6` and `M11.C.2` (each compares children within it); `M11.C.10` runs its own
   two arms (spec revision 29).
-  - `M11.C.6`: each child's basic level at 20 less its anchor at 5 (`M7.E.1f`). The treatment reports the child who
-    received the most projection-type acts from the parents before turning 20; the baseline, the child who received
-    the fewest. The most-projected child's change MUST be lower. One transmission (generation 2 to 3): the run is too
-    short for three (plan §4.4).
+  - `M11.C.6` (restated at revision 32, post hoc, Claude's recommendation pending owner review): one declared child,
+    ``child``, in two arms of the same seed, run until the child is 20. In the treatment the parents act as the policy
+    chooses; in the baseline their projection-type acts toward the child (`PROJECTION_ACTS`) are withheld, every week.
+    Read: the child's basic level at 20 less its anchor at 5 (`M7.E.1f`), which MUST be lower under projection. The
+    first form compared the most- and least-projected children of one run by raw counts over different spans, so it
+    picked by birth order and run year rather than by projection (trace of 2026-10-17, plan §4.12). One transmission
+    (generation 2 to 3).
   - `M11.C.10` (revision 29, the owner: "hold the cutoff for the run and read tie states"; revision 30: "partner and own
     parents", "200 instead", "b as second variant"): the tie-weeks over the run on which the third generation hold
     rejection (`M1.B.3c`) toward their partner or their own parents, over exactly ``seeds`` seeds; rejection of their
@@ -285,9 +288,37 @@ def _life_result(readouts: dict, summary: dict) -> ArmResult:
 
 
 def arm_c6(arm, seed, settings):
-    """M11.C.6 (see the module docstring)."""
-    summary = life_run(seed, settings["years"], "declared")
-    return _life_result({"development": _pick(arm, summary["childhood_acts"], summary["development"])}, summary)
+    """Purpose: `M11.C.6` as restated at revision 32 (see the module docstring): one child's development with the
+             parents' projection-type acts toward them as declared, against the same seed with those acts withheld.
+    Spec:    docs/bowen_agent_model_spec_v2.md#M11.C.6, #M7.E.1f
+    Tests:   tests/bowen/test_phase_d2_criteria.py::test_m11c6_arms_differ_only_in_projection_toward_the_child
+
+    A child who dies before 20 reads 0 in that arm and is counted."""
+    from src.bowen.readouts.patterns import PROJECTION_ACTS
+
+    child = PersonId(settings["child"])
+    parents = (ROLES["phase_d", "parent_1"], ROLES["phase_d", "parent_2"])
+    start = load_family(FAMILIES["phase_d"]).people[child].age_years
+    end = ENGINE.development_end_age_years
+    weeks = (end - start + 1) * YEAR
+    withheld = None
+    if arm == "baseline":
+        labels = frozenset(f"{kind}>{child}" for kind in PROJECTION_ACTS)
+        withheld = {t: {p: labels for p in parents} for t in range(weeks)}
+    seen = {}
+
+    def watch(state):
+        person = state.people[child]
+        if "development" not in seen and person.age_years is not None and person.age_years >= end:
+            seen["development"] = person.basic_level - state.life.anchors[child]
+
+    state, records = scenario("phase_d", seed, weeks, spells=nodal(weeks, parents), watch=watch, withheld=withheld)
+    acts = sum(1 for r in records if isinstance(r, EmittedRecord) and r.event.kind in PROJECTION_ACTS
+               and r.event.sender in parents and child in r.event.targets)
+    out = result({"development": seen.get("development", 0.0), "projection_acts": float(acts)}, records)
+    if "development" not in seen:
+        out.moves["(the child died before 20)"] += 1
+    return out
 
 
 def arm_c2_twelve(arm, seed, settings):
@@ -367,7 +398,8 @@ C = Criterion
 CRITERIA_D2: dict[str, Criterion] = {
     "M11.C.15": C("M11.C.15", "composite", ("baseline", "treatment"),
                   (Readout("death_rise", +1), Readout("recovery_rise", +1)), arm_c15, settings=SETTINGS["M11.C.15"]),
-    "M11.C.6": C("M11.C.6", "composite", ("baseline", "treatment"), (Readout("development", -1),), arm_c6,
+    "M11.C.6": C("M11.C.6", "composite", ("baseline", "treatment"),
+                 (Readout("development", -1), Readout("projection_acts", +1, report_only=True)), arm_c6,
                  settings=SETTINGS["M11.C.6"]),
     "M11.C.10": C("M11.C.10", "composite", ("baseline", "treatment"),
                   (Readout("cut_off_tie_weeks", +1), Readout("child_cut_weeks", +1, report_only=True)), arm_c10,

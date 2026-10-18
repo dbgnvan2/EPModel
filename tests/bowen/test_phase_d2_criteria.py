@@ -10,6 +10,7 @@ from __future__ import annotations
 
 import dataclasses
 import os
+from unittest import mock
 
 import pytest
 
@@ -71,9 +72,11 @@ def test_m11c15_grief_and_income_off_and_the_transfer_kept_in_every_arm():
 
 @pytest.mark.ensemble
 def test_m11c6_the_children_are_read_at_twenty():
-    """One 40-year run: each third-generation child is read when they turn 20, within the 2% band of their anchor."""
-    summary = life_run(0, CRITERIA_D2["M11.C.6"].settings["years"])
-    band = 0.02 * 40 + 1e-9
+    """One 40-year run (the twelve-person `M11.C.2`'s; `M11.C.6` no longer uses `life_run`, revision 32): each
+    third-generation child is read when they turn 20, within revision 31's widest band (−10% of a level of at most
+    100, R31.B7)."""
+    summary = life_run(0, CRITERIA_D2["M11.C.2[twelve-person family]"].settings["years"])
+    band = 0.10 * 100 + 1e-9
     assert set(summary["development"]) == set(summary["children"])
     assert all(abs(v) <= band for v in summary["development"].values())
 
@@ -200,3 +203,35 @@ def test_m11c10_a_renewal_toward_a_dead_target_is_counted_as_target_dead():
     source = criteria.Forced(policy, {(1, f): Selection(actor=f, kind="CUTOFF", targets=(m,), intensity=100.0)})
     source.selections(1, (f,), state)
     assert source.status == {(1, f): "target dead"} and source.made == 0
+
+
+def test_m11c6_arms_differ_only_in_projection_toward_the_child():
+    """`M11.C.6` as restated at revision 32: the same seed, the same run length (until the child is 20), and the same
+    nodal load in both arms; the baseline withholds every projection-type act from each parent toward the child in
+    every week, and the treatment withholds nothing. Checked from the arguments the arm passes, without a run."""
+    import src.bowen.ensemble.criteria_d2 as module
+    from src.bowen.engine.identifiers import PersonId
+    from src.bowen.readouts.patterns import PROJECTION_ACTS
+
+    criterion = module.CRITERIA_D2["M11.C.6"]
+    child = PersonId(criterion.settings["child"])
+    seen = {}
+
+    def capture(family, seed, weeks, **kwargs):
+        seen[len(seen)] = (family, seed, weeks, kwargs)
+        raise StopIteration
+
+    with mock.patch.object(module, "scenario", capture):
+        for arm in criterion.arms:
+            with pytest.raises(StopIteration):
+                criterion.arm(arm, 3, criterion.settings)
+    (fb, sb, wb, kb), (ft, st, wt, kt) = seen[0], seen[1]
+    assert (fb, sb, wb) == (ft, st, wt) == ("phase_d", 3, wb)
+    start = module.load_family(module.FAMILIES["phase_d"]).people[child].age_years
+    assert wb == (module.ENGINE.development_end_age_years - start + 1) * module.YEAR
+    assert [e.id for e in kb["spells"]] == [e.id for e in kt["spells"]]
+    assert kt["withheld"] is None
+    labels = {f"{k}>{child}" for k in PROJECTION_ACTS}
+    assert set(kb["withheld"]) == set(range(wb))
+    assert all(set(by_parent) == {module.ROLES["phase_d", "parent_1"], module.ROLES["phase_d", "parent_2"]}
+               and all(set(v) == labels for v in by_parent.values()) for by_parent in kb["withheld"].values())

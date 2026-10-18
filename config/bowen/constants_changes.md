@@ -185,3 +185,4 @@
 | `lock_in_turn` | — | 3.0 | 2026-10-12 | — (new mechanism; spec revision 24, B7, Claude's recommendation, approved by the owner 2026-10-16: lock-in's turn) | no |
 | `development_band_projection` | — | 0.10 | 2026-10-16 | — (new mechanism; spec revision 31, R31.B7: `M7.E.1f`'s band opened by the parents' acts, the owner's value: "projection up to 10% negative") | no |
 | `development_band_support` | — | 0.05 | 2026-10-16 | — (new mechanism; spec revision 31, R31.B7, the owner's value: "supportive, responsible behaviour attention - up to 5% growth") | no |
+| `nodal_spike_intensity` | — | 1.0 | 2026-10-17 | — (new mechanism; spec revision 32, plan §4.12: `M4.C.1c`'s nodal-event spike, the owner's form of 2026-10-17, "cut ties, as TRIGGER") | no |

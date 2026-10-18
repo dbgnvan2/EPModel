@@ -59,7 +59,7 @@ TABLE_HEAD = "| Week | Who | Move | Toward | Witnesses | What it did |\n|---|---
 # Every mechanism the engine emits, and how the trace treats it. Anything else
 # raises: a record the renderer does not understand must not vanish (P2, P19).
 CAUSED = frozenset({"appraisal", "calm_contact", "symptom_onset", "distance_binding", "triangle_transfer",
-                    "functioning_shift", "position_held", "reduce_cutoff", "refusal", "stressor_load", "assertion", "debit", "landed_contact", "trigger", "cutoff", "reconciliation", "institutionalize", "binder_unavailable", "lock_in"})
+                    "functioning_shift", "position_held", "reduce_cutoff", "refusal", "stressor_load", "assertion", "debit", "landed_contact", "trigger", "nodal_spike", "cutoff", "reconciliation", "institutionalize", "binder_unavailable", "lock_in"})
 SYSTEM_SHOWN = frozenset({"triangle_recompute", "consolidation", "rejection_fade", "slow_tick"})
 SYSTEM_SUMMARISED = frozenset({
     "standing_load", "reactive_cutoff", "weakness_focus", "acute_decay", "contact_relaxation", "symptom_accumulation", "investment", "reactive_state",
@@ -144,6 +144,10 @@ def _what_it_did(event: Event, index: _Index, names: _Names, view: PersonId | No
                     f"standing load on {names.tie(tie)} spikes next week (too-little side +{intensity:g} × optimum) "
                     f"for {event.duration} week{'s' if event.duration != 1 else ''}; no event crosses the tie"
                 )
+        elif effect.mechanism == "nodal_spike":  # M4.C.1c, revision 32
+            for tie, _, intensity in effect.ties:
+                parts.append(f"the nodal event re-opens the cut tie {names.tie(tie)}: its standing load spikes next week "
+                             f"(too-little side +{intensity:g} × optimum)")
         elif effect.mechanism == "cutoff":
             parts += [f"{names(PersonId(f.split(':', 1)[1]))} rejects the other on {names.tie(t)} "
                       f"(rejection {v:+.2f}; the tie stays open)" for t, f, v in effect.ties]

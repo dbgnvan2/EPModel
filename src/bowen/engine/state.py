@@ -177,5 +177,6 @@ def canonical_state(state: RunState) -> str:
            if state.other_families else {}),
         **({"life": plain(state.life)} if state.life is not None else {}),  # the life course, revision 28
         "events": [plain(e) for e in state.store.events()],
+        "triggers": [plain(t) for t in state.triggers],  # revision 32: a spike still to land is state
     }
     return json.dumps(body, sort_keys=True, separators=(",", ":"), default=str)

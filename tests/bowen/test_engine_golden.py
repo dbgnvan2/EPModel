@@ -32,8 +32,9 @@ the origin cutoff set at 20; behaviour, both runs), and in phase_d again the sam
 rejection is held (the owner's decision; behaviour), and in both again by focus compounding made a shift among the
 children that adds no investment (the owner: "Shift, gain 10"; behaviour). Moved 2026-10-16 by spec revision 31 part B:
 an over-functioner takes in proportion to their room above the stress floor (`M11.C.21`, the owner's form; behaviour,
-both runs) and, in phase_d, a child's development band opened by the parents' acts (R31.B7). The phase_b run is
-scripted and did not move.
+both runs) and, in phase_d, a child's development band opened by the parents' acts (R31.B7). Moved 2026-10-17 by
+spec revision 32: a nodal event spikes the cut ties of those it reaches (`M4.C.1c`, the owner's form; behaviour, both
+runs). The coach's position gate of the same revision moved neither. The phase_b run is scripted and did not move.
 
 **Why the floats are rounded (2026-10-15).** The fingerprints were taken from the exact repr, and CI on Linux failed
 them while the Mac passed: the last bits of a float differ between platforms and Python versions (Python 3.12 changed
@@ -69,8 +70,8 @@ FINGERPRINT_DIGITS = 8  # significant digits kept per float; see the module docs
 ZERO_BELOW = 1e-12  # a float this close to zero is written as 0, so 1e-17 and -1e-17 agree
 GOLDEN = {
     # (family, seed, weeks): fingerprint
-    ("phase_c", 7, 104): "824f90a3025fb2ebf10d6f739112d091056e208b73468fd1eaad16e2dab869d2",
-    ("phase_d", 11, 208): "1117c4fd7a0020032b9375234dd3fd7fda666990b56f335e33d2bc821f831230",
+    ("phase_c", 7, 104): "c4fd16123fa37db3ccf7d2f6624b3463ef51ec084a44cad1dc0b1501f07ca85c",
+    ("phase_d", 11, 208): "4e5ebdad859f648c37e8bb3222de6f802df94172ff0dd3a5b3e5c1df9b16f559",
 }
 
 

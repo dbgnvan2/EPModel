@@ -268,6 +268,10 @@ MUTANTS = (
            "    return params.standing_load_gain * steepness(person, params) * too_little(person, tie, params, spike)\n",
            "    return 0.0\n",
            "M4.A.1's tie term removed: a tie's \"too little\" side adds no standing load"),
+    # Revision 32: M4.C.1c's nodal-event spike removed alone (the owner's form of 2026-10-17), reported for M11.C.4.
+    Mutant("nodal-spike-removed", DELETION, ("M11.C.4",), "config/bowen/constants.md",
+           "| `nodal_spike_intensity` | 1.0 |", "| `nodal_spike_intensity` | 0.0 |",
+           "M4.C.1c's nodal-event spike removed: a nodal event re-opens no cut tie's absence"),
     Mutant("cutoff-later-costs-removed", DELETION, ("M11.C.4",), "src/bowen/engine/standing_load.py",
            "    return params.standing_load_gain * steepness(person, params) * too_little(person, tie, params, spike)\n",
            "    return 0.0\n",

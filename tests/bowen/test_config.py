@@ -127,6 +127,7 @@ GOOD_ROWS = (
     "| `focus_steer_gain` | 1.0 | [I] | u | `M4.D.1g` |\n"
     "| `origin_cutoff_anxiety_gain` | 10.0 | [I] | u | `M1.D.8a` |\n"
     "| `origin_fusion_gain` | 0.5 | [I] | u | `M1.D.8a` |\n"
+    "| `nodal_spike_intensity` | 1.0 | [I] | u | `M4.C.1c` |\n"
     "| `danger_window` | 26 | [I] | u | `M1.B.3e` |\n"
     "| `danger_threshold` | 0.25 | [I] | u | `M1.B.3e` |\n"
     "| `danger_gain` | 2.0 | [I] | u | `M1.B.3e` |\n"

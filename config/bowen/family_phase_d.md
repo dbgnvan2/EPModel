@@ -1,6 +1,6 @@
 # EPModel v2 — the reference family (spec `M2.A`, revision 13)
 
-> The owner's family, 2026-10-10 (`docs/PROPOSAL — RUN VISUALIZATION MAPPING.md` §0, D5):
+> The reference family the owner specified, 2026-10-10 (an invented family, `M11.F.9`; `docs/PROPOSAL — RUN VISUALIZATION MAPPING.md` §0, D5):
 > - grandparents (4): Teodor and Ana, Marta's parents; Sofia and Viktor, Ravi's parents;
 > - parents (2): Ravi and Marta;
 > - the parents' siblings (2): Iris, Marta's sister; Dario, Ravi's brother, **cut off from Ravi at the start**;

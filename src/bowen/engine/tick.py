@@ -50,7 +50,7 @@ from src.bowen.engine.activation import SynchronousActivation
 from src.bowen.engine.appraise import apply_appraisal, perceive
 from src.bowen.engine.beliefs import update_beliefs
 from src.bowen.engine.consolidate import consolidate
-from src.bowen.engine.event_effects import STRUCTURAL, apply_delivered_cutoffs, apply_structural_event
+from src.bowen.engine.event_effects import STRUCTURAL, apply_delivered_cutoffs, apply_structural_event, nodal_spike
 from src.bowen.engine.events import Event
 from src.bowen.engine.identifiers import PersonId
 from src.bowen.engine.invariants import assert_invariants, snapshot
@@ -112,7 +112,9 @@ def run_tick(
     before = snapshot(state)
     start_acute = {pid: p.acute_anxiety for pid, p in state.people.items()}  # the learner's baseline
 
-    # 1 — standing load, before anything is delivered (M3.D.2, M6.I.8).
+    # 1 — standing load, before anything is delivered (M3.D.2, M6.I.8). A spike that has ended can never count again,
+    # so it is dropped first (review 2026-10-17: unpruned, 2,543 accumulated over 40 years and slowed the run by half).
+    state.triggers = [t for t in state.triggers if t.last_tick >= state.tick]
     effects, loaded = apply_standing_load(state, params)
     records += effects
     records += stressor_load(state, params)  # revision 18: a lasting stressor keeps weighing (M1.F.6)
@@ -126,6 +128,7 @@ def run_tick(
         if event.timestamp != state.tick:
             raise ValueError(f"source scheduled {event.id} for tick {state.tick}")
         records += inject(state, event, visibility)
+        records += nodal_spike(state, event, params)  # M4.C.1c, revision 32: a nodal event spikes cut ties
         register_stressors(state, (event,))
         if event.mechanism in STRUCTURAL:
             records += apply_structural_event(state, state.store.event(event.id), params)

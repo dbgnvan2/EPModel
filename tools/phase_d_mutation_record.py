@@ -83,6 +83,21 @@ MUTANTS = (
            "        person.symptom_bound = 0.0\n",
            "M6.3c's release of the dead person's symptom-bound anxiety (M6.I.1) replaced by discarding it"),
     # (M11.C.15's arm calls die() directly, not through yearly(), so the death check there is not on its path.)
+    # Revision 32's regeneration (with the nodal spike) turned M11.C.17, M11.C.22 and two M11.C.7 pairs green. M11.C.17's
+    # row: the external agent's effect (M1.E.7's landed contact) removed MUST turn it red; the same edit is what the two
+    # M11.C.7 pairs' deviation limb rests on (the coach's position only matters if landing does something).
+    Mutant("landed-contact-changes-nothing", NAMED,
+           ("M11.C.17", "M11.C.7[joint over one spouse]", "M11.C.7[joint over sided]"), "config/bowen/constants.md",
+           "| `perspective_gain` | 0.1 |", "| `perspective_gain` | 0.0 |",
+           "M1.E.7's landed contact removed: a coach's contact that lands raises no systems perspective"),
+    # M11.C.22's row: M7.D.2a's stabilising term flattened MUST turn it red (the lock-in that holds the partners' excess).
+    Mutant("lock-in-removed", NAMED, ("M11.C.22",), "config/bowen/constants.md",
+           "| `lock_in_gain` | 0.2 |", "| `lock_in_gain` | 0.0 |",
+           "M7.D.2a's stabilising term removed: an active symptom holds none of its partners' excess"),
+    # M11.C.6's row (restated at revision 32): fixing each child's basic level at its anchor MUST turn it red.
+    Mutant("development-fixed-at-anchor", NAMED, ("M11.C.6",), "config/bowen/constants.md",
+           "| `development_rate` | 0.1 |", "| `development_rate` | 0.0 |",
+           "M7.E.1f's development removed: each child's basic level stays at its anchor from 5 to 20"),
     # M11.C.7's row: M8.2/M8.3 made blind to position, so a sided coach counts as live and its contact can land.
     # Not run on M11.C.7[joint over one spouse]: neither arm has a SPLIT toward the coach, so it would change nothing.
     Mutant("coach-position-blind", NAMED, ("M11.C.7[one spouse over sided]", "M11.C.7[joint over sided]"),

@@ -124,7 +124,9 @@ def test_m16a7_header_flags_constants_changed_after_freeze():
                                         # spec revision 30, origin cutoff, danger and focus (plan §4.10)
                                         "origin_cutoff_anxiety_gain", "origin_fusion_gain", "danger_window",
                                         "danger_threshold", "danger_gain", "focus_reinforce_gain",
-                                        "force_anxiety_gain", "focus_compound_gain"}
+                                        "force_anxiety_gain", "focus_compound_gain",
+                                        # spec revision 32, the nodal-event spike (plan §4.12)
+                                        "nodal_spike_intensity"}
     changed = dataclasses.replace(
         constants,
         values=MappingProxyType({**constants.values,

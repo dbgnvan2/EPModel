@@ -11,7 +11,7 @@ import dataclasses
 
 from src.bowen.engine.initialise import initialise_run
 from src.bowen.engine.events import Mechanism
-from src.bowen.engine.identifiers import PersonId
+from src.bowen.engine.identifiers import PersonId, TieId
 from src.bowen.engine.objects import SymptomChannel
 from src.bowen.engine.state import new_run_state
 from src.bowen.engine.symptoms import accumulate_symptoms, integrate, threshold
@@ -364,3 +364,18 @@ def test_m1a6_a_threshold_is_never_zero():
     assert threshold(marta, PARAMS) > 0
     marta.acute_anxiety, marta.usual_excess = marta.chronic_anxiety + 5, 0.0
     assert integrate(marta, PARAMS) == (marta.channel_prior,)  # before the floor this divided by zero
+
+
+def test_m4c1c_a_removal_spikes_the_cut_ties_of_those_it_reaches():
+    """Revision 32: removal by tolerance is a nodal event (INSTITUTIONALIZE, reach "ties"), and its own call site
+    spikes the cut ties of those it reaches (review 2026-10-17: that call site had no test)."""
+    from src.bowen.engine.rejection import raise_rejection
+
+    state = calm(fresh())
+    bearer(state, NADIA, 1.0)
+    state.people[RAVI].acute_anxiety += 10
+    state.family.tolerance = {RAVI: 5.0}
+    raise_rejection(state.ties[TieId.of(RAVI, MARTA)], MARTA, 0.5)
+    records = tolerance_removal(state, PARAMS, VIS)
+    spiked = {t for r in records if getattr(r, "mechanism", None) == "nodal_spike" for t, _, _ in r.ties}
+    assert TieId.of(RAVI, MARTA) in spiked

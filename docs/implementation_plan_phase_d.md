@@ -1846,10 +1846,10 @@ and the regenerated records (`docs/readouts_phase_c.md` does not mention `M11.C.
 
 ### 4.12 Revision 32: finishing version 1 — 2026-10-17
 
-> **Status: built 2026-10-17 under the owner's instruction "proceed using your own recommendations".** Every decision
-> below is Claude's recommendation, pending owner review, and is tagged so in the spec (⟦rev32 · Claude's
-> recommendation 2026-10-17, pending owner review⟧). Nothing was changed to make a criterion pass: where an arm was
-> changed after its failure was seen, the section says so.
+> **Status: built 2026-10-17 under the owner's instruction "proceed using your own recommendations", then reviewed by
+> the owner one decision at a time the same day** (below, "The owner's decisions"). The owner approved every decision but
+> one change: build `M4.C.1c`'s nodal-event spike. `M11.C.17` and `M11.C.6` are held for a diagnosis. Nothing was changed
+> to make a criterion pass: where an arm was changed after its failure was seen, the section says so.
 
 **What version 1 still lacked** (`docs/version_1_definition.md` §1, measured from the committed records on
 2026-10-17, now generated as `docs/version_1_status.md`):
@@ -1932,6 +1932,57 @@ family, through the coach's gate. A test now refuses a criteria module that bind
 **Risks stated before the regeneration.** The gate changes `M11.C.17`'s coached arm wherever a spouse `SPLIT`s toward
 Halim. The `M11.C.4`, `M11.C.32` and `M11.C.46` passes rest on arms or fixtures settled after their failures were
 seen; each is recorded as such.
+
+**The owner's decisions, 2026-10-17** (asked one at a time; the answers quoted):
+- `M11.C.4`: "Accept, build the spike". The spike's form: "Cut ties, as TRIGGER" (a nodal event reaching a person spikes
+  each of their cut ties by `nodal_spike_intensity`, 1.0, for the event's week). Built (`event_effects.nodal_spike`).
+  *The spike's review (learning-qa, 2026-10-17), applied as Claude's recommendation, pending owner review:* a cut tie is
+  one holding rejection; a tie that is only not interactive (a retired coach's, a removed member's while away, a
+  criterion arm's) is not spiked, narrowing the "or not interactive" of the form as asked; the spike lasts one week
+  whatever the event's duration, as the form says; spikes from separate events in one week add up, as `TRIGGER`s do;
+  ended spikes are pruned each tick (unpruned, a 40-year run was about 50% slower, same results); the canonical state
+  now holds the spikes still to land. The spike removed alone is recorded as an `M11.C.4` mutant.
+- `M11.C.32`, `M11.C.29`, `M11.C.22`, `M11.C.46`: "Accept". `M11.C.7`: "Accept SPLIT" for what sided means, and
+  "Accept" for its three pairs' failures.
+- `M11.C.9`: "Out, version 2". `M11.C.8`: "Out of scope".
+- `M11.C.41`'s heavier-stress cells and `M11.C.34`: "Composite, accept" (`M11.5` amended).
+- `M11.C.39`'s mutant: "Accept".
+- As findings, "Accept": `M11.C.5`, `.42`, `.44`, `.45`, `.27` (the three failing cells), `.2`, `.12`, `.43`, `.10`.
+- `M11.C.17`: "Diagnose coaching" (with `M11.C.7`'s deviation limb). `M11.C.6`: "Trace it first".
+- V7: "Sign off, fix wording" ("the owner's family" now reads "the reference family the owner specified").
+- Then: "continue with your recommendations — I'm going to bed. Just keep working until version 1 is completed."
+
+**The coaching diagnosis (`M11.C.17`, `M11.C.7`; the owner's "Diagnose coaching"; 60 seeds, 520 weeks, ad hoc, on the
+tree with the spike before its narrowing).** No defect: each link matches its rule. Halim's 32 contacts a spouse a run
+land about 3.8 times (binders failing about half the time; the coach sided by a spouse's own `SPLIT` about half the
+time; p about 0.28 when open). Perspective reaches 0.32 against 0.013 coach-free, and the self-directed share rises by
+0.07–0.09. The effect dies at the estimator (`M1.A.4k`): own functioning stays below basic level in both arms, because at
+level 40 coping lifts functioning by 0.2 a unit of load and soothing lowers it by 0.3 (`M1.A.5e`), so the evidence is
+above zero in 2–4% of readings in both. Perspective pinned at 0.6 from the start passes (+0.032 ± 0.011); the binders gate
+removed does not (+0.0028 ± 0.0037). In `M11.C.7` the couple's own tie is held cut off in 82–89% of last-year weeks in
+every arm, and the deviation reads no perspective, so no arm moves it; "joint" is one target a session, so joint and one
+spouse land the same total. Recommended, pending owner review: accept `M11.C.17` as a finding. The lever, if coaching
+should show within ten years, is `M1.A.4k`'s evidence rule.
+
+**The `M11.C.6` trace (the owner's "Trace it first"; 60 seeds, ad hoc).** No defect. The first arm compared the child
+with the most projection-type acts against the one with the fewest, counting raw acts from the start of the run to
+age 20, so the youngest (counted longest) was picked as most projected, and development differs by birth order and run
+year (the parents' functioning, half of the push, rises over the run). The band never bound (0 binds in 180 child-runs).
+**Restated at revision 32 (post hoc, Claude's recommendation pending owner review)** as a paired arm on one declared
+child (Nadia, `child` in `criteria.md`): the same seed until she is 20, the parents' projection-type acts toward her as
+the policy chooses against all of them withheld (`Forced.withheld`, every week). Measured ad hoc: FAIL, +0.096 ± 0.044
+(150 seeds; projection acts +56.9 ± 2.7): she develops slightly more with them. Recommended, pending owner review:
+accept as a finding. Projection-type acts do not lower a child's functioning here, so the band they open never
+constrains development; whether projection should push development is a rule decision (`M7.E.1f`, "the acts open
+room, they do not push"). Its mutant (`development-fixed-at-anchor`) is recorded and runs only if it passes.
+
+**The regeneration with the spike (2026-10-17/18, 3 h 26 min on 10 cores).** No Phase C verdict moved. In part I,
+`M11.C.17` turned green (+0.00089 ± 0.0013, p 0.015), as did `M11.C.22` (mild +1.15 ± 0.67, severe −1.37 ± 0.83) and
+two `M11.C.7` pairs (joint over one spouse +0.043 ± 0.052, p 0.050; joint over sided +0.052 ± 0.047, p 0.037); one spouse
+over sided still fails. Part II as before, with `M11.C.6` restated failing (+0.096 ± 0.044). Each newly passing composite
+has a red recorded mutant: landed contact changes nothing (`M11.C.17` and the two `M11.C.7` pairs), lock-in removed
+(`M11.C.22`). `triangle-help-ignored` now only just survives on `M11.C.46` (+0.16 ± 0.23, p 0.041), the clause recorded as
+not met. `docs/version_1_status.md`: V2 and V3 met; V1 waits on `M11.C.6` alone, pending the owner.
 
 **For the owner, from the diagnoses (not acted on):**
 - A single genuine `I-POSITION` at level 40 almost never completes under the post-revision-16 model. `hold_gain` and

@@ -111,7 +111,7 @@
  {
   "gate": "G7",
   "test": "tests/bowen/test_determinism.py::test_m11d6_second_run_is_clean",
-  "mutation": "one trigger list shared by every run",
+  "mutation": "one trigger list shared by every run, never pruned",
   "edits": [
    [
     "src/bowen/engine/state.py",
@@ -122,6 +122,11 @@
     "src/bowen/engine/state.py",
     "@dataclass\nclass RunState:",
     "_SHARED_TRIGGERS: list = []\n\n\n@dataclass\nclass RunState:"
+   ],
+   [
+    "src/bowen/engine/tick.py",
+    "    state.triggers = [t for t in state.triggers if t.last_tick >= state.tick]\n",
+    ""
    ]
   ],
   "expect": "assert digest(after_other) == fresh_process_log_digest(7, \"3\")"

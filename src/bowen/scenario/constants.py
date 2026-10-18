@@ -148,6 +148,7 @@ SCHEMA: Mapping[str, KeySpec] = MappingProxyType(
         "focus_steer_gain": KeySpec(float, "[I]", "M4.D.1g"),  # spec revision 29
         "origin_cutoff_anxiety_gain": KeySpec(float, "[I]", "M1.D.8a"),  # spec revision 30
         "origin_fusion_gain": KeySpec(float, "[I]", "M1.D.8a"),  # spec revision 30
+        "nodal_spike_intensity": KeySpec(float, "[I]", "M4.C.1c"),  # spec revision 32
         "danger_window": KeySpec(int, "[I]", "M1.B.3e"),  # spec revision 30
         "danger_threshold": KeySpec(float, "[I]", "M1.B.3e"),  # spec revision 30
         "danger_gain": KeySpec(float, "[I]", "M1.B.3e"),  # spec revision 30

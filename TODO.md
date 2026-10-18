@@ -4,6 +4,10 @@ Deferred and adjacent items. Each carries enough context to act on later without
 
 ## Blocking the next phase
 
+- [ ] **Owner: answer `docs/version_2_plan.md` §5** (drafted 2026-10-18). Ten questions: what version 2 is for, which
+  finding groups to revisit, the sweep's scope and its "narrow" fraction, `M15`, retiring the grid engine, the corpus
+  backlog, freezing version 1 (a `version-1` tag), the spec file, and the three version 1 loose ends. No spec revision
+  or code before then.
 - [x] ~~**Approve or revise `docs/bowen_agent_model_spec_v2.md`.**~~ *Approved 2026-08-25; revisions 1–6 applied, the last on 2026-08-28.*
 - [x] ~~**Approve spec revision 10.**~~ *Approved 2026-10-06. Terms in the spec's revision-10 section under* Approval.
 - [x] ~~**Read the Phase B trace end to end and record the result** (plan §7)~~ *done 2026-10-07: the owner read both

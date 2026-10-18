@@ -151,6 +151,8 @@ verdicts over ensembles (`tools/phase_d_record.py`; plan step 12). Mutations are
 
 **Generated, 2026-10-17:** [version_1_status.md](version_1_status.md) — every `M11.C` criterion with its status under V1–V3, read from the ensemble and mutation records and the dispositions, from `tools/version_1_status.py`; a default-suite test fails when it is stale.
 
+**Draft for review, 2026-10-18:** [version_2_plan.md](version_2_plan.md) — what version 2 of the agent model is for: version 1's accepted findings grouped by cause, its loose ends, four stages (freeze version 1, one engineering batch, the constant sweep, the rule questions the owner chooses), a proposed definition (W1–W8), and ten questions for the owner.
+
 **For review, 2026-10-13:** [phase_d_status_2026-10-13.md](phase_d_status_2026-10-13.md) — Phase D part I after the
 overnight run: every build item and D-I criterion as done, partial or not done, and what the owner should look at
 first (spec revisions 24–27 are Claude's recommendations, pending owner review).

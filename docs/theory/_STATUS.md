@@ -2,6 +2,10 @@
 
 > ## ▶ STATE — the corpus is closed and the spec is current. **Phase C is closed with its gate failing (owner decision, 2026-10-09).**
 >
+> **2026-10-18 — version 2 planned, not approved:** `docs/version_2_plan.md` (DRAFT) proposes freezing version 1, one
+> engineering batch, `M17.E.1`'s constant sweep with a timed pilot, then the rule questions the owner chooses. Ten owner
+> questions in its §5; nothing is built until they are answered.
+>
 > **2026-10-17 — spec revision 32, finishing version 1** (plan §4.12): built under the owner's "proceed using your own
 > recommendations", every decision pending owner review. Where version 1 stands is generated in
 > `docs/version_1_status.md`: **version 1 complete, 2026-10-18** (V1–V3 met; the owner accepted `M11.C.6`'s failure

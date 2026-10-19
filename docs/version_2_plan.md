@@ -282,12 +282,17 @@ One proposal per chosen group from §1.1, written after the sweep reports. Candi
       Proposed: for each cutoff, compare the run before it against the longest run on the same seed's uncut ties over
       the same weeks, paired per seed. Ties with no contact in the window are reported, not dropped.
     - **What counts as negative.** `CONFLICT` and rebuffs received across the tie; rebuffs read as `DISTANCE` toward
-      the person, still to confirm. A refused move counts too once the tie holds rejection, but by then it is cut off.
+      the person, confirmed by the owner 2026-10-18 ("yes"). A refused move counts too once the tie holds rejection, but by then it is cut off.
     - **Its mutation.** A mutant in which cutoff no longer depends on the anxiety the tie has built (the "too much" side
       of `M4.C.1` read as zero when choosing `CUTOFF`, or a fixed `CUTOFF` propensity) should turn it red. If no mutant
       bites, the criterion is not counted as covered (W3).
     - **Where it is expected to stand.** From the `TODO.md` evidence above, cutoff now comes quickly, so the criterion
       may fail at version 1's code. That would be a finding to report, measured before G1 is built and again after.
+
+    **Confirmed by the owner, 2026-10-18:** repair of a distant or conflicted tie takes three positive contacts, a
+    third each (answer 2b), with the negative side governed by the anxiety the tie generates; and rebuffs are read as
+    `DISTANCE` toward the person. G1's questions are answered except the readout's timing (before G1 is built, so its
+    effect can be seen; Claude's recommendation). The G1 proposal can now be written.
   - **G2. Releases split equally, ignoring the tie.** `release_bound` and the lock-in spill divide by the number of
     interactive partners (`symptoms.py:147`, `symptoms.py:198`). The coach, whose tie to Marta has conductance 0.3 and
     bond energy 10 (`config/bowen/family_phase_c.md`), took the same 63.6 as Nadia. The learner's cross-person term

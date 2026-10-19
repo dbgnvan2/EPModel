@@ -1,6 +1,7 @@
 # Proposal — event sizes from the Holmes–Rahe scale
 
-> **Status: DRAFT 2026-10-18, for owner review. Version 2; nothing decided, nothing built.** The owner asked: "Can you
+> **Status: DRAFT 2026-10-18, for owner review. Version 2; nothing built. Q7 decided 2026-10-19 (one batch with G1
+> and G2); Q1–Q6 open.** The owner asked: "Can you
 > use the Holmes Ray scale of life events to create a relative distribution of anxiety vs. stressor." This draft
 > compares the model's event sizes with the scale's and proposes one way to use it. Every form and number is Claude's
 > recommendation and `[I]`. It changes what a run computes, so it moves the engine hash and regenerates every record
@@ -140,7 +141,8 @@ of what "around a divorce" means: 73 LCU, so 504 intensity units at the first an
 6. **Q6. The mapping.** Which item stands for which kind (for example, finding work as "spouse starts or stops work",
    26, or "change to different line of work", 36) is your call, item by item.
 7. **Q7. Order in version 2.** Recommended: with G1, since G1's peak is sized against divorce, and both move what a run
-   computes. One regeneration for both.
+   computes. One regeneration for both. **Decided 2026-10-19, by the owner's answer to G1's Q9:** built in one batch
+   with G1 and G2.
 
 ## 7. Adjacent issues found while drafting, not fixed
 

@@ -4,8 +4,9 @@
 > answers on G1, recorded in `docs/version_2_plan.md` (stage 3, group G, 2026-10-18), into rules, tests and a new
 > criterion. The owner's decisions are quoted there and summarised in §1. Every form and number not marked as the
 > owner's is Claude's recommendation, graded `[I]`. It changes what a run computes, so it moves the engine hash and
-> every record regenerates once. Questions are Q1–Q11 in §8; Q1–Q3, Q5, Q10 and Q11 are decided, Q4 and Q6–Q9 are open. The version 2 plan itself is not yet approved (its §5),
-> so this proposal waits on that as well.
+> every record regenerates once. Questions are Q1–Q11 in §8; all are decided except Q8 (the sizes), which waits on the
+> Holmes–Rahe proposal's Q2. By Q9 it is built in one batch with G2 and the Holmes–Rahe sizes, so it waits on both of
+> those as well. The version 2 plan itself is not yet approved (its §5), so this proposal waits on that too.
 
 ## 1. What the owner decided (2026-10-18)
 
@@ -74,8 +75,8 @@ When the tie stops being cut off, the load stops. The stock keeps its value (D9)
   across it still binds when it is delivered (below the refusal threshold), up to the cap. The distancer keeps the
   part that would pass the cap, so the act relieves less once the tie's stock is full.
 - At the week the tie becomes cut off, a stock already above the cap is cut to it, and the excess dissipates
-  (`cutoff_cap_dissipation`, a named sink). Recommended because the owner said anxiety "can just dissapate" (D6).
-  The alternative, returning the excess to the members, is Q4.
+  (`cutoff_cap_dissipation`, a named sink), in keeping with D6 ("can just dissapate"). Decided by the owner
+  2026-10-19 (Q4), over returning the excess to the members.
 - `P` is the highest `s` since the tie was cut, never above the cap.
 
 ### 3.3 Decay to a floor (D3)
@@ -98,7 +99,7 @@ Both directions count: a contact from either member to the other.
 | reconciliation event (`M4.A.3`) | positive | ends the cut; the stock returns to both members (`M1.D.2a`(c); Q5, decided) |
 
 At most one bridging effect applies per tie per week. If a week holds both a positive and a negative contact, the
-negative applies (Q6).
+negative applies (Q6, decided 2026-10-19, over cancelling or applying in delivery order).
 
 `REDUCE_CUTOFF` keeps its own effect of lowering both members' rejection. It loses the transfer (D7).
 
@@ -122,7 +123,7 @@ anxiety, the build stops and reports to the owner. It does not write a cost to m
 - **A distant or conflicted tie: repair is the tie's anxiety level** (decided by the owner 2026-10-19, Q2: "The
   positive contact ONLY impacts the tie's anxiety level"; one third per contact; repair is "the anxiety level", not a
   separate measure). `OPEN_CONFLICT` is entered as `DISTANT` is: after `hardening_run_length` `CONFLICT` acts in a row
-  (Claude's, Q7). When a tie enters `DISTANT` or `OPEN_CONFLICT`, its stock at that week is recorded as the tie's
+  (Q7, decided 2026-10-19). When a tie enters `DISTANT` or `OPEN_CONFLICT`, its stock at that week is recorded as the tie's
   reference level `R`. Each positive contact (§3.4's positive kinds) removes `R`/3 from the stock, never below 0, and
   touches nothing else: no person's anxiety, no third party. The removed part dissipates (`tie_repair_dissipation`,
   `M6.4`). When the stock reaches 0, three positive contacts after entry with no renewal between, the tie returns to
@@ -210,8 +211,8 @@ chart (`docs/review/phase_c_chart_seed7.html`) before and after, with the cutoff
    conflict binding), a new requirement for `CONFLICT` binding (Q11), `M4.C.1c` (the spike's test), a new
    requirement for §3.1, and the new criterion. `docs/model_explainer.md`, `config/bowen/constants.md`,
    `constants_changes.md` and `docs/readouts_phase_c.md` change with it.
-3. **Build**, tests first (§5). Batched with G2 and the Holmes–Rahe sizes if the owner takes them, so every record
-   regenerates once: about 1 hour 50 minutes on 10 cores for the ensemble records (plan §4.8, measured), plus the
+3. **Build**, tests first (§5). Batched with G2 and the Holmes–Rahe sizes (Q9, decided 2026-10-19), so every record
+   regenerates once. G2 has no proposal yet, so the build waits for it: about 1 hour 50 minutes on 10 cores for the ensemble records (plan §4.8, measured), plus the
    mutation records.
 4. **Report** the before and after on every criterion that reads cutoff: `M11.C.4` (a premise, which must still
    pass), `M11.C.10` and its variant, `M11.C.47`, `M11.C.17`, `M11.C.7`, and the new criterion.
@@ -240,15 +241,18 @@ chart (`docs/review/phase_c_chart_seed7.html`) before and after, with the cutoff
 3. **Q3. `REDUCE_CUTOFF` cannot be refused today.** Drop "a refused `REDUCE_CUTOFF`" from the mapping (recommended,
    and §3.4 already counts any refused move as negative), or make it refusable? **Decided 2026-10-19: dropped.**
 4. **Q4. A stock above the cap at the cut:** dissipate the excess (recommended), or return it to the members?
+   **Decided 2026-10-19: dissipate.**
 5. **Q5. Reconciliation:** a positive bridge whose 80% dissipates (as the mapping you approved says), or keep
    `M1.D.2a`(c), with the stock returned to the members (recommended, since it keeps a Kerr-sourced rule)?
    **Decided 2026-10-19: keep `M1.D.2a`(c); the stock returns to the members.**
 6. **Q6. A positive and a negative contact in the same week:** the negative applies (recommended), or they cancel?
+   **Decided 2026-10-19: the negative applies.**
 7. **Q7. `OPEN_CONFLICT` entered by three `CONFLICT`s in a row**, as `DISTANT` is by three `DISTANCE`s? Recommended:
-   yes.
+   yes. **Decided 2026-10-19: yes.**
 8. **Q8. Sizes:** fix the cap from the measured stocks and derive the weight from the divorce anchor (§3.7)?
    Recommended: yes, after the Holmes–Rahe proposal's Q2.
 9. **Q9. Batch** this with G2 and the Holmes–Rahe sizes, so every record regenerates once? Recommended: yes.
+   **Decided 2026-10-19: yes, all three in one batch.**
 10. **Q10. The negative side on a distant or conflicted tie** (§3.6): a negative contact adds a third of `R` back, never
     above `R`? Recommended: yes. **Decided 2026-10-19: yes.**
 11. **Q11. Should `CONFLICT` bind part of the sender's excess into the tie**, as `DISTANCE` does, so a conflicted tie

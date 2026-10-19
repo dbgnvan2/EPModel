@@ -5,7 +5,8 @@
 > criterion. The owner's decisions are quoted there and summarised in §1. Every form and number not marked as the
 > owner's is Claude's recommendation, graded `[I]`. It changes what a run computes, so it moves the engine hash and
 > every record regenerates once. Questions are Q1–Q11 in §8, all decided by the owner on 2026-10-19. By Q9 it is
-> built in one batch with G2 and the Holmes–Rahe sizes, so it waits on G2's proposal. The version 2 plan itself is not yet approved (its §5), so this proposal waits on that too.
+> built in one batch with G2 and the Holmes–Rahe sizes, so it waits on G2's proposal. (The version 2 plan was
+> approved on 2026-10-19.)
 
 ## 1. What the owner decided (2026-10-18)
 
@@ -63,7 +64,8 @@ bond energy."
 Each week a tie is cut off, each living member carries a load of `cutoff_threat_weight` × `s` × `bond_energy`/100,
 read at appraisal like the standing load. It is a **source**, named `cutoff_threat` in `M6.4`'s table. It does not
 draw down `s`: the stock is the size of the threat, not a store that empties as it is felt. Weighting by bond energy
-follows the corpus, where weight comes from the tie, not the kind (`KS22.3`, `KS10.4`, as the Holmes–Rahe proposal
+follows Kerr's case material, where weight comes from the tie, not the kind `[D]` (`KS10.4` `[K]`; `KS22.3`
+`[K-ext]`, a Part III case; as the Holmes–Rahe proposal
 sets out). `cutoff_threat_weight` is sized from D2's divorce anchor (§3.7).
 
 When the tie stops being cut off, the load stops. The stock keeps its value (D9), and is inert again, as today (D8).

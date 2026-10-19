@@ -182,8 +182,8 @@ Each proposal states which mechanism produces the owner's direction and checks t
     only emptied whole: by `release_bound_distance` on `REDUCE_CUTOFF` (`moves.py:124–127`) and on reconciliation
     (`event_effects.py:100`), when the binder is unavailable (`event_effects.py:137`) and at death
     (`life_course.py:542`). `REDUCE_CUTOFF` releases the whole stock though it lowers rejection only by
-    `rejection_relief` × intensity. At the end of week 73 the seed's stocks were 319.2, 226.4, 135.0 and 85.5 on four
-    ties. Should a bound stock settle back, be capped, or release in proportion to the cutoff reduced?
+    `rejection_relief` × intensity. At the end of week 73 the seed's four largest stocks were 319.2, 226.4, 135.0 and
+    85.5 (seven ties held more than 1). Should a bound stock settle back, be capped, or release in proportion to the cutoff reduced?
 
     **The owner's answer, 2026-10-18** (given in the chart session, verbatim): "Cutoff doesn't grow forever, it would
     reach a thresshold and become chronic. I would rank it around that of a divorce, which like a divorce disappates

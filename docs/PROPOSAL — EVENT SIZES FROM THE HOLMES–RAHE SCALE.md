@@ -1,8 +1,8 @@
 # Proposal — event sizes from the Holmes–Rahe scale
 
 > **Status: DRAFT 2026-10-18, for owner review. Version 2; nothing built, no spec revision.** Every question is
-> decided: the owner answered Q1–Q8 in §6 on 2026-10-19, each on Claude's recommendation. It is built in one batch with G1 and G2 (Q7), so it waits on G2's proposal and on
-> the version 2 plan's approval (its §5). The owner asked: "Can you
+> decided: the owner answered Q1–Q8 in §6 on 2026-10-19, each on Claude's recommendation. It is built in one batch with G1 and G2 (Q7), so it waits on G2's proposal (the
+> version 2 plan was approved on 2026-10-19). The owner asked: "Can you
 > use the Holmes Ray scale of life events to create a relative distribution of anxiety vs. stressor." This proposal
 > compares the model's event sizes with the scale's and proposes one way to use it. Every form and number is Claude's
 > recommendation, accepted by the owner question by question, and `[I]`. It changes what a run computes, so it moves the engine hash and
@@ -30,14 +30,17 @@ cited as a Bowen claim. Using it is also close to calibrating constants to outsi
 
 ## 2. What the corpus says about event size
 
-The corpus sets an event's weight by the family's ties, not by the kind of event.
-- **Same event, opposite outcomes, set by the tie.** Kerr's within-family control: one sister's pregnancy produced no
-  episode, the other's preceded a breakdown, and what differed was the tie's investment (`KS22.3`, ledger table of
-  nodal cases).
+Kerr's case material sets an event's weight by the family's ties, not by the kind of event `[D]`. These are Kerr's
+cases, not Bowen's, and the deciding one is from the book's Part III case chapters, which the ledger grades `[K-ext]`
+throughout (`_LEDGER.md`, per `KS15.12`): Kerr's own extension, never to be attributed to Bowen.
+- **Same event, opposite outcomes, set by the tie.** Kerr's within-subject control on John Nash: a partner's
+  pregnancy in 1953 produced no episode, his wife's in 1958–59 preceded his breakdown, and what differed was his
+  investment in the tie (`KS22.3` `[K-ext]` `[T]`, ledger table of nodal cases).
 - **The same loss lowers some members and raises others, by position.** Two grandparents' deaths lowered functioning
-  across four households (`KS10.4`). Both parents' deaths raised it in the projection target (`KS22.8`).
+  across four households (`KS10.4` `[K]` `[T]`). Both parents' deaths raised it in the projection target (`KS22.8`
+  `[K-ext]` `[T]`).
 - **Additions count, not only losses.** A cousin's week-long visit raised a symptom, measured in blood work, which then
-  reverted (`KS07.1`). The owner's own list of nodal events includes births and marriages (`config/bowen/nodal_events.md`).
+  reverted (`KS07.1` `[K]` `[T]`). The owner's own list of nodal events includes births and marriages (`config/bowen/nodal_events.md`).
 
 So the scale can at most give a **base size per kind of event**. The ties then scale it, as the model's grief already
 does by bond energy (`M6.3g`). The scale's equal weight for everyone is the part the theory rejects.

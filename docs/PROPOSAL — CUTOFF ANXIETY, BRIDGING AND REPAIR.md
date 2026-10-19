@@ -48,14 +48,17 @@ Checked 2026-10-19 against the working tree.
 The consequence that matters for the design: **with the transfer gone (D7) and the stock inert, the peak, decay and
 bridging in D1–D4 would change nothing anyone feels.** For the owner's "residual effect" (D3) to be real, the stock
 on a cut-off tie must weigh on the tie's members. That is the new mechanism this proposal adds (§3.1), and Q1 asks
-the owner to confirm it.
+the owner to confirm it. *Confirmed 2026-10-19 (§3.1).*
 
 ## 3. The rules
 
 `s` is the tie's `distance_bound_anxiety`, `P` its peak. All new constants are in `config/bowen/constants.md` with
 grade `[I]`. Where a number is the owner's, the row says so.
 
-### 3.1 The stock weighs on the members while the tie is cut off (new; Q1)
+### 3.1 The stock weighs on the members while the tie is cut off (new; Q1, decided)
+
+**Decided by the owner, 2026-10-19:** "Q1 yes: while a tie is cut off, its stock weighs on both members, scaled by
+bond energy."
 
 Each week a tie is cut off, each living member carries a load of `cutoff_threat_weight` × `s` × `bond_energy`/100,
 read at appraisal like the standing load. It is a **source**, named `cutoff_threat` in `M6.4`'s table. It does not
@@ -208,8 +211,8 @@ chart (`docs/review/phase_c_chart_seed7.html`) before and after, with the cutoff
 
 ## 8. Questions for the owner
 
-1. **Q1. Should the stock weigh on the members while the tie is cut off** (§3.1)? Without it, D1–D4 change nothing
-   anyone feels. Recommended: yes.
+1. **Q1. Should the stock weigh on the members while the tie is cut off** (§3.1)? **Decided 2026-10-19: yes**, on
+   both members, scaled by bond energy.
 2. **Q2. On a tie that is not cut off, does a positive contact dissipate bound anxiety?** Your answers say "any tie"
    (answer 3) and "current processes apply" (later). Recommended: a third per positive contact, so the stock clears
    as the tie is repaired.

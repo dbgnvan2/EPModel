@@ -4,7 +4,7 @@
 > answers on G1, recorded in `docs/version_2_plan.md` (stage 3, group G, 2026-10-18), into rules, tests and a new
 > criterion. The owner's decisions are quoted there and summarised in §1. Every form and number not marked as the
 > owner's is Claude's recommendation, graded `[I]`. It changes what a run computes, so it moves the engine hash and
-> every record regenerates once. Questions are Q1–Q9 in §8. The version 2 plan itself is not yet approved (its §5),
+> every record regenerates once. Questions are Q1–Q11 in §8. The version 2 plan itself is not yet approved (its §5),
 > so this proposal waits on that as well.
 
 ## 1. What the owner decided (2026-10-18)
@@ -119,14 +119,26 @@ anxiety, the build stops and reports to the owner. It does not write a cost to m
   `uncut_state`, on the first positive contact (§3.4) delivered when neither member holds rejection, or that brings
   the last of it to zero. A cut is "a tie in state `CUT_OFF`", not "a tie holding rejection". The nodal-event spike's
   narrowing (version 2 plan §1.2, item 3) reads the same test, and changes with it.
-- **A distant or conflicted tie.** `OPEN_CONFLICT` is entered as `DISTANT` is: after `hardening_run_length`
-  `CONFLICT` acts in a row (Claude's). Each such tie holds a repair progress `r` ∈ [0, 1]. A positive contact adds
-  `repair_step` (1/3, the owner's). A negative contact (`CONFLICT`, a rebuff read as `DISTANCE` toward the person, a
-  refusal) takes `repair_step` away, never below 0. At `r` = 1 the tie returns to `ORDINARY` and `r` resets. A
-  negative contact never makes the tie cut off. Cutoff comes only from a person choosing `CUTOFF` (D11).
-- **The stock on a tie that is not cut off.** D8 says current processes apply, so nothing in §3.1–§3.4 reaches it.
-  An earlier answer, "Principle of 2) applies to any tie - positive outcome - anxiety dissapates", said a positive
-  contact dissipates on any tie. The two answers differ, and Q2 asks which holds.
+- **A distant or conflicted tie: repair is the tie's anxiety level** (decided by the owner 2026-10-19, Q2: "The
+  positive contact ONLY impacts the tie's anxiety level"; one third per contact; repair is "the anxiety level", not a
+  separate measure). `OPEN_CONFLICT` is entered as `DISTANT` is: after `hardening_run_length` `CONFLICT` acts in a row
+  (Claude's, Q7). When a tie enters `DISTANT` or `OPEN_CONFLICT`, its stock at that week is recorded as the tie's
+  reference level `R`. Each positive contact (§3.4's positive kinds) removes `R`/3 from the stock, never below 0, and
+  touches nothing else: no person's anxiety, no third party. The removed part dissipates (`tie_repair_dissipation`,
+  `M6.4`). When the stock reaches 0, three positive contacts after entry with no renewal between, the tie returns to
+  `ORDINARY`. No separate repair count is kept, and no "low enough" constant is needed: the line is 0.
+- **The negative side** (the owner's "33% + or -", with D11's "governed by the anxiety the tie generates").
+  Proposed, Claude's, Q10: a negative contact on a distant or conflicted tie adds `R`/3 back, never above `R`; a
+  `DISTANCE` also binds as it does today, which may raise the stock past `R` and so raises `R` to it. A negative
+  contact never makes the tie cut off. Cutoff comes only from a person choosing `CUTOFF` (D11).
+- **A gap for conflicted ties.** `CONFLICT` binds nothing into the tie today, so a tie that enters `OPEN_CONFLICT`
+  after three `CONFLICT`s may hold no stock, and the first positive contact would repair it. Q11 asks whether
+  `CONFLICT` should bind part of the sender's excess as `DISTANCE` does. `config/bowen/event_kinds.md` reads conflict
+  as carrying both contact and distance ("people maintain contact and enforce distance at the same time", cited there
+  to `KS04.13`; the ledger entry `KS04.13` is about conflict externalising, so that citation should be checked).
+- **The stock on a tie that is neither cut off, distant nor conflicted** (`ORDINARY`, `RESOLVED_LOW_CONTACT`): Q2's
+  answer applies. A positive contact removes a third of the stock at that moment and touches nothing else. Proposed
+  form, Claude's: `s ← s × 2/3`, since an ordinary tie has no reference level.
 
 ### 3.7 Sizes (D2)
 
@@ -174,7 +186,7 @@ Test names carry the spec IDs assigned at the revision; `<id>` marks where.
 | A5 | `REDUCE_CUTOFF` moves none of the stock to any third party. | `tests/bowen/test_moves.py::test_m5b3_no_stock_reaches_the_third_party` |
 | A6 | Bridging raises a third party's own anxiety through the outlet's loss (§3.5). | `tests/bowen/test_moves.py::test_m5b3_third_party_cost_is_the_lost_outlet` (may stop the build, §3.5) |
 | A7 | A tie whose rejection fades to zero stays `CUT_OFF` until a positive contact, and keeps `s`. | `tests/bowen/test_rejection.py::test_m1b3c_faded_cutoff_waits_for_a_positive_contact` |
-| A8 | Three positive contacts return a `DISTANT` or `OPEN_CONFLICT` tie to `ORDINARY`; a negative contact sets progress back; no count of negatives cuts a tie off. | `tests/bowen/test_tie_repair.py::test_<id>_three_positive_contacts_repair` |
+| A8 | Three positive contacts take a `DISTANT` or `OPEN_CONFLICT` tie's stock from `R` to 0 and return it to `ORDINARY`, changing no person's anxiety; a negative contact adds `R`/3 back; no count of negatives cuts a tie off. | `tests/bowen/test_tie_repair.py::test_<id>_three_positive_contacts_repair` |
 | A9 | Three `CONFLICT`s in a row put a tie in `OPEN_CONFLICT`. | `tests/bowen/test_tie_repair.py::test_<id>_conflict_run_hardens` |
 | A10 | Every new source and sink balances in `M6.4`'s table every tick. | `tests/bowen/test_ledger.py::test_m6i6_transfers_balance_every_tick` and `::test_m64_every_stock_change_is_logged_by_name`, extended |
 | A11 | The new composite criterion (§4), over an ensemble, with its mutant in the Phase D mutation record. | the criterion's `ensemble` test; `docs/phase_d_mutation_record.md` |
@@ -216,6 +228,10 @@ chart (`docs/review/phase_c_chart_seed7.html`) before and after, with the cutoff
 2. **Q2. On a tie that is not cut off, does a positive contact dissipate bound anxiety?** Your answers say "any tie"
    (answer 3) and "current processes apply" (later). Recommended: a third per positive contact, so the stock clears
    as the tie is repaired.
+   **Answered 2026-10-19:** "The positive contact ONLY impacts the tie's anxiety level." Read: on a tie that is not
+   cut off, a positive contact acts on the tie's bound stock and on nothing else (no person's anxiety, no third
+   party). Then, by the owner's choice the same day: a third per positive contact, and repair is the tie's anxiety
+   level, not a separate measure (§3.6).
 3. **Q3. `REDUCE_CUTOFF` cannot be refused today.** Drop "a refused `REDUCE_CUTOFF`" from the mapping (recommended,
    and §3.4 already counts any refused move as negative), or make it refusable?
 4. **Q4. A stock above the cap at the cut:** dissipate the excess (recommended), or return it to the members?
@@ -227,3 +243,8 @@ chart (`docs/review/phase_c_chart_seed7.html`) before and after, with the cutoff
 8. **Q8. Sizes:** fix the cap from the measured stocks and derive the weight from the divorce anchor (§3.7)?
    Recommended: yes, after the Holmes–Rahe proposal's Q2.
 9. **Q9. Batch** this with G2 and the Holmes–Rahe sizes, so every record regenerates once? Recommended: yes.
+10. **Q10. The negative side on a distant or conflicted tie** (§3.6): a negative contact adds a third of `R` back, never
+    above `R`? Recommended: yes.
+11. **Q11. Should `CONFLICT` bind part of the sender's excess into the tie**, as `DISTANCE` does, so a conflicted tie
+    holds an anxiety level to repair? Recommended: yes, at a share below `DISTANCE`'s, since conflict also keeps
+    contact.

@@ -195,7 +195,10 @@ One proposal per chosen group from §1.1, written after the sweep reports. Candi
     third party's cost is the loss of their distancing outlet, not the stock: the bridged tie's stock dissipates, and
     the third party, who can no longer bind anxiety in that distance, carries more of their own. Recommended, Claude's:
     keep `M5.B.3`'s third-party cost in that form, where it emerges from the lost outlet, and drop the transfer of the
-    stock. Owner to confirm.
+    stock. **Decided by the owner, 2026-10-18:** "Yes: keep M5.B.3's third-party cost as the loss of the third party's
+    distancing outlet, and drop the transfer of the bound stock." The proposal restates `M5.B.3`'s last sentence to
+    this form, still citing `L22.6`, and a test shows a third party's own anxiety rising when the outlet is lost
+    without any of the stock reaching them.
 
     Still open:
     - The mapping of acts to negative and positive above.

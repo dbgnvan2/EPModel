@@ -242,6 +242,34 @@ One proposal per chosen group from §1.1, written after the sweep reports. Candi
       a distant or conflicted tie raises the receiver's rejection by a third of that threshold. Cutoff then follows from
       rejection the person holds, not from a rule that sets the tie's state. This changes `M1.B.3c`'s definition of a
       cut-off tie, as answer 3 does. The owner to say whether that is the meaning.
+
+    **The owner's answer, 2026-10-18** (verbatim): "A cutoff is a extreme form of distance. it takes >15 rejections or
+    10 conflicts in a row to create that level of "distance". Perhaps you need to related to level of anxiety induced
+    because cutoff is in response to high levels of anxiety and the person wanting relief. The pattern is this - the
+    relationship creates a lot of anxiety, which grows to the point, where cutting off lowers anxiety vs. the
+    relationship growing it. The cutoff brings some relief, but not 100%, because the person doesn't want to cutoff,
+    they are forced to by the anxiety."
+
+    This replaces the two proposals just above. **Withdrawn:** the cut-off line at `rejection_refusal_threshold`, and a
+    negative contact adding a third of it. Revised reading and recommendation, Claude's, to confirm:
+    - **Cutoff stays a choice driven by anxiety, not a count.** A person cuts off when the anxiety the tie generates
+      has grown until cutting off relieves more than staying. That is how the model is meant to produce cutoff already:
+      `CUTOFF` is an act selected and learned from felt relief (§19), and `M4.C.1c` makes its relief partial, since it
+      removes the "too much" side at once while the "too little" side builds over time. So no new rule is needed for
+      the pattern itself; negative contacts across the tie feed it by raising the anxiety the tie generates.
+    - **The owner's figures become a check, not a rule.** A readout counts, on each tie, the negative contacts in a
+      row before its first cutoff: rebuffs (read as `DISTANCE` toward the person, to confirm) and `CONFLICT`s. It is
+      reported against the owner's reference (more than 15 rebuffs or 10 conflicts in a row). A rule that cut a tie
+      off at the 10th conflict would write the pattern. Whether the readout gates, as a composite criterion asserting
+      that cut-off ties had longer negative runs than ties not cut off, is the owner's.
+    - **The model is likely far from the reference now.** `TODO.md` records ties cut within weeks (`M11.C.10`'s uncut
+      baseline) and the couple's tie in the Phase C family held cut off in 82–89% of last-year weeks. If the readout
+      confirms that cutoff comes after a few contacts rather than ten or more, the cause is how fast a tie's anxiety
+      grows against how much a cutoff relieves, which is the stage 2 sweep's question (`rejection_cutoff_gain`,
+      `M4.C.1`'s deviation function), not a new rule.
+    - **Still to confirm:** that repair stays at three positive contacts for a distant or conflicted tie (answer 2b's
+      33%), with the negative side now governed by anxiety as above; and that the readout is wanted before G1 is built,
+      so G1's effect on it can be seen.
   - **G2. Releases split equally, ignoring the tie.** `release_bound` and the lock-in spill divide by the number of
     interactive partners (`symptoms.py:147`, `symptoms.py:198`). The coach, whose tie to Marta has conductance 0.3 and
     bond energy 10 (`config/bowen/family_phase_c.md`), took the same 63.6 as Nadia. The learner's cross-person term

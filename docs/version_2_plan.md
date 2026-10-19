@@ -270,6 +270,24 @@ One proposal per chosen group from §1.1, written after the sweep reports. Candi
     - **Still to confirm:** that repair stays at three positive contacts for a distant or conflicted tie (answer 2b's
       33%), with the negative side now governed by anxiety as above; and that the readout is wanted before G1 is built,
       so G1's effect on it can be seen.
+
+    **Decided by the owner, 2026-10-18:** "Make it a composite criterion: cut-off ties had longer runs of negative
+    contacts before cutoff than ties not cut off." A new `M11.C` criterion in version 2's first spec revision (its ID
+    is assigned there). Composite, because cutoff is emergent (§19). Design points for the proposal, Claude's:
+    - **Its form differs from most criteria.** It compares two groups of ties within the same runs, not two arms, as
+      `M11.C.2` compares children. It asserts the direction only; the owner's 15 and 10 are reported beside it as the
+      owner's reference, graded `[I]`, and do not gate.
+    - **The comparison must not be biased by its own selection.** A cut-off tie's run is counted up to the cutoff; a
+      tie never cut off would otherwise be counted over the whole run and have more weeks to build a long run.
+      Proposed: for each cutoff, compare the run before it against the longest run on the same seed's uncut ties over
+      the same weeks, paired per seed. Ties with no contact in the window are reported, not dropped.
+    - **What counts as negative.** `CONFLICT` and rebuffs received across the tie; rebuffs read as `DISTANCE` toward
+      the person, still to confirm. A refused move counts too once the tie holds rejection, but by then it is cut off.
+    - **Its mutation.** A mutant in which cutoff no longer depends on the anxiety the tie has built (the "too much" side
+      of `M4.C.1` read as zero when choosing `CUTOFF`, or a fixed `CUTOFF` propensity) should turn it red. If no mutant
+      bites, the criterion is not counted as covered (W3).
+    - **Where it is expected to stand.** From the `TODO.md` evidence above, cutoff now comes quickly, so the criterion
+      may fail at version 1's code. That would be a finding to report, measured before G1 is built and again after.
   - **G2. Releases split equally, ignoring the tie.** `release_bound` and the lock-in spill divide by the number of
     interactive partners (`symptoms.py:147`, `symptoms.py:198`). The coach, whose tie to Marta has conductance 0.3 and
     bond energy 10 (`config/bowen/family_phase_c.md`), took the same 63.6 as Nadia. The learner's cross-person term

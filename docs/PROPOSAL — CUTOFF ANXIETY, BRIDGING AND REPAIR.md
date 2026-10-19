@@ -4,7 +4,7 @@
 > answers on G1, recorded in `docs/version_2_plan.md` (stage 3, group G, 2026-10-18), into rules, tests and a new
 > criterion. The owner's decisions are quoted there and summarised in §1. Every form and number not marked as the
 > owner's is Claude's recommendation, graded `[I]`. It changes what a run computes, so it moves the engine hash and
-> every record regenerates once. Questions are Q1–Q11 in §8. The version 2 plan itself is not yet approved (its §5),
+> every record regenerates once. Questions are Q1–Q11 in §8; Q1–Q3, Q5, Q10 and Q11 are decided, Q4 and Q6–Q9 are open. The version 2 plan itself is not yet approved (its §5),
 > so this proposal waits on that as well.
 
 ## 1. What the owner decided (2026-10-18)
@@ -38,7 +38,7 @@ Checked 2026-10-19 against the working tree.
   cutoff that fades is repaired without a contact.
 - **Refusal.** A move to someone whose rejection of the sender is above `rejection_refusal_threshold` (0.3) is
   refused, except `CUTOFF` and `REDUCE_CUTOFF` (`NEVER_REFUSED`, `rejection.py`). **So a `REDUCE_CUTOFF` can never be
-  refused**, and the approved mapping's "a `REDUCE_CUTOFF` the other refuses" cannot happen (Q3).
+  refused**, and the approved mapping's "a `REDUCE_CUTOFF` the other refuses" cannot happen (Q3; decided: dropped from the mapping).
 - **Tie states.** `DISTANT` is entered after `hardening_run_length` (3) `DISTANCE` acts in a row
   (`consolidate.py`) and left only by reconciliation. `OPEN_CONFLICT` is declared and never entered.
 - **The cost of a cutoff that exists.** `M4.C.1c`: a cut tie's "too little" side builds over time since contact, so
@@ -95,7 +95,7 @@ Both directions count: a contact from either member to the other.
 | any move refused (`rejection.refuse`) | negative | as above |
 | `REDUCE_CUTOFF` delivered | positive | `s ← 0.2 × s`; 80% dissipates, `cutoff_bridge_dissipation` |
 | `STAY-IN-CONTACT` delivered | positive | as above |
-| reconciliation event (`M4.A.3`) | positive | as above (but see Q5) |
+| reconciliation event (`M4.A.3`) | positive | ends the cut; the stock returns to both members (`M1.D.2a`(c); Q5, decided) |
 
 At most one bridging effect applies per tie per week. If a week holds both a positive and a negative contact, the
 negative applies (Q6).
@@ -128,12 +128,14 @@ anxiety, the build stops and reports to the owner. It does not write a cost to m
   `M6.4`). When the stock reaches 0, three positive contacts after entry with no renewal between, the tie returns to
   `ORDINARY`. No separate repair count is kept, and no "low enough" constant is needed: the line is 0.
 - **The negative side** (the owner's "33% + or -", with D11's "governed by the anxiety the tie generates").
-  Proposed, Claude's, Q10: a negative contact on a distant or conflicted tie adds `R`/3 back, never above `R`; a
+  Decided 2026-10-19 (Q10, Claude's recommendation accepted): a negative contact on a distant or conflicted tie adds `R`/3 back, never above `R`; a
   `DISTANCE` also binds as it does today, which may raise the stock past `R` and so raises `R` to it. A negative
   contact never makes the tie cut off. Cutoff comes only from a person choosing `CUTOFF` (D11).
-- **A gap for conflicted ties.** `CONFLICT` binds nothing into the tie today, so a tie that enters `OPEN_CONFLICT`
-  after three `CONFLICT`s may hold no stock, and the first positive contact would repair it. Q11 asks whether
-  `CONFLICT` should bind part of the sender's excess as `DISTANCE` does. `config/bowen/event_kinds.md` reads conflict
+- **Conflict binds** (Q11, decided 2026-10-19). `CONFLICT` binds nothing into the tie today, so a tie that enters
+  `OPEN_CONFLICT` after three `CONFLICT`s could hold no stock, and the first positive contact would repair it. Decided:
+  `CONFLICT` binds part of the sender's excess into the tie, as `DISTANCE` does, at a share below `DISTANCE`'s
+  (`conflict_binding_rate` < `distance_binding_rate`, a new constant graded `[I]`), since conflict keeps contact as
+  well as enforcing distance. `config/bowen/event_kinds.md` reads conflict
   as carrying both contact and distance ("people maintain contact and enforce distance at the same time", cited there
   to `KS04.13`; the ledger entry `KS04.13` is about conflict externalising, so that citation should be checked).
 - **The stock on a tie that is neither cut off, distant nor conflicted** (`ORDINARY`, `RESOLVED_LOW_CONTACT`): Q2's
@@ -182,7 +184,7 @@ Test names carry the spec IDs assigned at the revision; `<id>` marks where.
 | A1 | A cut-off tie's members carry `cutoff_threat` proportional to `s` and bond energy; members of a tie not cut off carry none. | `tests/bowen/test_cutoff_stock.py::test_<id>_threat_weighs_only_while_cut_off` |
 | A2 | `s` never exceeds the cap on a cut-off tie; a `DISTANCE` into a full stock leaves the distancer the remainder. | `::test_<id>_stock_capped_and_distancer_keeps_the_rest` |
 | A3 | From its peak, `s` is within 1e-9 of 10% of the peak at week 260, and unchanged at week 520 with no contact. | `::test_<id>_decays_to_floor_and_stays` |
-| A4 | Each negative contact kind in §3.4 returns `s` to `P`; each positive kind leaves 20% of `s`. | `::test_<id>_bridging_negative_and_positive` (parametrised over the six rows) |
+| A4 | Each negative contact kind in §3.4 returns `s` to `P`; each positive kind leaves 20% of `s`. | `::test_<id>_bridging_negative_and_positive` (parametrised over the five contact rows) |
 | A5 | `REDUCE_CUTOFF` moves none of the stock to any third party. | `tests/bowen/test_moves.py::test_m5b3_no_stock_reaches_the_third_party` |
 | A6 | Bridging raises a third party's own anxiety through the outlet's loss (§3.5). | `tests/bowen/test_moves.py::test_m5b3_third_party_cost_is_the_lost_outlet` (may stop the build, §3.5) |
 | A7 | A tie whose rejection fades to zero stays `CUT_OFF` until a positive contact, and keeps `s`. | `tests/bowen/test_rejection.py::test_m1b3c_faded_cutoff_waits_for_a_positive_contact` |
@@ -192,6 +194,8 @@ Test names carry the spec IDs assigned at the revision; `<id>` marks where.
 | A11 | The new composite criterion (§4), over an ensemble, with its mutant in the Phase D mutation record. | the criterion's `ensemble` test; `docs/phase_d_mutation_record.md` |
 | A12 | The seed-7 week-74 release no longer happens: no one gains the stock of a bridged tie. | `tests/bowen/test_cutoff_stock.py::test_<id>_seed7_week74_no_stock_transfer` (a fixed-seed regression check, P23) |
 | A13 | The nodal-event spike reads `CUT_OFF`, not rejection. | `tests/bowen/test_mechanisms.py::test_m4c1c_spike_follows_cut_off_state` |
+| A14 | A reconciliation on a cut-off tie returns its whole stock to the two members; none dissipates (Q5). | `tests/bowen/test_cutoff_stock.py::test_m1d2a_reconciliation_returns_stock_to_members` |
+| A15 | A `CONFLICT` binds part of the sender's excess into the tie, less than a `DISTANCE` from the same state binds (Q11). | `tests/bowen/test_tie_repair.py::test_<id>_conflict_binds_less_than_distance` |
 
 Not code-testable: whether the sizes in §3.7 read as "around a divorce" to the owner. Proposed review: the seed-7
 chart (`docs/review/phase_c_chart_seed7.html`) before and after, with the cutoff weeks marked.
@@ -202,7 +206,8 @@ chart (`docs/review/phase_c_chart_seed7.html`) before and after, with the cutoff
    run once, so the before is recorded. The readout lives in `src/bowen/readouts/`, so it does not move the engine
    hash. It also measures the stock sizes §3.7 needs.
 2. **Spec revision** (version 2's first): `M1.B.3c` (the definition of cut, repair), `M1.B.3` (`OPEN_CONFLICT`'s
-   entry), `M1.D.2a` (Q5), `M5.B.3` (D7), `M6.4` (five new sources and sinks), `M4.C.1c` (the spike's test), a new
+   entry), `M1.D.2a` ((a) overridden on cut-off ties; (c) kept, Q5), `M5.B.3` (D7), `M6.4` (the new sources and sinks, and
+   conflict binding), a new requirement for `CONFLICT` binding (Q11), `M4.C.1c` (the spike's test), a new
    requirement for §3.1, and the new criterion. `docs/model_explainer.md`, `config/bowen/constants.md`,
    `constants_changes.md` and `docs/readouts_phase_c.md` change with it.
 3. **Build**, tests first (§5). Batched with G2 and the Holmes–Rahe sizes if the owner takes them, so every record
@@ -217,8 +222,8 @@ chart (`docs/review/phase_c_chart_seed7.html`) before and after, with the cutoff
   to the person if distancing is prevented. D3's decay and D4's 80% dissipation break (a) on a cut-off tie. Treating
   reconciliation as a positive bridge breaks (c), since reconciliation is the model's "distancing prevented". The
   binding itself still destroys nothing, which is `M1.D.2a`'s failing condition. Recommended: the owner's decision
-  overrides (a) on cut-off ties and is recorded as the owner's, graded `[I]`, beside `M1.D.2a`'s `[K]` grade. Q5 asks
-  about (c).
+  overrides (a) on cut-off ties and is recorded as the owner's, graded `[I]`, beside `M1.D.2a`'s `[K]` grade. On (c),
+  the owner decided (Q5, 2026-10-19) to keep it: reconciliation returns the stock to both members, so (c) holds.
 - **`M5.B.3` (`L22.6`, `[T]`)**: kept, in the form D7 decided (§3.5).
 
 ## 8. Questions for the owner
@@ -233,10 +238,11 @@ chart (`docs/review/phase_c_chart_seed7.html`) before and after, with the cutoff
    party). Then, by the owner's choice the same day: a third per positive contact, and repair is the tie's anxiety
    level, not a separate measure (§3.6).
 3. **Q3. `REDUCE_CUTOFF` cannot be refused today.** Drop "a refused `REDUCE_CUTOFF`" from the mapping (recommended,
-   and §3.4 already counts any refused move as negative), or make it refusable?
+   and §3.4 already counts any refused move as negative), or make it refusable? **Decided 2026-10-19: dropped.**
 4. **Q4. A stock above the cap at the cut:** dissipate the excess (recommended), or return it to the members?
 5. **Q5. Reconciliation:** a positive bridge whose 80% dissipates (as the mapping you approved says), or keep
    `M1.D.2a`(c), with the stock returned to the members (recommended, since it keeps a Kerr-sourced rule)?
+   **Decided 2026-10-19: keep `M1.D.2a`(c); the stock returns to the members.**
 6. **Q6. A positive and a negative contact in the same week:** the negative applies (recommended), or they cancel?
 7. **Q7. `OPEN_CONFLICT` entered by three `CONFLICT`s in a row**, as `DISTANT` is by three `DISTANCE`s? Recommended:
    yes.
@@ -244,7 +250,7 @@ chart (`docs/review/phase_c_chart_seed7.html`) before and after, with the cutoff
    Recommended: yes, after the Holmes–Rahe proposal's Q2.
 9. **Q9. Batch** this with G2 and the Holmes–Rahe sizes, so every record regenerates once? Recommended: yes.
 10. **Q10. The negative side on a distant or conflicted tie** (§3.6): a negative contact adds a third of `R` back, never
-    above `R`? Recommended: yes.
+    above `R`? Recommended: yes. **Decided 2026-10-19: yes.**
 11. **Q11. Should `CONFLICT` bind part of the sender's excess into the tie**, as `DISTANCE` does, so a conflicted tie
     holds an anxiety level to repair? Recommended: yes, at a share below `DISTANCE`'s, since conflict also keeps
-    contact.
+    contact. **Decided 2026-10-19: yes, at a smaller share than `DISTANCE`'s.**

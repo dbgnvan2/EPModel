@@ -76,19 +76,32 @@ revisions, not here.
 
 ### Stage 0 — Freeze version 1 and close its loose ends (no engine change)
 
+*Done 2026-10-19: 0.1 and 0.2 done, 0.3 moved to stage 1.*
+
+
 - **0.1** Mark the version 1 record so later regenerations cannot change it. Today `tests/test_version_1_status.py`
   fails when `docs/version_1_status.md` differs from what `tools/version_1_status.py` renders from the current
   records, so the first engine change in version 2 turns it red or rewrites it. Proposed: a git tag `version-1` at
   `a3e8169`; `docs/version_1_status.md` kept as committed, with its test changed to check it against the records at the
   tag (or its staleness test retired with a "frozen" status line). Owner question Q8. **Decided 2026-10-19:** the
-  tag `version-1` at `a3e8169`, pushed at stage 0, and the status page kept as the record. See §7 on the tag's commit.
+  tag `version-1`, pushed at stage 0, and the status page kept as the record. *Done 2026-10-19.* The owner moved the
+  tag to `d62cfdc`, the commit that records stage 0.2 (same engine, config and records as `a3e8169`), and chose the
+  test's form: `tests/test_version_1_status.py` checks that the tag marks `d62cfdc`, that the committed page and
+  `docs/version_1_dispositions.md` are byte-identical to the tag's, and runs the tag's own status tests in a copy of
+  the tagged tree. `tools/version_1_status.py` refuses to write, and CI checks out with `fetch-depth: 0` so the tag is
+  there.
 - **0.2** The owner's decisions on §1.2's three items, recorded in `docs/version_1_dispositions.md` and `TODO.md`.
   *Done 2026-10-19*, with `docs/version_1_status.md` regenerated (render only).
-- **0.3** Render-only fixes that need no rerun (`docs/records_cache/`): the D2 record prints `M11.C.10`'s two variants
+- **0.3** ~~Render-only fixes that need no rerun (`docs/records_cache/`)~~ *Moved to stage 1 (1.7), owner 2026-10-19.
+  Neither is render-only. The D2 record's renderer is `tools/phase_d_record.py`, which is in the Phase D records' own
+  `code_hash`, and those records are not cached, so changing it reruns parts I and II. The trace renderer is
+  `src/bowen/render/trace.py`, and `code_hash` covers every `.py` file under `src/bowen`, so changing it moves the
+  engine hash and every record reruns.* The two fixes: the D2 record prints `M11.C.10`'s two variants
   under one id; and the trace hides lock-in. `src/bowen/render/trace.py` lists lock-in among the mechanisms that run
   every week and are not shown line by line, so in the seed-7 trace week 74 shows Marta +226.4 and nothing of the 222.4
   her lock-in spill moved on to five partners (§3, group G). Proposed: show a lock-in transfer above a declared size,
-  or any spill past the turn, as its own row. Regenerates the seed-7 trace and its chart only.
+  or any spill past the turn, as its own row. ~~Regenerates the seed-7 trace and its chart only.~~ *Regenerates with
+  stage 1's run.*
 
 ### Stage 1 — One engineering batch that moves the engine hash once
 
@@ -106,6 +119,12 @@ any that does is reported as a measured change.
   record cannot be regenerated (gate G2's fragment); record-parsing duplication (about six copies of the regex).
 - **1.6** Retire the frozen grid engine (Q6; **decided 2026-10-19: yes**): `src/engine.py`, its tests and its purity
   violation (`sim_audit.csv`). Version 1 passing its acceptance tests is the condition `CLAUDE.md` set for this.
+- **1.7** Stage 0.3's two fixes (moved here, owner 2026-10-19): the lock-in transfer as its own trace row, and
+  `M11.C.10`'s two variants under their own keys in the D2 record. Both regenerate with this stage's one run.
+- **1.8** Render fixes made cheap (owner 2026-10-19): take `src/bowen/render/` out of `code_hash`, and cache the Phase D
+  ensemble results in `docs/records_cache/` as the Phase C records' are, so a later change to the trace renderer or a
+  record renderer re-renders in seconds. No verdict reads the trace renderer: only `src/bowen/run.py`'s `--trace` and
+  the trace tools import it. Changing the hash's definition makes every record stale, so it belongs in this stage's run.
 
 ### Stage 2 — Measurement (Phase E core)
 
@@ -406,7 +425,7 @@ All ten answered by the owner on 2026-10-19.
    scoped.**
 8. **Freezing version 1:** a git tag `version-1` at `a3e8169`, pushed, and `docs/version_1_status.md` kept as the
    record (recommended)? A tag push is outward-facing, so it waits for your yes. **Answered: yes, the tag pushed at
-   stage 0.** See §7 on which commit the tag marks.
+   stage 0.** The commit was then moved to `d62cfdc` (§7; stage 0.1).
 9. **The spec file.** Version 2's revisions continue in `docs/bowen_agent_model_spec_v2.md` as revision 33 onward, with
    its status line saying version 2 begins at revision 33 (recommended), or a new file? Note the naming: the file's
    "v2.0" is the agent-model spec's own version, not the model's version 2. **Answered: the same file, revision 33
@@ -418,7 +437,7 @@ All ten answered by the owner on 2026-10-19.
 
 | Step | Depends on | Changes the engine hash | Regeneration |
 |---|---|---|---|
-| Stage 0 (freeze, loose ends, render-only fixes) | Q8, Q10 | no | render only |
+| Stage 0 (freeze, loose ends; 0.3 moved to stage 1) | Q8, Q10 | no | render only |
 | Stage 1 (engineering batch) | Q6 | yes | one full (about 2 hours, 10 cores, plus the mutation records) |
 | Group G and the event sizes, taken (owner 2026-10-19; proposals → one revision → build) | stage 1, Q2, G2's proposal (G1's and the event-size proposal's questions are all decided) | yes | one full, shared |
 | Stage 2.2 pilot | stage 1, group G built (owner 2026-10-19), Q3 | no | pilot only; timed and reported before 2.1 |
@@ -433,11 +452,13 @@ so it does not run on a hash that is about to move.
 
 - ~~`docs/version_1_dispositions.md`'s status line reads "complete" while four rows are notes "pending owner review"
   (§1.2).~~ *Resolved 2026-10-19: the owner decided the four notes, and the status line says so.*
-- **The tag's commit (found 2026-10-19, after Q8 was answered).** `a3e8169` precedes stage 0.2, so at that commit
+- ~~**The tag's commit (found 2026-10-19, after Q8 was answered).**~~ *Resolved 2026-10-19: the owner chose `d62cfdc`
+  and a test that renders at the tag (stage 0.1).* `a3e8169` precedes stage 0.2, so at that commit
   the status page still shows the four notes as pending and has no `M11.C.46` note. If stage 0.1's test checks the
   committed page against what the tool renders at the tag, the two will differ. Either the tag marks the commit that
   records stage 0.2, or the test compares against the page as it stands at the tag. Stage 0.1 asks the owner which
   before the tag is pushed.
-- `tests/test_version_1_status.py` will go red at the first engine change in version 2 (stage 0.1 addresses it).
+- ~~`tests/test_version_1_status.py` will go red at the first engine change in version 2 (stage 0.1 addresses it).~~
+  *Resolved 2026-10-19 by stage 0.1: the test now reads the tag, not the working tree.*
 - The constant count in §1.3 is a count of tagged lines, not of distinct constants; the sweep's design step counts them
   properly from the register.

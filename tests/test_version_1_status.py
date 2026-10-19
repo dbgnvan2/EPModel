@@ -1,153 +1,63 @@
-"""The version 1 status page is current, covers every criterion, and applies V1-V3 as the definition states.
+"""Version 1's status page is frozen at the tag `version-1`, and the checks that made it final still pass there.
 
-Purpose: fail when docs/version_1_status.md is not what tools/version_1_status.py renders from the committed records
-         and dispositions, when a spec criterion has no row, or when the tool would accept a failing premise as a
-         finding, count a pending disposition as final, or pass a composite with no recorded mutation.
-Spec:    docs/version_1_definition.md#1 (V1, V2, V3)
+Purpose: version 1 ends at the tag `version-1` (d62cfdc, owner 2026-10-19). Version 2 regenerates the records the
+         page is rendered from, so the page is no longer checked against the working tree. Instead the tag must mark
+         that commit, the committed page and the dispositions it was rendered from must be byte-identical to the tag's,
+         and the tag's own status tests (the page is what the tool renders, every criterion has a row, V1-V3's
+         refusals) must pass when run in a copy of the tagged tree. A missing tag fails; it is never skipped.
+Spec:    docs/version_1_definition.md#1 (V1, V2, V3); docs/version_2_plan.md#stage-0 (0.1)
 Tests:   this file
 """
 
 from __future__ import annotations
 
-import copy
-import importlib.util
+import io
+import os
+import re
+import subprocess
 import sys
+import tarfile
 from pathlib import Path
-from unittest import mock
-
-import pytest
 
 REPO = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(REPO))
-_spec = importlib.util.spec_from_file_location("tools.version_1_status", REPO / "tools" / "version_1_status.py")
-tool = importlib.util.module_from_spec(_spec)
-sys.modules[_spec.name] = tool
-_spec.loader.exec_module(tool)
+TAG = "version-1"
+TAG_COMMIT = "d62cfdc0d4918a5da38d4321e1fd7be1485fafc7"
+FROZEN = ("docs/version_1_status.md", "docs/version_1_dispositions.md")
+TAGGED_TESTS = "tests/test_version_1_status.py"
+# What the tag's status tests read: the tool and the record tools it loads, the records, dispositions and spec, the
+# code's criterion registries and the config they load, the test files the tool checks by name, and pytest.ini.
+ARCHIVED = ("pytest.ini", "src", "config", "tools", "tests", "docs")
 
 
-def _by_key(rows):
-    return {s.key: s for s in rows}
+def _git(*args: str) -> bytes:
+    result = subprocess.run(["git", *args], cwd=REPO, capture_output=True, timeout=120)
+    assert result.returncode == 0, (
+        f"git {' '.join(args)} failed: {result.stderr.decode(errors='replace').strip()}\n"
+        f"The tag `{TAG}` must be present locally (git fetch --tags); CI checks out with fetch-depth 0.")
+    return result.stdout
 
 
-def test_v1_status_page_is_current():
-    assert tool.render(tool.statuses()) == tool.PAGE.read_text(encoding="utf-8"), \
-        "stale or edited: rerun python3 tools/version_1_status.py"
+def test_v1_the_tag_marks_the_commit_the_owner_chose():
+    assert _git("rev-parse", f"{TAG}^{{commit}}").decode().strip() == TAG_COMMIT
 
 
-def test_v1_every_spec_criterion_has_a_status_row():
-    rows = tool.statuses()
-    bases = {s.key.split("[", 1)[0] for s in rows}
-    assert set(tool.spec_criteria()) <= bases
-    assert all(s.status for s in rows)
+def test_v1_the_committed_page_and_dispositions_are_the_tags():
+    for path in FROZEN:
+        assert (REPO / path).read_bytes() == _git("show", f"{TAG}:{path}"), (
+            f"{path} differs from the tag {TAG}: version 1's record is frozen; "
+            f"restore it with git checkout {TAG} -- {path}")
 
 
-def _with_row(key, **changes):
-    """The committed record rows with one row's outcome, or one readout's ``holds``, changed (a synthetic input)."""
-    rows = []
-    for k, source, row in tool.record_rows():
-        if k == key:
-            row = copy.deepcopy(row)
-            for readout in changes.pop("fail_readouts", ()):
-                next(r for r in row["readouts"] if r["readout"] == readout)["holds"] = False
-            row.update(changes)
-        rows.append((k, source, row))
-    return rows
-
-
-def _a_passing(cls):
-    return next(k for k, _, r in tool.record_rows() if r["class"] == cls and r["outcome"] == "PASS")
-
-
-def test_v1_a_failing_premise_cannot_be_accepted_as_a_finding():
-    """V2: a failing premise is a defect. Adversarial: the disposition that would make it look settled is refused.
-    The failing row is synthetic, so the test does not depend on which premises fail today."""
-    key = _a_passing("premise")
-    fake = {**tool.dispositions(), key: {"kind": "accepted finding", "owner": True, "decided": "owner 2026-10-17",
-                                         "reason": "x"}}
-    with mock.patch.object(tool, "record_rows", return_value=_with_row(key, outcome="FAIL")), \
-            mock.patch.object(tool, "dispositions", return_value=fake), pytest.raises(SystemExit, match="V2"):
-        tool.statuses()
-
-
-def test_v1_a_mixed_criterions_failing_premise_limb_blocks_v2_and_cannot_be_accepted():
-    """A mixed criterion whose declared premise limb does not hold is a failing premise: with `M11.C.22`'s severe
-    limb failing, its proposed acceptance is refused; with no disposition, the row blocks V2."""
-    rows = _with_row("M11.C.22", outcome="FAIL", fail_readouts=("severe_removal_effect",))
-    accepted = {**tool.dispositions(), "M11.C.22": {"kind": "accepted finding", "owner": True,
-                                                     "decided": "owner 2026-10-17", "reason": "x"}}
-    with mock.patch.object(tool, "record_rows", return_value=rows), \
-            mock.patch.object(tool, "dispositions", return_value=accepted), pytest.raises(SystemExit, match="premise limb"):
-        tool.statuses()
-    bare = {k: v for k, v in tool.dispositions().items() if k != "M11.C.22"}
-    with mock.patch.object(tool, "record_rows", return_value=rows), mock.patch.object(tool, "dispositions",
-                                                                                      return_value=bare):
-        row = _by_key(tool.statuses())["M11.C.22"]
-    assert "V2" in row.blocks and not row.final
-
-
-def test_v1_a_disposition_that_cannot_apply_is_refused():
-    """P2: a disposition is never skipped silently. Out of scope on a built criterion, and a base id whose rows are
-    all variants, both raise."""
-    real = tool.dispositions()
-    built = {**real, "M11.C.5": {**real["M11.C.5"], "kind": "out of scope"}}
-    with mock.patch.object(tool, "dispositions", return_value=built), pytest.raises(SystemExit, match="out of scope"):
-        tool.statuses()
-    base = {**real, "M11.C.27": {"kind": "accepted finding", "owner": True, "decided": "owner 2026-10-17",
-                                 "reason": "x"}}
-    with mock.patch.object(tool, "dispositions", return_value=base), pytest.raises(SystemExit, match="variants"):
-        tool.statuses()
-
-
-def test_v1_a_row_after_a_break_in_the_dispositions_table_raises(tmp_path):
-    text = tool.DISPOSITIONS.read_text(encoding="utf-8")
-    first = text.index("| `M11.C.13` |")
-    broken = tmp_path / "dispositions.md"
-    broken.write_text(text[:first] + "\n" + text[first:], encoding="utf-8")
-    with mock.patch.object(tool, "DISPOSITIONS", broken), pytest.raises(SystemExit, match="break"):
-        tool.dispositions()
-
-
-def test_v1_a_registered_criterion_with_no_record_row_means_stale_records():
-    with mock.patch.object(tool, "registered", return_value=tool.registered() | {"M11.C.1[not run]"}), \
-            pytest.raises(SystemExit, match="stale"):
-        tool.statuses()
-
-
-def test_v1_a_pending_acceptance_is_not_final_and_an_owner_acceptance_is():
-    """The same failing composite, with its acceptance pending and then decided by the owner. The rows are synthetic
-    (`M11.C.5`'s disposition set each way), so the test does not depend on which rows the owner has decided."""
-    real = tool.dispositions()
-    base = {**real["M11.C.5"], "kind": "accepted finding"}
-    pending = {**real, "M11.C.5": {**base, "owner": False, "decided": "Claude's recommendation 2026-10-17, pending owner review"}}
-    owned = {**real, "M11.C.5": {**base, "owner": True, "decided": "owner 2026-10-17"}}
-    with mock.patch.object(tool, "dispositions", return_value=pending):
-        row = _by_key(tool.statuses())["M11.C.5"]
-    assert not row.final and row.blocks == {"V1"}
-    with mock.patch.object(tool, "dispositions", return_value=owned):
-        row = _by_key(tool.statuses())["M11.C.5"]
-    assert row.final and not row.blocks
-
-
-def test_v1_a_passing_composite_with_no_red_mutant_blocks_v3():
-    """Adversarial: with every recorded mutant removed, no passing composite or mixed row may count as final."""
-    with mock.patch.object(tool, "red_mutants", return_value={}):
-        rows = tool.statuses()
-    passing = [s for s in rows if s.verdict == "PASS" and s.cls in tool.DIRECTIONAL]
-    assert passing and all("V3" in s.blocks and not s.final for s in passing)
-
-
-def test_v1_a_disposition_on_a_passing_criterion_is_refused():
-    """P6: a disposition that no longer applies must be removed, not left standing beside a pass."""
-    fake = {**tool.dispositions(), "M11.C.16": {"kind": "accepted finding", "owner": True,
-                                                 "decided": "owner 2026-10-17", "reason": "x"}}
-    with mock.patch.object(tool, "dispositions", return_value=fake), pytest.raises(SystemExit, match="passes"):
-        tool.statuses()
-
-
-def test_v1_a_spec_criterion_no_record_lists_is_flagged_not_built():
-    """A criterion that is in the spec and in no record or not-built list (as `M11.C.46` was) gets a row that says
-    so, and a premise among them blocks V2."""
-    extra = {**tool.spec_criteria(), "M11.C.99": "premise"}
-    with mock.patch.object(tool, "spec_criteria", return_value=extra):
-        row = _by_key(tool.statuses())["M11.C.99"]
-    assert row.status == "not built" and "no record lists it" in row.evidence and "V2" in row.blocks
+def test_v1_the_tags_status_tests_pass_in_a_copy_of_the_tagged_tree(tmp_path):
+    with tarfile.open(fileobj=io.BytesIO(_git("archive", "--format=tar", TAG, *ARCHIVED))) as tar:
+        tar.extractall(tmp_path, filter="data")
+    expected = set(re.findall(r"^def (test_\w+)\(", (tmp_path / TAGGED_TESTS).read_text(encoding="utf-8"), re.M))
+    assert expected, f"{TAGGED_TESTS} at {TAG} defines no tests"
+    env = {k: v for k, v in os.environ.items() if k != "PYTHONPATH"}
+    result = subprocess.run(
+        [sys.executable, "-m", "pytest", TAGGED_TESTS, "-q", "-rA", "-p", "no:cacheprovider"],
+        cwd=tmp_path, env=env, capture_output=True, text=True, timeout=600)
+    tail = "\n".join(result.stdout.splitlines()[-30:])
+    assert result.returncode == 0, f"the status tests fail at {TAG}:\n{tail}\n{result.stderr[-2000:]}"
+    passed = set(re.findall(rf"^PASSED {re.escape(TAGGED_TESTS)}::(\w+)", result.stdout, re.M))
+    assert passed == expected, f"at {TAG}, not passed: {sorted(expected - passed)}\n{tail}"

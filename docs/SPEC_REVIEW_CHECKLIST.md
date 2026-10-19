@@ -154,7 +154,7 @@ verdicts over ensembles (`tools/phase_d_record.py`; plan step 12). Mutations are
 
 **For review, 2026-10-17:** [REVIEW_version_1_outputs.md](REVIEW_version_1_outputs.md) — version 1's condition V7: every kind of output, the framing it carries (`M11.F.9`, `M11.F.10`), checked by `tests/test_version_1_outputs.py`, and the owner's sign-off.
 
-**Generated, 2026-10-17:** [version_1_status.md](version_1_status.md) — every `M11.C` criterion with its status under V1–V3, read from the ensemble and mutation records and the dispositions, from `tools/version_1_status.py`; a default-suite test fails when it is stale.
+**Generated, 2026-10-17:** [version_1_status.md](version_1_status.md) — every `M11.C` criterion with its status under V1–V3, read from the ensemble and mutation records and the dispositions, from `tools/version_1_status.py`. Frozen at the tag `version-1` (`d62cfdc`) since 2026-10-19: a default-suite test checks it and the dispositions against the tag and runs the tag's status tests.
 
 **Draft for review, 2026-10-18:** [version_2_plan.md](version_2_plan.md) — what version 2 of the agent model is for: version 1's accepted findings grouped by cause, its loose ends, four stages (freeze version 1, one engineering batch, the constant sweep, the rule questions the owner chooses), a proposed definition (W1–W8), and ten questions for the owner.
 

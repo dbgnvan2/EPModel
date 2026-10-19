@@ -4,6 +4,18 @@ All notable changes to this project are recorded here. Dates are ISO.
 
 ## [Unreleased] — 2026-10-11
 
+### Version 1 tagged and its status page frozen (2026-10-19)
+
+- **The tag `version-1` marks `d62cfdc`** (the owner's choice; `docs/version_2_plan.md` stage 0.1). That commit records
+  the owner's dispositions of 2026-10-19 and has the same engine, config and records as `a3e8169`. In a clean copy of
+  it the whole suite passed (921 of 921 collected).
+- **`docs/version_1_status.md` and `docs/version_1_dispositions.md` are frozen at the tag.**
+  `tests/test_version_1_status.py` now checks that the tag marks `d62cfdc`, that both files are byte-identical to the
+  tag's, and that the tag's own eleven status tests pass in a copy of the tagged tree. A missing tag fails the test.
+  Each check was shown to fail under a mutation: the page edited, the wrong commit pinned, `docs/` left out of the
+  copy, the tag missing, and a partial run at the tag. `tools/version_1_status.py` refuses to write. CI checks out
+  with `fetch-depth: 0` so the tag is present.
+
 ### Version 1 complete (2026-10-18)
 
 - The owner accepted `M11.C.6`'s failure as a finding ("Accept M11.C.6's failure as a finding, as recommended, and

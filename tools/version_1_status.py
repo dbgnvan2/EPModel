@@ -2,14 +2,20 @@
 
 Purpose: read the three ensemble records, the two mutation records, the records' not-built lists and the owner's
          dispositions (docs/version_1_dispositions.md), and write docs/version_1_status.md, one row per criterion or
-         variant, with whether each of V1, V2 and V3 is met.
+         variant, with whether each of V1, V2 and V3 is met. Frozen since 2026-10-19: this copy no longer writes, and
+         no test runs it; the tests run the tag's copy (below).
 Spec:    docs/version_1_definition.md#1 (V1, V2, V3); docs/bowen_agent_model_spec_v2.md#M11.5
 Tests:   tests/test_version_1_status.py
 
+Frozen (owner 2026-10-19, `docs/version_2_plan.md` stage 0.1). Version 1 ends at the tag `version-1`, and the page
+and the dispositions are kept as they stand there. Version 2 regenerates the records this reads, so `main` refuses to
+write. `tests/test_version_1_status.py` checks the page and the dispositions against the tag, and runs the tag's own
+tests of this tool in a copy of the tagged tree. To render the page, check out the tag and run
+
     python3 tools/version_1_status.py
 
-Generated, never hand-edited; a default-suite test fails when the committed page is not what this renders. The tool
-holds no editorial content: what the owner decided, and why, is in the dispositions file.
+There it is generated, never hand-edited, and a default-suite test fails when the committed page is not what this
+renders. The tool holds no editorial content: what the owner decided, and why, is in the dispositions file.
 
 The rules, from the version 1 definition (approved 2026-10-15):
 * A **pass** is final for a premise or check (§4 question 5: an ad hoc mutation reported in the plan is enough). For a
@@ -360,9 +366,8 @@ def render(rows: list[Status]) -> str:
 
 
 def main() -> int:
-    PAGE.write_text(render(statuses()), encoding="utf-8")
-    print(f"wrote {PAGE.relative_to(REPO)}")
-    return 0
+    raise SystemExit(f"{PAGE.relative_to(REPO)} is frozen at the tag version-1 (owner 2026-10-19); "
+                     "render it from a checkout of the tag")
 
 
 if __name__ == "__main__":

@@ -76,7 +76,9 @@ Revision 32 (plan §4.12) was built under the owner's instruction "proceed using
 owner reviewed it one decision at a time the same day: every decision approved, `M4.C.1c`'s nodal-event spike added, and
 `M11.C.17` and `M11.C.6` held for a diagnosis. The status against V1–V3 is now generated, from the
 records and `docs/version_1_dispositions.md`, as **`docs/version_1_status.md`** (`tools/version_1_status.py`; a test
-fails when it is stale), so it is not repeated here.
+fails when it is stale), so it is not repeated here. Since 2026-10-19 the page and the dispositions are frozen at the
+tag `version-1` (`d62cfdc`, the owner's choice; `docs/version_2_plan.md` stage 0.1): the test checks both against the
+tag and runs the tag's own status tests in a copy of the tagged tree, so version 2's regenerations cannot change them.
 
 - **V2:** `M11.C.4` and `M11.C.32` pass after their arms were corrected (`M11.C.32`'s post hoc); `M11.C.29` and
   `M11.C.22` are reclassified mixed; `M11.C.46` is built and passes; `M11.C.7` is built and mixed (its premise limb

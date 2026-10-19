@@ -8,10 +8,21 @@ Deferred and adjacent items. Each carries enough context to act on later without
   Ten questions: what version 2 is for, which finding groups to revisit, the sweep's scope and its "narrow" fraction,
   `M15`, retiring the grid engine, the corpus backlog, freezing version 1 (a `version-1` tag), the spec file, and the
   three version 1 loose ends. The answers are in the plan's §5.
-- [ ] **Version 2, next:** stage 0 (the `version-1` tag pushed, render-only fixes) and stage 1 (the engineering batch,
-  with the grid engine retired); the G2 proposal, so group G (G1, G2, the Holmes–Rahe sizes) can go to one revision
-  and be built before the stage 2 pilot; then proposals for groups C, F and A, each with the owner's note in the
-  plan's §5 Q2.
+- [ ] **Version 2, next:** ~~stage 0~~ *done 2026-10-19: the `version-1` tag at `d62cfdc`, pushed, with the status
+  page frozen and checked against it; the dispositions; the render-only fixes moved to stage 1 (owner).* Then stage 1
+  (the engineering batch, with the grid engine retired, stage 0.3's two fixes, and the trace renderer out of the hash);
+  the G2 proposal, so group G (G1, G2, the Holmes–Rahe sizes) can go to one revision and be built before the stage 2
+  pilot; then proposals for groups C, F and A, each with the owner's note in the plan's §5 Q2.
+- [ ] **Stale "pending owner review" text for decisions the owner has made** (found 2026-10-19, not fixed; for stage 1,
+  since it touches `src/bowen/`, `config/bowen/` and a record string, all in the hash). Code comments in
+  `src/bowen/ensemble/criteria.py` (three), `criteria_d.py` (two), `criteria_d2.py` (`M11.C.6`, accepted 2026-10-18),
+  `src/bowen/engine/external.py:24` and `event_effects.py:59` (the narrowing, kept under plan §5 Q10), and two notes in
+  `config/bowen/criteria.md` (lines 44 and 54) still call them "Claude's recommendation pending owner review", and
+  `tools/phase_d_record.py`'s `NOT_BUILT` reason for `M11.C.9` says the same. Stage 1 works from
+  `grep -rn 'pending owner review' src config tools`, not this list, and checks each against the owner's record before
+  rewording it (`tools/version_1_status.py`'s matches are its rules, not stale text).
+  That string is in the frozen `docs/version_1_status.md` (its `M11.C.9` row, already listed in
+  `docs/REVIEW_version_1_guide.md`), so the page at the tag keeps it; only later records change.
 - [x] ~~**Approve or revise `docs/bowen_agent_model_spec_v2.md`.**~~ *Approved 2026-08-25; revisions 1–6 applied, the last on 2026-08-28.*
 - [x] ~~**Approve spec revision 10.**~~ *Approved 2026-10-06. Terms in the spec's revision-10 section under* Approval.
 - [x] ~~**Read the Phase B trace end to end and record the result** (plan §7)~~ *done 2026-10-07: the owner read both

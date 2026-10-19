@@ -587,7 +587,7 @@ mutant has turned each entry red in `docs/phase_c_mutation_record.md`; the D9 sw
 | M17.G.2 | not done | — | Phase E |
 | M17.G.3 | not done | — | Phase E |
 
-## Tests named for no spec ID (150)
+## Tests named for no spec ID (142)
 
 Their names embed no requirement ID, so they count only where an override cites them (marked *cited*). The rest check spec documents, tooling or helpers.
 
@@ -730,14 +730,6 @@ Their names embed no requirement ID, so they count only where an override cites 
 - `tests/test_version_1_outputs.py::test_v7_every_rendered_trace_carries_the_framing_block`
 - `tests/test_version_1_outputs.py::test_v7_the_famdiag_export_says_it_is_not_a_real_family`
 - `tests/test_version_1_outputs.py::test_v7_virtual_family_appears_only_where_it_is_framed`
-- `tests/test_version_1_status.py::test_v1_a_disposition_on_a_passing_criterion_is_refused`
-- `tests/test_version_1_status.py::test_v1_a_disposition_that_cannot_apply_is_refused`
-- `tests/test_version_1_status.py::test_v1_a_failing_premise_cannot_be_accepted_as_a_finding`
-- `tests/test_version_1_status.py::test_v1_a_mixed_criterions_failing_premise_limb_blocks_v2_and_cannot_be_accepted`
-- `tests/test_version_1_status.py::test_v1_a_passing_composite_with_no_red_mutant_blocks_v3`
-- `tests/test_version_1_status.py::test_v1_a_pending_acceptance_is_not_final_and_an_owner_acceptance_is`
-- `tests/test_version_1_status.py::test_v1_a_registered_criterion_with_no_record_row_means_stale_records`
-- `tests/test_version_1_status.py::test_v1_a_row_after_a_break_in_the_dispositions_table_raises`
-- `tests/test_version_1_status.py::test_v1_a_spec_criterion_no_record_lists_is_flagged_not_built`
-- `tests/test_version_1_status.py::test_v1_every_spec_criterion_has_a_status_row`
-- `tests/test_version_1_status.py::test_v1_status_page_is_current`
+- `tests/test_version_1_status.py::test_v1_the_committed_page_and_dispositions_are_the_tags`
+- `tests/test_version_1_status.py::test_v1_the_tag_marks_the_commit_the_owner_chose`
+- `tests/test_version_1_status.py::test_v1_the_tags_status_tests_pass_in_a_copy_of_the_tagged_tree`

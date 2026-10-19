@@ -293,8 +293,8 @@ One proposal per chosen group from §1.1, written after the sweep reports. Candi
     third each (answer 2b), with the negative side governed by the anxiety the tie generates; and rebuffs are read as
     `DISTANCE` toward the person. G1's questions are answered except the readout's timing (before G1 is built, so its
     effect can be seen; Claude's recommendation). **Drafted 2026-10-19:** `docs/PROPOSAL — CUTOFF ANXIETY, BRIDGING AND
-    REPAIR.md`, for owner review (its Q1–Q11; all decided 2026-10-19 except Q8, the sizes, which waits on the
-    Holmes–Rahe anchor; by its Q9 it is built in one batch with G2 and the event sizes).
+    REPAIR.md`; its Q1–Q11 all decided by the owner 2026-10-19. By its Q9 it is built in one batch with G2 and the
+    event sizes.
   - **G2. Releases split equally, ignoring the tie.** `release_bound` and the lock-in spill divide by the number of
     interactive partners (`symptoms.py:147`, `symptoms.py:198`). The coach, whose tie to Marta has conductance 0.3 and
     bond energy 10 (`config/bowen/family_phase_c.md`), took the same 63.6 as Nadia. The learner's cross-person term
@@ -306,7 +306,10 @@ One proposal per chosen group from §1.1, written after the sweep reports. Candi
   graded `[I]`, not Bowen. Its other findings: marriage, birth, retirement and a child leaving home add no anxiety
   today; job loss and a family member's illness are light against the scale; lost income after an earner's death is
   heavy and has no end; a person's own symptom onset loads only their partners. Its Q7 recommends building it with
-  G1, since G1's peak is sized against divorce, so the two share one regeneration.
+  G1, since G1's peak is sized against divorce, so the two share one regeneration. **Decided by the owner
+  2026-10-19** (its Q1–Q8): the scale sets an ordering of base sizes at 6.9 per LCU; additions carry load for 12
+  weeks; a person's own illness loads them; the mapping as drafted; lost income stays outside the scale; built in one
+  batch with G1 and G2.
 
   Group G and the event sizes change what every run with a `DISTANCE`, an active symptom or an exogenous event computes, so if the owner takes group G it is a
   candidate to build **before** the stage 2 pilot, so the sweep does not measure a release rule about to change (Q2).
@@ -329,7 +332,9 @@ done as one revision (Q7).
   owner's application and can be made at any time without waiting for a version.
 - Calibrating any `[I]` constant to data. The Holmes–Rahe proposal is close to this: its Q1 asks whether the scale may
   set an ordering of base sizes, graded `[I]`, without counting as calibration. If the owner says yes, that is the one
-  exception, and it is stated in this bullet.
+  exception, and it is stated in this bullet. **The owner said yes, 2026-10-19.** The one exception: the Holmes–Rahe
+  scale sets the ordering of exogenous event base sizes, at 6.9 intensity units per LCU, every size graded `[I]` and
+  never cited as Bowen. No other constant is fitted to outside data in version 2.
 - Phase F, the language layer.
 - `M11.C.13` (no community in the model) and `M11.C.28` (the sink allocation feeds no behaviour), unless a stage 3 rule
   makes either testable.
@@ -384,7 +389,7 @@ the sweep record and shows the version 1 status beside each row. Built in stage 
 |---|---|---|---|
 | Stage 0 (freeze, loose ends, render-only fixes) | Q8, Q10 | no | render only |
 | Stage 1 (engineering batch) | Q6 | yes | one full (about 2 hours, 10 cores, plus the mutation records) |
-| Group G and the event sizes, if taken (proposals → one revision → build) | stage 1, Q2, the event-size proposal's Q1–Q7 | yes | one full, shared |
+| Group G and the event sizes, if taken (proposals → one revision → build) | stage 1, Q2, G2's proposal (G1's and the event-size proposal's questions are all decided) | yes | one full, shared |
 | Stage 2.2 pilot | stage 1, Q3 | no | pilot only; timed and reported before 2.1 |
 | Stage 2.1 full sweep | pilot, Q3, Q4 | no | cost from the pilot |
 | Stage 3 proposals | stage 2 record, Q2 | per proposal | one full per batch of approved rules |

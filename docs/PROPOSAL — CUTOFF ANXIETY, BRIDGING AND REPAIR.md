@@ -4,9 +4,8 @@
 > answers on G1, recorded in `docs/version_2_plan.md` (stage 3, group G, 2026-10-18), into rules, tests and a new
 > criterion. The owner's decisions are quoted there and summarised in §1. Every form and number not marked as the
 > owner's is Claude's recommendation, graded `[I]`. It changes what a run computes, so it moves the engine hash and
-> every record regenerates once. Questions are Q1–Q11 in §8; all are decided except Q8 (the sizes), which waits on the
-> Holmes–Rahe proposal's Q2. By Q9 it is built in one batch with G2 and the Holmes–Rahe sizes, so it waits on both of
-> those as well. The version 2 plan itself is not yet approved (its §5), so this proposal waits on that too.
+> every record regenerates once. Questions are Q1–Q11 in §8, all decided by the owner on 2026-10-19. By Q9 it is
+> built in one batch with G2 and the Holmes–Rahe sizes, so it waits on G2's proposal. The version 2 plan itself is not yet approved (its §5), so this proposal waits on that too.
 
 ## 1. What the owner decided (2026-10-18)
 
@@ -151,7 +150,8 @@ per unit, that is about 504, roughly 13 anxiety points delivered at functional l
 at the cap, decaying as §3.3 with the load of §3.1 for a tie at bond energy 100, delivers about a divorce's total over
 its first five years. That fixes one number given the other. The proposal fixes `cutoff_stock_cap` at the largest
 stock a single cutoff in the reference families binds before the cut, as measured (not guessed) in the readout run of
-§6 step 1, and derives the weight. Both wait on the Holmes–Rahe proposal's Q2 (the anchor).
+§6 step 1, and derives the weight. Decided by the owner 2026-10-19 (Q8), with the Holmes–Rahe anchor at 6.9 per LCU
+(that proposal's Q2), so a divorce is 504.
 
 ## 4. The new composite criterion (D12)
 
@@ -250,7 +250,8 @@ chart (`docs/review/phase_c_chart_seed7.html`) before and after, with the cutoff
 7. **Q7. `OPEN_CONFLICT` entered by three `CONFLICT`s in a row**, as `DISTANT` is by three `DISTANCE`s? Recommended:
    yes. **Decided 2026-10-19: yes.**
 8. **Q8. Sizes:** fix the cap from the measured stocks and derive the weight from the divorce anchor (§3.7)?
-   Recommended: yes, after the Holmes–Rahe proposal's Q2.
+   Recommended: yes, after the Holmes–Rahe proposal's Q2. **Decided 2026-10-19: yes**, with that anchor at 6.9 per
+   LCU.
 9. **Q9. Batch** this with G2 and the Holmes–Rahe sizes, so every record regenerates once? Recommended: yes.
    **Decided 2026-10-19: yes, all three in one batch.**
 10. **Q10. The negative side on a distant or conflicted tie** (§3.6): a negative contact adds a third of `R` back, never

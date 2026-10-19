@@ -1,11 +1,12 @@
 # Proposal — event sizes from the Holmes–Rahe scale
 
-> **Status: DRAFT 2026-10-18, for owner review. Version 2; nothing built. Q7 decided 2026-10-19 (one batch with G1
-> and G2); Q1–Q6 open.** The owner asked: "Can you
-> use the Holmes Ray scale of life events to create a relative distribution of anxiety vs. stressor." This draft
+> **Status: DRAFT 2026-10-18, for owner review. Version 2; nothing built, no spec revision.** Every question is
+> decided: the owner answered Q1–Q8 in §6 on 2026-10-19, each on Claude's recommendation. It is built in one batch with G1 and G2 (Q7), so it waits on G2's proposal and on
+> the version 2 plan's approval (its §5). The owner asked: "Can you
+> use the Holmes Ray scale of life events to create a relative distribution of anxiety vs. stressor." This proposal
 > compares the model's event sizes with the scale's and proposes one way to use it. Every form and number is Claude's
-> recommendation and `[I]`. It changes what a run computes, so it moves the engine hash and regenerates every record
-> once. Questions are Q1–Q7.
+> recommendation, accepted by the owner question by question, and `[I]`. It changes what a run computes, so it moves the engine hash and
+> regenerates every record once. Questions are Q1–Q8; Q8 was added on 2026-10-19.
 
 ## 1. The scale, and what it is not
 
@@ -97,6 +98,10 @@ loss where it is.
   - it is 1 for the person the event happens to.
 - **Duration stays the model's**, declared per kind, because the scale gives none. The arrival intensity is the total
   divided by `1 + 0.5 × (d − 1)`, so a long event and a short one of the same LCU deliver the same total.
+- **Lost income stays outside the scale** (Q8, decided 2026-10-19). `M6.3h`'s stressor ends with an act
+  (`FIND_WORK`), not a declared duration, and its 20% remainder has no end, so there is no duration to spread the
+  scale's total over. It keeps `income_loss_intensity` (15) and `income_shortfall_share` (0.2), and the table records
+  that the scale does not size it.
 - **The criteria spell is a test input, not a life event.** `M11.C.1`'s job loss every 4 weeks at 120 is a declared
   stress schedule, and it stays as declared unless the owner says otherwise.
 
@@ -130,19 +135,26 @@ of what "around a divorce" means: 73 LCU, so 504 intensity units at the first an
 
 1. **Q1. Use the scale at all?** It is an outside rating with weak evidence behind its ranking, and using it is close
    to the calibration `docs/version_2_plan.md` keeps out of version 2. Recommended: yes, as an ordering of base sizes
-   only, graded `[I]`, with the ties scaling it.
+   only, graded `[I]`, with the ties scaling it. **Decided 2026-10-19: yes, as an ordering of base sizes only.** The
+   values stay as read from Wikipedia's table (§1), unchecked against the 1967 paper.
 2. **Q2. The anchor.** Recommended: 6.9 per LCU, which keeps a spouse's death where the grief rule puts it. The scale
    uses that event as its own anchor (100), and grief is the most worked-out stressor in the model. The alternative,
-   2.55, keeps the job loss and shrinks grief to 37% of today.
+   2.55, keeps the job loss and shrinks grief to 37% of today. **Decided 2026-10-19: 6.9 per LCU.** Divorce is then
+   504, which sizes G1's cut-off stock (G1's Q8).
 3. **Q3. Do additions and transitions carry load (E2)?** Recommended: yes, as `KS07.1` and your list of nodal events
-   suggest.
+   suggest. **Decided 2026-10-19: yes.**
 4. **Q4. How long does each event weigh?** Recommended for the additions: 12 weeks `[I]` each, to be swept.
-5. **Q5. Does a person's own illness load them (E3)?** Recommended: yes.
+   **Decided 2026-10-19: 12 weeks each.**
+5. **Q5. Does a person's own illness load them (E3)?** Recommended: yes. **Decided 2026-10-19: yes.**
 6. **Q6. The mapping.** Which item stands for which kind (for example, finding work as "spouse starts or stops work",
-   26, or "change to different line of work", 36) is your call, item by item.
+   26, or "change to different line of work", 36) is your call, item by item. **Decided 2026-10-19: §3's table as
+   drafted**, with finding work at 26.
 7. **Q7. Order in version 2.** Recommended: with G1, since G1's peak is sized against divorce, and both move what a run
    computes. One regeneration for both. **Decided 2026-10-19, by the owner's answer to G1's Q9:** built in one batch
    with G1 and G2.
+8. **Q8. Lost income** (raised 2026-10-19, after the draft). `M6.3h`'s stressor has no declared duration, so E1's
+   rule cannot size it. Keep it outside the scale at 15 a week and its 20% remainder (recommended), or scale its weekly
+   rate so a declared reference year delivers the scale's 262? **Decided 2026-10-19: keep it outside the scale** (E1).
 
 ## 7. Adjacent issues found while drafting, not fixed
 

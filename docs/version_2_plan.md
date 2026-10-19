@@ -1,7 +1,10 @@
 # Version 2 of the agent model: a plan
 
-**Status: DRAFT 2026-10-18, for owner review.** Nothing in it is decided. No spec revision and no code until the
-owner answers §5. Drafted from `TODO.md` ("Revision 32" and the older open sections) and `docs/version_1_status.md`.
+**Status: APPROVED 2026-10-19.** Drafted 2026-10-18 from `TODO.md` ("Revision 32" and the older open sections) and
+`docs/version_1_status.md`. The owner answered §5's ten questions and approved the plan on 2026-10-19: Claude's
+recommendation on every question except Q2, where the owner chose the groups with notes of their own (stage 3). The
+owner also decided that group G is built before the stage 2 pilot. Each stage that changes a run still goes proposal
+→ spec revision → implementation plan → build, each approved before the next.
 
 Version 1 is complete (2026-10-18, `docs/version_1_definition.md` §2b). By that definition's question 8 the spec is
 frozen at v2.0 revision 32, and later revisions start version 2. This plan proposes what version 2 is for, what it
@@ -31,7 +34,9 @@ peak in `M11.C.32`'s calm arm at level 40, so `hold_gain` and `defence_threshold
 
 ### 1.2 Loose ends from version 1, still pending owner review
 
-These do not block version 1 (the status page reads V1–V3 met), but each is Claude's recommendation:
+These do not block version 1 (the status page reads V1–V3 met). Each was Claude's recommendation; **the owner decided
+all three on 2026-10-19 (Q10)**: the four notes accepted, `M11.C.46`'s clause accepted as for `M11.C.14`, and the
+narrowing kept.
 
 1. Four disposition notes on criteria that now pass since the nodal-event spike: `M11.C.7[joint over one spouse]`,
    `M11.C.7[joint over sided]`, `M11.C.17`, `M11.C.22` (`docs/version_1_dispositions.md`).
@@ -50,7 +55,7 @@ say at the declared constants; they do not yet say the direction holds across th
 
 ## 2. What version 2 is for — the recommendation
 
-**Recommended:** version 2 measures how far version 1's results hold, then revisits the rule questions the owner
+**Recommended, and decided by the owner 2026-10-19 (Q1):** version 2 measures how far version 1's results hold, then revisits the rule questions the owner
 chooses, in that order. The real-family import and the language layer stay out.
 
 Reasons for this order:
@@ -75,8 +80,10 @@ revisions, not here.
   fails when `docs/version_1_status.md` differs from what `tools/version_1_status.py` renders from the current
   records, so the first engine change in version 2 turns it red or rewrites it. Proposed: a git tag `version-1` at
   `a3e8169`; `docs/version_1_status.md` kept as committed, with its test changed to check it against the records at the
-  tag (or its staleness test retired with a "frozen" status line). Owner question Q8.
+  tag (or its staleness test retired with a "frozen" status line). Owner question Q8. **Decided 2026-10-19:** the
+  tag `version-1` at `a3e8169`, pushed at stage 0, and the status page kept as the record. See §7 on the tag's commit.
 - **0.2** The owner's decisions on §1.2's three items, recorded in `docs/version_1_dispositions.md` and `TODO.md`.
+  *Done 2026-10-19*, with `docs/version_1_status.md` regenerated (render only).
 - **0.3** Render-only fixes that need no rerun (`docs/records_cache/`): the D2 record prints `M11.C.10`'s two variants
   under one id; and the trace hides lock-in. `src/bowen/render/trace.py` lists lock-in among the mechanisms that run
   every week and are not shown line by line, so in the seed-7 trace week 74 shows Marta +226.4 and nothing of the 222.4
@@ -97,13 +104,13 @@ any that does is reported as a measured change.
 - **1.5** Tooling that does not move the hash but affects the regeneration loop: a child failure in `run_in_copy`
   aborts the whole record run; `code_text`'s two latent gaps and its split against `tokenize`; the Phase B mutation
   record cannot be regenerated (gate G2's fragment); record-parsing duplication (about six copies of the regex).
-- **1.6** Retire the frozen grid engine, if the owner says so (Q6): `src/engine.py`, its tests and its purity
+- **1.6** Retire the frozen grid engine (Q6; **decided 2026-10-19: yes**): `src/engine.py`, its tests and its purity
   violation (`sim_audit.csv`). Version 1 passing its acceptance tests is the condition `CLAUDE.md` set for this.
 
 ### Stage 2 — Measurement (Phase E core)
 
-- **2.1** `M17.E.1`'s constant sweep, scoped (Q3): for each criterion, the `[I]` constants its mechanism reads, over
-  declared ranges, reporting the fraction of samples in which the asserted direction holds. Ranges are proposed by
+- **2.1** `M17.E.1`'s constant sweep, scoped (Q3; **decided 2026-10-19**): for each criterion, the `[I]` constants
+  its mechanism reads, over declared ranges, reporting the fraction of samples in which the asserted direction holds. Ranges are proposed by
   Claude with each one's grade and reviewed by the owner before any run.
 - **2.2** A **pilot** first: one passing criterion and one accepted finding, a small sample, timed. Its wall time sets
   the full sweep's cost, which is reported to the owner before the full sweep runs. No cost is estimated here without
@@ -112,19 +119,31 @@ any that does is reported as a measured change.
   multiple of the precision. It changes `M17.A.1` for every criterion, so it is decided before the sweep.
 - **2.4** A generated sweep record and a column for it on the version 2 status page.
 - **2.5** Which of `M17`'s other drafted requirements come in (`M17.A.2` time-resolved power, `M17.B.1` principal
-  strata, `M17.E.3` invariance intervals, `M17.E.6` an alternative activation regime) is Q3's second part. The held
+  strata, `M17.E.3` invariance intervals, `M17.E.6` an alternative activation regime) is Q3's second part:
+  **decided 2026-10-19, none until the pilot reports.** The held
   method proposals in `TODO.md` ("Held for a later revision — paper material") stay held unless the owner names one.
 
 ### Stage 3 — Rule questions the owner chooses
 
-One proposal per chosen group from §1.1, written after the sweep reports. Candidates, with what each would change:
+One proposal per chosen group from §1.1, written after the sweep reports.
+
+**Chosen by the owner 2026-10-19 (Q2): groups C, F and A.** B, D and E stay accepted findings. Group G is in as
+well, by the owner's decisions on G1 and the event sizes, and is built before the stage 2 pilot. The owner's notes,
+which each proposal starts from, in the owner's words:
+- **C:** "project DOES impact development, that's the problem."
+- **F:** "the lower the "level" the more an I position comes out as conflictual demand. The lower the LEVEL the more
+  anxiety it creates."
+- **A:** "Triangling - seek out other, is a natural human behavior."
+
+Each proposal states which mechanism produces the owner's direction and checks that no rule writes the outcome
+(`model_explainer.md` §19). Candidates, with what each would change:
 - **Group C, projection:** should projection push a child's development down (`M7.E.1f`, "the acts open room, they
   do not push")? The owner raised this at `M11.C.6`.
 - **Group F, `I-POSITION` at level 40:** resize `hold_gain` and `defence_threshold`, or change the rule; then
   `M11.C.29`'s arm redesigned (an act week clear of the spell, a mover able to prepare).
 - **Group A, triangle relief:** why a `TRIANGLE` relieves less than a `DISTANCE`, and whether a calm state near the
   floor should exist.
-- **Groups B, D, E** as the owner chooses.
+- **Groups B, D, E:** not chosen (Q2); they stay accepted findings.
 - **Mechanisms the spec states and the code lacks:** `M1.E.7e`'s lending of pseudo-self by a sided coach;
   `Family.tolerance` declared and never updated (`M7.D.4`); lock-in that does not make a symptom chronic.
 - **`M11.C.9`, sibling position** — a new mechanism whose profiles the spec leaves open; recommended for version 2 by
@@ -311,8 +330,9 @@ One proposal per chosen group from §1.1, written after the sweep reports. Candi
   weeks; a person's own illness loads them; the mapping as drafted; lost income stays outside the scale; built in one
   batch with G1 and G2.
 
-  Group G and the event sizes change what every run with a `DISTANCE`, an active symptom or an exogenous event computes, so if the owner takes group G it is a
-  candidate to build **before** the stage 2 pilot, so the sweep does not measure a release rule about to change (Q2).
+  Group G and the event sizes change what every run with a `DISTANCE`, an active symptom or an exogenous event computes, so it is built
+  **before** the stage 2 pilot, so the sweep does not measure a release rule about to change (decided by the owner
+  2026-10-19).
 
 Each changed rule keeps the version 1 result beside the version 2 result in the status page. A criterion that turns
 green under a new rule is reported as a new result under a new rule, not as version 1's finding withdrawn.
@@ -323,11 +343,11 @@ The 2026-08-28 items in `TODO.md` (requirements sourced from an extraction headi
 mechanisms, trimmed hedges and qualifiers, `KS05.2` on the capacity floor, the source behind `M5.F.2`'s threshold, a cold
 sweep) are spec-text corrections. Proposed: before each stage 3 proposal, check the requirements it rests on against
 `_LEDGER.md`, and fix what is found in the same revision. The full backlog stays in `TODO.md` unless the owner wants it
-done as one revision (Q7).
+done as one revision (Q7). **Decided 2026-10-19: scoped to what stage 3 touches.**
 
-### Out of version 2 (proposed)
+### Out of version 2 (approved 2026-10-19)
 
-- `M15`'s import of real families, the envelope output, and `M11.C.8` against published rates (Q5). The two export
+- `M15`'s import of real families, the envelope output, and `M11.C.8` against published rates (Q5; **decided 2026-10-19: version 3**). The two export
   changes `M13.3` names as cheapest-first (`M15.A.4` intervals, `M15.C.2` rupture against resolved distance) are on the
   owner's application and can be made at any time without waiting for a version.
 - Calibrating any `[I]` constant to data. The Holmes–Rahe proposal is close to this: its Q1 asks whether the scale may
@@ -339,7 +359,7 @@ done as one revision (Q7).
 - `M11.C.13` (no community in the model) and `M11.C.28` (the sink allocation feeds no behaviour), unless a stage 3 rule
   makes either testable.
 
-## 4. The definition of version 2 (proposed)
+## 4. The definition of version 2 (approved 2026-10-19)
 
 Version 2 is finished when all of the following hold. W1–W3 and W6–W8 carry version 1's conditions forward; W4 and W5
 are new.
@@ -363,25 +383,36 @@ the sweep record and shows the version 1 status beside each row. Built in stage 
 
 ## 5. Questions for the owner
 
+All ten answered by the owner on 2026-10-19.
+
 1. **What is version 2 for?** (a) measure how far version 1's results hold, then the rule questions you choose
    (recommended, §2); (b) rule questions only, no sweep; (c) the real-family import (`M15`); (d) something else.
+   **Answered: (a).**
 2. **Which finding groups (§1.1) should version 2 revisit?** Recommended: C (projection), F (`I-POSITION` at level 40,
    since it reaches every `I-POSITION`) and A (triangling, five criteria). The rest stay accepted findings. Group G
    (how bound stocks are released, found in the seed-7 trace) is not a finding group; recommended in, and built
-   before the stage 2 pilot, since it reaches every run that binds anxiety.
+   before the stage 2 pilot, since it reaches every run that binds anxiety. **Answered: C, F and A, with the owner's
+   notes quoted in stage 3.** B, D and E stay accepted findings. Group G is built before the stage 2 pilot (asked
+   separately the same day).
 3. **Sweep scope.** Per criterion, only the constants its mechanism reads (recommended), or every `[I]` constant? And
    which of `M17.A.2`, `M17.B.1`, `M17.E.3`, `M17.E.6` come in? Recommended: none until the pilot reports.
+   **Answered: per criterion; none of the four until the pilot reports.**
 4. **The "narrow" fraction for W4.** Recommended: decide after the pilot, from what the measured distribution looks
-   like, and record it before the full sweep runs so it is not chosen after seeing the results.
-5. **Is the `M15` import in version 2?** Recommended: no; version 3.
-6. **Retire the frozen grid engine in version 2?** Recommended: yes, as stage 1.6.
-7. **Corpus-fidelity backlog:** scoped to what stage 3 touches (recommended), or one full revision?
+   like, and record it before the full sweep runs so it is not chosen after seeing the results. **Answered: after the
+   pilot, recorded before the full sweep.**
+5. **Is the `M15` import in version 2?** Recommended: no; version 3. **Answered: no; version 3.**
+6. **Retire the frozen grid engine in version 2?** Recommended: yes, as stage 1.6. **Answered: yes, as stage 1.6.**
+7. **Corpus-fidelity backlog:** scoped to what stage 3 touches (recommended), or one full revision? **Answered:
+   scoped.**
 8. **Freezing version 1:** a git tag `version-1` at `a3e8169`, pushed, and `docs/version_1_status.md` kept as the
-   record (recommended)? A tag push is outward-facing, so it waits for your yes.
+   record (recommended)? A tag push is outward-facing, so it waits for your yes. **Answered: yes, the tag pushed at
+   stage 0.** See §7 on which commit the tag marks.
 9. **The spec file.** Version 2's revisions continue in `docs/bowen_agent_model_spec_v2.md` as revision 33 onward, with
    its status line saying version 2 begins at revision 33 (recommended), or a new file? Note the naming: the file's
-   "v2.0" is the agent-model spec's own version, not the model's version 2.
+   "v2.0" is the agent-model spec's own version, not the model's version 2. **Answered: the same file, revision 33
+   onward**; its status line changes at revision 33.
 10. **§1.2's three items** — the four disposition notes, `M11.C.46`'s mutation clause, and the nodal spike's narrowing.
+    **Answered: the four notes accepted; `M11.C.46`'s clause accepted as for `M11.C.14`; the narrowing kept.**
 
 ## 6. Order of work after approval
 
@@ -389,8 +420,8 @@ the sweep record and shows the version 1 status beside each row. Built in stage 
 |---|---|---|---|
 | Stage 0 (freeze, loose ends, render-only fixes) | Q8, Q10 | no | render only |
 | Stage 1 (engineering batch) | Q6 | yes | one full (about 2 hours, 10 cores, plus the mutation records) |
-| Group G and the event sizes, if taken (proposals → one revision → build) | stage 1, Q2, G2's proposal (G1's and the event-size proposal's questions are all decided) | yes | one full, shared |
-| Stage 2.2 pilot | stage 1, Q3 | no | pilot only; timed and reported before 2.1 |
+| Group G and the event sizes, taken (owner 2026-10-19; proposals → one revision → build) | stage 1, Q2, G2's proposal (G1's and the event-size proposal's questions are all decided) | yes | one full, shared |
+| Stage 2.2 pilot | stage 1, group G built (owner 2026-10-19), Q3 | no | pilot only; timed and reported before 2.1 |
 | Stage 2.1 full sweep | pilot, Q3, Q4 | no | cost from the pilot |
 | Stage 3 proposals | stage 2 record, Q2 | per proposal | one full per batch of approved rules |
 | Stage 4 checks | inside each stage 3 proposal | — | — |
@@ -400,8 +431,13 @@ so it does not run on a hash that is about to move.
 
 ## 7. Adjacent issues found while drafting, not fixed
 
-- `docs/version_1_dispositions.md`'s status line reads "complete" while four rows are notes "pending owner review"
-  (§1.2). Notes carry no status by that file's own rule, so the page is right; the wording may mislead a reader.
+- ~~`docs/version_1_dispositions.md`'s status line reads "complete" while four rows are notes "pending owner review"
+  (§1.2).~~ *Resolved 2026-10-19: the owner decided the four notes, and the status line says so.*
+- **The tag's commit (found 2026-10-19, after Q8 was answered).** `a3e8169` precedes stage 0.2, so at that commit
+  the status page still shows the four notes as pending and has no `M11.C.46` note. If stage 0.1's test checks the
+  committed page against what the tool renders at the tag, the two will differ. Either the tag marks the commit that
+  records stage 0.2, or the test compares against the page as it stands at the tag. Stage 0.1 asks the owner which
+  before the tag is pushed.
 - `tests/test_version_1_status.py` will go red at the first engine change in version 2 (stage 0.1 addresses it).
 - The constant count in §1.3 is a count of tagged lines, not of distinct constants; the sweep's design step counts them
   properly from the register.

@@ -4,10 +4,14 @@ Deferred and adjacent items. Each carries enough context to act on later without
 
 ## Blocking the next phase
 
-- [ ] **Owner: answer `docs/version_2_plan.md` §5** (drafted 2026-10-18). Ten questions: what version 2 is for, which
-  finding groups to revisit, the sweep's scope and its "narrow" fraction, `M15`, retiring the grid engine, the corpus
-  backlog, freezing version 1 (a `version-1` tag), the spec file, and the three version 1 loose ends. No spec revision
-  or code before then.
+- [x] ~~**Owner: answer `docs/version_2_plan.md` §5**~~ *Answered 2026-10-19, and the plan approved the same day.*
+  Ten questions: what version 2 is for, which finding groups to revisit, the sweep's scope and its "narrow" fraction,
+  `M15`, retiring the grid engine, the corpus backlog, freezing version 1 (a `version-1` tag), the spec file, and the
+  three version 1 loose ends. The answers are in the plan's §5.
+- [ ] **Version 2, next:** stage 0 (the `version-1` tag pushed, render-only fixes) and stage 1 (the engineering batch,
+  with the grid engine retired); the G2 proposal, so group G (G1, G2, the Holmes–Rahe sizes) can go to one revision
+  and be built before the stage 2 pilot; then proposals for groups C, F and A, each with the owner's note in the
+  plan's §5 Q2.
 - [x] ~~**Approve or revise `docs/bowen_agent_model_spec_v2.md`.**~~ *Approved 2026-08-25; revisions 1–6 applied, the last on 2026-08-28.*
 - [x] ~~**Approve spec revision 10.**~~ *Approved 2026-10-06. Terms in the spec's revision-10 section under* Approval.
 - [x] ~~**Read the Phase B trace end to end and record the result** (plan §7)~~ *done 2026-10-07: the owner read both
@@ -44,13 +48,15 @@ decision is Claude's recommendation, pending owner review.
   stop; others may be similar. A general rule (a fixed seed count when the effect is within a set multiple of the
   precision) would change `M17.A.1` for all criteria.
 - [ ] **`M1.E.7e`'s lending of pseudo-self by a sided coach is not built**: a sided coach's contact lands nothing.
-- [ ] **Owner: `M11.C.46`'s mutation clause is not met at the edge** (2026-10-18). With the nodal spike,
-  `triangle-help-ignored` survives (+0.16 ± 0.23, p 0.041) against +1.45 unmutated: the bond swap's other channels
-  leave a small difference. Options: accept as for `M11.C.14`'s clause, or restate the readout as relief per unit of
-  the seeker's excess (isolates help; post hoc). A premise, so V3 does not apply.
-- [ ] **Owner: the nodal spike's narrowing** (2026-10-17, the spike's review): a cut tie is one holding rejection, not
-  every tie that is not interactive, so a retired coach's or a removed member's tie is not spiked. Claude's
-  recommendation, pending owner review (plan §4.12).
+- [x] ~~**Owner: `M11.C.46`'s mutation clause is not met at the edge**~~ *Accepted by the owner 2026-10-19, as
+  `M11.C.14`'s clause was (version 2 plan Q10; a note in `docs/version_1_dispositions.md`).* (2026-10-18). With the
+  nodal spike, `triangle-help-ignored` survives (+0.16 ± 0.23, p 0.041) against +1.45 unmutated: the bond swap's other
+  channels leave a small difference. Options were: accept as for `M11.C.14`'s clause, or restate the readout as relief
+  per unit of the seeker's excess (isolates help; post hoc). A premise, so V3 does not apply.
+- [x] ~~**Owner: the nodal spike's narrowing**~~ *Kept by the owner 2026-10-19 (version 2 plan Q10). After G1, "cut"
+  is a tie in state `CUT_OFF` (G1 proposal, A13).* (2026-10-17, the spike's review): a cut tie is one holding
+  rejection, not every tie that is not interactive, so a retired coach's or a removed member's tie is not spiked
+  (plan §4.12).
 - [ ] **Adjacent, not fixed (2026-10-17): the Phase B mutation record cannot be regenerated.** Gate G2's `expect`
   fragment (`assert "Marta +5.0" in conflict[5]`) was removed from `tests/bowen/test_render.py` at Phase C step 1
   (`1c20d44`), so `tools/mutation_gate.py` stops at G2. `docs/phase_b_mutation_record.md` stays the record of Phase B's

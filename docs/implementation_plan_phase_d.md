@@ -1936,7 +1936,7 @@ seen; each is recorded as such.
 **The owner's decisions, 2026-10-17** (asked one at a time; the answers quoted):
 - `M11.C.4`: "Accept, build the spike". The spike's form: "Cut ties, as TRIGGER" (a nodal event reaching a person spikes
   each of their cut ties by `nodal_spike_intensity`, 1.0, for the event's week). Built (`event_effects.nodal_spike`).
-  *The spike's review (learning-qa, 2026-10-17), applied as Claude's recommendation, pending owner review:* a cut tie is
+  *The spike's review (learning-qa, 2026-10-17), applied as Claude's recommendation, kept by the owner 2026-10-19:* a cut tie is
   one holding rejection; a tie that is only not interactive (a retired coach's, a removed member's while away, a
   criterion arm's) is not spiked, narrowing the "or not interactive" of the form as asked; the spike lasts one week
   whatever the event's duration, as the form says; spikes from separate events in one week add up, as `TRIGGER`s do;

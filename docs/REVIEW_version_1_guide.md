@@ -1,6 +1,8 @@
 # Review guide: version 1 of the agent model
 
-**Status: FOR OWNER REVIEW, drafted 2026-10-18 by Claude.** Nothing in it is decided. Version 1 was completed on
+**Status: FOR OWNER REVIEW, drafted 2026-10-18 by Claude.** Nothing in it is decided, except the open questions on
+`M11.C.46`'s mutation clause, the nodal spike's narrowing and the four pending disposition notes, which the owner
+answered on 2026-10-19 (`docs/version_2_plan.md` §5, Q10). Version 1 was completed on
 2026-10-18 with conditions V1–V7 met (`docs/version_1_definition.md`, `docs/version_1_status.md`); the spec is frozen
 at v2.0 revision 32.
 
@@ -258,10 +260,10 @@ informs a societal level is stated as analogy, not derivation (`M11.F.2`); the o
 stated accurately, with the distinction that answers it (`M11.F.3`, `M11.F.3a`); no claim to reproduce measured
 differentiation (`M11.F.4`); no detector, readout or modulation is one-sided (`M11.F.6`); the model has no opinion on
 trauma (`M11.F.7`); societal readouts do not inherit an editorial symptom list (`M11.F.8`); the model is never
-presented as speaking about a real family (`M11.F.9`) and never called a "virtual family" without this framing
+presented as speaking about a real family (`M11.F.9`) and never given the name `M11.F.10` restricts without that requirement's framing
 (`M11.F.10`).
 
-**Explainer:** §14 (a note on framing), §1.1 (is it a "virtual family"?), §17 (what the model can be asked).
+**Explainer:** §14 (a note on framing), §1.1 (the name `M11.F.10` restricts, and its framing), §17 (what the model can be asked).
 
 **Config:** none.
 
@@ -401,7 +403,7 @@ contact).
   - Contact with a calmer sender lowers Marta's anxiety (`M4.C.10`).
 
 **Points to check:** 60 rows carry the nodal-event spike. Its narrowing to ties where rejection is held (so a retired
-coach's or a removed member's tie is not spiked) is Claude's recommendation, pending owner review (open questions).
+coach's or a removed member's tie is not spiked) is Claude's recommendation, kept by the owner 2026-10-19 (open questions, item 5).
 
 - [ ] Approve  [ ] Change: ____  [ ] Question: ____
 - Notes: ____
@@ -1072,7 +1074,8 @@ emergent).
 
 **Criteria, all together** (`docs/version_1_status.md`). Rows by status:
 fail accepted as a finding 19; out of scope 4; pass 36; pass, proved by a test 1. V1, V2 and V3 are met.
-Rows whose disposition is Claude's recommendation pending owner review:
+Rows whose disposition was Claude's recommendation pending owner review, all accepted by the owner 2026-10-19
+(version 2 plan Q10):
 `M11.C.7[joint over one spouse]` (entry 16), `M11.C.7[joint over sided]` (entry 16), `M11.C.17` (entry 15), `M11.C.22` (entry 20).
 The criteria `M11.E` holds out are `M11.C.8`, `M11.C.9`, the shape clause of `M11.C.11`, and `M5.F.2`'s counterfeit
 threshold, which `TODO.md` calls "the model's most consequential invented constant".
@@ -1262,11 +1265,11 @@ owner there; the others are recorded open with no owner tag. `TODO.md` holds the
    `triangle-help-ignored` survives (+0.16 ± 0.23, p 0.041) against +1.45 unmutated. Options: accept, as for
    `M11.C.14`'s clause; or restate the readout as relief per unit of the seeker's excess (post hoc). A premise, so V3
    does not apply. (Entry 13.)
-   - Answer: ____
+   - Answer (owner, 2026-10-19, version 2 plan Q10): accept, as for `M11.C.14`'s clause. Recorded as a note in `docs/version_1_dispositions.md`.
 5. *Owner:* **the nodal spike's narrowing** (2026-10-17): a cut tie is one holding rejection, not every tie that is not
    interactive, so a retired coach's or a removed member's tie is not spiked. Claude's recommendation, pending owner
    review. (Entry 7.)
-   - Answer: ____
+   - Answer (owner, 2026-10-19, version 2 plan Q10): keep the narrowing. After G1, a cut tie is one in state `CUT_OFF`.
 6. **Adjacent, not fixed: the Phase B mutation record cannot be regenerated.** Gate G2's `expect` fragment was removed
    from `tests/bowen/test_render.py` at Phase C step 1, so `tools/mutation_gate.py` stops at G2;
    `docs/phase_b_mutation_record.md` stays the record of Phase B's close. Gate G7's mutant was extended at revision 32

@@ -200,12 +200,18 @@ One proposal per chosen group from §1.1, written after the sweep reports. Candi
     this form, still citing `L22.6`, and a test shows a third party's own anxiety rising when the outlet is lost
     without any of the stock reaching them.
 
+    **Decided by the owner, 2026-10-18:** the act mapping above, "yes to Act Mapping"; and the peak cap and the
+    five-year decay apply to the cut-off tie only, "I was referring to the cutoff tie". A cut-off tie is one where
+    either side holds rejection (`M1.B.3c`), the same test the nodal spike uses. On other ties a positive contact still
+    dissipates bound anxiety (answer 3), with no cap and no decay.
+
     Still open:
-    - The mapping of acts to negative and positive above.
-    - Whether the peak cap and the five-year decay apply on every tie, as answer 3 extends dissipation, or only on a
-      tie holding rejection. Today's stocks are bound by `DISTANCE` on ties that are not cut off too (Marta–Ravi 319.2
-      at week 73).
     - Whether "10% of peak after 5 years" is a floor or a point on a continuing decay.
+    - On a tie that is not cut off: does a positive contact remove 80% of the stock, as on a cut-off tie, and does a
+      negative contact do anything beyond what `DISTANCE` already binds? Proposed, Claude's: 80% on any tie, and no
+      return to a peak, since a tie that is not cut off has no peak.
+    - When rejection on a cut-off tie fades to zero, the tie stops being cut off. Proposed, Claude's: from then on its
+      stock follows the rule for other ties, keeping its value.
   - **G2. Releases split equally, ignoring the tie.** `release_bound` and the lock-in spill divide by the number of
     interactive partners (`symptoms.py:147`, `symptoms.py:198`). The coach, whose tie to Marta has conductance 0.3 and
     bond energy 10 (`config/bowen/family_phase_c.md`), took the same 63.6 as Nadia. The learner's cross-person term

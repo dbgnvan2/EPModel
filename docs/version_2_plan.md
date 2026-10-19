@@ -205,13 +205,43 @@ One proposal per chosen group from §1.1, written after the sweep reports. Candi
     either side holds rejection (`M1.B.3c`), the same test the nodal spike uses. On other ties a positive contact still
     dissipates bound anxiety (answer 3), with no cap and no decay.
 
-    Still open:
-    - Whether "10% of peak after 5 years" is a floor or a point on a continuing decay.
-    - On a tie that is not cut off: does a positive contact remove 80% of the stock, as on a cut-off tie, and does a
-      negative contact do anything beyond what `DISTANCE` already binds? Proposed, Claude's: 80% on any tie, and no
-      return to a peak, since a tie that is not cut off has no peak.
-    - When rejection on a cut-off tie fades to zero, the tie stops being cut off. Proposed, Claude's: from then on its
-      stock follows the rule for other ties, keeping its value.
+    **The owner's answers to the last three, 2026-10-18** (verbatim): "1. it stays there. A close family member cutoff
+    has a residual effect. 2. on a non cutoff tie, it is just a tie, so current processes apply. a) + or - contact
+    could be a triangle effort. b) or could be related to creating Distance, Conflict, but if the tie is already
+    "distant" or "conflict" it moves 33% + or - base on the idea that repeated contacts are need to repair. At some
+    point neg contacts push distance or conflict to cutoff. 3. Rejection anxiety might fade to zero, but a positive
+    contact is needed to repair the tie. "stored anxiety" would keep it's value"
+
+    Reading:
+    - **The 10% is a floor.** A cut-off tie's stock decays to 10% of its peak by year 5 and stays there: a cutoff from
+      a close family member leaves a residual effect.
+    - **A tie that is not cut off is just a tie; current processes apply.** G1's peak, decay and 80% removal do not
+      reach it. A contact on it may be a triangling effort (the current `TRIANGLE` mechanics), or may create distance
+      or conflict (the current `DISTANCE` and `CONFLICT`).
+    - **A distant or conflicted tie moves a third per contact.** On a tie already `DISTANT` or `OPEN_CONFLICT`, each
+      positive contact moves it 33% of the way back toward ordinary and each negative contact 33% further, because
+      repair takes repeated contacts. Enough negative contacts take it to cutoff.
+    - **Repair takes a positive contact.** A tie stays cut off after rejection fades to zero, until a positive contact
+      repairs it. Its stored anxiety keeps its value meanwhile.
+
+    What this changes in the code, found while recording it:
+    - `lower_rejection` (`src/bowen/engine/rejection.py`) returns a tie to its state before the cut as soon as neither
+      side holds rejection. Under answer 3 it stays `CUT_OFF` until a positive contact, so "cut off" can no longer be
+      read as "holds rejection". The nodal-event spike's narrowing (§1.2 item 3) uses that same test and would follow.
+    - `OPEN_CONFLICT` is declared (`objects.py`) and never entered by the engine. `DISTANT` is entered by a run of
+      `DISTANCE` acts (`consolidate.py`, hardening) and never left except by reconciliation. Answer 2 needs a way into
+      `OPEN_CONFLICT` (proposed, Claude's: a run of `CONFLICT` acts, as `DISTANT` has) and a way back from both.
+
+    Questions for the proposal:
+    - **What the 33% measures.** Proposed, Claude's: a per-tie repair measure between ordinary and cutoff, where three
+      positive contacts take a distant or conflicted tie back to ordinary and three negative contacts reach cutoff.
+    - **How negative contacts reach cutoff without writing it** (§19: cutoff is emergent). Today a tie is cut off when
+      a person holds any rejection at all (`Relationship.rejected()`: any value above 0, `M1.B.3c`), which people choose
+      or learn. Proposed, Claude's: a tie becomes cut off when a person's rejection reaches
+      `rejection_refusal_threshold` (0.3, where moves start to be refused), not at any rejection; a negative contact on
+      a distant or conflicted tie raises the receiver's rejection by a third of that threshold. Cutoff then follows from
+      rejection the person holds, not from a rule that sets the tie's state. This changes `M1.B.3c`'s definition of a
+      cut-off tie, as answer 3 does. The owner to say whether that is the meaning.
   - **G2. Releases split equally, ignoring the tie.** `release_bound` and the lock-in spill divide by the number of
     interactive partners (`symptoms.py:147`, `symptoms.py:198`). The coach, whose tie to Marta has conductance 0.3 and
     bond energy 10 (`config/bowen/family_phase_c.md`), took the same 63.6 as Nadia. The learner's cross-person term

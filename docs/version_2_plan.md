@@ -168,18 +168,41 @@ One proposal per chosen group from §1.1, written after the sweep reports. Candi
     - **Bridging** (`REDUCE_CUTOFF`, and presumably reconciliation): negative returns the stock to its peak; positive
       removes 80% of what remains.
 
-    Open questions:
-    - **What makes a bridge negative or positive?** Not stated. Candidates: the contact refused or accepted (rejection
-      already distinguishes them), or the bridger's level or perspective, as with `I-POSITION`'s genuine and assertion
-      forms. A rule that writes the outcome directly would be a defect under §19, so the deciding input must be
-      something the people do or are, not the outcome.
-    - **Where the anxiety goes and comes from.** Today the released stock is a transfer to the triangle's third party,
-      checked by conservation (`M6.4`; `invariants.py` classes mechanisms as transfers). "Takes away" reads as removal,
-      and a return to peak creates anxiety, so both need their own invariant class, as decay has.
-    - **Which stocks.** The owner said "cutoff". Is the rule for every distance-bound stock, or only for a tie holding
-      rejection? Some of the largest stocks are on ties that are not cut off (Marta–Ravi 319.2 at week 73).
-    - **Which quantity.** The reading above applies the answer to the bound stock. The owner may mean the cutoff itself
-      (the rejection a person holds). Confirm which.
+    **The owner's answers to the four questions, 2026-10-18** (verbatim): "1) Negative - the content event is negative
+    - in the real world it would an argument / rejection / anger/ fighting. Positive - kinder words spoke, request to
+    resume contact, agreement to maintain contact. 2) Anxiety can just dissapate, as when a threat is removed. It
+    comes from the relationship tie not others, since the cutoff and interaction would be "felt" as a kind of threat.
+    3. PRinciple of 2) applies to any tie - positive outcome - anxiety dissapates, 4) only anxiety related to the
+    cutoff."
+
+    Reading:
+    - **Negative or positive is the content of the contact across the tie.** Negative: argument, rejection, anger,
+      fighting. Positive: kinder words, a request to resume contact, an agreement to keep it. This is decided by what
+      the people do, so it does not write the outcome (§19). Proposed mapping, Claude's, to confirm: negative is a
+      `CONFLICT` or `CUTOFF` across the tie, or a `REDUCE_CUTOFF` the other refuses (not checked: today the act always lowers both rejections, so whether it can be refused under `M1.B.3c` is for the proposal to establish); positive is a `REDUCE_CUTOFF` the
+      other accepts, a `STAY-IN-CONTACT`, or a reconciliation event (`M4.A.3`).
+    - **Removed anxiety dissipates; it goes to no one.** The 80% a positive bridge takes away leaves the model, as when
+      a threat is removed. A return to peak is felt from the tie itself, as threat, not taken from other people. Both
+      are a source and a sink of the tie, so `M6.4`'s table gains them by name, as it has decay.
+    - **Any tie.** A positive outcome dissipates bound anxiety on any tie, not only a cut-off one.
+    - **Only the anxiety related to the cutoff** is governed by this rule: the tie's bound stock, not the rejection
+      people hold (which keeps its own fade, `rejection_fade`).
+
+    Consequence, and a conflict to decide: today `REDUCE_CUTOFF` hands the whole stock to the triangle's third party,
+    which is what produced week 74's 226 points on Marta. Under these answers that transfer goes. But `M5.B.3` says the
+    transient cost of bridging **MUST** land on a third party whose distancing is being stripped, sourced from the
+    corpus (`L22.6`, a `[T]` finding; owner decision 2026-10-07, P9). The answers and `L22.6` can both hold if the
+    third party's cost is the loss of their distancing outlet, not the stock: the bridged tie's stock dissipates, and
+    the third party, who can no longer bind anxiety in that distance, carries more of their own. Recommended, Claude's:
+    keep `M5.B.3`'s third-party cost in that form, where it emerges from the lost outlet, and drop the transfer of the
+    stock. Owner to confirm.
+
+    Still open:
+    - The mapping of acts to negative and positive above.
+    - Whether the peak cap and the five-year decay apply on every tie, as answer 3 extends dissipation, or only on a
+      tie holding rejection. Today's stocks are bound by `DISTANCE` on ties that are not cut off too (Marta–Ravi 319.2
+      at week 73).
+    - Whether "10% of peak after 5 years" is a floor or a point on a continuing decay.
   - **G2. Releases split equally, ignoring the tie.** `release_bound` and the lock-in spill divide by the number of
     interactive partners (`symptoms.py:147`, `symptoms.py:198`). The coach, whose tie to Marta has conductance 0.3 and
     bond energy 10 (`config/bowen/family_phase_c.md`), took the same 63.6 as Nadia. The learner's cross-person term

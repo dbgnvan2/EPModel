@@ -292,7 +292,8 @@ One proposal per chosen group from §1.1, written after the sweep reports. Candi
     **Confirmed by the owner, 2026-10-18:** repair of a distant or conflicted tie takes three positive contacts, a
     third each (answer 2b), with the negative side governed by the anxiety the tie generates; and rebuffs are read as
     `DISTANCE` toward the person. G1's questions are answered except the readout's timing (before G1 is built, so its
-    effect can be seen; Claude's recommendation). The G1 proposal can now be written.
+    effect can be seen; Claude's recommendation). **Drafted 2026-10-19:** `docs/PROPOSAL — CUTOFF ANXIETY, BRIDGING AND
+    REPAIR.md`, for owner review (its Q1–Q9).
   - **G2. Releases split equally, ignoring the tie.** `release_bound` and the lock-in spill divide by the number of
     interactive partners (`symptoms.py:147`, `symptoms.py:198`). The coach, whose tie to Marta has conductance 0.3 and
     bond energy 10 (`config/bowen/family_phase_c.md`), took the same 63.6 as Nadia. The learner's cross-person term

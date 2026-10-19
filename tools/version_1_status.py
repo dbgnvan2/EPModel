@@ -41,6 +41,7 @@ import re
 import sys
 from dataclasses import dataclass, field
 from pathlib import Path
+from typing import NoReturn
 
 REPO = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO))
@@ -365,10 +366,10 @@ def render(rows: list[Status]) -> str:
     return "\n".join(lines) + "\n"
 
 
-def main() -> int:
+def main() -> NoReturn:
     raise SystemExit(f"{PAGE.relative_to(REPO)} is frozen at the tag version-1 (owner 2026-10-19); "
                      "render it from a checkout of the tag")
 
 
 if __name__ == "__main__":
-    raise SystemExit(main())
+    main()

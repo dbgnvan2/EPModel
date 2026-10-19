@@ -13,6 +13,14 @@ Deferred and adjacent items. Each carries enough context to act on later without
   (the engineering batch, with the grid engine retired, stage 0.3's two fixes, and the trace renderer out of the hash);
   the G2 proposal, so group G (G1, G2, the Holmes–Rahe sizes) can go to one revision and be built before the stage 2
   pilot; then proposals for groups C, F and A, each with the owner's note in the plan's §5 Q2.
+- [ ] **`/csdp` sweep of 2026-10-19, two code-review items not fixed** (each with its reason).
+  - `tools/version_1_status.py` in the working tree is no longer run by any test: `main()` refuses, and
+    `tests/test_version_1_status.py` runs the tag's copy. It is kept, not reduced to a stub, because the plan names it
+    as the starting point for version 2's status page. Whoever writes that page starts from the tag's copy
+    (`git show version-1:tools/version_1_status.py`) or puts the new tool under its own test first.
+  - `tools/phase_c_trace.py`: `outputs()` and `trace_text()` load the family file again after `records()` has loaded
+    it. The cost is milliseconds, and `records()`'s signature is shared with `tools/famdiag_export.py`. Fold it into
+    stage 1's tooling item (1.5) if that work touches `records()`.
 - [ ] **Stale "pending owner review" text for decisions the owner has made** (found 2026-10-19, not fixed; for stage 1,
   since it touches `src/bowen/`, `config/bowen/` and a record string, all in the hash). Code comments in
   `src/bowen/ensemble/criteria.py` (three), `criteria_d.py` (two), `criteria_d2.py` (`M11.C.6`, accepted 2026-10-18),

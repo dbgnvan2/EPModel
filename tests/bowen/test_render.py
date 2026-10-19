@@ -208,7 +208,7 @@ def _chart_data(chart: str) -> dict:
 
     match = re.search(r"const RUN = (.*?);\n", chart)
     assert match, "the chart carries its data as `const RUN = {...};`"
-    return json.loads(match.group(1).replace("<\\/", "</"))
+    return json.loads(match.group(1))
 
 
 def test_m16c1_chart_series_reads_state_each_week():
@@ -243,6 +243,55 @@ def test_m16c1_chart_marks_outside_events_on_their_targets():
     assert from_trace, "the seed-7 Phase C run has events from outside (the declared spell, M11.3)"
     from_chart = {name: [week for week, _ in p["events"]] for name, p in names.items() if p["events"]}
     assert from_chart == from_trace
+
+
+def test_m16c1_committed_trace_and_chart_are_the_current_render():
+    """The seed-7 trace and chart under docs/review/ are what tools/phase_c_trace.py renders now (P6: a committed
+    output is checked against the thing it claims to show). An engine change turns this red until they are
+    regenerated: python3 tools/phase_c_trace.py."""
+    trace, chart = _phase_c_outputs()
+    review = Path(__file__).resolve().parents[2] / "docs" / "review"
+    assert (review / "phase_c_trace_seed7.md").read_text(encoding="utf-8") == trace, "stale: rerun tools/phase_c_trace.py"
+    assert (review / "phase_c_chart_seed7.html").read_text(encoding="utf-8") == chart, "stale: rerun tools/phase_c_trace.py"
+
+
+def test_m16c1_chart_names_the_absent_and_draws_the_undeclared():
+    """P2: nobody the run held is dropped without a word. A declared person alive in no sampled week is named on the
+    page as not drawn; a sampled person the family file does not declare (one born during the run) is drawn under
+    their id. Adversarial: the run is real; only the samples are edited, so the rest of the page is unchanged."""
+    import src.bowen.ensemble.criteria as criteria
+    from tools.run_chart import WeeklySeries, render_chart
+
+    family = load_family(criteria.FAMILIES["phase_c"])
+    series = WeeklySeries()
+    run = _phase_c_tool().records(7, after_tick=series.observe)
+    gone = next(iter(family.display_names))
+    for week in series.weeks:
+        del week[str(gone)]
+        week["newborn"] = dict(week[next(iter(week))])
+    data = _chart_data(render_chart(run, series, family))
+    assert data["absent"] == [family.display_names[gone]]
+    assert family.display_names[gone] not in [p["name"] for p in data["people"]]
+    newborn = next(p for p in data["people"] if p["id"] == "newborn")
+    assert newborn["group"] == "Not in the family file" and len(newborn["anxiety"]) == 104
+    assert data["people"][-1]["id"] == "newborn"  # drawn after the declared people
+
+
+def test_m16c1_chart_script_json_cannot_end_its_element():
+    """A display name holding markup cannot end the data's <script> element or open a comment in it: no <, > or &
+    survives, and the JSON still reads back to the same value. The fill is one pass, so a value that contains a
+    placeholder's name is not filled again, and a template missing a placeholder is refused."""
+    import json
+
+    from tools.run_chart import _fill, _script_json
+
+    value = {"name": "</script><!--<script>&amp;"}
+    text = _script_json(value)
+    assert not set("<>&") & set(text) and json.loads(text) == value
+    assert _fill("a __TITLE__ b __FRAMING__ c __DATA__", {"TITLE": "__DATA__", "FRAMING": "f", "DATA": "d"}) == \
+        "a __DATA__ b f c d"
+    with pytest.raises(ValueError, match="placeholders"):
+        _fill("a __TITLE__ __DATA__", {"TITLE": "t", "FRAMING": "f", "DATA": "d"})
 
 
 def test_m16c1_phase_c_chart_renders():

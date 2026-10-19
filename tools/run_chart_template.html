@@ -76,6 +76,7 @@ td.l { border-left: 1px solid var(--rule); }
     <h1>Anxiety and functioning, week by week</h1>
     <p class="lede">Each person's anxiety and functional level at the end of every week of the run whose trace sits beside this file. Both are on the model's 0–100 scale; anxiety can run past 100. Hover or tap a panel to read the same week for everyone; arrow keys step a focused panel (shift for four weeks).</p>
     <p class="framing">__FRAMING__</p>
+    <p class="lede" id="absent" hidden></p>
     <div class="legend" aria-label="Legend">
       <span><svg width="22" height="10" aria-hidden="true"><line x1="0" y1="5" x2="22" y2="5" stroke="var(--anx)" stroke-width="2"/></svg>Anxiety (acute)</span>
       <span><svg width="22" height="10" aria-hidden="true"><line x1="0" y1="5" x2="22" y2="5" stroke="var(--func)" stroke-width="2"/></svg>Functional level</span>
@@ -106,6 +107,11 @@ const panels = [];
 
 document.getElementById("eyebrow").textContent =
   `${RUN.instance} · seed ${RUN.seed} · ${WEEKS} weeks · spec ${RUN.spec}`;
+if (RUN.absent.length) {
+  const note = document.getElementById("absent");
+  note.textContent = `Not drawn, alive in no sampled week: ${RUN.absent.join(", ")}.`;
+  note.hidden = false;
+}
 
 function el(tag, attrs, parent) {
   const e = document.createElementNS(NS, tag);

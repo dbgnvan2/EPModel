@@ -18,7 +18,9 @@ state and changes nothing. The page's framing is the trace's own block (``trace.
 
 What is drawn, per person and week: ``acute_anxiety`` and ``functional_level``, with ``chronic_anxiety`` (the floor
 anxiety decays toward) and ``basic_level`` as dashed lines; events from outside the family (``exogenous``) are marked
-on the people they land on. A person absent from the field that week, or not alive, has no value.
+on the people they land on. A person absent from the field that week, or not alive, has no value. A declared person
+alive in no sampled week is named on the page as not drawn, and a sampled person the family file does not declare (one
+born during the run) is drawn under their id: nobody the run held is left out without a word (P2).
 """
 
 from __future__ import annotations
@@ -36,6 +38,7 @@ from src.bowen.render.trace import framing
 
 TEMPLATE = Path(__file__).with_name("run_chart_template.html")
 SERIES = ("anxiety", "functioning", "chronic", "basic")
+PLACEHOLDER = re.compile(r"__(TITLE|FRAMING|DATA)__")
 
 
 class WeeklySeries:
@@ -82,6 +85,21 @@ def _round(value: float | None) -> float | None:
     return None if value is None else round(value, 2)
 
 
+def _script_json(data: dict) -> str:
+    """JSON safe inside a ``<script>`` element: every ``<``, ``>`` and ``&`` is written as a JSON escape, so no value,
+    whatever a family file names a person, can end the element or open an HTML comment in it."""
+    text = json.dumps(data, ensure_ascii=False, separators=(",", ":"))
+    return text.replace("<", "\\u003c").replace(">", "\\u003e").replace("&", "\\u0026")
+
+
+def _fill(template: str, values: dict[str, str]) -> str:
+    """Each placeholder replaced in one pass, so a value that contains a placeholder's name is not filled again."""
+    names = PLACEHOLDER.findall(template)
+    if sorted(names) != sorted(values):
+        raise ValueError(f"the template's placeholders {sorted(names)} are not each present once: {sorted(values)}")
+    return PLACEHOLDER.sub(lambda m: values[m.group(1)], template)
+
+
 def render_chart(records: Iterable[Record], series: WeeklySeries, family) -> str:
     """Purpose: the chart page for one run, from its records, its weekly samples and its family declaration.
     Spec:    docs/bowen_agent_model_spec_v2.md#M16.C.1, #M11.F.9
@@ -95,9 +113,11 @@ def render_chart(records: Iterable[Record], series: WeeklySeries, family) -> str
         raise ValueError("no weeks were sampled; pass WeeklySeries.observe as the run's after_tick")
     events = outside_events(records)
     seen = {pid for week in series.weeks for pid in week}
-    people = []
+    declared = {str(pid) for pid in family.display_names}
+    people, absent = [], []
     for pid, name in family.display_names.items():
         if str(pid) not in seen:
+            absent.append(name)
             continue
         person = family.people[pid]
         external = person.role is Role.EXTERNAL
@@ -115,6 +135,13 @@ def render_chart(records: Iterable[Record], series: WeeklySeries, family) -> str
                for key in SERIES},
             "events": [[week, kind] for week, kind in events.get(str(pid), [])],
         })
+    for pid in sorted(seen - declared):  # sampled but not declared: a person born during the run
+        people.append({
+            "id": pid, "name": pid, "info": "not in the family file", "group": "Not in the family file",
+            "order": (2, 0),
+            **{key: [_round(week[pid][key]) if pid in week else None for week in series.weeks] for key in SERIES},
+            "events": [[week, kind] for week, kind in events.get(pid, [])],
+        })
     people.sort(key=lambda p: p["order"])  # stable: declaration order within a group
     for p in people:
         del p["order"]
@@ -128,10 +155,11 @@ def render_chart(records: Iterable[Record], series: WeeklySeries, family) -> str
         "ymax": max(100, 25 * math.ceil(peak / 25)),
         "framing": _plain(framing(records)),
         "people": people,
+        "absent": absent,
     }
-    blob = json.dumps(data, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/")
     title = f"Run chart — {header.instance_id}, seed {header.seed}"
-    return (TEMPLATE.read_text(encoding="utf-8")
-            .replace("__TITLE__", html.escape(title, quote=False))
-            .replace("__FRAMING__", html.escape(data["framing"], quote=False))
-            .replace("__DATA__", blob))
+    return _fill(TEMPLATE.read_text(encoding="utf-8"), {
+        "TITLE": html.escape(title, quote=False),
+        "FRAMING": html.escape(data["framing"], quote=False),
+        "DATA": _script_json(data),
+    })

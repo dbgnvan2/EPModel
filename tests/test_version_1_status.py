@@ -53,7 +53,8 @@ def test_v1_the_tags_status_tests_pass_in_a_copy_of_the_tagged_tree(tmp_path):
         tar.extractall(tmp_path, filter="data")
     expected = set(re.findall(r"^def (test_\w+)\(", (tmp_path / TAGGED_TESTS).read_text(encoding="utf-8"), re.M))
     assert expected, f"{TAGGED_TESTS} at {TAG} defines no tests"
-    env = {k: v for k, v in os.environ.items() if k != "PYTHONPATH"}
+    # The parent's pytest options (PYTEST_ADDOPTS, PYTEST_PLUGINS) would change what runs at the tag.
+    env = {k: v for k, v in os.environ.items() if k != "PYTHONPATH" and not k.startswith("PYTEST_")}
     result = subprocess.run(
         [sys.executable, "-m", "pytest", TAGGED_TESTS, "-q", "-rA", "-p", "no:cacheprovider"],
         cwd=tmp_path, env=env, capture_output=True, text=True, timeout=600)

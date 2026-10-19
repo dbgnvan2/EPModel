@@ -4,6 +4,20 @@ All notable changes to this project are recorded here. Dates are ISO.
 
 ## [Unreleased] — 2026-10-11
 
+### `/csdp` sweep of the 22 unpushed commits (2026-10-19)
+
+- **Swept:** learning-qa over `b773efd...cef5e43` (7 findings), `/code-review` over the changed code (7), and a
+  security review scoped to the range (none). Fixed: the index's and the two proposals' stale status lines; the
+  Holmes–Rahe proposal's §2 and G1's bond-energy note now grade their cases (`KS22.3` and `KS22.8` are `[K-ext]`,
+  Part III; `KS07.1` and `KS10.4` `[K]`), and §2's `KS22.3` is described as the source has it (one man, two partners'
+  pregnancies, not two sisters); the guide's `M11.C.46` row; the plan's "four largest" stocks.
+- **The run chart** (`tools/run_chart.py`) names a declared person alive in no sampled week as not drawn, draws a
+  person the family file does not declare under their id, escapes every `<`, `>` and `&` in its data, and fills its
+  template in one pass. A new test fails when the committed seed-7 trace or chart is not the current render. The
+  chart's data changed only by the new `absent` key.
+- **`tests/test_version_1_status.py`** no longer passes the parent's `PYTEST_*` options to the run at the tag.
+- Two code-review items not fixed, with reasons in `TODO.md`.
+
 ### Version 1 tagged and its status page frozen (2026-10-19)
 
 - **The tag `version-1` marks `d62cfdc`** (the owner's choice; `docs/version_2_plan.md` stage 0.1). That commit records

@@ -157,7 +157,11 @@ One proposal per chosen group from §1.1, written after the sweep reports. Candi
     - **Size, "around a divorce".** Divorce is not modelled (`config/bowen/nodal_events.md`), so the peak needs an
       anchor: a declared `[I]` cap in anxiety points, or the nearest modelled loss, a death (`M6.3a`). Death's grief is
       a stressor intensity (`grief_scale` 20 at bond energy 100, `M6.3g`), not an anxiety stock, so it is not the same
-      unit and cannot be copied across directly.
+      unit and cannot be copied across directly. `docs/PROPOSAL — EVENT SIZES FROM THE HOLMES–RAHE SCALE.md` (draft, 2026-10-18) gives an anchor:
+      divorce is 73 life change units, about 504 intensity units at its recommended 6.9 per unit, roughly 13 anxiety
+      points delivered at functional level 40. A spouse's death through grief delivers about 17 points at level 40 over
+      two years, against the 226 points week 74 released onto one person. The peak should be stated in one unit (anxiety
+      points, the stock's unit); converting from the scale goes through the delivered-load step that proposal sets out.
     - **Decay to 10% of peak after 5 years (260 weeks).** If exponential, the weekly factor is 0.1^(1/260) ≈ 0.99118,
       about 0.88% a week, a half-life of about 78 weeks. "Not to zero" is read as a floor at 10% of peak; it could
       instead be a point on a decay that continues.
@@ -182,7 +186,14 @@ One proposal per chosen group from §1.1, written after the sweep reports. Candi
     already weights by bond energy (`M4.D.6e`), and `M1.E.7e` requires the coach's tie to stay thin. Weight by bond
     energy or conductance? Should a family member's symptom release reach an external agent at all?
 
-  Both change what every run with a `DISTANCE` or an active symptom computes, so if the owner takes group G it is a
+- **Event sizes from the Holmes–Rahe scale** — `docs/PROPOSAL — EVENT SIZES FROM THE HOLMES–RAHE SCALE.md` (draft, the owner's request 2026-10-18): base
+  sizes for exogenous events from the scale's life change units, scaled by bond energy. The scale is an outside rating,
+  graded `[I]`, not Bowen. Its other findings: marriage, birth, retirement and a child leaving home add no anxiety
+  today; job loss and a family member's illness are light against the scale; lost income after an earner's death is
+  heavy and has no end; a person's own symptom onset loads only their partners. Its Q7 recommends building it with
+  G1, since G1's peak is sized against divorce, so the two share one regeneration.
+
+  Group G and the event sizes change what every run with a `DISTANCE`, an active symptom or an exogenous event computes, so if the owner takes group G it is a
   candidate to build **before** the stage 2 pilot, so the sweep does not measure a release rule about to change (Q2).
 
 Each changed rule keeps the version 1 result beside the version 2 result in the status page. A criterion that turns
@@ -201,7 +212,9 @@ done as one revision (Q7).
 - `M15`'s import of real families, the envelope output, and `M11.C.8` against published rates (Q5). The two export
   changes `M13.3` names as cheapest-first (`M15.A.4` intervals, `M15.C.2` rupture against resolved distance) are on the
   owner's application and can be made at any time without waiting for a version.
-- Calibrating any `[I]` constant to data.
+- Calibrating any `[I]` constant to data. The Holmes–Rahe proposal is close to this: its Q1 asks whether the scale may
+  set an ordering of base sizes, graded `[I]`, without counting as calibration. If the owner says yes, that is the one
+  exception, and it is stated in this bullet.
 - Phase F, the language layer.
 - `M11.C.13` (no community in the model) and `M11.C.28` (the sink allocation feeds no behaviour), unless a stage 3 rule
   makes either testable.
@@ -256,7 +269,7 @@ the sweep record and shows the version 1 status beside each row. Built in stage 
 |---|---|---|---|
 | Stage 0 (freeze, loose ends, render-only fixes) | Q8, Q10 | no | render only |
 | Stage 1 (engineering batch) | Q6 | yes | one full (about 2 hours, 10 cores, plus the mutation records) |
-| Group G, if taken (proposal → revision → build) | stage 1, Q2 | yes | one full |
+| Group G and the event sizes, if taken (proposals → one revision → build) | stage 1, Q2, the event-size proposal's Q1–Q7 | yes | one full, shared |
 | Stage 2.2 pilot | stage 1, Q3 | no | pilot only; timed and reported before 2.1 |
 | Stage 2.1 full sweep | pilot, Q3, Q4 | no | cost from the pilot |
 | Stage 3 proposals | stage 2 record, Q2 | per proposal | one full per batch of approved rules |

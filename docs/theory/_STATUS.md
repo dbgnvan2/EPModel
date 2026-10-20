@@ -1,6 +1,6 @@
 # Run status — HANDOFF
 
-> ## ▶ STATE — the corpus is closed and the spec is current. **Phase C is closed with its gate failing (owner decision, 2026-10-09).**
+> ## ▶ STATE — the corpus is closed. **Version 1 is complete (2026-10-18) and tagged `version-1` at `d62cfdc`; its spec is revision 32. Version 2 began at revision 33, and stage 1's one regeneration run is next.**
 >
 > **2026-10-19 — version 2 stage 1, spec revision 33, built** (`docs/implementation_plan_version_2.md` §1, approved
 > by the owner 2026-10-19 with D1–D7 as recommended; build record §1.10): the grid engine retired (`M13.2` amended),

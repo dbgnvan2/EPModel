@@ -18,10 +18,10 @@ Reviewer: ________  Started: ________  Spec revision reviewed: ________
 
 These define what the model does. A run that disagrees with them is a defect.
 
-- [ ] [bowen_agent_model_spec_v2.md](bowen_agent_model_spec_v2.md) — the spec (v2.0, revision 27). Objects (M1),
-      reference family (M2), clocks and ordering (M3), the fast tick (M4), moves (M5), invariants (M6), the slow tick
-      (M7), live positions (M8), beliefs (M9), parameters (M10), acceptance criteria (M11), framing (M11.F), the
-      readout schema (M11.G), out of scope (M12), the run log and trace (M16).
+- [ ] [bowen_agent_model_spec_v2.md](bowen_agent_model_spec_v2.md) — the spec (v2.0, revision 33; version 1 is
+      revision 32). Objects (M1), reference family (M2), clocks and ordering (M3), the fast tick (M4), moves (M5),
+      invariants (M6), the slow tick (M7), live positions (M8), beliefs (M9), parameters (M10), acceptance criteria
+      (M11), framing (M11.F), the readout schema (M11.G), out of scope (M12), the run log and trace (M16).
 - [ ] [../config/bowen/constants.md](../config/bowen/constants.md) — the parameter values the engine uses.
 - [ ] [../config/bowen/constants_changes.md](../config/bowen/constants_changes.md) — every change to those values,
       and why.
@@ -170,6 +170,11 @@ verdicts over ensembles (`tools/phase_d_record.py`; plan step 12). Mutations are
 **Draft for review, 2026-10-18:** [<PROPOSAL — LEARNING BY LEVEL, ASKING WHAT TO DO DIFFERENTLY.md>](<PROPOSAL — LEARNING BY LEVEL, ASKING WHAT TO DO DIFFERENTLY.md>) — version 2 rule question raised by the owner: every act teaches a felt lesson and a fact lesson, level sets how much the fact lesson guides choice and anxiety erodes it, a person under high anxiety may ask "what can I do differently?", and coaching raises the chance of asking and of pursuing the answer; what the corpus supports and does not; nine questions for the owner.
 
 **Decided 2026-10-19, not built:** [<PROPOSAL — EVENT SIZES FROM THE HOLMES–RAHE SCALE.md>](<PROPOSAL — EVENT SIZES FROM THE HOLMES–RAHE SCALE.md>) — version 2, at the owner's request: the model's event sizes against the Holmes–Rahe life-event scale (an outside rating, not the corpus), what Kerr's case material says about event size (set by the tie, not the kind; the deciding case is `[K-ext]`), a proposal to take base sizes from the scale and scale them by the tie, and eight questions (Q1–Q8, all decided by the owner).
+
+**Draft for owner approval, 2026-10-19:** [plan_spec_coverage_phase_d.md](plan_spec_coverage_phase_d.md) — why
+`spec_coverage.md` still reads "after Phase C" and how to bring it up to date: Part A, the tool reads every ensemble and
+mutation record (mechanical); Part B, a new evidence mapping for the requirements built in Phases C and D without a test
+named for them; three owner decisions. Nothing built.
 
 **For review, 2026-10-13:** [phase_d_status_2026-10-13.md](phase_d_status_2026-10-13.md) — Phase D part I after the
 overnight run: every build item and D-I criterion as done, partial or not done, and what the owner should look at

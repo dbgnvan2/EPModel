@@ -1,8 +1,10 @@
 # EPModel
 
-A simulation of emotional process at unit, family and societal level, built on Bowen family systems theory.
+A simulation of emotional process in one three-generation family, built on Bowen family systems theory.
 
-> **The project is mid-pivot.** The original engine is a stress field over 10,000 units on a 100×100 grid. It is being replaced by a model of **behaving agents in one three-generation family**, because the grid substrate cannot express the part of the theory the project now wants — there is no dyad in it, and therefore no triangle. The grid engine was retired at version 2 stage 1 (spec revision 33, 2026-10-19); its code and tests are kept at the tag `version-1`.
+The model is a set of **behaving agents in one three-generation family** (`src/bowen/`). It replaced the project's first engine, a stress field over 10,000 units on a 100×100 grid, because the grid could not express the part of the theory the project wants — there is no dyad in it, and therefore no triangle. The grid engine was retired at version 2 stage 1 (spec revision 33, 2026-10-19); its code and tests are kept at the tag `version-1`.
+
+> **Which branch to read.** GitHub's default branch `main` stops at 2026-10-06 (spec revision 11). The work since then, including all of version 1, is on the branch `plan-phase-b` and at the tag `version-1`.
 
 ## Where to start
 
@@ -18,7 +20,7 @@ A simulation of emotional process at unit, family and societal level, built on B
 
 All 22 chapters of Bowen's *Family Therapy in Clinical Practice* have been extracted twice — a cold pass chapter by chapter, then a comparative pass re-reading each chapter against the whole book. The output is in `docs/theory/`: 149 per-chapter findings, ten cross-chapter convergences with an independence audit, and a resolution document for the contradictions.
 
-**Two results from that work govern everything else in this repo:**
+**Three results from that work govern everything else in this repo:**
 
 1. **The corpus contains no validation of any kind.** No instrument, no rater procedure, no comparison group, and no number ever assigned to a person, in any of the six sources. It supports *directions, orderings and mechanisms*, and almost no *magnitudes*. Every constant in the model is invented, and the source cannot narrow the range even in principle. *(The 1988 book supplies twelve stated bounds and shapes — recorded at `M10.C.4` as checks on an output, never as parameters.)*
 
@@ -53,10 +55,11 @@ Requires Python 3.11 or later and the packages in `requirements.txt`. The grid e
 
 **Phase C is built, and its acceptance gate does not pass** (2026-10-08). Agents now select acts through a policy and learn from felt relief. Of 16 criteria built, 7 pass and are mutation-proved, 1 passes without a mutant proof, 1 passes in one of its four cells, and 7 fail. The status of each criterion and the owner decisions it needs are in `docs/phase_c_completion_report.md`; coverage in `docs/spec_coverage.md`.
 
-**Phase D, part I, is being built** (`docs/implementation_plan_phase_d.md`). Built: engine speed, channel stamping,
+**Phase D, part I, was built** (`docs/implementation_plan_phase_d.md`): engine speed, channel stamping,
 cutoff as rejection, the slow tick and the basic-level estimator (B1–B6); the three symptom channels with lock-in (B7);
 beliefs as a channel (B8); the tie-weighted cross-person term (B9); the `M11.G` family-evaluation readout (B10); and
-borrowed pseudo-self settling back. Spec revisions 24–27 are Claude's recommendations, pending owner review. Criteria,
+borrowed pseudo-self settling back. Spec revisions 24–27 were Claude's recommendations; the owner reviewed them on
+2026-10-16. Criteria, as recorded on 2026-10-13,
 from `docs/phase_d_ensemble_record.md`: `M11.C.17` (weakly), `.18`, `.20`, `.33`, `.30`, `.22`, `.31`,
 `.11`, `.26`, `.36`, `.39` and `.24` pass; `.12`, `.14`, `.2`, `.40`, `.43`, `.34`, `.21` and `.23` fail. `M11.C.7`,
 `.9` and `.28` need mechanisms first; who acts (B11) moves to part II.
@@ -86,4 +89,4 @@ python3 -m pytest tests/
 
 The suite runs in CI on Python 3.11, 3.12 and 3.13 (`.github/workflows/tests.yml`), installing only `requirements.txt`.
 
-Phase B runs a fixed script over an invented seven-person family. It tests one model claim, as a direction between two runs; nothing it produces is a finding about families. The family-diagram importer (`M15`) is Phase E.
+Phase B runs a fixed script over an invented seven-person family. It tests one model claim, as a direction between two runs; nothing it produces is a finding about families. The family-diagram importer (`M15`) is not in version 1 or version 2 (`docs/version_2_plan.md` §2).

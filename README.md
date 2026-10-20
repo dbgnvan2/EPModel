@@ -2,7 +2,7 @@
 
 A simulation of emotional process at unit, family and societal level, built on Bowen family systems theory.
 
-> **The project is mid-pivot.** The original engine is a stress field over 10,000 units on a 100×100 grid. It is being replaced by a model of **behaving agents in one three-generation family**, because the grid substrate cannot express the part of the theory the project now wants — there is no dyad in it, and therefore no triangle. The grid engine still runs and its tests stay green until the replacement passes its acceptance criteria.
+> **The project is mid-pivot.** The original engine is a stress field over 10,000 units on a 100×100 grid. It is being replaced by a model of **behaving agents in one three-generation family**, because the grid substrate cannot express the part of the theory the project now wants — there is no dyad in it, and therefore no triangle. The grid engine was retired at version 2 stage 1 (spec revision 33, 2026-10-19); its code and tests are kept at the tag `version-1`.
 
 ## Where to start
 
@@ -29,10 +29,9 @@ All 22 chapters of Bowen's *Family Therapy in Clinical Practice* have been extra
 ## Layout
 
 ```
-src/engine.py        the grid engine — frozen in behaviour, still under test
-src/main.py          orchestration, UI, I/O
-src/bowen/           the agent model (not yet started)
-tests/               37 tests, all passing
+src/bowen/           the agent model: engine, policy, readouts, ensemble runner, renderer
+tools/               the record generators (ensemble, mutation, sweep, Phase D, trace)
+tests/               the suite (see CLAUDE.md for the current count)
 docs/theory/         the corpus extraction, ledger and convergences
 docs/                proposal, explainer, v2 spec, frozen v1.2 spec
 ```
@@ -43,15 +42,12 @@ docs/                proposal, explainer, v2 spec, frozen v1.2 spec
 python3 -m pytest tests/
 ```
 
-```bash
-python3 src/main.py
-```
-
-Requires Python 3, NumPy and Pygame. `requirements.txt` is present but not yet tracked — see `TODO.md`.
+Requires Python 3.11 or later and the packages in `requirements.txt`. The grid engine's entry point,
+`src/main.py`, was retired at version 2 stage 1 and is at the tag `version-1`.
 
 ## Status
 
-The v2 specification is **approved** — 575 numbered requirements over 17 modules, 47 acceptance criteria, at revision 30 (built 2026-10-14; revision 29 built 2026-10-14; revisions 24–27 are Claude's recommendations pending owner review, revision 28 applies the owner's life-course decisions in forms pending review, and revision 29 the owner's cutoff and focus decisions; revision 12 approved 2026-10-07).
+**Version 1 is complete and frozen** at spec revision 32 and the tag `version-1` (2026-10-19). Where each criterion stands is in `docs/version_1_status.md`. **Version 2** (`docs/version_2_plan.md`) began at revision 33: stage 1, one engineering batch with no new rule (the grid engine retired, exact float totals, the act classes in config, the Phase D records cached), was built 2026-10-19 (`docs/implementation_plan_version_2.md` §1.10). The paragraphs below record each phase as it was built; the status page says where each criterion stands now.
 
 **Phase B is built and closed** (`src/bowen/`): the objects, the weekly loop, the standing load, the base appraisal, the event record, the scripted source, the run log and the renderer. See `docs/phase_b_completion_report.md`.
 
@@ -78,8 +74,8 @@ python3 tools/mutation_record.py     # docs/phase_c_mutation_record.md (cached)
 python3 tools/sweep_record.py        # docs/phase_c_sweep_record.md (cached)
 python3 tools/level_occupancy.py     # docs/phase_c_level_occupancy.md (about 3 minutes)
 python3 tools/c16_report.py          # report §11, generated from the records
-python3 tools/phase_d_record.py      # docs/phase_d_ensemble_record.md (about 10 minutes)
-python3 tools/phase_d_record.py --part 2   # docs/phase_d2_ensemble_record.md (about 50 minutes)
+python3 tools/phase_d_record.py      # docs/phase_d_ensemble_record.md (cached; a full rerun about 10 minutes)
+python3 tools/phase_d_record.py --part 2   # docs/phase_d2_ensemble_record.md (cached; a full rerun about 50 minutes)
 python3 tools/phase_d_mutation_record.py   # docs/phase_d_mutation_record.md (cached; one new mutant about 30 minutes)
 ```
 

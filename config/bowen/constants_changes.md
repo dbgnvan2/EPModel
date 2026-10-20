@@ -10,6 +10,10 @@
 > changes from the Phase B snapshot (`constants_frozen_phase_b.md`) made while Phase C was built, before any
 > Phase C criterion ran. Rows dated after the re-freeze are changes against the Phase C snapshot.
 
+> **Version 2 stage 1 (spec revision 33, 2026-10-19) changed no constant**, so it has no row here. The act classes it
+> moved out of the code into `act_classes.md` (`M8.3`, `M5.B.4`, `M5.B.5`) are lists of act names, not constants, and
+> their contents did not change.
+
 | key | frozen_value | new_value | date | criterion | post_hoc |
 |---|---|---|---|---|---|
 | `standing_load_gain` | 0.2 | 0.2 (meaning changed: scales the "too little" side, M4.C.1c) | 2026-10-07 | — (spec revision 11 replaced the mechanism; Phase C step 1) | no |

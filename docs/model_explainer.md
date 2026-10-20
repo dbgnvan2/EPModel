@@ -1,8 +1,8 @@
 ---
 tags: [model-bt, explainer]
 status: current
-version: 1.9
-date: 2026-10-06
+version: 2.0
+date: 2026-10-19
 ---
 
 # The model, part by part
@@ -797,7 +797,7 @@ At low level a person is nearly all automatic; as level rises a real self-direct
 | `members[3]` | the three people | `[T]` Ch09 · L09.3 |
 | `inside_pair`, `outside_member` | who is currently where | `[T]` Ch09 · L09.3 — **position value inverts with load**: outside is unfavoured when calm and **favoured under tension** |
 | `bound_anxiety` | how much the structure is currently holding | `[M]` Ch17 · L17.1 — anxiety dilutes across three edges |
-| `active` | whether it is operative at all | `[T]` Ch17 · L17.1 — "the system is calm and the triangles inoperative". **Persistent topology is stored separately from the active set.** From revision 11, `active` is a readout of recent `TRIANGLE` acts, not a threshold on tension (§19). |
+| `active` | whether it is operative at all | `[T]` Ch17 · L17.1 — "the system is calm and the triangles inoperative". **Persistent topology is stored separately from the active set.** From revision 11, `active` is a readout of recent `TRIANGLE` acts, not a threshold on tension (§19). From revision 33 it is decided by presence: a triangle that holds a sided coach stays active (§11.4). |
 | `routing_capacity` | how much anxiety it can carry | `[T]` 1979 Tape 5 — intensity "is determined by level of differentiation and principally anxiety". **A function of the members' `functional_level`, not of the triangle.** Well differentiated: patterns are mild, appear under anxiety, and go away. Poorly differentiated: more intense and fixed. |
 | `activation_memory` | which circuits it has used before | `[T]` Ch09 · L09.3 — tension reroutes onto "old preestablished circuits" |
 | `intensity_floor` | a permanent decrement | `[T]` Ch09 · L09.3 — an "I" position held "for even a few days" produces a **permanent** decrease in that triangle's intensity. **The state does not fully revert.** This is the counterweight to the change-back reaction. |
@@ -841,7 +841,7 @@ At low level a person is nearly all automatic; as level rises a real self-direct
 
 **Does:** three scalar dials shift the family's ambient anxiety and stressor schedule. Society is a **dial on the symptom threshold**, not a separately simulated layer.
 
-> **The three dials, and where they actually come from.** They arrive from the grid engine as `L`, `X` and `E`, and until this revision their meanings appeared nowhere in any design document — only as Pygame log strings in `src/main.py`: Leadership, Social Media, Climate. Renamed `societal_leadership`, `media_amplification` and `resource_pressure`.
+> **The three dials, and where they actually come from.** They arrive from the grid engine as `L`, `X` and `E`, and until this revision their meanings appeared nowhere in any design document — only as Pygame log strings in `src/main.py`: Leadership, Social Media, Climate. (The grid engine and `src/main.py` were retired at revision 33 and are kept at the tag `version-1`.) Renamed `societal_leadership`, `media_amplification` and `resource_pressure`.
 >
 > **`resource_pressure` is `[T]`, and it is Ch18's own thesis** — not an inheritance. "A spectrum of problems associated with **population explosion play a major role in man's deeper anxieties**", with "the rapid depletion of world's natural resources" and "certain natural resources are nearing exhaustion". The chapter's central claim is that society "appears to be functioning on a less differentiated emotional level than twenty-five years ago, that this **may be related to the disappearance of land frontiers**." It acts through **awareness of diminishing availability**, not consumption — "It was important for him to know there was new land for him, even if he never went to it" — which makes it the societal-scale instance of §6.3's availability mechanism, and **not** the grid engine's metabolic drain.
 >
@@ -1275,6 +1275,37 @@ reviewed by the owner one at a time on 2026-10-17 (`docs/implementation_plan_pha
 - **Test 9 is proposed out of version 1.** No rule reads sibling position (§3.11), so it needs a mechanism, not a
   gate.
 
+### 11.4 What revision 33 changed, to begin version 2  *(2026-10-19; version 2 stage 1, decided by the owner the same day)*
+
+Version 1 is frozen at spec revision 32 and the tag `version-1`; version 2 begins at revision 33. Stage 1 is one
+engineering batch (`docs/implementation_plan_version_2.md` §1). It adds no rule. Its decisions, D1–D7, are the
+owner's, taken as recommended on 2026-10-19. Which verdicts it moved is measured, not predicted, in
+`docs/version_2_stage_1_changes.md`.
+
+- **The grid engine is retired** (`M13.2`, D1). `src/engine.py`, `src/main.py`, `monte_carlo.py`, their 37 tests and
+  `docs/model_config.md` are removed from the tree and kept at the tag `version-1`. A test fails if any of them comes
+  back or is imported. The rule that the frozen engine stays green no longer applies.
+- **Whether a triangle is active is decided by presence** (`M8.5`, D3 (b)). The code already did this; revision 33
+  makes the spec say so. A triangle with a recent `TRIANGLE` act is active whoever holds its positions. A coach who
+  has taken a side is present, so the triangle stays active while §13.1's `positions_live` gives the coach no live
+  position and the coach's contact lands nothing. No family member is fused in any run, because no caller passes a
+  fusion map. Whether a fused occupant should make its triangle inactive is a theory question with a case each way
+  (a sided coach is inside a triangle, which is what being triangled means; a fused position leaves two live
+  positions, which `M8` reads as a group that cannot move its tension around). It is left for stage 3. `[I]` either way.
+- **Every float total is exact** (D2 (b)). Python 3.12 changed how the builtin `sum` adds floats, so a run could
+  differ in its last bits between 3.11 and 3.12. Every float total in `src/bowen` outside the renderer is now a
+  `math.fsum`, and every integer total goes through a helper that refuses a float. The C maths library still differs
+  between macOS and Linux, so the golden fingerprints keep their rounding to 8 significant digits; neither moved.
+- **The act classes come from config** (rule 9). Which act draws an external agent onto a member's side (`SPLIT`,
+  `M8.3`), which acts a family member makes only toward an external agent (`M5.B.4`) and which acts an external agent
+  makes (`M5.B.5`) are read from `config/bowen/act_classes.md`. A misspelt act fails at load.
+- **Two runs are compared on their stressors too** (`M16.T.3`). `canonical_state`, the string by which two runs'
+  final states are compared, now includes the stressors still weighing on the family. Before, two runs that differed
+  only there compared equal.
+- **What a symptom gives back has its own trace row** (`M16.T.1`, D6 (a)). The weekly hold stays summarised (one
+  bearer gave 121 rows a year). The release when a symptom ends, and the spill to the partners past the turn, are each
+  shown with who received them; week 74 of the seed-7 trace held a spill of 222.4 that the trace did not show.
+
 ---
 
 ## 12. What is deliberately not in the model
@@ -1326,6 +1357,9 @@ avoidance_available   = positions_live < 3          # a step, not a gradient
 - An external agent in the outside position **counts**. `[T]` Ch10 · L10.4 — "any third person… no matter what the subject matter."
 - An external agent who has taken a side **does not** — he has fused into one of the two.
 - A member present but **emotionally inactive** does not. `[T]` Ch17 · L17.1 names that state directly.
+
+*In the running model (revision 33, §11.4):* this predicate decides whether the coach's contact lands. It does not
+decide whether a triangle is active, which is read from presence, and no family member is fused in a run.
 
 **This also dissolves the "reversal" in Ch14.** In Ch03 a family member talking to the therapist *removes* the third position, leaving a twosome that can avoid; in Ch14 the therapist *is* the third position, so talking to him keeps three live. **Same act, opposite meaning, because the third position moved — C10 applied to technique.**
 

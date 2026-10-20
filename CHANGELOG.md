@@ -4,6 +4,32 @@ All notable changes to this project are recorded here. Dates are ISO.
 
 ## [Unreleased] — 2026-10-11
 
+### Version 2 stage 1: one engineering batch (spec revision 33, 2026-10-19)
+
+The owner decided D1–D7 as recommended (`docs/implementation_plan_version_2.md` §1.2). No rule changed. Each
+criterion's test was shown failing under its mutation (§1.10).
+
+- **The grid engine is retired** (`M13.2` amended, D1, D4): `src/engine.py`, `src/main.py`, `monte_carlo.py`,
+  `tests/test_simulator.py` (37 tests) and `docs/model_config.md` are removed, and kept at the tag `version-1`.
+  `tests/test_repo_layout.py` fails if any comes back or is imported.
+- **Exact float totals** (S1.1, D2 (b)): every float `sum()` in `src/bowen` outside `render/` is a `math.fsum`, and
+  every integer total a `count()` that refuses a float. The golden fingerprints did not move at 8 significant digits.
+- **The canonical state includes the stressors** (S1.2, `M16.T.3`).
+- **The act classes come from `config/bowen/act_classes.md`** (S1.3, rule 9); a misspelt act fails at load.
+- **Triangle activity is decided by presence** (`M8.5` amended, D3 (b)): the spec now says what the code did; no
+  result changes. Whether a fused occupant should make a triangle inactive is left for stage 3.
+- **Tooling:** a failed or timed-out mutant child is that row's errored outcome and leaves no process (S1.5a);
+  `code_text` splits lines as `tokenize` does (S1.5b); the Phase B mutation record is frozen (S1.5c, D5); one helper
+  parses a record's JSON block (S1.5d); `tools/phase_c_trace.py` loads the family once.
+- **The renderer is out of the engine hash** (S1.8a), and no verdict imports it (S1.8b). **The Phase D ensembles
+  are cached** in `docs/records_cache/` and their records re-render from the cache (S1.8c).
+- **The trace shows what a symptom gives back** (S1.7a, D6 (a)): a lock-in release and the spill past the turn each
+  have a row; the weekly hold stays summarised. **The D2 record prints each variant under its own key** (S1.7b).
+- **Riders** (D7): no decided item is still described as pending owner review (`tests/test_stale_text.py`); the
+  pattern readouts take `now`; the Phase D mutation record's hash ignores comments.
+- **The records are regenerated once** on the new hash (S1.10a); `docs/version_2_stage_1_changes.md` lists every
+  verdict that changed against the tag `version-1` (S1.10b).
+
 ### `/csdp` sweep of the 22 unpushed commits (2026-10-19)
 
 - **Swept:** learning-qa over `b773efd...cef5e43` (7 findings), `/code-review` over the changed code (7), and a

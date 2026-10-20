@@ -2,9 +2,16 @@
 
 > ## ▶ STATE — the corpus is closed and the spec is current. **Phase C is closed with its gate failing (owner decision, 2026-10-09).**
 >
-> **2026-10-18 — version 2 planned, not approved:** `docs/version_2_plan.md` (DRAFT) proposes freezing version 1, one
+> **2026-10-19 — version 2 stage 1, spec revision 33, built** (`docs/implementation_plan_version_2.md` §1, approved
+> by the owner 2026-10-19 with D1–D7 as recommended; build record §1.10): the grid engine retired (`M13.2` amended),
+> every float total a `math.fsum`, the canonical state sees stressors, the act classes in config, triangle activity
+> decided by presence (`M8.5` amended), the renderer out of the engine hash and the Phase D ensembles cached. No rule
+> changed. The one regeneration and `docs/version_2_stage_1_changes.md`, which lists any verdict that moved against
+> the tag `version-1`, follow.
+>
+> **2026-10-18 — version 2 planned** (approved by the owner 2026-10-19, all ten questions answered): `docs/version_2_plan.md` proposes freezing version 1, one
 > engineering batch, `M17.E.1`'s constant sweep with a timed pilot, then the rule questions the owner chooses. Ten owner
-> questions in its §5; nothing is built until they are answered.
+> questions in its §5.
 >
 > **2026-10-17 — spec revision 32, finishing version 1** (plan §4.12): built under the owner's "proceed using your own
 > recommendations", every decision pending owner review. Where version 1 stands is generated in

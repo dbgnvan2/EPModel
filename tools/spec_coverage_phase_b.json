@@ -2,9 +2,9 @@
  "M13.2": {
   "status": "done",
   "evidence": [
-   "tests/test_simulator.py"
+   "tests/test_repo_layout.py::test_s1_6_the_grid_engine_is_retired"
   ],
-  "note": "the frozen engine's 37 tests pass unchanged; gate G14"
+  "note": "revision 33: the grid engine and its 37 tests retired at version 2 stage 1, kept at the tag version-1; until then its tests passed unchanged (gate G14)"
  },
  "M16.B.2": {
   "status": "done",

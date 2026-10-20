@@ -1,7 +1,8 @@
 # Version 2: implementation plan
 
 **Status: stage 1 APPROVED 2026-10-19.** The owner decided D1–D7 the same day, every one as recommended (§1.2), and
-approved the plan. Not yet built. Written from
+approved the plan. **Code, tests and documents built 2026-10-19 (steps 0–5, §1.10); the review, the run and
+the report (steps 6–8) are next.** Written from
 `docs/version_2_plan.md` §3 (stage 1) and the `TODO.md` entries it collects, each checked against the code on
 2026-10-19. Later stages add their own sections here, as the Phase D plan did.
 
@@ -214,3 +215,63 @@ ad hoc runs of that criterion alone.
   sums, and `slow_tick.py` still uses the builtin `sum` for others. D2 (b) covers both.
 - `TODO.md`'s rule 9 entry (the readouts' act sets) is half done: the sets are in config, and only the engine's two
   classifications remain (S1.3).
+
+### 1.10 Build record (2026-10-19)
+
+Steps 0–5 are built: commits `423bbed` (steps 0–2), `b6ca902` (step 3), `36fad6c` (step 4) and step 5's documents.
+Each criterion's test was shown failing under its mutation on a copy of the repository before it counted; the
+mutations are edits applied by a scratch tool and reverted, and none is kept in the tree.
+
+| ID | Test | Mutation | Result |
+|---|---|---|---|
+| S1.0 | `tests/bowen/test_render.py::test_b2_framing_says_who_chose_the_acts` (reused) | the framing always says scripted | fails |
+| S1.0 | `tests/bowen/test_ensemble_record.py::test_b2_code_text_drops_only_docstrings_and_comments` (reused) | a docstring's whole line dropped; blank lines inside a string stripped | fails, each |
+| S1.0 | `tests/bowen/test_patterns.py::test_s1_0_act_sets_come_from_config` | the `APPROACH` literal put back with the same values (the older config test passed under it) | fails |
+| S1.1a | `tests/bowen/test_float_sums.py::test_s1_1a_no_builtin_sum_in_bowen` | `reactive.py`'s `math.fsum(others)` back to `sum(others)` | fails |
+| S1.1b | `tests/bowen/test_float_sums.py::test_s1_1b_count_refuses_a_float` | `count` as the builtin `sum` | fails |
+| S1.2 | `tests/bowen/test_log.py::test_m16t3_s1_2_canonical_state_sees_the_stressors` | the `stressors` key removed | fails (and failed before the fix) |
+| S1.3a | `tests/bowen/test_config.py::test_s1_3a_act_classes_come_from_config` | the family→external literal put back in `policy.py` | fails |
+| S1.3b | `tests/bowen/test_config.py::test_s1_3b_an_undeclared_act_fails_to_load` | the declared-move check removed | fails |
+| S1.4 | `tests/bowen/test_mechanisms.py::test_m8_5_s1_4_a_sided_coach_leaves_its_triangle_active` | the coach's side passed to `recompute_triangles` | fails |
+| S1.5a | `tests/bowen/test_mutant_runner.py::test_s1_5a_a_failed_child_does_not_stop_the_record` | the `SystemExit` restored | fails |
+| S1.5a | `tests/bowen/test_mutant_runner.py::test_s1_5a_a_timed_out_child_leaves_no_process` | the process group's kill replaced by `child.kill()` | fails at its 40 s deadline |
+| S1.5b | `tests/bowen/test_ensemble_record.py::test_s1_5b_code_text_keeps_a_line_separator_inside_a_string` | `str.splitlines` restored | fails (and failed before the fix) |
+| S1.5c | `tests/bowen/test_phase_b_gate.py::test_s1_5c_phase_b_record_is_frozen` | the refusal to write removed | fails |
+| S1.5d | `tests/bowen/test_record_json.py::test_s1_5d_one_record_parser` | the block's pattern pasted back into `tools/sweep_record.py` | fails |
+| S1.6 | `tests/test_repo_layout.py::test_s1_6_the_grid_engine_is_retired` | `src/engine.py` restored | fails |
+| S1.7a | `tests/bowen/test_render.py::test_m16t1_s1_7a_a_release_has_its_own_row` | `lock_in` back in the summarised set | fails |
+| S1.7b | `tests/bowen/test_phase_d_record.py::test_s1_7b_variants_print_under_their_own_keys` | the verdict keeps `Criterion.id` | fails |
+| S1.8a | `tests/bowen/test_ensemble_record.py::test_s1_8a_render_is_not_hashed` | the `render/` exclusion removed | fails |
+| S1.8b | `tests/bowen/test_engine_purity.py::test_s1_8b_only_run_imports_render` | an import of the renderer added to `readouts/patterns.py` | fails |
+| S1.8c | `tests/bowen/test_phase_d_record.py::test_s1_8c_records_render_from_the_cache` | the cache never read | fails |
+| S1.8c | `tests/bowen/test_phase_d_record.py::test_s1_8c_a_stale_entry_is_rerun` (P8) | the key without the engine hash | fails |
+| S1.9 (i) | `tests/test_stale_text.py::test_s1_9_no_pending_review_text_for_decided_items` | one reworded site put back as "pending owner review" | fails |
+| S1.9 (ii) | `tests/bowen/test_patterns.py::test_s1_9_readouts_read_now` | the readouts ignore `now` | fails |
+| S1.9 (iv) | `tests/bowen/test_phase_d_mutation_record.py::test_s1_9_engine_hash_ignores_comments` | raw `inspect.getsource` restored | fails |
+
+S1.9 (iii) is S1.5b, and (v) is covered by the trace's record-current test. S1.10a–c are steps 7 and 8.
+
+**Where the build differs from the plan.**
+- **The golden fingerprints did not move.** §1.3 expected S1.1 to change them. Measured with S1.1–S1.4 in place, both
+  seeded runs give the same fingerprint at 8 significant digits, so no fixture was regenerated and there was no old
+  fixture to show failing. `tests/bowen/test_engine_golden.py`'s docstring records this.
+- **S1.3a removed the module attributes** instead of keeping attributes equal to the loaded sets. The engine reads
+  `kinds.side_taking` from the run's kinds and the policy reads `family_to_external` and `external_repertoire` from
+  the kinds it is given, so no copy of a set can drift. The test checks the loaded classes, the absence of a literal
+  in either module, and that the two policy classes are the lists `M5.B.4` and `M5.B.5` name.
+- **S1.5a moved the engine hash at step 1.** `tools/mutant_runner.py` is in the engine hash, so the failed-child fix
+  moved it one step before §1.4 expected. No record was regenerated between steps, so the run at step 7 is still the
+  only one.
+- **The Phase D cache's engine part is the hash the Phase D records print** (`code_hash()` with no tool), not
+  `engine_hash()`, which adds `tools/mutant_runner.py`; the Phase D ensembles do not run through that tool. The key is
+  otherwise built as Phase C's are (`result_key`).
+
+**Adjacent issues found while building, not fixed** (each is in `TODO.md` or below):
+- Act sets still written in the code outside the two classes S1.3 moved: `NEVER_REFUSED` (`rejection.py`),
+  `ABORT_ACTS` (`iposition.py`), the sets in `sinks.py` and `moves.py`, and `NEEDS_TRIAD` in `policy.py` (rule 9).
+- `tools/probes.py` still takes float means with the builtin `sum` (lines 139, 141, 268, 458). It is outside
+  `src/bowen` and no verdict reads it.
+- `monte_carlo_results.txt`, the grid engine's output, is still tracked.
+- `tools/mutation_gate_phase_b.json` names `tests/test_simulator.py`; it is an input to the frozen Phase B record
+  (D5) and is left as it was.
+- `src/sim_audit.csv`, an untracked output of the retired grid engine, is the owner's to delete.

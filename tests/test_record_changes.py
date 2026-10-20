@@ -44,6 +44,15 @@ def test_s1_10b_a_changed_verdict_and_a_moved_effect_are_listed():
     assert "Rows only at the tag: 1" in page and "| D | FAIL |" in page and "| E | PASS |" in page
 
 
+def test_s1_10b_a_readout_on_one_side_only_is_listed():
+    """A readout the tag's row has and the current row does not, or the reverse, is a moved effect and a difference,
+    whatever its size (fix re-sweep, 2026-10-19)."""
+    then = [_row("A", "PASS", ("r", 1.0, 0.5), ("gone", 0.1, 0.5))]
+    now = [_row("A", "PASS", ("r", 1.0, 0.5), ("added", 0.1, 0.5))]
+    c = rc.compare(then, now, CRITERIA)
+    assert [(k, name) for k, name, _, _ in c.moved] == [("A", "added"), ("A", "gone")] and c.differ == 2
+
+
 def test_s1_10b_the_tags_d2_rows_are_matched_by_position():
     """At the tag the D2 record printed `M11.C.10` for its family-of-origin variant, and `M11.C.2` for the
     twelve-person family (S1.7b): both are matched to their current keys, so a change in either is listed."""
@@ -73,6 +82,9 @@ def test_s1_10b_a_record_not_regenerated_is_refused(tmp_path):
     with mock.patch.object(rc, "RECORDS", (CRITERIA,)), mock.patch.object(rc, "tag_text", return_value=text), \
             mock.patch.object(rc, "REPO", tmp_path):
         with pytest.raises(SystemExit, match="not regenerated"):
+            rc.build()
+        (tmp_path / "x").write_text(text.replace("code_hash: ", "hash: "), encoding="utf-8")
+        with pytest.raises(SystemExit, match="no code_hash or engine_hash line"):
             rc.build()
         (tmp_path / "x").write_text(text.replace("a" * 64, "b" * 64), encoding="utf-8")
         assert "No change: 0 of 0 rows" in rc.build()  # regenerated: the page is written

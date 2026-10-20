@@ -184,3 +184,38 @@ def test_s1_5a_a_line_cut_short_is_reported(tmp_path):
         child_process.run_child([sys.executable, "-c", script], tmp_path, "cut", 30)
     assert failed.value.rows == [{"criterion": "a"}]
     assert child_process.decode('{"a": 1}\n{"b"\nnot a row\n') == ([{"a": 1}], 1)
+
+
+def test_s1_5a_an_ignored_stop_signal_stays_ignored(tmp_path):
+    """A parent run under ``nohup`` ignores SIGHUP; ``run_child`` keeps it ignored, so a closed terminal does not stop
+    an unattended record run. The child sends the parent SIGHUP and then prints its row (fix re-sweep, 2026-10-19)."""
+    import signal
+    import sys
+    import threading
+
+    assert threading.current_thread() is threading.main_thread()
+    script = ("import json, os, signal; os.kill(os.getppid(), signal.SIGHUP); "
+              "print(json.dumps({'criterion': 'a'}))")
+    previous = signal.signal(signal.SIGHUP, signal.SIG_IGN)
+    try:
+        assert child_process.run_child([sys.executable, "-c", script], tmp_path, "nohup", 30) == [{"criterion": "a"}]
+        assert signal.getsignal(signal.SIGHUP) is signal.SIG_IGN
+    finally:
+        signal.signal(signal.SIGHUP, previous)
+
+
+def test_s1_5a_a_second_stop_signal_cannot_interrupt_the_kill():
+    """The first SIGTERM raises ``SystemExit``; from then until the handlers are restored the stop signals are ignored,
+    so a second cannot interrupt the ``finally`` that kills the child's group (fix re-sweep, 2026-10-19)."""
+    import signal
+    import threading
+
+    assert threading.current_thread() is threading.main_thread()
+    previous = signal.getsignal(signal.SIGTERM)
+    with child_process._stop_signals_raise():
+        assert signal.getsignal(signal.SIGTERM) not in (signal.SIG_DFL, signal.SIG_IGN)  # the handler is set
+        with pytest.raises(SystemExit, match="SIGTERM"):
+            os.kill(os.getpid(), signal.SIGTERM)
+            time.sleep(5)  # the handler runs at the next bytecode; this is never reached
+        assert signal.getsignal(signal.SIGTERM) is signal.SIG_IGN
+    assert signal.getsignal(signal.SIGTERM) is previous

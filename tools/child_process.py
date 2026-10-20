@@ -9,7 +9,9 @@ Spec:    docs/implementation_plan_version_2.md#S1.5a
 Tests:   tests/bowen/test_mutant_runner.py::test_s1_5a_a_failed_child_does_not_stop_the_record,
          tests/bowen/test_mutant_runner.py::test_s1_5a_a_timed_out_child_leaves_no_process,
          tests/bowen/test_mutant_runner.py::test_s1_5a_a_stopped_parent_leaves_no_process,
-         tests/bowen/test_mutant_runner.py::test_s1_5a_a_line_cut_short_is_reported
+         tests/bowen/test_mutant_runner.py::test_s1_5a_a_line_cut_short_is_reported,
+         tests/bowen/test_mutant_runner.py::test_s1_5a_an_ignored_stop_signal_stays_ignored,
+         tests/bowen/test_mutant_runner.py::test_s1_5a_a_second_stop_signal_cannot_interrupt_the_kill
 """
 
 from __future__ import annotations
@@ -52,30 +54,37 @@ def decode(stdout: str) -> tuple[list[dict], int]:
 @contextmanager
 def _stop_signals_raise():
     """While a child runs, SIGTERM and SIGHUP raise ``SystemExit`` in the parent, so its ``finally`` kills the child's
-    group: a child in its own session gets no signal sent to the parent. Signal handlers can only be set in the main
-    thread; elsewhere the parent's own handling stands."""
+    group: a child in its own session gets no signal sent to the parent. A signal the parent ignores stays ignored, so
+    a run under ``nohup`` outlives its terminal; the handler acts once, so a second signal cannot interrupt the kill
+    (fix re-sweep, 2026-10-19). Signal handlers can only be set in the main thread; elsewhere the parent's own handling
+    stands."""
     if threading.current_thread() is not threading.main_thread():
         yield
         return
 
     def stop(signum, _frame):
+        for s in previous:
+            signal.signal(s, signal.SIG_IGN)
         raise SystemExit(f"stopped by signal {signal.Signals(signum).name}")
 
-    previous = {s: signal.signal(s, stop) for s in STOP_SIGNALS}
+    previous = {s: signal.getsignal(s) for s in STOP_SIGNALS if signal.getsignal(s) is not signal.SIG_IGN}
+    for s in previous:
+        signal.signal(s, stop)
     try:
         yield
     finally:
-        for s, handler in previous.items():
-            signal.signal(s, handler)
+        for s, handler in previous.items():  # None: a handler not set from Python, restored as the default
+            signal.signal(s, signal.SIG_DFL if handler is None else handler)
 
 
 def run_child(argv: list[str], cwd: Path, label: str, timeout: int) -> list[dict]:
     """Run ``argv`` in ``cwd`` in its own process group and return the JSON rows it prints. The group is killed
     however the call ends."""
     with _stop_signals_raise():
-        child = subprocess.Popen(argv, cwd=cwd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True,
-                                 start_new_session=True)
+        child = None
         try:
+            child = subprocess.Popen(argv, cwd=cwd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True,
+                                     start_new_session=True)
             try:
                 stdout, stderr = child.communicate(timeout=timeout)
             except subprocess.TimeoutExpired:
@@ -85,7 +94,8 @@ def run_child(argv: list[str], cwd: Path, label: str, timeout: int) -> list[dict
                 raise ChildFailed(f"{label} timed out after {timeout} s{_cut(cut)}:\n{stderr[-STDERR_TAIL:]}",
                                   rows) from None
         finally:
-            kill_group(child)  # the child's own workers, whether it ended, failed, timed out or was stopped
+            if child is not None:
+                kill_group(child)  # the child's own workers, whether it ended, failed, timed out or was stopped
     rows, cut = decode(stdout)
     if child.returncode != 0:
         raise ChildFailed(f"{label} failed (exit {child.returncode}){_cut(cut)}:\n{stderr[-STDERR_TAIL:]}", rows)

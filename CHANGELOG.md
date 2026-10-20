@@ -38,6 +38,9 @@ criterion's test was shown failing under its mutation (§1.10).
   `count` takes numpy booleans; the act-literal scan finds lists, tuples and one-act comparisons;
   `tests/test_repo_layout.py` covers `docs/model_config.md`; the explainer's §13.1 note says which caller of the
   live-position predicate reads a side.
+- **Fix re-sweep** (`learning-qa`, narrow, over the review's fixes): a stop signal the parent ignores stays ignored,
+  so a run under `nohup` outlives its terminal, and the handler acts once; `tools/record_changes.py`'s one-sided
+  readouts and missing-hash refusal are tested; `config/bowen/act_classes.md` states the loader's two new refusals.
 - **The records are regenerated once** on the new hash (S1.10a); `docs/version_2_stage_1_changes.md` lists every
   verdict that changed against the tag `version-1` (S1.10b).
 

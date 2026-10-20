@@ -325,7 +325,9 @@ def test_m10b4_a_retired_key_is_rejected_in_the_live_register():
 
 def test_s1_3a_act_classes_come_from_config():
     """S1.3a (rule 9): the engine's and the policy's act classes are the sets ``config/bowen/act_classes.md`` declares,
-    read through the kinds (the engine reads no file, `M11.D.22`), and neither module holds a literal set of act names.
+    read through the kinds (the engine reads no file, `M11.D.22`), and neither module holds a set, list or tuple of
+    act-name strings. A set built from name constants is not seen: ``NEEDS_TRIAD`` in ``policy.py`` is one, listed as
+    adjacent in plan §1.10.
     The two policy classes are also the lists the spec's `M5.B.4` and `M5.B.5` name, so the file cannot drift from
     the spec."""
     import re

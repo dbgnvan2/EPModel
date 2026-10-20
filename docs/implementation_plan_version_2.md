@@ -262,8 +262,9 @@ S1.9 (iii) is S1.5b, and (v) is covered by the trace's record-current test. S1.1
   in either module, and that the two policy classes are the lists `M5.B.4` and `M5.B.5` name.
 - **S1.5a's code was first put in `tools/mutant_runner.py`**, which is in the engine hash, so it moved the hash at
   step 1. The step 6 review moved it to `tools/child_process.py`, outside the hash: how a child is run does not change
-  what it computes (`CLAUDE.md`, learnings P38). §1.4's "moves the hash: no" for S1.5a now holds. No record was
-  regenerated between steps, so the run at step 7 is still the only one.
+  what it computes (`CLAUDE.md`, learnings P38). S1.5a still moved the hash this stage, since `run_in_copy` in
+  `tools/mutant_runner.py` changed; from now on a fix to how a child is run does not. No record was regenerated
+  between steps, so the run at step 7 is still the only one.
 - **S1.9 (ii) was already built.** The pattern readouts took `now`, and `tools/famdiag_export.py` stopped stepping
   `state.tick`, in `f916d55` (Phase D B2, 2026-10-10). Stage 1 added only the test.
 - **S1.1's scan covers `render/` too.** §1.3 left the renderer out, as no verdict reads it. The review found its two
@@ -325,6 +326,25 @@ Each new test was shown failing under its mutation, in the same way as the table
 | `tests/bowen/test_float_sums.py::test_s1_1a_the_scan_finds_a_sum` | the `render/` exclusion put back in the scan | fails |
 | `tests/bowen/test_float_sums.py::test_s1_1a_no_builtin_sum_in_bowen` | `render/trace.py`'s `math.fsum` back to `sum` | fails |
 | `tests/test_repo_layout.py::test_s1_6_the_grid_engine_is_retired` | `docs/model_config.md` restored from the tag | fails |
+
+**The fix re-sweep (2026-10-19).** One narrow `learning-qa` pass (sonnet) over `08a2f71`, the review's fixes, found
+one major item and five minor ones, all fixed before the run:
+- **Major: the stop handler replaced an ignored SIGHUP**, so a run under `nohup` would stop when its terminal
+  closed. A signal the parent ignores now stays ignored. The handler acts once, so a second signal cannot interrupt
+  the kill, and `Popen` is inside the `try` that kills the group. A signal that arrives inside `Popen` itself, after
+  the fork, can still leave the child running; that window is narrowed, not closed.
+- The S1.5a bullet above claimed the hash no longer moved for S1.5a; `run_in_copy` itself changed, so it did.
+- `test_s1_3a_act_classes_come_from_config`'s docstring now says the scan sees strings, not sets built from name
+  constants (`NEEDS_TRIAD`).
+- `tools/record_changes.py`'s one-sided readouts and its refusal of a record with no hash line now have tests.
+- `config/bowen/act_classes.md` states the two refusals the loader gained.
+
+| Test | Mutation | Result |
+|---|---|---|
+| `tests/bowen/test_mutant_runner.py::test_s1_5a_an_ignored_stop_signal_stays_ignored` | an ignored signal given the handler | fails |
+| `tests/bowen/test_mutant_runner.py::test_s1_5a_a_second_stop_signal_cannot_interrupt_the_kill` | the handler not made one-shot | fails |
+| `tests/test_record_changes.py::test_s1_10b_a_readout_on_one_side_only_is_listed` | a one-sided readout not listed | fails |
+| `tests/test_record_changes.py::test_s1_10b_a_record_not_regenerated_is_refused` | the missing-hash check removed | fails |
 
 **Adjacent issues found while building, not fixed** (each is in `TODO.md` or below):
 - Act sets still written in the code outside the two classes S1.3 moved: `NEVER_REFUSED` (`rejection.py`),

@@ -3,7 +3,9 @@
 > Read by `src/bowen/io/load.py` into `EventKinds` (`side_taking`, `family_to_external`, `external_repertoire`), as
 > `nodal_events.md` is read into `EventKinds.nodal`; the engine reads them from the run's kinds and the policy from the
 > kinds it is given, so neither holds a set of act names (version 2 stage 1, S1.3; rule 9). Each act must be a declared
-> move, and each class must appear once; a misspelt act fails at load (`M10.B.2`).
+> move, each class must appear once and name at least one act, and each `side_taking` act must also be a
+> `family_to_external` move (it is made toward an external agent); a file that breaks any of these fails at load
+> (`M10.B.2`).
 >
 > The two policy classes are the spec's own lists: `M5.B.4` names the family→external moves and `M5.B.5` the external
 > agent's repertoire (`M1.E.3`'s and `M1.E.4`'s acts are Phase D and not yet moves). `side_taking` is revision 32's

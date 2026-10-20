@@ -169,6 +169,11 @@ verdicts over ensembles (`tools/phase_d_record.py`; plan step 12). Mutations are
 
 **Decided 2026-10-19, not built:** [<PROPOSAL — EVENT SIZES FROM THE HOLMES–RAHE SCALE.md>](<PROPOSAL — EVENT SIZES FROM THE HOLMES–RAHE SCALE.md>) — version 2, at the owner's request: the model's event sizes against the Holmes–Rahe life-event scale (an outside rating, not the corpus), what Kerr's case material says about event size (set by the tie, not the kind; the deciding case is `[K-ext]`), a proposal to take base sizes from the scale and scale them by the tie, and eight questions (Q1–Q8, all decided by the owner).
 
+**Draft for owner approval, 2026-10-19:** [plan_spec_coverage_phase_d.md](plan_spec_coverage_phase_d.md) — why
+`spec_coverage.md` still reads "after Phase C" and how to bring it up to date: Part A, the tool reads every ensemble and
+mutation record (mechanical); Part B, a new evidence mapping for the requirements built in Phases C and D without a test
+named for them; three owner decisions. Nothing built.
+
 **For review, 2026-10-13:** [phase_d_status_2026-10-13.md](phase_d_status_2026-10-13.md) — Phase D part I after the
 overnight run: every build item and D-I criterion as done, partial or not done, and what the owner should look at
 first (spec revisions 24–27 are Claude's recommendations, pending owner review).

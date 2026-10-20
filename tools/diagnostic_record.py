@@ -31,7 +31,7 @@ sys.path.insert(0, str(REPO))
 
 from tools.mutant_runner import Mutant, run_in_copy  # noqa: E402
 from tools.mutation_record import MUTANTS  # noqa: E402
-from tools.record_cache import Cache, engine_hash, result_key, run_cached  # noqa: E402
+from tools.record_cache import Cache, engine_hash, exit_status, result_key, run_cached  # noqa: E402
 import tools.probes as probes  # noqa: E402
 
 RECORD = REPO / "docs" / "phase_c_diagnostic_record.md"
@@ -220,7 +220,7 @@ def main() -> int:
     cache.save()
     RECORD.write_text(text, encoding="utf-8")
     print(f"wrote {RECORD.relative_to(REPO)}")
-    return 0
+    return exit_status()
 
 
 if __name__ == "__main__":

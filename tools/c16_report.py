@@ -14,13 +14,16 @@ chosen from the mutant results too, so a regenerated record cannot leave a false
 
 from __future__ import annotations
 
-import json
-import re
+import sys
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(REPO))
+
+from tools.record_json import record_json  # noqa: E402
+
 rec = (REPO / "docs" / "phase_c_mutation_record.md").read_text(encoding="utf-8")
-d = json.loads(re.search(r"```json\n(.*?)\n```", rec, re.S).group(1))
+d = record_json(rec)
 c16 = {r["mutant"]: r for r in d if r["criterion"] == "M11.C.16"}
 def ro(r, name):
     return next(x for x in r["readouts"] if x["readout"] == name)
@@ -35,7 +38,7 @@ for m, r in c16.items():
     res = r["result"] if r["result"] == "survived" else f"**{r['result']}**"
     rows.append(f"| `{m}` | {r['kind']} | {v(r,'repertoire_entropy')} | {v(r,'top_move_share')} | {res} |")
 N = lambda m, k: v(c16[m], k)
-occ = json.loads(re.search(r"```json\n(.*?)\n```", (REPO / "docs" / "phase_c_level_occupancy.md").read_text(encoding="utf-8"), re.S).group(1))
+occ = record_json(REPO / "docs" / "phase_c_level_occupancy.md")
 O = lambda variant, arm, key, span="whole_run": f"{next(r for r in occ if r['variant'] == variant and r['arm'] == arm)[span][key]:.1%}"
 cited = c16["c16-cited-grounds-removed"]
 cited_red = cited["result"] != "survived"

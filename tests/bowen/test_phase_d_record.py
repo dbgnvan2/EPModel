@@ -44,13 +44,13 @@ def test_phase_d_record_covers_every_criterion_and_names_what_is_not_built():
 def test_phase_d_record_carries_no_phase_c_wording_and_its_table_matches_its_json():
     """Review 2026-10-13: the page is the Phase C renderer's, reworded; none of it may be left, and the verdict table and
     the machine-readable block must agree."""
-    import json
+    from tools.record_json import record_json
 
     text = record_text()
     assert "Phase C" not in text
     # Variants carry a bracketed name (M11.C.14[firmness], revision 31).
     table = dict(re.findall(r"^\| `(M11\.C\.\d+(?:\[[^\]]+\])?)` \| \w+ \| \*\*(\w+)\*\* \|", text, re.M))
-    block = json.loads(text.split("```json", 1)[1].split("```", 1)[0])
+    block = record_json(text)
     assert table == {v["criterion"]: v["outcome"] for v in block} and table
 
 

@@ -3,10 +3,14 @@
 Purpose: a full regeneration took 35-45 minutes and any edit to a tool forced one (2026-10-09, learnings P38). A
          cached result is keyed by the engine hash, the variant's own edits and the criterion, and a record is
          re-rendered from the cache in under a second.
-Spec:    docs/bowen_agent_model_spec_v2.md#M11.1d, #M13.4
-Tests:   tests/bowen/test_ensemble_record.py::test_m111d_a_result_is_keyed_on_the_engine_and_the_mutants_edits
+Spec:    docs/bowen_agent_model_spec_v2.md#M11.1d, #M13.4; docs/implementation_plan_version_2.md#S1.5a
+Tests:   tests/bowen/test_ensemble_record.py::test_m111d_a_result_is_keyed_on_the_engine_and_the_mutants_edits,
+         tests/bowen/test_mutant_runner.py::test_s1_5a_a_failed_child_does_not_stop_the_record
 
-The engine hash (``engine_hash``) covers everything under ``src/bowen`` and ``config/bowen``,
+A child that fails or times out does not stop the record (S1.5a): each id it printed no row for becomes a FAILED row,
+never cached, the build goes on, and the tool exits 1 (``exit_status``).
+
+The engine hash (``engine_hash``) covers everything under ``src/bowen`` (``render/`` aside, S1.8a) and ``config/bowen``,
 ``tools/ensemble_record.py`` (RULE_KEYS) and ``tools/mutant_runner.py`` (the child that produces each result). This
 file, the mutant list and the renderers are not in it: changing them reruns nothing unless a mutant's edits change.
 A change to the engine reruns everything. The caches are committed in ``docs/records_cache/``; a record's test
@@ -23,13 +27,18 @@ from pathlib import Path
 REPO = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO))
 
-from tools.mutant_runner import Mutant, run_in_copy  # noqa: E402
+from tools.mutant_runner import ChildFailed, Mutant, run_in_copy  # noqa: E402
 
 CACHE_DIR = REPO / "docs" / "records_cache"
-ERRORED = ("RAISED", "BROKEN")
+# The child failed, timed out or hit an error of the machine running it: no evidence about the model, so the row is
+# reported, never cached, and rerun next time; the record run goes on to the next item (version 2 stage 1, S1.5a).
+FAILED = "FAILED"
+ERRORED = ("RAISED", "BROKEN", FAILED)
 # Errors of the machine running the child, not of the mutated model: never a result (learning-qa, 2026-10-09).
 INFRASTRUCTURE_ERRORS = ("BrokenProcessPool", "MemoryError", "OSError", "TimeoutError", "KeyboardInterrupt")
 ENGINE_TOOLS = (REPO / "tools" / "mutant_runner.py",)  # RULE_KEYS is in every hash (code_hash), not by file
+CHILD = "mutant_runner.py"
+_failed: list[str] = []  # this process's FAILED rows, for ``exit_status``
 
 
 def engine_hash() -> str:
@@ -73,6 +82,39 @@ class Cache:
                              encoding="utf-8")
 
 
+def child_rows(mutant: Mutant | None, tool: str, ids: list[str], workers: int, label: str) -> list[dict]:
+    """One child's row for each of ``ids``, in order. An id it printed no row for, because it failed or timed out
+    first, gets a ``FAILED`` row, as does a row reporting an error of the machine; the caller goes on (S1.5a)."""
+    try:
+        printed, failure = run_in_copy(mutant, tool, "--child", *ids, "--workers", str(workers)), None
+    except ChildFailed as failed:
+        printed, failure = failed.rows, str(failed.code)
+    rows = {r["criterion"]: r for r in printed}
+    out = []
+    for cid in ids:
+        row = rows.get(cid)
+        if row is None:
+            row = {"criterion": cid, "outcome": FAILED, "seeds": 0,
+                   "error": f"ChildFailed: {(failure or 'the child printed no row').splitlines()[0]}"}
+        elif row.get("error", "").split(":")[0] in INFRASTRUCTURE_ERRORS:
+            row = {**row, "outcome": FAILED}
+        if row["outcome"] == FAILED:
+            _failed.append(f"{label} → {cid}")
+            print(f"{label} → {cid}: the run failed, not the model ({row['error']}); not cached, rerun next time",
+                  flush=True)
+        out.append(row)
+    return out
+
+
+def exit_status() -> int:
+    """A record tool's exit status: 1 when any row this run FAILED (the record is written, and is stale until those
+    rows are rerun), else 0."""
+    if _failed:
+        print(f"{len(_failed)} row(s) failed and were not cached; rerun the tool to complete the record:",
+              *_failed, sep="\n  ", flush=True)
+    return 1 if _failed else 0
+
+
 def run_cached(cache: Cache, mutant: Mutant | None, ids: list[str], workers: int, label: str | None = None) -> list[dict]:
     """Each criterion's result under ``mutant`` (``None``: the unmodified model): from the cache where its key is
     present, otherwise run (all the missing ones in one child) and cached. Results come back in ``ids`` order."""
@@ -82,16 +124,11 @@ def run_cached(cache: Cache, mutant: Mutant | None, ids: list[str], workers: int
     missing = [cid for cid in ids if cache.get(keys[cid]) is None]
     fresh = {}
     if missing:
-        for result in run_in_copy(mutant, "mutant_runner.py", "--child", *missing, "--workers", str(workers)):
-            error = result.get("error", "")
-            if error.split(":")[0] in INFRASTRUCTURE_ERRORS:
-                cache.flush()  # keep the rows this child finished before it failed
-                raise SystemExit(f"{label} → {result['criterion']}: the run failed, not the model "
-                                 f"({error}); nothing was cached for it")
+        for result in child_rows(mutant, CHILD, missing, workers, label):
             fresh[result["criterion"]] = result
             if result["outcome"] not in ERRORED:  # an errored row is reported but rerun next time, never cached
                 cache.put(keys[result["criterion"]], result)
-        cache.flush()
+        cache.flush()  # keep every finished row, whatever happens to the next item
         print(f"{label}: ran {len(missing)} of {len(ids)}", flush=True)
     # The cached copy first: it is normalised as a reload gives it, so a record built in the run that produced its
     # results renders the same as its later re-render from the cache. An errored row is only in ``fresh``.

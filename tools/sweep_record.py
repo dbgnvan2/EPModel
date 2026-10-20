@@ -20,7 +20,6 @@ from __future__ import annotations
 import argparse
 import json
 import os
-import re
 import sys
 from pathlib import Path
 
@@ -28,8 +27,9 @@ REPO = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO))
 
 from tools.mutant_runner import Mutant  # noqa: E402
-from tools.record_cache import Cache, engine_hash, result_key, run_cached  # noqa: E402
+from tools.record_cache import Cache, engine_hash, exit_status, result_key, run_cached  # noqa: E402
 from tools.mutation_record import ENSEMBLE_RECORD  # noqa: E402
+from tools.record_json import record_json  # noqa: E402
 
 RECORD = REPO / "docs" / "phase_c_sweep_record.md"
 # Results are cached by tools/mutant_runner.py under the engine hash and each setting's edit; this file only
@@ -54,7 +54,7 @@ def row_mutant(name: str, central: str, value: str) -> Mutant:
 
 def central() -> dict[str, dict]:
     text = ENSEMBLE_RECORD.read_text(encoding="utf-8")
-    data = json.loads(re.search(r"```json\n(.*?)\n```", text, re.S).group(1))
+    data = record_json(text)
     return {row["criterion"]: row for row in data}
 
 
@@ -127,7 +127,7 @@ def main() -> int:
     cache.save()
     RECORD.write_text(text, encoding="utf-8")
     print(f"wrote {RECORD.relative_to(REPO)}")
-    return 0
+    return exit_status()
 
 
 if __name__ == "__main__":

@@ -31,7 +31,6 @@ from __future__ import annotations
 import argparse
 import os
 import json
-import re
 import sys
 from pathlib import Path
 
@@ -39,7 +38,8 @@ REPO = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO))
 
 from tools.mutant_runner import BROKEN_ERRORS, Mutant, apply  # noqa: E402,F401
-from tools.record_cache import Cache, engine_hash, result_key, run_cached  # noqa: E402
+from tools.record_cache import FAILED, Cache, engine_hash, exit_status, result_key, run_cached  # noqa: E402
+from tools.record_json import record_json  # noqa: E402
 
 RECORD = REPO / "docs" / "phase_c_mutation_record.md"
 ENSEMBLE_RECORD = REPO / "docs" / "phase_c_ensemble_record.md"
@@ -302,7 +302,7 @@ MUTANTS = (
 
 def passing() -> set[str]:
     text = ENSEMBLE_RECORD.read_text(encoding="utf-8")
-    data = json.loads(re.search(r"```json\n(.*?)\n```", text, re.S).group(1))
+    data = record_json(text)
     return {row["criterion"] for row in data if row["outcome"] == "PASS"}
 
 
@@ -322,6 +322,8 @@ def judge(mutant: Mutant, outcome: str, readouts=()) -> str:
     under a mutant (RAISED) is a red, as the criterion can no longer pass."""
     if outcome == "BROKEN":
         return "broken"
+    if outcome == FAILED:  # the child failed or timed out: no evidence either way, and rerun next time (S1.5a)
+        return "not run (child failed)"
     if mutant.kind == REPRESENTATION:
         return "unchanged" if outcome == "PASS" else "encoding artefact"
     if outcome == "PASS":
@@ -408,7 +410,7 @@ def main() -> int:
     cache.save()
     RECORD.write_text(text, encoding="utf-8")
     print(f"wrote {RECORD.relative_to(REPO)}")
-    return 0
+    return exit_status()
 
 
 if __name__ == "__main__":

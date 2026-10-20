@@ -42,10 +42,16 @@ def code_hash(*tools: Path) -> str:
     makes that record stale too: this file's ``RULE_KEYS`` (which constants become the ensemble rules,
     an input to every record), the mutant list of ``tools/mutation_record.py`` and the settings of
     ``tools/sweep_record.py``. Each record names its tools in its own ``HASHED_TOOLS``.
+
+    ``src/bowen/render/`` is left out (version 2 stage 1, S1.8a): it turns records into text and no verdict reads it
+    (``tests/bowen/test_engine_purity.py::test_s1_8b_only_run_imports_render``), so a renderer change reruns nothing.
+    Tests: tests/bowen/test_ensemble_record.py::test_s1_8a_render_is_not_hashed
     """
     digest = hashlib.sha256()
     digest.update(f"RULE_KEYS={RULE_KEYS!r}".encode())
-    paths = sorted((REPO / "src" / "bowen").rglob("*.py")) + sorted((REPO / "config" / "bowen").rglob("*.md"))
+    bowen = REPO / "src" / "bowen"
+    paths = sorted(p for p in bowen.rglob("*.py") if p.relative_to(bowen).parts[0] != "render")
+    paths += sorted((REPO / "config" / "bowen").rglob("*.md"))
     paths += sorted(Path(t).resolve() for t in tools)
     for path in paths:
         if path.name == "constants_changes.md":

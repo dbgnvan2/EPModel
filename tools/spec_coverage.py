@@ -37,6 +37,10 @@ import sys
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(REPO))
+
+from tools.record_json import record_json  # noqa: E402
+
 SPEC = REPO / "docs" / "bowen_agent_model_spec_v2.md"
 ENSEMBLE_RECORD = REPO / "docs" / "phase_c_ensemble_record.md"
 MUTATION_RECORD = REPO / "docs" / "phase_c_mutation_record.md"
@@ -47,7 +51,7 @@ def mutation_reds() -> set[str]:
     if not MUTATION_RECORD.exists():
         return set()
     text = MUTATION_RECORD.read_text(encoding="utf-8")
-    rows = json.loads(re.search(r"```json\n(.*?)\n```", text, re.S).group(1))
+    rows = record_json(text)
     return {r["criterion"] for r in rows if r["kind"] != "representation" and r["result"] in ("red", "reversed")}
 
 
@@ -56,7 +60,7 @@ def ensemble_verdicts() -> tuple[dict[str, list[tuple[str, str]]], set[str]]:
     if not ENSEMBLE_RECORD.exists():
         return {}, set()
     text = ENSEMBLE_RECORD.read_text(encoding="utf-8")
-    rows = json.loads(re.search(r"```json\n(.*?)\n```", text, re.S).group(1))
+    rows = record_json(text)
     verdicts: dict[str, list[tuple[str, str]]] = {}
     for row in rows:
         verdicts.setdefault(row["criterion"].split("[")[0], []).append((row["criterion"], row["outcome"]))

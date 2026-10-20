@@ -7,7 +7,11 @@ Spec:    docs/bowen_agent_model_spec_v2.md#M11 (each criterion "proved failing b
          mutation before it counts as coverage"); docs/implementation_plan_phase_b.md §2, step 14
 Tests:   run it; it exits non-zero if any gate is not proved or the tree changed
 
-    python3 tools/mutation_gate.py tools/mutation_gate_phase_b.json docs/phase_b_mutation_record.md
+    python3 tools/mutation_gate.py <gates.json> <record.md>
+
+A record whose text carries ``FROZEN`` is not rewritten: the tool refuses before it runs a gate. The Phase B record
+(``docs/phase_b_mutation_record.md``) is frozen as the record of Phase B's close (version 2 plan D5; test
+``tests/bowen/test_phase_b_gate.py::test_s1_5c_phase_b_record_is_frozen``).
 
 A gate is **proved** only when all of these hold:
 
@@ -133,8 +137,18 @@ def render(results: list[dict], spec_name: str, commit: str, dirty: bool) -> str
     return "\n".join(lines)
 
 
+FROZEN = "**Status: frozen**"
+
+
+def check_writable(out_path: Path) -> None:
+    """Refuse a record frozen as the record of a phase's close (version 2 plan D5, S1.5c)."""
+    if out_path.exists() and FROZEN in out_path.read_text(encoding="utf-8"):
+        raise SystemExit(f"{out_path} is frozen (its status line says so); this tool does not rewrite it")
+
+
 def main(argv: list[str]) -> int:
     spec_path, out_path = Path(argv[1]), Path(argv[2])
+    check_writable(out_path)
     gates = json.loads(spec_path.read_text(encoding="utf-8"))
     commit = git("rev-parse", "--short", "HEAD").strip()
     dirty = bool(git("status", "--porcelain", "--untracked-files=no").strip())

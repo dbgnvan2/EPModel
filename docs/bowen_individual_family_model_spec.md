@@ -1,7 +1,8 @@
 # EPModel — Bowen Family Systems Theory Spec
 ## Individual & Family Level Models
 
-**Version:** 1.2 — **FROZEN 2026-08-22. Historical record. Do not extend.**
+**Version:** 1.2 — **FROZEN 2026-08-22. Historical record. Do not extend.** **The engine it describes was removed
+from the tree at version 2 stage 1 (S1.6, 2026-10-19); its code is in git history and at the tag `version-1`.**
 **Date:** 2026-02-26 (frozen 2026-08-22)
 **Source theory:** Murray Bowen, *Family Therapy in Clinical Practice*, Chapter 21 — "On the Differentiation of Self" (1970/1978)
 
@@ -10,8 +11,8 @@
 > ## ⚠ FROZEN — read this before using anything below
 >
 > **What this document is.** The complete and accurate specification of the **grid engine** — 10,000 units
-> on a 100×100 lattice, `state[N, 4]`, vectorised 8-neighbour contagion. Every item in §12 is implemented
-> and tested. As a record of what was built, it stands.
+> on a 100×100 lattice, `state[N, 4]`, vectorised 8-neighbour contagion. Every item in §12 was implemented
+> and tested. As a record of what was built, it stands; the engine itself is retired (see the version line).
 >
 > **What it is not.** A statement of Bowen's theory. It was written from **one chapter** of a
 > twenty-two-chapter book, before the corpus was read. All 22 chapters have since been extracted twice

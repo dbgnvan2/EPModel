@@ -33,6 +33,22 @@ def test_m134_ensemble_record_is_current():
     assert match.group(1) == _tool.code_hash(*_tool.HASHED_TOOLS), "stale: rerun python3 tools/ensemble_record.py"
 
 
+def test_s1_8a_render_is_not_hashed(tmp_path, monkeypatch):
+    """S1.8a: a code edit under ``src/bowen/render/`` on a copy leaves ``code_hash`` unchanged, so a renderer change
+    reruns no record; a code edit to the engine on the same copy changes it, so the test can fail."""
+    import shutil
+
+    copy = tmp_path / "repo"
+    for part in ("src/bowen", "config/bowen"):
+        shutil.copytree(REPO / part, copy / part, ignore=shutil.ignore_patterns("__pycache__"))
+    monkeypatch.setattr(_tool, "REPO", copy)
+    before = _tool.code_hash()
+    for name, changes in (("render/trace.py", False), ("engine/tick.py", True)):
+        path = copy / "src" / "bowen" / name
+        path.write_text(path.read_text(encoding="utf-8") + "\nS1_8A_EDIT = 1\n", encoding="utf-8")
+        assert (_tool.code_hash() != before) is changes, name
+
+
 def test_m134_record_covers_every_criterion_and_names_what_is_not_built():
     text = record_text()
     for cid in CRITERIA:
@@ -58,6 +74,7 @@ _mspec.loader.exec_module(_mutants)
 from tools.record_cache import Cache, engine_hash, result_key  # noqa: E402  (the cache both tools share)
 import tools.mutant_runner as _runner  # noqa: E402
 import tools.record_cache as _cache  # noqa: E402
+from tools.record_json import record_json  # noqa: E402
 _sspec.loader.exec_module(_sweep)  # after the mutation tool: it imports from it
 
 
@@ -92,14 +109,14 @@ def test_m111d_mutation_record_is_current():
 
 def test_m111d_every_passing_criterion_has_a_mutant_run():
     """Every criterion passing in the ensemble record was run under at least one non-representation mutant."""
-    rows = _mutants.json.loads(re.search(r"```json\n(.*?)\n```", mutation_text(), re.S).group(1))
+    rows = record_json(mutation_text())
     proved = {r["criterion"] for r in rows if r["kind"] != _mutants.REPRESENTATION}
     missing = sorted(_mutants.passing() - proved)
     assert not missing, f"passing with no mutant run: {missing}"
 
 
 def test_m111c_representation_mutants_ran_on_every_passing_criterion():
-    rows = _mutants.json.loads(re.search(r"```json\n(.*?)\n```", mutation_text(), re.S).group(1))
+    rows = record_json(mutation_text())
     for mutant in (m for m in _mutants.MUTANTS if m.kind == _mutants.REPRESENTATION):
         ran = {r["criterion"] for r in rows if r["mutant"] == mutant.id}
         assert _mutants.passing() <= ran, f"{mutant.id} did not run on {sorted(_mutants.passing() - ran)}"
@@ -113,7 +130,7 @@ def test_d9_sweep_record_is_current():
     except KeyError as missing:
         raise AssertionError(f"stale: rerun python3 tools/sweep_record.py ({missing})") from None
     assert rendered == text, "stale or edited: rerun python3 tools/sweep_record.py"
-    rows = _mutants.json.loads(re.search(r"```json\n(.*?)\n```", text, re.S).group(1))
+    rows = record_json(text)
     swept = {(r["criterion"], r["setting"]) for r in rows}
     for cid, criterion in CRITERIA.items():
         if criterion.cls == "composite":
@@ -368,7 +385,7 @@ def test_m111d_reversed_ignores_readouts_that_do_not_gate():
 def test_m111d_record_results_match_judge_and_the_declared_readouts():
     """Each row's result is judge() recomputed from its readouts, and each readout carries the report_only flag its
     criterion declares, so a renamed runner key cannot let a report-only readout gate again (csdp sweep finding)."""
-    rows = _mutants.json.loads(re.search(r"```json\n(.*?)\n```", mutation_text(), re.S).group(1))
+    rows = record_json(mutation_text())
     by_id = {m.id: m for m in _mutants.MUTANTS}
     assert any(x.get("report_only") for r in rows for x in r["readouts"]), "no report-only readout in the record"
     for r in rows:
@@ -386,7 +403,7 @@ _ospec.loader.exec_module(_occupancy)
 
 def occupancy_rows() -> list[dict]:
     text = (REPO / "docs" / "phase_c_level_occupancy.md").read_text(encoding="utf-8")
-    return _mutants.json.loads(re.search(r"```json\n(.*?)\n```", text, re.S).group(1))
+    return record_json(text)
 
 
 def test_m111a_level_occupancy_record_is_current():
@@ -486,11 +503,11 @@ def test_m115_report_section_11_is_generated():
 
 
 def test_m111d_run_cached_never_caches_an_errored_row(tmp_path, monkeypatch):
-    """An engine exception is reported (red) but rerun next time; a failure of the machine stops the run instead of
-    becoming a cached red; finished results are flushed before a later failure (learning-qa, 2026-10-09)."""
-    import pytest
-
+    """An engine exception is reported (red) but rerun next time; a failure of the machine is a FAILED row, never a
+    cached red, and the run reports it (version 2 stage 1, S1.5a: before it, the run stopped); finished results are
+    flushed before a later failure (learning-qa, 2026-10-09)."""
     monkeypatch.setattr(_cache, "CACHE_DIR", tmp_path)
+    monkeypatch.setattr(_cache, "_failed", [])
     mutant = next(m for m in _mutants.MUTANTS if m.id == "level-blind")
     rows = {"A": {"criterion": "A", "outcome": "PASS", "seeds": 50, "readouts": []},
             "B": {"criterion": "B", "outcome": "RAISED", "seeds": 0, "error": "AssertionError: invariant"}}
@@ -501,10 +518,10 @@ def test_m111d_run_cached_never_caches_an_errored_row(tmp_path, monkeypatch):
     assert [r["outcome"] for r in stored.values()] == ["PASS"]
     (tmp_path / "probe.json").unlink()
     rows["B"] = {"criterion": "B", "outcome": "RAISED", "seeds": 0, "error": "BrokenProcessPool: a worker died"}
-    with pytest.raises(SystemExit, match="the run failed, not the model"):
-        _cache.run_cached(Cache("probe"), mutant, ["A", "B"], 1)
+    assert [r["outcome"] for r in _cache.run_cached(Cache("probe"), mutant, ["A", "B"], 1)] == ["PASS", _cache.FAILED]
     stored = _mutants.json.loads((tmp_path / "probe.json").read_text())
     assert [r["outcome"] for r in stored.values()] == ["PASS"]  # A, finished before B failed, was kept
+    assert _cache.exit_status() == 1
 
 
 def test_m111d_run_cached_returns_a_fresh_row_as_a_reload_would(tmp_path, monkeypatch):

@@ -292,12 +292,44 @@ def test_b2_pattern_act_sets_come_from_config(tmp_path):
         load_pattern_acts(missing)
 
 
+def test_s1_0_act_sets_come_from_config():
+    """Version 2 stage 1, S1.0: the readouts hold no literal set of act names. The test above checks the sets equal
+    the config's; a literal with the same names would pass it, so this one reads the source."""
+    from src.bowen.io.load import load_pattern_acts
+    from src.bowen.readouts import patterns
+    from act_literals import literal_act_sets  # tests/bowen is on the path under pytest's rootdir
+
+    assert patterns.APPROACH == load_pattern_acts()["approach"]
+    assert literal_act_sets(Path(patterns.__file__)) == []
+
+
 def test_b2_now_reads_as_of_that_week():
     """A reading with ``now`` takes the window ending at that week, and leaves state.tick alone."""
     state = at(fresh(), 3, ("CONFLICT", RAVI, MARTA), ("CONFLICT", MARTA, RAVI), ("CONFLICT", RAVI, MARTA))
     assert [r.pattern for r in tie_readings(state, MARITAL, PARAMS, RP)] == ["conflict"]  # window ends at week 3
     assert "conflict" not in [r.pattern for r in tie_readings(state, MARITAL, PARAMS, RP, now=2)]  # ends at week 2
     assert state.tick == 3
+
+def test_s1_9_readouts_read_now():
+    """Rider (ii) (version 2 plan D7): the exporter reads with ``now`` instead of stepping ``state.tick`` back and
+    restoring it. A reading with ``now`` after ``run_tick`` advanced the tick equals the reading the step-back gave, and
+    `tools/famdiag_export.py` assigns no ``tick``. The acts at week 1 fall out of a window ending at the advanced tick,
+    so a reading that ignored ``now`` would differ."""
+    import ast
+
+    state = at(fresh(), 1, ("CONFLICT", RAVI, MARTA), ("CONFLICT", MARTA, RAVI), ("CONFLICT", RAVI, MARTA))
+    state.tick = 5  # week 4 has just run
+    with_now = [r.pattern for r in tie_readings(state, MARITAL, PARAMS, RP, now=4)]
+    state.tick = 4  # what the exporter used to do
+    stepped_back = [r.pattern for r in tie_readings(state, MARITAL, PARAMS, RP)]
+    assert with_now == stepped_back and "conflict" in with_now
+    exporter = Path(__file__).resolve().parents[2] / "tools" / "famdiag_export.py"
+    assigned = [n.lineno for n in ast.walk(ast.parse(exporter.read_text(encoding="utf-8")))
+                if isinstance(n, (ast.Assign, ast.AugAssign))
+                for target in (n.targets if isinstance(n, ast.Assign) else [n.target])
+                if isinstance(target, ast.Attribute) and target.attr == "tick"]
+    assert assigned == [], f"tools/famdiag_export.py sets a tick at lines {assigned}"
+
 
 def test_b2_now_must_be_the_week_just_run():
     """Contact is read as it is, so an earlier ``now`` would mix old acts with current contact: it raises."""

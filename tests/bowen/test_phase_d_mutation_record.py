@@ -21,6 +21,7 @@ _tool = importlib.util.module_from_spec(_spec)
 sys.modules[_spec.name] = _tool
 _spec.loader.exec_module(_tool)
 from tools.record_cache import Cache  # noqa: E402
+from tools.record_json import record_json  # noqa: E402
 
 
 def test_m111a_every_phase_d_mutant_applies_exactly_once(tmp_path):
@@ -46,8 +47,7 @@ def test_m111d_phase_d_mutation_record_is_current():
 def test_m11c10_family_of_origin_variant_is_proved_red_by_removing_m4d6f():
     """The spec's mutation clause for `M11.C.10[family of origin]` (restated 2026-10-15): `M4.D.6f` removed MUST turn
     it red. Read from the committed record."""
-    rows = _tool.json.loads(_tool.re.search(r"```json\n(.*?)\n```", _tool.RECORD.read_text(encoding="utf-8"),
-                                            _tool.re.S).group(1))
+    rows = record_json(_tool.RECORD)
     row = next((r for r in rows if r["mutant"] == "witnessed-cutoff-learning-removed"
                 and r["criterion"] == "M11.C.10[family of origin]"), None)
     assert row is not None, "the variant was not run under M4.D.6f removed: does it still pass in the part II record?"
@@ -60,8 +60,7 @@ def test_m11c14_gate_removed_is_run_on_both_variants_and_its_result_matches_the_
     the child per run in this fixture); the spec marks the clause not met, for the owner. This test pins that the
     mutant was run on both passing variants, and that the spec's account agrees with the record: if a later change makes
     the gate bite, the spec line must change with it."""
-    rows = _tool.json.loads(_tool.re.search(r"```json\n(.*?)\n```", _tool.RECORD.read_text(encoding="utf-8"),
-                                            _tool.re.S).group(1))
+    rows = record_json(_tool.RECORD)
     run = {r["criterion"]: r["result"] for r in rows if r["mutant"] == "marital-distance-gate-removed"}
     assert set(run) == {"M11.C.14[firmness]", "M11.C.14[talking it out]"}, run
     spec = (REPO / "docs" / "bowen_agent_model_spec_v2.md").read_text(encoding="utf-8")
@@ -72,8 +71,7 @@ def test_m11c14_gate_removed_is_run_on_both_variants_and_its_result_matches_the_
 def test_m111d_every_passing_phase_d2_criterion_has_a_mutant_or_names_where_it_is_reported():
     """Phase C's `test_m111d_every_passing_criterion_has_a_mutant_run`, for part II: a newly passing criterion with no
     mutant here and no entry in `AD_HOC` fails, so the record cannot read as full coverage."""
-    rows = _tool.json.loads(_tool.re.search(r"```json\n(.*?)\n```", _tool.RECORD.read_text(encoding="utf-8"),
-                                            _tool.re.S).group(1))
+    rows = record_json(_tool.RECORD)
     recorded = {r["criterion"] for r in rows}
     missing = sorted(_tool.passing() - recorded - set(_tool.AD_HOC))
     assert not missing, f"passing with no mutant and not in AD_HOC: {missing}"

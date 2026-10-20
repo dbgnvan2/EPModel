@@ -14,9 +14,10 @@ cached in ``docs/records_cache/phase_d_mutation.json`` under the hash of the eng
 ``tools/phase_d_mutant_child.py`` and of ``apply`` and ``run_in_copy`` (which copy the repository and apply the edits),
 with each mutant's edits; the record is rendered from the cache. Outcomes are judged as in the Phase C record
 (``tools/mutation_record.py``'s ``judge``): an engine exception under a mutant (RAISED) is a red, reported and never
-cached, as is a broken replacement (BROKEN, no evidence); a failure of the machine running the child stops the build
-after keeping what finished. A passing part II criterion with no mutant here must be named in ``AD_HOC`` with where
-its mutation is reported; part I's other mutations are reported in the plan, ad hoc, and are not listed here.
+cached, as is a broken replacement (BROKEN, no evidence); a child that fails or times out, or a failure of the machine
+running it, is a FAILED row (no evidence, never cached) and the build goes on (version 2 stage 1, S1.5a). A
+passing part II criterion with no mutant here must be named in ``AD_HOC`` with where its mutation is reported;
+part I's other mutations are reported in the plan, ad hoc, and are not listed here.
 """
 
 from __future__ import annotations
@@ -26,7 +27,6 @@ import hashlib
 import inspect
 import json
 import os
-import re
 import sys
 from pathlib import Path
 
@@ -35,7 +35,8 @@ sys.path.insert(0, str(REPO))
 
 from tools.mutant_runner import Mutant, apply, run_in_copy  # noqa: E402,F401
 from tools.mutation_record import NAMED, judge  # noqa: E402
-from tools.record_cache import ERRORED, INFRASTRUCTURE_ERRORS, Cache, result_key  # noqa: E402
+from tools.record_cache import ERRORED, Cache, child_rows, exit_status, result_key  # noqa: E402
+from tools.record_json import record_json  # noqa: E402
 
 RECORD = REPO / "docs" / "phase_d_mutation_record.md"
 ENSEMBLE_RECORD = REPO / "docs" / "phase_d2_ensemble_record.md"
@@ -140,7 +141,7 @@ def passing() -> set[str]:
     from src.bowen.ensemble.criteria_d2 import CRITERIA_D2
 
     text = ENSEMBLE_RECORD.read_text(encoding="utf-8")
-    rows = json.loads(re.search(r"```json\n(.*?)\n```", text, re.S).group(1))
+    rows = record_json(text)
     keys = list(CRITERIA_D2)
     if len(rows) != len(keys) or any(CRITERIA_D2[k].id != r["criterion"] for k, r in zip(keys, rows)):
         raise SystemExit(f"{ENSEMBLE_RECORD.name}'s rows no longer match CRITERIA_D2 in order; rerun its tool")
@@ -150,7 +151,7 @@ def passing() -> set[str]:
 def passing_part_1() -> set[str]:
     """The ``CRITERIA_D`` keys a mutant here names that pass in the part I record. Their ids are their keys."""
     text = PART_1_RECORD.read_text(encoding="utf-8")
-    rows = json.loads(re.search(r"```json\n(.*?)\n```", text, re.S).group(1))
+    rows = record_json(text)
     named = {c for m in MUTANTS for c in m.criteria} - set(_part_2_keys())  # part I criteria a mutant names
     absent = sorted(named - {r["criterion"] for r in rows})
     if absent:  # absent is not failing (correctness review 2026-10-16): the part I record is stale
@@ -179,11 +180,7 @@ def build(cache: Cache, workers: int | None = None) -> str:
             raise KeyError(f"{mutant.id}: no cached result for the current engine and edits")
         fresh = {}
         if missing:
-            for result in run_in_copy(mutant, CHILD.name, "--child", *missing, "--workers", str(workers)):
-                if result.get("error", "").split(":")[0] in INFRASTRUCTURE_ERRORS:
-                    cache.flush()  # keep the rows this child finished before it failed
-                    raise SystemExit(f"{mutant.id} → {result['criterion']}: the run failed, not the model "
-                                     f"({result['error']}); nothing was cached for it")
+            for result in child_rows(mutant, CHILD.name, missing, workers, mutant.id):
                 fresh[result["criterion"]] = result
                 if result["outcome"] not in ERRORED:  # an errored row is reported but rerun next time, never cached
                     cache.put(keys[result["criterion"]], result)
@@ -247,7 +244,7 @@ def main() -> int:
     cache.save()
     RECORD.write_text(text, encoding="utf-8")
     print(f"wrote {RECORD.relative_to(REPO)}")
-    return 0
+    return exit_status()
 
 
 if __name__ == "__main__":

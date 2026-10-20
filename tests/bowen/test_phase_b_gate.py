@@ -1,8 +1,9 @@
-"""Phase B exit criteria that run the model: G1 and G3.
+"""Phase B exit criteria that run the model: G1 and G3; and Phase B's mutation record stays frozen (S1.5c).
 
 Purpose: the scripted 40-week run completes, and a TRIGGER on a dormant
          family-of-origin tie moves anxiety with no contact.
-Spec:    docs/bowen_agent_model_spec_v2.md#M13 (Phase B Done when), #M4.A.2, #M10.B.4, #M0.4
+Spec:    docs/bowen_agent_model_spec_v2.md#M13 (Phase B Done when), #M4.A.2, #M10.B.4, #M0.4;
+         docs/implementation_plan_version_2.md#S1.5c
 Tests:   this file
 
 Every test here is an acceptance test. M10.B.4 requires the constants to be
@@ -11,6 +12,9 @@ checks the freeze.
 """
 
 from __future__ import annotations
+
+import shutil
+from pathlib import Path
 
 import pytest
 
@@ -99,3 +103,18 @@ def test_m4a2_g3_trigger_on_dormant_tie_moves_anxiety_without_contact():
         ]
         assert crossing == []
         assert state.ties[tie].interactive  # M1.B.3c: a cut-off tie stays open; nothing crossed it in this script
+
+
+def test_s1_5c_phase_b_record_is_frozen(tmp_path):
+    """The record's status line says frozen, and the tool refuses to write it before running a gate: given no gates,
+    a tool without the refusal would rewrite the copy and return."""
+    from tools import mutation_gate
+
+    record = Path(mutation_gate.REPO) / "docs" / "phase_b_mutation_record.md"
+    assert record.read_text(encoding="utf-8").split("\n")[2].startswith(mutation_gate.FROZEN)
+    copy, gates = tmp_path / record.name, tmp_path / "gates.json"
+    shutil.copyfile(record, copy)
+    gates.write_text("[]", encoding="utf-8")
+    with pytest.raises(SystemExit, match="is frozen"):
+        mutation_gate.main(["mutation_gate.py", str(gates), str(copy)])
+    assert copy.read_bytes() == record.read_bytes()

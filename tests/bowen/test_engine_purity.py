@@ -63,7 +63,7 @@ FORBIDDEN_METHODS = {"write", "write_text", "write_bytes", "mkdir", "makedirs", 
                      "load", "loadtxt", "genfromtxt", "fromfile", "read_text", "read_bytes", "import_module"}
 # M11.D.22 and the plan's layout: the engine depends on nothing outside itself.
 FORBIDDEN_IMPORT_PREFIXES = ("tests", "src.bowen.render", "src.bowen.readouts", "src.bowen.scenario",
-                             "src.bowen.io", "src.bowen.run", "src.engine", "src.main")
+                             "src.bowen.io", "src.bowen.run")  # the grid engine is retired (version 2 S1.6)
 # M3.D.6: no language model in the decision path.
 LLM_MODULES = {"anthropic", "openai", "transformers", "langchain", "llama_index", "ollama"}
 
@@ -156,3 +156,37 @@ def test_m11d4_invented_constants_labelled():
 def test_m11d4_scan_finds_a_constant_described_as_sourced(tmp_path):
     (tmp_path / "bad.py").write_text("standing_load_gain = 0.2  # calibrated to Bowen's Ch02\n")
     assert len(invented_constant_findings(tmp_path)) == 1
+
+
+# The tools a record's hash names (record_cache.ENGINE_TOOLS and each record tool's HASHED_TOOLS, and the Phase D
+# mutation child): their code decides verdicts, so they may not read the renderer either.
+HASHED_TOOLS = ("mutant_runner.py", "ensemble_record.py", "phase_d_record.py", "phase_d_mutant_child.py",
+                "level_occupancy.py")
+
+
+def _absolute_imports(path: Path, root: Path) -> list[str]:
+    """Each module ``path`` imports, relative imports resolved against its package."""
+    package = path.relative_to(root).with_suffix("").parts[:-1]
+    found = []
+    for node in ast.walk(ast.parse(path.read_text(encoding="utf-8"))):
+        if isinstance(node, ast.Import):
+            found += [a.name for a in node.names]
+        elif isinstance(node, ast.ImportFrom):
+            base = list(package[:len(package) - node.level + 1]) if node.level else []
+            module = ".".join(base + (node.module.split(".") if node.module else []))
+            found += [module] + [f"{module}.{a.name}" for a in node.names]
+    return found
+
+
+def test_s1_8b_only_run_imports_render():
+    """S1.8b: no verdict reads the renderer, so leaving ``src/bowen/render/`` out of the hash (S1.8a) cannot hide a
+    change to a verdict. Outside ``render/``, only ``src/bowen/run.py`` imports ``src.bowen.render``, and no hashed
+    tool does."""
+    root = Path(__file__).resolve().parents[2]
+    bowen = root / "src" / "bowen"
+    paths = [p for p in sorted(bowen.rglob("*.py")) if "__pycache__" not in p.parts and "render" not in p.relative_to(bowen).parts[:1]]
+    paths += [root / "tools" / name for name in HASHED_TOOLS]
+    importers = sorted(path.relative_to(root).as_posix() for path in paths
+                       if any(m == "src.bowen.render" or m.startswith("src.bowen.render.")
+                              for m in _absolute_imports(path, root)))
+    assert importers == ["src/bowen/run.py"], importers

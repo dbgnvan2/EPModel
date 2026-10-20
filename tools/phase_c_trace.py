@@ -24,9 +24,10 @@ REPO = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO))
 
 
-def records(seed: int, after_tick=None) -> list:
+def records(seed: int, after_tick=None, family=None) -> list:
     """The run's records, opening with its header (`M16.A.1`). ``after_tick(state, records, params)``, when given,
-    is called after every week; `tools/famdiag_export.py` reads its patterns there. It observes and changes nothing."""
+    is called after every week; `tools/famdiag_export.py` reads its patterns there. It observes and changes nothing.
+    ``family``, when given, is the Phase C family already loaded, so a caller loads it once (stage 1 rider (v))."""
     import src.bowen.ensemble.criteria as criteria
     from src.bowen.engine.log_records import CollectingEmitter
     from src.bowen.engine.tick import run_tick
@@ -38,7 +39,7 @@ def records(seed: int, after_tick=None) -> list:
 
     weeks = criteria.SETTINGS["M11.C.1"]["weeks"]
     constants, kinds = load_constants(), load_event_kinds()
-    family = load_family(criteria.FAMILIES["phase_c"])
+    family = family if family is not None else load_family(criteria.FAMILIES["phase_c"])
     script = ScriptedSource("phase_c-trace", weeks, tuple(criteria.spell("phase_c", weeks)), ())
     parts = assemble(constants, kinds, family, script, seed=seed)
     criteria.lowered(criteria.SETTINGS["M11.C.1"]["level_baseline"])(parts.state)  # arm_c1's baseline setup, exactly
@@ -61,10 +62,11 @@ def trace_text(seed: int, view=None) -> str:
     from src.bowen.io.load import load_family
     from src.bowen.render.trace import render
 
-    names = load_family(criteria.FAMILIES["phase_c"]).display_names
+    family = load_family(criteria.FAMILIES["phase_c"])
+    names = family.display_names
     if view is not None and view not in names:
         raise SystemExit(f"--view {view.value!r} is not in the Phase C family: {sorted(p.value for p in names)}")
-    return render(records(seed), names, view=view)
+    return render(records(seed, family=family), names, view=view)
 
 
 def outputs(seed: int) -> tuple[str, str]:
@@ -76,7 +78,7 @@ def outputs(seed: int) -> tuple[str, str]:
 
     family = load_family(criteria.FAMILIES["phase_c"])
     series = WeeklySeries()
-    run = records(seed, after_tick=series.observe)
+    run = records(seed, after_tick=series.observe, family=family)
     return render(run, family.display_names), render_chart(run, series, family)
 
 

@@ -31,9 +31,9 @@ Deferred and adjacent items. Each carries enough context to act on later without
     `tests/test_version_1_status.py` runs the tag's copy. It is kept, not reduced to a stub, because the plan names it
     as the starting point for version 2's status page. Whoever writes that page starts from the tag's copy
     (`git show version-1:tools/version_1_status.py`) or puts the new tool under its own test first.
-  - `tools/phase_c_trace.py`: `outputs()` and `trace_text()` load the family file again after `records()` has loaded
-    it. The cost is milliseconds, and `records()`'s signature is shared with `tools/famdiag_export.py`. Fold it into
-    stage 1's tooling item (1.5) if that work touches `records()`.
+  - [x] ~~`tools/phase_c_trace.py`: `outputs()` and `trace_text()` load the family file again after `records()` has
+    loaded it.~~ *Fixed at version 2 stage 1 (rider (v)): `records()` takes the loaded family; `famdiag_export.py`'s
+    call is unchanged.*
 - [ ] **Stale "pending owner review" text for decisions the owner has made** (found 2026-10-19, not fixed; for stage 1,
   since it touches `src/bowen/`, `config/bowen/` and a record string, all in the hash). Code comments in
   `src/bowen/ensemble/criteria.py` (three), `criteria_d.py` (two), `criteria_d2.py` (`M11.C.6`, accepted 2026-10-18),
@@ -89,7 +89,9 @@ decision is Claude's recommendation, pending owner review.
   is a tie in state `CUT_OFF` (G1 proposal, A13).* (2026-10-17, the spike's review): a cut tie is one holding
   rejection, not every tie that is not interactive, so a retired coach's or a removed member's tie is not spiked
   (plan §4.12).
-- [ ] **Adjacent, not fixed (2026-10-17): the Phase B mutation record cannot be regenerated.** Gate G2's `expect`
+- [x] ~~**Adjacent, not fixed (2026-10-17): the Phase B mutation record cannot be regenerated.**~~ *Frozen at
+  version 2 stage 1 (S1.5c, plan D5 (b)): the record's status line says frozen and `tools/mutation_gate.py` refuses to
+  rewrite it.* Gate G2's `expect`
   fragment (`assert "Marta +5.0" in conflict[5]`) was removed from `tests/bowen/test_render.py` at Phase C step 1
   (`1c20d44`), so `tools/mutation_gate.py` stops at G2. `docs/phase_b_mutation_record.md` stays the record of Phase B's
   close. Gate G7's mutant was extended at revision 32 to remove the new trigger pruning too (the spike re-check found
@@ -472,12 +474,15 @@ Phase C steps 0–16 are built. **Its gate does not pass** (`docs/phase_c_comple
   instead of calling the arm; probes sample at tick start, so the last tick is missed; `summarise` takes its columns
   from the first group and assumes every row has the same keys. None changes a current number. The
   "no rows" and "names no criterion" exits of `tools/diagnostic_record.py` have no test.
-- [ ] **Record-parsing duplication.** The record JSON regex and `json.loads` appear about six times across
+- [x] ~~**Record-parsing duplication.**~~ *Fixed at version 2 stage 1 (S1.5d): `tools/record_json.py` is the one parser, and
+  `tests/bowen/test_record_json.py` fails on a second copy.* The record JSON regex and `json.loads` appear about six times across
   `tools/mutation_record.py`, `tools/sweep_record.py`, `tools/spec_coverage.py` and the tests; one helper would serve
   them (correctness review, 2026-10-09).
 - [ ] **`M11.C.16`'s coverage override is hand-written** (`tools/spec_coverage_phase_b.json`) and says "passes"; it
   will not update if the ensemble verdict changes (correctness review, 2026-10-09).
-- [ ] **A child failure or timeout in `run_in_copy` aborts the whole record run** and discards earlier mutants'
+- [x] ~~**A child failure or timeout in `run_in_copy` aborts the whole record run**~~ *Fixed at version 2 stage 1 (S1.5a): a failed
+  child's ids become FAILED rows, never cached, the record goes on and exits 1; a timeout kills the child's process
+  group.* The run discarded earlier mutants'
   results; a timed-out child's worker pool may be orphaned. Pre-existing (correctness review, 2026-10-09).
 - [ ] **`M11.C.16`'s mutation clause is not met.** The spec requires that disabling `M4.D.6` turn it red, and it does
   not. Decide whether to restate the criterion so that a learned contribution is what it tests (for example, hold
@@ -499,11 +504,11 @@ Phase C steps 0–16 are built. **Its gate does not pass** (`docs/phase_c_comple
   survives on `M11.C.3` (a direction, not a size), and `triangle-credit-cross-person` has no passing criterion.
   Both rules have unit tests. A criterion that reads the size of the seeker's relief against the third's help, or
   `M11.C.42`/`.45` passing, would prove them.
-- [ ] **The trace renderer's framing says every run is scripted** ("no one in it chose anything (Phase B)"),
+- [x] ~~**The trace renderer's framing says every run is scripted**~~ *Done at Phase D plan B2; confirmed 2026-10-19 (version 2 stage 1, S1.0): `framing()` reads the run's selections, and `test_b2_framing_says_who_chose_the_acts` fails when the sentence is always the scripted one.* ("no one in it chose anything (Phase B)"),
   which is false for a Phase C run. `tools/phase_c_trace.py` replaces the sentence and fails if it moves. Fix it in
   `src/bowen/render/trace.py` (choose the sentence from the header) with the next engine change, since that file
   is in the engine hash.
-- [ ] **`code_text` (the engine hash) has two latent gaps** (re-sweep of `d7ce2b3..`, 2026-10-09): it drops a whole
+- [x] ~~**`code_text` (the engine hash) has two latent gaps**~~ *Done at Phase D plan B2; confirmed 2026-10-19 (stage 1, S1.0): `test_b2_code_text_drops_only_docstrings_and_comments` fails when either gap is put back on a copy.* (re-sweep of `d7ce2b3..`, 2026-10-09): it drops a whole
   docstring line, so code sharing that line (`"""doc"""; x = 1`) is invisible to the hash; and it strips blank lines
   and trailing spaces inside ordinary multi-line strings. No current file has either pattern (checked: the fixed
   version gives every file the same text). Not fixed now because `tools/ensemble_record.py`, which holds
@@ -545,7 +550,7 @@ Phase C steps 0–16 are built. **Its gate does not pass** (`docs/phase_c_comple
      where projection does not reach 3 acts. Should those acts count when projection is not read?
 - [x] ~~**`family_phase_d.md` lacks Teodor–Iris and Viktor–Dario parent ties**~~ *added 2026-10-10.* (the owner's family has Iris as Teodor's
   daughter and Dario as Viktor's son).
-- [ ] **Rule 9 debt:** the readouts' act sets (`APPROACH`, `PROJECTION_ACTS`, the over/under lists in
+- [x] ~~**Rule 9 debt:** the readouts' act sets~~ *Done at Phase D plan B2 (`config/bowen/pattern_acts.md`); confirmed 2026-10-19 (stage 1, S1.0) by `test_s1_0_act_sets_come_from_config`, which reads the module's source for a literal act set. The engine's two classifications are stage 1's S1.3.* (`APPROACH`, `PROJECTION_ACTS`, the over/under lists in
   `src/bowen/readouts/patterns.py`) are classification rules in Python. `PROJECTION_ACTS` is tied to the sink's
   set by `test_v5_projection_reads_the_sinks_act_set`. Move them to config with the next engine change.
 - [ ] **fam-diag, found in review, not fixed** (pre-existing; neither affects File > Open of an export):
@@ -560,7 +565,7 @@ Phase C steps 0–16 are built. **Its gate does not pass** (`docs/phase_c_comple
   version. No file has one today. Fix: `io.StringIO(source).readlines()`. Do it with the next change to that file
   (it is in the ensemble record's stamp).
 - [ ] **Engine CUTOFF semantics, held for Phase D** (owner, 2026-10-10) (`docs/DECISIONS — CUTOFF SEMANTICS.md`; recommendation C, Phase D).
-- [ ] **The pattern readouts read `state.tick` as "now"**, but after `run_tick` it is the next week's tick. The exporter
+- [x] ~~**The pattern readouts read `state.tick` as "now"**~~ *Done at Phase D plan B2: the readouts take `now`, and `tools/famdiag_export.py` passes it; found 2026-10-19 (stage 1, rider ii), and `test_b2_now_reads_as_of_that_week` fails when `now` is ignored.* But after `run_tick` it is the next week's tick. The exporter
   steps it back and restores it (`tools/famdiag_export.py:simulate`). A `now` argument on the readouts would be
   cleaner. It is an engine-hash change, so do it with the next engine change.
 - [x] ~~**fam-diag branch `timeline-hides-ended-lines`**~~ *2026-10-10: the owner's fam-diag stays as it is. The work
@@ -884,13 +889,15 @@ hedge-level remainder, held back because each fix is new unreviewed surface.
 
 ## Known defects in the frozen grid engine
 
-Recorded, not fixed. The engine is frozen in behaviour; these matter because the v2 spec forbids inheriting them.
+*Closed at version 2 stage 1 (S1.6): the grid engine was removed from the tree (it is at the tag `version-1`), so
+none of these can be fixed or recur. They stay listed because the v2 spec forbids inheriting them.* Recorded, not
+fixed. The engine was frozen in behaviour.
 
-- [ ] **Engine purity violated.** *(Partially contained 2026-08-22: the test suite now runs from a temp directory, so it no longer writes into the repo root. The engine still writes.)*  `Simulator.__init__` opens and writes `sim_audit.csv` in the process working directory, and `log_telemetry` appends every 10 cycles. `CLAUDE.md` says the engine stays pure — no UI, no file I/O. Now gitignored so the stray copies stop appearing as untracked, but the write itself remains.
-- [ ] **`_apply_config` fails silently.** It skips any line failing its regex and any key not already in `defaults`, with no warning, so a typo in `docs/model_config.md` vanishes and the default is used. Spec `M10.B.2` forbids v2 inheriting this; the v1 engine still has it.
-- [ ] **Magic literals.** Spec §14 of the frozen document claims no model parameters are hard-coded in engine source. In practice 12 keys are in markdown config, 27 are class constants, and roughly 52 distinct float literals remain inline in executable code.
-- [ ] **`family_ids` and `nuclear_family_id` are the same array object**, not a copy — `sim.family_ids is sim.nuclear_family_id` is `True`. The frozen spec documents `family_ids` as a "compatibility alias", so this is intentional, but two consequences are not obviously intended and are worth checking before any further engine work: in `update_triangles` the pair `self.family_ids[circle_idx] = fid` / `self.nuclear_family_id[circle_idx] = fid` writes the same element twice, so the first line is dead; and the triangle release path at lines 324/327 restores `family_ids` and thereby silently rewrites `nuclear_family_id` too. Any future change that gives the two names different values will silently lose one. **The v2 spec must not carry an alias pair like this** — `M1.A` gives each field one name.
-- [ ] **`update_m` windfall can target a dead unit.** It picks `np.random.randint(0, num_units)`, so it can multiply the resources of a dead unit or an unused nursery slot.
+- [x] **Engine purity violated.** *(Partially contained 2026-08-22: the test suite now runs from a temp directory, so it no longer writes into the repo root. The engine still writes.)*  `Simulator.__init__` opens and writes `sim_audit.csv` in the process working directory, and `log_telemetry` appends every 10 cycles. `CLAUDE.md` says the engine stays pure — no UI, no file I/O. Now gitignored so the stray copies stop appearing as untracked, but the write itself remains.
+- [x] **`_apply_config` fails silently.** It skips any line failing its regex and any key not already in `defaults`, with no warning, so a typo in `docs/model_config.md` vanishes and the default is used. Spec `M10.B.2` forbids v2 inheriting this; the v1 engine still has it.
+- [x] **Magic literals.** Spec §14 of the frozen document claims no model parameters are hard-coded in engine source. In practice 12 keys are in markdown config, 27 are class constants, and roughly 52 distinct float literals remain inline in executable code.
+- [x] **`family_ids` and `nuclear_family_id` are the same array object**, not a copy — `sim.family_ids is sim.nuclear_family_id` is `True`. The frozen spec documents `family_ids` as a "compatibility alias", so this is intentional, but two consequences are not obviously intended and are worth checking before any further engine work: in `update_triangles` the pair `self.family_ids[circle_idx] = fid` / `self.nuclear_family_id[circle_idx] = fid` writes the same element twice, so the first line is dead; and the triangle release path at lines 324/327 restores `family_ids` and thereby silently rewrites `nuclear_family_id` too. Any future change that gives the two names different values will silently lose one. **The v2 spec must not carry an alias pair like this** — `M1.A` gives each field one name.
+- [x] **`update_m` windfall can target a dead unit.** It picks `np.random.randint(0, num_units)`, so it can multiply the resources of a dead unit or an unused nursery slot.
 
 ## Repository hygiene
 

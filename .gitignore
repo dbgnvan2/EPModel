@@ -4,8 +4,8 @@ __pycache__/
 .env
 .DS_Store
 
-# engine audit output — written by the engine at runtime (see CLAUDE.md,
-# engine purity); the stray copies are a known defect, not artefacts to track
+# the retired grid engine's audit output (removed at version 2 stage 1); a stray
+# untracked copy may remain in src/, for the owner to delete
 sim_audit.csv
 
 # agent worktrees

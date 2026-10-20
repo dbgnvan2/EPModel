@@ -2,9 +2,10 @@
 
 Python + NumPy simulation of emotional process at unit, family, and societal levels.
 
-**The project is mid-pivot.** The grid engine (`src/engine.py`, 10,000 units on a 100×100 lattice) is being
-replaced by a behaving-agent model over one three-generation family. Read `docs/agent_model_proposal.html`
-before touching architecture — especially §10, which records what reading the source corpus changed.
+The model is a behaving-agent model over one three-generation family (`src/bowen/`). It replaced the grid engine
+(`src/engine.py`, 10,000 units on a 100×100 lattice), which was retired at version 2 stage 1. Read
+`docs/agent_model_proposal.html` before touching architecture — especially §10, which records what reading the source
+corpus changed.
 
 ## Global standards
 
@@ -27,7 +28,7 @@ Read the relevant file from `~/.claude/standards/` before starting work:
 | `docs/version_1_status.md` | **where version 1 stands**: every `M11.C` criterion under V1–V3, generated from the records and `docs/version_1_dispositions.md` | **frozen at the tag `version-1` (`d62cfdc`, owner 2026-10-19); a test checks it and the dispositions against the tag and runs the tag's status tests** |
 | `docs/model_explainer.md` | **every part of the model** — object, field, move, gate, invariant, clock, test — what it is for, what it does, and which chapter it implements | **start here to understand the model** |
 | `docs/agent_model_proposal.html` | the architecture proposal, §10 = corpus reconciliation | current |
-| `docs/bowen_individual_family_model_spec.md` | **v1.2, FROZEN** — describes the grid engine only | historical record; do not extend |
+| `docs/bowen_individual_family_model_spec.md` | **v1.2, FROZEN** — describes the retired grid engine only | historical record; do not extend |
 
 **Six corpus sources, and they are not one evidence class.** The 22 papers (1957–76, `L`); the 1979
 video lectures (`Tape N`, **ASR — no verbatim quotation**); the Kerr–Bowen interviews (`KB`, **ASR — cite
@@ -61,35 +62,16 @@ full table.
 ## Key rules
 
 - Simulation parameters (thresholds, rates, constants) belong in config or named constants — not magic
-  literals scattered through `engine.py`.
-- Keep the simulation engine pure: **no UI, no file I/O.** `M16.B` makes this a requirement for v2: the
-  engine emits log records through a caller-supplied interface and never writes them itself, and logging
-  must be a pure observer — same seed with logging on and off reaches the same final state. This is
-  currently violated in the frozen engine —
-  `Simulator.__init__` opens and writes `sim_audit.csv` in the process working directory, and
-  `log_telemetry` appends to it every 10 cycles. Two stray copies of the file exist (repo root and `src/`).
-  Fix this when the engine is next touched; do not add new I/O to it in the meantime.
-- **Axiom 1's no-loops / vectorisation mandate is obsolete and now pushes the design the wrong way.** It
-  was written for N = 10,000. The agent model runs N ≈ 12, where a 40-year history is roughly 2,080 fast
-  ticks — clarity beats vectorisation at that scale, and per-agent, per-tie and per-triangle state cannot
-  be expressed as a dense array without exactly the flattening the pivot exists to undo. Treat Axiom 1 as
-  applying to the frozen grid engine only. It does not govern `src/bowen/`.
-- New work goes in a new package `src/bowen/` alongside `engine.py`. The old engine and its tests stay
-  green until the new one passes the acceptance tests.
+  literals scattered through `src/bowen/`.
+- Keep the simulation engine pure: **no UI, no file I/O.** `M16.B` makes this a requirement: the engine emits log
+  records through a caller-supplied interface and never writes them itself, and logging must be a pure observer —
+  same seed with logging on and off reaches the same final state.
+- **The grid engine is retired** (version 2 stage 1, S1.6, owner decision D4): `src/engine.py`, `src/main.py`,
+  `monte_carlo.py`, `tests/test_simulator.py` and `docs/model_config.md` were removed from the tree and are in git
+  history and at the tag `version-1`; its rules (Axiom 1, its `sim_audit.csv` writes, its family-size draw) no longer
+  apply, and `tests/test_repo_layout.py` fails if it comes back.
 - Run tests before declaring done: `python3 -m pytest tests/`
-- **A red suite is never normal — all 916 tests pass** (measured 2026-10-19 on this Mac after the `/csdp` sweep's fixes added three run-chart tests; 913 earlier that day after version 1's status page was frozen at the tag `version-1`, its eleven status tests now run at the tag by three; 921 on 2026-10-18 after the run chart was added beside the Phase C trace; 915 earlier that day after spec revision 32 with the owner's review and the nodal-event spike; 909 on 2026-10-17 after revision 32's first part; 886 earlier that day after `M11.C.21`'s reclassification and the capacity rule's no-span fix; 884 on 2026-10-16 after revision 31 part B; 868 earlier that day; 854 on 2026-10-15; 850 passed in CI run 38763412772 on Python 3.11, 3.12 and 3.13, before the Phase D mutation record's 4; counts are as collected by the default run; the 49 `ensemble`-marked criterion tests are deselected by `pytest.ini` and run with `python3 -m pytest -m ensemble`). The previously documented flake in
-  `test_spouse_dysfunction_asymmetric_penalty` was fixed on 2026-08-22 (measured 12/12, plus 20 clean
-  full-suite runs); `test_triangle_mechanism_attaches_and_releases_circle` had the same latent fault at
-  a ~2.7% rate and was fixed with it.
-- **Family sizes are drawn at construction, so any test with a family-size precondition must fix the
-  draw.** `Simulator.__init__` tiles the grid with size-2 and size-4 blocks at random: the family
-  containing unit 0 is size 2 or size 4 with roughly equal probability, and ~2.7% of draws contain no
-  size-2 family at all (measured over 2,000 draws). `apply_divorce` and `_update_family_distance_flags`
-  act only on families with **exactly two active members**, so a test that picks a family arbitrarily and
-  expects those code paths to fire silently no-ops on half its runs. Use the `_seed_rng` helper in
-  `tests/test_simulator.py`, which seeds the global NumPy RNG and restores the prior state on cleanup so
-  later tests keep varying inputs, and select the family by `family_member_counts == 2` rather than by
-  `family_ids[0]`.
+- **A red suite is never normal — all 916 tests pass** (measured 2026-10-19 on this Mac after the `/csdp` sweep's fixes added three run-chart tests; 913 earlier that day after version 1's status page was frozen at the tag `version-1`, its eleven status tests now run at the tag by three; 921 on 2026-10-18 after the run chart was added beside the Phase C trace; 915 earlier that day after spec revision 32 with the owner's review and the nodal-event spike; 909 on 2026-10-17 after revision 32's first part; 886 earlier that day after `M11.C.21`'s reclassification and the capacity rule's no-span fix; 884 on 2026-10-16 after revision 31 part B; 868 earlier that day; 854 on 2026-10-15; 850 passed in CI run 38763412772 on Python 3.11, 3.12 and 3.13, before the Phase D mutation record's 4; counts are as collected by the default run; the 49 `ensemble`-marked criterion tests are deselected by `pytest.ini` and run with `python3 -m pytest -m ensemble`).
 
 ## Documentation stays current with the build (owner rule, 2026-10-10)
 

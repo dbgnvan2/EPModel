@@ -36,7 +36,6 @@ The rules, from the version 1 definition (approved 2026-10-15):
 from __future__ import annotations
 
 import importlib.util
-import json
 import re
 import sys
 from dataclasses import dataclass, field
@@ -45,6 +44,8 @@ from typing import NoReturn
 
 REPO = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO))
+
+from tools.record_json import record_json  # noqa: E402
 
 SPEC = REPO / "docs" / "bowen_agent_model_spec_v2.md"
 DISPOSITIONS = REPO / "docs" / "version_1_dispositions.md"
@@ -67,7 +68,7 @@ RED = ("red", "reversed")
 
 
 def _json_block(path: Path) -> list[dict]:
-    return json.loads(re.search(r"```json\n(.*?)\n```", path.read_text(encoding="utf-8"), re.S).group(1))
+    return record_json(path)
 
 
 def _load(module: str, path: Path):

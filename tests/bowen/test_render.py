@@ -384,7 +384,8 @@ def test_m16c2_a_held_position_renders():
 
 def test_m16c2_lock_in_renders():
     """Revision 24 (M7.D.2a, M7.D.2d): a remission's return of a symptom's hold is shown beside the event; the weekly
-    hold, giving back and spill are summarised once, not listed (review 2026-10-12)."""
+    hold is summarised once, not listed (review 2026-10-12). The weekly giving back and spill have their own rows from
+    version 2 stage 1 (`test_m16t1_s1_7a_a_release_has_its_own_row`)."""
     from src.bowen.engine.log_records import EffectRecord
 
     marta, ravi = PersonId("marta"), PersonId("ravi")
@@ -399,6 +400,25 @@ def test_m16c2_lock_in_renders():
     text = render(RECORDS + [weekly], NAMES)
     assert "Marta's symptom holds" not in text and "lock-in" in text
 
+
+
+def test_m16t1_s1_7a_a_release_has_its_own_row():
+    """S1.7a (plan D6 (a)): a weekly lock-in record that gives back what a symptom held, or spills past the turn to the
+    partners, is a system row of its own; the weekly hold (a positive change) is not listed."""
+    from src.bowen.engine.log_records import EffectRecord
+
+    marta, ravi = PersonId("marta"), PersonId("ravi")
+    week = next(r.event for r in RECORDS if isinstance(r, EmittedRecord)).timestamp
+
+    def weekly(change, moved):
+        return EffectRecord(week, "lock_in", None, acute_anxiety=moved, people=((marta, "symptom_bound", change),))
+
+    text = render(RECORDS + [weekly(-1.5, ((ravi, 1.5),)), weekly(0.0, ((marta, -2.0), (ravi, 2.0))),
+                             weekly(1.0, ((ravi, -1.0),))], NAMES)
+    rows = [line for line in text.splitlines() if line.startswith(f"| {week} | — | (system) |")]
+    assert any("Marta's symptom gives back 1.5 (Ravi +1.5)" in r for r in rows), rows
+    assert any("past its turn and holds their anxiety no longer (Marta -2.0, Ravi +2.0)" in r for r in rows), rows
+    assert "Marta's symptom holds" not in text
 
 def test_m16c2_a_remitted_symptom_renders_as_ending():
     """Revision 24 (re-sweep 2026-10-12): a symptom channel's release credits nothing to the budget, so its row says the

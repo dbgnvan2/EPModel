@@ -60,13 +60,13 @@ TABLE_HEAD = "| Week | Who | Move | Toward | Witnesses | What it did |\n|---|---
 # raises: a record the renderer does not understand must not vanish (P2, P19).
 CAUSED = frozenset({"appraisal", "calm_contact", "symptom_onset", "distance_binding", "triangle_transfer",
                     "functioning_shift", "position_held", "reduce_cutoff", "refusal", "stressor_load", "assertion", "debit", "landed_contact", "trigger", "nodal_spike", "cutoff", "reconciliation", "institutionalize", "binder_unavailable", "lock_in"})
-SYSTEM_SHOWN = frozenset({"triangle_recompute", "consolidation", "rejection_fade", "slow_tick"})
+SYSTEM_SHOWN = frozenset({"triangle_recompute", "consolidation", "rejection_fade", "slow_tick",
+                          "lock_in"})  # version 2 stage 1 (D6 (a)): a release has its own row; the weekly hold does not
 SYSTEM_SUMMARISED = frozenset({
     "standing_load", "reactive_cutoff", "weakness_focus", "acute_decay", "contact_relaxation", "symptom_accumulation", "investment", "reactive_state",
     "outside_ness", "belief", "functioning_settle", "competing_urges", "withhold", "learning", "sink_allocation",
     "self_practice", "stress_response", "soothing_review", "witnessed_cutoff", "attribution", "family_focus", "pseudo_self_relaxation",
     "danger_contact", "felt_danger",  # revision 30: weekly, read from received intrusion (M1.B.3e)
-    "lock_in",  # revision 24: every week for every active symptom (one bearer gave 121 rows a year; review 2026-10-12)
 })  # every week, everyone; stated once
 
 
@@ -237,8 +237,17 @@ def _lock_in_text(effect: EffectRecord, names: _Names) -> str:
 
 
 def _system_rows(effect: EffectRecord, names: _Names) -> list[str]:
+    if effect.mechanism in SYSTEM_SUMMARISED:
+        return []
     rows = []
-    if effect.mechanism == "triangle_recompute":
+    if effect.mechanism == "lock_in":
+        # D6 (a), version 2 stage 1: what a symptom gives back as it ends or passes its turn, and its spill to the
+        # partners past the turn, each get a row. The weekly hold (a positive change) runs every week for every active
+        # symptom and stays summarised (one bearer gave 121 rows a year; review 2026-10-12).
+        [(_, _, change)] = effect.people
+        if change <= 0:
+            rows.append(_lock_in_text(effect, names))
+    elif effect.mechanism == "triangle_recompute":
         for tri, field, value in effect.triangles:
             if field == "active":
                 rows.append(f"{names.triangle(tri)} triangle {'active' if value == 'true' else 'inactive'}")
@@ -276,7 +285,7 @@ def _system_rows(effect: EffectRecord, names: _Names) -> list[str]:
         worn = sum(1 for _, field, _ in effect.ties if field == "conductance")
         rows.append(f"slow tick (yearly): {worn} ties wore (conductance); every dyad a year older")
         rows += [f"{names(p)} {field.replace('_', ' ')} {_signed(v)}" for p, field, v in effect.people]
-    elif effect.mechanism not in SYSTEM_SUMMARISED:
+    else:
         raise UnrenderableRecord(f"no template for weekly mechanism {effect.mechanism!r}")
     return [f"| {effect.tick} | — | (system) | — | — | {text} |" for text in rows]
 
@@ -330,7 +339,8 @@ def render(
         f"{', '.join(k for k, changed in header.constant_changed_after_freeze if changed) or 'none'} |",
         "",
         "The standing load, the decay toward each person's floor, the relaxation of felt contact, "
-        "symptom accumulation, a symptom's hold on the family's anxiety (lock-in), investment, the reactive "
+        "symptom accumulation, a symptom's weekly hold on the family's anxiety (lock-in; what it gives back is shown), "
+        "investment, the reactive "
         "detectors, outside-ness, attribution, the family's focus and borrowed pseudo-self settling back run every "
         "week for everyone "
         "and are not listed line by line. Effects are shown beside the event that caused them.",

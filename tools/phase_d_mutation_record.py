@@ -140,16 +140,15 @@ def engine_hash() -> str:
 
 
 def passing() -> set[str]:
-    """The ``CRITERIA_D2`` keys that pass in the part II record. The record names two criteria by one id, so its rows
-    are matched to the keys in order, each row's id checked against its key."""
+    """The ``CRITERIA_D2`` keys that pass in the part II record. Each row is printed under its key (version 2 stage 1,
+    S1.7b), so the rows must be the keys, in order."""
     from src.bowen.ensemble.criteria_d2 import CRITERIA_D2
 
     text = ENSEMBLE_RECORD.read_text(encoding="utf-8")
     rows = record_json(text)
-    keys = list(CRITERIA_D2)
-    if len(rows) != len(keys) or any(CRITERIA_D2[k].id != r["criterion"] for k, r in zip(keys, rows)):
+    if [r["criterion"] for r in rows] != list(CRITERIA_D2):
         raise SystemExit(f"{ENSEMBLE_RECORD.name}'s rows no longer match CRITERIA_D2 in order; rerun its tool")
-    return {k for k, r in zip(keys, rows) if r["outcome"] == "PASS"}
+    return {r["criterion"] for r in rows if r["outcome"] == "PASS"}
 
 
 def passing_part_1() -> set[str]:

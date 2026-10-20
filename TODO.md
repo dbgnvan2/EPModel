@@ -158,9 +158,9 @@ Plan §4.10 holds the evidence.
 - [ ] **Adjacent, not fixed (2026-10-19):** the ad hoc probes in `tools/probes.py` (lines 139, 141, 268, 458) still
   take float means with the builtin `sum`. No record reads them; move them to `math.fsum` when the file is next
   touched.
-- [ ] **The phase D2 record prints `M11.C.10`'s two variants under one id** (and `M11.C.2`'s twelve-person variant as
-  `M11.C.2`). The renderer uses `Criterion.id`; it should print the criterion's key. A label change: render from the
-  cache, not by rerunning.
+- [x] ~~**The phase D2 record prints `M11.C.10`'s two variants under one id** (and `M11.C.2`'s twelve-person variant as
+  `M11.C.2`).~~ *Fixed at version 2 stage 1 (S1.7b): each row carries its `CRITERIA_D2` key, and the Phase D records
+  render from `docs/records_cache/` (S1.8c), so a label change no longer reruns them.*
 - [ ] **`M11.C.47`: the dangerous person is cut off on fewer weeks** (−16.6 ± 4.9 `held_weeks`, 150 seeds), though felt
   danger and the principled part are higher. Trace why before reading the premise as a finding about cutoff.
 - [ ] **`M11.C.2` on the twelve-person family fails again at revision 30** (+0.70 ± 1.5, p 0.16; +1.31 ± 0.95 at

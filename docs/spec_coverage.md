@@ -587,7 +587,7 @@ mutant has turned each entry red in `docs/phase_c_mutation_record.md`; the D9 sw
 | M17.G.2 | not done | — | Phase E |
 | M17.G.3 | not done | — | Phase E |
 
-## Tests named for no spec ID (139)
+## Tests named for no spec ID (146)
 
 Their names embed no requirement ID, so they count only where an override cites them (marked *cited*). The rest check spec documents, tooling or helpers.
 
@@ -647,9 +647,15 @@ Their names embed no requirement ID, so they count only where an override cites 
 - `tests/bowen/test_float_sums.py::test_s1_1a_the_scan_finds_a_sum`
 - `tests/bowen/test_float_sums.py::test_s1_1b_count_refuses_a_float`
 - `tests/bowen/test_mechanisms.py::test_m8_5_s1_4_a_sided_coach_leaves_its_triangle_active`
+- `tests/bowen/test_mutant_runner.py::test_s1_5a_a_cache_write_cut_short_leaves_the_last_whole_file`
+- `tests/bowen/test_mutant_runner.py::test_s1_5a_a_child_that_cannot_start_raises_its_own_error`
 - `tests/bowen/test_mutant_runner.py::test_s1_5a_a_failed_child_does_not_stop_the_record`
+- `tests/bowen/test_mutant_runner.py::test_s1_5a_a_handler_not_set_from_python_is_restored_as_the_default`
 - `tests/bowen/test_mutant_runner.py::test_s1_5a_a_line_cut_short_is_reported`
 - `tests/bowen/test_mutant_runner.py::test_s1_5a_a_second_stop_signal_cannot_interrupt_the_kill`
+- `tests/bowen/test_mutant_runner.py::test_s1_5a_a_stop_signal_during_the_spawn_still_kills_the_child`
+- `tests/bowen/test_mutant_runner.py::test_s1_5a_a_stop_signal_while_restoring_reaches_the_restored_handler`
+- `tests/bowen/test_mutant_runner.py::test_s1_5a_a_stop_signal_while_setting_the_handlers_restores_both`
 - `tests/bowen/test_mutant_runner.py::test_s1_5a_a_stopped_parent_leaves_no_process`
 - `tests/bowen/test_mutant_runner.py::test_s1_5a_a_timed_out_child_leaves_no_process`
 - `tests/bowen/test_mutant_runner.py::test_s1_5a_an_ignored_stop_signal_stays_ignored`
@@ -692,6 +698,7 @@ Their names embed no requirement ID, so they count only where an override cites 
 - `tests/test_record_changes.py::test_s1_10b_a_record_not_regenerated_is_refused`
 - `tests/test_record_changes.py::test_s1_10b_a_value_record_lists_a_changed_value`
 - `tests/test_record_changes.py::test_s1_10b_changes_page_is_current`
+- `tests/test_record_changes.py::test_s1_10b_every_field_is_compared`
 - `tests/test_record_changes.py::test_s1_10b_the_tags_d2_rows_are_matched_by_position`
 - `tests/test_repo_layout.py::test_s1_6_the_grid_engine_is_retired` — *cited*
 - `tests/test_review_rev31.py::test_r31a10_launch_age_approved`

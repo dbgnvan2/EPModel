@@ -4,7 +4,8 @@ Purpose: `docs/version_2_stage_1_changes.md` is generated from the records at th
          now. A hand edit, or a record regenerated without the page, fails the first test. The others check the
          comparison on rows built here: a changed verdict is listed, an effect that moved past the tag's half-width
          is listed and one that moved less is not (P7), the D2 record's variants are matched to the tag's rows by
-         position, a value record lists a changed value, and a record that was not regenerated is refused (P35).
+         position, a value record lists a changed value, every field of a row is compared, and a record that was not
+         regenerated, or that compares no row, is refused (P35).
 Spec:    docs/implementation_plan_version_2.md#S1.10b
 Tests:   this file
 """
@@ -36,7 +37,8 @@ def test_s1_10b_a_changed_verdict_and_a_moved_effect_are_listed():
     now = [_row("A", "FAIL", ("r", 0.2, 0.5)), _row("B", "PASS", ("r", 1.6, 0.5)), _row("C", "PASS", ("r", 1.4, 0.5)),
            _row("E", "PASS", ("r", 1.0, 0.5))]
     c = rc.compare(then, now, CRITERIA)
-    assert c.compared == 3 and [k for k, _, _ in c.changed] == ["A"] and c.differ == 3
+    assert c.compared == 3 and [k for k, _, _ in c.changed] == ["A"]
+    assert c.differ == 4  # A's outcome and mean difference, B's and C's mean difference
     assert [(k, name) for k, name, _, _ in c.moved] == [("B", "r")]  # C moved 0.4, inside the tag's 0.5
     assert [k for k, _ in c.gone] == ["D"] and [k for k, _ in c.new] == ["E"]
     page = rc.render([(CRITERIA, "a" * 64, "b" * 64, c)])
@@ -50,7 +52,31 @@ def test_s1_10b_a_readout_on_one_side_only_is_listed():
     then = [_row("A", "PASS", ("r", 1.0, 0.5), ("gone", 0.1, 0.5))]
     now = [_row("A", "PASS", ("r", 1.0, 0.5), ("added", 0.1, 0.5))]
     c = rc.compare(then, now, CRITERIA)
-    assert [(k, name) for k, name, _, _ in c.moved] == [("A", "added"), ("A", "gone")] and c.differ == 2
+    assert [(k, name) for k, name, _, _ in c.moved] == [("A", "added"), ("A", "gone")]
+    assert c.differ == 8  # each one-sided readout's four fields
+
+
+def test_s1_10b_every_field_is_compared():
+    """A row whose verdict and mean differences are the tag's but whose p, half-width, seed count or flags are not is
+    counted and listed, and the record is not called unchanged; a NaN on both sides is no difference, and a mean
+    difference that became NaN is a moved effect (narrow re-sweep, 2026-10-19: the tool compared only verdicts and
+    mean differences while the page said every value)."""
+    then = [{**_row("A", "PASS", ("r", 1.0, 0.5)), "seeds": 100, "flags": []}, _row("B", "PASS", ("r", 1.0, 0.5))]
+    now = [{**_row("A", "PASS", ("r", 1.0, 0.5)), "seeds": 50, "flags": ["low"]}, _row("B", "PASS", ("r", 1.0, 0.5))]
+    now[0]["readouts"][0].update(p=0.2, half_width=0.6)
+    c = rc.compare(then, now, CRITERIA)
+    assert not c.changed and not c.moved
+    assert [(k, name) for k, name, _, _ in c.values] == [
+        ("A", "flags"), ("A", "readouts.r.half_width"), ("A", "readouts.r.p"), ("A", "seeds")]
+    page = rc.render([(CRITERIA, "a" * 64, "b" * 64, c)])
+    assert "No change:" not in page and "Fields not exactly the tag's, in rows on both sides: 4." in page
+    assert "| A | readouts.r.p | 0.01 | 0.2 |" in page and "| A | seeds | 100 | 50 |" in page
+    nan = float("nan")
+    assert not rc.compare([_row("A", "PASS", ("r", nan, 0.5))], [_row("A", "PASS", ("r", nan, 0.5))], CRITERIA).values
+    became = rc.compare(then[1:], [_row("B", "PASS", ("r", nan, 0.5))], CRITERIA)
+    assert [(k, name) for k, name, _, _ in became.moved] == [("B", "r")]
+    unchanged = rc.render([(CRITERIA, "a" * 64, "b" * 64, rc.compare(then, then, CRITERIA))])
+    assert "No change: 2 of 2 rows are exactly the tag's, every field." in unchanged
 
 
 def test_s1_10b_the_tags_d2_rows_are_matched_by_position():
@@ -86,5 +112,14 @@ def test_s1_10b_a_record_not_regenerated_is_refused(tmp_path):
         (tmp_path / "x").write_text(text.replace("code_hash: ", "hash: "), encoding="utf-8")
         with pytest.raises(SystemExit, match="no code_hash or engine_hash line"):
             rc.build()
-        (tmp_path / "x").write_text(text.replace("a" * 64, "b" * 64), encoding="utf-8")
-        assert "No change: 0 of 0 rows" in rc.build()  # regenerated: the page is written
+        regenerated = text.replace("a" * 64, "b" * 64)
+        (tmp_path / "x").write_text(regenerated, encoding="utf-8")
+        with mock.patch.object(rc, "tag_text", return_value=text.replace("code_hash: ", "hash: ")), \
+                pytest.raises(SystemExit, match="no code_hash or engine_hash line"):
+            rc.build()  # the tag's side without a hash line is refused too
+        with pytest.raises(SystemExit, match="nothing was compared"):
+            rc.build()  # regenerated, but no row on both sides: refused, not "no change" (narrow re-sweep)
+        rows = '[{"criterion": "A", "outcome": "PASS", "readouts": []}]'
+        with mock.patch.object(rc, "tag_text", return_value=text.replace("[]", rows)):
+            (tmp_path / "x").write_text(regenerated.replace("[]", rows), encoding="utf-8")
+            assert "No change: 1 of 1 rows" in rc.build()  # regenerated with rows: the page is written

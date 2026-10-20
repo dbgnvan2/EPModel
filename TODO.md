@@ -166,6 +166,18 @@ Plan §4.10 holds the evidence.
   comparisons, finds act names in `src/bowen/ensemble/criteria.py`, `criteria_d.py` and `criteria_d2.py` (the acts
   each criterion reads), as well as `NEVER_REFUSED` (`rejection.py`) and `ABORT_ACTS` (`iposition.py`). Rule 9 asks
   whether each belongs in config; the criteria are definitions, not engine rules, and are for a later stage.
+- [ ] **Owner: freeze `docs/version_2_stage_1_changes.md` at stage 1** (`/csdp` sweep, step 8, 2026-10-20). The page
+  compares the tag `version-1` with the records as they are now, so a later regeneration fails
+  `test_s1_10b_changes_page_is_current`, and rerunning `tools/record_changes.py` would rewrite the page under stage
+  1's title with the later stage's changes. Freezing it needs a ref to read stage 1's records from, such as a tag at
+  the stage 1 commit (the owner chose the tag `version-1`); then the tool reads both sides from git and the test
+  stays true. Until then: do not rerun the tool after stage 1.
+- [ ] **Minor, from the `/csdp` sweep (step 8, 2026-10-20), not fixed:** (1) a stop signal while
+  `tools/mutant_runner.py:run_in_copy` copies the repository, or while its temporary directory is removed, leaves a
+  `bowen-mutant-*` directory in `$TMPDIR` (no process is left; the handlers are set only around the child); (2) two
+  runs of one record tool at once overwrite each other's cache file (`tools/record_cache.py`), the last save winning;
+  (3) the timed-out path's second `communicate()` in `tools/child_process.py` has no timeout, which would hang only if
+  a worker left the child's process group, and none calls `setsid`.
 - [x] ~~**The phase D2 record prints `M11.C.10`'s two variants under one id** (and `M11.C.2`'s twelve-person variant as
   `M11.C.2`).~~ *Fixed at version 2 stage 1 (S1.7b): each row carries its `CRITERIA_D2` key, and the Phase D records
   render from `docs/records_cache/` (S1.8c), so a label change no longer reruns them.*

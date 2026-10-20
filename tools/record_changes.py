@@ -9,11 +9,13 @@ Purpose: stage 1 changes no rule, but exact float totals (S1.1) move the last bi
          was not regenerated, and the tool refuses to write a page that would call it unchanged (P35).
 Spec:    docs/implementation_plan_version_2.md#S1.10b
 Tests:   tests/test_record_changes.py::test_s1_10b_changes_page_is_current,
-         tests/test_record_changes.py::test_s1_10b_a_changed_verdict_and_a_moved_effect_are_listed
+         tests/test_record_changes.py::test_s1_10b_a_changed_verdict_and_a_moved_effect_are_listed,
+         tests/test_record_changes.py::test_s1_10b_every_field_is_compared
 """
 
 from __future__ import annotations
 
+import math
 import re
 import subprocess
 import sys
@@ -60,6 +62,10 @@ NOT_COMPARED = (
      "adds lock-in release rows by design, so `git diff version-1` on them shows that and any change of trajectory"),
     ("docs/phase_c_completion_report.md §11", "generated from the Phase C records compared here (`tools/c16_report.py`)"),
     ("docs/spec_coverage.md", "generated from the tests and the Phase C ensemble record, compared here"),
+    ("docs/review/phase_c_famdiag_seed7.json", "the seed-7 run as a family diagram (`tools/famdiag_export.py`), not "
+     "regenerated in stage 1 because the working copy holds the owner's uncommitted edits to it; built from the "
+     "current engine on 2026-10-19 and compared with the committed export, it differs only in its note, which names "
+     "revision 32 and the tag's config hash"),
 )
 
 
@@ -113,9 +119,18 @@ class Comparison:
     compared: int
     changed: list[tuple[str, dict, dict]]  # (key, at the tag, now): the verdict changed
     moved: list[tuple[str, str, dict, dict]]  # (key, readout, at the tag, now): moved past the tag's half-width
-    differ: int  # readouts (or values) not exactly the tag's, on rows on both sides
+    values: list[tuple[str, str, object, object]]  # (key, field, at the tag, now): every field not exactly the tag's
     gone: list[tuple[str, dict]]  # rows only at the tag
     new: list[tuple[str, dict]]  # rows only now
+
+    @property
+    def differ(self) -> int:
+        """Fields not exactly the tag's, on rows on both sides (review 2026-10-19: this counted only mean
+        differences, while the page said every value)."""
+        return len(self.values)
+
+
+MISSING = object()  # a field on one side only
 
 
 def _readouts(row: dict) -> dict[str, dict]:
@@ -135,14 +150,44 @@ def _values(row: dict, fields: tuple[str, ...], prefix: str = "") -> dict[str, o
     return out
 
 
+def _flat(row: dict, fields: tuple[str, ...]) -> dict[str, object]:
+    """Every field of a row but its key, flattened: the verdict, the seed count, the flags, and each readout's mean
+    difference, half-width, p and the rest under ``readouts.<name>.``, so readouts pair by name whatever their
+    order."""
+    out = _values({k: v for k, v in row.items() if k != "readouts"}, fields)
+    for name, r in _readouts(row).items():
+        out.update(_values(r, (), f"readouts.{name}."))
+    return out
+
+
+def _nan(v) -> bool:
+    return isinstance(v, float) and math.isnan(v)
+
+
+def _same(a, b) -> bool:
+    """Equal, or both NaN: a NaN in both records is no difference."""
+    return a == b or (_nan(a) and _nan(b))
+
+
+def differing(then: dict, now: dict, fields: tuple[str, ...]) -> list[tuple[str, object, object]]:
+    """Each field of two rows that is not exactly the same, or is on one side only (``MISSING`` on the other)."""
+    a, b = _flat(then, fields), _flat(now, fields)
+    return [(name, a.get(name, MISSING), b.get(name, MISSING)) for name in sorted(set(a) | set(b))
+            if name not in a or name not in b or not _same(a[name], b[name])]
+
+
 def moved_effects(then: dict, now: dict) -> list[tuple[str, dict, dict]]:
-    """Each readout whose effect moved by more than the tag's stated half-width, or that is only on one side."""
+    """Each readout whose effect moved by more than the tag's stated half-width, that became or stopped being NaN,
+    or that is only on one side."""
     a, b = _readouts(then), _readouts(now)
     out = []
     for name in sorted(set(a) | set(b)):
         old, new = a.get(name), b.get(name)
         if old is None or new is None:
             out.append((name, old or {}, new or {}))
+        elif _nan(old["mean_difference"]) or _nan(new["mean_difference"]):
+            if not _same(old["mean_difference"], new["mean_difference"]):
+                out.append((name, old, new))
         elif abs(new["mean_difference"] - old["mean_difference"]) > old["half_width"]:
             out.append((name, old, new))
     return out
@@ -153,23 +198,14 @@ def compare(then_rows: list[dict], now_rows: list[dict], record: Record) -> Comp
     both = [k for k in now if k in then]
     gone = [(k, then[k]) for k in then if k not in now]
     new = [(k, now[k]) for k in now if k not in then]
+    values = [(k, name, old, new) for k in both for name, old, new in differing(then[k], now[k], record.fields)]
     if record.verdict is None:
-        changed = [(k, then[k], now[k]) for k in both
-                   if _values(then[k], record.fields) != _values(now[k], record.fields)]
-        differ = 0
-        for k in both:
-            a, b = _values(then[k], record.fields), _values(now[k], record.fields)
-            differ += sum(1 for name in set(a) | set(b) if name not in a or name not in b or a[name] != b[name])
-        return Comparison(len(both), changed, [], differ, gone, new)
+        changed = [(k, then[k], now[k]) for k in both if differing(then[k], now[k], record.fields)]
+        return Comparison(len(both), changed, [], values, gone, new)
     changed = [(k, then[k], now[k]) for k in both if then[k][record.verdict] != now[k][record.verdict]]
     moved = [(k, name, old, new) for k in both if then[k][record.verdict] == now[k][record.verdict]
              for name, old, new in moved_effects(then[k], now[k])]
-    differ = 0
-    for k in both:
-        a, b = _readouts(then[k]), _readouts(now[k])
-        differ += sum(1 for name in set(a) | set(b)
-                      if name not in a or name not in b or a[name]["mean_difference"] != b[name]["mean_difference"])
-    return Comparison(len(both), changed, moved, differ, gone, new)
+    return Comparison(len(both), changed, moved, values, gone, new)
 
 
 def _effect(r: dict) -> str:
@@ -184,22 +220,20 @@ def _effects(row: dict) -> str:
 
 
 def _value(v) -> str:
+    if v is MISSING:
+        return "—"
     return f"{v:.6g}" if isinstance(v, float) else str(v)
 
 
 def _section(record: Record, c: Comparison) -> list[str]:
     lines = ["", f"## `{record.path}`", ""]
     unit = record.unit.capitalize()
-    if not (c.changed or c.moved or c.gone or c.new):
-        what = "hold their values" if record.verdict is None else "hold their verdict, and no effect moved past its half-width"
-        return lines + [f"No change: {c.compared} of {c.compared} rows {what}."]
+    if not (c.changed or c.moved or c.gone or c.new or c.values):
+        return lines + [f"No change: {c.compared} of {c.compared} rows are exactly the tag's, every field."]
     if record.verdict is None and c.changed:
         lines += [f"**Rows whose values changed: {len(c.changed)} of {c.compared}.**", "",
                   f"| {unit} | Value | At the tag | Now |", "|---|---|---|---|"]
-        for key, old, new in c.changed:
-            a, b = _values(old, record.fields), _values(new, record.fields)
-            lines += [f"| {key} | {name} | {_value(a.get(name, '—'))} | {_value(b.get(name, '—'))} |"
-                      for name in sorted(set(a) | set(b)) if a.get(name) != b.get(name)]
+        lines += [f"| {key} | {name} | {_value(old)} | {_value(new)} |" for key, name, old, new in c.values]
         lines.append("")
     elif c.changed:
         lines += [f"**Verdicts changed: {len(c.changed)} of {c.compared}.**", "",
@@ -211,6 +245,11 @@ def _section(record: Record, c: Comparison) -> list[str]:
         lines += [f"**Effects moved past the tag's half-width, verdict held: {len(c.moved)}.**", "",
                   f"| {unit} | Readout | At the tag | Now |", "|---|---|---|---|"]
         lines += [f"| {k} | {name} | {_effect(old)} | {_effect(new)} |" for k, name, old, new in c.moved]
+        lines.append("")
+    if record.verdict is not None and c.values:
+        lines += [f"**Fields not exactly the tag's, in rows on both sides: {len(c.values)}.**", "",
+                  f"| {unit} | Field | At the tag | Now |", "|---|---|---|---|"]
+        lines += [f"| {key} | {name} | {_value(old)} | {_value(new)} |" for key, name, old, new in c.values]
         lines.append("")
     for title, rows in (("Rows only at the tag", c.gone), ("Rows only now", c.new)):
         if rows:
@@ -231,8 +270,10 @@ def render(sections: list[tuple[Record, str, str, Comparison]]) -> str:
         "defect. A row's verdict is its outcome (a criterion, or a criterion under a sweep setting) or whether the",
         "criterion caught the mutant (a mutation row). An effect **moved** when its mean difference changed by more than",
         "the half-width the tag's record stated; moved effects are listed only for rows whose verdict held. \"Differ at",
-        "all\" counts every readout (or value) not exactly the tag's, including one on one side only. A record's hash",
-        "line must differ from the tag's, or the tool refuses: an unchanged hash means it was not regenerated.",
+        "all\" counts every field of a row on both sides that is not exactly the tag's (the verdict, the seed count, the",
+        "flags, each readout's mean difference, half-width and p), including a field on one side only; each is listed",
+        "under its record, and \"No change\" means none differs. A record's hash line must differ from the tag's, or the",
+        "tool refuses: an unchanged hash means it was not regenerated. A record with no row on both sides is refused too.",
         "",
         "| Record | Hash at the tag | Hash now | Rows compared | Verdicts changed | Effects moved | Differ at all | "
         "Only at the tag | Only now |",
@@ -259,7 +300,10 @@ def build() -> str:
         if h_now == h_then:
             raise SystemExit(f"{record.path}: its hash is the tag's, so it was not regenerated on stage 1's engine; "
                              "regenerate it first")
-        sections.append((record, h_then, h_now, compare(record_json(then_text), record_json(now_text), record)))
+        c = compare(record_json(then_text), record_json(now_text), record)
+        if not c.compared:
+            raise SystemExit(f"{record.path}: no row is on both sides, so nothing was compared")
+        sections.append((record, h_then, h_now, c))
     return render(sections)
 
 

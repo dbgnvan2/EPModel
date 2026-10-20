@@ -6,8 +6,10 @@ S1.10b). Stage 1 changed no rule; a changed verdict here is a **measured change*
 defect. A row's verdict is its outcome (a criterion, or a criterion under a sweep setting) or whether the
 criterion caught the mutant (a mutation row). An effect **moved** when its mean difference changed by more than
 the half-width the tag's record stated; moved effects are listed only for rows whose verdict held. "Differ at
-all" counts every readout (or value) not exactly the tag's, including one on one side only. A record's hash
-line must differ from the tag's, or the tool refuses: an unchanged hash means it was not regenerated.
+all" counts every field of a row on both sides that is not exactly the tag's (the verdict, the seed count, the
+flags, each readout's mean difference, half-width and p), including a field on one side only; each is listed
+under its record, and "No change" means none differs. A record's hash line must differ from the tag's, or the
+tool refuses: an unchanged hash means it was not regenerated. A record with no row on both sides is refused too.
 
 | Record | Hash at the tag | Hash now | Rows compared | Verdicts changed | Effects moved | Differ at all | Only at the tag | Only now |
 |---|---|---|---|---|---|---|---|---|
@@ -27,31 +29,32 @@ In the level-occupancy record, which has no verdicts, "Verdicts changed" counts 
 - `docs/review/phase_c_trace_seed7.md, docs/review/phase_c_chart_seed7.html`: one seed's run, rendered; S1.7a adds lock-in release rows by design, so `git diff version-1` on them shows that and any change of trajectory.
 - `docs/phase_c_completion_report.md §11`: generated from the Phase C records compared here (`tools/c16_report.py`).
 - `docs/spec_coverage.md`: generated from the tests and the Phase C ensemble record, compared here.
+- `docs/review/phase_c_famdiag_seed7.json`: the seed-7 run as a family diagram (`tools/famdiag_export.py`), not regenerated in stage 1 because the working copy holds the owner's uncommitted edits to it; built from the current engine on 2026-10-19 and compared with the committed export, it differs only in its note, which names revision 32 and the tag's config hash.
 
 ## `docs/phase_c_ensemble_record.md`
 
-No change: 24 of 24 rows hold their verdict, and no effect moved past its half-width.
+No change: 24 of 24 rows are exactly the tag's, every field.
 
 ## `docs/phase_d_ensemble_record.md`
 
-No change: 25 of 25 rows hold their verdict, and no effect moved past its half-width.
+No change: 25 of 25 rows are exactly the tag's, every field.
 
 ## `docs/phase_d2_ensemble_record.md`
 
-No change: 6 of 6 rows hold their verdict, and no effect moved past its half-width.
+No change: 6 of 6 rows are exactly the tag's, every field.
 
 ## `docs/phase_c_mutation_record.md`
 
-No change: 114 of 114 rows hold their verdict, and no effect moved past its half-width.
+No change: 114 of 114 rows are exactly the tag's, every field.
 
 ## `docs/phase_d_mutation_record.md`
 
-No change: 14 of 14 rows hold their verdict, and no effect moved past its half-width.
+No change: 14 of 14 rows are exactly the tag's, every field.
 
 ## `docs/phase_c_sweep_record.md`
 
-No change: 54 of 54 rows hold their verdict, and no effect moved past its half-width.
+No change: 54 of 54 rows are exactly the tag's, every field.
 
 ## `docs/phase_c_level_occupancy.md`
 
-No change: 4 of 4 rows hold their values.
+No change: 4 of 4 rows are exactly the tag's, every field.

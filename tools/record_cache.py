@@ -21,6 +21,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
 import sys
 from pathlib import Path
 
@@ -78,9 +79,13 @@ class Cache:
         self._write({k: self.entries[k] for k in self.used if k in self.entries})
 
     def _write(self, entries: dict) -> None:
+        """Write a whole file beside the cache and move it into place, so a kill mid-write leaves the last whole
+        file, not a cut one the next run cannot read (security pass, 2026-10-19)."""
         CACHE_DIR.mkdir(parents=True, exist_ok=True)
-        self.path.write_text(json.dumps(dict(sorted(entries.items())), indent=1, sort_keys=True, default=float) + "\n",
-                             encoding="utf-8")
+        partial = self.path.with_name(self.path.name + ".partial")
+        partial.write_text(json.dumps(dict(sorted(entries.items())), indent=1, sort_keys=True, default=float) + "\n",
+                           encoding="utf-8")
+        os.replace(partial, self.path)
 
 
 def child_rows(mutant: Mutant | None, tool: str, ids: list[str], workers: int, label: str) -> list[dict]:
@@ -91,7 +96,10 @@ def child_rows(mutant: Mutant | None, tool: str, ids: list[str], workers: int, l
     except ChildFailed as failed:
         printed, failure = failed.rows, str(failed.code)
         print(f"{label}: {failure}", flush=True)  # in full, with the child's error output; each row keeps its first line
-    rows = {r["criterion"]: r for r in printed}
+    rows = {r["criterion"]: r for r in printed if "criterion" in r}
+    stray = sum(1 for r in printed if "criterion" not in r)
+    if stray:  # a line that decodes but is not a row stops nothing; it is counted (security pass, 2026-10-19)
+        print(f"{label}: {stray} printed line(s) with no criterion ignored", flush=True)
     out = []
     for cid in ids:
         row = rows.get(cid)

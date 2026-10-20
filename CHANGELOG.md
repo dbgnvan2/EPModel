@@ -44,6 +44,12 @@ criterion's test was shown failing under its mutation (§1.10).
 - **The records are regenerated once** on the new hash (S1.10a); `docs/version_2_stage_1_changes.md` lists every
   verdict that changed against the tag `version-1` (S1.10b). The run took 3 h 35 min and **no verdict changed, no
   effect moved and no value differs** in any compared record; the seed-7 trace gained only the release rows.
+- **`/csdp` sweep** (step 8; three narrow passes on sonnet: `learning-qa` over what followed the step 6 review, a
+  correctness pass over the re-sweep's fixes, and a security pass over the subprocess and cache code; plan §1.10):
+  `tools/record_changes.py` compares every field of a row, not only verdicts and mean differences, and still finds
+  no difference; a stop signal while a child is spawned no longer leaves it running, and one while the handlers are
+  set or restored no longer leaves them ignored; the cache is written whole and moved into place; a child line with
+  no criterion is counted, not a `KeyError`.
 
 ### `/csdp` sweep of the 22 unpushed commits (2026-10-19)
 

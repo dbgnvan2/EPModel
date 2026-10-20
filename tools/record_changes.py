@@ -10,7 +10,8 @@ Purpose: stage 1 changes no rule, but exact float totals (S1.1) move the last bi
 Spec:    docs/implementation_plan_version_2.md#S1.10b
 Tests:   tests/test_record_changes.py::test_s1_10b_changes_page_is_current,
          tests/test_record_changes.py::test_s1_10b_a_changed_verdict_and_a_moved_effect_are_listed,
-         tests/test_record_changes.py::test_s1_10b_every_field_is_compared
+         tests/test_record_changes.py::test_s1_10b_every_field_is_compared,
+         tests/test_record_changes.py::test_s1_10b_every_generated_record_is_compared_or_listed_as_not
 """
 
 from __future__ import annotations
@@ -60,8 +61,15 @@ NOT_COMPARED = (
      "`git diff version-1 -- docs/phase_c_diagnostic_record.md` shows what changed"),
     ("docs/review/phase_c_trace_seed7.md, docs/review/phase_c_chart_seed7.html", "one seed's run, rendered; S1.7a "
      "adds lock-in release rows by design, so `git diff version-1` on them shows that and any change of trajectory"),
+    ("docs/review/phase_b_trace_seed7.md, docs/review/phase_b_trace_seed7_nadia.md", "Phase B's seed-7 traces, "
+     "rendered at Phase B's close (`3132c69`) and not regenerated since, so they are the tag's"),
     ("docs/phase_c_completion_report.md §11", "generated from the Phase C records compared here (`tools/c16_report.py`)"),
     ("docs/spec_coverage.md", "generated from the tests and the Phase C ensemble record, compared here"),
+    ("docs/phase_b_mutation_record.md", "the record of Phase B's close at commit `3132c69`, frozen (plan D5) and not "
+     "regenerated, so it is the tag's apart from the status line stage 1 added; `tools/mutation_gate.py` refuses to "
+     "rewrite it"),
+    ("docs/version_1_status.md", "version 1's status page, frozen at the tag: "
+     "`tests/test_version_1_status.py` checks that it is the tag's, byte for byte"),
     ("docs/review/phase_c_famdiag_seed7.json", "the seed-7 run as a family diagram (`tools/famdiag_export.py`), not "
      "regenerated in stage 1 because the working copy holds the owner's uncommitted edits to it; built from the "
      "current engine on 2026-10-19 and compared with the committed export, it differs only in its note, which names "

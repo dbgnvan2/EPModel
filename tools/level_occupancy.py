@@ -3,7 +3,8 @@
 Purpose: give the share of member-weeks at which `availability-level-inverted` equals the deletion, so that report
          §11's qualification of that mutant comes from a generated, hash-stamped record and not a scratch probe.
 Spec:    docs/bowen_agent_model_spec_v2.md#M11.1a, #M11.C.16
-Tests:   tests/bowen/test_ensemble_record.py::test_m111a_level_occupancy_record_is_current
+Tests:   tests/bowen/test_ensemble_record.py::test_m111a_level_occupancy_record_is_current,
+         tests/bowen/test_ensemble_record.py::test_m111a_level_occupancy_refuses_a_short_child
 
     python3 tools/level_occupancy.py
 
@@ -83,6 +84,19 @@ def child() -> None:  # levels are sampled as each tick starts, before that tick
                           "whole_run": shares([v for _, v in seen]), "window": shares(late)}), flush=True)
 
 
+def arm_rows(printed: list[dict], label: str) -> list[dict]:
+    """The child's rows, one for each of C.16's arms in the criterion's order. Anything else stops the run before the
+    record is written, so a child that exits 0 having printed fewer rows cannot leave a short record (cold sweep,
+    2026-10-20, P2)."""
+    from src.bowen.ensemble.criteria import CRITERIA
+
+    arms, printed_arms = list(CRITERIA["M11.C.16"].arms), [r.get("arm") for r in printed]
+    if printed_arms != arms:
+        raise SystemExit(f"{label}: the child printed rows for {printed_arms}, not one for each of C.16's arms "
+                         f"{arms}; {RECORD.name} was not written")
+    return printed
+
+
 def render(rows: list[dict], edges: dict, hash_: str) -> str:
     names = list(edges)
     head = " | ".join(f"{n} ({'≤' if edges[n][0] == 'le' else '≥'} {edges[n][1]:g})" for n in names)
@@ -127,9 +141,10 @@ def main() -> int:
     rows = []
     for variant in VARIANTS:
         mutant = next(m for m in MUTANTS if m.id == variant) if variant else None
-        for r in run_in_copy(mutant, "level_occupancy.py", "--child", timeout=3600):
-            rows.append({"variant": variant or "unmodified", **r})
-            print(f"{variant or 'unmodified'} {r['arm']}: {r['whole_run']} / window {r['window']}", flush=True)
+        label = variant or "unmodified"
+        for r in arm_rows(run_in_copy(mutant, "level_occupancy.py", "--child", timeout=3600), label):
+            rows.append({"variant": label, **r})
+            print(f"{label} {r['arm']}: {r['whole_run']} / window {r['window']}", flush=True)
     RECORD.write_text(render(rows, bands(), record_hash()), encoding="utf-8")
     print(f"wrote {RECORD.relative_to(REPO)}")
     return 0

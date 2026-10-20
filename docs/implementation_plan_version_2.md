@@ -3,7 +3,8 @@
 **Status: stage 1 APPROVED 2026-10-19.** The owner decided D1–D7 the same day, every one as recommended (§1.2), and
 approved the plan. **Built, reviewed and regenerated 2026-10-19 (steps 0–7, §1.10): no verdict changed against
 the tag `version-1`. The `/csdp` sweep's fixes (step 8) were made 2026-10-20 and pushed the same day with the owner's
-approval; CI run 39449517708 passed on Python 3.11, 3.12 and 3.13 (S1.10c).** Written from
+approval; CI run 39449517708 passed on Python 3.11, 3.12 and 3.13 (S1.10c). A cold sweep's fixes were made
+2026-10-20 (§1.10), committed and not yet pushed.** Written from
 `docs/version_2_plan.md` §3 (stage 1) and the `TODO.md` entries it collects, each checked against the code on
 2026-10-19. Later stages add their own sections here, as the Phase D plan did.
 
@@ -457,4 +458,40 @@ mutants' file paths are not confined to the copy, but every one is a constant in
   These are criterion definitions naming the acts each criterion reads, not engine rules; whether they belong in
   config is for a later stage (rule 9).
 - The Phase D ensembles (`tools/phase_d_record.py`) run with no timeout, and `tools/diagnostic_record.py:136` and
-  `tools/level_occupancy.py:130` stop when their child fails, where the Phase C records go on (S1.5a).
+  `tools/level_occupancy.py:145` stop when their child fails, where the Phase C records go on (S1.5a).
+
+**Cold sweep (2026-10-20).** After the push, one `learning-qa` pass in a fresh session, which had not seen the
+earlier passes' findings, swept `579170c...3d70d3e`. It found nine items, C1–C9: none high, C1 and C2 medium, the
+rest low or plausible. The warm passes had recorded four (C2, C6, C7, C8) and missed five (C1, C3, C4, C5, C9) and
+the level-occupancy half of C2. It confirmed that no verdict changed against the tag. Fixed, each test shown
+failing under its mutation on a copy:
+- **C1 (medium):** `tools/record_cache.py`'s `exit_status` counted only FAILED rows, so a run with a RAISED or
+  BROKEN row (written into the record, never cached) exited 0 while the record's test failed. Every errored row now
+  gives exit 1, and the message says that rerunning will not change a row that raises every time.
+- **C5:** `docs/version_2_stage_1_changes.md` now lists the frozen Phase B mutation record and version 1's status
+  page among what it does not compare, with why; a test fails when a page under `docs/` whose header says a tool
+  generated it, or a committed file under `docs/review/`, is in neither list. The fix's re-sweep found the Phase B
+  seed-7 traces in neither list too; they are listed. The page was regenerated.
+- **Level occupancy:** `tools/level_occupancy.py` refuses to write its record unless the child printed one row for
+  each of C.16's arms, in order. The tool is in its record's hash, so the record was rerun (35 s): only its hash
+  line changed.
+
+| Test | Mutation | Result |
+|---|---|---|
+| `tests/bowen/test_ensemble_record.py::test_m111d_a_raised_or_broken_row_exits_nonzero` | only FAILED rows counted, as before | fails |
+| `tests/test_record_changes.py::test_s1_10b_every_generated_record_is_compared_or_listed_as_not` | `docs/version_1_status.md` taken out of `NOT_COMPARED`; the Phase B traces taken out | fails, each |
+| `tests/bowen/test_ensemble_record.py::test_m111a_level_occupancy_refuses_a_short_child` | the row check skipped | fails |
+
+Recorded in `TODO.md`, not fixed, each older than stage 1: C3, `config/bowen/*.md` is hashed as raw bytes, so a
+prose edit reruns every record; C4, the worker pools that `tools/phase_d_record.py` and `tools/ensemble_record.py`
+start are not killed as a group on a stop signal; C9, errors of the machine are matched by exact class name, so an
+`OSError` subclass is a RAISED row (already in `TODO.md` since 2026-10-09; the entry is brought up to date). Also
+recorded, for the owner: a row that raises on every run is never cached, so its record can never be committed.
+
+These fixes had one narrow `learning-qa` re-sweep on sonnet (about 8 minutes, about 115k tokens). It found two high
+items, both stale artifacts that turned the suite red: `docs/spec_coverage.md` did not list the new tests, and the
+test count in `CLAUDE.md` was 924, not 927; both are updated. Its four low items are fixed: the C5 test now also
+covers every committed file under `docs/review/`, which found the Phase B seed-7 traces in neither list (they are
+listed); the claims about that test say which pages it sees; the counts above name each item; the `TODO.md` entry
+for the owner names sweep settings and diagnostic variants as well as mutants, and the C9 entry no longer calls
+`BrokenExecutor` a subclass.

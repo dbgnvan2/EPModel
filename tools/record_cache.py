@@ -5,11 +5,13 @@ Purpose: a full regeneration took 35-45 minutes and any edit to a tool forced on
          re-rendered from the cache in under a second.
 Spec:    docs/bowen_agent_model_spec_v2.md#M11.1d, #M13.4; docs/implementation_plan_version_2.md#S1.5a
 Tests:   tests/bowen/test_ensemble_record.py::test_m111d_a_result_is_keyed_on_the_engine_and_the_mutants_edits,
+         tests/bowen/test_ensemble_record.py::test_m111d_a_raised_or_broken_row_exits_nonzero,
          tests/bowen/test_mutant_runner.py::test_s1_5a_a_failed_child_does_not_stop_the_record,
          tests/bowen/test_mutant_runner.py::test_s1_5a_a_cache_write_cut_short_leaves_the_last_whole_file
 
 A child that fails or times out does not stop the record (S1.5a): each id it printed no row for becomes a FAILED row,
-never cached, the build goes on, and the tool exits 1 (``exit_status``).
+never cached, the build goes on, and the tool exits 1 (``exit_status``). A RAISED or BROKEN row is written into the
+record and never cached either, so it exits 1 too (cold sweep, 2026-10-20).
 
 The engine hash (``engine_hash``) covers everything under ``src/bowen`` (``render/`` aside, S1.8a) and ``config/bowen``,
 ``tools/ensemble_record.py`` (RULE_KEYS) and ``tools/mutant_runner.py`` (the child that produces each result). This
@@ -41,7 +43,7 @@ ERRORED = ("RAISED", "BROKEN", FAILED)
 INFRASTRUCTURE_ERRORS = ("BrokenProcessPool", "MemoryError", "OSError", "TimeoutError", "KeyboardInterrupt")
 ENGINE_TOOLS = (REPO / "tools" / "mutant_runner.py",)  # RULE_KEYS is in every hash (code_hash), not by file
 CHILD = "mutant_runner.py"
-_failed: list[str] = []  # this process's FAILED rows, for ``exit_status``
+_uncached: list[tuple[str, str]] = []  # this process's errored rows, (outcome, "label → id"), for ``exit_status``
 
 
 def engine_hash() -> str:
@@ -116,8 +118,9 @@ def child_rows(mutant: Mutant | None, tool: str, ids: list[str], workers: int, l
                    "error": f"ChildFailed: {(failure or 'the child printed no row').splitlines()[0]}"}
         elif row.get("error", "").split(":")[0] in INFRASTRUCTURE_ERRORS:
             row = {**row, "outcome": FAILED}
+        if row["outcome"] in ERRORED:
+            _uncached.append((row["outcome"], f"{label} → {cid}"))
         if row["outcome"] == FAILED:
-            _failed.append(f"{label} → {cid}")
             print(f"{label} → {cid}: the run failed, not the model ({row['error']}); not cached, rerun next time",
                   flush=True)
         out.append(row)
@@ -125,12 +128,19 @@ def child_rows(mutant: Mutant | None, tool: str, ids: list[str], workers: int, l
 
 
 def exit_status() -> int:
-    """A record tool's exit status: 1 when any row this run FAILED (the record is written, and is stale until those
-    rows are rerun), else 0."""
-    if _failed:
-        print(f"{len(_failed)} row(s) failed and were not cached; rerun the tool to complete the record:",
-              *_failed, sep="\n  ", flush=True)
-    return 1 if _failed else 0
+    """A record tool's exit status: 1 when any row this run FAILED, RAISED or was BROKEN, else 0. Each is written into
+    the record and not cached, so the record's test fails until the row gives a result (cold sweep, 2026-10-20: a
+    RAISED or BROKEN row exited 0, and a row that raises on every run left a record that could never be committed)."""
+    failed = [row for outcome, row in _uncached if outcome == FAILED]
+    errored = [f"{row} ({outcome})" for outcome, row in _uncached if outcome != FAILED]
+    if failed:
+        print(f"{len(failed)} row(s) failed and were not cached; rerun the tool to complete the record:",
+              *failed, sep="\n  ", flush=True)
+    if errored:
+        print(f"{len(errored)} row(s) raised or did not import and were not cached; the record is not current until "
+              "each gives a result, and rerunning will not change a row that raises every time:",
+              *errored, sep="\n  ", flush=True)
+    return 1 if _uncached else 0
 
 
 def run_cached(cache: Cache, mutant: Mutant | None, ids: list[str], workers: int, label: str | None = None) -> list[dict]:

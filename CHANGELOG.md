@@ -51,6 +51,15 @@ criterion's test was shown failing under its mutation (§1.10).
   spawned no longer leaves it running, and one between setting the two handlers or during the restore loop no longer
   leaves them ignored; the cache is written whole, per process, and moved into place; a child line that is not a row
   is counted, not a `KeyError`. A narrow re-sweep of these fixes found six low items, all fixed.
+- **Cold sweep** (2026-10-20; one `learning-qa` pass in a fresh session after the push; plan §1.10): a record tool
+  now exits 1 on a RAISED or BROKEN row as well as a FAILED one (`tools/record_cache.py`; such a row is written into
+  the record and never cached, so the record's test failed while the tool exited 0); `tools/level_occupancy.py`
+  refuses to write its record unless the child printed one row for each of C.16's arms, and the record was rerun
+  (only its hash line changed); `docs/version_2_stage_1_changes.md` lists the frozen Phase B mutation record,
+  version 1's status page and the Phase B traces among what it does not compare, and a test fails when a page whose
+  header says a tool generated it, or a committed file under `docs/review/`, is in neither list. C3, C4 and C9,
+  older than stage 1, are recorded in `TODO.md`. A narrow re-sweep of these fixes found the coverage page and the
+  test count stale, and four low items; all fixed.
 
 ### `/csdp` sweep of the 22 unpushed commits (2026-10-19)
 

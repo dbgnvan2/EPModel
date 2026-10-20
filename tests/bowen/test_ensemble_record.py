@@ -431,6 +431,33 @@ def test_m111a_level_occupancy_record_is_current():
         (v, a) for v in ("unmodified", "availability-level-inverted") for a in ("baseline", "treatment")}
 
 
+def test_m111a_level_occupancy_refuses_a_short_child(tmp_path, monkeypatch):
+    """A child that exits 0 having printed a row for only some of C.16's arms stops the run, and no record is written;
+    a row for each arm writes it (cold sweep, 2026-10-20: the rows were never counted, so a short record could be
+    written with no warning)."""
+    record = tmp_path / "phase_c_level_occupancy.md"
+    monkeypatch.setattr(_occupancy, "RECORD", record)
+    monkeypatch.setattr(_occupancy, "REPO", tmp_path)  # the path it prints is relative to the repository
+    monkeypatch.setattr(sys, "argv", ["level_occupancy.py"])
+    shares = {name: 0.5 for name in _occupancy.bands()}
+
+    def row(arm):
+        return {"arm": arm, "member_weeks": {"whole_run": 10, "window": 5}, "whole_run": shares, "window": shares}
+
+    monkeypatch.setattr(_occupancy, "run_in_copy", lambda *args, **kw: [row("baseline")])
+    import pytest
+
+    with pytest.raises(SystemExit, match="not one for each of C.16's arms"):
+        _occupancy.main()
+    assert not record.exists()
+    monkeypatch.setattr(_occupancy, "run_in_copy", lambda *args, **kw: [row(a) for a in CRITERIA["M11.C.16"].arms])
+    assert _occupancy.main() == 0 and len(occupancy_rows_of(record)) == 4  # two variants, two arms each
+
+
+def occupancy_rows_of(path) -> list[dict]:
+    return record_json(path.read_text(encoding="utf-8"))
+
+
 def test_m111a_occupancy_bands_are_where_the_inversion_clamps():
     """The record's band edges are read from the constants and the shared pivot, and are where the inverted rule
     meets the deletion (1 on a layer) or makes a layer unavailable (0), so a changed constant cannot leave them stale."""
@@ -524,7 +551,7 @@ def test_m111d_run_cached_never_caches_an_errored_row(tmp_path, monkeypatch):
     cached red, and the run reports it (version 2 stage 1, S1.5a: before it, the run stopped); finished results are
     flushed before a later failure (learning-qa, 2026-10-09)."""
     monkeypatch.setattr(_cache, "CACHE_DIR", tmp_path)
-    monkeypatch.setattr(_cache, "_failed", [])
+    monkeypatch.setattr(_cache, "_uncached", [])
     mutant = next(m for m in _mutants.MUTANTS if m.id == "level-blind")
     rows = {"A": {"criterion": "A", "outcome": "PASS", "seeds": 50, "readouts": []},
             "B": {"criterion": "B", "outcome": "RAISED", "seeds": 0, "error": "AssertionError: invariant"}}
@@ -539,6 +566,26 @@ def test_m111d_run_cached_never_caches_an_errored_row(tmp_path, monkeypatch):
     stored = _mutants.json.loads((tmp_path / "probe.json").read_text())
     assert [r["outcome"] for r in stored.values()] == ["PASS"]  # A, finished before B failed, was kept
     assert _cache.exit_status() == 1
+
+
+def test_m111d_a_raised_or_broken_row_exits_nonzero(tmp_path, monkeypatch, capsys):
+    """A run whose only errored row is RAISED, or BROKEN, exits 1 and names the row: it is in the record and not in
+    the cache, so the record's test fails until it gives a result (cold sweep, 2026-10-20, C1: only FAILED rows were
+    counted, and the tool exited 0). A run with no errored row exits 0."""
+    monkeypatch.setattr(_cache, "CACHE_DIR", tmp_path)
+    mutant = next(m for m in _mutants.MUTANTS if m.id == "level-blind")
+    for outcome, error in (("RAISED", "AssertionError: invariant"), ("BROKEN", "NameError: name 'x' is not defined")):
+        monkeypatch.setattr(_cache, "_uncached", [])
+        rows = {"A": {"criterion": "A", "outcome": "PASS", "seeds": 50, "readouts": []},
+                "B": {"criterion": "B", "outcome": outcome, "seeds": 0, "error": error}}
+        monkeypatch.setattr(_cache, "run_in_copy", lambda m, tool, *args, rows=rows, **kw: [rows[c] for c in args[1:-2]])
+        assert [r["outcome"] for r in _cache.run_cached(Cache(outcome), mutant, ["A", "B"], 1)] == ["PASS", outcome]
+        capsys.readouterr()
+        assert _cache.exit_status() == 1
+        assert f"level-blind → B ({outcome})" in capsys.readouterr().out
+    monkeypatch.setattr(_cache, "_uncached", [])
+    assert _cache.run_cached(Cache("clean"), mutant, ["A"], 1)[0]["outcome"] == "PASS"
+    assert _cache.exit_status() == 0
 
 
 def test_m111d_run_cached_returns_a_fresh_row_as_a_reload_would(tmp_path, monkeypatch):

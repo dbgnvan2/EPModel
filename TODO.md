@@ -159,9 +159,11 @@ Plan §4.10 holds the evidence.
   take float means with the builtin `sum`. No record reads them; move them to `math.fsum` when the file is next
   touched.
 - [ ] **Adjacent, not fixed (stage 1 review, 2026-10-19):** the Phase D ensembles (`tools/phase_d_record.py`) run
-  with no timeout, and `tools/diagnostic_record.py:136` and `tools/level_occupancy.py:130` stop when their child
+  with no timeout, and `tools/diagnostic_record.py:136` and `tools/level_occupancy.py:145` stop when their child
   fails, where the Phase C records keep the rows and go on (S1.5a). Both run once per regeneration; give them the
-  Phase C handling when either is next touched.
+  Phase C handling when either is next touched. *The cold sweep (2026-10-20) added to `tools/level_occupancy.py` a
+  check that the child printed one row for each of C.16's arms, so a short record is no longer written; a failed
+  child still stops it.*
 - [ ] **Adjacent, not fixed (stage 1 review, 2026-10-19):** the act-literal scan, widened to lists, tuples and one-act
   comparisons, finds act names in `src/bowen/ensemble/criteria.py`, `criteria_d.py` and `criteria_d2.py` (the acts
   each criterion reads), as well as `NEVER_REFUSED` (`rejection.py`) and `ABORT_ACTS` (`iposition.py`). Rule 9 asks
@@ -180,10 +182,27 @@ Plan §4.10 holds the evidence.
   winning; (3) the timed-out path's second `communicate()` in `tools/child_process.py` has no timeout, which would hang
   only if a worker left the child's process group, and none calls `setsid`.
 - [ ] **Adjacent, not fixed (`/csdp` fix re-sweep, 2026-10-20):** the generated records are written in place with
-  `write_text` (`tools/ensemble_record.py:211`, `tools/level_occupancy.py:133` and the other record tools), and
+  `write_text` (`tools/ensemble_record.py:211`, `tools/level_occupancy.py:148` and the other record tools), and
   later tools read them (`mutation_record.passing`, `sweep_record.central`, `phase_d_mutation_record.passing`). A
   kill mid-write fails the next tool loudly and costs a rerun of minutes, so this is lower priority than the cache
   (now written whole and moved into place); give them the same write when any is next touched.
+- [ ] **Adjacent, not fixed (cold sweep, 2026-10-20, C3):** `code_hash` (`tools/ensemble_record.py:54-60`) hashes
+  each `config/bowen/*.md` file as raw bytes; only `constants_changes.md` is skipped. Rewording a config file's prose,
+  such as the text under the table in `config/bowen/act_classes.md`, changes the engine hash, so every record reruns
+  (P38). The Python files are hashed without comments and docstrings; the config files could be hashed by what the
+  loader reads from them. Older than stage 1 (PLAUSIBLE: no such edit has been made yet).
+- [ ] **Adjacent, not fixed (cold sweep, 2026-10-20, C4):** the worker pools that `tools/phase_d_record.py` and
+  `tools/ensemble_record.py` start in their own process (`src/bowen/ensemble/runner.py:116`, a
+  `ProcessPoolExecutor`) are not killed as a group when the parent gets a stop signal, as `tools/child_process.py`
+  does for a mutant child (S1.5a), so after a SIGTERM to the parent, workers can run on until their current task
+  ends. Older than stage 1 (PLAUSIBLE: not reproduced).
+- [ ] **Owner: a row that raises on every run is never cached** (cold sweep, 2026-10-20, after the C1 fix). A RAISED
+  row is a red under `tools/mutation_record.py`'s `judge` (the criterion can no longer pass), and the sweep and
+  diagnostic records print its error as its result, but `tools/record_cache.py` caches no errored row. So a mutant,
+  sweep setting or diagnostic variant that makes the engine raise every time leaves its record stale for good: the
+  tool now exits 1 and says so, and the record's test fails. No committed record holds a
+  RAISED or BROKEN row (checked 2026-10-20). Caching a RAISED row whose cause is the model, not the machine, would
+  let such a record be committed; what counts as evidence is the owner's choice.
 - [x] ~~**The phase D2 record prints `M11.C.10`'s two variants under one id** (and `M11.C.2`'s twelve-person variant as
   `M11.C.2`).~~ *Fixed at version 2 stage 1 (S1.7b): each row carries its `CRITERIA_D2` key, and the Phase D records
   render from `docs/records_cache/` (S1.8c), so a label change no longer reruns them.*
@@ -492,10 +511,14 @@ Phase C steps 0–16 are built. **Its gate does not pass** (`docs/phase_c_comple
   key hashes the inputs, not the result. Only a rerun checks it (learning-qa, 2026-10-09).
 - [ ] **`docs/phase_c_level_occupancy.md` is checked by its hash line only**, not re-rendered from cached rows like
   the mutation and sweep records, so a hand-edited table would pass (learning-qa, 2026-10-09).
-- [ ] **`tools/record_cache.py`'s infrastructure-error match is by exact class name.** Subclasses
-  (`FileNotFoundError`, `BrokenPipeError`, `BrokenExecutor`) fall through to an uncached red instead of stopping the run;
-  `KeyboardInterrupt` in the list is dead (it is not an `Exception`); a child that returns no row for a requested
-  criterion yields `None` silently (learning-qa, 2026-10-09).
+- [ ] **`tools/record_cache.py`'s infrastructure-error match is by exact class name** (`INFRASTRUCTURE_ERRORS`,
+  line 43). An error of the machine raised in the child under a class not named there, a subclass
+  (`FileNotFoundError`, `BrokenPipeError`, `PermissionError`) or a base (`BrokenExecutor`, the base of
+  `BrokenProcessPool`), is classed RAISED, an uncached red, instead of FAILED; `KeyboardInterrupt` in
+  the list is dead (it is not an `Exception`) (learning-qa, 2026-10-09; found again by the cold sweep, 2026-10-20,
+  C9). Since the cold sweep's C1 fix such a row makes the tool exit 1, so it is no longer silent, but the record
+  shows a red where the machine failed. Older than stage 1. *The 2026-10-09 entry's last part is fixed: since S1.5a
+  a child that prints no row for a requested criterion gives a FAILED row, not `None`.*
 - [ ] **Diagnostic probes, minor (batch review 2026-10-09).** `c44_act_counts` re-runs `arm_spell_triad`'s scenario
   instead of calling the arm; probes sample at tick start, so the last tick is missed; `summarise` takes its columns
   from the first group and assumes every row has the same keys. None changes a current number. The

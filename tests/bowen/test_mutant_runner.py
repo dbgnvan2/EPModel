@@ -98,7 +98,7 @@ def test_s1_5a_a_failed_child_does_not_stop_the_record(tmp_path, monkeypatch, ca
     with the child's error output; and the next item runs."""
     repo = stub_repo(tmp_path / "repo", mutant_runner=FAILING_CHILD)
     with mock.patch.object(runner, "REPO", repo), in_tmp(tmp_path, monkeypatch), \
-            mock.patch.object(record_cache, "CACHE_DIR", tmp_path / "cache"), mock.patch.object(record_cache, "_failed", []):
+            mock.patch.object(record_cache, "CACHE_DIR", tmp_path / "cache"), mock.patch.object(record_cache, "_uncached", []):
         cache = record_cache.Cache("stub")
         first = record_cache.run_cached(cache, None, ["a", "machine", "stray", "partial", "nullerr", "fail", "after"],
                                         workers=1)

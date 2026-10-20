@@ -77,6 +77,13 @@ def test_s1_10b_every_field_is_compared():
     assert [(k, name) for k, name, _, _ in became.moved] == [("B", "r")]
     unchanged = rc.render([(CRITERIA, "a" * 64, "b" * 64, rc.compare(then, then, CRITERIA))])
     assert "No change: 2 of 2 rows are exactly the tag's, every field." in unchanged
+    # fix re-sweep, 2026-10-20: a readout named twice in a row is refused, not half compared, and a last-bit
+    # difference shows in the table
+    twice = _row("A", "PASS", ("r", 1.0, 0.5), ("r", 9.0, 0.5))
+    with pytest.raises(ValueError, match="twice in one row"):
+        rc.compare([twice], [twice], CRITERIA)
+    last_bit = rc.compare([{**then[1], "seeds": 0.1 + 0.2}], [{**then[1], "seeds": 0.3}], CRITERIA)
+    assert "| B | seeds | 0.30000000000000004 | 0.3 |" in rc.render([(CRITERIA, "a" * 64, "b" * 64, last_bit)])
 
 
 def test_s1_10b_the_tags_d2_rows_are_matched_by_position():
@@ -98,7 +105,7 @@ def test_s1_10b_a_value_record_lists_a_changed_value():
     now = [{"variant": "v", "arm": "a", "whole_run": {"x": 0.5, "y": 1.25}}]
     c = rc.compare(then, now, record)
     assert [k for k, _, _ in c.changed] == ["v · a"] and c.differ == 1
-    assert "| v · a | whole_run.y | 1 | 1.25 |" in rc.render([(record, "a" * 64, "b" * 64, c)])
+    assert "| v · a | whole_run.y | 1.0 | 1.25 |" in rc.render([(record, "a" * 64, "b" * 64, c)])
     assert not rc.compare(then, then, record).changed
 
 

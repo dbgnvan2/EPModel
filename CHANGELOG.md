@@ -47,9 +47,10 @@ criterion's test was shown failing under its mutation (§1.10).
 - **`/csdp` sweep** (step 8; three narrow passes on sonnet: `learning-qa` over what followed the step 6 review, a
   correctness pass over the re-sweep's fixes, and a security pass over the subprocess and cache code; plan §1.10):
   `tools/record_changes.py` compares every field of a row, not only verdicts and mean differences, and still finds
-  no difference; a stop signal while a child is spawned no longer leaves it running, and one while the handlers are
-  set or restored no longer leaves them ignored; the cache is written whole and moved into place; a child line with
-  no criterion is counted, not a `KeyError`.
+  no difference, refuses a readout named twice in a row and prints floats in full; a stop signal while a child is
+  spawned no longer leaves it running, and one between setting the two handlers or during the restore loop no longer
+  leaves them ignored; the cache is written whole, per process, and moved into place; a child line that is not a row
+  is counted, not a `KeyError`. A narrow re-sweep of these fixes found six low items, all fixed.
 
 ### `/csdp` sweep of the 22 unpushed commits (2026-10-19)
 

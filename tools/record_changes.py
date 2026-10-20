@@ -134,7 +134,14 @@ MISSING = object()  # a field on one side only
 
 
 def _readouts(row: dict) -> dict[str, dict]:
-    return {r["readout"]: r for r in row.get("readouts", [])}
+    """A row's readouts by name. A name twice in one row is refused: the second would hide the first from the
+    comparison (fix re-sweep, 2026-10-20)."""
+    out = {}
+    for r in row.get("readouts", []):
+        if r["readout"] in out:
+            raise ValueError(f"readout {r['readout']!r} twice in one row, so its fields cannot be paired")
+        out[r["readout"]] = r
+    return out
 
 
 def _values(row: dict, fields: tuple[str, ...], prefix: str = "") -> dict[str, object]:
@@ -222,7 +229,7 @@ def _effects(row: dict) -> str:
 def _value(v) -> str:
     if v is MISSING:
         return "—"
-    return f"{v:.6g}" if isinstance(v, float) else str(v)
+    return repr(v) if isinstance(v, float) else str(v)  # in full: a difference in the last bit must show
 
 
 def _section(record: Record, c: Comparison) -> list[str]:

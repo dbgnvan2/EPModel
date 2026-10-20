@@ -5,7 +5,8 @@ Purpose: a full regeneration took 35-45 minutes and any edit to a tool forced on
          re-rendered from the cache in under a second.
 Spec:    docs/bowen_agent_model_spec_v2.md#M11.1d, #M13.4; docs/implementation_plan_version_2.md#S1.5a
 Tests:   tests/bowen/test_ensemble_record.py::test_m111d_a_result_is_keyed_on_the_engine_and_the_mutants_edits,
-         tests/bowen/test_mutant_runner.py::test_s1_5a_a_failed_child_does_not_stop_the_record
+         tests/bowen/test_mutant_runner.py::test_s1_5a_a_failed_child_does_not_stop_the_record,
+         tests/bowen/test_mutant_runner.py::test_s1_5a_a_cache_write_cut_short_leaves_the_last_whole_file
 
 A child that fails or times out does not stop the record (S1.5a): each id it printed no row for becomes a FAILED row,
 never cached, the build goes on, and the tool exits 1 (``exit_status``).
@@ -82,10 +83,17 @@ class Cache:
         """Write a whole file beside the cache and move it into place, so a kill mid-write leaves the last whole
         file, not a cut one the next run cannot read (security pass, 2026-10-19)."""
         CACHE_DIR.mkdir(parents=True, exist_ok=True)
-        partial = self.path.with_name(self.path.name + ".partial")
+        partial = self.path.with_name(f"{self.path.name}.{os.getpid()}.partial")  # one per run (git ignores it)
         partial.write_text(json.dumps(dict(sorted(entries.items())), indent=1, sort_keys=True, default=float) + "\n",
                            encoding="utf-8")
         os.replace(partial, self.path)
+
+
+def _is_row(r: dict) -> bool:
+    """A printed line is a row when it names its criterion and outcome as text, and any error is text: anything
+    else would stop the record with a ``KeyError`` or ``AttributeError`` below (fix re-sweep, 2026-10-20)."""
+    return (isinstance(r.get("criterion"), str) and isinstance(r.get("outcome"), str)
+            and isinstance(r.get("error", ""), str))
 
 
 def child_rows(mutant: Mutant | None, tool: str, ids: list[str], workers: int, label: str) -> list[dict]:
@@ -96,10 +104,10 @@ def child_rows(mutant: Mutant | None, tool: str, ids: list[str], workers: int, l
     except ChildFailed as failed:
         printed, failure = failed.rows, str(failed.code)
         print(f"{label}: {failure}", flush=True)  # in full, with the child's error output; each row keeps its first line
-    rows = {r["criterion"]: r for r in printed if "criterion" in r}
-    stray = sum(1 for r in printed if "criterion" not in r)
+    rows = {r["criterion"]: r for r in printed if _is_row(r)}
+    stray = sum(1 for r in printed if not _is_row(r))
     if stray:  # a line that decodes but is not a row stops nothing; it is counted (security pass, 2026-10-19)
-        print(f"{label}: {stray} printed line(s) with no criterion ignored", flush=True)
+        print(f"{label}: {stray} printed line(s) that are not rows ignored", flush=True)
     out = []
     for cid in ids:
         row = rows.get(cid)

@@ -19,3 +19,6 @@ papers/_candidates.json
 
 # run logs — regenerable with python3 -m src.bowen.run
 runs/
+
+# a record cache's write in progress (tools/record_cache.py); left only by a run killed mid-write
+docs/records_cache/*.partial

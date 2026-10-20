@@ -332,7 +332,7 @@ one major item and five minor ones, all fixed before the run:
 - **Major: the stop handler replaced an ignored SIGHUP**, so a run under `nohup` would stop when its terminal
   closed. A signal the parent ignores now stays ignored. The handler acts once, so a second signal cannot interrupt
   the kill, and `Popen` is inside the `try` that kills the group. A signal that arrives inside `Popen` itself, after
-  the fork, can still leave the child running; that window is narrowed, not closed.
+  the fork, can still leave the child running; that window is narrowed, not closed (closed at step 8, below).
 - The S1.5a bullet above claimed the hash no longer moved for S1.5a; `run_in_copy` itself changed, so it did.
 - `test_s1_3a_act_classes_come_from_config`'s docstring now says the scan sees strings, not sets built from name
   constants (`NEEDS_TRIAD`).
@@ -396,15 +396,16 @@ test shown failing under its mutation:
   separate check.
 - **A stop signal while `Popen` returned left the child running** (found by the correctness and security passes, the
   window the fix re-sweep had narrowed): a stop that arrives during the spawn now raises once `child` is set, so the
-  `finally` kills the group. The stop handlers are set inside the `try`, and a signal while they are restored goes
-  on to the restored handler instead of raising with the others left ignored.
+  `finally` kills the group. The stop handlers are set inside the `try`, and a signal during the restore loop goes
+  on to the restored handler instead of raising with the others left ignored. A stop in the instant after the body
+  ends and before the restore begins still raises with them ignored; nothing catches it, so the process exits.
 - **The cache was written in place**, so a kill mid-write left a file the next run could not read; it is written
   beside the cache and moved into place. A decoded child line with no criterion is counted and its id is FAILED,
   instead of stopping the record with a `KeyError`.
 - Tests for two of `d361646`'s fixes that had none (a handler not set from Python restored as the default; a `Popen`
   that fails raises its own error), and the one-shot test now checks every stop signal, not only the one sent.
-- This section's run record: the sweep's 391 s had been folded into the mutation row, the estimate was cited from the
-  wrong section, and the trace and chart claims named less than their diffs held.
+- This section's run record: the mutation row was labelled "mutation and sweep" and left out the sweep's own 391 s,
+  the estimate was cited from the wrong section, and the trace and chart claims named less than their diffs held.
 - `docs/version_2_stage_1_changes.md` lists the fam-diag export among what it does not compare, with why.
 
 | Test | Mutation | Result |
@@ -419,6 +420,21 @@ test shown failing under its mutation:
 | `tests/bowen/test_mutant_runner.py::test_s1_5a_a_second_stop_signal_cannot_interrupt_the_kill` | only the signal that came ignored | fails |
 | `tests/bowen/test_mutant_runner.py::test_s1_5a_a_cache_write_cut_short_leaves_the_last_whole_file` | the cache written in place | fails |
 | `tests/bowen/test_mutant_runner.py::test_s1_5a_a_failed_child_does_not_stop_the_record` | a line with no criterion read as a row | fails |
+
+The fix commit (`66de943`) had one narrow `learning-qa` re-sweep on sonnet: no high or medium item, six low ones in
+its code, all fixed (each test shown failing under its mutation, listed below): a readout named twice in one row is
+refused, since the second hid the first; the difference tables print a float in full, so a last-bit change shows;
+a child line is a row only with a text criterion and outcome and any error as text (one with no outcome, or a null
+error, had stopped the record); the cache's write in progress has one file per process, and git ignores it; the
+pass-on of a late signal is stated where it ends the process at once (the default handler), and the claim about the
+handlers' restore is narrowed to what the code does. Generated records still written in place are recorded as
+adjacent.
+
+| Test | Mutation | Result |
+|---|---|---|
+| `tests/test_record_changes.py::test_s1_10b_every_field_is_compared` | a repeated readout name accepted; floats rounded to 6 digits | fails, each |
+| `tests/bowen/test_mutant_runner.py::test_s1_5a_a_failed_child_does_not_stop_the_record` | a line with a criterion and nothing else read as a row | fails |
+| `tests/bowen/test_mutant_runner.py::test_s1_5a_a_cache_write_cut_short_leaves_the_last_whole_file` | the cache written in place | fails |
 
 Recorded in `TODO.md`, not fixed: the changes page is not frozen at stage 1 (a later regeneration would rewrite it
 under stage 1's title; freezing it needs a ref to read stage 1's records from, which is the owner's choice, as the

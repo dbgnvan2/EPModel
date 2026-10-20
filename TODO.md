@@ -174,10 +174,16 @@ Plan §4.10 holds the evidence.
   stays true. Until then: do not rerun the tool after stage 1.
 - [ ] **Minor, from the `/csdp` sweep (step 8, 2026-10-20), not fixed:** (1) a stop signal while
   `tools/mutant_runner.py:run_in_copy` copies the repository, or while its temporary directory is removed, leaves a
-  `bowen-mutant-*` directory in `$TMPDIR` (no process is left; the handlers are set only around the child); (2) two
-  runs of one record tool at once overwrite each other's cache file (`tools/record_cache.py`), the last save winning;
-  (3) the timed-out path's second `communicate()` in `tools/child_process.py` has no timeout, which would hang only if
-  a worker left the child's process group, and none calls `setsid`.
+  `bowen-mutant-*` directory in `$TMPDIR` (no process is left; the handlers are set only around the child), as does
+  a late stop passed on to the default handler, which ends the process at once (`_stop_signals_raise`'s docstring);
+  (2) two runs of one record tool at once overwrite each other's cache file (`tools/record_cache.py`), the last save
+  winning; (3) the timed-out path's second `communicate()` in `tools/child_process.py` has no timeout, which would hang
+  only if a worker left the child's process group, and none calls `setsid`.
+- [ ] **Adjacent, not fixed (`/csdp` fix re-sweep, 2026-10-20):** the generated records are written in place with
+  `write_text` (`tools/ensemble_record.py:211`, `tools/level_occupancy.py:133` and the other record tools), and
+  later tools read them (`mutation_record.passing`, `sweep_record.central`, `phase_d_mutation_record.passing`). A
+  kill mid-write fails the next tool loudly and costs a rerun of minutes, so this is lower priority than the cache
+  (now written whole and moved into place); give them the same write when any is next touched.
 - [x] ~~**The phase D2 record prints `M11.C.10`'s two variants under one id** (and `M11.C.2`'s twelve-person variant as
   `M11.C.2`).~~ *Fixed at version 2 stage 1 (S1.7b): each row carries its `CRITERIA_D2` key, and the Phase D records
   render from `docs/records_cache/` (S1.8c), so a label change no longer reruns them.*

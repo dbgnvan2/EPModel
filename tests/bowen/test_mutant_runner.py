@@ -33,6 +33,12 @@ for cid in ids:
     if cid.startswith("stray"):
         print(json.dumps({"note": cid}), flush=True)
         continue
+    if cid.startswith("partial"):
+        print(json.dumps({"criterion": cid}), flush=True)
+        continue
+    if cid.startswith("nullerr"):
+        print(json.dumps({"criterion": cid, "outcome": "PASS", "seeds": 3, "error": None}), flush=True)
+        continue
     error = {"error": "BrokenProcessPool: a worker died"} if cid.startswith("machine") else {}
     print(json.dumps({"criterion": cid, "outcome": "PASS", "seeds": 3, "readouts": [], **error}), flush=True)
 """
@@ -86,20 +92,23 @@ def in_tmp(tmp_path, monkeypatch):
 
 def test_s1_5a_a_failed_child_does_not_stop_the_record(tmp_path, monkeypatch, capsys):
     """The rows the child printed before it failed are kept and cached; each id after them is a FAILED row, not
-    cached; a row reporting an error of the machine is FAILED too; a line that decodes but names no criterion is
-    counted, and its id is FAILED, instead of stopping the record (security pass, 2026-10-19); the failure is printed
+    cached; a row reporting an error of the machine is FAILED too; a line that decodes but is not a row (no criterion,
+    no outcome, or an error that is not text) is counted, and its id is FAILED, instead of stopping the record
+    (security pass, 2026-10-19; fix re-sweep, 2026-10-20); the failure is printed
     with the child's error output; and the next item runs."""
     repo = stub_repo(tmp_path / "repo", mutant_runner=FAILING_CHILD)
     with mock.patch.object(runner, "REPO", repo), in_tmp(tmp_path, monkeypatch), \
             mock.patch.object(record_cache, "CACHE_DIR", tmp_path / "cache"), mock.patch.object(record_cache, "_failed", []):
         cache = record_cache.Cache("stub")
-        first = record_cache.run_cached(cache, None, ["a", "machine", "stray", "fail", "after"], workers=1)
+        first = record_cache.run_cached(cache, None, ["a", "machine", "stray", "partial", "nullerr", "fail", "after"],
+                                        workers=1)
         assert [(r["criterion"], r["outcome"]) for r in first] == [
-            ("a", "PASS"), ("machine", "FAILED"), ("stray", "FAILED"), ("fail", "FAILED"), ("after", "FAILED")]
-        assert "exit 1" in first[3]["error"]
+            ("a", "PASS"), ("machine", "FAILED"), ("stray", "FAILED"), ("partial", "FAILED"), ("nullerr", "FAILED"),
+            ("fail", "FAILED"), ("after", "FAILED")]
+        assert "exit 1" in first[5]["error"]
         out = capsys.readouterr().out
         assert "the crash marker" in out  # the cause reaches the log, not only "failed"
-        assert "1 printed line(s) with no criterion ignored" in out
+        assert "3 printed line(s) that are not rows ignored" in out
         stored = json.loads((tmp_path / "cache" / "stub.json").read_text())
         assert [r["criterion"] for r in stored.values()] == ["a"]  # only the finished, valid row
         second = record_cache.run_cached(cache, None, ["a", "b"], workers=1)  # the record goes on
@@ -339,6 +348,8 @@ def test_s1_5a_a_cache_write_cut_short_leaves_the_last_whole_file(tmp_path):
             cache.flush()
         assert (tmp_path / "c.json").read_text(encoding="utf-8") == whole
         assert record_cache.Cache("c").entries == {"k": {"a": 1}}
+        cache.flush()  # the run's next write replaces the cut file it left
+        assert [p.name for p in tmp_path.iterdir()] == ["c.json"]
 
 
 def test_s1_5a_a_stop_signal_while_setting_the_handlers_restores_both():

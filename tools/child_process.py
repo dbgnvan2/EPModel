@@ -90,8 +90,12 @@ def _stop_signals_raise():
     a run under ``nohup`` outlives its terminal; the handler acts once, so a second signal cannot interrupt the kill
     (fix re-sweep, 2026-10-19). The handlers are set inside the ``try``, so a signal between setting the first and the
     second still restores both, and a signal while they are restored is passed on to the restored handler instead of
-    raising with the others left ignored (narrow re-sweep, 2026-10-19). Signal handlers can only be set in the main
-    thread; elsewhere the parent's own handling stands."""
+    raising with the others left ignored (narrow re-sweep, 2026-10-19). The restored handler is usually the default,
+    so that signal then ends the process at once, as it would have a moment later: the child is already killed, but
+    no ``finally`` above runs, so the repository copy is left in the temporary directory and rows not yet cached are
+    rerun next time. A stop in the instant after the body ends and before the restore begins still raises with the
+    handlers ignored; nothing catches it, so the process exits. Signal handlers can only be set in the main thread;
+    elsewhere the parent's own handling stands."""
     state = _Stop()
     if threading.current_thread() is not threading.main_thread():
         yield state

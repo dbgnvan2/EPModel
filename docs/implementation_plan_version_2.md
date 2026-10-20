@@ -1,7 +1,7 @@
 # Version 2: implementation plan
 
-**Status: stage 1 DRAFT 2026-10-19; the owner decided D1–D7 the same day, every one as recommended (§1.2). The plan
-awaits approval. Nothing is built.** Written from
+**Status: stage 1 APPROVED 2026-10-19.** The owner decided D1–D7 the same day, every one as recommended (§1.2), and
+approved the plan. Not yet built. Written from
 `docs/version_2_plan.md` §3 (stage 1) and the `TODO.md` entries it collects, each checked against the code on
 2026-10-19. Later stages add their own sections here, as the Phase D plan did.
 

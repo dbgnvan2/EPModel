@@ -212,3 +212,11 @@ def test_m3d4a_categorical_uses_one_uniform_and_respects_zero_weights():
     expected_u = DrawService(9).uniform(key)
     index = service2.categorical(key, [1.0, 1.0])
     assert index == (0 if expected_u < 0.5 else 1)
+
+
+def test_m3d4a_categorical_never_returns_a_zero_weight_index_at_the_top_edge():
+    """A uniform just below one, against weights whose running sum rounds to the target, reaches the fallback: it
+    returns the last index with weight, not a trailing zero-weight one (stage 1 review, 2026-10-19)."""
+    service = DrawService(9)
+    service.uniform = lambda key: 1 - 2**-53
+    assert service.categorical(select(), [0.1] * 10 + [0.0]) == 9

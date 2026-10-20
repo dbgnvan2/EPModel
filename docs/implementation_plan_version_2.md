@@ -218,7 +218,8 @@ ad hoc runs of that criterion alone.
 
 ### 1.10 Build record (2026-10-19)
 
-Steps 0–5 are built: commits `423bbed` (steps 0–2), `b6ca902` (step 3), `36fad6c` (step 4) and step 5's documents.
+Steps 0–5 are built: commits `423bbed` (steps 0–2), `b6ca902` (step 3), `36fad6c` (step 4) and `4bea435` (step 5's
+documents). The step 6 review's fixes follow the table.
 Each criterion's test was shown failing under its mutation on a copy of the repository before it counted; the
 mutations are edits applied by a scratch tool and reverted, and none is kept in the tree.
 
@@ -259,12 +260,71 @@ S1.9 (iii) is S1.5b, and (v) is covered by the trace's record-current test. S1.1
   `kinds.side_taking` from the run's kinds and the policy reads `family_to_external` and `external_repertoire` from
   the kinds it is given, so no copy of a set can drift. The test checks the loaded classes, the absence of a literal
   in either module, and that the two policy classes are the lists `M5.B.4` and `M5.B.5` name.
-- **S1.5a moved the engine hash at step 1.** `tools/mutant_runner.py` is in the engine hash, so the failed-child fix
-  moved it one step before §1.4 expected. No record was regenerated between steps, so the run at step 7 is still the
-  only one.
+- **S1.5a's code was first put in `tools/mutant_runner.py`**, which is in the engine hash, so it moved the hash at
+  step 1. The step 6 review moved it to `tools/child_process.py`, outside the hash: how a child is run does not change
+  what it computes (`CLAUDE.md`, learnings P38). §1.4's "moves the hash: no" for S1.5a now holds. No record was
+  regenerated between steps, so the run at step 7 is still the only one.
+- **S1.9 (ii) was already built.** The pattern readouts took `now`, and `tools/famdiag_export.py` stopped stepping
+  `state.tick`, in `f916d55` (Phase D B2, 2026-10-10). Stage 1 added only the test.
+- **S1.1's scan covers `render/` too.** §1.3 left the renderer out, as no verdict reads it. The review found its two
+  sums (a float total and a count in `render/trace.py`); they are now a `math.fsum` and a `count`, and the scan reads
+  every file in `src/bowen`.
 - **The Phase D cache's engine part is the hash the Phase D records print** (`code_hash()` with no tool), not
   `engine_hash()`, which adds `tools/mutant_runner.py`; the Phase D ensembles do not run through that tool. The key is
   otherwise built as Phase C's are (`result_key`).
+
+**The step 6 review (2026-10-19).** One `learning-qa` pass and one correctness pass over `a9ee812..4bea435`. Every
+finding was fixed before the run:
+- **`tools/record_changes.py` (S1.10b).** It matched the tag's D2 rows only where a key repeated, so `M11.C.2`, which
+  the tag prints for the twelve-person family, was never compared. It now matches the D2 record's rows by position,
+  each to a current key naming the same criterion. It also compares the level-occupancy record. It lists each record
+  it does not compare, with the reason. It counts a readout found on only one side as a difference. And it refuses a
+  record whose hash is the tag's, because that record was not regenerated (P35).
+- **S1.5a.** A failed child's error output is printed in full, not only its first line. The code moved out of the
+  hash (above). A SIGTERM or SIGHUP to the parent kills the child's process group, because a child in its own
+  session gets no signal sent to the parent. A JSON line cut short fails the child instead of stopping the record on
+  a decoding error.
+- **`DrawService.categorical`** fell back to the last index when rounding at the top edge passed every running sum.
+  When the last weight was zero, that index had no weight. It now returns the last index with weight, as
+  `policy._invert` does.
+- **`canonical_state` left out six fields of the run's state.** These are the event queue, the self-directed acts and
+  witnessed cutoffs awaiting judgement, `adjusted`, `stances` and the estimator's history (`M16.T.3`). They are now
+  in, and a test walks every `RunState` field. `NOT_CANONICAL` names the two left out, the event kinds and the draw
+  service, each with its reason.
+- **The act classes (S1.3).** `EventKinds`' three classes default to `None`, so kinds built without them fail where a
+  class is read; an empty set would have put every act in no class. The loader refuses a class with no acts and a
+  side-taking act that is not a family-to-external move. `ACT_CLASSES` moved to `engine/events.py`, beside the
+  fields it names.
+- **The act-literal scan (S1.0, S1.3a)** now finds list and tuple displays of act names, and a comparison with one
+  act's name, as well as sets.
+- **`count`** takes numpy booleans, a counted condition over an array.
+- **`tests/test_repo_layout.py`** fails if `docs/model_config.md` comes back. Before, only the documentation index
+  caught it.
+- **The explainer's §13.1 note** said the live-position predicate does not decide whether a triangle is active. It
+  now says which of its three callers is fed a side (only `external.coach_live`) and which are fed presence only.
+- **This record and the CHANGELOG** said stage 1 built S1.9 (ii); it was built in `f916d55` (above).
+
+Each new test was shown failing under its mutation, in the same way as the table above:
+
+| Test | Mutation | Result |
+|---|---|---|
+| `tests/test_record_changes.py::test_s1_10b_the_tags_d2_rows_are_matched_by_position` | the D2 rows matched by key, not position | fails |
+| `tests/test_record_changes.py::test_s1_10b_a_record_not_regenerated_is_refused` | the unchanged-hash check removed | fails |
+| `tests/test_record_changes.py::test_s1_10b_a_changed_verdict_and_a_moved_effect_are_listed` (P7) | any movement counted, not only past the tag's half-width | fails |
+| `tests/test_record_changes.py::test_s1_10b_a_value_record_lists_a_changed_value` | a value row's nested values not read | fails |
+| `tests/bowen/test_mutant_runner.py::test_s1_5a_a_failed_child_does_not_stop_the_record` | the failure not printed; the `ChildFailed` re-raised | fails, each |
+| `tests/bowen/test_mutant_runner.py::test_s1_5a_a_timed_out_child_leaves_no_process` (re-proved in `child_process.py`) | the process group's kill replaced by `child.kill()` | fails at its 40 s deadline |
+| `tests/bowen/test_mutant_runner.py::test_s1_5a_a_stopped_parent_leaves_no_process` | the stop-signal handler never set | fails |
+| `tests/bowen/test_mutant_runner.py::test_s1_5a_a_line_cut_short_is_reported` | the cut-line check removed | fails |
+| `tests/bowen/test_draws.py::test_m3d4a_categorical_never_returns_a_zero_weight_index_at_the_top_edge` | the fallback back to the last index | fails (and failed before the fix) |
+| `tests/bowen/test_log.py::test_m16t3_canonical_state_covers_every_field` | the `queue` key removed | fails |
+| `tests/bowen/test_config.py::test_s1_3a_kinds_without_act_classes_fail_where_a_class_is_read` | the default back to an empty set | fails |
+| `tests/bowen/test_config.py::test_s1_3b_an_undeclared_act_fails_to_load` | the empty-class check removed; the side-taking check removed | fails, each |
+| `tests/bowen/test_patterns.py::test_s1_0_the_scan_finds_each_form_of_act_literal` | sets only; comparisons not read; a tuple assigned to names reported | fails, each |
+| `tests/bowen/test_float_sums.py::test_s1_1b_count_refuses_a_float` | a numpy boolean not converted | fails |
+| `tests/bowen/test_float_sums.py::test_s1_1a_the_scan_finds_a_sum` | the `render/` exclusion put back in the scan | fails |
+| `tests/bowen/test_float_sums.py::test_s1_1a_no_builtin_sum_in_bowen` | `render/trace.py`'s `math.fsum` back to `sum` | fails |
+| `tests/test_repo_layout.py::test_s1_6_the_grid_engine_is_retired` | `docs/model_config.md` restored from the tag | fails |
 
 **Adjacent issues found while building, not fixed** (each is in `TODO.md` or below):
 - Act sets still written in the code outside the two classes S1.3 moved: `NEVER_REFUSED` (`rejection.py`),
@@ -275,3 +335,8 @@ S1.9 (iii) is S1.5b, and (v) is covered by the trace's record-current test. S1.1
 - `tools/mutation_gate_phase_b.json` names `tests/test_simulator.py`; it is an input to the frozen Phase B record
   (D5) and is left as it was.
 - `src/sim_audit.csv`, an untracked output of the retired grid engine, is the owner's to delete.
+- The widened act-literal scan finds act names in `ensemble/criteria.py`, `criteria_d.py` and `criteria_d2.py`.
+  These are criterion definitions naming the acts each criterion reads, not engine rules; whether they belong in
+  config is for a later stage (rule 9).
+- The Phase D ensembles (`tools/phase_d_record.py`) run with no timeout, and `tools/diagnostic_record.py:136` and
+  `tools/level_occupancy.py:130` stop when their child fails, where the Phase C records go on (S1.5a).

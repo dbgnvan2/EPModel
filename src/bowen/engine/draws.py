@@ -208,4 +208,6 @@ class DrawService:
             running += weight
             if target < running:
                 return index
-        return len(weights) - 1  # only reachable through rounding at the top edge
+        # Only reachable through rounding at the top edge: the last index with weight, never a zero-weight one
+        # (as `policy._invert`; stage 1 review, 2026-10-19).
+        return max(i for i, w in enumerate(weights) if w > 0)

@@ -18,6 +18,7 @@ from unittest import mock
 
 import pytest
 
+import tools.child_process as child_process
 import tools.mutant_runner as runner
 import tools.record_cache as record_cache
 
@@ -27,6 +28,7 @@ import json, sys
 ids = sys.argv[sys.argv.index("--child") + 1:sys.argv.index("--workers")]
 for cid in ids:
     if cid.startswith("fail"):
+        sys.stderr.write("Traceback: the crash marker\\n")
         sys.exit(1)
     error = {"error": "BrokenProcessPool: a worker died"} if cid.startswith("machine") else {}
     print(json.dumps({"criterion": cid, "outcome": "PASS", "seeds": 3, "readouts": [], **error}), flush=True)
@@ -79,9 +81,10 @@ def in_tmp(tmp_path, monkeypatch):
     return mock.patch.object(tempfile, "tempdir", str(tmp_path))
 
 
-def test_s1_5a_a_failed_child_does_not_stop_the_record(tmp_path, monkeypatch):
+def test_s1_5a_a_failed_child_does_not_stop_the_record(tmp_path, monkeypatch, capsys):
     """The rows the child printed before it failed are kept and cached; each id after them is a FAILED row, not
-    cached; a row reporting an error of the machine is FAILED too; and the next item runs."""
+    cached; a row reporting an error of the machine is FAILED too; the failure is printed with the child's error
+    output; and the next item runs."""
     repo = stub_repo(tmp_path / "repo", mutant_runner=FAILING_CHILD)
     with mock.patch.object(runner, "REPO", repo), in_tmp(tmp_path, monkeypatch), \
             mock.patch.object(record_cache, "CACHE_DIR", tmp_path / "cache"), mock.patch.object(record_cache, "_failed", []):
@@ -90,6 +93,7 @@ def test_s1_5a_a_failed_child_does_not_stop_the_record(tmp_path, monkeypatch):
         assert [(r["criterion"], r["outcome"]) for r in first] == [
             ("a", "PASS"), ("machine", "FAILED"), ("fail", "FAILED"), ("after", "FAILED")]
         assert "exit 1" in first[2]["error"]
+        assert "the crash marker" in capsys.readouterr().out  # the cause reaches the log, not only "failed"
         stored = json.loads((tmp_path / "cache" / "stub.json").read_text())
         assert [r["criterion"] for r in stored.values()] == ["a"]  # only the finished, valid row
         second = record_cache.run_cached(cache, None, ["a", "b"], workers=1)  # the record goes on
@@ -113,7 +117,7 @@ def test_s1_5a_a_timed_out_child_leaves_no_process(tmp_path, monkeypatch):
                 call.result(timeout=40)
             except Deadline:
                 raise AssertionError("run_in_copy did not return after the child's timeout") from None
-            except runner.ChildFailed as failed:
+            except child_process.ChildFailed as failed:
                 (row,) = failed.rows
                 assert "timed out" in str(failed.code) and len(row["pids"]) == 2
             else:
@@ -127,3 +131,56 @@ def test_s1_5a_a_timed_out_child_leaves_no_process(tmp_path, monkeypatch):
             for pid in json.loads(pidfile.read_text()) if pidfile.exists() else ():
                 if alive(pid):
                     os.kill(pid, signal.SIGKILL)
+
+
+# A parent that runs POOL_CHILD through ``run_child`` and is then stopped by a signal, as a background record run is.
+PARENT = """\
+import sys
+sys.path.insert(0, sys.argv[1])
+from tools.child_process import run_child
+run_child([sys.executable, sys.argv[2], sys.argv[3]], sys.argv[4], "pool", 600)
+"""
+
+
+def test_s1_5a_a_stopped_parent_leaves_no_process(tmp_path):
+    """SIGTERM to the parent kills the child's group: a child in its own session gets no signal sent to the parent,
+    so without the parent's handler its pool would run on after the parent is gone (review 2026-10-19)."""
+    import signal
+    import subprocess
+    import sys
+
+    (tmp_path / "pool_child.py").write_text(POOL_CHILD, encoding="utf-8")
+    (tmp_path / "parent.py").write_text(PARENT, encoding="utf-8")
+    pidfile = tmp_path / "pids.json"
+    parent = subprocess.Popen([sys.executable, str(tmp_path / "parent.py"), str(runner.REPO),
+                               str(tmp_path / "pool_child.py"), str(pidfile), str(tmp_path)],
+                              stdout=(tmp_path / "out").open("w"), stderr=subprocess.STDOUT)
+    try:
+        deadline = time.monotonic() + 30
+        while not (pidfile.exists() and pidfile.read_text()) and time.monotonic() < deadline:
+            time.sleep(0.1)
+        pids = json.loads(pidfile.read_text())
+        parent.send_signal(signal.SIGTERM)
+        parent.wait(timeout=20)
+        deadline = time.monotonic() + 5
+        while any(alive(p) for p in pids) and time.monotonic() < deadline:
+            time.sleep(0.1)
+        assert not any(alive(p) for p in pids), "the stopped parent's child workers are still running"
+    finally:
+        if parent.poll() is None:
+            parent.kill()
+        for pid in json.loads(pidfile.read_text()) if pidfile.exists() and pidfile.read_text() else ():
+            if alive(pid):
+                os.kill(pid, signal.SIGKILL)
+
+
+def test_s1_5a_a_line_cut_short_is_reported(tmp_path):
+    """A line that does not decode is never a row: a child that exits 0 having printed one fails, keeping the rows
+    before it, instead of the record stopping on a JSONDecodeError (review 2026-10-19)."""
+    import sys
+
+    script = 'print(\'{"criterion": "a"}\'); print(\'{"criterion": "b", "outc\')'
+    with pytest.raises(child_process.ChildFailed, match="do not decode") as failed:
+        child_process.run_child([sys.executable, "-c", script], tmp_path, "cut", 30)
+    assert failed.value.rows == [{"criterion": "a"}]
+    assert child_process.decode('{"a": 1}\n{"b"\nnot a row\n') == ([{"a": 1}], 1)

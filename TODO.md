@@ -158,6 +158,14 @@ Plan §4.10 holds the evidence.
 - [ ] **Adjacent, not fixed (2026-10-19):** the ad hoc probes in `tools/probes.py` (lines 139, 141, 268, 458) still
   take float means with the builtin `sum`. No record reads them; move them to `math.fsum` when the file is next
   touched.
+- [ ] **Adjacent, not fixed (stage 1 review, 2026-10-19):** the Phase D ensembles (`tools/phase_d_record.py`) run
+  with no timeout, and `tools/diagnostic_record.py:136` and `tools/level_occupancy.py:130` stop when their child
+  fails, where the Phase C records keep the rows and go on (S1.5a). Both run once per regeneration; give them the
+  Phase C handling when either is next touched.
+- [ ] **Adjacent, not fixed (stage 1 review, 2026-10-19):** the act-literal scan, widened to lists, tuples and one-act
+  comparisons, finds act names in `src/bowen/ensemble/criteria.py`, `criteria_d.py` and `criteria_d2.py` (the acts
+  each criterion reads), as well as `NEVER_REFUSED` (`rejection.py`) and `ABORT_ACTS` (`iposition.py`). Rule 9 asks
+  whether each belongs in config; the criteria are definitions, not engine rules, and are for a later stage.
 - [x] ~~**The phase D2 record prints `M11.C.10`'s two variants under one id** (and `M11.C.2`'s twelve-person variant as
   `M11.C.2`).~~ *Fixed at version 2 stage 1 (S1.7b): each row carries its `CRITERIA_D2` key, and the Phase D records
   render from `docs/records_cache/` (S1.8c), so a label change no longer reruns them.*

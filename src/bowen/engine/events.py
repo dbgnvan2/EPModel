@@ -39,6 +39,10 @@ class Mechanism(enum.Enum):
 TIE_MECHANISMS = frozenset({Mechanism.TRIGGER, Mechanism.RECONCILIATION})
 
 
+# The act classes, each a field of EventKinds read from config/bowen/act_classes.md (version 2 stage 1, S1.3).
+ACT_CLASSES = ("side_taking", "family_to_external", "external_repertoire")
+
+
 @dataclass(frozen=True)
 class EventKinds:
     """The kind vocabulary, as loaded from config.
@@ -78,10 +82,11 @@ class EventKinds:
     focus: Mapping[str, str] = field(default_factory=lambda: MappingProxyType({}))
     # Version 2 stage 1 (S1.3, rule 9): the act classes the engine and the policy read. From config/bowen/act_classes.md:
     # the move that draws an external agent onto its sender's side (M8.3), the moves a family member makes toward an
-    # external agent and only toward one (M5.B.4), and the external agent's repertoire (M5.B.5).
-    side_taking: frozenset[str] = frozenset()
-    family_to_external: frozenset[str] = frozenset()
-    external_repertoire: frozenset[str] = frozenset()
+    # external agent and only toward one (M5.B.4), and the external agent's repertoire (M5.B.5). None until loaded:
+    # kinds built without them fail where a class is read, instead of every act being in no class (review 2026-10-19).
+    side_taking: frozenset[str] | None = None
+    family_to_external: frozenset[str] | None = None
+    external_repertoire: frozenset[str] | None = None
 
     def __post_init__(self) -> None:
         object.__setattr__(self, "mechanisms", MappingProxyType(dict(self.mechanisms)))
@@ -335,3 +340,7 @@ class EventQueue:
 
     def pending(self) -> int:
         return count(len(v) for v in self._pending.values())
+
+    def scheduled(self) -> tuple[Delivery, ...]:
+        """Every delivery still pending, in canonical order: state, for comparing two runs (M16.T.3)."""
+        return tuple(d for tick in sorted(self._pending) for d in sorted(self._pending[tick]))

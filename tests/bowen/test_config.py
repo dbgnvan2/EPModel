@@ -348,19 +348,34 @@ def test_s1_3a_act_classes_come_from_config():
 
 
 def test_s1_3b_an_undeclared_act_fails_to_load(tmp_path):
-    """S1.3b (`M10.B.2`): a misspelt act in the act classes fails at load, as does a class missing or listed twice."""
+    """S1.3b (`M10.B.2`): a misspelt act in the act classes fails at load, as does a class missing or listed twice, a
+    class with no acts, and a side-taking act that is not a family-to-external move (review 2026-10-19)."""
     from src.bowen.io.load import CONFIG_DIR, load_act_classes, load_event_kinds
 
     kinds = load_event_kinds()
     text = (CONFIG_DIR / "act_classes.md").read_text(encoding="utf-8")
     broken = {
-        "misspelt": text.replace("| side_taking | SPLIT |", "| side_taking | SPILT |"),
-        "missing": "\n".join(l for l in text.splitlines() if not l.startswith("| side_taking |")),
-        "twice": text + "| side_taking | SPLIT | again |\n",
+        "misspelt": (text.replace("| side_taking | SPLIT |", "| side_taking | SPILT |"), "not a declared move"),
+        "missing": ("\n".join(l for l in text.splitlines() if not l.startswith("| side_taking |")), "exactly"),
+        "twice": (text + "| side_taking | SPLIT | again |\n", "exactly"),
+        "empty": (text.replace("| side_taking | SPLIT |", "| side_taking |  |"), "no acts"),
+        "off the side": (text.replace("| side_taking | SPLIT |", "| side_taking | PURSUE |"), "family-to-external"),
     }
-    assert all(b != text for b in broken.values())
-    for name, body in broken.items():
+    assert all(b != text for b, _ in broken.values())
+    for name, (body, message) in broken.items():
         path = tmp_path / f"{name}.md"
         path.write_text(body, encoding="utf-8")
-        with pytest.raises(ConfigError):
+        with pytest.raises(ConfigError, match=message):
             load_act_classes(kinds, path)
+
+
+def test_s1_3a_kinds_without_act_classes_fail_where_a_class_is_read():
+    """Kinds built without the act classes carry None, not an empty set, so the policy fails where it reads a class
+    instead of treating every act as in none (review 2026-10-19)."""
+    from src.bowen.engine.events import ACT_CLASSES, EventKinds
+    from src.bowen.io.load import load_event_kinds
+
+    kinds = load_event_kinds()
+    assert all(getattr(EventKinds(kinds.mechanisms), c) is None for c in ACT_CLASSES)
+    assert all(getattr(kinds, c) for c in ACT_CLASSES)  # loaded, each class has acts
+

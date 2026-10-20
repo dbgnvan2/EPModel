@@ -56,6 +56,37 @@ def test_m16t3_s1_2_canonical_state_sees_the_stressors():
     assert len(strings) == 3
 
 
+def test_m16t3_canonical_state_covers_every_field():
+    """Every RunState field is in the canonical state under its own name, or in ``NOT_CANONICAL`` with a reason, so a
+    field added later cannot be missed; and a change to each field the stage 1 review found left out changes the string
+    (review 2026-10-19)."""
+    import json
+
+    from src.bowen.engine.events import Delivery, EventId, Role
+    from src.bowen.engine.state import NOT_CANONICAL, RunState
+
+    state = run_phase_b(7).state
+    names = {f.name for f in dataclasses.fields(RunState)}
+    assert set(NOT_CANONICAL) <= names and all(NOT_CANONICAL.values())
+    assert set(json.loads(canonical_state(state))) == names - set(NOT_CANONICAL)
+    a, b = sorted(state.people)[:2]
+    changes = {
+        "queue": lambda s: s.queue.schedule(Delivery(delivered_tick=s.tick + 5, event_id=EventId(s.tick, a.value, 0),
+                                                     recipient=b, role=Role.TARGET, emitted_tick=s.tick, latency=5)),
+        "practice": lambda s: s.practice.append((a, b, s.tick, 0.5)),
+        "adjusted": lambda s: s.adjusted.__setitem__((a, b), s.tick + 1),
+        "stances": lambda s: s.stances.__setitem__((a, b), s.tick + 1),
+        "witnessed": lambda s: s.witnessed.append((a, s.tick, ())),
+        "estimator_history": lambda s: s.estimator_history[a].append(s.estimator_history[a][-1]),
+    }
+    before = canonical_state(state)
+    for name, change in changes.items():  # one after another: each must change the string from the one before it
+        change(state)
+        after = canonical_state(state)
+        assert after != before, f"a change to state.{name} does not change the canonical state"
+        before = after
+
+
 def test_m16t5_same_seed_same_log_with_header(tmp_path):
     """G11: two persisted runs at one seed are byte-identical files, header first."""
     paths = [tmp_path / "a.jsonl", tmp_path / "b.jsonl"]

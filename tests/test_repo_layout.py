@@ -1,9 +1,9 @@
 """The grid engine is retired (version 2 stage 1, S1.6; plan D4).
 
-Purpose: the frozen grid engine (`src/engine.py`, its entry point, its Monte Carlo script and its 37 tests) is removed
-         from the tree; it stays in git history and at the tag `version-1`. This test fails if any of the four files
-         comes back or any Python file imports the engine. `tests/test_doc_checklist.py` covers the removed
-         `docs/model_config.md`, the engine's configuration, through the documentation index.
+Purpose: the frozen grid engine (`src/engine.py`, its entry point, its Monte Carlo script, its 37 tests and its
+         configuration document `docs/model_config.md`) is removed from the tree; it stays in git history and at the tag
+         `version-1`. This test fails if any of the five files comes back or any Python file imports the engine (the
+         document was covered only through the documentation index until the stage 1 review, 2026-10-19).
 Spec:    docs/implementation_plan_version_2.md#S1.6; docs/bowen_agent_model_spec_v2.md#M13.2
 Tests:   this file
 """
@@ -14,7 +14,7 @@ import ast
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parents[1]
-RETIRED = ("src/engine.py", "src/main.py", "monte_carlo.py", "tests/test_simulator.py")
+RETIRED = ("src/engine.py", "src/main.py", "monte_carlo.py", "tests/test_simulator.py", "docs/model_config.md")
 RETIRED_MODULES = ("src.engine", "src.main", "monte_carlo")
 
 

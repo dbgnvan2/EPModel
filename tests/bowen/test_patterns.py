@@ -303,6 +303,23 @@ def test_s1_0_act_sets_come_from_config():
     assert literal_act_sets(Path(patterns.__file__)) == []
 
 
+def test_s1_0_the_scan_finds_each_form_of_act_literal(tmp_path):
+    """The scan the two tests above rest on finds a set, a list and a tuple of act names and a comparison with one
+    act's name, and passes a tuple assigned to names and a string that names no act (stage 1 review, 2026-10-19)."""
+    from act_literals import literal_act_sets
+
+    source = tmp_path / "m.py"
+    source.write_text('A = {"PURSUE", "CONFLICT"}\n'
+                      'B = ["PURSUE"]\n'
+                      'C = frozenset(("CUTOFF", "DISTANCE"))\n'
+                      'D = kind == "SPLIT"\n'
+                      'E = "SPLIT" != kind\n'
+                      'PURSUE, CUTOFF = "PURSUE", "CUTOFF"\n'
+                      'F = kind == "not an act"\n', encoding="utf-8")
+    assert literal_act_sets(source) == [(1, ["PURSUE", "CONFLICT"]), (2, ["PURSUE"]), (3, ["CUTOFF", "DISTANCE"]),
+                                        (4, ["SPLIT"]), (5, ["SPLIT"])]
+
+
 def test_b2_now_reads_as_of_that_week():
     """A reading with ``now`` takes the window ending at that week, and leaves state.tick alone."""
     state = at(fresh(), 3, ("CONFLICT", RAVI, MARTA), ("CONFLICT", MARTA, RAVI), ("CONFLICT", RAVI, MARTA))

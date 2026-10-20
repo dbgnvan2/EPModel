@@ -16,7 +16,7 @@ import hashlib
 import json
 
 from src.bowen.engine.activation import SynchronousActivation
-from src.bowen.engine.events import EventKinds
+from src.bowen.engine.events import ACT_CLASSES, EventKinds
 from src.bowen.engine.log_records import LogHeader, plain
 from src.bowen.engine.visibility import HouseholdConductanceVisibility
 from src.bowen.scenario.constants import Constants
@@ -37,8 +37,7 @@ def resolved_config(constants: Constants, kinds: EventKinds, family: FamilyInsta
         "focus": sorted([k, v] for k, v in kinds.focus.items()),                # M1.A.11c, revision 25
         "channels": sorted([k, c] for k, c in kinds.channels.items()),          # M4.D.1a (review 2026-10-11)
         "layers": sorted([k, n] for k, n in kinds.layers.items()),              # M4.D.3a (review 2026-10-11)
-        "act_classes": [[c, sorted(getattr(kinds, c))] for c in ("side_taking", "family_to_external",
-                                                                 "external_repertoire")],  # S1.3 (rule 9)
+        "act_classes": [[c, sorted(getattr(kinds, c))] for c in ACT_CLASSES],  # S1.3 (rule 9)
         "family": {
             "instance_id": family.instance_id,
             "nuclear_household": family.nuclear_household,

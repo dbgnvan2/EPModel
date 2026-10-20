@@ -12,13 +12,17 @@ criterion's test was shown failing under its mutation (§1.10).
 - **The grid engine is retired** (`M13.2` amended, D1, D4): `src/engine.py`, `src/main.py`, `monte_carlo.py`,
   `tests/test_simulator.py` (37 tests) and `docs/model_config.md` are removed, and kept at the tag `version-1`.
   `tests/test_repo_layout.py` fails if any comes back or is imported.
-- **Exact float totals** (S1.1, D2 (b)): every float `sum()` in `src/bowen` outside `render/` is a `math.fsum`, and
-  every integer total a `count()` that refuses a float. The golden fingerprints did not move at 8 significant digits.
-- **The canonical state includes the stressors** (S1.2, `M16.T.3`).
-- **The act classes come from `config/bowen/act_classes.md`** (S1.3, rule 9); a misspelt act fails at load.
+- **Exact float totals** (S1.1, D2 (b)): every float `sum()` in `src/bowen`, the renderer's included, is a
+  `math.fsum`, and every integer total a `count()` that refuses a float. The golden fingerprints did not move at 8
+  significant digits.
+- **The canonical state includes the stressors** (S1.2, `M16.T.3`), and after the review every other field of the
+  run's state but the event kinds and the draw service; a test walks the fields.
+- **The act classes come from `config/bowen/act_classes.md`** (S1.3, rule 9). A misspelt act, an empty class and a
+  side-taking act that is not a family-to-external move fail at load; kinds built without the classes carry `None`.
 - **Triangle activity is decided by presence** (`M8.5` amended, D3 (b)): the spec now says what the code did; no
   result changes. Whether a fused occupant should make a triangle inactive is left for stage 3.
-- **Tooling:** a failed or timed-out mutant child is that row's errored outcome and leaves no process (S1.5a);
+- **Tooling:** a failed or timed-out mutant child is that row's errored outcome and leaves no process, nor does a
+  stopped parent; a line cut short fails the child (S1.5a, in `tools/child_process.py`, outside the engine hash);
   `code_text` splits lines as `tokenize` does (S1.5b); the Phase B mutation record is frozen (S1.5c, D5); one helper
   parses a record's JSON block (S1.5d); `tools/phase_c_trace.py` loads the family once.
 - **The renderer is out of the engine hash** (S1.8a), and no verdict imports it (S1.8b). **The Phase D ensembles
@@ -26,7 +30,14 @@ criterion's test was shown failing under its mutation (§1.10).
 - **The trace shows what a symptom gives back** (S1.7a, D6 (a)): a lock-in release and the spill past the turn each
   have a row; the weekly hold stays summarised. **The D2 record prints each variant under its own key** (S1.7b).
 - **Riders** (D7): no decided item is still described as pending owner review (`tests/test_stale_text.py`); the
-  pattern readouts take `now`; the Phase D mutation record's hash ignores comments.
+  pattern readouts' `now`, built in `f916d55` (Phase D B2), is tested; the Phase D mutation record's hash ignores
+  comments.
+- **The step 6 review** (`learning-qa` and a correctness pass; plan §1.10): `DrawService.categorical` never returns a
+  zero-weight index at the top edge; `tools/record_changes.py` matches the D2 rows by position, so `M11.C.2`'s
+  twelve-person variant is compared, compares the level-occupancy record, and refuses a record not regenerated;
+  `count` takes numpy booleans; the act-literal scan finds lists, tuples and one-act comparisons;
+  `tests/test_repo_layout.py` covers `docs/model_config.md`; the explainer's §13.1 note says which caller of the
+  live-position predicate reads a side.
 - **The records are regenerated once** on the new hash (S1.10a); `docs/version_2_stage_1_changes.md` lists every
   verdict that changed against the tag `version-1` (S1.10b).
 

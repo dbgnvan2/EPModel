@@ -27,7 +27,8 @@ from pathlib import Path
 REPO = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO))
 
-from tools.mutant_runner import ChildFailed, Mutant, run_in_copy  # noqa: E402
+from tools.child_process import ChildFailed  # noqa: E402
+from tools.mutant_runner import Mutant, run_in_copy  # noqa: E402
 
 CACHE_DIR = REPO / "docs" / "records_cache"
 # The child failed, timed out or hit an error of the machine running it: no evidence about the model, so the row is
@@ -89,6 +90,7 @@ def child_rows(mutant: Mutant | None, tool: str, ids: list[str], workers: int, l
         printed, failure = run_in_copy(mutant, tool, "--child", *ids, "--workers", str(workers)), None
     except ChildFailed as failed:
         printed, failure = failed.rows, str(failed.code)
+        print(f"{label}: {failure}", flush=True)  # in full, with the child's error output; each row keeps its first line
     rows = {r["criterion"]: r for r in printed}
     out = []
     for cid in ids:

@@ -22,9 +22,11 @@ TRIGGER is the exception, because its whole effect runs through the standing loa
 
 from __future__ import annotations
 
+import math
 from dataclasses import dataclass
 from typing import Iterable, Mapping
 
+from src.bowen.engine.counting import count
 from src.bowen.engine.events import Event, EventId, Mechanism, Role
 from src.bowen.engine.log_records import (
     BeliefWriteRecord, DecidedBy, DeliveredRecord, EffectRecord, EmittedRecord, InvariantRecord, InvariantStatus,
@@ -176,7 +178,7 @@ def _what_it_did(event: Event, index: _Index, names: _Names, view: PersonId | No
         elif effect.mechanism == "triangle_transfer":
             outsider = next(value for _, field, value in effect.triangles if field == "outsider")
             moved = [f"{names(p)} {_signed(v)}" for p, v in effect.acute_anxiety if view is None or p == view]
-            own = sum(v for _, _, v in effect.people)
+            own = math.fsum(v for _, _, v in effect.people)
             if moved:
                 parts.append(f"{names(PersonId(outsider))} left outside: anxiety " + ", ".join(moved)
                              + (f" (of which {own:.1f} the outsider's own)" if own else ""))
@@ -282,7 +284,7 @@ def _system_rows(effect: EffectRecord, names: _Names) -> list[str]:
     elif effect.mechanism == "differentiating_exchange":
         rows += [f"undifferentiation budget {_signed(v)} (a completed differentiating exchange)" for _, v in effect.sinks]
     elif effect.mechanism == "slow_tick":
-        worn = sum(1 for _, field, _ in effect.ties if field == "conductance")
+        worn = count(field == "conductance" for _, field, _ in effect.ties)
         rows.append(f"slow tick (yearly): {worn} ties wore (conductance); every dyad a year older")
         rows += [f"{names(p)} {field.replace('_', ' ')} {_signed(v)}" for p, field, v in effect.people]
     else:

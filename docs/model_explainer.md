@@ -1293,15 +1293,19 @@ owner's, taken as recommended on 2026-10-19. Which verdicts it moved is measured
   (a sided coach is inside a triangle, which is what being triangled means; a fused position leaves two live
   positions, which `M8` reads as a group that cannot move its tension around). It is left for stage 3. `[I]` either way.
 - **Every float total is exact** (D2 (b)). Python 3.12 changed how the builtin `sum` adds floats, so a run could
-  differ in its last bits between 3.11 and 3.12. Every float total in `src/bowen` outside the renderer is now a
+  differ in its last bits between 3.11 and 3.12. Every float total in `src/bowen`, the renderer's included, is now a
   `math.fsum`, and every integer total goes through a helper that refuses a float. The C maths library still differs
   between macOS and Linux, so the golden fingerprints keep their rounding to 8 significant digits; neither moved.
 - **The act classes come from config** (rule 9). Which act draws an external agent onto a member's side (`SPLIT`,
   `M8.3`), which acts a family member makes only toward an external agent (`M5.B.4`) and which acts an external agent
-  makes (`M5.B.5`) are read from `config/bowen/act_classes.md`. A misspelt act fails at load.
-- **Two runs are compared on their stressors too** (`M16.T.3`). `canonical_state`, the string by which two runs'
-  final states are compared, now includes the stressors still weighing on the family. Before, two runs that differed
-  only there compared equal.
+  makes (`M5.B.5`) are read from `config/bowen/act_classes.md`. A misspelt act fails at load, as do a class with no
+  acts and a side-taking act that is not a move toward an external agent. Kinds built without the classes carry none,
+  so the code that reads one fails instead of finding every act in no class.
+- **Two runs are compared on all of their state** (`M16.T.3`). `canonical_state`, the string by which two runs'
+  final states are compared, now includes the stressors still weighing on the family, the deliveries still to land,
+  the self-directed acts and witnessed cutoffs awaiting judgement, who last adjusted to whom, the last held stances and
+  the estimator's history. Before, two runs that differed only there compared equal. A test walks every field of the
+  run's state; the two left out, the event kinds and the draw service, are named with the reason.
 - **What a symptom gives back has its own trace row** (`M16.T.1`, D6 (a)). The weekly hold stays summarised (one
   bearer gave 121 rows a year). The release when a symptom ends, and the spill to the partners past the turn, are each
   shown with who received them; week 74 of the seed-7 trace held a spill of 222.4 that the trace did not show.
@@ -1358,8 +1362,11 @@ avoidance_available   = positions_live < 3          # a step, not a gradient
 - An external agent who has taken a side **does not** — he has fused into one of the two.
 - A member present but **emotionally inactive** does not. `[T]` Ch17 · L17.1 names that state directly.
 
-*In the running model (revision 33, §11.4):* this predicate decides whether the coach's contact lands. It does not
-decide whether a triangle is active, which is read from presence, and no family member is fused in a run.
+*In the running model (revision 33, §11.4):* the predicate is computed in three places, and only one reads a side.
+Whether a triangle is active (`recompute.recompute_triangles`) and whether a witness holds a live position
+(`visibility`) are fed presence only: no caller passes a fusion map, so no family member is fused, and a coach who has
+taken a side is still present. Whether the coach's contact lands (`external.coach_live`) is fed the coach's side, so a
+sided coach holds no live position there. `avoidance_available` is defined and tested, but no mechanism calls it.
 
 **This also dissolves the "reversal" in Ch14.** In Ch03 a family member talking to the therapist *removes* the third position, leaving a twosome that can avoid; in Ch14 the therapist *is* the third position, so talking to him keeps three live. **Same act, opposite meaning, because the third position moved — C10 applied to technique.**
 

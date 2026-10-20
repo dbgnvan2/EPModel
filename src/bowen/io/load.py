@@ -10,7 +10,7 @@ from __future__ import annotations
 import dataclasses
 from pathlib import Path
 
-from src.bowen.engine.events import EventKinds
+from src.bowen.engine.events import ACT_CLASSES, EventKinds
 from src.bowen.policy.rules import PolicyRules
 from src.bowen.scenario.constants import RETIRED, SCHEMA, Constants, parse_constants
 from src.bowen.scenario.event_kinds import parse_event_kinds
@@ -46,9 +46,6 @@ def load_event_kinds(path: Path = CONFIG_DIR / "event_kinds.md") -> EventKinds:
                                steering=load_steering(kinds), attribution=attribution, focus=focus, **classes)
 
 
-ACT_CLASSES = frozenset({"side_taking", "family_to_external", "external_repertoire"})
-
-
 def load_act_classes(kinds: EventKinds, path: Path = CONFIG_DIR / "act_classes.md") -> dict[str, frozenset[str]]:
     """Purpose: read the act classes the engine and the policy read; every class must be declared, once, and every act
              a declared move (version 2 stage 1, S1.3; rule 9).
@@ -61,11 +58,17 @@ def load_act_classes(kinds: EventKinds, path: Path = CONFIG_DIR / "act_classes.m
     doc = parse_table_document(read_text(path), columns=("class", "acts", "used by"), metadata_keys=frozenset(),
                                source=str(path))
     classes = {row["class"]: frozenset(a.strip() for a in row["acts"].split(",") if a.strip()) for row in doc.rows}
-    if set(classes) != ACT_CLASSES or len(classes) != len(doc.rows):
+    if set(classes) != set(ACT_CLASSES) or len(classes) != len(doc.rows):
         raise ConfigError(f"{path}: the classes must be exactly {sorted(ACT_CLASSES)}, each once; found {sorted(classes)}")
     unknown = sorted(a for acts in classes.values() for a in acts if a not in kinds.moves())
     if unknown:  # a misspelt act would match nothing, and the class would silently never apply
         raise ConfigError(f"{path}: not a declared move: {unknown}")
+    empty = sorted(c for c, acts in classes.items() if not acts)
+    if empty:  # an empty class silently never applies, as a misspelt act does
+        raise ConfigError(f"{path}: a class with no acts: {empty}")
+    if not classes["side_taking"] <= classes["family_to_external"]:  # M8.3: made toward an external agent (M5.B.4)
+        raise ConfigError(f"{path}: a side-taking act must be a family-to-external move: "
+                          f"{sorted(classes['side_taking'] - classes['family_to_external'])}")
     return classes
 
 

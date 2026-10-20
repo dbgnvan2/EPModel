@@ -160,11 +160,20 @@ def new_run_state(
     )
 
 
+# The RunState fields the canonical state leaves out, each with its reason; every other field is in it, under its own
+# name (stage 1 review, 2026-10-19: the queue, practice, adjusted, stances, witnessed and estimator_history were left out).
+NOT_CANONICAL = {
+    "kinds": "the event kinds are configuration, fixed for the run",
+    "draws": "each draw is a function of the seed and its key; the service's cache holds only values already drawn",
+}
+
+
 def canonical_state(state: RunState) -> str:
     """Purpose: the run's object state as one canonical string, for comparing two runs.
     Spec:    docs/bowen_agent_model_spec_v2.md#M16.T.3, #M11.D.6
     Tests:   tests/bowen/test_log.py::test_m16t3_sink_does_not_change_results,
-             tests/bowen/test_log.py::test_m16t3_s1_2_canonical_state_sees_the_stressors
+             tests/bowen/test_log.py::test_m16t3_s1_2_canonical_state_sees_the_stressors,
+             tests/bowen/test_log.py::test_m16t3_canonical_state_covers_every_field
     """
     from src.bowen.engine.log_records import plain
 
@@ -174,11 +183,16 @@ def canonical_state(state: RunState) -> str:
         "ties": [plain(state.ties[k]) for k in sorted(state.ties)],
         "triangles": [plain(state.triangles[k]) for k in sorted(state.triangles)],
         "family": plain(state.family),
-        **({"other_families": [plain(state.other_families[h]) for h in sorted(state.other_families)]}
-           if state.other_families else {}),
-        **({"life": plain(state.life)} if state.life is not None else {}),  # the life course, revision 28
-        "events": [plain(e) for e in state.store.events()],
+        "other_families": [plain(state.other_families[h]) for h in sorted(state.other_families)],
+        "life": plain(state.life),  # the life course, revision 28; None when the run has none
+        "store": [plain(e) for e in state.store.events()],
+        "queue": plain(state.queue.scheduled()),  # deliveries still to land
         "triggers": [plain(t) for t in state.triggers],  # revision 32: a spike still to land is state
         "stressors": [plain(s) for s in state.stressors],  # version 2 stage 1 (S1.2): a stressor still weighing
+        "practice": plain(state.practice),
+        "adjusted": plain(state.adjusted),
+        "stances": plain(state.stances),
+        "witnessed": plain(state.witnessed),
+        "estimator_history": plain({p: list(weeks) for p, weeks in state.estimator_history.items()}),  # deques
     }
     return json.dumps(body, sort_keys=True, separators=(",", ":"), default=str)

@@ -107,7 +107,9 @@ revisions, not here.
 
 *Implementation plan drafted 2026-10-19 (`docs/implementation_plan_version_2.md` §1), pending owner approval. Nothing
 built. Checking the items against the code found that 1.6 needs `M13.2` amended, that 1.1's drift comes from every
-float `sum()` and not only means, and that 1.4 changes results in coached arms; the plan's D1–D7 ask the owner.*
+float `sum()` and not only means, and that 1.4 changes results in coached arms. The owner decided the plan's D1–D7
+the same day, all as recommended: revision 33 carries `M13.2` and `M8.5`; every float `sum()` moves to `math.fsum`;
+the code's triangle activity is kept and `M8.5` amended to match.*
 
 Collected from `TODO.md` so the records regenerate once (owner rule, learnings P38). None is meant to change a result;
 any that does is reported as a measured change.

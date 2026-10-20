@@ -1,6 +1,7 @@
 # Version 2: implementation plan
 
-**Status: stage 1 DRAFT 2026-10-19, pending owner approval. Nothing is built.** Written from
+**Status: stage 1 DRAFT 2026-10-19; the owner decided D1–D7 the same day, every one as recommended (§1.2). The plan
+awaits approval. Nothing is built.** Written from
 `docs/version_2_plan.md` §3 (stage 1) and the `TODO.md` entries it collects, each checked against the code on
 2026-10-19. Later stages add their own sections here, as the Phase D plan did.
 
@@ -52,7 +53,7 @@ Mapping each item to the code found five things that change the stage as the ver
   at the tag `version-1`, and `M8.5` amended if D3 is (b). Group G's revision becomes 34.
 - (b) No revision now: 1.6 waits for group G's revision, and 1.4 is recorded as an open mismatch until then.
 
-*Recommended: (a).* The spec and the code then agree at stage 1's commit, as the documentation rule requires. The
+*Recommended: (a).* **Decided 2026-10-19 (owner): (a).** The spec and the code then agree at stage 1's commit, as the documentation rule requires. The
 grid engine is outside the engine hash, so either choice leaves the run unchanged.
 
 **D2 — The scope of 1.1.**
@@ -60,7 +61,7 @@ grid engine is outside the engine hash, so either choice leaves the run unchange
 - (b) Every float `sum()` in `src/bowen` outside `render/`, moved to `math.fsum`. Integer counts move to a small helper
   `count()` that refuses a float, and a test fails on any builtin `sum()` left in `src/bowen`.
 
-*Recommended: (b).* (a) leaves most of the drift in place (learnings P5: fix the class, not the instance). Both move
+*Recommended: (b).* **Decided 2026-10-19 (owner): (b).** (a) leaves most of the drift in place (learnings P5: fix the class, not the instance). Both move
 the engine hash, and neither adds run time.
 
 **D3 — Item 1.4: does a sided coach make its triangle inactive?**
@@ -71,14 +72,15 @@ the engine hash, and neither adds run time.
   active. No result changes.
 - (c) Leave both, and record the mismatch in `TODO.md`.
 
-*Recommended: (b), with the theory question offered to stage 3 if you want it as a rule question.* There is a case each
+*Recommended: (b), with the theory question offered to stage 3 if you want it as a rule question.* **Decided
+2026-10-19 (owner): (b).** There is a case each
 way. For active: a coach who has taken a side is inside a triangle with that member, which is what being triangled
 means. For inactive: under `M8` a fused position leaves two live positions, and the spec reads such a group as one
 that cannot move its tension around. Stage 1 is not the place to settle that, because either answer to (a) is a rule
 choice that changes results.
 
 **D4 — Item 1.6: what is removed.**
-Recommended: remove from the tree `src/engine.py`, `src/main.py`, `monte_carlo.py`, `tests/test_simulator.py` (37
+**Decided 2026-10-19 (owner): remove as listed.** Recommended: remove from the tree `src/engine.py`, `src/main.py`, `monte_carlo.py`, `tests/test_simulator.py` (37
 tests) and `docs/model_config.md` (the grid engine's configuration; step 1.6 confirms nothing in `src/bowen` or
 `tools/` reads it). `tests/bowen/test_engine_purity.py` drops `src.engine` and `src.main` from its module list. Keep
 `docs/bowen_individual_family_model_spec.md` as the frozen record, with a status line saying the engine it describes
@@ -93,7 +95,7 @@ are listed for you to delete, not deleted by Claude.
 - (b) Freeze it, as version 1's status page is frozen: a status line saying it is the record of Phase B's close, and
   `tools/mutation_gate.py` refuses to write.
 
-*Recommended: (b).*
+*Recommended: (b).* **Decided 2026-10-19 (owner): (b).**
 
 **D6 — Item 1.7: which lock-in transfers get their own row in the trace.**
 - (a) Every release: what a symptom held going back when it ends or passes its turn, and the spill to its partners
@@ -101,9 +103,9 @@ are listed for you to delete, not deleted by Claude.
   No new constant.
 - (b) (a), plus any weekly hold above a declared size, which needs a new `[I]` display constant in `config/viz/`.
 
-*Recommended: (a).* Week 74's missing 222.4 is a spill past the turn, so (a) shows it.
+*Recommended: (a).* **Decided 2026-10-19 (owner): (a).** Week 74's missing 222.4 is a spill past the turn, so (a) shows it.
 
-**D7 — Riders: `TODO.md` entries that say "with the next engine change".**
+**D7 — Riders: `TODO.md` entries that say "with the next engine change".** **Decided 2026-10-19 (owner): all five in.**
 Recommended in:
 - (i) the stale "pending owner review" text: ten sites in `src/`, `config/` and `tools/phase_d_record.py`, found by
   `grep -rn 'pending owner review' src config tools`, each checked against the owner's record before it is reworded

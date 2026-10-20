@@ -158,7 +158,7 @@ verdicts over ensembles (`tools/phase_d_record.py`; plan step 12). Mutations are
 
 **Approved 2026-10-19:** [version_2_plan.md](version_2_plan.md) — what version 2 of the agent model is for: version 1's accepted findings grouped by cause, its loose ends, four stages (freeze version 1, one engineering batch, the constant sweep, the rule questions the owner chooses), a definition (W1–W8), and ten questions, all answered by the owner on 2026-10-19. Stage 0 done 2026-10-19.
 
-**Draft for review, 2026-10-19:** [implementation_plan_version_2.md](implementation_plan_version_2.md) — version 2's implementation plan, stage 1 (the engineering batch): what the code shows against the version 2 plan's items 1.1–1.8, seven decisions for the owner (D1–D7), each criterion with its test and mutation, the order of work, and the one run. Nothing built.
+**Draft for review, 2026-10-19:** [implementation_plan_version_2.md](implementation_plan_version_2.md) — version 2's implementation plan, stage 1 (the engineering batch): what the code shows against the version 2 plan's items 1.1–1.8, seven decisions (D1–D7, decided by the owner 2026-10-19, all as recommended), each criterion with its test and mutation, the order of work, and the one run. Nothing built.
 
 **Decided 2026-10-19, not built:** [<PROPOSAL — CUTOFF ANXIETY, BRIDGING AND REPAIR.md>](<PROPOSAL — CUTOFF ANXIETY, BRIDGING AND REPAIR.md>) — version 2's G1: the owner's decisions on a cut-off tie's anxiety (peak, decay to a 10% floor, negative and positive bridging, repair) turned into rules, tests and the new negative-run composite criterion, with eleven questions (Q1–Q11, all decided by the owner) and two stated conflicts with the spec (`M1.D.2a`, `M5.B.3`).
 

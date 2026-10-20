@@ -32,6 +32,7 @@ from src.bowen.engine.params import EngineParams
 from src.bowen.engine.state import RunState
 
 from src.bowen.io.load import load_pattern_acts
+from src.bowen.engine.counting import count
 
 # Which acts each readout counts: config/bowen/pattern_acts.md (Phase D plan B2; rule 9).
 ACTS = load_pattern_acts()
@@ -138,7 +139,7 @@ def distance(state: RunState, tie: TieId, params: EngineParams, rp: ReadoutParam
             return Reading("distance", tie, silent, state.tick - silent + 1, silent=True)
         return None
     withdrawals = [e for e in moves if e.kind in ACTS["withdrawal"]]
-    approaches = sum(1 for e in moves if e.kind in APPROACH)
+    approaches = count(1 for e in moves if e.kind in APPROACH)
     relationship = state.ties[tie]
     below = all(too_little(state.people[m], relationship, params) > 0 for m in tie.members())
     if len(withdrawals) >= rp.min_acts and len(withdrawals) > approaches and below:

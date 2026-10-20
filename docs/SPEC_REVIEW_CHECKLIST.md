@@ -31,6 +31,8 @@ These define what the model does. A run that disagrees with them is a defect.
 - [ ] [../config/bowen/family_phase_d.md](../config/bowen/family_phase_d.md) — the owner's reference family (spec `M2.A`, revision 13), with its life course from revision 28: starting ages as settings, who earns, the coachee (`M2.A.0j`, `M2.A.0k`).
 - [ ] [../config/bowen/partners_phase_d.md](../config/bowen/partners_phase_d.md) — the reference family's partners and their children, drafted for the owner to edit (spec `M7.C.1h`, `M7.C.1i`, revision 28).
 - [ ] [../config/bowen/pattern_acts.md](../config/bowen/pattern_acts.md) — which acts each pattern readout counts.
+- [ ] [../config/bowen/act_classes.md](../config/bowen/act_classes.md) — which acts draw an external agent onto a side,
+  go only toward one, and make up its repertoire (spec `M8.3`, `M5.B.4`, `M5.B.5`; version 2 stage 1, S1.3).
 - [ ] [../config/bowen/stress_response.md](../config/bowen/stress_response.md) — which acts avoid or soothe under load
   (spec revisions 18-19).
 - [ ] [../config/bowen/attribution.md](../config/bowen/attribution.md) — where each act places the family's difficulty

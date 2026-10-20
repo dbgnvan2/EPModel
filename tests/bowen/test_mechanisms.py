@@ -355,6 +355,33 @@ def test_m1c3_activity_is_a_readout_of_recent_triangle_acts():
     assert not state.triangles[TriangleId.of(RAVI, MARTA, NADIA)].active
 
 
+def test_m8_5_s1_4_a_sided_coach_leaves_its_triangle_active():
+    """S1.4 (`M8.5` as amended at revision 33, owner decision D3 (b)): whether a triangle is active is decided by
+    presence. A coach drawn onto Marta's side by her ``SPLIT`` is fused into her for whether his contact lands
+    (``coach_live`` is false), but the triangle he sits in, with a recent ``TRIANGLE`` act, is active."""
+    from src.bowen.engine.events import Channel, Event, EventId, Mechanism, SourcePosition
+    from src.bowen.engine.external import coach_live, coach_side
+    from src.bowen.engine.initialise import initialise_run
+    from src.bowen.engine.state import new_run_state
+    from src.bowen.io.load import CONFIG_DIR, load_event_kinds, load_family
+
+    halim = PersonId("halim")
+    family = load_family(CONFIG_DIR / "family_phase_c.md")
+    state = initialise_run(new_run_state(dict(family.people), dict(family.ties), family.family, load_event_kinds()),
+                           PARAMS)
+    for index, (sender, kind, target) in enumerate(((MARTA, "SPLIT", halim), (halim, "TRIANGLE", RAVI))):
+        state.store.record_event(Event(
+            id=EventId(9, f"{sender.value}-{kind}", index), kind=kind, mechanism=Mechanism.MOVE, sender=sender,
+            targets=(target,), intensity=50.0, timestamp=9, duration=1, exogenous=False,
+            source_position=SourcePosition.NONE, channel=Channel.SCRIPTED))
+    state.tick = 10
+    key = next(k for k in state.triangles if set(k.members) == {halim, RAVI, MARTA})
+    assert coach_side(state, halim, key.members, PARAMS) == MARTA
+    assert not coach_live(state, halim, RAVI, PARAMS)
+    recompute_triangles(state, PARAMS)
+    assert state.triangles[key].active
+
+
 def test_m1c3_calm_and_tense_systems_get_no_threshold():
     """No calm-system threshold in step 6: the same TRIANGLE act activates its triangle at any tension."""
     calm, tense = fresh(), fresh()

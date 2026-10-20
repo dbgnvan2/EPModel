@@ -21,13 +21,13 @@ arm designs are Claude's recommendation, declared before any ran, approved by th
   course, under the policy, with the declared nodal load on the two parents (as part I's `M11.C.2`). One run per seed,
   the family as declared, serves `M11.C.6` and `M11.C.2` (each compares children within it); `M11.C.10` runs its own
   two arms (spec revision 29).
-  - `M11.C.6` (restated at revision 32, post hoc, Claude's recommendation pending owner review): one declared child,
-    ``child``, in two arms of the same seed, run until the child is 20. In the treatment the parents act as the policy
-    chooses; in the baseline their projection-type acts toward the child (`PROJECTION_ACTS`) are withheld, every week.
-    Read: the child's basic level at 20 less its anchor at 5 (`M7.E.1f`), which MUST be lower under projection. The
-    first form compared the most- and least-projected children of one run by raw counts over different spans, so it
-    picked by birth order and run year rather than by projection (trace of 2026-10-17, plan §4.12). One transmission
-    (generation 2 to 3).
+  - `M11.C.6` (restated at revision 32, post hoc, Claude's recommendation, accepted by the owner 2026-10-18): one
+    declared child, ``child``, in two arms of the same seed, run until the child is 20. In the treatment the parents act
+    as the policy chooses; in the baseline their projection-type acts toward the child (`PROJECTION_ACTS`) are withheld,
+    every week. Read: the child's basic level at 20 less its anchor at 5 (`M7.E.1f`), which MUST be lower under
+    projection. The first form compared the most- and least-projected children of one run by raw counts over different
+    spans, so it picked by birth order and run year rather than by projection (trace of 2026-10-17, plan §4.12). One
+    transmission (generation 2 to 3).
   - `M11.C.10` (revision 29, the owner: "hold the cutoff for the run and read tie states"; revision 30: "partner and own
     parents", "200 instead", "b as second variant"): the tie-weeks over the run on which the third generation hold
     rejection (`M1.B.3c`) toward their partner or their own parents, over exactly ``seeds`` seeds; rejection of their
@@ -44,6 +44,7 @@ arm designs are Claude's recommendation, declared before any ran, approved by th
 
 from __future__ import annotations
 
+import math
 import dataclasses
 import functools
 from collections import Counter
@@ -60,6 +61,7 @@ from src.bowen.ensemble.criteria import FAMILIES, PARENTS, ROLES, SETTINGS, _rei
 from src.bowen.ensemble.criteria_d import ENGINE, held_symptom, nodal, remission
 from src.bowen.ensemble.runner import ArmResult, Criterion, Readout
 from src.bowen.io.load import load_family
+from src.bowen.engine.counting import count
 
 P = PersonId
 FATHER, MOTHER, CHILD, PARTNER = P("f"), P("m"), P("c1"), P("c2")  # the nuclear-four fixture's ids
@@ -94,12 +96,12 @@ def arm_c15(arm, seed, settings):
 
         def watch(state):
             if at < state.tick <= at + after:  # the weeks at .. at + after - 1, just run
-                sums.append(sum(excess(state.people[p]) for p in others) / len(others))
+                sums.append(math.fsum(excess(state.people[p]) for p in others) / len(others))
 
         spells = (remission(at, MOTHER, channel),) if change == "recovery" else ()
         _, records = scenario("four", seed, at + after, spells=spells, setup=_mortal, before=before, watch=watch,
                               overrides=NO_GRIEF_OR_INCOME)
-        return sum(sums) / len(sums), records
+        return math.fsum(sums) / len(sums), records
 
     if arm == "baseline":
         control, records = run(None)
@@ -229,18 +231,18 @@ def life_run(seed: int, years: int, arm: str = "declared", renew_every: int = 0,
             if c not in at_twenty and person.age_years is not None and person.age_years >= end:
                 at_twenty[c], turned[c] = person.basic_level - state.life.anchors[c], state.tick
             if state.tick > half:
-                loads[c] += sum(person.symptom_load.values()) / (weeks - half)
+                loads[c] += math.fsum(person.symptom_load.values()) / (weeks - half)
             if until is not None and person.age_years is not None:
                 if c not in under and person.age_years >= until:
                     under[c] = state.tick
                 if person.alive and load_from <= person.age_years < load_to:
-                    aged_load[c] += sum(person.symptom_load.values())
+                    aged_load[c] += math.fsum(person.symptom_load.values())
                     aged_weeks[c] += 1
         if pairs:
             tested, reported = cut_off_tie_weeks(state, children)
             cut_weeks[0] += tested
             child_weeks[0] += reported
-            held[0] += sum(state.tie_between(a, b).rejection.get(a, 0.0) > 0 for a, b in pairs)
+            held[0] += count(state.tie_between(a, b).rejection.get(a, 0.0) > 0 for a, b in pairs)
 
     state, records = scenario(
         "phase_d", seed, weeks, spells=nodal(weeks, parents), watch=watch,
@@ -253,7 +255,7 @@ def life_run(seed: int, years: int, arm: str = "declared", renew_every: int = 0,
         books[0]["(cutter-weeks holding rejection on the cutoffs the arm names)"] += held[0]
 
     def received(c, until_tick):
-        return sum(1 for e in moves if e.kind in PROJECTION_ACTS and e.sender in parents and c in e.targets
+        return count(1 for e in moves if e.kind in PROJECTION_ACTS and e.sender in parents and c in e.targets
                    and e.timestamp < until_tick)
 
     def observed(c):  # weeks under ``until`` the child was alive for (review 2026-10-14: a death shortens them)
@@ -313,7 +315,7 @@ def arm_c6(arm, seed, settings):
             seen["development"] = person.basic_level - state.life.anchors[child]
 
     state, records = scenario("phase_d", seed, weeks, spells=nodal(weeks, parents), watch=watch, withheld=withheld)
-    acts = sum(1 for r in records if isinstance(r, EmittedRecord) and r.event.kind in PROJECTION_ACTS
+    acts = count(1 for r in records if isinstance(r, EmittedRecord) and r.event.kind in PROJECTION_ACTS
                and r.event.sender in parents and child in r.event.targets)
     out = result({"development": seen.get("development", 0.0), "projection_acts": float(acts)}, records)
     if "development" not in seen:
@@ -390,8 +392,8 @@ def arm_c47(arm, seed, settings):
         held.append(any(t.rejection.get(o, 0.0) > 0.0 for o, t in ties))
 
     _, records = scenario("danger", seed, weeks, spells=spells, setup=setup, watch=watch)
-    return result({"felt_danger": sum(felt) / len(felt), "principled_cutoff": sum(principled) / len(principled),
-                   "held_weeks": sum(held)}, records)
+    return result({"felt_danger": math.fsum(felt) / len(felt), "principled_cutoff": math.fsum(principled) / len(principled),
+                   "held_weeks": count(held)}, records)
 
 
 C = Criterion

@@ -72,12 +72,21 @@ def code_text(path: Path) -> str:
     the split tokens would hash differently by version (review 2026-10-10; the suite runs on 3.11 in CI). Docstrings
     are found with ``ast``, whose column offsets count UTF-8 bytes, converted to the characters ``tokenize`` counts.
     """
+    return source_text(path.read_text(encoding="utf-8"))
+
+
+def source_text(source: str) -> str:
+    """``code_text`` for source already read, such as a function's from ``inspect.getsource`` (stage 1 rider (iv)).
+
+    Lines are split as ``tokenize`` reads them, at ``\\n`` only (S1.5b): ``str.splitlines`` also breaks at U+2028 and
+    other separators that can sit inside a string, which shifted every later line's number.
+    Tests: tests/bowen/test_ensemble_record.py::test_s1_5b_code_text_keeps_a_line_separator_inside_a_string
+    """
     import ast
     import io
     import tokenize
 
-    source = path.read_text(encoding="utf-8")
-    lines = source.splitlines(keepends=True)
+    lines = io.StringIO(source).readlines()
 
     def chars(row: int, byte_col: int) -> int:
         return len(lines[row - 1].encode("utf-8")[:byte_col].decode("utf-8", errors="ignore"))

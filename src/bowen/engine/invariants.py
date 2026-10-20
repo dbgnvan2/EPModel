@@ -28,6 +28,7 @@ What each check means from Phase C step 10:
 
 from __future__ import annotations
 
+import math
 from dataclasses import dataclass
 
 from src.bowen.engine.identifiers import PersonId, TieId
@@ -82,7 +83,7 @@ def snapshot(state: RunState) -> Snapshot:
         people=frozenset(state.people),
         ties=frozenset(state.ties),
         basic_levels=tuple((p, state.people[p].basic_level) for p in sorted(state.people)),
-        pseudo_self_total=sum(p.pseudo_self or 0.0 for p in state.people.values()),
+        pseudo_self_total=math.fsum(p.pseudo_self or 0.0 for p in state.people.values()),
         acute=tuple((p, state.people[p].acute_anxiety) for p in sorted(state.people)),
         tie_bound=tuple((t, state.ties[t].distance_bound_anxiety) for t in sorted(state.ties)),
         budget=state.family.undifferentiation_budget,
@@ -102,11 +103,11 @@ def ledger_problems(state: RunState, before: Snapshot, records, tolerance: float
     for record in records:
         if not isinstance(record, EffectRecord):
             continue
-        acute = sum(v for _, v in record.acute_anxiety)
-        bound = sum(v for _, f, v in record.ties if f == "distance_bound_anxiety")
-        budget = sum(v for name, v in record.sinks if name == BUDGET)
-        named = sum(v for _, f, v in record.people if f in NAMED_SOURCES)
-        held = sum(v for _, f, v in record.people if f == "symptom_bound")
+        acute = math.fsum(v for _, v in record.acute_anxiety)
+        bound = math.fsum(v for _, f, v in record.ties if f == "distance_bound_anxiety")
+        budget = math.fsum(v for name, v in record.sinks if name == BUDGET)
+        named = math.fsum(v for _, f, v in record.people if f in NAMED_SOURCES)
+        held = math.fsum(v for _, f, v in record.people if f == "symptom_bound")
         if not (record.acute_anxiety or bound or held):
             continue
         kind = LEDGER.get(record.mechanism)
@@ -151,17 +152,17 @@ def budget_problems(state: RunState, before: Snapshot, records, tolerance: float
     """
     family = state.family
     problems = []
-    logged = sum(v for r in records if isinstance(r, EffectRecord) for name, v in r.sinks if name == BUDGET)
+    logged = math.fsum(v for r in records if isinstance(r, EffectRecord) for name, v in r.sinks if name == BUDGET)
     if abs(family.undifferentiation_budget - before.budget - logged) > tolerance:
         problems.append(f"budget moved {family.undifferentiation_budget - before.budget:+.6g}, logged {logged:+.6g}")
     allocations = [*family.sink_allocations.values(), family.overflow]
     if any(v < -tolerance for v in allocations):
         problems.append(f"a negative allocation: {dict(family.sink_allocations)}, overflow {family.overflow}")
-    if sum(allocations) > family.undifferentiation_budget + tolerance:
-        problems.append(f"allocations {sum(allocations)} exceed the budget {family.undifferentiation_budget}")
+    if math.fsum(allocations) > family.undifferentiation_budget + tolerance:
+        problems.append(f"allocations {math.fsum(allocations)} exceed the budget {family.undifferentiation_budget}")
     for other in state.families()[1:]:  # spec revision 28: the families partnering makes; their budgets do not move
         allocated = [*other.sink_allocations.values(), other.overflow]
-        if any(v < -tolerance for v in allocated) or sum(allocated) > other.undifferentiation_budget + tolerance:
+        if any(v < -tolerance for v in allocated) or math.fsum(allocated) > other.undifferentiation_budget + tolerance:
             problems.append(f"{other.household}: allocations {allocated} outside its budget {other.undifferentiation_budget}")
     return problems
 
@@ -196,7 +197,7 @@ def assert_invariants(
             "life_energy_ratio outside [0, 1]",
         ),
         require(
-            abs(sum(p.pseudo_self or 0.0 for p in state.people.values()) - before.pseudo_self_total) <= tolerance,
+            abs(math.fsum(p.pseudo_self or 0.0 for p in state.people.values()) - before.pseudo_self_total) <= tolerance,
             "M6.I.4",
             "total pseudo-self changed",
         ),

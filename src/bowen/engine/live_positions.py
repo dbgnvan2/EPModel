@@ -29,6 +29,7 @@ from dataclasses import dataclass
 from typing import Iterable
 
 from src.bowen.engine.identifiers import PersonId
+from src.bowen.engine.counting import count
 
 AVOIDANCE_THRESHOLD = 3  # M8.1 states the step at 3; it is the rule's definition, not a tunable constant
 
@@ -67,7 +68,7 @@ def positions_live(group: Iterable[Occupant]) -> int:
     """
     occupants = _validated(group)
     members = {o.person for o in occupants}
-    return sum(
+    return count(
         1
         for o in occupants
         if o.present

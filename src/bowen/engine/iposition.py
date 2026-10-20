@@ -65,6 +65,7 @@ step; on other weeks the person selects normally, and an act toward ``T`` is mad
 
 from __future__ import annotations
 
+import math
 from dataclasses import dataclass, field
 
 from src.bowen.engine.contact import excess, too_much
@@ -337,7 +338,7 @@ def _abort_act(state: RunState, mover: PersonId, target: PersonId, params: Engin
     weights = []
     for kind in ABORT_ACTS:
         values = [v for k, v in learned.items() if act_and_where(k) == (kind, target.value)]
-        mean = sum(values) / len(values) if values else 0.0
+        mean = math.fsum(values) / len(values) if values else 0.0
         weights.append(math.exp(mean / params.policy_temperature))
     key = DrawKey.make("move_selection", tick=state.tick, actor=mover, purpose="abort", index=0)
     return ABORT_ACTS[state.draws.categorical(key, weights)]

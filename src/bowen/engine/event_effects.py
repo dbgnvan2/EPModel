@@ -24,6 +24,8 @@ and returns any anxiety `DISTANCE` bound into the tie to its members, split equa
 
 from __future__ import annotations
 
+import math
+
 from src.bowen.engine.contact import deviation, resting_contact, steepness
 from src.bowen.engine.events import BinderKind, Delivery, Event, Mechanism, Role
 from src.bowen.engine.identifiers import PersonId, TieId, TriangleId
@@ -56,7 +58,7 @@ def nodal_spike(state: RunState, event: Event, params: EngineParams) -> list[Eff
     members is spiked once per event; spikes from separate events in one week add up, as ``TRIGGER``s do. Ties to the
     dead are left out (a death's own disposition, `M6.3`, covers them), and so are ties that are only not interactive:
     a retired coach's, a removed member's while away, a criterion's arm (review 2026-10-17; Claude's recommendation,
-    pending owner review, narrowing "or not interactive" in the form the owner approved).
+    kept by the owner 2026-10-19, version 2 plan Q10, narrowing "or not interactive" in the form the owner approved).
     """
     if event.kind not in state.kinds.nodal or params.nodal_spike_intensity <= 0:
         return []
@@ -102,7 +104,7 @@ def apply_structural_event(state: RunState, event: Event, params: EngineParams) 
         )
         ties = [(tie.id, "interactive", 1.0)] + cleared
         if returned:
-            ties.append((tie.id, "distance_bound_anxiety", -sum(v for _, v in returned)))
+            ties.append((tie.id, "distance_bound_anxiety", -math.fsum(v for _, v in returned)))
         return [EffectRecord(state.tick, "reconciliation", event.id, acute_anxiety=returned, ties=tuple(ties))]
     if event.mechanism is Mechanism.INSTITUTIONALIZE:
         changed = []
@@ -122,7 +124,7 @@ def apply_structural_event(state: RunState, event: Event, params: EngineParams) 
             moved = release_bound(state, bearer)
             if moved:
                 records.append(EffectRecord(state.tick, "lock_in", event.id, acute_anxiety=moved,
-                                            people=((bearer, "symptom_bound", -sum(v for _, v in moved)),)))
+                                            people=((bearer, "symptom_bound", -math.fsum(v for _, v in moved)),)))
         return records
     raise ValueError(f"{event.mechanism} is not a structural event")
 

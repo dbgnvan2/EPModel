@@ -168,7 +168,7 @@ def routing_capacity(members: tuple[Person, ...]) -> float:
     Spec:    docs/bowen_agent_model_spec_v2.md#M1.C.3a
     Tests:   tests/bowen/test_moves.py::test_m1c3a_better_differentiated_triangle_routes_less
     """
-    return max(0.0, 1.0 - sum(p.functional_level for p in members) / (len(members) * SCALE_MAX))
+    return max(0.0, 1.0 - math.fsum(p.functional_level for p in members) / (len(members) * SCALE_MAX))
 
 
 def third_help(state: RunState, seeker: PersonId, partner: PersonId, third: PersonId) -> float:
@@ -405,7 +405,7 @@ def reduce_cutoff(state: RunState, event: Event, tie: Relationship, params: Engi
     released = release_bound_distance(state, tie, thirds)
     ties = list(lowered)
     if released:
-        ties.append((tie.id, "distance_bound_anxiety", -sum(v for _, v in released)))
+        ties.append((tie.id, "distance_bound_anxiety", -math.fsum(v for _, v in released)))
     return EffectRecord(state.tick, "reduce_cutoff", event.id, acute_anxiety=released, ties=tuple(ties))
 
 

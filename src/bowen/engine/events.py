@@ -19,6 +19,7 @@ from types import MappingProxyType
 from typing import Mapping
 
 from src.bowen.engine.identifiers import PersonId, TieId
+from src.bowen.engine.counting import count
 
 
 class Mechanism(enum.Enum):
@@ -75,6 +76,12 @@ class EventKinds:
     # the symptom channel a family's anxious attention by that act focuses. From config/bowen/attribution.md.
     attribution: Mapping[str, str] = field(default_factory=lambda: MappingProxyType({}))
     focus: Mapping[str, str] = field(default_factory=lambda: MappingProxyType({}))
+    # Version 2 stage 1 (S1.3, rule 9): the act classes the engine and the policy read. From config/bowen/act_classes.md:
+    # the move that draws an external agent onto its sender's side (M8.3), the moves a family member makes toward an
+    # external agent and only toward one (M5.B.4), and the external agent's repertoire (M5.B.5).
+    side_taking: frozenset[str] = frozenset()
+    family_to_external: frozenset[str] = frozenset()
+    external_repertoire: frozenset[str] = frozenset()
 
     def __post_init__(self) -> None:
         object.__setattr__(self, "mechanisms", MappingProxyType(dict(self.mechanisms)))
@@ -327,4 +334,4 @@ class EventQueue:
         return tuple(sorted(self._pending.pop(tick, [])))
 
     def pending(self) -> int:
-        return sum(len(v) for v in self._pending.values())
+        return count(len(v) for v in self._pending.values())

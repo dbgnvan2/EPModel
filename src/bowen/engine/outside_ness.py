@@ -42,6 +42,8 @@ arrives with the external agent and peripheral ties (step 9).
 
 from __future__ import annotations
 
+import math
+
 from src.bowen.engine.contact import clamp_unit
 from src.bowen.engine.identifiers import PersonId
 from src.bowen.engine.log_records import EffectRecord
@@ -90,7 +92,7 @@ def outward_target(state: RunState, person: PersonId, params: EngineParams) -> f
 
 
 def inward_target(state: RunState, person: PersonId, reading: float, params: EngineParams) -> float:
-    gave_way = sum(
+    gave_way = math.fsum(
         event.intensity / params.intensity_scale
         for event in state.store.moves_in(state.tick - 1, state.tick)
         if event.sender == person and event.kind in state.kinds.accommodating

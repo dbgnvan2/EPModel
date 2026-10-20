@@ -80,10 +80,8 @@ AUTOMATIC, SELF = "automatic", "self"
 CUTOFF, TRIANGLE, I_POSITION, STAY_IN_CONTACT = "CUTOFF", "TRIANGLE", "I-POSITION", "STAY-IN-CONTACT"
 REDUCE_CUTOFF, DETRIANGLE, PREVENT_ALIGNMENT = "REDUCE_CUTOFF", "DETRIANGLE", "PREVENT_ALIGNMENT"
 NEEDS_TRIAD = frozenset({TRIANGLE, DETRIANGLE, PREVENT_ALIGNMENT})
-# M5.B.4: moves a family member makes toward an external agent, and only toward one.
-FAMILY_TO_EXTERNAL = frozenset({"SPLIT", "FRAME_AMBIGUITY", "DISPLACE"})
-# M5.B.5: the external agent's repertoire is a strict subset (M1.E.3's and M1.E.4's acts are Phase D).
-EXTERNAL_REPERTOIRE = frozenset({"STAY-IN-CONTACT", "I-POSITION", "OVERFUNCTION", "TRIANGLE", "CUTOFF"})
+# M5.B.4's family→external moves and M5.B.5's external repertoire are read from the kinds (``family_to_external``,
+# ``external_repertoire``), loaded from config/bowen/act_classes.md (version 2 stage 1, S1.3; rule 9).
 
 
 @dataclass(frozen=True)
@@ -156,9 +154,9 @@ def legal_outcomes(obs: Observation, kinds: EventKinds, params: EngineParams,
         if not view.other_alive:
             continue
         for kind, channel in sorted(kinds.channels.items()):
-            if obs.external and kind not in EXTERNAL_REPERTOIRE:
+            if obs.external and kind not in kinds.external_repertoire:
                 continue
-            if (kind in FAMILY_TO_EXTERNAL) != (view.other_external and not obs.external):
+            if (kind in kinds.family_to_external) != (view.other_external and not obs.external):
                 continue
             # REDUCE_CUTOFF is legal only across a cut-off tie; every other act needs the tie interactive,
             # which a cut-off tie is (M1.B.3c).
@@ -303,16 +301,16 @@ def propensities(obs: Observation, kinds: EventKinds, params: EngineParams,
     weights = channel_weights(outcomes, obs, kinds, params, steered=True)
     if any(not math.isfinite(w) for w in weights):
         return outcomes, [math.nan] * len(outcomes)
-    if sum(w for o, w in zip(outcomes, weights) if o.channel == AUTOMATIC) <= 0:
+    if math.fsum(w for o, w in zip(outcomes, weights) if o.channel == AUTOMATIC) <= 0:
         # Nothing automatic carries weight, so there is nothing to withhold (M4.D.1b).
         weights = [0.0 if o.kind == WITHHOLD else w for o, w in zip(outcomes, weights)]
-    totals = {c: sum(w for o, w in zip(outcomes, weights) if o.channel == c) for c in (AUTOMATIC, SELF)}
+    totals = {c: math.fsum(w for o, w in zip(outcomes, weights) if o.channel == c) for c in (AUTOMATIC, SELF)}
     mix = {SELF: self_channel_weight(obs.functional_level, params, obs.systems_perspective)}
     mix[AUTOMATIC] = 1.0 - mix[SELF]
     live = {c for c in totals if totals[c] > 0}
-    if live and sum(mix[c] for c in live) <= 0:
+    if live and math.fsum(mix[c] for c in live) <= 0:
         mix = {c: 1.0 for c in live}  # the only channel with anything legal takes all of it
-    norm = sum(mix[c] for c in live)
+    norm = math.fsum(mix[c] for c in live)
     probs = [mix[o.channel] / norm * w / totals[o.channel] if o.channel in live else 0.0
              for o, w in zip(outcomes, weights)]
     return outcomes, probs
@@ -324,10 +322,10 @@ def competing_urges(outcomes: list[Outcome], obs: Observation, kinds: EventKinds
     Tests:   tests/bowen/test_policy.py::test_m4d1d_competing_urges_raise_anxiety_by_entropy
     """
     auto = [w for o, w in zip(outcomes, channel_weights(outcomes, obs, kinds, params)) if o.channel == AUTOMATIC]
-    total = sum(auto)
+    total = math.fsum(auto)
     if len(auto) < 2 or total <= 0 or not math.isfinite(total):
         return 0.0
-    entropy = -sum(w / total * math.log(w / total) for w in auto if w > 0)
+    entropy = -math.fsum(w / total * math.log(w / total) for w in auto if w > 0)
     return params.competing_urge_gain * entropy / math.log(len(auto))
 
 
@@ -343,7 +341,7 @@ def decide(obs: Observation, kinds: EventKinds, params: EngineParams, rules: Pol
     """
     outcomes, probs = propensities(obs, kinds, params, excluded)
     legal = tuple(o.label for o in outcomes)
-    if not outcomes or any(not math.isfinite(p) for p in probs) or sum(probs) <= 0:
+    if not outcomes or any(not math.isfinite(p) for p in probs) or math.fsum(probs) <= 0:
         return Decision(Selection(
             actor=obs.person, kind=WITHHOLD, targets=(), intensity=0.0, decided_by=DecidedBy.FALLBACK,
             legal_set=legal, fallback_rule=rules.fallback,
@@ -392,7 +390,7 @@ def force(outcome: Outcome, obs: Observation, params: EngineParams) -> float:
 
 def _invert(u: float, weights: list[float]) -> int:
     """Inverse transform: one uniform, one index (M3.D.4a)."""
-    target = u * sum(weights)
+    target = u * math.fsum(weights)
     running = 0.0
     for index, weight in enumerate(weights):
         running += weight

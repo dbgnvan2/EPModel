@@ -50,6 +50,8 @@ addressed to everyone on an interactive tie with them, at ``symptom_event_intens
 
 from __future__ import annotations
 
+import math
+
 from src.bowen.engine.act import inject
 from src.bowen.engine.contact import excess
 from src.bowen.engine.events import Channel, Event, EventId, Mechanism, SourcePosition
@@ -104,7 +106,7 @@ def integrate(person: Person, params: EngineParams) -> tuple[SymptomChannel, ...
         return ()
     limit = threshold(person, params)
     integrand = max(0.0, above_usual(person, excess(person)))
-    others = sum(person.symptom_load[c] for c in CHANNELS if c is not channel)
+    others = math.fsum(person.symptom_load[c] for c in CHANNELS if c is not channel)
     fed = person.symptom_suppression * integrand / (1.0 + params.channel_protection * others / limit)
     fired = []
     for c in CHANNELS:
@@ -171,7 +173,7 @@ def lock_in(state: RunState, params: EngineParams) -> list[EffectRecord]:
             if person.symptom_bound > 0:  # the symptom has ended: what it held goes back (M1.F.9's logic)
                 moved = release_bound(state, pid)
                 if moved:
-                    records.append(_lock_in_record(state, pid, moved, -sum(v for _, v in moved)))
+                    records.append(_lock_in_record(state, pid, moved, -math.fsum(v for _, v in moved)))
             continue
         x = max(person.symptom_load[c] for c in active) / threshold(person, params)
         s = lock_in_coefficient(x, params)
@@ -185,12 +187,12 @@ def lock_in(state: RunState, params: EngineParams) -> list[EffectRecord]:
                     person.symptom_bound += take
                     moved.append((other, -take))
             if moved:
-                records.append(_lock_in_record(state, pid, moved, -sum(v for _, v in moved)))
+                records.append(_lock_in_record(state, pid, moved, -math.fsum(v for _, v in moved)))
         elif s < 0:
             share = min(1.0, -s)
             moved = list(release_bound(state, pid, share))
             if moved:
-                records.append(_lock_in_record(state, pid, moved, -sum(v for _, v in moved)))
+                records.append(_lock_in_record(state, pid, moved, -math.fsum(v for _, v in moved)))
             partners = _partners(state, pid)
             spill = share * max(0.0, above_usual(person, excess(person)))
             if partners and spill > 0:  # the severe symptom no longer holds the bearer's own anxiety either
@@ -212,7 +214,7 @@ def tolerance_removal(state: RunState, params: EngineParams, visibility: Househo
     family = state.family
     if family.decision_ownership_external or not family.tolerance:
         return []
-    bearers = [(sum(p.symptom_load[c] for c in CHANNELS if p.symptom_active[c]), pid)
+    bearers = [(math.fsum(p.symptom_load[c] for c in CHANNELS if p.symptom_active[c]), pid)
                for pid, p in sorted(state.people.items()) if p.alive and any(p.symptom_active.values())
                and any(t.interactive for t in state.ties_of(pid))]
     if not bearers:
@@ -261,7 +263,7 @@ def accumulate_symptoms(
         person = state.people[pid]
         fired = integrate(person, params)
         if person.channel_prior is not None and person.alive:
-            loads.append((pid, sum(person.symptom_load.values())))
+            loads.append((pid, math.fsum(person.symptom_load.values())))
         for channel in fired:
             records += _onset(state, pid, channel, params, visibility)
     if loads:

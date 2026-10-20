@@ -32,6 +32,8 @@ The readout of each is the rise in estimated ``basic_level`` over the run (``M1.
 
 from __future__ import annotations
 
+import math
+
 from src.bowen.engine.act import WITHHOLD, Selection
 from src.bowen.engine.events import Channel, Event, EventId, Mechanism, SourcePosition
 from src.bowen.engine.identifiers import PersonId
@@ -68,7 +70,7 @@ def _with_perspective(state) -> None:
 
 def _rise(state, family: str, who) -> float:
     start = load_family(FAMILIES[family]).people
-    return sum(state.people[p].basic_level - start[p].basic_level for p in who) / len(who)
+    return math.fsum(state.people[p].basic_level - start[p].basic_level for p in who) / len(who)
 
 
 def arm_c18(arm, seed, settings):
@@ -103,7 +105,7 @@ def support_blocked(records) -> float:
     events = {r.event.id: r.event for r in records if isinstance(r, EmittedRecord)}
     support = [e.id for e in events.values() if e.kind == "UNDERFUNCTION" and e.sender == OTHER and MOVER in e.targets]
     held = {r.cause for r in records if isinstance(r, EffectRecord) and r.mechanism == "position_held"}
-    return sum(1 for e in support if e in held) / len(support) if support else 0.0
+    return count(1 for e in support if e in held) / len(support) if support else 0.0
 
 
 YEAR = load_constants()["slow_tick_fast_ticks"]
@@ -176,6 +178,7 @@ CRITERIA_D: dict[str, Criterion] = {
 # severity (ad hoc, 2026-10-12: the person's usual level catches up and the engine's own episodes dominate).
 
 from src.bowen.scenario.params import engine_params
+from src.bowen.engine.counting import count
 
 ENGINE = engine_params(load_constants())
 CHILD, PARTNER = P("c1"), P("c2")
@@ -223,7 +226,7 @@ def held_symptom(who: PersonId, severity: float, until: int | None = None):
 def _mean_excess(state, who) -> float:
     from src.bowen.engine.contact import excess
 
-    return sum(excess(state.people[p]) for p in who) / len(who)
+    return math.fsum(excess(state.people[p]) for p in who) / len(who)
 
 
 def arm_c30(arm, seed, settings):
@@ -246,7 +249,7 @@ def arm_c30(arm, seed, settings):
     social = []
     state, records = scenario("four", seed, weeks, spells=nodal(weeks, (CHILD,)), setup=focus, before=carry,
                               watch=lambda s: social.append(s.people[CHILD].symptom_load[SymptomChannel.SOCIAL]))
-    return result({"social_load": sum(social) / len(social)}, records)
+    return result({"social_load": math.fsum(social) / len(social)}, records)
 
 
 def _removal_effect(seed, at, after, severity):
@@ -258,7 +261,7 @@ def _removal_effect(seed, at, after, severity):
             "four", seed, at + after, spells=(removal(at, CHILD),) if removed else (),
             before=held_symptom(CHILD, severity),
             watch=lambda s: window.append(_mean_excess(s, (FATHER, MOTHER, PARTNER))) if s.tick > at else None)
-        means[removed] = sum(window) / len(window)
+        means[removed] = math.fsum(window) / len(window)
     return means[True] - means[False], records
 
 
@@ -276,7 +279,7 @@ def arm_c22(arm, seed, settings):
 
 
 def _conflict_between(records, a, b, start) -> int:
-    return sum(1 for r in records if isinstance(r, EmittedRecord) and r.event.kind == "CONFLICT"
+    return count(1 for r in records if isinstance(r, EmittedRecord) and r.event.kind == "CONFLICT"
                and r.event.timestamp >= start and r.event.sender in (a, b) and ({a, b} - {r.event.sender}) <= set(r.event.targets))
 
 
@@ -330,16 +333,17 @@ def arm_c11(arm, seed, settings):
     # keyed by state.tick, both windows sat one week early)
     state, records = scenario("four", seed, back + window, spells=spells,
                               watch=lambda s: trace.__setitem__(s.tick - 1, _mean_excess(s, (FATHER, MOTHER, PARTNER))))
-    before = sum(trace[t] for t in range(change - window, change)) / window
-    after = sum(trace[t] for t in range(change, change + window)) / window
+    before = math.fsum(trace[t] for t in range(change - window, change)) / window
+    after = math.fsum(trace[t] for t in range(change, change + window)) / window
     return result({"disturbance": after - before}, records)
 
 
 CRITERIA_D.update({
     "M11.C.30": C("M11.C.30", "premise", ("baseline", "treatment"), (Readout("social_load", -1),), arm_c30,
                   settings=SETTINGS["M11.C.30"]),
-    # Version 1 (2026-10-17; Claude's recommendation, pending owner review): mixed. The severe limb is premise; the mild
-    # limb is the net of M7.D.2a's lock-in and other mechanisms (+7.3 against about -6.8, ad hoc), so it is composite.
+    # Version 1 (2026-10-17; Claude's recommendation, approved by the owner 2026-10-17): mixed. The severe limb is
+    # premise; the mild limb is the net of M7.D.2a's lock-in and other mechanisms (+7.3 against about -6.8, ad hoc), so
+    # it is composite.
     "M11.C.22": C("M11.C.22", "mixed", ("baseline", "treatment"),
                   (Readout("mild_removal_effect", +1), Readout("severe_removal_effect", -1)), arm_c22,
                   settings=SETTINGS["M11.C.22"]),
@@ -398,8 +402,8 @@ def score_c26(read_beliefs, read_sinks, driven, shift: int) -> tuple[float, floa
     n = len(driven)
     truth = [driven[(i + shift) % n] for i in range(n)]
     rotated = list(read_sinks[shift:]) + list(read_sinks[:shift])
-    return (sum(b is not None and b == t for b, t in zip(read_beliefs, truth)) / n,
-            sum(b is not None and b == s for b, s in zip(read_beliefs, rotated)) / n)
+    return (count(b is not None and b == t for b, t in zip(read_beliefs, truth)) / n,
+            count(b is not None and b == s for b, s in zip(read_beliefs, rotated)) / n)
 
 
 def arm_c36(arm, seed, settings):
@@ -418,7 +422,7 @@ def arm_c36(arm, seed, settings):
     state, records = scenario("triad", seed, weeks, setup=believe, forced=forced)
     pair = {r.event.id for r in records if isinstance(r, EmittedRecord) and r.event.sender in (MOVER, OTHER)
             and set(r.event.targets) <= {MOVER, OTHER}}
-    response = sum(v for r in records if isinstance(r, EffectRecord) and r.mechanism == "appraisal"
+    response = math.fsum(v for r in records if isinstance(r, EffectRecord) and r.mechanism == "appraisal"
                    and r.cause in pair for p, v in r.acute_anxiety if p == child)
     return result({"witness_response": response}, records)
 
@@ -454,8 +458,8 @@ def _c14_run(seed, weeks, every, severity, kind):
 
     loads = []
     state, records = scenario("four", seed, weeks, setup=start, before=distant, forced=forced,
-                              watch=lambda s: loads.append(sum(s.people[CHILD].symptom_load.values())))
-    return sum(loads) / len(loads), records
+                              watch=lambda s: loads.append(math.fsum(s.people[CHILD].symptom_load.values())))
+    return math.fsum(loads) / len(loads), records
 
 
 def arm_c14(arm, seed, settings):
@@ -516,10 +520,10 @@ def arm_c2(arm, seed, settings):
     def watch(state):
         if state.tick > half:  # the end of weeks half .. weeks - 1
             for c in children:
-                loads[c] += sum(state.people[c].symptom_load.values()) / (weeks - half)
+                loads[c] += math.fsum(state.people[c].symptom_load.values()) / (weeks - half)
 
     state, records = scenario("phase_c", seed, weeks, spells=nodal(weeks, parents), watch=watch)
-    received = {c: sum(1 for r in records if isinstance(r, EmittedRecord) and r.event.kind in PROJECTION_ACTS
+    received = {c: count(1 for r in records if isinstance(r, EmittedRecord) and r.event.kind in PROJECTION_ACTS
                        and r.event.sender in parents and c in r.event.targets and r.event.timestamp < half)
                 for c in children}
     ranked = sorted(children, key=lambda c: received[c])
@@ -552,7 +556,7 @@ def _spell_on(who, start: int, stop: int, every: int, intensity: float) -> tuple
 
 
 def _acts(records, kinds, senders, start, stop) -> int:
-    return sum(1 for r in records if isinstance(r, EmittedRecord) and r.event.kind in kinds
+    return count(1 for r in records if isinstance(r, EmittedRecord) and r.event.kind in kinds
                and r.event.sender in senders and start <= r.event.timestamp < stop)
 
 
@@ -598,12 +602,12 @@ def _entropy(records, kinds, start, stop) -> float:
 
     counts = Counter(r.event.kind for r in records if isinstance(r, EmittedRecord)
                      and r.event.mechanism is Mechanism.MOVE and r.event.kind in kinds and start <= r.event.timestamp < stop)
-    total = sum(counts.values())
+    total = count(counts.values())
     if total == 0:
         return None
     if len(kinds) < 2:
         return 0.0
-    return -sum(n / total * math.log(n / total) for n in counts.values()) / math.log(len(kinds))
+    return -math.fsum(n / total * math.log(n / total) for n in counts.values()) / math.log(len(kinds))
 
 
 AUTOMATIC_KINDS = load_event_kinds().in_channel("automatic")
@@ -624,8 +628,8 @@ def arm_c43(arm, seed, settings):
     state, records = scenario("triad", seed, weeks, unavailable=absent,
                               spells=_spell_on((MOVER,), 0, spell_weeks, settings["every"], settings["intensity"]),
                               watch=lambda s: trace.__setitem__(s.tick - 1, s.people[MOVER].acute_anxiety))
-    before = sum(trace[t] for t in range(lost - window, lost)) / window
-    after = sum(trace[t] for t in range(lost, weeks)) / window
+    before = math.fsum(trace[t] for t in range(lost - window, lost)) / window
+    after = math.fsum(trace[t] for t in range(lost, weeks)) / window
     return result({"loss_rise": after - before}, records)
 
 
@@ -654,7 +658,7 @@ def arm_c34(arm, seed, settings):
     others = {FATHER, MOTHER, PARTNER}
 
     def toward_child(records):
-        return sum(1 for r in records if isinstance(r, EmittedRecord) and r.event.mechanism is Mechanism.MOVE
+        return count(1 for r in records if isinstance(r, EmittedRecord) and r.event.mechanism is Mechanism.MOVE
                    and r.event.sender in others and CHILD in r.event.targets and r.event.kind in AUTOMATIC_KINDS
                    and t0 <= r.event.timestamp < t0 + window)
 
@@ -708,7 +712,7 @@ def arm_c23(arm, seed, settings):
             person.symptom_suppression = settings["suppression"]
 
     state, records = scenario("four", seed, weeks, setup=start, forced=forced, spells=(remission(t0, CHILD, channel),))
-    relapses = sum(1 for r in records if isinstance(r, EffectRecord) and r.mechanism == "symptom_onset"
+    relapses = count(1 for r in records if isinstance(r, EffectRecord) and r.mechanism == "symptom_onset"
                    and r.tick > t0 and r.cause is not None and r.cause.origin == f"symptom:{CHILD.value}")
     return result({"relapses": float(relapses)}, records)
 
@@ -824,7 +828,7 @@ def arm_c46(arm, seed, settings):
                               held_open=held(t0, "f-m", "f-c"), watch=watch)
     scripted = {r.event.id for r in records if isinstance(r, EmittedRecord) and r.event.sender == C46_SEEKER
                 and r.event.kind == "TRIANGLE" and r.event.timestamp == t0}
-    relief = -sum(v for r in records if isinstance(r, EffectRecord) and r.mechanism == "triangle_transfer"
+    relief = -math.fsum(v for r in records if isinstance(r, EffectRecord) and r.mechanism == "triangle_transfer"
                   and r.cause in scripted for pid, v in r.acute_anxiety if pid == C46_SEEKER)
     return result({"seeker_relief": relief, "third_excess": seen["third_excess"],
                    "seeker_change": seen["seeker_after"] - seen["seeker_before"]}, records)
@@ -887,18 +891,18 @@ def arm_c7(arm, seed, settings):
 
     def watch(state):
         tie = state.ties[marital]
-        combined.append(sum(deviation(state.people[p], tie, params) for p in (first, second)))
+        combined.append(math.fsum(deviation(state.people[p], tie, params) for p in (first, second)))
 
     state, records = scenario("phase_c", seed, weeks, spells=nodal(weeks, members), setup=setup, forced=forced,
                               withheld=withheld, watch=watch)
-    landed = sum(1 for r in records if isinstance(r, EffectRecord) and r.mechanism == "landed_contact")
-    fall = sum(combined[:window]) / window - sum(combined[-window:]) / window
+    landed = count(1 for r in records if isinstance(r, EffectRecord) and r.mechanism == "landed_contact")
+    fall = math.fsum(combined[:window]) / window - math.fsum(combined[-window:]) / window
     return result({"deviation_fall": fall, "landed_contacts": float(landed)}, records)
 
 
 # Three ordered pairs for the ordering joint > one spouse > sided (M11.4: an ordering as adjacent two-arm directions,
-# as M11.C.38 is). Mixed (version 1, 2026-10-17, Claude's recommendation pending owner review): that a sided coach's
-# contact lands less is the gate's (premise); the deviation's ordering is written by no rule (composite).
+# as M11.C.38 is). Mixed (version 1, 2026-10-17, Claude's recommendation, approved by the owner 2026-10-17): that a
+# sided coach's contact lands less is the gate's (premise); the deviation's ordering is written by no rule (composite).
 for _name, _pair, _landed_gates in (("joint over one spouse", ("one spouse", "joint"), False),
                                     ("one spouse over sided", ("sided", "one spouse"), True),
                                     ("joint over sided", ("sided", "joint"), True)):

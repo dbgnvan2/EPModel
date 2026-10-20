@@ -29,6 +29,8 @@ anxiety then moves the channel a symptom shows in (`symptoms.expressed_channel`)
 
 from __future__ import annotations
 
+import math
+
 from src.bowen.engine.contact import excess
 from src.bowen.engine.events import Delivery, Event, Mechanism, Role
 from src.bowen.engine.identifiers import PersonId
@@ -92,7 +94,7 @@ def update_attribution(state: RunState, perceived, batch: tuple[Delivery, ...], 
         if not person.alive:
             continue
         obs = seen[pid]
-        weight = sum(f for f, _ in obs)
+        weight = math.fsum(f for f, _ in obs)
         if weight <= 0:
             continue
         observed: dict[PersonId, float] = {}

@@ -39,6 +39,7 @@ channel into appraisal (`M9.7`) — is Phase D.
 
 from __future__ import annotations
 
+import math
 from dataclasses import dataclass
 
 from src.bowen.engine.contact import clamp_unit
@@ -114,11 +115,11 @@ def update_beliefs(
         store = beliefs_of(person)
         if tie not in store:  # the person's own tie, or one the family does not hold
             continue
-        weight = sum(f for f, _, _ in obs)
+        weight = math.fsum(f for f, _, _ in obs)
         if weight <= 0:
             continue
-        tension = sum(f * t for f, t, _ in obs) / weight
-        contact = sum(f * c for f, _, c in obs) / weight
+        tension = math.fsum(f * t for f, t, _ in obs) / weight
+        contact = math.fsum(f * c for f, _, c in obs) / weight
         step = params.belief_rate * weight / len(obs)
         belief = store[tie]
         d_tension = step * (tension - belief.tension)
@@ -142,6 +143,6 @@ def true_counterpart(tie: Relationship) -> TieBelief:
     """
     members = tie.id.members()
     return TieBelief(
-        tension=sum(tie.felt_impingement[m] for m in members) / len(members),
-        contact=sum(tie.felt_contact[m] for m in members) / len(members),
+        tension=math.fsum(tie.felt_impingement[m] for m in members) / len(members),
+        contact=math.fsum(tie.felt_contact[m] for m in members) / len(members),
     )

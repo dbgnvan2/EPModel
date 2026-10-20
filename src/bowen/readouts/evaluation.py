@@ -27,6 +27,8 @@ Components 9 and 10 (therapeutic focus, prognosis) are never emitted (`M11.G.3`)
 
 from __future__ import annotations
 
+import math
+
 from src.bowen.engine.contact import excess
 from src.bowen.engine.events import Mechanism
 from src.bowen.engine.log_records import EmittedRecord
@@ -35,6 +37,7 @@ from src.bowen.engine.params import EngineParams
 from src.bowen.engine.state import RunState
 from src.bowen.engine.symptoms import threshold
 from src.bowen.readouts.attribution import sink_from_beliefs
+from src.bowen.engine.counting import count
 
 COMPONENTS = ("symptom", "binding_pattern", "intensity", "multigenerational", "cutoff", "stress", "adaptiveness",
               "network")
@@ -64,7 +67,7 @@ def evaluate(state: RunState, records, params: EngineParams, framing: str, windo
                                         "severity": person.symptom_load[c] / limit} for c in person.symptom_load}
 
     allocated = {s.value: v for s, v in family.sink_allocations.items()}
-    total = sum(allocated.values())
+    total = math.fsum(allocated.values())
     believed = sink_from_beliefs({p: dict(state.people[p].attribution) for p in spouses}, spouses, children) \
         if len(spouses) == 2 else None
 
@@ -75,8 +78,8 @@ def evaluate(state: RunState, records, params: EngineParams, framing: str, windo
 
     exogenous = [e for e in moves if e.exogenous and e.mechanism is Mechanism.EXOGENOUS_STRESSOR]
     endogenous = [e for e in moves if not e.exogenous and e.mechanism is Mechanism.ENDOGENOUS_SYMPTOM]
-    stress = sum(e.intensity for e in exogenous)
-    reactive = sum(1 for e in moves if e.mechanism is Mechanism.MOVE and e.sender in members
+    stress = math.fsum(e.intensity for e in exogenous)
+    reactive = count(1 for e in moves if e.mechanism is Mechanism.MOVE and e.sender in members
                    and state.kinds.channels.get(e.kind) == "automatic")
 
     household = {p for p in members if state.people[p].household_id == _nuclear(state, spouses)}
@@ -94,10 +97,10 @@ def evaluate(state: RunState, records, params: EngineParams, framing: str, windo
         "intensity": {
             "budget_occupancy": (total + family.overflow) / family.undifferentiation_budget
             if family.undifferentiation_budget else None,
-            "mean_excess": sum(excess(state.people[p]) for p in members) / len(members) if members else 0.0,
+            "mean_excess": math.fsum(excess(state.people[p]) for p in members) / len(members) if members else 0.0,
         },
         "multigenerational": {
-            "basic_level_by_generation": {g: sum(v) / len(v) for g, v in sorted(by_generation.items())},
+            "basic_level_by_generation": {g: math.fsum(v) / len(v) for g, v in sorted(by_generation.items())},
             "projection_line": "not built: children are born in the run from Phase D part II, but the line is not yet read",
         },
         "cutoff": {str(t): {"bond_energy": state.ties[t].bond_energy, "cut_off": state.ties[t].rejected()}
@@ -119,5 +122,5 @@ def ranking_by_symptom_load(evaluation: dict) -> list[str]:
     Spec:    docs/bowen_agent_model_spec_v2.md#M11.D.20
     Tests:   tests/bowen/test_evaluation.py::test_m11d20_readout_ordering_matches_run_log_ordering
     """
-    totals = {p: sum(c["load"] for c in channels.values()) for p, channels in evaluation["symptom"].items()}
+    totals = {p: math.fsum(c["load"] for c in channels.values()) for p, channels in evaluation["symptom"].items()}
     return sorted(totals, key=lambda p: (-totals[p], p))

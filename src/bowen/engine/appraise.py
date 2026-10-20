@@ -82,6 +82,8 @@ state before the batch, then applied in canonical order.
 
 from __future__ import annotations
 
+import math
+
 from src.bowen.engine.contact import clamp_unit, deviation, deviation_at, excess, felt_contact, felt_impingement, steepness
 from src.bowen.engine.events import Attention, Delivery, Event, Mechanism, Role
 from src.bowen.engine.identifiers import PersonId, TieId
@@ -251,7 +253,7 @@ def witness_delta(state: RunState, witness: Person, event: Event, params: Engine
     to_sender = _conductance(state, witness.id, event.sender) if event.sender is not None else 1.0
     to_targets = [_conductance(state, witness.id, t) for t in event.targets] or [0.0]
     ends = (to_sender, max(to_targets))
-    reach = sum(ends) / len(ends)  # the mean of its tie to each party
+    reach = math.fsum(ends) / len(ends)  # the mean of its tie to each party
     # Believed tension makes a load more alarming; it does not make a relief more relieving (review 2026-10-12).
     belief = 1.0 + params.belief_appraisal_gain * believed_tension(witness, event) if sign > 0 else 1.0
     return params.witness_weight * _scale(event, reach, params) * steepness(witness, params) * belief

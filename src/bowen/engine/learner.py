@@ -43,6 +43,7 @@ the actor sent in the ``habituation_window`` ticks before this one. A cost is no
 
 from __future__ import annotations
 
+import math
 from dataclasses import dataclass
 
 from src.bowen.engine.act import Selection
@@ -56,6 +57,7 @@ from src.bowen.engine.params import EngineParams
 from src.bowen.engine.recompute import TRIANGLE_KIND
 from src.bowen.engine.state import RunState
 from src.bowen.engine.value_keys import POSITIONS, act_of, learned_value_key
+from src.bowen.engine.counting import count
 
 
 @dataclass
@@ -71,7 +73,7 @@ class EligibleAct:
 
 def repetitions(state: RunState, actor: PersonId, kind: str, targets: tuple[PersonId, ...], params: EngineParams) -> int:
     """How many identical acts the actor sent in the habituation window before this tick."""
-    return sum(
+    return count(
         1 for e in state.store.sent_by(actor)
         if e.mechanism is Mechanism.MOVE and e.kind == kind and e.targets == targets
         and state.tick - params.habituation_window <= e.timestamp < state.tick
@@ -108,8 +110,8 @@ def cross_person_relief(state: RunState, actor: PersonId, others, relief: dict[P
         tie = state.tie_between(actor, q)
         if q in relief and tie is not None and tie.bond_energy > 0:
             weights[q] = tie.bond_energy
-    total = sum(weights.values())
-    return sum(w * relief[q] for q, w in weights.items()) / total if total else 0.0
+    total = math.fsum(weights.values())
+    return math.fsum(w * relief[q] for q, w in weights.items()) / total if total else 0.0
 
 
 def learn(state: RunState, start_acute: dict[PersonId, float], params: EngineParams) -> list[EffectRecord]:
@@ -164,14 +166,14 @@ def soothing_review(state: RunState, params: EngineParams) -> list[EffectRecord]
         if not person.alive or not weeks:
             continue
         signals = (person.basic_level / SCALE_MAX, person.systems_perspective or 0.0)
-        asks = min(1.0, sum(signals) / len(signals))
+        asks = min(1.0, math.fsum(signals) / len(signals))
         draw = state.draws.uniform(DrawKey.make("soothing_review", tick=state.tick, actor=pid, purpose="ask", index=0))
         if draw >= asks:
             continue
         by_tick = {w.tick: w.load for w in weeks}
         pairs = [(w.load, by_tick[w.tick + params.practice_window]) for w in weeks
                  if w.soothed and w.tick + params.practice_window in by_tick]
-        if not pairs or sum(after for _, after in pairs) < sum(before for before, _ in pairs):
+        if not pairs or math.fsum(after for _, after in pairs) < math.fsum(before for before, _ in pairs):
             continue  # soothing helped, or there was none to judge
         for key in sorted(person.learned_values):
             value = person.learned_values[key]
@@ -240,10 +242,10 @@ def learn_from_witnessed(state: RunState, params: EngineParams) -> list[EffectRe
             continue
         now = dict(_family_ties(state, record.witness))
         weights = {pid: now[pid].bond_energy for pid, _ in record.then if pid in now}
-        total = sum(weights.values())
+        total = math.fsum(weights.values())
         if total <= 0:
             continue
-        seen = sum(weights[pid] / total * (state.people[pid].functional_level - level)
+        seen = math.fsum(weights[pid] / total * (state.people[pid].functional_level - level)
                    for pid, level in record.then if pid in weights)
         band_now = anxiety_band(person, params)
         for other in sorted(now):

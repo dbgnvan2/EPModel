@@ -36,6 +36,8 @@ ones below are the project's, graded [I]:
 
 from __future__ import annotations
 
+import math
+
 from src.bowen.engine.identifiers import PersonId, TieId
 from src.bowen.engine.live_positions import Occupant, positions_live
 from src.bowen.engine.log_records import EffectRecord
@@ -50,7 +52,7 @@ PREVENT_ALIGNMENT_KIND = "PREVENT_ALIGNMENT"
 
 
 def involvement(state: RunState, person: PersonId) -> float:
-    return sum(t.bond_energy for t in state.ties_of(person)) / SCALE_MAX
+    return math.fsum(t.bond_energy for t in state.ties_of(person)) / SCALE_MAX
 
 
 def is_member(state: RunState, person: PersonId, params: EngineParams) -> bool:
@@ -118,7 +120,11 @@ def _latest_triangle_move(state: RunState, members: tuple[PersonId, PersonId, Pe
 def recompute_triangles(state: RunState, params: EngineParams) -> list[EffectRecord]:
     """Purpose: tick step 6 — which triangles are active, and their positions.
     Spec:    docs/bowen_agent_model_spec_v2.md#M1.C.3, #M1.C.4, #M8.5
-    Tests:   tests/bowen/test_mechanisms.py::test_m1c3_activity_is_a_readout_of_recent_triangle_acts
+    Tests:   tests/bowen/test_mechanisms.py::test_m1c3_activity_is_a_readout_of_recent_triangle_acts,
+             tests/bowen/test_mechanisms.py::test_m8_5_s1_4_a_sided_coach_leaves_its_triangle_active
+
+    Activity is decided by presence (`M8.5` as amended at revision 33): a coach's side is read for whether his contact
+    lands (``external.coach_live``), not for whether the triangle is active.
     """
     records = []
     for tri_id in sorted(state.triangles):

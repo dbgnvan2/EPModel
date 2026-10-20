@@ -74,7 +74,7 @@ LEVEL_BLIND = (  # every remaining read of level on the path to onset, made leve
      "start = params.initial_impingement_scale * (1.0 - person.basic_level / SCALE_MAX)",
      "start = params.initial_impingement_scale * 0.5"),
     ("src/bowen/engine/moves.py",
-     "return max(0.0, 1.0 - sum(p.functional_level for p in members) / (len(members) * SCALE_MAX))",
+     "return max(0.0, 1.0 - math.fsum(p.functional_level for p in members) / (len(members) * SCALE_MAX))",
      "return 0.5"),
     ("src/bowen/engine/iposition.py",
      "return params.hold_gain * person.functional_level * efficacy(person)",
@@ -90,7 +90,7 @@ AVAILABILITY_INVERTED = (f"return min(1.0, max(0.0, (SCALE_MAX * {INVERSION_PIVO
                          "/ (layer * params.capacity_level_per_layer)))")
 BAND = "return params.contact_band_max * person.functional_level / SCALE_MAX"
 OUTSIDE_NESS = "start = params.initial_impingement_scale * (1.0 - person.basic_level / SCALE_MAX)"
-ROUTING = "return max(0.0, 1.0 - sum(p.functional_level for p in members) / (len(members) * SCALE_MAX))"
+ROUTING = "return max(0.0, 1.0 - math.fsum(p.functional_level for p in members) / (len(members) * SCALE_MAX))"
 HOLD = "return params.hold_gain * person.functional_level * efficacy(person)"
 
 MUTANTS = (
@@ -147,7 +147,7 @@ MUTANTS = (
            "return too_much(state.people[mover], tie, params) <= params.anger_threshold",
            "M5.D.4's anger gate inverted"),
     Mutant("witness-position-blind", NAMED, ("M11.C.35",), "src/bowen/engine/appraise.py",
-           "    reach = sum(ends) / len(ends)  # the mean of its tie to each party\n",
+           "    reach = math.fsum(ends) / len(ends)  # the mean of its tie to each party\n",
            "    reach = 1.0\n",
            "witness appraisal made a copy that reads neither of the witness's ties"),
     Mutant("relief-tension-independent", NAMED, ("M11.C.45",), "src/bowen/engine/moves.py",
@@ -210,7 +210,7 @@ MUTANTS = (
     Mutant("routing-level-independent", DELETION, ("M11.C.16",), "src/bowen/engine/moves.py",
            ROUTING, "return 0.5", "M1.C.3a's routing capacity made independent of functional_level"),
     Mutant("routing-level-inverted", SIGN, ("M11.C.16",), "src/bowen/engine/moves.py",
-           ROUTING, "return max(0.0, sum(p.functional_level for p in members) / (len(members) * SCALE_MAX))",
+           ROUTING, "return max(0.0, math.fsum(p.functional_level for p in members) / (len(members) * SCALE_MAX))",
            "M1.C.3a's routing capacity rises with the members' functional_level"),
     Mutant("hold-level-independent", DELETION, ("M11.C.16",), "src/bowen/engine/iposition.py",
            HOLD, "return params.hold_gain * (SCALE_MAX / 2) * efficacy(person)",
@@ -283,8 +283,8 @@ MUTANTS = (
            "return False",
            "M5.D.4's anger gate removed: the mover is never angry"),
     Mutant("witness-reach-inverted", SIGN, ("M11.C.35",), "src/bowen/engine/appraise.py",
-           "    reach = sum(ends) / len(ends)  # the mean of its tie to each party\n",
-           "    reach = 1.0 - sum(ends) / len(ends)\n",
+           "    reach = math.fsum(ends) / len(ends)  # the mean of its tie to each party\n",
+           "    reach = 1.0 - math.fsum(ends) / len(ends)\n",
            "the witness feels more through weaker ties"),
     Mutant("relief-tension-inverted", SIGN, ("M11.C.45",), "src/bowen/engine/moves.py",
            "moved = min(excess(seeker), rate * excess(seeker))",

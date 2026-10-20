@@ -37,7 +37,8 @@ _spec.loader.exec_module(_record)
 # Phase D part I criteria with no arm yet, and why (docs/implementation_plan_phase_d.md, step 10).
 NOT_BUILT = {
     "M11.C.9": "no rule reads sibling position, so building it means a new mechanism, not a gate (`M1.A.14c`); "
-               "out of version 1, Claude's recommendation 2026-10-17 pending owner review (`docs/version_1_dispositions.md`)",
+               "out of version 1, Claude's recommendation 2026-10-17, decided by the owner 2026-10-17 "
+               "(`docs/version_1_dispositions.md`)",
     "M11.C.28": "the sink allocation feeds no behaviour, so pinning its mobility can change no symptom",
 }
 

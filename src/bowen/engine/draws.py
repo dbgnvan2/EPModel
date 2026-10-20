@@ -27,6 +27,7 @@ from __future__ import annotations
 
 import enum
 import hashlib
+import math
 from dataclasses import dataclass
 from types import MappingProxyType
 from typing import Mapping, Sequence
@@ -198,7 +199,7 @@ class DrawService:
 
     def categorical(self, key: DrawKey, weights: Sequence[float]) -> int:
         """One uniform, inverted through the cumulative weights. Weights need not sum to one."""
-        total = float(sum(weights))
+        total = float(math.fsum(weights))
         if not weights or total <= 0 or any(w < 0 for w in weights):
             raise ValueError("weights must be non-negative with a positive sum")
         target = self.uniform(key) * total

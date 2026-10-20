@@ -41,8 +41,32 @@ def load_event_kinds(path: Path = CONFIG_DIR / "event_kinds.md") -> EventKinds:
     kinds = parse_event_kinds(read_text(path), source=str(path))
     reach = load_nodal_reach(kinds)
     attribution, focus = load_attribution(kinds)
+    classes = load_act_classes(kinds)
     return dataclasses.replace(kinds, nodal=frozenset(reach), nodal_reach=reach, soothing=load_soothing(kinds),
-                               steering=load_steering(kinds), attribution=attribution, focus=focus)
+                               steering=load_steering(kinds), attribution=attribution, focus=focus, **classes)
+
+
+ACT_CLASSES = frozenset({"side_taking", "family_to_external", "external_repertoire"})
+
+
+def load_act_classes(kinds: EventKinds, path: Path = CONFIG_DIR / "act_classes.md") -> dict[str, frozenset[str]]:
+    """Purpose: read the act classes the engine and the policy read; every class must be declared, once, and every act
+             a declared move (version 2 stage 1, S1.3; rule 9).
+    Spec:    docs/bowen_agent_model_spec_v2.md#M5.B.4, #M5.B.5, #M8.3, #M10.B.2
+    Tests:   tests/bowen/test_config.py::test_s1_3a_act_classes_come_from_config,
+             tests/bowen/test_config.py::test_s1_3b_an_undeclared_act_fails_to_load
+    """
+    from src.bowen.scenario.config_parse import ConfigError, parse_table_document
+
+    doc = parse_table_document(read_text(path), columns=("class", "acts", "used by"), metadata_keys=frozenset(),
+                               source=str(path))
+    classes = {row["class"]: frozenset(a.strip() for a in row["acts"].split(",") if a.strip()) for row in doc.rows}
+    if set(classes) != ACT_CLASSES or len(classes) != len(doc.rows):
+        raise ConfigError(f"{path}: the classes must be exactly {sorted(ACT_CLASSES)}, each once; found {sorted(classes)}")
+    unknown = sorted(a for acts in classes.values() for a in acts if a not in kinds.moves())
+    if unknown:  # a misspelt act would match nothing, and the class would silently never apply
+        raise ConfigError(f"{path}: not a declared move: {unknown}")
+    return classes
 
 
 def load_attribution(kinds: EventKinds, path: Path = CONFIG_DIR / "attribution.md") -> tuple[dict, dict]:

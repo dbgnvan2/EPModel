@@ -16,6 +16,7 @@ from __future__ import annotations
 
 from src.bowen.engine.events import Delivery, Event, EventId, Mechanism, Role
 from src.bowen.engine.identifiers import PersonId
+from src.bowen.engine.counting import count
 
 
 class EventStore:
@@ -146,5 +147,5 @@ class EventStore:
 
     def count_by_origin(self) -> dict[str, int]:
         """M1.F.7 — exogenous and endogenous events stay countable separately."""
-        exogenous = sum(1 for e in self._events.values() if e.exogenous)
+        exogenous = count(1 for e in self._events.values() if e.exogenous)
         return {"exogenous": exogenous, "endogenous": len(self._events) - exogenous}

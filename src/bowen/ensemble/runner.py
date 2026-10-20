@@ -43,6 +43,7 @@ from typing import Callable
 import numpy as np
 
 from src.bowen.ensemble.stats import holm, signed_rank
+from src.bowen.engine.counting import count
 
 PASS, FAIL, UNDETERMINED = "PASS", "FAIL", "UNDETERMINED"
 
@@ -213,7 +214,7 @@ def _verdict(criterion, results, converged, rules) -> Verdict:
         fallbacks.update(b.fallbacks); fallbacks.update(t.fallbacks)
         selections.update(b.selections); selections.update(t.selections)
     missing = [m for m in criterion.requires_moves if moves[m] == 0]
-    rate = sum(fallbacks.values()) / max(1, sum(selections.values()))
+    rate = count(fallbacks.values()) / max(1, count(selections.values()))
     by_person = {str(p): fallbacks[p] / selections[p] for p in sorted(selections, key=str) if selections[p]}
     if missing:
         outcome = FAIL  # M11.1f
@@ -245,6 +246,6 @@ def scripted_counts(criterion: Criterion, results) -> dict:
     """
     counts = {}
     for name, index in zip(criterion.arms, (1, 2)):
-        if sum(r[index].moves["(scripted acts)"] for r in results):
-            counts[name] = {s: sum(r[index].moves[f"(scripted act: {s})"] for r in results) for s in SCRIPTED_STATUSES}
+        if count(r[index].moves["(scripted acts)"] for r in results):
+            counts[name] = {s: count(r[index].moves[f"(scripted act: {s})"] for r in results) for s in SCRIPTED_STATUSES}
     return counts

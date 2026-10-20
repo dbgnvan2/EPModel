@@ -28,7 +28,7 @@ from src.bowen.engine.observe import observe
 from src.bowen.engine.state import canonical_state, new_run_state
 from src.bowen.engine.tick import run
 from src.bowen.io.load import CONFIG_DIR, load_constants, load_event_kinds, load_family, load_policy_rules, load_script
-from src.bowen.policy.policy import EXTERNAL_REPERTOIRE, FAMILY_TO_EXTERNAL, legal_outcomes
+from src.bowen.policy.policy import legal_outcomes
 from src.bowen.scenario.assemble import assemble
 from src.bowen.scenario.params import engine_params
 from src.bowen.scenario.policy_source import PolicySource
@@ -95,14 +95,14 @@ def test_m1e1_external_agent_is_a_person_with_a_restricted_repertoire_and_real_t
     state = fresh()
     assert state.people[HALIM].role is PersonRole.EXTERNAL and state.ties_of(HALIM)
     halim = legal_outcomes(observe(state, HALIM, PARAMS), KINDS, PARAMS)
-    assert halim and {o.kind for o in halim} - {"WITHHOLD"} <= EXTERNAL_REPERTOIRE
+    assert halim and {o.kind for o in halim} - {"WITHHOLD"} <= KINDS.external_repertoire
 
 
 def test_m5b4_family_to_external_moves_exist_and_go_only_to_an_external_agent():
     ravi = legal_outcomes(observe(fresh(), RAVI, PARAMS), KINDS, PARAMS)
     toward_halim = {o.kind for o in ravi if o.target == HALIM}
-    assert FAMILY_TO_EXTERNAL <= toward_halim
-    assert not any(o.kind in FAMILY_TO_EXTERNAL for o in ravi if o.target != HALIM)
+    assert KINDS.family_to_external <= toward_halim
+    assert not any(o.kind in KINDS.family_to_external for o in ravi if o.target != HALIM)
 
 
 def test_m1e7e_the_coach_tie_accumulates_no_investment():

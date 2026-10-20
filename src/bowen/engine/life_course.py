@@ -65,6 +65,7 @@ from src.bowen.engine.sinks import PROJECTION_KINDS
 from src.bowen.engine.state import ActiveStressor, RunState
 from src.bowen.engine.stress_response import above_usual
 from src.bowen.engine.symptoms import release_bound
+from src.bowen.engine.counting import count
 
 DEATH, BIRTH, PARTNERING, LAUNCH, FIND_WORK, RETIREMENT = (
     "DEATH", "BIRTH", "PARTNERING", "LAUNCH", "FIND_WORK", "RETIREMENT")
@@ -277,7 +278,7 @@ def _life_event(state: RunState, kind: str, origin: str, targets, *, exogenous: 
     """A life event has no sender: it reaches its targets directly, so it needs no tie to them (the 2026-10-13
     ensemble crashed when FIND_WORK named its taker as sender and a sibling with no tie to them as a target)."""
     tick = state.tick + 1  # injected at the next week's delivery
-    index = sum(1 for e in state.life.pending if e.id.tick == tick and e.id.origin == origin)
+    index = count(1 for e in state.life.pending if e.id.tick == tick and e.id.origin == origin)
     return Event(
         id=EventId(tick, origin, index), kind=kind, mechanism=mechanism, sender=None,
         targets=tuple(sorted(set(targets))), intensity=intensity, timestamp=tick,

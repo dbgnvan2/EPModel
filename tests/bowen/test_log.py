@@ -38,6 +38,24 @@ def test_m16t3_sink_does_not_change_results(tmp_path):
     assert written == [serialize(r) for r in attached.records]  # the sink is faithful, too
 
 
+def test_m16t3_s1_2_canonical_state_sees_the_stressors():
+    """S1.2: two states that differ only in a lasting stressor give different strings, so the comparison above cannot
+    miss a sink that changed a stressor still weighing after the last compared week. Before stage 1 the canonical state
+    left ``state.stressors`` out."""
+    from src.bowen.engine.state import ActiveStressor
+
+    state = run_phase_b(7).state
+    target = sorted(state.people)[0]
+    strings = set()
+    for intensity in (10.0, 11.0):
+        state.stressors[:] = [ActiveStressor(event_id="s1-2", target=target, intensity=intensity, first_tick=1,
+                                             last_tick=None)]
+        strings.add(canonical_state(state))
+    state.stressors.clear()
+    strings.add(canonical_state(state))
+    assert len(strings) == 3
+
+
 def test_m16t5_same_seed_same_log_with_header(tmp_path):
     """G11: two persisted runs at one seed are byte-identical files, header first."""
     paths = [tmp_path / "a.jsonl", tmp_path / "b.jsonl"]

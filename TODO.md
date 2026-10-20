@@ -34,16 +34,10 @@ Deferred and adjacent items. Each carries enough context to act on later without
   - [x] ~~`tools/phase_c_trace.py`: `outputs()` and `trace_text()` load the family file again after `records()` has
     loaded it.~~ *Fixed at version 2 stage 1 (rider (v)): `records()` takes the loaded family; `famdiag_export.py`'s
     call is unchanged.*
-- [ ] **Stale "pending owner review" text for decisions the owner has made** (found 2026-10-19, not fixed; for stage 1,
-  since it touches `src/bowen/`, `config/bowen/` and a record string, all in the hash). Code comments in
-  `src/bowen/ensemble/criteria.py` (three), `criteria_d.py` (two), `criteria_d2.py` (`M11.C.6`, accepted 2026-10-18),
-  `src/bowen/engine/external.py:24` and `event_effects.py:59` (the narrowing, kept under plan §5 Q10), and two notes in
-  `config/bowen/criteria.md` (lines 44 and 54) still call them "Claude's recommendation pending owner review", and
-  `tools/phase_d_record.py`'s `NOT_BUILT` reason for `M11.C.9` says the same. Stage 1 works from
-  `grep -rn 'pending owner review' src config tools`, not this list, and checks each against the owner's record before
-  rewording it (`tools/version_1_status.py`'s matches are its rules, not stale text).
-  That string is in the frozen `docs/version_1_status.md` (its `M11.C.9` row, already listed in
-  `docs/REVIEW_version_1_guide.md`), so the page at the tag keeps it; only later records change.
+- [x] ~~**Stale "pending owner review" text for decisions the owner has made** (found 2026-10-19).~~ *Fixed at
+  version 2 stage 1 (rider (i)): the eleven sites `grep -rn 'pending owner review' src config tools` found were each
+  checked against the owner's record and reworded; `tests/test_stale_text.py` fails if the phrase comes back outside
+  `tools/version_1_status.py`. The frozen `docs/version_1_status.md` keeps its `M11.C.9` row at the tag.*
 - [x] ~~**Approve or revise `docs/bowen_agent_model_spec_v2.md`.**~~ *Approved 2026-08-25; revisions 1–6 applied, the last on 2026-08-28.*
 - [x] ~~**Approve spec revision 10.**~~ *Approved 2026-10-06. Terms in the spec's revision-10 section under* Approval.
 - [x] ~~**Read the Phase B trace end to end and record the result** (plan §7)~~ *done 2026-10-07: the owner read both
@@ -96,21 +90,24 @@ decision is Claude's recommendation, pending owner review.
   (`1c20d44`), so `tools/mutation_gate.py` stops at G2. `docs/phase_b_mutation_record.md` stays the record of Phase B's
   close. Gate G7's mutant was extended at revision 32 to remove the new trigger pruning too (the spike re-check found
   that pruning hides the shared-list leak G7 plants); proved on a copy, not in the record.
-- [ ] **Adjacent, not fixed (spike review, 2026-10-17):** `canonical_state` leaves out `state.stressors`, so the
+- [x] ~~**Adjacent, not fixed (spike review, 2026-10-17):** `canonical_state` leaves out `state.stressors`,~~ *Fixed at version 2
+  stage 1 (S1.2).* so the
   determinism tests cannot see a stressor still weighing after the last compared tick (the spikes are now in).
 - [ ] **`M11.C.29` could be redesigned** (the owner accepted its failure 2026-10-17; optional, for version 2): its genuine `I-POSITION` never completes in the arm, so
   its time-course limb is untested. A redesign needs an act week clear of the spell and a mover able to prepare; the
   diagnosis found nothing that completes without weakening the third person's symptom (plan §4.12).
 - [ ] **Minor, from the revision 32 reviews (2026-10-17), not fixed:**
-  - `SIDE_TAKING` (`external.py`) is a classification kept in code, as `FAMILY_TO_EXTERNAL` is in `policy.py`; rule 9
-    puts it in config. Move both together.
+  - ~~`SIDE_TAKING` (`external.py`) is a classification kept in code, as `FAMILY_TO_EXTERNAL` is in `policy.py`; rule 9
+    puts it in config. Move both together.~~ *Moved at version 2 stage 1 (S1.3), with `EXTERNAL_REPERTOIRE`, to
+    `config/bowen/act_classes.md`.*
   - How long a coach stays on a side borrows `triangle_activity_window`, so tuning `M1.C.3` changes `M11.C.7` too.
   - `arm_c7` scripts the `SPLIT` at `session − 1`; it stays inside the window at the landing tick only while the coach
     tie's latency is 2 or less (it is 1).
   - For V3 the status tool counts a red on any gating readout of a mixed criterion; it does not know which limb a
     mutant reached. No passing mixed criterion depends on this today.
-  - Adjacent, not fixed: `recompute.py`'s triangle activity treats the coach as an unfused occupant, though `M8.5` says
-    the same predicate decides triangle activity.
+  - ~~Adjacent, not fixed: `recompute.py`'s triangle activity treats the coach as an unfused occupant, though `M8.5` says
+    the same predicate decides triangle activity.~~ *Settled at version 2 stage 1 (owner D3 (b)): `M8.5` amended at
+    revision 33 to say presence decides; `test_m8_5_s1_4_a_sided_coach_leaves_its_triangle_active` pins it.*
 - [x] ~~**Owner: `M11.C.17`, diagnosed**~~ *Passes since the nodal-event spike (2026-10-18, +0.00089 ± 0.0013, p 0.015), with a red recorded mutant; no acceptance needed. The diagnosis stays useful:* (the owner, 2026-10-17: "Diagnose coaching"). No defect; the effect dies at the
   estimator's evidence test (own functioning stays below basic level in both arms). Recommended: accept as a finding
   (plan §4.12). Levers if coaching should show within ten years: `M1.A.4k`'s evidence rule (owner decision; reruns
@@ -152,13 +149,15 @@ Plan §4.10 holds the evidence.
   differs between macOS and Linux. NumPy 2.5.4 against 1.26.4 changed nothing here. The golden fingerprints now hash
   floats rounded to 8 significant digits (measured margin, in the test's docstring). The diagnostic record's mean uses
   `math.fsum`; its 0.938 was on a rounding boundary and printed 0.937 on 3.11.
-- [ ] **Adjacent, not fixed (2026-10-15):** `grep -rn "sum(.*) / len(" tools src/bowen | grep -v fsum` finds 29
-  lines that take a mean as `sum(...) / len(...)`. Some are integer or bool counts, which are exact; the review counted
-  about 18 over floats on one line each, plus 3 in mutant code in `tools/mutation_record.py`. The ones in the engine
-  (`reactive.py`, `appraise.py`, `iposition.py`, `slow_tick.py`, `life_course.py`, `beliefs.py`, `learner.py`) are the
-  likely source of the 3.11 against 3.12 drift in the run itself, not only in printing; in tools they can print
-  differently on a rounding boundary. None fails today: no other test failed on 3.11 in CI. Moving the engine to
-  `math.fsum` changes the engine hash and reruns the records, so batch it with the next engine change.
+- [x] ~~**Adjacent, not fixed (2026-10-15):** float means taken with the builtin `sum` in `src/bowen` and the
+  tools.~~ *Fixed in `src/bowen` at version 2 stage 1 (S1.1, plan D2 (b)): every float total outside `render/` is a
+  `math.fsum`, every integer total a `count` that refuses a float (`src/bowen/engine/counting.py`), and
+  `tests/bowen/test_float_sums.py` fails on a builtin `sum` left there. The mutant texts in
+  `tools/mutation_record.py` that quote those lines moved with them. The golden fingerprints did not move at 8
+  significant digits (measured 2026-10-19).*
+- [ ] **Adjacent, not fixed (2026-10-19):** the ad hoc probes in `tools/probes.py` (lines 139, 141, 268, 458) still
+  take float means with the builtin `sum`. No record reads them; move them to `math.fsum` when the file is next
+  touched.
 - [ ] **The phase D2 record prints `M11.C.10`'s two variants under one id** (and `M11.C.2`'s twelve-person variant as
   `M11.C.2`). The renderer uses `Criterion.id`; it should print the criterion's key. A label change: render from the
   cache, not by rerunning.
@@ -176,8 +175,9 @@ Plan §4.10 holds the evidence.
   from a witnessed cutoff carries it. The variant's pass is still not support for `M1.D.8a`.
 - [x] ~~**Decide what `M11.C.10[family of origin]`'s mutation clause names.**~~ *Decided 2026-10-15:* the owner restated
   it to `M4.D.6f`; its mutant is red in `docs/phase_d_mutation_record.md` (FAIL, p 0.91, 200 seeds).
-- [ ] **Phase D mutation record, three minor items** (re-review of 7c8a0fb, 2026-10-15): (1) `engine_hash` reads
-  `inspect.getsource` of `apply` and `run_in_copy`, comments included, so a docstring edit there reruns the record;
+- [ ] **Phase D mutation record, three minor items** (re-review of 7c8a0fb, 2026-10-15): (1) ~~`engine_hash` reads
+  `inspect.getsource` of `apply` and `run_in_copy`, comments included, so a docstring edit there reruns the record~~
+  *(fixed at version 2 stage 1, rider (iv): read through `source_text`)*;
   (2) `build()` does not flag an `AD_HOC` entry that now has a mutant or no longer passes (only the test checks the
   first); (3) the spec's `M11.C.10` row still opens with the revision 11 and revision 29 mutation clauses, superseded by
   the later amendments but not struck (item 3 is in revision 31's plan, approved in the review 2026-10-16).
@@ -559,7 +559,8 @@ Phase C steps 0–16 are built. **Its gate does not pass** (`docs/phase_c_comple
 - [ ] **Phase D: severed ties stay severed — the cause of the long silences** (owner: "not normal", 2026-10-10).
   On seed 7, Marta–Nadia is severed 102 of 104 weeks, from a cutoff in week 1. Evidence and design notes are in
   `docs/DECISIONS — CUTOFF SEMANTICS.md`.
-- [ ] **`code_text` splits lines differently from `tokenize`** (re-sweep, 2026-10-11, latent). `tools/ensemble_record.py`
+- [x] ~~**`code_text` splits lines differently from `tokenize`**~~ *Fixed at version 2 stage 1 (S1.5b): `io.StringIO(source).readlines()`;
+  `test_s1_5b_code_text_keeps_a_line_separator_inside_a_string` fails under `str.splitlines`.* (re-sweep, 2026-10-11, latent). `tools/ensemble_record.py`
   builds `lines` with `str.splitlines`, which also splits on form feed, `\x1c`–`\x1e`, `\x85`, U+2028/9 and a bare
   `\r`; `tokenize` splits on `\n` only. A source file with one of those characters would hash differently by Python
   version. No file has one today. Fix: `io.StringIO(source).readlines()`. Do it with the next change to that file

@@ -120,7 +120,7 @@ def test_m11d2_check_catches_a_literal_in_the_policy(tmp_path):
 
 # --- M11.D.8 / M11.D.9 --------------------------------------------------------------------------
 
-EXPECTED_SPEC_REFERENCES = 804  # M11.D.9: an exact count, not a floor; update it when references change (804 at revision 32, with the spike and M11.C.6's paired arm)
+EXPECTED_SPEC_REFERENCES = 808  # M11.D.9: an exact count, not a floor; update it when references change (808 at version 2 stage 1, with load_act_classes)
 
 
 def spec_anchors() -> set[str]:

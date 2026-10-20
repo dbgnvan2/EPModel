@@ -29,6 +29,8 @@ because it is intra-person.
 
 from __future__ import annotations
 
+import math
+
 from src.bowen.engine.contact import steepness, too_little
 from src.bowen.engine.identifiers import PersonId, TieId
 from src.bowen.engine.log_records import EffectRecord
@@ -38,7 +40,7 @@ from src.bowen.engine.state import RunState
 
 
 def trigger_intensity(state: RunState, tie: TieId, tick: int) -> float:
-    return sum(t.intensity for t in state.triggers if t.tie == tie and t.first_tick <= tick <= t.last_tick)
+    return math.fsum(t.intensity for t in state.triggers if t.tie == tie and t.first_tick <= tick <= t.last_tick)
 
 
 def tie_term(person: Person, tie: Relationship, spike: float, params: EngineParams) -> float:

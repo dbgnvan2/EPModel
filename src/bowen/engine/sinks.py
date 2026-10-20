@@ -28,6 +28,8 @@ scaled down so their total stays within it.
 
 from __future__ import annotations
 
+import math
+
 from src.bowen.engine.identifiers import PersonId
 from src.bowen.engine.log_records import EffectRecord
 from src.bowen.engine.objects import Sink
@@ -90,7 +92,7 @@ def allocate_sinks(state: RunState, params: EngineParams) -> list[EffectRecord]:
 
 def _allocate(state: RunState, params: EngineParams, family) -> list[EffectRecord]:
     weights = sink_weights(state, params, family)
-    total = sum(weights.values())
+    total = math.fsum(weights.values())
     if total <= 0 or family.undifferentiation_budget <= 0:
         return []
     # The reference family's rows keep their names; another family's carry its household (revision 28).
@@ -120,7 +122,7 @@ def reduce_budget(state: RunState, params: EngineParams, cause) -> EffectRecord 
     if reduction <= 0:
         return None
     family.undifferentiation_budget -= reduction
-    allocated = sum(family.sink_allocations.values()) + family.overflow
+    allocated = math.fsum(family.sink_allocations.values()) + family.overflow
     if allocated > family.undifferentiation_budget > 0 or family.undifferentiation_budget == 0:
         scale = family.undifferentiation_budget / allocated if allocated else 0.0
         for sink in Sink:

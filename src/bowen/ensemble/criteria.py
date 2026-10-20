@@ -38,6 +38,7 @@ from src.bowen.scenario.assemble import assemble
 from src.bowen.scenario.config_parse import ConfigError, parse_table_document
 from src.bowen.scenario.policy_source import PolicySource
 from src.bowen.scenario.scripted_source import ScriptedSource
+from src.bowen.engine.counting import count
 
 P = PersonId
 FAMILIES = {
@@ -436,9 +437,10 @@ def arm_c4(arm, seed, settings):
                          sender=None, targets=(P("a"),), intensity=SPELL["intensity"], timestamp=nodal, duration=1,
                          exogenous=True, source_position=SourcePosition.NONE, channel=Channel.EXOGENOUS),)
     forced = act("a", "CUTOFF", "b", t0) if arm == "treatment" else act("a", "STAY-IN-CONTACT", "b", t0)
-    # Version 1 (2026-10-17; Claude's recommendation, pending owner review): the baseline holds a-b open for the whole
-    # run, so it is the matched no-cutoff arm the row names, as M11.C.10's baseline is. Held only to t0, the policy cut
-    # the tie by itself in 200 of 200 baseline seeds by week 104, and both arms held the cutoff at the nodal event.
+    # Version 1 (2026-10-17; Claude's recommendation, approved by the owner 2026-10-17): the baseline holds a-b open for
+    # the whole run, so it is the matched no-cutoff arm the row names, as M11.C.10's baseline is. Held only to t0, the
+    # policy cut the tie by itself in 200 of 200 baseline seeds by week 104, and both arms held the cutoff at the nodal
+    # event.
     open_until = t0 if arm == "treatment" else weeks
     state, records = scenario("dyad", seed, weeks, spells=nodal_event, forced=forced, held_open=held(open_until, "a-b"))
     now = _acute_at(records, t0 + 1, (P("a"),))[P("a")] - _acute_at(records, t0 - 1, (P("a"),))[P("a")]
@@ -459,9 +461,9 @@ def arm_c5(arm, seed, settings):
     forced = act(mover.value, "I-POSITION", target.value, settings["t0"]) if arm == "treatment" else {}
     state, records = scenario("phase_c", seed, weeks, spells=spell("phase_c", weeks), forced=forced, setup=perspective,
                               held_open=held(settings["t0"], f"{mover.value}-{target.value}"))
-    reaction = sum(v for r in records if isinstance(r, EffectRecord) and r.tick > settings["t0"]
+    reaction = math.fsum(v for r in records if isinstance(r, EffectRecord) and r.tick > settings["t0"]
                    for p, v in r.acute_anxiety if p == target and v > 0)
-    load = sum(state.people[third].symptom_load.values())
+    load = math.fsum(state.people[third].symptom_load.values())
     return result({"target_reaction": reaction, "third_person_symptom_load": load}, records)
 
 
@@ -472,11 +474,11 @@ def _automatic_entropy(records, since):
     kinds = Counter(r.event.kind for r in records if isinstance(r, EmittedRecord)
                     and r.event.mechanism is Mechanism.MOVE and r.event.kind in AUTOMATIC
                     and r.event.timestamp >= since)
-    total = sum(kinds.values())
+    total = count(kinds.values())
     if total == 0:
         return 0.0, 0.0
     shares = [n / total for n in kinds.values()]
-    return -sum(s * math.log(s) for s in shares) / math.log(len(AUTOMATIC)), max(shares)
+    return -math.fsum(s * math.log(s) for s in shares) / math.log(len(AUTOMATIC)), max(shares)
 
 
 def arm_c16(arm, seed, settings):
@@ -538,7 +540,7 @@ def _pair_deviation(state):
 
     tie = state.ties[TieId.of(P("f"), P("m"))]
     params = _params()
-    return sum(deviation(state.people[m], tie, params) for m in tie.id.members())
+    return math.fsum(deviation(state.people[m], tie, params) for m in tie.id.members())
 
 
 def arm_c27(arm, seed, settings):
@@ -596,7 +598,7 @@ def arm_c29(arm, seed, settings):
 
     state, records = scenario("triad", seed, weeks, spells=spell("triad", weeks), forced=forced, setup=perspective,
                               held_open=held(t0 + span, "f-m"), watch=watch)
-    return result({"budget": state.family.undifferentiation_budget, "third_symptom_weeks": float(sum(active))},
+    return result({"budget": state.family.undifferentiation_budget, "third_symptom_weeks": float(count(active))},
                   records)
 
 
@@ -608,10 +610,10 @@ def arm_c32(arm, seed, settings):
 
     def setup(state):
         mover = state.people[P("a")]
-        # Version 1 (2026-10-17; post hoc, Claude's recommendation pending owner review): a mover able to complete the
-        # sequence when calm, as tests/bowen/test_iposition.py's MOVER_LEVEL is. At the fixture's 40 the calm arm reached
-        # the peak in 0 of 200 seeds after spec revision 16, so both arms read 0 and the gate went untested. What
-        # initialisation derives from level is derived again, as lowered() does (review 2026-10-17).
+        # Version 1 (2026-10-17; post hoc, Claude's recommendation, approved by the owner 2026-10-17): a mover able to
+        # complete the sequence when calm, as tests/bowen/test_iposition.py's MOVER_LEVEL is. At the fixture's 40 the
+        # calm arm reached the peak in 0 of 200 seeds after spec revision 16, so both arms read 0 and the gate went
+        # untested. What initialisation derives from level is derived again, as lowered() does (review 2026-10-17).
         mover.basic_level = mover.functional_level = settings["mover_level"]
         mover.pseudo_self = mover.swing
         _reinitialise(state)
@@ -623,8 +625,8 @@ def arm_c32(arm, seed, settings):
             state.ties[TieId.of(P("a"), P("b"))].felt_impingement[P("a")] = settings["angry_impingement"]
 
     state, records = scenario("dyad", seed, settings["weeks"], forced=act("a", "I-POSITION", "b", t0), setup=anger)
-    assertion = sum(1 for r in records if isinstance(r, EmittedRecord) and r.event.assertion)
-    peaks = sum(1 for r in records if isinstance(r, EffectRecord) and r.mechanism == "iposition"
+    assertion = count(1 for r in records if isinstance(r, EmittedRecord) and r.event.assertion)
+    peaks = count(1 for r in records if isinstance(r, EffectRecord) and r.mechanism == "iposition"
                 for _, f, _ in r.people if f in ("iposition:enter:RESOLVE",))
     return result({"assertion_form": float(assertion), "reached_peak": float(peaks)}, records)
 
@@ -643,7 +645,7 @@ def arm_c35(arm, seed, settings):
     state, records = scenario("triad", seed, t0 + settings["run_after"], forced=forced, setup=setup,
                               held_open=held(t0, "f-m"))
     event_id = EventId(t0, "f", 0)
-    witness = sum(v for r in records if isinstance(r, EffectRecord) and r.mechanism == "appraisal"
+    witness = math.fsum(v for r in records if isinstance(r, EffectRecord) and r.mechanism == "appraisal"
                   and r.cause == event_id for p, v in r.acute_anxiety if p == P("c"))
     return result({"witness_appraisal": witness}, records)
 
@@ -657,7 +659,7 @@ def arm_c41(arm, seed, settings):
     light = spell("phase_c", weeks, every=SPELL["light_every"], parents=SPELL["light_parents"])
     spells = spell("phase_c", weeks) if stress == "heavy" else light
     state, records = scenario("phase_c", seed, weeks, spells=spells, setup=lowered(level))
-    acute = sum(p.acute_anxiety for p in state.people.values() if p.role.value == "member")
+    acute = math.fsum(p.acute_anxiety for p in state.people.values() if p.role.value == "member")
     return result({"mean_acute": acute, "reactive_over_chance": reactive_over_chance(records)}, records)
 
 
@@ -679,7 +681,7 @@ def reactive_over_chance(records) -> float:
     excess, n = 0.0, 0
     for r in records:
         if isinstance(r, SelectionRecord) and r.decided_by is DecidedBy.POLICY and r.legal_set:
-            offered = sum(1 for label in r.legal_set if label.split(">")[0] in AUTOMATIC)
+            offered = count(1 for label in r.legal_set if label.split(">")[0] in AUTOMATIC)
             if offered:
                 excess += (kinds.get(r.event_id) in AUTOMATIC) - offered / len(r.legal_set)
                 n += 1
@@ -700,7 +702,7 @@ def arm_c42(arm, seed, settings):
         forced, unavailable = {}, {t0: (pair, third)}
     state, records = scenario("triad", seed, weeks, spells=spell("triad", weeks), forced=forced,
                               setup=settings.get("setup"), unavailable=unavailable, held_open=held(t0, "f-c"))
-    reused = sum(1 for r in records if isinstance(r, EmittedRecord) and r.event.sender in pair
+    reused = count(1 for r in records if isinstance(r, EmittedRecord) and r.event.sender in pair
                  and r.event.kind == "TRIANGLE" and r.event.targets == (third,) and r.event.timestamp > t0)
     return result({"triangle_reuse": float(reused)}, records)
 
@@ -722,11 +724,11 @@ def arm_spell_triad(arm, seed, settings):
     state, records = scenario("triad", seed, weeks, spells=spells)
     triad = {P("f"), P("m"), P("c")}
     acts_ = moves_by(records, triad)
-    outside = sum(1 for e in acts_ if e.kind in OUTSIDE_ACTS)
-    inside = sum(1 for e in acts_ if e.kind in INSIDE_ACTS)
+    outside = count(1 for e in acts_ if e.kind in OUTSIDE_ACTS)
+    inside = count(1 for e in acts_ if e.kind in INSIDE_ACTS)
     # M11.C.45's "rate of TRIANGLE selection": one selection per person per week (M4.D.1), so the rate is
     # TRIANGLE selections per person-week (decided 2026-10-08, docs/phase_c_completion_report.md §9).
-    triangles = sum(1 for e in acts_ if e.kind == "TRIANGLE") / (len(triad) * weeks)
+    triangles = count(1 for e in acts_ if e.kind == "TRIANGLE") / (len(triad) * weeks)
     return result({"outside_inside_ratio": (outside + 1) / (inside + 1), "triangle_rate": triangles}, records)
 
 
@@ -754,9 +756,9 @@ CRITERIA: dict[str, Criterion] = {
                   settings=SETTINGS["M11.C.19"]),
     "M11.C.25": C("M11.C.25", "premise", ("baseline", "treatment"), (Readout("first_dominant", 0, (0, 1)),),
                   arm_c25, settings=SETTINGS["M11.C.25"]),
-    # Version 1 (2026-10-17; Claude's recommendation, pending owner review): the budget limb (M6.I.1) is proved by
-    # tests/bowen/test_sinks.py::test_m6i1_only_a_completed_exchange_reduces_the_budget and reported here; the third
-    # person's time course is emergent, so the criterion is mixed and gates on that limb alone.
+    # Version 1 (2026-10-17; Claude's recommendation, approved by the owner 2026-10-17): the budget limb (M6.I.1) is
+    # proved by tests/bowen/test_sinks.py::test_m6i1_only_a_completed_exchange_reduces_the_budget and reported here; the
+    # third person's time course is emergent, so the criterion is mixed and gates on that limb alone.
     "M11.C.29": C("M11.C.29", "mixed", ("baseline", "treatment"),
                   (Readout("budget", -1, report_only=True), Readout("third_symptom_weeks", -1)), arm_c29,
                   settings=SETTINGS["M11.C.29"]),

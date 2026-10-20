@@ -126,12 +126,16 @@ AD_HOC = {
 
 def engine_hash() -> str:
     """The engine, config and rules (``code_hash``), the child, and the source of ``apply`` and ``run_in_copy``, which
-    decide what is copied and how an edit lands. Not the rest of ``tools/mutant_runner.py``: that is Phase C's child."""
-    from tools.ensemble_record import code_hash
+    decide what is copied and how an edit lands. Not the rest of ``tools/mutant_runner.py``: that is Phase C's child.
+    The two functions are read through ``source_text``, as ``code_hash`` reads a file, so a comment or a docstring
+    there reruns nothing (version 2 stage 1, rider (iv)).
+    Tests: tests/bowen/test_phase_d_mutation_record.py::test_s1_9_engine_hash_ignores_comments
+    """
+    from tools.ensemble_record import code_hash, source_text
 
     digest = hashlib.sha256(code_hash(CHILD).encode())
     for function in (apply, run_in_copy):
-        digest.update(inspect.getsource(function).encode())
+        digest.update(source_text(inspect.getsource(function)).encode())
     return digest.hexdigest()
 
 

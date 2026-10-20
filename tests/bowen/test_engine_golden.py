@@ -35,6 +35,8 @@ an over-functioner takes in proportion to their room above the stress floor (`M1
 both runs) and, in phase_d, a child's development band opened by the parents' acts (R31.B7). Moved 2026-10-17 by
 spec revision 32: a nodal event spikes the cut ties of those it reaches (`M4.C.1c`, the owner's form; behaviour, both
 runs). The coach's position gate of the same revision moved neither. The phase_b run is scripted and did not move.
+Version 2 stage 1 (2026-10-19: every float total a `math.fsum`, S1.1) moved neither, measured at 8 significant
+digits.
 
 **Why the floats are rounded (2026-10-15).** The fingerprints were taken from the exact repr, and CI on Linux failed
 them while the Mac passed: the last bits of a float differ between platforms and Python versions (Python 3.12 changed

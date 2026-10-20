@@ -27,12 +27,15 @@ directed. A tie with an external agent accumulates none (`M1.E.7e`: the coach ti
 
 from __future__ import annotations
 
+import math
+
 from src.bowen.engine.contact import deviation, excess, too_much
 from src.bowen.engine.identifiers import PersonId, TieId
 from src.bowen.engine.log_records import EffectRecord
 from src.bowen.engine.objects import REACTIVE_DETECTORS, SCALE_MAX, Role
 from src.bowen.engine.params import EngineParams
 from src.bowen.engine.state import RunState
+from src.bowen.engine.counting import count
 
 
 def investment_share(state: RunState, person: PersonId, tie: TieId) -> float:
@@ -40,7 +43,7 @@ def investment_share(state: RunState, person: PersonId, tie: TieId) -> float:
     Spec:    docs/bowen_agent_model_spec_v2.md#M1.B.8
     Tests:   tests/bowen/test_reactive.py::test_m1b8_conflict_registers_as_high_investment
     """
-    total = sum(t.investment.get(person, 0.0) for t in state.ties_of(person))
+    total = math.fsum(t.investment.get(person, 0.0) for t in state.ties_of(person))
     return state.ties[tie].investment.get(person, 0.0) / total if total else 0.0
 
 
@@ -69,7 +72,7 @@ def update_investment(
 
 
 def _evaluations(state: RunState, person: PersonId) -> int:
-    return sum(1 for e in state.store.moves_in(state.tick - 1, state.tick) if e.sender == person and e.valence != 0)
+    return count(1 for e in state.store.moves_in(state.tick - 1, state.tick) if e.sender == person and e.valence != 0)
 
 
 def detector_targets(state: RunState, person: PersonId, params: EngineParams) -> dict[str, float]:
@@ -79,7 +82,7 @@ def detector_targets(state: RunState, person: PersonId, params: EngineParams) ->
     """
     me = state.people[person]
     ties = state.ties_of(person)
-    critical = sum(too_much(me, t, params) for t in ties)
+    critical = math.fsum(too_much(me, t, params) for t in ties)
     inside = 0.0
     for t in ties:
         other = next(p for p in t.id.members() if p != person)
@@ -177,14 +180,14 @@ def weakness_focus(state: RunState, load: dict, params: EngineParams) -> list[Ef
             if pressure <= 0.0:
                 continue
             held = {c: t.investment.get(parent, 0.0) for c in children if (t := state.ties.get(TieId.of(parent, c)))}
-            total = sum(held.values())
-            spread = sum((h / total) * (h / total) for h in held.values()) if total > 0 else 0.0  # Σ share²
+            total = math.fsum(held.values())
+            spread = math.fsum((h / total) * (h / total) for h in held.values()) if total > 0 else 0.0  # Σ share²
             for child in children:
                 tie = state.ties.get(TieId.of(parent, child))
                 if tie is None:
                     continue
                 others = [state.people[c].functional_level for c in children if c != child]
-                shortfall = max(0.0, sum(others) / len(others) - state.people[child].functional_level) if others else 0.0
+                shortfall = max(0.0, math.fsum(others) / len(others) - state.people[child].functional_level) if others else 0.0
                 shortfall += state.people[child].weakness * SCALE_MAX
                 gain = params.perceived_weakness_gain * pressure / SCALE_MAX * shortfall
                 # M1.B.8b, revision 30: anxious focus moves to where it already is — a child above the mean share gains

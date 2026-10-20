@@ -163,7 +163,8 @@ def new_run_state(
 def canonical_state(state: RunState) -> str:
     """Purpose: the run's object state as one canonical string, for comparing two runs.
     Spec:    docs/bowen_agent_model_spec_v2.md#M16.T.3, #M11.D.6
-    Tests:   tests/bowen/test_log.py::test_m16t3_sink_does_not_change_results
+    Tests:   tests/bowen/test_log.py::test_m16t3_sink_does_not_change_results,
+             tests/bowen/test_log.py::test_m16t3_s1_2_canonical_state_sees_the_stressors
     """
     from src.bowen.engine.log_records import plain
 
@@ -178,5 +179,6 @@ def canonical_state(state: RunState) -> str:
         **({"life": plain(state.life)} if state.life is not None else {}),  # the life course, revision 28
         "events": [plain(e) for e in state.store.events()],
         "triggers": [plain(t) for t in state.triggers],  # revision 32: a spike still to land is state
+        "stressors": [plain(s) for s in state.stressors],  # version 2 stage 1 (S1.2): a stressor still weighing
     }
     return json.dumps(body, sort_keys=True, separators=(",", ":"), default=str)

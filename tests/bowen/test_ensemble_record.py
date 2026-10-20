@@ -49,6 +49,23 @@ def test_s1_8a_render_is_not_hashed(tmp_path, monkeypatch):
         assert (_tool.code_hash() != before) is changes, name
 
 
+def test_s1_5b_code_text_keeps_a_line_separator_inside_a_string(tmp_path):
+    """S1.5b: ``code_text`` numbers lines as ``tokenize`` does. ``str.splitlines`` also breaks at U+2028, so two of
+    them inside a string shifted every later line by two; a docstring after a line holding a two-byte character was
+    then looked for at the wrong column and kept in the hash."""
+    source = ('X = "a\u2028b\u2028c"\n'
+              "class C:\n"
+              "    \u00e9\u00e9 = 1\n"
+              "    def f(self):\n"
+              '        """doc"""\n'
+              "        return 1\n")
+    path = tmp_path / "probe.py"
+    path.write_text(source, encoding="utf-8")
+    text = _tool.code_text(path)
+    assert '"""doc"""' not in text
+    assert '"a\u2028b\u2028c"' in text.split("\x00")
+
+
 def test_m134_record_covers_every_criterion_and_names_what_is_not_built():
     text = record_text()
     for cid in CRITERIA:

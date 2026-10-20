@@ -150,13 +150,13 @@ def estimate(weeks, basic_level: float, dependent: bool, params: EngineParams) -
     """
     if len(weeks) < history_length(params):
         return None
-    total = sum(w.load for w in weeks)
+    total = math.fsum(w.load for w in weeks)
     if total <= 0:
         return None
-    mean = sum(w.load * w.functional_level for w in weeks) / total
-    sd = math.sqrt(sum(w.load * (w.functional_level - mean) * (w.functional_level - mean) for w in weeks) / total)
+    mean = math.fsum(w.load * w.functional_level for w in weeks) / total
+    sd = math.sqrt(math.fsum(w.load * (w.functional_level - mean) * (w.functional_level - mean) for w in weeks) / total)
     breadth = len({event for w in weeks for event in w.nodal})
-    self_share = sum(w.load for w in weeks if w.self_directed) / total
+    self_share = math.fsum(w.load for w in weeks if w.self_directed) / total
     evidence = mean - params.estimator_sd_weight * sd - basic_level
     supported = evidence > 0 and breadth >= params.estimator_breadth and not dependent
     rise = params.estimator_rate * (basic_level / SCALE_MAX) * self_share * evidence if supported else 0.0

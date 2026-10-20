@@ -41,7 +41,7 @@
 >   (`t0 + after` weeks), so C1 has lent functioning before the collapse; the arms differ only by the treatment's
 >   `drop` in both parents' functional level at week `t0`. A composite since 2026-10-17 (owner decision).
 >
-> **Version 1, the premises' arms (2026-10-17; spec revision 32, Claude's recommendation, pending owner review):**
+> **Version 1, the premises' arms (2026-10-17; spec revision 32, Claude's recommendation, approved by the owner 2026-10-17):**
 > * `M11.C.4` — the exception to the held-open rule below: the baseline holds `a`–`b` open for the whole run, so it is
 >   the matched no-cutoff arm (held only to `t0`, the policy cut the tie by itself in every baseline seed); the
 >   treatment holds it to `t0` as before.
@@ -51,7 +51,7 @@
 >   the mean over the first `window` weeks less the mean over the last `window`. The topologies and the scripted
 >   `SPLIT` are in `src/bowen/ensemble/criteria_d.py`'s `arm_c7`.
 >
-> **Version 1, `M11.C.46` (2026-10-17; the arm design is Claude's recommendation, pending owner review):** on the
+> **Version 1, `M11.C.46` (2026-10-17; the arm design is Claude's recommendation, approved by the owner 2026-10-17):** on the
 > triad, F turns to C (`TRIANGLE`) at week `t0`, the ties held open as in `M11.C.3`, and the act lands `latency`
 > weeks later. The arms differ only in C's bonds from week 0: the baseline's C has bond energy `bond_far` with F and
 > `bond_near` with M, the treatment's the reverse. Their sum is the fixture's (50 + 50).

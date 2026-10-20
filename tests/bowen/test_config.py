@@ -2,7 +2,8 @@
 
 Purpose: prove the markdown config parser fails loudly, and the repository's
          constants register loads with every constant graded.
-Spec:    docs/bowen_agent_model_spec_v2.md#M11.D.3, #M10.B.2, #M10.1, #M0.1, #M10.B.4
+Spec:    docs/bowen_agent_model_spec_v2.md#M11.D.3, #M10.B.2, #M10.1, #M0.1, #M10.B.4;
+         docs/implementation_plan_version_2.md#S1.3a, #S1.3b
 Tests:   this file
 """
 
@@ -320,3 +321,46 @@ def test_m10b4_a_retired_key_is_rejected_in_the_live_register():
     """A key retired since the freeze may appear only in a frozen snapshot (M10.B.4)."""
     with pytest.raises(ConfigError, match="unknown key"):
         parse_constants(doc(GOOD_ROWS + "| `tension_activation_threshold` | 5.0 | [I] | u | `M1.C.3` |\n"))
+
+
+def test_s1_3a_act_classes_come_from_config():
+    """S1.3a (rule 9): the engine's and the policy's act classes are the sets ``config/bowen/act_classes.md`` declares,
+    read through the kinds (the engine reads no file, `M11.D.22`), and neither module holds a literal set of act names.
+    The two policy classes are also the lists the spec's `M5.B.4` and `M5.B.5` name, so the file cannot drift from
+    the spec."""
+    import re
+    from pathlib import Path
+
+    from act_literals import literal_act_sets  # tests/bowen is on the path under pytest's rootdir
+    from src.bowen.engine import external
+    from src.bowen.io.load import load_act_classes, load_event_kinds
+    from src.bowen.policy import policy
+
+    kinds = load_event_kinds()
+    classes = load_act_classes(kinds)
+    assert {c: getattr(kinds, c) for c in classes} == classes and all(classes.values())
+    for module in (external, policy):
+        assert literal_act_sets(Path(module.__file__)) == [], module.__name__
+    spec = Path(__file__).resolve().parents[2].joinpath("docs", "bowen_agent_model_spec_v2.md").read_text(encoding="utf-8")
+    for requirement, name in (("M5.B.4", "family_to_external"), ("M5.B.5", "external_repertoire")):
+        line = next(l for l in spec.splitlines() if l.startswith(f"**{requirement}**"))
+        assert set(re.findall(r"`([A-Z][A-Z_-]+)`", line)) & kinds.moves() == classes[name], requirement
+
+
+def test_s1_3b_an_undeclared_act_fails_to_load(tmp_path):
+    """S1.3b (`M10.B.2`): a misspelt act in the act classes fails at load, as does a class missing or listed twice."""
+    from src.bowen.io.load import CONFIG_DIR, load_act_classes, load_event_kinds
+
+    kinds = load_event_kinds()
+    text = (CONFIG_DIR / "act_classes.md").read_text(encoding="utf-8")
+    broken = {
+        "misspelt": text.replace("| side_taking | SPLIT |", "| side_taking | SPILT |"),
+        "missing": "\n".join(l for l in text.splitlines() if not l.startswith("| side_taking |")),
+        "twice": text + "| side_taking | SPLIT | again |\n",
+    }
+    assert all(b != text for b in broken.values())
+    for name, body in broken.items():
+        path = tmp_path / f"{name}.md"
+        path.write_text(body, encoding="utf-8")
+        with pytest.raises(ConfigError):
+            load_act_classes(kinds, path)

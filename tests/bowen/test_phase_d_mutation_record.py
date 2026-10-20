@@ -76,3 +76,13 @@ def test_m111d_every_passing_phase_d2_criterion_has_a_mutant_or_names_where_it_i
     missing = sorted(_tool.passing() - recorded - set(_tool.AD_HOC))
     assert not missing, f"passing with no mutant and not in AD_HOC: {missing}"
     assert not set(_tool.AD_HOC) & recorded, "a criterion in AD_HOC now has a mutant here; remove it from AD_HOC"
+
+
+def test_s1_9_engine_hash_ignores_comments(monkeypatch):
+    """Rider (iv) (version 2 plan D7): the record's own hash reads ``apply`` and ``run_in_copy`` through
+    ``source_text``, so a comment added to either leaves it unchanged, and a code change moves it."""
+    real = _tool.inspect.getsource
+    before = _tool.engine_hash()
+    for extra, moves in (("    # a comment added to the function\n", False), ("S1_9_EDIT = 1\n", True)):
+        monkeypatch.setattr(_tool.inspect, "getsource", lambda f, extra=extra: real(f) + extra)
+        assert (_tool.engine_hash() != before) is moves, extra

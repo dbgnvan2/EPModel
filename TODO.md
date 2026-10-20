@@ -10,7 +10,8 @@ Deferred and adjacent items. Each carries enough context to act on later without
   three version 1 loose ends. The answers are in the plan's §5.
 - [ ] **Version 2, next:** ~~stage 0~~ *done 2026-10-19: the `version-1` tag at `d62cfdc`, pushed, with the status
   page frozen and checked against it; the dispositions; the render-only fixes moved to stage 1 (owner).* Then stage 1
-  (the engineering batch, with the grid engine retired, stage 0.3's two fixes, and the trace renderer out of the hash);
+  (the engineering batch, with the grid engine retired, stage 0.3's two fixes, and the trace renderer out of the hash;
+  *plan drafted 2026-10-19, `docs/implementation_plan_version_2.md` §1: owner, decide D1–D7 and approve*);
   the G2 proposal, so group G (G1, G2, the Holmes–Rahe sizes) can go to one revision and be built before the stage 2
   pilot; then proposals for groups C, F and A, each with the owner's note in the plan's §5 Q2.
 - [ ] **`/csdp` sweep of 2026-10-19, items not fixed** (each with its reason; the last three are the fix re-sweep's

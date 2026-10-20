@@ -18,10 +18,10 @@ Reviewer: ________  Started: ________  Spec revision reviewed: ________
 
 These define what the model does. A run that disagrees with them is a defect.
 
-- [ ] [bowen_agent_model_spec_v2.md](bowen_agent_model_spec_v2.md) — the spec (v2.0, revision 27). Objects (M1),
-      reference family (M2), clocks and ordering (M3), the fast tick (M4), moves (M5), invariants (M6), the slow tick
-      (M7), live positions (M8), beliefs (M9), parameters (M10), acceptance criteria (M11), framing (M11.F), the
-      readout schema (M11.G), out of scope (M12), the run log and trace (M16).
+- [ ] [bowen_agent_model_spec_v2.md](bowen_agent_model_spec_v2.md) — the spec (v2.0, revision 33; version 1 is
+      revision 32). Objects (M1), reference family (M2), clocks and ordering (M3), the fast tick (M4), moves (M5),
+      invariants (M6), the slow tick (M7), live positions (M8), beliefs (M9), parameters (M10), acceptance criteria
+      (M11), framing (M11.F), the readout schema (M11.G), out of scope (M12), the run log and trace (M16).
 - [ ] [../config/bowen/constants.md](../config/bowen/constants.md) — the parameter values the engine uses.
 - [ ] [../config/bowen/constants_changes.md](../config/bowen/constants_changes.md) — every change to those values,
       and why.

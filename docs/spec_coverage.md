@@ -175,7 +175,7 @@ mutant has turned each entry red in `docs/phase_c_mutation_record.md`; the D9 sw
 | M3.D.2 | done | `tests/bowen/test_tick.py::test_m3d2_standing_load_precedes_delivery` | — |
 | M3.D.3 | done | `tests/bowen/test_tick.py::test_m3d3_involvement_and_triangles_precede_select` | — |
 | M3.D.4 | done | `tests/bowen/test_draws.py::test_m3d4_seed_must_be_a_64_bit_int` | — |
-| M3.D.4a | done | `tests/bowen/test_draws.py::test_m3d4a_an_extra_draw_in_one_arm_shifts_no_other_draw`<br>`tests/bowen/test_draws.py::test_m3d4a_categorical_uses_one_uniform_and_respects_zero_weights`<br>`tests/bowen/test_draws.py::test_m3d4a_draw_is_pure_function_of_seed_and_key`<br>`tests/bowen/test_draws.py::test_m3d4a_draws_agree_across_processes`<br>`tests/bowen/test_draws.py::test_m3d4a_key_rejects_state_quantities`<br>`tests/bowen/test_draws.py::test_m3d4a_no_builtin_hash_or_global_rng_in_engine`<br>`tests/bowen/test_draws.py::test_m3d4a_query_order_does_not_change_values`<br>`tests/bowen/test_draws.py::test_m3d4a_uniforms_are_in_unit_interval_and_fixed_count` | — |
+| M3.D.4a | done | `tests/bowen/test_draws.py::test_m3d4a_an_extra_draw_in_one_arm_shifts_no_other_draw`<br>`tests/bowen/test_draws.py::test_m3d4a_categorical_never_returns_a_zero_weight_index_at_the_top_edge`<br>`tests/bowen/test_draws.py::test_m3d4a_categorical_uses_one_uniform_and_respects_zero_weights`<br>`tests/bowen/test_draws.py::test_m3d4a_draw_is_pure_function_of_seed_and_key`<br>`tests/bowen/test_draws.py::test_m3d4a_draws_agree_across_processes`<br>`tests/bowen/test_draws.py::test_m3d4a_key_rejects_state_quantities`<br>`tests/bowen/test_draws.py::test_m3d4a_no_builtin_hash_or_global_rng_in_engine`<br>`tests/bowen/test_draws.py::test_m3d4a_query_order_does_not_change_values`<br>`tests/bowen/test_draws.py::test_m3d4a_uniforms_are_in_unit_interval_and_fixed_count` | — |
 | M3.D.4b | done | `tests/bowen/test_draws.py::test_m3d4b_dyad_keying_makes_a_different_partner_a_different_event`<br>`tests/bowen/test_draws.py::test_m3d4b_every_draw_class_declares_its_key`<br>`tests/bowen/test_draws.py::test_m3d4b_slot_keys_carry_no_partner_and_dyad_keys_do`<br>`tests/bowen/test_draws.py::test_m3d4b_table_matches_the_spec`<br>`tests/bowen/test_draws.py::test_m3d4b_tie_break_is_distinct_from_selection_at_the_same_slot`<br>`tests/bowen/test_policy.py::test_m3d4b_selection_draw_is_slot_keyed` | — |
 | M3.D.4c | done | `tests/bowen/test_draws.py::test_m3d4c_repeated_key_raises_in_debug`<br>`tests/bowen/test_draws.py::test_m3d4c_repeated_key_returns_the_cached_value_outside_debug` | — |
 | M3.D.5 | done | `tests/bowen/test_determinism.py::test_m11d5_same_seed_same_log`<br>`tests/bowen/test_log.py::test_m16t5_same_seed_same_log_with_header` | — |
@@ -488,7 +488,7 @@ mutant has turned each entry red in `docs/phase_c_mutation_record.md`; the D9 sw
 | M12.4 | not done | — | Phase every phase — prohibitions, checked by review |
 | M12.5 | not done | — | Phase every phase — prohibitions, checked by review |
 | M13.1 | done | `tests/bowen/test_live_positions.py::test_m81_positions_live_counts_unfused_present_occupants` | M8 built at Phase B step 6, before any caller |
-| M13.2 | done | `tests/test_simulator.py` | the frozen engine's 37 tests pass unchanged; gate G14 |
+| M13.2 | done | `tests/test_repo_layout.py::test_s1_6_the_grid_engine_is_retired` | revision 33: the grid engine and its 37 tests retired at version 2 stage 1, kept at the tag version-1; until then its tests passed unchanged (gate G14) |
 | M13.2a | done | `tests/test_spec_consistency.py::test_m11d11_every_criterion_gates_its_phase` | — |
 | M13.3 | partial | — | no M15 importer exists under src/bowen; no test guards against one being built |
 | M13.4 | done | `tests/bowen/test_ensemble.py::test_m17a1_undetermined_at_cap_does_not_pass`<br>`tests/bowen/test_ensemble_record.py::test_m134_code_hash_ignores_prose_but_not_code`<br>`tests/bowen/test_ensemble_record.py::test_m134_ensemble_record_is_current`<br>`tests/bowen/test_ensemble_record.py::test_m134_every_record_hashes_the_rule_keys`<br>`tests/bowen/test_ensemble_record.py::test_m134_record_covers_every_criterion_and_names_what_is_not_built` | Phase C stops adaptively; UNDETERMINED at the cap does not pass (step 12) |
@@ -551,9 +551,9 @@ mutant has turned each entry red in `docs/phase_c_mutation_record.md`; the D9 sw
 | M16.E.1 | not done | — | Phase F |
 | M16.E.2 | not done | — | Phase F |
 | M16.E.3 | not done | — | Phase F |
-| M16.T.1 | done | `tests/bowen/test_render.py::test_m16t1_effects_are_reported_in_reader_units`<br>`tests/bowen/test_render.py::test_m16t1_trace_renders_scripted_run` | — |
+| M16.T.1 | done | `tests/bowen/test_render.py::test_m16t1_effects_are_reported_in_reader_units`<br>`tests/bowen/test_render.py::test_m16t1_s1_7a_a_release_has_its_own_row`<br>`tests/bowen/test_render.py::test_m16t1_trace_renders_scripted_run` | — |
 | M16.T.2 | done | `tests/bowen/test_engine_purity.py::test_m16t2_engine_writes_nothing` | — |
-| M16.T.3 | done | `tests/bowen/test_engineering_gates.py::test_m16t3_sink_does_not_change_results_under_the_policy`<br>`tests/bowen/test_life_course.py::test_m16t3_canonical_state_sees_the_life_course`<br>`tests/bowen/test_life_course.py::test_m16t3_sink_does_not_change_a_life_course_run`<br>`tests/bowen/test_log.py::test_m16t3_sink_does_not_change_results` | rerun at Phase C step 13 with the policy and the learner reading the store; to be rerun at the end of Phase D |
+| M16.T.3 | done | `tests/bowen/test_engineering_gates.py::test_m16t3_sink_does_not_change_results_under_the_policy`<br>`tests/bowen/test_life_course.py::test_m16t3_canonical_state_sees_the_life_course`<br>`tests/bowen/test_life_course.py::test_m16t3_sink_does_not_change_a_life_course_run`<br>`tests/bowen/test_log.py::test_m16t3_canonical_state_covers_every_field`<br>`tests/bowen/test_log.py::test_m16t3_s1_2_canonical_state_sees_the_stressors`<br>`tests/bowen/test_log.py::test_m16t3_sink_does_not_change_results` | rerun at Phase C step 13 with the policy and the learner reading the store; to be rerun at the end of Phase D |
 | M16.T.6 | done | `tests/bowen/test_external.py::test_m16t6_event_store_is_load_bearing` | — |
 | M16.T.4 | done | `tests/bowen/test_external.py::test_m16t4_delayed_view_is_scoped_and_lagged` | — |
 | M16.T.5 | done | `tests/bowen/test_log.py::test_m16t5_same_seed_same_log_with_header` | — |
@@ -587,14 +587,18 @@ mutant has turned each entry red in `docs/phase_c_mutation_record.md`; the D9 sw
 | M17.G.2 | not done | — | Phase E |
 | M17.G.3 | not done | — | Phase E |
 
-## Tests named for no spec ID (142)
+## Tests named for no spec ID (139)
 
 Their names embed no requirement ID, so they count only where an override cites them (marked *cited*). The rest check spec documents, tooling or helpers.
 
 - `tests/bowen/test_config.py::test_m0_1_grade_must_match_the_spec` — *cited*
 - `tests/bowen/test_config.py::test_m0_1_unknown_grade_rejected` — *cited*
+- `tests/bowen/test_config.py::test_s1_3a_act_classes_come_from_config`
+- `tests/bowen/test_config.py::test_s1_3a_kinds_without_act_classes_fail_where_a_class_is_read`
+- `tests/bowen/test_config.py::test_s1_3b_an_undeclared_act_fails_to_load`
 - `tests/bowen/test_engine_golden.py::test_b1_fingerprint_ignores_last_bits_and_sees_real_changes`
 - `tests/bowen/test_engine_golden.py::test_b1_seeded_run_log_is_unchanged`
+- `tests/bowen/test_engine_purity.py::test_s1_8b_only_run_imports_render`
 - `tests/bowen/test_ensemble_record.py::test_b2_code_text_drops_only_docstrings_and_comments`
 - `tests/bowen/test_ensemble_record.py::test_b2_code_text_is_the_same_on_every_python_version`
 - `tests/bowen/test_ensemble_record.py::test_b2_code_text_keeps_fstring_text_exactly`
@@ -610,6 +614,8 @@ Their names embed no requirement ID, so they count only where an override cites 
 - `tests/bowen/test_ensemble_record.py::test_d9_sweep_marks_opposite_sign_and_report_only`
 - `tests/bowen/test_ensemble_record.py::test_d9_sweep_record_is_current`
 - `tests/bowen/test_ensemble_record.py::test_d9_sweep_renders_a_row_without_readouts`
+- `tests/bowen/test_ensemble_record.py::test_s1_5b_code_text_keeps_a_line_separator_inside_a_string`
+- `tests/bowen/test_ensemble_record.py::test_s1_8a_render_is_not_hashed`
 - `tests/bowen/test_ensemble_record.py::test_sweep_tool_shares_the_loaded_mutation_tool`
 - `tests/bowen/test_events.py::test_b1_delivered_at_matches_delivered_to_filtered`
 - `tests/bowen/test_events.py::test_b1_indexes_match_a_full_scan`
@@ -637,12 +643,26 @@ Their names embed no requirement ID, so they count only where an override cites 
 - `tests/bowen/test_family.py::test_m2a_phase_d_family_matches_spec_table`
 - `tests/bowen/test_family.py::test_m2a_ravi_sibling_starts_cut_off`
 - `tests/bowen/test_family.py::test_m2a_values_match_the_spec_table` — *cited*
+- `tests/bowen/test_float_sums.py::test_s1_1a_no_builtin_sum_in_bowen`
+- `tests/bowen/test_float_sums.py::test_s1_1a_the_scan_finds_a_sum`
+- `tests/bowen/test_float_sums.py::test_s1_1b_count_refuses_a_float`
+- `tests/bowen/test_mechanisms.py::test_m8_5_s1_4_a_sided_coach_leaves_its_triangle_active`
+- `tests/bowen/test_mutant_runner.py::test_s1_5a_a_failed_child_does_not_stop_the_record`
+- `tests/bowen/test_mutant_runner.py::test_s1_5a_a_line_cut_short_is_reported`
+- `tests/bowen/test_mutant_runner.py::test_s1_5a_a_second_stop_signal_cannot_interrupt_the_kill`
+- `tests/bowen/test_mutant_runner.py::test_s1_5a_a_stopped_parent_leaves_no_process`
+- `tests/bowen/test_mutant_runner.py::test_s1_5a_a_timed_out_child_leaves_no_process`
+- `tests/bowen/test_mutant_runner.py::test_s1_5a_an_ignored_stop_signal_stays_ignored`
 - `tests/bowen/test_patterns.py::test_b2_a_misspelt_act_in_config_raises`
 - `tests/bowen/test_patterns.py::test_b2_now_must_be_the_week_just_run`
 - `tests/bowen/test_patterns.py::test_b2_now_reads_as_of_that_week`
 - `tests/bowen/test_patterns.py::test_b2_pattern_act_sets_come_from_config`
 - `tests/bowen/test_patterns.py::test_b2_silence_ignores_acts_after_the_reading_week`
+- `tests/bowen/test_patterns.py::test_s1_0_act_sets_come_from_config`
+- `tests/bowen/test_patterns.py::test_s1_0_the_scan_finds_each_form_of_act_literal`
+- `tests/bowen/test_patterns.py::test_s1_9_readouts_read_now`
 - `tests/bowen/test_phase_b_gate.py::test_m13_phase_b_scripted_40_week_trace_runs`
+- `tests/bowen/test_phase_b_gate.py::test_s1_5c_phase_b_record_is_frozen`
 - `tests/bowen/test_phase_c_criteria.py::test_s_absence_and_hold_in_the_same_week_both_apply`
 - `tests/bowen/test_phase_c_criteria.py::test_s_declared_latency_matches_the_fixtures_ties`
 - `tests/bowen/test_phase_c_criteria.py::test_s_every_scripted_act_is_made_with_the_hold`
@@ -650,11 +670,16 @@ Their names embed no requirement ID, so they count only where an override cites 
 - `tests/bowen/test_phase_c_criteria.py::test_s_outcomes_classifies_every_case_from_the_records`
 - `tests/bowen/test_phase_c_criteria.py::test_s_scripted_criteria_are_found_by_running_them`
 - `tests/bowen/test_phase_d_criteria.py::test_forced_withheld_label_withholds_that_act_toward_that_person_only`
+- `tests/bowen/test_phase_d_mutation_record.py::test_s1_9_engine_hash_ignores_comments`
 - `tests/bowen/test_phase_d_record.py::test_phase_d2_record_covers_every_criterion_and_names_what_is_not_run`
 - `tests/bowen/test_phase_d_record.py::test_phase_d2_record_is_current`
 - `tests/bowen/test_phase_d_record.py::test_phase_d_record_carries_no_phase_c_wording_and_its_table_matches_its_json`
 - `tests/bowen/test_phase_d_record.py::test_phase_d_record_covers_every_criterion_and_names_what_is_not_built`
 - `tests/bowen/test_phase_d_record.py::test_phase_d_record_is_current`
+- `tests/bowen/test_phase_d_record.py::test_s1_7b_variants_print_under_their_own_keys`
+- `tests/bowen/test_phase_d_record.py::test_s1_8c_a_stale_entry_is_rerun`
+- `tests/bowen/test_phase_d_record.py::test_s1_8c_records_render_from_the_cache`
+- `tests/bowen/test_record_json.py::test_s1_5d_one_record_parser`
 - `tests/bowen/test_register.py::test_m14a_check_catches_a_field_with_no_row`
 - `tests/bowen/test_register.py::test_m14a_register_matches_object_fields` — *cited*
 - `tests/bowen/test_render.py::test_b2_framing_says_who_chose_the_acts`
@@ -662,6 +687,13 @@ Their names embed no requirement ID, so they count only where an override cites 
 - `tests/bowen/test_script.py::test_m13_without_removes_one_kind_only`
 - `tests/test_doc_checklist.py::test_every_checklist_link_exists`
 - `tests/test_doc_checklist.py::test_every_document_is_in_the_checklist`
+- `tests/test_record_changes.py::test_s1_10b_a_changed_verdict_and_a_moved_effect_are_listed`
+- `tests/test_record_changes.py::test_s1_10b_a_readout_on_one_side_only_is_listed`
+- `tests/test_record_changes.py::test_s1_10b_a_record_not_regenerated_is_refused`
+- `tests/test_record_changes.py::test_s1_10b_a_value_record_lists_a_changed_value`
+- `tests/test_record_changes.py::test_s1_10b_changes_page_is_current`
+- `tests/test_record_changes.py::test_s1_10b_the_tags_d2_rows_are_matched_by_position`
+- `tests/test_repo_layout.py::test_s1_6_the_grid_engine_is_retired` — *cited*
 - `tests/test_review_rev31.py::test_r31a10_launch_age_approved`
 - `tests/test_review_rev31.py::test_r31a11_plan_closes_the_two_owner_questions`
 - `tests/test_review_rev31.py::test_r31a12_spec_status_names_revision_31`
@@ -678,47 +710,12 @@ Their names embed no requirement ID, so they count only where an override cites 
 - `tests/test_review_rev31.py::test_r31a9_tag_check_catches_a_pending_tag`
 - `tests/test_review_rev31.py::test_r31b1_symptoms_docstring_not_belief`
 - `tests/test_review_rev31.py::test_r31b2_criteria_settings_graded`
-- `tests/test_simulator.py::test_birth_candidate_priority_order`
-- `tests/test_simulator.py::test_birth_child_c_is_clamped_to_80`
-- `tests/test_simulator.py::test_birth_replaces_identity_in_reused_slot`
-- `tests/test_simulator.py::test_births_consume_inactive_buffer_first`
-- `tests/test_simulator.py::test_c_updates_are_clamped_to_target_range`
-- `tests/test_simulator.py::test_chronic_anxiety_fix_handles_unattached_live_units`
-- `tests/test_simulator.py::test_chronic_anxiety_fixed_at_age_10`
-- `tests/test_simulator.py::test_coaching_effects_on_adult_and_child`
-- `tests/test_simulator.py::test_csv_has_recovery_active_column`
-- `tests/test_simulator.py::test_departed_tx_zeroed_after_update`
-- `tests/test_simulator.py::test_emotional_distance_flag_sets_after_20_cycles`
-- `tests/test_simulator.py::test_engine_writes_no_files_into_the_invocation_directory`
-- `tests/test_simulator.py::test_family_identity_arrays_exist_and_alias`
-- `tests/test_simulator.py::test_family_influence`
-- `tests/test_simulator.py::test_family_leader_bonus_applies_when_l_high`
-- `tests/test_simulator.py::test_family_origin_immutable_across_marriage_and_divorce`
-- `tests/test_simulator.py::test_family_spatial_contiguity`
-- `tests/test_simulator.py::test_fd_formula_and_circle_income_usage`
-- `tests/test_simulator.py::test_friction_event`
-- `tests/test_simulator.py::test_generational_flux_profile_initialization`
-- `tests/test_simulator.py::test_ghost_family_elimination`
-- `tests/test_simulator.py::test_launch_probability_stress_multiplier_calibration`
-- `tests/test_simulator.py::test_log_telemetry_writes_every_10_cycles`
-- `tests/test_simulator.py::test_markdown_config_is_loaded`
-- `tests/test_simulator.py::test_matchmaking_respects_interval_gate`
-- `tests/test_simulator.py::test_metabolic_death_marks_slot_dead`
-- `tests/test_simulator.py::test_non_10k_profile_has_no_inactive_buffer`
-- `tests/test_simulator.py::test_per_unit_high_c_stress_floor_applied`
-- `tests/test_simulator.py::test_projection_process_lowers_child_c_under_high_parent_tx`
-- `tests/test_simulator.py::test_recovery_loop_fires`
-- `tests/test_simulator.py::test_safety_net_logic`
-- `tests/test_simulator.py::test_simulator_initialization`
-- `tests/test_simulator.py::test_spouse_dysfunction_asymmetric_penalty`
-- `tests/test_simulator.py::test_triangle_mechanism_attaches_and_releases_circle`
-- `tests/test_simulator.py::test_tx_respects_chronic_anxiety_floor_after_age_10`
-- `tests/test_simulator.py::test_update_order_lifecycle_precedes_stress_pass`
-- `tests/test_simulator.py::test_within_family_friction_is_zero`
 - `tests/test_spec_consistency.py::test_claimed_test_count_matches_the_suite`
 - `tests/test_spec_consistency.py::test_every_citing_document_resolves_against_the_spec`
 - `tests/test_spec_consistency.py::test_every_spec_reference_resolves_within_the_spec`
 - `tests/test_spec_consistency.py::test_requirement_counts_agree_with_the_spec`
+- `tests/test_stale_text.py::test_s1_9_no_pending_review_text_for_decided_items`
+- `tests/test_stale_text.py::test_s1_9_the_scan_finds_a_wrapped_phrase`
 - `tests/test_sweep.py::test_base_id_strips_the_version_suffix`
 - `tests/test_sweep.py::test_catalogue_ids_are_unversioned_whichever_form_the_index_uses`
 - `tests/test_sweep.py::test_main_drops_a_catalogued_paper_returned_with_a_version_suffix`

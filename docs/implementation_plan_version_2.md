@@ -1,8 +1,8 @@
 # Version 2: implementation plan
 
 **Status: stage 1 APPROVED 2026-10-19.** The owner decided D1–D7 the same day, every one as recommended (§1.2), and
-approved the plan. **Code, tests and documents built 2026-10-19 (steps 0–5, §1.10); the review, the run and
-the report (steps 6–8) are next.** Written from
+approved the plan. **Built, reviewed and regenerated 2026-10-19 (steps 0–7, §1.10): no verdict changed against
+the tag `version-1`.** Written from
 `docs/version_2_plan.md` §3 (stage 1) and the `TODO.md` entries it collects, each checked against the code on
 2026-10-19. Later stages add their own sections here, as the Phase D plan did.
 
@@ -345,6 +345,34 @@ one major item and five minor ones, all fixed before the run:
 | `tests/bowen/test_mutant_runner.py::test_s1_5a_a_second_stop_signal_cannot_interrupt_the_kill` | the handler not made one-shot | fails |
 | `tests/test_record_changes.py::test_s1_10b_a_readout_on_one_side_only_is_listed` | a one-sided readout not listed | fails |
 | `tests/test_record_changes.py::test_s1_10b_a_record_not_regenerated_is_refused` | the missing-hash check removed | fails |
+
+**The run (step 7, 2026-10-19).** One full regeneration, from 20:00 to 23:36 (3 h 35 min, against §1.6's estimate of
+about 3.5 h). Every step exited 0 and no row is FAILED. Times:
+
+| Step | Time |
+|---|---|
+| Phase C ensemble | 217 s |
+| Phase C mutation and sweep | 1547 s |
+| Level occupancy | 35 s |
+| Diagnostic | 449 s |
+| Phase D ensembles, part I | 764 s |
+| Phase D ensembles, part II (D2) | 5655 s |
+| Phase D mutation | 3866 s |
+
+`docs/version_2_stage_1_changes.md` (S1.10b) compares every record's rows with the tag `version-1`'s: **no verdict
+changed, no effect moved, and no value differs at all**, across 24 Phase C ensemble rows, 25 Phase D ensemble rows, 6
+D2 rows, 114 Phase C mutation rows, 14 Phase D mutation rows, 54 sweep rows and 4 level-occupancy rows. The records
+outside the page were checked by hand against the tag:
+- `docs/phase_c_diagnostic_record.md` changed only its hash line.
+- In the Phase D records, every row's full JSON (keys sorted) is the tag's, apart from the criterion labels S1.7b
+  changed. The rest of their diff is key order, from rendering through the cache (S1.8c), and `M11.C.9`'s note,
+  "pending owner review" → "decided by the owner 2026-10-17" (S1.9 (i)).
+- The seed-7 trace gained the lock-in release rows (S1.7a) and its header's hash and revision; no other row changed.
+  The chart's data is the tag's, apart from the `absent` list its renderer added after the tag.
+- `docs/phase_c_completion_report.md` §11 regenerated unchanged.
+
+Stage 1 therefore changed no computed result. §1.3 expected S1.1 (exact float totals) and S1.4 (triangle activity) to
+move some; at these seeds and arm sizes, none did.
 
 **Adjacent issues found while building, not fixed** (each is in `TODO.md` or below):
 - Act sets still written in the code outside the two classes S1.3 moved: `NEVER_REFUSED` (`rejection.py`),

@@ -105,7 +105,7 @@ revisions, not here.
 
 ### Stage 1 — One engineering batch that moves the engine hash once
 
-*Implementation plan approved 2026-10-19 (`docs/implementation_plan_version_2.md` §1). Code, tests and documents built 2026-10-19 (that plan's §1.10); the run and the report of changed verdicts are next. Checking the items against the code found that 1.6 needs `M13.2` amended, that 1.1's drift comes from every
+*Implementation plan approved 2026-10-19 (`docs/implementation_plan_version_2.md` §1). Built and every record regenerated 2026-10-19 (that plan's §1.10); no verdict changed against the tag `version-1` (`docs/version_2_stage_1_changes.md`). Checking the items against the code found that 1.6 needs `M13.2` amended, that 1.1's drift comes from every
 float `sum()` and not only means, and that 1.4 changes results in coached arms. The owner decided the plan's D1–D7
 the same day, all as recommended: revision 33 carries `M13.2` and `M8.5`; every float `sum()` moves to `math.fsum`;
 the code's triangle activity is kept and `M8.5` amended to match.*

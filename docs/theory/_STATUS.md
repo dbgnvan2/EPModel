@@ -6,8 +6,8 @@
 > by the owner 2026-10-19 with D1–D7 as recommended; build record §1.10): the grid engine retired (`M13.2` amended),
 > every float total a `math.fsum`, the canonical state sees stressors, the act classes in config, triangle activity
 > decided by presence (`M8.5` amended), the renderer out of the engine hash and the Phase D ensembles cached. No rule
-> changed. The one regeneration and `docs/version_2_stage_1_changes.md`, which lists any verdict that moved against
-> the tag `version-1`, follow.
+> changed. The one regeneration ran the same day (3 h 35 min); `docs/version_2_stage_1_changes.md` compares every
+> record with the tag `version-1`: no verdict changed and no value differs.
 >
 > **2026-10-18 — version 2 planned** (approved by the owner 2026-10-19, all ten questions answered): `docs/version_2_plan.md` proposes freezing version 1, one
 > engineering batch, `M17.E.1`'s constant sweep with a timed pilot, then the rule questions the owner chooses. Ten owner

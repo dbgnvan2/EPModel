@@ -42,7 +42,8 @@ criterion's test was shown failing under its mutation (§1.10).
   so a run under `nohup` outlives its terminal, and the handler acts once; `tools/record_changes.py`'s one-sided
   readouts and missing-hash refusal are tested; `config/bowen/act_classes.md` states the loader's two new refusals.
 - **The records are regenerated once** on the new hash (S1.10a); `docs/version_2_stage_1_changes.md` lists every
-  verdict that changed against the tag `version-1` (S1.10b).
+  verdict that changed against the tag `version-1` (S1.10b). The run took 3 h 35 min and **no verdict changed, no
+  effect moved and no value differs** in any compared record; the seed-7 trace gained only the release rows.
 
 ### `/csdp` sweep of the 22 unpushed commits (2026-10-19)
 

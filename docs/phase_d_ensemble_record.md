@@ -5,7 +5,7 @@ seeds (`M3.D.4a`), stopped adaptively (`M17.A.1`, `M13.4`): `UNDETERMINED` at th
 pass. Every verdict carries its class (`M11.5`). **A premise passing confirms that the code renders the
 spec; it is not a finding about families.** Spec revisions 24–27 are Claude's recommendations, approved by the owner 2026-10-16 (revision 31).
 
-code_hash: 64e190be52095ca3e7a50934b951d32c265f83511671a99ce24ad5e06fa7b5ef
+code_hash: 8d70109c623586a1adccf0d81f8aeb9132423493d60ec3224eeb4a6fe166da5b
 
 Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25, `ensemble_margin` = 0.1, `ensemble_alpha` = 0.05, `fallback_flag_rate` = 0.2, `equivalence_margin` = 0.5.
 
@@ -39,7 +39,7 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
 
 ## Not built in Phase D part I
 
-- `M11.C.9` — no rule reads sibling position, so building it means a new mechanism, not a gate (`M1.A.14c`); out of version 1, Claude's recommendation 2026-10-17 pending owner review (`docs/version_1_dispositions.md`).
+- `M11.C.9` — no rule reads sibling position, so building it means a new mechanism, not a gate (`M1.A.14c`); out of version 1, Claude's recommendation 2026-10-17, decided by the owner 2026-10-17 (`docs/version_1_dispositions.md`).
 - `M11.C.28` — the sink allocation feeds no behaviour, so pinning its mobility can change no symptom.
 
 ## Fallback rate by person (`M11.D.18`)
@@ -81,17 +81,17 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
   "seeds": 150,
   "readouts": [
    {
-    "readout": "rise",
-    "direction": 1,
-    "mean_difference": 0.025379232081243496,
-    "half_width": 0.00295770093701904,
-    "baseline_sd": 0.0031922281113380335,
-    "pooled_sd": 0.013640252422583361,
     "baseline_position": null,
-    "w_plus": 9848.0,
+    "baseline_sd": 0.0031922281113380335,
+    "direction": 1,
+    "half_width": 0.00295770093701904,
+    "holds": true,
+    "mean_difference": 0.025379232081243496,
     "n_nonzero": 140,
     "p": 8.204175282569447e-25,
-    "holds": true
+    "pooled_sd": 0.013640252422583361,
+    "readout": "rise",
+    "w_plus": 9848.0
    }
   ],
   "fallback_rate": 0.0,
@@ -99,22 +99,22 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
   "missing_moves": [],
   "scripted": {
    "baseline": {
+    "dead": 0,
     "made": 5248,
     "not legal": 0,
+    "not reached": 0,
     "owed a step": 2,
-    "dead": 0,
-    "target dead": 0,
     "rewritten": 0,
-    "not reached": 0
+    "target dead": 0
    },
    "treatment": {
+    "dead": 0,
     "made": 1366,
     "not legal": 3868,
+    "not reached": 0,
     "owed a step": 8,
-    "dead": 0,
-    "target dead": 0,
     "rewritten": 8,
-    "not reached": 0
+    "target dead": 0
    }
   }
  },
@@ -125,26 +125,26 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
   "seeds": 150,
   "readouts": [
    {
-    "readout": "rise",
-    "direction": 1,
-    "mean_difference": 0.026008312868338,
-    "half_width": 0.0029356832987933092,
-    "baseline_sd": 0.0007037514472993595,
-    "pooled_sd": 0.012950879078600952,
     "baseline_position": null,
-    "w_plus": 9453.0,
+    "baseline_sd": 0.0007037514472993595,
+    "direction": 1,
+    "half_width": 0.0029356832987933092,
+    "holds": true,
+    "mean_difference": 0.026008312868338,
     "n_nonzero": 137,
     "p": 1.5917929308580254e-24,
-    "holds": true
+    "pooled_sd": 0.012950879078600952,
+    "readout": "rise",
+    "w_plus": 9453.0
    },
    {
-    "readout": "support_blocked",
-    "direction": -1,
-    "mean_difference": -0.07899073860238608,
-    "half_width": 0.017149665658498334,
-    "baseline_sd": 0.10716308704758314,
-    "pooled_sd": 0.07577574554423032,
     "baseline_position": null,
+    "baseline_sd": 0.10716308704758314,
+    "direction": -1,
+    "half_width": 0.017149665658498334,
+    "mean_difference": -0.07899073860238608,
+    "pooled_sd": 0.07577574554423032,
+    "readout": "support_blocked",
     "report_only": true
    }
   ],
@@ -153,22 +153,22 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
   "missing_moves": [],
   "scripted": {
    "baseline": {
+    "dead": 0,
     "made": 5250,
     "not legal": 0,
+    "not reached": 0,
     "owed a step": 0,
-    "dead": 0,
-    "target dead": 0,
     "rewritten": 0,
-    "not reached": 0
+    "target dead": 0
    },
    "treatment": {
+    "dead": 0,
     "made": 847,
     "not legal": 1837,
+    "not reached": 0,
     "owed a step": 8,
-    "dead": 0,
-    "target dead": 0,
     "rewritten": 8,
-    "not reached": 0
+    "target dead": 0
    }
   }
  },
@@ -179,17 +179,17 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
   "seeds": 150,
   "readouts": [
    {
-    "readout": "rise",
-    "direction": 1,
-    "mean_difference": 0.026154756521576228,
-    "half_width": 0.003090988876843164,
-    "baseline_sd": 0.01931465701245976,
-    "pooled_sd": 0.0136575249498026,
     "baseline_position": null,
-    "w_plus": 9180.0,
+    "baseline_sd": 0.01931465701245976,
+    "direction": 1,
+    "half_width": 0.003090988876843164,
+    "holds": true,
+    "mean_difference": 0.026154756521576228,
     "n_nonzero": 135,
     "p": 3.394732129059837e-24,
-    "holds": true
+    "pooled_sd": 0.0136575249498026,
+    "readout": "rise",
+    "w_plus": 9180.0
    }
   ],
   "fallback_rate": 0.0,
@@ -197,22 +197,22 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
   "missing_moves": [],
   "scripted": {
    "baseline": {
+    "dead": 0,
     "made": 1347,
     "not legal": 3885,
+    "not reached": 0,
     "owed a step": 9,
-    "dead": 0,
-    "target dead": 0,
     "rewritten": 9,
-    "not reached": 0
+    "target dead": 0
    },
    "treatment": {
+    "dead": 0,
     "made": 1353,
     "not legal": 3879,
+    "not reached": 0,
     "owed a step": 9,
-    "dead": 0,
-    "target dead": 0,
     "rewritten": 9,
-    "not reached": 0
+    "target dead": 0
    }
   }
  },
@@ -223,26 +223,26 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
   "seeds": 150,
   "readouts": [
    {
-    "readout": "coached_rise",
-    "direction": 1,
-    "mean_difference": 0.0008878729584828685,
-    "half_width": 0.0013228022997650974,
-    "baseline_sd": 0.005254956710333869,
-    "pooled_sd": 0.005620800661444617,
     "baseline_position": null,
-    "w_plus": 1030.0,
+    "baseline_sd": 0.005254956710333869,
+    "direction": 1,
+    "half_width": 0.0013228022997650974,
+    "holds": true,
+    "mean_difference": 0.0008878729584828685,
     "n_nonzero": 55,
     "p": 0.014843810788463998,
-    "holds": true
+    "pooled_sd": 0.005620800661444617,
+    "readout": "coached_rise",
+    "w_plus": 1030.0
    },
    {
-    "readout": "family_rise",
-    "direction": 1,
-    "mean_difference": 0.0004036572321405783,
-    "half_width": 0.0004912700859422386,
-    "baseline_sd": 0.0019232030602895302,
-    "pooled_sd": 0.0020687559188024914,
     "baseline_position": null,
+    "baseline_sd": 0.0019232030602895302,
+    "direction": 1,
+    "half_width": 0.0004912700859422386,
+    "mean_difference": 0.0004036572321405783,
+    "pooled_sd": 0.0020687559188024914,
+    "readout": "family_rise",
     "report_only": true
    }
   ],
@@ -258,17 +258,17 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
   "seeds": 50,
   "readouts": [
    {
-    "readout": "social_load",
-    "direction": -1,
-    "mean_difference": -31.909926160838424,
-    "half_width": 2.9912976019048485,
-    "baseline_sd": 16.731230990682477,
-    "pooled_sd": 13.417928609466388,
     "baseline_position": null,
-    "w_plus": 1275.0,
+    "baseline_sd": 16.731230990682477,
+    "direction": -1,
+    "half_width": 2.9912976019048485,
+    "holds": true,
+    "mean_difference": -31.909926160838424,
     "n_nonzero": 50,
     "p": 3.895246103609213e-10,
-    "holds": true
+    "pooled_sd": 13.417928609466388,
+    "readout": "social_load",
+    "w_plus": 1275.0
    }
   ],
   "fallback_rate": 0.0,
@@ -283,30 +283,30 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
   "seeds": 150,
   "readouts": [
    {
-    "readout": "mild_removal_effect",
-    "direction": 1,
-    "mean_difference": 1.1503848497758942,
-    "half_width": 0.6681933800337015,
-    "baseline_sd": 3.343756202576761,
-    "pooled_sd": 3.170190407492419,
     "baseline_position": null,
-    "w_plus": 6319.0,
+    "baseline_sd": 3.343756202576761,
+    "direction": 1,
+    "half_width": 0.6681933800337015,
+    "holds": true,
+    "mean_difference": 1.1503848497758942,
     "n_nonzero": 135,
     "p": 7.345270956910009e-05,
-    "holds": true
+    "pooled_sd": 3.170190407492419,
+    "readout": "mild_removal_effect",
+    "w_plus": 6319.0
    },
    {
-    "readout": "severe_removal_effect",
-    "direction": -1,
-    "mean_difference": -1.3709755744090648,
-    "half_width": 0.8284593059368227,
-    "baseline_sd": 3.343756202576761,
-    "pooled_sd": 3.687753124104516,
     "baseline_position": null,
-    "w_plus": 6684.0,
+    "baseline_sd": 3.343756202576761,
+    "direction": -1,
+    "half_width": 0.8284593059368227,
+    "holds": true,
+    "mean_difference": -1.3709755744090648,
     "n_nonzero": 141,
     "p": 0.00027675318231655955,
-    "holds": true
+    "pooled_sd": 3.687753124104516,
+    "readout": "severe_removal_effect",
+    "w_plus": 6684.0
    }
   ],
   "fallback_rate": 0.049401709401709404,
@@ -321,17 +321,17 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
   "seeds": 50,
   "readouts": [
    {
-    "readout": "marital_conflict",
-    "direction": 1,
-    "mean_difference": 0.02,
-    "half_width": 0.4133771159607169,
-    "baseline_sd": 1.5883504471171161,
-    "pooled_sd": 1.6682509476963578,
     "baseline_position": null,
-    "w_plus": 157.0,
+    "baseline_sd": 1.5883504471171161,
+    "direction": 1,
+    "half_width": 0.4133771159607169,
+    "holds": false,
+    "mean_difference": 0.02,
     "n_nonzero": 25,
     "p": 0.563096672296524,
-    "holds": false
+    "pooled_sd": 1.6682509476963578,
+    "readout": "marital_conflict",
+    "w_plus": 157.0
    }
   ],
   "fallback_rate": 0.0,
@@ -346,17 +346,17 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
   "seeds": 150,
   "readouts": [
    {
-    "readout": "budget_rise",
-    "direction": 1,
-    "mean_difference": 23.973288648457864,
-    "half_width": 1.2305980433600767,
-    "baseline_sd": 7.689635930356012,
-    "pooled_sd": 5.437393711210462,
     "baseline_position": null,
-    "w_plus": 11175.0,
+    "baseline_sd": 7.689635930356012,
+    "direction": 1,
+    "half_width": 1.2305980433600767,
+    "holds": true,
+    "mean_difference": 23.973288648457864,
     "n_nonzero": 149,
     "p": 3.084794832637725e-28,
-    "holds": true
+    "pooled_sd": 5.437393711210462,
+    "readout": "budget_rise",
+    "w_plus": 11175.0
    }
   ],
   "fallback_rate": 0.0,
@@ -371,17 +371,17 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
   "seeds": 150,
   "readouts": [
    {
-    "readout": "disturbance",
-    "direction": 1,
-    "mean_difference": 3.3681073058339908,
-    "half_width": 1.5537572577877208,
-    "baseline_sd": 6.09521214730339,
-    "pooled_sd": 6.323046529684454,
     "baseline_position": null,
-    "w_plus": 7506.0,
+    "baseline_sd": 6.09521214730339,
+    "direction": 1,
+    "half_width": 1.5537572577877208,
+    "holds": true,
+    "mean_difference": 3.3681073058339908,
     "n_nonzero": 146,
     "p": 1.4529740470707085e-05,
-    "holds": true
+    "pooled_sd": 6.323046529684454,
+    "readout": "disturbance",
+    "w_plus": 7506.0
    }
   ],
   "fallback_rate": 0.07875,
@@ -396,26 +396,26 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
   "seeds": 150,
   "readouts": [
    {
-    "readout": "belief_to_sink",
-    "direction": 1,
-    "mean_difference": 0.6799999999999998,
-    "half_width": 0.03321311774967447,
-    "baseline_sd": 0.038360639368325275,
-    "pooled_sd": 0.1412982664416952,
     "baseline_position": null,
-    "w_plus": 11026.0,
+    "baseline_sd": 0.038360639368325275,
+    "direction": 1,
+    "half_width": 0.03321311774967447,
+    "holds": true,
+    "mean_difference": 0.6799999999999998,
     "n_nonzero": 148,
     "p": 2.6932961516810697e-28,
-    "holds": true
+    "pooled_sd": 0.1412982664416952,
+    "readout": "belief_to_sink",
+    "w_plus": 11026.0
    },
    {
-    "readout": "sink_to_belief",
-    "direction": 1,
-    "mean_difference": 0.6799999999999998,
-    "half_width": 0.03321311774967447,
-    "baseline_sd": 0.038360639368325275,
-    "pooled_sd": 0.1412982664416952,
     "baseline_position": null,
+    "baseline_sd": 0.038360639368325275,
+    "direction": 1,
+    "half_width": 0.03321311774967447,
+    "mean_difference": 0.6799999999999998,
+    "pooled_sd": 0.1412982664416952,
+    "readout": "sink_to_belief",
     "report_only": true
    }
   ],
@@ -424,22 +424,22 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
   "missing_moves": [],
   "scripted": {
    "baseline": {
+    "dead": 0,
     "made": 7800,
     "not legal": 0,
+    "not reached": 0,
     "owed a step": 0,
-    "dead": 0,
-    "target dead": 0,
     "rewritten": 0,
-    "not reached": 0
+    "target dead": 0
    },
    "treatment": {
+    "dead": 0,
     "made": 7800,
     "not legal": 0,
+    "not reached": 0,
     "owed a step": 0,
-    "dead": 0,
-    "target dead": 0,
     "rewritten": 0,
-    "not reached": 0
+    "target dead": 0
    }
   }
  },
@@ -450,17 +450,17 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
   "seeds": 50,
   "readouts": [
    {
-    "readout": "witness_response",
-    "direction": 1,
-    "mean_difference": 3.0650594507512396,
-    "half_width": 0.011404441786973186,
-    "baseline_sd": 0.16912527621674275,
-    "pooled_sd": 0.19078957919794126,
     "baseline_position": null,
-    "w_plus": 1275.0,
+    "baseline_sd": 0.16912527621674275,
+    "direction": 1,
+    "half_width": 0.011404441786973186,
+    "holds": true,
+    "mean_difference": 3.0650594507512396,
     "n_nonzero": 50,
     "p": 3.8864606722706783e-10,
-    "holds": true
+    "pooled_sd": 0.19078957919794126,
+    "readout": "witness_response",
+    "w_plus": 1275.0
    }
   ],
   "fallback_rate": 0.0,
@@ -468,22 +468,22 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
   "missing_moves": [],
   "scripted": {
    "baseline": {
+    "dead": 0,
     "made": 400,
     "not legal": 0,
+    "not reached": 0,
     "owed a step": 0,
-    "dead": 0,
-    "target dead": 0,
     "rewritten": 0,
-    "not reached": 0
+    "target dead": 0
    },
    "treatment": {
+    "dead": 0,
     "made": 400,
     "not legal": 0,
+    "not reached": 0,
     "owed a step": 0,
-    "dead": 0,
-    "target dead": 0,
     "rewritten": 0,
-    "not reached": 0
+    "target dead": 0
    }
   }
  },
@@ -494,17 +494,17 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
   "seeds": 100,
   "readouts": [
    {
-    "readout": "child_symptom_load",
-    "direction": 0,
-    "mean_difference": 10.497863222858866,
-    "half_width": 3.186800588372633,
-    "baseline_sd": 13.158080568965483,
-    "pooled_sd": 15.723912830806787,
+    "assay_limit": false,
     "baseline_position": null,
-    "equivalence_bound": 6.579040284482741,
-    "within_bound": true,
+    "baseline_sd": 13.158080568965483,
     "bound_side": 1,
-    "assay_limit": false
+    "direction": 0,
+    "equivalence_bound": 6.579040284482741,
+    "half_width": 3.186800588372633,
+    "mean_difference": 10.497863222858866,
+    "pooled_sd": 15.723912830806787,
+    "readout": "child_symptom_load",
+    "within_bound": true
    }
   ],
   "fallback_rate": 0.0,
@@ -512,22 +512,22 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
   "missing_moves": [],
   "scripted": {
    "baseline": {
+    "dead": 0,
     "made": 5200,
     "not legal": 0,
+    "not reached": 0,
     "owed a step": 0,
-    "dead": 0,
-    "target dead": 0,
     "rewritten": 0,
-    "not reached": 0
+    "target dead": 0
    },
    "treatment": {
+    "dead": 0,
     "made": 5200,
     "not legal": 0,
+    "not reached": 0,
     "owed a step": 0,
-    "dead": 0,
-    "target dead": 0,
     "rewritten": 0,
-    "not reached": 0
+    "target dead": 0
    }
   }
  },
@@ -538,26 +538,26 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
   "seeds": 100,
   "readouts": [
    {
-    "readout": "child_symptom_load",
-    "direction": 0,
-    "mean_difference": -3.604780063884076,
-    "half_width": 2.2570225995290705,
-    "baseline_sd": 13.158080568965483,
-    "pooled_sd": 11.909359728432172,
+    "assay_limit": false,
     "baseline_position": null,
-    "equivalence_bound": 6.579040284482741,
-    "within_bound": true,
+    "baseline_sd": 13.158080568965483,
     "bound_side": 1,
-    "assay_limit": false
+    "direction": 0,
+    "equivalence_bound": 6.579040284482741,
+    "half_width": 2.2570225995290705,
+    "mean_difference": -3.604780063884076,
+    "pooled_sd": 11.909359728432172,
+    "readout": "child_symptom_load",
+    "within_bound": true
    },
    {
-    "readout": "talking_less_firmness",
-    "direction": 0,
-    "mean_difference": -14.102643286742943,
-    "half_width": 2.868203212649645,
-    "baseline_sd": 17.926175977107714,
-    "pooled_sd": 14.694869839254288,
     "baseline_position": null,
+    "baseline_sd": 17.926175977107714,
+    "direction": 0,
+    "half_width": 2.868203212649645,
+    "mean_difference": -14.102643286742943,
+    "pooled_sd": 14.694869839254288,
+    "readout": "talking_less_firmness",
     "report_only": true
    }
   ],
@@ -566,22 +566,22 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
   "missing_moves": [],
   "scripted": {
    "baseline": {
+    "dead": 0,
     "made": 5200,
     "not legal": 0,
+    "not reached": 0,
     "owed a step": 0,
-    "dead": 0,
-    "target dead": 0,
     "rewritten": 0,
-    "not reached": 0
+    "target dead": 0
    },
    "treatment": {
+    "dead": 0,
     "made": 5200,
     "not legal": 0,
+    "not reached": 0,
     "owed a step": 0,
-    "dead": 0,
-    "target dead": 0,
     "rewritten": 0,
-    "not reached": 0
+    "target dead": 0
    }
   }
  },
@@ -592,17 +592,17 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
   "seeds": 100,
   "readouts": [
    {
-    "readout": "symptom_load",
-    "direction": 1,
-    "mean_difference": 1.4827076623534867,
-    "half_width": 2.8488665813608103,
-    "baseline_sd": 15.067162395716284,
-    "pooled_sd": 16.070148256874987,
     "baseline_position": null,
-    "w_plus": 2167.0,
+    "baseline_sd": 15.067162395716284,
+    "direction": 1,
+    "half_width": 2.8488665813608103,
+    "holds": false,
+    "mean_difference": 1.4827076623534867,
     "n_nonzero": 88,
     "p": 0.19282354042084615,
-    "holds": false
+    "pooled_sd": 16.070148256874987,
+    "readout": "symptom_load",
+    "w_plus": 2167.0
    }
   ],
   "fallback_rate": 0.0,
@@ -617,26 +617,26 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
   "seeds": 150,
   "readouts": [
    {
-    "readout": "pattern_after_spell",
-    "direction": 1,
-    "mean_difference": 6.626666666666667,
-    "half_width": 1.2873020214298314,
-    "baseline_sd": 4.647291193398754,
-    "pooled_sd": 6.4232937392626,
     "baseline_position": null,
-    "w_plus": 8769.0,
+    "baseline_sd": 4.647291193398754,
+    "direction": 1,
+    "half_width": 1.2873020214298314,
+    "holds": true,
+    "mean_difference": 6.626666666666667,
     "n_nonzero": 140,
     "p": 7.443142186552611e-16,
-    "holds": true
+    "pooled_sd": 6.4232937392626,
+    "readout": "pattern_after_spell",
+    "w_plus": 8769.0
    },
    {
-    "readout": "time_to_remission",
-    "direction": 1,
-    "mean_difference": 0.74,
-    "half_width": 2.5429139671086656,
-    "baseline_sd": 12.17315232730999,
-    "pooled_sd": 11.436380781048152,
     "baseline_position": null,
+    "baseline_sd": 12.17315232730999,
+    "direction": 1,
+    "half_width": 2.5429139671086656,
+    "mean_difference": 0.74,
+    "pooled_sd": 11.436380781048152,
+    "readout": "time_to_remission",
     "report_only": true
    }
   ],
@@ -652,46 +652,46 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
   "seeds": 100,
   "readouts": [
    {
-    "readout": "automatic_entropy_fall",
-    "direction": 1,
-    "mean_difference": 0.05643441761355227,
-    "half_width": 0.007748370887206296,
-    "baseline_sd": 0.026212525530568888,
-    "pooled_sd": 0.03489094194765795,
     "baseline_position": null,
-    "w_plus": 4669.0,
+    "baseline_sd": 0.026212525530568888,
+    "direction": 1,
+    "half_width": 0.007748370887206296,
+    "holds": true,
+    "mean_difference": 0.05643441761355227,
     "n_nonzero": 97,
     "p": 8.110670104337005e-17,
-    "holds": true
+    "pooled_sd": 0.03489094194765795,
+    "readout": "automatic_entropy_fall",
+    "w_plus": 4669.0
    },
    {
-    "readout": "automatic_less_self",
-    "direction": 1,
-    "mean_difference": 0.06731610836152624,
-    "half_width": 0.04656173799870862,
+    "baseline_position": null,
     "baseline_sd": 0.17784340045970753,
+    "direction": 1,
+    "half_width": 0.04656173799870862,
+    "mean_difference": 0.06731610836152624,
     "pooled_sd": 0.19783970599430606,
-    "baseline_position": null,
+    "readout": "automatic_less_self",
     "report_only": true
    },
    {
-    "readout": "self_entropy_fall",
-    "direction": 0,
-    "mean_difference": -0.010881690747973969,
-    "half_width": 0.045828324432261675,
+    "baseline_position": null,
     "baseline_sd": 0.1748631878275285,
+    "direction": 0,
+    "half_width": 0.045828324432261675,
+    "mean_difference": -0.010881690747973969,
     "pooled_sd": 0.19475784601999432,
-    "baseline_position": null,
+    "readout": "self_entropy_fall",
     "report_only": true
    },
    {
-    "readout": "empty_windows",
-    "direction": 0,
-    "mean_difference": 0.0,
-    "half_width": 0.0,
-    "baseline_sd": 0.0,
-    "pooled_sd": 0.0,
     "baseline_position": null,
+    "baseline_sd": 0.0,
+    "direction": 0,
+    "half_width": 0.0,
+    "mean_difference": 0.0,
+    "pooled_sd": 0.0,
+    "readout": "empty_windows",
     "report_only": true
    }
   ],
@@ -707,17 +707,17 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
   "seeds": 150,
   "readouts": [
    {
-    "readout": "loss_rise",
-    "direction": 1,
-    "mean_difference": -0.10535831257191423,
-    "half_width": 1.0881253757451548,
-    "baseline_sd": 4.967346076684049,
-    "pooled_sd": 4.938826884837918,
     "baseline_position": null,
-    "w_plus": 4703.0,
+    "baseline_sd": 4.967346076684049,
+    "direction": 1,
+    "half_width": 1.0881253757451548,
+    "holds": false,
+    "mean_difference": -0.10535831257191423,
     "n_nonzero": 137,
     "p": 0.5205621409332095,
-    "holds": false
+    "pooled_sd": 4.938826884837918,
+    "readout": "loss_rise",
+    "w_plus": 4703.0
    }
   ],
   "fallback_rate": 0.0,
@@ -732,17 +732,17 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
   "seeds": 150,
   "readouts": [
    {
-    "readout": "automatic_reaction",
-    "direction": -1,
-    "mean_difference": 0.08666666666666667,
-    "half_width": 0.12970284353543768,
-    "baseline_sd": 0.5462501823752248,
-    "pooled_sd": 0.544506837192556,
     "baseline_position": null,
-    "w_plus": 576.0,
+    "baseline_sd": 0.5462501823752248,
+    "direction": -1,
+    "half_width": 0.12970284353543768,
+    "holds": false,
+    "mean_difference": 0.08666666666666667,
     "n_nonzero": 53,
     "p": 0.9060431700253542,
-    "holds": false
+    "pooled_sd": 0.544506837192556,
+    "readout": "automatic_reaction",
+    "w_plus": 576.0
    }
   ],
   "fallback_rate": 0.0,
@@ -757,17 +757,17 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
   "seeds": 50,
   "readouts": [
    {
-    "readout": "target_rise",
-    "direction": 1,
-    "mean_difference": -0.090571008995717,
-    "half_width": 0.10430977072686749,
-    "baseline_sd": 0.6936171517206234,
-    "pooled_sd": 0.6666068724376346,
     "baseline_position": null,
-    "w_plus": 29.0,
+    "baseline_sd": 0.6936171517206234,
+    "direction": 1,
+    "half_width": 0.10430977072686749,
+    "holds": false,
+    "mean_difference": -0.090571008995717,
     "n_nonzero": 14,
     "p": 0.932373046875,
-    "holds": false
+    "pooled_sd": 0.6666068724376346,
+    "readout": "target_rise",
+    "w_plus": 29.0
    }
   ],
   "fallback_rate": 0.0,
@@ -775,22 +775,22 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
   "missing_moves": [],
   "scripted": {
    "baseline": {
+    "dead": 0,
     "made": 3900,
     "not legal": 0,
+    "not reached": 0,
     "owed a step": 0,
-    "dead": 0,
-    "target dead": 0,
     "rewritten": 0,
-    "not reached": 0
+    "target dead": 0
    },
    "treatment": {
+    "dead": 0,
     "made": 3900,
     "not legal": 0,
+    "not reached": 0,
     "owed a step": 0,
-    "dead": 0,
-    "target dead": 0,
     "rewritten": 0,
-    "not reached": 0
+    "target dead": 0
    }
   }
  },
@@ -801,17 +801,17 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
   "seeds": 150,
   "readouts": [
    {
-    "readout": "relapses",
-    "direction": 1,
-    "mean_difference": -0.6866666666666666,
-    "half_width": 0.08723452853047568,
-    "baseline_sd": 0.45974411713892316,
-    "pooled_sd": 0.4159299975519134,
     "baseline_position": null,
-    "w_plus": 48.0,
+    "baseline_sd": 0.45974411713892316,
+    "direction": 1,
+    "half_width": 0.08723452853047568,
+    "holds": false,
+    "mean_difference": -0.6866666666666666,
     "n_nonzero": 100,
     "p": 1.0,
-    "holds": false
+    "pooled_sd": 0.4159299975519134,
+    "readout": "relapses",
+    "w_plus": 48.0
    }
   ],
   "fallback_rate": 0.0,
@@ -819,22 +819,22 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
   "missing_moves": [],
   "scripted": {
    "baseline": {
+    "dead": 0,
     "made": 7800,
     "not legal": 0,
+    "not reached": 0,
     "owed a step": 0,
-    "dead": 0,
-    "target dead": 0,
     "rewritten": 0,
-    "not reached": 0
+    "target dead": 0
    },
    "treatment": {
+    "dead": 0,
     "made": 7800,
     "not legal": 0,
+    "not reached": 0,
     "owed a step": 0,
-    "dead": 0,
-    "target dead": 0,
     "rewritten": 0,
-    "not reached": 0
+    "target dead": 0
    }
   }
  },
@@ -845,30 +845,30 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
   "seeds": 150,
   "readouts": [
    {
-    "readout": "under_change",
-    "direction": 1,
-    "mean_difference": 10.638349924940027,
-    "half_width": 0.562109828368953,
-    "baseline_sd": 0.5066355503921799,
-    "pooled_sd": 2.520317018588327,
     "baseline_position": null,
-    "w_plus": 11175.0,
+    "baseline_sd": 0.5066355503921799,
+    "direction": 1,
+    "half_width": 0.562109828368953,
+    "holds": true,
+    "mean_difference": 10.638349924940027,
     "n_nonzero": 149,
     "p": 1.695524735972872e-26,
-    "holds": true
+    "pooled_sd": 2.520317018588327,
+    "readout": "under_change",
+    "w_plus": 11175.0
    },
    {
-    "readout": "over_change",
-    "direction": -1,
-    "mean_difference": -11.492225806605859,
-    "half_width": 0.6576284812875107,
-    "baseline_sd": 2.931967443689228,
-    "pooled_sd": 3.2292309287701397,
     "baseline_position": null,
-    "w_plus": 11318.0,
+    "baseline_sd": 2.931967443689228,
+    "direction": -1,
+    "half_width": 0.6576284812875107,
+    "holds": true,
+    "mean_difference": -11.492225806605859,
     "n_nonzero": 150,
     "p": 1.33682315090907e-26,
-    "holds": true
+    "pooled_sd": 3.2292309287701397,
+    "readout": "over_change",
+    "w_plus": 11318.0
    }
   ],
   "fallback_rate": 0.0,
@@ -876,22 +876,22 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
   "missing_moves": [],
   "scripted": {
    "baseline": {
+    "dead": 0,
     "made": 15600,
     "not legal": 0,
+    "not reached": 0,
     "owed a step": 0,
-    "dead": 0,
-    "target dead": 0,
     "rewritten": 0,
-    "not reached": 0
+    "target dead": 0
    },
    "treatment": {
+    "dead": 0,
     "made": 7800,
     "not legal": 0,
+    "not reached": 0,
     "owed a step": 0,
-    "dead": 0,
-    "target dead": 0,
     "rewritten": 0,
-    "not reached": 0
+    "target dead": 0
    }
   }
  },
@@ -902,36 +902,36 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
   "seeds": 100,
   "readouts": [
    {
-    "readout": "seeker_relief",
-    "direction": 1,
-    "mean_difference": 1.4487433754976737,
-    "half_width": 0.11196629474015833,
-    "baseline_sd": 0.24017932278215973,
-    "pooled_sd": 0.461105387438904,
     "baseline_position": null,
-    "w_plus": 5050.0,
+    "baseline_sd": 0.24017932278215973,
+    "direction": 1,
+    "half_width": 0.11196629474015833,
+    "holds": true,
+    "mean_difference": 1.4487433754976737,
     "n_nonzero": 100,
     "p": 1.9779558044497787e-18,
-    "holds": true
+    "pooled_sd": 0.461105387438904,
+    "readout": "seeker_relief",
+    "w_plus": 5050.0
    },
    {
-    "readout": "third_excess",
-    "direction": 0,
-    "mean_difference": -0.05577664013303511,
-    "half_width": 0.9156942506212975,
-    "baseline_sd": 5.01275994483656,
-    "pooled_sd": 4.8926163085068195,
     "baseline_position": null,
+    "baseline_sd": 5.01275994483656,
+    "direction": 0,
+    "half_width": 0.9156942506212975,
+    "mean_difference": -0.05577664013303511,
+    "pooled_sd": 4.8926163085068195,
+    "readout": "third_excess",
     "report_only": true
    },
    {
-    "readout": "seeker_change",
-    "direction": -1,
-    "mean_difference": -1.0655460615128884,
-    "half_width": 0.5418560914810393,
-    "baseline_sd": 2.2357578391556485,
-    "pooled_sd": 2.427971271827284,
     "baseline_position": null,
+    "baseline_sd": 2.2357578391556485,
+    "direction": -1,
+    "half_width": 0.5418560914810393,
+    "mean_difference": -1.0655460615128884,
+    "pooled_sd": 2.427971271827284,
+    "readout": "seeker_change",
     "report_only": true
    }
   ],
@@ -940,22 +940,22 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
   "missing_moves": [],
   "scripted": {
    "baseline": {
+    "dead": 0,
     "made": 100,
     "not legal": 0,
+    "not reached": 0,
     "owed a step": 0,
-    "dead": 0,
-    "target dead": 0,
     "rewritten": 0,
-    "not reached": 0
+    "target dead": 0
    },
    "treatment": {
+    "dead": 0,
     "made": 100,
     "not legal": 0,
+    "not reached": 0,
     "owed a step": 0,
-    "dead": 0,
-    "target dead": 0,
     "rewritten": 0,
-    "not reached": 0
+    "target dead": 0
    }
   }
  },
@@ -966,26 +966,26 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
   "seeds": 150,
   "readouts": [
    {
-    "readout": "deviation_fall",
-    "direction": 1,
-    "mean_difference": 0.04286011337923244,
-    "half_width": 0.051835297458401805,
-    "baseline_sd": 0.2553020302778575,
-    "pooled_sd": 0.25402624142115443,
     "baseline_position": null,
-    "w_plus": 5649.0,
+    "baseline_sd": 0.2553020302778575,
+    "direction": 1,
+    "half_width": 0.051835297458401805,
+    "holds": true,
+    "mean_difference": 0.04286011337923244,
     "n_nonzero": 139,
     "p": 0.04974882094490382,
-    "holds": true
+    "pooled_sd": 0.25402624142115443,
+    "readout": "deviation_fall",
+    "w_plus": 5649.0
    },
    {
-    "readout": "landed_contacts",
-    "direction": 1,
-    "mean_difference": 0.4533333333333333,
-    "half_width": 0.7737574632668967,
-    "baseline_sd": 3.8947908766908608,
-    "pooled_sd": 3.7082048214416186,
     "baseline_position": null,
+    "baseline_sd": 3.8947908766908608,
+    "direction": 1,
+    "half_width": 0.7737574632668967,
+    "mean_difference": 0.4533333333333333,
+    "pooled_sd": 3.7082048214416186,
+    "readout": "landed_contacts",
     "report_only": true
    }
   ],
@@ -1001,30 +1001,30 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
   "seeds": 150,
   "readouts": [
    {
-    "readout": "deviation_fall",
-    "direction": 1,
-    "mean_difference": 0.009057819117671876,
-    "half_width": 0.05381331774288476,
-    "baseline_sd": 0.28192231306112325,
-    "pooled_sd": 0.2689417383614247,
     "baseline_position": null,
-    "w_plus": 5062.0,
+    "baseline_sd": 0.28192231306112325,
+    "direction": 1,
+    "half_width": 0.05381331774288476,
+    "holds": false,
+    "mean_difference": 0.009057819117671876,
     "n_nonzero": 140,
     "p": 0.3962254135187852,
-    "holds": false
+    "pooled_sd": 0.2689417383614247,
+    "readout": "deviation_fall",
+    "w_plus": 5062.0
    },
    {
-    "readout": "landed_contacts",
-    "direction": 1,
-    "mean_difference": 9.72,
-    "half_width": 0.6232963531123313,
-    "baseline_sd": 3.8947908766908608,
-    "pooled_sd": 2.754033040211606,
     "baseline_position": null,
-    "w_plus": 11325.0,
+    "baseline_sd": 3.8947908766908608,
+    "direction": 1,
+    "half_width": 0.6232963531123313,
+    "holds": true,
+    "mean_difference": 9.72,
     "n_nonzero": 150,
     "p": 1.0589204290385073e-26,
-    "holds": true
+    "pooled_sd": 2.754033040211606,
+    "readout": "landed_contacts",
+    "w_plus": 11325.0
    }
   ],
   "fallback_rate": 0.0,
@@ -1032,13 +1032,13 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
   "missing_moves": [],
   "scripted": {
    "baseline": {
+    "dead": 0,
     "made": 9600,
     "not legal": 0,
+    "not reached": 0,
     "owed a step": 0,
-    "dead": 0,
-    "target dead": 0,
     "rewritten": 0,
-    "not reached": 0
+    "target dead": 0
    }
   }
  },
@@ -1049,30 +1049,30 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
   "seeds": 150,
   "readouts": [
    {
-    "readout": "deviation_fall",
-    "direction": 1,
-    "mean_difference": 0.05191793249690432,
-    "half_width": 0.04698628867262551,
-    "baseline_sd": 0.28192231306112325,
-    "pooled_sd": 0.2677309531963527,
     "baseline_position": null,
-    "w_plus": 5560.0,
+    "baseline_sd": 0.28192231306112325,
+    "direction": 1,
+    "half_width": 0.04698628867262551,
+    "holds": true,
+    "mean_difference": 0.05191793249690432,
     "n_nonzero": 137,
     "p": 0.036749680789823325,
-    "holds": true
+    "pooled_sd": 0.2677309531963527,
+    "readout": "deviation_fall",
+    "w_plus": 5560.0
    },
    {
-    "readout": "landed_contacts",
-    "direction": 1,
-    "mean_difference": 10.173333333333334,
-    "half_width": 0.5619920779865248,
-    "baseline_sd": 3.5117189554933583,
-    "pooled_sd": 2.4831602870506937,
     "baseline_position": null,
-    "w_plus": 11325.0,
+    "baseline_sd": 3.5117189554933583,
+    "direction": 1,
+    "half_width": 0.5619920779865248,
+    "holds": true,
+    "mean_difference": 10.173333333333334,
     "n_nonzero": 150,
     "p": 1.0371351789071882e-26,
-    "holds": true
+    "pooled_sd": 2.4831602870506937,
+    "readout": "landed_contacts",
+    "w_plus": 11325.0
    }
   ],
   "fallback_rate": 0.0,
@@ -1080,13 +1080,13 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
   "missing_moves": [],
   "scripted": {
    "baseline": {
+    "dead": 0,
     "made": 9600,
     "not legal": 0,
+    "not reached": 0,
     "owed a step": 0,
-    "dead": 0,
-    "target dead": 0,
     "rewritten": 0,
-    "not reached": 0
+    "target dead": 0
    }
   }
  }

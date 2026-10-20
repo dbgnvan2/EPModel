@@ -1,6 +1,7 @@
 # Proposal — cutoff anxiety, bridging and repair (version 2, G1)
 
-> **Status: DRAFT 2026-10-19, for owner review. Version 2; nothing built, no spec revision.** It turns the owner's
+> **Status: DECIDED by the owner 2026-10-19 (Q1–Q11 in §8); drafted the same day. Version 2; nothing built, no
+> spec revision.** It turns the owner's
 > answers on G1, recorded in `docs/version_2_plan.md` (stage 3, group G, 2026-10-18), into rules, tests and a new
 > criterion. The owner's decisions are quoted there and summarised in §1. Every form and number not marked as the
 > owner's is Claude's recommendation, graded `[I]`. It changes what a run computes, so it moves the engine hash and

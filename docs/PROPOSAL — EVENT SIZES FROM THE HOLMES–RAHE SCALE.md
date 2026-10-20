@@ -1,6 +1,7 @@
 # Proposal — event sizes from the Holmes–Rahe scale
 
-> **Status: DRAFT 2026-10-18, for owner review. Version 2; nothing built, no spec revision.** Every question is
+> **Status: DECIDED by the owner 2026-10-19 (Q1–Q8 in §6); drafted 2026-10-18. Version 2; nothing built, no
+> spec revision.** Every question is
 > decided: the owner answered Q1–Q8 in §6 on 2026-10-19, each on Claude's recommendation. It is built in one batch with G1 and G2 (Q7), so it waits on G2's proposal (the
 > version 2 plan was approved on 2026-10-19). The owner asked: "Can you
 > use the Holmes Ray scale of life events to create a relative distribution of anxiety vs. stressor." This proposal

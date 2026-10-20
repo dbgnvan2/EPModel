@@ -1,0 +1,62 @@
+{
+  "_about": "Word lists for the document-claim tests (docs/plan_doc_claim_tests.md). Editorial content, so it lives here and not in the test code (global rule 9). Each list says which test reads it.",
+
+  "retired_markers": {
+    "_read_by": "tests/test_doc_claims.py (D2.3): a missing repo path listed in retired_paths passes only in a sentence, or a fenced-block line, that carries one of these",
+    "phrases": ["retired", "removed from the tree", "at the tag `version-1`", "in git history"]
+  },
+
+  "retired_paths": {
+    "_read_by": "tests/test_doc_claims.py (D2.3): the paths each document may name although git no longer tracks them, each with why; an entry that is tracked again, or no longer named in its document, fails",
+    "README.md": {
+      "src/main.py": "the grid engine's entry point, retired at version 2 stage 1 (S1.6)"
+    },
+    "CLAUDE.md": {
+      "src/engine.py": "the grid engine, retired at version 2 stage 1 (S1.6)",
+      "src/main.py": "the grid engine's entry point, retired with it",
+      "monte_carlo.py": "the grid engine's Monte Carlo script, retired with it",
+      "tests/test_simulator.py": "the grid engine's tests, retired with it",
+      "docs/model_config.md": "the grid engine's configuration document, retired with it"
+    }
+  },
+
+  "tools_not_imported": {
+    "_read_by": "tests/test_requirements.py (D3.5): installed by requirements.txt but never imported; each must still be listed there",
+    "ruff": "the linter, run as a command; nothing imports it"
+  },
+
+  "suite_size_history": {
+    "_read_by": "tests/test_spec_consistency.py::test_claimed_test_count_matches_the_suite (D4.3): suite-size phrases in a dated part of a document, not claims about the suite now; each must still appear in its document",
+    "entries": [
+      {
+        "doc": "docs/agent_model_proposal.html",
+        "phrase": "36 tests, all passing",
+        "why": "the proposal's closing note on the review it records, at commit a6e51b6"
+      },
+      {
+        "doc": "docs/theory/_STATUS.md",
+        "phrase": "its 36 tests stay green",
+        "why": "the run log's section dated 2026-08-28, describing the grid engine's suite then"
+      }
+    ]
+  },
+
+  "status_words": {
+    "_read_by": "tests/test_doc_status.py (D5b.1): how the first sentence of a status line or a checklist label is classed. The first open or settled word decides; a settled word after a negator (and any fillers) does not count. Each open and settled word is taken from a real status line or label.",
+    "open": ["draft", "for review", "for owner review", "pending owner review", "for owner approval", "for approval", "not approved", "not yet approved", "awaiting"],
+    "settled": ["approved", "decided", "reviewed by the owner", "signed off", "built", "applied", "complete", "frozen", "done"],
+    "negators": ["not", "never", "nothing"],
+    "negation_fillers": ["yet", "been", "an", "a"]
+  },
+
+  "status_unclassified": {
+    "_read_by": "tests/test_doc_status.py (D5b.2): what the scan may skip. A checklist label that is neither open nor settled must start with one of labels; a document named by an open or settled claim whose own status is neither (or absent) must be listed in documents, with why. Anything else unclassified fails, so a new wording cannot pass unread.",
+    "labels": ["Generated", "Superseded or already folded into the spec", "Earlier phases and build process", "Stray file"],
+    "documents": {
+      "docs/phase_d_status_2026-10-13.md": "a dated report; its status is 'a report, not an approval'",
+      "docs/phase_d2_status_2026-10-13.md": "a dated report; its status is 'a report, not an approval'",
+      "docs/version_2_stage_1_changes.md": "a generated record, with no status line",
+      "docs/version_1_status.md": "a generated record frozen at the tag `version-1`, with no status line"
+    }
+  }
+}

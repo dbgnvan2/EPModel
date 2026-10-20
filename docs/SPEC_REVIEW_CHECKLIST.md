@@ -149,13 +149,13 @@ verdicts over ensembles (`tools/phase_d_record.py`; plan step 12). Mutations are
 
 **Generated, 2026-10-15:** [phase_d_mutation_record.md](phase_d_mutation_record.md) — Phase D part II criteria under declared mutants (first: `M4.D.6f` removed on `M11.C.10[family of origin]`), from `tools/phase_d_mutation_record.py`, rendered from `records_cache/phase_d_mutation.json`; a default-suite test fails when it is stale.
 
-**For review, 2026-10-15:** [REVIEW_spec_revisions_24-30.md](REVIEW_spec_revisions_24-30.md) — the owner's review form for spec revisions 24–30: one entry per requirement added or changed, with its source, constants and measured effect, and Approve / Change / Reject; and seven inconsistencies found while drafting it.
+**Reviewed by the owner 2026-10-16:** [REVIEW_spec_revisions_24-30.md](REVIEW_spec_revisions_24-30.md) — the owner's review form for spec revisions 24–30 (drafted 2026-10-15): one entry per requirement added or changed, with its source, constants and measured effect, and Approve / Change / Reject; and seven inconsistencies found while drafting it. All 85 entries are decided: 81 approved as built, 4 changed.
 
 **Approved, 2026-10-15:** [version_1_definition.md](version_1_definition.md) — what version 1 of the agent model is: seven conditions, each checked by a test, a record or an owner sign-off, where the model stands against them, and the owner's eight decisions.
 
-**For review, 2026-10-17:** [version_1_dispositions.md](version_1_dispositions.md) — for each criterion that does not pass, the disposition (accepted as a finding, out of scope, withdrawn, or a note) with its reason and who decided it; rows that are Claude's recommendation are pending owner review and do not count as final.
+**Complete, 2026-10-18:** [version_1_dispositions.md](version_1_dispositions.md) — for each criterion that does not pass, the disposition (accepted as a finding, out of scope, withdrawn, or a note) with its reason and who decided it. The owner reviewed every row on 2026-10-17 and accepted `M11.C.6`'s failure as a finding on 2026-10-18; the notes that were Claude's were accepted by the owner on 2026-10-19 (`version_2_plan.md` §5, Q10).
 
-**For review, 2026-10-17:** [REVIEW_version_1_outputs.md](REVIEW_version_1_outputs.md) — version 1's condition V7: every kind of output, the framing it carries (`M11.F.9`, `M11.F.10`), checked by `tests/test_version_1_outputs.py`, and the owner's sign-off.
+**Signed off by the owner 2026-10-17:** [REVIEW_version_1_outputs.md](REVIEW_version_1_outputs.md) — version 1's condition V7: every kind of output, the framing it carries (`M11.F.9`, `M11.F.10`), checked by `tests/test_version_1_outputs.py`, and the owner's sign-off.
 
 **Generated, 2026-10-17:** [version_1_status.md](version_1_status.md) — every `M11.C` criterion with its status under V1–V3, read from the ensemble and mutation records and the dispositions, from `tools/version_1_status.py`. Frozen at the tag `version-1` (`d62cfdc`) since 2026-10-19: a default-suite test checks it and the dispositions against the tag and runs the tag's status tests.
 
@@ -165,7 +165,7 @@ verdicts over ensembles (`tools/phase_d_record.py`; plan step 12). Mutations are
 
 **Generated, 2026-10-19:** [version_2_stage_1_changes.md](version_2_stage_1_changes.md) — every record's rows compared with the same rows at the tag `version-1`, from `tools/record_changes.py`: each changed verdict, moved effect and changed value, and what could not be compared. Stage 1 changed none.
 
-**Approved 2026-10-20, not built:** [plan_doc_claim_tests.md](plan_doc_claim_tests.md) — tests that fail when a document restates a fact that has since changed: the spec revision in four places, repo paths in README and CLAUDE.md, `requirements.txt` against the imports, the suite-size pattern widened, and status claims checked against each document's own status line, both ways. Each test with the files it reads and the mutation that proves it fails, and what each finds today.
+**Built 2026-10-20:** [plan_doc_claim_tests.md](plan_doc_claim_tests.md) — tests that fail when a document restates a fact that has since changed: the spec revision in four places, repo paths in README and CLAUDE.md, `requirements.txt` against the imports, the suite-size pattern widened, and status claims checked against each document's own status line, both ways. Each test with the files it reads and the mutation that proves it fails; the build record (§12) and each criterion's status (§13). Approved by the owner 2026-10-20.
 
 **Decided 2026-10-19, not built:** [<PROPOSAL — CUTOFF ANXIETY, BRIDGING AND REPAIR.md>](<PROPOSAL — CUTOFF ANXIETY, BRIDGING AND REPAIR.md>) — version 2's G1: the owner's decisions on a cut-off tie's anxiety (peak, decay to a 10% floor, negative and positive bridging, repair) turned into rules, tests and the new negative-run composite criterion, with eleven questions (Q1–Q11, all decided by the owner) and two stated conflicts with the spec (`M1.D.2a`, `M5.B.3`).
 
@@ -180,7 +180,7 @@ named for them; three owner decisions. Nothing built.
 
 **For review, 2026-10-13:** [phase_d_status_2026-10-13.md](phase_d_status_2026-10-13.md) — Phase D part I after the
 overnight run: every build item and D-I criterion as done, partial or not done, and what the owner should look at
-first (spec revisions 24–27 are Claude's recommendations, pending owner review).
+first (spec revisions 24–27 were then Claude's recommendations; the owner reviewed them on 2026-10-16).
 
 **For review, 2026-10-13:** [phase_d2_status_2026-10-13.md](phase_d2_status_2026-10-13.md) — Phase D part II (the life course) after the build: each step and criterion with its evidence, and what the owner decides next.
 

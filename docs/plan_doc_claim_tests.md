@@ -1,9 +1,10 @@
 # Plan: tests that fail when a document restates a fact that has changed
 
-**Status: APPROVED 2026-10-20, not built.** The owner approved the plan with Q1 and Q2 as recommended (§9): D5b checks
-status claims in both directions, and the build starts once `docs-stale-fixes` is merged into `plan-phase-b`. Written
-2026-10-19 after version 2 stage 1 step 7 (`7aa9fc5`). No test in this plan exists yet. Each one is written, run red, and proved failing by its named mutation before it
-counts.
+**Status: BUILT 2026-10-20.** The owner approved the plan with Q1 and Q2 as recommended (§9): D5b checks status claims
+in both directions, and the build started once `docs-stale-fixes` was merged into `plan-phase-b` (`883dc8b`). Written
+2026-10-19 after version 2 stage 1 step 7 (`7aa9fc5`). Each check was proved failing: its self-tests against an empty
+stub, one live edit to a real file, and a code mutant for each part added after the learning-qa review (§12). §13 gives
+each criterion's status. The suite is 984 tests, 60 of them new.
 
 ## 1. Why
 
@@ -44,7 +45,7 @@ the code that reads them. `test_stale_text.py`'s existing `PHRASE` and `PENDING`
 Each check is a function that takes text and file lists and returns its findings, as `stale_text()` already does. The
 real-repo test asserts the findings are empty. The self-tests run the same function on fixture text that carries the
 mutation, so the mutation proof stays in the suite after the build. Each check also gets one **live mutation**: an edit
-to the real file, run red, then reverted. The build record (§8) lists each one with the failure message it produced.
+to the real file, run red, then reverted. The build record (§12) lists each one with the failure message it produced.
 
 ## 4. D1: the spec revision, wherever it is restated
 
@@ -103,7 +104,8 @@ This would have caught `python3 src/main.py`. README at `423bbed` still had it i
   any tracked file has that name. **Git, not the disk:** a stray untracked copy of a removed file must not hide the
   removal. A new file must be staged (`git add`) before this test sees it. The test fails, rather than skips, when git
   is not available.
-- **D2.3 Retired paths.** A missing path passes only if the same sentence (in prose) or the same line (in a fenced
+- **D2.3 Retired paths.** *(As built, a missing path must also be listed as retired for that document in
+  `tests/doc_claims.json`; §12.)* A missing path passes only if the same sentence (in prose) or the same line (in a fenced
   block) says it is gone: "retired", "removed from the tree", "at the tag `version-1`", or "in git history". A sentence
   is split within its own paragraph, list item or table row, so a marker in a neighbouring row does not count.
 - **D2.4 Not vacuous.** The scan must report checking CLAUDE.md's `tests/test_repo_layout.py` and README's
@@ -215,7 +217,8 @@ review." The test goes red.
 - **D5b.1 A document's own status** is its front-matter `status:` or the first `**Status: …**` in its first 12 lines.
   Its first sentence is classed as **open** (draft, for review, for owner review, pending owner review, not approved,
   awaiting), **settled** (approved, decided, reviewed by the owner, signed off, built, applied, complete, frozen, done),
-  or neither. Open wins over settled. A settled word that is negated does not count: "not approved", "not an
+  or neither. Open wins over settled *(as built, the first open or settled word decides; §12)*. A settled word that is
+  negated does not count: "not approved", "not an
   approval", "nothing decided", "not built". Each word in the two lists is taken from a real status line.
 - **D5b.2 Claims read:** each checklist entry label (`**Label:**` with the entry's first link), each README sentence
   that names a `docs/` path, and each `docs/` status line that names another document.
@@ -242,7 +245,8 @@ Tests: `test_d5b_status_claims_agree_with_each_documents_own_status` (the real r
 `test_d5b_a_reviewed_document_called_for_review_is_reported` (fixture: the first row's label and status, as they are
 today); `test_d5b_a_decided_label_on_a_draft_is_reported` (D5b.4, the fourth row);
 `test_d5b_classification_handles_negation` (adversarial, parametrized: "not approved text" is open, "a report, not an
-approval" is neither, "Decided 2026-10-19, not built" is settled, "nothing decided, nothing built" is neither).
+approval" is neither, "Decided 2026-10-19, not built" is settled, "nothing decided, nothing built" is neither; 17
+cases as built, §13).
 
 **Live mutations:** change the checklist's label for `version_2_plan.md` from "Approved 2026-10-19:" to "For review,
 2026-10-18:". Red. For D5b.4, change the label for the learning-by-level proposal from "Draft for review" to "Approved
@@ -262,7 +266,8 @@ approval" is neither, "Decided 2026-10-19, not built" is settled, "nothing decid
 4. The full suite. CLAUDE.md's suite count updated to what pytest collects.
 5. Documents updated in the same commit (rule 13): CHANGELOG; CLAUDE.md's count; this plan's status line and a build
    record (one row per live mutation: the edit, the test, the failure message, reverted); the checklist entry for this
-   plan; `docs/spec_coverage.md` is not affected (these tests verify no spec ID).
+   plan; `docs/spec_coverage.md` is not affected (these tests verify no spec ID). *Corrected at the build (§12): it is
+   affected, because it lists every test named for no spec ID.*
 6. `learning-qa` over the diff, fix its findings, commit. Not pushed.
 
 ## 9. Owner decisions
@@ -284,11 +289,24 @@ The word lists go in `tests/doc_claims.json` (rule 9) without a question. Moving
 - A copy that is stale in a way that is not a number, path, package or status word. After the merge, `_STATUS.md`'s
   state line says "stage 1's one regeneration run is next", but step 7 ran it on 2026-10-19. D1 passes on that line,
   because its revision is right.
-- D2 does not check paths written without backticks, or paths in documents other than README.md and CLAUDE.md.
+- D1 takes the largest revision named in CLAUDE.md's spec row, the `▶ STATE` line and README.md's Status section. If
+  one of them named a later revision as planned, a stale claim beside it would pass. Only the checklist's entry has an
+  exact form (`the spec (v2.0, revision N`), and it is read by that.
+- D2 does not check paths written without backticks, or paths in documents other than README.md and CLAUDE.md. It
+  reads a backticked span as a path only when it starts with a tracked top-level folder or ends in `.py`, so a root
+  file such as `requirements.txt` or `pytest.ini` is not checked.
 - D4 does not read suite sizes written without the word "tests" (the proposal's masthead "37 today, all passing"), or
-  in past tense, or in documents outside `CITING_DOCS`.
+  in past tense, or with more than one word between the count and the verb ("984 tests, all of them pass"), or in
+  documents outside `CITING_DOCS`.
+- D5a reads only the bold part of a status line (§11's `phase_d_status_2026-10-13.md`).
+- D5b reads some open wordings as settled ("To be decided", "Not formally approved"), and D2 does not read a path
+  under a top-level folder that was deleted whole. Both are in `TODO.md`, from the fix re-sweep.
 - D5b does not compare status words outside its two lists, or a document named without a link or a backticked path. It
-  reads only the first sentence of a status line.
+  reads only the first sentence of a status line. In the checklist it reads only entry labels, a bold label ending in a
+  colon at the start of a line; a status written inside a list item's description is not read (Part 3's
+  `REVIEW_version_1_guide.md`, "for review, 2026-10-18", which agrees with its own status today).
+- D2 and D3 read the files git tracks. A new file or helper module is not seen until it is staged; the failure message
+  says so.
 
 ## 11. Adjacent issues found, not fixed
 
@@ -301,3 +319,131 @@ The word lists go in `tests/doc_claims.json` (rule 9) without a question. Moving
 - `_STATUS.md`'s state line on `docs-stale-fixes` says the regeneration run is next. Step 7 ran it.
 - CLAUDE.md line 3 says "unit, family, and societal levels". The model is one three-generation family.
 - `test_stale_text.py` keeps its `PHRASE` regex and `PENDING` table in Python source, not a data file (rule 9).
+- `docs/phase_d_status_2026-10-13.md`, a dated report, says in its status paragraph that revisions 24–27 are "pending
+  owner review". D5a reads only the bold part of a status line, so it is not reported; its checklist entry now says the
+  owner reviewed them on 2026-10-16. Found during the build.
+
+## 12. Build record (2026-10-20)
+
+Built on this branch on top of `plan-phase-b` at `883dc8b`. For each check, the self-tests were written first and run
+red against an empty stub, then the check was written and the real-repo test run.
+
+| Check | Self-tests red against the stub |
+|---|---|
+| D1 | 4 of 6 (the real-repo test passed on the empty stub, as a vacuous check does; the front-matter reader was not stubbed) |
+| D4 | 5 of the 11 phrasings, against the old pattern: "37 tests, all passing", "37 tests, all green", "36 tests stay green", the same claim across a line break, and "850 tests passed", which the old pattern read as a claim |
+| D2 | 5 of 6 (the real-repo test passed on the empty stub, as a vacuous scan does; D2.4's test exists for that) |
+| D3 | 6 of 7 (likewise for the real-repo test) |
+| D5a | the fixture test; with the scan written, the real-repo test went red on the checklist's two lines |
+| D5b | 9 of 14 (the real-repo test and four classifications whose answer is "neither" passed on the stub) |
+
+Live mutations, one edit to a real file each, all reverted:
+
+| ID | The edit | Test | Failure message | Afterwards |
+|---|---|---|---|---|
+| D1 | spec front matter `revision 33` → `revision 34` | test_d1_spec_revision_restatements_match_the_front_matter | 4 findings: CLAUDE.md's spec row, README.md's Status section, _STATUS.md's ▶ STATE line, the checklist's spec entry: "names revision 33; the spec is at 34" | reverted |
+| D4 | README Layout line `tests/               the suite (see CLAUDE.md for the current count)` → `tests/               37 tests, all passing` (as at 423bbed) | test_claimed_test_count_matches_the_suite | "documents claim a suite size that is not 942: {'README.md': [37]}"; the old pattern finds nothing in the same text | reverted |
+| D2 | README Running section: "The grid engine's entry point, `src/main.py`, was retired at version 2 stage 1 and is at the tag `version-1`." → "Run `python3 src/main.py`." | test_d2_repo_paths_in_readme_and_claude_md_exist; test_d2_the_scan_is_not_vacuous | "{'README.md': [('src/main.py', 'Run `python3 src/main.py`.')]}"; and src/main.py no longer among the retired paths | reverted |
+| D3 | deleted the `numpy` line from `requirements.txt` | test_d3_requirements_match_the_imports | "{'imported, not in requirements.txt': ['numpy (src/bowen/engine/counting.py, src/bowen/engine/draws.py, …)']}" | reverted |
+| D5a | README: "Spec revisions 24–27 were Claude's recommendations; the owner reviewed them on 2026-10-16." → "Spec revisions 24–27 are Claude's recommendations, pending owner review." | test_d5a_current_state_documents_carry_no_stale_pending_review | "{'README.md': 1}" | reverted |
+| D5b.3 | checklist label for `version_2_plan.md`: "Approved 2026-10-19:" → "For review, 2026-10-18:" | test_d5b_status_claims_agree_with_each_documents_own_status; test_d5b_the_scan_is_not_vacuous | "docs/SPEC_REVIEW_CHECKLIST.md calls docs/version_2_plan.md open ('For review, 2026-10-18'); its own status is settled: 'APPROVED 2026-10-19.'"; the pair is no longer settled on both sides | reverted |
+| D5b.4 | checklist label for the learning-by-level proposal: "Draft for review, 2026-10-18:" → "Approved 2026-10-19:" | test_d5b_status_claims_agree_with_each_documents_own_status | "… calls docs/PROPOSAL — LEARNING BY LEVEL, ASKING WHAT TO DO DIFFERENTLY.md settled ('Approved 2026-10-19'); its own status is open: 'DRAFT 2026-10-18, for owner review. …'" | reverted |
+
+The D4 edit was run with CLAUDE.md's count set to the suite collected at the time (942), so the only finding was the
+mutation's.
+
+**The learning-qa review.** One full pass over the build found eight items and two low ones. Each was fixed, or recorded
+as a limit in §10. The parts added for the fixes were written against the existing code, so each was proved by a code
+mutant instead of a stub: the line was changed, the test file run, the line restored. The script that did this is not
+kept in the repo; each row gives the change.
+
+| Mutant | The change | Red |
+|---|---|---|
+| D5b, no negation | the negated settled words are not blanked | `test_d5b_classification_handles_negation` ×3: "nothing decided, nothing built", "Never approved", "Not complete" |
+| D5b, open wins | any open word makes the claim open (the plan's rule) | `test_d5b_classification_handles_negation` ×2: "APPROVED 2026-10-19, awaiting the build", "Approved 2026-10-19, replacing the draft of 2026-10-18" |
+| D5b, labels skipped | a label that is neither open nor settled is not reported | `test_d5b_an_unknown_wording_is_not_skipped_silently` |
+| D5b, documents skipped | a target whose own status is neither is not reported | `test_d5b_an_unknown_wording_is_not_skipped_silently` |
+| D2, marker only | a missing path passes on a marker without being listed | `test_d2_a_marker_about_something_else_does_not_excuse_a_path` |
+| D2, list only | a listed path passes without a marker | `test_d2_the_old_run_command_is_reported`, `test_d2_a_retired_path_passes_only_in_its_own_sentence`, `test_d2_a_marker_about_something_else_does_not_excuse_a_path` |
+| D2, fixed roots | only the five project folders are roots | `test_d2_the_scan_is_not_vacuous` (`.github/workflows/tests.yml` not checked) |
+| D1, no exact form | the checklist is read by its largest revision | `test_d1_the_checklist_is_read_by_its_exact_claim` |
+| D3, no distribution map | an import keeps its own name | `test_d3_an_unlisted_import_is_reported` (`_pytest` not mapped to `pytest`) |
+
+The D1 mutant first survived: no test had an entry that names a larger revision than its claim. The test was added and
+the mutant rerun red.
+
+**What the real-repo tests found, and the fixes.** D1, D2, D3 and D4 found nothing, as measured in §4–§7. D5a found the
+checklist's two lines (the second now at line 183, after the merge). D5b found the five disagreements in §7's table. The
+three checklist labels were restated from each document's own status line: "Reviewed by the owner 2026-10-16",
+"Complete, 2026-10-18", "Signed off by the owner 2026-10-17". The two "pending owner review" lines were restated from the
+dispositions' status line and the review of revisions 24–30. The G1 and Holmes–Rahe proposals' own status lines now read
+"DECIDED by the owner 2026-10-19 (Q1–Q11 in §8)" and "(Q1–Q8 in §6)", taken from each proposal's §8 or §6, where every
+question carries its decision.
+
+**Where the build differs from the plan.**
+
+- D5b reads a claim in README.md or in another document's status line by the sentence that names the document, not by
+  the naming document's own first sentence. A draft whose status line says it builds on an approved plan is then not
+  reported as calling that plan a draft (`test_d5b_readme_and_status_lines_are_read`).
+- D2 also drops a `:N` line-number suffix, as it drops `::test_name`.
+- Tests added beyond the plan's names: `test_d1_an_unreadable_front_matter_fails`,
+  `test_d2_patterns_placeholders_and_test_ids_are_read_as_intended`, `test_d3_dynamic_imports_with_a_literal_are_read`,
+  `test_d3_requirement_lines_are_parsed_to_names`, `test_d5b_the_scan_is_not_vacuous` (D5b.5, which the plan named
+  without a test) and `test_d5b_readme_and_status_lines_are_read`; after the review,
+  `test_d1_the_checklist_is_read_by_its_exact_claim`, `test_d2_a_marker_about_something_else_does_not_excuse_a_path`,
+  `test_d2_the_retired_list_is_current`, `test_d5b_the_unclassified_lists_are_current` and
+  `test_d5b_an_unknown_wording_is_not_skipped_silently`.
+- The reading helpers shared by D2, D5a and D5b are in `tests/doc_text.py`.
+- D2.3: a missing path passes only if `tests/doc_claims.json`'s `retired_paths` lists it for that document and its own
+  sentence or line carries a marker. The plan had the marker alone; the review showed a marker about something else
+  ("frozen at the tag `version-1`") would excuse any path beside it. `test_d2_the_retired_list_is_current` fails when a
+  listed path is tracked again or is no longer named and marked.
+- D2's roots are the five project folders and every other top-level folder git tracks, so `.github/` paths are read.
+- D1 reads the checklist's entry by its exact claim, "the spec (v2.0, revision N"; the other three places by the
+  largest revision they name.
+- D5b.1: the first open or settled word in the first sentence decides, not "open wins", so "APPROVED 2026-10-19,
+  awaiting the build" is settled. A negated settled word is any negator, then any fillers, then a settled word
+  ("never approved", "not complete"), built from three lists in the data file, not a list of fixed phrases.
+- D5b.2: a checklist label, or a named document's own status, that is neither open nor settled is reported unless the
+  data file's `status_unclassified` lists it (four label prefixes, four documents, each with its reason). The build
+  before the review skipped those pairs without counting them. `test_d5b_the_unclassified_lists_are_current` keeps
+  both lists current.
+- D3: the 2026-10-19 file is checked against fixed sources, and D3.3 is shown with `_pytest`, reported as `pytest`, and
+  a name that is not installed, reported as itself. Before the review both tests read their expected value from the
+  installed environment or the real tree.
+- The first full-suite run had one failure, `tests/bowen/test_spec_coverage.py::test_m141_spec_coverage_is_current`.
+  §8 said `docs/spec_coverage.md` would not change. It does: the report lists every test named for no spec ID, so it
+  was regenerated with its tool. The same run showed that `tools/spec_coverage.py` loads
+  `tests/test_spec_consistency.py` by its path, outside pytest, where `from doc_text import …` fails. The tool could
+  not have regenerated the report. D4 now reads its history list from `tests/doc_claims.json` directly.
+
+## 13. Status of each criterion
+
+| ID | Status | Proof |
+|---|---|---|
+| D1.1 | done | `tests/test_doc_claims.py::test_d1_spec_revision_restatements_match_the_front_matter`, `::test_d1_an_unreadable_front_matter_fails` |
+| D1.2–D1.5 | done | `::test_d1_spec_revision_restatements_match_the_front_matter`, `::test_d1_a_moved_spec_revision_is_reported_in_every_place`, `::test_d1_the_checklist_drift_of_2026_10_19_is_reported`, `::test_d1_the_checklist_is_read_by_its_exact_claim`; live mutation in §12 |
+| D1.6 | done | `::test_d1_a_place_that_stops_naming_a_revision_fails` |
+| D1.7 | done | `::test_d1_history_does_not_trip_and_a_future_revision_does` |
+| D2.1 | done | `::test_d2_paths_with_spaces_and_module_commands_resolve`, `::test_d2_patterns_placeholders_and_test_ids_are_read_as_intended` |
+| D2.2 | done | `::test_d2_repo_paths_in_readme_and_claude_md_exist` (reads `git ls-files`; `tests/doc_text.py::tracked_files` fails without git) |
+| D2.3 | done | `::test_d2_a_retired_path_passes_only_in_its_own_sentence`, `::test_d2_the_old_run_command_is_reported`, `::test_d2_a_marker_about_something_else_does_not_excuse_a_path`, `::test_d2_the_retired_list_is_current`; live mutation in §12 |
+| D2.4 | done | `::test_d2_the_scan_is_not_vacuous` (a path in each document, and `.github/workflows/tests.yml`) |
+| D3.1 | done | `tests/test_requirements.py::test_d3_dynamic_imports_with_a_literal_are_read`, `::test_d3_an_unlisted_import_is_reported` |
+| D3.2 | done | `::test_d3_local_stdlib_relative_and_helper_imports_are_not_third_party` |
+| D3.3 | done | `::test_d3_an_unlisted_import_is_reported` (`_pytest` reported as `pytest`; a name not installed as itself) |
+| D3.4 | done | `::test_d3_requirement_lines_are_parsed_to_names`, `::test_d3_the_requirements_file_of_2026_10_19_is_reported` (the duplicate numpy) |
+| D3.5 | done | `::test_d3_an_allowlisted_tool_must_be_listed` |
+| D3.6 | done | `::test_d3_requirements_match_the_imports`, `::test_d3_the_requirements_file_of_2026_10_19_is_reported`; live mutation in §12 |
+| D4.1, D4.2 | done | `tests/test_spec_consistency.py::test_d4_suite_size_phrasings_are_recognised` (11 cases) |
+| D4.3 | done | `::test_d4_history_entries_still_exist`; `tests/doc_claims.json` `suite_size_history` |
+| D4.4 | done | `::test_claimed_test_count_matches_the_suite` (assertion kept); live mutation in §12 |
+| D5a | done | `tests/test_stale_text.py::test_d5a_current_state_documents_carry_no_stale_pending_review`, `::test_d5a_the_scan_reads_status_lines_and_the_state_line`; live mutation in §12 |
+| D5b.1 | done | `tests/test_doc_status.py::test_d5b_classification_handles_negation` (17 cases) |
+| D5b.2 | done | `::test_d5b_readme_and_status_lines_are_read`, `::test_d5b_an_unknown_wording_is_not_skipped_silently`, `::test_d5b_the_unclassified_lists_are_current`; checklist labels in the next two |
+| D5b.3 | done | `::test_d5b_a_reviewed_document_called_for_review_is_reported`; live mutation in §12 |
+| D5b.4 | done | `::test_d5b_a_decided_label_on_a_draft_is_reported`; live mutation in §12 |
+| D5b.5 | done | `::test_d5b_the_scan_is_not_vacuous` |
+
+No criterion verifies a spec ID. `docs/spec_coverage.md` still changes: it lists every test named for no spec ID, and
+the 34 new test functions are added to that list (146 to 180), regenerated by `tools/spec_coverage.py`.

@@ -1,7 +1,8 @@
 # Plan: tests that fail when a document restates a fact that has changed
 
-**Status: DRAFT for owner approval, 2026-10-19. Nothing built.** Written after version 2 stage 1 step 7 (`7aa9fc5`).
-No test in this plan exists yet. Each one is written, run red, and proved failing by its named mutation before it
+**Status: APPROVED 2026-10-20, not built.** The owner approved the plan with Q1 and Q2 as recommended (§9): D5b checks
+status claims in both directions, and the build starts once `docs-stale-fixes` is merged into `plan-phase-b`. Written
+2026-10-19 after version 2 stage 1 step 7 (`7aa9fc5`). No test in this plan exists yet. Each one is written, run red, and proved failing by its named mutation before it
 counts.
 
 ## 1. Why
@@ -266,9 +267,11 @@ approval" is neither, "Decided 2026-10-19, not built" is settled, "nothing decid
 
 ## 9. Owner decisions
 
-- **Q1. D5b in both directions?** Recommended: **yes.** The brief asks for one direction: a claim says open, the
+Both decided by the owner on 2026-10-20, as recommended.
+
+- **Q1. D5b in both directions?** Decided: **yes.** The brief asks for one direction: a claim says open, the
   document says approved. The reverse finds the two stale proposal status lines in §7, which nothing else catches.
-- **Q2. Order.** Recommended: **merge `docs-stale-fixes` into `plan-phase-b` first, then build this on top.** The
+- **Q2. Order.** Decided: **merge `docs-stale-fixes` into `plan-phase-b` first, then build this on top.** The
   alternative is to build on this branch with that branch merged in, which carries its changes in two places.
 
 The word lists go in `tests/doc_claims.json` (rule 9) without a question. Moving `test_stale_text.py`'s existing

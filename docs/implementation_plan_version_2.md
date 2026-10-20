@@ -4,7 +4,8 @@
 approved the plan. **Built, reviewed and regenerated 2026-10-19 (steps 0–7, §1.10): no verdict changed against
 the tag `version-1`. The `/csdp` sweep's fixes (step 8) were made 2026-10-20 and pushed the same day with the owner's
 approval; CI run 39449517708 passed on Python 3.11, 3.12 and 3.13 (S1.10c). A cold sweep's fixes were made
-2026-10-20 (§1.10), committed and not yet pushed.** Written from
+2026-10-20 (§1.10) and pushed the same day with the owner's approval (`0d86b29`); CI run 39482917825 passed on
+Python 3.11, 3.12 and 3.13.** Written from
 `docs/version_2_plan.md` §3 (stage 1) and the `TODO.md` entries it collects, each checked against the code on
 2026-10-19. Later stages add their own sections here, as the Phase D plan did.
 

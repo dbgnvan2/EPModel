@@ -280,7 +280,8 @@ def test_m16c1_chart_names_the_absent_and_draws_the_undeclared():
 def test_m16c1_chart_script_json_cannot_end_its_element():
     """A display name holding markup cannot end the data's <script> element or open a comment in it: no <, > or &
     survives, and the JSON still reads back to the same value. The fill is one pass, so a value that contains a
-    placeholder's name is not filled again, and a template missing a placeholder is refused."""
+    placeholder's name is not filled again, and a template missing a placeholder, holding one twice, or holding one
+    the values do not fill is refused."""
     import json
 
     from tools.run_chart import _fill, _script_json
@@ -292,6 +293,9 @@ def test_m16c1_chart_script_json_cannot_end_its_element():
         "a __DATA__ b f c d"
     with pytest.raises(ValueError, match="placeholders"):
         _fill("a __TITLE__ __DATA__", {"TITLE": "t", "FRAMING": "f", "DATA": "d"})
+    for template in ("__TITLE__ __TITLE__ __FRAMING__ __DATA__", "__TITLE__ __FRAMING__ __DATA__ __WEEK__"):
+        with pytest.raises(ValueError, match="placeholders"):
+            _fill(template, {"TITLE": "t", "FRAMING": "f", "DATA": "d"})
 
 
 def test_m16c1_phase_c_chart_renders():

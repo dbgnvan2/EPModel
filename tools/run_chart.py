@@ -38,7 +38,7 @@ from src.bowen.render.trace import framing
 
 TEMPLATE = Path(__file__).with_name("run_chart_template.html")
 SERIES = ("anxiety", "functioning", "chronic", "basic")
-PLACEHOLDER = re.compile(r"__(TITLE|FRAMING|DATA)__")
+PLACEHOLDER = re.compile(r"__([A-Z]+)__")
 
 
 class WeeklySeries:
@@ -93,7 +93,8 @@ def _script_json(data: dict) -> str:
 
 
 def _fill(template: str, values: dict[str, str]) -> str:
-    """Each placeholder replaced in one pass, so a value that contains a placeholder's name is not filled again."""
+    """Each ``__NAME__`` in the template replaced in one pass, so a value that contains a placeholder's name is not
+    filled again. The template's placeholders, whatever their names, must be the values' keys, each once."""
     names = PLACEHOLDER.findall(template)
     if sorted(names) != sorted(values):
         raise ValueError(f"the template's placeholders {sorted(names)} are not each present once: {sorted(values)}")

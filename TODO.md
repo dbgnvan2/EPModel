@@ -13,7 +13,19 @@ Deferred and adjacent items. Each carries enough context to act on later without
   (the engineering batch, with the grid engine retired, stage 0.3's two fixes, and the trace renderer out of the hash);
   the G2 proposal, so group G (G1, G2, the Holmes–Rahe sizes) can go to one revision and be built before the stage 2
   pilot; then proposals for groups C, F and A, each with the owner's note in the plan's §5 Q2.
-- [ ] **`/csdp` sweep of 2026-10-19, two code-review items not fixed** (each with its reason).
+- [ ] **`/csdp` sweep of 2026-10-19, items not fixed** (each with its reason; the last three are the fix re-sweep's
+  minor items, recorded under the owner's three-or-fewer rule).
+  - The owner's Holmes–Rahe Q3 ("additions carry load", decided 2026-10-19) cited `KS07.1`, which §2 then misdescribed
+    as a visit that raised a symptom; the source says it improved the wife's functioning. The decision stands with a
+    correction note beside it. The owner should look at it again before revision 33 is written.
+  - `docs/review/phase_c_famdiag_seed7.json` comes from the same seed-7 run as the trace and chart but has no test
+    that it is the current render (the trace and chart now do, `tests/bowen/test_render.py`). It is modified in the
+    working tree and was not touched by the sweep. Add the same check once that edit is settled.
+  - `test_m16c1_chart_names_the_absent_and_draws_the_undeclared` puts its undeclared person in every sampled week, so
+    the leading-`None` path for someone who enters mid-run is not exercised; the `PYTEST_*` filter in
+    `tests/test_version_1_status.py` has no test of its own (a wrong option fails that test loudly).
+  - The byte-equality checks on the committed trace, chart and frozen page were measured on macOS only; watch the
+    first CI run on Linux after the push.
   - `tools/version_1_status.py` in the working tree is no longer run by any test: `main()` refuses, and
     `tests/test_version_1_status.py` runs the tag's copy. It is kept, not reduced to a stub, because the plan names it
     as the starting point for version 2's status page. Whoever writes that page starts from the tag's copy

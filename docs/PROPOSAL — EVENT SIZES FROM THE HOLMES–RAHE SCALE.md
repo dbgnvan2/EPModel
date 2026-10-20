@@ -39,8 +39,10 @@ throughout (`_LEDGER.md`, per `KS15.12`): Kerr's own extension, never to be attr
 - **The same loss lowers some members and raises others, by position.** Two grandparents' deaths lowered functioning
   across four households (`KS10.4` `[K]` `[T]`). Both parents' deaths raised it in the projection target (`KS22.8`
   `[K-ext]` `[T]`).
-- **Additions count, not only losses.** A cousin's week-long visit raised a symptom, measured in blood work, which then
-  reverted (`KS07.1` `[K]` `[T]`). The owner's own list of nodal events includes births and marriages (`config/bowen/nodal_events.md`).
+- **Additions count, not only losses.** The husband's cousin's week-long visit improved the wife's functioning: her
+  depression and bowel symptoms eased and her diabetes blood tests improved, and the improvement reverted after the
+  cousin left (`KS07.1` `[K]` `[T]`). The case shows an addition moving functioning, here upward; it is not a case of
+  an addition adding load. The owner's own list of nodal events includes births and marriages (`config/bowen/nodal_events.md`).
 
 So the scale can at most give a **base size per kind of event**. The ties then scale it, as the model's grief already
 does by bond energy (`M6.3g`). The scale's equal weight for everyone is the part the theory rejects.
@@ -145,7 +147,9 @@ of what "around a divorce" means: 73 LCU, so 504 intensity units at the first an
    2.55, keeps the job loss and shrinks grief to 37% of today. **Decided 2026-10-19: 6.9 per LCU.** Divorce is then
    504, which sizes G1's cut-off stock (G1's Q8).
 3. **Q3. Do additions and transitions carry load (E2)?** Recommended: yes, as `KS07.1` and your list of nodal events
-   suggest. **Decided 2026-10-19: yes.**
+   suggest. **Decided 2026-10-19: yes.** *(Correction, 2026-10-19, after the decision: §2 then said the visit raised a
+   symptom; the source says it improved the wife's functioning, so `KS07.1` shows an addition moving functioning, not
+   adding load. The decision stands; the owner may revisit it with the corrected case.)*
 4. **Q4. How long does each event weigh?** Recommended for the additions: 12 weeks `[I]` each, to be swept.
    **Decided 2026-10-19: 12 weeks each.**
 5. **Q5. Does a person's own illness load them (E3)?** Recommended: yes. **Decided 2026-10-19: yes.**

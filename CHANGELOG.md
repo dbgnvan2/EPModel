@@ -16,6 +16,11 @@ All notable changes to this project are recorded here. Dates are ISO.
   template in one pass. A new test fails when the committed seed-7 trace or chart is not the current render. The
   chart's data changed only by the new `absent` key.
 - **`tests/test_version_1_status.py`** no longer passes the parent's `PYTEST_*` options to the run at the tag.
+  `tools/version_1_status.py`'s `main` is typed `NoReturn` (no change in behaviour).
+- **Fix re-sweep** (learning-qa, narrow, over the fix commits): the chart's template fill now refuses any `__NAME__`
+  it does not fill, not only the three it knows; the Holmes–Rahe proposal's `KS07.1` line, graded `[T]`, said the
+  visit raised a symptom, and the source says it improved the wife's functioning. It is corrected, with a note beside
+  the owner's Q3 decision, which cited the case. Its minor items are in `TODO.md`.
 - Two code-review items not fixed, with reasons in `TODO.md`.
 
 ### Version 1 tagged and its status page frozen (2026-10-19)

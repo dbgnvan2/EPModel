@@ -5,6 +5,42 @@ Completely separate from the Bowen corpus in `docs/theory/`.
 
 ---
 
+## 2026-10-19 — 4 new papers
+
+Method note: all six facet queries returned via `export.arxiv.org/api` (explicit
+`Accept: application/atom+xml` header, curl). Window: arXiv submitted >= 2026-10-05
+(~2 weeks since last digest). Version suffixes preserved (all v1). Four PDFs downloaded
+and verified (`%%EOF` trailer, non-trivial size). No withdrawn papers in the window.
+Semantic Scholar citation tracking skipped (optional; nothing new expected from seeds).
+
+1. **Probable but Not Valid: A Psychometric Audit of Decision Models as Synthetic Survey Respondents** — 2610.14912 — Mantas Lukauskas, Viktorija Šarkauskaitė — FIDELITY. Psychometric audit of 14 decision models + 47 generative LLMs as silicon samples against a real organisational-psychology survey (n=263); best generative model matches a copula baseline but profile fields say little about how a person answers — argues synthetic respondents should target sample-level, not individual, fidelity.
+2. **Towards Adaptive and Real-Survey-Aligned Simulated Urban Mobility Behaviour of Generative Agents** — 2610.22407 — Yves Bru, Kamaldeep Singh Oberoi, Benoit Gaudou — ARCH. Generative-agent daily-mobility ABM for Toulouse, aligned to a real household travel survey; compares 15 decision-makers (discrete-choice, ML fit, tuned-prompt GAs, typed classifier) — GAs approach fitted models on modal split but not trip-by-trip.
+3. **Beyond Large Language Models: A Mental World Model Framework for Mental Modeling, Simulation, Evolution, and Interpretability** — 2610.23722 — Qingshi Wang — TRAIT. Mental World Model / Multi-Branch Mental Evolution Architecture that constructs subjective worlds and simulates continuous mental-state evolution shaped by historical experience; strong gains on ToM (DynToM/RecToM) and mental-state prediction.
+4. **Validating LLM-generated political networks with survey-reported partisan exposure** — 2610.23199 — Marco Tonin, Michele Tizzoni, Bruno Lepri, Luca Maria Aiello — FIDELITY. LLM-generated political networks from ANES personas, validated against respondents' survey-reported partisan exposure — shows aggregate network properties can hide group-specific errors in individuals' local environments.
+
+Facets with nothing new in window: ADAPT (self-improvement *training*, coding agents,
+robotics — out of scope, same as prior weeks), DYNAMICS (top hits were robotics/RL-infra
+"alignment" noise and safety-engineering), MECH (all pre-window or out of scope).
+
+### Deep-review candidates (individual/small-group ABM, for the EPModel spec)
+
+Screened 2026-10-19 against the level criterion (design/build/testing of an ABM at
+individual or small-group scale). **No candidates this week** — all four are
+population-scale, survey-sample, or single-model building blocks:
+
+- *Adjacent:* **Urban Mobility GAs** (2610.22407) — city-scale generative-agent ABM; the
+  generative-agent-meets-real-survey alignment method is transferable, but population-scale
+  transport mode choice, not individual/small-group interaction.
+- *Adjacent:* **Probable but Not Valid** (2610.14912) — sample-level psychometric fidelity
+  of silicon respondents; FIDELITY methodology, no interacting individual agents.
+- *Adjacent:* **Mental World Model** (2610.23722) — individual mental-state architecture
+  (subjective world + historical-experience memory), a TRAIT building block but single-model
+  ToM/mental-state inference, not a multi-agent interaction model.
+- *Adjacent:* **Political Networks** (2610.23199) — ego-level validation of persona
+  networks is the transferable method, but network/population-scale (ANES sample).
+
+---
+
 ## 2026-10-12 — 6 new papers
 
 Method note: all six facet queries returned via `export.arxiv.org/api` (explicit
@@ -49,6 +85,12 @@ individual or small-group scale). **Four candidates** this week:
 - *Adjacent:* **PAIR** (2610.07523) — individual emotion-regulation agent (appraisal→state),
   a TRAIT building block but a single agent, not an interaction model. **Polarization
   Dynamics** (2610.13351) — out on level grounds (population/network-scale opinion dynamics).
+
+*Deep-reviewed 2026-10-15 → `SWEEP_READING_REPORTS_2026-10-12.md`.* The four candidates were read
+in full, plus two papers surfaced from the broader "Agent Social-Simulation & Emotional Agents"
+digest — **Prompts versus Rules** (2610.11015, rule-based-vs-prompting validation) and **Latent
+Identity Reversion** (2610.01490, persona continuity) — now in INDEX.md too. Sixteen candidates
+total; plain-language in `SPEC_CANDIDATES_plain_language_2026-10-12.md`.
 
 ---
 

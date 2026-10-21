@@ -1,0 +1,200 @@
+# Reading list for an outside reviewer
+
+**Status: DRAFT 2026-10-19, for owner review; updated 2026-10-20.** It lists the documents that describe what EPModel
+does and how it works, in the order a reviewer with no prior contact with the project should read them. It was last
+checked against branch `plan-phase-b` at `1fec82c` (version 2 stage 1 built and pushed, CI green).
+
+This list selects and orders; it does not replace the full index. Every file under `docs/` and `config/bowen/` is in
+[SPEC_REVIEW_CHECKLIST.md](SPEC_REVIEW_CHECKLIST.md), and a test keeps that index complete.
+
+---
+
+## Before you start: which version to review
+
+**Do not review the default branch.** On GitHub (`dbgnvan2/EPModel`) the default branch `main` stops on 2026-10-06 at
+spec revision 11, before any of the agent model was built. All later work is on the branch `plan-phase-b`.
+
+| Review this | When |
+|---|---|
+| the tag **`version-1`** (commit `d62cfdc`) | to review a complete, frozen model. Version 1 was finished 2026-10-18 and tagged by the owner 2026-10-19. Its spec is revision 32. |
+| the branch **`plan-phase-b`** | to review the current state. Version 2 began at spec revision 33. Its stage 1, an engineering batch that changed no rule, was built 2026-10-19 and changed no criterion's verdict. Its later stages are planned, not built. |
+
+```bash
+git clone https://github.com/dbgnvan2/EPModel.git && cd EPModel && git checkout version-1
+```
+
+## What the project is
+
+A Python and NumPy simulation of one three-generation family of behaving agents, built on Bowen family systems theory.
+The agents act, appraise what happened and learn from felt relief; conflict, distance, over- and underfunctioning,
+cutoff, projection and triangles are meant to emerge from that, not be written as rules. The model answers "if
+Bowen's account is right, what follows for a family shaped like this?", as a direction of difference between two arms
+of runs. It is not a prediction about any real family, and the spec forbids presenting it as one (`M11.F.9`).
+
+Two facts govern how to read every document below:
+
+- **Almost every constant is invented.** The source texts support directions, orderings and mechanisms, and almost no
+  magnitudes. Every claim in the explainer carries an evidence grade, so an invented number (`[I]`) can be told apart
+  from a sourced one (`[T]`, `[#]`).
+- **Acceptance criteria test a direction between two arms, not a threshold,** and each one must be shown to fail
+  under a deliberate code mutation before it counts.
+
+---
+
+## 1. Start here
+
+Read these four first. Together they explain what the model is, why it is built this way, and what each part does.
+
+| # | Document | What it tells you | Size, status |
+|---|---|---|---|
+| 1 | [../CLAUDE.md](../CLAUDE.md) | The most current one-page summary: what the model is, where the theory lives, the rules the code must keep (engine purity, emergence, grading, no claims about real families), and how to run the tests. Written as instructions for the coding assistant, but accurate. | current |
+| 2 | [model_explainer.md](model_explainer.md) | **Every part of the model** (object, field, move, gate, invariant, clock, test): what it is for, what it does, which source finding it implements, and its evidence grade. Read "How to read an entry" for the grades. §1 orientation; §17 what the model can be asked; §18 method rationale; §19 what is set, random and emergent. | about 2,100 lines; current |
+| 3 | [agent_model_proposal.html](agent_model_proposal.html) | The argument for the design: why a family of agents replaced the earlier grid model, how the agents interact, what the model can and cannot tell you, and (§10) what reading the source texts changed. Its "What is actually in the repo" section describes the repository before the agent model was built. | background; where it differs from the spec, the spec wins |
+| 4 | [REVIEW_version_1_guide.md](REVIEW_version_1_guide.md) | A guided walk through the whole model, module by module (`M0`–`M17`), meant to be read beside one run: what each module requires, its explainer section, its config, its criteria and their status, and where to see it in the trace. Written for the owner's review, so it ends with the owner's open questions. | about 1,400 lines; for owner review |
+
+## 2. The contract: what the model is required to do
+
+The spec is the authority. A run or a piece of code that disagrees with it is a defect.
+
+| Document | What it tells you |
+|---|---|
+| [bowen_agent_model_spec_v2.md](bowen_agent_model_spec_v2.md) | **The spec**, v2.0. Version 1 is revision 32 (at the tag); revision 33 began version 2 and changed no rule. 575 numbered requirements: objects (`M1`), the reference family (`M2`), clocks and update order (`M3`), the weekly fast tick step by step (`M4`), moves (`M5`), invariants (`M6`), the slow tick (`M7`), live positions (`M8`), beliefs (`M9`), the parameter register (`M10`), acceptance criteria (`M11`), output framing (`M11.F`), the family-evaluation readout (`M11.G`), what must never be built (`M12`), implementation order (`M13`), family-diagram import (`M15`, not built), the run log and trace (`M16`), the ensemble runner (`M17`, a first draft). §0 says how to read it. About 2,600 lines. |
+| [readouts_phase_c.md](readouts_phase_c.md) | How each named pattern (conflict, distance, over/underfunctioning, cutoff, …) is read from a run's history of acts. Patterns are readouts, never selectable acts. A test fails if this file and the code disagree. |
+| [../config/bowen/constants.md](../config/bowen/constants.md) | Every parameter value the engine uses, with its grade. |
+| [../config/bowen/constants_changes.md](../config/bowen/constants_changes.md) | Every change to those values, and why. |
+| [../config/bowen/family_phase_d.md](../config/bowen/family_phase_d.md) | The reference family (eleven people in three generations, plus an outside coach) and its life course. |
+| [../config/bowen/event_kinds.md](../config/bowen/event_kinds.md), [../config/bowen/policy.md](../config/bowen/policy.md) | The kinds of act, and how an agent selects one. |
+| [../config/bowen/criteria.md](../config/bowen/criteria.md), [../config/bowen/criterion_roles.md](../config/bowen/criterion_roles.md) | How each acceptance criterion is set up, and whether it is a **premise** (passing confirms the code) or a **finding** (passing or failing says something about the model). A premise passing must never be reported as a finding. |
+
+The other files in `config/bowen/` (which acts count for each pattern, which acts relieve stress, which acts draw an
+outsider onto a side, nodal events, the test families in `fixtures/`, and so on) are model inputs parsed at run time;
+Part 1 of [SPEC_REVIEW_CHECKLIST.md](SPEC_REVIEW_CHECKLIST.md) describes each one.
+
+## 3. How it works in code
+
+No document describes the code's package layout; the table below is the summary. The spec's update order (`M3`,
+`M4`, `M7`) is the design the code follows. Every function that satisfies a spec requirement has a docstring naming
+the requirement and the test that proves it (`Purpose:` / `Spec:` / `Tests:`).
+
+| Where | What is there |
+|---|---|
+| `src/bowen/engine/` | The engine: objects, the weekly tick, appraisal, moves, the learner, the slow tick, symptoms, the life course, invariants. It does no file I/O and has no UI; it emits log records through an interface the caller supplies (`M16.B`). |
+| `src/bowen/policy/`, `src/bowen/scenario/` | How an agent chooses an act; how a run is assembled from the config files. |
+| `src/bowen/io/` | The only file I/O: the config loader and the log sinks. |
+| `src/bowen/readouts/`, `src/bowen/ensemble/` | Pattern and family-evaluation readouts; acceptance criteria run over many seeds. |
+| `src/bowen/render/`, `src/bowen/run.py` | The readable trace; the command-line entry point for one scripted run. |
+| `tools/` | The scripts that generate the records in §5 and the review outputs in §4. Each generator's docstring gives its command line. |
+| `tests/` | The suite. `CLAUDE.md` records the current count and when it was measured; the slower criterion tests, marked `ensemble`, run separately. `tests/bowen/test_engine_purity.py` and `test_determinism.py` check the engine rules above. |
+| [spec_coverage.md](spec_coverage.md) | Every spec ID mapped to the test that proves it, or to what is missing. Generated. **Out of date: it shows the state after Phase C** (see §8). |
+| `.github/workflows/tests.yml`, `requirements.txt` | CI on Python 3.11, 3.12 and 3.13, installing only `requirements.txt`. |
+
+To run it:
+
+```bash
+python3 -m pip install -r requirements.txt
+```
+
+```bash
+python3 -m pytest tests/
+```
+
+```bash
+python3 -m pytest -m ensemble
+```
+
+```bash
+python3 tools/phase_c_trace.py --seed 7
+```
+
+The last command writes the trace and chart listed in §4. The commands that regenerate each record are in
+[../README.md](../README.md) under "Status", with their run times (from a few minutes to about 50 minutes).
+
+## 4. What a run produces
+
+| Document | What it is |
+|---|---|
+| [review/phase_c_trace_seed7.md](review/phase_c_trace_seed7.md) | One run of 104 weeks, written out week by week in plain language (`M16`). The best way to see what the agents actually do. |
+| [review/phase_c_chart_seed7.html](review/phase_c_chart_seed7.html) | The same run as a chart of each person's anxiety and functioning by week. |
+| [review/phase_c_famdiag_seed7.json](review/phase_c_famdiag_seed7.json) | The same run as a family diagram. It opens in a separate viewer (`epmodel-fam-diag`) that is **not in this repository**. |
+| [REVIEW_version_1_outputs.md](REVIEW_version_1_outputs.md) | Every kind of output the model produces and the framing each carries so it cannot be read as a statement about a real family. Signed off by the owner 2026-10-17. |
+
+Seed 7 was used for the first traces and was not chosen for what it shows. A test fails when any of the three files
+above is not what its tool renders now.
+
+## 5. Does it do what the spec says: status and evidence
+
+Start with the definition and the status page; open the records when you want to check a number.
+
+| Document | What it tells you |
+|---|---|
+| [version_1_definition.md](version_1_definition.md) | What "version 1 is finished" means: seven conditions (V1–V7), each checked by a test, a record or an owner sign-off, and the owner's decisions. |
+| [version_1_status.md](version_1_status.md) | **Every acceptance criterion's status** at version 1, generated from the records. Frozen at the tag `version-1`. |
+| [version_1_dispositions.md](version_1_dispositions.md) | For each criterion that does not pass: accepted as a finding, out of scope, or withdrawn, with the reason and who decided. |
+| [version_2_stage_1_changes.md](version_2_stage_1_changes.md) | Every record at the tag `version-1` compared with the same record after version 2 stage 1. Generated. No verdict changed. |
+| [phase_c_ensemble_record.md](phase_c_ensemble_record.md), [phase_d_ensemble_record.md](phase_d_ensemble_record.md), [phase_d2_ensemble_record.md](phase_d2_ensemble_record.md) | Each criterion's verdict over many seeds, per build phase. |
+| [phase_c_mutation_record.md](phase_c_mutation_record.md), [phase_d_mutation_record.md](phase_d_mutation_record.md) | Each criterion shown to fail when the mechanism it tests is removed from the code. |
+| [phase_c_sweep_record.md](phase_c_sweep_record.md), [phase_c_diagnostic_record.md](phase_c_diagnostic_record.md), [phase_c_level_occupancy.md](phase_c_level_occupancy.md) | Parameter sweeps, diagnostic variants, and one criterion's level occupancy. Reported, not used as verdicts. |
+| [phase_c_completion_report.md](phase_c_completion_report.md), [phase_d_status_2026-10-13.md](phase_d_status_2026-10-13.md), [phase_d2_status_2026-10-13.md](phase_d2_status_2026-10-13.md) | Narrative status at the end of each build phase. Dated snapshots; `version_1_status.md` supersedes their numbers. |
+
+The records are generated by `tools/` and each carries a hash of the code and config it ran against; a test fails when
+a record no longer matches the code. Check them against the spec rather than recomputing them.
+
+## 6. Why the model says what it says: the theory basis
+
+Read this part to check that a claim presented as sourced is sourced.
+
+| Document | What it tells you |
+|---|---|
+| [theory/_LEDGER.md](theory/_LEDGER.md) | **What the six source texts say**, finding by finding, each with an evidence grade and an attribution grade (Bowen, Kerr, or Kerr's own extension). The source of truth for every citation. About 2,900 lines. |
+| [theory/_CONVERGENCES.md](theory/_CONVERGENCES.md) | Ten findings that recur across chapters, with an audit of whether the recurrences are independent. |
+| [theory/_RESOLUTIONS.md](theory/_RESOLUTIONS.md), [theory/_PASS2_CORRECTIONS.md](theory/_PASS2_CORRECTIONS.md) | How contradictions in the sources were resolved; what a second reading withdrew from the first (nineteen findings, including two numbers that had been treated as calibration targets). |
+| [theory/_SOURCE_QUALITY.md](theory/_SOURCE_QUALITY.md) | What each source can support. Two are speech-recognition transcripts and are never quoted verbatim. |
+| [<theory/Extractions to be human validated.md>](<theory/Extractions to be human validated.md>) | Extractions the model relies on that no person has checked yet. |
+| `theory/ch01.md`–`ch22.md`, [theory/family_evaluation/](theory/family_evaluation/), [theory/kerr_book/](theory/kerr_book/), [theory/kb/](theory/kb/) | The per-source extractions the ledger summarizes. Open one when a ledger entry looks wrong. |
+| [<DECISIONS — FAMILY EVALUATION.md>](<DECISIONS — FAMILY EVALUATION.md>), [proposal_rev11_emergence.md](proposal_rev11_emergence.md), [<DECISIONS — PHASE C FAILING.md>](<DECISIONS — PHASE C FAILING.md>) | The main owner decisions behind the spec: the sixth source's contradictions, the rule that patterns emerge rather than being written, and the handling of failing criteria. The other decision and proposal files are listed in the checklist. |
+| `../papers/INDEX.md`, `../papers/DIGEST.md` | The method literature on agent-based simulation of human behaviour, separate from the Bowen texts. It supports the explainer's §18. The PDFs are not in the repository. |
+
+## 7. Where the project is going
+
+| Document | What it tells you |
+|---|---|
+| [version_2_plan.md](version_2_plan.md) | What version 2 is for: version 1's accepted findings grouped by cause, its loose ends, four stages, and a definition of "finished". Approved 2026-10-19. |
+| [implementation_plan_version_2.md](implementation_plan_version_2.md) | Stage 1, the engineering batch: its decisions, criteria, tests and build record. Built 2026-10-19, pushed 2026-10-20 with CI passing. |
+| [<PROPOSAL — CUTOFF ANXIETY, BRIDGING AND REPAIR.md>](<PROPOSAL — CUTOFF ANXIETY, BRIDGING AND REPAIR.md>), [<PROPOSAL — EVENT SIZES FROM THE HOLMES–RAHE SCALE.md>](<PROPOSAL — EVENT SIZES FROM THE HOLMES–RAHE SCALE.md>) | Two version 2 rule changes. Each records the owner's answer to every question (2026-10-19). Neither is built; both wait for a third proposal (G2) to be built with it. |
+| [<PROPOSAL — LEARNING BY LEVEL, ASKING WHAT TO DO DIFFERENTLY.md>](<PROPOSAL — LEARNING BY LEVEL, ASKING WHAT TO DO DIFFERENTLY.md>) | A version 2 rule question raised by the owner. A draft; nothing decided. |
+| [plan_spec_coverage_phase_d.md](plan_spec_coverage_phase_d.md) | The plan to bring `spec_coverage.md` up to date. A draft for owner approval. |
+| `../TODO.md`, `../CHANGELOG.md` | Open items and owner questions; the history of every change. Both are long (about 1,000 lines each). |
+| [theory/_STATUS.md](theory/_STATUS.md) | The running hand-off log between working sessions. |
+
+## 8. Known problems in these documents
+
+A reviewer should know these before reading.
+
+**Open:** [spec_coverage.md](spec_coverage.md) shows the state after Phase C. Its title says so, and requirements built
+in Phase D are still marked as Phase D work: for example `M2.2`, the twelve-person reference family, is "not done",
+though that family is in `config/bowen/family_phase_d.md` and criteria run on it. Its "575 IDs: 274 done" is not the
+current figure. Regenerating it with the tool as it stands does not fix it; the plan to fix it is
+[plan_spec_coverage_phase_d.md](plan_spec_coverage_phase_d.md), waiting for owner approval.
+
+**Fixed since this list was first drafted:**
+
+- 2026-10-19, merged into `plan-phase-b` 2026-10-20 (`82fc7e9`): README described the retired grid engine as
+  running; the checklist named an old spec revision; `_STATUS.md` said version 2 was not approved; the explainer's
+  front matter had an old date; `requirements.txt` listed packages nothing imports.
+- 2026-10-20: the fam-diag export ([review/phase_c_famdiag_seed7.json](review/phase_c_famdiag_seed7.json)) still named
+  spec revision 32; it was regenerated, and a test now fails when it is out of date, as the trace and chart tests
+  already did.
+
+## 9. Not relevant to how the model works now
+
+These describe the retired grid engine, earlier build phases or the build process. Skip them unless you are tracing
+history.
+
+- The grid engine (retired; its code is at the tag `version-1`): [spec.md](spec.md), [logic_rules.md](logic_rules.md),
+  [constitution.md](constitution.md), [background.md](background.md), [user_stories.md](user_stories.md),
+  [implementation_task_list.md](implementation_task_list.md),
+  [bowen_individual_family_model_spec.md](bowen_individual_family_model_spec.md).
+- Build process: the Phase B, C and D implementation plans, [cycles/](cycles/) (QA-gate logs),
+  [records_cache/](records_cache/) (cached results the records are rendered from), and the review forms for earlier
+  spec revisions.
+- Files at the repository root that predate the agent model: `gemini.md`, `monte_carlo_results.txt`, `data/`.

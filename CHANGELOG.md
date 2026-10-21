@@ -4,6 +4,20 @@ All notable changes to this project are recorded here. Dates are ISO.
 
 ## [Unreleased] — 2026-10-11
 
+### A reading list for an outside reviewer; the fam-diag export brought up to date (2026-10-20)
+
+- **`docs/REVIEWER_READING_LIST.md`** (new, draft for owner review): the documents that describe what the model does
+  and how it works, in the order a reviewer new to the project should read them; which version to review (GitHub's
+  default branch `main` stops at spec revision 11); and the known problems in the documents. Linked from the top of
+  `docs/SPEC_REVIEW_CHECKLIST.md`. Compiling it on 2026-10-19 found six stale documents; five were fixed that day
+  and merged 2026-10-20 (`82fc7e9`). The sixth, `docs/spec_coverage.md`, waits on
+  `docs/plan_spec_coverage_phase_d.md`.
+- **The seed-7 fam-diag export named spec revision 32.** Stage 1's regeneration refreshed the trace and chart but not
+  `docs/review/phase_c_famdiag_seed7.json`, which nothing tested. Regenerated with `tools/famdiag_export.py`: only the
+  page note's revision and config hash changed. `test_v5_committed_export_is_the_current_render` now fails when the
+  file no longer holds what the tool draws, and ignores what a save from fam-diag changes, so the owner's layout,
+  saved from the app into the working tree, still passes. That layout is not committed.
+
 ### Version 2 stage 1: one engineering batch (spec revision 33, 2026-10-19)
 
 The owner decided D1–D7 as recommended (`docs/implementation_plan_version_2.md` §1.2). No rule changed. Each

@@ -19,9 +19,13 @@ Deferred and adjacent items. Each carries enough context to act on later without
   - The owner's Holmes–Rahe Q3 ("additions carry load", decided 2026-10-19) cited `KS07.1`, which §2 then misdescribed
     as a visit that raised a symptom; the source says it improved the wife's functioning. The decision stands with a
     correction note beside it. The owner should look at it again before revision 33 is written.
-  - `docs/review/phase_c_famdiag_seed7.json` comes from the same seed-7 run as the trace and chart but has no test
+  - [x] ~~`docs/review/phase_c_famdiag_seed7.json` comes from the same seed-7 run as the trace and chart but has no test
     that it is the current render (the trace and chart now do, `tests/bowen/test_render.py`). It is modified in the
-    working tree and was not touched by the sweep. Add the same check once that edit is settled.
+    working tree and was not touched by the sweep. Add the same check once that edit is settled.~~ *Done 2026-10-20:
+    the committed export still named spec revision 32 and was regenerated;
+    `tests/bowen/test_famdiag_export.py::test_v5_committed_export_is_the_current_render` checks everything the tool
+    draws and ignores what a fam-diag save changes (positions, colours, the display name, the app's own settings), so
+    the working-tree edit, a save from the app, still passes. That edit is the owner's and is not committed.*
   - `test_m16c1_chart_names_the_absent_and_draws_the_undeclared` puts its undeclared person in every sampled week, so
     the leading-`None` path for someone who enters mid-run is not exercised; the `PYTEST_*` filter in
     `tests/test_version_1_status.py` has no test of its own (a wrong option fails that test loudly).

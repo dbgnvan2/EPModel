@@ -10,6 +10,10 @@ without this list being updated, and when a link here points at a file that no l
 **Where the documents live.** Everything is under `docs/`, except the model's input files in `config/bowen/`. Those
 are parsed by `src/bowen/io/load.py` at run time, so they stay with the config; they are linked from here.
 
+**For an outside reviewer:** [REVIEWER_READING_LIST.md](REVIEWER_READING_LIST.md) (draft 2026-10-19, for owner
+review; updated 2026-10-20) selects the documents that describe what the model does and how it works, in reading
+order, says which version to review, and lists known problems in the documents.
+
 Reviewer: ________  Started: ________  Spec revision reviewed: ________
 
 ---

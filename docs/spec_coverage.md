@@ -587,7 +587,7 @@ mutant has turned each entry red in `docs/phase_c_mutation_record.md`; the D9 sw
 | M17.G.2 | not done | — | Phase E |
 | M17.G.3 | not done | — | Phase E |
 
-## Tests named for no spec ID (147)
+## Tests named for no spec ID (148)
 
 Their names embed no requirement ID, so they count only where an override cites them (marked *cited*). The rest check spec documents, tooling or helpers.
 
@@ -624,6 +624,7 @@ Their names embed no requirement ID, so they count only where an override cites 
 - `tests/bowen/test_external.py::test_m8_3_the_side_lapses_with_the_triangle_window`
 - `tests/bowen/test_famdiag_export.py::test_v5_a_line_read_from_acts_and_silence_reports_both`
 - `tests/bowen/test_famdiag_export.py::test_v5_a_stopped_pattern_ends_where_it_stopped`
+- `tests/bowen/test_famdiag_export.py::test_v5_committed_export_is_the_current_render`
 - `tests/bowen/test_famdiag_export.py::test_v5_diagram_has_what_famdiag_imports`
 - `tests/bowen/test_famdiag_export.py::test_v5_episodes_split_where_the_pattern_changes`
 - `tests/bowen/test_famdiag_export.py::test_v5_events_carry_what_famdiag_requires`

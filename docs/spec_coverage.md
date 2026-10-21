@@ -600,7 +600,7 @@ Records read, each with the hash it states:
 | M17.G.2 | not done | — | no test named for it; Phase E builds it and is not built yet |
 | M17.G.3 | not done | — | no test named for it; Phase E builds it and is not built yet |
 
-## Tests named for no spec ID (182)
+## Tests named for no spec ID (183)
 
 Their names embed no requirement ID, so they count only where an override cites them (marked *cited*). The rest check spec documents, tooling or helpers.
 
@@ -730,6 +730,7 @@ Their names embed no requirement ID, so they count only where an override cites 
 - `tests/test_doc_status.py::test_d5b_status_claims_agree_with_each_documents_own_status`
 - `tests/test_doc_status.py::test_d5b_the_scan_is_not_vacuous`
 - `tests/test_doc_status.py::test_d5b_the_unclassified_lists_are_current`
+- `tests/test_python_versions.py::test_every_tracked_python_file_compiles_on_the_oldest_supported_python`
 - `tests/test_record_changes.py::test_s1_10b_a_changed_verdict_and_a_moved_effect_are_listed`
 - `tests/test_record_changes.py::test_s1_10b_a_readout_on_one_side_only_is_listed`
 - `tests/test_record_changes.py::test_s1_10b_a_record_not_regenerated_is_refused`

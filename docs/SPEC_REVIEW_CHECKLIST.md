@@ -11,7 +11,7 @@ without this list being updated, and when a link here points at a file that no l
 are parsed by `src/bowen/io/load.py` at run time, so they stay with the config; they are linked from here.
 
 **Approved, for an outside reviewer:** [REVIEWER_READING_LIST.md](REVIEWER_READING_LIST.md) (approved by the owner
-2026-10-20) selects the documents that describe what the model does and how it works, in reading
+2026-10-20; its branch guidance revised 2026-10-21, not yet reviewed) selects the documents that describe what the model does and how it works, in reading
 order, says which version to review, and lists known problems in the documents.
 
 Reviewer: ________  Started: ________  Spec revision reviewed: ________

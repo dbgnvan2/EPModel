@@ -262,7 +262,8 @@ def test_m141_done_through_a_criterion_follows_its_row():
     partial = next(t for t in sorted(ensemble) if (m := re.search(r"::test_m11c(\d+)_", t))
                    and rows[f"M11.C.{m.group(1)}"]["status"] == "partial")
     fixture = _overrides() | {"M9.1": {"status": "done", "evidence": [partial], "note": "guard fixture"}}
-    assert _criterion_evidence_faults(fixture) == [f"M9.1: {partial} (M11.C.{re.search(r'test_m11c(\d+)_', partial).group(1)} is not done)"]
+    criterion = re.search(r"test_m11c(\d+)_", partial).group(1)
+    assert _criterion_evidence_faults(fixture) == [f"M9.1: {partial} (M11.C.{criterion} is not done)"]
 
 
 def test_m141_no_override_names_a_built_phase_as_to_come():

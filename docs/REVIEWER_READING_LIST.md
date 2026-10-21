@@ -1,9 +1,10 @@
 # Reading list for an outside reviewer
 
-**Status: approved by the owner 2026-10-20 (drafted 2026-10-19).** It lists the documents that describe what EPModel
+**Status: approved by the owner 2026-10-20 (drafted 2026-10-19); its branch guidance ("Before you start") revised
+2026-10-21 after `main` was brought up to date, not yet reviewed by the owner.** It lists the documents that describe what EPModel
 does and how it works, in the order a reviewer with no prior contact with the project should read them. It was last
-checked against branch `plan-phase-b` on 2026-10-20, after version 2 stage 1 was pushed (CI green), the document-claim
-tests were merged and the coverage page's Part A was built.
+checked on 2026-10-21, after version 2 stage 1 was pushed (CI green), the document-claim tests were merged, the
+coverage page's Parts A and B were built and GitHub's default branch `main` was brought up to date.
 
 This list selects and orders; it does not replace the full index. Every file under `docs/` and `config/bowen/` is in
 [SPEC_REVIEW_CHECKLIST.md](SPEC_REVIEW_CHECKLIST.md), and a test keeps that index complete.
@@ -12,18 +13,20 @@ This list selects and orders; it does not replace the full index. Every file und
 
 ## Before you start: which version to review
 
-**Do not review the default branch.** On GitHub (`dbgnvan2/EPModel`) the default branch `main` stops on 2026-10-06 at
-spec revision 11, before any of the agent model was built. All later work is on the branch `plan-phase-b`.
+**Review the default branch, `main`.** On GitHub (`dbgnvan2/EPModel`) the default branch `main` stopped on 2026-10-06
+at spec revision 11, before any of the agent model was built, and the work after that went on the branch
+`plan-phase-b`. On 2026-10-21 `main` was fast-forwarded to `plan-phase-b` (no commit was rewritten), and new work
+goes on `main` (owner decision 2026-10-21). `plan-phase-b` stays on GitHub as history and takes no new commits.
 
 | Review this | When |
 |---|---|
-| the branch **`plan-phase-b`** | to review the current state, and to read this list. Version 2 began at spec revision 33. Its stage 1, an engineering batch that changed no rule, was built 2026-10-19 and changed no criterion's verdict. Its later stages are planned, not built. |
+| the branch **`main`** | to review the current state, and to read this list. Version 2 began at spec revision 33. Its stage 1, an engineering batch that changed no rule, was built 2026-10-19 and changed no criterion's verdict. Its later stages are planned, not built. |
 | the tag **`version-1`** (commit `d62cfdc`) | to review the complete, frozen version 1 model. Finished 2026-10-18 and tagged by the owner 2026-10-19; its spec is revision 32. The tag does **not** contain this list or the version 2 documents it links (`version_2_stage_1_changes.md`, `implementation_plan_version_2.md`, `plan_spec_coverage_phase_d.md`), and it still contains the retired grid engine. |
 
-Read this list on `plan-phase-b`. To look at version 1 beside it, check the tag out in a second folder:
+Read this list on `main`. To look at version 1 beside it, check the tag out in a second folder:
 
 ```bash
-git clone --branch plan-phase-b https://github.com/dbgnvan2/EPModel.git
+git clone https://github.com/dbgnvan2/EPModel.git
 ```
 
 ```bash
@@ -200,6 +203,8 @@ gate against "graded, not a hard gate") and `M7.E.1e` against `M7.E.1f`. They ar
   IDs, and each of the 74 earlier overrides, a judgment — the test that verifies it, *partial* with what is missing, or
   *not done* with the reason — which the owner reviewed group by group. The overrides file is now
   `tools/spec_coverage_overrides.json`.
+- 2026-10-21: GitHub's default branch `main` stopped at spec revision 11, and this list and the README told a
+  reviewer to avoid it. `main` was fast-forwarded to `plan-phase-b`, and both documents now point to `main`.
 
 ## 9. Not relevant to how the model works now
 

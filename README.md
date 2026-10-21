@@ -4,7 +4,7 @@ A simulation of emotional process in one three-generation family, built on Bowen
 
 The model is a set of **behaving agents in one three-generation family** (`src/bowen/`). It replaced the project's first engine, a stress field over 10,000 units on a 100×100 grid, because the grid could not express the part of the theory the project wants — there is no dyad in it, and therefore no triangle. The grid engine was retired at version 2 stage 1 (spec revision 33, 2026-10-19); its code and tests are kept at the tag `version-1`.
 
-> **Which branch to read.** GitHub's default branch `main` stops at 2026-10-06 (spec revision 11). The work since then, including all of version 1, is on the branch `plan-phase-b` and at the tag `version-1`.
+> **Which branch to read.** GitHub's default branch `main` carries the current work. Until 2026-10-21 it stopped at 2026-10-06 (spec revision 11) while the work went on the branch `plan-phase-b`; that day `main` was fast-forwarded to it, and new work goes on `main`. The complete, frozen version 1 is at the tag `version-1`.
 
 ## Where to start
 

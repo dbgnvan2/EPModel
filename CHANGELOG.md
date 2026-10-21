@@ -4,6 +4,26 @@ All notable changes to this project are recorded here. Dates are ISO.
 
 ## [Unreleased] — 2026-10-11
 
+### GitHub's default branch `main` brought up to date; CI's Python 3.11 job fixed (2026-10-21)
+
+- **`main` fast-forwarded to `plan-phase-b`** (owner, 2026-10-20: "make sure github and main are in sync and up to
+  date"). `main` had stopped at `40922e9` (2026-10-06, spec revision 11), and every later commit was on
+  `plan-phase-b`. `main` was an ancestor of `plan-phase-b`, so no commit was rewritten and no merge commit was made.
+- **New work goes on `main`** (owner decision 2026-10-21, chosen over keeping `plan-phase-b` and pushing both).
+  `plan-phase-b` stays on GitHub as history and takes no new commits. CLAUDE.md states the rule.
+- **Documents:** `README.md` and `docs/REVIEWER_READING_LIST.md` told a reader that `main` was stale and to read
+  `plan-phase-b`. Both now point to `main`; the reading list records the change under its known problems, and its
+  status line and checklist entry say the revised branch guidance is not yet reviewed by the owner.
+- **CI's 3.11 job failed on `938c0a0`** (Part B of the coverage plan): `tests/bowen/test_spec_coverage.py` put a
+  backslash inside an f-string expression, which Python accepts from 3.12 (PEP 701), so pytest stopped at collection
+  on 3.11 while the local suite, on 3.12, passed. The expression was moved out of the f-string. New
+  `tests/test_python_versions.py` compiles every tracked Python file with the oldest version in CI's matrix when that
+  interpreter is installed (it is on this Mac), and skips when not; proved red on the old line. `pytest.ini` now adds
+  `-rfEs`, so a skip prints its reason under `-q`. A runtime difference (a library call new in 3.12) is still caught
+  only by CI's 3.11 job, or by running the suite with `python3.11`.
+  `ast.parse(..., feature_version=(3, 11))` does not catch this case, so the test uses the real interpreter.
+- Suite: 1003 tests, passing on Python 3.12 and 3.11 on this Mac.
+
 ### The coverage page judges every built ID; the overrides file renamed (2026-10-20)
 
 - **`docs/spec_coverage.md`: Part B of `docs/plan_spec_coverage_phase_d.md`** (owner 2026-10-20: plan §6 approved).

@@ -4,6 +4,23 @@ All notable changes to this project are recorded here. Dates are ISO.
 
 ## [Unreleased] — 2026-10-11
 
+### A brief for milestone critical reviews (2026-10-21)
+
+- **`docs/milestone_review_brief.md`** (new, draft for owner review; owner request 2026-10-21): a critical review of
+  the whole model at each milestone, run on either Mac by a session without the build history. Four lenses: theory
+  fidelity (invented values presented as sourced, attribution, rules that write an outcome, premises reported as
+  findings, `M11.F.9`), spec against code, documents, engineering drift, each with the files it reads. It covers how
+  the review is set up (a worktree on its own branch, the suite on 3.11 and the default Python, CI for the reviewed
+  commit, a baseline diff without deleted files or generated pages), the report's form in `docs/cycles/` (the
+  `reviewer` skill's form, with its coverage matrix and refuted list kept), triage on the working machine, and four
+  owner questions (§8). A narrow `learning-qa` pass on Sonnet checked every fact, path and command in the draft; its
+  eight findings were fixed, among them a theory check that selected nothing (every constant is `[I]`), a CI check
+  that read the latest run rather than the reviewed commit's, and a worktree branch that tracked `main`.
+  `tests/test_spec_consistency.py` now checks the brief's spec IDs.
+  Listed in `docs/SPEC_REVIEW_CHECKLIST.md` and the reading list's §9; CLAUDE.md points to it.
+  `tests/test_stale_text.py`'s `PENDING` allows CLAUDE.md's one "pending owner review" for it; remove that entry
+  when the owner decides.
+
 ### GitHub's default branch `main` brought up to date; CI's Python 3.11 job fixed (2026-10-21)
 
 - **`main` fast-forwarded to `plan-phase-b`** (owner, 2026-10-20: "make sure github and main are in sync and up to

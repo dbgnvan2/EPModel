@@ -169,6 +169,10 @@ verdicts over ensembles (`tools/phase_d_record.py`; plan step 12). Mutations are
 
 **Generated, 2026-10-19:** [version_2_stage_1_changes.md](version_2_stage_1_changes.md) — every record's rows compared with the same rows at the tag `version-1`, from `tools/record_changes.py`: each changed verdict, moved effect and changed value, and what could not be compared. Stage 1 changed none.
 
+**Draft, for owner review (2026-10-21):** [milestone_review_brief.md](milestone_review_brief.md) — the brief for a
+critical review of the whole model at each milestone (end of a version 2 stage, before a tag), run by a session
+without the build history on either Mac: what it checks, how it is set up, the report's form and how it is triaged.
+
 **Built 2026-10-20:** [plan_doc_claim_tests.md](plan_doc_claim_tests.md) — tests that fail when a document restates a fact that has since changed: the spec revision in four places, repo paths in README and CLAUDE.md, `requirements.txt` against the imports, the suite-size pattern widened, and status claims checked against each document's own status line, both ways. Each test with the files it reads and the mutation that proves it fails; the build record (§12) and each criterion's status (§13). Approved by the owner 2026-10-20.
 
 **Decided 2026-10-19, not built:** [<PROPOSAL — CUTOFF ANXIETY, BRIDGING AND REPAIR.md>](<PROPOSAL — CUTOFF ANXIETY, BRIDGING AND REPAIR.md>) — version 2's G1: the owner's decisions on a cut-off tie's anxiety (peak, decay to a 10% floor, negative and positive bridging, repair) turned into rules, tests and the new negative-run composite criterion, with eleven questions (Q1–Q11, all decided by the owner) and two stated conflicts with the spec (`M1.D.2a`, `M5.B.3`).

@@ -45,6 +45,7 @@ CITING_DOCS = [
     REPO / "README.md",
     REPO / "CHANGELOG.md",
     REPO / "TODO.md",
+    REPO / "docs" / "milestone_review_brief.md",
 ]
 
 # A requirement definition: a bolded bare ID starting a line, or heading a table

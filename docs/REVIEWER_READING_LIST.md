@@ -215,7 +215,8 @@ history.
   [constitution.md](constitution.md), [background.md](background.md), [user_stories.md](user_stories.md),
   [implementation_task_list.md](implementation_task_list.md),
   [bowen_individual_family_model_spec.md](bowen_individual_family_model_spec.md).
-- Build process: the Phase B, C and D implementation plans, [cycles/](cycles/) (QA-gate logs),
+- Build process: the Phase B, C and D implementation plans, [milestone_review_brief.md](milestone_review_brief.md)
+  (draft: how the project reviews itself at each milestone), [cycles/](cycles/) (QA-gate logs and review reports),
   [records_cache/](records_cache/) (cached results the records are rendered from), and the review forms for earlier
   spec revisions.
 - Files at the repository root that predate the agent model: `gemini.md`, `monte_carlo_results.txt`, `data/`.

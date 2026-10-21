@@ -109,3 +109,6 @@ defect, not a lag.
   fix-loop re-sweep gets a narrow brief (the fix diff and the claims it changes) on a cheaper model (`model:
   "sonnet"`). If a sweep returns three or fewer minor items, record them in `TODO.md` and move on (owner rule).
   State the cost (wall time, tokens) before proposing another loop.
+- **Milestone reviews** (draft, `docs/milestone_review_brief.md`, pending owner review): at the end of each version 2
+  stage and before any tag, a session without the build history reviews the whole model against the brief's four
+  lenses, theory fidelity first, and writes one report to `docs/cycles/` on its own branch. Triage happens here.

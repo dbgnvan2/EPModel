@@ -64,7 +64,7 @@ NOT_COMPARED = (
     ("docs/review/phase_b_trace_seed7.md, docs/review/phase_b_trace_seed7_nadia.md", "Phase B's seed-7 traces, "
      "rendered at Phase B's close (`3132c69`) and not regenerated since, so they are the tag's"),
     ("docs/phase_c_completion_report.md §11", "generated from the Phase C records compared here (`tools/c16_report.py`)"),
-    ("docs/spec_coverage.md", "generated from the tests and the Phase C ensemble record, compared here"),
+    ("docs/spec_coverage.md", "generated from the tests and the ensemble and mutation records compared here"),
     ("docs/phase_b_mutation_record.md", "the record of Phase B's close at commit `3132c69`, frozen (plan D5) and not "
      "regenerated, so it is the tag's apart from the status line stage 1 added; `tools/mutation_gate.py` refuses to "
      "rewrite it"),

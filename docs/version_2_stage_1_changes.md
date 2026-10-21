@@ -29,7 +29,7 @@ In the level-occupancy record, which has no verdicts, "Verdicts changed" counts 
 - `docs/review/phase_c_trace_seed7.md, docs/review/phase_c_chart_seed7.html`: one seed's run, rendered; S1.7a adds lock-in release rows by design, so `git diff version-1` on them shows that and any change of trajectory.
 - `docs/review/phase_b_trace_seed7.md, docs/review/phase_b_trace_seed7_nadia.md`: Phase B's seed-7 traces, rendered at Phase B's close (`3132c69`) and not regenerated since, so they are the tag's.
 - `docs/phase_c_completion_report.md §11`: generated from the Phase C records compared here (`tools/c16_report.py`).
-- `docs/spec_coverage.md`: generated from the tests and the Phase C ensemble record, compared here.
+- `docs/spec_coverage.md`: generated from the tests and the ensemble and mutation records compared here.
 - `docs/phase_b_mutation_record.md`: the record of Phase B's close at commit `3132c69`, frozen (plan D5) and not regenerated, so it is the tag's apart from the status line stage 1 added; `tools/mutation_gate.py` refuses to rewrite it.
 - `docs/version_1_status.md`: version 1's status page, frozen at the tag: `tests/test_version_1_status.py` checks that it is the tag's, byte for byte.
 - `docs/review/phase_c_famdiag_seed7.json`: the seed-7 run as a family diagram (`tools/famdiag_export.py`), not regenerated in stage 1 because the working copy holds the owner's uncommitted edits to it; built from the current engine on 2026-10-19 and compared with the committed export, it differs only in its note, which names revision 32 and the tag's config hash.

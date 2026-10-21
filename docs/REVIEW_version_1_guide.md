@@ -48,11 +48,14 @@ Disagreements inside the documents, listed so the review does not stall on them.
    2026-10-17 pending owner review", while the Disposition column is tagged "*(owner 2026-10-17)*" and `TODO.md`
    records every disposition accepted on 2026-10-17 except `M11.C.17` and `M11.C.6`. The Evidence text looks stale.
 2. `docs/spec_coverage.md` is titled "Spec coverage — after Phase C", but it names Phase D tests (for example
-   `M7.D.4`'s).
+   `M7.D.4`'s). *Fixed 2026-10-20 (`docs/plan_spec_coverage_phase_d.md` Part A): the page is titled "Spec coverage" and
+   reads every ensemble and mutation record. The counts below exclude the `M11.C` criteria and did not change.*
 3. `docs/SPEC_REVIEW_CHECKLIST.md`, Part 1, describes the spec as "(v2.0, revision 27)"; the spec is at revision 32.
+   *Fixed 2026-10-19 (`7c8bcd4`).*
 4. The same checklist calls `config/bowen/family_phase_d.md` "the owner's reference family". V7's review
    (`docs/REVIEW_version_1_outputs.md`) changed "the owner's family" to "the reference family the owner specified" in
-   four documents so that no reader takes it for a real family; the checklist's wording was not among them.
+   four documents so that no reader takes it for a real family; the checklist's wording was not among them. *Fixed
+   2026-10-20: the checklist now reads "the reference family the owner specified".*
 
 ---
 
@@ -1181,7 +1184,8 @@ it (`M14.A.1`–`M14.A.4`).
 register mechanisms.
 
 **Points to check:** `docs/spec_coverage.md`'s title still reads "after Phase C", and its "not done" means no test
-names the ID (see "Coverage counts").
+names the ID (see "Coverage counts"). *The title was fixed on 2026-10-20, and the note now reads "no test named for it";
+which test, if any, verifies each such ID is the coverage plan's Part B, for later.*
 
 - [ ] Approve  [ ] Change: ____  [ ] Question: ____
 - Notes: ____

@@ -2,7 +2,8 @@
 
 **Status: approved by the owner 2026-10-20 (drafted 2026-10-19).** It lists the documents that describe what EPModel
 does and how it works, in the order a reviewer with no prior contact with the project should read them. It was last
-checked against branch `plan-phase-b` at `1fec82c` (version 2 stage 1 built and pushed, CI green).
+checked against branch `plan-phase-b` on 2026-10-20, after version 2 stage 1 was pushed (CI green), the document-claim
+tests were merged and the coverage page's Part A was built.
 
 This list selects and orders; it does not replace the full index. Every file under `docs/` and `config/bowen/` is in
 [SPEC_REVIEW_CHECKLIST.md](SPEC_REVIEW_CHECKLIST.md), and a test keeps that index complete.
@@ -91,7 +92,7 @@ the requirement and the test that proves it (`Purpose:` / `Spec:` / `Tests:`).
 | `src/bowen/render/`, `src/bowen/run.py` | The readable trace; the command-line entry point for one scripted run. |
 | `tools/` | The scripts that generate the records in §5 and the review outputs in §4. Each generator's docstring gives its command line. |
 | `tests/` | The suite. `CLAUDE.md` records the current count and when it was measured; the slower criterion tests, marked `ensemble`, run separately. `tests/bowen/test_engine_purity.py` and `test_determinism.py` check the engine rules above. |
-| [spec_coverage.md](spec_coverage.md) | Every spec ID mapped to the test that proves it, or to what is missing. Generated. **Out of date: it shows the state after Phase C** (see §8). |
+| [spec_coverage.md](spec_coverage.md) | Every spec ID mapped to the test that proves it, or to what is missing. Generated from every ensemble and mutation record, each named with its hash. **"Not done" can mean only that no test is named for the ID** (see §8). |
 | `.github/workflows/tests.yml`, `requirements.txt` | CI on Python 3.11, 3.12 and 3.13, installing only `requirements.txt`. |
 
 To run it:
@@ -168,7 +169,7 @@ Read this part to check that a claim presented as sourced is sourced.
 | [implementation_plan_version_2.md](implementation_plan_version_2.md) | Stage 1, the engineering batch: its decisions, criteria, tests and build record. Built 2026-10-19, pushed 2026-10-20 with CI passing. |
 | [<PROPOSAL — CUTOFF ANXIETY, BRIDGING AND REPAIR.md>](<PROPOSAL — CUTOFF ANXIETY, BRIDGING AND REPAIR.md>), [<PROPOSAL — EVENT SIZES FROM THE HOLMES–RAHE SCALE.md>](<PROPOSAL — EVENT SIZES FROM THE HOLMES–RAHE SCALE.md>) | Two version 2 rule changes. Each records the owner's answer to every question (2026-10-19). Neither is built; both wait for a third proposal (G2) to be built with it. |
 | [<PROPOSAL — LEARNING BY LEVEL, ASKING WHAT TO DO DIFFERENTLY.md>](<PROPOSAL — LEARNING BY LEVEL, ASKING WHAT TO DO DIFFERENTLY.md>) | A version 2 rule question raised by the owner. A draft; nothing decided. |
-| [plan_spec_coverage_phase_d.md](plan_spec_coverage_phase_d.md) | The plan to bring `spec_coverage.md` up to date. A draft for owner approval. |
+| [plan_spec_coverage_phase_d.md](plan_spec_coverage_phase_d.md) | The plan for `spec_coverage.md`. Part A built 2026-10-20; Part B, which existing test verifies each ID no test is named for, approved by the owner for later as its own task. |
 | `../TODO.md`, `../CHANGELOG.md` | Open items and owner questions; the history of every change. Both are long (about 1,000 lines each). |
 | [theory/_STATUS.md](theory/_STATUS.md) | The running hand-off log between working sessions. |
 
@@ -176,11 +177,10 @@ Read this part to check that a claim presented as sourced is sourced.
 
 A reviewer should know these before reading.
 
-**Open:** [spec_coverage.md](spec_coverage.md) shows the state after Phase C. Its title says so, and requirements built
-in Phase D are still marked as Phase D work: for example `M2.2`, the reference family, is "not done", though that
-family is in `config/bowen/family_phase_d.md` and criteria run on it. Its "575 IDs: 274 done" is not the
-current figure. Regenerating it with the tool as it stands does not fix it; the plan to fix it is
-[plan_spec_coverage_phase_d.md](plan_spec_coverage_phase_d.md), waiting for owner approval.
+**Open:** in [spec_coverage.md](spec_coverage.md), an ID marked "not done" with the note "no test named for it; its
+module was built in Phase C" (or D) is untested by name, not unbuilt: for example `M2.2`, the reference family, is in
+`config/bowen/family_phase_d.md` and criteria run on it. Which existing test, if any, verifies each such ID is Part B of
+[plan_spec_coverage_phase_d.md](plan_spec_coverage_phase_d.md), approved by the owner for later as its own task.
 
 **Fixed since this list was first drafted:**
 
@@ -190,6 +190,12 @@ current figure. Regenerating it with the tool as it stands does not fix it; the 
 - 2026-10-20: the fam-diag export ([review/phase_c_famdiag_seed7.json](review/phase_c_famdiag_seed7.json)) still named
   spec revision 32; it was regenerated, and a test now fails when it is out of date, as the trace and chart tests
   already did.
+- 2026-10-20: tests now fail when a document restates a spec revision, a repo path or a review status that has changed
+  ([plan_doc_claim_tests.md](plan_doc_claim_tests.md)). They found two proposals whose status lines still read "DRAFT"
+  after the owner had decided every question, and three checklist labels; all were fixed.
+- 2026-10-20: [spec_coverage.md](spec_coverage.md) read only the Phase C records and was titled "after Phase C". Part A
+  of its plan changed the tool to read every ensemble and mutation record, name each with its hash, quote the owner's
+  version 1 dispositions, and say "no test named for it" where it gave a bare phase.
 
 ## 9. Not relevant to how the model works now
 

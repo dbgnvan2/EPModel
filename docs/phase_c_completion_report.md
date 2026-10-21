@@ -487,8 +487,8 @@ What does not hold:
   but the direction survives with the learner disabled, and with availability and the learner removed together.
 - *The row's mutation clause*, "disabling `M4.D.6` … MUST turn this red". It does not.
 
-So C.16 stays partial in `docs/spec_coverage.md` (an override records why), the spec's `M11.5` row and criterion row
-say the clause is not met, and `TODO.md` asks whether to restate the criterion so that it tests a learned contribution.
+So C.16 stays partial in `docs/spec_coverage.md` (the tool reads the unmet clause from the criterion row), the spec's
+`M11.5` row and criterion row say the clause is not met, and `TODO.md` asks whether to restate the criterion so that it tests a learned contribution.
 
 ## 12. The failing-criteria decisions — 2026-10-09
 

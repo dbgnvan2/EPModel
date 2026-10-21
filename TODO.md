@@ -11,7 +11,7 @@ Deferred and adjacent items. Each carries enough context to act on later without
 - [ ] **Version 2, next:** ~~stage 0~~ *done 2026-10-19: the `version-1` tag at `d62cfdc`, pushed, with the status
   page frozen and checked against it; the dispositions; the render-only fixes moved to stage 1 (owner).* Then stage 1
   (the engineering batch, with the grid engine retired, stage 0.3's two fixes, and the trace renderer out of the hash;
-  *plan drafted 2026-10-19, `docs/implementation_plan_version_2.md` §1; D1–D7 decided and the plan approved by the owner the same day; build next*);
+  *plan drafted 2026-10-19, `docs/implementation_plan_version_2.md` §1; D1–D7 decided and the plan approved by the owner the same day; built 2026-10-19, pushed 2026-10-20 with CI green*);
   the G2 proposal, so group G (G1, G2, the Holmes–Rahe sizes) can go to one revision and be built before the stage 2
   pilot; then proposals for groups C, F and A, each with the owner's note in the plan's §5 Q2.
 - [ ] **`/csdp` sweep of 2026-10-19, items not fixed** (each with its reason; the last three are the fix re-sweep's
@@ -26,7 +26,8 @@ Deferred and adjacent items. Each carries enough context to act on later without
     `tests/bowen/test_famdiag_export.py::test_v5_committed_export_is_the_current_render` checks everything the tool
     draws except the keys a fam-diag save may change (positions, the display name) or add (colours, the app's own
     settings), and fails on any other key the tool does not write, so the working-tree edit, a save from the app,
-    still passes. That edit is the owner's and is not committed.*
+    still passes. That edit, the owner's layout saved from the app, was committed at the owner's request on
+    2026-10-20.*
   - `test_m16c1_chart_names_the_absent_and_draws_the_undeclared` puts its undeclared person in every sampled week, so
     the leading-`None` path for someone who enters mid-run is not exercised; the `PYTEST_*` filter in
     `tests/test_version_1_status.py` has no test of its own (a wrong option fails that test loudly).
@@ -35,7 +36,21 @@ Deferred and adjacent items. Each carries enough context to act on later without
   - `tools/version_1_status.py` in the working tree is no longer run by any test: `main()` refuses, and
     `tests/test_version_1_status.py` runs the tag's copy. It is kept, not reduced to a stub, because the plan names it
     as the starting point for version 2's status page. Whoever writes that page starts from the tag's copy
-    (`git show version-1:tools/version_1_status.py`) or puts the new tool under its own test first.
+    (`git show version-1:tools/version_1_status.py`) or puts the new tool under its own test first. Since 2026-10-20
+    `tools/spec_coverage.py` imports its `dispositions()` parser (the dispositions file is frozen with it), so
+    `tests/bowen/test_spec_coverage.py` runs that one function; its record readers no longer fit the part II record.
+- [ ] **Coverage page, minor, from the Part A review (2026-10-20), not fixed.** (1) `tools/spec_coverage.py`'s
+  `BUILT_PHASES` (A–D) is a constant nothing checks: when Phase E is built, the notes keep saying "Phase E builds it
+  and is not built yet" until it is edited. (2) A spec row amended by appending keeps its old "not met", so a criterion
+  whose clause is later met stays *partial* until the row is reworded (the safe side). (3)
+  `test_m141_header_names_each_record_read` finds records by the `*_ensemble_record.md` and `*_mutation_record.md`
+  names and the `"criterion"` field; a record named or shaped otherwise would pass it unread.
+- [ ] **Coverage page, Part B** (`docs/plan_spec_coverage_phase_d.md` §3; owner 2026-10-20: later, as its own task).
+  For each ID marked *not done* with "no test named for it; its module was built in Phase C" (or D), and each of the
+  74 hand-written overrides, Claude drafts which existing test verifies it and why, or *partial* "built, no test", or
+  *not done* with the reason; the owner reviews the list. Rename the overrides file to
+  `tools/spec_coverage_overrides.json` in the same change (B3). About 19 overrides still name Phase C or D as work to
+  come (the plan's §1).
   - [x] ~~`tools/phase_c_trace.py`: `outputs()` and `trace_text()` load the family file again after `records()` has
     loaded it.~~ *Fixed at version 2 stage 1 (rider (v)): `records()` takes the loaded family; `famdiag_export.py`'s
     call is unchanged.*
@@ -443,9 +458,10 @@ Plan §4.7 and `docs/phase_d2_status_2026-10-13.md` hold the evidence.
 - [x] ~~**`M11.C.7`, `M11.C.9` and `M11.C.28` are not built**~~ *Revision 32 (2026-10-17): `M11.C.7` built (plan §4.12); `M11.C.9` proposed out of version 1 (no rule reads sibling position); `M11.C.28` out of scope (owner, 2026-10-15).* C.7 needs the coach's landing to read the coach's position
   (`M8`'s predicate exists, unused); C.9 needs sibling position to gate behaviour (`M1.A.14c`); C.28 needs the sink
   allocation to feed some behaviour, or its mobility can change no symptom.
-- [ ] **Phase D record, review of 2026-10-13, minor, not fixed:** `tools/spec_coverage.py` reads only the Phase C
-  ensemble record, so `docs/spec_coverage.md` gives the Phase D criteria no verdict; and the README's and the status
-  report's lists of passing and failing D criteria are not checked against `docs/phase_d_ensemble_record.md` by a test.
+- [ ] **Phase D record, review of 2026-10-13, minor:** ~~`tools/spec_coverage.py` reads only the Phase C
+  ensemble record, so `docs/spec_coverage.md` gives the Phase D criteria no verdict~~ *(fixed 2026-10-20, the coverage
+  plan's Part A)*; the README's and the status report's lists of passing and failing D criteria are still not checked
+  against `docs/phase_d_ensemble_record.md` by a test.
 - [ ] **B7 (spec revision 24, 2026-10-12): for the owner's review.** Every B7 choice is Claude's recommendation, made
   overnight at the owner's request: the symptom integrand read above the usual level, the channel weights, mutual
   protection, the lock-in curve and its spill past the turn, removal by tolerance, and `M11.C.22`'s control arm.
@@ -542,8 +558,10 @@ Phase C steps 0–16 are built. **Its gate does not pass** (`docs/phase_c_comple
   `tests/bowen/test_record_json.py` fails on a second copy.* The record JSON regex and `json.loads` appear about six times across
   `tools/mutation_record.py`, `tools/sweep_record.py`, `tools/spec_coverage.py` and the tests; one helper would serve
   them (correctness review, 2026-10-09).
-- [ ] **`M11.C.16`'s coverage override is hand-written** (`tools/spec_coverage_phase_b.json`) and says "passes"; it
-  will not update if the ensemble verdict changes (correctness review, 2026-10-09).
+- [x] ~~**`M11.C.16`'s coverage override is hand-written** (`tools/spec_coverage_phase_b.json`) and says "passes"; it
+  will not update if the ensemble verdict changes (correctness review, 2026-10-09).~~ *Fixed 2026-10-20 (coverage plan
+  A5): the override is gone; the row comes from the record, and stays partial because its spec row says its mutation
+  clause is not met.*
 - [x] ~~**A child failure or timeout in `run_in_copy` aborts the whole record run**~~ *Fixed at version 2 stage 1 (S1.5a): a failed
   child's ids become FAILED rows, never cached, the record goes on and exits 1; a timeout kills the child's process
   group.* The run discarded earlier mutants'

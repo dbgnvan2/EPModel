@@ -618,12 +618,13 @@ def test_d0_diagnostic_record_is_current():
 
 
 def test_d0_diagnostics_never_count_as_proof():
-    """Coverage reads mutation proof from the mutation record alone; a diagnostic, even a red one, is not proof."""
+    """Coverage reads mutation proof from the mutation records alone; a diagnostic, even a red one, is not proof."""
     import importlib
 
     coverage = importlib.import_module("tools.spec_coverage")
-    assert coverage.MUTATION_RECORD.resolve() == (REPO / "docs" / "phase_c_mutation_record.md").resolve()
-    assert _diagnostic.RECORD.resolve() != coverage.MUTATION_RECORD.resolve()
+    records = {p.resolve() for p in coverage.MUTATION_RECORDS}
+    assert (REPO / "docs" / "phase_c_mutation_record.md").resolve() in records
+    assert _diagnostic.RECORD.resolve() not in records
     assert not {d.mutant for d in _diagnostic.DIAGNOSTICS if d.mutant} - {m.id for m in _mutants.MUTANTS}
 
 

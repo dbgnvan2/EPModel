@@ -32,7 +32,7 @@ These define what the model does. A run that disagrees with them is a defect.
 - [ ] [../config/bowen/event_kinds.md](../config/bowen/event_kinds.md) — the kinds of act and their layers.
 - [ ] [../config/bowen/policy.md](../config/bowen/policy.md) — the selection policy.
 - [ ] [../config/bowen/family_phase_c.md](../config/bowen/family_phase_c.md) — the family run in Phase C.
-- [ ] [../config/bowen/family_phase_d.md](../config/bowen/family_phase_d.md) — the owner's reference family (spec `M2.A`, revision 13), with its life course from revision 28: starting ages as settings, who earns, the coachee (`M2.A.0j`, `M2.A.0k`).
+- [ ] [../config/bowen/family_phase_d.md](../config/bowen/family_phase_d.md) — the reference family the owner specified (spec `M2.A`, revision 13), with its life course from revision 28: starting ages as settings, who earns, the coachee (`M2.A.0j`, `M2.A.0k`).
 - [ ] [../config/bowen/partners_phase_d.md](../config/bowen/partners_phase_d.md) — the reference family's partners and their children, drafted for the owner to edit (spec `M7.C.1h`, `M7.C.1i`, revision 28).
 - [ ] [../config/bowen/pattern_acts.md](../config/bowen/pattern_acts.md) — which acts each pattern readout counts.
 - [ ] [../config/bowen/act_classes.md](../config/bowen/act_classes.md) — which acts draw an external agent onto a side,
@@ -177,10 +177,11 @@ verdicts over ensembles (`tools/phase_d_record.py`; plan step 12). Mutations are
 
 **Decided 2026-10-19, not built:** [<PROPOSAL — EVENT SIZES FROM THE HOLMES–RAHE SCALE.md>](<PROPOSAL — EVENT SIZES FROM THE HOLMES–RAHE SCALE.md>) — version 2, at the owner's request: the model's event sizes against the Holmes–Rahe life-event scale (an outside rating, not the corpus), what Kerr's case material says about event size (set by the tie, not the kind; the deciding case is `[K-ext]`), a proposal to take base sizes from the scale and scale them by the tie, and eight questions (Q1–Q8, all decided by the owner).
 
-**Draft for owner approval, 2026-10-19:** [plan_spec_coverage_phase_d.md](plan_spec_coverage_phase_d.md) — why
-`spec_coverage.md` still reads "after Phase C" and how to bring it up to date: Part A, the tool reads every ensemble and
-mutation record (mechanical); Part B, a new evidence mapping for the requirements built in Phases C and D without a test
-named for them; three owner decisions. Nothing built.
+**Part A built 2026-10-20; Part B approved for later (owner 2026-10-20):**
+[plan_spec_coverage_phase_d.md](plan_spec_coverage_phase_d.md) — why `spec_coverage.md` read "after Phase C" and how
+it was brought up to date: Part A, the tool reads every ensemble and mutation record (mechanical; built); Part B, a new
+evidence mapping for the requirements built in Phases C and D without a test named for them (later, its own task); the
+owner's three decisions.
 
 **For review, 2026-10-13:** [phase_d_status_2026-10-13.md](phase_d_status_2026-10-13.md) — Phase D part I after the
 overnight run: every build item and D-I criterion as done, partial or not done, and what the owner should look at

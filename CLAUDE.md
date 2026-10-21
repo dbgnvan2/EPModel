@@ -86,6 +86,9 @@ defect, not a lag.
   the top of that document in the same commit.
 - **The index.** `docs/SPEC_REVIEW_CHECKLIST.md` lists every file under `docs/` and `config/bowen/`. Add, rename or
   remove a document and update the checklist in the same commit; `tests/test_doc_checklist.py` fails otherwise.
+- **The reviewer reading list.** `docs/REVIEWER_READING_LIST.md` restates other documents' status: which version to
+  review, what is built, which proposals are decided, and its known problems. A change to any of these updates it in
+  the same commit.
 - **Before reporting work done**, state which documents were updated, or why none needed to be.
 
 ## Generated records and reviews — keep the loop cheap (2026-10-09, learnings P38)

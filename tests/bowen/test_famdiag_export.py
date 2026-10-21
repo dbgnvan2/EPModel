@@ -279,16 +279,23 @@ def test_v5_export_is_deterministic(run, mapping, diagram):
     assert tool.build_diagram(run, mapping, 7) == diagram
 
 
-# Opening the export in fam-diag saves it back (autosave): people and lines moved or recoloured, the display name
-# set to the file name, and the app's own settings added. Those are the owner's; everything else the tool wrote
-# must still be there unchanged.
-APP_OWNED_KEYS = frozenset({"x", "y", "color", "horizontalConnectorY", "displayName"})
+# Opening the export in fam-diag saves it back (autosave). The app may change keys the tool writes (people and lines
+# moved, the display name set to the file name) and adds keys of its own (colours, its settings). Those are the
+# owner's; everything else in the file must be what the tool writes now, no more and no less.
+APP_OWNED_KEYS = frozenset({"x", "y", "horizontalConnectorY", "displayName"})
+APP_ADDED_KEYS = frozenset({
+    "color", "exportedAt", "autoSaveMinutes", "ideasText", "eventCategories", "nodalCategories", "predictionSets",
+    "functionalFactCategories", "functionalIndicatorDefinitions", "relationshipStatuses", "relationshipTypes",
+})
 
 
 def _what_the_tool_drew(saved, rendered):
-    """``saved`` cut to the shape of ``rendered``: keys the app added are dropped, app-owned keys are skipped."""
+    """``saved`` cut to the shape of ``rendered``: app-owned keys skipped, app-added keys dropped. Any other key the
+    tool does not write (one it stopped writing) is kept, so it makes the comparison fail."""
     if isinstance(rendered, dict) and isinstance(saved, dict):
-        return {k: _what_the_tool_drew(saved.get(k), v) for k, v in rendered.items() if k not in APP_OWNED_KEYS}
+        drawn = {k: _what_the_tool_drew(saved.get(k), v) for k, v in rendered.items() if k not in APP_OWNED_KEYS}
+        extra = {k: saved[k] for k in saved.keys() - rendered.keys() - APP_ADDED_KEYS - APP_OWNED_KEYS}
+        return drawn | extra
     if isinstance(rendered, list) and isinstance(saved, list) and len(saved) == len(rendered):
         return [_what_the_tool_drew(s, r) for s, r in zip(saved, rendered)]
     return saved
@@ -298,7 +305,7 @@ def test_v5_committed_export_is_the_current_render(diagram):
     """P6: the seed-7 export under docs/review/ still holds what tools/famdiag_export.py renders now. Stage 1's
     regeneration refreshed the trace and chart but not this file, which kept naming spec revision 32 and an old
     config hash. A change to the run, the readouts or the spec revision turns this red until it is regenerated:
-    python3 tools/famdiag_export.py. A save from fam-diag (see APP_OWNED_KEYS) does not."""
+    python3 tools/famdiag_export.py. A save from fam-diag (APP_OWNED_KEYS, APP_ADDED_KEYS) does not."""
     import json
 
     saved = json.loads((REPO / "docs" / "review" / "phase_c_famdiag_seed7.json").read_text(encoding="utf-8"))

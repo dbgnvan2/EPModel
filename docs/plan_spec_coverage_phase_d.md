@@ -49,6 +49,8 @@ partial, 231 not done.**
 - **A4.** For an ID with no test named for it, the note reads "no test named for it (module built in Phase …)" in place
   of the bare phase, so it cannot be read as unbuilt.
 - **A5.** `M11.C.16`'s hand-written override is removed; its row comes from the record like every other criterion.
+- **A6.** `docs/REVIEWER_READING_LIST.md` §3 and §8 say this page is out of date. Update both in the commit that
+  regenerates the page.
 
 Tests (each proved failing by the mutation named):
 - `tests/bowen/test_spec_coverage.py::test_m141_phase_d_criteria_read_from_their_records`: a Phase D criterion's row

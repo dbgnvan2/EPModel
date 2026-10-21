@@ -24,8 +24,9 @@ Deferred and adjacent items. Each carries enough context to act on later without
     working tree and was not touched by the sweep. Add the same check once that edit is settled.~~ *Done 2026-10-20:
     the committed export still named spec revision 32 and was regenerated;
     `tests/bowen/test_famdiag_export.py::test_v5_committed_export_is_the_current_render` checks everything the tool
-    draws and ignores what a fam-diag save changes (positions, colours, the display name, the app's own settings), so
-    the working-tree edit, a save from the app, still passes. That edit is the owner's and is not committed.*
+    draws except the keys a fam-diag save may change (positions, the display name) or add (colours, the app's own
+    settings), and fails on any other key the tool does not write, so the working-tree edit, a save from the app,
+    still passes. That edit is the owner's and is not committed.*
   - `test_m16c1_chart_names_the_absent_and_draws_the_undeclared` puts its undeclared person in every sampled week, so
     the leading-`None` path for someone who enters mid-run is not exercised; the `PYTEST_*` filter in
     `tests/test_version_1_status.py` has no test of its own (a wrong option fails that test loudly).

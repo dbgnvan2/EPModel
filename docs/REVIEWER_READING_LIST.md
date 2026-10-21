@@ -16,11 +16,17 @@ spec revision 11, before any of the agent model was built. All later work is on 
 
 | Review this | When |
 |---|---|
-| the tag **`version-1`** (commit `d62cfdc`) | to review a complete, frozen model. Version 1 was finished 2026-10-18 and tagged by the owner 2026-10-19. Its spec is revision 32. |
-| the branch **`plan-phase-b`** | to review the current state. Version 2 began at spec revision 33. Its stage 1, an engineering batch that changed no rule, was built 2026-10-19 and changed no criterion's verdict. Its later stages are planned, not built. |
+| the branch **`plan-phase-b`** | to review the current state, and to read this list. Version 2 began at spec revision 33. Its stage 1, an engineering batch that changed no rule, was built 2026-10-19 and changed no criterion's verdict. Its later stages are planned, not built. |
+| the tag **`version-1`** (commit `d62cfdc`) | to review the complete, frozen version 1 model. Finished 2026-10-18 and tagged by the owner 2026-10-19; its spec is revision 32. The tag does **not** contain this list or the version 2 documents it links (`version_2_stage_1_changes.md`, `implementation_plan_version_2.md`, `plan_spec_coverage_phase_d.md`), and it still contains the retired grid engine. |
+
+Read this list on `plan-phase-b`. To look at version 1 beside it, check the tag out in a second folder:
 
 ```bash
-git clone https://github.com/dbgnvan2/EPModel.git && cd EPModel && git checkout version-1
+git clone --branch plan-phase-b https://github.com/dbgnvan2/EPModel.git
+```
+
+```bash
+git -C EPModel worktree add ../EPModel-version-1 version-1
 ```
 
 ## What the project is
@@ -50,7 +56,7 @@ Read these four first. Together they explain what the model is, why it is built 
 | 1 | [../CLAUDE.md](../CLAUDE.md) | The most current one-page summary: what the model is, where the theory lives, the rules the code must keep (engine purity, emergence, grading, no claims about real families), and how to run the tests. Written as instructions for the coding assistant, but accurate. | current |
 | 2 | [model_explainer.md](model_explainer.md) | **Every part of the model** (object, field, move, gate, invariant, clock, test): what it is for, what it does, which source finding it implements, and its evidence grade. Read "How to read an entry" for the grades. §1 orientation; §17 what the model can be asked; §18 method rationale; §19 what is set, random and emergent. | about 2,100 lines; current |
 | 3 | [agent_model_proposal.html](agent_model_proposal.html) | The argument for the design: why a family of agents replaced the earlier grid model, how the agents interact, what the model can and cannot tell you, and (§10) what reading the source texts changed. Its "What is actually in the repo" section describes the repository before the agent model was built. | background; where it differs from the spec, the spec wins |
-| 4 | [REVIEW_version_1_guide.md](REVIEW_version_1_guide.md) | A guided walk through the whole model, module by module (`M0`–`M17`), meant to be read beside one run: what each module requires, its explainer section, its config, its criteria and their status, and where to see it in the trace. Written for the owner's review, so it ends with the owner's open questions. | about 1,400 lines; for owner review |
+| 4 | [REVIEW_version_1_guide.md](REVIEW_version_1_guide.md) | A guided walk through the whole model, module by module (`M0`–`M17`), meant to be read beside one run: what each module requires, its explainer section, its config, its criteria and their status, and where to see it in the trace. Written for the owner's review, so it includes the owner's open questions, and ends with a table of every criterion and the entry that reviews it. | about 1,400 lines; for owner review |
 
 ## 2. The contract: what the model is required to do
 
@@ -80,7 +86,7 @@ the requirement and the test that proves it (`Purpose:` / `Spec:` / `Tests:`).
 |---|---|
 | `src/bowen/engine/` | The engine: objects, the weekly tick, appraisal, moves, the learner, the slow tick, symptoms, the life course, invariants. It does no file I/O and has no UI; it emits log records through an interface the caller supplies (`M16.B`). |
 | `src/bowen/policy/`, `src/bowen/scenario/` | How an agent chooses an act; how a run is assembled from the config files. |
-| `src/bowen/io/` | The only file I/O: the config loader and the log sinks. |
+| `src/bowen/io/` | The config loader and the log sinks. The engine neither does file I/O nor imports this package: the caller loads the config and supplies the sink. The only other file I/O in `src/bowen/` is `run.py`, which writes the trace, and `ensemble/criteria.py`, which reads the criteria's config tables. |
 | `src/bowen/readouts/`, `src/bowen/ensemble/` | Pattern and family-evaluation readouts; acceptance criteria run over many seeds. |
 | `src/bowen/render/`, `src/bowen/run.py` | The readable trace; the command-line entry point for one scripted run. |
 | `tools/` | The scripts that generate the records in §5 and the review outputs in §4. Each generator's docstring gives its command line. |
@@ -115,7 +121,7 @@ The last command writes the trace and chart listed in §4. The commands that reg
 |---|---|
 | [review/phase_c_trace_seed7.md](review/phase_c_trace_seed7.md) | One run of 104 weeks, written out week by week in plain language (`M16`). The best way to see what the agents actually do. |
 | [review/phase_c_chart_seed7.html](review/phase_c_chart_seed7.html) | The same run as a chart of each person's anxiety and functioning by week. |
-| [review/phase_c_famdiag_seed7.json](review/phase_c_famdiag_seed7.json) | The same run as a family diagram. It opens in a separate viewer (`epmodel-fam-diag`) that is **not in this repository**. |
+| [review/phase_c_famdiag_seed7.json](review/phase_c_famdiag_seed7.json) | The same run as a family diagram. It opens in a separate viewer, `epmodel-fam-diag`, which is a **private repository** an outside reviewer cannot open; the file is readable as JSON, and the trace shows the same run. How a run maps to the diagram is in [<PROPOSAL — RUN VISUALIZATION MAPPING.md>](<PROPOSAL — RUN VISUALIZATION MAPPING.md>). |
 | [REVIEW_version_1_outputs.md](REVIEW_version_1_outputs.md) | Every kind of output the model produces and the framing each carries so it cannot be read as a statement about a real family. Signed off by the owner 2026-10-17. |
 
 Seed 7 was used for the first traces and was not chosen for what it shows. A test fails when any of the three files
@@ -147,7 +153,7 @@ Read this part to check that a claim presented as sourced is sourced.
 |---|---|
 | [theory/_LEDGER.md](theory/_LEDGER.md) | **What the six source texts say**, finding by finding, each with an evidence grade and an attribution grade (Bowen, Kerr, or Kerr's own extension). The source of truth for every citation. About 2,900 lines. |
 | [theory/_CONVERGENCES.md](theory/_CONVERGENCES.md) | Ten findings that recur across chapters, with an audit of whether the recurrences are independent. |
-| [theory/_RESOLUTIONS.md](theory/_RESOLUTIONS.md), [theory/_PASS2_CORRECTIONS.md](theory/_PASS2_CORRECTIONS.md) | How contradictions in the sources were resolved; what a second reading withdrew from the first (nineteen findings, including two numbers that had been treated as calibration targets). |
+| [theory/_RESOLUTIONS.md](theory/_RESOLUTIONS.md), [theory/_PASS2_CORRECTIONS.md](theory/_PASS2_CORRECTIONS.md) | How contradictions in the sources were resolved; what a second reading corrected or withdrew from the first, including numbers that had been treated as calibration targets. |
 | [theory/_SOURCE_QUALITY.md](theory/_SOURCE_QUALITY.md) | What each source can support. Two are speech-recognition transcripts and are never quoted verbatim. |
 | [<theory/Extractions to be human validated.md>](<theory/Extractions to be human validated.md>) | Extractions the model relies on that no person has checked yet. |
 | `theory/ch01.md`–`ch22.md`, [theory/family_evaluation/](theory/family_evaluation/), [theory/kerr_book/](theory/kerr_book/), [theory/kb/](theory/kb/) | The per-source extractions the ledger summarizes. Open one when a ledger entry looks wrong. |
@@ -171,16 +177,16 @@ Read this part to check that a claim presented as sourced is sourced.
 A reviewer should know these before reading.
 
 **Open:** [spec_coverage.md](spec_coverage.md) shows the state after Phase C. Its title says so, and requirements built
-in Phase D are still marked as Phase D work: for example `M2.2`, the twelve-person reference family, is "not done",
-though that family is in `config/bowen/family_phase_d.md` and criteria run on it. Its "575 IDs: 274 done" is not the
+in Phase D are still marked as Phase D work: for example `M2.2`, the reference family, is "not done", though that
+family is in `config/bowen/family_phase_d.md` and criteria run on it. Its "575 IDs: 274 done" is not the
 current figure. Regenerating it with the tool as it stands does not fix it; the plan to fix it is
 [plan_spec_coverage_phase_d.md](plan_spec_coverage_phase_d.md), waiting for owner approval.
 
 **Fixed since this list was first drafted:**
 
-- 2026-10-19, merged into `plan-phase-b` 2026-10-20 (`82fc7e9`): README described the retired grid engine as
-  running; the checklist named an old spec revision; `_STATUS.md` said version 2 was not approved; the explainer's
-  front matter had an old date; `requirements.txt` listed packages nothing imports.
+- 2026-10-19 and 2026-10-20, on `plan-phase-b`: README described the retired grid engine as running; the checklist
+  named an old spec revision; `_STATUS.md` said version 2 was not approved; the explainer's front matter had an old
+  date; `requirements.txt` listed packages nothing imports.
 - 2026-10-20: the fam-diag export ([review/phase_c_famdiag_seed7.json](review/phase_c_famdiag_seed7.json)) still named
   spec revision 32; it was regenerated, and a test now fails when it is out of date, as the trace and chart tests
   already did.

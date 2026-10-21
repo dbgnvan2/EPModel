@@ -208,6 +208,16 @@ Plan §4.10 holds the evidence.
   tool now exits 1 and says so, and the record's test fails. No committed record holds a
   RAISED or BROKEN row (checked 2026-10-20). Caching a RAISED row whose cause is the model, not the machine, would
   let such a record be committed; what counts as evidence is the owner's choice.
+- [ ] **Minor, from the document-claim tests' fix re-sweep (2026-10-20), not fixed** (`docs/plan_doc_claim_tests.md`;
+  recorded under the owner's three-or-fewer rule). (1) D5b's `classify` (`tests/test_doc_status.py`) reads "Yet to be
+  approved", "To be decided by the owner", "Not yet fully approved", "Not formally approved" and "Isn't approved" as
+  settled: a negator is matched only when followed by fillers and then a settled word. A document whose own status says
+  "To be decided" would agree with a checklist label "Decided" and nothing would be reported. No status in the repo
+  reads that way today. Fix: add "to be" and "yet to be" to the open list, and adverbs and "isn't" to the negation lists
+  in `tests/doc_claims.json`, with classification cases. (2) D2's roots (`tests/test_doc_claims.py` `path_scan`) are
+  the five project folders and the top-level folders git tracks, so a path under a whole top-level folder that was
+  deleted (`papers/x.pdf` after `papers/` is gone) is not read and not reported. Fix: take root candidates from the
+  folders the documents name as well.
 - [x] ~~**The phase D2 record prints `M11.C.10`'s two variants under one id** (and `M11.C.2`'s twelve-person variant as
   `M11.C.2`).~~ *Fixed at version 2 stage 1 (S1.7b): each row carries its `CRITERIA_D2` key, and the Phase D records
   render from `docs/records_cache/` (S1.8c), so a label change no longer reruns them.*

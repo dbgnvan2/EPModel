@@ -587,7 +587,7 @@ mutant has turned each entry red in `docs/phase_c_mutation_record.md`; the D9 sw
 | M17.G.2 | not done | — | Phase E |
 | M17.G.3 | not done | — | Phase E |
 
-## Tests named for no spec ID (148)
+## Tests named for no spec ID (182)
 
 Their names embed no requirement ID, so they count only where an override cites them (marked *cited*). The rest check spec documents, tooling or helpers.
 
@@ -694,6 +694,29 @@ Their names embed no requirement ID, so they count only where an override cites 
 - `tests/bowen/test_script.py::test_m13_without_removes_one_kind_only`
 - `tests/test_doc_checklist.py::test_every_checklist_link_exists`
 - `tests/test_doc_checklist.py::test_every_document_is_in_the_checklist`
+- `tests/test_doc_claims.py::test_d1_a_moved_spec_revision_is_reported_in_every_place`
+- `tests/test_doc_claims.py::test_d1_a_place_that_stops_naming_a_revision_fails`
+- `tests/test_doc_claims.py::test_d1_an_unreadable_front_matter_fails`
+- `tests/test_doc_claims.py::test_d1_history_does_not_trip_and_a_future_revision_does`
+- `tests/test_doc_claims.py::test_d1_spec_revision_restatements_match_the_front_matter`
+- `tests/test_doc_claims.py::test_d1_the_checklist_drift_of_2026_10_19_is_reported`
+- `tests/test_doc_claims.py::test_d1_the_checklist_is_read_by_its_exact_claim`
+- `tests/test_doc_claims.py::test_d2_a_marker_about_something_else_does_not_excuse_a_path`
+- `tests/test_doc_claims.py::test_d2_a_retired_path_passes_only_in_its_own_sentence`
+- `tests/test_doc_claims.py::test_d2_paths_with_spaces_and_module_commands_resolve`
+- `tests/test_doc_claims.py::test_d2_patterns_placeholders_and_test_ids_are_read_as_intended`
+- `tests/test_doc_claims.py::test_d2_repo_paths_in_readme_and_claude_md_exist`
+- `tests/test_doc_claims.py::test_d2_the_old_run_command_is_reported`
+- `tests/test_doc_claims.py::test_d2_the_retired_list_is_current`
+- `tests/test_doc_claims.py::test_d2_the_scan_is_not_vacuous`
+- `tests/test_doc_status.py::test_d5b_a_decided_label_on_a_draft_is_reported`
+- `tests/test_doc_status.py::test_d5b_a_reviewed_document_called_for_review_is_reported`
+- `tests/test_doc_status.py::test_d5b_an_unknown_wording_is_not_skipped_silently`
+- `tests/test_doc_status.py::test_d5b_classification_handles_negation`
+- `tests/test_doc_status.py::test_d5b_readme_and_status_lines_are_read`
+- `tests/test_doc_status.py::test_d5b_status_claims_agree_with_each_documents_own_status`
+- `tests/test_doc_status.py::test_d5b_the_scan_is_not_vacuous`
+- `tests/test_doc_status.py::test_d5b_the_unclassified_lists_are_current`
 - `tests/test_record_changes.py::test_s1_10b_a_changed_verdict_and_a_moved_effect_are_listed`
 - `tests/test_record_changes.py::test_s1_10b_a_readout_on_one_side_only_is_listed`
 - `tests/test_record_changes.py::test_s1_10b_a_record_not_regenerated_is_refused`
@@ -703,6 +726,13 @@ Their names embed no requirement ID, so they count only where an override cites 
 - `tests/test_record_changes.py::test_s1_10b_every_generated_record_is_compared_or_listed_as_not`
 - `tests/test_record_changes.py::test_s1_10b_the_tags_d2_rows_are_matched_by_position`
 - `tests/test_repo_layout.py::test_s1_6_the_grid_engine_is_retired` — *cited*
+- `tests/test_requirements.py::test_d3_an_allowlisted_tool_must_be_listed`
+- `tests/test_requirements.py::test_d3_an_unlisted_import_is_reported`
+- `tests/test_requirements.py::test_d3_dynamic_imports_with_a_literal_are_read`
+- `tests/test_requirements.py::test_d3_local_stdlib_relative_and_helper_imports_are_not_third_party`
+- `tests/test_requirements.py::test_d3_requirement_lines_are_parsed_to_names`
+- `tests/test_requirements.py::test_d3_requirements_match_the_imports`
+- `tests/test_requirements.py::test_d3_the_requirements_file_of_2026_10_19_is_reported`
 - `tests/test_review_rev31.py::test_r31a10_launch_age_approved`
 - `tests/test_review_rev31.py::test_r31a11_plan_closes_the_two_owner_questions`
 - `tests/test_review_rev31.py::test_r31a12_spec_status_names_revision_31`
@@ -720,9 +750,13 @@ Their names embed no requirement ID, so they count only where an override cites 
 - `tests/test_review_rev31.py::test_r31b1_symptoms_docstring_not_belief`
 - `tests/test_review_rev31.py::test_r31b2_criteria_settings_graded`
 - `tests/test_spec_consistency.py::test_claimed_test_count_matches_the_suite`
+- `tests/test_spec_consistency.py::test_d4_history_entries_still_exist`
+- `tests/test_spec_consistency.py::test_d4_suite_size_phrasings_are_recognised`
 - `tests/test_spec_consistency.py::test_every_citing_document_resolves_against_the_spec`
 - `tests/test_spec_consistency.py::test_every_spec_reference_resolves_within_the_spec`
 - `tests/test_spec_consistency.py::test_requirement_counts_agree_with_the_spec`
+- `tests/test_stale_text.py::test_d5a_current_state_documents_carry_no_stale_pending_review`
+- `tests/test_stale_text.py::test_d5a_the_scan_reads_status_lines_and_the_state_line`
 - `tests/test_stale_text.py::test_s1_9_no_pending_review_text_for_decided_items`
 - `tests/test_stale_text.py::test_s1_9_the_scan_finds_a_wrapped_phrase`
 - `tests/test_sweep.py::test_base_id_strips_the_version_suffix`

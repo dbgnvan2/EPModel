@@ -25,10 +25,13 @@ Each test below is written so that reverting the corresponding fix turns it red.
 
 from __future__ import annotations
 
+import json
 import re
 import subprocess
 import sys
 from pathlib import Path
+
+import pytest
 
 REPO = Path(__file__).resolve().parent.parent
 SPEC = REPO / "docs" / "bowen_agent_model_spec_v2.md"
@@ -317,26 +320,81 @@ def _collected_test_count() -> int:
     return int(match.group(1))
 
 
+# D4.1: "N tests pass", "N tests passing", "N tests green", "N tests, all passing", and one word between, as in
+# "N tests stay green". The word boundary after the verb keeps "passed" (a past-tense run report, D4.2) out; the
+# pattern this replaced read "850 tests passed" as a claim and missed "37 tests, all passing".
+_SUITE_SIZE = re.compile(r"\b(\d+)\s+tests?,?\s+(?:all\s+|\w+\s+)?(?:pass|passes|passing|green)\b", re.I)
+
+
+def suite_size_claims(text: str) -> list[int]:
+    """D4.1, D4.2: every present-tense suite-size claim in the text."""
+    return [int(c) for c in _SUITE_SIZE.findall(text)]
+
+
+def _suite_size_history() -> list[dict]:
+    # Read directly, not through tests/doc_text.py: tools/spec_coverage.py loads this file by path, outside pytest.
+    claims = json.loads((REPO / "tests" / "doc_claims.json").read_text(encoding="utf-8"))
+    return claims["suite_size_history"]["entries"]
+
+
+def _without_history(doc: str, text: str) -> str:
+    """D4.3: drop the dated suite-size phrases the data file lists for this document."""
+    for entry in _suite_size_history():
+        if entry["doc"] == doc:
+            text = text.replace(entry["phrase"], "")
+    return text
+
+
 def test_claimed_test_count_matches_the_suite():
-    """CLAUDE.md's green-suite gate is the count a future session checks against."""
+    """CLAUDE.md's green-suite gate is the count a future session checks against.
+
+    Spec:  docs/plan_doc_claim_tests.md#D4 (the widened pattern, D4.1–D4.4)
+    """
     total = _collected_test_count()
     # Every document, not CLAUDE.md alone: "37 tests green" sat stale in
     # _STATUS.md and CHANGELOG.md while CLAUDE.md's own figure was correct.
+    # "37 tests, all passing" sat stale in README.md's Layout block while the
+    # pattern read only "N tests pass" and "N tests green" (D4).
     wrong = {}
     for doc in CITING_DOCS:
-        text = doc.read_text(encoding="utf-8")
-        claims = [
-            int(c)
-            for c in re.findall(r"(\d+)\s+tests\s+(?:pass|green)", text)
-        ]
+        rel = doc.relative_to(REPO).as_posix()
+        claims = suite_size_claims(_without_history(rel, doc.read_text(encoding="utf-8")))
         bad = sorted({c for c in claims if c != total})
         if bad:
-            wrong[doc.relative_to(REPO).as_posix()] = bad
+            wrong[rel] = bad
     claude = (REPO / "CLAUDE.md").read_text(encoding="utf-8")
     assert re.search(r"all \d+ tests pass", claude), (
         "CLAUDE.md no longer states a suite size; the green-suite gate is gone"
     )
     assert wrong == {}, f"documents claim a suite size that is not {total}: {wrong}"
+
+
+@pytest.mark.parametrize("text, claims", [
+    # D4.1: present-tense claims, each read.
+    ("all 924 tests pass", [924]),
+    ("924 tests pass", [924]),
+    ("924 tests passing", [924]),
+    ("924 tests green", [924]),
+    ("tests/               37 tests, all passing", [37]),
+    ("37 tests, all green", [37]),
+    ("the old engine and its 36 tests stay green", [36]),
+    ("37 tests,\nall passing", [37]),
+    # D4.2: past-tense run reports are history by their tense, and are not read.
+    ("850 passed in CI run 18", []),
+    ("Suite: 850 tests.", []),
+    ("850 tests passed on 3.11", []),
+])
+def test_d4_suite_size_phrasings_are_recognised(text, claims):
+    """D4.1, D4.2: the phrasings the documents use, including the one that sat stale in README.md."""
+    assert suite_size_claims(text) == claims
+
+
+def test_d4_history_entries_still_exist():
+    """D4.3: each dated phrase the data file excuses is still in its document, so the list cannot outlive it."""
+    gone = [(e["doc"], e["phrase"]) for e in _suite_size_history()
+            if e["phrase"] not in (REPO / e["doc"]).read_text(encoding="utf-8")]
+    assert gone == []
+    assert all(e["why"] for e in _suite_size_history())
 
 
 # --------------------------------------------------------------------------

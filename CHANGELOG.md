@@ -20,6 +20,41 @@ All notable changes to this project are recorded here. Dates are ISO.
   from fam-diag changes or adds (named in the test), so the owner's layout, saved from the app into the working
   tree, still passes. That layout is not committed.
 
+### Tests that fail when a document restates a changed fact (2026-10-20)
+
+`docs/plan_doc_claim_tests.md`, approved by the owner 2026-10-20 (Q1: status claims checked both ways; Q2: built after
+`docs-stale-fixes` was merged into `plan-phase-b`). Each check's self-tests were run red against an empty stub before
+the check was written. Each check was then shown failing by one live edit to a real file, reverted, and the parts added
+after the learning-qa review by nine code mutants (the plan's §12).
+
+- **The spec revision where it is restated** (D1, `tests/test_doc_claims.py`): the largest revision named in the
+  checklist's spec entry, CLAUDE.md's spec row, `_STATUS.md`'s `▶ STATE` line and README.md's Status section is the
+  front matter's.
+- **Repo paths in README.md and CLAUDE.md** (D2): each is tracked by git, or it is listed as retired for that document
+  in `tests/doc_claims.json` and its own sentence or line says so. Paths under every top-level folder git tracks are
+  read, `.github/` included.
+- **`requirements.txt` against the imports** (D3, `tests/test_requirements.py`): the third-party top-level imports of
+  every tracked `.py`, mapped to their distributions, equal the requirements less the tools `tests/doc_claims.json` lists
+  as installed and not imported (`ruff`).
+- **The suite-size pattern widened** (D4, `test_claimed_test_count_matches_the_suite`): it reads "N tests, all passing"
+  and "N tests stay green", and no longer reads "N tests passed" as a claim. Two dated phrases are excused by name in
+  the data file, and each must still be in its document.
+- **"Pending owner review" in the current-state documents** (D5a, `tests/test_stale_text.py`): README.md, CLAUDE.md,
+  the checklist, `_STATUS.md`'s `▶ STATE` line and each `docs/` status line.
+- **Status claims against each document's own status line** (D5b, `tests/test_doc_status.py`), in both directions: the
+  checklist's entry labels, README.md's sentences and other documents' status lines. The first status word in a
+  sentence decides, and a negated settled word is not one. A label or status in words outside both lists is reported
+  unless the data file lists it as carrying no review status.
+- The word lists, the retired paths and the labels and documents with no review status are in `tests/doc_claims.json`
+  (rule 9), and the shared reading helpers in `tests/doc_text.py`.
+- **What the tests found, fixed:** three checklist labels still read "For review" for documents reviewed, complete or
+  signed off (the review of revisions 24–30, the version 1 dispositions, the V7 outputs review); two checklist lines
+  said "pending owner review" for items the owner had reviewed (the dispositions' rows, revisions 24–27); and the G1 and
+  Holmes–Rahe proposals' own status lines still read "DRAFT, for owner review" though every question in each was
+  decided on 2026-10-19.
+- `docs/spec_coverage.md` regenerated: its list of tests named for no spec ID gains the 34 new test functions.
+- Suite: 984 tests (60 new).
+
 ### Version 2 stage 1: one engineering batch (spec revision 33, 2026-10-19)
 
 The owner decided D1–D7 as recommended (`docs/implementation_plan_version_2.md` §1.2). No rule changed. Each

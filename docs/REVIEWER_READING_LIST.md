@@ -1,6 +1,6 @@
 # Reading list for an outside reviewer
 
-**Status: DRAFT 2026-10-19, for owner review; updated 2026-10-20.** It lists the documents that describe what EPModel
+**Status: approved by the owner 2026-10-20 (drafted 2026-10-19).** It lists the documents that describe what EPModel
 does and how it works, in the order a reviewer with no prior contact with the project should read them. It was last
 checked against branch `plan-phase-b` at `1fec82c` (version 2 stage 1 built and pushed, CI green).
 

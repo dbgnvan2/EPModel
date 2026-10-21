@@ -1,12 +1,13 @@
 # Milestone critical review: the brief
 
-**Status: DRAFT 2026-10-21, for owner review.** Drafted at the owner's request on 2026-10-21. Revised the same day
+**Status: DRAFT 2026-10-21; the owner decided its four open questions the same day (§8), and its first run is the
+stage 1 review.** Drafted at the owner's request on 2026-10-21. Revised the same day
 after the second Mac reviewed it (`docs/cycles/2026-10-21_brief-review_mini1.md`, branch `review/brief-2026-10-21`),
 with the owner's four decisions on that review: the `KB` quotation rule stated where a reviewer reads first, one local
 suite run, minor findings checked at triage, and no separate review for Group G. A milestone review is a
 critical read of the whole model by a session that has no memory of how it was built. It runs at fixed points and
 looks for what the per-batch review and the test suite cannot catch. This file is the brief that session works from,
-so a review gives the same kind of result on either Mac. §8 lists the decisions the owner has not yet made.
+so a review gives the same kind of result on either Mac. §8 records the owner's decisions on its open questions.
 
 ---
 
@@ -38,7 +39,7 @@ A milestone review does **not** do the following:
 
 ## 2. When to run it
 
-The milestones (proposed; §8 Q1):
+The milestones (owner, 2026-10-21; §8 Q1):
 
 1. **The end of version 2's stage 2 and stage 3** (`docs/version_2_plan.md` §3). Stage 4 runs inside stage 3, so it
    has no review point of its own. Group G and the event sizes (`docs/version_2_plan.md` §6) are built before stage
@@ -47,14 +48,15 @@ The milestones (proposed; §8 Q1):
 2. **Before any tag.**
 3. **Before the model goes to an outside reviewer.**
 
-As of 2026-10-21, stage 1 is built and no milestone review has covered it. The first review would cover it (§8 Q4).
+The first review covers stage 1, which is built and which no milestone review has covered. The owner chose on
+2026-10-21 to run it then, not to wait for the end of stage 2 (§8 Q4).
 
 Do not run it on a calendar. If nothing in §3 step 5's list has changed since the last milestone review, skip it and
 say so.
 
 ## 3. Where and how to set it up
 
-Run it on either Mac, in a **new session that has not seen the build**. The second Mac is the default (§8 Q2): it
+Run it on either Mac, in a **new session that has not seen the build**. The second Mac is the default (owner, §8 Q2): it
 leaves this one free, and its clone from GitHub also checks that the shared-repo setup works.
 
 On the machine that runs it:
@@ -301,16 +303,20 @@ The reviewing session edits nothing except its report.
 Misses). A milestone review runs four lenses and a challenge pass over a wider range. Several times that figure is an
 estimate, not a measurement. The first report's header gives the first real figure.
 
-## 8. Questions for the owner
+## 8. The owner's questions, decided 2026-10-21
+
+Each was asked separately, and each answer was the recommended option.
 
 - **Q1. Milestones.** The end of stages 2 and 3, before any tag, and before an outside review (§2). Add or remove any?
-  (Group G is decided: covered by the end-of-stage-2 review.)
-- **Q2. Machine.** The second Mac by default (§3)?
+  (Group G is decided: covered by the end-of-stage-2 review.) **Decided:** keep all three.
+- **Q2. Machine.** The second Mac by default (§3)? **Decided:** yes; either Mac runs it when the second is busy.
 - **Q3. Size.** One worker per lens (four, plus the challenge pass) by default, or the `reviewer` skill's full split
-  of 4–12 workers?
+  of 4–12 workers? **Decided:** one per lens. If a lens reports slices it could not read, the next review splits that
+  lens.
 - **Q4. First review.** Run it now over stage 1 (baseline `version-1`), or wait for the end of stage 2? On
   2026-10-21, §3 step 5's list from `version-1` to `bc54217`, leaving out this brief, was 107 files, about 7,400
-  lines added and 700 removed.
+  lines added and 700 removed. **Decided:** run it now. The estimate given with the question, not a measurement, was
+  roughly 400k–700k tokens and 30–60 minutes on the second Mac.
 
 ## 9. The prompt to start a review
 

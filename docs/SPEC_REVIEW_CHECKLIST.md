@@ -169,7 +169,7 @@ verdicts over ensembles (`tools/phase_d_record.py`; plan step 12). Mutations are
 
 **Generated, 2026-10-19:** [version_2_stage_1_changes.md](version_2_stage_1_changes.md) — every record's rows compared with the same rows at the tag `version-1`, from `tools/record_changes.py`: each changed verdict, moved effect and changed value, and what could not be compared. Stage 1 changed none.
 
-**Draft, for owner review (2026-10-21):** [milestone_review_brief.md](milestone_review_brief.md) — the brief for a
+**Draft 2026-10-21, its questions decided by the owner the same day:** [milestone_review_brief.md](milestone_review_brief.md) — the brief for a
 critical review of the whole model at each milestone (end of version 2's stages 2 and 3, before a tag, before an
 outside review), run by a session
 without the build history on either Mac: what it checks, how it is set up, the report's form and how it is triaged.

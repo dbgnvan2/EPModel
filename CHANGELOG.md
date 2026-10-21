@@ -4,6 +4,15 @@ All notable changes to this project are recorded here. Dates are ISO.
 
 ## [Unreleased] — 2026-10-11
 
+### The milestone review brief's four questions decided (2026-10-21)
+
+- **The owner decided §8's questions**, each asked separately and each answered with the recommended option: Q1, the
+  milestones stay the end of stages 2 and 3, before any tag and before an outside review; Q2, the second Mac runs it
+  by default; Q3, one worker per lens plus the challenge pass; Q4, the first review runs now, over stage 1 from the
+  tag `version-1`. The brief's status line, §2, §3 and §8 record this; it is still a draft.
+- CLAUDE.md and the checklist's entry no longer call the brief "pending owner review", so
+  `tests/test_stale_text.py`'s `PENDING` is empty again.
+
 ### The milestone review brief revised after the second Mac's review of it (2026-10-21)
 
 - **The review.** At the owner's request the second Mac reviewed the brief itself, ran its §3 commands, and pushed

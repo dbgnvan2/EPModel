@@ -170,7 +170,8 @@ verdicts over ensembles (`tools/phase_d_record.py`; plan step 12). Mutations are
 **Generated, 2026-10-19:** [version_2_stage_1_changes.md](version_2_stage_1_changes.md) — every record's rows compared with the same rows at the tag `version-1`, from `tools/record_changes.py`: each changed verdict, moved effect and changed value, and what could not be compared. Stage 1 changed none.
 
 **Draft, for owner review (2026-10-21):** [milestone_review_brief.md](milestone_review_brief.md) — the brief for a
-critical review of the whole model at each milestone (end of a version 2 stage, before a tag), run by a session
+critical review of the whole model at each milestone (end of version 2's stages 2 and 3, before a tag, before an
+outside review), run by a session
 without the build history on either Mac: what it checks, how it is set up, the report's form and how it is triaged.
 
 **Built 2026-10-20:** [plan_doc_claim_tests.md](plan_doc_claim_tests.md) — tests that fail when a document restates a fact that has since changed: the spec revision in four places, repo paths in README and CLAUDE.md, `requirements.txt` against the imports, the suite-size pattern widened, and status claims checked against each document's own status line, both ways. Each test with the files it reads and the mutation that proves it fails; the build record (§12) and each criterion's status (§13). Approved by the owner 2026-10-20.

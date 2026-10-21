@@ -4,6 +4,33 @@ All notable changes to this project are recorded here. Dates are ISO.
 
 ## [Unreleased] — 2026-10-11
 
+### The milestone review brief revised after the second Mac's review of it (2026-10-21)
+
+- **The review.** At the owner's request the second Mac reviewed the brief itself, ran its §3 commands, and pushed
+  `docs/cycles/2026-10-21_brief-review_mini1.md` on the branch `review/brief-2026-10-21`: three major and nine minor
+  findings. Each was checked here against the brief and the repo before triage.
+- **Refuted as stated: MR-1** (the brief wrongly made the `KB` interviews no-verbatim). The rule is in
+  `docs/theory/_SOURCE_QUALITY.md` ("MUST NOT be quoted verbatim") and the explainer's citation legend, so the brief
+  was right. The review was misled because `_LEDGER.md`'s source table and CLAUDE.md gave only "cite the interview,
+  not the man". Owner decision: both now also say "no verbatim quotation" (no rule change), and the brief names where
+  the rule lives and adds `_SOURCE_QUALITY.md` to L1's slice.
+- **Fixed in the brief, as found:** workers are read-only, so the orchestrator hands them the diff and runs anything
+  that must be run (MR-2); L1, L2 and L3's slices gain the spec's `M10`–`M11`, the mutation records, the result
+  documents and the claim tests they need (MR-3); one `learning-qa` pass and one correctness pass per batch, as
+  CLAUDE.md says (MR-4); a second command for each Python version's CI result (MR-6); step 5's filter gains
+  `requirements.txt`, `pytest.ini`, `.github/`, `README.md` and `CLAUDE.md`, but not the dated logs (`CHANGELOG.md`,
+  `TODO.md`, `LEARNINGS.md`), which are history (MR-7), so Q4's figures are now 107
+  files, about 7,400 lines added and 700 removed; two dates and a count in §1 (MR-8; its first part held only in
+  part); CLAUDE.md's and the checklist's milestone summaries now match §2 (MR-9); a source for the token figure
+  (MR-11); confidence, verified and found-by fields in §6 (MR-12); `git fetch origin --tags`.
+- **Owner decisions (2026-10-21):** step 3 runs the suite once on an interpreter in CI's matrix, and a failure only
+  outside the matrix does not stop the review (MR-5); minor findings are not challenged, and triage checks each
+  before recording it (MR-10); Group G and the event sizes get no review of their own, the end-of-stage-2 review
+  covers them (the review's question 2). §8's questions Q1–Q4 are still open.
+- **Checked:** a narrow `learning-qa` fact-check on Sonnet over this diff (about 4 minutes, about 102k tokens) found
+  six consistency items, among them §6's header still asking for two suite counts and §7 checking minor findings only
+  when there were three or fewer; all were fixed.
+
 ### A brief for milestone critical reviews (2026-10-21)
 
 - **`docs/milestone_review_brief.md`** (new, draft for owner review; owner request 2026-10-21): a critical review of

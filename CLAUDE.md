@@ -31,8 +31,8 @@ Read the relevant file from `~/.claude/standards/` before starting work:
 | `docs/bowen_individual_family_model_spec.md` | **v1.2, FROZEN** — describes the retired grid engine only | historical record; do not extend |
 
 **Six corpus sources, and they are not one evidence class.** The 22 papers (1957–76, `L`); the 1979
-video lectures (`Tape N`, **ASR — no verbatim quotation**); the Kerr–Bowen interviews (`KB`, **ASR — cite
-the interview, not the man**); Kerr & Bowen, *Family Evaluation* (1988) — `FE`, written, and its
+video lectures (`Tape N`, **ASR — no verbatim quotation**); the Kerr–Bowen interviews (`KB`, **ASR — no verbatim
+quotation; cite the interview, not the man**); Kerr & Bowen, *Family Evaluation* (1988) — `FE`, written, and its
 **Epilogue is Bowen's own, the latest primary Bowen text in the project**; Kerr, *Bowen Theory's
 Secrets* (2019) — `KS`, written, some chapters `[K-ext]`; and the DSI literature. **Every claim carries
 an attribution grade as well as an evidence grade** — `[B]` Bowen, `[K]` Kerr, `[K-ext]` Kerr's own
@@ -109,6 +109,7 @@ defect, not a lag.
   fix-loop re-sweep gets a narrow brief (the fix diff and the claims it changes) on a cheaper model (`model:
   "sonnet"`). If a sweep returns three or fewer minor items, record them in `TODO.md` and move on (owner rule).
   State the cost (wall time, tokens) before proposing another loop.
-- **Milestone reviews** (draft, `docs/milestone_review_brief.md`, pending owner review): at the end of each version 2
-  stage and before any tag, a session without the build history reviews the whole model against the brief's four
-  lenses, theory fidelity first, and writes one report to `docs/cycles/` on its own branch. Triage happens here.
+- **Milestone reviews** (draft, `docs/milestone_review_brief.md`, pending owner review): at the end of version 2's
+  stages 2 and 3, before any tag and before an outside review (the brief's §2), a session without the build history
+  reviews the whole model against the brief's four lenses, theory fidelity first, and writes one report to
+  `docs/cycles/` on its own branch. Triage happens here.

@@ -77,7 +77,7 @@ whether its status marker says `[stands]`.
 |---|---|---|---|
 | The book, 22 chapters | published papers, 1957–1976 | `Ch16 · L16.2` | none — a single word can be load-bearing |
 | 1979 Basic Video Series, 6 tapes | Bowen lecturing | `Tape 5` | ASR; substance reliable, **no verbatim quotation** |
-| Kerr–Bowen interviews, 15 | Bowen and his successor in dialogue, late period | `KB04 · K04.1` | ASR, no speaker separation; **cite the interview, not the man**; questions are ~99% Kerr |
+| Kerr–Bowen interviews, 15 | Bowen and his successor in dialogue, late period | `KB04 · K04.1` | ASR, no speaker separation; **no verbatim quotation**; **cite the interview, not the man**; questions are ~99% Kerr |
 | **Kerr, *Bowen Theory's Secrets* (2019)** | **published book by Bowen's successor — 24 chapters, intro, epilogue** | `KS11 · KS11.2` | **none — written, author-edited, verbatim quotation permitted.** The best evidence class since the book itself |
 | **Kerr & Bowen, *Family Evaluation* (1988)** | **published book — Kerr wrote Chs 1–10, Bowen the Epilogue, and they wrote *independently*** | `FE07 · FE07.2` | **none — written, author-edited, verbatim quotation permitted.** The Epilogue is **`[B]`: the latest primary Bowen text in the project** |
 | External measures | the DSI and its literature | `_EXTERNAL_MEASURES.md` | post-hoc, by other researchers |

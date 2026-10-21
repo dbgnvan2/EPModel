@@ -372,12 +372,42 @@ def test_s1_3b_an_undeclared_act_fails_to_load(tmp_path):
 
 
 def test_s1_3a_kinds_without_act_classes_fail_where_a_class_is_read():
-    """Kinds built without the act classes carry None, not an empty set, so the policy fails where it reads a class
-    instead of treating every act as in none (review 2026-10-19)."""
-    from src.bowen.engine.events import ACT_CLASSES, EventKinds
-    from src.bowen.io.load import load_event_kinds
+    """Kinds built without the act classes carry None, not an empty set, so the code that reads a class fails instead
+    of treating every act as in none (review 2026-10-19). Each of the three reads is reached with unclassed kinds and
+    must raise (review MR-25, 2026-10-21): `coach_side` reads `side_taking` (a move is in the coach's window), and
+    `legal_outcomes` reads `family_to_external` for a family member and `external_repertoire` for an external agent.
+    Mutation: an `or ()` default at any one of the three reads passes silently and turns this red."""
+    import dataclasses
+
+    from src.bowen.engine.events import ACT_CLASSES, Channel, Event, EventId, EventKinds, Mechanism, SourcePosition
+    from src.bowen.engine.external import coach_side
+    from src.bowen.engine.identifiers import PersonId
+    from src.bowen.engine.initialise import initialise_run
+    from src.bowen.engine.observe import observe
+    from src.bowen.engine.state import new_run_state
+    from src.bowen.io.load import CONFIG_DIR, load_event_kinds, load_family
+    from src.bowen.policy.policy import legal_outcomes
+    from src.bowen.scenario.params import engine_params
 
     kinds = load_event_kinds()
     assert all(getattr(EventKinds(kinds.mechanisms), c) is None for c in ACT_CLASSES)
     assert all(getattr(kinds, c) for c in ACT_CLASSES)  # loaded, each class has acts
+    unclassed = dataclasses.replace(kinds, **{c: None for c in ACT_CLASSES})
+    params = engine_params(load_constants())
+    family = load_family(CONFIG_DIR / "family_phase_c.md")
+    state = initialise_run(new_run_state(dict(family.people), dict(family.ties), family.family, unclassed), params)
+    ravi, marta, halim = PersonId("ravi"), PersonId("marta"), PersonId("halim")
+    state.store.record_event(Event(
+        id=EventId(9, "marta-SPLIT", 0), kind="SPLIT", mechanism=Mechanism.MOVE, sender=marta, targets=(halim,),
+        intensity=50.0, timestamp=9, duration=1, exogenous=False, source_position=SourcePosition.NONE,
+        channel=Channel.SCRIPTED))
+    state.tick = 10
+    family_member, external = observe(state, ravi, params), observe(state, halim, params)
+    assert not family_member.external and external.external
+    with pytest.raises(TypeError, match="NoneType"):
+        coach_side(state, halim, (ravi, marta), params)
+    with pytest.raises(TypeError, match="NoneType"):
+        legal_outcomes(family_member, unclassed, params)
+    with pytest.raises(TypeError, match="NoneType"):
+        legal_outcomes(external, unclassed, params)
 

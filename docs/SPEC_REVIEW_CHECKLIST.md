@@ -11,8 +11,10 @@ without this list being updated, and when a link here points at a file that no l
 are parsed by `src/bowen/io/load.py` at run time, so they stay with the config; they are linked from here.
 
 **Approved, for an outside reviewer:** [REVIEWER_READING_LIST.md](REVIEWER_READING_LIST.md) (approved by the owner
-2026-10-20; its branch guidance revised 2026-10-21, not yet reviewed) selects the documents that describe what the model does and how it works, in reading
-order, says which version to review, and lists known problems in the documents.
+2026-10-20; revised 2026-10-21, not yet reviewed by the owner: "Before you start", §8's 2026-10-21 entry, §9's link to
+the milestone review brief, and corrections from the stage 1 milestone review) selects the documents that describe
+what the model does and how it works, in reading order, says which version to review, and lists known problems in the
+documents.
 
 Reviewer: ________  Started: ________  Spec revision reviewed: ________
 
@@ -48,9 +50,11 @@ These define what the model does. A run that disagrees with them is a defect.
 - [ ] [../config/bowen/family_reduced.md](../config/bowen/family_reduced.md) — the reduced family.
 - [ ] [../config/bowen/fixtures/](../config/bowen/fixtures/) — the test families (dyad, triad, nuclear four) the
       criteria run on.
-- [ ] [../config/bowen/criteria.md](../config/bowen/criteria.md) — how each acceptance criterion is set up.
-- [ ] [../config/bowen/criterion_roles.md](../config/bowen/criterion_roles.md) — each criterion's class (premise or
-      finding, `M11.5`).
+- [ ] [../config/bowen/criteria.md](../config/bowen/criteria.md) — the settings each acceptance criterion's arms
+      declare (horizons, levels, stress, spells).
+- [ ] [../config/bowen/criterion_roles.md](../config/bowen/criterion_roles.md) — who plays each role in a criterion.
+      A criterion's class (premise, composite, check or mixed) is in the spec's `M11.5` table and in the class
+      column of the ensemble records, not here.
 - [ ] [readouts_phase_c.md](readouts_phase_c.md) — how each pattern (conflict, distance, over/underfunctioning, …)
       is read from a run. Needed to judge whether a run shows a pattern.
 
@@ -76,7 +80,8 @@ Decision records. For each, confirm the decision appears in the spec as approved
 - [ ] [proposal_rev11_emergence.md](proposal_rev11_emergence.md) — revision 11 (set / random / emergent). Where it
       and the spec differ, the spec wins.
 - [ ] [<DECISIONS — PHASE C FAILING.md>](<DECISIONS — PHASE C FAILING.md>) — the failing Phase C criteria.
-- [ ] [<DECISIONS — CUTOFF SEMANTICS.md>](<DECISIONS — CUTOFF SEMANTICS.md>) — whether the engine's CUTOFF should become rejection (open).
+- [ ] [<DECISIONS — CUTOFF SEMANTICS.md>](<DECISIONS — CUTOFF SEMANTICS.md>) — whether the engine's CUTOFF should
+      become rejection (built 2026-10-11, option B, `M1.B.3c`).
 - [ ] [<PROPOSAL — TRIANGLE RELIEF AND CREDIT.md>](<PROPOSAL — TRIANGLE RELIEF AND CREDIT.md>) — what a triangle
       relieves (`M1.C.1`, `M4.D.6e`, `M11.C.3`). Built.
 
@@ -163,13 +168,13 @@ verdicts over ensembles (`tools/phase_d_record.py`; plan step 12). Mutations are
 
 **Generated, 2026-10-17:** [version_1_status.md](version_1_status.md) — every `M11.C` criterion with its status under V1–V3, read from the ensemble and mutation records and the dispositions, from `tools/version_1_status.py`. Frozen at the tag `version-1` (`d62cfdc`) since 2026-10-19: a default-suite test checks it and the dispositions against the tag and runs the tag's status tests.
 
-**Approved 2026-10-19:** [version_2_plan.md](version_2_plan.md) — what version 2 of the agent model is for: version 1's accepted findings grouped by cause, its loose ends, four stages (freeze version 1, one engineering batch, the constant sweep, the rule questions the owner chooses), a definition (W1–W8), and ten questions, all answered by the owner on 2026-10-19. Stage 0 done 2026-10-19; stage 1 built and its records regenerated 2026-10-19 (no verdict changed).
+**Approved 2026-10-19:** [version_2_plan.md](version_2_plan.md) — what version 2 of the agent model is for: version 1's accepted findings grouped by cause, its loose ends, five stages (0 to 4: freeze version 1, one engineering batch, the constant sweep, the rule questions the owner chooses, and a corpus-fidelity check inside each stage 3 proposal), a definition (W1–W8), and ten questions, all answered by the owner on 2026-10-19. Stage 0 done 2026-10-19; stage 1 built and its records regenerated 2026-10-19 (no verdict changed).
 
 **Approved 2026-10-19:** [implementation_plan_version_2.md](implementation_plan_version_2.md) — version 2's implementation plan, stage 1 (the engineering batch): what the code shows against the version 2 plan's items 1.1–1.8, seven decisions (D1–D7, decided by the owner 2026-10-19, all as recommended), each criterion with its test and mutation, the order of work, and the one run. Code, tests and documents built 2026-10-19, and every record regenerated the same day (its §1.10).
 
-**Generated, 2026-10-19:** [version_2_stage_1_changes.md](version_2_stage_1_changes.md) — every record's rows compared with the same rows at the tag `version-1`, from `tools/record_changes.py`: each changed verdict, moved effect and changed value, and what could not be compared. Stage 1 changed none.
+**Generated, 2026-10-19:** [version_2_stage_1_changes.md](version_2_stage_1_changes.md) — the records in its table compared, row by row, with the same rows at the tag `version-1`, from `tools/record_changes.py`: each changed verdict, moved effect and changed value; the other records are listed under "Not compared here" (review MR-20, 2026-10-21). Stage 1 changed none.
 
-**Draft 2026-10-21, its questions decided by the owner the same day:** [milestone_review_brief.md](milestone_review_brief.md) — the brief for a
+**Approved 2026-10-21:** [milestone_review_brief.md](milestone_review_brief.md) — the brief for a
 critical review of the whole model at each milestone (end of version 2's stages 2 and 3, before a tag, before an
 outside review), run by a session
 without the build history on either Mac: what it checks, how it is set up, the report's form and how it is triaged.

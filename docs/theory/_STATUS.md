@@ -1,13 +1,27 @@
 # Run status — HANDOFF
 
-> ## ▶ STATE — the corpus is closed. **Version 1 is complete (2026-10-18) and tagged `version-1` at `d62cfdc`; its spec is revision 32. Version 2 began at revision 33; stage 1 was built and its records regenerated 2026-10-19, and no verdict changed.**
+> ## ▶ STATE — the corpus is closed. **Version 1 is complete (2026-10-18) and tagged `version-1` at `d62cfdc`; its spec is revision 32. Version 2 began at revision 33; stage 1 was built and its records regenerated 2026-10-19 and pushed 2026-10-20, and no verdict changed. Work goes on `main` (owner, 2026-10-21).**
+>
+> **2026-10-20 and 2026-10-21 — stage 1 pushed; the documents and the review process brought up to date.** Stage 1 was
+> pushed 2026-10-20 with CI green, after its cold sweep's fixes. Also 2026-10-20: the document-claim tests were merged
+> (`docs/plan_doc_claim_tests.md`); `docs/spec_coverage.md` now reads every record and judges every built ID
+> (`docs/plan_spec_coverage_phase_d.md` Parts A and B; 575 IDs: 291 done, 136 partial, 148 not done);
+> `docs/REVIEWER_READING_LIST.md` was approved by the owner. 2026-10-21: `main` was fast-forwarded to `plan-phase-b` and
+> work moved to `main` (owner); CI's Python 3.11 job was fixed; `docs/milestone_review_brief.md` was written, revised
+> after the second Mac's review and approved by the owner after its first run, the stage 1 review
+> (`docs/cycles/2026-10-21_milestone-review_v2-stage-1.md`, branch `review/2026-10-21-v2-stage-1`), triaged the same day.
+> No code or config that changes what a run computes changed. **Next:** the proposal to paraphrase the quoted ASR
+> passages (the review's SP-1, owner 2026-10-21), which goes into spec revision 34 with the review's spec wording
+> fixes; then the G2 proposal, group G and the event sizes as one revision and one regeneration, and stage 2's pilot
+> (`docs/version_2_plan.md` §6; `TODO.md`).
 >
 > **2026-10-19 — version 2 stage 1, spec revision 33, built** (`docs/implementation_plan_version_2.md` §1, approved
 > by the owner 2026-10-19 with D1–D7 as recommended; build record §1.10): the grid engine retired (`M13.2` amended),
 > every float total a `math.fsum`, the canonical state sees stressors, the act classes in config, triangle activity
 > decided by presence (`M8.5` amended), the renderer out of the engine hash and the Phase D ensembles cached. No rule
-> changed. The one regeneration ran the same day (3 h 35 min); `docs/version_2_stage_1_changes.md` compares every
-> record with the tag `version-1`: no verdict changed and no value differs.
+> changed. The one regeneration ran the same day (3 h 35 min); `docs/version_2_stage_1_changes.md` compares the
+> records in its table (the ensemble, mutation, sweep and level-occupancy records) with the tag `version-1` and lists
+> the rest as not compared: no verdict changed and no value differs.
 >
 > **2026-10-18 — version 2 planned** (approved by the owner 2026-10-19, all ten questions answered): `docs/version_2_plan.md` proposes freezing version 1, one
 > engineering batch, `M17.E.1`'s constant sweep with a timed pilot, then the rule questions the owner chooses. Ten owner
@@ -251,10 +265,10 @@
 | `family_evaluation/` | **Kerr & Bowen, *Family Evaluation* (1988)** — 12 files, 219 findings, `_FE_PASS2.md`, `_INDEX.md` | **current.** ⚠ Two authors writing **independently**: Chs 1–10 are `[K]`, the Epilogue is **`[B]`, the latest primary Bowen text in the project** |
 | `kerr_book/` | Kerr, *Bowen Theory's Secrets* (2019) — 26 files, 262 findings, `_KS_PASS2.md` | current |
 | `_KERR_INTERVIEWS.md` | Kerr–Bowen interview #1, late period — the misconceptions interview | current; rest of the series not located |
-| `_LECTURES_1979.md` | the Basic Video Series (1979) — the latest Bowen in the project — and a first adjudication pass | current; 12 of 23 items probed |
+| `_LECTURES_1979.md` | the Basic Video Series (1979) — the latest Bowen in the project — and a first adjudication pass | current; all 23 items probed |
 | `_EXTERNAL_MEASURES.md` | the DSI and what it does and does not give the model | current |
 | `_TEMPLATE.md` | extraction schema | reference |
-| `../agent_model_proposal.html` | **the model proposal — repo copy, source of truth** | **STALE — see "Known stale" below** |
+| `../agent_model_proposal.html` | **the model proposal — repo copy, source of truth** | **current** (the "Known stale" section below is resolved) |
 
 Source texts: `/Volumes/CrucialX9/Downloads Duplicate SERP/fticp_chapters  TXT files/`
 Published proposal: https://claude.ai/code/artifact/86573afe-ecb3-4083-9c82-2e6094a04f43
@@ -469,6 +483,10 @@ User reviews the finished set -> implementation plan -> plan approved -> **only 
 - Repo: new package `src/bowen/` alongside `engine.py`; old engine and its 36 tests stay green until
   the new one passes the acceptance tests. Freeze `bowen_individual_family_model_spec.md` as a v1.2
   record; write v2 fresh.
+  **Withdrawn, for the old engine (its place beside the new package, and the green-until condition):** the grid
+  engine was retired at version 2 stage 1 on 2026-10-19 (spec revision 33, `S1.6`, owner decision D4 in
+  `docs/implementation_plan_version_2.md`; spec `M13.2` amended). It is in git history and at the tag `version-1`, no
+  longer in the tree. The freeze of the v1.2 spec stands.
 
 ---
 

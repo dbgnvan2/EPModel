@@ -128,8 +128,11 @@ any that does is reported as a measured change.
   `M11.C.10`'s two variants under their own keys in the D2 record. Both regenerate with this stage's one run.
 - **1.8** Render fixes made cheap (owner 2026-10-19): take `src/bowen/render/` out of `code_hash`, and cache the Phase D
   ensemble results in `docs/records_cache/` as the Phase C records' are, so a later change to the trace renderer or a
-  record renderer re-renders in seconds. No verdict reads the trace renderer: only `src/bowen/run.py`'s `--trace` and
-  the trace tools import it. Changing the hash's definition makes every record stale, so it belongs in this stage's run.
+  record renderer re-renders in seconds. (This is true of the Phase C mutation, sweep and diagnostic records. The
+  Phase C ensemble record is not rendered from `docs/records_cache/` yet — see the comment on `HASHED_TOOLS` in
+  `tools/ensemble_record.py` — and moving it is planned with Group G's regeneration, owner 2026-10-21.) No verdict
+  reads the trace renderer: only `src/bowen/run.py`'s `--trace` and the trace tools import it. Changing the hash's
+  definition makes every record stale, so it belongs in this stage's run.
 
 ### Stage 2 — Measurement (Phase E core)
 

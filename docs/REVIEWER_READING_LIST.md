@@ -1,9 +1,12 @@
 # Reading list for an outside reviewer
 
-**Status: approved by the owner 2026-10-20 (drafted 2026-10-19); its branch guidance ("Before you start") revised
-2026-10-21 after `main` was brought up to date, not yet reviewed by the owner.** It lists the documents that describe what EPModel
-does and how it works, in the order a reviewer with no prior contact with the project should read them. It was last
-checked on 2026-10-21, after version 2 stage 1 was pushed (CI green), the document-claim tests were merged, the
+**Status: approved by the owner 2026-10-20 (drafted 2026-10-19); revised 2026-10-21, not yet reviewed by the owner:
+"Before you start" (after `main` was brought up to date), §8's 2026-10-21 entry, §9's link to the milestone review
+brief, and corrections from the stage 1 milestone review (§2's entry for the two criterion config files, §5's
+entry for the stage 1 comparison, §6's entry for the source-quality notes, §7's entry for version 2's plan, and §8's
+entries for what that review left open and fixed).** It lists the documents that describe what
+EPModel does and how it works, in the order a reviewer with no prior contact with the project should read them. It was
+last checked on 2026-10-21, after version 2 stage 1 was pushed (CI green), the document-claim tests were merged, the
 coverage page's Parts A and B were built and GitHub's default branch `main` was brought up to date.
 
 This list selects and orders; it does not replace the full index. Every file under `docs/` and `config/bowen/` is in
@@ -21,7 +24,7 @@ goes on `main` (owner decision 2026-10-21). `plan-phase-b` stays on GitHub as hi
 | Review this | When |
 |---|---|
 | the branch **`main`** | to review the current state, and to read this list. Version 2 began at spec revision 33. Its stage 1, an engineering batch that changed no rule, was built 2026-10-19 and changed no criterion's verdict. Its later stages are planned, not built. |
-| the tag **`version-1`** (commit `d62cfdc`) | to review the complete, frozen version 1 model. Finished 2026-10-18 and tagged by the owner 2026-10-19; its spec is revision 32. The tag does **not** contain this list or the version 2 documents it links (`version_2_stage_1_changes.md`, `implementation_plan_version_2.md`, `plan_spec_coverage_phase_d.md`), and it still contains the retired grid engine. |
+| the tag **`version-1`** (commit `d62cfdc`) | to review the complete, frozen version 1 model. Finished 2026-10-18 and tagged by the owner 2026-10-19; its spec is revision 32. The tag does **not** contain this list or the version 2 documents it links (`version_2_stage_1_changes.md`, `implementation_plan_version_2.md`, `plan_spec_coverage_phase_d.md`, `plan_doc_claim_tests.md`, `milestone_review_brief.md`), and it still contains the retired grid engine. |
 
 Read this list on `main`. To look at version 1 beside it, check the tag out in a second folder:
 
@@ -74,7 +77,7 @@ The spec is the authority. A run or a piece of code that disagrees with it is a 
 | [../config/bowen/constants_changes.md](../config/bowen/constants_changes.md) | Every change to those values, and why. |
 | [../config/bowen/family_phase_d.md](../config/bowen/family_phase_d.md) | The reference family (eleven people in three generations, plus an outside coach) and its life course. |
 | [../config/bowen/event_kinds.md](../config/bowen/event_kinds.md), [../config/bowen/policy.md](../config/bowen/policy.md) | The kinds of act, and how an agent selects one. |
-| [../config/bowen/criteria.md](../config/bowen/criteria.md), [../config/bowen/criterion_roles.md](../config/bowen/criterion_roles.md) | How each acceptance criterion is set up, and whether it is a **premise** (passing confirms the code) or a **finding** (passing or failing says something about the model). A premise passing must never be reported as a finding. |
+| [../config/bowen/criteria.md](../config/bowen/criteria.md), [../config/bowen/criterion_roles.md](../config/bowen/criterion_roles.md) | How each acceptance criterion is set up: `criteria.md` holds the settings its arms declare (horizons, levels, stress, spells), and `criterion_roles.md` names the people who play each role. They do not classify the criteria. The class is in the spec's `M11.5` table and in the class column of each ensemble record: a **premise** (passing confirms the code), a **composite** (several mechanisms acting together; passing or failing says something about the model), a **check** (an instrument, a conservation law or the architecture) or a **mixed** criterion with limbs of two classes. A premise passing must never be reported as a finding. |
 
 The other files in `config/bowen/` (which acts count for each pattern, which acts relieve stress, which acts draw an
 outsider onto a side, nodal events, the test families in `fixtures/`, and so on) are model inputs parsed at run time;
@@ -140,7 +143,7 @@ Start with the definition and the status page; open the records when you want to
 | [version_1_definition.md](version_1_definition.md) | What "version 1 is finished" means: seven conditions (V1–V7), each checked by a test, a record or an owner sign-off, and the owner's decisions. |
 | [version_1_status.md](version_1_status.md) | **Every acceptance criterion's status** at version 1, generated from the records. Frozen at the tag `version-1`. |
 | [version_1_dispositions.md](version_1_dispositions.md) | For each criterion that does not pass: accepted as a finding, out of scope, or withdrawn, with the reason and who decided. |
-| [version_2_stage_1_changes.md](version_2_stage_1_changes.md) | Every record at the tag `version-1` compared with the same record after version 2 stage 1. Generated. No verdict changed. |
+| [version_2_stage_1_changes.md](version_2_stage_1_changes.md) | The records in its table (the ensemble, mutation, sweep and level-occupancy records) at the tag `version-1` compared with the same records after version 2 stage 1; the other records and generated pages are listed under "Not compared here". Generated. No verdict changed. |
 | [phase_c_ensemble_record.md](phase_c_ensemble_record.md), [phase_d_ensemble_record.md](phase_d_ensemble_record.md), [phase_d2_ensemble_record.md](phase_d2_ensemble_record.md) | Each criterion's verdict over many seeds, per build phase. |
 | [phase_c_mutation_record.md](phase_c_mutation_record.md), [phase_d_mutation_record.md](phase_d_mutation_record.md) | Each criterion shown to fail when the mechanism it tests is removed from the code. |
 | [phase_c_sweep_record.md](phase_c_sweep_record.md), [phase_c_diagnostic_record.md](phase_c_diagnostic_record.md), [phase_c_level_occupancy.md](phase_c_level_occupancy.md) | Parameter sweeps, diagnostic variants, and one criterion's level occupancy. Reported, not used as verdicts. |
@@ -158,7 +161,7 @@ Read this part to check that a claim presented as sourced is sourced.
 | [theory/_LEDGER.md](theory/_LEDGER.md) | **What the six source texts say**, finding by finding, each with an evidence grade and an attribution grade (Bowen, Kerr, or Kerr's own extension). The source of truth for every citation. About 2,900 lines. |
 | [theory/_CONVERGENCES.md](theory/_CONVERGENCES.md) | Ten findings that recur across chapters, with an audit of whether the recurrences are independent. |
 | [theory/_RESOLUTIONS.md](theory/_RESOLUTIONS.md), [theory/_PASS2_CORRECTIONS.md](theory/_PASS2_CORRECTIONS.md) | How contradictions in the sources were resolved; what a second reading corrected or withdrew from the first, including numbers that had been treated as calibration targets. |
-| [theory/_SOURCE_QUALITY.md](theory/_SOURCE_QUALITY.md) | What each source can support. Two are speech-recognition transcripts and are never quoted verbatim. |
+| [theory/_SOURCE_QUALITY.md](theory/_SOURCE_QUALITY.md) | What each source can support. Two are speech-recognition transcripts, which must not be quoted verbatim; the spec, the explainer and the ledger still quote them in places (§8). |
 | [<theory/Extractions to be human validated.md>](<theory/Extractions to be human validated.md>) | Extractions the model relies on that no person has checked yet. |
 | `theory/ch01.md`–`ch22.md`, [theory/family_evaluation/](theory/family_evaluation/), [theory/kerr_book/](theory/kerr_book/), [theory/kb/](theory/kb/) | The per-source extractions the ledger summarizes. Open one when a ledger entry looks wrong. |
 | [<DECISIONS — FAMILY EVALUATION.md>](<DECISIONS — FAMILY EVALUATION.md>), [proposal_rev11_emergence.md](proposal_rev11_emergence.md), [<DECISIONS — PHASE C FAILING.md>](<DECISIONS — PHASE C FAILING.md>) | The main owner decisions behind the spec: the sixth source's contradictions, the rule that patterns emerge rather than being written, and the handling of failing criteria. The other decision and proposal files are listed in the checklist. |
@@ -168,7 +171,7 @@ Read this part to check that a claim presented as sourced is sourced.
 
 | Document | What it tells you |
 |---|---|
-| [version_2_plan.md](version_2_plan.md) | What version 2 is for: version 1's accepted findings grouped by cause, its loose ends, four stages, and a definition of "finished". Approved 2026-10-19. |
+| [version_2_plan.md](version_2_plan.md) | What version 2 is for: version 1's accepted findings grouped by cause, its loose ends, five stages (0 to 4; stage 4 is a check inside each stage 3 proposal), and a definition of "finished". Approved 2026-10-19. |
 | [implementation_plan_version_2.md](implementation_plan_version_2.md) | Stage 1, the engineering batch: its decisions, criteria, tests and build record. Built 2026-10-19, pushed 2026-10-20 with CI passing. |
 | [<PROPOSAL — CUTOFF ANXIETY, BRIDGING AND REPAIR.md>](<PROPOSAL — CUTOFF ANXIETY, BRIDGING AND REPAIR.md>), [<PROPOSAL — EVENT SIZES FROM THE HOLMES–RAHE SCALE.md>](<PROPOSAL — EVENT SIZES FROM THE HOLMES–RAHE SCALE.md>) | Two version 2 rule changes. Each records the owner's answer to every question (2026-10-19). Neither is built; both wait for a third proposal (G2) to be built with it. |
 | [<PROPOSAL — LEARNING BY LEVEL, ASKING WHAT TO DO DIFFERENTLY.md>](<PROPOSAL — LEARNING BY LEVEL, ASKING WHAT TO DO DIFFERENTLY.md>) | A version 2 rule question raised by the owner. A draft; nothing decided. |
@@ -183,6 +186,12 @@ A reviewer should know these before reading.
 **Open:** [spec_coverage.md](spec_coverage.md)'s notes record places where the spec and the code disagree, for
 example `M1.A.7` (a parents'-mean term against "MUST NOT be computed from a family average"), `M1.A.18` (a hard 0.3
 gate against "graded, not a hard gate") and `M7.E.1e` against `M7.E.1f`. They are listed in `TODO.md`, not resolved.
+
+**Open, from the stage 1 milestone review (2026-10-21):** the spec, the explainer, the ledger and
+`DECISIONS FOR APPROVAL.md` quote the two speech-recognition sources verbatim, in 103 places by the triage's count;
+a proposal to paraphrase them comes first. Spec wording held for revision 34, so the spec changes once: `M11.4`'s
+count of exceptions, the "four" callers of the live-positions predicate in M8 and `M13.1` (three exist), `M2.A.0i` on
+Dr Halim, Teodor's "awaiting owner review", and the closing clause of the spec's status line. `TODO.md` lists both.
 
 **Fixed since this list was first drafted:**
 
@@ -205,6 +214,10 @@ gate against "graded, not a hard gate") and `M7.E.1e` against `M7.E.1f`. They ar
   `tools/spec_coverage_overrides.json`.
 - 2026-10-21: GitHub's default branch `main` stopped at spec revision 11, and this list and the README told a
   reviewer to avoid it. `main` was fast-forwarded to `plan-phase-b`, and both documents now point to `main`.
+- 2026-10-21: the stage 1 milestone review's wording findings outside the spec. This list's entries for the criterion
+  config files, the stage 1 comparison page and version 2's stages; the checklist's status for the cutoff decision;
+  stale lines in `_STATUS.md` and the version 1 review guide; and the explainer's withdrawn "eight to ten generations"
+  target and its grade for the one-year slow tick.
 
 ## 9. Not relevant to how the model works now
 
@@ -216,7 +229,7 @@ history.
   [implementation_task_list.md](implementation_task_list.md),
   [bowen_individual_family_model_spec.md](bowen_individual_family_model_spec.md).
 - Build process: the Phase B, C and D implementation plans, [milestone_review_brief.md](milestone_review_brief.md)
-  (draft: how the project reviews itself at each milestone), [cycles/](cycles/) (QA-gate logs and review reports),
+  (approved 2026-10-21: how the project reviews itself at each milestone), [cycles/](cycles/) (QA-gate logs and review reports),
   [records_cache/](records_cache/) (cached results the records are rendered from), and the review forms for earlier
   spec revisions.
 - Files at the repository root that predate the agent model: `gemini.md`, `monte_carlo_results.txt`, `data/`.

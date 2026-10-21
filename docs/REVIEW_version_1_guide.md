@@ -3,8 +3,8 @@
 **Status: FOR OWNER REVIEW, drafted 2026-10-18 by Claude.** Nothing in it is decided, except the open questions on
 `M11.C.46`'s mutation clause, the nodal spike's narrowing and the four pending disposition notes, which the owner
 answered on 2026-10-19 (`docs/version_2_plan.md` §5, Q10). Version 1 was completed on
-2026-10-18 with conditions V1–V7 met (`docs/version_1_definition.md`, `docs/version_1_status.md`); the spec is frozen
-at v2.0 revision 32.
+2026-10-18 with conditions V1–V7 met (`docs/version_1_definition.md`, `docs/version_1_status.md`); version 1's spec is
+frozen at v2.0 revision 32 (the tag `version-1`).
 
 **What this is.** A guide for the owner's complete review of version 1, module by module (`M0` to `M17` of
 `docs/bowen_agent_model_spec_v2.md`), in an order meant for reading beside one run: the seed-7 trace
@@ -14,9 +14,9 @@ reviewed revisions; this one reviews the model as it stands.
 
 **How to use it.** Read an entry, look at the trace rows it names, then tick one box. *Approve* keeps the module as
 built. *Change* says what to change: Claude drafts the revision and its plan, and nothing is rebuilt before the plan
-is approved, as in the revisions 24–30 review. *Question* asks something Claude answers before the entry is decided. A
-change here is input to version 2: `TODO.md` records that no spec revision or code is made before the owner answers
-`docs/version_2_plan.md` §5.
+is approved, as in the revisions 24–30 review. *Question* asks something Claude answers before the entry is decided. The
+owner answered `docs/version_2_plan.md` §5 on 2026-10-19; a *Change* here becomes input to a version 2 stage 3
+proposal.
 
 **Each entry gives:**
 - what the module requires, in plain words, with the requirement IDs to look up;

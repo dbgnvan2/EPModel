@@ -36,7 +36,7 @@
       {
         "doc": "docs/theory/_STATUS.md",
         "phrase": "its 36 tests stay green",
-        "why": "the run log's section dated 2026-08-28, describing the grid engine's suite then"
+        "why": "the Standing decisions section (undated; the line was added in the commit of 2026-08-22), describing the grid engine's suite then; the decision is marked withdrawn there"
       }
     ]
   },

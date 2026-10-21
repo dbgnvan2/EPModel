@@ -363,11 +363,12 @@ about 2 hours on 10 cores plus the mutation records). Every step exited 0 and no
 | Phase D ensembles, part II (D2) | 5655 s |
 | Phase D mutation | 3866 s |
 
-`docs/version_2_stage_1_changes.md` (S1.10b) compares every record's rows with the tag `version-1`'s, every field
-(since the step 8 sweep; before, verdicts and mean differences only): **no verdict changed, no effect moved, and no
-value differs at all**, across 24 Phase C ensemble rows, 25 Phase D ensemble rows, 6
-D2 rows, 114 Phase C mutation rows, 14 Phase D mutation rows, 54 sweep rows and 4 level-occupancy rows. The records
-outside the page were checked by hand against the tag:
+`docs/version_2_stage_1_changes.md` (S1.10b) compares the rows of the records in its table with the tag `version-1`'s,
+every field (since the step 8 sweep; before, verdicts and mean differences only): **no verdict changed, no effect
+moved, and no value differs at all**, across 24 Phase C ensemble rows, 25 Phase D ensemble rows, 6
+D2 rows, 114 Phase C mutation rows, 14 Phase D mutation rows, 54 sweep rows and 4 level-occupancy rows. The page lists
+the records and generated pages it does not compare under "Not compared here". The records outside the page were
+checked by hand against the tag:
 - `docs/phase_c_diagnostic_record.md` changed only its hash line.
 - In the Phase D records, every row's full JSON (keys sorted) is the tag's, apart from the criterion labels S1.7b
   changed. The rest of their diff is key order, from rendering through the cache (S1.8c), and `M11.C.9`'s note,

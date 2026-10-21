@@ -16,6 +16,45 @@ Each entry gives the batch, how the miss was found, what the earlier passes miss
 missed it: the pattern was absent from the catalogue, the pattern was present but did not fire, or the code was
 outside the reviewed range.
 
+### 2026-10-21 · version 2 stage 1 (`version-1...9cf8552`) · first milestone review
+
+- **Why it ran.** The first milestone review (`docs/milestone_review_brief.md`), at the end of stage 1, from the tag
+  `version-1`. The second Mac ran it with none of the build history: four lens workers and a challenge pass. The
+  report is `docs/cycles/2026-10-21_milestone-review_v2-stage-1.md`, on branch `review/2026-10-21-v2-stage-1`
+  until it is merged.
+- **What it found.** 26 findings: 0 blocker, 4 major, 22 minor, in four themes. The triage refuted none: 22 hold as
+  stated and 4 in part. Most were already present at the tag, so the passes that missed them are version 1's, not
+  stage 1's.
+- **The main miss (SP-1: three of the four majors, MR-1, MR-3 and MR-4, and two minors).** The 1979 tapes and the
+  Kerr–Bowen interviews are speech recognition, and the rule for them has two parts: cite the source, and do not quote
+  it. The triage's scan found 103 verbatim quotations in the spec, the explainer, `_LEDGER.md` and `DECISIONS FOR
+  APPROVAL.md`, 34 of them naming Bowen or Kerr, or "he", as the speaker. None was written before the rule: it was
+  committed for the tapes on 2026-08-23 at 11:50 (`528bb50`) and for the interviews at 13:09 the same day (`e14d3d7`).
+- **Why it was missed.** For the 2026-08-28 sweep, the pattern was absent from the catalogue: P33, an audit exhaustive
+  along one axis, was added on 2026-08-30. Quotations went on being written until version 1 ended, so for every pass
+  after that date the pattern was present and did not fire.
+  - The corpus-fidelity sweep of 2026-08-28 checked every quotation in the spec and counted 160 as "verbatim in the
+    corpus". For a written source an exact match is the pass. For an ASR source it is the breach. The sweep checked
+    the first part of the rule and reported the whole as checked.
+  - The `kb/*.md` extraction notes say "no verbatim quotation" in their headers and quote in their bodies. Every later
+    document copied from them, so the breach spread from the notes.
+  - No test reads the rule. It lives in `_SOURCE_QUALITY.md` and in the notes' headers.
+- **The smaller misses.**
+  - SP-2: stale prose in places the document-claim tests do not read, such as closing clauses of status lines,
+    counts in prose and the reading list's body (P6).
+  - SP-3: "done" claims more than is proved. The coverage headline did not say which rows a mutation proves, and the
+    spec says four mechanisms call the live-positions predicate where three do: the fourth site, `avoidance_available`,
+    is defined and tested but never called (P21).
+- **Rule.** When a source rule has more than one part, write a check for each part. A fidelity check for an ASR
+  source must flag an exact match, not pass it.
+- **Cost.** The review: 462,483 subagent tokens and 13 to 14 minutes (the report says 13; its clock reads 11:54 to 12:08), plus writing; the
+  orchestrator's own tokens were not measured. The triage: three agents checked every finding, about 534k tokens and
+  12 minutes. This batch's learning-qa and correctness passes: about 320k tokens; its narrow re-sweep, about 124k.
+- **Outcome (2026-10-21).** The owner decided ten questions. This batch fixed the wording findings outside the spec,
+  the explainer's two items (MR-2, MR-7), the coverage headline (MR-6) and two engineering items (MR-24, MR-25, the
+  test shown failing under an `or ()` default at each of its three reads). SP-1 goes to a proposal before any spec edit. The
+  spec's own wording fixes wait for revision 34 so the spec changes once. `TODO.md` lists the rest.
+
 ### 2026-10-20 · version 2 stage 1 (`579170c...3d70d3e`) · cold sweep
 
 - **Why it ran.** `/csdp` calibration: the batch needed four fix rounds. These were the step 6 review, its fix

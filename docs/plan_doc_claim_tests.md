@@ -179,8 +179,9 @@ added, it is either listed or given its own entry in the data file with a reason
   tests."
 - **D4.3** Two measured matches are dated history, and the data file lists each one with its document, exact phrase
   and reason: the proposal's closing note "Reviewed against `src/engine.py` at `a6e51b6`, 36 tests, all passing", and
-  `_STATUS.md`'s "old engine and its 36 tests stay green", in its section dated 2026-08-28. An entry whose phrase is no longer in its document fails, so the list cannot outlive what it
-  excuses.
+  `_STATUS.md`'s "old engine and its 36 tests stay green", under its undated "Standing decisions" heading (the line
+  was added in the commit of 2026-08-22, and the decision is now marked withdrawn there). An entry whose phrase is no
+  longer in its document fails, so the list cannot outlive what it excuses.
 - **D4.4** CLAUDE.md must still state "all N tests pass" (kept as it is).
 
 Measured: with the wider pattern, the only matches other than CLAUDE.md's 917 are the two in D4.3. The old pattern

@@ -326,6 +326,10 @@ def render(rows: list[dict], overrides_name: str, unmapped: list[str] | None = N
         "",
         f"**{len(rows)} IDs: {counts['done']} done, {counts['partial']} partial, {counts['not done']} not done.**",
         "",
+        "Only an `M11.C` criterion run as an ensemble needs a mutation record to have turned it red to be **done**.",
+        "Every other **done** row, a criterion run as a test among them, names a test that passes; the page does not",
+        "say whether that test was proved failing by mutation unless its note does.",
+        "",
         "| ID | Status | Evidence | Note |",
         "|---|---|---|---|",
     ]

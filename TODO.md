@@ -12,13 +12,16 @@ Deferred and adjacent items. Each carries enough context to act on later without
   page frozen and checked against it; the dispositions; the render-only fixes moved to stage 1 (owner).* Then stage 1
   (the engineering batch, with the grid engine retired, stage 0.3's two fixes, and the trace renderer out of the hash;
   *plan drafted 2026-10-19, `docs/implementation_plan_version_2.md` §1; D1–D7 decided and the plan approved by the owner the same day; built 2026-10-19, pushed 2026-10-20 with CI green*);
-  the G2 proposal, so group G (G1, G2, the Holmes–Rahe sizes) can go to one revision and be built before the stage 2
-  pilot; then proposals for groups C, F and A, each with the owner's note in the plan's §5 Q2.
+  *first, from the stage 1 milestone review (owner, 2026-10-21): the SP-1 proposal and spec revision 34, in the
+  review's section below;* the G2 proposal, so group G (G1, G2, the Holmes–Rahe sizes) can go to one revision and be
+  built before the stage 2 pilot; then proposals for groups C, F and A, each with the owner's note in the plan's §5 Q2.
 - [ ] **`/csdp` sweep of 2026-10-19, items not fixed** (each with its reason; the last three are the fix re-sweep's
   minor items, recorded under the owner's three-or-fewer rule).
   - The owner's Holmes–Rahe Q3 ("additions carry load", decided 2026-10-19) cited `KS07.1`, which §2 then misdescribed
     as a visit that raised a symptom; the source says it improved the wife's functioning. The decision stands with a
-    correction note beside it. The owner should look at it again before revision 33 is written.
+    correction note beside it. The owner should look at it again before revision 33 is written. *Not asked before
+    revision 33; the owner decided 2026-10-21 (stage 1 milestone review, Q14) that it is asked before group G's
+    build starts.*
   - [x] ~~`docs/review/phase_c_famdiag_seed7.json` comes from the same seed-7 run as the trace and chart but has no test
     that it is the current render (the trace and chart now do, `tests/bowen/test_render.py`). It is modified in the
     working tree and was not touched by the sweep. Add the same check once that edit is settled.~~ *Done 2026-10-20:
@@ -109,6 +112,60 @@ Deferred and adjacent items. Each carries enough context to act on later without
   - `M11.C.9` (sibling position) — the effect size is invented, so the test can only assert "a detectable difference", which is close to unfalsifiable. Decide whether it belongs in the suite or should be demoted to a readout.
   - `M11.C.11` shape — "three phases, not a step down" is a claim about curve shape; any automated version embeds an invented tolerance.
   - `M5.F.2` — the threshold separating a counterfeit move from a genuine one is invented and sets the result. **This is the model's most consequential invented constant.**
+
+## Version 2 stage 1 milestone review — open after the triage, 2026-10-21
+
+The review is `docs/cycles/2026-10-21_milestone-review_v2-stage-1.md` (the second Mac, branch
+`review/2026-10-21-v2-stage-1`). The triage refuted none of its 26 findings: 22 hold as stated and 4 in part. The
+owner's ten decisions and what this batch fixed are in `CHANGELOG.md`. Open:
+
+- [ ] **Next task: the SP-1 proposal** (owner, D1). The 1979 tapes and the Kerr–Bowen interviews are ASR, and the
+  rule is to cite them and not quote them. It was committed in `_LECTURES_1979.md` on 2026-08-23 at 11:50 (`528bb50`)
+  and in `_KERR_INTERVIEWS.md` at 13:09 (`e14d3d7`), and restated in `_SOURCE_QUALITY.md` at 17:53 (`6a56bb2`).
+  - **What the triage's scan found.** It matched quoted spans of four or more words, split at ellipses, against
+    `kb/*.md`, `_LECTURES_1979.md`, `_KERR_INTERVIEWS.md` and the raw transcripts. There are 103 quotations: 61 in
+    the spec, 25 in `DECISIONS FOR APPROVAL.md`, 9 in `_LEDGER.md` and 8 in the explainer. 34 of them name Bowen or
+    Kerr, or "he", as the speaker. The `kb/*.md` notes hold another 240. None predates the rule. Two do not match
+    the transcript: `spec:394` has words that are not in it, and `explainer:382` joins two passages. The scan was a
+    session script and is not committed; the proposal reruns it.
+  - **The proposal.** For each quotation in the spec, the explainer and the ledger: a paraphrase and its citation.
+    The owner reviews it before any spec edit. Approved DECISIONS records stay frozen, with a note. `kb/*.md` keep
+    their quotes, and their headers will say the quotes only locate passages. A test fails on any new quotation of
+    four or more words.
+  - **Decided inside the proposal** (the review's Q1–Q3): whether KB11 in `M10.C.2`, `_LEDGER.md` L16.3 and
+    DECISIONS A1 is an exception; how the closed records are noted; and restating `M11.F.3` from the written FE11.2
+    Epilogue instead of KB13. That last one changes a requirement, so it needs approval.
+- [ ] **Spec revision 34**, written with the SP-1 paraphrases so the spec changes once (owner, D2–D6):
+  - MR-10: `M11.4` says "Three criteria", but its table has nine live rows. Say nine, or point to `M11.4b`, which
+    already says the table supersedes the count.
+  - MR-12 (D4): the M8 preamble, `M8.5` and `M13.1` say four mechanisms call the live-positions predicate. Three
+    do. Say three, and say that `avoidance_available` (the `M5.C` site) is defined and tested but not called.
+    `M13.1` stays done.
+  - MR-13: `M2.A.0i` says Dr Halim's sex is not stated; she was declared female (revision 28, owner 2026-10-13).
+    Drop "awaiting owner review" from Teodor's row (D6).
+  - MR-15: delete or scope the status line's closing clause, "no code until the implementation plan is also
+    approved".
+  - D3: `M11.1` says its scope is the `M11.C` criteria.
+  - MR-1, MR-8: the KB and Tape quotations, as the SP-1 proposal decides.
+- [ ] **With group G's regeneration.** Each of these edits moves a record hash, so it waits for a change that
+  reruns the records anyway (owner, D6 and D7):
+  - MR-23: move the Phase C ensemble record onto `docs/records_cache`, as Phase D's records are: render it from the
+    cache, take the tool out of its own hash, and compare the full render in `tests/bowen/test_ensemble_record.py`.
+  - `config/bowen/family_phase_d.md:19`: drop "awaiting owner review" from Teodor's 36.
+- [ ] **Before group G's build starts:** ask the owner the Holmes–Rahe Q3 again (D10, the review's Q14; see
+  "Blocking the next phase").
+- [ ] **For the stage 3 question list** (owner, D4 and D10):
+  - Build the `M5.C` avoidance gate (`avoidance_available`), or drop it from M8 and `M13.1`.
+  - Q7, fusion: no caller passes a fusion map, so `positions_live`'s fused-occupant branches never run. The spec
+    leaves open whether a fused occupant makes its triangle inactive.
+  - Q8, the coach and SPLIT: `external.coach_side` has the coach always go along with a SPLIT (`M11.C.7`, classed
+    Mixed). Is that intended?
+- [ ] **SP-2: extend the document-claim tests** to the places where this review found stale prose: closing clauses
+  of status lines, the checklist's `- [ ]` items, the reading list's body, lists of standing decisions, counts in
+  prose, and the status notes in the reference-family table.
+- [ ] **Adjacent, not fixed** (found by the batch's learning-qa pass): `docs/theory/_LECTURES_1979.md:46` still says
+  twelve of twenty-three items were probed and the rest are outstanding. Its own "Revision 1" section and
+  `_STATUS.md`'s file map say all 23 were probed.
 
 ## Revision 32 (finishing version 1) — open after the build, 2026-10-17
 
@@ -453,7 +510,9 @@ Plan §4.7 and `docs/phase_d2_status_2026-10-13.md` hold the evidence.
   - ~~Adjacent, not fixed: `config/bowen/constants_changes.md` lists the five revision 28 rows twice~~ *(checked
     2026-10-17: each row appears once now)*; `config/bowen/family_phase_d.md` line 19 reads "awaiting owner review" for
     Teodor's 36 (revision 13). *Checked 2026-10-17: accurate, the spec's family table and plan P15 still list it as
-    open.* **For the owner: Teodor's basic level 36 or 34.**
+    open.* ~~**For the owner: Teodor's basic level 36 or 34.**~~ *Settled at 36 (owner, 2026-10-21, stage 1 milestone
+    review triage, D6). The Phase D plan's note was updated then; the spec's "awaiting owner review" goes at
+    revision 34, and `family_phase_d.md:19`'s with group G's regeneration, because a config edit moves the hash.*
 - [ ] **Failing criteria from steps 8–10, each the owner's question; nothing was changed to make any pass:**
   - `M11.C.14`: the gate blocks improvement but not harm, so firmness and talking it out still differ. *Decided
     2026-10-16 (review, option B):* restate it to "no technique lowers the child's load against a no-technique arm";
@@ -676,7 +735,10 @@ Phase C steps 0–16 are built. **Its gate does not pass** (`docs/phase_c_comple
 - [ ] **fam-diag, found in review, not fixed** (pre-existing; neither affects File > Open of an export):
   - merge import collapses two episodes of the same pattern on one pair into one line (`utils/diagramMerge.ts`);
   - `FamilyCutoffArc` ignores the timeline (`DiagramCanvas.tsx`).
-- [ ] **Phase D: severed ties stay severed — the cause of the long silences** (owner: "not normal", 2026-10-10).
+- [x] ~~**Phase D: severed ties stay severed — the cause of the long silences**~~ *Built 2026-10-11 as option B at
+  Phase D B4 (spec `M1.B.3c`, revisions 14 and 16): a cutoff raises graded rejection and leaves the tie
+  interactive. Found still open here at the stage 1 milestone review's triage, 2026-10-21 (with MR-16).*
+  (owner: "not normal", 2026-10-10).
   On seed 7, Marta–Nadia is severed 102 of 104 weeks, from a cutoff in week 1. Evidence and design notes are in
   `docs/DECISIONS — CUTOFF SEMANTICS.md`.
 - [x] ~~**`code_text` splits lines differently from `tokenize`**~~ *Fixed at version 2 stage 1 (S1.5b): `io.StringIO(source).readlines()`;
@@ -685,7 +747,7 @@ Phase C steps 0–16 are built. **Its gate does not pass** (`docs/phase_c_comple
   `\r`; `tokenize` splits on `\n` only. A source file with one of those characters would hash differently by Python
   version. No file has one today. Fix: `io.StringIO(source).readlines()`. Do it with the next change to that file
   (it is in the ensemble record's stamp).
-- [ ] **Engine CUTOFF semantics, held for Phase D** (owner, 2026-10-10) (`docs/DECISIONS — CUTOFF SEMANTICS.md`; recommendation C, Phase D).
+- [x] ~~**Engine CUTOFF semantics, held for Phase D**~~ *Built 2026-10-11, option B (the item above).* (owner, 2026-10-10) (`docs/DECISIONS — CUTOFF SEMANTICS.md`; recommendation C, Phase D).
 - [x] ~~**The pattern readouts read `state.tick` as "now"**~~ *Done at Phase D plan B2: the readouts take `now`, and `tools/famdiag_export.py` passes it; found 2026-10-19 (stage 1, rider ii), and `test_b2_now_reads_as_of_that_week` fails when `now` is ignored.* But after `run_tick` it is the next week's tick. The exporter
   steps it back and restores it (`tools/famdiag_export.py:simulate`). A `now` argument on the readouts would be
   cleaner. It is an engine-hash change, so do it with the next engine change.

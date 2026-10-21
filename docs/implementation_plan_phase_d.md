@@ -1,6 +1,6 @@
 # Implementation plan — Phase D
 
-> **Status: approved by the owner, 2026-10-10 ("Proceed"), with the decisions in §1a.** P9 decided 2026-10-11; P13–P16 answered 2026-10-13 (§1b), with two P15 points still open. **Part II planned 2026-10-13 (§4) and approved by the owner the same day ("approved"); L0–L9 built 2026-10-13; L10's criteria built and run: `M11.C.37` and, after the owner's decision on its arms, `M11.C.15` pass; `M11.C.6`, `.10` and `.2` fail (§4.7). Spec revision 29 and its plan (§4.8) drafted 2026-10-13 after the owner's decisions on `.10` and `.2`, approved by the owner ("i approve proceed") and built 2026-10-14: `M11.C.2` on the twelve-person family now passes; `.10` and `.6` still fail (§4.8). §4.9 diagnoses `.10`; revision 30's plan (§4.10) approved and built 2026-10-14: the family-of-origin variant of `.10` passes, `.10` still fails, and `.2` on the twelve-person family fails again.** **Built:** B1 and B2 (2026-10-10/11); B3 and B4 (2026-10-11, spec revision 16); B5 and B6 (2026-10-11); B7, B8 and B9 and part of step 10 (2026-10-12, spec revisions 24–27, Claude's recommendation pending owner review: the owner asked for the work to proceed overnight without waiting for input).
+> **Status: approved by the owner, 2026-10-10 ("Proceed"), with the decisions in §1a.** P9 decided 2026-10-11; P13–P16 answered 2026-10-13 (§1b), with two P15 points left open then; both stood as recommended from the owner's approval of §4 on 2026-10-13 (`TODO.md`), and Teodor's 36 was confirmed 2026-10-21. **Part II planned 2026-10-13 (§4) and approved by the owner the same day ("approved"); L0–L9 built 2026-10-13; L10's criteria built and run: `M11.C.37` and, after the owner's decision on its arms, `M11.C.15` pass; `M11.C.6`, `.10` and `.2` fail (§4.7). Spec revision 29 and its plan (§4.8) drafted 2026-10-13 after the owner's decisions on `.10` and `.2`, approved by the owner ("i approve proceed") and built 2026-10-14: `M11.C.2` on the twelve-person family now passes; `.10` and `.6` still fail (§4.8). §4.9 diagnoses `.10`; revision 30's plan (§4.10) approved and built 2026-10-14: the family-of-origin variant of `.10` passes, `.10` still fails, and `.2` on the twelve-person family fails again.** **Built:** B1 and B2 (2026-10-10/11); B3 and B4 (2026-10-11, spec revision 16); B5 and B6 (2026-10-11); B7, B8 and B9 and part of step 10 (2026-10-12, spec revisions 24–27, Claude's recommendation pending owner review: the owner asked for the work to proceed overnight without waiting for input).
 > Spec: `docs/bowen_agent_model_spec_v2.md`, revision 13. Phase C closed with its gate failing (owner decision,
 > `docs/phase_c_completion_report.md` §13). Spec IDs are used verbatim. The inventories behind this plan were made on
 > 2026-10-10 from the spec, `src/bowen`, `TODO.md` and the Phase C documents; their findings are cited where used.
@@ -152,8 +152,10 @@ open points are the owner's.
     eldest. At the current gaps that gives Pia 1, Nadia 4, Leo 9; Ravi 30, Marta 28, Dario 27, Iris 25; Teodor 55,
     Ana 52, Viktor 52, Sofia 50. "Settings in app": the three anchors go in the family config; showing them in the
     run visualization is a separate change (this repo does not touch the fam-diag app).
-  - **Still open:** Teodor's basic level 36 (Claude's recommendation stands: 34 broke `M2.A.0e`'s pairing with Ana);
-    and whether Marta–Iris is "resolved, low contact" or ordinary.
+  - **Open when this was written:** Teodor's basic level 36 (Claude's recommendation stands: 34 broke `M2.A.0e`'s
+    pairing with Ana), which stood from the owner's approval of §4 on 2026-10-13 (`TODO.md`, corrected 2026-10-14)
+    and was confirmed 2026-10-21; and whether Marta–Iris is "resolved, low contact" or ordinary, settled as ordinary at
+    the same approval.
 - **P16:** agreed. Bowen's two falsifiers and the three chapter items become criteria in a later revision.
 
 ### P9 in detail: what C.7 tests, and the direction proposed

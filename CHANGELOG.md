@@ -4,6 +4,63 @@ All notable changes to this project are recorded here. Dates are ISO.
 
 ## [Unreleased] — 2026-10-11
 
+### The stage 1 milestone review triaged (2026-10-21)
+
+- **The review.** The second Mac ran the first milestone review over version 2 stage 1, from the tag `version-1`, as
+  `docs/milestone_review_brief.md` describes. It found 26 findings (0 blocker, 4 major, 22 minor) in four themes:
+  `docs/cycles/2026-10-21_milestone-review_v2-stage-1.md`, on branch `review/2026-10-21-v2-stage-1`. It cost 462,483
+  subagent tokens and 13 to 14 minutes (the report says 13; its clock reads 11:54 to 12:08), plus writing.
+- **The triage.** Three agents checked every finding against the repository, about 534k tokens and 12 minutes. None
+  was refuted. 22 hold as stated and 4 in part:
+  - MR-5: one of its quotes is not exact.
+  - MR-10: the table has nine live rows, not six, and `M11.4b` already says the table supersedes the count.
+  - MR-11: `config/bowen/policy.md` declares the fallback; only its trigger cannot occur yet.
+  - MR-13: the Dr Halim half holds; Teodor's half needed the owner.
+  - SP-1, the quoted ASR passages, is larger than reported: 103 quotations in four documents, and 240 more in the
+    `kb/*.md` notes (`TODO.md`).
+- **The owner's ten decisions**, each asked separately, each the recommended option:
+  - D1: SP-1 goes to a proposal first, which lists each quotation with a paraphrase and its citation before any spec
+    edit. Approved DECISIONS records stay frozen with a note. The proposal decides the review's Q1–Q3.
+  - D2: the wording fixes outside the spec are made now; the spec's go into revision 34 with SP-1.
+  - D3: `M11.1`'s scope is the `M11.C` criteria. The coverage page now says which "done" rows rest on a mutation.
+  - D4: the live-positions predicate has three callers, not four: `avoidance_available` (the `M5.C` site) is
+    defined and tested but not called. Revision 34 says so, and whether to build that gate goes on the stage 3 list.
+    `M13.1` stays done.
+  - D5: `M4.D.1f` stays done; its note points to `M1.A.10`.
+  - D6: Teodor's basic level is settled at 36. The note is removed from the plan and `TODO.md` now, from the spec at
+    revision 34, and from `config/bowen/family_phase_d.md` with group G's regeneration.
+  - D7: MR-24 and MR-25 are fixed now. MR-23 waits for group G's regeneration. The triage said the
+    `tools/ensemble_record.py` docstring fix would move the record's hash too; it does not, because the hash drops
+    docstrings, so it was made now. MR-26 and the tag-copy status test (Q10) stay as they are, about a second each.
+  - D8: the brief is approved, with two edits.
+  - D9: `docs/REVIEW_version_1_guide.md` stays as the owner's pending review, with its stale lines fixed.
+  - D10: Q7 (fusion) and Q8 (the coach and SPLIT) go on the stage 3 list. The Holmes–Rahe Q3 is asked again before
+    group G's build.
+- **Fixed in this batch:**
+  - MR-2: the explainer's durations table no longer lists the withdrawn "eight to ten generations"; a note says why.
+  - MR-6: the coverage page's headline says which "done" rows a mutation proves (`tools/spec_coverage.py`,
+    regenerated).
+  - MR-7: the explainer grades the one-year slow tick `[I]`, as the config does.
+  - MR-9, MR-14 and MR-16 to MR-22: status lines, counts and labels in the reading list, the checklist, `_STATUS.md`, the
+    version 1 review guide and the version 2 plans. MR-14's `tests/doc_claims.json` entry now names the section it
+    excuses.
+  - MR-11: `M4.D.1f`'s coverage note points to `M1.A.10`.
+  - MR-24: `tools/version_1_status.py`'s docstring says `dispositions()` is still live.
+  - MR-25: `test_s1_3a_kinds_without_act_classes_fail_where_a_class_is_read` now reaches all three reads of an act
+    class with unclassed kinds (`coach_side`, and `legal_outcomes` for a family member and for an external agent) and
+    expects `TypeError`. An `or ()` default at any one of them turns it red.
+  - `tools/ensemble_record.py`'s docstring names its test as it is, `test_m134_ensemble_record_is_current`.
+  - `TODO.md`: Teodor's level and the two cutoff-semantics items are closed (built 2026-10-11, option B). A section
+    lists what the review left open.
+  - The brief is approved; its cost line has this run's figure, and the orchestrator's spec read may run alongside the
+    workers. `_STATUS.md` has a run-log entry for 2026-10-20 and 2026-10-21. The reading list's known problems name
+    what the review left open.
+- **This batch's review.** One learning-qa pass and one correctness pass, about 320k tokens, raised 16 items after
+  overlaps, 6 of them medium. All were fixed here except an adjacent stale line in `_LECTURES_1979.md`, recorded in
+  `TODO.md`. A narrow re-sweep of the fixes on Sonnet, about 124k tokens, confirmed them and raised three wording
+  points, which were fixed without another sweep.
+- **Not changed:** nothing under `src/bowen/` or `config/bowen/`, so no record changes.
+
 ### The milestone review brief's four questions decided (2026-10-21)
 
 - **The owner decided §8's questions**, each asked separately and each answered with the recommended option: Q1, the

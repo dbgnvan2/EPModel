@@ -1,7 +1,8 @@
 # Milestone critical review: the brief
 
-**Status: DRAFT 2026-10-21; the owner decided its four open questions the same day (§8), and its first run is the
-stage 1 review.** Drafted at the owner's request on 2026-10-21. Revised the same day
+**Status: APPROVED 2026-10-21 by the owner, after its first run (the stage 1 review, on branch
+`review/2026-10-21-v2-stage-1` until merged into `docs/cycles/`) and that review's triage.** The owner decided its four open
+questions the same day (§8). Drafted at the owner's request on 2026-10-21. Revised the same day
 after the second Mac reviewed it (`docs/cycles/2026-10-21_brief-review_mini1.md`, branch `review/brief-2026-10-21`),
 with the owner's four decisions on that review: the `KB` quotation rule stated where a reviewer reads first, one local
 suite run, minor findings checked at triage, and no separate review for Group G. A milestone review is a
@@ -126,7 +127,8 @@ checked goes under "Unverified" in the report, never under findings.
 
 **Scope.**
 
-- The orchestrating session reads the spec end to end, as the `reviewer` skill's Phase 0 requires.
+- The orchestrating session reads the spec end to end, as the `reviewer` skill's Phase 0 requires. The read may run
+  while the workers do, since they do not depend on it, but it is finished before consolidation (owner, 2026-10-21).
 - Each worker reads its lens's slice below. A file marked "searched only" is searched for what a check needs, not read
   whole.
 - Workers are `review-worker` subagents and can only read (Read, Grep, Glob): no `git`, and nothing run. Before
@@ -298,10 +300,10 @@ The reviewing session edits nothing except its report.
    correctness pass, push.
 7. The review branch is merged into `main` once the owner says so.
 
-**Cost.** State it before starting a review (CLAUDE.md). The nearest recorded reference is the cold sweep of
-2026-10-20: one agent, one lens, the whole stage 1 range, about 14 minutes and about 64k tokens (`LEARNINGS.md`,
-Misses). A milestone review runs four lenses and a challenge pass over a wider range. Several times that figure is an
-estimate, not a measurement. The first report's header gives the first real figure.
+**Cost.** State it before starting a review (CLAUDE.md), from the last report's header. The first milestone review
+(stage 1, on the second Mac, 2026-10-21) measured 462,483 subagent tokens for four lens workers and the challenge pass,
+and 13 to 14 minutes (the report says 13; its clock reads 11:54 to 12:08) from §3 step 3 to the challenge pass's return, plus the time to write the report; the orchestrator's
+own tokens were not measured. Its triage checked every finding with three agents, about 534k tokens and 12 minutes.
 
 ## 8. The owner's questions, decided 2026-10-21
 

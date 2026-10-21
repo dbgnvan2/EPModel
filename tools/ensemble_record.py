@@ -4,7 +4,7 @@ Purpose: produce docs/phase_c_ensemble_record.md — each criterion's verdict, s
          per-readout difference, interval, margin, p, the fallback rate and any flag — stamped
          with a hash of the code and config it ran against (plan D7).
 Spec:    docs/bowen_agent_model_spec_v2.md#M17.A.1, #M11.D.18, #M11.5, #M13.4
-Tests:   tests/bowen/test_ensemble_record.py::test_m13_4_ensemble_record_is_current
+Tests:   tests/bowen/test_ensemble_record.py::test_m134_ensemble_record_is_current
 
     python3 tools/ensemble_record.py [--workers N] [--only ID ...]
 

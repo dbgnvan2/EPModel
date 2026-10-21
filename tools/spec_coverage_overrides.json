@@ -697,7 +697,7 @@
    "tests/bowen/test_policy.py::test_m4d1f_non_finite_score_falls_back",
    "tests/bowen/test_policy.py::test_m4d1f_zero_total_weight_falls_back"
   ],
-  "note": "tie-break `equal_probability` and fallback `hold` are declared in `config/bowen/policy.md` and refused at load if not implemented; empty legal set, non-finite score and zero weight fall back and are flagged; equal scores take equal softmax weight, so no tie-break draw is made; `life_energy` is not built, so it cannot be exhausted"
+  "note": "tie-break `equal_probability` and fallback `hold` are declared in `config/bowen/policy.md` and refused at load if not implemented; empty legal set, non-finite score and zero weight fall back and are flagged; equal scores take equal softmax weight, so no tie-break draw is made; `life_energy` is not built, so it cannot be exhausted; the declared `hold` fallback applies once `M1.A.10` builds it (not done; owner 2026-10-21, review MR-11)"
  },
  "M4.D.2": {
   "status": "done",

@@ -2,7 +2,7 @@
 tags: [model-bt, explainer]
 status: current
 version: 2.0
-date: 2026-10-19
+date: 2026-10-21
 ---
 
 # The model, part by part
@@ -937,7 +937,7 @@ These are asserted every tick. They are what makes the engine a model of *this* 
 | Clock | Period | Carries | Source |
 |---|---|---|---|
 | **Fast tick** | 1 week | events, appraisal, acute anxiety, tie tension, triangle position shifts, symptom accumulation | `[I]` the week is a modelling choice; `[M]` Ch18, Ch01 require a fast scale |
-| **Slow tick** | 1 year | differentiation drift, chronic anxiety, life stage, mortality, nodal calendar | `[#]` Ch16 · L16.3 — generational change; `[#]` Ch11 · L11.3 — "a certain amount of time **on the calendar**" |
+| **Slow tick** | 1 year | differentiation drift, chronic anxiety, life stage, mortality, nodal calendar | `[I]` the year is a modelling choice; `[M]` Ch16 · L16.3 (generational change) and Ch11 · L11.3 ("a certain amount of time **on the calendar**") require a slow scale |
 | **Edge latency** | hours to months | per-tie delivery delay | `[#]` Ch01 · L01.1 |
 | **Follow-up window** | next day, relative to **the meeting** — in the model, the next weekly tick (spec `M5.D.6`, revision 12) | revert-on-timeout after `I-POSITION` | `[T]` Ch21 · L21.4 |
 | **Reaction decay** | unfed | the change-back reaction fades unless the mover feeds it | `[T]` Ch01 · L01.8, Ch21 · L21.4 |
@@ -960,7 +960,10 @@ These are asserted every tick. They are what makes the engine a model of *this* 
 | Family group therapy plateau | **12–20 sessions** | `[#]` Ch10 · L10.1 |
 | Average motivated family | **about 4 years** (scoped to "upper middle class families") | `[#]` Ch11 · L11.3 |
 | Coaching dose that works | **15–30 min every month or two**; **1–2 a year fails** | `[#]` Ch22 · L22.4 |
-| Generations to schizophrenia | **8 to 10** (revised *up* from "at least three") | `[#]` Ch16 · L16.3 |
+
+**Withdrawn as a target:** eight to ten generations to schizophrenia (Ch16 · L16.3). The `KB11` interview shows the
+figure was rhetorical, and `DECISIONS FOR APPROVAL.md` A1 (approved) withdrew it. The range survives only as a shape
+constraint on `M11.C.6` (`KS11.1`; `_LEDGER.md` KS-B.1), not as a duration.
 
 > **Reversion is part of the course, not failure.** `[T]` Ch03 · L03.3 — after reversion "it is easier for the father to pull up and less threatening for the mother to let go." **A model that treats relapse as a failed run is wrong.**
 

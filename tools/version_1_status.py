@@ -3,7 +3,9 @@
 Purpose: read the three ensemble records, the two mutation records, the records' not-built lists and the owner's
          dispositions (docs/version_1_dispositions.md), and write docs/version_1_status.md, one row per criterion or
          variant, with whether each of V1, V2 and V3 is met. Frozen since 2026-10-19: this copy no longer writes, and
-         no test runs it; the tests run the tag's copy (below).
+         the status page's tests run the tag's copy (below). One part of this copy is still live: `dispositions()`,
+         which `tools/spec_coverage.py` imports to quote the owner's dispositions, and which
+         `tests/bowen/test_spec_coverage.py` calls (review MR-24, 2026-10-21).
 Spec:    docs/version_1_definition.md#1 (V1, V2, V3); docs/bowen_agent_model_spec_v2.md#M11.5
 Tests:   tests/test_version_1_status.py
 

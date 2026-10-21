@@ -58,5 +58,16 @@
       "docs/version_2_stage_1_changes.md": "a generated record, with no status line",
       "docs/version_1_status.md": "a generated record frozen at the tag `version-1`, with no status line"
     }
+  },
+  "coverage_future_phase": {
+    "_read_by": "tests/bowen/test_spec_coverage.py::test_m141_no_override_names_a_built_phase_as_to_come (plan_spec_coverage_phase_d.md B2.1): wordings that name Phase C or D, both built, as work still to come, each with the old override note it was taken from, which it must still match. An override note in tools/spec_coverage_overrides.json that matches one fails",
+    "\\b(?:is|are) (?:a )?Phase [CD]\\b": "M1.A.13: the derivation (M1.A.13a) is Phase D",
+    "\\buntil (?:the )?Phase [CD]\\b": "M6.I.5: basic_level does not move until the Phase D estimator",
+    "\\bbefore Phase [CD]\\b": "M2.A.0i: Leo and Dr Halim still to declare before Phase D",
+    "\\blater phases?\\b": "M14.A.2: Phase B mechanisms registered; later phases add theirs",
+    "\\bPhase [CD] and later\\b": "M10.C.1a: the other entries are Phase C and later",
+    "\\bat the end of Phase [CD]\\b": "M16.T.3: to be rerun at the end of Phase D",
+    "\\bblocks\\b[^;]* and Phase [CD]\\b": "M6.3: open owner decision (disposition at death); blocks M11.C.37 and Phase D",
+    "(?:—|,) Phase [CD]\\b": "M1.F.5: their accumulated witnessing as the source of chronic anxiety is slow-tick, Phase D"
   }
 }

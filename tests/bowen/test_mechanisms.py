@@ -142,6 +142,9 @@ def test_m4a5_self_generated_load_derives_from_basic_level():
     ravi = state.people[RAVI]
     lower = dataclasses.replace(ravi, basic_level=20.0, functional_level=20.0)
     assert self_term(lower, PARAMS) > self_term(ravi, PARAMS) > 0
+    # basic_level only: functional_level moving alone leaves the term where it was.
+    assert ravi.functional_level != 20.0
+    assert self_term(dataclasses.replace(ravi, functional_level=20.0), PARAMS) == self_term(ravi, PARAMS)
     # A person with no ties still loads.
     alone = new_run_state({RAVI: ravi}, {}, state.family, state.kinds)
     start = acute(alone, RAVI)

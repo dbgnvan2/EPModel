@@ -1,0 +1,1611 @@
+{
+ "M0.1": {
+  "status": "partial",
+  "evidence": [
+   "tests/bowen/test_config.py::test_m0_1_grade_must_match_the_spec",
+   "tests/bowen/test_config.py::test_m0_1_unknown_grade_rejected",
+   "tests/bowen/test_config.py::test_m101_repository_constants_load_and_are_graded",
+   "tests/test_review_rev31.py::test_r31b2_criteria_settings_graded",
+   "tests/bowen/test_family.py::test_m2_family_declaration_must_be_graded_invented"
+  ],
+  "note": "every config constant carries a grade that must equal the register's (`test_m0_1_grade_must_match_the_spec`, `test_m101_repository_constants_load_and_are_graded`), as do criteria settings and family declarations; no test compares a grade with `docs/model_explainer.md`, which names `tie_wear_rate` and the wear offset without a grade"
+ },
+ "M0.2": {
+  "status": "partial",
+  "evidence": [
+   "tests/bowen/test_engine_purity.py::test_m11d4_invented_constants_labelled",
+   "tests/bowen/test_engine_purity.py::test_m11d4_scan_finds_a_constant_described_as_sourced",
+   "tests/bowen/test_config.py::test_m0_1_grade_must_match_the_spec"
+  ],
+  "note": "a scan of every `src/bowen` line that names an `[I]` key alongside words such as 'sourced' or 'calibrated to' finds nothing (`test_m11d4_invented_constants_labelled`) and catches a planted description (`test_m11d4_scan_finds_a_constant_described_as_sourced`); `tools/`, whose records are output, and the prose in `config/bowen` are not scanned"
+ },
+ "M0.3": {
+  "status": "done",
+  "evidence": [
+   "tests/bowen/test_mechanisms.py::test_m03_engine_params_come_from_the_register",
+   "tests/bowen/test_engineering_gates.py::test_m11d2_no_magic_literals_in_engine",
+   "tests/bowen/test_engineering_gates.py::test_m11d2_check_catches_a_literal_in_the_policy"
+  ],
+  "note": "every `EngineParams` field equals its `[I]` row in `config/bowen/constants.md` (`test_m03_engine_params_come_from_the_register`); the magic-literal scan of `src/bowen/engine` and `src/bowen/policy` finds none (`test_m11d2_no_magic_literals_in_engine`) and catches a planted one (`test_m11d2_check_catches_a_literal_in_the_policy`)"
+ },
+ "M0.4": {
+  "status": "partial",
+  "evidence": [
+   "tests/bowen/test_ensemble.py::test_m04_a_reversed_effect_fails"
+  ],
+  "note": "the runner compares two arms by construction (`ensemble/runner.py::Criterion`) and a reversed effect fails (`test_m04_a_reversed_effect_fails`); no test checks that every criterion is a two-arm direction or listed at `M11.4`, or that no readout is an absolute threshold"
+ },
+ "M1.A.0": {
+  "status": "not done",
+  "evidence": [],
+  "note": "no behaviour a test can check (a definition of *emotional* as instinct, and a prohibition on reading anxiety as felt emotion); checked by review"
+ },
+ "M1.A.3": {
+  "status": "not done",
+  "evidence": [],
+  "note": "not built: no code represents the intellect's licence or a joint-decision domain (searched `src/bowen`, `config/bowen`, `tools` for `M1.A.3`, `licence`, `license`, `joint`, `decision`); `TODO.md` open question BV1 records that nothing represents a situation or decision domain; the nearest quantity, `policy.py::self_channel_weight`, is continuous in functional level"
+ },
+ "M1.A.3c": {
+  "status": "not done",
+  "evidence": [],
+  "note": "not built: no function of level carries the non-monotone shape over the range (searched `src/bowen`, `config/bowen` for `M1.A.3c`, `overt`, `emotionality`, `expressed`, `monotone`); the only level-shaped weight, `policy.py::self_channel_weight`, is monotone in functional level"
+ },
+ "M1.A.3d": {
+  "status": "partial",
+  "evidence": [
+   "tests/bowen/test_engineering_gates.py::test_m11d2_no_magic_literals_in_engine",
+   "tests/bowen/test_engineering_gates.py::test_m11d2_check_catches_a_literal_in_the_policy"
+  ],
+  "note": "a band edge written as a literal in engine or policy source fails `test_m11d2_no_magic_literals_in_engine`; no test catches a band edge declared as a config constant and branched on; no engine constant now equals 25, 50, 60, 70 or 75 except `ensemble_block`, which is not a band"
+ },
+ "M1.A.3b": {
+  "status": "not done",
+  "evidence": [],
+  "note": "not built: no awareness readout or band discriminator reads the mixing weight back out (searched `src/bowen/readouts`, `tools` for `M1.A.3b`, `awareness`, `licence`); the prohibitions hold only because nothing exists; no test"
+ },
+ "M1.A.3a": {
+  "status": "not done",
+  "evidence": [],
+  "note": "not built: no decision scope separates the pre-marriage and married relationship (`TODO.md` open question BV1; searched `src/bowen` for `M1.A.3a`, `ceremony`, `decision`); `PARTNERING` is a nodal life event of intensity 0 (`config/bowen/nodal_events.md`), which adds estimator breadth but no licence change"
+ },
+ "M1.A.4": {
+  "status": "partial",
+  "evidence": [
+   "tests/bowen/test_slow_tick.py::test_m7b1_chronic_anxiety_falls_only_with_a_rise",
+   "tests/bowen/test_mechanisms.py::test_m4g2_invariants_asserted_every_tick",
+   "tests/bowen/test_mechanisms.py::test_m4g2_a_violation_raises",
+   "tests/bowen/test_slow_tick.py::test_m1a4k_a_loaded_stable_broad_window_raises_basic_level"
+  ],
+  "note": "built, one clause unmet: a married adult's `basic_level` rises on the slow tick (`test_m7b1_chronic_anxiety_falls_only_with_a_rise`, Ravi); a write to `basic_level` inside a fast tick raises under `M6.I.5`, asserted every tick (`test_m4g2_a_violation_raises`, `test_m4g2_invariants_asserted_every_tick`); the rise comes from the estimator's window (`test_m1a4k_a_loaded_stable_broad_window_raises_basic_level`); but the rise is scaled by `estimator_rate`, a constant, against the text's 'rather than by a rate constant' — which stands is the owner's decision (`TODO.md`)"
+ },
+ "M1.A.4a": {
+  "status": "done",
+  "evidence": [
+   "tests/bowen/test_slow_tick.py::test_m1a4k_a_loaded_stable_broad_window_raises_basic_level",
+   "tests/bowen/test_slow_tick.py::test_m1a4k_an_unstable_window_raises_less",
+   "tests/bowen/test_slow_tick.py::test_m1a4k_the_estimator_waits_for_a_full_window",
+   "tests/bowen/test_slow_tick.py::test_m1a4k_a_recurring_stressor_is_one_situation",
+   "tests/bowen/test_slow_tick.py::test_m7a1_basic_level_never_falls_on_the_slow_tick",
+   "tests/bowen/test_slow_tick.py::test_m1a4k_an_exchange_run_through_the_engine_leaves_both_readings_unchanged",
+   "tests/bowen/test_mechanisms.py::test_m4g2_a_violation_raises"
+  ],
+  "note": "`slow_tick.py::estimate` rises on an elevated mean (`test_m1a4k_a_loaded_stable_broad_window_raises_basic_level`), less on high variance (`test_m1a4k_an_unstable_window_raises_less`), only on a full window (`test_m1a4k_the_estimator_waits_for_a_full_window`) and with breadth (`test_m1a4k_a_recurring_stressor_is_one_situation`); a move or exchange cannot write it (`test_m4g2_a_violation_raises`, `test_m1a4k_an_exchange_run_through_the_engine_leaves_both_readings_unchanged`)"
+ },
+ "M1.A.4c": {
+  "status": "partial",
+  "evidence": [
+   "tests/bowen/test_mechanisms.py::test_m03_engine_params_come_from_the_register"
+  ],
+  "note": "`estimator_window` and `estimator_breadth` are `[I]` rows in `config/bowen/constants.md` read into `EngineParams` (`test_m03_engine_params_come_from_the_register`); no sensitivity analysis over either exists: `tools/sweep_record.py` sweeps only `learning_rate`, `credit_horizon` and `policy_temperature`"
+ },
+ "M1.A.4e": {
+  "status": "not done",
+  "evidence": [],
+  "note": "intake fields are read by the `M15` importer, which the spec assigns to Phase E (`M13.3`); not built: no code holds or reads birth date, education, occupation, health history or courtship length (searched `src/bowen`, `config/bowen`, `tools` for `M1.A.4e`, `occupation`, `education`, `courtship`, `intake`)"
+ },
+ "M1.A.4g": {
+  "status": "partial",
+  "evidence": [
+   "tests/bowen/test_slow_tick.py::test_m1a4k_a_recurring_stressor_is_one_situation",
+   "tests/bowen/test_slow_tick.py::test_m1a4h_carrying_load_counts_and_discharging_it_does_not"
+  ],
+  "note": "no observation is assigned a tier; two tiers are approximated: one event alone cannot raise the estimate below the breadth count (`test_m1a4k_a_recurring_stressor_is_one_situation`) and the self-directed share reads position held under load (`test_m1a4h_carrying_load_counts_and_discharging_it_does_not`); nothing reads a chronic self-maintained pattern as functional level"
+ },
+ "M1.A.4i": {
+  "status": "partial",
+  "evidence": [],
+  "note": "built, no test: `slow_tick.py::record_week` records every living member's channel each week, including after a symptom onset, so non-bearers' responses enter their windows; no default test asserts it, and `M11.C.34`, the criterion for it, is partial on the page (ensemble FAIL, accepted as a finding 2026-10-17)"
+ },
+ "M1.A.4j": {
+  "status": "partial",
+  "evidence": [
+   "tests/bowen/test_slow_tick.py::test_m1a4h_carrying_load_counts_and_discharging_it_does_not"
+  ],
+  "note": "the channel selected under load feeds the estimate (`test_m1a4h_carrying_load_counts_and_discharging_it_does_not`); `slow_tick.py::record_week` reads no symptom magnitude, but no test asserts that symptom load is kept out"
+ },
+ "M1.A.4f": {
+  "status": "partial",
+  "evidence": [
+   "tests/bowen/test_slow_tick.py::test_m1a4k_the_estimator_adds_back_what_was_given_way"
+  ],
+  "note": "`readouts/evaluation.py::evaluate` takes `basic_level_by_generation` as the mean over all living members, but no test asserts the values (the readout test checks only the keys); pseudo-self is removed from each person's reading in both directions (`test_m1a4k_the_estimator_adds_back_what_was_given_way`)"
+ },
+ "M1.A.5": {
+  "status": "done",
+  "evidence": [
+   "tests/bowen/test_objects.py::test_m1a5a_functional_level_decomposes_into_basic_plus_swing"
+  ],
+  "note": "`Person` holds `functional_level` apart from `basic_level`; a person at basic 39 reads functional 45.5 with a swing of 6.5 (`test_m1a5a_functional_level_decomposes_into_basic_plus_swing`, written for `M1.A.5a`, which asserts the two differ)"
+ },
+ "M1.A.5b": {
+  "status": "not done",
+  "evidence": [],
+  "note": "not built: `Relationship.basic_togetherness` and `functional_togetherness` are declared and never written (searched `src/bowen` for both names); `contact.py::optimum` moves a per-person optimum toward closeness with anxiety (`M4.C.1b`), not a per-tie two-level balance"
+ },
+ "M1.A.5c": {
+  "status": "partial",
+  "evidence": [
+   "tests/bowen/test_moves.py::test_m6i4_pseudo_self_moves_with_functional_level_and_is_conserved",
+   "tests/bowen/test_slow_tick.py::test_m1a4k_an_exchange_run_through_the_engine_leaves_both_readings_unchanged"
+  ],
+  "note": "a rise from the automatic channel's exchange is borrowed pseudo-self (`test_m6i4_pseudo_self_moves_with_functional_level_and_is_conserved`) and the estimator leaves it out (`test_m1a4k_an_exchange_run_through_the_engine_leaves_both_readings_unchanged`); not built: a self-directed rise never lowers pseudo-self, since it goes to `stress_swing`"
+ },
+ "M1.A.5d": {
+  "status": "partial",
+  "evidence": [
+   "tests/bowen/test_moves.py::test_m6i4_pseudo_self_settles_back_when_the_exchange_stops",
+   "tests/bowen/test_moves.py::test_m6i4_a_borrower_still_exchanging_with_its_source_keeps_what_it_borrowed"
+  ],
+  "note": "borrowed self does not survive withdrawal of the source (`test_m6i4_pseudo_self_settles_back_when_the_exchange_stops`) and survives while the exchange runs (`test_m6i4_a_borrower_still_exchanging_with_its_source_keeps_what_it_borrowed`); no test asserts that borrowing carries no cost of its own"
+ },
+ "M1.A.7": {
+  "status": "partial",
+  "evidence": [
+   "tests/bowen/test_life_course.py::test_m7b1a_child_chronic_reads_parents_and_witnessed_history",
+   "tests/bowen/test_life_course.py::test_m7b1a_chronic_is_fixed_at_the_fixation_age",
+   "tests/bowen/test_life_course.py::test_m7b1a_chronic_integrates_every_childhood_year"
+  ],
+  "note": "`Person.programmed_reactivity` is declared and never written; the childhood disposition is carried as `chronic_anxiety`, fixed at the fixation age from the child's own yearly load (`life_course.py::yearly`, `test_m7b1a_child_chronic_reads_parents_and_witnessed_history`); that value starts from the parents' mean"
+ },
+ "M1.A.7a": {
+  "status": "partial",
+  "evidence": [
+   "tests/bowen/test_mechanisms.py::test_m1a8_acute_decays_toward_the_chronic_floor_and_not_below",
+   "tests/bowen/test_life_course.py::test_m7b1a_child_chronic_reads_parents_and_witnessed_history"
+  ],
+  "note": "chronic anxiety is the floor acute decays to (`test_m1a8_acute_decays_toward_the_chronic_floor_and_not_below`) and in childhood is derived from the parents and the child's own load (`test_m7b1a_child_chronic_reads_parents_and_witnessed_history`); no functioning-position term exists, and after childhood `M7.B.1` replaces the per-tick derivation"
+ },
+ "M1.A.10": {
+  "status": "not done",
+  "evidence": [],
+  "note": "not built: `Person.life_energy_ratio` is declared and never written; `invariants.py` only range-checks it, and the I-POSITION step uses a contact proxy (searched `src/bowen` for `life_energy`, `M1.A.10`)"
+ },
+ "M1.A.11a": {
+  "status": "not done",
+  "evidence": [],
+  "note": "not built: the three channels carry no internalising or externalising axis (searched `src/bowen`, `config/bowen` for `internali`, `externali`, `KS10.5`); `M11.C.12`, the criterion that reads it, is partial on the page (ensemble FAIL)"
+ },
+ "M1.A.13": {
+  "status": "partial",
+  "evidence": [],
+  "note": "`StructuralTier` has exactly three members (`test_m1a13_exactly_three_structural_tiers`); nothing writes `Person.structural_importance`, so every person's tier is unset (`M1.A.13a` not built)"
+ },
+ "M1.A.13a": {
+  "status": "not done",
+  "evidence": [],
+  "note": "not built: nothing writes `Person.structural_importance` or derives a tier from functional-doer position (searched `src/bowen`, `config/bowen`, `tools` for `structural_importance`, `M1.A.13a`, `functional-doer`)"
+ },
+ "M1.A.14": {
+  "status": "partial",
+  "evidence": [],
+  "note": "built, no test: `scenario/family.py::build_family` loads `SiblingPosition` into `Person.sibling_position`; nothing reads it and `observe.py::Observation` has no sibling field; no test asserts either clause (`test_m4b2_policy_imports_only_the_observation` would not fail if a sibling field were added to the observation)"
+ },
+ "M1.A.14a": {
+  "status": "not done",
+  "evidence": [],
+  "note": "not built: `Person.functional_sibling_position` is declared and never written, and the policy reads no sibling field; `M11.C.9` is out of version 1 by owner decision 2026-10-17 (`docs/version_1_dispositions.md`, `tools/phase_d_record.py`)"
+ },
+ "M1.A.14b": {
+  "status": "not done",
+  "evidence": [],
+  "note": "no behaviour a test can check (a general rule over positional attributes, whose two instances `M1.A.13a` and `M1.A.14a` are not built); checked by review"
+ },
+ "M1.A.14c": {
+  "status": "not done",
+  "evidence": [],
+  "note": "not built: no rule reads sibling position, so no position has an adaptive and a maladaptive expression selected by `basic_level` (`tools/phase_d_record.py` `NOT_BUILT` for `M11.C.9`); the additive-offset prohibition holds only by absence"
+ },
+ "M1.A.14d": {
+  "status": "not done",
+  "evidence": [],
+  "note": "not built: there is no sibling-position effect to suppress and no relational or task domain (`TODO.md` open question BV1; searched `src/bowen` for `M1.A.14d`, `task`, `relational`)"
+ },
+ "M1.A.16": {
+  "status": "done",
+  "evidence": [
+   "tests/bowen/test_beliefs.py::test_m98_belief_can_differ_from_the_true_state"
+  ],
+  "note": "each person holds beliefs about ties (`Person.tie_beliefs`), and a tense tie seen only in calm exchanges is believed calm (`test_m98_belief_can_differ_from_the_true_state`, written for `M9.8`, which asserts belief and truth differ); the requirement is met through `tie_beliefs`: the declared field `Person.beliefs` is never written (`TODO.md`)"
+ },
+ "M1.A.18": {
+  "status": "partial",
+  "evidence": [
+   "tests/bowen/test_policy.py::test_m4d1a_perspective_opens_the_self_directed_channel",
+   "tests/bowen/test_external.py::test_m1e7_perspective_rises_only_on_a_landed_contact_or_own_practice",
+   "tests/bowen/test_appraise.py::test_m4c4_perspective_falls_with_anxiety_and_on_a_loaded_tie"
+  ],
+  "note": "`Person.systems_perspective` is a graded value separate from both levels; intermediate values give intermediate self-directed weights (`test_m4d1a_perspective_opens_the_self_directed_channel`); but `iposition.py::assertion_form` makes every I-POSITION the assertion form below `assertion_perspective_threshold`, the hard gate the paragraph rules out"
+ },
+ "M1.A.18a": {
+  "status": "partial",
+  "evidence": [
+   "tests/bowen/test_reactive.py::test_m1a19_evaluating_detector_is_two_sided"
+  ],
+  "note": "the evaluating detector counts blame and praise alike (`test_m1a19_evaluating_detector_is_two_sided`, with a planted valence); no code sets a nonzero `Event.valence`, so the detector never moves in a run, and nothing reads `reactive_state` as a perspective readout"
+ },
+ "M1.A.18c": {
+  "status": "partial",
+  "evidence": [
+   "tests/bowen/test_external.py::test_m1e7_perspective_rises_only_on_a_landed_contact_or_own_practice",
+   "tests/bowen/test_policy.py::test_m4d1a_mixing_weight_reads_functional_level_only",
+   "tests/bowen/test_policy.py::test_m4d3b_loaded_tie_engagement_gated_by_systems_perspective",
+   "tests/bowen/test_iposition.py::test_m5f4_low_perspective_executes_the_assertion_form"
+  ],
+  "note": "everyone starts at 0 (`scenario/family.py::build_family`; `test_m1e7_perspective_rises_only_on_a_landed_contact_or_own_practice`); it gates loaded-tie engagement (`test_m4d3b_loaded_tie_engagement_gated_by_systems_perspective`) and I-POSITION form (`test_m5f4_low_perspective_executes_the_assertion_form`); no test shows a zero-perspective person functioning well over a life"
+ },
+ "M1.A.18d": {
+  "status": "partial",
+  "evidence": [
+   "tests/bowen/test_appraise.py::test_m4c4_perspective_falls_with_anxiety_and_on_a_loaded_tie"
+  ],
+  "note": "one per-person value, `Person.systems_perspective`; `appraise.py::effective_perspective` attenuates it on a loaded tie and with anxiety (`test_m4c4_perspective_falls_with_anxiety_and_on_a_loaded_tie`), but only `M4.C.6` reattribution reads it: the `M4.D.3b` gate and the `M5.F.4` form read the held value"
+ },
+ "M1.A.18b": {
+  "status": "partial",
+  "evidence": [
+   "tests/bowen/test_external.py::test_m1e7_perspective_rises_only_on_a_landed_contact_or_own_practice"
+  ],
+  "note": "not a free parameter: it starts at 0 and moves only on a landed contact or own practice (`test_m1e7_perspective_rises_only_on_a_landed_contact_or_own_practice`); its rate is not coupled to `basic_level`: `external.py::apply_landed_contacts` and `self_practice` use fixed gains"
+ },
+ "M1.B.3": {
+  "status": "partial",
+  "evidence": [
+   "tests/bowen/test_mechanisms.py::test_m1b3_four_tie_states_are_distinct",
+   "tests/bowen/test_rejection.py::test_m1b3c_a_refused_approach_never_reaches_the_cutter_and_costs_the_sender",
+   "tests/bowen/test_mechanisms.py::test_m4g1_three_withdrawals_register_as_distant_tie"
+  ],
+  "note": "energy separates a cut-off tie from a resolved low-contact one at the same no-contact rest, and a delivered `CUTOFF` keeps the energy and the tie open (`test_m1b3_four_tie_states_are_distinct`); the cutter refuses approaches (`test_m1b3c_a_refused_approach_never_reaches_the_cutter_and_costs_the_sender`); repeated withdrawal makes a tie distant (`test_m4g1_three_withdrawals_register_as_distant_tie`); open conflict is declared (`TieState.OPEN_CONFLICT`) but no code assigns it, so the fourth state is never distinguished"
+ },
+ "M1.B.5": {
+  "status": "partial",
+  "evidence": [
+   "tests/bowen/test_moves.py::test_m1b6_flip_is_relative_and_immediate"
+  ],
+  "note": "directed and bistable with no stable midpoint (`test_m1b5_balance_has_no_stable_midpoint`, `test_m1b6_flip_is_relative_and_immediate`), held on the tie and moved by acts, not a trait; holding a position stops the exchange both ways and lapses on a reactive act (the revision 21 tests); not indexed per area: every tie holds one area, `joint`, since areas of joint activity are not built (`M1.B.9`)"
+ },
+ "M1.B.9": {
+  "status": "not done",
+  "evidence": [],
+  "note": "not built: `Relationship.areas_of_joint_activity` is declared (`src/bowen/engine/objects.py`) but nothing writes or reads it; every functioning balance is held in one area, `joint` (`src/bowen/engine/moves.py::DEFAULT_AREA`), and no code narrows areas (searched `src/bowen`, `config/bowen` for `M1.B.9`, `areas_of_joint_activity`, `joint`)"
+ },
+ "M1.B.10": {
+  "status": "not done",
+  "evidence": [],
+  "note": "not built: `Relationship.taboo_set` is declared (`src/bowen/engine/objects.py`) but nothing writes or reads it; no code grows it as a party learns what makes the other anxious (searched `src/bowen`, `config/bowen` for `M1.B.10`, `taboo`)"
+ },
+ "M1.B.10a": {
+  "status": "not done",
+  "evidence": [],
+  "note": "not built: no taboo set is in use (`M1.B.10`), so no purposeful mention returns a subject and no `M5.C` gate applies to one (searched `src/bowen`, `config/bowen` for `M1.B.10a`, `taboo`, `purposeful`, `desensiti`)"
+ },
+ "M1.B.11": {
+  "status": "done",
+  "evidence": [
+   "tests/bowen/test_activation_visibility.py::test_m3c2_target_latency_comes_from_the_tie",
+   "tests/bowen/test_tick.py::test_m3c1_delivery_uses_edge_latency",
+   "tests/bowen/test_objects.py::test_m3c2_latency_is_whole_ticks_at_least_one"
+  ],
+  "note": "each tie holds its own `latency`, and a target's delivery lands at emission plus that tie's latency (`test_m3c2_target_latency_comes_from_the_tie`); through the whole loop, moves on ties of latency 1 and 2 arrive one and two weeks later (`test_m3c1_delivery_uses_edge_latency`); latency is at least one week, so no move reaches its target in the week it is sent (`test_m3c2_latency_is_whole_ticks_at_least_one`)"
+ },
+ "M1.B.12": {
+  "status": "partial",
+  "evidence": [
+   "tests/bowen/test_slow_tick.py::test_m7e4_ties_wear_by_their_members_chronic_anxiety"
+  ],
+  "note": "`dyad_age` is held and advanced by one each slow tick (`slow_tick.py::run_slow_tick`; `test_m7e4_ties_wear_by_their_members_chronic_anxiety` asserts it reaches 1); nothing reads it, so it does not raise the cost of a pole flip; the flip's rising cost with time in a configuration comes from `functioning_habit` hardening (`M1.B.6`), not from the tie's age"
+ },
+ "M1.C.2": {
+  "status": "partial",
+  "evidence": [
+   "tests/bowen/test_policy.py::test_m4d3_no_term_raises_reactive_acts_with_anxiety"
+  ],
+  "note": "the policy carries no load-reading preference: before learning, acute anxiety leaves every automatic act's probability, `TRIANGLE` included, unchanged (`test_m4d3_no_term_raises_reactive_acts_with_anxiety`); the inversion itself is `M11.C.44`'s outcome, whose row is partial (ensemble FAIL; accepted finding: no calm state near the floor, so the outside position's value does not invert)"
+ },
+ "M1.C.3a": {
+  "status": "partial",
+  "evidence": [],
+  "note": "routing capacity falls with the members' functional level (`test_m1c3a_better_differentiated_triangle_routes_less`); activating only under load and resolving when it passes is `M11.C.45`'s outcome, whose row is partial (ensemble FAIL; accepted finding: triangling is not learned and there is no calm state near the floor)"
+ },
+ "M1.C.3b": {
+  "status": "done",
+  "evidence": [
+   "tests/bowen/test_external.py::test_m1e1_external_agent_is_a_person_with_a_restricted_repertoire_and_real_ties",
+   "tests/bowen/test_config.py::test_s1_3a_act_classes_come_from_config"
+  ],
+  "note": "the external agent's legal acts are only `M5.B.5`'s repertoire (`test_m1e1_external_agent_is_a_person_with_a_restricted_repertoire_and_real_ties`), and that repertoire is held to the spec's list, which has no `DETRIANGLE` or `PREVENT_ALIGNMENT` (`test_s1_3a_act_classes_come_from_config`), so the coach has no move that acts on the family's triangles; the coach's `TRIANGLE` (in `M5.B.5`'s list) seeks a third for its own relief and does not act on the family's triangles"
+ },
+ "M1.C.3c": {
+  "status": "partial",
+  "evidence": [
+   "tests/bowen/test_moves.py::test_m5b1_detriangle_returns_the_third_to_neutral_with_knowledge_intact",
+   "tests/bowen/test_live_positions.py::test_m81_positions_live_counts_unfused_present_occupants"
+  ],
+  "note": "the two are separate code paths: detriangling another is the `DETRIANGLE` move, which cancels a `TRIANGLE` act and returns the third to neutral (`recompute.py`; `test_m5b1_detriangle_returns_the_third_to_neutral_with_knowledge_intact`); detriangling self is `M8`'s unfused occupant (`test_m81_positions_live_counts_unfused_present_occupants`); no test asserts that one cannot stand for the other"
+ },
+ "M1.C.4": {
+  "status": "partial",
+  "evidence": [
+   "tests/bowen/test_learner.py::test_m4d6e_triangle_reinforced_when_it_relieves_the_seeker_whatever_it_costs_the_third"
+  ],
+  "note": "`activation_memory` counts a triangle's active weeks (`recompute.py::recompute_triangles`), with no test; the learner reinforces a `TRIANGLE` that relieved its seeker (`test_m4d6e_triangle_reinforced_when_it_relieves_the_seeker_whatever_it_costs_the_third`); no policy term reads `activation_memory`; reuse is `M11.C.42`'s outcome, whose row is partial (ensemble FAIL; accepted finding: a `TRIANGLE` relieves less than a `DISTANCE`, so it is not learned or reused)"
+ },
+ "M1.C.6": {
+  "status": "not done",
+  "evidence": [],
+  "note": "not built: no code makes a sibling conflict form the parents' triangle, and no test or criterion runs an intervention on the sibling pair alone (searched `src/bowen`, `config/bowen`, `tests/bowen` for `M1.C.6`, `sibling conflict`, `parent-level`)"
+ },
+ "M1.D.1": {
+  "status": "done",
+  "evidence": [
+   "tests/bowen/test_sinks.py::test_m1d1_marital_conflict_draws_the_budget_to_its_sink"
+  ],
+  "note": "one budget, three sinks, allocated from the family's acts (step 10)"
+ },
+ "M1.D.4": {
+  "status": "not done",
+  "evidence": [],
+  "note": "not built: `Family.leadership_office` (an occupant and a sphere, `src/bowen/engine/objects.py::LeadershipOffice`) is declared but never set or read; no vacancy stall, external recognition or move-permission scope exists (searched `src/bowen`, `config/bowen` for `M1.D.4`, `leadership`, `sphere`, `stall`, `vacan`)"
+ },
+ "M1.D.4a": {
+  "status": "not done",
+  "evidence": [],
+  "note": "not built: `Family.differentiation_capacity` is declared (`src/bowen/engine/objects.py`) and stays `None`; nothing derives whether any member can hold a position against the others (searched `src/bowen` for `M1.D.4a`, `differentiation_capacity`)"
+ },
+ "M1.D.5": {
+  "status": "done",
+  "evidence": [
+   "tests/bowen/test_symptoms.py::test_m7d4_removal_fires_off_the_others_tolerance_not_the_bearers_severity"
+  ],
+  "note": "`Family.tolerance` maps each member to their own limit, read by `symptoms.py::tolerance_removal`; with Ravi's limit set, removal fires when his excess passes it and not below it, and never with no limit listed (`test_m7d4_removal_fires_off_the_others_tolerance_not_the_bearers_severity`); no family file declares a tolerance, so in every run the default (no limit) holds and the removal never fires"
+ },
+ "M1.D.6": {
+  "status": "not done",
+  "evidence": [],
+  "note": "not built: `Family.access_vector` is declared (`src/bowen/engine/objects.py`), never set by the family loader and read by no mechanism; only `readouts/evaluation.py` copies it into a readout, so it has no effect (searched `src/bowen`, `config/bowen` for `M1.D.6`, `access_vector`, `access`)"
+ },
+ "M1.D.7": {
+  "status": "not done",
+  "evidence": [],
+  "note": "not built: `Family.ambient_anxiety` is declared (`src/bowen/engine/objects.py`) and never written or read; there are no societal dials and no symptom-threshold term from them (searched `src/bowen`, `config/bowen` for `societal`, `societal_leadership`, `media_amplification`, `resource_pressure`, `ambient_anxiety`)"
+ },
+ "M1.D.7a": {
+  "status": "not done",
+  "evidence": [],
+  "note": "not built: no societal dial exists under any name (searched `src/bowen`, `config/bowen` for `societal`, `societal_leadership`, `media_amplification`, `resource_pressure`, `ambient_anxiety`)"
+ },
+ "M1.D.7a1": {
+  "status": "not done",
+  "evidence": [],
+  "note": "not built: there are no societal dials and no societal readout, so nothing reports societal results for the rule to bind (searched `src/bowen`, `config/bowen` for `societal`, `societal_leadership`, `media_amplification`, `resource_pressure`, `ambient_anxiety`)"
+ },
+ "M1.D.7b": {
+  "status": "not done",
+  "evidence": [],
+  "note": "not built: no `resource_pressure` dial exists (searched `src/bowen`, `config/bowen` for `societal`, `societal_leadership`, `media_amplification`, `resource_pressure`, `ambient_anxiety`)"
+ },
+ "M1.D.7c": {
+  "status": "not done",
+  "evidence": [],
+  "note": "not built: no `resource_pressure` dial exists, so there is no awareness-of-availability path (searched `src/bowen`, `config/bowen` for `societal`, `societal_leadership`, `media_amplification`, `resource_pressure`, `ambient_anxiety`)"
+ },
+ "M1.D.7d": {
+  "status": "not done",
+  "evidence": [],
+  "note": "not built: no `media_amplification` dial exists, so nothing modulates it by a family's differentiation (searched `src/bowen`, `config/bowen` for `societal`, `societal_leadership`, `media_amplification`, `resource_pressure`, `ambient_anxiety`)"
+ },
+ "M1.D.7i": {
+  "status": "not done",
+  "evidence": [],
+  "note": "not built: no societal dial exists, so there is no societal influence for differentiation to damp in either direction (searched `src/bowen`, `config/bowen` for `societal`, `societal_leadership`, `media_amplification`, `resource_pressure`, `ambient_anxiety`)"
+ },
+ "M1.D.7j": {
+  "status": "not done",
+  "evidence": [],
+  "note": "not built: no societal dial exists, so no family damps one, for itself or anyone else (searched `src/bowen`, `config/bowen` for `societal`, `societal_leadership`, `media_amplification`, `resource_pressure`, `ambient_anxiety`)"
+ },
+ "M1.D.7k": {
+  "status": "not done",
+  "evidence": [],
+  "note": "not built: no `resource_pressure` dial exists, so it has no optimum (searched `src/bowen`, `config/bowen` for `societal`, `societal_leadership`, `media_amplification`, `resource_pressure`, `ambient_anxiety`)"
+ },
+ "M1.D.7l": {
+  "status": "not done",
+  "evidence": [],
+  "note": "not built: no societal individuality–togetherness balance exists; the tie-level `basic_togetherness` and `functional_togetherness` fields are not it (searched `src/bowen`, `config/bowen` for `societal`, `togetherness`, `M1.D.7l`)"
+ },
+ "M1.D.7e": {
+  "status": "not done",
+  "evidence": [],
+  "note": "not built: no dial emits a stressor; the `exogenous` flag recorded at emission exists for scripted stressors (`M1.F.7`, `test_m1f7_exogenous_flag_counts_separately`), but there is no dial-driven stressor to convert (searched `src/bowen`, `config/bowen` for `societal`, `societal_leadership`, `media_amplification`, `resource_pressure`, `ambient_anxiety`)"
+ },
+ "M1.D.7f": {
+  "status": "not done",
+  "evidence": [],
+  "note": "not built: no `societal_leadership` dial exists, so there is no functional form to grade (searched `src/bowen`, `config/bowen` for `societal`, `societal_leadership`, `media_amplification`, `resource_pressure`, `ambient_anxiety`)"
+ },
+ "M1.D.8": {
+  "status": "partial",
+  "evidence": [
+   "tests/bowen/test_family.py::test_m23_reduced_instance_is_not_closed",
+   "tests/bowen/test_life_course.py::test_m7c1h_new_couple_gets_a_family_with_derived_budget"
+  ],
+  "note": "the loader refuses a nuclear-household adult with no family-of-origin tie (`test_m23_reduced_instance_is_not_closed`), and a partner who marries in arrives with a family-of-origin holder (`test_m7c1h_new_couple_gets_a_family_with_derived_budget`); in `config/bowen/family_phase_d.md` every generation 2 and 3 adult has one, but the four grandparents (generation 1) have none, since no generation above them is declared"
+ },
+ "M1.E.2": {
+  "status": "partial",
+  "evidence": [
+   "tests/bowen/test_external.py::test_m1e7_coach_caught_in_the_anxiety_transmits_less"
+  ],
+  "note": "the coach is not stateless: being caught in the family's anxiety lowers its landing (`test_m1e7_coach_caught_in_the_anxiety_transmits_less`); it is built with `M1.A.19`'s three detectors, which `reactive.py::update_reactive_state` updates for every person, but no test runs them on an external agent (`test_m1a19_every_person_carries_three_drifting_detectors` uses the family without one)"
+ },
+ "M1.E.2a": {
+  "status": "not done",
+  "evidence": [],
+  "note": "not built: the external agent selects through the same policy as members, limited to `M5.B.5`'s repertoire; no objective distinguishes understanding from helping and no readout observes it (searched `src/bowen`, `config/bowen` for `M1.E.2a`, `understand`, `objective`)"
+ },
+ "M1.E.3": {
+  "status": "not done",
+  "evidence": [],
+  "note": "not built: no move absorbs responsibility; the binder kind `EXTERNAL_RESPONSIBILITY` is declared (`src/bowen/engine/events.py::BinderKind`) and releasing it raises `NotImplementedError` (`src/bowen/engine/event_effects.py::_release_binder`)"
+ },
+ "M1.E.4": {
+  "status": "not done",
+  "evidence": [],
+  "note": "not built: the external agent has no certify move (`M5.B.5`'s repertoire in `config/bowen/act_classes.md` lists none) and no family-level belief a certification writes (searched `src/bowen`, `config/bowen` for `M1.E.4`, `certif`, `defect`)"
+ },
+ "M1.E.5": {
+  "status": "partial",
+  "evidence": [
+   "tests/bowen/test_appraise.py::test_m4c10_a_calmer_sender_lowers_the_receivers_anxiety",
+   "tests/bowen/test_appraise.py::test_m4c10_calm_transfer_balances"
+  ],
+  "note": "the term is `M4.C.10`'s calmer-sender transfer (`appraise.py::calm_transfer`), applied on every tie with no role test, so on the coach's too; it is tested on a family tie (`test_m4c10_a_calmer_sender_lowers_the_receivers_anxiety`, `test_m4c10_calm_transfer_balances`); no test delivers an external agent's move through it"
+ },
+ "M1.E.7": {
+  "status": "done",
+  "evidence": [
+   "tests/bowen/test_external.py::test_m1e7_perspective_rises_only_on_a_landed_contact_or_own_practice",
+   "tests/bowen/test_external.py::test_m1e7_contact_lands_only_when_binders_fail",
+   "tests/bowen/test_learner.py::test_m4d6d_self_directed_channel_is_never_reinforced"
+  ],
+  "note": "perspective rises only on a landed contact or the person's own practice, every rise logged (`test_m1e7_perspective_rises_only_on_a_landed_contact_or_own_practice`); landing needs binders failing and is rare (`test_m1e7_contact_lands_only_when_binders_fail`, `test_m1e7_the_landing_rate_is_low`); practice counts only when it worked; the other functions up and settles back when calm (the revision 19 and 20 tests); never reinforced (`test_m4d6d_self_directed_channel_is_never_reinforced`)"
+ },
+ "M1.E.7c": {
+  "status": "partial",
+  "evidence": [
+   "tests/bowen/test_external.py::test_m1e7_coach_caught_in_the_anxiety_transmits_less"
+  ],
+  "note": "two of the four forms are built: non-participation, as coach quality (`test_m1e7_coach_caught_in_the_anxiety_transmits_less`), and delayed self-observation through `M16.D`'s view (`test_m1e7c_delayed_self_observation_makes_landing_likelier`); instance supply and category supply are not built (`src/bowen/engine/external.py` docstring)"
+ },
+ "M1.E.7d": {
+  "status": "partial",
+  "evidence": [
+   "tests/bowen/test_external.py::test_m1e7_coach_caught_in_the_anxiety_transmits_less",
+   "tests/bowen/test_external.py::test_m1e7_contact_lands_only_when_binders_fail"
+  ],
+  "note": "landing is a product of coach quality and the recipient's binders failing, each tested as a factor (`test_m1e7_coach_caught_in_the_anxiety_transmits_less`, `test_m1e7_contact_lands_only_when_binders_fail`), drawn against one keyed uniform per contact for the occasion (`external.py::apply_landed_contacts`); no test asserts the occasion: that the same contact can fail once and land later"
+ },
+ "M1.E.7f": {
+  "status": "not done",
+  "evidence": [],
+  "note": "not built: the external agent is declared in the family config from the start (`config/bowen/family_phase_c.md`); no code decides when a family seeks help by a family-relative threshold, and there is no rejection hazard (searched `src/bowen`, `config/bowen` for `M1.E.7f`, `M4.D.5b`, `hazard`, `entry`)"
+ },
+ "M1.F.2": {
+  "status": "partial",
+  "evidence": [],
+  "note": "a sign flip by source position works when a kind declares one (`test_m1f2_source_position_can_flip_sign`, with a hand-made sign table), and every declared kind is +1 (`test_m1f2_signs_parse_and_default_to_plus_one`), as revision 12 requires; its test, one kind from senders in different positions landing on opposite sides of the optimum (`test_m1f2_same_kind_moves_receiver_on_opposite_sides`), does not exist"
+ },
+ "M1.F.4a": {
+  "status": "not done",
+  "evidence": [],
+  "note": "not built: no event carries a register and no reply is constrained by one (searched `src/bowen`, `config/bowen` for `M1.F.4a`, `tangential`, `register` of a message)"
+ },
+ "M1.F.5": {
+  "status": "partial",
+  "evidence": [
+   "tests/bowen/test_appraise.py::test_m4c9_witness_appraisal_reads_both_ties",
+   "tests/bowen/test_life_course.py::test_m7b1a_child_chronic_reads_parents_and_witnessed_history"
+  ],
+  "note": "witnesses appraise events not addressed to them (`test_m4c9_witness_appraisal_reads_both_ties`); a child's chronic anxiety is derived from its mean yearly load (`test_m7b1a_child_chronic_reads_parents_and_witnessed_history`), which sums every appraisal, addressed or witnessed; no test shows witnessed events in particular feeding chronic anxiety"
+ },
+ "M1.F.6": {
+  "status": "done",
+  "evidence": [
+   "tests/bowen/test_stress_response.py::test_m1f6_a_long_stressor_weighs_for_its_duration"
+  ],
+  "note": "stressors are spells with a start and a duration, never per-tick draws; from spec revision 18 a stressor weighs on its target for its declared duration (stressor_persistence)"
+ },
+ "M1.F.8": {
+  "status": "done",
+  "evidence": [
+   "tests/bowen/test_engineering_gates.py::test_m11d16_batch_order_permutation_is_invariant"
+  ],
+  "note": "reversing the selection order and every same-tick delivery batch over whole policy runs leaves the final state identical (`test_m11d16_batch_order_permutation_is_invariant`); the appraisal, belief and scheduling orders are each shown not to matter (the three `test_m1f8_` tests)"
+ },
+ "M2.2": {
+  "status": "partial",
+  "evidence": [
+   "tests/bowen/test_family.py::test_m2a_phase_d_family_matches_spec_table",
+   "tests/bowen/test_family.py::test_m2a_ravi_sibling_starts_cut_off",
+   "tests/bowen/test_family.py::test_m23_reduced_instance_is_not_closed"
+  ],
+  "note": "`config/bowen/family_phase_d.md` spans three generations (`test_m2a_phase_d_family_matches_spec_table`) and Ravi–Dario starts cut off (`test_m2a_ravi_sibling_starts_cut_off`); the loader requires a family-of-origin tie only of nuclear-household adults (`test_m23_reduced_instance_is_not_closed`); Teodor, Ana, Sofia and Viktor have none"
+ },
+ "M2.A.0": {
+  "status": "partial",
+  "evidence": [
+   "tests/bowen/test_family.py::test_m2a_phase_d_family_matches_spec_table",
+   "tests/bowen/test_live_positions.py::test_m82_neutral_external_in_outside_position_counts",
+   "tests/bowen/test_live_positions.py::test_m83_external_who_has_taken_a_side_does_not_count",
+   "tests/bowen/test_family.py::test_m23a_instance_matches_the_spec"
+  ],
+  "note": "eleven members and one external agent are declared (`test_m2a_phase_d_family_matches_spec_table`); `positions_live` counts the external only by M8's test (`test_m82_…`, `test_m83_…`); the Phase B instance is `M2.3a`'s (`test_m23a_instance_matches_the_spec`); no test asserts Dr Halim is left out of membership counts (`readouts/evaluation.py::evaluate` filters `Role.MEMBER`)"
+ },
+ "M2.A.0b": {
+  "status": "partial",
+  "evidence": [
+   "tests/bowen/test_slow_tick.py::test_m3b1_slow_tick_fires_at_the_end_of_week_51_not_at_week_0"
+  ],
+  "note": "week 0 is not a slow tick and the first falls at the end of week 51 (`test_m3b1_slow_tick_fires_at_the_end_of_week_51_not_at_week_0`); no calendar epoch exists and every date in config is a duration from `t0` (searched `src/bowen`, `config/bowen` for `epoch`, `calendar`), but no test would fail if one were added"
+ },
+ "M2.A.0e": {
+  "status": "done",
+  "evidence": [
+   "tests/bowen/test_family.py::test_m2a_phase_d_family_matches_spec_table"
+  ],
+  "note": "`spouse_basic_level_tolerance` (1.0, `[I]`) is declared in `config/bowen/constants.md` and the loader refuses a spouse pair beyond it (`test_m2a0e_spouses_within_tolerance`); the Phase D family, Teodor 36 and Ana 37, loads within it (`test_m2a_phase_d_family_matches_spec_table`)"
+ },
+ "M2.A.0f": {
+  "status": "not done",
+  "evidence": [],
+  "note": "not built: no code reads sibling-rank and sex complementarity in pairing, and no pair can fail to form (searched `src/bowen`, `config/bowen` for `complement`, `sibling_rank`, `M2.A.0f`); `sibling_rank` is loaded and not read; `docs/model_explainer.md` lists it as not built"
+ },
+ "M2.A.0d": {
+  "status": "not done",
+  "evidence": [],
+  "note": "not built: no code makes the cost of fusion depend on life stage or treats infant–caretaker symbiosis as normal (searched `src/bowen`, `config/bowen` for `symbiosis`, `infant`, `life_stage`, `M2.A.0d`)"
+ },
+ "M2.A.0g": {
+  "status": "done",
+  "evidence": [
+   "tests/bowen/test_phase_c_gate.py::test_m11c25_dominant_pole_independent_of_sex"
+  ],
+  "note": "through `M11.C.25`, done on this page (PASS, `docs/phase_c_ensemble_record.md`); the pole code reads no `sex` field (searched `src/bowen/engine/moves.py`)"
+ },
+ "M2.A.0h": {
+  "status": "done",
+  "evidence": [
+   "tests/bowen/test_objects.py::test_m1a20_identifiers_are_declared_not_counted",
+   "tests/bowen/test_family.py::test_m21_family_declared_in_markdown"
+  ],
+  "note": "identifiers come from declarations, with no counter or global state, and a display name is refused as a `PersonId` (`test_m1a20_identifiers_are_declared_not_counted`); no person's name or identifier appears in `src/bowen` (`test_m21_family_declared_in_markdown`)"
+ },
+ "M2.A.0i": {
+  "status": "done",
+  "evidence": [
+   "tests/bowen/test_family.py::test_m1a21_sex_must_be_declared",
+   "tests/bowen/test_family.py::test_m2a_values_match_the_spec_table",
+   "tests/bowen/test_family.py::test_m2a_phase_d_family_matches_spec_table"
+  ],
+  "note": "each member's sex matches the spec table (`test_m2a_phase_d_family_matches_spec_table`; Dr Halim is exempt from the table check); Leo is male (`test_m2a0i_leo_declared_male`); the loader refuses an undeclared sex (`test_m1a21_sex_must_be_declared`), so Dr Halim's `female` must be declared for the family to load"
+ },
+ "M2.A.1": {
+  "status": "partial",
+  "evidence": [],
+  "note": "built, no test: `config/bowen/family_phase_d.md` gives Marta–Iris bond energy 35 and Ravi–Dario 55, loaded by `src/bowen/scenario/family.py::build_family`; no field declares contact frequency and no test compares the two ties' contact; `M11.C.4` ran on its own dyad fixture"
+ },
+ "M2.A.2": {
+  "status": "partial",
+  "evidence": [
+   "tests/bowen/test_phase_d2_criteria.py::test_m11c2_symptom_concentrates_on_projection_target_in_the_twelve_person_family",
+   "tests/bowen/test_life_course.py::test_m7e1c_birth_situations_add_focus_not_a_target"
+  ],
+  "note": "through `M11.C.2`, partial on this page (FAIL on the Phase D family; PASS on the twelve-person family); no target is assigned at initialisation and birth situations add focus, not a target (`test_m7e1c_birth_situations_add_focus_not_a_target`); no test shows Nadia becoming the target"
+ },
+ "M3.D.5": {
+  "status": "partial",
+  "evidence": [
+   "tests/bowen/test_determinism.py::test_m11d5_same_seed_same_log",
+   "tests/bowen/test_log.py::test_m16t5_same_seed_same_log_with_header",
+   "tests/bowen/test_engine_golden.py::test_b1_seeded_run_log_is_unchanged"
+  ],
+  "note": "byte identity is tested on the scripted Phase B run, in one process, across hash salts (`test_m11d5_same_seed_same_log`) and as files (`test_m16t5_same_seed_same_log_with_header`); that run makes no policy draws, and seeded runs with the policy and the life course are compared with a stored fingerprint of rounded values (`test_b1_seeded_run_log_is_unchanged`), not byte for byte"
+ },
+ "M3.D.6": {
+  "status": "partial",
+  "evidence": [
+   "tests/bowen/test_engine_purity.py::test_m11d1_engine_has_no_io"
+  ],
+  "note": "the G4 scan finds no LLM module in `src/bowen/engine` (`test_m11d1_engine_has_no_io`); the policy that makes the decision lives in `src/bowen/policy`, which no LLM scan covers (`test_m4b2_policy_imports_only_the_observation` checks only `src.` imports); no LLM import exists in `src/bowen` today"
+ },
+ "M4.A.5": {
+  "status": "done",
+  "evidence": [
+   "tests/bowen/test_mechanisms.py::test_m4a5_self_generated_load_derives_from_basic_level",
+   "tests/bowen/test_mechanisms.py::test_m4a5_self_generated_load_does_not_swamp_tie_load"
+  ],
+  "note": "`self_term` reads `basic_level` only: lowering it raises the term, lowering `functional_level` alone leaves it unchanged, and a person with no ties still loads (`test_m4a5_self_generated_load_derives_from_basic_level`); 'must not swamp' is read at family and nuclear-household level (owner, 2026-10-06; `test_m4a5_self_generated_load_does_not_swamp_tie_load`)"
+ },
+ "M4.B.2": {
+  "status": "done",
+  "evidence": [
+   "tests/bowen/test_beliefs.py::test_m4b2_belief_update_reads_no_true_state",
+   "tests/bowen/test_policy.py::test_m4b2_policy_imports_only_the_observation",
+   "tests/bowen/test_policy.py::test_m4b2_observation_holds_no_other_persons_state",
+   "tests/bowen/test_policy.py::test_m4b3_policy_reads_no_queue_or_store"
+  ],
+  "note": "the policy imports only the observation (`test_m4b2_policy_imports_only_the_observation`), which holds no other person's state (`test_m4b2_observation_holds_no_other_persons_state`), and reads no queue or store (`test_m4b3_…`); the belief update reads no true state; `M11.C.36` passes but is partial on this page (no mutant has turned it red)"
+ },
+ "M4.B.2a": {
+  "status": "partial",
+  "evidence": [
+   "tests/bowen/test_policy.py::test_m4b2_observation_holds_no_other_persons_state",
+   "tests/bowen/test_outside_ness.py::test_m5f1_sender_state_scales_what_the_move_delivers",
+   "tests/bowen/test_attribution.py::test_m5c1_under_marital_distance_no_move_improves_the_symptom_bearer",
+   "tests/bowen/test_symptoms.py::test_m7d4_removal_fires_off_the_others_tolerance_not_the_bearers_severity",
+   "tests/bowen/test_policy.py::test_m4b2_policy_imports_only_the_observation",
+   "tests/bowen/test_learner.py::test_m4d2_triangle_position_is_read_through_belief"
+  ],
+  "note": "rows tested: `outside_ness` reaches receivers only through the event (`test_m5f1_…`, `test_m4b2_observation_holds_no_other_persons_state`); marital distance and decision ownership act engine-side (`test_m5c1_…`, `test_m7d4_removal_fires_…`); the policy cannot import `positions_live`; triangle position is read through belief (`test_m4d2_…`); the system-calm projection row has no code"
+ },
+ "M4.C.3": {
+  "status": "done",
+  "evidence": [
+   "tests/bowen/test_symptoms.py::test_m4c3a_one_sustained_excursion_builds_more_than_several_resolved",
+   "tests/bowen/test_symptoms.py::test_m7d2_a_channel_that_is_not_fed_can_still_cross_and_each_crossing_is_reported",
+   "tests/bowen/test_symptoms.py::test_m7d1_threshold_crossing_emits_endogenous_event"
+  ],
+  "note": "onset reads an integrated load: one sustained excursion builds more than several resolved ones at the same peak (`test_m4c3a_one_sustained_excursion_…`); a channel not fed this week still crosses from its stored load (`test_m7d2_…`); the crossing emits the onset (`test_m7d1_…`)"
+ },
+ "M4.C.8a": {
+  "status": "done",
+  "evidence": [
+   "tests/bowen/test_appraise.py::test_m4c8_attention_at_feeling_amplifies_and_objectivity_gates_it"
+  ],
+  "note": "attention at the feeling channel scales appraisal by `1 + attention_gain × (1 − objectivity)`, objectivity being outside-ness efficacy; with both axes at zero the amplification is gone (`test_m4c8_attention_at_feeling_amplifies_and_objectivity_gates_it`)"
+ },
+ "M4.D.1c": {
+  "status": "not done",
+  "evidence": [],
+  "note": "not built: no `M11.C` criterion runs a `WITHHOLD`-only arm against an `I-POSITION` arm (searched the spec's `M11.C` table, `config/bowen/criteria.md` and `src/bowen/ensemble` for `WITHHOLD`)"
+ },
+ "M4.D.1f": {
+  "status": "done",
+  "evidence": [
+   "tests/bowen/test_policy.py::test_m4d1f_rules_come_from_config",
+   "tests/bowen/test_policy.py::test_m4d1f_fallback_on_empty_legal_set_is_flagged",
+   "tests/bowen/test_policy.py::test_m4d1f_non_finite_score_falls_back",
+   "tests/bowen/test_policy.py::test_m4d1f_zero_total_weight_falls_back"
+  ],
+  "note": "tie-break `equal_probability` and fallback `hold` are declared in `config/bowen/policy.md` and refused at load if not implemented; empty legal set, non-finite score and zero weight fall back and are flagged; equal scores take equal softmax weight, so no tie-break draw is made; `life_energy` is not built, so it cannot be exhausted"
+ },
+ "M4.D.2": {
+  "status": "done",
+  "evidence": [
+   "tests/bowen/test_learner.py::test_m4d3_values_are_kept_per_anxiety_band",
+   "tests/bowen/test_policy.py::test_m4d1a_mixing_weight_reads_functional_level_only",
+   "tests/bowen/test_policy.py::test_m4d1e_legal_set_excludes_impossible_and_gated_acts",
+   "tests/bowen/test_policy.py::test_m4d3b_loaded_tie_engagement_gated_by_systems_perspective",
+   "tests/bowen/test_learner.py::test_m4d2_triangle_position_is_read_through_belief",
+   "tests/bowen/test_policy.py::test_m4d1_large_learned_values_keep_the_softmax_finite"
+  ],
+  "note": "acute anxiety selects the value band (`test_m4d3_values_are_kept_per_anxiety_band`); `functional_level` sets the mixing weight (`test_m4d1a_mixing_weight_…`); tie state sets the legal set and loaded-tie gate (`test_m4d1e_…`, `test_m4d3b_…`); triangle position is read through belief (`test_m4d2_…`); a learned value dominates selection (`test_m4d1_large_learned_values_…`)"
+ },
+ "M4.D.3a": {
+  "status": "partial",
+  "evidence": [
+   "tests/bowen/test_policy.py::test_m4d3a_lower_level_slides_selection_to_older_acts",
+   "tests/bowen/test_stress_response.py::test_m1a5e_coping_raises_functioning_and_soothing_lowers_it"
+  ],
+  "note": "the capacity gate moves selection to older acts at lower level (`test_m4d3a_…`); `functional_level` falls under load only when the person soothes (`test_m1a5e_coping_raises_functioning_and_soothing_lowers_it`); no test shows selection sliding down the ordering as anxiety rises"
+ },
+ "M4.D.5": {
+  "status": "not done",
+  "evidence": [],
+  "note": "not built: no fused-default state of altering self while demanding the other change (searched `src/bowen`, `config/bowen` for `fused`, `accommod`, `M4.D.5`)"
+ },
+ "M4.D.5a": {
+  "status": "not done",
+  "evidence": [],
+  "note": "not built: no per-tie accommodation stock exists (searched `src/bowen`, `config/bowen` for `accommodation_stock`, `accommod`, `M4.D.5a`)"
+ },
+ "M4.D.5b": {
+  "status": "not done",
+  "evidence": [],
+  "note": "not built: the accommodation stock it reads does not exist and no family reporting baseline is shifted (searched `src/bowen`, `config/bowen` for `accommod`, `baseline`, `M4.D.5b`)"
+ },
+ "M4.D.5c": {
+  "status": "partial",
+  "evidence": [
+   "tests/bowen/test_learner.py::test_m4d6b_nothing_outside_the_horizon_is_credited",
+   "tests/bowen/test_phase_c_gate.py::test_m11c16_repertoire_concentration_depends_on_level"
+  ],
+  "note": "the automatic channel learns over a short declared horizon (`test_m4d6b_nothing_outside_the_horizon_is_credited`); the accommodation decision it governs (`M4.D.5a`) is not built; `M11.C.16`, named as the test, is partial on this page (\"its own mutation clause is not met\")"
+ },
+ "M4.D.5d": {
+  "status": "not done",
+  "evidence": [],
+  "note": "not built: no `emotional_reserve` is derived and symptom onset does not read one (searched `src/bowen`, `config/bowen` for `emotional_reserve`, `reserve`, `M4.D.5d`)"
+ },
+ "M4.D.6a": {
+  "status": "done",
+  "evidence": [
+   "tests/bowen/test_learner.py::test_m4d6_an_act_followed_by_relief_is_reinforced",
+   "tests/bowen/test_learner.py::test_m4d6e_another_persons_calming_reinforces"
+  ],
+  "note": "the actor's felt change over the declared horizon plus the cross-person term (step 7)"
+ },
+ "M4.D.6b": {
+  "status": "partial",
+  "evidence": [
+   "tests/bowen/test_ensemble_record.py::test_d9_sweep_record_is_current"
+  ],
+  "note": "`credit_horizon` (3 weeks, `[I]`) is declared in `config/bowen/constants.md` and only acts inside it are credited (`test_m4d6b_nothing_outside_the_horizon_is_credited`); `docs/phase_c_sweep_record.md` sweeps it, the learning rate and the temperature (`test_d9_sweep_record_is_current`); no test keeps the horizon at weeks rather than the estimator's window"
+ },
+ "M4.D.6c": {
+  "status": "partial",
+  "evidence": [
+   "tests/bowen/test_phase_c_gate.py::test_m11c16_repertoire_concentration_depends_on_level"
+  ],
+  "note": "through `M11.C.16`, partial on this page (\"its own mutation clause is not met\"); `src/bowen/ensemble/criteria.py::arm_c16` computes `top_move_share` per run, but `docs/phase_c_ensemble_record.md` reports a mean difference across seeds, not a per-seed report"
+ },
+ "M5.A.1": {
+  "status": "done",
+  "evidence": [
+   "tests/bowen/test_events.py::test_m5a1_configured_moves_are_exactly_the_spec_repertoire",
+   "tests/bowen/test_policy.py::test_m4d1e_legal_set_excludes_impossible_and_gated_acts"
+  ],
+  "note": "the configured moves are exactly the nine `M5.A.1` names plus `M5.B`'s seven (`test_m5a1_configured_moves_are_exactly_the_spec_repertoire`), and the policy's legal set is drawn from them (`test_m4d1e_legal_set_excludes_impossible_and_gated_acts`)"
+ },
+ "M5.A.1a": {
+  "status": "partial",
+  "evidence": [],
+  "note": "each move is one act; the owner's pattern definitions (2026-10-10) are declared in `docs/readouts_phase_c.md` and built, projection included, cutoff read from behaviour (`test_m5a1a_cutoff_is_read_from_behaviour_not_words`); undeclared patterns are refused; no readout reads `M4.G.1`'s hardening (searched `patterns.py` for `harden`)"
+ },
+ "M5.A.2": {
+  "status": "done",
+  "evidence": [
+   "tests/bowen/test_events.py::test_m5a1_configured_moves_are_exactly_the_spec_repertoire"
+  ],
+  "note": "the configured moves must equal the spec's `M5.A.1` and `M5.B` lists, so any added move fails the test until the spec names it (`test_m5a1_configured_moves_are_exactly_the_spec_repertoire`)"
+ },
+ "M5.B.2": {
+  "status": "done",
+  "evidence": [
+   "tests/bowen/test_moves.py::test_m5b2_prevent_alignment_acts_before_any_alignment_forms",
+   "tests/bowen/test_policy.py::test_m4d1e_legal_set_excludes_impossible_and_gated_acts"
+  ],
+  "note": "acts before any alignment exists (step 5) and is legal toward anyone a closed triad holds, whether or not a triangle is active (step 7 change to the policy)"
+ },
+ "M5.B.3a": {
+  "status": "partial",
+  "evidence": [
+   "tests/bowen/test_rejection.py::test_m1b3c_a_refused_approach_never_reaches_the_cutter_and_costs_the_sender",
+   "tests/bowen/test_rejection.py::test_m5b3_accepted_contact_lowers_both_rejections_and_reopens_the_tie_at_zero",
+   "tests/bowen/test_contact.py::test_m4c1_deviation_counts_on_both_sides"
+  ],
+  "note": "the far side has its own willingness: a cutter's refusal stops approaches (`test_m1b3c_a_refused_approach_…`), and accepted contact lowers both rejections (`test_m5b3_…`); contact past the optimum counts on the impingement side (`test_m4c1_…`); no target of one open relationship, no absorb-rate limit and no floor are built"
+ },
+ "M5.B.6": {
+  "status": "partial",
+  "evidence": [],
+  "note": "the intensity dial is separate from content (`test_m5b6_provoke_intensity_is_a_dial_separate_from_content`); nothing reads `PROVOKE` as raising an issue: `M5.C.1a`'s peace-agree technique is not built, and the live issue in `iposition.py::advance_sequences` is any impinging move from the target"
+ },
+ "M5.B.5": {
+  "status": "partial",
+  "evidence": [
+   "tests/bowen/test_external.py::test_m1e1_external_agent_is_a_person_with_a_restricted_repertoire_and_real_ties",
+   "tests/bowen/test_config.py::test_s1_3a_act_classes_come_from_config"
+  ],
+  "note": "the external agent's legal acts are within `external_repertoire` (`test_m1e1_…`), which must equal the five moves `M5.B.5` names (`test_s1_3a_act_classes_come_from_config`); `M1.E.3`'s absorb-responsibility and `M1.E.4`'s certify-a-defect acts are not built (`config/bowen/act_classes.md` says so)"
+ },
+ "M5.C.1": {
+  "status": "partial",
+  "evidence": [
+   "tests/bowen/test_policy.py::test_m4d1e_legal_set_excludes_impossible_and_gated_acts",
+   "tests/bowen/test_attribution.py::test_m5c1_under_marital_distance_no_move_improves_the_symptom_bearer",
+   "tests/bowen/test_symptoms.py::test_m7d4_removal_fires_off_the_others_tolerance_not_the_bearers_severity"
+  ],
+  "note": "tested: financial dependence removes `I-POSITION` (`test_m4d1e_…`), marital distance (`test_m5c1_…`), decision ownership (`test_m7d4_removal_fires_…`); the outside-ness thresholds feed only `readouts/counterfeit.py`; no gate delays for want of a live issue, charges a long recovery cost for high engagement, or stops projection when the system is calm"
+ },
+ "M5.C.1a": {
+  "status": "not done",
+  "evidence": [],
+  "note": "not built: the live-issue gate carries no family-type term and no peace-agree or reactive family type exists (searched `src/bowen`, `config/bowen` for `peace`, `family_type`, `explosive`, `M5.C.1a`)"
+ },
+ "M5.C.2": {
+  "status": "partial",
+  "evidence": [
+   "tests/bowen/test_policy.py::test_m4b2_observation_holds_no_other_persons_state",
+   "tests/bowen/test_iposition.py::test_m5d2a_prepare_occupies_several_weeks_and_can_fail",
+   "tests/bowen/test_iposition.py::test_m5d3_abort_returns_the_mover_to_the_prior_balance"
+  ],
+  "note": "no gate reads family anxiety: the policy sees one person's observation (`test_m4b2_observation_holds_no_other_persons_state`); failure reads the mover's own excess in `PREPARE` and at opposition (`test_m5d2a_prepare_…`, `test_m5d3_abort_…`); nothing makes serious illness or death enabling"
+ },
+ "M5.D.5": {
+  "status": "partial",
+  "evidence": [],
+  "note": "the opposition pulls up to the mover's level, not a mean, and the gain is outside M6.I.4 (step 8); the payoff propagating to subsequent movers is not built"
+ },
+ "M5.D.7b": {
+  "status": "not done",
+  "evidence": [],
+  "note": "no behaviour a test can check (a prohibition on how readouts describe a completed sequence); checked by review; no readout in `src/bowen/readouts` counts completed exchanges or calls an agent differentiated (searched `differentiat`, `completed`)"
+ },
+ "M5.E.0": {
+  "status": "partial",
+  "evidence": [
+   "tests/bowen/test_phase_c_gate.py::test_m11c5_change_back_reaction_shape"
+  ],
+  "note": "through `M11.C.5`, partial on this page (FAIL; accepted finding: no settled change-back reaction over 60 weeks); no rung is scripted (searched `src/bowen`, `config/bowen` for `rung`, `ladder`, `change back`); the debit it starts from is a contact proxy (`M5.E.7` partial)"
+ },
+ "M5.E.1": {
+  "status": "partial",
+  "evidence": [
+   "tests/bowen/test_phase_c_gate.py::test_m11c5_change_back_reaction_shape"
+  ],
+  "note": "through `M11.C.5`, partial on this page (FAIL; accepted finding: no settled change-back reaction over 60 weeks); its readouts are the target's reaction and a third person's symptom load, so nothing checks the order wrong, change back, consequences"
+ },
+ "M5.E.2": {
+  "status": "partial",
+  "evidence": [
+   "tests/bowen/test_phase_c_gate.py::test_m11c5_change_back_reaction_shape"
+  ],
+  "note": "through `M11.C.5`, partial on this page (FAIL; accepted finding: no settled change-back reaction over 60 weeks); `src/bowen/ensemble/criteria.py::arm_c5` sums the target's reaction and does not compare a fed with an unfed reaction"
+ },
+ "M5.E.4": {
+  "status": "partial",
+  "evidence": [
+   "tests/bowen/test_phase_c_gate.py::test_m11c5_change_back_reaction_shape"
+  ],
+  "note": "through `M11.C.5`, partial on this page (FAIL; accepted finding: no settled change-back reaction over 60 weeks); no readout checks a symptom as the opening response or a successful petition for sickness"
+ },
+ "M5.E.5": {
+  "status": "partial",
+  "evidence": [
+   "tests/bowen/test_phase_c_gate.py::test_m11c5_change_back_reaction_shape"
+  ],
+  "note": "through `M11.C.5`, partial on this page (FAIL; accepted finding: no settled change-back reaction over 60 weeks); `src/bowen/ensemble/criteria.py::arm_c5` reads `third_person_symptom_load`, so this is the clause the criterion measures, and it fails"
+ },
+ "M5.E.6": {
+  "status": "partial",
+  "evidence": [
+   "tests/bowen/test_phase_c_gate.py::test_m11c5_change_back_reaction_shape"
+  ],
+  "note": "through `M11.C.5`, partial on this page (FAIL; accepted finding: no settled change-back reaction over 60 weeks); `src/bowen/ensemble/criteria.py::arm_c5` sums reaction and load and reads no oscillation or hysteresis"
+ },
+ "M5.E.7": {
+  "status": "partial",
+  "evidence": [],
+  "note": "a genuine I-POSITION withdraws felt contact the other was receiving (step 8) — a contact proxy: life_energy (M1.A.10, M6.I.3) is not built"
+ },
+ "M5.E.7a": {
+  "status": "not done",
+  "evidence": [],
+  "note": "no behaviour a test can check (what the debit means to the party who bears it); checked by review"
+ },
+ "M5.E.9": {
+  "status": "not done",
+  "evidence": [],
+  "note": "not built: `config/bowen/constants.md` declares no week, months and years-to-decade timescales for the reaction, re-equilibration and tie resolution (searched `config/bowen`, `src/bowen` for `timescale`, `M5.E.9`, `re-equilibrat`, `decade`)"
+ },
+ "M5.F.2c": {
+  "status": "partial",
+  "evidence": [],
+  "note": "built in part, no test: `src/bowen/engine/appraise.py::tie_change` scales delivered contact by `1 − hollow_gain × inward` and adds `assault_gain × outward` to impingement, both continuous; no zero-crossing point is declared, at 0.5 or otherwise, and with `hollow_gain` 0.5 the inward term never changes sign"
+ },
+ "M5.F.2a": {
+  "status": "partial",
+  "evidence": [
+   "tests/bowen/test_iposition.py::test_m5f4_low_perspective_executes_the_assertion_form"
+  ],
+  "note": "one of the five forms is built: an assertion-form `I-POSITION` raises the claimant's outward axis (`test_m5f4_low_perspective_executes_the_assertion_form`); declaring non-involvement, \"I've worked it out\" and catching oneself diagnosing are not built (searched `src/bowen` for `neutrality`, `non-involvement`, `announce`)"
+ },
+ "M6.I.1": {
+  "status": "done",
+  "evidence": [
+   "tests/bowen/test_objects.py::test_m1d1_exactly_three_sinks"
+  ],
+  "note": "`Sink` has exactly three members (`test_m1d1_exactly_three_sinks`); allocation conserves the budget (`test_m6i1_allocation_conserves_the_budget`); only a completed exchange reduces it, as a logged `differentiating_exchange` record (`test_m6i1_only_a_completed_exchange_reduces_the_budget`)"
+ },
+ "M6.I.2": {
+  "status": "done",
+  "evidence": [
+   "tests/bowen/test_ledger.py::test_m6i2_distance_runs_outside_the_budget",
+   "tests/bowen/test_objects.py::test_m1d2_distance_is_not_a_sink",
+   "tests/bowen/test_objects.py::test_m1d1_exactly_three_sinks"
+  ],
+  "note": "`distance_binding` records in a 30-week run touch neither the budget nor a sink (`test_m6i2_distance_runs_outside_the_budget`); `Sink` has exactly three members, none of them distance (`test_m1d1_exactly_three_sinks`, `test_m1d2_distance_is_not_a_sink`)"
+ },
+ "M6.I.3": {
+  "status": "not done",
+  "evidence": [],
+  "note": "not built: `life_energy` has no allocation; `Person.life_energy_ratio` is never set, and the every-tick check only tests that it is None or in [0, 1] (`invariants.py`); `iposition.py` and `config/bowen/policy.md` say it is not built"
+ },
+ "M6.I.4": {
+  "status": "done",
+  "evidence": [
+   "tests/bowen/test_mechanisms.py::test_m4g2_a_violation_raises",
+   "tests/bowen/test_life_course.py::test_m63e_balances_settle_back_after_a_death"
+  ],
+  "note": "the exchange moves pseudo-self with `functional_level` and conserves it (`test_m6i4_pseudo_self_moves_with_functional_level_and_is_conserved`); an unlogged change raises (`test_m4g2_a_violation_raises`); balances settle back when the exchange stops (`test_m6i4_pseudo_self_settles_back_when_the_exchange_stops`) and after a death (`test_m63e_balances_settle_back_after_a_death`); the revision 31 capacity limits have their own `test_m6i4_*` tests"
+ },
+ "M6.I.5": {
+  "status": "done",
+  "evidence": [
+   "tests/bowen/test_moves.py::test_m6i4_pseudo_self_moves_with_functional_level_and_is_conserved",
+   "tests/bowen/test_mechanisms.py::test_m4g2_a_violation_raises"
+  ],
+  "note": "the `OVERFUNCTION`/`UNDERFUNCTION` exchange leaves `basic_level` unchanged (`test_m6i4_pseudo_self_moves_with_functional_level_and_is_conserved`); a fast-tick change to `basic_level` raises (`test_m4g2_a_violation_raises`, the `M6.I.5` case); `basic_level` moves only on the slow-tick estimator"
+ },
+ "M6.I.6": {
+  "status": "partial",
+  "evidence": [
+   "tests/bowen/test_ledger.py::test_m6i6_transfers_balance_every_tick",
+   "tests/bowen/test_ledger.py::test_m6i6_an_unbalanced_transfer_is_caught",
+   "tests/bowen/test_ledger.py::test_m64_every_stock_change_is_logged_by_name",
+   "tests/bowen/test_moves.py::test_m1d2a_bound_anxiety_returns_when_distancing_is_prevented"
+  ],
+  "note": "the ledger is tested: transfers balance every tick and an unbalanced one is caught (`test_m6i6_*`), and every stock change is logged by name (`test_m64_every_stock_change_is_logged_by_name`); \"blocking one channel raises flow on the rest\" has one instance (`test_m1d2a_bound_anxiety_returns_when_distancing_is_prevented`) and no general test; `M11.C.13`, which traces to it, is not done (no community)"
+ },
+ "M6.I.7": {
+  "status": "done",
+  "evidence": [
+   "tests/bowen/test_mechanisms.py::test_m4g2_a_violation_raises",
+   "tests/bowen/test_mechanisms.py::test_m4a4_institutionalize_makes_worry_edges",
+   "tests/bowen/test_life_course.py::test_m63b_anxiety_split_by_bond_energy",
+   "tests/bowen/test_life_course.py::test_m2a0k_successor_enters_at_retirement_and_learning_is_kept",
+   "tests/bowen/test_mechanisms.py::test_m4a1_every_tie_loads_every_tick_without_events"
+  ],
+  "note": "removing a tie raises (`test_m4g2_a_violation_raises`, the `M6.I.7` case); removal keeps every tie (`test_m4a4_institutionalize_makes_worry_edges`); the dead stay in state, not alive (`test_m63b_anxiety_split_by_bond_energy`); a retired coach stays, inactive (`test_m2a0k_successor_enters_at_retirement_and_learning_is_kept`); a cut-off tie still loads (`test_m4a1_every_tie_loads_every_tick_without_events`)"
+ },
+ "M6.I.8": {
+  "status": "done",
+  "evidence": [
+   "tests/bowen/test_tick.py::test_m3d2_standing_load_precedes_delivery",
+   "tests/bowen/test_mechanisms.py::test_m4a1_every_tie_loads_every_tick_without_events",
+   "tests/bowen/test_mechanisms.py::test_m4g2_a_violation_raises"
+  ],
+  "note": "the standing load runs before delivery (`test_m3d2_standing_load_precedes_delivery`) on every tie each tick with no events (`test_m4a1_every_tie_loads_every_tick_without_events`); the every-tick check raises when a tie is skipped or delivery runs first (`test_m4g2_a_violation_raises`, the two `M6.I.8` cases)"
+ },
+ "M6.1": {
+  "status": "partial",
+  "evidence": [
+   "tests/bowen/test_mechanisms.py::test_m4g2_invariants_asserted_every_tick",
+   "tests/bowen/test_config.py::test_m11d3_config_rejects_missing_required_key",
+   "tests/bowen/test_config.py::test_m0_1_grade_must_match_the_spec",
+   "tests/bowen/test_config.py::test_m101_repository_constants_load_and_are_graded"
+  ],
+  "note": "`invariant_tolerance` is 1e-9 in `config/bowen/constants.md`, a required key (`test_m11d3_config_rejects_missing_required_key`), graded `[I]` against the schema (`test_m0_1_grade_must_match_the_spec`, `test_m101_repository_constants_load_and_are_graded`); `M6.I.1` is reported every tick (`test_m4g2_invariants_asserted_every_tick`), but no test feeds `invariants.budget_problems` a violation"
+ },
+ "M6.2": {
+  "status": "done",
+  "evidence": [
+   "tests/bowen/test_phase_d_criteria.py::test_m11c11_removal_three_phase_shape"
+  ],
+  "note": "done through `M11.C.11` (done, ensemble PASS): its removal arms run with `invariants.assert_invariants` checking `M6.4`'s ledger every tick, so a removal that broke `M6.I.6` would raise"
+ },
+ "M6.4": {
+  "status": "partial",
+  "evidence": [
+   "tests/bowen/test_ledger.py::test_m64_every_stock_change_is_logged_by_name",
+   "tests/bowen/test_ledger.py::test_m6i6_transfers_balance_every_tick",
+   "tests/bowen/test_ledger.py::test_m6i6_an_unbalanced_transfer_is_caught"
+  ],
+  "note": "changes to acute, tie-bound and symptom-held anxiety are checked by name against `invariants.LEDGER` (`test_m64_every_stock_change_is_logged_by_name`); `Triangle.bound_anxiety` is not in `invariants.snapshot`, so an unlisted change to it does not raise; death transfers are checked in `life_course.yearly`, not by the ledger"
+ },
+ "M6.3": {
+  "status": "done",
+  "evidence": [
+   "tests/bowen/test_life_course.py::test_m11c37_anxiety_conserved_across_death",
+   "tests/bowen/test_life_course.py::test_m11c37_a_run_raises_when_a_death_loses_anxiety",
+   "tests/bowen/test_life_course.py::test_m63b_anxiety_split_by_bond_energy",
+   "tests/bowen/test_life_course.py::test_m1a20_a_birth_identifier_is_stable_across_arms"
+  ],
+  "note": "decided at revision 28 and built in `life_course.die`; total anxiety is conserved across a death (`test_m11c37_anxiety_conserved_across_death`) and a run raises when a death loses anxiety (`test_m11c37_a_run_raises_when_a_death_loses_anxiety`); the dead stay in state (`test_m63b_anxiety_split_by_bond_energy`); births keep `M1.A.20`'s identifiers (`test_m1a20_a_birth_identifier_is_stable_across_arms`); the parts `M6.3a`–`M6.3h` are judged on their own rows"
+ },
+ "M6.3i": {
+  "status": "not done",
+  "evidence": [],
+  "note": "no behaviour a test can check (a prohibition on writing the reciprocal rise in stress after a death as a rule); checked by review"
+ },
+ "M7.A.2": {
+  "status": "partial",
+  "evidence": [
+   "tests/bowen/test_appraise.py::test_m4c4_perspective_falls_with_anxiety_and_on_a_loaded_tie",
+   "tests/bowen/test_appraise.py::test_m4c6_reappraisal_reattributes_own_output"
+  ],
+  "note": "`basic_level` is per person and `appraise.effective_perspective` attenuates its use per tie by load (`test_m4c4_perspective_falls_with_anxiety_and_on_a_loaded_tie`); reappraisal reads the person's own output on that tie (`test_m4c6_reappraisal_reattributes_own_output`); no test shows a gain made on a peripheral tie failing to apply on the marital tie"
+ },
+ "M7.A.2a": {
+  "status": "done",
+  "evidence": [
+   "tests/bowen/test_appraise.py::test_m4c4_perspective_falls_with_anxiety_and_on_a_loaded_tie"
+  ],
+  "note": "`systems_perspective` is a per-person field and `appraise.effective_perspective` attenuates it by the tie's load; `test_m4c4_perspective_falls_with_anxiety_and_on_a_loaded_tie` asserts the same person's effective perspective is lower on a loaded tie"
+ },
+ "M7.A.2b": {
+  "status": "not done",
+  "evidence": [],
+  "note": "not built: no code treats the family of origin as the privileged peripheral system or turns to those who carry the parents' role when they are dead (searched `src/bowen`, `config/bowen` for `privileged`, `aunt`, `KS13`, `origin`); `slow_tick.estimate` weights every tie by load alike"
+ },
+ "M7.C.1b": {
+  "status": "not done",
+  "evidence": [],
+  "note": "not built: no `expectations` field exists, so investment and expectations cannot move in opposite directions on one tie (searched `src/bowen` for `expectations`); `docs/model_explainer.md` §8.1 lists it as not built"
+ },
+ "M7.C.1c": {
+  "status": "partial",
+  "evidence": [],
+  "note": "built, no test: `life_course._redistribute_investment` cuts every tie by the same proportion, and policy reads the tie's share through `reactive.investment_share`; no test asserts that the same event has a larger effect on a tie holding a larger share of the person's investment"
+ },
+ "M7.C.1d": {
+  "status": "not done",
+  "evidence": [],
+  "note": "not built: a cut in the supporting party's investment is never resolved as a removal event by the other's remaining ties (searched `src/bowen` for `M7.C.1d`, `alternative`, `single tie`, `KS25`, `KS21`)"
+ },
+ "M7.C.1e": {
+  "status": "partial",
+  "evidence": [
+   "tests/bowen/test_life_course.py::test_m11c37_a_run_raises_when_a_death_loses_anxiety"
+  ],
+  "note": "`life_course.yearly` removes a person by calling `life_course.die`, `M6.3`'s mechanism: `test_m11c37_a_run_raises_when_a_death_loses_anxiety` patches `die` and the yearly death goes through the patch; that nothing else removes a person rests on reading the code (`die` is the one writer of `alive = False` in `src/bowen`), and no test would fail if a second path were added"
+ },
+ "M7.D.2b": {
+  "status": "partial",
+  "evidence": [],
+  "note": "built, no test: `moves.relax_pseudo_self` and `symptoms.release_bound` can move members in opposite directions after a removal; no test or criterion reads per-member signed effects, and `M11.C.11`'s readout is the family mean (`src/bowen/ensemble/criteria_d.py`)"
+ },
+ "M7.D.3": {
+  "status": "partial",
+  "evidence": [
+   "tests/bowen/test_phase_d2_criteria.py::test_m11c15_death_destabilises_like_recovery",
+   "tests/bowen/test_phase_d_criteria.py::test_m11c12_symptom_relief_raises_conflict",
+   "tests/bowen/test_symptoms.py::test_m7d2a_a_symptom_ending_returns_what_it_held"
+  ],
+  "note": "withdrawn as a mechanism; the result is `M11.C.15`'s (done, ensemble PASS) and `M11.C.12`'s (partial: ensemble FAIL, accepted finding that released anxiety does not select `CONFLICT`); the release of the bound anxiety is tested (`test_m7d2a_a_symptom_ending_returns_what_it_held`)"
+ },
+ "M7.E.1": {
+  "status": "partial",
+  "evidence": [
+   "tests/bowen/test_life_course.py::test_m7e1f_level_held_at_parents_mean_before_five",
+   "tests/bowen/test_life_course.py::test_m7e1f_the_estimator_does_not_run_on_a_developing_child",
+   "tests/bowen/test_life_course.py::test_m7e1f_development_stops_at_twenty",
+   "tests/bowen/test_phase_d2_criteria.py::test_m11c6_multigenerational_decline_in_projection_line"
+  ],
+  "note": "the ordering is `M11.C.6`'s result, which is partial (ensemble FAIL, accepted finding: projection-type acts do not lower a child's functioning); development from each child's own history is built in `life_course._childhood` and tested at its bounds (`test_m7e1f_*`)"
+ },
+ "M7.E.1a": {
+  "status": "not done",
+  "evidence": [],
+  "note": "not built: no check of the three-outcome shape on the output exists (searched `src/bowen`, `tools`, `tests` for `M7.E.1a`, `three-outcome`, `M10.C.4`); `life_course._childhood` does not assign a level from the distribution"
+ },
+ "M7.E.1b": {
+  "status": "partial",
+  "evidence": [],
+  "note": "built, no test: `life_course._childhood` develops each child from that child's own functioning, and the band reads shares of parental acts, not counts; no test gives two siblings different triangle histories and asserts different levels"
+ },
+ "M7.E.1d": {
+  "status": "done",
+  "evidence": [
+   "tests/bowen/test_life_course.py::test_m7e1c_birth_situations_add_focus_not_a_target",
+   "tests/bowen/test_cutoff_and_focus.py::test_m1b8a_a_declared_weakness_adds_focus_while_a_parent_is_anxious",
+   "tests/bowen/test_cutoff_and_focus.py::test_m1b8a_focus_raises_the_focused_childs_load"
+  ],
+  "note": "focus can start before any act by the child: birth situations add focus (`test_m7e1c_birth_situations_add_focus_not_a_target`) and a declared weakness adds focus while a parent is anxious (`test_m1b8a_a_declared_weakness_adds_focus_while_a_parent_is_anxious`); the focus then raises the child's load (`test_m1b8a_focus_raises_the_focused_childs_load`)"
+ },
+ "M7.E.1e": {
+  "status": "not done",
+  "evidence": [],
+  "note": "not built: `life_course._childhood`'s parental term is the parents' mean `functional_level` over the year, a global average, as `M7.E.1f` specifies; nothing reads the parents' functioning on the marital tie"
+ },
+ "M7.E.2": {
+  "status": "not done",
+  "evidence": [],
+  "note": "not built: no generational rate exists, stochastic or fixed (searched `src/bowen`, `config/bowen` for `generational`, `decrement`; the only decrement is `M1.C.5`'s triangle floor); a child's level comes from `life_course._childhood` within `M7.E.1f`'s band"
+ },
+ "M7.E.3": {
+  "status": "partial",
+  "evidence": [
+   "tests/bowen/test_phase_d2_criteria.py::test_m11c10_cutoff_begets_cutoff",
+   "tests/bowen/test_phase_d2_criteria.py::test_m11c10_cutoff_begets_cutoff_from_the_family_of_origin"
+  ],
+  "note": "withdrawn as a mechanism; the loop is `M11.C.10`'s result, which is partial (ensemble FAIL, accepted finding: the arms' input barely differs); the family-of-origin variant passes"
+ },
+ "M8.5": {
+  "status": "partial",
+  "evidence": [
+   "tests/bowen/test_external.py::test_m11c7_a_sided_coachs_contact_never_lands",
+   "tests/bowen/test_external.py::test_m8_3_a_coach_recruited_by_a_spouse_holds_no_live_position",
+   "tests/bowen/test_mechanisms.py::test_m8_5_s1_4_a_sided_coach_leaves_its_triangle_active"
+  ],
+  "note": "`live_positions.positions_live` decides the witness test (`visibility.resolve`), the coach's position (`external.coach_live`; `test_m11c7_a_sided_coachs_contact_never_lands`) and triangle activity (`recompute.recompute_triangles`; `test_m85_a_triangle_with_an_absent_member_is_not_active`); the `M5.C` site is missing: `live_positions.avoidance_available` has no caller in `src/bowen`"
+ },
+ "M8.6": {
+  "status": "partial",
+  "evidence": [
+   "tests/bowen/test_external.py::test_m11c7_a_sided_coachs_contact_never_lands",
+   "tests/bowen/test_activation_visibility.py::test_m85_visibility_calls_the_predicate_and_separates_aligned_third_parties"
+  ],
+  "note": "position decides two cases: a sided coach's contact never lands (`test_m11c7_a_sided_coachs_contact_never_lands`) and visibility separates aligned third parties from witnesses (`test_m85_visibility_calls_the_predicate_and_separates_aligned_third_parties`); the effects of the other positions are not built (`visibility.resolve`'s `peripheral_candidates` has no consumer); knowledge is not modelled"
+ },
+ "M8.6a": {
+  "status": "not done",
+  "evidence": [],
+  "note": "not built: alignment transfers no pseudo-self; pseudo-self moves only in the `OVERFUNCTION`/`UNDERFUNCTION` exchange and in `moves.relax_pseudo_self`, and `M8.5`'s revision 32 text records `M1.E.7e`'s lending as not built"
+ },
+ "M8.6b": {
+  "status": "not done",
+  "evidence": [],
+  "note": "not built: a scripted `route` damps gain (`M1.F.3`, `appraise.py`) and fidelity, but no code lets an external agent hold traffic addressed to the neutral party and decide what passes"
+ },
+ "M8.7": {
+  "status": "not done",
+  "evidence": [],
+  "note": "not built: knowledge has no variable and no hazard on alignment (searched `src/bowen`, `config/bowen` for `knowledge`, `hazard`; the only matches are `recompute`'s note that `DETRIANGLE` leaves beliefs intact and the mortality hazard)"
+ },
+ "M8.8": {
+  "status": "not done",
+  "evidence": [],
+  "note": "not built: no announcing act and no penalty exist (searched `src/bowen`, `config/bowen`, `tools`, `tests` for `announc`, `programme`, `M8.8`; `config/bowen/event_kinds.md` has no such kind)"
+ },
+ "M9.1": {
+  "status": "partial",
+  "evidence": [
+   "tests/bowen/test_beliefs.py::test_m98_belief_can_differ_from_the_true_state",
+   "tests/bowen/test_attribution.py::test_m96_attribution_is_written_only_from_moves_sent_or_delivered"
+  ],
+  "note": "per-person stores exist: `tie_beliefs` (`M9.8`), which can differ from the tie's state (`test_m98_belief_can_differ_from_the_true_state`), and `attribution` (`M9.6`); no family-level belief store exists (`objects.Family` has no belief field; searched `src/bowen` for `belief`)"
+ },
+ "M9.2": {
+  "status": "not done",
+  "evidence": [],
+  "note": "no behaviour a test can check (a prohibition on how beliefs are built; the model has no notion of a claim serving a denial); checked by review"
+ },
+ "M9.3": {
+  "status": "not done",
+  "evidence": [],
+  "note": "not built: no who-is-sick belief and no hysteresis exist; `INSTITUTIONALIZE` is a removal (`M4.A.4`) and writes no belief (searched `src/bowen`, `config/bowen` for `sick`, `hysteresis`, `certif`, `denial`)"
+ },
+ "M9.4": {
+  "status": "not done",
+  "evidence": [],
+  "note": "not built: no shock-wave mechanism exists; `Person.structural_importance` (`M1.A.13`) is defined and read nowhere (searched `src/bowen` for `shock`, `structural_importance`, `dependence`); one tie class carries all propagation, so no dependence edge exists"
+ },
+ "M9.5": {
+  "status": "partial",
+  "evidence": [
+   "tests/bowen/test_evaluation.py::test_m11g4_belief_and_truth_are_reported_apart_and_the_framing_travels",
+   "tests/bowen/test_log_records.py::test_m16a5a_belief_discrepancy_is_computable_per_record"
+  ],
+  "note": "the evaluation reports the binding pattern's truth (sink allocation) and belief (spouses' attributions) apart (`test_m11g4_belief_and_truth_are_reported_apart_and_the_framing_travels`); `log_records.BeliefWriteRecord` carries both values (`test_m16a5a_belief_discrepancy_is_computable_per_record`) but nothing in `src/bowen` emits it, so tie beliefs reach no readout beside the truth"
+ },
+ "M10.A.1": {
+  "status": "partial",
+  "evidence": [
+   "tests/bowen/test_objects.py::test_m1a1_reactivity_is_not_stored",
+   "tests/bowen/test_stress_response.py::test_m1a5e_basic_level_scales_both_directions",
+   "tests/bowen/test_policy.py::test_m4d3a_lower_level_slides_selection_to_older_acts"
+  ],
+  "note": "reactivity is not stored (`test_m1a1_reactivity_is_not_stored`); the functioning swing scales with basic level (`test_m1a5e_basic_level_scales_both_directions`); the usable repertoire narrows with level (`test_m4d3a_lower_level_slides_selection_to_older_acts`); not derived: `life_energy` is not built, `M6.I.4`'s transfer is a flat `pseudo_self_transfer_gain` not scaled by basic level, `systems_perspective` grows by fixed gains with no basic-level coupling; agency: see `M10.A.1a`"
+ },
+ "M10.A.1a": {
+  "status": "partial",
+  "evidence": [
+   "tests/bowen/test_moves.py::test_m6i4_pseudo_self_moves_with_functional_level_and_is_conserved"
+  ],
+  "note": "the split the spec names is tested: an `OVERFUNCTION` exchange moves pseudo-self and functional level and leaves every `basic_level` unchanged (`test_m6i4_pseudo_self_moves_with_functional_level_and_is_conserved`); no agency parameter exists (searched `src/bowen`, `config/bowen` for `agency`), but no code computes agency as the solid-self fraction and no test refuses an agency parameter"
+ },
+ "M10.A.2": {
+  "status": "not done",
+  "evidence": [],
+  "note": "no behaviour a test can check (a modelling-method rule: each added parameter is justified against parsimony); `config/bowen/constants_changes.md` logs each added key with its reason, but no test reads the justification; checked by review"
+ },
+ "M10.B.3": {
+  "status": "partial",
+  "evidence": [
+   "tests/bowen/test_config.py::test_m101_repository_constants_load_and_are_graded",
+   "tests/bowen/test_engine_purity.py::test_m11d4_invented_constants_labelled"
+  ],
+  "note": "window and breadth are declared in `config/bowen/constants.md` as `estimator_window` and `estimator_breadth`: the register must carry every schema key (`test_m101_repository_constants_load_and_are_graded`) and every grade must be `[I]` (`test_m11d4_invented_constants_labelled`); not built: no sensitivity analysis over either is run or reported (searched `tools`, `docs/*_record.md` for `estimator_window`, `sensitivity`)"
+ },
+ "M10.C.1": {
+  "status": "partial",
+  "evidence": [
+   "tests/bowen/test_engine_purity.py::test_m11d4_invented_constants_labelled",
+   "tests/bowen/test_config.py::test_m0_1_grade_must_match_the_spec",
+   "tests/bowen/test_family.py::test_m2_family_declaration_must_be_graded_invented"
+  ],
+  "note": "every register constant is `[I]` and no engine line calls one sourced (`test_m11d4_invented_constants_labelled`); a relabelled grade fails to load (`test_m0_1_grade_must_match_the_spec`); the family declaration must say `grade: [I]` (`test_m2_family_declaration_must_be_graded_invented`); untested: the trace's 'invented constants' sentence and the `[I]` labels on the standing-load and appraisal forms (docstrings); `societal_leadership` and sibling-position effects are not built"
+ },
+ "M10.C.1a": {
+  "status": "partial",
+  "evidence": [
+   "tests/bowen/test_engine_purity.py::test_m11d4_invented_constants_labelled",
+   "tests/test_review_rev31.py::test_r31b2_criteria_settings_graded"
+  ],
+  "note": "the register's entries (witness weight, fallback rate, habituation, the `M17.A.1` and `M17.A.4` ensemble rules) are `[I]` (`test_m11d4_invented_constants_labelled`); `M11.C.38`'s and `M11.C.41`'s levels and loads are `[I]` in `config/bowen/criteria.md` (`test_r31b2_criteria_settings_graded`); the activation regime and tie-break and fallback rules say `[I]` in prose only; `M11.1c`'s clamp tolerance (`1e-12`, `tools/mutation_record.py`) has no label; `M11.4c` has no instance; `M17.C`–`M17.F`'s entries are Phase E"
+ },
+ "M10.C.2": {
+  "status": "not done",
+  "evidence": [],
+  "note": "no behaviour a test can check (a list of which corpus quantities may serve as calibration targets, and which may not; nothing in version 1 calibrates); checked by review"
+ },
+ "M10.C.2a": {
+  "status": "not done",
+  "evidence": [],
+  "note": "not built: no check or report uses the DSI–trait-anxiety association, so its two limits travel with nothing; nothing sets a parameter from it (searched `src/bowen`, `config/bowen`, `tools`, `tests` for `Skowron`, `DSI`, `.64`)"
+ },
+ "M10.C.2b": {
+  "status": "partial",
+  "evidence": [],
+  "note": "built, no test: `src/bowen/render/trace.py::FRAMING` tells every trace it is 'not a measurement'; no test asserts that sentence, and no output is scanned for a claim of measured differentiation or of precision"
+ },
+ "M10.C.4": {
+  "status": "not done",
+  "evidence": [],
+  "note": "not built: no checks module holds the twelve bounds and no criterion or readout compares an output with them (searched `src/bowen`, `config/bowen`, `tools`, `tests` for `quantum`, `traversal`, `FE08`, `M10.C.4`); none is a key in `config/bowen/constants.md`, but nothing guards that (`M11.D.12` is not built)"
+ },
+ "M10.C.4b": {
+  "status": "not done",
+  "evidence": [],
+  "note": "not built: there is no checks module, so the config parser has nothing to refuse and no import guard exists (searched `src`, `tools`, `tests`, `config` for files and imports named `checks`, and for `M10.C.4`)"
+ },
+ "M10.C.4a": {
+  "status": "not done",
+  "evidence": [],
+  "note": "not built: no quantum-jump readout or three-way ablation of its conditions exists (searched `src/bowen`, `config/bowen`, `tools`, `tests` for `quantum`, `jump`, `M10.C.4a`)"
+ },
+ "M10.C.5": {
+  "status": "not done",
+  "evidence": [],
+  "note": "not built: `config/bowen/constants.md`'s register has columns key, value, grade, unit and spec, and no premise column; premise classes are held per criterion in the spec's `M11.5` table and read by `tools/version_1_status.py`, not per rule or constant"
+ },
+ "M10.C.3": {
+  "status": "partial",
+  "evidence": [
+   "tests/bowen/test_life_course.py::test_m7e1f_level_held_at_parents_mean_before_five"
+  ],
+  "note": "holds now, untested as a prohibition: no key in `config/bowen/constants.md` is a per-generation `basic_level` decrement, a child's level is held at its parents' mean before five (`test_m7e1f_level_held_at_parents_mean_before_five`), and no societal level exists (searched `src/bowen`, `config/bowen` for `societal`, `per-generation`); no test refuses such a rate if one were added"
+ },
+ "M10.C.3a": {
+  "status": "partial",
+  "evidence": [
+   "tests/bowen/test_evaluation.py::test_m11g4_belief_and_truth_are_reported_apart_and_the_framing_travels"
+  ],
+  "note": "`basic_level` moves only through `slow_tick.run_slow_tick` and `life_course._childhood`, and the readout reports it by generation (`test_m11g4_belief_and_truth_are_reported_apart_and_the_framing_travels`); that the change follows from `M1.D.1` and `M7` is `M11.C.6`'s outcome, partial (ensemble: M11.C.6 FAIL, accepted as a finding); no test refuses a configurable rate"
+ },
+ "M11.1": {
+  "status": "partial",
+  "evidence": [
+   "tests/bowen/test_spec_coverage.py::test_m141_phase_d_criteria_read_from_their_records",
+   "tests/bowen/test_ensemble_record.py::test_m111d_mutation_record_is_current",
+   "tests/bowen/test_phase_d_mutation_record.py::test_m111d_phase_d_mutation_record_is_current",
+   "tests/bowen/test_ensemble_record.py::test_m111d_a_broken_mutant_is_not_proof"
+  ],
+  "note": "met for the `M11.C` criteria: `tools/spec_coverage.py::coverage` counts a passing criterion done only when a mutant in a committed record turned it red, and `M11.C.47`, passing with none, stays partial (`test_m141_phase_d_criteria_read_from_their_records`); each mutation record must equal what its cache of actual runs renders (`test_m111d_mutation_record_is_current`, `test_m111d_phase_d_mutation_record_is_current`), and a broken mutant is no proof (`test_m111d_a_broken_mutant_is_not_proof`); every other ID on this page counts as done on a test with no recorded mutation"
+ },
+ "M11.1b": {
+  "status": "not done",
+  "evidence": [],
+  "note": "SHOULD; not built: neither `tools/mutation_record.py` nor `tools/phase_d_mutation_record.py` has a matched-magnitude severing mutant (searched `tools`, `src/bowen`, `tests` for `permut`, `sever`, `M11.1b`)"
+ },
+ "M11.1c": {
+  "status": "partial",
+  "evidence": [],
+  "note": "two of the four re-encodings, same-tick summation order and clamp within tolerance, ran on every passing Phase C entry and changed no verdict (28 of 28 unchanged, `docs/phase_c_mutation_record.md`); no Phase D criterion was run under any re-encoding (`docs/phase_d_mutation_record.md`); a rescaled state range and integer against float tick counters are not built"
+ },
+ "M11.1d": {
+  "status": "partial",
+  "evidence": [],
+  "note": "every passing Phase C entry ran under a deletion or named mutant (`test_m111d_every_passing_criterion_has_a_mutant_run`), all but `M11.C.4`, `M11.C.25` and `M11.C.32` also sign-inverted; Phase D ran named removal mutants only (`docs/phase_d_mutation_record.md`); the minimal rule set is listed only as `M11.5`'s rule column, failing criteria were not audited, and no register records premises (`M10.C.5`)"
+ },
+ "M11.1e": {
+  "status": "partial",
+  "evidence": [
+   "tests/bowen/test_moves.py::test_m1b7_raising_a_marked_underfunctioner_costs_more_than_reducing_the_overfunctioner"
+  ],
+  "note": "`M1.B.7`'s asymmetry test sends one act of equal intensity in each arm, so event counts are equal (`test_m1b7_raising_a_marked_underfunctioner_costs_more_than_reducing_the_overfunctioner`); no acceptance test compares `M4.G.1`'s, `M7.D.2`'s or `M5.E`'s asymmetric rates at matched event counts, and `M16.A.8`'s separate per-event logging is not done"
+ },
+ "M11.4": {
+  "status": "partial",
+  "evidence": [],
+  "note": "built, no test: the listed forms exist — a null with an equivalence bound (`src/bowen/ensemble/runner.py::Readout`, direction 0) gates only `M11.C.25` and `M11.C.14` (measured 2026-10-20 over every criterion), `M11.C.37`'s conservation runs as a test, `UNDETERMINED` is an outcome; no test asserts that no unlisted criterion takes a form other than a two-arm direction"
+ },
+ "M11.4b": {
+  "status": "not done",
+  "evidence": [],
+  "note": "no behaviour a test can check (an amendment to the spec's text: the exceptions table supersedes `M11.4`'s stated count); checked by review"
+ },
+ "M11.4c": {
+  "status": "not done",
+  "evidence": [],
+  "note": "not built: no ordinal criterion exists; the spec says none is instantiated, and the owner's 2026-09-22 answer routes orderings of conditions to `M11.C.41` as two-arm directions (searched `src/bowen/ensemble` for `ordinal`, `rank`, `M11.4c`)"
+ },
+ "M11.4f": {
+  "status": "not done",
+  "evidence": [],
+  "note": "not built: `M11.C.39` and `M11.C.40` compare a learning-off arm (`M10.B.5`), but the ensemble records report them as ordinary composite and premise passes, with no line saying they test the model's structure rather than an intervention (searched `tools/ensemble_record.py`, `tools/phase_d_record.py`, `docs/phase_d_ensemble_record.md`); the `M17.E.1` sweep clause is Phase E"
+ },
+ "M11.3": {
+  "status": "partial",
+  "evidence": [],
+  "note": "built, no test: criteria under load run a spell declared in `config/bowen/criteria.md` (`src/bowen/ensemble/criteria.py::spell`, `criteria_d.py::_spell_on`); no test asserts that each discriminating criterion runs both arms under a named stressor, and the spec's table does not mark which criteria are discriminating"
+ },
+ "M11.D.12": {
+  "status": "not done",
+  "evidence": [],
+  "note": "not built: `test_m11d12_corpus_magnitudes_are_not_config_keys`, which the spec names, does not exist, and there is no checks module to compare keys against (searched `tests`, `src/bowen`, `tools` for `m11d12`, `M10.C.4`)"
+ },
+ "M11.F.1": {
+  "status": "partial",
+  "evidence": [],
+  "note": "built, no test: `src/bowen/render/trace.py::FRAMING` presents each trace as a consistency engine for one theory ('if Bowen's account is right, what follows'), not as Bowen's authority; no test asserts that sentence, and other outputs and documents are checked by review"
+ },
+ "M11.F.2": {
+  "status": "not done",
+  "evidence": [],
+  "note": "no behaviour a test can check (a framing rule for claims from the family level to society; no societal level or readout is built); checked by review"
+ },
+ "M11.F.3": {
+  "status": "not done",
+  "evidence": [],
+  "note": "no behaviour a test can check (a rule on how documents state Bowen's objection to general systems theory, both statements recorded); checked by review"
+ },
+ "M11.F.3a": {
+  "status": "not done",
+  "evidence": [],
+  "note": "no behaviour a test can check (a rule that documents give the natural-systems distinction beside the objection); checked by review"
+ },
+ "M11.F.5": {
+  "status": "not done",
+  "evidence": [],
+  "note": "no behaviour a test can check (an ID never issued, kept as a numbering slip); checked by review"
+ },
+ "M11.F.6": {
+  "status": "partial",
+  "evidence": [
+   "tests/bowen/test_reactive.py::test_m1a19_evaluating_detector_is_two_sided",
+   "tests/bowen/test_contact.py::test_m4c1_deviation_counts_on_both_sides",
+   "tests/bowen/test_outside_ness.py::test_m1a9a_efficacy_needs_both_axes_low"
+  ],
+  "note": "three instances are tested: praise counts as blame does (`test_m1a19_evaluating_detector_is_two_sided`); too little contact and too much impingement both raise deviation (`test_m4c1_deviation_counts_on_both_sides`); forceful and compliant both fail the position (`test_m1a9a_efficacy_needs_both_axes_low`); `M1.D.7i`'s societal damping and `M1.A.4e`'s courtship tails are not built; no test covers every detector and readout"
+ },
+ "M11.F.4": {
+  "status": "partial",
+  "evidence": [],
+  "note": "built, no test: the trace framing says it is 'not a measurement' (`src/bowen/render/trace.py::FRAMING`), untested; no disease mechanism exists (searched `src/bowen` for `cancer`, `disease`; the `PHYSICAL` symptom channel is `M1.A.11`'s, not built on the cancer material); both are checked by review"
+ },
+ "M11.F.7": {
+  "status": "not done",
+  "evidence": [],
+  "note": "no behaviour a test can check (a framing prohibition: the model does not distinguish discrete trauma from relational process, and no code weighs the two); checked by review"
+ },
+ "M11.F.9": {
+  "status": "partial",
+  "evidence": [
+   "tests/bowen/test_render.py::test_m16c5_trace_carries_header_and_framing",
+   "tests/test_version_1_outputs.py::test_v7_every_rendered_trace_carries_the_framing_block",
+   "tests/test_version_1_outputs.py::test_v7_every_rendered_chart_carries_the_framing_block",
+   "tests/test_version_1_outputs.py::test_v7_the_famdiag_export_says_it_is_not_a_real_family",
+   "tests/bowen/test_evaluation.py::test_m11g4_belief_and_truth_are_reported_apart_and_the_framing_travels",
+   "tests/bowen/test_render.py::test_m16c5_trace_does_not_resemble_a_clinical_record"
+  ],
+  "note": "(a) is tested: every committed trace, chart and fam-diag export says it concerns no real family (`test_v7_every_rendered_trace_carries_the_framing_block`, `test_v7_every_rendered_chart_carries_the_framing_block`, `test_v7_the_famdiag_export_says_it_is_not_a_real_family`) and the `M11.G` readout carries the framing (`test_m11g4_belief_and_truth_are_reported_apart_and_the_framing_travels`); (b) rests on `M15`'s importer, Phase E; (c) has no code path, since nothing fits parameters to a history, and is checked by review"
+ },
+ "M11.F.8": {
+  "status": "not done",
+  "evidence": [],
+  "note": "not built: no societal readout exists, so nothing scores the 1988 symptom list or rights claims (searched `src/bowen`, `config/bowen` for `societal`, `M1.D.7`, `rights`, `regression`)"
+ },
+ "M11.F.10": {
+  "status": "partial",
+  "evidence": [
+   "tests/bowen/test_render.py::test_m16c5_trace_carries_header_and_framing",
+   "tests/test_version_1_outputs.py::test_v7_virtual_family_appears_only_where_it_is_framed",
+   "tests/test_version_1_outputs.py::test_v7_every_rendered_trace_carries_the_framing_block",
+   "tests/test_version_1_outputs.py::test_v7_every_rendered_chart_carries_the_framing_block"
+  ],
+  "note": "the term appears in no top-level document but the spec, the explainer and `REVIEW_version_1_outputs.md`, and not in `README.md` (`test_v7_virtual_family_appears_only_where_it_is_framed`); every trace and chart carries the `M11.F.10` framing (`test_v7_every_rendered_trace_carries_the_framing_block`, `test_v7_every_rendered_chart_carries_the_framing_block`); untested: that the framing sits beside the term in those three documents, the 'consistency engine' description, and files below `docs/` other than traces"
+ },
+ "M13.1": {
+  "status": "done",
+  "evidence": [
+   "tests/bowen/test_live_positions.py::test_m81_positions_live_counts_unfused_present_occupants"
+  ],
+  "note": "M8 built at Phase B step 6, before any caller"
+ },
+ "M13.2": {
+  "status": "done",
+  "evidence": [
+   "tests/test_repo_layout.py::test_s1_6_the_grid_engine_is_retired"
+  ],
+  "note": "revision 33: the grid engine and its 37 tests retired at version 2 stage 1, kept at the tag version-1; until then its tests passed unchanged (gate G14)"
+ },
+ "M13.2a": {
+  "status": "done",
+  "evidence": [
+   "tests/test_spec_consistency.py::test_m11d11_every_criterion_gates_its_phase",
+   "tests/test_spec_consistency.py::test_m11d11_log_criteria_gate_a_phase"
+  ],
+  "note": "`test_m11d11_every_criterion_gates_its_phase` asserts each `M11.C` row's phase lists it in that phase's Done-when cell and refuses a narrowed scan; `test_m11d11_log_criteria_gate_a_phase` asserts every `M16.T` criterion appears in some phase's cell (the `M16.F` table names no phase)"
+ },
+ "M13.3": {
+  "status": "not done",
+  "evidence": [],
+  "note": "no behaviour a test can check (a rule on which phase builds `M15`'s importer); checked by review: Phases B–D closed with no importer (searched `src/bowen`, `tools`, `tests` for `M15`)"
+ },
+ "M13.4": {
+  "status": "done",
+  "evidence": [
+   "tests/bowen/test_ensemble.py::test_m17a1_undetermined_at_cap_does_not_pass",
+   "tests/bowen/test_ensemble.py::test_m17a1_a_real_effect_passes_and_records_the_seeds"
+  ],
+  "note": "`src/bowen/ensemble/runner.py::run_criterion` adds seeds in blocks up to a cap and is the runner both `tools/ensemble_record.py` (Phase C) and `tools/phase_d_record.py` (Phase D) call (`test_m17a1_a_real_effect_passes_and_records_the_seeds`); UNDETERMINED at the cap is its own outcome and does not pass (`test_m17a1_undetermined_at_cap_does_not_pass`)"
+ },
+ "M14.1": {
+  "status": "done",
+  "evidence": [
+   "tests/bowen/test_spec_coverage.py::test_m141_spec_coverage_is_current"
+  ],
+  "note": "`tools/spec_coverage.py` builds this page from every ID the spec defines (`spec_ids` asserts its list equals the consistency guard's); `test_m141_spec_coverage_is_current` fails when the page differs from what the tool generates, and `test_m141_every_done_names_an_existing_test` fails when a done row names no test that exists"
+ },
+ "M14.A.1": {
+  "status": "partial",
+  "evidence": [
+   "tests/test_spec_consistency.py::test_m11d17_register_has_no_orphans",
+   "tests/bowen/test_register.py::test_m14a_register_matches_object_fields"
+  ],
+  "note": "every field of the four classes has a register row and every row names a field (`test_m14a_register_matches_object_fields`); every row names a writer (`test_m11d17_register_has_no_orphans`); no test checks the Class column holds one of the four classes, since `register_orphans` reads it and discards it"
+ },
+ "M14.A.2": {
+  "status": "partial",
+  "evidence": [
+   "tests/test_spec_consistency.py::test_m11d17_register_has_no_orphans"
+  ],
+  "note": "`test_m11d17_register_has_no_orphans` checks each mechanism row is placed in `M3.D.1`'s order with a phase, and same-tick batching is a documented composite; no test ties the table to the code, and built mechanisms have no row: stressor load (`M1.F.6`), stress response (`M1.A.5e`), reactive cutoff cost (`M1.B.3d`), attribution (`M9.6`), family focus (`M1.A.11c`), danger (`M1.B.3e`)"
+ },
+ "M14.A.3": {
+  "status": "partial",
+  "evidence": [
+   "tests/test_spec_consistency.py::test_m11d17_register_has_no_orphans"
+  ],
+  "note": "`M11.D.17`'s check runs on the register (`test_m11d17_register_has_no_orphans`) and Phase C and D mechanism rows were added (20 and 5); mechanisms added at later revisions were not given rows, among them the stressor load (`M1.F.6`), attribution (`M9.6`) and danger (`M1.B.3e`), and no test catches a missing row"
+ },
+ "M14.A.4": {
+  "status": "done",
+  "evidence": [
+   "tests/bowen/test_register.py::test_m14a_register_matches_object_fields",
+   "tests/bowen/test_register.py::test_m14a_check_catches_a_field_with_no_row",
+   "tests/test_spec_consistency.py::test_m11d17_register_has_no_orphans",
+   "tests/test_spec_consistency.py::test_m11d17_check_catches_an_agent_reading_true_state"
+  ],
+  "note": "every field of `Person`, `Relationship`, `Triangle` and `Family` has a row and every row names a field (`test_m14a_register_matches_object_fields`, proved able to fail by `test_m14a_check_catches_a_field_with_no_row`); each row's Phase cell is checked (`test_m11d17_register_has_no_orphans`), and a person-owned mechanism reading true state is refused (`test_m11d17_check_catches_an_agent_reading_true_state`)"
+ },
+ "M16.A.3": {
+  "status": "done",
+  "evidence": [
+   "tests/bowen/test_policy.py::test_m16a3b_selection_record_carries_the_legal_set_and_the_decider"
+  ],
+  "note": "policy selections carry propensities, draw, legal set, decided-by flag and any withheld act (step 6)"
+ },
+ "M16.A.3a": {
+  "status": "partial",
+  "evidence": [
+   "tests/bowen/test_learner.py::test_m4d2_triangle_position_is_read_through_belief"
+  ],
+  "note": "built, record untested: `src/bowen/policy/policy.py::decide` puts the beliefs `triangle_position` read into `beliefs_used`, which `src/bowen/engine/act.py::_record` copies to the record; `test_m4d2_triangle_position_is_read_through_belief` asserts only `triangle_position`'s return, and no test asserts a selection record carries them"
+ },
+ "M16.A.3c": {
+  "status": "done",
+  "evidence": [
+   "tests/bowen/test_policy.py::test_m16a3b_selection_record_carries_the_legal_set_and_the_decider",
+   "tests/bowen/test_policy.py::test_m4d1f_fallback_on_empty_legal_set_is_flagged",
+   "tests/bowen/test_policy.py::test_m4d1f_non_finite_score_falls_back"
+  ],
+  "note": "`DecidedBy` flags each selection; a policy run's records are all flagged `policy` (`test_m16a3b_selection_record_carries_the_legal_set_and_the_decider`); an empty legal set and a non-finite score are flagged `fallback` with the rule named (`test_m4d1f_fallback_on_empty_legal_set_is_flagged`, `test_m4d1f_non_finite_score_falls_back`); the declared tie-break makes no draw, so `tie_break` is never emitted"
+ },
+ "M16.A.5": {
+  "status": "partial",
+  "evidence": [
+   "tests/bowen/test_log_records.py::test_m16a5_belief_writes_tagged_apart"
+  ],
+  "note": "the `BeliefWriteRecord` type has its own tag (`test_m16a5_belief_writes_tagged_apart`) but the engine never emits it: `src/bowen/engine/beliefs.py::update_beliefs` logs belief changes as `EffectRecord`s with mechanism `belief`, the type ground-truth changes use, and attribution as mechanism `attribution`; no test asserts a run's belief writes are separable"
+ },
+ "M16.A.5a": {
+  "status": "partial",
+  "evidence": [
+   "tests/bowen/test_log_records.py::test_m16a5a_belief_discrepancy_is_computable_per_record",
+   "tests/bowen/test_beliefs.py::test_m98_belief_can_differ_from_the_true_state"
+  ],
+  "note": "`BeliefWriteRecord.discrepancy` computes belief − truth (`test_m16a5a_belief_discrepancy_is_computable_per_record`) and `src/bowen/engine/beliefs.py::true_counterpart` gives each belief's true side (`test_m98_belief_can_differ_from_the_true_state`); the engine never emits `BeliefWriteRecord`, since `update_beliefs` logs belief deltas with no true value, so the discrepancy is not computable from a run's log"
+ },
+ "M16.A.8": {
+  "status": "partial",
+  "evidence": [],
+  "note": "built in part, no test: no record type serves it; `src/bowen/engine/moves.py::functioning_shift` logs each `M1.B.7` push as its own `EffectRecord` with its cause, so count and size are separable there, but consolidation (`M4.G.1`) logs per tick with no cause; no test asserts the split for any asymmetric mechanism"
+ },
+ "M16.A.9": {
+  "status": "partial",
+  "evidence": [],
+  "note": "built in part, no test: `src/bowen/ensemble/criteria_d.py::_entropy` computes normalised entropy per channel over a window, family-wide not per agent, as `M11.C.40`'s readout (partial on this page); the log carries no per-agent value, the readout is not labelled as concentration rather than differentiation, and no default-suite test asserts the computation"
+ },
+ "M16.A.10": {
+  "status": "not done",
+  "evidence": [],
+  "note": "not built: no record carries the signed margin of a comparison against an `[I]` threshold (searched `src/bowen` for `M16.A.10`, `margin`, `threshold`; `src/bowen/engine/log_records.py` defines no such type); a SHOULD"
+ },
+ "M16.B.2": {
+  "status": "done",
+  "evidence": [
+   "tests/bowen/test_engine_purity.py::test_m16t2_engine_writes_nothing"
+  ],
+  "note": "the frozen engine's audit-file pattern is the G9 mutation"
+ },
+ "M16.C.2": {
+  "status": "done",
+  "evidence": [
+   "tests/bowen/test_render.py::test_m16t1_trace_renders_scripted_run",
+   "tests/bowen/test_render.py::test_m16t1_effects_are_reported_in_reader_units"
+  ],
+  "note": "gate G2"
+ },
+ "M16.C.3": {
+  "status": "done",
+  "evidence": [
+   "tests/bowen/test_render.py::test_m16t1_trace_renders_scripted_run"
+  ],
+  "note": "`src/bowen/render/trace.py::render` was built in Phase B and gated it there (G2, `test_m16t1_trace_renders_scripted_run`); the owner read the seed-7 traces end to end on 2026-10-07 with no findings (`docs/phase_b_completion_report.md` §7)"
+ },
+ "M16.D.1": {
+  "status": "done",
+  "evidence": [
+   "tests/bowen/test_external.py::test_m16t4_delayed_view_is_scoped_and_lagged",
+   "tests/bowen/test_external.py::test_m16t6_event_store_is_load_bearing"
+  ],
+  "note": "`EventStore.delayed_view` returns the person's sent and received events older than the delay and excludes newer ones, others' events and a routed hop the person only witnessed (`test_m16t4_delayed_view_is_scoped_and_lagged`, `M16.T.4`'s test); the landing rule reads this view, and emptying it changes runs (`test_m16t6_event_store_is_load_bearing`)"
+ },
+ "M16.D.2": {
+  "status": "partial",
+  "evidence": [
+   "tests/bowen/test_external.py::test_m16d2_default_delay_is_six_months_and_zero_is_only_an_arm"
+  ],
+  "note": "the delay is `delayed_view_weeks` in `config/bowen/constants.md`, default 26 weeks, and a zero delay is accepted only as an explicit argument (`test_m16d2_default_delay_is_six_months_and_zero_is_only_an_arm`); the SHOULD arm showing the delayed view lands where the instant one does not is not built"
+ },
+ "M16.T.3": {
+  "status": "done",
+  "evidence": [
+   "tests/bowen/test_engineering_gates.py::test_m16t3_sink_does_not_change_results_under_the_policy",
+   "tests/bowen/test_life_course.py::test_m16t3_sink_does_not_change_a_life_course_run"
+  ],
+  "note": "re-run under the policy and learner (`test_m16t3_sink_does_not_change_results_under_the_policy`) and on Phase D's twelve-person life course with the slow clock, coach and belief channel (`test_m16t3_sink_does_not_change_a_life_course_run`); `test_m16t3_canonical_state_covers_every_field` and `test_m16t3_canonical_state_sees_the_life_course` show the comparison sees a change"
+ },
+ "M17.A.3": {
+  "status": "partial",
+  "evidence": [
+   "tests/bowen/test_ensemble.py::test_m114e_signed_rank_matches_table",
+   "tests/bowen/test_ensemble.py::test_m114e_holm_steps_down"
+  ],
+  "note": "the paired statistic and Holm's step are tested (`test_m114e_signed_rank_matches_table`, `test_m114e_holm_steps_down`); `src/bowen/ensemble/runner.py::_verdict` applies them to per-seed differences across readouts, but no test would fail if the runner used an unpaired test or skipped the correction"
+ }
+}

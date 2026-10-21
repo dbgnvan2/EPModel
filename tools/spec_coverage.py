@@ -2,13 +2,14 @@
 
 Purpose: the coverage report M14.1 requires as part of a completion report.
 Spec:    docs/bowen_agent_model_spec_v2.md#M14.1, #M14.2
-Tests:   tests/bowen/test_spec_coverage.py (test_m141_spec_coverage_is_current, and one test for each of Part A's A1-A5)
+Tests:   tests/bowen/test_spec_coverage.py (test_m141_spec_coverage_is_current, one test for each of Part A's A1-A5,
+         and Part B's five, docs/plan_spec_coverage_phase_d.md §6.3)
 
-    python3 tools/spec_coverage.py tools/spec_coverage_phase_b.json docs/spec_coverage.md
+    python3 tools/spec_coverage.py tools/spec_coverage_overrides.json docs/spec_coverage.md
 
 How a status is decided, in this order:
 
-1. **Override.** ``spec_coverage_phase_b.json`` sets the status, evidence and a
+1. **Override.** ``spec_coverage_overrides.json`` sets the status, evidence and a
    note for an ID — every *partial*, every ID verified by a test not named for
    it, and every *not done* whose reason is more specific than its phase. An
    override's ``exclude_evidence`` lists tests named for the ID that must not be
@@ -345,6 +346,12 @@ def render(rows: list[dict], overrides_name: str, unmapped: list[str] | None = N
     return "\n".join(lines) + "\n"
 
 
+def repo_path(path: Path) -> str:
+    """The path as the header names it: repo-relative, so the command it shows runs from the repo root."""
+    resolved = path.resolve()
+    return resolved.relative_to(REPO).as_posix() if resolved.is_relative_to(REPO) else path.as_posix()
+
+
 def report(overrides: dict, overrides_name: str) -> str:
     rows = coverage(overrides)
     return render(rows, overrides_name, unmapped_tests(spec_ids(SPEC.read_text(encoding="utf-8")), named_tests()))
@@ -352,7 +359,7 @@ def report(overrides: dict, overrides_name: str) -> str:
 
 def main(argv: list[str]) -> int:
     overrides_path, out = Path(argv[1]), Path(argv[2])
-    text = report(json.loads(overrides_path.read_text(encoding="utf-8")), overrides_path.name)
+    text = report(json.loads(overrides_path.read_text(encoding="utf-8")), repo_path(overrides_path))
     out.write_text(text, encoding="utf-8")
     print(f"coverage written to {out}")
     return 0

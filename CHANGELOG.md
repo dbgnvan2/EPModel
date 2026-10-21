@@ -4,6 +4,30 @@ All notable changes to this project are recorded here. Dates are ISO.
 
 ## [Unreleased] — 2026-10-11
 
+### The coverage page judges every built ID; the overrides file renamed (2026-10-20)
+
+- **`docs/spec_coverage.md`: Part B of `docs/plan_spec_coverage_phase_d.md`** (owner 2026-10-20: plan §6 approved).
+  The 165 IDs that read "no test named for it; its module was built in Phase C" (or D), and the 74 earlier overrides,
+  each got a judgment: the existing test that verifies it and how, *partial* with what is untested or missing, or *not
+  done* — not built, or checked by review. Six subagents drafted; Claude read every proposed *done*'s test against its
+  requirement and changed 11 drafts; the owner approved the list in six groups (the plan's §7 lists each group's IDs).
+  575 IDs: 291 done, 136 partial, 148 not done (was 280, 64, 231). Of the earlier overrides, 13 fell from *done* to
+  *partial*, 9 rose to *done* and 2 fell to *not done*; none still names Phase C or D as work to come. A clause that is
+  only a SHOULD keeps an ID *partial* (`M16.D.2`, owner).
+- **The learning-qa review of Part B** (eight items, the plan's §7): `M1.A.4` to *partial* (the code's rate constant
+  against "rather than by a rate constant"; owner); `test_m4a5_self_generated_load_derives_from_basic_level` now pins
+  "a function of `basic_level` only" and `M4.A.5` stays *done* (owner); two notes reworded (owner); B1.4 asks pytest
+  for the ensemble tests and checks every `test_m11c…` citation; B1.1 refuses a partly built module's note; the
+  old-name scan reads more of the repo; one reading-list sentence narrowed.
+- **`tools/spec_coverage_phase_b.json` renamed `tools/spec_coverage_overrides.json`** (B3); the page's header names it
+  in full. `test_m141_untested_id_is_not_read_as_unbuilt` now reads a fixture, since no built ID is left with that note.
+- **Five tests**, each run red by its mutation: no built ID is left without a judgment; every override says why; a
+  *done* override citing an ensemble test needs that criterion *done*; no override names a built phase as to come (the
+  wordings in `tests/doc_claims.json`'s `coverage_future_phase`); the overrides file has one name.
+- **Recorded in `TODO.md`, not fixed** (owner): where the spec and the code disagree, text that names a built phase as
+  to come, two spec rows that name tests that do not exist, tests weaker than the ID they are counted for (`M6.3a`
+  among them), fields never written, six mechanisms with no register row.
+
 ### The document-claim tests merged; the coverage page reads every record; the reading list approved (2026-10-20)
 
 - **Merged `claude/cranky-snyder-764f33`** (the document-claim tests, the entry below) into `plan-phase-b`, owner

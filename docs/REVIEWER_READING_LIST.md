@@ -92,7 +92,7 @@ the requirement and the test that proves it (`Purpose:` / `Spec:` / `Tests:`).
 | `src/bowen/render/`, `src/bowen/run.py` | The readable trace; the command-line entry point for one scripted run. |
 | `tools/` | The scripts that generate the records in §5 and the review outputs in §4. Each generator's docstring gives its command line. |
 | `tests/` | The suite. `CLAUDE.md` records the current count and when it was measured; the slower criterion tests, marked `ensemble`, run separately. `tests/bowen/test_engine_purity.py` and `test_determinism.py` check the engine rules above. |
-| [spec_coverage.md](spec_coverage.md) | Every spec ID mapped to the test that proves it, or to what is missing. Generated from every ensemble and mutation record, each named with its hash. **"Not done" can mean only that no test is named for the ID** (see §8). |
+| [spec_coverage.md](spec_coverage.md) | Every spec ID mapped to the test that proves it, or to what is missing. Generated from every ensemble and mutation record, each named with its hash, and from `tools/spec_coverage_overrides.json`, where each built ID a test does not cover by name carries a judgment the owner reviewed. *Not done* says whether the ID is not built or is checked by review. |
 | `.github/workflows/tests.yml`, `requirements.txt` | CI on Python 3.11, 3.12 and 3.13, installing only `requirements.txt`. |
 
 To run it:
@@ -169,7 +169,7 @@ Read this part to check that a claim presented as sourced is sourced.
 | [implementation_plan_version_2.md](implementation_plan_version_2.md) | Stage 1, the engineering batch: its decisions, criteria, tests and build record. Built 2026-10-19, pushed 2026-10-20 with CI passing. |
 | [<PROPOSAL — CUTOFF ANXIETY, BRIDGING AND REPAIR.md>](<PROPOSAL — CUTOFF ANXIETY, BRIDGING AND REPAIR.md>), [<PROPOSAL — EVENT SIZES FROM THE HOLMES–RAHE SCALE.md>](<PROPOSAL — EVENT SIZES FROM THE HOLMES–RAHE SCALE.md>) | Two version 2 rule changes. Each records the owner's answer to every question (2026-10-19). Neither is built; both wait for a third proposal (G2) to be built with it. |
 | [<PROPOSAL — LEARNING BY LEVEL, ASKING WHAT TO DO DIFFERENTLY.md>](<PROPOSAL — LEARNING BY LEVEL, ASKING WHAT TO DO DIFFERENTLY.md>) | A version 2 rule question raised by the owner. A draft; nothing decided. |
-| [plan_spec_coverage_phase_d.md](plan_spec_coverage_phase_d.md) | The plan for `spec_coverage.md`. Part A built 2026-10-20; Part B, which existing test verifies each ID no test is named for, approved by the owner for later as its own task. |
+| [plan_spec_coverage_phase_d.md](plan_spec_coverage_phase_d.md) | The plan for `spec_coverage.md`. Part A (the tool reads every record) and Part B (a judgment for each ID no test is named for, reviewed by the owner) both built 2026-10-20. |
 | `../TODO.md`, `../CHANGELOG.md` | Open items and owner questions; the history of every change. Both are long (about 1,000 lines each). |
 | [theory/_STATUS.md](theory/_STATUS.md) | The running hand-off log between working sessions. |
 
@@ -177,10 +177,9 @@ Read this part to check that a claim presented as sourced is sourced.
 
 A reviewer should know these before reading.
 
-**Open:** in [spec_coverage.md](spec_coverage.md), an ID marked "not done" with the note "no test named for it; its
-module was built in Phase C" (or D) is untested by name, not unbuilt: for example `M2.2`, the reference family, is in
-`config/bowen/family_phase_d.md` and criteria run on it. Which existing test, if any, verifies each such ID is Part B of
-[plan_spec_coverage_phase_d.md](plan_spec_coverage_phase_d.md), approved by the owner for later as its own task.
+**Open:** [spec_coverage.md](spec_coverage.md)'s notes record places where the spec and the code disagree, for
+example `M1.A.7` (a parents'-mean term against "MUST NOT be computed from a family average"), `M1.A.18` (a hard 0.3
+gate against "graded, not a hard gate") and `M7.E.1e` against `M7.E.1f`. They are listed in `TODO.md`, not resolved.
 
 **Fixed since this list was first drafted:**
 
@@ -196,6 +195,11 @@ module was built in Phase C" (or D) is untested by name, not unbuilt: for exampl
 - 2026-10-20: [spec_coverage.md](spec_coverage.md) read only the Phase C records and was titled "after Phase C". Part A
   of its plan changed the tool to read every ensemble and mutation record, name each with its hash, quote the owner's
   version 1 dispositions, and say "no test named for it" where it gave a bare phase.
+- 2026-10-20: an ID marked "not done, no test named for it; its module was built in Phase C" (or D) was untested by
+  name, not unbuilt. Part B of [plan_spec_coverage_phase_d.md](plan_spec_coverage_phase_d.md) gave each of those 165
+  IDs, and each of the 74 earlier overrides, a judgment — the test that verifies it, *partial* with what is missing, or
+  *not done* with the reason — which the owner reviewed group by group. The overrides file is now
+  `tools/spec_coverage_overrides.json`.
 
 ## 9. Not relevant to how the model works now
 

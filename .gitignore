@@ -22,3 +22,7 @@ runs/
 
 # a record cache's write in progress (tools/record_cache.py); left only by a run killed mid-write
 docs/records_cache/*.partial
+
+# Per-machine: the fam-diag dev servers (absolute paths on one Mac) and the rca skill's ledger
+.claude/launch.json
+.rca/

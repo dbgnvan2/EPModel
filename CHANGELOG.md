@@ -4,6 +4,25 @@ All notable changes to this project are recorded here. Dates are ISO.
 
 ## [Unreleased] — 2026-10-11
 
+### The SP-1 proposal's eight questions answered (2026-10-22)
+
+- **What.** The owner answered Q1–Q8 of `docs/PROPOSAL — ASR QUOTATIONS (SP-1).md`, all as recommended, after a
+  walk-through of each. The answers are in the proposal's §6. The 65 paraphrases in §4 are not yet approved, so
+  nothing is applied and the build (§7, with spec revision 34) has not started.
+- **The answers.** Q1: the KB11 quotation in `M10.C.2` and L16.3 is part of SP-1; DECISIONS A1 stays frozen.
+  Q2: the frozen-record note as worded, `proposal_rev11_emergence.md` frozen the same way, the spec's revision 8
+  and 9 history entries paraphrased. Q3: `M11.F.3` restated from the Epilogue (FE11.2), a requirement change the
+  owner approved. Q4: the two Tape 1 passages paraphrased. Q5: Bowen named for `KB01`, the interview cited for
+  `KB03` and `KB04`. Q6: form C, a citation test in the default suite and a local transcript test. Q7: the six
+  requirements go to `TODO.md` one by one. Q8: see below.
+- **Q8 traced.** Preparing the walk-through, the *Family Evaluation* Ch3 words the proposal could not trace were
+  found in the book's Chapter 3 source text. The recommendation was revised before the owner answered: keep the
+  quotation, add the passage to `fe03.md` as a finding and cite it, and use the book's own subject in place of
+  "differentiated actions".
+- **Documents:** the proposal (status line, §6, Q8, its scan table and SP1.1), `TODO.md`,
+  `docs/theory/_STATUS.md`, `docs/REVIEWER_READING_LIST.md` and `docs/SPEC_REVIEW_CHECKLIST.md`. No code, config
+  or record changed.
+
 ### The SP-1 proposal drafted (2026-10-21)
 
 - **What.** `docs/PROPOSAL — ASR QUOTATIONS (SP-1).md` (owner decision D1): a paraphrase and citation for each

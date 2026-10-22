@@ -119,10 +119,11 @@ The review is `docs/cycles/2026-10-21_milestone-review_v2-stage-1.md` (the secon
 `review/2026-10-21-v2-stage-1`). The triage refuted none of its 26 findings: 22 hold as stated and 4 in part. The
 owner's ten decisions and what this batch fixed are in `CHANGELOG.md`. Open:
 
-- [ ] **Waiting on the owner: the SP-1 proposal** (owner, D1). **Drafted 2026-10-21:**
+- [ ] **Waiting on the owner: approval of the SP-1 proposal's §4 texts** (owner, D1). **Drafted 2026-10-21; its
+  eight questions answered 2026-10-22, all as recommended (its §6):**
   `docs/PROPOSAL — ASR QUOTATIONS (SP-1).md`, 65 entries (87 ASR quotation rows, and three items the further scans
-  found), with eight owner questions (Q1–Q8). Nothing is applied; its build plan (§7) follows approval, with
-  revision 34. Its last section lists the adjacent issues it found and did not fix. The 1979 tapes and the Kerr–Bowen interviews are ASR, and the
+  found), with eight owner questions (Q1–Q8). Nothing is applied; its build plan (§7) follows approval of the §4
+  texts, with revision 34. Its last section lists the adjacent issues it found and did not fix. The 1979 tapes and the Kerr–Bowen interviews are ASR, and the
   rule is to cite them and not quote them. It was committed in `_LECTURES_1979.md` on 2026-08-23 at 11:50 (`528bb50`)
   and in `_KERR_INTERVIEWS.md` at 13:09 (`e14d3d7`), and restated in `_SOURCE_QUALITY.md` at 17:53 (`6a56bb2`).
   - **What the triage's scan found.** It matched quoted spans of four or more words, split at ellipses, against
@@ -135,9 +136,11 @@ owner's ten decisions and what this batch fixed are in `CHANGELOG.md`. Open:
     The owner reviews it before any spec edit. Approved DECISIONS records stay frozen, with a note. `kb/*.md` keep
     their quotes, and their headers will say the quotes only locate passages. A test fails on any new quotation of
     four or more words.
-  - **Decided inside the proposal** (the review's Q1–Q3): whether KB11 in `M10.C.2`, `_LEDGER.md` L16.3 and
+  - **Decided 2026-10-22, all as recommended** (the review's Q1–Q3, the proposal's Q1–Q3): whether KB11 in `M10.C.2`, `_LEDGER.md` L16.3 and
     DECISIONS A1 is an exception; how the closed records are noted; and restating `M11.F.3` from the written FE11.2
-    Epilogue instead of KB13. That last one changes a requirement, so it needs approval.
+    Epilogue instead of KB13. That last one changes a requirement; the owner approved it (alternative B). The
+    proposal's Q8 was traced the same day: the *Family Evaluation* Ch3 words are in the book's source text, so the
+    quotation stays and gets an `fe03.md` finding.
 - [ ] **Spec revision 34**, written with the SP-1 paraphrases so the spec changes once (owner, D2–D6):
   - MR-10: `M11.4` says "Three criteria", but its table has nine live rows. Say nine, or point to `M11.4b`, which
     already says the table supersedes the count.

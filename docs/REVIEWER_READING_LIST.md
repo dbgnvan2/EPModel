@@ -1,6 +1,6 @@
 # Reading list for an outside reviewer
 
-**Status: approved by the owner 2026-10-20 (drafted 2026-10-19); revised 2026-10-21, not yet reviewed by the owner:
+**Status: approved by the owner 2026-10-20 (drafted 2026-10-19); revised 2026-10-21 and 2026-10-22, not yet reviewed by the owner:
 "Before you start" (after `main` was brought up to date), §8's 2026-10-21 entry, §9's link to the milestone review
 brief, and corrections from the stage 1 milestone review (§2's entry for the two criterion config files, §5's
 entry for the stage 1 comparison, §6's entry for the source-quality notes, §7's entry for version 2's plan, and §8's
@@ -175,7 +175,7 @@ Read this part to check that a claim presented as sourced is sourced.
 | [implementation_plan_version_2.md](implementation_plan_version_2.md) | Stage 1, the engineering batch: its decisions, criteria, tests and build record. Built 2026-10-19, pushed 2026-10-20 with CI passing. |
 | [<PROPOSAL — CUTOFF ANXIETY, BRIDGING AND REPAIR.md>](<PROPOSAL — CUTOFF ANXIETY, BRIDGING AND REPAIR.md>), [<PROPOSAL — EVENT SIZES FROM THE HOLMES–RAHE SCALE.md>](<PROPOSAL — EVENT SIZES FROM THE HOLMES–RAHE SCALE.md>) | Two version 2 rule changes. Each records the owner's answer to every question (2026-10-19). Neither is built; both wait for a third proposal (G2) to be built with it. |
 | [<PROPOSAL — LEARNING BY LEVEL, ASKING WHAT TO DO DIFFERENTLY.md>](<PROPOSAL — LEARNING BY LEVEL, ASKING WHAT TO DO DIFFERENTLY.md>) | A version 2 rule question raised by the owner. A draft; nothing decided. |
-| [<PROPOSAL — ASR QUOTATIONS (SP-1).md>](<PROPOSAL — ASR QUOTATIONS (SP-1).md>) | The milestone review's SP-1: a paraphrase and citation for each quotation of the two speech-recognition sources, how frozen records are marked, and a test against new quotations. A draft for the owner's review; nothing applied. |
+| [<PROPOSAL — ASR QUOTATIONS (SP-1).md>](<PROPOSAL — ASR QUOTATIONS (SP-1).md>) | The milestone review's SP-1: a paraphrase and citation for each quotation of the two speech-recognition sources, how frozen records are marked, and a test against new quotations. A draft for the owner's review; the owner answered its eight questions 2026-10-22, all as recommended, and its paraphrases wait for approval; nothing applied. |
 | [plan_spec_coverage_phase_d.md](plan_spec_coverage_phase_d.md) | The plan for `spec_coverage.md`. Part A (the tool reads every record) and Part B (a judgment for each ID no test is named for, reviewed by the owner) both built 2026-10-20. |
 | `../TODO.md`, `../CHANGELOG.md` | Open items and owner questions; the history of every change. Both are long (about 1,000 lines each). |
 | [theory/_STATUS.md](theory/_STATUS.md) | The running hand-off log between working sessions. |
@@ -190,8 +190,8 @@ gate against "graded, not a hard gate") and `M7.E.1e` against `M7.E.1f`. They ar
 
 **Open, from the stage 1 milestone review (2026-10-21):** the spec, the explainer, the ledger and
 `DECISIONS FOR APPROVAL.md` quote the two speech-recognition sources verbatim, in 103 places by the triage's count.
-The proposal to paraphrase them, [<PROPOSAL — ASR QUOTATIONS (SP-1).md>](<PROPOSAL — ASR QUOTATIONS (SP-1).md>), was drafted 2026-10-21 and waits for the owner's review; nothing in it
-is applied. Spec wording held for revision 34, so the spec changes once: `M11.4`'s
+The proposal to paraphrase them, [<PROPOSAL — ASR QUOTATIONS (SP-1).md>](<PROPOSAL — ASR QUOTATIONS (SP-1).md>), was drafted 2026-10-21; the owner answered its eight questions
+2026-10-22, all as recommended, and its paraphrases wait for the owner's approval; nothing in it is applied. Spec wording held for revision 34, so the spec changes once: `M11.4`'s
 count of exceptions, the "four" callers of the live-positions predicate in M8 and `M13.1` (three exist), `M2.A.0i` on
 Dr Halim, Teodor's "awaiting owner review", and the closing clause of the spec's status line. `TODO.md` lists both.
 

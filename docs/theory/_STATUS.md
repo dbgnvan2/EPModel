@@ -10,9 +10,9 @@
 > work moved to `main` (owner); CI's Python 3.11 job was fixed; `docs/milestone_review_brief.md` was written, revised
 > after the second Mac's review and approved by the owner after its first run, the stage 1 review
 > (`docs/cycles/2026-10-21_milestone-review_v2-stage-1.md`, branch `review/2026-10-21-v2-stage-1`), triaged the same day.
-> No code or config that changes what a run computes changed. **Next:** the owner's review of the proposal to
-> paraphrase the quoted ASR passages (the review's SP-1, owner 2026-10-21; drafted the same day,
-> `docs/PROPOSAL — ASR QUOTATIONS (SP-1).md`), which once approved goes into spec revision 34 with the review's
+> No code or config that changes what a run computes changed. **Next:** the owner's approval of the §4 texts in the
+> proposal to paraphrase the quoted ASR passages (the review's SP-1, owner 2026-10-21; drafted the same day, its
+> eight questions answered 2026-10-22, `docs/PROPOSAL — ASR QUOTATIONS (SP-1).md`), which once approved goes into spec revision 34 with the review's
 > spec wording fixes; then the G2 proposal, group G and the event sizes as one revision and one regeneration, and stage 2's pilot
 > (`docs/version_2_plan.md` §6; `TODO.md`).
 >

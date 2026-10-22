@@ -1,7 +1,8 @@
 # Proposal — ASR quotations (SP-1)
 
-> **Status: DRAFT 2026-10-21, for the owner's review. Nothing in it is applied.** No spec, explainer, ledger or test
-> edit is made until the owner approves it (decision D1, `CHANGELOG.md`). It answers the stage 1 milestone review's
+> **Status: DRAFT 2026-10-21, for the owner's review. Nothing in it is applied.** The owner answered Q1–Q8 on
+> 2026-10-22, all as recommended (§6); the §4 texts still wait for the owner's approval, and the build (§7) follows
+> it. No spec, explainer, ledger or test edit is made until the owner approves it (decision D1, `CHANGELOG.md`). It answers the stage 1 milestone review's
 > systemic pattern SP-1 and the review's owner questions Q1–Q3 (`docs/cycles/2026-10-21_milestone-review_v2-stage-1.md`).
 > Each paraphrase in §4 was drafted from its transcript passage and then checked against the passage by a second
 > reader who had not drafted it; the entries that check corrected are marked. Line numbers are at commit `c893109`.
@@ -261,7 +262,7 @@ condition the current text had dropped (the 2026-08-28 sweep found the same faul
 | `bowen_agent_model_spec_v2.md`:482 | not-a-quotation | Quotes the owner's decisions of 2026-10-11. |
 | `bowen_agent_model_spec_v2.md`:573 | written-quote | Written source: KS07, KS12 (Kerr, written). |
 | `bowen_agent_model_spec_v2.md`:715 | written-quote | Written source: KS23 (Kerr, written). |
-| `bowen_agent_model_spec_v2.md`:758 | written-quote | Not traceable: the words are in no extraction and no transcript. Owner question Q8. |
+| `bowen_agent_model_spec_v2.md`:758 | written-quote | In no extraction note and no transcript; traced 2026-10-22 to the book's Chapter 3 source text (Kerr, written). Owner question Q8. |
 | `bowen_agent_model_spec_v2.md`:758 | not-a-quotation | The spec's own summary in quote marks. |
 | `bowen_agent_model_spec_v2.md`:965 | not-a-quotation | The spec's own summary of M1.A.5c. |
 | `bowen_agent_model_spec_v2.md`:1165 | not-a-quotation | Quotes the ledger's U9 entry, not a transcript. |
@@ -360,6 +361,11 @@ tables put written quotations beside ASR citations.
 
 ## 6. Questions for the owner
 
+**The owner's answers, 2026-10-22.** All eight as recommended, each after a walk-through: Q1, part of SP-1; Q2, (a)
+to (c) as recommended; Q3, alternative B, approved as a change to what `M11.F.3` records; Q4, paraphrase both Tape 1
+passages; Q5, as recommended; Q6, form C; Q7, each mismatch to `TODO.md` as its own decision; Q8, keep the quotation
+and trace it (the recommendation as revised on 2026-10-22, below). The §4 texts themselves are not yet approved.
+
 **Q1. `KB11` in `M10.C.2`, `_LEDGER.md` L16.3 and DECISIONS A1 (the review's Q1; SP1-S39, SP1-L05).** Is the quotation an accepted
 exception, or part of SP-1? Did approving A1 approve the quotation's form, or only the withdrawal of the
 eight-to-ten-generation target?
@@ -418,11 +424,18 @@ requirement, because changing what a requirement requires is a rule change, not 
 *Recommendation:* as above, and the hedges the check restored (§4) are applied with the paraphrases, since they change
 the evidence a requirement cites and not what it requires.
 
-**Q8. A *Family Evaluation* quotation that could not be traced.** `M4.D`'s italic note (spec line 758, the paragraph
-of SP1-S31), the spec's revision history (line 2449) and `model_explainer.md:691` quote words credited to *Family
-Evaluation* Ch3. The check found them in no extraction note and in no transcript. It is a written source, so outside
-the ASR rule, but a quotation that cannot be traced should not stand as one.
-*Recommendation:* the owner checks the book. If the words are not in it, replace the quotation in all three places
+**Q8. A *Family Evaluation* quotation that no extraction note records.** `M4.D`'s italic note (spec line 758, the
+paragraph of SP1-S31), the spec's revision history (line 2449) and `model_explainer.md:691` quote words credited to
+*Family Evaluation* Ch3. The check found them in no extraction note and in no transcript. It is a written source, so
+outside the ASR rule, but a quotation that cannot be traced should not stand as one. **Traced 2026-10-22:** the words
+are in the book's Chapter 3 source text (`Family Evaluation_Chapter03_Individuality_and_Togetherness.txt`, in the
+folder `family_evaluation/_INDEX.md` names), word for word once whitespace is normalised; the bold is the spec's.
+Chapter 3 is Kerr's (`fe03.md`), so the grade is `[K]`; none of the three places credits it to Bowen. The actions the
+passage describes are those aimed at the basic relationship problem that can make a system more flexible;
+"differentiated actions" is the spec's own term for them.
+*Recommendation (revised 2026-10-22, after the trace):* keep the quotation. Add the passage to `fe03.md` as a
+finding, cite that finding in all three places, and name the book's subject in place of "differentiated actions".
+*The earlier recommendation, withdrawn:* if the book lacked the words, replace the quotation in all three places
 with two traceable quotations that make the same point. For line 758 the clause would read: *the corpus arguably cuts
 the other way — Family Evaluation (Kerr's chapter) defines regression as actions taken "to relieve the anxiety of the
 moment rather than being determined by a long-term view" (`family_evaluation/fe05.md` · FE05.4), and Kerr writes that
@@ -437,7 +450,7 @@ spec revision. No change under `src/bowen/` or `config/bowen/`, so the engine ha
 
 | ID | Acceptance criterion | Verified by |
 |---|---|---|
-| SP1.1 | Every §4 entry, as the owner approved it, replaces the current text at its line, and Q8's replacement is applied if the book lacks the words. | `python3 -m pytest -m transcripts` reports no finding outside the allowlist (SP1.3); SP1.2's test passes. |
+| SP1.1 | Every §4 entry, as the owner approved it, replaces the current text at its line, and Q8's trace is applied: the passage is added to `fe03.md` as a finding and cited in all three places. | `python3 -m pytest -m transcripts` reports no finding outside the allowlist (SP1.3); SP1.2's test passes. |
 | SP1.2 | A quoted span of four or more words beside an ASR citation, outside an exempt file and not allowlisted, fails the default suite. | `tests/test_asr_quotations.py::test_sp1_2_no_quotation_beside_asr_citation`, proved failing by `test_sp1_2_mutant_new_quotation_fails`, which feeds a made-up document with a new quoted span beside a `KB04` citation to the same checker. |
 | SP1.3 | The local test fails on a quoted four-word transcript run and on an unquoted seven-word run, and skips with its reason when the transcripts are absent. | `tests/test_asr_quotations_local.py::test_sp1_3_no_transcript_runs` (marker `transcripts`); `test_sp1_3_mutant_transcript_run_fails` builds its mutant from the transcript at run time, so no transcript words are committed; `test_sp1_3_skips_without_transcripts`. |
 | SP1.4 | Every exempt path and allowlisted span in `tests/asr_quotations.json` exists, and every entry has a reason. | `tests/test_asr_quotations.py::test_sp1_4_rules_entries_are_live` |

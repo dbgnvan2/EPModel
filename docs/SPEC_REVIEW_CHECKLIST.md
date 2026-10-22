@@ -198,7 +198,12 @@ heading, lines, first sentence, grade tags, sources, the ledger entries that cit
 line names it, its tests and its coverage status (`tools/spec_index.py`; `grep '"M4.C.3a"'` returns the
 record); [theory/ledger_index.jsonl](theory/ledger_index.jsonl) — one line per ledger entry: its status as
 written in the heading, chapter, lines and the spec IDs it cites. Checked current by
-`tests/bowen/test_spec_index.py`.
+`tests/bowen/test_spec_index.py`. [spec_rules/](spec_rules/) — the spec's current rules, one file per module
+(`M00.md` to `M17.md`), with the front matter's status line, the `⟦…⟧` tags, the block quotes and the revision
+sections removed and nothing else; its `README.md` gives the sizes, and `history_in_body.md` lists every ID
+whose body carries a revision narrative, for the owner's Part E decision (`tools/spec_rules_view.py`; checked
+current by `tests/bowen/test_spec_rules_view.py`). Not normative: where a view and the spec differ, the spec
+wins.
 
 **Parts A, B and C built 2026-10-22; D and E wait on the owner's answers to its §8:**
 [plan_model_ergonomics.md](plan_model_ergonomics.md) — making the spec, the ledger and the code cheaper for a

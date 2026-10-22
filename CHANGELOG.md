@@ -23,7 +23,18 @@ All notable changes to this project are recorded here. Dates are ISO.
   that list. Not fixed.
 - **Documents.** CLAUDE.md's "Read first" paragraph, README's "Where to start", the reading list's §3, the milestone
   review brief's §3 step 6 and the checklist point at the indexes. `docs/spec_coverage.md` regenerated for the new
-  tests. Suite: 1029 collected after Part B.
+  tests. Suite: 1029 collected after Part B, 1036 after Part C.
+- **C1–C5: the current-rules view.** `tools/spec_rules_view.py` writes `docs/spec_rules/M00.md` to `M17.md`
+  (one per `## M` module; `M11.F` and `M11.G` in `M11.md`), each opening with the non-normative line, plus a
+  `README.md` with the sizes and `history_in_body.md`. Removed, mechanically and nothing else: the front matter's
+  `status:` line, every `⟦…⟧` tag (405), every block-quote line (17) and the revision sections from the first
+  `### Revision` heading (the spec's line 2117) to the end. No body sentence is removed. The eighteen module files
+  are 432 KB (66,358 words) against the spec's 513 KB (78,938 words): 84% by bytes; the saving is the split, since
+  a module is 3 to 100 KB. `history_in_body.md` lists 87 IDs whose bodies carry a revision narrative, by the
+  phrases in `tools/spec_index_rules.json` — the input to Part E. `tests/bowen/test_spec_rules_view.py` (7 tests)
+  checks the view current, every ID in exactly one file, every non-quote line of the spec present in order, and
+  each removal and each phrase on a fixture. `docs/spec_rules/` is exempt from the ASR quotation test
+  (`tests/asr_quotations.json`): it is the spec's own text, and the spec is scanned.
 - **A3, the leftover worktrees.** `claude/cranky-snyder-764f33`, `claude/quizzical-burnell-818aa7` and
   `docs-stale-fixes` (under `.claude/worktrees/`) are clean and have no commit that `main` lacks. Not deleted: the
   plan's §8 Q3 puts that to the owner.

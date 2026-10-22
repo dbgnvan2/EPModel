@@ -121,8 +121,9 @@ On the machine that runs it:
 
 6. **Read by index, not by file.** To find what a requirement says, where its sources are, and which code and
    tests carry it, grep `docs/spec_index.jsonl` (one JSON line per spec ID) and `docs/theory/ledger_index.jsonl`
-   (one per ledger entry), both generated and checked current by a test (`docs/plan_model_ergonomics.md`). Open
-   the spec and the ledger at the lines the index gives. Do not read `CHANGELOG.md` in full; grep it for the
+   (one per ledger entry), both generated and checked current by a test (`docs/plan_model_ergonomics.md`). To
+   read a module's rules, open its file in `docs/spec_rules/` (the spec without its tags, quotations and revision
+   sections; not normative). Open the spec and the ledger at the lines the index gives. Do not read `CHANGELOG.md` in full; grep it for the
    item in hand. `TODO.md` is read whole only where L2 asks for it (step 5).
 
 ## 4. What to check

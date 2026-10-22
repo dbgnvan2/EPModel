@@ -1,6 +1,5 @@
 {
   "_about": "Rules for tools/spec_index.py and tools/spec_rules_view.py (docs/plan_model_ergonomics.md, Parts B and C). Editorial content, so it lives here and not in the tools (global rule 9). Each list says which tool reads it.",
-
   "source_id_patterns": {
     "_read_by": "tools/spec_index.py: the citation forms of the six corpus sources and the cross-source resolutions, from docs/model_explainer.md's 'Reading the citations' table, plus the ledger's consolidated entries and the design-lessons notes. A requirement's `sources` field holds every match in its block, in order of first appearance.",
     "the 22 papers, a ledger finding": "L\\d{2}\\.\\d+[a-z]?",
@@ -14,9 +13,29 @@
     "the domain expert and cross-source resolutions": "U\\d+",
     "the design-lessons notes (papers/)": "DL §\\d+(?:\\.\\d+)*"
   },
-
   "history_phrases": {
-    "_read_by": "tools/spec_rules_view.py (C4): a sentence in a requirement body that matches one of these is an inline revision narrative, listed in docs/spec_rules/history_in_body.md for the owner's decision (Part E). Matched as written, case-sensitively; the tool strips nothing.",
-    "phrases": ["Revision \\d+", "re-derived at", "Earlier revisions", "previously", "was changed"]
+    "_read_by": "tools/spec_rules_view.py (C4): a sentence in a requirement body that matches one of these is an inline revision narrative, listed in docs/spec_rules/history_in_body.md for the owner's decision (Part E). The tool strips nothing. `Revision \\d+` is matched as written, capitalised, because a lower-case `revision 22` is usually a cross-reference; the rest are matched in any case.",
+    "phrases": [
+      {
+        "pattern": "Revision \\d+",
+        "case_sensitive": true
+      },
+      {
+        "pattern": "re-derived at",
+        "case_sensitive": false
+      },
+      {
+        "pattern": "Earlier revisions",
+        "case_sensitive": false
+      },
+      {
+        "pattern": "previously",
+        "case_sensitive": false
+      },
+      {
+        "pattern": "was changed",
+        "case_sensitive": false
+      }
+    ]
   }
 }

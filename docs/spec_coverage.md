@@ -604,7 +604,7 @@ say whether that test was proved failing by mutation unless its note does.
 | M17.G.2 | not done | — | no test named for it; Phase E builds it and is not built yet |
 | M17.G.3 | not done | — | no test named for it; Phase E builds it and is not built yet |
 
-## Tests named for no spec ID (209)
+## Tests named for no spec ID (216)
 
 Their names embed no requirement ID, so they count only where an override cites them (marked *cited*). The rest check spec documents, tooling or helpers.
 
@@ -729,6 +729,13 @@ Their names embed no requirement ID, so they count only where an override cites 
 - `tests/bowen/test_spec_index.py::test_b4_every_entry_heading_is_indexed_once_at_its_line`
 - `tests/bowen/test_spec_index.py::test_b4_fields_are_read_from_a_fixture`
 - `tests/bowen/test_spec_index.py::test_b4_withdrawn_and_merged_entries_stay_with_their_status`
+- `tests/bowen/test_spec_rules_view.py::test_c1_every_file_opens_with_the_non_normative_line`
+- `tests/bowen/test_spec_rules_view.py::test_c2_removals_are_mechanical_only`
+- `tests/bowen/test_spec_rules_view.py::test_c3_every_body_line_of_the_spec_survives_in_order`
+- `tests/bowen/test_spec_rules_view.py::test_c4_history_sentences_are_listed_by_phrase`
+- `tests/bowen/test_spec_rules_view.py::test_c4_the_real_list_quotes_the_spec_and_states_its_count`
+- `tests/bowen/test_spec_rules_view.py::test_c5_every_spec_id_appears_in_exactly_one_view_file`
+- `tests/bowen/test_spec_rules_view.py::test_c5_view_is_current_and_holds_nothing_else`
 - `tests/test_asr_quotations.py::test_sp1_2_every_citation_form_is_read`
 - `tests/test_asr_quotations.py::test_sp1_2_mutant_new_quotation_fails`
 - `tests/test_asr_quotations.py::test_sp1_2_mutant_unlisted_quotation_in_an_allowlisted_file_fails`

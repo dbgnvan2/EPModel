@@ -29,6 +29,7 @@
     "docs/DECISIONS FOR APPROVAL.md": "An approved record, kept unedited under the frozen-record note (D1; §3, Q2).",
     "docs/proposal_rev11_emergence.md": "An approved record, kept unedited under the frozen-record note (§3, Q2).",
     "docs/PROPOSAL — ASR QUOTATIONS (SP-1).md": "The SP-1 proposal itself: its tables set written quotations beside ASR citations (§5).",
+    "docs/spec_rules/": "Generated from the spec by tools/spec_rules_view.py, which is scanned; the view holds the spec's own text with its block quotes removed, and a test checks it current (docs/plan_model_ergonomics.md C5).",
     "docs/cycles/": "Dated review records; they quote the project's documents, not the transcripts (§3).",
     "docs/REVIEW_spec_rev10_2026-09-23.md": "A dated review record; it quotes the spec (§3).",
     "CHANGELOG.md": "A dated record (§3).",

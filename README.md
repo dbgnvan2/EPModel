@@ -14,6 +14,7 @@ The model is a set of **behaving agents in one three-generation family** (`src/b
 | understand **every part of the model**, without reading Bowen | [`docs/model_explainer.md`](docs/model_explainer.md) |
 | **build it** | [`docs/bowen_agent_model_spec_v2.md`](docs/bowen_agent_model_spec_v2.md) |
 | look up **one requirement** — its first sentence, sources, ledger entries, code, tests and status | [`docs/spec_index.jsonl`](docs/spec_index.jsonl), one JSON line per ID (`grep '"M4.C.3a"'`); [`docs/theory/ledger_index.jsonl`](docs/theory/ledger_index.jsonl) for ledger entries |
+| read **one module's current rules** without its history | [`docs/spec_rules/`](docs/spec_rules/), one file per module, generated from the spec; where they differ, the spec wins |
 | check **what the source actually says** | [`docs/theory/_LEDGER.md`](docs/theory/_LEDGER.md) |
 | know **where the work is up to** | [`docs/theory/_STATUS.md`](docs/theory/_STATUS.md) |
 

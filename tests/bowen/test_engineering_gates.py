@@ -120,7 +120,7 @@ def test_m11d2_check_catches_a_literal_in_the_policy(tmp_path):
 
 # --- M11.D.8 / M11.D.9 --------------------------------------------------------------------------
 
-EXPECTED_SPEC_REFERENCES = 808  # M11.D.9: an exact count, not a floor; update it when references change (808 at version 2 stage 1, with load_act_classes)
+EXPECTED_SPEC_REFERENCES = 938  # M11.D.9: an exact count, not a floor; update it when references change (938 after model ergonomics Part D replaced the fifteen section anchors with numbered IDs, 2026-10-22; 808 at version 2 stage 1, with load_act_classes)
 
 
 def spec_anchors() -> set[str]:

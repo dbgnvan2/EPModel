@@ -2,7 +2,7 @@
 
 Purpose: turn a run's records into a markdown trace a person can read end to
          end, with every event's effects beside it.
-Spec:    docs/bowen_agent_model_spec_v2.md#M16.C.1, #M16.C.2, #M16.C.4, #M16.C.5, #M11.F
+Spec:    docs/bowen_agent_model_spec_v2.md#M16.C.1, #M16.C.2, #M16.C.4, #M16.C.5, #M11.F.9, #M11.F.10
 Tests:   tests/bowen/test_render.py
 
 **A rendering, not an interpretation** (M16.C.1). The text comes from fixed
@@ -10,9 +10,9 @@ templates over the records; the same records always give the same bytes. No
 language model is involved, and this module imports none.
 
 Each event line carries what M16.C.2 lists — the week, the actor, the move, the
-target and witnesses, and what it did — in the shape of the worked trace in
-``docs/agent_model_proposal.html`` §4.2. "What it did" is in reader units:
-anxiety changes in points, tie and triangle changes in words.
+target and witnesses, and what it did — in reader units: anxiety changes in
+points, tie and triangle changes in words. The framing it opens with is spec
+§M11.F's (`M11.F.9`, `M11.F.10`; `M16.C.5`).
 
 The standing load, the decay toward each person's floor, the relaxation of felt
 contact, symptom accumulation, investment, the reactive detectors and outside-ness run
@@ -228,7 +228,7 @@ def _event_row(event: Event, index: _Index, names: _Names, view: PersonId | None
 
 
 def _lock_in_text(effect: EffectRecord, names: _Names) -> str:
-    """Revision 24 (M7.D.2a, M7.D.2d): what an active symptom took from the partners, or gave back."""
+    """What an active symptom took from the partners, or gave back (M7.D.2a, M7.D.2d)."""
     [(bearer, _, change)] = effect.people
     moved = ", ".join(f"{names(p)} {_signed(v)}" for p, v in effect.acute_anxiety)
     if change > 0:

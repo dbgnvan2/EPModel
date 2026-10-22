@@ -125,6 +125,6 @@ Every ID whose body holds a sentence matching a history phrase (`tools/spec_inde
 
 - Chosen after seeing that, for the owner. | `test_m11c46_triangle_relief_scales_with_third_help` | D | `third_help` ignored (mutant `triangle-help-ignored`) **MUST** turn this red *Regenerated at revision 32* (`docs/phase_d_ensemble_record.md`): **passes**, `seeker_relief` +1.45 ± 0.11 (100 seeds). ⟨\b(?:at|in|since|by|from|until|before|after) revision \d+⟩
 
-## M16.A.7 (line 1916)
+## M16.A.7 (line 1914)
 
 - **M16.A.7** The header **MUST** record, for each `[I]` constant, whether its value was changed after the acceptance suite first ran against it (`M10.B.4`). ⟨was changed⟩

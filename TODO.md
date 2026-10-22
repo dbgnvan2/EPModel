@@ -123,26 +123,31 @@ Deferred and adjacent items. Each carries enough context to act on later without
   implements) was dropped from `io/load.py::load_script`, `scenario/policy_source.py`, `scenario/scripted_source.py`
   and `ScriptedSource`, the phase fact kept as prose. `test_b2c_every_id_cited_in_src_is_defined_by_the_spec` is no
   longer xfail. Done 2026-10-22.
-- [ ] **The ledger index does not reach the extraction directories (plan §11 trial, 2026-10-22):** a sonnet session given
+- [x] **The ledger index does not reach the extraction directories (plan §11 trial, 2026-10-22; done 2026-10-22: indexed, see
+  below):** a sonnet session given
   only `docs/spec_index.jsonl`, `docs/theory/ledger_index.jsonl` and `docs/spec_rules/` answered three lookups
   (`M4.C.3a`'s rule and function, `M5.D.1`'s test, `M4.C.8a`'s sources) correctly against the full spec, in about 67k
   tokens and 26 seconds, but could not read what `FE03.6` says: `ledger_index.jsonl` indexes `_LEDGER.md`'s entries
   (the `L` chapters and the consolidated `FE-`/`KS-` entries), and the per-finding `FE`/`KS`/`K`/`T` entries live in
   `docs/theory/family_evaluation/`, `kerr_book/`, `interviews/` and `tapes/`. Either index those directories too
   (`tools/spec_index.py`, one record per `## … FEnn.m` heading) or say in the index's README that they are not covered.
-- [ ] **Part D's commits carry a stray copy of the revision log (2026-10-22):** `docs/spec_revision_log.md`'s first form
+  Done 2026-10-22: `extraction_sources` in `tools/spec_index_rules.json` names the files; every record carries a
+  `file`; `test_b4_every_extraction_finding_is_indexed_once_at_its_line` checks it, and `M4.C.8`'s `ledger_mentions`
+  now include `FE03.6`.
+- [x] **Part D's commits carry a stray copy of the revision log (2026-10-22; owner 2026-10-22: left as is, pushed to main that day):** `docs/spec_revision_log.md`'s first form
   was staged by accident with `11c36bb` without its checklist entry, so `test_every_document_is_in_the_checklist` is red at
   `11c36bb`..`fea842a` (nine commits, none pushed), and the pinned reference count left `test_m11d8_spec_references_resolve`
   red at `11c36bb`..`6575009`; both green from the Part E commit on. The plan's D3 rule (suite green after each commit) was
   not met for Part D. Rewrite those commits before the push, or leave them; the owner's call.
 - [ ] **Revision 35's dispositions, for the owner's review (Part E, 2026-10-22):** `docs/spec_revision_35_dispositions.md`,
-  218 rows for 213 sentences (35 stay, 32 moved, 151 rewritten), applied as Claude's dispositions under the owner's bulk
+  218 rows for 213 sentences (35 stay, 32 moved, 151 rewritten; rows 219–262 added the same day for the missed
+  phrases, the item below), applied as Claude's dispositions under the owner's bulk
   decision (§8 Q2). The review of 2026-10-22 found two log bullets whose quotation was not the sentence as it stood
   (`M1.A.4k`'s owner list and `M11.C.14`'s Bowen quotation), both restored verbatim, and one post-hoc label dropped from
   `M11.C.6`'s arm, restored; the E2 pass was an agent's, so the owner's read of the rewritten rows is the check.
   The "stays" rows marked unsure carry the reason in the last column. A reversed row is one edit in the spec and one
   bullet back out of `docs/spec_revision_log.md`.
-- [ ] **Narrative the history phrases miss, still in bodies (Part E, 2026-10-22):** "The earlier form …" (`M6.I.6`,
+- [x] **Narrative the history phrases miss, still in bodies (Part E, 2026-10-22; done 2026-10-22 on the owner's instruction):** "The earlier form …" (`M6.I.6`,
   `M15.B.3`), "*The rev-10 form … is replaced*" (`M4.C.1`), "*The form approved at G3 …*" (`M4.D.6a`), "*The text it
   replaces said …*" (`M4.G.3`), "*It replaces* the earlier …" (`M11.C.17`), "As first built …" (`M1.B.3c`), a
   lower-case "*revision 11 removed the clause …*" (`M4.D.6b`); `*Revision N*` prefixes outside requirement bodies:
@@ -150,6 +155,9 @@ Deferred and adjacent items. Each carries enough context to act on later without
   row B (11); `M11.C.14` holds the withdrawn two-sided **MUST NOT** before its one-sided restatement, and `M4.C.3a`'s
   first sentence states the old chronic floor with a MUST, the usual-level floor following. Either add the phrases to
   `tools/spec_index_rules.json` and dispose of them in a later pass, or leave them; the owner's call.
+  Done 2026-10-22: eight phrases added; the 44 sentences they match and the passages named here disposed as rows
+  219–262 of `docs/spec_revision_35_dispositions.md` (19 moved, 25 rewritten, none stays), the bullets in the log
+  under their revisions; §0.3's count 1043 → 1042 with `M11.C.14`'s withdrawn two-sided MUST NOT.
 - [ ] **D4, long `Spec:` lines (Part D, 2026-10-22; the plan says record, do not split):** `engine/objects.py` 56 IDs
   (its classes `Person` 21, `Relationship` 17), `engine/life_course.py` 21, `engine/appraise.py` 18,
   `engine/iposition.py` 18, `ensemble/criteria.py` 19 (a registry, one per criterion), `policy/policy.py` 16,

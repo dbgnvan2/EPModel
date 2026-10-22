@@ -10,6 +10,8 @@ The sections `### Revision 34` to `### Revision 5` and the undated section are t
 
 **Decided 2026-10-22** by the owner: the front matter's status text and the revision sections `### Revision 34` to `### Revision 5` leave the spec for this file, and the spec takes revision 35 for it, wording only. No rule changed; `engine_hash()` is unchanged and no record was rerun. The front matter's `status:` line now reads `APPROVED` with a pointer here; its text as it stood is the last section of this file.
 
+**Extended the same day, on the owner's instruction** (`TODO.md`, "narrative the history phrases miss"): eight phrases were added to `tools/spec_index_rules.json` (`earlier form`, `The text it replaces`, `is replaced`, `The form approved at`, `It replaces`, `As first built`, `revision N removed`, `rev-N form`), and the 44 sentences they match — with the `*Revision N*` prefixes outside requirement bodies, which the tool does not scan, `M11.C.14`'s withdrawn two-sided bound and `M4.C.3a`'s pre-revision-24 floor — were disposed as rows 219–262 of the record, under the sections below. Wording only; one bolded MUST NOT left the spec for the log with `M11.C.14`'s withdrawn bound (§0.3's count 1043 → 1042).
+
 ### Revision 34 — the ASR quotations paraphrased, and the stage 1 review's wording fixes, 2026-10-22 ⟦rev34 · owner decisions 2026-10-21 and 2026-10-22⟧
 
 **Approved 2026-10-22** by the owner: the §4 texts of `docs/PROPOSAL — ASR QUOTATIONS (SP-1).md`, as written, and its eight questions, each as recommended; the stage 1 milestone review's wording fixes were decided at its triage on 2026-10-21 (D2–D6, `CHANGELOG.md`). Nothing a run computes changed, so no record was rerun. Revisions 13 to 33 are recorded in the front matter's status line and in `CHANGELOG.md`, not here.
@@ -32,6 +34,10 @@ The sections `### Revision 34` to `### Revision 5` and the undated section are t
 - `M11.4`: *Revision 34:* the count this sentence gave ("Three criteria") is dropped; the table is the list, as `M11.4b` already said (MR-10)
 - `M11.F.3`: *Revision 34:* restated from the written Epilogue (FE11.2) in place of the KB13 interview, which is ASR text; the third statement, declining the debate, is new (SP-1 Q3, alternative B)
 - `M13.1`: *Revision 34:* three call it; `M5.C`'s site is not built (`M8`'s preamble).
+
+**Moved from the bodies 2026-10-22, the phrases added that day (`docs/spec_revision_35_dispositions.md`, rows 219–262):**
+
+- `M8 (preamble)`: *Revision 34:* three mechanisms call it — the witness test (`M8.6`, `visibility.py`), the coach's position (`M11.C.7`, `external.py`) and triangle activity (`M1.C.3`, `recompute.py`).
 
 ### Revision 33 — inline narratives moved from the bodies at revision 35
 
@@ -56,6 +62,10 @@ The sections `### Revision 34` to `### Revision 5` and the undated section are t
 - `M11.5`: *Revision 32:* its readout, the others' automatic acts toward the bearer after an onset less a no-onset run, is the learned part, so composite
 - `M11.5`: *Revision 32:* the reactive-share limb is premise in the two level cells only; in the two heavier-stress cells it is composite, since the mixing weight reads functional level, not anxiety, and stress reaches it only through the stress response's bounded fall in functioning (`M1.A.5e`)
 
+**Moved from the bodies 2026-10-22, the phrases added that day (`docs/spec_revision_35_dispositions.md`, rows 219–262):**
+
+- `M11.E (M11.C.9 row)`: *Revision 32:* superseded in part, since the criterion was restated to a mid-scale peak that needs no effect size; it is not built, and is proposed out of version 1 because no rule reads sibling position
+
 ### Revision 31 — inline narratives moved from the bodies at revision 35
 
 - `M6.I.4`: *Revision 31:* what an over-functioner takes in one exchange **MUST** be scaled by their own room above the stress floor, `s = clip((f − m) / (b − m), 0, 1)` with the floor `m = max(0, b − stress_floor_below_basic)` (`f` their functional level, `b` their basic level), clamped at 0 as the giver's floor and stress's are: full at or above basic, a third at 10 below for a basic level of 15 or more, none at the floor.
@@ -71,6 +81,12 @@ The sections `### Revision 34` to `### Revision 5` and the undated section are t
 - `M11.C.21`: *Revision 31* (the owner's decisions of 2026-10-16, plan §4.11): the collapse did not reach the exchange, so `M6.I.4` gained the capacity rule (a collapsed over-functioner takes in proportion to their room above the stress floor).
 - `M11.C.23`: *Revision 31: reclassified as a composite, its failure accepted as a finding* (the owner, 2026-10-16; `M11.5`).
 - `M11.C.40`: *Revision 31* (the owner, 2026-10-16, option a): clause 1 gates; clause 2 is reported only and proved by `tests/bowen/test_learner.py::test_m4d6d_self_directed_channel_is_never_reinforced`.
+
+**Moved from the bodies 2026-10-22, the phrases added that day (`docs/spec_revision_35_dispositions.md`, rows 219–262):**
+
+- `M11.C.14`: Under high marital distance a firmness arm and a talking-it-out arm **MUST NOT** differ in the child's symptom load by more than the declared equivalence margin (`M11.4`) ⟦rev15 · owner decision 2026-10-11 · `docs/PROPOSAL — PHASE D DEFINITIONS.md`⟧
+- `M11.C.14`: The two-sided comparison above is withdrawn ⟦rev31 · owner decision 2026-10-16, review⟧
+- `M11.C.14`: (*revision 31:* the gate removed **MUST** turn at least one technique variant red)
 
 ### Revision 30 — inline narratives moved from the bodies at revision 35
 
@@ -97,6 +113,10 @@ The sections `### Revision 34` to `### Revision 5` and the undated section are t
 - `M7.E.1`: *Revision 28:* for a child, `M7.E.1f` replaces the estimator from 5 to 20; the estimator governs from 20, as for any adult.
 - `M11.C.6`: *Revision 28:* limit (a) could not be met under `M7.E.1f`'s ±2% band; the owner decided at revision 31 (above)
 - `M11.G.4`: *Revision 28:* children are now born in the run, but component 4's projection line is still not read; it is reported as not built
+
+**Moved from the bodies 2026-10-22, the phrases added that day (`docs/spec_revision_35_dispositions.md`, rows 219–262):**
+
+- `M2.A (table notes)`: **Revision 28 — the life course.**
 
 ### Revision 27 — inline narratives moved from the bodies at revision 35
 
@@ -131,6 +151,12 @@ The sections `### Revision 34` to `### Revision 5` and the undated section are t
 - `M7.D.2d`: *Revision 24, built:* past the turn (`s < 0`), `min(1, |s|)` of the hold goes back to the partners each week, and the same share of the bearer's own excess above usual spills to them, split equally: the symptom no longer holds what it held, nor the bearer's own anxiety.
 - `M7.D.4`: *Revision 24, built:* each week, if a living member has an active symptom, and another member on an interactive tie to the member carrying the most active symptom load has excess above usual greater than their `tolerance` (`M1.D.5`, declared per person; none listed, never), that member sends an endogenous `INSTITUTIONALIZE` of the bearer.
 - `M11.C.22`: *Restated at revision 24:* removing a member relieves the family a little whether or not they carry a symptom (measured ad hoc, 2026-10-12: −0.83 ± 0.76 points of the others' mean excess over 26 weeks, with no symptom), so each limb is read against removing the same member with no symptom.
+
+**Moved from the bodies 2026-10-22, the phrases added that day (`docs/spec_revision_35_dispositions.md`, rows 219–262):**
+
+- `M4.C.3a`: The integrator **MUST** accumulate `acute_anxiety − chronic_anxiety` where positive, so that **many resolved excursions and one unresolved excursion are distinguishable**.
+- `M4.C.3a`: Measured before it (2026-10-12, ad hoc): above the chronic floor, the family's own traffic held everyone 15–35 points up, so in ten-year runs of the nuclear-four fixture every person crossed the threshold in the first weeks and stayed there, at 4 to 31 times it, and no symptom criterion could tell its arms apart.
+- `M4.C.3a`: The integrand is still time above a floor, not peak, so resolved and unresolved excursions stay distinguishable; what changes is that a family's steady state is no longer a symptom in itself.
 
 ### Revision 23 — inline narratives moved from the bodies at revision 35
 
@@ -179,9 +205,17 @@ The sections `### Revision 34` to `### Revision 5` and the undated section are t
 - `M11.C.17`: *Rewritten at revision 17* (the owner: "A person CAN improve functioning and level of differentiation without a coach. A coach can help, but isn't required. The evidence is in the behaviour").
 - `M11.5`: | M11.C.17 | Composite | … | rewritten at revision 17: no rule writes "coached rises more"; it follows from the coach raising `systems_perspective`, which opens the self-directed path the estimator reads |
 
+**Moved from the bodies 2026-10-22, the phrases added that day (`docs/spec_revision_35_dispositions.md`, rows 219–262):**
+
+- `M11.C.17`: *It replaces* the earlier "differentiation is not self-generating … the coach-free arm MUST NOT show upward drift".
+
 ### Revision 16 — inline narratives moved from the bodies at revision 35
 
 - `M1.B.3c`: *Revision 16, graded rejection:* a move **MUST** be refused only while the cutter's rejection is above a declared threshold, and below it is received as usual; rejection **MUST** fade by a declared amount each week, so a cutoff that is not renewed by refusals or further cutoffs wears off.
+
+**Moved from the bodies 2026-10-22, the phrases added that day (`docs/spec_revision_35_dispositions.md`, rows 219–262):**
+
+- `M1.B.3c`: As first built, refusal at any rejection above zero, with only `REDUCE_CUTOFF` lowering it, left 80–88% of the Phase C family's tie-weeks cut off and nearly removed `REDUCE_CUTOFF` (`docs/implementation_plan_phase_d.md` B4, measured 2026-10-11)
 
 ### Revision 15 — inline narratives moved from the bodies at revision 35
 
@@ -204,6 +238,10 @@ The sections `### Revision 34` to `### Revision 5` and the undated section are t
 - `M2.A.1`: *Revision 13: Dario replaces Bruno, who left the table; Phase C's `M11.C.4` ran on its own dyad fixture and is unaffected.*
 - `M2.B.2`: **M2.B.2** *Amended at revision 13* (the defining line's title).
 - `M5.A.1a`: *Revision 13:* the owner gave the readouts' definitions on 2026-10-10 (`docs/readouts_phase_c.md`).
+
+**Moved from the bodies 2026-10-22, the phrases added that day (`docs/spec_revision_35_dispositions.md`, rows 219–262):**
+
+- `M2.A (table notes)`: **Revision 13 — the owner's reference family.**
 
 ### Revision 12 — the Phase C prerequisites, 2026-10-07 ⟦rev12 · owner decision 2026-10-07⟧
 
@@ -243,6 +281,10 @@ The sections `### Revision 34` to `### Revision 5` and the undated section are t
 - `M11.C.38`: *Revision 12:* for `chronic_anxiety` the swept quantity is its **initial condition** (`M2.A.0a`), not a parameter, because `M1.A.7a` derives it each slow tick; and although this is a SHOULD, it is listed in Phase C's Done-when cell and is therefore built
 - `M11.D.16`: so a permutation reassigns draws (external review E; amended at revision 12)
 - `M14.A.4`: | `symptom_load` | Person | DV | symptom accumulation, the chronicity integrator (`M4.C.3a`, `M7.D.1`) — Phase C by revision 12's P3 | C |
+
+**Moved from the bodies 2026-10-22, the phrases added that day (`docs/spec_revision_35_dispositions.md`, rows 219–262):**
+
+- `M6.I.6`: *The earlier form — "anxiety is conserved and redirected, never destroyed" — failed every tick, because appraisal creates acute anxiety and decay removes it (external review A3)*
 
 ---
 
@@ -322,6 +364,16 @@ The sections `### Revision 34` to `### Revision 5` and the undated section are t
 - `M14.A.4`: | Standing load (`M4.A.1`, `M4.A.5`, `M4.C.1c`) | … — the "too little" side from revision 11 |
 - `M14.A.4`: | Base appraisal (`M4.C.1`) | … — the change in two-sided deviation from revision 11 |
 - `M14.A.4`: | Triangle recompute (`M1.C.3`) | … live positions — no tension threshold from revision 11 |
+
+**Moved from the bodies 2026-10-22, the phrases added that day (`docs/spec_revision_35_dispositions.md`, rows 219–262):**
+
+- `M4.C.1`: *The rev-10 form, `intensity × conductance / functional_level`, is replaced; KS06.3's extraction recommended this re-derivation and it had not been applied.*
+- `M4.C.1a`: Division by `functional_level`, the rev-10 form, is one admissible steepness.
+- `M4.D.6a`: *The form approved at G3 forbade this signal, on the ground that it rewards the seven reactive moves and punishes the two differentiating ones by construction.
+- `M4.D.6a`: The second half does not hold: `I-POSITION` and `STAY-IN-CONTACT` are in the self-directed channel, which `M4.D.6d` keeps out of reinforcement.*
+- `M4.D.6b`: → user, G3 approval 2026-08-24; *revision 11 removed the clause tying this to `M11.C.16`'s second direction, which was withdrawn*
+- `M4.G.3`: *The text it replaces said the condition was unsettled because `M4.D.6a` then forbade short-horizon relief.*
+- `M13 (phase table, row B)`: **Revision 11:** Phase B was built and gated against revision 10's `M4.C.1`, `M4.A.1` and `M1.C.3`.
 
 ---
 
@@ -568,6 +620,10 @@ Revision 10 was approved by the owner on 2026-10-06, on these terms:
 - `M11.4b`: The rows added at revision 10 extend `M11.4`'s table, and the count in `M11.4`'s first sentence ("Three criteria") is superseded by the table itself, which already held six rows at revision 9; the list remains exhaustive.
 - `M11.4c`: No criterion of this form is instantiated at revision 10.
 
+**Moved from the bodies 2026-10-22, the phrases added that day (`docs/spec_revision_35_dispositions.md`, rows 219–262):**
+
+- `M13 (phase table, row B)`: **Added at revision 10:** M11.D.17 passes against the register as filled at plan time, and M11.D.22 passes.
+
 ### Revision 9 — the corpus-fidelity sweep, 2026-08-28
 
 **Every quoted passage in this document was checked against the primary sources.** Five cold agents on a
@@ -691,6 +747,14 @@ neither catchable by a regex. A sweep for others of this shape is logged in `TOD
 - `M15.B.3`: *Rewritten at revision 7.* (before "The earlier form required …")
 - `M15.D.4`: *Revision 7 corrects the word: these were called "regime boundaries", which implies cliffs.*
 
+**Moved from the bodies 2026-10-22, the phrases added that day (`docs/spec_revision_35_dispositions.md`, rows 219–262):**
+
+- `M1.A.3`: **Why this changed.**
+- `M1.A.3`: The earlier form required *"exactly one behavioural transition on `basic_level`, at 50"*, which reads Ch16's description as a mechanism.
+- `M1.A.3`: Ch16 is the latest of the three and is not outvoted — but it describes a band, and this requirement had implemented a cliff.
+- `M15.B.3`: The earlier form required that no rating point land on "the transition at 50", reasoning that the modal rating would sit where the licence flips.
+- `M15.B.3`: **`M1.A.3` no longer has a flip**, so that reasoning is gone — and the problem it named is **larger**, not smaller.
+
 ---
 
 ### Revision 6 — the run log, 2026-08-28
@@ -756,6 +820,19 @@ most** — which is why `M15.D.2` requires an envelope over ranges and forbids a
 
 - `M0.4`: *(Earlier revisions pointed at "four exceptions listed in M11"; no such list existed.
 - `M1.D.7a`: *Their meanings were previously recorded nowhere except Pygame log strings in `src/main.py`, where the third was labelled "Climate"; `resource_pressure` is the accurate name for what Ch18 actually argues.*
+
+**Moved from the bodies 2026-10-22, the phrases added that day (`docs/spec_revision_35_dispositions.md`, rows 219–262):**
+
+- `M1.A.4e`: They are an **intake form**, and the earlier form of this requirement promoted them to "the estimator's observables".
+- `M11.2`: *Restated 2026-08-28.
+- `M11.2`: The earlier form named the range `M11.C.1–M11.C.16`, written when the table ended near 16.
+- `M11.2`: The table now ends at 33, so seventeen criteria — including `M11.C.28`, `M11.C.30` and `M11.C.31`, all of them distributional claims a single run cannot establish — sat outside a bound nobody had moved.
+- `M11.2`: It is stated over the whole set here so it cannot drift again.*
+- `M11.2`: **A range bound over a set that grows is the shape `P29` names**, and `M11.D.9` already forbids it elsewhere in this document. It is stated over the whole set here so it cannot drift again.*
+- `M11.F.9`: *(An earlier form said the bias was "unbounded".
+- `M11.F.9`: That does not follow — over a bounded parameter space the difference is unidentified, not unbounded — and an unsupported strengthening is the exact error §10 records the first corpus pass making.)*
+- `M11.F.9`: *Mechanism corrected 2026-08-28.* The earlier form said fitting absorbs the model's error "on one side only", which is wrong: under `M0.4` both arms share one parameter set, so nothing is absorbed asymmetrically. The real failure is non-identifiability plus loss of independence, which is a **stronger** objection, not a weaker one. The earlier form also stated as a general law that *the better the fit, the less the counterfactual can be trusted*. That holds **in the overfitting regime this model is in** — and only there. A better-specified model both fits better and extrapolates better, so the sentence is not a principle to reason from: an implementer could conclude that a deliberately poorer fit is safer, or that fitting *both* arms restores the symmetry. Neither follows.
+- `M16.B.3`: *Corrected 2026-08-28. The earlier form required the whole of logging to be a pure observer, which contradicts this module's own preamble twelve lines above — an agent's delayed log is an **input** to a mechanism. The contradiction was invisible because `M16.T.3` was gated only in Phase B, which has no policy and no external agent, so it passed vacuously exactly where it was true and was never re-run where it became false.*
 
 ## The front matter's status line, as it stood at revision 34
 

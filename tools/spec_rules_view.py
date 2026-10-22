@@ -18,7 +18,8 @@ Files: ``M00.md`` (the title, the front matter and §0), ``M01.md`` … ``M17.md
 and ``M11.G`` are in ``M11.md``), ``README.md`` (the files, their sizes, and the view's size against the spec's) and
 ``history_in_body.md`` (C4: every ID whose body holds a sentence matching a history phrase; the phrases are in
 ``tools/spec_index_rules.json``. It was the input to Part E, which at revision 35 moved or rewrote 183 of the 218
-rows it listed (213 sentences, five split in two); what it lists now is the sentences the pass left in place — rule
+rows it listed (213 sentences, five split in two; 44 more rows followed on 2026-10-22, when eight phrases were added
+to the list); what it lists now is the sentences the pass left in place — rule
 text, recorded results and cross-references that match a phrase — each a row of
 ``docs/spec_revision_35_dispositions.md`` marked "stays", with the reason).
 """

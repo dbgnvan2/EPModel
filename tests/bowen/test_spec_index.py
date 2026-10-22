@@ -180,7 +180,7 @@ def test_b1_ledger_mentions_are_the_inverse_of_the_ledger_index():
     # sections are not entries).
     defined = {r["id"] for r in spec}
     lines = TOOL.LEDGER.read_text(encoding="utf-8").split("\n")
-    spans = [tuple(e["lines"]) for e in ledger]
+    spans = [tuple(e["lines"]) for e in ledger if e["file"] == TOOL.LEDGER.relative_to(TOOL.REPO).as_posix()]
     for number, line in enumerate(lines, start=1):
         inside = any(start <= number <= end for start, end in spans)
         for spec_id in TOOL.CITED_SPEC_ID.findall(line):
@@ -196,6 +196,8 @@ def test_b4_every_entry_heading_is_indexed_once_at_its_line():
     # An independent, looser reading of an entry heading, so a form the tool's pattern misses shows here (L10.11a).
     loose = re.compile(r"^#{2,3} ((?!Ch\d)[A-Z]{1,2}(?:-[A-Z])?\d*(?:\.\d+)?[a-z]?)\s+[—·]")
     headings = [m.group(1) for m in (loose.match(line) for line in lines) if m]
+    ledger_file = TOOL.LEDGER.relative_to(TOOL.REPO).as_posix()
+    records = [r for r in records if r["file"] == ledger_file]
     assert [r["id"] for r in records] == headings
     assert "L10.11a" in headings, "a suffixed finding ID is an entry of its own"
     assert len(headings) == len(set(headings))
@@ -258,3 +260,39 @@ Still KS-A.1's text, citing M2.
     assert by_id["KS-A.1"]["lines"] == [15, 19], "the ID-less `###` stays inside the entry"
     assert TOOL.cited_spec_ids(by_id["KS-A.1"]["text"], {"M2"}) == ["M2"]
     assert by_id["U1"]["title"] == "A resolution → `M1.A.1`" and by_id["U1"]["status"] == "user"
+
+
+def test_b4_every_extraction_finding_is_indexed_once_at_its_line():
+    """The per-finding extraction files (spec_index_rules.json `extraction_sources`): every `## … <ID> —` heading is one
+    record, at its line, with the file named, and no ID is defined twice across the whole index (plan §11 trial,
+    2026-10-22: FE03.6 was unreachable from the index). Mutation: drop a glob from the rules file."""
+    records = _records(TOOL.LEDGER_INDEX)
+    ids = [r["id"] for r in records]
+    assert len(ids) == len(set(ids))
+    loose = re.compile(r"^## [^\w\s`\[]*\s*([A-Z]{1,3}\d+(?:\.\d+)?[a-z]?)\s+[—·]")
+    files = TOOL.extraction_files()
+    assert len(files) >= 40 and any(p.name == "_LECTURES_1979.md" for p in files)
+    for path in files:
+        rel = path.relative_to(TOOL.REPO).as_posix()
+        lines = path.read_text(encoding="utf-8").split("\n")
+        headings = [m.group(1) for m in (loose.match(line) for line in lines) if m]
+        mine = [r for r in records if r["file"] == rel]
+        assert [r["id"] for r in mine] == headings, rel
+        for record in mine:
+            assert TOOL.extraction_entry_pattern().match(lines[record["lines"][0] - 1]).group(2) == record["id"]
+            assert record["lines"][0] <= record["lines"][1] and record["status"] == ""
+            assert record["chapter"], f"{rel}: the file's `# ` title is the record's chapter"
+    by_id = {r["id"]: r for r in records}
+    assert by_id["FE03.6"]["file"] == "docs/theory/family_evaluation/fe03.md" and "M4.C.8" in by_id["FE03.6"]["spec_ids"]
+    assert {"KS11.1", "K02.1", "T6.4", "L01.1", "FE-C"} <= set(by_id)
+    assert by_id["T6.4"]["labels"] == [] or all(isinstance(label, str) for label in by_id["T6.4"]["labels"])
+
+
+def test_b4_an_extraction_heading_the_pattern_does_not_read_is_refused():
+    """P2, as for the ledger: a new finding-ID form fails loudly instead of folding into the entry before it."""
+    text = "# FE99 — A chapter\n\n## ⭐⭐ FE99.1 — Fine `[K]`\n\nbody\n\n## ⚠ FEX99.2 — Unknown form\n"
+    with pytest.raises(ValueError, match="looks like an entry heading"):
+        TOOL.extraction_entries(text)
+    entries = TOOL.extraction_entries("# FE99 — A chapter\n\n## ⭐⭐ FE99.1 — Fine `[K]`\n\nbody\n\n## Links out\n\nx\n")
+    assert [(e["id"], e["title"], e["labels"], e["chapter"], e["lines"]) for e in entries] == \
+        [("FE99.1", "Fine", ["K"], "FE99 — A chapter", [3, 5])]

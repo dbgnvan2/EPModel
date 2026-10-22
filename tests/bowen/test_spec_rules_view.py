@@ -214,7 +214,7 @@ def test_e2_every_dispositions_row_is_true_of_the_spec_and_the_log():
     docs/spec_revision_log.md under its ID; a moved sentence is no longer in the spec; a kept sentence is. The owner
     reverses rows by hand, so a sentence lost on the way would otherwise go unnoticed (review 2026-10-22)."""
     rows = _disposition_rows()
-    assert len(rows) == 218 and [r["number"] for r in rows] == list(range(1, 219))
+    assert len(rows) == 262 and [r["number"] for r in rows] == list(range(1, 263))
     assert {r["disposition"] for r in rows} == {"stays", "moves", "rewritten"}
     assert all(row["key"] for row in rows), "a row with no uncut piece of 12 characters would match anything"
     text = _spec_text()
@@ -222,7 +222,7 @@ def test_e2_every_dispositions_row_is_true_of_the_spec_and_the_log():
     blocks = {b["id"]: _norm(TOOL.TAG.sub("", b["text"])) for b in TOOL.index_tool.spec_blocks(text)}
     log_by_id: dict[str, list[str]] = {}  # the log's bullets `- `ID`: sentence`, by ID: a row is looked for under its own
     for line in (REPO / "docs" / "spec_revision_log.md").read_text(encoding="utf-8").split("\n"):
-        bullet = re.match(r"- `(M[0-9A-Za-z.]+)`: (.*)", line)
+        bullet = re.match(r"- `(M[0-9A-Za-z.]+(?: \([^)]+\))?)`: (.*)", line)  # `M2.A (table notes)`: a section
         if bullet:
             log_by_id.setdefault(bullet.group(1), []).append(_norm(TOOL.TAG.sub("", bullet.group(2))))
     wrong = []

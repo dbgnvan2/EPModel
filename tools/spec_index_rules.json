@@ -18,7 +18,7 @@
     "the DSI literature": "DSI\\b"
   },
   "history_phrases": {
-    "_read_by": "tools/spec_rules_view.py (C4): a sentence in a requirement body that matches one of these is an inline revision narrative, listed in docs/spec_rules/history_in_body.md for the owner's decision (Part E). The tool strips nothing. `Revision \\d+` is matched as written, capitalised; a lower-case `revision N` counts only after a preposition (`corrected at revision 7`, `superseded in part at revision 14`), because a bare `(revision 22)` is a cross-reference (review 2026-10-22). The list over-includes by design: `previously` and `was changed` are rule text in some bodies, which the owner's pass will leave as they are.",
+    "_read_by": "tools/spec_rules_view.py (C4): a sentence in a requirement body that matches one of these is an inline revision narrative, listed in docs/spec_rules/history_in_body.md for the owner's decision (Part E). The tool strips nothing. `Revision \\d+` is matched as written, capitalised; a lower-case `revision N` counts only after a preposition (`corrected at revision 7`, `superseded in part at revision 14`), because a bare `(revision 22)` is a cross-reference (review 2026-10-22). The list over-includes by design: `previously` and `was changed` are rule text in some bodies, which the owner's pass will leave as they are. Extended 2026-10-22 (TODO: narrative the phrases missed): `earlier form`, `The text it replaces`, `is replaced`, `The form approved at`, `It replaces`, `As first built`, `revision N removed`, `rev-N form`.",
     "phrases": [
       {
         "pattern": "Revision \\d+",
@@ -43,7 +43,49 @@
       {
         "pattern": "\\b(?:at|in|since|by|from|until|before|after) revision \\d+",
         "case_sensitive": false
+      },
+      {
+        "pattern": "earlier form",
+        "case_sensitive": false
+      },
+      {
+        "pattern": "The text it replaces",
+        "case_sensitive": false
+      },
+      {
+        "pattern": "\\bis replaced\\b",
+        "case_sensitive": false
+      },
+      {
+        "pattern": "The form approved at",
+        "case_sensitive": false
+      },
+      {
+        "pattern": "\\bIt replaces\\b",
+        "case_sensitive": false
+      },
+      {
+        "pattern": "As first built",
+        "case_sensitive": false
+      },
+      {
+        "pattern": "revision \\d+ removed",
+        "case_sensitive": false
+      },
+      {
+        "pattern": "\\brev-?\\d+ form\\b",
+        "case_sensitive": false
       }
     ]
+  },
+  "extraction_sources": {
+    "_read_by": "tools/spec_index.py (ledger_index): the per-finding extraction files behind the ledger's consolidated entries, indexed one record per `## … <ID> —` heading (the plan's §11 trial, 2026-10-22: a lookup of what FE03.6 says could not reach it from _LEDGER.md alone). Globs are repo-relative; files whose names start with `_` are summaries or pass notes, not entries, except the lectures file named here. The entry ID forms are the finding-level forms of source_id_patterns.",
+    "globs": [
+      "docs/theory/family_evaluation/fe*.md",
+      "docs/theory/kerr_book/ks*.md",
+      "docs/theory/kb/kb*.md",
+      "docs/theory/_LECTURES_1979.md"
+    ],
+    "entry_id": "(?:FE|KS|K)\\d{2}\\.\\d+[a-z]?|T\\d+\\.\\d+"
   }
 }

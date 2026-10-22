@@ -76,7 +76,8 @@ them in this batch**: list them in `TODO.md` and report them, and mark (c) `xfai
 **B4.** Ledger reverse view: also write `docs/theory/ledger_index.jsonl`, one line per ledger entry: `id`, `title`,
 `status` (`stands`, `narrowed`, `withdrawn`, `merged`, `new at p2`, as written in the heading), `chapter`, `lines`,
 `spec_ids` cited. A test checks it is current. Withdrawn and merged entries stay in the index with their status, so a
-search can filter them.
+search can filter them. *Extended 2026-10-22 (the §11 trial's finding, `TODO.md`): the per-finding `FE`/`KS`/`K`/`T`
+entries of the extraction files are indexed too, with a `file` field on every record.*
 
 ## 5. Part C — a "current rules" view of the spec
 

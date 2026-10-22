@@ -604,7 +604,7 @@ say whether that test was proved failing by mutation unless its note does.
 | M17.G.2 | not done | — | no test named for it; Phase E builds it and is not built yet |
 | M17.G.3 | not done | — | no test named for it; Phase E builds it and is not built yet |
 
-## Tests named for no spec ID (217)
+## Tests named for no spec ID (219)
 
 Their names embed no requirement ID, so they count only where an override cites them (marked *cited*). The rest check spec documents, tooling or helpers.
 
@@ -726,7 +726,9 @@ Their names embed no requirement ID, so they count only where an override cites 
 - `tests/bowen/test_spec_index.py::test_b2b_every_spec_id_appears_once_in_document_order`
 - `tests/bowen/test_spec_index.py::test_b2c_every_id_cited_in_src_is_defined_by_the_spec`
 - `tests/bowen/test_spec_index.py::test_b4_an_entry_like_heading_the_pattern_does_not_read_is_refused`
+- `tests/bowen/test_spec_index.py::test_b4_an_extraction_heading_the_pattern_does_not_read_is_refused`
 - `tests/bowen/test_spec_index.py::test_b4_every_entry_heading_is_indexed_once_at_its_line`
+- `tests/bowen/test_spec_index.py::test_b4_every_extraction_finding_is_indexed_once_at_its_line`
 - `tests/bowen/test_spec_index.py::test_b4_fields_are_read_from_a_fixture`
 - `tests/bowen/test_spec_index.py::test_b4_withdrawn_and_merged_entries_stay_with_their_status`
 - `tests/bowen/test_spec_rules_view.py::test_c1_every_file_opens_with_the_non_normative_line`

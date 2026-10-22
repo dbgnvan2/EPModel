@@ -17,9 +17,14 @@ inferred); ``sources`` (source IDs cited in the block, by ``tools/spec_index_rul
 function in ``src/`` whose docstring's ``Spec:`` line names the ID); ``tests``, ``status`` and ``status_note``
 (``tools/spec_coverage.py``'s ``coverage()``, verbatim).
 
-The ledger index (B4) has, per ledger entry: ``id``, ``title``, ``status`` (the first bracketed label in the heading,
-as written), ``labels`` (all of them), ``chapter`` (the enclosing ``##`` heading), ``lines`` and ``spec_ids`` (the spec
-IDs the entry cites). Withdrawn and merged entries stay in, with their status, so a search can filter them.
+The ledger index (B4) has, per entry: ``id``, ``title``, ``status`` (the first bracketed label in the heading, as
+written), ``labels`` (all of them), ``chapter`` (the enclosing ``##`` heading), ``file``, ``lines`` and ``spec_ids``
+(the spec IDs the entry cites). Withdrawn and merged entries stay in, with their status, so a search can filter them.
+The entries are ``_LEDGER.md``'s (the ``L`` chapters and the consolidated ``FE-``/``KS-`` entries) and, since
+2026-10-22 (TODO, plan §11 trial: ``FE03.6`` was unreachable), the per-finding ``FE``/``KS``/``K``/``T`` entries of the
+extraction files that ``spec_index_rules.json`` ``extraction_sources`` names: one record per ``## … <ID> —`` heading,
+``chapter`` the file's ``# `` title, ``status`` empty (those headings carry stars, not a status). An ID defined twice
+across the files, or an ID-like heading the ``entry_id`` pattern does not read, fails the run (P2).
 
 ``code_citations()`` also reports every ID a ``Spec:`` line names that the spec does not define (B3); the test fails
 on any.
@@ -69,6 +74,10 @@ LEDGER_ENTRY = re.compile(r"^(#{2,3}) ((?:[A-Z]{1,2}\d{2}\.\d+[a-z]?|[A-Z]{2}-[A
 # read: counted and refused, so a new ID form cannot be folded into its neighbour silently (P2; L10.11a, 2026-10-22).
 ENTRY_LIKE = re.compile(r"^#{2,3} [A-Z]{1,3}(?:-[A-Z])?\d*(?:\.\d+)?[a-z]?\s+[—·–-]")
 LEDGER_LABEL = re.compile(r"`\[([^\]`]*)\]`")
+# A per-finding heading in an extraction file (`## ⭐⭐⭐ FE03.1 — title`, `## ⚠ T6.4 — title`): `##`, optional marks
+# (no letters, digits or brackets), the ID, a separator. The ID forms come from spec_index_rules.json.
+EXTRACTION_MARKS = r"^## ([^\w\s`\[]*)\s*"
+EXTRACTION_LIKE = re.compile(EXTRACTION_MARKS + r"([A-Z]{1,3}\d+(?:\.\d+)?[a-z]?)\s+[—·–-]")
 # The `Spec:` block of a docstring: from the label to the next labelled line, a blank line or the end.
 SPEC_BLOCK = re.compile(r"^[ \t]*Spec:[ \t]*(.*?)(?=^[ \t]*[A-Z][A-Za-z ]{0,20}:[ \t]|\n[ \t]*\n|\Z)", re.M | re.S)
 # One citation in a `Spec:` block: an optional document, then `#` and the ID. A bare `#ID` continues the last document.
@@ -293,7 +302,7 @@ def spec_index(overrides: dict | None = None) -> list[dict]:
     pattern = source_pattern()
     defined = set(ids)
     mentions: dict[str, list[str]] = {}
-    for entry in ledger_entries(LEDGER.read_text(encoding="utf-8")):
+    for entry in all_entries():
         for spec_id in cited_spec_ids(entry["text"], defined):
             mentions.setdefault(spec_id, []).append(entry["id"])
     cites, _ = code_citations()
@@ -320,11 +329,79 @@ def spec_index(overrides: dict | None = None) -> list[dict]:
     return records
 
 
+def extraction_entry_pattern(loaded: dict | None = None) -> re.Pattern:
+    return re.compile(EXTRACTION_MARKS + f"({(loaded or rules())['extraction_sources']['entry_id']})\\b\\s*(.*)$")
+
+
+def extraction_files(loaded: dict | None = None) -> list[Path]:
+    found: list[Path] = []
+    for glob in (loaded or rules())["extraction_sources"]["globs"]:
+        found += sorted(REPO.glob(glob))
+    return found
+
+
+def extraction_entries(text: str, pattern: re.Pattern | None = None) -> list[dict]:
+    """Every per-finding entry of one extraction file, in order: id, title, status (always empty: these headings
+    carry grade labels, not a status word), labels, chapter (the file's `# ` title), lines [start, end] and text. An
+    entry runs from its `##` heading to the line before the next `#` or `##` heading; `###` headings stay inside. A
+    `##` heading with an ID-like token the pattern does not read is refused (P2), as in the ledger."""
+    pattern = extraction_entry_pattern() if pattern is None else pattern
+    lines = text.split("\n")
+    chapter = next((line[2:].strip() for line in lines if line.startswith("# ")), "")
+    entries: list[dict] = []
+    open_entry: dict | None = None
+
+    def close(at: int) -> None:
+        nonlocal open_entry
+        if open_entry is None:
+            return
+        end = at
+        while end > open_entry["lines"][0] and not lines[end - 1].strip():
+            end -= 1
+        open_entry["lines"] = [open_entry["lines"][0], end]
+        open_entry["text"] = "\n".join(lines[open_entry["lines"][0] - 1:end])
+        entries.append(open_entry)
+        open_entry = None
+
+    for number, line in enumerate(lines, start=1):
+        if not line.startswith("#") or line.startswith("###"):
+            continue
+        close(number - 1)
+        entry = pattern.match(line)
+        if not entry:
+            if EXTRACTION_LIKE.match(line):
+                raise ValueError(f"extraction line {number} looks like an entry heading the pattern does not read: {line!r}")
+            continue
+        _, entry_id, rest = entry.groups()
+        labels = LEDGER_LABEL.findall(rest)
+        title = re.sub(r"\s{2,}", " ", re.sub(r"^\s*[—·–-]\s*", "", LEDGER_LABEL.sub("", rest))).strip()
+        open_entry = {"id": entry_id, "title": title, "status": "", "labels": labels, "chapter": chapter,
+                      "lines": [number, number], "text": line}
+    close(len(lines))
+    return entries
+
+
+def all_entries() -> list[dict]:
+    """The ledger's entries, then every extraction file's, each with `file` (repo-relative). IDs are unique across
+    the whole set, or the index is refused."""
+    entries = [dict(e, file=LEDGER.relative_to(REPO).as_posix()) for e in ledger_entries(LEDGER.read_text(encoding="utf-8"))]
+    pattern = extraction_entry_pattern()
+    for path in extraction_files():
+        entries += [dict(e, file=path.relative_to(REPO).as_posix())
+                    for e in extraction_entries(path.read_text(encoding="utf-8"), pattern)]
+    seen: dict[str, str] = {}
+    for e in entries:
+        if e["id"] in seen:
+            raise ValueError(f"entry {e['id']} is defined in both {seen[e['id']]} and {e['file']}")
+        seen[e["id"]] = e["file"]
+    return entries
+
+
 def ledger_index() -> list[dict]:
     defined = set(coverage_tool.spec_ids(SPEC.read_text(encoding="utf-8")))
     return [{"id": e["id"], "title": e["title"], "status": e["status"], "labels": e["labels"], "chapter": e["chapter"],
-             "lines": e["lines"], "spec_ids": cited_spec_ids(e["text"], defined)}
-            for e in ledger_entries(LEDGER.read_text(encoding="utf-8"))]
+             "file": e["file"], "lines": e["lines"], "spec_ids": cited_spec_ids(e["text"], defined)}
+            for e in all_entries()]
 
 
 def render(records: list[dict]) -> str:

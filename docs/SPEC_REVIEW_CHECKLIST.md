@@ -33,7 +33,8 @@ These define what the model does. A run that disagrees with them is a defect.
       is; the spec holds the rule.
 - [ ] **For review, 2026-10-22:** [spec_revision_35_dispositions.md](spec_revision_35_dispositions.md) — revision
       35's second step: the 213 inline revision sentences in 129 requirement bodies (218 rows; five sentences held two
-      narratives), each kept, moved to the log or rewritten as the current rule, one row per narrative. Applied as Claude's dispositions under the owner's
+      narratives) and the 44 more a longer phrase list found the same day (rows 219–262), each kept, moved to the
+      log or rewritten as the current rule, one row per narrative. Applied as Claude's dispositions under the owner's
       decision; each row is one the owner may reverse.
 - [ ] [../config/bowen/constants.md](../config/bowen/constants.md) — the parameter values the engine uses.
 - [ ] [../config/bowen/constants_changes.md](../config/bowen/constants_changes.md) — every change to those values,
@@ -203,8 +204,9 @@ extraction notes are marked; the test against new quotations; and eight question
 **Generated, not for review:** [spec_index.jsonl](spec_index.jsonl) — one JSON line per spec ID: its module,
 heading, lines, first sentence, grade tags, sources, the ledger entries that cite it, the code whose `Spec:`
 line names it, its tests and its coverage status (`tools/spec_index.py`; `grep '"M4.C.3a"'` returns the
-record); [theory/ledger_index.jsonl](theory/ledger_index.jsonl) — one line per ledger entry: its status as
-written in the heading, chapter, lines and the spec IDs it cites. Checked current by
+record); [theory/ledger_index.jsonl](theory/ledger_index.jsonl) — one line per ledger entry, `_LEDGER.md`'s
+and the extraction files' per-finding `FE`/`KS`/`K`/`T` entries: its status as written in the heading, chapter, file,
+lines and the spec IDs it cites. Checked current by
 `tests/bowen/test_spec_index.py`. [spec_rules/](spec_rules/) — the spec's current rules, one file per module
 (`M00.md` to `M17.md`), with the front matter's status line, the `⟦…⟧` tags, the block quotes and the revision
 sections removed and nothing else; its `README.md` gives the sizes, and `history_in_body.md` lists every ID

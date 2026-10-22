@@ -1,4 +1,4 @@
-"""The Phase D estimator criteria as paired arms (Phase D plan step 6; spec revision 17).
+"""The Phase D estimator criteria as paired arms.
 
 Purpose: define `M11.C.18`, `M11.C.20`, `M11.C.33` and `M11.C.17` — the first criteria that read the basic-level
          estimator (`M1.A.4k`) — each as two arms, under a declared nodal load of three kinds so that every estimator
@@ -7,9 +7,9 @@ Spec:    docs/bowen_agent_model_spec_v2.md#M11.C.17, #M11.C.18, #M11.C.20, #M11.
 Tests:   tests/bowen/test_phase_d_criteria.py
 
 Every number an arm uses is in ``config/bowen/criteria.md`` and every person's role in
-``config/bowen/criterion_roles.md``; the arm designs below are `[I]`. Two were restated after ad hoc ensemble runs, by
-owner decision at spec revision 19 (2026-10-11), and are not pre-registered: `M11.C.20` now differs in systems
-perspective as well as the scripted act, and `M11.C.17` runs ten years and reads the coached people.
+``config/bowen/criterion_roles.md``; the arm designs below are `[I]`. Two were restated after ad hoc ensemble runs and
+are not pre-registered: `M11.C.20` differs in systems perspective as well as the scripted act, and `M11.C.17` runs ten
+years and reads the coached people.
 The readout of each is the rise in estimated ``basic_level`` over the run (``M1.A.4a``: nothing else writes it).
 
 - **`M11.C.18`, the binder against the real thing.** F, with systems perspective, is brought to the same start in
@@ -17,16 +17,16 @@ The readout of each is the rise in estimated ``basic_level`` over the run (``M1.
   The I-POSITION arm's rise MUST be larger.
 - **`M11.C.20`, a borrowed gain against a basic one.** The baseline's gain is borrowed: M gives way to F
   (``UNDERFUNCTION``, which moves functioning to F) for ``support_weeks``, then the support is withdrawn. The
-  treatment's is F's own: ``I-POSITION`` sequences over the same weeks, with systems perspective (only in this arm:
-  owner decision 2026-10-11). The basic arm's rise MUST be larger.
+  treatment's is F's own: ``I-POSITION`` sequences over the same weeks, with systems perspective (only in this arm).
+  The basic arm's rise MUST be larger.
 - **`M11.C.33`, the dependence gate on the slow clock.** F completes the same scripted sequences in both arms. In the
   baseline F is financially dependent on each slow-tick week only, and in both arms F's ``I-POSITION`` is withheld on
   those weeks, so the week-to-week gate (``M5.C.1``) changes nothing and the arms differ only in what the slow tick
   reads (``M7.A.1a``). The independent arm's rise MUST be larger.
-- **`M11.C.17`, a coach helps and is not required** (rewritten at revision 17). The Phase C family over ten years;
+- **`M11.C.17`, a coach helps and is not required.** The Phase C family over ten years;
   the coach-free arm has the coach's ties made non-interactive from week 0. The readout is the mean rise of the
-  people the coach is in contact with (owner decision 2026-10-11: coaching lands slowly and reaches only them); the
-  whole family's mean is reported. The coached people's rise MUST be larger. That a coach-free rise needs self-directed behaviour under load is the estimator's own rule
+  people the coach is in contact with; the whole family's mean is reported. The coached people's rise MUST be larger.
+  That a coach-free rise needs self-directed behaviour under load is the estimator's own rule
   (``M1.A.4h``), proved by ``tests/bowen/test_slow_tick.py::test_m1a4h_carrying_load_counts_and_discharging_it_does_not``.
 """
 
@@ -99,7 +99,7 @@ def arm_c20(arm, seed, settings):
 
 
 def support_blocked(records) -> float:
-    """Report only (revision 21, owner decision 2026-10-12): the share of the partner's ``UNDERFUNCTION`` toward the
+    """Report only: the share of the partner's ``UNDERFUNCTION`` toward the
     mover that moved nothing because the mover held a position (`M1.B.5`). The borrowed arm's borrowing is what is
     left; this shows how much that is."""
     events = {r.event.id: r.event for r in records if isinstance(r, EmittedRecord)}
@@ -266,7 +266,7 @@ def _removal_effect(seed, at, after, severity):
 
 
 def arm_c22(arm, seed, settings):
-    """M11.C.22 (restated at revision 24): the effect of removing C1 is read against removing C1 with no symptom. In
+    """M11.C.22: the effect of removing C1 is read against removing C1 with no symptom. In
     the baseline both limbs are that control; in the treatment one limb holds C1 mildly symptomatic (at the peak),
     the other severely (past the turn)."""
     at, after = settings["removal_week"], settings["after"]
@@ -287,7 +287,7 @@ SPOUSE_A, SPOUSE_B = P("a"), P("b")  # the dyad fixture's spouses (config/bowen/
 
 
 def arm_c12(arm, seed, settings):
-    """M11.C.12, on the dyad (plan §3): A carries a mild symptom (held at ``severity``) until ``remission_week``; in the
+    """M11.C.12, on the dyad: A carries a mild symptom (held at ``severity``) until ``remission_week``; in the
     treatment it remits then (``binder_unavailable`` on A's channel, the functioning balance untouched); in the
     baseline it continues. Read: the spouses' ``CONFLICT`` acts from the remission week on."""
     at, after = settings["remission_week"], settings["after"]
@@ -434,9 +434,9 @@ C14_TECHNIQUES = {"firmness": "OVERFUNCTION", "talking it out": "STAY-IN-CONTACT
 def _c14_run(seed, weeks, every, severity, kind):
     """C1's mean symptom load over ``weeks`` on the nuclear four, the spouses' tie held at distance (felt contact 0 for
     both, each week), C1 starting with an active symptom (``severity`` of the threshold); every ``every`` weeks both
-    parents send C1 ``kind``, or, when ``kind`` is None, hold back (``WITHHOLD``, no target). The owner, 2026-10-16
-    (option a): the baseline holds back on the same weeks, so both arms lose the same weeks of the parents' own acts
-    (a scripted act is the whole week's act). A hold is coping in the model (`M1.A.5e`), as talking it out is."""
+    parents send C1 ``kind``, or, when ``kind`` is None, hold back (``WITHHOLD``, no target). The baseline holds back
+    on the same weeks, so both arms lose the same weeks of the parents' own acts (a scripted act is the whole week's
+    act). A hold is coping in the model (`M1.A.5e`), as talking it out is."""
     from src.bowen.engine.identifiers import TieId
     from src.bowen.engine.symptoms import threshold
 
@@ -463,11 +463,11 @@ def _c14_run(seed, weeks, every, severity, kind):
 
 
 def arm_c14(arm, seed, settings):
-    """M11.C.14[technique], revision 31: the baseline has both parents hold back on the technique's weeks; the
-    treatment has both parents use the
-    variant's technique toward C1 (firmness ``OVERFUNCTION``, talking it out ``STAY-IN-CONTACT``). Read: C1's mean
+    """M11.C.14[technique]: the baseline has both parents hold back on the technique's weeks; the treatment has both
+    parents use the variant's technique toward C1 (firmness ``OVERFUNCTION``, talking it out ``STAY-IN-CONTACT``). Read:
+    C1's mean
     symptom load, one-sided (no technique lowers it by more than the equivalence bound, `M11.4`). The talking-it-out
-    variant also reports the former comparison, talking it out against firmness (``talking_less_firmness``): its
+    variant also reports the comparison of talking it out against firmness (``talking_less_firmness``): its
     baseline reads firmness's load there, so the difference is talking it out's load less firmness's. Reported, never
     tested."""
     technique, given = settings["technique"], (settings["weeks"], settings["act_every"], settings["start_severity"])
@@ -504,8 +504,8 @@ for _technique, _kind in C14_TECHNIQUES.items():
 def arm_c2(arm, seed, settings):
     """M11.C.2, a composite: the Phase C family under the policy for ``weeks``, with the declared nodal load on the
     parents. Each run counts the projection-type acts (``PROJECTION_ACTS``) each child received from the parents and
-    each child's mean symptom load. The acts are counted in the first half of the run and the load read in the second
-    (review 2026-10-12: read over the same weeks, load could attract acts as well as follow them). The treatment
+    each child's mean symptom load. The acts are counted in the first half of the run and the load read in the second,
+    so that load cannot attract the acts it is read against. The treatment
     reports the later load of the child who received the most; the baseline, from the same run, that of the child who
     received the fewest (a within-run control). Ties report 0 in both arms."""
     from src.bowen.readouts.patterns import PROJECTION_ACTS
@@ -637,7 +637,7 @@ def arm_c34(arm, seed, settings):
     """M11.C.34: the nuclear four at two family levels (``level_low`` below the fixture in the baseline,
     ``level_high`` above it in the treatment), the same symptom onset in C1 at week ``t0``. Read: the other members'
     automatic acts addressed to C1 in the ``window`` weeks from onset, less the same count in the same run with no
-    onset (review 2026-10-12: counting all their acts measured the level, not the reaction)."""
+    onset."""
     from src.bowen.ensemble.criteria import lowered
     from src.bowen.engine.symptoms import threshold
 
@@ -669,8 +669,8 @@ def arm_c34(arm, seed, settings):
 
 def arm_c21(arm, seed, settings):
     """M11.C.21: the nuclear four. In both arms both parents over-function toward C1 every ``act_every`` weeks for the
-    whole run: they are projecting parents, and C1 has lent functioning when they collapse (the owner, 2026-10-16: build
-    the lent balance first). At week ``t0`` both parents' functional level drops by ``drop`` in the treatment (none in the
+    whole run: they are projecting parents, and C1 has lent functioning when they collapse. At week ``t0`` both parents'
+    functional level drops by ``drop`` in the treatment (none in the
     baseline), C1 untouched. Read: C1's functional level at the end of the run less at the end of week ``t0`` (the
     week of the drop)."""
     t0, after, drop, every = settings["t0"], settings["after"], settings["drop"], settings["act_every"]
@@ -692,7 +692,7 @@ def arm_c21(arm, seed, settings):
 
 
 def arm_c23(arm, seed, settings):
-    """M11.C.23 (revision 15's definitions): C1 starts with an active symptom (``start_severity``) that remits at
+    """M11.C.23: C1 starts with an active symptom (``start_severity``) that remits at
     ``t0``. Both parents act toward C1 every ``act_every`` weeks: ``CONFLICT`` (hostility and blame) in the
     treatment, which also suppresses C1's symptom accumulation by ``suppression`` (medication); ``STAY-IN-CONTACT``
     in the baseline, with no suppression. Read: C1's relapses, onsets after the remission."""
@@ -742,7 +742,7 @@ CRITERIA_D.update({
 
 
 def arm_c24(arm, seed, settings):
-    """M11.C.24 (with revision 27): on the dyad, A takes charge and B gives way every ``act_every`` weeks until
+    """M11.C.24: on the dyad, A takes charge and B gives way every ``act_every`` weeks until
     ``diverge_weeks``, so their functional levels diverge from a matched basic level. Then, in the treatment, the tie
     is dissolved (non-interactive from that week on); in the baseline the exchange goes on. Read, over ``after`` weeks
     from the dissolution: B's functional level change (MUST rise) and A's (MUST fall)."""
@@ -795,14 +795,10 @@ def arm_c46(arm, seed, settings):
     with F, ``bond_near`` with M), the treatment's closer to the seeker (the reverse). Gating readout: the anxiety the
     triangle transfer took from F in the week the act lands (`M1.C.1`'s relief, read from its effect record), which
     MUST be larger with the helpful third. Only the scripted act's own transfer counts: in some seeds F or M makes
-    another TRIANGLE that lands the same week (review 2026-10-17). Reported: C's excess at the end of the week before
+    another TRIANGLE that lands the same week. Reported: C's excess at the end of the week before
     the act lands, and F's net change across the week it lands. ``watch`` runs after each tick, when ``state.tick``
-    already names the next week, so the end of week ``w`` is ``state.tick == w + 1``.
-
-    The spec's other unhelpful third, an anxious one, was built and run first (version 1, 2026-10-17, ad hoc) and is
-    not registered: a declared stressor raised C's excess by only 4.1 points and loaded F as well, and the relief did
-    not differ (``docs/implementation_plan_phase_d.md`` §4.12). Choosing this form after seeing that is recorded there,
-    for the owner."""
+    already names the next week, so the end of week ``w`` is ``state.tick == w + 1``. The spec's other unhelpful
+    third, an anxious one, is not registered (`M11.C.46`)."""
     from src.bowen.engine.contact import excess
     from src.bowen.engine.identifiers import TieId
     from src.bowen.ensemble.criteria import act, held
@@ -854,7 +850,7 @@ def arm_c7(arm, seed, settings):
     Tests:   tests/bowen/test_phase_d_criteria.py::test_m11c7_topology_not_coach_skill,
              tests/bowen/test_phase_d_criteria.py::test_m11c7_arms_differ_only_in_their_topology
 
-    The family under `M11.C.17`'s nodal load for ``weeks``. Topologies (P9, owner 2026-10-11): **joint**, the coach
+    The family under `M11.C.17`'s nodal load for ``weeks``. Topologies: **joint**, the coach
     in contact with both spouses and siding with neither; **one spouse**, the coach's tie to the second spouse
     non-interactive, so sessions reach the first only; **sided**, both ties, and the second spouse consults the coach
     without telling the first (``SPLIT``, the family-to-external move that takes a professional's side, `M5.B.4`) the

@@ -1,4 +1,4 @@
-"""The paired statistic — Wilcoxon signed-rank on per-seed differences (plan D8).
+"""The paired statistic — Wilcoxon signed-rank on per-seed differences.
 
 Purpose: test a direction of difference between two coupled arms on their per-seed
          differences, defined for degenerate arms, with a declared multiplicity correction.

@@ -1,4 +1,4 @@
-"""The Phase D part II criteria: the life course (spec revision 28; plan §4.4).
+"""The Phase D part II criteria: the life course.
 
 Purpose: define `M11.C.15`, `M11.C.6`, `M11.C.10` and `M11.C.2` on the twelve-person family as paired arms.
          `M11.C.37` is a conservation check with no second arm (an `M11.4` exception, as `M11.C.31`'s ledger limb is)
@@ -7,38 +7,35 @@ Spec:    docs/bowen_agent_model_spec_v2.md#M11.C.15, #M11.C.6, #M11.C.10, #M11.C
 Tests:   tests/bowen/test_phase_d2_criteria.py
 
 Every number is in ``config/bowen/criteria.md`` and every person's role in ``config/bowen/criterion_roles.md``; the
-arm designs are Claude's recommendation, declared before any ran, approved by the owner 2026-10-16.
+arm designs are `[I]`, declared before any ran.
 
 - **`M11.C.15`, death destabilises as recovery does.** The nuclear-four fixture; the mother carries a symptom held at
   ``severity`` (below lock-in's turn, so the family is calmed around it, `M7.D.2a`) until ``change_week``. Control:
   it continues. Recovery: it remits then (``binder_unavailable`` on her channel). Death: she dies then (`M6.3`).
-  Grief and lost income are set to zero in every arm (`M10.B.5`). `M6.3b`'s transfer stays at its rule, 1 (owner
-  decision 2026-10-13): at the death her own anxiety goes to the living, with what her symptom, ties and triangles
+  Grief and lost income are set to zero in every arm (`M10.B.5`). `M6.3b`'s transfer stays at its rule, 1: at the death
+  her own anxiety goes to the living, with what her symptom, ties and triangles
   held (`M6.3c`); in recovery, the symptom's hold is released and she stays. The death arm loses her as a source of
   load, which the recovery arm keeps; that difference is the comparison's, not a confound removed. Read: the living others' mean excess over the ``after`` weeks. The treatment arm runs both
   changes and reports each against the same control: both MUST be higher.
 - **The twelve-person family over ``years``** (`M11.C.6`, `M11.C.10`, `M11.C.2`): the reference family with its life
   course, under the policy, with the declared nodal load on the two parents (as part I's `M11.C.2`). One run per seed,
   the family as declared, serves `M11.C.6` and `M11.C.2` (each compares children within it); `M11.C.10` runs its own
-  two arms (spec revision 29).
-  - `M11.C.6` (restated at revision 32, post hoc, Claude's recommendation, accepted by the owner 2026-10-18): one
-    declared child, ``child``, in two arms of the same seed, run until the child is 20. In the treatment the parents act
-    as the policy chooses; in the baseline their projection-type acts toward the child (`PROJECTION_ACTS`) are withheld,
-    every week. Read: the child's basic level at 20 less its anchor at 5 (`M7.E.1f`), which MUST be lower under
-    projection. The first form compared the most- and least-projected children of one run by raw counts over different
-    spans, so it picked by birth order and run year rather than by projection (trace of 2026-10-17, plan §4.12). One
-    transmission (generation 2 to 3).
-  - `M11.C.10` (revision 29, the owner: "hold the cutoff for the run and read tie states"; revision 30: "partner and own
-    parents", "200 instead", "b as second variant"): the tie-weeks over the run on which the third generation hold
-    rejection (`M1.B.3c`) toward their partner or their own parents, over exactly ``seeds`` seeds; rejection of their
+  two arms.
+  - `M11.C.6` (restated post hoc): one declared child, ``child``, in two arms of the same seed, run until the child
+    is 20. In the treatment the parents act as the policy chooses; in the baseline their projection-type acts toward
+    the child (`PROJECTION_ACTS`) are withheld, every week. Read: the child's basic level at 20 less its anchor at 5
+    (`M7.E.1f`), which MUST be lower under
+    projection. One transmission (generation 2 to 3).
+  - `M11.C.10`: the tie-weeks over the run on which the third generation hold rejection (`M1.B.3c`) toward their
+    partner or their own parents, over exactly ``seeds`` seeds; rejection of their
     own children is reported only. Its mechanism is `M1.D.8a`. The second variant, `M11.C.10[family of origin]`,
     holds each parent's cutoff of their own parents the same way. Treatment: the parents'
     generation's declared cutoff (its two ends are roles in config) held for the run, renewed by a scripted reactive
     ``CUTOFF`` every ``renew_every`` weeks. A renewal is skipped when either end has died or the act is not legal that
     week; each skip and the weeks the cutter held rejection are counted in the arm's bookkeeping. Baseline: that tie ordinary at ``t0`` and held open for the run. More MUST
     follow the held cutoff.
-  - `M11.C.2` (revision 29, the owner: "Child load is by age"): projection-type acts received per year while the child
-    is under ``projection_until_age``; symptom load as the child's mean over ages ``load_from_age`` to
+  - `M11.C.2`, by age: projection-type acts received per year while the child is under ``projection_until_age``;
+    symptom load as the child's mean over ages ``load_from_age`` to
     ``load_to_age``. The most-projected child's load MUST be higher.
 """
 
@@ -119,7 +116,7 @@ def _declared_pair() -> tuple:
 
 
 def _origin_pairs() -> tuple:
-    """M11.C.10[family of origin], revision 30: each parent and each of their own parents, the parent cutting off."""
+    """M11.C.10[family of origin]: each parent and each of their own parents, the parent cutting off."""
     family = load_family(FAMILIES["phase_d"])
     return tuple((p, g) for p in (ROLES["phase_d", "parent_1"], ROLES["phase_d", "parent_2"])
                  for g in sorted(family.parents_of(p)))
@@ -140,8 +137,7 @@ def _uncut(pairs):
 
 def _cut(pairs):
     """M11.C.10's treatment starts each named cutoff held, as the family declares its own (the cut_off_a role): the
-    cutter rejecting at ``declared_rejection``. Measured 2026-10-14: a fresh cutoff fades out in about 10 weeks, before
-    a 13-week renewal."""
+    cutter rejecting at ``declared_rejection``."""
     def setup(state) -> None:
         for a, b in pairs:
             tie = state.tie_between(a, b)
@@ -174,8 +170,7 @@ def cut_off_tie_weeks(state, children) -> tuple[int, int]:
     Spec:    docs/bowen_agent_model_spec_v2.md#M11.C.10
     Tests:   tests/bowen/test_phase_d2_criteria.py::test_m11c10_reads_rejection_toward_partners_and_parents
 
-    Revision 30 (the owner, 2026-10-14: "partner and own parents", "less to one's children"). A tie counts once a
-    week; rejection held by anyone else, the declared pair among them, does not count.
+    A tie counts once a week; rejection held by anyone else, the declared pair among them, does not count.
     """
     tested = reported = 0
     for child in children:
@@ -290,7 +285,7 @@ def _life_result(readouts: dict, summary: dict) -> ArmResult:
 
 
 def arm_c6(arm, seed, settings):
-    """Purpose: `M11.C.6` as restated at revision 32 (see the module docstring): one child's development with the
+    """Purpose: `M11.C.6` (see the module docstring): one child's development with the
              parents' projection-type acts toward them as declared, against the same seed with those acts withheld.
     Spec:    docs/bowen_agent_model_spec_v2.md#M11.C.6, #M7.E.1f
     Tests:   tests/bowen/test_phase_d2_criteria.py::test_m11c6_arms_differ_only_in_projection_toward_the_child
@@ -342,7 +337,7 @@ def arm_c10(arm, seed, settings):
 
 
 def arm_c10_origin(arm, seed, settings):
-    """M11.C.10[family of origin], revision 30 (see the module docstring)."""
+    """M11.C.10[family of origin] (see the module docstring)."""
     summary = life_run(seed, settings["years"], "origin_open" if arm == "baseline" else "origin_held",
                        settings["renew_every"])
     return _life_result({"cut_off_tie_weeks": summary["cut_weeks"], "child_cut_weeks": summary["child_cut_weeks"]},
@@ -350,7 +345,7 @@ def arm_c10_origin(arm, seed, settings):
 
 
 def arm_c47(arm, seed, settings):
-    """Purpose: M11.C.47 (revision 30) — on the danger fixture, one spouse at a low level under repeated stressors
+    """Purpose: M11.C.47 — on the danger fixture, one spouse at a low level under repeated stressors
     (treatment) or at a higher level with none (baseline); read the danger the rest of the household feels from them and
     the principled part of its cutoff of them.
     Spec:    docs/bowen_agent_model_spec_v2.md#M11.C.47, #M1.B.3e, #M4.D.1h
@@ -361,8 +356,7 @@ def arm_c47(arm, seed, settings):
     weeks of the largest product, over the same people, of the rejection held toward them and the danger felt from them,
     the principled part of that cutoff (`M1.B.3e`). A week with no rejection held adds 0, so an arm in which no one cuts
     them off reads 0: no principled cutoff, not a missing value. ``held_weeks``, reported only: the weeks in which anyone
-    else at home holds rejection toward them, so a pass resting on a few seeds against a baseline with no cutoff shows
-    (learning-qa, 2026-10-14).
+    else at home holds rejection toward them, so a pass resting on a few seeds against a baseline with no cutoff shows.
     """
     weeks, low = settings["weeks"], arm == "treatment"
     person = PARENTS_DANGER[0]

@@ -1,4 +1,4 @@
-"""The ensemble runner — paired arms on keyed seeds, stopped adaptively (plan D7, D8).
+"""The ensemble runner — paired arms on keyed seeds, stopped adaptively.
 
 Purpose: run a criterion's two arms on the same seeds in parallel processes, add seeds in
          blocks until the per-seed difference's interval is tight or the cap is reached, and
@@ -17,12 +17,9 @@ module level so worker processes can run it, returning an ``ArmResult`` per (arm
   block, every readout's interval half-width, ``1.96 × sd(d) / √n``, is compared with
   ``ensemble_precision`` times the **pooled** seed-to-seed sd of the two arms,
   ``√((sd_baseline² + sd_treatment²) / 2)``. All within: stop. At ``ensemble_cap`` without that:
-  **UNDETERMINED**, which does not pass. *Decided 2026-10-08* (``docs/phase_c_completion_report.md``
-  §10): the baseline arm alone is the wrong ruler when the arms differ in spread, and a ruler must
-  not depend on which arm is called baseline; the differences' own sd would make the rule a fixed
-  seed count, since half-width over its own sd is 1.96/√n.
-* **Margin** (and a null's equivalence bound) is relative to the baseline arm's seed-to-seed sd
-  (plan D8), so it is unit-free. A scale with no spread falls back to the differences' sd.
+  **UNDETERMINED**, which does not pass.
+* **Margin** (and a null's equivalence bound) is relative to the baseline arm's seed-to-seed sd,
+  so it is unit-free. A scale with no spread falls back to the differences' sd.
 * **A null** (`M11.4a`) passes only if the whole interval lies within ``equivalence_margin``
   baseline sds of zero; it reports the interval and the n reached.
 * **A required move that never occurs** fails the criterion (`M11.1f`).
@@ -137,7 +134,7 @@ def _arrays(criterion, results, name):
 
 
 def _pooled_scale(base, treat, diff) -> float:
-    """The precision ruler: the pooled seed-to-seed sd of the two arms (decided 2026-10-08)."""
+    """The precision ruler: the pooled seed-to-seed sd of the two arms."""
     if len(base) < 2:
         return 0.0
     sd = math.sqrt((float(np.var(base, ddof=1)) + float(np.var(treat, ddof=1))) / 2)
@@ -239,7 +236,7 @@ SCRIPTED_STATUSES = ("made", "not legal", "owed a step", "dead", "target dead", 
 
 def scripted_counts(criterion: Criterion, results) -> dict:
     """Purpose: each arm's scripted acts over all seeds, by what became of them, so the share not made is reported
-             beside the verdict (step S of docs/DECISIONS — PHASE C FAILING.md). An arm that scripts acts is reported
+             beside the verdict. An arm that scripts acts is reported
              even if none was made; an arm that scripts none is left out.
     Spec:    docs/bowen_agent_model_spec_v2.md#M17.D.3
     Tests:   tests/bowen/test_ensemble.py::test_m17d3_verdict_reports_scripted_acts_not_made

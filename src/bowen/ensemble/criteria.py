@@ -1,4 +1,4 @@
-"""The Phase C acceptance criteria as paired arms (plan §3, step 14).
+"""The Phase C acceptance criteria as paired arms.
 
 Purpose: define each Phase C `M11.C` criterion as two arms differing in one declared
          channel (`M17.D.3`: initial state, a scripted act at one tick, or the stressor
@@ -12,10 +12,8 @@ choices are `[I]` and were declared before any criterion ran: the readout defini
 this module, and every number an arm uses — horizons, scripted-act weeks, levels, starting
 states and the declared spell (`M11.3`) — in ``config/bowen/criteria.md``. "Calm" is no spell.
 
-**Not built in Phase C** (reported as blockers, not as passes or failures): `M11.C.7` needs
-`M8.2`/`M8.3`'s position predicates and declares no direction for its topology arms;
-`M11.C.13` needs incidents located in a community the model does not have; `M11.C.14` needs
-`M5.C.1`'s marital-distance gate, which is not built.
+**Not built** (``NOT_BUILT``, reported as a blocker, not as a pass or a failure): `M11.C.13` needs incidents
+located in a community the model does not have.
 """
 
 from __future__ import annotations
@@ -138,7 +136,7 @@ def _value(text: str):
 
 
 def load_settings(path=CONFIG_DIR / "criteria.md") -> dict[str, dict]:
-    """Purpose: each criterion's declared settings from config, strictly (Hermes gate finding 4, M11.D.2)."""
+    """Purpose: each criterion's declared settings from config, strictly (M11.D.2)."""
     document = parse_table_document(path.read_text(encoding="utf-8"),
                                     columns=("criterion", "setting", "value", "grade"),
                                     metadata_keys=frozenset(), source=str(path))
@@ -191,8 +189,8 @@ class Forced:
 
     ``held_open`` is ``(pairs, weeks)``: in those weeks neither member of a pair may cut the tie between
     them, so ``CUTOFF`` across it is not in their legal set and each one's selection is drawn again, under
-    the same keyed draw, without it (step S of ``docs/DECISIONS — PHASE C FAILING.md``: a scripted act's
-    ties are held open until it is made, so it is legal in every seed).
+    the same keyed draw, without it: a scripted act's ties are held open until it is made, so it is legal in
+    every seed.
     """
 
     def __init__(self, policy: PolicySource, forced: dict, unavailable: dict | None = None,
@@ -381,7 +379,7 @@ def first_onset(records, horizon: int) -> float:
 
 
 def held(until: int, *pairs: str) -> tuple:
-    """Step S (post hoc, 2026-10-09): the ties ``pairs`` (e.g. "f-m") held open from week 0 until ``until``
+    """The ties ``pairs`` (e.g. "f-m") held open from week 0 until ``until``
     (exclusive), the same in both arms. See ``Forced`` and ``config/bowen/criteria.md``."""
     return tuple(tuple(P(m) for m in pair.split("-")) for pair in pairs), range(0, until)
 
@@ -667,15 +665,10 @@ def reactive_over_chance(records) -> float:
     """Per selection, whether the act chosen was reactive, less the reactive share of that selection's legal set;
     the mean over every selection whose legal set offered a reactive act.
 
-    Restated post hoc on 2026-10-09 (Q2 of ``docs/DECISIONS — PHASE C FAILING.md``, approved by the owner). The
-    declared readout, reactive moves over all moves, conflicts with `M4.D.3a`: a lower level closes layers 1 and 2,
-    which hold five of the seven reactive acts, so the share fell at a lower level even as acute anxiety rose. The
-    first restatement (reactive selected over reactive offered) was confounded the other way, found by review
-    before it was relied on: a chooser picking uniformly at random scores 1/N on it, so it rose whenever the legal
-    set shrank. A uniform chooser scores 0 on this one at any set size, so it reads a preference for reactive acts
-    beyond what the legal set makes likely. Only the policy's own draws count: a ``FALLBACK`` is always a hold
-    (`M4.D.1f`), not a choice, and a fallback rate that differed between arms would otherwise shift the readout
-    (re-sweep, 2026-10-09).
+    A chooser picking uniformly at random scores 0 on this at any legal-set size, so it reads a preference for
+    reactive acts beyond what the legal set makes likely. Only the policy's own draws count: a ``FALLBACK`` is always
+    a hold (`M4.D.1f`), not a choice, and a fallback rate that differed between arms would otherwise shift the
+    readout.
     """
     kinds = {r.event.id: r.event.kind for r in records if isinstance(r, EmittedRecord)}
     excess, n = 0.0, 0

@@ -6,11 +6,9 @@ Purpose: report, for a person, whether their position fails on the outward axis
 Spec:    docs/bowen_agent_model_spec_v2.md#M5.F.2b, #M1.A.9a, #M11.C.19
 Tests:   tests/bowen/test_outside_ness.py::test_m5f2b_detector_reports_which_axis_failed
 
-"Rugged individualism and compliance, therefore, are two sides of the same coin"
-(`FE03.1`, `[K]`): the two counterfeits are equal magnitudes of the same force in
-opposite directions, and they need opposite corrections. A scalar score lands them
-at the same value. This reads the two axes against the gate's two thresholds
-(`M5.C.1`, revision 12 P9) and keeps them apart.
+The two counterfeits are opposite directions of the same force (`FE03.1`, `[K]`) and need
+opposite corrections, so a scalar score would land them at the same value. This reads the two
+axes against the gate's two thresholds (`M5.C.1`) and keeps them apart.
 
 A readout. The engine never imports it (`M11.D.22`).
 """

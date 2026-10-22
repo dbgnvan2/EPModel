@@ -5,8 +5,7 @@ Purpose: classify the spouses' attributions into `M9.6`'s three patterns, which 
 Spec:    docs/bowen_agent_model_spec_v2.md#M9.6, #M11.C.26, #M1.D.1, #M11.D.22
 Tests:   tests/bowen/test_attribution.py::test_m96_the_readout_recovers_each_pattern
 
-Outside the engine (`M11.D.22`): it reads the run's state after the fact and changes nothing. Spec revision 25, Phase
-D B8; Claude's recommendation, approved by the owner 2026-10-16.
+Outside the engine (`M11.D.22`): it reads the run's state after the fact and changes nothing.
 
 * **Marital conflict — each says the other:** each spouse's largest attribution is the other spouse.
 * **Spouse dysfunction — both say the same one:** both spouses' largest is the same spouse.

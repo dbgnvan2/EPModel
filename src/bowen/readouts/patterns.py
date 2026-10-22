@@ -1,4 +1,4 @@
-"""Pattern readouts — the patterns Bowen named, read off a run, never selected (Phase C step 11).
+"""Pattern readouts — the patterns Bowen named, read off a run, never selected.
 
 Purpose: report whether a tie or a triangle shows conflict, distance, over/underfunctioning,
          fusion, projection, cutoff or a fixed triangle, each by the definition declared in
@@ -12,8 +12,7 @@ declared before a criterion that reads it runs. ``read_pattern`` refuses a name 
 declared. The parameters are in ``config/bowen/constants.md`` (``pattern_*``). A readout. The
 engine never imports it (`M11.D.22`).
 
-The definitions are the owner's (2026-10-10, ``docs/PROPOSAL — RUN VISUALIZATION MAPPING.md`` §0,
-§4): an emotional pattern is a **repeating** pattern of activity, ``pattern_min_acts`` (3) or more
+The definitions, `[I]`: an emotional pattern is a **repeating** pattern of activity, ``pattern_min_acts`` (3) or more
 acts in ``pattern_window`` (4) weeks; no interaction is an emerging level of distance; cutoff is
 rejection, not absence; pursuit is fusion, over/underfunctioning or projection; and a pattern ends
 only when a new pattern emerges (``current_patterns``).
@@ -77,7 +76,7 @@ class Reading:
 
 class _At:
     """The run's state read as of week ``tick``: every attribute is the state's except ``tick``. Lets a caller read the
-    patterns at a week other than ``state.tick`` without changing the state (Phase D plan B2)."""
+    patterns at a week other than ``state.tick`` without changing the state."""
 
     def __init__(self, state: RunState, tick: int) -> None:
         self._state, self.tick = state, tick
@@ -131,7 +130,7 @@ def conflict(state: RunState, tie: TieId, rp: ReadoutParams) -> Reading | None:
 def distance(state: RunState, tie: TieId, params: EngineParams, rp: ReadoutParams) -> Reading | None:
     """Either at least ``min_acts`` DISTANCE acts in W, more than the approaches, with both members below
     their contact optimum; or no interaction on the tie for at least W, at a level that is the weeks
-    without interaction (the owner, 2026-10-10: no interaction is an emerging level of distance)."""
+    without interaction (no interaction is an emerging level of distance)."""
     moves = _moves_on(state, tie, rp.window)
     if not moves:
         silent = silent_weeks(state, tie)
@@ -184,7 +183,7 @@ def fusion(state: RunState, tie: TieId, rp: ReadoutParams, parent: PersonId | No
 
 def last_projection_act(state: RunState, tie: TieId, parent: PersonId | None, now: int | None = None) -> int | None:
     """The week of the parent's latest projection act toward the child, of any count; None if never. Every such act
-    is evidence the projection continues (the owner, 2026-10-10). ``now`` reads as of that week."""
+    is evidence the projection continues. ``now`` reads as of that week."""
     state = _as_of(state, now)
     if parent is None:
         return None
@@ -205,14 +204,14 @@ def projection(state: RunState, tie: TieId, rp: ReadoutParams, parent: PersonId 
 
 def cutoff(state: RunState, tie: TieId, rp: ReadoutParams) -> Reading | None:
     """Purpose: member A's cutoff of B, read from what A does: B's approaches refused, and none made by A.
-    Spec:    docs/bowen_agent_model_spec_v2.md#M5.A.1a (revision 17), #M1.B.3c
+    Spec:    docs/bowen_agent_model_spec_v2.md#M5.A.1a, #M1.B.3c
     Tests:   tests/bowen/test_patterns.py::test_m5a1a_cutoff_is_read_from_behaviour_not_words
 
     In the window, at least ``min_acts`` of B's approaches to A were refused — the engine refused them (A held
     rejection, so the delivery to A was never recorded), or A answered within a week of the approach arriving with a
     refusing act — and A sent
-    B nothing with contact. A ``CUTOFF`` act on its own is words (the owner, 2026-10-11): without that behaviour it
-    reads as nothing. No interaction either way is distance, not cutoff.
+    B nothing with contact. A ``CUTOFF`` act on its own is words: without that behaviour it reads as nothing. No
+    interaction either way is distance, not cutoff.
     """
     moves = _moves_on(state, tie, rp.window + 1)
     latency = state.ties[tie].latency
@@ -271,7 +270,7 @@ def tie_readings(state: RunState, tie: TieId, params: EngineParams, rp: ReadoutP
     Tests:   tests/bowen/test_patterns.py::test_m5a1a_pursuit_reads_as_fusion_over_under_or_projection
     ``parent`` is the tie's parent when it is a parent–child tie, else None. ``now`` reads the window ending at that
     week instead of at ``state.tick``. Only the acts are read as of ``now``; contact (``distance``'s optimum test) is
-    the state as it is, so ``now`` must be the week just run or the current one (review 2026-10-10).
+    the state as it is, so ``now`` must be the week just run or the current one.
     """
     if now is not None and not state.tick - 1 <= now <= state.tick:
         raise ValueError(f"now={now}: contact is read as it is, so now must be week {state.tick - 1} or {state.tick}")
@@ -307,7 +306,7 @@ def _winner(readings: list[Reading]) -> Reading:
 def current_patterns(previous: Mapping, readings: list[Reading], now: int | None = None,
                      projection_last: Mapping | None = None, projection_hold: int = 0) -> dict:
     """Purpose: the pattern each subject holds after one read — a pattern ends only when a new one emerges.
-    Spec:    docs/bowen_agent_model_spec_v2.md#M5.A.1a (owner decision D2, 2026-10-10)
+    Spec:    docs/bowen_agent_model_spec_v2.md#M5.A.1a
     Tests:   tests/bowen/test_patterns.py::test_m5a1a_pattern_holds_until_a_new_one_emerges
 
     ``previous`` maps a subject to the Reading it held. A subject with no reading keeps what it held. A
@@ -316,7 +315,7 @@ def current_patterns(previous: Mapping, readings: list[Reading], now: int | None
     pointing the other way, replaces it. One exception, `[I]`: silence does not replace a cutoff,
     because the silence is the cutoff continuing, not a new pattern.
 
-    **Projection holds longer** (the owner, 2026-10-10): once read, it stays until ``projection_hold`` (12) weeks
+    **Projection holds longer**: once read, it stays until ``projection_hold`` (12) weeks
     pass with no projection act from that parent to that child (``projection_last``, acts of any count). Until then
     no other reading replaces it. After that, the current reading replaces it, or, with none, the projection ends.
     With ``now`` absent the hold does not apply.

@@ -1,4 +1,4 @@
-"""The family-evaluation readout — `M11.G`'s components 1–8, and nothing of 9 or 10 (Phase D B10).
+"""The family-evaluation readout — `M11.G`'s components 1–8, and nothing of 9 or 10.
 
 Purpose: read a finished run's state and records into the eight components `M11.G.1` names, with adaptiveness
          derived against stress (`M11.G.2`), belief and ground truth reported separately (`M9.5`, `M11.G.4`), and
@@ -6,15 +6,14 @@ Purpose: read a finished run's state and records into the eight components `M11.
 Spec:    docs/bowen_agent_model_spec_v2.md#M11.G.1, #M11.G.2, #M11.G.3, #M11.G.4, #M9.5, #M11.D.20, #M11.D.22
 Tests:   tests/bowen/test_evaluation.py
 
-Outside the engine (`M11.D.22`): it reads after the fact and changes nothing. Spec revision 25 era, Phase D B10;
-the forms are Claude's recommendation, approved by the owner 2026-10-16.
+Outside the engine (`M11.D.22`): it reads after the fact and changes nothing. The forms are `[I]`.
 
 1. **Symptom** — each person's active channels, load per channel and severity (load ÷ threshold).
 2. **Binding pattern** — the sink allocation's shares (truth) and the sink the spouses' attributions name (belief).
 3. **Intensity** — the budget's occupancy (the allocations and overflow over the budget) and the members' mean
    excess anxiety at the end.
-4. **The multigenerational picture** — mean basic level by generation. *Children are born in the run from Phase D
-   part II (spec revision 28), but the projection line is not yet read; it is reported as not built.*
+4. **The multigenerational picture** — mean basic level by generation. The projection line is not read; it is
+   reported as not built.
 5. **Cutoff with the families of origin** — each origin tie's bond energy and whether it is cut off.
 6. **Stress** — the exogenous and endogenous events in the window, counted and summed by intensity, separately.
 7. **Adaptiveness** — derived: the members' automatic acts in the window per unit of exogenous stress intensity.

@@ -193,6 +193,11 @@ html, with a paraphrase checked against its passage and its citation (65 entries
 extraction notes are marked; the test against new quotations; and eight questions for the owner (Q1–Q8), answered
 2026-10-22, all as recommended. Its §4 texts approved by the owner 2026-10-22 and built the same day at spec revision 34, cut down by the owner: the local transcript test, the extraction-note headers and the `kb` heading retitles are deferred (`TODO.md`).
 
+**Parts A, B and C built 2026-10-22; D and E wait on the owner's answers to its §8:**
+[plan_model_ergonomics.md](plan_model_ergonomics.md) — making the spec, the ledger and the code cheaper for a
+model to read: a machine-readable index of the spec and of the ledger, a current-rules view of the spec, and
+(not started) thinner docstrings and the spec's history moved out of it.
+
 **Parts A and B built 2026-10-20 (owner 2026-10-20):**
 [plan_spec_coverage_phase_d.md](plan_spec_coverage_phase_d.md) — why `spec_coverage.md` read "after Phase C" and how
 it was brought up to date: Part A, the tool reads every ensemble and mutation record (mechanical); Part B, a judgment

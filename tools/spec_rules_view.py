@@ -18,8 +18,9 @@ Files: ``M00.md`` (the title, the front matter and §0), ``M01.md`` … ``M17.md
 and ``M11.G`` are in ``M11.md``), ``README.md`` (the files, their sizes, and the view's size against the spec's) and
 ``history_in_body.md`` (C4: every ID whose body holds a sentence matching a history phrase; the phrases are in
 ``tools/spec_index_rules.json``. It was the input to Part E, which at revision 35 moved or rewrote 183 of the 218
-sentences it listed; what it lists now is rule text that matches a phrase, each row of
-``docs/spec_revision_35_dispositions.md`` marked "stays").
+rows it listed (213 sentences, five split in two); what it lists now is the sentences the pass left in place — rule
+text, recorded results and cross-references that match a phrase — each a row of
+``docs/spec_revision_35_dispositions.md`` marked "stays", with the reason).
 """
 
 from __future__ import annotations
@@ -139,7 +140,8 @@ def render_history(text: str, found: list[dict], rev: int) -> str:
         f"`history_phrases`), with the sentence and the phrase it matched: **{len(found)} IDs**. The view keeps every "
         "one of these sentences (C3). This list was the input to Part E: revision 35 (2026-10-22) moved or rewrote "
         "the narratives, with one row per sentence in `docs/spec_revision_35_dispositions.md` for the owner's "
-        "review, so what is listed now is rule text that happens to match a phrase (its row says why it stays). "
+        "review, so what is listed now is what that pass left in place — rule text, recorded results and "
+        "cross-references that match a phrase — each a row marked \"stays\" that gives the reason. "
         "Line numbers are the spec's.",
         "",
     ]
@@ -177,7 +179,8 @@ def render_readme(text: str, files: dict[str, str], rev: int, history: list[dict
         f"pointers stay); {history_clause}. No sentence of "
         "a requirement body is removed: `history_in_body.md` lists the "
         f"{len(history)} IDs whose bodies hold a sentence matching a history phrase (after revision 35 moved the "
-        "narratives to `docs/spec_revision_log.md`, Part E of `docs/plan_model_ergonomics.md`, these are rule text).",
+        "narratives to `docs/spec_revision_log.md`, Part E of `docs/plan_model_ergonomics.md`, these are the sentences "
+        "that pass left in place, each a \"stays\" row of `docs/spec_revision_35_dispositions.md`).",
         "",
         "To find an ID's module, grep `docs/spec_index.jsonl` for it: the record's `module` field names the `##` "
         "heading, and `lines` the spec's lines.",

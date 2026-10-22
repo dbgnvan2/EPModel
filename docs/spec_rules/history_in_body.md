@@ -2,7 +2,7 @@
 
 *Generated from the spec at revision 35 by `tools/spec_rules_view.py`. Not normative: where this and the spec differ, the spec wins. Do not edit.*
 
-Every ID whose body holds a sentence matching a history phrase (`tools/spec_index_rules.json`, `history_phrases`), with the sentence and the phrase it matched: **30 IDs**. The view keeps every one of these sentences (C3). This list was the input to Part E: revision 35 (2026-10-22) moved or rewrote the narratives, with one row per sentence in `docs/spec_revision_35_dispositions.md` for the owner's review, so what is listed now is rule text that happens to match a phrase (its row says why it stays). Line numbers are the spec's.
+Every ID whose body holds a sentence matching a history phrase (`tools/spec_index_rules.json`, `history_phrases`), with the sentence and the phrase it matched: **30 IDs**. The view keeps every one of these sentences (C3). This list was the input to Part E: revision 35 (2026-10-22) moved or rewrote the narratives, with one row per sentence in `docs/spec_revision_35_dispositions.md` for the owner's review, so what is listed now is what that pass left in place — rule text, recorded results and cross-references that match a phrase — each a row marked "stays" that gives the reason. Line numbers are the spec's.
 
 ## M1.A.3a (lines 98–101)
 

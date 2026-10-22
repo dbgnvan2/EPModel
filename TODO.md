@@ -123,12 +123,23 @@ Deferred and adjacent items. Each carries enough context to act on later without
   implements) was dropped from `io/load.py::load_script`, `scenario/policy_source.py`, `scenario/scripted_source.py`
   and `ScriptedSource`, the phase fact kept as prose. `test_b2c_every_id_cited_in_src_is_defined_by_the_spec` is no
   longer xfail. Done 2026-10-22.
+- [ ] **The ledger index does not reach the extraction directories (plan §11 trial, 2026-10-22):** a sonnet session given
+  only `docs/spec_index.jsonl`, `docs/theory/ledger_index.jsonl` and `docs/spec_rules/` answered three lookups
+  (`M4.C.3a`'s rule and function, `M5.D.1`'s test, `M4.C.8a`'s sources) correctly against the full spec, in about 67k
+  tokens and 26 seconds, but could not read what `FE03.6` says: `ledger_index.jsonl` indexes `_LEDGER.md`'s entries
+  (the `L` chapters and the consolidated `FE-`/`KS-` entries), and the per-finding `FE`/`KS`/`K`/`T` entries live in
+  `docs/theory/family_evaluation/`, `kerr_book/`, `interviews/` and `tapes/`. Either index those directories too
+  (`tools/spec_index.py`, one record per `## … FEnn.m` heading) or say in the index's README that they are not covered.
 - [ ] **Part D's commits carry a stray copy of the revision log (2026-10-22):** `docs/spec_revision_log.md`'s first form
   was staged by accident with `11c36bb` without its checklist entry, so `test_every_document_is_in_the_checklist` is red at
-  `11c36bb`..`fea842a` (seven commits, none pushed) and green from the Part E commit on. Rewrite those commits before the
-  push, or leave them; the owner's call.
+  `11c36bb`..`fea842a` (nine commits, none pushed), and the pinned reference count left `test_m11d8_spec_references_resolve`
+  red at `11c36bb`..`6575009`; both green from the Part E commit on. The plan's D3 rule (suite green after each commit) was
+  not met for Part D. Rewrite those commits before the push, or leave them; the owner's call.
 - [ ] **Revision 35's dispositions, for the owner's review (Part E, 2026-10-22):** `docs/spec_revision_35_dispositions.md`,
-  218 rows (35 stay, 32 moved, 151 rewritten), applied as Claude's dispositions under the owner's bulk decision (§8 Q2).
+  218 rows for 213 sentences (35 stay, 32 moved, 151 rewritten), applied as Claude's dispositions under the owner's bulk
+  decision (§8 Q2). The review of 2026-10-22 found two log bullets whose quotation was not the sentence as it stood
+  (`M1.A.4k`'s owner list and `M11.C.14`'s Bowen quotation), both restored verbatim, and one post-hoc label dropped from
+  `M11.C.6`'s arm, restored; the E2 pass was an agent's, so the owner's read of the rewritten rows is the check.
   The "stays" rows marked unsure carry the reason in the last column. A reversed row is one edit in the spec and one
   bullet back out of `docs/spec_revision_log.md`.
 - [ ] **Narrative the history phrases miss, still in bodies (Part E, 2026-10-22):** "The earlier form …" (`M6.I.6`,

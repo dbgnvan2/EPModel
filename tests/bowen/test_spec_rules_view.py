@@ -167,12 +167,69 @@ def test_c4_the_real_list_quotes_the_spec_and_states_its_count():
     page = (TOOL.OUT / "history_in_body.md").read_text(encoding="utf-8")
     found = TOOL.history_in_body(text)
     assert re.search(r"\*\*(\d+) IDs\*\*", page).group(1) == str(len(found))
-    assert len(re.findall(r"^## M", page, re.M)) == len(found) >= 1
+    assert len(re.findall(r"^## M", page, re.M)) == len(found)
     flat = re.sub(r"\s+", " ", TOOL.TAG.sub("", text))
     for entry in found:
         for sentence, _ in entry["sentences"]:
             assert re.sub(r"\s+", " ", sentence) in flat, f"{entry['id']}: a listed sentence is not in the spec"
-    # After revision 35 (Part E) every listed sentence is a "stays" row of the dispositions record.
+    # After revision 35 (Part E) every listed sentence is one "stays" row of the dispositions record, matched
+    # sentence by sentence (an ID with a "stays" row may also have moved rows), and the counts are the record's.
+    stays = [(row["id"], row["key"]) for row in _disposition_rows() if row["disposition"] == "stays"]
+    listed = [(e["id"], _norm(s)) for e in found for s, _ in e["sentences"]]
+    unmatched = [(i, s[:80]) for i, s in listed
+                 if not any(i == ri and all(k in s.rstrip("*. ") for k in key) for ri, key in stays)]
+    assert unmatched == []
+    assert len(listed) == len(stays) and len({i for i, _ in listed}) == len({i for i, _ in stays})
+
+
+def _norm(text: str) -> str:
+    return re.sub(r"\s+", " ", text).strip()
+
+
+def _present(piece: str, text: str, window: int = 36) -> bool:
+    """Whether an uncut piece of a recorded sentence is in `text`: whole when short, else by any run of `window`
+    characters, since the record and the log annotate the same sentence differently at its ends."""
+    if len(piece) < window:
+        return piece in text
+    return any(piece[i:i + window] in text for i in range(len(piece) - window + 1))
+
+
+def _disposition_rows() -> list[dict]:
+    """The rows of docs/spec_revision_35_dispositions.md: number, ID, the sentence as it stood (cut to ~120 characters,
+    `…` marking each cut), its disposition, and `key`, the uncut pieces normalised for matching."""
     record = (REPO / "docs" / "spec_revision_35_dispositions.md").read_text(encoding="utf-8")
-    stays = {line.split("|")[2].strip().strip("`") for line in record.split("\n") if "| stays |" in line}
-    assert {e["id"] for e in found} <= stays, sorted({e["id"] for e in found} - stays)
+    rows = []
+    for line in record.split("\n"):
+        cells = [c.strip() for c in re.split(r"(?<!\\)\|", line)]
+        if len(cells) >= 6 and cells[1].isdigit():
+            sentence = cells[3].replace("\\|", "|")
+            key = [_norm(piece).strip("*. ") for piece in sentence.split("…") if len(_norm(piece).strip("*. ")) >= 12]
+            rows.append({"number": int(cells[1]), "id": cells[2].strip("`"), "sentence": sentence,
+                         "disposition": cells[4], "key": key})
+    return rows
+
+
+def test_e2_every_dispositions_row_is_true_of_the_spec_and_the_log():
+    """Part E2 (revision 35): each row of the dispositions record holds now. A moved or rewritten sentence is in
+    docs/spec_revision_log.md under its ID; a moved sentence is no longer in the spec; a kept sentence is. The owner
+    reverses rows by hand, so a sentence lost on the way would otherwise go unnoticed (review 2026-10-22)."""
+    rows = _disposition_rows()
+    assert len(rows) == 218 and [r["number"] for r in rows] == list(range(1, 219))
+    assert {r["disposition"] for r in rows} == {"stays", "moves", "rewritten"}
+    text = _spec_text()
+    spec = _norm(TOOL.TAG.sub("", text))
+    blocks = {b["id"]: _norm(TOOL.TAG.sub("", b["text"])) for b in TOOL.index_tool.spec_blocks(text)}
+    log = _norm(TOOL.TAG.sub("", (REPO / "docs" / "spec_revision_log.md").read_text(encoding="utf-8")))
+    wrong = []
+    for row in rows:
+        where = f'{row["number"]} {row["id"]} ({row["disposition"]})'
+        body = blocks.get(row["id"], spec)  # the ID's own block: a short piece can be boilerplate elsewhere
+        in_log = any(_present(piece, log) for piece in row["key"])
+        in_body = any(_present(piece, body) for piece in row["key"])
+        if row["disposition"] in ("moves", "rewritten") and not in_log:
+            wrong.append(where + ": not in the log")
+        if row["disposition"] == "moves" and all(piece in body for piece in row["key"]):  # whole, not by window
+            wrong.append(where + ": still in the spec")
+        if row["disposition"] == "stays" and not in_body:
+            wrong.append(where + ": not in the spec")
+    assert wrong == []

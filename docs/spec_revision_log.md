@@ -4,6 +4,7 @@
 
 The spec holds the current rules; this file holds how they got there. Until revision 34 the revision sections stood at the end of the spec, under `M17`, and the front matter's `status:` line listed every revision since 10. `docs/plan_model_ergonomics.md` Part E moved both here (the owner's answer to its §8 Q2, 2026-10-22, "as revision 35"), so a session reading the spec reads 480 fewer lines of history. The sections below are the spec's own text as it stood, tags and all, with the newest first; revisions 13 to 33 were written inline in the requirement bodies and have no section of their own, which Part E's second step records under revision 35.
 
+The sections `### Revision 34` to `### Revision 5` and the undated section are the spec's text as it stood, moved whole; a statement inside one of them (revision 34's, that revisions 13 to 33 are "not here") was true when written, before the bodies' narratives were moved under their own revisions. Those narratives are the bullets `- \`ID\`: sentence`, each the sentence as it stood in the body, under the revision it names, in sections titled "inline narratives moved from the bodies at revision 35" where no section existed.
 ### Revision 35 — the revision history moved out of the spec, 2026-10-22 ⟦rev35 · owner decision 2026-10-22, plan_model_ergonomics.md §8 Q2⟧
 
 **Decided 2026-10-22** by the owner: the front matter's status text and the revision sections `### Revision 34` to `### Revision 5` leave the spec for this file, and the spec takes revision 35 for it, wording only. No rule changed; `engine_hash()` is unchanged and no record was rerun. The front matter's `status:` line now reads `APPROVED` with a pointer here; its text as it stood is the last section of this file.
@@ -64,7 +65,7 @@ The spec holds the current rules; this file holds how they got there. Until revi
 - `M11.C.2`: the witness path, M1.F.5 (*revision 31:* on the twelve-person family the witness path removed survives; the pass is proved by removing `M1.B.8a` with `M4.D.1g`)
 - `M11.C.6`: *Restated at revision 31* (the owner, 2026-10-16, review option A): its second half, that the decline be achievable within roughly ten generations ("**It could take eight to ten generations or as few as three or four**", KS11.1; `FE08.2`), is withdrawn.
 - `M11.C.6`: Under `M7.E.1f`'s band as decided at revision 31, a child falls at most 10% below the parents, and only under projection, so ten generations can fall at most from 100 to about 35.
-- `M11.C.14`: *Restated at revision 31* (the owner, 2026-10-16, review option B; Bowen: "all 'management approaches' were equally unsuccessful"): under high marital distance, **no technique lowers the child's symptom load against a no-technique arm**.
+- `M11.C.14`: *Restated at revision 31* (the owner, 2026-10-16, review option B; Bowen: "any and all 'management approaches' were equally unsuccessful", `ch04.md`): under high marital distance, **no technique lowers the child's symptom load against a no-technique arm**.
 - `M11.C.14`: *Built at revision 31 part B, with the owner's baseline (2026-10-16, option a):* a scripted act is the parent's whole week's act, so a technique also removes the parents' own acts that week, toward the child and toward each other (measured: against parents under their own policy, firmness −6.4 ± 3.6 and talking it out −17.3 ± 2.9, through less witnessed marital conflict, not through the gate).
 - `M11.C.21`: *Revision 31* (the owner's decisions of 2026-10-16, plan §4.11): the collapse did not reach the exchange, so `M6.I.4` gained the capacity rule (a collapsed over-functioner takes in proportion to their room above the stress floor).
 - `M11.C.23`: *Revision 31: reclassified as a composite, its failure accepted as a finding* (the owner, 2026-10-16; `M11.5`).
@@ -170,7 +171,7 @@ The spec holds the current rules; this file holds how they got there. Until revi
 
 ### Revision 17 — inline narratives moved from the bodies at revision 35
 
-- `M1.A.4k`: *Revision 17, what a nodal event is:* any major event on a person — the owner: "Death, births, divorce, loss of job, moving, injury, marriage, falling in love, loss of or extreme shift in income. Anything that could be seen as a significant life event, is a nodal event."
+- `M1.A.4k`: *Revision 17, what a nodal event is:* any major event on a person — the owner: "Death, births, marriages, serious illnesses, big moves, big job changes, child moving out or back in, divorces … Any major event on a person (a node) is a nodal event."
 - `M1.A.18c`: *Revision 17:* the coach-free arm may also rise, where its members' own self-directed behaviour under load shows it (`M11.C.17` rewritten)
 - `M5.A.1a`: *Revision 17, cutoff read from behaviour* (the owner: "The designation of cutoff emerges from behaviour. An agent saying 'I'm not going to contact you again' is not cutoff, it's just words that need behaviour to back it up"): member A's cutoff of B **MUST** be read from what A does — B's approaches refused (by the engine's refusal, `M1.B.3c`, or answered with `CUTOFF` or `DISTANCE`) at least `pattern_min_acts` times in the window, with no act with contact from A to B — and a `CUTOFF` act alone **MUST NOT** read as cutoff.
 - `M11.C.7`: *Revision 17, the direction* (owner decision P9, 2026-10-11): three arms with the coach's parameters and schedule fixed — **joint** (sessions with both spouses, siding with neither), **one spouse** (sessions with one, siding with neither) and **sided** (drawn onto one spouse's side).
@@ -749,9 +750,6 @@ both arms together. The model has at least five such boundaries and one of them 
 property with recorded harms. **Direction is the least robust output under mis-specified inputs, not the
 most** — which is why `M15.D.2` requires an envelope over ranges and forbids a point direction.
 
----
-
-*Written against `model_explainer.md` v1.2 and `theory/_LEDGER.md` across six corpus sources. Every requirement traces to an explainer section or a ledger entry; the ledger traces to a chapter, a tape, an interview or a page. Nothing in this document is sourced to a summary.*
 
 ### Undated narratives moved from the bodies at revision 35
 

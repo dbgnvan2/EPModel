@@ -6,7 +6,7 @@
 > the ledger have machine-readable indexes (`docs/spec_index.jsonl`, `docs/theory/ledger_index.jsonl`), the spec's
 > current rules have a view by module (`docs/spec_rules/`), the code docstrings are thinned to the contract and the
 > formulas, and the spec's revision history is in `docs/spec_revision_log.md` — the sections and the status line, and
-> the 218 inline narratives of 129 requirement bodies, kept, moved or rewritten one by one
+> the 213 inline narrative sentences of 129 requirement bodies (218 rows), kept, moved or rewritten one by one
 > (`docs/spec_revision_35_dispositions.md`, Claude's dispositions for the owner's review). The owner answered the
 > plan's §8 the same day. Nothing a run computes changed; `engine_hash()` is unchanged and no ensemble, mutation or
 > sweep record was rerun (the seed-7 trace, chart and fam-diag export were regenerated for the revision string).

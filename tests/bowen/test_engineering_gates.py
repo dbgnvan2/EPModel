@@ -120,7 +120,7 @@ def test_m11d2_check_catches_a_literal_in_the_policy(tmp_path):
 
 # --- M11.D.8 / M11.D.9 --------------------------------------------------------------------------
 
-EXPECTED_SPEC_REFERENCES = 938  # M11.D.9: an exact count, not a floor; update it when references change (938 after model ergonomics Part D replaced the fifteen section anchors with numbered IDs, 2026-10-22; 808 at version 2 stage 1, with load_act_classes)
+EXPECTED_SPEC_REFERENCES = 969  # M11.D.9: an exact count, not a floor; update it when references change (969 once spec_references read a block's continuation lines, review 2026-10-22; 938 on the first line only after model ergonomics Part D replaced the fifteen section anchors with numbered IDs, 2026-10-22; 808 at version 2 stage 1, with load_act_classes)
 
 
 def spec_anchors() -> set[str]:
@@ -131,11 +131,22 @@ def spec_anchors() -> set[str]:
 
 
 def spec_references(root: Path) -> list[str]:
+    """Every `#M…` citation in a `Spec:` block: the `Spec:` line and its continuation lines, up to the next `Key:`
+    line or a blank line (review 2026-10-22: the line-only read missed 31 citations on wrapped lines)."""
     refs = []
     for path in sorted(root.rglob("*.py")):
-        for line in path.read_text().splitlines():
-            if line.strip().startswith("Spec:"):
-                refs += re.findall(r"#(M[0-9A-Za-z.]+)", line)
+        lines = path.read_text().splitlines()
+        number = 0
+        while number < len(lines):
+            if lines[number].strip().startswith("Spec:"):
+                block = [lines[number]]
+                number += 1
+                while number < len(lines) and lines[number].strip() and not re.match(r"\s*[A-Z][A-Za-z ]{0,20}:\s", lines[number]):
+                    block.append(lines[number])
+                    number += 1
+                refs += re.findall(r"#(M[0-9A-Za-z.]+)", "\n".join(block))
+            else:
+                number += 1
     return [r.rstrip(".") for r in refs]
 
 

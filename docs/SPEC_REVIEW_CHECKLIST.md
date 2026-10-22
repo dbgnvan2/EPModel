@@ -32,8 +32,8 @@ These define what the model does. A run that disagrees with them is a defect.
       status line as it stood at revision 34, moved out of the spec at revision 35 (2026-10-22). Why a rule is as it
       is; the spec holds the rule.
 - [ ] **For review, 2026-10-22:** [spec_revision_35_dispositions.md](spec_revision_35_dispositions.md) — revision
-      35's second step: the 218 inline revision narratives in 129 requirement bodies, each kept, moved to the log or
-      rewritten as the current rule, one row per sentence. Applied as Claude's dispositions under the owner's
+      35's second step: the 213 inline revision sentences in 129 requirement bodies (218 rows; five sentences held two
+      narratives), each kept, moved to the log or rewritten as the current rule, one row per narrative. Applied as Claude's dispositions under the owner's
       decision; each row is one the owner may reverse.
 - [ ] [../config/bowen/constants.md](../config/bowen/constants.md) — the parameter values the engine uses.
 - [ ] [../config/bowen/constants_changes.md](../config/bowen/constants_changes.md) — every change to those values,

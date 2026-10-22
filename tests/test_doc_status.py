@@ -122,8 +122,10 @@ def test_d5b_status_claims_agree_with_each_documents_own_status():
 def test_d5b_the_scan_is_not_vacuous():
     """D5b.5: the checklist's entry for the version 2 plan, settled on both sides, is among the pairs compared, and
     the checklist and README each compare at least one pair. Until revision 35 (2026-10-22) the spec's status line
-    was a third source, naming the SP-1 proposal as approved; that text moved to docs/spec_revision_log.md, whose
-    status line names no other document, so no third source is asserted."""
+    was a third source, naming the SP-1 proposal as approved; that text moved into the body of
+    docs/spec_revision_log.md, where the scan does not read it, so its cross-document claims are now compared with
+    nothing and no third source is asserted (test_d5b_readme_and_status_lines_are_read keeps the status-line path
+    exercised)."""
     compared = status_scan(_real_texts()).compared
     assert (CHECKLIST, "settled", "docs/version_2_plan.md") in compared
     assert any(where == "README.md" for where, _, _ in compared)

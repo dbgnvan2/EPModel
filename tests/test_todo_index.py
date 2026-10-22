@@ -11,15 +11,13 @@ Tests:   this file
 from __future__ import annotations
 
 import shutil
-import sys
 from pathlib import Path
 
 import pytest
 
-REPO = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(REPO / "tools"))
+from tools import todo_index as ti
 
-import todo_index as ti  # noqa: E402
+REPO = Path(__file__).resolve().parents[1]
 
 RECORD = "docs/todo/2026-10-01_fixture.md"
 GOOD = ("# A batch\n\nA note the index does not read.\n\n"

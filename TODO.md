@@ -116,16 +116,41 @@ Deferred and adjacent items. Each carries enough context to act on later without
 
 ## Model ergonomics — open after Parts A–C, 2026-10-22
 
-- [ ] **B3 (`docs/plan_model_ergonomics.md`), for the owner's Q4:** fifteen `Spec:` lines in `src/` cite an anchor
-  the spec defines as a section heading, not as a numbered requirement: `M1`, `M1.A`, `M1.B`, `M1.C`, `M1.D` and
-  `M14.A` (`src/bowen/engine/objects.py`, the module and its four classes), `M1.F` (`engine/events.py`), `M6`
-  (`engine/invariants.py`), `M16.A` (`engine/log_records.py`), `M11.F` (`render/trace.py`), `M2`
-  (`scenario/family.py`, the module and `FamilyInstance`), and `M13` (`io/load.py::load_script`,
-  `scenario/policy_source.py`, `scenario/scripted_source.py` and its `ScriptedSource`). Each is a true anchor (the
-  heading exists), so the question is whether a `Spec:` line may cite a section or must name requirements. Until it is
-  decided, `tests/bowen/test_spec_index.py::test_b2c_every_id_cited_in_src_is_defined_by_the_spec` is xfail on
-  exactly this list (`test_b3_…` pins it). Not fixed in Part B (the plan's B3).
-- [ ] **A3/A4, for the owner's Q3:** the three worktrees under `.claude/worktrees/` (`claude/cranky-snyder-764f33`,
+- [x] **B3 (`docs/plan_model_ergonomics.md`), the owner's Q4 (2026-10-22: fix now, in Part D):** the fifteen `Spec:`
+  lines that cited a section heading now cite the numbered requirements the module or class implements
+  (`engine/objects.py` and its four classes, `engine/events.py`, `engine/invariants.py`, `engine/log_records.py`,
+  `render/trace.py`, `scenario/family.py` and `FamilyInstance`); `#M13` (the phase plan, with no requirement the code
+  implements) was dropped from `io/load.py::load_script`, `scenario/policy_source.py`, `scenario/scripted_source.py`
+  and `ScriptedSource`, the phase fact kept as prose. `test_b2c_every_id_cited_in_src_is_defined_by_the_spec` is no
+  longer xfail. Done 2026-10-22.
+- [ ] **D4, long `Spec:` lines (Part D, 2026-10-22; the plan says record, do not split):** `engine/objects.py` 56 IDs
+  (its classes `Person` 21, `Relationship` 17), `engine/life_course.py` 21, `engine/appraise.py` 18,
+  `engine/iposition.py` 18, `ensemble/criteria.py` 19 (a registry, one per criterion), `policy/policy.py` 16,
+  `engine/invariants.py` 15, `engine/log_records.py` 14, `engine/events.py` 12, `engine/symptoms.py` 12,
+  `engine/slow_tick.py` 12, `scenario/family.py` 12. A line this long may mean the module does too much.
+- [ ] **Adjacent issues found by Part D's docstring pass, not fixed (2026-10-22):**
+  - `engine/draws.py` declares the `per_hop_fidelity` draw class (`M3.D.4b`'s row) but nothing draws it;
+    `visibility.fidelity_for` uses the constant. The spec's table row or the engine is out of step.
+  - `engine/live_positions.py` cites `#M13.1`, a phase-plan requirement the code does not implement (the class B3
+    removed elsewhere; it is a defined ID, so the test passes).
+  - `engine/consolidate.py`'s module `Spec:` line omits `#M4.C.1c`, which `consolidate()` cites.
+  - `engine/recompute._counter_moves`: an inner `if` on the kind is always true after the `continue` above it.
+  - `engine/iposition._abort_act` re-imports `math` inside the function.
+  - `objects.Role` (MEMBER/EXTERNAL) and `events.Role` (TARGET/WITNESS) share a name; a reading hazard only.
+  - `scenario/header.py::resolved_config` hashes neither `kinds.components` nor `kinds.accommodating`, so a change
+    to a kind's components or its `accommodates` flag leaves `config_hash` unchanged; check against `M16.A.1`.
+  - `scenario/policy_source.py` implements `M1.E.8` (its comment says so) without citing it.
+  - `src/bowen/__init__.py` names `docs/implementation_plan_phase_b.md` as the build order; stale since version 2.
+  - `run.py` composes a `ScriptedSource` only; `PolicySource` is not reachable from the composition root.
+  - `readouts/evaluation.py` line 103 emits phase narration inside a readout value ("from Phase D part II").
+  - `ensemble/counterfeit.py` cites `M5.C.1` for "the gate's two thresholds" while `M5.C.1`'s first sentence is
+    the general gate rule; check the ID is the one meant.
+  - Comments (out of Part D's scope) still carry decision narration: `engine/observe.py` line 58, `engine/danger.py`
+    line 78, `ensemble/runner.py` line 81, `ensemble/criteria.py` lines 47–48, 111–119, 146, `ensemble/criteria_d.py`
+    line 430, and the `params.py` / `scenario/constants.py` field comments.
+  - `engine/contact.py` said "revision-12 finding 6" where the spec (`M4.C.1c`) records revision 11; the phrase is
+    gone from the docstring, but CHANGELOG may carry the same label.
+- [x] **A3/A4, for the owner's Q3 (answered 2026-10-22: delete all four; done the same day):** the three worktrees under `.claude/worktrees/` (`claude/cranky-snyder-764f33`,
   `claude/quizzical-burnell-818aa7`, `docs-stale-fixes`) are clean and fully merged, 43 MB in all; and
   `docs/model_explainer copy.textClipping` is a stray clipping. Neither deleted without the owner's word.
 
@@ -1171,7 +1196,7 @@ fixed. The engine was frozen in behaviour.
 - [x] ~~**Untracked files predating this batch need a decision.**~~ *Out of date (checked 2026-10-19, version 2 stage 1): every file listed is now tracked, and `monte_carlo.py` was removed with the grid engine (S1.6). `monte_carlo_results.txt`, the grid engine's output, is still tracked; whether to remove it is the owner's.* Not staged, because they were not touched in this work: `requirements.txt`, `monte_carlo.py`, `monte_carlo_results.txt`, `data/`, `gemini.md`, `docs/background.md`, `docs/constitution.md`, `docs/logic_rules.md`, `docs/spec.md`, `docs/user_stories.md`. **`requirements.txt` is the urgent one** — the README tells people to install dependencies and the file is not in the repo.
 - [x] ~~**No CI workflow.**~~ *Out of date: `.github/workflows/tests.yml` exists (see the rca entry under revision 30).* The project standard is that a repo with a test suite pushed to GitHub gets `.github/workflows/tests.yml` — checkout, install from the real dependency file, run the suite on each supported Python version. The value is the blank machine: it catches what "works on this Mac" hides, which matters more here because the repo is shared between two Macs. Blocked on `requirements.txt` being tracked.
 - [ ] **No `LEARNINGS.md`.** The project convention is a repo-local fix log for repo-specific lessons, with generic patterns going to `~/.claude/standards/learnings.md`. Candidates: the ID-drift incident recorded in `M11.D.10`; the two unseeded flaky tests; and from 2026-08-28, **the `M5.D.4` heading inversion** — a requirement sourced from a summary heading rather than the sentence beneath it, which inverted silently and survived four spec revisions. The last of those may be general enough for the global catalogue rather than the repo-local log.
-- [ ] Stray file `docs/model_explainer copy.textClipping` in the working tree — not mine to delete, but it is clutter.
+- [x] Stray file `docs/model_explainer copy.textClipping` in the working tree — deleted 2026-10-22 on the owner's answer to the model-ergonomics plan's Q3.
 
 ## Documentation hygiene, deferred
 

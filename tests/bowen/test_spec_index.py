@@ -22,25 +22,6 @@ _spec = importlib.util.spec_from_file_location("spec_index_tool", REPO / "tools"
 TOOL = importlib.util.module_from_spec(_spec)
 _spec.loader.exec_module(TOOL)
 
-# B3 (2026-10-22): the `Spec:` lines in src/ that name a section heading of the spec (`M1.A`, `M13`), not a numbered
-# requirement. Listed in TODO.md for the owner (the plan's §8 Q4); this test is xfail until they are decided.
-B3_SECTION_ANCHORS = {
-    "src/bowen/engine/events.py": ["M1.F"],
-    "src/bowen/engine/invariants.py": ["M6"],
-    "src/bowen/engine/log_records.py": ["M16.A"],
-    "src/bowen/engine/objects.py": ["M1", "M14.A"],
-    "src/bowen/engine/objects.py::Person": ["M1.A"],
-    "src/bowen/engine/objects.py::Relationship": ["M1.B"],
-    "src/bowen/engine/objects.py::Triangle": ["M1.C"],
-    "src/bowen/engine/objects.py::Family": ["M1.D"],
-    "src/bowen/io/load.py::load_script": ["M13"],
-    "src/bowen/render/trace.py": ["M11.F"],
-    "src/bowen/scenario/family.py": ["M2"],
-    "src/bowen/scenario/family.py::FamilyInstance": ["M2"],
-    "src/bowen/scenario/policy_source.py": ["M13"],
-    "src/bowen/scenario/scripted_source.py": ["M13"],
-    "src/bowen/scenario/scripted_source.py::ScriptedSource": ["M13"],
-}
 
 
 def _records(path: Path) -> list[dict]:
@@ -65,21 +46,11 @@ def test_b2b_every_spec_id_appears_once_in_document_order():
     assert len(ids) == len(set(ids))
 
 
-@pytest.mark.xfail(strict=True, reason="B3: fifteen `Spec:` lines name a section heading, not a requirement; "
-                                        "TODO.md, 'Model ergonomics', for the owner's Q4")
 def test_b2c_every_id_cited_in_src_is_defined_by_the_spec():
+    """B3: a `Spec:` line cites numbered requirements, never a section heading (`M1.A`, `M13`). The fifteen section
+    anchors Part B found were replaced in Part D (the owner's Q4, 2026-10-22). Mutation: cite `#M1.A` anywhere in src/."""
     _, unknown = TOOL.code_citations()
     assert unknown == {}, f"src/ cites IDs the spec does not define: {unknown}"
-
-
-def test_b3_the_undefined_citations_are_exactly_the_listed_section_anchors():
-    """The xfail above is for B3's list and nothing else: a new undefined citation, or one of these fixed, fails here
-    so the list in TODO.md and the xfail are brought up to date."""
-    _, unknown = TOOL.code_citations()
-    assert unknown == B3_SECTION_ANCHORS
-    headings = set(re.findall(r"^#{2,3} (M\d+(?:\.[A-Z])?)\b", TOOL.SPEC.read_text(encoding="utf-8"), re.M))
-    cited = {c for cites in unknown.values() for c in cites}
-    assert cited <= headings, f"not a section heading of the spec either: {sorted(cited - headings)}"
 
 
 def test_b1_lines_start_at_the_defining_line_and_do_not_overlap():

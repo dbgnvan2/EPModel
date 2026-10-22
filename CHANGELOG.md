@@ -4,6 +4,61 @@ All notable changes to this project are recorded here. Dates are ISO.
 
 ## [Unreleased] — 2026-10-11
 
+### Model ergonomics, Part D — the code docstrings thinned (2026-10-22)
+
+- **What.** `docs/plan_model_ergonomics.md` Part D, on the owner's answer to its §8 Q1 (2026-10-22, "thin them") and
+  Q4 ("fix B3 now, in Part D"). Docstrings only, in `src/bowen/`: no code, comment or blank line changed, checked per
+  file by comparing the syntax tree with its docstrings blanked against `HEAD`'s. `engine_hash()` is unchanged
+  (`91f9a817`). One commit per package, the docstring bytes before and after in each commit message; in all,
+  214,733 bytes of docstring became 203,303 (−11,430, 5%). The saving is small because D1 keeps what carries the
+  contract: the `Purpose:`/`Spec:`/`Tests:` block, every formula, every grade statement and every sentence stating
+  the current rule. What went is revision and approval narration ("*Revision 25 (approved 2026-10-16)*", "(revision
+  18)" in a title or a `Spec:` line, "Phase C step 3", "the owner decided …", "measured before it …"), and rationale
+  or quotations the cited ID's spec block holds. Three stale statements were corrected to what the code does
+  (`slow_tick.run_slow_tick`'s life-stage note, `objects.Sex`'s "no mechanism reads it", `ensemble/criteria.py`'s claim
+  that `M11.C.7` and `M11.C.14` are not built).
+- **B3 closed.** The fifteen `Spec:` lines that cited a section heading now cite the numbered requirements the module
+  or class implements; `#M13` was dropped where no requirement applies and the phase fact kept as prose.
+  `test_b2c_every_id_cited_in_src_is_defined_by_the_spec` is no longer xfail; the pinned list and `test_b3_…` are gone.
+  Long `Spec:` lines (12 or more IDs, D4) and the adjacent issues the pass found are in `TODO.md`, not fixed.
+- **Moved here from docstrings** (D2: passages neither the spec nor this file held):
+  - `engine/appraise.py` (`M4.C.8a`, `M1.A.9a`): the objectivity that gates attention's amplification was changed at
+    Phase C step 3 to 1 − the maximum of the two outside-ness axes; step 2 had used 1 − their mean.
+  - `engine/life_course.py` (`M7.C.1k`, 2026-10-13): a life event carries no sender and reaches its targets directly,
+    because the 2026-10-13 ensemble crashed when `FIND_WORK` named its taker as sender and a sibling with no tie to
+    them as a target.
+  - `engine/life_course.py` (`M7.B.1a`, `M7.E.1f`, review 2026-10-13): three rules were fixed at that review — a dead
+    parent's frozen values and the history that stopped at their death are not read as this year's; an orphan keeps
+    the values they have and develops by their own functioning alone; an inactive holder, and an external agent, take
+    no part in the life course.
+  - `engine/activation.py` (`M7.C.1f`, `M2.A.0k`, revision 28): the activation component's `version` stayed "1" when
+    acting age and inactivity were added, because a run that tracks no ages is unchanged.
+  - `engine/recompute.py` (`M1.C.3`, revision 11, owner decision 2026-10-06): Phase B decided whether a triangle was
+    active by a `tension_activation_threshold`; Phase C step 1 replaced it with the readout of recent `TRIANGLE` acts
+    within `triangle_activity_window`, and no calm-system threshold remains in step 6.
+  - `engine/visibility.py` (`M1.F.4`, `M3.D.4b`; the Phase B plan's decision D7): per-hop fidelity is the declared
+    constant `per_hop_fidelity ** len(route)`, not a draw; the per-hop draw class `M3.D.4b` lists is declared in
+    `draws.py` and has never been drawn.
+  - `engine/moves.py` (`M6.I.4`, revision 27; review 2026-10-12): without the functioning-balance condition,
+    pseudo-self relaxed between people who never exchanged (2–6% of what moved), and a starting gap would have relaxed
+    from week 0; the condition was added at that review.
+  - `ensemble/runner.py` (`M17.A.1`, decided 2026-10-08, `docs/phase_c_completion_report.md` §10): the baseline arm
+    alone is the wrong ruler when the arms differ in spread, and a ruler must not depend on which arm is called
+    baseline; the differences' own sd would make the rule a fixed seed count, since half-width over its own sd is
+    1.96/√n. So the half-width is compared with `ensemble_precision` times the pooled seed-to-seed sd of the two arms,
+    √((sd_baseline² + sd_treatment²) / 2).
+  - `ensemble/criteria.py`, `reactive_over_chance` (`M11.C.41`, restated 2026-10-09, Q2 of `docs/DECISIONS — PHASE C
+    FAILING.md`): the declared readout, reactive moves over all moves, conflicts with `M4.D.3a` — a lower level closes
+    layers 1 and 2, which hold five of the seven reactive acts, so the share fell at a lower level even as acute
+    anxiety rose. The first restatement (reactive selected over reactive offered) scored 1/N for a chooser at random,
+    so it rose whenever the legal set shrank, and was replaced before it was relied on.
+  - `ensemble/criteria_d2.py`, `_cut` (`M11.C.10`, measured 2026-10-14): a fresh declared cutoff fades out in about 10
+    weeks, before a 13-week renewal, which is why the treatment arm renews it by a scripted reactive `CUTOFF` every
+    `renew_every` weeks.
+  - `ensemble/criteria_d.py`, `arm_c34` (`M11.C.34`, review 2026-10-12): the other members' automatic acts toward C1
+    are read less the same count in the same run with no onset, because counting all their acts measured the
+    family's level, not the reaction to the symptom.
+
 ### Model ergonomics, Parts A–C (2026-10-22)
 
 - **What.** `docs/plan_model_ergonomics.md` (Parts A, B and C; D and E wait on the owner's answers to its §8).

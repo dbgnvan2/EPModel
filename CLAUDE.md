@@ -37,10 +37,12 @@ same for ledger entries, `_LEDGER.md`'s and the per-finding entries of the extra
 which). To read a module's current rules, open `docs/spec_rules/M04.md` (one file per
 module; the spec with its status line, tags, quotations and revision sections removed, nothing else). Open the full spec
 only to change it or to see its sources and history. These files are generated (`tools/spec_index.py`,
-`tools/spec_rules_view.py`) and checked current by tests; never edit them. `TODO.md` holds open items only and `CHANGELOG.md` the entries
-since version 2 began (2026-10-19); the ticked items and the earlier entries are in `docs/TODO_archive.md` and
-`docs/CHANGELOG_archive.md`, verbatim, and `tests/test_doc_size.py` keeps both live files under a size limit and
-`TODO.md` free of ticked items older than 30 days.
+`tools/spec_rules_view.py`) and checked current by tests; never edit them. `TODO.md` is a generated index of the open
+items, one line each (ID, date, title, record), under **Now** or **Later**; an item's text is in its record under
+`docs/todo/`, where it is ticked to close it (`tools/todo_index.py` then moves its line to `docs/TODO_archive.md`).
+`CHANGELOG.md` opens with a generated index of its entries and holds the entries since version 2 began (2026-10-19);
+the earlier entries are in `docs/CHANGELOG_archive.md`, verbatim. `tests/test_todo_index.py` keeps the generated
+parts current and `tests/test_doc_size.py` keeps both live files under a size limit.
 
 **Six corpus sources, and they are not one evidence class.** The 22 papers (1957–76, `L`); the 1979
 video lectures (`Tape N`, **ASR — no verbatim quotation**); the Kerr–Bowen interviews (`KB`, **ASR — no verbatim
@@ -86,7 +88,7 @@ full table.
   while `main` stood at spec revision 11; on 2026-10-21 `main` was fast-forwarded to it. `plan-phase-b` stays on GitHub
   as history and takes no new commits. A session's own branch merges into `main`.
 - Run tests before declaring done: `python3 -m pytest tests/`
-- **A red suite is never normal — all 1050 tests pass** (measured 2026-10-22 on this Mac with `python3 -m pytest tests/`; counts are as collected by the default run; the 49 `ensemble`-marked criterion tests are deselected by `pytest.ini` and run with `python3 -m pytest -m ensemble`). The dated history of counts is in `CHANGELOG.md`, in the entry of 2026-10-22 that moved it out of this file.
+- **A red suite is never normal — all 1069 tests pass** (measured 2026-10-22 on this Mac with `python3 -m pytest tests/`; counts are as collected by the default run; the 49 `ensemble`-marked criterion tests are deselected by `pytest.ini` and run with `python3 -m pytest -m ensemble`). The dated history of counts is in `CHANGELOG.md`, in the entry of 2026-10-22 that moved it out of this file.
 
 ## Documentation stays current with the build (owner rule, 2026-10-10)
 

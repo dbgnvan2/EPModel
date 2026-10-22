@@ -110,8 +110,8 @@ On the machine that runs it:
 
 5. **The baseline and what changed since.** The baseline is the commit in the previous milestone review's header.
    For the first review it is the tag `version-1`. List what changed, leaving out deleted files and generated pages.
-   The dated logs (`CHANGELOG.md`, `TODO.md`, `LEARNINGS.md`) are history and are left out too; L2 reads `TODO.md`
-   whole.
+   The dated logs (`CHANGELOG.md`, `TODO.md`, `LEARNINGS.md`) are history and are left out too; L2 reads `TODO.md`'s
+   one-line index and the records it names under `docs/todo/`.
 
    ```bash
    git diff --stat --diff-filter=d BASELINE..HEAD -- src/ config/ tools/ tests/ docs/ requirements.txt pytest.ini .github/ README.md CLAUDE.md ':!docs/records_cache' ':!docs/review' ':!docs/*_record.md' ':!docs/spec_coverage.md' ':!docs/version_1_status.md' ':!docs/version_2_stage_1_changes.md' ':!docs/phase_c_level_occupancy.md'
@@ -124,8 +124,10 @@ On the machine that runs it:
    (one per ledger entry, `_LEDGER.md`'s and the extraction files' per-finding entries), both generated and checked current by a test (`docs/plan_model_ergonomics.md`). To
    read a module's rules, open its file in `docs/spec_rules/` (the spec without its tags, quotations and revision
    sections; not normative). Open the spec and the ledger at the lines the index gives. Do not read `CHANGELOG.md` in full; grep it for the
-   item in hand (and `docs/CHANGELOG_archive.md`, which holds the entries dated before 2026-10-19; ticked `TODO.md`
-   items are in `docs/TODO_archive.md`). `TODO.md` is read whole only where L2 asks for it (step 5).
+   item in hand, starting from the generated index at its top (and `docs/CHANGELOG_archive.md`, which holds the
+   entries dated before 2026-10-19). `TODO.md` is a generated index, one line per open item with a link to its record
+   under `docs/todo/`; closed items are listed in `docs/TODO_archive.md`. Read the index, then only the records L2
+   needs (step 5); never the records whole.
 
 ## 4. What to check
 
@@ -195,13 +197,14 @@ checked goes under "Unverified" in the report, never under findings.
 - `docs/spec_coverage.md` (read as evidence, not reviewed as a change)
 - `tools/spec_coverage_overrides.json`
 - the mutation records (`docs/*_mutation_record.md`), read as evidence
-- `TODO.md`
+- `TODO.md` (the index) and the `docs/todo/` records it names
 
 **Checks:**
 
 - A requirement that the code does not do, or does differently.
-- The disagreements already recorded: `docs/spec_coverage.md`'s *partial* notes, and `TODO.md`'s list beginning
-  "Spec and code disagree; the owner decides which stands" (for example `M1.A.7`, `M1.A.18`). Say whether that list
+- The disagreements already recorded: `docs/spec_coverage.md`'s *partial* notes, and the list beginning
+  "Spec and code disagree; the owner decides which stands" (T-004 in `docs/todo/2026-08-22_blocking_the_next_phase.md`;
+  for example `M1.A.7`, `M1.A.18`). Say whether that list
   has grown since the baseline. Do not report the listed items again as new.
 - An acceptance test that asserts an absolute threshold, not a direction of difference between two arms.
 - A test counted as coverage without a mutation that was actually run (`M11.1`). The committed mutation records show

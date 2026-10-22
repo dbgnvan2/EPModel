@@ -38,7 +38,7 @@
   },
   "allowlist": [
     {
-      "file": "TODO.md",
+      "file": "docs/todo/2026-08-23_sources.md",
       "span": "will concentrate on some of the more specific areas of the theory",
       "source": "Not a written source: an ASR quotation in the 2026-08-28 backlog. Its paraphrase was deferred by the owner on 2026-10-22 (TODO.md, the SP-1 remainder); remove this entry when it is paraphrased."
     },

@@ -5,7 +5,9 @@ Purpose: both files are read in part by most sessions and grew without bound (13
          `docs/CHANGELOG_archive.md`). This test keeps the archives current by the suite and not by habit: it fails
          when `TODO.md` holds a ticked item closed more than ``TICKED_ITEM_MAX_AGE_DAYS`` ago or ticked without a
          date, and when either live file is larger than its limit. A ticked item's close date is the latest ISO date
-         it carries, the rule the archive groups by. The limits are the named constants below.
+         it carries, the rule the archive groups by. The limits are the named constants below. Since 2026-10-22
+         `TODO.md` is generated from the records under `docs/todo/` (`tools/todo_index.py`, `tests/test_todo_index.py`)
+         and holds one line per open item, so its limit is the one-line form's; the ticked-item check still guards it.
 Spec:    docs/plan_model_ergonomics.md (the two files the plan left growing); CLAUDE.md — "Documentation stays current
          with the build"
 Tests:   this file
@@ -29,7 +31,7 @@ CHANGELOG_ARCHIVE = "docs/CHANGELOG_archive.md"
 # The limits. 60 KB each was the suggested start (2026-10-22); that day the open items alone were 82 KB and the
 # version 2 entries 62 KB, so each limit starts above what its file held. Lower a limit when its file shrinks; never
 # raise one to pass — move ticked items, or the oldest entries, to the archive instead.
-TODO_LIMIT_BYTES = 100_000
+TODO_LIMIT_BYTES = 25_000     # one generated line per open item (15 KB for 118 items on 2026-10-22); the text is in docs/todo/
 CHANGELOG_LIMIT_BYTES = 80_000
 TICKED_ITEM_MAX_AGE_DAYS = 30
 

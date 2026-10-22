@@ -604,7 +604,7 @@ say whether that test was proved failing by mutation unless its note does.
 | M17.G.2 | not done | — | no test named for it; Phase E builds it and is not built yet |
 | M17.G.3 | not done | — | no test named for it; Phase E builds it and is not built yet |
 
-## Tests named for no spec ID (229)
+## Tests named for no spec ID (245)
 
 Their names embed no requirement ID, so they count only where an override cites them (marked *cited*). The rest check spec documents, tooling or helpers.
 
@@ -829,6 +829,22 @@ Their names embed no requirement ID, so they count only where an override cites 
 - `tests/test_sweep.py::test_missing_index_yields_an_empty_set`
 - `tests/test_sweep.py::test_seen_is_keyed_unversioned_so_two_versions_are_one_candidate`
 - `tests/test_sweep.py::test_the_real_catalogue_contains_no_versioned_ids`
+- `tests/test_todo_index.py::test_a_duplicate_id_across_records_is_reported`
+- `tests/test_todo_index.py::test_a_record_name_without_a_date_is_reported`
+- `tests/test_todo_index.py::test_a_region_is_replaced_in_place_or_put_before_the_first_section`
+- `tests/test_todo_index.py::test_a_title_cut_inside_backticks_closes_them`
+- `tests/test_todo_index.py::test_a_well_formed_record_parses`
+- `tests/test_todo_index.py::test_an_item_without_an_id_or_with_other_than_one_tag_is_reported`
+- `tests/test_todo_index.py::test_archive_closed_region_is_current`
+- `tests/test_todo_index.py::test_changelog_index_is_current`
+- `tests/test_todo_index.py::test_changelog_index_takes_each_entry_in_order_with_its_date`
+- `tests/test_todo_index.py::test_every_open_item_is_indexed_once`
+- `tests/test_todo_index.py::test_open_items_go_to_todo_by_tag_and_ticked_ones_to_the_archive`
+- `tests/test_todo_index.py::test_records_are_well_formed`
+- `tests/test_todo_index.py::test_the_tool_refuses_a_malformed_record_and_writes_nothing`
+- `tests/test_todo_index.py::test_the_tool_rewrites_the_three_files_and_never_a_record`
+- `tests/test_todo_index.py::test_title_and_dates`
+- `tests/test_todo_index.py::test_todo_md_is_current`
 - `tests/test_version_1_outputs.py::test_v7_every_ensemble_record_says_a_premise_pass_is_not_a_finding_about_families`
 - `tests/test_version_1_outputs.py::test_v7_every_rendered_chart_carries_the_framing_block` — *cited*
 - `tests/test_version_1_outputs.py::test_v7_every_rendered_trace_carries_the_framing_block` — *cited*

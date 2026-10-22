@@ -1250,9 +1250,10 @@ diagram (`tools/famdiag_export.py`), and is not `M15`.
 
 ## Open owner questions from `TODO.md` ("Revision 32", open items)
 
-The unticked items in `TODO.md`'s section "Revision 32 (finishing version 1) — open after the build, 2026-10-17", in
-its order, plus the rule question its ticked `M11.C.6` entry keeps open. Items marked *Owner* are addressed to the
-owner there; the others are recorded open with no owner tag. `TODO.md` holds the full text.
+The unticked items of the record `todo/2026-10-17_revision_32.md` (until 2026-10-22 the `TODO.md` section "Revision 32
+(finishing version 1) — open after the build, 2026-10-17"), in its order, plus the rule question its ticked `M11.C.6`
+entry keeps open. Items marked *Owner* are addressed to the owner there; the others are recorded open with no owner
+tag. The record holds the full text; `TODO.md` indexes it one line per item.
 
 1. **A genuine `I-POSITION` at level 40 almost never completes** since revision 16 (0 of 200 seeds reach the peak in
    `M11.C.32`'s calm arm at level 40). `hold_gain` and `defence_threshold` may be sized for the calmer model before

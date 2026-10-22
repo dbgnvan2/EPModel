@@ -148,7 +148,8 @@ any that does is reported as a measured change.
 - **2.5** Which of `M17`'s other drafted requirements come in (`M17.A.2` time-resolved power, `M17.B.1` principal
   strata, `M17.E.3` invariance intervals, `M17.E.6` an alternative activation regime) is Q3's second part:
   **decided 2026-10-19, none until the pilot reports.** The held
-  method proposals in `TODO.md` ("Held for a later revision — paper material") stay held unless the owner names one.
+  method proposals in `TODO.md` ("Held for a later revision — paper material", since 2026-10-22 the record
+  `todo/2026-09-27_paper_material.md`) stay held unless the owner names one.
 
 ### Stage 3 — Rule questions the owner chooses
 

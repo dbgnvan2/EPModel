@@ -216,15 +216,21 @@ def test_e2_every_dispositions_row_is_true_of_the_spec_and_the_log():
     rows = _disposition_rows()
     assert len(rows) == 218 and [r["number"] for r in rows] == list(range(1, 219))
     assert {r["disposition"] for r in rows} == {"stays", "moves", "rewritten"}
+    assert all(row["key"] for row in rows), "a row with no uncut piece of 12 characters would match anything"
     text = _spec_text()
     spec = _norm(TOOL.TAG.sub("", text))
     blocks = {b["id"]: _norm(TOOL.TAG.sub("", b["text"])) for b in TOOL.index_tool.spec_blocks(text)}
-    log = _norm(TOOL.TAG.sub("", (REPO / "docs" / "spec_revision_log.md").read_text(encoding="utf-8")))
+    log_by_id: dict[str, list[str]] = {}  # the log's bullets `- `ID`: sentence`, by ID: a row is looked for under its own
+    for line in (REPO / "docs" / "spec_revision_log.md").read_text(encoding="utf-8").split("\n"):
+        bullet = re.match(r"- `(M[0-9A-Za-z.]+)`: (.*)", line)
+        if bullet:
+            log_by_id.setdefault(bullet.group(1), []).append(_norm(TOOL.TAG.sub("", bullet.group(2))))
     wrong = []
     for row in rows:
         where = f'{row["number"]} {row["id"]} ({row["disposition"]})'
         body = blocks.get(row["id"], spec)  # the ID's own block: a short piece can be boilerplate elsewhere
-        in_log = any(_present(piece, log) for piece in row["key"])
+        own = " ".join(log_by_id.get(row["id"], []))
+        in_log = any(_present(piece, own) for piece in row["key"])
         in_body = any(_present(piece, body) for piece in row["key"])
         if row["disposition"] in ("moves", "rewritten") and not in_log:
             wrong.append(where + ": not in the log")

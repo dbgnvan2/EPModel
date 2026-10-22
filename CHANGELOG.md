@@ -49,7 +49,7 @@ All notable changes to this project are recorded here. Dates are ISO.
   rewritten arm had dropped its post-hoc label, which `M11`'s reporting rule requires: restored. The spec's closing
   note ("Written against `model_explainer.md` v1.2 …") had gone to the log with the sections; it is the spec's and is
   back at its end. `test_c4` now matches each listed sentence to its own "stays" row and pins the counts to the
-  record (it had checked IDs, which 16 of the 30 share with moved rows); a new test walks all 218 rows against the
+  record (it had checked IDs, which 14 of the 30 share with moved or rewritten rows); a new test walks all 218 rows against the
   spec and the log, proved failing under three mutations. `spec_references` (the `M11.D.9` count) now reads a `Spec:`
   block's continuation lines: 969 citations, not 938 (31 on wrapped lines were uncounted; all resolved). The two
   record tests compare the revision with the front matter read in the test, not with the loader's own value.
@@ -57,6 +57,12 @@ All notable changes to this project are recorded here. Dates are ISO.
   sentences" claims corrected (35 kept rows are rule text, recorded results and cross-references; 213 sentences in
   218 rows); the reading list's spec line count; the log's intro says why revision 34's text calls revisions 13 to
   33 "not here". Cost: two passes, about 19 minutes wall time and 357k tokens.
+- **Re-sweep of the fix commit** (`1328be8`; sonnet, narrow brief, about 5 minutes and 96k tokens): five items, none
+  a blocker. The dispositions test looked for a moved sentence anywhere in the log, so deleting an ID's own bullet
+  passed when another ID's bullet held the same words (row 95, `M7.B.1a`); it now looks under the row's own ID, proved
+  by that mutation. A row with no uncut piece would have matched anything: asserted away. "16 of the 30" above was
+  wrong (14 of the 30 kept IDs share an ID with a moved or rewritten row). `counterfeit.py`'s docstring quotes
+  `FE03.1`'s "two sides of the same coin" rather than attributing "equal magnitudes" to it. A blank line in the log.
 - **Suite.** 1036 collected after Part D (the pinned B3 test removed), 1037 after the review fixes (the dispositions
   test); `engine_hash()` `91f9a817` throughout.
 

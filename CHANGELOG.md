@@ -54,6 +54,11 @@ All notable changes to this project are recorded here. Dates are ISO.
   `docs/TODO_archive.md`'s intro, and `tests/asr_quotations.json`'s allowlist entry for the quotation now in
   `docs/todo/2026-08-23_sources.md`. The owner's "Token budget" section for `CLAUDE.md` is drafted for approval, not
   added. `docs/spec_coverage.md` regenerated where the unmapped-test count changed.
+- **Token budget, the instruction.** `CLAUDE.md` gained the section "Token budget — how to read this repo (owner rule,
+  2026-10-22)": read by index, grep then a line range, module views over the spec, no whole-file reads of the big
+  documents, wide reads to a subagent, generated summaries only, `tests/test_doc_size.py`'s limits as the enforcement,
+  one task per session. Added here after the index session drafted it (owner, 2026-10-22: "make sure to set up
+  instructions that this token efficient approach must be adhered to").
 
 ### The closed and old parts of `TODO.md` and `CHANGELOG.md` archived (2026-10-22)
 

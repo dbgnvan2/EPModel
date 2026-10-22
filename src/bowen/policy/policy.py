@@ -1,4 +1,4 @@
-"""The policy skeleton — one outcome per person per tick (Phase C step 6, plan D3).
+"""The policy skeleton — one outcome per person per tick.
 
 Purpose: from one person's observation, form the legal set, score the two channels,
          mix them by functional level, draw one outcome with a keyed draw, and report
@@ -16,7 +16,7 @@ family→external moves (`M5.B.4`) only toward an external agent, and an externa
 from its own repertoire (`M5.B.5`); `REDUCE_CUTOFF` only across a cut-off tie, which stays open to every other act too (`M1.B.3c`);
 `TRIANGLE`, `DETRIANGLE` and `PREVENT_ALIGNMENT` only toward someone a closed triad holds —
 and the `M5.C` gates that remove an act: `I-POSITION` is removed
-for a financially dependent person (`M5.C.1`: it "MUST fail outright"). ``WITHHOLD`` is
+for a financially dependent person (`M5.C.1`). ``WITHHOLD`` is
 legal when an automatic act is.
 
 **Two channels** (`M4.D.1a`). The self-directed channel's weight is
@@ -25,7 +25,7 @@ automatic channel has the rest. If one channel has nothing legal the other has a
 
 * **Automatic:** ``exp(value / temperature) × availability``. ``value`` is the learned
   value for (anxiety band, act, target) — for `TRIANGLE`, for the triad the act would
-  form (`M11.C.42`) — and is 0 until learned, equal for every act (plan D3). The band
+  form (`M11.C.42`) — and is 0 until learned, equal for every act. The band
   (`M4.D.3`(b)) is the person's excess acute anxiety against two edges. ``availability``
   is `M4.D.3a`'s capacity gate: an act in layer ``k`` is available at
   ``min(1, functional_level / (k × capacity_level_per_layer))``; layer 0 always. No term
@@ -54,7 +54,7 @@ equal probability in the softmax, so no tie-break draw is made; an empty legal s
 non-finite weight, gives the fallback — the person holds, nothing is emitted and no
 automatic act is computed — flagged ``FALLBACK``.
 
-**Triangle position** (`M4.D.2`), from Phase C step 7: the automatic values are kept per
+**Triangle position** (`M4.D.2`): the automatic values are kept per
 (band, position, act, target or triad), the position read through belief by
 ``triangle_position``; the beliefs read are recorded in ``beliefs_used`` (`M16.A.3a`).
 """
@@ -113,8 +113,8 @@ def triangle_position(obs: Observation, params: EngineParams) -> tuple[str, tupl
 
     "outside" when, in any closed triad the person belongs to, the person believes the other
     two are closer than a tie at rest — believed contact above the belief prior,
-    ``interactive_resting_contact`` (`M9.8`) — that is, has seen them allied (`KS03.1`: the
-    insiders' "alliance, togetherness, or fusion"); otherwise "inside". Read through belief
+    ``interactive_resting_contact`` (`M9.8`) — that is, has seen them allied (`KS03.1`);
+    otherwise "inside". Read through belief
     only, against the prior, so both sides of the comparison are on the belief's scale. [I]
     """
     used = []
@@ -181,14 +181,13 @@ def legal_outcomes(obs: Observation, kinds: EventKinds, params: EngineParams,
 
 
 def self_channel_weight(functional_level: float, params: EngineParams, perspective: float = 0.0) -> float:
-    """Purpose: the mixing weight — functional level, opened further by systems perspective (spec revision 18).
+    """Purpose: the mixing weight — functional level, opened further by systems perspective.
     Spec:    docs/bowen_agent_model_spec_v2.md#M4.D.1a
     Tests:   tests/bowen/test_policy.py::test_m4d1a_mixing_weight_reads_functional_level_only,
              tests/bowen/test_policy.py::test_m4d1a_perspective_opens_the_self_directed_channel
 
     ``f = (functional_level / 100) ** self_channel_exponent``, and ``w = f + perspective_channel_gain × perspective ×
-    (1 − f)``: with no perspective, exactly as before; coaching or a person's own practice raises it (the owner,
-    2026-10-11: "more self directed behaviour … can be outcomes of coaching OR agents can get to this on their own").
+    (1 − f)``: with no perspective, ``w = f``; perspective, from coaching or a person's own practice, raises it.
     """
     f = min(1.0, max(0.0, functional_level / SCALE_MAX)) ** params.self_channel_exponent
     return f + params.perspective_channel_gain * min(1.0, max(0.0, perspective)) * (1.0 - f)
@@ -228,8 +227,8 @@ def _loaded_gate(outcome: Outcome, obs: Observation, params: EngineParams) -> fl
 
 def channel_weights(outcomes: list[Outcome], obs: Observation, kinds: EventKinds, params: EngineParams,
                     steered: bool = False) -> list[float]:
-    """Unnormalised within-channel weights, before mixing. ``steered`` applies perspective's steering (revision 19),
-    which bears on what is chosen only, not on competing urges or on which act a hold withholds (review 2026-10-11)."""
+    """Unnormalised within-channel weights, before mixing. ``steered`` applies perspective's steering, which
+    bears on what is chosen only, not on competing urges or on which act a hold withholds."""
     weights = []
     values = [obs.learned_values.get(o.value_key, 0.0) for o in outcomes if o.channel == AUTOMATIC]
     # The softmax is shift-invariant within the channel; subtracting the largest value keeps exp() finite
@@ -251,16 +250,15 @@ def channel_weights(outcomes: list[Outcome], obs: Observation, kinds: EventKinds
 
 
 def focus(outcomes: list[Outcome], weights: list[float], obs: Observation, params: EngineParams) -> list[float]:
-    """Purpose: a parent's focus steers whom projection-type acts land on, not how often they happen (revision 29).
+    """Purpose: a parent's focus steers whom projection-type acts land on, not how often they happen.
     Spec:    docs/bowen_agent_model_spec_v2.md#M4.D.1g
     Tests:   tests/bowen/test_cutoff_and_focus.py::test_m4d1g_focus_raises_the_chance_an_act_lands_on_that_tie,
              tests/bowen/test_cutoff_and_focus.py::test_m4d1g_focus_does_not_raise_how_often_a_kind_is_chosen
 
     One factor per outcome, given the unsteered ``weights``. For an automatic outcome of a kind in the child-projection
     set it is ``1 + focus_steer_gain × investment share`` on the tie to the target, rescaled so the kind's total weight
-    is unchanged (review 2026-10-14: as first built, focus also raised the kind's total weight). 1 for every other
-    outcome, withdrawing kinds and the self channel included. Like perspective's steering it bears on what is chosen
-    only, not on competing urges.
+    is unchanged. 1 for every other outcome, withdrawing kinds and the self channel included. Like perspective's
+    steering it bears on what is chosen only, not on competing urges.
     """
     raw = []
     for o in outcomes:
@@ -280,7 +278,7 @@ def focus(outcomes: list[Outcome], weights: list[float], obs: Observation, param
 
 
 def steer(kind: str, obs: Observation, kinds: EventKinds, params: EngineParams) -> float:
-    """Purpose: systems perspective steers away from triangling and blaming, and toward detriangling (revision 19).
+    """Purpose: systems perspective steers away from triangling and blaming, and toward detriangling.
     Spec:    docs/bowen_agent_model_spec_v2.md#M4.D.1a
     Tests:   tests/bowen/test_policy.py::test_m4d1a_perspective_steers_away_from_triangling_and_blaming
 
@@ -370,17 +368,13 @@ def decide(obs: Observation, kinds: EventKinds, params: EngineParams, rules: Pol
 
 
 def force(outcome: Outcome, obs: Observation, params: EngineParams) -> float:
-    """Purpose: an anxious person's automatic act lands with more force (revision 30).
+    """Purpose: an anxious person's automatic act lands with more force.
     Spec:    docs/bowen_agent_model_spec_v2.md#M4.D.1h
     Tests:   tests/bowen/test_origin_danger_focus.py::test_m4d1h_an_anxious_act_has_more_force
 
     ``policy_intensity × (1 + force_anxiety_gain × a ÷ (a + 100))``, a the actor's excess anxiety (acute above chronic),
     for an automatic act; a self-directed act keeps ``policy_intensity``. It saturates at (1 + ``force_anxiety_gain``)
-    times: unbounded, force and the other's anxiety fed each other and a run diverged within 23 weeks. Excess, not the
-    excess above usual: the usual level follows a chronically stressed person up, and force read from it barely moved
-    (measured 2026-10-14, plan §4.10). The owner (2026-10-14): people "can become demanding to the point of being
-    abusive, either because of tremendous stress or low level of differentiation". Level enters through anxiety: a
-    less differentiated person's anxiety rises more steeply (`M4.C.1a`). [I]
+    times. Level enters through anxiety: a less differentiated person's anxiety rises more steeply (`M4.C.1a`). [I]
     """
     if outcome.channel != AUTOMATIC:
         return params.policy_intensity

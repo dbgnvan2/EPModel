@@ -4,9 +4,7 @@ Purpose: give every object an identifier that is the same in every counterfactua
 Spec:    docs/bowen_agent_model_spec_v2.md#M1.A.20, #M1.B.13, #M1.C.7, #M2.A.0h
 Tests:   tests/bowen/test_objects.py::test_m1a20_identifiers_are_declared_not_counted
 
-Identifiers are never allocated from a run-time counter. A death in one arm
-would shift every later counter value in the other, and keyed draws (M3.D.4a)
-would then pair different people across arms (M1.A.20).
+Identifiers are never allocated from a run-time counter (M1.A.20).
 """
 
 from __future__ import annotations

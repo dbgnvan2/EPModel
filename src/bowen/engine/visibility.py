@@ -15,21 +15,20 @@ the rule. The rule below is the project's, graded [I]:
 * **M8.5.** A candidate is then checked through the live-position predicate
   with the sender and each target. If the candidate is fused into one of them,
   the group has fewer than three live positions and the candidate is not a
-  neutral witness; it is returned as a peripheral-triangle candidate instead,
-  for the Phase C mechanism that acts on alignment (M8.6). Phase B carries no
-  fusion, so no candidate is excluded there.
+  neutral witness; it is returned as a peripheral-triangle candidate instead
+  (M8.6). No caller passes a fusion map, so no candidate is excluded (M8.5).
 * **Timing.** A target receives the event after its tie's latency (M3.C.2). A
   witness receives it in the same tick as the earliest target delivery it
   overheard. An event with no sender (exogenous) has no edge; it arrives in the
   tick it is scheduled, latency 0.
 * **Fidelity.** Fidelity degrades per private hop (M1.F.4):
-  ``per_hop_fidelity ** len(route)``. Phase B uses a declared constant where
-  M3.D.4b has a draw class (plan decision D7).
+  ``per_hop_fidelity ** len(route)``, with the declared constant; M3.D.4b's
+  per-hop draw class is not drawn.
 
 A TRIGGER or RECONCILIATION names a tie and has no targets; it produces no
 deliveries and no witnesses (M4.A.2: no contact). A move addressed across a
 non-interactive tie — a worry edge (M4.A.4) — is refused loudly, rather than dropped.
-From Phase D B4 a cut-off tie stays interactive (M1.B.3c): its moves are delivered, and the
+A cut-off tie stays interactive (M1.B.3c): its moves are delivered, and the
 cutter refuses them (``rejection.refuse``). `REDUCE_CUTOFF` also crosses a tie that is both
 cut off and non-interactive (M5.B.3).
 """
@@ -55,7 +54,7 @@ class MissingTie(ValueError):
 class InactiveTie(ValueError):
     """A move was addressed across a non-interactive tie (a worry edge, M4.A.4), which carries no events.
 
-    From Phase D B4 a cut-off tie stays interactive (M1.B.3c): its moves are delivered and refused at the
+    A cut-off tie stays interactive (M1.B.3c): its moves are delivered and refused at the
     cutter (``rejection.refuse``). `REDUCE_CUTOFF` (M5.B.3) also crosses a tie that is both cut off and
     non-interactive.
     """

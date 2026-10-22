@@ -1,4 +1,4 @@
-"""The belief store about ties a person is not party to — `M9.8`, Phase C's minimal form (P2a).
+"""The belief store about ties a person is not party to (`M9.8`).
 
 Purpose: hold, per person, a belief about the state of each tie it is not party to,
          written only from moves delivered to that person as target or witness,
@@ -31,10 +31,7 @@ fidelity-weighted mean, and the belief moves toward it by
 ``belief_rate × mean fidelity`` — order-independent, so the batch rule (`M1.F.8`)
 holds. A belief with nothing delivered does not move: there is no drift toward
 truth, which is what lets a misperceived alliance persist (`M9.8`). The smoothing
-rule is [I] (revision 12, P2a).
-
-The rest of `M9` — the family-level store, attribution (`M9.6`), belief as a
-channel into appraisal (`M9.7`) — is Phase D.
+rule is [I].
 """
 
 from __future__ import annotations

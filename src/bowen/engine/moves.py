@@ -1,4 +1,4 @@
-"""Move physics — what each act does beyond its contact and impingement components (Phase C plan D5).
+"""Move physics — what each act does beyond its contact and impingement components.
 
 Purpose: apply, on delivery, each move's specific effect on state — binding by
          `DISTANCE`, the triangle's transfer to its outsider, the functioning
@@ -23,15 +23,12 @@ members, split equally, on `RECONCILIATION` (``event_effects``). Total anxiety i
 unchanged by the act: distance is not a way of destroying it.
 
 **`TRIANGLE`** (`M1.C.1`, `KS03.1`). The sender turns to the target, a third party
-it recruits into a tense twosome (`M1.F.1b`: the act is addressed to the third party;
-L09.3: "tension above threshold recruits a third"). The tense twosome is the sender and
+it recruits into a tense twosome (`M1.F.1b`: the act is addressed to the third party).
+The tense twosome is the sender and
 the partner it is most strained with: among the closed triads holding the sender and the
 target, the third member who stands furthest from the sender's optimum on the sender's
 tie to them (ties broken by identifier). The sender and that partner are the inside pair;
-the target is outside, as step 6's readout has it. *Decided 2026-10-08 (owner request,
-`TODO.md`):* step 5 first read the act as an alliance — sender and target inside, the
-partner outside — which contradicted `M1.F.1b`, `M11.C.3`, `M11.C.42` and `M6.4`'s
-"`TRIANGLE` pair → outsider". *Decided 2026-10-09 (owner):* only the seeker (the sender)
+the target is outside, as step 6's readout has it. Only the seeker (the sender)
 moves anxiety, ``triangle_transfer_rate × capacity × s × third_help`` of its excess, to the
 outsider; the partner is not relieved. ``third_help`` is the outsider's calm times their bond
 with the seeker over their bonds with seeker and partner. The outsider generates
@@ -177,8 +174,8 @@ def third_help(state: RunState, seeker: PersonId, partner: PersonId, third: Pers
     Tests:   tests/bowen/test_moves.py::test_m1c1_anxious_third_helps_less,
              tests/bowen/test_moves.py::test_m1c1_third_aligned_with_partner_helps_less
 
-    Owner decision 2026-10-09 (``docs/PROPOSAL — TRIANGLE RELIEF AND CREDIT.md``): the seeker is helped as far as
-    the third is a positive experience. A third who is very anxious, or on the partner's side, helps less. [I]:
+    The seeker is helped as far as the third is a positive experience. A third who is very anxious, or on the
+    partner's side, helps less. [I]:
 
         help = (1 − third's excess / SCALE_MAX) × bond(seeker, third) / (bond(seeker, third) + bond(partner, third))
 
@@ -198,7 +195,7 @@ def triangle_transfer(state: RunState, event: Event, target: PersonId, params: E
     Tests:   tests/bowen/test_moves.py::test_m1c1_triangle_relieves_the_seeker_and_loads_the_third,
              tests/bowen/test_moves.py::test_m1c1_partner_not_relieved_by_seekers_triangle
 
-    Owner decision 2026-10-09: only the seeker is relieved. The partner, the one the seeker is most strained with,
+    Only the seeker is relieved. The partner, the one the seeker is most strained with,
     still defines the triad, and their anxiety eases only through their own act (for instance a third of their own).
     """
     found = triangle_partner(state, event.sender, target, params)
@@ -248,14 +245,14 @@ def initialise_functioning(people: dict[PersonId, Person], ties: dict[TieId, Rel
 
 
 def holds_position(state: RunState, holder: PersonId, other: PersonId, params: EngineParams) -> bool:
-    """Purpose: whether a person is holding a position toward another, read from behaviour (revision 21).
+    """Purpose: whether a person is holding a position toward another, read from behaviour.
     Spec:    docs/bowen_agent_model_spec_v2.md#M1.B.5, #M1.E.7
     Tests:   tests/bowen/test_moves.py::test_m1b5_a_stance_lapses_with_time_or_a_reactive_act
 
     Held when, within the last ``practice_window`` weeks, the person made a self-directed act or held back toward
     the other, at any load, and has made no reactive act toward them since (``external.record_stances`` ends the
     stance on one). Every avoiding or soothing act is automatic, so this includes `M1.E.7`'s test for "held their
-    position"; unlike `M1.E.7` it does not require the act to be under load (owner decisions 2026-10-12).
+    position"; unlike `M1.E.7` it does not require the act to be under load.
     """
     since = state.stances.get((holder, other))
     return since is not None and 0 < state.tick - since <= params.practice_window
@@ -346,15 +343,12 @@ def relax_pseudo_self(state: RunState, params: EngineParams) -> list[EffectRecor
     Spec:    docs/bowen_agent_model_spec_v2.md#M6.I.4, #M1.A.5c, #M11.C.24
     Tests:   tests/bowen/test_moves.py::test_m6i4_pseudo_self_settles_back_when_the_exchange_stops
 
-    Revision 27 (Phase D step 10; Claude's recommendation, approved 2026-10-16): "a borrowed rise does not survive
-    withdrawal of the source" (`M1.A.5c`), and the whisper of nature (`M11.C.24`, KS07.2): dissolve a discrepant pair
-    and the discrepancy reverses. Each week, for each tie on which the pair has exchanged (its functioning balance is
-    not zero), whose over-functioning member carries borrowed pseudo-self and the other lent, and between whom no
-    ``OVERFUNCTION`` or ``UNDERFUNCTION`` was sent in the last ``exchange_window`` weeks,
+    Each week, for each tie on which the pair has exchanged (its functioning balance is not zero), whose
+    over-functioning member carries borrowed pseudo-self and the other lent, and between whom no ``OVERFUNCTION`` or
+    ``UNDERFUNCTION`` was sent in the last ``exchange_window`` weeks,
     ``pseudo_self_relaxation_rate × min(|borrowed|, |lent|)`` moves back from the one who borrowed to the one who lent,
     with the same amount of ``functional_level``. Total pseudo-self is conserved (`M6.I.4`), and nothing rewrites
-    either person's basic level. Review 2026-10-12: without the balance condition pseudo-self moved between people who
-    never exchanged (2–6% of what moved), and a starting gap would relax from week 0.
+    either person's basic level (`M1.A.5c`, `M11.C.24`).
     """
     exchanged = {TieId.of(e.sender, t) for e in state.store.moves_in(state.tick - params.exchange_window, state.tick)
                  if e.kind in (OVERFUNCTION, UNDERFUNCTION) and e.sender is not None for t in e.targets if t != e.sender}
@@ -393,7 +387,7 @@ def reduce_cutoff(state: RunState, event: Event, tie: Relationship, params: Engi
     Tests:   tests/bowen/test_moves.py::test_m5b3_reduce_cutoff_cost_lands_on_the_third_party,
              tests/bowen/test_rejection.py::test_m5b3_accepted_contact_lowers_both_rejections_and_reopens_the_tie_at_zero
 
-    M1.B.3c (Phase D plan B4): the act lowers the actor's own rejection, and it is the contact the cutter accepts, so
+    M1.B.3c: the act lowers the actor's own rejection, and it is the contact the cutter accepts, so
     it lowers the target's too. The tie stops being cut off when neither holds any. Since a cutoff no longer makes a
     tie non-interactive, the act does not touch ``interactive``: a worry edge (M4.A.4) stays one.
     """

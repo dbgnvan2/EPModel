@@ -1,4 +1,4 @@
-"""An exact integer total that refuses a float (version 2 stage 1, S1.1).
+"""An exact integer total that refuses a float.
 
 Purpose: Python 3.12 changed the builtin ``sum()`` over floats to compensated summation, so a float total could differ
          in its last bits between 3.11 and 3.12. Every float total in ``src/bowen`` is a ``math.fsum``, exact on every

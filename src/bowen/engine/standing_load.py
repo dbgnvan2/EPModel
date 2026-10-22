@@ -6,14 +6,13 @@ Purpose: load every person from every tie each tick, whether or not anything
 Spec:    docs/bowen_agent_model_spec_v2.md#M4.C.1c, #M4.A.1, #M4.A.2, #M4.A.3, #M4.A.4, #M4.A.5, #M6.I.8, #M3.D.2
 Tests:   tests/bowen/test_mechanisms.py; tests/bowen/test_contact.py
 
-Spec revision 11 (`M4.C.1c`, owner decision A2.1) made the standing load the "too
-little" side of `M4.C.1`'s deviation function, so one function serves both the
-standing term and delivered events. The forms are in ``contact.py``; here, [I]:
+The standing load is the "too little" side of `M4.C.1`'s deviation function (`M4.C.1c`), so one function serves
+both the standing term and delivered events. The forms are in ``contact.py``; here, [I]:
 
     tie term  = standing_load_gain × steepness(fl) × too_little(person, tie, spike)
     self term = standing_load_gain × (100 − basic_level) / 100            (M4.A.5)
 
-What used to be separate rules now follows from the function:
+It follows from the function that:
 
 * a cut-off or non-interactive tie relaxes toward no contact, so its term is the
   largest a tie of that bond energy can carry (M4.A.4: worry edges need no new
@@ -22,9 +21,8 @@ What used to be separate rules now follows from the function:
   `RECONCILIATION` restores that resting contact at once (M4.A.3, M1.B.4);
 * a `TRIGGER` adds to the "too little" side on its tie, with no contact (M4.A.2).
 
-The self term is unchanged from Phase B: a function of ``basic_level`` only, with
-no parameter of its own (M4.A.5, M10.A.1), not divided by ``functional_level``
-because it is intra-person.
+The self term is a function of ``basic_level`` only, with no parameter of its own (M4.A.5, M10.A.1), not divided
+by ``functional_level`` because it is intra-person.
 """
 
 from __future__ import annotations

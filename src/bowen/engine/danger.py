@@ -1,14 +1,11 @@
-"""Danger: felt from what a person receives, or declared, and what it does (spec revision 30, `M1.B.3e`).
+"""Danger: felt from what a person receives, or declared, and what it does (`M1.B.3e`).
 
 Purpose: a person who keeps intruding on another comes to be felt as dangerous by them. Contact with a dangerous person
          costs the one who receives it, and a cutoff toward them is principled in proportion to the danger felt.
 Spec:    docs/bowen_agent_model_spec_v2.md#M1.B.3e
 Tests:   tests/bowen/test_origin_danger_focus.py
 
-The owner (2026-10-14): a self-chosen principled cutoff is "refusing contact with a person that is abusive or is a
-serious threat (criminal, drug addict) where contact is very risky for one's safety", and "Agents, like people, can
-become demanding to the point of being abusive, either because of tremendous stress or low level of differentiation."
-So danger is read from behaviour: the impingement a person receives from another (`M4.C.1`), averaged over
+Danger is read from behaviour: the impingement a person receives from another (`M4.C.1`), averaged over
 ``danger_window`` weeks, above ``danger_threshold``. A low-level or heavily stressed person intrudes more by the
 existing mechanisms, so danger emerges from level and stress; nothing names an abuser. A declared ``danger`` (family
 config) is a floor, for a threat the run does not simulate (a criminal, an addiction). [I] throughout.
@@ -43,10 +40,8 @@ def update_danger(state: RunState, batch: tuple[Delivery, ...], params: EnginePa
     move after the week's move effects and landed contacts (`tie_change` on that state). The cost reads last week's felt
     danger: ``danger_gain`` × felt danger × the move's intensity ÷ ``intensity_scale``,
     a source in `M6.4`'s table. Refused moves never reach here (`M1.B.3c`), so a cutoff ends the cost at once.
-    While a person holds rejection toward the other, the danger they feel from them does not fall (the owner,
-    2026-10-14: "hold felt danger while rejection is held"): a refused move is never received, so without this the
-    danger would fade once the cutoff worked and the cutoff would turn reactive by itself. It can still rise. A dead
-    person's declared danger stops being a floor.
+    While a person holds rejection toward the other, the danger they feel from them does not fall; it can still rise.
+    A dead person's declared danger stops being a floor.
     """
     week: dict[tuple[TieId, PersonId], float] = {}
     cost: dict[PersonId, float] = {}

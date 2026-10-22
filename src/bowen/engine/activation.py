@@ -8,9 +8,9 @@ The default regime — every person selects every fast tick — is the synchrono
 end of a range of activation schemes. It is a modelling assumption, graded
 [I] (M3.E.2), and the log header records which regime ran (M16.A.1a).
 
-Spec revision 28 (M7.C.1f, M2.A.0k): a person whose age the run tracks selects only from ``acting_age`` (10, the
-owner's) until death, and an inactive person (a retired coach, a family-of-origin holder) never selects. A run that
-tracks no ages, as every run before Phase D part II, is unchanged, so the version stays 1.
+A person whose age the run tracks selects only from ``acting_age`` (10, the owner's) until death (M7.C.1f), and an
+inactive person (a retired coach, a family-of-origin holder) never selects (M2.A.0k). A run that tracks no ages is
+unchanged.
 """
 
 from __future__ import annotations

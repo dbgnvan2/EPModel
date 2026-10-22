@@ -36,8 +36,8 @@ same move from a forceful sender can land as an assault, from a compliant one as
 empty words — "either hollow meaningless words or a hostile assault" (Ch21 · L21.2).
 
 **Of `M1.A.9`'s three inputs at three time scales**, this builds the behavioural
-drift. Private rehearsal is `PREPARE` (step 8); practice on a peripheral system
-arrives with the external agent and peripheral ties (step 9).
+drift. Private rehearsal is `PREPARE` (``iposition``); practice on a peripheral system
+arrives with the external agent and peripheral ties.
 """
 
 from __future__ import annotations

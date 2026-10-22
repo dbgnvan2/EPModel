@@ -16,11 +16,9 @@ a witness or a new peripheral triangle (visibility), whether the coach is in
 the outside position (M11.C.7), and whether a triangle is active (M1.C.3).
 Callers describe each occupant; this module never reads model state itself.
 
-The roles fall out of the rule rather than being special-cased. An external
-agent in the outside position counts because it is present and fused into no
-one (M8.2); one who has taken a side is fused into one of the two and does not
-count (M8.3). A member who is present but emotionally inactive — the displaced
-member of an interlocking triangle — is not *present* in this sense (M8.4).
+The roles fall out of the rule rather than being special-cased: an external agent
+in the outside position counts (M8.2), one who has taken a side does not (M8.3),
+and a displaced member is not *present* in this sense (M8.4).
 """
 
 from __future__ import annotations

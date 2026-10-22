@@ -1,11 +1,9 @@
-"""Attribution and the family's focus — step 3, with the tie beliefs (Phase D B8, spec revision 25).
+"""Attribution and the family's focus — step 3, with the tie beliefs.
 
 Purpose: write, for each person, where they believe the family's difficulty lies, from the moves they sent or were
          delivered; and write, for each person, what the family's anxious attention to them focuses.
 Spec:    docs/bowen_agent_model_spec_v2.md#M9.6, #M9.1, #M1.A.11c, #M4.B.2
 Tests:   tests/bowen/test_attribution.py
-
-Revision 25 is Claude's recommendation, approved by the owner 2026-10-16 (the owner asked for the work to proceed overnight).
 
 **Attribution** (`M9.6`). Each move the person sent, or that was delivered to them as target or witness, names a
 locus by its kind (``EventKinds.attribution``, from ``config/bowen/attribution.md``):

@@ -13,7 +13,7 @@ What counts as the person's own:
 * its own fields — acute and chronic anxiety, functional level, the two outside-ness
   axes, systems perspective, financial dependence, learned values;
 * for each tie it is party to: who is on the other end, whether the tie is live
-  (interactive; from Phase D B4 a cut-off tie stays live, M1.B.3c), whether it is cut off, and its **own** deviation on it (its own felt contact and
+  (interactive; a cut-off tie stays live, M1.B.3c), whether it is cut off, and its **own** deviation on it (its own felt contact and
   impingement against its own optimum);
 * public facts about the other end: alive, and whether it is an external agent;
 * the closed triads it belongs to — topology, not state — and, for each person it

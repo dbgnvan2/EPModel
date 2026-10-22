@@ -80,9 +80,8 @@ def withhold(state: RunState, selection: Selection, params: EngineParams) -> lis
 
     Nothing is emitted. The urge was computed and detected, so it occupies thought: the
     actor's investment in the tie toward the person it would have acted on rises by
-    ``withhold_investment_gain × intensity / intensity_scale`` (`M1.B.8`, [I]). "I did not
-    take any obvious I-position with Mother; I just did not anxiously hover over her"
-    (`KS08.1`): what the other no longer receives is the absence of the act.
+    ``withhold_investment_gain × intensity / intensity_scale`` (`M1.B.8`, [I]). What the other no longer receives
+    is the absence of the act.
     """
     records: list = [_record(state, selection, None)]
     if selection.withheld is None:
@@ -102,7 +101,7 @@ def stamp(state: RunState, selection: Selection) -> Channel:
     Tests:   tests/bowen/test_rejection.py::test_m1f1a_a_policy_act_is_stamped_with_its_kinds_channel
 
     Each policy act belongs to exactly one channel (``config/bowen/event_kinds.md``), so the channel that selected
-    it is its kind's. An ``I-POSITION`` sequence's steps are stamped the same way (Phase D plan B3).
+    it is its kind's. An ``I-POSITION`` sequence's steps are stamped the same way.
     """
     if selection.decided_by is DecidedBy.SCRIPTED:
         return Channel.SCRIPTED

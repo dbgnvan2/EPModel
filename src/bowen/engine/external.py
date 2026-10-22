@@ -1,4 +1,4 @@
-"""The external agent's contact — when it lands, and what a landing changes (Phase C step 9).
+"""The external agent's contact — when it lands, and what a landing changes.
 
 Purpose: decide, for each move an external agent delivers to a family member, whether
          it lands, and raise the recipient's systems perspective only then.
@@ -21,21 +21,19 @@ probability
 * **frequency** (`M1.E.8`) — with ``n`` contacts from the agent to the recipient in the last
   ``contact_window`` weeks, 1 up to ``contact_optimum`` and ``(optimum / n) ** contact_excess_exponent`` above it,
   so more coaching past a low rate is worse, not better.
-* **position** (`M8.2`, `M8.3`, `M8.5`; version 1, 2026-10-17, Claude's recommendation, approved by the owner
-  2026-10-17) — 0 if the agent holds no live position in a triangle it shares with the recipient: it has taken a side.
-  P9's sided coach is "drawn onto one spouse's side (``TRIANGLE`` toward him from her, and he goes along)", but a member
-  cannot send an external agent a ``TRIANGLE`` (`M5.B.4`, `M5.B.5`); the family-to-external move that draws a
-  professional onto one side is ``SPLIT``, consulting him without telling the others (Ch19 · L19.3). So the agent is on
-  a member's side for ``triangle_activity_window`` weeks after that member's ``SPLIT`` toward it; it has no move that
-  declines, so it always goes along. The count is ``positions_live``, the predicate `M8.5` requires. `M1.E.7e`'s lending
-  of pseudo-self by a sided coach is not built: a sided coach's contact lands nothing.
+* **position** (`M8.2`, `M8.3`, `M8.5`) — 0 if the agent holds no live position in a triangle it shares with the
+  recipient: it has taken a side. The agent is on a member's side for ``triangle_activity_window`` weeks after that
+  member's ``SPLIT`` toward it (the family-to-external move that draws a professional onto one side; a member cannot
+  send an external agent a ``TRIANGLE``, `M5.B.4`, `M5.B.5`); it has no move that declines, so it always goes along.
+  The count is ``positions_live``, the predicate `M8.5` requires. `M1.E.7e`'s lending of pseudo-self by a sided coach
+  is not built: a sided coach's contact lands nothing.
 * **own log** — 1 if the recipient's delayed view (`M16.D`: its own events older than
   ``delayed_view_weeks``) holds any move it sent, else 0: `M1.E.7c`'s fourth form, delayed
   self-observation, makes landing likelier. With the store emptied it never fires (`M16.T.6`).
 
 The occasion (`M1.E.7d`) is one keyed uniform per contact (``landed_contact``, dyad-keyed).
 A landed contact raises the recipient's ``systems_perspective`` by ``perspective_gain`` of
-its distance from 1. *Spec revisions 18 and 19 (owner, 2026-10-11):* a person's own practice also raises it — a
+its distance from 1. A person's own practice also raises it — a
 self-directed act (or ``WITHHOLD``) made under load that worked (the person held their position and the tie calmed
 over ``practice_window`` weeks) adds ``self_practice_gain`` of its distance from 1 (``self_practice``): perspective is
 self-discovered. Coaching gives larger, regular boosts to the same loop. It is never a reinforcement target
@@ -158,14 +156,14 @@ def apply_landed_contacts(state: RunState, batch: tuple[Delivery, ...], params: 
 
 def record_stances(state: RunState, selections, params: EngineParams) -> None:
     """Purpose: remember, per pair, the week a person took a stance toward the other, and end it on a reactive act.
-    Spec:    docs/bowen_agent_model_spec_v2.md#M1.B.5 (revision 21)
+    Spec:    docs/bowen_agent_model_spec_v2.md#M1.B.5
     Tests:   tests/bowen/test_moves.py::test_m1b5_holding_a_position_stops_the_exchange_both_ways,
              tests/bowen/test_moves.py::test_m1b5_a_stance_lapses_with_time_or_a_reactive_act
 
     A self-directed act or ``WITHHOLD`` toward someone takes a stance toward them. Any automatic act toward them ends
     it — over-functioning, pursuing, conflict, distancing, cutting off, giving way — and so does triangling a third
-    person in about them, the inside partner the ``TRIANGLE`` would form (owner decision 2026-10-12: a stance is
-    broken by behaving reactively toward that person). A fallback hold has no target and is not a stance.
+    person in about them, the inside partner the ``TRIANGLE`` would form. A fallback hold has no target and is not a
+    stance.
     """
     for selection in selections:
         if not selection.targets or selection.decided_by is DecidedBy.FALLBACK:
@@ -185,7 +183,7 @@ def record_stances(state: RunState, selections, params: EngineParams) -> None:
 
 
 class Practice(NamedTuple):
-    """A self-directed act under load awaiting judgement (revision 19)."""
+    """A self-directed act under load awaiting judgement."""
 
     actor: PersonId
     other: PersonId
@@ -195,21 +193,20 @@ class Practice(NamedTuple):
 
 def self_practice(state: RunState, selections, load: dict, params: EngineParams) -> list[EffectRecord]:
     """Purpose: a self-directed act that worked builds the person's systems perspective, slowly — self-discovered.
-    Spec:    docs/bowen_agent_model_spec_v2.md#M1.E.7 (revisions 18, 19)
+    Spec:    docs/bowen_agent_model_spec_v2.md#M1.E.7
     Tests:   tests/bowen/test_external.py::test_m1e7_a_self_directed_act_that_worked_builds_perspective
 
-    The owner, 2026-10-11: perspective "should be 'self discovered' and emerge from learned behaviour. If an agent
-    happens to do a 'systems' type behaviour and it works, the agent should be able to 'remember' that." It works when
-    the person held their position and the tie calmed (decided the same day): a self-directed act, or ``WITHHOLD``,
+    Perspective is self-discovered. It works when the person held their position and the tie calmed: a
+    self-directed act, or ``WITHHOLD``,
     made toward someone under load is judged ``practice_window`` weeks later. It counts if, over those weeks, the
     person made no avoiding or soothing act toward that person, and their own deviation on the tie is lower than when
     they acted. Then perspective rises by ``self_practice_gain`` of its distance from 1. Immediate relief does not
     count: a systems move often feels worse first (the change-back reaction), and the self-directed channel is never
     reinforced by relief (`M4.D.6d`).
 
-    When a stance works, the other functions up by ``system_adjust_gain`` (revision 19): they are not going to win.
+    When a stance works, the other functions up by ``system_adjust_gain``: they are not going to win.
     That gain is kept in the other's ``adjust_swing`` as a level up to ``system_adjust_gain``, renewed when the stance
-    works again, never stacked (revision 20). It settles back when they are calm (``stress_response.respond``), and the
+    works again, never stacked. It settles back when they are calm (``stress_response.respond``), and the
     estimator does not read it (`M1.A.4k`).
     """
     rows = []

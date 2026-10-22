@@ -10,9 +10,8 @@ Tests:   tests/bowen/test_mechanisms.py
 * Bond energy decays at ``bond_energy_decay_rate``, which M1.B.4 requires to be
   at or near zero (0 in Phase B).
 * M4.G.1: when the last ``hardening_run_length`` moves on a tie, in either
-  direction, are all ``DISTANCE``, the tie registers as distant — "three
-  withdrawals in a row … not three independent events". A cut-off tie stays cut off.
-* Revision 11 (`M4.C.1c`): felt contact relaxes toward its resting value and felt
+  direction, are all ``DISTANCE``, the tie registers as distant. A cut-off tie stays cut off.
+* `M4.C.1c`: felt contact relaxes toward its resting value and felt
   impingement toward zero (``contact.relax_contact``), so a severed tie's "too little"
   side builds over the ticks after the cut.
 """

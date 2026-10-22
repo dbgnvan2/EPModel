@@ -9,17 +9,16 @@ Tie events (TRIGGER, RECONCILIATION) and INSTITUTIONALIZE are applied at step 2
 of the tick they are scheduled for. They have no recipients — a TRIGGER is "no
 contact at all" (M4.A.2) — so they never pass through delivery. A CUTOFF is a
 move: it is delivered like any other and, on delivery, raises its sender's rejection
-of the target (M1.B.3c, Phase D plan B4); the tie stays interactive. No tie is ever
+of the target (M1.B.3c); the tie stays interactive. No tie is ever
 removed (M6.I.7: there is no exit from the field).
 
-Revision 11 (Phase C step 1, plan D2): a delivered CUTOFF also removes felt
-impingement on the tie at once, and that change is appraised — from Phase D, for
-the cutter only, since the target is the one rejected (M1.B.3c) —
-the relief `M11.C.4` needs now. Felt contact is not touched: it relaxes toward
+A delivered CUTOFF also removes the cutter's felt impingement on the tie at once, and that
+change is appraised for the cutter only, since the target is the one rejected (M1.B.3c):
+the relief `M11.C.4` needs. Felt contact is not touched: it relaxes toward
 zero over the following ticks, which is the cost that comes later (`M4.C.1c`).
 RECONCILIATION restores resting contact at once (`M1.B.4`: zero re-activation latency),
 and returns any anxiety `DISTANCE` bound into the tie to its members, split equally
-(`M1.D.2a` (c); Phase C step 5).
+(`M1.D.2a` (c)).
 """
 
 from __future__ import annotations
@@ -50,15 +49,14 @@ def nodal_spike(state: RunState, event: Event, params: EngineParams) -> list[Eff
     Tests:   tests/bowen/test_mechanisms.py::test_m4c1c_a_nodal_event_spikes_the_cut_ties_of_those_it_reaches,
              tests/bowen/test_mechanisms.py::test_m4c1c_a_nodal_event_leaves_uncut_ties_and_ties_to_the_dead_alone
 
-    Spec revision 32, the owner's form (2026-10-17: "cut ties, as TRIGGER"). Each tie of a person the event reaches
+    Each tie of a person the event reaches
     (``slow_tick.reached_by``, the estimator's reading of reach) that is cut off, with rejection held either way
     (`M1.B.3c`: cutoff is rejection), and whose two members are alive, takes a spike of ``nodal_spike_intensity`` on its
     standing term for the event's week, the next tick (this tick's standing load has run), as a ``TRIGGER`` on that tie
     would. Like a ``TRIGGER``'s, the spike is on the tie, so both its members feel it. A tie reached through both
     members is spiked once per event; spikes from separate events in one week add up, as ``TRIGGER``s do. Ties to the
     dead are left out (a death's own disposition, `M6.3`, covers them), and so are ties that are only not interactive:
-    a retired coach's, a removed member's while away, a criterion's arm (review 2026-10-17; Claude's recommendation,
-    kept by the owner 2026-10-19, version 2 plan Q10, narrowing "or not interactive" in the form the owner approved).
+    a retired coach's, a removed member's while away, a criterion's arm.
     """
     if event.kind not in state.kinds.nodal or params.nodal_spike_intensity <= 0:
         return []
@@ -131,7 +129,7 @@ def apply_structural_event(state: RunState, event: Event, params: EngineParams) 
 
 def _release_binder(state: RunState, event: Event) -> EffectRecord:
     """M1.F.9: the binder's held anxiety returns to the family budget; none is discarded. A symptom channel's hold
-    returns to the partners instead (revision 24)."""
+    returns to the partners instead."""
     binder = event.binder
     if binder.kind is BinderKind.TIE_DISTANCE:
         a, b = binder.target.split("~")

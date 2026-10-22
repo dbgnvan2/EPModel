@@ -1,15 +1,10 @@
-"""Stress moves functioning, up or down; and a stressor lasts as long as it is declared to (spec revision 18).
+"""Stress moves functioning, up or down; and a stressor lasts as long as it is declared to.
 
 Purpose: keep an exogenous stressor loading its target for its declared duration; move each person's functioning by
          what they do under load — up when they cope (the self-directed channel, or holding back), down when they
          avoid or soothe — scaled by their basic level; and let that movement settle back slowly when they are calm.
 Spec:    docs/bowen_agent_model_spec_v2.md#M1.A.5e, #M1.F.6, #M7.A.1
 Tests:   tests/bowen/test_stress_response.py
-
-The owner, 2026-10-11: "stressor induced anxiety 'forces' one to function up. E.g. job loss leads to responsible
-spending and serious job search OR it can lead to avoidance behaviour and 'soothing', e.g. drinking. This would be
-proportional to level of basic self and nature of stressor. Some stressors are short lived — partner mad for 2 turns
-vs. no job for 15 turns." (``docs/PROPOSAL — STRESS ON FUNCTIONING, COACHING AND SELF-WORK.md`` §1, approved.)
 
 * **A lasting stressor** (``register_stressors``, ``stressor_load``). An exogenous stressor of duration *d* arrives
   as before; for its next *d − 1* weeks it adds ``stressor_persistence`` × its arrival's size (intensity ÷
@@ -24,19 +19,16 @@ vs. no job for 15 turns." (``docs/PROPOSAL — STRESS ON FUNCTIONING, COACHING A
   - any other act leaves it.
   Nothing writes "a higher level copes": which channel a person chooses already rises with level (`M4.D.1a`), and the
   sizes scale with it.
-* **Calm is relative to the person** (revision 22, owner decisions 2026-10-12). Each person keeps a usual level: the
+* **Calm is relative to the person.** Each person keeps a usual level: the
   plain mean of their excess anxiety over the weeks so far for the first ``1 / usual_level_rate`` weeks, then a running
   average over about a year (``update_usual``). The load that drives the response is the excess above it, and a person
-  at or below it is calm. Measured before it: the Phase C family's own traffic held the coached pair 30–35 points
-  above chronic (the others 2–25), so against a fixed band of 5 they were never calm.
+  at or below it is calm.
 * **Settling** — a calm person sheds ``response_relaxation_rate`` of their ``stress_swing`` each week: slowly, and not
   as a symmetric restoring force (`M7.A.1`). What lasts is what the
   person kept doing. The same calm week sheds the same share of ``adjust_swing``, the functioning the person gained
-  when someone else's held stance worked (`M1.E.7`, revision 20): the owner decided that gain settles back.
+  when someone else's held stance worked (`M1.E.7`).
 
-``functional_level`` stays in [0, 100], and stress never pushes it below ``basic_level − stress_floor_below_basic``
-(revision 19, owner decision 2026-10-11): without that floor, soothing lowered functioning, which steepened
-reactivity, which brought more soothing, and anxiety ran away in 11 of 20 four-year runs of the Phase C family.
+``functional_level`` stays in [0, 100], and stress never pushes it below ``basic_level − stress_floor_below_basic``.
 Every form and constant is [I].
 """
 
@@ -53,7 +45,7 @@ from src.bowen.engine.state import ActiveStressor, RunState
 
 def register_stressors(state: RunState, events) -> None:
     """Purpose: a stressor declared to last more than one week keeps weighing on its targets after it arrives.
-    Spec:    docs/bowen_agent_model_spec_v2.md#M1.F.6 (revision 18)
+    Spec:    docs/bowen_agent_model_spec_v2.md#M1.F.6
     Tests:   tests/bowen/test_stress_response.py::test_m1f6_a_long_stressor_weighs_for_its_duration
     """
     for event in events:
@@ -65,7 +57,7 @@ def register_stressors(state: RunState, events) -> None:
 
 def stressor_load(state: RunState, params: EngineParams) -> list[EffectRecord]:
     """Purpose: step 1 — each lasting stressor loads its target this week; spent ones are dropped.
-    Spec:    docs/bowen_agent_model_spec_v2.md#M1.F.6 (revision 18), #M6.4
+    Spec:    docs/bowen_agent_model_spec_v2.md#M1.F.6, #M6.4
     Tests:   tests/bowen/test_stress_response.py::test_m1f6_a_long_stressor_weighs_for_its_duration
     """
     state.stressors = [s for s in state.stressors if s.last_tick is None or s.last_tick >= state.tick]
@@ -83,7 +75,7 @@ def stressor_load(state: RunState, params: EngineParams) -> list[EffectRecord]:
 
 
 def above_usual(person, carried: float) -> float:
-    """Purpose: how far this week's excess is above the person's usual level; 0 before they have one (revision 22).
+    """Purpose: how far this week's excess is above the person's usual level; 0 before they have one.
     Spec:    docs/bowen_agent_model_spec_v2.md#M1.A.5e
     Tests:   tests/bowen/test_stress_response.py::test_m1a5e_calm_is_relative_to_the_persons_usual_level
     """
@@ -91,14 +83,12 @@ def above_usual(person, carried: float) -> float:
 
 
 def update_usual(state: RunState, load: dict, params: EngineParams) -> None:
-    """Purpose: each living person's usual level follows their excess anxiety, slowly (revision 22).
+    """Purpose: each living person's usual level follows their excess anxiety, slowly.
     Spec:    docs/bowen_agent_model_spec_v2.md#M1.A.5e
     Tests:   tests/bowen/test_stress_response.py::test_m1a5e_the_usual_level_follows_slowly
 
     For the first ``1 / usual_level_rate`` weeks it is the plain mean of the weeks so far, so it catches up with the
-    family's own level within weeks; after that, a running average weighted ``usual_level_rate`` to the newest week
-    (owner decision 2026-10-12: started from week 0 alone, it sat near 0.5 while the family ran at 10-35, and the whole
-    first year was over-load).
+    family's own level within weeks; after that, a running average weighted ``usual_level_rate`` to the newest week.
     """
     for pid in sorted(state.people):
         person = state.people[pid]
@@ -112,7 +102,7 @@ def update_usual(state: RunState, load: dict, params: EngineParams) -> None:
 
 def respond(state: RunState, selections, load: dict, params: EngineParams) -> list[EffectRecord]:
     """Purpose: what a person does under load moves their functioning; calm, it settles back slowly.
-    Spec:    docs/bowen_agent_model_spec_v2.md#M1.A.5e (revision 18), #M7.A.1, #M1.E.7 (revision 20)
+    Spec:    docs/bowen_agent_model_spec_v2.md#M1.A.5e, #M7.A.1, #M1.E.7
     Tests:   tests/bowen/test_stress_response.py::test_m1a5e_coping_raises_functioning_and_soothing_lowers_it,
              tests/bowen/test_stress_response.py::test_m1e7_the_systems_adjustment_settles_back_when_calm_and_holds_under_load
     """

@@ -2,13 +2,13 @@
 
 Purpose: hold every state variable `M1` names, with the structural constraints
          that can be enforced at construction.
-Spec:    docs/bowen_agent_model_spec_v2.md#M1, #M14.A
+Spec:    docs/bowen_agent_model_spec_v2.md#M1.A.0, #M1.A.1, #M1.A.2, #M1.A.5, #M1.A.5a, #M1.A.5b, #M1.A.7, #M1.A.8, #M1.A.9, #M1.A.10, #M1.A.11, #M1.A.11c, #M1.A.12, #M1.A.13, #M1.A.14, #M1.A.14a, #M1.A.15, #M1.A.16, #M1.A.17, #M1.A.18, #M1.A.19, #M1.A.21, #M1.A.22, #M1.B.1, #M1.B.2, #M1.B.3, #M1.B.3c, #M1.B.3d, #M1.B.3e, #M1.B.5, #M1.B.6, #M1.B.8, #M1.B.9, #M1.B.10, #M1.B.11, #M1.B.12, #M1.C.1, #M1.C.3, #M1.C.4, #M1.C.5, #M1.D.1, #M1.D.2, #M1.D.2a, #M1.D.3, #M1.D.4, #M1.D.4a, #M1.D.5, #M1.D.6, #M1.D.7, #M3.C.2, #M4.C.1, #M5.C.1, #M6.3f, #M7.C.1h, #M7.D.4, #M14.A.1
 Tests:   tests/bowen/test_objects.py; tests/bowen/test_register.py
 
 State only. Mechanisms live in their own modules and are listed, with what they
 write, in the spec's `M14.A` register; every field below has a row there
-(`test_m14a_register_matches_object_fields`). A field whose writer is built in
-a later phase defaults to ``None`` or an empty container until that phase.
+(`test_m14a_register_matches_object_fields`). A field whose writer is not built
+defaults to ``None`` or an empty container.
 
 What is deliberately absent, because the spec forbids storing it:
 
@@ -39,7 +39,7 @@ class Role(enum.Enum):
 
 
 class Sex(enum.Enum):
-    """M1.A.21 — declared data; no Phase B mechanism reads it."""
+    """M1.A.21 — declared data; read only by the life course (``life_course``)."""
 
     FEMALE = "female"
     MALE = "male"
@@ -118,7 +118,7 @@ def _check_scale(name: str, value: float) -> None:
 @dataclass
 class Person:
     """Purpose: one human being, or one external professional (M1.A).
-    Spec:    docs/bowen_agent_model_spec_v2.md#M1.A
+    Spec:    docs/bowen_agent_model_spec_v2.md#M1.A.1, #M1.A.2, #M1.A.5, #M1.A.5a, #M1.A.7, #M1.A.8, #M1.A.9, #M1.A.10, #M1.A.11, #M1.A.11c, #M1.A.12, #M1.A.13, #M1.A.14, #M1.A.14a, #M1.A.15, #M1.A.16, #M1.A.17, #M1.A.18, #M1.A.19, #M1.A.21, #M1.A.22
     Tests:   tests/bowen/test_objects.py::test_m1a2_basic_level_out_of_range_raises_not_clips
     """
 
@@ -229,7 +229,7 @@ class Person:
 @dataclass
 class Relationship:
     """Purpose: the tie between exactly two persons; the unit of coupling state (M1.B).
-    Spec:    docs/bowen_agent_model_spec_v2.md#M1.B
+    Spec:    docs/bowen_agent_model_spec_v2.md#M1.B.1, #M1.B.2, #M1.B.3, #M1.B.3c, #M1.B.3d, #M1.B.3e, #M1.B.5, #M1.B.6, #M1.B.8, #M1.B.9, #M1.B.10, #M1.B.11, #M1.B.12, #M1.A.5b, #M1.D.2a, #M3.C.2, #M4.C.1
     Tests:   tests/bowen/test_objects.py::test_m1b1_tie_connects_exactly_two_persons
     """
 
@@ -282,7 +282,7 @@ class Relationship:
 @dataclass
 class Triangle:
     """Purpose: a persistent three-person configuration that binds anxiety (M1.C).
-    Spec:    docs/bowen_agent_model_spec_v2.md#M1.C
+    Spec:    docs/bowen_agent_model_spec_v2.md#M1.C.1, #M1.C.3, #M1.C.4, #M1.C.5
     Tests:   tests/bowen/test_objects.py::test_m1c3_topology_is_stored_apart_from_activity
     """
 
@@ -310,7 +310,7 @@ class Triangle:
 @dataclass
 class Family:
     """Purpose: family-level state — the budget and its three sinks (M1.D).
-    Spec:    docs/bowen_agent_model_spec_v2.md#M1.D
+    Spec:    docs/bowen_agent_model_spec_v2.md#M1.D.1, #M1.D.3, #M1.D.4, #M1.D.4a, #M1.D.5, #M1.D.6, #M1.D.7, #M5.C.1, #M7.D.4, #M6.3f, #M7.C.1h
     Tests:   tests/bowen/test_objects.py::test_m1d1_exactly_three_sinks
     """
 

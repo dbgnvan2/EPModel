@@ -18,14 +18,14 @@ The nine steps, and where each lives:
                               they are not party to move toward what was delivered
                               (``beliefs.update_beliefs``, M9.8)
 4. appraise ................. ``appraise.apply_appraisal``; delivered cutoffs; each delivered
-                              move's own effect (``moves.apply_move_effects``, plan D5);
+                              move's own effect (``moves.apply_move_effects``);
                               external-agent contact lands or not (``external``, M1.E.7)
 5. involvement .............. ``recompute.recompute_involvement``
 6. triangles ................ ``recompute.recompute_triangles``
 7. select ................... ``iposition.advance_sequences`` (M5.D); a person owed a
                               sequence step has it as the week's outcome; the activation
                               component names who else selects and the source supplies
-                              their selections (a script, or the policy from Phase C)
+                              their selections (a script, or the policy)
 8. act ...................... ``act.act``
 9. consolidate .............. ``symptoms.accumulate_symptoms`` (the integrator and onset,
                               M4.C.3, M7.D.1); ``reactive.update_attention_state``
@@ -36,8 +36,8 @@ The nine steps, and where each lives:
                               (M1.B.3c); ``learner.learn`` (M4.D.6,
                               crediting the tick's felt change); then the invariants assert
 
-The slow tick (M3.B.1) fires after the 52nd, 104th, … fast tick (``slow_tick.run_slow_tick``,
-Phase D plan B5): the basic-level estimator, chronic anxiety's fall with a rise, tie wear and
+The slow tick (M3.B.1) fires after the 52nd, 104th, … fast tick (``slow_tick.run_slow_tick``):
+the basic-level estimator, chronic anxiety's fall with a rise, tie wear and
 dyad age. Each week's history for the estimator is recorded first (``slow_tick.record_week``).
 """
 
@@ -82,7 +82,7 @@ STEPS = (
 
 
 class Source(Protocol):
-    """Where a tick's inputs come from. Phase B's is ``ScriptedSource``; Phase C adds the policy."""
+    """Where a tick's inputs come from: ``ScriptedSource``, or the policy's source."""
 
     def scheduled(self, tick: int) -> tuple[Event, ...]:
         """Exogenous and structural events whose tick this is."""

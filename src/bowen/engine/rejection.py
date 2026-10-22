@@ -1,24 +1,22 @@
-"""Cutoff as rejection (Phase D plan B4; owner decisions P1 and P2, 2026-10-10).
+"""Cutoff as rejection.
 
 Purpose: hold a cutoff as the cutter's rejection of the other, on a tie that stays open; refuse what the rejected
          person sends, at the sender's cost; and lower rejection when the cutter accepts contact.
 Spec:    docs/bowen_agent_model_spec_v2.md#M1.B.3c, #M5.B.3, #M4.C.1c, #M6.4
 Tests:   tests/bowen/test_rejection.py
 
-The owner, 2026-10-10: "cutoff is not about no interactions, which is distance, it is about the intensity of
-rejecting interaction." So:
+Absence of interaction is distance, not cutoff (`M1.B.3c`). So:
 
 * each member of a tie holds a ``rejection`` in [0, 1]; the tie is cut off while either holds any, and its
   ``tie_state`` says so. It stays interactive;
 * a move delivered to a person whose rejection of its sender is above ``rejection_refusal_threshold`` is **refused**,
   except ``CUTOFF`` and ``REDUCE_CUTOFF``. It does not reach that person at all. Their rejection rises, and the sender
-  bears the refusal as acute anxiety. Below the threshold the move is received as usual (spec revision 16, owner
-  decision 2026-10-11: graded rejection);
+  bears the refusal as acute anxiety. Below the threshold the move is received as usual (graded rejection);
 * rejection fades by ``rejection_fade`` every week (``fade_rejection``), so a single cutoff wears off unless refusals
   or further cutoffs renew it;
 * ``REDUCE_CUTOFF`` is the contact the cutter accepts. It lowers both members' rejection (``moves.reduce_cutoff``);
 * the pull back toward contact is not written here. While a tie is cut, neither member rests at any contact
-  (``contact.resting_contact``), so the "too little" side grows for both until the tie reopens (`M4.C.1c`, P2).
+  (``contact.resting_contact``), so the "too little" side grows for both until the tie reopens (`M4.C.1c`).
 
 Every rate is [I] (``config/bowen/constants.md``).
 """
@@ -149,7 +147,7 @@ def seed_declared_rejection(ties: dict, params: EngineParams) -> None:
     Tests:   tests/bowen/test_rejection.py::test_m1b3c_a_declared_cutoff_starts_open_with_both_members_rejecting
 
     [I]: neither family says which member cut the other off, so both hold ``declared_rejection``. A principled cutoff
-    names its holder (spec revision 29, `M1.B.3d`), so only that member holds it.
+    names its holder (`M1.B.3d`), so only that member holds it.
     """
     for tie_id in sorted(ties):
         tie = ties[tie_id]
@@ -163,9 +161,9 @@ def reactive_cutoff_cost(state: RunState, params: EngineParams) -> list[EffectRe
     Spec:    docs/bowen_agent_model_spec_v2.md#M1.B.3d, #M6.4
     Tests:   tests/bowen/test_cutoff_and_focus.py::test_m1b3d_reactive_cutoff_raises_the_cutters_anxiety
 
-    cost = reactive_cutoff_gain × rejection held × (100 − basic_level) ÷ 100, [I] (spec revision 29, a placeholder the
-    owner accepted 2026-10-13). A principled cutoff (``tie.principled``) costs nothing; one toward a person felt as
-    dangerous costs in proportion to the danger not felt (`M1.B.3e`, revision 30).
+    cost = reactive_cutoff_gain × rejection held × (100 − basic_level) ÷ 100, [I] (a placeholder the owner
+    accepted). A principled cutoff (``tie.principled``) costs nothing; one toward a person felt as
+    dangerous costs in proportion to the danger not felt (`M1.B.3e`).
     """
     paid: dict[PersonId, float] = {}
     for tie_id in sorted(state.ties):

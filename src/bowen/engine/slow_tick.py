@@ -1,4 +1,4 @@
-"""The slow tick, and the basic-level estimator (Phase D plan B5, B6).
+"""The slow tick, and the basic-level estimator.
 
 Purpose: once a year (every ``slow_tick_fast_ticks`` fast ticks, the first at the end of week 51), estimate each
          person's ``basic_level`` from their functioning history, lower chronic anxiety only with a rise, wear each
@@ -8,14 +8,13 @@ Spec:    docs/bowen_agent_model_spec_v2.md#M3.B.1, #M1.A.4a, #M1.A.4b, #M1.A.4d,
 Tests:   tests/bowen/test_slow_tick.py
 
 **The history** (``record_week``, at the end of every fast tick): per person, the week's ``functional_level`` less
-its pseudo-self, borrowed or lent (revisions 19 and 23), and any gain from the system adjusting to someone else's stance
-(revision 20), the
+its pseudo-self, borrowed or lent, and any gain from the system adjusting to someone else's stance, the
 load they carried when they chose (excess acute anxiety over the chronic floor), whether they acted in the
 self-directed channel or withheld, and the kinds of nodal event that reached them: any major event on a person,
-listed in ``config/bowen/nodal_events.md`` (spec revision 17). It keeps the last
+listed in ``config/bowen/nodal_events.md``. It keeps the last
 ``estimator_window`` slow ticks of weeks.
 
-**The estimate** (``estimate``; owner decision P4, spec ``M1.A.4k``). Once the window is full:
+**The estimate** (``estimate``; ``M1.A.4k``). Once the window is full:
 
     m, sd = the load-weighted mean and standard deviation of functional_level        (M1.A.4b)
     b     = the number of distinct kinds of nodal event in the window                (breadth)
@@ -25,12 +24,12 @@ listed in ``config/bowen/nodal_events.md`` (spec revision 17). It keeps the last
 ``basic_level`` rises by ``estimator_rate × (basic_level / 100) × q × e`` when ``e > 0``, ``b ≥ estimator_breadth``
 and the person is not financially dependent (``M7.A.1a``). ``basic_level / 100`` is ``M1.A.4d``'s falloff toward the
 bottom of the scale, with no hard gate. A benign window carries no load, so it carries no evidence. ``basic_level``
-does not fall in D-I (plan B6). Every form and constant is [I].
+never falls here (``assert_slow_invariants``). Every form and constant is [I].
 
-**Chronic anxiety** (``M7.B.1``, owner decision P5) changes only with a rise in ``basic_level``, keeping its share of
+**Chronic anxiety** (``M7.B.1``) changes only with a rise in ``basic_level``, keeping its share of
 the distance to the top of the scale: ``chronic × (100 − new) / (100 − old)``. It never drifts and never rises.
 
-**Tie wear** (``M7.E.4``, P5, P6): each slow tick a tie's conductance falls by ``tie_wear_rate × mean chronic / 100``
+**Tie wear** (``M7.E.4``): each slow tick a tie's conductance falls by ``tie_wear_rate × mean chronic / 100``
 of itself, less ``wear_offset_per_act`` of that for each ``STAY-IN-CONTACT`` sent on it over the year, to none. Bond
 energy is untouched (``M1.B.4``). Only a ``STAY-IN-CONTACT`` that reached the other counts: one refused under
 ``M1.B.3c`` offsets nothing.
@@ -72,7 +71,7 @@ def history_length(params: EngineParams) -> int:
 
 
 def reached_by(state: RunState, event) -> set[PersonId]:
-    """Purpose: everyone a nodal event counts for — whom it happens to and whom it reaches (spec revision 17).
+    """Purpose: everyone a nodal event counts for — whom it happens to and whom it reaches.
     Spec:    docs/bowen_agent_model_spec_v2.md#M1.A.4k
     Tests:   tests/bowen/test_slow_tick.py::test_m1a4k_a_nodal_event_counts_for_everyone_it_reaches
 
@@ -168,7 +167,7 @@ def run_slow_tick(state: RunState, params: EngineParams) -> list[EffectRecord]:
     Spec:    docs/bowen_agent_model_spec_v2.md#M3.B.1, #M7.A.1, #M7.B.1, #M7.E.4
     Tests:   tests/bowen/test_slow_tick.py::test_m3b1_slow_tick_fires_at_the_end_of_week_51_not_at_week_0
 
-    The life-stage update (``M7.C.1``) is a D-II hook and does nothing here.
+    The life course (``M7.C.1``) runs after this, in ``life_course.yearly``, not here.
     """
     before = {pid: (p.basic_level, p.chronic_anxiety) for pid, p in state.people.items()}
     people = []

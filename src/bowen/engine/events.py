@@ -3,7 +3,7 @@
 Purpose: carry every field `M1.F` requires on an event, schedule each recipient's
          delivery by its tie's latency, and hand out same-tick deliveries as one
          canonically ordered batch.
-Spec:    docs/bowen_agent_model_spec_v2.md#M1.F, #M3.C.1, #M3.C.2, #M16.A.2
+Spec:    docs/bowen_agent_model_spec_v2.md#M1.F.1, #M1.F.1a, #M1.F.1b, #M1.F.2, #M1.F.6, #M1.F.7, #M1.F.8, #M1.F.9, #M3.C.1, #M3.C.2, #M3.D.1, #M16.A.2
 Tests:   tests/bowen/test_events.py
 
 Event *kinds* are editorial and are named in ``config/bowen/event_kinds.md``
@@ -51,7 +51,7 @@ class EventKinds:
     entry, and every event sent from no position, is +1.
 
     ``components`` maps a kind to its (contact, impingement) components per unit
-    of scaled intensity (M4.C.1, revision 11; Phase C plan D2). A kind with no
+    of scaled intensity (M4.C.1). A kind with no
     entry moves neither.
     """
 

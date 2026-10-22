@@ -2,7 +2,8 @@
 
 Purpose: define what a run records (M16.A) and how records leave the engine
          without the engine writing anything (M16.B.1).
-Spec:    docs/bowen_agent_model_spec_v2.md#M16.A, #M16.B.1, #M3.D.5
+Spec:    docs/bowen_agent_model_spec_v2.md#M16.A.1, #M16.A.1a, #M16.A.2, #M16.A.3, #M16.A.3a, #M16.A.3b, #M16.A.3c,
+         #M16.A.4, #M16.A.5, #M16.A.5a, #M16.A.6, #M16.A.7, #M16.B.1, #M3.D.5
 Tests:   tests/bowen/test_log_records.py
 
 Every record serialises to one line of canonical JSON — sorted keys, no
@@ -85,9 +86,8 @@ class DeliveredRecord:
 class SelectionRecord:
     """M16.A.3, .3a, .3b, .3c — the rationale, not only the outcome.
 
-    In Phase B every selection is ``SCRIPTED`` with empty propensities, no
-    draw, no beliefs and no legal set; the fields exist so Phase C fills them
-    without a format change.
+    A ``SCRIPTED`` selection has empty propensities, no draw, no beliefs and no
+    legal set; a policy selection fills them.
     """
 
     tick: int

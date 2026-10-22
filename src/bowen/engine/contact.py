@@ -6,10 +6,9 @@ Purpose: hold, per person per tie, how much contact the person receives and how
 Spec:    docs/bowen_agent_model_spec_v2.md#M4.C.1, #M4.C.1a, #M4.C.1b, #M4.C.1c, #M1.B.4
 Tests:   tests/bowen/test_contact.py
 
-Spec revision 11 re-derived `M4.C.1` from Kerr's KS03.2 and KS06.3: anxiety rises
-with deviation from a felt contact optimum on **either** side — too little
-contact, too much impingement. The forms below are Phase C plan decision D2.
-Every constant is invented ([I]) and lives in ``config/bowen/constants.md``.
+Anxiety rises with deviation from a felt contact optimum on **either** side — too little
+contact, too much impingement (`M4.C.1`). The forms below are the project's, and
+every constant is invented ([I]) and lives in ``config/bowen/constants.md``.
 
     steepness(fl)  = SCALE_MAX / max(fl, floor)                      (M4.C.1a: falls as fl rises)
     band(fl)       = contact_band_max × fl / SCALE_MAX               (M4.C.1a: widens as fl rises)
@@ -22,7 +21,7 @@ Every constant is invented ([I]) and lives in ``config/bowen/constants.md``.
 ``excess`` is acute anxiety above the chronic floor. Felt contact relaxes toward
 its resting value each tick and felt impingement relaxes toward zero, so a
 severed tie's "too little" side **builds over time** rather than arriving in
-full at the act (`M4.C.1c`, revision-12 finding 6). The two drives are the same
+full at the act (`M4.C.1c`). The two drives are the same
 for every person and are never learned (`M4.C.1`).
 """
 
@@ -122,7 +121,7 @@ def loss_weight(person: Person, tie: Relationship) -> float:
              tests/bowen/test_origin_danger_focus.py::test_m1b3e_a_cutoff_toward_danger_is_principled_in_proportion
 
     A declared principled cutoff, while its rejection is held: 0. Any other held rejection: 1 − the danger the person
-    feels from the other (revision 30). No rejection held: 1.
+    feels from the other. No rejection held: 1.
     """
     if tie.rejection.get(person.id, 0.0) <= 0.0:
         return 1.0

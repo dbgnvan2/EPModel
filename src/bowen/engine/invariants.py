@@ -3,19 +3,19 @@
 Purpose: raise — never warn — when a tick leaves the model in a state the
          invariants forbid, including any change to an anxiety stock that no named
          source, sink or transfer accounts for.
-Spec:    docs/bowen_agent_model_spec_v2.md#M6, #M6.4, #M4.G.2, #M4.G.2a, #M6.1
+Spec:    docs/bowen_agent_model_spec_v2.md#M6.I.1, #M6.I.2, #M6.I.3, #M6.I.4, #M6.I.5, #M6.I.6, #M6.I.7, #M6.I.8, #M6.4, #M4.G.2, #M4.G.2a, #M6.1, #M1.B.3c, #M1.D.1, #M1.D.3
 Tests:   tests/bowen/test_mechanisms.py::test_m4g2_invariants_asserted_every_tick; tests/bowen/test_ledger.py
 
-What each check means from Phase C step 10:
+What each check means:
 
 * M6.I.1 — exactly three sinks; every allocation, and the overflow, non-negative; their
   total within the budget; and the budget changed only by records that name it — a
   completed differentiating exchange (its one sink) and ``binder_unavailable``'s return.
 * M6.I.2 — the sinks are exactly the three, so distance is not one of them.
-* M6.I.3 — ``life_energy_ratio`` is unset or within [0, 1] (life energy is not built in C).
+* M6.I.3 — ``life_energy_ratio`` is unset or within [0, 1] (life energy is not built).
 * M6.I.4 — total pseudo-self is unchanged by the tick.
 * M6.I.5 — ``basic_level`` is unchanged by a fast tick.
-* **M6.I.6, restated at revision 12 — the ledger of `M6.4`.** Every person's change in acute
+* **M6.I.6 — the ledger of `M6.4`.** Every person's change in acute
   anxiety over the tick equals the sum of the changes the tick's records log for them, every
   tie's bound anxiety likewise, and every record that logs one is of a mechanism `M6.4`
   names: a source, a sink or a transfer (``LEDGER``). Each transfer record balances: what it
@@ -23,7 +23,7 @@ What each check means from Phase C step 10:
   name (the outsider's positional anxiety). An unnamed or unlogged change raises.
 * M6.I.7 — no person and no tie has left the field.
 * M6.I.8 — the standing load ran before delivery this tick, on every tie.
-* M1.B.3c — a tie is cut off exactly while a member holds rejection, and rejection is in [0, 1] (Phase D B4).
+* M1.B.3c — a tie is cut off exactly while a member holds rejection, and rejection is in [0, 1].
 """
 
 from __future__ import annotations

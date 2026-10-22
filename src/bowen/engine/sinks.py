@@ -1,4 +1,4 @@
-"""Sink allocation — where the family's undifferentiation is absorbed (Phase C step 10).
+"""Sink allocation — where the family's undifferentiation is absorbed.
 
 Purpose: reallocate the undifferentiation budget among the three sinks and the overflow
          each week from what the family did, conserving the budget, and lower the
@@ -55,7 +55,7 @@ def sink_weights(state: RunState, params: EngineParams, family=None) -> dict[str
     Spec:    docs/bowen_agent_model_spec_v2.md#M1.D.1, #M1.D.3
     Tests:   tests/bowen/test_sinks.py::test_m1d1_marital_conflict_draws_the_budget_to_its_sink
 
-    ``family`` defaults to the reference family; spec revision 28 adds the families partnering makes (`M7.C.1h`).
+    ``family`` defaults to the reference family; the others are the families partnering makes (`M7.C.1h`).
     """
     family = family or state.family
     weights = {Sink.MARITAL_CONFLICT.value: 0.0, Sink.SPOUSE_DYSFUNCTION.value: 0.0,

@@ -1,4 +1,4 @@
-"""The learner — the automatic channel repeats what relieved (Phase C step 7, plan D4).
+"""The learner — the automatic channel repeats what relieved.
 
 Purpose: credit each automatic act with the felt change in anxiety over a short
          horizon after it — the actor's own and, weighted, its target's and
@@ -21,11 +21,9 @@ eligible act of age ``k`` (0 in the tick it was sent) gains
 
     credit_discount ** k × ( −Δ(actor) + cross_person_weight × bond-weighted mean −Δ(target, witnesses) )
 
-except that a ``TRIANGLE``'s recruited third is left out of the mean (owner decision 2026-10-09). *Revision 26 (Phase
-D B9; Claude's recommendation, approved 2026-10-16):* the mean is weighted by the actor's bond energy on its tie to
-each other person, so whose calming the act is credited with follows the tie: a child's tie to a parent outweighs a
-thin tie to a witness, which is "her calming is the reinforcement" (`M4.D.6e`) without naming a parent in any rule.
-Another person with no tie to the actor carries no weight.
+except that a ``TRIANGLE``'s recruited third is left out of the mean. The mean is weighted by the actor's bond
+energy on its tie to each other person, so whose calming the act is credited with follows the tie (`M4.D.6e`), and
+another person with no tie to the actor carries no weight.
 
 Relief is positive. The cross-person term is how a child learns that acting as the
 parent's image predicts calms the parent (`FE07.4`). Nothing outside ``credit_horizon``
@@ -38,7 +36,7 @@ of ``Δ``: an anxious person's every act shares in it.
 ``habituation_rate ** n``, where ``n`` is how many identical acts (same kind, same target)
 the actor sent in the ``habituation_window`` ticks before this one. A cost is not habituated.
 
-**The update** (plan D4): ``value ← value + learning_rate × (signal − value)``.
+**The update**: ``value ← value + learning_rate × (signal − value)``.
 """
 
 from __future__ import annotations
@@ -101,7 +99,7 @@ def register_acts(state: RunState, selections: tuple[Selection, ...], params: En
 
 
 def cross_person_relief(state: RunState, actor: PersonId, others, relief: dict[PersonId, float]) -> float:
-    """Purpose: the others' relief after an act, weighted by the actor's bond energy on its tie to each (revision 26).
+    """Purpose: the others' relief after an act, weighted by the actor's bond energy on its tie to each.
     Spec:    docs/bowen_agent_model_spec_v2.md#M4.D.6e
     Tests:   tests/bowen/test_learner.py::test_m4d6e_the_cross_person_term_weighs_the_closer_tie_more
     """
@@ -146,12 +144,10 @@ def learn(state: RunState, start_acute: dict[PersonId, float], params: EnginePar
 
 def soothing_review(state: RunState, params: EngineParams) -> list[EffectRecord]:
     """Purpose: now and then a person asks "is soothing helping me?" — and if it did not, soothing loses its appeal.
-    Spec:    docs/bowen_agent_model_spec_v2.md#M4.D.6 (revision 19)
+    Spec:    docs/bowen_agent_model_spec_v2.md#M4.D.6
     Tests:   tests/bowen/test_learner.py::test_m4d6_a_soothing_review_lowers_soothing_that_did_not_help
 
-    The owner, 2026-10-11: "If soothing outnumbers coping, that's often because of lower basic level. Some people
-    learn, eventually, that soothing isn't really the answer. … from time to time … an agent should ask — is soothing
-    helping me?" Every ``soothing_review_every`` weeks each person asks with probability
+    Every ``soothing_review_every`` weeks each person asks with probability
     ``(basic_level / 100 + systems_perspective) / 2`` (one keyed draw). Looking back over that stretch, soothing
     helped if their load ``practice_window`` weeks after soothing was lower than when they soothed. If it did not,
     every positive learned value of an avoiding or soothing act is cut by ``soothing_review_penalty`` of itself.
@@ -229,7 +225,7 @@ def learn_from_witnessed(state: RunState, params: EngineParams) -> list[EffectRe
     cutter, the person cut off and the others, read as it is (not through belief). Every learned value of ``CUTOFF``
     in the witness's current band, in both positions, toward each family member they are tied to, takes a step of
     ``witnessed_cutoff_gain`` toward it, the form of `M4.D.6a`'s update, so it stays bounded. The kind of cutoff is not
-    read: one that lets the cutter function up teaches that cutoff is good (the owner, 2026-10-13).
+    read: one that lets the cutter function up teaches that cutoff is good.
     """
     due = [w for w in state.witnessed if state.tick - w.tick >= params.witness_window]
     if not due:

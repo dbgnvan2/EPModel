@@ -6,10 +6,10 @@ Spec:    docs/bowen_agent_model_spec_v2.md#M16.B.3, #M16.C.4, #M16.D.1, #M1.F.7
 Tests:   tests/bowen/test_events.py::test_m16b3_event_store_answers_per_person_queries
 
 M16.B.3 separates two things called logging. This is the **event store**: it
-has no off switch, because `M1.E.7c`'s first and fourth forms read from it
-(Phase C), so disabling it would change behaviour. The optional **persistence
+has no off switch, because `M1.E.7c`'s first and fourth forms read from it,
+so disabling it would change behaviour. The optional **persistence
 sink**, which must be a pure observer, is ``src/bowen/io/sinks.py``.
-The delayed, scoped view of `M16.D` is built on these queries in Phase C.
+The delayed, scoped view of `M16.D` is built on these queries (``delayed_view``).
 """
 
 from __future__ import annotations

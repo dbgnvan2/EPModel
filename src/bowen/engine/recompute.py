@@ -14,15 +14,13 @@ ones below are the project's, graded [I]:
 * A triangle is **active** when a ``TRIANGLE`` act among its three members falls
   within the last ``triangle_activity_window`` ticks **and** all three members
   hold live positions by the M8 predicate (M8.5). This is a **readout of recent
-  acts**, not a threshold on tension: spec revision 11 amended `M1.C.3` so that
-  quiet in a calm system is a result — with little tension a triangle gives little
-  relief and is not reinforced — and forbade a calm-system threshold in this step.
-  *Changed at Phase C step 1; Phase B used ``tension_activation_threshold``.*
+  acts**, not a threshold on tension (`M1.C.3`: quiet in a calm system is a result,
+  and this step applies no calm-system threshold of its own).
 * While active, its outside member is the target of the latest ``TRIANGLE`` act within
   the window — the third party the act recruits — and the sender and the remaining
-  member are the inside pair (`M1.C.1`; decided 2026-10-08, see ``moves.py``).
+  member are the inside pair (`M1.C.1`).
   ``activation_memory`` counts the ticks it has been active (M1.C.4's record,
-  which the learner reads from Phase C step 7).
+  which the learner reads).
 * **`DETRIANGLE`** (`M5.B.1`) from a member of the triangle to another member returns
   that member to neutral: every `TRIANGLE` act in the triangle that they sent or were
   the target of, up to the tick of the `DETRIANGLE`, stops counting. Nothing else
@@ -30,7 +28,7 @@ ones below are the project's, graded [I]:
   their knowledge is intact and only their position moves.
 * **`PREVENT_ALIGNMENT`** (`M5.B.2`) from a member to another member acts before any
   alignment exists: for ``triangle_activity_window`` ticks from its own tick, a
-  `TRIANGLE` act between the target and a member other than the sender does not count. It is available whether or not the triangle is active. *Phase C step 5.*
+  `TRIANGLE` act between the target and a member other than the sender does not count. It is available whether or not the triangle is active.
 
 """
 
@@ -123,7 +121,7 @@ def recompute_triangles(state: RunState, params: EngineParams) -> list[EffectRec
     Tests:   tests/bowen/test_mechanisms.py::test_m1c3_activity_is_a_readout_of_recent_triangle_acts,
              tests/bowen/test_mechanisms.py::test_m8_5_s1_4_a_sided_coach_leaves_its_triangle_active
 
-    Activity is decided by presence (`M8.5` as amended at revision 33): a coach's side is read for whether his contact
+    Activity is decided by presence (`M8.5`): a coach's side is read for whether his contact
     lands (``external.coach_live``), not for whether the triangle is active.
     """
     records = []

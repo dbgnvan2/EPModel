@@ -1,18 +1,17 @@
 """The life course — ages, acting, a child's development, launch, partners, births, deaths and the coach's career.
 
 Purpose: carry a run through a family's life course on the slow tick, and the weekly search for work after a lost
-         income, as spec revision 28 states them.
+         income.
 Spec:    docs/bowen_agent_model_spec_v2.md#M7.C.1, #M7.C.1a, #M7.C.1f, #M7.C.1g, #M7.C.1h, #M7.C.1i, #M7.C.1j,
          #M7.C.1k, #M7.B.1a, #M7.E.1f, #M7.E.1c, #M6.3, #M6.3a, #M6.3b, #M6.3c, #M6.3d, #M6.3e, #M6.3f, #M6.3g,
          #M6.3h, #M2.A.0k
 Tests:   tests/bowen/test_life_course.py
 
-Revision 28 applies the owner's decisions of 2026-10-13 (P13–P15); every form here is Claude's recommendation, approved
-by the owner 2026-10-16, and every constant is `[I]` unless the owner stated it (acting from 10, development from 5
-to 20 within a band of the parents' level that the parents' acts open, revision 31; the coach's ages, 20% less income).
+Every form here is the project's, and every constant is `[I]` unless the owner stated it (acting from 10,
+development from 5 to 20 within a band of the parents' level that the parents' acts open; the coach's ages, 20% less
+income).
 
-A run has a life course only when its family declares one (``state.life`` is not None). Every run before Phase D part
-II has none and is unchanged.
+A run has a life course only when its family declares one (``state.life`` is not None); a run without one is unchanged.
 
 **Each slow tick** (``yearly``), after the estimator and its invariants, in this order:
 
@@ -21,8 +20,8 @@ II has none and is unchanged.
    child's mean load over the year (`M7.B.1a`);
 3. a child develops (`M7.E.1f`): held at the parents' mean before 5; anchored at 5; from 6 to 20 moved by
    ``development_rate × d`` within a band around the anchor, where ``d`` is half the parents' mean functioning above
-   basic over the year and half the child's own. The band opens with the parents' acts to the child (revision 31,
-   R31.B7): from ``anchor × (1 − development_band − (development_band_projection − development_band) × p)`` to
+   basic over the year and half the child's own. The band opens with the parents' acts to the child: from
+   ``anchor × (1 − development_band − (development_band_projection − development_band) × p)`` to
    ``anchor × (1 + development_band + (development_band_support − development_band) × s)``, where ``p`` and ``s``
    are the shares of every act a living parent has sent the child since 5 that were projection-type and supportive
    (``note_parental_acts``; 0 with none). The acts open room; they do not move the level: a band that narrows under
@@ -38,7 +37,7 @@ as nodal events, and grief and lost income arrive as stressors (`M1.F.6`).
 
 **Each week** (``find_work``), after the acts: a member of a household with an unresolved loss of income finds work
 with a chance set by the pressure on them (`M7.C.1k`). After the week's record, ``note_parental_acts`` counts the
-acts each parent sent each child aged 5 to 19 (`M7.E.1f`, revision 31).
+acts each parent sent each child aged 5 to 19 (`M7.E.1f`).
 """
 
 from __future__ import annotations
@@ -189,14 +188,14 @@ def _living_parents(state: RunState, pid: PersonId) -> tuple[PersonId, ...]:
 
 
 def _parents_mean(state: RunState, pid: PersonId, name: str) -> float | None:
-    """The living parents' mean; None when both have died (review 2026-10-13: a dead parent's frozen values and the
-    history that stopped at their death are not this year's)."""
+    """The living parents' mean; None when both have died: a dead parent's frozen values and the history that
+    stopped at their death are not this year's."""
     parents = _living_parents(state, pid)
     return math.fsum(getattr(state.people[p], name) for p in parents) / len(parents) if parents else None
 
 
 def _member(person: Person) -> bool:
-    """A family member who takes part: not an external agent, not an inactive holder (review 2026-10-13)."""
+    """A family member who takes part: not an external agent, not an inactive holder."""
     return person.alive and person.role is Role.MEMBER and not person.inactive
 
 
@@ -275,8 +274,7 @@ def _redistribute_investment(state: RunState, person: PersonId, new_tie: TieId, 
 
 def _life_event(state: RunState, kind: str, origin: str, targets, *, exogenous: bool = True,
                 intensity: float = 0.0, duration: int = 1, mechanism: Mechanism = Mechanism.LIFE_EVENT) -> Event:
-    """A life event has no sender: it reaches its targets directly, so it needs no tie to them (the 2026-10-13
-    ensemble crashed when FIND_WORK named its taker as sender and a sibling with no tie to them as a target)."""
+    """A life event has no sender: it reaches its targets directly, so it needs no tie to them."""
     tick = state.tick + 1  # injected at the next week's delivery
     index = count(1 for e in state.life.pending if e.id.tick == tick and e.id.origin == origin)
     return Event(
@@ -349,7 +347,7 @@ def _year_mean(state: RunState, pid: PersonId, params: EngineParams, read) -> fl
 
 def _childhood(state: RunState, params: EngineParams) -> list[tuple]:
     """M7.B.1a and M7.E.1f: a child's chronic anxiety before 12, and its basic level from 5 to 20. Only living parents
-    are read; an orphan keeps the values they have and develops by their own functioning alone (review 2026-10-13)."""
+    are read; an orphan keeps the values they have and develops by their own functioning alone."""
     life, rows = state.life, []
     for pid in sorted(life.parents):
         person = state.people[pid]
@@ -402,14 +400,12 @@ def _childhood(state: RunState, params: EngineParams) -> list[tuple]:
 
 
 def development_band(acts: list | None, anchor: float, params: EngineParams) -> tuple[float, float]:
-    """Purpose: how far a developing child's level may go from its anchor, opened by the parents' acts (R31.B7).
+    """Purpose: how far a developing child's level may go from its anchor, opened by the parents' acts.
     Spec:    docs/bowen_agent_model_spec_v2.md#M7.E.1f
     Tests:   tests/bowen/test_life_course.py::test_m7e1f_projection_opens_room_to_fall_to_ten_percent,
              ::test_m7e1f_support_opens_room_to_rise_to_five_percent, ::test_m7e1f_no_parental_acts_keeps_two_percent_band
 
     ``acts`` is the child's [all, projection-type, supportive] count; with none, the band is ±``development_band``.
-    The owner, 2026-10-16: "No attention +-2%", "supportive, responsible behaviour attention - up to 5% growth",
-    "projection up to 10% negative".
     """
     p = s = 0.0
     if acts:
@@ -423,7 +419,7 @@ def development_band(acts: list | None, anchor: float, params: EngineParams) -> 
 
 
 def note_parental_acts(state: RunState, events, params: EngineParams) -> None:
-    """Purpose: after the week's record, count the acts each living parent sent each child aged 5 to 19 (revision 31).
+    """Purpose: after the week's record, count the acts each living parent sent each child aged 5 to 19.
     Spec:    docs/bowen_agent_model_spec_v2.md#M7.E.1f
     Tests:   tests/bowen/test_life_course.py::test_m7e1f_parental_acts_counted_from_the_acts_sent
 
@@ -449,7 +445,7 @@ def note_parental_acts(state: RunState, events, params: EngineParams) -> None:
 
 
 def note_origin_cutoff(state: RunState, params: EngineParams) -> None:
-    """Purpose: step 9 — each child at home adds the largest rejection a living parent holds this week (revision 30).
+    """Purpose: step 9 — each child at home adds the largest rejection a living parent holds this week.
     Spec:    docs/bowen_agent_model_spec_v2.md#M1.D.8a
     Tests:   tests/bowen/test_origin_danger_focus.py::test_m1d8a_read_from_the_parents_held_rejection_not_from_a_label
 
@@ -473,7 +469,7 @@ def note_origin_cutoff(state: RunState, params: EngineParams) -> None:
 
 
 def _set_origin_cutoff(state: RunState, pid: PersonId, params: EngineParams) -> list[tuple]:
-    """M1.D.8a, revision 30: at 20, the cutoff a person grew up with becomes an input for the rest of their life — more
+    """M1.D.8a: at 20, the cutoff a person grew up with becomes an input for the rest of their life — more
     chronic anxiety (intensity) and a larger pull toward closeness (fusion). Set once."""
     total, weeks = state.life.origin_exposure.pop(pid)
     person = state.people[pid]

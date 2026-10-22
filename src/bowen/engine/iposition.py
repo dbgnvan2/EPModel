@@ -1,4 +1,4 @@
-"""The `I-POSITION` state machine and the success state (Phase C step 8).
+"""The `I-POSITION` state machine and the success state.
 
 Purpose: run a person's differentiating sequence across weeks — prepare, define, meet
          the opposition, abort or hold, peak, resolve, follow up — from the person's
@@ -14,12 +14,12 @@ Whether a sequence aborts, stalls, peaks or completes is a result.
 
 **Starting** (`act.py`). The policy selects `I-POSITION` toward ``T``. If the mover's
 ``systems_perspective`` is below ``assertion_perspective_threshold``, or the mover is
-angry — its "too much" side on the tie above ``anger_threshold`` (`M5.D.4a`: anger is
-an intensity on the negative side of the appraisal, not a state) — it executes at once
+angry — its "too much" side on the tie above ``anger_threshold`` (`M5.D.4a`) — it
+executes at once
 as the **assertion form** (`M5.F.4`): an `I-POSITION` event flagged ``assertion``, which
 delivers ``assertion_gain`` more impingement (it raises reactivity on the tie) and
-raises the claimant's outward axis by ``assertion_evidence_gain`` (`M5.F.2a`: claiming
-the position is evidence against it). Otherwise a sequence starts in ``PREPARE`` and
+raises the claimant's outward axis by ``assertion_evidence_gain`` (`M5.F.2a`).
+Otherwise a sequence starts in ``PREPARE`` and
 nothing is emitted that week (`M5.D.2a`).
 
 **Each week, before selection** (``advance_sequences``):
@@ -31,9 +31,8 @@ nothing is emitted that week (`M5.D.2a`).
   due at once, less prepared. Less preparation leaves the axes higher and so the
   capacity to hold lower, which is how an unprepared sequence is less likely to peak.
 * ``DEFINE`` (an outcome) — the genuine `I-POSITION` event to ``T``. On delivery it
-  withdraws ``debit_gain`` of ``T``'s felt contact on the tie (`M5.E.7`: the move
-  withdraws energy the other was receiving; *a contact proxy, since `life_energy` is not
-  built*). The others' reaction is their own learned response (`M5.E.0`).
+  withdraws ``debit_gain`` of ``T``'s felt contact on the tie (`M5.E.7`; a contact proxy,
+  since `life_energy` is not built). The others' reaction is their own learned response (`M5.E.0`).
 * ``OPPOSITION`` — waits for the first impinging move delivered to the mover from
   anyone. With none in ``opposition_window`` weeks the move **did not land** (`M5.E.3`),
   not a success. At the first opposition the mover holds if its excess anxiety is within

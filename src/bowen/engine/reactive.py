@@ -110,7 +110,7 @@ def update_reactive_state(state: RunState, params: EngineParams) -> list[tuple]:
 
 
 def own_acts_attention(state: RunState, attended: dict, events, params: EngineParams) -> dict:
-    """Purpose: a projection-type act a person sends keeps their attention on that tie (revision 30).
+    """Purpose: a projection-type act a person sends keeps their attention on that tie.
     Spec:    docs/bowen_agent_model_spec_v2.md#M1.B.8b
     Tests:   tests/bowen/test_origin_danger_focus.py::test_m1b8b_a_projection_act_adds_to_the_senders_attention
 
@@ -158,13 +158,11 @@ def weakness_focus(state: RunState, load: dict, params: EngineParams) -> list[Ef
     For each family, each living parent whose load at selection is above their usual level adds to their investment on
     the tie to each dependent child: ``perceived_weakness_gain × load above usual ÷ 100 × shortfall``, [I]. The
     shortfall is how far the child's functional level is below their dependent siblings' mean (none for an only child),
-    plus the child's declared ``weakness`` × 100. No child is named: it is what the children show (revision 29).
-    Revision 30 (`M1.B.8b`): ``focus_compound_gain × load above usual ÷ 100 × total × share × (share − Σ share²)`` is
+    plus the child's declared ``weakness`` × 100. No child is named: it is what the children show.
+    `M1.B.8b`: ``focus_compound_gain × load above usual ÷ 100 × total × share × (share − Σ share²)`` is
     added, where share is the child's part of the parent's attention among the children and total that attention: a
     child above the share-weighted mean share gains what the others lose, so anxious focus moves to where it already is
-    and, once it starts, tends to grow (the owner, 2026-10-14). It adds no investment, so the total stays bounded (the
-    owner, 2026-10-14, "saturate the investment"; the earlier form, in proportion to investment, grew without limit).
-    Equal children stay equal.
+    and, once it starts, tends to grow. It adds no investment, so the total stays bounded. Equal children stay equal.
     """
     from src.bowen.engine.stress_response import above_usual  # stress_response imports this module's neighbours
 

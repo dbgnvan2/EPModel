@@ -25,7 +25,7 @@ from src.bowen.engine.objects import Family, Person, Relationship, Triangle
 
 @dataclass(frozen=True)
 class ActiveStressor:
-    """An exogenous stressor that lasts: it keeps loading its target each week after its arrival (revision 18)."""
+    """An exogenous stressor that lasts: it keeps loading its target each week after its arrival (M1.F.6)."""
 
     event_id: object
     target: PersonId

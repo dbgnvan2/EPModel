@@ -2,9 +2,10 @@
 
 Purpose: supply each tick's scheduled events and moves from a hand-written
          script, in place of the policy Phase C will build.
-Spec:    docs/bowen_agent_model_spec_v2.md#M13 (Phase B: "No policy — a fixed script drives it"), #M1.F.6, #M1.F.7, #M10.B.1, #M10.B.2
+Spec:    docs/bowen_agent_model_spec_v2.md#M1.F.6, #M1.F.7, #M10.B.1, #M10.B.2
 Tests:   tests/bowen/test_script.py
 
+The script is spec §M13's Phase B driver: no policy — a fixed script drives it.
 A script has two sections. **Events** are exogenous stressors and structural
 events (TRIGGER, RECONCILIATION, INSTITUTIONALIZE, BINDER_UNAVAILABLE), each
 with a start tick and a duration — spells, never per-tick probabilities
@@ -53,8 +54,11 @@ def _float(raw: str, where: str, name: str) -> float:
 @dataclass(frozen=True)
 class ScriptedSource:
     """Purpose: the Phase B Source — scheduled events and moves by tick.
-    Spec:    docs/bowen_agent_model_spec_v2.md#M13
+    Spec:    docs/bowen_agent_model_spec_v2.md#M1.F.6
     Tests:   tests/bowen/test_script.py::test_m13_script_parses_and_validates
+
+    Spec §M13's Phase B Source: a fixed script in place of the policy. Events are
+    spells with a start tick and a duration (`M1.F.6`).
     """
 
     script_id: str

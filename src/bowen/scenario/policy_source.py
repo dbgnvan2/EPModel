@@ -3,9 +3,10 @@
 Purpose: give every active person one outcome a tick from the policy, unless the
          script names a move for them that tick, and pass the script's exogenous and
          structural events through unchanged.
-Spec:    docs/bowen_agent_model_spec_v2.md#M4.D.1, #M4.B.2, #M13
+Spec:    docs/bowen_agent_model_spec_v2.md#M4.D.1, #M4.B.2
 Tests:   tests/bowen/test_policy.py::test_m4d1_exactly_one_outcome_per_person_per_tick
 
+This is spec §M13's Phase C Source: the script schedules, the policy selects.
 The policy sees each person only through ``observe`` (`M4.B.2`). Selections are made
 from the state as it stands at step 7, person by person in identifier order; no
 person's selection changes another's observation within the tick, because nothing is

@@ -2,12 +2,12 @@
 
 Purpose: turn a family declaration into Person, Relationship and Family objects,
          enforcing the reference-family rules that can be checked at construction.
-Spec:    docs/bowen_agent_model_spec_v2.md#M2, #M2.3, #M2.3a, #M2.A.0a, #M2.A.0c, #M2.A.0e, #M2.A.0h, #M1.D.8
+Spec:    docs/bowen_agent_model_spec_v2.md#M2.1, #M2.3, #M2.3a, #M2.A.0a, #M2.A.0c, #M2.A.0e, #M2.A.0h, #M2.A.0j, #M2.A.0k, #M7.C.1h, #M7.C.1i, #M1.D.8
 Tests:   tests/bowen/test_family.py
 
-Every value in a family declaration is invented (`M2`: "every value here is
-[I]"); the declaration says so in its ``grade`` metadata, and this module
-refuses one that does not.
+Every value in a family declaration is invented, `[I]` (spec §M2); the
+declaration says so in its ``grade`` metadata, and this module refuses one that
+does not.
 """
 
 from __future__ import annotations
@@ -70,7 +70,7 @@ class Relation(enum.Enum):
 @dataclass(frozen=True)
 class FamilyInstance:
     """Purpose: a constructed family — its objects plus the declaration facts that are not object state.
-    Spec:    docs/bowen_agent_model_spec_v2.md#M2
+    Spec:    docs/bowen_agent_model_spec_v2.md#M2.3, #M2.A.0j, #M1.D.8
     Tests:   tests/bowen/test_family.py::test_m23_reduced_instance_is_not_closed
     """
 
@@ -133,7 +133,7 @@ def _choice(raw: str, options: Mapping[str, object], where: str, name: str):
 
 
 def declares_life_course(text: str) -> bool:
-    """A family with a life course declares its starting ages (spec revision 28, M2.A.0j)."""
+    """A family with a life course declares its starting ages (M2.A.0j)."""
     return re.search(r"^start_age_g1:", text, re.M) is not None
 
 
@@ -239,7 +239,7 @@ def build_partners(text: str, constants: Constants, family_ids, *, source: str =
 
 
 def _principled(declared: str, ties: dict, source: str) -> None:
-    """M1.B.3d, revision 29: mark each declared principled cutoff on its tie; the tie must be declared cut off."""
+    """M1.B.3d: mark each declared principled cutoff on its tie; the tie must be declared cut off."""
     for entry in (e.strip() for e in declared.split(",") if e.strip() not in _NONE):
         holder, _, other = entry.partition(">")
         tie = ties.get(TieId.of(PersonId(holder.strip()), PersonId(other.strip()))) if other else None
@@ -458,7 +458,7 @@ def build_family(text: str, constants: Constants, *, source: str = "<family>",
 
 def _life(meta, people, ties, ages, parent_on_tie, pending_children, constants, source, partners_text,
           partners_source) -> LifeSettings:
-    """Spec revision 28: children's derived values (M2.A.0a, M7.B.1a, M7.E.1f), the coach (M2.A.0k), the partners."""
+    """Children's derived values (M2.A.0a, M7.B.1a, M7.E.1f), the coach (M2.A.0k), the partners."""
     fixation, development_end = constants["chronic_anxiety_fixation_age_years"], constants["development_end_age_years"]
     for pid in sorted(people):
         person, age = people[pid], ages[pid]

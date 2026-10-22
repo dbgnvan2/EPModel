@@ -13,9 +13,8 @@ A config document may contain only these kinds of line:
 * ``key: value`` metadata lines, for keys the caller declares;
 * exactly one markdown table, whose header must match the caller's columns.
 
-Anything else raises ``ConfigError`` with its line number. The frozen engine's
-``_apply_config`` skipped what it could not parse and fell back to defaults;
-``M10.B.2`` forbids that, so there is no fallback path here.
+Anything else raises ``ConfigError`` with its line number; there is no fallback
+path (``M10.B.2``).
 """
 
 from __future__ import annotations
@@ -145,7 +144,7 @@ def parse_sectioned_document(
 
     The preamble before the first section may hold headings, notes and the
     declared metadata, but no table. Every declared section must appear once;
-    an undeclared section raises. ``optional_keys`` may appear and need not (spec revision 29).
+    an undeclared section raises. ``optional_keys`` may appear and need not.
     """
     lines = text.splitlines()
     starts = [i for i, line in enumerate(lines) if line.startswith("## ")]

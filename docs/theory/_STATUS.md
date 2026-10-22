@@ -1,6 +1,15 @@
 # Run status — HANDOFF
 
-> ## ▶ STATE — the corpus is closed. **Version 1 is complete (2026-10-18) and tagged `version-1` at `d62cfdc`; its spec is revision 32. Version 2 began at revision 33; stage 1 was built and its records regenerated 2026-10-19 and pushed 2026-10-20, and no verdict changed. Revision 34 (2026-10-22) changed wording only: the ASR quotations paraphrased (SP-1) and the stage 1 milestone review's wording fixes. Work goes on `main` (owner, 2026-10-21).**
+> ## ▶ STATE — the corpus is closed. **Version 1 is complete (2026-10-18) and tagged `version-1` at `d62cfdc`; its spec is revision 32. Version 2 began at revision 33; stage 1 was built and its records regenerated 2026-10-19 and pushed 2026-10-20, and no verdict changed. Revision 34 (2026-10-22) changed wording only: the ASR quotations paraphrased (SP-1) and the stage 1 milestone review's wording fixes. Revision 35 (2026-10-22) moved the revision history into `spec_revision_log.md`, and the inline revision narratives of 129 bodies with it (`spec_revision_35_dispositions.md`, for the owner's review); no rule changed. Work goes on `main` (owner, 2026-10-21).**
+>
+> **2026-10-22 — model ergonomics built (`docs/plan_model_ergonomics.md`), with spec revision 35.** The spec and
+> the ledger have machine-readable indexes (`docs/spec_index.jsonl`, `docs/theory/ledger_index.jsonl`), the spec's
+> current rules have a view by module (`docs/spec_rules/`), the code docstrings are thinned to the contract and the
+> formulas, and the spec's revision history is in `docs/spec_revision_log.md` — the sections and the status line, and
+> the 218 inline narratives of 129 requirement bodies, kept, moved or rewritten one by one
+> (`docs/spec_revision_35_dispositions.md`, Claude's dispositions for the owner's review). The owner answered the
+> plan's §8 the same day. Nothing a run computes changed; `engine_hash()` is unchanged and no ensemble, mutation or
+> sweep record was rerun (the seed-7 trace, chart and fam-diag export were regenerated for the revision string).
 >
 > **2026-10-22 — SP-1 built, cut down, with spec revision 34.** The owner answered the SP-1 proposal's eight
 > questions and approved its §4 texts; the 65 paraphrases of the 1979 tapes and the Kerr–Bowen interviews are applied

@@ -24,10 +24,17 @@ Reviewer: ________  Started: ________  Spec revision reviewed: ________
 
 These define what the model does. A run that disagrees with them is a defect.
 
-- [ ] [bowen_agent_model_spec_v2.md](bowen_agent_model_spec_v2.md) — the spec (v2.0, revision 34; version 1 is
+- [ ] [bowen_agent_model_spec_v2.md](bowen_agent_model_spec_v2.md) — the spec (v2.0, revision 35; version 1 is
       revision 32). Objects (M1), reference family (M2), clocks and ordering (M3), the fast tick (M4), moves (M5),
       invariants (M6), the slow tick (M7), live positions (M8), beliefs (M9), parameters (M10), acceptance criteria
       (M11), framing (M11.F), the readout schema (M11.G), out of scope (M12), the run log and trace (M16).
+- [ ] [spec_revision_log.md](spec_revision_log.md) — the spec's revision history, 4 to 35, and its front-matter
+      status line as it stood at revision 34, moved out of the spec at revision 35 (2026-10-22). Why a rule is as it
+      is; the spec holds the rule.
+- [ ] **For review, 2026-10-22:** [spec_revision_35_dispositions.md](spec_revision_35_dispositions.md) — revision
+      35's second step: the 218 inline revision narratives in 129 requirement bodies, each kept, moved to the log or
+      rewritten as the current rule, one row per sentence. Applied as Claude's dispositions under the owner's
+      decision; each row is one the owner may reverse.
 - [ ] [../config/bowen/constants.md](../config/bowen/constants.md) — the parameter values the engine uses.
 - [ ] [../config/bowen/constants_changes.md](../config/bowen/constants_changes.md) — every change to those values,
       and why.
@@ -240,5 +247,3 @@ run as a fam-diag diagram; `tools/famdiag_export.py`, `config/viz/famdiag.md`).
 [review/](review/) (the folder of rendered runs; the files to review in it are listed above, and anything else there,
 such as a backup saved beside the fam-diag export, is not a record).
 
-**Stray file:** [<model_explainer copy.textClipping>](<model_explainer copy.textClipping>) — a macOS clipboard
-fragment, safe to delete.

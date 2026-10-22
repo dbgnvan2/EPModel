@@ -4,6 +4,40 @@ All notable changes to this project are recorded here. Dates are ISO.
 
 ## [Unreleased] — 2026-10-11
 
+### Model ergonomics, Part E — the revision history out of the spec, revision 35 (2026-10-22)
+
+- **What.** `docs/plan_model_ergonomics.md` Part E, on the owner's answer to its §8 Q2 (2026-10-22: "yes, as revision
+  35"). Wording only; no rule changed, `engine_hash()` unchanged (`91f9a817`), no ensemble, mutation or sweep record
+  rerun. The seed-7 trace, chart and fam-diag export were regenerated because their header carries the revision string
+  (one line each changed). Spec revision 35.
+- **E1.** New `docs/spec_revision_log.md`: the sections `### Revision 34` to `### Revision 5` and the front matter's
+  status text (its record of revisions 10 to 34) moved there as they stood. The spec's `status:` now reads `APPROVED`
+  with a pointer; a closing `## Revision history` section points at the log. §0.3's token count is recomputed (1043
+  bolded MUST / MUST NOT; the five in the moved sections went with them). Five entries of `tests/asr_quotations.json`
+  that allowed spans in the moved sections now name the log; `test_r31a12` reads the old status line in the log; the
+  two tests that pinned the string `2.0, revision 34` now read the front matter; `test_d5b_the_scan_is_not_vacuous` no
+  longer asserts a third status source, since the spec's status line was it.
+- **E2.** The 218 sentences in 129 requirement bodies that `docs/spec_rules/history_in_body.md` listed were disposed
+  one by one: 35 stay (rule text that matches a phrase), 32 moved to the log, 151 rewritten as the current rule only
+  (a `*Revision N:*` prefix dropped, a title's "corrected at revision 7" clause dropped, the sentence as it stood
+  recorded in the log under its revision). ID count, order and the bolded MUST / SHOULD count are unchanged. The log
+  gained 183 bullets, in new `### Revision 13` … `### Revision 33` sections and sub-lists under the existing ones. The
+  record is `docs/spec_revision_35_dispositions.md`, one row per sentence, applied as Claude's dispositions for the
+  owner's review (the plan's E2 said one at a time with the owner; the owner chose the bulk option in §8 Q2). What the
+  view's `history_in_body.md` lists now (30 IDs) is rule text, every one a "stays" row, and its test checks that.
+- **Not covered by the phrase list** (noticed in the pass, recorded in `TODO.md`): narrative of other shapes still in
+  bodies ("The earlier form …", "The text it replaces said …", a lower-case "*revision 11 removed …*"), `*Revision N*`
+  prefixes in `M2.A`'s and `M8`'s preambles and two table rows, and `M11.C.14`'s withdrawn two-sided MUST NOT still
+  standing before its one-sided restatement.
+- **Documents.** CLAUDE.md's spec row, README's Status, `_STATUS.md`'s STATE line and a dated note, the checklist (the
+  log and the dispositions record added; the stray clipping's entry removed with the file), the reading list (two rows),
+  the plan's status line.
+- **A slip in the Part D commits.** The log's first form (the moved sections, 493 lines) was staged by accident with
+  Part D's first commit (`11c36bb`, the engine docstrings) and no checklist entry went with it, so
+  `test_every_document_is_in_the_checklist` was red at the seven Part D commits (`11c36bb` to `fea842a`; confirmed
+  by running the test in an extract of `11c36bb`). It is green again at this commit. The branch is not pushed; whether
+  to rewrite those commits is the owner's call (`TODO.md`).
+
 ### Model ergonomics, Part D — the code docstrings thinned (2026-10-22)
 
 - **What.** `docs/plan_model_ergonomics.md` Part D, on the owner's answer to its §8 Q1 (2026-10-22, "thin them") and

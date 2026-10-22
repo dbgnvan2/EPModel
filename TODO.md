@@ -123,6 +123,22 @@ Deferred and adjacent items. Each carries enough context to act on later without
   implements) was dropped from `io/load.py::load_script`, `scenario/policy_source.py`, `scenario/scripted_source.py`
   and `ScriptedSource`, the phase fact kept as prose. `test_b2c_every_id_cited_in_src_is_defined_by_the_spec` is no
   longer xfail. Done 2026-10-22.
+- [ ] **Part D's commits carry a stray copy of the revision log (2026-10-22):** `docs/spec_revision_log.md`'s first form
+  was staged by accident with `11c36bb` without its checklist entry, so `test_every_document_is_in_the_checklist` is red at
+  `11c36bb`..`fea842a` (seven commits, none pushed) and green from the Part E commit on. Rewrite those commits before the
+  push, or leave them; the owner's call.
+- [ ] **Revision 35's dispositions, for the owner's review (Part E, 2026-10-22):** `docs/spec_revision_35_dispositions.md`,
+  218 rows (35 stay, 32 moved, 151 rewritten), applied as Claude's dispositions under the owner's bulk decision (§8 Q2).
+  The "stays" rows marked unsure carry the reason in the last column. A reversed row is one edit in the spec and one
+  bullet back out of `docs/spec_revision_log.md`.
+- [ ] **Narrative the history phrases miss, still in bodies (Part E, 2026-10-22):** "The earlier form …" (`M6.I.6`,
+  `M15.B.3`), "*The rev-10 form … is replaced*" (`M4.C.1`), "*The form approved at G3 …*" (`M4.D.6a`), "*The text it
+  replaces said …*" (`M4.G.3`), "*It replaces* the earlier …" (`M11.C.17`), "As first built …" (`M1.B.3c`), a
+  lower-case "*revision 11 removed the clause …*" (`M4.D.6b`); `*Revision N*` prefixes outside requirement bodies:
+  `M2.A`'s preamble (revisions 28 and 13), `M8`'s preamble (34), `M11.E`'s `M11.C.9` row (32), `M13`'s phase table
+  row B (11); `M11.C.14` holds the withdrawn two-sided **MUST NOT** before its one-sided restatement, and `M4.C.3a`'s
+  first sentence states the old chronic floor with a MUST, the usual-level floor following. Either add the phrases to
+  `tools/spec_index_rules.json` and dispose of them in a later pass, or leave them; the owner's call.
 - [ ] **D4, long `Spec:` lines (Part D, 2026-10-22; the plan says record, do not split):** `engine/objects.py` 56 IDs
   (its classes `Person` 21, `Relationship` 17), `engine/life_course.py` 21, `engine/appraise.py` 18,
   `engine/iposition.py` 18, `ensemble/criteria.py` 19 (a registry, one per criterion), `policy/policy.py` 16,

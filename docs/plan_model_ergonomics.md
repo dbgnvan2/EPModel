@@ -1,7 +1,9 @@
 # Plan — making the spec, ledger and code cheaper for a model to read
 
-**Status: Parts A, B and C built 2026-10-22 on the branch `model-ergonomics` (the CHANGELOG entry of that date); Parts D and E
-wait on the owner's answers to §8.** Written in a Cowork session from a read-only scan of the repo at `fc9939e`, then moved
+**Status: Parts A to E built 2026-10-22 on the branch `model-ergonomics` (the CHANGELOG entries of that date), the
+owner's §8 answers of 2026-10-22 applied (Q1 thin them; Q2 yes, as revision 35; Q3 delete all four; Q4 fix now). Part E's
+second step, Claude's dispositions in `spec_revision_35_dispositions.md`, is for the owner's review. §11's sonnet
+trial has not been run.** Written in a Cowork session from a read-only scan of the repo at `fc9939e`, then moved
 here from the repo root (A1).
 
 ## 1. Why

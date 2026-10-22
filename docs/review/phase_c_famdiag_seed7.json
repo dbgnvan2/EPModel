@@ -14039,7 +14039,7 @@
       "x": 922,
       "y": 15,
       "title": "Simulated run",
-      "text": "Simulated run — not a real family (spec M11.F.9). The people are the model's invented reference family. Each year on the timeline is one block of 4 weeks: 2001 is weeks 1–4, 2026 is weeks 101–104. Lines are the model's declared pattern readouts (docs/readouts_phase_c.md); a line ends when a new pattern emerges on that tie. Greyed people are not simulated in this run. Run: M11.C.1 baseline, seed 7, spec 2.0, revision 34, config hash 07b76f26cf45.",
+      "text": "Simulated run — not a real family (spec M11.F.9). The people are the model's invented reference family. Each year on the timeline is one block of 4 weeks: 2001 is weeks 1–4, 2026 is weeks 101–104. Lines are the model's declared pattern readouts (docs/readouts_phase_c.md); a line ends when a new pattern emerges on that tie. Greyed people are not simulated in this run. Run: M11.C.1 baseline, seed 7, spec 2.0, revision 35, config hash 07b76f26cf45.",
       "width": 360,
       "height": 220
     }

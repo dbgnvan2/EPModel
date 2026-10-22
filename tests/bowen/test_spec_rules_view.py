@@ -77,7 +77,8 @@ def test_c3_every_body_line_of_the_spec_survives_in_order():
         body = content.split("\n", 2)[2]  # after the opener and its blank line
         view += [line for line in body.split("\n") if line]
     assert view == kept
-    assert any(line.startswith("**M4.C.3a**") and "*Revision 24:*" in line for line in view), "a kept history sentence"
+    assert any(line.startswith("**M1.A.4k**") and "*Revision 19 (amended at revision 23" in line for line in view), \
+        "a kept history sentence (a stays row of docs/spec_revision_35_dispositions.md)"
     assert not any("⟦" in line or line.startswith(">") for line in view)
     assert not any(line.startswith("status:") for line in view) and "version: 2.0, revision" in "\n".join(view)
 
@@ -166,10 +167,12 @@ def test_c4_the_real_list_quotes_the_spec_and_states_its_count():
     page = (TOOL.OUT / "history_in_body.md").read_text(encoding="utf-8")
     found = TOOL.history_in_body(text)
     assert re.search(r"\*\*(\d+) IDs\*\*", page).group(1) == str(len(found))
-    assert len(re.findall(r"^## M", page, re.M)) == len(found) >= 50
+    assert len(re.findall(r"^## M", page, re.M)) == len(found) >= 1
     flat = re.sub(r"\s+", " ", TOOL.TAG.sub("", text))
     for entry in found:
         for sentence, _ in entry["sentences"]:
             assert re.sub(r"\s+", " ", sentence) in flat, f"{entry['id']}: a listed sentence is not in the spec"
-    by_id = {e["id"]: e for e in found}
-    assert any("Revision 24" in s for s, _ in by_id["M4.C.3a"]["sentences"])
+    # After revision 35 (Part E) every listed sentence is a "stays" row of the dispositions record.
+    record = (REPO / "docs" / "spec_revision_35_dispositions.md").read_text(encoding="utf-8")
+    stays = {line.split("|")[2].strip().strip("`") for line in record.split("\n") if "| stays |" in line}
+    assert {e["id"] for e in found} <= stays, sorted({e["id"] for e in found} - stays)

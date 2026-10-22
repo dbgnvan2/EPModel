@@ -10,13 +10,16 @@ Tests:   tests/bowen/test_spec_rules_view.py
 
 What the view removes, and nothing else (C2): the front matter's ``status:`` line (``version:`` stays); every
 ``⟦…⟧`` revision tag; every block-quote line (the source quotations; the ``→ file · ID`` pointers stay); and the
-revision-history sections, from the first ``### Revision N`` heading to the end of the file. No sentence of a
-requirement body is removed (C3), the ``*Revision N:*`` sentences included: some carry the current rule.
+revision-history sections, from the first ``### Revision N`` heading to the end of the file, where the spec has
+any (at revision 35 they moved to ``docs/spec_revision_log.md``, so the cut finds nothing and removes nothing). No
+sentence of a requirement body is removed (C3), the ``*Revision N:*`` sentences included: some carry the current rule.
 
 Files: ``M00.md`` (the title, the front matter and §0), ``M01.md`` … ``M17.md`` (one per ``## M<n>`` module; ``M11.F``
 and ``M11.G`` are in ``M11.md``), ``README.md`` (the files, their sizes, and the view's size against the spec's) and
-``history_in_body.md`` (C4: every ID whose body holds an inline revision narrative, with the sentence — the input to
-Part E's owner decision; the phrases are in ``tools/spec_index_rules.json``).
+``history_in_body.md`` (C4: every ID whose body holds a sentence matching a history phrase; the phrases are in
+``tools/spec_index_rules.json``. It was the input to Part E, which at revision 35 moved or rewrote 183 of the 218
+sentences it listed; what it lists now is rule text that matches a phrase, each row of
+``docs/spec_revision_35_dispositions.md`` marked "stays").
 """
 
 from __future__ import annotations
@@ -134,8 +137,10 @@ def render_history(text: str, found: list[dict], rev: int) -> str:
         "",
         f"Every ID whose body holds a sentence matching a history phrase (`tools/spec_index_rules.json`, "
         f"`history_phrases`), with the sentence and the phrase it matched: **{len(found)} IDs**. The view keeps every "
-        "one of these sentences (C3); this list is the input to Part E's owner decision — each stays, moves to the "
-        "revision log, or is rewritten as the current rule only. Line numbers are the spec's.",
+        "one of these sentences (C3). This list was the input to Part E: revision 35 (2026-10-22) moved or rewrote "
+        "the narratives, with one row per sentence in `docs/spec_revision_35_dispositions.md` for the owner's "
+        "review, so what is listed now is rule text that happens to match a phrase (its row says why it stays). "
+        "Line numbers are the spec's.",
         "",
     ]
     for entry in found:
@@ -156,7 +161,11 @@ def render_readme(text: str, files: dict[str, str], rev: int, history: list[dict
     view_words = sum(len(v.split()) for v in files.values())
     tags = len(TAG.findall(text))
     quotes = sum(1 for line in text.split("\n") if QUOTE_LINE.match(line))
-    cut_at = len(cut_history(text).split("\n")) + 1
+    cut_lines = len(cut_history(text).split("\n"))
+    history_clause = (f"and the revision-history sections, from the spec's line {cut_lines + 1} to its end"
+                      if cut_lines < len(text.split("\n")) else
+                      "and the revision-history sections, of which the spec has none since revision 35 moved them to "
+                      "`docs/spec_revision_log.md`")
     lines = [
         "# The spec's current rules, by module",
         "",
@@ -165,10 +174,10 @@ def render_readme(text: str, files: dict[str, str], rev: int, history: list[dict
         "One file per `## M` module of `docs/bowen_agent_model_spec_v2.md`, with §0 as `M00.md`. The view removes,",
         "mechanically and nothing else: the front matter's `status:` line; every `⟦…⟧` revision tag "
         f"({tags} of them); every block-quote line, the source quotations ({quotes} lines; the `→ file · ID` "
-        f"pointers stay); and the revision-history sections, from the spec's line {cut_at} to its end. No sentence of "
-        "a requirement body is removed, the `*Revision N:*` sentences included: `history_in_body.md` lists the "
-        f"{len(history)} IDs whose bodies hold one, for the owner's decision (Part E of "
-        "`docs/plan_model_ergonomics.md`).",
+        f"pointers stay); {history_clause}. No sentence of "
+        "a requirement body is removed: `history_in_body.md` lists the "
+        f"{len(history)} IDs whose bodies hold a sentence matching a history phrase (after revision 35 moved the "
+        "narratives to `docs/spec_revision_log.md`, Part E of `docs/plan_model_ergonomics.md`, these are rule text).",
         "",
         "To find an ID's module, grep `docs/spec_index.jsonl` for it: the record's `module` field names the `##` "
         "heading, and `lines` the spec's lines.",

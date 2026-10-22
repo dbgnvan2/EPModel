@@ -9,6 +9,7 @@ Tests:   this file
 from __future__ import annotations
 
 import dataclasses
+import re
 from types import MappingProxyType
 
 from src.bowen.engine.activation import SynchronousActivation
@@ -112,7 +113,7 @@ def header(constants=None, frozen=None, script=None):
 def test_m16a1_header_hashes_the_resolved_config():
     h = header()
     assert isinstance(h, LogHeader) and len(h.config_hash) == 64
-    assert h.spec_revision == "2.0, revision 34"
+    assert h.spec_revision == load_spec_revision() and re.fullmatch(r"2\.0, revision \d+", h.spec_revision)
     assert h == header()  # stable
     # A changed value changes the hash; the script's events are part of the config.
     assert header(script=load_script().without("TRIGGER")).config_hash != h.config_hash

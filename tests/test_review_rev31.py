@@ -15,6 +15,7 @@ SPEC = (REPO / "docs" / "bowen_agent_model_spec_v2.md").read_text(encoding="utf-
 EXPLAINER = (REPO / "docs" / "model_explainer.md").read_text(encoding="utf-8")
 CHANGES = (REPO / "config" / "bowen" / "constants_changes.md").read_text(encoding="utf-8")
 PLAN = (REPO / "docs" / "implementation_plan_phase_d.md").read_text(encoding="utf-8")
+LOG = (REPO / "docs" / "spec_revision_log.md").read_text(encoding="utf-8")
 
 
 def register_row(field: str) -> str:
@@ -130,9 +131,10 @@ def test_r31a11_plan_closes_the_two_owner_questions():
 
 
 def test_r31a12_spec_status_names_revision_31():
-    # Revision 32 (2026-10-17) moved the version on; revision 31 stays named in the status line.
+    # Revision 32 (2026-10-17) moved the version on; revision 31 stays named in the status line, which revision 35
+    # (2026-10-22) moved out of the spec into docs/spec_revision_log.md as it stood.
     assert re.search(r"^version: 2\.0, revision 3[1-9]$", SPEC, flags=re.M)
-    assert "revision 31, the owner's review of revisions 24 to 30 applied" in SPEC.splitlines()[3]
+    assert "revision 31, the owner's review of revisions 24 to 30 applied" in LOG
 
 
 # --- Part B: code and config (plan §4.11, R31.B1-R31.B3) ---------------------------------------------------------

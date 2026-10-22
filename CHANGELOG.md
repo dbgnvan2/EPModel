@@ -11,6 +11,19 @@ All notable changes to this project are recorded here. Dates are ISO.
   test; nothing is hand-written. `engine_hash()` is unchanged (`91f9a817`) and no record was rerun.
 - **A2, the suite count's history.** CLAUDE.md's "A red suite is never normal" bullet now gives the current count,
   the date and the command. Its dated history of counts, moved here as it stood: measured 2026-10-22 on this Mac after SP-1's six tests against new quotations of the ASR sources were added, `tests/test_asr_quotations.py`, and five for the fam-diag export keeping what the owner saved from the app; 1003 on 2026-10-20 after a test that compiles every tracked file on the oldest Python in CI's matrix was added, `tests/test_python_versions.py`; 1002 earlier that day after the coverage page's Part B added five tests, `docs/plan_spec_coverage_phase_d.md` §7; 997 earlier that day after its Part A and review added nine; 988 earlier that day after the document-claim tests were merged, adding 60, `docs/plan_doc_claim_tests.md`; 928 earlier that day after the fam-diag export's currency test was added; 927 earlier that day after the cold sweep's fixes added three tests; 924 earlier that day after the stage 1 `/csdp` sweep's fixes added seven tests; 917 on 2026-10-19 after version 2 stage 1's build, review fixes and one regeneration; 916 earlier that day after the `/csdp` sweep's fixes added three run-chart tests; 913 earlier that day after version 1's status page was frozen at the tag `version-1`, its eleven status tests now run at the tag by three; 921 on 2026-10-18 after the run chart was added beside the Phase C trace; 915 earlier that day after spec revision 32 with the owner's review and the nodal-event spike; 909 on 2026-10-17 after revision 32's first part; 886 earlier that day after `M11.C.21`'s reclassification and the capacity rule's no-span fix; 884 on 2026-10-16 after revision 31 part B; 868 earlier that day; 854 on 2026-10-15; 850 passed in CI run 38763412772 on Python 3.11, 3.12 and 3.13, before the Phase D mutation record's 4.
+- **B1, B4: the indexes.** `tools/spec_index.py` writes `docs/spec_index.jsonl` (425 KB, one JSON line per spec
+  ID: module, heading, lines, first sentence, withdrawn, grade tags, sources, ledger mentions, code, tests, status and
+  note) and `docs/theory/ledger_index.jsonl` (51 KB, one line per ledger entry: title, status as written, labels,
+  chapter, lines, the spec IDs it cites). The citation forms are in `tools/spec_index_rules.json`. The first sentence
+  is generated, cut at 300 characters, never hand-written. `tests/bowen/test_spec_index.py` (15 tests) checks both
+  current, every ID once in order, the line spans, the code names, the status fields against `spec_coverage.py`, the
+  ledger mentions against the ledger text, and each reader on a fixture.
+- **B3.** Fifteen `Spec:` lines in `src/` cite a section heading of the spec (`M1.A`, `M13`), not a numbered
+  requirement; listed in `TODO.md` for the owner's Q4, and the test that every cited ID is defined is xfail on exactly
+  that list. Not fixed.
+- **Documents.** CLAUDE.md's "Read first" paragraph, README's "Where to start", the reading list's §3, the milestone
+  review brief's §3 step 6 and the checklist point at the indexes. `docs/spec_coverage.md` regenerated for the new
+  tests. Suite: 1029 collected after Part B.
 - **A3, the leftover worktrees.** `claude/cranky-snyder-764f33`, `claude/quizzical-burnell-818aa7` and
   `docs-stale-fixes` (under `.claude/worktrees/`) are clean and have no commit that `main` lacks. Not deleted: the
   plan's §8 Q3 puts that to the owner.

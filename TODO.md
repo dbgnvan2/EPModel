@@ -114,6 +114,21 @@ Deferred and adjacent items. Each carries enough context to act on later without
   - `M11.C.11` shape — "three phases, not a step down" is a claim about curve shape; any automated version embeds an invented tolerance.
   - `M5.F.2` — the threshold separating a counterfeit move from a genuine one is invented and sets the result. **This is the model's most consequential invented constant.**
 
+## Model ergonomics — open after Parts A–C, 2026-10-22
+
+- [ ] **B3 (`docs/plan_model_ergonomics.md`), for the owner's Q4:** fifteen `Spec:` lines in `src/` cite an anchor
+  the spec defines as a section heading, not as a numbered requirement: `M1`, `M1.A`, `M1.B`, `M1.C`, `M1.D` and
+  `M14.A` (`src/bowen/engine/objects.py`, the module and its four classes), `M1.F` (`engine/events.py`), `M6`
+  (`engine/invariants.py`), `M16.A` (`engine/log_records.py`), `M11.F` (`render/trace.py`), `M2`
+  (`scenario/family.py`, the module and `FamilyInstance`), and `M13` (`io/load.py::load_script`,
+  `scenario/policy_source.py`, `scenario/scripted_source.py` and its `ScriptedSource`). Each is a true anchor (the
+  heading exists), so the question is whether a `Spec:` line may cite a section or must name requirements. Until it is
+  decided, `tests/bowen/test_spec_index.py::test_b2c_every_id_cited_in_src_is_defined_by_the_spec` is xfail on
+  exactly this list (`test_b3_…` pins it). Not fixed in Part B (the plan's B3).
+- [ ] **A3/A4, for the owner's Q3:** the three worktrees under `.claude/worktrees/` (`claude/cranky-snyder-764f33`,
+  `claude/quizzical-burnell-818aa7`, `docs-stale-fixes`) are clean and fully merged, 43 MB in all; and
+  `docs/model_explainer copy.textClipping` is a stray clipping. Neither deleted without the owner's word.
+
 ## Version 2 stage 1 milestone review — open after the triage, 2026-10-21
 
 The review is `docs/cycles/2026-10-21_milestone-review_v2-stage-1.md` (the second Mac, branch

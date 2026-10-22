@@ -193,6 +193,13 @@ html, with a paraphrase checked against its passage and its citation (65 entries
 extraction notes are marked; the test against new quotations; and eight questions for the owner (Q1–Q8), answered
 2026-10-22, all as recommended. Its §4 texts approved by the owner 2026-10-22 and built the same day at spec revision 34, cut down by the owner: the local transcript test, the extraction-note headers and the `kb` heading retitles are deferred (`TODO.md`).
 
+**Generated, not for review:** [spec_index.jsonl](spec_index.jsonl) — one JSON line per spec ID: its module,
+heading, lines, first sentence, grade tags, sources, the ledger entries that cite it, the code whose `Spec:`
+line names it, its tests and its coverage status (`tools/spec_index.py`; `grep '"M4.C.3a"'` returns the
+record); [theory/ledger_index.jsonl](theory/ledger_index.jsonl) — one line per ledger entry: its status as
+written in the heading, chapter, lines and the spec IDs it cites. Checked current by
+`tests/bowen/test_spec_index.py`.
+
 **Parts A, B and C built 2026-10-22; D and E wait on the owner's answers to its §8:**
 [plan_model_ergonomics.md](plan_model_ergonomics.md) — making the spec, the ledger and the code cheaper for a
 model to read: a machine-readable index of the spec and of the ledger, a current-rules view of the spec, and

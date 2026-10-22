@@ -119,6 +119,12 @@ On the machine that runs it:
 
    Also leave out any other page whose header says a tool generated it.
 
+6. **Read by index, not by file.** To find what a requirement says, where its sources are, and which code and
+   tests carry it, grep `docs/spec_index.jsonl` (one JSON line per spec ID) and `docs/theory/ledger_index.jsonl`
+   (one per ledger entry), both generated and checked current by a test (`docs/plan_model_ergonomics.md`). Open
+   the spec and the ledger at the lines the index gives. Do not read `CHANGELOG.md` in full; grep it for the
+   item in hand. `TODO.md` is read whole only where L2 asks for it (step 5).
+
 ## 4. What to check
 
 Four lenses. A finding is something the reviewer read or ran, not something reasoned to. Each finding cites a file

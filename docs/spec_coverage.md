@@ -604,7 +604,7 @@ say whether that test was proved failing by mutation unless its note does.
 | M17.G.2 | not done | — | no test named for it; Phase E builds it and is not built yet |
 | M17.G.3 | not done | — | no test named for it; Phase E builds it and is not built yet |
 
-## Tests named for no spec ID (194)
+## Tests named for no spec ID (209)
 
 Their names embed no requirement ID, so they count only where an override cites them (marked *cited*). The rest check spec documents, tooling or helpers.
 
@@ -714,6 +714,21 @@ Their names embed no requirement ID, so they count only where an override cites 
 - `tests/bowen/test_render.py::test_b2_framing_says_who_chose_the_acts`
 - `tests/bowen/test_script.py::test_m13_script_parses_and_validates`
 - `tests/bowen/test_script.py::test_m13_without_removes_one_kind_only`
+- `tests/bowen/test_spec_index.py::test_b1_cited_spec_ids_respect_id_boundaries`
+- `tests/bowen/test_spec_index.py::test_b1_code_names_an_existing_definition`
+- `tests/bowen/test_spec_index.py::test_b1_fields_are_read_from_a_fixture`
+- `tests/bowen/test_spec_index.py::test_b1_ledger_mentions_are_the_inverse_of_the_ledger_index`
+- `tests/bowen/test_spec_index.py::test_b1_lines_start_at_the_defining_line_and_do_not_overlap`
+- `tests/bowen/test_spec_index.py::test_b1_spec_citations_follow_the_document_named`
+- `tests/bowen/test_spec_index.py::test_b1_status_fields_are_coverage_verbatim`
+- `tests/bowen/test_spec_index.py::test_b2a_ledger_index_is_current`
+- `tests/bowen/test_spec_index.py::test_b2a_spec_index_is_current`
+- `tests/bowen/test_spec_index.py::test_b2b_every_spec_id_appears_once_in_document_order`
+- `tests/bowen/test_spec_index.py::test_b2c_every_id_cited_in_src_is_defined_by_the_spec`
+- `tests/bowen/test_spec_index.py::test_b3_the_undefined_citations_are_exactly_the_listed_section_anchors`
+- `tests/bowen/test_spec_index.py::test_b4_every_entry_heading_is_indexed_once_at_its_line`
+- `tests/bowen/test_spec_index.py::test_b4_fields_are_read_from_a_fixture`
+- `tests/bowen/test_spec_index.py::test_b4_withdrawn_and_merged_entries_stay_with_their_status`
 - `tests/test_asr_quotations.py::test_sp1_2_every_citation_form_is_read`
 - `tests/test_asr_quotations.py::test_sp1_2_mutant_new_quotation_fails`
 - `tests/test_asr_quotations.py::test_sp1_2_mutant_unlisted_quotation_in_an_allowlisted_file_fails`

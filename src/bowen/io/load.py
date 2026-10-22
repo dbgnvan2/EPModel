@@ -73,7 +73,7 @@ def load_act_classes(kinds: EventKinds, path: Path = CONFIG_DIR / "act_classes.m
 
 
 def load_attribution(kinds: EventKinds, path: Path = CONFIG_DIR / "attribution.md") -> tuple[dict, dict]:
-    """Purpose: read where each act places the family's difficulty, and which channel it focuses (revision 25).
+    """Purpose: read where each act places the family's difficulty, and which channel it focuses.
     Spec:    docs/bowen_agent_model_spec_v2.md#M9.6, #M1.A.11c
     Tests:   tests/bowen/test_attribution.py::test_m96_attribution_rules_come_from_config
     """
@@ -92,7 +92,7 @@ def load_attribution(kinds: EventKinds, path: Path = CONFIG_DIR / "attribution.m
 
 
 def load_steering(kinds: EventKinds, path: Path = CONFIG_DIR / "perspective_steering.md") -> dict[str, int]:
-    """Purpose: read which acts systems perspective steers toward or away from (spec revision 19).
+    """Purpose: read which acts systems perspective steers toward or away from.
     Spec:    docs/bowen_agent_model_spec_v2.md#M4.D.1a
     Tests:   tests/bowen/test_policy.py::test_m4d1a_perspective_steers_away_from_triangling_and_blaming
     """
@@ -108,7 +108,7 @@ def load_steering(kinds: EventKinds, path: Path = CONFIG_DIR / "perspective_stee
 
 
 def load_soothing(kinds: EventKinds, path: Path = CONFIG_DIR / "stress_response.md") -> frozenset[str]:
-    """Purpose: read which acts avoid or soothe under load (spec revision 18).
+    """Purpose: read which acts avoid or soothe under load.
     Spec:    docs/bowen_agent_model_spec_v2.md#M1.A.5e
     Tests:   tests/bowen/test_stress_response.py::test_m1a5e_soothing_acts_come_from_config
     """
@@ -160,8 +160,10 @@ def load_script(
     family: FamilyInstance | None = None,
 ) -> ScriptedSource:
     """Purpose: read and build a script.
-    Spec:    docs/bowen_agent_model_spec_v2.md#M13
+    Spec:    docs/bowen_agent_model_spec_v2.md#M10.B.1
     Tests:   tests/bowen/test_script.py::test_m13_script_parses_and_validates
+
+    The script is spec §M13's Phase B driver, and lives in markdown config like every other value.
     """
     return build_script(read_text(path), kinds or load_event_kinds(), family or load_family(), source=str(path))
 

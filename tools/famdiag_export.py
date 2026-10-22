@@ -5,7 +5,7 @@ Purpose: draw a run in the owner's family-diagram app, so it can be reviewed as 
 Spec:    docs/bowen_agent_model_spec_v2.md#M5.A.1a (the readouts drawn), #M11.F.9 (not a real family)
 Tests:   tests/bowen/test_famdiag_export.py
 
-    python3 tools/famdiag_export.py [--seed 7]
+    python3 tools/famdiag_export.py [--seed 7] [--from-table]
 
 Writes ``docs/review/phase_c_famdiag_seed<seed>.json``. Open it with File > Open in **EPModel Fam-Diag**
 (``/Users/davemini2/ProjectsLocal/epmodel-fam-diag``, http://localhost:5174). That app is a copy of fam-diag whose
@@ -20,6 +20,10 @@ What it draws, and from where:
 - **Events** are the run's acts, dated within their block, on the pattern line they fall under, or on the
   sender otherwise.
 - **How each is drawn** is ``config/viz/famdiag.md``.
+- **Where each is placed** is that file's layout, except where the committed export already holds a position saved
+  from the app: a regeneration keeps those, and the app's colours and settings (``keep_saved``, the keys named in
+  ``APP_OWNED_KEYS`` and ``APP_ADDED_KEYS``), so the owner's layout and settings survive a rerun; any other saved key
+  is dropped and reported. ``--from-table`` places everything by the layout again; it still keeps the app's settings.
 
 The run is ``M11.C.1``'s baseline arm, the same run as ``docs/review/phase_c_trace_seed7.md``
 (``tools/phase_c_trace.py``), so the picture can be checked against the trace.
@@ -367,6 +371,109 @@ def build_diagram(run: Run, mapping: Mapping, seed: int) -> dict:
     }
 
 
+# Opening the export in fam-diag saves it back (autosave). The app changes keys the tool writes and adds keys of its
+# own; the ones named here are the owner's, and a regeneration keeps them (``keep_saved``).
+# APP_OWNED_KEYS: where things are placed and how big they are drawn (fam-diag's types/index.ts), and the display name
+# the app sets to the file name. The saved value wins over the drawn one, unless --from-table.
+APP_OWNED_KEYS = frozenset({
+    "x", "y", "horizontalConnectorY", "displayName", "width", "height", "size", "notesPosition", "notesSize",
+    "familyNotesPosition", "familyNotesSize", "familyNameOffsetX", "familyNameOffsetY", "familyNameWidth",
+    "familyNameHeight", "connectionAnchorX", "birthOrderOverride", "siblingPositionOverride", "fatherPositionOverride",
+    "motherPositionOverride", "partnerPositionOverride",
+})
+# APP_ADDED_KEYS: the app's colours and settings, and the owner's categories. Kept where the tool draws no value.
+APP_ADDED_KEYS = frozenset({
+    "color", "fillColor", "backgroundColor", "backgroundEnabled", "exportedAt", "autoSaveMinutes", "ideasText",
+    "eventCategories", "nodalCategories", "predictionSets", "functionalFactCategories",
+    "functionalIndicatorDefinitions", "relationshipStatuses", "relationshipTypes",
+})
+# Any other saved key the tool does not draw is dropped and reported. The tool writes in the app's own format, so a key
+# name cannot tell an owner's edit from a value an earlier version of the tool wrote; keeping it would keep stale run
+# output in the file.
+
+
+def _has_id(entry) -> bool:
+    return isinstance(entry, dict) and isinstance(entry.get("id"), (str, int))
+
+
+def keep_saved(diagram: dict, saved: dict, *, owned: bool = True) -> tuple[dict, list[str]]:
+    """The diagram with the app's keys from the saved export, and a report of what was kept, discarded or dropped.
+
+    Purpose: a rerun must not undo the owner's layout or lose what the app added (owner, 2026-10-22). List entries are
+             matched by id at every depth, so order does not matter. APP_ADDED_KEYS are kept wherever they are saved
+             and not drawn; APP_OWNED_KEYS are kept too unless ``owned`` is false (``--from-table``), when each saved
+             value that differs from the drawing is reported as discarded. The report also names each kept value that
+             differs from the drawing, a count of the app's values kept, each saved key the tool does not write, each
+             saved entry the run no longer draws, each duplicate saved id and each saved value whose shape differs
+             from the drawing; those last four are dropped.
+    Tests:   tests/bowen/test_famdiag_export.py::test_v5_regeneration_keeps_saved_positions,
+             ::test_v5_write_export_keeps_and_reports, ::test_v5_keep_saved_reports_malformed_saves,
+             ::test_v5_main_from_table_redraws
+    """
+    report, added = [], Counter()
+
+    def merge(drawn, kept, where):
+        if isinstance(drawn, dict) and isinstance(kept, dict):
+            out = {}
+            for key, value in drawn.items():
+                if key in APP_OWNED_KEYS and key in kept:
+                    differs = kept[key] != value
+                    if owned:
+                        out[key] = kept[key]
+                        if differs:
+                            report.append(f"kept {where}.{key} = {kept[key]!r} (the tool draws {value!r})")
+                        continue
+                    if differs:
+                        report.append(f"discarded {where}.{key} = {kept[key]!r} (--from-table; the tool draws {value!r})")
+                out[key] = merge(value, kept.get(key), f"{where}.{key}")
+            for key in kept:
+                if key in drawn:
+                    continue
+                if key in APP_ADDED_KEYS:
+                    out[key] = kept[key]
+                    added[key] += 1
+                elif key in APP_OWNED_KEYS and owned:
+                    out[key] = kept[key]
+                    report.append(f"kept {where}.{key} = {kept[key]!r} (the tool does not draw it)")
+                elif key in APP_OWNED_KEYS:
+                    report.append(f"discarded {where}.{key} = {kept[key]!r} (--from-table)")
+                else:
+                    report.append(f"dropped {where}.{key}: the tool does not write it")
+            return out
+        if isinstance(drawn, list) and isinstance(kept, list) and all(map(_has_id, drawn)):
+            by_id = {}
+            for entry in kept:
+                if _has_id(entry):
+                    if entry["id"] in by_id:
+                        report.append(f"dropped {where}[{entry['id']}]: a second saved entry with this id")
+                        continue
+                    by_id[entry["id"]] = entry
+            ids = {entry["id"] for entry in drawn}
+            report.extend(f"dropped {where}[{key}]: the run does not draw it" for key in by_id if key not in ids)
+            return [merge(entry, by_id.get(entry["id"]), f"{where}[{entry['id']}]") for entry in drawn]
+        if kept is not None and isinstance(drawn, (dict, list)) and type(kept) is not type(drawn):
+            report.append(f"dropped {where}: saved as {type(kept).__name__}, drawn as {type(drawn).__name__}")
+        return drawn
+
+    merged = merge(diagram, saved, "")
+    if added:
+        report.append("kept the app's own values: " + ", ".join(f"{key} ×{n}" for key, n in sorted(added.items())))
+    return merged, report
+
+
+def write_export(diagram: dict, out: Path, *, from_table: bool = False) -> list[str]:
+    """Write the diagram to ``out``, keeping what the app saved there (``keep_saved``); return the report. Indented by
+    two spaces, as the app saves it, so a regeneration's diff shows what changed rather than the whole file.
+
+    Tests:   tests/bowen/test_famdiag_export.py::test_v5_write_export_keeps_and_reports
+    """
+    report = []
+    if out.exists():
+        diagram, report = keep_saved(diagram, json.loads(out.read_text(encoding="utf-8")), owned=not from_table)
+    out.write_text(json.dumps(diagram, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    return report
+
+
 def summary(diagram: dict) -> str:
     lines = Counter(line["relationshipType"] for line in diagram["emotionalLines"])
     events = sum(len(x["events"]) for key in ("people", "emotionalLines", "triangles") for x in diagram[key])
@@ -374,15 +481,25 @@ def summary(diagram: dict) -> str:
             f"{len(diagram['triangles'])} fixed triangles, {events} events")
 
 
-def main() -> int:
+def main(argv: list[str] | None = None, out_dir: Path = REPO / "docs" / "review") -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--seed", type=int, default=7)
-    args = parser.parse_args()
+    parser.add_argument("--from-table", action="store_true",
+                        help="place everything by config/viz/famdiag.md's layout, discarding positions saved from the "
+                             "app (the app's own settings and colours are still kept)")
+    args = parser.parse_args(argv)
     mapping = load_mapping()
     diagram = build_diagram(simulate(args.seed, mapping), mapping, args.seed)
-    out = REPO / "docs" / "review" / f"phase_c_famdiag_seed{args.seed}.json"
-    out.write_text(json.dumps(diagram, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
-    print(f"wrote {out.relative_to(REPO)}: {summary(diagram)}")
+    out = out_dir / f"phase_c_famdiag_seed{args.seed}.json"
+    saved = out.exists()
+    report = write_export(diagram, out, from_table=args.from_table)
+    print(f"wrote {out}: {summary(diagram)}")
+    if not saved:
+        print("no saved export: everything is placed by the layout")
+    elif not report:
+        print("the saved export held nothing of the app's that differs from the drawing, and nothing was dropped")
+    for line in report:
+        print(f"  {line}")
     return 0
 
 

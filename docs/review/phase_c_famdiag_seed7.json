@@ -14039,7 +14039,7 @@
       "x": 922,
       "y": 15,
       "title": "Simulated run",
-      "text": "Simulated run — not a real family (spec M11.F.9). The people are the model's invented reference family. Each year on the timeline is one block of 4 weeks: 2001 is weeks 1–4, 2026 is weeks 101–104. Lines are the model's declared pattern readouts (docs/readouts_phase_c.md); a line ends when a new pattern emerges on that tie. Greyed people are not simulated in this run. Run: M11.C.1 baseline, seed 7, spec 2.0, revision 33, config hash 07b76f26cf45.",
+      "text": "Simulated run — not a real family (spec M11.F.9). The people are the model's invented reference family. Each year on the timeline is one block of 4 weeks: 2001 is weeks 1–4, 2026 is weeks 101–104. Lines are the model's declared pattern readouts (docs/readouts_phase_c.md); a line ends when a new pattern emerges on that tie. Greyed people are not simulated in this run. Run: M11.C.1 baseline, seed 7, spec 2.0, revision 34, config hash 07b76f26cf45.",
       "width": 360,
       "height": 220
     }
@@ -14051,6 +14051,10 @@
       "person2_id": "p-nadia",
       "person3_id": "p-ravi",
       "intensity": "high",
+      "startDate": "2011-01-01",
+      "notes": "Fixed triangle, Marta outside, blocks 11–26.",
+      "notesEnabled": false,
+      "events": [],
       "tpls": [
         {
           "id": "t-marta-nadia-ravi-10-tpl-0",
@@ -14097,11 +14101,7 @@
           "notes": "Part of the triangle symbol; not a pattern reading.",
           "color": "#444444"
         }
-      ],
-      "startDate": "2011-01-01",
-      "notes": "Fixed triangle, Marta outside, blocks 11–26.",
-      "notesEnabled": false,
-      "events": []
+      ]
     },
     {
       "id": "t-halim-marta-ravi-12",
@@ -14109,6 +14109,10 @@
       "person2_id": "p-marta",
       "person3_id": "p-ravi",
       "intensity": "high",
+      "startDate": "2013-01-01",
+      "notes": "Fixed triangle, Marta outside, blocks 13–26.",
+      "notesEnabled": false,
+      "events": [],
       "tpls": [
         {
           "id": "t-halim-marta-ravi-12-tpl-0",
@@ -14155,11 +14159,7 @@
           "notes": "Part of the triangle symbol; not a pattern reading.",
           "color": "#444444"
         }
-      ],
-      "startDate": "2013-01-01",
-      "notes": "Fixed triangle, Marta outside, blocks 13–26.",
-      "notesEnabled": false,
-      "events": []
+      ]
     },
     {
       "id": "t-marta-pia-ravi-25",
@@ -14167,6 +14167,10 @@
       "person2_id": "p-pia",
       "person3_id": "p-ravi",
       "intensity": "low",
+      "startDate": "2026-01-01",
+      "notes": "Fixed triangle, Marta outside, blocks 26–26.",
+      "notesEnabled": false,
+      "events": [],
       "tpls": [
         {
           "id": "t-marta-pia-ravi-25-tpl-0",
@@ -14213,11 +14217,7 @@
           "notes": "Part of the triangle symbol; not a pattern reading.",
           "color": "#444444"
         }
-      ],
-      "startDate": "2026-01-01",
-      "notes": "Fixed triangle, Marta outside, blocks 26–26.",
-      "notesEnabled": false,
-      "events": []
+      ]
     }
   ],
   "functionalIndicatorDefinitions": [

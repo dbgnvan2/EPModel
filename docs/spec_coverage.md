@@ -296,7 +296,7 @@ say whether that test was proved failing by mutation unless its note does.
 | M5.F.1 | done | `tests/bowen/test_outside_ness.py::test_m5f1_a_compliant_senders_contact_lands_hollow`<br>`tests/bowen/test_outside_ness.py::test_m5f1_sender_state_scales_what_the_move_delivers` | — |
 | M5.F.2 | done | `tests/bowen/test_outside_ness.py::test_m5f2_same_move_can_land_with_the_opposite_sign` | — |
 | M5.F.2c | partial | — | built in part, no test: `src/bowen/engine/appraise.py::tie_change` scales delivered contact by `1 − hollow_gain × inward` and adds `assault_gain × outward` to impingement, both continuous; no zero-crossing point is declared, at 0.5 or otherwise, and with `hollow_gain` 0.5 the inward term never changes sign |
-| M5.F.2a | partial | `tests/bowen/test_iposition.py::test_m5f4_low_perspective_executes_the_assertion_form` | one of the five forms is built: an assertion-form `I-POSITION` raises the claimant's outward axis (`test_m5f4_low_perspective_executes_the_assertion_form`); declaring non-involvement, "I've worked it out" and catching oneself diagnosing are not built (searched `src/bowen` for `neutrality`, `non-involvement`, `announce`) |
+| M5.F.2a | partial | `tests/bowen/test_iposition.py::test_m5f4_low_perspective_executes_the_assertion_form` | one of the five forms is built: an assertion-form `I-POSITION` raises the claimant's outward axis (`test_m5f4_low_perspective_executes_the_assertion_form`); declaring non-involvement, claiming to have worked it out, and catching oneself diagnosing are not built (searched `src/bowen` for `neutrality`, `non-involvement`, `announce`) |
 | M5.F.2b | done | `tests/bowen/test_outside_ness.py::test_m5f2b_detector_reports_which_axis_failed` | — |
 | M5.F.4 | done | `tests/bowen/test_iposition.py::test_m5f4_low_perspective_executes_the_assertion_form` | — |
 | M5.F.5 | done | `tests/bowen/test_policy.py::test_m5f5_self_directed_scores_read_position_not_relief` | — |
@@ -604,7 +604,7 @@ say whether that test was proved failing by mutation unless its note does.
 | M17.G.2 | not done | — | no test named for it; Phase E builds it and is not built yet |
 | M17.G.3 | not done | — | no test named for it; Phase E builds it and is not built yet |
 
-## Tests named for no spec ID (183)
+## Tests named for no spec ID (194)
 
 Their names embed no requirement ID, so they count only where an override cites them (marked *cited*). The rest check spec documents, tooling or helpers.
 
@@ -641,6 +641,7 @@ Their names embed no requirement ID, so they count only where an override cites 
 - `tests/bowen/test_external.py::test_m8_3_the_side_lapses_with_the_triangle_window`
 - `tests/bowen/test_famdiag_export.py::test_v5_a_line_read_from_acts_and_silence_reports_both`
 - `tests/bowen/test_famdiag_export.py::test_v5_a_stopped_pattern_ends_where_it_stopped`
+- `tests/bowen/test_famdiag_export.py::test_v5_app_key_sets_are_the_declared_ones`
 - `tests/bowen/test_famdiag_export.py::test_v5_committed_export_is_the_current_render`
 - `tests/bowen/test_famdiag_export.py::test_v5_diagram_has_what_famdiag_imports`
 - `tests/bowen/test_famdiag_export.py::test_v5_episodes_split_where_the_pattern_changes`
@@ -650,13 +651,17 @@ Their names embed no requirement ID, so they count only where an override cites 
 - `tests/bowen/test_famdiag_export.py::test_v5_every_line_traces_back_to_its_reading`
 - `tests/bowen/test_famdiag_export.py::test_v5_export_is_deterministic`
 - `tests/bowen/test_famdiag_export.py::test_v5_greyed_people_are_those_the_run_does_not_simulate`
+- `tests/bowen/test_famdiag_export.py::test_v5_keep_saved_reports_malformed_saves`
+- `tests/bowen/test_famdiag_export.py::test_v5_main_from_table_redraws`
 - `tests/bowen/test_famdiag_export.py::test_v5_mapping_covers_every_declared_pattern`
 - `tests/bowen/test_famdiag_export.py::test_v5_no_line_from_two_acts_a_block`
 - `tests/bowen/test_famdiag_export.py::test_v5_only_acts_sit_on_pattern_lines`
 - `tests/bowen/test_famdiag_export.py::test_v5_projection_reads_the_sinks_act_set`
+- `tests/bowen/test_famdiag_export.py::test_v5_regeneration_keeps_saved_positions`
 - `tests/bowen/test_famdiag_export.py::test_v5_says_it_is_not_a_real_family`
 - `tests/bowen/test_famdiag_export.py::test_v5_silent_severed_tie_draws_distance_not_cutoff`
 - `tests/bowen/test_famdiag_export.py::test_v5_simulate_is_a_pure_observer`
+- `tests/bowen/test_famdiag_export.py::test_v5_write_export_keeps_and_reports`
 - `tests/bowen/test_family.py::test_m2_family_declaration_must_be_graded_invented` — *cited*
 - `tests/bowen/test_family.py::test_m2a_phase_d_family_matches_spec_table` — *cited*
 - `tests/bowen/test_family.py::test_m2a_ravi_sibling_starts_cut_off` — *cited*
@@ -709,6 +714,12 @@ Their names embed no requirement ID, so they count only where an override cites 
 - `tests/bowen/test_render.py::test_b2_framing_says_who_chose_the_acts`
 - `tests/bowen/test_script.py::test_m13_script_parses_and_validates`
 - `tests/bowen/test_script.py::test_m13_without_removes_one_kind_only`
+- `tests/test_asr_quotations.py::test_sp1_2_every_citation_form_is_read`
+- `tests/test_asr_quotations.py::test_sp1_2_mutant_new_quotation_fails`
+- `tests/test_asr_quotations.py::test_sp1_2_mutant_unlisted_quotation_in_an_allowlisted_file_fails`
+- `tests/test_asr_quotations.py::test_sp1_2_no_quotation_beside_asr_citation`
+- `tests/test_asr_quotations.py::test_sp1_4_rules_entries_are_live`
+- `tests/test_asr_quotations.py::test_sp1_5_frozen_records_carry_note`
 - `tests/test_doc_checklist.py::test_every_checklist_link_exists`
 - `tests/test_doc_checklist.py::test_every_document_is_in_the_checklist`
 - `tests/test_doc_claims.py::test_d1_a_moved_spec_revision_is_reported_in_every_place`

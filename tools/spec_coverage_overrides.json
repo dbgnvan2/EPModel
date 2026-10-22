@@ -919,7 +919,7 @@
   "evidence": [
    "tests/bowen/test_iposition.py::test_m5f4_low_perspective_executes_the_assertion_form"
   ],
-  "note": "one of the five forms is built: an assertion-form `I-POSITION` raises the claimant's outward axis (`test_m5f4_low_perspective_executes_the_assertion_form`); declaring non-involvement, \"I've worked it out\" and catching oneself diagnosing are not built (searched `src/bowen` for `neutrality`, `non-involvement`, `announce`)"
+  "note": "one of the five forms is built: an assertion-form `I-POSITION` raises the claimant's outward axis (`test_m5f4_low_perspective_executes_the_assertion_form`); declaring non-involvement, claiming to have worked it out, and catching oneself diagnosing are not built (searched `src/bowen` for `neutrality`, `non-involvement`, `announce`)"
  },
  "M6.I.1": {
   "status": "done",

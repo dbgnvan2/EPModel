@@ -4,6 +4,65 @@ All notable changes to this project are recorded here. Dates are ISO.
 
 ## [Unreleased] — 2026-10-11
 
+### SP-1 built, cut down, with spec revision 34 (2026-10-22)
+
+- **What.** The owner approved the 65 paraphrases in `docs/PROPOSAL — ASR QUOTATIONS (SP-1).md` §4 as written and
+  asked for the build with spec revision 34. Partway through, the owner asked why so much of the work was on the
+  transcripts and not the code, and cut the build down: the paraphrases, Q8's trace, the frozen-record notes, the
+  default-suite test with its rules file, and revision 34's wording fixes now; the local transcript test, the
+  extraction-note headers, the `kb` heading retitles and `TODO.md`'s two quotations deferred (`TODO.md`).
+- **The paraphrases.** 47 entries in the spec, 8 in the explainer, 9 in the ledger and 1 in
+  `agent_model_proposal.html`, each applied by exact match against the approved text. `M11.F.3` is restated from
+  *Family Evaluation*'s Epilogue (Q3). `KB01` is credited to Bowen; `KB03` and `KB04` are cited as the interview (Q5).
+- **Q8.** The *Family Evaluation* Ch3 passage is a new finding, `family_evaluation/fe03.md` · FE03.21, cited from
+  `M4.D`, the spec's revision 9 entry and `model_explainer.md`. The finding says the passage ends a quoted run in the
+  chapter whose speaker is not known.
+- **Frozen records.** `DECISIONS FOR APPROVAL.md` and `proposal_rev11_emergence.md` carry the note that their ASR
+  quotations are not the speakers' words.
+- **The test.** `tests/test_asr_quotations.py` fails on a quoted span of four or more words in a paragraph, list item
+  or table row that cites a 1979 tape or a Kerr–Bowen interview, outside the exempt files and the allowlist in
+  `tests/asr_quotations.json` (16 exempt paths, 47 allowlisted spans, each with its reason or source). It failed on the
+  tree before the paraphrases; mutant documents prove it catches a new quotation in markdown and in HTML (curly,
+  straight and entity-encoded marks, and a curly single quotation with an apostrophe inside), and one beside a short
+  quoted word or a stray mark. Quote marks are paired inside each block; HTML tags are blanked and entities decoded
+  first. Its scope differs from the proposal's §5 (block, not paragraph; no bare "interview"; five more citation forms;
+  no `kb/kbNN`, which `KBNN` already matches), and a test pins each citation form. Measured on `c893109` it catches 68
+  of 87 and flags 13 of 64 kept rows (the proposal's new §9). `docs/theory/_STATUS.md` is scanned, not exempt: its 13
+  flagged spans are the owner's words, the project's own wording and written sources, allowlisted. Other tests check
+  that every rules entry is live and that the frozen records carry their note. `tests/doc_text.py` gains `blocks`.
+- **Spec revision 34.** The SP-1 paraphrases; `M11.4` drops its count of exceptions (MR-10); M8's preamble, `M8.5` and
+  `M13.1` say three mechanisms call the live-positions predicate (MR-12, D4); `M2.A.0i` records Dr Halim's declaration
+  and Teodor's row drops "awaiting owner review" (MR-13, D6); the status line's closing clause is deleted (MR-15);
+  `M11.1`'s scope is the `M11.C` criteria (D3). A revision 34 history entry lists them. Nothing a run computes
+  changed, so no record was rerun.
+- **Coverage.** `tools/spec_coverage_overrides.json`'s `M5.F.2a` note no longer quotes `KB06`; `docs/spec_coverage.md`
+  regenerated.
+- **The renders name the revision.** The seed-7 trace, its chart and the fam-diag export print the spec revision, so
+  revision 34 made them stale; the trace and chart were regenerated (one line each), and two tests that pin the
+  string (`test_log.py`, `test_render.py`) now say revision 34. A rerun of `tools/famdiag_export.py` would have undone
+  the layout the owner saved from the app on 2026-10-20 and dropped what the app added (its colours, its settings and
+  the owner's "Anxiety Level" category). The owner chose (2026-10-22) to have the tool keep them: a regeneration now
+  keeps what the committed export holds for the same id at every depth — positions and sizes, the display name, and
+  the app's colours and settings, the keys named in the tool's `APP_OWNED_KEYS` and `APP_ADDED_KEYS` (`keep_saved`).
+  It reports each kept value that differs from the drawing, a count of the app's values kept, and each key, entry,
+  duplicate id or misshapen value it drops; any other saved key the tool does not write is dropped and reported, so
+  that no stale run output is kept. `--from-table` places everything by the layout again and reports each saved
+  position it discards. Mutants (positional matching, app keys dropped, the flag ignored in `keep_saved` and in the
+  command line, the discard, duplicate and shape reports, the count, a saved value replaced by an equal drawn one)
+  each fail one of the five tests (`test_v5_regeneration_keeps_saved_positions`, `test_v5_write_export_keeps_and_reports`,
+  `test_v5_keep_saved_reports_malformed_saves`, `test_v5_main_from_table_redraws`,
+  `test_v5_app_key_sets_are_the_declared_ones`). `config/viz/famdiag.md`'s layout note says what is kept. The export is
+  written with two-space indentation, as the app saves it, so a regeneration's diff shows what changed: regenerated
+  from the owner's save, its content differs in the note's revision only; the diff also moves four keys in each of
+  the three triangles, which the app writes in another order, and adds a final newline. The run itself did not
+  change: the config hash is the same.
+- **Found and recorded, not fixed** (`TODO.md`): Q7's six requirements, one decision each; `SP1-E06`'s check note
+  claims text the approved version lacks; `SP1-S38` cites K10.9 twice; `SP1-S35` dropped the old note's explanation.
+- **Documents:** the spec, the explainer, the ledger, `agent_model_proposal.html`, `fe03.md`, the two frozen records,
+  the proposal (status line, §6, §9), `TODO.md`, `CLAUDE.md`, `README.md`, `docs/theory/_STATUS.md`, `config/viz/famdiag.md`,
+  `docs/REVIEWER_READING_LIST.md`, `docs/SPEC_REVIEW_CHECKLIST.md` and `docs/spec_coverage.md`.
+- Suite: 1014 tests.
+
 ### The SP-1 proposal's eight questions answered (2026-10-22)
 
 - **What.** The owner answered Q1–Q8 of `docs/PROPOSAL — ASR QUOTATIONS (SP-1).md`, all as recommended, after a

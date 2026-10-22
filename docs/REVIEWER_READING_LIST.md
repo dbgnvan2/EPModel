@@ -4,7 +4,7 @@
 "Before you start" (after `main` was brought up to date), §8's 2026-10-21 entry, §9's link to the milestone review
 brief, and corrections from the stage 1 milestone review (§2's entry for the two criterion config files, §5's
 entry for the stage 1 comparison, §6's entry for the source-quality notes, §7's entry for version 2's plan, and §8's
-entries for what that review left open and fixed), and the SP-1 proposal's entries in §7 and §8.** It lists the documents that describe what
+entries for what that review left open and fixed), and the SP-1 proposal's entries in §7 and §8, updated 2026-10-22 when it was built at spec revision 34.** It lists the documents that describe what
 EPModel does and how it works, in the order a reviewer with no prior contact with the project should read them. It was
 last checked on 2026-10-21, after version 2 stage 1 was pushed (CI green), the document-claim tests were merged, the
 coverage page's Parts A and B were built and GitHub's default branch `main` was brought up to date.
@@ -71,7 +71,7 @@ The spec is the authority. A run or a piece of code that disagrees with it is a 
 
 | Document | What it tells you |
 |---|---|
-| [bowen_agent_model_spec_v2.md](bowen_agent_model_spec_v2.md) | **The spec**, v2.0. Version 1 is revision 32 (at the tag); revision 33 began version 2 and changed no rule. 575 numbered requirements: objects (`M1`), the reference family (`M2`), clocks and update order (`M3`), the weekly fast tick step by step (`M4`), moves (`M5`), invariants (`M6`), the slow tick (`M7`), live positions (`M8`), beliefs (`M9`), the parameter register (`M10`), acceptance criteria (`M11`), output framing (`M11.F`), the family-evaluation readout (`M11.G`), what must never be built (`M12`), implementation order (`M13`), family-diagram import (`M15`, not built), the run log and trace (`M16`), the ensemble runner (`M17`, a first draft). §0 says how to read it. About 2,600 lines. |
+| [bowen_agent_model_spec_v2.md](bowen_agent_model_spec_v2.md) | **The spec**, v2.0. Version 1 is revision 32 (at the tag); revision 33 began version 2 and changed no rule; revision 34 (2026-10-22) changed wording only, paraphrasing the quotations of the two speech-recognition sources (SP-1). 575 numbered requirements: objects (`M1`), the reference family (`M2`), clocks and update order (`M3`), the weekly fast tick step by step (`M4`), moves (`M5`), invariants (`M6`), the slow tick (`M7`), live positions (`M8`), beliefs (`M9`), the parameter register (`M10`), acceptance criteria (`M11`), output framing (`M11.F`), the family-evaluation readout (`M11.G`), what must never be built (`M12`), implementation order (`M13`), family-diagram import (`M15`, not built), the run log and trace (`M16`), the ensemble runner (`M17`, a first draft). §0 says how to read it. About 2,600 lines. |
 | [readouts_phase_c.md](readouts_phase_c.md) | How each named pattern (conflict, distance, over/underfunctioning, cutoff, …) is read from a run's history of acts. Patterns are readouts, never selectable acts. A test fails if this file and the code disagree. |
 | [../config/bowen/constants.md](../config/bowen/constants.md) | Every parameter value the engine uses, with its grade. |
 | [../config/bowen/constants_changes.md](../config/bowen/constants_changes.md) | Every change to those values, and why. |
@@ -175,7 +175,7 @@ Read this part to check that a claim presented as sourced is sourced.
 | [implementation_plan_version_2.md](implementation_plan_version_2.md) | Stage 1, the engineering batch: its decisions, criteria, tests and build record. Built 2026-10-19, pushed 2026-10-20 with CI passing. |
 | [<PROPOSAL — CUTOFF ANXIETY, BRIDGING AND REPAIR.md>](<PROPOSAL — CUTOFF ANXIETY, BRIDGING AND REPAIR.md>), [<PROPOSAL — EVENT SIZES FROM THE HOLMES–RAHE SCALE.md>](<PROPOSAL — EVENT SIZES FROM THE HOLMES–RAHE SCALE.md>) | Two version 2 rule changes. Each records the owner's answer to every question (2026-10-19). Neither is built; both wait for a third proposal (G2) to be built with it. |
 | [<PROPOSAL — LEARNING BY LEVEL, ASKING WHAT TO DO DIFFERENTLY.md>](<PROPOSAL — LEARNING BY LEVEL, ASKING WHAT TO DO DIFFERENTLY.md>) | A version 2 rule question raised by the owner. A draft; nothing decided. |
-| [<PROPOSAL — ASR QUOTATIONS (SP-1).md>](<PROPOSAL — ASR QUOTATIONS (SP-1).md>) | The milestone review's SP-1: a paraphrase and citation for each quotation of the two speech-recognition sources, how frozen records are marked, and a test against new quotations. A draft for the owner's review; the owner answered its eight questions 2026-10-22, all as recommended, and its paraphrases wait for approval; nothing applied. |
+| [<PROPOSAL — ASR QUOTATIONS (SP-1).md>](<PROPOSAL — ASR QUOTATIONS (SP-1).md>) | The milestone review's SP-1: a paraphrase and citation for each quotation of the two speech-recognition sources, how frozen records are marked, and a test against new quotations. The owner answered its eight questions 2026-10-22, all as recommended, and approved its §4 texts the same day. Built 2026-10-22 at spec revision 34, cut down by the owner: the paraphrases, the frozen-record notes and the test against new quotations (`tests/test_asr_quotations.py`) are built; the local transcript test, the extraction-note headers and the `kb` heading retitles are deferred (`TODO.md`). |
 | [plan_spec_coverage_phase_d.md](plan_spec_coverage_phase_d.md) | The plan for `spec_coverage.md`. Part A (the tool reads every record) and Part B (a judgment for each ID no test is named for, reviewed by the owner) both built 2026-10-20. |
 | `../TODO.md`, `../CHANGELOG.md` | Open items and owner questions; the history of every change. Both are long (about 1,000 lines each). |
 | [theory/_STATUS.md](theory/_STATUS.md) | The running hand-off log between working sessions. |
@@ -188,15 +188,21 @@ A reviewer should know these before reading.
 example `M1.A.7` (a parents'-mean term against "MUST NOT be computed from a family average"), `M1.A.18` (a hard 0.3
 gate against "graded, not a hard gate") and `M7.E.1e` against `M7.E.1f`. They are listed in `TODO.md`, not resolved.
 
-**Open, from the stage 1 milestone review (2026-10-21):** the spec, the explainer, the ledger and
-`DECISIONS FOR APPROVAL.md` quote the two speech-recognition sources verbatim, in 103 places by the triage's count.
-The proposal to paraphrase them, [<PROPOSAL — ASR QUOTATIONS (SP-1).md>](<PROPOSAL — ASR QUOTATIONS (SP-1).md>), was drafted 2026-10-21; the owner answered its eight questions
-2026-10-22, all as recommended, and its paraphrases wait for the owner's approval; nothing in it is applied. Spec wording held for revision 34, so the spec changes once: `M11.4`'s
-count of exceptions, the "four" callers of the live-positions predicate in M8 and `M13.1` (three exist), `M2.A.0i` on
-Dr Halim, Teodor's "awaiting owner review", and the closing clause of the spec's status line. `TODO.md` lists both.
+**Open, from the stage 1 milestone review (2026-10-21), what SP-1's build left:** the extraction notes
+(`theory/kb/*.md`, `theory/_LECTURES_1979.md`, `theory/_KERR_INTERVIEWS.md`) keep their quotations of the two
+speech-recognition sources, which only locate passages, and their headers do not yet say so; four cross-references
+in the extraction notes of *Family Evaluation* and Kerr's book also quote them, and those folders are exempt from the
+test; `TODO.md` holds two such quotations; and the test against new quotations misses one whose citation sits in
+another paragraph, list item or table row, among the limits its docstring lists. `TODO.md` lists each.
 
 **Fixed since this list was first drafted:**
 
+- 2026-10-22, spec revision 34: the spec, the explainer, the ledger and `agent_model_proposal.html` quoted the two
+  speech-recognition sources verbatim. Each quotation is now a paraphrase with its citation
+  ([<PROPOSAL — ASR QUOTATIONS (SP-1).md>](<PROPOSAL — ASR QUOTATIONS (SP-1).md>)); `DECISIONS FOR APPROVAL.md` and
+  `proposal_rev11_emergence.md` keep theirs under a frozen-record note. The spec wording held for revision 34 was fixed
+  with it: `M11.4`'s count of exceptions, the "four" callers of the live-positions predicate in M8 and `M13.1` (three
+  exist), `M2.A.0i` on Dr Halim, Teodor's "awaiting owner review", and the closing clause of the spec's status line.
 - 2026-10-19 and 2026-10-20, on `plan-phase-b`: README described the retired grid engine as running; the checklist
   named an old spec revision; `_STATUS.md` said version 2 was not approved; the explainer's front matter had an old
   date; `requirements.txt` listed packages nothing imports.

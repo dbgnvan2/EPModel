@@ -1,8 +1,11 @@
 # Proposal — ASR quotations (SP-1)
 
-> **Status: DRAFT 2026-10-21, for the owner's review. Nothing in it is applied.** The owner answered Q1–Q8 on
-> 2026-10-22, all as recommended (§6); the §4 texts still wait for the owner's approval, and the build (§7) follows
-> it. No spec, explainer, ledger or test edit is made until the owner approves it (decision D1, `CHANGELOG.md`). It answers the stage 1 milestone review's
+> **Status: APPROVED 2026-10-22 and BUILT 2026-10-22, cut down by the owner** (§9). Drafted 2026-10-21. The owner
+> answered Q1–Q8 on 2026-10-22, all as recommended (§6), and approved the §4 texts as written the same day; they are
+> applied at spec revision 34. Built: SP1.1 (without its local-test check), SP1.2, SP1.4, SP1.5, SP1.7 and SP1.8
+> (without `docs/milestone_review_brief.md`'s line on the local test, which waits for SP1.3).
+> Deferred to `TODO.md` by the owner: SP1.3 (the local transcript test), SP1.6 (the extraction-note headers and the
+> `kb` heading retitles) and `TODO.md`'s two ASR quotations. It answers the stage 1 milestone review's
 > systemic pattern SP-1 and the review's owner questions Q1–Q3 (`docs/cycles/2026-10-21_milestone-review_v2-stage-1.md`).
 > Each paraphrase in §4 was drafted from its transcript passage and then checked against the passage by a second
 > reader who had not drafted it; the entries that check corrected are marked. Line numbers are at commit `c893109`.
@@ -364,7 +367,8 @@ tables put written quotations beside ASR citations.
 **The owner's answers, 2026-10-22.** All eight as recommended, each after a walk-through: Q1, part of SP-1; Q2, (a)
 to (c) as recommended; Q3, alternative B, approved as a change to what `M11.F.3` records; Q4, paraphrase both Tape 1
 passages; Q5, as recommended; Q6, form C; Q7, each mismatch to `TODO.md` as its own decision; Q8, keep the quotation
-and trace it (the recommendation as revised on 2026-10-22, below). The §4 texts themselves are not yet approved.
+and trace it (the recommendation as revised on 2026-10-22, below). The §4 texts were approved as written the same
+day (§9).
 
 **Q1. `KB11` in `M10.C.2`, `_LEDGER.md` L16.3 and DECISIONS A1 (the review's Q1; SP1-S39, SP1-L05).** Is the quotation an accepted
 exception, or part of SP-1? Did approving A1 approve the quotation's form, or only the withdrawal of the
@@ -480,6 +484,47 @@ reads a sentence §4 replaces.
   through the page generated from it; other JSON and Python files were not scanned.
 - Option A catches about four in five of today's quotations. The rest are caught only by the local test, which runs
   only where the transcripts are.
+
+## 9. As built (2026-10-22)
+
+The owner chose to cut the build down when it was spending more on the transcripts than on the model: the paraphrases,
+Q8's trace, the frozen-record notes, the default-suite test with its rules file and revision 34's wording fixes now;
+the rest to `TODO.md`.
+
+- **The test (SP1.2) differs from §5's form C in its scope.** It reads the block that holds the quoted span — a
+  paragraph, a list item or a table row (`tests/doc_text.py`'s `blocks`) — not the paragraph: a markdown table reads
+  as one paragraph, so the paragraph scope flagged rows of a table for a citation in another row. Quote marks are
+  paired inside each block, so a stray or short quote mark cannot swallow a quotation in the next one; straight and
+  curly double quotes and curly single quotes are read. In HTML, tags are blanked before the scan, so attribute quotes
+  do not pair into spans, and entities are then decoded, so `&ldquo;…&rdquo;` is read as a quotation. The citation
+  pattern is §5's broadened one without the bare word "interview", which flagged 656 spans in the 22 papers' notes,
+  with five more forms the first review found in use: "Tapes N", "1979 tape", "video lecture", "KB NN" and "Kerr
+  interview", and without `kb/kbNN`, which `KBNN` already matches. A test pins each form. A curly single quote
+  followed by a letter is read as an apostrophe. Measured on `c893109` with the built test and its final rules, it catches 68 of the 87 ASR quotations
+  and flags 13 of the 64 kept rows (the same figures as §5's same-paragraph row, measured again on the built form);
+  its 3 other findings there are written-source quotations and the owner's words.
+- **What it does not catch.** A quotation whose citation sits in another block, or that has none; one set as a block
+  quote without quote marks; one whose marks do not pair (a curly opening closed by a straight one); one after a
+  stray quote mark in its own block; one longer than 800 characters; one in straight single quotes or guillemets;
+  one beside a citation form not in the rules; an HTML entity in a Markdown file; anything outside tracked `.md` and
+  `.html` files. The extraction notes of *Family Evaluation* and Kerr's book are exempt as written-source notes, and
+  four of their cross-references quote an ASR source; `TODO.md` holds the owner's decision. After the paraphrases, a rescan of the four documents found no ASR quotation
+  left; the 32 matches it reports are written-source quotations and text that is not a quotation, each on the
+  allowlist. One of `TODO.md`'s two ASR quotations is not caught by the test; the other is on the allowlist until it
+  is paraphrased.
+- **What it flags that is not a quotation of a transcript.** A Markdown block quote is one block however many
+  paragraphs it holds, so a citation anywhere in it flags every quotation in it. The run log,
+  `docs/theory/_STATUS.md`, is written as block quotes; it is scanned, not exempt, and its 13 flagged spans (the
+  owner's words, the project's own wording, Kerr's book and the 22 papers) are on the allowlist.
+- **The allowlist** holds 47 entries: written-source quotations (Kerr's book, *Family Evaluation*'s Epilogue,
+  preface, Ch3 and Ch5, the 22 papers including the printed interview in Ch17), the owner's own words, the spec's and
+  the ledger's own wording, the extraction notes' own wording, two section titles, and `TODO.md`'s deferred quotation. 16 paths are exempt, each with its
+  reason.
+- **SP1.5** is checked by `tests/test_asr_quotations.py::test_sp1_5_frozen_records_carry_note`.
+- **Found while building, recorded in `TODO.md`:** SP1-E06's note in the explainer states more than the approved
+  paraphrase carries; the tension between SP1-S40 and `M11.C.11` (Q7); SP1-S38 cites K10.9 twice; SP1-S35 dropped the
+  old note's explanation of its rule; and the block quotation traced at `FE03.21` ends a quoted run whose speaker is
+  not known (its finding says so).
 
 ## Adjacent issues found, not fixed
 

@@ -58,6 +58,15 @@ def sentences(text: str) -> list[str]:
     return out
 
 
+def blocks(text: str) -> list[tuple[int, int]]:
+    """The (start, end) of each paragraph, list item and table row, in order."""
+    out, head = [], 0
+    for match in _BLOCK.finditer(text):
+        out.append((head, match.start()))
+        head = match.end()
+    return out + [(head, len(text))]
+
+
 def tracked_files(repo: Path = REPO) -> list[str]:
     """Every path git tracks. A stray untracked copy of a removed file must not count as present."""
     result = subprocess.run(["git", "ls-files", "-z"], cwd=repo, capture_output=True, text=True, timeout=60)

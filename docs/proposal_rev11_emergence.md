@@ -8,6 +8,11 @@ superseded_by: the spec's revision-11 section, M11.5 (classification) and model_
 
 # Revision 11 proposal — what is set, what is random, what emerges
 
+> *Quotations of the 1979 tapes and the Kerr–Bowen interviews in this record are ASR text. They were written after
+> the no-quotation rule (2026-08-23) and break it. They are kept unedited as the record of what was approved; they
+> are not the speakers' words and are not copied into other documents. The current wording is in the spec under the
+> same requirement IDs (SP-1, 2026-10-21).*
+
 > **Applied 2026-10-06.** Where this draft and the spec differ, the spec wins. Three corrections were made while
 > applying it, listed in the spec's revision-11 section: `M11.C.41`'s reactive-share limb stays a premise;
 > `M7.E.1a` and `M7.E.1e` changed with `M7.E.1`; `M4.D.6a` cites `KS04.13`, not the societal `K10.7`. The

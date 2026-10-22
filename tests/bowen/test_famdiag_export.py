@@ -279,14 +279,24 @@ def test_v5_export_is_deterministic(run, mapping, diagram):
     assert tool.build_diagram(run, mapping, 7) == diagram
 
 
-# Opening the export in fam-diag saves it back (autosave). The app may change keys the tool writes (people and lines
-# moved, the display name set to the file name) and adds keys of its own (colours, its settings). Those are the
-# owner's; everything else in the file must be what the tool writes now, no more and no less.
-APP_OWNED_KEYS = frozenset({"x", "y", "horizontalConnectorY", "displayName"})
-APP_ADDED_KEYS = frozenset({
-    "color", "exportedAt", "autoSaveMinutes", "ideasText", "eventCategories", "nodalCategories", "predictionSets",
-    "functionalFactCategories", "functionalIndicatorDefinitions", "relationshipStatuses", "relationshipTypes",
+# Opening the export in fam-diag saves it back (autosave). The keys the app changes or adds are the owner's; everything
+# else in the file must be what the tool writes now, no more and no less. The sets are written out here, not taken from
+# the tool, so a key added to the tool's sets (one the run draws, say) shows here as a failure.
+APP_OWNED_KEYS = frozenset({
+    "x", "y", "horizontalConnectorY", "displayName", "width", "height", "size", "notesPosition", "notesSize",
+    "familyNotesPosition", "familyNotesSize", "familyNameOffsetX", "familyNameOffsetY", "familyNameWidth",
+    "familyNameHeight", "connectionAnchorX", "birthOrderOverride", "siblingPositionOverride", "fatherPositionOverride",
+    "motherPositionOverride", "partnerPositionOverride",
 })
+APP_ADDED_KEYS = frozenset({
+    "color", "fillColor", "backgroundColor", "backgroundEnabled", "exportedAt", "autoSaveMinutes", "ideasText",
+    "eventCategories", "nodalCategories", "predictionSets", "functionalFactCategories",
+    "functionalIndicatorDefinitions", "relationshipStatuses", "relationshipTypes",
+})
+
+
+def test_v5_app_key_sets_are_the_declared_ones():
+    assert (tool.APP_OWNED_KEYS, tool.APP_ADDED_KEYS) == (APP_OWNED_KEYS, APP_ADDED_KEYS)
 
 
 def _what_the_tool_drew(saved, rendered):
@@ -305,12 +315,124 @@ def test_v5_committed_export_is_the_current_render(diagram):
     """P6: the seed-7 export under docs/review/ still holds what tools/famdiag_export.py renders now. Stage 1's
     regeneration refreshed the trace and chart but not this file, which kept naming spec revision 32 and an old
     config hash. A change to the run, the readouts or the spec revision turns this red until it is regenerated:
-    python3 tools/famdiag_export.py. A save from fam-diag (APP_OWNED_KEYS, APP_ADDED_KEYS) does not."""
+    python3 tools/famdiag_export.py, which keeps what the app saved (tool.keep_saved). A save from fam-diag
+    (APP_OWNED_KEYS, APP_ADDED_KEYS) does not turn it red."""
     import json
 
     saved = json.loads((REPO / "docs" / "review" / "phase_c_famdiag_seed7.json").read_text(encoding="utf-8"))
     expected = _what_the_tool_drew(diagram, diagram)
     assert _what_the_tool_drew(saved, diagram) == expected, "stale: rerun tools/famdiag_export.py"
+
+
+def _saved_from_the_app(diagram):
+    """The export as the app might save it: Sofia and the note moved, a couple's connector moved, entries reordered,
+    a colour and a settings key added, an entry and a key the tool does not write."""
+    import copy
+
+    saved = copy.deepcopy(diagram)
+    next(p for p in saved["people"] if p["id"] == "p-sofia").update(x=648, y=86, name="edited in the app")
+    saved["partnerships"][0]["horizontalConnectorY"] = 158
+    saved["pageNotes"][0].update(x=922, y=15, text="an old note")
+    saved["people"].reverse()
+    saved["people"].append({"id": "p-nobody", "x": 1, "y": 1})
+    saved["emotionalLines"][0]["color"] = "#123456"
+    saved["functionalFactCategories"] = [{"id": "ff-1", "name": "Anxiety Level"}]
+    saved["fileMeta"]["displayName"] = "phase_c_famdiag_seed7.json"
+    next(p for p in saved["people"] if p["id"] == "p-ana")["notesPosition"] = {"x": 5, "y": 6}
+    dario = next(p for p in saved["people"] if p["id"] == "p-dario")
+    dario["x"] = int(dario["x"])  # the app saves 300 where the tool draws 300.0
+    saved["staleKey"] = 1
+    return saved
+
+
+def test_v5_regeneration_keeps_saved_positions(diagram):
+    """A rerun keeps each position saved from the app for the same id (a person, a couple's connector, the note),
+    whatever order the saved entries are in, and every key the app added; it draws everything else, including the
+    text, from the run. A saved id the run does not draw, and a key the tool does not write, are dropped and
+    reported."""
+    kept, report = tool.keep_saved(diagram, _saved_from_the_app(diagram))
+
+    person = next(p for p in kept["people"] if p["id"] == "p-sofia")
+    assert (person["x"], person["y"]) == (648, 86)
+    assert person["name"] == next(p for p in diagram["people"] if p["id"] == "p-sofia")["name"]
+    assert kept["partnerships"][0]["horizontalConnectorY"] == 158
+    assert (kept["pageNotes"][0]["x"], kept["pageNotes"][0]["y"]) == (922, 15)
+    assert kept["pageNotes"][0]["text"] == diagram["pageNotes"][0]["text"]
+    assert [p["id"] for p in kept["people"]] == [p["id"] for p in diagram["people"]]
+    others = [p for p in kept["people"] if p["id"] not in ("p-sofia", "p-ana")]
+    assert others == [p for p in diagram["people"] if p["id"] not in ("p-sofia", "p-ana")]  # 300 == 300.0
+    assert kept["emotionalLines"][0]["color"] == "#123456"
+    assert kept["functionalFactCategories"] == [{"id": "ff-1", "name": "Anxiety Level"}]
+    assert kept["fileMeta"]["displayName"] == "phase_c_famdiag_seed7.json"
+    assert "staleKey" not in kept
+    assert ".people[p-sofia].x = 648" in "\n".join(report)
+    assert "dropped .people[p-nobody]: the run does not draw it" in report
+    assert "dropped .staleKey: the tool does not write it" in report
+    assert next(p for p in kept["people"] if p["id"] == "p-ana")["notesPosition"] == {"x": 5, "y": 6}
+    assert "kept the app's own values: color ×1, functionalFactCategories ×1" in report
+    assert not any("p-dario" in line for line in report)
+    assert type(next(p for p in kept["people"] if p["id"] == "p-dario")["x"]) is int
+    assert tool.keep_saved(diagram, {}) == (diagram, [])
+
+
+def test_v5_write_export_keeps_and_reports(diagram, tmp_path):
+    """write_export keeps what the app saved in the file it overwrites and returns the report; --from-table places
+    everything by the layout again and still keeps the app's own keys."""
+    import json
+
+    out = tmp_path / "export.json"
+    assert tool.write_export(diagram, out) == []
+    assert json.loads(out.read_text(encoding="utf-8")) == diagram
+
+    out.write_text(json.dumps(_saved_from_the_app(diagram)), encoding="utf-8")
+    report = tool.write_export(diagram, out)
+    written = json.loads(out.read_text(encoding="utf-8"))
+    assert (next(p for p in written["people"] if p["id"] == "p-sofia")["x"]) == 648
+    assert any(line.startswith("kept .people[p-sofia].x") for line in report)
+
+    out.write_text(json.dumps(_saved_from_the_app(diagram)), encoding="utf-8")
+    report = tool.write_export(diagram, out, from_table=True)
+    written = json.loads(out.read_text(encoding="utf-8"))
+    sofia = next(p for p in diagram["people"] if p["id"] == "p-sofia")
+    assert next(p for p in written["people"] if p["id"] == "p-sofia")["x"] == sofia["x"]
+    assert written["fileMeta"]["displayName"] == diagram["fileMeta"]["displayName"]
+    assert written["functionalFactCategories"] == [{"id": "ff-1", "name": "Anxiety Level"}]
+    assert "notesPosition" not in next(p for p in written["people"] if p["id"] == "p-ana")
+    assert not any(line.startswith("kept .") for line in report)
+    assert any(line.startswith("discarded .people[p-sofia].x = 648") for line in report)
+    assert any(line.startswith("discarded .people[p-ana].notesPosition") for line in report)
+
+
+def test_v5_keep_saved_reports_malformed_saves(diagram):
+    """A saved value of another shape, a second entry with the same id, and an id that is not a string or number are
+    dropped and reported, not merged and not raised."""
+    import copy
+
+    saved = copy.deepcopy(diagram)
+    saved["pageNotes"] = {"not": "a list"}
+    saved["people"].append(copy.deepcopy(saved["people"][0]) | {"x": 999})
+    saved["triangles"].append({"id": ["a", "list"], "x": 1})
+    kept, report = tool.keep_saved(diagram, saved)
+    assert kept["pageNotes"] == diagram["pageNotes"]
+    assert "dropped .pageNotes: saved as dict, drawn as list" in report
+    assert f"dropped .people[{diagram['people'][0]['id']}]: a second saved entry with this id" in report
+    assert kept["people"][0]["x"] == diagram["people"][0]["x"]
+    assert kept["triangles"] == diagram["triangles"]
+
+
+def test_v5_main_from_table_redraws(diagram, tmp_path, capsys):
+    """The command line: a plain run keeps a position saved in the file it overwrites; --from-table redraws it."""
+    import json
+
+    out = tmp_path / "phase_c_famdiag_seed7.json"
+    out.write_text(json.dumps(_saved_from_the_app(diagram)), encoding="utf-8")
+    sofia_x = next(p for p in diagram["people"] if p["id"] == "p-sofia")["x"]
+    assert tool.main([], out_dir=tmp_path) == 0
+    assert next(p for p in json.loads(out.read_text())["people"] if p["id"] == "p-sofia")["x"] == 648
+    out.write_text(json.dumps(_saved_from_the_app(diagram)), encoding="utf-8")
+    assert tool.main(["--from-table"], out_dir=tmp_path) == 0
+    assert next(p for p in json.loads(out.read_text())["people"] if p["id"] == "p-sofia")["x"] == sofia_x
+    assert "discarded .people[p-sofia].x" in capsys.readouterr().out
 
 
 def _header_only():

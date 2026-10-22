@@ -1,6 +1,18 @@
 # Run status — HANDOFF
 
-> ## ▶ STATE — the corpus is closed. **Version 1 is complete (2026-10-18) and tagged `version-1` at `d62cfdc`; its spec is revision 32. Version 2 began at revision 33; stage 1 was built and its records regenerated 2026-10-19 and pushed 2026-10-20, and no verdict changed. Work goes on `main` (owner, 2026-10-21).**
+> ## ▶ STATE — the corpus is closed. **Version 1 is complete (2026-10-18) and tagged `version-1` at `d62cfdc`; its spec is revision 32. Version 2 began at revision 33; stage 1 was built and its records regenerated 2026-10-19 and pushed 2026-10-20, and no verdict changed. Revision 34 (2026-10-22) changed wording only: the ASR quotations paraphrased (SP-1) and the stage 1 milestone review's wording fixes. Work goes on `main` (owner, 2026-10-21).**
+>
+> **2026-10-22 — SP-1 built, cut down, with spec revision 34.** The owner answered the SP-1 proposal's eight
+> questions and approved its §4 texts; the 65 paraphrases of the 1979 tapes and the Kerr–Bowen interviews are applied
+> to the spec, the explainer, the ledger and the proposal html, `M4.D`'s *Family Evaluation* quotation is traced to
+> `FE03.21`, the two frozen records carry their note, and `tests/test_asr_quotations.py` fails on a new quotation beside
+> an ASR citation. The owner cut the build down when it was spending more on the transcripts than on the model: the
+> local transcript test, the extraction-note headers and the `kb` heading retitles wait in `TODO.md`, with Q7's six
+> requirement decisions. Revision 34 also carries the stage 1 review's wording fixes (D3, D4, D6, MR-10, MR-15).
+> `tools/famdiag_export.py` now keeps what the owner saved from the app (positions, settings, colours) when it
+> regenerates the export (owner, 2026-10-22). No code or config that changes what a run computes changed. **Next:** the G2 proposal, then group G and the event
+> sizes as one revision and one regeneration (the Holmes–Rahe Q3 asked again first, D10), and stage 2's pilot
+> (`docs/version_2_plan.md` §6; `TODO.md`).
 >
 > **2026-10-20 and 2026-10-21 — stage 1 pushed; the documents and the review process brought up to date.** Stage 1 was
 > pushed 2026-10-20 with CI green, after its cold sweep's fixes. Also 2026-10-20: the document-claim tests were merged

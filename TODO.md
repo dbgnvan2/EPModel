@@ -12,8 +12,9 @@ Deferred and adjacent items. Each carries enough context to act on later without
   page frozen and checked against it; the dispositions; the render-only fixes moved to stage 1 (owner).* Then stage 1
   (the engineering batch, with the grid engine retired, stage 0.3's two fixes, and the trace renderer out of the hash;
   *plan drafted 2026-10-19, `docs/implementation_plan_version_2.md` §1; D1–D7 decided and the plan approved by the owner the same day; built 2026-10-19, pushed 2026-10-20 with CI green*);
-  *first, from the stage 1 milestone review (owner, 2026-10-21): the SP-1 proposal and spec revision 34, in the
-  review's section below;* the G2 proposal, so group G (G1, G2, the Holmes–Rahe sizes) can go to one revision and be
+  ~~*first, from the stage 1 milestone review (owner, 2026-10-21): the SP-1 proposal and spec revision 34, in the
+  review's section below;*~~ *built 2026-10-22 at spec revision 34, cut down by the owner; what was deferred is in
+  the review's section below;* the G2 proposal, so group G (G1, G2, the Holmes–Rahe sizes) can go to one revision and be
   built before the stage 2 pilot; then proposals for groups C, F and A, each with the owner's note in the plan's §5 Q2.
 - [ ] **`/csdp` sweep of 2026-10-19, items not fixed** (each with its reason; the last three are the fix re-sweep's
   minor items, recorded under the owner's three-or-fewer rule).
@@ -119,11 +120,12 @@ The review is `docs/cycles/2026-10-21_milestone-review_v2-stage-1.md` (the secon
 `review/2026-10-21-v2-stage-1`). The triage refuted none of its 26 findings: 22 hold as stated and 4 in part. The
 owner's ten decisions and what this batch fixed are in `CHANGELOG.md`. Open:
 
-- [ ] **Waiting on the owner: approval of the SP-1 proposal's §4 texts** (owner, D1). **Drafted 2026-10-21; its
-  eight questions answered 2026-10-22, all as recommended (its §6):**
+- [x] ~~**Waiting on the owner: approval of the SP-1 proposal's §4 texts**~~ (owner, D1). **Drafted 2026-10-21; its
+  eight questions answered 2026-10-22, all as recommended (its §6); its §4 texts approved and built 2026-10-22 at spec
+  revision 34, cut down by the owner (its §9; the deferred parts are the next item):**
   `docs/PROPOSAL — ASR QUOTATIONS (SP-1).md`, 65 entries (87 ASR quotation rows, and three items the further scans
-  found), with eight owner questions (Q1–Q8). Nothing is applied; its build plan (§7) follows approval of the §4
-  texts, with revision 34. Its last section lists the adjacent issues it found and did not fix. The 1979 tapes and the Kerr–Bowen interviews are ASR, and the
+  found), with eight owner questions (Q1–Q8). Its build plan (§7) was followed, cut down, with revision 34.
+  Its last section lists the adjacent issues it found and did not fix. The 1979 tapes and the Kerr–Bowen interviews are ASR, and the
   rule is to cite them and not quote them. It was committed in `_LECTURES_1979.md` on 2026-08-23 at 11:50 (`528bb50`)
   and in `_KERR_INTERVIEWS.md` at 13:09 (`e14d3d7`), and restated in `_SOURCE_QUALITY.md` at 17:53 (`6a56bb2`).
   - **What the triage's scan found.** It matched quoted spans of four or more words, split at ellipses, against
@@ -141,7 +143,68 @@ owner's ten decisions and what this batch fixed are in `CHANGELOG.md`. Open:
     Epilogue instead of KB13. That last one changes a requirement; the owner approved it (alternative B). The
     proposal's Q8 was traced the same day: the *Family Evaluation* Ch3 words are in the book's source text, so the
     quotation stays and gets an `fe03.md` finding.
-- [ ] **Spec revision 34**, written with the SP-1 paraphrases so the spec changes once (owner, D2–D6):
+- [ ] **SP-1, the parts the owner deferred on 2026-10-22** (the build was spending more on the transcripts than on
+  the model; the proposal's §7 and §9):
+  - SP1.3: the local test, marked `transcripts` and deselected by default, that matches quoted spans against the
+    transcript folder named by `EPMODEL_TRANSCRIPTS`, with its line in `docs/milestone_review_brief.md`.
+  - SP1.6: the header note on each extraction note in the proposal's §3 (their quotations only locate passages), and
+    the six headings in `kb02.md`–`kb15.md` that name Bowen as the speaker of a Hijack-set interview.
+  - This file's two ASR quotations: the backlog item on hedges trimmed off the front of quotations (2026-08-28)
+    quotes spec phrases from the tapes and interviews, which revision 34 paraphrased, so that item can close or
+    narrow; the other is in the item on locating the rest of the interview series, and is on
+    `tests/asr_quotations.json`'s allowlist until it is paraphrased. The default-suite test does not catch the first.
+  - The test's known limits (its docstring; the proposal's §9): it misses a quotation whose citation sits in another
+    paragraph, list item or table row, or that has none; one set as a block quote without quote marks; one whose
+    marks do not pair (a curly opening closed by a straight one); one after a stray quote mark in its own block; one
+    longer than 800 characters; one in straight single quotes or guillemets; one beside a citation form not in the
+    rules (`KB-04`, `T6.8`, "tape five"); an HTML entity in a Markdown file is not decoded; only tracked `.md` and
+    `.html` files are read. The local test (SP1.3) is the check for most of those.
+- [ ] **SP-1 Q7: six requirements whose passage supports less than they say** (owner, 2026-10-22: each its own
+  decision; the paraphrases keep to the passage and the requirement's MUST is unchanged at revision 34; the
+  proposal's Q7 table):
+  - `M11.C.11` (SP1-S40): Tape 6 ranks a long absentee's return as probably the strongest of the additions, and says a
+    family generally reacts more to a loss; it does not by itself support the return exceeding the removal.
+    `_LECTURES_1979.md` T6.8 makes the same step. Revision 34's paraphrase now says so inside the criterion's own row.
+  - `M1.C.3a` (SP1-S16): Tape 5 speaks of the intensity of symptoms and relationship patterns, not of triangles.
+    Decide with the next item's `SP1-E06`, which cites the same passage for triangles.
+  - `M1.E.7` (SP1-S24): the KB10 passage is about a society accepting what it can no longer deal with; its use as the
+    condition for a rise in `systems_perspective` is the spec's analogy.
+  - `M5.B.3a` (SP1-S32): KB08's statement on de-selfing is limited to a family where everyone does it, and the same
+    interview recommends near-full disclosure between spouses as an exercise.
+  - `M5.C.1a` (SP1-S34): KB08's warning was given to one family before it entered the research, not as a general
+    warning against the protocol.
+  - `M1.B.10a` (SP1-S15): Tape 6 states a closed subject's reopening as a wish, and says couples usually cannot
+    reopen it themselves by the time they seek help; it supports the MUST as a possibility, not a common outcome.
+- [ ] **Found while building SP-1 (2026-10-22), not fixed:**
+  - `SP1-E06`, the explainer's §6.1 triangle table (`routing_capacity`): the proposal's check note says the text now
+    says that applying Tape 5 to triangles is the project's inference (K04.15); the approved text does not say it.
+    Pair with `M1.C.3a` above.
+  - `SP1-S38` (`M10.A.2`) cites K10.9 twice, once inline and once in its source arrow.
+  - `SP1-S35` (`M5.D.7a`) dropped the old note's explanation of why the attribution changed.
+  - `FE03.21`: the block quotation in `M4.D` ends a quoted run in the chapter whose speaker is not known; it is cited
+    as Kerr's chapter until it is checked against the printed book (`family_evaluation/fe03.md`).
+- [ ] **From the SP-1 build's review (2026-10-22), not fixed:**
+  - Six exempt paths in `tests/asr_quotations.json` hide no finding today (`CHANGELOG.md`, `LEARNINGS.md`, `papers/`,
+    `_KERR_INTERVIEWS.md`, `_PASS2_CORRECTIONS.md`, `_SOURCE_QUALITY.md`). Kept: each is exempt by the proposal's §3
+    for what it is (a dated record, the owner's files, extraction notes), so a quotation added there later should
+    not fail. `test_sp1_4` checks that each path exists, not that it hides anything.
+  - `test_sp1_4` does not catch two allowlist entries for the same file and span.
+  - The test scans tracked files only, so a new document fails it only once it is added to git. Scanning untracked
+    files would scan the owner's untracked files too.
+  - `src/bowen/engine/live_positions.py:1` says the predicate is used in four places; revision 34 says three callers
+    (M8's preamble). The file is in the engine hash, so the fix waits for group G's regeneration.
+  - **Owner decision:** `docs/theory/family_evaluation/` and `docs/theory/kerr_book/` are exempt from the test as
+    written-source notes, but four of their cross-references quote an ASR source: `ks07.md:159` (KB07 · K07.4),
+    `ks19.md:148` (KB04), `fe10.md:303` (KB06) and `fe07.md:38` (Tape 2). Paraphrase them, or hold these notes like
+    the `kb` notes under D1 (their quotations only locate passages), or list their spans and drop the folder
+    exemptions so a fifth is caught. The exemption reasons now say so.
+  - `tools/famdiag_export.py` keeps the app keys it names (positions and sizes, colours, settings). Any other key the
+    app writes when the owner edits a field the tool does not draw (a birth date, say) is dropped, with a report
+    line. The tool writes in the app's format, so a key name cannot tell an owner's edit from a value an earlier
+    version of the tool wrote; keeping every unknown key would keep stale run output. Owner edits to fields the tool
+    draws (a name, a line's notes) are redrawn by design. The file is written in place, not atomically; it is in git.
+- [x] ~~**Spec revision 34**~~, written with the SP-1 paraphrases so the spec changes once (owner, D2–D6). *Built
+  2026-10-22 (the spec's revision 34 entry):*
   - MR-10: `M11.4` says "Three criteria", but its table has nine live rows. Say nine, or point to `M11.4b`, which
     already says the table supersedes the count.
   - MR-12 (D4): the M8 preamble, `M8.5` and `M13.1` say four mechanisms call the live-positions predicate. Three

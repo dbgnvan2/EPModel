@@ -18,6 +18,10 @@
 >   - `silent_weeks` counts weeks without interaction (owner D2: no interaction is an emerging level of distance).
 > - Triangle intensity is set by how many blocks the fixed triangle lasts.
 > - Event categories are fam-diag's own (`constants/eventConstants.ts`). `subtype` is always the model's act name.
+> - Layout: where each person is drawn. A regeneration keeps what the app saved in the committed export, matched by
+>   id: positions and sizes (a person, a couple's connector line, the note) and the app's colours and settings, the
+>   keys named in `tools/famdiag_export.py` (`keep_saved`, owner 2026-10-22). Any other saved key the tool does not
+>   write is dropped and reported. The table places everything else; `--from-table` places everything by the table.
 
 block_weeks: 4
 first_year: 2001

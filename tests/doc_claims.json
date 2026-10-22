@@ -37,6 +37,11 @@
         "doc": "docs/theory/_STATUS.md",
         "phrase": "its 36 tests stay green",
         "why": "the Standing decisions section (undated; the line was added in the commit of 2026-08-22), describing the grid engine's suite then; the decision is marked withdrawn there"
+      },
+      {
+        "doc": "CHANGELOG.md",
+        "phrase": "Suite: 1003 tests, passing on Python 3.12 and 3.11 on this Mac.",
+        "why": "the dated entry of 2026-10-20 for the Python 3.11 fix, giving the suite's size then"
       }
     ]
   },

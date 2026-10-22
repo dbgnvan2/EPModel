@@ -591,7 +591,7 @@ couples, whose defences are more rigid.
 productive. C1 likely survives only as a claim about *symptom relief obtained without structural change*.
 See L22.1.
 
-**`KB03` supplies the mechanism and the best evidence in the project.** "Therapeutic-itis": **the problem was created in the first place by the family trying to do good for the patient**, so helping is the same operation. And the research-versus-therapy finding is now four statements, an experiment (residents told to learn rather than cure; the best lasted **ten hours** before the family demanded an answer and he gave in) and an **independent replication by Kerr** on cancer families, who produced more ideas per session and did better.
+**`KB03` supplies the mechanism and the best evidence in the project.** "Therapeutic-itis": **the interview holds, as a belief with fairly good evidence behind it, that the problem began with the family's own efforts to help the patient**, so helping is the same operation. And the research-versus-therapy finding is now four statements, an experiment (residents told to learn rather than cure; the best lasted **ten hours** before the family demanded an answer and he gave in) and an **independent replication by Kerr** on cancer families, who produced more ideas per session and did better.
 
 ### L06.3 — Physical distance does not attenuate coupling  `[narrowed]`
 **CONTRADICTS → `Relationship`**
@@ -1311,14 +1311,9 @@ relief — with an **unranked** list inside the top tier. Pass 1 presented an or
 ordering" **and silently swapped the grandmother pair so it would descend** (the text puts shadow before
 central). It was being used as a calibration ladder. Withdrawn as a ladder.
 **What survives, and 1979 Tape 6 supplies the ranking principle pass 2 said was absent:** the three tiers,
-and the rule that generates them — "the most important cue… has to do with the **functional position in the
-family** of the one who dies. Potential reactiveness is **greatest when that person goes from full
-functioning to death in a brief period**." The ordering is by **functional position plus suddenness**, not by
+and the rule that generates them — Bowen says he believes the **functional position** the dead person had held is the best indicator of how strongly the family will react, and puts the potential for reaction **highest when death comes quickly to someone who was still functioning fully** (Tape 6 · T6.1). The ordering is by **functional position plus suddenness**, not by
 role label.
-**The grandmother pair is settled, and neither earlier reading was right.** Tape 6: when the patriarch dies
-there is a fair chance of a shock wave, "and then when his wife dies, it'd be **less** of a reaction. **If
-the wife was the sort of matriarch** who was responsible and respected, then the shockwave would come more in
-relation to **her** than to her husband." Whoever held the functional-doer position, either sex. A disabling
+**The grandmother pair is settled, and neither earlier reading was right.** Tape 6: the patriarch's death is fairly likely to set off a shock wave, more so where the family is a closed emotional system, and his wife's death afterwards draws a **smaller** reaction — unless **she was the family's matriarch**, the respected one who carried responsibility, in which case the shock wave attaches to **her** death more than to her husband's (Tape 6 · T6.1). Whoever held the functional-doer position, either sex. A disabling
 injury or life-threatening illness in an emotionally endowed child ranks with a death.
 Also surviving: **dysfunction that was load-bearing produces a shock wave where ordinary dysfunction does not**. A burdensome,
 non-critical member's death is followed by **improved** family functioning. Suicide produces prolonged grief
@@ -1390,7 +1385,7 @@ channel does. Corroborates L09.2.
 *Model impact:* the conserved quantity is **pseudo-self**, not self. Solid self is exempt. Distance is
 **always-on and outside the budget** — it must not be implemented as a competing sink.
 
-**`KB04` adds the other half.** Bowen enumerates **four** ways of *absorbing* anxiety, distance first among them, where the 1979 lecture enumerates **three** that *end in symptoms*. Both are true and they answer different questions: **distance absorbs anxiety without producing a symptom**, which is why it sits outside the symptom budget and why a family can discharge into it indefinitely and read as untroubled. The ledger and spec state only the second half.
+**`KB04` adds the other half.** The KB04 interview lists **four** ways of *absorbing* anxiety, distance first among them, where the 1979 lecture lists **three** that *end in symptoms*. Both are true and they answer different questions: **distance absorbs anxiety without producing a symptom**, which is why it sits outside the symptom budget and why a family can discharge into it indefinitely and read as untroubled. The ledger and spec state only the second half.
 
 ### L16.3 — The generational update rule, and the cutoff positive-feedback loop  `[stands]`
 **REFINES → `Person`, multigenerational**
@@ -1400,10 +1395,7 @@ generations, static for one or two, then fast again — and reversible at both e
 *The clearest positive feedback loop in the corpus:* the more intense the cutoff, the more exaggerated the
 parental problem in one's own marriage, and the more intense the next generation's cutoff.
 *Calibration:* **⛔ WITHDRAWN at pass 3.** The figure was recorded as "eight to ten generations to
-schizophrenia — revised **up** from at least three", implying a measurement refined. `KB11` says otherwise,
-verbatim: "I introduced the notion of ten generations… **which I put in not to say that it takes ten
-generations**. Previously I'd said it took only three, but that was sort of **to convey the notion that it's
-not just three and just ten, but it is a multi-generational thing**." **Both numbers were rhetorical devices
+schizophrenia — revised **up** from at least three", implying a measurement refined. `KB11` · K11.1 says otherwise: the interview explains that ten generations was put forward without meaning that schizophrenia needs ten generations to develop, that the earlier statement had been three, and that the figure was, loosely, a way of saying that the process is fixed at neither three generations nor ten but is **multigenerational**. **Both numbers were rhetorical devices
 for one qualitative point.** This is the third figure to fail this way after L09.7 and L13.1.
 *What survives:* transmission is multigenerational, more than three, **unquantified**. A five-or-six-generation
 stress producing a social failure less impaired than a schizophrenic is the same illustrative register and
@@ -1462,7 +1454,7 @@ See L16.5 and L22.7.
 *Model impact:* the repo carries C and TX as independent state columns. Reactivity should be **derived** from
 self and anxiety, not stored.
 
-**`KB04` corroborates and supplies the mechanism.** Reactivity is "a kind of a **manifestation of the anxiety**"; both framings are theoretically correct and "essentially the same", but reactivity "gives us something **we can get our hands on and see**". Kerr's drum analogy — tension in the skin is the anxiety, the noise when struck is the reactivity — is accepted as "specifically accurate". This answers the item the 1979 lectures left silent.
+**`KB04` corroborates and supplies the mechanism** (K04.2). The interview defines reactivity as one way anxiety shows itself; in theory the two framings are both correct and amount to much the same, but, in the interview's view, reactivity is **easier to observe and get hold of** than anxiety, a vague notion by comparison. A drum analogy, put as a question in the interview — tension in the skin is the anxiety, the noise when struck is the reactivity — is accepted as accurate, with a stated dislike of the analogy itself. This answers the item the 1979 lectures left silent.
 
 ### L17.3 — The coach is a node inside the system, and efficacy is CONJOINTLY gated  `[stands]`
 **REFINES → `coach`, `test` 7**
@@ -1505,11 +1497,7 @@ framing section — accurately.
 
 **⚠ CORRECTED at the Kerr interview (late-period, undated).** The narrowing above is right, but the
 framing built on it was still wrong. Bowen is **not** indifferent to formal or quantitative approaches:
-"any theory to be a theory has to be based somehow, some way, **in the natural phenomenon, in the force
-that causes grass to grow, that causes the world to turn**." And he actively anticipates measurement —
-"there are **biochemical markers or indicators that could be measured** if we were smart enough to pick
-them out"; "if we just had enough money and enough people as subjects … **we wouldn't have to observe
-people, the chemistry would tell us**."
+in his view nothing earns the name of theory unless it is **grounded in natural phenomena — the same forces that make grass grow and keep the earth turning**. And he actively anticipates measurement — he is fairly sure the emotional bond between people has **measurable biochemical markers**, if researchers learn to identify them, and he says that with enough funding and enough subjects **a biochemical evaluation could replace observing people** (`KB01`; `_KERR_INTERVIEWS.md` Correction 1).
 **Consequence:** `Q-VALIDATION = NO` records a limit of what he had, **not a principle he held.** He
 wanted measurement and expected it. His objection was to importing models of *inanimate* things while
 insisting theory be grounded in nature — two compatible positions the project had been reading as one.
@@ -1696,7 +1684,7 @@ detecting", so self-state is **one of two routes, not the only one**. And the th
 not diagnosed in the moment.
 *Model impact:* a stateless external coach loses one of the chapter's two detection channels.
 
-**Two further detectors from the interviews.** `KB04`: catching one's head inside the other's problem — "you have **lost your value**" — with a recovery move (a factual relationship question) and the return of humour as the signal. `KB07`: catching oneself **diagnosing, criticising or praising** — and the two-sidedness matters, since **praise is as much a loss as blame** and the model's detector is negative-valence only.
+**Two further detectors from the interviews.** `KB04` · K04.11: catching one's head inside the other's problem — at that point the therapist is **no longer of use** to the client — with a recovery move (a factual relationship question) and the return of humour as the signal. `KB07`: catching oneself **diagnosing, criticising or praising** — and the two-sidedness matters, since **praise is as much a loss as blame** and the model's detector is negative-valence only.
 
 ### L20.3 — A fixed observable set whose RATE reads out system anxiety  `[corrected]`
 **→ `readout`, architecture**
@@ -2393,9 +2381,7 @@ by reasoning across sources, with the reasoning recorded.
 ---
 
 ## U1 — The marriage-ceremony break  `[user]` → `M1.A.3a`
-**Verdict:** UNMODELLED, now closed. Bowen states the phenomenon and explicitly declines to explain it —
-"pretty good friendship relationships before marriage and then the whole thing gets messed up as of the
-time of the marriage ceremony. **I've often wondered the why of that**, but there it exists as a fact."
+**Verdict:** UNMODELLED, now closed. The KB14 interview states the phenomenon and offers no explanation for it: couples who got on well as friends before marriage commonly find the relationship going wrong from the wedding on, and the interview records this as an observed fact whose cause remains a puzzle (`KB14` · K14.3).
 
 **The expert's mechanism:** marriage strengthens fusion, and **the couple is treated as ONE SELF — so the
 live question becomes who gets to decide for that self.** The lower the level, the more anxiety and

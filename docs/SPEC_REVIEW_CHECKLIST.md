@@ -24,7 +24,7 @@ Reviewer: ________  Started: ________  Spec revision reviewed: ________
 
 These define what the model does. A run that disagrees with them is a defect.
 
-- [ ] [bowen_agent_model_spec_v2.md](bowen_agent_model_spec_v2.md) — the spec (v2.0, revision 33; version 1 is
+- [ ] [bowen_agent_model_spec_v2.md](bowen_agent_model_spec_v2.md) — the spec (v2.0, revision 34; version 1 is
       revision 32). Objects (M1), reference family (M2), clocks and ordering (M3), the fast tick (M4), moves (M5),
       invariants (M6), the slow tick (M7), live positions (M8), beliefs (M9), parameters (M10), acceptance criteria
       (M11), framing (M11.F), the readout schema (M11.G), out of scope (M12), the run log and trace (M16).
@@ -187,11 +187,11 @@ without the build history on either Mac: what it checks, how it is set up, the r
 
 **Decided 2026-10-19, not built:** [<PROPOSAL — EVENT SIZES FROM THE HOLMES–RAHE SCALE.md>](<PROPOSAL — EVENT SIZES FROM THE HOLMES–RAHE SCALE.md>) — version 2, at the owner's request: the model's event sizes against the Holmes–Rahe life-event scale (an outside rating, not the corpus), what Kerr's case material says about event size (set by the tie, not the kind; the deciding case is `[K-ext]`), a proposal to take base sizes from the scale and scale them by the tie, and eight questions (Q1–Q8, all decided by the owner).
 
-**Draft for review, 2026-10-21:** [<PROPOSAL — ASR QUOTATIONS (SP-1).md>](<PROPOSAL — ASR QUOTATIONS (SP-1).md>) — the stage 1 milestone review's SP-1 (owner decision D1): each
+**Decided and built, 2026-10-22:** [<PROPOSAL — ASR QUOTATIONS (SP-1).md>](<PROPOSAL — ASR QUOTATIONS (SP-1).md>) — the stage 1 milestone review's SP-1 (owner decision D1): each
 quotation of the 1979 tapes and the Kerr–Bowen interviews in the spec, the explainer, the ledger and the proposal
 html, with a paraphrase checked against its passage and its citation (65 entries); how the frozen records and the
 extraction notes are marked; the test against new quotations; and eight questions for the owner (Q1–Q8), answered
-2026-10-22, all as recommended. The paraphrases wait for the owner's approval; nothing is applied.
+2026-10-22, all as recommended. Its §4 texts approved by the owner 2026-10-22 and built the same day at spec revision 34, cut down by the owner: the local transcript test, the extraction-note headers and the `kb` heading retitles are deferred (`TODO.md`).
 
 **Parts A and B built 2026-10-20 (owner 2026-10-20):**
 [plan_spec_coverage_phase_d.md](plan_spec_coverage_phase_d.md) — why `spec_coverage.md` read "after Phase C" and how

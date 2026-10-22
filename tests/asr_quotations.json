@@ -1,0 +1,275 @@
+{
+  "_purpose": "Rules for tests/test_asr_quotations.py (SP-1; docs/PROPOSAL — ASR QUOTATIONS (SP-1).md §5). The 1979 tapes and the Kerr–Bowen interviews are ASR transcripts: cite them, never quote them. A quoted span of min_words or more words in a paragraph matching asr_citations fails, unless its file is exempt or it is on the allowlist with its written source. Editorial content, so it lives here and not in the test.",
+  "min_words": 4,
+  "frozen_record_note": "Quotations of the 1979 tapes and the Kerr–Bowen interviews in this record are ASR text. They were written after the no-quotation rule (2026-08-23) and break it. They are kept unedited as the record of what was approved; they are not the speakers' words and are not copied into other documents.",
+  "asr_citations": [
+    "\\bKB\\d{2}\\b",
+    "\\bK\\d{2}\\.\\d+",
+    "\\bTape\\s*\\d",
+    "Kerr[–—-]Bowen",
+    "_KB_PASS2",
+    "_LECTURES_1979",
+    "_KERR_INTERVIEWS",
+    "1979 lecture",
+    "\\bTapes\\s*\\d",
+    "1979 tapes?",
+    "video lectures?",
+    "\\bKB\\s\\d{2}\\b",
+    "Kerr interview"
+  ],
+  "exempt": {
+    "docs/theory/kb/": "Extraction notes of the Kerr–Bowen interviews, with _KB_PASS2.md. Their quotes only locate passages for a reader checking a finding (owner decision D1; the SP-1 proposal §3).",
+    "docs/theory/_LECTURES_1979.md": "Extraction notes of the 1979 tapes; quotes locate passages (D1; §3).",
+    "docs/theory/_KERR_INTERVIEWS.md": "Extraction notes of the Kerr–Bowen interviews; quotes locate passages (D1; §3).",
+    "docs/theory/Extractions to be human validated.md": "Extraction notes; quotes locate passages (D1; §3).",
+    "docs/theory/_PASS2_CORRECTIONS.md": "Extraction notes; quotes locate passages (D1; §3).",
+    "docs/theory/_SOURCE_QUALITY.md": "The source-quality notes, which state the citation rules; quotes locate passages (D1; §3).",
+    "docs/theory/family_evaluation/": "Extraction notes of Family Evaluation, a written source that may be quoted (§5). Two of their cross-references quote an ASR source (fe07.md, Tape 2; fe10.md, KB06); the owner decides whether these notes are held like the kb notes under D1 (TODO.md, SP-1 build review).",
+    "docs/theory/kerr_book/": "Extraction notes of Kerr's book, a written source that may be quoted (§5). Two of their cross-references quote an ASR source (ks07.md, KB07; ks19.md, KB04); the owner decides whether these notes are held like the kb notes under D1 (TODO.md, SP-1 build review).",
+    "docs/DECISIONS FOR APPROVAL.md": "An approved record, kept unedited under the frozen-record note (D1; §3, Q2).",
+    "docs/proposal_rev11_emergence.md": "An approved record, kept unedited under the frozen-record note (§3, Q2).",
+    "docs/PROPOSAL — ASR QUOTATIONS (SP-1).md": "The SP-1 proposal itself: its tables set written quotations beside ASR citations (§5).",
+    "docs/cycles/": "Dated review records; they quote the project's documents, not the transcripts (§3).",
+    "docs/REVIEW_spec_rev10_2026-09-23.md": "A dated review record; it quotes the spec (§3).",
+    "CHANGELOG.md": "A dated record (§3).",
+    "LEARNINGS.md": "A dated record (§3).",
+    "papers/": "The owner's files, out of scope (§3)."
+  },
+  "allowlist": [
+    {
+      "file": "TODO.md",
+      "span": "will concentrate on some of the more specific areas of the theory",
+      "source": "Not a written source: an ASR quotation in the 2026-08-28 backlog. Its paraphrase was deferred by the owner on 2026-10-22 (TODO.md, the SP-1 remainder); remove this entry when it is paraphrased."
+    },
+    {
+      "file": "docs/agent_model_proposal.html",
+      "span": "models from the sciences of inanimate things",
+      "source": "Written source: theory/ch17.md, the printed interview in Family Therapy in Clinical Practice (one of the 22 papers)."
+    },
+    {
+      "file": "docs/agent_model_proposal.html",
+      "span": "governed nothing except the background thinking of the research staff",
+      "source": "Written source: theory/ch17.md (the printed interview, one of the 22 papers)."
+    },
+    {
+      "file": "docs/agent_model_proposal.html",
+      "span": "without saying this should be done",
+      "source": "Written source: theory/ch17.md (the printed interview, one of the 22 papers)."
+    },
+    {
+      "file": "docs/agent_model_proposal.html",
+      "span": "no more than an educated guess",
+      "source": "Written source: theory/ch17.md (the printed interview, one of the 22 papers)."
+    },
+    {
+      "file": "docs/agent_model_proposal.html",
+      "span": "It sounds almost mathematical.",
+      "source": "Written source: theory/ch17.md, the interviewer's words in the printed interview (one of the 22 papers)."
+    },
+    {
+      "file": "docs/agent_model_proposal.html",
+      "span": "radar and the early computers",
+      "source": "Written source: family_evaluation/fe11.md · FE11.2 (Bowen's Epilogue, written)."
+    },
+    {
+      "file": "docs/agent_model_proposal.html",
+      "span": "Anyone is welcome to that field if they wish.",
+      "source": "Written source: family_evaluation/fe11.md · FE11.2 (Bowen's Epilogue, written)."
+    },
+    {
+      "file": "docs/agent_model_proposal.html",
+      "span": "Dr. Kerr has written a major portion of the book, without my knowledge of its content. This has been purposeful.",
+      "source": "Written source: family_evaluation/fe11.md · FE11.0 (Bowen's preface to Family Evaluation, written)."
+    },
+    {
+      "file": "docs/bowen_agent_model_spec_v2.md",
+      "span": "proceed using your own recommendations",
+      "source": "Not a quotation of a source: the owner's instruction of 2026-10-17, in the front matter's status line, which names the Kerr–Bowen interviews at revision 34."
+    },
+    {
+      "file": "docs/bowen_agent_model_spec_v2.md",
+      "span": "if you do not, these are the consequences",
+      "source": "Written source: the change-back reaction's third step in the 22 papers (theory/ch10.md, ch19.md, ch21.md)."
+    },
+    {
+      "file": "docs/bowen_agent_model_spec_v2.md",
+      "span": "Both people experience **less internal anxiety**… but **the anxiety is now evident or bound in distancing behaviors**… **If people are unable to distance from each other for whatever reason, internalized anxiety reappears**",
+      "source": "Written source: kerr_book/ks04.md (Kerr, written)."
+    },
+    {
+      "file": "docs/bowen_agent_model_spec_v2.md",
+      "span": "the anxiety is **integrated into the structure of a relationship**.",
+      "source": "Written source: kerr_book/ks04.md (Kerr, written)."
+    },
+    {
+      "file": "docs/bowen_agent_model_spec_v2.md",
+      "span": "**inevitably accompan[ies] each of the other patterns**",
+      "source": "Written source: kerr_book/ks04.md (Kerr quoting Bowen, written)."
+    },
+    {
+      "file": "docs/bowen_agent_model_spec_v2.md",
+      "span": "an experiment and an independent replication",
+      "source": "Not a quotation of a source: the spec's own earlier wording, quoted in M1.E.2a's correction note."
+    },
+    {
+      "file": "docs/bowen_agent_model_spec_v2.md",
+      "span": "can be outcomes of coaching OR agents can get to this on their own … regular coaching would support positive changes",
+      "source": "Not a quotation of a source: the owner's decisions of 2026-10-11."
+    },
+    {
+      "file": "docs/bowen_agent_model_spec_v2.md",
+      "span": "should be 'self discovered' and emerge from learned behaviour. If an agent happens to do a 'systems' type behaviour and it works, the agent should be able to 'remember' that.",
+      "source": "Not a quotation of a source: the owner's decisions of 2026-10-11."
+    },
+    {
+      "file": "docs/bowen_agent_model_spec_v2.md",
+      "span": "self directing activity can create more stress in the shorter run, but if the person doesn't change back, the system adjusts — the other agents realize that they aren't going to win and improve their functioning.",
+      "source": "Not a quotation of a source: the owner's decisions of 2026-10-11."
+    },
+    {
+      "file": "docs/bowen_agent_model_spec_v2.md",
+      "span": "don't triangle … not to blame",
+      "source": "Not a quotation of a source: the owner's words (revision 19, 2026-10-11)."
+    },
+    {
+      "file": "docs/bowen_agent_model_spec_v2.md",
+      "span": "are based on a **broad and long-range assessment** of the situation",
+      "source": "Written source: family_evaluation/fe03.md · FE03.21 (Kerr's chapter, written; SP-1 Q8)."
+    },
+    {
+      "file": "docs/bowen_agent_model_spec_v2.md",
+      "span": "relieving now worsens later",
+      "source": "Not a quotation of a source: the spec's own summary."
+    },
+    {
+      "file": "docs/bowen_agent_model_spec_v2.md",
+      "span": "a borrowed rise does not survive withdrawal of the source",
+      "source": "Not a quotation of a source: the spec's own summary of M1.A.5c."
+    },
+    {
+      "file": "docs/bowen_agent_model_spec_v2.md",
+      "span": "general systems theory applied to the human by von Bertalanffy",
+      "source": "Written source: family_evaluation/fe11.md · FE11.2 (Bowen's Epilogue, written; SP-1 Q3)."
+    },
+    {
+      "file": "docs/bowen_agent_model_spec_v2.md",
+      "span": "contained concepts from mathematics",
+      "source": "Written source: family_evaluation/fe11.md · FE11.2 (Bowen's Epilogue, written; SP-1 Q3)."
+    },
+    {
+      "file": "docs/bowen_agent_model_spec_v2.md",
+      "span": "Existing systems theory did not fit well with the idea of the human as an evolutionary being… To get beyond mathematics and technology, I fashioned a natural systems theory",
+      "source": "Written source: family_evaluation/fe11.md · FE11.2 (Bowen's Epilogue, written; SP-1 Q3)."
+    },
+    {
+      "file": "docs/bowen_agent_model_spec_v2.md",
+      "span": "certain aspects of human relationships can be described by any form of systems thinking, just as any mechanical machine can be a set of systems within systems. The analogy breaks down in the human when each family member has a brain that can control its part in the drama",
+      "source": "Written source: family_evaluation/fe11.md · FE11.2 (Bowen's Epilogue, written; SP-1 Q3)."
+    },
+    {
+      "file": "docs/bowen_agent_model_spec_v2.md",
+      "span": "no longer prepared to debate all the issues that go into connecting living matter with a technological extension of the brain. Anyone is welcome to that field if they wish",
+      "source": "Written source: family_evaluation/fe11.md · FE11.2 (Bowen's Epilogue, written; SP-1 Q3)."
+    },
+    {
+      "file": "docs/bowen_agent_model_spec_v2.md",
+      "span": "actions are taken to relieve the anxiety of the moment rather than being determined by a long-term view",
+      "source": "Written source: family_evaluation/fe05.md · FE05.4 (Kerr's chapter, written)."
+    },
+    {
+      "file": "docs/bowen_agent_model_spec_v2.md",
+      "span": "a permanently regressed family",
+      "source": "Not a quotation of a source: the wording of the extraction note family_evaluation/fe05.md (its model consequence for FE05.4), not Kerr's."
+    },
+    {
+      "file": "docs/bowen_agent_model_spec_v2.md",
+      "span": "Adhering to one's convictions under relationship pressure",
+      "source": "Not a quotation of a source: the spec's own wording for an observable, quoted in the revision 8 history record."
+    },
+    {
+      "file": "docs/bowen_agent_model_spec_v2.md",
+      "span": "carrying discomfort rather than discharging it",
+      "source": "Not a quotation of a source: the spec's own wording for an observable, quoted in the revision 8 history record."
+    },
+    {
+      "file": "docs/milestone_review_brief.md",
+      "span": "What the Hijack set supports",
+      "source": "Not a quotation of a source: a section title in docs/theory/_SOURCE_QUALITY.md."
+    },
+    {
+      "file": "docs/model_explainer.md",
+      "span": "are based on a **broad and long-range assessment** of the situation",
+      "source": "Written source: family_evaluation/fe03.md · FE03.21 (Kerr's chapter, written; SP-1 Q8)."
+    },
+    {
+      "file": "docs/theory/_STATUS.md",
+      "span": "proceed using your own recommendations",
+      "source": "Not a quotation of a source: the owner's instruction of 2026-10-17."
+    },
+    {
+      "file": "docs/theory/_STATUS.md",
+      "span": "a coach helps and is not required",
+      "source": "Not a quotation of a source: M11.C.17's rewritten title (spec revision 17)."
+    },
+    {
+      "file": "docs/theory/_STATUS.md",
+      "span": "Phase C — open after the build",
+      "source": "Not a quotation of a source: a section title in TODO.md."
+    },
+    {
+      "file": "docs/theory/_STATUS.md",
+      "span": "Anger gates the escalation",
+      "source": "Not a quotation of a source: the earlier heading of an extraction note in theory/ch13.md, quoted where it was corrected."
+    },
+    {
+      "file": "docs/theory/_STATUS.md",
+      "span": "if you changed this one thing, what would happen to this family?",
+      "source": "Not a quotation of a source: the owner's question in a working session (spec revision 5)."
+    },
+    {
+      "file": "docs/theory/_STATUS.md",
+      "span": "on one side only",
+      "source": "Not a quotation of a source: M11.F.9's earlier wording, quoted where it was corrected."
+    },
+    {
+      "file": "docs/theory/_STATUS.md",
+      "span": "the event log reads correctly",
+      "source": "Not a quotation of a source: Phase B's earlier exit condition in the plan."
+    },
+    {
+      "file": "docs/theory/_STATUS.md",
+      "span": "The family diagram records, per person:",
+      "source": "Not a quotation of a source: the connective prose of the extraction note theory/kerr_book/ks11.md."
+    },
+    {
+      "file": "docs/theory/_STATUS.md",
+      "span": "such as 55 or 60",
+      "source": "Written source: kerr_book/ks14.md · KS14.3 (Kerr, written)."
+    },
+    {
+      "file": "docs/theory/_STATUS.md",
+      "span": "the family diagram records",
+      "source": "Not a quotation of a source: the connective prose of the extraction note kerr_book/ks11.md, which the note says appears nowhere in the book; the log entry records that the spec misattributed it."
+    },
+    {
+      "file": "docs/theory/_STATUS.md",
+      "span": "adhering to convictions under pressure",
+      "source": "Not a quotation of a source: the spec's wording for an observable."
+    },
+    {
+      "file": "docs/theory/_STATUS.md",
+      "span": "exactly one behavioural transition on `basic_level`, at 50",
+      "source": "Not a quotation of a source: M1.A.3's earlier wording, quoted where it was corrected."
+    },
+    {
+      "file": "docs/theory/_STATUS.md",
+      "span": "**begins** making **a few** decisions",
+      "source": "Not a quotation of a source: the extraction note's restatement at theory/ch16.md line 169 of a written paper (the paper reads begin, not begins, at ch16.md line 264)."
+    },
+    {
+      "file": "docs/theory/_LEDGER.md",
+      "span": "eight to ten generations to schizophrenia — revised **up** from at least three",
+      "source": "Not a quotation of a source: the ledger's own pass-1 wording, quoted where it is withdrawn."
+    }
+  ]
+}

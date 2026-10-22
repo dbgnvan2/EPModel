@@ -1,20 +1,24 @@
 {
   "_about": "Rules for tools/spec_index.py and tools/spec_rules_view.py (docs/plan_model_ergonomics.md, Parts B and C). Editorial content, so it lives here and not in the tools (global rule 9). Each list says which tool reads it.",
   "source_id_patterns": {
-    "_read_by": "tools/spec_index.py: the citation forms of the six corpus sources and the cross-source resolutions, from docs/model_explainer.md's 'Reading the citations' table, plus the ledger's consolidated entries and the design-lessons notes. A requirement's `sources` field holds every match in its block, in order of first appearance.",
+    "_read_by": "tools/spec_index.py: the citation forms of the six corpus sources and the cross-source resolutions, from docs/model_explainer.md's 'Reading the citations' table, plus the ledger's consolidated entries and the design-lessons notes. A requirement's `sources` field holds every match in its block, in order of first appearance. Finding-level forms come first, so a chapter-level form never splits one (FE03.6 is FE03.6, not FE03).",
     "the 22 papers, a ledger finding": "L\\d{2}\\.\\d+[a-z]?",
     "the 1979 tapes, a tape": "Tape \\d+",
     "the 1979 tapes, a finding": "T\\d+\\.\\d+",
-    "the Kerr-Bowen interviews, an interview": "KB\\d{2}",
     "the Kerr-Bowen interviews, a finding": "K\\d{2}\\.\\d+",
     "Family Evaluation, a finding": "FE\\d{2}\\.\\d+",
     "Bowen Theory's Secrets, a finding": "KS\\d{2}\\.\\d+",
     "the ledger's consolidated entries": "(?:KS|FE)-[A-Z](?:\\.\\d+)?",
     "the domain expert and cross-source resolutions": "U\\d+",
-    "the design-lessons notes (papers/)": "DL §\\d+(?:\\.\\d+)*"
+    "the design-lessons notes (papers/)": "DL §\\d+(?:\\.\\d+)*",
+    "the 22 papers, a chapter": "Ch\\d{2}",
+    "the Kerr-Bowen interviews, an interview (prose form)": "KB\\d{2}",
+    "Family Evaluation, a chapter": "FE\\d{2}",
+    "Bowen Theory's Secrets, a chapter": "KS\\d{2}",
+    "the DSI literature": "DSI\\b"
   },
   "history_phrases": {
-    "_read_by": "tools/spec_rules_view.py (C4): a sentence in a requirement body that matches one of these is an inline revision narrative, listed in docs/spec_rules/history_in_body.md for the owner's decision (Part E). The tool strips nothing. `Revision \\d+` is matched as written, capitalised, because a lower-case `revision 22` is usually a cross-reference; the rest are matched in any case.",
+    "_read_by": "tools/spec_rules_view.py (C4): a sentence in a requirement body that matches one of these is an inline revision narrative, listed in docs/spec_rules/history_in_body.md for the owner's decision (Part E). The tool strips nothing. `Revision \\d+` is matched as written, capitalised; a lower-case `revision N` counts only after a preposition (`corrected at revision 7`, `superseded in part at revision 14`), because a bare `(revision 22)` is a cross-reference (review 2026-10-22). The list over-includes by design: `previously` and `was changed` are rule text in some bodies, which the owner's pass will leave as they are.",
     "phrases": [
       {
         "pattern": "Revision \\d+",
@@ -34,6 +38,10 @@
       },
       {
         "pattern": "was changed",
+        "case_sensitive": false
+      },
+      {
+        "pattern": "\\b(?:at|in|since|by|from|until|before|after) revision \\d+",
         "case_sensitive": false
       }
     ]

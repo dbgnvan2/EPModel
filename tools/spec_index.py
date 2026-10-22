@@ -55,6 +55,7 @@ _coverage_spec.loader.exec_module(coverage_tool)
 DEF_LINE = re.compile(r"^(?:[-*]\s+)?\*\*(M\d+(?:\.[A-Za-z0-9]+)*)\*\*")
 DEF_ROW = re.compile(r"^\| \*\*(M\d+(?:\.[A-Za-z0-9]+)*)\*\* \|")
 HEADING = re.compile(r"^(#{1,6}) (.*)$")
+RULE_LINE = re.compile(r"^-{3,}\s*$")  # a horizontal rule ends a block and belongs to none
 GRADE_TAG = re.compile(r"\[(T|M|D|#|I|X)\]")
 # A spec ID cited in prose: not inside a longer dotted ID on either side.
 CITED_SPEC_ID = re.compile(r"(?<![A-Za-z0-9.])(M\d+(?:\.[A-Za-z0-9]+)*)(?![A-Za-z0-9]|\.[A-Za-z0-9])")
@@ -63,7 +64,10 @@ CITED_SPEC_ID = re.compile(r"(?<![A-Za-z0-9.])(M\d+(?:\.[A-Za-z0-9]+)*)(?![A-Za-
 SENTENCE_END = re.compile(r"(?<=[.!?])[*_)\]\"”']*\s+(?=[A-Z*`(\[→“\"])")
 # A ledger entry's heading: `##` or `###`, then its ID — a paper finding (L01.1), a consolidated entry (KS-A, KS-A.1,
 # FE-B) or a resolution (U1) — then a separator. A chapter heading (`## Ch01 — …`) is not an entry.
-LEDGER_ENTRY = re.compile(r"^(#{2,3}) ((?:[A-Z]{1,2}\d{2}\.\d+|[A-Z]{2}-[A-Z](?:\.\d+)?|U\d+))\b\s*(.*)$")
+LEDGER_ENTRY = re.compile(r"^(#{2,3}) ((?:[A-Z]{1,2}\d{2}\.\d+[a-z]?|[A-Z]{2}-[A-Z](?:\.\d+)?|U\d+))\b\s*(.*)$")
+# A heading that looks like an entry (an upper-case token with digits, then a separator) but LEDGER_ENTRY does not
+# read: counted and refused, so a new ID form cannot be folded into its neighbour silently (P2; L10.11a, 2026-10-22).
+ENTRY_LIKE = re.compile(r"^#{2,3} [A-Z]{1,3}(?:-[A-Z])?\d*(?:\.\d+)?[a-z]?\s+[—·–-]")
 LEDGER_LABEL = re.compile(r"`\[([^\]`]*)\]`")
 # The `Spec:` block of a docstring: from the label to the next labelled line, a blank line or the end.
 SPEC_BLOCK = re.compile(r"^[ \t]*Spec:[ \t]*(.*?)(?=^[ \t]*[A-Z][A-Za-z ]{0,20}:[ \t]|\n[ \t]*\n|\Z)", re.M | re.S)
@@ -115,6 +119,9 @@ def spec_blocks(text: str) -> list[dict]:
             elif len(level) == 3:
                 heading = title.strip()
             continue
+        if RULE_LINE.match(line):
+            close(number - 1)
+            continue
         row = DEF_ROW.match(line)
         defined = row or DEF_LINE.match(line)
         if defined:
@@ -129,7 +136,8 @@ def spec_blocks(text: str) -> list[dict]:
 
 def first_sentence(block: dict) -> str:
     """The requirement's first sentence after its ID (a table row: its first cell after the ID), generated, cut at
-    FIRST_SENTENCE_CHARS."""
+    FIRST_SENTENCE_CHARS. Where the first sentence is only an italic title (`**ID** — *the title.* The rule …`), the
+    sentence after it comes too, so the field reads as the rule and not as its label (review 2026-10-22)."""
     first = block["text"].split("\n", 1)[0]
     if block["row"]:
         cells = [c.strip() for c in first.strip().strip("|").split("|")]
@@ -137,7 +145,8 @@ def first_sentence(block: dict) -> str:
     else:
         body = DEF_LINE.sub("", first, count=1)
         body = re.sub(r"^\s*[—–-]?\s*", "", body)
-    sentence = SENTENCE_END.split(body, maxsplit=1)[0]
+    parts = SENTENCE_END.split(body, maxsplit=2)
+    sentence = " ".join(parts[:2]) if body.startswith("*") and len(parts) > 1 else parts[0]
     return re.sub(r"\*+", "", sentence).strip()[:FIRST_SENTENCE_CHARS]  # emphasis markers dropped, code spans kept
 
 
@@ -197,6 +206,8 @@ def ledger_entries(text: str) -> list[dict]:
             continue
         level, title = found.groups()
         entry = LEDGER_ENTRY.match(line)
+        if not entry and ENTRY_LIKE.match(line) and not line.startswith(("## Ch", "### Ch")):
+            raise ValueError(f"ledger line {number} looks like an entry heading LEDGER_ENTRY does not read: {line!r}")
         if entry:
             close(number - 1)
             marks, entry_id, rest = entry.groups()
@@ -267,6 +278,12 @@ def code_citations() -> tuple[dict[str, list[str]], dict[str, list[str]]]:
 # The two indexes
 # ----------------------------------------------------------------------------------------------------------------
 
+def withdrawn(block: dict) -> bool:
+    """True when the requirement's defining line says WITHDRAWN. Read from that line only: a body that says another
+    ID is withdrawn (M11.4's exceptions table) is not withdrawn itself (review 2026-10-22)."""
+    return "WITHDRAWN" in block["text"].split("\n", 1)[0]
+
+
 def spec_index(overrides: dict | None = None) -> list[dict]:
     text = SPEC.read_text(encoding="utf-8")
     ids = coverage_tool.spec_ids(text)
@@ -291,7 +308,7 @@ def spec_index(overrides: dict | None = None) -> list[dict]:
             "heading": block["heading"],
             "lines": block["lines"],
             "first_sentence": first_sentence(block),
-            "withdrawn": "WITHDRAWN" in block["text"],
+            "withdrawn": withdrawn(block),
             "grade_tags": grade_tags(block["text"]),
             "sources": sources(block["text"], pattern),
             "ledger_mentions": mentions.get(block["id"], []),

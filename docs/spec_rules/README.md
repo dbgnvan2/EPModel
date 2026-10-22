@@ -3,7 +3,7 @@
 *Generated from the spec at revision 34 by `tools/spec_rules_view.py`. Not normative: where this and the spec differ, the spec wins. Do not edit.*
 
 One file per `## M` module of `docs/bowen_agent_model_spec_v2.md`, with §0 as `M00.md`. The view removes,
-mechanically and nothing else: the front matter's `status:` line; every `⟦…⟧` revision tag (551 of them); every block-quote line, the source quotations (17 lines; the `→ file · ID` pointers stay); and the revision-history sections, from the spec's line 2117 to its end. No sentence of a requirement body is removed, the `*Revision N:*` sentences included: `history_in_body.md` lists the 87 IDs whose bodies hold one, for the owner's decision (Part E of `docs/plan_model_ergonomics.md`).
+mechanically and nothing else: the front matter's `status:` line; every `⟦…⟧` revision tag (551 of them); every block-quote line, the source quotations (17 lines; the `→ file · ID` pointers stay); and the revision-history sections, from the spec's line 2117 to its end. No sentence of a requirement body is removed, the `*Revision N:*` sentences included: `history_in_body.md` lists the 129 IDs whose bodies hold one, for the owner's decision (Part E of `docs/plan_model_ergonomics.md`).
 
 To find an ID's module, grep `docs/spec_index.jsonl` for it: the record's `module` field names the `##` heading, and `lines` the spec's lines.
 

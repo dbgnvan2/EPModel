@@ -115,7 +115,7 @@ Previously the rule read otherwise (revision 2); re-derived at revision 5.
 
 ### Revision 7 — history, dropped
 
-**M99.9** Not in the view.
+- M99.9 was added here; the heading is history, not a module, and nothing is defined after the cut.
 
 ### Revision 6 — more history
 """
@@ -133,25 +133,32 @@ def test_c2_removals_are_mechanical_only():
     assert files["M11.md"] == ("## M11 — Criteria\n\n| **M11.C.1** | A row | `t` |\n\n## M11.F — Framing\n\n"
                                "**M11.F.1** Framing stays with M11. Earlier revisions said otherwise.\n")
     assert TOOL.revision(FIXTURE) == 7
+    import pytest
+    for tail in ("\n**M99.9** Defined after the cut.\n", "\n## M12 — A module after the cut\n"):
+        with pytest.raises(ValueError, match="follows the history cut"):
+            TOOL.cut_history(FIXTURE + tail)
     rendered = TOOL.render_all(FIXTURE)
     assert set(rendered) == {"M00.md", "M01.md", "M11.md", "README.md", "history_in_body.md"}
     assert rendered["M01.md"].startswith(TOOL.OPENER.format(revision=7) + "\n\n## M1")
 
 
 def test_c4_history_sentences_are_listed_by_phrase():
-    """A capitalised `Revision N` and the four phrases match; a lower-case cross-reference `revision 2` alone does
-    not. Mutation: `Revision \\d+` matched in any case, or a phrase dropped."""
+    """A capitalised `Revision N` and the phrases match, a lower-case `revision N` after a preposition too; a bare
+    cross-reference `(revision 2)` does not. Mutation: `Revision \\d+` matched in any case, or a phrase dropped."""
+    AT = "\\b(?:at|in|since|by|from|until|before|after) revision \\d+"
     found = {e["id"]: e for e in TOOL.history_in_body(FIXTURE)}
     assert list(found) == ["M1.A.1", "M11.F.1"]
     sentences = found["M1.A.1"]["sentences"]
     assert sentences == [
-        ("Second sentence; it was changed at revision 3.", ["was changed"]),
+        ("Second sentence; it was changed at revision 3.", ["was changed", AT]),
         ("*Revision 4:* the floor is the usual level.", ["Revision \\d+"]),
-        ("Previously the rule read otherwise (revision 2); re-derived at revision 5.", ["re-derived at", "previously"]),
+        ("Previously the rule read otherwise (revision 2); re-derived at revision 5.", ["re-derived at", "previously", AT]),
     ]
     assert found["M11.F.1"]["sentences"] == [("Earlier revisions said otherwise.", ["Earlier revisions"])]
-    assert "M99.9" not in found, "an ID after the revision cut is not read"
+    assert "M99.9" not in found, "text after the revision cut is not read"
     assert TOOL.history_in_body("**M1.A.2** Cites `M1.A.1` (revision 22) and nothing else.\n") == []
+    lower = TOOL.history_in_body("**M1.A.2** The floor, corrected at revision 7, is the usual level.\n")
+    assert lower and lower[0]["sentences"][0][1] == [AT]
 
 
 def test_c4_the_real_list_quotes_the_spec_and_states_its_count():

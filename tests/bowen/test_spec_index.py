@@ -117,6 +117,12 @@ and the KB12 interview (K12.6), with FE03.21 and Tape 6 (T6.1) and DL §2.6 and 
 |---|---|---|
 | **M11.C.1** | Differentiation protects: a cell. Second sentence. | `test_m11c1_x` |
 
+**M11.4** — *exceptions.* The table:
+
+| `M11.C.17` | WITHDRAWN at revision 17 |
+
+---
+
 **M11.C.9** — e.g. an abbreviation does not end it; a long one """ + "x" * 400 + """ ends here. Next.
 """
 
@@ -126,11 +132,11 @@ def test_b1_fields_are_read_from_a_fixture():
     dedupe, the WITHDRAWN test or a source pattern."""
     blocks = TOOL.spec_blocks(FIXTURE_SPEC)
     by_id = {b["id"]: b for b in blocks}
-    assert [b["id"] for b in blocks] == ["M1.A.1", "M1.A.2", "M11.C.1", "M11.C.9"]
+    assert [b["id"] for b in blocks] == ["M1.A.1", "M1.A.2", "M11.C.1", "M11.4", "M11.C.9"]
     one = by_id["M1.A.1"]
     assert (one["module"], one["heading"]) == ("M1 — Objects", "M1.A `Person`")
     assert one["lines"] == [11, 14], "the block runs to the quote and stops before the next ID"
-    assert TOOL.first_sentence(one) == "the first rule, in bold."
+    assert TOOL.first_sentence(one).startswith("the first rule, in bold. The second sentence cites "), "an italic title takes the next sentence"
     assert TOOL.grade_tags(one["text"]) == ["I", "X"]
     assert TOOL.sources(one["text"], TOOL.source_pattern()) == [
         "KS23.3", "L01.1", "KB12", "K12.6", "FE03.21", "Tape 6", "T6.1", "DL §2.6", "KS99.9"]
@@ -140,6 +146,11 @@ def test_b1_fields_are_read_from_a_fixture():
     row = by_id["M11.C.1"]
     assert row["row"] and row["lines"] == [22, 22] and (row["module"], row["heading"]) == ("M11 — Criteria", "")
     assert TOOL.first_sentence(row) == "Differentiation protects: a cell."
+    exceptions = by_id["M11.4"]
+    assert exceptions["lines"] == [24, 26], "the horizontal rule after it belongs to no block"
+    assert "WITHDRAWN" in exceptions["text"] and "WITHDRAWN" not in exceptions["text"].split("\n", 1)[0]
+    assert not TOOL.withdrawn(exceptions), "a body that says another ID is withdrawn is not withdrawn itself"
+    assert TOOL.withdrawn(two)
     long = TOOL.first_sentence(by_id["M11.C.9"])
     assert len(long) == TOOL.FIRST_SENTENCE_CHARS and long.startswith("e.g. an abbreviation does not end it")
 
@@ -211,14 +222,24 @@ def test_b4_every_entry_heading_is_indexed_once_at_its_line():
     text = TOOL.LEDGER.read_text(encoding="utf-8")
     lines = text.split("\n")
     records = _records(TOOL.LEDGER_INDEX)
-    headings = [m.group(2) for m in (TOOL.LEDGER_ENTRY.match(line) for line in lines) if m]
+    # An independent, looser reading of an entry heading, so a form the tool's pattern misses shows here (L10.11a).
+    loose = re.compile(r"^#{2,3} ((?!Ch\d)[A-Z]{1,2}(?:-[A-Z])?\d*(?:\.\d+)?[a-z]?)\s+[—·]")
+    headings = [m.group(1) for m in (loose.match(line) for line in lines) if m]
     assert [r["id"] for r in records] == headings
+    assert "L10.11a" in headings, "a suffixed finding ID is an entry of its own"
     assert len(headings) == len(set(headings))
     for record in records:
         assert TOOL.LEDGER_ENTRY.match(lines[record["lines"][0] - 1]).group(2) == record["id"]
         assert record["lines"][0] <= record["lines"][1]
     assert "L01.1" in headings and "KS-A.1" in headings and "U1" in headings and "FE-B" in headings
     assert "Ch01" not in headings
+
+
+def test_b4_an_entry_like_heading_the_pattern_does_not_read_is_refused():
+    """P2: a new ID form must fail loudly, not fold into the entry before it. Mutation: drop ENTRY_LIKE."""
+    with pytest.raises(ValueError, match="looks like an entry heading"):
+        TOOL.ledger_entries("## Ch01 — A paper\n\n### L01.1 — Fine  `[stands]`\n\n### L001.1 — Unknown form\n")
+    assert [e["id"] for e in TOOL.ledger_entries("## Ch01 — A paper\n\n### L01.1 — Fine\n\n### Later\n")] == ["L01.1"]
 
 
 def test_b4_withdrawn_and_merged_entries_stay_with_their_status():
@@ -243,6 +264,8 @@ Cites `M1.A.1` and M1.A.1a; M1.A.10 is not defined.
 
 ### L01.2 — *(merged into L01.1)*  `[withdrawn as a separate finding]`
 
+### L01.2a — A suffixed finding  `[stands]`
+
 ## KS-A · Six requirements
 
 ### KS-A.1 — One  `[new]`  `[K-ext]`
@@ -254,13 +277,13 @@ Still KS-A.1's text, citing M2.
 ## U1 — A resolution  `[user]` → `M1.A.1`
 """
     entries = TOOL.ledger_entries(text)
-    assert [e["id"] for e in entries] == ["L01.1", "L01.2", "KS-A", "KS-A.1", "U1"]
+    assert [e["id"] for e in entries] == ["L01.1", "L01.2", "L01.2a", "KS-A", "KS-A.1", "U1"]
     by_id = {e["id"]: e for e in entries}
     assert by_id["L01.1"]["chapter"] == "Ch01 — First paper  *(1957)*" and by_id["L01.1"]["lines"] == [5, 7]
     assert TOOL.cited_spec_ids(by_id["L01.1"]["text"], {"M1.A.1", "M1.A.1a", "M2"}) == ["M1.A.1", "M1.A.1a"]
     assert by_id["L01.2"]["title"] == "*(merged into L01.1)*"
     assert by_id["KS-A"]["chapter"] == "" and by_id["KS-A"]["status"] == ""
     assert by_id["KS-A.1"]["chapter"] == "KS-A · Six requirements" and by_id["KS-A.1"]["labels"] == ["new", "K-ext"]
-    assert by_id["KS-A.1"]["lines"] == [13, 17], "the ID-less `###` stays inside the entry"
+    assert by_id["KS-A.1"]["lines"] == [15, 19], "the ID-less `###` stays inside the entry"
     assert TOOL.cited_spec_ids(by_id["KS-A.1"]["text"], {"M2"}) == ["M2"]
     assert by_id["U1"]["title"] == "A resolution → `M1.A.1`" and by_id["U1"]["status"] == "user"

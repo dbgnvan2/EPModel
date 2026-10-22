@@ -11,11 +11,12 @@ All notable changes to this project are recorded here. Dates are ISO.
   test; nothing is hand-written. `engine_hash()` is unchanged (`91f9a817`) and no record was rerun.
 - **A2, the suite count's history.** CLAUDE.md's "A red suite is never normal" bullet now gives the current count,
   the date and the command. Its dated history of counts, moved here as it stood: measured 2026-10-22 on this Mac after SP-1's six tests against new quotations of the ASR sources were added, `tests/test_asr_quotations.py`, and five for the fam-diag export keeping what the owner saved from the app; 1003 on 2026-10-20 after a test that compiles every tracked file on the oldest Python in CI's matrix was added, `tests/test_python_versions.py`; 1002 earlier that day after the coverage page's Part B added five tests, `docs/plan_spec_coverage_phase_d.md` §7; 997 earlier that day after its Part A and review added nine; 988 earlier that day after the document-claim tests were merged, adding 60, `docs/plan_doc_claim_tests.md`; 928 earlier that day after the fam-diag export's currency test was added; 927 earlier that day after the cold sweep's fixes added three tests; 924 earlier that day after the stage 1 `/csdp` sweep's fixes added seven tests; 917 on 2026-10-19 after version 2 stage 1's build, review fixes and one regeneration; 916 earlier that day after the `/csdp` sweep's fixes added three run-chart tests; 913 earlier that day after version 1's status page was frozen at the tag `version-1`, its eleven status tests now run at the tag by three; 921 on 2026-10-18 after the run chart was added beside the Phase C trace; 915 earlier that day after spec revision 32 with the owner's review and the nodal-event spike; 909 on 2026-10-17 after revision 32's first part; 886 earlier that day after `M11.C.21`'s reclassification and the capacity rule's no-span fix; 884 on 2026-10-16 after revision 31 part B; 868 earlier that day; 854 on 2026-10-15; 850 passed in CI run 38763412772 on Python 3.11, 3.12 and 3.13, before the Phase D mutation record's 4.
-- **B1, B4: the indexes.** `tools/spec_index.py` writes `docs/spec_index.jsonl` (425 KB, one JSON line per spec
+- **B1, B4: the indexes.** `tools/spec_index.py` writes `docs/spec_index.jsonl` (468 KB, one JSON line per spec
   ID: module, heading, lines, first sentence, withdrawn, grade tags, sources, ledger mentions, code, tests, status and
   note) and `docs/theory/ledger_index.jsonl` (51 KB, one line per ledger entry: title, status as written, labels,
   chapter, lines, the spec IDs it cites). The citation forms are in `tools/spec_index_rules.json`. The first sentence
-  is generated, cut at 300 characters, never hand-written. `tests/bowen/test_spec_index.py` (15 tests) checks both
+  is generated, cut at 300 characters, never hand-written; where the first sentence is only an italic title the next
+  comes with it. `tests/bowen/test_spec_index.py` (16 tests) checks both
   current, every ID once in order, the line spans, the code names, the status fields against `spec_coverage.py`, the
   ledger mentions against the ledger text, and each reader on a fixture.
 - **B3.** Fifteen `Spec:` lines in `src/` cite a section heading of the spec (`M1.A`, `M13`), not a numbered
@@ -23,18 +24,26 @@ All notable changes to this project are recorded here. Dates are ISO.
   that list. Not fixed.
 - **Documents.** CLAUDE.md's "Read first" paragraph, README's "Where to start", the reading list's §3, the milestone
   review brief's §3 step 6 and the checklist point at the indexes. `docs/spec_coverage.md` regenerated for the new
-  tests. Suite: 1029 collected after Part B, 1036 after Part C.
+  tests. Suite: 1029 collected after Part B, 1036 after Part C, 1037 after the review fixes.
 - **C1–C5: the current-rules view.** `tools/spec_rules_view.py` writes `docs/spec_rules/M00.md` to `M17.md`
   (one per `## M` module; `M11.F` and `M11.G` in `M11.md`), each opening with the non-normative line, plus a
   `README.md` with the sizes and `history_in_body.md`. Removed, mechanically and nothing else: the front matter's
-  `status:` line, every `⟦…⟧` tag (405), every block-quote line (17) and the revision sections from the first
+  `status:` line, every `⟦…⟧` tag (551, 543 of them in the rules), every block-quote line (17) and the revision sections from the first
   `### Revision` heading (the spec's line 2117) to the end. No body sentence is removed. The eighteen module files
   are 432 KB (66,358 words) against the spec's 513 KB (78,938 words): 84% by bytes; the saving is the split, since
-  a module is 3 to 100 KB. `history_in_body.md` lists 87 IDs whose bodies carry a revision narrative, by the
-  phrases in `tools/spec_index_rules.json` — the input to Part E. `tests/bowen/test_spec_rules_view.py` (7 tests)
+  a module is 3 to 100 KB. `history_in_body.md` lists 129 IDs whose bodies carry a revision narrative, by the
+  phrases in `tools/spec_index_rules.json` — the input to Part E; the list over-includes by design (`previously`
+  and `was changed` are rule text in a few bodies), and the owner's pass leaves those. `tests/bowen/test_spec_rules_view.py` (7 tests)
   checks the view current, every ID in exactly one file, every non-quote line of the spec present in order, and
   each removal and each phrase on a fixture. `docs/spec_rules/` is exempt from the ASR quotation test
   (`tests/asr_quotations.json`): it is the spec's own text, and the spec is scanned.
+- **Review fixes, one commit after the two passes (learning-qa, correctness).** The ledger reader read a suffixed
+  finding ID (`L10.11a`) as part of the entry before it: fixed, and a heading that looks like an entry the pattern
+  does not read now stops the tool (P2); the ledger index has 205 entries, not 204. `withdrawn` is read from the
+  defining line only, so `M11.4`, whose exceptions table says another ID is withdrawn, is no longer marked. A
+  horizontal rule ends a block. Chapter-level citations (`Ch03`, `FE03`, `KS23`, `DSI`) are sources too. The history
+  cut refuses to run if a module heading or a requirement follows it. The tag count here was a line count. A
+  lower-case `at revision N` counts as a history phrase, which took the C4 list from 87 to 129 IDs.
 - **A3, the leftover worktrees.** `claude/cranky-snyder-764f33`, `claude/quizzical-burnell-818aa7` and
   `docs-stale-fixes` (under `.claude/worktrees/`) are clean and have no commit that `main` lacks. Not deleted: the
   plan's §8 Q3 puts that to the owner.

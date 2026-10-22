@@ -39,7 +39,7 @@ _index_spec.loader.exec_module(index_tool)
 TAG = re.compile(r"[ \t]*⟦[^⟧]*⟧")
 QUOTE_LINE = re.compile(r"^>")
 REVISION_HEADING = re.compile(r"^### Revision \d+")
-MODULE_HEADING = re.compile(r"^## (?:M(\d+)|(0)\.)\b")
+MODULE_HEADING = re.compile(r"^## (?:M(\d+)\b|(0)\.)")
 FRONT_REVISION = re.compile(r"^version:.*?revision (\d+)", re.M)
 STATUS_LINE = re.compile(r"^status:.*\n", re.M)
 OPENER = ("*Generated from the spec at revision {revision} by `tools/spec_rules_view.py`. Not normative: where this "
@@ -58,6 +58,10 @@ def cut_history(text: str) -> str:
     lines = text.split("\n")
     for number, line in enumerate(lines):
         if REVISION_HEADING.match(line):
+            after = [l for l in lines[number + 1:] if l.startswith("## ") or index_tool.DEF_LINE.match(l)]
+            if after:
+                raise ValueError(f"a module heading or a requirement follows the history cut at line {number + 1}: "
+                                 f"{after[0]!r}")
             return "\n".join(lines[:number])
     return text
 

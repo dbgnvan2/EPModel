@@ -187,6 +187,12 @@ without the build history on either Mac: what it checks, how it is set up, the r
 
 **Decided 2026-10-19, not built:** [<PROPOSAL — EVENT SIZES FROM THE HOLMES–RAHE SCALE.md>](<PROPOSAL — EVENT SIZES FROM THE HOLMES–RAHE SCALE.md>) — version 2, at the owner's request: the model's event sizes against the Holmes–Rahe life-event scale (an outside rating, not the corpus), what Kerr's case material says about event size (set by the tie, not the kind; the deciding case is `[K-ext]`), a proposal to take base sizes from the scale and scale them by the tie, and eight questions (Q1–Q8, all decided by the owner).
 
+**Draft for review, 2026-10-21:** [<PROPOSAL — ASR QUOTATIONS (SP-1).md>](<PROPOSAL — ASR QUOTATIONS (SP-1).md>) — the stage 1 milestone review's SP-1 (owner decision D1): each
+quotation of the 1979 tapes and the Kerr–Bowen interviews in the spec, the explainer, the ledger and the proposal
+html, with a paraphrase checked against its passage and its citation (65 entries); how the frozen records and the
+extraction notes are marked; the test against new quotations; and eight questions for the owner (Q1–Q8). Nothing is
+applied.
+
 **Parts A and B built 2026-10-20 (owner 2026-10-20):**
 [plan_spec_coverage_phase_d.md](plan_spec_coverage_phase_d.md) — why `spec_coverage.md` read "after Phase C" and how
 it was brought up to date: Part A, the tool reads every ensemble and mutation record (mechanical); Part B, a judgment

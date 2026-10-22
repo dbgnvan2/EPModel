@@ -119,7 +119,10 @@ The review is `docs/cycles/2026-10-21_milestone-review_v2-stage-1.md` (the secon
 `review/2026-10-21-v2-stage-1`). The triage refuted none of its 26 findings: 22 hold as stated and 4 in part. The
 owner's ten decisions and what this batch fixed are in `CHANGELOG.md`. Open:
 
-- [ ] **Next task: the SP-1 proposal** (owner, D1). The 1979 tapes and the Kerr–Bowen interviews are ASR, and the
+- [ ] **Waiting on the owner: the SP-1 proposal** (owner, D1). **Drafted 2026-10-21:**
+  `docs/PROPOSAL — ASR QUOTATIONS (SP-1).md`, 65 entries (87 ASR quotation rows, and three items the further scans
+  found), with eight owner questions (Q1–Q8). Nothing is applied; its build plan (§7) follows approval, with
+  revision 34. Its last section lists the adjacent issues it found and did not fix. The 1979 tapes and the Kerr–Bowen interviews are ASR, and the
   rule is to cite them and not quote them. It was committed in `_LECTURES_1979.md` on 2026-08-23 at 11:50 (`528bb50`)
   and in `_KERR_INTERVIEWS.md` at 13:09 (`e14d3d7`), and restated in `_SOURCE_QUALITY.md` at 17:53 (`6a56bb2`).
   - **What the triage's scan found.** It matched quoted spans of four or more words, split at ellipses, against
@@ -127,7 +130,7 @@ owner's ten decisions and what this batch fixed are in `CHANGELOG.md`. Open:
     the spec, 25 in `DECISIONS FOR APPROVAL.md`, 9 in `_LEDGER.md` and 8 in the explainer. 34 of them name Bowen or
     Kerr, or "he", as the speaker. The `kb/*.md` notes hold another 240. None predates the rule. Two do not match
     the transcript: `spec:394` has words that are not in it, and `explainer:382` joins two passages. The scan was a
-    session script and is not committed; the proposal reruns it.
+    session script and is not committed; the proposal reruns it (its §2).
   - **The proposal.** For each quotation in the spec, the explainer and the ledger: a paraphrase and its citation.
     The owner reviews it before any spec edit. Approved DECISIONS records stay frozen, with a note. `kb/*.md` keep
     their quotes, and their headers will say the quotes only locate passages. A test fails on any new quotation of

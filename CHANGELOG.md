@@ -4,6 +4,28 @@ All notable changes to this project are recorded here. Dates are ISO.
 
 ## [Unreleased] — 2026-10-11
 
+### The SP-1 proposal drafted (2026-10-21)
+
+- **What.** `docs/PROPOSAL — ASR QUOTATIONS (SP-1).md` (owner decision D1): a paraphrase and citation for each
+  quotation of the 1979 tapes and the Kerr–Bowen interviews in the spec, the explainer, the ledger and
+  `agent_model_proposal.html`. Nothing is applied; it waits for the owner's review.
+- **The scan, rerun.** Every tracked `.md` and `.html` file was matched against the transcripts. In those five
+  documents it found 151 quoted rows: 87 ASR quotations (65 in the spec), and 64 kept (45 written-source quotations,
+  19 not quotations). Two further scans found two transcript copies without quote marks and one more Hijack-set
+  interview credited to Bowen by name.
+- **How the paraphrases were made.** Three agents drafted one paraphrase per sentence from the transcript passage,
+  and this session drafted the three items from the further scans; four more agents, none of which had drafted
+  them, checked each against its passage. The check corrected 34 of the 65 entries, most often to restore a hedge or
+  a condition that the current text had dropped.
+- **Found on the way.** A quotation credited to *Family Evaluation* Ch3 in `M4.D` that is in no extraction and no
+  transcript (Q8); six requirements whose passage supports less than they say (Q7); two citation errors (adjacent
+  issues).
+- **The test.** Three forms were measured. The proposal recommends a citation test in the default suite and a full
+  transcript match as a local test, deselected like `ensemble`; a committed transcript fingerprint is not
+  recommended, because the repository is public.
+- **Documents:** `docs/SPEC_REVIEW_CHECKLIST.md` indexes the proposal; `docs/REVIEWER_READING_LIST.md`, `TODO.md` and
+  `docs/theory/_STATUS.md` say it waits for the owner. No code, config or record changed.
+
 ### The stage 1 milestone review triaged (2026-10-21)
 
 - **The review.** The second Mac ran the first milestone review over version 2 stage 1, from the tag `version-1`, as

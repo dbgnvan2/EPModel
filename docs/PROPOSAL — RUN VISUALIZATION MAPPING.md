@@ -198,6 +198,6 @@ stale, and each would cost the hour-long regeneration. They are therefore built 
 - Teodor's `basic_level` is proposed at 36 (spec inconsistency).
 
 **Owner items arising:**
-- `TODO.md`: the readout questions (lopsided pursuit; a parent's acts when projection is not read), the `[I]` values, and the missing Phase D parent ties.
+- `docs/TODO_archive.md`: the readout questions (lopsided pursuit; a parent's acts when projection is not read), the `[I]` values, and the missing Phase D parent ties.
 - `docs/DECISIONS — CUTOFF SEMANTICS.md`.
 

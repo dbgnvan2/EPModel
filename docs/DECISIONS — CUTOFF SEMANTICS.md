@@ -60,7 +60,7 @@ run (`M11.C.1` baseline, seed 7):
 - Marta cut Nadia off in week 1, and neither reopened the tie.
 - Why severed ties stay severed:
   - a cutoff relieves at once (`M11.C.4`'s finding);
-  - `REDUCE_CUTOFF` carries no pull without systems perspective (the same cause as Bruno's weekly fallback, `TODO.md`).
+  - `REDUCE_CUTOFF` carries no pull without systems perspective (the same cause as Bruno's weekly fallback, `docs/TODO_archive.md`).
 - So this belongs with option B: a cutoff that rejects without severing would leave the tie interactive. The
   Phase D design should also give reconnection a pull, or the silences will move rather than end.
 

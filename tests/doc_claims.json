@@ -87,7 +87,8 @@
     "labels": [
       "Generated",
       "Superseded or already folded into the spec",
-      "Earlier phases and build process"
+      "Earlier phases and build process",
+      "History, moved"
     ],
     "documents": {
       "docs/phase_d_status_2026-10-13.md": "a dated report; its status is 'a report, not an approval'",

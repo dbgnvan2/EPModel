@@ -1,0 +1,442 @@
+# TODO archive
+
+Ticked items moved out of `TODO.md`, each verbatim, grouped by the month it was closed and in `TODO.md`'s order
+within the month. The month is the latest date the item carries; an item that carries none takes the date of the
+commit that ticked it. A section closed as a whole (its heading and note say so) is moved whole. Items were first
+moved on 2026-10-22; `tests/test_doc_size.py` fails when `TODO.md` holds a ticked item older than 30 days, so this
+file is where a closed item ends up. Open items are in `TODO.md`.
+
+## 2026-10
+
+- [x] ~~**Owner: answer `docs/version_2_plan.md` §5**~~ *Answered 2026-10-19, and the plan approved the same day.*
+  Ten questions: what version 2 is for, which finding groups to revisit, the sweep's scope and its "narrow" fraction,
+  `M15`, retiring the grid engine, the corpus backlog, freezing version 1 (a `version-1` tag), the spec file, and the
+  three version 1 loose ends. The answers are in the plan's §5.
+- [x] ~~`docs/review/phase_c_famdiag_seed7.json` comes from the same seed-7 run as the trace and chart but has no test
+  that it is the current render (the trace and chart now do, `tests/bowen/test_render.py`). It is modified in the
+  working tree and was not touched by the sweep. Add the same check once that edit is settled.~~ *Done 2026-10-20:
+  the committed export still named spec revision 32 and was regenerated;
+  `tests/bowen/test_famdiag_export.py::test_v5_committed_export_is_the_current_render` checks everything the tool
+  draws except the keys a fam-diag save may change (positions, the display name) or add (colours, the app's own
+  settings), and fails on any other key the tool does not write, so the working-tree edit, a save from the app,
+  still passes. That edit, the owner's layout saved from the app, was committed at the owner's request on
+  2026-10-20.*
+- [x] ~~**Coverage page, Part B** (`docs/plan_spec_coverage_phase_d.md` §3; owner 2026-10-20: later, as its own task).
+  For each ID marked *not done* with "no test named for it; its module was built in Phase C" (or D), and each of the
+  74 hand-written overrides, Claude drafts which existing test verifies it and why, or *partial* "built, no test", or
+  *not done* with the reason; the owner reviews the list. Rename the overrides file to
+  `tools/spec_coverage_overrides.json` in the same change (B3). About 19 overrides still name Phase C or D as work to
+  come (the plan's §1).~~ *Built 2026-10-20 (the plan's §7): 239 entries judged and approved by the owner in six
+  groups, four of them changed after the review with the owner's answers; the page reads 291 done, 136 partial, 148 not
+  done (was 280, 64, 231); the file renamed; five tests.*
+- [x] ~~`tools/phase_c_trace.py`: `outputs()` and `trace_text()` load the family file again after `records()` has
+  loaded it.~~ *Fixed at version 2 stage 1 (rider (v)): `records()` takes the loaded family; `famdiag_export.py`'s
+  call is unchanged.*
+- [x] ~~**Stale "pending owner review" text for decisions the owner has made** (found 2026-10-19).~~ *Fixed at
+  version 2 stage 1 (rider (i)): the eleven sites `grep -rn 'pending owner review' src config tools` found were each
+  checked against the owner's record and reworded; `tests/test_stale_text.py` fails if the phrase comes back outside
+  `tools/version_1_status.py`. The frozen `docs/version_1_status.md` keeps its `M11.C.9` row at the tag.*
+- [x] ~~**Approve spec revision 10.**~~ *Approved 2026-10-06. Terms in the spec's revision-10 section under* Approval.
+- [x] ~~**Read the Phase B trace end to end and record the result** (plan §7)~~ *done 2026-10-07: the owner read both
+  traces, no findings; Phase B closed (`docs/phase_b_completion_report.md`). This entry was stale until 2026-10-09.* — the last item before Phase B is declared done. `docs/review/phase_b_trace_seed7.md` and `docs/review/phase_b_trace_seed7_nadia.md`; report at `docs/phase_b_completion_report.md`.
+- [x] ~~**Run the `learning-qa` review over the Phase B diff before pushing**~~ *superseded: Phase B was pushed and
+  closed 2026-10-07, and every Phase C batch since has had its own sweep.*
+- [x] ~~**Build Phase B.**~~ *Steps 0–15 done 2026-10-06; all 14 automated exit criteria pass, 17 of 17 mutations proved.*
+- [x] ~~**Approve the Phase B implementation plan**~~ *Approved 2026-10-06, D1–D9 as written.* — drafted 2026-10-06 at `docs/implementation_plan_phase_b.md` (branch `plan-phase-b`). Its §1 holds nine decisions (D1–D9) the owner must answer before code, and Appendix A is the `M14.A` register draft for review. *Was: write the implementation plan — Phase B only* (owner decision 2026-10-06, following the external review's recommendation 9). The 2026-09-23 review's findings go in the plan as blockers on the phases they affect. The next gate, and the only thing between here and code. Every acceptance criterion mapped to the file and module that satisfies it, in dependency order, with the mutation that proves each one. Spec convention is spec → plan → build, each approved before the next. Inputs: the 33 criteria in `M11.C`, the 5 in `M16.F`, the engineering criteria in `M11.D`, and the phase table at `M13`.
+- [x] ~~**Decide four criteria that cannot be made code-testable in Phases B–D** (spec §M11.E).~~ *Accepted as written by the owner, 2026-10-06, at approval of revision 10.* Each has a human-review proposal:
+  - `M11.C.8` (endogenous incidence vs published rates) — needs Phase E and an editorial call on which sources are genuinely exogenous.
+  - `M11.C.9` (sibling position) — the effect size is invented, so the test can only assert "a detectable difference", which is close to unfalsifiable. Decide whether it belongs in the suite or should be demoted to a readout.
+  - `M11.C.11` shape — "three phases, not a step down" is a claim about curve shape; any automated version embeds an invented tolerance.
+  - `M5.F.2` — the threshold separating a counterfeit move from a genuine one is invented and sets the result. **This is the model's most consequential invented constant.**
+- [x] **B3 (`docs/plan_model_ergonomics.md`), the owner's Q4 (2026-10-22: fix now, in Part D):** the fifteen `Spec:`
+  lines that cited a section heading now cite the numbered requirements the module or class implements
+  (`engine/objects.py` and its four classes, `engine/events.py`, `engine/invariants.py`, `engine/log_records.py`,
+  `render/trace.py`, `scenario/family.py` and `FamilyInstance`); `#M13` (the phase plan, with no requirement the code
+  implements) was dropped from `io/load.py::load_script`, `scenario/policy_source.py`, `scenario/scripted_source.py`
+  and `ScriptedSource`, the phase fact kept as prose. `test_b2c_every_id_cited_in_src_is_defined_by_the_spec` is no
+  longer xfail. Done 2026-10-22.
+- [x] **The ledger index does not reach the extraction directories (plan §11 trial, 2026-10-22; done 2026-10-22: indexed, see
+  below):** a sonnet session given
+  only `docs/spec_index.jsonl`, `docs/theory/ledger_index.jsonl` and `docs/spec_rules/` answered three lookups
+  (`M4.C.3a`'s rule and function, `M5.D.1`'s test, `M4.C.8a`'s sources) correctly against the full spec, in about 67k
+  tokens and 26 seconds, but could not read what `FE03.6` says: `ledger_index.jsonl` indexes `_LEDGER.md`'s entries
+  (the `L` chapters and the consolidated `FE-`/`KS-` entries), and the per-finding `FE`/`KS`/`K`/`T` entries live in
+  `docs/theory/family_evaluation/`, `kerr_book/`, `interviews/` and `tapes/`. Either index those directories too
+  (`tools/spec_index.py`, one record per `## … FEnn.m` heading) or say in the index's README that they are not covered.
+  Done 2026-10-22: `extraction_sources` in `tools/spec_index_rules.json` names the files; every record carries a
+  `file`; `test_b4_every_extraction_finding_is_indexed_once_at_its_line` checks it, and `M4.C.8`'s `ledger_mentions`
+  now include `FE03.6`.
+- [x] **Part D's commits carry a stray copy of the revision log (2026-10-22; owner 2026-10-22: left as is, pushed to main that day):** `docs/spec_revision_log.md`'s first form
+  was staged by accident with `11c36bb` without its checklist entry, so `test_every_document_is_in_the_checklist` is red at
+  `11c36bb`..`fea842a` (nine commits, none pushed), and the pinned reference count left `test_m11d8_spec_references_resolve`
+  red at `11c36bb`..`6575009`; both green from the Part E commit on. The plan's D3 rule (suite green after each commit) was
+  not met for Part D. Rewrite those commits before the push, or leave them; the owner's call.
+- [x] **Narrative the history phrases miss, still in bodies (Part E, 2026-10-22; done 2026-10-22 on the owner's instruction):** "The earlier form …" (`M6.I.6`,
+  `M15.B.3`), "*The rev-10 form … is replaced*" (`M4.C.1`), "*The form approved at G3 …*" (`M4.D.6a`), "*The text it
+  replaces said …*" (`M4.G.3`), "*It replaces* the earlier …" (`M11.C.17`), "As first built …" (`M1.B.3c`), a
+  lower-case "*revision 11 removed the clause …*" (`M4.D.6b`); `*Revision N*` prefixes outside requirement bodies:
+  `M2.A`'s preamble (revisions 28 and 13), `M8`'s preamble (34), `M11.E`'s `M11.C.9` row (32), `M13`'s phase table
+  row B (11); `M11.C.14` holds the withdrawn two-sided **MUST NOT** before its one-sided restatement, and `M4.C.3a`'s
+  first sentence states the old chronic floor with a MUST, the usual-level floor following. Either add the phrases to
+  `tools/spec_index_rules.json` and dispose of them in a later pass, or leave them; the owner's call.
+  Done 2026-10-22: eight phrases added; the 44 sentences they match and the passages named here disposed as rows
+  219–262 of `docs/spec_revision_35_dispositions.md` (19 moved, 25 rewritten, none stays), the bullets in the log
+  under their revisions; §0.3's count 1043 → 1042 with `M11.C.14`'s withdrawn two-sided MUST NOT.
+- [x] **A3/A4, for the owner's Q3 (answered 2026-10-22: delete all four; done the same day):** the three worktrees under `.claude/worktrees/` (`claude/cranky-snyder-764f33`,
+  `claude/quizzical-burnell-818aa7`, `docs-stale-fixes`) are clean and fully merged, 43 MB in all; and
+  `docs/model_explainer copy.textClipping` is a stray clipping. Neither deleted without the owner's word.
+- [x] ~~**Waiting on the owner: approval of the SP-1 proposal's §4 texts**~~ (owner, D1). **Drafted 2026-10-21; its
+  eight questions answered 2026-10-22, all as recommended (its §6); its §4 texts approved and built 2026-10-22 at spec
+  revision 34, cut down by the owner (its §9; the deferred parts are the next item):**
+  `docs/PROPOSAL — ASR QUOTATIONS (SP-1).md`, 65 entries (87 ASR quotation rows, and three items the further scans
+  found), with eight owner questions (Q1–Q8). Its build plan (§7) was followed, cut down, with revision 34.
+  Its last section lists the adjacent issues it found and did not fix. The 1979 tapes and the Kerr–Bowen interviews are ASR, and the
+  rule is to cite them and not quote them. It was committed in `_LECTURES_1979.md` on 2026-08-23 at 11:50 (`528bb50`)
+  and in `_KERR_INTERVIEWS.md` at 13:09 (`e14d3d7`), and restated in `_SOURCE_QUALITY.md` at 17:53 (`6a56bb2`).
+  - **What the triage's scan found.** It matched quoted spans of four or more words, split at ellipses, against
+    `kb/*.md`, `_LECTURES_1979.md`, `_KERR_INTERVIEWS.md` and the raw transcripts. There are 103 quotations: 61 in
+    the spec, 25 in `DECISIONS FOR APPROVAL.md`, 9 in `_LEDGER.md` and 8 in the explainer. 34 of them name Bowen or
+    Kerr, or "he", as the speaker. The `kb/*.md` notes hold another 240. None predates the rule. Two do not match
+    the transcript: `spec:394` has words that are not in it, and `explainer:382` joins two passages. The scan was a
+    session script and is not committed; the proposal reruns it (its §2).
+  - **The proposal.** For each quotation in the spec, the explainer and the ledger: a paraphrase and its citation.
+    The owner reviews it before any spec edit. Approved DECISIONS records stay frozen, with a note. `kb/*.md` keep
+    their quotes, and their headers will say the quotes only locate passages. A test fails on any new quotation of
+    four or more words.
+  - **Decided 2026-10-22, all as recommended** (the review's Q1–Q3, the proposal's Q1–Q3): whether KB11 in `M10.C.2`, `_LEDGER.md` L16.3 and
+    DECISIONS A1 is an exception; how the closed records are noted; and restating `M11.F.3` from the written FE11.2
+    Epilogue instead of KB13. That last one changes a requirement; the owner approved it (alternative B). The
+    proposal's Q8 was traced the same day: the *Family Evaluation* Ch3 words are in the book's source text, so the
+    quotation stays and gets an `fe03.md` finding.
+- [x] ~~**Spec revision 34**~~, written with the SP-1 paraphrases so the spec changes once (owner, D2–D6). *Built
+  2026-10-22 (the spec's revision 34 entry):*
+  - MR-10: `M11.4` says "Three criteria", but its table has nine live rows. Say nine, or point to `M11.4b`, which
+    already says the table supersedes the count.
+  - MR-12 (D4): the M8 preamble, `M8.5` and `M13.1` say four mechanisms call the live-positions predicate. Three
+    do. Say three, and say that `avoidance_available` (the `M5.C` site) is defined and tested but not called.
+    `M13.1` stays done.
+  - MR-13: `M2.A.0i` says Dr Halim's sex is not stated; she was declared female (revision 28, owner 2026-10-13).
+    Drop "awaiting owner review" from Teodor's row (D6).
+  - MR-15: delete or scope the status line's closing clause, "no code until the implementation plan is also
+    approved".
+  - D3: `M11.1` says its scope is the `M11.C` criteria.
+  - MR-1, MR-8: the KB and Tape quotations, as the SP-1 proposal decides.
+- [x] ~~**Owner: confirm or change the revision 32 decisions**~~ *Done 2026-10-17, one at a time: all approved, with one change (build `M4.C.1c`'s nodal-event spike, "cut ties, as TRIGGER"; built). Plan §4.12, "The owner's decisions".* (plan §4.12, R32.1–R32.9): `M11.C.4`'s baseline held open
+  for the whole run; `M11.C.32`'s mover at level 60 (post hoc); `M11.C.29` and `M11.C.22` reclassified mixed;
+  `M11.C.46` built on the "closer to the partner" form only (chosen after the anxious form failed); `M11.C.7` built with
+  "sided" read as a recent `SPLIT` toward the coach (P9 said `TRIANGLE`, which a member cannot send a professional);
+  `M11.C.9` out of version 1.
+- [x] ~~**Owner: accept or reject each pending disposition**~~ *Done 2026-10-17: all accepted except `M11.C.17` ("Diagnose coaching") and `M11.C.6` ("Trace it first"), below.* in `docs/version_1_dispositions.md`. V1 counts none of them
+  as final until then; `docs/version_1_status.md` lists them.
+- [x] ~~**Owner: `M11.C.41`'s two stress cells and `M11.C.34` under V2.**~~ *Decided 2026-10-17: "Composite, accept"; `M11.5` amended.* `M11.5` classes their failing limbs premise
+  (through the mixing weight); the version 1 definition (§2) listed them for acceptance. One reading should be chosen.
+- [x] ~~**`M4.C.1c`'s nodal-event spike is not built**~~ *Built 2026-10-17, the owner's form.* (a gap the spec stated): only a `TRIGGER` spikes a cut tie's
+  "too little" side. Building it is a new mechanism and a new `[I]` constant.
+- [x] ~~**Owner: `M11.C.46`'s mutation clause is not met at the edge**~~ *Accepted by the owner 2026-10-19, as
+  `M11.C.14`'s clause was (version 2 plan Q10; a note in `docs/version_1_dispositions.md`).* (2026-10-18). With the
+  nodal spike, `triangle-help-ignored` survives (+0.16 ± 0.23, p 0.041) against +1.45 unmutated: the bond swap's other
+  channels leave a small difference. Options were: accept as for `M11.C.14`'s clause, or restate the readout as relief
+  per unit of the seeker's excess (isolates help; post hoc). A premise, so V3 does not apply.
+- [x] ~~**Owner: the nodal spike's narrowing**~~ *Kept by the owner 2026-10-19 (version 2 plan Q10). After G1, "cut"
+  is a tie in state `CUT_OFF` (G1 proposal, A13).* (2026-10-17, the spike's review): a cut tie is one holding
+  rejection, not every tie that is not interactive, so a retired coach's or a removed member's tie is not spiked
+  (plan §4.12).
+- [x] ~~**Adjacent, not fixed (2026-10-17): the Phase B mutation record cannot be regenerated.**~~ *Frozen at
+  version 2 stage 1 (S1.5c, plan D5 (b)): the record's status line says frozen and `tools/mutation_gate.py` refuses to
+  rewrite it.* Gate G2's `expect`
+  fragment (`assert "Marta +5.0" in conflict[5]`) was removed from `tests/bowen/test_render.py` at Phase C step 1
+  (`1c20d44`), so `tools/mutation_gate.py` stops at G2. `docs/phase_b_mutation_record.md` stays the record of Phase B's
+  close. Gate G7's mutant was extended at revision 32 to remove the new trigger pruning too (the spike re-check found
+  that pruning hides the shared-list leak G7 plants); proved on a copy, not in the record.
+- [x] ~~**Adjacent, not fixed (spike review, 2026-10-17):** `canonical_state` leaves out `state.stressors`,~~ *Fixed at version 2
+  stage 1 (S1.2).* so the
+  determinism tests cannot see a stressor still weighing after the last compared tick (the spikes are now in).
+- [x] ~~**Owner: `M11.C.17`, diagnosed**~~ *Passes since the nodal-event spike (2026-10-18, +0.00089 ± 0.0013, p 0.015), with a red recorded mutant; no acceptance needed. The diagnosis stays useful:* (the owner, 2026-10-17: "Diagnose coaching"). No defect; the effect dies at the
+  estimator's evidence test (own functioning stays below basic level in both arms). Recommended: accept as a finding
+  (plan §4.12). Levers if coaching should show within ten years: `M1.A.4k`'s evidence rule (owner decision; reruns
+  `M11.C.18`, `.20`, `.33`). Also found: the couple's own tie in the Phase C family is held cut off in 82–89% of
+  last-year weeks in every arm; `M11.C.7`'s "joint" sessions are one target each; the coach's automatic-channel acts
+  (61% of his contacts) land with full effect, though `M1.E.7c`(3) reads non-participation as the coach's default.
+- [x] ~~**Owner: `M11.C.6`, traced and restated**~~ *Accepted as a finding by the owner, 2026-10-18; version 1 complete.* The rule question stays open below. (the owner, 2026-10-17: "Trace it first"). The first arm picked by birth
+  order; the paired same-child arm (revision 32, post hoc) fails the other way (+0.096 ± 0.044, ad hoc). Recommended:
+  accept as a finding; and a rule question: should projection push a child's development down (`M7.E.1f`)? (plan §4.12)
+- [x] ~~**`M11.C.6`'s reversal is not traced**~~ *Traced 2026-10-17, above.* (the owner, 2026-10-17: "Trace it first"): the most-projected child develops slightly more than the others
+  (+0.118 ± 0.057) under revision 31's band.
+- [x] ~~**Owner: felt danger fades once a cutoff works** (correctness review).~~ *Decided 2026-10-14, "hold felt danger while rejection is held"; built (`M1.B.3e`, `test_m1b3e_felt_danger_is_held_while_rejection_is_held`).* Refused moves are never delivered, so the
+  intrusion a person receives from the one they cut off decays over about `danger_window` weeks, felt danger falls to
+  0, and the cutoff turns reactive by itself: the full reactive cost and the full "too little" term return though
+  nothing about the other has changed. Should felt danger be held while rejection is held, or decay more slowly?
+- [x] ~~**Owner: focus compounding has no ceiling on investment** (learning-qa, medium).~~ *Decided 2026-10-14: "saturate the investment", then, after a ceiling removed the lock-in, "Shift, gain 10": the term now moves attention among the children and adds none (plan §4.10).* `M1.B.8b`'s term grows a
+  parent's investment in the child they focus on in proportion to that investment, so it grows exponentially while
+  pressure × share is above 5 (leak 0.1 a week). Measured (learning-qa, seed 0, ad hoc): the largest parent-to-child
+  investment over 10 years on the four fixture was 3,477 at gain 2, against 27.6 at gain 0. Every reader today uses
+  shares, so no result changes; a later reader of absolute investment would. An only child has share 1 and compounds
+  most. A saturating form needs a new constant; not changed unasked.
+- [x] ~~**CI has been red on every push since 2026-10-09.**~~ *Fixed in `bfd46cc`; CI run 38763412772 green, 850 passed on 3.11, 3.12 and 3.13 (2026-10-15).* Cause: the last bits of floats
+  differ between platforms and Python versions. Python 3.12 changed how `sum` adds floats, and the C maths library
+  differs between macOS and Linux. NumPy 2.5.4 against 1.26.4 changed nothing here. The golden fingerprints now hash
+  floats rounded to 8 significant digits (measured margin, in the test's docstring). The diagnostic record's mean uses
+  `math.fsum`; its 0.938 was on a rounding boundary and printed 0.937 on 3.11.
+- [x] ~~**Adjacent, not fixed (2026-10-15):** float means taken with the builtin `sum` in `src/bowen` and the
+  tools.~~ *Fixed in `src/bowen` at version 2 stage 1 (S1.1, plan D2 (b)): every float total outside `render/` is a
+  `math.fsum`, every integer total a `count` that refuses a float (`src/bowen/engine/counting.py`), and
+  `tests/bowen/test_float_sums.py` fails on a builtin `sum` left there. The mutant texts in
+  `tools/mutation_record.py` that quote those lines moved with them. The golden fingerprints did not move at 8
+  significant digits (measured 2026-10-19).*
+- [x] ~~**The phase D2 record prints `M11.C.10`'s two variants under one id** (and `M11.C.2`'s twelve-person variant as
+  `M11.C.2`).~~ *Fixed at version 2 stage 1 (S1.7b): each row carries its `CRITERIA_D2` key, and the Phase D records
+  render from `docs/records_cache/` (S1.8c), so a label change no longer reruns them.*
+- [x] ~~**Run the `M11.C.10[family of origin]` mutation**~~ *Run 2026-10-15:* `M1.D.8a` removed does not turn it
+  red, +240 ± 116 tie-weeks (`child_cut_weeks` +49.7 ± 44.1; 200 seeds, ad hoc, 2026-10-15), against +162 ± 120 with it.
+- [x] ~~**Find what carries `M11.C.10[family of origin]`'s pass**~~ *Run 2026-10-15:* `M4.D.6f` removed (`witnessed_cutoff_gain` 0) gives −75.9 ± 132 tie-weeks; `M1.B.3d`'s reactive rise removed (`reactive_cutoff_gain` 0) gives +163 ± 117; `M1.B.3e`'s danger removed (felt danger from the declared floor only, 0 in this family) gives +102 ± 126 (`child_cut_weeks` +48.4 ± 45.3, +37.3 ± 46.7, +18.4 ± 42.3; 200 seeds each, ad hoc, 2026-10-15). Learning
+  from a witnessed cutoff carries it. The variant's pass is still not support for `M1.D.8a`.
+- [x] ~~**Decide what `M11.C.10[family of origin]`'s mutation clause names.**~~ *Decided 2026-10-15:* the owner restated
+  it to `M4.D.6f`; its mutant is red in `docs/phase_d_mutation_record.md` (FAIL, p 0.91, 200 seeds).
+- [x] ~~**Owner: review spec revisions 24–30**~~ *Done 2026-10-16:* all 85 entries decided in `docs/REVIEW_spec_revisions_24-30.md`, 81 approved as built, 4 changed (`M14.A` rows, `M11.C.14` option B, `M11.C.6`
+  option A, and `M7.E.1f`'s band: ±2% with no parental acts, to +5% with supportive acts, to −10% with projection,
+  decided the same day after Claude corrected its account of the band). V4 is met once revision 31 part B is built.
+- [x] ~~**Spec revision 31 part B**~~ *Done 2026-10-16: built with the premise decisions, every record regenerated once (plan §4.11).* (plan `docs/implementation_plan_phase_d.md` §4.11; plan approved 2026-10-16, part A
+  built 2026-10-16). **Batch with the V2 premise fixes** (`M11.C.21`, `M11.C.23`, `M11.C.40`; owner, 2026-10-16) so every
+  record regenerates once: R31.B1–B6 (the `symptoms.py` docstring, the criteria settings' grades, the config headers and
+  record renderer's "pending owner review", `M11.C.14` restated with its mutation) and **R31.B7, `M7.E.1f`'s band
+  opened by the parents' acts, its form approved 2026-10-16** (the share form; its known weakness is recorded in the plan).
+- [x] ~~**`I-POSITION` sequence statistics rest on about three completions** (P23).~~ *Done at revision 30: the steering override is gone; the mover starts at level 60 and completes 27 sequences in 192 seeds (ad hoc, 2026-10-14). The modal-length assertion, which a few dozen completions cannot support, was removed.* `tests/bowen/test_iposition.py`'s
+  `attempts_over_seeds` runs 192 triad seeds with focus steering switched off by a declared override; with it on,
+  `test_m5d8_success_usually_follows_several_failures` fails (0 completions against 3, within chance). Either raise
+  the seed count until completions number in the tens, or loosen the assertions to what a few completions can
+  support. The tests do not describe the default model while the override stands.
+- [x] ~~**A person cannot choose a principled cutoff** (`M1.B.3d`).~~ *Done at revision 30 (`M1.B.3e`): a cutoff is principled in proportion to the danger the person feels.* Principled is declared in the family config only;
+  a cutoff the policy selects is always reactive. Learning that cutoff is good therefore raises reactive cutoff. The
+  spec states the gap (`M4.D.6f`); closing it needs an owner decision on what a self-chosen principled cutoff is.
+- [x] ~~**Adjacent, not fixed: the revision 28 life-course constants are not range-checked**~~ *Done at revision 30 (`tests/bowen/test_life_course.py`).* in
+  `EngineParams.__post_init__` (the revision 29 ones now are). Check each for a meaningful range and add it.
+- [x] ~~**`life_run`'s `acts_per_year` divides by the full run~~ *Done at revision 30: the years lived are tracked, and a child never seen at the ages read is counted.* for a child who dies before `projection_until_age`**,
+  and `_pick` drops a child with no load at the ages read without counting it (learning-qa, low). Neither happens with
+  the reference family over 40 years.
+- [x] ~~**Owner: can an external agent receive a dead person's bound stocks?**~~ *Decided 2026-10-14: yes ("okay"); spec `M6.3c` says so.* `M6.3b` gives an external agent no share
+  of the dead person's acute anxiety, but `M6.3c` sends a symptom's bound stock to its partners on interactive ties and
+  discharges a triangle to all its living members, an external agent among them (found 2026-10-14, re-sweep of the
+  revision 29 fixes; `test_m63b_no_share_to_an_external_agent` now isolates `M6.3b`). The code follows the spec as
+  written.
+- [x] ~~**A scripted act toward a dead target is counted "not legal", not "dead"**~~ *Done at revision 30: status "target dead".* (`src/bowen/ensemble/criteria.py`,
+  the forced source's `selections`). In `M11.C.10`'s record, 983 of 16,000 renewals read "not legal"; on seed 2 all 12
+  were after Dario died (checked ad hoc, one seed only). "dead" is used only when the actor has died. Add a status for a
+  dead target; it changes the engine hash, so batch it with the next engine change.
+- [x] ~~**Owner: `M11.C.15`'s arm design.**~~ *Decided 2026-10-13: keep the transfer, share at 1. `M11.C.15` now passes
+  (death +1.25 ± 0.38) and its mutation turns it red (ad hoc, plan §4.7).*
+- [x] ~~**Owner: still open.** Marta–Iris; Teodor's level 36; the `M11.C.17` gate; the plan §4.5 defaults.~~
+  *Settled, corrected 2026-10-14:* the owner said on 2026-10-13 "proceed with your own recommendations" and approved
+  plan §4 ("approved"), whose §4.5 lists each default as built unless the owner says otherwise. They stand: Marta–Iris
+  ordinary, Teodor 36, the `M11.C.17` gate an active symptom, launch at 20, Gompertz mortality, the partner rows as
+  drafted, grief 20, income loss 15, working age 16, a female successor coach. This entry was carried as open in
+  error. The owner can still change any of them.
+- [x] ~~**Diagnose `M11.C.10` and `M11.C.2` on the twelve-person family.**~~ *Done 2026-10-13, ad hoc (plan §4.7).*
+- [x] ~~**`canonical_state` omits `state.life`.**~~ *Folded in 2026-10-13 with the `M11.C.15` change.*
+- [x] ~~**Prove the part II `M16.T.3` re-run by mutation**~~ *2026-10-13: `test_m16t3_canonical_state_sees_the_life_course`
+  shows that a change to the life course alone changes the compared state.*
+- [x] ~~**A mutation record for part II.**~~ *Done at revision 32 (2026-10-17): `M11.C.15`'s mutant (`death-bound-anxiety-discarded`) is in `docs/phase_d_mutation_record.md`.* `M11.C.37`'s mutant is a test; `M11.C.15`'s ran ad hoc (plan §4.7) and is not in
+  a record.
+- [x] ~~**Owner: should the `cutoff` pattern readout count the engine's refusals?**~~ *Decided 2026-10-11 (spec
+  revision 17): cutoff is read from behaviour — the other's approaches refused, by the engine or by answer, and none
+  made. Built in `src/bowen/readouts/patterns.py`.*
+- [x] ~~**Open risk for `M11.C.17`: coach-free rises once breadth is met.**~~ *Superseded 2026-10-11: the owner
+  rewrote `M11.C.17` (revision 17). A person can rise without a coach, and the coach helps. Built with three nodal
+  kinds in both arms (`src/bowen/ensemble/criteria_d.py`).*
+- [x] ~~**Which mechanisms count as nodal events for the estimator**~~ *Decided 2026-10-11 (spec revision 17): any
+  major event on a person; the list is `config/bowen/nodal_events.md`. Births, deaths, marriages, divorces and launches
+  are added with the D-II life course.*
+- [x] ~~**Decided 2026-10-11 (owner): the other's gain from "the system adjusts" settles back.**~~ *Built at spec
+  revision 20 (`M1.E.7`): the gain is kept in the other's `adjust_swing` and shed by `response_relaxation_rate` each
+  calm week (`src/bowen/engine/stress_response.py`;
+  `tests/bowen/test_stress_response.py::test_m1e7_the_systems_adjustment_settles_back_when_calm_and_holds_under_load`).*
+- [x] ~~**Decided 2026-10-11 (owner): restate `M11.C.18` and `M11.C.20`'s mutation clause.**~~ *Done at spec revision
+  20: C.18 names the stress response, C.20 the estimator ignoring borrowed functioning. Measured on the revision 20
+  engine in `docs/implementation_plan_phase_d.md` (step 6); recorded with the Phase D record (step 12).*
+- [x] ~~**For the owner: may the estimator read the system's adjustment?**~~ *Decided 2026-10-11 (owner): (a), the
+  estimator leaves it out. Built at revision 20 (`M1.A.4k`; `src/bowen/engine/slow_tick.py`;
+  `tests/bowen/test_slow_tick.py::test_m1a4k_the_estimator_leaves_out_the_systems_adjustment`).*
+- [x] ~~**For the owner: `M11.C.17` fails on the revision 20 engine (2026-10-12).**~~ *Resolved by revisions 21-23 (2026-10-12): C.17 passes, small (+0.021 ± 0.009). Kept below as the record of how.* Nobody's basic level rises in ten
+  years in either arm. Coaching changes behaviour (perspective 0.63, self-directed weeks 0.37 against 0.11), but
+  everyone is loaded in nearly every week, functioning falls in both arms (40 → 28–30) and the estimator's evidence
+  stays at −11 to −15 (`docs/implementation_plan_phase_d.md`, step 6, the trace). Questions: is C.17's declared load
+  (nodal events to every member, so nobody is ever calm) the right test bed; where the coached people's fall outside
+  the stress swing comes from (traced 2026-10-12: being over-functioned for; revision 21 stops that for a person holding a position, and C.17 still fails, see the plan, step 6); and can the estimator (`M1.A.4k`) register improvement that shows as
+  falling less rather than rising. The +0.63 (revision 19) and +0.66 (`a35a962`) passes were carried by the stacked
+  system adjustment.
+- [x] ~~**For the owner: nobody in the Phase C family is ever calm (traced 2026-10-12).**~~ *Decided 2026-10-12: calm relative to the person; built at spec revision 22.* The coached people's excess anxiety
+  sits at 30–35 against the calm band's edge of 5, with or without nodal events; the standing load alone would hold
+  about 6–7 (`docs/implementation_plan_phase_d.md`, step 6). So the stress response never settles and C.17 cannot
+  show a rise. Options: read "calm" against each person's usual level; set the bands from the engine's operating point;
+  or make the family's traffic carry less anxiety.
+- [x] ~~**For the owner: should the estimator also add back functioning lent? (traced 2026-10-12)**~~ *Decided 2026-10-12: yes; built at spec revision 23. C.17 then passes (+0.021 ± 0.009).* It leaves out borrowed
+  functioning (positive pseudo-self, revision 19) but keeps what a person gave way, so its reading sits about 8–9
+  points below basic level; leaving out the whole exchange, with its sign, puts the reading at basic level
+  (`docs/implementation_plan_phase_d.md`, step 6). The load weighting is not the cause.
+- [x] ~~**Revisions 25–27 (2026-10-12): for the owner's review.**~~ *Reviewed 2026-10-16 with revisions 24–30.* Attribution and its rules, belief in the witness's
+  appraisal, the family-focus writer, the marital-distance gate, the tie-weighted cross-person term, and borrowed
+  pseudo-self settling back. All Claude's recommendations, made overnight at the owner's request.
+- [x] ~~**`M11.C.7`, `M11.C.9` and `M11.C.28` are not built**~~ *Revision 32 (2026-10-17): `M11.C.7` built (plan §4.12); `M11.C.9` proposed out of version 1 (no rule reads sibling position); `M11.C.28` out of scope (owner, 2026-10-15).* C.7 needs the coach's landing to read the coach's position
+  (`M8`'s predicate exists, unused); C.9 needs sibling position to gate behaviour (`M1.A.14c`); C.28 needs the sink
+  allocation to feed some behaviour, or its mobility can change no symptom.
+- [x] ~~**`M11.C.11`'s direction limb has no mutant**~~ *Done at revision 32: carried by the removed member's hold (`lock_in` +12.1 of +2.34); `removed-member-hold-released-while-away` reverses it (−1.77 ± 1.61, ad hoc) and is in `docs/phase_d_mutation_record.md`. Whether a removed member should keep the hold is still open, below.* (B7): the return's disturbance exceeds the removal's. About half
+  is the removed member's symptom hold, frozen while they are away (no partners to release to) and released on
+  return; decide whether a removed member should keep the hold. Reunion's restored contact is not what carries the
+  rest. Find what does, and declare it. *Version 1 (2026-10-16):* `M11.5` classes this limb composite, so V3 needs a
+  recorded mutation for it.
+- [x] ~~**Decide `TRIANGLE`'s inside pair (`M11.C.3`).**~~ *Decided 2026-10-08: the target is the recruited third,
+  outside; the inside pair is the sender and its most strained partner, as `M1.F.1b`, `M11.C.3`, `M11.C.42` and
+  `M6.4` already read it. C.3 now passes and is proved; C.42, C.45, one cell of C.27 and one of C.41 stopped
+  passing. Recorded at spec `M1.C.1`; report §8.*
+- [x] ~~**Accept or revise the `M11.5` reclassifications.**~~ *Decided 2026-10-08: `M11.C.1` and `.38` stay
+  **premise**, with no new class. Every level-reading rule states the direction, so a pass is not a finding; the rule
+  column now lists the nine rules, and the proof is the joint level-blind mutant. `M11.C.45`'s reclassification as a
+  premise was withdrawn when it stopped passing after the `TRIANGLE` decision. Report §2.*
+- [x] ~~**`M13.4`'s precision rule and `M11.C.16`.**~~ *Decided 2026-10-08 (report §10): precision against the pooled sd
+  of the two arms. C.16 now passes at 150 seeds; C.41's [light: lower level] cell now fails instead of undetermined.*
+- [x] ~~**Decide whether to reclassify `M11.C.16`.**~~ *Decided 2026-10-08: it stays **composite** (owner decision).
+  *Superseded 2026-10-09: `availability-level-inverted` now reverses it (`repertoire_entropy` +0.0115 ± 0.0094;
+  `docs/phase_c_mutation_record.md`), and the owner kept it composite.* As first written: no inversion run reversed
+  it; inverting `M4.D.3a`'s availability cancelled it, and removing availability halved it; all nine level-reading rules were run. The learner changes its size, not its
+  sign, so its row's rationale and mutation clause are not met, and coverage keeps it partial. Report §11.*
+- [x] ~~**Record-parsing duplication.**~~ *Fixed at version 2 stage 1 (S1.5d): `tools/record_json.py` is the one parser, and
+  `tests/bowen/test_record_json.py` fails on a second copy.* The record JSON regex and `json.loads` appear about six times across
+  `tools/mutation_record.py`, `tools/sweep_record.py`, `tools/spec_coverage.py` and the tests; one helper would serve
+  them (correctness review, 2026-10-09).
+- [x] ~~**`M11.C.16`'s coverage override is hand-written** (`tools/spec_coverage_phase_b.json`) and says "passes"; it
+  will not update if the ensemble verdict changes (correctness review, 2026-10-09).~~ *Fixed 2026-10-20 (coverage plan
+  A5): the override is gone; the row comes from the record, and stays partial because its spec row says its mutation
+  clause is not met.*
+- [x] ~~**A child failure or timeout in `run_in_copy` aborts the whole record run**~~ *Fixed at version 2 stage 1 (S1.5a): a failed
+  child's ids become FAILED rows, never cached, the record goes on and exits 1; a timeout kills the child's process
+  group.* The run discarded earlier mutants'
+  results; a timed-out child's worker pool may be orphaned. Pre-existing (correctness review, 2026-10-09).
+- [x] ~~**Owner: decide S, X1 and Q2-Q5**~~ *Approved 2026-10-09: every recommendation in
+  `docs/DECISIONS — PHASE C FAILING.md`.*
+- [x] ~~**Carry out the approved decisions**~~ *done 2026-10-09; results at the top of
+  `docs/DECISIONS — PHASE C FAILING.md`.* S by holding each scripted act's ties open (week 0, the only week legal in
+  every seed, sits on the chronic floor); X1 by D7; Q2's readout; Q3's paired measurement; Q4/Q5 rerun.
+- [x] ~~**Owner decisions left by the approved steps**~~ *decided 2026-10-09* (memo, "The owner's decisions"): X1 a
+  finding; `M11.C.5`'s FAIL reported; `M11.C.4` and `M11.C.27` run at 104 weeks (no effect remains).
+- [x] ~~**Approve or amend `docs/PROPOSAL — TRIANGLE RELIEF AND CREDIT.md`**~~ *approved and built 2026-10-09: the
+  seeker alone is relieved, as far as the third helps; a `TRIANGLE` is credited by the seeker's own relief.*
+- [x] ~~**`M11.C.27`'s horizon**~~ *decided 2026-10-09: read week by week; it gates on the week the act lands.*
+  1 of 4 cells passes; removing one stabilises first and destabilises from week 6; adding a third barely moves it.
+- [x] ~~**`M11.C.16`'s class, again**~~ *owner decision 2026-10-09: it stays composite, although
+  `availability-level-inverted` now reverses it (report §11).*
+- [x] ~~**The trace renderer's framing says every run is scripted**~~ *Done at Phase D plan B2; confirmed 2026-10-19 (version 2 stage 1, S1.0): `framing()` reads the run's selections, and `test_b2_framing_says_who_chose_the_acts` fails when the sentence is always the scripted one.* ("no one in it chose anything (Phase B)"),
+  which is false for a Phase C run. `tools/phase_c_trace.py` replaces the sentence and fails if it moves. Fix it in
+  `src/bowen/render/trace.py` (choose the sentence from the header) with the next engine change, since that file
+  is in the engine hash.
+- [x] ~~**`code_text` (the engine hash) has two latent gaps**~~ *Done at Phase D plan B2; confirmed 2026-10-19 (stage 1, S1.0): `test_b2_code_text_drops_only_docstrings_and_comments` fails when either gap is put back on a copy.* (re-sweep of `d7ce2b3..`, 2026-10-09): it drops a whole
+  docstring line, so code sharing that line (`"""doc"""; x = 1`) is invisible to the hash; and it strips blank lines
+  and trailing spaces inside ordinary multi-line strings. No current file has either pattern (checked: the fixed
+  version gives every file the same text). Not fixed now because `tools/ensemble_record.py`, which holds
+  `code_text`, is itself hashed, so any edit to it reruns every record (about an hour). With the next engine
+  change: blank only a docstring's own span, keep the inside of strings exactly, and hash `RULE_KEYS`' values
+  rather than the whole file, so the hashing code can change without changing the hash.
+- [x] ~~**Run the approved plan for the failing criteria**~~ *D0-D6 done 2026-10-09; see the decision memo.* (`docs/plan_phase_c_failing_criteria.md`, approved 2026-10-09):
+  D0 diagnostic record, D1-D6 diagnoses, one decision memo. `M11.C.7`, `.13` and `.14` moved to Phase D the same day.
+- [x] ~~**The failing criteria**~~ *closed 2026-10-09: Phase C closed with its gate failing (owner decision); each
+  failure is recorded as a finding with its measured cause, and what the next phase inherits, in report §13.*
+- [x] ~~**Owner review of the run-visualization choices**~~ *2026-10-10: the owner accepts the invented values
+  ("make it up"). The tie-break and silence exception stay `[I]`.* (`docs/PROPOSAL — RUN VISUALIZATION MAPPING.md`, built
+  2026-10-10). Each is `[I]`:
+  - the readouts' tie-break (more acts, then the earlier first act);
+  - silence not replacing a cutoff;
+  - the level bands in `config/viz/famdiag.md`;
+  - Viktor's and Dario's values, Teodor's `basic_level` 34 → 36 (34 broke `M2.A.0e`'s ±1 with Ana), and the Phase D
+    family's tie values (`config/bowen/family_phase_d.md`).
+- [x] ~~**Readout questions from the 2026-10-10 review**~~ *answered by the owner the same day and built:
+  lopsided pursuit is over/underfunctioning; a parent's acts toward a child are projection, which holds until 12 weeks
+  pass without a projection act (`pattern_projection_hold`).* The questions were:
+  1. **Fusion usually beats over/underfunctioning when pursuit is lopsided.** Every PURSUE counts toward fusion. So
+     A→B 5 times and B→A once reads as fusion (6 acts) over over/underfunctioning (5 vs 1). Pursuit reads as
+     over/underfunctioning only when it is strictly one-way. Should lopsided pursuit read as over/underfunctioning?
+  2. **A parent's OVERFUNCTION or PURSUE toward a child never counts for over/underfunctioning,** even in a block
+     where projection does not reach 3 acts. Should those acts count when projection is not read?
+- [x] ~~**`family_phase_d.md` lacks Teodor–Iris and Viktor–Dario parent ties**~~ *added 2026-10-10.* (the owner's family has Iris as Teodor's
+  daughter and Dario as Viktor's son).
+- [x] ~~**Rule 9 debt:** the readouts' act sets~~ *Done at Phase D plan B2 (`config/bowen/pattern_acts.md`); confirmed 2026-10-19 (stage 1, S1.0) by `test_s1_0_act_sets_come_from_config`, which reads the module's source for a literal act set. The engine's two classifications are stage 1's S1.3.* (`APPROACH`, `PROJECTION_ACTS`, the over/under lists in
+  `src/bowen/readouts/patterns.py`) are classification rules in Python. `PROJECTION_ACTS` is tied to the sink's
+  set by `test_v5_projection_reads_the_sinks_act_set`. Move them to config with the next engine change.
+- [x] ~~**Phase D: severed ties stay severed — the cause of the long silences**~~ *Built 2026-10-11 as option B at
+  Phase D B4 (spec `M1.B.3c`, revisions 14 and 16): a cutoff raises graded rejection and leaves the tie
+  interactive. Found still open here at the stage 1 milestone review's triage, 2026-10-21 (with MR-16).*
+  (owner: "not normal", 2026-10-10).
+  On seed 7, Marta–Nadia is severed 102 of 104 weeks, from a cutoff in week 1. Evidence and design notes are in
+  `docs/DECISIONS — CUTOFF SEMANTICS.md`.
+- [x] ~~**`code_text` splits lines differently from `tokenize`**~~ *Fixed at version 2 stage 1 (S1.5b): `io.StringIO(source).readlines()`;
+  `test_s1_5b_code_text_keeps_a_line_separator_inside_a_string` fails under `str.splitlines`.* (re-sweep, 2026-10-11, latent). `tools/ensemble_record.py`
+  builds `lines` with `str.splitlines`, which also splits on form feed, `\x1c`–`\x1e`, `\x85`, U+2028/9 and a bare
+  `\r`; `tokenize` splits on `\n` only. A source file with one of those characters would hash differently by Python
+  version. No file has one today. Fix: `io.StringIO(source).readlines()`. Do it with the next change to that file
+  (it is in the ensemble record's stamp).
+- [x] ~~**Engine CUTOFF semantics, held for Phase D**~~ *Built 2026-10-11, option B (the item above).* (owner, 2026-10-10) (`docs/DECISIONS — CUTOFF SEMANTICS.md`; recommendation C, Phase D).
+- [x] ~~**The pattern readouts read `state.tick` as "now"**~~ *Done at Phase D plan B2: the readouts take `now`, and `tools/famdiag_export.py` passes it; found 2026-10-19 (stage 1, rider ii), and `test_b2_now_reads_as_of_that_week` fails when `now` is ignored.* But after `run_tick` it is the next week's tick. The exporter
+  steps it back and restores it (`tools/famdiag_export.py:simulate`). A `now` argument on the readouts would be
+  cleaner. It is an engine-hash change, so do it with the next engine change.
+- [x] ~~**fam-diag branch `timeline-hides-ended-lines`**~~ *2026-10-10: the owner's fam-diag stays as it is. The work
+  became a separate app, **EPModel Fam-Diag**: `/Users/davemini2/ProjectsLocal/epmodel-fam-diag`, port 5174,
+  private repository `dbgnvan2/epmodel-fam-diag`. Its gate file is
+  `docs/cycles/gate_2026-10-10_timeline-hides-ended-lines.md` there. The branch was removed from fam-diag, and fam-diag's
+  `main` matches GitHub at `e61ae13`.*
+- [x] ~~**Bruno falls back every week.**~~ *Recorded as a Phase C finding, not fixed (owner, 2026-10-10): Bruno left the reference family at spec revision 13, so this affects only the closed Phase C runs.* His one tie starts cut off, `REDUCE_CUTOFF` is his only legal act, and it
+  carries no weight without systems perspective, so the family runs' fallback rate is 0.26–0.41 (`M11.D.18` flags
+  it). Decide whether that is the intended reading of `M4.D.3b`.
+- [x] ~~**Eighth gate's low findings, 2026-10-08.**~~ *Fixed 2026-10-08, tests only: the C.45 rate check applies the
+  readout's `MOVE` filter; the before-t0 check compares every record by its tick; new
+  `test_m11c42_readout_counts_the_whole_pairs_triangles` and
+  `test_m11c42_absence_forms_no_triangle_holding_the_absent_member`. Each proved failing by mutation.*
+- [x] ~~**Fifth gate's low finding, 2026-10-08 (informational).**~~ *Fixed 2026-10-08: the tests load
+  `tools/sweep_record.py` as `tools.sweep_record`, and `test_sweep_tool_shares_the_loaded_mutation_tool` asserts it.*
+- [x] ~~**Third gate's low findings, 2026-10-08.**~~ *Fixed 2026-10-08:
+  `test_criteria_required_matches_what_the_arms_read` ties `REQUIRED` to every arm's reads in both directions; the
+  `criteria.py` docstring points at `config/bowen/criteria.md` instead of restating the spell; the mutation tool is
+  loaded once (`test_sweep_tool_shares_the_loaded_mutation_tool`). Records regenerated.*
+- [x] ~~**Re-gate finding A (medium, P6/P19).**~~ *Fixed 2026-10-08: every record's hash covers
+  `tools/ensemble_record.py` (its `RULE_KEYS`), and each tool names its inputs in `HASHED_TOOLS`
+  (`test_m134_every_record_hashes_the_ensemble_tool`). All three records regenerated.*
+- [x] ~~**Re-gate finding B (low, P19).**~~ *Fixed 2026-10-08: the sweep staleness test imports the sweep tool's
+  `HASHED_TOOLS`.*
+- [x] ~~**Hermes gate finding 4 (low, P4).**~~ *Fixed 2026-10-08: the criteria's declared settings moved, unchanged, to
+  `config/bowen/criteria.md` (parsed strictly, `test_criteria_settings_are_parsed_strictly`), and `M11.D.2`'s scan
+  now covers `src/bowen/ensemble/criteria.py` (`test_m11d2_check_catches_a_literal_in_the_criteria`).*
+- [x] ~~**Habituation on repeated relief (C13, spec `M4.G.3`).**~~ *Kept as written at approval, 2026-10-06: it is a conditional SHOULD and binds only if such a term exists.*
+- [x] ~~**Strike `M11.4c` at approval unless a mechanism ranking turns up.**~~ *Kept, 2026-10-06: the external review found one in the ledger (`L07.4`).* Answered 2026-09-22: most mechanisms
+  scale with differentiation and stress, so the theory orders conditions, not mechanisms — tested as
+  `M11.C.41`. The ranking form has nothing to rank.
+- [x] ~~**At approval: restate the requirement count in five documents.**~~ *Done 2026-10-06: 519.* `CLAUDE.md` (also still says revision 6),
+  `README.md`, `CHANGELOG.md`, `docs/theory/_STATUS.md` and `docs/agent_model_proposal.html` claim 427;
+  `tests/test_spec_consistency.py::test_requirement_counts_agree_with_the_spec` is red on the branch until they
+  match the approved count.
+- [x] ~~**`test_claimed_test_count_matches_the_suite` counts definitions, not collection.**~~ *Fixed 2026-10-06: it now shells to `pytest --collect-only -q`. Phase B step 1's parametrized test was the first case where the counts differed (76 defined, 78 collected).* It walks the AST for
+  `def test_*`. `@pytest.mark.parametrize` multiplies collection, `*_test.py` files fall outside the glob, and
+  a `skip`/`xfail` keeps the guard green while `CLAUDE.md`'s claim — "all N tests **pass**" — is false. Today
+  the three numbers agree exactly (49 defined, 49 collected, 49 passed). Fix by shelling to
+  `pytest --collect-only -q`, or state the assumption in the docstring.
+### Known defects in the frozen grid engine
+
+*Closed at version 2 stage 1 (S1.6): the grid engine was removed from the tree (it is at the tag `version-1`), so
+none of these can be fixed or recur. They stay listed because the v2 spec forbids inheriting them.* Recorded, not
+fixed. The engine was frozen in behaviour.
+
+- [x] **Engine purity violated.** *(Partially contained 2026-08-22: the test suite now runs from a temp directory, so it no longer writes into the repo root. The engine still writes.)*  `Simulator.__init__` opens and writes `sim_audit.csv` in the process working directory, and `log_telemetry` appends every 10 cycles. `CLAUDE.md` says the engine stays pure — no UI, no file I/O. Now gitignored so the stray copies stop appearing as untracked, but the write itself remains.
+- [x] **`_apply_config` fails silently.** It skips any line failing its regex and any key not already in `defaults`, with no warning, so a typo in `docs/model_config.md` vanishes and the default is used. Spec `M10.B.2` forbids v2 inheriting this; the v1 engine still has it.
+- [x] **Magic literals.** Spec §14 of the frozen document claims no model parameters are hard-coded in engine source. In practice 12 keys are in markdown config, 27 are class constants, and roughly 52 distinct float literals remain inline in executable code.
+- [x] **`family_ids` and `nuclear_family_id` are the same array object**, not a copy — `sim.family_ids is sim.nuclear_family_id` is `True`. The frozen spec documents `family_ids` as a "compatibility alias", so this is intentional, but two consequences are not obviously intended and are worth checking before any further engine work: in `update_triangles` the pair `self.family_ids[circle_idx] = fid` / `self.nuclear_family_id[circle_idx] = fid` writes the same element twice, so the first line is dead; and the triangle release path at lines 324/327 restores `family_ids` and thereby silently rewrites `nuclear_family_id` too. Any future change that gives the two names different values will silently lose one. **The v2 spec must not carry an alias pair like this** — `M1.A` gives each field one name.
+- [x] **`update_m` windfall can target a dead unit.** It picks `np.random.randint(0, num_units)`, so it can multiply the resources of a dead unit or an unused nursery slot.
+- [x] ~~**Untracked files predating this batch need a decision.**~~ *Out of date (checked 2026-10-19, version 2 stage 1): every file listed is now tracked, and `monte_carlo.py` was removed with the grid engine (S1.6). `monte_carlo_results.txt`, the grid engine's output, is still tracked; whether to remove it is the owner's.* Not staged, because they were not touched in this work: `requirements.txt`, `monte_carlo.py`, `monte_carlo_results.txt`, `data/`, `gemini.md`, `docs/background.md`, `docs/constitution.md`, `docs/logic_rules.md`, `docs/spec.md`, `docs/user_stories.md`. **`requirements.txt` is the urgent one** — the README tells people to install dependencies and the file is not in the repo.
+- [x] ~~**No CI workflow.**~~ *Out of date: `.github/workflows/tests.yml` exists (see the rca entry under revision 30).* The project standard is that a repo with a test suite pushed to GitHub gets `.github/workflows/tests.yml` — checkout, install from the real dependency file, run the suite on each supported Python version. The value is the blank machine: it catches what "works on this Mac" hides, which matters more here because the repo is shared between two Macs. Blocked on `requirements.txt` being tracked.
+- [x] Stray file `docs/model_explainer copy.textClipping` in the working tree — deleted 2026-10-22 on the owner's answer to the model-ergonomics plan's Q3.
+
+## 2026-09
+
+- [x] ~~**Does disabling a mechanism count as a second parameter set under `M0.4`? (DESIGN_LESSONS Q10)**~~
+  *Answered 2026-09-22: switching off a mechanism is a change to the model; such comparisons are allowed as tests of the model's structure only (the recommendation the owner adopted). Written as spec `M11.4f`.*
+- [x] ~~**Does `M11.4f` reach the approved ablation of `M10.C.4a`?**~~ *Decided 2026-09-22: yes. Each run with a
+  condition removed tests whether the model needs that condition; `M10.C.4a` itself is unchanged.*
+- [x] ~~**Confirm the `E-DR` recommendation (Q11).**~~ *Approved 2026-09-22: `M17.E.1` and `M17.E.2` kept separate, sharing one sweep range.*
+
+## 2026-08
+
+- [x] ~~**Approve or revise `docs/bowen_agent_model_spec_v2.md`.**~~ *Approved 2026-08-25; revisions 1–6 applied, the last on 2026-08-28.*

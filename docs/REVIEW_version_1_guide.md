@@ -320,7 +320,7 @@ visibility).
     activation and visibility components: "synchronous_activation v1 (synchronous)" and "household_conductance_visibility
     v1" (trace lines 18–19).
 
-**Points to check:** `TODO.md` records that `canonical_state` leaves out `state.stressors`, so the determinism tests
+**Points to check:** `docs/TODO_archive.md` records that `canonical_state` leaves out `state.stressors`, so the determinism tests
 cannot see a stressor still weighing after the last compared tick (listed under "Open owner questions").
 
 - [ ] Approve  [ ] Change: ____  [ ] Question: ____
@@ -748,7 +748,7 @@ detector).
 - Week 32, Dr Halim CUTOFF → Marta; witnesses Nadia, Pia, Ravi (trace line 317). What it did: "arrives week 33; anxiety Dr Halim +0.1, Nadia +0.6 (witness), Pia +0.6 (witness), Ravi +1.2 (witness); calmer sender takes some anxiety: Dr Halim +0.8, Marta -0.8; Dr Halim rejects the other on Dr Halim–Marta (rejection +0.51; the tie stays open)"
 
 **Points to check:**
-- Dr Halim's 13 session acts are 5 `STAY-IN-CONTACT`, 4 `TRIANGLE`, 2 `CUTOFF` and 2 `OVERFUNCTION`. `TODO.md`
+- Dr Halim's 13 session acts are 5 `STAY-IN-CONTACT`, 4 `TRIANGLE`, 2 `CUTOFF` and 2 `OVERFUNCTION`. `docs/TODO_archive.md`
   (revision 32, `M11.C.17`'s diagnosis) records that the coach's automatic-channel acts land with full effect, though
   `M1.E.7c`(3) reads non-participation as the coach's default.
 - In week 88 and week 96 (trace line 862) Dr Halim's `OVERFUNCTION` moves functioning on the coach tie. Is that
@@ -898,7 +898,7 @@ history and after that falls only with a rise in basic level (`M7.B.1`, `M7.B.1a
     for each person field the slow tick changes, `src/bowen/render/trace.py`; people under `development_end_age_years`
     are skipped by the estimator, `src/bowen/engine/slow_tick.py`).
 
-**Points to check:** `TODO.md`'s diagnosis of `M11.C.17` found the coaching effect dying at the estimator's evidence
+**Points to check:** `docs/TODO_archive.md`'s diagnosis of `M11.C.17` found the coaching effect dying at the estimator's evidence
 test (own functioning stays below basic level in both arms) and names `M1.A.4k`'s evidence rule as the owner's lever.
 
 - [ ] Approve  [ ] Change: ____  [ ] Question: ____
@@ -1081,7 +1081,7 @@ Rows whose disposition was Claude's recommendation pending owner review, all acc
 (version 2 plan Q10):
 `M11.C.7[joint over one spouse]` (entry 16), `M11.C.7[joint over sided]` (entry 16), `M11.C.17` (entry 15), `M11.C.22` (entry 20).
 The criteria `M11.E` holds out are `M11.C.8`, `M11.C.9`, the shape clause of `M11.C.11`, and `M5.F.2`'s counterfeit
-threshold, which `TODO.md` calls "the model's most consequential invented constant".
+threshold, which `docs/TODO_archive.md` calls "the model's most consequential invented constant".
 
 **Coverage:** 39 IDs: 28 done, 2 partial, 9 not done. No test names: `M11.1`, `M11.1b`, `M11.1e`, `M11.4`, `M11.4b`, `M11.4c`, `M11.4f`, `M11.3`, `M11.D.12`.
 

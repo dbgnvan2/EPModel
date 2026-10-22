@@ -63,7 +63,7 @@ Decisions marked **D-I** block the first part; **D-II** decisions can wait until
 | # | Decision | Blocks | Recommendation |
 |---|---|---|---|
 | **P1** | **Cutoff as rejection (option B).** The tie stays interactive. A per-tie rejection intensity rises with each refusal and falls with sustained contact. While it holds, the cutter's appraisal of what the other sends is replaced by rejection. Needs a spec revision (`M1.B.3`, `M5.B.3`, `M6.I.7`). **D-I** | C.10, the silences, every record | Approve B, with the rejection intensity `[I]` and decaying with sustained contact |
-| **P2** | **A pull toward reconnecting.** Today `REDUCE_CUTOFF` carries no learned value without systems perspective, so a severed tie stays severed (`TODO.md`, Bruno and the Phase C silences). Options: (a) the "too little" side of the deviation (`M4.C.1c`) keeps growing while a tie is cut, until approaching relieves it; (b) a separate pull term. **D-I** | P1's effect; Dario's tie to Ravi | (a): it uses an existing mechanism and writes no outcome |
+| **P2** | **A pull toward reconnecting.** Today `REDUCE_CUTOFF` carries no learned value without systems perspective, so a severed tie stays severed (`docs/TODO_archive.md`, Bruno and the Phase C silences). Options: (a) the "too little" side of the deviation (`M4.C.1c`) keeps growing while a tie is cut, until approaching relieves it; (b) a separate pull term. **D-I** | P1's effect; Dario's tie to Ravi | (a): it uses an existing mechanism and writes no outcome |
 | **P3** | **The `M5.F.2` threshold** (re-explained 2026-10-10): keep 0.5 on both axes, set other lines, or make the flip gradual. **D-I** | C.34; every I-POSITION result | Gradual (c), crossing at 0.5 `[I]` |
 | **P4** | **The estimator** (`M1.A.4a`, `M1.A.4b`): its form, window and breadth count (`[I]`, with the sensitivity sweep `M1.A.4c` requires). Also when transmission hands over to it (review S2). **D-I** | C.6, C.17, C.18, C.20, C.33 | Load-weighted mean and variance of `functional_level` over a 3-slow-tick window, plus a breadth count of distinct nodal situations, all `[I]`; declared before any criterion reads it |
 | **P5** | **Chronic anxiety: fixed or drifting.** `M7.B.1` fixes it in childhood; `M1.A.7a` and `M3.B.1` derive it every slow tick (review B). **D-I** | the slow-tick step | Fixed for everyone past the fixation age at `t0`; derived for people born during the run (`M2.A.0a` already says this) |
@@ -224,7 +224,7 @@ self-directed selection is logged self-directed.
 - `REDUCE_CUTOFF` lowers rejection.
 - The pattern readouts' cutoff definition is unchanged. *Corrected 2026-10-11 (review):* it does not read the
   engine's refusals. It counts `CUTOFF` acts sent after an approach (`config/bowen/pattern_acts.md`). Whether it
-  should also count the engine's `refusal` records is open for the owner (`TODO.md`).
+  should also count the engine's `refusal` records is open for the owner (`docs/TODO_archive.md`).
 - **Tests:**
   - a cut tie stays interactive;
   - repeated refusals raise rejection;
@@ -514,7 +514,7 @@ What it shows:
   "elsewhere" is (giving way and pseudo-self, the `I-POSITION` pull, the adjustment) is not yet traced.
 - **So the estimator never sees a rise.** Its evidence (load-weighted own functioning, less one standard deviation,
   less basic level) is −10.7 to −15.4 in both arms; nobody rises in ten years.
-- **Questions for the owner** (`TODO.md`): whether C.17's declared load (a nodal event to every member every few weeks,
+- **Questions for the owner** (`docs/TODO_archive.md`): whether C.17's declared load (a nodal event to every member every few weeks,
   so nobody is ever calm) is the right test bed; why the coached people's functioning falls despite coping more —
   the next trace is the ledgers other than the stress swing; and whether the estimator's form (`M1.A.4k`), which needs
   the loaded mean above basic level, can register improvement that shows as falling less rather than rising.

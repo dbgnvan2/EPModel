@@ -53,7 +53,7 @@ answers; part II is planned in plan §4, approved the same day.
 
 ## For the owner, first
 
-1. Revisions 24–27 as a whole (`TODO.md` lists each choice).
+1. Revisions 24–27 as a whole (`docs/TODO_archive.md` lists each choice).
 2. `M11.C.17`'s collapse: two probes put part of it on revision 27 and part on revision 24.
 3. The eight failing criteria: each is the owner's question whether the criterion, its readout or the model is wrong;
    nothing was changed to make any pass.

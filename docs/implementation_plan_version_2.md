@@ -32,7 +32,7 @@ Mapping each item to the code found five things that change the stage as the ver
    `slow_tick.py`'s weighted means (lines 153–159), which use the builtin `sum` although the module already uses
    `math.fsum` elsewhere. (D2)
    `math.fsum` removes the Python-version source of drift. It does not remove the platform source: the C maths library
-   (`exp`, `log`, `sqrt`) differs between macOS and Linux (`TODO.md`, the CI entry of 2026-10-15), so the golden
+   (`exp`, `log`, `sqrt`) differs between macOS and Linux (`docs/TODO_archive.md`, the CI entry of 2026-10-15), so the golden
    fingerprints keep their rounding to 8 significant digits.
 3. **Item 1.4 changes results; it is not an alignment.** `recompute_triangles` (`src/bowen/engine/recompute.py`)
    counts live positions from presence only. The only fused occupant the running engine builds is a coach who has
@@ -216,7 +216,7 @@ ad hoc runs of that criterion alone.
   that to stage 3.
 - `docs/version_2_plan.md` item 1.1 names `slow_tick.py` and `life_course.py`; both already use `math.fsum` for some
   sums, and `slow_tick.py` still uses the builtin `sum` for others. D2 (b) covers both.
-- `TODO.md`'s rule 9 entry (the readouts' act sets) is half done: the sets are in config, and only the engine's two
+- `docs/TODO_archive.md`'s rule 9 entry (the readouts' act sets) is half done: the sets are in config, and only the engine's two
   classifications remain (S1.3).
 
 ### 1.10 Build record (2026-10-19)

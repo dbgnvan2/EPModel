@@ -604,7 +604,7 @@ say whether that test was proved failing by mutation unless its note does.
 | M17.G.2 | not done | — | no test named for it; Phase E builds it and is not built yet |
 | M17.G.3 | not done | — | no test named for it; Phase E builds it and is not built yet |
 
-## Tests named for no spec ID (219)
+## Tests named for no spec ID (229)
 
 Their names embed no requirement ID, so they count only where an override cites them (marked *cited*). The rest check spec documents, tooling or helpers.
 
@@ -762,6 +762,16 @@ Their names embed no requirement ID, so they count only where an override cites 
 - `tests/test_doc_claims.py::test_d2_the_old_run_command_is_reported`
 - `tests/test_doc_claims.py::test_d2_the_retired_list_is_current`
 - `tests/test_doc_claims.py::test_d2_the_scan_is_not_vacuous`
+- `tests/test_doc_size.py::test_a_file_over_its_limit_is_reported`
+- `tests/test_doc_size.py::test_a_nested_ticked_item_under_an_open_item_is_read`
+- `tests/test_doc_size.py::test_a_recent_ticked_item_and_an_old_open_item_pass`
+- `tests/test_doc_size.py::test_a_ticked_item_older_than_the_limit_is_reported`
+- `tests/test_doc_size.py::test_an_items_block_stops_at_the_next_item_heading_or_blank_line`
+- `tests/test_doc_size.py::test_an_undated_ticked_item_is_reported`
+- `tests/test_doc_size.py::test_each_live_file_names_its_archive`
+- `tests/test_doc_size.py::test_live_files_are_within_their_limits`
+- `tests/test_doc_size.py::test_the_latest_date_in_the_item_is_its_close_date`
+- `tests/test_doc_size.py::test_todo_holds_no_stale_ticked_item`
 - `tests/test_doc_status.py::test_d5b_a_decided_label_on_a_draft_is_reported`
 - `tests/test_doc_status.py::test_d5b_a_reviewed_document_called_for_review_is_reported`
 - `tests/test_doc_status.py::test_d5b_an_unknown_wording_is_not_skipped_silently`

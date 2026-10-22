@@ -225,11 +225,11 @@ That judgment is the owner's review in B2 (P6).
 - `docs/REVIEWER_READING_LIST.md`: §3 (the page's row says "'Not done' can mean only that no test is named for the
   ID", which stops being true), §7 (this plan's row), §8 (the open item moves to the fixed list);
 - `docs/SPEC_REVIEW_CHECKLIST.md` (this plan's entry);
-- `TODO.md` ("Coverage page, Part B" ticked); `CHANGELOG.md`; `CLAUDE.md`'s test count;
+- `docs/TODO_archive.md` ("Coverage page, Part B" ticked); `CHANGELOG.md`; `CLAUDE.md`'s test count;
 - `tools/spec_coverage.py`'s docstring.
 
 Three places name the old file in dated history: `docs/cycles/2026-10-08_phase-c-qa-gate-17.md` line 84,
-`docs/implementation_plan_phase_c.md` line 345, and a ticked item at `TODO.md` line 561. Decision 4.
+`docs/implementation_plan_phase_c.md` line 345, and a ticked item in `docs/TODO_archive.md`. Decision 4.
 
 ### 6.5 Decisions for the owner
 
@@ -331,7 +331,7 @@ ensemble test of a *partial* criterion; a default-suite test of a *partial* crit
 `test_m3b1_forty_year_run_completes`); B3.1 (the old name in the tool's docstring; in `pytest.ini`).
 
 **B3.2.** `grep -rn spec_coverage_phase_b` finds the old name only in dated history: `docs/cycles/2026-10-08_phase-c-qa-gate-17.md`,
-`docs/implementation_plan_phase_c.md`, a ticked item in `TODO.md` (decision 4), `CHANGELOG.md` (this entry records
+`docs/implementation_plan_phase_c.md`, a ticked item in `docs/TODO_archive.md` (decision 4), `CHANGELOG.md` (this entry records
 the rename), and this plan's opening paragraph, §5, §6 and §7, which name the file before the rename.
 
 **Adjacent issues found, not fixed** (recorded in `TODO.md`): `M6.3a` is *done* by

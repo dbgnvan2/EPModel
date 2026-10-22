@@ -46,7 +46,10 @@ def test_v7_every_ensemble_record_says_a_premise_pass_is_not_a_finding_about_fam
 
 def test_v7_virtual_family_appears_only_where_it_is_framed():
     """`M11.F.10`: the term only beside its framing. The spec defines the rule; the explainer's §1.1 is the framing."""
-    allowed = {"bowen_agent_model_spec_v2.md", "model_explainer.md", "REVIEW_version_1_outputs.md"}
+    # CHANGELOG_archive.md: the root CHANGELOG's entries before 2026-10-19, moved verbatim 2026-10-22; the scan never
+    # read the root file, and the one use there is the entry that added `M11.F.10` itself.
+    allowed = {"bowen_agent_model_spec_v2.md", "model_explainer.md", "REVIEW_version_1_outputs.md",
+               "CHANGELOG_archive.md"}
     using = sorted(p.name for p in DOCS.glob("*.md") if "virtual family" in p.read_text(encoding="utf-8").lower())
     assert set(using) <= allowed, set(using) - allowed
     assert "virtual family" not in (REPO / "README.md").read_text(encoding="utf-8").lower()

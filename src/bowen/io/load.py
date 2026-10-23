@@ -10,7 +10,7 @@ from __future__ import annotations
 import dataclasses
 from pathlib import Path
 
-from src.bowen.engine.events import ACT_CLASSES, EventKinds
+from src.bowen.engine.events import ACT_CLASSES, EventKinds, EventSize
 from src.bowen.policy.rules import PolicyRules
 from src.bowen.scenario.constants import RETIRED, SCHEMA, Constants, parse_constants
 from src.bowen.scenario.event_kinds import parse_event_kinds
@@ -42,8 +42,68 @@ def load_event_kinds(path: Path = CONFIG_DIR / "event_kinds.md") -> EventKinds:
     reach = load_nodal_reach(kinds)
     attribution, focus = load_attribution(kinds)
     classes = load_act_classes(kinds)
+    contacts = load_contact_classes(kinds)
     return dataclasses.replace(kinds, nodal=frozenset(reach), nodal_reach=reach, soothing=load_soothing(kinds),
-                               steering=load_steering(kinds), attribution=attribution, focus=focus, **classes)
+                               steering=load_steering(kinds), attribution=attribution, focus=focus, **classes,
+                               negative_contacts=contacts["negative"], positive_contacts=contacts["positive"],
+                               rebuffs=contacts["rebuff"], sizes=load_event_sizes(kinds))
+
+
+CONTACT_CLASSES = ("negative", "positive", "rebuff")
+SIZE_COLUMNS = ("kind", "who", "item", "lcu", "weeks", "source")
+
+
+def load_contact_classes(kinds: EventKinds, path: Path = CONFIG_DIR / "contact_classes.md") -> dict[str, frozenset[str]]:
+    """Purpose: read which acts are negative or positive contact across a tie, and the rebuffs the negative-run
+    readout also counts; every set must be declared, once, with declared moves only, and the sets must not overlap.
+    Spec:    docs/bowen_agent_model_spec_v2.md#M1.D.2b, #M1.D.2c, #M11.C.48
+    Tests:   tests/bowen/test_cutoff_stock.py::test_m1d2b_contact_classes_come_from_config
+    """
+    from src.bowen.scenario.config_parse import ConfigError, parse_table_document
+
+    doc = parse_table_document(read_text(path), columns=("set", "acts", "used by"), metadata_keys=frozenset(),
+                               source=str(path))
+    sets = {row["set"]: frozenset(a.strip() for a in row["acts"].split(",") if a.strip()) for row in doc.rows}
+    if set(sets) != set(CONTACT_CLASSES) or len(sets) != len(doc.rows):
+        raise ConfigError(f"{path}: the sets must be exactly {sorted(CONTACT_CLASSES)}, each once; found {sorted(sets)}")
+    unknown = sorted(a for acts in sets.values() for a in acts if a not in kinds.moves())
+    if unknown:  # a misspelt act would match nothing: no bridge, no repair, no run
+        raise ConfigError(f"{path}: not a declared move: {unknown}")
+    empty = sorted(c for c, acts in sets.items() if not acts)
+    if empty:
+        raise ConfigError(f"{path}: a set with no acts: {empty}")
+    names = list(sets)
+    for i, a in enumerate(names):
+        for b in names[i + 1:]:
+            if sets[a] & sets[b]:  # an act that is both positive and negative would renew and bridge at once
+                raise ConfigError(f"{path}: {sorted(sets[a] & sets[b])} in both {a} and {b}")
+    return sets
+
+
+def load_event_sizes(kinds: EventKinds, path: Path = CONFIG_DIR / "event_sizes.md") -> dict[tuple[str, str], EventSize]:
+    """Purpose: read each sized event's Holmes–Rahe life change units and the weeks it weighs, keyed (kind, who); a row
+    whose `lcu` column says the scale does not size it is recorded with no size.
+    Spec:    docs/bowen_agent_model_spec_v2.md#M1.F.6a
+    Tests:   tests/bowen/test_event_sizes.py::test_m1f6a_sizes_come_from_config_and_keep_the_scales_ratios
+    """
+    from src.bowen.scenario.config_parse import ConfigError, parse_table_document
+
+    doc = parse_table_document(read_text(path), columns=SIZE_COLUMNS, metadata_keys=frozenset(), source=str(path))
+    sizes: dict[tuple[str, str], EventSize] = {}
+    for row in doc.rows:
+        kind, who = row["kind"].strip("`"), row["who"].strip()
+        if kind not in kinds.mechanisms:  # a misspelt kind would size nothing, and the event would arrive at 0
+            raise ConfigError(f"{path}: {kind} is not a declared event kind")
+        if (kind, who) in sizes:
+            raise ConfigError(f"{path}: {kind}/{who} is declared twice")
+        if row["lcu"].strip() == "—":  # outside the scale, by decision (lost income, `M6.3h`)
+            continue
+        try:
+            weeks = None if row["weeks"].strip() == "—" else int(row["weeks"])
+            sizes[(kind, who)] = EventSize(kind, who, row["item"].strip(), float(row["lcu"]), weeks)
+        except ValueError as e:
+            raise ConfigError(f"{path}: {kind}/{who}: {e}") from None
+    return sizes
 
 
 def load_act_classes(kinds: EventKinds, path: Path = CONFIG_DIR / "act_classes.md") -> dict[str, frozenset[str]]:

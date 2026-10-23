@@ -44,6 +44,27 @@ ACT_CLASSES = ("side_taking", "family_to_external", "external_repertoire")
 
 
 @dataclass(frozen=True)
+class EventSize:
+    """Purpose: one sized event's base size and duration (`M1.F.6a`): ``lcu`` Holmes–Rahe life change units, ``weeks`` the
+    weeks it weighs, ``who`` names who is loaded ("self": the person it happens to; "spouse" or "relative": the mourner
+    through their tie to the dead; "tie": each person it reaches through a tie), ``item`` the scale's item.
+    Spec:    docs/bowen_agent_model_spec_v2.md#M1.F.6a
+    Tests:   tests/bowen/test_event_sizes.py::test_m1f6a_sizes_come_from_config_and_keep_the_scales_ratios
+    """
+
+    kind: str
+    who: str
+    item: str
+    lcu: float
+    weeks: int | None  # None: the mechanism that issues the event sets its weeks (grief, `M6.3g`)
+
+    def __post_init__(self) -> None:
+        if self.lcu <= 0 or (self.weeks is not None and self.weeks < 1) or self.who not in ("self", "spouse", "relative", "tie"):
+            raise ValueError(f"{self.kind}/{self.who}: lcu must be positive, weeks at least 1 or unset, who one of self, "
+                             "spouse, relative, tie")
+
+
+@dataclass(frozen=True)
 class EventKinds:
     """The kind vocabulary, as loaded from config.
 
@@ -87,6 +108,14 @@ class EventKinds:
     side_taking: frozenset[str] | None = None
     family_to_external: frozenset[str] | None = None
     external_repertoire: frozenset[str] | None = None
+    # Spec revision 36 (M1.D.2b, M1.D.2c, M11.C.48): the acts that are negative or positive contact across a tie, and
+    # the rebuffs the negative-run readout also counts. From config/bowen/contact_classes.md. None until loaded.
+    negative_contacts: frozenset[str] | None = None
+    positive_contacts: frozenset[str] | None = None
+    rebuffs: frozenset[str] | None = None
+    # Spec revision 36 (M1.F.6a, M7.C.1l, M7.D.1a): each sized event's Holmes–Rahe life change units and weeks, keyed
+    # (kind, who). From config/bowen/event_sizes.md. None until loaded.
+    sizes: Mapping[tuple[str, str], "EventSize"] | None = None
 
     def __post_init__(self) -> None:
         object.__setattr__(self, "mechanisms", MappingProxyType(dict(self.mechanisms)))

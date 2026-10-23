@@ -30,6 +30,12 @@
 > estimator counts them as nodal events, and never appraised, because what a death costs arrives as grief and lost
 > income. `FIND_WORK` is a life-course act, not a move (`M7.C.1k`).
 >
+> **Spec revision 36 (`M7.C.1l`, `M7.D.1a`).** The `_LOAD` kinds are the load an addition or transition carries
+> (marriage, retirement, a birth, a child leaving home, finding work), sized by `config/bowen/event_sizes.md` and
+> issued by the life course beside its `life_event`, which stays the nodal event the estimator counts; they are not
+> nodal themselves, or the event would be counted twice. `OWN_ILLNESS` loads a symptom's bearer and `FAMILY_ILLNESS`
+> their partners at a symptom onset (`M7.D.1a`); the `SYMPTOM_ONSET` event stays the onset's signal.
+>
 > `channel` is the policy channel a move is selected in (spec `M4.D.1a`, Phase C step 6): the seven reactive
 > moves are `automatic`; `I-POSITION` and `STAY-IN-CONTACT` are `self`, and so are the four family moves of
 > `M5.B` — `DETRIANGLE`, `PREVENT_ALIGNMENT`, `REDUCE_CUTOFF`, `PROVOKE` — by the owner's decision of
@@ -76,3 +82,10 @@
 | `LAUNCH` | life_event | +1 | +1 | 0 | 0 | no | — | — | `M7.C.1g` |
 | `FIND_WORK` | life_event | +1 | +1 | 0 | 0 | no | — | — | `M7.C.1k` |
 | `RETIREMENT` | life_event | +1 | +1 | 0 | 0 | no | — | — | `M2.A.0k` |
+| `OWN_ILLNESS` | exogenous_stressor | +1 | +1 | 0 | 0 | no | — | — | `M7.D.1a` |
+| `FAMILY_ILLNESS` | exogenous_stressor | +1 | +1 | 0 | 0 | no | — | — | `M7.D.1a` |
+| `PARTNERING_LOAD` | exogenous_stressor | +1 | +1 | 0 | 0 | no | — | — | `M7.C.1l` |
+| `RETIREMENT_LOAD` | exogenous_stressor | +1 | +1 | 0 | 0 | no | — | — | `M7.C.1l` |
+| `BIRTH_LOAD` | exogenous_stressor | +1 | +1 | 0 | 0 | no | — | — | `M7.C.1l` |
+| `LAUNCH_LOAD` | exogenous_stressor | +1 | +1 | 0 | 0 | no | — | — | `M7.C.1l` |
+| `FIND_WORK_LOAD` | exogenous_stressor | +1 | +1 | 0 | 0 | no | — | — | `M7.C.1l` |

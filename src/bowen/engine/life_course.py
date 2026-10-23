@@ -50,6 +50,7 @@ from src.bowen.engine.act import SELF_CHANNEL
 from src.bowen.engine.beliefs import TieBelief
 from src.bowen.engine.contact import excess, initialise_contact
 from src.bowen.engine.draws import DrawKey
+from src.bowen.engine.event_sizes import sized_intensity
 from src.bowen.engine.events import Channel, Event, EventId, Mechanism, SourcePosition
 from src.bowen.engine.identifiers import PersonId, TieId, child_id
 from src.bowen.engine.invariants import InvariantViolation
@@ -69,6 +70,9 @@ from src.bowen.engine.counting import count
 DEATH, BIRTH, PARTNERING, LAUNCH, FIND_WORK, RETIREMENT = (
     "DEATH", "BIRTH", "PARTNERING", "LAUNCH", "FIND_WORK", "RETIREMENT")
 GRIEF, INCOME_LOSS = "GRIEF", "INCOME_LOSS"
+# M7.C.1l, revision 36: the load an addition carries, sized from event_sizes.md, beside the structural event itself.
+PARTNERING_LOAD, BIRTH_LOAD, LAUNCH_LOAD, FIND_WORK_LOAD, RETIREMENT_LOAD = (
+    "PARTNERING_LOAD", "BIRTH_LOAD", "LAUNCH_LOAD", "FIND_WORK_LOAD", "RETIREMENT_LOAD")
 
 
 @dataclass(frozen=True)
@@ -285,6 +289,23 @@ def _life_event(state: RunState, kind: str, origin: str, targets, *, exogenous: 
     )
 
 
+def _addition_load(state: RunState, kind: str, origin: str, targets, params: EngineParams, *,
+                   who: str = "self", reach: float = 1.0) -> Event:
+    """Purpose: the load an addition to the family carries (M7.C.1l, revision 36): a lasting stressor to those it lands
+    on, sized from ``event_sizes.md`` and arriving the week after the structural event, with it.
+    Spec:    docs/bowen_agent_model_spec_v2.md#M7.C.1l, #M1.F.6a
+    Tests:   tests/bowen/test_event_sizes.py::test_m7c1l_an_addition_carries_a_load_for_its_weeks
+    """
+    intensity, weeks = sized_intensity(state.kinds, params, kind, who, reach=reach)
+    return _life_event(state, kind, origin, targets, intensity=intensity, duration=weeks,
+                       mechanism=Mechanism.EXOGENOUS_STRESSOR)
+
+
+def _is_spouse(state: RunState, a: PersonId, b: PersonId) -> bool:
+    tie = TieId.of(a, b)
+    return any(f.marital_tie is not None and f.marital_tie == tie for f in state.families())
+
+
 def due_events(state: RunState) -> tuple[Event, ...]:
     """Purpose: the life events whose week this is, injected at step 2 with the source's own.
     Spec:    docs/bowen_agent_model_spec_v2.md#M7.C.1, #M1.F.6
@@ -488,11 +509,14 @@ def _launch(state: RunState, params: EngineParams) -> list[tuple]:
         parents = state.life.parents[pid]
         at_home = any(state.people[p].household_id == person.household_id for p in parents)
         if person.alive and person.age_years == params.launch_age_years and at_home:
+            home = person.household_id  # the parents still in it carry the launch's load (M7.C.1l)
             person.household_id = pid.value
             person.financially_dependent = False
             person.earner = True
             rows.append((pid, "launched", 1.0))
             state.life.pending.append(_life_event(state, LAUNCH, f"life:launch:{pid}", (pid,)))
+            at_home_parents = [p for p in parents if state.people[p].alive and state.people[p].household_id == home]
+            state.life.pending.append(_addition_load(state, LAUNCH_LOAD, f"life:launch:{pid}", (pid, *at_home_parents), params))
     return rows
 
 
@@ -587,10 +611,12 @@ def die(state: RunState, pid: PersonId, params: EngineParams) -> EffectRecord:
     life = state.life
     if mourners:  # a nodal event must reach someone (slow_tick.reached_by); a death no one survives is logged below only
         life.pending.append(_life_event(state, DEATH, f"life:death:{pid}", mourners))
-    for other in mourners:  # M6.3g — grief, in proportion to the tie
+    for other in mourners:  # M6.3g — grief, in proportion to the tie; sized from the scale (M1.F.6a, revision 36)
         share = bond[other] / SCALE_MAX
         weeks = params.grief_min_weeks + round(params.grief_extra_weeks * share)
-        life.pending.append(_life_event(state, GRIEF, f"life:grief:{pid}", (other,), intensity=params.grief_scale * share,
+        who = "spouse" if _is_spouse(state, pid, other) else "relative"
+        arrival, _ = sized_intensity(state.kinds, params, GRIEF, who, reach=share, weeks=weeks)
+        life.pending.append(_life_event(state, GRIEF, f"life:grief:{pid}", (other,), intensity=params.grief_weight * arrival,
                                         duration=weeks, mechanism=Mechanism.EXOGENOUS_STRESSOR))
     if person.earner:  # M6.3h — a lost income: a stressor with no end until someone finds work
         household = sorted(p for p, q in state.people.items() if q.alive and q.role is Role.MEMBER
@@ -645,6 +671,7 @@ def find_work(state: RunState, load: dict, params: EngineParams) -> list[EffectR
             person.financially_dependent = False
             household_now = [p for p, q in state.people.items() if q.alive and q.household_id == household]
             life.pending.append(_life_event(state, FIND_WORK, f"life:work:{pid}", household_now, exogenous=False))
+            life.pending.append(_addition_load(state, FIND_WORK_LOAD, f"life:work:{pid}", household_now, params))
             records.append(EffectRecord(state.tick, "find_work", None, people=((pid, "earner", 1.0),)))
             break
     return records
@@ -667,6 +694,7 @@ def _retire_coach(state: RunState, params: EngineParams) -> list[EffectRecord]:
         for tie in state.ties_of(coach.id):
             tie.interactive = False
         return [EffectRecord(state.tick, "coach_retirement", None, people=((coach.id, "inactive", 1.0),))]
+    coach_bond = state.tie_between(coach.id, coachee).bond_energy if state.tie_between(coach.id, coachee) else 0.0
     for tie in state.ties_of(coach.id):
         _release_investment(state, tie, tie.id.other(coach.id))  # as at a death (M6.3d): the coachee's goes elsewhere
         tie.interactive = False
@@ -678,6 +706,8 @@ def _retire_coach(state: RunState, params: EngineParams) -> list[EffectRecord]:
     _redistribute_investment(state, coachee, TieId.of(successor.id, coachee), params)  # M7.C.1a
     life.coach = successor.id
     life.pending.append(_life_event(state, RETIREMENT, f"life:retire:{coach.id}", (coachee,)))
+    life.pending.append(_addition_load(state, RETIREMENT_LOAD, f"life:retire:{coach.id}", (coachee,), params,
+                                       who="tie", reach=coach_bond / SCALE_MAX))
     return [EffectRecord(state.tick, "coach_retirement", None,
                          people=((coach.id, "inactive", 1.0), (successor.id, "entered", 1.0)))]
 
@@ -725,6 +755,7 @@ def _pair(state: RunState, params: EngineParams) -> list[EffectRecord]:
         life.paired_at[row.id] = life.slow_ticks
         _draw_death(state, row.id, life.slow_ticks, params)
         life.pending.append(_life_event(state, PARTNERING, f"life:pair:{row.id}", (row.partner_of, row.id)))
+        life.pending.append(_addition_load(state, PARTNERING_LOAD, f"life:pair:{row.id}", (row.partner_of, row.id), params))
         records.append(EffectRecord(state.tick, "partnering", None,
                                     people=((row.id, "entered", 1.0), (row.origin_id, "entered", 1.0))))
     return records
@@ -788,4 +819,5 @@ def _birth(state: RunState, row: PartnerRow, order: int, params: EngineParams) -
         family.parent_child_ties = tuple(sorted(family.parent_child_ties + tuple(TieId.of(p, pid) for p in (a, b))))
     _draw_death(state, pid, life.slow_ticks, params)
     life.pending.append(_life_event(state, BIRTH, f"life:birth:{pid}", (a, b, *siblings)))
+    life.pending.append(_addition_load(state, BIRTH_LOAD, f"life:birth:{pid}", (a, b, *siblings), params))
     return EffectRecord(state.tick, "birth", None, people=((pid, "entered", 1.0),))

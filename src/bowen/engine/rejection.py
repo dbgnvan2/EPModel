@@ -12,8 +12,10 @@ Absence of interaction is distance, not cutoff (`M1.B.3c`). So:
 * a move delivered to a person whose rejection of its sender is above ``rejection_refusal_threshold`` is **refused**,
   except ``CUTOFF`` and ``REDUCE_CUTOFF``. It does not reach that person at all. Their rejection rises, and the sender
   bears the refusal as acute anxiety. Below the threshold the move is received as usual (graded rejection);
-* rejection fades by ``rejection_fade`` every week (``fade_rejection``), so a single cutoff wears off unless refusals
-  or further cutoffs renew it;
+* rejection fades by ``rejection_fade`` every week (``fade_rejection``), so a single cutoff stops refusing unless
+  refusals or further cutoffs renew it. The tie stays cut off until a positive contact is delivered with no rejection
+  left (spec revision 36, `M1.D.2b`; ``cutoff_stock.bridge_ties``): a cut is a tie in state ``CUT_OFF``, not a tie
+  holding rejection;
 * ``REDUCE_CUTOFF`` is the contact the cutter accepts. It lowers both members' rejection (``moves.reduce_cutoff``);
 * the pull back toward contact is not written here. While a tie is cut, neither member rests at any contact
   (``contact.resting_contact``), so the "too little" side grows for both until the tie reopens (`M4.C.1c`).
@@ -48,13 +50,16 @@ def raise_rejection(tie: Relationship, member: PersonId, amount: float) -> float
     if tie.rejected() and tie.tie_state is not TieState.CUT_OFF:
         tie.uncut_state = tie.tie_state  # a hardened distant tie stays distant once the cutoff ends
         tie.tie_state = TieState.CUT_OFF
+        tie.cutoff_peak = None  # M1.D.2b: entered at step 4 (``cutoff_stock.bridge_ties``), which caps the stock
     return tie.rejection[member] - before
 
 
 def lower_rejection(tie: Relationship, member: PersonId, amount: float) -> float:
-    """Purpose: lower one member's rejection; the tie returns to its state before the cut when neither holds any.
-    Spec:    docs/bowen_agent_model_spec_v2.md#M1.B.3c, #M5.B.3
-    Tests:   tests/bowen/test_rejection.py::test_m5b3_accepted_contact_lowers_both_rejections_and_reopens_the_tie_at_zero
+    """Purpose: lower one member's rejection. The tie stays cut off: it reopens only on a positive contact delivered
+    when no rejection is left (`M1.D.2b`, ``cutoff_stock.bridge_ties``; spec revision 36).
+    Spec:    docs/bowen_agent_model_spec_v2.md#M1.B.3c, #M5.B.3, #M1.D.2b
+    Tests:   tests/bowen/test_rejection.py::test_m5b3_accepted_contact_lowers_both_rejections_and_reopens_the_tie_at_zero,
+             tests/bowen/test_rejection.py::test_m1b3c_faded_cutoff_waits_for_a_positive_contact
 
     Returns the change (zero or negative).
     """
@@ -64,8 +69,6 @@ def lower_rejection(tie: Relationship, member: PersonId, amount: float) -> float
     tie.rejection[member] = max(0.0, before - amount)
     if tie.rejection[member] == 0.0:
         end_principled(tie, member)
-    if tie.tie_state is TieState.CUT_OFF and not tie.rejected():
-        tie.tie_state = tie.uncut_state
     return tie.rejection[member] - before
 
 
@@ -121,8 +124,9 @@ def refuse(state: RunState, batch: tuple[Delivery, ...], params: EngineParams) -
 
 
 def fade_rejection(state: RunState, params: EngineParams) -> list[EffectRecord]:
-    """Purpose: every held rejection fades by a fixed amount each week; a tie stops being cut off when none is left.
-    Spec:    docs/bowen_agent_model_spec_v2.md#M1.B.3c
+    """Purpose: every held rejection fades by a fixed amount each week. The tie stays cut off until a positive contact
+    reopens it (`M1.D.2b`); a faded cutoff refuses nothing, so the next accepted positive contact ends it.
+    Spec:    docs/bowen_agent_model_spec_v2.md#M1.B.3c, #M1.D.2b
     Tests:   tests/bowen/test_rejection.py::test_m1b3c_unrenewed_rejection_fades_and_the_tie_reopens
 
     Step 9. Refusals and cutoffs in the same week have already renewed it (step 2 and step 4).
@@ -136,8 +140,6 @@ def fade_rejection(state: RunState, params: EngineParams) -> list[EffectRecord]:
             change = lower_rejection(tie, member, params.rejection_fade)
             if change:
                 changes.append((tie_id, f"rejection:{member}", change))
-        if not tie.rejected():
-            changes.append((tie_id, f"tie_state_{tie.tie_state.value}", 1.0))
     return [EffectRecord(state.tick, "rejection_fade", None, ties=tuple(changes))] if changes else []
 
 

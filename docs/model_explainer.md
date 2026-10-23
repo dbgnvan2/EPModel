@@ -451,6 +451,9 @@ That is the fixture test 15 needs: two counterfeits at **equal magnitude of the 
   above usual to the symptom's hold (`symptom_bound`). Past the turn the hold goes back, and the bearer's own excess
   spills to the partners too. When the symptom ends, or is remitted, the whole hold goes back. Removal stops it either
   way. No rule writes resistance to removal or relief on it; they follow from the curve. `M7.D.2a`, `M7.D.2d`
+  What goes back is split by the bond energy of the bearer's interactive ties to living family members, so a parent
+  takes more than a sibling and the coach nothing (G2, 2026-10-22, `[I]`; §11.5). An onset is also an illness: the
+  bearer and the family take the scale's loads for it (`M7.D.1a`, §11.5).
 - **Not built:** the hold does not feed the bearer's integrator, so lock-in calms the family but does not by itself
   make a symptom chronic.
 - **Removal by tolerance** `[I]`: a member whose excess above usual passes their declared tolerance removes the member
@@ -636,6 +639,9 @@ severing**. The tie stays open. Each member holds a `rejection` in [0, 1]; the t
 
   A `CUTOFF` act alone reads as nothing (`docs/readouts_phase_c.md`).
 - Every rate is `[I]`.
+- **The cut-off tie's held anxiety weighs, is capped, decays and is bridged by contact** (`M1.D.2b`, `M1.D.2c`,
+  version 2 group G1, 2026-10-22): §11.5. Rejection held means `CUT_OFF`; a faded cutoff waits for a positive contact
+  to reopen the tie, and reopens it into the state it had before the cut.
 
 **Source:** `[T]` Ch10 · L10.3 — cutting off raises system tension, enlarging the system lowers it, because anxiety dilutes over nodes. `[M]` Ch16 · L16.3 — the corpus's clearest positive feedback loop: the more intense the cutoff, the more exaggerated the parental problem in one's own marriage, and the more intense the next generation's cutoff.
 
@@ -996,7 +1002,8 @@ project decisions, not corpus findings, and must never be cited as Bowen's.
   at most from 100 to about 35, so `M11.C.6`'s "eight to ten generations" (`KS11.1`, `FE08.2`) is restated and
   `[X]` contested; a quantum jump of ~10 points a generation (`FE08.1`) is reachable only near the top of the scale, and
   a 5–10-point step (`FE07.7`) only for parents at level 50 or above.
-- **Launch, partners, births.** A child leaves home at 20, supporting themselves (`M7.C.1g`, `[I]`). Partners come
+- **Launch, partners, births.** A child leaves home at 20, supporting themselves (`M7.C.1g`, `[I]`); each addition
+  also carries a lasting load sized from the Holmes–Rahe scale (`M7.C.1l`, `[I]`, §11.5). Partners come
   from a settings file, never from the engine (`config/bowen/partners_phase_d.md`; `M7.C.1h`): their level is drawn
   within ±1 of the member's (`M2.A.0e`), the couple forms a household and a family with its own budget, and the new
   tie takes a share of each spouse's existing investment (`M7.C.1a`, `[T]` KS22.2). Children are born at the years
@@ -1312,6 +1319,64 @@ owner's, taken as recommended on 2026-10-19. Which verdicts it moved is measured
 - **What a symptom gives back has its own trace row** (`M16.T.1`, D6 (a)). The weekly hold stays summarised (one
   bearer gave 121 rows a year). The release when a symptom ends, and the spill to the partners past the turn, are each
   shown with who received them; week 74 of the seed-7 trace held a spill of 222.4 that the trace did not show.
+
+### 11.5 What revision 36 changed: version 2's group G and the event sizes  *(2026-10-22; built overnight under the owner's instruction of 2026-10-22, each choice decided as recommended and pending the owner's review)*
+
+Three decided proposals built as one batch: `docs/PROPOSAL — CUTOFF ANXIETY, BRIDGING AND REPAIR.md` (G1, the
+owner's Q1–Q11 of 2026-10-19), `docs/PROPOSAL — RELEASE BY TIE (G2).md`, and `docs/PROPOSAL — EVENT SIZES FROM THE
+HOLMES–RAHE SCALE.md` (the owner's Q1–Q8 of 2026-10-19). The corpus gives the directions; every size below is `[I]`
+or the owner's. Each rule changes what an act does or what a tie holds; none writes a pattern outcome (§19): a cutoff
+is still learned from felt relief, and what it then costs is the physics below.
+
+- **A cut-off tie's held anxiety weighs on both members** (`M1.D.2b`, `cutoff_threat`). The tie's bound anxiety `s`
+  delivers `cutoff_threat_weight × s × bond_energy ÷ 100` to each member every week it is cut, through the stressor
+  path. `[D]` Ch10 · L10.3 — cutting off raises system tension; `[I]` the weight, 0.00312, sized so a stock at the
+  cap at bond 100 over five years totals about one divorce's load (504 units).
+- **The stock is capped, keeps its peak, and decays to a floor** (`M1.D.2b`). On entering the cut the stock is capped at
+  `cutoff_stock_cap` (1583, `[I]`: the largest stock measured at a cut before this revision, `docs/review/group_g_readout.md`);
+  the excess dissipates, and a `DISTANCE` into a full stock leaves the distancer the remainder. The tie records its
+  peak. With no contact the stock decays geometrically to a tenth of the peak over five years (`[I]`, the owner's
+  numbers, G1 Q3–Q4). The peak, the decay and the floor apply to the cut-off tie only (the owner, D8).
+- **Contact bridges the cut** (`M1.D.2b`; `config/bowen/contact_classes.md`). A negative contact across the tie (a
+  `CONFLICT` or `CUTOFF` delivered, or any move refused) renews the stock to its peak; a positive contact (`REDUCE_CUTOFF`
+  or `STAY-IN-CONTACT` delivered) lets 80% of it go, and, when neither member holds rejection, returns the tie to the
+  state it had before the cut; a week with both counts as negative. `[I]` the shares (the owner, G1 Q5–Q6). A faded
+  rejection no longer reopens the tie by itself: the tie waits for a positive contact.
+- **Distant and conflicted ties are repaired by thirds** (`M1.D.2c`). A tie entering `DISTANT` or `OPEN_CONFLICT`
+  (three `CONFLICT`s in a row, `M4.G.1`) records its stock as a reference level; each positive contact removes a third
+  of that level, each negative one adds a third back, never above it; at zero the tie is ordinary. Binding past the
+  level raises it. `[I]` the owner's rule (G1 Q7).
+- **`CONFLICT` binds** (`M1.D.2a`, `conflict_binding_rate` 0.15, `[I]`, less than `DISTANCE`'s 0.3; the owner, G1 Q11).
+  `[M]` KS04.1 — distance binds; the owner extends the mechanism to conflict, `[I]`.
+- **`REDUCE_CUTOFF` moves no stock to a third party** (`M5.B.3`, the owner's D7). The third party's cost is the lost
+  outlet, `[M]` Ch22 · L22.6, with no stock transferred. **Not shown:** the two-arm test of that cost (G1's A6) found no
+  rise in the children's anxiety after a scripted bridging over 8 seeds; no cost was written, and the test stands as
+  a strict expected failure (`test_m5b3_third_party_cost_is_the_lost_outlet`) for the owner.
+- **A symptom's release is split by tie** (G2, `M7.D.2a`). What the symptom held goes back to the bearer's partners
+  on interactive ties to living family members, by bond energy; ties all at zero split equally; the coach takes none
+  (`[M]` KS18.5, `M1.E.7e`: the coach tie stays thin); with no receiver the hold stays with the bearer. The spill past
+  the turn uses the same shares. `[I]` the split.
+- **Every stressor the engine raises is sized from the Holmes–Rahe scale** (`M1.F.6a`, `config/bowen/event_sizes.md`).
+  Each kind has a life-change-unit value from Holmes & Rahe (1967), outside the corpus, so each size is `[I]` with its
+  source named: `total = lcu_scale × LCU × reach`, `lcu_scale` 6.9 units per LCU (`[I]`, anchored so a job loss, 47 LCU,
+  totals the 324 units it delivered before), `reach` 1 for the person it happens to and `bond_energy ÷ 100` through a
+  tie. A lasting event delivers its whole size over its weeks. Grief is the spouse's 100 or a relative's 63 LCU at the
+  tie's reach (`M6.3g`, `grief_weight` 1.0 replacing `grief_scale`). The additions carry loads for 12 weeks (`M7.C.1l`):
+  partnering 50 to the couple, a birth 39 to the parents and siblings, a launch 29 to the child and the parents they
+  leave, the coach's retirement 45 at the tie's reach, finding work 26 to the household. Q3 of that proposal (the
+  additions carrying a load) stands as the owner decided it and **cites no source**: the case the proposal first cited
+  shows an addition moving functioning, not adding load, and the owner may revisit it.
+- **An onset is also an illness** (`M7.D.1a`). The bearer takes 53 LCU (`OWN_ILLNESS`) and each living family member on
+  an interactive tie 44 at the tie's reach (`FAMILY_ILLNESS`), for 12 weeks, arriving the week after the onset through
+  the stressor path on the `ENDOGENOUS` channel; the evaluation readout's stress term leaves them out (`M11.G.2`),
+  the run chart counts them as the exogenous mechanism they travel on. `[I]`.
+- **A new composite criterion** (`M11.C.48`, the owner's D12, `[I]`): the run of negative contacts standing on a tie at
+  its first cutoff is longer than the mean run standing in that same week on the seed's ties not cut off by then; two
+  variants (the Phase B family over ten years, the twelve-person family over forty), 100 seeds; its mutant blinds the
+  policy to `CUTOFF`'s learned value. Its verdict is a finding under this revision's rules, reported beside version 1's
+  verdicts, never in their place.
+- **New fields:** `cutoff_peak` and `reference_level` on the tie (§4, `M14.A`); `tie_state` names five states
+  (`M1.B.3`), rejection held meaning `CUT_OFF` (`M1.B.3c`).
 
 ---
 

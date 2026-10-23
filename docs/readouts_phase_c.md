@@ -48,3 +48,33 @@ Acts count when they pass between the two members of the tie, in either directio
 
 > **Owner review (plan §9), 2026-10-10:** the definitions above are the owner's. Rendering one trace per pattern is
 > done by the run visualization (`tools/famdiag_export.py`). No criterion reads these readouts (checked 2026-10-10).
+
+## Negative runs — what `M11.C.48` reads (version 2 group G1, spec revision 36)
+
+`src/bowen/readouts/negative_runs.py`; `tests/bowen/test_negative_runs.py` checks each definition on hand-built records.
+Each definition is `[I]` (the owner's D12 of 2026-10-19, `docs/PROPOSAL — CUTOFF ANXIETY, BRIDGING AND REPAIR.md` §4;
+the baseline as built, decided as recommended under the owner's instruction of 2026-10-22, pending the owner's review).
+The classes of contact are `config/bowen/contact_classes.md`.
+
+- A **negative contact** on a tie is an act in the `negative` or `rebuff` set emitted by one member toward the other,
+  or any move across the tie that was refused (a `refusal` record), each counted once.
+- A **positive contact** is an act in the `positive` set delivered (emitted and not refused). It ends the run. A week
+  holding both a negative and a positive contact counts its negatives and keeps the run (the negative applies, the
+  owner's Q6 for bridging).
+- A **run** is the number of negative contacts since the last positive contact, in either direction. Weeks with no
+  contact do not end it.
+- A tie's **first cutoff** is the first `CUTOFF` emitted across it; its run is the run standing in that week, the
+  cutoff's own week counted and the cutoff itself not. A tie the family declares cut off has no first cutoff and is
+  not an uncut tie: it is left out on both sides.
+- The **baseline** for a first cutoff is the mean of the runs standing, in the cutoff's week, on the seed's ties with
+  no `CUTOFF` by then and a contact in the window: the same point in time, read the same way, so neither arm has more
+  weeks to build a run in. The longest run those ties reached within the window is reported beside it, not compared:
+  a maximum over ties and weeks set against one point is biased against the criterion (learnings P7).
+- Per seed, the treatment arm is the mean run before its first cutoffs and the baseline the mean of their baselines;
+  both read one run. A seed with no cutoff reads 0 in both and is counted; `first_cutoffs` is reported beside the
+  arms. `docs/review/group_g_readout.md` measures the same on 20 seeds before and after the revision.
+
+**Onset loads in two readers.** The loads a symptom onset raises (`M7.D.1a`) travel on the stressor mechanism with
+`exogenous=True`, as `M1.F.7` requires of every stressor, on the `ENDOGENOUS` channel. The evaluation readout's stress
+term (`M11.G.2`) reads the channel and leaves them out, since they are an output of the run; the run chart
+(`tools/run_chart.py`) marks events by the mechanism they travel on and shows them with the exogenous stressors.

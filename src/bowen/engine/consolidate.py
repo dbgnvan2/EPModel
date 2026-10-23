@@ -27,6 +27,7 @@ from src.bowen.engine.state import RunState
 
 # M5.A.1 fixes the repertoire; the name is the spec's.
 DISTANCE_KIND = "DISTANCE"
+CONFLICT_KIND = "CONFLICT"
 
 
 def _recent_moves_on(state: RunState, tie: TieId, count: int) -> list[str]:
@@ -60,12 +61,21 @@ def consolidate(state: RunState, params: EngineParams) -> list[EffectRecord]:
             lost = tie.bond_energy * params.bond_energy_decay_rate
             tie.bond_energy -= lost
             tie_changes.append((tie_id, "bond_energy", -lost))
-        if tie.tie_state in (TieState.CUT_OFF, TieState.DISTANT):
+        if tie.tie_state in (TieState.CUT_OFF, TieState.DISTANT, TieState.OPEN_CONFLICT):
             continue
         recent = _recent_moves_on(state, tie_id, params.hardening_run_length)
-        if len(recent) == params.hardening_run_length and all(k == DISTANCE_KIND for k in recent):
+        if len(recent) != params.hardening_run_length:
+            continue
+        # M4.G.1, M1.D.2c (revision 36): a run of withdrawals hardens the tie distant, a run of conflicts hardens it
+        # into open conflict; either records the stock it holds as the reference level repair works against.
+        if all(k == DISTANCE_KIND for k in recent):
             tie.tie_state = TieState.DISTANT
-            tie_changes.append((tie_id, "tie_state_distant", 1.0))
+        elif all(k == CONFLICT_KIND for k in recent):
+            tie.tie_state = TieState.OPEN_CONFLICT
+        else:
+            continue
+        tie.reference_level = tie.distance_bound_anxiety
+        tie_changes.append((tie_id, f"tie_state_{tie.tie_state.value}", 1.0))
 
     contact_changes = relax_contact(state.people, state.ties, params)
 

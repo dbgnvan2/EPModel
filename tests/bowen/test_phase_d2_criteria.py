@@ -62,7 +62,7 @@ def test_m11c2_symptom_concentrates_on_projection_target_in_the_twelve_person_fa
 def test_m11c15_grief_and_income_off_and_the_transfer_kept_in_every_arm():
     """M10.B.5: grief and lost income are off in every arm; M6.3b's transfer stays at 1 (owner decision 2026-10-13).
     The control reads the same in both readouts."""
-    assert NO_GRIEF_OR_INCOME == {"grief_scale": 0.0, "income_loss_intensity": 0.0}
+    assert NO_GRIEF_OR_INCOME == {"grief_weight": 0.0, "income_loss_intensity": 0.0}
     settings = CRITERIA_D2["M11.C.15"].settings
     control = arm_c15("baseline", 0, settings).readouts
     assert control["death_rise"] == control["recovery_rise"]
@@ -235,3 +235,38 @@ def test_m11c6_arms_differ_only_in_projection_toward_the_child():
     assert set(kb["withheld"]) == set(range(wb))
     assert all(set(by_parent) == {module.ROLES["phase_d", "parent_1"], module.ROLES["phase_d", "parent_2"]}
                and all(set(v) == labels for v in by_parent.values()) for by_parent in kb["withheld"].values())
+
+
+# --- M11.C.48, the negative run before a cutoff (version 2 group G1, spec revision 36) -----------------------------
+
+
+@pytest.mark.ensemble
+def test_m11c48_cutoffs_follow_negative_runs():
+    gate("M11.C.48")
+
+
+@pytest.mark.ensemble
+def test_m11c48_cutoffs_follow_negative_runs_in_the_twelve_person_family():
+    gate("M11.C.48[phase_d]")
+
+
+def test_m11c48_reads_the_run_before_the_first_cutoff():
+    """The treatment arm is the mean negative run straight before each tie's first cutoff, the baseline the mean run
+    standing in those weeks on the matched uncut ties; both arms read the same run of the same seed, and a seed with
+    no cutoff reads 0 in both and is counted (``negative_runs.arm_values``)."""
+    from src.bowen.ensemble.criteria_d2 import arm_c48, negative_run_values
+    from src.bowen.readouts.negative_runs import FirstCutoff, arm_values
+
+    firsts = [FirstCutoff("a~b", 10, 3, 1.0, 2), FirstCutoff("c~d", 20, 1, 2.0, 2)]
+    assert arm_values(firsts) == (2.0, 1.5) and arm_values([]) == (0.0, 0.0)
+    settings = {"weeks": 104}
+    base, treat = arm_c48("baseline", 7, settings), arm_c48("treatment", 7, settings)
+    run, uncut, firsts_n, _ = negative_run_values("phase_c", 7, 104)
+    assert treat.readouts["negative_run"] == run == treat.readouts["run_before_cutoff"]
+    assert base.readouts["negative_run"] == uncut and base.readouts["run_before_cutoff"] == 0.0
+    assert base.readouts["first_cutoffs"] == treat.readouts["first_cutoffs"] == float(firsts_n)
+    assert firsts_n > 0, "seed 7 of the Phase B family has a first cutoff in 104 weeks; the arms read it"
+    for cid in ("M11.C.48", "M11.C.48[phase_d]"):
+        assert CRITERIA_D2[cid].seeds == 100 and CRITERIA_D2[cid].cls == "composite"
+        assert [(r.name, r.direction, r.report_only) for r in CRITERIA_D2[cid].readouts] == [
+            ("negative_run", +1, False), ("run_before_cutoff", +1, True), ("first_cutoffs", +1, True)]

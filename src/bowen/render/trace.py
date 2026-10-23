@@ -61,10 +61,14 @@ TABLE_HEAD = "| Week | Who | Move | Toward | Witnesses | What it did |\n|---|---
 # Every mechanism the engine emits, and how the trace treats it. Anything else
 # raises: a record the renderer does not understand must not vanish (P2, P19).
 CAUSED = frozenset({"appraisal", "calm_contact", "symptom_onset", "distance_binding", "triangle_transfer",
-                    "functioning_shift", "position_held", "reduce_cutoff", "refusal", "stressor_load", "assertion", "debit", "landed_contact", "trigger", "nodal_spike", "cutoff", "reconciliation", "institutionalize", "binder_unavailable", "lock_in"})
+                    "functioning_shift", "position_held", "reduce_cutoff", "refusal", "stressor_load", "assertion", "debit", "landed_contact", "trigger", "nodal_spike", "cutoff", "reconciliation", "institutionalize", "binder_unavailable", "lock_in", "conflict_binding"})
 SYSTEM_SHOWN = frozenset({"triangle_recompute", "consolidation", "rejection_fade", "slow_tick",
-                          "lock_in"})  # version 2 stage 1 (D6 (a)): a release has its own row; the weekly hold does not
+                          "lock_in",  # version 2 stage 1 (D6 (a)): a release has its own row; the weekly hold does not
+                          # revision 36 (G1): what a week's contact did to a tie's stock, and a tie's state moves.
+                          "cutoff_cap_dissipation", "cutoff_threat_renewed", "cutoff_bridge_dissipation",
+                          "tie_repair_reversed", "tie_repair_dissipation"})
 SYSTEM_SUMMARISED = frozenset({
+    "cutoff_threat", "cutoff_decay",  # revision 36 (G1): weekly on every cut-off tie
     "standing_load", "reactive_cutoff", "weakness_focus", "acute_decay", "contact_relaxation", "symptom_accumulation", "investment", "reactive_state",
     "outside_ness", "belief", "functioning_settle", "competing_urges", "withhold", "learning", "sink_allocation",
     "self_practice", "stress_response", "soothing_review", "witnessed_cutoff", "attribution", "family_focus", "pseudo_self_relaxation",
@@ -172,7 +176,7 @@ def _what_it_did(event: Event, index: _Index, names: _Names, view: PersonId | No
             cost = [f"{names(p)} {_signed(v)}" for p, v in effect.acute_anxiety if view is None or p == view]
             if cost:
                 parts.append("the sender bears the refusal: anxiety " + ", ".join(cost))
-        elif effect.mechanism == "distance_binding":
+        elif effect.mechanism in ("distance_binding", "conflict_binding"):
             for tie, _, v in effect.ties:
                 parts.append(f"{v:.1f} of the sender's anxiety bound into {names.tie(tie)}")
         elif effect.mechanism == "triangle_transfer":
@@ -203,11 +207,9 @@ def _what_it_did(event: Event, index: _Index, names: _Names, view: PersonId | No
             for tie, field, v in effect.ties:
                 parts.append(f"withdraws contact {names(PersonId(field.split(':', 1)[1]))} was receiving ({v:+.2f})")
         elif effect.mechanism == "reduce_cutoff":
+            # Revision 36 (G1, D7): the move lowers rejection only; the tie's stock is bridged by contact, not moved.
             parts += [f"{names(PersonId(f.split(':', 1)[1]))}'s rejection {v:+.2f}" for _, f, v in effect.ties
                       if f.startswith("rejection:")]
-            released = [f"{names(p)} {_signed(v)}" for p, v in effect.acute_anxiety if view is None or p == view]
-            if released:
-                parts.append("bound anxiety released to the third party: " + ", ".join(released))
         elif effect.mechanism == "institutionalize":
             parts.append(f"{len(effect.ties)} ties become worry edges (no events; bond energy kept)")
         elif effect.mechanism == "binder_unavailable":
@@ -238,6 +240,19 @@ def _lock_in_text(effect: EffectRecord, names: _Names) -> str:
     return f"{names(bearer)}'s symptom is past its turn and holds their anxiety no longer ({moved})"
 
 
+STOCK_WORDS = {
+    "cutoff_cap_dissipation": "held anxiety above the cap dissipates on entering cutoff",
+    "cutoff_threat_renewed": "a negative contact renews the cutoff's held anxiety to its peak",
+    "cutoff_bridge_dissipation": "an accepted contact bridges the cutoff; held anxiety",
+    "tie_repair_reversed": "a negative contact puts back a third of the held anxiety",
+    "tie_repair_dissipation": "a positive contact repairs the tie; held anxiety",
+}
+
+
+def _tie_state_words(field: str) -> str:
+    return field.split("_", 2)[2].replace("_", " ")
+
+
 def _system_rows(effect: EffectRecord, names: _Names) -> list[str]:
     if effect.mechanism in SYSTEM_SUMMARISED:
         return []
@@ -260,16 +275,27 @@ def _system_rows(effect: EffectRecord, names: _Names) -> list[str]:
                 raise UnrenderableRecord(f"no template for triangle field {field!r}")
     elif effect.mechanism == "consolidation":
         for tie, field, value in effect.ties:
-            if field == "tie_state_distant":
-                rows.append(f"{names.tie(tie)} tie now distant")
+            if field.startswith("tie_state_"):
+                rows.append(f"{names.tie(tie)} tie now {_tie_state_words(field)}")
             elif field == "bond_energy":
                 rows.append(f"{names.tie(tie)} bond energy {_signed(value)}")
             else:
                 raise UnrenderableRecord(f"no template for consolidation field {field!r}")
     elif effect.mechanism == "rejection_fade":
-        # Every held rejection fades every week; only a tie that reopens is shown.
+        # Every held rejection fades every week. Since revision 36 the tie leaves the cut on an accepted contact
+        # (cutoff_bridge_dissipation below), not on the fade, so this mechanism writes no tie-state row.
         rows += [f"{names.tie(tie)}: rejection has faded; the tie is no longer cut off ({field.split('_', 2)[2]})"
                  for tie, field, _ in effect.ties if field.startswith("tie_state_")]
+    elif effect.mechanism in STOCK_WORDS:
+        # Revision 36 (G1): a week's contact acting on a tie's held anxiety (M1.D.2b, M1.D.2c).
+        words = STOCK_WORDS[effect.mechanism]
+        for tie, field, value in effect.ties:
+            if field == "distance_bound_anxiety":
+                rows.append(f"{names.tie(tie)}: {words} {_signed(value)}")
+            elif field.startswith("tie_state_"):
+                rows.append(f"{names.tie(tie)} tie now {_tie_state_words(field)}")
+            else:
+                raise UnrenderableRecord(f"no template for {effect.mechanism} field {field!r}")
     elif effect.mechanism == "iposition":
         for person, field, value in effect.people:
             if field.startswith("iposition:"):

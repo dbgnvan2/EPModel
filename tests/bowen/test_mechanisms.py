@@ -624,3 +624,21 @@ def test_m4c1c_the_spike_lasts_one_week_once_per_tie_and_expired_spikes_are_drop
 
     run_state, _ = scenario("dyad", 0, 6, spells=(loss,), setup=cut)
     assert all(t.last_tick >= run_state.tick - 1 for t in run_state.triggers)
+
+
+def test_m4c1c_the_spike_follows_the_cut_off_state_not_the_rejection():
+    """A13 (revision 36): the spike reads `CUT_OFF`. A tie whose rejection has faded to nothing but is still cut off
+    (it waits for a positive contact, `M1.D.2b`) is spiked; a distant tie with no rejection is not."""
+    from src.bowen.engine.event_effects import nodal_spike
+
+    faded, distant = _cut(fresh()), fresh()
+    faded.ties[ANA_BRUNO].rejection = {}
+    assert faded.ties[ANA_BRUNO].tie_state is TieState.CUT_OFF and not faded.ties[ANA_BRUNO].rejected()
+    distant.ties[ANA_BRUNO].tie_state = TieState.DISTANT
+    for state in (faded, distant):
+        state.tick = 10
+        event = scripted("JOB_LOSS", 10, targets=(ANA,), intensity=120.0)
+        inject(state, event, VIS)
+        state.records = nodal_spike(state, event, PARAMS)
+    assert ANA_BRUNO in {t for r in faded.records for t, _, _ in r.ties}
+    assert distant.records == []

@@ -1,11 +1,13 @@
 """Negative-contact runs on a tie — what a person took before cutting off, read off a run's records.
 
 Purpose: count, per tie, the run of negative contacts (conflict, a rebuff, a refusal) received across it with no
-         positive contact between, and compare the run that ends in a tie's first cutoff with the longest run on the
-         same seed's ties that were not cut off over the same weeks. The readout `M11.C.48` reads; a readout only,
+         positive contact between, and compare the run that ends in a tie's first cutoff with the run standing in that
+         same week on the same seed's ties that were not cut off by then. The readout `M11.C.48` reads; a readout only,
          never selected: the engine does not import it (`M11.D.22`).
 Spec:    docs/bowen_agent_model_spec_v2.md#M11.C.48, #M1.D.2b
-Tests:   tests/bowen/test_negative_runs.py
+Tests:   tests/bowen/test_negative_runs.py::test_m11c48_run_before_the_first_cutoff_against_uncut_ties,
+         tests/bowen/test_negative_runs.py::test_m11c48_a_week_with_both_contacts_keeps_the_run,
+         tests/bowen/test_negative_runs.py::test_m11c48_a_declared_cut_off_tie_is_left_out_on_both_sides
 
 The definitions, `[I]` (`docs/readouts_phase_c.md`, "Negative runs"; the proposal
 `docs/PROPOSAL — CUTOFF ANXIETY, BRIDGING AND REPAIR.md` §4, the owner's D12):
@@ -19,8 +21,11 @@ The definitions, `[I]` (`docs/readouts_phase_c.md`, "Negative runs"; the proposa
 * a **run** is the number of negative contacts since the last positive contact, in either direction. Weeks with no
   contact do not end it;
 * a tie's **first cutoff** is the first ``CUTOFF`` emitted across it. Its run is the run at that week, the cutoff
-  itself not counted. An ``uncut`` tie over a window is one with no ``CUTOFF`` emitted in it; its run over the window
-  is the longest run it reached within the window.
+  itself not counted. An ``uncut`` tie over a window is one with no ``CUTOFF`` emitted in it and a contact in it;
+  the baseline for a cutoff is the mean of the runs standing on the uncut ties in the cutoff's week — the same point
+  in time, read the same way, so neither arm has more weeks to build a run in. The longest run an uncut tie reached
+  within the window is reported beside it, not compared: a maximum over ties and weeks against one point is biased
+  against the criterion (learnings P7; the revision 36 report's decisions).
 """
 
 from __future__ import annotations
@@ -28,6 +33,9 @@ from __future__ import annotations
 from collections import defaultdict
 from dataclasses import dataclass
 
+import math
+
+from src.bowen.engine.counting import count
 from src.bowen.engine.events import EventKinds, Mechanism
 from src.bowen.engine.identifiers import PersonId, TieId
 from src.bowen.engine.log_records import EffectRecord, EmittedRecord
@@ -47,7 +55,8 @@ class FirstCutoff:
     tie: TieId
     week: int
     run: int  # negative contacts received across the tie in a row, up to the cutoff's week
-    best_uncut: int  # the longest run over weeks [0, week] on the ties with no CUTOFF in that window
+    uncut: float  # the mean run standing in the cutoff's week on the ties with no CUTOFF in weeks [0, week]
+    longest_uncut: int  # reported only: the longest run those ties reached within the window
 
 
 def contacts(records, kinds: EventKinds, members: frozenset[PersonId] | None = None) -> list[Contact]:
@@ -95,7 +104,7 @@ def runs_by_week(tie_contacts: list[Contact]) -> list[tuple[int, int]]:
         by_week[c.week].append(c)
     for week in sorted(by_week):
         week_contacts = by_week[week]
-        negatives = sum(1 for c in week_contacts if c.negative)
+        negatives = count(c.negative for c in week_contacts)
         if negatives:
             run += negatives
         elif any(not c.negative for c in week_contacts):
@@ -115,16 +124,19 @@ def run_at(runs: list[tuple[int, int]], week: int) -> int:
 
 
 def longest_run_within(runs: list[tuple[int, int]], last_week: int) -> int:
+    """Reported beside the baseline, not the baseline (the module docstring says why)."""
     return max((run for w, run in runs if w <= last_week), default=0)
 
 
 def first_cutoff_runs(records, kinds: EventKinds, members: frozenset[PersonId] | None = None,
                       declared_cut: frozenset[TieId] = frozenset()) -> list[FirstCutoff]:
-    """Purpose: each tie's first cutoff with the negative run before it, and the longest run over the same weeks on the
-    seed's ties not cut off in them. A tie the family declares cut off (``declared_cut``) has no first cutoff in the
-    run and is not an uncut tie either: it is left out on both sides.
+    """Purpose: each tie's first cutoff with the negative run before it, the mean run standing in that week on the
+    seed's ties not cut off by then (the baseline), and the longest run those ties reached in the window (reported).
+    A tie the family declares cut off (``declared_cut``) has no first cutoff in the run and is not an uncut tie
+    either: it is left out on both sides. A tie with no contact in the window is not an uncut tie in it.
     Spec:    docs/bowen_agent_model_spec_v2.md#M11.C.48
-    Tests:   tests/bowen/test_negative_runs.py::test_m11c48_run_before_the_first_cutoff_against_uncut_ties
+    Tests:   tests/bowen/test_negative_runs.py::test_m11c48_run_before_the_first_cutoff_against_uncut_ties,
+             tests/bowen/test_negative_runs.py::test_m11c48_a_declared_cut_off_tie_is_left_out_on_both_sides
     """
     per_tie: dict[TieId, list[Contact]] = defaultdict(list)
     for c in contacts(records, kinds, members):
@@ -135,16 +147,19 @@ def first_cutoff_runs(records, kinds: EventKinds, members: frozenset[PersonId] |
     out = []
     for tie, week in sorted(cutoffs.items(), key=lambda kv: (kv[1], str(kv[0]))):
         own = run_at(runs.get(tie, []), week + 1)  # contacts in the cutoff's week count (same-week batch, M1.F.8)
-        uncut = [t for t in runs if t != tie and (t not in cutoffs or cutoffs[t] > week)]
-        best = max((longest_run_within(runs[t], week) for t in uncut), default=0)
-        out.append(FirstCutoff(tie, week, own, best))
+        uncut = [t for t in sorted(runs, key=str) if t != tie and (t not in cutoffs or cutoffs[t] > week)
+                 and any(w <= week for w, _ in runs[t])]
+        standing = [run_at(runs[t], week + 1) for t in uncut]
+        mean = math.fsum(standing) / len(standing) if standing else 0.0
+        longest = max((longest_run_within(runs[t], week) for t in uncut), default=0)
+        out.append(FirstCutoff(tie, week, own, mean, longest))
     return out
 
 
 def arm_values(firsts: list[FirstCutoff]) -> tuple[float, float]:
-    """`M11.C.48`'s two arms for one seed: the mean run before its first cutoffs (treatment) and the mean longest run on
-    the matched uncut ties (baseline). A seed with no cutoff gives 0 in both arms, and is counted."""
+    """`M11.C.48`'s two arms for one seed: the mean run before its first cutoffs (treatment) and the mean of the matched
+    uncut ties' standing runs in those weeks (baseline). A seed with no cutoff gives 0 in both arms, and is counted."""
     if not firsts:
         return 0.0, 0.0
     n = len(firsts)
-    return sum(f.run for f in firsts) / n, sum(f.best_uncut for f in firsts) / n
+    return math.fsum(f.run for f in firsts) / n, math.fsum(f.uncut for f in firsts) / n

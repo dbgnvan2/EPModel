@@ -76,15 +76,17 @@ from __future__ import annotations
 import math
 
 from src.bowen.engine.contact import deviation, excess
+from src.bowen.engine.cutoff_stock import raise_reference
 from src.bowen.engine.events import Delivery, Event, Mechanism, Role
 from src.bowen.engine.identifiers import PersonId, TieId, TriangleId
 from src.bowen.engine.log_records import EffectRecord
-from src.bowen.engine.objects import SCALE_MAX, Person, Relationship
+from src.bowen.engine.objects import SCALE_MAX, Person, Relationship, TieState
 from src.bowen.engine.params import EngineParams
 from src.bowen.engine.rejection import lower_rejection
 from src.bowen.engine.state import RunState
 
 # M5.A.1 and M5.B fix the repertoire; these names are the spec's.
+CONFLICT = "CONFLICT"
 DISTANCE, TRIANGLE, OVERFUNCTION, UNDERFUNCTION, REDUCE_CUTOFF, I_POSITION = (
     "DISTANCE", "TRIANGLE", "OVERFUNCTION", "UNDERFUNCTION", "REDUCE_CUTOFF", "I-POSITION",
 )
@@ -99,21 +101,46 @@ def _strength(event: Event, params: EngineParams) -> float:
 # --- DISTANCE ------------------------------------------------------------------------------
 
 
+def bind_into_tie(state: RunState, event: Event, tie: Relationship, params: EngineParams, rate: float,
+                  mechanism: str) -> EffectRecord | None:
+    """Purpose: move a share of the actor's excess anxiety into the tie, where it persists; on a cut-off tie only up to
+    the cap, and on a distant or conflicted tie raising the reference level it is repaired against.
+    Spec:    docs/bowen_agent_model_spec_v2.md#M1.D.2a, #M1.D.2b, #M1.D.2c, #M6.4
+    Tests:   tests/bowen/test_moves.py::test_m1d2a_distance_binds_anxiety_into_the_tie_without_destroying_it,
+             tests/bowen/test_cutoff_stock.py::test_m1d2b_stock_capped_and_distancer_keeps_the_rest,
+             tests/bowen/test_tie_repair.py::test_m1d2c_conflict_binds_a_smaller_share_than_distance
+    """
+    sender = state.people[event.sender]
+    bound = min(excess(sender), rate * _strength(event, params) * excess(sender))
+    if tie.tie_state is TieState.CUT_OFF and tie.cutoff_peak is not None:  # M1.D.2b: the cap, once the cut is entered
+        bound = min(bound, max(0.0, params.cutoff_stock_cap - tie.distance_bound_anxiety))
+    if bound <= 0:
+        return None
+    sender.acute_anxiety -= bound
+    tie.distance_bound_anxiety += bound
+    if tie.tie_state is TieState.CUT_OFF and tie.cutoff_peak is not None:
+        tie.cutoff_peak = max(tie.cutoff_peak, tie.distance_bound_anxiety)
+    raise_reference(tie)
+    return EffectRecord(
+        state.tick, mechanism, event.id,
+        acute_anxiety=((sender.id, -bound),), ties=((tie.id, "distance_bound_anxiety", bound),),
+    )
+
+
 def bind_distance(state: RunState, event: Event, tie: Relationship, params: EngineParams) -> EffectRecord | None:
     """Purpose: move the distancer's excess anxiety into the tie, where it persists.
     Spec:    docs/bowen_agent_model_spec_v2.md#M1.D.2a, #M6.4
     Tests:   tests/bowen/test_moves.py::test_m1d2a_distance_binds_anxiety_into_the_tie_without_destroying_it
     """
-    sender = state.people[event.sender]
-    bound = min(excess(sender), params.distance_binding_rate * _strength(event, params) * excess(sender))
-    if bound <= 0:
-        return None
-    sender.acute_anxiety -= bound
-    tie.distance_bound_anxiety += bound
-    return EffectRecord(
-        state.tick, "distance_binding", event.id,
-        acute_anxiety=((sender.id, -bound),), ties=((tie.id, "distance_bound_anxiety", bound),),
-    )
+    return bind_into_tie(state, event, tie, params, params.distance_binding_rate, "distance_binding")
+
+
+def bind_conflict(state: RunState, event: Event, tie: Relationship, params: EngineParams) -> EffectRecord | None:
+    """Purpose: a conflict binds into the tie as distance does, at a smaller share (spec revision 36).
+    Spec:    docs/bowen_agent_model_spec_v2.md#M1.D.2c, #M6.4
+    Tests:   tests/bowen/test_tie_repair.py::test_m1d2c_conflict_binds_a_smaller_share_than_distance
+    """
+    return bind_into_tie(state, event, tie, params, params.conflict_binding_rate, "conflict_binding")
 
 
 def release_bound_distance(state: RunState, tie: Relationship, to: tuple[PersonId, ...]) -> tuple:
@@ -381,26 +408,24 @@ def relax_pseudo_self(state: RunState, params: EngineParams) -> list[EffectRecor
 # --- REDUCE_CUTOFF -------------------------------------------------------------------------
 
 
-def reduce_cutoff(state: RunState, event: Event, tie: Relationship, params: EngineParams) -> EffectRecord:
-    """Purpose: lower both members' rejection; its bound anxiety goes to the third party whose distancing is stripped.
-    Spec:    docs/bowen_agent_model_spec_v2.md#M5.B.3, #M5.B.3a, #M1.B.3c, #M6.4
-    Tests:   tests/bowen/test_moves.py::test_m5b3_reduce_cutoff_cost_lands_on_the_third_party,
+def reduce_cutoff(state: RunState, event: Event, tie: Relationship, params: EngineParams) -> EffectRecord | None:
+    """Purpose: lower both members' rejection. The tie's stock stays in the tie: the positive contact that this act is
+    lets most of it go there (`M1.D.2b`, ``cutoff_stock.bridge_ties``), and no stock moves to a third party (spec
+    revision 36, D7). A third party's cost on the reopening is the outlet they lose, which `M11.C`'s readouts measure.
+    Spec:    docs/bowen_agent_model_spec_v2.md#M5.B.3, #M5.B.3a, #M1.B.3c, #M1.D.2b
+    Tests:   tests/bowen/test_moves.py::test_m5b3_reduce_cutoff_moves_no_stock_to_the_third_party,
              tests/bowen/test_rejection.py::test_m5b3_accepted_contact_lowers_both_rejections_and_reopens_the_tie_at_zero
 
     M1.B.3c: the act lowers the actor's own rejection, and it is the contact the cutter accepts, so
-    it lowers the target's too. The tie stops being cut off when neither holds any. Since a cutoff no longer makes a
-    tie non-interactive, the act does not touch ``interactive``: a worry edge (M4.A.4) stays one.
+    it lowers the target's too. The tie leaves ``CUT_OFF`` on a positive contact once neither holds any. Since a cutoff
+    does not make a tie non-interactive, the act does not touch ``interactive``: a worry edge (M4.A.4) stays one.
     """
     relief = params.rejection_relief * event.intensity / params.intensity_scale
     lowered = [(tie.id, f"rejection:{m}", change) for m in tie.id.members()
                if (change := lower_rejection(tie, m, relief))]
-    a, b = tie.id.members()
-    thirds = tuple(sorted({third for _, third in _triads_holding(state, a, b) if state.people[third].alive}))
-    released = release_bound_distance(state, tie, thirds)
-    ties = list(lowered)
-    if released:
-        ties.append((tie.id, "distance_bound_anxiety", -math.fsum(v for _, v in released)))
-    return EffectRecord(state.tick, "reduce_cutoff", event.id, acute_anxiety=released, ties=tuple(ties))
+    if not lowered:
+        return None
+    return EffectRecord(state.tick, "reduce_cutoff", event.id, ties=tuple(lowered))
 
 
 # --- I-POSITION ----------------------------------------------------------------------------
@@ -444,6 +469,8 @@ def apply_move_effects(state: RunState, batch: tuple[Delivery, ...], params: Eng
             continue
         if event.kind == DISTANCE:
             record = bind_distance(state, event, tie, params)
+        elif event.kind == CONFLICT:
+            record = bind_conflict(state, event, tie, params)  # M1.D.2c, revision 36
         elif event.kind == TRIANGLE:
             record = triangle_transfer(state, event, delivery.recipient, params)
         elif event.kind in (OVERFUNCTION, UNDERFUNCTION):

@@ -64,7 +64,7 @@ def nodal_spike(state: RunState, event: Event, params: EngineParams) -> list[Eff
 
     stored = state.store.event(event.id)  # with the witnesses visibility resolved
     cut = sorted({tie.id for pid in reached_by(state, stored) for tie in state.ties_of(pid)
-                  if tie.rejected() and all(state.people[m].alive for m in tie.id.members())})
+                  if tie.tie_state is TieState.CUT_OFF and all(state.people[m].alive for m in tie.id.members())})
     for tie_id in cut:  # one week, whatever the event's own duration (the owner's form: "for the event's week")
         state.triggers.append(ActiveTrigger(tie_id, params.nodal_spike_intensity, event.timestamp + 1, event.timestamp + 1))
     if not cut:
@@ -90,6 +90,8 @@ def apply_structural_event(state: RunState, event: Event, params: EngineParams) 
         # M1.B.4: reunion restores full coupling with zero re-activation latency — bond energy is untouched.
         tie.interactive = True
         tie.tie_state = TieState.ORDINARY
+        tie.cutoff_peak = None  # M1.D.2b: the structural reopening; the stock returns below (M1.D.2a (c), Q5)
+        tie.reference_level = 0.0
         cleared = [(tie.id, f"rejection:{m}", -tie.rejection[m]) for m in sorted(tie.rejection) if tie.rejection[m]]
         tie.rejection.clear()  # M1.B.3c: reunion ends the rejection with the separation
         for member in tie.id.members():

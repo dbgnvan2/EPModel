@@ -6,15 +6,19 @@
   *plan drafted 2026-10-19, `docs/implementation_plan_version_2.md` §1; D1–D7 decided and the plan approved by the owner the same day; built 2026-10-19, pushed 2026-10-20 with CI green*);
   ~~*first, from the stage 1 milestone review (owner, 2026-10-21): the SP-1 proposal and spec revision 34, in the
   review's section below;*~~ *built 2026-10-22 at spec revision 34, cut down by the owner; what was deferred is in
-  the review's section below;* the G2 proposal, so group G (G1, G2, the Holmes–Rahe sizes) can go to one revision and be
-  built before the stage 2 pilot; then proposals for groups C, F and A, each with the owner's note in the plan's §5 Q2.
+  the review's section below;* ~~the G2 proposal, so group G (G1, G2, the Holmes–Rahe sizes) can go to one revision and be
+  built before the stage 2 pilot;~~ *the G2 proposal written and group G built 2026-10-22 at spec revision 36 on the
+  branch `claude/recursing-bohr-2393a1`, every record regenerated once, each choice decided as recommended under the
+  owner's instruction of 2026-10-22, pending the owner's review (the revision 36 report);* then the stage 2 plan and
+  its pilot; then proposals for groups C, F and A, each with the owner's note in the plan's §5 Q2.
 - [ ] T-002 ⟨now⟩ **`/csdp` sweep of 2026-10-19, items not fixed** (each with its reason; the last three are the fix re-sweep's
   minor items, recorded under the owner's three-or-fewer rule).
   - The owner's Holmes–Rahe Q3 ("additions carry load", decided 2026-10-19) cited `KS07.1`, which §2 then misdescribed
     as a visit that raised a symptom; the source says it improved the wife's functioning. The decision stands with a
     correction note beside it. The owner should look at it again before revision 33 is written. *Not asked before
     revision 33; the owner decided 2026-10-21 (stage 1 milestone review, Q14) that it is asked before group G's
-    build starts.*
+    build starts. Group G was built 2026-10-22 under the owner's overnight instruction; the decision stands, cites no
+    source, and is in the revision 36 report's decisions for the owner's review (T-013).*
   - `test_m16c1_chart_names_the_absent_and_draws_the_undeclared` puts its undeclared person in every sampled week, so
     the leading-`None` path for someone who enters mid-run is not exercised; the `PYTEST_*` filter in
     `tests/test_version_1_status.py` has no test of its own (a wrong option fails that test loudly).

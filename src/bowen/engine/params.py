@@ -54,6 +54,13 @@ class EngineParams:
     outside_ness_threshold_inward: float   # M5.C.1, revision 12 P9 — and above this on the inward axis
     involvement_membership_threshold: float  # M1.A.12 — membership is a threshold over involvement
     distance_binding_rate: float  # M1.D.2a — share of the distancer's excess bound into the tie per unit scaled intensity
+    conflict_binding_rate: float  # M1.D.2c, revision 36 — the same for a conflict, a smaller share
+    cutoff_stock_cap: float       # M1.D.2b, revision 36 — the most stock a cut-off tie holds (the largest measured at a cut)
+    cutoff_threat_weight: float   # M1.D.2b, revision 36 — intensity per unit of stock per week at bond energy 100
+    cutoff_decay_weeks: int       # M1.D.2b, revision 36 — weeks for a cut-off tie's stock to fall to its floor (the owner's five years)
+    cutoff_floor_share: float     # M1.D.2b, revision 36 — the floor as a share of the peak (the owner's 10%)
+    positive_bridge_dissipation: float  # M1.D.2b, revision 36 — share of the stock a positive contact across a cut tie lets go (the owner's 80%)
+    tie_repair_steps: int         # M1.D.2c, revision 36 — positive contacts that repair a distant or conflicted tie (the owner's thirds)
     triangle_transfer_rate: float # M1.C.1 — share of the seeker's excess passed to the outsider per unit scaled intensity, before capacity and the third's help
     outsider_positional_gain: float # M1.C.1, KS03.1 — the outsider's own positional anxiety per unit absorbed
     balance_push_gain: float      # M1.B.5 — how far one act pushes the functioning balance per unit scaled intensity
@@ -153,7 +160,8 @@ class EngineParams:
     working_age_years: int                 # M7.C.1k, revision 28 — the youngest who can take FIND_WORK
     find_work_rate: float                  # M7.C.1k, revision 28 — how readily a pressed member finds work
     find_work_pressure_scale: float        # M7.C.1k, revision 28 — the load above usual at which the pressure to find work is full
-    grief_scale: float                     # M6.3g, revision 28 — the size of grief, in proportion to the tie
+    grief_weight: float                    # M6.3g, revision 36 — grief's size as a multiple of its Holmes–Rahe size (M1.F.6a); 0 switches it off
+    lcu_scale: float                       # M1.F.6a, revision 36 — intensity units per life change unit (the owner's anchor: 324 ÷ 47)
     grief_min_weeks: int                   # M6.3g, revision 28 — grief on the weakest tie lasts a year (the owner's 1-3 years)
     grief_extra_weeks: int                 # M6.3g, revision 28 — grief on the strongest tie lasts two more years
     income_loss_intensity: float           # M6.3h, revision 28 — the size of the stress of a lost income
@@ -238,9 +246,16 @@ class EngineParams:
                      "reactive_rate", "investment_leak_rate", "attention_gain", "belief_rate",
                      "distance_binding_rate", "triangle_transfer_rate", "balance_push_gain", "balance_settle_rate",
                      "balance_harden_rate", "reversal_asymmetry", "rejection_cutoff_gain",
-                     "rejection_refusal_gain", "rejection_relief", "rejection_fade"):
+                     "rejection_refusal_gain", "rejection_relief", "rejection_fade",
+                     "conflict_binding_rate", "cutoff_floor_share", "positive_bridge_dissipation"):
             if not 0.0 <= getattr(self, name) <= 1.0:
                 raise ValueError(f"{name} must be in [0, 1]")
+        # Revision 36 (M1.D.2b, c): the cap and weight are non-negative; the decay needs a positive span and a floor
+        # share above zero (a zero share makes the weekly factor 0); repair needs at least one step.
+        if self.cutoff_stock_cap < 0 or self.cutoff_threat_weight < 0:
+            raise ValueError("cutoff_stock_cap and cutoff_threat_weight must be non-negative")
+        if self.cutoff_decay_weeks < 1 or self.cutoff_floor_share <= 0.0 or self.tie_repair_steps < 1:
+            raise ValueError("cutoff_decay_weeks and tie_repair_steps must be at least 1 and cutoff_floor_share positive")
         if min(self.defence_threshold, self.perspective_anxiety_scale, self.symptom_threshold_gain) <= 0:
             raise ValueError("defence_threshold, perspective_anxiety_scale and symptom_threshold_gain must be positive")
         if self.reappraisal_window < 1 or self.speaker_echo_gain < 0 or self.symptom_event_intensity < 0:
@@ -291,9 +306,9 @@ class EngineParams:
                      "new_tie_investment_share", "death_transfer_share"):
             if not 0.0 <= getattr(self, name) <= 1.0:
                 raise ValueError(f"{name} must be in [0, 1]")
-        if min(self.witnessed_gain, self.grief_scale, self.income_loss_intensity, self.mortality_a, self.mortality_b,
-               self.budget_per_undifferentiation, self.birth_focus_gain) < 0:
-            raise ValueError("witnessed_gain, grief_scale, income_loss_intensity, mortality_a, mortality_b, "
+        if min(self.witnessed_gain, self.grief_weight, self.lcu_scale, self.income_loss_intensity, self.mortality_a,
+               self.mortality_b, self.budget_per_undifferentiation, self.birth_focus_gain) < 0:
+            raise ValueError("witnessed_gain, grief_weight, lcu_scale, income_loss_intensity, mortality_a, mortality_b, "
                              "budget_per_undifferentiation and birth_focus_gain must be non-negative")
         if self.find_work_pressure_scale <= 0 or self.grief_min_weeks < 0 or self.grief_extra_weeks < 0:
             raise ValueError("find_work_pressure_scale must be positive and the grief weeks non-negative")

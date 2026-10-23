@@ -50,6 +50,7 @@ from src.bowen.engine.activation import SynchronousActivation
 from src.bowen.engine.appraise import apply_appraisal, perceive
 from src.bowen.engine.beliefs import update_beliefs
 from src.bowen.engine.consolidate import consolidate
+from src.bowen.engine.cutoff_stock import bridge_ties, cutoff_threat, decay_cutoff_stock
 from src.bowen.engine.event_effects import STRUCTURAL, apply_delivered_cutoffs, apply_structural_event, nodal_spike
 from src.bowen.engine.events import Event
 from src.bowen.engine.identifiers import PersonId
@@ -119,12 +120,13 @@ def run_tick(
     records += effects
     records += stressor_load(state, params)  # revision 18: a lasting stressor keeps weighing (M1.F.6)
     records += reactive_cutoff_cost(state, params)  # revision 29: a held reactive cutoff costs its holder (M1.B.3d)
+    records += cutoff_threat(state, params)  # revision 36: a cut-off tie's stock weighs on both members (M1.D.2b)
     steps.append("standing_load")
 
     # 2 — deliver.
     # Spec revision 28: the life course's events of last year's slow tick (deaths, births, grief, lost income) arrive
     # with the source's own.
-    for event in sorted(source.scheduled(state.tick) + due_events(state), key=lambda e: e.id):
+    for event in sorted(source.scheduled(state.tick) + due_events(state) + state.arising_due(), key=lambda e: e.id):
         if event.timestamp != state.tick:
             raise ValueError(f"source scheduled {event.id} for tick {state.tick}")
         records += inject(state, event, visibility)
@@ -153,6 +155,7 @@ def run_tick(
     records += effects
     records += apply_delivered_cutoffs(state, batch, params)
     records += apply_move_effects(state, batch, params)
+    records += bridge_ties(state, batch, refusals, params)  # revision 36: this week's contact across each tie (M1.D.2b, c)
     records += apply_landed_contacts(state, batch, params)
     records += update_danger(state, batch, params)  # M1.B.3e, revision 30: danger read from received intrusion
     steps.append("appraise")
@@ -210,6 +213,7 @@ def run_tick(
     records += settle_functioning(state, params)
     records += relax_pseudo_self(state, params)  # M6.I.4, revision 27: borrowed pseudo-self settles back
     records += allocate_sinks(state, params)
+    records += decay_cutoff_stock(state, params)  # revision 36: a cut-off tie's stock falls toward its floor (M1.D.2b)
     records += consolidate(state, params)
     records += fade_rejection(state, params)  # M1.B.3c, revision 16: unrenewed rejection wears off
     note_origin_cutoff(state, params)  # M1.D.8a, revision 30: the cutoff each child grows up with

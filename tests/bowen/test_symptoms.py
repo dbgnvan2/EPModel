@@ -379,3 +379,105 @@ def test_m4c1c_a_removal_spikes_the_cut_ties_of_those_it_reaches():
     records = tolerance_removal(state, PARAMS, VIS)
     spiked = {t for r in records if getattr(r, "mechanism", None) == "nodal_spike" for t, _, _ in r.ties}
     assert TieId.of(RAVI, MARTA) in spiked
+
+
+# --- G2: release by tie (spec revision 36) -----------------------------------------------------------
+
+
+def test_m7d2a_release_is_split_by_bond_energy():
+    """B1–B3: what a symptom held goes back in proportion to the bond energy of the bearer's ties to living members:
+    Marta's hold goes to Ana (40), Nadia (50), Pia (50) and Ravi (60) in those proportions, not a quarter each."""
+    state = calm(fresh())
+    marta = state.people[MARTA]
+    marta.symptom_bound = 200.0
+    records = lock_in(state, PARAMS)
+    got = {pid: v for r in records for pid, v in r.acute_anxiety}
+    bonds = {other: state.tie_between(MARTA, other).bond_energy for other in got}
+    total = sum(bonds.values())
+    assert marta.symptom_bound == 0.0 and sum(got.values()) == pytest.approx(200.0)
+    assert got == {other: pytest.approx(200.0 * bonds[other] / total) for other in got}
+    assert got[RAVI] > got[NADIA] == got[PIA] > got[PersonId("ana")]
+
+
+def test_m7d2a_release_ignores_dead_and_non_interactive_partners_and_zero_bonds_split_equally():
+    """B4, B5 and the dirty-state case: a dead partner and a non-interactive tie take nothing; with every live tie at
+    zero bond energy the split is equal; a run that releases twice splits by the bond energy of each week."""
+    state = calm(fresh())
+    marta = state.people[MARTA]
+    state.people[RAVI].alive = False
+    state.tie_between(MARTA, PIA).interactive = False
+    marta.symptom_bound = 90.0
+    got = {pid: v for r in lock_in(state, PARAMS) for pid, v in r.acute_anxiety}
+    assert set(got) == {NADIA, PersonId("ana")} and got[NADIA] == pytest.approx(50.0) and got[PersonId("ana")] == pytest.approx(40.0)
+    zero = calm(fresh())
+    for tie in zero.ties_of(MARTA):
+        tie.bond_energy = 0.0
+    zero.people[MARTA].symptom_bound = 40.0
+    got = {pid: v for r in lock_in(zero, PARAMS) for pid, v in r.acute_anxiety}
+    assert len(got) == 4 and all(v == pytest.approx(10.0) for v in got.values())
+    state = calm(fresh())
+    state.people[MARTA].symptom_bound = 100.0
+    first = {pid: v for r in lock_in(state, PARAMS) for pid, v in r.acute_anxiety}
+    state.tie_between(MARTA, RAVI).bond_energy = 0.0  # next week the marital tie holds nothing
+    state.people[MARTA].symptom_bound = 100.0
+    second = {pid: v for r in lock_in(state, PARAMS) for pid, v in r.acute_anxiety}
+    assert first[RAVI] > 0 and RAVI not in second and second[NADIA] > first[NADIA]
+
+
+def test_m7d2a_release_passes_an_external_agent_by():
+    """B6: an external agent (M1.A.17) on an interactive tie receives none of the release."""
+    from src.bowen.engine.objects import Role
+    state = calm(fresh())
+    sofia = state.people[PersonId("sofia")]
+    sofia.role = Role.EXTERNAL
+    state.people[RAVI].symptom_bound = 100.0
+    got = {pid: v for r in lock_in(state, PARAMS) for pid, v in r.acute_anxiety}
+    assert PersonId("sofia") not in got and sum(got.values()) == pytest.approx(100.0)
+    kept = calm(fresh())
+    for pid in kept.people:
+        if pid != RAVI:
+            kept.people[pid].role = Role.EXTERNAL
+    kept.people[RAVI].symptom_bound = 100.0
+    assert lock_in(kept, PARAMS) == [] and kept.people[RAVI].symptom_bound == 100.0  # no receiver: the hold stays
+
+
+def test_m7d2a_the_spill_past_the_turn_is_split_by_bond_energy():
+    """B7: the bearer's own spill past the turn follows the same split as the release."""
+    state = calm(fresh())
+    marta = bearer(state, MARTA, PARAMS.lock_in_turn * 1.5)
+    marta.acute_anxiety = marta.chronic_anxiety + 40.0
+    records = [r for r in lock_in(state, PARAMS) if any(pid == MARTA and v < 0 for pid, v in r.acute_anxiety)]
+    assert records
+    got = {pid: v for pid, v in records[-1].acute_anxiety if pid != MARTA}
+    assert got[RAVI] > got[NADIA] == got[PIA] > got[PersonId("ana")] > 0
+
+
+def test_m7d2a_intake_is_unchanged_by_the_split():
+    """G2 changes the release only: what partners give into the hold is still each partner's own excess share."""
+    state = calm(fresh())
+    marta = bearer(state, MARTA, 1.0)
+    for pid in (RAVI, NADIA):
+        state.people[pid].acute_anxiety = state.people[pid].chronic_anxiety + 10.0
+    got = {pid: -v for r in lock_in(state, PARAMS) for pid, v in r.acute_anxiety}
+    assert got[RAVI] == pytest.approx(got[NADIA]) and marta.symptom_bound == pytest.approx(got[RAVI] + got[NADIA])
+
+
+def test_m7d2a_binder_unavailable_release_uses_the_same_split():
+    """B3: a `binder_unavailable` naming the channel (M1.F.9) returns the whole hold by the same bond-energy split
+    as a release at re-arm; the coach takes nothing and the family's gains sum to what left the hold."""
+    state = calm(fresh())
+    marta = state.people[MARTA]
+    marta.symptom_bound = 90.0
+    event = Event(id=EventId(0, "script", 0), kind="BINDER_UNAVAILABLE", mechanism=Mechanism.BINDER_UNAVAILABLE,
+                  sender=None, targets=(MARTA,), intensity=0.0, timestamp=0, duration=1, exogenous=True,
+                  source_position=SourcePosition.NONE, channel=Channel.SCRIPTED,
+                  binder=BinderRef(BinderKind.SYMPTOM_CHANNEL, f"marta:{marta.channel_prior.value}"))
+    records = apply_structural_event(state, event, PARAMS)
+    [release] = [r for r in records if r.mechanism == "lock_in"]
+    got = dict(release.acute_anxiety)
+    weights = {t.id.other(MARTA): t.bond_energy for t in state.ties_of(MARTA)
+               if t.interactive and state.people[t.id.other(MARTA)].alive}
+    assert marta.symptom_bound == 0.0 and sum(got.values()) == pytest.approx(90.0)
+    assert PersonId("halim") not in got and len(got) == len(weights)
+    for pid, value in got.items():
+        assert value == pytest.approx(90.0 * weights[pid] / sum(weights.values()))

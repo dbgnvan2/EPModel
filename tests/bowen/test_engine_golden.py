@@ -72,8 +72,14 @@ FINGERPRINT_DIGITS = 8  # significant digits kept per float; see the module docs
 ZERO_BELOW = 1e-12  # a float this close to zero is written as 0, so 1e-17 and -1e-17 agree
 GOLDEN = {
     # (family, seed, weeks): fingerprint
-    ("phase_c", 7, 104): "c4fd16123fa37db3ccf7d2f6624b3463ef51ec084a44cad1dc0b1501f07ca85c",
-    ("phase_d", 11, 208): "4e5ebdad859f648c37e8bb3222de6f802df94172ff0dd3a5b3e5c1df9b16f559",
+    # Both moved at spec revision 36 (2026-10-22, taken again 2026-10-23 after the build's review fixes; P23, a decision): group G1 (a cut-off tie's stock weighs on its
+    # members, is capped, decays, and is bridged by contact; `REDUCE_CUTOFF` moves no stock; `CONFLICT` binds; runs
+    # of `CONFLICT` harden), G2 (a symptom's release is split by bond energy) and the Holmes–Rahe event sizes (grief,
+    # the additions' loads and a symptom's own load) each change what a seeded run computes, so every run's log moved.
+    # Before revision 36: phase_c c4fd16123fa37db3ccf7d2f6624b3463ef51ec084a44cad1dc0b1501f07ca85c,
+    # phase_d 4e5ebdad859f648c37e8bb3222de6f802df94172ff0dd3a5b3e5c1df9b16f559.
+    ("phase_c", 7, 104): "8500e06974ef685166641d8a6a72e564554698045f9274cf54d52efffdfc7241",
+    ("phase_d", 11, 208): "f2f6ab6c5666198fd82fa7840838c9bd031189a1b9ea72497edd35b30fcb1601",
 }
 
 

@@ -128,7 +128,8 @@ SCHEMA: Mapping[str, KeySpec] = MappingProxyType(
         "working_age_years": KeySpec(int, "[I]", "M7.C.1k"),  # spec revision 28
         "find_work_rate": KeySpec(float, "[I]", "M7.C.1k"),  # spec revision 28
         "find_work_pressure_scale": KeySpec(float, "[I]", "M7.C.1k"),  # spec revision 28
-        "grief_scale": KeySpec(float, "[I]", "M6.3g"),  # spec revision 28
+        "grief_weight": KeySpec(float, "[I]", "M6.3g"),  # spec revision 36 (replaced grief_scale)
+        "lcu_scale": KeySpec(float, "[I]", "M1.F.6a"),  # spec revision 36
         "grief_min_weeks": KeySpec(int, "[I]", "M6.3g"),  # spec revision 28
         "grief_extra_weeks": KeySpec(int, "[I]", "M6.3g"),  # spec revision 28
         "income_loss_intensity": KeySpec(float, "[I]", "M6.3h"),  # spec revision 28
@@ -213,6 +214,13 @@ SCHEMA: Mapping[str, KeySpec] = MappingProxyType(
         "withhold_investment_gain": KeySpec(float, "[I]", "M4.D.1b"),
         "loaded_tie_threshold": KeySpec(float, "[I]", "M4.D.3b"),
         "distance_binding_rate": KeySpec(float, "[I]", "M1.D.2a"),
+        "conflict_binding_rate": KeySpec(float, "[I]", "M1.D.2c"),  # spec revision 36
+        "cutoff_stock_cap": KeySpec(float, "[I]", "M1.D.2b"),  # spec revision 36
+        "cutoff_threat_weight": KeySpec(float, "[I]", "M1.D.2b"),  # spec revision 36
+        "cutoff_decay_weeks": KeySpec(int, "[I]", "M1.D.2b"),  # spec revision 36
+        "cutoff_floor_share": KeySpec(float, "[I]", "M1.D.2b"),  # spec revision 36
+        "positive_bridge_dissipation": KeySpec(float, "[I]", "M1.D.2b"),  # spec revision 36
+        "tie_repair_steps": KeySpec(int, "[I]", "M1.D.2c"),  # spec revision 36
         "triangle_transfer_rate": KeySpec(float, "[I]", "M1.C.1"),
         "outsider_positional_gain": KeySpec(float, "[I]", "M1.C.1"),
         "balance_push_gain": KeySpec(float, "[I]", "M1.B.5"),

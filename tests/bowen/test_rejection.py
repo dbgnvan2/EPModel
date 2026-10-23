@@ -12,6 +12,7 @@ from __future__ import annotations
 
 from src.bowen.engine.act import Selection, act
 from src.bowen.engine.contact import relax_contact, resting_contact, too_little
+from src.bowen.engine.cutoff_stock import bridge_ties
 from src.bowen.engine.event_effects import apply_delivered_cutoffs, apply_structural_event
 from src.bowen.engine.events import Channel, Delivery, Event, EventId, Mechanism, Role, SourcePosition
 from src.bowen.engine.identifiers import PersonId, TieId
@@ -116,7 +117,8 @@ def test_m1b3c_rejection_refuses_only_above_its_threshold():
 
 
 def test_m1b3c_unrenewed_rejection_fades_and_the_tie_reopens():
-    """Revision 16: a single cutoff, not renewed, stops refusing and then wears off; the open tie never was cut."""
+    """Revision 16: a single cutoff, not renewed, stops refusing and then wears off; the open tie never was cut.
+    Revision 36 (`M1.D.2b`): the faded tie stays cut off until a positive contact is delivered, and that reopens it."""
     state, open_ = fresh(), fresh()
     apply_delivered_cutoffs(state, delivered(state, move("CUTOFF", MARTA, RAVI)), PARAMS)
     held, weeks = [state.ties[MARITAL].rejection[MARTA]], 0
@@ -127,6 +129,9 @@ def test_m1b3c_unrenewed_rejection_fades_and_the_tie_reopens():
         weeks += 1
         assert weeks <= 1 / PARAMS.rejection_fade + 1
     assert all(b < a for a, b in zip(held, held[1:]))
+    assert state.ties[MARITAL].tie_state is TieState.CUT_OFF
+    assert not any(f.startswith("tie_state_") for r in records for _, f, _ in r.ties)
+    records = bridge_ties(state, delivered(state, move("STAY-IN-CONTACT", RAVI, MARTA, tick=weeks)), (), PARAMS)
     assert state.ties[MARITAL].tie_state is TieState.ORDINARY
     assert any(f == "tie_state_ordinary" for r in records for _, f, _ in r.ties)
 
@@ -147,8 +152,11 @@ def test_m5b3_accepted_contact_lowers_both_rejections_and_reopens_the_tie_at_zer
     apply_move_effects(state, delivered(state, move("REDUCE_CUTOFF", RAVI, MARTA)), PARAMS)
     assert tie.rejection[RAVI] == 0 and 0 < tie.rejection[MARTA] < PARAMS.rejection_relief * 1.5
     assert tie.tie_state is TieState.CUT_OFF                        # Marta still rejects
-    apply_move_effects(state, delivered(state, move("REDUCE_CUTOFF", RAVI, MARTA, tick=1)), PARAMS)
-    assert tie.rejection[MARTA] == 0 and tie.tie_state is TieState.ORDINARY
+    batch = delivered(state, move("REDUCE_CUTOFF", RAVI, MARTA, tick=1))
+    apply_move_effects(state, batch, PARAMS)
+    assert tie.rejection[MARTA] == 0 and tie.tie_state is TieState.CUT_OFF  # until the same week's bridging pass
+    bridge_ties(state, batch, (), PARAMS)  # revision 36: the accepted REDUCE_CUTOFF is the positive contact that reopens it
+    assert tie.tie_state is TieState.ORDINARY
 
 
 def test_m4c1c_a_cut_tie_pulls_both_members_until_it_reopens():
@@ -167,8 +175,10 @@ def test_m4c1c_a_cut_tie_pulls_both_members_until_it_reopens():
         assert grown > start[member]                                 # the rejected member too
         assert grown > too_little(open_.people[member], open_.ties[MARITAL], PARAMS)
     tick = 0
-    while cut.ties[MARITAL].rejection.get(MARTA, 0.0) > 0:
-        apply_move_effects(cut, delivered(cut, move("REDUCE_CUTOFF", RAVI, MARTA, tick=tick)), PARAMS)
+    while cut.ties[MARITAL].tie_state is TieState.CUT_OFF:
+        batch = delivered(cut, move("REDUCE_CUTOFF", RAVI, MARTA, tick=tick))
+        apply_move_effects(cut, batch, PARAMS)
+        bridge_ties(cut, batch, (), PARAMS)  # revision 36: the accepted contact reopens the tie once nothing is held
         tick += 1
     pulled = {m: too_little(cut.people[m], cut.ties[MARITAL], PARAMS) for m in MARITAL.members()}
     for _ in range(10):
@@ -298,25 +308,30 @@ def test_m5b3_reduce_cutoff_leaves_a_worry_edge_a_worry_edge():
 
 
 def test_m1b3c_a_distant_tie_is_distant_again_when_the_cutoff_ends():
-    """Review finding: an ended cutoff returned a hardened distant tie (M4.G.1) to ordinary."""
+    """Review finding: an ended cutoff returned a hardened distant tie (M4.G.1) to ordinary. Revision 36: the cutoff
+    ends on the positive contact after the rejection has faded (`M1.D.2b`)."""
     state = fresh()
     tie = state.ties[MARITAL]
     tie.tie_state = TieState.DISTANT
     raise_rejection(tie, MARTA, PARAMS.rejection_fade)
     assert tie.tie_state is TieState.CUT_OFF
     fade_rejection(state, PARAMS)
+    assert not tie.rejected() and tie.tie_state is TieState.CUT_OFF
+    bridge_ties(state, delivered(state, move("STAY-IN-CONTACT", RAVI, MARTA)), (), PARAMS)
     assert tie.tie_state is TieState.DISTANT
 
 
-def test_m1b3c_the_invariant_catches_a_cut_off_tie_with_no_rejection():
+def test_m1b3c_the_invariant_catches_rejection_held_on_a_tie_that_is_not_cut_off():
+    """Revision 36 turned the invariant round: rejection held implies cut off; a cut-off tie may hold none
+    (`tests/bowen/test_cutoff_stock.py` has the other direction)."""
     from src.bowen.engine.invariants import InvariantViolation, assert_invariants, snapshot
 
     state = fresh()
     before = snapshot(state)
-    state.ties[MARITAL].tie_state = TieState.CUT_OFF  # without rejection held
+    state.ties[MARITAL].rejection[MARTA] = 0.5  # held, the tie ordinary
     try:
         assert_invariants(state, before, frozenset(state.ties), ("standing_load", "deliver"), PARAMS.invariant_tolerance)
     except InvariantViolation as error:
         assert "M1.B.3c" in str(error)
     else:
-        raise AssertionError("a cut-off tie with no rejection passed the invariants")
+        raise AssertionError("rejection held on an ordinary tie passed the invariants")

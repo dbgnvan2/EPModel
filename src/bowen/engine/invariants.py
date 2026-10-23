@@ -48,12 +48,20 @@ LEDGER = {
     "stressor_load": SOURCE,        # M1.F.6, revision 18: a lasting stressor's later weeks
     "reactive_cutoff": SOURCE,      # M1.B.3d, revision 29: a held reactive cutoff's weekly cost to its holder
     "danger_contact": SOURCE,       # M1.B.3e, revision 30: accepted contact from a person felt as dangerous
+    "cutoff_threat": SOURCE,        # M1.D.2b, revision 36: a cut-off tie's stock weighs on both members
+    "cutoff_threat_renewed": SOURCE,  # M1.D.2b, revision 36: a negative contact returns the stock to its peak
+    "tie_repair_reversed": SOURCE,  # M1.D.2c, revision 36: a negative contact adds a third of the reference level back
     "acute_decay": SINK,            # M1.A.8, toward the chronic floor
+    "cutoff_cap_dissipation": SINK,  # M1.D.2b, revision 36: the stock above the cap at the week of the cut
+    "cutoff_decay": SINK,           # M1.D.2b, revision 36: the stock's fall toward its floor
+    "cutoff_bridge_dissipation": SINK,  # M1.D.2b, revision 36: what a positive contact across a cut-off tie lets go
+    "tie_repair_dissipation": SINK,  # M1.D.2c, revision 36: what a positive contact removes from a tie's stock
     "calm_contact": TRANSFER,       # M4.C.10
     "distance_binding": TRANSFER,   # M1.D.2a, person to tie
+    "conflict_binding": TRANSFER,   # M1.D.2c, revision 36: person to tie, at a smaller share than distance
     "triangle_transfer": TRANSFER,  # M1.C.1, seeker to outsider, plus KS03.1's source
     "reconciliation": TRANSFER,     # M4.A.3, tie back to its members
-    "reduce_cutoff": TRANSFER,      # M5.B.3, tie to the third party (L22.6)
+    "reduce_cutoff": TRANSFER,      # M5.B.3: lowers rejection; moves no stock since revision 36 (D7), kept for the record's name
     "binder_unavailable": TRANSFER, # M1.F.9, a binder's hold back to the family budget; a symptom's to its partners
     "lock_in": TRANSFER,            # M7.D.2a, M7.D.2d (revision 24): partners to a symptom's bound stock and back
 }
@@ -213,10 +221,13 @@ def assert_invariants(
             "a person or tie left the field",
         ),
         require(
-            all((t.tie_state is TieState.CUT_OFF) == t.rejected() and all(0.0 <= v <= 1.0 for v in t.rejection.values())
+            all((t.tie_state is TieState.CUT_OFF or not t.rejected()) and all(0.0 <= v <= 1.0 for v in t.rejection.values())
+                and (t.tie_state is not TieState.CUT_OFF or t.cutoff_peak is None
+                     or t.distance_bound_anxiety <= t.cutoff_peak + tolerance)
                 for t in state.ties.values()),
             "M1.B.3c",
-            "a tie is cut off without rejection held, or holds rejection without being cut off, or outside [0, 1]",
+            "a tie holds rejection without being cut off, or rejection outside [0, 1], or a cut-off tie's stock is above "
+            "its peak (M1.D.2b)",
         ),
         require(
             loaded_ties == frozenset(state.ties)

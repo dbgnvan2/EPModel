@@ -111,6 +111,8 @@ REQUIRED = {
     "M11.C.6": ("child",),  # revision 32: the paired same-child arm
     "M11.C.10": ("years", "renew_every", "seeds"),  # renew_every (revision 29); seeds, fixed at 200 (revision 30)
     "M11.C.47": ("weeks", "level_low", "level_high", "stress_every", "stress_kind", "stress_intensity"),  # revision 30
+    # Version 2 group G1 (spec revision 36): the Phase B family's weeks, the twelve-person family's years, fixed seeds.
+    "M11.C.48": ("weeks", "years", "seeds"),
     # Phase D step 10, criteria on existing mechanisms.
     "M11.C.39": ("spell_weeks", "after", "quiet", "every", "intensity"),
     "M11.C.40": ("weeks", "window"),

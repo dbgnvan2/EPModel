@@ -247,15 +247,18 @@ def cut_with_bound(state, held=6.0):
     tie.distance_bound_anxiety = held
 
 
-def test_m5b3_reduce_cutoff_cost_lands_on_the_third_party():
-    """The bound anxiety goes to the third parties whose distancing is stripped, not to the mover (L22.6)."""
+def test_m5b3_reduce_cutoff_moves_no_stock_to_the_third_party():
+    """Revision 36 (G1, D7): the act lowers rejection and moves nothing; the tie's stock stays in the tie for the
+    bridging pass (`M1.D.2b`), and no third party receives a transfer. The third party's cost on the reopening is the
+    outlet they lose, which `M11.C`'s readouts measure, not a sum written here (L22.6, still cited, not yet shown)."""
     state = fresh()
     cut_with_bound(state)
     before = {p: state.people[p].acute_anxiety for p in (RAVI, MARTA, NADIA, PIA)}
-    deliver(state, move("REDUCE_CUTOFF", RAVI, MARTA))
-    assert state.ties[MARITAL].interactive and state.ties[MARITAL].tie_state is TieState.ORDINARY
-    assert state.people[RAVI].acute_anxiety == before[RAVI] and state.people[MARTA].acute_anxiety == before[MARTA]
-    assert state.people[NADIA].acute_anxiety - before[NADIA] == state.people[PIA].acute_anxiety - before[PIA] == 3.0
+    records = deliver(state, move("REDUCE_CUTOFF", RAVI, MARTA))
+    assert state.ties[MARITAL].interactive and state.ties[MARITAL].tie_state is TieState.CUT_OFF  # until step 4 bridges
+    assert not state.ties[MARITAL].rejected() and state.ties[MARITAL].distance_bound_anxiety == 6.0
+    assert all(state.people[p].acute_anxiety == before[p] for p in before)
+    assert [r.mechanism for r in records] == ["reduce_cutoff"] and records[0].acute_anxiety == ()
 
 
 def test_m5b3_reduce_cutoff_lowers_anxiety_and_never_raises_basic_level():

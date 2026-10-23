@@ -169,7 +169,7 @@ def test_m16a7_header_flags_constants_changed_after_freeze():
                                         "development_band", "development_rate", "development_band_projection",
                                         "development_band_support", "witnessed_gain", "launch_age_years",
                                         "working_age_years", "find_work_rate", "find_work_pressure_scale",
-                                        "grief_scale", "grief_min_weeks", "grief_extra_weeks", "income_loss_intensity",
+                                        "grief_min_weeks", "grief_extra_weeks", "income_loss_intensity",
                                         "income_shortfall_share", "mortality_a", "mortality_b",
                                         "budget_per_undifferentiation", "coach_start_age_years",
                                         "coach_retirement_age_years", "new_tie_investment_share", "birth_focus_gain",
@@ -182,7 +182,11 @@ def test_m16a7_header_flags_constants_changed_after_freeze():
                                         "danger_threshold", "danger_gain", "focus_reinforce_gain",
                                         "force_anxiety_gain", "focus_compound_gain",
                                         # spec revision 32, the nodal-event spike (plan §4.12)
-                                        "nodal_spike_intensity"}
+                                        "nodal_spike_intensity",
+                                        # spec revision 36, version 2 group G and the event sizes (grief_scale retired)
+                                        "conflict_binding_rate", "cutoff_stock_cap", "cutoff_threat_weight",
+                                        "cutoff_decay_weeks", "cutoff_floor_share", "positive_bridge_dissipation",
+                                        "tie_repair_steps", "grief_weight", "lcu_scale"}
     changed = dataclasses.replace(
         constants,
         values=MappingProxyType({**constants.values,

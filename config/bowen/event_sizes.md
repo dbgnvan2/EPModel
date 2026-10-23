@@ -34,7 +34,7 @@
 | `MOVE` | self | Change in residence | 20 | 1 | Holmes–Rahe, `[I]` |
 | `SERIOUS_ILLNESS` | self | Personal injury or illness | 53 | 12 | Holmes–Rahe, `[I]` |
 | `OWN_ILLNESS` | self | Personal injury or illness | 53 | 12 | Holmes–Rahe, `[I]`; `M7.D.1a` (the owner, Q5) |
-| `FAMILY_ILLNESS` | tie | Change in health of family member | 44 | 12 | Holmes–Rahe, `[I]`; `M7.D.1a` |
+| `FAMILY_ILLNESS` | tie | Change in health of family member | 44 | 12 | Holmes–Rahe, `[I]`; `M7.D.1a`: each living family member on an interactive tie to the bearer; an external agent (the coach) takes none, as G2's release passes them by |
 | `PARTNERING_LOAD` | self | Marriage | 50 | 12 | Holmes–Rahe, `[I]`; `M7.C.1l` (the owner, Q3, Q4) |
 | `RETIREMENT_LOAD` | tie | Retirement | 45 | 12 | Holmes–Rahe, `[I]`; `M7.C.1l`: the coachee, through the coach tie |
 | `BIRTH_LOAD` | self | Gain of a new family member | 39 | 12 | Holmes–Rahe, `[I]`; `M7.C.1l` |

@@ -1,7 +1,10 @@
 # Proposal — cutoff anxiety, bridging and repair (version 2, G1)
 
-> **Status: DECIDED by the owner 2026-10-19 (Q1–Q11 in §8); drafted the same day. Version 2; nothing built, no
-> spec revision.** It turns the owner's
+> **Status: BUILT 2026-10-22 at spec revision 36 (`M1.D.2b`, `M1.D.2c`, `M4.G.1`, `M5.B.3`, `M6.4`, `M11.C.48`), in one
+> batch with G2 and the Holmes–Rahe sizes; decided by the owner 2026-10-19 (Q1–Q11 in §8); drafted the same day. A6
+> (§3.5, the third party's cost) is not shown: its test is a strict expected failure and no cost was written; the
+> rest of §5 is built. Where the build had to choose, it chose as recommended under the owner's instruction of
+> 2026-10-22, pending the owner's review (the revision 36 report lists each choice).** It turns the owner's
 > answers on G1, recorded in `docs/version_2_plan.md` (stage 3, group G, 2026-10-18), into rules, tests and a new
 > criterion. The owner's decisions are quoted there and summarised in §1. Every form and number not marked as the
 > owner's is Claude's recommendation, graded `[I]`. It changes what a run computes, so it moves the engine hash and
@@ -165,7 +168,11 @@ over the same weeks.*
 - **Negative contacts:** `CONFLICT`, `DISTANCE` toward the person (a rebuff, D12), and refusals, received across the
   tie in a row, in either direction. A positive contact (§3.4) ends a run.
 - **Paired per seed over matched weeks.** For each first cutoff on a seed, its run up to the cutoff week is compared
-  with the longest run on that seed's uncut ties within the same span. A tie never cut off is not counted over the
+  with the longest run on that seed's uncut ties within the same span. *As built (2026-10-22, decided as recommended
+  under the owner's instruction of 2026-10-22, pending the owner's review): the comparison is with the run standing
+  on each uncut tie in the cutoff's week, averaged — the same point in time read the same way. The longest run over
+  the span is a maximum over ties and weeks set against one point, biased against the criterion (learnings P7, found
+  by the build's review); it is reported beside the arms, not compared.* A tie never cut off is not counted over the
   whole run, which would give it more weeks to build a long run. Per-seed differences go to the runner's paired
   statistic (`M11.4e`) as usual.
 - **Reported, not dropped:** seeds with no cutoff, and ties with no contact in the window, are counted in the record.

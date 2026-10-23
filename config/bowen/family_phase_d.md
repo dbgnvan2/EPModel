@@ -16,7 +16,7 @@
 > - Dr Halim's values, which are Phase C's (`family_phase_c.md`).
 >
 > Teodor's `basic_level` is 36, not the table's former 34: 34 broke `M2.A.0e`'s ±1 pairing with Ana (37).
-> Proposed at revision 13, as Ravi's 38 was corrected to 39; awaiting owner review.
+> Proposed at revision 13, as Ravi's 38 was corrected to 39.
 >
 > Ravi–Dario mirrors the Ana–Bruno tie it replaces: high bond energy, cut off (`M1.B.3`). From Phase D B4 a cut-off
 > tie stays interactive and both members start rejecting the other (`M1.B.3c`); which brother cut off the other is

@@ -247,8 +247,14 @@ class Relationship:
     # M1.B.3c (Phase D plan B4): how hard each member rejects the other, in [0, 1]. The tie is cut while either
     # member holds any; it stays interactive. Written by ``rejection``, a delivered CUTOFF and REDUCE_CUTOFF.
     rejection: dict[PersonId, float] = field(default_factory=dict)
-    # M1.B.3c: the state a cutoff replaced (ordinary or distant), restored when no rejection is left.
+    # M1.B.3c: the state a cutoff replaced (ordinary or distant), restored by the positive contact that reopens the
+    # tie once no rejection is left (spec revision 36, M1.D.2b).
     uncut_state: TieState = TieState.ORDINARY
+    # M1.D.2b, revision 36: the highest stock since the tie was cut off, never above the cap; None while not cut off,
+    # and in the week it becomes cut off until step 4 enters the cut (``cutoff_stock.enter_cutoff``).
+    cutoff_peak: float | None = None
+    # M1.D.2c, revision 36: the stock a distant or conflicted tie held when it hardened — what repair removes by thirds.
+    reference_level: float = 0.0
     # M1.B.3d, revision 29: the members whose cutoff on this tie is principled (for safety), declared in config only.
     # Every other held rejection is reactive. A holder leaves it when their declared rejection fades to zero or their
     # own policy cuts off on the tie (``rejection.end_principled``).

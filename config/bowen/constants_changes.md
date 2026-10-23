@@ -190,3 +190,13 @@
 | `development_band_projection` | — | 0.10 | 2026-10-16 | — (new mechanism; spec revision 31, R31.B7: `M7.E.1f`'s band opened by the parents' acts, the owner's value: "projection up to 10% negative") | no |
 | `development_band_support` | — | 0.05 | 2026-10-16 | — (new mechanism; spec revision 31, R31.B7, the owner's value: "supportive, responsible behaviour attention - up to 5% growth") | no |
 | `nodal_spike_intensity` | — | 1.0 | 2026-10-17 | — (new mechanism; spec revision 32, plan §4.12: `M4.C.1c`'s nodal-event spike, the owner's form of 2026-10-17, "cut ties, as TRIGGER") | no |
+| `conflict_binding_rate` | — | 0.15 | 2026-10-22 | — (new mechanism; spec revision 36, group G1 `M1.D.2c`, the owner's decisions of 2026-10-19 where the row says so, else `[I]`) | no |
+| `cutoff_stock_cap` | — | 1583.0 | 2026-10-22 | — (new mechanism; spec revision 36, group G1 `M1.D.2b`, the owner's decisions of 2026-10-19 where the row says so, else `[I]`) | no |
+| `cutoff_threat_weight` | — | 0.00312 | 2026-10-22 | — (new mechanism; spec revision 36, group G1 `M1.D.2b`, the owner's decisions of 2026-10-19 where the row says so, else `[I]`) | no |
+| `cutoff_decay_weeks` | — | 260 | 2026-10-22 | — (new mechanism; spec revision 36, group G1 `M1.D.2b`, the owner's decisions of 2026-10-19 where the row says so, else `[I]`) | no |
+| `cutoff_floor_share` | — | 0.1 | 2026-10-22 | — (new mechanism; spec revision 36, group G1 `M1.D.2b`, the owner's decisions of 2026-10-19 where the row says so, else `[I]`) | no |
+| `positive_bridge_dissipation` | — | 0.8 | 2026-10-22 | — (new mechanism; spec revision 36, group G1 `M1.D.2b`, the owner's decisions of 2026-10-19 where the row says so, else `[I]`) | no |
+| `tie_repair_steps` | — | 3 | 2026-10-22 | — (new mechanism; spec revision 36, group G1 `M1.D.2c`, the owner's decisions of 2026-10-19 where the row says so, else `[I]`) | no |
+| `grief_scale` | 20.0 | retired | 2026-10-22 | — (spec revision 36 sized grief from the Holmes–Rahe table, `M1.F.6a`, `M6.3g`; `grief_weight` replaces it) | no |
+| `grief_weight` | — | 1.0 | 2026-10-22 | — (new mechanism; spec revision 36, `M6.3g`: grief's size is its table size times this) | no |
+| `lcu_scale` | — | 6.9 | 2026-10-22 | — (new mechanism; spec revision 36, `M1.F.6a`, the owner's anchor of 2026-10-19) | no |

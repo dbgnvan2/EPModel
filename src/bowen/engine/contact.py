@@ -28,7 +28,7 @@ for every person and are never learned (`M4.C.1`).
 from __future__ import annotations
 
 from src.bowen.engine.identifiers import PersonId
-from src.bowen.engine.objects import SCALE_MAX, Person, Relationship
+from src.bowen.engine.objects import SCALE_MAX, Person, Relationship, TieState
 from src.bowen.engine.params import EngineParams
 
 
@@ -68,7 +68,7 @@ def optimum(person: Person, tie: Relationship, params: EngineParams) -> float:
 
 
 def resting_contact(person: Person, tie: Relationship, params: EngineParams) -> float:
-    if not tie.interactive or tie.rejected():  # M1.B.3c, M4.C.1c (P2): a cut tie rests at no contact for both
+    if not tie.interactive or tie.tie_state is TieState.CUT_OFF:  # M1.B.3c, M4.C.1c (P2): a cut tie rests at no contact for both
         return 0.0
     return params.interactive_resting_contact * optimum(person, tie, params)
 

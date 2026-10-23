@@ -68,9 +68,12 @@ owner's ten decisions and what this batch fixed are in `CHANGELOG.md`. Open:
   reruns the records anyway (owner, D6 and D7):
   - MR-23: move the Phase C ensemble record onto `docs/records_cache`, as Phase D's records are: render it from the
     cache, take the tool out of its own hash, and compare the full render in `tests/bowen/test_ensemble_record.py`.
-  - `config/bowen/family_phase_d.md:19`: drop "awaiting owner review" from Teodor's 36.
-- [ ] T-013 ⟨now⟩ **Before group G's build starts:** ask the owner the Holmes–Rahe Q3 again (D10, the review's Q14; see
-  "Blocking the next phase").
+  - ~~`config/bowen/family_phase_d.md:19`: drop "awaiting owner review" from Teodor's 36.~~ *Done at revision 36
+    (2026-10-22), with group G's regeneration. MR-23 remains.*
+- [x] T-013 ⟨now⟩ **Before group G's build starts:** ask the owner the Holmes–Rahe Q3 again (D10, the review's Q14; see
+  "Blocking the next phase"). *Closed 2026-10-22: group G was built overnight under the owner's instruction of
+  2026-10-22 ("proceed based on your recommendations"); Q3 stands as decided, cites no source, and is listed in the
+  revision 36 report's decisions, with the correction quoted, for the owner's review.*
 - [ ] T-014 ⟨later⟩ **For the stage 3 question list** (owner, D4 and D10):
   - Build the `M5.C` avoidance gate (`avoidance_available`), or drop it from M8 and `M13.1`.
   - Q7, fusion: no caller passes a fusion map, so `positions_live`'s fused-occupant branches never run. The spec

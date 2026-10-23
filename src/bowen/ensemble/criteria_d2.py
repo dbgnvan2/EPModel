@@ -64,7 +64,7 @@ P = PersonId
 FATHER, MOTHER, CHILD, PARTNER = P("f"), P("m"), P("c1"), P("c2")  # the nuclear-four fixture's ids
 # M11.C.15: no grief and no lost income (M10.B.5, an override declared by the criterion). M6.3b's transfer stays at 1
 # (owner decision 2026-10-13: "keep the transfer in C.15, share at 1").
-NO_GRIEF_OR_INCOME = {"grief_scale": 0.0, "income_loss_intensity": 0.0}
+NO_GRIEF_OR_INCOME = {"grief_weight": 0.0, "income_loss_intensity": 0.0}
 YEAR = ENGINE.slow_tick_fast_ticks
 PARENTS_DANGER = PARENTS["danger"]  # the danger fixture's spouses (config/bowen/fixtures/danger.md)
 
@@ -108,6 +108,64 @@ def arm_c15(arm, seed, settings):
     return result({"death_rise": death, "recovery_rise": recovery}, records)
 
 
+# --- M11.C.48: the negative run before a cutoff (version 2 group G1, spec revision 36) -----------------------------
+
+
+@functools.lru_cache(maxsize=None)
+def negative_run_values(family: str, seed: int, weeks: int) -> tuple[float, float, int, tuple]:
+    """Purpose: one seed of `M11.C.48`: the family as declared, under its baseline stressor spell (the Phase B family)
+    or its nodal load (the twelve-person family); returns the mean negative run before the seed's first cutoffs, the
+    mean run standing in those weeks on the matched ties not cut off, how many first cutoffs there were, and the run's
+    books. Cached
+    per process: both arms read one run (``docs/readouts_phase_c.md``, "Negative runs").
+    Spec:    docs/bowen_agent_model_spec_v2.md#M11.C.48, #M1.D.2b
+    Tests:   tests/bowen/test_phase_d2_criteria.py::test_m11c48_reads_the_run_before_the_first_cutoff
+    """
+    from src.bowen.engine.objects import Role
+    from src.bowen.ensemble.criteria import spell
+    from src.bowen.readouts.negative_runs import arm_values, first_cutoff_runs
+
+    declared: set = set()
+
+    def setup(state) -> None:  # a tie the family declares cut off has no first cutoff in the run
+        declared.update(t for t, tie in state.ties.items() if tie.tie_state is TieState.CUT_OFF)
+
+    if family == "phase_d":
+        parents = (ROLES["phase_d", "parent_1"], ROLES["phase_d", "parent_2"])
+        spells = nodal(weeks, parents)
+    else:
+        spells = spell(family, weeks)
+    state, records = scenario(family, seed, weeks, spells=spells, setup=setup)
+    members = frozenset(p for p, q in state.people.items() if q.role is Role.MEMBER)
+    firsts = first_cutoff_runs(records, state.kinds, members, frozenset(declared))
+    run, uncut = arm_values(firsts)
+    return run, uncut, len(firsts), tuple(Counter(b) for b in scripted_bookkeeping(records))
+
+
+def _arm_c48(family: str, arm: str, seed: int, weeks: int) -> ArmResult:
+    run, uncut, firsts, books = negative_run_values(family, seed, weeks)
+    if arm == "baseline":
+        readouts = {"negative_run": uncut, "run_before_cutoff": 0.0, "first_cutoffs": float(firsts)}
+    else:
+        readouts = {"negative_run": run, "run_before_cutoff": run, "first_cutoffs": float(firsts)}
+    return ArmResult(readouts, *(Counter(c) for c in books))
+
+
+def arm_c48(arm, seed, settings):
+    """Purpose: `M11.C.48` on the Phase B family over ten years: the treatment reads the negative run (`contact_classes.md`)
+    straight before each tie's first cutoff, the baseline the run standing in that same week on the seed's ties not
+    cut off by then; a cutoff that follows a longer run than the uncut ties hold is the emergent order G1 restores.
+    Spec:    docs/bowen_agent_model_spec_v2.md#M11.C.48
+    Tests:   tests/bowen/test_phase_d2_criteria.py::test_m11c48_reads_the_run_before_the_first_cutoff
+    """
+    return _arm_c48("phase_c", arm, seed, settings["weeks"])
+
+
+def arm_c48_phase_d(arm, seed, settings):
+    """`M11.C.48[phase_d]`: the same on the twelve-person family over 40 years under its nodal load."""
+    return _arm_c48("phase_d", arm, seed, settings["years"] * YEAR)
+
+
 # --- the twelve-person family over 40 years --------------------------------------------------------------------
 
 
@@ -130,6 +188,7 @@ def _uncut(pairs):
             tie = state.tie_between(a, b)
             tie.rejection = {m: 0.0 for m in tie.id.members()}
             tie.tie_state = tie.uncut_state = TieState.ORDINARY
+            tie.cutoff_peak = None
             for m in tie.id.members():
                 tie.felt_contact[m] = resting_contact(state.people[m], tie, ENGINE)
     return setup
@@ -409,4 +468,14 @@ CRITERIA_D2: dict[str, Criterion] = {
                   arm_c47, settings=SETTINGS["M11.C.47"]),
     "M11.C.2[twelve-person family]": C("M11.C.2", "composite", ("baseline", "treatment"),
                                        (Readout("symptom_load", +1),), arm_c2_twelve, settings=SETTINGS["M11.C.2"]),
+    # Version 2 group G1 (spec revision 36): cutoffs follow negative runs. Within-run arms, a fixed 100 seeds ([I]).
+    "M11.C.48": C("M11.C.48", "composite", ("baseline", "treatment"),
+                  (Readout("negative_run", +1), Readout("run_before_cutoff", +1, report_only=True),
+                   Readout("first_cutoffs", +1, report_only=True)),
+                  arm_c48, ("CUTOFF",), settings=SETTINGS["M11.C.48"], seeds=SETTINGS["M11.C.48"]["seeds"]),
+    "M11.C.48[phase_d]": C("M11.C.48", "composite", ("baseline", "treatment"),
+                           (Readout("negative_run", +1), Readout("run_before_cutoff", +1, report_only=True),
+                            Readout("first_cutoffs", +1, report_only=True)),
+                           arm_c48_phase_d, ("CUTOFF",), settings=SETTINGS["M11.C.48"],
+                           seeds=SETTINGS["M11.C.48"]["seeds"]),
 }

@@ -90,7 +90,7 @@ def one_run(args: tuple[str, int]) -> dict:
     firsts = first_cutoff_runs(records, load_event_kinds(), members, frozenset(declared))
     return {
         "family": family, "seed": seed, "cuts": cuts,
-        "firsts": [(str(f.tie), f.week, f.run, f.best_uncut) for f in firsts],
+        "firsts": [(str(f.tie), f.week, f.run, f.uncut, f.longest_uncut) for f in firsts],
         "excess": excess_sum / excess_n if excess_n else 0.0,
         "symptom_share": symptom_weeks / member_weeks if member_weeks else 0.0,
     }
@@ -112,8 +112,8 @@ def render_section(label: str, results: list[dict], engine: str, seeds: int) -> 
     lines = [f"## {label} — engine hash `{engine[:12]}`, {seeds} seeds per family, {dt.date.today().isoformat()}", ""]
     lines.append("| family | weeks | cuts | largest stock at a cut (tie, week, seed) | median stock at a cut | "
                  "seeds with a cutoff | first cutoffs | mean run before the first cutoff | median run | "
-                 "mean longest uncut run | excess anxiety | symptom weeks |")
-    lines.append("|---|---|---|---|---|---|---|---|---|---|---|---|")
+                 "mean matched uncut run | mean longest uncut run | excess anxiety | symptom weeks |")
+    lines.append("|---|---|---|---|---|---|---|---|---|---|---|---|---|")
     for family in RUNS:
         rows = [r for r in results if r["family"] == family]
         cuts = [(c, r["seed"]) for r in rows for c in r["cuts"]]
@@ -125,12 +125,13 @@ def render_section(label: str, results: list[dict], engine: str, seeds: int) -> 
         else:
             largest = "no cut"
         runs = [f[2] for f in firsts]
-        best = [f[3] for f in firsts]
-        lines.append("| {} | {} | {} | {} | {} | {} of {} | {} | {} | {} | {} | {} | {} |".format(
+        matched = [f[3] for f in firsts]
+        best = [f[4] for f in firsts]
+        lines.append("| {} | {} | {} | {} | {} | {} of {} | {} | {} | {} | {} | {} | {} | {} |".format(
             family, RUNS[family], len(cuts), largest, _fmt(statistics.median(stocks)) if stocks else "—",
             sum(1 for r in rows if r["firsts"]), len(rows), len(firsts),
             _fmt(statistics.mean(runs)) if runs else "—", _fmt(statistics.median(runs)) if runs else "—",
-            _fmt(statistics.mean(best)) if best else "—",
+            _fmt(statistics.mean(matched)) if matched else "—", _fmt(statistics.mean(best)) if best else "—",
             _fmt(statistics.mean(r["excess"] for r in rows)), _fmt(statistics.mean(r["symptom_share"] for r in rows))))
     lines.append("")
     lines.append(f"<!-- {label} measurements: " + repr({

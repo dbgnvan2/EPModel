@@ -1,6 +1,21 @@
 # Run status — HANDOFF
 
-> ## ▶ STATE — the corpus is closed. **Version 1 is complete (2026-10-18) and tagged `version-1` at `d62cfdc`; its spec is revision 32. Version 2 began at revision 33; stage 1 was built and its records regenerated 2026-10-19 and pushed 2026-10-20, and no verdict changed. Revision 34 (2026-10-22) changed wording only: the ASR quotations paraphrased (SP-1) and the stage 1 milestone review's wording fixes. Revision 35 (2026-10-22) moved the revision history into `spec_revision_log.md`, and the inline revision narratives of 129 bodies with it (`spec_revision_35_dispositions.md`, for the owner's review); no rule changed. Work goes on `main` (owner, 2026-10-21).**
+> ## ▶ STATE — the corpus is closed. **Version 1 is complete (2026-10-18) and tagged `version-1` at `d62cfdc`; its spec is revision 32. Version 2 began at revision 33; stage 1 was built and its records regenerated 2026-10-19 and pushed 2026-10-20, and no verdict changed. Revision 34 (2026-10-22) changed wording only: the ASR quotations paraphrased (SP-1) and the stage 1 milestone review's wording fixes. Revision 35 (2026-10-22) moved the revision history into `spec_revision_log.md`, and the inline revision narratives of 129 bodies with it (`spec_revision_35_dispositions.md`, approved by the owner 2026-10-22); no rule changed. Revision 36 (2026-10-22, on the branch `claude/recursing-bohr-2393a1`) built version 2's group G (G1, G2) and the Holmes–Rahe event sizes — 581 unique IDs, 48 acceptance criteria — each choice decided as recommended under the owner's instruction of 2026-10-22, pending the owner's review; the engine hash moved once and every record was regenerated. Work goes on `main` (owner, 2026-10-21).**
+>
+> **2026-10-22 — version 2's group G and the event sizes built, with spec revision 36** (branch
+> `claude/recursing-bohr-2393a1`, overnight under the owner's instruction "proceed based on your recommendations").
+> G1 (`M1.D.2b`, `M1.D.2c`): a cut-off tie's held anxiety weighs on both members, is capped and decays to a floor, is
+> renewed by negative contact and shed by positive contact, which alone reopens the tie; distant and conflicted ties
+> are repaired by thirds; `CONFLICT` binds; `REDUCE_CUTOFF` moves no stock to a third party, and the third party's
+> cost as the lost outlet (A6) is **not shown** (a strict expected failure). G2 (`M7.D.2a`): a symptom's release and
+> spill are split by bond energy among the bearer's ties to living members. The event sizes (`M1.F.6a`, `M7.C.1l`,
+> `M7.D.1a`, `config/bowen/event_sizes.md`): every stressor the engine raises is sized from the Holmes–Rahe ratios at
+> 6.9 units per LCU; grief, the additions' loads and a symptom's own load. `M11.C.48` (composite, two variants) reads
+> the run of negative contacts before a cutoff against the run standing on the uncut ties in the same week. Every
+> owner-level choice is listed in the revision 36 report and tagged pending the owner's review; the Holmes–Rahe Q3
+> stands as decided and cites no source (T-013 closed). The engine hash moved once; every record was regenerated once
+> (the CHANGELOG entry has the verdicts). **Next:** the owner's review of the decisions; the stage 2 plan (a separate
+> session), then stage 2's pilot.
 >
 > **2026-10-22 — model ergonomics built (`docs/plan_model_ergonomics.md`), with spec revision 35.** The spec and
 > the ledger have machine-readable indexes (`docs/spec_index.jsonl`, `docs/theory/ledger_index.jsonl`, the latter
@@ -21,7 +36,7 @@
 > local transcript test, the extraction-note headers and the `kb` heading retitles wait in `TODO.md`, with Q7's six
 > requirement decisions. Revision 34 also carries the stage 1 review's wording fixes (D3, D4, D6, MR-10, MR-15).
 > `tools/famdiag_export.py` now keeps what the owner saved from the app (positions, settings, colours) when it
-> regenerates the export (owner, 2026-10-22). No code or config that changes what a run computes changed. **Next:** the G2 proposal, then group G and the event
+> regenerates the export (owner, 2026-10-22). No code or config that changes what a run computes changed. **Next (done 2026-10-22, revision 36):** the G2 proposal, then group G and the event
 > sizes as one revision and one regeneration (the Holmes–Rahe Q3 asked again first, D10), and stage 2's pilot
 > (`docs/version_2_plan.md` §6; `TODO.md`).
 >

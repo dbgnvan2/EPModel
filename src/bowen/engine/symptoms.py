@@ -52,16 +52,18 @@ import math
 
 from src.bowen.engine.act import inject
 from src.bowen.engine.contact import excess
+from src.bowen.engine.event_sizes import sized_intensity
 from src.bowen.engine.events import Channel, Event, EventId, Mechanism, SourcePosition
 from src.bowen.engine.identifiers import PersonId
 from src.bowen.engine.log_records import EffectRecord
-from src.bowen.engine.objects import Person, SymptomChannel
+from src.bowen.engine.objects import SCALE_MAX, Person, SymptomChannel, Role
 from src.bowen.engine.params import EngineParams
 from src.bowen.engine.state import RunState
 from src.bowen.engine.stress_response import above_usual
 from src.bowen.engine.visibility import HouseholdConductanceVisibility
 
 SYMPTOM_KIND = "SYMPTOM_ONSET"
+OWN_ILLNESS_KIND, FAMILY_ILLNESS_KIND = "OWN_ILLNESS", "FAMILY_ILLNESS"  # M7.D.1a, revision 36
 REMOVAL_KIND = "INSTITUTIONALIZE"
 CHANNELS = tuple(SymptomChannel)
 
@@ -133,21 +135,50 @@ def _partners(state: RunState, pid: PersonId) -> tuple[PersonId, ...]:
                         for other in t.id.members() if other != pid and state.people[other].alive))
 
 
-def release_bound(state: RunState, pid: PersonId, share: float = 1.0) -> tuple[tuple[PersonId, float], ...]:
-    """Purpose: return ``share`` of what a bearer's symptom holds to the partners on interactive ties, split equally.
+def _member_partners(state: RunState, pid: PersonId) -> tuple[PersonId, ...]:
+    """The living family members on an interactive tie to ``pid``: who a symptom's load and its release reach. An
+    external agent (the coach) is passed by, `M1.E.7e`."""
+    return tuple(o for o in _partners(state, pid) if state.people[o].role is Role.MEMBER)
+
+
+def _release_shares(state: RunState, pid: PersonId) -> tuple[tuple[PersonId, float], ...]:
+    """Purpose: how what a bearer's symptom held is split when it is released — by the bond energy of the bearer's
+    interactive ties to living family members (G2, spec revision 36): a parent takes more than a sibling, an outsider
+    none. Ties all at zero bond energy split equally. Returns ``(partner, share)`` with shares summing to 1, or
+    nothing when no living member is on an interactive tie, in which case the hold stays with the bearer.
     Spec:    docs/bowen_agent_model_spec_v2.md#M7.D.2a, #M7.D.2d, #M1.F.9, #M6.4
-    Tests:   tests/bowen/test_symptoms.py::test_m7d2a_a_symptom_ending_returns_what_it_held
+    Tests:   tests/bowen/test_symptoms.py::test_m7d2a_release_is_split_by_bond_energy,
+             tests/bowen/test_symptoms.py::test_m7d2a_release_passes_an_external_agent_by
+    """
+    weights = tuple(sorted(
+        (other, tie.bond_energy) for tie in state.ties_of(pid) if tie.interactive
+        for other in tie.id.members()
+        if other != pid and state.people[other].alive and state.people[other].role is Role.MEMBER
+    ))
+    if not weights:
+        return ()
+    total = math.fsum(w for _, w in weights)
+    if total <= 0:
+        return tuple((other, 1.0 / len(weights)) for other, _ in weights)
+    return tuple((other, w / total) for other, w in weights if w > 0)  # a tie at zero beside live ones takes nothing
+
+
+def release_bound(state: RunState, pid: PersonId, share: float = 1.0) -> tuple[tuple[PersonId, float], ...]:
+    """Purpose: return ``share`` of what a bearer's symptom holds to the family members on interactive ties, each
+    taking the bond energy share of the bearer's tie to them (G2, spec revision 36; equal split before it).
+    Spec:    docs/bowen_agent_model_spec_v2.md#M7.D.2a, #M7.D.2d, #M1.F.9, #M6.4
+    Tests:   tests/bowen/test_symptoms.py::test_m7d2a_a_symptom_ending_returns_what_it_held,
+             tests/bowen/test_symptoms.py::test_m7d2a_release_is_split_by_bond_energy
     """
     person = state.people[pid]
-    partners = _partners(state, pid)
+    shares = _release_shares(state, pid)
     amount = share * person.symptom_bound
-    if not partners or amount <= 0:
+    if not shares or amount <= 0:
         return ()
     person.symptom_bound -= amount
-    each = amount / len(partners)
-    for other in partners:
-        state.people[other].acute_anxiety += each
-    return tuple((other, each) for other in partners)
+    for other, weight in shares:
+        state.people[other].acute_anxiety += amount * weight
+    return tuple((other, amount * weight) for other, weight in shares)
 
 
 def _lock_in_record(state: RunState, pid: PersonId, moved, bound_change: float, cause=None) -> EffectRecord:
@@ -191,15 +222,14 @@ def lock_in(state: RunState, params: EngineParams) -> list[EffectRecord]:
             moved = list(release_bound(state, pid, share))
             if moved:
                 records.append(_lock_in_record(state, pid, moved, -math.fsum(v for _, v in moved)))
-            partners = _partners(state, pid)
+            shares = _release_shares(state, pid)  # G2: the spill is split as the release is, by bond energy
             spill = share * max(0.0, above_usual(person, excess(person)))
-            if partners and spill > 0:  # the severe symptom no longer holds the bearer's own anxiety either
+            if shares and spill > 0:  # the severe symptom no longer holds the bearer's own anxiety either
                 person.acute_anxiety -= spill
-                each = spill / len(partners)
-                for other in partners:
-                    state.people[other].acute_anxiety += each
+                for other, weight in shares:
+                    state.people[other].acute_anxiety += spill * weight
                 records.append(EffectRecord(state.tick, "lock_in", None,
-                                            acute_anxiety=((pid, -spill),) + tuple((o, each) for o in partners),
+                                            acute_anxiety=((pid, -spill),) + tuple((o, spill * w) for o, w in shares),
                                             people=((pid, "symptom_bound", 0.0),)))
     return records
 
@@ -244,8 +274,42 @@ def _onset(state: RunState, pid: PersonId, channel: SymptomChannel, params: Engi
     )
     from src.bowen.engine.event_effects import nodal_spike  # event_effects imports from this module's neighbours
 
-    return inject(state, event, visibility) + nodal_spike(state, event, params) + [  # M4.C.1c, revision 32
+    records = inject(state, event, visibility) + nodal_spike(state, event, params) + [  # M4.C.1c, revision 32
         EffectRecord(state.tick, "symptom_onset", event.id, sinks=((f"symptom_load:{channel.value}", 1.0),))]
+    return records + _illness_loads(state, pid, channel, params, visibility)
+
+
+def _illness_loads(state: RunState, pid: PersonId, channel: SymptomChannel, params: EngineParams,
+                   visibility: HouseholdConductanceVisibility) -> list:
+    """Purpose: a symptom's onset is also an illness: the bearer carries the scale's own-illness load and each family
+    member on an interactive tie the family-illness load at the tie's bond energy share, for the table's weeks
+    (M7.D.1a); an external agent on an interactive tie, the coach, takes none, as G2's release passes them by. They arise after this week's step 2, so they arrive at the next week's, as the life course's
+    events do (``RunState.arising``); nothing is injected here.
+    Spec:    docs/bowen_agent_model_spec_v2.md#M7.D.1a, #M1.F.6a
+    Tests:   tests/bowen/test_event_sizes.py::test_m7d1a_a_symptom_onset_loads_the_bearer_and_the_family,
+             tests/bowen/test_event_sizes.py::test_m7d1a_the_family_illness_load_passes_an_external_agent_by
+    """
+    origin = f"illness:{pid}:{channel.value}"
+    own, weeks = sized_intensity(state.kinds, params, OWN_ILLNESS_KIND, "self")
+    events = [_stressor(state, origin, 0, OWN_ILLNESS_KIND, (pid,), own, weeks)]
+    for index, other in enumerate(_member_partners(state, pid), start=1):
+        tie = state.tie_between(pid, other)
+        reach = tie.bond_energy / SCALE_MAX if tie is not None else 0.0
+        intensity, weeks = sized_intensity(state.kinds, params, FAMILY_ILLNESS_KIND, "tie", reach=reach)
+        if intensity > 0:
+            events.append(_stressor(state, origin, index, FAMILY_ILLNESS_KIND, (other,), intensity, weeks))
+    state.arising += events
+    return []
+
+
+def _stressor(state: RunState, origin: str, index: int, kind: str, targets, intensity: float, weeks: int) -> Event:
+    """A load the engine itself raises at an onset (`M7.D.1a`): the stressor mechanism (`exogenous=True`, as `M1.F.7`
+    requires of it) on the `ENDOGENOUS` channel, since its cause is an event of the run and not the world outside
+    it. The evaluation readout's stress term (`M11.G.2`) reads the channel and leaves these loads out."""
+    tick = state.tick + 1  # due at the next week's step 2
+    return Event(id=EventId(tick, origin, index), kind=kind, mechanism=Mechanism.EXOGENOUS_STRESSOR, sender=None,
+                 targets=tuple(sorted(targets)), intensity=intensity, timestamp=tick, duration=weeks,
+                 exogenous=True, source_position=SourcePosition.NONE, channel=Channel.ENDOGENOUS)
 
 
 def accumulate_symptoms(

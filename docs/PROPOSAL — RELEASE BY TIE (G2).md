@@ -1,7 +1,8 @@
 # Proposal — release by tie (version 2, G2)
 
 > **Status: DECIDED as recommended under the owner's instruction of 2026-10-22, pending the owner's review (Q1–Q2 in
-> §8); drafted the same day. Version 2; nothing built, no spec revision.** It turns the owner's G2 question,
+> §8); drafted the same day. BUILT the same day at spec revision 36 (`M7.D.2a`, `M6.4`), in one batch with G1 and
+> the Holmes–Rahe sizes; B1–B7 of §5 are built and tested.** It turns the owner's G2 question,
 > recorded in `docs/version_2_plan.md` (stage 3, group G, 2026-10-18), into a rule, tests and no new criterion. The
 > owner's words are quoted in §1. Every form and number here is Claude's recommendation, graded `[I]`. It changes what
 > a run computes, so it moves the engine hash; by G1's Q9 it is built in one batch with G1 and the Holmes–Rahe event

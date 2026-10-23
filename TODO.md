@@ -7,13 +7,12 @@ Open items, one line each: ID, date raised, title, record. **Now** blocks versio
 `docs/todo/` (grep its ID). To close one, tick it in its record and run `python3 tools/todo_index.py`: its line
 moves to `docs/TODO_archive.md`. Until 2026-10-22 this file held every item's text; that form is in git history.
 
-## Now (5)
+## Now (4)
 
 - T-001 · 2026-10-19 · Version 2, next · [record](docs/todo/2026-08-22_blocking_the_next_phase.md)
 - T-002 · 2026-10-19 · `/csdp` sweep of 2026-10-19, items not fixed · [record](docs/todo/2026-08-22_blocking_the_next_phase.md)
 - T-003 · 2026-10-20 · Coverage page, minor, from the Part A review … · [record](docs/todo/2026-08-22_blocking_the_next_phase.md)
 - T-004 · 2026-10-20 · Coverage page, from Part B's drafting (2026-10-20), not … · [record](docs/todo/2026-08-22_blocking_the_next_phase.md)
-- T-013 · 2026-10-21 · Before group G's build starts · [record](docs/todo/2026-10-21_stage_1_milestone_review.md)
 
 ## Later (112)
 
@@ -23,7 +22,7 @@ moves to `docs/TODO_archive.md`. Until 2026-10-22 this file held every item's te
 - T-009 · 2026-10-22 · SP-1 Q7: six requirements whose passage supports less … · [record](docs/todo/2026-10-21_stage_1_milestone_review.md)
 - T-010 · 2026-10-22 · Found while building SP-1 (2026-10-22), not fixed · [record](docs/todo/2026-10-21_stage_1_milestone_review.md)
 - T-011 · 2026-10-22 · From the SP-1 build's review (2026-10-22), not fixed · [record](docs/todo/2026-10-21_stage_1_milestone_review.md)
-- T-012 · 2026-10-21 · With group G's regeneration · [record](docs/todo/2026-10-21_stage_1_milestone_review.md)
+- T-012 · 2026-10-22 · With group G's regeneration · [record](docs/todo/2026-10-21_stage_1_milestone_review.md)
 - T-014 · 2026-10-21 · For the stage 3 question list · [record](docs/todo/2026-10-21_stage_1_milestone_review.md)
 - T-015 · 2026-10-21 · SP-2: extend the document-claim tests · [record](docs/todo/2026-10-21_stage_1_milestone_review.md)
 - T-016 · 2026-10-21 · Adjacent, not fixed · [record](docs/todo/2026-10-21_stage_1_milestone_review.md)

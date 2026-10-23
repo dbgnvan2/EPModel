@@ -55,6 +55,9 @@ class RunState:
     store: EventStore = field(default_factory=EventStore)
     triggers: list[ActiveTrigger] = field(default_factory=list)
     stressors: list[ActiveStressor] = field(default_factory=list)  # revision 18: stressors that last
+    # Revision 36 (M7.D.1a): stressors that arise inside a tick after step 2 (an illness at a symptom's onset) and
+    # arrive at the next week's step 2 with the source's own, as the life course's pending events do.
+    arising: list = field(default_factory=list)
     # Revision 19 (M1.E.7): self-directed acts under load awaiting judgement (external.Practice).
     practice: list = field(default_factory=list)
     adjusted: dict = field(default_factory=dict)  # revision 19: (actor, other) -> the week the other last adjusted
@@ -111,6 +114,18 @@ class RunState:
                     self.triangles[trio] = Triangle(trio)
                     added.append(trio)
         return tuple(added)
+
+    def arising_due(self) -> tuple[Event, ...]:
+        """Purpose: the stressors that arose last week, due at this week's step 2 (revision 36, M7.D.1a).
+        Spec:    docs/bowen_agent_model_spec_v2.md#M7.D.1a
+        Tests:   tests/bowen/test_event_sizes.py::test_m7d1a_a_symptom_onset_loads_the_bearer_and_the_family
+        """
+        stale = [e.id for e in self.arising if e.timestamp < self.tick]
+        if stale:
+            raise RuntimeError(f"arising stressors missed their week: {stale}")
+        due = tuple(sorted((e for e in self.arising if e.timestamp == self.tick), key=lambda e: e.id))
+        self.arising = [e for e in self.arising if e.timestamp > self.tick]
+        return due
 
     def ties_of(self, person: PersonId) -> tuple[Relationship, ...]:
         # Cached per person while the set of ties is unchanged (plan B1); the tie objects are the live ones.
@@ -189,6 +204,7 @@ def canonical_state(state: RunState) -> str:
         "queue": plain(state.queue.scheduled()),  # deliveries still to land
         "triggers": [plain(t) for t in state.triggers],  # revision 32: a spike still to land is state
         "stressors": [plain(s) for s in state.stressors],  # version 2 stage 1 (S1.2): a stressor still weighing
+        "arising": [plain(e) for e in state.arising],  # revision 36: a stressor arising this week, due next
         "practice": plain(state.practice),
         "adjusted": plain(state.adjusted),
         "stances": plain(state.stances),

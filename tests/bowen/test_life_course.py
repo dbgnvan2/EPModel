@@ -19,6 +19,7 @@ import pytest
 from src.bowen.engine.moves import DEFAULT_AREA, _pole_of, relax_pseudo_self
 
 from src.bowen.engine.events import Mechanism, Role as DeliveryRole
+from src.bowen.engine.event_sizes import sized_intensity
 from src.bowen.engine.identifiers import PersonId, TieId, TriangleId, child_id
 from src.bowen.engine.life_course import (
     GRIEF, INCOME_LOSS, age_at_death, die, due_events, find_work, total_anxiety, yearly, _birth, _childhood,
@@ -108,7 +109,7 @@ def test_m7c1h_a_new_tie_completes_its_triangles():
 def test_m1a20_a_birth_identifier_is_stable_across_arms():
     """Two arms that differ in their parameters and seed give the couple's children the same identifiers."""
     ids = []
-    for seed, override in ((1, {}), (2, {"grief_scale": 0.0, "new_tie_investment_share": 0.5})):
+    for seed, override in ((1, {}), (2, {"grief_weight": 0.0, "new_tie_investment_share": 0.5})):
         built = pair_now(seed, override)
         for _ in range(5):  # the children are born two and five years after pairing
             yearly(built.state, built.params)
@@ -571,7 +572,9 @@ def test_m63g_grief_lasts_one_to_three_years_by_bond_energy():
     assert set(grief) == {p for p in bonds if state.people[p].role is Role.MEMBER}
     for pid, event in grief.items():
         assert event.mechanism is Mechanism.EXOGENOUS_STRESSOR
-        assert event.intensity == pytest.approx(params.grief_scale * bonds[pid] / 100)
+        who = "spouse" if TieId.of(pid, MARTA) in {f.marital_tie for f in state.families()} else "relative"
+        arrival, _ = sized_intensity(state.kinds, params, GRIEF, who, reach=bonds[pid] / 100, weeks=event.duration)
+        assert event.intensity == pytest.approx(params.grief_weight * arrival)  # revision 36: sized from the scale
         assert params.grief_min_weeks <= event.duration <= params.grief_min_weeks + params.grief_extra_weeks
     strongest, weakest = max(grief, key=bonds.get), min(grief, key=bonds.get)
     assert grief[strongest].duration > grief[weakest].duration
@@ -900,7 +903,7 @@ def test_m7c1k_finding_work_reaches_a_household_with_no_ties_between_its_members
 
 @pytest.mark.parametrize("name, value", [("development_band", 1.5), ("development_rate", -0.1), ("find_work_rate", 2.0),
                                          ("income_shortfall_share", -0.1), ("death_transfer_share", 1.1),
-                                         ("grief_scale", -1.0), ("mortality_b", -0.1), ("find_work_pressure_scale", 0.0),
+                                         ("grief_weight", -1.0), ("mortality_b", -0.1), ("find_work_pressure_scale", 0.0),
                                          ("development_start_age_years", 30), ("working_age_years", 40),
                                          ("coach_retirement_age_years", 20)])
 def test_m7c1_life_course_constants_out_of_range_are_refused(name, value):

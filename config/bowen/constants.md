@@ -92,7 +92,7 @@ activation_regime: synchronous
 | `contact_band_max` | 0.2 | [I] | deviation tolerated at functional level 100 | `M4.C.1a` |
 | `anxiety_togetherness_gain` | 0.5 | [I] | relative rise of the optimum per 100 points of excess anxiety | `M4.C.1b` |
 | `interactive_resting_contact` | 0.5 | [I] | share of the optimum | `M4.C.1c` |
-| `nodal_spike_intensity` | 1.0 | [I] | spike on a cut-off tie's (rejection held) "too little" side when a nodal event reaches one of its members, for the event's week; the size of the Phase B script's `TRIGGER` (the owner, 2026-10-17: "cut ties, as TRIGGER") | `M4.C.1c` |
+| `nodal_spike_intensity` | 1.0 | [I] | spike on a cut-off tie's (in state `CUT_OFF`, revision 36) "too little" side when a nodal event reaches one of its members, for the event's week; the size of the Phase B script's `TRIGGER` (the owner, 2026-10-17: "cut ties, as TRIGGER") | `M4.C.1c` |
 | `contact_relaxation_rate` | 0.1 | [I] | share of the gap to resting contact closed per tick | `M4.C.1c` |
 | `impingement_relaxation_rate` | 0.3 | [I] | share of felt impingement shed per tick | `M4.C.1` |
 | `functional_level_floor` | 1.0 | [I] | functional-level point; also floors the symptom threshold (`M1.A.6`, revision 24) | `M4.C.1` |
@@ -168,7 +168,8 @@ activation_regime: synchronous
 | `working_age_years` | 16 | [I] | year of age | `M7.C.1k` |
 | `find_work_rate` | 0.1 | [I] | probability per week at full pressure | `M7.C.1k` |
 | `find_work_pressure_scale` | 10.0 | [I] | anxiety points above the usual level for full pressure | `M7.C.1k` |
-| `grief_scale` | 20.0 | [I] | stressor intensity at bond energy 100 | `M6.3g` |
+| `grief_weight` | 1.0 | [I] | multiple of grief's Holmes–Rahe size (`event_sizes.md`: spouse 100 LCU, relative 63, × bond energy share); 0 switches grief off | `M6.3g` |
+| `lcu_scale` | 6.9 | [I] | intensity units per life change unit; the owner's anchor (2026-10-19): Phase B's job-loss spell, 324 units, is the scale's 47 LCU | `M1.F.6a` |
 | `grief_min_weeks` | 52 | [I] | fast ticks | `M6.3g` |
 | `grief_extra_weeks` | 104 | [I] | fast ticks at bond energy 100 | `M6.3g` |
 | `income_loss_intensity` | 15.0 | [I] | stressor intensity | `M6.3h` |
@@ -249,6 +250,13 @@ activation_regime: synchronous
 | `fallback_flag_rate` | 0.2 | [I] | share of selections | `M11.D.18` |
 | `equivalence_margin` | 0.5 | [I] | baseline seed-to-seed sd | `M11.4a` |
 | `distance_binding_rate` | 0.3 | [I] | share of excess bound per unit scaled intensity | `M1.D.2a` |
+| `conflict_binding_rate` | 0.15 | [I] | share of excess bound per unit scaled intensity by a CONFLICT; the owner's "smaller share" than distance (2026-10-19), half of it | `M1.D.2c` |
+| `cutoff_stock_cap` | 1583.0 | [I] | anxiety units a cut-off tie holds at most; the largest stock measured at a cut before revision 36 (`docs/review/group_g_readout.md`, phase_d seed 2, under the engine that still moved stock in `REDUCE_CUTOFF` and did not bind `CONFLICT`; the readout's "after" section measures the same under this revision) | `M1.D.2b` |
+| `cutoff_threat_weight` | 0.00312 | [I] | intensity units per unit of stock per week at bond energy 100; sized so a tie cut at the cap at bond 100 delivers one divorce (504 units) over five years with no contact | `M1.D.2b` |
+| `cutoff_decay_weeks` | 260 | [I] | fast ticks for a cut-off tie's stock to reach its floor (the owner's five years, 2026-10-19) | `M1.D.2b` |
+| `cutoff_floor_share` | 0.1 | [I] | the floor as a share of the peak (the owner's 10%, 2026-10-19) | `M1.D.2b` |
+| `positive_bridge_dissipation` | 0.8 | [I] | share of the stock a positive contact across a cut-off tie lets go (the owner's 80%, 2026-10-19) | `M1.D.2b` |
+| `tie_repair_steps` | 3 | [I] | positive contacts that repair a distant or conflicted tie, each removing a third of the reference level (the owner's thirds, 2026-10-19) | `M1.D.2c` |
 | `triangle_transfer_rate` | 0.3 | [I] | share of each insider's excess passed per unit scaled intensity | `M1.C.1` |
 | `outsider_positional_gain` | 0.5 | [I] | positional anxiety per unit transferred | `M1.C.1` |
 | `balance_push_gain` | 0.2 | [I] | balance per unit scaled intensity | `M1.B.5` |

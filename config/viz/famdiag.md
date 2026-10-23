@@ -74,6 +74,13 @@ first_year: 2001
 | I-POSITION | EA | Emotional Autonomy | individual |
 | SYMPTOM_ONSET | SYMPTOM | by_channel | individual |
 | JOB_LOSS | NODAL | Individual | individual |
+| OWN_ILLNESS | NODAL | Individual | individual |
+| FAMILY_ILLNESS | NODAL | Individual | individual |
+| PARTNERING_LOAD | NODAL | Individual | individual |
+| RETIREMENT_LOAD | NODAL | Individual | individual |
+| BIRTH_LOAD | NODAL | Individual | individual |
+| LAUNCH_LOAD | NODAL | Individual | individual |
+| FIND_WORK_LOAD | NODAL | Individual | individual |
 
 ## Symptom channels
 

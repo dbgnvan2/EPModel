@@ -29,9 +29,9 @@ from __future__ import annotations
 import math
 
 from src.bowen.engine.contact import excess
-from src.bowen.engine.events import Mechanism
+from src.bowen.engine.events import Channel, Mechanism
 from src.bowen.engine.log_records import EmittedRecord
-from src.bowen.engine.objects import Role
+from src.bowen.engine.objects import Role, TieState
 from src.bowen.engine.params import EngineParams
 from src.bowen.engine.state import RunState
 from src.bowen.engine.symptoms import threshold
@@ -75,7 +75,10 @@ def evaluate(state: RunState, records, params: EngineParams, framing: str, windo
         if generations.get(pid) is not None:
             by_generation.setdefault(generations[pid], []).append(state.people[pid].basic_level)
 
-    exogenous = [e for e in moves if e.exogenous and e.mechanism is Mechanism.EXOGENOUS_STRESSOR]
+    # Revision 36 (`M7.D.1a`): a symptom's own load and its family's are raised by an onset inside the run, on the
+    # `ENDOGENOUS` channel; they are not stress from outside, so adaptiveness is not divided by them.
+    exogenous = [e for e in moves if e.exogenous and e.mechanism is Mechanism.EXOGENOUS_STRESSOR
+                 and e.channel is not Channel.ENDOGENOUS]
     endogenous = [e for e in moves if not e.exogenous and e.mechanism is Mechanism.ENDOGENOUS_SYMPTOM]
     stress = math.fsum(e.intensity for e in exogenous)
     reactive = count(1 for e in moves if e.mechanism is Mechanism.MOVE and e.sender in members
@@ -102,7 +105,7 @@ def evaluate(state: RunState, records, params: EngineParams, framing: str, windo
             "basic_level_by_generation": {g: math.fsum(v) / len(v) for g, v in sorted(by_generation.items())},
             "projection_line": "not built: children are born in the run from Phase D part II, but the line is not yet read",
         },
-        "cutoff": {str(t): {"bond_energy": state.ties[t].bond_energy, "cut_off": state.ties[t].rejected()}
+        "cutoff": {str(t): {"bond_energy": state.ties[t].bond_energy, "cut_off": state.ties[t].tie_state is TieState.CUT_OFF}
                    for t in family.origin_ties if t in state.ties},
         "stress": {"exogenous_events": len(exogenous), "exogenous_intensity": stress,
                    "endogenous_events": len(endogenous)},

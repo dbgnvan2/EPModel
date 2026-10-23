@@ -110,13 +110,25 @@ MUTANTS = (
     # interactive partner to release to) and comes back on return. Ad hoc 2026-10-17: lock_in +12.1 of the +2.3, and
     # this mutant reverses it (-1.77 +/- 1.61, 150 seeds).
     Mutant("removed-member-hold-released-while-away", NAMED, ("M11.C.11",), "src/bowen/engine/symptoms.py",
-           "    partners = _partners(state, pid)\n    amount = share * person.symptom_bound\n",
-           "    partners = tuple(sorted(o for t in state.ties_of(pid) for o in t.id.members()\n"
+           "    shares = _release_shares(state, pid)\n    amount = share * person.symptom_bound\n",
+           "    everyone = tuple(sorted(o for t in state.ties_of(pid) for o in t.id.members()\n"
            "                            if o != pid and state.people[o].alive))\n"
+           "    shares = tuple((o, 1.0 / len(everyone)) for o in everyone) if everyone else ()\n"
            "    amount = share * person.symptom_bound\n",
            "M7.D.2a's hold released over every tie, worry edges and non-interactive ties included, at every release "
            "(a symptom's end, a death, past the turn, a binder lost): so a removed member's symptom gives back what it "
            "held while they are away, not on return"),
+    # M11.C.48 (version 2 group G1, spec revision 36): the run of negatives before a cutoff is emergent, through the
+    # policy's learned value of CUTOFF. Blinding CUTOFF to its learned value (weighted as if it were the best-valued
+    # act whenever it is legal) makes cutoffs fall without regard to what preceded them, so the run before a cutoff is
+    # no longer than an uncut tie's.
+    Mutant("cutoff-blind-to-learned-value", NAMED, ("M11.C.48", "M11.C.48[phase_d]"), "src/bowen/policy/policy.py",
+           "            value = obs.learned_values.get(o.value_key, 0.0)\n"
+           "            weight = math.exp((value - top) / params.policy_temperature) * availability(o.kind, obs, kinds, params)\n",
+           "            value = top if o.kind == CUTOFF else obs.learned_values.get(o.value_key, 0.0)\n"
+           "            weight = math.exp((value - top) / params.policy_temperature) * availability(o.kind, obs, kinds, params)\n",
+           "M4.D.6's learned value of CUTOFF ignored: CUTOFF carries the top automatic weight whenever it is legal, so "
+           "cutoffs no longer follow a run of negatives"),
 )
 # Passing part II criteria with no mutant in this record, and where their mutation is reported.
 AD_HOC = {

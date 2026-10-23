@@ -1,6 +1,6 @@
 # Run status — HANDOFF
 
-> ## ▶ STATE — the corpus is closed. **Version 1 is complete (2026-10-18) and tagged `version-1` at `d62cfdc`; its spec is revision 32. Version 2 began at revision 33; stage 1 was built and its records regenerated 2026-10-19 and pushed 2026-10-20, and no verdict changed. Revision 34 (2026-10-22) changed wording only: the ASR quotations paraphrased (SP-1) and the stage 1 milestone review's wording fixes. Revision 35 (2026-10-22) moved the revision history into `spec_revision_log.md`, and the inline revision narratives of 129 bodies with it (`spec_revision_35_dispositions.md`, approved by the owner 2026-10-22); no rule changed. Revision 36 (2026-10-22, on the branch `claude/recursing-bohr-2393a1`) built version 2's group G (G1, G2) and the Holmes–Rahe event sizes — 581 unique IDs, 48 acceptance criteria — each choice decided as recommended under the owner's instruction of 2026-10-22, pending the owner's review; the engine hash moved once and every record was regenerated. Work goes on `main` (owner, 2026-10-21).**
+> ## ▶ STATE — the corpus is closed. **Version 1 is complete (2026-10-18) and tagged `version-1` at `d62cfdc`; its spec is revision 32. Version 2 began at revision 33; stage 1 was built and its records regenerated 2026-10-19 and pushed 2026-10-20, and no verdict changed. Revision 34 (2026-10-22) changed wording only: the ASR quotations paraphrased (SP-1) and the stage 1 milestone review's wording fixes. Revision 35 (2026-10-22) moved the revision history into `spec_revision_log.md`, and the inline revision narratives of 129 bodies with it (`spec_revision_35_dispositions.md`, approved by the owner 2026-10-22); no rule changed. Revision 36 (2026-10-22, on the branch `claude/recursing-bohr-2393a1`) built version 2's group G (G1, G2) and the Holmes–Rahe event sizes — 581 unique IDs, 48 acceptance criteria — each choice decided as recommended under the owner's instruction of 2026-10-22, pending the owner's review; the engine hash moved once and every record was regenerated. The stage 2 plan (`implementation_plan_version_2.md` §2) was drafted 2026-10-23 on the branch `stage-2-plan-pilot`, D8–D13 decided as recommended under the same instruction, pending the owner's review; the pilot follows on that branch. Work goes on `main` (owner, 2026-10-21).**
 >
 > **2026-10-22 — version 2's group G and the event sizes built, with spec revision 36** (branch
 > `claude/recursing-bohr-2393a1`, overnight under the owner's instruction of 2026-10-22 to go ahead on Claude's
@@ -19,8 +19,8 @@
 > with no matched uncut tie, T-123);
 > `M11.C.44` FAIL → PASS; `M11.C.17`, `M11.C.7[joint over one spouse]`, `M11.C.10[family of origin]` and
 > `M11.C.2[twelve-person family]` PASS → FAIL, all composite, for the owner's review (T-122); three named mutants
-> survive, `M11.C.48`'s among them, so A11 is not met (T-119 to T-121, T-123). **Next:** the owner's review of the decisions; the stage 2 plan (a separate
-> session), then stage 2's pilot.
+> survive, `M11.C.48`'s among them, so A11 is not met (T-119 to T-121, T-123). **Next (the plan drafted 2026-10-23, `implementation_plan_version_2.md` §2):** the owner's review of revision 36's
+> decisions and of D8–D13; stage 2's pilot on the branch `stage-2-plan-pilot`, timed, then the projection and whether the full sweep runs (§2.4 step 7).
 >
 > **2026-10-22 — model ergonomics built (`docs/plan_model_ergonomics.md`), with spec revision 35.** The spec and
 > the ledger have machine-readable indexes (`docs/spec_index.jsonl`, `docs/theory/ledger_index.jsonl`, the latter

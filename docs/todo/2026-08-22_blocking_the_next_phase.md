@@ -9,8 +9,9 @@
   the review's section below;* ~~the G2 proposal, so group G (G1, G2, the Holmes–Rahe sizes) can go to one revision and be
   built before the stage 2 pilot;~~ *the G2 proposal written and group G built 2026-10-22 at spec revision 36 on the
   branch `claude/recursing-bohr-2393a1`, every record regenerated once, each choice decided as recommended under the
-  owner's instruction of 2026-10-22, pending the owner's review (the revision 36 report);* then the stage 2 plan and
-  its pilot; then proposals for groups C, F and A, each with the owner's note in the plan's §5 Q2.
+  owner's instruction of 2026-10-22, pending the owner's review (the revision 36 report);* ~~then the stage 2 plan~~ *drafted 2026-10-23, `docs/implementation_plan_version_2.md` §2, D8–D13 decided as recommended
+  under the owner's instruction of 2026-10-22, pending the owner's review;* then its pilot (§2.4 steps 2–7, the same
+  branch, `stage-2-plan-pilot`); then proposals for groups C, F and A, each with the owner's note in the plan's §5 Q2.
 - [ ] T-002 ⟨now⟩ **`/csdp` sweep of 2026-10-19, items not fixed** (each with its reason; the last three are the fix re-sweep's
   minor items, recorded under the owner's three-or-fewer rule).
   - The owner's Holmes–Rahe Q3 ("additions carry load", decided 2026-10-19) cited `KS07.1`, which §2 then misdescribed

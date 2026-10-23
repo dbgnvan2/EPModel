@@ -6,8 +6,9 @@ recommended and recorded, where it lands, with the words "decided as recommended
 2026-10-22, pending the owner's review". This record is the one place that lists them all. Ticking the item means the
 owner has reviewed the list; a decision the owner reverses becomes its own item or proposal.
 
-- [ ] T-125 ⟨now⟩ **Owner review of the overnight decisions (2026-10-23):** forty-four decisions in five batches; batches
-  1–4 on `main` at the push of 2026-10-23 06:10 (`146c6bd`), batch 5 with the part I sweep's merge of 2026-10-23.
+- [ ] T-125 ⟨now⟩ **Owner review of the overnight decisions (2026-10-23):** fifty-three decisions in six batches; batches
+  1–4 on `main` at the push of 2026-10-23 06:10 (`146c6bd`), batch 5 with the part I sweep's merge of 2026-10-23,
+  batch 6 with part II's declared ranges (`c955620`).
 
   **Batch 1 — group G and the Holmes–Rahe event sizes, spec revision 36** (branch `claude/recursing-bohr-2393a1`,
   commits `e52adbc`, `0b02fd3`, `da4e512`, `7b1b622`; engine hash `2842f0e8fea8` → `66dcbb1e8ba5`; every record
@@ -119,3 +120,31 @@ owner has reviewed the list; a decision the owner reverses becomes its own item 
       prints as a second line, `phase_d_engine_hash`; Phase C's results kept their keys and were not rerun.
   The fractions held are in `docs/version_2_sweep_record.md`; four keys held in 0 of 8, two in 8 of 8. Reruns at 200
   seeds took 54% of the seeds; the owner kept D8's 200 seeds on 2026-10-23 when told so.
+
+  **Batch 6 — the Phase D part II ranges, declared and not run** (on `main`, `c955620`; hash unchanged; the owner
+  decided on 2026-10-23 to declare only; `docs/implementation_plan_version_2.md` §2.10, "Part II's ranges declared",
+  holds each judgment in full):
+  45. The learner's seven are in `M11.C.2[twelve-person family]`, both `M11.C.10` variants and both `M11.C.48`
+      variants, and out of `M11.C.6` and `M11.C.15`, whose gating readouts are states and whose rows credit no learner.
+  46. `birth_focus_gain` is in `M11.C.2[twelve-person family]`: it acts at the third generation's births, and in seed 1
+      Nadia's first child is born inside the ages the readout averages.
+  47. `nodal_spike_intensity` is in no part II set, though it acts in the twelve-person runs: no part II row credits
+      `M4.C.1c` (T-126 asks the owner).
+  48. `M11.C.6` takes `M7.E.1f`'s four development constants and the estimator's `estimator_sd_weight` and
+      `estimator_rate`; the estimator's window and breadth and the two development ages are out.
+  49. `development_band_support`'s low end is 0.04, the top of `development_band`'s range, for the engine's invariant.
+  50. Both `M11.C.10` variants take `M1.B.3c`'s five rejection constants (the readout, weeks of held rejection, is
+      that derived state); `declared_rejection` and `refusal_cost_gain` are out; `witness_window` is in at 7 to 26.
+  51. `M11.C.15` takes `lock_in_gain` and `acute_decay_rate` only; `lock_in_turn`, `exchange_budget_reduction` (no
+      differentiating exchange completed in 20 seeds of its three runs), `death_transfer_share` and the grief and
+      income constants are out.
+  52. Both `M11.C.48` variants take `M1.D.2b`'s five cutoff constants; `M1.B.3c`'s are out.
+  53. The sweep config gained a *Declared, not run* list: a listed key is shown in the record with its ranges and no
+      number, runs only when `--criteria` names it, and stops the record once it has a cached result.
+
+- [ ] T-126 ⟨now⟩ **Should `nodal_spike_intensity` be swept where the nodal load acts?** Phase D's `M11.C.2` (part I)
+  and `M11.C.2[twelve-person family]` (part II) both run under the nodal load, and the spike acts there (662 spikes in
+  seed 1's 40 twelve-person years, 2026-10-23). Neither set holds it, because no row of theirs credits `M4.C.1c`
+  (decisions 25, 32 and 47). `M11.C.7` and `M11.C.17` do hold it. Owner's question: add it to both `M11.C.2` sets
+  (one range row each in `config/sweep/sweep.md`; part I's `M11.C.2` would then be rerun at 8 samples, part II's runs
+  with the rest of part II), or keep D10's rule that only a credited mechanism is swept. No code change either way.

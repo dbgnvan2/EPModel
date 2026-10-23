@@ -233,8 +233,6 @@ were under; nothing in this file is reworded. Later entries are in `CHANGELOG.md
   from fam-diag changes or adds (named in the test), so the owner's layout, saved from the app into the working
   tree, still passes. That layout is not committed.
 
-Entries dated before 2026-10-21 are in `docs/CHANGELOG_archive.md`, verbatim: those before 2026-10-19, the day version 2 began at the tag `version-1`, moved 2026-10-22, and those of 2026-10-19 and 2026-10-20 moved 2026-10-23 when this file passed its size limit (`tests/test_doc_size.py`). Entries from 2026-10-21 on stay here.
-
 ### Tests that fail when a document restates a changed fact (2026-10-20)
 
 `docs/plan_doc_claim_tests.md`, approved by the owner 2026-10-20 (Q1: status claims checked both ways; Q2: built after

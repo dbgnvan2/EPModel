@@ -7,7 +7,7 @@ Open items, one line each: ID, date raised, title, record. **Now** blocks versio
 `docs/todo/` (grep its ID). To close one, tick it in its record and run `python3 tools/todo_index.py`: its line
 moves to `docs/TODO_archive.md`. Until 2026-10-22 this file held every item's text; that form is in git history.
 
-## Now (9)
+## Now (10)
 
 - T-001 · 2026-10-19 · Version 2, next · [record](docs/todo/2026-08-22_blocking_the_next_phase.md)
 - T-002 · 2026-10-19 · `/csdp` sweep of 2026-10-19, items not fixed · [record](docs/todo/2026-08-22_blocking_the_next_phase.md)
@@ -18,6 +18,7 @@ moves to `docs/TODO_archive.md`. Until 2026-10-22 this file held every item's te
 - T-121 · 2026-10-23 · `M11.C.11`'s named mutant survives · [record](docs/todo/2026-10-23_revision_36_regeneration.md)
 - T-123 · 2026-10-23 · `M11.C.48`'s baseline counts a first cutoff with no … · [record](docs/todo/2026-10-23_revision_36_regeneration.md)
 - T-125 · 2026-10-23 · Owner review of the overnight decisions (2026-10-23) · [record](docs/todo/2026-10-23_overnight_decisions.md)
+- T-126 · 2026-10-23 · Should `nodal_spike_intensity` be swept where the nodal load … · [record](docs/todo/2026-10-23_overnight_decisions.md)
 
 ## Later (113)
 

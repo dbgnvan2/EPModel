@@ -26,6 +26,18 @@ that cache.
 |---|---|---|---|---|---|---|---|
 | `M11.C.16` | composite | PASS | `learning_rate` 0.1–0.4; `credit_horizon` 2–6; `credit_discount` 0.35–1; `cross_person_weight` 0.25–1; `policy_temperature` 0.5–2; `habituation_rate` 0.35–1; `habituation_window` 4–16 | 8 of 8 | 0 | 0 | 0 |
 | `M11.C.42` | composite | FAIL | `learning_rate` 0.1–0.4; `credit_horizon` 2–6; `credit_discount` 0.35–1; `cross_person_weight` 0.25–1; `policy_temperature` 0.5–2; `habituation_rate` 0.35–1; `habituation_window` 4–16; `triangle_transfer_rate` 0.15–0.6; `outsider_positional_gain` 0.25–1; `triangle_activity_window` 2–8 | 0 of 8 | 0 | 8 | 0 |
+| `M11.C.5` | composite | FAIL | `learning_rate` 0.1–0.4; `credit_horizon` 2–6; `credit_discount` 0.35–1; `cross_person_weight` 0.25–1; `policy_temperature` 0.5–2; `habituation_rate` 0.35–1; `habituation_window` 4–16; `debit_gain` 0.15–0.6 | 0 of 8 | 0 | 8 | 0 |
+| `M11.C.27[stable,add_third]` | composite | FAIL | `appraisal_gain` 1.5–6; `intensity_scale` 50–200; `impingement_relaxation_rate` 0.15–0.6; `contact_band_max` 0.1–0.4; `anxiety_togetherness_gain` 0.25–1; `interactive_resting_contact` 0.25–1; `contact_relaxation_rate` 0.05–0.2 | 2 of 8 | 0 | 2 | 0 |
+| `M11.C.27[stable,remove_one]` | composite | FAIL | `appraisal_gain` 1.5–6; `intensity_scale` 50–200; `impingement_relaxation_rate` 0.15–0.6; `contact_band_max` 0.1–0.4; `anxiety_togetherness_gain` 0.25–1; `interactive_resting_contact` 0.25–1; `contact_relaxation_rate` 0.05–0.2 | 3 of 8 | 0 | 3 | 0 |
+| `M11.C.27[unstable,add_third]` | composite | FAIL | `appraisal_gain` 1.5–6; `intensity_scale` 50–200; `impingement_relaxation_rate` 0.15–0.6; `contact_band_max` 0.1–0.4; `anxiety_togetherness_gain` 0.25–1; `interactive_resting_contact` 0.25–1; `contact_relaxation_rate` 0.05–0.2 | 6 of 8 | 0 | 3 | 0 |
+| `M11.C.27[unstable,remove_one]` | composite | PASS | `appraisal_gain` 1.5–6; `intensity_scale` 50–200; `impingement_relaxation_rate` 0.15–0.6; `contact_band_max` 0.1–0.4; `anxiety_togetherness_gain` 0.25–1; `interactive_resting_contact` 0.25–1; `contact_relaxation_rate` 0.05–0.2 | 6 of 8 | 0 | 3 | 0 |
+| `M11.C.29` | mixed | FAIL | `exchange_budget_reduction` 1–4; `symptom_threshold_gain` 0.75–3; `symptom_rearm_fraction` 0.25–1; `symptom_leak_rate` 0.05–0.2; `defence_threshold` 7.5–30 | 0 of 8 | 0 | 8 | 0 |
+| `M11.C.41[light: lower level]` | mixed | PASS | `appraisal_gain` 1.5–6; `contact_band_max` 0.1–0.4; `self_channel_exponent` 1–4; `capacity_level_per_layer` 10–40; `anxiety_band_low` 2.5–10; `anxiety_band_high` 10–30; `acute_decay_rate` 0.1–0.4; `response_up_gain` 0.25–1; `response_down_gain` 0.25–1; `stress_floor_below_basic` 7.5–30 | 8 of 8 | 0 | 0 | 0 |
+| `M11.C.41[heavy: lower level]` | mixed | PASS | `appraisal_gain` 1.5–6; `contact_band_max` 0.1–0.4; `self_channel_exponent` 1–4; `capacity_level_per_layer` 10–40; `anxiety_band_low` 2.5–10; `anxiety_band_high` 10–30; `acute_decay_rate` 0.1–0.4; `response_up_gain` 0.25–1; `response_down_gain` 0.25–1; `stress_floor_below_basic` 7.5–30 | 8 of 8 | 0 | 0 | 0 |
+| `M11.C.41[higher level: heavier stress]` | mixed | FAIL | `appraisal_gain` 1.5–6; `contact_band_max` 0.1–0.4; `self_channel_exponent` 1–4; `capacity_level_per_layer` 10–40; `anxiety_band_low` 2.5–10; `anxiety_band_high` 10–30; `acute_decay_rate` 0.1–0.4; `response_up_gain` 0.25–1; `response_down_gain` 0.25–1; `stress_floor_below_basic` 7.5–30 | 0 of 8 | 0 | 8 | 0 |
+| `M11.C.41[lower level: heavier stress]` | mixed | FAIL | `appraisal_gain` 1.5–6; `contact_band_max` 0.1–0.4; `self_channel_exponent` 1–4; `capacity_level_per_layer` 10–40; `anxiety_band_low` 2.5–10; `anxiety_band_high` 10–30; `acute_decay_rate` 0.1–0.4; `response_up_gain` 0.25–1; `response_down_gain` 0.25–1; `stress_floor_below_basic` 7.5–30 | 1 of 8 | 0 | 8 | 0 |
+| `M11.C.44` | composite | PASS | `appraisal_gain` 1.5–6; `intensity_scale` 50–200; `impingement_relaxation_rate` 0.15–0.6; `contact_band_max` 0.1–0.4; `anxiety_togetherness_gain` 0.25–1; `interactive_resting_contact` 0.25–1; `contact_relaxation_rate` 0.05–0.2; `learning_rate` 0.1–0.4; `credit_horizon` 2–6; `credit_discount` 0.35–1; `cross_person_weight` 0.25–1; `policy_temperature` 0.5–2; `habituation_rate` 0.35–1; `habituation_window` 4–16 | 2 of 8 | 0 | 8 | 0 |
+| `M11.C.45` | composite | FAIL | `triangle_transfer_rate` 0.15–0.6; `outsider_positional_gain` 0.25–1; `learning_rate` 0.1–0.4; `credit_horizon` 2–6; `credit_discount` 0.35–1; `cross_person_weight` 0.25–1; `policy_temperature` 0.5–2; `habituation_rate` 0.35–1; `habituation_window` 4–16 | 0 of 8 | 0 | 8 | 0 |
 
 ## `M11.C.16` — 8 of 8 samples held
 
@@ -52,6 +64,162 @@ that cache.
 | 5 | `learning_rate` 0.14743, `credit_horizon` 2, `credit_discount` 0.570639, `cross_person_weight` 0.303226, `policy_temperature` 1.9058, `habituation_rate` 0.556317, `habituation_window` 6, `triangle_transfer_rate` 0.327408, `outsider_positional_gain` 0.735237, `triangle_activity_window` 7 | 100 then 200 | yes (first FAIL) | FAIL | `triangle_reuse` -0.115 ± 0.19 |
 | 6 | `learning_rate` 0.247177, `credit_horizon` 4, `credit_discount` 0.65235, `cross_person_weight` 0.278314, `policy_temperature` 1.93356, `habituation_rate` 0.383194, `habituation_window` 6, `triangle_transfer_rate` 0.417609, `outsider_positional_gain` 0.67345, `triangle_activity_window` 3 | 100 then 200 | yes (first FAIL) | FAIL | `triangle_reuse` +0.01 ± 0.19 |
 | 7 | `learning_rate` 0.153936, `credit_horizon` 6, `credit_discount` 0.932006, `cross_person_weight` 0.377292, `policy_temperature` 1.83363, `habituation_rate` 0.494547, `habituation_window` 12, `triangle_transfer_rate` 0.391734, `outsider_positional_gain` 0.257091, `triangle_activity_window` 7 | 50 then 200 | yes (first FAIL) | FAIL | `triangle_reuse` -0.03 ± 0.18 |
+
+## `M11.C.5` — 0 of 8 samples held
+
+| Sample | Values | Seeds | Rerun | Verdict | Gating readouts (mean difference ± half-width) |
+|---|---|---|---|---|---|
+| 0 | `learning_rate` 0.167951, `credit_horizon` 4, `credit_discount` 0.583244, `cross_person_weight` 0.49522, `policy_temperature` 1.08727, `habituation_rate` 0.402631, `habituation_window` 13, `debit_gain` 0.455795 | 100 then 200 | yes (first FAIL) | FAIL | `target_reaction` -6.31 ± 13; `third_person_symptom_load` -1.37 ± 7.8 |
+| 1 | `learning_rate` 0.39026, `credit_horizon` 5, `credit_discount` 0.393689, `cross_person_weight` 0.273369, `policy_temperature` 0.508111, `habituation_rate` 0.73147, `habituation_window` 6, `debit_gain` 0.409708 | 100 then 200 | yes (first FAIL) | FAIL | `target_reaction` +1.14 ± 16; `third_person_symptom_load` +7.15 ± 7.9 |
+| 2 | `learning_rate` 0.195627, `credit_horizon` 2, `credit_discount` 0.493847, `cross_person_weight` 0.277107, `policy_temperature` 0.861837, `habituation_rate` 0.989258, `habituation_window` 8, `debit_gain` 0.266782 | 100 then 200 | yes (first FAIL) | FAIL | `target_reaction` -4.96 ± 14; `third_person_symptom_load` -9.07 ± 8.9 |
+| 3 | `learning_rate` 0.396454, `credit_horizon` 6, `credit_discount` 0.720015, `cross_person_weight` 0.354428, `policy_temperature` 1.60408, `habituation_rate` 0.661883, `habituation_window` 8, `debit_gain` 0.396223 | 150 then 200 | yes (first FAIL) | FAIL | `target_reaction` -16.4 ± 13; `third_person_symptom_load` +1.79 ± 8.4 |
+| 4 | `learning_rate` 0.183605, `credit_horizon` 3, `credit_discount` 0.480068, `cross_person_weight` 0.987005, `policy_temperature` 0.627109, `habituation_rate` 0.563414, `habituation_window` 5, `debit_gain` 0.359 | 150 then 200 | yes (first FAIL) | FAIL | `target_reaction` +2.61 ± 16; `third_person_symptom_load` -0.549 ± 9.2 |
+| 5 | `learning_rate` 0.321095, `credit_horizon` 2, `credit_discount` 0.525056, `cross_person_weight` 0.640406, `policy_temperature` 1.05926, `habituation_rate` 0.369117, `habituation_window` 11, `debit_gain` 0.270803 | 100 then 200 | yes (first FAIL) | FAIL | `target_reaction` -0.358 ± 16; `third_person_symptom_load` -6.91 ± 7.9 |
+| 6 | `learning_rate` 0.282321, `credit_horizon` 4, `credit_discount` 0.459213, `cross_person_weight` 0.557407, `policy_temperature` 1.08739, `habituation_rate` 0.360926, `habituation_window` 7, `debit_gain` 0.287311 | 100 then 200 | yes (first FAIL) | FAIL | `target_reaction` +0.939 ± 17; `third_person_symptom_load` -0.165 ± 9 |
+| 7 | `learning_rate` 0.345919, `credit_horizon` 4, `credit_discount` 0.361349, `cross_person_weight` 0.533545, `policy_temperature` 0.674859, `habituation_rate` 0.423036, `habituation_window` 14, `debit_gain` 0.280136 | 100 then 200 | yes (first FAIL) | FAIL | `target_reaction` -7.84 ± 16; `third_person_symptom_load` +4.56 ± 8.3 |
+
+## `M11.C.27[stable,add_third]` — 2 of 8 samples held
+
+| Sample | Values | Seeds | Rerun | Verdict | Gating readouts (mean difference ± half-width) |
+|---|---|---|---|---|---|
+| 0 | `appraisal_gain` 3.21939, `intensity_scale` 163.745, `impingement_relaxation_rate` 0.315612, `contact_band_max` 0.186038, `anxiety_togetherness_gain` 0.985088, `interactive_resting_contact` 0.462487, `contact_relaxation_rate` 0.0634288 | 50 | no | PASS | `pair_deviation` +0.0804 ± 0.031 |
+| 1 | `appraisal_gain` 3.26451, `intensity_scale` 81.2751, `impingement_relaxation_rate` 0.410421, `contact_band_max` 0.138111, `anxiety_togetherness_gain` 0.595387, `interactive_resting_contact` 0.450644, `contact_relaxation_rate` 0.0712574 | 50 then 200 | yes (first FAIL) | FAIL | `pair_deviation` -0.043 ± 0.018 |
+| 2 | `appraisal_gain` 2.12148, `intensity_scale` 50.2241, `impingement_relaxation_rate` 0.441374, `contact_band_max` 0.281172, `anxiety_togetherness_gain` 0.773898, `interactive_resting_contact` 0.619952, `contact_relaxation_rate` 0.0932015 | 50 | no | FAIL | `pair_deviation` -0.159 ± 0.029 |
+| 3 | `appraisal_gain` 2.09872, `intensity_scale` 60.5286, `impingement_relaxation_rate` 0.173556, `contact_band_max` 0.20773, `anxiety_togetherness_gain` 0.348101, `interactive_resting_contact` 0.894493, `contact_relaxation_rate` 0.0552465 | 50 | no | FAIL | `pair_deviation` -0.169 ± 0.03 |
+| 4 | `appraisal_gain` 1.51076, `intensity_scale` 163.485, `impingement_relaxation_rate` 0.339246, `contact_band_max` 0.20039, `anxiety_togetherness_gain` 0.253547, `interactive_resting_contact` 0.727954, `contact_relaxation_rate` 0.0738123 | 50 then 200 | yes (first FAIL) | FAIL | `pair_deviation` +0.00385 ± 0.011 |
+| 5 | `appraisal_gain` 3.04656, `intensity_scale` 171.288, `impingement_relaxation_rate` 0.418897, `contact_band_max` 0.17827, `anxiety_togetherness_gain` 0.254101, `interactive_resting_contact` 0.282656, `contact_relaxation_rate` 0.0866907 | 50 | no | PASS | `pair_deviation` +0.15 ± 0.025 |
+| 6 | `appraisal_gain` 3.25351, `intensity_scale` 57.4221, `impingement_relaxation_rate` 0.202495, `contact_band_max` 0.385533, `anxiety_togetherness_gain` 0.348053, `interactive_resting_contact` 0.388472, `contact_relaxation_rate` 0.0614947 | 50 | no | FAIL | `pair_deviation` -0.127 ± 0.045 |
+| 7 | `appraisal_gain` 5.36649, `intensity_scale` 68.1421, `impingement_relaxation_rate` 0.272825, `contact_band_max` 0.127063, `anxiety_togetherness_gain` 0.581395, `interactive_resting_contact` 0.663369, `contact_relaxation_rate` 0.0697087 | 50 | no | FAIL | `pair_deviation` -0.123 ± 0.035 |
+
+## `M11.C.27[stable,remove_one]` — 3 of 8 samples held
+
+| Sample | Values | Seeds | Rerun | Verdict | Gating readouts (mean difference ± half-width) |
+|---|---|---|---|---|---|
+| 0 | `appraisal_gain` 1.94637, `intensity_scale` 65.5402, `impingement_relaxation_rate` 0.408717, `contact_band_max` 0.305158, `anxiety_togetherness_gain` 0.328419, `interactive_resting_contact` 0.630951, `contact_relaxation_rate` 0.0613844 | 50 then 200 | yes (first FAIL) | FAIL | `pair_deviation` -0.0818 ± 0.027 |
+| 1 | `appraisal_gain` 2.13166, `intensity_scale` 65.5624, `impingement_relaxation_rate` 0.558113, `contact_band_max` 0.124115, `anxiety_togetherness_gain` 0.63501, `interactive_resting_contact` 0.782744, `contact_relaxation_rate` 0.073705 | 50 then 200 | yes (first FAIL) | FAIL | `pair_deviation` -0.0312 ± 0.021 |
+| 2 | `appraisal_gain` 3.37815, `intensity_scale` 137.275, `impingement_relaxation_rate` 0.509683, `contact_band_max` 0.273051, `anxiety_togetherness_gain` 0.557841, `interactive_resting_contact` 0.268158, `contact_relaxation_rate` 0.108788 | 50 | no | PASS | `pair_deviation` +0.157 ± 0.041 |
+| 3 | `appraisal_gain` 5.6257, `intensity_scale` 124.533, `impingement_relaxation_rate` 0.197083, `contact_band_max` 0.229355, `anxiety_togetherness_gain` 0.569121, `interactive_resting_contact` 0.930243, `contact_relaxation_rate` 0.058367 | 50 | no | FAIL | `pair_deviation` -0.272 ± 0.063 |
+| 4 | `appraisal_gain` 2.23335, `intensity_scale` 134.064, `impingement_relaxation_rate` 0.363435, `contact_band_max` 0.118817, `anxiety_togetherness_gain` 0.744403, `interactive_resting_contact` 0.874065, `contact_relaxation_rate` 0.176784 | 100 then 200 | yes (first FAIL) | FAIL | `pair_deviation` -0.0302 ± 0.027 |
+| 5 | `appraisal_gain` 5.75138, `intensity_scale` 152.03, `impingement_relaxation_rate` 0.45087, `contact_band_max` 0.105905, `anxiety_togetherness_gain` 0.257298, `interactive_resting_contact` 0.319156, `contact_relaxation_rate` 0.101521 | 50 | no | PASS | `pair_deviation` +0.131 ± 0.041 |
+| 6 | `appraisal_gain` 5.50968, `intensity_scale` 173.679, `impingement_relaxation_rate` 0.358226, `contact_band_max` 0.195925, `anxiety_togetherness_gain` 0.521919, `interactive_resting_contact` 0.36494, `contact_relaxation_rate` 0.16257 | 100 | no | PASS | `pair_deviation` +0.162 ± 0.029 |
+| 7 | `appraisal_gain` 2.72133, `intensity_scale` 62.1757, `impingement_relaxation_rate` 0.266319, `contact_band_max` 0.122085, `anxiety_togetherness_gain` 0.294768, `interactive_resting_contact` 0.273697, `contact_relaxation_rate` 0.0761002 | 50 | no | FAIL | `pair_deviation` -0.255 ± 0.067 |
+
+## `M11.C.27[unstable,add_third]` — 6 of 8 samples held
+
+| Sample | Values | Seeds | Rerun | Verdict | Gating readouts (mean difference ± half-width) |
+|---|---|---|---|---|---|
+| 0 | `appraisal_gain` 4.9967, `intensity_scale` 116.116, `impingement_relaxation_rate` 0.229653, `contact_band_max` 0.182273, `anxiety_togetherness_gain` 0.825488, `interactive_resting_contact` 0.648147, `contact_relaxation_rate` 0.0633145 | 50 then 200 | yes (first PASS) | PASS | `pair_deviation` -0.0304 ± 0.014 |
+| 1 | `appraisal_gain` 2.13418, `intensity_scale` 77.0131, `impingement_relaxation_rate` 0.535943, `contact_band_max` 0.119347, `anxiety_togetherness_gain` 0.281775, `interactive_resting_contact` 0.663818, `contact_relaxation_rate` 0.0556888 | 50 then 200 | yes (first PASS) | PASS | `pair_deviation` -0.0334 ± 0.017 |
+| 2 | `appraisal_gain` 1.5612, `intensity_scale` 121.034, `impingement_relaxation_rate` 0.205381, `contact_band_max` 0.131511, `anxiety_togetherness_gain` 0.390468, `interactive_resting_contact` 0.532604, `contact_relaxation_rate` 0.0985462 | 50 then 200 | yes (first FAIL) | FAIL | `pair_deviation` +0.0203 ± 0.016 |
+| 3 | `appraisal_gain` 4.70542, `intensity_scale` 69.7662, `impingement_relaxation_rate` 0.26616, `contact_band_max` 0.232305, `anxiety_togetherness_gain` 0.791657, `interactive_resting_contact` 0.616252, `contact_relaxation_rate` 0.0972467 | 50 | no | PASS | `pair_deviation` -0.14 ± 0.031 |
+| 4 | `appraisal_gain` 3.68045, `intensity_scale` 55.4926, `impingement_relaxation_rate` 0.201886, `contact_band_max` 0.153074, `anxiety_togetherness_gain` 0.950284, `interactive_resting_contact` 0.851684, `contact_relaxation_rate` 0.167232 | 50 | no | PASS | `pair_deviation` -0.182 ± 0.036 |
+| 5 | `appraisal_gain` 4.21697, `intensity_scale` 116.764, `impingement_relaxation_rate` 0.194577, `contact_band_max` 0.250149, `anxiety_togetherness_gain` 0.789524, `interactive_resting_contact` 0.67269, `contact_relaxation_rate` 0.127649 | 50 | no | PASS | `pair_deviation` -0.0551 ± 0.021 |
+| 6 | `appraisal_gain` 1.8878, `intensity_scale` 140.774, `impingement_relaxation_rate` 0.418651, `contact_band_max` 0.283231, `anxiety_togetherness_gain` 0.757527, `interactive_resting_contact` 0.317383, `contact_relaxation_rate` 0.0722103 | 50 | no | FAIL | `pair_deviation` +0.13 ± 0.034 |
+| 7 | `appraisal_gain` 2.15495, `intensity_scale` 83.0917, `impingement_relaxation_rate` 0.208393, `contact_band_max` 0.327936, `anxiety_togetherness_gain` 0.716498, `interactive_resting_contact` 0.570882, `contact_relaxation_rate` 0.119218 | 50 | no | PASS | `pair_deviation` -0.0711 ± 0.034 |
+
+## `M11.C.27[unstable,remove_one]` — 6 of 8 samples held
+
+| Sample | Values | Seeds | Rerun | Verdict | Gating readouts (mean difference ± half-width) |
+|---|---|---|---|---|---|
+| 0 | `appraisal_gain` 4.27368, `intensity_scale` 169.039, `impingement_relaxation_rate` 0.508709, `contact_band_max` 0.329073, `anxiety_togetherness_gain` 0.562677, `interactive_resting_contact` 0.975383, `contact_relaxation_rate` 0.0925568 | 100 then 200 | yes (first FAIL) | FAIL | `pair_deviation` +0.00217 ± 0.0092 |
+| 1 | `appraisal_gain` 4.28432, `intensity_scale` 83.8127, `impingement_relaxation_rate` 0.17603, `contact_band_max` 0.22004, `anxiety_togetherness_gain` 0.388266, `interactive_resting_contact` 0.554063, `contact_relaxation_rate` 0.15373 | 50 | no | PASS | `pair_deviation` -0.3 ± 0.062 |
+| 2 | `appraisal_gain` 2.95741, `intensity_scale` 63.726, `impingement_relaxation_rate` 0.194424, `contact_band_max` 0.218054, `anxiety_togetherness_gain` 0.414473, `interactive_resting_contact` 0.730379, `contact_relaxation_rate` 0.101606 | 50 | no | PASS | `pair_deviation` -0.372 ± 0.066 |
+| 3 | `appraisal_gain` 3.70094, `intensity_scale` 64.6425, `impingement_relaxation_rate` 0.582141, `contact_band_max` 0.126487, `anxiety_togetherness_gain` 0.336762, `interactive_resting_contact` 0.482914, `contact_relaxation_rate` 0.159016 | 50 then 200 | yes (first FAIL) | FAIL | `pair_deviation` +0.0214 ± 0.024 |
+| 4 | `appraisal_gain` 3.6771, `intensity_scale` 51.9407, `impingement_relaxation_rate` 0.187517, `contact_band_max` 0.115011, `anxiety_togetherness_gain` 0.298663, `interactive_resting_contact` 0.565772, `contact_relaxation_rate` 0.131724 | 50 | no | PASS | `pair_deviation` -0.351 ± 0.067 |
+| 5 | `appraisal_gain` 3.42713, `intensity_scale` 197.099, `impingement_relaxation_rate` 0.174214, `contact_band_max` 0.316223, `anxiety_togetherness_gain` 0.73766, `interactive_resting_contact` 0.575493, `contact_relaxation_rate` 0.0576598 | 50 | no | PASS | `pair_deviation` -0.158 ± 0.056 |
+| 6 | `appraisal_gain` 1.82668, `intensity_scale` 76.9574, `impingement_relaxation_rate` 0.204421, `contact_band_max` 0.107316, `anxiety_togetherness_gain` 0.281948, `interactive_resting_contact` 0.280391, `contact_relaxation_rate` 0.0771954 | 100 | no | PASS | `pair_deviation` -0.26 ± 0.051 |
+| 7 | `appraisal_gain` 2.09941, `intensity_scale` 87.134, `impingement_relaxation_rate` 0.303915, `contact_band_max` 0.15086, `anxiety_togetherness_gain` 0.813779, `interactive_resting_contact` 0.665229, `contact_relaxation_rate` 0.169127 | 100 then 200 | yes (first PASS) | PASS | `pair_deviation` -0.0569 ± 0.035 |
+
+## `M11.C.29` — 0 of 8 samples held
+
+| Sample | Values | Seeds | Rerun | Verdict | Gating readouts (mean difference ± half-width) |
+|---|---|---|---|---|---|
+| 0 | `exchange_budget_reduction` 1.35993, `symptom_threshold_gain` 0.904683, `symptom_rearm_fraction` 0.955072, `symptom_leak_rate` 0.0571507, `defence_threshold` 29.6982 | 100 then 200 | yes (first FAIL) | FAIL | `third_symptom_weeks` -0.735 ± 0.92 |
+| 1 | `exchange_budget_reduction` 1.16812, `symptom_threshold_gain` 1.21465, `symptom_rearm_fraction` 0.454369, `symptom_leak_rate` 0.122902, `defence_threshold` 14.8103 | 100 then 200 | yes (first FAIL) | FAIL | `third_symptom_weeks` +2.15 ± 2.5 |
+| 2 | `exchange_budget_reduction` 1.05941, `symptom_threshold_gain` 0.825335, `symptom_rearm_fraction` 0.359367, `symptom_leak_rate` 0.138299, `defence_threshold` 28.9782 | 100 then 200 | yes (first FAIL) | FAIL | `third_symptom_weeks` +0.055 ± 1.9 |
+| 3 | `exchange_budget_reduction` 1.32348, `symptom_threshold_gain` 1.86505, `symptom_rearm_fraction` 0.354659, `symptom_leak_rate` 0.0535621, `defence_threshold` 27.5207 | 100 then 200 | yes (first FAIL) | FAIL | `third_symptom_weeks` +1.59 ± 2 |
+| 4 | `exchange_budget_reduction` 1.62647, `symptom_threshold_gain` 1.88616, `symptom_rearm_fraction` 0.283006, `symptom_leak_rate` 0.146563, `defence_threshold` 17.6268 | 100 then 200 | yes (first FAIL) | FAIL | `third_symptom_weeks` +1.7 ± 3.2 |
+| 5 | `exchange_budget_reduction` 1.59839, `symptom_threshold_gain` 1.75799, `symptom_rearm_fraction` 0.336887, `symptom_leak_rate` 0.193432, `defence_threshold` 14.784 | 100 then 200 | yes (first FAIL) | FAIL | `third_symptom_weeks` -0.485 ± 2.6 |
+| 6 | `exchange_budget_reduction` 1.68443, `symptom_threshold_gain` 1.24907, `symptom_rearm_fraction` 0.813006, `symptom_leak_rate` 0.0982, `defence_threshold` 7.60114 | 100 then 200 | yes (first FAIL) | FAIL | `third_symptom_weeks` +3.27 ± 2.3 |
+| 7 | `exchange_budget_reduction` 1.62934, `symptom_threshold_gain` 0.81197, `symptom_rearm_fraction` 0.915737, `symptom_leak_rate` 0.10264, `defence_threshold` 7.9168 | 100 then 200 | yes (first FAIL) | FAIL | `third_symptom_weeks` -0.185 ± 1.7 |
+
+## `M11.C.41[light: lower level]` — 8 of 8 samples held
+
+| Sample | Values | Seeds | Rerun | Verdict | Gating readouts (mean difference ± half-width) |
+|---|---|---|---|---|---|
+| 0 | `appraisal_gain` 2.72363, `contact_band_max` 0.113093, `self_channel_exponent` 3.77225, `capacity_level_per_layer` 28.2722, `anxiety_band_low` 5.4111, `anxiety_band_high` 15.6566, `acute_decay_rate` 0.326085, `response_up_gain` 0.687626, `response_down_gain` 0.827698, `stress_floor_below_basic` 22.7992 | 150 | no | PASS | `mean_acute` +60.9 ± 7; `reactive_over_chance` +0.0211 ± 0.002 |
+| 1 | `appraisal_gain` 2.28199, `contact_band_max` 0.376617, `self_channel_exponent` 1.04212, `capacity_level_per_layer` 36.1389, `anxiety_band_low` 9.34137, `anxiety_band_high` 19.6743, `acute_decay_rate` 0.204601, `response_up_gain` 0.286339, `response_down_gain` 0.306416, `stress_floor_below_basic` 20.7835 | 150 | no | PASS | `mean_acute` +64.3 ± 8.2; `reactive_over_chance` +0.0992 ± 0.0038 |
+| 2 | `appraisal_gain` 2.64019, `contact_band_max` 0.397872, `self_channel_exponent` 1.40945, `capacity_level_per_layer` 32.2823, `anxiety_band_low` 2.85176, `anxiety_band_high` 26.1011, `acute_decay_rate` 0.35435, `response_up_gain` 0.297354, `response_down_gain` 0.810966, `stress_floor_below_basic` 22.8391 | 150 | no | PASS | `mean_acute` +40.8 ± 4.5; `reactive_over_chance` +0.0897 ± 0.0034 |
+| 3 | `appraisal_gain` 2.55182, `contact_band_max` 0.365433, `self_channel_exponent` 2.53816, `capacity_level_per_layer` 16.3341, `anxiety_band_low` 3.21118, `anxiety_band_high` 14.4286, `acute_decay_rate` 0.137657, `response_up_gain` 0.256434, `response_down_gain` 0.365391, `stress_floor_below_basic` 9.34342 | 150 | no | PASS | `mean_acute` +88.2 ± 21; `reactive_over_chance` +0.0466 ± 0.0025 |
+| 4 | `appraisal_gain` 4.74992, `contact_band_max` 0.344154, `self_channel_exponent` 2.62991, `capacity_level_per_layer` 27.6506, `anxiety_band_low` 9.11477, `anxiety_band_high` 18.3701, `acute_decay_rate` 0.332271, `response_up_gain` 0.381773, `response_down_gain` 0.786722, `stress_floor_below_basic` 9.09787 | 150 | no | PASS | `mean_acute` +40.8 ± 3.4; `reactive_over_chance` +0.0468 ± 0.0027 |
+| 5 | `appraisal_gain` 2.15557, `contact_band_max` 0.133828, `self_channel_exponent` 1.00147, `capacity_level_per_layer` 11.58, `anxiety_band_low` 3.23466, `anxiety_band_high` 12.5292, `acute_decay_rate` 0.205423, `response_up_gain` 0.677519, `response_down_gain` 0.558931, `stress_floor_below_basic` 13.5695 | 150 | no | PASS | `mean_acute` +71 ± 8.1; `reactive_over_chance` +0.0964 ± 0.0035 |
+| 6 | `appraisal_gain` 5.07969, `contact_band_max` 0.360759, `self_channel_exponent` 1.16769, `capacity_level_per_layer` 32.1697, `anxiety_band_low` 2.85152, `anxiety_band_high` 11.2112, `acute_decay_rate` 0.121477, `response_up_gain` 0.958375, `response_down_gain` 0.254166, `stress_floor_below_basic` 13.5646 | 150 | no | PASS | `mean_acute` +105 ± 19; `reactive_over_chance` +0.0953 ± 0.0035 |
+| 7 | `appraisal_gain` 2.16703, `contact_band_max` 0.28008, `self_channel_exponent` 2.72947, `capacity_level_per_layer` 30.8706, `anxiety_band_low` 7.0132, `anxiety_band_high` 15.0052, `acute_decay_rate` 0.17711, `response_up_gain` 0.467732, `response_down_gain` 0.721926, `stress_floor_below_basic` 21.3817 | 150 | no | PASS | `mean_acute` +126 ± 16; `reactive_over_chance` +0.0432 ± 0.0028 |
+
+## `M11.C.41[heavy: lower level]` — 8 of 8 samples held
+
+| Sample | Values | Seeds | Rerun | Verdict | Gating readouts (mean difference ± half-width) |
+|---|---|---|---|---|---|
+| 0 | `appraisal_gain` 4.01613, `contact_band_max` 0.144333, `self_channel_exponent` 1.36066, `capacity_level_per_layer` 16.259, `anxiety_band_low` 3.57521, `anxiety_band_high` 19.3809, `acute_decay_rate` 0.355849, `response_up_gain` 0.727111, `response_down_gain` 0.74252, `stress_floor_below_basic` 18.7095 | 150 | no | PASS | `mean_acute` +44.8 ± 4.2; `reactive_over_chance` +0.0873 ± 0.0034 |
+| 1 | `appraisal_gain` 1.5991, `contact_band_max` 0.214531, `self_channel_exponent` 1.05898, `capacity_level_per_layer` 12.1965, `anxiety_band_low` 2.69164, `anxiety_band_high` 23.3819, `acute_decay_rate` 0.11989, `response_up_gain` 0.782689, `response_down_gain` 0.361477, `stress_floor_below_basic` 8.42868 | 150 | no | PASS | `mean_acute` +91.9 ± 18; `reactive_over_chance` +0.095 ± 0.0031 |
+| 2 | `appraisal_gain` 5.83853, `contact_band_max` 0.133911, `self_channel_exponent` 1.07182, `capacity_level_per_layer` 16.3829, `anxiety_band_low` 5.21336, `anxiety_band_high` 13.8269, `acute_decay_rate` 0.303004, `response_up_gain` 0.937798, `response_down_gain` 0.592981, `stress_floor_below_basic` 27.0522 | 150 | no | PASS | `mean_acute` +70 ± 11; `reactive_over_chance` +0.0924 ± 0.0033 |
+| 3 | `appraisal_gain` 1.66923, `contact_band_max` 0.178077, `self_channel_exponent` 1.01505, `capacity_level_per_layer` 19.1267, `anxiety_band_low` 7.24735, `anxiety_band_high` 27.9023, `acute_decay_rate` 0.108779, `response_up_gain` 0.387141, `response_down_gain` 0.560126, `stress_floor_below_basic` 28.7107 | 150 | no | PASS | `mean_acute` +367 ± 1.4e+02; `reactive_over_chance` +0.1 ± 0.0031 |
+| 4 | `appraisal_gain` 4.83792, `contact_band_max` 0.245945, `self_channel_exponent` 2.69768, `capacity_level_per_layer` 23.5017, `anxiety_band_low` 5.12929, `anxiety_band_high` 23.6852, `acute_decay_rate` 0.1778, `response_up_gain` 0.658481, `response_down_gain` 0.761051, `stress_floor_below_basic` 9.48144 | 150 | no | PASS | `mean_acute` +101 ± 16; `reactive_over_chance` +0.0428 ± 0.0024 |
+| 5 | `appraisal_gain` 2.49446, `contact_band_max` 0.322878, `self_channel_exponent` 1.29448, `capacity_level_per_layer` 13.1864, `anxiety_band_low` 5.82178, `anxiety_band_high` 22.6528, `acute_decay_rate` 0.191032, `response_up_gain` 0.418997, `response_down_gain` 0.786341, `stress_floor_below_basic` 8.26357 | 150 | no | PASS | `mean_acute` +82.2 ± 9.5; `reactive_over_chance` +0.0968 ± 0.0033 |
+| 6 | `appraisal_gain` 1.85667, `contact_band_max` 0.109641, `self_channel_exponent` 1.14778, `capacity_level_per_layer` 14.628, `anxiety_band_low` 4.67259, `anxiety_band_high` 10.0543, `acute_decay_rate` 0.283577, `response_up_gain` 0.838352, `response_down_gain` 0.653498, `stress_floor_below_basic` 16.2741 | 150 | no | PASS | `mean_acute` +55.1 ± 5.5; `reactive_over_chance` +0.0946 ± 0.0033 |
+| 7 | `appraisal_gain` 1.92653, `contact_band_max` 0.135924, `self_channel_exponent` 2.57302, `capacity_level_per_layer` 31.9031, `anxiety_band_low` 4.07826, `anxiety_band_high` 10.7114, `acute_decay_rate` 0.119438, `response_up_gain` 0.392909, `response_down_gain` 0.728598, `stress_floor_below_basic` 7.78338 | 150 | no | PASS | `mean_acute` +114 ± 30; `reactive_over_chance` +0.0464 ± 0.0029 |
+
+## `M11.C.41[higher level: heavier stress]` — 0 of 8 samples held
+
+| Sample | Values | Seeds | Rerun | Verdict | Gating readouts (mean difference ± half-width) |
+|---|---|---|---|---|---|
+| 0 | `appraisal_gain` 3.916, `contact_band_max` 0.105596, `self_channel_exponent` 2.59508, `capacity_level_per_layer` 19.3821, `anxiety_band_low` 3.38287, `anxiety_band_high` 10.5258, `acute_decay_rate` 0.145846, `response_up_gain` 0.478362, `response_down_gain` 0.395942, `stress_floor_below_basic` 10.9757 | 150 then 200 | yes (first PASS) | FAIL | `mean_acute` +28.2 ± 16; `reactive_over_chance` +0.000905 ± 0.0017 |
+| 1 | `appraisal_gain` 5.72419, `contact_band_max` 0.336689, `self_channel_exponent` 1.08415, `capacity_level_per_layer` 10.4138, `anxiety_band_low` 3.72641, `anxiety_band_high` 15.7476, `acute_decay_rate` 0.270728, `response_up_gain` 0.897533, `response_down_gain` 0.675598, `stress_floor_below_basic` 11.5742 | 150 then 200 | yes (first FAIL) | FAIL | `mean_acute` +7.52 ± 3.1; `reactive_over_chance` -0.00157 ± 0.0028 |
+| 2 | `appraisal_gain` 2.32096, `contact_band_max` 0.16871, `self_channel_exponent` 3.44807, `capacity_level_per_layer` 16.426, `anxiety_band_low` 3.71611, `anxiety_band_high` 13.4728, `acute_decay_rate` 0.371931, `response_up_gain` 0.562693, `response_down_gain` 0.998717, `stress_floor_below_basic` 18.5112 | 150 then 200 | yes (first FAIL) | FAIL | `mean_acute` +4.39 ± 2.2; `reactive_over_chance` +0.000694 ± 0.0015 |
+| 3 | `appraisal_gain` 1.5449, `contact_band_max` 0.109374, `self_channel_exponent` 3.26803, `capacity_level_per_layer` 12.4596, `anxiety_band_low` 2.72947, `anxiety_band_high` 13.1128, `acute_decay_rate` 0.27614, `response_up_gain` 0.910546, `response_down_gain` 0.648583, `stress_floor_below_basic` 16.425 | 150 then 200 | yes (first FAIL) | FAIL | `mean_acute` +9.89 ± 4.1; `reactive_over_chance` -0.000986 ± 0.0015 |
+| 4 | `appraisal_gain` 1.78149, `contact_band_max` 0.28266, `self_channel_exponent` 1.10556, `capacity_level_per_layer` 26.095, `anxiety_band_low` 3.66115, `anxiety_band_high` 17.7112, `acute_decay_rate` 0.392824, `response_up_gain` 0.289874, `response_down_gain` 0.290234, `stress_floor_below_basic` 18.5251 | 150 then 200 | yes (first FAIL) | FAIL | `mean_acute` +3.01 ± 1.1; `reactive_over_chance` -0.00268 ± 0.0025 |
+| 5 | `appraisal_gain` 4.09255, `contact_band_max` 0.148248, `self_channel_exponent` 2.82006, `capacity_level_per_layer` 11.7557, `anxiety_band_low` 4.73867, `anxiety_band_high` 25.0011, `acute_decay_rate` 0.179376, `response_up_gain` 0.381733, `response_down_gain` 0.311123, `stress_floor_below_basic` 20.9833 | 150 then 200 | yes (first FAIL) | FAIL | `mean_acute` +22.1 ± 11; `reactive_over_chance` -0.000825 ± 0.0018 |
+| 6 | `appraisal_gain` 5.12955, `contact_band_max` 0.170912, `self_channel_exponent` 2.16427, `capacity_level_per_layer` 12.2236, `anxiety_band_low` 3.03395, `anxiety_band_high` 20.0989, `acute_decay_rate` 0.218762, `response_up_gain` 0.525135, `response_down_gain` 0.25339, `stress_floor_below_basic` 8.86525 | 150 then 200 | yes (first FAIL) | FAIL | `mean_acute` +11.5 ± 6; `reactive_over_chance` +0.000196 ± 0.002 |
+| 7 | `appraisal_gain` 3.94679, `contact_band_max` 0.179393, `self_channel_exponent` 1.48056, `capacity_level_per_layer` 14.8825, `anxiety_band_low` 6.32438, `anxiety_band_high` 16.2656, `acute_decay_rate` 0.101508, `response_up_gain` 0.287378, `response_down_gain` 0.292116, `stress_floor_below_basic` 7.59631 | 150 then 200 | yes (first FAIL) | FAIL | `mean_acute` +22.2 ± 23; `reactive_over_chance` +0.000256 ± 0.0022 |
+
+## `M11.C.41[lower level: heavier stress]` — 1 of 8 samples held
+
+| Sample | Values | Seeds | Rerun | Verdict | Gating readouts (mean difference ± half-width) |
+|---|---|---|---|---|---|
+| 0 | `appraisal_gain` 2.66467, `contact_band_max` 0.375253, `self_channel_exponent` 2.36387, `capacity_level_per_layer` 14.2742, `anxiety_band_low` 9.04436, `anxiety_band_high` 10.209, `acute_decay_rate` 0.207457, `response_up_gain` 0.970466, `response_down_gain` 0.799206, `stress_floor_below_basic` 15.3317 | 150 then 200 | yes (first FAIL) | FAIL | `mean_acute` +10.2 ± 13; `reactive_over_chance` +0.00146 ± 0.0019 |
+| 1 | `appraisal_gain` 3.82847, `contact_band_max` 0.338612, `self_channel_exponent` 1.33346, `capacity_level_per_layer` 11.3452, `anxiety_band_low` 3.94993, `anxiety_band_high` 15.2354, `acute_decay_rate` 0.218437, `response_up_gain` 0.881996, `response_down_gain` 0.992372, `stress_floor_below_basic` 8.70146 | 150 then 200 | yes (first FAIL) | FAIL | `mean_acute` +18.1 ± 8.6; `reactive_over_chance` -0.000267 ± 0.002 |
+| 2 | `appraisal_gain` 1.70823, `contact_band_max` 0.225976, `self_channel_exponent` 1.68446, `capacity_level_per_layer` 10.4416, `anxiety_band_low` 2.63911, `anxiety_band_high` 25.7184, `acute_decay_rate` 0.106329, `response_up_gain` 0.663639, `response_down_gain` 0.403715, `stress_floor_below_basic` 17.4335 | 150 then 200 | yes (first FAIL) | FAIL | `mean_acute` +60.7 ± 24; `reactive_over_chance` +0.000848 ± 0.0022 |
+| 3 | `appraisal_gain` 3.32782, `contact_band_max` 0.145064, `self_channel_exponent` 2.29588, `capacity_level_per_layer` 28.9342, `anxiety_band_low` 8.41986, `anxiety_band_high` 20.8489, `acute_decay_rate` 0.308664, `response_up_gain` 0.362158, `response_down_gain` 0.741846, `stress_floor_below_basic` 11.1852 | 150 then 200 | yes (first PASS) | PASS | `mean_acute` +9.48 ± 5.6; `reactive_over_chance` +0.00198 ± 0.0019 |
+| 4 | `appraisal_gain` 1.91682, `contact_band_max` 0.179301, `self_channel_exponent` 1.21784, `capacity_level_per_layer` 29.5559, `anxiety_band_low` 7.26413, `anxiety_band_high` 25.464, `acute_decay_rate` 0.157289, `response_up_gain` 0.316127, `response_down_gain` 0.554143, `stress_floor_below_basic` 11.7264 | 150 then 200 | yes (first FAIL) | FAIL | `mean_acute` +14.7 ± 12; `reactive_over_chance` +0.000587 ± 0.002 |
+| 5 | `appraisal_gain` 1.79077, `contact_band_max` 0.215938, `self_channel_exponent` 3.75719, `capacity_level_per_layer` 33.8869, `anxiety_band_low` 8.72996, `anxiety_band_high` 17.2125, `acute_decay_rate` 0.121732, `response_up_gain` 0.34364, `response_down_gain` 0.313023, `stress_floor_below_basic` 10.3043 | 150 then 200 | yes (first FAIL) | FAIL | `mean_acute` +14.3 ± 23; `reactive_over_chance` +0.00172 ± 0.0017 |
+| 6 | `appraisal_gain` 4.01073, `contact_band_max` 0.291791, `self_channel_exponent` 1.52381, `capacity_level_per_layer` 19.4256, `anxiety_band_low` 5.94415, `anxiety_band_high` 10.2349, `acute_decay_rate` 0.115985, `response_up_gain` 0.447825, `response_down_gain` 0.729339, `stress_floor_below_basic` 10.2375 | 150 then 200 | yes (first FAIL) | FAIL | `mean_acute` +32.2 ± 20; `reactive_over_chance` +0.0012 ± 0.002 |
+| 7 | `appraisal_gain` 5.47275, `contact_band_max` 0.32336, `self_channel_exponent` 2.13474, `capacity_level_per_layer` 29.5927, `anxiety_band_low` 5.58246, `anxiety_band_high` 11.4662, `acute_decay_rate` 0.176462, `response_up_gain` 0.361227, `response_down_gain` 0.288744, `stress_floor_below_basic` 22.9988 | 100 then 200 | yes (first FAIL) | FAIL | `mean_acute` +20.1 ± 17; `reactive_over_chance` -0.000408 ± 0.0022 |
+
+## `M11.C.44` — 2 of 8 samples held
+
+| Sample | Values | Seeds | Rerun | Verdict | Gating readouts (mean difference ± half-width) |
+|---|---|---|---|---|---|
+| 0 | `appraisal_gain` 5.5203, `intensity_scale` 81.1361, `impingement_relaxation_rate` 0.151938, `contact_band_max` 0.307381, `anxiety_togetherness_gain` 0.32193, `interactive_resting_contact` 0.308467, `contact_relaxation_rate` 0.164261, `learning_rate` 0.178889, `credit_horizon` 2, `credit_discount` 0.530347, `cross_person_weight` 0.591073, `policy_temperature` 1.01689, `habituation_rate` 0.664684, `habituation_window` 10 | 100 then 200 | yes (first FAIL) | FAIL | `outside_inside_ratio` -0.0103 ± 0.067 |
+| 1 | `appraisal_gain` 2.77875, `intensity_scale` 66.5044, `impingement_relaxation_rate` 0.509006, `contact_band_max` 0.234915, `anxiety_togetherness_gain` 0.806086, `interactive_resting_contact` 0.334791, `contact_relaxation_rate` 0.148521, `learning_rate` 0.112797, `credit_horizon` 4, `credit_discount` 0.858073, `cross_person_weight` 0.630618, `policy_temperature` 1.01569, `habituation_rate` 0.789585, `habituation_window` 7 | 100 then 200 | yes (first FAIL) | FAIL | `outside_inside_ratio` +0.0462 ± 0.069 |
+| 2 | `appraisal_gain` 4.67805, `intensity_scale` 141.74, `impingement_relaxation_rate` 0.539005, `contact_band_max` 0.100651, `anxiety_togetherness_gain` 0.275232, `interactive_resting_contact` 0.315161, `contact_relaxation_rate` 0.188416, `learning_rate` 0.243845, `credit_horizon` 5, `credit_discount` 0.36077, `cross_person_weight` 0.440921, `policy_temperature` 0.919735, `habituation_rate` 0.521523, `habituation_window` 9 | 100 then 200 | yes (first FAIL) | FAIL | `outside_inside_ratio` +0.00906 ± 0.061 |
+| 3 | `appraisal_gain` 2.77449, `intensity_scale` 147.937, `impingement_relaxation_rate` 0.239793, `contact_band_max` 0.22855, `anxiety_togetherness_gain` 0.999241, `interactive_resting_contact` 0.462821, `contact_relaxation_rate` 0.0922161, `learning_rate` 0.345878, `credit_horizon` 6, `credit_discount` 0.649524, `cross_person_weight` 0.506852, `policy_temperature` 0.725707, `habituation_rate` 0.988032, `habituation_window` 10 | 100 then 200 | yes (first FAIL) | PASS | `outside_inside_ratio` +0.0819 ± 0.079 |
+| 4 | `appraisal_gain` 3.89088, `intensity_scale` 55.8606, `impingement_relaxation_rate` 0.157953, `contact_band_max` 0.240318, `anxiety_togetherness_gain` 0.52846, `interactive_resting_contact` 0.302228, `contact_relaxation_rate` 0.0668104, `learning_rate` 0.155128, `credit_horizon` 6, `credit_discount` 0.617253, `cross_person_weight` 0.271932, `policy_temperature` 0.781079, `habituation_rate` 0.450904, `habituation_window` 14 | 100 then 200 | yes (first FAIL) | FAIL | `outside_inside_ratio` +0.0112 ± 0.073 |
+| 5 | `appraisal_gain` 2.50719, `intensity_scale` 145.617, `impingement_relaxation_rate` 0.186335, `contact_band_max` 0.112559, `anxiety_togetherness_gain` 0.396267, `interactive_resting_contact` 0.400185, `contact_relaxation_rate` 0.156126, `learning_rate` 0.231793, `credit_horizon` 5, `credit_discount` 0.798379, `cross_person_weight` 0.6184, `policy_temperature` 1.78952, `habituation_rate` 0.40714, `habituation_window` 13 | 50 then 200 | yes (first FAIL) | PASS | `outside_inside_ratio` +0.0313 ± 0.034 |
+| 6 | `appraisal_gain` 4.32891, `intensity_scale` 187.45, `impingement_relaxation_rate` 0.573952, `contact_band_max` 0.170685, `anxiety_togetherness_gain` 0.957259, `interactive_resting_contact` 0.650162, `contact_relaxation_rate` 0.0872421, `learning_rate` 0.136476, `credit_horizon` 6, `credit_discount` 0.797178, `cross_person_weight` 0.842724, `policy_temperature` 1.63492, `habituation_rate` 0.465853, `habituation_window` 15 | 50 then 200 | yes (first FAIL) | FAIL | `outside_inside_ratio` -0.0234 ± 0.031 |
+| 7 | `appraisal_gain` 1.90385, `intensity_scale` 196.529, `impingement_relaxation_rate` 0.288962, `contact_band_max` 0.160842, `anxiety_togetherness_gain` 0.44597, `interactive_resting_contact` 0.909089, `contact_relaxation_rate` 0.165928, `learning_rate` 0.157426, `credit_horizon` 3, `credit_discount` 0.433857, `cross_person_weight` 0.510989, `policy_temperature` 1.34677, `habituation_rate` 0.373382, `habituation_window` 8 | 50 then 200 | yes (first FAIL) | FAIL | `outside_inside_ratio` -0.0165 ± 0.029 |
+
+## `M11.C.45` — 0 of 8 samples held
+
+| Sample | Values | Seeds | Rerun | Verdict | Gating readouts (mean difference ± half-width) |
+|---|---|---|---|---|---|
+| 0 | `triangle_transfer_rate` 0.487292, `outsider_positional_gain` 0.620514, `learning_rate` 0.138262, `credit_horizon` 2, `credit_discount` 0.479076, `cross_person_weight` 0.413674, `policy_temperature` 0.74167, `habituation_rate` 0.978019, `habituation_window` 5 | 150 then 200 | yes (first FAIL) | FAIL | `triangle_rate` -0.000354 ± 0.0052 |
+| 1 | `triangle_transfer_rate` 0.328353, `outsider_positional_gain` 0.779097, `learning_rate` 0.159481, `credit_horizon` 4, `credit_discount` 0.991549, `cross_person_weight` 0.368795, `policy_temperature` 0.621226, `habituation_rate` 0.694746, `habituation_window` 13 | 150 then 200 | yes (first FAIL) | FAIL | `triangle_rate` -0.00608 ± 0.0052 |
+| 2 | `triangle_transfer_rate` 0.263522, `outsider_positional_gain` 0.267341, `learning_rate` 0.130017, `credit_horizon` 2, `credit_discount` 0.426846, `cross_person_weight` 0.411013, `policy_temperature` 1.9338, `habituation_rate` 0.598246, `habituation_window` 6 | 100 then 200 | yes (first FAIL) | FAIL | `triangle_rate` -0.00125 ± 0.003 |
+| 3 | `triangle_transfer_rate` 0.166737, `outsider_positional_gain` 0.535625, `learning_rate` 0.112957, `credit_horizon` 3, `credit_discount` 0.463608, `cross_person_weight` 0.327889, `policy_temperature` 0.766595, `habituation_rate` 0.564605, `habituation_window` 8 | 150 then 200 | yes (first FAIL) | FAIL | `triangle_rate` -0.00104 ± 0.0039 |
+| 4 | `triangle_transfer_rate` 0.24013, `outsider_positional_gain` 0.375579, `learning_rate` 0.111923, `credit_horizon` 5, `credit_discount` 0.560323, `cross_person_weight` 0.516853, `policy_temperature` 0.522612, `habituation_rate` 0.548046, `habituation_window` 13 | 150 then 200 | yes (first FAIL) | FAIL | `triangle_rate` +0.000458 ± 0.004 |
+| 5 | `triangle_transfer_rate` 0.256628, `outsider_positional_gain` 0.878354, `learning_rate` 0.163017, `credit_horizon` 5, `credit_discount` 0.689272, `cross_person_weight` 0.745417, `policy_temperature` 0.705216, `habituation_rate` 0.642278, `habituation_window` 13 | 150 then 200 | yes (first FAIL) | FAIL | `triangle_rate` -0.00148 ± 0.0044 |
+| 6 | `triangle_transfer_rate` 0.312158, `outsider_positional_gain` 0.388808, `learning_rate` 0.107846, `credit_horizon` 6, `credit_discount` 0.710305, `cross_person_weight` 0.876676, `policy_temperature` 1.84589, `habituation_rate` 0.511396, `habituation_window` 13 | 100 then 200 | yes (first PASS) | FAIL | `triangle_rate` +2.08e-05 ± 0.0029 |
+| 7 | `triangle_transfer_rate` 0.336987, `outsider_positional_gain` 0.399004, `learning_rate` 0.104346, `credit_horizon` 3, `credit_discount` 0.797235, `cross_person_weight` 0.87346, `policy_temperature` 1.15184, `habituation_rate` 0.551693, `habituation_window` 14 | 150 then 200 | yes (first PASS) | FAIL | `triangle_rate` +0.00113 ± 0.0033 |
 
 ## Machine-readable
 
@@ -684,6 +852,4328 @@ that cache.
       "readout": "triangle_reuse",
       "mean_difference": -0.03,
       "half_width": 0.18270043801329883,
+      "direction": 1
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "criterion": "M11.C.5",
+  "samples": 8,
+  "counted": 8,
+  "held": 0,
+  "undetermined": 0,
+  "errored": 0,
+  "reruns": 8,
+  "constants": [
+   {
+    "constant": "learning_rate",
+    "low": 0.1,
+    "high": 0.4,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "credit_horizon",
+    "low": 2.0,
+    "high": 6.0,
+    "scale": "integer",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "credit_discount",
+    "low": 0.35,
+    "high": 1.0,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "cross_person_weight",
+    "low": 0.25,
+    "high": 1.0,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "policy_temperature",
+    "low": 0.5,
+    "high": 2.0,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "habituation_rate",
+    "low": 0.35,
+    "high": 1.0,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "habituation_window",
+    "low": 4.0,
+    "high": 16.0,
+    "scale": "integer",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "debit_gain",
+    "low": 0.15,
+    "high": 0.6,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   }
+  ],
+  "rows": [
+   {
+    "index": 0,
+    "values": {
+     "learning_rate": "0.167951",
+     "credit_horizon": "4",
+     "credit_discount": "0.583244",
+     "cross_person_weight": "0.49522",
+     "policy_temperature": "1.08727",
+     "habituation_rate": "0.402631",
+     "habituation_window": "13",
+     "debit_gain": "0.455795"
+    },
+    "outcome": "FAIL",
+    "seeds": 100,
+    "readouts": [
+     {
+      "readout": "target_reaction",
+      "mean_difference": -6.12508681700863,
+      "half_width": 18.26990539295332,
+      "direction": 1
+     },
+     {
+      "readout": "third_person_symptom_load",
+      "mean_difference": 4.884847087877776,
+      "half_width": 10.343632726732348,
+      "direction": 1
+     }
+    ],
+    "rerun": true,
+    "error": "",
+    "first_outcome": "FAIL",
+    "rerun_seeds": 200,
+    "rerun_readouts": [
+     {
+      "readout": "target_reaction",
+      "mean_difference": -6.311201259314398,
+      "half_width": 13.009271739083378,
+      "direction": 1
+     },
+     {
+      "readout": "third_person_symptom_load",
+      "mean_difference": -1.3680453616156876,
+      "half_width": 7.840154761365429,
+      "direction": 1
+     }
+    ]
+   },
+   {
+    "index": 1,
+    "values": {
+     "learning_rate": "0.39026",
+     "credit_horizon": "5",
+     "credit_discount": "0.393689",
+     "cross_person_weight": "0.273369",
+     "policy_temperature": "0.508111",
+     "habituation_rate": "0.73147",
+     "habituation_window": "6",
+     "debit_gain": "0.409708"
+    },
+    "outcome": "FAIL",
+    "seeds": 100,
+    "readouts": [
+     {
+      "readout": "target_reaction",
+      "mean_difference": 11.088732555082718,
+      "half_width": 24.188100349347994,
+      "direction": 1
+     },
+     {
+      "readout": "third_person_symptom_load",
+      "mean_difference": 8.799740804711428,
+      "half_width": 10.009327866176791,
+      "direction": 1
+     }
+    ],
+    "rerun": true,
+    "error": "",
+    "first_outcome": "FAIL",
+    "rerun_seeds": 200,
+    "rerun_readouts": [
+     {
+      "readout": "target_reaction",
+      "mean_difference": 1.1393634348431498,
+      "half_width": 16.147187475069764,
+      "direction": 1
+     },
+     {
+      "readout": "third_person_symptom_load",
+      "mean_difference": 7.153394997525088,
+      "half_width": 7.949448397974238,
+      "direction": 1
+     }
+    ]
+   },
+   {
+    "index": 2,
+    "values": {
+     "learning_rate": "0.195627",
+     "credit_horizon": "2",
+     "credit_discount": "0.493847",
+     "cross_person_weight": "0.277107",
+     "policy_temperature": "0.861837",
+     "habituation_rate": "0.989258",
+     "habituation_window": "8",
+     "debit_gain": "0.266782"
+    },
+    "outcome": "FAIL",
+    "seeds": 100,
+    "readouts": [
+     {
+      "readout": "target_reaction",
+      "mean_difference": 1.5775926999003922,
+      "half_width": 19.5704362471296,
+      "direction": 1
+     },
+     {
+      "readout": "third_person_symptom_load",
+      "mean_difference": -8.66148008172253,
+      "half_width": 11.957637360754992,
+      "direction": 1
+     }
+    ],
+    "rerun": true,
+    "error": "",
+    "first_outcome": "FAIL",
+    "rerun_seeds": 200,
+    "rerun_readouts": [
+     {
+      "readout": "target_reaction",
+      "mean_difference": -4.959701323966511,
+      "half_width": 13.833379113699658,
+      "direction": 1
+     },
+     {
+      "readout": "third_person_symptom_load",
+      "mean_difference": -9.065838549906557,
+      "half_width": 8.935126494124145,
+      "direction": 1
+     }
+    ]
+   },
+   {
+    "index": 3,
+    "values": {
+     "learning_rate": "0.396454",
+     "credit_horizon": "6",
+     "credit_discount": "0.720015",
+     "cross_person_weight": "0.354428",
+     "policy_temperature": "1.60408",
+     "habituation_rate": "0.661883",
+     "habituation_window": "8",
+     "debit_gain": "0.396223"
+    },
+    "outcome": "FAIL",
+    "seeds": 150,
+    "readouts": [
+     {
+      "readout": "target_reaction",
+      "mean_difference": -12.128408292958778,
+      "half_width": 15.687075966719725,
+      "direction": 1
+     },
+     {
+      "readout": "third_person_symptom_load",
+      "mean_difference": 1.6867766565160445,
+      "half_width": 9.693201267780744,
+      "direction": 1
+     }
+    ],
+    "rerun": true,
+    "error": "",
+    "first_outcome": "FAIL",
+    "rerun_seeds": 200,
+    "rerun_readouts": [
+     {
+      "readout": "target_reaction",
+      "mean_difference": -16.372060563213722,
+      "half_width": 13.469825618277431,
+      "direction": 1
+     },
+     {
+      "readout": "third_person_symptom_load",
+      "mean_difference": 1.7862657854238762,
+      "half_width": 8.395329851916886,
+      "direction": 1
+     }
+    ]
+   },
+   {
+    "index": 4,
+    "values": {
+     "learning_rate": "0.183605",
+     "credit_horizon": "3",
+     "credit_discount": "0.480068",
+     "cross_person_weight": "0.987005",
+     "policy_temperature": "0.627109",
+     "habituation_rate": "0.563414",
+     "habituation_window": "5",
+     "debit_gain": "0.359"
+    },
+    "outcome": "FAIL",
+    "seeds": 150,
+    "readouts": [
+     {
+      "readout": "target_reaction",
+      "mean_difference": 2.272780327741566,
+      "half_width": 18.226324994954858,
+      "direction": 1
+     },
+     {
+      "readout": "third_person_symptom_load",
+      "mean_difference": 1.9353090922005367,
+      "half_width": 10.845560972153955,
+      "direction": 1
+     }
+    ],
+    "rerun": true,
+    "error": "",
+    "first_outcome": "FAIL",
+    "rerun_seeds": 200,
+    "rerun_readouts": [
+     {
+      "readout": "target_reaction",
+      "mean_difference": 2.613367828013288,
+      "half_width": 16.155218057397132,
+      "direction": 1
+     },
+     {
+      "readout": "third_person_symptom_load",
+      "mean_difference": -0.5491401776882353,
+      "half_width": 9.171136651925643,
+      "direction": 1
+     }
+    ]
+   },
+   {
+    "index": 5,
+    "values": {
+     "learning_rate": "0.321095",
+     "credit_horizon": "2",
+     "credit_discount": "0.525056",
+     "cross_person_weight": "0.640406",
+     "policy_temperature": "1.05926",
+     "habituation_rate": "0.369117",
+     "habituation_window": "11",
+     "debit_gain": "0.270803"
+    },
+    "outcome": "FAIL",
+    "seeds": 100,
+    "readouts": [
+     {
+      "readout": "target_reaction",
+      "mean_difference": 1.5637812661106465,
+      "half_width": 23.74983219782209,
+      "direction": 1
+     },
+     {
+      "readout": "third_person_symptom_load",
+      "mean_difference": -5.940348321149827,
+      "half_width": 10.58735141019873,
+      "direction": 1
+     }
+    ],
+    "rerun": true,
+    "error": "",
+    "first_outcome": "FAIL",
+    "rerun_seeds": 200,
+    "rerun_readouts": [
+     {
+      "readout": "target_reaction",
+      "mean_difference": -0.3580905562296994,
+      "half_width": 16.294643004823445,
+      "direction": 1
+     },
+     {
+      "readout": "third_person_symptom_load",
+      "mean_difference": -6.911624346223703,
+      "half_width": 7.861898485476697,
+      "direction": 1
+     }
+    ]
+   },
+   {
+    "index": 6,
+    "values": {
+     "learning_rate": "0.282321",
+     "credit_horizon": "4",
+     "credit_discount": "0.459213",
+     "cross_person_weight": "0.557407",
+     "policy_temperature": "1.08739",
+     "habituation_rate": "0.360926",
+     "habituation_window": "7",
+     "debit_gain": "0.287311"
+    },
+    "outcome": "FAIL",
+    "seeds": 100,
+    "readouts": [
+     {
+      "readout": "target_reaction",
+      "mean_difference": -6.854378742547717,
+      "half_width": 24.682404492186116,
+      "direction": 1
+     },
+     {
+      "readout": "third_person_symptom_load",
+      "mean_difference": 0.6015215015399437,
+      "half_width": 11.686433569402194,
+      "direction": 1
+     }
+    ],
+    "rerun": true,
+    "error": "",
+    "first_outcome": "FAIL",
+    "rerun_seeds": 200,
+    "rerun_readouts": [
+     {
+      "readout": "target_reaction",
+      "mean_difference": 0.9394415497736781,
+      "half_width": 16.63113275388466,
+      "direction": 1
+     },
+     {
+      "readout": "third_person_symptom_load",
+      "mean_difference": -0.16497899112785433,
+      "half_width": 9.008036954125544,
+      "direction": 1
+     }
+    ]
+   },
+   {
+    "index": 7,
+    "values": {
+     "learning_rate": "0.345919",
+     "credit_horizon": "4",
+     "credit_discount": "0.361349",
+     "cross_person_weight": "0.533545",
+     "policy_temperature": "0.674859",
+     "habituation_rate": "0.423036",
+     "habituation_window": "14",
+     "debit_gain": "0.280136"
+    },
+    "outcome": "FAIL",
+    "seeds": 100,
+    "readouts": [
+     {
+      "readout": "target_reaction",
+      "mean_difference": -3.4905390962628746,
+      "half_width": 21.12030231426802,
+      "direction": 1
+     },
+     {
+      "readout": "third_person_symptom_load",
+      "mean_difference": 10.31102621896467,
+      "half_width": 12.273647762783991,
+      "direction": 1
+     }
+    ],
+    "rerun": true,
+    "error": "",
+    "first_outcome": "FAIL",
+    "rerun_seeds": 200,
+    "rerun_readouts": [
+     {
+      "readout": "target_reaction",
+      "mean_difference": -7.841675070918987,
+      "half_width": 16.083825276704044,
+      "direction": 1
+     },
+     {
+      "readout": "third_person_symptom_load",
+      "mean_difference": 4.563122123621447,
+      "half_width": 8.323759378538742,
+      "direction": 1
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "criterion": "M11.C.27[stable,add_third]",
+  "samples": 8,
+  "counted": 8,
+  "held": 2,
+  "undetermined": 0,
+  "errored": 0,
+  "reruns": 2,
+  "constants": [
+   {
+    "constant": "appraisal_gain",
+    "low": 1.5,
+    "high": 6.0,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "intensity_scale",
+    "low": 50.0,
+    "high": 200.0,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "impingement_relaxation_rate",
+    "low": 0.15,
+    "high": 0.6,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "contact_band_max",
+    "low": 0.1,
+    "high": 0.4,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "anxiety_togetherness_gain",
+    "low": 0.25,
+    "high": 1.0,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "interactive_resting_contact",
+    "low": 0.25,
+    "high": 1.0,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "contact_relaxation_rate",
+    "low": 0.05,
+    "high": 0.2,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   }
+  ],
+  "rows": [
+   {
+    "index": 0,
+    "values": {
+     "appraisal_gain": "3.21939",
+     "intensity_scale": "163.745",
+     "impingement_relaxation_rate": "0.315612",
+     "contact_band_max": "0.186038",
+     "anxiety_togetherness_gain": "0.985088",
+     "interactive_resting_contact": "0.462487",
+     "contact_relaxation_rate": "0.0634288"
+    },
+    "outcome": "PASS",
+    "seeds": 50,
+    "readouts": [
+     {
+      "readout": "pair_deviation",
+      "mean_difference": 0.0803539735641029,
+      "half_width": 0.030542308961902666,
+      "direction": 1
+     }
+    ],
+    "rerun": false,
+    "error": ""
+   },
+   {
+    "index": 1,
+    "values": {
+     "appraisal_gain": "3.26451",
+     "intensity_scale": "81.2751",
+     "impingement_relaxation_rate": "0.410421",
+     "contact_band_max": "0.138111",
+     "anxiety_togetherness_gain": "0.595387",
+     "interactive_resting_contact": "0.450644",
+     "contact_relaxation_rate": "0.0712574"
+    },
+    "outcome": "FAIL",
+    "seeds": 50,
+    "readouts": [
+     {
+      "readout": "pair_deviation",
+      "mean_difference": -0.03009725881157164,
+      "half_width": 0.03540641940605983,
+      "direction": 1
+     }
+    ],
+    "rerun": true,
+    "error": "",
+    "first_outcome": "FAIL",
+    "rerun_seeds": 200,
+    "rerun_readouts": [
+     {
+      "readout": "pair_deviation",
+      "mean_difference": -0.042990829379458695,
+      "half_width": 0.017804372081060955,
+      "direction": 1
+     }
+    ]
+   },
+   {
+    "index": 2,
+    "values": {
+     "appraisal_gain": "2.12148",
+     "intensity_scale": "50.2241",
+     "impingement_relaxation_rate": "0.441374",
+     "contact_band_max": "0.281172",
+     "anxiety_togetherness_gain": "0.773898",
+     "interactive_resting_contact": "0.619952",
+     "contact_relaxation_rate": "0.0932015"
+    },
+    "outcome": "FAIL",
+    "seeds": 50,
+    "readouts": [
+     {
+      "readout": "pair_deviation",
+      "mean_difference": -0.15930824606141716,
+      "half_width": 0.028964742350751912,
+      "direction": 1
+     }
+    ],
+    "rerun": false,
+    "error": ""
+   },
+   {
+    "index": 3,
+    "values": {
+     "appraisal_gain": "2.09872",
+     "intensity_scale": "60.5286",
+     "impingement_relaxation_rate": "0.173556",
+     "contact_band_max": "0.20773",
+     "anxiety_togetherness_gain": "0.348101",
+     "interactive_resting_contact": "0.894493",
+     "contact_relaxation_rate": "0.0552465"
+    },
+    "outcome": "FAIL",
+    "seeds": 50,
+    "readouts": [
+     {
+      "readout": "pair_deviation",
+      "mean_difference": -0.1689866778421342,
+      "half_width": 0.030304654278554853,
+      "direction": 1
+     }
+    ],
+    "rerun": false,
+    "error": ""
+   },
+   {
+    "index": 4,
+    "values": {
+     "appraisal_gain": "1.51076",
+     "intensity_scale": "163.485",
+     "impingement_relaxation_rate": "0.339246",
+     "contact_band_max": "0.20039",
+     "anxiety_togetherness_gain": "0.253547",
+     "interactive_resting_contact": "0.727954",
+     "contact_relaxation_rate": "0.0738123"
+    },
+    "outcome": "FAIL",
+    "seeds": 50,
+    "readouts": [
+     {
+      "readout": "pair_deviation",
+      "mean_difference": 0.004704199786981029,
+      "half_width": 0.023240787934167655,
+      "direction": 1
+     }
+    ],
+    "rerun": true,
+    "error": "",
+    "first_outcome": "FAIL",
+    "rerun_seeds": 200,
+    "rerun_readouts": [
+     {
+      "readout": "pair_deviation",
+      "mean_difference": 0.0038486237982809355,
+      "half_width": 0.011117140499781034,
+      "direction": 1
+     }
+    ]
+   },
+   {
+    "index": 5,
+    "values": {
+     "appraisal_gain": "3.04656",
+     "intensity_scale": "171.288",
+     "impingement_relaxation_rate": "0.418897",
+     "contact_band_max": "0.17827",
+     "anxiety_togetherness_gain": "0.254101",
+     "interactive_resting_contact": "0.282656",
+     "contact_relaxation_rate": "0.0866907"
+    },
+    "outcome": "PASS",
+    "seeds": 50,
+    "readouts": [
+     {
+      "readout": "pair_deviation",
+      "mean_difference": 0.1496119830966345,
+      "half_width": 0.02453529368322741,
+      "direction": 1
+     }
+    ],
+    "rerun": false,
+    "error": ""
+   },
+   {
+    "index": 6,
+    "values": {
+     "appraisal_gain": "3.25351",
+     "intensity_scale": "57.4221",
+     "impingement_relaxation_rate": "0.202495",
+     "contact_band_max": "0.385533",
+     "anxiety_togetherness_gain": "0.348053",
+     "interactive_resting_contact": "0.388472",
+     "contact_relaxation_rate": "0.0614947"
+    },
+    "outcome": "FAIL",
+    "seeds": 50,
+    "readouts": [
+     {
+      "readout": "pair_deviation",
+      "mean_difference": -0.12703307812896797,
+      "half_width": 0.045031232173308726,
+      "direction": 1
+     }
+    ],
+    "rerun": false,
+    "error": ""
+   },
+   {
+    "index": 7,
+    "values": {
+     "appraisal_gain": "5.36649",
+     "intensity_scale": "68.1421",
+     "impingement_relaxation_rate": "0.272825",
+     "contact_band_max": "0.127063",
+     "anxiety_togetherness_gain": "0.581395",
+     "interactive_resting_contact": "0.663369",
+     "contact_relaxation_rate": "0.0697087"
+    },
+    "outcome": "FAIL",
+    "seeds": 50,
+    "readouts": [
+     {
+      "readout": "pair_deviation",
+      "mean_difference": -0.12261240672672656,
+      "half_width": 0.03451824183677822,
+      "direction": 1
+     }
+    ],
+    "rerun": false,
+    "error": ""
+   }
+  ]
+ },
+ {
+  "criterion": "M11.C.27[stable,remove_one]",
+  "samples": 8,
+  "counted": 8,
+  "held": 3,
+  "undetermined": 0,
+  "errored": 0,
+  "reruns": 3,
+  "constants": [
+   {
+    "constant": "appraisal_gain",
+    "low": 1.5,
+    "high": 6.0,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "intensity_scale",
+    "low": 50.0,
+    "high": 200.0,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "impingement_relaxation_rate",
+    "low": 0.15,
+    "high": 0.6,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "contact_band_max",
+    "low": 0.1,
+    "high": 0.4,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "anxiety_togetherness_gain",
+    "low": 0.25,
+    "high": 1.0,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "interactive_resting_contact",
+    "low": 0.25,
+    "high": 1.0,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "contact_relaxation_rate",
+    "low": 0.05,
+    "high": 0.2,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   }
+  ],
+  "rows": [
+   {
+    "index": 0,
+    "values": {
+     "appraisal_gain": "1.94637",
+     "intensity_scale": "65.5402",
+     "impingement_relaxation_rate": "0.408717",
+     "contact_band_max": "0.305158",
+     "anxiety_togetherness_gain": "0.328419",
+     "interactive_resting_contact": "0.630951",
+     "contact_relaxation_rate": "0.0613844"
+    },
+    "outcome": "FAIL",
+    "seeds": 50,
+    "readouts": [
+     {
+      "readout": "pair_deviation",
+      "mean_difference": -0.08659173412530477,
+      "half_width": 0.054813284198035786,
+      "direction": 1
+     }
+    ],
+    "rerun": true,
+    "error": "",
+    "first_outcome": "FAIL",
+    "rerun_seeds": 200,
+    "rerun_readouts": [
+     {
+      "readout": "pair_deviation",
+      "mean_difference": -0.08179917645191763,
+      "half_width": 0.026887510710675876,
+      "direction": 1
+     }
+    ]
+   },
+   {
+    "index": 1,
+    "values": {
+     "appraisal_gain": "2.13166",
+     "intensity_scale": "65.5624",
+     "impingement_relaxation_rate": "0.558113",
+     "contact_band_max": "0.124115",
+     "anxiety_togetherness_gain": "0.63501",
+     "interactive_resting_contact": "0.782744",
+     "contact_relaxation_rate": "0.073705"
+    },
+    "outcome": "FAIL",
+    "seeds": 50,
+    "readouts": [
+     {
+      "readout": "pair_deviation",
+      "mean_difference": -0.04886341017563172,
+      "half_width": 0.042845675068608036,
+      "direction": 1
+     }
+    ],
+    "rerun": true,
+    "error": "",
+    "first_outcome": "FAIL",
+    "rerun_seeds": 200,
+    "rerun_readouts": [
+     {
+      "readout": "pair_deviation",
+      "mean_difference": -0.031158081564835304,
+      "half_width": 0.0213499660315593,
+      "direction": 1
+     }
+    ]
+   },
+   {
+    "index": 2,
+    "values": {
+     "appraisal_gain": "3.37815",
+     "intensity_scale": "137.275",
+     "impingement_relaxation_rate": "0.509683",
+     "contact_band_max": "0.273051",
+     "anxiety_togetherness_gain": "0.557841",
+     "interactive_resting_contact": "0.268158",
+     "contact_relaxation_rate": "0.108788"
+    },
+    "outcome": "PASS",
+    "seeds": 50,
+    "readouts": [
+     {
+      "readout": "pair_deviation",
+      "mean_difference": 0.1568010940827694,
+      "half_width": 0.04140432352142622,
+      "direction": 1
+     }
+    ],
+    "rerun": false,
+    "error": ""
+   },
+   {
+    "index": 3,
+    "values": {
+     "appraisal_gain": "5.6257",
+     "intensity_scale": "124.533",
+     "impingement_relaxation_rate": "0.197083",
+     "contact_band_max": "0.229355",
+     "anxiety_togetherness_gain": "0.569121",
+     "interactive_resting_contact": "0.930243",
+     "contact_relaxation_rate": "0.058367"
+    },
+    "outcome": "FAIL",
+    "seeds": 50,
+    "readouts": [
+     {
+      "readout": "pair_deviation",
+      "mean_difference": -0.27219618351122854,
+      "half_width": 0.06339188775913535,
+      "direction": 1
+     }
+    ],
+    "rerun": false,
+    "error": ""
+   },
+   {
+    "index": 4,
+    "values": {
+     "appraisal_gain": "2.23335",
+     "intensity_scale": "134.064",
+     "impingement_relaxation_rate": "0.363435",
+     "contact_band_max": "0.118817",
+     "anxiety_togetherness_gain": "0.744403",
+     "interactive_resting_contact": "0.874065",
+     "contact_relaxation_rate": "0.176784"
+    },
+    "outcome": "FAIL",
+    "seeds": 100,
+    "readouts": [
+     {
+      "readout": "pair_deviation",
+      "mean_difference": -0.03328626204819627,
+      "half_width": 0.03935630545364691,
+      "direction": 1
+     }
+    ],
+    "rerun": true,
+    "error": "",
+    "first_outcome": "FAIL",
+    "rerun_seeds": 200,
+    "rerun_readouts": [
+     {
+      "readout": "pair_deviation",
+      "mean_difference": -0.030176088112042487,
+      "half_width": 0.027349743479782224,
+      "direction": 1
+     }
+    ]
+   },
+   {
+    "index": 5,
+    "values": {
+     "appraisal_gain": "5.75138",
+     "intensity_scale": "152.03",
+     "impingement_relaxation_rate": "0.45087",
+     "contact_band_max": "0.105905",
+     "anxiety_togetherness_gain": "0.257298",
+     "interactive_resting_contact": "0.319156",
+     "contact_relaxation_rate": "0.101521"
+    },
+    "outcome": "PASS",
+    "seeds": 50,
+    "readouts": [
+     {
+      "readout": "pair_deviation",
+      "mean_difference": 0.13118829750745536,
+      "half_width": 0.04085124365094345,
+      "direction": 1
+     }
+    ],
+    "rerun": false,
+    "error": ""
+   },
+   {
+    "index": 6,
+    "values": {
+     "appraisal_gain": "5.50968",
+     "intensity_scale": "173.679",
+     "impingement_relaxation_rate": "0.358226",
+     "contact_band_max": "0.195925",
+     "anxiety_togetherness_gain": "0.521919",
+     "interactive_resting_contact": "0.36494",
+     "contact_relaxation_rate": "0.16257"
+    },
+    "outcome": "PASS",
+    "seeds": 100,
+    "readouts": [
+     {
+      "readout": "pair_deviation",
+      "mean_difference": 0.16239056199091842,
+      "half_width": 0.029151567755133206,
+      "direction": 1
+     }
+    ],
+    "rerun": false,
+    "error": ""
+   },
+   {
+    "index": 7,
+    "values": {
+     "appraisal_gain": "2.72133",
+     "intensity_scale": "62.1757",
+     "impingement_relaxation_rate": "0.266319",
+     "contact_band_max": "0.122085",
+     "anxiety_togetherness_gain": "0.294768",
+     "interactive_resting_contact": "0.273697",
+     "contact_relaxation_rate": "0.0761002"
+    },
+    "outcome": "FAIL",
+    "seeds": 50,
+    "readouts": [
+     {
+      "readout": "pair_deviation",
+      "mean_difference": -0.25549482589408995,
+      "half_width": 0.06720565425570912,
+      "direction": 1
+     }
+    ],
+    "rerun": false,
+    "error": ""
+   }
+  ]
+ },
+ {
+  "criterion": "M11.C.27[unstable,add_third]",
+  "samples": 8,
+  "counted": 8,
+  "held": 6,
+  "undetermined": 0,
+  "errored": 0,
+  "reruns": 3,
+  "constants": [
+   {
+    "constant": "appraisal_gain",
+    "low": 1.5,
+    "high": 6.0,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "intensity_scale",
+    "low": 50.0,
+    "high": 200.0,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "impingement_relaxation_rate",
+    "low": 0.15,
+    "high": 0.6,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "contact_band_max",
+    "low": 0.1,
+    "high": 0.4,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "anxiety_togetherness_gain",
+    "low": 0.25,
+    "high": 1.0,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "interactive_resting_contact",
+    "low": 0.25,
+    "high": 1.0,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "contact_relaxation_rate",
+    "low": 0.05,
+    "high": 0.2,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   }
+  ],
+  "rows": [
+   {
+    "index": 0,
+    "values": {
+     "appraisal_gain": "4.9967",
+     "intensity_scale": "116.116",
+     "impingement_relaxation_rate": "0.229653",
+     "contact_band_max": "0.182273",
+     "anxiety_togetherness_gain": "0.825488",
+     "interactive_resting_contact": "0.648147",
+     "contact_relaxation_rate": "0.0633145"
+    },
+    "outcome": "PASS",
+    "seeds": 50,
+    "readouts": [
+     {
+      "readout": "pair_deviation",
+      "mean_difference": -0.032762772011138246,
+      "half_width": 0.026843454506632326,
+      "direction": -1
+     }
+    ],
+    "rerun": true,
+    "error": "",
+    "first_outcome": "PASS",
+    "rerun_seeds": 200,
+    "rerun_readouts": [
+     {
+      "readout": "pair_deviation",
+      "mean_difference": -0.030370369819054548,
+      "half_width": 0.014281386148967956,
+      "direction": -1
+     }
+    ]
+   },
+   {
+    "index": 1,
+    "values": {
+     "appraisal_gain": "2.13418",
+     "intensity_scale": "77.0131",
+     "impingement_relaxation_rate": "0.535943",
+     "contact_band_max": "0.119347",
+     "anxiety_togetherness_gain": "0.281775",
+     "interactive_resting_contact": "0.663818",
+     "contact_relaxation_rate": "0.0556888"
+    },
+    "outcome": "PASS",
+    "seeds": 50,
+    "readouts": [
+     {
+      "readout": "pair_deviation",
+      "mean_difference": -0.05047083794265426,
+      "half_width": 0.03096739783245748,
+      "direction": -1
+     }
+    ],
+    "rerun": true,
+    "error": "",
+    "first_outcome": "PASS",
+    "rerun_seeds": 200,
+    "rerun_readouts": [
+     {
+      "readout": "pair_deviation",
+      "mean_difference": -0.03340441515983124,
+      "half_width": 0.017044452412220173,
+      "direction": -1
+     }
+    ]
+   },
+   {
+    "index": 2,
+    "values": {
+     "appraisal_gain": "1.5612",
+     "intensity_scale": "121.034",
+     "impingement_relaxation_rate": "0.205381",
+     "contact_band_max": "0.131511",
+     "anxiety_togetherness_gain": "0.390468",
+     "interactive_resting_contact": "0.532604",
+     "contact_relaxation_rate": "0.0985462"
+    },
+    "outcome": "FAIL",
+    "seeds": 50,
+    "readouts": [
+     {
+      "readout": "pair_deviation",
+      "mean_difference": 0.017744522068026486,
+      "half_width": 0.03254789906984687,
+      "direction": -1
+     }
+    ],
+    "rerun": true,
+    "error": "",
+    "first_outcome": "FAIL",
+    "rerun_seeds": 200,
+    "rerun_readouts": [
+     {
+      "readout": "pair_deviation",
+      "mean_difference": 0.02030354068531042,
+      "half_width": 0.01642770610487172,
+      "direction": -1
+     }
+    ]
+   },
+   {
+    "index": 3,
+    "values": {
+     "appraisal_gain": "4.70542",
+     "intensity_scale": "69.7662",
+     "impingement_relaxation_rate": "0.26616",
+     "contact_band_max": "0.232305",
+     "anxiety_togetherness_gain": "0.791657",
+     "interactive_resting_contact": "0.616252",
+     "contact_relaxation_rate": "0.0972467"
+    },
+    "outcome": "PASS",
+    "seeds": 50,
+    "readouts": [
+     {
+      "readout": "pair_deviation",
+      "mean_difference": -0.13971584798701492,
+      "half_width": 0.03149500440901686,
+      "direction": -1
+     }
+    ],
+    "rerun": false,
+    "error": ""
+   },
+   {
+    "index": 4,
+    "values": {
+     "appraisal_gain": "3.68045",
+     "intensity_scale": "55.4926",
+     "impingement_relaxation_rate": "0.201886",
+     "contact_band_max": "0.153074",
+     "anxiety_togetherness_gain": "0.950284",
+     "interactive_resting_contact": "0.851684",
+     "contact_relaxation_rate": "0.167232"
+    },
+    "outcome": "PASS",
+    "seeds": 50,
+    "readouts": [
+     {
+      "readout": "pair_deviation",
+      "mean_difference": -0.18193861369312292,
+      "half_width": 0.035605536022597806,
+      "direction": -1
+     }
+    ],
+    "rerun": false,
+    "error": ""
+   },
+   {
+    "index": 5,
+    "values": {
+     "appraisal_gain": "4.21697",
+     "intensity_scale": "116.764",
+     "impingement_relaxation_rate": "0.194577",
+     "contact_band_max": "0.250149",
+     "anxiety_togetherness_gain": "0.789524",
+     "interactive_resting_contact": "0.67269",
+     "contact_relaxation_rate": "0.127649"
+    },
+    "outcome": "PASS",
+    "seeds": 50,
+    "readouts": [
+     {
+      "readout": "pair_deviation",
+      "mean_difference": -0.055137599219346065,
+      "half_width": 0.021449982811858666,
+      "direction": -1
+     }
+    ],
+    "rerun": false,
+    "error": ""
+   },
+   {
+    "index": 6,
+    "values": {
+     "appraisal_gain": "1.8878",
+     "intensity_scale": "140.774",
+     "impingement_relaxation_rate": "0.418651",
+     "contact_band_max": "0.283231",
+     "anxiety_togetherness_gain": "0.757527",
+     "interactive_resting_contact": "0.317383",
+     "contact_relaxation_rate": "0.0722103"
+    },
+    "outcome": "FAIL",
+    "seeds": 50,
+    "readouts": [
+     {
+      "readout": "pair_deviation",
+      "mean_difference": 0.1300159800560043,
+      "half_width": 0.033513579426132326,
+      "direction": -1
+     }
+    ],
+    "rerun": false,
+    "error": ""
+   },
+   {
+    "index": 7,
+    "values": {
+     "appraisal_gain": "2.15495",
+     "intensity_scale": "83.0917",
+     "impingement_relaxation_rate": "0.208393",
+     "contact_band_max": "0.327936",
+     "anxiety_togetherness_gain": "0.716498",
+     "interactive_resting_contact": "0.570882",
+     "contact_relaxation_rate": "0.119218"
+    },
+    "outcome": "PASS",
+    "seeds": 50,
+    "readouts": [
+     {
+      "readout": "pair_deviation",
+      "mean_difference": -0.07106722546424227,
+      "half_width": 0.0341480516177844,
+      "direction": -1
+     }
+    ],
+    "rerun": false,
+    "error": ""
+   }
+  ]
+ },
+ {
+  "criterion": "M11.C.27[unstable,remove_one]",
+  "samples": 8,
+  "counted": 8,
+  "held": 6,
+  "undetermined": 0,
+  "errored": 0,
+  "reruns": 3,
+  "constants": [
+   {
+    "constant": "appraisal_gain",
+    "low": 1.5,
+    "high": 6.0,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "intensity_scale",
+    "low": 50.0,
+    "high": 200.0,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "impingement_relaxation_rate",
+    "low": 0.15,
+    "high": 0.6,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "contact_band_max",
+    "low": 0.1,
+    "high": 0.4,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "anxiety_togetherness_gain",
+    "low": 0.25,
+    "high": 1.0,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "interactive_resting_contact",
+    "low": 0.25,
+    "high": 1.0,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "contact_relaxation_rate",
+    "low": 0.05,
+    "high": 0.2,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   }
+  ],
+  "rows": [
+   {
+    "index": 0,
+    "values": {
+     "appraisal_gain": "4.27368",
+     "intensity_scale": "169.039",
+     "impingement_relaxation_rate": "0.508709",
+     "contact_band_max": "0.329073",
+     "anxiety_togetherness_gain": "0.562677",
+     "interactive_resting_contact": "0.975383",
+     "contact_relaxation_rate": "0.0925568"
+    },
+    "outcome": "FAIL",
+    "seeds": 100,
+    "readouts": [
+     {
+      "readout": "pair_deviation",
+      "mean_difference": 0.005036475109848251,
+      "half_width": 0.014377436171505784,
+      "direction": -1
+     }
+    ],
+    "rerun": true,
+    "error": "",
+    "first_outcome": "FAIL",
+    "rerun_seeds": 200,
+    "rerun_readouts": [
+     {
+      "readout": "pair_deviation",
+      "mean_difference": 0.0021679746547662846,
+      "half_width": 0.009151134087498031,
+      "direction": -1
+     }
+    ]
+   },
+   {
+    "index": 1,
+    "values": {
+     "appraisal_gain": "4.28432",
+     "intensity_scale": "83.8127",
+     "impingement_relaxation_rate": "0.17603",
+     "contact_band_max": "0.22004",
+     "anxiety_togetherness_gain": "0.388266",
+     "interactive_resting_contact": "0.554063",
+     "contact_relaxation_rate": "0.15373"
+    },
+    "outcome": "PASS",
+    "seeds": 50,
+    "readouts": [
+     {
+      "readout": "pair_deviation",
+      "mean_difference": -0.299538898597194,
+      "half_width": 0.06179020538837759,
+      "direction": -1
+     }
+    ],
+    "rerun": false,
+    "error": ""
+   },
+   {
+    "index": 2,
+    "values": {
+     "appraisal_gain": "2.95741",
+     "intensity_scale": "63.726",
+     "impingement_relaxation_rate": "0.194424",
+     "contact_band_max": "0.218054",
+     "anxiety_togetherness_gain": "0.414473",
+     "interactive_resting_contact": "0.730379",
+     "contact_relaxation_rate": "0.101606"
+    },
+    "outcome": "PASS",
+    "seeds": 50,
+    "readouts": [
+     {
+      "readout": "pair_deviation",
+      "mean_difference": -0.3724160962350727,
+      "half_width": 0.06575730465828467,
+      "direction": -1
+     }
+    ],
+    "rerun": false,
+    "error": ""
+   },
+   {
+    "index": 3,
+    "values": {
+     "appraisal_gain": "3.70094",
+     "intensity_scale": "64.6425",
+     "impingement_relaxation_rate": "0.582141",
+     "contact_band_max": "0.126487",
+     "anxiety_togetherness_gain": "0.336762",
+     "interactive_resting_contact": "0.482914",
+     "contact_relaxation_rate": "0.159016"
+    },
+    "outcome": "FAIL",
+    "seeds": 50,
+    "readouts": [
+     {
+      "readout": "pair_deviation",
+      "mean_difference": 0.01395797163379315,
+      "half_width": 0.05052507634244712,
+      "direction": -1
+     }
+    ],
+    "rerun": true,
+    "error": "",
+    "first_outcome": "FAIL",
+    "rerun_seeds": 200,
+    "rerun_readouts": [
+     {
+      "readout": "pair_deviation",
+      "mean_difference": 0.021370127000697577,
+      "half_width": 0.023533044723571053,
+      "direction": -1
+     }
+    ]
+   },
+   {
+    "index": 4,
+    "values": {
+     "appraisal_gain": "3.6771",
+     "intensity_scale": "51.9407",
+     "impingement_relaxation_rate": "0.187517",
+     "contact_band_max": "0.115011",
+     "anxiety_togetherness_gain": "0.298663",
+     "interactive_resting_contact": "0.565772",
+     "contact_relaxation_rate": "0.131724"
+    },
+    "outcome": "PASS",
+    "seeds": 50,
+    "readouts": [
+     {
+      "readout": "pair_deviation",
+      "mean_difference": -0.3514258133628319,
+      "half_width": 0.06653855108430372,
+      "direction": -1
+     }
+    ],
+    "rerun": false,
+    "error": ""
+   },
+   {
+    "index": 5,
+    "values": {
+     "appraisal_gain": "3.42713",
+     "intensity_scale": "197.099",
+     "impingement_relaxation_rate": "0.174214",
+     "contact_band_max": "0.316223",
+     "anxiety_togetherness_gain": "0.73766",
+     "interactive_resting_contact": "0.575493",
+     "contact_relaxation_rate": "0.0576598"
+    },
+    "outcome": "PASS",
+    "seeds": 50,
+    "readouts": [
+     {
+      "readout": "pair_deviation",
+      "mean_difference": -0.1575664228827934,
+      "half_width": 0.05646650042793896,
+      "direction": -1
+     }
+    ],
+    "rerun": false,
+    "error": ""
+   },
+   {
+    "index": 6,
+    "values": {
+     "appraisal_gain": "1.82668",
+     "intensity_scale": "76.9574",
+     "impingement_relaxation_rate": "0.204421",
+     "contact_band_max": "0.107316",
+     "anxiety_togetherness_gain": "0.281948",
+     "interactive_resting_contact": "0.280391",
+     "contact_relaxation_rate": "0.0771954"
+    },
+    "outcome": "PASS",
+    "seeds": 100,
+    "readouts": [
+     {
+      "readout": "pair_deviation",
+      "mean_difference": -0.26002827222133645,
+      "half_width": 0.051383075443505025,
+      "direction": -1
+     }
+    ],
+    "rerun": false,
+    "error": ""
+   },
+   {
+    "index": 7,
+    "values": {
+     "appraisal_gain": "2.09941",
+     "intensity_scale": "87.134",
+     "impingement_relaxation_rate": "0.303915",
+     "contact_band_max": "0.15086",
+     "anxiety_togetherness_gain": "0.813779",
+     "interactive_resting_contact": "0.665229",
+     "contact_relaxation_rate": "0.169127"
+    },
+    "outcome": "PASS",
+    "seeds": 100,
+    "readouts": [
+     {
+      "readout": "pair_deviation",
+      "mean_difference": -0.07329561055933093,
+      "half_width": 0.048036904908086465,
+      "direction": -1
+     }
+    ],
+    "rerun": true,
+    "error": "",
+    "first_outcome": "PASS",
+    "rerun_seeds": 200,
+    "rerun_readouts": [
+     {
+      "readout": "pair_deviation",
+      "mean_difference": -0.056935775425846984,
+      "half_width": 0.03493577753554876,
+      "direction": -1
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "criterion": "M11.C.29",
+  "samples": 8,
+  "counted": 8,
+  "held": 0,
+  "undetermined": 0,
+  "errored": 0,
+  "reruns": 8,
+  "constants": [
+   {
+    "constant": "exchange_budget_reduction",
+    "low": 1.0,
+    "high": 4.0,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "symptom_threshold_gain",
+    "low": 0.75,
+    "high": 3.0,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "symptom_rearm_fraction",
+    "low": 0.25,
+    "high": 1.0,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "symptom_leak_rate",
+    "low": 0.05,
+    "high": 0.2,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "defence_threshold",
+    "low": 7.5,
+    "high": 30.0,
+    "scale": "log",
+    "grade": "[I] \u2014 `model_explainer.md` names it once (\u00a711.3), graded [I]; `constants.md` grades it [I]"
+   }
+  ],
+  "rows": [
+   {
+    "index": 0,
+    "values": {
+     "exchange_budget_reduction": "1.35993",
+     "symptom_threshold_gain": "0.904683",
+     "symptom_rearm_fraction": "0.955072",
+     "symptom_leak_rate": "0.0571507",
+     "defence_threshold": "29.6982"
+    },
+    "outcome": "FAIL",
+    "seeds": 100,
+    "readouts": [
+     {
+      "readout": "third_symptom_weeks",
+      "mean_difference": -0.46,
+      "half_width": 1.1691895727253543,
+      "direction": -1
+     }
+    ],
+    "rerun": true,
+    "error": "",
+    "first_outcome": "FAIL",
+    "rerun_seeds": 200,
+    "rerun_readouts": [
+     {
+      "readout": "third_symptom_weeks",
+      "mean_difference": -0.735,
+      "half_width": 0.9150570063248084,
+      "direction": -1
+     }
+    ]
+   },
+   {
+    "index": 1,
+    "values": {
+     "exchange_budget_reduction": "1.16812",
+     "symptom_threshold_gain": "1.21465",
+     "symptom_rearm_fraction": "0.454369",
+     "symptom_leak_rate": "0.122902",
+     "defence_threshold": "14.8103"
+    },
+    "outcome": "FAIL",
+    "seeds": 100,
+    "readouts": [
+     {
+      "readout": "third_symptom_weeks",
+      "mean_difference": 2.61,
+      "half_width": 3.717888350158249,
+      "direction": -1
+     }
+    ],
+    "rerun": true,
+    "error": "",
+    "first_outcome": "FAIL",
+    "rerun_seeds": 200,
+    "rerun_readouts": [
+     {
+      "readout": "third_symptom_weeks",
+      "mean_difference": 2.15,
+      "half_width": 2.502080818461017,
+      "direction": -1
+     }
+    ]
+   },
+   {
+    "index": 2,
+    "values": {
+     "exchange_budget_reduction": "1.05941",
+     "symptom_threshold_gain": "0.825335",
+     "symptom_rearm_fraction": "0.359367",
+     "symptom_leak_rate": "0.138299",
+     "defence_threshold": "28.9782"
+    },
+    "outcome": "FAIL",
+    "seeds": 100,
+    "readouts": [
+     {
+      "readout": "third_symptom_weeks",
+      "mean_difference": 0.25,
+      "half_width": 2.499393017223473,
+      "direction": -1
+     }
+    ],
+    "rerun": true,
+    "error": "",
+    "first_outcome": "FAIL",
+    "rerun_seeds": 200,
+    "rerun_readouts": [
+     {
+      "readout": "third_symptom_weeks",
+      "mean_difference": 0.055,
+      "half_width": 1.9476097593392179,
+      "direction": -1
+     }
+    ]
+   },
+   {
+    "index": 3,
+    "values": {
+     "exchange_budget_reduction": "1.32348",
+     "symptom_threshold_gain": "1.86505",
+     "symptom_rearm_fraction": "0.354659",
+     "symptom_leak_rate": "0.0535621",
+     "defence_threshold": "27.5207"
+    },
+    "outcome": "FAIL",
+    "seeds": 100,
+    "readouts": [
+     {
+      "readout": "third_symptom_weeks",
+      "mean_difference": 2.54,
+      "half_width": 2.937084291564948,
+      "direction": -1
+     }
+    ],
+    "rerun": true,
+    "error": "",
+    "first_outcome": "FAIL",
+    "rerun_seeds": 200,
+    "rerun_readouts": [
+     {
+      "readout": "third_symptom_weeks",
+      "mean_difference": 1.59,
+      "half_width": 2.032346510043113,
+      "direction": -1
+     }
+    ]
+   },
+   {
+    "index": 4,
+    "values": {
+     "exchange_budget_reduction": "1.62647",
+     "symptom_threshold_gain": "1.88616",
+     "symptom_rearm_fraction": "0.283006",
+     "symptom_leak_rate": "0.146563",
+     "defence_threshold": "17.6268"
+    },
+    "outcome": "FAIL",
+    "seeds": 100,
+    "readouts": [
+     {
+      "readout": "third_symptom_weeks",
+      "mean_difference": -0.63,
+      "half_width": 4.613935944352268,
+      "direction": -1
+     }
+    ],
+    "rerun": true,
+    "error": "",
+    "first_outcome": "FAIL",
+    "rerun_seeds": 200,
+    "rerun_readouts": [
+     {
+      "readout": "third_symptom_weeks",
+      "mean_difference": 1.695,
+      "half_width": 3.1987519827325115,
+      "direction": -1
+     }
+    ]
+   },
+   {
+    "index": 5,
+    "values": {
+     "exchange_budget_reduction": "1.59839",
+     "symptom_threshold_gain": "1.75799",
+     "symptom_rearm_fraction": "0.336887",
+     "symptom_leak_rate": "0.193432",
+     "defence_threshold": "14.784"
+    },
+    "outcome": "FAIL",
+    "seeds": 100,
+    "readouts": [
+     {
+      "readout": "third_symptom_weeks",
+      "mean_difference": -0.93,
+      "half_width": 3.7140622212658663,
+      "direction": -1
+     }
+    ],
+    "rerun": true,
+    "error": "",
+    "first_outcome": "FAIL",
+    "rerun_seeds": 200,
+    "rerun_readouts": [
+     {
+      "readout": "third_symptom_weeks",
+      "mean_difference": -0.485,
+      "half_width": 2.6270076980144412,
+      "direction": -1
+     }
+    ]
+   },
+   {
+    "index": 6,
+    "values": {
+     "exchange_budget_reduction": "1.68443",
+     "symptom_threshold_gain": "1.24907",
+     "symptom_rearm_fraction": "0.813006",
+     "symptom_leak_rate": "0.0982",
+     "defence_threshold": "7.60114"
+    },
+    "outcome": "FAIL",
+    "seeds": 100,
+    "readouts": [
+     {
+      "readout": "third_symptom_weeks",
+      "mean_difference": 3.45,
+      "half_width": 3.0757015459891424,
+      "direction": -1
+     }
+    ],
+    "rerun": true,
+    "error": "",
+    "first_outcome": "FAIL",
+    "rerun_seeds": 200,
+    "rerun_readouts": [
+     {
+      "readout": "third_symptom_weeks",
+      "mean_difference": 3.265,
+      "half_width": 2.287737158137625,
+      "direction": -1
+     }
+    ]
+   },
+   {
+    "index": 7,
+    "values": {
+     "exchange_budget_reduction": "1.62934",
+     "symptom_threshold_gain": "0.81197",
+     "symptom_rearm_fraction": "0.915737",
+     "symptom_leak_rate": "0.10264",
+     "defence_threshold": "7.9168"
+    },
+    "outcome": "FAIL",
+    "seeds": 100,
+    "readouts": [
+     {
+      "readout": "third_symptom_weeks",
+      "mean_difference": -0.53,
+      "half_width": 2.372116981802022,
+      "direction": -1
+     }
+    ],
+    "rerun": true,
+    "error": "",
+    "first_outcome": "FAIL",
+    "rerun_seeds": 200,
+    "rerun_readouts": [
+     {
+      "readout": "third_symptom_weeks",
+      "mean_difference": -0.185,
+      "half_width": 1.7316984447988033,
+      "direction": -1
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "criterion": "M11.C.41[light: lower level]",
+  "samples": 8,
+  "counted": 8,
+  "held": 8,
+  "undetermined": 0,
+  "errored": 0,
+  "reruns": 0,
+  "constants": [
+   {
+    "constant": "appraisal_gain",
+    "low": 1.5,
+    "high": 6.0,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "contact_band_max",
+    "low": 0.1,
+    "high": 0.4,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "self_channel_exponent",
+    "low": 1.0,
+    "high": 4.0,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "capacity_level_per_layer",
+    "low": 10.0,
+    "high": 40.0,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "anxiety_band_low",
+    "low": 2.5,
+    "high": 10.0,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "anxiety_band_high",
+    "low": 10.0,
+    "high": 30.0,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "acute_decay_rate",
+    "low": 0.1,
+    "high": 0.4,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "response_up_gain",
+    "low": 0.25,
+    "high": 1.0,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "response_down_gain",
+    "low": 0.25,
+    "high": 1.0,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "stress_floor_below_basic",
+    "low": 7.5,
+    "high": 30.0,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   }
+  ],
+  "rows": [
+   {
+    "index": 0,
+    "values": {
+     "appraisal_gain": "2.72363",
+     "contact_band_max": "0.113093",
+     "self_channel_exponent": "3.77225",
+     "capacity_level_per_layer": "28.2722",
+     "anxiety_band_low": "5.4111",
+     "anxiety_band_high": "15.6566",
+     "acute_decay_rate": "0.326085",
+     "response_up_gain": "0.687626",
+     "response_down_gain": "0.827698",
+     "stress_floor_below_basic": "22.7992"
+    },
+    "outcome": "PASS",
+    "seeds": 150,
+    "readouts": [
+     {
+      "readout": "mean_acute",
+      "mean_difference": 60.90655183438129,
+      "half_width": 7.048216275380014,
+      "direction": 1
+     },
+     {
+      "readout": "reactive_over_chance",
+      "mean_difference": 0.02106532356363045,
+      "half_width": 0.002032130192986157,
+      "direction": 1
+     }
+    ],
+    "rerun": false,
+    "error": ""
+   },
+   {
+    "index": 1,
+    "values": {
+     "appraisal_gain": "2.28199",
+     "contact_band_max": "0.376617",
+     "self_channel_exponent": "1.04212",
+     "capacity_level_per_layer": "36.1389",
+     "anxiety_band_low": "9.34137",
+     "anxiety_band_high": "19.6743",
+     "acute_decay_rate": "0.204601",
+     "response_up_gain": "0.286339",
+     "response_down_gain": "0.306416",
+     "stress_floor_below_basic": "20.7835"
+    },
+    "outcome": "PASS",
+    "seeds": 150,
+    "readouts": [
+     {
+      "readout": "mean_acute",
+      "mean_difference": 64.31732921544865,
+      "half_width": 8.150217356686635,
+      "direction": 1
+     },
+     {
+      "readout": "reactive_over_chance",
+      "mean_difference": 0.09920729861544453,
+      "half_width": 0.00375260183011248,
+      "direction": 1
+     }
+    ],
+    "rerun": false,
+    "error": ""
+   },
+   {
+    "index": 2,
+    "values": {
+     "appraisal_gain": "2.64019",
+     "contact_band_max": "0.397872",
+     "self_channel_exponent": "1.40945",
+     "capacity_level_per_layer": "32.2823",
+     "anxiety_band_low": "2.85176",
+     "anxiety_band_high": "26.1011",
+     "acute_decay_rate": "0.35435",
+     "response_up_gain": "0.297354",
+     "response_down_gain": "0.810966",
+     "stress_floor_below_basic": "22.8391"
+    },
+    "outcome": "PASS",
+    "seeds": 150,
+    "readouts": [
+     {
+      "readout": "mean_acute",
+      "mean_difference": 40.82221447420014,
+      "half_width": 4.462296991654911,
+      "direction": 1
+     },
+     {
+      "readout": "reactive_over_chance",
+      "mean_difference": 0.08965903458690656,
+      "half_width": 0.0034281611305542765,
+      "direction": 1
+     }
+    ],
+    "rerun": false,
+    "error": ""
+   },
+   {
+    "index": 3,
+    "values": {
+     "appraisal_gain": "2.55182",
+     "contact_band_max": "0.365433",
+     "self_channel_exponent": "2.53816",
+     "capacity_level_per_layer": "16.3341",
+     "anxiety_band_low": "3.21118",
+     "anxiety_band_high": "14.4286",
+     "acute_decay_rate": "0.137657",
+     "response_up_gain": "0.256434",
+     "response_down_gain": "0.365391",
+     "stress_floor_below_basic": "9.34342"
+    },
+    "outcome": "PASS",
+    "seeds": 150,
+    "readouts": [
+     {
+      "readout": "mean_acute",
+      "mean_difference": 88.22573556394951,
+      "half_width": 20.9709674539862,
+      "direction": 1
+     },
+     {
+      "readout": "reactive_over_chance",
+      "mean_difference": 0.04656068973487803,
+      "half_width": 0.002536679283558356,
+      "direction": 1
+     }
+    ],
+    "rerun": false,
+    "error": ""
+   },
+   {
+    "index": 4,
+    "values": {
+     "appraisal_gain": "4.74992",
+     "contact_band_max": "0.344154",
+     "self_channel_exponent": "2.62991",
+     "capacity_level_per_layer": "27.6506",
+     "anxiety_band_low": "9.11477",
+     "anxiety_band_high": "18.3701",
+     "acute_decay_rate": "0.332271",
+     "response_up_gain": "0.381773",
+     "response_down_gain": "0.786722",
+     "stress_floor_below_basic": "9.09787"
+    },
+    "outcome": "PASS",
+    "seeds": 150,
+    "readouts": [
+     {
+      "readout": "mean_acute",
+      "mean_difference": 40.78107118691975,
+      "half_width": 3.3673373939579383,
+      "direction": 1
+     },
+     {
+      "readout": "reactive_over_chance",
+      "mean_difference": 0.046811731810862914,
+      "half_width": 0.0026795064575481143,
+      "direction": 1
+     }
+    ],
+    "rerun": false,
+    "error": ""
+   },
+   {
+    "index": 5,
+    "values": {
+     "appraisal_gain": "2.15557",
+     "contact_band_max": "0.133828",
+     "self_channel_exponent": "1.00147",
+     "capacity_level_per_layer": "11.58",
+     "anxiety_band_low": "3.23466",
+     "anxiety_band_high": "12.5292",
+     "acute_decay_rate": "0.205423",
+     "response_up_gain": "0.677519",
+     "response_down_gain": "0.558931",
+     "stress_floor_below_basic": "13.5695"
+    },
+    "outcome": "PASS",
+    "seeds": 150,
+    "readouts": [
+     {
+      "readout": "mean_acute",
+      "mean_difference": 70.9905740384747,
+      "half_width": 8.052350412305877,
+      "direction": 1
+     },
+     {
+      "readout": "reactive_over_chance",
+      "mean_difference": 0.0963951472004556,
+      "half_width": 0.0034718434656828,
+      "direction": 1
+     }
+    ],
+    "rerun": false,
+    "error": ""
+   },
+   {
+    "index": 6,
+    "values": {
+     "appraisal_gain": "5.07969",
+     "contact_band_max": "0.360759",
+     "self_channel_exponent": "1.16769",
+     "capacity_level_per_layer": "32.1697",
+     "anxiety_band_low": "2.85152",
+     "anxiety_band_high": "11.2112",
+     "acute_decay_rate": "0.121477",
+     "response_up_gain": "0.958375",
+     "response_down_gain": "0.254166",
+     "stress_floor_below_basic": "13.5646"
+    },
+    "outcome": "PASS",
+    "seeds": 150,
+    "readouts": [
+     {
+      "readout": "mean_acute",
+      "mean_difference": 105.28770737769891,
+      "half_width": 18.81802925604981,
+      "direction": 1
+     },
+     {
+      "readout": "reactive_over_chance",
+      "mean_difference": 0.0953013706862673,
+      "half_width": 0.0035317819149570787,
+      "direction": 1
+     }
+    ],
+    "rerun": false,
+    "error": ""
+   },
+   {
+    "index": 7,
+    "values": {
+     "appraisal_gain": "2.16703",
+     "contact_band_max": "0.28008",
+     "self_channel_exponent": "2.72947",
+     "capacity_level_per_layer": "30.8706",
+     "anxiety_band_low": "7.0132",
+     "anxiety_band_high": "15.0052",
+     "acute_decay_rate": "0.17711",
+     "response_up_gain": "0.467732",
+     "response_down_gain": "0.721926",
+     "stress_floor_below_basic": "21.3817"
+    },
+    "outcome": "PASS",
+    "seeds": 150,
+    "readouts": [
+     {
+      "readout": "mean_acute",
+      "mean_difference": 125.98409858286783,
+      "half_width": 15.80191928251991,
+      "direction": 1
+     },
+     {
+      "readout": "reactive_over_chance",
+      "mean_difference": 0.043217509187990305,
+      "half_width": 0.002767660471793963,
+      "direction": 1
+     }
+    ],
+    "rerun": false,
+    "error": ""
+   }
+  ]
+ },
+ {
+  "criterion": "M11.C.41[heavy: lower level]",
+  "samples": 8,
+  "counted": 8,
+  "held": 8,
+  "undetermined": 0,
+  "errored": 0,
+  "reruns": 0,
+  "constants": [
+   {
+    "constant": "appraisal_gain",
+    "low": 1.5,
+    "high": 6.0,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "contact_band_max",
+    "low": 0.1,
+    "high": 0.4,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "self_channel_exponent",
+    "low": 1.0,
+    "high": 4.0,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "capacity_level_per_layer",
+    "low": 10.0,
+    "high": 40.0,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "anxiety_band_low",
+    "low": 2.5,
+    "high": 10.0,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "anxiety_band_high",
+    "low": 10.0,
+    "high": 30.0,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "acute_decay_rate",
+    "low": 0.1,
+    "high": 0.4,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "response_up_gain",
+    "low": 0.25,
+    "high": 1.0,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "response_down_gain",
+    "low": 0.25,
+    "high": 1.0,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "stress_floor_below_basic",
+    "low": 7.5,
+    "high": 30.0,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   }
+  ],
+  "rows": [
+   {
+    "index": 0,
+    "values": {
+     "appraisal_gain": "4.01613",
+     "contact_band_max": "0.144333",
+     "self_channel_exponent": "1.36066",
+     "capacity_level_per_layer": "16.259",
+     "anxiety_band_low": "3.57521",
+     "anxiety_band_high": "19.3809",
+     "acute_decay_rate": "0.355849",
+     "response_up_gain": "0.727111",
+     "response_down_gain": "0.74252",
+     "stress_floor_below_basic": "18.7095"
+    },
+    "outcome": "PASS",
+    "seeds": 150,
+    "readouts": [
+     {
+      "readout": "mean_acute",
+      "mean_difference": 44.82156809722175,
+      "half_width": 4.208262643996665,
+      "direction": 1
+     },
+     {
+      "readout": "reactive_over_chance",
+      "mean_difference": 0.08726511661234786,
+      "half_width": 0.003400882425230007,
+      "direction": 1
+     }
+    ],
+    "rerun": false,
+    "error": ""
+   },
+   {
+    "index": 1,
+    "values": {
+     "appraisal_gain": "1.5991",
+     "contact_band_max": "0.214531",
+     "self_channel_exponent": "1.05898",
+     "capacity_level_per_layer": "12.1965",
+     "anxiety_band_low": "2.69164",
+     "anxiety_band_high": "23.3819",
+     "acute_decay_rate": "0.11989",
+     "response_up_gain": "0.782689",
+     "response_down_gain": "0.361477",
+     "stress_floor_below_basic": "8.42868"
+    },
+    "outcome": "PASS",
+    "seeds": 150,
+    "readouts": [
+     {
+      "readout": "mean_acute",
+      "mean_difference": 91.8501005816923,
+      "half_width": 17.571153558404465,
+      "direction": 1
+     },
+     {
+      "readout": "reactive_over_chance",
+      "mean_difference": 0.09499835841249972,
+      "half_width": 0.003076128428015112,
+      "direction": 1
+     }
+    ],
+    "rerun": false,
+    "error": ""
+   },
+   {
+    "index": 2,
+    "values": {
+     "appraisal_gain": "5.83853",
+     "contact_band_max": "0.133911",
+     "self_channel_exponent": "1.07182",
+     "capacity_level_per_layer": "16.3829",
+     "anxiety_band_low": "5.21336",
+     "anxiety_band_high": "13.8269",
+     "acute_decay_rate": "0.303004",
+     "response_up_gain": "0.937798",
+     "response_down_gain": "0.592981",
+     "stress_floor_below_basic": "27.0522"
+    },
+    "outcome": "PASS",
+    "seeds": 150,
+    "readouts": [
+     {
+      "readout": "mean_acute",
+      "mean_difference": 69.97450713288166,
+      "half_width": 10.679923076178502,
+      "direction": 1
+     },
+     {
+      "readout": "reactive_over_chance",
+      "mean_difference": 0.09243221721409309,
+      "half_width": 0.003309172355539171,
+      "direction": 1
+     }
+    ],
+    "rerun": false,
+    "error": ""
+   },
+   {
+    "index": 3,
+    "values": {
+     "appraisal_gain": "1.66923",
+     "contact_band_max": "0.178077",
+     "self_channel_exponent": "1.01505",
+     "capacity_level_per_layer": "19.1267",
+     "anxiety_band_low": "7.24735",
+     "anxiety_band_high": "27.9023",
+     "acute_decay_rate": "0.108779",
+     "response_up_gain": "0.387141",
+     "response_down_gain": "0.560126",
+     "stress_floor_below_basic": "28.7107"
+    },
+    "outcome": "PASS",
+    "seeds": 150,
+    "readouts": [
+     {
+      "readout": "mean_acute",
+      "mean_difference": 367.1096150834792,
+      "half_width": 139.38966135595624,
+      "direction": 1
+     },
+     {
+      "readout": "reactive_over_chance",
+      "mean_difference": 0.10007554184098756,
+      "half_width": 0.003129300538985339,
+      "direction": 1
+     }
+    ],
+    "rerun": false,
+    "error": ""
+   },
+   {
+    "index": 4,
+    "values": {
+     "appraisal_gain": "4.83792",
+     "contact_band_max": "0.245945",
+     "self_channel_exponent": "2.69768",
+     "capacity_level_per_layer": "23.5017",
+     "anxiety_band_low": "5.12929",
+     "anxiety_band_high": "23.6852",
+     "acute_decay_rate": "0.1778",
+     "response_up_gain": "0.658481",
+     "response_down_gain": "0.761051",
+     "stress_floor_below_basic": "9.48144"
+    },
+    "outcome": "PASS",
+    "seeds": 150,
+    "readouts": [
+     {
+      "readout": "mean_acute",
+      "mean_difference": 101.06353473871164,
+      "half_width": 16.27919642890677,
+      "direction": 1
+     },
+     {
+      "readout": "reactive_over_chance",
+      "mean_difference": 0.04281633281711142,
+      "half_width": 0.0023678473133981397,
+      "direction": 1
+     }
+    ],
+    "rerun": false,
+    "error": ""
+   },
+   {
+    "index": 5,
+    "values": {
+     "appraisal_gain": "2.49446",
+     "contact_band_max": "0.322878",
+     "self_channel_exponent": "1.29448",
+     "capacity_level_per_layer": "13.1864",
+     "anxiety_band_low": "5.82178",
+     "anxiety_band_high": "22.6528",
+     "acute_decay_rate": "0.191032",
+     "response_up_gain": "0.418997",
+     "response_down_gain": "0.786341",
+     "stress_floor_below_basic": "8.26357"
+    },
+    "outcome": "PASS",
+    "seeds": 150,
+    "readouts": [
+     {
+      "readout": "mean_acute",
+      "mean_difference": 82.16231467237478,
+      "half_width": 9.51387124051035,
+      "direction": 1
+     },
+     {
+      "readout": "reactive_over_chance",
+      "mean_difference": 0.09680557936342832,
+      "half_width": 0.003314329951705464,
+      "direction": 1
+     }
+    ],
+    "rerun": false,
+    "error": ""
+   },
+   {
+    "index": 6,
+    "values": {
+     "appraisal_gain": "1.85667",
+     "contact_band_max": "0.109641",
+     "self_channel_exponent": "1.14778",
+     "capacity_level_per_layer": "14.628",
+     "anxiety_band_low": "4.67259",
+     "anxiety_band_high": "10.0543",
+     "acute_decay_rate": "0.283577",
+     "response_up_gain": "0.838352",
+     "response_down_gain": "0.653498",
+     "stress_floor_below_basic": "16.2741"
+    },
+    "outcome": "PASS",
+    "seeds": 150,
+    "readouts": [
+     {
+      "readout": "mean_acute",
+      "mean_difference": 55.052007926359025,
+      "half_width": 5.51216339259107,
+      "direction": 1
+     },
+     {
+      "readout": "reactive_over_chance",
+      "mean_difference": 0.09456852029062511,
+      "half_width": 0.0032592974646085894,
+      "direction": 1
+     }
+    ],
+    "rerun": false,
+    "error": ""
+   },
+   {
+    "index": 7,
+    "values": {
+     "appraisal_gain": "1.92653",
+     "contact_band_max": "0.135924",
+     "self_channel_exponent": "2.57302",
+     "capacity_level_per_layer": "31.9031",
+     "anxiety_band_low": "4.07826",
+     "anxiety_band_high": "10.7114",
+     "acute_decay_rate": "0.119438",
+     "response_up_gain": "0.392909",
+     "response_down_gain": "0.728598",
+     "stress_floor_below_basic": "7.78338"
+    },
+    "outcome": "PASS",
+    "seeds": 150,
+    "readouts": [
+     {
+      "readout": "mean_acute",
+      "mean_difference": 114.3348492806803,
+      "half_width": 29.753780354993392,
+      "direction": 1
+     },
+     {
+      "readout": "reactive_over_chance",
+      "mean_difference": 0.04638101549437996,
+      "half_width": 0.0028996328031689164,
+      "direction": 1
+     }
+    ],
+    "rerun": false,
+    "error": ""
+   }
+  ]
+ },
+ {
+  "criterion": "M11.C.41[higher level: heavier stress]",
+  "samples": 8,
+  "counted": 8,
+  "held": 0,
+  "undetermined": 0,
+  "errored": 0,
+  "reruns": 8,
+  "constants": [
+   {
+    "constant": "appraisal_gain",
+    "low": 1.5,
+    "high": 6.0,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "contact_band_max",
+    "low": 0.1,
+    "high": 0.4,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "self_channel_exponent",
+    "low": 1.0,
+    "high": 4.0,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "capacity_level_per_layer",
+    "low": 10.0,
+    "high": 40.0,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "anxiety_band_low",
+    "low": 2.5,
+    "high": 10.0,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "anxiety_band_high",
+    "low": 10.0,
+    "high": 30.0,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "acute_decay_rate",
+    "low": 0.1,
+    "high": 0.4,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "response_up_gain",
+    "low": 0.25,
+    "high": 1.0,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "response_down_gain",
+    "low": 0.25,
+    "high": 1.0,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "stress_floor_below_basic",
+    "low": 7.5,
+    "high": 30.0,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   }
+  ],
+  "rows": [
+   {
+    "index": 0,
+    "values": {
+     "appraisal_gain": "3.916",
+     "contact_band_max": "0.105596",
+     "self_channel_exponent": "2.59508",
+     "capacity_level_per_layer": "19.3821",
+     "anxiety_band_low": "3.38287",
+     "anxiety_band_high": "10.5258",
+     "acute_decay_rate": "0.145846",
+     "response_up_gain": "0.478362",
+     "response_down_gain": "0.395942",
+     "stress_floor_below_basic": "10.9757"
+    },
+    "outcome": "FAIL",
+    "seeds": 150,
+    "readouts": [
+     {
+      "readout": "mean_acute",
+      "mean_difference": 26.358016033454224,
+      "half_width": 18.073725381161275,
+      "direction": 1
+     },
+     {
+      "readout": "reactive_over_chance",
+      "mean_difference": 0.001822761096857227,
+      "half_width": 0.00201438819500858,
+      "direction": 1
+     }
+    ],
+    "rerun": true,
+    "error": "",
+    "first_outcome": "PASS",
+    "rerun_seeds": 200,
+    "rerun_readouts": [
+     {
+      "readout": "mean_acute",
+      "mean_difference": 28.2286823086367,
+      "half_width": 16.450853522635448,
+      "direction": 1
+     },
+     {
+      "readout": "reactive_over_chance",
+      "mean_difference": 0.0009053463698772712,
+      "half_width": 0.0017411625998242288,
+      "direction": 1
+     }
+    ]
+   },
+   {
+    "index": 1,
+    "values": {
+     "appraisal_gain": "5.72419",
+     "contact_band_max": "0.336689",
+     "self_channel_exponent": "1.08415",
+     "capacity_level_per_layer": "10.4138",
+     "anxiety_band_low": "3.72641",
+     "anxiety_band_high": "15.7476",
+     "acute_decay_rate": "0.270728",
+     "response_up_gain": "0.897533",
+     "response_down_gain": "0.675598",
+     "stress_floor_below_basic": "11.5742"
+    },
+    "outcome": "FAIL",
+    "seeds": 150,
+    "readouts": [
+     {
+      "readout": "mean_acute",
+      "mean_difference": 6.590620424585862,
+      "half_width": 3.5876367818200494,
+      "direction": 1
+     },
+     {
+      "readout": "reactive_over_chance",
+      "mean_difference": -0.0015685071924431133,
+      "half_width": 0.003214322805757093,
+      "direction": 1
+     }
+    ],
+    "rerun": true,
+    "error": "",
+    "first_outcome": "FAIL",
+    "rerun_seeds": 200,
+    "rerun_readouts": [
+     {
+      "readout": "mean_acute",
+      "mean_difference": 7.519817595966035,
+      "half_width": 3.1465534635540626,
+      "direction": 1
+     },
+     {
+      "readout": "reactive_over_chance",
+      "mean_difference": -0.001568182049326205,
+      "half_width": 0.0027693575725412545,
+      "direction": 1
+     }
+    ]
+   },
+   {
+    "index": 2,
+    "values": {
+     "appraisal_gain": "2.32096",
+     "contact_band_max": "0.16871",
+     "self_channel_exponent": "3.44807",
+     "capacity_level_per_layer": "16.426",
+     "anxiety_band_low": "3.71611",
+     "anxiety_band_high": "13.4728",
+     "acute_decay_rate": "0.371931",
+     "response_up_gain": "0.562693",
+     "response_down_gain": "0.998717",
+     "stress_floor_below_basic": "18.5112"
+    },
+    "outcome": "FAIL",
+    "seeds": 150,
+    "readouts": [
+     {
+      "readout": "mean_acute",
+      "mean_difference": 3.6361687724615286,
+      "half_width": 2.3910127451556926,
+      "direction": 1
+     },
+     {
+      "readout": "reactive_over_chance",
+      "mean_difference": 0.0008103074990946894,
+      "half_width": 0.0016908710183317734,
+      "direction": 1
+     }
+    ],
+    "rerun": true,
+    "error": "",
+    "first_outcome": "FAIL",
+    "rerun_seeds": 200,
+    "rerun_readouts": [
+     {
+      "readout": "mean_acute",
+      "mean_difference": 4.385453957422102,
+      "half_width": 2.1780533892850245,
+      "direction": 1
+     },
+     {
+      "readout": "reactive_over_chance",
+      "mean_difference": 0.0006942911957099651,
+      "half_width": 0.0014636895545244578,
+      "direction": 1
+     }
+    ]
+   },
+   {
+    "index": 3,
+    "values": {
+     "appraisal_gain": "1.5449",
+     "contact_band_max": "0.109374",
+     "self_channel_exponent": "3.26803",
+     "capacity_level_per_layer": "12.4596",
+     "anxiety_band_low": "2.72947",
+     "anxiety_band_high": "13.1128",
+     "acute_decay_rate": "0.27614",
+     "response_up_gain": "0.910546",
+     "response_down_gain": "0.648583",
+     "stress_floor_below_basic": "16.425"
+    },
+    "outcome": "FAIL",
+    "seeds": 150,
+    "readouts": [
+     {
+      "readout": "mean_acute",
+      "mean_difference": 9.839066093799493,
+      "half_width": 4.841542548754759,
+      "direction": 1
+     },
+     {
+      "readout": "reactive_over_chance",
+      "mean_difference": -0.00010404949571997927,
+      "half_width": 0.001781213996555747,
+      "direction": 1
+     }
+    ],
+    "rerun": true,
+    "error": "",
+    "first_outcome": "FAIL",
+    "rerun_seeds": 200,
+    "rerun_readouts": [
+     {
+      "readout": "mean_acute",
+      "mean_difference": 9.894896355734693,
+      "half_width": 4.1206187004063075,
+      "direction": 1
+     },
+     {
+      "readout": "reactive_over_chance",
+      "mean_difference": -0.000985572429096464,
+      "half_width": 0.0015410823479155623,
+      "direction": 1
+     }
+    ]
+   },
+   {
+    "index": 4,
+    "values": {
+     "appraisal_gain": "1.78149",
+     "contact_band_max": "0.28266",
+     "self_channel_exponent": "1.10556",
+     "capacity_level_per_layer": "26.095",
+     "anxiety_band_low": "3.66115",
+     "anxiety_band_high": "17.7112",
+     "acute_decay_rate": "0.392824",
+     "response_up_gain": "0.289874",
+     "response_down_gain": "0.290234",
+     "stress_floor_below_basic": "18.5251"
+    },
+    "outcome": "FAIL",
+    "seeds": 150,
+    "readouts": [
+     {
+      "readout": "mean_acute",
+      "mean_difference": 3.221254927127667,
+      "half_width": 1.3106447115593545,
+      "direction": 1
+     },
+     {
+      "readout": "reactive_over_chance",
+      "mean_difference": -0.0028954604781606993,
+      "half_width": 0.0030295596051747335,
+      "direction": 1
+     }
+    ],
+    "rerun": true,
+    "error": "",
+    "first_outcome": "FAIL",
+    "rerun_seeds": 200,
+    "rerun_readouts": [
+     {
+      "readout": "mean_acute",
+      "mean_difference": 3.0119953153875736,
+      "half_width": 1.0919277841629522,
+      "direction": 1
+     },
+     {
+      "readout": "reactive_over_chance",
+      "mean_difference": -0.0026822281164043116,
+      "half_width": 0.002497773375669612,
+      "direction": 1
+     }
+    ]
+   },
+   {
+    "index": 5,
+    "values": {
+     "appraisal_gain": "4.09255",
+     "contact_band_max": "0.148248",
+     "self_channel_exponent": "2.82006",
+     "capacity_level_per_layer": "11.7557",
+     "anxiety_band_low": "4.73867",
+     "anxiety_band_high": "25.0011",
+     "acute_decay_rate": "0.179376",
+     "response_up_gain": "0.381733",
+     "response_down_gain": "0.311123",
+     "stress_floor_below_basic": "20.9833"
+    },
+    "outcome": "FAIL",
+    "seeds": 150,
+    "readouts": [
+     {
+      "readout": "mean_acute",
+      "mean_difference": 20.81835717282263,
+      "half_width": 13.307896579561175,
+      "direction": 1
+     },
+     {
+      "readout": "reactive_over_chance",
+      "mean_difference": -0.0009121703688294077,
+      "half_width": 0.0021319132280820047,
+      "direction": 1
+     }
+    ],
+    "rerun": true,
+    "error": "",
+    "first_outcome": "FAIL",
+    "rerun_seeds": 200,
+    "rerun_readouts": [
+     {
+      "readout": "mean_acute",
+      "mean_difference": 22.125433125299086,
+      "half_width": 11.185160949877273,
+      "direction": 1
+     },
+     {
+      "readout": "reactive_over_chance",
+      "mean_difference": -0.0008253663638675096,
+      "half_width": 0.001807227775135174,
+      "direction": 1
+     }
+    ]
+   },
+   {
+    "index": 6,
+    "values": {
+     "appraisal_gain": "5.12955",
+     "contact_band_max": "0.170912",
+     "self_channel_exponent": "2.16427",
+     "capacity_level_per_layer": "12.2236",
+     "anxiety_band_low": "3.03395",
+     "anxiety_band_high": "20.0989",
+     "acute_decay_rate": "0.218762",
+     "response_up_gain": "0.525135",
+     "response_down_gain": "0.25339",
+     "stress_floor_below_basic": "8.86525"
+    },
+    "outcome": "FAIL",
+    "seeds": 150,
+    "readouts": [
+     {
+      "readout": "mean_acute",
+      "mean_difference": 10.946886515703936,
+      "half_width": 6.768188660888862,
+      "direction": 1
+     },
+     {
+      "readout": "reactive_over_chance",
+      "mean_difference": 0.00029583662714100217,
+      "half_width": 0.0022939892013113506,
+      "direction": 1
+     }
+    ],
+    "rerun": true,
+    "error": "",
+    "first_outcome": "FAIL",
+    "rerun_seeds": 200,
+    "rerun_readouts": [
+     {
+      "readout": "mean_acute",
+      "mean_difference": 11.490531886771512,
+      "half_width": 5.982052077600987,
+      "direction": 1
+     },
+     {
+      "readout": "reactive_over_chance",
+      "mean_difference": 0.00019584032545133105,
+      "half_width": 0.002003760291815886,
+      "direction": 1
+     }
+    ]
+   },
+   {
+    "index": 7,
+    "values": {
+     "appraisal_gain": "3.94679",
+     "contact_band_max": "0.179393",
+     "self_channel_exponent": "1.48056",
+     "capacity_level_per_layer": "14.8825",
+     "anxiety_band_low": "6.32438",
+     "anxiety_band_high": "16.2656",
+     "acute_decay_rate": "0.101508",
+     "response_up_gain": "0.287378",
+     "response_down_gain": "0.292116",
+     "stress_floor_below_basic": "7.59631"
+    },
+    "outcome": "FAIL",
+    "seeds": 150,
+    "readouts": [
+     {
+      "readout": "mean_acute",
+      "mean_difference": 26.322898421073038,
+      "half_width": 25.570953443672245,
+      "direction": 1
+     },
+     {
+      "readout": "reactive_over_chance",
+      "mean_difference": -0.0005413708403639782,
+      "half_width": 0.0025450699070195108,
+      "direction": 1
+     }
+    ],
+    "rerun": true,
+    "error": "",
+    "first_outcome": "FAIL",
+    "rerun_seeds": 200,
+    "rerun_readouts": [
+     {
+      "readout": "mean_acute",
+      "mean_difference": 22.201835388663543,
+      "half_width": 23.051240361568986,
+      "direction": 1
+     },
+     {
+      "readout": "reactive_over_chance",
+      "mean_difference": 0.00025609932274691874,
+      "half_width": 0.002200987688735648,
+      "direction": 1
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "criterion": "M11.C.41[lower level: heavier stress]",
+  "samples": 8,
+  "counted": 8,
+  "held": 1,
+  "undetermined": 0,
+  "errored": 0,
+  "reruns": 8,
+  "constants": [
+   {
+    "constant": "appraisal_gain",
+    "low": 1.5,
+    "high": 6.0,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "contact_band_max",
+    "low": 0.1,
+    "high": 0.4,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "self_channel_exponent",
+    "low": 1.0,
+    "high": 4.0,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "capacity_level_per_layer",
+    "low": 10.0,
+    "high": 40.0,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "anxiety_band_low",
+    "low": 2.5,
+    "high": 10.0,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "anxiety_band_high",
+    "low": 10.0,
+    "high": 30.0,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "acute_decay_rate",
+    "low": 0.1,
+    "high": 0.4,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "response_up_gain",
+    "low": 0.25,
+    "high": 1.0,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "response_down_gain",
+    "low": 0.25,
+    "high": 1.0,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "stress_floor_below_basic",
+    "low": 7.5,
+    "high": 30.0,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   }
+  ],
+  "rows": [
+   {
+    "index": 0,
+    "values": {
+     "appraisal_gain": "2.66467",
+     "contact_band_max": "0.375253",
+     "self_channel_exponent": "2.36387",
+     "capacity_level_per_layer": "14.2742",
+     "anxiety_band_low": "9.04436",
+     "anxiety_band_high": "10.209",
+     "acute_decay_rate": "0.207457",
+     "response_up_gain": "0.970466",
+     "response_down_gain": "0.799206",
+     "stress_floor_below_basic": "15.3317"
+    },
+    "outcome": "FAIL",
+    "seeds": 150,
+    "readouts": [
+     {
+      "readout": "mean_acute",
+      "mean_difference": 10.136351127206765,
+      "half_width": 14.267307445168706,
+      "direction": 1
+     },
+     {
+      "readout": "reactive_over_chance",
+      "mean_difference": 0.0013862311906247947,
+      "half_width": 0.0022842307122647332,
+      "direction": 1
+     }
+    ],
+    "rerun": true,
+    "error": "",
+    "first_outcome": "FAIL",
+    "rerun_seeds": 200,
+    "rerun_readouts": [
+     {
+      "readout": "mean_acute",
+      "mean_difference": 10.23603983444853,
+      "half_width": 12.68191150782055,
+      "direction": 1
+     },
+     {
+      "readout": "reactive_over_chance",
+      "mean_difference": 0.0014550107482144213,
+      "half_width": 0.0019331995481252627,
+      "direction": 1
+     }
+    ]
+   },
+   {
+    "index": 1,
+    "values": {
+     "appraisal_gain": "3.82847",
+     "contact_band_max": "0.338612",
+     "self_channel_exponent": "1.33346",
+     "capacity_level_per_layer": "11.3452",
+     "anxiety_band_low": "3.94993",
+     "anxiety_band_high": "15.2354",
+     "acute_decay_rate": "0.218437",
+     "response_up_gain": "0.881996",
+     "response_down_gain": "0.992372",
+     "stress_floor_below_basic": "8.70146"
+    },
+    "outcome": "FAIL",
+    "seeds": 150,
+    "readouts": [
+     {
+      "readout": "mean_acute",
+      "mean_difference": 18.23967287717535,
+      "half_width": 10.304481808019563,
+      "direction": 1
+     },
+     {
+      "readout": "reactive_over_chance",
+      "mean_difference": -0.0003147017081570952,
+      "half_width": 0.002396707388256743,
+      "direction": 1
+     }
+    ],
+    "rerun": true,
+    "error": "",
+    "first_outcome": "FAIL",
+    "rerun_seeds": 200,
+    "rerun_readouts": [
+     {
+      "readout": "mean_acute",
+      "mean_difference": 18.097835785753144,
+      "half_width": 8.63249075427741,
+      "direction": 1
+     },
+     {
+      "readout": "reactive_over_chance",
+      "mean_difference": -0.0002668883341423342,
+      "half_width": 0.0020217918760389885,
+      "direction": 1
+     }
+    ]
+   },
+   {
+    "index": 2,
+    "values": {
+     "appraisal_gain": "1.70823",
+     "contact_band_max": "0.225976",
+     "self_channel_exponent": "1.68446",
+     "capacity_level_per_layer": "10.4416",
+     "anxiety_band_low": "2.63911",
+     "anxiety_band_high": "25.7184",
+     "acute_decay_rate": "0.106329",
+     "response_up_gain": "0.663639",
+     "response_down_gain": "0.403715",
+     "stress_floor_below_basic": "17.4335"
+    },
+    "outcome": "FAIL",
+    "seeds": 150,
+    "readouts": [
+     {
+      "readout": "mean_acute",
+      "mean_difference": 65.06334755392893,
+      "half_width": 26.50330562631171,
+      "direction": 1
+     },
+     {
+      "readout": "reactive_over_chance",
+      "mean_difference": 0.000349214494294585,
+      "half_width": 0.00253648311992206,
+      "direction": 1
+     }
+    ],
+    "rerun": true,
+    "error": "",
+    "first_outcome": "FAIL",
+    "rerun_seeds": 200,
+    "rerun_readouts": [
+     {
+      "readout": "mean_acute",
+      "mean_difference": 60.657793603030065,
+      "half_width": 24.47886834309487,
+      "direction": 1
+     },
+     {
+      "readout": "reactive_over_chance",
+      "mean_difference": 0.0008476721447888521,
+      "half_width": 0.0022273480151323477,
+      "direction": 1
+     }
+    ]
+   },
+   {
+    "index": 3,
+    "values": {
+     "appraisal_gain": "3.32782",
+     "contact_band_max": "0.145064",
+     "self_channel_exponent": "2.29588",
+     "capacity_level_per_layer": "28.9342",
+     "anxiety_band_low": "8.41986",
+     "anxiety_band_high": "20.8489",
+     "acute_decay_rate": "0.308664",
+     "response_up_gain": "0.362158",
+     "response_down_gain": "0.741846",
+     "stress_floor_below_basic": "11.1852"
+    },
+    "outcome": "PASS",
+    "seeds": 150,
+    "readouts": [
+     {
+      "readout": "mean_acute",
+      "mean_difference": 10.241222457335317,
+      "half_width": 6.138838562054509,
+      "direction": 1
+     },
+     {
+      "readout": "reactive_over_chance",
+      "mean_difference": 0.0024988960543651734,
+      "half_width": 0.002198227635030502,
+      "direction": 1
+     }
+    ],
+    "rerun": true,
+    "error": "",
+    "first_outcome": "PASS",
+    "rerun_seeds": 200,
+    "rerun_readouts": [
+     {
+      "readout": "mean_acute",
+      "mean_difference": 9.478292342510814,
+      "half_width": 5.596556416337203,
+      "direction": 1
+     },
+     {
+      "readout": "reactive_over_chance",
+      "mean_difference": 0.0019826825462866656,
+      "half_width": 0.0018544100193051663,
+      "direction": 1
+     }
+    ]
+   },
+   {
+    "index": 4,
+    "values": {
+     "appraisal_gain": "1.91682",
+     "contact_band_max": "0.179301",
+     "self_channel_exponent": "1.21784",
+     "capacity_level_per_layer": "29.5559",
+     "anxiety_band_low": "7.26413",
+     "anxiety_band_high": "25.464",
+     "acute_decay_rate": "0.157289",
+     "response_up_gain": "0.316127",
+     "response_down_gain": "0.554143",
+     "stress_floor_below_basic": "11.7264"
+    },
+    "outcome": "FAIL",
+    "seeds": 150,
+    "readouts": [
+     {
+      "readout": "mean_acute",
+      "mean_difference": 15.205929634888289,
+      "half_width": 14.439295979646428,
+      "direction": 1
+     },
+     {
+      "readout": "reactive_over_chance",
+      "mean_difference": 0.000638608664832923,
+      "half_width": 0.0023677590153997857,
+      "direction": 1
+     }
+    ],
+    "rerun": true,
+    "error": "",
+    "first_outcome": "FAIL",
+    "rerun_seeds": 200,
+    "rerun_readouts": [
+     {
+      "readout": "mean_acute",
+      "mean_difference": 14.748553389057165,
+      "half_width": 12.222045333178576,
+      "direction": 1
+     },
+     {
+      "readout": "reactive_over_chance",
+      "mean_difference": 0.0005874089868941186,
+      "half_width": 0.0020412849345320962,
+      "direction": 1
+     }
+    ]
+   },
+   {
+    "index": 5,
+    "values": {
+     "appraisal_gain": "1.79077",
+     "contact_band_max": "0.215938",
+     "self_channel_exponent": "3.75719",
+     "capacity_level_per_layer": "33.8869",
+     "anxiety_band_low": "8.72996",
+     "anxiety_band_high": "17.2125",
+     "acute_decay_rate": "0.121732",
+     "response_up_gain": "0.34364",
+     "response_down_gain": "0.313023",
+     "stress_floor_below_basic": "10.3043"
+    },
+    "outcome": "FAIL",
+    "seeds": 150,
+    "readouts": [
+     {
+      "readout": "mean_acute",
+      "mean_difference": 22.622850172663462,
+      "half_width": 25.843216648674943,
+      "direction": 1
+     },
+     {
+      "readout": "reactive_over_chance",
+      "mean_difference": 0.002109586790868256,
+      "half_width": 0.0019901422867811135,
+      "direction": 1
+     }
+    ],
+    "rerun": true,
+    "error": "",
+    "first_outcome": "FAIL",
+    "rerun_seeds": 200,
+    "rerun_readouts": [
+     {
+      "readout": "mean_acute",
+      "mean_difference": 14.30190227782673,
+      "half_width": 22.83146225920724,
+      "direction": 1
+     },
+     {
+      "readout": "reactive_over_chance",
+      "mean_difference": 0.001723011118045443,
+      "half_width": 0.0016913931771817597,
+      "direction": 1
+     }
+    ]
+   },
+   {
+    "index": 6,
+    "values": {
+     "appraisal_gain": "4.01073",
+     "contact_band_max": "0.291791",
+     "self_channel_exponent": "1.52381",
+     "capacity_level_per_layer": "19.4256",
+     "anxiety_band_low": "5.94415",
+     "anxiety_band_high": "10.2349",
+     "acute_decay_rate": "0.115985",
+     "response_up_gain": "0.447825",
+     "response_down_gain": "0.729339",
+     "stress_floor_below_basic": "10.2375"
+    },
+    "outcome": "FAIL",
+    "seeds": 150,
+    "readouts": [
+     {
+      "readout": "mean_acute",
+      "mean_difference": 31.926992557954957,
+      "half_width": 24.33018706922736,
+      "direction": 1
+     },
+     {
+      "readout": "reactive_over_chance",
+      "mean_difference": 0.0018766930941759533,
+      "half_width": 0.002423121513597476,
+      "direction": 1
+     }
+    ],
+    "rerun": true,
+    "error": "",
+    "first_outcome": "FAIL",
+    "rerun_seeds": 200,
+    "rerun_readouts": [
+     {
+      "readout": "mean_acute",
+      "mean_difference": 32.20050527075161,
+      "half_width": 19.882803354209052,
+      "direction": 1
+     },
+     {
+      "readout": "reactive_over_chance",
+      "mean_difference": 0.001197322192173474,
+      "half_width": 0.0020220912004142062,
+      "direction": 1
+     }
+    ]
+   },
+   {
+    "index": 7,
+    "values": {
+     "appraisal_gain": "5.47275",
+     "contact_band_max": "0.32336",
+     "self_channel_exponent": "2.13474",
+     "capacity_level_per_layer": "29.5927",
+     "anxiety_band_low": "5.58246",
+     "anxiety_band_high": "11.4662",
+     "acute_decay_rate": "0.176462",
+     "response_up_gain": "0.361227",
+     "response_down_gain": "0.288744",
+     "stress_floor_below_basic": "22.9988"
+    },
+    "outcome": "FAIL",
+    "seeds": 100,
+    "readouts": [
+     {
+      "readout": "mean_acute",
+      "mean_difference": 25.592369492125872,
+      "half_width": 21.396823638276942,
+      "direction": 1
+     },
+     {
+      "readout": "reactive_over_chance",
+      "mean_difference": 0.0010117645563183508,
+      "half_width": 0.003104754395396045,
+      "direction": 1
+     }
+    ],
+    "rerun": true,
+    "error": "",
+    "first_outcome": "FAIL",
+    "rerun_seeds": 200,
+    "rerun_readouts": [
+     {
+      "readout": "mean_acute",
+      "mean_difference": 20.12456625341052,
+      "half_width": 17.09768648862358,
+      "direction": 1
+     },
+     {
+      "readout": "reactive_over_chance",
+      "mean_difference": -0.00040848981808936215,
+      "half_width": 0.002175022328025907,
+      "direction": 1
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "criterion": "M11.C.44",
+  "samples": 8,
+  "counted": 8,
+  "held": 2,
+  "undetermined": 0,
+  "errored": 0,
+  "reruns": 8,
+  "constants": [
+   {
+    "constant": "appraisal_gain",
+    "low": 1.5,
+    "high": 6.0,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "intensity_scale",
+    "low": 50.0,
+    "high": 200.0,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "impingement_relaxation_rate",
+    "low": 0.15,
+    "high": 0.6,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "contact_band_max",
+    "low": 0.1,
+    "high": 0.4,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "anxiety_togetherness_gain",
+    "low": 0.25,
+    "high": 1.0,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "interactive_resting_contact",
+    "low": 0.25,
+    "high": 1.0,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "contact_relaxation_rate",
+    "low": 0.05,
+    "high": 0.2,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "learning_rate",
+    "low": 0.1,
+    "high": 0.4,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "credit_horizon",
+    "low": 2.0,
+    "high": 6.0,
+    "scale": "integer",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "credit_discount",
+    "low": 0.35,
+    "high": 1.0,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "cross_person_weight",
+    "low": 0.25,
+    "high": 1.0,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "policy_temperature",
+    "low": 0.5,
+    "high": 2.0,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "habituation_rate",
+    "low": 0.35,
+    "high": 1.0,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "habituation_window",
+    "low": 4.0,
+    "high": 16.0,
+    "scale": "integer",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   }
+  ],
+  "rows": [
+   {
+    "index": 0,
+    "values": {
+     "appraisal_gain": "5.5203",
+     "intensity_scale": "81.1361",
+     "impingement_relaxation_rate": "0.151938",
+     "contact_band_max": "0.307381",
+     "anxiety_togetherness_gain": "0.32193",
+     "interactive_resting_contact": "0.308467",
+     "contact_relaxation_rate": "0.164261",
+     "learning_rate": "0.178889",
+     "credit_horizon": "2",
+     "credit_discount": "0.530347",
+     "cross_person_weight": "0.591073",
+     "policy_temperature": "1.01689",
+     "habituation_rate": "0.664684",
+     "habituation_window": "10"
+    },
+    "outcome": "FAIL",
+    "seeds": 100,
+    "readouts": [
+     {
+      "readout": "outside_inside_ratio",
+      "mean_difference": 0.012938216647329992,
+      "half_width": 0.09806897025367686,
+      "direction": 1
+     }
+    ],
+    "rerun": true,
+    "error": "",
+    "first_outcome": "FAIL",
+    "rerun_seeds": 200,
+    "rerun_readouts": [
+     {
+      "readout": "outside_inside_ratio",
+      "mean_difference": -0.010303084280719242,
+      "half_width": 0.06671115164188504,
+      "direction": 1
+     }
+    ]
+   },
+   {
+    "index": 1,
+    "values": {
+     "appraisal_gain": "2.77875",
+     "intensity_scale": "66.5044",
+     "impingement_relaxation_rate": "0.509006",
+     "contact_band_max": "0.234915",
+     "anxiety_togetherness_gain": "0.806086",
+     "interactive_resting_contact": "0.334791",
+     "contact_relaxation_rate": "0.148521",
+     "learning_rate": "0.112797",
+     "credit_horizon": "4",
+     "credit_discount": "0.858073",
+     "cross_person_weight": "0.630618",
+     "policy_temperature": "1.01569",
+     "habituation_rate": "0.789585",
+     "habituation_window": "7"
+    },
+    "outcome": "FAIL",
+    "seeds": 100,
+    "readouts": [
+     {
+      "readout": "outside_inside_ratio",
+      "mean_difference": 0.07156680488485359,
+      "half_width": 0.10453958049371441,
+      "direction": 1
+     }
+    ],
+    "rerun": true,
+    "error": "",
+    "first_outcome": "FAIL",
+    "rerun_seeds": 200,
+    "rerun_readouts": [
+     {
+      "readout": "outside_inside_ratio",
+      "mean_difference": 0.0462373870029018,
+      "half_width": 0.0687348016651538,
+      "direction": 1
+     }
+    ]
+   },
+   {
+    "index": 2,
+    "values": {
+     "appraisal_gain": "4.67805",
+     "intensity_scale": "141.74",
+     "impingement_relaxation_rate": "0.539005",
+     "contact_band_max": "0.100651",
+     "anxiety_togetherness_gain": "0.275232",
+     "interactive_resting_contact": "0.315161",
+     "contact_relaxation_rate": "0.188416",
+     "learning_rate": "0.243845",
+     "credit_horizon": "5",
+     "credit_discount": "0.36077",
+     "cross_person_weight": "0.440921",
+     "policy_temperature": "0.919735",
+     "habituation_rate": "0.521523",
+     "habituation_window": "9"
+    },
+    "outcome": "FAIL",
+    "seeds": 100,
+    "readouts": [
+     {
+      "readout": "outside_inside_ratio",
+      "mean_difference": 0.055587840984007625,
+      "half_width": 0.09199605783607268,
+      "direction": 1
+     }
+    ],
+    "rerun": true,
+    "error": "",
+    "first_outcome": "FAIL",
+    "rerun_seeds": 200,
+    "rerun_readouts": [
+     {
+      "readout": "outside_inside_ratio",
+      "mean_difference": 0.00906086523314933,
+      "half_width": 0.0609653834892901,
+      "direction": 1
+     }
+    ]
+   },
+   {
+    "index": 3,
+    "values": {
+     "appraisal_gain": "2.77449",
+     "intensity_scale": "147.937",
+     "impingement_relaxation_rate": "0.239793",
+     "contact_band_max": "0.22855",
+     "anxiety_togetherness_gain": "0.999241",
+     "interactive_resting_contact": "0.462821",
+     "contact_relaxation_rate": "0.0922161",
+     "learning_rate": "0.345878",
+     "credit_horizon": "6",
+     "credit_discount": "0.649524",
+     "cross_person_weight": "0.506852",
+     "policy_temperature": "0.725707",
+     "habituation_rate": "0.988032",
+     "habituation_window": "10"
+    },
+    "outcome": "PASS",
+    "seeds": 100,
+    "readouts": [
+     {
+      "readout": "outside_inside_ratio",
+      "mean_difference": 0.06295899825250802,
+      "half_width": 0.0996092022491337,
+      "direction": 1
+     }
+    ],
+    "rerun": true,
+    "error": "",
+    "first_outcome": "FAIL",
+    "rerun_seeds": 200,
+    "rerun_readouts": [
+     {
+      "readout": "outside_inside_ratio",
+      "mean_difference": 0.08185398106408391,
+      "half_width": 0.0794673239319361,
+      "direction": 1
+     }
+    ]
+   },
+   {
+    "index": 4,
+    "values": {
+     "appraisal_gain": "3.89088",
+     "intensity_scale": "55.8606",
+     "impingement_relaxation_rate": "0.157953",
+     "contact_band_max": "0.240318",
+     "anxiety_togetherness_gain": "0.52846",
+     "interactive_resting_contact": "0.302228",
+     "contact_relaxation_rate": "0.0668104",
+     "learning_rate": "0.155128",
+     "credit_horizon": "6",
+     "credit_discount": "0.617253",
+     "cross_person_weight": "0.271932",
+     "policy_temperature": "0.781079",
+     "habituation_rate": "0.450904",
+     "habituation_window": "14"
+    },
+    "outcome": "FAIL",
+    "seeds": 100,
+    "readouts": [
+     {
+      "readout": "outside_inside_ratio",
+      "mean_difference": -0.04107858164028568,
+      "half_width": 0.10795131050364885,
+      "direction": 1
+     }
+    ],
+    "rerun": true,
+    "error": "",
+    "first_outcome": "FAIL",
+    "rerun_seeds": 200,
+    "rerun_readouts": [
+     {
+      "readout": "outside_inside_ratio",
+      "mean_difference": 0.011157837975863592,
+      "half_width": 0.07299094889167712,
+      "direction": 1
+     }
+    ]
+   },
+   {
+    "index": 5,
+    "values": {
+     "appraisal_gain": "2.50719",
+     "intensity_scale": "145.617",
+     "impingement_relaxation_rate": "0.186335",
+     "contact_band_max": "0.112559",
+     "anxiety_togetherness_gain": "0.396267",
+     "interactive_resting_contact": "0.400185",
+     "contact_relaxation_rate": "0.156126",
+     "learning_rate": "0.231793",
+     "credit_horizon": "5",
+     "credit_discount": "0.798379",
+     "cross_person_weight": "0.6184",
+     "policy_temperature": "1.78952",
+     "habituation_rate": "0.40714",
+     "habituation_window": "13"
+    },
+    "outcome": "PASS",
+    "seeds": 50,
+    "readouts": [
+     {
+      "readout": "outside_inside_ratio",
+      "mean_difference": 0.028460649539666406,
+      "half_width": 0.06011004651291758,
+      "direction": 1
+     }
+    ],
+    "rerun": true,
+    "error": "",
+    "first_outcome": "FAIL",
+    "rerun_seeds": 200,
+    "rerun_readouts": [
+     {
+      "readout": "outside_inside_ratio",
+      "mean_difference": 0.03129924057557466,
+      "half_width": 0.03406901033397166,
+      "direction": 1
+     }
+    ]
+   },
+   {
+    "index": 6,
+    "values": {
+     "appraisal_gain": "4.32891",
+     "intensity_scale": "187.45",
+     "impingement_relaxation_rate": "0.573952",
+     "contact_band_max": "0.170685",
+     "anxiety_togetherness_gain": "0.957259",
+     "interactive_resting_contact": "0.650162",
+     "contact_relaxation_rate": "0.0872421",
+     "learning_rate": "0.136476",
+     "credit_horizon": "6",
+     "credit_discount": "0.797178",
+     "cross_person_weight": "0.842724",
+     "policy_temperature": "1.63492",
+     "habituation_rate": "0.465853",
+     "habituation_window": "15"
+    },
+    "outcome": "FAIL",
+    "seeds": 50,
+    "readouts": [
+     {
+      "readout": "outside_inside_ratio",
+      "mean_difference": -0.017418681558706045,
+      "half_width": 0.05851245656819142,
+      "direction": 1
+     }
+    ],
+    "rerun": true,
+    "error": "",
+    "first_outcome": "FAIL",
+    "rerun_seeds": 200,
+    "rerun_readouts": [
+     {
+      "readout": "outside_inside_ratio",
+      "mean_difference": -0.023427370740465515,
+      "half_width": 0.03102219536311307,
+      "direction": 1
+     }
+    ]
+   },
+   {
+    "index": 7,
+    "values": {
+     "appraisal_gain": "1.90385",
+     "intensity_scale": "196.529",
+     "impingement_relaxation_rate": "0.288962",
+     "contact_band_max": "0.160842",
+     "anxiety_togetherness_gain": "0.44597",
+     "interactive_resting_contact": "0.909089",
+     "contact_relaxation_rate": "0.165928",
+     "learning_rate": "0.157426",
+     "credit_horizon": "3",
+     "credit_discount": "0.433857",
+     "cross_person_weight": "0.510989",
+     "policy_temperature": "1.34677",
+     "habituation_rate": "0.373382",
+     "habituation_window": "8"
+    },
+    "outcome": "FAIL",
+    "seeds": 50,
+    "readouts": [
+     {
+      "readout": "outside_inside_ratio",
+      "mean_difference": -0.013733590700460381,
+      "half_width": 0.05041239487469395,
+      "direction": 1
+     }
+    ],
+    "rerun": true,
+    "error": "",
+    "first_outcome": "FAIL",
+    "rerun_seeds": 200,
+    "rerun_readouts": [
+     {
+      "readout": "outside_inside_ratio",
+      "mean_difference": -0.016486540840890386,
+      "half_width": 0.02941302665893373,
+      "direction": 1
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "criterion": "M11.C.45",
+  "samples": 8,
+  "counted": 8,
+  "held": 0,
+  "undetermined": 0,
+  "errored": 0,
+  "reruns": 8,
+  "constants": [
+   {
+    "constant": "triangle_transfer_rate",
+    "low": 0.15,
+    "high": 0.6,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "outsider_positional_gain",
+    "low": 0.25,
+    "high": 1.0,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "learning_rate",
+    "low": 0.1,
+    "high": 0.4,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "credit_horizon",
+    "low": 2.0,
+    "high": 6.0,
+    "scale": "integer",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "credit_discount",
+    "low": 0.35,
+    "high": 1.0,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "cross_person_weight",
+    "low": 0.25,
+    "high": 1.0,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "policy_temperature",
+    "low": 0.5,
+    "high": 2.0,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "habituation_rate",
+    "low": 0.35,
+    "high": 1.0,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "habituation_window",
+    "low": 4.0,
+    "high": 16.0,
+    "scale": "integer",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   }
+  ],
+  "rows": [
+   {
+    "index": 0,
+    "values": {
+     "triangle_transfer_rate": "0.487292",
+     "outsider_positional_gain": "0.620514",
+     "learning_rate": "0.138262",
+     "credit_horizon": "2",
+     "credit_discount": "0.479076",
+     "cross_person_weight": "0.413674",
+     "policy_temperature": "0.74167",
+     "habituation_rate": "0.978019",
+     "habituation_window": "5"
+    },
+    "outcome": "FAIL",
+    "seeds": 150,
+    "readouts": [
+     {
+      "readout": "triangle_rate",
+      "mean_difference": 0.0010833333333333333,
+      "half_width": 0.006271594051460021,
+      "direction": 1
+     }
+    ],
+    "rerun": true,
+    "error": "",
+    "first_outcome": "FAIL",
+    "rerun_seeds": 200,
+    "rerun_readouts": [
+     {
+      "readout": "triangle_rate",
+      "mean_difference": -0.00035416666666666637,
+      "half_width": 0.0052076316482106335,
+      "direction": 1
+     }
+    ]
+   },
+   {
+    "index": 1,
+    "values": {
+     "triangle_transfer_rate": "0.328353",
+     "outsider_positional_gain": "0.779097",
+     "learning_rate": "0.159481",
+     "credit_horizon": "4",
+     "credit_discount": "0.991549",
+     "cross_person_weight": "0.368795",
+     "policy_temperature": "0.621226",
+     "habituation_rate": "0.694746",
+     "habituation_window": "13"
+    },
+    "outcome": "FAIL",
+    "seeds": 150,
+    "readouts": [
+     {
+      "readout": "triangle_rate",
+      "mean_difference": -0.004444444444444444,
+      "half_width": 0.0059564132019054574,
+      "direction": 1
+     }
+    ],
+    "rerun": true,
+    "error": "",
+    "first_outcome": "FAIL",
+    "rerun_seeds": 200,
+    "rerun_readouts": [
+     {
+      "readout": "triangle_rate",
+      "mean_difference": -0.006083333333333334,
+      "half_width": 0.005185401118247163,
+      "direction": 1
+     }
+    ]
+   },
+   {
+    "index": 2,
+    "values": {
+     "triangle_transfer_rate": "0.263522",
+     "outsider_positional_gain": "0.267341",
+     "learning_rate": "0.130017",
+     "credit_horizon": "2",
+     "credit_discount": "0.426846",
+     "cross_person_weight": "0.411013",
+     "policy_temperature": "1.9338",
+     "habituation_rate": "0.598246",
+     "habituation_window": "6"
+    },
+    "outcome": "FAIL",
+    "seeds": 100,
+    "readouts": [
+     {
+      "readout": "triangle_rate",
+      "mean_difference": 0.0007083333333333338,
+      "half_width": 0.004294896257937111,
+      "direction": 1
+     }
+    ],
+    "rerun": true,
+    "error": "",
+    "first_outcome": "FAIL",
+    "rerun_seeds": 200,
+    "rerun_readouts": [
+     {
+      "readout": "triangle_rate",
+      "mean_difference": -0.00125,
+      "half_width": 0.002998669675260826,
+      "direction": 1
+     }
+    ]
+   },
+   {
+    "index": 3,
+    "values": {
+     "triangle_transfer_rate": "0.166737",
+     "outsider_positional_gain": "0.535625",
+     "learning_rate": "0.112957",
+     "credit_horizon": "3",
+     "credit_discount": "0.463608",
+     "cross_person_weight": "0.327889",
+     "policy_temperature": "0.766595",
+     "habituation_rate": "0.564605",
+     "habituation_window": "8"
+    },
+    "outcome": "FAIL",
+    "seeds": 150,
+    "readouts": [
+     {
+      "readout": "triangle_rate",
+      "mean_difference": -0.0005277777777777779,
+      "half_width": 0.004446166043332009,
+      "direction": 1
+     }
+    ],
+    "rerun": true,
+    "error": "",
+    "first_outcome": "FAIL",
+    "rerun_seeds": 200,
+    "rerun_readouts": [
+     {
+      "readout": "triangle_rate",
+      "mean_difference": -0.0010416666666666664,
+      "half_width": 0.003898476908776495,
+      "direction": 1
+     }
+    ]
+   },
+   {
+    "index": 4,
+    "values": {
+     "triangle_transfer_rate": "0.24013",
+     "outsider_positional_gain": "0.375579",
+     "learning_rate": "0.111923",
+     "credit_horizon": "5",
+     "credit_discount": "0.560323",
+     "cross_person_weight": "0.516853",
+     "policy_temperature": "0.522612",
+     "habituation_rate": "0.548046",
+     "habituation_window": "13"
+    },
+    "outcome": "FAIL",
+    "seeds": 150,
+    "readouts": [
+     {
+      "readout": "triangle_rate",
+      "mean_difference": 0.001805555555555555,
+      "half_width": 0.004492981356871603,
+      "direction": 1
+     }
+    ],
+    "rerun": true,
+    "error": "",
+    "first_outcome": "FAIL",
+    "rerun_seeds": 200,
+    "rerun_readouts": [
+     {
+      "readout": "triangle_rate",
+      "mean_difference": 0.0004583333333333332,
+      "half_width": 0.003969206707192523,
+      "direction": 1
+     }
+    ]
+   },
+   {
+    "index": 5,
+    "values": {
+     "triangle_transfer_rate": "0.256628",
+     "outsider_positional_gain": "0.878354",
+     "learning_rate": "0.163017",
+     "credit_horizon": "5",
+     "credit_discount": "0.689272",
+     "cross_person_weight": "0.745417",
+     "policy_temperature": "0.705216",
+     "habituation_rate": "0.642278",
+     "habituation_window": "13"
+    },
+    "outcome": "FAIL",
+    "seeds": 150,
+    "readouts": [
+     {
+      "readout": "triangle_rate",
+      "mean_difference": 0.0006666666666666671,
+      "half_width": 0.0051239159090584385,
+      "direction": 1
+     }
+    ],
+    "rerun": true,
+    "error": "",
+    "first_outcome": "FAIL",
+    "rerun_seeds": 200,
+    "rerun_readouts": [
+     {
+      "readout": "triangle_rate",
+      "mean_difference": -0.0014791666666666664,
+      "half_width": 0.004416476860985877,
+      "direction": 1
+     }
+    ]
+   },
+   {
+    "index": 6,
+    "values": {
+     "triangle_transfer_rate": "0.312158",
+     "outsider_positional_gain": "0.388808",
+     "learning_rate": "0.107846",
+     "credit_horizon": "6",
+     "credit_discount": "0.710305",
+     "cross_person_weight": "0.876676",
+     "policy_temperature": "1.84589",
+     "habituation_rate": "0.511396",
+     "habituation_window": "13"
+    },
+    "outcome": "FAIL",
+    "seeds": 100,
+    "readouts": [
+     {
+      "readout": "triangle_rate",
+      "mean_difference": 0.0034166666666666685,
+      "half_width": 0.004093022847106527,
+      "direction": 1
+     }
+    ],
+    "rerun": true,
+    "error": "",
+    "first_outcome": "PASS",
+    "rerun_seeds": 200,
+    "rerun_readouts": [
+     {
+      "readout": "triangle_rate",
+      "mean_difference": 2.083333333333437e-05,
+      "half_width": 0.0028722219111217864,
+      "direction": 1
+     }
+    ]
+   },
+   {
+    "index": 7,
+    "values": {
+     "triangle_transfer_rate": "0.336987",
+     "outsider_positional_gain": "0.399004",
+     "learning_rate": "0.104346",
+     "credit_horizon": "3",
+     "credit_discount": "0.797235",
+     "cross_person_weight": "0.87346",
+     "policy_temperature": "1.15184",
+     "habituation_rate": "0.551693",
+     "habituation_window": "14"
+    },
+    "outcome": "FAIL",
+    "seeds": 150,
+    "readouts": [
+     {
+      "readout": "triangle_rate",
+      "mean_difference": 0.003333333333333334,
+      "half_width": 0.0036061989190556533,
+      "direction": 1
+     }
+    ],
+    "rerun": true,
+    "error": "",
+    "first_outcome": "PASS",
+    "rerun_seeds": 200,
+    "rerun_readouts": [
+     {
+      "readout": "triangle_rate",
+      "mean_difference": 0.001125000000000001,
+      "half_width": 0.0033360593355043285,
       "direction": 1
      }
     ]

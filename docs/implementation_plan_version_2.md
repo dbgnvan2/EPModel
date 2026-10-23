@@ -2,7 +2,8 @@
 
 **Status: stage 1 APPROVED 2026-10-19; stage 2 plan DRAFTED 2026-10-23 and its pilot BUILT 2026-10-23 on the branch
 `stage-2-plan-pilot` (§2.10), decisions D8–D16 taken as recommended under the owner's instruction of 2026-10-22, pending
-the owner's review (§2.2, §2.10); the full sweep did not run (projected 44 h at 8 samples, over the 4-hour rule, §2.10).** The owner
+the owner's review (§2.2, §2.10); the full sweep did not run (projected 44 h at 8 samples, over the 4-hour rule, §2.10); Phase C's 14 directional
+criteria SWEPT 2026-10-23 on the branch `stage-2-phase-c-sweep` at 8 samples, 27 min (§2.10).** The owner
 decided D1–D7 on 2026-10-19, every one as recommended (§1.2), and approved the stage 1 plan. **Built, reviewed and regenerated 2026-10-19 (steps 0–7, §1.10): no verdict changed against
 the tag `version-1`. The `/csdp` sweep's fixes (step 8) were made 2026-10-20 and pushed the same day with the owner's
 approval; CI run 39449517708 passed on Python 3.11, 3.12 and 3.13 (S1.10c). A cold sweep's fixes were made
@@ -852,6 +853,75 @@ choose which. **Decided as recommended under the owner's instruction of 2026-10-
 `M17.E.6` comes into stage 2. The pilot showed no need: both criteria gave a verdict at every sample, and the one
 sweep rule the pilot needed (the detection limit) is `M17.A.1`'s. **Decided as recommended under the owner's
 instruction of 2026-10-22, pending the owner's review.**
+
+**The Phase C sweep (D15's first step; 2026-10-23, the branch `stage-2-phase-c-sweep`).**
+`python3 tools/version_2_sweep.py --workers 10`, started 05:32:36 and finished 05:59:37 on 2026-10-23 on this Mac:
+**1620 s wall (27 min 0 s; the tool's integer figure — the timestamps span 1621 s)** for 155 child runs — 96 first runs (8 samples × the 12 Phase C directional criteria the
+pilot had not run) and 59 reruns at 200 seeds under the detection-limit rule (`M17.A.1`); the pilot's 24 results were
+read from the cache and nothing was rerun. The 14 criteria are the Phase C ensemble record's composite and mixed rows
+(`M11.5`), the count §2.1 item 6 gives. Their constants and ranges are the 104 rows added to `config/sweep/sweep.md`
+(121 rows, 31 constants, 14 criteria), each range half to double the central value within the file's bounds, every
+grade `[I]`: one constant, `defence_threshold`, is named in `docs/model_explainer.md` (§11.3) and graded `[I]` there;
+the other 30 are not named there by their code name; every constant in `config/bowen/constants.md` is graded `[I]`
+(checked 2026-10-23), so no constant a mechanism reads was left out of a set for carrying another grade. No sample
+was undetermined or errored. Nothing in `src/bowen/` changed; `engine_hash()` printed `66dcbb1e8ba5` before and after;
+no ensemble, mutation or diagnostic record was rerun. The fractions, from `docs/version_2_sweep_record.md`:
+
+| Criterion | Central verdict | Constants swept | Held of 8 | Reruns at 200 |
+|---|---|---|---|---|
+| `M11.C.5` | FAIL | the learner's seven, `debit_gain` | 0 | 8 |
+| `M11.C.16` (pilot) | PASS | the learner's seven | 8 | 0 |
+| `M11.C.27[stable,add_third]` | FAIL | `M4.C.1`'s seven | 2 | 2 |
+| `M11.C.27[stable,remove_one]` | FAIL | `M4.C.1`'s seven | 3 | 3 |
+| `M11.C.27[unstable,add_third]` | FAIL | `M4.C.1`'s seven | 6 | 3 |
+| `M11.C.27[unstable,remove_one]` | PASS | `M4.C.1`'s seven | 6 | 3 |
+| `M11.C.29` | FAIL | `exchange_budget_reduction`, `symptom_threshold_gain`, `symptom_rearm_fraction`, `symptom_leak_rate`, `defence_threshold` | 0 | 8 |
+| `M11.C.41[light: lower level]` | PASS | the level-and-stress ten | 8 | 0 |
+| `M11.C.41[heavy: lower level]` | PASS | the level-and-stress ten | 8 | 0 |
+| `M11.C.41[higher level: heavier stress]` | FAIL | the level-and-stress ten | 0 | 8 |
+| `M11.C.41[lower level: heavier stress]` | FAIL | the level-and-stress ten | 1 | 8 |
+| `M11.C.42` (pilot) | FAIL | the learner's seven, `triangle_transfer_rate`, `outsider_positional_gain`, `triangle_activity_window` | 0 | 8 |
+| `M11.C.44` | PASS | `M4.C.1`'s seven, the learner's seven | 2 | 8 |
+| `M11.C.45` | FAIL | `triangle_transfer_rate`, `outsider_positional_gain`, the learner's seven | 0 | 8 |
+
+The learner's seven are `learning_rate`, `credit_horizon`, `credit_discount`, `cross_person_weight`,
+`policy_temperature`, `habituation_rate`, `habituation_window`; `M4.C.1`'s seven are `appraisal_gain`,
+`intensity_scale`, `impingement_relaxation_rate`, `contact_band_max`, `anxiety_togetherness_gain`,
+`interactive_resting_contact`, `contact_relaxation_rate`; the level-and-stress ten are `appraisal_gain`,
+`contact_band_max`, `self_channel_exponent`, `capacity_level_per_layer`, `anxiety_band_low`, `anxiety_band_high`,
+`acute_decay_rate`, `response_up_gain`, `response_down_gain`, `stress_floor_below_basic`. Every fraction is a
+measurement of the declared range at 8 samples and not a verdict (`M11.5`); a premise passing is never a finding, and
+no premise was swept; at 8 samples no *narrow* mark is read (D14). Two measurements the owner may want beside the
+verdicts: `M11.C.44`, PASS at the central setting, held in 2 of 8 samples (the one-at-a-time D9 sweep had shown its
+verdict moving at `learning_rate` 0.1, §2.9); `M11.C.27[unstable,add_third]`, FAIL at the central setting, held in
+6 of 8.
+
+*Time against the projection.* Per sample 16.9 s (1620 s over 96 first runs, the reruns included) against the
+pilot's 29.8 s; the 12 criteria took 27 min against the 48 min the pilot's ratio projects for them (56 min × 12/14,
+the pilot's two being cached). A sample cost 2.14 times the Phase C record's 7.9 s per row, against the pilot's
+3.76, with reruns on 59 of 96 samples (61%) against the pilot's one in two. Both figures are measurements on Phase C
+runs; at Phase C's ratio part I's 13 criteria at 8 samples scale to 1.8 h (3.2 h × 2.14 / 3.76), and part II's seven
+to 23 h — projections, since no part I or part II row has run at sampled constants.
+
+*The constant sets are judgments* (D10's rule applied; the config's preamble states the rule, each row's last column
+the reason), each **decided as recommended under the owner's instruction of 2026-10-22, pending the owner's review**:
+(1) the learner's seven are in a set where the criterion row or its class row names learning (`M11.C.5`: `M5.E.0`;
+`M11.C.45`: `M1.C.3`'s "`M4.D.6` does not reinforce it") or the readout counts selected acts over the run
+(`M11.C.44`), and out where the readout is taken one week after a scripted act (`M11.C.27`) or the row credits no
+learned mechanism (`M11.C.29`, `M11.C.41`); (2) `M11.C.29`'s set holds `exchange_budget_reduction` (`M6.I.1`, the
+limb the row credits, report-only in the gate), the onset and end of the third's symptom (`M7.D.1`, `M4.C.3a`) that
+the gating readout counts, and `defence_threshold` (`M4.C.2`), the arm's precondition named in its status note;
+(3) `M11.C.41`'s set reads the mixing weight (`M4.D.1a`, `M4.D.3a`), the bands (`M4.D.3`), the stress response's two
+gains and floor (`M1.A.5e`) and `acute_decay_rate` (`M1.A.8`), and leaves out `response_relaxation_rate` and
+`usual_level_rate` (the return, not the fall) and the perspective gains (no arm sets perspective); (4) `M11.C.45`'s
+set leaves out `M4.C.1`'s seven (the disposition names the calm state as a cause, but the row credits `M1.C.1` and
+`M1.C.3`; `M11.C.44` sweeps them) and `triangle_activity_window` (the readout counts selections, not activity);
+(5) `nodal_spike_intensity` (no nodal event in these scenarios) and `functional_level_floor` (a numerical guard) are
+in no set; (6) `anxiety_band_high`'s low end is 10, the top of `anxiety_band_low`'s range, not half its central value,
+so every joint sample keeps the engine's low ≤ high; a sample outside `EngineParams`'s invariants would be an
+errored sample (`tools/mutant_runner.py` turns the engine's `ValueError` into one), and the record's errored count
+is 0 on every row; (7) the sample count stays 8 (D15), so the record's header sentence that
+these fractions time the sweep and do not measure a criterion stands for every row.
 
 **Where the build differs from the plan.**
 - **"Changed at revision 36" is written "changed since the tag `version-1`"** (D11). The tool compares the current

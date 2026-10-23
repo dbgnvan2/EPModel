@@ -19,8 +19,9 @@
 > with no matched uncut tie, T-123);
 > `M11.C.44` FAIL → PASS; `M11.C.17`, `M11.C.7[joint over one spouse]`, `M11.C.10[family of origin]` and
 > `M11.C.2[twelve-person family]` PASS → FAIL, all composite, for the owner's review (T-122); three named mutants
-> survive, `M11.C.48`'s among them, so A11 is not met (T-119 to T-121, T-123). **Next (the pilot built 2026-10-23, `implementation_plan_version_2.md` §2.10):** the owner's review of revision 36's
-> decisions and of D8–D16, and of the branch `stage-2-plan-pilot` before it merges into `main`; then, within the 4-hour rule, Phase C's 14 directional criteria at 8 samples (56 min) in a session of its own (D15); the full sweep (44 h) waits on the owner's choice of sample size and of part II's cost.
+> survive, `M11.C.48`'s among them, so A11 is not met (T-119 to T-121, T-123). Phase C's 14 directional criteria were swept 2026-10-23 at 8 samples on the branch `stage-2-phase-c-sweep` (27 min,
+> 155 child runs; fractions in `docs/version_2_sweep_record.md`, each a measurement and not a verdict; `implementation_plan_version_2.md` §2.10). **Next (2026-10-23):** the owner's review of revision 36's
+> decisions, of D8–D16 and of the Phase C constant sets (§2.10's numbered judgments), and of the branches before they merge into `main`; then part I's 13 directional criteria at 8 samples (3.2 h at the pilot's ratio, 1.8 h at Phase C's) in a session of its own (D15); part II's seven (40 h at the pilot's ratio, 23 h at Phase C's) need a faster arm or a smaller sample, the owner to choose.
 >
 > **2026-10-22 — model ergonomics built (`docs/plan_model_ergonomics.md`), with spec revision 35.** The spec and
 > the ledger have machine-readable indexes (`docs/spec_index.jsonl`, `docs/theory/ledger_index.jsonl`, the latter

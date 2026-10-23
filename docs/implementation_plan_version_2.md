@@ -9,6 +9,11 @@ Python 3.11, 3.12 and 3.13.** Written from
 `docs/version_2_plan.md` §3 (stage 1) and the `TODO.md` entries it collects, each checked against the code on
 2026-10-19. Later stages add their own sections here, as the Phase D plan did.
 
+**Stage 2 plan DRAFTED 2026-10-23 (§2), awaiting the owner's decisions D8–D14.** Written from
+`docs/version_2_plan.md` §3 (stage 2, items 2.1–2.5), §4 (W1–W5) and §6, `docs/spec_rules/M17.md` and `TODO.md`
+T-018, each statement checked against the tree at `63409c1` (engine hash `91f9a81756a5`) on 2026-10-23. Plan only:
+nothing of it is built, no record or pilot was run, and no engine or config file changed.
+
 ## 1. Stage 1: one engineering batch that moves the engine hash once
 
 Stage 1's eight items (1.1–1.8) are listed in `docs/version_2_plan.md` §3. None is meant to change a result; any that
@@ -497,3 +502,409 @@ covers every committed file under `docs/review/`, which found the Phase B seed-7
 listed); the claims about that test say which pages it sees; the counts above name each item; the `TODO.md` entry
 for the owner names sweep settings and diagnostic variants as well as mutants, and the C9 entry no longer calls
 `BrokenExecutor` a subclass.
+
+## 2. Stage 2: measurement (Phase E core)
+
+Stage 2's five items (2.1–2.5) are listed in `docs/version_2_plan.md` §3. Stage 2 runs the constant sweep `M17.E.1`
+asks for, scoped by the owner's Q3 (per criterion, the constants its mechanism reads), after a timed pilot, and
+records the result beside version 1's verdicts. No rule changes in stage 2 except the detection-limit rule (D8), and no
+run in stage 2 moves the engine hash (§2.6). This section was written on 2026-10-23, every statement checked against
+the tree at `63409c1` (`main`, engine hash `91f9a81756a5`), and stops at the plan: nothing here is built until the
+owner decides D8–D14.
+
+### 2.1 What the code shows (checked 2026-10-23)
+
+1. **Of `M17`'s 28 requirements, four have code and tests; the sweep has neither under `src/` nor a test.** By `docs/spec_index.jsonl` and
+   `docs/spec_coverage.md` (rows 577–605): `M17.A.1` (the adaptive stopping rule; five tests in
+   `tests/bowen/test_ensemble.py`), `M17.A.4` (the minimum margin) and `M17.D.3` (the arm-blind engine) are **done**;
+   `M17.A.3` (the paired statistic) is **partial** — the statistic and Holm's step are tested, but no test would fail
+   if the runner used an unpaired test. The other 24, `M17.E.1` among them, are **not done**, "no test named for it;
+   Phase E builds it and is not built yet". `M17.A.2`, `M17.B.1`, `M17.E.3` and `M17.E.6` stay out until the pilot
+   reports (Q3, decided 2026-10-19); nothing in this plan builds them.
+2. **A sweep tool exists, and it is not `M17.E.1`'s.** `tools/sweep_record.py` (Phase C plan D9) runs the composite
+   criteria of `src/bowen/ensemble/criteria.py` — Phase C's only — at half and double the central value of three
+   learner constants (`learning_rate`, `credit_horizon`, `policy_temperature`), one constant at a time, and renders
+   `docs/phase_c_sweep_record.md` from `docs/records_cache/sweep.json`. It is kept current by
+   `tests/bowen/test_ensemble_record.py::test_d9_sweep_record_is_current`, which requires exactly those settings, so
+   the stage 2 sweep is a new tool, not a change to this one. What it shows is how a setting reaches a run: each setting
+   is a `Mutant` (`tools/mutant_runner.py:28`) that edits one row of `config/bowen/constants.md` in a temporary copy of
+   the repository, run through `run_cached` (`tools/record_cache.py:146`) and keyed by the engine hash and the edit.
+   `Mutant.also` carries further edits, so a joint sample of several constants is representable with the machinery as
+   it stands.
+3. **A run reads its constants from the file only.** `load_constants()` reads `config/bowen/constants.md`
+   (`src/bowen/scenario/constants.py`), and the criterion modules bind it at import: `criteria_d.py:111` (`YEAR`) and
+   `criteria_d.py:183` (`ENGINE`); `criteria.py` calls it at lines 304, 371 and 509. No runner-level override exists, so
+   a sampled setting must be a file edit in a copy, as item 2 does. That is also why the sweep leaves the working tree
+   and the engine hash untouched: the copy is edited, never the tree.
+4. **The engine hash covers every file under `config/bowen/` and the runner.** `code_hash`
+   (`tools/ensemble_record.py:38–61`) hashes `src/bowen/**/*.py` outside `render/`, every `config/bowen/**/*.md` except
+   `constants_changes.md`, and the record's own tools. Two consequences for stage 2: the file that declares the sweep's
+   ranges cannot live under `config/bowen/` without moving the hash (D11 puts it in `config/sweep_ranges.md`); and the
+   detection-limit rule, built in `src/bowen/ensemble/runner.py` with its constants in `constants.md`, moves the hash and
+   makes every record stale, so it belongs with group G's regeneration (D8, D14), not with the sweep.
+5. **The population for W4 is 13 rows.** `docs/version_1_status.md` has 60 rows. `tools/version_1_status.py` calls
+   composite and mixed criteria *directional* (`DIRECTIONAL`, line 67). 13 directional rows pass:
+   `M11.C.2[twelve-person family]`, `M11.C.7[joint over one spouse]`, `M11.C.7[joint over sided]`,
+   `M11.C.10[family of origin]`, `M11.C.11`, `M11.C.15`, `M11.C.16`, `M11.C.17`, `M11.C.22`,
+   `M11.C.27[unstable,remove_one]`, `M11.C.39`, `M11.C.41[heavy: lower level]`, `M11.C.41[light: lower level]`. 19
+   directional rows fail and are accepted findings. The 27 premise and check rows are not swept: a premise passing
+   confirms the code and is never a finding (`M11.5`), and W4 names passing directional criteria only. One passing row
+   runs a fixed seed count (`M11.C.10`, 200 seeds, `Criterion.seeds`); the runner honours it (`runner.py:115–122`), and
+   so must the sweep and D8.
+6. **The grades.** Every one of the 177 rows of `config/bowen/constants.md` is `[I]`. `docs/model_explainer.md` names 7
+   of the 177 keys (grep of each key in backticks): `defence_threshold` (line 1276), `belief_rate` (1853) and
+   `hold_gain` (1276, 2083) on lines that carry `[I]`; `practice_window` (2019), `system_adjust_gain` (275) and
+   `constitution_strength` (447) on lines with no grade tag; the rest not at all. The explainer grades mechanisms, not
+   keys. So the grade of every swept constant is the register's `[I]`, and for the 174 the explainer does not grade by
+   name, `[I]` until proven otherwise. The explainer's §17.3 says Phase E "sweeps them all (`M17.E.1`)", which the
+   owner's Q3 narrowed to per criterion; that sentence is updated when the sweep is built (§2.7).
+7. **No wall time is recorded anywhere.** `tools/record_cache.py`, `tools/mutant_runner.py` and
+   `tools/child_process.py` record outcomes, never durations (no `time`, `perf_counter` or `elapsed` in any of them).
+   The pilot's timer is new, and its measurement is a separate page, not a cached result (S2.8): a time is not
+   reproducible, so it must not be in a record a test regenerates.
+8. **The status tool is frozen.** `tools/version_1_status.py` refuses to write (its docstring; owner 2026-10-19,
+   stage 0.1); only `dispositions()` is live, imported by `tools/spec_coverage.py`. Its record parsing
+   (`record_rows`, `red_mutants`, `not_built`, `proved_by_test`, `premise_limbs`) is importable and reusable. The version
+   2 page is a sibling tool (D13), as `docs/version_2_plan.md` §4 says.
+9. **The detection-limit item.** `TODO.md` T-018 (`docs/todo/2026-10-17_revision_32.md`) says `M11.C.22`'s mild limb
+   has about a 78% pass chance at the runner's stop and proposes a fixed seed count when the effect is within a set
+   multiple of the precision. The figure's derivation is not in that item, in `docs/version_1_dispositions.md`, in
+   `docs/spec_revision_log.md` or in the changelog archive (grep "78%"); this plan takes it as the item states it. The
+   runner's stop (`runner.py::_converged`) is relative: a gating readout has converged when the half-width of the
+   per-seed difference is below `ensemble_precision` (0.25) times the pooled seed-to-seed sd of the two arms. The stop
+   does not look at the effect's size, so an effect of about one half-width stops as early as a large one.
+
+**What the pilot and the sweep need that does not exist:** a declared-range file and its strict parser; a per-criterion
+constant set, generated and reviewed; a seeded sampler over the joint ranges; the sample-as-edits runner and the
+fraction readout; a sweep record and its cache; the pilot's timer and its page; the version 2 status tool, page and
+dispositions file; the detection-limit rule in the runner; and the tests of §2.3. Everything else — the copy-and-edit
+child, the cache, the record-JSON parser, the criteria and their verdict rule — exists.
+
+### 2.2 Decisions for the owner before code
+
+Stage 1's decisions were D1–D7. Each decision below gives the choice, Claude's recommendation and the reason. Every
+number proposed here is `[I]`: a modelling or measurement choice with no source.
+
+**D8 — The detection-limit rule (version 2 plan item 2.3; changes `M17.A.1` for every criterion).**
+- (a) **A fixed count near the limit.** At convergence, if any gating readout's |mean difference| is below
+  `detection_limit_multiple` × its precision (the precision being `ensemble_precision` × the pooled sd, the quantity
+  the stop compares the half-width with), the runner keeps adding blocks to `detection_limit_seeds`, not past
+  `ensemble_cap`, and the verdict row carries `near_limit: true` and the seed count used. A criterion with a declared
+  `Criterion.seeds` is unchanged. Both constants are `[I]` ensemble rules in `config/bowen/constants.md` and in
+  `RULE_KEYS`; proposed `detection_limit_multiple` 2 and `detection_limit_seeds` equal to `ensemble_cap` (no second
+  count constant; the cap already bounds every run). `M17.A.1` is amended to say so; every ensemble record's "Rules"
+  line prints the two.
+- (b) **A flag only.** The renderers mark a row `near the detection limit` when |mean difference| < 2 × half-width,
+  computed from the row's JSON at render time. No extra seeds, no runner change, no hash move, no spec change beyond a
+  note.
+- (c) **A tighter precision for all**: `ensemble_precision` lowered. Every criterion runs longer, whether or not it is
+  near the limit.
+
+*Recommended: (a), built inside group G's revision and regeneration (D14).* T-018's case is a marginal verdict decided
+by where the stop happened to land; `M13.4` adopted adaptive stopping on the owner's decision of 2026-09-22 "that a
+fixed count lets ensemble size, not the mechanism, decide marginal results", and a stop that ignores the effect's size
+leaves the same door open from the other side. (b) names the problem without changing the verdict, and (c) spends
+seeds where none are needed. (a) moves the engine hash (`runner.py` and
+`constants.md` are both in it, §2.1 item 4), so it is built in the same batch as group G and the event sizes, whose
+regeneration is already "one full, shared" (`docs/version_2_plan.md` §6); then the sweep and the pilot run on a hash
+that holds still. The extra seeds' cost is measured by that regeneration, not estimated here. Because the pilot runs
+after D8 is built, the pilot's wall time includes D8's effect. The spec revision carrying D8 is group G's (its number
+is not fixed here; `_STATUS.md` says group G's revision follows the G2 proposal).
+
+**D9 — The pilot's two subjects (item 2.2): one passing criterion and one accepted finding.**
+
+Chosen from `docs/version_1_status.md` (grep `^| \`M11.C`), among the 32 directional rows (§2.1 item 5).
+- Passing: **`M11.C.17`** (composite, Phase D part I, PASS, `coached_rise` +0.000888 ± 0.0013, p 0.0148; the owner's
+  note of 2026-10-19 says it passes "weakly"). It is the passing row with the smallest effect against its half-width,
+  so a narrow band of constants is most likely to show here; its mechanism is a coach's contact that lands
+  (`M1.E.7`), and its one recorded red mutant edits a register row (`perspective_gain` 0.1 → 0.0,
+  `tools/phase_d_mutation_record.py:90–93`), so the sweep's range for that constant includes the mutant's value at one
+  end. It runs the Phase C family for 520 weeks (`config/bowen/criteria.md:147`), the expensive class of run, which the
+  pilot must time.
+- Finding: **`M11.C.5`** (composite, Phase C, FAIL, accepted 2026-10-17: "No settled change-back reaction over 60
+  weeks"). It is in group B, which the owner left as an accepted finding (Q2), so its sweep fraction is final for
+  version 2 rather than superseded by a stage 3 proposal; and it is in the D9 record at six settings
+  (`docs/phase_c_sweep_record.md`), FAIL at every one, which gives the pilot's fraction a comparison that costs nothing.
+  Its mechanism is the `I-POSITION` sequence and the life-energy debit (`M5.D`, `M5.E`; spec row: "the life-energy
+  debit, `M5.E.7`"). It runs a triad for weeks declared in `criteria.md`, the cheap class.
+- Alternatives, if the owner prefers: `M11.C.16` for the passing subject (Phase C, in the D9 record, PASS at every
+  setting; cheaper, and less likely to show anything); `M11.C.44` for the finding (its disposition says it "has moved
+  between pass and fail on unrelated revisions with both mutants surviving", which a fraction over the range measures
+  directly; but it is in group A, which stage 3 revisits, so its stage 2 fraction would be re-measured after any rule
+  change).
+- The pilot's sample count: **10 samples per subject** (`[I]`): the fraction then has a resolution of 0.1, and ten
+  timings give a median per class of run. The pilot's samples are the first ten of the full sweep's sample sequence
+  (same sampler seed, D12), so the full sweep reuses them from the cache.
+
+*Recommended: `M11.C.17` and `M11.C.5`, 10 samples each.* One Phase D family run and one Phase C triad run time both
+classes the full sweep will meet.
+
+**D10 — The sweep's scope (item 2.1, Q3): which constants each criterion's mechanism reads, and how the set is made.**
+- (a) **A generated set per criterion, reviewed by the owner before the pilot.** `tools/sweep_scope.py` writes
+  `docs/sweep_scope.md`, one section per directional criterion, listing the `[I]` register constants whose `spec`
+  column (`constants.md`'s fifth column) names a rule in the criterion's mechanism. The mechanism's rules come from
+  three places, each cited in the page: the criterion's spec row (its mutation clause names the mechanism, for example
+  `M11.C.44`'s "`M4.C.1`'s two-sided shape"), the `Spec:` lines of the arm's module and functions, and the register rows
+  that the criterion's recorded red mutants edit (`perspective_gain` for `M11.C.17`, `lock_in_gain` for `M11.C.22`).
+  The learner's constants (`M4.D.6`, `M4.D.6b`, `M4.D.6e`, `M4.D.1`) are in every composite's set, because a composite
+  is by `M11.5` an outcome that is learned. A criterion whose set is empty is listed as **not covered**, never omitted
+  (the form `M17.E.2` requires for its dominant constant). The owner reviews the page before the pilot (Q3's "reviewed
+  by the owner before any run").
+- (b) **By hand, in this plan**, for all 13 passing rows now. Not recommended: the mapping is a reading of 13
+  spec rows and about 30 module docstrings, and a hand table goes stale; (a) is checked by a test and regenerated.
+- (c) **Every `[I]` constant for every criterion.** Ruled out by Q3.
+
+The two pilot subjects' sets, made by (a)'s rule by hand here so the owner sees the shape (register rows whose `spec`
+column names the rule; central values as the register has them; the range by D11's rule):
+
+| `M11.C.17` — coaching | rule | central | range (D11) |
+|---|---|---|---|
+| `landing_rate` | `M1.E.7` | 0.15 | 0.075–0.3 |
+| `perspective_gain` | `M1.E.7` | 0.1 | 0.05–0.2 (the mutant's 0.0 is the null end of `M17.E.2`, outside this range) |
+| `binder_failure_fraction` | `M1.E.7` | 0.8 | 0.4–1 (capped at 1) |
+| `self_practice_gain` | `M1.E.7` | 0.001 | 0.0005–0.002 |
+| `practice_window` | `M1.E.7` | 4 | 2–8 |
+| `system_adjust_gain` | `M1.E.7` | 1.0 | 0.5–2.0 |
+| `delayed_view_bonus` | `M1.E.7c` | 1.0 | 0.5–2.0 |
+| `session_interval_weeks`, `contact_optimum`, `contact_window`, `contact_excess_exponent` | `M1.E.8` | 8, 4, 26, 2.0 | 4–16, 2–8, 13–52, 1.0–4.0 |
+| `delayed_view_weeks` | `M16.D.2` | 26 | 13–52 |
+| `estimator_window`, `estimator_breadth`, `estimator_sd_weight`, `estimator_rate` | `M1.A.4k` (the spec row names `estimator_breadth`) | 3, 3, 1.0, 0.5 | 2–6, 2–6, 0.5–2.0, 0.25–1 |
+| `perspective_channel_gain`, `perspective_steer_gain`, `self_channel_exponent` | `M4.D.1a` | 0.5, 0.5, 2.0 | 0.25–1, 0.25–1, 1.0–4.0 |
+| `learning_rate`, `credit_discount`, `soothing_review_every`, `soothing_review_penalty`; `credit_horizon`; `cross_person_weight`; `policy_temperature`, `policy_intensity` | `M4.D.6`; `M4.D.6b`; `M4.D.6e`; `M4.D.1` | 0.2, 0.7, 12, 0.5; 3; 0.5; 1.0, 100.0 | 0.1–0.4, 0.35–1, 6–24, 0.25–1; 2–6; 0.25–1; 0.5–2.0, 50–200 |
+
+`estimator_breadth`'s range needs a check before the run: `M11.C.17`'s arms deliver nodal load "of at least
+`estimator_breadth` kinds in every window" through `criteria.md`'s `nodal` settings (three kinds), so a sample at
+breadth 6 can never meet the estimator's test in either arm. The scope page says which constants interact with the
+criterion's own settings that way; the owner decides whether such a constant is swept over a range the settings can
+meet (here 2–3) or left out.
+
+| `M11.C.5` — change-back reaction | rule | central | range (D11) |
+|---|---|---|---|
+| `debit_gain` | `M5.E.7` (the spec row's mechanism) | 0.3 | 0.15–0.6 |
+| `respect_gain` | `M5.E.8` | 0.2 | 0.1–0.4 |
+| `opposition_window` | `M5.E.3` | 3 | 2–6 |
+| `prepare_ticks`, `hold_window`, `hold_gain`, `anger_threshold`, `stall_limit`, `pull_up_rate`, `exchange_gain` | `M5.D.2a`, `M5.D.2`, `M5.D.3`, `M5.D.4`, `M5.D.4`, `M5.D.5`, `M5.D.7a` | 4, 6, 0.3, 0.3, 4, 0.2, 0.5 | 2–8, 3–12, 0.15–0.6, 0.15–0.6, 2–8, 0.1–0.4, 0.25–1 |
+| `symptom_leak_rate`, `symptom_threshold_gain`, `symptom_rearm_fraction` (the third person's symptom) | `M4.C.3a`, `M7.D.1`, `M7.D.1` | 0.1, 1.5, 0.5 | 0.05–0.2, 0.75–3.0, 0.25–1 |
+| the learner's constants, as above | `M4.D.6`, `M4.D.6b`, `M4.D.6e`, `M4.D.1` | as above | as above |
+
+*Recommended: (a).* The two tables above are the shape of the page, not its final content: the page is generated from
+the register and the spec rows, and the owner's review of it is the gate (§2.8).
+
+Also under D10, which rows the full sweep covers:
+- (i) the 13 passing directional rows (W4's population) — required;
+- (ii) the accepted findings of the groups the owner chose for stage 3 (A, C, F: `M11.C.42`, `M11.C.44`, `M11.C.45`,
+  `M11.C.27[stable,add_third]`, `M11.C.27[unstable,add_third]`, `M11.C.2`, `M11.C.6`, `M11.C.21`, `M11.C.29`; nine
+  rows), so each stage 3 proposal knows whether its finding holds across the range or only at the central point;
+- (iii) all 19 accepted findings.
+
+*Recommended: (i) now; (ii) decided with N and F after the pilot, when the cost per row is known; (iii) not in stage 2.*
+
+**D11 — The declared ranges, where they are declared, and the named ratio (item 2.1).**
+- The range rule, one rule for every constant so that no range is chosen after seeing a result: **half to double the
+  central value**, the D9 record's precedent, sampled log-uniformly so the central value is the median. An integer
+  constant is rounded to distinct integers within that span, never below 1. A share, rate, probability or fraction
+  bounded above by 1 is capped at 1; a threshold on a [0, 1] axis likewise. A constant that both arms' settings
+  constrain (the `estimator_breadth` case above) is listed on the scope page with the constraint, for the owner.
+- **Not swept, by name, with the reason:** `fast_tick_weeks` and `slow_tick_fast_ticks` (the clocks; every rate is per
+  tick); `invariant_tolerance` and `functional_level_floor` (numerical guards); `bond_energy_decay_rate` (0.0;
+  `M1.B.4` requires decay at or near zero, and half to double of 0 is 0); `death_transfer_share` (1.0; "1 is the rule",
+  only `M11.C.37`'s mutant sets it lower); the seven ensemble rules (`ensemble_block` to `equivalence_margin`; they are
+  the measurement, not the model) and D8's two; the life-course ages the owner set (`acting_age_years`,
+  `development_start_age_years`, `development_end_age_years`, `launch_age_years`, `working_age_years`,
+  `coach_start_age_years`, `coach_retirement_age_years`, `chronic_anxiety_fixation_age_years`) and
+  `spouse_basic_level_tolerance`, which are initial conditions and belong to `M17.C.1`'s declared distribution, not to
+  `M17.E.1` (explainer §17.3: initial conditions are what an intervention acts on, not nuisance parameters). Every
+  other register constant is sweepable when a criterion's set names it.
+- **Where declared:** `config/sweep_ranges.md`, a strictly parsed table (key, central as in the register, low, high,
+  grade, reason-or-exclusion), outside `config/bowen/` so it is outside the engine hash (§2.1 item 4), and read only
+  by the sweep tools. A row whose central value differs from the register's raises (the D9 tool's own check,
+  `sweep_record.py::row_mutant`); a key not in the register raises; a range that does not contain the central value
+  raises. Its header carries the sampler seed, N and F once they are decided (D12, D13). Each sample's edits are its
+  cache key, so a changed range reruns only the samples it changes.
+- **The named ratio.** `M17.E.1` says the rate at which ties harden or attenuate, relative to the rate at which
+  anxiety moves, "MUST be swept as a named ratio". The register has `balance_harden_rate` 0.02 (`M1.B.6`),
+  `tie_wear_rate` 0.05 (`M7.E.4`) and `acute_decay_rate` 0.2 (`M1.A.8`); no ratio is named in `M10`. Options: (a) the
+  sweep record reports, per sample, `balance_harden_rate / acute_decay_rate` and `tie_wear_rate / acute_decay_rate`
+  computed from the sampled values, and the fraction holding is shown by ratio tercile, with no new constant; (b) a
+  named ratio constant added to `M10` and `constants.md`, which moves the hash and needs a revision. *Recommended: (a)
+  in stage 2; (b) offered to the owner for group G's revision if the ratio is to be a register entry.*
+
+**D12 — What one sample runs, and the sampler.**
+- (a) **The runner's own verdict per sample.** Each sample runs the criterion through `run_criterion` as the records do:
+  the same adaptive stopping (`M17.A.1` with D8), the same margin, Holm correction and seed keying, so "the direction
+  holds in this sample" means exactly what PASS means in the record. UNDETERMINED is counted apart, never as holding.
+  The sampler is a seeded Latin hypercube over the criterion's set on the log scale (`[I]`; the seed is declared in
+  `config/sweep_ranges.md`), N samples per criterion, N decided after the pilot and recorded there before the full
+  sweep (Q4's form).
+- (b) **A fixed small seed count per sample**, cheaper and not the record's verdict rule.
+
+*Recommended: (a).* W4 is "the fraction of samples in which its direction holds", and a direction holding is the
+runner's verdict; a weaker rule inside the sweep would make the fraction incomparable with the verdict beside it. If
+the pilot shows (a) is too costly, the owner's lever is N, not the rule.
+
+**D13 — The sweep record, the version 2 status page and the "narrow" mark (item 2.4, Q4, W1, W2, W4).**
+- **The record:** `docs/version_2_sweep_record.md`, generated by `tools/constant_sweep.py` from
+  `docs/records_cache/constant_sweep.json`, hash-stamped like the other records. One row per swept criterion: the
+  verdict at the tag `version-1`; the current record's verdict; the constants swept (count; the set is in
+  `docs/sweep_scope.md`); N; the fraction of samples holding; the fraction UNDETERMINED; seeds per sample (min–max);
+  the ratio terciles of D11; and **narrow** when the fraction is below F. A machine-readable block (`record_json`)
+  carries every sample's values and verdict. A premise or check row never appears; the tool refuses one.
+- **The status page:** `docs/version_2_status.md`, generated by `tools/version_2_status.py`, a sibling of the frozen
+  version 1 tool that imports its record parsing. Columns: Criterion | Class | Version 1 (from
+  `git show version-1:docs/version_1_status.md`, the frozen page) | Record | Verdict | Sweep (fraction, N; narrow) |
+  Status | Disposition. The page states W1 and W2 as the version 1 page states V1–V3, and W4 as a count: "n of the 13
+  passing directional rows have a sweep result". Dispositions for rows whose verdict is unchanged come from
+  `docs/version_1_dispositions.md` at the tag; a new `docs/version_2_dispositions.md` (header and rules only in stage
+  2) takes stage 3's decisions and any row whose verdict changes.
+- **F, the narrow fraction:** decided by the owner after the pilot, from the two measured fractions, and written into
+  `config/sweep_ranges.md`'s header before the full sweep runs (Q4). The tool refuses to run the full sweep without it
+  and refuses to mark narrow in the pilot's report. "Narrow" is a mark on a pass, not a verdict: the row's status stays
+  "pass".
+
+*Recommended as described.* The version 1 column is read from the tag, never from the working tree, so a regenerated
+record cannot rewrite what version 1 said (the same rule as `tests/test_version_1_status.py`).
+
+**D14 — The order relative to group G (version 2 plan §6).**
+- (a) **Design now, pilot after group G.** Steps 1–3 of §2.4 (the range file, the scope page, the sweep tool, the
+  status tool, their tests) are built on the current hash: none of them is in the engine hash, and their tests run
+  stub criteria, not the engine. D8 is built inside group G's revision. The pilot runs on the hash group G's
+  regeneration leaves, so its samples are not thrown away by a hash move.
+- (b) **Pilot now**, on `91f9a81756a5`, and again after group G.
+
+*Recommended: (a), as the owner decided 2026-10-19 (`docs/version_2_plan.md` §5 Q2 and §6).* (b) measures the time
+twice; the first measurement is on a runner without D8, which the second has.
+
+### 2.3 Criteria and their tests
+
+Each test name carries the criterion's ID and a spec ID where one applies. A test counts as coverage only once a
+mutation on a copy has shown it failing; the mutation is listed. Acceptance tests in this repository assert a
+direction between two arms, never a threshold; the sweep's fraction and the narrow mark are measurements beside a
+verdict, and no test below asserts a fraction's value. The table is written for the recommended answers; another
+answer changes its row.
+
+| ID | Criterion | Test | Proved failing by |
+|---|---|---|---|
+| S2.1 (`M17.A.1` as amended by D8) | An effect within the multiple of the precision runs on to the fixed count; a clear effect stops at convergence; the row records `near_limit` and the seeds used; a declared `Criterion.seeds` is unchanged | `tests/bowen/test_ensemble.py::test_m17a1_s2_1_an_effect_near_the_limit_runs_to_the_fixed_count`, `::test_m17a1_s2_1_a_clear_effect_stops_at_convergence`, `::test_m17a1_s2_1_a_fixed_seed_criterion_is_unchanged` (stub arms with declared spreads, as the existing `test_m17a1_*` tests) | the near-limit branch removed; the multiple set to 0 |
+| S2.2 (`M10.B.2`) | `config/sweep_ranges.md` is parsed strictly: a key not in the register, a central value that differs from the register's, a range that excludes the central value, or a range on a constant the file lists as not swept, raises | `tests/test_constant_sweep.py::test_s2_2_ranges_parse_strictly` (four cases) | each check removed |
+| S2.3 (`M17.E.1`) | `docs/sweep_scope.md` is current, lists every directional criterion once, lists no premise or check, and marks an empty set **not covered** | `tests/test_constant_sweep.py::test_s2_3_scope_page_is_current`, `::test_s2_3_every_directional_criterion_has_a_set_or_is_not_covered`, `::test_s2_3_no_premise_is_in_scope` | a hand edit to the page; a directional row deleted; a premise row added |
+| S2.4 | The sampler is seeded and reproducible, draws N samples inside every range, and the pilot's samples are the first N_pilot of the sequence | `tests/test_constant_sweep.py::test_s2_4_sampler_is_seeded_and_in_range`, `::test_s2_4_pilot_samples_are_a_prefix_of_the_full_sequence` | the seed ignored; a range bound exceeded |
+| S2.5 | One sample is one `Mutant` of row edits on `constants.md` in a copy; its definition is its cache key; after a run the working tree's `constants.md` and the engine hash are unchanged | `tests/test_constant_sweep.py::test_s2_5_a_sample_is_row_edits_in_a_copy`, `::test_s2_5_the_tree_and_the_hash_are_unchanged` (a stub child) | the edit applied to the tree |
+| S2.6 (`M17.E.1`, W4) | The fraction counts PASS samples only; UNDETERMINED is reported apart; the ratio terciles are computed from the sampled values | `tests/test_constant_sweep.py::test_s2_6_fraction_counts_pass_only`, `::test_s2_6_undetermined_is_reported_apart`, `::test_s2_6_ratio_terciles` | a FAIL or UNDETERMINED counted as holding |
+| S2.7 (`M11.5`) | A premise or check criterion is refused by the sweep tool | `tests/test_constant_sweep.py::test_s2_7_a_premise_is_refused` | the class check removed |
+| S2.8 | The pilot's page `docs/version_2_sweep_pilot.md` names the two subjects, N_pilot, the engine hash, the machine and core count, and a wall time per sample; it is written once and not regenerated by a test | `tests/test_constant_sweep.py::test_s2_8_pilot_page_names_its_subjects_and_hash` (fields present, hash matches the sweep record's) | a field removed |
+| S2.9 (W4) | The sweep record is current: rendered from the cache equals the committed file; a missing result is "stale", not a rerun | `tests/test_constant_sweep.py::test_s2_9_sweep_record_is_current` (the D9 test's form) | a hand edit |
+| S2.10 (W4, Q4) | The narrow mark is set only when F is declared and the fraction is below it; the full sweep refuses to run without F | `tests/test_constant_sweep.py::test_s2_10_narrow_needs_a_declared_fraction`, `::test_s2_10_full_sweep_refuses_without_f` | the refusal removed; the comparison inverted |
+| S2.11 (W1, W2) | `docs/version_2_status.md` is current; every criterion has a final status or the page says which lack one; every premise and check passes or the page says which fails | `tests/test_version_2_status.py::test_w1_s2_11_page_is_current`, `::test_w1_s2_11_every_criterion_has_a_status_or_is_named`, `::test_w2_s2_11_a_failing_premise_is_named` | a hand edit; a row's status blanked on a copy; a premise row's verdict flipped on a copy |
+| S2.12 (W4) | The version 1 column equals the tag's page, row by row; the sweep column shows the record's fraction and mark, "—" for premise and check rows | `tests/test_version_2_status.py::test_w4_s2_12_version_1_column_reads_the_tag`, `::test_w4_s2_12_sweep_column_matches_the_record`, `::test_s2_12_premise_rows_carry_no_fraction` | the working tree's page read instead of the tag; a premise given a fraction on a copy |
+| S2.13 (W4) | Every passing directional row has a sweep result — **the version 2 gate for W4; added with the full sweep's commit (§2.4 step 6), not before, so the suite is never red by design** | `tests/test_version_2_status.py::test_w4_s2_13_every_passing_directional_row_has_a_sweep_result` | a row's fraction removed on a copy |
+| S2.14 (W6) | The documents of §2.7 agree with the code | `tests/test_doc_checklist.py`, `tests/test_spec_consistency.py`, `tests/test_doc_claims.py`, the record-current tests | — |
+| S2.15 (W7) | The suite passes, and CI passes on 3.11, 3.12 and 3.13 | `python3 -m pytest tests/`; `.github/workflows/tests.yml` on the pushed commit | — |
+
+W3 (every passing composite has a recorded mutation) is carried by the existing `test_m111d_*` tests and is not
+stage 2's. W5 (the owner's sign-off on each stage 3 proposal) and W8 (no output about a real family) are not
+code-testable (§2.8).
+
+### 2.4 Order of work
+
+| Step | Work | Depends on | Moves the hash | Regeneration |
+|---|---|---|---|---|
+| 0 | D8–D14 decided by the owner | this plan | no | — |
+| 1 | `config/sweep_ranges.md` and its parser (S2.2); `tools/sweep_scope.py` and `docs/sweep_scope.md` (S2.3); the owner reviews the sets and ranges | D10, D11 | no | none |
+| 2 | `tools/constant_sweep.py`: sampler, sample-as-edits, fraction, renderer, pilot timer (S2.4–S2.10) | D12, D13 | no | none |
+| 3 | `tools/version_2_status.py`, `docs/version_2_status.md`, `docs/version_2_dispositions.md` (S2.11, S2.12) | D13 | no | render only |
+| 4 | D8 in `runner.py` and `constants.md`, with `M17.A.1` amended — **inside group G's revision and build** (S2.1) | D8, the G2 proposal, group G's plan | yes, with group G | one full, shared with group G |
+| 5 | **The pilot**: two subjects × N_pilot samples, timed; `docs/version_2_sweep_pilot.md`; the wall time reported to the owner; N and F decided and written to `config/sweep_ranges.md` (Q4); D10 (ii) decided | steps 1–4, group G regenerated | no | pilot only |
+| 6 | **The full sweep** over D10's rows; `docs/version_2_sweep_record.md`; the status page's column; S2.13 added | step 5, N, F | no | the sweep |
+| 7 | One `learning-qa` pass and one correctness pass over the whole diff (before step 5, for steps 1–3; after step 6, for the record and page); every document in §2.7; `/csdp` | 6 | no | — |
+| 8 | The end-of-stage-2 milestone review (`docs/milestone_review_brief.md` §2 item 1), a separate session on its own branch; it also covers group G and the event sizes (owner 2026-10-21) | 7 | — | — |
+
+The pilot's wall time is reported to the owner before the full sweep runs, and no cost for step 6 is estimated before
+that measurement (`docs/version_2_plan.md` item 2.2). Steps 1–3 can be built now, in parallel with the G2 proposal,
+as §6 of the version 2 plan allows.
+
+### 2.5 Compute
+
+- Steps 1–3 run tests only (stub criteria), on any machine.
+- Step 4 is group G's regeneration, planned there; D8 adds seeds to rows near the limit, measured by that
+  regeneration.
+- Step 5, the pilot: 2 subjects × 10 samples × one adaptive ensemble each, on the machine that generates the records
+  (the owner's Mac, 10 cores, per §1.5 and the version 2 plan's §6). Wall time per sample and per class of run
+  (a 520-week family; a triad of the weeks `criteria.md` declares): **measured by the pilot.**
+- Step 6, the full sweep: 13 rows (D10 (i)) × N samples, plus D10 (ii)'s nine if taken: cost from the pilot's per-sample
+  time by class; **not estimated here.** Each sample is one child process; `run_cached` runs them with `--workers`
+  as the records do, and a stopped run resumes from the cache.
+- This cloud session's machine has 4 cores and is used for the suite only.
+
+### 2.6 How a changed result is reported
+
+No step of stage 2 moves the engine hash except step 4, which is group G's build; its changed verdicts are reported as
+stage 1's were, by `tools/record_changes.py`'s page against the tag (§1.6), inside group G's plan. The sweep edits a
+copy, never the tree, and S2.5 checks the hash before and after.
+
+A sweep fraction is a column beside a verdict, never a verdict. On the status page the version 1 column is read from
+the tag, the verdict column from the current record, and the sweep column from the sweep record; a row reads, for
+example, "pass · 0.8 of 10 samples · narrow" and its status stays "pass". A premise or check row shows "—" in the
+sweep column, and the page's legend says why: a premise passing confirms the code and is never a finding (`M11.5`),
+so it has no fraction to report. An accepted finding that is swept (the pilot's `M11.C.5`; D10 (ii) if taken) shows
+its fraction the same way, and its status stays "fail accepted as a finding": a fraction above zero there says the
+finding depends on where in the range the constants sit, which is information for the stage 3 proposal, not a pass.
+A changed fraction after a later regeneration is a changed measurement, reported with the regeneration, not a defect.
+
+### 2.7 Documents each step updates
+
+Per `CLAUDE.md`'s same-commit rule.
+
+- Step 0 (this commit): this file's status line; `CHANGELOG.md`; `docs/theory/_STATUS.md`'s next line;
+  `docs/REVIEWER_READING_LIST.md` §7; `docs/SPEC_REVIEW_CHECKLIST.md`'s entry for this plan; `TODO.md` T-001.
+- Steps 1–3: `docs/SPEC_REVIEW_CHECKLIST.md` (rows for `config/sweep_ranges.md`, `docs/sweep_scope.md`,
+  `docs/version_2_status.md`, `docs/version_2_dispositions.md`); `docs/REVIEWER_READING_LIST.md` (§5's records, §7);
+  `docs/model_explainer.md` §17.3 ("sweeps them all" → the per-criterion scope, with Q3's date) and §18.7's sweep
+  entry; `CHANGELOG.md`; `TODO.md` (T-018 ticked when D8 is built, not before).
+- Step 4: with group G's revision: `docs/bowen_agent_model_spec_v2.md` (`M17.A.1` amended; its status line),
+  `docs/spec_revision_log.md`, `config/bowen/constants.md` (two rules) and `config/bowen/constants_changes.md`,
+  `docs/model_explainer.md` §18.7, the generated `docs/spec_rules/M17.md` and `docs/spec_index.jsonl`, every record,
+  `docs/version_2_stage_1_changes.md`'s successor page for that regeneration.
+- Step 5: `docs/version_2_sweep_pilot.md` (new; checklist row); `config/sweep_ranges.md`'s header (N, F);
+  `docs/version_2_plan.md` (Q4's answer recorded beside the question); `docs/theory/_STATUS.md`.
+- Step 6: `docs/version_2_sweep_record.md` (new; checklist row); `docs/version_2_status.md`; `docs/spec_coverage.md`
+  (`M17.E.1`'s row, and `tools/spec_coverage_overrides.json` where it says only three constants are swept, lines 99 and
+  763); `docs/readouts_phase_c.md` only if a readout's definition changes, which no step here does;
+  `docs/REVIEWER_READING_LIST.md`; `CHANGELOG.md`; `docs/theory/_STATUS.md`.
+- Step 7: `CLAUDE.md`'s suite count line; `README.md` if it names the records.
+
+### 2.8 Not code-testable
+
+- The owner's review of `docs/sweep_scope.md`: whether each criterion's constant set is its mechanism's, and whether
+  each range is acceptable (Q3). Proposed review: the page, one criterion at a time, as revisions 24–30 were reviewed.
+- The choice of N and F after the pilot (Q4), and whether the pilot's wall time makes the full sweep worth running;
+  the owner reads `docs/version_2_sweep_pilot.md`.
+- What a **narrow** mark means for a result's use (the claim grade `M17.G.1` asks for is not built in stage 2).
+- W8: no output presents the model as speaking about a real family; the owner reads the record and the page.
+- The milestone review at the end of stage 2 (step 8).
+
+### 2.9 Adjacent issues found while planning, not fixed
+
+- `M17.E.1`'s text says "the `[I]` constants", and `docs/model_explainer.md` §17.3 says Phase E "sweeps them all";
+  Q3 narrowed the sweep to the constants each criterion's mechanism reads. The explainer is updated at step 1–3; the
+  spec's wording is not changed by stage 2 unless the owner wants the narrowing written into `M17.E.1` with D8's
+  amendment.
+- `tests/test_sweep.py` tests `papers/sweep.py`, an arXiv catalogue script, not a constant sweep; its name will
+  collide with the stage 2 tests in any grep for "sweep". A rename (`tests/test_papers_sweep.py`) is a one-line
+  change, outside this plan.
+- `M17.A.3` is partial: no test fails if the runner uses an unpaired test or skips Holm's step (coverage row 579). The
+  sweep reads the runner's verdicts, so the gap reaches every fraction; a test with a stub whose paired and unpaired
+  results differ would close it. Outside stage 2's scope as the version 2 plan wrote it.
+- `M11.C.17`'s recorded red mutant is a constant at its null (`perspective_gain` 0.0). The sweep's range (0.05–0.2) and
+  the mutant's null together are what `M17.E.2`(a) calls necessity for that constant; `M17.E.2` is not in stage 2 and
+  no "dominant constant" is named for any criterion (`tools/sweep_record.py`'s docstring), but the scope page's per-
+  criterion sets are the candidates `M17.E.2` would need.
+- `tools/spec_coverage_overrides.json` (lines 99 and 763) says `tools/sweep_record.py` sweeps only three constants;
+  true today, and stale once step 6 lands.
+- `tools/mutant_runner.py::run_in_copy` times a child out at 7200 s by default. A sample of a 520-week family at D8's
+  fixed count may approach it; the pilot measures, and the limit is a parameter of the call, not a constant to tune in
+  advance.
+- No `docs/version_2_dispositions.md` exists; W5 needs one in stage 3, and the version 2 status tool needs a file to
+  read in stage 2 (D13 creates it with its header). `docs/version_1_dispositions.md`'s parser (`dispositions()`) is
+  the model.
+- The standards directory `~/.claude/standards/` named in `CLAUDE.md` is not present on this cloud machine, so
+  `learnings.md`'s P4, P7, P9 and P23 were applied from `CLAUDE.md`'s one-line summaries of them, not from the file.

@@ -2,6 +2,13 @@
 
 > ## ▶ STATE — the corpus is closed. **Version 1 is complete (2026-10-18) and tagged `version-1` at `d62cfdc`; its spec is revision 32. Version 2 began at revision 33; stage 1 was built and its records regenerated 2026-10-19 and pushed 2026-10-20, and no verdict changed. Revision 34 (2026-10-22) changed wording only: the ASR quotations paraphrased (SP-1) and the stage 1 milestone review's wording fixes. Revision 35 (2026-10-22) moved the revision history into `spec_revision_log.md`, and the inline revision narratives of 129 bodies with it (`spec_revision_35_dispositions.md`, for the owner's review); no rule changed. Work goes on `main` (owner, 2026-10-21).**
 >
+> **2026-10-23 — version 2 stage 2 planned** (`docs/implementation_plan_version_2.md` §2, drafted in a cloud session;
+> the measurement stage: `M17.E.1`'s constant sweep per criterion, the timed pilot, the detection-limit rule, a sweep
+> record and a version 2 status page). Seven decisions D8–D14 await the owner; nothing is built, no record or pilot
+> ran, and `engine_hash()` is unchanged. **Next:** the owner's decisions D8–D14; the G2 proposal, then group G, the
+> event sizes and D8 as one revision and one regeneration (the Holmes–Rahe Q3 asked again first, D10 of the stage 1
+> review); stage 2's design steps 1–3 may be built meanwhile; the pilot after that regeneration (§2.4).
+>
 > **2026-10-22 — model ergonomics built (`docs/plan_model_ergonomics.md`), with spec revision 35.** The spec and
 > the ledger have machine-readable indexes (`docs/spec_index.jsonl`, `docs/theory/ledger_index.jsonl`, the latter
 > reaching the extraction files' per-finding entries since 2026-10-22), the spec's

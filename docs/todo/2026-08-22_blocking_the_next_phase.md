@@ -7,7 +7,9 @@
   ~~*first, from the stage 1 milestone review (owner, 2026-10-21): the SP-1 proposal and spec revision 34, in the
   review's section below;*~~ *built 2026-10-22 at spec revision 34, cut down by the owner; what was deferred is in
   the review's section below;* the G2 proposal, so group G (G1, G2, the Holmes–Rahe sizes) can go to one revision and be
-  built before the stage 2 pilot; then proposals for groups C, F and A, each with the owner's note in the plan's §5 Q2.
+  built before the stage 2 pilot; *stage 2's plan drafted 2026-10-23 (`docs/implementation_plan_version_2.md` §2),
+  awaiting the owner's decisions D8–D14; its D8, the detection-limit rule, is built inside group G's revision if
+  taken;* then proposals for groups C, F and A, each with the owner's note in the plan's §5 Q2.
 - [ ] T-002 ⟨now⟩ **`/csdp` sweep of 2026-10-19, items not fixed** (each with its reason; the last three are the fix re-sweep's
   minor items, recorded under the owner's three-or-fewer rule).
   - The owner's Holmes–Rahe Q3 ("additions carry load", decided 2026-10-19) cited `KS07.1`, which §2 then misdescribed

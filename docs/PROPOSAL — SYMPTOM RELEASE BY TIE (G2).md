@@ -1,9 +1,10 @@
 # Proposal — symptom release by tie (version 2, G2)
 
 > **Status: DRAFT for the owner's review, 2026-10-23. Version 2, group G; nothing built, no spec revision.** It
-> answers the two questions `docs/version_2_plan.md` §3 (stage 3, group G) records under G2: when a symptom gives back
-> what it held, or spills the bearer's own excess past the turn, should the shares follow the ties rather than be
-> equal, and should any of it reach an external agent? Nothing in the corpus gives a weighting; every form here is
+> answers the two questions `docs/version_2_plan.md` §3 (stage 3, group G) records under G2 — "Weight by bond energy
+> or conductance? Should a family member's symptom release reach an external agent at all?" — for what a symptom
+> gives back and for the bearer's own spill past the turn, and asks first whether to weight at all (Q1 keeps the
+> equal split as an option). Nothing in the corpus gives a weighting; every form here is
 > Claude's recommendation, graded `[I]`, and no new constant is proposed. It changes what a run computes, so it moves
 > the engine hash; by G1's Q9 (decided 2026-10-19) it is built in one batch with G1 and the Holmes–Rahe sizes, so
 > every record regenerates once. Questions are Q1–Q5 in §8. Before the batch is built, the Holmes–Rahe Q3 is asked
@@ -15,7 +16,7 @@ Nothing on G2 itself. What bears on it:
 
 | Date | Decision | Where |
 |---|---|---|
-| 2026-10-19 | Group G (G1, G2, the Holmes–Rahe sizes) is in version 2 and built before the stage 2 pilot, since it reaches every run that binds anxiety. | `version_2_plan.md` §5 Q2 |
+| 2026-10-19 | Group G ("how bound stocks are released", G1 and G2) is in version 2 and built before the stage 2 pilot, "since it reaches every run that binds anxiety". The Holmes–Rahe sizes are a separate proposal, joined to group G's batch by the next row. | `version_2_plan.md` §5 Q2 |
 | 2026-10-19 | G1, G2 and the Holmes–Rahe sizes are built in one batch, one revision, one regeneration. | G1's Q9; Holmes–Rahe Q7 |
 | 2026-10-19 | G1's Q1: a cut-off tie's bound stock weighs on both members, **scaled by bond energy**. | G1 §3.1 |
 | 2026-10-14 | `M6.3c`: a dead person's `symptom_bound` goes back to the partners as when a symptom ends, and an external agent who is a symptom partner receives its share; only `M6.3b`'s share of the dead person's own acute anxiety excludes them ("okay"). | `M6.3c` |
@@ -41,8 +42,8 @@ Checked 2026-10-23 against `main` at `63409c1`.
   usual level.
 - **The seed-7 trace** (`docs/review/phase_c_trace_seed7.md`, the `M11.C.1` baseline arm). Weeks 12–14 already show
   the pattern in small amounts: "Marta's symptom gives back 1.3 (Ana +0.3, Dr Halim +0.3, Nadia +0.3, Pia +0.3,
-  Ravi +0.3)". In week 74, after `REDUCE_CUTOFF` handed Marta 226.4 of tie-bound anxiety and pushed her symptom past
-  the turn: "Marta's symptom gives back 95.3 (… Dr Halim +19.1 …)" and "Marta's symptom is past its turn and holds
+  Ravi +0.3)". In week 74, after `REDUCE_CUTOFF` handed Marta 226.4 of tie-bound anxiety (the trace does not print severity;
+  her last past-the-turn row before this is week 21, and the two rows below are the first after the 226.4 arrived): "Marta's symptom gives back 95.3 (… Dr Halim +19.1 …)" and "Marta's symptom is past its turn and holds
   their anxiety no longer (Marta −222.4, Ana +44.5, Dr Halim +44.5, Nadia +44.5, Pia +44.5, Ravi +44.5)": 63.6 to
   each of five, the coach among them.
 - **How the rest of the model treats the same question.** Where a person's stock disperses to their ties, the
@@ -69,10 +70,17 @@ Checked 2026-10-23 against `main` at `63409c1`.
   equal split. They do not say what the weight is.
 - **The professional can absorb.** `L05.2` `[B]`, 1961: function is absorbed by whoever will carry it, including the
   professional, and proximity of help is a load-bearing input with a negative sign (`M1.E.5`). This is about
-  function and helplessness, not about anxiety a symptom holds; it is the one entry that bears on the external agent,
-  and it argues for keeping the coach's burden-transfer term (`M1.E.5`), not for the coach taking a share of a
-  symptom's release. `M1.E.7e` (`KS18.5`): a coach who is drawn in becomes a lender of pseudo-self, and the tie must
-  stay thin.
+  function and helplessness, not about anxiety a symptom holds, and it argues for keeping the coach's burden-transfer
+  term (`M1.E.5`), not for the coach taking a share of a symptom's release. `M1.E.7e` (`KS18.5`): a coach perceived
+  as taking sides becomes a lender of pseudo-self, and the tie must stay thin.
+- **An outsider's anxiety can enter the family.** `FE05.11` `[K]` `[T]`: "People outside the family who are
+  emotionally responsive to it can also contribute their anxiety, emotional reactivity, and subjectivity to the
+  family cauldron. When they do, these outside people must 'own' the problem too." `FE06.12` `[K]` `[T]`: anxiety
+  that spreads to the helpers "is often amplified (via the emotional reactivity of the helping professionals) and
+  focused back on the family", while "in most situations, helpers are primarily helpful". Both are about the
+  helper's own anxiety reaching the family, which the model carries by contact along the coach tie (`M4.C.10`,
+  `M1.E.5`); neither says a family member's symptom holds it, or gives it back. They bear on Q2's binding side (§5.2),
+  and Q2 offers the form that keeps that path open.
 - **No magnitude anywhere.** Bond energy, conductance and investment are all the project's constructs. The weight is
   `[I]` whichever is chosen; the corpus supports only the direction (unequal, by involvement) and the boundary (the
   family).
@@ -86,8 +94,8 @@ people on interactive ties to the bearer.
 | | Weight | For | Against |
 |---|---|---|---|
 | (a) | equal shares (today) | simplest | treats a thin professional tie like a spouse; no corpus support for uniformity, and `M7.D.2b` against it |
-| (b) | **bond energy** of each tie, normalised | the rule the model already uses for a stock dispersing to ties (`M6.3b`, `M4.D.6e`, G1's Q1); undirected, fixed at import, never zero on a family tie in the Phase C file | `[I]`, as all of them |
-| (c) | conductance of each tie, normalised | the tie's measure of how much passes along it (`M1.B.2`) | conductance scales what an act transmits, not where a stock settles; using it here gives the model two different "how much of a stock lands here" rules |
+| (b) | **bond energy** of each tie, normalised | the rule the model already uses for a stock dispersing to ties (`M6.3b`, `M4.D.6e`, G1's Q1); undirected, set at import and decayed only by `bond_energy_decay_rate` (0.0 today, `M1.B.4`), never zero on a family tie in the Phase C file | `[I]`, as all of them |
+| (c) | conductance of each tie, normalised | undirected (`M1.B.2`); the factor that scales what contact along the tie transmits (`M4.C.10`) | conductance scales what an act transmits, not where a stock settles; using it here gives the model two different "how much of a stock lands here" rules |
 | (d) | each partner's investment in the bearer (`M1.B.8`), normalised | investment is "share of thought occupied by the target", the nearest thing to the family's focus; the coach's is always zero (`M1.E.7e`), so the external agent falls out without a role check | directed and accumulating, often zero on a tie that is interactive; a partner with none would receive nothing, and a fallback rule is needed from the first week |
 | (e) | a per-contributor ledger: each gets back what they put in | the most literal "gives back what it held" | new state on the person (a dict), no rule for the bearer's own spill (it has no contributors) or for a contributor who dies or is removed, and a readout of the hold's composition no criterion reads |
 
@@ -107,7 +115,8 @@ the ties in `family_phase_c.md`; arithmetic only, not a run:
 | Ana | 40 | 0.6 | 63.5 | 60.5 | 63.5 | 48.9 | 52.9 |
 | Dr Halim | 10 | 0.3 | 63.5 | 15.1 | 0 | 24.4 | 0 |
 
-(The trace prints 63.6 per head from the two rounded rows; 317.7 ÷ 5 is 63.5.)
+(Rounded to one decimal, halves to even: the last column's exact values are 88.25 and 52.95. The trace prints 63.6 per
+head from the two rounded rows; 317.7 ÷ 5 is 63.5.)
 
 ## 5. The rules
 
@@ -128,7 +137,9 @@ Amends `M7.D.2a` ("split equally" → "in proportion to bond energy, among livin
 The recipients **MUST** be the living family members (`role = MEMBER`) on interactive ties to the bearer. An external
 agent takes no share of a release and no share of a spill. On the binding side, an external agent's excess above
 usual **MUST NOT** enter a family member's hold either: `lock_in`'s `s > 0` branch skips them. Both sides change
-together so that nothing an external agent holds can be absorbed by a symptom and never returned.
+together so that nothing an external agent holds can be absorbed by a symptom and never returned. The alternative
+(Q2's second form) keeps the binding side as it is: an emotionally responsive coach's excess still enters the hold,
+which is `FE05.11`'s outsider contributing anxiety to the family, and is not returned to him.
 
 A bearer whose only interactive tie is to an external agent keeps their hold until a family tie is interactive again,
 which is `M7.D.2a`'s existing rule for a bearer with no partners.
@@ -181,7 +192,8 @@ written by it.
 1. **Q1. The weight:** bond energy (recommended, §4 (b)); conductance (c); each partner's investment in the bearer
    (d); a per-contributor ledger (e); or keep equal shares (a).
 2. **Q2. The external agent:** excluded from the release, the spill and the binding side (recommended, §5.2);
-   excluded from the release and the spill only; or included as today.
+   excluded from the release and the spill only, so his excess can still enter the hold (`FE05.11`, §3); or included
+   as today.
 3. **Q3. `M6.3c`'s death clause** follows the same rule, so a dead bearer's hold goes back by bond energy to family
    members only (recommended); or stays as decided 2026-10-14.
 4. **Q4. All recipients at zero bond energy:** equal shares (recommended); or the hold stays with the bearer.

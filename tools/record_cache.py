@@ -143,16 +143,19 @@ def exit_status() -> int:
     return 1 if _uncached else 0
 
 
-def run_cached(cache: Cache, mutant: Mutant | None, ids: list[str], workers: int, label: str | None = None) -> list[dict]:
+def run_cached(cache: Cache, mutant: Mutant | None, ids: list[str], workers: int, label: str | None = None,
+               child: str = CHILD, engine: str | None = None) -> list[dict]:
     """Each criterion's result under ``mutant`` (``None``: the unmodified model): from the cache where its key is
-    present, otherwise run (all the missing ones in one child) and cached. Results come back in ``ids`` order."""
-    engine = engine_hash()
+    present, otherwise run (all the missing ones in one child) and cached. Results come back in ``ids`` order.
+    ``child`` is the tool that runs them and ``engine`` the hash their keys carry, which must cover that child;
+    by default Phase C's child and ``engine_hash``."""
+    engine = engine or engine_hash()
     label = label or (mutant.id if mutant else "unmodified")
     keys = {cid: result_key(engine, mutant.definition() if mutant else None, cid) for cid in ids}
     missing = [cid for cid in ids if cache.get(keys[cid]) is None]
     fresh = {}
     if missing:
-        for result in child_rows(mutant, CHILD, missing, workers, label):
+        for result in child_rows(mutant, child, missing, workers, label):
             fresh[result["criterion"]] = result
             if result["outcome"] not in ERRORED:  # an errored row is reported but rerun next time, never cached
                 cache.put(keys[result["criterion"]], result)

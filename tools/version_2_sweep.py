@@ -7,7 +7,9 @@ Purpose: for each criterion declared in ``config/sweep/sweep.md``, report *n of 
          ``Mutant`` whose edits write the sampled values into the constants file's rows in a temporary copy of the
          repository (``tools/mutant_runner.py``), so nothing in ``src/bowen/`` or the working tree changes and the
          engine hash does not move; results are cached by the engine hash and the edits (``tools/record_cache.py``),
-         so this file can change without rerunning anything.
+         so this file can change without rerunning anything. A criterion of a Phase D record is run by
+         ``tools/phase_d_mutant_child.py`` and cached under ``tools/phase_d_mutation_record.py``'s hash, which covers
+         that child; any other by ``tools/mutant_runner.py``'s child under the engine hash.
 Spec:    docs/bowen_agent_model_spec_v2.md#M17.E.1, #M17.A.1 (the detection-limit rule, revision 37);
          docs/implementation_plan_version_2.md#2.2 (D8, D10, D11)
 Tests:   tests/test_version_2_sweep.py
@@ -38,7 +40,9 @@ REPO = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO))
 
 from tools.mutant_runner import Mutant  # noqa: E402
-from tools.record_cache import ERRORED, Cache, engine_hash, exit_status, result_key, run_cached  # noqa: E402
+from tools.phase_d_mutation_record import CHILD as PHASE_D_CHILD  # noqa: E402
+from tools.phase_d_mutation_record import engine_hash as phase_d_engine_hash  # noqa: E402
+from tools.record_cache import CHILD, ERRORED, Cache, engine_hash, exit_status, result_key, run_cached  # noqa: E402
 from tools.record_json import record_json  # noqa: E402
 from tools.sweep_config import Range, central_values, load_config  # noqa: E402
 
@@ -50,6 +54,9 @@ ENSEMBLE_RECORDS = (REPO / "docs" / "phase_c_ensemble_record.md", REPO / "docs" 
                     REPO / "docs" / "phase_d2_ensemble_record.md")
 PASS, UNDETERMINED = "PASS", "UNDETERMINED"
 DIRECTIONAL = ("composite", "mixed")  # the classes a sweep reads (M11.5); never a premise or a check
+# A criterion of these records is run by the Phase D child, which knows CRITERIA_D and CRITERIA_D2; any other by
+# Phase C's, which knows only CRITERIA (the part I sweep's first run raised KeyError on all 104 samples).
+PHASE_D_RECORDS = ("phase_d_ensemble_record", "phase_d2_ensemble_record")
 
 
 # --- sampling ---------------------------------------------------------------------------------------------------
@@ -126,9 +133,9 @@ def summarise(rows: list[dict]) -> dict:
 
 # --- running ----------------------------------------------------------------------------------------------------
 
-def _result(cache: Cache, mutant: Mutant, key: str, workers: int | None, engine: str) -> dict:
+def _result(cache: Cache, mutant: Mutant, key: str, workers: int | None, engine: str, child: str) -> dict:
     if workers is not None:
-        return run_cached(cache, mutant, [key], workers)[0]
+        return run_cached(cache, mutant, [key], workers, child=child, engine=engine)[0]
     cached = cache.get(result_key(engine, mutant.definition(), key))
     if cached is None:
         raise KeyError(f"{mutant.id}: no cached result for the current engine and sample")
@@ -141,16 +148,16 @@ def _readouts(row: dict) -> list[dict]:
 
 
 def sweep_criterion(cache: Cache, key: str, ranges: list[Range], rules: dict, central: dict[str, str],
-                    workers: int | None, engine: str) -> dict:
+                    workers: int | None, engine: str, child: str = CHILD) -> dict:
     multiple, fixed = rules["detection_limit_multiple"], int(rules["detection_limit_seeds"])
     rows = []
     for index, sample in enumerate(draw(ranges, int(rules["sweep_samples"]), int(rules["sweep_seed"]), key)):
         mutant = sample_mutant(key, index, sample, central)
-        first = _result(cache, mutant, key, workers, engine)
+        first = _result(cache, mutant, key, workers, engine, child)
         row = {"index": index, "values": {k: format_value(v) for k, v in sample.items()}, "outcome": first["outcome"],
                "seeds": first["seeds"], "readouts": _readouts(first), "rerun": False, "error": first.get("error", "")}
         if first["outcome"] not in ERRORED and near_limit(first, multiple) and first["seeds"] < fixed:
-            second = _result(cache, rerun_mutant(mutant, fixed, central), key, workers, engine)
+            second = _result(cache, rerun_mutant(mutant, fixed, central), key, workers, engine, child)
             if second["outcome"] not in ERRORED and second["seeds"] != fixed:
                 raise SystemExit(f"{key} sample {index}: the rerun took {second['seeds']} seeds, not {fixed}; the criterion "
                                  "fixes its own seed count (config/bowen/criteria.md), which the runner reads before the "
@@ -178,7 +185,7 @@ def _fraction(s: dict) -> str:
     return f"{s['held']} of {s['counted']}" if s["counted"] else "no counted sample"
 
 
-def render(results: list[dict], centrals: dict[str, dict], rules: dict, engine: str) -> str:
+def render(results: list[dict], centrals: dict[str, dict], rules: dict, engine: str, phase_d_engine: str) -> str:
     lines = [
         "# Version 2 sweep record (`M17.E.1`, stage 2)",
         "",
@@ -200,9 +207,12 @@ def render(results: list[dict], centrals: dict[str, dict], rules: dict, engine: 
         "and do not measure a criterion; the plan's §2.10 says what the pilot was for.",
         "",
         f"engine_hash: {engine}",
+        f"phase_d_engine_hash: {phase_d_engine}",
         "",
-        "Results are cached by `tools/mutant_runner.py` (`docs/records_cache/sweep_v2.json`); this file is rendered from",
-        "that cache.",
+        "A Phase C criterion is run by `tools/mutant_runner.py` and its results cached under `engine_hash`; a Phase D",
+        "criterion by `tools/phase_d_mutant_child.py` under `phase_d_engine_hash`, which adds that child and the source of",
+        "`apply` and `run_in_copy`. Both are kept in `docs/records_cache/sweep_v2.json`; this file is rendered from that",
+        "cache.",
         "",
         "| Criterion | Class | Central verdict | Constants swept (low–high) | Held | Undetermined | Reruns at fixed count | Errored |",
         "|---|---|---|---|---|---|---|---|",
@@ -233,14 +243,17 @@ def build(cache: Cache, workers: int | None = None) -> str:
     """The record, from the cache. With ``workers``, missing results are run first; without, a missing result raises
     ``KeyError``, so a test can check the committed record without running anything."""
     rules, ranges = load_config()
-    central, centrals, engine = central_values(), central_verdicts(), engine_hash()
+    central, centrals, engine, phase_d_engine = central_values(), central_verdicts(), engine_hash(), phase_d_engine_hash()
     for key in ranges:  # every key checked before any sample runs
         if key not in centrals:
             raise SystemExit(f"{key}: swept but in no ensemble record")
         if centrals[key]["class"] not in DIRECTIONAL:
             raise SystemExit(f"{key}: a {centrals[key]['class']} is not swept (M11.5; plan D10)")
-    results = [sweep_criterion(cache, key, declared, rules, central, workers, engine) for key, declared in ranges.items()]
-    return render(results, centrals, rules, engine)
+    results = [sweep_criterion(cache, key, declared, rules, central, workers, phase_d_engine, PHASE_D_CHILD.name)
+               if centrals[key]["record"] in PHASE_D_RECORDS
+               else sweep_criterion(cache, key, declared, rules, central, workers, engine)
+               for key, declared in ranges.items()]
+    return render(results, centrals, rules, engine, phase_d_engine)
 
 
 def main() -> int:

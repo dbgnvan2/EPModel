@@ -379,6 +379,36 @@ def test_m17e1_s2_7_a_sample_edits_each_constant_row_once(tmp_path):
         shutil.copyfile(REPO / tool.CONSTANTS, root / tool.CONSTANTS)
 
 
+# --- the child that runs a criterion ----------------------------------------------------------------------------
+
+PHASE_D_CONFIG = TEST_CONFIG.replace("| `M11.C.42` | `learning_rate`", "| `M11.C.2` | `learning_rate`").replace(
+    "| `M11.C.42` | `triangle_activity_window` | 2 | 8 | integer", "| `M11.C.2` | `credit_horizon` | 2 | 6 | integer")
+
+
+def test_m17e1_phase_d_criterion_is_run_by_the_phase_d_child_under_its_hash(tmp_path):
+    """A criterion of the Phase D part I record is run by ``tools/phase_d_mutant_child.py`` and cached under that
+    record's hash, a Phase C criterion by ``tools/mutant_runner.py`` under the engine hash (the part I sweep's first
+    run raised ``KeyError`` on every sample: Phase C's child knows only Phase C's criteria). A change to the Phase D
+    hash reruns the Phase D samples and none of Phase C's (P8)."""
+    (tmp_path / "sweep.md").write_text(PHASE_D_CONFIG, encoding="utf-8")
+    ran: list[tuple[str, str]] = []
+
+    def child(mutant, child_tool, ids, workers, label):
+        ran.extend((child_tool, cid) for cid in ids)
+        return _clean_child_rows(mutant, child_tool, ids, workers, label)
+
+    def build(phase_d_engine):
+        with mock.patch.object(tool, "phase_d_engine_hash", return_value=phase_d_engine):
+            _build(tmp_path, child=child)
+
+    build("d" * 64)
+    assert {c for t, c in ran if t == "phase_d_mutant_child.py"} == {"M11.C.2"}
+    assert {c for t, c in ran if t == "mutant_runner.py"} == {"M11.C.16"}
+    ran.clear()
+    build("e" * 64)
+    assert ran and {c for _t, c in ran} == {"M11.C.2"}
+
+
 # --- S2.11 the committed record ---------------------------------------------------------------------------------
 
 def test_s2_11_sweep_record_is_current():

@@ -6,8 +6,8 @@ recommended and recorded, where it lands, with the words "decided as recommended
 2026-10-22, pending the owner's review". This record is the one place that lists them all. Ticking the item means the
 owner has reviewed the list; a decision the owner reverses becomes its own item or proposal.
 
-- [ ] T-125 ⟨now⟩ **Owner review of the overnight decisions (2026-10-23):** twenty-eight decisions in four batches, all on
-  `main` at the push of 2026-10-23 06:10 (`146c6bd`).
+- [ ] T-125 ⟨now⟩ **Owner review of the overnight decisions (2026-10-23):** forty-four decisions in five batches; batches
+  1–4 on `main` at the push of 2026-10-23 06:10 (`146c6bd`), batch 5 with the part I sweep's merge of 2026-10-23.
 
   **Batch 1 — group G and the Holmes–Rahe event sizes, spec revision 36** (branch `claude/recursing-bohr-2393a1`,
   commits `e52adbc`, `0b02fd3`, `da4e512`, `7b1b622`; engine hash `2842f0e8fea8` → `66dcbb1e8ba5`; every record
@@ -78,3 +78,44 @@ owner has reviewed the list; a decision the owner reverses becomes its own item 
       next commit.
   The stage 2 planning session requested in the cloud at about 22:30 on 2026-10-22 had pushed nothing by 03:40; the
   plan was written here instead. If a branch from it appears on GitHub, it is superseded.
+
+  **Batch 5 — the Phase D part I constant sweep** (branch `stage-2-part-i-sweep`; hash unchanged;
+  13 keys, 182 child runs, 3 h 34 min of run time against 1.8 h and 3.2 h projected; `config/sweep/sweep.md`'s preamble and plan §2.10). The owner's instruction of 2026-10-23 was to run
+  it; the owner chose to have its judgment calls decided as Claude recommended and listed here.
+  29. The swept set is the Phase D part I record's composite and mixed rows, 13 keys (`M11.C.7`'s three pairs each a
+      key), at 8 samples. Part II's seven stay out (D15).
+  30. The learner's seven are in `M11.C.2`, `M11.C.12`, `M11.C.34`, `M11.C.39` and `M11.C.43`, whose rows or class rows
+      name learning or a readout of selected acts, and out of the other eight.
+  31. `M11.C.7`'s three pairs share one set: `M4.C.1`'s seven, `nodal_spike_intensity`, and the coach's
+      `landing_rate`, `perspective_gain` and `binder_failure_fraction`, which every arm reads at the same value.
+  32. `nodal_spike_intensity` is in `M11.C.7` and `M11.C.17`, whose arms run nodal events; it stays out of Phase C's
+      sets (batch 3, decision 25).
+  33. `M11.C.2`'s set adds the focus constants (`perceived_weakness_gain`, `focus_steer_gain`, `focus_reinforce_gain`,
+      `focus_compound_gain`), `investment_leak_rate`, `witness_weight` and `symptom_leak_rate`; `birth_focus_gain` is out,
+      since the part I scenarios have no births.
+  34. `M11.C.11`'s set: lock-in's gain and turn, the symptom's threshold, re-arm and leak, `standing_load_gain`, the
+      contact relaxation pair and `acute_decay_rate`.
+  35. `lock_in_turn` is out of `M11.C.12` and `M11.C.22`: each arm's held severity is declared against the turn, so
+      moving it would change the arm rather than the mechanism.
+  36. `M11.C.17` leaves out `estimator_window` and `estimator_breadth`: its nodal load is declared to meet them.
+  37. `M11.C.21`'s set: the pseudo-self transfer and relaxation, `exchange_window`, the stress response's two gains,
+      its relaxation and its floor.
+  38. `M11.C.22`'s set: `lock_in_gain`, `standing_load_gain`, the contact relaxation pair and `acute_decay_rate`.
+  39. `M11.C.23`'s set: the appraisal pair, `impingement_relaxation_rate`, `investment_leak_rate`, the symptom's
+      threshold, re-arm and leak, and `acute_decay_rate`. The arm's `suppression` (0.5 in `config/bowen/criteria.md`) is
+      an arm setting, not a constant, and is not swept.
+  40. `M11.C.34`'s set: the learner's seven, `self_channel_exponent`, `capacity_level_per_layer` and
+      `symptom_event_intensity`; `M1.A.19`'s `reactive_rate` is out, since no selection in the criterion reads its
+      detectors.
+  41. `M11.C.39`'s set adds `witnessed_cutoff_gain`, `witness_window` and `distance_binding_rate`; `witness_window`'s low
+      end is 7, half of its central 13 rounded up to a whole week.
+  42. `M11.C.43`'s set: the learner's seven, `calm_transfer_rate` and `acute_decay_rate`.
+  43. Bounds: `binder_failure_fraction` (central 0.8) runs 0.4 to its bound 1.0, not to double; the perspective gains
+      are capped at 1: above 1 the channel weight passes 1 and the steering factor can turn negative
+      (`src/bowen/policy/policy.py`, lines 193 and 289).
+  44. The sweep's first run raised `KeyError` on all 104 part I samples in 81 s: `tools/mutant_runner.py`'s child
+      knows only Phase C's criteria. A criterion of a Phase D record is now run by `tools/phase_d_mutant_child.py` and
+      cached under that record's hash (the child and the source of `apply` and `run_in_copy`), which the sweep record
+      prints as a second line, `phase_d_engine_hash`; Phase C's results kept their keys and were not rerun.
+  The fractions held are in `docs/version_2_sweep_record.md`; four keys held in 0 of 8, two in 8 of 8. Reruns at 200
+  seeds took 54% of the seeds; the owner kept D8's 200 seeds on 2026-10-23 when told so.

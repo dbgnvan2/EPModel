@@ -598,7 +598,7 @@ say whether that test was proved failing by mutation unless its note does.
 | M17.D.3 | done | `tests/bowen/test_ensemble.py::test_m17d3_verdict_reports_scripted_acts_not_made`<br>`tests/bowen/test_policy.py::test_m17d3_excluded_outcome_is_not_legal` | — |
 | M17.D.4 | not done | — | no test named for it; Phase E builds it and is not built yet |
 | M17.D.5 | not done | — | no test named for it; Phase E builds it and is not built yet |
-| M17.E.1 | done | `tests/test_version_2_sweep.py::test_m17e1_s2_2_fraction_counts_only_passing_samples_and_reports_errors`<br>`tests/test_version_2_sweep.py::test_m17e1_s2_7_a_sample_edits_each_constant_row_once` | — |
+| M17.E.1 | done | `tests/test_version_2_sweep.py::test_m17e1_phase_d_criterion_is_run_by_the_phase_d_child_under_its_hash`<br>`tests/test_version_2_sweep.py::test_m17e1_s2_2_fraction_counts_only_passing_samples_and_reports_errors`<br>`tests/test_version_2_sweep.py::test_m17e1_s2_7_a_sample_edits_each_constant_row_once` | — |
 | M17.E.2 | not done | — | no test named for it; Phase E builds it and is not built yet |
 | M17.E.3 | not done | — | no test named for it; Phase E builds it and is not built yet |
 | M17.E.4 | not done | — | no test named for it; Phase E builds it and is not built yet |

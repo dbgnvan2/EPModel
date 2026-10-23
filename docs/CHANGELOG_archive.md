@@ -7,6 +7,82 @@ were under; nothing in this file is reworded. Later entries are in `CHANGELOG.md
 
 ## [Unreleased] — 2026-10-11
 
+### The coverage page judges every built ID; the overrides file renamed (2026-10-20)
+
+- **`docs/spec_coverage.md`: Part B of `docs/plan_spec_coverage_phase_d.md`** (owner 2026-10-20: plan §6 approved).
+  The 165 IDs that read "no test named for it; its module was built in Phase C" (or D), and the 74 earlier overrides,
+  each got a judgment: the existing test that verifies it and how, *partial* with what is untested or missing, or *not
+  done* — not built, or checked by review. Six subagents drafted; Claude read every proposed *done*'s test against its
+  requirement and changed 11 drafts; the owner approved the list in six groups (the plan's §7 lists each group's IDs).
+  575 IDs: 291 done, 136 partial, 148 not done (was 280, 64, 231). Of the earlier overrides, 13 fell from *done* to
+  *partial*, 9 rose to *done* and 2 fell to *not done*; none still names Phase C or D as work to come. A clause that is
+  only a SHOULD keeps an ID *partial* (`M16.D.2`, owner).
+- **The learning-qa review of Part B** (eight items, the plan's §7): `M1.A.4` to *partial* (the code's rate constant
+  against "rather than by a rate constant"; owner); `test_m4a5_self_generated_load_derives_from_basic_level` now pins
+  "a function of `basic_level` only" and `M4.A.5` stays *done* (owner); two notes reworded (owner); B1.4 asks pytest
+  for the ensemble tests and checks every `test_m11c…` citation; B1.1 refuses a partly built module's note; the
+  old-name scan reads more of the repo; one reading-list sentence narrowed.
+- **`tools/spec_coverage_phase_b.json` renamed `tools/spec_coverage_overrides.json`** (B3); the page's header names it
+  in full. `test_m141_untested_id_is_not_read_as_unbuilt` now reads a fixture, since no built ID is left with that note.
+- **Five tests**, each run red by its mutation: no built ID is left without a judgment; every override says why; a
+  *done* override citing an ensemble test needs that criterion *done*; no override names a built phase as to come (the
+  wordings in `tests/doc_claims.json`'s `coverage_future_phase`); the overrides file has one name.
+- **Recorded in `TODO.md`, not fixed** (owner): where the spec and the code disagree, text that names a built phase as
+  to come, two spec rows that name tests that do not exist, tests weaker than the ID they are counted for (`M6.3a`
+  among them), fields never written, six mechanisms with no register row.
+
+### The document-claim tests merged; the coverage page reads every record; the reading list approved (2026-10-20)
+
+- **Merged `claude/cranky-snyder-764f33`** (the document-claim tests, the entry below) into `plan-phase-b`, owner
+  2026-10-20. Four conflicts resolved: CHANGELOG.md and TODO.md keep both sides, CLAUDE.md's suite count is recomputed,
+  and `docs/spec_coverage.md` is regenerated. Its D5b test then reported the reading list's checklist label "For an
+  outside reviewer", which is neither open nor settled.
+- **`docs/REVIEWER_READING_LIST.md` approved by the owner** 2026-10-20: its status line, and the checklist label, now
+  "Approved, for an outside reviewer". §3, §7 and §8 updated for the coverage page; §8's fixed list adds the
+  document-claim tests and the coverage page.
+- **`docs/spec_coverage.md`: Part A of `docs/plan_spec_coverage_phase_d.md`** (owner 2026-10-20: build it now).
+  `tools/spec_coverage.py` reads the Phase C and both Phase D ensemble records and both mutation records, Phase D's
+  not-built list and the criterion run as a test (`M11.C.37`); the header names each record with the hash it states;
+  the owner's version 1 dispositions are quoted in the notes; an ID with no test named for it says so and says whether
+  its phase is built. `M11.C.16`'s hand-written override is removed, and a criterion whose spec row says its own
+  mutation clause is not met (`M11.C.14`, `M11.C.16`, `M11.C.46`) is not done. 575 IDs: 280 done, 64 partial, 231 not
+  done (was 274, 70, 231); six criteria moved from partial to done, and no other status changed. The record readers are
+  the tool's own: the frozen `tools/version_1_status.py`'s part II reader refuses the record stage 1 regenerated. Five
+  tests, each run red by its mutation (the plan's §5). Part B (an evidence mapping for each ID no test is named for) and
+  the overrides file's rename: later, as their own task (`TODO.md`).
+- **The learning-qa review of Part A** (six items): a test in `tests/bowen/test_ensemble_record.py` read the old
+  record name; three generated texts that described the old reading were re-rendered from their records and cache
+  (nothing ran); the page's header says the clause check reads only the row's annotation (`M11.C.1` and `M11.C.38` are
+  proved only by a joint mutant and stay done); the marker reads "unmet" and "not yet met" too and is pinned to its three
+  rows; orphan keys are refused, not dropped. Four more tests, each run red by its mutation. Three minor items in
+  `TODO.md`.
+- `docs/SPEC_REVIEW_CHECKLIST.md`: the family file is "the reference family the owner specified", the wording V7's
+  review gave four other documents. `docs/REVIEW_version_1_guide.md`: its drafting-time inconsistencies 2–4 and the
+  `M14` entry say what has been fixed since. `TODO.md`: version 2 stage 1 is built and pushed, not "build next".
+- The owner's fam-diag layout for the seed-7 export committed at the owner's request (the currency test accepts a
+  save from the app; a later run of `tools/famdiag_export.py` redraws the positions). The untracked backup copy, the
+  revision 32 render byte for byte, deleted. `.claude/launch.json` and `.rca/` added to `.gitignore` (per-machine).
+  The method-literature reading reports of 2026-10-15 in `papers/` committed as they were, in their own commit.
+- Suite: 997 tests.
+
+### A reading list for an outside reviewer; the fam-diag export brought up to date (2026-10-20)
+
+- **`docs/REVIEWER_READING_LIST.md`** (new, draft for owner review): the documents that describe what the model does
+  and how it works, in the order a reviewer new to the project should read them; which version to review (GitHub's
+  default branch `main` stops at spec revision 11); and the known problems in the documents. Linked from the top of
+  `docs/SPEC_REVIEW_CHECKLIST.md`. Compiling it on 2026-10-19 found six stale documents; five were fixed on
+  `plan-phase-b` on 2026-10-19 and 2026-10-20. The sixth, `docs/spec_coverage.md`, waits on
+  `docs/plan_spec_coverage_phase_d.md`, whose new step A6 updates the list when the page is regenerated. CLAUDE.md
+  now says the list is updated in the same commit as any status it restates.
+- **The seed-7 fam-diag export named spec revision 32.** Stage 1's regeneration refreshed the trace and chart but not
+  `docs/review/phase_c_famdiag_seed7.json`, which nothing tested. Regenerated with `tools/famdiag_export.py`: only the
+  page note's revision and config hash changed. `test_v5_committed_export_is_the_current_render` now fails when the
+  file no longer holds what the tool draws, or holds a key the tool no longer writes. It ignores the keys a save
+  from fam-diag changes or adds (named in the test), so the owner's layout, saved from the app into the working
+  tree, still passes. That layout is not committed.
+
+Entries dated before 2026-10-21 are in `docs/CHANGELOG_archive.md`, verbatim: those before 2026-10-19, the day version 2 began at the tag `version-1`, moved 2026-10-22, and those of 2026-10-19 and 2026-10-20 moved 2026-10-23 when this file passed its size limit (`tests/test_doc_size.py`). Entries from 2026-10-21 on stay here.
+
 ### Tests that fail when a document restates a changed fact (2026-10-20)
 
 `docs/plan_doc_claim_tests.md`, approved by the owner 2026-10-20 (Q1: status claims checked both ways; Q2: built after

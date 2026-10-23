@@ -2023,7 +2023,8 @@ Version 2's stage 2 builds the constant sweep (`M17.E.1`) and the detection-limi
   for each swept criterion the `[I]` constants its mechanism reads are drawn jointly over ranges declared in
   `config/sweep/sweep.md` (half to double the central value, the Phase C D9 sweep's rule, capped at 1 for a
   share and whole for a count of ticks), each sample runs as an edit of `constants.md` in a copy of the
-  repository through `tools/mutant_runner.py`, so the engine hash does not move, and the result is *n of S*
+  repository (through `tools/mutant_runner.py`'s child for a Phase C criterion, `tools/phase_d_mutant_child.py`
+  for a Phase D one), so the engine hash does not move, and the result is *n of S*
   samples held, with undetermined and errored samples counted apart. A fraction is a measurement beside the
   gating verdict, never a verdict, and no premise or check is swept (`M11.5`). The sweep config is outside
   `config/bowen/` because the engine hash covers that directory and a sweep's ranges are an input to a

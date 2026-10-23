@@ -923,6 +923,74 @@ errored sample (`tools/mutant_runner.py` turns the engine's `ValueError` into on
 is 0 on every row; (7) the sample count stays 8 (D15), so the record's header sentence that
 these fractions time the sweep and do not measure a criterion stands for every row.
 
+**The Phase D part I sweep (D15's second step; 2026-10-23, the branch `stage-2-part-i-sweep`).** The owner,
+2026-10-23: "Run part I's 13-criterion sweep now, as recommended, on a branch, and merge it to main when green." The
+13 keys are the Phase D part I record's composite and mixed rows (`M11.C.7`'s three pairs each a key), at 8 samples.
+Their constants and ranges are the 125 rows added to `config/sweep/sweep.md` (246 rows, 60 constants, 27 criteria),
+each range half to double the central value within the file's bounds, every grade `[I]`. The first run, started
+08:30:57, raised `KeyError` on all 104 samples in 81 s and cached nothing (*Where the build differs*, below). After the
+fix, `python3 tools/version_2_sweep.py` ran in three segments, stopped twice at the owner's request to free the Mac:
+08:35:56–09:26:23 at 10 workers, 09:26:28–09:52:43 at 5 workers at the lowest priority (`nice` 20), and
+09:52:46–12:10:07 at 8 workers at `nice` 20 with a video call running. **12,843 s of run time (3 h 34 min)**, 3 h 39 min
+from the first start to the end, for 182 child runs: 104 first runs and 78 reruns at 200 seeds under the
+detection-limit rule (`M17.A.1`); each stop lost the sample then running, which was run again. Phase C's 179 cached
+results were read and not rerun. No sample was undetermined or errored. Nothing in `src/bowen/` changed;
+`engine_hash()` printed `66dcbb1e8ba5` before and after (the Phase D results are keyed by
+`tools/phase_d_mutation_record.py`'s hash, `5c3865dcf8f9…`); no ensemble, mutation or diagnostic record was rerun.
+The fractions, from `docs/version_2_sweep_record.md`:
+
+| Criterion | Central verdict | Constants swept | Held of 8 | Reruns at 200 |
+|---|---|---|---|---|
+| `M11.C.2` | FAIL | the learner's seven, the four focus gains, `investment_leak_rate`, `witness_weight`, `symptom_leak_rate` | 1 | 8 |
+| `M11.C.7[joint over one spouse]` | FAIL | the coaching eleven | 3 | 8 |
+| `M11.C.7[joint over sided]` | PASS | the coaching eleven | 7 | 7 |
+| `M11.C.7[one spouse over sided]` | FAIL | the coaching eleven | 5 | 8 |
+| `M11.C.11` | PASS | `lock_in_gain`, `lock_in_turn`, the symptom's threshold, re-arm and leak, `standing_load_gain`, the contact relaxation pair, `acute_decay_rate` | 8 | 1 |
+| `M11.C.12` | FAIL | the learner's seven, `lock_in_gain`, `acute_decay_rate` | 0 | 8 |
+| `M11.C.17` | FAIL | the coach's three, the self-practice pair, `system_adjust_gain`, the estimator's two, the perspective gains, `nodal_spike_intensity` | 4 | 5 |
+| `M11.C.21` | FAIL | the pseudo-self pair, `exchange_window`, the stress response's two gains, its relaxation and floor | 1 | 8 |
+| `M11.C.22` | PASS | `lock_in_gain`, `standing_load_gain`, the contact relaxation pair, `acute_decay_rate` | 6 | 8 |
+| `M11.C.23` | FAIL | the appraisal pair, `impingement_relaxation_rate`, `investment_leak_rate`, the symptom's threshold, re-arm and leak, `acute_decay_rate` | 0 | 1 |
+| `M11.C.34` | FAIL | the learner's seven, `self_channel_exponent`, `capacity_level_per_layer`, `symptom_event_intensity` | 0 | 8 |
+| `M11.C.39` | PASS | the learner's seven, `witnessed_cutoff_gain`, `witness_window`, `distance_binding_rate` | 8 | 0 |
+| `M11.C.43` | FAIL | the learner's seven, `calm_transfer_rate`, `acute_decay_rate` | 0 | 8 |
+
+The coaching eleven are `M4.C.1`'s seven, `nodal_spike_intensity`, `landing_rate`, `perspective_gain` and
+`binder_failure_fraction`; the coach's three are the last three of those; the other groups are named as above. Every
+fraction is a measurement of the declared range at 8 samples and not a verdict (`M11.5`); a premise passing is never a
+finding, and no premise was swept; at 8 samples no *narrow* mark is read (D14). Measurements the owner may want beside
+the verdicts: `M11.C.7[one spouse over sided]`, FAIL at the central setting, held in 5 of 8; `M11.C.17`, FAIL at the
+central setting and changed since the tag (T-122), held in 4 of 8; `M11.C.22`, PASS, held in 6 of 8. With these rows
+W4 lists three unmet rows, not seven (`docs/version_2_status.md`): `M11.C.15`, `M11.C.48` and `M11.C.48[phase_d]`.
+
+*The reruns.* 78 of the 104 first runs (75%, against Phase C's 61%) left a gating effect within 2 half-widths of zero,
+and 53 within one; the rerun changed the verdict in 6 of the 78. Reruns took 15,600 of the 29,050 seeds run (54%). A
+first run stops on precision against the seed-to-seed spread (`src/bowen/ensemble/runner.py::_converged`), not on
+distance from zero, so a small effect stops near zero; from 100–150 seeds to 200 the half-width narrows by about a
+fifth, so the rerun settles only a sample near the line. Told this cost on 2026-10-23, the owner chose to keep D8's
+200 seeds for this run. A rerun repeats the first run's seeds, which are deterministic; running only the missing ones
+would give the same numbers with about a third fewer seeds in this run (the first runs' seeds inside the 78 reruns), and is not built.
+
+*Time against the projection.* 3 h 34 min of run time against 1.8 h at Phase C's ratio and 3.2 h at the pilot's, both
+projected at 10 workers on an otherwise idle Mac; 2 h 43 min of this run was at 5 or 8 workers at the lowest priority
+beside other work, so the comparison is not like for like. Per sample 123.5 s (12,843 s over 104 first runs, the reruns
+included) against Phase C's 16.9 s; per child run 70.6 s against Phase C's 10.5 s.
+
+*The constant sets are judgments* (D10's rule applied; the config's preamble states the rule, each row's last column
+the reason), each **decided as recommended under the owner's instruction of 2026-10-22, pending the owner's review**,
+the owner choosing on 2026-10-23 to have them decided and listed in T-125 (batch 5, decisions 29–44): (1) the learner's
+seven are in `M11.C.2`, `M11.C.12`, `M11.C.34`, `M11.C.39` and `M11.C.43`, whose rows or class rows name learning or a
+readout of selected acts, and out of the other eight, whose readouts are states; (2) `M11.C.7`'s three pairs share
+one set, the coach's constants included, which every arm reads at the same value; (3) `nodal_spike_intensity` is in
+`M11.C.7` and `M11.C.17`, which run under nodal load; (4) `birth_focus_gain` is in no set (no birth in a part I
+scenario), nor `M1.A.19`'s `reactive_rate` in `M11.C.34` (no selection there reads its detectors); (5) a constant an
+arm's declared condition is set against is left out: `lock_in_turn` in `M11.C.12` and `M11.C.22`, `estimator_window`
+and `estimator_breadth` in `M11.C.17`; (6) `M11.C.23`'s arm setting `suppression` is not a constant and is not swept;
+(7) `witness_window`'s low end is 7, half of 13 rounded up to a whole week; (8) `binder_failure_fraction` (0.8) runs
+0.4 to its bound 1.0, and the perspective gains are capped at 1, above which the channel weight passes 1 and the
+steering factor can turn negative (`src/bowen/policy/policy.py`, lines 193 and 289); (9) a Phase D criterion's
+results are keyed by the Phase D mutation record's hash, printed as a second line of the record.
+
 **Where the build differs from the plan.**
 - **"Changed at revision 36" is written "changed since the tag `version-1`"** (D11). The tool compares the current
   record with the frozen page and cannot know at which revision a verdict moved; the status cell names the tag and
@@ -937,6 +1005,13 @@ these fractions time the sweep and do not measure a criterion stands for every r
 - **The sweep config's tables are checked by header**, not by cell count: a table whose header is not the declared
   column names raises, so a column added or reordered cannot be read as another.
 - **`docs/records_cache/sweep_v2.json`** holds the pilot's 24 results; a `FAILED` result is never written to it.
+- **A Phase D criterion is run by the Phase D child** (2026-10-23, found by the part I sweep's first run). The driver
+  ran every sample through `tools/mutant_runner.py`, whose child knows only Phase C's `CRITERIA`, so the first part I
+  run raised `KeyError` on all 104 samples in 81 s and cached nothing. A criterion of the Phase D part I or part II
+  record now runs through `tools/phase_d_mutant_child.py` and its results are cached under
+  `tools/phase_d_mutation_record.py`'s hash (that child and the source of `apply` and `run_in_copy`); the record prints
+  it as `phase_d_engine_hash`. Phase C's results keep their keys. `tools/record_cache.run_cached` takes the child and
+  the hash as arguments. Test: `tests/test_version_2_sweep.py::test_m17e1_phase_d_criterion_is_run_by_the_phase_d_child_under_its_hash`.
 - **Three renders moved with the revision number only:** the seed-7 trace and chart and the famdiag export print the
   spec's revision, so revision 37 re-rendered them (the same seed, the same engine; `git diff` shows the one line).
   `tools/record_changes.py` lists the two new pages under *not compared*, which re-rendered both changes pages.

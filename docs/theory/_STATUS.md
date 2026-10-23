@@ -1,6 +1,13 @@
 # Run status — HANDOFF
 
-> ## ▶ STATE — the corpus is closed. **Version 1 is complete (2026-10-18) and tagged `version-1` at `d62cfdc`; its spec is revision 32. Version 2 began at revision 33; stage 1 was built and its records regenerated 2026-10-19 and pushed 2026-10-20, and no verdict changed. Revision 34 (2026-10-22) changed wording only: the ASR quotations paraphrased (SP-1) and the stage 1 milestone review's wording fixes. Revision 35 (2026-10-22) moved the revision history into `spec_revision_log.md`, and the inline revision narratives of 129 bodies with it (`spec_revision_35_dispositions.md`, for the owner's review); no rule changed. Work goes on `main` (owner, 2026-10-21).**
+> ## ▶ STATE — the corpus is closed. **Version 1 is complete (2026-10-18) and tagged `version-1` at `d62cfdc`; its spec is revision 32. Version 2 began at revision 33; stage 1 was built and its records regenerated 2026-10-19 and pushed 2026-10-20, and no verdict changed. Revision 34 (2026-10-22) changed wording only: the ASR quotations paraphrased (SP-1) and the stage 1 milestone review's wording fixes. Revision 35 (2026-10-22) moved the revision history into `spec_revision_log.md`, and the inline revision narratives of 129 bodies with it (`spec_revision_35_dispositions.md`, for the owner's review); no rule changed. Work goes on `main` (owner, 2026-10-21). The G2 proposal was drafted 2026-10-23 and waits for the owner.**
+>
+> **2026-10-23 — the G2 proposal drafted** (`docs/PROPOSAL — SYMPTOM RELEASE BY TIE (G2).md`), the last of group G:
+> a symptom's release and the bearer's spill past the turn divided by bond energy among living family members on
+> interactive ties, instead of equally among everyone on one, the external agent included; the binding side left as it
+> is; `M6.3c`'s death clause to follow. Five questions (Q1–Q5) for the owner; nothing built, no spec revision, nothing a
+> run computes changed. **Next:** the owner's answers, the Holmes–Rahe Q3 asked again (T-013), then group G and the
+> event sizes as one revision and one regeneration, and stage 2's pilot.
 >
 > **2026-10-22 — model ergonomics built (`docs/plan_model_ergonomics.md`), with spec revision 35.** The spec and
 > the ledger have machine-readable indexes (`docs/spec_index.jsonl`, `docs/theory/ledger_index.jsonl`, the latter

@@ -69,7 +69,8 @@ def _patches(tmp_path, config=CONFIG, child=_child):
             mock.patch.object(record_cache, "engine_hash", return_value="a" * 64),
             mock.patch.object(tool, "engine_hash", return_value="a" * 64),
             mock.patch.object(record_cache, "child_rows", side_effect=child),
-            mock.patch.object(tool, "load_config", lambda: sweep_config.load_config(path)),
+            mock.patch.multiple(tool, load_config=lambda: sweep_config.load_config(path),
+                                not_run_keys=lambda: sweep_config.not_run_keys(path)),
             mock.patch.object(tool, "RECORD", record),
             mock.patch.object(tool, "sweep_numpy_pin", return_value=np.__version__),
             mock.patch.object(record_cache, "_uncached", [])]

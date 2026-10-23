@@ -3,7 +3,7 @@
 **Status: stage 1 APPROVED 2026-10-19; stage 2 plan DRAFTED 2026-10-23 and its pilot BUILT 2026-10-23 on the branch
 `stage-2-plan-pilot` (§2.10), decisions D8–D16 taken as recommended under the owner's instruction of 2026-10-22, pending
 the owner's review (§2.2, §2.10); the full sweep did not run (projected 44 h at 8 samples, over the 4-hour rule, §2.10); Phase C's 14 directional
-criteria SWEPT 2026-10-23 on the branch `stage-2-phase-c-sweep` at 8 samples, 27 min (§2.10); the tooling to split the sweep across two Macs BUILT 2026-10-23 (§2.10).** The owner
+criteria SWEPT 2026-10-23 on the branch `stage-2-phase-c-sweep` at 8 samples, 27 min (§2.10); Phase D part I's 13 SWEPT 2026-10-23 on the branch `stage-2-part-i-sweep` (§2.10); the tooling to split the sweep across two Macs BUILT 2026-10-23 (§2.10); part II's seven criteria's ranges DECLARED 2026-10-23, not run (§2.10).** The owner
 decided D1–D7 on 2026-10-19, every one as recommended (§1.2), and approved the stage 1 plan. **Built, reviewed and regenerated 2026-10-19 (steps 0–7, §1.10): no verdict changed against
 the tag `version-1`. The `/csdp` sweep's fixes (step 8) were made 2026-10-20 and pushed the same day with the owner's
 approval; CI run 39449517708 passed on Python 3.11, 3.12 and 3.13 (S1.10c). A cold sweep's fixes were made
@@ -813,6 +813,9 @@ original restored by the scratch script's `try/finally` and checked equal afterw
 | S2.6 | `…::test_s2_6_no_range_or_rule_literal_in_the_tool` | `detection_limit_seeds` read as the literal 200 | fails |
 | S2.6 | `…::test_s2_6_sweep_config_is_loaded_strictly_with_grades` (review fix) | the scale-against-`SCHEMA`-kind check removed; (re-sweep) the check made one-directional | fails, fails |
 | S2.6 | `…::test_s2_6_explainer_quotes_the_config_values` (review fix) | the explainer's multiple changed to 3.0 | fails |
+| S2.5 | `…::test_m17e1_s2_5_a_declared_not_run_key_is_shown_and_never_run` (part II's ranges, 2026-10-23) | the declared, not run list ignored (`not_run = {}`) | fails |
+| S2.5 | `…::test_m17e1_s2_5_a_listed_key_with_a_cached_result_is_refused` (part II's ranges, 2026-10-23) | the refusal of a listed key with a cached result removed | fails |
+| S2.6 | `…::test_s2_6_not_run_list_is_loaded_strictly` (part II's ranges, 2026-10-23) | the check that a listed key has declared ranges removed; (review fix) the misspelt-heading check removed | fails, fails |
 | S2.7 | `…::test_m17e1_s2_7_a_sample_edits_each_constant_row_once` | an integer written as `6.0` | fails |
 | S2.8 | `tests/test_version_2_status.py::test_w1_s2_8_every_criterion_has_a_status` | one unbuilt criterion dropped from the page | fails |
 | S2.9 | `…::test_w4_s2_9_sweep_column_is_a_fraction_not_a_verdict` | a fraction of one half or more rendered as PASS | fails |
@@ -1023,6 +1026,65 @@ hashes, Python 3.12.3, NumPy 1.26.4 (the pin) and arm64, macOS 15.7.9 here and 1
 `fetch`; `tools/merge_cache.py`) reported 0 results added and 361 already there and equal, so Mac Mini1 recomputed
 `M11.C.16`'s 8 results bit for bit. A second cross-check the same day, `M11.C.23` (14:40:40–14:41:56, 9 child runs: 8 first runs and one rerun at 200 seeds, all dropped and run again), also merged 0 added and 361 equal, so a Phase D criterion and a 200-seed rerun match too. The owner, 2026-10-23, on part II: its seven criteria's ranges are to be declared and committed with no run started; when it runs, it runs on Mac Mini1 alone at 8 samples (D15's count).
 
+**Part II's ranges declared (2026-10-23, on `main`; no run).** The seven keys are the Phase D part II record's
+composite rows, as `tools/version_2_sweep.py::central_verdicts()` gives them; `M11.C.47` is a premise and is not
+swept. Their constants and ranges are the 81 rows added to `config/sweep/sweep.md` (327 rows, 78 constants, 34
+criteria; 18 constants new to the file), each range half to double the central value within the file's bounds, every
+grade `[I]` (`cutoff_stock_cap` and `cutoff_threat_weight` are named in `model_explainer.md` §11.5, graded `[I]`; the
+other 16 new constants are not named there). Checked: the file parses (`tools/sweep_config.py::load_config()`),
+`_checked` passes for each key alone and for the seven together, and 200 joint samples of each key pass the engine's
+parameter invariants (`EngineParams.__post_init__`). Nothing in `src/bowen/` changed; `engine_hash()` printed
+`66dcbb1e8ba5` and `phase_d_engine_hash()` `5c3865dcf8f9` after the edit; no record was run or rerun. The sets:
+
+| Criterion | Central verdict | Constants declared |
+|---|---|---|
+| `M11.C.2[twelve-person family]` | FAIL | part I's `M11.C.2` fourteen (the learner's seven, the four focus gains, `investment_leak_rate`, `witness_weight`, `symptom_leak_rate`) and `birth_focus_gain` |
+| `M11.C.6` | FAIL | `M7.E.1f`'s four (`development_rate`, `development_band`, `development_band_projection`, `development_band_support`), `estimator_sd_weight`, `estimator_rate` |
+| `M11.C.10` | FAIL | the learner's seven, `witnessed_cutoff_gain`, `witness_window`, `reactive_cutoff_gain`, `M1.D.8a`'s two origin gains, `M1.B.3c`'s five rejection constants (`rejection_cutoff_gain`, `rejection_refusal_gain`, `rejection_relief`, `rejection_refusal_threshold`, `rejection_fade`) |
+| `M11.C.10[family of origin]` | FAIL | the same seventeen |
+| `M11.C.15` | PASS | `lock_in_gain`, `acute_decay_rate` |
+| `M11.C.48` | PASS | the learner's seven and `M1.D.2b`'s five (`cutoff_stock_cap`, `cutoff_threat_weight`, `cutoff_decay_weeks`, `cutoff_floor_share`, `positive_bridge_dissipation`) |
+| `M11.C.48[phase_d]` | PASS | the same twelve |
+
+*The constant sets are judgments* (D10's rule as the config's preamble states it; each row's last column gives the
+reason), each **decided as recommended under the owner's instruction of 2026-10-22, pending the owner's review**:
+(1) the learner's seven are in `M11.C.2[twelve-person family]` (the readout ranks the children by projection-type
+acts received), both `M11.C.10` variants (the class row names `M4.D.6f`'s learning from a witnessed cutoff) and both
+`M11.C.48` variants (the class row names `CUTOFF`'s learned value; the readout counts contacts), and out of `M11.C.6`
+and `M11.C.15`, whose gating readouts are states (a child's development, the living others' excess) and whose rows
+credit no learned mechanism; (2) `birth_focus_gain` (`M7.E.1c`, credited by `M11.C.2`'s class row) is in
+`M11.C.2[twelve-person family]`: the three children compared were born before the run, so it does not set the
+parents' focus on them, but it acts at the third generation's births, which in seed 1 (run once, 2026-10-23) fell in
+weeks 1091, 1247, 1299, 1455, 1559 and 1715: Nadia's first, at 29, inside the ages 20 to 30 the readout averages, and
+Leo's first the week he turns 30, as his ages end; it acts in the other twelve-person runs too, but no other row
+credits it; (3) `nodal_spike_intensity` is in no part II
+set: unlike Phase C's criteria it acts here (the nodal load reaches Ravi, whose tie to Dario is declared cut off; 662
+spikes in that seed's 40 years), but no part II row credits `M4.C.1c` and no part II record names the spike; part I's `M11.C.2`, also under the
+nodal load, has no spike in its set either; (4) in `M11.C.6` the estimator (`M1.A.4k`, credited through `M1.A.4a`) skips a
+child under 20 (`src/bowen/engine/slow_tick.py`), so the child's level is `M7.E.1f`'s, whose four constants are in as
+the readout's own mechanism; `estimator_sd_weight` and `estimator_rate` are in because the estimator moves the
+parents' basic levels, which the child's development step reads; `estimator_window` and `estimator_breadth` are out,
+as in `M11.C.17`, since the parents' nodal load is declared to meet them; `development_start_age_years` and
+`development_end_age_years` are out, since the readout's two ages and the arm's length are declared at them;
+(5) `development_band_support`'s low end is raised to 0.04, the top of `development_band`'s range, since the engine
+requires the support band to be at least `development_band` (the rule `anxiety_band_high` follows); (6) in both
+`M11.C.10` variants the gating readout, weeks of held rejection, is `M1.B.3c`'s derived state, so its rise, relief,
+refusal threshold and fade are in; `declared_rejection` is out (the treatment's `_cut` starts each held cutoff at it)
+and so is `refusal_cost_gain` (the refused sender's cost, not the rejection read); `witness_window` (13) equals the
+arm's `renew_every` (13), but neither is declared against the other, so it is in at 7 to 26 as in `M11.C.39`;
+(7) `M11.C.15`'s row credits the release of bound anxiety (`M6.I.1`, `M6.3`), as `M11.C.12`'s does, so its set
+follows `M11.C.12`'s without the learner: `lock_in_gain` (the stock the death and the recovery release) and
+`acute_decay_rate`; `lock_in_turn` is out (the severity 1.5 is declared at the peak the turn of 3 sets);
+`exchange_budget_reduction` (`M6.I.1`) is out because no differentiating exchange completed in 20 seeds of each of
+the three runs (control, death, recovery; checked 2026-10-23); `death_transfer_share` is out because 1 is `M6.3b`'s
+rule, which no criterion overrides (only `M11.C.37`'s mutant sets it lower); the grief and income constants (`M6.3g`,
+`M6.3h`) are out because every arm sets grief and lost income to zero; (8) the `M11.C.48` variants take `M1.D.2b`'s
+five, which act before a tie's first cutoff through the declared cutoff (Ana–Bruno, Ravi–Dario) and the seed's
+earlier cutoffs; `M1.B.3c`'s constants are out (a refusal is a negative contact, but the readout counts contacts and
+no row credits `M1.B.3c`); `positive_bridge_dissipation` (0.8) runs 0.4 to its bound 1, and `cutoff_decay_weeks` is
+an integer range, 130 to 520. Every part II criterion is run by the Phase D child, and its results will be keyed by
+the Phase D mutation record's hash. The run itself is the owner's next step (Mac Mini1, 8 samples).
+
 **Where the build differs from the plan.**
 - **"Changed at revision 36" is written "changed since the tag `version-1`"** (D11). The tool compares the current
   record with the frozen page and cannot know at which revision a verdict moved; the status cell names the tag and
@@ -1037,6 +1099,12 @@ hashes, Python 3.12.3, NumPy 1.26.4 (the pin) and arm64, macOS 15.7.9 here and 1
 - **The sweep config's tables are checked by header**, not by cell count: a table whose header is not the declared
   column names raises, so a column added or reordered cannot be read as another.
 - **`docs/records_cache/sweep_v2.json`** holds the pilot's 24 results; a `FAILED` result is never written to it.
+- **A criterion can be declared and not run** (2026-10-23, part II's ranges). The record is built from every
+  declared key, so declaring part II's ranges without a run made S2.11 raise on a missing result. `config/sweep/sweep.md`
+  now has a section *Declared, not run*: a key listed there is shown in the record with its ranges and no number, and
+  none of its samples runs unless it is named with `--criteria`. Once such a key has any result in the cache, the
+  record is refused until its row is removed, so a key that has run is never shown as not run. The seven part II keys
+  are listed; the record was rendered with `--render-only`, and nothing ran.
 - **A Phase D criterion is run by the Phase D child** (2026-10-23, found by the part I sweep's first run). The driver
   ran every sample through `tools/mutant_runner.py`, whose child knows only Phase C's `CRITERIA`, so the first part I
   run raised `KeyError` on all 104 samples in 81 s and cached nothing. A criterion of the Phase D part I or part II

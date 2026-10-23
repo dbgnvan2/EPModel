@@ -49,7 +49,7 @@ from tools.phase_d_mutation_record import CHILD as PHASE_D_CHILD  # noqa: E402
 from tools.phase_d_mutation_record import engine_hash as phase_d_engine_hash  # noqa: E402
 from tools.record_cache import CHILD, ERRORED, Cache, engine_hash, exit_status, result_key, run_cached  # noqa: E402
 from tools.record_json import record_json  # noqa: E402
-from tools.sweep_config import Range, central_values, load_config  # noqa: E402
+from tools.sweep_config import Range, central_values, load_config, not_run_keys  # noqa: E402
 
 RECORD = REPO / "docs" / "version_2_sweep_record.md"
 SWEEP_REQUIREMENTS = REPO / "requirements-sweep.txt"  # the sweep machines' NumPy pin; CI installs requirements.txt
@@ -172,9 +172,7 @@ def sweep_criterion(cache: Cache, key: str, ranges: list[Range], rules: dict, ce
                         "rerun_seeds": second["seeds"], "rerun_readouts": _readouts(second),
                         "error": second.get("error", "")})
         rows.append(row)
-    return {"criterion": key, **summarise(rows), "constants": [
-        {"constant": r.constant, "low": r.low, "high": r.high, "scale": r.scale, "grade": r.grade} for r in ranges],
-        "rows": rows}
+    return {"criterion": key, **summarise(rows), "constants": _constants(ranges), "rows": rows}
 
 
 def central_verdicts() -> dict[str, dict]:
@@ -188,6 +186,8 @@ def central_verdicts() -> dict[str, dict]:
 # --- rendering --------------------------------------------------------------------------------------------------
 
 def _fraction(s: dict) -> str:
+    if "not_run" in s:
+        return "declared, not run"
     return f"{s['held']} of {s['counted']}" if s["counted"] else "no counted sample"
 
 
@@ -200,7 +200,9 @@ def render(results: list[dict], centrals: dict[str, dict], rules: dict, engine: 
         "declared in `config/sweep/sweep.md` and the criterion was run once per sample; *held* is the number of samples",
         "whose verdict was PASS, of the samples that gave a verdict. The gating verdict is the one in the criterion's",
         "ensemble record (*central verdict*); a fraction here changes no verdict and is never written as a pass or a",
-        "fail. A premise passing is never a finding (`M11.5`), and no premise is swept.",
+        "fail. A premise passing is never a finding (`M11.5`), and no premise is swept. A criterion shown as *declared,",
+        "not run* is listed under that heading in `config/sweep/sweep.md`: its ranges are declared, the cache holds no",
+        "result of it, and no number is shown for it.",
         "",
         f"The sweep's rules (`config/sweep/sweep.md`, each `[I]`): `sweep_samples` {rules['sweep_samples']} per criterion,",
         f"`sweep_seed` {rules['sweep_seed']}; the detection-limit rule (`M17.A.1`, plan D8): a sample whose first run left a",
@@ -226,9 +228,15 @@ def render(results: list[dict], centrals: dict[str, dict], rules: dict, engine: 
     for s in results:
         c = centrals[s["criterion"]]
         swept = "; ".join(f"`{x['constant']}` {x['low']:g}–{x['high']:g}" for x in s["constants"])
+        if "not_run" in s:
+            lines.append(f"| `{s['criterion']}` | {c['class']} | {c['outcome']} | {swept} | {_fraction(s)} | — | — | — |")
+            continue
         lines.append(f"| `{s['criterion']}` | {c['class']} | {c['outcome']} | {swept} | {_fraction(s)} | {s['undetermined']} | "
                      f"{s['reruns']} | {s['errored']} |")
     for s in results:
+        if "not_run" in s:
+            lines += ["", f"## `{s['criterion']}` — declared, not run", "", f"Not run: {s['not_run']}"]
+            continue
         lines += ["", f"## `{s['criterion']}` — {_fraction(s)} samples held", "",
                   "| Sample | Values | Seeds | Rerun | Verdict | Gating readouts (mean difference ± half-width) |",
                   "|---|---|---|---|---|---|"]
@@ -261,13 +269,32 @@ def _checked(only: list[str] | None = None) -> tuple[dict, dict]:
     return rules, {key: declared for key, declared in ranges.items() if only is None or key in only}
 
 
+def _constants(ranges: list[Range]) -> list[dict]:
+    return [{"constant": r.constant, "low": r.low, "high": r.high, "scale": r.scale, "grade": r.grade} for r in ranges]
+
+
+def _not_run(cache: Cache, ranges: dict[str, list[Range]]) -> dict[str, str]:
+    """The keys of ``ranges`` listed as declared, not run in the config, once none of them is found with a result in
+    the cache: a key that has run is taken off the list before the record is rendered, never shown as not run."""
+    listed = {key: why for key, why in not_run_keys().items() if key in ranges}
+    ran = sorted({r.get("criterion") for r in cache.entries.values()} & set(listed))
+    if ran:
+        raise SystemExit(f"{', '.join(ran)}: listed under 'Declared, not run' in config/sweep/sweep.md but the cache "
+                         "holds a result for it; take it off that list, then render the record")
+    return listed
+
+
 def sweep(cache: Cache, workers: int | None = None, only: list[str] | None = None) -> list[dict]:
     """Each criterion's result, in the config's order; with ``only``, those criteria alone (a share of a run split
     across machines, docs/two_mac_sweep.md). With ``workers``, missing results are run first; without, a missing
-    result raises ``KeyError``."""
+    result raises ``KeyError``. Without ``only``, a key listed as declared, not run is shown as that and nothing of it
+    runs; ``only`` runs such a key like any other (that is how it comes to be run)."""
     rules, ranges = _checked(only)
     central, centrals, engine, phase_d_engine = central_values(), central_verdicts(), engine_hash(), phase_d_engine_hash()
-    return [sweep_criterion(cache, key, declared, rules, central, workers, phase_d_engine, PHASE_D_CHILD.name)
+    not_run = {} if only else _not_run(cache, ranges)
+    return [{"criterion": key, "not_run": not_run[key], "constants": _constants(declared), "rows": []}
+            if key in not_run
+            else sweep_criterion(cache, key, declared, rules, central, workers, phase_d_engine, PHASE_D_CHILD.name)
             if centrals[key]["record"] in PHASE_D_RECORDS
             else sweep_criterion(cache, key, declared, rules, central, workers, engine)
             for key, declared in ranges.items()]

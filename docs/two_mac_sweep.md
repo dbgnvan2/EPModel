@@ -35,6 +35,9 @@ Their tests are `tests/test_sweep_two_macs.py`.
     `tests/test_version_2_sweep.py::test_s2_11_sweep_record_is_current` until both shares were merged, so the
     record is rendered once, after the merge.
 - `--render-only` runs nothing. If a result is missing, it stops and writes nothing.
+- A key listed under *Declared, not run* in `config/sweep/sweep.md` is shown in the record as that and is run only
+  when `--criteria` names it. Once it has a result in the cache, the record is refused until its row there is
+  removed.
 
 ## Before you start
 
@@ -134,7 +137,8 @@ only the missing samples run.
    ```
 
    If the merge refuses, stop and report the refusal. Do not edit either file.
-3. Render the record from the merged cache, with no run, and check it:
+3. If the shares ran keys listed under *Declared, not run* in `config/sweep/sweep.md`, remove their rows there
+   first. Then render the record from the merged cache, with no run, and check it:
 
    ```
    python3 tools/version_2_sweep.py --render-only

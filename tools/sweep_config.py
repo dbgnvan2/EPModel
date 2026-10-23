@@ -25,6 +25,8 @@ RULE_NAMES = ("sweep_samples", "sweep_seed", "detection_limit_multiple", "detect
 SCALES = ("log", "linear", "integer")
 RULE_COLUMNS = ("constant", "value", "grade", "unit", "why")
 RANGE_COLUMNS = ("criterion", "constant", "low", "high", "scale", "bound", "grade", "why it is read")
+NOT_RUN_HEADING = "Declared, not run"
+NOT_RUN_COLUMNS = ("criterion", "why")
 GRADE = re.compile(r"^\[[A-Z#]+\]")
 _ROW = re.compile(r"^\| `(?P<name>[^`]+)` \| (?P<value>[^|]*?) \|")
 
@@ -147,6 +149,33 @@ def load_ranges(text: str, central: dict[str, str]) -> dict[str, list[Range]]:
     if not out:
         raise SweepConfigError("no ranges declared")
     return out
+
+
+def load_not_run(text: str, ranges: dict[str, list[Range]]) -> dict[str, str]:
+    """Criterion key -> why it has not run, for the keys listed under ``## Declared, not run``: their ranges are
+    declared and no result of theirs is expected yet (empty when the section is absent). A listed key must have
+    declared ranges, appear once and say why."""
+    if f"\n## {NOT_RUN_HEADING}\n" not in text:
+        near = re.findall(r"^## .*\bnot\b.*\brun\b.*$", text, re.MULTILINE | re.IGNORECASE)
+        if near:  # a misspelt heading would list nothing, and a full sweep would run the keys it meant to hold back
+            raise SweepConfigError(f"{near[0]!r}: the heading must be '## {NOT_RUN_HEADING}'")
+        return {}
+    out: dict[str, str] = {}
+    for cid, why in _table(text, NOT_RUN_HEADING, NOT_RUN_COLUMNS):
+        cid = cid.strip("`")
+        if cid not in ranges:
+            raise SweepConfigError(f"{cid}: listed as not run but no range of it is declared")
+        if cid in out:
+            raise SweepConfigError(f"{cid}: listed as not run twice")
+        if not why:
+            raise SweepConfigError(f"{cid}: say why it has not run")
+        out[cid] = why
+    return out
+
+
+def not_run_keys(path: Path = CONFIG, constants: Path = CONSTANTS) -> dict[str, str]:
+    text = path.read_text(encoding="utf-8")
+    return load_not_run(text, load_ranges(text, central_values(constants)))
 
 
 def load_config(path: Path = CONFIG, constants: Path = CONSTANTS) -> tuple[dict[str, int | float], dict[str, list[Range]]]:

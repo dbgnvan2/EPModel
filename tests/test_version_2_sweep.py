@@ -95,7 +95,8 @@ def _patched(tmp_path, engine="a" * 64, child=_stub_child_rows):
             mock.patch.object(record_cache, "engine_hash", return_value=engine),
             mock.patch.object(tool, "engine_hash", return_value=engine),
             mock.patch.object(record_cache, "child_rows", side_effect=child),
-            mock.patch.object(tool, "load_config", lambda: sweep_config.load_config(config)))
+            mock.patch.multiple(tool, load_config=lambda: sweep_config.load_config(config),
+                                not_run_keys=lambda: sweep_config.not_run_keys(config)))
 
 
 def _build(tmp_path, workers=1, **kw):
@@ -417,6 +418,59 @@ def test_m17e1_another_child_without_its_hash_is_refused(tmp_path):
             mock.patch.object(record_cache, "child_rows", side_effect=AssertionError("ran a child")):
         with pytest.raises(ValueError, match="hash"):
             record_cache.run_cached(Cache("sweep_test"), None, ["M11.C.2"], 1, child="phase_d_mutant_child.py")
+
+
+# --- S2.5 and S2.6 a criterion declared and not run ----------------------------------------------------------------
+
+NOT_RUN = """
+## Declared, not run
+
+| criterion | why |
+|---|---|
+| `M11.C.42` | test: declared only |
+"""
+
+
+def test_m17e1_s2_5_a_declared_not_run_key_is_shown_and_never_run(tmp_path):
+    """A key listed under 'Declared, not run' is in the record as that, with its ranges and no number, and none of
+    its samples runs; the other key runs as before."""
+    (tmp_path / "sweep.md").write_text(TEST_CONFIG + NOT_RUN, encoding="utf-8")
+    text, ran = _build(tmp_path)
+    assert ran.call_count and all(c.args[2] == ["M11.C.16"] for c in ran.call_args_list)
+    assert "## `M11.C.42` — declared, not run" in text and "Not run: test: declared only" in text
+    assert "; `triangle_activity_window` 2–8 | declared, not run | — | — | — |" in text
+    shown = {r["criterion"]: r for r in _results(text)}
+    assert shown["M11.C.42"]["rows"] == [] and "held" not in shown["M11.C.42"] and shown["M11.C.16"]["counted"]
+
+
+def test_m17e1_s2_5_a_listed_key_with_a_cached_result_is_refused(tmp_path):
+    """P8: once a listed key has a result in the cache (a share run with ``only``), the record is refused until its
+    row is taken off the list, so a key that has run is never shown as not run."""
+    (tmp_path / "sweep.md").write_text(TEST_CONFIG + NOT_RUN, encoding="utf-8")
+    patches = _patched(tmp_path)
+    with patches[0], patches[1], patches[2], patches[3] as ran, patches[4]:
+        cache = Cache("sweep_test")
+        assert [r["criterion"] for r in tool.sweep(cache, 1, ["M11.C.42"])] == ["M11.C.42"]  # a share runs it
+        assert ran.call_count
+        with pytest.raises(SystemExit, match="Declared, not run"):
+            tool.build(cache, 1)
+        with pytest.raises(SystemExit, match="Declared, not run"):
+            tool.build(cache)
+
+
+def test_s2_6_not_run_list_is_loaded_strictly():
+    """The committed list names declared keys only; a listed key without ranges, a repeat, an empty reason or a
+    wrong header or a misspelt heading raises; a config without the section lists nothing."""
+    _rules, ranges = sweep_config.load_config()
+    assert set(sweep_config.not_run_keys()) <= set(ranges)
+    test_ranges = sweep_config.load_ranges(TEST_CONFIG, sweep_config.central_values())
+    assert sweep_config.load_not_run(TEST_CONFIG, test_ranges) == {}
+    assert sweep_config.load_not_run(TEST_CONFIG + NOT_RUN, test_ranges) == {"M11.C.42": "test: declared only"}
+    for broken in (NOT_RUN.replace("M11.C.42", "M11.C.10"), NOT_RUN + "| `M11.C.42` | again |\n",
+                   NOT_RUN.replace("test: declared only", ""), NOT_RUN.replace("| criterion | why |", "| key | why |"),
+                   NOT_RUN.replace("## Declared, not run", "## Declared, not yet run")):
+        with pytest.raises(sweep_config.SweepConfigError):
+            sweep_config.load_not_run(TEST_CONFIG + broken, test_ranges)
 
 
 # --- S2.11 the committed record ---------------------------------------------------------------------------------

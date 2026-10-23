@@ -93,11 +93,14 @@ def tag_verdicts(path: Path = TAG_PAGE) -> dict[str, str]:
 
 def sweep_fractions(path: Path = SWEEP_RECORD) -> dict[str, str]:
     """Criterion key -> its sweep cell, *n of S held*, from the sweep record's machine-readable block; empty when the
-    record does not exist yet. An errored count is shown, never folded into S (P2)."""
+    record does not exist yet. An errored count is shown, never folded into S (P2). A criterion the record shows as
+    declared, not run has no fraction and is left out, so its cell says *not swept* and W4 still counts it."""
     if not path.exists():
         return {}
     out = {}
     for result in record_json(path):
+        if "not_run" in result:
+            continue
         cell = f"{result['held']} of {result['counted']} held"
         if result["errored"]:
             cell += f" ({result['errored']} errored, not counted)"

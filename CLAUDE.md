@@ -40,7 +40,7 @@ only to change it or to see its sources and history. These files are generated (
 `tools/spec_rules_view.py`) and checked current by tests; never edit them. `TODO.md` is a generated index of the open
 items, one line each (ID, date, title, record), under **Now** or **Later**; an item's text is in its record under
 `docs/todo/`, where it is ticked to close it (`tools/todo_index.py` then moves its line to `docs/TODO_archive.md`).
-`CHANGELOG.md` opens with a generated index of its entries and holds the entries from 2026-10-21 on;
+`CHANGELOG.md` opens with a generated index of its entries and holds the entries from 2026-10-22 on;
 the earlier entries are in `docs/CHANGELOG_archive.md`, verbatim. `tests/test_todo_index.py` keeps the generated
 parts current and `tests/test_doc_size.py` keeps both live files under a size limit.
 
@@ -88,7 +88,7 @@ full table.
   while `main` stood at spec revision 11; on 2026-10-21 `main` was fast-forwarded to it. `plan-phase-b` stays on GitHub
   as history and takes no new commits. A session's own branch merges into `main`.
 - Run tests before declaring done: `python3 -m pytest tests/`
-- **A red suite is never normal — all 1192 tests pass** (measured 2026-10-23 on this Mac with `python3 -m pytest tests/`; counts are as collected by the default run; the 51 `ensemble`-marked criterion tests are deselected by `pytest.ini` and run with `python3 -m pytest -m ensemble`). The dated history of counts is in `CHANGELOG.md`, in the entry of 2026-10-22 that moved it out of this file.
+- **A red suite is never normal — all 1195 tests pass** (measured 2026-10-23 on this Mac with `python3 -m pytest tests/`; counts are as collected by the default run; the 51 `ensemble`-marked criterion tests are deselected by `pytest.ini` and run with `python3 -m pytest -m ensemble`). The dated history of counts is in `CHANGELOG.md`, in the entry of 2026-10-22 that moved it out of this file.
 
 ## Token budget — how to read this repo (owner rule, 2026-10-22)
 

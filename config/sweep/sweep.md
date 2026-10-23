@@ -18,32 +18,45 @@
 > the upper half short, or the raised low end the lower half); an `integer` range uniformly over its whole values.
 >
 > **Grades.** The grade column gives the constant's grade as `docs/model_explainer.md` gives it, found by grep of the
-> constant's name. Of the 60 constants below (246 rows, 27 criteria), three are named there: `defence_threshold` (§11.3,
-> graded `[I]`), and `system_adjust_gain` (§3.2a) and `practice_window` (§19.4), each without a grade; none of the other
-> 57 is named there by its code name (checked 2026-10-23), so each is `[I]` until proven otherwise, as
+> constant's name. Of the 78 constants below (327 rows, 34 criteria), five are named there: `defence_threshold` (§11.3,
+> graded `[I]`), `cutoff_stock_cap` and `cutoff_threat_weight` (§11.5, each graded `[I]`), and `system_adjust_gain`
+> (§3.2a) and `practice_window` (§19.4), each without a grade; none of the other 73 is named there by its code name
+> (checked 2026-10-23), so each is `[I]` until proven otherwise, as
 > `config/bowen/constants.md` already grades it; the column says so. Every constant in
 > `config/bowen/constants.md` is graded `[I]` there (checked 2026-10-23), so no constant a mechanism reads is left out of
 > its set for carrying another grade.
 >
 > **Which constants a criterion's set holds** (D10): the `[I]` constants registered under the spec IDs its criterion row
 > and its `M11.5` class row credit as the mechanism, the constants of the gating readout's own mechanism where the
-> readout is a derived state (a symptom's onset and end, `M7.D.1`), and the learner's seven (`M4.D.6`, `M4.D.6b`,
+> readout is a derived state (a symptom's onset and end, `M7.D.1`; held rejection, `M1.B.3c`, in `M11.C.10`; a
+> child's development, `M7.E.1f`, in `M11.C.6`), and the learner's seven (`M4.D.6`, `M4.D.6b`,
 > `M4.D.6e`, `M4.D.1`, `M4.G.3`) where the row names learning or the readout counts selected acts. The learner is left
 > out where the readout is taken one week after a scripted act (`M11.C.27`) or the row credits no learned mechanism
 > (`M11.C.29`: the budget limb and the third's symptom time course; `M11.C.41`: the mixing weight and the stress
-> response; and in Phase D part I, `M11.C.7`, `.11`, `.17`, `.21`, `.22` and `.23`, whose readouts are states, not
-> counted acts), and a constant that never acts in the criterion's scenario is left out
-> (`nodal_spike_intensity` in the Phase C criteria: no nodal event, while `M11.C.7` and `M11.C.17` run under nodal
-> load and read it; `birth_focus_gain`: no birth in a Phase D part I scenario; `M1.A.19`'s `reactive_rate` in
-> `M11.C.34`: no selection reads its detectors; `functional_level_floor`: a numerical guard). A constant an arm's
-> declared condition is set against is left out too, since moving it changes the arm rather than the mechanism:
-> `lock_in_turn` in `M11.C.12` and `M11.C.22` (each held severity is declared against the turn), and
-> `estimator_window` and `estimator_breadth` in `M11.C.17` (its nodal load is declared to meet them). Each row's last
-> column names the spec ID and says what the constant does in that criterion. These are judgments; the plan's §2.10
-> lists them.
+> response; in Phase D part I, `M11.C.7`, `.11`, `.17`, `.21`, `.22` and `.23`, and in part II, `M11.C.6` and
+> `M11.C.15`, whose readouts are states, not counted acts), and a constant that never acts in the criterion's scenario
+> is left out (`nodal_spike_intensity` in the Phase C criteria: no nodal event, while `M11.C.7` and `M11.C.17` run
+> under nodal load and read it; `birth_focus_gain`: no birth in a Phase D part I scenario; `M1.A.19`'s
+> `reactive_rate` in `M11.C.34`: no selection reads its detectors; `exchange_budget_reduction` in `M11.C.15`: no
+> differentiating exchange completed in 20 seeds of each of its three runs, checked 2026-10-23;
+> `functional_level_floor`: a numerical guard; `death_transfer_share` in `M11.C.15`: 1 is `M6.3b`'s rule, which no
+> criterion overrides, and only `M11.C.37`'s mutant sets it lower). A constant an arm's declared condition is set
+> against is left out too, since moving it changes the arm rather than the mechanism: `lock_in_turn` in `M11.C.12`,
+> `M11.C.15` and `M11.C.22` (each held severity is declared against the turn); `estimator_window` and
+> `estimator_breadth` in `M11.C.17` and `M11.C.6` (the nodal load is declared to meet them);
+> `development_start_age_years` and `development_end_age_years` in `M11.C.6` (the readout's two ages and the arm's
+> length are declared at them); `declared_rejection` in both `M11.C.10` variants (the treatment starts each held
+> cutoff at it); and `M6.3g`'s and `M6.3h`'s grief and income constants in `M11.C.15` (set to zero in every arm). A
+> constant that acts but that no row credits is not in a set: in part II, `nodal_spike_intensity` (the nodal load
+> spikes the declared Ravi–Dario cutoff in every twelve-person run), `birth_focus_gain` outside
+> `M11.C.2[twelve-person family]` (whose class row credits `M7.E.1c`), `refusal_cost_gain` in `M11.C.10` (the refused
+> sender's cost, not the rejection the readout reads), and `M1.B.3c`'s constants in `M11.C.48` (a refusal is a
+> negative contact, but the readout counts contacts, not a state). Each row's last column names the spec ID and says
+> what the constant does in that criterion. These are judgments; the plan's §2.10 lists them.
 >
 > Decided as recommended under the owner's instruction of 2026-10-22, pending the owner's review
-> (`docs/implementation_plan_version_2.md` §2.2, D8, D10, D12; §2.10, the Phase C and Phase D part I sweeps).
+> (`docs/implementation_plan_version_2.md` §2.2, D8, D10, D12; §2.10, the Phase C and Phase D part I sweeps and
+> part II's ranges, declared 2026-10-23 and not yet run).
 
 ## Rules
 
@@ -304,3 +317,100 @@
 | `M11.C.43` | `habituation_window` | 4 | 16 | integer | — | [I] — not named in `model_explainer.md`; `constants.md` grades it [I] | `M4.G.3`: the ticks a repetition counts over |
 | `M11.C.43` | `calm_transfer_rate` | 0.025 | 0.1 | log | 1 | [I] — not named in `model_explainer.md`; `constants.md` grades it [I] | `M4.C.10`: the share of the gap a calmer sender's contact lowers — the downward term the row's mutation removes |
 | `M11.C.43` | `acute_decay_rate` | 0.1 | 0.4 | log | 1 | [I] — not named in `model_explainer.md`; `constants.md` grades it [I] | `M1.A.8`: the fraction of excess shed per tick — how much of the loss's rise the eight-week window holds |
+| `M11.C.2[twelve-person family]` | `learning_rate` | 0.1 | 0.4 | log | — | [I] — not named in `model_explainer.md`; `constants.md` grades it [I] | `M4.D.6`: the projection-type acts per year the readout ranks the three children by are selected from learned values; both arms read one run |
+| `M11.C.2[twelve-person family]` | `credit_horizon` | 2 | 6 | integer | — | [I] — not named in `model_explainer.md`; `constants.md` grades it [I] | `M4.D.6b`: the ticks over which an act's relief is credited |
+| `M11.C.2[twelve-person family]` | `credit_discount` | 0.35 | 1.0 | log | 1 | [I] — not named in `model_explainer.md`; `constants.md` grades it [I] | `M4.D.6`: the weight per tick of age; 1 is no discount |
+| `M11.C.2[twelve-person family]` | `cross_person_weight` | 0.25 | 1.0 | log | 1 | [I] — not named in `model_explainer.md`; `constants.md` grades it [I] | `M4.D.6e` (the class row): the others' relief in the signal — where the parents' focus is relieved; 1 weights it as the actor's own |
+| `M11.C.2[twelve-person family]` | `policy_temperature` | 0.5 | 2.0 | log | — | [I] — not named in `model_explainer.md`; `constants.md` grades it [I] | `M4.D.1`: how sharply a learned value turns into a selection |
+| `M11.C.2[twelve-person family]` | `habituation_rate` | 0.35 | 1.0 | log | 1 | [I] — not named in `model_explainer.md`; `constants.md` grades it [I] | `M4.G.3`: a repeated act's relief is habituated; 1 is no habituation |
+| `M11.C.2[twelve-person family]` | `habituation_window` | 4 | 16 | integer | — | [I] — not named in `model_explainer.md`; `constants.md` grades it [I] | `M4.G.3`: the ticks a repetition counts over |
+| `M11.C.2[twelve-person family]` | `perceived_weakness_gain` | 0.005 | 0.02 | log | — | [I] — not named in `model_explainer.md`; `constants.md` grades it [I] | `M1.B.8a`: a parent's focus on a child's weakness — removed with `M4.D.1g`, the twelve-person family's declared proof (the row) |
+| `M11.C.2[twelve-person family]` | `focus_steer_gain` | 0.5 | 2.0 | log | — | [I] — not named in `model_explainer.md`; `constants.md` grades it [I] | `M4.D.1g`: focus steers whom an anxious act lands on — which of the three children receives the projection-type acts; the other half of the declared proof |
+| `M11.C.2[twelve-person family]` | `focus_reinforce_gain` | 0.5 | 2.0 | log | — | [I] — not named in `model_explainer.md`; `constants.md` grades it [I] | `M1.B.8b`: an act toward a child adds to the sender's focus on them — focus that grows once it starts |
+| `M11.C.2[twelve-person family]` | `focus_compound_gain` | 5 | 20 | log | — | [I] — not named in `model_explainer.md`; `constants.md` grades it [I] | `M1.B.8b`: the compounding of a focus already concentrated on one child |
+| `M11.C.2[twelve-person family]` | `investment_leak_rate` | 0.05 | 0.2 | log | 1 | [I] — not named in `model_explainer.md`; `constants.md` grades it [I] | `M1.B.8`: the share of investment a tie loses per tick — how long a parent's focus on a child lasts |
+| `M11.C.2[twelve-person family]` | `witness_weight` | 0.25 | 1.0 | log | 1 | [I] — not named in `model_explainer.md`; `constants.md` grades it [I] | `M4.C.9`: a witness's appraisal of an act not addressed to them — the witness path (`M1.F.5`) the row credits, which on this family survives its removal |
+| `M11.C.2[twelve-person family]` | `symptom_leak_rate` | 0.05 | 0.2 | log | 1 | [I] — not named in `model_explainer.md`; `constants.md` grades it [I] | `M4.C.3a`: the share of the integral shed per tick — the gating readout is each child's mean symptom load at ages 20 to 30, which leaks |
+| `M11.C.2[twelve-person family]` | `birth_focus_gain` | 0.05 | 0.2 | log | — | [I] — not named in `model_explainer.md`; `constants.md` grades it [I] | `M7.E.1c` (the class row): the focus a parent puts on a newborn born in one of the listed situations — the three children were born before the run, so it does not set the parents' focus on them; it acts at the third generation's births, of which Nadia's first (at 29) falls inside the ages read and Leo's first comes the week he turns 30, as his ages end (six births, weeks 1091 to 1715, in seed 1, checked 2026-10-23) |
+| `M11.C.6` | `development_rate` | 0.05 | 0.2 | log | 1 | [I] — not named in `model_explainer.md`; `constants.md` grades it [I] | `M7.E.1f`: the share of the year's evidence (the child's own functioning above basic, and the parents') a step moves the developing level — the readout, the level at 20 less the anchor at 5, is this rule's derived state |
+| `M11.C.6` | `development_band` | 0.01 | 0.04 | log | 1 | [I] — not named in `model_explainer.md`; `constants.md` grades it [I] | `M7.E.1f`: the band around the anchor the level may move in with no parental acts; the projection and support bands each start from it |
+| `M11.C.6` | `development_band_projection` | 0.05 | 0.2 | log | 1 | [I] — not named in `model_explainer.md`; `constants.md` grades it [I] | `M7.E.1f`: how far below the anchor projection-type acts let the level go (10% under projection alone) — the room the arms differ in |
+| `M11.C.6` | `development_band_support` | 0.04 | 0.1 | log | 1 | [I] — not named in `model_explainer.md`; `constants.md` grades it [I] | `M7.E.1f`: how far above the anchor supportive acts let the level go; its low end is raised to 0.04, the top of `development_band`'s range, since the engine requires the support band to be at least `development_band` |
+| `M11.C.6` | `estimator_sd_weight` | 0.5 | 2.0 | log | — | [I] — not named in `model_explainer.md`; `constants.md` grades it [I] | `M1.A.4k`, the estimator the row credits (`M1.A.4a`): the spread subtracted from the load-weighted mean — the estimator skips a child under 20 (`src/bowen/engine/slow_tick.py`), so here it moves the parents' basic levels, which the child's development step reads |
+| `M11.C.6` | `estimator_rate` | 0.25 | 1.0 | log | 1 | [I] — not named in `model_explainer.md`; `constants.md` grades it [I] | `M1.A.4k`: the share of the evidence taken into `basic_level` — on the parents, as above; `estimator_window` and `estimator_breadth` are left out, since the parents' nodal load is declared to meet them, as in `M11.C.17` (decided as recommended under the owner's instruction of 2026-10-22, pending the owner's review) |
+| `M11.C.10` | `learning_rate` | 0.1 | 0.4 | log | — | [I] — not named in `model_explainer.md`; `constants.md` grades it [I] | `M4.D.6`: the cutoffs on which generation 3 hold rejection are selected from learned values, which `M4.D.6f`'s witnessed learning (the class row) writes into |
+| `M11.C.10` | `credit_horizon` | 2 | 6 | integer | — | [I] — not named in `model_explainer.md`; `constants.md` grades it [I] | `M4.D.6b`: the ticks over which an act's relief is credited |
+| `M11.C.10` | `credit_discount` | 0.35 | 1.0 | log | 1 | [I] — not named in `model_explainer.md`; `constants.md` grades it [I] | `M4.D.6`: the weight per tick of age; 1 is no discount |
+| `M11.C.10` | `cross_person_weight` | 0.25 | 1.0 | log | 1 | [I] — not named in `model_explainer.md`; `constants.md` grades it [I] | `M4.D.6e`: the others' relief in the signal; 1 weights it as the actor's own |
+| `M11.C.10` | `policy_temperature` | 0.5 | 2.0 | log | — | [I] — not named in `model_explainer.md`; `constants.md` grades it [I] | `M4.D.1`: how sharply a learned value turns into a selection |
+| `M11.C.10` | `habituation_rate` | 0.35 | 1.0 | log | 1 | [I] — not named in `model_explainer.md`; `constants.md` grades it [I] | `M4.G.3`: a repeated act's relief is habituated; 1 is no habituation |
+| `M11.C.10` | `habituation_window` | 4 | 16 | integer | — | [I] — not named in `model_explainer.md`; `constants.md` grades it [I] | `M4.G.3`: the ticks a repetition counts over |
+| `M11.C.10` | `witnessed_cutoff_gain` | 0.025 | 0.1 | log | — | [I] — not named in `model_explainer.md`; `constants.md` grades it [I] | `M4.D.6f` (the class row): what a witnessed cutoff, and what followed it, teaches the witness — the children witness each renewal of the declared cutoff (Ravi–Dario) |
+| `M11.C.10` | `witness_window` | 7 | 26 | integer | — | [I] — not named in `model_explainer.md`; `constants.md` grades it [I] | `M4.D.6f`: the weeks between a witnessed cutoff and the reading of what followed; its low end is 7, half of 13 rounded up; the same 13 weeks as the arm's `renew_every`, though neither is declared against the other |
+| `M11.C.10` | `reactive_cutoff_gain` | 0.05 | 0.2 | log | — | [I] — not named in `model_explainer.md`; `constants.md` grades it [I] | `M1.B.3d` (the class row): the anxiety a reactive cutoff costs the cutter while rejection is held, larger the lower their basic level — the treatment's renewals are reactive |
+| `M11.C.10` | `origin_cutoff_anxiety_gain` | 5 | 20 | log | — | [I] — not named in `model_explainer.md`; `constants.md` grades it [I] | `M1.D.8a`, the row's mechanism: the chronic anxiety a child gains at 20 per unit of origin cutoff (the mean of the largest rejection a living parent held over the childhood) |
+| `M11.C.10` | `origin_fusion_gain` | 0.25 | 1.0 | log | — | [I] — not named in `model_explainer.md`; `constants.md` grades it [I] | `M1.D.8a`, the row's mechanism: the rise of the contact optimum on every tie per unit of origin cutoff, set at 20 — the fusion the row expects |
+| `M11.C.10` | `rejection_cutoff_gain` | 0.25 | 1.0 | log | 1 | [I] — not named in `model_explainer.md`; `constants.md` grades it [I] | `M1.B.3c`: the rejection a delivered `CUTOFF` adds; rejection is a share, capped at 1 — the readout counts the weeks rejection is held (this rule's derived state), and the treatment's renewals add it |
+| `M11.C.10` | `rejection_refusal_gain` | 0.05 | 0.2 | log | 1 | [I] — not named in `model_explainer.md`; `constants.md` grades it [I] | `M1.B.3c`: the rejection each refusal adds — refusals renew a held cutoff |
+| `M11.C.10` | `rejection_relief` | 0.125 | 0.5 | log | 1 | [I] — not named in `model_explainer.md`; `constants.md` grades it [I] | `M1.B.3c`: the rejection removed by contact the cutter accepts |
+| `M11.C.10` | `rejection_refusal_threshold` | 0.15 | 0.6 | log | 1 | [I] — not named in `model_explainer.md`; `constants.md` grades it [I] | `M1.B.3c`: the rejection above which a move is refused; the engine requires it below 1 |
+| `M11.C.10` | `rejection_fade` | 0.025 | 0.1 | log | 1 | [I] — not named in `model_explainer.md`; `constants.md` grades it [I] | `M1.B.3c`: the rejection that fades each week — how long a cutoff that is not renewed stays held, the weeks the readout counts; `declared_rejection` is left out, since the treatment starts each held cutoff at it (decided as recommended under the owner's instruction of 2026-10-22, pending the owner's review) |
+| `M11.C.10[family of origin]` | `learning_rate` | 0.1 | 0.4 | log | — | [I] — not named in `model_explainer.md`; `constants.md` grades it [I] | `M4.D.6`: the cutoffs on which generation 3 hold rejection are selected from learned values, which `M4.D.6f`'s witnessed learning (the class row) writes into |
+| `M11.C.10[family of origin]` | `credit_horizon` | 2 | 6 | integer | — | [I] — not named in `model_explainer.md`; `constants.md` grades it [I] | `M4.D.6b`: the ticks over which an act's relief is credited |
+| `M11.C.10[family of origin]` | `credit_discount` | 0.35 | 1.0 | log | 1 | [I] — not named in `model_explainer.md`; `constants.md` grades it [I] | `M4.D.6`: the weight per tick of age; 1 is no discount |
+| `M11.C.10[family of origin]` | `cross_person_weight` | 0.25 | 1.0 | log | 1 | [I] — not named in `model_explainer.md`; `constants.md` grades it [I] | `M4.D.6e`: the others' relief in the signal; 1 weights it as the actor's own |
+| `M11.C.10[family of origin]` | `policy_temperature` | 0.5 | 2.0 | log | — | [I] — not named in `model_explainer.md`; `constants.md` grades it [I] | `M4.D.1`: how sharply a learned value turns into a selection |
+| `M11.C.10[family of origin]` | `habituation_rate` | 0.35 | 1.0 | log | 1 | [I] — not named in `model_explainer.md`; `constants.md` grades it [I] | `M4.G.3`: a repeated act's relief is habituated; 1 is no habituation |
+| `M11.C.10[family of origin]` | `habituation_window` | 4 | 16 | integer | — | [I] — not named in `model_explainer.md`; `constants.md` grades it [I] | `M4.G.3`: the ticks a repetition counts over |
+| `M11.C.10[family of origin]` | `witnessed_cutoff_gain` | 0.025 | 0.1 | log | — | [I] — not named in `model_explainer.md`; `constants.md` grades it [I] | `M4.D.6f` (the class row): what a witnessed cutoff, and what followed it, teaches the witness — the children witness each renewal of each parent's cutoff of their own parents |
+| `M11.C.10[family of origin]` | `witness_window` | 7 | 26 | integer | — | [I] — not named in `model_explainer.md`; `constants.md` grades it [I] | `M4.D.6f`: the weeks between a witnessed cutoff and the reading of what followed; its low end is 7, half of 13 rounded up; the same 13 weeks as the arm's `renew_every`, though neither is declared against the other |
+| `M11.C.10[family of origin]` | `reactive_cutoff_gain` | 0.05 | 0.2 | log | — | [I] — not named in `model_explainer.md`; `constants.md` grades it [I] | `M1.B.3d` (the class row): the anxiety a reactive cutoff costs the cutter while rejection is held, larger the lower their basic level — the treatment's renewals are reactive |
+| `M11.C.10[family of origin]` | `origin_cutoff_anxiety_gain` | 5 | 20 | log | — | [I] — not named in `model_explainer.md`; `constants.md` grades it [I] | `M1.D.8a`, the row's mechanism: the chronic anxiety a child gains at 20 per unit of origin cutoff (the mean of the largest rejection a living parent held over the childhood) |
+| `M11.C.10[family of origin]` | `origin_fusion_gain` | 0.25 | 1.0 | log | — | [I] — not named in `model_explainer.md`; `constants.md` grades it [I] | `M1.D.8a`, the row's mechanism: the rise of the contact optimum on every tie per unit of origin cutoff, set at 20 — the fusion the row expects |
+| `M11.C.10[family of origin]` | `rejection_cutoff_gain` | 0.25 | 1.0 | log | 1 | [I] — not named in `model_explainer.md`; `constants.md` grades it [I] | `M1.B.3c`: the rejection a delivered `CUTOFF` adds; rejection is a share, capped at 1 — the readout counts the weeks rejection is held (this rule's derived state), and the treatment's renewals add it |
+| `M11.C.10[family of origin]` | `rejection_refusal_gain` | 0.05 | 0.2 | log | 1 | [I] — not named in `model_explainer.md`; `constants.md` grades it [I] | `M1.B.3c`: the rejection each refusal adds — refusals renew a held cutoff |
+| `M11.C.10[family of origin]` | `rejection_relief` | 0.125 | 0.5 | log | 1 | [I] — not named in `model_explainer.md`; `constants.md` grades it [I] | `M1.B.3c`: the rejection removed by contact the cutter accepts |
+| `M11.C.10[family of origin]` | `rejection_refusal_threshold` | 0.15 | 0.6 | log | 1 | [I] — not named in `model_explainer.md`; `constants.md` grades it [I] | `M1.B.3c`: the rejection above which a move is refused; the engine requires it below 1 |
+| `M11.C.10[family of origin]` | `rejection_fade` | 0.025 | 0.1 | log | 1 | [I] — not named in `model_explainer.md`; `constants.md` grades it [I] | `M1.B.3c`: the rejection that fades each week — how long a cutoff that is not renewed stays held, the weeks the readout counts; `declared_rejection` is left out, since the treatment starts each held cutoff at it (decided as recommended under the owner's instruction of 2026-10-22, pending the owner's review) |
+| `M11.C.15` | `lock_in_gain` | 0.1 | 0.4 | log | — | [I] — not named in `model_explainer.md`; `constants.md` grades it [I] | `M7.D.2a`: the stabilising term — how much of the others' anxiety the mother's held symptom binds before the change week, the stock the death and the recovery release (`M6.I.1`, `M6.3c`; the row's mechanism); `lock_in_turn` is left out, since the arm's severity 1.5 is declared at the peak the turn sets, as in `M11.C.12` (decided as recommended under the owner's instruction of 2026-10-22, pending the owner's review) |
+| `M11.C.15` | `acute_decay_rate` | 0.1 | 0.4 | log | 1 | [I] — not named in `model_explainer.md`; `constants.md` grades it [I] | `M1.A.8`: the fraction of excess shed per tick — how long the released anxiety stays as the living others' excess over the 52 weeks read |
+| `M11.C.48` | `learning_rate` | 0.1 | 0.4 | log | — | [I] — not named in `model_explainer.md`; `constants.md` grades it [I] | `M4.D.6`: the policy's learned value of `CUTOFF` (the class row) — when a tie's first cutoff is selected; the negative contacts the readout counts are selected acts |
+| `M11.C.48` | `credit_horizon` | 2 | 6 | integer | — | [I] — not named in `model_explainer.md`; `constants.md` grades it [I] | `M4.D.6b`: the ticks over which an act's relief is credited |
+| `M11.C.48` | `credit_discount` | 0.35 | 1.0 | log | 1 | [I] — not named in `model_explainer.md`; `constants.md` grades it [I] | `M4.D.6`: the weight per tick of age; 1 is no discount |
+| `M11.C.48` | `cross_person_weight` | 0.25 | 1.0 | log | 1 | [I] — not named in `model_explainer.md`; `constants.md` grades it [I] | `M4.D.6e`: the others' relief in the signal; 1 weights it as the actor's own |
+| `M11.C.48` | `policy_temperature` | 0.5 | 2.0 | log | — | [I] — not named in `model_explainer.md`; `constants.md` grades it [I] | `M4.D.1`: how sharply a learned value turns into a selection |
+| `M11.C.48` | `habituation_rate` | 0.35 | 1.0 | log | 1 | [I] — not named in `model_explainer.md`; `constants.md` grades it [I] | `M4.G.3`: a repeated act's relief is habituated; 1 is no habituation |
+| `M11.C.48` | `habituation_window` | 4 | 16 | integer | — | [I] — not named in `model_explainer.md`; `constants.md` grades it [I] | `M4.G.3`: the ticks a repetition counts over |
+| `M11.C.48` | `cutoff_stock_cap` | 791.5 | 3166 | log | — | [I] — `model_explainer.md` names it once (§11.5), graded [I]; `constants.md` grades it [I] | `M1.D.2b` (the class row): the cap on a tie's stock as it enters `CUT_OFF` — how much a cut tie can weigh on its members (on the Phase C family, `family_phase_c.md`, which the row calls the Phase B family: from the declared Ana–Bruno cutoff and each earlier first cutoff in the seed) |
+| `M11.C.48` | `cutoff_threat_weight` | 0.00156 | 0.00624 | log | — | [I] — `model_explainer.md` names it once (§11.5), graded [I]; `constants.md` grades it [I] | `M1.D.2b`: the weekly weight of a cut tie's stock on both members — the cost a cutoff holds, which the learned value of `CUTOFF` feels |
+| `M11.C.48` | `cutoff_decay_weeks` | 130 | 520 | integer | — | [I] — not named in `model_explainer.md`; `constants.md` grades it [I] | `M1.D.2b`: the weeks over which an uncontacted cut tie's stock decays to its floor |
+| `M11.C.48` | `cutoff_floor_share` | 0.05 | 0.2 | log | 1 | [I] — not named in `model_explainer.md`; `constants.md` grades it [I] | `M1.D.2b`: the floor the stock decays to, as a share of its peak |
+| `M11.C.48` | `positive_bridge_dissipation` | 0.4 | 1.0 | log | 1 | [I] — not named in `model_explainer.md`; `constants.md` grades it [I] | `M1.D.2b`: the share of the stock a positive contact removes, the contact that ends a cutoff; 0.8 runs 0.4 to its bound 1 |
+| `M11.C.48[phase_d]` | `learning_rate` | 0.1 | 0.4 | log | — | [I] — not named in `model_explainer.md`; `constants.md` grades it [I] | `M4.D.6`: the policy's learned value of `CUTOFF` (the class row) — when a tie's first cutoff is selected; the negative contacts the readout counts are selected acts |
+| `M11.C.48[phase_d]` | `credit_horizon` | 2 | 6 | integer | — | [I] — not named in `model_explainer.md`; `constants.md` grades it [I] | `M4.D.6b`: the ticks over which an act's relief is credited |
+| `M11.C.48[phase_d]` | `credit_discount` | 0.35 | 1.0 | log | 1 | [I] — not named in `model_explainer.md`; `constants.md` grades it [I] | `M4.D.6`: the weight per tick of age; 1 is no discount |
+| `M11.C.48[phase_d]` | `cross_person_weight` | 0.25 | 1.0 | log | 1 | [I] — not named in `model_explainer.md`; `constants.md` grades it [I] | `M4.D.6e`: the others' relief in the signal; 1 weights it as the actor's own |
+| `M11.C.48[phase_d]` | `policy_temperature` | 0.5 | 2.0 | log | — | [I] — not named in `model_explainer.md`; `constants.md` grades it [I] | `M4.D.1`: how sharply a learned value turns into a selection |
+| `M11.C.48[phase_d]` | `habituation_rate` | 0.35 | 1.0 | log | 1 | [I] — not named in `model_explainer.md`; `constants.md` grades it [I] | `M4.G.3`: a repeated act's relief is habituated; 1 is no habituation |
+| `M11.C.48[phase_d]` | `habituation_window` | 4 | 16 | integer | — | [I] — not named in `model_explainer.md`; `constants.md` grades it [I] | `M4.G.3`: the ticks a repetition counts over |
+| `M11.C.48[phase_d]` | `cutoff_stock_cap` | 791.5 | 3166 | log | — | [I] — `model_explainer.md` names it once (§11.5), graded [I]; `constants.md` grades it [I] | `M1.D.2b` (the class row): the cap on a tie's stock as it enters `CUT_OFF` — how much a cut tie can weigh on its members (on the twelve-person family: from the declared Ravi–Dario cutoff and each earlier first cutoff in the seed) |
+| `M11.C.48[phase_d]` | `cutoff_threat_weight` | 0.00156 | 0.00624 | log | — | [I] — `model_explainer.md` names it once (§11.5), graded [I]; `constants.md` grades it [I] | `M1.D.2b`: the weekly weight of a cut tie's stock on both members — the cost a cutoff holds, which the learned value of `CUTOFF` feels |
+| `M11.C.48[phase_d]` | `cutoff_decay_weeks` | 130 | 520 | integer | — | [I] — not named in `model_explainer.md`; `constants.md` grades it [I] | `M1.D.2b`: the weeks over which an uncontacted cut tie's stock decays to its floor |
+| `M11.C.48[phase_d]` | `cutoff_floor_share` | 0.05 | 0.2 | log | 1 | [I] — not named in `model_explainer.md`; `constants.md` grades it [I] | `M1.D.2b`: the floor the stock decays to, as a share of its peak |
+| `M11.C.48[phase_d]` | `positive_bridge_dissipation` | 0.4 | 1.0 | log | 1 | [I] — not named in `model_explainer.md`; `constants.md` grades it [I] | `M1.D.2b`: the share of the stock a positive contact removes, the contact that ends a cutoff; 0.8 runs 0.4 to its bound 1 |
+
+## Declared, not run
+
+A criterion listed here has its ranges above and no result yet. `tools/version_2_sweep.py` shows it in the record as
+*declared, not run* and runs none of its samples unless it is named with `--criteria`; once it has a result in the
+cache, the record is not rendered until its row here is removed.
+
+| criterion | why |
+|---|---|
+| `M11.C.2[twelve-person family]` | Phase D part II; ranges declared 2026-10-23 under the owner's decision to declare only (plan §2.10) |
+| `M11.C.6` | Phase D part II; ranges declared 2026-10-23 under the owner's decision to declare only (plan §2.10) |
+| `M11.C.10` | Phase D part II; ranges declared 2026-10-23 under the owner's decision to declare only (plan §2.10) |
+| `M11.C.10[family of origin]` | Phase D part II; ranges declared 2026-10-23 under the owner's decision to declare only (plan §2.10) |
+| `M11.C.15` | Phase D part II; ranges declared 2026-10-23 under the owner's decision to declare only (plan §2.10) |
+| `M11.C.48` | Phase D part II; ranges declared 2026-10-23 under the owner's decision to declare only (plan §2.10) |
+| `M11.C.48[phase_d]` | Phase D part II; ranges declared 2026-10-23 under the owner's decision to declare only (plan §2.10) |

@@ -52,7 +52,8 @@ def test_w1_s2_8_every_criterion_has_a_status():
 def test_w4_s2_9_sweep_column_is_a_fraction_not_a_verdict(tmp_path):
     """A swept criterion's cell is *n of S held*; a directional criterion not swept says so; a premise or check and
     an unbuilt criterion get a dash; no cell of the column is a pass or a fail word. The reader shows an errored
-    count beside the fraction and never folds it into S."""
+    count beside the fraction and never folds it into S; a criterion the record shows as declared, not run has no
+    cell from the record."""
     with mock.patch.object(tool, "sweep_fractions", return_value={"M11.C.16": "5 of 8 held"}):
         rows = tool.statuses()
         text = tool.render(rows)
@@ -68,7 +69,8 @@ def test_w4_s2_9_sweep_column_is_a_fraction_not_a_verdict(tmp_path):
     assert "- W4 (every passing directional criterion has a sweep result): **not met**" in text
     record = tmp_path / "sweep.md"
     record.write_text('# r\n\nengine_hash: abc\n\n```json\n[{"criterion": "M11.C.16", "held": 3, "counted": 7, '
-                      '"errored": 1, "samples": 8}]\n```\n', encoding="utf-8")
+                      '"errored": 1, "samples": 8}, {"criterion": "M11.C.6", "not_run": "declared only", '
+                      '"constants": [], "rows": []}]\n```\n', encoding="utf-8")
     assert tool.sweep_fractions(record) == {"M11.C.16": "3 of 7 held (1 errored, not counted)"}
     assert tool.sweep_fractions(tmp_path / "missing.md") == {}
 

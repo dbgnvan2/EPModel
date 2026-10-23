@@ -5,7 +5,9 @@ verdict.** For each criterion below, the `[I]` constants its mechanism reads wer
 declared in `config/sweep/sweep.md` and the criterion was run once per sample; *held* is the number of samples
 whose verdict was PASS, of the samples that gave a verdict. The gating verdict is the one in the criterion's
 ensemble record (*central verdict*); a fraction here changes no verdict and is never written as a pass or a
-fail. A premise passing is never a finding (`M11.5`), and no premise is swept.
+fail. A premise passing is never a finding (`M11.5`), and no premise is swept. A criterion shown as *declared,
+not run* is listed under that heading in `config/sweep/sweep.md`: its ranges are declared, the cache holds no
+result of it, and no number is shown for it.
 
 The sweep's rules (`config/sweep/sweep.md`, each `[I]`): `sweep_samples` 8 per criterion,
 `sweep_seed` 2; the detection-limit rule (`M17.A.1`, plan D8): a sample whose first run left a
@@ -54,6 +56,13 @@ cache.
 | `M11.C.34` | mixed | FAIL | `learning_rate` 0.1–0.4; `credit_horizon` 2–6; `credit_discount` 0.35–1; `cross_person_weight` 0.25–1; `policy_temperature` 0.5–2; `habituation_rate` 0.35–1; `habituation_window` 4–16; `self_channel_exponent` 1–4; `capacity_level_per_layer` 10–40; `symptom_event_intensity` 50–200 | 0 of 8 | 0 | 8 | 0 |
 | `M11.C.39` | composite | PASS | `learning_rate` 0.1–0.4; `credit_horizon` 2–6; `credit_discount` 0.35–1; `cross_person_weight` 0.25–1; `policy_temperature` 0.5–2; `habituation_rate` 0.35–1; `habituation_window` 4–16; `witnessed_cutoff_gain` 0.025–0.1; `witness_window` 7–26; `distance_binding_rate` 0.15–0.6 | 8 of 8 | 0 | 0 | 0 |
 | `M11.C.43` | composite | FAIL | `learning_rate` 0.1–0.4; `credit_horizon` 2–6; `credit_discount` 0.35–1; `cross_person_weight` 0.25–1; `policy_temperature` 0.5–2; `habituation_rate` 0.35–1; `habituation_window` 4–16; `calm_transfer_rate` 0.025–0.1; `acute_decay_rate` 0.1–0.4 | 0 of 8 | 0 | 8 | 0 |
+| `M11.C.2[twelve-person family]` | composite | FAIL | `learning_rate` 0.1–0.4; `credit_horizon` 2–6; `credit_discount` 0.35–1; `cross_person_weight` 0.25–1; `policy_temperature` 0.5–2; `habituation_rate` 0.35–1; `habituation_window` 4–16; `perceived_weakness_gain` 0.005–0.02; `focus_steer_gain` 0.5–2; `focus_reinforce_gain` 0.5–2; `focus_compound_gain` 5–20; `investment_leak_rate` 0.05–0.2; `witness_weight` 0.25–1; `symptom_leak_rate` 0.05–0.2; `birth_focus_gain` 0.05–0.2 | declared, not run | — | — | — |
+| `M11.C.6` | composite | FAIL | `development_rate` 0.05–0.2; `development_band` 0.01–0.04; `development_band_projection` 0.05–0.2; `development_band_support` 0.04–0.1; `estimator_sd_weight` 0.5–2; `estimator_rate` 0.25–1 | declared, not run | — | — | — |
+| `M11.C.10` | composite | FAIL | `learning_rate` 0.1–0.4; `credit_horizon` 2–6; `credit_discount` 0.35–1; `cross_person_weight` 0.25–1; `policy_temperature` 0.5–2; `habituation_rate` 0.35–1; `habituation_window` 4–16; `witnessed_cutoff_gain` 0.025–0.1; `witness_window` 7–26; `reactive_cutoff_gain` 0.05–0.2; `origin_cutoff_anxiety_gain` 5–20; `origin_fusion_gain` 0.25–1; `rejection_cutoff_gain` 0.25–1; `rejection_refusal_gain` 0.05–0.2; `rejection_relief` 0.125–0.5; `rejection_refusal_threshold` 0.15–0.6; `rejection_fade` 0.025–0.1 | declared, not run | — | — | — |
+| `M11.C.10[family of origin]` | composite | FAIL | `learning_rate` 0.1–0.4; `credit_horizon` 2–6; `credit_discount` 0.35–1; `cross_person_weight` 0.25–1; `policy_temperature` 0.5–2; `habituation_rate` 0.35–1; `habituation_window` 4–16; `witnessed_cutoff_gain` 0.025–0.1; `witness_window` 7–26; `reactive_cutoff_gain` 0.05–0.2; `origin_cutoff_anxiety_gain` 5–20; `origin_fusion_gain` 0.25–1; `rejection_cutoff_gain` 0.25–1; `rejection_refusal_gain` 0.05–0.2; `rejection_relief` 0.125–0.5; `rejection_refusal_threshold` 0.15–0.6; `rejection_fade` 0.025–0.1 | declared, not run | — | — | — |
+| `M11.C.15` | composite | PASS | `lock_in_gain` 0.1–0.4; `acute_decay_rate` 0.1–0.4 | declared, not run | — | — | — |
+| `M11.C.48` | composite | PASS | `learning_rate` 0.1–0.4; `credit_horizon` 2–6; `credit_discount` 0.35–1; `cross_person_weight` 0.25–1; `policy_temperature` 0.5–2; `habituation_rate` 0.35–1; `habituation_window` 4–16; `cutoff_stock_cap` 791.5–3166; `cutoff_threat_weight` 0.00156–0.00624; `cutoff_decay_weeks` 130–520; `cutoff_floor_share` 0.05–0.2; `positive_bridge_dissipation` 0.4–1 | declared, not run | — | — | — |
+| `M11.C.48[phase_d]` | composite | PASS | `learning_rate` 0.1–0.4; `credit_horizon` 2–6; `credit_discount` 0.35–1; `cross_person_weight` 0.25–1; `policy_temperature` 0.5–2; `habituation_rate` 0.35–1; `habituation_window` 4–16; `cutoff_stock_cap` 791.5–3166; `cutoff_threat_weight` 0.00156–0.00624; `cutoff_decay_weeks` 130–520; `cutoff_floor_share` 0.05–0.2; `positive_bridge_dissipation` 0.4–1 | declared, not run | — | — | — |
 
 ## `M11.C.16` — 8 of 8 samples held
 
@@ -405,6 +414,34 @@ cache.
 | 5 | `learning_rate` 0.106262, `credit_horizon` 4, `credit_discount` 0.412195, `cross_person_weight` 0.411072, `policy_temperature` 1.92813, `habituation_rate` 0.66315, `habituation_window` 12, `calm_transfer_rate` 0.0844014, `acute_decay_rate` 0.245904 | 100 then 200 | yes (first FAIL) | FAIL | `loss_rise` -0.579 ± 0.71 |
 | 6 | `learning_rate` 0.208365, `credit_horizon` 4, `credit_discount` 0.750669, `cross_person_weight` 0.963837, `policy_temperature` 1.80638, `habituation_rate` 0.820865, `habituation_window` 16, `calm_transfer_rate` 0.089523, `acute_decay_rate` 0.200319 | 100 then 200 | yes (first FAIL) | FAIL | `loss_rise` -0.254 ± 0.97 |
 | 7 | `learning_rate` 0.191696, `credit_horizon` 2, `credit_discount` 0.406651, `cross_person_weight` 0.847865, `policy_temperature` 0.521067, `habituation_rate` 0.354931, `habituation_window` 6, `calm_transfer_rate` 0.052391, `acute_decay_rate` 0.320814 | 150 then 200 | yes (first FAIL) | FAIL | `loss_rise` -0.125 ± 0.43 |
+
+## `M11.C.2[twelve-person family]` — declared, not run
+
+Not run: Phase D part II; ranges declared 2026-10-23 under the owner's decision to declare only (plan §2.10)
+
+## `M11.C.6` — declared, not run
+
+Not run: Phase D part II; ranges declared 2026-10-23 under the owner's decision to declare only (plan §2.10)
+
+## `M11.C.10` — declared, not run
+
+Not run: Phase D part II; ranges declared 2026-10-23 under the owner's decision to declare only (plan §2.10)
+
+## `M11.C.10[family of origin]` — declared, not run
+
+Not run: Phase D part II; ranges declared 2026-10-23 under the owner's decision to declare only (plan §2.10)
+
+## `M11.C.15` — declared, not run
+
+Not run: Phase D part II; ranges declared 2026-10-23 under the owner's decision to declare only (plan §2.10)
+
+## `M11.C.48` — declared, not run
+
+Not run: Phase D part II; ranges declared 2026-10-23 under the owner's decision to declare only (plan §2.10)
+
+## `M11.C.48[phase_d]` — declared, not run
+
+Not run: Phase D part II; ranges declared 2026-10-23 under the owner's decision to declare only (plan §2.10)
 
 ## Machine-readable
 
@@ -10238,6 +10275,622 @@ cache.
     ]
    }
   ]
+ },
+ {
+  "criterion": "M11.C.2[twelve-person family]",
+  "not_run": "Phase D part II; ranges declared 2026-10-23 under the owner's decision to declare only (plan \u00a72.10)",
+  "constants": [
+   {
+    "constant": "learning_rate",
+    "low": 0.1,
+    "high": 0.4,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "credit_horizon",
+    "low": 2.0,
+    "high": 6.0,
+    "scale": "integer",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "credit_discount",
+    "low": 0.35,
+    "high": 1.0,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "cross_person_weight",
+    "low": 0.25,
+    "high": 1.0,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "policy_temperature",
+    "low": 0.5,
+    "high": 2.0,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "habituation_rate",
+    "low": 0.35,
+    "high": 1.0,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "habituation_window",
+    "low": 4.0,
+    "high": 16.0,
+    "scale": "integer",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "perceived_weakness_gain",
+    "low": 0.005,
+    "high": 0.02,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "focus_steer_gain",
+    "low": 0.5,
+    "high": 2.0,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "focus_reinforce_gain",
+    "low": 0.5,
+    "high": 2.0,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "focus_compound_gain",
+    "low": 5.0,
+    "high": 20.0,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "investment_leak_rate",
+    "low": 0.05,
+    "high": 0.2,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "witness_weight",
+    "low": 0.25,
+    "high": 1.0,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "symptom_leak_rate",
+    "low": 0.05,
+    "high": 0.2,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "birth_focus_gain",
+    "low": 0.05,
+    "high": 0.2,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   }
+  ],
+  "rows": []
+ },
+ {
+  "criterion": "M11.C.6",
+  "not_run": "Phase D part II; ranges declared 2026-10-23 under the owner's decision to declare only (plan \u00a72.10)",
+  "constants": [
+   {
+    "constant": "development_rate",
+    "low": 0.05,
+    "high": 0.2,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "development_band",
+    "low": 0.01,
+    "high": 0.04,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "development_band_projection",
+    "low": 0.05,
+    "high": 0.2,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "development_band_support",
+    "low": 0.04,
+    "high": 0.1,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "estimator_sd_weight",
+    "low": 0.5,
+    "high": 2.0,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "estimator_rate",
+    "low": 0.25,
+    "high": 1.0,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   }
+  ],
+  "rows": []
+ },
+ {
+  "criterion": "M11.C.10",
+  "not_run": "Phase D part II; ranges declared 2026-10-23 under the owner's decision to declare only (plan \u00a72.10)",
+  "constants": [
+   {
+    "constant": "learning_rate",
+    "low": 0.1,
+    "high": 0.4,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "credit_horizon",
+    "low": 2.0,
+    "high": 6.0,
+    "scale": "integer",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "credit_discount",
+    "low": 0.35,
+    "high": 1.0,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "cross_person_weight",
+    "low": 0.25,
+    "high": 1.0,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "policy_temperature",
+    "low": 0.5,
+    "high": 2.0,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "habituation_rate",
+    "low": 0.35,
+    "high": 1.0,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "habituation_window",
+    "low": 4.0,
+    "high": 16.0,
+    "scale": "integer",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "witnessed_cutoff_gain",
+    "low": 0.025,
+    "high": 0.1,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "witness_window",
+    "low": 7.0,
+    "high": 26.0,
+    "scale": "integer",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "reactive_cutoff_gain",
+    "low": 0.05,
+    "high": 0.2,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "origin_cutoff_anxiety_gain",
+    "low": 5.0,
+    "high": 20.0,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "origin_fusion_gain",
+    "low": 0.25,
+    "high": 1.0,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "rejection_cutoff_gain",
+    "low": 0.25,
+    "high": 1.0,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "rejection_refusal_gain",
+    "low": 0.05,
+    "high": 0.2,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "rejection_relief",
+    "low": 0.125,
+    "high": 0.5,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "rejection_refusal_threshold",
+    "low": 0.15,
+    "high": 0.6,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "rejection_fade",
+    "low": 0.025,
+    "high": 0.1,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   }
+  ],
+  "rows": []
+ },
+ {
+  "criterion": "M11.C.10[family of origin]",
+  "not_run": "Phase D part II; ranges declared 2026-10-23 under the owner's decision to declare only (plan \u00a72.10)",
+  "constants": [
+   {
+    "constant": "learning_rate",
+    "low": 0.1,
+    "high": 0.4,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "credit_horizon",
+    "low": 2.0,
+    "high": 6.0,
+    "scale": "integer",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "credit_discount",
+    "low": 0.35,
+    "high": 1.0,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "cross_person_weight",
+    "low": 0.25,
+    "high": 1.0,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "policy_temperature",
+    "low": 0.5,
+    "high": 2.0,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "habituation_rate",
+    "low": 0.35,
+    "high": 1.0,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "habituation_window",
+    "low": 4.0,
+    "high": 16.0,
+    "scale": "integer",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "witnessed_cutoff_gain",
+    "low": 0.025,
+    "high": 0.1,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "witness_window",
+    "low": 7.0,
+    "high": 26.0,
+    "scale": "integer",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "reactive_cutoff_gain",
+    "low": 0.05,
+    "high": 0.2,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "origin_cutoff_anxiety_gain",
+    "low": 5.0,
+    "high": 20.0,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "origin_fusion_gain",
+    "low": 0.25,
+    "high": 1.0,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "rejection_cutoff_gain",
+    "low": 0.25,
+    "high": 1.0,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "rejection_refusal_gain",
+    "low": 0.05,
+    "high": 0.2,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "rejection_relief",
+    "low": 0.125,
+    "high": 0.5,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "rejection_refusal_threshold",
+    "low": 0.15,
+    "high": 0.6,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "rejection_fade",
+    "low": 0.025,
+    "high": 0.1,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   }
+  ],
+  "rows": []
+ },
+ {
+  "criterion": "M11.C.15",
+  "not_run": "Phase D part II; ranges declared 2026-10-23 under the owner's decision to declare only (plan \u00a72.10)",
+  "constants": [
+   {
+    "constant": "lock_in_gain",
+    "low": 0.1,
+    "high": 0.4,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "acute_decay_rate",
+    "low": 0.1,
+    "high": 0.4,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   }
+  ],
+  "rows": []
+ },
+ {
+  "criterion": "M11.C.48",
+  "not_run": "Phase D part II; ranges declared 2026-10-23 under the owner's decision to declare only (plan \u00a72.10)",
+  "constants": [
+   {
+    "constant": "learning_rate",
+    "low": 0.1,
+    "high": 0.4,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "credit_horizon",
+    "low": 2.0,
+    "high": 6.0,
+    "scale": "integer",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "credit_discount",
+    "low": 0.35,
+    "high": 1.0,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "cross_person_weight",
+    "low": 0.25,
+    "high": 1.0,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "policy_temperature",
+    "low": 0.5,
+    "high": 2.0,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "habituation_rate",
+    "low": 0.35,
+    "high": 1.0,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "habituation_window",
+    "low": 4.0,
+    "high": 16.0,
+    "scale": "integer",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "cutoff_stock_cap",
+    "low": 791.5,
+    "high": 3166.0,
+    "scale": "log",
+    "grade": "[I] \u2014 `model_explainer.md` names it once (\u00a711.5), graded [I]; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "cutoff_threat_weight",
+    "low": 0.00156,
+    "high": 0.00624,
+    "scale": "log",
+    "grade": "[I] \u2014 `model_explainer.md` names it once (\u00a711.5), graded [I]; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "cutoff_decay_weeks",
+    "low": 130.0,
+    "high": 520.0,
+    "scale": "integer",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "cutoff_floor_share",
+    "low": 0.05,
+    "high": 0.2,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "positive_bridge_dissipation",
+    "low": 0.4,
+    "high": 1.0,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   }
+  ],
+  "rows": []
+ },
+ {
+  "criterion": "M11.C.48[phase_d]",
+  "not_run": "Phase D part II; ranges declared 2026-10-23 under the owner's decision to declare only (plan \u00a72.10)",
+  "constants": [
+   {
+    "constant": "learning_rate",
+    "low": 0.1,
+    "high": 0.4,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "credit_horizon",
+    "low": 2.0,
+    "high": 6.0,
+    "scale": "integer",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "credit_discount",
+    "low": 0.35,
+    "high": 1.0,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "cross_person_weight",
+    "low": 0.25,
+    "high": 1.0,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "policy_temperature",
+    "low": 0.5,
+    "high": 2.0,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "habituation_rate",
+    "low": 0.35,
+    "high": 1.0,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "habituation_window",
+    "low": 4.0,
+    "high": 16.0,
+    "scale": "integer",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "cutoff_stock_cap",
+    "low": 791.5,
+    "high": 3166.0,
+    "scale": "log",
+    "grade": "[I] \u2014 `model_explainer.md` names it once (\u00a711.5), graded [I]; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "cutoff_threat_weight",
+    "low": 0.00156,
+    "high": 0.00624,
+    "scale": "log",
+    "grade": "[I] \u2014 `model_explainer.md` names it once (\u00a711.5), graded [I]; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "cutoff_decay_weeks",
+    "low": 130.0,
+    "high": 520.0,
+    "scale": "integer",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "cutoff_floor_share",
+    "low": 0.05,
+    "high": 0.2,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "positive_bridge_dissipation",
+    "low": 0.4,
+    "high": 1.0,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   }
+  ],
+  "rows": []
  }
 ]
 ```

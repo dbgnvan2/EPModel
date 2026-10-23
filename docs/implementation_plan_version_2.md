@@ -1060,7 +1060,7 @@ Leo's first the week he turns 30, as his ages end; it acts in the other twelve-p
 credits it; (3) `nodal_spike_intensity` is in no part II
 set: unlike Phase C's criteria it acts here (the nodal load reaches Ravi, whose tie to Dario is declared cut off; 662
 spikes in that seed's 40 years), but no part II row credits `M4.C.1c` and no part II record names the spike; part I's `M11.C.2`, also under the
-nodal load, has no spike in its set either; (4) in `M11.C.6` the estimator (`M1.A.4k`, credited through `M1.A.4a`) skips a
+nodal load, has no spike in its set either; the owner kept both out on 2026-10-23 (T-126, D10's rule); (4) in `M11.C.6` the estimator (`M1.A.4k`, credited through `M1.A.4a`) skips a
 child under 20 (`src/bowen/engine/slow_tick.py`), so the child's level is `M7.E.1f`'s, whose four constants are in as
 the readout's own mechanism; `estimator_sd_weight` and `estimator_rate` are in because the estimator moves the
 parents' basic levels, which the child's development step reads; `estimator_window` and `estimator_breadth` are out,

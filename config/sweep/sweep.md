@@ -47,8 +47,9 @@
 > `development_start_age_years` and `development_end_age_years` in `M11.C.6` (the readout's two ages and the arm's
 > length are declared at them); `declared_rejection` in both `M11.C.10` variants (the treatment starts each held
 > cutoff at it); and `M6.3g`'s and `M6.3h`'s grief and income constants in `M11.C.15` (set to zero in every arm). A
-> constant that acts but that no row credits is not in a set: in part II, `nodal_spike_intensity` (the nodal load
-> spikes the declared Ravi–Dario cutoff in every twelve-person run), `birth_focus_gain` outside
+> constant that acts but that no row credits is not in a set (the owner kept this rule on 2026-10-23, T-126): in
+> part II, `nodal_spike_intensity` (the nodal load spikes the declared Ravi–Dario cutoff in every twelve-person
+> run), `birth_focus_gain` outside
 > `M11.C.2[twelve-person family]` (whose class row credits `M7.E.1c`), `refusal_cost_gain` in `M11.C.10` (the refused
 > sender's cost, not the rejection the readout reads), and `M1.B.3c`'s constants in `M11.C.48` (a refusal is a
 > negative contact, but the readout counts contacts, not a state). Each row's last column names the spec ID and says

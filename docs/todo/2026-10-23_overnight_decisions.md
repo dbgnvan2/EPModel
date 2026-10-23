@@ -129,7 +129,7 @@ owner has reviewed the list; a decision the owner reverses becomes its own item 
   46. `birth_focus_gain` is in `M11.C.2[twelve-person family]`: it acts at the third generation's births, and in seed 1
       Nadia's first child is born inside the ages the readout averages.
   47. `nodal_spike_intensity` is in no part II set, though it acts in the twelve-person runs: no part II row credits
-      `M4.C.1c` (T-126 asks the owner).
+      `M4.C.1c` (the owner kept this, 2026-10-23, T-126).
   48. `M11.C.6` takes `M7.E.1f`'s four development constants and the estimator's `estimator_sd_weight` and
       `estimator_rate`; the estimator's window and breadth and the two development ages are out.
   49. `development_band_support`'s low end is 0.04, the top of `development_band`'s range, for the engine's invariant.
@@ -142,9 +142,11 @@ owner has reviewed the list; a decision the owner reverses becomes its own item 
   53. The sweep config gained a *Declared, not run* list: a listed key is shown in the record with its ranges and no
       number, runs only when `--criteria` names it, and stops the record once it has a cached result.
 
-- [ ] T-126 ⟨now⟩ **Should `nodal_spike_intensity` be swept where the nodal load acts?** Phase D's `M11.C.2` (part I)
+- [x] T-126 ⟨now⟩ **Should `nodal_spike_intensity` be swept where the nodal load acts?** Phase D's `M11.C.2` (part I)
   and `M11.C.2[twelve-person family]` (part II) both run under the nodal load, and the spike acts there (662 spikes in
   seed 1's 40 twelve-person years, 2026-10-23). Neither set holds it, because no row of theirs credits `M4.C.1c`
   (decisions 25, 32 and 47). `M11.C.7` and `M11.C.17` do hold it. Owner's question: add it to both `M11.C.2` sets
   (one range row each in `config/sweep/sweep.md`; part I's `M11.C.2` would then be rerun at 8 samples, part II's runs
   with the rest of part II), or keep D10's rule that only a credited mechanism is swept. No code change either way.
+  *Closed 2026-10-23: the owner, verbatim: "keep D10's rule; nodal_spike_intensity stays out of both M11.C.2 sets."
+  Decisions 25, 32 and 47 stand as to this constant; nothing in `config/sweep/sweep.md` changed.*

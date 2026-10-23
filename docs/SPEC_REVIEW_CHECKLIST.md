@@ -205,6 +205,8 @@ without the build history on either Mac: what it checks, how it is set up, the r
 
 **Decided 2026-10-19, not built:** [<PROPOSAL — EVENT SIZES FROM THE HOLMES–RAHE SCALE.md>](<PROPOSAL — EVENT SIZES FROM THE HOLMES–RAHE SCALE.md>) — version 2, at the owner's request: the model's event sizes against the Holmes–Rahe life-event scale (an outside rating, not the corpus), what Kerr's case material says about event size (set by the tie, not the kind; the deciding case is `[K-ext]`), a proposal to take base sizes from the scale and scale them by the tie, and eight questions (Q1–Q8, all decided by the owner).
 
+**Decided 2026-10-22, not built:** [<PROPOSAL — RELEASE BY TIE (G2).md>](<PROPOSAL — RELEASE BY TIE (G2).md>) — version 2's G2: a symptom's released hold and the lock-in spill split among the bearer's interactive family ties by bond energy, an external agent taking no share, in place of the equal split by count; one rule, no new criterion; its two questions decided as recommended under the owner's instruction of 2026-10-22, pending the owner's review.
+
 **Decided and built, 2026-10-22:** [<PROPOSAL — ASR QUOTATIONS (SP-1).md>](<PROPOSAL — ASR QUOTATIONS (SP-1).md>) — the stage 1 milestone review's SP-1 (owner decision D1): each
 quotation of the 1979 tapes and the Kerr–Bowen interviews in the spec, the explainer, the ledger and the proposal
 html, with a paraphrase checked against its passage and its citation (65 entries); how the frozen records and the

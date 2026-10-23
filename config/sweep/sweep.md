@@ -12,7 +12,8 @@
 > double the central value, the rule the Phase C plan's D9 sweep used, bounded where the constant has an admissible
 > bound: a share or weight is capped at 1, the value at which what it scales is not discounted; a count of ticks is
 > rounded to whole ticks and never below 1. A `log` range is sampled log-uniformly, so the central value is its
-> midpoint; an `integer` range uniformly over its whole values.
+> midpoint unless the range is capped (then the cap cuts the upper half short); an `integer` range uniformly over its
+> whole values.
 >
 > **Grades.** The grade column gives the constant's grade as `docs/model_explainer.md` gives it, found by grep of the
 > constant's name. None of the ten constants below (seventeen rows) is named there by its code name (checked 2026-10-23), so each
@@ -28,7 +29,7 @@
 | `sweep_samples` | 8 | [I] | samples per criterion | the pilot's count (D10): enough to time the runs, not a measurement of a criterion |
 | `sweep_seed` | 2 | [I] | generator seed | with the criterion's key, seeds the draw of its samples; a longer draw begins with the shorter one |
 | `detection_limit_multiple` | 2.0 | [I] | half-widths | D8 (`M17.A.1`): a first run whose gating effect is within this many half-widths of zero is run again |
-| `detection_limit_seeds` | 200 | [I] | seeds | D8: the fixed seed count of that second run; four blocks of 50, the count the owner chose for `M11.C.10` |
+| `detection_limit_seeds` | 200 | [I] | seeds | D8: the fixed seed count of that second run, taken as one block; the count the owner chose for `M11.C.10` |
 
 ## Ranges
 

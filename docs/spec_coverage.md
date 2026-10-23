@@ -580,7 +580,7 @@ say whether that test was proved failing by mutation unless its note does.
 | M16.T.6 | done | `tests/bowen/test_external.py::test_m16t6_event_store_is_load_bearing` | — |
 | M16.T.4 | done | `tests/bowen/test_external.py::test_m16t4_delayed_view_is_scoped_and_lagged` | — |
 | M16.T.5 | done | `tests/bowen/test_log.py::test_m16t5_same_seed_same_log_with_header` | — |
-| M17.A.1 | done | `tests/bowen/test_ensemble.py::test_m17a1_a_fixed_seed_count_runs_exactly_that_many`<br>`tests/bowen/test_ensemble.py::test_m17a1_a_real_effect_passes_and_records_the_seeds`<br>`tests/bowen/test_ensemble.py::test_m17a1_precision_is_measured_against_both_arms_spread`<br>`tests/bowen/test_ensemble.py::test_m17a1_stopping_does_not_depend_on_which_arm_is_called_baseline`<br>`tests/bowen/test_ensemble.py::test_m17a1_undetermined_at_cap_does_not_pass`<br>`tests/test_version_2_sweep.py::test_m17a1_s2_1_a_clear_effect_is_not_rerun`<br>`tests/test_version_2_sweep.py::test_m17a1_s2_1_a_fixed_seed_criterion_is_not_rerun`<br>`tests/test_version_2_sweep.py::test_m17a1_s2_1_a_near_limit_sample_is_rerun_at_the_fixed_count` | — |
+| M17.A.1 | done | `tests/bowen/test_ensemble.py::test_m17a1_a_fixed_seed_count_runs_exactly_that_many`<br>`tests/bowen/test_ensemble.py::test_m17a1_a_real_effect_passes_and_records_the_seeds`<br>`tests/bowen/test_ensemble.py::test_m17a1_precision_is_measured_against_both_arms_spread`<br>`tests/bowen/test_ensemble.py::test_m17a1_stopping_does_not_depend_on_which_arm_is_called_baseline`<br>`tests/bowen/test_ensemble.py::test_m17a1_undetermined_at_cap_does_not_pass`<br>`tests/test_version_2_sweep.py::test_m17a1_s2_1_a_clear_effect_is_not_rerun`<br>`tests/test_version_2_sweep.py::test_m17a1_s2_1_a_criterion_fixing_its_own_seeds_below_the_count_is_refused`<br>`tests/test_version_2_sweep.py::test_m17a1_s2_1_a_fixed_seed_criterion_is_not_rerun`<br>`tests/test_version_2_sweep.py::test_m17a1_s2_1_a_near_limit_sample_is_rerun_at_the_fixed_count` | — |
 | M17.A.2 | not done | — | no test named for it; Phase E builds it and is not built yet |
 | M17.A.3 | partial | `tests/bowen/test_ensemble.py::test_m114e_signed_rank_matches_table`<br>`tests/bowen/test_ensemble.py::test_m114e_holm_steps_down` | the paired statistic and Holm's step are tested (`test_m114e_signed_rank_matches_table`, `test_m114e_holm_steps_down`); `src/bowen/ensemble/runner.py::_verdict` applies them to per-seed differences across readouts, but no test would fail if the runner used an unpaired test or skipped the correction |
 | M17.A.4 | done | `tests/bowen/test_ensemble.py::test_m17a4_differences_below_the_margin_do_not_count` | — |
@@ -610,7 +610,7 @@ say whether that test was proved failing by mutation unless its note does.
 | M17.G.2 | not done | — | no test named for it; Phase E builds it and is not built yet |
 | M17.G.3 | not done | — | no test named for it; Phase E builds it and is not built yet |
 
-## Tests named for no spec ID (259)
+## Tests named for no spec ID (261)
 
 Their names embed no requirement ID, so they count only where an override cites them (marked *cited*). The rest check spec documents, tooling or helpers.
 
@@ -863,6 +863,7 @@ Their names embed no requirement ID, so they count only where an override cites 
 - `tests/test_version_1_status.py::test_v1_the_tags_status_tests_pass_in_a_copy_of_the_tagged_tree`
 - `tests/test_version_2_status.py::test_s2_11_status_page_is_current`
 - `tests/test_version_2_status.py::test_w1_s2_10_a_changed_verdict_is_not_final`
+- `tests/test_version_2_status.py::test_w1_s2_10_the_tag_page_is_read_whole`
 - `tests/test_version_2_status.py::test_w1_s2_8_every_criterion_has_a_status`
 - `tests/test_version_2_status.py::test_w4_s2_9_sweep_column_is_a_fraction_not_a_verdict`
 - `tests/test_version_2_sweep.py::test_s2_11_sweep_record_is_current`
@@ -871,5 +872,6 @@ Their names embed no requirement ID, so they count only where an override cites 
 - `tests/test_version_2_sweep.py::test_s2_4_a_cached_result_on_a_stale_hash_is_not_reused`
 - `tests/test_version_2_sweep.py::test_s2_5_a_premise_is_never_swept`
 - `tests/test_version_2_sweep.py::test_s2_5_record_renders_from_the_cache_and_a_missing_result_raises`
+- `tests/test_version_2_sweep.py::test_s2_6_explainer_quotes_the_config_values`
 - `tests/test_version_2_sweep.py::test_s2_6_no_range_or_rule_literal_in_the_tool`
 - `tests/test_version_2_sweep.py::test_s2_6_sweep_config_is_loaded_strictly_with_grades`

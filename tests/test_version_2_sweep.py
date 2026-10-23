@@ -158,6 +158,19 @@ def test_m17a1_s2_1_a_fixed_seed_criterion_is_not_rerun(tmp_path):
         assert result["reruns"] == 0 and all(r["seeds"] == RERUN_SEEDS for r in result["rows"])
 
 
+def test_m17a1_s2_1_a_criterion_fixing_its_own_seeds_below_the_count_is_refused(tmp_path):
+    """A criterion with its own `seeds` below the fixed count ignores the sweep's block and cap, so its rerun would run
+    the same seeds again; the sweep refuses rather than record a rerun that is not one (`M17.A.1`)."""
+    def child(mutant, _tool, ids, _workers, _label):
+        seeds = 100  # the criterion's own count, whatever the stopping rows say
+        answer = RERUN[_index(mutant)] if _is_rerun(mutant) else FIRST[_index(mutant)]
+        return [_row(cid, *answer, seeds) for cid in ids]
+
+    patches = _patched(tmp_path, child=child)
+    with patches[0], patches[1], patches[2], patches[3], patches[4], pytest.raises(SystemExit, match="fixes its own seed count"):
+        tool.build(Cache("sweep_test"), 1)
+
+
 # --- S2.2 the fraction ------------------------------------------------------------------------------------------
 
 def test_m17e1_s2_2_fraction_counts_only_passing_samples_and_reports_errors(tmp_path):
@@ -190,11 +203,11 @@ def test_s2_3_samples_stay_in_range_are_whole_and_seeded():
                 assert r.low <= v <= r.high
                 if r.scale == "integer":
                     assert isinstance(v, int)
-        log = next(r for r in declared if r.scale == "log")
-        values = [s[log.constant] for s in samples]
-        import math
-        mid = math.sqrt(log.low * log.high)
-        assert 60 <= sum(1 for v in values if v < mid) <= 140  # about half below the geometric midpoint
+        for log in (r for r in declared if r.scale == "log"):
+            values = [s[log.constant] for s in samples]
+            import math
+            mid = math.sqrt(log.low * log.high)
+            assert 60 <= sum(1 for v in values if v < mid) <= 140  # about half below the geometric midpoint
         assert tool.draw(declared, 3, 2, key) == samples[:3]
         assert tool.draw(declared, 3, 3, key) != samples[:3]
     a, b = ranges["M11.C.16"], ranges["M11.C.42"]
@@ -268,7 +281,7 @@ def test_s2_5_a_premise_is_never_swept(tmp_path):
     patches = _patched(tmp_path)
     with patches[0], patches[1], patches[2], patches[3] as ran, patches[4], pytest.raises(SystemExit, match="M11.5"):
         tool.build(Cache("sweep_test"), 1)
-    assert ran.call_count == 0 or all(_index(c.args[0]) is not None for c in ran.call_args_list)
+    assert ran.call_count == 0  # refused before any sample of any criterion ran
 
 
 # --- S2.6 config ------------------------------------------------------------------------------------------------
@@ -278,7 +291,9 @@ def test_s2_6_sweep_config_is_loaded_strictly_with_grades():
     high above its bound, an unknown constant, a bad scale, a non-whole integer range, a missing grade, a duplicate
     row, a wrong header, a missing rule, an unknown rule."""
     rules, ranges = sweep_config.load_config()
-    assert set(rules) == set(sweep_config.RULE_NAMES) and set(ranges) == {"M11.C.16", "M11.C.42"}
+    assert set(rules) == set(sweep_config.RULE_NAMES) and {"M11.C.16", "M11.C.42"} <= set(ranges)
+    centrals = tool.central_verdicts()
+    assert all(centrals[key]["class"] in tool.DIRECTIONAL for key in ranges)  # never a premise or a check (M11.5)
     assert all(r.grade.startswith("[I]") for declared in ranges.values() for r in declared)
     assert all(r.low <= float(sweep_config.central_values()[r.constant]) <= r.high
                for declared in ranges.values() for r in declared)
@@ -288,6 +303,7 @@ def test_s2_6_sweep_config_is_loaded_strictly_with_grades():
         ("| `M11.C.16` | `learning_rate`", "| `M11.C.16` | `no_such_constant`"),
         ("| 0.1 | 0.4 | log |", "| 0.1 | 0.4 | cubic |"),
         ("| 2 | 6 | integer |", "| 2.5 | 6 | integer |"),
+        ("| 2 | 6 | integer |", "| 2 | 6 | log |"),  # a log range on an int constant
         ("| 2 | 6 | integer | — | [I] | test |", "| 2 | 6 | integer | — | invented | test |"),
         ("| `M11.C.42` | `triangle_activity_window`", "| `M11.C.42` | `learning_rate`"),
         ("| criterion | constant |", "| key | constant |"),
@@ -321,6 +337,14 @@ def test_s2_6_no_range_or_rule_literal_in_the_tool():
         assert not declared & set(numbers(path)), path.name
 
 
+def test_s2_6_explainer_quotes_the_config_values():
+    """`model_explainer.md` §18.7 quotes the detection-limit multiple and seed count; they must be the config's."""
+    rules, _ranges = sweep_config.load_config()
+    text = (REPO / "docs" / "model_explainer.md").read_text(encoding="utf-8")
+    section = text.split("### 18.7", 1)[1].split("\n## ", 1)[0]
+    assert f"({rules['detection_limit_multiple']})" in section and f"({rules['detection_limit_seeds']})" in section
+
+
 # --- S2.7 a sample's edits --------------------------------------------------------------------------------------
 
 def test_m17e1_s2_7_a_sample_edits_each_constant_row_once(tmp_path):
@@ -339,7 +363,8 @@ def test_m17e1_s2_7_a_sample_edits_each_constant_row_once(tmp_path):
         apply(root, tool.rerun_mutant(mutant, 200, central))
         after = (root / tool.CONSTANTS).read_text(encoding="utf-8").splitlines()
         changed = {i for i, (a, b) in enumerate(zip(before, after)) if a != b}
-        assert len(after) == len(before) and len(changed) == len(declared) + len(tool.STOPPING_ROWS)
+        real = sum(1 for _f, old, new in mutant.definition()["edits"] if old != new)  # a draw equal to the central value edits nothing
+        assert len(after) == len(before) and len(changed) == real + len(tool.STOPPING_ROWS)
         written = sweep_config.central_values(root / tool.CONSTANTS)
         for r in declared:
             assert written[r.constant] == tool.format_value(sample[r.constant])

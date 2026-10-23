@@ -46,7 +46,7 @@ CONDITIONS = (("W1", "every criterion has a final status"),
               ("W2", "every premise and check passes"),
               ("W3", "every passing composite has a recorded mutation"),
               ("W4", "every passing directional criterion has a sweep result"))
-_TAG_ROW = re.compile(r"^\| `([^`]+)` \| [^|]+ \| [^|]+ \| ([^|]+) \|", re.M)
+_TAG_ROW = re.compile(r"^\| `([^`]+)` \| [^|]* \| [^|]* \| ([^|]+) \|", re.M)  # class and record cells may be empty
 
 
 @dataclass
@@ -84,8 +84,10 @@ def tag_verdicts(path: Path = TAG_PAGE) -> dict[str, str]:
     if len(table) != 2:
         raise SystemExit(f"{path.name}: no '## Every criterion' table")
     out = {key: verdict.strip() for key, verdict in _TAG_ROW.findall(table[1])}
-    if not out:
-        raise SystemExit(f"{path.name}: no criterion rows found")
+    rows = sum(1 for line in table[1].splitlines() if line.startswith("| `"))
+    if not out or len(out) != rows:
+        raise SystemExit(f"{path.name}: {rows} criterion rows in the table, {len(out)} parsed; a row the pattern does "
+                         "not read would vanish from the page (P2)")
     return out
 
 
@@ -122,6 +124,10 @@ def statuses() -> list[Status]:
     stale = sorted(v1.registered() - {k for k, _, _ in rows})
     if stale:
         raise SystemExit(f"registered in the code with no record row (the records are stale; regenerate): {stale}")
+    variant_bases = {base(k) for k, _, _ in rows if "[" in k} - {k for k, _, _ in rows}
+    misplaced = sorted(set(decided) & variant_bases)
+    if misplaced:
+        raise SystemExit(f"{v1.DISPOSITIONS.name}: {misplaced} name a criterion whose rows are all variants; name each variant")
 
     for key, source, row in rows:
         cid = base(key)
@@ -133,7 +139,8 @@ def statuses() -> list[Status]:
         covered.add(cid)
         at_tag = tag.get(key, "—")
         same = at_tag == row["outcome"]
-        d = decided.get(key) if same else None
+        d_tag = decided.get(key)
+        d = d_tag if same else None  # version 1's disposition applies only where the verdict is the tag's
         sweep = swept.get(key) or ("not swept" if cls in v1.DIRECTIONAL else "—")
         s = Status(key, cls, source, row["outcome"], at_tag, v1._readouts(row), sweep, "", False)
         proof = reds.get(key, [])
@@ -177,13 +184,21 @@ def statuses() -> list[Status]:
             s.status, s.final, s.blocks = f"{s.status}; {CHANGED}", False, s.blocks | {"W1"}
         if d:
             s.note = f"{d['reason']} *({d['decided']})*"
+        elif d_tag:  # shown, so the owner sees the decision the new verdict reverses; not applied
+            s.note = f"version 1 disposition, not applied (the verdict changed): {d_tag['kind']} — {d_tag['reason']} *({d_tag['decided']})*"
         out.append(s)
+
+    current = {k for k, _, _ in rows}
+    gone = sorted(k for k in tag if k not in current and (base(k) not in spec or base(k) in covered))
+    if gone:
+        raise SystemExit(f"rows at the tag `version-1` with no row now: {gone}; a removed variant or criterion must be "
+                         "shown, not dropped (P2)")
 
     for cid, cls in spec.items():
         if cid in covered:
             continue
         d = decided.get(cid)
-        at_tag = tag.get(cid, "—")
+        at_tag = tag.get(cid) or "; ".join(f"{k} {v}" for k, v in tag.items() if base(k) == cid) or "—"
         if cid in by_test:
             s = Status(cid, cls, "test", "PASS", at_tag, f"proved by {by_test[cid]}", "—", "pass, proved by a test", True)
         elif d and d["kind"] == "out of scope":
@@ -249,7 +264,7 @@ def render(rows: list[Status]) -> str:
     counts: dict[str, int] = {}
     for s in rows:
         counts[s.status] = counts.get(s.status, 0) + 1
-    lines += ["", "Rows by status: " + "; ".join(f"{k} {v}" for k, v in sorted(counts.items())) + ".", "",
+    lines += ["", "Rows by status:", *[f"- {k}: {v}" for k, v in sorted(counts.items())], "",
               "## Every criterion", "",
               "| Criterion | Class | Record | Verdict | At `version-1` | Evidence | Sweep | Status | Final | Blocks | Disposition |",
               "|---|---|---|---|---|---|---|---|---|---|---|"]

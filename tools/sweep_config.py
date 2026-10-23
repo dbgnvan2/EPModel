@@ -15,6 +15,10 @@ from dataclasses import dataclass
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parents[1]
+import sys  # noqa: E402
+
+sys.path.insert(0, str(REPO))
+from src.bowen.scenario.constants import SCHEMA  # noqa: E402  (the constant's kind: int or float)
 CONFIG = REPO / "config" / "sweep" / "sweep.md"
 CONSTANTS = REPO / "config" / "bowen" / "constants.md"
 RULE_NAMES = ("sweep_samples", "sweep_seed", "detection_limit_multiple", "detection_limit_seeds")
@@ -113,7 +117,7 @@ def load_ranges(text: str, central: dict[str, str]) -> dict[str, list[Range]]:
     for cid, name, low, high, scale, bound, grade, why in _table(text, "Ranges", RANGE_COLUMNS):
         cid, name = cid.strip("`"), name.strip("`")
         where = f"{cid} {name}"
-        if name not in central:
+        if name not in central or name not in SCHEMA:
             raise SweepConfigError(f"{where}: not a constant in {CONSTANTS.name}")
         if scale not in SCALES:
             raise SweepConfigError(f"{where}: scale must be one of {SCALES}, not {scale!r}")
@@ -124,6 +128,9 @@ def load_ranges(text: str, central: dict[str, str]) -> dict[str, list[Range]]:
             raise SweepConfigError(f"{where}: a log range must be positive")
         if scale == "integer" and not (lo == int(lo) and hi == int(hi) and lo >= 1):
             raise SweepConfigError(f"{where}: an integer range must be whole and at least 1")
+        if (scale == "integer") != (SCHEMA[name].kind is int):
+            raise SweepConfigError(f"{where}: the constant is {SCHEMA[name].kind.__name__}, so its scale must "
+                                   f"{'be integer' if SCHEMA[name].kind is int else 'be log or linear'}, not {scale!r}")
         mid = _number(central[name], where)
         if not lo <= mid <= hi:
             raise SweepConfigError(f"{where}: the range [{lo}, {hi}] does not bracket the central value {mid}")

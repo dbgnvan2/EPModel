@@ -695,7 +695,7 @@ turns one into a verdict.
 | S2.13 (revision 37) | `M17.A.1` states D8's rule and where it applies; `M17.E.1` says a sample's verdict is `M17.A.1`'s and the fraction is a measurement beside the gating verdict; the spec's status line, `docs/spec_revision_log.md`, the indexes and the rules view agree | `tests/test_spec_consistency.py`, `tests/test_doc_claims.py::test_d1_spec_revision_restatements_match_the_front_matter`, the index-current tests | — |
 | W1 | every criterion has a final status | S2.8, S2.10 | — |
 | W2 | every premise and check passes | the status page's conditions block, S2.11 | — |
-| W3 | every passing composite has a recorded mutation | the existing `test_m111d_*` tests; the page's W3 condition names the passing rows without one: `M11.C.11` and `M11.C.15`, whose red mutants survived at revision 36 (`version_2_revision_36_changes.md`), and `M11.C.48` in both variants (T-123) | — |
+| W3 | every passing composite has a recorded mutation | the existing `test_m111d_*` tests; the page's W3 condition names the passing rows without one: `M11.C.11` and `M11.C.15`, whose mutants, red at the tag, survived at revision 36 (`version_2_revision_36_changes.md`), and `M11.C.48` in both variants (T-123) | — |
 | W4 | every passing directional criterion has a sweep result | S2.9; the page's W4 condition names the passing rows not yet swept, met only when the full sweep has run | — |
 | `M17.E.1`'s named ratio | not done in this stage's pilot (D10); declared with the full sweep's ranges | — | — |
 
@@ -775,8 +775,8 @@ page as changed and pending the owner's review; this stage does not decide them.
 - `tools/sweep_record.py`'s docstring still calls its six points `M17.E.1`'s sweep ("Spec: ... #M17.E.1"). It is the
   D9 sweep; `M17.E.1`'s is this stage's. Changing the docstring would move that record's `HASHED_TOOLS` hash and rerun
   it (5 min 42 s); left until that record is rerun for another reason.
-- W3 is not met on four passing rows at revision 36: `M11.C.11` and `M11.C.15`, whose red mutants
-  (`removed-member-hold-released-while-away`, `death-bound-anxiety-discarded`) survived at the regeneration
+- W3 is not met on four passing rows at revision 36: `M11.C.11` and `M11.C.15`, whose mutants
+  (`removed-member-hold-released-while-away`, `death-bound-anxiety-discarded`), red at the tag, survived at the regeneration
   (`version_2_revision_36_changes.md`), and `M11.C.48` in both variants, whose mutant survives (T-123). `M11.C.44`,
   FAIL → PASS at revision 36 (T-122), has `one-sided-deviation` red, so W3 is met on it; the draft of this plan said
   the opposite and was corrected when the status tool was built. The status page shows all of this. Deciding the
@@ -801,6 +801,7 @@ original restored by the scratch script's `try/finally` and checked equal afterw
 | S2.1 | `tests/test_version_2_sweep.py::test_m17a1_s2_1_a_near_limit_sample_is_rerun_at_the_fixed_count` | `near_limit` always False | fails |
 | S2.1 | `…::test_m17a1_s2_1_a_clear_effect_is_not_rerun` | `near_limit` always True | fails |
 | S2.1 | `…::test_m17a1_s2_1_a_fixed_seed_criterion_is_not_rerun` | the `seeds < fixed` guard removed | fails |
+| S2.1 | `…::test_m17a1_s2_1_a_criterion_fixing_its_own_seeds_below_the_count_is_refused` (review fix) | the refusal of a rerun that did not run at the fixed count removed | fails |
 | S2.2 | `…::test_m17e1_s2_2_fraction_counts_only_passing_samples_and_reports_errors` | errored samples kept in the denominator | fails |
 | S2.3 | `…::test_s2_3_samples_stay_in_range_are_whole_and_seeded` | the draw seeded without the criterion's key | fails |
 | S2.3 | `…::test_s2_3_a_longer_draw_begins_with_the_shorter_one` | the sample count folded into the seed | fails |
@@ -809,10 +810,13 @@ original restored by the scratch script's `try/finally` and checked equal afterw
 | S2.5 | `…::test_s2_5_a_premise_is_never_swept` | the class check removed | fails |
 | S2.6 | `…::test_s2_6_sweep_config_is_loaded_strictly_with_grades` | the bracketing check removed (`tools/sweep_config.py`) | fails |
 | S2.6 | `…::test_s2_6_no_range_or_rule_literal_in_the_tool` | `detection_limit_seeds` read as the literal 200 | fails |
+| S2.6 | `…::test_s2_6_sweep_config_is_loaded_strictly_with_grades` (review fix) | the scale-against-`SCHEMA`-kind check removed | fails |
+| S2.6 | `…::test_s2_6_explainer_quotes_the_config_values` (review fix) | the explainer's multiple changed to 3.0 | fails |
 | S2.7 | `…::test_m17e1_s2_7_a_sample_edits_each_constant_row_once` | an integer written as `6.0` | fails |
 | S2.8 | `tests/test_version_2_status.py::test_w1_s2_8_every_criterion_has_a_status` | one unbuilt criterion dropped from the page | fails |
 | S2.9 | `…::test_w4_s2_9_sweep_column_is_a_fraction_not_a_verdict` | a fraction of one half or more rendered as PASS | fails |
-| S2.10 | `…::test_w1_s2_10_a_changed_verdict_is_not_final` | the tag's verdict ignored | fails |
+| S2.10 | `…::test_w1_s2_10_a_changed_verdict_is_not_final` | the tag's verdict ignored; (review fix) the version 1 disposition on a changed row not marked *not applied* | fails |
+| S2.10 | `…::test_w1_s2_10_the_tag_page_is_read_whole` (review fix) | the tag page's pattern requires a non-empty class cell (drops `M11.C.8`) | fails |
 | S2.11 | `tests/test_version_2_sweep.py::test_s2_11_sweep_record_is_current`, `tests/test_version_2_status.py::test_s2_11_status_page_is_current` | record-current tests; a hand edit to either page fails them by construction | — |
 | S2.12 | the existing record-current tests, and `engine_hash()` printed before and after | — | `66dcbb1e8ba5` both times |
 | S2.13 | `tests/test_doc_claims.py`, `tests/test_spec_consistency.py` at revision 37 | — | pass |
@@ -854,7 +858,7 @@ instruction of 2026-10-22, pending the owner's review.**
   T-122, and the page's header says T-122 is where the changes are listed. The data is the same.
 - **W3's unmet rows are `M11.C.11`, `M11.C.15` and `M11.C.48` (both variants), not `M11.C.44`** (§2.4's W3 row and
   §2.9, corrected when the status tool first ran). `M11.C.44` has `one-sided-deviation` red in the Phase C mutation
-  record; the two Phase D criteria's red mutants survived at revision 36.
+  record; the two Phase D criteria's mutants, red at the tag, survived at revision 36.
 - **`tools/version_2_status.py` repeats version 1's status rules** (about 90 lines of `tools/version_1_status.py`)
   instead of importing them, because the frozen tool's `statuses()` reads its own `record_rows()`, which fails on
   `main`. Its live readers (the spec's table, the mutation records, the not-built lists, the dispositions) are
@@ -866,4 +870,35 @@ instruction of 2026-10-22, pending the owner's review.**
   spec's revision, so revision 37 re-rendered them (the same seed, the same engine; `git diff` shows the one line).
   `tools/record_changes.py` lists the two new pages under *not compared*, which re-rendered both changes pages.
 
-**The reviews (step 6).** Recorded below when run.
+**The reviews (step 6).** Both ran in parallel on the build commit's diff, 04:43:45 to 04:53:07 on 2026-10-23:
+`learning-qa` (6 min 43 s) and a correctness pass without build context (8 min 05 s). Every finding was fixed in the
+following commit, with a test for each fix shown failing under its mutation (the table above, *review fix*):
+
+- `tag_verdicts` read the frozen page with a pattern that required a non-empty class cell, so `M11.C.8` (not built, no
+  class) was dropped silently (P2); and no reconciliation checked the count read against the page's rows. Fixed: the
+  pattern allows an empty cell, and a row count that does not match the rows read stops the tool.
+- A changed row (`M11.C.7[joint over one spouse]`, `M11.C.17`, `M11.C.44`) dropped its version 1 disposition from the
+  page. Fixed: it is shown as *version 1 disposition, not applied (the verdict changed)* with its text, so the owner
+  sees what the tag had decided; it is never applied to the new verdict.
+- A criterion with its own `seeds` in `criteria.md` below the fixed count (`M11.C.48`, 100) would ignore the block and
+  cap written into the copy, so its rerun would run the same 100 seeds again and be recorded as a rerun at 200.
+  Fixed: a rerun whose seed count is not the fixed count stops the sweep, naming the criterion; the spec says so
+  (`M17.A.1`).
+- `near_limit` reads directional limbs only; an equivalence limb (direction 0) has no detection limit of this kind.
+  The docstring, `M17.A.1` and the explainer now say so, and `M17.A.1` says an unconverged rerun is UNDETERMINED.
+- The sweep config did not check a range's scale against the constant's `SCHEMA` kind, so a `log` range on an integer
+  constant would have drawn floats. Fixed: the scale must agree with the kind.
+- `build` checked each criterion's class only as its turn came, so a premise late in the config was refused after
+  earlier samples had run. Fixed: every class is checked before any sample runs.
+- Tests tied to the pilot's config (`set(ranges) == {…}`, a `next(…)` over log ranges, a sample-edit count that
+  assumed no draw equals the central value) were loosened to hold for any config; a new test checks that the
+  explainer's quoted multiple and count are the config's.
+- Wording: *red mutants survived* read as if the mutants were red now; it is *mutants, red at the tag, survived at
+  revision 36* here, in §2.4, §2.9 and the CHANGELOG. `config/sweep/sweep.md`'s header no longer says a capped log
+  range's central value is its midpoint, and the fixed count is one block, not four of 50.
+- `M17.E.1`'s first sentence now says *directional* `M11.C` criterion, which is what the rest of the requirement and
+  the tool do.
+
+One minor item was not fixed and is recorded (T-124): the Phase D mutation record's *engine_hash* label is that tool's
+own digest (the code hash plus its child functions), not `record_cache.engine_hash()`; version 1 did the same and
+the two are not compared anywhere. The re-sweep of the fix diff is recorded in the CHANGELOG entry.

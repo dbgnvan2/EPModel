@@ -92,9 +92,28 @@ def test_w1_s2_10_a_changed_verdict_is_not_final():
         s = changed[key]
         assert s.status.endswith(tool.CHANGED) and not s.final and "W1" in s.blocks
         assert s.at_tag == flipped[key]
-    assert not changed["M11.C.42"].note  # the tag's disposition does not apply to a changed verdict
+    note = changed["M11.C.42"].note  # the tag's disposition is shown as not applied, never applied
+    assert note.startswith("version 1 disposition, not applied (the verdict changed): accepted finding") and "owner 2026-10-17" in note
+    assert tool.CHANGED in changed["M11.C.42"].status and not changed["M11.C.42"].final
     text = tool.render(list(changed.values()))
     assert "| FAIL | PASS |" in text and tool.CHANGED in text
+
+
+def test_w1_s2_10_the_tag_page_is_read_whole(tmp_path):
+    """Every row of the frozen page is read, an empty class cell included (`M11.C.8`), and a row the pattern cannot
+    read stops the tool instead of vanishing (P2)."""
+    tag = tool.tag_verdicts()
+    frozen = tool.TAG_PAGE.read_text(encoding="utf-8").split("## Every criterion", 1)[1]
+    assert len(tag) == sum(1 for line in frozen.splitlines() if line.startswith("| `")) == 60
+    assert tag["M11.C.8"] == "not built"
+    page = tmp_path / "page.md"
+    page.write_text("# p\n\n## Every criterion\n\n| a |\n|---|\n| `M11.C.1` |  | — | not built | x |\n| `M11.C.2` | premise | Phase C | PASS | x |\n"
+                    "| `M11.C.3` broken row |\n", encoding="utf-8")
+    import pytest
+    with pytest.raises(SystemExit, match="3 criterion rows"):
+        tool.tag_verdicts(page)
+    page.write_text("# p\n\n## Every criterion\n\n| a |\n|---|\n| `M11.C.1` |  | — | not built | x |\n| `M11.C.2` | premise | Phase C | PASS | x |\n", encoding="utf-8")
+    assert tool.tag_verdicts(page) == {"M11.C.1": "not built", "M11.C.2": "PASS"}
 
 
 def test_s2_11_status_page_is_current():

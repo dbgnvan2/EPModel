@@ -49,6 +49,7 @@ STOPPING_ROWS = ("ensemble_block", "ensemble_cap")  # the runner's block and cap
 ENSEMBLE_RECORDS = (REPO / "docs" / "phase_c_ensemble_record.md", REPO / "docs" / "phase_d_ensemble_record.md",
                     REPO / "docs" / "phase_d2_ensemble_record.md")
 PASS, UNDETERMINED = "PASS", "UNDETERMINED"
+DIRECTIONAL = ("composite", "mixed")  # the classes a sweep reads (M11.5); never a premise or a check
 
 
 # --- sampling ---------------------------------------------------------------------------------------------------
@@ -107,7 +108,8 @@ def rerun_mutant(first: Mutant, seeds: int, central: dict[str, str]) -> Mutant:
 # --- the rule and the fraction ----------------------------------------------------------------------------------
 
 def near_limit(row: dict, multiple: float) -> bool:
-    """D8: any gating directional readout whose mean difference is within ``multiple`` half-widths of zero."""
+    """D8: any gating directional readout whose mean difference is within ``multiple`` half-widths of zero. An
+    equivalence limb (direction 0) has no detection limit of this kind and is not read (`M17.A.1`)."""
     gating = [r for r in row.get("readouts", ()) if not r.get("report_only") and r.get("direction")]
     return any(abs(r["mean_difference"]) < multiple * r["half_width"] for r in gating)
 
@@ -149,6 +151,10 @@ def sweep_criterion(cache: Cache, key: str, ranges: list[Range], rules: dict, ce
                "seeds": first["seeds"], "readouts": _readouts(first), "rerun": False, "error": first.get("error", "")}
         if first["outcome"] not in ERRORED and near_limit(first, multiple) and first["seeds"] < fixed:
             second = _result(cache, rerun_mutant(mutant, fixed, central), key, workers, engine)
+            if second["outcome"] not in ERRORED and second["seeds"] != fixed:
+                raise SystemExit(f"{key} sample {index}: the rerun took {second['seeds']} seeds, not {fixed}; the criterion "
+                                 "fixes its own seed count (config/bowen/criteria.md), which the runner reads before the "
+                                 "block and cap, so the sweep cannot rerun it at the declared count (M17.A.1)")
             row.update({"rerun": True, "first_outcome": first["outcome"], "outcome": second["outcome"],
                         "rerun_seeds": second["seeds"], "rerun_readouts": _readouts(second),
                         "error": second.get("error", "")})
@@ -228,13 +234,12 @@ def build(cache: Cache, workers: int | None = None) -> str:
     ``KeyError``, so a test can check the committed record without running anything."""
     rules, ranges = load_config()
     central, centrals, engine = central_values(), central_verdicts(), engine_hash()
-    results = []
-    for key, declared in ranges.items():
+    for key in ranges:  # every key checked before any sample runs
         if key not in centrals:
             raise SystemExit(f"{key}: swept but in no ensemble record")
-        if centrals[key]["class"] not in ("composite", "mixed"):
+        if centrals[key]["class"] not in DIRECTIONAL:
             raise SystemExit(f"{key}: a {centrals[key]['class']} is not swept (M11.5; plan D10)")
-        results.append(sweep_criterion(cache, key, declared, rules, central, workers, engine))
+    results = [sweep_criterion(cache, key, declared, rules, central, workers, engine) for key, declared in ranges.items()]
     return render(results, centrals, rules, engine)
 
 

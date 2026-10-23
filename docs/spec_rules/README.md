@@ -26,6 +26,6 @@ To find an ID's module, grep `docs/spec_index.jsonl` for it: the record's `modul
 | `M14.md` | M14 — Spec coverage | 27,222 | 4,272 |
 | `M15.md` | M15 — Family diagram import  `Phase E` | 10,329 | 1,616 |
 | `M16.md` | M16 — The run log and the readable trace | 12,091 | 1,889 |
-| `M17.md` | M17 — Phase E: ensemble runner, arms and readouts | 22,089 | 3,280 |
+| `M17.md` | M17 — Phase E: ensemble runner, arms and readouts | 22,513 | 3,352 |
 
-**Size.** The view's 18 module files hold 438,343 bytes (67,373 words) against the spec's 467,644 bytes (71,547 words): 94% of the spec by bytes, 94% by words.
+**Size.** The view's 18 module files hold 438,767 bytes (67,445 words) against the spec's 468,068 bytes (71,619 words): 94% of the spec by bytes, 94% by words.

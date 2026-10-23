@@ -18,7 +18,7 @@ moves to `docs/TODO_archive.md`. Until 2026-10-22 this file held every item's te
 - T-121 · 2026-10-23 · `M11.C.11`'s named mutant survives · [record](docs/todo/2026-10-23_revision_36_regeneration.md)
 - T-123 · 2026-10-23 · `M11.C.48`'s baseline counts a first cutoff with no … · [record](docs/todo/2026-10-23_revision_36_regeneration.md)
 
-## Later (112)
+## Later (113)
 
 - T-006 · 2026-10-22 · D4, long `Spec:` lines (Part D, 2026-10-22; the … · [record](docs/todo/2026-10-22_model_ergonomics.md)
 - T-007 · 2026-10-22 · Adjacent issues found by Part D's docstring pass, … · [record](docs/todo/2026-10-22_model_ergonomics.md)
@@ -132,3 +132,4 @@ moves to `docs/TODO_archive.md`. Until 2026-10-22 this file held every item's te
 - T-117 · 2026-08-22 · The ego-mass terminology arc must be re-derived · [record](docs/todo/2026-08-22_theory_work.md)
 - T-118 · 2026-08-22 · When the basic level is fixed is genuinely … · [record](docs/todo/2026-08-22_theory_work.md)
 - T-122 · 2026-10-23 · Four composite verdicts PASS → FAIL at revision … · [record](docs/todo/2026-10-23_revision_36_regeneration.md)
+- T-124 · 2026-10-23 · The Phase D mutation record's `engine_hash` label is … · [record](docs/todo/2026-10-23_stage_2_pilot.md)

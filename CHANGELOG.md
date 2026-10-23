@@ -52,15 +52,22 @@ All notable changes to this project are recorded here. Dates are ISO.
 - `docs/version_2_status.md` (new), from `tools/version_2_status.py` (new): every `M11.C` criterion with its verdict
   now, its verdict at the tag `version-1`, its mutation evidence, its sweep fraction and its status under W1–W4. At
   this commit W2 is met; W1 is not (9 rows: the five verdicts changed since the tag, T-122, and the four passing rows
-  without a recorded mutation); W3 is not (`M11.C.11` and `M11.C.15`, whose red mutants survived at revision 36, and
+  without a recorded mutation); W3 is not (`M11.C.11` and `M11.C.15`, whose mutants, red at the tag, survived at revision 36, and
   `M11.C.48` in both variants, T-123); W4 is not (11 passing directional rows not yet swept). The plan's draft said
   W3 was unmet on `M11.C.44`; it has `one-sided-deviation` red, and the plan is corrected (§2.9, §2.10).
 - **Spec revision 37** (wording in `M17` only): `M17.A.1` gains the detection limit in a sweep, `M17.E.1` the sample
   rule (a joint seeded draw, each sample an edit of `constants.md` in a copy, *n of S* with undetermined and errored
-  samples counted apart, a fraction never a pass or a fail, no premise swept). §0.3's count is 1054 MUSTs / 92 tests.
+  samples counted apart, a fraction never a pass or a fail, no premise swept). §0.3's count is 1055 MUSTs / 92 tests.
   `docs/spec_revision_log.md` has the entry; the indexes, the rules view and the coverage page are regenerated.
-- Tests: `tests/test_version_2_sweep.py` (13) and `tests/test_version_2_status.py` (4), each shown failing under its
-  mutation (plan §2.10); `tests/test_doc_checklist.py` now covers `config/sweep/`. The suite is 1142 tests.
+- Tests: `tests/test_version_2_sweep.py` (15) and `tests/test_version_2_status.py` (5), each shown failing under its
+  mutation (plan §2.10); `tests/test_doc_checklist.py` now covers `config/sweep/`. The suite is 1145 tests.
+- **The reviews** (plan §2.10, step 6), on the build commit's diff, 04:43:45 to 04:53:07: `learning-qa` 6 min 43 s and
+  a correctness pass 8 min 05 s. Fixed in the next commit, each with a test: the frozen page's `M11.C.8` row was
+  dropped by the reading pattern and no count checked it (P2); a changed row lost its version 1 disposition (now shown
+  as not applied); a criterion with its own `seeds` below the fixed count would have been recorded as rerun at 200
+  seeds without being so (now refused, `M17.A.1`); a `log` range on an integer constant was not refused; a premise late
+  in the config was refused only after earlier samples ran; three tests were tied to the pilot's config; wording in
+  the spec, the explainer, the config and the plan. One minor item recorded, not fixed: T-124.
 - Documents: the plan (status line, §2.4 W3, §2.9, §2.10), `model_explainer.md` §18.7 (the stage 2 build, the
   detection limit and the sweep, each `[I]`), `SPEC_REVIEW_CHECKLIST.md` (the config and the two pages),
   `REVIEWER_READING_LIST.md` (§2, §5, §7), `_STATUS.md`, `README.md`, `CLAUDE.md`, T-001, T-018 and T-123. Three

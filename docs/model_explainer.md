@@ -1993,10 +1993,12 @@ Version 2's stage 2 builds the constant sweep (`M17.E.1`) and the detection-limi
   **UNDETERMINED**, which is neither a pass nor a fail. A minimum effect is declared in advance so that sheer
   ensemble size cannot make a trivial difference significant. `[SHOWN]` Blando et al. 2026 §4 and §7, as
   practice; Röchert et al. 2022, where 1,000 replicates made every difference significant. **The detection limit
-  in a sweep** `[I]` (revision 37, plan D8): a sweep sample whose first run leaves any gating effect within
+  in a sweep** `[I]` (revision 37, plan D8): a sweep sample whose first run leaves any gating directional effect within
   `detection_limit_multiple` half-widths of zero is run again at a fixed `detection_limit_seeds` seeds, by setting
   the runner's block and cap to that count in the sample's copy of `constants.md`; the sample's verdict is the
-  second run's and both seed counts are recorded; a first run at or above that count is not rerun. The multiple
+  second run's (UNDETERMINED if it has not converged there) and both seed counts are recorded; a first run at or
+  above that count is not rerun, and a criterion whose own `seeds` is below the count is refused, since the runner
+  reads that before the block and cap. The multiple
   (2.0) and the count (200) are `[I]`, in `config/sweep/sweep.md`. The gating records themselves adopt the rule
   at their next regeneration (T-018).
 - **Per-seed readouts** (`M17.B` · C28, C29, C39, C40, C41; DL §7.10(f)). Each seed is classified — the arms

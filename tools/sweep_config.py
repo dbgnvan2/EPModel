@@ -117,8 +117,10 @@ def load_ranges(text: str, central: dict[str, str]) -> dict[str, list[Range]]:
     for cid, name, low, high, scale, bound, grade, why in _table(text, "Ranges", RANGE_COLUMNS):
         cid, name = cid.strip("`"), name.strip("`")
         where = f"{cid} {name}"
-        if name not in central or name not in SCHEMA:
+        if name not in central:
             raise SweepConfigError(f"{where}: not a constant in {CONSTANTS.name}")
+        if name not in SCHEMA:
+            raise SweepConfigError(f"{where}: in {CONSTANTS.name} but not in the constants SCHEMA")
         if scale not in SCALES:
             raise SweepConfigError(f"{where}: scale must be one of {SCALES}, not {scale!r}")
         lo, hi = _number(low, where), _number(high, where)

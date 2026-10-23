@@ -59,15 +59,16 @@ All notable changes to this project are recorded here. Dates are ISO.
   rule (a joint seeded draw, each sample an edit of `constants.md` in a copy, *n of S* with undetermined and errored
   samples counted apart, a fraction never a pass or a fail, no premise swept). §0.3's count is 1055 MUSTs / 92 tests.
   `docs/spec_revision_log.md` has the entry; the indexes, the rules view and the coverage page are regenerated.
-- Tests: `tests/test_version_2_sweep.py` (15) and `tests/test_version_2_status.py` (5), each shown failing under its
-  mutation (plan §2.10); `tests/test_doc_checklist.py` now covers `config/sweep/`. The suite is 1145 tests.
+- Tests: `tests/test_version_2_sweep.py` (15) and `tests/test_version_2_status.py` (6), each shown failing under its
+  mutation (plan §2.10); `tests/test_doc_checklist.py` now covers `config/sweep/`. The suite is 1146 tests.
 - **The reviews** (plan §2.10, step 6), on the build commit's diff, 04:43:45 to 04:53:07: `learning-qa` 6 min 43 s and
   a correctness pass 8 min 05 s. Fixed in the next commit, each with a test: the frozen page's `M11.C.8` row was
   dropped by the reading pattern and no count checked it (P2); a changed row lost its version 1 disposition (now shown
   as not applied); a criterion with its own `seeds` below the fixed count would have been recorded as rerun at 200
   seeds without being so (now refused, `M17.A.1`); a `log` range on an integer constant was not refused; a premise late
   in the config was refused only after earlier samples ran; three tests were tied to the pilot's config; wording in
-  the spec, the explainer, the config and the plan. One minor item recorded, not fixed: T-124.
+  the spec, the explainer, the config and the plan. One minor item recorded, not fixed: T-124. The re-sweep of the fix
+  diff (sonnet, 2 min 20 s) found no blocking item; its minor items are fixed in the same commit (plan §2.10).
 - Documents: the plan (status line, §2.4 W3, §2.9, §2.10), `model_explainer.md` §18.7 (the stage 2 build, the
   detection limit and the sweep, each `[I]`), `SPEC_REVIEW_CHECKLIST.md` (the config and the two pages),
   `REVIEWER_READING_LIST.md` (§2, §5, §7), `_STATUS.md`, `README.md`, `CLAUDE.md`, T-001, T-018 and T-123. Three

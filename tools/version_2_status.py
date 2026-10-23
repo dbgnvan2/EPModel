@@ -185,7 +185,8 @@ def statuses() -> list[Status]:
         if d:
             s.note = f"{d['reason']} *({d['decided']})*"
         elif d_tag:  # shown, so the owner sees the decision the new verdict reverses; not applied
-            s.note = f"version 1 disposition, not applied (the verdict changed): {d_tag['kind']} — {d_tag['reason']} *({d_tag['decided']})*"
+            why = "the verdict changed" if at_tag != "—" else "no row at the tag"
+            s.note = f"version 1 disposition, not applied ({why}): {d_tag['kind']} — {d_tag['reason']} *({d_tag['decided']})*"
         out.append(s)
 
     current = {k for k, _, _ in rows}

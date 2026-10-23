@@ -304,6 +304,7 @@ def test_s2_6_sweep_config_is_loaded_strictly_with_grades():
         ("| 0.1 | 0.4 | log |", "| 0.1 | 0.4 | cubic |"),
         ("| 2 | 6 | integer |", "| 2.5 | 6 | integer |"),
         ("| 2 | 6 | integer |", "| 2 | 6 | log |"),  # a log range on an int constant
+        ("| 0.1 | 0.4 | log |", "| 1 | 4 | integer |"),  # an integer range on a float constant
         ("| 2 | 6 | integer | — | [I] | test |", "| 2 | 6 | integer | — | invented | test |"),
         ("| `M11.C.42` | `triangle_activity_window`", "| `M11.C.42` | `learning_rate`"),
         ("| criterion | constant |", "| key | constant |"),

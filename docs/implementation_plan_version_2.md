@@ -810,13 +810,14 @@ original restored by the scratch script's `try/finally` and checked equal afterw
 | S2.5 | `…::test_s2_5_a_premise_is_never_swept` | the class check removed | fails |
 | S2.6 | `…::test_s2_6_sweep_config_is_loaded_strictly_with_grades` | the bracketing check removed (`tools/sweep_config.py`) | fails |
 | S2.6 | `…::test_s2_6_no_range_or_rule_literal_in_the_tool` | `detection_limit_seeds` read as the literal 200 | fails |
-| S2.6 | `…::test_s2_6_sweep_config_is_loaded_strictly_with_grades` (review fix) | the scale-against-`SCHEMA`-kind check removed | fails |
+| S2.6 | `…::test_s2_6_sweep_config_is_loaded_strictly_with_grades` (review fix) | the scale-against-`SCHEMA`-kind check removed; (re-sweep) the check made one-directional | fails, fails |
 | S2.6 | `…::test_s2_6_explainer_quotes_the_config_values` (review fix) | the explainer's multiple changed to 3.0 | fails |
 | S2.7 | `…::test_m17e1_s2_7_a_sample_edits_each_constant_row_once` | an integer written as `6.0` | fails |
 | S2.8 | `tests/test_version_2_status.py::test_w1_s2_8_every_criterion_has_a_status` | one unbuilt criterion dropped from the page | fails |
 | S2.9 | `…::test_w4_s2_9_sweep_column_is_a_fraction_not_a_verdict` | a fraction of one half or more rendered as PASS | fails |
 | S2.10 | `…::test_w1_s2_10_a_changed_verdict_is_not_final` | the tag's verdict ignored; (review fix) the version 1 disposition on a changed row not marked *not applied* | fails |
 | S2.10 | `…::test_w1_s2_10_the_tag_page_is_read_whole` (review fix) | the tag page's pattern requires a non-empty class cell (drops `M11.C.8`) | fails |
+| S2.10 | `…::test_w1_s2_10_a_tag_row_with_no_row_now_and_a_misplaced_disposition_stop_the_tool` (re-sweep) | the `gone` check removed; the `misplaced` check removed | fails, fails |
 | S2.11 | `tests/test_version_2_sweep.py::test_s2_11_sweep_record_is_current`, `tests/test_version_2_status.py::test_s2_11_status_page_is_current` | record-current tests; a hand edit to either page fails them by construction | — |
 | S2.12 | the existing record-current tests, and `engine_hash()` printed before and after | — | `66dcbb1e8ba5` both times |
 | S2.13 | `tests/test_doc_claims.py`, `tests/test_spec_consistency.py` at revision 37 | — | pass |
@@ -901,4 +902,12 @@ following commit, with a test for each fix shown failing under its mutation (the
 
 One minor item was not fixed and is recorded (T-124): the Phase D mutation record's *engine_hash* label is that tool's
 own digest (the code hash plus its child functions), not `record_cache.engine_hash()`; version 1 did the same and
-the two are not compared anywhere. The re-sweep of the fix diff is recorded in the CHANGELOG entry.
+the two are not compared anywhere.
+
+**The re-sweep of the fix diff** (`learning-qa`'s role on sonnet, 2 min 20 s, 114,302 tokens, 27 tool uses) found no
+blocking item and these minor ones, fixed in the same commit: the *not applied* note said *the verdict changed* even
+for a key with no row at the tag (now *no row at the tag*); a constant in `constants.md` but not in `SCHEMA` was
+reported as not a constant (now its own message); the scale-against-kind rule was tested in one direction only (a
+float constant on an integer scale added); the explainer did not say an equivalence limb is not read (added); the
+`gone` and `misplaced` checks of `tools/version_2_status.py` had no test (one added, each shown failing). Not taken:
+the tool's `sys.path` insert before importing `src.bowen.scenario.constants`, which every tool here does.

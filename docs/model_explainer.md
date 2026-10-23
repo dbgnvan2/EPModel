@@ -1994,7 +1994,7 @@ Version 2's stage 2 builds the constant sweep (`M17.E.1`) and the detection-limi
   ensemble size cannot make a trivial difference significant. `[SHOWN]` Blando et al. 2026 §4 and §7, as
   practice; Röchert et al. 2022, where 1,000 replicates made every difference significant. **The detection limit
   in a sweep** `[I]` (revision 37, plan D8): a sweep sample whose first run leaves any gating directional effect within
-  `detection_limit_multiple` half-widths of zero is run again at a fixed `detection_limit_seeds` seeds, by setting
+  `detection_limit_multiple` half-widths of zero (an equivalence limb, direction 0, is not read) is run again at a fixed `detection_limit_seeds` seeds, by setting
   the runner's block and cap to that count in the sample's copy of `constants.md`; the sample's verdict is the
   second run's (UNDETERMINED if it has not converged there) and both seed counts are recorded; a first run at or
   above that count is not rerun, and a criterion whose own `seeds` is below the count is refused, since the runner

@@ -116,6 +116,23 @@ def test_w1_s2_10_the_tag_page_is_read_whole(tmp_path):
     assert tool.tag_verdicts(page) == {"M11.C.1": "not built", "M11.C.2": "PASS"}
 
 
+def test_w1_s2_10_a_tag_row_with_no_row_now_and_a_misplaced_disposition_stop_the_tool():
+    """A key the tag page had and the records no longer have is shown, not dropped (P2); a disposition that names a
+    criterion whose rows are all variants must name each variant."""
+    import pytest
+    tag = tool.tag_verdicts()
+    with mock.patch.object(tool, "tag_verdicts", return_value=dict(tag, **{"M11.C.999": "PASS"})), \
+            pytest.raises(SystemExit, match="M11.C.999"):
+        tool.statuses()
+    rows = tool.record_rows()
+    variant_only = sorted({k.split("[", 1)[0] for k, _, _ in rows if "[" in k} - {k for k, _, _ in rows})
+    assert variant_only  # the check needs a criterion whose rows are all variants
+    decided = dict(tool.v1.dispositions())
+    decided[variant_only[0]] = {"kind": "accepted finding", "reason": "x", "decided": "test", "owner": True}
+    with mock.patch.object(tool.v1, "dispositions", return_value=decided), pytest.raises(SystemExit, match=variant_only[0]):
+        tool.statuses()
+
+
 def test_s2_11_status_page_is_current():
     """The committed page is what the tool renders from the committed records (P6)."""
     assert tool.PAGE.read_text(encoding="utf-8") == tool.render(tool.statuses())

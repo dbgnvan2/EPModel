@@ -146,8 +146,9 @@ only the missing samples run.
 
 ## Not verified
 
-- That the two Macs give bit-identical results. The cross-check above tests it and has not been run. Both Macs are
-  arm64, with Python 3.12.3 and NumPy 1.26.4. macOS is 15.7.9 here and 15.7.8 on Mac Mini1 (2026-10-23).
-- `tools/two_mac_sweep.py` against a live Mac Mini1. Its tests stub `subprocess.run`, and run the start and state
-  commands under a local `sh`. Over SSH, only its `pgrep` call was run (2026-10-23; the result was `stopped`).
-  `check` needs this commit on Mac Mini1.
+- That the two Macs give bit-identical results for every criterion. The cross-check was run once, 2026-10-23, on
+  `M11.C.16`: Mac Mini1 recomputed its 8 results in 3 min 7 s and the merge found all 361 results equal, 0 added.
+  That covers one Phase C criterion with no rerun; no Phase D criterion and no 200-seed rerun has been compared.
+  Both Macs are arm64, with Python 3.12.3 and NumPy 1.26.4; macOS is 15.7.9 here and 15.7.8 on Mac Mini1.
+- `tools/two_mac_sweep.py` against a live Mac Mini1 was run once, 2026-10-23: `check`, `start`, `status` and `fetch`
+  all worked over SSH. A dropped connection and its retries have not been seen live; the tests stub them.

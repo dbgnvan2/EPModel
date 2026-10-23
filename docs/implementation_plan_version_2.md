@@ -1016,9 +1016,12 @@ pass found seven items (no cross-machine check; `start` not confirming the run; 
 lost under a running sweep; an unstamped cache stamped silently; untested render-only and retry paths; `pgrep`
 failing open), all fixed. Tests: `tests/test_sweep_two_macs.py`, 31 tests (43 with parameters), each shown failing
 under mutation (46 mutants, all killed). Nothing in `src/bowen/` changed, `engine_hash()` printed `66dcbb1e8ba5`
-before and after and `phase_d_engine_hash()` `5c3865dcf8f9`; no record was rerun. Not verified: the cross-check
-has not been run, so bit-identity across the two Macs (both arm64, Python 3.12.3, NumPy 1.26.4; macOS 15.7.9 and
-15.7.8) is untested, and the driver has not run against a live Mac Mini1 beyond its `pgrep` call.
+before and after and `phase_d_engine_hash()` `5c3865dcf8f9`; no record was rerun. *Run live the same day:* with
+Mac Mini1 pulled to `8501fc0`, `tools/two_mac_sweep.py check` found the two Macs equal on the commit, clean files, both
+hashes, Python 3.12.3, NumPy 1.26.4 (the pin) and arm64, macOS 15.7.9 here and 15.7.8 there printed; the cross-check
+(`start --criteria M11.C.16 --recompute --workers 10`, 14:28:38–14:31:45 on Mac Mini1, 8 child runs, exit 0;
+`fetch`; `tools/merge_cache.py`) reported 0 results added and 361 already there and equal, so Mac Mini1 recomputed
+`M11.C.16`'s 8 results bit for bit. One Phase C criterion was compared; no Phase D criterion and no 200-seed rerun was.
 
 **Where the build differs from the plan.**
 - **"Changed at revision 36" is written "changed since the tag `version-1`"** (D11). The tool compares the current

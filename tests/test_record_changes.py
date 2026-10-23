@@ -1,7 +1,9 @@
-"""The page of what version 2 stage 1 changed in the records is current, and lists what it says it lists (S1.10b).
+"""The pages of what a regeneration changed in the records are current, and list what they say they list (S1.10b).
 
-Purpose: `docs/version_2_stage_1_changes.md` is generated from the records at the tag `version-1` and as committed
-         now. A hand edit, or a record regenerated without the page, fails the first test. The others check the
+Purpose: `docs/version_2_stage_1_changes.md` is generated from the records at the tag `version-1` and at stage 1's
+         regeneration (`7aa9fc5`), both from git, so it is frozen (T-028); `docs/version_2_revision_36_changes.md`
+         from `7aa9fc5` and the records as committed now. A hand edit, or a record regenerated without the second
+         page, fails the first test. The others check the
          comparison on rows built here: a changed verdict is listed, an effect that moved past the tag's half-width
          is listed and one that moved less is not (P7), the D2 record's variants are matched to the tag's rows by
          position, a value record lists a changed value, every field of a row is compared, and a record that was not
@@ -27,7 +29,22 @@ D2 = rc.Record("d2", "criterion", ("criterion",), "outcome", positional=True)
 
 
 def test_s1_10b_changes_page_is_current():
-    assert rc.OUT.read_text(encoding="utf-8") == rc.build(), "stale: rerun python3 tools/record_changes.py"
+    for name, page in rc.PAGES.items():
+        assert page.out.read_text(encoding="utf-8") == rc.build(page), \
+            f"stale: rerun python3 tools/record_changes.py {name}"
+
+
+def test_s1_10b_both_pages_read_their_refs():
+    """The stage 1 page reads both sides from git (frozen, T-028); the revision 36 page's earlier side is stage 1's
+    regeneration and its later side the working tree; each names its earlier side in its prose; the default build is
+    the tag against the tree (the fixture form below)."""
+    assert rc.STAGE_1.then == rc.TAG and rc.STAGE_1.now == rc.STAGE_1_REGENERATION
+    assert rc.REVISION_36.then == rc.STAGE_1_REGENERATION and rc.REVISION_36.now is None
+    assert rc.ref_text(rc.STAGE_1_REGENERATION, "docs/phase_c_ensemble_record.md").startswith("#")
+    assert rc.PAGES["stage-1"].out == rc.OUT
+    page = rc.render([(CRITERIA, "a" * 64, "b" * 64, rc.compare([_row("A", "PASS")], [_row("A", "PASS")], CRITERIA))],
+                     rc.REVISION_36)
+    assert page.startswith("# Spec revision 36") and "exactly stage 1's" in page and "Hash at stage 1" in page
 
 
 def _header(path, lines=12) -> str:
@@ -48,7 +65,7 @@ def test_s1_10b_every_generated_record_is_compared_or_listed_as_not():
                             check=True, timeout=60).stdout.split()  # committed only: the owner's drafts stay out
     assert "docs/review/phase_c_trace_seed7.md" in review
     generated |= set(review)
-    listed = {r.path for r in rc.RECORDS} | {rc.OUT.relative_to(rc.REPO).as_posix()}
+    listed = {r.path for r in rc.RECORDS} | {p.out.relative_to(rc.REPO).as_posix() for p in rc.PAGES.values()}
     listed |= {path for paths, _ in rc.NOT_COMPARED for path in re.findall(r"docs/[\w/.\-]+", paths)}
     assert not generated - listed, f"generated, but neither compared nor in NOT_COMPARED: {sorted(generated - listed)}"
 
@@ -124,6 +141,18 @@ def test_s1_10b_the_tags_d2_rows_are_matched_by_position():
     assert [k for k, _, _ in c.changed] == ["M11.C.10[family of origin]", "M11.C.2[twelve-person family]"]
     with pytest.raises(ValueError, match="row 2"):
         rc.compare(then, now[:2] + [_row("M11.C.6", "FAIL")], D2)
+
+
+def test_s1_10b_a_later_page_matches_d2_rows_by_key_and_lists_a_new_criterion():
+    """A page whose earlier side is stage 1's regeneration (revision 36's) reads the current keys on both sides, so
+    the D2 record is matched by key, and a criterion added since (`M11.C.48`) is a row only now, not a mismatch."""
+    then = [_row("M11.C.10[family of origin]", "PASS"), _row("M11.C.2[twelve-person family]", "PASS")]
+    now = then[:1] + [_row("M11.C.2[twelve-person family]", "FAIL"), _row("M11.C.48", "PASS")]
+    c = rc.compare(then, now, D2, by_position=False)
+    assert c.compared == 2 and not c.gone and [k for k, _ in c.new] == ["M11.C.48"]
+    assert [k for k, _, _ in c.changed] == ["M11.C.2[twelve-person family]"]
+    with pytest.raises(ValueError, match="2 rows"):
+        rc.compare(then, now, D2)
 
 
 def test_s1_10b_a_value_record_lists_a_changed_value():

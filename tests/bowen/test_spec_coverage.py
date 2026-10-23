@@ -91,7 +91,10 @@ def test_m141_phase_d_criteria_read_from_their_records():
 
 def test_m141_accepted_finding_shows_its_disposition():
     """Plan A2: a criterion the owner accepted as a finding, or put out of scope, carries the disposition's reason in its
-    note, and its status stays what the records show (never done). Mutation: the disposition is not read."""
+    note, and its status stays what the records show: not done while the record shows the fail the owner accepted. A
+    criterion accepted as a finding at version 1 can pass under a later rule (`M11.C.44` at revision 36's regeneration,
+    2026-10-23): then its row is done, a new result under a new rule, and still quotes the disposition beside the pass.
+    Mutation: the disposition is not read."""
     from tools.version_1_status import dispositions
 
     rows = _rows()
@@ -100,7 +103,8 @@ def test_m141_accepted_finding_shows_its_disposition():
     for key, d in decided.items():
         row = rows[key.split("[")[0]]
         assert d["reason"] in row["note"], key
-        assert row["status"] != "done", key
+        if row["status"] == "done":
+            assert f"{key.split('[')[0]} PASS" in row["note"], key  # done only on a pass the records show
 
 
 def test_m141_header_names_each_record_read():

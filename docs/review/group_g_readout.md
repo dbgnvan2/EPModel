@@ -5,10 +5,7 @@ names, on the reference families (`config/bowen/family_phase_c.md` under `M11.C.
 `config/bowen/family_phase_d.md`'s life course for 2080 weeks), over the seeds it says. "Stock at the cut" is a tie's
 `distance_bound_anxiety` in the week it becomes cut off (the largest fixes `cutoff_stock_cap`, G1 §3.7). "Run before
 the first cutoff" and "matched uncut run" are `M11.C.48`'s two arms (`docs/readouts_phase_c.md`, "Negative runs");
-"longest uncut run" is reported beside them. The "before" section was measured when the longest uncut run was the
-baseline; the correctness review of 2026-10-22 found that comparison biased against the criterion (a maximum over ties
-and weeks against one point), and the baseline became the run standing on the uncut ties in the cutoff's week. The
-"before" table therefore has no matched column; its other columns are comparable.
+"longest uncut run", the span-longest run on the uncut ties, is reported only (a "before" section has only that one).
 "Excess anxiety" is the mean over living family members and weeks of acute anxiety above the chronic floor. "Symptom
 weeks" is the share of living-member weeks with any active symptom channel. A seed with no cutoff is counted in
 "seeds with a cutoff" and contributes no run. Not a real family (`M11.F.9`). The "before" section was measured on
@@ -23,3 +20,12 @@ the event-kind rows, the contact classes and the loader fields that revision 36 
 | phase_d | 2080 | 11615 | 1583 (`leo~marta`, week 1401, seed 2, bond 50) | 43.66 | 20 of 20 | 748 | 1.536 | 1 | 1.647 | 15.08 | 0.2468 |
 
 <!-- before measurements: {'engine': '2842f0e8fea8e9e20f04a49d02ae5b9e21ab7dde80dd69e157d8c56c6e93d8ef', 'seeds': 20, 'largest_stock': {'phase_c': 975.8816476509318, 'phase_d': 1582.948148137233}, 'mean_run': {'phase_c': 2.192857142857143, 'phase_d': 1.536096256684492}, 'excess': {'phase_c': 23.897789031711973, 'phase_d': 15.083498303260505}, 'symptom_share': {'phase_c': 0.36045329670329673, 'phase_d': 0.24683339195122372}} -->
+
+## after — engine hash `66dcbb1e8ba5`, 20 seeds per family, 2026-10-23
+
+| family | weeks | cuts | largest stock at a cut (tie, week, seed) | median stock at a cut | seeds with a cutoff | first cutoffs | mean run before the first cutoff | median run | mean matched uncut run | mean longest uncut run | excess anxiety | symptom weeks |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| phase_c | 520 | 457 | 330.7 (`marta~ravi`, week 139, seed 20, bond 60) | 1.665 | 20 of 20 | 140 | 2.064 | 1 | 1.581 | 2.107 | 22.41 | 0.2981 |
+| phase_d | 2080 | 4820 | 658.9 (`marta~ravi`, week 669, seed 5, bond 60) | 6.259 | 20 of 20 | 749 | 1.331 | 1 | 0.8712 | 1.431 | 13 | 0.175 |
+
+<!-- after measurements: {'engine': '66dcbb1e8ba5e6e0860a1dea3454d76262e6662e0f699850f37cbed5b44ad5cc', 'seeds': 20, 'largest_stock': {'phase_c': 330.6995171251213, 'phase_d': 658.8512538718301}, 'mean_run': {'phase_c': 2.0642857142857145, 'phase_d': 1.3311081441922563}, 'excess': {'phase_c': 22.41163843007895, 'phase_d': 13.004973855533375}, 'symptom_share': {'phase_c': 0.2980769230769231, 'phase_d': 0.17495882742389}} -->

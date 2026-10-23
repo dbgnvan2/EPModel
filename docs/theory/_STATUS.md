@@ -3,7 +3,8 @@
 > ## ▶ STATE — the corpus is closed. **Version 1 is complete (2026-10-18) and tagged `version-1` at `d62cfdc`; its spec is revision 32. Version 2 began at revision 33; stage 1 was built and its records regenerated 2026-10-19 and pushed 2026-10-20, and no verdict changed. Revision 34 (2026-10-22) changed wording only: the ASR quotations paraphrased (SP-1) and the stage 1 milestone review's wording fixes. Revision 35 (2026-10-22) moved the revision history into `spec_revision_log.md`, and the inline revision narratives of 129 bodies with it (`spec_revision_35_dispositions.md`, approved by the owner 2026-10-22); no rule changed. Revision 36 (2026-10-22, on the branch `claude/recursing-bohr-2393a1`) built version 2's group G (G1, G2) and the Holmes–Rahe event sizes — 581 unique IDs, 48 acceptance criteria — each choice decided as recommended under the owner's instruction of 2026-10-22, pending the owner's review; the engine hash moved once and every record was regenerated. Work goes on `main` (owner, 2026-10-21).**
 >
 > **2026-10-22 — version 2's group G and the event sizes built, with spec revision 36** (branch
-> `claude/recursing-bohr-2393a1`, overnight under the owner's instruction "proceed based on your recommendations").
+> `claude/recursing-bohr-2393a1`, overnight under the owner's instruction of 2026-10-22 to go ahead on Claude's
+> recommendations without waiting for input — a paraphrase; the words are quoted in the revision 36 report).
 > G1 (`M1.D.2b`, `M1.D.2c`): a cut-off tie's held anxiety weighs on both members, is capped and decays to a floor, is
 > renewed by negative contact and shed by positive contact, which alone reopens the tie; distant and conflicted ties
 > are repaired by thirds; `CONFLICT` binds; `REDUCE_CUTOFF` moves no stock to a third party, and the third party's
@@ -14,7 +15,11 @@
 > the run of negative contacts before a cutoff against the run standing on the uncut ties in the same week. Every
 > owner-level choice is listed in the revision 36 report and tagged pending the owner's review; the Holmes–Rahe Q3
 > stands as decided and cites no source (T-013 closed). The engine hash moved once; every record was regenerated once
-> (the CHANGELOG entry has the verdicts). **Next:** the owner's review of the decisions; the stage 2 plan (a separate
+> (2026-10-23, 2 h 36 min of runs; `docs/version_2_revision_36_changes.md`): `M11.C.48` passes on both families, a pass the re-sweep found is not evidence (a zero baseline for a first cutoff
+> with no matched uncut tie, T-123);
+> `M11.C.44` FAIL → PASS; `M11.C.17`, `M11.C.7[joint over one spouse]`, `M11.C.10[family of origin]` and
+> `M11.C.2[twelve-person family]` PASS → FAIL, all composite, for the owner's review (T-122); three named mutants
+> survive, `M11.C.48`'s among them, so A11 is not met (T-119 to T-121, T-123). **Next:** the owner's review of the decisions; the stage 2 plan (a separate
 > session), then stage 2's pilot.
 >
 > **2026-10-22 — model ergonomics built (`docs/plan_model_ergonomics.md`), with spec revision 35.** The spec and

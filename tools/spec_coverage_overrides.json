@@ -319,7 +319,7 @@
   "evidence": [
    "tests/bowen/test_policy.py::test_m4d3_no_term_raises_reactive_acts_with_anxiety"
   ],
-  "note": "the policy carries no load-reading preference: before learning, acute anxiety leaves every automatic act's probability, `TRIANGLE` included, unchanged (`test_m4d3_no_term_raises_reactive_acts_with_anxiety`); the inversion itself is `M11.C.44`'s outcome, whose row is partial (ensemble FAIL; accepted finding: no calm state near the floor, so the outside position's value does not invert)"
+  "note": "the policy carries no load-reading preference: before learning, acute anxiety leaves every automatic act's probability, `TRIANGLE` included, unchanged (`test_m4d3_no_term_raises_reactive_acts_with_anxiety`); the inversion itself is `M11.C.44`'s outcome: an accepted finding at version 1 (ensemble FAIL: no calm state near the floor), passing since revision 36's regeneration of 2026-10-23 as a new result under the new rules, for the owner's review (T-122)"
  },
  "M1.C.3a": {
   "status": "partial",
@@ -620,7 +620,7 @@
    "tests/bowen/test_phase_d2_criteria.py::test_m11c2_symptom_concentrates_on_projection_target_in_the_twelve_person_family",
    "tests/bowen/test_life_course.py::test_m7e1c_birth_situations_add_focus_not_a_target"
   ],
-  "note": "through `M11.C.2`, partial on this page (FAIL on the Phase D family; PASS on the twelve-person family); no target is assigned at initialisation and birth situations add focus, not a target (`test_m7e1c_birth_situations_add_focus_not_a_target`); no test shows Nadia becoming the target"
+  "note": "through `M11.C.2`, partial on this page (FAIL on the Phase D family; the twelve-person family passed at version 1 and fails since revision 36's regeneration of 2026-10-23, a new result for the owner's review, T-122); no target is assigned at initialisation and birth situations add focus, not a target (`test_m7e1c_birth_situations_add_focus_not_a_target`); no test shows Nadia becoming the target"
  },
  "M3.D.5": {
   "status": "partial",
@@ -999,11 +999,11 @@
   "note": "`invariant_tolerance` is 1e-9 in `config/bowen/constants.md`, a required key (`test_m11d3_config_rejects_missing_required_key`), graded `[I]` against the schema (`test_m0_1_grade_must_match_the_spec`, `test_m101_repository_constants_load_and_are_graded`); `M6.I.1` is reported every tick (`test_m4g2_invariants_asserted_every_tick`), but no test feeds `invariants.budget_problems` a violation"
  },
  "M6.2": {
-  "status": "done",
+  "status": "partial",
   "evidence": [
    "tests/bowen/test_phase_d_criteria.py::test_m11c11_removal_three_phase_shape"
   ],
-  "note": "done through `M11.C.11` (done, ensemble PASS): its removal arms run with `invariants.assert_invariants` checking `M6.4`'s ledger every tick, so a removal that broke `M6.I.6` would raise"
+  "note": "partial through `M11.C.11` (partial: its ensemble passes, but no mutant has turned it red since revision 36's regeneration of 2026-10-23, T-121): its removal arms run with `invariants.assert_invariants` checking `M6.4`'s ledger every tick, so a removal that broke `M6.I.6` would raise"
  },
  "M6.4": {
   "status": "partial",
@@ -1130,7 +1130,7 @@
    "tests/bowen/test_phase_d2_criteria.py::test_m11c10_cutoff_begets_cutoff",
    "tests/bowen/test_phase_d2_criteria.py::test_m11c10_cutoff_begets_cutoff_from_the_family_of_origin"
   ],
-  "note": "withdrawn as a mechanism; the loop is `M11.C.10`'s result, which is partial (ensemble FAIL, accepted finding: the arms' input barely differs); the family-of-origin variant passes"
+  "note": "withdrawn as a mechanism; the loop is `M11.C.10`'s result, which is partial (ensemble FAIL, accepted finding: the arms' input barely differs); the family-of-origin variant passed at version 1 and fails since revision 36's regeneration of 2026-10-23, a new result for the owner's review (T-122)"
  },
  "M8.5": {
   "status": "partial",

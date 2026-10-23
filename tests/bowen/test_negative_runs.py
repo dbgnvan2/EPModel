@@ -73,8 +73,19 @@ def test_m11c48_a_declared_cut_off_tie_is_left_out_on_both_sides():
     assert [(f.tie, f.uncut, f.longest_uncut) for f in plain] == [(AB, 2.5, 4)]  # e~f (4 by week 4) and c~d (1), their mean
     declared = first_cutoff_runs(records, KINDS, declared_cut=frozenset({EF}))
     assert [(f.tie, f.run, f.uncut, f.longest_uncut) for f in declared] == [(AB, 2, 1.0, 1)]
-    late = first_cutoff_runs(records + [act("CONFLICT", E, F, 9)], KINDS, declared_cut=frozenset({EF, CD}))
-    assert [(f.uncut, f.longest_uncut) for f in late] == [(0.0, 0)]  # no uncut tie has a contact in the window
+    late = [r for r in records if r.event.targets != (D,)] + [act("CONFLICT", C, D, 9)]  # c~d's first contact is week 9
+    assert [(f.uncut, f.longest_uncut) for f in first_cutoff_runs(late, KINDS)] == [(4.0, 4)]  # e~f alone; c~d not counted
+
+
+def test_m11c48_two_first_cutoffs_on_one_seed():
+    """Two ties cut off on one seed: a tie cut later is an uncut tie at the earlier cutoff's week and not at its own;
+    a tie's first cutoff is its earliest `CUTOFF`, not its last; and the arms average over every first cutoff."""
+    records = ([act("CONFLICT", A, B, 1), act("CONFLICT", A, B, 2), act("CUTOFF", A, B, 2)] +
+               [act("CONFLICT", C, D, w) for w in range(1, 5)] + [act("CUTOFF", C, D, 4), act("CUTOFF", C, D, 8)] +
+               [act("CONFLICT", E, F, 4)])
+    firsts = first_cutoff_runs(records, KINDS)
+    assert [(f.tie, f.week, f.run, f.uncut, f.longest_uncut) for f in firsts] == [(AB, 2, 2, 2.0, 2), (CD, 4, 4, 1.0, 1)]
+    assert arm_values(firsts) == (3.0, 1.5)
 
 
 def test_m11c48_members_filter_and_no_cutoff_seed():

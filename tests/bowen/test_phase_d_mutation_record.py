@@ -21,6 +21,9 @@ _tool = importlib.util.module_from_spec(_spec)
 sys.modules[_spec.name] = _tool
 _spec.loader.exec_module(_tool)
 from tools.record_cache import Cache  # noqa: E402
+_spec_ii = importlib.util.spec_from_file_location("tools.phase_d_record", _tool.REPO / "tools" / "phase_d_record.py")
+_part_ii = importlib.util.module_from_spec(_spec_ii)
+_spec_ii.loader.exec_module(_part_ii)
 from tools.record_json import record_json  # noqa: E402
 
 
@@ -46,11 +49,17 @@ def test_m111d_phase_d_mutation_record_is_current():
 
 def test_m11c10_family_of_origin_variant_is_proved_red_by_removing_m4d6f():
     """The spec's mutation clause for `M11.C.10[family of origin]` (restated 2026-10-15): `M4.D.6f` removed MUST turn
-    it red. Read from the committed record."""
+    it red. Read from the committed record. A mutant runs only against a passing criterion, so while the variant fails
+    (it did at revision 36's regeneration, 2026-10-23, after passing at version 1: T-122) there is no row, the clause
+    cannot be proved, and this test pins that the absence has that one cause: the part II record shows the variant FAIL."""
     rows = record_json(_tool.RECORD)
     row = next((r for r in rows if r["mutant"] == "witnessed-cutoff-learning-removed"
                 and r["criterion"] == "M11.C.10[family of origin]"), None)
-    assert row is not None, "the variant was not run under M4.D.6f removed: does it still pass in the part II record?"
+    if row is None:
+        verdicts = {r["criterion"]: r["outcome"] for r in record_json(_part_ii.RECORDS[2])}
+        assert verdicts.get("M11.C.10[family of origin]") == "FAIL", (
+            "the variant was not run under M4.D.6f removed, yet the part II record does not show it failing")
+        return
     assert row["result"] in ("red", "reversed"), row
 
 

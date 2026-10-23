@@ -1374,7 +1374,9 @@ is still learned from felt relief, and what it then costs is the physics below.
   its first cutoff is longer than the mean run standing in that same week on the seed's ties not cut off by then; two
   variants (the Phase B family over ten years, the twelve-person family over forty), 100 seeds; its mutant blinds the
   policy to `CUTOFF`'s learned value. Its verdict is a finding under this revision's rules, reported beside version 1's
-  verdicts, never in their place.
+  verdicts, never in their place. *Re-sweep of 2026-10-23:* the pass recorded that day is not evidence: the readout gave a
+  first cutoff with no matched uncut tie a baseline of 0, and with those left out of both arms the direction reverses on
+  both families (T-123, `docs/readouts_phase_c.md`, "Negative runs").
 - **New fields:** `cutoff_peak` and `reference_level` on the tie (§4, `M14.A`); `tie_state` names five states
   (`M1.B.3`), rejection held meaning `CUT_OFF` (`M1.B.3c`).
 

@@ -7,12 +7,16 @@ Open items, one line each: ID, date raised, title, record. **Now** blocks versio
 `docs/todo/` (grep its ID). To close one, tick it in its record and run `python3 tools/todo_index.py`: its line
 moves to `docs/TODO_archive.md`. Until 2026-10-22 this file held every item's text; that form is in git history.
 
-## Now (4)
+## Now (8)
 
 - T-001 · 2026-10-19 · Version 2, next · [record](docs/todo/2026-08-22_blocking_the_next_phase.md)
 - T-002 · 2026-10-19 · `/csdp` sweep of 2026-10-19, items not fixed · [record](docs/todo/2026-08-22_blocking_the_next_phase.md)
 - T-003 · 2026-10-20 · Coverage page, minor, from the Part A review … · [record](docs/todo/2026-08-22_blocking_the_next_phase.md)
 - T-004 · 2026-10-20 · Coverage page, from Part B's drafting (2026-10-20), not … · [record](docs/todo/2026-08-22_blocking_the_next_phase.md)
+- T-119 · 2026-10-23 · `M11.C.48`'s named mutant survives on both families · [record](docs/todo/2026-10-23_revision_36_regeneration.md)
+- T-120 · 2026-10-23 · `M11.C.15`'s named mutant survives · [record](docs/todo/2026-10-23_revision_36_regeneration.md)
+- T-121 · 2026-10-23 · `M11.C.11`'s named mutant survives · [record](docs/todo/2026-10-23_revision_36_regeneration.md)
+- T-123 · 2026-10-23 · `M11.C.48`'s baseline counts a first cutoff with no … · [record](docs/todo/2026-10-23_revision_36_regeneration.md)
 
 ## Later (112)
 
@@ -37,7 +41,6 @@ moves to `docs/TODO_archive.md`. Until 2026-10-22 this file held every item's te
 - T-025 · 2026-10-19 · Adjacent, not fixed (2026-10-19) · [record](docs/todo/2026-10-14_spec_revision_30.md)
 - T-026 · 2026-10-19 · Adjacent, not fixed (stage 1 review, 2026-10-19) · [record](docs/todo/2026-10-14_spec_revision_30.md)
 - T-027 · 2026-10-19 · Adjacent, not fixed (stage 1 review, 2026-10-19) · [record](docs/todo/2026-10-14_spec_revision_30.md)
-- T-028 · 2026-10-20 · Owner: freeze `docs/version_2_stage_1_changes.md` at stage 1 · [record](docs/todo/2026-10-14_spec_revision_30.md)
 - T-029 · 2026-10-20 · Minor, from the `/csdp` sweep (step 8, 2026-10-20), … · [record](docs/todo/2026-10-14_spec_revision_30.md)
 - T-030 · 2026-10-20 · Adjacent, not fixed (`/csdp` fix re-sweep, 2026-10-20) · [record](docs/todo/2026-10-14_spec_revision_30.md)
 - T-031 · 2026-10-20 · Adjacent, not fixed (cold sweep, 2026-10-20, C3) · [record](docs/todo/2026-10-14_spec_revision_30.md)
@@ -128,3 +131,4 @@ moves to `docs/TODO_archive.md`. Until 2026-10-22 this file held every item's te
 - T-116 · 2026-08-22 · Convergence C1 needs its scope re-derived from the … · [record](docs/todo/2026-08-22_theory_work.md)
 - T-117 · 2026-08-22 · The ego-mass terminology arc must be re-derived · [record](docs/todo/2026-08-22_theory_work.md)
 - T-118 · 2026-08-22 · When the basic level is fixed is genuinely … · [record](docs/todo/2026-08-22_theory_work.md)
+- T-122 · 2026-10-23 · Four composite verdicts PASS → FAIL at revision … · [record](docs/todo/2026-10-23_revision_36_regeneration.md)

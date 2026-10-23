@@ -2,7 +2,10 @@
 
 > **Status: BUILT 2026-10-22 at spec revision 36 (`M1.D.2b`, `M1.D.2c`, `M4.G.1`, `M5.B.3`, `M6.4`, `M11.C.48`), in one
 > batch with G2 and the Holmes–Rahe sizes; decided by the owner 2026-10-19 (Q1–Q11 in §8); drafted the same day. A6
-> (§3.5, the third party's cost) is not shown: its test is a strict expected failure and no cost was written; the
+> (§3.5, the third party's cost) is not shown: its test is a strict expected failure and no cost was written; A11 is not met: at the regeneration of 2026-10-23
+> `M11.C.48` passes on both families, but the re-sweep found the pass is not evidence (the readout gave a first
+> cutoff with no matched uncut tie a baseline of 0; with those left out of both arms the direction reverses on both
+> families, T-123), and its named mutant survives on both (T-119). The
 > rest of §5 is built. Where the build had to choose, it chose as recommended under the owner's instruction of
 > 2026-10-22, pending the owner's review (the revision 36 report lists each choice).** It turns the owner's
 > answers on G1, recorded in `docs/version_2_plan.md` (stage 3, group G, 2026-10-18), into rules, tests and a new

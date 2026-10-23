@@ -70,6 +70,11 @@ The classes of contact are `config/bowen/contact_classes.md`.
   no `CUTOFF` by then and a contact in the window: the same point in time, read the same way, so neither arm has more
   weeks to build a run in. The longest run those ties reached within the window is reported beside it, not compared:
   a maximum over ties and weeks set against one point is biased against the criterion (learnings P7).
+- **Defect found at the re-sweep of 2026-10-23 (T-123, learnings P7):** a first cutoff with no such tie (no other tie
+  with a contact in the window by that week) was given a baseline of 0 and its own run kept in the treatment arm.
+  Measured on the regenerated runs: 139 of 700 first cutoffs on the Phase B family (100 seeds) and 284 of 749 on the twelve-person family (20 seeds); with those left out of both arms the difference is −0.28 ± 0.15 and −0.21 ± 0.18 (2 se) against +0.43 ± 0.16 and +0.44 ± 0.10 as built. **The pass recorded on 2026-10-23 is not evidence.** The recommended rule, for
+  the owner: such a first cutoff is left out of both arms and counted. It is a readout change
+  (`src/bowen/readouts/negative_runs.py`) that moves the engine hash, so it waits for the next move.
 - Per seed, the treatment arm is the mean run before its first cutoffs and the baseline the mean of their baselines;
   both read one run. A seed with no cutoff reads 0 in both and is counted; `first_cutoffs` is reported beside the
   arms. `docs/review/group_g_readout.md` measures the same on 20 seeds before and after the revision.

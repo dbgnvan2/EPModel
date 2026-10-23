@@ -25,12 +25,16 @@ Plan §4.10 holds the evidence.
   comparisons, finds act names in `src/bowen/ensemble/criteria.py`, `criteria_d.py` and `criteria_d2.py` (the acts
   each criterion reads), as well as `NEVER_REFUSED` (`rejection.py`) and `ABORT_ACTS` (`iposition.py`). Rule 9 asks
   whether each belongs in config; the criteria are definitions, not engine rules, and are for a later stage.
-- [ ] T-028 ⟨later⟩ **Owner: freeze `docs/version_2_stage_1_changes.md` at stage 1** (`/csdp` sweep, step 8, 2026-10-20). The page
+- [x] T-028 ⟨later⟩ **Owner: freeze `docs/version_2_stage_1_changes.md` at stage 1** (`/csdp` sweep, step 8, 2026-10-20). The page
   compares the tag `version-1` with the records as they are now, so a later regeneration fails
   `test_s1_10b_changes_page_is_current`, and rerunning `tools/record_changes.py` would rewrite the page under stage
   1's title with the later stage's changes. Freezing it needs a ref to read stage 1's records from, such as a tag at
   the stage 1 commit (the owner chose the tag `version-1`); then the tool reads both sides from git and the test
-  stays true. Until then: do not rerun the tool after stage 1.
+  stays true. Until then: do not rerun the tool after stage 1. *Done 2026-10-23 with revision 36's regeneration,
+  decided as recommended under the owner's instruction of 2026-10-22, pending the owner's review: the tool now reads
+  both sides from git refs — the tag `version-1` and stage 1's regeneration commit `7aa9fc5` (a commit, since tags
+  are the owner's) — so the page is frozen without a new tag, and a second page,
+  `docs/version_2_revision_36_changes.md`, compares `7aa9fc5` with revision 36's records.*
 - [ ] T-029 ⟨later⟩ **Minor, from the `/csdp` sweep (step 8, 2026-10-20), not fixed:** (1) a stop signal while
   `tools/mutant_runner.py:run_in_copy` copies the repository, or while its temporary directory is removed, leaves a
   `bowen-mutant-*` directory in `$TMPDIR` (no process is left; the handlers are set only around the child), as does

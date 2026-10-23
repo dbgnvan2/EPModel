@@ -108,7 +108,8 @@ MUTANTS = (
            "M8.3 made position-blind: a coach drawn onto one spouse's side still counts as a live position"),
     # M11.C.11's return limb (composite): a removed member's symptom hold is frozen while they are away (no
     # interactive partner to release to) and comes back on return. Ad hoc 2026-10-17: lock_in +12.1 of the +2.3, and
-    # this mutant reverses it (-1.77 +/- 1.61, 150 seeds).
+    # this mutant reversed it (-1.77 +/- 1.61, 150 seeds). At revision 36's regeneration (2026-10-23) it survives:
+    # +1.30 +/- 1.18, 150 seeds, against +6.32 +/- 1.3 unmutated (T-121).
     Mutant("removed-member-hold-released-while-away", NAMED, ("M11.C.11",), "src/bowen/engine/symptoms.py",
            "    shares = _release_shares(state, pid)\n    amount = share * person.symptom_bound\n",
            "    everyone = tuple(sorted(o for t in state.ties_of(pid) for o in t.id.members()\n"

@@ -7,7 +7,10 @@ Purpose: count, per tie, the run of negative contacts (conflict, a rebuff, a ref
 Spec:    docs/bowen_agent_model_spec_v2.md#M11.C.48, #M1.D.2b
 Tests:   tests/bowen/test_negative_runs.py::test_m11c48_run_before_the_first_cutoff_against_uncut_ties,
          tests/bowen/test_negative_runs.py::test_m11c48_a_week_with_both_contacts_keeps_the_run,
-         tests/bowen/test_negative_runs.py::test_m11c48_a_declared_cut_off_tie_is_left_out_on_both_sides
+         tests/bowen/test_negative_runs.py::test_m11c48_a_declared_cut_off_tie_is_left_out_on_both_sides,
+         tests/bowen/test_negative_runs.py::test_m11c48_a_refusal_is_a_negative_contact_counted_once,
+         tests/bowen/test_negative_runs.py::test_m11c48_two_first_cutoffs_on_one_seed,
+         tests/bowen/test_negative_runs.py::test_m11c48_members_filter_and_no_cutoff_seed
 
 The definitions, `[I]` (`docs/readouts_phase_c.md`, "Negative runs"; the proposal
 `docs/PROPOSAL — CUTOFF ANXIETY, BRIDGING AND REPAIR.md` §4, the owner's D12):

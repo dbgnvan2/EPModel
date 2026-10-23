@@ -1,6 +1,6 @@
 # Revision 35 dispositions — the inline revision narratives
 
-**Status: FOR OWNER REVIEW — applied 2026-10-22 as Claude's dispositions under the owner's decision of 2026-10-22 (plan_model_ergonomics.md §8 Q2); each row is one decision the owner may reverse.**
+**Status: APPROVED BY THE OWNER 2026-10-22, all 262 rows (in chat: "I have reviewed and approve the Spec_Revision_35 document"). Applied 2026-10-22 as Claude's dispositions under the owner's decision of 2026-10-22 (plan_model_ergonomics.md §8 Q2).**
 
 A sentence **stays** when it is rule text, a recorded result or a cross-reference that matched a history phrase and reads as the current rule (the last column gives the reason; the rows marked unsure are the ones the owner should look at first), **moves** when it is narrative (cut from the body and recorded in `docs/spec_revision_log.md` under its revision), and is **rewritten** when it mixed the current rule with narrative (the body keeps the rule as the sentence stated it; the sentence as it stood is in the log). The rows run in the order of `docs/spec_rules/history_in_body.md` as it stood before the edits; the last column gives the body's text after the edit, or the reason the sentence stays.
 

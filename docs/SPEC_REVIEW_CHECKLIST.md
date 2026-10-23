@@ -31,11 +31,11 @@ These define what the model does. A run that disagrees with them is a defect.
 - [ ] [spec_revision_log.md](spec_revision_log.md) — the spec's revision history, 4 to 35, and its front-matter
       status line as it stood at revision 34, moved out of the spec at revision 35 (2026-10-22). Why a rule is as it
       is; the spec holds the rule.
-- [ ] **For review, 2026-10-22:** [spec_revision_35_dispositions.md](spec_revision_35_dispositions.md) — revision
+- [ ] **Approved by the owner 2026-10-22:** [spec_revision_35_dispositions.md](spec_revision_35_dispositions.md) — revision
       35's second step: the 213 inline revision sentences in 129 requirement bodies (218 rows; five sentences held two
       narratives) and the 44 more a longer phrase list found the same day (rows 219–262), each kept, moved to the
       log or rewritten as the current rule, one row per narrative. Applied as Claude's dispositions under the owner's
-      decision; each row is one the owner may reverse.
+      decision; all 262 rows approved by the owner the same day.
 - [ ] [../config/bowen/constants.md](../config/bowen/constants.md) — the parameter values the engine uses.
 - [ ] [../config/bowen/constants_changes.md](../config/bowen/constants_changes.md) — every change to those values,
       and why.

@@ -15,9 +15,8 @@ moves to `docs/TODO_archive.md`. Until 2026-10-22 this file held every item's te
 - T-004 · 2026-10-20 · Coverage page, from Part B's drafting (2026-10-20), not … · [record](docs/todo/2026-08-22_blocking_the_next_phase.md)
 - T-013 · 2026-10-21 · Before group G's build starts · [record](docs/todo/2026-10-21_stage_1_milestone_review.md)
 
-## Later (113)
+## Later (112)
 
-- T-005 · 2026-10-22 · Revision 35's dispositions, for the owner's review (Part … · [record](docs/todo/2026-10-22_model_ergonomics.md)
 - T-006 · 2026-10-22 · D4, long `Spec:` lines (Part D, 2026-10-22; the … · [record](docs/todo/2026-10-22_model_ergonomics.md)
 - T-007 · 2026-10-22 · Adjacent issues found by Part D's docstring pass, … · [record](docs/todo/2026-10-22_model_ergonomics.md)
 - T-008 · 2026-10-22 · SP-1, the parts the owner deferred on 2026-10-22 · [record](docs/todo/2026-10-21_stage_1_milestone_review.md)

@@ -140,8 +140,8 @@ def render_history(text: str, found: list[dict], rev: int) -> str:
         f"Every ID whose body holds a sentence matching a history phrase (`tools/spec_index_rules.json`, "
         f"`history_phrases`), with the sentence and the phrase it matched: **{len(found)} IDs**. The view keeps every "
         "one of these sentences (C3). This list was the input to Part E: revision 35 (2026-10-22) moved or rewrote "
-        "the narratives, with one row per sentence in `docs/spec_revision_35_dispositions.md` for the owner's "
-        "review, so what is listed now is what that pass left in place — rule text, recorded results and "
+        "the narratives, with one row per sentence in `docs/spec_revision_35_dispositions.md`, approved by the "
+        "owner 2026-10-22, so what is listed now is what that pass left in place — rule text, recorded results and "
         "cross-references that match a phrase — each a row marked \"stays\" that gives the reason. "
         "Line numbers are the spec's.",
         "",

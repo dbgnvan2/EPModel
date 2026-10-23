@@ -1,6 +1,6 @@
 # Model ergonomics — open after Parts A–C, 2026-10-22
 
-- [ ] T-005 ⟨later⟩ **Revision 35's dispositions, for the owner's review (Part E, 2026-10-22):** `docs/spec_revision_35_dispositions.md`,
+- [x] T-005 ⟨later⟩ **Revision 35's dispositions, for the owner's review (Part E, 2026-10-22; approved by the owner 2026-10-22, all 262 rows):** `docs/spec_revision_35_dispositions.md`,
   218 rows for 213 sentences (35 stay, 32 moved, 151 rewritten; rows 219–262 added the same day for the missed
   phrases, the item below), applied as Claude's dispositions under the owner's bulk
   decision (§8 Q2). The review of 2026-10-22 found two log bullets whose quotation was not the sentence as it stood

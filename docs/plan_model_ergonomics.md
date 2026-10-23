@@ -2,7 +2,7 @@
 
 **Status: Parts A to E built 2026-10-22 on the branch `model-ergonomics` (the CHANGELOG entries of that date), the
 owner's §8 answers of 2026-10-22 applied (Q1 thin them; Q2 yes, as revision 35; Q3 delete all four; Q4 fix now). Part E's
-second step, Claude's dispositions in `spec_revision_35_dispositions.md`, is for the owner's review. §11's sonnet
+second step, Claude's dispositions in `spec_revision_35_dispositions.md`, was approved by the owner 2026-10-22. §11's sonnet
 trial has not been run.** Written in a Cowork session from a read-only scan of the repo at `fc9939e`, then moved
 here from the repo root (A1).
 

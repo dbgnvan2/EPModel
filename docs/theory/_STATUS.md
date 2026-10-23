@@ -9,7 +9,7 @@
 > formulas, and the spec's revision history is in `docs/spec_revision_log.md` — the sections and the status line, and
 > the 213 inline narrative sentences of 129 requirement bodies (218 rows) and, the same day, the 44 more a longer
 > phrase list found (rows 219–262), kept, moved or rewritten one by one
-> (`docs/spec_revision_35_dispositions.md`, Claude's dispositions for the owner's review). The owner answered the
+> (`docs/spec_revision_35_dispositions.md`, Claude's dispositions, approved by the owner 2026-10-22). The owner answered the
 > plan's §8 the same day. Nothing a run computes changed; `engine_hash()` is unchanged and no ensemble, mutation or
 > sweep record was rerun (the seed-7 trace, chart and fam-diag export were regenerated for the revision string).
 >

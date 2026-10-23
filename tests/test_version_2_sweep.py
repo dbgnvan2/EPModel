@@ -409,6 +409,16 @@ def test_m17e1_phase_d_criterion_is_run_by_the_phase_d_child_under_its_hash(tmp_
     assert ran and {c for _t, c in ran} == {"M11.C.2"}
 
 
+def test_m17e1_another_child_without_its_hash_is_refused(tmp_path):
+    """``run_cached`` keys a result by the hash it is given; a child other than Phase C's with no hash of its own
+    would be keyed by ``engine_hash``, which does not cover that child, so a change to it would reuse stale results
+    (P8). The call is refused before anything runs (review, 2026-10-23)."""
+    with mock.patch.object(record_cache, "CACHE_DIR", tmp_path / "cache"), \
+            mock.patch.object(record_cache, "child_rows", side_effect=AssertionError("ran a child")):
+        with pytest.raises(ValueError, match="hash"):
+            record_cache.run_cached(Cache("sweep_test"), None, ["M11.C.2"], 1, child="phase_d_mutant_child.py")
+
+
 # --- S2.11 the committed record ---------------------------------------------------------------------------------
 
 def test_s2_11_sweep_record_is_current():

@@ -136,3 +136,13 @@ def test_w1_s2_10_a_tag_row_with_no_row_now_and_a_misplaced_disposition_stop_the
 def test_s2_11_status_page_is_current():
     """The committed page is what the tool renders from the committed records (P6)."""
     assert tool.PAGE.read_text(encoding="utf-8") == tool.render(tool.statuses())
+
+
+def test_s2_11_records_read_shows_every_hash_a_record_keys_by():
+    """The sweep record keys its Phase D rows by a second hash, ``phase_d_engine_hash``; the page's *Records read*
+    lists every hash line the record carries, each at its value there (review, 2026-10-23)."""
+    record = tool.SWEEP_RECORD.read_text(encoding="utf-8")
+    hashes = dict(re.findall(r"^(engine_hash|phase_d_engine_hash): (\w+)", record, re.M))
+    assert set(hashes) == {"engine_hash", "phase_d_engine_hash"}
+    line = next(l for l in tool.render(tool.statuses()).splitlines() if l.startswith("- Stage 2 sweep record"))
+    assert all(f"{kind} `{value[:12]}`" in line for kind, value in hashes.items())

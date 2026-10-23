@@ -598,7 +598,7 @@ say whether that test was proved failing by mutation unless its note does.
 | M17.D.3 | done | `tests/bowen/test_ensemble.py::test_m17d3_verdict_reports_scripted_acts_not_made`<br>`tests/bowen/test_policy.py::test_m17d3_excluded_outcome_is_not_legal` | — |
 | M17.D.4 | not done | — | no test named for it; Phase E builds it and is not built yet |
 | M17.D.5 | not done | — | no test named for it; Phase E builds it and is not built yet |
-| M17.E.1 | done | `tests/test_version_2_sweep.py::test_m17e1_phase_d_criterion_is_run_by_the_phase_d_child_under_its_hash`<br>`tests/test_version_2_sweep.py::test_m17e1_s2_2_fraction_counts_only_passing_samples_and_reports_errors`<br>`tests/test_version_2_sweep.py::test_m17e1_s2_7_a_sample_edits_each_constant_row_once` | — |
+| M17.E.1 | done | `tests/test_version_2_sweep.py::test_m17e1_another_child_without_its_hash_is_refused`<br>`tests/test_version_2_sweep.py::test_m17e1_phase_d_criterion_is_run_by_the_phase_d_child_under_its_hash`<br>`tests/test_version_2_sweep.py::test_m17e1_s2_2_fraction_counts_only_passing_samples_and_reports_errors`<br>`tests/test_version_2_sweep.py::test_m17e1_s2_7_a_sample_edits_each_constant_row_once` | — |
 | M17.E.2 | not done | — | no test named for it; Phase E builds it and is not built yet |
 | M17.E.3 | not done | — | no test named for it; Phase E builds it and is not built yet |
 | M17.E.4 | not done | — | no test named for it; Phase E builds it and is not built yet |
@@ -610,7 +610,7 @@ say whether that test was proved failing by mutation unless its note does.
 | M17.G.2 | not done | — | no test named for it; Phase E builds it and is not built yet |
 | M17.G.3 | not done | — | no test named for it; Phase E builds it and is not built yet |
 
-## Tests named for no spec ID (262)
+## Tests named for no spec ID (263)
 
 Their names embed no requirement ID, so they count only where an override cites them (marked *cited*). The rest check spec documents, tooling or helpers.
 
@@ -861,6 +861,7 @@ Their names embed no requirement ID, so they count only where an override cites 
 - `tests/test_version_1_status.py::test_v1_the_committed_page_and_dispositions_are_the_tags`
 - `tests/test_version_1_status.py::test_v1_the_tag_marks_the_commit_the_owner_chose`
 - `tests/test_version_1_status.py::test_v1_the_tags_status_tests_pass_in_a_copy_of_the_tagged_tree`
+- `tests/test_version_2_status.py::test_s2_11_records_read_shows_every_hash_a_record_keys_by`
 - `tests/test_version_2_status.py::test_s2_11_status_page_is_current`
 - `tests/test_version_2_status.py::test_w1_s2_10_a_changed_verdict_is_not_final`
 - `tests/test_version_2_status.py::test_w1_s2_10_a_tag_row_with_no_row_now_and_a_misplaced_disposition_stop_the_tool`

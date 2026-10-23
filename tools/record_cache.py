@@ -149,6 +149,8 @@ def run_cached(cache: Cache, mutant: Mutant | None, ids: list[str], workers: int
     present, otherwise run (all the missing ones in one child) and cached. Results come back in ``ids`` order.
     ``child`` is the tool that runs them and ``engine`` the hash their keys carry, which must cover that child;
     by default Phase C's child and ``engine_hash``."""
+    if engine is None and child != CHILD:
+        raise ValueError(f"{child}: pass the hash its results are keyed by; engine_hash does not cover that child")
     engine = engine or engine_hash()
     label = label or (mutant.id if mutant else "unmodified")
     keys = {cid: result_key(engine, mutant.definition() if mutant else None, cid) for cid in ids}

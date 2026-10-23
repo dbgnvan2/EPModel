@@ -58,7 +58,12 @@ All notable changes to this project are recorded here. Dates are ISO.
   T-001 and T-125.
 - `CHANGELOG.md` passed its 80,000-byte limit with this entry: its three entries dated 2026-10-20, which the archive's
   header already counted as moved, went to `docs/CHANGELOG_archive.md` verbatim. `docs/spec_coverage.md` and the two
-  index files regenerated for the new test; `CLAUDE.md`'s suite count is 1147.
+  index files regenerated for the new tests; `CLAUDE.md`'s suite count is 1149.
+- From the `learning-qa` review (5 min 25 s): `tools/record_cache.run_cached` refuses a child other than Phase C's
+  given without the hash its results are keyed by (P8); `docs/version_2_status.md` lists the sweep record's
+  `phase_d_engine_hash` beside its `engine_hash`; two figures in the plan's §2.10 corrected. Tests:
+  `test_m17e1_another_child_without_its_hash_is_refused`, `test_s2_11_records_read_shows_every_hash_a_record_keys_by`,
+  each failing on the code before the fix.
 
 ### The symptom module's docstring restated from the code (2026-10-23)
 

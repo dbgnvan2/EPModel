@@ -963,11 +963,11 @@ the verdicts: `M11.C.7[one spouse over sided]`, FAIL at the central setting, hel
 central setting and changed since the tag (T-122), held in 4 of 8; `M11.C.22`, PASS, held in 6 of 8. With these rows
 W4 lists three unmet rows, not seven (`docs/version_2_status.md`): `M11.C.15`, `M11.C.48` and `M11.C.48[phase_d]`.
 
-*The reruns.* 78 of the 104 first runs (75%, against Phase C's 61%) left a gating effect within 2 half-widths of zero,
+*The reruns.* 78 of the 104 first runs (75%, against the Phase C sweep run's 59 of 96, 61%) left a gating effect within 2 half-widths of zero,
 and 53 within one; the rerun changed the verdict in 6 of the 78. Reruns took 15,600 of the 29,050 seeds run (54%). A
 first run stops on precision against the seed-to-seed spread (`src/bowen/ensemble/runner.py::_converged`), not on
-distance from zero, so a small effect stops near zero; from 100–150 seeds to 200 the half-width narrows by about a
-fifth, so the rerun settles only a sample near the line. Told this cost on 2026-10-23, the owner chose to keep D8's
+distance from zero, so a small effect stops near zero; from 50–150 seeds to 200 the half-width narrowed by about a
+fifth (median ratio 0.84 over the reruns' gating readouts), so the rerun settles only a sample near the line. Told this cost on 2026-10-23, the owner chose to keep D8's
 200 seeds for this run. A rerun repeats the first run's seeds, which are deterministic; running only the missing ones
 would give the same numbers with about a third fewer seeds in this run (the first runs' seeds inside the 78 reruns), and is not built.
 

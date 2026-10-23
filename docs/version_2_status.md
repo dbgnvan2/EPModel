@@ -14,7 +14,7 @@ Records read:
 - Phase D part II (`docs/phase_d2_ensemble_record.md`): code_hash `3549d7c45f4b`
 - Phase C mutation record (`docs/phase_c_mutation_record.md`): engine_hash `66dcbb1e8ba5`
 - Phase D mutation record (`docs/phase_d_mutation_record.md`): engine_hash `5c3865dcf8f9`
-- Stage 2 sweep record (`docs/version_2_sweep_record.md`): engine_hash `66dcbb1e8ba5`
+- Stage 2 sweep record (`docs/version_2_sweep_record.md`): engine_hash `66dcbb1e8ba5`, phase_d_engine_hash `5c3865dcf8f9`
 - the tag's page (`docs/version_1_status.md`): the verdicts at `version-1`
 
 ## Conditions

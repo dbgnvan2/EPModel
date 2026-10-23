@@ -238,8 +238,11 @@ def render(rows: list[Status]) -> str:
         if not path.exists():
             hashes.append(f"- {name} (`{path.relative_to(REPO)}`): not yet generated")
             continue
-        found = re.search(r"^(code_hash|engine_hash): (\w+)", path.read_text(encoding="utf-8"), re.M)
-        hashes.append(f"- {name} (`{path.relative_to(REPO)}`): {found.group(1)} `{found.group(2)[:12]}`")
+        # every hash the record's rows are keyed by: the sweep record's Phase D rows carry ``phase_d_engine_hash``
+        found = re.findall(r"^(code_hash|engine_hash|phase_d_engine_hash): (\w+)", path.read_text(encoding="utf-8"),
+                           re.M)
+        keyed = ", ".join(f"{kind} `{value[:12]}`" for kind, value in found)
+        hashes.append(f"- {name} (`{path.relative_to(REPO)}`): {keyed}")
     hashes.append(f"- the tag's page (`{TAG_PAGE.relative_to(REPO)}`): the verdicts at `version-1`")
     lines = [
         "# Version 2 status",

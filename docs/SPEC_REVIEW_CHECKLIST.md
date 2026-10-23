@@ -136,7 +136,7 @@ Kept for history or as build process. None of these defines current behavior.
 
 **History, moved 2026-10-22:** [TODO_archive.md](TODO_archive.md) — the items ticked in `TODO.md` before 2026-10-22,
 verbatim, grouped by the month they were closed, after a generated region listing the items ticked in the records
-since; [CHANGELOG_archive.md](CHANGELOG_archive.md) — the `CHANGELOG.md` entries dated before 2026-10-19 (version 1),
+since; [CHANGELOG_archive.md](CHANGELOG_archive.md) — the `CHANGELOG.md` entries dated before 2026-10-21 (version 1, and the first two days of version 2),
 verbatim. `tests/test_doc_size.py` keeps the live files short.
 
 **TODO records, 2026-10-22:** [todo/](todo/) — one file per batch of open items, each item with its ID (`T-nnn`), its

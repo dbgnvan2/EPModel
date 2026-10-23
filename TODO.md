@@ -31,7 +31,7 @@ moves to `docs/TODO_archive.md`. Until 2026-10-22 this file held every item's te
 - T-015 · 2026-10-21 · SP-2: extend the document-claim tests · [record](docs/todo/2026-10-21_stage_1_milestone_review.md)
 - T-016 · 2026-10-21 · Adjacent, not fixed · [record](docs/todo/2026-10-21_stage_1_milestone_review.md)
 - T-017 · 2026-10-17 · A genuine `I-POSITION` at level 40 almost never … · [record](docs/todo/2026-10-17_revision_32.md)
-- T-018 · 2026-10-17 · Criteria near the runner's detection limit · [record](docs/todo/2026-10-17_revision_32.md)
+- T-018 · 2026-10-23 · Criteria near the runner's detection limit · [record](docs/todo/2026-10-17_revision_32.md)
 - T-019 · 2026-10-17 · `M1.E.7e`'s lending of pseudo-self by a sided coach … · [record](docs/todo/2026-10-17_revision_32.md)
 - T-020 · 2026-10-17 · `M11.C.29` could be redesigned · [record](docs/todo/2026-10-17_revision_32.md)
 - T-021 · 2026-10-17 · Minor, from the revision 32 reviews (2026-10-17), not … · [record](docs/todo/2026-10-17_revision_32.md)

@@ -28,6 +28,8 @@ premise passing, and a changed one is a new result under revision 36's rules, ke
   both arms and counted (`FirstCutoff` carries the count; the group G readout and the criterion's books report it);
   the spec row says what it contributes is undecided. The fix changes `src/bowen/readouts/negative_runs.py`, which
   is in the engine hash, so it goes with the next engine-hash move and one regeneration, batched with T-119 to T-121.
+  *Stage 2 (2026-10-23) did not move the hash and did not make this fix; the version 2 status page shows `M11.C.48`
+  passing with its mutant surviving, so W3 is not met on it.*
 - [ ] T-122 ⟨later⟩ **Four composite verdicts PASS → FAIL at revision 36, for the owner's review:** `M11.C.17`
   (`coached_rise` +0.000272 ± 0.00042, p 0.205, from +0.000888 ± 0.0013, p 0.0148), `M11.C.7[joint over one spouse]`
   (`deviation_fall` +0.0309 ± 0.056, p 0.177, from +0.0429 ± 0.052, p 0.0497), `M11.C.10[family of origin]`

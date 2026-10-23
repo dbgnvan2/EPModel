@@ -34,6 +34,7 @@ In the level-occupancy record, which has no verdicts, "Verdicts changed" counts 
 - `docs/phase_c_completion_report.md §11`: generated from the Phase C records compared here (`tools/c16_report.py`).
 - `docs/spec_coverage.md`: generated from the tests and the ensemble and mutation records compared here.
 - `docs/phase_b_mutation_record.md`: the record of Phase B's close at commit `3132c69`, frozen (plan D5) and not regenerated, so it is stage 1's apart from the status line stage 1 added; `tools/mutation_gate.py` refuses to rewrite it.
+- `docs/version_2_sweep_record.md, docs/version_2_status.md`: stage 2's pages, new at revision 37 and generated from the records compared here (the status page) and from the stage 2 sweep's own cache (the sweep record, `tools/version_2_sweep.py`), which has no earlier version at stage 1.
 - `docs/review/group_g_readout.md`: revision 36's before-and-after measurement on 20 seeds (`tools/group_g_readout.py`), new at revision 36: its "before" section is the earlier engine's, kept as measured, and its "after" section the regenerated engine's; nothing at stage 1 to compare.
 - `docs/version_1_status.md`: version 1's status page, frozen at the tag: `tests/test_version_1_status.py` checks that it is the tag's, byte for byte.
 - `docs/review/phase_c_famdiag_seed7.json`: the seed-7 run as a family diagram (`tools/famdiag_export.py`); regenerated at revision 36 (no uncommitted edits to it stood in the way on 2026-10-23), so `git diff 7aa9fc5` on it shows the new illness events and any change of trajectory.

@@ -1,10 +1,17 @@
 # Spec revision log
 
-**Status: the record of every revision of `bowen_agent_model_spec_v2.md`, 4 to 36. Moved out of the spec at revision 35, 2026-10-22; nothing a run computes changed.**
+**Status: the record of every revision of `bowen_agent_model_spec_v2.md`, 4 to 37. Moved out of the spec at revision 35, 2026-10-22; nothing a run computes changed.**
 
 The spec holds the current rules; this file holds how they got there. Until revision 34 the revision sections stood at the end of the spec, under `M17`, and the front matter's `status:` line listed every revision since 10. `docs/plan_model_ergonomics.md` Part E moved both here (the owner's answer to its §8 Q2, 2026-10-22, "as revision 35"), so a session reading the spec reads 480 fewer lines of history. The sections below are the spec's own text as it stood, tags and all, with the newest first; revisions 13 to 33 were written inline in the requirement bodies and have no section of their own, which Part E's second step records under revision 35.
 
 The sections `### Revision 34` to `### Revision 5` and the undated section are the spec's text as it stood, moved whole; a statement inside one of them (revision 34's, that revisions 13 to 33 are "not here") was true when written, before the bodies' narratives were moved under their own revisions. Those narratives are the bullets `- \`ID\`: sentence`, each the sentence as it stood in the body, under the revision it names, in sections titled "inline narratives moved from the bodies at revision 35" where no section existed.
+
+### Revision 37 — stage 2's detection-limit rule and sample rule, 2026-10-23 ⟦rev37 · decided as recommended under the owner's instruction of 2026-10-22, pending the owner's review · `docs/implementation_plan_version_2.md` §2.2 D8, D10, D11⟧
+
+**Decided 2026-10-23** as recommended, under the owner's instruction of 2026-10-22, on the branch `stage-2-plan-pilot`: wording in `M17` only. Nothing a run computes changed; `engine_hash()` is unchanged (`66dcbb1e8ba5`) and no record was rerun. The rules are built by `tools/version_2_sweep.py` and read from `config/sweep/sweep.md`; the gating ensemble records adopt the detection-limit rule at their next regeneration (T-018), which stage 2 does not make.
+
+- **Restated:** `M17.A.1` (the detection limit in a sweep: a sample whose first run leaves a gating effect within a declared multiple of its half-width of zero is run again at a declared fixed seed count, the verdict is the second run's, both counts recorded; a first run at or above that count is not rerun; multiple and count `[I]`); `M17.E.1` (the sample rule: a joint draw over declared ranges, seeded by a declared seed and the criterion's key so a longer draw extends a shorter one; each sample an edit of `constants.md` in a copy; the result *n of S* with undetermined and errored samples counted apart, the errored left out of the denominator; a fraction is never written as a pass or a fail; premises and checks are not swept).
+- **Constants:** none in `config/bowen/`. The sweep's own rules and ranges are in `config/sweep/sweep.md` (`sweep_samples`, `sweep_seed`, `detection_limit_multiple`, `detection_limit_seeds`, and seventeen range rows for `M11.C.16` and `M11.C.42`), each `[I]`.
 
 ### Revision 36 — version 2's group G and the Holmes–Rahe event sizes, 2026-10-22 ⟦rev36 · decided as recommended under the owner's instruction of 2026-10-22, pending the owner's review · `docs/PROPOSAL — CUTOFF ANXIETY, BRIDGING AND REPAIR.md`, `docs/PROPOSAL — RELEASE BY TIE (G2).md`, `docs/PROPOSAL — EVENT SIZES FROM THE HOLMES–RAHE SCALE.md`⟧
 

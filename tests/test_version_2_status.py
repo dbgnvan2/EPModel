@@ -1,0 +1,102 @@
+"""The version 2 status page (`docs/version_2_status.md`) and the stage 2 conditions W1 and W4.
+
+Purpose: prove that every `M11.C` criterion has a row with a status (W1, S2.8), that the sweep column is a fraction
+         and never a verdict (W4, `M11.5`, S2.9), that a verdict changed since the tag `version-1` is not final and a
+         verdict that is the tag's carries version 1's disposition (W1, S2.10), and that the page is what the tool
+         renders (S2.11).
+Spec:    docs/implementation_plan_version_2.md#2.3 (S2.8–S2.11); docs/bowen_agent_model_spec_v2.md#M11.5
+Tests:   this file
+
+These read the committed records and dispositions; nothing here runs the engine. Every patched module attribute is
+restored by ``mock.patch``.
+"""
+
+from __future__ import annotations
+
+import re
+from unittest import mock
+
+import tools.version_1_status as v1
+import tools.version_2_status as tool
+
+STATUS_WORDS = ("PASS", "FAIL", "pass", "fail")
+
+
+def _sweep_cells(text: str) -> dict[str, str]:
+    table = text.split("## Every criterion", 1)[1]
+    cells = {}
+    for line in table.splitlines():
+        if line.startswith("| `"):
+            parts = [c.strip() for c in line.strip().strip("|").split("|")]
+            cells[parts[0].strip("`")] = parts[6]
+    return cells
+
+
+def test_w1_s2_8_every_criterion_has_a_status():
+    """Every `M11.C` id in the spec's criteria table has a row (a built one per record row, an unbuilt one otherwise),
+    every row has a status, and the rendered page shows each."""
+    rows = tool.statuses()
+    spec = v1.spec_criteria()
+    bases = {s.key.split("[", 1)[0] for s in rows}
+    assert set(spec) <= bases, sorted(set(spec) - bases)
+    assert all(s.status for s in rows)
+    assert len({s.key for s in rows}) == len(rows)
+    text = tool.render(rows)
+    for s in rows:
+        assert f"| `{s.key}` |" in text
+    assert "- W1 (every criterion has a final status):" in text
+    not_final = {s.key for s in rows if not s.final}
+    assert not_final == {s.key for s in rows if "W1" in s.blocks}
+
+
+def test_w4_s2_9_sweep_column_is_a_fraction_not_a_verdict(tmp_path):
+    """A swept criterion's cell is *n of S held*; a directional criterion not swept says so; a premise or check and
+    an unbuilt criterion get a dash; no cell of the column is a pass or a fail word. The reader shows an errored
+    count beside the fraction and never folds it into S."""
+    with mock.patch.object(tool, "sweep_fractions", return_value={"M11.C.16": "5 of 8 held"}):
+        rows = tool.statuses()
+        text = tool.render(rows)
+    by_key = {s.key: s for s in rows}
+    assert by_key["M11.C.16"].sweep == "5 of 8 held" and "W4" not in by_key["M11.C.16"].blocks
+    passing_unswept = [s for s in rows if s.verdict == "PASS" and s.cls in v1.DIRECTIONAL and s.key != "M11.C.16"]
+    assert passing_unswept and all(s.sweep == "not swept" and "W4" in s.blocks for s in passing_unswept)
+    assert all(s.sweep == "—" for s in rows if s.cls in v1.PREMISE_LIKE)
+    assert all(s.sweep == "—" for s in rows if s.verdict == "not built")
+    cells = _sweep_cells(text)
+    assert cells["M11.C.16"] == "5 of 8 held" and len(cells) == len(rows)
+    assert not any(re.search(r"\b(PASS|FAIL|pass|fail)\b", cell) for cell in cells.values())
+    assert "- W4 (every passing directional criterion has a sweep result): **not met**" in text
+    record = tmp_path / "sweep.md"
+    record.write_text('# r\n\nengine_hash: abc\n\n```json\n[{"criterion": "M11.C.16", "held": 3, "counted": 7, '
+                      '"errored": 1, "samples": 8}]\n```\n', encoding="utf-8")
+    assert tool.sweep_fractions(record) == {"M11.C.16": "3 of 7 held (1 errored, not counted)"}
+    assert tool.sweep_fractions(tmp_path / "missing.md") == {}
+
+
+def test_w1_s2_10_a_changed_verdict_is_not_final():
+    """A row whose verdict is not the tag's says it changed, is not final and blocks W1, and version 1's disposition
+    is not applied to it; a row whose verdict is the tag's carries the disposition; a criterion the tag's page does
+    not have is new, not changed."""
+    tag = tool.tag_verdicts()
+    assert tag["M11.C.16"] == "PASS" and tag["M11.C.42"] == "FAIL"
+    rows = {s.key: s for s in tool.statuses()}
+    c42 = rows["M11.C.42"]
+    assert c42.verdict == "FAIL" and c42.at_tag == "FAIL" and c42.status == "fail accepted as a finding"
+    assert c42.final and c42.note and "owner 2026-10-17" in c42.note
+    new = [s for s in rows.values() if s.at_tag == "—" and s.verdict != "not built"]
+    assert new and not any(tool.CHANGED in s.status for s in new)
+    flipped = dict(tag, **{"M11.C.16": "FAIL", "M11.C.42": "PASS"})
+    with mock.patch.object(tool, "tag_verdicts", return_value=flipped):
+        changed = {s.key: s for s in tool.statuses()}
+    for key in ("M11.C.16", "M11.C.42"):
+        s = changed[key]
+        assert s.status.endswith(tool.CHANGED) and not s.final and "W1" in s.blocks
+        assert s.at_tag == flipped[key]
+    assert not changed["M11.C.42"].note  # the tag's disposition does not apply to a changed verdict
+    text = tool.render(list(changed.values()))
+    assert "| FAIL | PASS |" in text and tool.CHANGED in text
+
+
+def test_s2_11_status_page_is_current():
+    """The committed page is what the tool renders from the committed records (P6)."""
+    assert tool.PAGE.read_text(encoding="utf-8") == tool.render(tool.statuses())

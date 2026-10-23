@@ -1,7 +1,8 @@
 # Version 2: implementation plan
 
-**Status: stage 1 APPROVED 2026-10-19; stage 2 plan DRAFTED 2026-10-23, decisions D8–D13 taken as recommended under
-the owner's instruction of 2026-10-22, pending the owner's review (§2.2; D14–D16 follow the pilot, §2.10).** The owner
+**Status: stage 1 APPROVED 2026-10-19; stage 2 plan DRAFTED 2026-10-23 and its pilot BUILT 2026-10-23 on the branch
+`stage-2-plan-pilot` (§2.10), decisions D8–D16 taken as recommended under the owner's instruction of 2026-10-22, pending
+the owner's review (§2.2, §2.10); the full sweep did not run (projected 44 h at 8 samples, over the 4-hour rule, §2.10).** The owner
 decided D1–D7 on 2026-10-19, every one as recommended (§1.2), and approved the stage 1 plan. **Built, reviewed and regenerated 2026-10-19 (steps 0–7, §1.10): no verdict changed against
 the tag `version-1`. The `/csdp` sweep's fixes (step 8) were made 2026-10-20 and pushed the same day with the owner's
 approval; CI run 39449517708 passed on Python 3.11, 3.12 and 3.13 (S1.10c). A cold sweep's fixes were made
@@ -694,7 +695,7 @@ turns one into a verdict.
 | S2.13 (revision 37) | `M17.A.1` states D8's rule and where it applies; `M17.E.1` says a sample's verdict is `M17.A.1`'s and the fraction is a measurement beside the gating verdict; the spec's status line, `docs/spec_revision_log.md`, the indexes and the rules view agree | `tests/test_spec_consistency.py`, `tests/test_doc_claims.py::test_d1_spec_revision_restatements_match_the_front_matter`, the index-current tests | — |
 | W1 | every criterion has a final status | S2.8, S2.10 | — |
 | W2 | every premise and check passes | the status page's conditions block, S2.11 | — |
-| W3 | every passing composite has a recorded mutation | the existing `test_m111d_*` tests; the page's W3 condition shows `M11.C.44` without one (T-122) | — |
+| W3 | every passing composite has a recorded mutation | the existing `test_m111d_*` tests; the page's W3 condition names the passing rows without one: `M11.C.11` and `M11.C.15`, whose red mutants survived at revision 36 (`version_2_revision_36_changes.md`), and `M11.C.48` in both variants (T-123) | — |
 | W4 | every passing directional criterion has a sweep result | S2.9; the page's W4 condition names the passing rows not yet swept, met only when the full sweep has run | — |
 | `M17.E.1`'s named ratio | not done in this stage's pilot (D10); declared with the full sweep's ranges | — | — |
 
@@ -774,8 +775,12 @@ page as changed and pending the owner's review; this stage does not decide them.
 - `tools/sweep_record.py`'s docstring still calls its six points `M17.E.1`'s sweep ("Spec: ... #M17.E.1"). It is the
   D9 sweep; `M17.E.1`'s is this stage's. Changing the docstring would move that record's `HASHED_TOOLS` hash and rerun
   it (5 min 42 s); left until that record is rerun for another reason.
-- `M11.C.44` passes at revision 36 with no recorded mutation (T-122), so W3 is not met on it; the status page shows
-  this. Deciding it is the owner's (stage 3 or a disposition), not this stage's.
+- W3 is not met on four passing rows at revision 36: `M11.C.11` and `M11.C.15`, whose red mutants
+  (`removed-member-hold-released-while-away`, `death-bound-anxiety-discarded`) survived at the regeneration
+  (`version_2_revision_36_changes.md`), and `M11.C.48` in both variants, whose mutant survives (T-123). `M11.C.44`,
+  FAIL → PASS at revision 36 (T-122), has `one-sided-deviation` red, so W3 is met on it; the draft of this plan said
+  the opposite and was corrected when the status tool was built. The status page shows all of this. Deciding the
+  four is the owner's (stage 3 or a disposition), not this stage's.
 - The runner's precision condition (`_converged`) depends on the seed count alone once the two arms' spreads are
   alike, so the adaptive stop converges at the first block on most criteria and the "adaptive" size is in practice 50,
   100 or 150. This is what makes T-018 bite; it is recorded here for the owner, not changed (an engine change).
@@ -783,7 +788,82 @@ page as changed and pending the owner's review; this stage does not decide them.
   FAIL; a one-at-a-time sweep already shows that criterion's verdict is a property of the central point.
   The stage 2 sweep will say so with a fraction; nothing to fix.
 
-### 2.10 Build record
+### 2.10 Build record (2026-10-23)
 
-Not built at this commit. Written when the pilot has run (steps 2–7), with each criterion's test shown failing under
-its mutation, the pilot's wall time, the projection, D14–D16 and the reviews.
+Steps 1–6 are built on the branch `stage-2-plan-pilot`: the plan alone in `497e7ba`, then one build commit (the
+sweep driver, its config, the status tool, their tests, spec revision 37 and the documents) and the review fixes.
+Nothing in `src/bowen/` changed; `engine_hash()` printed `66dcbb1e8ba5` before the build and after it. No ensemble,
+mutation or diagnostic record was rerun. Each criterion's test was shown failing under its mutation in place, with the
+original restored by the scratch script's `try/finally` and checked equal afterwards; none is kept in the tree.
+
+| ID | Test | Mutation | Result |
+|---|---|---|---|
+| S2.1 | `tests/test_version_2_sweep.py::test_m17a1_s2_1_a_near_limit_sample_is_rerun_at_the_fixed_count` | `near_limit` always False | fails |
+| S2.1 | `…::test_m17a1_s2_1_a_clear_effect_is_not_rerun` | `near_limit` always True | fails |
+| S2.1 | `…::test_m17a1_s2_1_a_fixed_seed_criterion_is_not_rerun` | the `seeds < fixed` guard removed | fails |
+| S2.2 | `…::test_m17e1_s2_2_fraction_counts_only_passing_samples_and_reports_errors` | errored samples kept in the denominator | fails |
+| S2.3 | `…::test_s2_3_samples_stay_in_range_are_whole_and_seeded` | the draw seeded without the criterion's key | fails |
+| S2.3 | `…::test_s2_3_a_longer_draw_begins_with_the_shorter_one` | the sample count folded into the seed | fails |
+| S2.4 | `…::test_s2_4_a_cached_result_on_a_stale_hash_is_not_reused` (P8) | `run_cached`'s key without the engine hash (`tools/record_cache.py`) | fails |
+| S2.5 | `…::test_s2_5_record_renders_from_the_cache_and_a_missing_result_raises` | a cache-only build runs a child | fails |
+| S2.5 | `…::test_s2_5_a_premise_is_never_swept` | the class check removed | fails |
+| S2.6 | `…::test_s2_6_sweep_config_is_loaded_strictly_with_grades` | the bracketing check removed (`tools/sweep_config.py`) | fails |
+| S2.6 | `…::test_s2_6_no_range_or_rule_literal_in_the_tool` | `detection_limit_seeds` read as the literal 200 | fails |
+| S2.7 | `…::test_m17e1_s2_7_a_sample_edits_each_constant_row_once` | an integer written as `6.0` | fails |
+| S2.8 | `tests/test_version_2_status.py::test_w1_s2_8_every_criterion_has_a_status` | one unbuilt criterion dropped from the page | fails |
+| S2.9 | `…::test_w4_s2_9_sweep_column_is_a_fraction_not_a_verdict` | a fraction of one half or more rendered as PASS | fails |
+| S2.10 | `…::test_w1_s2_10_a_changed_verdict_is_not_final` | the tag's verdict ignored | fails |
+| S2.11 | `tests/test_version_2_sweep.py::test_s2_11_sweep_record_is_current`, `tests/test_version_2_status.py::test_s2_11_status_page_is_current` | record-current tests; a hand edit to either page fails them by construction | — |
+| S2.12 | the existing record-current tests, and `engine_hash()` printed before and after | — | `66dcbb1e8ba5` both times |
+| S2.13 | `tests/test_doc_claims.py`, `tests/test_spec_consistency.py` at revision 37 | — | pass |
+
+**The pilot (step 5).** `python3 tools/version_2_sweep.py --workers 10`, started 04:11:23 and finished 04:19:19 on
+2026-10-23 on this Mac: **476 s wall** for 24 child runs — 16 first runs (8 samples × 2 criteria) and 8 reruns at
+200 seeds, every one of `M11.C.42`'s samples and none of `M11.C.16`'s. `M11.C.16` held in **8 of 8** samples;
+`M11.C.42` held in **0 of 8** (`docs/version_2_sweep_record.md`). Neither number is a verdict (`M11.5`); at 8 samples
+they time the sweep and say nothing about the width of a band. No sample was undetermined or errored.
+
+**The projection (step 7, §2.5's method).** Per sample, the pilot cost 29.8 s against the Phase C record's 7.9 s per
+row at the same 10 workers (190 s / 24 rows), a ratio of 3.76: each sample is its own child (a copy of the repository
+and a fresh import), and half the samples were rerun at 200 seeds. Applying that ratio to each record's measured
+time per row (Phase C 7.9 s, part I 29.1 s, part II 682.5 s; `CHANGELOG.md` 2026-10-23) over the directional rows
+(14, 13, 7): the full sweep at 8 samples is **44 h**, part II alone 40 h; Phase C and part I together 4.1 h; Phase C
+alone 56 min. At 32 samples, 176 h. **Over the owner's 4-hour rule, so the full sweep did not run**; the sweep record
+holds the pilot only. The projection assumes the pilot's rerun rate (one in two) and part II's per-row time at the
+sweep's sampled constants; both are measured on two Phase C criteria only, and part II's figure is the least certain.
+
+**D14 — the narrow fraction (W4's mark).** *Recommended:* a criterion is marked *narrow* when the direction held in
+fewer than half of the counted samples, and the mark is read only from a sweep of at least 32 samples; below that
+the column shows the fraction and no mark. The pilot's 8 samples cannot show a band, so the mark is not built in
+stage 2 and its rule is not in `config/sweep/sweep.md`; it goes in, with its test, with the first sweep that has 32
+samples. **Decided as recommended under the owner's instruction of 2026-10-22, pending the owner's review.**
+
+**D15 — the full sweep.** *Recommended:* not run in this session (44 h, above). The next step within the rule is
+Phase C's 14 directional criteria at 8 samples (56 min), then part I's 13 (3.2 h) in a session of its own; part II's
+seven at 8 samples (40 h) need the engine's part II arms to get faster first or a smaller sample, and the owner should
+choose which. **Decided as recommended under the owner's instruction of 2026-10-22, pending the owner's review.**
+
+**D16 — the drafted requirements (D13 re-decided).** *Recommended:* none of `M17.A.2`, `M17.B.1`, `M17.E.3` and
+`M17.E.6` comes into stage 2. The pilot showed no need: both criteria gave a verdict at every sample, and the one
+sweep rule the pilot needed (the detection limit) is `M17.A.1`'s. **Decided as recommended under the owner's
+instruction of 2026-10-22, pending the owner's review.**
+
+**Where the build differs from the plan.**
+- **"Changed at revision 36" is written "changed since the tag `version-1`"** (D11). The tool compares the current
+  record with the frozen page and cannot know at which revision a verdict moved; the status cell names the tag and
+  T-122, and the page's header says T-122 is where the changes are listed. The data is the same.
+- **W3's unmet rows are `M11.C.11`, `M11.C.15` and `M11.C.48` (both variants), not `M11.C.44`** (§2.4's W3 row and
+  §2.9, corrected when the status tool first ran). `M11.C.44` has `one-sided-deviation` red in the Phase C mutation
+  record; the two Phase D criteria's red mutants survived at revision 36.
+- **`tools/version_2_status.py` repeats version 1's status rules** (about 90 lines of `tools/version_1_status.py`)
+  instead of importing them, because the frozen tool's `statuses()` reads its own `record_rows()`, which fails on
+  `main`. Its live readers (the spec's table, the mutation records, the not-built lists, the dispositions) are
+  imported. If the frozen tool is ever unfrozen, the rules can be shared.
+- **The sweep config's tables are checked by header**, not by cell count: a table whose header is not the declared
+  column names raises, so a column added or reordered cannot be read as another.
+- **`docs/records_cache/sweep_v2.json`** holds the pilot's 24 results; a `FAILED` result is never written to it.
+- **Three renders moved with the revision number only:** the seed-7 trace and chart and the famdiag export print the
+  spec's revision, so revision 37 re-rendered them (the same seed, the same engine; `git diff` shows the one line).
+  `tools/record_changes.py` lists the two new pages under *not compared*, which re-rendered both changes pages.
+
+**The reviews (step 6).** Recorded below when run.

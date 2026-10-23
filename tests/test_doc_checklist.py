@@ -1,6 +1,6 @@
 """The review checklist names every document, and every name in it resolves.
 
-Purpose: keep docs/SPEC_REVIEW_CHECKLIST.md a complete index of docs/ and config/bowen/, so a
+Purpose: keep docs/SPEC_REVIEW_CHECKLIST.md a complete index of docs/, config/bowen/ and config/sweep/, so a
          reviewer reading from it never misses a document and never follows a dead link.
 Spec:    CLAUDE.md — "Documentation stays current with the build"
 Tests:   this file
@@ -16,7 +16,7 @@ from pathlib import Path
 REPO = Path(__file__).resolve().parents[1]
 DOCS = REPO / "docs"
 CHECKLIST = DOCS / "SPEC_REVIEW_CHECKLIST.md"
-COVERED_ROOTS = (DOCS, REPO / "config" / "bowen")
+COVERED_ROOTS = (DOCS, REPO / "config" / "bowen", REPO / "config" / "sweep")  # config/sweep since stage 2 (D12)
 
 # Markdown link targets: `](<path with spaces>)` or `](path)`.
 _LINK = re.compile(r"\]\(<([^>]+)>\)|\]\(([^)\s]+)\)")

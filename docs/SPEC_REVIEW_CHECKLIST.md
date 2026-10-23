@@ -24,7 +24,7 @@ Reviewer: ________  Started: ________  Spec revision reviewed: ________
 
 These define what the model does. A run that disagrees with them is a defect.
 
-- [ ] [bowen_agent_model_spec_v2.md](bowen_agent_model_spec_v2.md) — the spec (v2.0, revision 36; version 1 is
+- [ ] [bowen_agent_model_spec_v2.md](bowen_agent_model_spec_v2.md) — the spec (v2.0, revision 37; version 1 is
       revision 32). Objects (M1), reference family (M2), clocks and ordering (M3), the fast tick (M4), moves (M5),
       invariants (M6), the slow tick (M7), live positions (M8), beliefs (M9), parameters (M10), acceptance criteria
       (M11), framing (M11.F), the readout schema (M11.G), out of scope (M12), the run log and trace (M16).
@@ -43,6 +43,7 @@ These define what the model does. A run that disagrees with them is a defect.
 - [ ] [../config/bowen/contact_classes.md](../config/bowen/contact_classes.md) — which acts across a tie count as negative or positive contact (`M1.D.2b`, `M1.D.2c`, `M11.C.48`; revision 36).
 - [ ] [../config/bowen/event_sizes.md](../config/bowen/event_sizes.md) — the Holmes–Rahe life-change units each stressor the engine raises is sized from (`M1.F.6a`; revision 36).
 - [ ] [../config/bowen/policy.md](../config/bowen/policy.md) — the selection policy.
+- [ ] [../config/sweep/sweep.md](../config/sweep/sweep.md) — the stage 2 constant sweep's rules (`sweep_samples`, `sweep_seed`, the detection-limit multiple and seed count) and, per swept criterion, the `[I]` constants its mechanism reads with their ranges (`M17.E.1`, `M17.A.1`; revision 37). Read by `tools/version_2_sweep.py` only, never by the engine; outside `config/bowen/` because the engine hash covers that directory (plan D12).
 - [ ] [../config/bowen/family_phase_c.md](../config/bowen/family_phase_c.md) — the family run in Phase C.
 - [ ] [../config/bowen/family_phase_d.md](../config/bowen/family_phase_d.md) — the reference family the owner specified (spec `M2.A`, revision 13), with its life course from revision 28: starting ages as settings, who earns, the coachee (`M2.A.0j`, `M2.A.0k`).
 - [ ] [../config/bowen/partners_phase_d.md](../config/bowen/partners_phase_d.md) — the reference family's partners and their children, drafted for the owner to edit (spec `M7.C.1h`, `M7.C.1i`, revision 28).
@@ -193,6 +194,10 @@ verdicts over ensembles (`tools/phase_d_record.py`; plan step 12). Mutations are
 **Approved 2026-10-19:** [implementation_plan_version_2.md](implementation_plan_version_2.md) — version 2's implementation plan, stage 1 (the engineering batch): what the code shows against the version 2 plan's items 1.1–1.8, seven decisions (D1–D7, decided by the owner 2026-10-19, all as recommended), each criterion with its test and mutation, the order of work, and the one run. Code, tests and documents built 2026-10-19, and every record regenerated the same day (its §1.10). Its §2 is stage 2's plan (the measurement stage), drafted 2026-10-23, decisions D8–D13 taken as recommended under the owner's instruction of 2026-10-22, pending the owner's review; the pilot's build record is its §2.10.
 
 **Generated, 2026-10-19:** [version_2_stage_1_changes.md](version_2_stage_1_changes.md) — the records in its table compared, row by row, with the same rows at the tag `version-1`, from `tools/record_changes.py`: each changed verdict, moved effect and changed value; the other records are listed under "Not compared here" (review MR-20, 2026-10-21). Stage 1 changed none. Frozen 2026-10-23: both sides read from git, the tag and stage 1's regeneration commit `7aa9fc5` (T-028).
+**Generated, 2026-10-23 (stage 2 pilot):** [version_2_sweep_record.md](version_2_sweep_record.md) — the stage 2 constant sweep (`M17.E.1`): for each swept criterion, *n of S* samples over the declared ranges (`config/sweep/sweep.md`) in which the direction held, with every sample's values, seeds, rerun under the detection-limit rule (`M17.A.1`) and verdict; a measurement, never a verdict. From `tools/version_2_sweep.py`, rendered from `records_cache/sweep_v2.json`. The pilot: `M11.C.16` and `M11.C.42` at 8 samples.
+
+**Generated, 2026-10-23 (stage 2 pilot):** [version_2_status.md](version_2_status.md) — every `M11.C` criterion with its verdict now, its verdict at the tag `version-1`, its mutation evidence, its sweep fraction and its status under W1–W4 (`implementation_plan_version_2.md` §2.3), from `tools/version_2_status.py`; a verdict changed since the tag is not final (T-122).
+
 **Generated, 2026-10-23:** [version_2_revision_36_changes.md](version_2_revision_36_changes.md) — the same records at stage 1's regeneration (`7aa9fc5`) compared with the records after spec revision 36's one regeneration, from `tools/record_changes.py revision-36`: a changed verdict is a new result under a new rule, reported beside version 1's verdict (`M11.F`), never a finding when the criterion is a premise (`M11.5`).
 
 **Approved 2026-10-21:** [milestone_review_brief.md](milestone_review_brief.md) — the brief for a

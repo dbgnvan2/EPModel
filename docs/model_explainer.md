@@ -1983,13 +1983,22 @@ Each is a rule about how a criterion is written or proved, not about what the mo
 ### 18.7 Phase E — the ensemble runner (`M17`)
 
 `M17` is a first draft of Phase E, kept in the one master specification on the owner's decision. Nothing in it
-is built during Phases B–D except the stopping rule, which the owner brought into Phases C and D (`M13.4`).
+was built during Phases B–D except the stopping rule, which the owner brought into Phases C and D (`M13.4`).
+Version 2's stage 2 builds the constant sweep (`M17.E.1`) and the detection-limit rule it adds to `M17.A.1`
+(`implementation_plan_version_2.md` §2; spec revision 37, decided as recommended under the owner's instruction of
+2026-10-22, pending the owner's review). Its record is `docs/version_2_sweep_record.md`.
 
 - **Stopping** (`M17.A` · C26, C27, C25; DL §2.6). Seeds are added in blocks until the uncertainty on the
   per-seed difference is small enough, up to a cap; a criterion that has not settled at the cap is reported
   **UNDETERMINED**, which is neither a pass nor a fail. A minimum effect is declared in advance so that sheer
   ensemble size cannot make a trivial difference significant. `[SHOWN]` Blando et al. 2026 §4 and §7, as
-  practice; Röchert et al. 2022, where 1,000 replicates made every difference significant.
+  practice; Röchert et al. 2022, where 1,000 replicates made every difference significant. **The detection limit
+  in a sweep** `[I]` (revision 37, plan D8): a sweep sample whose first run leaves any gating effect within
+  `detection_limit_multiple` half-widths of zero is run again at a fixed `detection_limit_seeds` seeds, by setting
+  the runner's block and cap to that count in the sample's copy of `constants.md`; the sample's verdict is the
+  second run's and both seed counts are recorded; a first run at or above that count is not rerun. The multiple
+  (2.0) and the count (200) are `[I]`, in `config/sweep/sweep.md`. The gating records themselves adopt the rule
+  at their next regeneration (T-018).
 - **Per-seed readouts** (`M17.B` · C28, C29, C39, C40, C41; DL §7.10(f)). Each seed is classified — the arms
   agreed, one converted, one reversed; the trajectory settled, oscillated, or had not resolved — instead of
   averaging across seeds. A time-to-event report must not collapse a two-peaked distribution into one
@@ -2008,7 +2017,15 @@ is built during Phases B–D except the stopping rule, which the owner brought i
   between two arms of one model (§17.1), so any comparison with a mechanism disabled — these arms, the
   learning-off arms of §18.6, and the quantum-jump ablation of spec `M10.C.4a` — tests the model's structure and is never reported as an effect on a family.
 - **Sweeps** (`M17.E` · DL §2.3, E-DR, C31, C37, C38). The fraction of the invented constants' range over
-  which each direction holds; a dose–response curve for the one constant a criterion depends on most, sharing
+  which each direction holds — built in stage 2 as `tools/version_2_sweep.py` `[I]` (revision 37, plan D10, D11):
+  for each swept criterion the `[I]` constants its mechanism reads are drawn jointly over ranges declared in
+  `config/sweep/sweep.md` (half to double the central value, the Phase C D9 sweep's rule, capped at 1 for a
+  share and whole for a count of ticks), each sample runs as an edit of `constants.md` in a copy of the
+  repository through `tools/mutant_runner.py`, so the engine hash does not move, and the result is *n of S*
+  samples held, with undetermined and errored samples counted apart. A fraction is a measurement beside the
+  gating verdict, never a verdict, and no premise or check is swept (`M11.5`). The sweep config is outside
+  `config/bowen/` because the engine hash covers that directory and a sweep's ranges are an input to a
+  measurement, not to the model; a dose–response curve for the one constant a criterion depends on most, sharing
   that range (kept as two requirements, approved by the owner); for threshold constants, the exact interval within which nothing changes, computed from logged
   margins (`[SHOWN]` Kurz 2025, Lemma 3); sensitivity checked at two or more reference configurations, because a
   perturbation can be harmless at one and decisive at another (`[SHOWN]` TRAILS §4.2); and interaction

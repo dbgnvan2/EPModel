@@ -1,0 +1,6 @@
+# The sweep machines only (tools/version_2_sweep.py, M17.E.1; docs/two_mac_sweep.md). Every cached sweep result to
+# 2026-10-23 was made under NumPy 1.26.4 (davemini2's Python 3.12, installed 2024-05-29; Mac Mini1's .venv), and the
+# sweep refuses to run under any other version. requirements.txt leaves NumPy unpinned for CI, which tests Python
+# 3.11-3.13, and 1.26.4 has no wheel for 3.13.
+-r requirements.txt
+numpy==1.26.4

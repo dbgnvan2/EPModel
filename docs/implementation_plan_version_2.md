@@ -3,7 +3,7 @@
 **Status: stage 1 APPROVED 2026-10-19; stage 2 plan DRAFTED 2026-10-23 and its pilot BUILT 2026-10-23 on the branch
 `stage-2-plan-pilot` (§2.10), decisions D8–D16 taken as recommended under the owner's instruction of 2026-10-22, pending
 the owner's review (§2.2, §2.10); the full sweep did not run (projected 44 h at 8 samples, over the 4-hour rule, §2.10); Phase C's 14 directional
-criteria SWEPT 2026-10-23 on the branch `stage-2-phase-c-sweep` at 8 samples, 27 min (§2.10).** The owner
+criteria SWEPT 2026-10-23 on the branch `stage-2-phase-c-sweep` at 8 samples, 27 min (§2.10); the tooling to split the sweep across two Macs BUILT 2026-10-23 (§2.10).** The owner
 decided D1–D7 on 2026-10-19, every one as recommended (§1.2), and approved the stage 1 plan. **Built, reviewed and regenerated 2026-10-19 (steps 0–7, §1.10): no verdict changed against
 the tag `version-1`. The `/csdp` sweep's fixes (step 8) were made 2026-10-20 and pushed the same day with the owner's
 approval; CI run 39449517708 passed on Python 3.11, 3.12 and 3.13 (S1.10c). A cold sweep's fixes were made
@@ -990,6 +990,35 @@ and `estimator_breadth` in `M11.C.17`; (6) `M11.C.23`'s arm setting `suppression
 0.4 to its bound 1.0, and the perspective gains are capped at 1, above which the channel weight passes 1 and the
 steering factor can turn negative (`src/bowen/policy/policy.py`, lines 193 and 289); (9) a Phase D criterion's
 results are keyed by the Phase D mutation record's hash, printed as a second line of the record.
+
+**The two-Mac tooling (2026-10-23, the branch `claude/sharp-gauss-30cf8a`, before part II).** Part II's seven
+criteria are projected at 23–40 h on one Mac, so the sweep can now run on this Mac and Mac Mini1 at once
+(`docs/two_mac_sweep.md`). `tools/version_2_sweep.py --criteria KEY ...` checks every declared key first (central
+record, directional class), refuses an undeclared key, runs only its share and writes only the cache, every entry
+kept (`Cache.flush`, not `Cache.save`, which keeps only the keys a run read and would drop the other share's
+results); it never writes the record, because a partial record would replace the whole one and fail S2.11 until
+the merge. `--recompute` drops the named criteria's cached results and runs them again (a failed rerun keeps the
+earlier result), the cross-check that two Macs compute the same numbers: a split by criterion shares no key, so the
+merge's conflict check could not otherwise fire. `--render-only` renders the record from the cache and runs
+nothing. `tools/merge_cache.py` writes the union of two cache files and refuses, writing nothing, when one key holds
+two results, the files' NumPy versions differ or either records none, or a sweep is running on this Mac (it would
+overwrite the merge at its next write). The NumPy version is recorded in the cache file under `_meta`, outside the
+result keys, so no cached result is orphaned. The committed cache was stamped `1.26.4` once, on 2026-10-23, by
+`check_numpy` before it was made to refuse a cache holding results and no version; every one of its 361 results was
+made under that version (this Mac's Python 3.12, NumPy installed 2024-05-29). `requirements-sweep.txt` pins
+`numpy==1.26.4` for sweep machines; a run under another version, or another than its cache's, is refused, and
+`--render-only` is not checked, so CI stays green on NumPy 2 (`requirements.txt` stays unpinned: Python 3.11–3.13,
+and 1.26.4 has no 3.13 wheel). `tools/two_mac_sweep.py` checks that Mac Mini1 matches (commit, clean tracked files,
+both engine hashes, Python, CPU, NumPy against the pin; macOS reported), checks the keys here before any SSH, starts
+the share detached with the venv's Python and `START`/`EXIT` lines in its log, refuses when a run is going or
+`pgrep` fails, confirms the run is alive after 15 s, and copies the cache back to a new file. The `learning-qa`
+pass found seven items (no cross-machine check; `start` not confirming the run; no exit status in the log; a merge
+lost under a running sweep; an unstamped cache stamped silently; untested render-only and retry paths; `pgrep`
+failing open), all fixed. Tests: `tests/test_sweep_two_macs.py`, 31 tests (43 with parameters), each shown failing
+under mutation (46 mutants, all killed). Nothing in `src/bowen/` changed, `engine_hash()` printed `66dcbb1e8ba5`
+before and after and `phase_d_engine_hash()` `5c3865dcf8f9`; no record was rerun. Not verified: the cross-check
+has not been run, so bit-identity across the two Macs (both arm64, Python 3.12.3, NumPy 1.26.4; macOS 15.7.9 and
+15.7.8) is untested, and the driver has not run against a live Mac Mini1 beyond its `pgrep` call.
 
 **Where the build differs from the plan.**
 - **"Changed at revision 36" is written "changed since the tag `version-1`"** (D11). The tool compares the current

@@ -43,6 +43,7 @@ ERRORED = ("RAISED", "BROKEN", FAILED)
 INFRASTRUCTURE_ERRORS = ("BrokenProcessPool", "MemoryError", "OSError", "TimeoutError", "KeyboardInterrupt")
 ENGINE_TOOLS = (REPO / "tools" / "mutant_runner.py",)  # RULE_KEYS is in every hash (code_hash), not by file
 CHILD = "mutant_runner.py"
+META = "_meta"  # a cache file's own facts beside its results; a result key is a sha256 hex digest, so never this
 _uncached: list[tuple[str, str]] = []  # this process's errored rows, (outcome, "label → id"), for ``exit_status``
 
 
@@ -58,11 +59,12 @@ def result_key(engine: str, definition: dict | None, item: str) -> str:
 
 
 class Cache:
-    """A JSON file of results by key. ``save`` keeps only the keys used since loading, so stale entries go."""
+    """A JSON file of results by key. ``save`` keeps only the keys used since loading, so stale entries go. ``meta`` is
+    the file's own facts, kept under ``META`` beside the results and never a result key (the sweep's NumPy version)."""
 
     def __init__(self, name: str):
         self.path = CACHE_DIR / f"{name}.json"
-        self.entries = json.loads(self.path.read_text(encoding="utf-8")) if self.path.exists() else {}
+        self.entries, self.meta = read_cache_file(self.path) if self.path.exists() else ({}, {})
         self.used: set[str] = set()
 
     def get(self, key: str) -> dict | None:
@@ -75,20 +77,29 @@ class Cache:
 
     def flush(self) -> None:
         """Write every entry, pruning nothing: called after each run, so a later failure loses no finished result."""
-        self._write(self.entries)
+        write_cache_file(self.path, self.entries, self.meta)
 
     def save(self) -> None:
         """Write the entries used since loading: called once a whole record has been built."""
-        self._write({k: self.entries[k] for k in self.used if k in self.entries})
+        write_cache_file(self.path, {k: self.entries[k] for k in self.used if k in self.entries}, self.meta)
 
-    def _write(self, entries: dict) -> None:
-        """Write a whole file beside the cache and move it into place, so a kill mid-write leaves the last whole
-        file, not a cut one the next run cannot read (security pass, 2026-10-19)."""
-        CACHE_DIR.mkdir(parents=True, exist_ok=True)
-        partial = self.path.with_name(f"{self.path.name}.{os.getpid()}.partial")  # one per run (git ignores it)
-        partial.write_text(json.dumps(dict(sorted(entries.items())), indent=1, sort_keys=True, default=float) + "\n",
-                           encoding="utf-8")
-        os.replace(partial, self.path)
+
+def read_cache_file(path: Path) -> tuple[dict, dict]:
+    """A cache file's results and its ``META`` (empty when the file has none)."""
+    entries = json.loads(path.read_text(encoding="utf-8"))
+    return entries, entries.pop(META, {})
+
+
+def write_cache_file(path: Path, entries: dict, meta: dict) -> None:
+    """Write a whole file beside the cache and move it into place, so a kill mid-write leaves the last whole file, not
+    a cut one the next run cannot read (security pass, 2026-10-19). An empty ``meta`` writes no ``META`` key."""
+    if META in entries:
+        raise ValueError(f"{path.name}: {META} is the file's own facts, never a result key")
+    path.parent.mkdir(parents=True, exist_ok=True)
+    partial = path.with_name(f"{path.name}.{os.getpid()}.partial")  # one per run (git ignores it)
+    payload = {**({META: meta} if meta else {}), **entries}
+    partial.write_text(json.dumps(payload, indent=1, sort_keys=True, default=float) + "\n", encoding="utf-8")
+    os.replace(partial, path)
 
 
 def _is_row(r: dict) -> bool:

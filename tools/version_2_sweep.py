@@ -14,7 +14,11 @@ Spec:    docs/bowen_agent_model_spec_v2.md#M17.E.1, #M17.A.1 (the detection-limi
          docs/implementation_plan_version_2.md#2.2 (D8, D10, D11)
 Tests:   tests/test_version_2_sweep.py
 
-    python3 tools/version_2_sweep.py [--workers N]
+    python3 tools/version_2_sweep.py [--workers N] [--criteria KEY ... [--recompute] | --render-only]
+
+``--criteria`` runs one machine's share and writes only the cache (``--recompute`` drops that share's cached
+results first, for the two machines' cross-check); ``--render-only`` renders the record from the cache and runs nothing (the two-Mac run, ``docs/two_mac_sweep.md``). A run refuses a NumPy other than the sweep
+machines' pin (``requirements-sweep.txt``) or the one its cache records.
 
 The detection-limit rule (D8): a sample whose first run, under the runner's adaptive stop, leaves any gating
 readout's mean difference within ``detection_limit_multiple`` half-widths of zero is run again with the stopping
@@ -31,6 +35,7 @@ import argparse
 import json
 import math
 import os
+import re
 import sys
 from pathlib import Path
 
@@ -47,6 +52,7 @@ from tools.record_json import record_json  # noqa: E402
 from tools.sweep_config import Range, central_values, load_config  # noqa: E402
 
 RECORD = REPO / "docs" / "version_2_sweep_record.md"
+SWEEP_REQUIREMENTS = REPO / "requirements-sweep.txt"  # the sweep machines' NumPy pin; CI installs requirements.txt
 CACHE_NAME = "sweep_v2"
 CONSTANTS = "config/bowen/constants.md"
 STOPPING_ROWS = ("ensemble_block", "ensemble_cap")  # the runner's block and cap, both set to the fixed count (D8)
@@ -239,32 +245,118 @@ def render(results: list[dict], centrals: dict[str, dict], rules: dict, engine: 
     return "\n".join(lines)
 
 
-def build(cache: Cache, workers: int | None = None) -> str:
-    """The record, from the cache. With ``workers``, missing results are run first; without, a missing result raises
-    ``KeyError``, so a test can check the committed record without running anything."""
+def _checked(only: list[str] | None = None) -> tuple[dict, dict]:
+    """The rules and the ranges to sweep, once every declared key has been checked (a central record, a directional
+    class) and every key of ``only`` is found declared: nothing runs before all of it passes."""
     rules, ranges = load_config()
-    central, centrals, engine, phase_d_engine = central_values(), central_verdicts(), engine_hash(), phase_d_engine_hash()
-    for key in ranges:  # every key checked before any sample runs
+    centrals = central_verdicts()
+    for key in ranges:
         if key not in centrals:
             raise SystemExit(f"{key}: swept but in no ensemble record")
         if centrals[key]["class"] not in DIRECTIONAL:
             raise SystemExit(f"{key}: a {centrals[key]['class']} is not swept (M11.5; plan D10)")
-    results = [sweep_criterion(cache, key, declared, rules, central, workers, phase_d_engine, PHASE_D_CHILD.name)
-               if centrals[key]["record"] in PHASE_D_RECORDS
-               else sweep_criterion(cache, key, declared, rules, central, workers, engine)
-               for key, declared in ranges.items()]
-    return render(results, centrals, rules, engine, phase_d_engine)
+    unknown = [key for key in only or () if key not in ranges]
+    if unknown:
+        raise SystemExit(f"{', '.join(unknown)}: not declared in config/sweep/sweep.md; nothing ran")
+    return rules, {key: declared for key, declared in ranges.items() if only is None or key in only}
 
 
-def main() -> int:
+def sweep(cache: Cache, workers: int | None = None, only: list[str] | None = None) -> list[dict]:
+    """Each criterion's result, in the config's order; with ``only``, those criteria alone (a share of a run split
+    across machines, docs/two_mac_sweep.md). With ``workers``, missing results are run first; without, a missing
+    result raises ``KeyError``."""
+    rules, ranges = _checked(only)
+    central, centrals, engine, phase_d_engine = central_values(), central_verdicts(), engine_hash(), phase_d_engine_hash()
+    return [sweep_criterion(cache, key, declared, rules, central, workers, phase_d_engine, PHASE_D_CHILD.name)
+            if centrals[key]["record"] in PHASE_D_RECORDS
+            else sweep_criterion(cache, key, declared, rules, central, workers, engine)
+            for key, declared in ranges.items()]
+
+
+def build(cache: Cache, workers: int | None = None) -> str:
+    """The record, from the cache. With ``workers``, missing results are run first; without, a missing result raises
+    ``KeyError``, so a test can check the committed record without running anything."""
+    results = sweep(cache, workers)
+    rules, _ranges = load_config()
+    return render(results, central_verdicts(), rules, engine_hash(), phase_d_engine_hash())
+
+
+# --- the NumPy version ------------------------------------------------------------------------------------------
+
+def sweep_numpy_pin() -> str:
+    """The NumPy version the sweep machines run, from ``requirements-sweep.txt``'s one ``numpy==`` line."""
+    pins = re.findall(r"^numpy==(\S+)\s*(?:#.*)?$", SWEEP_REQUIREMENTS.read_text(encoding="utf-8"), re.MULTILINE)
+    if len(pins) != 1:
+        raise SystemExit(f"{SWEEP_REQUIREMENTS.name}: {len(pins)} numpy== lines, not one")
+    return pins[0]
+
+
+def check_numpy(cache: Cache, version: str, pin: str) -> None:
+    """Refuse a run under a NumPy other than the pin, or other than the one the cache's results were made under, and
+    record the version in the cache's ``meta``, outside the result keys: a key that carried it would orphan every
+    cached result. A cache that holds results and records no version is of unknown origin and is refused; only a new
+    or empty cache takes the running version (the committed cache was stamped 1.26.4 on 2026-10-23, the version all
+    its results were made under on davemini2)."""
+    if version != pin:
+        raise SystemExit(f"NumPy {version} is installed; the sweep machines run {pin} ({SWEEP_REQUIREMENTS.name}). "
+                         "Nothing ran.")
+    recorded = cache.meta.get("numpy")
+    if recorded is None and cache.entries:
+        raise SystemExit(f"{cache.path.name}: holds {len(cache.entries)} results and records no NumPy version, so "
+                         "they cannot be shown to match this one. Nothing ran.")
+    if recorded is not None and recorded != version:
+        raise SystemExit(f"{cache.path.name}: its results were made under NumPy {recorded}, and NumPy {version} is "
+                         "installed. Nothing ran.")
+    cache.meta["numpy"] = version
+
+
+def _shown(path: Path) -> Path:
+    return path.relative_to(REPO) if path.is_relative_to(REPO) else path
+
+
+def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--workers", type=int, default=os.cpu_count() or 1)
-    args = parser.parse_args()
+    parser.add_argument("--criteria", nargs="+", metavar="KEY",
+                        help="run only these criteria and write only the cache, never the record (one machine's "
+                             "share, docs/two_mac_sweep.md); every declared key is still checked first")
+    parser.add_argument("--recompute", action="store_true",
+                        help="with --criteria: drop those criteria's cached results first and run them again, so a "
+                             "merge compares two machines' results for the same runs (docs/two_mac_sweep.md)")
+    parser.add_argument("--render-only", action="store_true",
+                        help="run nothing: render the record from the cache, or stop if a result is missing")
+    args = parser.parse_args(argv)
+    if args.criteria and args.render_only:
+        parser.error("--criteria runs a share and writes no record; --render-only runs nothing")
+    if args.recompute and not args.criteria:
+        parser.error("--recompute reruns the criteria named by --criteria, and needs them")
     cache = Cache(CACHE_NAME)
-    text = build(cache, args.workers)
+    if not args.render_only:
+        check_numpy(cache, np.__version__, sweep_numpy_pin())
+    if args.criteria:
+        if args.recompute:
+            _checked(args.criteria)  # every key checked before any result is dropped
+            dropped = {k: r for k, r in cache.entries.items() if r.get("criterion") in args.criteria}
+            for k in dropped:
+                del cache.entries[k]
+            print(f"dropped {len(dropped)} cached result(s) of {', '.join(args.criteria)} to run them again")
+        results = sweep(cache, args.workers, args.criteria)
+        if args.recompute:  # a result whose rerun failed is not lost: the earlier one is put back, and counted
+            kept = {k: r for k, r in dropped.items() if k not in cache.entries}
+            cache.entries.update(kept)
+            if kept:
+                print(f"{len(kept)} of {len(dropped)} result(s) not run again (failed); the earlier ones kept")
+        cache.flush()  # every entry kept: the other share's results and earlier ones are not this run's to prune
+        print(f"swept {len(results)} criteria into {_shown(cache.path)}; the record is not written until "
+              "every share is merged (tools/merge_cache.py) and rendered (--render-only)")
+        return exit_status()
+    try:
+        text = build(cache, None if args.render_only else args.workers)
+    except KeyError as missing:
+        raise SystemExit(f"{missing.args[0]}; the record is not written") from None
     cache.save()
     RECORD.write_text(text, encoding="utf-8")
-    print(f"wrote {RECORD.relative_to(REPO)}")
+    print(f"wrote {_shown(RECORD)}")
     return exit_status()
 
 

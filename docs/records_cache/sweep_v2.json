@@ -6577,6 +6577,9 @@
   ],
   "seeds": 200
  },
+ "_meta": {
+  "numpy": "1.26.4"
+ },
  "a037127bb994a21340b5dbac7eaa5ed6201c71c82c9fb9940f19056140611ada": {
   "criterion": "M11.C.27[stable,remove_one]",
   "outcome": "FAIL",

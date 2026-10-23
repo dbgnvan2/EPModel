@@ -146,9 +146,12 @@ only the missing samples run.
 
 ## Not verified
 
-- That the two Macs give bit-identical results for every criterion. The cross-check was run once, 2026-10-23, on
-  `M11.C.16`: Mac Mini1 recomputed its 8 results in 3 min 7 s and the merge found all 361 results equal, 0 added.
-  That covers one Phase C criterion with no rerun; no Phase D criterion and no 200-seed rerun has been compared.
-  Both Macs are arm64, with Python 3.12.3 and NumPy 1.26.4; macOS is 15.7.9 here and 15.7.8 on Mac Mini1.
+- That the two Macs give bit-identical results for every criterion. The cross-check was run twice, 2026-10-23, and
+  the merge found all 361 results equal, 0 added, each time: on `M11.C.16` (Phase C; Mac Mini1 recomputed its 8
+  results in 3 min 7 s) and on `M11.C.23` (Phase D part I; Mac Mini1 dropped its 9 cached results and ran them
+  again, 8 first runs and sample 1's rerun at 200 seeds, in 1 min 16 s; its cache file came out byte-identical to the
+  committed one). Two of the 27 swept criteria were compared, one of each child and one 200-seed rerun; no part II
+  criterion is declared yet. Both Macs are arm64, with Python 3.12.3 and NumPy 1.26.4; macOS is 15.7.9 here and
+  15.7.8 on Mac Mini1.
 - `tools/two_mac_sweep.py` against a live Mac Mini1 was run once, 2026-10-23: `check`, `start`, `status` and `fetch`
   all worked over SSH. A dropped connection and its retries have not been seen live; the tests stub them.

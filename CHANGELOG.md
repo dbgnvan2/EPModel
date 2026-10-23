@@ -42,6 +42,10 @@ All notable changes to this project are recorded here. Dates are ISO.
   runs, exit 0), then `fetch` and `tools/merge_cache.py`, reported 0 results added and 361 already there and equal:
   Mac Mini1 recomputed `M11.C.16`'s 8 results bit for bit. Not compared yet: a Phase D criterion and a 200-seed
   rerun. `docs/two_mac_sweep.md`'s *Not verified* and the plan's §2.10 updated; no code or record changed.
+- A second cross-check, `M11.C.23` (Phase D part I), dropped its 9 cached results on Mac Mini1 and ran them again (8
+  first runs and sample 1's rerun at 200 seeds, 14:40:40–14:41:56, exit 0); the merge again reported 0 added and 361
+  equal, and Mac Mini1's cache file matched the committed one byte for byte. The owner chose, for part II: declare its
+  seven criteria's ranges with no run started; run it later on Mac Mini1 alone at 8 samples.
 
 ### Stage 2: the sweep can run on two Macs (2026-10-23)
 

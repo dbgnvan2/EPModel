@@ -1021,7 +1021,7 @@ Mac Mini1 pulled to `8501fc0`, `tools/two_mac_sweep.py check` found the two Macs
 hashes, Python 3.12.3, NumPy 1.26.4 (the pin) and arm64, macOS 15.7.9 here and 15.7.8 there printed; the cross-check
 (`start --criteria M11.C.16 --recompute --workers 10`, 14:28:38–14:31:45 on Mac Mini1, 8 child runs, exit 0;
 `fetch`; `tools/merge_cache.py`) reported 0 results added and 361 already there and equal, so Mac Mini1 recomputed
-`M11.C.16`'s 8 results bit for bit. One Phase C criterion was compared; no Phase D criterion and no 200-seed rerun was.
+`M11.C.16`'s 8 results bit for bit. A second cross-check the same day, `M11.C.23` (14:40:40–14:41:56, 9 child runs: 8 first runs and one rerun at 200 seeds, all dropped and run again), also merged 0 added and 361 equal, so a Phase D criterion and a 200-seed rerun match too. The owner, 2026-10-23, on part II: its seven criteria's ranges are to be declared and committed with no run started; when it runs, it runs on Mac Mini1 alone at 8 samples (D15's count).
 
 **Where the build differs from the plan.**
 - **"Changed at revision 36" is written "changed since the tag `version-1`"** (D11). The tool compares the current

@@ -30,9 +30,11 @@ any policy reads.
 
 Below the turn (s > 0) each partner on an interactive tie moves ``s × max(0, partner's excess above usual)`` of their
 acute anxiety into the bearer's ``symptom_bound``: the family calms around the symptom. Past the turn (s < 0)
-``min(1, |s|)`` of the bound stock goes back to those partners each week, and the same share of the bearer's own
-excess above usual spills to them, split equally: the symptom destabilises what it was holding, and holds the bearer's
-anxiety no longer. When the symptom ends (re-arm) or a ``binder_unavailable`` names it, the whole bound stock goes back. Every
+``min(1, |s|)`` of the bound stock goes back each week, and the same share of the bearer's own excess above usual
+spills: the symptom destabilises what it was holding, and holds the bearer's anxiety no longer. Both are split among the
+living family members on interactive ties by the bond energy of the bearer's tie to each (``_release_shares``, G2, spec
+revision 36); ties all at zero split equally, and an external agent takes none. When the symptom ends (re-arm) or a
+``binder_unavailable`` names it, the whole bound stock goes back, split the same way. Every
 movement is a transfer in `M6.4`'s table (``lock_in``). Removal (`INSTITUTIONALIZE`) makes the ties non-interactive,
 so both directions stop; the bound stock stays with the bearer. No rule writes resistance to removal or relief on it.
 

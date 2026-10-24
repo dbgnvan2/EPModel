@@ -16,6 +16,41 @@ Each entry gives the batch, how the miss was found, what the earlier passes miss
 missed it: the pattern was absent from the catalogue, the pattern was present but did not fire, or the code was
 outside the reviewed range.
 
+### 2026-10-24 · version 2 stage 2 (`9cf8552...d51b250`) · second milestone review
+
+- **Why it ran.** The milestone review at the end of stage 2 (`docs/milestone_review_brief.md`), on mini2, with none
+  of the build history: four lens workers and a challenge pass over 53 commits. The report is
+  `docs/cycles/2026-10-24_milestone-review_v2-stage-2.md`; the triage is
+  `docs/todo/2026-10-24_stage_2_milestone_review.md`.
+- **What it found.** 28 findings: 0 blocker, 1 major, 27 minor, in four themes. The triage dropped none: 22 hold as
+  stated and 6 in part. Every one was new in this range except two spec fragments in `M10` and one ruff item.
+- **The main miss (MR-1, P6).** `M17.E.1` requires the rate ties harden, relative to the rate anxiety moves, to be
+  swept as a named ratio. The stage 2 plan deferred it "with the full sweep's ranges"; the full sweep then ran in three
+  batches, none of which declared it, and the coverage page kept `M17.E.1` *done* on 36 tests of sweep mechanics.
+  No TODO item held the deferral, so when its trigger passed nothing fired. The batches' reviews checked what each
+  batch built, not what the plan had deferred to it.
+- **The smaller misses.**
+  - SP-C (P6): revision 36 changed three rules (`REDUCE_CUTOFF`'s transfer, the cutoff's end, `CONFLICT` binding and
+    `OPEN_CONFLICT`). Each landed in the code, the requirement and one explainer passage; a second explainer passage,
+    five docstring passages, a register row, T-004 and a coverage override kept the old rule. Revision 36's review
+    read the diff, and the stale text was outside it.
+  - SP-D (P21, as stage 1's SP-3): coverage rule 2 counted a strict expected failure as a passing test, and the status
+    page labelled a pass whose named mutant had survived "no recorded mutation". Stage 1 recorded the pattern; it did
+    not fire on the xfail added at revision 36 or the status tool added at stage 2.
+  - SP-B: test names in spec rows and `Tests:` lines are never resolved, so a renamed test leaves a dead name and the
+    suite stays green. The stage 2 review found three; T-004 held two more.
+  - SP-A (P6, stage 1's SP-2, T-015 still open): the status-line test reads only the first status word, so a status
+    that moves within the settled class goes unchecked.
+- **Rule.** A deferral is a TODO item with a trigger, not a sentence in a plan. When a plan defers a clause to a later
+  step, the step's batch checks the clause off or re-defers it by name.
+- **Cost.** The review: 426,430 subagent tokens and 17.5 minutes plus writing (its header). The triage: two agents
+  checked the 22 unchallenged findings, about 233k tokens and 6 minutes.
+- **Outcome (2026-10-24).** The owner decided the review's seven questions and the batch scope, each as recommended.
+  This batch fixed every finding that leaves the engine hash alone: spec revision 38 (wording), the explainer, the
+  status lines, the coverage tool and overrides, the sweep tool, the status tool, the record renderers, and tests
+  including SP-B's gate. The `src/bowen` docstrings and lint wait for the next change that moves the engine hash
+  (T-129); `M17.E.1`'s ratio goes to stage 3's plan (T-128).
+
 ### 2026-10-21 · version 2 stage 1 (`version-1...9cf8552`) · first milestone review
 
 - **Why it ran.** The first milestone review (`docs/milestone_review_brief.md`), at the end of stage 1, from the tag

@@ -70,6 +70,8 @@ A full extraction, cited to the interview. It also supports:
 
 Any finding drawn from it **MUST** cite the interview rather than a person, and **MUST NOT** be quoted verbatim.
 
+**What counts as quotation** (the owner, 2026-10-24, the stage 2 milestone review's Q3; both ASR sources): a single word taken from a transcript, such as "grotesque", is not quotation and may be used with its citation; a phrase of two or more words taken from a transcript is quotation, and is paraphrased.
+
 ## Coverage map — Kerr–Bowen series against model areas
 
 Term frequencies, speaker-agnostic. Highest counts per area in bold.

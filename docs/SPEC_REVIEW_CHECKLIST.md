@@ -11,8 +11,8 @@ without this list being updated, and when a link here points at a file that no l
 are parsed by `src/bowen/io/load.py` at run time, so they stay with the config; they are linked from here.
 
 **Approved, for an outside reviewer:** [REVIEWER_READING_LIST.md](REVIEWER_READING_LIST.md) (approved by the owner
-2026-10-20; revised 2026-10-21, not yet reviewed by the owner: "Before you start", §8's 2026-10-21 entry, §9's link to
-the milestone review brief, and corrections from the stage 1 milestone review) selects the documents that describe
+2026-10-20; revised 2026-10-21, 2026-10-22, 2026-10-23 and 2026-10-24, not yet reviewed by the owner: "Before you start", §8's 2026-10-21 entry, §9's link to
+the milestone review brief, corrections from the stage 1 and stage 2 milestone reviews, and the rows for stage 2's pages) selects the documents that describe
 what the model does and how it works, in reading order, says which version to review, and lists known problems in the
 documents.
 
@@ -24,11 +24,11 @@ Reviewer: ________  Started: ________  Spec revision reviewed: ________
 
 These define what the model does. A run that disagrees with them is a defect.
 
-- [ ] [bowen_agent_model_spec_v2.md](bowen_agent_model_spec_v2.md) — the spec (v2.0, revision 37; version 1 is
+- [ ] [bowen_agent_model_spec_v2.md](bowen_agent_model_spec_v2.md) — the spec (v2.0, revision 38; version 1 is
       revision 32). Objects (M1), reference family (M2), clocks and ordering (M3), the fast tick (M4), moves (M5),
       invariants (M6), the slow tick (M7), live positions (M8), beliefs (M9), parameters (M10), acceptance criteria
       (M11), framing (M11.F), the readout schema (M11.G), out of scope (M12), the run log and trace (M16).
-- [ ] [spec_revision_log.md](spec_revision_log.md) — the spec's revision history, 4 to 35, and its front-matter
+- [ ] [spec_revision_log.md](spec_revision_log.md) — the spec's revision history, 4 to 38, and its front-matter
       status line as it stood at revision 34, moved out of the spec at revision 35 (2026-10-22). Why a rule is as it
       is; the spec holds the rule.
 - [ ] **Approved by the owner 2026-10-22:** [spec_revision_35_dispositions.md](spec_revision_35_dispositions.md) — revision
@@ -236,10 +236,10 @@ whose body carries a revision narrative, for the owner's Part E decision (`tools
 current by `tests/bowen/test_spec_rules_view.py`). Not normative: where a view and the spec differ, the spec
 wins.
 
-**Parts A, B and C built 2026-10-22; D and E wait on the owner's answers to its §8:**
+**Parts A to E built 2026-10-22, the owner's §8 answers applied:**
 [plan_model_ergonomics.md](plan_model_ergonomics.md) — making the spec, the ledger and the code cheaper for a
-model to read: a machine-readable index of the spec and of the ledger, a current-rules view of the spec, and
-(not started) thinner docstrings and the spec's history moved out of it.
+model to read: a machine-readable index of the spec and of the ledger, a current-rules view of the spec,
+thinner docstrings and the spec's history moved out of it.
 
 **Parts A and B built 2026-10-20 (owner 2026-10-20):**
 [plan_spec_coverage_phase_d.md](plan_spec_coverage_phase_d.md) — why `spec_coverage.md` read "after Phase C" and how

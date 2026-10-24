@@ -98,7 +98,7 @@ import pytest
 from src.bowen.engine.event_effects import apply_structural_event
 from src.bowen.engine.events import BinderKind, BinderRef, Channel, Event, EventId, SourcePosition
 from src.bowen.engine.invariants import ledger_problems, snapshot
-from src.bowen.engine.symptoms import expressed_channel, lock_in, lock_in_coefficient, release_bound, tolerance_removal
+from src.bowen.engine.symptoms import expressed_channel, lock_in, lock_in_coefficient, tolerance_removal
 
 RAVI, PIA = PersonId("ravi"), PersonId("pia")
 

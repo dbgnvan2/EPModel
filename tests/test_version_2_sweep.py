@@ -172,6 +172,47 @@ def test_m17a1_s2_1_a_criterion_fixing_its_own_seeds_below_the_count_is_refused(
         tool.build(Cache("sweep_test"), 1)
 
 
+def test_m17a1_a_criterion_fixing_its_own_seeds_is_refused_before_its_rerun_runs(tmp_path):
+    """Review MR-12 (owner 2026-10-24): the refusal comes before the rerun is run, so the criterion's own seeds are
+    never run a second time. Mutation: the check before the rerun removed (the rerun runs, then the backstop refuses)."""
+    reruns = []
+
+    def child(mutant, _tool, ids, _workers, _label):
+        if _is_rerun(mutant):
+            reruns.append(mutant.id)
+        answer = RERUN[_index(mutant)] if _is_rerun(mutant) else FIRST[_index(mutant)]
+        return [_row(cid, *answer, 100) for cid in ids]
+
+    patches = _patched(tmp_path, child=child)
+    with patches[0], patches[1], patches[2], patches[3], patches[4], \
+            mock.patch.object(tool, "own_seeds", return_value=100), \
+            pytest.raises(SystemExit, match="fixes its own seed count at 100"):
+        tool.build(Cache("sweep_test"), 1)
+    assert reruns == []
+
+
+def test_m17a1_a_criterion_fixing_its_own_seeds_is_swept_while_no_sample_needs_a_rerun(tmp_path):
+    """Review MR-12 (owner 2026-10-24): a criterion that fixes fewer seeds than the rerun count is swept, not refused,
+    when every sample clears the detection limit, as `M11.C.48`'s eight did. Mutation: the refusal moved before any
+    run (the build raises)."""
+    def child(mutant, _tool, ids, _workers, _label):
+        return [_row(cid, "PASS", 3.0, 0.3, FIRST_SEEDS) for cid in ids]
+
+    patches = _patched(tmp_path, child=child)
+    with patches[0], patches[1], patches[2], patches[3] as ran, patches[4], \
+            mock.patch.object(tool, "own_seeds", return_value=100):
+        text = tool.build(Cache("sweep_test"), 1)
+    assert not any(_is_rerun(call.args[0]) for call in ran.call_args_list)
+    for result in _results(text):
+        assert result["reruns"] == 0 and result["held"] == result["counted"] == result["samples"] == 8
+
+
+def test_m17a1_own_seeds_reads_the_criterions_section():
+    """`M11.C.48` fixes 100 seeds, and its Phase D variant reads the same section; a criterion with no count has none."""
+    assert tool.own_seeds("M11.C.48") == 100 and tool.own_seeds("M11.C.48[phase_d]") == 100
+    assert tool.own_seeds("M11.C.16") is None
+
+
 # --- S2.2 the fraction ------------------------------------------------------------------------------------------
 
 def test_m17e1_s2_2_fraction_counts_only_passing_samples_and_reports_errors(tmp_path):
@@ -480,3 +521,19 @@ def test_s2_11_sweep_record_is_current():
     config, without running anything (P6); a stale cache or a changed range would raise here."""
     with mock.patch.object(record_cache, "child_rows", side_effect=AssertionError("ran a child in a test")):
         assert tool.RECORD.read_text(encoding="utf-8") == tool.build(Cache(tool.CACHE_NAME))
+
+
+def test_m17e1_a_known_defect_is_printed_beside_the_central_verdict():
+    """Milestone review MR-3: the sweep record showed `M11.C.48`'s central PASS unqualified. A key of the Phase D
+    record tool's ``VERDICT_NOTES`` is printed with its note in the summary table's central-verdict cell and under its
+    own heading; the machine-readable block is unchanged. Mutation: the renderer does not read the notes."""
+    from tools.phase_d_record import VERDICT_NOTES
+
+    with mock.patch.object(record_cache, "child_rows", side_effect=AssertionError("ran a child in a test")):
+        text = tool.build(Cache(tool.CACHE_NAME))
+    for key, note in VERDICT_NOTES.items():
+        row = next(line for line in text.splitlines() if line.startswith(f"| `{key}` |"))
+        assert f"| PASS ({note}) |" in row, row
+        heading = text.split(f"## `{key}` — ", 1)[1].split("\n## ", 1)[0]
+        assert f"Central verdict PASS: {note}." in heading
+    assert text.count("(T-119)") == 2 * len(VERDICT_NOTES)

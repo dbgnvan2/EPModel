@@ -10,7 +10,8 @@ Purpose: the readout G1's order of work puts first (`docs/PROPOSAL — CUTOFF AN
          `docs/review/group_g_readout.md` and keeps the other label's section, so "before" (the engine before revision
          36) and "after" stand side by side. Everything here is a measurement; it writes no rule.
 Spec:    docs/bowen_agent_model_spec_v2.md#M1.D.2b, #M11.C.48
-Tests:   tests/test_group_g_readout.py::test_g1_readout_section_is_rendered_from_measurements
+Tests:   tests/test_group_g_readout.py::test_g1_readout_section_is_rendered_from_measurements,
+         tests/test_group_g_readout.py::test_g1_readout_page_keeps_the_other_labels_section
 
     python3 tools/group_g_readout.py --label before|after [--seeds 20] [--workers 10]
 """
@@ -19,7 +20,6 @@ from __future__ import annotations
 
 import argparse
 import datetime as dt
-import math
 import re
 import statistics
 import sys

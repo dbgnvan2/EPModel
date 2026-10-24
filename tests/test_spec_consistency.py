@@ -304,8 +304,8 @@ def test_requirement_counts_agree_with_the_spec():
     )
 
 
-def _collected_test_count() -> int:
-    """The number of tests pytest collects — what "all N tests pass" claims.
+def _collected() -> tuple[int, list[str]]:
+    """The number of tests pytest collects — what "all N tests pass" claims — and their node IDs.
 
     Counting `def test_*` in the AST was the earlier method. It undercounts a
     parametrized test, misses files outside the glob, and agreed with the real
@@ -318,7 +318,23 @@ def _collected_test_count() -> int:
     )
     match = re.search(r"^(\d+)(?:/\d+)? tests? collected", result.stdout, re.M)
     assert match, f"could not read pytest's collection count:\n{result.stdout[-2000:]}{result.stderr[-2000:]}"
-    return int(match.group(1))
+    return int(match.group(1)), [line for line in result.stdout.splitlines() if "::" in line]
+
+
+def _collected_test_count() -> int:
+    return _collected()[0]
+
+
+def _collected_expected_failures(node_ids: list[str]) -> int:
+    """How many collected tests are expected failures, as `tools/spec_coverage.py` reads the marks (MR-20)."""
+    import importlib.util
+
+    spec = importlib.util.spec_from_file_location("spec_coverage_for_count", REPO / "tools" / "spec_coverage.py")
+    tool = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(tool)
+    xfails = tool.expected_failures()
+    return sum(1 for node in node_ids
+               if f"{node.split('::', 1)[0]}::{node.rsplit('::', 1)[1].split('[', 1)[0]}" in xfails)
 
 
 # D4.1: "N tests pass", "N tests passing", "N tests green", "N tests, all passing", and one word between, as in
@@ -351,7 +367,7 @@ def test_claimed_test_count_matches_the_suite():
 
     Spec:  docs/plan_doc_claim_tests.md#D4 (the widened pattern, D4.1–D4.4)
     """
-    total = _collected_test_count()
+    total, node_ids = _collected()
     # Every document, not CLAUDE.md alone: "37 tests green" sat stale in
     # _STATUS.md and CHANGELOG.md while CLAUDE.md's own figure was correct.
     # "37 tests, all passing" sat stale in README.md's Layout block while the
@@ -364,9 +380,22 @@ def test_claimed_test_count_matches_the_suite():
         if bad:
             wrong[rel] = bad
     claude = (REPO / "CLAUDE.md").read_text(encoding="utf-8")
-    assert re.search(r"all \d+ tests pass", claude), (
-        "CLAUDE.md no longer states a suite size; the green-suite gate is gone"
-    )
+    # Stage 2 milestone review MR-20: "all N tests pass" was untrue while one test is a strict expected failure, so the
+    # gate reads "N tests: P pass and X is a strict expected failure" as well, and checks its sum.
+    gate = re.search(r"all (\d+) tests pass|(\d+) tests: (\d+) pass and (\d+) (?:is a|are) strict expected failures?", claude)
+    assert gate, "CLAUDE.md no longer states a suite size; the green-suite gate is gone"
+    # The expected-failure figure is checked against the marks, not only the sum (learning-qa 2026-10-24): "all N
+    # pass" is refused while any collected test is an expected failure, and X must be how many are.
+    xfails = _collected_expected_failures(node_ids)
+    if gate.group(1):
+        assert xfails == 0, f"CLAUDE.md says {gate.group(0)!r}, but {xfails} collected tests are expected failures"
+    else:
+        assert int(gate.group(2)) == total == int(gate.group(3)) + int(gate.group(4)), (
+            f"CLAUDE.md's suite size {gate.group(0)!r} does not add up to the {total} tests collected"
+        )
+        assert int(gate.group(4)) == xfails, (
+            f"CLAUDE.md's gate names {gate.group(4)} expected failures; {xfails} collected tests are marked xfail"
+        )
     assert wrong == {}, f"documents claim a suite size that is not {total}: {wrong}"
 
 

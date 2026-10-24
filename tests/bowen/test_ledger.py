@@ -9,7 +9,6 @@ Tests:   this file
 
 from __future__ import annotations
 
-import dataclasses
 
 from src.bowen.engine.identifiers import PersonId, TieId
 from src.bowen.engine.initialise import initialise_run

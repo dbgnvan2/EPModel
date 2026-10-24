@@ -11,7 +11,6 @@ Tests:   this file
 from __future__ import annotations
 
 import ast
-import dataclasses
 import re
 from pathlib import Path
 from unittest import mock
@@ -19,9 +18,7 @@ from unittest import mock
 import numpy as np
 
 from src.bowen.engine import tick as tick_module
-from src.bowen.engine.contact import clamp_unit
 from src.bowen.engine.draws import DrawKey
-from src.bowen.engine.event_store import EventStore
 from src.bowen.engine.events import EventQueue
 from src.bowen.engine.identifiers import PersonId, TieId
 from src.bowen.engine.initialise import initialise_run
@@ -29,7 +26,7 @@ from src.bowen.engine.observe import observe
 from src.bowen.engine.state import canonical_state, new_run_state
 from src.bowen.engine.tick import run
 from src.bowen.io.load import CONFIG_DIR, load_constants, load_event_kinds, load_family, load_policy_rules, load_script
-from src.bowen.policy.policy import legal_outcomes, propensities
+from src.bowen.policy.policy import propensities
 from src.bowen.scenario.assemble import assemble
 from src.bowen.scenario.params import engine_params
 from src.bowen.scenario.policy_source import PolicySource

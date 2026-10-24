@@ -53,7 +53,10 @@ owner's ten decisions and what this batch fixed are in `CHANGELOG.md`. Open:
   - The test scans tracked files only, so a new document fails it only once it is added to git. Scanning untracked
     files would scan the owner's untracked files too.
   - `src/bowen/engine/live_positions.py:1` says the predicate is used in four places; revision 34 says three callers
-    (M8's preamble). The file is in the engine hash, so the fix waits for group G's regeneration.
+    (M8's preamble). The file is in the engine hash, so the fix waits for the next change that moves the engine hash
+    (re-pointed 2026-10-24, stage 2 review MR-22: group G's regeneration ran without it). The spec writes the rule
+    for four places and the fourth, `avoidance_available`, is not called, so the wording follows T-014's
+    avoidance-gate answer.
   - **Owner decision:** `docs/theory/family_evaluation/` and `docs/theory/kerr_book/` are exempt from the test as
     written-source notes, but four of their cross-references quote an ASR source: `ks07.md:159` (KB07 · K07.4),
     `ks19.md:148` (KB04), `fe10.md:303` (KB06) and `fe07.md:38` (Tape 2). Paraphrase them, or hold these notes like
@@ -64,8 +67,9 @@ owner's ten decisions and what this batch fixed are in `CHANGELOG.md`. Open:
     line. The tool writes in the app's format, so a key name cannot tell an owner's edit from a value an earlier
     version of the tool wrote; keeping every unknown key would keep stale run output. Owner edits to fields the tool
     draws (a name, a line's notes) are redrawn by design. The file is written in place, not atomically; it is in git.
-- [ ] T-012 ⟨later⟩ **With group G's regeneration.** Each of these edits moves a record hash, so it waits for a change that
-  reruns the records anyway (owner, D6 and D7):
+- [ ] T-012 ⟨later⟩ **With the next change that moves the engine hash.** Each of these edits moves a record hash, so it waits for a change that
+  reruns the records anyway (owner, D6 and D7, 2026-10-21; until 2026-10-24 the trigger was group G's regeneration, which ran on
+  2026-10-23 without it, stage 2 review MR-22):
   - MR-23: move the Phase C ensemble record onto `docs/records_cache`, as Phase D's records are: render it from the
     cache, take the tool out of its own hash, and compare the full render in `tests/bowen/test_ensemble_record.py`.
   - ~~`config/bowen/family_phase_d.md:19`: drop "awaiting owner review" from Teodor's 36.~~ *Done at revision 36
@@ -74,15 +78,21 @@ owner's ten decisions and what this batch fixed are in `CHANGELOG.md`. Open:
   "Blocking the next phase"). *Closed 2026-10-22: group G was built overnight under the owner's instruction of
   2026-10-22 ("proceed based on your recommendations"); Q3 stands as decided, cites no source, and is listed in the
   revision 36 report's decisions, with the correction quoted, for the owner's review.*
-- [ ] T-014 ⟨later⟩ **For the stage 3 question list** (owner, D4 and D10):
+- [ ] T-014 ⟨later⟩ **For the stage 3 question list** (owner, D4 and D10, 2026-10-21):
   - Build the `M5.C` avoidance gate (`avoidance_available`), or drop it from M8 and `M13.1`.
   - Q7, fusion: no caller passes a fusion map, so `positions_live`'s fused-occupant branches never run. The spec
     leaves open whether a fused occupant makes its triangle inactive.
   - Q8, the coach and SPLIT: `external.coach_side` has the coach always go along with a SPLIT (`M11.C.7`, classed
     Mixed). Is that intended?
-- [ ] T-015 ⟨later⟩ **SP-2: extend the document-claim tests** to the places where this review found stale prose: closing clauses
+  - `M7.D.1a` (stage 2 review Q5, owner 2026-10-24): every illness onset takes the "personal injury or illness"
+    size on all three channels. Should a social or mental onset carry it?
+- [ ] T-015 ⟨later⟩ **SP-2: extend the document-claim tests** (2026-10-21) to the places where this review found stale prose: closing clauses
   of status lines, the checklist's `- [ ]` items, the reading list's body, lists of standing decisions, counts in
-  prose, and the status notes in the reference-family table.
+  prose, and the status notes in the reference-family table. Stage 2's review (SP-A, 2026-10-24) adds:
+  `tests/test_doc_status.py` classifies a status line by its first word only, so a status that moves within the
+  settled class goes unchecked — a later revision (MR-5, MR-16), a later part built (MR-6), a review that closed
+  (MR-15, MR-17). Compare the dates and part lists as well. A front-matter `date:` older than the newest date in the
+  body (MR-19) needs a rule first: the field means creation in some documents and last edit in others.
 - [ ] T-016 ⟨later⟩ **Adjacent, not fixed** (found by the batch's learning-qa pass): `docs/theory/_LECTURES_1979.md:46` still says
   twelve of twenty-three items were probed and the rest are outstanding. Its own "Revision 1" section and
   `_STATUS.md`'s file map say all 23 were probed.

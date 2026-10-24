@@ -5,7 +5,7 @@
 > additions' loads) stands as decided and cites no source: the correction of 2026-10-19 below §2 is kept beside it,
 > and the owner was not asked again (decided as recommended under the owner's instruction of 2026-10-22, approved
 > by the owner 2026-10-24 in T-125).** Every question is
-> decided: the owner answered Q1–Q8 in §6 on 2026-10-19, each on Claude's recommendation. It is built in one batch with G1 and G2 (Q7), so it waits on G2's proposal (the
+> decided: the owner answered Q1–Q8 in §6 on 2026-10-19, each on Claude's recommendation. It was built in one batch with G1 and G2 (Q7), at revision 36 (the
 > version 2 plan was approved on 2026-10-19). The owner asked: "Can you
 > use the Holmes Ray scale of life events to create a relative distribution of anxiety vs. stressor." This proposal
 > compares the model's event sizes with the scale's and proposes one way to use it. Every form and number is Claude's

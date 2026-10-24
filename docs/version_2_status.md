@@ -29,7 +29,7 @@ Rows by status:
 - fail, no disposition; changed since the tag `version-1`, pending the owner's review (T-122): 4
 - out of scope: 4
 - pass: 30
-- pass, no recorded mutation: 4
+- pass, named mutant survived: 4
 - pass, proved by a test: 1
 - pass; changed since the tag `version-1`, pending the owner's review (T-122): 1
 
@@ -51,12 +51,12 @@ Rows by status:
 | `M11.C.9` | premise | — | not built | not built | no rule reads sibling position, so building it means a new mechanism, not a gate (`M1.A.14c`); out of version 1, Claude's recommendation 2026-10-17, decided by the owner 2026-10-17 (`docs/version_1_dispositions.md`) | — | out of scope | yes | — | No rule reads sibling position (`objects.py` documents it as never read by the propensity vector; `functional_sibling_position` is never written; no fixture has ranked siblings joined by a tie). The decision of 2026-10-15 to include it rested on "one gate that is partly built"; building it is a new mechanism whose profiles the spec leaves open (`M1.A.14c` gives one example) and which could write a pattern (§19). Recommended for version 2. *(owner 2026-10-17)* |
 | `M11.C.10` | composite | Phase D part II | FAIL | FAIL | `cut_off_tie_weeks` -38.4 ± 1.3e+02 | 1 of 8 held | fail accepted as a finding | yes | — | The arms' input barely differs: the parents already hold some rejection on some tie most weeks, and the held cutoff adds 0.08 to 0.12 to the first grandchild's origin cutoff (3 seeds, 12 years, ad hoc 2026-10-15). The family-of-origin variant passes and is proved red by removing `M4.D.6f`. *(owner 2026-10-17)* |
 | `M11.C.10[family of origin]` | composite | Phase D part II | FAIL | PASS | `cut_off_tie_weeks` -31.8 ± 1.3e+02 | 5 of 8 held | fail, no disposition; changed since the tag `version-1`, pending the owner's review (T-122) | no | W1 | — |
-| `M11.C.11` | mixed | Phase D part I | PASS | PASS | `disturbance` +6.32 ± 1.3 | 8 of 8 held | pass, no recorded mutation | no | W1, W3 | — |
+| `M11.C.11` | mixed | Phase D part I | PASS | PASS | `disturbance` +6.32 ± 1.3; survived: `removed-member-hold-released-while-away` (Phase D mutation record) | 8 of 8 held | pass, named mutant survived | no | W1, W3 | — |
 | `M11.C.12` | composite | Phase D part I | FAIL | FAIL | `marital_conflict` +0.1 ± 0.38 | 0 of 8 held | fail accepted as a finding | yes | — | Released anxiety raises the other spouse's excess, but more anxiety does not select `CONFLICT` in particular (`TODO.md`, B7). *(owner 2026-10-17)* |
 | `M11.C.13` | premise | — | not built | not built | needs incidents located in a community; the model has none | — | out of scope | yes | — | It needs incidents located in a community, and the model has no community (version 1 definition §4 question 4). *(owner 2026-10-15)* |
 | `M11.C.14[firmness]` | premise | Phase D part I | PASS | PASS | `child_symptom_load` +8.06 ± 3.1 | — | pass | yes | — | — |
 | `M11.C.14[talking it out]` | premise | Phase D part I | PASS | PASS | `child_symptom_load` -4.66 ± 2.4 | — | pass | yes | — | — |
-| `M11.C.15` | composite | Phase D part II | PASS | PASS | `death_rise` +3.54 ± 0.73; `recovery_rise` +5.63 ± 0.55 | 4 of 8 held | pass, no recorded mutation | no | W1, W3 | — |
+| `M11.C.15` | composite | Phase D part II | PASS | PASS | `death_rise` +3.54 ± 0.73; `recovery_rise` +5.63 ± 0.55; survived: `death-bound-anxiety-discarded` (Phase D mutation record) | 4 of 8 held | pass, named mutant survived | no | W1, W3 | — |
 | `M11.C.16` | composite | Phase C | PASS | PASS | `repertoire_entropy` -0.0435 ± 0.0061; proved by `level-blind` red (Phase C mutation record), `availability-level-inverted` red (Phase C mutation record), `availability-and-learner-removed` red (Phase C mutation record), `c16-grounds-removed` red (Phase C mutation record) | 8 of 8 held | pass | yes | — | — |
 | `M11.C.17` | composite | Phase D part I | FAIL | PASS | `coached_rise` +0.000272 ± 0.00042 | 4 of 8 held | fail, no disposition; changed since the tag `version-1`, pending the owner's review (T-122) | no | W1 | version 1 disposition, not applied (the verdict changed): note — Failed before the nodal-event spike; the owner asked for a diagnosis ("Diagnose coaching"), which found no defect, the effect dying at the estimator's evidence test. With the spike (revision 32) it passes, weakly; a recorded mutant (landed contact changes nothing) must turn it red (V3). *(owner 2026-10-19)* |
 | `M11.C.18` | check | Phase D part I | PASS | PASS | `rise` +0.0219 ± 0.0032 | — | pass | yes | — | — |
@@ -97,5 +97,5 @@ Rows by status:
 | `M11.C.45` | composite | Phase C | FAIL | FAIL | `triangle_rate` -0.00189 ± 0.0047 | 0 of 8 held | fail accepted as a finding | yes | — | The causes of `M11.C.42` and `M11.C.44` together: triangling is not learned, and there is no calm state near the floor. *(owner 2026-10-17)* |
 | `M11.C.46` | premise | Phase D part I | PASS | PASS | `seeker_relief` +1.44 ± 0.1; proved by `triangle-help-ignored` red (Phase D mutation record) | — | pass | yes | — | Its mutation clause is not met at the edge: since the nodal-event spike, the `triangle-help-ignored` mutant survives, because the bond swap's other channels leave a small difference (Phase D mutation record). Accepted as `M11.C.14`'s clause was; the readout is not restated after seeing the result. A premise, so V3 does not apply. *(owner 2026-10-19)* |
 | `M11.C.47` | premise | Phase D part II | PASS | PASS | `felt_danger` +0.087 ± 0.028; `principled_cutoff` +0.0435 ± 0.017 | — | pass | yes | — | — |
-| `M11.C.48` | composite | Phase D part II | PASS | — | `negative_run` +0.43 ± 0.15 | 8 of 8 held | pass, no recorded mutation | no | W1, W3 | — |
-| `M11.C.48[phase_d]` | composite | Phase D part II | PASS | — | `negative_run` +0.476 ± 0.06 | 8 of 8 held | pass, no recorded mutation | no | W1, W3 | — |
+| `M11.C.48` | composite | Phase D part II | PASS | — | `negative_run` +0.43 ± 0.15; survived: `cutoff-blind-to-learned-value` (Phase D mutation record) | 8 of 8 held | pass, named mutant survived | no | W1, W3 | — |
+| `M11.C.48[phase_d]` | composite | Phase D part II | PASS | — | `negative_run` +0.476 ± 0.06; survived: `cutoff-blind-to-learned-value` (Phase D mutation record) | 8 of 8 held | pass, named mutant survived | no | W1, W3 | — |

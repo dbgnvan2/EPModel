@@ -129,15 +129,40 @@ REWORDED_2 = (
 )
 
 
+# A known defect printed beside a verdict, in this record's verdict cell and in the sweep record's central-verdict cell
+# (tools/version_2_sweep.py), until the defect is fixed and the records regenerated (milestone review MR-3). A note
+# changes no verdict and nothing a run computes reads it; neither tool is in a cache key, so editing this re-renders
+# the records without a rerun. Remove a key's entry when the items it names close.
+VERDICT_NOTES = {
+    "M11.C.48": "not evidence (T-123); named mutant survived (T-119)",
+    "M11.C.48[phase_d]": "not evidence (T-123); named mutant survived (T-119)",
+}
+
+
+def noted(key: str, verdict: str) -> str:
+    """``verdict`` with ``key``'s note from ``VERDICT_NOTES`` beside it, or ``verdict`` alone."""
+    return f"{verdict} ({VERDICT_NOTES[key]})" if key in VERDICT_NOTES else verdict
+
+
 def render(verdicts, rules, hash_: str, part: int = 1) -> str:
     """The Phase C renderer's page, with its four Phase C phrases replaced; each must be found exactly once, so a
-    reworded renderer fails here rather than leaving Phase C text in this record (review 2026-10-13)."""
+    reworded renderer fails here rather than leaving Phase C text in this record (review 2026-10-13). A verdict with a
+    known defect carries its ``VERDICT_NOTES`` note in its cell."""
     text = _record.render(verdicts, NOT_BUILT if part == 1 else NOT_RUN_2, rules, hash_)
     for old, new in (REWORDED if part == 1 else REWORDED_2):
         if text.count(old) != 1:
             raise SystemExit(f"tools/ensemble_record.py's page no longer contains {old!r} once; update REWORDED")
         text = text.replace(old, new)
-    return text
+    lines = text.split("\n")
+    for v, _ in verdicts:
+        if v.criterion not in VERDICT_NOTES:
+            continue
+        rows = [i for i, line in enumerate(lines) if line.startswith(f"| `{v.criterion}` | {v.cls} | **{v.outcome}** |")]
+        if len(rows) != 1:
+            raise SystemExit(f"{v.criterion}: {len(rows)} verdict rows to note, not one")
+        old = f"| **{v.outcome}** |"
+        lines[rows[0]] = lines[rows[0]].replace(old, f"| {noted(v.criterion, f'**{v.outcome}**')} |", 1)
+    return "\n".join(lines)
 
 
 def main() -> int:

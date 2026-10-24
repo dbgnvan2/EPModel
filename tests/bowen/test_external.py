@@ -10,7 +10,6 @@ Unit tests of set mechanisms with invented constants; none is a finding (`M11.5`
 
 from __future__ import annotations
 
-import dataclasses
 from unittest import mock
 
 import pytest

@@ -10,7 +10,6 @@ Tests:   this file
 from __future__ import annotations
 
 import dataclasses
-import math
 from collections import deque
 from pathlib import Path
 
@@ -22,7 +21,7 @@ from src.bowen.engine.events import Mechanism, Role as DeliveryRole
 from src.bowen.engine.event_sizes import sized_intensity
 from src.bowen.engine.identifiers import PersonId, TieId, TriangleId, child_id
 from src.bowen.engine.life_course import (
-    GRIEF, INCOME_LOSS, age_at_death, die, due_events, find_work, total_anxiety, yearly, _birth, _childhood,
+    GRIEF, age_at_death, die, due_events, find_work, total_anxiety, yearly, _birth, _childhood,
 )
 from src.bowen.engine.log_records import CollectingEmitter, Tee, serialize
 from src.bowen.engine.objects import Relationship, Role, Sink

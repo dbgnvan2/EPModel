@@ -15,7 +15,6 @@ import io
 import os
 from pathlib import Path
 
-import pytest
 
 from src.bowen.engine.log_records import CollectingEmitter
 from src.bowen.engine.tick import run
@@ -29,7 +28,7 @@ def test_m16t2_engine_writes_nothing(tmp_path, monkeypatch):
     parts = assemble(constants, kinds, family, load_script(kinds=kinds, family=family), seed=7)
     monkeypatch.chdir(tmp_path)
     writes = []
-    real_open, real_io_open, real_os_open = builtins.open, io.open, os.open
+    real_open, real_os_open = builtins.open, os.open
 
     def guarded_open(file, mode="r", *args, **kwargs):
         if any(flag in mode for flag in "wax+"):

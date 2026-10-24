@@ -2,7 +2,7 @@
 tags: [model-bt, explainer]
 status: current
 version: 2.0
-date: 2026-10-21
+date: 2026-10-24
 ---
 
 # The model, part by part
@@ -361,7 +361,7 @@ That is the fixture test 15 needs: two counterfeits at **equal magnitude of the 
 
 | Axis | Kerr's term | How it looks |
 |---|---|---|
-| Outward impingement | "**selfish**" | forceful, dogmatic, encroaching — the *shout them down* grotesque |
+| Outward impingement | "**selfish**" | forceful, dogmatic, encroaching — the grotesque form that overrides others by force |
 | Inward impingement | "**unselfish**" | pleasing, placating, accommodating; hears the other as critical |
 
 - `[T]` `KB12` · K12.3 — in the KB12 interview, a highly differentiated person takes an I-position without going on the attack or on the defensive toward the other, so the manner in which an I-position is taken gives a fairly good indication of how well the person taking it functions.
@@ -619,14 +619,15 @@ accepted `M11.C.22`'s failure for now.
 **Does:** stops interaction; leaves bond energy high; raises system tension.
 
 **As built from Phase D (B4, spec `M1.B.3c`, owner decision P1, 2026-10-10):** a cutoff is **rejection, not
-severing**. The tie stays open. Each member holds a `rejection` in [0, 1]; the tie is cut while either holds any.
+severing**. The tie stays open. Each member holds a `rejection` in [0, 1]; the tie is cut while either holds any, and stays cut after both have let
+it go, until a positive contact reopens it (`M1.B.3c` as amended at revision 36).
 - A `CUTOFF` raises the sender's rejection and clears their own felt impingement at once.
 - While a person rejects the other, what the other sends them is **refused**:
   - it does not reach them;
   - their rejection rises;
   - the sender bears the cost as acute anxiety.
-- `REDUCE_CUTOFF` is the one move the cutter accepts. It lowers both members' rejection. At zero, the tie is ordinary
-  again.
+- `REDUCE_CUTOFF` is the one move the cutter accepts. It lowers both members' rejection. The tie leaves `CUT_OFF` only on
+  a positive contact with no rejection held, and returns to the state it had before the cut (`M1.B.3c`, `M1.D.2b`).
 - **Graded (spec revision 16, owner 2026-10-11):**
   - refusal holds only while rejection is above 0.3;
   - rejection fades by 0.05 a week;
@@ -1335,15 +1336,18 @@ is still learned from felt relief, and what it then costs is the physics below.
 - **The stock is capped, keeps its peak, and decays to a floor** (`M1.D.2b`). On entering the cut the stock is capped at
   `cutoff_stock_cap` (1583, `[I]`: the largest stock measured at a cut before this revision, `docs/review/group_g_readout.md`);
   the excess dissipates, and a `DISTANCE` into a full stock leaves the distancer the remainder. The tie records its
-  peak. With no contact the stock decays geometrically to a tenth of the peak over five years (`[I]`, the owner's
-  numbers, G1 Q3–Q4). The peak, the decay and the floor apply to the cut-off tie only (the owner, D8).
+  peak. Each week the tie is cut off, a week with contact included, the stock decays geometrically to a tenth of the
+  peak over five years (`[I]`, the owner's numbers, G1 Q3–Q4; the owner kept the decay in contact weeks, 2026-10-24,
+  revision 38). The peak, the decay and the floor apply to the cut-off tie only (the owner, D8).
 - **Contact bridges the cut** (`M1.D.2b`; `config/bowen/contact_classes.md`). A negative contact across the tie (a
   `CONFLICT` or `CUTOFF` delivered, or any move refused) renews the stock to its peak; a positive contact (`REDUCE_CUTOFF`
   or `STAY-IN-CONTACT` delivered) lets 80% of it go, and, when neither member holds rejection, returns the tie to the
   state it had before the cut; a week with both counts as negative. `[I]` the shares (the owner, G1 Q5–Q6). A faded
   rejection no longer reopens the tie by itself: the tie waits for a positive contact.
 - **Distant and conflicted ties are repaired by thirds** (`M1.D.2c`). A tie entering `DISTANT` or `OPEN_CONFLICT`
-  (three `CONFLICT`s in a row, `M4.G.1`) records its stock as a reference level; each positive contact removes a third
+  (three `DISTANCE`s or three `CONFLICT`s in a row, `M4.G.1`), a cut tie reopening into one, or a tie the family
+  declares in one at the start, records its stock as a reference level, so
+  the level falls when a tie reopens holding less (the owner, 2026-10-24, revision 38); each positive contact removes a third
   of that level, each negative one adds a third back, never above it; at zero the tie is ordinary. Binding past the
   level raises it. `[I]` the owner's rule (G1 Q7).
 - **`CONFLICT` binds** (`M1.D.2a`, `conflict_binding_rate` 0.15, `[I]`, less than `DISTANCE`'s 0.3; the owner, G1 Q11).
@@ -1357,7 +1361,8 @@ is still learned from felt relief, and what it then costs is the physics below.
   (`[M]` KS18.5, `M1.E.7e`: the coach tie stays thin); with no receiver the hold stays with the bearer. The spill past
   the turn uses the same shares. `[I]` the split.
 - **Every stressor the engine raises is sized from the Holmes–Rahe scale** (`M1.F.6a`, `config/bowen/event_sizes.md`).
-  Each kind has a life-change-unit value from Holmes & Rahe (1967), outside the corpus, so each size is `[I]` with its
+  Each kind has a life-change-unit value from Holmes & Rahe (1967), read from the scale's published table as Wikipedia
+  reproduces it and not yet checked against the paper (T-130), outside the corpus, so each size is `[I]` with its
   source named: `total = lcu_scale × LCU × reach`, `lcu_scale` 6.9 units per LCU (`[I]`, anchored so a job loss, 47 LCU,
   totals the 324 units it delivered before), `reach` 1 for the person it happens to and `bond_energy ÷ 100` through a
   tie. A lasting event delivers its whole size over its weeks. Grief is the spouse's 100 or a relative's 63 LCU at the
@@ -1997,8 +2002,9 @@ Version 2's stage 2 builds the constant sweep (`M17.E.1`) and the detection-limi
   `detection_limit_multiple` half-widths of zero (an equivalence limb, direction 0, is not read) is run again at a fixed `detection_limit_seeds` seeds, by setting
   the runner's block and cap to that count in the sample's copy of `constants.md`; the sample's verdict is the
   second run's (UNDETERMINED if it has not converged there) and both seed counts are recorded; a first run at or
-  above that count is not rerun, and a criterion whose own `seeds` is below the count is refused, since the runner
-  reads that before the block and cap. The multiple
+  above that count is not rerun, and a criterion whose own `seeds` is below the count is refused when a sample needs
+  the rerun, before it runs, since the runner reads that count before the block and cap (revision 38; such a criterion
+  is swept while no sample needs a rerun, as `M11.C.48`'s 100 seeds were). The multiple
   (2.0) and the count (200) are `[I]`, in `config/sweep/sweep.md`. The gating records themselves adopt the rule
   at their next regeneration (T-018).
 - **Per-seed readouts** (`M17.B` · C28, C29, C39, C40, C41; DL §7.10(f)). Each seed is classified — the arms
@@ -2106,9 +2112,9 @@ The core moves keep their names but each is one act. The pattern of the same nam
     from behaviour: a self-directed act or holding back toward that person in the last `practice_window` weeks, and
     no reactive act toward them since — any automatic act toward them, or triangling someone in about them. The owner
     (2026-10-12): "holding a position stops the transfer".
-- **`REDUCE_CUTOFF`** reopens a severed tie, and the anxiety the cutoff held goes to the third parties
-  around it (`L22.6`). *From Phase D (B4):* it lowers both members' rejection, and the tie reopens when none is
-  left.
+- **`REDUCE_CUTOFF`** lowers both members' rejection (Phase D, B4); the tie reopens on that positive contact once no
+  rejection is held (`M1.B.3c`). No stock moves to a third party (`M5.B.3`, the owner's D7, revision 36); the third
+  party's cost, the lost outlet (`L22.6`), is not yet shown (§11.5).
 - **`DETRIANGLE` and `PREVENT_ALIGNMENT`** change only who counts as aligned. No one's beliefs change.
 
 None of these acts knows its consequences. Whether anyone repeats an act is left to what it relieves (§19.3).

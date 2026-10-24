@@ -315,6 +315,28 @@ def test_m17e1_recompute_keeps_a_result_whose_rerun_failed(tmp_path):
         assert Cache(tool.CACHE_NAME).entries == before
 
 
+def test_m17e1_recompute_interrupted_keeps_the_dropped_results_on_disk(tmp_path):
+    """Milestone review MR-25: `--recompute` drops the share's results and the cache is flushed after every sample, so
+    an interrupt after the first sample left the file without the others. The put-back and flush run in a `finally`.
+    Mutation: the put-back only on a normal finish (the second sample's earlier result is lost)."""
+    calls = []
+
+    def interrupted(mutant, tool_name, ids, workers, label):
+        calls.append(mutant.id)
+        if len(calls) > 1:
+            raise KeyboardInterrupt
+        return _child(mutant, tool_name, ids, workers, label)
+
+    with _Patched(tmp_path):
+        tool.main(["--workers", "1"])
+        before = Cache(tool.CACHE_NAME).entries
+    with _Patched(tmp_path, child=interrupted), pytest.raises(KeyboardInterrupt):
+        tool.main(["--criteria", "M11.C.42", "--recompute", "--workers", "1"])
+    assert len(calls) == 2, "the interrupt did not fall after the first sample; the test reads nothing"
+    with _Patched(tmp_path):
+        assert Cache(tool.CACHE_NAME).entries == before
+
+
 def test_m17e1_render_only_does_not_check_numpy(tmp_path):
     """CI renders the committed record under NumPy 2.x; only a run is held to the pin."""
     with _Patched(tmp_path):

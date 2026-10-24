@@ -155,7 +155,6 @@ def test_m11c31_the_budget_rises_by_exactly_what_the_binder_held():
     """M11.C.31's equality limb, which the runner (directions only) cannot assert: the budget rises at the release by
     exactly what the tie's distance held then, and by nothing else in that tick."""
     from src.bowen.engine.identifiers import TieId
-    from src.bowen.ensemble.criteria import scenario
     from src.bowen.ensemble.criteria_d import FATHER, MOTHER, arm_c31
 
     settings = CRITERIA_D["M11.C.31"].settings

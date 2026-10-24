@@ -17,8 +17,8 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
 | `M11.C.10[family of origin]` | composite | **FAIL** | 200 | `cut_off_tie_weeks` -31.8 ± 1.3e+02, p 0.674, does not hold; `child_cut_weeks` -15.2 ± 51 (reported only) | treatment 43533 of 128000 (7816 dead, 22 owed a step, 35695 target dead) | 0.00 | — |
 | `M11.C.47` | premise | **PASS** | 150 | `felt_danger` +0.087 ± 0.028, p 4.89e-12, holds; `principled_cutoff` +0.0435 ± 0.017, p 5.49e-09, holds; `held_weeks` -15 ± 4.8 (reported only) | — | 0.00 | — |
 | `M11.C.2[twelve-person family]` | composite | **FAIL** | 150 | `symptom_load` +0.947 ± 1.6, p 0.118, does not hold | — | 0.00 | — |
-| `M11.C.48` | composite | **PASS** | 100 | `negative_run` +0.43 ± 0.15, p 5.23e-07, holds; `run_before_cutoff` +1.84 ± 0.19 (reported only); `first_cutoffs` +0 ± 0 (reported only) | — | 0.00 | — |
-| `M11.C.48[phase_d]` | composite | **PASS** | 100 | `negative_run` +0.476 ± 0.06, p 6.86e-17, holds; `run_before_cutoff` +1.46 ± 0.072 (reported only); `first_cutoffs` +0 ± 0 (reported only) | — | 0.00 | — |
+| `M11.C.48` | composite | **PASS** (not evidence (T-123); named mutant survived (T-119)) | 100 | `negative_run` +0.43 ± 0.15, p 5.23e-07, holds; `run_before_cutoff` +1.84 ± 0.19 (reported only); `first_cutoffs` +0 ± 0 (reported only) | — | 0.00 | — |
+| `M11.C.48[phase_d]` | composite | **PASS** (not evidence (T-123); named mutant survived (T-119)) | 100 | `negative_run` +0.476 ± 0.06, p 6.86e-17, holds; `run_before_cutoff` +1.46 ± 0.072 (reported only); `first_cutoffs` +0 ± 0 (reported only) | — | 0.00 | — |
 
 ## Not run as an ensemble in part II
 

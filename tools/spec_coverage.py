@@ -16,7 +16,12 @@ How a status is decided, in this order:
    shown as evidence, because they verify a superseded form of its text.
 2. **A test named for the ID.** The suite passes, so the ID is *done*, and the
    evidence is each such test's file and name (test names embed the ID they
-   verify, spec §0.4).
+   verify, spec §0.4). A test marked ``pytest.mark.xfail`` is not evidence: a
+   strict expected failure "passes" while the clause it tests is not shown, so it
+   is listed, noted as an expected failure, and keeps the ID *partial*
+   (milestone review MR-4). This holds under every rule here, an override and a
+   recorded verdict included: an ID with an expected failure among its evidence is
+   at most *partial*.
 3. **Otherwise not done**, with a note that says no test is named for it and which
    phase built, or builds, its module (an ``M11.C`` criterion's own phase cell, or the
    module's phase from ``M13``), so that an untested ID is not read as unbuilt (plan A4).
@@ -182,6 +187,58 @@ def named_tests() -> dict[str, list[str]]:
     return found
 
 
+def _names_xfail(nodes) -> bool:
+    """Whether any of ``nodes`` holds an ``xfail`` mark or call (``pytest.mark.xfail``, ``mark.xfail``, a bare
+    ``xfail``, ``pytest.xfail()``, ``pytest.param(..., marks=pytest.mark.xfail)``), other than ``xfail(False, ...)``."""
+    for node in nodes:
+        if isinstance(node, ast.Name) and node.id == "xfail":
+            return True  # a bare ``@xfail`` decorator; a variable named xfail elsewhere is not a mark
+        stack = [node]
+        while stack:
+            sub = stack.pop()
+            if isinstance(sub, ast.Call) and sub.args and isinstance(sub.args[0], ast.Constant) \
+                    and sub.args[0].value is False:
+                continue  # a conditional mark whose condition is false marks nothing; its subtree is not read
+            if isinstance(sub, ast.Call) and isinstance(sub.func, ast.Name) and sub.func.id == "xfail":
+                return True
+            if isinstance(sub, ast.Attribute) and sub.attr == "xfail":
+                return True
+            stack.extend(ast.iter_child_nodes(sub))
+    return False
+
+
+def xfail_names(source: str) -> set[str]:
+    """The test functions in a source file that are, or may be, expected failures: an ``xfail`` mark on the function
+    (in any spelling), on its class or on the module (``pytestmark``), an ``xfail`` parameter, or an imperative
+    ``pytest.xfail()`` in its body. A function with any of these is not evidence for *done* (milestone review)."""
+    tree = ast.parse(source)
+    tests = (ast.FunctionDef, ast.AsyncFunctionDef)
+    module_marked = _names_xfail(
+        node.value for node in tree.body
+        if isinstance(node, ast.Assign) and any(isinstance(t, ast.Name) and t.id == "pytestmark" for t in node.targets)
+    )
+    found = set()
+    for node in ast.walk(tree):
+        if isinstance(node, ast.ClassDef):
+            class_marked = _names_xfail(node.decorator_list)
+            for item in node.body:
+                if isinstance(item, tests) and item.name.startswith("test_") and class_marked:
+                    found.add(item.name)
+        elif isinstance(node, tests) and node.name.startswith("test_"):
+            if module_marked or _names_xfail(node.decorator_list) or _names_xfail(node.body):
+                found.add(node.name)
+    return found
+
+
+def expected_failures() -> set[str]:
+    """Every test marked xfail under tests/, as ``path::name`` (rule 2: not evidence for *done*)."""
+    return {
+        f"{path.relative_to(REPO).as_posix()}::{name}"
+        for path in sorted((REPO / "tests").rglob("test_*.py"))
+        for name in xfail_names(path.read_text(encoding="utf-8"))
+    }
+
+
 def tests_for(spec_id: str, tests: dict[str, list[str]]) -> list[str]:
     """Every file holding a test named for the ID — a name in two files is two pieces of evidence."""
     token = spec_id.lower().replace(".", "")
@@ -230,6 +287,7 @@ def coverage(overrides: dict) -> list[dict]:
     text = SPEC.read_text(encoding="utf-8")
     ids, tests, criteria = spec_ids(text), named_tests(), criterion_phases(text)
     verdicts, unbuilt, as_test, reds = ensemble_verdicts(), not_built(), run_as_test(), mutation_reds()
+    xfails = expected_failures()
     unmet = unmet_clauses(text)
     classes = {cid: cls.lower() for cid, cls in CLASS_ROW.findall(text)}
     from tools.version_1_status import dispositions
@@ -271,7 +329,7 @@ def coverage(overrides: dict) -> list[dict]:
                 notes.append("its spec row says its own mutation clause is not met")
             if not named:
                 notes.append("no test is named for it")
-            done = passed and not unproved and spec_id not in unmet and bool(named)
+            done = passed and not unproved and spec_id not in unmet and bool(set(named) - xfails)
             rows.append({"id": spec_id, "status": "done" if done else "partial", "evidence": named,
                          "note": "; ".join(notes)})
         elif spec_id in as_test:
@@ -291,6 +349,15 @@ def coverage(overrides: dict) -> list[dict]:
             phase = (criteria[spec_id], "") if spec_id in criteria else module_phase(spec_id)
             rows.append({"id": spec_id, "status": "not done", "evidence": [],
                          "note": untested_note(*phase) if phase else UNASSIGNED})
+    for row in rows:
+        # Rule 2, under every rule (milestone review MR-4): an expected failure is listed and noted, never evidence for
+        # done, and an ID with one among its evidence is at most partial, an override's status included.
+        expected = [t for t in row["evidence"] if t in xfails]
+        if expected:
+            note = "expected failure (xfail), not evidence: " + ", ".join(f"`{t}`" for t in expected)
+            row["note"] = "; ".join(([row["note"]] if row["note"] else []) + [note])
+            if row["status"] == "done":
+                row["status"] = "partial"
     for row in rows:
         quoted = disposition_notes(row["id"], decided)
         if quoted:

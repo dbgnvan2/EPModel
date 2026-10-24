@@ -339,6 +339,33 @@ def test_m1d2b_contact_classes_come_from_config():
     assert state.ties[MARITAL].distance_bound_anxiety == pytest.approx(200.0 * (1 - PARAMS.positive_bridge_dissipation))
 
 
+def test_m1d2b_contact_classes_refuse_a_broken_table(tmp_path):
+    """Milestone review MR-23: every refusal of ``load_contact_classes`` is reached by a broken copy of the committed
+    table, in the style of ``test_config.py::test_s1_3b_an_undeclared_act_fails_to_load``: a set missing, listed twice
+    or not one of the three; an act that is not a declared move; a set with no acts; an act in two sets."""
+    from src.bowen.io.load import CONFIG_DIR, load_contact_classes
+    from src.bowen.scenario.config_parse import ConfigError
+
+    kinds = load_event_kinds()
+    text = (CONFIG_DIR / "contact_classes.md").read_text(encoding="utf-8")
+    rebuff = "| rebuff | DISTANCE |"
+    broken = {
+        "missing": ("\n".join(l for l in text.splitlines() if not l.startswith("| rebuff |")), "exactly"),
+        "twice": (text + "| rebuff | DISTANCE | again |\n", "exactly"),
+        "unknown set": (text.replace(rebuff, "| refusal | DISTANCE |"), "exactly"),
+        "misspelt": (text.replace(rebuff, "| rebuff | DISTANSE |"), "not a declared move"),
+        "empty": (text.replace(rebuff, "| rebuff |  |"), "no acts"),
+        "overlap": (text.replace(rebuff, "| rebuff | CONFLICT |"), r"\['CONFLICT'\] in both negative and rebuff"),
+    }
+    assert rebuff in text and all(b != text for b, _ in broken.values())
+    assert load_contact_classes(kinds)["rebuff"] == frozenset({"DISTANCE"})  # the committed table loads
+    for name, (body, message) in broken.items():
+        path = tmp_path / f"{name}.md"
+        path.write_text(body, encoding="utf-8")
+        with pytest.raises(ConfigError, match=message):
+            load_contact_classes(kinds, path)
+
+
 # --- the invariant's direction (M1.B.3c) ------------------------------------------------------------
 
 
@@ -391,10 +418,17 @@ def test_m1d2b_seed7_no_one_gains_the_stock_of_a_bridged_tie():
 # --- A6: the third party's cost is the outlet's loss (§3.5, D7) --------------------------------------------------
 
 
+class ArmBroken(Exception):
+    """An A6 arm was not built as declared. Not an ``AssertionError``, so the strict xfail on the direction comparison
+    (``raises=AssertionError``) cannot absorb a broken arm (milestone review MR-24)."""
+
+
 def _third_party_anxiety(seed: int, bridged: bool, weeks: int = 26, bridge_week: int = 2) -> float:
     """Marta has cut Ravi off (rejection faded, the tie still cut, holding stock); the couple's positive contacts are
     withheld and their tie held open every week, so the policy neither reopens nor re-cuts the tie on its own. In the bridged arm Ravi's STAY-IN-CONTACT is
-    scripted at ``bridge_week`` and accepted. Returns the mean acute anxiety of the two children after that week."""
+    scripted at ``bridge_week`` and accepted. Returns the mean acute anxiety of the two children after that week.
+    Raises ``ArmBroken`` when the arm is not what it declares: the tie not cut with its stock at the start, the
+    scripted act not placed, or the tie not ``ORDINARY`` (bridged) or still ``CUT_OFF`` (left cut) after the week."""
     from src.bowen.ensemble.criteria import act, scenario
 
     def setup(state):
@@ -403,7 +437,8 @@ def _third_party_anxiety(seed: int, bridged: bool, weeks: int = 26, bridge_week:
         tie.rejection = {}  # faded: the tie waits for a positive contact (M1.D.2b)
         tie.distance_bound_anxiety = 0.5 * PARAMS.cutoff_stock_cap
         bridge_ties(state, (), (), PARAMS)
-        assert tie.tie_state is TieState.CUT_OFF and tie.cutoff_peak == tie.distance_bound_anxiety
+        if not (tie.tie_state is TieState.CUT_OFF and tie.cutoff_peak == tie.distance_bound_anxiety):
+            raise ArmBroken(f"seed {seed}: the tie is {tie.tie_state} with peak {tie.cutoff_peak} at the start")
 
     positives = ("STAY-IN-CONTACT", "REDUCE_CUTOFF")
     withheld = {t: {RAVI: [f"{k}>marta" for k in positives], MARTA: [f"{k}>ravi" for k in positives]}
@@ -420,14 +455,28 @@ def _third_party_anxiety(seed: int, bridged: bool, weeks: int = 26, bridge_week:
     scenario("phase_c", seed, weeks, setup=setup, forced=forced, withheld=withheld, watch=watch,
              held_open=(((RAVI, MARTA),), range(weeks)))  # neither may cut the tie again: one difference per seed
     if bridged:  # the policy may cut the tie again later; the arm's difference is the bridging itself
-        assert scenario.last_source.status[(bridge_week, RAVI)] == "placed", scenario.last_source.status
-        assert after_bridge == [TieState.ORDINARY]
-    else:
-        assert after_bridge == [TieState.CUT_OFF]
+        placed = scenario.last_source.status.get((bridge_week, RAVI))
+        if placed != "placed" or after_bridge != [TieState.ORDINARY]:
+            raise ArmBroken(f"seed {seed}, bridged: the act is {placed!r}, the tie after the week {after_bridge}")
+    elif after_bridge != [TieState.CUT_OFF]:
+        raise ArmBroken(f"seed {seed}, left cut: the tie after the week {after_bridge}")
     return statistics.fmean(seen)
 
 
-@pytest.mark.xfail(strict=True, reason="A6 not shown: over 8 seeds the children's mean anxiety after the bridging is "
+A6_SEEDS = range(8)
+
+
+def test_m5b3_third_party_cost_arms_are_built_as_declared():
+    """MR-24: the A6 arms are checked outside the strict xfail, so a broken arm fails here instead of reading as the
+    expected failure. Every seed of both arms: the tie starts cut with its stock, and after the week it is ``ORDINARY``
+    with the scripted act placed (bridged) or still ``CUT_OFF`` (left cut)."""
+    for seed in A6_SEEDS:
+        for bridged in (False, True):
+            _third_party_anxiety(seed, bridged=bridged)  # raises ArmBroken on a broken arm
+
+
+@pytest.mark.xfail(strict=True, raises=AssertionError,
+                   reason="A6 not shown: over 8 seeds the children's mean anxiety after the bridging is "
                    "62.5 against 63.3 with the tie left cut (2026-10-22). No rule is written to make it pass (§3.5); "
                    "reported to the owner in the revision 36 report.")
 def test_m5b3_third_party_cost_is_the_lost_outlet():
@@ -435,8 +484,10 @@ def test_m5b3_third_party_cost_is_the_lost_outlet():
     route is triangle position (`M1.C.1`, `outsider_positional_gain`), not a transfer of the stock (D7). Two arms per
     seed, the same seed and legal sets, differing in one scripted accepted contact; the children's mean anxiety after
     it is compared across seeds. No rule writes this cost; the direction did not hold, so the test is a strict
-    expected failure: the day the model shows the cost, it fails as "unexpectedly passing" and the mark comes off."""
-    seeds = range(8)
-    cut = [_third_party_anxiety(s, bridged=False) for s in seeds]
-    bridged = [_third_party_anxiety(s, bridged=True) for s in seeds]
+    expected failure: the day the model shows the cost, it fails as "unexpectedly passing" and the mark comes off.
+    Only the direction comparison is expected to fail (``raises=AssertionError``); a broken arm raises ``ArmBroken``,
+    which the mark does not absorb, and is checked on its own by
+    ``test_m5b3_third_party_cost_arms_are_built_as_declared`` (MR-24)."""
+    cut = [_third_party_anxiety(s, bridged=False) for s in A6_SEEDS]
+    bridged = [_third_party_anxiety(s, bridged=True) for s in A6_SEEDS]
     assert statistics.fmean(bridged) > statistics.fmean(cut), (statistics.fmean(bridged), statistics.fmean(cut))

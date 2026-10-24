@@ -135,6 +135,24 @@ def test_w1_s2_10_a_tag_row_with_no_row_now_and_a_misplaced_disposition_stop_the
         tool.statuses()
 
 
+def test_w3_a_pass_whose_named_mutant_survived_is_not_labelled_unmutated():
+    """Milestone review MR-28: a directional pass with no red mutant was labelled "pass, no recorded mutation" even
+    where its named mutant ran and survived (`M11.C.11`, `M11.C.15`, `M11.C.48`, `M11.C.48[phase_d]`,
+    `docs/phase_d_mutation_record.md`). Such a pass says the mutant survived, names it, and still blocks W1 and W3; a
+    pass with no mutant in any record keeps the old label. Mutation: survived mutants not read (all four unmutated)."""
+    rows = {s.key: s for s in tool.statuses()}
+    for key in ("M11.C.11", "M11.C.15", "M11.C.48", "M11.C.48[phase_d]"):
+        s = rows[key]
+        assert s.status == "pass, named mutant survived", (key, s.status)
+        assert not s.final and {"W1", "W3"} <= s.blocks
+        assert "survived" in s.evidence, (key, s.evidence)
+    assert rows["M11.C.48"].evidence.endswith("; survived: `cutoff-blind-to-learned-value` (Phase D mutation record)")
+    with mock.patch.object(tool, "survived_mutants", return_value={}):
+        unmutated = {s.key: s for s in tool.statuses()}
+    assert unmutated["M11.C.48"].status == "pass, no recorded mutation"
+    assert not unmutated["M11.C.48"].final and {"W1", "W3"} <= unmutated["M11.C.48"].blocks
+
+
 def test_s2_11_status_page_is_current():
     """The committed page is what the tool renders from the committed records (P6)."""
     assert tool.PAGE.read_text(encoding="utf-8") == tool.render(tool.statuses())

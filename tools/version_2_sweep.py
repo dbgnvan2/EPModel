@@ -47,6 +47,7 @@ sys.path.insert(0, str(REPO))
 from tools.mutant_runner import Mutant  # noqa: E402
 from tools.phase_d_mutation_record import CHILD as PHASE_D_CHILD  # noqa: E402
 from tools.phase_d_mutation_record import engine_hash as phase_d_engine_hash  # noqa: E402
+from tools.phase_d_record import VERDICT_NOTES, noted  # noqa: E402  (a known defect beside a verdict, review MR-3)
 from tools.record_cache import CHILD, ERRORED, Cache, engine_hash, exit_status, result_key, run_cached  # noqa: E402
 from tools.record_json import record_json  # noqa: E402
 from tools.sweep_config import Range, central_values, load_config, not_run_keys  # noqa: E402
@@ -153,6 +154,15 @@ def _readouts(row: dict) -> list[dict]:
              "direction": r["direction"]} for r in row.get("readouts", ()) if not r.get("report_only")]
 
 
+def own_seeds(key: str) -> int | None:
+    """The seed count a criterion fixes for itself in ``config/bowen/criteria.md`` (a variant key reads its base ID's
+    section), or None when it fixes none. The runner reads it before the block and cap (`M17.A.1`)."""
+    from src.bowen.ensemble.criteria import load_settings
+
+    seeds = load_settings().get(key.split("[", 1)[0], {}).get("seeds")
+    return None if seeds is None else int(seeds)
+
+
 def sweep_criterion(cache: Cache, key: str, ranges: list[Range], rules: dict, central: dict[str, str],
                     workers: int | None, engine: str, child: str = CHILD) -> dict:
     multiple, fixed = rules["detection_limit_multiple"], int(rules["detection_limit_seeds"])
@@ -163,6 +173,13 @@ def sweep_criterion(cache: Cache, key: str, ranges: list[Range], rules: dict, ce
         row = {"index": index, "values": {k: format_value(v) for k, v in sample.items()}, "outcome": first["outcome"],
                "seeds": first["seeds"], "readouts": _readouts(first), "rerun": False, "error": first.get("error", "")}
         if first["outcome"] not in ERRORED and near_limit(first, multiple) and first["seeds"] < fixed:
+            # Refused before the rerun runs, not after (review MR-12, owner 2026-10-24): a criterion that fixes fewer
+            # seeds than the declared count would run its own seeds again. One that never needs a rerun is swept.
+            own = own_seeds(key)
+            if own is not None and own < fixed:
+                raise SystemExit(f"{key} sample {index}: needs a rerun at {fixed} seeds, but the criterion fixes its own "
+                                 f"seed count at {own} (config/bowen/criteria.md), which the runner reads before the "
+                                 "block and cap, so the sweep cannot rerun it at the declared count (M17.A.1)")
             second = _result(cache, rerun_mutant(mutant, fixed, central), key, workers, engine, child)
             if second["outcome"] not in ERRORED and second["seeds"] != fixed:
                 raise SystemExit(f"{key} sample {index}: the rerun took {second['seeds']} seeds, not {fixed}; the criterion "
@@ -229,16 +246,20 @@ def render(results: list[dict], centrals: dict[str, dict], rules: dict, engine: 
         c = centrals[s["criterion"]]
         swept = "; ".join(f"`{x['constant']}` {x['low']:g}–{x['high']:g}" for x in s["constants"])
         if "not_run" in s:
-            lines.append(f"| `{s['criterion']}` | {c['class']} | {c['outcome']} | {swept} | {_fraction(s)} | — | — | — |")
+            lines.append(f"| `{s['criterion']}` | {c['class']} | {noted(s['criterion'], c['outcome'])} | {swept} | "
+                         f"{_fraction(s)} | — | — | — |")
             continue
-        lines.append(f"| `{s['criterion']}` | {c['class']} | {c['outcome']} | {swept} | {_fraction(s)} | {s['undetermined']} | "
+        lines.append(f"| `{s['criterion']}` | {c['class']} | {noted(s['criterion'], c['outcome'])} | {swept} | "
+                     f"{_fraction(s)} | {s['undetermined']} | "
                      f"{s['reruns']} | {s['errored']} |")
     for s in results:
         if "not_run" in s:
             lines += ["", f"## `{s['criterion']}` — declared, not run", "", f"Not run: {s['not_run']}"]
             continue
-        lines += ["", f"## `{s['criterion']}` — {_fraction(s)} samples held", "",
-                  "| Sample | Values | Seeds | Rerun | Verdict | Gating readouts (mean difference ± half-width) |",
+        lines += ["", f"## `{s['criterion']}` — {_fraction(s)} samples held", ""]
+        if s["criterion"] in VERDICT_NOTES:
+            lines += [f"Central verdict {centrals[s['criterion']]['outcome']}: {VERDICT_NOTES[s['criterion']]}.", ""]
+        lines += ["| Sample | Values | Seeds | Rerun | Verdict | Gating readouts (mean difference ± half-width) |",
                   "|---|---|---|---|---|---|"]
         for r in s["rows"]:
             values = ", ".join(f"`{k}` {v}" for k, v in r["values"].items())
@@ -361,19 +382,24 @@ def main(argv: list[str] | None = None) -> int:
     if not args.render_only:
         check_numpy(cache, np.__version__, sweep_numpy_pin())
     if args.criteria:
+        dropped: dict = {}
         if args.recompute:
             _checked(args.criteria)  # every key checked before any result is dropped
             dropped = {k: r for k, r in cache.entries.items() if r.get("criterion") in args.criteria}
             for k in dropped:
                 del cache.entries[k]
             print(f"dropped {len(dropped)} cached result(s) of {', '.join(args.criteria)} to run them again")
-        results = sweep(cache, args.workers, args.criteria)
-        if args.recompute:  # a result whose rerun failed is not lost: the earlier one is put back, and counted
+        try:
+            results = sweep(cache, args.workers, args.criteria)
+        finally:
+            # A result whose rerun failed, or that an interrupt or error stopped before it ran again, is not lost: the
+            # earlier one is put back and counted, and the file is written whatever stopped the run (review MR-25).
             kept = {k: r for k, r in dropped.items() if k not in cache.entries}
             cache.entries.update(kept)
             if kept:
-                print(f"{len(kept)} of {len(dropped)} result(s) not run again (failed); the earlier ones kept")
-        cache.flush()  # every entry kept: the other share's results and earlier ones are not this run's to prune
+                print(f"{len(kept)} of {len(dropped)} result(s) not run again (failed or interrupted); the earlier "
+                      "ones kept")
+            cache.flush()  # every entry kept: the other share's results and earlier ones are not this run's to prune
         print(f"swept {len(results)} criteria into {_shown(cache.path)}; the record is not written until "
               "every share is merged (tools/merge_cache.py) and rendered (--render-only)")
         return exit_status()

@@ -130,7 +130,7 @@ any that does is reported as a measured change.
   ensemble results in `docs/records_cache/` as the Phase C records' are, so a later change to the trace renderer or a
   record renderer re-renders in seconds. (This is true of the Phase C mutation, sweep and diagnostic records. The
   Phase C ensemble record is not rendered from `docs/records_cache/` yet — see the comment on `HASHED_TOOLS` in
-  `tools/ensemble_record.py` — and moving it is planned with Group G's regeneration, owner 2026-10-21.) No verdict
+  `tools/ensemble_record.py` — and moving it, planned with Group G's regeneration (owner 2026-10-21), waits for the next change that moves the engine hash: that regeneration ran on 2026-10-23 without it (T-012).) No verdict
   reads the trace renderer: only `src/bowen/run.py`'s `--trace` and the trace tools import it. Changing the hash's
   definition makes every record stale, so it belongs in this stage's run.
 

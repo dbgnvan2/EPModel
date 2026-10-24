@@ -151,3 +151,41 @@ def test_s1_7b_variants_print_under_their_own_keys(tmp_path):
         assert key in CRITERIA_D2 and text.count(f"| `{key}` |") == 1, key
     assert "| `M11.C.2` |" not in text  # part I's criterion, not run in part II
     assert [r["criterion"] for r in record_json(text)] == list(CRITERIA_D2)
+
+
+def test_m17a1_a_known_defect_is_printed_beside_its_verdict():
+    """Milestone review MR-3: `M11.C.48`'s PASS was printed unqualified while its readout's baseline is known wrong
+    (T-123) and its named mutant survived (T-119). Each key of ``VERDICT_NOTES`` that this record holds is printed
+    with its note in the verdict cell, once; the machine-readable block keeps the bare outcome; no other row carries a
+    note. Mutation: the renderer does not read ``VERDICT_NOTES``."""
+    from tools.record_json import record_json
+
+    notes = _tool.VERDICT_NOTES
+    assert set(notes) == {"M11.C.48", "M11.C.48[phase_d]"}
+    text = _rendered(2)
+    outcomes = {r["criterion"]: r["outcome"] for r in record_json(text)}
+    for key, note in notes.items():
+        row = next(line for line in text.splitlines() if line.startswith(f"| `{key}` |"))
+        assert f"| **{outcomes[key]}** ({note}) |" in row, row
+        assert text.count(note) == 2  # the two notes are the same text, one per row
+    assert all(outcomes[k] == "PASS" for k in notes)
+    assert text.count("(T-123)") == len(notes)
+
+
+def test_m17a1_each_verdict_note_is_true_of_the_records_and_the_todo_list():
+    """Learning-qa, 2026-10-24: a ``VERDICT_NOTES`` note is a claim (P6) and nothing checked it. Each key must be a
+    criterion an ensemble record holds (a typo or a key left behind is refused, not skipped); each T-ID it cites must
+    be open in `TODO.md`; "named mutant survived" must be what the mutation records say. When T-119 or T-123 closes,
+    or a mutant turns the criterion red, this fails until the note is changed. Mutation: a note citing a closed item."""
+    from tools.version_2_status import survived_mutants
+    from tools.version_2_sweep import central_verdicts
+
+    centrals, survivors = central_verdicts(), survived_mutants()
+    open_items = set(re.findall(r"^- (T-\d+) ", (REPO / "TODO.md").read_text(encoding="utf-8"), re.M))
+    for key, note in _tool.VERDICT_NOTES.items():
+        assert key in centrals, f"VERDICT_NOTES names {key}, which no ensemble record holds"
+        cited = set(re.findall(r"T-\d+", note))
+        assert cited and cited <= open_items, f"{key}'s note cites {sorted(cited - open_items)}, not open in TODO.md"
+        if "named mutant survived" in note:
+            assert any(kind == "named" for kind, _ in survivors.get(key, [])), (
+                f"{key}'s note says its named mutant survived; no mutation record says so")

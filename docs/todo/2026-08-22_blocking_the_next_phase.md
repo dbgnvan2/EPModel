@@ -63,7 +63,8 @@
     The `M4.D.3a` test lowers basic and functional level together (`M4.A.5`'s did too, and was fixed in Part B's
     review). Removing `beliefs_used=` from `policy.decide` or `act._record` fails no test (`M16.A.3a`). No test fails
     if the runner uses an unpaired test or skips Holm's correction (`M17.A.3`).
-  - *Fields and records that exist and are never written.* `TieState.OPEN_CONFLICT` (`M1.B.3`); `Person.beliefs`
+  - *Fields and records that exist and are never written.* ~~`TieState.OPEN_CONFLICT` (`M1.B.3`)~~ *written since
+    revision 36 (`consolidate.py`, a run of three `CONFLICT`s); taken off 2026-10-24, stage 2 review MR-10*; `Person.beliefs`
     (`M1.A.16`); `Person.programmed_reactivity` (`M10.A.1`); the engine never emits `BeliefWriteRecord`, so belief
     writes are not separable from ground-truth changes in a run's log (`M16.A.5`, `M16.A.5a`); the spec register names
     writers for two `M1.A.5b` fields that do not exist.

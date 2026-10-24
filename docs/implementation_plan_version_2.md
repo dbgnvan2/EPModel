@@ -2,8 +2,8 @@
 
 **Status: stage 1 APPROVED 2026-10-19; stage 2 plan DRAFTED 2026-10-23 and its pilot BUILT 2026-10-23 on the branch
 `stage-2-plan-pilot` (§2.10), decisions D8–D16 taken as recommended under the owner's instruction of 2026-10-22, approved
-by the owner 2026-10-24 in T-125 (§2.2, §2.10); the full sweep did not run (projected 44 h at 8 samples, over the 4-hour rule, §2.10); Phase C's 14 directional
-criteria SWEPT 2026-10-23 on the branch `stage-2-phase-c-sweep` at 8 samples, 27 min (§2.10); Phase D part I's 13 SWEPT 2026-10-23 on the branch `stage-2-part-i-sweep` (§2.10); the tooling to split the sweep across two Macs BUILT 2026-10-23 (§2.10); part II's seven criteria's ranges DECLARED 2026-10-23 and SWEPT 2026-10-23–24, split across both Macs (§2.10); when the full sweep runs decided by the owner 2026-10-23 (D17, §2.10).** The owner
+by the owner 2026-10-24 in T-125 (§2.2, §2.10); the full sweep did not run as one run (projected 44 h at 8 samples, over the 4-hour rule, §2.10) and ran instead in the three batches below; Phase C's 14 directional
+criteria SWEPT 2026-10-23 on the branch `stage-2-phase-c-sweep` at 8 samples, 27 min (§2.10); Phase D part I's 13 SWEPT 2026-10-23 on the branch `stage-2-part-i-sweep` (§2.10); the tooling to split the sweep across two Macs BUILT 2026-10-23 (§2.10); part II's seven criteria's ranges DECLARED 2026-10-23 and SWEPT 2026-10-23–24, split across both Macs (§2.10); when the full sweep runs decided by the owner 2026-10-23 (D17, §2.10); `M17.E.1`'s named ratio NOT DONE at stage 2, moved to stage 3's plan by the owner 2026-10-24 (T-128, the stage 2 milestone review's MR-1).** The owner
 decided D1–D7 on 2026-10-19, every one as recommended (§1.2), and approved the stage 1 plan. **Built, reviewed and regenerated 2026-10-19 (steps 0–7, §1.10): no verdict changed against
 the tag `version-1`. The `/csdp` sweep's fixes (step 8) were made 2026-10-20 and pushed the same day with the owner's
 approval; CI run 39449517708 passed on Python 3.11, 3.12 and 3.13 (S1.10c). A cold sweep's fixes were made
@@ -627,7 +627,8 @@ are cheap enough that the pilot measures the sweep and not one long record.
   triggers; not enough to read as a measurement of either criterion, and the record says so.
 - *`M17.E.1`'s named ratio* (tie hardening or attenuation against the rate anxiety moves) is not in the pilot. It
   needs a ratio declared beside the two rates in `M10`, which is spec wording and a range row, and it is listed in
-  §2.3 as not done; it is declared with the full sweep's ranges (§2.4 step 7).
+  §2.3 as not done; it is declared with the full sweep's ranges (§2.4 step 7). *The full sweep ran without it; the
+  stage 2 milestone review found the gap (MR-1), and the owner moved the ratio to stage 3's plan on 2026-10-24 (T-128).*
 
 **Decided as recommended under the owner's instruction of 2026-10-22, approved by the owner 2026-10-24 (T-125).**
 
@@ -698,7 +699,7 @@ turns one into a verdict.
 | W2 | every premise and check passes | the status page's conditions block, S2.11 | — |
 | W3 | every passing composite has a recorded mutation | the existing `test_m111d_*` tests; the page's W3 condition names the passing rows without one: `M11.C.11` and `M11.C.15`, whose mutants, red at the tag, survived at revision 36 (`version_2_revision_36_changes.md`), and `M11.C.48` in both variants (T-123) | — |
 | W4 | every passing directional criterion has a sweep result | S2.9; the page's W4 condition names the passing rows not yet swept, met only when the full sweep has run | — |
-| `M17.E.1`'s named ratio | not done in this stage's pilot (D10); declared with the full sweep's ranges | — | — |
+| `M17.E.1`'s named ratio | not done in stage 2 (D10); the full sweep ran without it, and the owner moved it to stage 3's plan, 2026-10-24 (T-128) | — | — |
 
 ### 2.4 Order of work
 

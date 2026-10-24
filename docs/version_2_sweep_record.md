@@ -61,8 +61,8 @@ cache.
 | `M11.C.10` | composite | FAIL | `learning_rate` 0.1–0.4; `credit_horizon` 2–6; `credit_discount` 0.35–1; `cross_person_weight` 0.25–1; `policy_temperature` 0.5–2; `habituation_rate` 0.35–1; `habituation_window` 4–16; `witnessed_cutoff_gain` 0.025–0.1; `witness_window` 7–26; `reactive_cutoff_gain` 0.05–0.2; `origin_cutoff_anxiety_gain` 5–20; `origin_fusion_gain` 0.25–1; `rejection_cutoff_gain` 0.25–1; `rejection_refusal_gain` 0.05–0.2; `rejection_relief` 0.125–0.5; `rejection_refusal_threshold` 0.15–0.6; `rejection_fade` 0.025–0.1 | 1 of 8 | 0 | 0 | 0 |
 | `M11.C.10[family of origin]` | composite | FAIL | `learning_rate` 0.1–0.4; `credit_horizon` 2–6; `credit_discount` 0.35–1; `cross_person_weight` 0.25–1; `policy_temperature` 0.5–2; `habituation_rate` 0.35–1; `habituation_window` 4–16; `witnessed_cutoff_gain` 0.025–0.1; `witness_window` 7–26; `reactive_cutoff_gain` 0.05–0.2; `origin_cutoff_anxiety_gain` 5–20; `origin_fusion_gain` 0.25–1; `rejection_cutoff_gain` 0.25–1; `rejection_refusal_gain` 0.05–0.2; `rejection_relief` 0.125–0.5; `rejection_refusal_threshold` 0.15–0.6; `rejection_fade` 0.025–0.1 | 5 of 8 | 0 | 0 | 0 |
 | `M11.C.15` | composite | PASS | `lock_in_gain` 0.1–0.4; `acute_decay_rate` 0.1–0.4 | 4 of 8 | 0 | 2 | 0 |
-| `M11.C.48` | composite | PASS | `learning_rate` 0.1–0.4; `credit_horizon` 2–6; `credit_discount` 0.35–1; `cross_person_weight` 0.25–1; `policy_temperature` 0.5–2; `habituation_rate` 0.35–1; `habituation_window` 4–16; `cutoff_stock_cap` 791.5–3166; `cutoff_threat_weight` 0.00156–0.00624; `cutoff_decay_weeks` 130–520; `cutoff_floor_share` 0.05–0.2; `positive_bridge_dissipation` 0.4–1 | 8 of 8 | 0 | 0 | 0 |
-| `M11.C.48[phase_d]` | composite | PASS | `learning_rate` 0.1–0.4; `credit_horizon` 2–6; `credit_discount` 0.35–1; `cross_person_weight` 0.25–1; `policy_temperature` 0.5–2; `habituation_rate` 0.35–1; `habituation_window` 4–16; `cutoff_stock_cap` 791.5–3166; `cutoff_threat_weight` 0.00156–0.00624; `cutoff_decay_weeks` 130–520; `cutoff_floor_share` 0.05–0.2; `positive_bridge_dissipation` 0.4–1 | 8 of 8 | 0 | 0 | 0 |
+| `M11.C.48` | composite | PASS (not evidence (T-123); named mutant survived (T-119)) | `learning_rate` 0.1–0.4; `credit_horizon` 2–6; `credit_discount` 0.35–1; `cross_person_weight` 0.25–1; `policy_temperature` 0.5–2; `habituation_rate` 0.35–1; `habituation_window` 4–16; `cutoff_stock_cap` 791.5–3166; `cutoff_threat_weight` 0.00156–0.00624; `cutoff_decay_weeks` 130–520; `cutoff_floor_share` 0.05–0.2; `positive_bridge_dissipation` 0.4–1 | 8 of 8 | 0 | 0 | 0 |
+| `M11.C.48[phase_d]` | composite | PASS (not evidence (T-123); named mutant survived (T-119)) | `learning_rate` 0.1–0.4; `credit_horizon` 2–6; `credit_discount` 0.35–1; `cross_person_weight` 0.25–1; `policy_temperature` 0.5–2; `habituation_rate` 0.35–1; `habituation_window` 4–16; `cutoff_stock_cap` 791.5–3166; `cutoff_threat_weight` 0.00156–0.00624; `cutoff_decay_weeks` 130–520; `cutoff_floor_share` 0.05–0.2; `positive_bridge_dissipation` 0.4–1 | 8 of 8 | 0 | 0 | 0 |
 
 ## `M11.C.16` — 8 of 8 samples held
 
@@ -482,6 +482,8 @@ cache.
 
 ## `M11.C.48` — 8 of 8 samples held
 
+Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
+
 | Sample | Values | Seeds | Rerun | Verdict | Gating readouts (mean difference ± half-width) |
 |---|---|---|---|---|---|
 | 0 | `learning_rate` 0.247892, `credit_horizon` 5, `credit_discount` 0.672568, `cross_person_weight` 0.712342, `policy_temperature` 1.61102, `habituation_rate` 0.394202, `habituation_window` 7, `cutoff_stock_cap` 1712.32, `cutoff_threat_weight` 0.00382396, `cutoff_decay_weeks` 314, `cutoff_floor_share` 0.106912, `positive_bridge_dissipation` 0.732122 | 100 | no | PASS | `negative_run` +0.402 ± 0.11 |
@@ -494,6 +496,8 @@ cache.
 | 7 | `learning_rate` 0.380889, `credit_horizon` 3, `credit_discount` 0.952892, `cross_person_weight` 0.820954, `policy_temperature` 1.9422, `habituation_rate` 0.559821, `habituation_window` 9, `cutoff_stock_cap` 2430.87, `cutoff_threat_weight` 0.00366683, `cutoff_decay_weeks` 159, `cutoff_floor_share` 0.137484, `positive_bridge_dissipation` 0.716491 | 100 | no | PASS | `negative_run` +0.442 ± 0.18 |
 
 ## `M11.C.48[phase_d]` — 8 of 8 samples held
+
+Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
 
 | Sample | Values | Seeds | Rerun | Verdict | Gating readouts (mean difference ± half-width) |
 |---|---|---|---|---|---|

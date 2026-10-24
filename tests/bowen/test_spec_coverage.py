@@ -163,6 +163,48 @@ def test_m141_unmet_clause_marker_reads_exactly_the_annotated_rows():
         assert not TOOL.UNMET_CLAUSE.search(met), met
 
 
+def test_m141_an_expected_failure_is_not_evidence_for_done():
+    """Milestone review MR-4: a strict xfail "passes", so rule 2 read `M5.B.3` as done while its third-party-cost
+    clause is the suite's expected failure. A test marked xfail is listed, noted as an expected failure, and keeps the
+    ID partial. Mutation: rule 2 does not read the mark (`M5.B.3` is done)."""
+    xfail = "tests/bowen/test_cutoff_stock.py::test_m5b3_third_party_cost_is_the_lost_outlet"
+    assert xfail in TOOL.expected_failures()
+    assert "M5.B.3" not in _overrides(), "an override now decides M5.B.3; pick another fixture ID"
+    row = _rows()["M5.B.3"]
+    assert row["status"] == "partial"
+    assert xfail in row["evidence"]
+    assert f"expected failure (xfail), not evidence: `{xfail}`" in row["note"]
+    # A decorator in any spelling is read; a test without one is not.
+    source = ("import pytest\nfrom pytest import mark\n@pytest.mark.xfail\ndef test_a(): ...\n"
+              "@pytest.mark.xfail(strict=True, raises=AssertionError)\ndef test_b(): ...\n"
+              "@mark.xfail(reason='x')\ndef test_c(): ...\n@pytest.mark.slow\ndef test_d(): ...\n")
+    assert TOOL.xfail_names(source) == {"test_a", "test_b", "test_c"}
+    # Learning-qa, 2026-10-24: the other forms a test can be an expected failure in are read too; a variable named
+    # xfail and a conditional mark whose condition is False are not.
+    source = ("import pytest\nfrom pytest import mark\nfrom pytest.mark import xfail\n"
+              "@xfail\ndef test_bare(): ...\n"
+              "@pytest.mark.xfail\nasync def test_async(): ...\n"
+              "@pytest.mark.xfail\nclass TestK:\n    def test_in_class(self): ...\n"
+              "@pytest.mark.parametrize('x', [1, pytest.param(2, marks=pytest.mark.xfail)])\ndef test_param(x): ...\n"
+              "def test_imperative():\n    pytest.xfail('not yet')\n"
+              "def test_variable():\n    xfail = 'a name'\n    assert xfail\n"
+              "@pytest.mark.xfail(False, reason='off')\ndef test_off(): ...\n")
+    assert TOOL.xfail_names(source) == {"test_bare", "test_async", "test_in_class", "test_param", "test_imperative"}
+    assert TOOL.xfail_names("import pytest\npytestmark = [pytest.mark.slow, pytest.mark.xfail]\ndef test_m(): ...\n") \
+        == {"test_m"}
+
+
+def test_m141_an_expected_failure_keeps_an_override_or_a_verdict_partial():
+    """Learning-qa, 2026-10-24: rule 2's "an expected failure is not evidence" holds under every rule, not only after
+    the override, verdict and run-as-test branches. An override that says done, with an expected failure among the
+    tests named for its ID, is partial and noted. Mutation: the rule read only in the last branch (the row is done)."""
+    xfail = "tests/bowen/test_cutoff_stock.py::test_m5b3_third_party_cost_is_the_lost_outlet"
+    overrides = {**_overrides(), "M5.B.3": {"status": "done", "evidence": [], "note": "fixture"}}
+    row = {r["id"]: r for r in TOOL.coverage(overrides)}["M5.B.3"]
+    assert row["status"] == "partial"
+    assert xfail in row["evidence"] and f"expected failure (xfail), not evidence: `{xfail}`" in row["note"]
+
+
 def test_m141_criterion_run_as_a_test_is_done_with_that_test():
     """Plan A1: `M11.C.37` has no ensemble entry; it is proved by the test `tools/phase_d_record.py` names."""
     test, _ = TOOL.run_as_test()["M11.C.37"]

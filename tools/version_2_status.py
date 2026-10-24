@@ -12,7 +12,10 @@ Tests:   tests/test_version_2_status.py
 
 The rules, version 1's (``docs/version_1_definition.md`` §1, approved 2026-10-15) carried into stage 2:
 * A **pass** is final for a premise or check. For a composite or mixed criterion it is final only with a red (or
-  reversed) mutant in a mutation record (W3).
+  reversed) mutant in a mutation record (W3). Without one it is *pass, named mutant survived* when a named mutant of
+  its ran and survived, *pass, mutant survived* when only a deletion or sign-inverted one did (the survivor named in
+  the evidence either way), and *pass, no recorded mutation* only when no mutation record holds a mutant of it
+  (milestone review MR-28).
 * A **failing premise or check** is never final (W2). An `accepted finding` disposition on one is refused.
 * A **failing composite or mixed** criterion is final when the owner has accepted it as a finding (W1).
 * A criterion with no record row is **not built** unless the owner put it out of scope.
@@ -77,6 +80,17 @@ def record_rows() -> list[tuple[str, str, dict]]:
     return out
 
 
+def survived_mutants() -> dict[str, list[tuple[str, str]]]:
+    """Criterion key -> (kind, "`mutant` (record name)") for every mutant recorded against it that ran and survived,
+    from the mutation records ``version_1_status`` reads (MR-28: a survivor is not "no recorded mutation")."""
+    out: dict[str, list[tuple[str, str]]] = {}
+    for name, path in v1.MUTATION_RECORDS:
+        for row in record_json(path):
+            if row["result"] == "survived":
+                out.setdefault(row["criterion"], []).append((row.get("kind", ""), f"`{row['mutant']}` ({name})"))
+    return out
+
+
 def tag_verdicts(path: Path = TAG_PAGE) -> dict[str, str]:
     """Criterion key -> its verdict on the frozen page (PASS, FAIL, UNDETERMINED or 'not built')."""
     text = path.read_text(encoding="utf-8")
@@ -112,6 +126,7 @@ def statuses() -> list[Status]:
     spec = v1.spec_criteria()
     rows = record_rows()
     reds = v1.red_mutants()
+    survivors = survived_mutants()
     unbuilt = v1.not_built()
     by_test = v1.proved_by_test()
     decided = v1.dispositions()
@@ -152,7 +167,13 @@ def statuses() -> list[Status]:
         if row["outcome"] == "PASS":
             if d and d["kind"] != "note":
                 raise SystemExit(f"{key}: passes, as at the tag, so its disposition {d['kind']!r} does not apply")
-            if cls in v1.DIRECTIONAL and not proof:
+            survived = survivors.get(key, [])
+            if cls in v1.DIRECTIONAL and not proof and survived:
+                named = any(kind == "named" for kind, _ in survived)
+                s.status = "pass, named mutant survived" if named else "pass, mutant survived"
+                s.blocks = {"W1", "W3"}
+                s.evidence += "; survived: " + ", ".join(text for _, text in survived)
+            elif cls in v1.DIRECTIONAL and not proof:
                 s.status, s.blocks = "pass, no recorded mutation", {"W1", "W3"}
             else:
                 s.status, s.final = "pass", True

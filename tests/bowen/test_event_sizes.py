@@ -73,7 +73,6 @@ def test_m1f6a_sizes_come_from_config_and_keep_the_scales_ratios():
 def test_m1f6a_a_lasting_event_delivers_its_whole_size_over_its_weeks():
     """Arrival plus `M1.F.6`'s persistence over the following weeks sums to the table's size, so a one-week and a
     twelve-week event of the same LCU weigh the same in all."""
-    state = fresh()
     one, _ = sized_intensity(KINDS, PARAMS, "SERIOUS_ILLNESS", "self", weeks=1)
     arrival, weeks = sized_intensity(KINDS, PARAMS, "SERIOUS_ILLNESS", "self")
     assert weeks == 12 and arrival < one
@@ -86,14 +85,36 @@ def test_m1f6a_a_lasting_event_delivers_its_whole_size_over_its_weeks():
         sized_intensity(dataclasses.replace(KINDS, sizes=None), PARAMS, "GRIEF", "spouse")
 
 
-def test_m1f6a_the_table_is_validated_on_load():
-    from src.bowen.io.load import load_event_sizes
+def test_m1f6a_the_table_is_validated_on_load(tmp_path):
+    """The committed table loads whole, and every refusal of ``load_event_sizes`` is reached by a broken copy of it
+    (milestone review MR-23; the style of ``test_config.py::test_s1_3b_an_undeclared_act_fails_to_load``): a kind that
+    is not a declared event kind, a (kind, who) declared twice, an `lcu` or `weeks` that is not a number, and a table
+    missing a column."""
+    from src.bowen.io.load import CONFIG_DIR, load_event_sizes
+    from src.bowen.scenario.config_parse import ConfigError
+
     base = load_event_kinds()
     assert set(base.sizes) >= {("OWN_ILLNESS", "self"), ("FAMILY_ILLNESS", "tie"), ("LAUNCH_LOAD", "self")}
     for kind, _ in base.sizes:
         assert kind in base.mechanisms, kind  # every sized kind is a declared event kind
     assert all(s.weeks is None or s.weeks >= 1 for s in base.sizes.values())
-    assert callable(load_event_sizes)
+    text = (CONFIG_DIR / "event_sizes.md").read_text(encoding="utf-8")
+    assert load_event_sizes(base) == base.sizes
+    row = "| `MOVE` | self | Change in residence | 20 | 1 |"
+    broken = {
+        "undeclared kind": (text.replace(row, row.replace("`MOVE`", "`MOVES`")), "MOVES is not a declared event kind"),
+        "twice": (text.replace(row, f"{row} again |\n{row}", 1), "MOVE/self is declared twice"),
+        "lcu not a number": (text.replace(row, row.replace("| 20 |", "| twenty |")), "MOVE/self: could not convert"),
+        "weeks not a number": (text.replace(row, row.replace("| 1 |", "| 1.5 |")), "MOVE/self: invalid literal"),
+        "a column missing": (text.replace("| kind | who | item | lcu | weeks | source |", "| kind | who | item | lcu | source |"),
+                             "table header"),
+    }
+    assert row in text and all(b != text for b, _ in broken.values())
+    for name, (body, message) in broken.items():
+        path = tmp_path / f"{name}.md"
+        path.write_text(body, encoding="utf-8")
+        with pytest.raises(ConfigError, match=message):
+            load_event_sizes(base, path)
 
 
 # --- M7.D.1a: a symptom's onset is an illness ---------------------------------------------------------

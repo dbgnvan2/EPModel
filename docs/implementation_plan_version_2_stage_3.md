@@ -1,7 +1,7 @@
 # Version 2 stage 3: implementation plan
 
-**Status: DRAFT for owner approval, 2026-10-24.** The owner decided D18–D31 on 2026-10-24, each through
-`AskUserQuestion`, one at a time, and each answer was the recommended option (§3.2). Nothing in this plan is built.
+**Status: APPROVED by the owner 2026-10-24 ("Approved: the stage 3 plan as written"); steps 1 and 2 are next, in a session of their own.** The owner decided D18–D31 on 2026-10-24, each through
+`AskUserQuestion`, one at a time, and each answer was the recommended option (§3.2). No engine change is built.
 Written from `docs/version_2_plan.md` §3 "Stage 3 — Rule questions the owner chooses", the TODO items T-014, T-128,
 T-129 and T-130, and the stage 2 milestone review's triage (`docs/todo/2026-10-24_stage_2_milestone_review.md`).
 Every code fact in §3.1 was checked against `main` at `7fa32b5` (spec revision 38, engine hash `66dcbb1e8ba5`).

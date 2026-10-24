@@ -421,6 +421,21 @@
   ],
   "seeds": 150
  },
+ "0bee1c2fa5b1dc8f9060cb8f41b4df6c15db792d419fe7ff9133d0880fa6bb4d": {
+  "criterion": "M11.C.2[twelve-person family]",
+  "outcome": "FAIL",
+  "readouts": [
+   {
+    "direction": 1,
+    "half_width": 0.8110515772613256,
+    "mean_difference": 0.21322197111666155,
+    "p": 0.28752731326875014,
+    "readout": "symptom_load",
+    "report_only": false
+   }
+  ],
+  "seeds": 200
+ },
  "0bf7b2c1f5ac032745dc5a5d56a7cdbeb825bb8dcd82b9de2930b79d62b1f403": {
   "criterion": "M11.C.7[one spouse over sided]",
   "outcome": "PASS",
@@ -465,6 +480,28 @@
   ],
   "seeds": 200
  },
+ "0d53c71d167557c01ebe25cedd21dac070de625b2ce3c2efe08557f82b531956": {
+  "criterion": "M11.C.10",
+  "outcome": "FAIL",
+  "readouts": [
+   {
+    "direction": 1,
+    "half_width": 155.5776138656214,
+    "mean_difference": 83.995,
+    "p": 0.13131255541934564,
+    "readout": "cut_off_tie_weeks",
+    "report_only": false
+   },
+   {
+    "direction": 1,
+    "half_width": 56.58126857449109,
+    "mean_difference": 34.94,
+    "readout": "child_cut_weeks",
+    "report_only": true
+   }
+  ],
+  "seeds": 200
+ },
  "0d83bde3711f61310b4ba621cf74baeb994b068f1aa08630c3b8a7e9c0718538": {
   "criterion": "M11.C.29",
   "outcome": "FAIL",
@@ -499,6 +536,29 @@
    }
   ],
   "seeds": 200
+ },
+ "1075dfaf9d8b0ff21e29de75a7f8e49963cb9c864a4112f3670cd7936099f20c": {
+  "criterion": "M11.C.15",
+  "outcome": "PASS",
+  "readouts": [
+   {
+    "direction": 1,
+    "half_width": 0.4426221860161574,
+    "mean_difference": 2.741454057695472,
+    "p": 1.0600839303632722e-15,
+    "readout": "death_rise",
+    "report_only": false
+   },
+   {
+    "direction": 1,
+    "half_width": 0.36808275781364025,
+    "mean_difference": 4.95052895463955,
+    "p": 1.9779558044497787e-18,
+    "readout": "recovery_rise",
+    "report_only": false
+   }
+  ],
+  "seeds": 100
  },
  "10f76be14247731e60f70e0b6a9f682f49ebbfb7901c54f54efd401a0e36199d": {
   "criterion": "M11.C.42",
@@ -787,6 +847,29 @@
   ],
   "seeds": 200
  },
+ "1539806c13ab6fb0274b7e683c5356211cf415a037626c27bf4d01288537431c": {
+  "criterion": "M11.C.15",
+  "outcome": "FAIL",
+  "readouts": [
+   {
+    "direction": 1,
+    "half_width": 0.41873619151475017,
+    "mean_difference": -0.33837964389989605,
+    "p": 0.9179182019154745,
+    "readout": "death_rise",
+    "report_only": false
+   },
+   {
+    "direction": 1,
+    "half_width": 0.3313374410204201,
+    "mean_difference": 2.6796205152765697,
+    "p": 2.7036823802462883e-17,
+    "readout": "recovery_rise",
+    "report_only": false
+   }
+  ],
+  "seeds": 100
+ },
  "157746c6a3a709f37f96bfced3b0d0052830216757c5901aa836efff9fbbe754": {
   "criterion": "M11.C.12",
   "outcome": "FAIL",
@@ -801,6 +884,43 @@
    }
   ],
   "seeds": 100
+ },
+ "160e32b3b2838da94c022e69ae0f947cd4decb566824605d6526c24d8e228417": {
+  "criterion": "M11.C.2[twelve-person family]",
+  "outcome": "FAIL",
+  "readouts": [
+   {
+    "direction": 1,
+    "half_width": 2.2466426420192476,
+    "mean_difference": 1.333887401711628,
+    "p": 0.14639412548008887,
+    "readout": "symptom_load",
+    "report_only": false
+   }
+  ],
+  "seeds": 150
+ },
+ "161a9009037faadf516d544c0a879d8999a6b20740545ed6041371c6bd8169de": {
+  "criterion": "M11.C.10[family of origin]",
+  "outcome": "FAIL",
+  "readouts": [
+   {
+    "direction": 1,
+    "half_width": 126.68244574954984,
+    "mean_difference": 101.165,
+    "p": 0.09650724573529951,
+    "readout": "cut_off_tie_weeks",
+    "report_only": false
+   },
+   {
+    "direction": 1,
+    "half_width": 47.145242202569015,
+    "mean_difference": -31.46,
+    "readout": "child_cut_weeks",
+    "report_only": true
+   }
+  ],
+  "seeds": 200
  },
  "161b3472d6728a0c142805ab0619c9623a120285ab3f2844391eec35dfe8b639": {
   "criterion": "M11.C.27[unstable,add_third]",
@@ -922,6 +1042,28 @@
    }
   ],
   "seeds": 150
+ },
+ "1785d3ee799cff5fe308c30cf93934f4ef058c58e75384def3ff4a221aaa104e": {
+  "criterion": "M11.C.6",
+  "outcome": "FAIL",
+  "readouts": [
+   {
+    "direction": -1,
+    "half_width": 0.04681716423851712,
+    "mean_difference": 0.08226379664869907,
+    "p": 0.9952402697111866,
+    "readout": "development",
+    "report_only": false
+   },
+   {
+    "direction": 1,
+    "half_width": 1.8397508485454268,
+    "mean_difference": 51.67,
+    "readout": "projection_acts",
+    "report_only": true
+   }
+  ],
+  "seeds": 200
  },
  "1848db99c10b40a7d67854d1fd63b0a6106c736cd23b63028879aa999a9c867f": {
   "criterion": "M11.C.12",
@@ -1046,6 +1188,43 @@
     "half_width": 0.03543790946664302,
     "mean_difference": 0.26993729195505395,
     "readout": "pair_deviation_week_12",
+    "report_only": true
+   }
+  ],
+  "seeds": 200
+ },
+ "19a6d820700b629fb4e239668324127828e632b578a74e4abb2be38ae0900528": {
+  "criterion": "M11.C.2[twelve-person family]",
+  "outcome": "FAIL",
+  "readouts": [
+   {
+    "direction": 1,
+    "half_width": 0.8036891083995196,
+    "mean_difference": 0.16948760226499546,
+    "p": 0.36395006918833617,
+    "readout": "symptom_load",
+    "report_only": false
+   }
+  ],
+  "seeds": 200
+ },
+ "19a94a562419768897194f740793b3abc1380eb21950126d55febd303f65f7db": {
+  "criterion": "M11.C.10[family of origin]",
+  "outcome": "FAIL",
+  "readouts": [
+   {
+    "direction": 1,
+    "half_width": 53.215573584274324,
+    "mean_difference": 39.205,
+    "p": 0.07605168043215024,
+    "readout": "cut_off_tie_weeks",
+    "report_only": false
+   },
+   {
+    "direction": 1,
+    "half_width": 13.155164969649507,
+    "mean_difference": -9.895,
+    "readout": "child_cut_weeks",
     "report_only": true
    }
   ],
@@ -1477,6 +1656,28 @@
   ],
   "seeds": 100
  },
+ "208c05e6c2b6ec4365939eab4202a46c408f7482fd0e460d46979017347474fa": {
+  "criterion": "M11.C.10",
+  "outcome": "FAIL",
+  "readouts": [
+   {
+    "direction": 1,
+    "half_width": 142.66510613399592,
+    "mean_difference": 32.14,
+    "p": 0.42013213130472604,
+    "readout": "cut_off_tie_weeks",
+    "report_only": false
+   },
+   {
+    "direction": 1,
+    "half_width": 51.61485794711932,
+    "mean_difference": -4.27,
+    "readout": "child_cut_weeks",
+    "report_only": true
+   }
+  ],
+  "seeds": 200
+ },
  "20ee9cd8646c041b4597bb86ce8f29d161d0802d12fc50783fd7c6734cfcb260": {
   "criterion": "M11.C.29",
   "outcome": "FAIL",
@@ -1526,6 +1727,35 @@
    }
   ],
   "seeds": 150
+ },
+ "2307c17664a868e93161433ef327bec03ae2be713d60a7a66805447d5751c2fd": {
+  "criterion": "M11.C.48[phase_d]",
+  "outcome": "PASS",
+  "readouts": [
+   {
+    "direction": 1,
+    "half_width": 0.05798918159957037,
+    "mean_difference": 0.5293928513165788,
+    "p": 7.45690746992541e-18,
+    "readout": "negative_run",
+    "report_only": false
+   },
+   {
+    "direction": 1,
+    "half_width": 0.07709703633242046,
+    "mean_difference": 1.5387478279919609,
+    "readout": "run_before_cutoff",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.0,
+    "mean_difference": 0.0,
+    "readout": "first_cutoffs",
+    "report_only": true
+   }
+  ],
+  "seeds": 100
  },
  "2324fb126349021e6dc855ff70d6343a1ed110768cb70461853d925980a6e00c": {
   "criterion": "M11.C.7[one spouse over sided]",
@@ -1675,6 +1905,35 @@
   ],
   "seeds": 200
  },
+ "260a918a80ea1b5684f7dbe1639f988093cef45e179e4237cb722e1b5fbded73": {
+  "criterion": "M11.C.48",
+  "outcome": "PASS",
+  "readouts": [
+   {
+    "direction": 1,
+    "half_width": 0.175771272857201,
+    "mean_difference": 0.442047619047619,
+    "p": 2.206361948583566e-07,
+    "readout": "negative_run",
+    "report_only": false
+   },
+   {
+    "direction": 1,
+    "half_width": 0.20809166589304198,
+    "mean_difference": 1.7714285714285714,
+    "readout": "run_before_cutoff",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.0,
+    "mean_difference": 0.0,
+    "readout": "first_cutoffs",
+    "report_only": true
+   }
+  ],
+  "seeds": 100
+ },
  "261c6590f888c8fa684cbcbaf8274d3c5a5ded97d862dbdd96676054adcc5a6a": {
   "criterion": "M11.C.41[lower level: heavier stress]",
   "outcome": "FAIL",
@@ -1714,6 +1973,43 @@
     "mean_difference": 1.4253328021993639e-05,
     "readout": "family_rise",
     "report_only": true
+   }
+  ],
+  "seeds": 150
+ },
+ "268231293c3a904064767a0284863207dacc8b6a85abd0d33c9e36674badd9cd": {
+  "criterion": "M11.C.10",
+  "outcome": "FAIL",
+  "readouts": [
+   {
+    "direction": 1,
+    "half_width": 120.67240607971873,
+    "mean_difference": 33.14,
+    "p": 0.28155041202960196,
+    "readout": "cut_off_tie_weeks",
+    "report_only": false
+   },
+   {
+    "direction": 1,
+    "half_width": 42.78825412648621,
+    "mean_difference": 43.27,
+    "readout": "child_cut_weeks",
+    "report_only": true
+   }
+  ],
+  "seeds": 200
+ },
+ "26f8e568bfc67868acf4b43c0c551ccc5eae3ebf3f4275f1ddd3924c8f737eca": {
+  "criterion": "M11.C.2[twelve-person family]",
+  "outcome": "FAIL",
+  "readouts": [
+   {
+    "direction": 1,
+    "half_width": 0.8918771164443049,
+    "mean_difference": 0.152940356228006,
+    "p": 0.36996756710846085,
+    "readout": "symptom_load",
+    "report_only": false
    }
   ],
   "seeds": 150
@@ -1760,6 +2056,58 @@
    }
   ],
   "seeds": 150
+ },
+ "2862105b595d58baa3e0190e9e0e72568deb5c1f194132dc01742d8739e70b8a": {
+  "criterion": "M11.C.48",
+  "outcome": "PASS",
+  "readouts": [
+   {
+    "direction": 1,
+    "half_width": 0.21410546047174028,
+    "mean_difference": 0.6293333333333333,
+    "p": 6.079232711726459e-09,
+    "readout": "negative_run",
+    "report_only": false
+   },
+   {
+    "direction": 1,
+    "half_width": 0.2428304342498687,
+    "mean_difference": 1.9799999999999998,
+    "readout": "run_before_cutoff",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.0,
+    "mean_difference": 0.0,
+    "readout": "first_cutoffs",
+    "report_only": true
+   }
+  ],
+  "seeds": 100
+ },
+ "29c7eaec6e3e2d76a39aae43d324b18fc97190369be385614db62f565c67108f": {
+  "criterion": "M11.C.15",
+  "outcome": "PASS",
+  "readouts": [
+   {
+    "direction": 1,
+    "half_width": 2.247910370535079,
+    "mean_difference": 12.392998636283881,
+    "p": 6.24102058411855e-15,
+    "readout": "death_rise",
+    "report_only": false
+   },
+   {
+    "direction": 1,
+    "half_width": 1.6868154396854511,
+    "mean_difference": 10.428004113712754,
+    "p": 5.984613845846611e-16,
+    "readout": "recovery_rise",
+    "report_only": false
+   }
+  ],
+  "seeds": 100
  },
  "2b6e1da916aafbf201b25abf6a6b8b4132ddd0eae12dca5a0c78c2f2159b2fe5": {
   "criterion": "M11.C.7[joint over one spouse]",
@@ -1954,6 +2302,28 @@
   ],
   "seeds": 200
  },
+ "2dcfc00ee8a6bd14efdf3884563048027f02dbfda98194bf266d95662193d51a": {
+  "criterion": "M11.C.6",
+  "outcome": "FAIL",
+  "readouts": [
+   {
+    "direction": -1,
+    "half_width": 0.052886082828408086,
+    "mean_difference": 0.09506336143745922,
+    "p": 0.9997436294401696,
+    "readout": "development",
+    "report_only": false
+   },
+   {
+    "direction": 1,
+    "half_width": 2.2022911195417665,
+    "mean_difference": 53.46,
+    "readout": "projection_acts",
+    "report_only": true
+   }
+  ],
+  "seeds": 150
+ },
  "2e0b51f1c3a8625edd89bc58c74dff96c529c9dbf17292637c473951b77d01f7": {
   "criterion": "M11.C.34",
   "outcome": "FAIL",
@@ -1964,6 +2334,21 @@
     "mean_difference": 0.04,
     "p": 0.9153106212615967,
     "readout": "automatic_reaction",
+    "report_only": false
+   }
+  ],
+  "seeds": 150
+ },
+ "2e82cc553aea25db29282b1dc85e1cf0e19b0c886b5cb08429b076b2165a5f6c": {
+  "criterion": "M11.C.2[twelve-person family]",
+  "outcome": "FAIL",
+  "readouts": [
+   {
+    "direction": 1,
+    "half_width": 1.5835622660553614,
+    "mean_difference": 1.1224993047852683,
+    "p": 0.06233377200908065,
+    "readout": "symptom_load",
     "report_only": false
    }
   ],
@@ -2141,6 +2526,21 @@
   ],
   "seeds": 150
  },
+ "30e9d203c26ead463e7580f165f0f4a1a7bfc1b5135c2bfcf098005ce345845a": {
+  "criterion": "M11.C.2[twelve-person family]",
+  "outcome": "FAIL",
+  "readouts": [
+   {
+    "direction": 1,
+    "half_width": 2.085626037440352,
+    "mean_difference": 0.945550759183119,
+    "p": 0.1749277889312395,
+    "readout": "symptom_load",
+    "report_only": false
+   }
+  ],
+  "seeds": 200
+ },
  "32a6039909d80a3d87b97153cc7cc6bc7fd60ec8e8459279b4527ac89baa4768": {
   "criterion": "M11.C.17",
   "outcome": "PASS",
@@ -2184,6 +2584,28 @@
   ],
   "seeds": 150
  },
+ "34f86ac7ca8708ecb7f08b83029a173b831888d6b697a302031db91d6d1b6bad": {
+  "criterion": "M11.C.6",
+  "outcome": "FAIL",
+  "readouts": [
+   {
+    "direction": -1,
+    "half_width": 0.02244543412741698,
+    "mean_difference": 0.042835150635843956,
+    "p": 0.9997533982367515,
+    "readout": "development",
+    "report_only": false
+   },
+   {
+    "direction": 1,
+    "half_width": 1.679745421666045,
+    "mean_difference": 51.515,
+    "readout": "projection_acts",
+    "report_only": true
+   }
+  ],
+  "seeds": 200
+ },
  "3588a5d84066b9c598fcf10484d1defe1c7a81ba7227ddba503cb64b48b3cca6": {
   "criterion": "M11.C.41[lower level: heavier stress]",
   "outcome": "PASS",
@@ -2204,6 +2626,29 @@
    }
   ],
   "seeds": 150
+ },
+ "3721e0467f92c9dd83218e019652c598cc42d3f646fb0f5c7b6aaf564edc46e2": {
+  "criterion": "M11.C.15",
+  "outcome": "PASS",
+  "readouts": [
+   {
+    "direction": 1,
+    "half_width": 0.27351757169670726,
+    "mean_difference": 0.9886848922710992,
+    "p": 9.404394700620125e-08,
+    "readout": "death_rise",
+    "report_only": false
+   },
+   {
+    "direction": 1,
+    "half_width": 0.2993334125032328,
+    "mean_difference": 3.3775566096219007,
+    "p": 3.895246103609213e-10,
+    "readout": "recovery_rise",
+    "report_only": false
+   }
+  ],
+  "seeds": 50
  },
  "37b3c01555a045464b4ef213022fde3b0dbcb04ef7da1842389bd9c311829e70": {
   "criterion": "M11.C.29",
@@ -2292,6 +2737,21 @@
    }
   ],
   "seeds": 100
+ },
+ "38d147e64b6e4f947d891f8b5c399e6cdf20185a41cff02390e440ad5d0dbf20": {
+  "criterion": "M11.C.2[twelve-person family]",
+  "outcome": "FAIL",
+  "readouts": [
+   {
+    "direction": 1,
+    "half_width": 1.8154134661738022,
+    "mean_difference": 1.2609360042190174,
+    "p": 0.08873602740684289,
+    "readout": "symptom_load",
+    "report_only": false
+   }
+  ],
+  "seeds": 200
  },
  "390bdc08559bf529f315af888006ee432b55a09e65440b3ae2c9294b1b557997": {
   "criterion": "M11.C.7[joint over one spouse]",
@@ -2416,6 +2876,35 @@
   ],
   "seeds": 200
  },
+ "3ef742591a5593696e42c1eff301af80daad0b07bda3454460fd3761a7dfc0ab": {
+  "criterion": "M11.C.48",
+  "outcome": "PASS",
+  "readouts": [
+   {
+    "direction": 1,
+    "half_width": 0.18652543856141307,
+    "mean_difference": 0.618,
+    "p": 1.855600494735401e-11,
+    "readout": "negative_run",
+    "report_only": false
+   },
+   {
+    "direction": 1,
+    "half_width": 0.22861488591210777,
+    "mean_difference": 1.9542857142857144,
+    "readout": "run_before_cutoff",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.0,
+    "mean_difference": 0.0,
+    "readout": "first_cutoffs",
+    "report_only": true
+   }
+  ],
+  "seeds": 100
+ },
  "3fdb014375aa79e44d71c347e8a09bfb3da4011e53e62c00d22d88e4248929a3": {
   "criterion": "M11.C.5",
   "outcome": "FAIL",
@@ -2437,6 +2926,29 @@
   ],
   "seeds": 200
  },
+ "4003c29f9f7c8d2746ea29091b2a13e63b4cad0b702b091a6a672f61e44d2bdf": {
+  "criterion": "M11.C.15",
+  "outcome": "FAIL",
+  "readouts": [
+   {
+    "direction": 1,
+    "half_width": 0.2278210640711317,
+    "mean_difference": 0.19356750196370456,
+    "p": 0.0861350692716538,
+    "readout": "death_rise",
+    "report_only": false
+   },
+   {
+    "direction": 1,
+    "half_width": 0.21334177958882417,
+    "mean_difference": 2.7175073656055355,
+    "p": 1.9779558044497787e-18,
+    "readout": "recovery_rise",
+    "report_only": false
+   }
+  ],
+  "seeds": 100
+ },
  "400abedd224847e93c089d1b9468f13bab1866f5e8464742fc85664ba89d6dff": {
   "criterion": "M11.C.41[heavy: lower level]",
   "outcome": "PASS",
@@ -2454,6 +2966,28 @@
     "mean_difference": 0.10007554184098756,
     "readout": "reactive_over_chance",
     "report_only": false
+   }
+  ],
+  "seeds": 150
+ },
+ "403e578c40ca238dd251d88dc833586e590d25d0d2f3af0a128963270c4a7cfe": {
+  "criterion": "M11.C.6",
+  "outcome": "FAIL",
+  "readouts": [
+   {
+    "direction": -1,
+    "half_width": 0.042921303863319535,
+    "mean_difference": 0.09249740546945887,
+    "p": 0.9999225319487005,
+    "readout": "development",
+    "report_only": false
+   },
+   {
+    "direction": 1,
+    "half_width": 2.2596346534493916,
+    "mean_difference": 53.12,
+    "readout": "projection_acts",
+    "report_only": true
    }
   ],
   "seeds": 150
@@ -2494,6 +3028,28 @@
    }
   ],
   "seeds": 150
+ },
+ "420e1d46a11366c3eed77655eb4ade29821c198c8e7177257d0da9833a667fd8": {
+  "criterion": "M11.C.10[family of origin]",
+  "outcome": "FAIL",
+  "readouts": [
+   {
+    "direction": 1,
+    "half_width": 134.40516083906851,
+    "mean_difference": 106.225,
+    "p": 0.07072570649060078,
+    "readout": "cut_off_tie_weeks",
+    "report_only": false
+   },
+   {
+    "direction": 1,
+    "half_width": 56.4638219646303,
+    "mean_difference": 13.24,
+    "readout": "child_cut_weeks",
+    "report_only": true
+   }
+  ],
+  "seeds": 200
  },
  "4249a3c91f336a0dc255e0cf48ec703216d85a466534b3ee17fdad85823ed05e": {
   "criterion": "M11.C.45",
@@ -2600,6 +3156,28 @@
     "half_width": 0.7908885250751065,
     "mean_difference": -1.055,
     "readout": "landed_contacts",
+    "report_only": true
+   }
+  ],
+  "seeds": 200
+ },
+ "44fc3f5c2972834c5314db5a0d9130696075ce597b971bc44530b7bec5e2b080": {
+  "criterion": "M11.C.10[family of origin]",
+  "outcome": "PASS",
+  "readouts": [
+   {
+    "direction": 1,
+    "half_width": 144.46991929806404,
+    "mean_difference": 141.49,
+    "p": 0.025849064627552244,
+    "readout": "cut_off_tie_weeks",
+    "report_only": false
+   },
+   {
+    "direction": 1,
+    "half_width": 41.81683119235422,
+    "mean_difference": 37.625,
+    "readout": "child_cut_weeks",
     "report_only": true
    }
   ],
@@ -3363,6 +3941,35 @@
   ],
   "seeds": 150
  },
+ "526ecc61360667c3a0eed14a9e6c951996fec274479df56f97f002f0fae9a985": {
+  "criterion": "M11.C.48[phase_d]",
+  "outcome": "PASS",
+  "readouts": [
+   {
+    "direction": 1,
+    "half_width": 0.09653983538541715,
+    "mean_difference": 0.5550936055141641,
+    "p": 6.46419190026883e-16,
+    "readout": "negative_run",
+    "report_only": false
+   },
+   {
+    "direction": 1,
+    "half_width": 0.08528905559647551,
+    "mean_difference": 1.6407456018993785,
+    "readout": "run_before_cutoff",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.0,
+    "mean_difference": 0.0,
+    "readout": "first_cutoffs",
+    "report_only": true
+   }
+  ],
+  "seeds": 100
+ },
  "52f3c19f598af39760bb896d319c8a96bc43598b9add0817079381a9bc131517": {
   "criterion": "M11.C.2",
   "outcome": "FAIL",
@@ -3534,6 +4141,21 @@
   ],
   "seeds": 50
  },
+ "56f7070a4c3f14a6229c9e410f1efea840ba0c52820ed1469c211b6189d6ffd9": {
+  "criterion": "M11.C.2[twelve-person family]",
+  "outcome": "PASS",
+  "readouts": [
+   {
+    "direction": 1,
+    "half_width": 1.3755812068449194,
+    "mean_difference": 1.2313745839937653,
+    "p": 0.03138720847568195,
+    "readout": "symptom_load",
+    "report_only": false
+   }
+  ],
+  "seeds": 200
+ },
  "56fd9e4070a223b64f50aed0c607334188c17170cd286449873d6ab438893b2f": {
   "criterion": "M11.C.29",
   "outcome": "FAIL",
@@ -3590,6 +4212,35 @@
    }
   ],
   "seeds": 200
+ },
+ "57dd19b588bc5797636b57e95d2d15a4f926c18f80e555edd8d68f6efa9f25ba": {
+  "criterion": "M11.C.48",
+  "outcome": "PASS",
+  "readouts": [
+   {
+    "direction": 1,
+    "half_width": 0.11446777809594377,
+    "mean_difference": 0.40202380952380956,
+    "p": 1.9417603947493687e-09,
+    "readout": "negative_run",
+    "report_only": false
+   },
+   {
+    "direction": 1,
+    "half_width": 0.16927168527058337,
+    "mean_difference": 1.7542857142857144,
+    "readout": "run_before_cutoff",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.0,
+    "mean_difference": 0.0,
+    "readout": "first_cutoffs",
+    "report_only": true
+   }
+  ],
+  "seeds": 100
  },
  "582c2424bd6ab23d54a2cee34d439ef6d809211722330deaa4206bae4449c821": {
   "criterion": "M11.C.27[unstable,add_third]",
@@ -3826,6 +4477,28 @@
     "half_width": 0.051195872518583777,
     "mean_difference": 0.3632275799368048,
     "readout": "pair_deviation_week_12",
+    "report_only": true
+   }
+  ],
+  "seeds": 200
+ },
+ "5abded9f08d7dc9f6fe75da5332e4cf932b73d8ba0dd80da6cb917f0369fa008": {
+  "criterion": "M11.C.10",
+  "outcome": "FAIL",
+  "readouts": [
+   {
+    "direction": 1,
+    "half_width": 83.24973035929109,
+    "mean_difference": -1.215,
+    "p": 0.41077568291022265,
+    "readout": "cut_off_tie_weeks",
+    "report_only": false
+   },
+   {
+    "direction": 1,
+    "half_width": 20.958169491129095,
+    "mean_difference": -11.52,
+    "readout": "child_cut_weeks",
     "report_only": true
    }
   ],
@@ -4171,6 +4844,21 @@
   ],
   "seeds": 200
  },
+ "60693a6c9a8040ae4867677837ca0065832199591dd3b7a80200cef6a1710db5": {
+  "criterion": "M11.C.2[twelve-person family]",
+  "outcome": "FAIL",
+  "readouts": [
+   {
+    "direction": 1,
+    "half_width": 2.2497884072616263,
+    "mean_difference": 1.553288445936554,
+    "p": 0.09845494661475473,
+    "readout": "symptom_load",
+    "report_only": false
+   }
+  ],
+  "seeds": 150
+ },
  "60a951b36e52ae4c813285a9cc049f51b1f0ccb59497c1e26353543ac903bb0c": {
   "criterion": "M11.C.27[stable,remove_one]",
   "outcome": "PASS",
@@ -4335,6 +5023,35 @@
   ],
   "seeds": 150
  },
+ "64e1e73a8330dc3ebb53b71f7d1b01536f62ae575a4040de2696557c60b9dc48": {
+  "criterion": "M11.C.48",
+  "outcome": "PASS",
+  "readouts": [
+   {
+    "direction": 1,
+    "half_width": 0.14388083982947025,
+    "mean_difference": 0.417,
+    "p": 2.152113995327088e-08,
+    "readout": "negative_run",
+    "report_only": false
+   },
+   {
+    "direction": 1,
+    "half_width": 0.17728308698037984,
+    "mean_difference": 1.7928571428571427,
+    "readout": "run_before_cutoff",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.0,
+    "mean_difference": 0.0,
+    "readout": "first_cutoffs",
+    "report_only": true
+   }
+  ],
+  "seeds": 100
+ },
  "653f1d728a62f0292c1fede7ab50a80c30701ea5e2ce77f6066fbb227a29bab5": {
   "criterion": "M11.C.27[stable,remove_one]",
   "outcome": "FAIL",
@@ -4433,6 +5150,28 @@
   ],
   "seeds": 200
  },
+ "6569d849a1aded6d0017eea4f07b0fa72c5d94aebb68d1ecd9b0ee068fc2a67d": {
+  "criterion": "M11.C.10",
+  "outcome": "FAIL",
+  "readouts": [
+   {
+    "direction": 1,
+    "half_width": 80.17564628200941,
+    "mean_difference": 25.115,
+    "p": 0.1904236202589967,
+    "readout": "cut_off_tie_weeks",
+    "report_only": false
+   },
+   {
+    "direction": 1,
+    "half_width": 21.655334567560132,
+    "mean_difference": -0.73,
+    "readout": "child_cut_weeks",
+    "report_only": true
+   }
+  ],
+  "seeds": 200
+ },
  "658e22ee39861ed11c7fd50d5be9732ac72c8a9b91f724ed869210058895aae8": {
   "criterion": "M11.C.44",
   "outcome": "FAIL",
@@ -4512,6 +5251,35 @@
    }
   ],
   "seeds": 150
+ },
+ "671c19dcc8448f1712a5709b7f51edca5041855e530b1b611d902932f66b3647": {
+  "criterion": "M11.C.48[phase_d]",
+  "outcome": "PASS",
+  "readouts": [
+   {
+    "direction": 1,
+    "half_width": 0.06699003739570084,
+    "mean_difference": 0.5357522342065814,
+    "p": 1.833530323909796e-17,
+    "readout": "negative_run",
+    "report_only": false
+   },
+   {
+    "direction": 1,
+    "half_width": 0.08527847410564006,
+    "mean_difference": 1.4558654356017098,
+    "readout": "run_before_cutoff",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.0,
+    "mean_difference": 0.0,
+    "readout": "first_cutoffs",
+    "report_only": true
+   }
+  ],
+  "seeds": 100
  },
  "678cc66ab39610da6c5dac6134593110d30627eaf11e7574af10b4c5c8f07ebe": {
   "criterion": "M11.C.27[unstable,add_third]",
@@ -4713,6 +5481,35 @@
   ],
   "seeds": 150
  },
+ "6debce3e3bbca98a7684b38cd9d7b64d6d8453cfebba2bcb92752bcd71567af5": {
+  "criterion": "M11.C.48",
+  "outcome": "PASS",
+  "readouts": [
+   {
+    "direction": 1,
+    "half_width": 0.22265455837055623,
+    "mean_difference": 0.4896904761904763,
+    "p": 2.4683967876310114e-07,
+    "readout": "negative_run",
+    "report_only": false
+   },
+   {
+    "direction": 1,
+    "half_width": 0.267606525565526,
+    "mean_difference": 1.8714285714285714,
+    "readout": "run_before_cutoff",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.0,
+    "mean_difference": 0.0,
+    "readout": "first_cutoffs",
+    "report_only": true
+   }
+  ],
+  "seeds": 100
+ },
  "6e6e1155d37a274975d583f4ba05bc94d3965334b294f75348a715785e610ec0": {
   "criterion": "M11.C.39",
   "outcome": "PASS",
@@ -4746,6 +5543,28 @@
     "p": 0.4154580554903301,
     "readout": "symptom_load",
     "report_only": false
+   }
+  ],
+  "seeds": 200
+ },
+ "70ace83af254711154ef56332bfeb7b46aab97ad0bb66a19a2364237a354cdcf": {
+  "criterion": "M11.C.10",
+  "outcome": "FAIL",
+  "readouts": [
+   {
+    "direction": 1,
+    "half_width": 112.98110912773723,
+    "mean_difference": 5.875,
+    "p": 0.5369429117600375,
+    "readout": "cut_off_tie_weeks",
+    "report_only": false
+   },
+   {
+    "direction": 1,
+    "half_width": 47.47343822605664,
+    "mean_difference": -18.515,
+    "readout": "child_cut_weeks",
+    "report_only": true
    }
   ],
   "seeds": 200
@@ -4815,6 +5634,29 @@
    }
   ],
   "seeds": 150
+ },
+ "7563bffe76ebcb7da9642c4e0a67ee0dcaf0a1e97ed98909a3b935d91b5407dd": {
+  "criterion": "M11.C.15",
+  "outcome": "PASS",
+  "readouts": [
+   {
+    "direction": 1,
+    "half_width": 2.2961906014530986,
+    "mean_difference": 17.54404560748139,
+    "p": 3.170718186276958e-17,
+    "readout": "death_rise",
+    "report_only": false
+   },
+   {
+    "direction": 1,
+    "half_width": 1.8986170888241134,
+    "mean_difference": 14.536513709677319,
+    "p": 1.6428970390974854e-17,
+    "readout": "recovery_rise",
+    "report_only": false
+   }
+  ],
+  "seeds": 100
  },
  "76010a192266bdc82b981b6569adddc955fe770768bcbb90bd012798ca18ae43": {
   "criterion": "M11.C.34",
@@ -5290,6 +6132,43 @@
   ],
   "seeds": 50
  },
+ "7b9fa1bed09fa991e959fab53b26943d0222332016d0754b9669d583f4fccba6": {
+  "criterion": "M11.C.2[twelve-person family]",
+  "outcome": "FAIL",
+  "readouts": [
+   {
+    "direction": 1,
+    "half_width": 0.9305889616448492,
+    "mean_difference": 0.24610559994580597,
+    "p": 0.3392788359439541,
+    "readout": "symptom_load",
+    "report_only": false
+   }
+  ],
+  "seeds": 150
+ },
+ "7c49222f9b43504521789f806a463ceea862648dbc3592cd41f5f532f86e8b8a": {
+  "criterion": "M11.C.6",
+  "outcome": "FAIL",
+  "readouts": [
+   {
+    "direction": -1,
+    "half_width": 0.0528168330668473,
+    "mean_difference": 0.07199298106362689,
+    "p": 0.9770171614691266,
+    "readout": "development",
+    "report_only": false
+   },
+   {
+    "direction": 1,
+    "half_width": 2.1366992039180115,
+    "mean_difference": 51.846666666666664,
+    "readout": "projection_acts",
+    "report_only": true
+   }
+  ],
+  "seeds": 150
+ },
  "7c624a8454663c1e5f91241d11fdd7118d7c137d67199d1b563db1979f92e42e": {
   "criterion": "M11.C.23",
   "outcome": "FAIL",
@@ -5468,6 +6347,21 @@
   ],
   "seeds": 100
  },
+ "7ea5676d7103c9daac3a01f78e5fda3ef876e69c583adc8463b330ddafca109b": {
+  "criterion": "M11.C.2[twelve-person family]",
+  "outcome": "FAIL",
+  "readouts": [
+   {
+    "direction": 1,
+    "half_width": 1.026253640109554,
+    "mean_difference": 0.09244442424958749,
+    "p": 0.38504967196043305,
+    "readout": "symptom_load",
+    "report_only": false
+   }
+  ],
+  "seeds": 150
+ },
  "7ed98106855b5fa15606a47187cbb98b8f85e24643e2eb9382574b2f51c4f9a5": {
   "criterion": "M11.C.42",
   "outcome": "FAIL",
@@ -5529,6 +6423,29 @@
     "mean_difference": 0.135,
     "p": 0.13988687513644835,
     "readout": "marital_conflict",
+    "report_only": false
+   }
+  ],
+  "seeds": 200
+ },
+ "7f337adbe2f3d646daa8a23f712a201795d6b526de8147a25a2d4b37c174c8cd": {
+  "criterion": "M11.C.15",
+  "outcome": "FAIL",
+  "readouts": [
+   {
+    "direction": 1,
+    "half_width": 0.2896091158232714,
+    "mean_difference": -0.507246898031116,
+    "p": 0.9998073610860073,
+    "readout": "death_rise",
+    "report_only": false
+   },
+   {
+    "direction": 1,
+    "half_width": 0.23162744179235495,
+    "mean_difference": 2.562262290886898,
+    "p": 3.504111834529174e-32,
+    "readout": "recovery_rise",
     "report_only": false
    }
   ],
@@ -5689,6 +6606,35 @@
    }
   ],
   "seeds": 200
+ },
+ "811262cf590fc80e4338e38740cb1a0444325027c449b189ca427271e3aabd8c": {
+  "criterion": "M11.C.48[phase_d]",
+  "outcome": "PASS",
+  "readouts": [
+   {
+    "direction": 1,
+    "half_width": 0.09264147176865567,
+    "mean_difference": 0.6232709884144124,
+    "p": 7.700484739276363e-16,
+    "readout": "negative_run",
+    "report_only": false
+   },
+   {
+    "direction": 1,
+    "half_width": 0.09656497302366286,
+    "mean_difference": 1.7173531849670116,
+    "readout": "run_before_cutoff",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.0,
+    "mean_difference": 0.0,
+    "readout": "first_cutoffs",
+    "report_only": true
+   }
+  ],
+  "seeds": 100
  },
  "81ac0e267c6f5bc459b90fdd4f9c725ae3751a106ecd6fb4b64af6b045c47e99": {
   "criterion": "M11.C.34",
@@ -5914,6 +6860,35 @@
   ],
   "seeds": 150
  },
+ "8abeecc4e477e4f0d46fffcd182210ddfefb488606dbbc828397e0341595c1ac": {
+  "criterion": "M11.C.48",
+  "outcome": "PASS",
+  "readouts": [
+   {
+    "direction": 1,
+    "half_width": 0.09874199284987155,
+    "mean_difference": 0.32133333333333325,
+    "p": 2.401540031369417e-08,
+    "readout": "negative_run",
+    "report_only": false
+   },
+   {
+    "direction": 1,
+    "half_width": 0.13411096867591374,
+    "mean_difference": 1.602857142857143,
+    "readout": "run_before_cutoff",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.0,
+    "mean_difference": 0.0,
+    "readout": "first_cutoffs",
+    "report_only": true
+   }
+  ],
+  "seeds": 100
+ },
  "8ad36f0ac9017e13c78d5022f699bc8aaf7169357e12ba53d7b6bacb9ad8702d": {
   "criterion": "M11.C.27[stable,remove_one]",
   "outcome": "FAIL",
@@ -6093,6 +7068,28 @@
   ],
   "seeds": 100
  },
+ "91591a4c762418d589b5f01ab47823ed4e4eeae9a7bef839ebb6061e00b2084c": {
+  "criterion": "M11.C.6",
+  "outcome": "FAIL",
+  "readouts": [
+   {
+    "direction": -1,
+    "half_width": 0.0261222185712043,
+    "mean_difference": 0.04372906236507286,
+    "p": 0.9991081837905345,
+    "readout": "development",
+    "report_only": false
+   },
+   {
+    "direction": 1,
+    "half_width": 1.9734484837314183,
+    "mean_difference": 51.04,
+    "readout": "projection_acts",
+    "report_only": true
+   }
+  ],
+  "seeds": 150
+ },
  "917a6135d7509c66f6780fad0ba71fc617964ea3cf7983d92d15067cbd5e39b4": {
   "criterion": "M11.C.23",
   "outcome": "FAIL",
@@ -6181,6 +7178,28 @@
   ],
   "seeds": 200
  },
+ "9383dcdb13e807ac4adc85bf0b02b3f811d87e97c9cc83dd9a43ba3c23c0e3fd": {
+  "criterion": "M11.C.10[family of origin]",
+  "outcome": "PASS",
+  "readouts": [
+   {
+    "direction": 1,
+    "half_width": 114.55769105488436,
+    "mean_difference": 155.71,
+    "p": 0.005033054863388234,
+    "readout": "cut_off_tie_weeks",
+    "report_only": false
+   },
+   {
+    "direction": 1,
+    "half_width": 45.216747197102016,
+    "mean_difference": -37.81,
+    "readout": "child_cut_weeks",
+    "report_only": true
+   }
+  ],
+  "seeds": 200
+ },
  "93b8033a213777b192a4fad3494b7a25ab932cb06e9ac1476d9d79f6b05cbf20": {
   "criterion": "M11.C.7[one spouse over sided]",
   "outcome": "PASS",
@@ -6237,6 +7256,21 @@
     "mean_difference": 0.05333333333333334,
     "p": 0.7739612000835383,
     "readout": "automatic_reaction",
+    "report_only": false
+   }
+  ],
+  "seeds": 150
+ },
+ "970fb1a41857a6cd432d63ab7229b04d3b1e328c650075aa9359e1d500c73263": {
+  "criterion": "M11.C.2[twelve-person family]",
+  "outcome": "FAIL",
+  "readouts": [
+   {
+    "direction": 1,
+    "half_width": 2.428565101519651,
+    "mean_difference": -0.45441470602965334,
+    "p": 0.6639600365710417,
+    "readout": "symptom_load",
     "report_only": false
    }
   ],
@@ -6483,6 +7517,57 @@
   ],
   "seeds": 200
  },
+ "9a2ea89a3f093356538b387011cf5c7e88e6e1fb6dd1a269d0de678186ae2683": {
+  "criterion": "M11.C.6",
+  "outcome": "FAIL",
+  "readouts": [
+   {
+    "direction": -1,
+    "half_width": 0.05365458004885056,
+    "mean_difference": 0.11772533704017665,
+    "p": 0.999912080082238,
+    "readout": "development",
+    "report_only": false
+   },
+   {
+    "direction": 1,
+    "half_width": 2.316491917996838,
+    "mean_difference": 53.946666666666665,
+    "readout": "projection_acts",
+    "report_only": true
+   }
+  ],
+  "seeds": 150
+ },
+ "9a454faf543185a15e946c6e9eb684c51807ec9fbc486c0c2eae963a91f12ec8": {
+  "criterion": "M11.C.48[phase_d]",
+  "outcome": "PASS",
+  "readouts": [
+   {
+    "direction": 1,
+    "half_width": 0.14172584661498308,
+    "mean_difference": 0.5517061397953339,
+    "p": 3.891280345246329e-15,
+    "readout": "negative_run",
+    "report_only": false
+   },
+   {
+    "direction": 1,
+    "half_width": 0.07611476936821708,
+    "mean_difference": 1.6718242545313915,
+    "readout": "run_before_cutoff",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.0,
+    "mean_difference": 0.0,
+    "readout": "first_cutoffs",
+    "report_only": true
+   }
+  ],
+  "seeds": 100
+ },
  "9a61ae0ea102770aeeb23dc979c0d1ab8d1b32c9dcfd208487ea33d341f6cd69": {
   "criterion": "M11.C.5",
   "outcome": "FAIL",
@@ -6532,6 +7617,29 @@
    }
   ],
   "seeds": 100
+ },
+ "9b521f53ffa749e47a157c8d2d7c81ac0c911a8afbd1a880b8b9a5025dd5388b": {
+  "criterion": "M11.C.15",
+  "outcome": "FAIL",
+  "readouts": [
+   {
+    "direction": 1,
+    "half_width": 0.22488828267971842,
+    "mean_difference": -0.7862208111493422,
+    "p": 0.999999879246236,
+    "readout": "death_rise",
+    "report_only": false
+   },
+   {
+    "direction": 1,
+    "half_width": 0.16431950863849795,
+    "mean_difference": 1.582432653882754,
+    "p": 5.725627780882992e-10,
+    "readout": "recovery_rise",
+    "report_only": false
+   }
+  ],
+  "seeds": 50
  },
  "9e0fd07f28b7e72ff05b29c6d52f884a076ee1c8d445eb64fa375207978273b6": {
   "criterion": "M11.C.44",
@@ -6714,6 +7822,35 @@
   ],
   "seeds": 150
  },
+ "a2c86bb7addd4856dc423ec1f4af2dd82b45a511e7df7e349e5f5d90fcef3abe": {
+  "criterion": "M11.C.48[phase_d]",
+  "outcome": "PASS",
+  "readouts": [
+   {
+    "direction": 1,
+    "half_width": 0.05834939130906529,
+    "mean_difference": 0.4665648442326936,
+    "p": 2.114605344511503e-17,
+    "readout": "negative_run",
+    "report_only": false
+   },
+   {
+    "direction": 1,
+    "half_width": 0.07440383911763382,
+    "mean_difference": 1.426239958450285,
+    "readout": "run_before_cutoff",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.0,
+    "mean_difference": 0.0,
+    "readout": "first_cutoffs",
+    "report_only": true
+   }
+  ],
+  "seeds": 100
+ },
  "a2e3c10a61271eafbca6139e581644764dd11ff309df47f64e664295439f971d": {
   "criterion": "M11.C.22",
   "outcome": "PASS",
@@ -6825,6 +7962,35 @@
   ],
   "seeds": 200
  },
+ "a5aaf162f09f3eba680748461fc020f93fb6e5f47f037dc696fbc458b97a8ebd": {
+  "criterion": "M11.C.48[phase_d]",
+  "outcome": "PASS",
+  "readouts": [
+   {
+    "direction": 1,
+    "half_width": 0.0670741600954256,
+    "mean_difference": 0.47212980852649755,
+    "p": 1.816207807348452e-16,
+    "readout": "negative_run",
+    "report_only": false
+   },
+   {
+    "direction": 1,
+    "half_width": 0.07280814060522488,
+    "mean_difference": 1.4294788850261986,
+    "readout": "run_before_cutoff",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.0,
+    "mean_difference": 0.0,
+    "readout": "first_cutoffs",
+    "report_only": true
+   }
+  ],
+  "seeds": 100
+ },
  "a5fddbf1240559578ec18df50bb672252e462b1861c61afb0c6456ae79fd71b9": {
   "criterion": "M11.C.43",
   "outcome": "FAIL",
@@ -6839,6 +8005,28 @@
    }
   ],
   "seeds": 200
+ },
+ "a6287a1b7b41373f9ef106ad2d6519f5a181f1d5bdefa21eba037ebec9d62504": {
+  "criterion": "M11.C.6",
+  "outcome": "FAIL",
+  "readouts": [
+   {
+    "direction": -1,
+    "half_width": 0.04182865978181329,
+    "mean_difference": 0.0893545840974367,
+    "p": 0.9998218957711962,
+    "readout": "development",
+    "report_only": false
+   },
+   {
+    "direction": 1,
+    "half_width": 2.2257436623049895,
+    "mean_difference": 52.48,
+    "readout": "projection_acts",
+    "report_only": true
+   }
+  ],
+  "seeds": 150
  },
  "a77e391c35fc69c7dee83af1d28d4a378d19c333aae7cf27d206a7b92e527863": {
   "criterion": "M11.C.2",
@@ -6989,6 +8177,35 @@
   ],
   "seeds": 150
  },
+ "a9cc3044a2745cf96e929688c90b206f9ab7970d9bd47f264a8fd53765cf3a7d": {
+  "criterion": "M11.C.48[phase_d]",
+  "outcome": "PASS",
+  "readouts": [
+   {
+    "direction": 1,
+    "half_width": 0.06704058539683652,
+    "mean_difference": 0.5749970247592749,
+    "p": 4.43441888600161e-17,
+    "readout": "negative_run",
+    "report_only": false
+   },
+   {
+    "direction": 1,
+    "half_width": 0.07173391190934557,
+    "mean_difference": 1.6511636034991546,
+    "readout": "run_before_cutoff",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.0,
+    "mean_difference": 0.0,
+    "readout": "first_cutoffs",
+    "report_only": true
+   }
+  ],
+  "seeds": 100
+ },
  "ab73db75b3b11f35b633d823f9b5f11eb6f3dbfc9edb48601e6699cac700be02": {
   "criterion": "M11.C.22",
   "outcome": "PASS",
@@ -7007,6 +8224,21 @@
     "mean_difference": -0.6264473569467941,
     "p": 1.845261962795471e-05,
     "readout": "severe_removal_effect",
+    "report_only": false
+   }
+  ],
+  "seeds": 200
+ },
+ "ab821b001c8c91defb934c181d9867c4f35c5e36dcfb9ec20836b26fe5a69f42": {
+  "criterion": "M11.C.2[twelve-person family]",
+  "outcome": "FAIL",
+  "readouts": [
+   {
+    "direction": 1,
+    "half_width": 0.905733553490557,
+    "mean_difference": 0.4996420276081785,
+    "p": 0.1346132217959124,
+    "readout": "symptom_load",
     "report_only": false
    }
   ],
@@ -7093,6 +8325,28 @@
     "mean_difference": 0.00025609932274691874,
     "readout": "reactive_over_chance",
     "report_only": false
+   }
+  ],
+  "seeds": 200
+ },
+ "b0e6ca77f3a0f106b44cdd0acaa11f47124a6299fdd8f0cb8a9ef26f7664a3e7": {
+  "criterion": "M11.C.10[family of origin]",
+  "outcome": "PASS",
+  "readouts": [
+   {
+    "direction": 1,
+    "half_width": 141.14076434953387,
+    "mean_difference": 128.88,
+    "p": 0.04661571444469562,
+    "readout": "cut_off_tie_weeks",
+    "report_only": false
+   },
+   {
+    "direction": 1,
+    "half_width": 48.8458914734698,
+    "mean_difference": -7.08,
+    "readout": "child_cut_weeks",
+    "report_only": true
    }
   ],
   "seeds": 200
@@ -7292,6 +8546,28 @@
     "mean_difference": 0.0963951472004556,
     "readout": "reactive_over_chance",
     "report_only": false
+   }
+  ],
+  "seeds": 150
+ },
+ "b541a9a81ea63610817a7c0da39da6902564f32a1d5de03299e47a47e3543ee9": {
+  "criterion": "M11.C.6",
+  "outcome": "FAIL",
+  "readouts": [
+   {
+    "direction": -1,
+    "half_width": 0.0499637420225682,
+    "mean_difference": 0.04842412761920277,
+    "p": 0.879882371939421,
+    "readout": "development",
+    "report_only": false
+   },
+   {
+    "direction": 1,
+    "half_width": 2.2815836839061294,
+    "mean_difference": 53.78,
+    "readout": "projection_acts",
+    "report_only": true
    }
   ],
   "seeds": 150
@@ -7592,6 +8868,35 @@
   ],
   "seeds": 200
  },
+ "bf263cae18baf97114cea13f1d364571af4f2b7b036eada7224abf828b131d86": {
+  "criterion": "M11.C.48",
+  "outcome": "PASS",
+  "readouts": [
+   {
+    "direction": 1,
+    "half_width": 0.14511575015555644,
+    "mean_difference": 0.32140476190476186,
+    "p": 6.006212158789898e-06,
+    "readout": "negative_run",
+    "report_only": false
+   },
+   {
+    "direction": 1,
+    "half_width": 0.17110596870142353,
+    "mean_difference": 1.6714285714285717,
+    "readout": "run_before_cutoff",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.0,
+    "mean_difference": 0.0,
+    "readout": "first_cutoffs",
+    "report_only": true
+   }
+  ],
+  "seeds": 100
+ },
  "bf6a4bb3ecc2176dbb5e700fffebf0bf1326320de1c01426fc19e040b45b3bc4": {
   "criterion": "M11.C.7[joint over one spouse]",
   "outcome": "PASS",
@@ -7613,6 +8918,21 @@
    }
   ],
   "seeds": 100
+ },
+ "c080ae04d1be9b48615eda31b390d3b0b05026578efb73b024ec15a170359a87": {
+  "criterion": "M11.C.2[twelve-person family]",
+  "outcome": "FAIL",
+  "readouts": [
+   {
+    "direction": 1,
+    "half_width": 2.211618435418758,
+    "mean_difference": 1.7347727588195447,
+    "p": 0.062076348707057395,
+    "readout": "symptom_load",
+    "report_only": false
+   }
+  ],
+  "seeds": 150
  },
  "c0e7bd206bdfe138b42b5adc057533e5ac4bd08bbc5934622859bfbcdc09a2c7": {
   "criterion": "M11.C.17",
@@ -7785,6 +9105,51 @@
   ],
   "seeds": 200
  },
+ "c49d880e4014bb17c18045054a3973482fb864f69ca3f57e98e4f6bffff159c0": {
+  "criterion": "M11.C.15",
+  "outcome": "FAIL",
+  "readouts": [
+   {
+    "direction": 1,
+    "half_width": 0.29396932676936294,
+    "mean_difference": -1.3241166933141642,
+    "p": 0.999999999994537,
+    "readout": "death_rise",
+    "report_only": false
+   },
+   {
+    "direction": 1,
+    "half_width": 0.19379434579516927,
+    "mean_difference": 1.1903358898962895,
+    "p": 1.4718605414706508e-15,
+    "readout": "recovery_rise",
+    "report_only": false
+   }
+  ],
+  "seeds": 100
+ },
+ "c5c0cf10e4ab3f02ff2f177014d39c984cef5271409239e4f2a54df191842f36": {
+  "criterion": "M11.C.10",
+  "outcome": "FAIL",
+  "readouts": [
+   {
+    "direction": 1,
+    "half_width": 148.72915214014512,
+    "mean_difference": 9.62,
+    "p": 0.4074559607326781,
+    "readout": "cut_off_tie_weeks",
+    "report_only": false
+   },
+   {
+    "direction": 1,
+    "half_width": 48.55168468910788,
+    "mean_difference": 26.245,
+    "readout": "child_cut_weeks",
+    "report_only": true
+   }
+  ],
+  "seeds": 200
+ },
  "c66477b23975c5a8ae6c9d127b3152824ff33f958f6ddb18b12bdff1bc2393db": {
   "criterion": "M11.C.21",
   "outcome": "FAIL",
@@ -7795,6 +9160,21 @@
     "mean_difference": 0.07960200432207397,
     "p": 0.2195832208443254,
     "readout": "target_rise",
+    "report_only": false
+   }
+  ],
+  "seeds": 200
+ },
+ "c942f18fea6d93cdaff47dac5265701f68b91690fbd0f29ab2bb55450a19b370": {
+  "criterion": "M11.C.2[twelve-person family]",
+  "outcome": "FAIL",
+  "readouts": [
+   {
+    "direction": 1,
+    "half_width": 2.077839038664874,
+    "mean_difference": 1.5790562629781113,
+    "p": 0.07425728058439282,
+    "readout": "symptom_load",
     "report_only": false
    }
   ],
@@ -8440,6 +9820,28 @@
   ],
   "seeds": 150
  },
+ "dce0bcba549247aee46e82c467f94de7ee5ca5c8df34d1a987a275df3d6eb86e": {
+  "criterion": "M11.C.10",
+  "outcome": "PASS",
+  "readouts": [
+   {
+    "direction": 1,
+    "half_width": 117.73361069066686,
+    "mean_difference": 152.035,
+    "p": 0.010125508489545213,
+    "readout": "cut_off_tie_weeks",
+    "report_only": false
+   },
+   {
+    "direction": 1,
+    "half_width": 38.48110390429654,
+    "mean_difference": 13.37,
+    "readout": "child_cut_weeks",
+    "report_only": true
+   }
+  ],
+  "seeds": 200
+ },
  "dd29cf34e11acfe60263be05688204848002fff0ffbd8c769154afb44e0016c2": {
   "criterion": "M11.C.27[unstable,remove_one]",
   "outcome": "FAIL",
@@ -8533,6 +9935,28 @@
     "half_width": 0.028481778473079165,
     "mean_difference": 0.17661354035549492,
     "readout": "pair_deviation_week_12",
+    "report_only": true
+   }
+  ],
+  "seeds": 200
+ },
+ "dda4e6051247522e12283886e7c53579387ed825a7a5bfcf7139f6116e9c8656": {
+  "criterion": "M11.C.10[family of origin]",
+  "outcome": "PASS",
+  "readouts": [
+   {
+    "direction": 1,
+    "half_width": 98.21796822034584,
+    "mean_difference": 105.315,
+    "p": 0.019717258199692736,
+    "readout": "cut_off_tie_weeks",
+    "report_only": false
+   },
+   {
+    "direction": 1,
+    "half_width": 25.877031542867368,
+    "mean_difference": -18.39,
+    "readout": "child_cut_weeks",
     "report_only": true
    }
   ],
@@ -8799,6 +10223,28 @@
   ],
   "seeds": 200
  },
+ "e2cd2f3f68409dc7a5f08348925b619db6ff2557985ffbee3bd13636b9806764": {
+  "criterion": "M11.C.6",
+  "outcome": "FAIL",
+  "readouts": [
+   {
+    "direction": -1,
+    "half_width": 0.04512010894764881,
+    "mean_difference": 0.06835379268278195,
+    "p": 0.9836758142807427,
+    "readout": "development",
+    "report_only": false
+   },
+   {
+    "direction": 1,
+    "half_width": 1.8859838352792615,
+    "mean_difference": 53.145,
+    "readout": "projection_acts",
+    "report_only": true
+   }
+  ],
+  "seeds": 200
+ },
  "e2e58aade6ca0f510eb1295513b179d29a5614e95ce7e325cee5d8f13e6769bc": {
   "criterion": "M11.C.34",
   "outcome": "FAIL",
@@ -8854,6 +10300,28 @@
     "mean_difference": 0.0008103074990946894,
     "readout": "reactive_over_chance",
     "report_only": false
+   }
+  ],
+  "seeds": 150
+ },
+ "e760ef0a53e3baac58f99544e38ea00bbd3c039d437116d77e2c3d5c349086d1": {
+  "criterion": "M11.C.6",
+  "outcome": "FAIL",
+  "readouts": [
+   {
+    "direction": -1,
+    "half_width": 0.036251013405070094,
+    "mean_difference": 0.10170311973714831,
+    "p": 0.9999996784198855,
+    "readout": "development",
+    "report_only": false
+   },
+   {
+    "direction": 1,
+    "half_width": 2.1857020477255737,
+    "mean_difference": 52.04,
+    "readout": "projection_acts",
+    "report_only": true
    }
   ],
   "seeds": 150
@@ -9314,6 +10782,21 @@
   ],
   "seeds": 50
  },
+ "f0b56d88e9d1e80551b14c107839879e0e9818e26853275849d056edfee39251": {
+  "criterion": "M11.C.2[twelve-person family]",
+  "outcome": "PASS",
+  "readouts": [
+   {
+    "direction": 1,
+    "half_width": 1.973106331493392,
+    "mean_difference": 2.301496407381959,
+    "p": 0.013126783507443274,
+    "readout": "symptom_load",
+    "report_only": false
+   }
+  ],
+  "seeds": 200
+ },
  "f0e011b8131efa9a034c1de0d812b1dd538ce4f7e1db17fae7cd0d2f5d417f39": {
   "criterion": "M11.C.16",
   "outcome": "PASS",
@@ -9334,6 +10817,28 @@
    }
   ],
   "seeds": 150
+ },
+ "f17e4056be52cf6ad234e28f6cbb4698a1c2c3946fb54f328c896402f2026ce8": {
+  "criterion": "M11.C.10[family of origin]",
+  "outcome": "PASS",
+  "readouts": [
+   {
+    "direction": 1,
+    "half_width": 113.95786187953854,
+    "mean_difference": 115.91,
+    "p": 0.03340744575444956,
+    "readout": "cut_off_tie_weeks",
+    "report_only": false
+   },
+   {
+    "direction": 1,
+    "half_width": 38.0081015095995,
+    "mean_difference": -26.665,
+    "readout": "child_cut_weeks",
+    "report_only": true
+   }
+  ],
+  "seeds": 200
  },
  "f21eee556824c88cb941726c8d97682579f00b61ec888dd10099866ed34a6866": {
   "criterion": "M11.C.41[light: lower level]",
@@ -9395,6 +10900,29 @@
     "half_width": 8.323759378538742,
     "mean_difference": 4.563122123621447,
     "readout": "third_person_symptom_load",
+    "report_only": false
+   }
+  ],
+  "seeds": 200
+ },
+ "f2f648e4b1bde250c07e281f0231cefe40cc6fdfbdc5a65161cb1522c5d22959": {
+  "criterion": "M11.C.15",
+  "outcome": "FAIL",
+  "readouts": [
+   {
+    "direction": 1,
+    "half_width": 0.15099416106776295,
+    "mean_difference": 0.11428563146080808,
+    "p": 0.08735933916491428,
+    "readout": "death_rise",
+    "report_only": false
+   },
+   {
+    "direction": 1,
+    "half_width": 0.14523380933978716,
+    "mean_difference": 2.8005964249038517,
+    "p": 1.0553311031081179e-34,
+    "readout": "recovery_rise",
     "report_only": false
    }
   ],
@@ -9893,6 +11421,28 @@
    }
   ],
   "seeds": 100
+ },
+ "fc0575015fccb742f497070b940081739d7bd188542596a494dc4688a32f3611": {
+  "criterion": "M11.C.6",
+  "outcome": "FAIL",
+  "readouts": [
+   {
+    "direction": -1,
+    "half_width": 0.046917872454954886,
+    "mean_difference": 0.10406113406918088,
+    "p": 0.9999771676293228,
+    "readout": "development",
+    "report_only": false
+   },
+   {
+    "direction": 1,
+    "half_width": 1.8932496566783164,
+    "mean_difference": 52.94,
+    "readout": "projection_acts",
+    "report_only": true
+   }
+  ],
+  "seeds": 200
  },
  "fc8bb03a049f6ea5ece3b4131a3246be189d5c59a02beeaa8afea961395e520e": {
   "criterion": "M11.C.12",

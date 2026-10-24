@@ -57,7 +57,7 @@
 >
 > Decided as recommended under the owner's instruction of 2026-10-22, pending the owner's review
 > (`docs/implementation_plan_version_2.md` §2.2, D8, D10, D12; §2.10, the Phase C and Phase D part I sweeps and
-> part II's ranges, declared 2026-10-23 and not yet run).
+> part II's ranges, declared 2026-10-23 and swept 2026-10-23–24 across two Macs).
 
 ## Rules
 
@@ -399,19 +399,3 @@
 | `M11.C.48[phase_d]` | `cutoff_decay_weeks` | 130 | 520 | integer | — | [I] — not named in `model_explainer.md`; `constants.md` grades it [I] | `M1.D.2b`: the weeks over which an uncontacted cut tie's stock decays to its floor |
 | `M11.C.48[phase_d]` | `cutoff_floor_share` | 0.05 | 0.2 | log | 1 | [I] — not named in `model_explainer.md`; `constants.md` grades it [I] | `M1.D.2b`: the floor the stock decays to, as a share of its peak |
 | `M11.C.48[phase_d]` | `positive_bridge_dissipation` | 0.4 | 1.0 | log | 1 | [I] — not named in `model_explainer.md`; `constants.md` grades it [I] | `M1.D.2b`: the share of the stock a positive contact removes, the contact that ends a cutoff; 0.8 runs 0.4 to its bound 1 |
-
-## Declared, not run
-
-A criterion listed here has its ranges above and no result yet. `tools/version_2_sweep.py` shows it in the record as
-*declared, not run* and runs none of its samples unless it is named with `--criteria`; once it has a result in the
-cache, the record is not rendered until its row here is removed.
-
-| criterion | why |
-|---|---|
-| `M11.C.2[twelve-person family]` | Phase D part II; ranges declared 2026-10-23 under the owner's decision to declare only (plan §2.10) |
-| `M11.C.6` | Phase D part II; ranges declared 2026-10-23 under the owner's decision to declare only (plan §2.10) |
-| `M11.C.10` | Phase D part II; ranges declared 2026-10-23 under the owner's decision to declare only (plan §2.10) |
-| `M11.C.10[family of origin]` | Phase D part II; ranges declared 2026-10-23 under the owner's decision to declare only (plan §2.10) |
-| `M11.C.15` | Phase D part II; ranges declared 2026-10-23 under the owner's decision to declare only (plan §2.10) |
-| `M11.C.48` | Phase D part II; ranges declared 2026-10-23 under the owner's decision to declare only (plan §2.10) |
-| `M11.C.48[phase_d]` | Phase D part II; ranges declared 2026-10-23 under the owner's decision to declare only (plan §2.10) |

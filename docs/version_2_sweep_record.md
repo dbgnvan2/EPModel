@@ -56,13 +56,13 @@ cache.
 | `M11.C.34` | mixed | FAIL | `learning_rate` 0.1–0.4; `credit_horizon` 2–6; `credit_discount` 0.35–1; `cross_person_weight` 0.25–1; `policy_temperature` 0.5–2; `habituation_rate` 0.35–1; `habituation_window` 4–16; `self_channel_exponent` 1–4; `capacity_level_per_layer` 10–40; `symptom_event_intensity` 50–200 | 0 of 8 | 0 | 8 | 0 |
 | `M11.C.39` | composite | PASS | `learning_rate` 0.1–0.4; `credit_horizon` 2–6; `credit_discount` 0.35–1; `cross_person_weight` 0.25–1; `policy_temperature` 0.5–2; `habituation_rate` 0.35–1; `habituation_window` 4–16; `witnessed_cutoff_gain` 0.025–0.1; `witness_window` 7–26; `distance_binding_rate` 0.15–0.6 | 8 of 8 | 0 | 0 | 0 |
 | `M11.C.43` | composite | FAIL | `learning_rate` 0.1–0.4; `credit_horizon` 2–6; `credit_discount` 0.35–1; `cross_person_weight` 0.25–1; `policy_temperature` 0.5–2; `habituation_rate` 0.35–1; `habituation_window` 4–16; `calm_transfer_rate` 0.025–0.1; `acute_decay_rate` 0.1–0.4 | 0 of 8 | 0 | 8 | 0 |
-| `M11.C.2[twelve-person family]` | composite | FAIL | `learning_rate` 0.1–0.4; `credit_horizon` 2–6; `credit_discount` 0.35–1; `cross_person_weight` 0.25–1; `policy_temperature` 0.5–2; `habituation_rate` 0.35–1; `habituation_window` 4–16; `perceived_weakness_gain` 0.005–0.02; `focus_steer_gain` 0.5–2; `focus_reinforce_gain` 0.5–2; `focus_compound_gain` 5–20; `investment_leak_rate` 0.05–0.2; `witness_weight` 0.25–1; `symptom_leak_rate` 0.05–0.2; `birth_focus_gain` 0.05–0.2 | declared, not run | — | — | — |
-| `M11.C.6` | composite | FAIL | `development_rate` 0.05–0.2; `development_band` 0.01–0.04; `development_band_projection` 0.05–0.2; `development_band_support` 0.04–0.1; `estimator_sd_weight` 0.5–2; `estimator_rate` 0.25–1 | declared, not run | — | — | — |
-| `M11.C.10` | composite | FAIL | `learning_rate` 0.1–0.4; `credit_horizon` 2–6; `credit_discount` 0.35–1; `cross_person_weight` 0.25–1; `policy_temperature` 0.5–2; `habituation_rate` 0.35–1; `habituation_window` 4–16; `witnessed_cutoff_gain` 0.025–0.1; `witness_window` 7–26; `reactive_cutoff_gain` 0.05–0.2; `origin_cutoff_anxiety_gain` 5–20; `origin_fusion_gain` 0.25–1; `rejection_cutoff_gain` 0.25–1; `rejection_refusal_gain` 0.05–0.2; `rejection_relief` 0.125–0.5; `rejection_refusal_threshold` 0.15–0.6; `rejection_fade` 0.025–0.1 | declared, not run | — | — | — |
-| `M11.C.10[family of origin]` | composite | FAIL | `learning_rate` 0.1–0.4; `credit_horizon` 2–6; `credit_discount` 0.35–1; `cross_person_weight` 0.25–1; `policy_temperature` 0.5–2; `habituation_rate` 0.35–1; `habituation_window` 4–16; `witnessed_cutoff_gain` 0.025–0.1; `witness_window` 7–26; `reactive_cutoff_gain` 0.05–0.2; `origin_cutoff_anxiety_gain` 5–20; `origin_fusion_gain` 0.25–1; `rejection_cutoff_gain` 0.25–1; `rejection_refusal_gain` 0.05–0.2; `rejection_relief` 0.125–0.5; `rejection_refusal_threshold` 0.15–0.6; `rejection_fade` 0.025–0.1 | declared, not run | — | — | — |
-| `M11.C.15` | composite | PASS | `lock_in_gain` 0.1–0.4; `acute_decay_rate` 0.1–0.4 | declared, not run | — | — | — |
-| `M11.C.48` | composite | PASS | `learning_rate` 0.1–0.4; `credit_horizon` 2–6; `credit_discount` 0.35–1; `cross_person_weight` 0.25–1; `policy_temperature` 0.5–2; `habituation_rate` 0.35–1; `habituation_window` 4–16; `cutoff_stock_cap` 791.5–3166; `cutoff_threat_weight` 0.00156–0.00624; `cutoff_decay_weeks` 130–520; `cutoff_floor_share` 0.05–0.2; `positive_bridge_dissipation` 0.4–1 | declared, not run | — | — | — |
-| `M11.C.48[phase_d]` | composite | PASS | `learning_rate` 0.1–0.4; `credit_horizon` 2–6; `credit_discount` 0.35–1; `cross_person_weight` 0.25–1; `policy_temperature` 0.5–2; `habituation_rate` 0.35–1; `habituation_window` 4–16; `cutoff_stock_cap` 791.5–3166; `cutoff_threat_weight` 0.00156–0.00624; `cutoff_decay_weeks` 130–520; `cutoff_floor_share` 0.05–0.2; `positive_bridge_dissipation` 0.4–1 | declared, not run | — | — | — |
+| `M11.C.2[twelve-person family]` | composite | FAIL | `learning_rate` 0.1–0.4; `credit_horizon` 2–6; `credit_discount` 0.35–1; `cross_person_weight` 0.25–1; `policy_temperature` 0.5–2; `habituation_rate` 0.35–1; `habituation_window` 4–16; `perceived_weakness_gain` 0.005–0.02; `focus_steer_gain` 0.5–2; `focus_reinforce_gain` 0.5–2; `focus_compound_gain` 5–20; `investment_leak_rate` 0.05–0.2; `witness_weight` 0.25–1; `symptom_leak_rate` 0.05–0.2; `birth_focus_gain` 0.05–0.2 | 2 of 8 | 0 | 8 | 0 |
+| `M11.C.6` | composite | FAIL | `development_rate` 0.05–0.2; `development_band` 0.01–0.04; `development_band_projection` 0.05–0.2; `development_band_support` 0.04–0.1; `estimator_sd_weight` 0.5–2; `estimator_rate` 0.25–1 | 0 of 8 | 0 | 4 | 0 |
+| `M11.C.10` | composite | FAIL | `learning_rate` 0.1–0.4; `credit_horizon` 2–6; `credit_discount` 0.35–1; `cross_person_weight` 0.25–1; `policy_temperature` 0.5–2; `habituation_rate` 0.35–1; `habituation_window` 4–16; `witnessed_cutoff_gain` 0.025–0.1; `witness_window` 7–26; `reactive_cutoff_gain` 0.05–0.2; `origin_cutoff_anxiety_gain` 5–20; `origin_fusion_gain` 0.25–1; `rejection_cutoff_gain` 0.25–1; `rejection_refusal_gain` 0.05–0.2; `rejection_relief` 0.125–0.5; `rejection_refusal_threshold` 0.15–0.6; `rejection_fade` 0.025–0.1 | 1 of 8 | 0 | 0 | 0 |
+| `M11.C.10[family of origin]` | composite | FAIL | `learning_rate` 0.1–0.4; `credit_horizon` 2–6; `credit_discount` 0.35–1; `cross_person_weight` 0.25–1; `policy_temperature` 0.5–2; `habituation_rate` 0.35–1; `habituation_window` 4–16; `witnessed_cutoff_gain` 0.025–0.1; `witness_window` 7–26; `reactive_cutoff_gain` 0.05–0.2; `origin_cutoff_anxiety_gain` 5–20; `origin_fusion_gain` 0.25–1; `rejection_cutoff_gain` 0.25–1; `rejection_refusal_gain` 0.05–0.2; `rejection_relief` 0.125–0.5; `rejection_refusal_threshold` 0.15–0.6; `rejection_fade` 0.025–0.1 | 5 of 8 | 0 | 0 | 0 |
+| `M11.C.15` | composite | PASS | `lock_in_gain` 0.1–0.4; `acute_decay_rate` 0.1–0.4 | 4 of 8 | 0 | 2 | 0 |
+| `M11.C.48` | composite | PASS | `learning_rate` 0.1–0.4; `credit_horizon` 2–6; `credit_discount` 0.35–1; `cross_person_weight` 0.25–1; `policy_temperature` 0.5–2; `habituation_rate` 0.35–1; `habituation_window` 4–16; `cutoff_stock_cap` 791.5–3166; `cutoff_threat_weight` 0.00156–0.00624; `cutoff_decay_weeks` 130–520; `cutoff_floor_share` 0.05–0.2; `positive_bridge_dissipation` 0.4–1 | 8 of 8 | 0 | 0 | 0 |
+| `M11.C.48[phase_d]` | composite | PASS | `learning_rate` 0.1–0.4; `credit_horizon` 2–6; `credit_discount` 0.35–1; `cross_person_weight` 0.25–1; `policy_temperature` 0.5–2; `habituation_rate` 0.35–1; `habituation_window` 4–16; `cutoff_stock_cap` 791.5–3166; `cutoff_threat_weight` 0.00156–0.00624; `cutoff_decay_weeks` 130–520; `cutoff_floor_share` 0.05–0.2; `positive_bridge_dissipation` 0.4–1 | 8 of 8 | 0 | 0 | 0 |
 
 ## `M11.C.16` — 8 of 8 samples held
 
@@ -415,33 +415,96 @@ cache.
 | 6 | `learning_rate` 0.208365, `credit_horizon` 4, `credit_discount` 0.750669, `cross_person_weight` 0.963837, `policy_temperature` 1.80638, `habituation_rate` 0.820865, `habituation_window` 16, `calm_transfer_rate` 0.089523, `acute_decay_rate` 0.200319 | 100 then 200 | yes (first FAIL) | FAIL | `loss_rise` -0.254 ± 0.97 |
 | 7 | `learning_rate` 0.191696, `credit_horizon` 2, `credit_discount` 0.406651, `cross_person_weight` 0.847865, `policy_temperature` 0.521067, `habituation_rate` 0.354931, `habituation_window` 6, `calm_transfer_rate` 0.052391, `acute_decay_rate` 0.320814 | 150 then 200 | yes (first FAIL) | FAIL | `loss_rise` -0.125 ± 0.43 |
 
-## `M11.C.2[twelve-person family]` — declared, not run
+## `M11.C.2[twelve-person family]` — 2 of 8 samples held
 
-Not run: Phase D part II; ranges declared 2026-10-23 under the owner's decision to declare only (plan §2.10)
+| Sample | Values | Seeds | Rerun | Verdict | Gating readouts (mean difference ± half-width) |
+|---|---|---|---|---|---|
+| 0 | `learning_rate` 0.238526, `credit_horizon` 5, `credit_discount` 0.355068, `cross_person_weight` 0.588724, `policy_temperature` 1.0131, `habituation_rate` 0.455652, `habituation_window` 13, `perceived_weakness_gain` 0.0057173, `focus_steer_gain` 0.929502, `focus_reinforce_gain` 1.66595, `focus_compound_gain` 7.19919, `investment_leak_rate` 0.129473, `witness_weight` 0.309023, `symptom_leak_rate` 0.0714383, `birth_focus_gain` 0.195137 | 150 then 200 | yes (first FAIL) | FAIL | `symptom_load` +1.26 ± 1.8 |
+| 1 | `learning_rate` 0.216038, `credit_horizon` 2, `credit_discount` 0.582595, `cross_person_weight` 0.597501, `policy_temperature` 0.731817, `habituation_rate` 0.443395, `habituation_window` 6, `perceived_weakness_gain` 0.00759955, `focus_steer_gain` 1.06881, `focus_reinforce_gain` 1.4041, `focus_compound_gain` 12.5112, `investment_leak_rate` 0.0584036, `witness_weight` 0.5744, `symptom_leak_rate` 0.0730311, `birth_focus_gain` 0.187647 | 150 then 200 | yes (first FAIL) | PASS | `symptom_load` +2.3 ± 2 |
+| 2 | `learning_rate` 0.121886, `credit_horizon` 2, `credit_discount` 0.441611, `cross_person_weight` 0.540034, `policy_temperature` 1.01547, `habituation_rate` 0.837629, `habituation_window` 7, `perceived_weakness_gain` 0.015432, `focus_steer_gain` 0.773029, `focus_reinforce_gain` 0.734499, `focus_compound_gain` 5.27126, `investment_leak_rate` 0.120595, `witness_weight` 0.251946, `symptom_leak_rate` 0.183714, `birth_focus_gain` 0.0810401 | 150 then 200 | yes (first FAIL) | FAIL | `symptom_load` +0.169 ± 0.8 |
+| 3 | `learning_rate` 0.105671, `credit_horizon` 5, `credit_discount` 0.68615, `cross_person_weight` 0.30997, `policy_temperature` 0.561369, `habituation_rate` 0.951117, `habituation_window` 12, `perceived_weakness_gain` 0.0171044, `focus_steer_gain` 0.745808, `focus_reinforce_gain` 1.0212, `focus_compound_gain` 18.8275, `investment_leak_rate` 0.0757708, `witness_weight` 0.784285, `symptom_leak_rate` 0.177866, `birth_focus_gain` 0.0717376 | 150 then 200 | yes (first FAIL) | FAIL | `symptom_load` +0.5 ± 0.91 |
+| 4 | `learning_rate` 0.308736, `credit_horizon` 6, `credit_discount` 0.948275, `cross_person_weight` 0.260729, `policy_temperature` 1.0019, `habituation_rate` 0.511314, `habituation_window` 14, `perceived_weakness_gain` 0.00971039, `focus_steer_gain` 1.08374, `focus_reinforce_gain` 0.660076, `focus_compound_gain` 12.9508, `investment_leak_rate` 0.164171, `witness_weight` 0.957385, `symptom_leak_rate` 0.106158, `birth_focus_gain` 0.175574 | 150 then 200 | yes (first FAIL) | PASS | `symptom_load` +1.23 ± 1.4 |
+| 5 | `learning_rate` 0.37729, `credit_horizon` 6, `credit_discount` 0.558428, `cross_person_weight` 0.798017, `policy_temperature` 1.52261, `habituation_rate` 0.397681, `habituation_window` 14, `perceived_weakness_gain` 0.0115641, `focus_steer_gain` 1.94109, `focus_reinforce_gain` 0.584689, `focus_compound_gain` 11.2554, `investment_leak_rate` 0.0620705, `witness_weight` 0.292553, `symptom_leak_rate` 0.0599027, `birth_focus_gain` 0.0899083 | 150 then 200 | yes (first FAIL) | FAIL | `symptom_load` +1.58 ± 2.1 |
+| 6 | `learning_rate` 0.222337, `credit_horizon` 5, `credit_discount` 0.913839, `cross_person_weight` 0.580007, `policy_temperature` 1.13, `habituation_rate` 0.392119, `habituation_window` 11, `perceived_weakness_gain` 0.0139294, `focus_steer_gain` 1.70423, `focus_reinforce_gain` 1.99337, `focus_compound_gain` 10.126, `investment_leak_rate` 0.153336, `witness_weight` 0.486022, `symptom_leak_rate` 0.0606454, `birth_focus_gain` 0.163047 | 150 then 200 | yes (first FAIL) | FAIL | `symptom_load` +0.946 ± 2.1 |
+| 7 | `learning_rate` 0.134386, `credit_horizon` 2, `credit_discount` 0.930476, `cross_person_weight` 0.578967, `policy_temperature` 0.951362, `habituation_rate` 0.689962, `habituation_window` 14, `perceived_weakness_gain` 0.00773904, `focus_steer_gain` 0.846033, `focus_reinforce_gain` 1.253, `focus_compound_gain` 9.44576, `investment_leak_rate` 0.0702896, `witness_weight` 0.707088, `symptom_leak_rate` 0.194777, `birth_focus_gain` 0.0641923 | 150 then 200 | yes (first FAIL) | FAIL | `symptom_load` +0.213 ± 0.81 |
 
-## `M11.C.6` — declared, not run
+## `M11.C.6` — 0 of 8 samples held
 
-Not run: Phase D part II; ranges declared 2026-10-23 under the owner's decision to declare only (plan §2.10)
+| Sample | Values | Seeds | Rerun | Verdict | Gating readouts (mean difference ± half-width) |
+|---|---|---|---|---|---|
+| 0 | `development_rate` 0.133393, `development_band` 0.0106515, `development_band_projection` 0.159538, `development_band_support` 0.075051, `estimator_sd_weight` 0.776355, `estimator_rate` 0.453813 | 150 then 200 | yes (first FAIL) | FAIL | `development` +0.0823 ± 0.047 |
+| 1 | `development_rate` 0.129211, `development_band` 0.0145114, `development_band_projection` 0.172327, `development_band_support` 0.0617965, `estimator_sd_weight` 1.75067, `estimator_rate` 0.409351 | 150 then 200 | yes (first FAIL) | FAIL | `development` +0.104 ± 0.047 |
+| 2 | `development_rate` 0.101407, `development_band` 0.0237219, `development_band_projection` 0.141304, `development_band_support` 0.0544485, `estimator_sd_weight` 0.940983, `estimator_rate` 0.910984 | 150 | no | FAIL | `development` +0.0894 ± 0.042 |
+| 3 | `development_rate` 0.0554397, `development_band` 0.0170549, `development_band_projection` 0.191026, `development_band_support` 0.0405342, `estimator_sd_weight` 0.930879, `estimator_rate` 0.391975 | 150 then 200 | yes (first FAIL) | FAIL | `development` +0.0428 ± 0.022 |
+| 4 | `development_rate` 0.076855, `development_band` 0.0153872, `development_band_projection` 0.0812149, `development_band_support` 0.0950593, `estimator_sd_weight` 1.01608, `estimator_rate` 0.916156 | 150 | no | FAIL | `development` +0.102 ± 0.036 |
+| 5 | `development_rate` 0.151622, `development_band` 0.0309074, `development_band_projection` 0.119736, `development_band_support` 0.0583717, `estimator_sd_weight` 0.569236, `estimator_rate` 0.2719 | 150 | no | FAIL | `development` +0.118 ± 0.054 |
+| 6 | `development_rate` 0.103486, `development_band` 0.0367743, `development_band_projection` 0.0706639, `development_band_support` 0.0519131, `estimator_sd_weight` 1.45331, `estimator_rate` 0.539813 | 150 | no | FAIL | `development` +0.0925 ± 0.043 |
+| 7 | `development_rate` 0.138558, `development_band` 0.0114306, `development_band_projection` 0.0645247, `development_band_support` 0.0493045, `estimator_sd_weight` 0.572412, `estimator_rate` 0.922032 | 150 then 200 | yes (first FAIL) | FAIL | `development` +0.0684 ± 0.045 |
 
-## `M11.C.10` — declared, not run
+## `M11.C.10` — 1 of 8 samples held
 
-Not run: Phase D part II; ranges declared 2026-10-23 under the owner's decision to declare only (plan §2.10)
+| Sample | Values | Seeds | Rerun | Verdict | Gating readouts (mean difference ± half-width) |
+|---|---|---|---|---|---|
+| 0 | `learning_rate` 0.357585, `credit_horizon` 2, `credit_discount` 0.534243, `cross_person_weight` 0.307818, `policy_temperature` 1.52319, `habituation_rate` 0.814186, `habituation_window` 7, `witnessed_cutoff_gain` 0.0286783, `witness_window` 23, `reactive_cutoff_gain` 0.134574, `origin_cutoff_anxiety_gain` 16.1541, `origin_fusion_gain` 0.622464, `rejection_cutoff_gain` 0.277297, `rejection_refusal_gain` 0.0725992, `rejection_relief` 0.211708, `rejection_refusal_threshold` 0.214074, `rejection_fade` 0.0689998 | 200 | no | FAIL | `cut_off_tie_weeks` +25.1 ± 80 |
+| 1 | `learning_rate` 0.240981, `credit_horizon` 6, `credit_discount` 0.555776, `cross_person_weight` 0.659271, `policy_temperature` 0.586156, `habituation_rate` 0.784874, `habituation_window` 6, `witnessed_cutoff_gain` 0.0946848, `witness_window` 8, `reactive_cutoff_gain` 0.0838802, `origin_cutoff_anxiety_gain` 5.68425, `origin_fusion_gain` 0.679427, `rejection_cutoff_gain` 0.814721, `rejection_refusal_gain` 0.100788, `rejection_relief` 0.132008, `rejection_refusal_threshold` 0.233894, `rejection_fade` 0.0447183 | 200 | no | FAIL | `cut_off_tie_weeks` +5.88 ± 1.1e+02 |
+| 2 | `learning_rate` 0.103826, `credit_horizon` 3, `credit_discount` 0.388322, `cross_person_weight` 0.491644, `policy_temperature` 0.6243, `habituation_rate` 0.372683, `habituation_window` 16, `witnessed_cutoff_gain` 0.053177, `witness_window` 12, `reactive_cutoff_gain` 0.0543395, `origin_cutoff_anxiety_gain` 7.1946, `origin_fusion_gain` 0.3569, `rejection_cutoff_gain` 0.635487, `rejection_refusal_gain` 0.198312, `rejection_relief` 0.207635, `rejection_refusal_threshold` 0.165867, `rejection_fade` 0.0755656 | 200 | no | FAIL | `cut_off_tie_weeks` +33.1 ± 1.2e+02 |
+| 3 | `learning_rate` 0.284528, `credit_horizon` 5, `credit_discount` 0.375308, `cross_person_weight` 0.291843, `policy_temperature` 1.21806, `habituation_rate` 0.393769, `habituation_window` 6, `witnessed_cutoff_gain` 0.0286728, `witness_window` 9, `reactive_cutoff_gain` 0.0504477, `origin_cutoff_anxiety_gain` 5.95466, `origin_fusion_gain` 0.316938, `rejection_cutoff_gain` 0.251778, `rejection_refusal_gain` 0.0897315, `rejection_relief` 0.136083, `rejection_refusal_threshold` 0.395397, `rejection_fade` 0.0303896 | 200 | no | FAIL | `cut_off_tie_weeks` +84 ± 1.6e+02 |
+| 4 | `learning_rate` 0.264375, `credit_horizon` 3, `credit_discount` 0.637847, `cross_person_weight` 0.359712, `policy_temperature` 1.13883, `habituation_rate` 0.962844, `habituation_window` 13, `witnessed_cutoff_gain` 0.0804142, `witness_window` 25, `reactive_cutoff_gain` 0.144713, `origin_cutoff_anxiety_gain` 11.988, `origin_fusion_gain` 0.750219, `rejection_cutoff_gain` 0.351417, `rejection_refusal_gain` 0.0770746, `rejection_relief` 0.304401, `rejection_refusal_threshold` 0.499565, `rejection_fade` 0.0519153 | 200 | no | PASS | `cut_off_tie_weeks` +152 ± 1.2e+02 |
+| 5 | `learning_rate` 0.333746, `credit_horizon` 2, `credit_discount` 0.836436, `cross_person_weight` 0.959046, `policy_temperature` 1.91311, `habituation_rate` 0.5915, `habituation_window` 14, `witnessed_cutoff_gain` 0.032843, `witness_window` 12, `reactive_cutoff_gain` 0.0651307, `origin_cutoff_anxiety_gain` 8.86772, `origin_fusion_gain` 0.424457, `rejection_cutoff_gain` 0.261586, `rejection_refusal_gain` 0.136307, `rejection_relief` 0.314648, `rejection_refusal_threshold` 0.321771, `rejection_fade` 0.0337899 | 200 | no | FAIL | `cut_off_tie_weeks` +9.62 ± 1.5e+02 |
+| 6 | `learning_rate` 0.120794, `credit_horizon` 5, `credit_discount` 0.491723, `cross_person_weight` 0.254413, `policy_temperature` 1.2794, `habituation_rate` 0.568088, `habituation_window` 15, `witnessed_cutoff_gain` 0.086519, `witness_window` 16, `reactive_cutoff_gain` 0.063644, `origin_cutoff_anxiety_gain` 11.2226, `origin_fusion_gain` 0.281946, `rejection_cutoff_gain` 0.35629, `rejection_refusal_gain` 0.164152, `rejection_relief` 0.212764, `rejection_refusal_threshold` 0.330225, `rejection_fade` 0.0406132 | 200 | no | FAIL | `cut_off_tie_weeks` +32.1 ± 1.4e+02 |
+| 7 | `learning_rate` 0.229261, `credit_horizon` 2, `credit_discount` 0.480501, `cross_person_weight` 0.293431, `policy_temperature` 0.922659, `habituation_rate` 0.418034, `habituation_window` 15, `witnessed_cutoff_gain` 0.0375139, `witness_window` 11, `reactive_cutoff_gain` 0.0837314, `origin_cutoff_anxiety_gain` 7.11375, `origin_fusion_gain` 0.479424, `rejection_cutoff_gain` 0.296006, `rejection_refusal_gain` 0.172919, `rejection_relief` 0.341336, `rejection_refusal_threshold` 0.421539, `rejection_fade` 0.0771231 | 200 | no | FAIL | `cut_off_tie_weeks` -1.22 ± 83 |
 
-## `M11.C.10[family of origin]` — declared, not run
+## `M11.C.10[family of origin]` — 5 of 8 samples held
 
-Not run: Phase D part II; ranges declared 2026-10-23 under the owner's decision to declare only (plan §2.10)
+| Sample | Values | Seeds | Rerun | Verdict | Gating readouts (mean difference ± half-width) |
+|---|---|---|---|---|---|
+| 0 | `learning_rate` 0.100036, `credit_horizon` 3, `credit_discount` 0.897915, `cross_person_weight` 0.361846, `policy_temperature` 1.97919, `habituation_rate` 0.637591, `habituation_window` 11, `witnessed_cutoff_gain` 0.0619692, `witness_window` 20, `reactive_cutoff_gain` 0.125241, `origin_cutoff_anxiety_gain` 13.5376, `origin_fusion_gain` 0.930651, `rejection_cutoff_gain` 0.266879, `rejection_refusal_gain` 0.106089, `rejection_relief` 0.247612, `rejection_refusal_threshold` 0.431668, `rejection_fade` 0.0399105 | 200 | no | PASS | `cut_off_tie_weeks` +141 ± 1.4e+02 |
+| 1 | `learning_rate` 0.23292, `credit_horizon` 3, `credit_discount` 0.416262, `cross_person_weight` 0.270689, `policy_temperature` 1.80305, `habituation_rate` 0.706865, `habituation_window` 10, `witnessed_cutoff_gain` 0.0593506, `witness_window` 22, `reactive_cutoff_gain` 0.104305, `origin_cutoff_anxiety_gain` 17.3662, `origin_fusion_gain` 0.309458, `rejection_cutoff_gain` 0.25741, `rejection_refusal_gain` 0.14593, `rejection_relief` 0.160977, `rejection_refusal_threshold` 0.369977, `rejection_fade` 0.0930729 | 200 | no | FAIL | `cut_off_tie_weeks` +39.2 ± 53 |
+| 2 | `learning_rate` 0.362447, `credit_horizon` 4, `credit_discount` 0.795055, `cross_person_weight` 0.456172, `policy_temperature` 1.42574, `habituation_rate` 0.693422, `habituation_window` 12, `witnessed_cutoff_gain` 0.0552943, `witness_window` 23, `reactive_cutoff_gain` 0.172275, `origin_cutoff_anxiety_gain` 9.4366, `origin_fusion_gain` 0.851994, `rejection_cutoff_gain` 0.702203, `rejection_refusal_gain` 0.127921, `rejection_relief` 0.357704, `rejection_refusal_threshold` 0.154106, `rejection_fade` 0.0675094 | 200 | no | FAIL | `cut_off_tie_weeks` +101 ± 1.3e+02 |
+| 3 | `learning_rate` 0.285034, `credit_horizon` 4, `credit_discount` 0.443607, `cross_person_weight` 0.666636, `policy_temperature` 1.65297, `habituation_rate` 0.439492, `habituation_window` 9, `witnessed_cutoff_gain` 0.0418088, `witness_window` 16, `reactive_cutoff_gain` 0.0881737, `origin_cutoff_anxiety_gain` 8.20131, `origin_fusion_gain` 0.423687, `rejection_cutoff_gain` 0.63042, `rejection_refusal_gain` 0.054907, `rejection_relief` 0.177766, `rejection_refusal_threshold` 0.565857, `rejection_fade` 0.0398546 | 200 | no | FAIL | `cut_off_tie_weeks` +106 ± 1.3e+02 |
+| 4 | `learning_rate` 0.297174, `credit_horizon` 2, `credit_discount` 0.772448, `cross_person_weight` 0.326736, `policy_temperature` 0.544708, `habituation_rate` 0.474929, `habituation_window` 8, `witnessed_cutoff_gain` 0.0326648, `witness_window` 15, `reactive_cutoff_gain` 0.166642, `origin_cutoff_anxiety_gain` 19.3667, `origin_fusion_gain` 0.360689, `rejection_cutoff_gain` 0.584405, `rejection_refusal_gain` 0.0637759, `rejection_relief` 0.235895, `rejection_refusal_threshold` 0.477854, `rejection_fade` 0.0416687 | 200 | no | PASS | `cut_off_tie_weeks` +156 ± 1.1e+02 |
+| 5 | `learning_rate` 0.148722, `credit_horizon` 6, `credit_discount` 0.931157, `cross_person_weight` 0.41816, `policy_temperature` 0.531377, `habituation_rate` 0.369118, `habituation_window` 8, `witnessed_cutoff_gain` 0.0452892, `witness_window` 9, `reactive_cutoff_gain` 0.173182, `origin_cutoff_anxiety_gain` 5.66168, `origin_fusion_gain` 0.344846, `rejection_cutoff_gain` 0.520524, `rejection_refusal_gain` 0.0794826, `rejection_relief` 0.298258, `rejection_refusal_threshold` 0.321798, `rejection_fade` 0.0576877 | 200 | no | PASS | `cut_off_tie_weeks` +129 ± 1.4e+02 |
+| 6 | `learning_rate` 0.23393, `credit_horizon` 2, `credit_discount` 0.630668, `cross_person_weight` 0.473536, `policy_temperature` 1.15422, `habituation_rate` 0.73881, `habituation_window` 14, `witnessed_cutoff_gain` 0.0733963, `witness_window` 23, `reactive_cutoff_gain` 0.101488, `origin_cutoff_anxiety_gain` 9.84764, `origin_fusion_gain` 0.73379, `rejection_cutoff_gain` 0.292635, `rejection_refusal_gain` 0.0528432, `rejection_relief` 0.207148, `rejection_refusal_threshold` 0.234838, `rejection_fade` 0.0675354 | 200 | no | PASS | `cut_off_tie_weeks` +105 ± 98 |
+| 7 | `learning_rate` 0.126556, `credit_horizon` 2, `credit_discount` 0.773863, `cross_person_weight` 0.923187, `policy_temperature` 0.553489, `habituation_rate` 0.976834, `habituation_window` 13, `witnessed_cutoff_gain` 0.0810522, `witness_window` 19, `reactive_cutoff_gain` 0.0951442, `origin_cutoff_anxiety_gain` 9.00292, `origin_fusion_gain` 0.838822, `rejection_cutoff_gain` 0.495581, `rejection_refusal_gain` 0.183335, `rejection_relief` 0.486613, `rejection_refusal_threshold` 0.32576, `rejection_fade` 0.0625799 | 200 | no | PASS | `cut_off_tie_weeks` +116 ± 1.1e+02 |
 
-## `M11.C.15` — declared, not run
+## `M11.C.15` — 4 of 8 samples held
 
-Not run: Phase D part II; ranges declared 2026-10-23 under the owner's decision to declare only (plan §2.10)
+| Sample | Values | Seeds | Rerun | Verdict | Gating readouts (mean difference ± half-width) |
+|---|---|---|---|---|---|
+| 0 | `lock_in_gain` 0.216243, `acute_decay_rate` 0.1302 | 100 | no | PASS | `death_rise` +17.5 ± 2.3; `recovery_rise` +14.5 ± 1.9 |
+| 1 | `lock_in_gain` 0.100002, `acute_decay_rate` 0.323727 | 100 | no | FAIL | `death_rise` -1.32 ± 0.29; `recovery_rise` +1.19 ± 0.19 |
+| 2 | `lock_in_gain` 0.120579, `acute_decay_rate` 0.119315 | 100 | no | PASS | `death_rise` +12.4 ± 2.2; `recovery_rise` +10.4 ± 1.7 |
+| 3 | `lock_in_gain` 0.210006, `acute_decay_rate` 0.389866 | 50 | no | FAIL | `death_rise` -0.786 ± 0.22; `recovery_rise` +1.58 ± 0.16 |
+| 4 | `lock_in_gain` 0.278729, `acute_decay_rate` 0.328717 | 100 then 200 | yes (first FAIL) | FAIL | `death_rise` +0.114 ± 0.15; `recovery_rise` +2.8 ± 0.15 |
+| 5 | `lock_in_gain` 0.329867, `acute_decay_rate` 0.24915 | 100 | no | PASS | `death_rise` +2.74 ± 0.44; `recovery_rise` +4.95 ± 0.37 |
+| 6 | `lock_in_gain` 0.134022, `acute_decay_rate` 0.265334 | 100 then 200 | yes (first FAIL) | FAIL | `death_rise` -0.507 ± 0.29; `recovery_rise` +2.56 ± 0.23 |
+| 7 | `lock_in_gain` 0.394334, `acute_decay_rate` 0.341232 | 50 | no | PASS | `death_rise` +0.989 ± 0.27; `recovery_rise` +3.38 ± 0.3 |
 
-## `M11.C.48` — declared, not run
+## `M11.C.48` — 8 of 8 samples held
 
-Not run: Phase D part II; ranges declared 2026-10-23 under the owner's decision to declare only (plan §2.10)
+| Sample | Values | Seeds | Rerun | Verdict | Gating readouts (mean difference ± half-width) |
+|---|---|---|---|---|---|
+| 0 | `learning_rate` 0.247892, `credit_horizon` 5, `credit_discount` 0.672568, `cross_person_weight` 0.712342, `policy_temperature` 1.61102, `habituation_rate` 0.394202, `habituation_window` 7, `cutoff_stock_cap` 1712.32, `cutoff_threat_weight` 0.00382396, `cutoff_decay_weeks` 314, `cutoff_floor_share` 0.106912, `positive_bridge_dissipation` 0.732122 | 100 | no | PASS | `negative_run` +0.402 ± 0.11 |
+| 1 | `learning_rate` 0.183218, `credit_horizon` 6, `credit_discount` 0.736928, `cross_person_weight` 0.940314, `policy_temperature` 0.955709, `habituation_rate` 0.586027, `habituation_window` 11, `cutoff_stock_cap` 3161.01, `cutoff_threat_weight` 0.00354596, `cutoff_decay_weeks` 319, `cutoff_floor_share` 0.118285, `positive_bridge_dissipation` 0.998009 | 100 | no | PASS | `negative_run` +0.321 ± 0.15 |
+| 2 | `learning_rate` 0.123986, `credit_horizon` 2, `credit_discount` 0.584132, `cross_person_weight` 0.807689, `policy_temperature` 0.670915, `habituation_rate` 0.552245, `habituation_window` 6, `cutoff_stock_cap` 2983.58, `cutoff_threat_weight` 0.00349421, `cutoff_decay_weeks` 240, `cutoff_floor_share` 0.102155, `positive_bridge_dissipation` 0.438701 | 100 | no | PASS | `negative_run` +0.618 ± 0.19 |
+| 3 | `learning_rate` 0.128407, `credit_horizon` 2, `credit_discount` 0.383213, `cross_person_weight` 0.917528, `policy_temperature` 1.14308, `habituation_rate` 0.392974, `habituation_window` 13, `cutoff_stock_cap` 1048.82, `cutoff_threat_weight` 0.00336018, `cutoff_decay_weeks` 232, `cutoff_floor_share` 0.170664, `positive_bridge_dissipation` 0.46502 | 100 | no | PASS | `negative_run` +0.321 ± 0.099 |
+| 4 | `learning_rate` 0.241518, `credit_horizon` 5, `credit_discount` 0.581263, `cross_person_weight` 0.625074, `policy_temperature` 0.517486, `habituation_rate` 0.873057, `habituation_window` 5, `cutoff_stock_cap` 957.669, `cutoff_threat_weight` 0.00224148, `cutoff_decay_weeks` 517, `cutoff_floor_share` 0.128389, `positive_bridge_dissipation` 0.425312 | 100 | no | PASS | `negative_run` +0.49 ± 0.22 |
+| 5 | `learning_rate` 0.100146, `credit_horizon` 4, `credit_discount` 0.824293, `cross_person_weight` 0.35477, `policy_temperature` 1.37856, `habituation_rate` 0.994153, `habituation_window` 5, `cutoff_stock_cap` 1922.06, `cutoff_threat_weight` 0.00421982, `cutoff_decay_weeks` 199, `cutoff_floor_share` 0.162796, `positive_bridge_dissipation` 0.535373 | 100 | no | PASS | `negative_run` +0.417 ± 0.14 |
+| 6 | `learning_rate` 0.194065, `credit_horizon` 3, `credit_discount` 0.900313, `cross_person_weight` 0.429532, `policy_temperature` 0.622846, `habituation_rate` 0.797308, `habituation_window` 6, `cutoff_stock_cap` 1555.53, `cutoff_threat_weight` 0.00210926, `cutoff_decay_weeks` 342, `cutoff_floor_share` 0.125789, `positive_bridge_dissipation` 0.503593 | 100 | no | PASS | `negative_run` +0.629 ± 0.21 |
+| 7 | `learning_rate` 0.380889, `credit_horizon` 3, `credit_discount` 0.952892, `cross_person_weight` 0.820954, `policy_temperature` 1.9422, `habituation_rate` 0.559821, `habituation_window` 9, `cutoff_stock_cap` 2430.87, `cutoff_threat_weight` 0.00366683, `cutoff_decay_weeks` 159, `cutoff_floor_share` 0.137484, `positive_bridge_dissipation` 0.716491 | 100 | no | PASS | `negative_run` +0.442 ± 0.18 |
 
-## `M11.C.48[phase_d]` — declared, not run
+## `M11.C.48[phase_d]` — 8 of 8 samples held
 
-Not run: Phase D part II; ranges declared 2026-10-23 under the owner's decision to declare only (plan §2.10)
+| Sample | Values | Seeds | Rerun | Verdict | Gating readouts (mean difference ± half-width) |
+|---|---|---|---|---|---|
+| 0 | `learning_rate` 0.24419, `credit_horizon` 2, `credit_discount` 0.796021, `cross_person_weight` 0.309535, `policy_temperature` 1.3338, `habituation_rate` 0.639086, `habituation_window` 8, `cutoff_stock_cap` 1441.13, `cutoff_threat_weight` 0.00277184, `cutoff_decay_weeks` 301, `cutoff_floor_share` 0.0890746, `positive_bridge_dissipation` 0.609697 | 100 | no | PASS | `negative_run` +0.555 ± 0.097 |
+| 1 | `learning_rate` 0.360568, `credit_horizon` 2, `credit_discount` 0.927003, `cross_person_weight` 0.905263, `policy_temperature` 0.970265, `habituation_rate` 0.92448, `habituation_window` 5, `cutoff_stock_cap` 2256.77, `cutoff_threat_weight` 0.00212573, `cutoff_decay_weeks` 374, `cutoff_floor_share` 0.0695772, `positive_bridge_dissipation` 0.400354 | 100 | no | PASS | `negative_run` +0.623 ± 0.093 |
+| 2 | `learning_rate` 0.399516, `credit_horizon` 2, `credit_discount` 0.808969, `cross_person_weight` 0.393886, `policy_temperature` 1.21268, `habituation_rate` 0.432031, `habituation_window` 5, `cutoff_stock_cap` 1131.1, `cutoff_threat_weight` 0.00179293, `cutoff_decay_weeks` 434, `cutoff_floor_share` 0.197218, `positive_bridge_dissipation` 0.531175 | 100 | no | PASS | `negative_run` +0.552 ± 0.14 |
+| 3 | `learning_rate` 0.298418, `credit_horizon` 5, `credit_discount` 0.859384, `cross_person_weight` 0.656609, `policy_temperature` 0.515437, `habituation_rate` 0.433625, `habituation_window` 4, `cutoff_stock_cap` 826.184, `cutoff_threat_weight` 0.00590921, `cutoff_decay_weeks` 174, `cutoff_floor_share` 0.0779295, `positive_bridge_dissipation` 0.520979 | 100 | no | PASS | `negative_run` +0.536 ± 0.067 |
+| 4 | `learning_rate` 0.100054, `credit_horizon` 3, `credit_discount` 0.453696, `cross_person_weight` 0.331605, `policy_temperature` 1.64162, `habituation_rate` 0.9807, `habituation_window` 8, `cutoff_stock_cap` 2930.8, `cutoff_threat_weight` 0.00505708, `cutoff_decay_weeks` 442, `cutoff_floor_share` 0.10214, `positive_bridge_dissipation` 0.809729 | 100 | no | PASS | `negative_run` +0.467 ± 0.058 |
+| 5 | `learning_rate` 0.191132, `credit_horizon` 6, `credit_discount` 0.997878, `cross_person_weight` 0.469427, `policy_temperature` 1.0794, `habituation_rate` 0.823935, `habituation_window` 15, `cutoff_stock_cap` 877.403, `cutoff_threat_weight` 0.00248198, `cutoff_decay_weeks` 268, `cutoff_floor_share` 0.193575, `positive_bridge_dissipation` 0.431947 | 100 | no | PASS | `negative_run` +0.472 ± 0.067 |
+| 6 | `learning_rate` 0.330207, `credit_horizon` 2, `credit_discount` 0.960708, `cross_person_weight` 0.425862, `policy_temperature` 1.60849, `habituation_rate` 0.578872, `habituation_window` 11, `cutoff_stock_cap` 2541.14, `cutoff_threat_weight` 0.00577269, `cutoff_decay_weeks` 388, `cutoff_floor_share` 0.0615808, `positive_bridge_dissipation` 0.897935 | 100 | no | PASS | `negative_run` +0.575 ± 0.067 |
+| 7 | `learning_rate` 0.301318, `credit_horizon` 3, `credit_discount` 0.576757, `cross_person_weight` 0.37241, `policy_temperature` 1.44082, `habituation_rate` 0.867311, `habituation_window` 10, `cutoff_stock_cap` 2504.27, `cutoff_threat_weight` 0.00238068, `cutoff_decay_weeks` 396, `cutoff_floor_share` 0.0503654, `positive_bridge_dissipation` 0.481924 | 100 | no | PASS | `negative_run` +0.529 ± 0.058 |
 
 ## Machine-readable
 
@@ -10278,7 +10341,12 @@ Not run: Phase D part II; ranges declared 2026-10-23 under the owner's decision 
  },
  {
   "criterion": "M11.C.2[twelve-person family]",
-  "not_run": "Phase D part II; ranges declared 2026-10-23 under the owner's decision to declare only (plan \u00a72.10)",
+  "samples": 8,
+  "counted": 8,
+  "held": 2,
+  "undetermined": 0,
+  "errored": 0,
+  "reruns": 8,
   "constants": [
    {
     "constant": "learning_rate",
@@ -10386,11 +10454,353 @@ Not run: Phase D part II; ranges declared 2026-10-23 under the owner's decision 
     "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
    }
   ],
-  "rows": []
+  "rows": [
+   {
+    "index": 0,
+    "values": {
+     "learning_rate": "0.238526",
+     "credit_horizon": "5",
+     "credit_discount": "0.355068",
+     "cross_person_weight": "0.588724",
+     "policy_temperature": "1.0131",
+     "habituation_rate": "0.455652",
+     "habituation_window": "13",
+     "perceived_weakness_gain": "0.0057173",
+     "focus_steer_gain": "0.929502",
+     "focus_reinforce_gain": "1.66595",
+     "focus_compound_gain": "7.19919",
+     "investment_leak_rate": "0.129473",
+     "witness_weight": "0.309023",
+     "symptom_leak_rate": "0.0714383",
+     "birth_focus_gain": "0.195137"
+    },
+    "outcome": "FAIL",
+    "seeds": 150,
+    "readouts": [
+     {
+      "readout": "symptom_load",
+      "mean_difference": 1.7347727588195447,
+      "half_width": 2.211618435418758,
+      "direction": 1
+     }
+    ],
+    "rerun": true,
+    "error": "",
+    "first_outcome": "FAIL",
+    "rerun_seeds": 200,
+    "rerun_readouts": [
+     {
+      "readout": "symptom_load",
+      "mean_difference": 1.2609360042190174,
+      "half_width": 1.8154134661738022,
+      "direction": 1
+     }
+    ]
+   },
+   {
+    "index": 1,
+    "values": {
+     "learning_rate": "0.216038",
+     "credit_horizon": "2",
+     "credit_discount": "0.582595",
+     "cross_person_weight": "0.597501",
+     "policy_temperature": "0.731817",
+     "habituation_rate": "0.443395",
+     "habituation_window": "6",
+     "perceived_weakness_gain": "0.00759955",
+     "focus_steer_gain": "1.06881",
+     "focus_reinforce_gain": "1.4041",
+     "focus_compound_gain": "12.5112",
+     "investment_leak_rate": "0.0584036",
+     "witness_weight": "0.5744",
+     "symptom_leak_rate": "0.0730311",
+     "birth_focus_gain": "0.187647"
+    },
+    "outcome": "PASS",
+    "seeds": 150,
+    "readouts": [
+     {
+      "readout": "symptom_load",
+      "mean_difference": 1.553288445936554,
+      "half_width": 2.2497884072616263,
+      "direction": 1
+     }
+    ],
+    "rerun": true,
+    "error": "",
+    "first_outcome": "FAIL",
+    "rerun_seeds": 200,
+    "rerun_readouts": [
+     {
+      "readout": "symptom_load",
+      "mean_difference": 2.301496407381959,
+      "half_width": 1.973106331493392,
+      "direction": 1
+     }
+    ]
+   },
+   {
+    "index": 2,
+    "values": {
+     "learning_rate": "0.121886",
+     "credit_horizon": "2",
+     "credit_discount": "0.441611",
+     "cross_person_weight": "0.540034",
+     "policy_temperature": "1.01547",
+     "habituation_rate": "0.837629",
+     "habituation_window": "7",
+     "perceived_weakness_gain": "0.015432",
+     "focus_steer_gain": "0.773029",
+     "focus_reinforce_gain": "0.734499",
+     "focus_compound_gain": "5.27126",
+     "investment_leak_rate": "0.120595",
+     "witness_weight": "0.251946",
+     "symptom_leak_rate": "0.183714",
+     "birth_focus_gain": "0.0810401"
+    },
+    "outcome": "FAIL",
+    "seeds": 150,
+    "readouts": [
+     {
+      "readout": "symptom_load",
+      "mean_difference": 0.152940356228006,
+      "half_width": 0.8918771164443049,
+      "direction": 1
+     }
+    ],
+    "rerun": true,
+    "error": "",
+    "first_outcome": "FAIL",
+    "rerun_seeds": 200,
+    "rerun_readouts": [
+     {
+      "readout": "symptom_load",
+      "mean_difference": 0.16948760226499546,
+      "half_width": 0.8036891083995196,
+      "direction": 1
+     }
+    ]
+   },
+   {
+    "index": 3,
+    "values": {
+     "learning_rate": "0.105671",
+     "credit_horizon": "5",
+     "credit_discount": "0.68615",
+     "cross_person_weight": "0.30997",
+     "policy_temperature": "0.561369",
+     "habituation_rate": "0.951117",
+     "habituation_window": "12",
+     "perceived_weakness_gain": "0.0171044",
+     "focus_steer_gain": "0.745808",
+     "focus_reinforce_gain": "1.0212",
+     "focus_compound_gain": "18.8275",
+     "investment_leak_rate": "0.0757708",
+     "witness_weight": "0.784285",
+     "symptom_leak_rate": "0.177866",
+     "birth_focus_gain": "0.0717376"
+    },
+    "outcome": "FAIL",
+    "seeds": 150,
+    "readouts": [
+     {
+      "readout": "symptom_load",
+      "mean_difference": 0.09244442424958749,
+      "half_width": 1.026253640109554,
+      "direction": 1
+     }
+    ],
+    "rerun": true,
+    "error": "",
+    "first_outcome": "FAIL",
+    "rerun_seeds": 200,
+    "rerun_readouts": [
+     {
+      "readout": "symptom_load",
+      "mean_difference": 0.4996420276081785,
+      "half_width": 0.905733553490557,
+      "direction": 1
+     }
+    ]
+   },
+   {
+    "index": 4,
+    "values": {
+     "learning_rate": "0.308736",
+     "credit_horizon": "6",
+     "credit_discount": "0.948275",
+     "cross_person_weight": "0.260729",
+     "policy_temperature": "1.0019",
+     "habituation_rate": "0.511314",
+     "habituation_window": "14",
+     "perceived_weakness_gain": "0.00971039",
+     "focus_steer_gain": "1.08374",
+     "focus_reinforce_gain": "0.660076",
+     "focus_compound_gain": "12.9508",
+     "investment_leak_rate": "0.164171",
+     "witness_weight": "0.957385",
+     "symptom_leak_rate": "0.106158",
+     "birth_focus_gain": "0.175574"
+    },
+    "outcome": "PASS",
+    "seeds": 150,
+    "readouts": [
+     {
+      "readout": "symptom_load",
+      "mean_difference": 1.1224993047852683,
+      "half_width": 1.5835622660553614,
+      "direction": 1
+     }
+    ],
+    "rerun": true,
+    "error": "",
+    "first_outcome": "FAIL",
+    "rerun_seeds": 200,
+    "rerun_readouts": [
+     {
+      "readout": "symptom_load",
+      "mean_difference": 1.2313745839937653,
+      "half_width": 1.3755812068449194,
+      "direction": 1
+     }
+    ]
+   },
+   {
+    "index": 5,
+    "values": {
+     "learning_rate": "0.37729",
+     "credit_horizon": "6",
+     "credit_discount": "0.558428",
+     "cross_person_weight": "0.798017",
+     "policy_temperature": "1.52261",
+     "habituation_rate": "0.397681",
+     "habituation_window": "14",
+     "perceived_weakness_gain": "0.0115641",
+     "focus_steer_gain": "1.94109",
+     "focus_reinforce_gain": "0.584689",
+     "focus_compound_gain": "11.2554",
+     "investment_leak_rate": "0.0620705",
+     "witness_weight": "0.292553",
+     "symptom_leak_rate": "0.0599027",
+     "birth_focus_gain": "0.0899083"
+    },
+    "outcome": "FAIL",
+    "seeds": 150,
+    "readouts": [
+     {
+      "readout": "symptom_load",
+      "mean_difference": 1.333887401711628,
+      "half_width": 2.2466426420192476,
+      "direction": 1
+     }
+    ],
+    "rerun": true,
+    "error": "",
+    "first_outcome": "FAIL",
+    "rerun_seeds": 200,
+    "rerun_readouts": [
+     {
+      "readout": "symptom_load",
+      "mean_difference": 1.5790562629781113,
+      "half_width": 2.077839038664874,
+      "direction": 1
+     }
+    ]
+   },
+   {
+    "index": 6,
+    "values": {
+     "learning_rate": "0.222337",
+     "credit_horizon": "5",
+     "credit_discount": "0.913839",
+     "cross_person_weight": "0.580007",
+     "policy_temperature": "1.13",
+     "habituation_rate": "0.392119",
+     "habituation_window": "11",
+     "perceived_weakness_gain": "0.0139294",
+     "focus_steer_gain": "1.70423",
+     "focus_reinforce_gain": "1.99337",
+     "focus_compound_gain": "10.126",
+     "investment_leak_rate": "0.153336",
+     "witness_weight": "0.486022",
+     "symptom_leak_rate": "0.0606454",
+     "birth_focus_gain": "0.163047"
+    },
+    "outcome": "FAIL",
+    "seeds": 150,
+    "readouts": [
+     {
+      "readout": "symptom_load",
+      "mean_difference": -0.45441470602965334,
+      "half_width": 2.428565101519651,
+      "direction": 1
+     }
+    ],
+    "rerun": true,
+    "error": "",
+    "first_outcome": "FAIL",
+    "rerun_seeds": 200,
+    "rerun_readouts": [
+     {
+      "readout": "symptom_load",
+      "mean_difference": 0.945550759183119,
+      "half_width": 2.085626037440352,
+      "direction": 1
+     }
+    ]
+   },
+   {
+    "index": 7,
+    "values": {
+     "learning_rate": "0.134386",
+     "credit_horizon": "2",
+     "credit_discount": "0.930476",
+     "cross_person_weight": "0.578967",
+     "policy_temperature": "0.951362",
+     "habituation_rate": "0.689962",
+     "habituation_window": "14",
+     "perceived_weakness_gain": "0.00773904",
+     "focus_steer_gain": "0.846033",
+     "focus_reinforce_gain": "1.253",
+     "focus_compound_gain": "9.44576",
+     "investment_leak_rate": "0.0702896",
+     "witness_weight": "0.707088",
+     "symptom_leak_rate": "0.194777",
+     "birth_focus_gain": "0.0641923"
+    },
+    "outcome": "FAIL",
+    "seeds": 150,
+    "readouts": [
+     {
+      "readout": "symptom_load",
+      "mean_difference": 0.24610559994580597,
+      "half_width": 0.9305889616448492,
+      "direction": 1
+     }
+    ],
+    "rerun": true,
+    "error": "",
+    "first_outcome": "FAIL",
+    "rerun_seeds": 200,
+    "rerun_readouts": [
+     {
+      "readout": "symptom_load",
+      "mean_difference": 0.21322197111666155,
+      "half_width": 0.8110515772613256,
+      "direction": 1
+     }
+    ]
+   }
+  ]
  },
  {
   "criterion": "M11.C.6",
-  "not_run": "Phase D part II; ranges declared 2026-10-23 under the owner's decision to declare only (plan \u00a72.10)",
+  "samples": 8,
+  "counted": 8,
+  "held": 0,
+  "undetermined": 0,
+  "errored": 0,
+  "reruns": 4,
   "constants": [
    {
     "constant": "development_rate",
@@ -10435,11 +10845,241 @@ Not run: Phase D part II; ranges declared 2026-10-23 under the owner's decision 
     "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
    }
   ],
-  "rows": []
+  "rows": [
+   {
+    "index": 0,
+    "values": {
+     "development_rate": "0.133393",
+     "development_band": "0.0106515",
+     "development_band_projection": "0.159538",
+     "development_band_support": "0.075051",
+     "estimator_sd_weight": "0.776355",
+     "estimator_rate": "0.453813"
+    },
+    "outcome": "FAIL",
+    "seeds": 150,
+    "readouts": [
+     {
+      "readout": "development",
+      "mean_difference": 0.07199298106362689,
+      "half_width": 0.0528168330668473,
+      "direction": -1
+     }
+    ],
+    "rerun": true,
+    "error": "",
+    "first_outcome": "FAIL",
+    "rerun_seeds": 200,
+    "rerun_readouts": [
+     {
+      "readout": "development",
+      "mean_difference": 0.08226379664869907,
+      "half_width": 0.04681716423851712,
+      "direction": -1
+     }
+    ]
+   },
+   {
+    "index": 1,
+    "values": {
+     "development_rate": "0.129211",
+     "development_band": "0.0145114",
+     "development_band_projection": "0.172327",
+     "development_band_support": "0.0617965",
+     "estimator_sd_weight": "1.75067",
+     "estimator_rate": "0.409351"
+    },
+    "outcome": "FAIL",
+    "seeds": 150,
+    "readouts": [
+     {
+      "readout": "development",
+      "mean_difference": 0.09506336143745922,
+      "half_width": 0.052886082828408086,
+      "direction": -1
+     }
+    ],
+    "rerun": true,
+    "error": "",
+    "first_outcome": "FAIL",
+    "rerun_seeds": 200,
+    "rerun_readouts": [
+     {
+      "readout": "development",
+      "mean_difference": 0.10406113406918088,
+      "half_width": 0.046917872454954886,
+      "direction": -1
+     }
+    ]
+   },
+   {
+    "index": 2,
+    "values": {
+     "development_rate": "0.101407",
+     "development_band": "0.0237219",
+     "development_band_projection": "0.141304",
+     "development_band_support": "0.0544485",
+     "estimator_sd_weight": "0.940983",
+     "estimator_rate": "0.910984"
+    },
+    "outcome": "FAIL",
+    "seeds": 150,
+    "readouts": [
+     {
+      "readout": "development",
+      "mean_difference": 0.0893545840974367,
+      "half_width": 0.04182865978181329,
+      "direction": -1
+     }
+    ],
+    "rerun": false,
+    "error": ""
+   },
+   {
+    "index": 3,
+    "values": {
+     "development_rate": "0.0554397",
+     "development_band": "0.0170549",
+     "development_band_projection": "0.191026",
+     "development_band_support": "0.0405342",
+     "estimator_sd_weight": "0.930879",
+     "estimator_rate": "0.391975"
+    },
+    "outcome": "FAIL",
+    "seeds": 150,
+    "readouts": [
+     {
+      "readout": "development",
+      "mean_difference": 0.04372906236507286,
+      "half_width": 0.0261222185712043,
+      "direction": -1
+     }
+    ],
+    "rerun": true,
+    "error": "",
+    "first_outcome": "FAIL",
+    "rerun_seeds": 200,
+    "rerun_readouts": [
+     {
+      "readout": "development",
+      "mean_difference": 0.042835150635843956,
+      "half_width": 0.02244543412741698,
+      "direction": -1
+     }
+    ]
+   },
+   {
+    "index": 4,
+    "values": {
+     "development_rate": "0.076855",
+     "development_band": "0.0153872",
+     "development_band_projection": "0.0812149",
+     "development_band_support": "0.0950593",
+     "estimator_sd_weight": "1.01608",
+     "estimator_rate": "0.916156"
+    },
+    "outcome": "FAIL",
+    "seeds": 150,
+    "readouts": [
+     {
+      "readout": "development",
+      "mean_difference": 0.10170311973714831,
+      "half_width": 0.036251013405070094,
+      "direction": -1
+     }
+    ],
+    "rerun": false,
+    "error": ""
+   },
+   {
+    "index": 5,
+    "values": {
+     "development_rate": "0.151622",
+     "development_band": "0.0309074",
+     "development_band_projection": "0.119736",
+     "development_band_support": "0.0583717",
+     "estimator_sd_weight": "0.569236",
+     "estimator_rate": "0.2719"
+    },
+    "outcome": "FAIL",
+    "seeds": 150,
+    "readouts": [
+     {
+      "readout": "development",
+      "mean_difference": 0.11772533704017665,
+      "half_width": 0.05365458004885056,
+      "direction": -1
+     }
+    ],
+    "rerun": false,
+    "error": ""
+   },
+   {
+    "index": 6,
+    "values": {
+     "development_rate": "0.103486",
+     "development_band": "0.0367743",
+     "development_band_projection": "0.0706639",
+     "development_band_support": "0.0519131",
+     "estimator_sd_weight": "1.45331",
+     "estimator_rate": "0.539813"
+    },
+    "outcome": "FAIL",
+    "seeds": 150,
+    "readouts": [
+     {
+      "readout": "development",
+      "mean_difference": 0.09249740546945887,
+      "half_width": 0.042921303863319535,
+      "direction": -1
+     }
+    ],
+    "rerun": false,
+    "error": ""
+   },
+   {
+    "index": 7,
+    "values": {
+     "development_rate": "0.138558",
+     "development_band": "0.0114306",
+     "development_band_projection": "0.0645247",
+     "development_band_support": "0.0493045",
+     "estimator_sd_weight": "0.572412",
+     "estimator_rate": "0.922032"
+    },
+    "outcome": "FAIL",
+    "seeds": 150,
+    "readouts": [
+     {
+      "readout": "development",
+      "mean_difference": 0.04842412761920277,
+      "half_width": 0.0499637420225682,
+      "direction": -1
+     }
+    ],
+    "rerun": true,
+    "error": "",
+    "first_outcome": "FAIL",
+    "rerun_seeds": 200,
+    "rerun_readouts": [
+     {
+      "readout": "development",
+      "mean_difference": 0.06835379268278195,
+      "half_width": 0.04512010894764881,
+      "direction": -1
+     }
+    ]
+   }
+  ]
  },
  {
   "criterion": "M11.C.10",
-  "not_run": "Phase D part II; ranges declared 2026-10-23 under the owner's decision to declare only (plan \u00a72.10)",
+  "samples": 8,
+  "counted": 8,
+  "held": 1,
+  "undetermined": 0,
+  "errored": 0,
+  "reruns": 0,
   "constants": [
    {
     "constant": "learning_rate",
@@ -10561,11 +11201,289 @@ Not run: Phase D part II; ranges declared 2026-10-23 under the owner's decision 
     "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
    }
   ],
-  "rows": []
+  "rows": [
+   {
+    "index": 0,
+    "values": {
+     "learning_rate": "0.357585",
+     "credit_horizon": "2",
+     "credit_discount": "0.534243",
+     "cross_person_weight": "0.307818",
+     "policy_temperature": "1.52319",
+     "habituation_rate": "0.814186",
+     "habituation_window": "7",
+     "witnessed_cutoff_gain": "0.0286783",
+     "witness_window": "23",
+     "reactive_cutoff_gain": "0.134574",
+     "origin_cutoff_anxiety_gain": "16.1541",
+     "origin_fusion_gain": "0.622464",
+     "rejection_cutoff_gain": "0.277297",
+     "rejection_refusal_gain": "0.0725992",
+     "rejection_relief": "0.211708",
+     "rejection_refusal_threshold": "0.214074",
+     "rejection_fade": "0.0689998"
+    },
+    "outcome": "FAIL",
+    "seeds": 200,
+    "readouts": [
+     {
+      "readout": "cut_off_tie_weeks",
+      "mean_difference": 25.115,
+      "half_width": 80.17564628200941,
+      "direction": 1
+     }
+    ],
+    "rerun": false,
+    "error": ""
+   },
+   {
+    "index": 1,
+    "values": {
+     "learning_rate": "0.240981",
+     "credit_horizon": "6",
+     "credit_discount": "0.555776",
+     "cross_person_weight": "0.659271",
+     "policy_temperature": "0.586156",
+     "habituation_rate": "0.784874",
+     "habituation_window": "6",
+     "witnessed_cutoff_gain": "0.0946848",
+     "witness_window": "8",
+     "reactive_cutoff_gain": "0.0838802",
+     "origin_cutoff_anxiety_gain": "5.68425",
+     "origin_fusion_gain": "0.679427",
+     "rejection_cutoff_gain": "0.814721",
+     "rejection_refusal_gain": "0.100788",
+     "rejection_relief": "0.132008",
+     "rejection_refusal_threshold": "0.233894",
+     "rejection_fade": "0.0447183"
+    },
+    "outcome": "FAIL",
+    "seeds": 200,
+    "readouts": [
+     {
+      "readout": "cut_off_tie_weeks",
+      "mean_difference": 5.875,
+      "half_width": 112.98110912773723,
+      "direction": 1
+     }
+    ],
+    "rerun": false,
+    "error": ""
+   },
+   {
+    "index": 2,
+    "values": {
+     "learning_rate": "0.103826",
+     "credit_horizon": "3",
+     "credit_discount": "0.388322",
+     "cross_person_weight": "0.491644",
+     "policy_temperature": "0.6243",
+     "habituation_rate": "0.372683",
+     "habituation_window": "16",
+     "witnessed_cutoff_gain": "0.053177",
+     "witness_window": "12",
+     "reactive_cutoff_gain": "0.0543395",
+     "origin_cutoff_anxiety_gain": "7.1946",
+     "origin_fusion_gain": "0.3569",
+     "rejection_cutoff_gain": "0.635487",
+     "rejection_refusal_gain": "0.198312",
+     "rejection_relief": "0.207635",
+     "rejection_refusal_threshold": "0.165867",
+     "rejection_fade": "0.0755656"
+    },
+    "outcome": "FAIL",
+    "seeds": 200,
+    "readouts": [
+     {
+      "readout": "cut_off_tie_weeks",
+      "mean_difference": 33.14,
+      "half_width": 120.67240607971873,
+      "direction": 1
+     }
+    ],
+    "rerun": false,
+    "error": ""
+   },
+   {
+    "index": 3,
+    "values": {
+     "learning_rate": "0.284528",
+     "credit_horizon": "5",
+     "credit_discount": "0.375308",
+     "cross_person_weight": "0.291843",
+     "policy_temperature": "1.21806",
+     "habituation_rate": "0.393769",
+     "habituation_window": "6",
+     "witnessed_cutoff_gain": "0.0286728",
+     "witness_window": "9",
+     "reactive_cutoff_gain": "0.0504477",
+     "origin_cutoff_anxiety_gain": "5.95466",
+     "origin_fusion_gain": "0.316938",
+     "rejection_cutoff_gain": "0.251778",
+     "rejection_refusal_gain": "0.0897315",
+     "rejection_relief": "0.136083",
+     "rejection_refusal_threshold": "0.395397",
+     "rejection_fade": "0.0303896"
+    },
+    "outcome": "FAIL",
+    "seeds": 200,
+    "readouts": [
+     {
+      "readout": "cut_off_tie_weeks",
+      "mean_difference": 83.995,
+      "half_width": 155.5776138656214,
+      "direction": 1
+     }
+    ],
+    "rerun": false,
+    "error": ""
+   },
+   {
+    "index": 4,
+    "values": {
+     "learning_rate": "0.264375",
+     "credit_horizon": "3",
+     "credit_discount": "0.637847",
+     "cross_person_weight": "0.359712",
+     "policy_temperature": "1.13883",
+     "habituation_rate": "0.962844",
+     "habituation_window": "13",
+     "witnessed_cutoff_gain": "0.0804142",
+     "witness_window": "25",
+     "reactive_cutoff_gain": "0.144713",
+     "origin_cutoff_anxiety_gain": "11.988",
+     "origin_fusion_gain": "0.750219",
+     "rejection_cutoff_gain": "0.351417",
+     "rejection_refusal_gain": "0.0770746",
+     "rejection_relief": "0.304401",
+     "rejection_refusal_threshold": "0.499565",
+     "rejection_fade": "0.0519153"
+    },
+    "outcome": "PASS",
+    "seeds": 200,
+    "readouts": [
+     {
+      "readout": "cut_off_tie_weeks",
+      "mean_difference": 152.035,
+      "half_width": 117.73361069066686,
+      "direction": 1
+     }
+    ],
+    "rerun": false,
+    "error": ""
+   },
+   {
+    "index": 5,
+    "values": {
+     "learning_rate": "0.333746",
+     "credit_horizon": "2",
+     "credit_discount": "0.836436",
+     "cross_person_weight": "0.959046",
+     "policy_temperature": "1.91311",
+     "habituation_rate": "0.5915",
+     "habituation_window": "14",
+     "witnessed_cutoff_gain": "0.032843",
+     "witness_window": "12",
+     "reactive_cutoff_gain": "0.0651307",
+     "origin_cutoff_anxiety_gain": "8.86772",
+     "origin_fusion_gain": "0.424457",
+     "rejection_cutoff_gain": "0.261586",
+     "rejection_refusal_gain": "0.136307",
+     "rejection_relief": "0.314648",
+     "rejection_refusal_threshold": "0.321771",
+     "rejection_fade": "0.0337899"
+    },
+    "outcome": "FAIL",
+    "seeds": 200,
+    "readouts": [
+     {
+      "readout": "cut_off_tie_weeks",
+      "mean_difference": 9.62,
+      "half_width": 148.72915214014512,
+      "direction": 1
+     }
+    ],
+    "rerun": false,
+    "error": ""
+   },
+   {
+    "index": 6,
+    "values": {
+     "learning_rate": "0.120794",
+     "credit_horizon": "5",
+     "credit_discount": "0.491723",
+     "cross_person_weight": "0.254413",
+     "policy_temperature": "1.2794",
+     "habituation_rate": "0.568088",
+     "habituation_window": "15",
+     "witnessed_cutoff_gain": "0.086519",
+     "witness_window": "16",
+     "reactive_cutoff_gain": "0.063644",
+     "origin_cutoff_anxiety_gain": "11.2226",
+     "origin_fusion_gain": "0.281946",
+     "rejection_cutoff_gain": "0.35629",
+     "rejection_refusal_gain": "0.164152",
+     "rejection_relief": "0.212764",
+     "rejection_refusal_threshold": "0.330225",
+     "rejection_fade": "0.0406132"
+    },
+    "outcome": "FAIL",
+    "seeds": 200,
+    "readouts": [
+     {
+      "readout": "cut_off_tie_weeks",
+      "mean_difference": 32.14,
+      "half_width": 142.66510613399592,
+      "direction": 1
+     }
+    ],
+    "rerun": false,
+    "error": ""
+   },
+   {
+    "index": 7,
+    "values": {
+     "learning_rate": "0.229261",
+     "credit_horizon": "2",
+     "credit_discount": "0.480501",
+     "cross_person_weight": "0.293431",
+     "policy_temperature": "0.922659",
+     "habituation_rate": "0.418034",
+     "habituation_window": "15",
+     "witnessed_cutoff_gain": "0.0375139",
+     "witness_window": "11",
+     "reactive_cutoff_gain": "0.0837314",
+     "origin_cutoff_anxiety_gain": "7.11375",
+     "origin_fusion_gain": "0.479424",
+     "rejection_cutoff_gain": "0.296006",
+     "rejection_refusal_gain": "0.172919",
+     "rejection_relief": "0.341336",
+     "rejection_refusal_threshold": "0.421539",
+     "rejection_fade": "0.0771231"
+    },
+    "outcome": "FAIL",
+    "seeds": 200,
+    "readouts": [
+     {
+      "readout": "cut_off_tie_weeks",
+      "mean_difference": -1.215,
+      "half_width": 83.24973035929109,
+      "direction": 1
+     }
+    ],
+    "rerun": false,
+    "error": ""
+   }
+  ]
  },
  {
   "criterion": "M11.C.10[family of origin]",
-  "not_run": "Phase D part II; ranges declared 2026-10-23 under the owner's decision to declare only (plan \u00a72.10)",
+  "samples": 8,
+  "counted": 8,
+  "held": 5,
+  "undetermined": 0,
+  "errored": 0,
+  "reruns": 0,
   "constants": [
    {
     "constant": "learning_rate",
@@ -10687,11 +11605,289 @@ Not run: Phase D part II; ranges declared 2026-10-23 under the owner's decision 
     "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
    }
   ],
-  "rows": []
+  "rows": [
+   {
+    "index": 0,
+    "values": {
+     "learning_rate": "0.100036",
+     "credit_horizon": "3",
+     "credit_discount": "0.897915",
+     "cross_person_weight": "0.361846",
+     "policy_temperature": "1.97919",
+     "habituation_rate": "0.637591",
+     "habituation_window": "11",
+     "witnessed_cutoff_gain": "0.0619692",
+     "witness_window": "20",
+     "reactive_cutoff_gain": "0.125241",
+     "origin_cutoff_anxiety_gain": "13.5376",
+     "origin_fusion_gain": "0.930651",
+     "rejection_cutoff_gain": "0.266879",
+     "rejection_refusal_gain": "0.106089",
+     "rejection_relief": "0.247612",
+     "rejection_refusal_threshold": "0.431668",
+     "rejection_fade": "0.0399105"
+    },
+    "outcome": "PASS",
+    "seeds": 200,
+    "readouts": [
+     {
+      "readout": "cut_off_tie_weeks",
+      "mean_difference": 141.49,
+      "half_width": 144.46991929806404,
+      "direction": 1
+     }
+    ],
+    "rerun": false,
+    "error": ""
+   },
+   {
+    "index": 1,
+    "values": {
+     "learning_rate": "0.23292",
+     "credit_horizon": "3",
+     "credit_discount": "0.416262",
+     "cross_person_weight": "0.270689",
+     "policy_temperature": "1.80305",
+     "habituation_rate": "0.706865",
+     "habituation_window": "10",
+     "witnessed_cutoff_gain": "0.0593506",
+     "witness_window": "22",
+     "reactive_cutoff_gain": "0.104305",
+     "origin_cutoff_anxiety_gain": "17.3662",
+     "origin_fusion_gain": "0.309458",
+     "rejection_cutoff_gain": "0.25741",
+     "rejection_refusal_gain": "0.14593",
+     "rejection_relief": "0.160977",
+     "rejection_refusal_threshold": "0.369977",
+     "rejection_fade": "0.0930729"
+    },
+    "outcome": "FAIL",
+    "seeds": 200,
+    "readouts": [
+     {
+      "readout": "cut_off_tie_weeks",
+      "mean_difference": 39.205,
+      "half_width": 53.215573584274324,
+      "direction": 1
+     }
+    ],
+    "rerun": false,
+    "error": ""
+   },
+   {
+    "index": 2,
+    "values": {
+     "learning_rate": "0.362447",
+     "credit_horizon": "4",
+     "credit_discount": "0.795055",
+     "cross_person_weight": "0.456172",
+     "policy_temperature": "1.42574",
+     "habituation_rate": "0.693422",
+     "habituation_window": "12",
+     "witnessed_cutoff_gain": "0.0552943",
+     "witness_window": "23",
+     "reactive_cutoff_gain": "0.172275",
+     "origin_cutoff_anxiety_gain": "9.4366",
+     "origin_fusion_gain": "0.851994",
+     "rejection_cutoff_gain": "0.702203",
+     "rejection_refusal_gain": "0.127921",
+     "rejection_relief": "0.357704",
+     "rejection_refusal_threshold": "0.154106",
+     "rejection_fade": "0.0675094"
+    },
+    "outcome": "FAIL",
+    "seeds": 200,
+    "readouts": [
+     {
+      "readout": "cut_off_tie_weeks",
+      "mean_difference": 101.165,
+      "half_width": 126.68244574954984,
+      "direction": 1
+     }
+    ],
+    "rerun": false,
+    "error": ""
+   },
+   {
+    "index": 3,
+    "values": {
+     "learning_rate": "0.285034",
+     "credit_horizon": "4",
+     "credit_discount": "0.443607",
+     "cross_person_weight": "0.666636",
+     "policy_temperature": "1.65297",
+     "habituation_rate": "0.439492",
+     "habituation_window": "9",
+     "witnessed_cutoff_gain": "0.0418088",
+     "witness_window": "16",
+     "reactive_cutoff_gain": "0.0881737",
+     "origin_cutoff_anxiety_gain": "8.20131",
+     "origin_fusion_gain": "0.423687",
+     "rejection_cutoff_gain": "0.63042",
+     "rejection_refusal_gain": "0.054907",
+     "rejection_relief": "0.177766",
+     "rejection_refusal_threshold": "0.565857",
+     "rejection_fade": "0.0398546"
+    },
+    "outcome": "FAIL",
+    "seeds": 200,
+    "readouts": [
+     {
+      "readout": "cut_off_tie_weeks",
+      "mean_difference": 106.225,
+      "half_width": 134.40516083906851,
+      "direction": 1
+     }
+    ],
+    "rerun": false,
+    "error": ""
+   },
+   {
+    "index": 4,
+    "values": {
+     "learning_rate": "0.297174",
+     "credit_horizon": "2",
+     "credit_discount": "0.772448",
+     "cross_person_weight": "0.326736",
+     "policy_temperature": "0.544708",
+     "habituation_rate": "0.474929",
+     "habituation_window": "8",
+     "witnessed_cutoff_gain": "0.0326648",
+     "witness_window": "15",
+     "reactive_cutoff_gain": "0.166642",
+     "origin_cutoff_anxiety_gain": "19.3667",
+     "origin_fusion_gain": "0.360689",
+     "rejection_cutoff_gain": "0.584405",
+     "rejection_refusal_gain": "0.0637759",
+     "rejection_relief": "0.235895",
+     "rejection_refusal_threshold": "0.477854",
+     "rejection_fade": "0.0416687"
+    },
+    "outcome": "PASS",
+    "seeds": 200,
+    "readouts": [
+     {
+      "readout": "cut_off_tie_weeks",
+      "mean_difference": 155.71,
+      "half_width": 114.55769105488436,
+      "direction": 1
+     }
+    ],
+    "rerun": false,
+    "error": ""
+   },
+   {
+    "index": 5,
+    "values": {
+     "learning_rate": "0.148722",
+     "credit_horizon": "6",
+     "credit_discount": "0.931157",
+     "cross_person_weight": "0.41816",
+     "policy_temperature": "0.531377",
+     "habituation_rate": "0.369118",
+     "habituation_window": "8",
+     "witnessed_cutoff_gain": "0.0452892",
+     "witness_window": "9",
+     "reactive_cutoff_gain": "0.173182",
+     "origin_cutoff_anxiety_gain": "5.66168",
+     "origin_fusion_gain": "0.344846",
+     "rejection_cutoff_gain": "0.520524",
+     "rejection_refusal_gain": "0.0794826",
+     "rejection_relief": "0.298258",
+     "rejection_refusal_threshold": "0.321798",
+     "rejection_fade": "0.0576877"
+    },
+    "outcome": "PASS",
+    "seeds": 200,
+    "readouts": [
+     {
+      "readout": "cut_off_tie_weeks",
+      "mean_difference": 128.88,
+      "half_width": 141.14076434953387,
+      "direction": 1
+     }
+    ],
+    "rerun": false,
+    "error": ""
+   },
+   {
+    "index": 6,
+    "values": {
+     "learning_rate": "0.23393",
+     "credit_horizon": "2",
+     "credit_discount": "0.630668",
+     "cross_person_weight": "0.473536",
+     "policy_temperature": "1.15422",
+     "habituation_rate": "0.73881",
+     "habituation_window": "14",
+     "witnessed_cutoff_gain": "0.0733963",
+     "witness_window": "23",
+     "reactive_cutoff_gain": "0.101488",
+     "origin_cutoff_anxiety_gain": "9.84764",
+     "origin_fusion_gain": "0.73379",
+     "rejection_cutoff_gain": "0.292635",
+     "rejection_refusal_gain": "0.0528432",
+     "rejection_relief": "0.207148",
+     "rejection_refusal_threshold": "0.234838",
+     "rejection_fade": "0.0675354"
+    },
+    "outcome": "PASS",
+    "seeds": 200,
+    "readouts": [
+     {
+      "readout": "cut_off_tie_weeks",
+      "mean_difference": 105.315,
+      "half_width": 98.21796822034584,
+      "direction": 1
+     }
+    ],
+    "rerun": false,
+    "error": ""
+   },
+   {
+    "index": 7,
+    "values": {
+     "learning_rate": "0.126556",
+     "credit_horizon": "2",
+     "credit_discount": "0.773863",
+     "cross_person_weight": "0.923187",
+     "policy_temperature": "0.553489",
+     "habituation_rate": "0.976834",
+     "habituation_window": "13",
+     "witnessed_cutoff_gain": "0.0810522",
+     "witness_window": "19",
+     "reactive_cutoff_gain": "0.0951442",
+     "origin_cutoff_anxiety_gain": "9.00292",
+     "origin_fusion_gain": "0.838822",
+     "rejection_cutoff_gain": "0.495581",
+     "rejection_refusal_gain": "0.183335",
+     "rejection_relief": "0.486613",
+     "rejection_refusal_threshold": "0.32576",
+     "rejection_fade": "0.0625799"
+    },
+    "outcome": "PASS",
+    "seeds": 200,
+    "readouts": [
+     {
+      "readout": "cut_off_tie_weeks",
+      "mean_difference": 115.91,
+      "half_width": 113.95786187953854,
+      "direction": 1
+     }
+    ],
+    "rerun": false,
+    "error": ""
+   }
+  ]
  },
  {
   "criterion": "M11.C.15",
-  "not_run": "Phase D part II; ranges declared 2026-10-23 under the owner's decision to declare only (plan \u00a72.10)",
+  "samples": 8,
+  "counted": 8,
+  "held": 4,
+  "undetermined": 0,
+  "errored": 0,
+  "reruns": 2,
   "constants": [
    {
     "constant": "lock_in_gain",
@@ -10708,11 +11904,249 @@ Not run: Phase D part II; ranges declared 2026-10-23 under the owner's decision 
     "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
    }
   ],
-  "rows": []
+  "rows": [
+   {
+    "index": 0,
+    "values": {
+     "lock_in_gain": "0.216243",
+     "acute_decay_rate": "0.1302"
+    },
+    "outcome": "PASS",
+    "seeds": 100,
+    "readouts": [
+     {
+      "readout": "death_rise",
+      "mean_difference": 17.54404560748139,
+      "half_width": 2.2961906014530986,
+      "direction": 1
+     },
+     {
+      "readout": "recovery_rise",
+      "mean_difference": 14.536513709677319,
+      "half_width": 1.8986170888241134,
+      "direction": 1
+     }
+    ],
+    "rerun": false,
+    "error": ""
+   },
+   {
+    "index": 1,
+    "values": {
+     "lock_in_gain": "0.100002",
+     "acute_decay_rate": "0.323727"
+    },
+    "outcome": "FAIL",
+    "seeds": 100,
+    "readouts": [
+     {
+      "readout": "death_rise",
+      "mean_difference": -1.3241166933141642,
+      "half_width": 0.29396932676936294,
+      "direction": 1
+     },
+     {
+      "readout": "recovery_rise",
+      "mean_difference": 1.1903358898962895,
+      "half_width": 0.19379434579516927,
+      "direction": 1
+     }
+    ],
+    "rerun": false,
+    "error": ""
+   },
+   {
+    "index": 2,
+    "values": {
+     "lock_in_gain": "0.120579",
+     "acute_decay_rate": "0.119315"
+    },
+    "outcome": "PASS",
+    "seeds": 100,
+    "readouts": [
+     {
+      "readout": "death_rise",
+      "mean_difference": 12.392998636283881,
+      "half_width": 2.247910370535079,
+      "direction": 1
+     },
+     {
+      "readout": "recovery_rise",
+      "mean_difference": 10.428004113712754,
+      "half_width": 1.6868154396854511,
+      "direction": 1
+     }
+    ],
+    "rerun": false,
+    "error": ""
+   },
+   {
+    "index": 3,
+    "values": {
+     "lock_in_gain": "0.210006",
+     "acute_decay_rate": "0.389866"
+    },
+    "outcome": "FAIL",
+    "seeds": 50,
+    "readouts": [
+     {
+      "readout": "death_rise",
+      "mean_difference": -0.7862208111493422,
+      "half_width": 0.22488828267971842,
+      "direction": 1
+     },
+     {
+      "readout": "recovery_rise",
+      "mean_difference": 1.582432653882754,
+      "half_width": 0.16431950863849795,
+      "direction": 1
+     }
+    ],
+    "rerun": false,
+    "error": ""
+   },
+   {
+    "index": 4,
+    "values": {
+     "lock_in_gain": "0.278729",
+     "acute_decay_rate": "0.328717"
+    },
+    "outcome": "FAIL",
+    "seeds": 100,
+    "readouts": [
+     {
+      "readout": "death_rise",
+      "mean_difference": 0.19356750196370456,
+      "half_width": 0.2278210640711317,
+      "direction": 1
+     },
+     {
+      "readout": "recovery_rise",
+      "mean_difference": 2.7175073656055355,
+      "half_width": 0.21334177958882417,
+      "direction": 1
+     }
+    ],
+    "rerun": true,
+    "error": "",
+    "first_outcome": "FAIL",
+    "rerun_seeds": 200,
+    "rerun_readouts": [
+     {
+      "readout": "death_rise",
+      "mean_difference": 0.11428563146080808,
+      "half_width": 0.15099416106776295,
+      "direction": 1
+     },
+     {
+      "readout": "recovery_rise",
+      "mean_difference": 2.8005964249038517,
+      "half_width": 0.14523380933978716,
+      "direction": 1
+     }
+    ]
+   },
+   {
+    "index": 5,
+    "values": {
+     "lock_in_gain": "0.329867",
+     "acute_decay_rate": "0.24915"
+    },
+    "outcome": "PASS",
+    "seeds": 100,
+    "readouts": [
+     {
+      "readout": "death_rise",
+      "mean_difference": 2.741454057695472,
+      "half_width": 0.4426221860161574,
+      "direction": 1
+     },
+     {
+      "readout": "recovery_rise",
+      "mean_difference": 4.95052895463955,
+      "half_width": 0.36808275781364025,
+      "direction": 1
+     }
+    ],
+    "rerun": false,
+    "error": ""
+   },
+   {
+    "index": 6,
+    "values": {
+     "lock_in_gain": "0.134022",
+     "acute_decay_rate": "0.265334"
+    },
+    "outcome": "FAIL",
+    "seeds": 100,
+    "readouts": [
+     {
+      "readout": "death_rise",
+      "mean_difference": -0.33837964389989605,
+      "half_width": 0.41873619151475017,
+      "direction": 1
+     },
+     {
+      "readout": "recovery_rise",
+      "mean_difference": 2.6796205152765697,
+      "half_width": 0.3313374410204201,
+      "direction": 1
+     }
+    ],
+    "rerun": true,
+    "error": "",
+    "first_outcome": "FAIL",
+    "rerun_seeds": 200,
+    "rerun_readouts": [
+     {
+      "readout": "death_rise",
+      "mean_difference": -0.507246898031116,
+      "half_width": 0.2896091158232714,
+      "direction": 1
+     },
+     {
+      "readout": "recovery_rise",
+      "mean_difference": 2.562262290886898,
+      "half_width": 0.23162744179235495,
+      "direction": 1
+     }
+    ]
+   },
+   {
+    "index": 7,
+    "values": {
+     "lock_in_gain": "0.394334",
+     "acute_decay_rate": "0.341232"
+    },
+    "outcome": "PASS",
+    "seeds": 50,
+    "readouts": [
+     {
+      "readout": "death_rise",
+      "mean_difference": 0.9886848922710992,
+      "half_width": 0.27351757169670726,
+      "direction": 1
+     },
+     {
+      "readout": "recovery_rise",
+      "mean_difference": 3.3775566096219007,
+      "half_width": 0.2993334125032328,
+      "direction": 1
+     }
+    ],
+    "rerun": false,
+    "error": ""
+   }
+  ]
  },
  {
   "criterion": "M11.C.48",
-  "not_run": "Phase D part II; ranges declared 2026-10-23 under the owner's decision to declare only (plan \u00a72.10)",
+  "samples": 8,
+  "counted": 8,
+  "held": 8,
+  "undetermined": 0,
+  "errored": 0,
+  "reruns": 0,
   "constants": [
    {
     "constant": "learning_rate",
@@ -10799,11 +12233,249 @@ Not run: Phase D part II; ranges declared 2026-10-23 under the owner's decision 
     "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
    }
   ],
-  "rows": []
+  "rows": [
+   {
+    "index": 0,
+    "values": {
+     "learning_rate": "0.247892",
+     "credit_horizon": "5",
+     "credit_discount": "0.672568",
+     "cross_person_weight": "0.712342",
+     "policy_temperature": "1.61102",
+     "habituation_rate": "0.394202",
+     "habituation_window": "7",
+     "cutoff_stock_cap": "1712.32",
+     "cutoff_threat_weight": "0.00382396",
+     "cutoff_decay_weeks": "314",
+     "cutoff_floor_share": "0.106912",
+     "positive_bridge_dissipation": "0.732122"
+    },
+    "outcome": "PASS",
+    "seeds": 100,
+    "readouts": [
+     {
+      "readout": "negative_run",
+      "mean_difference": 0.40202380952380956,
+      "half_width": 0.11446777809594377,
+      "direction": 1
+     }
+    ],
+    "rerun": false,
+    "error": ""
+   },
+   {
+    "index": 1,
+    "values": {
+     "learning_rate": "0.183218",
+     "credit_horizon": "6",
+     "credit_discount": "0.736928",
+     "cross_person_weight": "0.940314",
+     "policy_temperature": "0.955709",
+     "habituation_rate": "0.586027",
+     "habituation_window": "11",
+     "cutoff_stock_cap": "3161.01",
+     "cutoff_threat_weight": "0.00354596",
+     "cutoff_decay_weeks": "319",
+     "cutoff_floor_share": "0.118285",
+     "positive_bridge_dissipation": "0.998009"
+    },
+    "outcome": "PASS",
+    "seeds": 100,
+    "readouts": [
+     {
+      "readout": "negative_run",
+      "mean_difference": 0.32140476190476186,
+      "half_width": 0.14511575015555644,
+      "direction": 1
+     }
+    ],
+    "rerun": false,
+    "error": ""
+   },
+   {
+    "index": 2,
+    "values": {
+     "learning_rate": "0.123986",
+     "credit_horizon": "2",
+     "credit_discount": "0.584132",
+     "cross_person_weight": "0.807689",
+     "policy_temperature": "0.670915",
+     "habituation_rate": "0.552245",
+     "habituation_window": "6",
+     "cutoff_stock_cap": "2983.58",
+     "cutoff_threat_weight": "0.00349421",
+     "cutoff_decay_weeks": "240",
+     "cutoff_floor_share": "0.102155",
+     "positive_bridge_dissipation": "0.438701"
+    },
+    "outcome": "PASS",
+    "seeds": 100,
+    "readouts": [
+     {
+      "readout": "negative_run",
+      "mean_difference": 0.618,
+      "half_width": 0.18652543856141307,
+      "direction": 1
+     }
+    ],
+    "rerun": false,
+    "error": ""
+   },
+   {
+    "index": 3,
+    "values": {
+     "learning_rate": "0.128407",
+     "credit_horizon": "2",
+     "credit_discount": "0.383213",
+     "cross_person_weight": "0.917528",
+     "policy_temperature": "1.14308",
+     "habituation_rate": "0.392974",
+     "habituation_window": "13",
+     "cutoff_stock_cap": "1048.82",
+     "cutoff_threat_weight": "0.00336018",
+     "cutoff_decay_weeks": "232",
+     "cutoff_floor_share": "0.170664",
+     "positive_bridge_dissipation": "0.46502"
+    },
+    "outcome": "PASS",
+    "seeds": 100,
+    "readouts": [
+     {
+      "readout": "negative_run",
+      "mean_difference": 0.32133333333333325,
+      "half_width": 0.09874199284987155,
+      "direction": 1
+     }
+    ],
+    "rerun": false,
+    "error": ""
+   },
+   {
+    "index": 4,
+    "values": {
+     "learning_rate": "0.241518",
+     "credit_horizon": "5",
+     "credit_discount": "0.581263",
+     "cross_person_weight": "0.625074",
+     "policy_temperature": "0.517486",
+     "habituation_rate": "0.873057",
+     "habituation_window": "5",
+     "cutoff_stock_cap": "957.669",
+     "cutoff_threat_weight": "0.00224148",
+     "cutoff_decay_weeks": "517",
+     "cutoff_floor_share": "0.128389",
+     "positive_bridge_dissipation": "0.425312"
+    },
+    "outcome": "PASS",
+    "seeds": 100,
+    "readouts": [
+     {
+      "readout": "negative_run",
+      "mean_difference": 0.4896904761904763,
+      "half_width": 0.22265455837055623,
+      "direction": 1
+     }
+    ],
+    "rerun": false,
+    "error": ""
+   },
+   {
+    "index": 5,
+    "values": {
+     "learning_rate": "0.100146",
+     "credit_horizon": "4",
+     "credit_discount": "0.824293",
+     "cross_person_weight": "0.35477",
+     "policy_temperature": "1.37856",
+     "habituation_rate": "0.994153",
+     "habituation_window": "5",
+     "cutoff_stock_cap": "1922.06",
+     "cutoff_threat_weight": "0.00421982",
+     "cutoff_decay_weeks": "199",
+     "cutoff_floor_share": "0.162796",
+     "positive_bridge_dissipation": "0.535373"
+    },
+    "outcome": "PASS",
+    "seeds": 100,
+    "readouts": [
+     {
+      "readout": "negative_run",
+      "mean_difference": 0.417,
+      "half_width": 0.14388083982947025,
+      "direction": 1
+     }
+    ],
+    "rerun": false,
+    "error": ""
+   },
+   {
+    "index": 6,
+    "values": {
+     "learning_rate": "0.194065",
+     "credit_horizon": "3",
+     "credit_discount": "0.900313",
+     "cross_person_weight": "0.429532",
+     "policy_temperature": "0.622846",
+     "habituation_rate": "0.797308",
+     "habituation_window": "6",
+     "cutoff_stock_cap": "1555.53",
+     "cutoff_threat_weight": "0.00210926",
+     "cutoff_decay_weeks": "342",
+     "cutoff_floor_share": "0.125789",
+     "positive_bridge_dissipation": "0.503593"
+    },
+    "outcome": "PASS",
+    "seeds": 100,
+    "readouts": [
+     {
+      "readout": "negative_run",
+      "mean_difference": 0.6293333333333333,
+      "half_width": 0.21410546047174028,
+      "direction": 1
+     }
+    ],
+    "rerun": false,
+    "error": ""
+   },
+   {
+    "index": 7,
+    "values": {
+     "learning_rate": "0.380889",
+     "credit_horizon": "3",
+     "credit_discount": "0.952892",
+     "cross_person_weight": "0.820954",
+     "policy_temperature": "1.9422",
+     "habituation_rate": "0.559821",
+     "habituation_window": "9",
+     "cutoff_stock_cap": "2430.87",
+     "cutoff_threat_weight": "0.00366683",
+     "cutoff_decay_weeks": "159",
+     "cutoff_floor_share": "0.137484",
+     "positive_bridge_dissipation": "0.716491"
+    },
+    "outcome": "PASS",
+    "seeds": 100,
+    "readouts": [
+     {
+      "readout": "negative_run",
+      "mean_difference": 0.442047619047619,
+      "half_width": 0.175771272857201,
+      "direction": 1
+     }
+    ],
+    "rerun": false,
+    "error": ""
+   }
+  ]
  },
  {
   "criterion": "M11.C.48[phase_d]",
-  "not_run": "Phase D part II; ranges declared 2026-10-23 under the owner's decision to declare only (plan \u00a72.10)",
+  "samples": 8,
+  "counted": 8,
+  "held": 8,
+  "undetermined": 0,
+  "errored": 0,
+  "reruns": 0,
   "constants": [
    {
     "constant": "learning_rate",
@@ -10890,7 +12562,240 @@ Not run: Phase D part II; ranges declared 2026-10-23 under the owner's decision 
     "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
    }
   ],
-  "rows": []
+  "rows": [
+   {
+    "index": 0,
+    "values": {
+     "learning_rate": "0.24419",
+     "credit_horizon": "2",
+     "credit_discount": "0.796021",
+     "cross_person_weight": "0.309535",
+     "policy_temperature": "1.3338",
+     "habituation_rate": "0.639086",
+     "habituation_window": "8",
+     "cutoff_stock_cap": "1441.13",
+     "cutoff_threat_weight": "0.00277184",
+     "cutoff_decay_weeks": "301",
+     "cutoff_floor_share": "0.0890746",
+     "positive_bridge_dissipation": "0.609697"
+    },
+    "outcome": "PASS",
+    "seeds": 100,
+    "readouts": [
+     {
+      "readout": "negative_run",
+      "mean_difference": 0.5550936055141641,
+      "half_width": 0.09653983538541715,
+      "direction": 1
+     }
+    ],
+    "rerun": false,
+    "error": ""
+   },
+   {
+    "index": 1,
+    "values": {
+     "learning_rate": "0.360568",
+     "credit_horizon": "2",
+     "credit_discount": "0.927003",
+     "cross_person_weight": "0.905263",
+     "policy_temperature": "0.970265",
+     "habituation_rate": "0.92448",
+     "habituation_window": "5",
+     "cutoff_stock_cap": "2256.77",
+     "cutoff_threat_weight": "0.00212573",
+     "cutoff_decay_weeks": "374",
+     "cutoff_floor_share": "0.0695772",
+     "positive_bridge_dissipation": "0.400354"
+    },
+    "outcome": "PASS",
+    "seeds": 100,
+    "readouts": [
+     {
+      "readout": "negative_run",
+      "mean_difference": 0.6232709884144124,
+      "half_width": 0.09264147176865567,
+      "direction": 1
+     }
+    ],
+    "rerun": false,
+    "error": ""
+   },
+   {
+    "index": 2,
+    "values": {
+     "learning_rate": "0.399516",
+     "credit_horizon": "2",
+     "credit_discount": "0.808969",
+     "cross_person_weight": "0.393886",
+     "policy_temperature": "1.21268",
+     "habituation_rate": "0.432031",
+     "habituation_window": "5",
+     "cutoff_stock_cap": "1131.1",
+     "cutoff_threat_weight": "0.00179293",
+     "cutoff_decay_weeks": "434",
+     "cutoff_floor_share": "0.197218",
+     "positive_bridge_dissipation": "0.531175"
+    },
+    "outcome": "PASS",
+    "seeds": 100,
+    "readouts": [
+     {
+      "readout": "negative_run",
+      "mean_difference": 0.5517061397953339,
+      "half_width": 0.14172584661498308,
+      "direction": 1
+     }
+    ],
+    "rerun": false,
+    "error": ""
+   },
+   {
+    "index": 3,
+    "values": {
+     "learning_rate": "0.298418",
+     "credit_horizon": "5",
+     "credit_discount": "0.859384",
+     "cross_person_weight": "0.656609",
+     "policy_temperature": "0.515437",
+     "habituation_rate": "0.433625",
+     "habituation_window": "4",
+     "cutoff_stock_cap": "826.184",
+     "cutoff_threat_weight": "0.00590921",
+     "cutoff_decay_weeks": "174",
+     "cutoff_floor_share": "0.0779295",
+     "positive_bridge_dissipation": "0.520979"
+    },
+    "outcome": "PASS",
+    "seeds": 100,
+    "readouts": [
+     {
+      "readout": "negative_run",
+      "mean_difference": 0.5357522342065814,
+      "half_width": 0.06699003739570084,
+      "direction": 1
+     }
+    ],
+    "rerun": false,
+    "error": ""
+   },
+   {
+    "index": 4,
+    "values": {
+     "learning_rate": "0.100054",
+     "credit_horizon": "3",
+     "credit_discount": "0.453696",
+     "cross_person_weight": "0.331605",
+     "policy_temperature": "1.64162",
+     "habituation_rate": "0.9807",
+     "habituation_window": "8",
+     "cutoff_stock_cap": "2930.8",
+     "cutoff_threat_weight": "0.00505708",
+     "cutoff_decay_weeks": "442",
+     "cutoff_floor_share": "0.10214",
+     "positive_bridge_dissipation": "0.809729"
+    },
+    "outcome": "PASS",
+    "seeds": 100,
+    "readouts": [
+     {
+      "readout": "negative_run",
+      "mean_difference": 0.4665648442326936,
+      "half_width": 0.05834939130906529,
+      "direction": 1
+     }
+    ],
+    "rerun": false,
+    "error": ""
+   },
+   {
+    "index": 5,
+    "values": {
+     "learning_rate": "0.191132",
+     "credit_horizon": "6",
+     "credit_discount": "0.997878",
+     "cross_person_weight": "0.469427",
+     "policy_temperature": "1.0794",
+     "habituation_rate": "0.823935",
+     "habituation_window": "15",
+     "cutoff_stock_cap": "877.403",
+     "cutoff_threat_weight": "0.00248198",
+     "cutoff_decay_weeks": "268",
+     "cutoff_floor_share": "0.193575",
+     "positive_bridge_dissipation": "0.431947"
+    },
+    "outcome": "PASS",
+    "seeds": 100,
+    "readouts": [
+     {
+      "readout": "negative_run",
+      "mean_difference": 0.47212980852649755,
+      "half_width": 0.0670741600954256,
+      "direction": 1
+     }
+    ],
+    "rerun": false,
+    "error": ""
+   },
+   {
+    "index": 6,
+    "values": {
+     "learning_rate": "0.330207",
+     "credit_horizon": "2",
+     "credit_discount": "0.960708",
+     "cross_person_weight": "0.425862",
+     "policy_temperature": "1.60849",
+     "habituation_rate": "0.578872",
+     "habituation_window": "11",
+     "cutoff_stock_cap": "2541.14",
+     "cutoff_threat_weight": "0.00577269",
+     "cutoff_decay_weeks": "388",
+     "cutoff_floor_share": "0.0615808",
+     "positive_bridge_dissipation": "0.897935"
+    },
+    "outcome": "PASS",
+    "seeds": 100,
+    "readouts": [
+     {
+      "readout": "negative_run",
+      "mean_difference": 0.5749970247592749,
+      "half_width": 0.06704058539683652,
+      "direction": 1
+     }
+    ],
+    "rerun": false,
+    "error": ""
+   },
+   {
+    "index": 7,
+    "values": {
+     "learning_rate": "0.301318",
+     "credit_horizon": "3",
+     "credit_discount": "0.576757",
+     "cross_person_weight": "0.37241",
+     "policy_temperature": "1.44082",
+     "habituation_rate": "0.867311",
+     "habituation_window": "10",
+     "cutoff_stock_cap": "2504.27",
+     "cutoff_threat_weight": "0.00238068",
+     "cutoff_decay_weeks": "396",
+     "cutoff_floor_share": "0.0503654",
+     "positive_bridge_dissipation": "0.481924"
+    },
+    "outcome": "PASS",
+    "seeds": 100,
+    "readouts": [
+     {
+      "readout": "negative_run",
+      "mean_difference": 0.5293928513165788,
+      "half_width": 0.05798918159957037,
+      "direction": 1
+     }
+    ],
+    "rerun": false,
+    "error": ""
+   }
+  ]
  }
 ]
 ```

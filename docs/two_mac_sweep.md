@@ -1,6 +1,6 @@
 # Running the stage 2 sweep on two Macs
 
-**Status: BUILT 2026-10-23** (`docs/implementation_plan_version_2.md` §2.10); no split run has been made yet.
+**Status: BUILT 2026-10-23** (`docs/implementation_plan_version_2.md` §2.10); first used for part II's sweep, 2026-10-23–24 (four criteria on Mac Mini1, three here).
 
 How to split the constant sweep (`tools/version_2_sweep.py`, `M17.E.1`) between this Mac (davemini2) and Mac
 Mini1, 10 cores each, and combine the results into one record. The tools are `tools/version_2_sweep.py --criteria`

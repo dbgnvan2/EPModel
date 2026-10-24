@@ -10,7 +10,7 @@ approval; CI run 39449517708 passed on Python 3.11, 3.12 and 3.13 (S1.10c). A co
 2026-10-20 (§1.10) and pushed the same day with the owner's approval (`0d86b29`); CI run 39482917825 passed on
 Python 3.11, 3.12 and 3.13.** Written from
 `docs/version_2_plan.md` §3 (stage 1) and the `TODO.md` entries it collects, each checked against the code on
-2026-10-19. Later stages add their own sections here, as the Phase D plan did.
+2026-10-19. Later stages add their own sections here, as the Phase D plan did; stage 3's is a file of its own, `docs/implementation_plan_version_2_stage_3.md`, numbered §3.
 
 ## 1. Stage 1: one engineering batch that moves the engine hash once
 

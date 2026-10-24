@@ -7,7 +7,7 @@
 > cutoff with no matched uncut tie a baseline of 0; with those left out of both arms the direction reverses on both
 > families, T-123), and its named mutant survives on both (T-119). The
 > rest of §5 is built. Where the build had to choose, it chose as recommended under the owner's instruction of
-> 2026-10-22, pending the owner's review (the revision 36 report lists each choice).** It turns the owner's
+> 2026-10-22, approved by the owner 2026-10-24 in T-125 (the revision 36 report lists each choice).** It turns the owner's
 > answers on G1, recorded in `docs/version_2_plan.md` (stage 3, group G, 2026-10-18), into rules, tests and a new
 > criterion. The owner's decisions are quoted there and summarised in §1. Every form and number not marked as the
 > owner's is Claude's recommendation, graded `[I]`. It changes what a run computes, so it moves the engine hash and
@@ -172,7 +172,7 @@ over the same weeks.*
   tie in a row, in either direction. A positive contact (§3.4) ends a run.
 - **Paired per seed over matched weeks.** For each first cutoff on a seed, its run up to the cutoff week is compared
   with the longest run on that seed's uncut ties within the same span. *As built (2026-10-22, decided as recommended
-  under the owner's instruction of 2026-10-22, pending the owner's review): the comparison is with the run standing
+  under the owner's instruction of 2026-10-22, approved by the owner 2026-10-24 in T-125): the comparison is with the run standing
   on each uncut tie in the cutoff's week, averaged — the same point in time read the same way. The longest run over
   the span is a maximum over ties and weeks set against one point, biased against the criterion (learnings P7, found
   by the build's review); it is reported beside the arms, not compared.* A tie never cut off is not counted over the

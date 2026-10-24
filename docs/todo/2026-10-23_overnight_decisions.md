@@ -6,9 +6,10 @@ recommended and recorded, where it lands, with the words "decided as recommended
 2026-10-22, pending the owner's review". This record is the one place that lists them all. Ticking the item means the
 owner has reviewed the list; a decision the owner reverses becomes its own item or proposal.
 
-- [ ] T-125 ⟨now⟩ **Owner review of the overnight decisions (2026-10-23):** fifty-three decisions in six batches; batches
+- [x] T-125 ⟨now⟩ **Owner review of the overnight decisions (2026-10-23):** fifty-three decisions in six batches; batches
   1–4 on `main` at the push of 2026-10-23 06:10 (`146c6bd`), batch 5 with the part I sweep's merge of 2026-10-23,
   batch 6 with part II's declared ranges (`c955620`).
+  *Approved in full by the owner 2026-10-24; decision 27: the branch `claude/confident-maxwell-vr5zol` is kept.*
 
   **Batch 1 — group G and the Holmes–Rahe event sizes, spec revision 36** (branch `claude/recursing-bohr-2393a1`,
   commits `e52adbc`, `0b02fd3`, `da4e512`, `7b1b622`; engine hash `2842f0e8fea8` → `66dcbb1e8ba5`; every record
@@ -150,3 +151,10 @@ owner has reviewed the list; a decision the owner reverses becomes its own item 
   with the rest of part II), or keep D10's rule that only a credited mechanism is swept. No code change either way.
   *Closed 2026-10-23: the owner, verbatim: "keep D10's rule; nodal_spike_intensity stays out of both M11.C.2 sets."
   Decisions 25, 32 and 47 stand as to this constant; nothing in `config/sweep/sweep.md` changed.*
+
+- [ ] T-127 ⟨later⟩ **Two status lines in `config/bowen/` still say T-125's decisions are pending.**
+  `config/bowen/contact_classes.md` and `config/bowen/event_sizes.md` state their choices as pending the owner's
+  review; the owner approved them on 2026-10-24 (T-125). The engine hash covers every `*.md` under `config/bowen/`
+  (`tools/ensemble_record.py::code_hash`), so changing those lines alone would make every record stale (tried and
+  reverted 2026-10-24). Fix them in the same commit as the next change that moves the engine hash, which reruns the
+  records anyway.

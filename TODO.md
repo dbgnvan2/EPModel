@@ -7,7 +7,7 @@ Open items, one line each: ID, date raised, title, record. **Now** blocks versio
 `docs/todo/` (grep its ID). To close one, tick it in its record and run `python3 tools/todo_index.py`: its line
 moves to `docs/TODO_archive.md`. Until 2026-10-22 this file held every item's text; that form is in git history.
 
-## Now (9)
+## Now (8)
 
 - T-001 · 2026-10-19 · Version 2, next · [record](docs/todo/2026-08-22_blocking_the_next_phase.md)
 - T-002 · 2026-10-19 · `/csdp` sweep of 2026-10-19, items not fixed · [record](docs/todo/2026-08-22_blocking_the_next_phase.md)
@@ -17,9 +17,8 @@ moves to `docs/TODO_archive.md`. Until 2026-10-22 this file held every item's te
 - T-120 · 2026-10-23 · `M11.C.15`'s named mutant survives · [record](docs/todo/2026-10-23_revision_36_regeneration.md)
 - T-121 · 2026-10-23 · `M11.C.11`'s named mutant survives · [record](docs/todo/2026-10-23_revision_36_regeneration.md)
 - T-123 · 2026-10-23 · `M11.C.48`'s baseline counts a first cutoff with no … · [record](docs/todo/2026-10-23_revision_36_regeneration.md)
-- T-125 · 2026-10-23 · Owner review of the overnight decisions (2026-10-23) · [record](docs/todo/2026-10-23_overnight_decisions.md)
 
-## Later (113)
+## Later (114)
 
 - T-006 · 2026-10-22 · D4, long `Spec:` lines (Part D, 2026-10-22; the … · [record](docs/todo/2026-10-22_model_ergonomics.md)
 - T-007 · 2026-10-22 · Adjacent issues found by Part D's docstring pass, … · [record](docs/todo/2026-10-22_model_ergonomics.md)
@@ -134,3 +133,4 @@ moves to `docs/TODO_archive.md`. Until 2026-10-22 this file held every item's te
 - T-118 · 2026-08-22 · When the basic level is fixed is genuinely … · [record](docs/todo/2026-08-22_theory_work.md)
 - T-122 · 2026-10-23 · Four composite verdicts PASS → FAIL at revision … · [record](docs/todo/2026-10-23_revision_36_regeneration.md)
 - T-124 · 2026-10-23 · The Phase D mutation record's `engine_hash` label is … · [record](docs/todo/2026-10-23_stage_2_pilot.md)
+- T-127 · 2026-10-24 · Two status lines in `config/bowen/` still say T-125's … · [record](docs/todo/2026-10-23_overnight_decisions.md)

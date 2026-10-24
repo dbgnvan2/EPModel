@@ -1320,7 +1320,7 @@ owner's, taken as recommended on 2026-10-19. Which verdicts it moved is measured
   bearer gave 121 rows a year). The release when a symptom ends, and the spill to the partners past the turn, are each
   shown with who received them; week 74 of the seed-7 trace held a spill of 222.4 that the trace did not show.
 
-### 11.5 What revision 36 changed: version 2's group G and the event sizes  *(2026-10-22; built overnight under the owner's instruction of 2026-10-22, each choice decided as recommended and pending the owner's review)*
+### 11.5 What revision 36 changed: version 2's group G and the event sizes  *(2026-10-22; built overnight under the owner's instruction of 2026-10-22, each choice decided as recommended and approved by the owner 2026-10-24 in T-125)*
 
 Three decided proposals built as one batch: `docs/PROPOSAL — CUTOFF ANXIETY, BRIDGING AND REPAIR.md` (G1, the
 owner's Q1–Q11 of 2026-10-19), `docs/PROPOSAL — RELEASE BY TIE (G2).md`, and `docs/PROPOSAL — EVENT SIZES FROM THE
@@ -1986,7 +1986,7 @@ Each is a rule about how a criterion is written or proved, not about what the mo
 was built during Phases B–D except the stopping rule, which the owner brought into Phases C and D (`M13.4`).
 Version 2's stage 2 builds the constant sweep (`M17.E.1`) and the detection-limit rule it adds to `M17.A.1`
 (`implementation_plan_version_2.md` §2; spec revision 37, decided as recommended under the owner's instruction of
-2026-10-22, pending the owner's review). Its record is `docs/version_2_sweep_record.md`.
+2026-10-22, approved by the owner 2026-10-24 in T-125). Its record is `docs/version_2_sweep_record.md`.
 
 - **Stopping** (`M17.A` · C26, C27, C25; DL §2.6). Seeds are added in blocks until the uncertainty on the
   per-seed difference is small enough, up to a cap; a criterion that has not settled at the cap is reported

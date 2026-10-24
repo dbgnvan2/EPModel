@@ -53,7 +53,7 @@ Acts count when they pass between the two members of the tie, in either directio
 
 `src/bowen/readouts/negative_runs.py`; `tests/bowen/test_negative_runs.py` checks each definition on hand-built records.
 Each definition is `[I]` (the owner's D12 of 2026-10-19, `docs/PROPOSAL — CUTOFF ANXIETY, BRIDGING AND REPAIR.md` §4;
-the baseline as built, decided as recommended under the owner's instruction of 2026-10-22, pending the owner's review).
+the baseline as built, decided as recommended under the owner's instruction of 2026-10-22, approved by the owner 2026-10-24 in T-125).
 The classes of contact are `config/bowen/contact_classes.md`.
 
 - A **negative contact** on a tie is an act in the `negative` or `rebuff` set emitted by one member toward the other,

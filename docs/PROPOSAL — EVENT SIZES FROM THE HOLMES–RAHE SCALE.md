@@ -3,8 +3,8 @@
 > **Status: BUILT 2026-10-22 at spec revision 36 (`M1.F.6a`, `M6.3g`, `M7.C.1l`, `M7.D.1a`; the sizes table is the
 > `event_sizes` file under the bowen config), in one batch with G1 and G2; decided by the owner 2026-10-19 (Q1–Q8 in §6); drafted 2026-10-18. Q3 (E2, the
 > additions' loads) stands as decided and cites no source: the correction of 2026-10-19 below §2 is kept beside it,
-> and the owner was not asked again (decided as recommended under the owner's instruction of 2026-10-22, pending
-> the owner's review).** Every question is
+> and the owner was not asked again (decided as recommended under the owner's instruction of 2026-10-22, approved
+> by the owner 2026-10-24 in T-125).** Every question is
 > decided: the owner answered Q1–Q8 in §6 on 2026-10-19, each on Claude's recommendation. It is built in one batch with G1 and G2 (Q7), so it waits on G2's proposal (the
 > version 2 plan was approved on 2026-10-19). The owner asked: "Can you
 > use the Holmes Ray scale of life events to create a relative distribution of anxiety vs. stressor." This proposal

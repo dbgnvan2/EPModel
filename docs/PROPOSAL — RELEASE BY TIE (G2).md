@@ -1,6 +1,6 @@
 # Proposal — release by tie (version 2, G2)
 
-> **Status: DECIDED as recommended under the owner's instruction of 2026-10-22, pending the owner's review (Q1–Q2 in
+> **Status: DECIDED as recommended under the owner's instruction of 2026-10-22, approved by the owner 2026-10-24 in T-125 (Q1–Q2 in
 > §8); drafted the same day. BUILT the same day at spec revision 36 (`M7.D.2a`, `M6.4`), in one batch with G1 and
 > the Holmes–Rahe sizes; B1–B7 of §5 are built and tested.** It turns the owner's G2 question,
 > recorded in `docs/version_2_plan.md` (stage 3, group G, 2026-10-18), into a rule, tests and no new criterion. The
@@ -151,7 +151,7 @@ B1–B4 and B6 are unit tests of a set mechanism with invented constants; none i
 ## 8. Questions for the owner
 
 1. **Q1. Weight by bond energy or conductance?** Recommended: bond energy, for the reasons in §3.1. **Decided as
-   recommended under the owner's instruction of 2026-10-22, pending the owner's review.**
+   recommended under the owner's instruction of 2026-10-22, approved by the owner 2026-10-24 (T-125).**
 2. **Q2. Should a family member's symptom release reach an external agent at all?** Recommended: no; family members
    only, as `M6.3b` already does for a death. **Decided as recommended under the owner's instruction of 2026-10-22,
-   pending the owner's review.**
+   approved by the owner 2026-10-24 (T-125).**

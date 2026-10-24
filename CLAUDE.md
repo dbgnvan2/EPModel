@@ -140,6 +140,9 @@ defect, not a lag.
   fix-loop re-sweep gets a narrow brief (the fix diff and the claims it changes) on a cheaper model (`model:
   "sonnet"`). If a sweep returns three or fewer minor items, record them in `TODO.md` and move on (owner rule).
   State the cost (wall time, tokens) before proposing another loop.
+- **The full constant sweep runs only at a stage's end** (owner, 2026-10-23; plan §2.10, D17), before its milestone
+  review or a tag. Between, a change is swept only on the criteria it targets (`tools/version_2_sweep.py --criteria`);
+  the central ensemble records still catch a changed verdict.
 - **Milestone reviews** (`docs/milestone_review_brief.md`, approved 2026-10-21): at the end of version 2's stages 2
   and 3, before any tag and before an outside review (the brief's §2), a session without the build history
   reviews the whole model against the brief's four lenses, theory fidelity first, and writes one report to

@@ -3,7 +3,7 @@
 **Status: stage 1 APPROVED 2026-10-19; stage 2 plan DRAFTED 2026-10-23 and its pilot BUILT 2026-10-23 on the branch
 `stage-2-plan-pilot` (§2.10), decisions D8–D16 taken as recommended under the owner's instruction of 2026-10-22, pending
 the owner's review (§2.2, §2.10); the full sweep did not run (projected 44 h at 8 samples, over the 4-hour rule, §2.10); Phase C's 14 directional
-criteria SWEPT 2026-10-23 on the branch `stage-2-phase-c-sweep` at 8 samples, 27 min (§2.10); Phase D part I's 13 SWEPT 2026-10-23 on the branch `stage-2-part-i-sweep` (§2.10); the tooling to split the sweep across two Macs BUILT 2026-10-23 (§2.10); part II's seven criteria's ranges DECLARED 2026-10-23, not run (§2.10).** The owner
+criteria SWEPT 2026-10-23 on the branch `stage-2-phase-c-sweep` at 8 samples, 27 min (§2.10); Phase D part I's 13 SWEPT 2026-10-23 on the branch `stage-2-part-i-sweep` (§2.10); the tooling to split the sweep across two Macs BUILT 2026-10-23 (§2.10); part II's seven criteria's ranges DECLARED 2026-10-23 and their run STARTED the same day, split across both Macs (§2.10); when the full sweep runs decided by the owner 2026-10-23 (D17, §2.10).** The owner
 decided D1–D7 on 2026-10-19, every one as recommended (§1.2), and approved the stage 1 plan. **Built, reviewed and regenerated 2026-10-19 (steps 0–7, §1.10): no verdict changed against
 the tag `version-1`. The `/csdp` sweep's fixes (step 8) were made 2026-10-20 and pushed the same day with the owner's
 approval; CI run 39449517708 passed on Python 3.11, 3.12 and 3.13 (S1.10c). A cold sweep's fixes were made
@@ -856,6 +856,8 @@ choose which. **Decided as recommended under the owner's instruction of 2026-10-
 `M17.E.6` comes into stage 2. The pilot showed no need: both criteria gave a verdict at every sample, and the one
 sweep rule the pilot needed (the detection limit) is `M17.A.1`'s. **Decided as recommended under the owner's
 instruction of 2026-10-22, pending the owner's review.**
+
+**D17 — when the full sweep runs (the owner, 2026-10-23).** "A full sweep only at a stage's end; between, sweep only the criteria a change targets." Every sweep result is keyed by the engine hash, so the first change to what a run computes makes all of them stale, and the full sweep is now about two days on two Macs. The full sweep (every declared key, `python3 tools/version_2_sweep.py`) runs once at the end of a stage, before its milestone review, a tag or an outside review. Between those points a change is swept only on the criteria it targets (`python3 tools/version_2_sweep.py --criteria KEY ...`), and the central ensemble records are regenerated as before, so a verdict that changes at the central values is still seen at once. What waits for the stage's end is the robustness of the criteria a change did not target: a pass made fragile by an unrelated change is found at the next full sweep. Stage 2's full sweep is the Phase C, part I and part II runs of 2026-10-23 together. **Decided by the owner 2026-10-23.**
 
 **The Phase C sweep (D15's first step; 2026-10-23, the branch `stage-2-phase-c-sweep`).**
 `python3 tools/version_2_sweep.py --workers 10`, started 05:32:36 and finished 05:59:37 on 2026-10-23 on this Mac:

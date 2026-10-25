@@ -1,6 +1,6 @@
 # Version 2 stage 3: implementation plan
 
-**Status: APPROVED by the owner 2026-10-24 ("Approved: the stage 3 plan as written"). Step 2 done 2026-10-24: the trace met D18's condition and the owner chose P2 (D18, revisited); the probe did not meet D20's, so D20 stands. Step 1 (T-130) is open: the paper has not yet been read. Next: P2 drafted for the owner's approval, then revision 39.** The owner decided D18–D31 on 2026-10-24, each through
+**Status: APPROVED by the owner 2026-10-24 ("Approved: the stage 3 plan as written"). Step 2 done 2026-10-24: the trace met D18's condition and the owner chose P2 (D18, revisited); the probe did not meet D20's, so D20 stands. Step 1 done 2026-10-24: T-130's thirteen values all agree with the paper's Table 3, and two item names differ from its wording; the edits wait for step 6 (`docs/review/stage_3_t130_event_sizes.md`). Next: P2 drafted for the owner's approval, then revision 39.** The owner decided D18–D31 on 2026-10-24, each through
 `AskUserQuestion`, one at a time, and each answer was the recommended option (§3.2). No engine change is built.
 Written from `docs/version_2_plan.md` §3 "Stage 3 — Rule questions the owner chooses", the TODO items T-014, T-128,
 T-129 and T-130, and the stage 2 milestone review's triage (`docs/todo/2026-10-24_stage_2_milestone_review.md`).

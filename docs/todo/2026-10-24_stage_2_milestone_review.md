@@ -111,5 +111,8 @@ None was rejected.
   2026-10-24 (stage 3 step 1): not checked. The paper could not be read (ScienceDirect 403, no copy of the article
   found, only reproductions); `docs/review/stage_3_t130_event_sizes.md` records the attempts and the thirteen values to
   check. The owner will supply the PDF.
+  2026-10-24, later: checked against the owner's scan of the article (Table 3, p. 216). All thirteen values agree; the
+  paper's wording differs for `JOB_LOSS` ("Fired at work") and `FIND_WORK_LOAD` ("Wife begin or stop work"). Dropping
+  "unchecked", the wording, and this tick wait for stage 3's step 6 (plan §3.6).
 </content>
 </invoke>

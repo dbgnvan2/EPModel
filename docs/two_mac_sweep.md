@@ -47,7 +47,11 @@ Their tests are `tests/test_sweep_two_macs.py`.
    `python3` there is Homebrew's 3.14 with no NumPy.
 3. On this Mac, `python3 -c "import numpy; print(numpy.__version__)"` prints `1.26.4`. A new sweep machine installs
    `pip install -r requirements-sweep.txt`.
-4. Check that the two Macs match:
+4. SSH reaches Mac Mini1 through the alias `macmini1` in this Mac's `~/.ssh/config` (since 2026-10-25): `HostName
+   mini1.local`, `User davemini`, `IdentityFile ~/.ssh/id_ed25519_mini1` (a key without a passphrase, kept for this
+   use), `IdentitiesOnly yes`, `AddressFamily inet`. `ssh macmini1 true` returns at once with no prompt. The default
+   key is refused there, and the IPv6 link-local route reset connections; the alias avoids both.
+5. Check that the two Macs match:
 
    ```
    python3 tools/two_mac_sweep.py check
@@ -129,7 +133,7 @@ only the missing samples run.
    python3 tools/two_mac_sweep.py fetch /path/to/scratch/mini1_sweep_v2.json
    ```
 
-   This runs `scp davemini@mini1.local:ProjectsMini1/EPModel/docs/records_cache/sweep_v2.json <path>`.
+   This runs `scp macmini1:ProjectsMini1/EPModel/docs/records_cache/sweep_v2.json <path>`.
 2. Once this Mac's own share has stopped, merge Mac Mini1's copy into this Mac's cache:
 
    ```

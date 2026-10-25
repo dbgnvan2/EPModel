@@ -26,3 +26,14 @@ docs/records_cache/*.partial
 # Per-machine: the fam-diag dev servers (absolute paths on one Mac) and the rca skill's ledger
 .claude/launch.json
 .rca/
+
+# --- security scan 2026-10-25 ---
+node_modules/
+
+# --- security scan 2026-10-25: env variants & backups carry live keys ---
+.env.*
+!.env.example
+.env.bak-*
+*.bak-*
+.env.save*
+.env.old

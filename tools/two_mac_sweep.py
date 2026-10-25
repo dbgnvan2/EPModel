@@ -32,7 +32,7 @@ from pathlib import Path
 REPO = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO))
 
-HOST = "davemini@mini1.local"
+HOST = "macmini1"  # the ~/.ssh/config alias on this Mac: mini1.local, user davemini, its own key (docs/two_mac_sweep.md)
 REMOTE_REPO = "~/ProjectsMini1/EPModel"  # in a remote shell command, where ``~`` expands
 REMOTE_REPO_SCP = "ProjectsMini1/EPModel"  # the same, as scp takes it (relative to the remote home)
 REMOTE_PYTHON = ".venv/bin/python"  # the uv venv: Python 3.12.3, NumPy 1.26.4

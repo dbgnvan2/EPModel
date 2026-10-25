@@ -8,7 +8,8 @@
 > out), the two to be probed together on Mac Mini1 before revision 39 (D18, third reading). That probe ran the same
 > day (§6.1): with F1 the difference falls from +0.089 to +0.029 ± 0.025, and with P2 and F1 to +0.018 ± 0.025, an
 > interval that includes zero; no variant shows the decline `M11.C.6` expects. `M11.C.6` is reported as it reads and
-> is never tuned. Every form here is Claude's recommendation, graded `[I]` unless a ledger entry is
+> is never tuned. **Q4 decided by the owner 2026-10-25:** "draft revision 39 with P2 and F1 as recommended,
+> reporting M11.C.6 as read" (§9); Q1–Q3 are put to the owner with revision 39's draft. Every form here is Claude's recommendation, graded `[I]` unless a ledger entry is
 > cited. Both change what a run computes, so both move the engine hash; under D31 they are built at plan step 7, after
 > revision 39 is approved (step 4). Nothing under `src/bowen/` or `config/bowen/` is edited by this page. `M6.I.4a`
 > (D19, `M11.C.21`) is unchanged by it.
@@ -249,6 +250,8 @@ Open, for the owner with revision 39 (Claude's recommendation first):
 - **Q4, `M11.C.6` after P2 and F1.** Draft revision 39 with both and report `M11.C.6` as it reads, unresolved at
   150 seeds (recommended: both rules stand on their own grounds, §3–§5, and the criterion is never a target), or first
   trace what now carries the parents' term under P2 (+0.026), before revision 39.
+  **Decided by the owner 2026-10-25:** "draft revision 39 with P2 and F1 as recommended, reporting M11.C.6 as read"
+  (the recommended option); the trace is not run.
 
 ## 10. Edits this makes to the stage 3 plan
 

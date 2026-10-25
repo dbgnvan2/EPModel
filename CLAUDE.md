@@ -106,6 +106,10 @@ Every tool result stays in context for the rest of the session, so how a file is
 - **The size limits in `tests/test_doc_size.py` are the enforcement.** A file that outgrows its limit is split or
   archived, not exempted.
 - **One task per session, started from a brief;** a new session once a batch is pushed.
+- **A session that finishes its work ends by writing the next session's brief** (owner rule, 2026-10-24): a prompt
+  the owner can paste as it is, in a fenced block in the final reply. It names the task and the plan step, the files to
+  read (by index and line range), what is already found or decided, what is pending the owner's review, the hard rules
+  (the engine hash, the suite count, commit to `main` and push), and the point at which to stop.
 
 ## Documentation stays current with the build (owner rule, 2026-10-10)
 

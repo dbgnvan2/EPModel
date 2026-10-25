@@ -87,3 +87,48 @@ def test_stage_3_displaced_coping_probe_moves_conserved_stress_functioning(tmp_p
     text = coping.render(coping.summarise([{"seed": 0, **full}, {"seed": 1, **full}], ENGINE.development_rate),
                          "e" * 12, "2026-10-25", 2, page.read_text(encoding="utf-8").split("\n\n", 1)[1])
     assert "## The direction under each variant" in text and text.endswith("hand-written\n")
+
+
+def test_stage_3_displaced_coping_probe_f1_ledger_holds_at_the_floor_and_sheds_off_it():
+    """F1 as the probe puts it in (`docs/PROPOSAL — DISPLACED COPING (P2).md` §4.2): a week in which the floor held
+    functional level while the swing decayed puts the held amount on the ledger, and the bound stops it being shed;
+    off the floor a calm week sheds ``response_relaxation_rate`` of it, moving functional level with it; "kept" never
+    sheds. Mutation (run 2026-10-25): shedding without the floor's bound (``move = -step``) takes the first week's
+    person below ``basic − stress_floor_below_basic``, and the test fails."""
+    from types import SimpleNamespace
+
+    import tools.stage_3_displaced_coping_probe as coping
+
+    floor = 50.0 - ENGINE.stress_floor_below_basic
+    person = SimpleNamespace(alive=True, basic_level=50.0, functional_level=floor, stress_swing=9.8, adjust_swing=0.0,
+                             usual_excess=None)
+    state = SimpleNamespace(people={"a": person})
+    ledger = {}
+    # The week the floor clamped: the swing decayed from 10 to 9.8 and functional level did not move.
+    assert coping.floor_held(state, {}, ENGINE, ledger, {"a": (floor, 10.0, 0.0)}, "shed") == {}
+    assert math.isclose(ledger["a"], 0.2) and person.functional_level == floor
+    # Off the floor and calm: a share of the ledger is shed, functional level with it.
+    person.functional_level = floor + 5.0
+    shed = coping.floor_held(state, {}, ENGINE, ledger, {"a": (floor + 5.0, 9.8, 0.0)}, "shed")
+    step = ENGINE.response_relaxation_rate * 0.2
+    assert math.isclose(shed["a"], -step) and math.isclose(person.functional_level, floor + 5.0 - step)
+    assert math.isclose(ledger["a"], 0.2 - step)
+    # "kept" records the same amount and never sheds it.
+    kept = {}
+    person.functional_level = floor + 5.0
+    assert coping.floor_held(state, {}, ENGINE, kept, {"a": (floor + 5.2, 9.8, 0.0)}, "kept") == {}
+    assert math.isclose(kept["a"], -0.2) and person.functional_level == floor + 5.0
+
+
+def test_stage_3_displaced_coping_probe_joins_split_runs_by_seed():
+    """Rows from runs of different variants (``--variants``) join by seed; a variant in two files is refused."""
+    import pytest
+
+    import tools.stage_3_displaced_coping_probe as coping
+
+    joined = coping.merge([[{"seed": 1, "as_built": 1}, {"seed": 0, "as_built": 0}], [{"seed": 0, "as_built_f1": 2},
+                                                                                       {"seed": 1, "as_built_f1": 3}]])
+    assert joined == [{"seed": 0, "as_built": 0, "as_built_f1": 2}, {"seed": 1, "as_built": 1, "as_built_f1": 3}]
+    assert coping.present(joined) == ["as_built", "as_built_f1"]
+    with pytest.raises(SystemExit):
+        coping.merge([[{"seed": 0, "as_built": 0}], [{"seed": 0, "as_built": 1}]])

@@ -1,10 +1,12 @@
 """Probe P2, displaced coping, on `M11.C.6`'s arms with no engine change: does the direction move? A measurement.
 
 Purpose: stage 3 step 3 (`docs/implementation_plan_version_2_stage_3.md` §3.3.1, owner decision D18 revisited). For
-         the declared child (Nadia) in both of `M11.C.6`'s arms, three variants of the engine: as built, and P2 as
+         the declared child (Nadia) in both of `M11.C.6`'s arms, nine variants of the engine: as built, and P2 as
          `docs/PROPOSAL — DISPLACED COPING (P2).md` words it with each of two kind lists, and the same two with the
-         receiver's side only (the sender gains no functioning). P2 is put in by wrapping
-         ``tick.respond`` in this process for the call, restored after; nothing under ``src/bowen/`` is edited. For
+         receiver's side only (the sender gains no functioning); and F1 (the proposal's §4.2, the floor-held
+         functioning on a ledger the estimator leaves out), alone and with P2, shed or kept. P2 and F1 are put in by
+         wrapping ``tick.respond`` and ``tick.record_week`` in this process for the call, restored after; nothing
+         under ``src/bowen/`` is edited. For
          each variant it reports the treatment − baseline difference in `development` and in the two terms of
          `M7.E.1f`'s step, and splits the child's own term into the parts its year-mean is made of, so the half of the
          own-term difference the stress swing does not carry (`docs/review/stage_3_projection_trace.md`) is located.
@@ -12,7 +14,8 @@ Purpose: stage 3 step 3 (`docs/implementation_plan_version_2_stage_3.md` §3.3.1
 Spec:    docs/bowen_agent_model_spec_v2.md#M7.E.1f, #M11.C.6, #M1.A.5e
 Tests:   tests/test_stage_3_probes.py::test_stage_3_displaced_coping_probe_moves_conserved_stress_functioning
 
-    python3 tools/stage_3_displaced_coping_probe.py [--seeds 150] [--workers 10] [--rows-out F | --rows-in F]
+    python3 tools/stage_3_displaced_coping_probe.py [--seeds 150] [--workers 10] [--variants V ...]
+                                                     [--rows-out F | --rows-in F [F ...]]
 
 The tool is in no ``HASHED_TOOLS`` list and no record reads it, so it moves no record. The P2 wrapper is the
 proposal's rule, not the engine's, and its result is a probe's, not a criterion's (`M11.5`).
@@ -35,6 +38,7 @@ import math
 import statistics
 import sys
 from concurrent.futures import ProcessPoolExecutor
+from functools import partial
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parents[1]
@@ -47,12 +51,19 @@ READING = "## Reading"
 # The variants: the kinds whose sender's load P2 meets through the receiver. None is the engine as built.
 VARIANTS = {"as_built": None, "p2_overfunction": ("OVERFUNCTION",), "p2_overfunction_pursue": ("OVERFUNCTION", "PURSUE"),
             "receiver_only_overfunction": ("OVERFUNCTION",),
-            "receiver_only_overfunction_pursue": ("OVERFUNCTION", "PURSUE")}
+            "receiver_only_overfunction_pursue": ("OVERFUNCTION", "PURSUE"),
+            "as_built_f1": None, "p2_overfunction_f1": ("OVERFUNCTION",),
+            "as_built_f1_kept": None, "p2_overfunction_f1_kept": ("OVERFUNCTION",)}
+# F1 (the proposal's §4.2): what the stress response's bounds held goes on a `floor_held` ledger that the estimator's
+# reading leaves out. "shed": a calm week sheds it by `response_relaxation_rate`, moving functional level with it, as
+# far as the bound lets (the recommended answer to §9's Q2); "kept": it is never shed (Q2's alternative).
+F1 = {"as_built_f1": "shed", "p2_overfunction_f1": "shed", "as_built_f1_kept": "kept", "p2_overfunction_f1_kept": "kept"}
 # The receiver-only variants: the receiver loses what P2 moves and the sender gains no functioning (the "calmer" sender
 # of `KS04.7` read as anxiety, not functioning); not conserved.
 RECEIVER_ONLY = frozenset({"receiver_only_overfunction", "receiver_only_overfunction_pursue"})
 # Each step's parts of the child's own term (see the module docstring), and what P2 moved.
-PARTS = ("own_term", "parents_term", "stress", "adjust_neg", "unledgered", "developed", "at_anchor", "held")
+PARTS = ("own_term", "parents_term", "stress", "adjust_neg", "unledgered", "developed", "at_anchor", "held",
+         "f1_ledger")
 COUNTS = ("displaced_to_child", "displaced_from_child", "completions", "held_weeks", "floor_weeks")
 
 
@@ -100,8 +111,41 @@ def displaced(state, selections, load, params, kinds, tally, child, sender_gains
                 tally["displaced_from_child"] += amount
 
 
+def floor_held(state, load, params, ledger, before, mode) -> dict:
+    """F1 as the proposal words it, after the stress response has run: each living person's ``(change in
+    functional_level) − (change in stress_swing + adjust_swing)`` this week is added to their ``floor_held`` ledger.
+    With ``mode`` "shed", a calm person (load not above their usual level) then sheds ``response_relaxation_rate`` of
+    the ledger, moving functional level with it, but not below ``basic − stress_floor_below_basic`` nor outside 0–100;
+    what the bound stops stays on the ledger. Returns each person's change in functional level from the shedding."""
+    from src.bowen.engine.objects import SCALE_MAX
+    from src.bowen.engine.stress_response import above_usual
+
+    shed = {}
+    for pid, (fl, st, adj) in before.items():
+        person = state.people[pid]
+        if not person.alive:
+            continue
+        ledger[pid] = ledger.get(pid, 0.0) + ((person.functional_level - fl) - (person.stress_swing - st)
+                                              - (person.adjust_swing - adj))
+        if mode != "shed" or not ledger[pid] or above_usual(person, load.get(pid, 0.0)) > 0:
+            continue
+        floor = max(0.0, person.basic_level - params.stress_floor_below_basic)
+        step = params.response_relaxation_rate * ledger[pid]
+        if step > 0:
+            move = -max(0.0, min(step, person.functional_level - floor))
+        else:
+            move = max(0.0, min(-step, SCALE_MAX - person.functional_level))
+        if move:
+            person.functional_level += move
+            ledger[pid] += move
+            shed[pid] = move
+    return shed
+
+
 def one_seed(seed: int, variants: tuple[str, ...] = tuple(VARIANTS)) -> dict:
     """The variants' two arms on one seed: ``{variant: {arm: {"development": float, "steps": {...}, ...}}}``."""
+    import dataclasses
+
     from src.bowen.engine import iposition, life_course, tick
     from src.bowen.engine.identifiers import PersonId
     from src.bowen.ensemble import criteria_d2
@@ -112,12 +156,13 @@ def one_seed(seed: int, variants: tuple[str, ...] = tuple(VARIANTS)) -> dict:
     child = PersonId(settings["child"])
     out = {}
     for variant in variants:
-        kinds = VARIANTS[variant]
+        kinds, f1 = VARIANTS[variant], F1.get(variant)
         out[variant] = {}
         for arm in ARMS:
             steps, weekly, last_basic, anchor = {}, [], {}, {}
             tally = dict.fromkeys(COUNTS, 0.0)
             held = {"stock": 0.0}  # functioning the stress response's bounds kept from relaxing, since week 0
+            ledger = {}  # F1's floor_held, per person (empty without F1)
 
             def watch(state):
                 person = state.people[child]
@@ -127,9 +172,11 @@ def one_seed(seed: int, variants: tuple[str, ...] = tuple(VARIANTS)) -> dict:
                 # The basic level the week was lived at: a development step this tick moved it after the week.
                 before = last_basic.get("basic", person.basic_level)
                 last_basic["basic"] = person.basic_level
+                # Under F1 its ledger is a ledger: what it holds is neither unledgered nor held by a bound off-ledger.
+                led = ledger.get(child, 0.0)
                 if "u" not in anchor and child in state.life.anchors:
-                    anchor["u"], anchor["held"] = fl - before - st - ps - adj, held["stock"]
-                weekly.append((st, min(0.0, adj), fl - before - st - ps - adj, held["stock"]))
+                    anchor["u"], anchor["held"] = fl - before - st - ps - adj - led, held["stock"] - led
+                weekly.append((st, min(0.0, adj), fl - before - st - ps - adj - led, held["stock"] - led, led))
                 del weekly[:-ENGINE.slow_tick_fast_ticks]
                 if state.tick % ENGINE.slow_tick_fast_ticks or age is None or not person.alive:
                     return
@@ -149,10 +196,11 @@ def one_seed(seed: int, variants: tuple[str, ...] = tuple(VARIANTS)) -> dict:
                               "unledgered": statistics.fmean(w[2] for w in weekly) + developed,
                               "developed": developed,
                               "at_anchor": anchor["u"],
-                              "held": statistics.fmean(w[3] for w in weekly) - anchor["held"]}
+                              "held": statistics.fmean(w[3] for w in weekly) - anchor["held"],
+                              "f1_ledger": statistics.fmean(w[4] for w in weekly)}
 
-            original_scenario, original_respond, original_complete = (criteria_d2.scenario, tick.respond,
-                                                                       iposition.complete)
+            original_scenario, original_respond, original_complete, original_record = (
+                criteria_d2.scenario, tick.respond, iposition.complete, tick.record_week)
 
             def chained(*args, watch=None, **kwargs):
                 def both(state):
@@ -166,17 +214,28 @@ def one_seed(seed: int, variants: tuple[str, ...] = tuple(VARIANTS)) -> dict:
                     displaced(state, selections, load, params, kinds, tally, child, variant not in RECEIVER_ONLY)
                 person = state.people[child]
                 before = (person.functional_level, person.stress_swing, person.adjust_swing)
+                everyone = {pid: (p.functional_level, p.stress_swing, p.adjust_swing)
+                            for pid, p in state.people.items() if p.alive} if f1 else {}
                 records = original_respond(state, selections, load, params)
                 # What the response left off its ledgers: functioning's change less the swings' (0 unless a bound
                 # stopped functioning from moving while the swings decayed, `stress_response.respond`).
                 gap = ((person.functional_level - before[0]) - (person.stress_swing - before[1])
                        - (person.adjust_swing - before[2]))
-                held["stock"] += gap
+                shed = floor_held(state, load, params, ledger, everyone, f1) if f1 else {}
+                held["stock"] += gap + shed.get(child, 0.0)
                 if "u" in anchor:
                     tally["held_weeks"] += abs(gap) > 1e-12
                     floor = max(0.0, person.basic_level - params.stress_floor_below_basic)
                     tally["floor_weeks"] += person.functional_level <= floor + 1e-9
                 return records
+
+            def record_week(state, params, load, selections, events):
+                original_record(state, params, load, selections, events)
+                # F1: the estimator's reading leaves the floor_held ledger out.
+                for pid, amount in ledger.items():
+                    weeks = state.estimator_history.get(pid)
+                    if amount and weeks and weeks[-1].tick == state.tick:
+                        weeks[-1] = dataclasses.replace(weeks[-1], functional_level=weeks[-1].functional_level - amount)
 
             def complete(state, mover, params):
                 if mover == child:
@@ -185,11 +244,13 @@ def one_seed(seed: int, variants: tuple[str, ...] = tuple(VARIANTS)) -> dict:
 
             trace = watch
             criteria_d2.scenario, tick.respond, iposition.complete = chained, respond, complete
+            if f1:
+                tick.record_week = record_week
             try:
                 res = criteria_d2.arm_c6(arm, seed, settings)
             finally:
-                criteria_d2.scenario, tick.respond, iposition.complete = (original_scenario, original_respond,
-                                                                          original_complete)
+                criteria_d2.scenario, tick.respond, iposition.complete, tick.record_week = (
+                    original_scenario, original_respond, original_complete, original_record)
             out[variant][arm] = {"development": res.readouts["development"], "acts": res.readouts["projection_acts"],
                                  "steps": steps, **tally}
     return {"seed": seed, **out}
@@ -214,17 +275,36 @@ def contribution(steps: dict, name: str, rate: float) -> float:
         elif name == "other":  # the unledgered part neither held by a bound since the anchor nor there at it
             value = row["unledgered"] - row["at_anchor"] - row["held"]
         else:
-            value = row[name]
+            value = row.get(name, 0.0)  # rows from before F1 carry no "f1_ledger"
         total += 0.0 if math.isnan(value) else rate * value / n
     return total
+
+
+def present(rows: list[dict]) -> list[str]:
+    """The variants every row carries, in `VARIANTS` order."""
+    return [v for v in VARIANTS if all(v in r for r in rows)]
+
+
+def merge(groups: list[list[dict]]) -> list[dict]:
+    """Rows from several runs of the same seeds (``--variants`` splits), joined by seed; a seed's variants must not
+    repeat across runs."""
+    by_seed: dict[int, dict] = {}
+    for rows in groups:
+        for row in rows:
+            joined = by_seed.setdefault(row["seed"], {"seed": row["seed"]})
+            clash = (set(row) & set(joined)) - {"seed"}
+            if clash:
+                raise SystemExit(f"seed {row['seed']}: variants {sorted(clash)} in more than one rows file")
+            joined.update(row)
+    return [by_seed[s] for s in sorted(by_seed)]
 
 
 def summarise(rows: list[dict], rate: float) -> dict:
     """Per variant: treatment − baseline on `development`, each term and each part; each arm's mean of P2's counts."""
     names = ("own_term", "parents_term", "stress", "adjust_neg", "unledgered", "restoring", "at_anchor", "held",
-             "other")
-    summary = {}
-    for variant in VARIANTS:
+             "other", "f1_ledger")
+    summary = {"variants": present(rows)}
+    for variant in summary["variants"]:
         diffs = {"development": paired([r[variant]["treatment"]["development"] - r[variant]["baseline"]["development"]
                                         for r in rows])}
         for name in names:
@@ -237,7 +317,7 @@ def summarise(rows: list[dict], rate: float) -> dict:
         summary[variant] = {"diffs": diffs, "arms": arms}
     summary["against_as_built"] = {
         variant: {arm: paired([r[variant][arm]["development"] - r["as_built"][arm]["development"] for r in rows])
-                  for arm in ARMS} for variant in VARIANTS if variant != "as_built"}
+                  for arm in ARMS} for variant in summary["variants"] if variant != "as_built"}
     summary["seeds"] = len(rows)
     return summary
 
@@ -252,15 +332,19 @@ def render(summary: dict, engine: str, when: str, seeds: int, keep: str) -> str:
     labels = {"as_built": "as built", "p2_overfunction": "P2, `OVERFUNCTION`",
               "p2_overfunction_pursue": "P2, `OVERFUNCTION` and `PURSUE`",
               "receiver_only_overfunction": "receiver only, `OVERFUNCTION`",
-              "receiver_only_overfunction_pursue": "receiver only, `OVERFUNCTION` and `PURSUE`"}
+              "receiver_only_overfunction_pursue": "receiver only, `OVERFUNCTION` and `PURSUE`",
+              "as_built_f1": "F1, shed", "p2_overfunction_f1": "P2, `OVERFUNCTION`, with F1, shed",
+              "as_built_f1_kept": "F1, kept", "p2_overfunction_f1_kept": "P2, `OVERFUNCTION`, with F1, kept"}
     lines = [
-        "# Stage 3 step 3 — the displaced coping probe (`M11.C.6`, `M7.E.1f`, P2)",
+        "# Stage 3 step 3 — the displaced coping probe (`M11.C.6`, `M7.E.1f`, P2 and F1)",
         "",
         "Generated by `tools/stage_3_displaced_coping_probe.py`; do not edit above the \"Reading\" section, which the",
         f"tool keeps. Engine hash `{engine}`, {when}, seeds 0–{seeds - 1} ({seeds}). Both arms of `M11.C.6`",
         "(`src/bowen/ensemble/criteria_d2.py::arm_c6`): treatment, the parents act as the policy chooses; baseline, their",
-        "projection-type acts toward Nadia withheld. P2 is put in by wrapping `tick.respond` in the tool's process, as",
-        "`docs/PROPOSAL — DISPLACED COPING (P2).md` words it; nothing under `src/bowen/` is edited and no record moves.",
+        "projection-type acts toward Nadia withheld. P2 and F1 are put in by wrapping `tick.respond` (and, for F1,",
+        "`tick.record_week`) in the tool's process, as `docs/PROPOSAL — DISPLACED COPING (P2).md` words them; nothing",
+        "under `src/bowen/` is edited and no record moves. F1 \"shed\" sheds the `floor_held` ledger in a calm week;",
+        "F1 \"kept\" never sheds it (the proposal's §9, Q2).",
         "Every difference is treatment − baseline on the same seed, mean ± 1.96 × sd ÷ √n. A probe's result, not a",
         "criterion's (`M11.5`). Not a real family (`M11.F.9`).",
         "",
@@ -269,7 +353,7 @@ def render(summary: dict, engine: str, when: str, seeds: int, keep: str) -> str:
         "| Variant | `development` | own term | parents' term | projection-type acts |",
         "|---|---|---|---|---|",
     ]
-    for variant in VARIANTS:
+    for variant in summary["variants"]:
         d = summary[variant]["diffs"]
         lines.append(f"| {labels[variant]} | {_fmt(d['development'])} | {_fmt(d['own_term'])} | "
                      f"{_fmt(d['parents_term'])} | {_fmt(d['acts'])} |")
@@ -281,16 +365,18 @@ def render(summary: dict, engine: str, when: str, seeds: int, keep: str) -> str:
         "no ledger, measured from the anchor; `restoring` is minus the development so far, the step's own pull back.",
         "`unledgered` splits into what was there at the anchor (age 5), what the stress response's bounds held since",
         "(the swings decayed while a bound kept functioning from moving, `stress_response.respond`), and the rest.",
+        "Under F1 what a bound held is on the `floor_held` ledger, which the reading leaves out: it is shown in the last",
+        "column and is not part of the own term.",
         "",
         "| Variant | own term | stress | adjust | unledgered | restoring | unledgered: at the anchor | "
-        "unledgered: held by a bound | unledgered: the rest |",
-        "|---|---|---|---|---|---|---|---|---|",
+        "unledgered: held by a bound | unledgered: the rest | F1's ledger (not read) |",
+        "|---|---|---|---|---|---|---|---|---|---|",
     ]
-    for variant in VARIANTS:
+    for variant in summary["variants"]:
         d = summary[variant]["diffs"]
         lines.append(f"| {labels[variant]} | {_fmt(d['own_term'])} | {_fmt(d['stress'])} | {_fmt(d['adjust_neg'])} | "
                      f"{_fmt(d['unledgered'])} | {_fmt(d['restoring'])} | {_fmt(d['at_anchor'])} | "
-                     f"{_fmt(d['held'])} | {_fmt(d['other'])} |")
+                     f"{_fmt(d['held'])} | {_fmt(d['other'])} | {_fmt(d['f1_ledger'])} |")
     lines += [
         "",
         "## Each arm's means (per seed, over ages 5–20)",
@@ -300,7 +386,7 @@ def render(summary: dict, engine: str, when: str, seeds: int, keep: str) -> str:
         "weeks the child was at the stress floor, from age 5 |",
         "|---|---|---|---|---|---|---|---|",
     ]
-    for variant in VARIANTS:
+    for variant in summary["variants"]:
         for arm in ARMS:
             a = summary[variant]["arms"][arm]
             lines.append(f"| {labels[variant]} | {arm} | {a['development']:+.4f} | {a['displaced_to_child']:.4f} | "
@@ -308,7 +394,7 @@ def render(summary: dict, engine: str, when: str, seeds: int, keep: str) -> str:
                          f"{a['floor_weeks']:.1f} |")
     lines += [
         "",
-        "## Each P2 variant against the engine as built, same arm and seed (`development`)",
+        "## Each variant against the engine as built, same arm and seed (`development`)",
         "",
         "| Variant | Baseline | Treatment |",
         "|---|---|---|",
@@ -325,19 +411,22 @@ def main(argv=None) -> int:
     parser.add_argument("--workers", type=int, default=10)
     parser.add_argument("--out", type=Path, default=OUT)
     parser.add_argument("--rows-out", type=Path, help="also write the per-seed rows here, as JSON")
-    parser.add_argument("--rows-in", type=Path, help="render from rows written by --rows-out; run nothing")
+    parser.add_argument("--rows-in", type=Path, nargs="+",
+                        help="render from rows written by --rows-out (several are joined by seed); run nothing")
+    parser.add_argument("--variants", nargs="+", choices=tuple(VARIANTS), default=tuple(VARIANTS),
+                        help="run only these variants (rows from other runs can be joined with --rows-in)")
     args = parser.parse_args(argv)
     from src.bowen.ensemble.criteria_d import ENGINE
     from tools.record_cache import engine_hash
 
     if args.rows_in:
-        rows = json.loads(args.rows_in.read_text(encoding="utf-8"))
+        rows = merge([json.loads(f.read_text(encoding="utf-8")) for f in args.rows_in])
         args.seeds = len(rows)
     elif args.workers > 1:
         with ProcessPoolExecutor(args.workers) as pool:
-            rows = list(pool.map(one_seed, range(args.seeds)))
+            rows = list(pool.map(partial(one_seed, variants=tuple(args.variants)), range(args.seeds)))
     else:
-        rows = [one_seed(s) for s in range(args.seeds)]
+        rows = [one_seed(s, tuple(args.variants)) for s in range(args.seeds)]
     if args.rows_out:
         # JSON keys are strings: the ages in each arm's steps come back as "6".."20", which nothing below reads.
         args.rows_out.write_text(json.dumps(rows), encoding="utf-8")

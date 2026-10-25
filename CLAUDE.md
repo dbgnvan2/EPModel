@@ -88,7 +88,7 @@ full table.
   while `main` stood at spec revision 11; on 2026-10-21 `main` was fast-forwarded to it. `plan-phase-b` stays on GitHub
   as history and takes no new commits. A session's own branch merges into `main`.
 - Run tests before declaring done: `python3 -m pytest tests/`
-- **A red suite is never normal — 1215 tests: 1214 pass and 1 is a strict expected failure** (`M5.B.3`'s third-party cost, G1's A6, marked `xfail(strict=True)`, so it turns the suite red if it starts passing; measured 2026-10-25 on this Mac with `python3 -m pytest tests/`; counts are as collected by the default run; the 51 `ensemble`-marked criterion tests are deselected by `pytest.ini` and run with `python3 -m pytest -m ensemble`). The dated history of counts is in `CHANGELOG.md`, in the entry of 2026-10-22 that moved it out of this file.
+- **A red suite is never normal — 1217 tests: 1216 pass and 1 is a strict expected failure** (`M5.B.3`'s third-party cost, G1's A6, marked `xfail(strict=True)`, so it turns the suite red if it starts passing; measured 2026-10-25 on this Mac with `python3 -m pytest tests/`; counts are as collected by the default run; the 51 `ensemble`-marked criterion tests are deselected by `pytest.ini` and run with `python3 -m pytest -m ensemble`). The dated history of counts is in `CHANGELOG.md`, in the entry of 2026-10-22 that moved it out of this file.
 
 ## Token budget — how to read this repo (owner rule, 2026-10-22)
 

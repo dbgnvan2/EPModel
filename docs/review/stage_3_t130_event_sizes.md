@@ -1,6 +1,6 @@
 # Stage 3 step 1 — T-130: the event sizes against Holmes and Rahe (1967)
 
-**Status, 2026-10-24: checked. All thirteen values agree with the paper's Table 3. Two item names differ from the
+**Status: done 2026-10-24. The values were checked against the paper, and all thirteen values agree with the paper's Table 3. Two item names differ from the
 paper's wording, and two differ by an article; no value needs correcting.** Following the plan
 (`docs/implementation_plan_version_2_stage_3.md` §3.6, step 6), "unchecked" comes out of `config/bowen/event_sizes.md`,
 the spec (`M1.F.6a`) and the explainer in the batch's first commit, together with the item wording below. T-130 is

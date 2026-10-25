@@ -50,6 +50,9 @@ All notable changes to this project are recorded here. Dates are ISO.
   is unchanged (`66dcbb1e8ba5`).
 - Documents updated: the review page, the plan's status line, `_STATUS.md`, the reading list, the checklist entry,
   and the T-130 note in its record.
+- `c3abfb3` was pushed red: `test_d5b_status_claims_agree_with_each_documents_own_status` could not read the review
+  page's status line, which was written as `**Status, 2026-…` instead of `**Status: …`. The background run's
+  notification gave the exit code of the trailing `echo`, not pytest's. The fix commit restores the line's form.
 
 ### Stage 3 steps 1 and 2: the projection trace, the I-position probe, T-130 not yet checked (2026-10-24)
 

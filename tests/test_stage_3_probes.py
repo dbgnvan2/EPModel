@@ -1,11 +1,12 @@
-"""Smoke tests of stage 3 step 2's two measurement tools, on a few seeds.
+"""Smoke tests of stage 3's measurement tools (steps 2 and 3), on a few seeds.
 
-Purpose: `tools/stage_3_projection_trace.py` and `tools/stage_3_iposition_probe.py` write the two review pages the
-         owner's decisions D18 and D20 wait on (`docs/implementation_plan_version_2_stage_3.md` §3.3.1, §3.3.2). These
+Purpose: `tools/stage_3_projection_trace.py`, `tools/stage_3_iposition_probe.py` and
+         `tools/stage_3_displaced_coping_probe.py` write the review pages the owner's decisions D18 and D20 wait on
+         (`docs/implementation_plan_version_2_stage_3.md` §3.3.1, §3.3.2). These
          tests run each tool's own arm functions on a few seeds and check that what they read is what the engine did:
          the trace's terms reproduce the development step, and the probe's arms differ only in the mover's level and
          in whether the act is scripted. Each tool's page keeps its hand-written "Reading" section when rewritten.
-Spec:    docs/bowen_agent_model_spec_v2.md#M7.E.1f, #M11.C.6, #M5.F.4, #M11.C.29
+Spec:    docs/bowen_agent_model_spec_v2.md#M7.E.1f, #M11.C.6, #M5.F.4, #M11.C.29, #M1.A.5e
 Tests:   this file
 """
 
@@ -60,3 +61,29 @@ def test_stage_3_probe_arms_differ_only_in_the_movers_level(tmp_path):
     probe.main(["--seeds", "3", "--workers", "1", "--out", str(page)])
     text = page.read_text(encoding="utf-8")
     assert "## Contrasts, every seed" in text and "hand-written" in text
+
+
+def test_stage_3_displaced_coping_probe_moves_conserved_stress_functioning(tmp_path):
+    """On seed 0, as built and under P2 with `OVERFUNCTION`: the child's own term is the sum of its parts at every step
+    (so the probe's split reads what the step read); as built, P2's wrapper moves nothing; under P2 it moves
+    functioning to and from the child in the treatment arm; and the page renders and keeps its "Reading" section.
+    Mutation (reasoned, not run): the weekly split read against the basic level after the step would break the
+    first check by the step ÷ 52 at every step."""
+    import tools.stage_3_displaced_coping_probe as coping
+
+    row = coping.one_seed(0, ("as_built", "p2_overfunction"))
+    for variant in ("as_built", "p2_overfunction"):
+        for arm in coping.ARMS:
+            for s in row[variant][arm]["steps"].values():
+                parts = s["stress"] + s["adjust_neg"] + s["unledgered"] - s["developed"]
+                assert math.isclose(s["own_term"], parts, abs_tol=1e-9), (variant, arm)
+    assert all(row["as_built"][arm][c] == 0 for arm in coping.ARMS for c in ("displaced_to_child",
+                                                                          "displaced_from_child"))
+    assert row["p2_overfunction"]["treatment"]["displaced_to_child"] > 0
+    assert row["p2_overfunction"]["baseline"]["displaced_to_child"] == 0
+    page = tmp_path / "coping.md"
+    page.write_text("old\n\n## Reading\n\nhand-written\n", encoding="utf-8")
+    full = {v: row[v] if v in row else row["p2_overfunction"] for v in coping.VARIANTS}
+    text = coping.render(coping.summarise([{"seed": 0, **full}, {"seed": 1, **full}], ENGINE.development_rate),
+                         "e" * 12, "2026-10-25", 2, page.read_text(encoding="utf-8").split("\n\n", 1)[1])
+    assert "## The direction under each variant" in text and text.endswith("hand-written\n")

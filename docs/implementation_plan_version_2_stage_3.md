@@ -1,6 +1,6 @@
 # Version 2 stage 3: implementation plan
 
-**Status: APPROVED by the owner 2026-10-24 ("Approved: the stage 3 plan as written"). Step 2 done 2026-10-24: the trace met D18's condition and the owner chose P2 (D18, revisited); the probe did not meet D20's, so D20 stands. Step 1 done 2026-10-24: T-130's thirteen values all agree with the paper's Table 3, and two item names differ from its wording; the edits wait for step 6 (`docs/review/stage_3_t130_event_sizes.md`). Next: P2 drafted for the owner's approval, then revision 39.** The owner decided D18–D31 on 2026-10-24, each through
+**Status: APPROVED by the owner 2026-10-24 ("Approved: the stage 3 plan as written"). Step 3, 2026-10-25: P2 is a draft for the owner's approval (`docs/PROPOSAL — DISPLACED COPING (P2).md`), probed; it does not move `M11.C.6` at coping size, and the owner chose P2 plus F1, the floor-held functioning on a ledger (D18, third reading). Step 2 done 2026-10-24: the trace met D18's condition and the owner chose P2 (D18, revisited); the probe did not meet D20's, so D20 stands. Step 1 done 2026-10-24: T-130's thirteen values all agree with the paper's Table 3, and two item names differ from its wording; the edits wait for step 6 (`docs/review/stage_3_t130_event_sizes.md`). Next: P2 and F1 probed together on Mac Mini1, then revision 39.** The owner decided D18–D31 on 2026-10-24, each through
 `AskUserQuestion`, one at a time, and each answer was the recommended option (§3.2). No engine change is built.
 Written from `docs/version_2_plan.md` §3 "Stage 3 — Rule questions the owner chooses", the TODO items T-014, T-128,
 T-129 and T-130, and the stage 2 milestone review's triage (`docs/todo/2026-10-24_stage_2_milestone_review.md`).
@@ -127,7 +127,7 @@ Each was put through `AskUserQuestion`, one at a time, recommendation first; eac
 
 | ID | Question | Decided |
 |---|---|---|
-| D18 | Group C's mechanism | A per-term trace of the development step first (no engine change), then **P1**: the parents' term reads their functioning net of borrowed pseudo-self. P2 (displaced coping) is the fallback if the trace shows P1 is not enough. **Revisited 2026-10-24 after the trace** (`docs/review/stage_3_projection_trace.md`: the parents' term contributes −0.0072 ± 0.0296 of the +0.0886, the child's own term +0.0951 ± 0.0362): **P2**, drafted as group C's proposal for the owner's approval before revision 39; P1 is dropped; the half of the own-term difference the stress swing does not explain is traced while drafting, with no engine change |
+| D18 | Group C's mechanism | A per-term trace of the development step first (no engine change), then **P1**: the parents' term reads their functioning net of borrowed pseudo-self. P2 (displaced coping) is the fallback if the trace shows P1 is not enough. **Revisited 2026-10-24 after the trace** (`docs/review/stage_3_projection_trace.md`: the parents' term contributes −0.0072 ± 0.0296 of the +0.0886, the child's own term +0.0951 ± 0.0362): **P2**, drafted as group C's proposal for the owner's approval before revision 39; P1 is dropped; the half of the own-term difference the stress swing does not explain is traced while drafting, with no engine change. **2026-10-25, after the P2 probe** (`docs/review/stage_3_displaced_coping_probe.md`: P2 at coping size leaves `M11.C.6` at +0.0919 ± 0.0420, and the other half is functioning the stress floor holds, +0.0620 ± 0.0308): **P2 as drafted plus F1** (the floor-held functioning on a ledger the estimator leaves out), the two probed together on Mac Mini1 before revision 39; `M11.C.6` reported as read, never tuned |
 | D19 | `M11.C.21` | **Lent functioning returns** when the taker's functional level falls, in proportion to the capacity lost, on `M6.I.4`'s conserved quantity |
 | D20 | Group F's mechanism | A probe first (no engine change), then **A**: the act is part self-statement, part demand, weighted by the mover's own self-channel weight. **Probe run 2026-10-24** (`docs/review/stage_3_iposition_probe.md`): the direction does not hold clearly with no rule change (the act's effect on the family's excess differs by level by −0.06 ± 0.32), so D20 stands and was not put again |
 | D21 | `M11.C.29`'s arm | Mover at **level 60**; **F's spell paused** for the act's PREPARE window in both arms, M's kept; a reported `completions` readout |
@@ -174,6 +174,30 @@ development. The child's own term is unchanged, so what the child gave away stil
 one number per person, P1 subtracts all borrowed pseudo-self, from the spouse as well as the children; that reading
 ("the parents' own functioning") is what P1 means, and revision 39 says so. No new constant.
 
+**P2, the mechanism (D18 revisited; drafted 2026-10-25 for the owner's approval, `docs/PROPOSAL — DISPLACED COPING
+(P2).md`).** New `M1.A.5f`: in a week a person is loaded (`M1.A.5e`: load above their own usual level), an act of a
+kind listed as *displacing* in `config/bowen/stress_response.md` (proposed: `OVERFUNCTION`) meets that load through
+the act's receiver. The amount coping would have given the sender moves from the receiver's functional level to the
+sender's, on both stress swings, conserved; a receiver holding a position toward the sender gives nothing, and the
+receiver's floor bounds it. `KS04.7`, `FE01.1` `[K]`: the mother is calmer because she sees the anxiety as coming from
+outside herself, and the child ends in the patient position. It writes no pseudo-self, so the development step,
+which nets pseudo-self out, reads it. No new constant in the recommended form; one new config list. The proposal's §6
+holds the probe, and its §9 the owner's open questions.
+
+**The P2 probe (2026-10-25, 150 seeds; `docs/review/stage_3_displaced_coping_probe.md`, from
+`tools/stage_3_displaced_coping_probe.py`, outside every `HASHED_TOOLS`).** P2 at coping size does not move the
+direction: `M11.C.6` reads +0.0919 ± 0.0420 with `OVERFUNCTION` and +0.0853 ± 0.0398 with `PURSUE` too, against
++0.0886 as built; the child's own term falls and the parents' term rises by about as much. Forms in which the sender
+gains nothing do not move it either. The half of the own-term difference the stress swing does not carry is
+functioning on no ledger, +0.0620 ± 0.0308: what the stress floor holds while the swings decay, credited by the
+estimator as the child's own. The owner chose, the same day, P2 as drafted plus F1, probed together on Mac Mini1
+before revision 39 (D18, third reading).
+
+**F1, the floor-held functioning (the owner, 2026-10-25).** Each week a bound stops functional level from moving
+while the swings decay (`stress_response.respond`), the amount is added to a new ledger, `floor_held`; the estimator's
+reading (`M1.A.4k`) leaves it out, as it leaves out pseudo-self; off the floor it is shed with the swings. No new
+constant. The proposal's §4.2 states the trade-off against the review of 2026-10-11.
+
 **`M11.C.21`, the mechanism (D19).** New `M6.I.4a`: when a person holding borrowed pseudo-self loses functional level
 by any cause other than an exchange, the share of their borrowed pseudo-self equal to the share of their capacity lost
 (the room above the stress floor, `moves.py:322-324`'s `capacity`) returns to the people who lent it. Because
@@ -181,26 +205,32 @@ by any cause other than an exchange, the share of their borrowed pseudo-self equ
 each holds; the sum stays conserved. No new constant. Revision 39 states it as the mirror of `functioning_shift`'s
 capacity scaling, which the owner chose for `M11.C.21` on 2026-10-16.
 
-**Spec changes at revision 39.** `M7.E.1f` (the parents' term); new `M6.I.4a`; `M1.A.5c` if it describes the
-ledgers; `model_explainer.md` §§ on development and pseudo-self; `config/bowen/constants.md` unchanged.
+**Spec changes at revision 39** (restated for P2 and F1, 2026-10-25). New `M1.A.5f` (P2); `M1.A.5e`'s "any other act
+leaves it" gains the exception, and its floor paragraph F1's ledger; `M1.A.4k` leaves out `floor_held`; `M7.E.1f` one sentence, no rule change (the step reads the stress swing and nets out
+pseudo-self); new `M6.I.4a`; `M1.A.5c` if it describes the ledgers; `M11.5`'s `M11.C.6` row (P2 supplies its sign);
+`config/bowen/stress_response.md` (the *displacing* table); `model_explainer.md` §§ on the stress response, development
+and pseudo-self; `config/bowen/constants.md` unchanged unless the owner chooses a separate size (the proposal's §9).
 
-**§19 check.** P1 removes a path; it writes no decline. Whether a child's development falls depends on how much
-projection the child receives, which focus (`M4.D.1g`, `M1.B.8a`) and learning decide, and on how much the child gives
-way, which the exchange's physics decide. `M6.I.4a` returns a conserved quantity on a cause the rule does not choose
-(a collapse); whether the reciprocity inverts is read, not set. Neither rule names projection, a child or an outcome.
+**§19 check** (restated for P2). P2 states what one act does, for every sender and receiver; it names no projection,
+no child and no outcome. Who sends `OVERFUNCTION` to whom, under what load, and whether the receiver holds a position
+are decided by focus (`M4.D.1g`, `M1.B.8a`), learning and the run. One risk is stated in the proposal's §5: `M11.C.6`'s
+arms differ only in the acts P2 acts on, so P2 supplies the direction's sign; whether it outweighs the lift the trace
+found is read, not set; the probe shows it cancels at coping size. F1 records functioning a bound kept and changes
+no act, so it supplies no sign. `displaced-coping-removed` and `floor-held-credited` must each move it back. `M6.I.4a` returns a conserved quantity on a
+cause the rule does not choose (a collapse); whether the reciprocity inverts is read, not set.
 
 **Classes (`M11.5`).**
 
 | Criterion | Class | Why |
 |---|---|---|
-| `M11.C.6` | composite | the decline needs focus, learned projection, the exchange and P1 together; no single rule produces it |
+| `M11.C.6` | composite | the decline needs focus, learned projection, the parents' load at the time, the child's own responses and P2 together; P2 supplies its sign (the proposal's §5) |
 | `M11.C.2`, `M11.C.2[twelve-person family]` | composite | unchanged; reported, not targeted |
 | `M11.C.21` | composite | the inversion needs the collapse, `M6.I.4a` and the scripted exchange; `M6.I.4a` alone returns functioning but does not decide whether the child rises past the arm without collapse |
-| new unit test of P1 | premise (unit) | a single rule produces it, so it confirms the code and is never reported as a finding |
+| new unit tests of P2 and F1 (S3.1a–S3.1d) | premise (unit) | a single rule produces each, so each confirms the code and is never reported as a finding |
 | new unit test of `M6.I.4a` | premise (unit) | as above |
 
-**Stage 4.** Check `M7.E.1f`, `M6.I.4`, `M1.A.5c` and `M11.C.6`'s row against FE06.3, FE07.4, KS04.7 and KS00.9, and
-fix in revision 39 what is found.
+**Stage 4.** Check `M1.A.5e`, `M1.A.5f`, `M1.A.4k`, `M7.E.1f`, `M6.I.4`, `M1.A.5c` and `M11.C.6`'s row against FE01.1, FE06.3,
+FE07.4, KS04.7 and KS00.9, and fix in revision 39 what is found.
 
 ### 3.3.2 Group F — at a low level an I-position comes out as a demand
 
@@ -388,12 +418,15 @@ not a projection for revision 39's.
 Each test name carries the criterion's ID and a spec ID. Acceptance tests assert a direction of difference between two
 arms on identical seeds, never an absolute threshold on a model result, and each counts as coverage only once the
 named mutation has turned it red (or reversed it) in a record. A premise passing confirms the code and is never
-reported as a finding (`M11.5`). Provisional IDs: `M6.I.4a`, `M4.C.1d` and `M11.C.49` are new at revision 39.
+reported as a finding (`M11.5`). Provisional IDs: `M1.A.5f` (and F1's `floor_held`, inside `M1.A.5e` and `M1.A.4k`), `M6.I.4a`, `M4.C.1d` and `M11.C.49` are new at revision 39.
 
 | ID | Criterion | Test | Proved failing by |
 |---|---|---|---|
-| S3.1 (`M7.E.1f`, D18) | premise: two runs differing only in a parent's borrowed pseudo-self give the child the same development step | `tests/bowen/test_life_course.py::test_m7e1f_s3_1_borrowed_pseudo_self_does_not_raise_the_child` | `parents-term-gross` (the parents' term reads gross functional level) |
-| S3.2 (`M11.C.6`) | composite: the child's basic level at 20, minus the anchor, is lower with projection than with every projection-type act toward her withheld | `tests/bowen/test_phase_d2_criteria.py::test_m11c6_multigenerational_decline_in_projection_line` (existing) | `parents-term-gross` and `development-fixed-at-anchor` (existing), each in the Phase D mutation record |
+| S3.1a (`M1.A.5f`, D18 revisited) | premise: a loaded sender's `OVERFUNCTION` moves the coping amount from the receiver's functional level and stress swing to the sender's; the pair's total functional level is unchanged | `tests/bowen/test_stress_response.py::test_m1a5f_s3_1a_displaced_coping_moves_functioning_from_receiver_to_sender` | `displaced-coping-removed` |
+| S3.1b (`M1.A.5f`) | premise: nothing moves when the sender is calm, when the receiver holds a position toward the sender, or when the receiver is at their floor | `tests/bowen/test_stress_response.py::test_m1a5f_s3_1b_no_displacement_when_calm_held_or_at_the_floor` | `displaced-coping-unguarded` (the three guards removed) |
+| S3.1c (`M1.A.5f`) | check: the displacing kinds are read from `config/bowen/stress_response.md`, and a kind listed both soothing and displacing fails at load | `tests/bowen/test_config.py::test_m1a5f_s3_1c_displacing_kinds_come_from_config` | the list moved into code |
+| S3.1d (`M1.A.5e`, `M1.A.4k`, F1) | premise: a calm week at the floor with a positive swing adds what the floor held to `floor_held`, leaves `functional_level − stress_swing − adjust_swing − floor_held` unchanged, and the estimator's reading leaves it out; off the floor it is shed with the swings | `tests/bowen/test_stress_response.py::test_m1a5e_s3_1d_floor_held_functioning_is_on_a_ledger` | `floor-held-credited` (the estimator reads `floor_held` as own functioning) |
+| S3.2 (`M11.C.6`) | composite: the child's basic level at 20, minus the anchor, is lower with projection than with every projection-type act toward her withheld | `tests/bowen/test_phase_d2_criteria.py::test_m11c6_multigenerational_decline_in_projection_line` (existing) | `displaced-coping-removed`, `floor-held-credited` (both new) and `development-fixed-at-anchor` (existing), each in the Phase D mutation record |
 | S3.3 (`M11.C.2`, both variants) | composite: symptoms concentrate on the child who received most projection-type acts | the existing tests | `witness-path-removed`, `weakness-focus-and-steering-removed` (existing), run if the row passes |
 | S3.4 (`M6.I.4a`, D19) | premise: when a taker's functional level falls by a non-exchange cause, the borrowed pseudo-self returns to its lenders in proportion to the capacity lost, and the family's total pseudo-self is unchanged | `tests/bowen/test_moves.py::test_m6i4a_s3_4_lent_functioning_returns_with_lost_capacity` | `pseudo-self-return-removed` |
 | S3.5 (`M11.C.21`) | composite: the child rises more after both projecting parents collapse than in the arm without collapse | `tests/bowen/test_phase_d_criteria.py::test_m11c21_reciprocity_inverts_on_projector_collapse` (existing) | `pseudo-self-return-removed`, added to the Phase D mutation record (the spec's named mutant, "make `M6.I.4`'s transfer one-way", has no entry today) |
@@ -424,11 +457,11 @@ reported as a finding (`M11.5`). Provisional IDs: `M6.I.4a`, `M4.C.1d` and `M11.
 |---|---|---|---|
 | 1 | This plan approved. T-130: check `config/bowen/event_sizes.md`'s values against Holmes and Rahe (1967)'s table; correct or drop "unchecked" (the correction waits for step 6) | — | no |
 | 2 | The projection trace (§3.3.1) and the I-position probe (§3.3.2), each from a tool outside the engine hash; results written to `docs/review/` and `CHANGELOG.md` | 1 | no |
-| 3 | If step 2 changes a proposal (D18's or D20's condition), the owner is asked again, one decision at a time | 2 | no |
-| 4 | Spec revision 39 drafted from §3.3–§3.5 and the stage 4 checks: `M7.E.1f`, `M6.I.4a`, `M5.F.4`, `M5.F.2c`, `M11.C.29`, `M11.C.49`, `M4.C.1d`, `M4.D.3a`, `M10.C.1a`, `M17.E.1`, `M8`, `M8.1`, `M8.5`, `M13.1`, `M11.C.7`, `M7.D.1a`, the `M11.5` rows; the revision log, the indexes, the rules view. **Approved by the owner before step 5** | 3 | no (wording) |
-| 5 | Tests first: S3.1, S3.4, S3.6–S3.8, S3.10, S3.11, S3.16–S3.20, S3.22 red | 4 | no |
+| 3 | If step 2 changes a proposal (D18's or D20's condition), the owner is asked again, one decision at a time. **Done 2026-10-24–25:** the owner chose P2 (D18 revisited); P2 drafted and probed (`docs/PROPOSAL — DISPLACED COPING (P2).md`, `docs/review/stage_3_displaced_coping_probe.md`): it does not move `M11.C.6` at coping size, and the owner chose P2 plus F1 (D18, third reading). **Next, before step 4:** P2 and F1 probed together on Mac Mini1 | 2 | no |
+| 4 | Spec revision 39 drafted from §3.3–§3.5 and the stage 4 checks: `M1.A.5e`, `M1.A.5f`, `M1.A.4k`, `M7.E.1f`, `M6.I.4a`, `M5.F.4`, `M5.F.2c`, `M11.C.29`, `M11.C.49`, `M4.C.1d`, `M4.D.3a`, `M10.C.1a`, `M17.E.1`, `M8`, `M8.1`, `M8.5`, `M13.1`, `M11.C.7`, `M7.D.1a`, the `M11.5` rows; `config/bowen/stress_response.md`'s *displacing* table; the revision log, the indexes, the rules view. **Approved by the owner before step 5** | 3 | no (wording) |
+| 5 | Tests first: S3.1a–S3.1d, S3.4, S3.6–S3.8, S3.10, S3.11, S3.16–S3.20, S3.22 red | 4 | no |
 | 6 | **Commit 1 of the batch, the first to move the hash:** §3.6's edits; S3.20, S3.22 green; S3.23 holds | 5 | **yes** |
-| 7 | **Group C:** P1 and `M6.I.4a`; S3.1, S3.4 green; then only `M11.C.6`, `M11.C.2` (both) and `M11.C.21` run, with their mutants (S3.2, S3.3, S3.5) | 6 | yes |
+| 7 | **Group C:** P2 (`M1.A.5f`, the *displacing* list), F1 (`floor_held`) and `M6.I.4a`; S3.1a–S3.1d, S3.4 green; `displaced-coping-removed`, `displaced-coping-unguarded` and `floor-held-credited` added to the Phase D mutation record; then only `M11.C.6`, `M11.C.2` (both) and `M11.C.21` run, with their mutants (S3.2, S3.3, S3.5) | 6 | yes |
 | 8 | **Group F:** A, `M11.C.29`'s arm, `M11.C.49`; S3.6–S3.8 green; then only `M11.C.49`, `M11.C.29`, `M11.C.32`, `M11.C.5`, `M11.C.18`, `.20`, `.33` run, with their mutants (S3.7, S3.9) | 7 | yes |
 | 9 | **Group A:** P1, P3, `reciprocal_contact_share`; S3.10, S3.11 green; then only `M11.C.42`, `.45`, `.44`, `.27` (all four cells) and `M11.C.16`, `.41` run, with their mutants (S3.12–S3.14) | 8 | yes |
 | 10 | The sweep tool's ratio (§3.4); S3.16–S3.19 green. **One full regeneration** on the final hash, in the background; the changes page; the status page (S3.24) | 9 | no |
@@ -470,7 +503,7 @@ not decide them.
   `docs/implementation_plan_version_2.md`'s status line (pointer); `CHANGELOG.md`; the TODO records of T-014 and
   T-128 (decided, built later). T-130's result in `config/bowen/event_sizes.md` waits for step 6.
 - **Step 4:** the spec, `docs/spec_revision_log.md`, `docs/spec_index.jsonl`, `docs/spec_rules/`,
-  `docs/model_explainer.md`, `docs/version_2_plan.md` (stage 3's status), `config/sweep/sweep.md`'s preamble.
+  `config/bowen/stress_response.md` (P2's *displacing* table), `docs/model_explainer.md`, `docs/version_2_plan.md` (stage 3's status), `config/sweep/sweep.md`'s preamble.
 - **Steps 6–9:** `config/bowen/constants.md` and `constants_changes.md` (`reciprocal_contact_share`),
   `config/bowen/event_kinds.md` (P3), `config/bowen/criteria.md` (`M11.C.29`, `M11.C.49`), `docs/readouts_phase_c.md`
   (`M11.C.49`'s readouts), `tools/spec_coverage_overrides.json`, `docs/spec_coverage.md`, the golden fixtures if a
@@ -481,7 +514,7 @@ not decide them.
 ## 3.12 Not code-testable
 
 - **Whether a rule writes the outcome (§19).** S3.15 checks the classes and that the engine reads no readout; whether
-  P1, `M6.I.4a`, A and `M4.C.1d` are the set layer and not a written pattern is a judgment. Proposed review: the owner
+  P2 (`M1.A.5f`), F1, `M6.I.4a`, A and `M4.C.1d` are the set layer and not a written pattern is a judgment. Proposed review: the owner
   reads revision 39's four rules, one at a time, against `model_explainer.md` §19 at step 4; the milestone review
   (step 13) reads them under its theory-fidelity lens.
 - **The stage 4 corpus checks.** Each is a reading of `_LEDGER.md` entries against requirement text, done at step 4

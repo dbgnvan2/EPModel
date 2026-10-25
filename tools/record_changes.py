@@ -114,9 +114,11 @@ NOT_COMPARED = (
      "(`tools/group_g_readout.py`), new at revision 36: its \"before\" section is the earlier engine's, kept as "
      "measured, and its \"after\" section the regenerated engine's; nothing at {side} to compare"),
     ("docs/review/stage_3_projection_trace.md, docs/review/stage_3_iposition_probe.md, "
-     "docs/review/stage_3_t130_event_sizes.md", "stage 3's measurements before any rule changed (step 2's trace and "
-     "probe, `tools/stage_3_projection_trace.py` and `tools/stage_3_iposition_probe.py`, in no record's hash) and step "
-     "1's T-130 comparison, new in stage 3; nothing at {side} to compare"),
+     "docs/review/stage_3_t130_event_sizes.md, docs/review/stage_3_displaced_coping_probe.md", "stage 3's measurements "
+     "before any rule changed (step 2's trace and probe and step 3's displaced coping probe, "
+     "`tools/stage_3_projection_trace.py`, `tools/stage_3_iposition_probe.py` and "
+     "`tools/stage_3_displaced_coping_probe.py`, in no record's hash) and step 1's T-130 comparison, new in stage 3; "
+     "nothing at {side} to compare"),
     ("docs/version_1_status.md", "version 1's status page, frozen at the tag: "
      "`tests/test_version_1_status.py` checks that it is the tag's, byte for byte"),
     ("docs/review/phase_c_famdiag_seed7.json", "the seed-7 run as a family diagram (`tools/famdiag_export.py`); "

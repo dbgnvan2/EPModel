@@ -1,6 +1,6 @@
 # Version 2 stage 3: implementation plan
 
-**Status: APPROVED by the owner 2026-10-24 ("Approved: the stage 3 plan as written"); steps 1 and 2 are next, in a session of their own.** The owner decided D18–D31 on 2026-10-24, each through
+**Status: APPROVED by the owner 2026-10-24 ("Approved: the stage 3 plan as written"). Step 2 done 2026-10-24: the trace met D18's condition and the owner chose P2 (D18, revisited); the probe did not meet D20's, so D20 stands. Step 1 (T-130) is open: the paper has not yet been read. Next: P2 drafted for the owner's approval, then revision 39.** The owner decided D18–D31 on 2026-10-24, each through
 `AskUserQuestion`, one at a time, and each answer was the recommended option (§3.2). No engine change is built.
 Written from `docs/version_2_plan.md` §3 "Stage 3 — Rule questions the owner chooses", the TODO items T-014, T-128,
 T-129 and T-130, and the stage 2 milestone review's triage (`docs/todo/2026-10-24_stage_2_milestone_review.md`).
@@ -42,7 +42,9 @@ claims each recommendation rests on were re-checked by hand.
   (`docs/implementation_plan_phase_d.md:1970-1972`), and widening `development_band_projection` to 0.19 in the stage 2
   sweep changed nothing. Under projection the child ends **higher**: +0.0886 ± 0.044 at revision 38, 0 of 8 samples
   held, every sample positive (+0.043 to +0.118, `docs/version_2_sweep_record.md`).
-- **Why it ends higher.** An `OVERFUNCTION` moves functional level and pseudo-self from the child to the parent,
+- **Why it ends higher.** *(Corrected 2026-10-24 by the trace, §3.3.1: the step reads the estimator's functional
+  level, net of pseudo-self, so neither term moves with the exchange; the lift is in the child's own term.)* An
+  `OVERFUNCTION` moves functional level and pseudo-self from the child to the parent,
   conserved (`moves.py:313-336`). The child's own term falls by the amount; the parents' term rises by the amount
   divided by the number of living parents. So the step credits the child with part of what the parent took, and the
   relief projection gives the parent lifts the parents' term further. `pseudo_self` is one number per person, positive
@@ -125,9 +127,9 @@ Each was put through `AskUserQuestion`, one at a time, recommendation first; eac
 
 | ID | Question | Decided |
 |---|---|---|
-| D18 | Group C's mechanism | A per-term trace of the development step first (no engine change), then **P1**: the parents' term reads their functioning net of borrowed pseudo-self. P2 (displaced coping) is the fallback if the trace shows P1 is not enough |
+| D18 | Group C's mechanism | A per-term trace of the development step first (no engine change), then **P1**: the parents' term reads their functioning net of borrowed pseudo-self. P2 (displaced coping) is the fallback if the trace shows P1 is not enough. **Revisited 2026-10-24 after the trace** (`docs/review/stage_3_projection_trace.md`: the parents' term contributes −0.0072 ± 0.0296 of the +0.0886, the child's own term +0.0951 ± 0.0362): **P2**, drafted as group C's proposal for the owner's approval before revision 39; P1 is dropped; the half of the own-term difference the stress swing does not explain is traced while drafting, with no engine change |
 | D19 | `M11.C.21` | **Lent functioning returns** when the taker's functional level falls, in proportion to the capacity lost, on `M6.I.4`'s conserved quantity |
-| D20 | Group F's mechanism | A probe first (no engine change), then **A**: the act is part self-statement, part demand, weighted by the mover's own self-channel weight |
+| D20 | Group F's mechanism | A probe first (no engine change), then **A**: the act is part self-statement, part demand, weighted by the mover's own self-channel weight. **Probe run 2026-10-24** (`docs/review/stage_3_iposition_probe.md`): the direction does not hold clearly with no rule change (the act's effect on the family's excess differs by level by −0.06 ± 0.32), so D20 stands and was not put again |
 | D21 | `M11.C.29`'s arm | Mover at **level 60**; **F's spell paused** for the act's PREPARE window in both arms, M's kept; a reported `completions` readout |
 | D22 | Group A's mechanism | **P1** (reciprocal contact, general physics) **and P3** (`TRIANGLE` to layer 0) |
 | D23 | What P1 and P3 do not reach | `M11.C.27[add_third]` (both) and the calm-state finding **stay accepted findings** unless the new rules move them, each new result reported beside version 1's; `M11.C.44` keeps `TRIANGLE` as an inside act |
@@ -157,7 +159,15 @@ counts of coping and soothing (`M1.A.5e`). It runs from a tool outside the engin
 parents' term is not what lifts the child**, P1 is not built and the owner is asked again before revision 39, with P2
 (displaced coping, KS04.7, FE01.1) as the fallback.
 
-**P1, the mechanism.** `M7.E.1f`'s parents' term reads each living parent's functional level **minus the pseudo-self
+**The trace's result (2026-10-24, 150 seeds; `docs/review/stage_3_projection_trace.md`).** The condition was met. The
+parents' term contributes −0.0072 ± 0.0296 to `M11.C.6`'s +0.0886 ± 0.0439 and the child's own term +0.0951 ± 0.0362.
+The step reads the estimator's functional level, which already leaves out pseudo-self (`slow_tick.py::record_week`),
+so a conserved exchange moves neither term. About half of the own-term difference is the child's stress swing
+(`M1.A.5e`'s coping and soothing) from age 14. Read on the same weeks, P1 would move the parents' term from about −0.3
+to about −5 in both arms. The owner chose P2 the same day (D18, revisited); P1 below is kept as the record of what
+was proposed and is not built.
+
+**P1, the mechanism (not built: D18 revisited).** `M7.E.1f`'s parents' term reads each living parent's functional level **minus the pseudo-self
 they hold borrowed** (`max(0, pseudo_self)`), against their basic level. A parent's own functioning still sets the
 climate (KS00.9); functioning they hold because someone gave way to them does not count toward a child's
 development. The child's own term is unchanged, so what the child gave away still lowers it. Because `pseudo_self` is
@@ -203,6 +213,14 @@ excess over the next 6 weeks, the `CONFLICT` share on the mover's tie, and compl
 `docs/review/stage_3_iposition_probe.md`. It tells how much of the direction the existing outward-axis term already
 gives. **If the probe shows the direction holds clearly with no rule change**, the owner is asked again whether to build
 A or only the criterion (option B).
+
+**The probe's result (2026-10-24, 200 seeds; `docs/review/stage_3_iposition_probe.md`).** The condition was not met,
+so D20 stands. With both movers acting, the level-35 family has more excess than the level-60 family (+7.40 ± 0.36),
+but the no-act controls differ by as much: the act's own effect on the family's excess is −1.42 ± 0.32 at level 35
+and −1.36 ± 0.27 at level 60 (difference in differences −0.06 ± 0.32), and the same holds for the target's acute
+anxiety and the `CONFLICT` share. At level 35, 132 of 176 genuine sequences failed PREPARE. For `M11.C.49`'s arm
+design: a control or the `w = 1` mutant is needed to separate the act from level, and the low-level mover needs a
+PREPARE window calm enough to reach DEFINE.
 
 **A, the mechanism.** When a genuine `I-POSITION` reaches DEFINE, the act is a mixture: a self-statement share `w` and
 a demand share `1 − w`, where `w` is the mover's own self-channel weight (`(FL/100)^2 + 0.5 × perspective × (1 −

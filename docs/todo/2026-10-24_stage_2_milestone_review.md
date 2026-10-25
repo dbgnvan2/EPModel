@@ -108,5 +108,8 @@ None was rejected.
   says the values were read from the scale's table as Wikipedia gives it, unchecked against the paper. Check them
   against the paper's table, then drop "unchecked" from the config, the spec (`M1.F.6a`) and the explainer, or
   correct the values (that moves the engine hash).
+  2026-10-24 (stage 3 step 1): not checked. The paper could not be read (ScienceDirect 403, no copy of the article
+  found, only reproductions); `docs/review/stage_3_t130_event_sizes.md` records the attempts and the thirteen values to
+  check. The owner will supply the PDF.
 </content>
 </invoke>

@@ -317,7 +317,8 @@ def summarise(rows: list[dict], rate: float) -> dict:
         summary[variant] = {"diffs": diffs, "arms": arms}
     summary["against_as_built"] = {
         variant: {arm: paired([r[variant][arm]["development"] - r["as_built"][arm]["development"] for r in rows])
-                  for arm in ARMS} for variant in summary["variants"] if variant != "as_built"}
+                  for arm in ARMS} for variant in summary["variants"] if variant != "as_built"
+        and "as_built" in summary["variants"]}  # a split run without "as_built" has nothing to compare against
     summary["seeds"] = len(rows)
     return summary
 

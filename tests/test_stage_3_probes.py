@@ -130,5 +130,10 @@ def test_stage_3_displaced_coping_probe_joins_split_runs_by_seed():
                                                                                        {"seed": 1, "as_built_f1": 3}]])
     assert joined == [{"seed": 0, "as_built": 0, "as_built_f1": 2}, {"seed": 1, "as_built": 1, "as_built_f1": 3}]
     assert coping.present(joined) == ["as_built", "as_built_f1"]
+    # A split run without "as_built" (the F1 share alone) still summarises; it has nothing to compare against.
+    steps = {"6": dict.fromkeys(coping.PARTS, 0.0)}
+    alone = {"seed": 0, "as_built_f1": {arm: {"development": 0.0, "acts": 0, "steps": steps,
+                                               **dict.fromkeys(coping.COUNTS, 0.0)} for arm in coping.ARMS}}
+    assert coping.summarise([alone, {**alone, "seed": 1}], ENGINE.development_rate)["against_as_built"] == {}
     with pytest.raises(SystemExit):
         coping.merge([[{"seed": 0, "as_built": 0}], [{"seed": 0, "as_built": 1}]])

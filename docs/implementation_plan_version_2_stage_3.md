@@ -1,6 +1,6 @@
 # Version 2 stage 3: implementation plan
 
-**Status: APPROVED by the owner 2026-10-24 ("Approved: the stage 3 plan as written"). Step 3, 2026-10-25: P2 is a draft for the owner's approval (`docs/PROPOSAL — DISPLACED COPING (P2).md`), probed; it does not move `M11.C.6` at coping size, and the owner chose P2 plus F1, the floor-held functioning on a ledger (D18, third reading). Step 2 done 2026-10-24: the trace met D18's condition and the owner chose P2 (D18, revisited); the probe did not meet D20's, so D20 stands. Step 1 done 2026-10-24: T-130's thirteen values all agree with the paper's Table 3, and two item names differ from its wording; the edits wait for step 6 (`docs/review/stage_3_t130_event_sizes.md`). Next: P2 and F1 probed together on Mac Mini1, then revision 39.** The owner decided D18–D31 on 2026-10-24, each through
+**Status: APPROVED by the owner 2026-10-24 ("Approved: the stage 3 plan as written"). Step 3, 2026-10-25: P2 is a draft for the owner's approval (`docs/PROPOSAL — DISPLACED COPING (P2).md`), probed; it does not move `M11.C.6` at coping size, and the owner chose P2 plus F1, the floor-held functioning on a ledger (D18, third reading). P2 and F1 were probed together on Mac Mini1 the same day: the difference falls from +0.089 to +0.018 ± 0.025, unresolved, and no variant shows the decline `M11.C.6` expects. Step 2 done 2026-10-24: the trace met D18's condition and the owner chose P2 (D18, revisited); the probe did not meet D20's, so D20 stands. Step 1 done 2026-10-24: T-130's thirteen values all agree with the paper's Table 3, and two item names differ from its wording; the edits wait for step 6 (`docs/review/stage_3_t130_event_sizes.md`). Next: revision 39 (step 4).** The owner decided D18–D31 on 2026-10-24, each through
 `AskUserQuestion`, one at a time, and each answer was the recommended option (§3.2). No engine change is built.
 Written from `docs/version_2_plan.md` §3 "Stage 3 — Rule questions the owner chooses", the TODO items T-014, T-128,
 T-129 and T-130, and the stage 2 milestone review's triage (`docs/todo/2026-10-24_stage_2_milestone_review.md`).
@@ -191,7 +191,9 @@ direction: `M11.C.6` reads +0.0919 ± 0.0420 with `OVERFUNCTION` and +0.0853 ± 
 gains nothing do not move it either. The half of the own-term difference the stress swing does not carry is
 functioning on no ledger, +0.0620 ± 0.0308: what the stress floor holds while the swings decay, credited by the
 estimator as the child's own. The owner chose, the same day, P2 as drafted plus F1, probed together on Mac Mini1
-before revision 39 (D18, third reading).
+before revision 39 (D18, third reading). That probe (the proposal's §6.1): with F1 the difference is +0.029 ± 0.025,
+and with P2 and F1 +0.018 ± 0.025, an interval that includes zero; no variant shows the expected decline. Q4 there
+asks whether revision 39 goes ahead on that reading (recommended) or the parents' term is traced first.
 
 **F1, the floor-held functioning (the owner, 2026-10-25).** Each week a bound stops functional level from moving
 while the swings decay (`stress_response.respond`), the amount is added to a new ledger, `floor_held`; the estimator's
@@ -457,7 +459,7 @@ reported as a finding (`M11.5`). Provisional IDs: `M1.A.5f` (and F1's `floor_hel
 |---|---|---|---|
 | 1 | This plan approved. T-130: check `config/bowen/event_sizes.md`'s values against Holmes and Rahe (1967)'s table; correct or drop "unchecked" (the correction waits for step 6) | — | no |
 | 2 | The projection trace (§3.3.1) and the I-position probe (§3.3.2), each from a tool outside the engine hash; results written to `docs/review/` and `CHANGELOG.md` | 1 | no |
-| 3 | If step 2 changes a proposal (D18's or D20's condition), the owner is asked again, one decision at a time. **Done 2026-10-24–25:** the owner chose P2 (D18 revisited); P2 drafted and probed (`docs/PROPOSAL — DISPLACED COPING (P2).md`, `docs/review/stage_3_displaced_coping_probe.md`): it does not move `M11.C.6` at coping size, and the owner chose P2 plus F1 (D18, third reading). **Next, before step 4:** P2 and F1 probed together on Mac Mini1 | 2 | no |
+| 3 | If step 2 changes a proposal (D18's or D20's condition), the owner is asked again, one decision at a time. **Done 2026-10-24–25:** the owner chose P2 (D18 revisited); P2 drafted and probed (`docs/PROPOSAL — DISPLACED COPING (P2).md`, `docs/review/stage_3_displaced_coping_probe.md`): it does not move `M11.C.6` at coping size, and the owner chose P2 plus F1 (D18, third reading). P2 and F1 probed together on Mac Mini1 2026-10-25 (the proposal's §6.1): +0.018 ± 0.025, unresolved. **Next:** step 4 | 2 | no |
 | 4 | Spec revision 39 drafted from §3.3–§3.5 and the stage 4 checks: `M1.A.5e`, `M1.A.5f`, `M1.A.4k`, `M7.E.1f`, `M6.I.4a`, `M5.F.4`, `M5.F.2c`, `M11.C.29`, `M11.C.49`, `M4.C.1d`, `M4.D.3a`, `M10.C.1a`, `M17.E.1`, `M8`, `M8.1`, `M8.5`, `M13.1`, `M11.C.7`, `M7.D.1a`, the `M11.5` rows; `config/bowen/stress_response.md`'s *displacing* table; the revision log, the indexes, the rules view. **Approved by the owner before step 5** | 3 | no (wording) |
 | 5 | Tests first: S3.1a–S3.1d, S3.4, S3.6–S3.8, S3.10, S3.11, S3.16–S3.20, S3.22 red | 4 | no |
 | 6 | **Commit 1 of the batch, the first to move the hash:** §3.6's edits; S3.20, S3.22 green; S3.23 holds | 5 | **yes** |

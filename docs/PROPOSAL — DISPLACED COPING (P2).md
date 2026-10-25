@@ -5,8 +5,10 @@
 > probe on 2026-10-25 (§6, `docs/review/stage_3_displaced_coping_probe.md`) showed that P2 at coping size does not
 > move `M11.C.6`'s direction, and that most of the child's lift is functioning the stress floor holds. The owner then
 > chose, the same day, **P2 as drafted plus F1** (the floor-held functioning put on a ledger the estimator leaves
-> out), the two to be probed together on Mac Mini1 before revision 39 (D18, third reading). `M11.C.6` is reported as
-> it reads and is never tuned. Every form here is Claude's recommendation, graded `[I]` unless a ledger entry is
+> out), the two to be probed together on Mac Mini1 before revision 39 (D18, third reading). That probe ran the same
+> day (§6.1): with F1 the difference falls from +0.089 to +0.029 ± 0.025, and with P2 and F1 to +0.018 ± 0.025, an
+> interval that includes zero; no variant shows the decline `M11.C.6` expects. `M11.C.6` is reported as it reads and
+> is never tuned. Every form here is Claude's recommendation, graded `[I]` unless a ledger entry is
 > cited. Both change what a run computes, so both move the engine hash; under D31 they are built at plan step 7, after
 > revision 39 is approved (step 4). Nothing under `src/bowen/` or `config/bowen/` is edited by this page. `M6.I.4a`
 > (D19, `M11.C.21`) is unchanged by it.
@@ -155,7 +157,30 @@ result, not a criterion's (`M11.5`). Treatment − baseline, `development`:
   `OVERFUNCTION` the treatment child is at the floor 105.4 weeks, and the held part is +0.0659 ± 0.0316.
 - **First-order, not run:** taking the floor-held part out of the as-built own term leaves `development` near +0.03,
   and out of the four P2 variants' +0.03 to +0.06; no combination reverses the sign on this reading. The probe of both together
-  (§9) is the measurement; this estimate leaves out every feedback.
+  (§6.1) is the measurement; this estimate leaves out every feedback.
+
+### 6.1 P2 and F1 together (2026-10-25, Mac Mini1)
+
+F1 put in by wrapping `tick.respond` and `tick.record_week` in the tool's process, as §4.2 words it, for every person;
+150 seeds on Mac Mini1, joined by seed with the variants above. `M11.C.6` expects a negative difference (the projection
+line's level declines).
+
+| Variant | `development` | own term | parents' term | F1's ledger (not read) |
+|---|---|---|---|---|
+| as built | +0.0886 ± 0.0439 | +0.0951 ± 0.0362 | −0.0072 ± 0.0296 | — |
+| F1, shed | +0.0288 ± 0.0245 | +0.0301 ± 0.0181 | −0.0013 ± 0.0209 | +0.0259 ± 0.0191 |
+| P2 `OVERFUNCTION` with F1, shed (recommended) | +0.0178 ± 0.0254 | −0.0087 ± 0.0185 | +0.0262 ± 0.0191 | +0.0241 ± 0.0192 |
+| F1, kept | +0.0234 ± 0.0267 | +0.0292 ± 0.0199 | −0.0058 ± 0.0194 | +0.0605 ± 0.0283 |
+| P2 `OVERFUNCTION` with F1, kept | +0.0216 ± 0.0248 | +0.0035 ± 0.0181 | +0.0182 ± 0.0192 | +0.0647 ± 0.0301 |
+
+- **F1 does what §4.2 says.** In every F1 variant the child's functioning on no ledger is zero; what a bound held is
+  on the ledger, and the reading leaves it out.
+- **The direction is no longer resolved, and not reversed.** F1 alone leaves +0.029, about the first-order estimate.
+  With P2 the difference is +0.018 ± 0.025: the child's own term is now about zero (−0.009 ± 0.019) and the parents'
+  term carries what is left (+0.026 ± 0.019). No variant shows the decline `M11.C.6` expects.
+- **F1 lowers `development` in both arms**, more in the treatment arm (shed: −0.070 baseline, −0.129 treatment, against
+  the engine as built).
+- **Shed or kept** give the same difference within their intervals, alone and with P2 (§9, Q2).
 
 ## 7. Constants and config
 
@@ -208,19 +233,22 @@ not added.
 
 ## 9. What comes next, and the questions still open
 
-**Next (decided 2026-10-25): probe P2 and F1 together on Mac Mini1, before revision 39.** The probe tool gains a
-variant with both (F1 put in by wrapping `stress_response.respond` and `slow_tick.record_week` in the tool's process),
-run at 150 seeds on Mac Mini1. Its result goes to the owner with revision 39's draft; `M11.C.6` is reported as it
-reads, whatever its sign, and no size is chosen to make it pass.
+**Done 2026-10-25: P2 and F1 probed together on Mac Mini1** (§6.1). **Next: revision 39's draft** (plan §3.8 step 4),
+with P2 and F1 as recommended below; `M11.C.6` is reported as §6.1 reads it, unresolved, and no size is chosen to make
+it pass.
 
 Open, for the owner with revision 39 (Claude's recommendation first):
 
 - **Q1, the displacing kinds.** `OVERFUNCTION` alone (recommended: taking charge is `FE01.1`'s caretaking; `PURSUE`
   is a closeness move, and the probe shows it doubles what P2 moves without changing the direction), or with `PURSUE`.
 - **Q2, F1's shedding.** Shed off the floor with the swings (recommended: what the floor held is the swing's deferred
-  relaxation), or kept and never shed (§4.2's trade-off).
+  relaxation), or kept and never shed (§4.2's trade-off). The joint probe gives the same `M11.C.6` difference either
+  way (§6.1).
 - **Q3, the sender's side.** Conserved, the sender gaining what the receiver loses (recommended, as drafted), or the
   receiver's loss only. The probe gives no reason to prefer either for `M11.C.6`.
+- **Q4, `M11.C.6` after P2 and F1.** Draft revision 39 with both and report `M11.C.6` as it reads, unresolved at
+  150 seeds (recommended: both rules stand on their own grounds, §3–§5, and the criterion is never a target), or first
+  trace what now carries the parents' term under P2 (+0.026), before revision 39.
 
 ## 10. Edits this makes to the stage 3 plan
 

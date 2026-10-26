@@ -329,8 +329,6 @@ def _abort_act(state: RunState, mover: PersonId, target: PersonId, params: Engin
     across bands and positions, 0 where none is learned. One keyed uniform (M3.D.4b's
     move-selection class, purpose "abort").
     """
-    import math
-
     from src.bowen.engine.draws import DrawKey
 
     learned = state.people[mover].learned_values

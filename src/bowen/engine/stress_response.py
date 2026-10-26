@@ -36,7 +36,7 @@ from __future__ import annotations
 
 from src.bowen.engine.act import SELF_CHANNEL, WITHHOLD
 from src.bowen.engine.contact import steepness
-from src.bowen.engine.events import Event, Mechanism
+from src.bowen.engine.events import Mechanism
 from src.bowen.engine.log_records import DecidedBy, EffectRecord
 from src.bowen.engine.objects import SCALE_MAX
 from src.bowen.engine.params import EngineParams

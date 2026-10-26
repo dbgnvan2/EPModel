@@ -23,7 +23,9 @@ What each check means:
   name (the outsider's positional anxiety). An unnamed or unlogged change raises.
 * M6.I.7 — no person and no tie has left the field.
 * M6.I.8 — the standing load ran before delivery this tick, on every tie.
-* M1.B.3c — a tie is cut off exactly while a member holds rejection, and rejection is in [0, 1].
+* M1.B.3c — a tie whose member holds rejection is cut off (one direction: a cut-off tie may hold none, since it
+  leaves ``CUT_OFF`` only on a positive contact with no rejection held), rejection is in [0, 1], and a cut-off tie's
+  stock is at most its peak (M1.D.2b).
 """
 
 from __future__ import annotations

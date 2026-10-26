@@ -89,7 +89,7 @@ None was rejected.
   *Decided by the owner 2026-10-24, each as recommended, in stage 3's plan (`docs/implementation_plan_version_2_stage_3.md`
   §3.4, D24–D26): `tie_wear_rate` ÷ (52 × `calm_transfer_rate`), a quarter to four times its central value, on every
   directional criterion whose run spans a slow tick. Open until the stage-end sweep runs with it.*
-- [ ] T-129 ⟨later⟩ **With the next change that moves the engine hash** (owner, 2026-10-24: these edit
+- [x] T-129 ⟨later⟩ **With the next change that moves the engine hash** (owner, 2026-10-24: these edit
   `src/bowen/` and would stale every record cache and the stage 2 sweep):
   - MR-2: `src/bowen/engine/moves.py`'s module docstring (`:63-68`) still says `REDUCE_CUTOFF` hands the cutoff's
     anxiety to third parties; restate it as rejection lowered, no stock moved, the third-party cost not yet shown.
@@ -104,7 +104,12 @@ None was rejected.
     `stress_response.py`, `criteria.py`, `criteria_d.py`), and `tools/level_occupancy.py:139`'s unused `code_hash`
     import (that tool is in its own record's hash), then a test that runs `ruff check --select F` over `src/`,
     `tools/` and `tests/`.
-- [ ] T-130 ⟨later⟩ **Check the event sizes against Holmes and Rahe (1967)** (review MR-14). `config/bowen/event_sizes.md`
+  - *Closed 2026-10-25 at stage 3 step 6, the batch's first commit (engine hash `66dcbb1e8ba5` → `f90285984f32`):
+    MR-2, MR-9 and MR-13 restated in the four docstrings; SP-B's `src/bowen` allowlist is empty; ruff's `F` rules
+    report nothing over `src/`, `tools/` and `tests/` (`tests/test_lint.py::test_s3_22_ruff_f_clean`). `Event` is
+    imported directly in `state.py` (`events.py` imports nothing from `state.py`, so `TYPE_CHECKING` was not
+    needed), and `observe.py`'s four re-exports for the policy are marked `X as X`, which ruff reads as a re-export.*
+- [x] T-130 ⟨later⟩ **Check the event sizes against Holmes and Rahe (1967)** (review MR-14). `config/bowen/event_sizes.md`
   says the values were read from the scale's table as Wikipedia gives it, unchecked against the paper. Check them
   against the paper's table, then drop "unchecked" from the config, the spec (`M1.F.6a`) and the explainer, or
   correct the values (that moves the engine hash).
@@ -114,5 +119,7 @@ None was rejected.
   2026-10-24, later: checked against the owner's scan of the article (Table 3, p. 216). All thirteen values agree; the
   paper's wording differs for `JOB_LOSS` ("Fired at work") and `FIND_WORK_LOAD` ("Wife begin or stop work"). Dropping
   "unchecked", the wording, and this tick wait for stage 3's step 6 (plan §3.6).
+  *Closed 2026-10-25 at stage 3 step 6: "unchecked" dropped from the config, `M1.F.6a` and the explainer; the `item`
+  column quotes the paper (two wordings, two articles); no value changed (spec revision 39 draft §6).*
 </content>
 </invoke>

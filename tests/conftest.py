@@ -31,3 +31,13 @@ def m11d7_repository_artifacts_unchanged():
     after = fingerprint()
     changed = sorted(k for k in before.keys() | after.keys() if before.get(k) != after.get(k))
     assert not changed, f"tests changed repository files: {changed}"
+
+
+@pytest.fixture(scope="session", autouse=True)
+def open_batch_temp(tmp_path_factory):
+    """Stage 3's open batch (``tests/open_batch.py``, D31) extracts the tree it found under pytest's temporary
+    directory, the one place a test may write (``M11.D.7``)."""
+    import open_batch  # tests/ is on the path: pytest imports this conftest by basename
+
+    open_batch.TEMP = tmp_path_factory
+    yield

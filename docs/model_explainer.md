@@ -1261,7 +1261,8 @@ reviewed by the owner one at a time on 2026-10-17 (`docs/implementation_plan_pha
   side he holds no live position (§13.1's `positions_live`), and his contact lands nothing. `[I]` in form; the rule
   that a sided coach "does not count" is §13.1's `[T]`. P9 described the sided coach as drawn in by a `TRIANGLE`, but
   a family member's moves toward a professional are `SPLIT`, `FRAME_AMBIGUITY` and `DISPLACE` (§5.7), so `SPLIT` is
-  the reading. The landed contacts follow the gate; whether the couple's reactivity falls more with a joint coach is
+  the reading. He has no move that declines, so he always goes along: a declared premise of test 7's sided arm, not a
+  result (`M11.C.7`, the owner, 2026-10-24, D29). The landed contacts follow the gate; whether the couple's reactivity falls more with a joint coach is
   left to emerge. Before the nodal-event spike it barely moved in any arm; with the spike, coaching both spouses lowers
   it more than coaching one or a sided coach, at the edge of significance, and one spouse does no better than sided. **The gate acts in every run with a coach**, not only
   in test 7's: under the policy the spouses `SPLIT` toward Dr Halim on their own (57 times in ten years on one seed),
@@ -1302,7 +1303,8 @@ owner's, taken as recommended on 2026-10-19. Which verdicts it moved is measured
   position and the coach's contact lands nothing. No family member is fused in any run, because no caller passes a
   fusion map. Whether a fused occupant should make its triangle inactive is a theory question with a case each way
   (a sided coach is inside a triangle, which is what being triangled means; a fused position leaves two live
-  positions, which `M8` reads as a group that cannot move its tension around). It is left for stage 3. `[I]` either way.
+  positions, which `M8` reads as a group that cannot move its tension around). Stage 3 left it unbuilt: `M8.1` is
+  *partial* and fusion is a version 3 candidate (the owner, 2026-10-24, D28). `[I]` either way.
 - **Every float total is exact** (D2 (b)). Python 3.12 changed how the builtin `sum` adds floats, so a run could
   differ in its last bits between 3.11 and 3.12. Every float total in `src/bowen`, the renderer's included, is now a
   `math.fsum`, and every integer total goes through a helper that refuses a float. The C maths library still differs
@@ -1361,8 +1363,8 @@ is still learned from felt relief, and what it then costs is the physics below.
   (`[M]` KS18.5, `M1.E.7e`: the coach tie stays thin); with no receiver the hold stays with the bearer. The spill past
   the turn uses the same shares. `[I]` the split.
 - **Every stressor the engine raises is sized from the Holmes–Rahe scale** (`M1.F.6a`, `config/bowen/event_sizes.md`).
-  Each kind has a life-change-unit value from Holmes & Rahe (1967), read from the scale's published table as Wikipedia
-  reproduces it and not yet checked against the paper (T-130), outside the corpus, so each size is `[I]` with its
+  Each kind has a life-change-unit value from Holmes & Rahe (1967), checked against the paper's Table 3 (p. 216),
+  where all thirteen agree (T-130), outside the corpus, so each size is `[I]` with its
   source named: `total = lcu_scale × LCU × reach`, `lcu_scale` 6.9 units per LCU (`[I]`, anchored so a job loss, 47 LCU,
   totals the 324 units it delivered before), `reach` 1 for the person it happens to and `bond_energy ÷ 100` through a
   tie. A lasting event delivers its whole size over its weeks. Grief is the spouse's 100 or a relative's 63 LCU at the
@@ -1371,7 +1373,8 @@ is still learned from felt relief, and what it then costs is the physics below.
   leave, the coach's retirement 45 at the tie's reach, finding work 26 to the household. Q3 of that proposal (the
   additions carrying a load) stands as the owner decided it and **cites no source**: the case the proposal first cited
   shows an addition moving functioning, not adding load, and the owner may revisit it.
-- **An onset is also an illness** (`M7.D.1a`). The bearer takes 53 LCU (`OWN_ILLNESS`) and each living family member on
+- **An onset is also an illness** (`M7.D.1a`), on whichever channel, since the channels are substitutable (`L08.3`,
+  `[B]` `[T]`; D30). The bearer takes 53 LCU (`OWN_ILLNESS`) and each living family member on
   an interactive tie 44 at the tie's reach (`FAMILY_ILLNESS`), for 12 weeks, arriving the week after the onset through
   the stressor path on the `ENDOGENOUS` channel; the evaluation readout's stress term leaves them out (`M11.G.2`),
   the run chart counts them as the exogenous mechanism they travel on. `[I]`.
@@ -1430,7 +1433,6 @@ Both were carried as genuinely unresolved through pass 2. **Both are now settled
 
 ```
 positions_live(group) = |{ p in group : present AND not fused into another member }|
-avoidance_available   = positions_live < 3          # a step, not a gradient
 ```
 
 - An external agent in the outside position **counts**. `[T]` Ch10 · L10.4 — "any third person… no matter what the subject matter."
@@ -1441,7 +1443,8 @@ avoidance_available   = positions_live < 3          # a step, not a gradient
 Whether a triangle is active (`recompute.recompute_triangles`) and whether a witness holds a live position
 (`visibility`) are fed presence only: no caller passes a fusion map, so no family member is fused, and a coach who has
 taken a side is still present. Whether the coach's contact lands (`external.coach_live`) is fed the coach's side, so a
-sided coach holds no live position there. `avoidance_available` is defined and tested, but no mechanism calls it.
+sided coach holds no live position there. An avoidance gate is not built; its uncalled helper was removed at revision 39
+(D27), and no family member is fused in a run (D28).
 
 **This also dissolves the "reversal" in Ch14.** In Ch03 a family member talking to the therapist *removes* the third position, leaving a twosome that can avoid; in Ch14 the therapist *is* the third position, so talking to him keeps three live. **Same act, opposite meaning, because the third position moved — C10 applied to technique.**
 

@@ -382,7 +382,11 @@ def test_claimed_test_count_matches_the_suite():
     claude = (REPO / "CLAUDE.md").read_text(encoding="utf-8")
     # Stage 2 milestone review MR-20: "all N tests pass" was untrue while one test is a strict expected failure, so the
     # gate reads "N tests: P pass and X is a strict expected failure" as well, and checks its sum.
-    gate = re.search(r"all (\d+) tests pass|(\d+) tests: (\d+) pass and (\d+) (?:is a|are) strict expected failures?", claude)
+    # Stage 3's open batch (D31, tests/open_batch.py): a record-current test marked stale by decision reports as an
+    # expected failure at run time without an xfail mark, so the gate names those as a third figure, checked against
+    # the marks in the suite.
+    gate = re.search(r"all (\d+) tests pass|(\d+) tests: (\d+) pass and (\d+) (?:is a|are) strict expected failures?"
+                     r"(?:, and (\d+) (?:is an|are) expected failures? of stage 3's open batch)?", claude)
     assert gate, "CLAUDE.md no longer states a suite size; the green-suite gate is gone"
     # The expected-failure figure is checked against the marks, not only the sum (learning-qa 2026-10-24): "all N
     # pass" is refused while any collected test is an expected failure, and X must be how many are.
@@ -390,9 +394,28 @@ def test_claimed_test_count_matches_the_suite():
     if gate.group(1):
         assert xfails == 0, f"CLAUDE.md says {gate.group(0)!r}, but {xfails} collected tests are expected failures"
     else:
-        assert int(gate.group(2)) == total == int(gate.group(3)) + int(gate.group(4)), (
+        stale = int(gate.group(5) or 0)
+        assert int(gate.group(2)) == total == int(gate.group(3)) + int(gate.group(4)) + stale, (
             f"CLAUDE.md's suite size {gate.group(0)!r} does not add up to the {total} tests collected"
         )
+        # Each mark sits directly on a module-level test that takes no argument (so no parametrization multiplies it),
+        # and each such test is collected once. The figure counts marks, not run-time outcomes: a marked test that
+        # passes is not caught here (tests/test_open_batch.py checks the records the marks rest on).
+        marked, loose = [], []
+        for path in sorted((REPO / "tests").rglob("test_*.py")):
+            if path.name == "test_open_batch.py":
+                continue  # the mark's own tests decorate nested functions, which pytest does not collect
+            text = path.read_text(encoding="utf-8")
+            loose += [f"{path.name}: {m}" for m in re.findall(r"^[ \t]+@stale_in_open_batch\(.*$", text, re.M)]
+            for mark in re.finditer(r"^@stale_in_open_batch\(.*\)\n(.*)$", text, re.M):
+                test = re.fullmatch(r"def (test_\w+)\(\):", mark.group(1))
+                loose += [] if test else [f"{path.name}: {mark.group(1)}"]
+                marked += [f"{path.relative_to(REPO).as_posix()}::{test.group(1)}"] if test else []
+        assert loose == [], f"an open-batch mark not directly on a module-level test with no argument: {loose}"
+        assert sorted(marked) == sorted(n for n in node_ids if n in marked), "a marked test is not collected once"
+        assert len(set(marked)) == len(marked), "a test carries the open-batch mark twice"
+        assert stale == len(marked), (
+            f"CLAUDE.md's gate names {stale} open-batch expected failures; {len(marked)} tests carry the mark")
         assert int(gate.group(4)) == xfails, (
             f"CLAUDE.md's gate names {gate.group(4)} expected failures; {xfails} collected tests are marked xfail"
         )

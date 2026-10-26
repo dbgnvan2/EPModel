@@ -386,6 +386,9 @@ done as one revision (Q7). **Decided 2026-10-19: scoped to what stage 3 touches.
 - Phase F, the language layer.
 - `M11.C.13` (no community in the model) and `M11.C.28` (the sink allocation feeds no behaviour), unless a stage 3 rule
   makes either testable.
+- `M5.C`'s avoidance gate (`M8`'s fourth place): not built; its uncalled helper removed at revision 39 (the owner,
+  2026-10-24, D27); a version 3 candidate.
+- Fusion in `positions_live` (`M8.1`): the engine holds no fusion state; *partial*, a version 3 candidate (D28).
 
 ## 4. The definition of version 2 (approved 2026-10-19)
 

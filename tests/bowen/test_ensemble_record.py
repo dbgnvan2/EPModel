@@ -16,6 +16,7 @@ from pathlib import Path
 
 from src.bowen.ensemble.criteria import CRITERIA, NOT_BUILT
 from src.bowen.io.load import load_constants
+from open_batch import stale_in_open_batch  # tests/ is on the path (its conftest); stage 3's batch, D31
 
 REPO = Path(__file__).resolve().parents[2]
 _spec = importlib.util.spec_from_file_location("ensemble_record_tool", REPO / "tools" / "ensemble_record.py")
@@ -27,6 +28,7 @@ def record_text() -> str:
     return (REPO / "docs" / "phase_c_ensemble_record.md").read_text(encoding="utf-8")
 
 
+@stale_in_open_batch("docs/phase_c_ensemble_record.md")
 def test_m134_ensemble_record_is_current():
     match = re.search(r"^code_hash: ([0-9a-f]{64})$", record_text(), re.M)
     assert match, "the record carries no code hash"
@@ -114,6 +116,7 @@ def test_m111a_every_mutant_applies_exactly_once(tmp_path):
             assert new in (root / file).read_text(encoding="utf-8"), mutant.id
 
 
+@stale_in_open_batch("docs/phase_c_mutation_record.md")
 def test_m111d_mutation_record_is_current():
     """The record is exactly what its cache renders for the current engine and every mutant's current edits: a changed
     engine or mutant has no cached result (KeyError: rerun the tool), and a hand edit does not match."""
@@ -139,6 +142,7 @@ def test_m111c_representation_mutants_ran_on_every_passing_criterion():
         assert _mutants.passing() <= ran, f"{mutant.id} did not run on {sorted(_mutants.passing() - ran)}"
 
 
+@stale_in_open_batch("docs/phase_c_sweep_record.md")
 def test_d9_sweep_record_is_current():
     """Plan D9: every composite criterion was swept at low and high α, H and temperature on the current code."""
     text = (REPO / "docs" / "phase_c_sweep_record.md").read_text(encoding="utf-8")
@@ -423,6 +427,7 @@ def occupancy_rows() -> list[dict]:
     return record_json(text)
 
 
+@stale_in_open_batch("docs/phase_c_level_occupancy.md")
 def test_m111a_level_occupancy_record_is_current():
     text = (REPO / "docs" / "phase_c_level_occupancy.md").read_text(encoding="utf-8")
     match = re.search(r"^code_hash: ([0-9a-f]{64})$", text, re.M)
@@ -608,6 +613,7 @@ sys.modules[_dspec.name] = _diagnostic
 _dspec.loader.exec_module(_diagnostic)
 
 
+@stale_in_open_batch("docs/phase_c_diagnostic_record.md")
 def test_d0_diagnostic_record_is_current():
     """The diagnostic record is what its cache renders for the current engine, variants and probes."""
     try:

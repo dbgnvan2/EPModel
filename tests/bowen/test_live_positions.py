@@ -15,7 +15,7 @@ from pathlib import Path
 import pytest
 
 from src.bowen.engine.identifiers import PersonId
-from src.bowen.engine.live_positions import Occupant, avoidance_available, positions_live
+from src.bowen.engine.live_positions import Occupant, positions_live
 
 REPO = Path(__file__).resolve().parents[2]
 RAVI, MARTA, NADIA, COACH = (PersonId(n) for n in ("ravi", "marta", "nadia", "coach"))
@@ -37,22 +37,14 @@ def test_m81_fusion_outside_the_group_does_not_remove_a_position():
     assert positions_live(trio(fused_into=outsider)) == 3
 
 
-def test_m81_avoidance_is_a_step_at_three():
-    assert avoidance_available(trio()) is False
-    assert avoidance_available(trio(fused_into=MARTA)) is True
-    assert avoidance_available([Occupant(RAVI), Occupant(MARTA)]) is True
-    four = trio() + [Occupant(COACH)]
-    assert avoidance_available(four) is False
-
-
 def test_m82_neutral_external_in_outside_position_counts():
     group = [Occupant(RAVI), Occupant(MARTA), Occupant(COACH)]
-    assert positions_live(group) == 3 and not avoidance_available(group)
+    assert positions_live(group) == 3
 
 
 def test_m83_external_who_has_taken_a_side_does_not_count():
     group = [Occupant(RAVI), Occupant(MARTA), Occupant(COACH, fused_into=MARTA)]
-    assert positions_live(group) == 2 and avoidance_available(group)
+    assert positions_live(group) == 2
 
 
 def test_m84_displaced_inactive_member_does_not_count():
@@ -76,7 +68,7 @@ def test_m85_single_implementation():
         definitions += [
             f"{path.name}:{node.name}"
             for node in ast.walk(tree)
-            if isinstance(node, ast.FunctionDef) and node.name in {"positions_live", "avoidance_available"}
+            if isinstance(node, ast.FunctionDef) and node.name == "positions_live"
         ]
         # A caller may describe occupants (and so mention fused_into), but only
         # through the predicate: it must import from live_positions.
@@ -86,11 +78,11 @@ def test_m85_single_implementation():
             and "from src.bowen.engine.live_positions import" not in source
         ):
             copies.append(path.name)
-    assert sorted(definitions) == ["live_positions.py:avoidance_available", "live_positions.py:positions_live"]
+    assert definitions == ["live_positions.py:positions_live"]
     assert copies == [], f"fusion is read without the predicate: {copies}"
 
 
-# --- Version 2 stage 3, T-014 (spec revision 39, D27): written first, red ------------------------------------------
+# --- Version 2 stage 3, T-014 (spec revision 39, D27): written first, red at plan step 5, green at step 6 -----------
 
 
 def _calls_in(path: Path) -> set[str]:
@@ -101,9 +93,6 @@ def _calls_in(path: Path) -> set[str]:
             and isinstance(node.func, (ast.Name, ast.Attribute))}
 
 
-@pytest.mark.xfail(strict=True, raises=AssertionError,
-                   reason="spec revision 39, T-014 (D27): avoidance_available is removed and M8's preamble restated "
-                          "at plan step 6 (docs/implementation_plan_version_2_stage_3.md §3.6)")
 def test_m8_s3_20_predicate_has_three_callers():
     """S3.20 (`M8`, D27): `positions_live` is called from exactly three modules — the witness test (`visibility.py`),
     the coach's position (`external.py`) and triangle activity (`recompute.py`) — and no function beside it in

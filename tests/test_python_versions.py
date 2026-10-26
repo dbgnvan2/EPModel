@@ -5,7 +5,7 @@ Purpose: CI runs the suite on each version in `.github/workflows/tests.yml`'s ma
          holding a backslash (accepted from 3.12, PEP 701) in `tests/bowen/test_spec_coverage.py` failed CI's 3.11 job at
          collection while the local suite passed. `ast.parse(..., feature_version=...)` does not catch that, so this
          test compiles every tracked file with the oldest listed interpreter when it is installed, and skips, naming
-         it, when it is not (`pytest.ini`'s `-rfEs` prints the reason under `-q`).
+         it, when it is not (`pytest.ini`'s `-rfEsx` prints the reason under `-q`).
 Spec:    none — repo engineering (global testing rules: every check lives in the suite; a syntax-check test for this class)
 Tests:   this file
 """

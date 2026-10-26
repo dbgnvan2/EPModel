@@ -696,7 +696,6 @@ def arm_c23(arm, seed, settings):
     ``t0``. Both parents act toward C1 every ``act_every`` weeks: ``CONFLICT`` (hostility and blame) in the
     treatment, which also suppresses C1's symptom accumulation by ``suppression`` (medication); ``STAY-IN-CONTACT``
     in the baseline, with no suppression. Read: C1's relapses, onsets after the remission."""
-    from src.bowen.engine.objects import SymptomChannel
     from src.bowen.engine.symptoms import threshold
 
     t0, weeks, every = settings["t0"], settings["weeks"], settings["act_every"]

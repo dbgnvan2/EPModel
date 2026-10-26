@@ -5,8 +5,9 @@
 > spec revision 36). Which Holmes–Rahe item stands for which event kind is editorial, so it lives here (rule 9).
 >
 > **The scale is used as an ordering of base sizes only** (the owner, Q1). Every value is graded `[I]`: the life
-> change units (`lcu`) are read from the scale's published table as it appears on Wikipedia, unchecked against
-> Holmes and Rahe (1967); the corpus gives no magnitude for any event (`docs/model_explainer.md` §0). An event's
+> change units (`lcu`) are Holmes and Rahe's (1967), checked against the paper's Table 3 (p. 216), where all thirteen
+> agree (T-130, `docs/review/stage_3_t130_event_sizes.md`), and the `item` column quotes the paper's wording; the
+> corpus gives no magnitude for any event (`docs/model_explainer.md` §0). An event's
 > total load is `lcu_scale` (6.9, the owner's anchor, Q2) × `lcu` × reach, where reach is 1 for the person the event
 > happens to (`who` = self) and bond energy ÷ 100 for a person it reaches through a tie (`who` = spouse, relative,
 > tie). It arrives at that total ÷ (1 + `stressor_persistence` × (`weeks` − 1)) and weighs for `weeks` weeks as any
@@ -21,15 +22,16 @@
 >   its declared intensity; the sizes here apply to the life course's events and to a symptom onset. A scripted
 >   stressor of a sized kind keeps the intensity its script declares.
 >
-> Decided as recommended under the owner's instruction of 2026-10-22, pending the owner's review: the weeks of
-> `OWN_ILLNESS` and `FAMILY_ILLNESS` (12), and the mapping of `LAUNCH` to both the child and the parents at home.
+> Decided as recommended under the owner's instruction of 2026-10-22 and approved by the owner 2026-10-24 (T-125): the
+> weeks of `OWN_ILLNESS` and `FAMILY_ILLNESS` (12), and the mapping of `LAUNCH` to both the child and the parents at
+> home.
 
 | kind | who | item | lcu | weeks | source |
 |---|---|---|---|---|---|
 | `GRIEF` | spouse | Death of spouse | 100 | — | Holmes–Rahe, `[I]`; `M6.3g` sets the weeks |
-| `GRIEF` | relative | Death of a close family member | 63 | — | Holmes–Rahe, `[I]`; `M6.3g` sets the weeks |
+| `GRIEF` | relative | Death of close family member | 63 | — | Holmes–Rahe, `[I]`; `M6.3g` sets the weeks |
 | `INCOME_LOSS` | self | Change in financial state | — | — | outside the scale (the owner, Q8): `income_loss_intensity` |
-| `JOB_LOSS` | self | Dismissal from work | 47 | 1 | Holmes–Rahe, `[I]` |
+| `JOB_LOSS` | self | Fired at work | 47 | 1 | Holmes–Rahe, `[I]` |
 | `JOB_CHANGE` | self | Change to different line of work | 36 | 1 | Holmes–Rahe, `[I]` |
 | `MOVE` | self | Change in residence | 20 | 1 | Holmes–Rahe, `[I]` |
 | `SERIOUS_ILLNESS` | self | Personal injury or illness | 53 | 12 | Holmes–Rahe, `[I]` |
@@ -37,6 +39,6 @@
 | `FAMILY_ILLNESS` | tie | Change in health of family member | 44 | 12 | Holmes–Rahe, `[I]`; `M7.D.1a`: each living family member on an interactive tie to the bearer; an external agent (the coach) takes none, as G2's release passes them by |
 | `PARTNERING_LOAD` | self | Marriage | 50 | 12 | Holmes–Rahe, `[I]`; `M7.C.1l` (the owner, Q3, Q4) |
 | `RETIREMENT_LOAD` | tie | Retirement | 45 | 12 | Holmes–Rahe, `[I]`; `M7.C.1l`: the coachee, through the coach tie |
-| `BIRTH_LOAD` | self | Gain of a new family member | 39 | 12 | Holmes–Rahe, `[I]`; `M7.C.1l` |
+| `BIRTH_LOAD` | self | Gain of new family member | 39 | 12 | Holmes–Rahe, `[I]`; `M7.C.1l` |
 | `LAUNCH_LOAD` | self | Son or daughter leaving home | 29 | 12 | Holmes–Rahe, `[I]`; `M7.C.1l`: the child and the parents at home |
-| `FIND_WORK_LOAD` | self | Spouse begins or stops work | 26 | 12 | Holmes–Rahe, `[I]`; `M7.C.1l` (the owner, Q6: 26) |
+| `FIND_WORK_LOAD` | self | Wife begin or stop work | 26 | 12 | Holmes–Rahe, `[I]`; `M7.C.1l` (the owner, Q6: 26); the gender-neutral reading and the load to the person who finds work (`who` = self) are the model's, `[I]`, the owner's Q6 of the T-130 review (2026-10-24) |

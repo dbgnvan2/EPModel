@@ -25,6 +25,7 @@ _spec_ii = importlib.util.spec_from_file_location("tools.phase_d_record", _tool.
 _part_ii = importlib.util.module_from_spec(_spec_ii)
 _spec_ii.loader.exec_module(_part_ii)
 from tools.record_json import record_json  # noqa: E402
+from open_batch import stale_in_open_batch  # tests/ is on the path (its conftest); stage 3's batch, D31
 
 
 def test_m111a_every_phase_d_mutant_applies_exactly_once(tmp_path):
@@ -38,6 +39,7 @@ def test_m111a_every_phase_d_mutant_applies_exactly_once(tmp_path):
             assert new in (root / file).read_text(encoding="utf-8"), mutant.id
 
 
+@stale_in_open_batch("docs/phase_d_mutation_record.md")
 def test_m111d_phase_d_mutation_record_is_current():
     try:
         rendered = _tool.build(Cache("phase_d_mutation"))

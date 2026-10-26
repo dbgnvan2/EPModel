@@ -18,7 +18,7 @@ moves to `docs/TODO_archive.md`. Until 2026-10-22 this file held every item's te
 - T-121 · 2026-10-23 · `M11.C.11`'s named mutant survives · [record](docs/todo/2026-10-23_revision_36_regeneration.md)
 - T-123 · 2026-10-23 · `M11.C.48`'s baseline counts a first cutoff with no … · [record](docs/todo/2026-10-23_revision_36_regeneration.md)
 
-## Later (120)
+## Later (116)
 
 - T-006 · 2026-10-22 · D4, long `Spec:` lines (Part D, 2026-10-22; the … · [record](docs/todo/2026-10-22_model_ergonomics.md)
 - T-007 · 2026-10-22 · Adjacent issues found by Part D's docstring pass, … · [record](docs/todo/2026-10-22_model_ergonomics.md)
@@ -27,7 +27,6 @@ moves to `docs/TODO_archive.md`. Until 2026-10-22 this file held every item's te
 - T-010 · 2026-10-22 · Found while building SP-1 (2026-10-22), not fixed · [record](docs/todo/2026-10-21_stage_1_milestone_review.md)
 - T-011 · 2026-10-22 · From the SP-1 build's review (2026-10-22), not fixed · [record](docs/todo/2026-10-21_stage_1_milestone_review.md)
 - T-012 · 2026-10-21 · With the next change that moves the engine … · [record](docs/todo/2026-10-21_stage_1_milestone_review.md)
-- T-014 · 2026-10-21 · For the stage 3 question list · [record](docs/todo/2026-10-21_stage_1_milestone_review.md)
 - T-015 · 2026-10-21 · SP-2: extend the document-claim tests · [record](docs/todo/2026-10-21_stage_1_milestone_review.md)
 - T-016 · 2026-10-21 · Adjacent, not fixed · [record](docs/todo/2026-10-21_stage_1_milestone_review.md)
 - T-017 · 2026-10-17 · A genuine `I-POSITION` at level 40 almost never … · [record](docs/todo/2026-10-17_revision_32.md)
@@ -133,10 +132,7 @@ moves to `docs/TODO_archive.md`. Until 2026-10-22 this file held every item's te
 - T-118 · 2026-08-22 · When the basic level is fixed is genuinely … · [record](docs/todo/2026-08-22_theory_work.md)
 - T-122 · 2026-10-23 · Four composite verdicts PASS → FAIL at revision … · [record](docs/todo/2026-10-23_revision_36_regeneration.md)
 - T-124 · 2026-10-23 · The Phase D mutation record's `engine_hash` label is … · [record](docs/todo/2026-10-23_stage_2_pilot.md)
-- T-127 · 2026-10-24 · Two status lines in `config/bowen/` still say T-125's … · [record](docs/todo/2026-10-23_overnight_decisions.md)
 - T-128 · 2026-10-24 · `M17.E.1`'s named ratio, before stage 3's full sweep · [record](docs/todo/2026-10-24_stage_2_milestone_review.md)
-- T-129 · 2026-10-24 · With the next change that moves the engine … · [record](docs/todo/2026-10-24_stage_2_milestone_review.md)
-- T-130 · 2026-10-24 · Check the event sizes against Holmes and Rahe … · [record](docs/todo/2026-10-24_stage_2_milestone_review.md)
 - T-131 · 2026-10-25 · `KS00.9` against `M7.E.1f`'s parents' term (the stage 4 … · [record](docs/todo/2026-10-25_stage_3_revision_39.md)
 - T-132 · 2026-10-25 · `FE04.13`'s second kind of so-called I-position (the stage … · [record](docs/todo/2026-10-25_stage_3_revision_39.md)
 - T-133 · 2026-10-25 · `M5.D.4a`'s anger check at `DEFINE` (the correctness pass … · [record](docs/todo/2026-10-25_stage_3_revision_39.md)

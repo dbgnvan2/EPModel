@@ -229,7 +229,6 @@ def channel_weights(outcomes: list[Outcome], obs: Observation, kinds: EventKinds
                     steered: bool = False) -> list[float]:
     """Unnormalised within-channel weights, before mixing. ``steered`` applies perspective's steering, which
     bears on what is chosen only, not on competing urges or on which act a hold withholds."""
-    weights = []
     values = [obs.learned_values.get(o.value_key, 0.0) for o in outcomes if o.channel == AUTOMATIC]
     # The softmax is shift-invariant within the channel; subtracting the largest value keeps exp() finite
     # and away from underflow when learned values grow large (Phase C step 14). A non-finite value still

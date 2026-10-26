@@ -31,17 +31,19 @@ from dataclasses import dataclass
 from types import MappingProxyType
 from typing import Mapping
 
-from src.bowen.engine.contact import band_of, deviation, excess  # band_of re-exported for the policy
+from src.bowen.engine.contact import band_of as band_of, deviation, excess  # band_of re-exported for the policy
 from src.bowen.engine.events import Role as DeliveryRole
 from src.bowen.engine.identifiers import PersonId, TieId, TriangleId
 from src.bowen.engine.moves import triangle_partner
-from src.bowen.engine.objects import SCALE_MAX, Role, TieState  # SCALE_MAX re-exported for the policy
+from src.bowen.engine.objects import SCALE_MAX as SCALE_MAX, Role, TieState  # SCALE_MAX re-exported for the policy
 from src.bowen.engine.outside_ness import axes
 from src.bowen.engine.params import EngineParams
 from src.bowen.engine.reactive import investment_share
-from src.bowen.engine.sinks import PROJECTION_KINDS  # re-exported for the policy (M4.D.1g)
+from src.bowen.engine.sinks import PROJECTION_KINDS as PROJECTION_KINDS  # re-exported for the policy (M4.D.1g)
 from src.bowen.engine.state import RunState
-from src.bowen.engine.value_keys import INSIDE, OUTSIDE, learned_value_key  # re-exported for the policy
+from src.bowen.engine.value_keys import (  # re-exported for the policy; `X as X` marks a re-export for ruff
+    INSIDE as INSIDE, OUTSIDE as OUTSIDE, learned_value_key as learned_value_key,
+)
 
 
 @dataclass(frozen=True)

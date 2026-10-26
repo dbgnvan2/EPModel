@@ -27,7 +27,6 @@ from src.bowen.engine.act import WITHHOLD, Selection
 from src.bowen.engine.events import Channel, Event, EventId, Mechanism, SourcePosition
 from src.bowen.engine.identifiers import PersonId, TieId
 from src.bowen.engine.log_records import DecidedBy, EffectRecord, EmittedRecord, SelectionRecord
-from src.bowen.engine.objects import SymptomChannel
 from src.bowen.engine.tick import run_tick
 from src.bowen.ensemble.runner import ArmResult, Criterion, Readout
 from src.bowen.io.load import CONFIG_DIR, load_constants, load_event_kinds, load_family, load_policy_rules

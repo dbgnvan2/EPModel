@@ -136,7 +136,6 @@ def main() -> int:
     if args.child:
         child()
         return 0
-    from tools.ensemble_record import code_hash
 
     rows = []
     for variant in VARIANTS:

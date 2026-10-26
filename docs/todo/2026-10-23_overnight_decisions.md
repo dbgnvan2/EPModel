@@ -152,9 +152,10 @@ owner has reviewed the list; a decision the owner reverses becomes its own item 
   *Closed 2026-10-23: the owner, verbatim: "keep D10's rule; nodal_spike_intensity stays out of both M11.C.2 sets."
   Decisions 25, 32 and 47 stand as to this constant; nothing in `config/sweep/sweep.md` changed.*
 
-- [ ] T-127 ⟨later⟩ **Two status lines in `config/bowen/` still say T-125's decisions are pending.**
+- [x] T-127 ⟨later⟩ **Two status lines in `config/bowen/` still say T-125's decisions are pending.**
   `config/bowen/contact_classes.md` and `config/bowen/event_sizes.md` state their choices as pending the owner's
   review; the owner approved them on 2026-10-24 (T-125). The engine hash covers every `*.md` under `config/bowen/`
   (`tools/ensemble_record.py::code_hash`), so changing those lines alone would make every record stale (tried and
   reverted 2026-10-24). Fix them in the same commit as the next change that moves the engine hash, which reruns the
   records anyway.
+  *Closed 2026-10-25 at stage 3 step 6: both lines say approved by the owner 2026-10-24 (T-125).*

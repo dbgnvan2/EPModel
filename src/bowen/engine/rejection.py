@@ -7,8 +7,9 @@ Tests:   tests/bowen/test_rejection.py
 
 Absence of interaction is distance, not cutoff (`M1.B.3c`). So:
 
-* each member of a tie holds a ``rejection`` in [0, 1]; the tie is cut off while either holds any, and its
-  ``tie_state`` says so. It stays interactive;
+* each member of a tie holds a ``rejection`` in [0, 1]; a tie whose member holds any is cut off, and its
+  ``tie_state`` says so. It stays interactive, and it leaves ``CUT_OFF`` only on a positive contact with no rejection
+  held (`M1.B.3c`);
 * a move delivered to a person whose rejection of its sender is above ``rejection_refusal_threshold`` is **refused**,
   except ``CUTOFF`` and ``REDUCE_CUTOFF``. It does not reach that person at all. Their rejection rises, and the sender
   bears the refusal as acute anxiety. Below the threshold the move is received as usual (graded rejection);
@@ -59,7 +60,7 @@ def lower_rejection(tie: Relationship, member: PersonId, amount: float) -> float
     when no rejection is left (`M1.D.2b`, ``cutoff_stock.bridge_ties``; spec revision 36).
     Spec:    docs/bowen_agent_model_spec_v2.md#M1.B.3c, #M5.B.3, #M1.D.2b
     Tests:   tests/bowen/test_rejection.py::test_m5b3_accepted_contact_lowers_both_rejections_and_reopens_the_tie_at_zero,
-             tests/bowen/test_rejection.py::test_m1b3c_faded_cutoff_waits_for_a_positive_contact
+             tests/bowen/test_cutoff_stock.py::test_m1d2b_faded_cutoff_waits_for_a_positive_contact
 
     Returns the change (zero or negative).
     """

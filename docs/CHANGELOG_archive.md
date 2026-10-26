@@ -2,10 +2,36 @@
 
 The entries of `CHANGELOG.md` dated before 2026-10-19, the day version 2 began at the tag `version-1`, moved
 here verbatim on 2026-10-22, the entries of 2026-10-19 and 2026-10-20 on 2026-10-23, and the entries of
-2026-10-21 later on 2026-10-23, the earliest entry of 2026-10-22 (the SP-1 proposal's eight questions) on 2026-10-24, and the next (SP-1 built, with spec revision 34) later on 2026-10-24, and the next (Model ergonomics, Parts A–C) on 2026-10-25, and the next (Model ergonomics, Part D) later on 2026-10-25, and the next (Model ergonomics, Part E) later on 2026-10-25, so that the live file stays short enough to read (`tests/test_doc_size.py` bounds its size). The heading below is the section they
+2026-10-21 later on 2026-10-23, the earliest entry of 2026-10-22 (the SP-1 proposal's eight questions) on 2026-10-24, and the next (SP-1 built, with spec revision 34) later on 2026-10-24, and the next (Model ergonomics, Parts A–C) on 2026-10-25, and the next (Model ergonomics, Part D) later on 2026-10-25, and the next (Model ergonomics, Part E) later on 2026-10-25, and the next (Model ergonomics follow-ups) later on 2026-10-25, so that the live file stays short enough to read (`tests/test_doc_size.py` bounds its size). The heading below is the section they
 were under; nothing in this file is reworded. Later entries are in `CHANGELOG.md`.
 
 ## [Unreleased] — 2026-10-11
+
+### Model ergonomics follow-ups: the ledger index reaches the extraction files; the missed history phrases (2026-10-22)
+
+- **What.** Three of the four open `TODO.md` items the model-ergonomics work left, on the owner's instruction
+  (2026-10-22: "tick 2. do 1 and 4"). Wording and tooling only; no rule changed, `engine_hash()` unchanged (`91f9a817`),
+  no ensemble, mutation or sweep record rerun. Spec revision stays 35.
+- **The ledger index reaches the extraction files** (plan §11 trial: `FE03.6` was unreachable). `tools/spec_index.py`
+  indexes, besides `_LEDGER.md`'s entries, every `## … <ID> —` finding heading of the files that
+  `tools/spec_index_rules.json` `extraction_sources` names (`docs/theory/family_evaluation/fe*.md`, `kerr_book/ks*.md`,
+  `kb/kb*.md`, `_LECTURES_1979.md`): 875 records, 670 of them new, each with a `file` field; `chapter` is the file's
+  title and `status` is empty for them. An ID defined twice, or an ID-like heading the `entry_id` pattern does not
+  read, fails the run. The spec records' `ledger_mentions` follow (`M4.C.8` now lists `FE03.6`). Two tests added
+  (`test_b4_every_extraction_finding_is_indexed_once_at_its_line`, `…_extraction_heading_the_pattern_does_not_read_is_refused`);
+  two adapted to the `file` field. Documents: CLAUDE.md, README, the reading list, the checklist, the plan's B4,
+  the milestone brief, `_STATUS.md`.
+- **The missed history phrases.** Eight phrases added to `history_phrases` (`earlier form`, `The text it replaces`,
+  `is replaced`, `The form approved at`, `It replaces`, `As first built`, `revision N removed`, `rev-N form`). The 44
+  sentences they match, with the `*Revision N*` prefixes outside requirement bodies (`M2.A`'s table notes, `M8`'s
+  preamble, `M11.E`'s `M11.C.9` row, `M13`'s phase table row B; the tool scans requirement blocks only, so their row
+  ID is the section in parentheses), `M11.C.14`'s withdrawn two-sided bound and `M4.C.3a`'s pre-revision-24 floor,
+  are disposed as rows 219–262 of `docs/spec_revision_35_dispositions.md` (19 moved, 25 rewritten), each bullet in
+  `docs/spec_revision_log.md` under its revision, verbatim by construction (sliced from the spec before the edit).
+  §0.3's count: 1043 → 1042 bolded MUST / MUST NOT, the withdrawn bound having left for the log. `history_in_body.md`
+  lists 30 IDs, all "stays" rows. `test_e2` walks the 262 rows and reads a section-suffixed bullet ID.
+- **Part D's commit history** stays as it is (owner, 2026-10-22); the TODO item is ticked.
+- Suite: 1039 tests.
 
 ### Model ergonomics, Part E — the revision history out of the spec, revision 35 (2026-10-22)
 

@@ -1,10 +1,32 @@
 # Spec revision log
 
-**Status: the record of every revision of `bowen_agent_model_spec_v2.md`, 4 to 38. Moved out of the spec at revision 35, 2026-10-22; nothing a run computes changed.**
+**Status: the record of every revision of `bowen_agent_model_spec_v2.md`, 4 to 39 (revision 39 applied in part). Moved out of the spec at revision 35, 2026-10-22; nothing a run computes changed.**
 
 The spec holds the current rules; this file holds how they got there. Until revision 34 the revision sections stood at the end of the spec, under `M17`, and the front matter's `status:` line listed every revision since 10. `docs/plan_model_ergonomics.md` Part E moved both here (the owner's answer to its §8 Q2, 2026-10-22, "as revision 35"), so a session reading the spec reads 480 fewer lines of history. The sections below are the spec's own text as it stood, tags and all, with the newest first; revisions 13 to 33 were written inline in the requirement bodies and have no section of their own, which Part E's second step records under revision 35.
 
 The sections `### Revision 34` to `### Revision 5` and the undated section are the spec's text as it stood, moved whole; a statement inside one of them (revision 34's, that revisions 13 to 33 are "not here") was true when written, before the bodies' narratives were moved under their own revisions. Those narratives are the bullets `- \`ID\`: sentence`, each the sentence as it stood in the body, under the revision it names, in sections titled "inline narratives moved from the bodies at revision 35" where no section existed.
+
+### Revision 39 — version 2 stage 3, applied in parts from 2026-10-25 ⟦rev39 · owner 2026-10-24 (D18–D31) and 2026-10-25 (Q1–Q14, the draft approved as a whole) · `docs/implementation_plan_version_2_stage_3.md`, `docs/spec_revision_39_draft.md`⟧
+
+**Approved by the owner 2026-10-25** as `docs/spec_revision_39_draft.md`, through `AskUserQuestion`. Each group's text
+lands in the spec in the commit that builds its code (the owner's Q6). This section lists what has landed.
+
+- **Step 6 (2026-10-25), the batch's first commit and the first to move the engine hash** (`66dcbb1e8ba5` → the hash
+  in `CHANGELOG.md`'s entry of that day). What a run computes did not change: the golden fingerprints are unchanged.
+  - **T-130:** `M1.F.6a` says the thirteen event sizes were checked against Holmes and Rahe's Table 3 (p. 216) and
+    agree; `config/bowen/event_sizes.md` quotes the paper's item wording (draft §6).
+  - **T-014 (draft §21):** `M8`'s preamble says the rule is written for three places, the avoidance gate for `M5.C`
+    not built and a version 3 candidate (D27), and `avoidance_available` is removed from
+    `src/bowen/engine/live_positions.py` with its unit test; `M8.1` says the fused-occupant branch is not reached in a
+    run and is *partial* (D28), and the code block and the mechanism table lose `avoidance_available` and fusion;
+    `M8.5` and `M13.1` follow (D27, D28); `M11.C.7` and its `M11.5` row declare the coach's going along with a `SPLIT`
+    a premise of the sided arm (D29); `M7.D.1a` says every onset takes its sizes on whichever channel, the channels
+    being substitutable (`L08.3`; D30).
+  - **Not a rule change, the same commit:** T-129 (docstrings in `moves.py`, `rejection.py`, `objects.py` and
+    `invariants.py` restated to the code; ruff's `F` rules clean over `src/`, `tools/` and `tests/`) and T-127 (two
+    status lines in `config/bowen/`).
+- **Not yet applied:** group C (`M1.A.5e`, `M1.A.5f`, `M1.A.4k`, `M7.E.1f`, `M6.I.4a`; step 7), group F (`M5.F.4`,
+  `M5.F.2c`, `M11.C.29`, `M11.C.49`; step 8), group A (`M4.C.1d`, `M4.D.3a`; step 9) and T-128 (`M17.E.1`; step 10).
 
 ### Revision 38 — the stage 2 milestone review's wording fixes, 2026-10-24 ⟦rev38 · owner 2026-10-24, stage 2 milestone review · `docs/cycles/2026-10-24_milestone-review_v2-stage-2.md`, `docs/todo/2026-10-24_stage_2_milestone_review.md`⟧
 

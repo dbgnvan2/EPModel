@@ -18,7 +18,7 @@ import json
 
 from src.bowen.engine.draws import DrawService
 from src.bowen.engine.event_store import EventStore
-from src.bowen.engine.events import EventKinds, EventQueue
+from src.bowen.engine.events import Event, EventKinds, EventQueue
 from src.bowen.engine.identifiers import PersonId, TieId, TriangleId
 from src.bowen.engine.objects import Family, Person, Relationship, Triangle
 

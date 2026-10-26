@@ -24,15 +24,12 @@ REPO = Path(__file__).resolve().parents[1]
 SPEC = REPO / "docs" / "bowen_agent_model_spec_v2.md"
 SOURCES = ("src", "tools", "tests")
 
-T129 = "fixed with the next change that moves the engine hash (T-129)"
 NOT_WRITTEN = "names a test of a built requirement that is not written yet (T-004)"
 NOT_BUILT = "names the test of a requirement not built yet; written when it is built"
 
-# `Tests:` references in src/bowen/ docstrings: an edit there moves the engine hash, so they wait.
-SOURCE_ALLOWED = {
-    "src/bowen/engine/rejection.py: tests/bowen/test_rejection.py::test_m1b3c_faded_cutoff_waits_for_a_positive_contact":
-        T129,
-}
+# `Tests:` references in src/bowen/ that do not resolve. Empty since T-129 (version 2 stage 3, plan step 6); an entry
+# here is a name to fix, and `tests/test_lint.py::test_s3_22_ruff_f_clean` fails while one is listed.
+SOURCE_ALLOWED: dict[str, str] = {}
 
 # Names in the spec that do not resolve: tests T-004 lists as named by the spec and not written (M1.F.2's needs a
 # test of its own clause; M11.D.12 is not built), and tests the spec names for requirements that are not built

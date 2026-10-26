@@ -1,0 +1,167 @@
+"""Stage 3's open batch (D31): the records keyed by the engine hash stay stale from plan step 6 until step 10.
+
+Purpose: under D31 (`docs/implementation_plan_version_2_stage_3.md` §3.6, §3.8) stage 3's rule changes land in four
+         commits, steps 6–9, each of which moves the engine hash, and every record is regenerated once, at step 10.
+         Between, a record-current test fails by that decision, not by a fault. ``stale_in_open_batch`` marks such a
+         test. While ``OPEN`` is set and the record the test reads is byte-identical to the file as the batch found
+         it (``AT_OPEN``, its sha256 at ``OPENED_AT``), a failing test is run again with the hash computed on the
+         tree the batch found (``src/bowen``, ``config/bowen`` and ``tools`` at ``OPENED_AT``): if it then passes,
+         the hash is the only thing that makes it fail, and it is an expected failure that names the decision; if it
+         fails again, it fails as usual. A passing test passes; a record changed since the batch opened (regenerated
+         in part, or edited) fails as usual. Step 10 regenerates every record and sets ``OPEN`` to None.
+Spec:    docs/implementation_plan_version_2_stage_3.md#3.6 (D31); CLAUDE.md — "A red suite is never normal"
+Tests:   tests/test_open_batch.py
+
+Not a way to hide a stale record: ``tests/test_open_batch.py`` fails while ``OPEN`` is set and some but not all listed
+records are as the batch found them (a regeneration in part, which D31 does not allow), or none is (the batch is over:
+close it), and while ``OPEN`` is None and a test still carries the mark.
+"""
+
+from __future__ import annotations
+
+import contextlib
+import functools
+import hashlib
+import io
+import subprocess
+import sys
+import tarfile
+import types
+from pathlib import Path
+
+import pytest
+
+REPO = Path(__file__).resolve().parents[1]
+
+# The batch, while it is open: why the records are stale and when they stop being. None once step 10 has run.
+OPEN: str | None = ("stage 3's batch (D31): the engine hash moved at plan step 6 (66dcbb1e8ba5 → f90285984f32) and "
+                    "moves again at steps 7–9; every record is regenerated once, at step 10")
+
+OPENED_AT = "9ebf3274554a32f77a401304ad1dec587fc99022"  # 9ebf327, the commit whose records the batch keeps (spec revision 38, engine hash 66dcbb1e8ba5)
+HASHED_TREES = ("src/bowen", "config/bowen", "tools")  # everything ``tools.ensemble_record.code_hash`` reads
+# ``tools`` is pinned with the engine: steps 7–9 add mutants to the mutation records' tools, which D31 also leaves
+# stale until step 10, so an edit to a hashed tool is excused as a rule edit is; the records still must be as found.
+
+# Each record a marked test reads, with its sha256 as the batch found it (commit 9ebf327, spec revision 38).
+AT_OPEN = {
+    "docs/phase_c_ensemble_record.md": "4ac9cbdccbda9aac7d45bfcd09ace70c369b8151f9ef937b63a094daeb3e41af",
+    "docs/phase_c_mutation_record.md": "c5d7a427d0168fa1df8a6cd80bfcaad7db24dfe1127cd26a0555a16e0af696e1",
+    "docs/phase_c_sweep_record.md": "2c696f324d36d0678a912f033997a172b80966f408faa94657a1593cf77a52df",
+    "docs/phase_c_level_occupancy.md": "11018ea02eb477a78259cf37a10d5a973c89d0e34d4161ad957e0bdc8f835a1e",
+    "docs/phase_c_diagnostic_record.md": "ffb9e7918caebaecdc45f69850e2825f88f532f3091df73a895f5a1c94db9d24",
+    "docs/phase_d_ensemble_record.md": "ed6998a564209df9ae55e19875d96b6434849e7cb8fcf2ca7f370f62abd2925f",
+    "docs/phase_d2_ensemble_record.md": "6df6784d9bf3483c3b9e3a369bc4ed23a859f50843d5ada486cf7237027fe40b",
+    "docs/phase_d_mutation_record.md": "e9e83a80fb054c339735d578d882b628b8aa50282ea81e93277a89dbffb9d7bc",
+    "docs/version_2_sweep_record.md": "d170e3d11bd7478495c3775da5f867645f65f4073389aa36b95da6fb4d3c6341",
+}
+
+_found_tree: Path | None = None  # the hashed trees at OPENED_AT, extracted once per session
+TEMP = None  # pytest's TempPathFactory, set by tests/conftest.py: a test may write only under it (M11.D.7)
+
+
+def as_found(record: str, repo: Path = REPO) -> bool:
+    """Whether ``record`` is byte-identical to the file as the batch found it."""
+    return hashlib.sha256((repo / record).read_bytes()).hexdigest() == AT_OPEN[record]
+
+
+def tree_as_found() -> Path:
+    """A directory under pytest's temporary directory holding ``HASHED_TREES`` as they stood at ``OPENED_AT``
+    (``git archive``; the checkout needs history, as CI's ``fetch-depth: 0`` gives it)."""
+    global _found_tree
+    if _found_tree is None:
+        archive = subprocess.run(["git", "-C", str(REPO), "archive", "--format=tar", OPENED_AT, *HASHED_TREES],
+                                 capture_output=True, check=True, timeout=60).stdout
+        if TEMP is None:
+            raise RuntimeError("the open batch's tree needs pytest's temporary directory (tests/conftest.py)")
+        root = TEMP.mktemp("open_batch").resolve()  # resolved: code_hash compares resolved paths
+        with tarfile.open(fileobj=io.BytesIO(archive)) as tar:
+            if hasattr(tarfile, "data_filter"):
+                tar.extractall(root, filter="data")
+            else:  # an interpreter older than the extraction filters; the archive is this repo's own history
+                tar.extractall(root)
+        _found_tree = root
+    return _found_tree
+
+
+@contextlib.contextmanager
+def hash_as_found(namespace: dict | None = None):
+    """Every ``tools.ensemble_record.code_hash`` reads the tree the batch found, so the hash is the batch's opening one.
+
+    Every record hash goes through that function (``record_cache.engine_hash``, ``level_occupancy.record_hash`` and
+    ``phase_d_mutation_record.engine_hash`` import it when called, and a module that imported it at load has its own
+    name for it); a test file that loaded a tool from its file (``namespace``, the test's globals) has its own copy of
+    the function, found by its source file and patched as well."""
+    from tools import ensemble_record
+
+    found = tree_as_found()
+    original = ensemble_record.code_hash
+    source = original.__code__.co_filename
+    modules = [m for m in _reachable_modules(namespace or {})
+               if getattr(getattr(m, "code_hash", None), "__code__", None) is not None
+               and m.code_hash.__code__.co_filename == source]
+
+    def code_hash(*tools: Path) -> str:
+        moved = [found / Path(t).resolve().relative_to(REPO) for t in tools]
+        with patched(ensemble_record, "REPO", found):
+            return original(*moved)
+
+    with contextlib.ExitStack() as stack:
+        for module in modules:
+            stack.enter_context(patched(module, "code_hash", code_hash))
+        yield
+
+
+def _reachable_modules(namespace: dict) -> list[types.ModuleType]:
+    """``sys.modules``, the modules ``namespace`` holds, and every module this repo's own modules hold, followed through:
+    a tool loaded from its file (``module_from_spec``) is not registered, and may hold another such copy."""
+    seen: dict[int, types.ModuleType] = {}
+    stack = list(sys.modules.values()) + [v for v in namespace.values() if isinstance(v, types.ModuleType)]
+    while stack:
+        module = stack.pop()
+        if not isinstance(module, types.ModuleType) or id(module) in seen:
+            continue
+        seen[id(module)] = module
+        path = getattr(module, "__file__", None)
+        if path and REPO in Path(path).resolve().parents:
+            stack += [v for v in vars(module).values() if isinstance(v, types.ModuleType)]
+    return list(seen.values())
+
+
+@contextlib.contextmanager
+def patched(module, name: str, value):
+    """``module.name`` set to ``value`` for the block, and restored after it, on any exit."""
+    before = getattr(module, name)
+    setattr(module, name, value)
+    try:
+        yield
+    finally:
+        setattr(module, name, before)
+
+
+def stale_in_open_batch(record: str):
+    """Mark a record-current test: its failure is expected only while the batch is open, ``record`` is as found, and
+    the test passes when the hash is the batch's opening one."""
+    if record not in AT_OPEN:
+        raise KeyError(f"{record} is not a record the batch lists (AT_OPEN)")
+
+    def wrap(test):
+        @functools.wraps(test)
+        def run(*args, **kwargs):
+            try:
+                return test(*args, **kwargs)
+            except (AssertionError, KeyError) as stale:
+                if not (OPEN and as_found(record)):
+                    raise
+                try:
+                    with hash_as_found(test.__globals__):
+                        test(*args, **kwargs)
+                except Exception as other:
+                    raise AssertionError(f"{test.__name__} fails with the hash the batch found too, so its failure "
+                                         f"is not the batch's: {type(other).__name__}: {other}") from stale
+                pytest.xfail(f"{record} is stale by decision: {OPEN} ({type(stale).__name__}: {str(stale)[:160]}); "
+                             f"the test passes with the hash the batch found")
+
+        run.open_batch_record = record
+        return run
+
+    return wrap

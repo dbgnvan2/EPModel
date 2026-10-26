@@ -244,8 +244,9 @@ class Relationship:
     felt_contact: dict[PersonId, float] = field(default_factory=dict)
     felt_impingement: dict[PersonId, float] = field(default_factory=dict)
     distance_bound_anxiety: float = 0.0
-    # M1.B.3c (Phase D plan B4): how hard each member rejects the other, in [0, 1]. The tie is cut while either
-    # member holds any; it stays interactive. Written by ``rejection``, a delivered CUTOFF and REDUCE_CUTOFF.
+    # M1.B.3c (Phase D plan B4): how hard each member rejects the other, in [0, 1]. A tie whose member holds any is
+    # cut off; it stays interactive, and it leaves CUT_OFF only on a positive contact with no rejection held (M1.B.3c).
+    # Written by ``rejection``, a delivered CUTOFF and REDUCE_CUTOFF.
     rejection: dict[PersonId, float] = field(default_factory=dict)
     # M1.B.3c: the state a cutoff replaced (ordinary or distant), restored by the positive contact that reopens the
     # tie once no rejection is left (spec revision 36, M1.D.2b).
@@ -274,7 +275,8 @@ class Relationship:
     functional_togetherness: float | None = None
 
     def rejected(self) -> bool:
-        """M1.B.3c: the tie is cut off while either member holds rejection."""
+        """M1.B.3c: whether either member holds rejection. A tie that does is cut off; the tie leaves ``CUT_OFF`` only
+        on a positive contact with no rejection held (M1.B.3c)."""
         return any(v > 0 for v in self.rejection.values())
 
     def __post_init__(self) -> None:

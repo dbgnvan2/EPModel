@@ -27,6 +27,7 @@ import tools.version_2_sweep as tool
 from tools.mutant_runner import apply
 from tools.record_cache import Cache
 from src.bowen.io.load import load_constants
+from open_batch import stale_in_open_batch  # tests/ is on the path (its conftest); stage 3's batch, D31
 
 REPO = Path(__file__).resolve().parents[1]
 CONFIG_TEXT = REPO.joinpath("config", "sweep", "sweep.md").read_text(encoding="utf-8")
@@ -516,6 +517,7 @@ def test_s2_6_not_run_list_is_loaded_strictly():
 
 # --- S2.11 the committed record ---------------------------------------------------------------------------------
 
+@stale_in_open_batch("docs/version_2_sweep_record.md")
 def test_s2_11_sweep_record_is_current():
     """The committed sweep record is what the tool renders from the committed cache for the current engine and
     config, without running anything (P6); a stale cache or a changed range would raise here."""
@@ -523,6 +525,7 @@ def test_s2_11_sweep_record_is_current():
         assert tool.RECORD.read_text(encoding="utf-8") == tool.build(Cache(tool.CACHE_NAME))
 
 
+@stale_in_open_batch("docs/version_2_sweep_record.md")
 def test_m17e1_a_known_defect_is_printed_beside_the_central_verdict():
     """Milestone review MR-3: the sweep record showed `M11.C.48`'s central PASS unqualified. A key of the Phase D
     record tool's ``VERDICT_NOTES`` is printed with its note in the summary table's central-verdict cell and under its

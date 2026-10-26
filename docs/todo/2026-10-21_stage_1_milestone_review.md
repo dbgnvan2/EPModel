@@ -52,11 +52,11 @@ owner's ten decisions and what this batch fixed are in `CHANGELOG.md`. Open:
   - `test_sp1_4` does not catch two allowlist entries for the same file and span.
   - The test scans tracked files only, so a new document fails it only once it is added to git. Scanning untracked
     files would scan the owner's untracked files too.
-  - `src/bowen/engine/live_positions.py:1` says the predicate is used in four places; revision 34 says three callers
+  - ~~`src/bowen/engine/live_positions.py:1` says the predicate is used in four places; revision 34 says three callers
     (M8's preamble). The file is in the engine hash, so the fix waits for the next change that moves the engine hash
     (re-pointed 2026-10-24, stage 2 review MR-22: group G's regeneration ran without it). The spec writes the rule
     for four places and the fourth, `avoidance_available`, is not called, so the wording follows T-014's
-    avoidance-gate answer.
+    avoidance-gate answer.~~ *Done 2026-10-25 at stage 3 step 6 with D27's removal: the module says three places.*
   - **Owner decision:** `docs/theory/family_evaluation/` and `docs/theory/kerr_book/` are exempt from the test as
     written-source notes, but four of their cross-references quote an ASR source: `ks07.md:159` (KB07 · K07.4),
     `ks19.md:148` (KB04), `fe10.md:303` (KB06) and `fe07.md:38` (Tape 2). Paraphrase them, or hold these notes like
@@ -74,11 +74,14 @@ owner's ten decisions and what this batch fixed are in `CHANGELOG.md`. Open:
     cache, take the tool out of its own hash, and compare the full render in `tests/bowen/test_ensemble_record.py`.
   - ~~`config/bowen/family_phase_d.md:19`: drop "awaiting owner review" from Teodor's 36.~~ *Done at revision 36
     (2026-10-22), with group G's regeneration. MR-23 remains.*
+  - *2026-10-25: MR-23 is a records tool change, not an engine change, so it moves no record's hash but its own; it
+    lands at stage 3 step 10, before the batch's one regeneration, instead of at step 6 as plan §3.6 listed (Claude's
+    recommendation under the owner's instruction of 2026-10-25, for the owner's review).*
 - [x] T-013 ⟨now⟩ **Before group G's build starts:** ask the owner the Holmes–Rahe Q3 again (D10, the review's Q14; see
   "Blocking the next phase"). *Closed 2026-10-22: group G was built overnight under the owner's instruction of
   2026-10-22 ("proceed based on your recommendations"); Q3 stands as decided, cites no source, and is listed in the
   revision 36 report's decisions, with the correction quoted, for the owner's review.*
-- [ ] T-014 ⟨later⟩ **For the stage 3 question list** (owner, D4 and D10, 2026-10-21):
+- [x] T-014 ⟨later⟩ **For the stage 3 question list** (owner, D4 and D10, 2026-10-21):
   - Build the `M5.C` avoidance gate (`avoidance_available`), or drop it from M8 and `M13.1`.
   - Q7, fusion: no caller passes a fusion map, so `positions_live`'s fused-occupant branches never run. The spec
     leaves open whether a fused occupant makes its triangle inactive.
@@ -89,6 +92,9 @@ owner's ten decisions and what this batch fixed are in `CHANGELOG.md`. Open:
   - *Decided by the owner 2026-10-24, each as recommended, in stage 3's plan (`docs/implementation_plan_version_2_stage_3.md`
     §3.5, D27–D30): the avoidance gate dropped; fusion left unbuilt, `M8.1` partial; the coach's going along with a
     SPLIT declared a premise of `M11.C.7`'s arm; the illness size kept on all three channels. Open until built.*
+  - *Closed 2026-10-25 at stage 3 step 6: built and written into the spec at revision 39 (draft §21) —
+    `avoidance_available` removed, `M8`, `M8.5` and `M13.1` say three places (D27); `M8.1` *partial* (D28); `M11.C.7`'s
+    premise declared (D29); `M7.D.1a`'s sizes on every channel (D30).*
 - [ ] T-015 ⟨later⟩ **SP-2: extend the document-claim tests** (2026-10-21) to the places where this review found stale prose: closing clauses
   of status lines, the checklist's `- [ ]` items, the reading list's body, lists of standing decisions, counts in
   prose, and the status notes in the reference-family table. Stage 2's review (SP-A, 2026-10-24) adds:

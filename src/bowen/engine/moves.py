@@ -61,11 +61,12 @@ flip against a hardened habit reverts unless the mover sustains it long enough f
 habit to cross (`M1.B.6`).
 
 **`REDUCE_CUTOFF`** (`M5.B.3`, `M5.B.3a`, `L22.6`). On delivery it lowers both members'
-rejection (`M1.B.3c`, Phase D B4); the tie stops being cut off when none is left. More contact is never penalised as contact; its
-impingement component can still carry the receiver past its optimum (`M4.C.1`). The
-tie's bound anxiety is released to the third members of the closed triads holding the
-tie, split equally — the transient cost lands on the third party whose distancing is
-being stripped, not on the person increasing contact. With no third it stays bound.
+rejection (`M1.B.3c`, Phase D B4) and moves no stock (spec revision 36, D7). The tie
+leaves `CUT_OFF` only on a positive contact with no rejection held (`M1.B.3c`,
+`M1.D.2b`). More contact is never penalised as contact; its impingement component can
+still carry the receiver past its optimum (`M4.C.1`). The cost to the third party whose
+distancing is stripped (`M5.B.3`) is not yet shown: its two-arm test is a strict
+expected failure.
 
 **`PROVOKE`** (`M5.B.6`) has no effect beyond its components: its content is its kind's
 two components and its intensity a separate dial.

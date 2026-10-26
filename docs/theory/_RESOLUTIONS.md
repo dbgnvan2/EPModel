@@ -101,6 +101,9 @@ positions_live(group) = |{ p in group : p is present AND p is not fused into ano
 avoidance_available   = positions_live < 3        # a step, not a gradient
 ```
 
+*Revision 39 (2026-10-25):* `avoidance_available` was removed from the code, never having had a caller; an avoidance
+gate for `M5.C` is a version 3 candidate (the owner, 2026-10-24, D27). The block stays as this resolution's record.
+
 - An external agent in the outside position **counts as a live position** (Ch14, Ch10 · L10.4 — "would
   probably proceed with any third person… no matter what the subject matter").
 - An external agent who has taken a side **does not count** — he has fused into one of the two, and

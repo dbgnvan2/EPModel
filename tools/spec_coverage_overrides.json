@@ -1133,14 +1133,24 @@
   ],
   "note": "withdrawn as a mechanism; the loop is `M11.C.10`'s result, which is partial (ensemble FAIL, accepted finding: the arms' input barely differs); the family-of-origin variant passed at version 1 and fails since revision 36's regeneration of 2026-10-23, a new result for the owner's review (T-122)"
  },
- "M8.5": {
+ "M8.1": {
   "status": "partial",
   "evidence": [
-   "tests/bowen/test_external.py::test_m11c7_a_sided_coachs_contact_never_lands",
-   "tests/bowen/test_external.py::test_m8_3_a_coach_recruited_by_a_spouse_holds_no_live_position",
-   "tests/bowen/test_mechanisms.py::test_m8_5_s1_4_a_sided_coach_leaves_its_triangle_active"
+   "tests/bowen/test_live_positions.py::test_m81_positions_live_counts_unfused_present_occupants",
+   "tests/bowen/test_live_positions.py::test_m81_fusion_outside_the_group_does_not_remove_a_position",
+   "tests/bowen/test_live_positions.py::test_m81_input_validation"
   ],
-  "note": "`live_positions.positions_live` decides the witness test (`visibility.resolve`), the coach's position (`external.coach_live`; `test_m11c7_a_sided_coachs_contact_never_lands`) and triangle activity (`recompute.recompute_triangles`; `test_m85_a_triangle_with_an_absent_member_is_not_active`); the `M5.C` site is missing: `live_positions.avoidance_available` has no caller in `src/bowen`"
+  "note": "`positions_live` counts present, active occupants not fused into another group member, tested on hand-built groups; the fused-occupant branch is not reached in a run: the engine holds no fusion state and no caller passes a fusion map (`M8.5`). Building it is a version 3 candidate (the owner, 2026-10-24, D28)"
+ },
+ "M8.5": {
+  "status": "done",
+  "evidence": [
+   "tests/bowen/test_external.py::test_m8_3_a_coach_recruited_by_a_spouse_holds_no_live_position",
+   "tests/bowen/test_mechanisms.py::test_m8_5_s1_4_a_sided_coach_leaves_its_triangle_active",
+   "tests/bowen/test_live_positions.py::test_m85_single_implementation",
+   "tests/bowen/test_live_positions.py::test_m8_s3_20_predicate_has_three_callers"
+  ],
+  "note": "`live_positions.positions_live` decides the witness test (`visibility.resolve`), the coach's position (`external.coach_live`; `test_m8_3_a_coach_recruited_by_a_spouse_holds_no_live_position`) and triangle activity (`recompute.recompute_triangles`; `test_m85_a_triangle_with_an_absent_member_is_not_active`), and nothing else calls it (`test_m8_s3_20_predicate_has_three_callers`). Revision 39 took the `M5.C` site out of `M8.5`: the avoidance gate is not built and `avoidance_available` was removed (D27); fusion is `M8.1`'s, partial (D28)"
  },
  "M8.6": {
   "status": "partial",

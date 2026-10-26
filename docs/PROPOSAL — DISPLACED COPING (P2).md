@@ -1,7 +1,7 @@
 # Proposal — displaced coping (version 2 stage 3, group C, P2), with the floor-held functioning (F1)
 
-> **Status: DECIDED 2026-10-25 (Q1–Q4, each as recommended); not built. Its draft into spec revision 39, part 1, is
-> `docs/spec_revision_39_draft.md`, awaiting the owner's approval.** The owner chose P2 as group C's mechanism on
+> **Status: DECIDED 2026-10-25 (Q1–Q4, each as recommended); not built. Spec revision 39, approved by the owner as a whole
+> 2026-10-25, carries it as part 1 of `docs/spec_revision_39_draft.md`.** The owner chose P2 as group C's mechanism on
 > 2026-10-24 (D18, revisited after the projection trace; `docs/implementation_plan_version_2_stage_3.md` §3.2). A
 > probe on 2026-10-25 (§6, `docs/review/stage_3_displaced_coping_probe.md`) showed that P2 at coping size does not
 > move `M11.C.6`'s direction, and that most of the child's lift is functioning the stress floor holds. The owner then

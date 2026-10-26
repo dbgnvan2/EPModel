@@ -2,10 +2,72 @@
 
 The entries of `CHANGELOG.md` dated before 2026-10-19, the day version 2 began at the tag `version-1`, moved
 here verbatim on 2026-10-22, the entries of 2026-10-19 and 2026-10-20 on 2026-10-23, and the entries of
-2026-10-21 later on 2026-10-23, the earliest entry of 2026-10-22 (the SP-1 proposal's eight questions) on 2026-10-24, and the next (SP-1 built, with spec revision 34) later on 2026-10-24, and the next (Model ergonomics, Parts A–C) on 2026-10-25, and the next (Model ergonomics, Part D) later on 2026-10-25, so that the live file stays short enough to read (`tests/test_doc_size.py` bounds its size). The heading below is the section they
+2026-10-21 later on 2026-10-23, the earliest entry of 2026-10-22 (the SP-1 proposal's eight questions) on 2026-10-24, and the next (SP-1 built, with spec revision 34) later on 2026-10-24, and the next (Model ergonomics, Parts A–C) on 2026-10-25, and the next (Model ergonomics, Part D) later on 2026-10-25, and the next (Model ergonomics, Part E) later on 2026-10-25, so that the live file stays short enough to read (`tests/test_doc_size.py` bounds its size). The heading below is the section they
 were under; nothing in this file is reworded. Later entries are in `CHANGELOG.md`.
 
 ## [Unreleased] — 2026-10-11
+
+### Model ergonomics, Part E — the revision history out of the spec, revision 35 (2026-10-22)
+
+- **What.** `docs/plan_model_ergonomics.md` Part E, on the owner's answer to its §8 Q2 (2026-10-22: "yes, as revision
+  35"). Wording only; no rule changed, `engine_hash()` unchanged (`91f9a817`), no ensemble, mutation or sweep record
+  rerun. The seed-7 trace, chart and fam-diag export were regenerated because their header carries the revision string
+  (one line each changed). Spec revision 35.
+- **E1.** New `docs/spec_revision_log.md`: the sections `### Revision 34` to `### Revision 5` and the front matter's
+  status text (its record of revisions 10 to 34) moved there as they stood. The spec's `status:` now reads `APPROVED`
+  with a pointer; a closing `## Revision history` section points at the log. §0.3's token count is recomputed (1043
+  bolded MUST / MUST NOT; the five in the moved sections went with them). Five entries of `tests/asr_quotations.json`
+  that allowed spans in the moved sections now name the log; `test_r31a12` reads the old status line in the log; the
+  two tests that pinned the string `2.0, revision 34` now read the front matter; `test_d5b_the_scan_is_not_vacuous` no
+  longer asserts a third status source, since the spec's status line was it.
+- **E2.** The 213 sentences in 129 requirement bodies that `docs/spec_rules/history_in_body.md` listed, as 218 rows
+  (five sentences held two narratives and got two rows), were disposed one by one: 35 stay (rule text, a recorded
+  result or a cross-reference that matches a phrase; the row gives the reason), 32 moved to the log, 151 rewritten as
+  the current rule only
+  (a `*Revision N:*` prefix dropped, a title's "corrected at revision 7" clause dropped, the sentence as it stood
+  recorded in the log under its revision). ID count, order and the bolded MUST / SHOULD count are unchanged. The log
+  gained 183 bullets, in new `### Revision 13` … `### Revision 33` sections and sub-lists under the existing ones. The
+  record is `docs/spec_revision_35_dispositions.md`, one row per sentence, applied as Claude's dispositions for the
+  owner's review (the plan's E2 said one at a time with the owner; the owner chose the bulk option in §8 Q2). What the
+  view's `history_in_body.md` lists now (30 IDs, 35 sentences) is what the pass left in place, each sentence a "stays"
+  row, and its test matches them sentence by sentence.
+- **Not covered by the phrase list** (noticed in the pass, recorded in `TODO.md`): narrative of other shapes still in
+  bodies ("The earlier form …", "The text it replaces said …", a lower-case "*revision 11 removed …*"), `*Revision N*`
+  prefixes in `M2.A`'s and `M8`'s preambles and two table rows, and `M11.C.14`'s withdrawn two-sided MUST NOT still
+  standing before its one-sided restatement.
+- **Documents.** CLAUDE.md's spec row, README's Status, `_STATUS.md`'s STATE line and a dated note, the checklist (the
+  log and the dispositions record added; the stray clipping's entry removed with the file), the reading list (two rows),
+  the plan's status line.
+- **A slip in the Part D commits.** The log's first form (the moved sections, 493 lines) was staged by accident with
+  Part D's first commit (`11c36bb`, the engine docstrings) and no checklist entry went with it, so
+  `test_every_document_is_in_the_checklist` was red at the nine Part D commits (`11c36bb` to `fea842a`; confirmed
+  by running the test in an extract of `11c36bb`), and `test_m11d8_spec_references_resolve` was red at the first eight
+  (`11c36bb` to `6575009`: the code had 933 and then 938 references against the pinned 808, corrected at `fea842a`).
+  `11c36bb`'s message says "docstrings only". The plan's D3 rule, the suite green after each commit, was not met for
+  Part D. Both tests are green again at this commit. The branch is not pushed; whether to rewrite those commits is the
+  owner's call (`TODO.md`).
+- **Review fixes (2026-10-22, one learning-qa pass and one correctness pass over Parts D and E).** Two log bullets
+  did not hold the sentence as it stood (`M1.A.4k`'s owner list of nodal events was new wording; `M11.C.14`'s Bowen
+  quotation lost "any and" and its `ch04.md` citation): both restored verbatim from the spec at `716e5fe`. `M11.C.6`'s
+  rewritten arm had dropped its post-hoc label, which `M11`'s reporting rule requires: restored. The spec's closing
+  note ("Written against `model_explainer.md` v1.2 …") had gone to the log with the sections; it is the spec's and is
+  back at its end. `test_c4` now matches each listed sentence to its own "stays" row and pins the counts to the
+  record (it had checked IDs, which 14 of the 30 share with moved or rewritten rows); a new test walks all 218 rows against the
+  spec and the log, proved failing under three mutations. `spec_references` (the `M11.D.9` count) now reads a `Spec:`
+  block's continuation lines: 969 citations, not 938 (31 on wrapped lines were uncounted; all resolved). The two
+  record tests compare the revision with the front matter read in the test, not with the loader's own value.
+  `counterfeit.py`'s docstring keeps the equal-magnitude premise its conclusion needs. The "rule text" and "218
+  sentences" claims corrected (35 kept rows are rule text, recorded results and cross-references; 213 sentences in
+  218 rows); the reading list's spec line count; the log's intro says why revision 34's text calls revisions 13 to
+  33 "not here". Cost: two passes, about 19 minutes wall time and 357k tokens.
+- **Re-sweep of the fix commit** (`1328be8`; sonnet, narrow brief, about 5 minutes and 96k tokens): five items, none
+  a blocker. The dispositions test looked for a moved sentence anywhere in the log, so deleting an ID's own bullet
+  passed when another ID's bullet held the same words (row 95, `M7.B.1a`); it now looks under the row's own ID, proved
+  by that mutation. A row with no uncut piece would have matched anything: asserted away. "16 of the 30" above was
+  wrong (14 of the 30 kept IDs share an ID with a moved or rewritten row). `counterfeit.py`'s docstring quotes
+  `FE03.1`'s "two sides of the same coin" rather than attributing "equal magnitudes" to it. A blank line in the log.
+- **Suite.** 1036 collected after Part D (the pinned B3 test removed), 1037 after the review fixes (the dispositions
+  test); `engine_hash()` `91f9a817` throughout.
 
 ### Model ergonomics, Part D — the code docstrings thinned (2026-10-22)
 

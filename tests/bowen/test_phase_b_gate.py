@@ -20,7 +20,8 @@ import pytest
 
 from src.bowen.engine.events import Role
 from src.bowen.engine.identifiers import PersonId, TieId
-from src.bowen.engine.log_records import CollectingEmitter, DeliveredRecord, EffectRecord, InvariantRecord, TickRecord
+from src.bowen.engine.log_records import (CollectingEmitter, DeliveredRecord, EffectRecord, EmittedRecord, InvariantRecord,
+                                         TickRecord)
 from src.bowen.engine.tick import run
 from src.bowen.io.load import (
     CONFIG_DIR, load_constants, load_event_kinds, load_family, load_frozen_constants, load_script, read_text,
@@ -61,14 +62,26 @@ def test_m10b4_constants_frozen_before_suite():
 
 
 def test_m13_phase_b_scripted_40_week_trace_runs():
-    """G1: 40 tick records, every scripted delivery made, invariants passing every tick."""
+    """G1: 40 tick records, every scripted move made, invariants passing every tick. A scripted move is made when it is
+    delivered, or, for a non-angry `I-POSITION`, when the sequence it starts begins that week (spec revision 39,
+    `M5.F.4`, Q8: no perspective threshold sends Marta's to the assertion form; `M5.D.9`)."""
     state, records = run_script()
     script = load_script()
     assert [r.tick for r in records if isinstance(r, TickRecord)] == list(range(40))
     assert state.tick == 40 and state.queue.pending() == 0
     delivered = {(r.delivery.event_id.tick, r.delivery.event_id.origin) for r in records
                  if isinstance(r, DeliveredRecord) and r.delivery.role is Role.TARGET}
-    assert {(t, str(s.actor)) for t, s in script.moves} <= delivered
+    iposition_events = {r.event.id for r in records if isinstance(r, EmittedRecord) and r.event.kind == "I-POSITION"}
+    begun = {(r.tick, str(pid)) for r in records if isinstance(r, EffectRecord) and r.mechanism == "iposition"
+             for pid, flag, _ in r.people if flag.startswith("iposition:begin")}
+    assert {(t, str(s.actor)) for t, s in script.moves if s.kind != "I-POSITION"} <= delivered
+    assert {(t, str(s.actor)) for t, s in script.moves if s.kind == "I-POSITION"} <= delivered | begun
+    # A begun sequence must also say its position: an `I-POSITION` delivered by the mover at its `DEFINE`, later.
+    said = {(r.delivery.event_id.tick, r.delivery.event_id.origin) for r in records if isinstance(r, DeliveredRecord)
+            and r.delivery.role is Role.TARGET and r.delivery.event_id in iposition_events}
+    for t, s in script.moves:
+        if s.kind == "I-POSITION" and (t, str(s.actor)) in begun:
+            assert any(o == str(s.actor) and tick > t for tick, o in said), (t, s.actor)
     invariant_ticks = [r.tick for r in records if isinstance(r, InvariantRecord)]
     assert invariant_ticks == list(range(40))
 

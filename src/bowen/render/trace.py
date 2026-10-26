@@ -199,7 +199,7 @@ def _what_it_did(event: Event, index: _Index, names: _Names, view: PersonId | No
             for p, _, _ in effect.people:
                 parts.append(f"{names(p)} holds a position: no functioning changes hands")
         elif effect.mechanism == "assertion":
-            parts.append("assertion form (no systems perspective, or angry): extra impingement; "
+            parts.append("assertion form (all demand: angry, or no self in it): extra impingement; "
                          "claiming the position raises the sender's outward axis")
         elif effect.mechanism == "landed_contact":
             for p, _, v in effect.people:
@@ -207,6 +207,8 @@ def _what_it_did(event: Event, index: _Index, names: _Names, view: PersonId | No
         elif effect.mechanism == "debit":
             for tie, field, v in effect.ties:
                 parts.append(f"withdraws contact {names(PersonId(field.split(':', 1)[1]))} was receiving ({v:+.2f})")
+            for p, _, v in effect.people:  # M5.F.4: the said position's demand share counts against the speaker
+                parts.append(f"the demand in it raises {names(p)}'s outward axis ({v:+.3f})")
         elif effect.mechanism == "reduce_cutoff":
             # Revision 36 (G1, D7): the move lowers rejection only; the tie's stock is bridged by contact, not moved.
             parts += [f"{names(PersonId(f.split(':', 1)[1]))}'s rejection {v:+.2f}" for _, f, v in effect.ties
@@ -325,6 +327,9 @@ def _held_row(record: SelectionRecord, names: _Names) -> str:
                 f"held back {record.withheld}: computed, not emitted; attention on the tie rises |")
     if record.decided_by is DecidedBy.FALLBACK:
         return f"| {record.tick} | {names(record.actor)} | (holds) | — | — | fallback ({record.fallback_rule}): no legal act |"
+    if record.sequence_step == "PREPARE":  # M5.D.2a: a selected I-POSITION starts its sequence and emits nothing
+        return (f"| {record.tick} | {names(record.actor)} | I-POSITION | — | — | "
+                f"starts a sequence in PREPARE: nothing said this week |")
     raise UnrenderableRecord(f"selection at tick {record.tick} emitted nothing and is neither withheld nor a fallback")
 
 
@@ -397,7 +402,7 @@ def render(
             disabled |= {k for k, s in record.results if s is InvariantStatus.DISABLED}
         elif isinstance(record, SelectionRecord):
             # An emitted outcome is shown by its event's row. An outcome that emitted nothing —
-            # a WITHHOLD or a fallback hold (M4.D.1b, M4.D.1f) — gets a row of its own. The
+            # a WITHHOLD, a fallback hold (M4.D.1b, M4.D.1f) or an I-POSITION's start (M5.D.2a) — gets a row of its own. The
             # rationale (legal set, propensities, draw) is in the log, not the trace (M16.A.3).
             if record.event_id is None and (view is None or view == record.actor):
                 lines.append(_held_row(record, label))

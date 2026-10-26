@@ -120,15 +120,17 @@ def act(state: RunState, selection: Selection, visibility: HouseholdConductanceV
         if params is None:
             raise ValueError("a withheld outcome needs the engine parameters")
         return withhold(state, selection, params)
-    assertion = False
+    demand = 0.0
     if selection.kind == I_POSITION and selection.sequence_step is None and params is not None:
-        # M5.D.1, M5.D.2a, M5.F.4: a freshly selected I-POSITION either starts a sequence,
-        # emitting nothing this week, or executes at once as the assertion form.
+        # M5.D.1, M5.D.2a, M5.D.4a: a freshly selected I-POSITION either starts a sequence,
+        # emitting nothing this week, or, if the mover is angry, executes at once as the assertion form.
         target = selection.targets[0]
         if not iposition.assertion_form(state, selection.actor, target, params):
             started = iposition.begin(state, selection.actor, target)
             return [_record(state, dataclasses.replace(selection, sequence_step=iposition.PREPARE), None), started]
-        assertion = True
+        demand = 1.0  # the assertion form: all demand (M5.F.4's w = 0 end)
+    elif selection.kind == I_POSITION and selection.sequence_step == iposition.DEFINE and params is not None:
+        demand = iposition.demand_share(state, selection.actor, params)  # M5.F.4, read in the DEFINE week
     if state.kinds.mechanism_of(selection.kind) is not Mechanism.MOVE:
         raise ValueError(f"{selection.kind} is not a move")
     event = Event(
@@ -145,7 +147,7 @@ def act(state: RunState, selection: Selection, visibility: HouseholdConductanceV
         channel=stamp(state, selection),
         route=selection.route,
         fidelity=visibility.fidelity_for(selection.route),
-        assertion=assertion,
+        demand_share=demand,
     )
     resolved = visibility.resolve(event, state.people, state.ties)
     state.store.record_event(resolved.event)

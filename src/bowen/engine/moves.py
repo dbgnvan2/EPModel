@@ -522,19 +522,28 @@ def reduce_cutoff(state: RunState, event: Event, tie: Relationship, params: Engi
 
 
 def iposition_effect(state: RunState, event: Event, tie: Relationship, target: PersonId, params: EngineParams) -> EffectRecord:
-    """Purpose: a genuine I-POSITION withdraws contact the other was receiving; an assertion counts against its sender.
+    """Purpose: an I-POSITION's self-statement withdraws contact the other was receiving, and its demand counts against
+             its sender (revision 39: the two in proportion to the event's demand share).
     Spec:    docs/bowen_agent_model_spec_v2.md#M5.E.7, #M5.F.2a, #M5.F.4
-    Tests:   tests/bowen/test_iposition.py::test_m5f4_low_perspective_executes_the_assertion_form
+    Tests:   tests/bowen/test_iposition.py::test_m5f4_s3_6_demand_share_falls_with_level,
+             tests/bowen/test_iposition.py::test_m5d4a_an_angry_mover_executes_the_assertion_form
+
+    The debit is scaled by ``1 − demand_share`` (`M5.E.7`, `M5.F.4`) and the sender's outward axis rises by
+    ``demand_share × assertion_evidence_gain`` (`M5.F.2a`). The assertion form is the share-1 end: no debit.
     """
-    if event.assertion:
-        sender = state.people[event.sender]
+    share = event.demand_share
+    sender = state.people[event.sender]
+    claimed = ()
+    if share > 0.0:
         before = sender.outside_ness_outward
-        sender.outside_ness_outward = min(1.0, before + params.assertion_evidence_gain)
-        return EffectRecord(state.tick, "assertion", event.id,
-                            people=((sender.id, "outside_ness_outward", sender.outside_ness_outward - before),))
+        sender.outside_ness_outward = min(1.0, before + share * params.assertion_evidence_gain)
+        claimed = ((sender.id, "outside_ness_outward", sender.outside_ness_outward - before),)
+    if share >= 1.0:  # the assertion form (M5.D.4a): all demand, nothing said of self
+        return EffectRecord(state.tick, "assertion", event.id, people=claimed)
     before = tie.felt_contact[target]
-    tie.felt_contact[target] = max(0.0, before - params.debit_gain * _strength(event, params))
-    return EffectRecord(state.tick, "debit", event.id, ties=((tie.id, f"felt_contact:{target}", tie.felt_contact[target] - before),))
+    tie.felt_contact[target] = max(0.0, before - (1.0 - share) * params.debit_gain * _strength(event, params))
+    return EffectRecord(state.tick, "debit", event.id, people=claimed,
+                        ties=((tie.id, f"felt_contact:{target}", tie.felt_contact[target] - before),))
 
 
 # --- the step-4 pass -----------------------------------------------------------------------

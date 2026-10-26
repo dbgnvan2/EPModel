@@ -2,15 +2,15 @@
 
 Purpose: prove a passing Phase D criterion fails when the mechanism its spec row names is removed (`M11.1d`), as
          ``tools/mutation_record.py`` does for Phase C. Phase D's other mutation runs are reported in the plan, ad hoc.
-Spec:    docs/bowen_agent_model_spec_v2.md#M11.1a, #M11.1d, #M11.C.10, #M11.C.14
+Spec:    docs/bowen_agent_model_spec_v2.md#M11.1a, #M11.1d, #M11.C.10, #M11.C.14, #M11.C.18, #M11.C.20, #M11.C.33
 Tests:   tests/bowen/test_phase_d_mutation_record.py::test_m111d_phase_d_mutation_record_is_current
 
     python3 tools/phase_d_mutation_record.py [--workers N]
 
 A mutant is a literal replacement applied to a temporary copy of the repository, never to the working tree, and must
 match exactly once (`M11.1a`). Only criteria that pass in ``docs/phase_d2_ensemble_record.md`` (part II) or, for a
-part I criterion a mutant names (`M11.C.14`, revision 31), in ``docs/phase_d_ensemble_record.md`` are run. Results are
-cached in ``docs/records_cache/phase_d_mutation.json`` under the hash of the engine, the config and
+part I criterion a mutant names (`M11.C.14`, revision 31; `M11.C.18`, `.20` and `.33`, stage 3 step 8), in
+``docs/phase_d_ensemble_record.md`` are run. Results are cached in ``docs/records_cache/phase_d_mutation.json`` under the hash of the engine, the config and
 ``tools/phase_d_mutant_child.py`` and of ``apply`` and ``run_in_copy`` (which copy the repository and apply the edits),
 with each mutant's edits; the record is rendered from the cache. Outcomes are judged as in the Phase C record
 (``tools/mutation_record.py``'s ``judge``): an engine exception under a mutant (RAISED) is a red, reported and never
@@ -131,6 +131,32 @@ MUTANTS = (
            "M6.I.4a removed: a taker whose capacity falls keeps all they borrowed"),
     # M11.C.7's row: M8.2/M8.3 made blind to position, so a sided coach counts as live and its contact can land.
     # Not run on M11.C.7[joint over one spouse]: neither arm has a SPLIT toward the coach, so it would change nothing.
+    # Stage 3 step 8 (plan §3.8): the part I criteria group F's rules touch, each under the mutant its spec row names;
+    # none had an entry before (their mutations were reported ad hoc in the plan). M11.C.18's: M1.A.5e's stress
+    # response removed (coping raises functioning under load, soothing lowers it); the calm settling stays.
+    Mutant("stress-response-removed", NAMED, ("M11.C.18",), "src/bowen/engine/stress_response.py",
+           "            if coped:\n"
+           "                change = params.response_up_gain * above / SCALE_MAX * level\n"
+           "            elif kind in state.kinds.soothing:\n"
+           "                change = -params.response_down_gain * above / SCALE_MAX * (1.0 - level)\n"
+           "            else:\n"
+           "                change = 0.0\n",
+           "            change = 0.0\n",
+           "M1.A.5e's stress response removed: under load, coping and soothing move functioning by nothing"),
+    # M11.C.20's: M1.A.4k's leaving out of borrowed pseudo-self removed; what was given way is still added back.
+    Mutant("borrowed-pseudo-self-read-as-own", NAMED, ("M11.C.20",), "src/bowen/engine/slow_tick.py",
+           "own = person.functional_level - (person.pseudo_self or 0.0) - ",
+           "own = person.functional_level - min(0.0, person.pseudo_self or 0.0) - ",
+           "M1.A.4k's exclusion of borrowed pseudo-self removed: the estimator reads a borrowed gain as own"),
+    # M11.C.33's: M7.A.1a's slow-clock gate removed, with the slow tick's invariant that enforces it, so the run is
+    # measured rather than stopped by the invariant (a RAISED row would be a red with no difference to read).
+    Mutant("dependence-gate-removed", NAMED, ("M11.C.33",), "src/bowen/engine/slow_tick.py",
+           "    supported = evidence > 0 and breadth >= params.estimator_breadth and not dependent\n",
+           "    supported = evidence > 0 and breadth >= params.estimator_breadth\n",
+           "M7.A.1a's gate removed: a financially dependent person's basic level can rise",
+           also=(("src/bowen/engine/slow_tick.py",
+                  "        if person.basic_level > basic and person.financially_dependent:\n",
+                  "        if False:\n"),)),
     Mutant("coach-position-blind", NAMED, ("M11.C.7[one spouse over sided]", "M11.C.7[joint over sided]"),
            "src/bowen/engine/external.py",
            "        occupant = Occupant(coach, fused_into=coach_side(state, coach, members, params))\n",

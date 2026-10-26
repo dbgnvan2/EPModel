@@ -185,7 +185,6 @@ SCHEMA: Mapping[str, KeySpec] = MappingProxyType(
         "delayed_view_weeks": KeySpec(int, "[I]", "M16.D.2"),
         "prepare_ticks": KeySpec(int, "[I]", "M5.D.2a"),
         "rehearsal_rate": KeySpec(float, "[I]", "M1.A.9"),
-        "assertion_perspective_threshold": KeySpec(float, "[I]", "M5.F.4"),
         "anger_threshold": KeySpec(float, "[I]", "M5.D.4"),
         "assertion_gain": KeySpec(float, "[I]", "M5.F.4"),
         "assertion_evidence_gain": KeySpec(float, "[I]", "M5.F.2a"),
@@ -242,6 +241,7 @@ RETIRED: Mapping[str, KeySpec] = MappingProxyType(
         "interactive_standing_fraction": KeySpec(float, "[I]", "M4.A.3"),
         "tension_activation_threshold": KeySpec(float, "[I]", "M1.C.3"),
         "pattern_pole": KeySpec(float, "[I]", "M5.A.1a"),
+        "assertion_perspective_threshold": KeySpec(float, "[I]", "M5.F.4"),  # spec revision 39 (Q8): retired
     }
 )
 

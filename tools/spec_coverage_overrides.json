@@ -228,13 +228,14 @@
   "note": "each person holds beliefs about ties (`Person.tie_beliefs`), and a tense tie seen only in calm exchanges is believed calm (`test_m98_belief_can_differ_from_the_true_state`, written for `M9.8`, which asserts belief and truth differ); the requirement is met through `tie_beliefs`: the declared field `Person.beliefs` is never written (`TODO.md`)"
  },
  "M1.A.18": {
-  "status": "partial",
+  "status": "done",
   "evidence": [
    "tests/bowen/test_policy.py::test_m4d1a_perspective_opens_the_self_directed_channel",
    "tests/bowen/test_external.py::test_m1e7_perspective_rises_only_on_a_landed_contact_or_own_practice",
-   "tests/bowen/test_appraise.py::test_m4c4_perspective_falls_with_anxiety_and_on_a_loaded_tie"
+   "tests/bowen/test_appraise.py::test_m4c4_perspective_falls_with_anxiety_and_on_a_loaded_tie",
+   "tests/bowen/test_iposition.py::test_m5f4_low_perspective_starts_a_sequence"
   ],
-  "note": "`Person.systems_perspective` is a graded value separate from both levels; intermediate values give intermediate self-directed weights (`test_m4d1a_perspective_opens_the_self_directed_channel`); but `iposition.py::assertion_form` makes every I-POSITION the assertion form below `assertion_perspective_threshold`, the hard gate the paragraph rules out"
+  "note": "`Person.systems_perspective` is a graded value separate from both levels; intermediate values give intermediate self-directed weights (`test_m4d1a_perspective_opens_the_self_directed_channel`); since spec revision 39 (stage 3 step 8) no threshold on it decides an I-POSITION's form: a mover without perspective starts a sequence and says the position more as a demand (`test_m5f4_low_perspective_starts_a_sequence`), so the hard gate the paragraph rules out is gone"
  },
  "M1.A.18a": {
   "status": "partial",
@@ -249,9 +250,9 @@
    "tests/bowen/test_external.py::test_m1e7_perspective_rises_only_on_a_landed_contact_or_own_practice",
    "tests/bowen/test_policy.py::test_m4d1a_mixing_weight_reads_functional_level_only",
    "tests/bowen/test_policy.py::test_m4d3b_loaded_tie_engagement_gated_by_systems_perspective",
-   "tests/bowen/test_iposition.py::test_m5f4_low_perspective_executes_the_assertion_form"
+   "tests/bowen/test_iposition.py::test_m5f4_low_perspective_starts_a_sequence"
   ],
-  "note": "everyone starts at 0 (`scenario/family.py::build_family`; `test_m1e7_perspective_rises_only_on_a_landed_contact_or_own_practice`); it gates loaded-tie engagement (`test_m4d3b_loaded_tie_engagement_gated_by_systems_perspective`) and I-POSITION form (`test_m5f4_low_perspective_executes_the_assertion_form`); no test shows a zero-perspective person functioning well over a life"
+  "note": "everyone starts at 0 (`scenario/family.py::build_family`; `test_m1e7_perspective_rises_only_on_a_landed_contact_or_own_practice`); it gates loaded-tie engagement (`test_m4d3b_loaded_tie_engagement_gated_by_systems_perspective`) and, through the self-channel weight, how much of an I-POSITION is demand (`test_m5f4_low_perspective_starts_a_sequence`); no test shows a zero-perspective person functioning well over a life"
  },
  "M1.A.18d": {
   "status": "partial",
@@ -912,15 +913,18 @@
  },
  "M5.F.2c": {
   "status": "partial",
-  "evidence": [],
-  "note": "built in part, no test: `src/bowen/engine/appraise.py::tie_change` scales delivered contact by `1 − hollow_gain × inward` and adds `assault_gain × outward` to impingement, both continuous; no zero-crossing point is declared, at 0.5 or otherwise, and with `hollow_gain` 0.5 the inward term never changes sign"
+  "evidence": [
+   "tests/bowen/test_iposition.py::test_m5f4_s3_6_demand_share_falls_with_level"
+  ],
+  "note": "built in part: `src/bowen/engine/appraise.py::tie_change` scales delivered contact by `1 − hollow_gain × inward` and adds `assault_gain × outward` to impingement, both continuous, with no test; no zero-crossing point is declared, at 0.5 or otherwise, and with `hollow_gain` 0.5 the inward term never changes sign. The sentence revision 39 adds is built: an `I-POSITION`'s demand share scales continuously with the mover's self-channel weight, with no perspective threshold (`test_m5f4_s3_6_demand_share_falls_with_level`)"
  },
  "M5.F.2a": {
   "status": "partial",
   "evidence": [
-   "tests/bowen/test_iposition.py::test_m5f4_low_perspective_executes_the_assertion_form"
+   "tests/bowen/test_iposition.py::test_m5f4_s3_6_demand_share_falls_with_level",
+   "tests/bowen/test_iposition.py::test_m5d4a_an_angry_mover_executes_the_assertion_form"
   ],
-  "note": "one of the five forms is built: an assertion-form `I-POSITION` raises the claimant's outward axis (`test_m5f4_low_perspective_executes_the_assertion_form`); declaring non-involvement, claiming to have worked it out, and catching oneself diagnosing are not built (searched `src/bowen` for `neutrality`, `non-involvement`, `announce`)"
+  "note": "one of the five forms is built: an `I-POSITION`'s demand share raises the claimant's outward axis, the more the lower their level, and the angry assertion form by the full gain (`test_m5f4_s3_6_demand_share_falls_with_level`, `test_m5d4a_an_angry_mover_executes_the_assertion_form`); declaring non-involvement, claiming to have worked it out, and catching oneself diagnosing are not built (searched `src/bowen` for `neutrality`, `non-involvement`, `announce`)"
  },
  "M6.I.1": {
   "status": "done",

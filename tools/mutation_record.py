@@ -290,6 +290,26 @@ MUTANTS = (
            "moved = min(excess(seeker), rate * excess(seeker))",
            "moved = min(excess(seeker), rate * max(0.0, SCALE_MAX / 10 - excess(seeker)))",
            "M1.C.1's relief falls as the seeker's tension rises (still conserved, so the ledger holds)"),
+    # --- spec revision 39, group F (stage 3 step 8; plan §3.7, S3.6, S3.7, S3.9) ------------------
+    # M11.C.49's row: M5.F.4's demand share removed (w := 1, the act all self-statement at any level) MUST turn its
+    # composite limbs red; inverted (w := 1 − w) MUST reverse them.
+    Mutant("demand-share-removed", NAMED, ("M11.C.49",), "src/bowen/engine/iposition.py",
+           "    return max(0.0, 1.0 - w)  # w may pass 1 by rounding\n", "    return 0.0\n",
+           "M5.F.4's demand share removed: a genuine I-POSITION delivers no demand and the full debit at any level"),
+    Mutant("demand-share-inverted", SIGN, ("M11.C.49",), "src/bowen/engine/iposition.py",
+           "    return max(0.0, 1.0 - w)  # w may pass 1 by rounding\n", "    return w\n",
+           "M5.F.4's demand share inverted: the higher the mover's level, the more the act comes out as a demand"),
+    # M11.C.29's row: M6.I.1's budget reduction removed — the differentiating move merely reallocates — MUST turn it
+    # red (the symptom limb; the budget limb is proved by tests/bowen/test_sinks.py, S3.9).
+    Mutant("budget-reduction-removed", NAMED, ("M11.C.29",), "src/bowen/engine/sinks.py",
+           "    reduction = min(params.exchange_budget_reduction, family.undifferentiation_budget)\n",
+           "    reduction = 0.0\n",
+           "M6.I.1's reduction removed: a completed differentiating exchange lowers the budget by nothing"),
+    # M11.C.5's row names M5.E.7's life-energy debit (a contact proxy): it had no entry before.
+    Mutant("iposition-debit-removed", NAMED, ("M11.C.5",), "src/bowen/engine/moves.py",
+           "max(0.0, before - (1.0 - share) * params.debit_gain * _strength(event, params))",
+           "max(0.0, before)",
+           "M5.E.7's debit removed: a genuine I-POSITION withdraws no contact from the other"),
     # --- M11.1c: representation mutants, numerically equivalent by construction ------------------
     Mutant("appraisal-sum-order-reversed", REPRESENTATION, ("*",), "src/bowen/engine/appraise.py",
            "    items.sort(key=lambda x: x[0])\n", "    items.sort(key=lambda x: x[0], reverse=True)\n",

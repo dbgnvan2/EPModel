@@ -18,7 +18,7 @@ moves to `docs/TODO_archive.md`. Until 2026-10-22 this file held every item's te
 - T-121 · 2026-10-23 · `M11.C.11`'s named mutant survives · [record](docs/todo/2026-10-23_revision_36_regeneration.md)
 - T-123 · 2026-10-23 · `M11.C.48`'s baseline counts a first cutoff with no … · [record](docs/todo/2026-10-23_revision_36_regeneration.md)
 
-## Later (118)
+## Later (121)
 
 - T-006 · 2026-10-22 · D4, long `Spec:` lines (Part D, 2026-10-22; the … · [record](docs/todo/2026-10-22_model_ergonomics.md)
 - T-007 · 2026-10-22 · Adjacent issues found by Part D's docstring pass, … · [record](docs/todo/2026-10-22_model_ergonomics.md)
@@ -138,3 +138,6 @@ moves to `docs/TODO_archive.md`. Until 2026-10-22 this file held every item's te
 - T-133 · 2026-10-25 · `M5.D.4a`'s anger check at `DEFINE` (the correctness pass … · [record](docs/todo/2026-10-25_stage_3_revision_39.md)
 - T-134 · 2026-10-26 · `M6.I.4a`'s return with no lender is not counted … · [record](docs/todo/2026-10-25_stage_3_revision_39.md)
 - T-135 · 2026-10-26 · `M11.C.10`'s scripted renewal outlasts a cutoff (the step … · [record](docs/todo/2026-10-25_stage_3_revision_39.md)
+- T-137 · 2026-10-26 · `M11.C.49` fails at its first settings (the step … · [record](docs/todo/2026-10-25_stage_3_revision_39.md)
+- T-138 · 2026-10-26 · `M11.C.29`'s genuine `I-POSITION` almost never completes after D21 … · [record](docs/todo/2026-10-25_stage_3_revision_39.md)
+- T-139 · 2026-10-26 · Two arm settings read outside the run's parameters … · [record](docs/todo/2026-10-25_stage_3_revision_39.md)

@@ -782,6 +782,8 @@ At low level a person is nearly all automatic; as level rises a real self-direct
 - Ch10 · L10.12 — **the fifth scale band.** "The upper part of the 25-to-50 segment": dogmatic authoritativeness, the compliance of a disciple, or the opposition of a rebel — *that* is stated of the band. ⚠ **The phrase "intellect in the service of the relationship system" is not**: the source restricts it to "**Some of those in this group**", and this document had attached it to the whole band *(corrected 2026-08-28)*. These agents *look* differentiated and are not.
 - Ch19 · L19.5 — "**token concurrence**": the family scores concession on a **continuous scale** against ordinary competent acts. The one place in the corpus Bowen grades anything continuously, and it grades an act's value **as read by the receiver**.
 
+At a lower level an I-position comes out more as a demand (`M5.F.4`, revision 39); the assertion form is the all-demand end.
+
 ### 5.7 Moves the nine do not cover
 
 | Move | What it does | Source |
@@ -1298,7 +1300,15 @@ reviewed by the owner one at a time on 2026-10-17 (`docs/implementation_plan_pha
   40 is too anxious to hold past the first opposition, so no sequence completes. `M11.C.32` now declares a mover at
   60. `M11.C.29`'s budget limb is proved by a unit test instead, and its time-course limb is reported as composite.
   Whether `hold_gain` and `defence_threshold` (`[I]`) should be resized for the post-revision-16 model is the
-  owner's.
+  owner's. *Revision 39 (the owner's D21, 2026-10-24):* `M11.C.29`'s mover is at level 60 in both arms, as in
+  `M11.C.32`, F's spell is paused over the act's window, and completions are reported; the row fails if no genuine
+  `I-POSITION` completes (mixed: the budget limb premise, the time course composite). In its first run after the
+  change (2026-10-26, `docs/review/stage_3_step_8_criteria.md`) the genuine arm completed in 1 of 100 seeds and the row
+  failed on the time course; in 30 seeds read ad hoc, most sequences failed `PREPARE` (T-138). A new criterion, `M11.C.49` (mixed, the owner's D20), compares a
+  genuine `I-POSITION` said by a mover at level 35 and at 60, each against its own control on the same seed, F's own
+  `I-POSITION` withheld otherwise: the family's excess and the `CONFLICT` share on the tie should rise more at 35
+  (composite limbs); the target's felt impingement is reported (the premise limb, which `M5.F.4` sets higher at 35;
+  never a finding). In its first run neither composite limb resolved (T-137; the same page).
 - **Test 9 is proposed out of version 1.** No rule reads sibling position (§3.11), so it needs a mechanism, not a
   gate.
 
@@ -2173,9 +2183,11 @@ written; it is not a rule against reopening.
   (`M4.C.1c`). Reopening the tie relieves it. No pull term is written.
 
 **The `I-POSITION` sequence, as built (Phase C step 8, 2026-10-07).** Every form and rate is `[I]`.
-- **The assertion form.** A person without systems perspective, or angry on the tie, does not run a
-  sequence. Their `I-POSITION` is one forceful claim: it adds impingement, and claiming the position
-  counts against them.
+- **The demand share (revision 39, `M5.F.4`).** What a person says at `DEFINE` is part statement of self and part
+  demand, the demand share falling as their level and perspective rise; the demand adds impingement, takes less of the
+  other's contact, and counts against the speaker. `[K]` `KS05.5`, `KS06.11`, `FE04.13` and the interview `M5.F.4`
+  cites (the KB12 interview, `K12.3`, cited and not quoted), for the direction; the form is `[I]`. **The assertion
+  form** is the all-demand end: an angry person does not run a sequence, and their `I-POSITION` is one forceful claim.
 - **Otherwise, a sequence over weeks:**
   - **`PREPARE`.** Weeks of private rehearsal lower both impingement axes. It fails if anxiety
     outruns the person's defences. If the other raises the issue first, the person defines unprepared.

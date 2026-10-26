@@ -115,5 +115,31 @@
    ]
   ],
   "expect": "assert ravi.floor_held == 0.0"
+ },
+ {
+  "gate": "S3.6",
+  "test": "tests/bowen/test_iposition.py::test_m5f4_s3_6_demand_share_falls_with_level",
+  "mutation": "`demand-share-removed` (the Phase C mutant's edit): `M5.F.4`'s demand share is 0 at every level (w := 1)",
+  "edits": [
+   [
+    "src/bowen/engine/iposition.py",
+    "    return max(0.0, 1.0 - w)  # w may pass 1 by rounding\n",
+    "    return 0.0\n"
+   ]
+  ],
+  "expect": "assert extra == pytest.approx((1 - w) * PARAMS.assertion_gain * scale, rel=1e-9), level"
+ },
+ {
+  "gate": "S3.8",
+  "test": "tests/bowen/test_phase_c_criteria.py::test_m11c29_s3_8_act_window_clear_of_the_spell",
+  "mutation": "the pause removed: `M11.C.29`'s arm keeps F's spell over the act's window",
+  "edits": [
+   [
+    "src/bowen/ensemble/criteria.py",
+    "    spells = suspended(spell(\"triad\", weeks), \"f\", act_window(t0))\n",
+    "    spells = spell(\"triad\", weeks)\n"
+   ]
+  ],
+  "expect": "assert not [t for t in f_spells if t in window], (arm, f_spells)"
  }
 ]

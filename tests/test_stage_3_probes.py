@@ -150,14 +150,43 @@ def test_stage_3_targeted_run_renders_rows_and_mutants():
         return {"criterion": cid, "outcome": outcome, "seeds": 50,
                 "readouts": [{"readout": "r", "direction": "<", "mean_difference": diff, "half_width": 0.1}]}
 
-    rows = [row("M11.C.6", "FAIL", 0.02), row("M11.C.21", "PASS", 0.5)]
+    rows = [row("M11.C.6", "FAIL", 0.02), row("M11.C.21", "PASS", 0.5), row("M11.C.49", "FAIL", 0.3),
+            {**row("M11.C.29", "FAIL", 0.9), "missing_moves": ["(I-POSITION completed)"]}]
     mutated = [("pseudo-self-return-removed", row("M11.C.21", "FAIL", -0.1))]
-    before = {"M11.C.6": row("M11.C.6", "FAIL", 0.0886)}
-    text = targeted.render("t", "abc", "now", rows, mutated, before, ["M11.C.6", "M11.C.21"])
-    assert "| `M11.C.6` | **FAIL** | 50 | `r` +0.02 ± 0.1 | FAIL: `r` +0.0886 ± 0.1 |" in text
-    assert "| `M11.C.21` | **PASS** | 50 | `r` +0.5 ± 0.1 | no row |" in text
+    before = {("D", "M11.C.6"): row("M11.C.6", "FAIL", 0.0886), ("C", "M11.C.21"): row("M11.C.21", "PASS", 9.0)}
+    text = targeted.render("t", "abc", "now", rows, mutated, before, ["M11.C.6", "M11.C.21", "M11.C.49", "M11.C.29"])
+    assert "| `M11.C.6` | D | **FAIL** | 50 | `r` +0.02 ± 0.1 | FAIL: `r` +0.0886 ± 0.1 |" in text
+    assert "| `M11.C.21` | D | **PASS** | 50 | `r` +0.5 ± 0.1 | no row |" in text  # a Phase C row is not its row
+    assert "| `M11.C.49` | C | **FAIL** | 50 | `r` +0.3 ± 0.1 | no row |" in text
+    assert "| `M11.C.29` | C | **FAIL** (no (I-POSITION completed), `M11.1f`) | 50 |" in text  # the required move
     assert "| `pseudo-self-return-removed` | `M11.C.21` | FAIL | 50 | `r` -0.1 ± 0.1 |" in text
     assert "- `displaced-coping-removed` → `M11.C.6`: the criterion does not pass here" in text
+    assert "- `demand-share-removed` → `M11.C.49`: the criterion does not pass here" in text  # a Phase C mutant
     assert "pseudo-self-return-removed` → `M11.C.21`: the criterion does not pass" not in text
     machine = json.loads(text.split("```json\n")[1].split("```")[0])
     assert machine["rows"] == rows and machine["mutants"][0]["mutant"] == "pseudo-self-return-removed"
+
+
+def test_stage_3_targeted_run_sends_each_criterion_to_its_phase(monkeypatch):
+    """Step 8: a Phase C criterion runs in the Phase C child under the Phase C record's mutants, a Phase D one in the
+    Phase D child under the Phase D record's; a mutant runs only on a criterion that passed, and rows keep the order
+    asked for."""
+    import tools.record_cache as cache
+    import tools.stage_3_targeted_run as targeted
+
+    calls = []
+
+    def child_rows(mutant, child, ids, workers, label):
+        calls.append((mutant.id if mutant else None, child, tuple(ids)))
+        return [{"criterion": c, "outcome": "PASS" if c in ("M11.C.49", "M11.C.33") else "FAIL", "seeds": 1}
+                for c in ids]
+
+    monkeypatch.setattr(cache, "child_rows", child_rows)
+    rows, mutated = targeted.run(["M11.C.33", "M11.C.49", "M11.C.5"], 1)
+    assert [r["criterion"] for r in rows] == ["M11.C.33", "M11.C.49", "M11.C.5"]
+    assert (None, "mutant_runner.py", ("M11.C.49", "M11.C.5")) in calls
+    assert (None, "phase_d_mutant_child.py", ("M11.C.33",)) in calls
+    ran = {(mid, child) for mid, child, _ in calls if mid}
+    assert ran == {("demand-share-removed", "mutant_runner.py"), ("demand-share-inverted", "mutant_runner.py"),
+                   ("dependence-gate-removed", "phase_d_mutant_child.py")}
+    assert {mid for mid, _ in mutated} == {"demand-share-removed", "demand-share-inverted", "dependence-gate-removed"}

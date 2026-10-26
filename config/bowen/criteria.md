@@ -56,6 +56,23 @@
 > weeks later. The arms differ only in C's bonds from week 0: the baseline's C has bond energy `bond_far` with F and
 > `bond_near` with M, the treatment's the reverse. Their sum is the fixture's (50 + 50).
 >
+> **Spec revision 39, group F (version 2 stage 3 step 8, 2026-10-26; the owner's D20 and D21 of 2026-10-24, the
+> draft approved 2026-10-25):**
+> * `M11.C.29` — the mover F has basic and functional level `mover_level` in both arms, as in `M11.C.32` (post hoc:
+>   at 40, with the spell on the act's window, 58 of 100 seeds failed `PREPARE` and 37 ran as the assertion form), and
+>   F's spell events from `t0` to `t0 + prepare_ticks` (inclusive) are removed in both arms; M's spell is kept. The
+>   mover's completed exchanges are reported, and the row fails if there is none.
+> * `M11.C.49` — four runs per seed on the triad, F at `level_low` and at `level_high`, each once with F's
+>   `I-POSITION` toward M said at `t0` and once with nothing scripted. The said act starts its sequence at `DEFINE`,
+>   unprepared (`M5.D.2a`; the owner's Q9), so it is said in every seed. In all four runs F's systems perspective is
+>   1.0, F's spell is suspended over the act's window as in `M11.C.29`, the F–M tie is held open to `t0`, and F's own
+>   `I-POSITION` is withheld in every week, so the control has none and the act run one (as in the step 2 probe,
+>   `docs/review/stage_3_iposition_probe.md`). Read over the `window` weeks after `t0` (weeks `t0 + 1` to
+>   `t0 + window`, end of week): the family's excess anxiety summed over people and weeks, the `CONFLICT` share of
+>   the moves between F and M (0 when there is none; such runs are counted), M's mean felt impingement on the tie;
+>   over the run, F's completions. `t0` 1: week 0 is every member's chronic floor, and the probe found F angry at
+>   week 4 in 14 of 40 seeds. `weeks` 25, so a sequence said at `t0` can finish its windows. All `[I]`.
+>
 > **Post-hoc restatement, 2026-10-09 (step S of `docs/DECISIONS — PHASE C FAILING.md`, approved by the owner).**
 > The declared weeks stand, but in both arms of every criterion that scripts an act after week 0, the ties its
 > scripted acts cross are held open from week 0 until the act (`M11.C.29`: until its last withdrawal): neither
@@ -119,6 +136,7 @@
 | M11.C.29 | t0 | 4 | [I] |
 | M11.C.29 | disguise_span | 8 | [I] |
 | M11.C.29 | disguise_every | 2 | [I] |
+| M11.C.29 | mover_level | 60.0 | [I] |
 | M11.C.32 | weeks | 30 | [I] |
 | M11.C.32 | t0 | 0 | [I] |
 | M11.C.32 | angry_impingement | 1.0 | [I] |
@@ -139,6 +157,11 @@
 | M11.C.42 | weeks | 40 | [I] |
 | M11.C.44 | weeks | 80 | [I] |
 | M11.C.45 | weeks | 80 | [I] |
+| M11.C.49 | weeks | 25 | [I] |
+| M11.C.49 | t0 | 1 | [I] |
+| M11.C.49 | window | 6 | [I] |
+| M11.C.49 | level_low | 35.0 | [I] |
+| M11.C.49 | level_high | 60.0 | [I] |
 | nodal | kind_1 | JOB_CHANGE | [I] |
 | nodal | kind_2 | MOVE | [I] |
 | nodal | kind_3 | SERIOUS_ILLNESS | [I] |

@@ -3,7 +3,7 @@
 Purpose: define each Phase C `M11.C` criterion as two arms differing in one declared
          channel (`M17.D.3`: initial state, a scripted act at one tick, or the stressor
          schedule), with its readouts, its direction and its class (`M11.5`).
-Spec:    docs/bowen_agent_model_spec_v2.md#M11.C.1, #M11.C.3, #M11.C.4, #M11.C.5, #M11.C.16, #M11.C.19, #M11.C.25, #M11.C.27, #M11.C.29, #M11.C.32, #M11.C.35, #M11.C.38, #M11.C.41, #M11.C.42, #M11.C.44, #M11.C.45, #M11.3, #M11.5, #M17.D.3
+Spec:    docs/bowen_agent_model_spec_v2.md#M11.C.1, #M11.C.3, #M11.C.4, #M11.C.5, #M11.C.16, #M11.C.19, #M11.C.25, #M11.C.27, #M11.C.29, #M11.C.32, #M11.C.35, #M11.C.38, #M11.C.41, #M11.C.42, #M11.C.44, #M11.C.45, #M11.C.49, #M11.3, #M11.5, #M17.D.3
 Tests:   tests/bowen/test_phase_c_gate.py
 
 Written after the constants were frozen (`M10.B.4`). Every arm runs the full engine under
@@ -78,7 +78,7 @@ REQUIRED = {
     "M11.C.19": ("weeks", "low_axis", "high_axis"),
     "M11.C.25": ("weeks", "no_pole"),
     "M11.C.27": ("t0", "latency", "report_weeks", "unstable_impingement"),
-    "M11.C.29": ("weeks", "t0", "disguise_span", "disguise_every"),
+    "M11.C.29": ("weeks", "t0", "disguise_span", "disguise_every", "mover_level"),  # mover_level: revision 39, D21
     "M11.C.32": ("weeks", "t0", "angry_impingement", "mover_level"),
     "M11.C.35": ("t0", "run_after", "conductance_high", "conductance_low"),
     "M11.C.38": ("weeks", "level_1", "level_2", "level_3", "level_4"),
@@ -86,6 +86,7 @@ REQUIRED = {
     "M11.C.42": ("t0", "weeks"),
     "M11.C.44": ("weeks",),
     "M11.C.45": ("weeks",),
+    "M11.C.49": ("weeks", "t0", "window", "level_low", "level_high"),  # spec revision 39, D20
     # Phase D (src/bowen/ensemble/criteria_d.py), spec revision 17.
     "nodal": ("kind_1", "kind_2", "kind_3", "every", "intensity"),
     "M11.C.17": ("weeks",),
@@ -299,7 +300,8 @@ def scenario(family: str, seed: int, weeks: int, *, spells=(), forced=None, setu
              unavailable=None, held_open=None, watch=None, before=None, withheld=None, overrides=None):
     """Run one arm; return (state, records). ``until`` stops early at that week (exclusive); ``watch(state)``, if
     given, is called after every tick and must only read; ``before(state)``, if given, is called before every tick
-    and may set a declared condition for that week (`M11.C.33`'s dependence at the slow tick). ``overrides`` replaces
+    and may set a declared condition for that week (`M11.C.33`'s dependence at the slow tick); the records it returns,
+    if any, join the run's (`M11.C.49`'s scripted start). ``overrides`` replaces
     named engine parameters for this arm only: an experimental override declared by the criterion, never a config
     default (`M10.B.5`: learning switched off for `M11.C.39` and `M11.C.40`)."""
     constants, kinds = load_constants(), load_event_kinds()
@@ -316,7 +318,7 @@ def scenario(family: str, seed: int, weeks: int, *, spells=(), forced=None, setu
     sink = type("Sink", (), {"emit": lambda self, r: records.append(r)})()
     for _ in range(until if until is not None else weeks):
         if before:
-            before(parts.state)
+            records.extend(before(parts.state) or ())
         run_tick(parts.state, source, parts.params, parts.visibility, parts.activation, sink)
         if watch:
             watch(parts.state)
@@ -388,6 +390,39 @@ def held(until: int, *pairs: str) -> tuple:
 def act(actor, kind, target, tick):
     intensity = SETTINGS["scripted_act"]["intensity"]
     return {(tick, P(actor)): Selection(actor=P(actor), kind=kind, targets=(P(target),), intensity=intensity)}
+
+
+def mover_at(who: str, level: float):
+    """A setup: ``who`` at basic and functional level ``level`` with systems perspective 1.0, what initialisation
+    derives from level derived again, as ``lowered`` does (`M11.C.29`, `M11.C.32`, `M11.C.49`)."""
+    def setup(state):
+        mover = state.people[P(who)]
+        mover.basic_level = mover.functional_level = level
+        mover.pseudo_self = mover.swing
+        _reinitialise(state)
+        mover.systems_perspective = 1.0
+    return setup
+
+
+def act_window(t0: int) -> range:
+    """The weeks of an `I-POSITION` scripted at ``t0`` up to its `DEFINE`: ``t0`` to ``t0 + prepare_ticks``, inclusive
+    (spec revision 39, D21; the step 5 reading: the week `DEFINE` falls due is in the window)."""
+    return range(t0, t0 + int(load_constants()["prepare_ticks"]) + 1)
+
+
+def suspended(spells, person: str, weeks: range) -> tuple[Event, ...]:
+    """``spells`` without ``person``'s spell events in ``weeks``: the act's window clear of their spell, every other
+    person's spell kept (`M11.C.29`, `M11.C.49`; revision 39, D21)."""
+    return tuple(e for e in spells if not (e.targets == (P(person),) and e.timestamp in weeks))
+
+
+COMPLETED = "(I-POSITION completed)"  # the mover's completed exchanges, a required "move" (M11.C.29, revision 39)
+
+
+def completions(records, mover: str) -> int:
+    """The mover's completed `I-POSITION` exchanges (`M5.D.7`) over the run."""
+    return count(1 for r in records if isinstance(r, EffectRecord) and r.mechanism == "iposition"
+                 for pid, flag, _ in r.people if pid == P(mover) and flag == "iposition:end:completed")
 
 
 # --- M11.C.1 and M11.C.38: level and time to threshold ---------------------------------------
@@ -575,10 +610,11 @@ def arm_c27(arm, seed, settings):
 
 def arm_c29(arm, seed, settings):
     weeks, t0 = settings["weeks"], settings["t0"]
-
-    def perspective(state):
-        state.people[P("f")].systems_perspective = 1.0
-
+    # Revision 39 (the owner's D21, 2026-10-24): the mover F at level `mover_level` in both arms, as in M11.C.32, and
+    # F's spell suspended over the act's window in both arms, M's kept, so the third still carries load (T-020). At
+    # level 40, with the spell on F's PREPARE window, 58 of 100 seeds failed PREPARE and 37 ran as the assertion form.
+    setup = mover_at("f", settings["mover_level"])
+    spells = suspended(spell("triad", weeks), "f", act_window(t0))
     span, every = settings["disguise_span"], settings["disguise_every"]
     if arm == "treatment":  # a genuine I-POSITION
         forced = act("f", "I-POSITION", "m", t0)
@@ -595,10 +631,12 @@ def arm_c29(arm, seed, settings):
         third = state.people[P("c")]
         active.append(third.channel_prior is not None and third.symptom_active[third.channel_prior])
 
-    state, records = scenario("triad", seed, weeks, spells=spell("triad", weeks), forced=forced, setup=perspective,
+    state, records = scenario("triad", seed, weeks, spells=spells, forced=forced, setup=setup,
                               held_open=held(t0 + span, "f-m"), watch=watch)
-    return result({"budget": state.family.undifferentiation_budget, "third_symptom_weeks": float(count(active))},
-                  records)
+    done = result({"budget": state.family.undifferentiation_budget, "third_symptom_weeks": float(count(active)),
+                   "completions": float(completions(records, "f"))}, records)
+    done.moves[COMPLETED] += completions(records, "f")  # the row fails if none completes (revision 39)
+    return done
 
 
 # --- M11.C.32: the mover's anger stalls and degrades the move -----------------------------------
@@ -606,17 +644,11 @@ def arm_c29(arm, seed, settings):
 
 def arm_c32(arm, seed, settings):
     t0 = settings["t0"]
-
-    def setup(state):
-        mover = state.people[P("a")]
-        # Version 1 (2026-10-17; post hoc, Claude's recommendation, approved by the owner 2026-10-17): a mover able to
-        # complete the sequence when calm, as tests/bowen/test_iposition.py's MOVER_LEVEL is. At the fixture's 40 the
-        # calm arm reached the peak in 0 of 200 seeds after spec revision 16, so both arms read 0 and the gate went
-        # untested. What initialisation derives from level is derived again, as lowered() does (review 2026-10-17).
-        mover.basic_level = mover.functional_level = settings["mover_level"]
-        mover.pseudo_self = mover.swing
-        _reinitialise(state)
-        mover.systems_perspective = 1.0
+    # Version 1 (2026-10-17; post hoc, Claude's recommendation, approved by the owner 2026-10-17): a mover able to
+    # complete the sequence when calm, as tests/bowen/test_iposition.py's MOVER_LEVEL is. At the fixture's 40 the
+    # calm arm reached the peak in 0 of 200 seeds after spec revision 16, so both arms read 0 and the gate went
+    # untested. What initialisation derives from level is derived again, as lowered() does (review 2026-10-17).
+    setup = mover_at("a", settings["mover_level"])
 
     def anger(state):
         setup(state)
@@ -624,10 +656,74 @@ def arm_c32(arm, seed, settings):
             state.ties[TieId.of(P("a"), P("b"))].felt_impingement[P("a")] = settings["angry_impingement"]
 
     state, records = scenario("dyad", seed, settings["weeks"], forced=act("a", "I-POSITION", "b", t0), setup=anger)
-    assertion = count(1 for r in records if isinstance(r, EmittedRecord) and r.event.assertion)
+    # Revision 39: the assertion form is the I-POSITION with demand share 1, the angry form (M5.D.4a, M5.F.4).
+    assertion = count(1 for r in records if isinstance(r, EmittedRecord) and r.event.demand_share >= 1.0)
     peaks = count(1 for r in records if isinstance(r, EffectRecord) and r.mechanism == "iposition"
                 for _, f, _ in r.people if f in ("iposition:enter:RESOLVE",))
     return result({"assertion_form": float(assertion), "reached_peak": float(peaks)}, records)
+
+
+# --- M11.C.49: the lower the mover's level, the more an I-position raises the family's anxiety -------------
+
+
+def _c49_run(seed, weeks, t0, length, level, said):
+    """One of `M11.C.49`'s four runs on the triad: F at ``level``, F's spell suspended over the act's window, F's own
+    `I-POSITION` withheld in every week, so the control has none and the act run one; with ``said``, F's `I-POSITION`
+    toward M is said at ``t0``: the sequence starts at `DEFINE`, unprepared (`M5.D.2a`; the owner's Q9, 2026-10-25),
+    so it is said in every seed whatever F's anger or excess. Read over the ``length`` weeks after ``t0``."""
+    from src.bowen.engine import iposition
+    from src.bowen.engine.contact import excess
+
+    f, m = P("f"), P("m")
+    tie, window = TieId.of(f, m), range(t0 + 1, t0 + 1 + length)
+    per_week = []
+
+    def before(state):  # the declared start (M17.D.3: a scripted act at one tick), with begin's own record
+        if said and state.tick == t0:
+            started = iposition.begin(state, f, m)
+            state.people[f].iposition_state.due = iposition.DEFINE
+            return [started]
+        return []
+
+    def watch(state):  # after week state.tick − 1
+        if state.tick - 1 in window:
+            per_week.append((state.ties[tie].felt_impingement[m],
+                             math.fsum(excess(p) for p in state.people.values() if p.alive)))
+
+    withheld = {t: {f: frozenset({"I-POSITION"})} for t in range(weeks)}
+    state, records = scenario("triad", seed, weeks, spells=suspended(spell("triad", weeks), "f", act_window(t0)),
+                              setup=mover_at("f", level), held_open=held(t0 + 1, "f-m"), withheld=withheld,
+                              before=before, watch=watch)
+    on_tie = [r.event.kind for r in records if isinstance(r, EmittedRecord) and r.event.mechanism is Mechanism.MOVE
+              and r.event.timestamp in window and {r.event.sender, *r.event.targets} == {f, m}]
+    defined = [r.event for r in records if isinstance(r, EmittedRecord) and r.event.kind == "I-POSITION"
+               and r.event.sender == f and r.event.timestamp == t0]
+    return records, {
+        "family_excess": math.fsum(w[1] for w in per_week),
+        # No move on the tie in the window reads 0 (no CONFLICT seen); such runs are counted in the bookkeeping.
+        "conflict_share": count(1 for k in on_tie if k == "CONFLICT") / len(on_tie) if on_tie else 0.0,
+        "target_impingement": math.fsum(w[0] for w in per_week) / len(per_week),
+        "completions": float(completions(records, "f")),
+        "said": len(defined), "no_move_on_tie": not on_tie,
+    }
+
+
+def arm_c49(arm, seed, settings):
+    """The baseline is the mover at ``level_high``, the treatment at ``level_low``; each readout is the act run less
+    its control on the same seed (`M11.C.49`, revision 39). Completions are the act run's, reported."""
+    level = settings["level_high"] if arm == "baseline" else settings["level_low"]
+    run = (seed, settings["weeks"], settings["t0"], settings["window"], level)
+    _, control = _c49_run(*run, said=False)
+    records, acted = _c49_run(*run, said=True)
+    if (acted["said"], control["said"]) != (1, 0):  # the row says the act is said in every seed, and only there
+        raise RuntimeError(f"M11.C.49 seed {seed}: I-POSITION said {acted['said']} times at t0 in the act run, "
+                           f"{control['said']} in the control")
+    done = result({**{k: acted[k] - control[k] for k in ("family_excess", "conflict_share", "target_impingement")},
+                   "completions": acted["completions"]}, records)
+    done.moves["(I-POSITION said at t0)"] += acted["said"]
+    done.moves["(no move on the F-M tie in the window: act run)"] += acted["no_move_on_tie"]
+    done.moves["(no move on the F-M tie in the window: control)"] += control["no_move_on_tie"]
+    return done
 
 
 # --- M11.C.35: a witness appraises from its own position ----------------------------------------
@@ -753,8 +849,11 @@ CRITERIA: dict[str, Criterion] = {
     # Version 1 (2026-10-17; Claude's recommendation, approved by the owner 2026-10-17): the budget limb (M6.I.1) is
     # proved by tests/bowen/test_sinks.py::test_m6i1_only_a_completed_exchange_reduces_the_budget and reported here; the
     # third person's time course is emergent, so the criterion is mixed and gates on that limb alone.
+    # Revision 39 (D21): F at level 60, F's spell suspended over the act's window, and completions reported; the row
+    # fails if the mover completes no exchange (COMPLETED, a required "move").
     "M11.C.29": C("M11.C.29", "mixed", ("baseline", "treatment"),
-                  (Readout("budget", -1, report_only=True), Readout("third_symptom_weeks", -1)), arm_c29,
+                  (Readout("budget", -1, report_only=True), Readout("third_symptom_weeks", -1),
+                   Readout("completions", 0, report_only=True)), arm_c29, (COMPLETED,),
                   settings=SETTINGS["M11.C.29"]),
     "M11.C.32": C("M11.C.32", "premise", ("baseline", "treatment"),
                   (Readout("assertion_form", +1), Readout("reached_peak", -1)), arm_c32, ("I-POSITION",),
@@ -767,6 +866,12 @@ CRITERIA: dict[str, Criterion] = {
                   arm_spell_triad, settings=SETTINGS["M11.C.44"]),
     "M11.C.45": C("M11.C.45", "composite", ("baseline", "treatment"), (Readout("triangle_rate", +1),),
                   arm_spell_triad, ("TRIANGLE",), settings=SETTINGS["M11.C.45"]),
+    # Spec revision 39 (D20): the baseline is the mover at level 60, the treatment at 35. Mixed: the family-excess and
+    # CONFLICT-share limbs gate (composite); the target's felt impingement is the premise limb, reported.
+    "M11.C.49": C("M11.C.49", "mixed", ("baseline", "treatment"),
+                  (Readout("family_excess", +1), Readout("conflict_share", +1),
+                   Readout("target_impingement", +1, report_only=True), Readout("completions", 0, report_only=True)),
+                  arm_c49, settings=SETTINGS["M11.C.49"]),
 }
 # M11.C.27: four cells, each a two-arm direction (M11.4, P9).
 for twosome, change, direction in (("stable", "add_third", +1), ("stable", "remove_one", +1),

@@ -388,13 +388,9 @@ def test_s_declared_latency_matches_the_fixtures_ties():
             assert ties[TieId.of(P(a), P(b))].latency == declared, (cid, pair)
 
 
-# --- Version 2 stage 3, group F (spec revision 39, approved 2026-10-25): written first, red ----------------------
-
-STEP_8 = ("spec revision 39, group F: M11.C.29's arm (D21) and M11.C.49 are built at plan step 8 "
-          "(docs/implementation_plan_version_2_stage_3.md §3.8)")
+# --- Version 2 stage 3, group F (spec revision 39, approved 2026-10-25): written first, built at step 8 ----------
 
 
-@pytest.mark.xfail(strict=True, raises=AssertionError, reason=STEP_8)
 def test_m11c29_s3_8_act_window_clear_of_the_spell(monkeypatch):
     """S3.8 (`M11.C.29`, D21): in both arms the mover F has basic and functional level 60 (the criterion's
     `mover_level`, as in `M11.C.32`), F's spell is suspended from `t0` to `t0 + prepare_ticks` so the act's `PREPARE`

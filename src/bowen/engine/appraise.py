@@ -18,7 +18,7 @@ in deviation:
     Δ contact = contact component × scale × content_gain          (M4.C.2)
                 × (1 − hollow_gain × sender's inward impingement)    (M5.F.1: empty words)
     Δ imp     = (impingement component + assault_gain × sender's outward impingement
-                 + assertion_gain if the event is an assertion-form I-POSITION) × scale    (M5.F.1, M5.F.4)
+                 + assertion_gain × the event's demand share) × scale    (M5.F.1, M5.F.4)
     Δ acute   = appraisal_gain × steepness × (deviation after − before) × sign
                 × (1 − effective_perspective × own_share)            (M4.C.6)
                 × attention factor                                    (M4.C.8, M4.C.8a)
@@ -187,7 +187,7 @@ def tie_change(state: RunState, delivery: Delivery, event: Event, params: Engine
     receiver = state.people[delivery.recipient]
     outward, inward = axes(state.people[event.sender])
     d_contact = contact * scale * content_gain(receiver, params) * (1.0 - params.hollow_gain * inward)
-    d_imp = (impingement + params.assault_gain * outward + (params.assertion_gain if event.assertion else 0.0)) * scale
+    d_imp = (impingement + params.assault_gain * outward + params.assertion_gain * event.demand_share) * scale
     return tie, d_contact, d_imp
 
 

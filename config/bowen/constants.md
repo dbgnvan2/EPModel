@@ -213,7 +213,6 @@ activation_regime: synchronous
 | `habituation_window` | 8 | [I] | fast ticks | `M4.G.3` |
 | `prepare_ticks` | 4 | [I] | fast ticks | `M5.D.2a` |
 | `rehearsal_rate` | 0.05 | [I] | share of each axis per tick | `M1.A.9` |
-| `assertion_perspective_threshold` | 0.3 | [I] | systems perspective | `M5.F.4` |
 | `anger_threshold` | 0.3 | [I] | too-much deviation | `M5.D.4` |
 | `assertion_gain` | 0.5 | [I] | impingement per unit scaled intensity | `M5.F.4` |
 | `assertion_evidence_gain` | 0.05 | [I] | outward impingement per assertion | `M5.F.2a` |

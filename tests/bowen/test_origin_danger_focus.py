@@ -387,10 +387,14 @@ def test_m4d1h_decide_sets_intensity_by_force():
     marker = 77.0
     with mock.patch.object(policy, "force", lambda outcome, obs, params: marker):
         _, records = scenario("phase_c", 0, 4)
-    from src.bowen.engine.log_records import EmittedRecord
+    from src.bowen.engine.log_records import DecidedBy, EmittedRecord, SelectionRecord
+    # Revision 39: a mover without perspective starts an I-POSITION sequence, whose later steps the sequence decides,
+    # not the policy (`M5.D.9`); those are left out, and there must be one here so the filter is exercised.
+    by_policy = {r.event_id for r in records if isinstance(r, SelectionRecord) and r.decided_by is DecidedBy.POLICY}
+    steps = {r.event_id for r in records if isinstance(r, SelectionRecord) and r.decided_by is DecidedBy.SEQUENCE}
     moves = [r.event for r in records if isinstance(r, EmittedRecord) and r.event.sender is not None
-             and r.event.mechanism == Mechanism.MOVE]
-    assert moves and all(e.intensity == marker for e in moves)
+             and r.event.mechanism == Mechanism.MOVE and r.event.id in by_policy]
+    assert steps and moves and all(e.intensity == marker for e in moves)
 
 
 def test_m1b3e_a_declared_danger_is_read_from_the_family_config():

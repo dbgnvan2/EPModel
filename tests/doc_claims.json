@@ -111,7 +111,8 @@
       "docs/phase_d2_status_2026-10-13.md": "a dated report; its status is 'a report, not an approval'",
       "docs/version_2_stage_1_changes.md": "a generated record, with no status line",
       "docs/version_1_status.md": "a generated record frozen at the tag `version-1`, with no status line",
-      "docs/review/stage_3_step_7_criteria.md": "a generated measurement between the open batch's commits (D31), with no status line"
+      "docs/review/stage_3_step_7_criteria.md": "a generated measurement between the open batch's commits (D31), with no status line",
+      "docs/review/stage_3_step_8_criteria.md": "a generated measurement between the open batch's commits (D31), with no status line"
     }
   },
   "coverage_future_phase": {

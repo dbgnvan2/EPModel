@@ -1,17 +1,20 @@
-"""Run named Phase D criteria, and the Phase D mutants that name each one that passes, on the current tree: stage 3's
-targeted runs between the batch's commits (D31). A measurement; it writes no committed record.
+"""Run named criteria, Phase C and Phase D, and the mutants that name each one that passes, on the current tree:
+stage 3's targeted runs between the batch's commits (D31). A measurement; it writes no committed record.
 
-Purpose: plan step 7 (`docs/implementation_plan_version_2_stage_3.md` §3.8) runs only the criteria its rules target,
-         with their mutants, before step 10's one regeneration (D31). This tool runs them, in a temporary copy of the
-         repository as the Phase D mutation record does (``tools/phase_d_mutant_child.py``, the same adaptive rules),
-         and writes a page under ``docs/review/`` beside each criterion's row in the committed records (the revision 38
-         engine, which the open batch keeps). A mutant runs only on a criterion that passes here, as the record's rule
-         is (`M11.1d`). Nothing is cached and no record moves.
-Spec:    docs/implementation_plan_version_2_stage_3.md#3.8 (step 7), #3.7 (S3.2, S3.3, S3.5); docs/bowen_agent_model_spec_v2.md#M11.1d
-Tests:   tests/test_stage_3_probes.py::test_stage_3_targeted_run_renders_rows_and_mutants
+Purpose: plan steps 7–9 (`docs/implementation_plan_version_2_stage_3.md` §3.8) run only the criteria their rules
+         target, with their mutants, before step 10's one regeneration (D31). This tool runs them, in a temporary copy
+         of the repository as the mutation records do — a Phase C criterion with ``tools/mutant_runner.py``'s child and
+         the Phase C mutation record's mutants, a Phase D one with ``tools/phase_d_mutant_child.py`` and the Phase D
+         record's, each with the same adaptive rules — and writes a page under ``docs/review/`` beside each criterion's
+         row in the committed records (the revision 38 engine, which the open batch keeps). A mutant runs only on a
+         criterion that passes here, as the records' rule is (`M11.1d`). Nothing is cached and no record moves.
+Spec:    docs/implementation_plan_version_2_stage_3.md#3.8 (steps 7, 8), #3.7 (S3.2, S3.3, S3.5, S3.7, S3.9);
+         docs/bowen_agent_model_spec_v2.md#M11.1d
+Tests:   tests/test_stage_3_probes.py::test_stage_3_targeted_run_renders_rows_and_mutants,
+         tests/test_stage_3_probes.py::test_stage_3_targeted_run_sends_each_criterion_to_its_phase
 
-    python3 tools/stage_3_targeted_run.py --criteria M11.C.6 "M11.C.2[twelve-person family]" M11.C.2 M11.C.21 \\
-        [--workers 6] [--out docs/review/stage_3_step_7_criteria.md] [--title "..."]
+    python3 tools/stage_3_targeted_run.py --criteria M11.C.49 M11.C.29 M11.C.18 \\
+        [--workers 6] [--out docs/review/stage_3_step_8_criteria.md] [--title "..."]
 
 Outside every ``HASHED_TOOLS``: what it prints does not move a record's hash.
 """
@@ -20,6 +23,7 @@ from __future__ import annotations
 
 import argparse
 import datetime
+import importlib
 import json
 import os
 import sys
@@ -28,34 +32,57 @@ from pathlib import Path
 REPO = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO))
 
-CHILD = "phase_d_mutant_child.py"
-RECORDS = (REPO / "docs" / "phase_d2_ensemble_record.md", REPO / "docs" / "phase_d_ensemble_record.md")
+# Each phase: the child that runs its criteria, the committed records that hold its rows (first wins), and the tool
+# whose ``MUTANTS`` name its criteria.
+PHASES = {
+    "C": ("mutant_runner.py", (REPO / "docs" / "phase_c_ensemble_record.md",), "tools.mutation_record"),
+    "D": ("phase_d_mutant_child.py",
+          (REPO / "docs" / "phase_d2_ensemble_record.md", REPO / "docs" / "phase_d_ensemble_record.md"),
+          "tools.phase_d_mutation_record"),
+}
 
 
-def committed_rows() -> dict[str, dict]:
-    """Each criterion's row in the committed Phase D records (part II first), keyed as the child keys it."""
+def phase_of(cid: str) -> str:
+    """"C" for a key of the Phase C criteria, else "D" (the Phase D child raises on a key it does not hold)."""
+    from src.bowen.ensemble.criteria import CRITERIA
+
+    return "C" if cid in CRITERIA else "D"
+
+
+def mutants(phase: str) -> tuple:
+    return importlib.import_module(PHASES[phase][2]).MUTANTS
+
+
+def committed_rows() -> dict[tuple[str, str], dict]:
+    """Each criterion's row in the committed records of its phase, keyed ``(phase, criterion)`` as the child keys it."""
     from tools.record_json import record_json
 
-    rows: dict[str, dict] = {}
-    for record in RECORDS:
-        for row in record_json(record.read_text(encoding="utf-8")):
-            rows.setdefault(row["criterion"], row)
+    rows: dict[tuple[str, str], dict] = {}
+    for phase, (_, records, _) in PHASES.items():
+        for record in records:
+            for row in record_json(record.read_text(encoding="utf-8")):
+                rows.setdefault((phase, row["criterion"]), row)
     return rows
 
 
 def run(criteria: list[str], workers: int) -> tuple[list[dict], list[tuple[str, dict]]]:
-    """The unmutated rows, then each passing criterion's mutants' rows as ``(mutant id, row)``."""
-    from tools.phase_d_mutation_record import MUTANTS
+    """The unmutated rows, in ``criteria`` order, then each passing criterion's mutants' rows as ``(mutant id, row)``,
+    each phase's criteria in one child."""
     from tools.record_cache import child_rows
 
-    rows = child_rows(None, CHILD, criteria, workers, "no mutant")
-    passed = {r["criterion"] for r in rows if r["outcome"] == "PASS"}
+    rows: dict[str, dict] = {}
     mutated = []
-    for mutant in MUTANTS:
-        targets = [c for c in mutant.criteria if c in passed and c in criteria]
-        if targets:
-            mutated += [(mutant.id, r) for r in child_rows(mutant, CHILD, targets, workers, mutant.id)]
-    return rows, mutated
+    for phase, (child, _, _) in PHASES.items():
+        mine = [c for c in criteria if phase_of(c) == phase]
+        if not mine:
+            continue
+        rows.update((r["criterion"], r) for r in child_rows(None, child, mine, workers, f"no mutant ({phase})"))
+        passed = {c for c in mine if rows[c]["outcome"] == "PASS"}
+        for mutant in mutants(phase):
+            targets = [c for c in mutant.criteria if c in passed]
+            if targets:
+                mutated += [(mutant.id, r) for r in child_rows(mutant, child, targets, workers, mutant.id)]
+    return [rows[c] for c in criteria], mutated
 
 
 def _readouts(row: dict) -> str:
@@ -65,23 +92,25 @@ def _readouts(row: dict) -> str:
 
 
 def render(title: str, engine: str, when: str, rows: list[dict], mutated: list[tuple[str, dict]],
-           before: dict[str, dict], criteria: list[str]) -> str:
-    from tools.phase_d_mutation_record import MUTANTS
-
+           before: dict[tuple[str, str], dict], criteria: list[str]) -> str:
     lines = [f"# {title}", "",
              "Generated by `tools/stage_3_targeted_run.py`; do not edit. A measurement between the batch's commits "
-             "(D31): no", "committed record moves. Each criterion runs in a temporary copy of the repository with the "
-             "Phase D", "mutation record's child and adaptive rules; a mutant runs only on a criterion that passes "
+             "(D31): no", "committed record moves. Each criterion runs in a temporary copy of the repository with its "
+             "phase's", "mutation record's child and adaptive rules; a mutant runs only on a criterion that passes "
              "here (`M11.1d`).", "",
              f"engine_hash: {engine}", f"run: {when}", "",
-             "| Criterion | Outcome | Seeds | Difference | At revision 38 (the committed record) |",
-             "|---|---|---|---|---|"]
+             "| Criterion | Phase | Outcome | Seeds | Difference | At revision 38 (the committed record) |",
+             "|---|---|---|---|---|---|"]
     for row in rows:
-        old = before.get(row["criterion"])
+        phase = phase_of(row["criterion"])
+        old = before.get((phase, row["criterion"]))
         then = f"{old['outcome']}: {_readouts(old)}" if old else "no row"
-        lines.append(f"| `{row['criterion']}` | **{row['outcome']}** | {row['seeds']} | {_readouts(row)} | {then} |")
+        # A required move no seed made fails the row whatever its readouts (`M11.1f`): the cell names it.
+        missing = f" (no {', '.join(row['missing_moves'])}, `M11.1f`)" if row.get("missing_moves") else ""
+        lines.append(f"| `{row['criterion']}` | {phase} | **{row['outcome']}**{missing} | {row['seeds']} | "
+                     f"{_readouts(row)} | {then} |")
     lines += ["", "## Mutants", ""]
-    named = [(m.id, c) for m in MUTANTS for c in m.criteria if c in criteria]
+    named = [(m.id, c) for c in criteria for m in mutants(phase_of(c)) if c in m.criteria]
     if mutated:
         lines += ["| Mutant | Criterion | Outcome under mutant | Seeds | Difference under mutant |", "|---|---|---|---|---|"]
         lines += [f"| `{mid}` | `{r['criterion']}` | {r['outcome']} | {r['seeds']} | {_readouts(r)} |"
@@ -102,8 +131,8 @@ def main(argv=None) -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--criteria", nargs="+", required=True)
     parser.add_argument("--workers", type=int, default=min(6, os.cpu_count() or 1))
-    parser.add_argument("--out", type=Path, default=REPO / "docs" / "review" / "stage_3_step_7_criteria.md")
-    parser.add_argument("--title", default="Stage 3 step 7 — group C's targeted criteria")
+    parser.add_argument("--out", type=Path, required=True)
+    parser.add_argument("--title", required=True)
     args = parser.parse_args(argv)
     rows, mutated = run(args.criteria, args.workers)
     when = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")

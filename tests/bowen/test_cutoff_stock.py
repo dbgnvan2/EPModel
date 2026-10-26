@@ -463,7 +463,10 @@ def _third_party_anxiety(seed: int, bridged: bool, weeks: int = 26, bridge_week:
     return statistics.fmean(seen)
 
 
-A6_SEEDS = range(8)
+# 30 seeds, every one's arms built (seed 30's bridge does not take: the act is placed and the tie stays cut). Eight
+# seeds passed by noise at stage 3 step 8 (+1.04 ± 1.03), so the test asserts beyond the half-width (the owner,
+# 2026-10-26).
+A6_SEEDS = range(30)
 
 
 def test_m5b3_third_party_cost_arms_are_built_as_declared():
@@ -476,18 +479,21 @@ def test_m5b3_third_party_cost_arms_are_built_as_declared():
 
 
 @pytest.mark.xfail(strict=True, raises=AssertionError,
-                   reason="A6 not shown: over 8 seeds the children's mean anxiety after the bridging is "
-                   "62.5 against 63.3 with the tie left cut (2026-10-22). No rule is written to make it pass (§3.5); "
-                   "reported to the owner in the revision 36 report.")
+                   reason="A6 not shown: over 30 seeds the children's mean anxiety after the bridging is 62.78 against "
+                   "62.78 with the tie left cut, difference +0.002 ± 0.94 (2 se; stage 3 step 8, 2026-10-26; 62.5 "
+                   "against 63.3 over 8 seeds on 2026-10-22). No rule is written to make it pass (§3.5); reported to "
+                   "the owner in the revision 36 report.")
 def test_m5b3_third_party_cost_is_the_lost_outlet():
     """A6 (§3.5): bridging a cut-off tie raises a third party's own anxiety through the outlet's loss — the expected
     route is triangle position (`M1.C.1`, `outsider_positional_gain`), not a transfer of the stock (D7). Two arms per
     seed, the same seed and legal sets, differing in one scripted accepted contact; the children's mean anxiety after
-    it is compared across seeds. No rule writes this cost; the direction did not hold, so the test is a strict
+    it is compared seed by seed, and the mean difference must clear its 2-se half-width. No rule writes this cost; the direction did not hold, so the test is a strict
     expected failure: the day the model shows the cost, it fails as "unexpectedly passing" and the mark comes off.
     Only the direction comparison is expected to fail (``raises=AssertionError``); a broken arm raises ``ArmBroken``,
     which the mark does not absorb, and is checked on its own by
     ``test_m5b3_third_party_cost_arms_are_built_as_declared`` (MR-24)."""
     cut = [_third_party_anxiety(s, bridged=False) for s in A6_SEEDS]
     bridged = [_third_party_anxiety(s, bridged=True) for s in A6_SEEDS]
-    assert statistics.fmean(bridged) > statistics.fmean(cut), (statistics.fmean(bridged), statistics.fmean(cut))
+    differences = [b - c for b, c in zip(bridged, cut)]
+    half_width = 2 * statistics.stdev(differences) / len(differences) ** 0.5  # paired, per seed
+    assert statistics.fmean(differences) - half_width > 0, (statistics.fmean(differences), half_width)

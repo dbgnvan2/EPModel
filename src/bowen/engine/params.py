@@ -85,9 +85,8 @@ class EngineParams:
     habituation_window: int    # M4.G.3 — how far back an identical act counts as a repetition
     prepare_ticks: int         # M5.D.2a — weeks of private preparation before DEFINE
     rehearsal_rate: float      # M1.A.9, M5.D.2a — private rehearsal lowers each impingement axis by this share per PREPARE tick
-    assertion_perspective_threshold: float # M5.F.4 — below this, I-POSITION executes as the assertion form
     anger_threshold: float     # M5.D.4, M5.D.4a — the mover's too-much side on the tie above which the mover is angry
-    assertion_gain: float      # M5.F.4 — extra impingement an assertion-form I-POSITION delivers
+    assertion_gain: float      # M5.F.4 — extra impingement an I-POSITION delivers, times its demand share
     assertion_evidence_gain: float # M5.F.2a — claiming a position raises the claimant's outward axis
     opposition_window: int     # M5.E.3 — weeks after DEFINE in which no opposition means the move did not land
     hold_gain: float           # M5.D.3 — capacity to hold = hold_gain × functional_level × efficacy
@@ -224,8 +223,7 @@ class EngineParams:
                 raise ValueError(f"{name} must be in [0, 1]")
         if self.credit_horizon < 1 or self.habituation_window < 1:
             raise ValueError("credit_horizon and habituation_window must be at least 1")
-        for name in ("rehearsal_rate", "assertion_perspective_threshold", "pull_up_rate", "respect_gain",
-                     "triangle_floor_decrement"):
+        for name in ("rehearsal_rate", "pull_up_rate", "respect_gain", "triangle_floor_decrement"):
             if not 0.0 <= getattr(self, name) <= 1.0:
                 raise ValueError(f"{name} must be in [0, 1]")
         if min(self.prepare_ticks, self.opposition_window, self.stall_limit, self.hold_window) < 1:

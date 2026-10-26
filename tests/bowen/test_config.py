@@ -153,7 +153,6 @@ GOOD_ROWS = (
     "| `habituation_window` | 8 | [I] | u | `M4.G.3` |\n"
     "| `prepare_ticks` | 4 | [I] | u | `M5.D.2a` |\n"
     "| `rehearsal_rate` | 0.05 | [I] | u | `M1.A.9` |\n"
-    "| `assertion_perspective_threshold` | 0.3 | [I] | u | `M5.F.4` |\n"
     "| `anger_threshold` | 0.3 | [I] | u | `M5.D.4` |\n"
     "| `assertion_gain` | 0.5 | [I] | u | `M5.F.4` |\n"
     "| `assertion_evidence_gain` | 0.05 | [I] | u | `M5.F.2a` |\n"

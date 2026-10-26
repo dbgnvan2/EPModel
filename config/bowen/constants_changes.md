@@ -200,3 +200,4 @@
 | `grief_scale` | 20.0 | retired | 2026-10-22 | — (spec revision 36 sized grief from the Holmes–Rahe table, `M1.F.6a`, `M6.3g`; `grief_weight` replaces it) | no |
 | `grief_weight` | — | 1.0 | 2026-10-22 | — (new mechanism; spec revision 36, `M6.3g`: grief's size is its table size times this) | no |
 | `lcu_scale` | — | 6.9 | 2026-10-22 | — (new mechanism; spec revision 36, `M1.F.6a`, the owner's anchor of 2026-10-19) | no |
+| `assertion_perspective_threshold` | 0.3 | retired | 2026-10-26 | — (spec revision 39, `M5.F.4`, the owner's D20 of 2026-10-24 and Q8 of 2026-10-25: perspective enters an `I-POSITION`'s form through the self-channel weight, and no threshold decides it; stage 3 step 8) | no |

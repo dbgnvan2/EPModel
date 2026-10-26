@@ -68,6 +68,7 @@ def test_s1_5b_code_text_keeps_a_line_separator_inside_a_string(tmp_path):
     assert '"a\u2028b\u2028c"' in text.split("\x00")
 
 
+@stale_in_open_batch("docs/phase_c_ensemble_record.md")
 def test_m134_record_covers_every_criterion_and_names_what_is_not_built():
     text = record_text()
     for cid in CRITERIA:

@@ -16,7 +16,8 @@ from pathlib import Path
 import pytest
 
 from src.bowen.engine.identifiers import PersonId
-from src.bowen.engine.log_records import EmittedRecord
+from src.bowen.engine.counting import count
+from src.bowen.engine.log_records import EmittedRecord, SelectionRecord
 from src.bowen.io.load import load_family
 from src.bowen.render import trace
 from src.bowen.render.trace import TABLE_HEAD, UnrenderableRecord, render
@@ -48,7 +49,11 @@ def test_m16t1_trace_renders_scripted_run():
     """G2: one line per event, each carrying week, actor, move, target, witnesses and what it did."""
     assert TABLE_HEAD in TEXT
     emitted = [r.event for r in RECORDS if isinstance(r, EmittedRecord)]
-    rows = event_rows(TEXT)
+    # Revision 39: Marta's scripted I-POSITION starts a sequence, which emits nothing that week and has a row of its
+    # own (`M5.D.2a`); every other row is an event's.
+    started = [r for r in event_rows(TEXT) if r[5].startswith("starts a sequence")]
+    assert len(started) == count(1 for r in RECORDS if isinstance(r, SelectionRecord) and r.sequence_step == "PREPARE")
+    rows = [r for r in event_rows(TEXT) if r not in started]
     assert len(rows) == len(emitted)
     for row, event in zip(rows, emitted):
         week, who, move, toward, witnesses, did = row
@@ -175,6 +180,17 @@ def test_m16c2_withheld_and_fallback_outcomes_get_their_own_rows():
     text = render(RECORDS[:3] + [held, fallback], NAMES)
     assert "| WITHHOLD | Marta |" in text and "held back PURSUE" in text
     assert "fallback (hold): no legal act" in text
+
+
+def test_m5d2a_an_iposition_that_starts_its_sequence_gets_its_own_row():
+    """Revision 39 (`M5.F.4`): a mover with no systems perspective starts a sequence like any other, emitting nothing
+    that week (`M5.D.2a`); the trace shows the start rather than refusing the record."""
+    from src.bowen.engine.log_records import DecidedBy, SelectionRecord
+
+    began = SelectionRecord(tick=1, actor=PersonId("ravi"), decided_by=DecidedBy.POLICY, event_id=None,
+                            sequence_step="PREPARE")
+    text = render(RECORDS[:3] + [began], NAMES)
+    assert "| 1 | Ravi | I-POSITION |" in text and "starts a sequence in PREPARE" in text
 
 
 def test_m16c1_phase_c_trace_renders():

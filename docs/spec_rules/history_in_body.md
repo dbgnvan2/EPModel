@@ -111,7 +111,7 @@ Every ID whose body holds a sentence matching a history phrase (`tools/spec_inde
 
 ## M11.C.29 (line 1352)
 
-- In this arm no genuine `I-POSITION` completes (0 of 100 seeds, ad hoc, plan §4.12), so the budget never moves. | `test_m11c29_relief_and_differentiation_differ_in_time_course` | C | M6.I.1's budget reduction — making the differentiating move merely reallocate **MUST** turn this red *Regenerated at revision 32:* fails on the time-course limb, −1.24 ± 2.9 (100 seeds); the budget, reported, is +0 ± 0. | ⟨\b(?:at|in|since|by|from|until|before|after) revision \d+⟩
+- *Post hoc*, like `M11.C.32`'s level: chosen after the diagnosis that at level 40, with the spell every 4 weeks from week 4, 58 of 100 seeds failed `PREPARE` (excess 20.7 ± 0.85 against `defence_threshold` 15) and 37 ran as the assertion form because the mover was angry (`docs/version_1_dispositions.md`; `docs/implementation_plan_phase_d.md`, the `M11.C.29` diagnosis). | `test_m11c29_relief_and_differentiation_differ_in_time_course` | C | M6.I.1's budget reduction — making the differentiating move merely reallocate **MUST** turn this red *Regenerated at revision 32:* fails on the time-course limb, −1.24 ± 2.9 (100 seeds); the budget, reported, is +0 ± 0. | ⟨\b(?:at|in|since|by|from|until|before|after) revision \d+⟩
 
 ## M11.C.32 (line 1355)
 
@@ -125,6 +125,6 @@ Every ID whose body holds a sentence matching a history phrase (`tools/spec_inde
 
 - Chosen after seeing that, for the owner. | `test_m11c46_triangle_relief_scales_with_third_help` | D | `third_help` ignored (mutant `triangle-help-ignored`) **MUST** turn this red *Regenerated at revision 32* (`docs/phase_d_ensemble_record.md`): **passes**, `seeker_relief` +1.45 ± 0.11 (100 seeds). ⟨\b(?:at|in|since|by|from|until|before|after) revision \d+⟩
 
-## M16.A.7 (line 1936)
+## M16.A.7 (line 1938)
 
 - **M16.A.7** The header **MUST** record, for each `[I]` constant, whether its value was changed after the acceptance suite first ran against it (`M10.B.4`). ⟨was changed⟩

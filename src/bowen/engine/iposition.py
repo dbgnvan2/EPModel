@@ -2,9 +2,9 @@
 
 Purpose: run a person's differentiating sequence across weeks — prepare, define, meet
          the opposition, abort or hold, peak, resolve, follow up — from the person's
-         own state and what is delivered to them; and run the assertion form when the
-         person lacks the perspective or is angry.
-Spec:    docs/bowen_agent_model_spec_v2.md#M5.D.1, #M5.D.2, #M5.D.2a, #M5.D.3, #M5.D.4, #M5.D.4a, #M5.D.5, #M5.D.6, #M5.D.7, #M5.D.7a, #M5.D.8, #M5.D.9, #M5.E.3, #M5.E.7, #M5.E.8, #M5.F.2a, #M5.F.4, #M1.C.5
+         own state and what is delivered to them; give the said position its demand share; and
+         run the assertion form when the person is angry.
+Spec:    docs/bowen_agent_model_spec_v2.md#M5.D.1, #M5.D.2, #M5.D.2a, #M5.D.3, #M5.D.4, #M5.D.4a, #M5.D.5, #M5.D.6, #M5.D.7, #M5.D.7a, #M5.D.8, #M5.D.9, #M5.E.3, #M5.E.7, #M5.E.8, #M5.F.2a, #M5.F.2c, #M5.F.4, #M1.C.5
 Tests:   tests/bowen/test_iposition.py
 
 Every form is the project's, graded [I]; the constants are in ``config/bowen/constants.md``.
@@ -12,15 +12,14 @@ The machine writes no outcome: each transition reads the mover's own excess anxi
 functional level, efficacy and felt state on the tie, and the moves delivered to them.
 Whether a sequence aborts, stalls, peaks or completes is a result.
 
-**Starting** (`act.py`). The policy selects `I-POSITION` toward ``T``. If the mover's
-``systems_perspective`` is below ``assertion_perspective_threshold``, or the mover is
+**Starting** (`act.py`). The policy selects `I-POSITION` toward ``T``. If the mover is
 angry — its "too much" side on the tie above ``anger_threshold`` (`M5.D.4a`) — it
-executes at once
-as the **assertion form** (`M5.F.4`): an `I-POSITION` event flagged ``assertion``, which
-delivers ``assertion_gain`` more impingement (it raises reactivity on the tie) and
-raises the claimant's outward axis by ``assertion_evidence_gain`` (`M5.F.2a`).
-Otherwise a sequence starts in ``PREPARE`` and
-nothing is emitted that week (`M5.D.2a`).
+executes at once as the **assertion form**: an `I-POSITION` event with demand share 1,
+which delivers ``assertion_gain`` more impingement (it raises reactivity on the tie),
+debits nothing and raises the claimant's outward axis by ``assertion_evidence_gain``
+(`M5.F.2a`). Otherwise a sequence starts in ``PREPARE`` and nothing is emitted that week
+(`M5.D.2a`). No threshold on systems perspective decides the form (revision 39,
+`M5.F.4`): perspective enters through the self-channel weight alone.
 
 **Each week, before selection** (``advance_sequences``):
 
@@ -30,9 +29,13 @@ nothing is emitted that week (`M5.D.2a`).
   due; if the issue comes up first — an impinging move from ``T`` arrives — ``DEFINE`` is
   due at once, less prepared. Less preparation leaves the axes higher and so the
   capacity to hold lower, which is how an unprepared sequence is less likely to peak.
-* ``DEFINE`` (an outcome) — the genuine `I-POSITION` event to ``T``. On delivery it
-  withdraws ``debit_gain`` of ``T``'s felt contact on the tie (`M5.E.7`; a contact proxy,
-  since `life_energy` is not built). The others' reaction is their own learned response (`M5.E.0`).
+* ``DEFINE`` (an outcome) — the genuine `I-POSITION` event to ``T``, part self-statement,
+  share ``w``, and part demand, share ``1 − w``, with ``w`` the mover's self-channel weight
+  that week (`M5.F.4`, revision 39). On delivery the demand adds ``(1 − w) × assertion_gain``
+  to the impingement, the self-statement withdraws ``w × debit_gain`` of ``T``'s felt contact
+  on the tie (`M5.E.7`; a contact proxy, since `life_energy` is not built), and the mover's
+  outward axis rises by ``(1 − w) × assertion_evidence_gain`` (`M5.F.2a`). The others'
+  reaction is their own learned response (`M5.E.0`).
 * ``OPPOSITION`` — waits for the first impinging move delivered to the mover from
   anyone. With none in ``opposition_window`` weeks the move **did not land** (`M5.E.3`),
   not a success. At the first opposition the mover holds if its excess anxiety is within
@@ -118,12 +121,29 @@ def angry(state: RunState, mover: PersonId, target: PersonId, params: EnginePara
 
 
 def assertion_form(state: RunState, mover: PersonId, target: PersonId, params: EngineParams) -> bool:
-    """Purpose: whether an I-POSITION executes as the assertion form (M5.F.4, M5.D.4a).
-    Spec:    docs/bowen_agent_model_spec_v2.md#M5.F.4, #M5.D.4a
-    Tests:   tests/bowen/test_iposition.py::test_m5f4_low_perspective_executes_the_assertion_form
+    """Purpose: whether an I-POSITION executes as the assertion form: only when the mover is angry (M5.D.4a). No
+             threshold on systems perspective decides it (revision 39, M5.F.4, M5.F.2c).
+    Spec:    docs/bowen_agent_model_spec_v2.md#M5.F.4, #M5.D.4a, #M5.F.2c
+    Tests:   tests/bowen/test_iposition.py::test_m5d4a_an_angry_mover_executes_the_assertion_form,
+             tests/bowen/test_iposition.py::test_m5f4_low_perspective_starts_a_sequence
     """
-    perspective = state.people[mover].systems_perspective or 0.0
-    return perspective < params.assertion_perspective_threshold or angry(state, mover, target, params)
+    return angry(state, mover, target, params)
+
+
+def demand_share(state: RunState, mover: PersonId, params: EngineParams) -> float:
+    """Purpose: the demand share of a genuine I-POSITION, ``1 − w``, with ``w`` the mover's self-channel weight that
+             week (M5.F.4, revision 39: the lower the level, the more the act comes out as a demand).
+    Spec:    docs/bowen_agent_model_spec_v2.md#M5.F.4, #M4.D.1a
+    Tests:   tests/bowen/test_iposition.py::test_m5f4_s3_6_demand_share_falls_with_level
+
+    ``w`` is `M4.D.1a`'s mixing weight, read from the policy's own function at call time: the policy imports the
+    engine, so the engine cannot import it when it loads, and one definition keeps the two the same.
+    """
+    from src.bowen.policy.policy import self_channel_weight
+
+    person = state.people[mover]
+    w = self_channel_weight(person.functional_level, params, person.systems_perspective or 0.0)
+    return max(0.0, 1.0 - w)  # w may pass 1 by rounding
 
 
 def capacity(person: Person, params: EngineParams) -> float:
@@ -155,7 +175,7 @@ def _impinging_delivered(state: RunState, person: PersonId, sender: PersonId | N
         event = state.store.event(delivery.event_id)
         if event.mechanism is not Mechanism.MOVE or (sender is not None and event.sender != sender):
             continue
-        if state.kinds.components_of(event.kind)[1] > 0 or event.assertion:
+        if state.kinds.components_of(event.kind)[1] > 0 or event.demand_share > 0.0:  # M5.F.4: a demand impinges
             return True
     return False
 

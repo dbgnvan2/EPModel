@@ -39,3 +39,26 @@ Raised while drafting part 1 of spec revision 39 (`docs/spec_revision_39_draft.m
   `tests/bowen/test_phase_d2_criteria.py::test_m11c10_family_of_origin_arm_holds_both_parents_cutoffs` now asserts
   that bound, not the 416. Whether `renew_every` should be at most 10, so the scripted arm holds by itself, is a
   criterion-setting change that moves `M11.C.10`'s records; left for the owner.
+- [ ] T-137 ⟨later⟩ **`M11.C.49` fails at its first settings (the step 8 targeted run, 2026-10-26).** On Mac Mini1, 150
+  seeds (`docs/review/stage_3_step_8_criteria.md`): the act's effect on the family's summed excess over six weeks is
+  +2.2 ± 3.0 higher at level 35 than at 60, and on the `CONFLICT` share of the F–M tie's moves +0.003 ± 0.028; neither
+  resolves, so the composite limbs do not hold. The premise limb holds as reported (the target's felt impingement
+  +0.085 ± 0.023), and the act completes less at 35 (−0.31 ± 0.074). The settings (`config/bowen/criteria.md`: 25
+  weeks, `t0` 1, a six-week window) were set before the row first ran and are not to be tuned to it (`M10.B.4`); the
+  row's mutants did not run, since it does not pass. Read with the other composite results at step 10's
+  regeneration; left for the owner.
+- [ ] T-138 ⟨later⟩ **`M11.C.29`'s genuine `I-POSITION` almost never completes after D21 (the step 8 targeted run,
+  2026-10-26).** With the mover at level 60 and F's spell paused over the act's window (D21), the row fails:
+  `third_symptom_weeks` +0.9 ± 3.7 and `budget` +0.04 ± 0.055 (100 seeds, `docs/review/stage_3_step_8_criteria.md`).
+  In 30 seeds of the treatment arm, ad hoc: the scripted act is placed in 26 and owed a step in 4 (F already in a
+  sequence); F's first sequence ends `prepare_failed` in 16, `aborted` in 8 and `did_not_land` in 1, and none ends in
+  5; none completes. Over the run's 100 seeds the genuine arm completes in one (seed 82) and the control in three (22, 69,
+  82), so `COMPLETED` is met and the budget limb reads one exchange. The pause takes
+  F's own spell off `PREPARE`, but the excess that fails it is still there. Whether the arm needs another condition
+  (M's spell over the same weeks, or a lower load) is a criterion-setting choice; left for the owner.
+- [ ] T-139 ⟨later⟩ **Two arm settings read outside the run's parameters (the step 8 `learning-qa` pass, 2026-10-26;
+  P4).** `act_window` in `src/bowen/ensemble/criteria.py` reads `prepare_ticks` from `load_constants()`, not from the
+  run's parameters, so an arm that overrode `prepare_ticks` would pause the spell over the wrong weeks; none does, and
+  the sweep edits a copy of `constants.md`, so the two agree today. `mover_at` sets the mover's systems perspective to
+  1.0 in code (the owner's Q13 for `M11.C.49`, and `M11.C.29`'s and `M11.C.32`'s arms before it); a criteria setting
+  in `config/bowen/criteria.md` would declare it. Neither changes a result now.

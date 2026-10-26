@@ -153,3 +153,54 @@ def test_d31_a_tool_that_imports_mutants_gets_the_defining_files_cut():
 def test_d31_a_record_the_batch_does_not_list_cannot_be_marked():
     with pytest.raises(KeyError, match="not a record the batch lists"):
         stale_in_open_batch("docs/no_such_record.md")
+
+
+def test_d31_the_rerun_leaves_out_a_criterion_added_since_the_batch_opened():
+    """Step 8 adds `M11.C.49` to the Phase C criteria; the ensemble record the batch keeps has no row for it. The rerun
+    reads the table as the batch found it, in the module and in a namespace that imported it, and restores it after;
+    a keyed variant is kept by its base id."""
+    from src.bowen.ensemble import criteria, criteria_d
+
+    now = criteria.CRITERIA
+    namespace = {"CRITERIA": now, "tool": criteria}
+    with hash_as_found(namespace):
+        assert "M11.C.49" not in criteria.CRITERIA and "M11.C.49" not in namespace["CRITERIA"]
+        assert set(criteria.CRITERIA) == set(now) - {"M11.C.49"}
+        assert namespace["CRITERIA"] is criteria.CRITERIA
+    assert criteria.CRITERIA is now and namespace["CRITERIA"] is now, "the found table outlived the rerun"
+    keyed = [k for k in criteria_d.CRITERIA_D if "[" in k]
+    assert keyed
+    with hash_as_found({"tool": criteria_d}):
+        assert set(keyed) <= set(criteria_d.CRITERIA_D)
+
+
+def test_d31_a_table_is_cut_by_the_file_that_defines_it():
+    """A module of `src/bowen/ensemble` that holds another's table by name (here a stand-in loaded from
+    `criteria_d.py`'s path holding `criteria.CRITERIA`) gets the defining file's cut, the same object, not one made
+    from its own file, which quotes none of `CRITERIA`'s ids (the review of 2026-10-26)."""
+    import types
+
+    from src.bowen.ensemble import criteria, criteria_d
+
+    holder = types.ModuleType("stand_in")
+    holder.__file__ = criteria_d.__file__
+    holder.CRITERIA = criteria.CRITERIA
+    with hash_as_found({"holder": holder}):
+        assert holder.CRITERIA is criteria.CRITERIA
+        assert set(holder.CRITERIA) == set(criteria.CRITERIA) and "M11.C.1" in holder.CRITERIA
+        assert "M11.C.49" not in holder.CRITERIA
+    assert holder.CRITERIA is criteria.CRITERIA and "M11.C.49" in holder.CRITERIA
+
+
+def test_d31_the_status_tool_reads_the_criteria_the_batch_found():
+    """`registry_as_found` leaves a criterion added since the batch opened out of the registry and the spec's criteria
+    the status tool reads, keeps every other, and restores both on exit."""
+    import tools.version_1_status as v1
+
+    before_registered, before_spec = v1.registered(), v1.spec_criteria()
+    assert "M11.C.49" in before_registered and "M11.C.49" in before_spec
+    with open_batch.registry_as_found() as added:
+        assert added == {"M11.C.49"}
+        assert v1.registered() == before_registered - {"M11.C.49"}
+        assert set(v1.spec_criteria()) == set(before_spec) - {"M11.C.49"}
+    assert v1.registered() == before_registered and v1.spec_criteria() == before_spec

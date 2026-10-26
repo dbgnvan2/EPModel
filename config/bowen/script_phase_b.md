@@ -13,8 +13,9 @@
 >
 > In Phase B every move is scripted and none is chosen; an `I-POSITION` here is a
 > move record only — its state machine (`M5.D`) is Phase C. *From Phase C step 8 the scripted
-> `I-POSITION` goes through the engine like a chosen one: Marta has no systems perspective, so it
-> executes as the assertion form (`M5.F.4`), not as a sequence.*
+> `I-POSITION` goes through the engine like a chosen one.* *From spec revision 39 (2026-10-26) no threshold on systems
+> perspective decides its form: Marta, with none and not angry, starts a sequence at week 31 and says the position at
+> `DEFINE`, mostly as a demand (`M5.F.4`, the owner's Q8); until then it executed as the assertion form.*
 >
 > **A stressor acted once, on arrival, in Phase B.** Its duration (the job loss is a 34-week spell, `M1.F.6`) was
 > recorded and nothing read it. *From spec revision 18 (2026-10-11) a stressor weighs on its target for its declared

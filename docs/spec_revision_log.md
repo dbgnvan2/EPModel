@@ -41,8 +41,23 @@ lands in the spec in the commit that builds its code (the owner's Q6). This sect
     taken below 0, and what a cap stops stays with the taker.
   - **`M11.C.6` and `M11.C.21`:** their mutation columns and `M11.5` rows name the new mutants
     (`displaced-coping-removed`, `floor-held-credited`, `pseudo-self-return-removed`).
-- **Not yet applied:** group F (`M5.F.4`, `M5.F.2c`, `M11.C.29`, `M11.C.49`; step 8), group A (`M4.C.1d`,
-  `M4.D.3a`; step 9) and T-128 (`M17.E.1`; step 10).
+- **Step 8 (2026-10-26), group F, the batch's third commit** (the engine hash moved again, to the hash in
+  `CHANGELOG.md`'s entry of that day; what a run computes changed, so the golden fingerprints were taken again).
+  - **A, the I-position as a mixture (draft §13.1, D20):** `M5.F.4` rewritten. A genuine `I-POSITION`'s `DEFINE`
+    event is a self-statement, share `w` (the mover's own self-channel weight, `M4.D.1a`), and a demand, share
+    `1 − w`: the demand adds `(1 − w) × assertion_gain` to the impingement delivered, the debit of the target's felt
+    contact is scaled by `w`, and the mover's outward axis rises by `(1 − w) × assertion_evidence_gain`. The
+    assertion form is the mixture at `w = 0`, an angry mover's form (`M5.D.4a`). The perspective threshold is
+    retired (the owner's Q8): `assertion_perspective_threshold` leaves `config/bowen/constants.md`. The event
+    carries its `demand_share`; `M11.C.32` counts the assertion form as share 1.
+  - **`M5.F.2c`'s sentence (draft §13.2):** the demand share scales continuously, as the flip does.
+  - **`M11.C.29`'s arm (draft §13.3, D21):** F at `mover_level` in both arms, F's spell suspended over the act's
+    window, M's kept, and the mover's completions reported; a row with no completion fails.
+  - **`M11.C.49` new (draft §13.4, §13.9):** the lower the mover's level, the more an I-position raises the family's
+    anxiety; four runs per seed, the act said at `DEFINE`, unprepared (the owner's Q9), the mover's perspective 1.0
+    (Q13); its `M11.5` row (Mixed). The Phase C exit condition names it.
+  - **§0.3's counts** restated (1067 MUSTs, 93 named tests).
+- **Not yet applied:** group A (`M4.C.1d`, `M4.D.3a`; step 9) and T-128 (`M17.E.1`; step 10).
 
 ### Revision 38 — the stage 2 milestone review's wording fixes, 2026-10-24 ⟦rev38 · owner 2026-10-24, stage 2 milestone review · `docs/cycles/2026-10-24_milestone-review_v2-stage-2.md`, `docs/todo/2026-10-24_stage_2_milestone_review.md`⟧
 

@@ -46,6 +46,8 @@ HASHED_TREES = ("src/bowen", "config/bowen", "tools")  # everything ``tools.ense
 # stale until step 10, so an edit to a hashed tool is excused as a rule edit is; the records still must be as found.
 # A mutant added since changes a record's render as well as its hash (a criterion that does not pass lists it under
 # "Not run"), so the rerun also leaves out each mutant the tool did not have at OPENED_AT (step 7, 2026-10-26).
+# A criterion added since is likewise not in the records the batch keeps, so the rerun also leaves out each criterion
+# the criteria modules did not have at OPENED_AT (step 8, 2026-10-26: M11.C.49).
 
 # Each record a marked test reads, with its sha256 as the batch found it (commit 9ebf327, spec revision 38).
 AT_OPEN = {
@@ -116,6 +118,8 @@ def hash_as_found(namespace: dict | None = None):
             stack.enter_context(patched(module, "code_hash", code_hash))
         for module, kept in mutants_as_found(namespace or {}, found):
             stack.enter_context(patched(module, "MUTANTS", kept))
+        for holder, name, cut in criteria_as_found(namespace or {}, found):
+            stack.enter_context(patched(holder, name, cut))
         yield
 
 
@@ -147,6 +151,37 @@ def mutants_as_found(namespace: dict, found: Path) -> list[tuple[types.ModuleTyp
     return out
 
 
+_CRITERIA_TABLE = re.compile(r"^CRITERIA(_D2?)?$")  # the criteria tables of src/bowen/ensemble
+
+
+def criteria_as_found(namespace: dict, found: Path) -> list[tuple[object, str, dict]]:
+    """Each criteria table of ``src/bowen/ensemble`` reachable from ``namespace``, cut to the criteria whose id (or,
+    for a keyed variant such as ``M11.C.2[twelve-person family]``, whose base id) the file that defines it held,
+    quoted, at ``OPENED_AT``: a criterion added since (step 8's ``M11.C.49``) is not in a record the batch keeps, so
+    a test that walks the table and the record fails by D31, as a mutant added since does. Returned as (holder,
+    name, cut table), the holder a module or ``namespace`` itself where it holds the same table by that name. Each
+    table is cut once, by the file that assigns it: a module that imported a table by name gets that cut, as the same
+    object, never one made from its own file (the review of 2026-10-26), as ``mutants_as_found`` does."""
+    ensemble = (REPO / "src" / "bowen" / "ensemble").resolve()
+    modules = _reachable_modules(namespace)
+    out = []
+    for module in modules:
+        path = getattr(module, "__file__", None)
+        if not path or Path(path).resolve().parent != ensemble:
+            continue
+        now = Path(path).read_text(encoding="utf-8")
+        then = found / Path(path).resolve().relative_to(REPO)
+        text = then.read_text(encoding="utf-8") if then.exists() else ""
+        for name, table in vars(module).items():
+            if not (_CRITERIA_TABLE.match(name) and isinstance(table, dict)
+                    and re.search(rf"^{name}\b[^=\n]*=", now, re.M)):
+                continue
+            cut = {k: v for k, v in table.items() if re.search(rf'"{re.escape(k.split("[")[0])}["\[]', text)}
+            out += [(holder, n, cut) for holder in modules for n, v in vars(holder).items() if v is table]
+            out += [(namespace, n, cut) for n, v in namespace.items() if v is table]
+    return out
+
+
 def _reachable_modules(namespace: dict) -> list[types.ModuleType]:
     """``sys.modules``, the modules ``namespace`` holds, and every module this repo's own modules hold, followed through:
     a tool loaded from its file (``module_from_spec``) is not registered, and may hold another such copy."""
@@ -164,8 +199,40 @@ def _reachable_modules(namespace: dict) -> list[types.ModuleType]:
 
 
 @contextlib.contextmanager
+def registry_as_found(namespace: dict | None = None):
+    """The criteria the batch found, for a tool that reads the registry beside the committed records: each criteria
+    table cut as the rerun cuts it (``criteria_as_found``), and ``tools.version_1_status.spec_criteria`` without a
+    criterion added since ``OPENED_AT``, which no record the batch keeps can list (step 8's ``M11.C.49``;
+    ``tools/version_2_status.py`` stops on a registered criterion with no record row). Restored on any exit."""
+    import src.bowen.ensemble.criteria  # noqa: F401 — loaded first, so the tables are there to cut
+    import src.bowen.ensemble.criteria_d  # noqa: F401
+    import src.bowen.ensemble.criteria_d2  # noqa: F401
+    import tools.version_1_status as v1
+
+    cuts = criteria_as_found(namespace or {}, tree_as_found())
+    kept = {k.split("[")[0] for _, _, cut in cuts for k in cut}
+    added = {k.split("[")[0] for k in v1.registered()} - kept
+    original = v1.spec_criteria
+    with contextlib.ExitStack() as stack:
+        for holder, name, cut in cuts:
+            stack.enter_context(patched(holder, name, cut))
+        stack.enter_context(patched(v1, "spec_criteria",
+                                    lambda: {k: v for k, v in original().items() if k not in added}))
+        yield added
+
+
+@contextlib.contextmanager
 def patched(module, name: str, value):
-    """``module.name`` set to ``value`` for the block, and restored after it, on any exit."""
+    """``module.name`` (or, for a dict, ``module[name]``) set to ``value`` for the block, and restored after it, on
+    any exit."""
+    if isinstance(module, dict):
+        before = module[name]
+        module[name] = value
+        try:
+            yield
+        finally:
+            module[name] = before
+        return
     before = getattr(module, name)
     setattr(module, name, value)
     try:

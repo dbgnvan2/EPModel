@@ -3,7 +3,7 @@
 Purpose: test each M5.D, M5.E and M5.F.4 requirement as a direction, driving a sequence
          by hand where a unit test can, and over an ensemble where the requirement is
          about what usually happens.
-Spec:    docs/bowen_agent_model_spec_v2.md#M5.D.1, #M5.D.2, #M5.D.2a, #M5.D.3, #M5.D.4, #M5.D.4a, #M5.D.5, #M5.D.6, #M5.D.7, #M5.D.7a, #M5.D.8, #M5.D.9, #M5.E.3, #M5.E.7, #M5.E.8, #M5.F.2a, #M5.F.4, #M1.C.5
+Spec:    docs/bowen_agent_model_spec_v2.md#M5.D.1, #M5.D.2, #M5.D.2a, #M5.D.3, #M5.D.4, #M5.D.4a, #M5.D.5, #M5.D.6, #M5.D.7, #M5.D.7a, #M5.D.8, #M5.D.9, #M5.E.3, #M5.E.7, #M5.E.8, #M5.F.2a, #M5.F.2c, #M5.F.4, #M1.C.5
 Tests:   this file
 
 Unit tests of set mechanisms with invented constants; none is a finding (`M11.5`).
@@ -118,25 +118,42 @@ def test_m5d1_iposition_is_not_a_single_tick_move():
     assert seq(state).stage == ip.PREPARE
 
 
-def test_m5f4_low_perspective_executes_the_assertion_form():
-    """Without perspective the move is a claim: it raises reactivity and counts against the claimant."""
-    state = fresh(perspective=0.0)
-    [event] = [r.event for r in choose_iposition(state) if isinstance(r, EmittedRecord)]
-    assert event.assertion and seq(state) is None
-    genuine = dataclasses.replace(event, assertion=False)
-    delivery = Delivery(1, event.id, MARTA, Role.TARGET, emitted_tick=0, latency=1)
-    assert appraisal_delta(state, delivery, event, PARAMS) > appraisal_delta(state, delivery, genuine, PARAMS)
-    before = state.people[RAVI].outside_ness_outward
-    apply_move_effects(state, (delivery,), PARAMS)
-    assert state.people[RAVI].outside_ness_outward > before  # M5.F.2a: claiming is negative evidence
+def test_m5f4_low_perspective_starts_a_sequence():
+    """Revision 39 (`M5.F.4`, Q8): no threshold on systems perspective decides the form. A mover without perspective
+    starts a sequence like any other and, at `DEFINE`, says the position more as a demand than a mover with it."""
+    shares = {}
+    for perspective in (0.0, 1.0):
+        state = fresh(perspective=perspective)
+        records = choose_iposition(state)
+        assert not any(isinstance(r, EmittedRecord) for r in records) and seq(state).stage == ip.PREPARE
+        for _ in range(PARAMS.prepare_ticks):
+            calm(state, RAVI)
+            week(state)
+        [event] = [r.event for r in take_owed_step(state) if isinstance(r, EmittedRecord)]
+        shares[perspective] = event.demand_share
+        before = state.people[RAVI].outside_ness_outward
+        apply_move_effects(state, (Delivery(state.tick + 1, event.id, MARTA, Role.TARGET,
+                                            emitted_tick=state.tick, latency=1),), PARAMS)
+        assert state.people[RAVI].outside_ness_outward > before, perspective  # M5.F.2a: the demand counts against
+    assert 1.0 > shares[0.0] > shares[1.0] > 0.0
 
 
 def test_m5d4a_an_angry_mover_executes_the_assertion_form():
+    """The assertion form is the mixture's all-demand end: an angry mover's act is said at once, with demand share 1;
+    it raises reactivity more than the same act said with no demand, and counts against the claimant (M5.F.2a)."""
     state = fresh(perspective=1.0)
     state.ties[TieId.of(RAVI, MARTA)].felt_impingement[RAVI] = 1.0
     assert ip.angry(state, RAVI, MARTA, PARAMS)
     [event] = [r.event for r in choose_iposition(state) if isinstance(r, EmittedRecord)]
-    assert event.assertion
+    assert event.demand_share == 1.0 and seq(state) is None
+    no_demand = dataclasses.replace(event, demand_share=0.0)
+    delivery = Delivery(1, event.id, MARTA, Role.TARGET, emitted_tick=0, latency=1)
+    assert appraisal_delta(state, delivery, event, PARAMS) > appraisal_delta(state, delivery, no_demand, PARAMS)
+    tie = state.ties[TieId.of(RAVI, MARTA)]
+    contact, before = tie.felt_contact[MARTA], state.people[RAVI].outside_ness_outward
+    apply_move_effects(state, (delivery,), PARAMS)
+    assert state.people[RAVI].outside_ness_outward > before  # M5.F.2a: claiming is negative evidence
+    assert tie.felt_contact[MARTA] == contact                    # all demand: no contact is withdrawn
 
 
 # --- PREPARE -------------------------------------------------------------------------------
@@ -184,7 +201,7 @@ def test_m5e7_genuine_iposition_withdraws_contact_from_the_other():
         calm(state, RAVI)
         week(state)
     [event] = [r.event for r in take_owed_step(state) if isinstance(r, EmittedRecord)]
-    assert not event.assertion
+    assert 0.0 < event.demand_share < 1.0  # a said position: part self-statement, part demand
     tie = state.ties[TieId.of(RAVI, MARTA)]
     before = tie.felt_contact[MARTA]
     apply_move_effects(state, (Delivery(state.tick + 1, event.id, MARTA, Role.TARGET,
@@ -458,12 +475,9 @@ def test_m5d8_success_usually_follows_several_failures():
     # carry the claim.
 
 
-# --- Version 2 stage 3, group F (spec revision 39, approved 2026-10-25): written first, red ----------------------
+# --- Version 2 stage 3, group F (spec revision 39, approved 2026-10-25): written first, built at step 8 ------
 
 
-@pytest.mark.xfail(strict=True, raises=AssertionError,
-                   reason="spec revision 39, group F: M5.F.4's demand share is built at plan step 8 "
-                          "(docs/implementation_plan_version_2_stage_3.md §3.8)")
 def test_m5f4_s3_6_demand_share_falls_with_level():
     """S3.6 (`M5.F.4`, D20): a genuine `I-POSITION` — the `DEFINE` event — is part self-statement, share `w`, part
     demand, share `1 − w`, with `w` the mover's self-channel weight that week (`M4.D.1a`). The demand share adds

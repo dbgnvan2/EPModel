@@ -40,7 +40,8 @@ def child(keys: list[str], workers: int) -> None:
                          **({"p": r["p"]} if "p" in r else {}),
                          **{k: r[k] for k in ("equivalence_bound", "bound_side", "within_bound") if k in r}}
                         for r in v.readouts]
-            print(json.dumps({"criterion": key, "outcome": v.outcome, "seeds": v.seeds, "readouts": readouts},
+            print(json.dumps({"criterion": key, "outcome": v.outcome, "seeds": v.seeds, "readouts": readouts,
+                              "missing_moves": v.missing_moves},
                              default=float), flush=True)
         except BROKEN_ERRORS as error:  # the replacement text itself is broken: no evidence
             print(json.dumps({"criterion": key, "outcome": "BROKEN", "seeds": 0,

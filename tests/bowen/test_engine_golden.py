@@ -37,7 +37,9 @@ spec revision 32: a nodal event spikes the cut ties of those it reaches (`M4.C.1
 runs). The coach's position gate of the same revision moved neither. The phase_b run is scripted and did not move.
 Version 2 stage 1 (2026-10-19: every float total a `math.fsum`, S1.1) moved neither, measured at 8 significant
 digits. Moved 2026-10-22 by spec revision 36 (group G and the event sizes) and 2026-10-26 by revision 39's
-group C (displaced coping, the floor-held ledger, lent functioning returned; behaviour, both runs).
+group C (displaced coping, the floor-held ledger, lent functioning returned; behaviour, both runs) and, the same day,
+its group F (`M5.F.4`'s demand share: a genuine I-POSITION's demand and debit split by the mover's level, in place of
+the perspective-gated assertion form; behaviour, both runs).
 
 **Why the floats are rounded (2026-10-15).** The fingerprints were taken from the exact repr, and CI on Linux failed
 them while the Mac passed: the last bits of a float differ between platforms and Python versions (Python 3.12 changed
@@ -73,6 +75,11 @@ FINGERPRINT_DIGITS = 8  # significant digits kept per float; see the module docs
 ZERO_BELOW = 1e-12  # a float this close to zero is written as 0, so 1e-17 and -1e-17 agree
 GOLDEN = {
     # (family, seed, weeks): fingerprint
+    # Both moved at spec revision 39's group F (stage 3 step 8, 2026-10-26; P23, a decision): `M5.F.4`'s demand share
+    # (`1 − w`) splits every genuine I-POSITION into demand and debit, and `assertion_perspective_threshold` is retired,
+    # so only anger gives the assertion form. Taken with this module's `_records` and `_fingerprint`. Before step 8:
+    # phase_c 4796f870cee83e34b2ed783d11cc48b7f2c503830a426ab092cb634383127af8,
+    # phase_d ea75fecdeb6fda95011b216ff2608eeacd2be8a48ab25214102d35e21d824281.
     # Both moved at spec revision 39's group C (stage 3 step 7, 2026-10-26; P23, a decision): displaced coping
     # (`M1.A.5f`) and lent functioning returned with lost capacity (`M6.I.4a`) move phase_c, and F1's floor_held ledger
     # (`M1.A.5e`, `M1.A.4k`) moves phase_d as well (the correctness pass, 2026-10-26, switched each off in turn). Taken
@@ -85,8 +92,8 @@ GOLDEN = {
     # the additions' loads and a symptom's own load) each change what a seeded run computes, so every run's log moved.
     # Before revision 36: phase_c c4fd16123fa37db3ccf7d2f6624b3463ef51ec084a44cad1dc0b1501f07ca85c,
     # phase_d 4e5ebdad859f648c37e8bb3222de6f802df94172ff0dd3a5b3e5c1df9b16f559.
-    ("phase_c", 7, 104): "4796f870cee83e34b2ed783d11cc48b7f2c503830a426ab092cb634383127af8",
-    ("phase_d", 11, 208): "ea75fecdeb6fda95011b216ff2608eeacd2be8a48ab25214102d35e21d824281",
+    ("phase_c", 7, 104): "4b48b15d66a948d55bb75d04f6c4506102e11915ee38818f25a2db375d569013",
+    ("phase_d", 11, 208): "b453d4c93c81ce54d3e69900bc826a8cc8f373463ab96e04149c6ebde2f6ab3d",
 }
 
 

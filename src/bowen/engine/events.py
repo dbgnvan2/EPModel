@@ -269,9 +269,10 @@ class Event:
     attention: Attention = Attention.NONE
     # M1.A.18a, M1.A.19: an evaluation of the target, -1 blame, +1 praise, 0 none. Two-sided by design.
     valence: int = 0
-    # M5.F.4, M5.D.4a: an I-POSITION executed as the assertion form — raises reactivity on the
-    # tie and counts against the claimant (M5.F.2a). Set by the engine at act, never by a policy.
-    assertion: bool = False
+    # M5.F.4 (revision 39): the demand share of an I-POSITION, 1 − the mover's self-channel weight at DEFINE, 1 for
+    # the assertion form (M5.D.4a), 0 for every other event. It raises reactivity on the tie, scales down the debit of
+    # the target's felt contact and counts against the claimant (M5.F.2a). Set by the engine at act, never by a policy.
+    demand_share: float = 0.0
 
     def __post_init__(self) -> None:
         if self.valence not in (-1, 0, 1):
@@ -284,6 +285,8 @@ class Event:
             raise ValueError("duration is a whole number of ticks, at least one (M1.F.6)")
         if not 0.0 < self.fidelity <= 1.0:
             raise ValueError("fidelity is in (0, 1]")
+        if not 0.0 <= self.demand_share <= 1.0:
+            raise ValueError("demand_share is in [0, 1] (M5.F.4)")
         if len(set(self.targets)) != len(self.targets):
             raise ValueError("duplicate target")
         if self.targets != tuple(sorted(self.targets)):

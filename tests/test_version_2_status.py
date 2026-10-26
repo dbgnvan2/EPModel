@@ -16,10 +16,24 @@ from __future__ import annotations
 import re
 from unittest import mock
 
+import pytest
+
 import tools.version_1_status as v1
 import tools.version_2_status as tool
+import open_batch  # tests/ is on the path: pytest imports its conftest by basename
 
 STATUS_WORDS = ("PASS", "FAIL", "pass", "fail")
+
+
+@pytest.fixture(autouse=True)
+def _registry_as_found():
+    """While stage 3's batch is open (D31) the records and this page are the batch's as found, so the tool reads the
+    criteria the batch found: a criterion added since (step 8's `M11.C.49`) is in no record until step 10."""
+    if not open_batch.OPEN:
+        yield
+        return
+    with open_batch.registry_as_found(globals()):
+        yield
 
 
 def _sweep_cells(text: str) -> dict[str, str]:

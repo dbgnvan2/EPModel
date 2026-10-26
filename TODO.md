@@ -18,7 +18,7 @@ moves to `docs/TODO_archive.md`. Until 2026-10-22 this file held every item's te
 - T-121 · 2026-10-23 · `M11.C.11`'s named mutant survives · [record](docs/todo/2026-10-23_revision_36_regeneration.md)
 - T-123 · 2026-10-23 · `M11.C.48`'s baseline counts a first cutoff with no … · [record](docs/todo/2026-10-23_revision_36_regeneration.md)
 
-## Later (117)
+## Later (118)
 
 - T-006 · 2026-10-22 · D4, long `Spec:` lines (Part D, 2026-10-22; the … · [record](docs/todo/2026-10-22_model_ergonomics.md)
 - T-007 · 2026-10-22 · Adjacent issues found by Part D's docstring pass, … · [record](docs/todo/2026-10-22_model_ergonomics.md)
@@ -137,3 +137,4 @@ moves to `docs/TODO_archive.md`. Until 2026-10-22 this file held every item's te
 - T-128 · 2026-10-24 · `M17.E.1`'s named ratio, before stage 3's full sweep · [record](docs/todo/2026-10-24_stage_2_milestone_review.md)
 - T-129 · 2026-10-24 · With the next change that moves the engine … · [record](docs/todo/2026-10-24_stage_2_milestone_review.md)
 - T-130 · 2026-10-24 · Check the event sizes against Holmes and Rahe … · [record](docs/todo/2026-10-24_stage_2_milestone_review.md)
+- T-131 · 2026-10-25 · `KS00.9` against `M7.E.1f`'s parents' term (the stage 4 … · [record](docs/todo/2026-10-25_stage_3_revision_39.md)

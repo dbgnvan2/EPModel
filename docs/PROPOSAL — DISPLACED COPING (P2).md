@@ -1,6 +1,7 @@
 # Proposal — displaced coping (version 2 stage 3, group C, P2), with the floor-held functioning (F1)
 
-> **Status: DRAFT 2026-10-25, for the owner's approval; not built.** The owner chose P2 as group C's mechanism on
+> **Status: DECIDED 2026-10-25 (Q1–Q4, each as recommended); not built. Its draft into spec revision 39, part 1, is
+> `docs/spec_revision_39_draft.md`, awaiting the owner's approval.** The owner chose P2 as group C's mechanism on
 > 2026-10-24 (D18, revisited after the projection trace; `docs/implementation_plan_version_2_stage_3.md` §3.2). A
 > probe on 2026-10-25 (§6, `docs/review/stage_3_displaced_coping_probe.md`) showed that P2 at coping size does not
 > move `M11.C.6`'s direction, and that most of the child's lift is functioning the stress floor holds. The owner then
@@ -9,7 +10,8 @@
 > day (§6.1): with F1 the difference falls from +0.089 to +0.029 ± 0.025, and with P2 and F1 to +0.018 ± 0.025, an
 > interval that includes zero; no variant shows the decline `M11.C.6` expects. `M11.C.6` is reported as it reads and
 > is never tuned. **Q4 decided by the owner 2026-10-25:** "draft revision 39 with P2 and F1 as recommended,
-> reporting M11.C.6 as read" (§9); Q1–Q3 are put to the owner with revision 39's draft. Every form here is Claude's recommendation, graded `[I]` unless a ledger entry is
+> reporting M11.C.6 as read" (§9); Q1–Q3 decided the same day, each as recommended (`OVERFUNCTION` alone; shed; conserved).
+> Revision 39's part 1 is drafted from this page: `docs/spec_revision_39_draft.md`. Every form here is Claude's recommendation, graded `[I]` unless a ledger entry is
 > cited. Both change what a run computes, so both move the engine hash; under D31 they are built at plan step 7, after
 > revision 39 is approved (step 4). Nothing under `src/bowen/` or `config/bowen/` is edited by this page. `M6.I.4a`
 > (D19, `M11.C.21`) is unchanged by it.
@@ -242,11 +244,13 @@ Open, for the owner with revision 39 (Claude's recommendation first):
 
 - **Q1, the displacing kinds.** `OVERFUNCTION` alone (recommended: taking charge is `FE01.1`'s caretaking; `PURSUE`
   is a closeness move, and the probe shows it doubles what P2 moves without changing the direction), or with `PURSUE`.
+  **Decided by the owner 2026-10-25: `OVERFUNCTION` alone** (recommended).
 - **Q2, F1's shedding.** Shed off the floor with the swings (recommended: what the floor held is the swing's deferred
   relaxation), or kept and never shed (§4.2's trade-off). The joint probe gives the same `M11.C.6` difference either
-  way (§6.1).
+  way (§6.1). **Decided by the owner 2026-10-25: shed with the swings** (recommended).
 - **Q3, the sender's side.** Conserved, the sender gaining what the receiver loses (recommended, as drafted), or the
   receiver's loss only. The probe gives no reason to prefer either for `M11.C.6`.
+  **Decided by the owner 2026-10-25: conserved** (recommended).
 - **Q4, `M11.C.6` after P2 and F1.** Draft revision 39 with both and report `M11.C.6` as it reads, unresolved at
   150 seeds (recommended: both rules stand on their own grounds, §3–§5, and the criterion is never a target), or first
   trace what now carries the parents' term under P2 (+0.026), before revision 39.

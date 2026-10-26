@@ -124,7 +124,9 @@ def record_week(state: RunState, params: EngineParams, load: dict, selections, e
         # sign: the exchange shifts functional level in both people and leaves basic level alone, so neither the gain
         # borrowed nor the loss lent is the person's own. Leaving out only the gain read the Phase C family's coached
         # people about 9 points below basic (traced 2026-10-12).
-        own = person.functional_level - (person.pseudo_self or 0.0) - max(0.0, person.adjust_swing)
+        # Revision 39 (F1, owner decision 2026-10-25): nor what the stress floor held while the swings decayed (floor_held,
+        # M1.A.5e). Unledgered, the estimator credited it as the person's own (measured 2026-10-25).
+        own = person.functional_level - (person.pseudo_self or 0.0) - max(0.0, person.adjust_swing) - person.floor_held
         weeks.append(Week(state.tick, own, load.get(pid, 0.0), self_directed,
                           tuple(sorted(nodal.get(pid, ()))), kind in state.kinds.soothing))
 

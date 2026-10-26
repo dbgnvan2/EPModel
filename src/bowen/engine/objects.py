@@ -169,6 +169,10 @@ class Person:
     # (external.self_practice): a level up to system_adjust_gain, not a stack. It settles back when calm at the rate
     # stress_swing does. Every change to functional_level goes to exactly one ledger. Owner decisions 2026-10-11/12.
     adjust_swing: float = 0.0
+    # Spec revision 39 (F1, M1.A.5e): the functioning a bound — the stress floor, or the scale's 0–100 — kept from moving
+    # while the swings decayed, so functional_level − stress_swing − adjust_swing − floor_held is unchanged by the bound.
+    # Shed with the swings when calm; the estimator leaves it out (M1.A.4k). Owner decision 2026-10-25.
+    floor_held: float = 0.0
     # Spec revision 22: the person's usual excess anxiety — the plain mean of their weeks so far for the first
     # 1 / usual_level_rate weeks, then a running average over about a year. Calm is at or below it; the stress response
     # is driven by the load above it. None until the first week; usual_weeks counts the weeks it has seen.

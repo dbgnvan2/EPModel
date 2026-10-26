@@ -20,6 +20,11 @@ Tests:   tests/test_stage_3_probes.py::test_stage_3_displaced_coping_probe_moves
 The tool is in no ``HASHED_TOOLS`` list and no record reads it, so it moves no record. The P2 wrapper is the
 proposal's rule, not the engine's, and its result is a probe's, not a criterion's (`M11.5`).
 
+**Since plan step 7 (2026-10-26) the engine builds P2 and F1** (`M1.A.5f`, ``floor_held``), so "as built" includes
+them and the P2 and F1 variants apply them a second time. Its page records the engine of step 3 (hash
+``66dcbb1e8ba5``) and is not rerun; the own term's parts below count the engine's ``floor_held`` as a ledger, as they
+count F1's, so the decomposition still adds up on the current engine.
+
 **The own term's parts.** The step's own term is the year-mean of ``functional_level − pseudo_self −
 max(0, adjust_swing)`` less the basic level before the step. Write ``functional_level`` as ``basic_level +
 stress_swing + pseudo_self + adjust_swing + U``; ``U`` is functioning on no ledger (an `I-POSITION` completion's
@@ -173,7 +178,7 @@ def one_seed(seed: int, variants: tuple[str, ...] = tuple(VARIANTS)) -> dict:
                 before = last_basic.get("basic", person.basic_level)
                 last_basic["basic"] = person.basic_level
                 # Under F1 its ledger is a ledger: what it holds is neither unledgered nor held by a bound off-ledger.
-                led = ledger.get(child, 0.0)
+                led = ledger.get(child, 0.0) + getattr(person, "floor_held", 0.0)  # F1's, and the engine's (step 7)
                 if "u" not in anchor and child in state.life.anchors:
                     anchor["u"], anchor["held"] = fl - before - st - ps - adj - led, held["stock"] - led
                 weekly.append((st, min(0.0, adj), fl - before - st - ps - adj - led, held["stock"] - led, led))

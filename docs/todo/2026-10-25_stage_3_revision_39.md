@@ -22,3 +22,20 @@ Raised while drafting part 1 of spec revision 39 (`docs/spec_revision_39_draft.m
   Revision 39's `M5.F.4` describes the code as it is (`docs/spec_revision_39_draft.md` §13.1). Whether anger at
   `DEFINE` should also turn a said position into the assertion form is not drafted; recorded for the stage 3
   milestone review.
+- [ ] T-134 ⟨later⟩ **`M6.I.4a`'s return with no lender is not counted (the step 7 `learning-qa` pass, 2026-10-26).**
+  When a taker's capacity falls and no tie's balance names them the over-functioner, the amount due
+  (`moves.return_lent_functioning`) has no one to go to and stays with the taker, as `M6.I.4a` allows ("what a cap
+  stops stays with the taker"). Nothing records it, so a readout cannot tell "nothing returned, no lender" from
+  "capacity did not fall". It is common early in a run: `initialise_functioning` sets each person's pseudo-self to
+  their swing while every balance starts at 0. A count of the unreturned amount in the effect record, or a readout of
+  it for `M11.C.21`, is a log change that moves the golden fingerprints; left for the owner's choice at the stage 3
+  milestone review.
+- [ ] T-135 ⟨later⟩ **`M11.C.10`'s scripted renewal outlasts a cutoff (the step 7 suite run, 2026-10-26).** The
+  treatment renews each cutoff every `renew_every` = 13 weeks (`config/bowen/criteria.md`), and a cutoff's rejection
+  (0.5) fades by `rejection_fade` 0.05 a week, so a renewal alone holds it about 10 weeks. Between renewals the cutoff
+  is held only if the cutter refuses the other's contact. On the family-of-origin variant, seed 0, two years, the four
+  ties were held every week (416) until revision 39's group C changed the run; since, Ravi's cutoff of Viktor lapses
+  for 15 weeks (401). `M11.C.10` allows this ("a cutoff that lapsed is visible"), and
+  `tests/bowen/test_phase_d2_criteria.py::test_m11c10_family_of_origin_arm_holds_both_parents_cutoffs` now asserts
+  that bound, not the 416. Whether `renew_every` should be at most 10, so the scripted arm holds by itself, is a
+  criterion-setting change that moves `M11.C.10`'s records; left for the owner.

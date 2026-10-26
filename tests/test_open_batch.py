@@ -12,12 +12,13 @@ from __future__ import annotations
 
 import hashlib
 import re
+import subprocess
 from pathlib import Path
 
 import pytest
 
 import open_batch  # tests/ is on the path: pytest imports its conftest by basename
-from open_batch import AT_OPEN, stale_in_open_batch
+from open_batch import AT_OPEN, hash_as_found, stale_in_open_batch
 
 REPO = Path(__file__).resolve().parents[1]
 MARK = re.compile(r'^@stale_in_open_batch\("([^"]+)"\)$', re.M)
@@ -109,6 +110,44 @@ def test_d31_the_mark_excuses_only_a_failure_the_hash_explains(monkeypatch):
     monkeypatch.setattr(open_batch, "OPEN", None)  # the batch is closed
     with pytest.raises(AssertionError, match="stale: rerun"):
         stale()
+
+
+def test_d31_the_rerun_leaves_out_a_mutant_added_since_the_batch_opened():
+    """Step 7 adds mutants to the Phase D mutation record's tool. A mutant whose criterion does not pass is listed in
+    the record's "Not run" section, so it changes the render as well as the hash; the rerun reads the tool's mutants
+    as the batch found them, and restores the current list after."""
+    import importlib.util
+
+    spec = importlib.util.spec_from_file_location("open_batch_check.phase_d_mutation_record",
+                                                  REPO / "tools" / "phase_d_mutation_record.py")
+    tool = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(tool)
+    now = {m.id for m in tool.MUTANTS}
+    then = subprocess.run(["git", "-C", str(REPO), "show", f"{open_batch.OPENED_AT}:tools/phase_d_mutation_record.py"],
+                          capture_output=True, text=True, check=True, timeout=60).stdout
+    assert "displaced-coping-removed" in now and 'Mutant("displaced-coping-removed"' not in then
+    with hash_as_found({"tool": tool}):
+        kept = {m.id for m in tool.MUTANTS}
+        witness = next(m for m in tool.MUTANTS if m.id == "witness-path-removed")
+    assert kept == {i for i in now if f'Mutant("{i}"' in then} and "development-fixed-at-anchor" in kept
+    assert "displaced-coping-removed" not in kept
+    assert witness.criteria == ("M11.C.2[twelve-person family]",)              # step 7 added M11.C.2; cut here
+    assert {m.id for m in tool.MUTANTS} == now, "the found mutants outlived the rerun"
+    assert "M11.C.2" in next(m for m in tool.MUTANTS if m.id == "witness-path-removed").criteria
+
+
+def test_d31_a_tool_that_imports_mutants_gets_the_defining_files_cut():
+    """The diagnostic record's tool imports the mutation record's ``MUTANTS``; its own file defines none. Cut by its own
+    file, every mutant would go and its lookup would fail (the step 7 suite run, 2026-10-26: StopIteration). It gets
+    the cut of the file that defines the tuple, as the same object, and both are restored after."""
+    from tools import diagnostic_record, mutation_record
+
+    before = diagnostic_record.MUTANTS
+    assert before is mutation_record.MUTANTS and before
+    with hash_as_found({"tool": diagnostic_record}):
+        assert diagnostic_record.MUTANTS == mutation_record.MUTANTS and diagnostic_record.MUTANTS
+        assert {m.id for m in diagnostic_record.MUTANTS} >= {d.mutant for d in diagnostic_record.DIAGNOSTICS if d.mutant}
+    assert diagnostic_record.MUTANTS is before and mutation_record.MUTANTS is before
 
 
 def test_d31_a_record_the_batch_does_not_list_cannot_be_marked():

@@ -265,6 +265,14 @@ last three years of weeks:
     it, and the response scales with how far above; at or below it they are calm and what stress moved settles back.
     Before this, against a fixed band of 5, the Phase C family's coached pair, running 30–35 points above chronic on
     the family's own traffic, were never calm. The policy's bands and the estimator's weighting are unchanged.
+  - **Displaced coping (revision 39, `M1.A.5f`).** A loaded person who takes charge of another (`OVERFUNCTION`) meets
+    the load through them: the amount coping would have given the sender moves from the receiver's functioning to the
+    sender's, on both stress swings, and settles back when each is calm. A receiver holding a position gives nothing,
+    and the receiver's floor bounds it. `[K]` `KS04.7`, `FE01.1` for the direction ("a calmer mother"; the caretaking
+    and patient positions); the size, the list and the conservation are `[I]`.
+  - **What the floor holds is on a ledger (revision 39, F1).** When the floor stops functioning from falling while the
+    swings decay, the amount it held goes to `floor_held`, which the estimator leaves out; when calm it is shed by the
+    swings' share. Without it the estimator credited floor-held functioning as the person's own. `[I]`.
 - **Systems perspective is self-discovered (revisions 18 and 19, `M1.E.7`, `M4.D.1a`).**
   - **How it grows:** coaching raises it in steps. A person's own self-directed act raises it slowly, and only if it
     worked: they held their position and the tie calmed.
@@ -280,6 +288,8 @@ last three years of weeks:
   - **And with what was given way added back (revision 23).** Pseudo-self is read with its sign: the exchange shifts
     functional level in both people and leaves basic level alone, so neither the gain borrowed nor the loss lent is the
     person's own. Leaving out only the gain read the coached people about 9 points below basic level whatever they did.
+  - **Nor what the floor held (revision 39).** The weekly reading is functional level less pseudo-self, less a positive
+    `adjust_swing`, less `floor_held`.
 - **The earlier limit is closed (revision 18).** Anxiety now moves `functional_level` through the stress response.
   A borrowed gain met with soothing fades, and the estimator no longer reads borrowed functioning.
 
@@ -573,6 +583,10 @@ What the rule did change: it turned the twelve-person family's `M11.C.2` from fa
 on carries more symptom load), and it turned `M11.C.22`'s mild-removal limb and `M11.C.17`'s weak coached rise from
 pass to fail. With the rule removed, each run gives its earlier number exactly. The owner kept it on 2026-10-17 and
 accepted `M11.C.22`'s failure for now.
+
+- **Lent functioning returns when the taker's capacity falls (revision 39, `M6.I.4a`).** The share of borrowed
+  pseudo-self equal to the share of room above the floor lost goes back to the lenders, conserved. `[I]`, the owner's
+  D19.
 
 > Implement as a **switch with hysteresis, indexed per area** — not a linear scalar and not a personal trait. The old engine's `functioning_balance` is close in name and wrong in shape.
 >
@@ -993,8 +1007,9 @@ project decisions, not corpus findings, and must never be cited as Bowen's.
   fixed. It is the one place a family's anxiety enters a child's floor; it compounds across
   generations, which is the direction the corpus states (`[D]` Ch16) and a magnitude it does not (`[I]`).
 - **A child's basic level** is held at their parents' mean until 5, anchored there, and from 5 to 20 moved each year
-  by half the parents' and half the child's own functioning above basic, within ±2% of the anchor (`M7.E.1f`; the
-  owner: "level × .02"). Nothing names which child falls: the child whose own functioning the family pushes down
+  by half the parents' and half the child's own functioning above basic, each read as the estimator reads it, so the
+  exchange and the floor do not reach it and the stress swing does (revision 39), within ±2% of the anchor (`M7.E.1f`;
+  the owner: "level × .02"). Nothing names which child falls: the child whose own functioning the family pushes down
   ends lower. **Consequence:** ten generations could fall at most about 18 points from the top under ±2%. *Revision 31
   (the owner, 2026-10-16):* the band opens with the parents' acts toward the child — ±2% with none, room to rise to +5%
   with supportive acts, room to fall to −10% with projection (built in revision 31 part B: the room is set by the

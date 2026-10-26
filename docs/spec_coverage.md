@@ -20,7 +20,7 @@ Records read, each with the hash it states:
 - `docs/phase_c_mutation_record.md` (66dcbb1e8ba5)
 - `docs/phase_d_mutation_record.md` (5c3865dcf8f9)
 
-**581 IDs: 290 done, 144 partial, 147 not done.**
+**583 IDs: 293 done, 143 partial, 147 not done.**
 
 Only an `M11.C` criterion run as an ensemble needs a mutation record to have turned it red to be **done**.
 Every other **done** row, a criterion run as a test among them, names a test that passes; the page does not
@@ -54,7 +54,8 @@ say whether that test was proved failing by mutation unless its note does.
 | M1.A.4f | partial | `tests/bowen/test_slow_tick.py::test_m1a4k_the_estimator_adds_back_what_was_given_way` | `readouts/evaluation.py::evaluate` takes `basic_level_by_generation` as the mean over all living members, but no test asserts the values (the readout test checks only the keys); pseudo-self is removed from each person's reading in both directions (`test_m1a4k_the_estimator_adds_back_what_was_given_way`) |
 | M1.A.5 | done | `tests/bowen/test_objects.py::test_m1a5a_functional_level_decomposes_into_basic_plus_swing` | `Person` holds `functional_level` apart from `basic_level`; a person at basic 39 reads functional 45.5 with a swing of 6.5 (`test_m1a5a_functional_level_decomposes_into_basic_plus_swing`, written for `M1.A.5a`, which asserts the two differ) |
 | M1.A.5a | done | `tests/bowen/test_objects.py::test_m1a5a_functional_level_decomposes_into_basic_plus_swing` | — |
-| M1.A.5e | partial | `tests/bowen/test_moves.py::test_m1a5e_giving_way_cannot_take_the_giver_below_the_floor`<br>`tests/bowen/test_stress_response.py::test_m1a5e_a_clamped_swing_still_decays`<br>`tests/bowen/test_stress_response.py::test_m1a5e_a_fallback_hold_is_not_coping`<br>`tests/bowen/test_stress_response.py::test_m1a5e_basic_level_scales_both_directions`<br>`tests/bowen/test_stress_response.py::test_m1a5e_calm_is_relative_to_the_persons_usual_level`<br>`tests/bowen/test_stress_response.py::test_m1a5e_coping_raises_functioning_and_soothing_lowers_it`<br>`tests/bowen/test_stress_response.py::test_m1a5e_no_load_no_response_and_calm_settles_back_slowly`<br>`tests/bowen/test_stress_response.py::test_m1a5e_s3_1d_floor_held_functioning_is_on_a_ledger`<br>`tests/bowen/test_stress_response.py::test_m1a5e_soothing_acts_come_from_config`<br>`tests/bowen/test_stress_response.py::test_m1a5e_soothing_also_scales_with_the_load_above_usual_and_week_0_is_calm`<br>`tests/bowen/test_stress_response.py::test_m1a5e_stress_pushes_functioning_down_to_a_floor_below_basic_and_no_further`<br>`tests/bowen/test_stress_response.py::test_m1a5e_the_usual_level_follows_slowly` | expected failure (xfail), not evidence: `tests/bowen/test_stress_response.py::test_m1a5e_s3_1d_floor_held_functioning_is_on_a_ledger` |
+| M1.A.5e | done | `tests/bowen/test_moves.py::test_m1a5e_giving_way_cannot_take_the_giver_below_the_floor`<br>`tests/bowen/test_stress_response.py::test_m1a5e_a_clamped_swing_still_decays`<br>`tests/bowen/test_stress_response.py::test_m1a5e_a_fallback_hold_is_not_coping`<br>`tests/bowen/test_stress_response.py::test_m1a5e_basic_level_scales_both_directions`<br>`tests/bowen/test_stress_response.py::test_m1a5e_calm_is_relative_to_the_persons_usual_level`<br>`tests/bowen/test_stress_response.py::test_m1a5e_coping_raises_functioning_and_soothing_lowers_it`<br>`tests/bowen/test_stress_response.py::test_m1a5e_floor_held_takes_nothing_in_a_week_no_bound_stopped`<br>`tests/bowen/test_stress_response.py::test_m1a5e_no_load_no_response_and_calm_settles_back_slowly`<br>`tests/bowen/test_stress_response.py::test_m1a5e_s3_1d_floor_held_functioning_is_on_a_ledger`<br>`tests/bowen/test_stress_response.py::test_m1a5e_soothing_acts_come_from_config`<br>`tests/bowen/test_stress_response.py::test_m1a5e_soothing_also_scales_with_the_load_above_usual_and_week_0_is_calm`<br>`tests/bowen/test_stress_response.py::test_m1a5e_stress_pushes_functioning_down_to_a_floor_below_basic_and_no_further`<br>`tests/bowen/test_stress_response.py::test_m1a5e_the_usual_level_follows_slowly` | — |
+| M1.A.5f | done | `tests/bowen/test_config.py::test_m1a5f_s3_1c_displacing_kinds_come_from_config`<br>`tests/bowen/test_stress_response.py::test_m1a5f_s3_1a_displaced_coping_moves_functioning_from_receiver_to_sender`<br>`tests/bowen/test_stress_response.py::test_m1a5f_s3_1b_no_displacement_when_calm_held_or_at_the_floor` | — |
 | M1.A.5b | not done | — | not built: `Relationship.basic_togetherness` and `functional_togetherness` are declared and never written (searched `src/bowen` for both names); `contact.py::optimum` moves a per-person optimum toward closeness with anxiety (`M4.C.1b`), not a per-tie two-level balance |
 | M1.A.5c | partial | `tests/bowen/test_moves.py::test_m6i4_pseudo_self_moves_with_functional_level_and_is_conserved`<br>`tests/bowen/test_slow_tick.py::test_m1a4k_an_exchange_run_through_the_engine_leaves_both_readings_unchanged` | a rise from the automatic channel's exchange is borrowed pseudo-self (`test_m6i4_pseudo_self_moves_with_functional_level_and_is_conserved`) and the estimator leaves it out (`test_m1a4k_an_exchange_run_through_the_engine_leaves_both_readings_unchanged`); not built: a self-directed rise never lowers pseudo-self, since it goes to `stress_swing` |
 | M1.A.5d | partial | `tests/bowen/test_moves.py::test_m6i4_pseudo_self_settles_back_when_the_exchange_stops`<br>`tests/bowen/test_moves.py::test_m6i4_a_borrower_still_exchanging_with_its_source_keeps_what_it_borrowed` | borrowed self does not survive withdrawal of the source (`test_m6i4_pseudo_self_settles_back_when_the_exchange_stops`) and survives while the exchange runs (`test_m6i4_a_borrower_still_exchanging_with_its_source_keeps_what_it_borrowed`); no test asserts that borrowing carries no cost of its own |
@@ -308,6 +309,7 @@ say whether that test was proved failing by mutation unless its note does.
 | M6.I.2 | done | `tests/bowen/test_ledger.py::test_m6i2_distance_runs_outside_the_budget`<br>`tests/bowen/test_objects.py::test_m1d2_distance_is_not_a_sink`<br>`tests/bowen/test_objects.py::test_m1d1_exactly_three_sinks` | `distance_binding` records in a 30-week run touch neither the budget nor a sink (`test_m6i2_distance_runs_outside_the_budget`); `Sink` has exactly three members, none of them distance (`test_m1d1_exactly_three_sinks`, `test_m1d2_distance_is_not_a_sink`) |
 | M6.I.3 | not done | — | not built: `life_energy` has no allocation; `Person.life_energy_ratio` is never set, and the every-tick check only tests that it is None or in [0, 1] (`invariants.py`); `iposition.py` and `config/bowen/policy.md` say it is not built |
 | M6.I.4 | done | `tests/bowen/test_mechanisms.py::test_m4g2_a_violation_raises`<br>`tests/bowen/test_life_course.py::test_m63e_balances_settle_back_after_a_death`<br>`tests/bowen/test_moves.py::test_m6i4_a_borrower_still_exchanging_with_its_source_keeps_what_it_borrowed`<br>`tests/bowen/test_moves.py::test_m6i4_a_low_basic_taker_at_zero_takes_nothing`<br>`tests/bowen/test_moves.py::test_m6i4_a_taker_at_basic_zero_takes_in_full`<br>`tests/bowen/test_moves.py::test_m6i4_capacity_does_not_limit_a_taker_above_basic`<br>`tests/bowen/test_moves.py::test_m6i4_collapsed_taker_takes_in_proportion_to_room`<br>`tests/bowen/test_moves.py::test_m6i4_pseudo_self_moves_with_functional_level_and_is_conserved`<br>`tests/bowen/test_moves.py::test_m6i4_pseudo_self_settles_back_when_the_exchange_stops`<br>`tests/bowen/test_moves.py::test_m6i4_the_exchange_window_counts_the_last_exchange_window_weeks`<br>`tests/bowen/test_moves.py::test_m6i4_with_no_floor_below_basic_a_taker_below_basic_takes_nothing` | the exchange moves pseudo-self with `functional_level` and conserves it (`test_m6i4_pseudo_self_moves_with_functional_level_and_is_conserved`); an unlogged change raises (`test_m4g2_a_violation_raises`); balances settle back when the exchange stops (`test_m6i4_pseudo_self_settles_back_when_the_exchange_stops`) and after a death (`test_m63e_balances_settle_back_after_a_death`); the revision 31 capacity limits have their own `test_m6i4_*` tests |
+| M6.I.4a | done | `tests/bowen/test_moves.py::test_m6i4a_exchanged_reads_only_the_exchange`<br>`tests/bowen/test_moves.py::test_m6i4a_s3_4_lent_functioning_returns_with_lost_capacity`<br>`tests/bowen/test_moves.py::test_m6i4a_the_weeks_exchange_is_left_out_of_the_fall` | — |
 | M6.I.5 | done | `tests/bowen/test_moves.py::test_m6i4_pseudo_self_moves_with_functional_level_and_is_conserved`<br>`tests/bowen/test_mechanisms.py::test_m4g2_a_violation_raises` | the `OVERFUNCTION`/`UNDERFUNCTION` exchange leaves `basic_level` unchanged (`test_m6i4_pseudo_self_moves_with_functional_level_and_is_conserved`); a fast-tick change to `basic_level` raises (`test_m4g2_a_violation_raises`, the `M6.I.5` case); `basic_level` moves only on the slow-tick estimator |
 | M6.I.6 | partial | `tests/bowen/test_ledger.py::test_m6i6_transfers_balance_every_tick`<br>`tests/bowen/test_ledger.py::test_m6i6_an_unbalanced_transfer_is_caught`<br>`tests/bowen/test_ledger.py::test_m64_every_stock_change_is_logged_by_name`<br>`tests/bowen/test_moves.py::test_m1d2a_bound_anxiety_returns_when_distancing_is_prevented` | the ledger is tested: transfers balance every tick and an unbalanced one is caught (`test_m6i6_*`), and every stock change is logged by name (`test_m64_every_stock_change_is_logged_by_name`); "blocking one channel raises flow on the rest" has one instance (`test_m1d2a_bound_anxiety_returns_when_distancing_is_prevented`) and no general test; `M11.C.13`, which traces to it, is not done (no community) |
 | M6.I.7 | done | `tests/bowen/test_mechanisms.py::test_m4g2_a_violation_raises`<br>`tests/bowen/test_mechanisms.py::test_m4a4_institutionalize_makes_worry_edges`<br>`tests/bowen/test_life_course.py::test_m63b_anxiety_split_by_bond_energy`<br>`tests/bowen/test_life_course.py::test_m2a0k_successor_enters_at_retirement_and_learning_is_kept`<br>`tests/bowen/test_mechanisms.py::test_m4a1_every_tie_loads_every_tick_without_events` | removing a tie raises (`test_m4g2_a_violation_raises`, the `M6.I.7` case); removal keeps every tie (`test_m4a4_institutionalize_makes_worry_edges`); the dead stay in state, not alive (`test_m63b_anxiety_split_by_bond_energy`); a retired coach stays, inactive (`test_m2a0k_successor_enters_at_retirement_and_learning_is_kept`); a cut-off tie still loads (`test_m4a1_every_tie_loads_every_tick_without_events`) |
@@ -610,14 +612,13 @@ say whether that test was proved failing by mutation unless its note does.
 | M17.G.2 | not done | — | no test named for it; Phase E builds it and is not built yet |
 | M17.G.3 | not done | — | no test named for it; Phase E builds it and is not built yet |
 
-## Tests named for no spec ID (286)
+## Tests named for no spec ID (285)
 
 Their names embed no requirement ID, so they count only where an override cites them (marked *cited*). The rest check spec documents, tooling or helpers.
 
 - `tests/bowen/test_appraise.py::test_m4c1d_s3_10_relieved_receiver_returns_contact`
 - `tests/bowen/test_config.py::test_m0_1_grade_must_match_the_spec` — *cited*
 - `tests/bowen/test_config.py::test_m0_1_unknown_grade_rejected` — *cited*
-- `tests/bowen/test_config.py::test_m1a5f_s3_1c_displacing_kinds_come_from_config`
 - `tests/bowen/test_config.py::test_s1_3a_act_classes_come_from_config` — *cited*
 - `tests/bowen/test_config.py::test_s1_3a_kinds_without_act_classes_fail_where_a_class_is_read`
 - `tests/bowen/test_config.py::test_s1_3b_an_undeclared_act_fails_to_load`
@@ -679,7 +680,6 @@ Their names embed no requirement ID, so they count only where an override cites 
 - `tests/bowen/test_float_sums.py::test_s1_1b_count_refuses_a_float`
 - `tests/bowen/test_live_positions.py::test_m8_s3_20_predicate_has_three_callers` — *cited*
 - `tests/bowen/test_mechanisms.py::test_m8_5_s1_4_a_sided_coach_leaves_its_triangle_active` — *cited*
-- `tests/bowen/test_moves.py::test_m6i4a_s3_4_lent_functioning_returns_with_lost_capacity`
 - `tests/bowen/test_mutant_runner.py::test_s1_5a_a_cache_write_cut_short_leaves_the_last_whole_file`
 - `tests/bowen/test_mutant_runner.py::test_s1_5a_a_child_that_cannot_start_raises_its_own_error`
 - `tests/bowen/test_mutant_runner.py::test_s1_5a_a_failed_child_does_not_stop_the_record`
@@ -750,8 +750,6 @@ Their names embed no requirement ID, so they count only where an override cites 
 - `tests/bowen/test_spec_rules_view.py::test_c5_every_spec_id_appears_in_exactly_one_view_file`
 - `tests/bowen/test_spec_rules_view.py::test_c5_view_is_current_and_holds_nothing_else`
 - `tests/bowen/test_spec_rules_view.py::test_e2_every_dispositions_row_is_true_of_the_spec_and_the_log`
-- `tests/bowen/test_stress_response.py::test_m1a5f_s3_1a_displaced_coping_moves_functioning_from_receiver_to_sender`
-- `tests/bowen/test_stress_response.py::test_m1a5f_s3_1b_no_displacement_when_calm_held_or_at_the_floor`
 - `tests/test_asr_quotations.py::test_sp1_2_every_citation_form_is_read`
 - `tests/test_asr_quotations.py::test_sp1_2_mutant_new_quotation_fails`
 - `tests/test_asr_quotations.py::test_sp1_2_mutant_unlisted_quotation_in_an_allowlisted_file_fails`
@@ -797,10 +795,12 @@ Their names embed no requirement ID, so they count only where an override cites 
 - `tests/test_group_g_readout.py::test_g1_readout_section_is_rendered_from_measurements`
 - `tests/test_lint.py::test_s3_22_ruff_f_clean`
 - `tests/test_open_batch.py::test_d31_a_record_the_batch_does_not_list_cannot_be_marked`
+- `tests/test_open_batch.py::test_d31_a_tool_that_imports_mutants_gets_the_defining_files_cut`
 - `tests/test_open_batch.py::test_d31_every_listed_record_is_marked_and_no_other`
 - `tests/test_open_batch.py::test_d31_the_hash_as_found_is_the_hash_the_records_were_built_on`
 - `tests/test_open_batch.py::test_d31_the_mark_excuses_only_a_failure_the_hash_explains`
 - `tests/test_open_batch.py::test_d31_the_records_are_all_as_found_or_all_regenerated`
+- `tests/test_open_batch.py::test_d31_the_rerun_leaves_out_a_mutant_added_since_the_batch_opened`
 - `tests/test_python_versions.py::test_every_tracked_python_file_compiles_on_the_oldest_supported_python`
 - `tests/test_record_changes.py::test_s1_10b_a_changed_verdict_and_a_moved_effect_are_listed`
 - `tests/test_record_changes.py::test_s1_10b_a_later_page_matches_d2_rows_by_key_and_lists_a_new_criterion`
@@ -846,6 +846,7 @@ Their names embed no requirement ID, so they count only where an override cites 
 - `tests/test_stage_3_probes.py::test_stage_3_displaced_coping_probe_joins_split_runs_by_seed`
 - `tests/test_stage_3_probes.py::test_stage_3_displaced_coping_probe_moves_conserved_stress_functioning`
 - `tests/test_stage_3_probes.py::test_stage_3_probe_arms_differ_only_in_the_movers_level`
+- `tests/test_stage_3_probes.py::test_stage_3_targeted_run_renders_rows_and_mutants`
 - `tests/test_stage_3_probes.py::test_stage_3_trace_reproduces_the_development_step`
 - `tests/test_stale_text.py::test_d5a_current_state_documents_carry_no_stale_pending_review`
 - `tests/test_stale_text.py::test_d5a_the_scan_reads_status_lines_and_the_state_line`

@@ -573,12 +573,9 @@ def test_m6i4_capacity_does_not_limit_a_taker_above_basic():
     assert above[0] == pytest.approx(_taken_at(0.0))
 
 
-# --- Version 2 stage 3, group C (spec revision 39, approved 2026-10-25): written first, red ----------------------
+# --- Version 2 stage 3, group C (spec revision 39, approved 2026-10-25): written first, built at step 7 -------------
 
 
-@pytest.mark.xfail(strict=True, raises=AssertionError,
-                   reason="spec revision 39, group C: M6.I.4a is built at plan step 7 "
-                          "(docs/implementation_plan_version_2_stage_3.md §3.8)")
 def test_m6i4a_s3_4_lent_functioning_returns_with_lost_capacity():
     """S3.4 (`M6.I.4a`, D19): when a taker's capacity falls over the week by a cause other than the exchange, the
     borrowed pseudo-self returns to its lenders in the share of capacity lost, `(s_before − s_after) ÷ s_before`, with
@@ -639,3 +636,45 @@ def test_m6i4a_s3_4_lent_functioning_returns_with_lost_capacity():
     empty = set_up({MARTA: -4.0})
     empty.people[RAVI].functional_level = floor
     assert all(v == (0.0, 0.0) for v in week(empty, floor - 1.0).values())  # no capacity at the week's start
+
+
+def test_m6i4a_the_weeks_exchange_is_left_out_of_the_fall():
+    """`M6.I.4a`: the fall that returns borrowed pseudo-self is a fall by a cause other than the exchange. Ravi, below
+    basic level and holding pseudo-self borrowed from Marta, gives way to Nadia this week (`M6.I.4`); what he gave is
+    read from the week's ``functioning_shift`` records (``exchanged``) and left out, so nothing returns to Marta. Read
+    without it, the same week would return some (review 2026-10-26: the exclusion was untested)."""
+    from src.bowen.engine.moves import _pole_of, exchanged, return_lent_functioning, stress_floor
+
+    def week(leave_out_exchange):
+        state = fresh()
+        ravi, marta = state.people[RAVI], state.people[MARTA]
+        ravi.basic_level, ravi.pseudo_self = 50.0, 6.0
+        ravi.functional_level = 0.5 * (50.0 + stress_floor(ravi, PARAMS))  # half his capacity: s is sensitive here
+        marta.functional_level += -4.0 - (marta.pseudo_self or 0.0)
+        marta.pseudo_self = -4.0
+        tie = state.ties[MARITAL]
+        tie.functioning_balance[DEFAULT_AREA] = 0.5 * _pole_of(tie, RAVI)  # Ravi took charge with Marta
+        start = {pid: p.functional_level for pid, p in state.people.items()}
+        records = deliver(state, move("OVERFUNCTION", NADIA, RAVI, intensity=100.0))  # Nadia takes charge of Ravi
+        gave = exchanged(records)
+        assert gave.get(RAVI, 0.0) < 0 < gave.get(NADIA, 0.0), gave        # Ravi gave way, and the record says so
+        assert ravi.functional_level < start[RAVI]
+        marta_before = marta.pseudo_self
+        return_lent_functioning(state, PARAMS, start, gave if leave_out_exchange else None)
+        return marta.pseudo_self - marta_before
+
+    assert week(leave_out_exchange=True) == 0.0
+    assert week(leave_out_exchange=False) > 0.0                            # the exclusion is what stopped it
+
+
+def test_m6i4a_exchanged_reads_only_the_exchange():
+    """``exchanged`` sums the pseudo-self each person moved in ``functioning_shift`` effects and nothing else: the
+    settling back and the return itself are not the exchange."""
+    from src.bowen.engine.log_records import EffectRecord
+    from src.bowen.engine.moves import exchanged
+
+    records = [EffectRecord(1, "functioning_shift", None, people=((RAVI, "pseudo_self", -2.0), (NADIA, "pseudo_self", 2.0))),
+               EffectRecord(1, "functioning_shift", None, people=((RAVI, "pseudo_self", -1.0), (MARTA, "pseudo_self", 1.0))),
+               EffectRecord(1, "pseudo_self_relaxation", None, people=((RAVI, "pseudo_self", 5.0),)),
+               EffectRecord(1, "pseudo_self_return", None, people=((RAVI, "pseudo_self", 7.0),))]
+    assert exchanged(records) == {RAVI: -3.0, NADIA: 2.0, MARTA: 1.0}

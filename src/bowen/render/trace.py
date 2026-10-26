@@ -72,6 +72,7 @@ SYSTEM_SUMMARISED = frozenset({
     "standing_load", "reactive_cutoff", "weakness_focus", "acute_decay", "contact_relaxation", "symptom_accumulation", "investment", "reactive_state",
     "outside_ness", "belief", "functioning_settle", "competing_urges", "withhold", "learning", "sink_allocation",
     "self_practice", "stress_response", "soothing_review", "witnessed_cutoff", "attribution", "family_focus", "pseudo_self_relaxation",
+    "pseudo_self_return",  # revision 39 (M6.I.4a): lent functioning returns with lost capacity
     "danger_contact", "felt_danger",  # revision 30: weekly, read from received intrusion (M1.B.3e)
 })  # every week, everyone; stated once
 

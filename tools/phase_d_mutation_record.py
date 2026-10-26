@@ -46,13 +46,14 @@ MUTANTS = (
     Mutant("witnessed-cutoff-learning-removed", NAMED, ("M11.C.10[family of origin]",), "config/bowen/constants.md",
            "| `witnessed_cutoff_gain` | 0.05 |", "| `witnessed_cutoff_gain` | 0.0 |",
            "M4.D.6f removed: a witness's learned CUTOFF value takes no step toward what followed a witnessed cutoff"),
-    # M11.C.2 on the twelve-person family passes at revision 31 (it failed at revision 30); its spec row names the
+    # M11.C.2 on the twelve-person family passes at revision 31 (it failed at revision 30), and on the Phase B family
+    # at revision 39's group C (stage 3 step 7, S3.3); its spec row names the
     # witness path (M1.F.5). witness_weight is read only by witness appraisal (M4.C.9), so 0 removes the path.
-    Mutant("witness-path-removed", NAMED, ("M11.C.2[twelve-person family]",), "config/bowen/constants.md",
+    Mutant("witness-path-removed", NAMED, ("M11.C.2[twelve-person family]", "M11.C.2"), "config/bowen/constants.md",
            "| `witness_weight` | 0.5 |", "| `witness_weight` | 0.0 |",
            "M1.F.5 removed: a witnessed exchange moves the witness's anxiety by nothing"),
     # The second mutation the plan names for it (§4.8, revision 29): focus on a child's weakness with focus steering.
-    Mutant("weakness-focus-and-steering-removed", NAMED, ("M11.C.2[twelve-person family]",), "config/bowen/constants.md",
+    Mutant("weakness-focus-and-steering-removed", NAMED, ("M11.C.2[twelve-person family]", "M11.C.2"), "config/bowen/constants.md",
            "| `perceived_weakness_gain` | 0.01 |", "| `perceived_weakness_gain` | 0.0 |",
            "M1.B.8a and M4.D.1g removed: no focus on a child's weakness, and focus steers no projection-type act",
            also=(("config/bowen/constants.md", "| `focus_steer_gain` | 1.0 |", "| `focus_steer_gain` | 0.0 |"),)),
@@ -99,6 +100,35 @@ MUTANTS = (
     Mutant("development-fixed-at-anchor", NAMED, ("M11.C.6",), "config/bowen/constants.md",
            "| `development_rate` | 0.1 |", "| `development_rate` | 0.0 |",
            "M7.E.1f's development removed: each child's basic level stays at its anchor from 5 to 20"),
+    # Spec revision 39, group C (stage 3 step 7): M11.C.6's row names displaced coping (M1.A.5f) and F1's floor_held
+    # ledger (M1.A.4k); each MUST turn it red if it passes. The unguarded form removes M1.A.5f's three guards (a calm
+    # sender, a receiver holding a position, a receiver at the floor); it also proves S3.1b (plan §3.7).
+    Mutant("displaced-coping-removed", NAMED, ("M11.C.6",), "src/bowen/engine/stress_response.py",
+           "    rows = displace(state, selections, load, params)  # M1.A.5f, revision 39\n",
+           "    rows = []\n",
+           "M1.A.5f removed: a loaded sender's OVERFUNCTION moves no functioning from its receiver to the sender"),
+    Mutant("displaced-coping-unguarded", NAMED, ("M11.C.6",), "src/bowen/engine/stress_response.py",
+           "        if above <= 0:  # only a loaded sender displaces; calm, the act does nothing here (M1.A.5e)\n"
+           "            continue\n",
+           "        above = abs(above)\n",
+           "M1.A.5f's guards removed: a sender below their usual level displaces too, a receiver holding a position "
+           "gives, and a receiver is taken to 0 rather than their floor",
+           also=(("src/bowen/engine/stress_response.py",
+                  "            if holds_position(state, pid, sel.actor, params):  # M1.B.5: a held position gives nothing\n"
+                  "                continue\n", ""),
+                 ("src/bowen/engine/stress_response.py",
+                  "            room = receiver.functional_level - stress_floor(receiver, params)\n",
+                  "            room = receiver.functional_level\n"))),
+    Mutant("floor-held-credited", NAMED, ("M11.C.6",), "src/bowen/engine/slow_tick.py",
+           "- max(0.0, person.adjust_swing) - person.floor_held\n",
+           "- max(0.0, person.adjust_swing)\n",
+           "F1's ledger read as own functioning: the estimator credits what the stress floor held (M1.A.4k)"),
+    # M11.C.21's row (revision 39): removing M6.I.4a's return MUST turn it red; the spec's "make M6.I.4's transfer
+    # one-way" had no entry before (plan §3.7, S3.5).
+    Mutant("pseudo-self-return-removed", NAMED, ("M11.C.21",), "src/bowen/engine/moves.py",
+           "        due = borrowed * (s_before - s_after) / s_before\n",
+           "        due = 0.0\n",
+           "M6.I.4a removed: a taker whose capacity falls keeps all they borrowed"),
     # M11.C.7's row: M8.2/M8.3 made blind to position, so a sided coach counts as live and its contact can land.
     # Not run on M11.C.7[joint over one spouse]: neither arm has a SPLIT toward the coach, so it would change nothing.
     Mutant("coach-position-blind", NAMED, ("M11.C.7[one spouse over sided]", "M11.C.7[joint over sided]"),

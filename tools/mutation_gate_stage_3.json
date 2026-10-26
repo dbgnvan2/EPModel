@@ -1,0 +1,119 @@
+[
+ {
+  "gate": "S3.1a",
+  "test": "tests/bowen/test_stress_response.py::test_m1a5f_s3_1a_displaced_coping_moves_functioning_from_receiver_to_sender",
+  "mutation": "`displaced-coping-removed` (the Phase D mutant's edit): `M1.A.5f` removed",
+  "edits": [
+   [
+    "src/bowen/engine/stress_response.py",
+    "    rows = displace(state, selections, load, params)  # M1.A.5f, revision 39\n",
+    "    rows = []\n"
+   ]
+  ],
+  "expect": "assert _moved(state, before, pid) == pytest.approx(-share, rel=1e-9), (receivers, pid)"
+ },
+ {
+  "gate": "S3.1b (calm)",
+  "test": "tests/bowen/test_stress_response.py::test_m1a5f_s3_1b_no_displacement_when_calm_held_or_at_the_floor",
+  "mutation": "`displaced-coping-unguarded`'s first edit: a sender below their usual level displaces by the size of the gap",
+  "edits": [
+   [
+    "src/bowen/engine/stress_response.py",
+    "        if above <= 0:  # only a loaded sender displaces; calm, the act does nothing here (M1.A.5e)\n            continue\n",
+    "        above = abs(above)\n"
+   ]
+  ],
+  "expect": "assert _moved(below, before, MARTA) == 0.0 and _moved(below, before, RAVI) == 0.0"
+ },
+ {
+  "gate": "S3.1b (held)",
+  "test": "tests/bowen/test_stress_response.py::test_m1a5f_s3_1b_no_displacement_when_calm_held_or_at_the_floor",
+  "mutation": "`displaced-coping-unguarded`'s second edit: a receiver holding a position toward the sender gives",
+  "edits": [
+   [
+    "src/bowen/engine/stress_response.py",
+    "            if holds_position(state, pid, sel.actor, params):  # M1.B.5: a held position gives nothing\n                continue\n",
+    ""
+   ]
+  ],
+  "expect": "assert _moved(held, before, MARTA) == 0.0 and _moved(held, before, RAVI) == 0.0"
+ },
+ {
+  "gate": "S3.1b (floor)",
+  "test": "tests/bowen/test_stress_response.py::test_m1a5f_s3_1b_no_displacement_when_calm_held_or_at_the_floor",
+  "mutation": "`displaced-coping-unguarded`'s third edit: a receiver is taken toward 0, not stopped at their floor",
+  "edits": [
+   [
+    "src/bowen/engine/stress_response.py",
+    "            room = receiver.functional_level - stress_floor(receiver, params)\n",
+    "            room = receiver.functional_level\n"
+   ]
+  ],
+  "expect": "assert _moved(floored, before, MARTA) == 0.0 and _moved(floored, before, RAVI) == 0.0"
+ },
+ {
+  "gate": "S3.1c",
+  "test": "tests/bowen/test_config.py::test_m1a5f_s3_1c_displacing_kinds_come_from_config",
+  "mutation": "the list moved into code: `load_displacing` returns `OVERFUNCTION` whatever the file lists",
+  "edits": [
+   [
+    "src/bowen/io/load.py",
+    "    acts = [row[\"kind\"].strip(\"`\") for row in doc.rows]\n    unknown = sorted(a for a in acts if a not in kinds.moves())\n    if unknown or len(set(acts)) != len(acts):  # a misspelt act would never displace anything\n",
+    "    acts = [\"OVERFUNCTION\"]\n    unknown = []\n    if unknown:  # a misspelt act would never displace anything\n"
+   ]
+  ],
+  "expect": "assert load_displacing(kinds, path) == frozenset({\"PURSUE\"})"
+ },
+ {
+  "gate": "S3.1d",
+  "test": "tests/bowen/test_stress_response.py::test_m1a5e_s3_1d_floor_held_functioning_is_on_a_ledger",
+  "mutation": "`floor-held-credited` (the Phase D mutant's edit): the estimator reads `floor_held` as own functioning",
+  "edits": [
+   [
+    "src/bowen/engine/slow_tick.py",
+    "- max(0.0, person.adjust_swing) - person.floor_held\n",
+    "- max(0.0, person.adjust_swing)\n"
+   ]
+  ],
+  "expect": "assert state.estimator_history[RAVI][-1].functional_level == pytest.approx(own)"
+ },
+ {
+  "gate": "S3.4",
+  "test": "tests/bowen/test_moves.py::test_m6i4a_s3_4_lent_functioning_returns_with_lost_capacity",
+  "mutation": "`pseudo-self-return-removed` (the Phase D mutant's edit): `M6.I.4a` returns nothing",
+  "edits": [
+   [
+    "src/bowen/engine/moves.py",
+    "        due = borrowed * (s_before - s_after) / s_before\n",
+    "        due = 0.0\n"
+   ]
+  ],
+  "expect": "assert moved[RAVI][1] == pytest.approx(-back) and moved[RAVI][0] == pytest.approx(-back)"
+ },
+ {
+  "gate": "S3.4 (the exchange left out)",
+  "test": "tests/bowen/test_moves.py::test_m6i4a_the_weeks_exchange_is_left_out_of_the_fall",
+  "mutation": "the week's exchange read as a fall: `M6.I.4a` reads the level without leaving out what `M6.I.4` moved",
+  "edits": [
+   [
+    "src/bowen/engine/moves.py",
+    "        level = taker.functional_level - exchange.get(pid, 0.0)\n",
+    "        level = taker.functional_level\n"
+   ]
+  ],
+  "expect": "assert week(leave_out_exchange=True) == 0.0"
+ },
+ {
+  "gate": "F1 (no residue)",
+  "test": "tests/bowen/test_stress_response.py::test_m1a5e_floor_held_takes_nothing_in_a_week_no_bound_stopped",
+  "mutation": "the ledger takes `moved − Δswings` every calm week, bound or not",
+  "edits": [
+   [
+    "src/bowen/engine/stress_response.py",
+    "            if person.functional_level != before + change:\n                person.floor_held += moved",
+    "            if True:\n                person.floor_held += moved"
+   ]
+  ],
+  "expect": "assert ravi.floor_held == 0.0"
+ }
+]

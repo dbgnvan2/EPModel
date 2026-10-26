@@ -25,8 +25,24 @@ lands in the spec in the commit that builds its code (the owner's Q6). This sect
   - **Not a rule change, the same commit:** T-129 (docstrings in `moves.py`, `rejection.py`, `objects.py` and
     `invariants.py` restated to the code; ruff's `F` rules clean over `src/`, `tools/` and `tests/`) and T-127 (two
     status lines in `config/bowen/`).
-- **Not yet applied:** group C (`M1.A.5e`, `M1.A.5f`, `M1.A.4k`, `M7.E.1f`, `M6.I.4a`; step 7), group F (`M5.F.4`,
-  `M5.F.2c`, `M11.C.29`, `M11.C.49`; step 8), group A (`M4.C.1d`, `M4.D.3a`; step 9) and T-128 (`M17.E.1`; step 10).
+- **Step 7 (2026-10-26), group C, the batch's second commit** (the engine hash moved again, to the hash in
+  `CHANGELOG.md`'s entry of that day; what a run computes changed, so the golden fingerprints were taken again).
+  - **P2, displaced coping (draft §4):** new `M1.A.5f`. A loaded sender's act of a *displacing* kind moves the coping
+    amount from its living family receivers' functional level and stress swing to the sender's, split evenly, each
+    share bounded by the receiver's room above the stress floor and the sender's room below 100; a receiver who holds
+    a position toward the sender gives nothing. The kinds are a second table in `config/bowen/stress_response.md`
+    (`OVERFUNCTION` alone). The draft's parenthesis gave the floor where it meant the room above it; the spec says
+    `functional_level − max(0, basic_level − stress_floor_below_basic)` (the step 5 reading).
+  - **F1, the floor-held ledger (draft §5):** `M1.A.5e`'s exception for displaced coping and its second paragraph;
+    `M1.A.4k`'s sentence (the estimator leaves `floor_held` out); `M7.E.1f`'s sentence; the register's
+    `floor_held` row and the `functional_level`, `pseudo_self` and `stress_swing` rows.
+  - **`M6.I.4a` (draft §7, D19):** borrowed pseudo-self returns to its lenders in proportion to the capacity the taker
+    lost to a cause other than the exchange, conserved. The row adds what the draft left implicit: the taker is not
+    taken below 0, and what a cap stops stays with the taker.
+  - **`M11.C.6` and `M11.C.21`:** their mutation columns and `M11.5` rows name the new mutants
+    (`displaced-coping-removed`, `floor-held-credited`, `pseudo-self-return-removed`).
+- **Not yet applied:** group F (`M5.F.4`, `M5.F.2c`, `M11.C.29`, `M11.C.49`; step 8), group A (`M4.C.1d`,
+  `M4.D.3a`; step 9) and T-128 (`M17.E.1`; step 10).
 
 ### Revision 38 — the stage 2 milestone review's wording fixes, 2026-10-24 ⟦rev38 · owner 2026-10-24, stage 2 milestone review · `docs/cycles/2026-10-24_milestone-review_v2-stage-2.md`, `docs/todo/2026-10-24_stage_2_milestone_review.md`⟧
 

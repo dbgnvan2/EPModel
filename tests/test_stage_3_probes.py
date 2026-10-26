@@ -137,3 +137,27 @@ def test_stage_3_displaced_coping_probe_joins_split_runs_by_seed():
     assert coping.summarise([alone, {**alone, "seed": 1}], ENGINE.development_rate)["against_as_built"] == {}
     with pytest.raises(SystemExit):
         coping.merge([[{"seed": 0, "as_built": 0}], [{"seed": 0, "as_built": 1}]])
+
+
+def test_stage_3_targeted_run_renders_rows_and_mutants():
+    """Plan step 7's targeted run: each criterion's row beside the committed record's, a mutant's row under a criterion
+    that passed, a mutant named for one that did not listed as not run, and the rows machine-readable."""
+    import json
+
+    import tools.stage_3_targeted_run as targeted
+
+    def row(cid, outcome, diff):
+        return {"criterion": cid, "outcome": outcome, "seeds": 50,
+                "readouts": [{"readout": "r", "direction": "<", "mean_difference": diff, "half_width": 0.1}]}
+
+    rows = [row("M11.C.6", "FAIL", 0.02), row("M11.C.21", "PASS", 0.5)]
+    mutated = [("pseudo-self-return-removed", row("M11.C.21", "FAIL", -0.1))]
+    before = {"M11.C.6": row("M11.C.6", "FAIL", 0.0886)}
+    text = targeted.render("t", "abc", "now", rows, mutated, before, ["M11.C.6", "M11.C.21"])
+    assert "| `M11.C.6` | **FAIL** | 50 | `r` +0.02 ± 0.1 | FAIL: `r` +0.0886 ± 0.1 |" in text
+    assert "| `M11.C.21` | **PASS** | 50 | `r` +0.5 ± 0.1 | no row |" in text
+    assert "| `pseudo-self-return-removed` | `M11.C.21` | FAIL | 50 | `r` -0.1 ± 0.1 |" in text
+    assert "- `displaced-coping-removed` → `M11.C.6`: the criterion does not pass here" in text
+    assert "pseudo-self-return-removed` → `M11.C.21`: the criterion does not pass" not in text
+    machine = json.loads(text.split("```json\n")[1].split("```")[0])
+    assert machine["rows"] == rows and machine["mutants"][0]["mutant"] == "pseudo-self-return-removed"

@@ -32,6 +32,8 @@ The nine steps, and where each lives:
                               (investment, M1.B.8; the detectors, M1.A.19);
                               ``outside_ness.update_outside_ness`` (M1.A.9, M4.C.5);
                               ``moves.settle_functioning`` (M1.B.5, M1.B.6);
+                              ``moves.return_lent_functioning`` (M6.I.4a)
+                              and ``moves.relax_pseudo_self`` (M6.I.4);
                               ``consolidate.consolidate``; ``rejection.fade_rejection``
                               (M1.B.3c); ``learner.learn`` (M4.D.6,
                               crediting the tick's felt change); then the invariants assert
@@ -61,7 +63,8 @@ from src.bowen.engine.slow_tick import record_week, run_slow_tick
 from src.bowen.engine.iposition import advance_sequences, redirect_to_sequence_tie, sequence_selections
 from src.bowen.engine.learner import learn, learn_from_witnessed, note_witnessed_cutoffs, register_acts, soothing_review
 from src.bowen.engine.life_course import due_events, find_work, note_origin_cutoff, note_parental_acts, yearly
-from src.bowen.engine.moves import apply_move_effects, relax_pseudo_self, settle_functioning
+from src.bowen.engine.moves import (apply_move_effects, exchanged, relax_pseudo_self, return_lent_functioning,
+                                   settle_functioning)
 from src.bowen.engine.log_records import EffectRecord, EmittedRecord, Emitter, TickRecord
 from src.bowen.engine.params import EngineParams
 from src.bowen.engine.outside_ness import update_outside_ness
@@ -112,6 +115,7 @@ def run_tick(
     records: list = [TickRecord(state.tick)]
     before = snapshot(state)
     start_acute = {pid: p.acute_anxiety for pid, p in state.people.items()}  # the learner's baseline
+    start_level = {pid: p.functional_level for pid, p in state.people.items()}  # M6.I.4a's capacity at the week's start
 
     # 1 — standing load, before anything is delivered (M3.D.2, M6.I.8). A spike that has ended can never count again,
     # so it is dropped first (review 2026-10-17: unpruned, 2,543 accumulated over 40 years and slowed the run by half).
@@ -211,6 +215,8 @@ def run_tick(
     records += weakness_focus(state, load_at_selection, params)  # revision 29: focus on a child's weakness (M1.B.8a)
     records += update_outside_ness(state, readings, params)
     records += settle_functioning(state, params)
+    # M6.I.4a, revision 39: lent functioning returns with lost capacity, just before the settling back.
+    records += return_lent_functioning(state, params, start_level, exchanged(records))
     records += relax_pseudo_self(state, params)  # M6.I.4, revision 27: borrowed pseudo-self settles back
     records += allocate_sinks(state, params)
     records += decay_cutoff_stock(state, params)  # revision 36: a cut-off tie's stock falls toward its floor (M1.D.2b)

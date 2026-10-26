@@ -44,6 +44,7 @@ def load_event_kinds(path: Path = CONFIG_DIR / "event_kinds.md") -> EventKinds:
     classes = load_act_classes(kinds)
     contacts = load_contact_classes(kinds)
     return dataclasses.replace(kinds, nodal=frozenset(reach), nodal_reach=reach, soothing=load_soothing(kinds),
+                               displacing=load_displacing(kinds),
                                steering=load_steering(kinds), attribution=attribution, focus=focus, **classes,
                                negative_contacts=contacts["negative"], positive_contacts=contacts["positive"],
                                rebuffs=contacts["rebuff"], sizes=load_event_sizes(kinds))
@@ -167,6 +168,23 @@ def load_steering(kinds: EventKinds, path: Path = CONFIG_DIR / "perspective_stee
     return {k: 1 if d == "toward" else -1 for k, d in rows}
 
 
+DISPLACING = "## Displacing"  # config/bowen/stress_response.md's second table (revision 39, M1.A.5f)
+
+
+def _stress_response_parts(path: Path) -> tuple[str, str | None, int]:
+    """The soothing table's text, the displacing section's text after its heading (None if the file has none) and the
+    line that heading is on, so a parse error names the file's own line."""
+    lines = read_text(path).splitlines()
+    at = [i for i, line in enumerate(lines) if line.strip() == DISPLACING]
+    if len(at) > 1:
+        from src.bowen.scenario.config_parse import ConfigError
+
+        raise ConfigError(f"{path}: {DISPLACING!r} appears {len(at)} times")
+    if not at:
+        return "\n".join(lines), None, 0
+    return "\n".join(lines[:at[0]]), "\n".join(lines[at[0] + 1:]), at[0] + 1
+
+
 def load_soothing(kinds: EventKinds, path: Path = CONFIG_DIR / "stress_response.md") -> frozenset[str]:
     """Purpose: read which acts avoid or soothe under load.
     Spec:    docs/bowen_agent_model_spec_v2.md#M1.A.5e
@@ -174,12 +192,38 @@ def load_soothing(kinds: EventKinds, path: Path = CONFIG_DIR / "stress_response.
     """
     from src.bowen.scenario.config_parse import ConfigError, parse_table_document
 
-    doc = parse_table_document(read_text(path), columns=("kind", "why it avoids or soothes"),
+    soothing, _, _ = _stress_response_parts(path)
+    doc = parse_table_document(soothing, columns=("kind", "why it avoids or soothes"),
                                metadata_keys=frozenset(), source=str(path))
     acts = [row["kind"].strip("`") for row in doc.rows]
     unknown = sorted(a for a in acts if a not in kinds.moves())
     if unknown or len(set(acts)) != len(acts):  # a misspelt act would never lower anyone's functioning
         raise ConfigError(f"{path}: every soothing act must be a declared move, once; not declared: {unknown}")
+    return frozenset(acts)
+
+
+def load_displacing(kinds: EventKinds, path: Path = CONFIG_DIR / "stress_response.md") -> frozenset[str]:
+    """Purpose: read the acts through whose receiver a loaded sender meets their load (displaced coping).
+    Spec:    docs/bowen_agent_model_spec_v2.md#M1.A.5f
+    Tests:   tests/bowen/test_config.py::test_m1a5f_s3_1c_displacing_kinds_come_from_config
+
+    The ``## Displacing`` section of ``stress_response.md``. Each kind a declared move, listed once, and never also
+    soothing: an act cannot both lower its sender's functioning and meet their load through another.
+    """
+    from src.bowen.scenario.config_parse import ConfigError, parse_table_document
+
+    _, section, offset = _stress_response_parts(path)
+    if section is None:
+        raise ConfigError(f"{path}: no {DISPLACING!r} section")
+    doc = parse_table_document(section, columns=("kind", "why it meets the sender's load through the receiver"),
+                               metadata_keys=frozenset(), source=str(path), line_offset=offset)
+    acts = [row["kind"].strip("`") for row in doc.rows]
+    unknown = sorted(a for a in acts if a not in kinds.moves())
+    if unknown or len(set(acts)) != len(acts):  # a misspelt act would never displace anything
+        raise ConfigError(f"{path}: every displacing act must be a declared move, once; not declared: {unknown}")
+    both = sorted(set(acts) & load_soothing(kinds, path))
+    if both:
+        raise ConfigError(f"{path}: an act may not be both soothing and displacing: {both}")
     return frozenset(acts)
 
 

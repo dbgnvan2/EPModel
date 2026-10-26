@@ -36,7 +36,8 @@ both runs) and, in phase_d, a child's development band opened by the parents' ac
 spec revision 32: a nodal event spikes the cut ties of those it reaches (`M4.C.1c`, the owner's form; behaviour, both
 runs). The coach's position gate of the same revision moved neither. The phase_b run is scripted and did not move.
 Version 2 stage 1 (2026-10-19: every float total a `math.fsum`, S1.1) moved neither, measured at 8 significant
-digits.
+digits. Moved 2026-10-22 by spec revision 36 (group G and the event sizes) and 2026-10-26 by revision 39's
+group C (displaced coping, the floor-held ledger, lent functioning returned; behaviour, both runs).
 
 **Why the floats are rounded (2026-10-15).** The fingerprints were taken from the exact repr, and CI on Linux failed
 them while the Mac passed: the last bits of a float differ between platforms and Python versions (Python 3.12 changed
@@ -72,14 +73,20 @@ FINGERPRINT_DIGITS = 8  # significant digits kept per float; see the module docs
 ZERO_BELOW = 1e-12  # a float this close to zero is written as 0, so 1e-17 and -1e-17 agree
 GOLDEN = {
     # (family, seed, weeks): fingerprint
+    # Both moved at spec revision 39's group C (stage 3 step 7, 2026-10-26; P23, a decision): displaced coping
+    # (`M1.A.5f`) and lent functioning returned with lost capacity (`M6.I.4a`) move phase_c, and F1's floor_held ledger
+    # (`M1.A.5e`, `M1.A.4k`) moves phase_d as well (the correctness pass, 2026-10-26, switched each off in turn). Taken
+    # with this module's `_records` and `_fingerprint`. Before step 7:
+    # phase_c 8500e06974ef685166641d8a6a72e564554698045f9274cf54d52efffdfc7241,
+    # phase_d f2f6ab6c5666198fd82fa7840838c9bd031189a1b9ea72497edd35b30fcb1601.
     # Both moved at spec revision 36 (2026-10-22, taken again 2026-10-23 after the build's review fixes; P23, a decision): group G1 (a cut-off tie's stock weighs on its
     # members, is capped, decays, and is bridged by contact; `REDUCE_CUTOFF` moves no stock; `CONFLICT` binds; runs
     # of `CONFLICT` harden), G2 (a symptom's release is split by bond energy) and the Holmes–Rahe event sizes (grief,
     # the additions' loads and a symptom's own load) each change what a seeded run computes, so every run's log moved.
     # Before revision 36: phase_c c4fd16123fa37db3ccf7d2f6624b3463ef51ec084a44cad1dc0b1501f07ca85c,
     # phase_d 4e5ebdad859f648c37e8bb3222de6f802df94172ff0dd3a5b3e5c1df9b16f559.
-    ("phase_c", 7, 104): "8500e06974ef685166641d8a6a72e564554698045f9274cf54d52efffdfc7241",
-    ("phase_d", 11, 208): "f2f6ab6c5666198fd82fa7840838c9bd031189a1b9ea72497edd35b30fcb1601",
+    ("phase_c", 7, 104): "4796f870cee83e34b2ed783d11cc48b7f2c503830a426ab092cb634383127af8",
+    ("phase_d", 11, 208): "ea75fecdeb6fda95011b216ff2608eeacd2be8a48ab25214102d35e21d824281",
 }
 
 

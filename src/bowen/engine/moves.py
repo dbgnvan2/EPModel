@@ -53,6 +53,12 @@ taking charge, conserved (`M6.I.4`), never carrying either outside [0, 100].
 *One area, ``DEFAULT_AREA``, until the family declares areas of joint activity
 (`M1.B.9`).*
 
+**Lent functioning returns with lost capacity, step 9** (`M6.I.4a`, revision 39). A
+person holding borrowed pseudo-self whose room above the stress floor fell over the
+week, by any cause but the exchange itself, gives back the same share of what they
+borrowed, with the same of ``functional_level``, to the partners who lent it, in
+proportion to what each holds lent. Conserved; it reads capacity, not the cause.
+
 **Settling, step 9.** Each area's balance moves ``balance_settle_rate`` of the way to
 a pole — the pole of its ``functioning_habit`` when the habit is set, else its own —
 and the habit moves ``balance_harden_rate`` of the way to the balance. So the balance
@@ -286,6 +292,29 @@ def holds_position(state: RunState, holder: PersonId, other: PersonId, params: E
     return since is not None and 0 < state.tick - since <= params.practice_window
 
 
+def stress_floor(person: Person, params: EngineParams) -> float:
+    """Purpose: the stress floor, ``basic_level − stress_floor_below_basic`` and never below 0: the level stress, giving
+    way and displaced coping do not take a person below (`M1.A.5e`).
+    Spec:    docs/bowen_agent_model_spec_v2.md#M1.A.5e, #M1.A.5f, #M6.I.4
+    Tests:   tests/bowen/test_stress_response.py, tests/bowen/test_moves.py
+    """
+    return max(0.0, person.basic_level - params.stress_floor_below_basic)
+
+
+def capacity(person: Person, level: float, params: EngineParams) -> float:
+    """Purpose: a person's room above the stress floor at ``level``, as a share of basic level's room: 1 at or above
+    basic, 0 at the floor (`M6.I.4`'s capacity, revision 31). With no span (basic level 0, or no floor below basic) the
+    floor is basic itself, and a level at it has full capacity.
+    Spec:    docs/bowen_agent_model_spec_v2.md#M6.I.4, #M6.I.4a
+    Tests:   tests/bowen/test_moves.py::test_m6i4_collapsed_taker_takes_in_proportion_to_room,
+             tests/bowen/test_moves.py::test_m6i4a_s3_4_lent_functioning_returns_with_lost_capacity
+    """
+    floor_level = stress_floor(person, params)
+    span = person.basic_level - floor_level
+    room = level - floor_level
+    return min(1.0, max(0.0, room / span)) if span > 0 else float(room >= 0)
+
+
 def functioning_shift(state: RunState, event: Event, tie: Relationship, target: PersonId, params: EngineParams) -> EffectRecord:
     """Purpose: push the tie's balance toward a pole and move pseudo-self with it, conserved.
     Spec:    docs/bowen_agent_model_spec_v2.md#M1.B.5, #M1.B.6, #M1.B.7, #M6.I.4
@@ -319,13 +348,9 @@ def functioning_shift(state: RunState, event: Event, tie: Relationship, target: 
     # above the stress floor, full at or above basic, none at the floor; the mirror of the giver's floor, made gradual.
     # The floor is clamped at 0, as the giver's and stress's are (learning-qa 2026-10-16). With no span (basic level 0,
     # or no floor below basic) the floor is basic itself, and a taker at it takes in full (fix-loop re-sweep 2026-10-16).
-    floor_level = max(0.0, taker.basic_level - params.stress_floor_below_basic)
-    span = taker.basic_level - floor_level
-    room = taker.functional_level - floor_level
-    capacity = min(1.0, max(0.0, room / span)) if span > 0 else float(room >= 0)
     amount = min(
-        capacity * params.pseudo_self_transfer_gain * _strength(event, params),
-        max(0.0, giver.functional_level - max(0.0, giver.basic_level - params.stress_floor_below_basic)),
+        capacity(taker, taker.functional_level, params) * params.pseudo_self_transfer_gain * _strength(event, params),
+        max(0.0, giver.functional_level - stress_floor(giver, params)),
         SCALE_MAX - taker.functional_level,
     )
     amount = max(0.0, amount)
@@ -404,6 +429,70 @@ def relax_pseudo_self(state: RunState, params: EngineParams) -> list[EffectRecor
         lender.functional_level += amount
         changes += [(borrower.id, "pseudo_self", -amount), (lender.id, "pseudo_self", amount)]
     return [EffectRecord(state.tick, "pseudo_self_relaxation", None, people=tuple(changes))] if changes else []
+
+
+def exchanged(records) -> dict[PersonId, float]:
+    """Each person's net pseudo-self moved by `M6.I.4`'s transfers among ``records`` (the week's ``functioning_shift``
+    effects), which `M6.I.4a` leaves out of the capacity it reads."""
+    moved: dict[PersonId, float] = {}
+    for record in records:
+        if isinstance(record, EffectRecord) and record.mechanism == "functioning_shift":
+            for pid, name, change in record.people:
+                if name == "pseudo_self":
+                    moved[pid] = moved.get(pid, 0.0) + change
+    return moved
+
+
+def return_lent_functioning(state: RunState, params: EngineParams, week_start: dict,
+                            exchange: dict | None = None) -> list[EffectRecord]:
+    """Purpose: step 9, before the settling back — a taker whose capacity fell by a cause other than the exchange gives
+    back the same share of their borrowed pseudo-self, with the same of functional level, to the people who lent it.
+    Spec:    docs/bowen_agent_model_spec_v2.md#M6.I.4a, #M6.3e
+    Tests:   tests/bowen/test_moves.py::test_m6i4a_s3_4_lent_functioning_returns_with_lost_capacity
+
+    ``week_start`` is each person's ``functional_level`` at the week's start; ``exchange`` what `M6.I.4`'s transfers
+    moved this week (``exchanged``), left out of the level read now. For each living person holding borrowed
+    (positive) pseudo-self, in id order, with ``s`` their ``capacity``: if ``s`` fell from ``s_before`` > 0 to
+    ``s_after``, ``borrowed × (s_before − s_after) / s_before`` goes back to the partners on ties whose functioning
+    balance names this person the over-functioner and who hold lent (negative) pseudo-self, alive or dead (`M6.3e`),
+    in proportion to what each holds lent; none is given back more than they lent nor taken above 100, and the taker
+    is not taken below 0. What a cap stops stays with the taker. Total pseudo-self is conserved. A fall in level no
+    larger than ``invariant_tolerance`` is rounding and returns nothing.
+    """
+    exchange = exchange or {}
+    changes = []
+    for pid in sorted(state.people):
+        taker = state.people[pid]
+        borrowed = taker.pseudo_self or 0.0
+        if not taker.alive or borrowed <= 0 or pid not in week_start:
+            continue
+        level = taker.functional_level - exchange.get(pid, 0.0)
+        # A fall within invariant_tolerance is the rounding of adding and removing the exchange, not a fall
+        # (review 2026-10-26).
+        if week_start[pid] - level <= params.invariant_tolerance:
+            continue
+        s_before = capacity(taker, week_start[pid], params)
+        s_after = capacity(taker, level, params)
+        if s_before <= 0 or s_after >= s_before:
+            continue
+        due = borrowed * (s_before - s_after) / s_before
+        lenders = []
+        for tie in sorted(state.ties_of(pid), key=lambda t: t.id):
+            other = state.people[next(m for m in tie.id.members() if m != pid)]
+            if tie.functioning_balance.get(DEFAULT_AREA, 0.0) * _pole_of(tie, pid) > 0 and (other.pseudo_self or 0.0) < 0:
+                lenders.append(other)
+        lent = math.fsum(-o.pseudo_self for o in lenders)
+        for lender in lenders:
+            amount = min(due * -lender.pseudo_self / lent, -lender.pseudo_self,
+                         SCALE_MAX - lender.functional_level, taker.functional_level)
+            if amount <= 0:
+                continue
+            taker.pseudo_self -= amount
+            taker.functional_level -= amount
+            lender.pseudo_self += amount
+            lender.functional_level += amount
+            changes += [(taker.id, "pseudo_self", -amount), (lender.id, "pseudo_self", amount)]
+    return [EffectRecord(state.tick, "pseudo_self_return", None, people=tuple(changes))] if changes else []
 
 
 # --- REDUCE_CUTOFF -------------------------------------------------------------------------

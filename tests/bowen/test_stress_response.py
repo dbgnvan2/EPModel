@@ -256,13 +256,11 @@ def test_m1a5e_soothing_also_scales_with_the_load_above_usual_and_week_0_is_calm
     assert new.people[RAVI].functional_level == before and new.practice == []
 
 
-# --- Version 2 stage 3, group C (spec revision 39, approved 2026-10-25): written first, red ----------------------
-# Plan docs/implementation_plan_version_2_stage_3.md §3.7, S3.1a, S3.1b, S3.1d. Each is a strict expected failure
-# until plan step 7 builds `M1.A.5f` and `floor_held`; only an AssertionError is expected, so a test that breaks for
-# another reason (a missing import, a typo) fails the suite instead of reading as the rule not yet built. Premises
-# (`M11.5`): a pass confirms the code and is never a finding.
+# --- Version 2 stage 3, group C (spec revision 39, approved 2026-10-25): written first, built at step 7 -------------
+# Plan docs/implementation_plan_version_2_stage_3.md §3.7, S3.1a, S3.1b, S3.1d. Written first and red at plan step 5;
+# green from plan step 7, which built `M1.A.5f` and `floor_held`. Premises (`M11.5`): a pass confirms the code and is
+# never a finding.
 
-STEP_7 = "spec revision 39, group C: built at plan step 7 (docs/implementation_plan_version_2_stage_3.md §3.8)"
 NADIA = P("nadia")
 HEAVY = 40.0  # a load above usual large enough that the coping amount is well clear of float noise
 
@@ -298,7 +296,6 @@ def _moved(state, before, pid):
     return state.people[pid].functional_level - before[pid][0]
 
 
-@pytest.mark.xfail(strict=True, raises=AssertionError, reason=STEP_7)
 def test_m1a5f_s3_1a_displaced_coping_moves_functioning_from_receiver_to_sender():
     """S3.1a (`M1.A.5f`, D18 revisited): a loaded sender's `OVERFUNCTION` moves the coping amount from the receivers'
     functional level and stress swing to the sender's, split evenly over the receivers; the family's total functional
@@ -318,7 +315,6 @@ def test_m1a5f_s3_1a_displaced_coping_moves_functioning_from_receiver_to_sender(
         assert all(state.people[pid].pseudo_self == before[pid][2] for pid in state.people), receivers  # M6.I.4 untouched
 
 
-@pytest.mark.xfail(strict=True, raises=AssertionError, reason=STEP_7)
 def test_m1a5f_s3_1b_no_displacement_when_calm_held_or_at_the_floor():
     """S3.1b (`M1.A.5f`): nothing moves when the sender is calm, when the receiver holds a position toward the sender
     (`M1.B.5`), or when the receiver is at their floor; a receiver with less room than its share gives only its room,
@@ -332,6 +328,11 @@ def test_m1a5f_s3_1b_no_displacement_when_calm_held_or_at_the_floor():
 
     calm, before = _displacing_week((MARTA,), sender_load=0.0)                 # the sender is not loaded
     assert _moved(calm, before, MARTA) == 0.0 and _moved(calm, before, RAVI) == 0.0
+
+    def usual_above(state):                                                     # below their usual level: calm too
+        state.people[RAVI].usual_excess = HEAVY
+    below, before = _displacing_week((MARTA,), sender_load=0.0, set_up=usual_above)
+    assert _moved(below, before, MARTA) == 0.0 and _moved(below, before, RAVI) == 0.0
 
     def stance(state):
         state.tick = 0
@@ -361,7 +362,6 @@ def test_m1a5f_s3_1b_no_displacement_when_calm_held_or_at_the_floor():
     assert _moved(capped, before, MARTA) == pytest.approx(-room, rel=1e-9)
 
 
-@pytest.mark.xfail(strict=True, raises=AssertionError, reason=STEP_7)
 def test_m1a5e_s3_1d_floor_held_functioning_is_on_a_ledger():
     """S3.1d (`M1.A.5e`, `M1.A.4k`, F1): a calm week at the floor with a positive swing adds what the floor held to
     `floor_held`, leaves `functional_level − stress_swing − adjust_swing − floor_held` unchanged, and the estimator's
@@ -399,3 +399,15 @@ def test_m1a5e_s3_1d_floor_held_functioning_is_on_a_ledger():
     assert person.floor_held == pytest.approx(2.0 * (1 - rate))
     assert level - person.functional_level == pytest.approx(2.0 * rate)
     assert ledger() == pytest.approx(kept, abs=1e-12)
+
+
+def test_m1a5e_floor_held_takes_nothing_in_a_week_no_bound_stopped():
+    """F1 (`M1.A.5e`): ``floor_held`` changes only by what a bound stopped. In calm weeks well inside the bounds it stays
+    exactly 0, where adding ``moved − Δswings`` would leave rounding residue of order 1e-15 (review 2026-10-26: basic 50,
+    level 60, stress swing 7.3, adjustment 2.9 gave −3.55e-15 after one week)."""
+    state = fresh()
+    ravi = state.people[RAVI]
+    ravi.basic_level, ravi.functional_level, ravi.stress_swing, ravi.adjust_swing = 50.0, 60.0, 7.3, 2.9
+    for _ in range(4):
+        respond(state, (), {RAVI: 0.0}, PARAMS)
+        assert ravi.floor_held == 0.0

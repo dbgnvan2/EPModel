@@ -2,10 +2,75 @@
 
 The entries of `CHANGELOG.md` dated before 2026-10-19, the day version 2 began at the tag `version-1`, moved
 here verbatim on 2026-10-22, the entries of 2026-10-19 and 2026-10-20 on 2026-10-23, and the entries of
-2026-10-21 later on 2026-10-23, the earliest entry of 2026-10-22 (the SP-1 proposal's eight questions) on 2026-10-24, and the next (SP-1 built, with spec revision 34) later on 2026-10-24, and the next (Model ergonomics, Parts A–C) on 2026-10-25, and the next (Model ergonomics, Part D) later on 2026-10-25, and the next (Model ergonomics, Part E) later on 2026-10-25, and the next (Model ergonomics follow-ups) later on 2026-10-25, so that the live file stays short enough to read (`tests/test_doc_size.py` bounds its size). The heading below is the section they
+2026-10-21 later on 2026-10-23, the earliest entry of 2026-10-22 (the SP-1 proposal's eight questions) on 2026-10-24, and the next (SP-1 built, with spec revision 34) later on 2026-10-24, and the next (Model ergonomics, Parts A–C) on 2026-10-25, and the next (Model ergonomics, Part D) later on 2026-10-25, and the next (Model ergonomics, Part E) later on 2026-10-25, and the next (Model ergonomics follow-ups) later on 2026-10-25, and the next (the closed and old parts of `TODO.md` and `CHANGELOG.md` archived) on 2026-10-26, and the next (`TODO.md` an index over records; a changelog index) later on 2026-10-26, so that the live file stays short enough to read (`tests/test_doc_size.py` bounds its size). The heading below is the section they
 were under; nothing in this file is reworded. Later entries are in `CHANGELOG.md`.
 
 ## [Unreleased] — 2026-10-11
+
+### `TODO.md` an index over records; a changelog index (2026-10-22)
+
+- **What.** `TODO.md` is now generated: one line per open item — ID, date raised, title, link to its record — under
+  **Now** (blocks version 2 stage 2 or the next commit) or **Later** (waits for a regeneration, a revision or an owner
+  decision). The text of the 118 open items moved, verbatim, into 16 records under `docs/todo/`, one file per `TODO.md`
+  section (named by the section's date, or the date its heading was committed where it had none), each item keeping
+  its box and gaining a stable ID (`T-001` to `T-118`, in `TODO.md`'s order) and one tag. Five are ⟨now⟩: T-001 to
+  T-004 (the "Blocking the next phase" section) and T-013 ("before group G's build starts"); 113 are ⟨later⟩. T-028
+  (freeze the stage 1 changes page before any regeneration) was tagged ⟨later⟩ unsure, for the owner. Ticking an item
+  in its record and running `python3 tools/todo_index.py` moves its line to `docs/TODO_archive.md`'s generated region;
+  the items ticked before today stay in that file's static sections and have no records. `CHANGELOG.md` opens with a
+  generated index of its `### ` entries (date, title), between marker comments; the entries are untouched.
+- **The tool and the test.** `tools/todo_index.py` writes the three generated parts and never a record; it refuses an
+  item without an ID or without exactly one of the two tags, and a duplicate ID. `tests/test_todo_index.py` checks
+  the three are current, the records well formed, every open item indexed once, and that a run of the tool changes
+  no record byte; each rule is also tried on a fixture that breaks it. `tests/test_doc_size.py`'s `TODO.md` limit is
+  25 KB, the one-line form's (15 KB today); `CHANGELOG.md`'s stays 80 KB.
+- **Verified.** Each record's items, with the ID and tag stripped and the headings put back a level, equal the
+  corresponding `TODO.md` section at `eb7205f` line for line (script, before the commit).
+- **Documents.** `CLAUDE.md`'s read-first paragraph, `docs/REVIEWER_READING_LIST.md`'s `TODO.md` row,
+  `docs/SPEC_REVIEW_CHECKLIST.md` (the `docs/todo/` directory and the archive's new shape),
+  `docs/milestone_review_brief.md` (L2 reads the index and the records it needs, not `TODO.md` whole),
+  `docs/REVIEW_version_1_guide.md` and `docs/version_2_plan.md` (section pointers now name the record),
+  `docs/TODO_archive.md`'s intro, and `tests/asr_quotations.json`'s allowlist entry for the quotation now in
+  `docs/todo/2026-08-23_sources.md`. The owner's "Token budget" section for `CLAUDE.md` is drafted for approval, not
+  added. `docs/spec_coverage.md` regenerated where the unmapped-test count changed.
+- **Token budget, the instruction.** `CLAUDE.md` gained the section "Token budget — how to read this repo (owner rule,
+  2026-10-22)": read by index, grep then a line range, module views over the spec, no whole-file reads of the big
+  documents, wide reads to a subagent, generated summaries only, `tests/test_doc_size.py`'s limits as the enforcement,
+  one task per session. Added here after the index session drafted it (owner, 2026-10-22: "make sure to set up
+  instructions that this token efficient approach must be adhered to").
+
+### The closed and old parts of `TODO.md` and `CHANGELOG.md` archived (2026-10-22)
+
+- **What.** `TODO.md` (134 KB) and `CHANGELOG.md` (152 KB) were read in part by most sessions and grew without bound,
+  the two files the model-ergonomics plan left growing. Every ticked item of `TODO.md` (112, with the section "Known
+  defects in the frozen grid engine", closed whole at stage 1, moved whole) is now in `docs/TODO_archive.md`,
+  verbatim, grouped by the month it was closed (104 in 2026-10, 3 in 2026-09, 1 in 2026-08: the latest date the item
+  carries, or the commit that ticked it for the eleven that carry none); `TODO.md` holds the 118 open items in their
+  order (82 KB). The `CHANGELOG.md` entries dated before 2026-10-19, the day version 2 began at the tag `version-1`,
+  are in `docs/CHANGELOG_archive.md`, verbatim; that day's entries and later stay (60 KB), with a pointer at the
+  bottom. Both moves were checked by script against `git show HEAD:TODO.md` and `HEAD:CHANGELOG.md`: nothing moved is
+  reworded; two ticked items nested under open items lost their two-space indent, and the moved section's heading
+  went one level down under its month.
+- **The test.** `tests/test_doc_size.py`: `TODO.md` holds no ticked item closed more than 30 days ago (an undated
+  ticked item fails too), each live file is under its limit (`TODO_LIMIT_BYTES` 100 KB, `CHANGELOG_LIMIT_BYTES`
+  80 KB; 60 KB each was the suggested start, below the 82 KB of open items and the 62 KB of version 2 entries, so
+  each limit starts above its file and is lowered when the file shrinks, never raised to pass), and each live file
+  names its archive. The scan is checked on fixtures: an old ticked item, a recent one, an undated one, a nested one,
+  an old open item, the latest date in the item winning, and the block ending at the next item, heading or blank line.
+- **Documents.** The checklist (both archives under "Not for review", with the label "History, moved" added to
+  `tests/doc_claims.json`'s unclassified labels), the reading list's `TODO.md`/`CHANGELOG.md` row, the milestone
+  brief's step 6, `CLAUDE.md` (the archives, and the suite count 1039 → 1050), and
+  `tests/test_version_1_outputs.py`'s allowed set (the archive carries the entry that added `M11.F.10`). Nineteen
+  pointers that named a moved item by title, quotation or line number now name `docs/TODO_archive.md`:
+  `plan_spec_coverage_phase_d.md` (3, one of them the stale "line 561"), `spec_revision_35_dispositions.md` (2),
+  `spec_revision_log.md`, `plan_model_ergonomics.md`, `implementation_plan_version_2.md` (2),
+  `REVIEW_version_1_guide.md` (4), `implementation_plan_phase_d.md` (3), `DECISIONS — CUTOFF SEMANTICS.md`,
+  `PROPOSAL — RUN VISUALIZATION MAPPING.md` and `phase_d_status_2026-10-13.md`. Generic "recorded in `TODO.md`"
+  pointers in dated plans and records are left as written. `PROPOSAL — ASR QUOTATIONS (SP-1).md`'s `TODO.md` line
+  numbers (1046, 1098, 1035–1053) were already stale before this change and are left. Not touched: `version_1_status.md`
+  and `version_1_dispositions.md` (frozen at the tag) and `spec_coverage.md` (generated; regenerated here only because its count of tests named for no spec ID
+  rose from 219 to 229 with the new file). No rule changed;
+  `engine_hash()` unchanged (`91f9a817`); no record rerun.
 
 ### Model ergonomics follow-ups: the ledger index reaches the extraction files; the missed history phrases (2026-10-22)
 

@@ -421,7 +421,7 @@ def test_s1_3a_kinds_without_act_classes_fail_where_a_class_is_read():
 
 
 
-# --- Version 2 stage 3, group C (spec revision 39, approved 2026-10-25): written first, red ----------------------
+# --- Version 2 stage 3, group C (spec revision 39, approved 2026-10-25): written first, built at step 7 -------------
 
 STRESS_RESPONSE = """# test — which acts are avoiding or soothing, and which displace coping
 
@@ -440,8 +440,6 @@ STRESS_RESPONSE = """# test — which acts are avoiding or soothing, and which d
 """
 
 
-@pytest.mark.xfail(strict=True, raises=AssertionError,
-                   reason="spec revision 39, group C: the displacing table and its loader are built at plan step 7")
 def test_m1a5f_s3_1c_displacing_kinds_come_from_config(tmp_path):
     """S3.1c (`M1.A.5f`, draft §4): the displacing kinds are read from `config/bowen/stress_response.md`'s second
     table into `EventKinds.displacing` (today `OVERFUNCTION` alone); a file that lists another kind is read as that

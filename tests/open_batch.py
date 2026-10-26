@@ -5,7 +5,8 @@ Purpose: under D31 (`docs/implementation_plan_version_2_stage_3.md` §3.6, §3.8
          Between, a record-current test fails by that decision, not by a fault. ``stale_in_open_batch`` marks such a
          test. While ``OPEN`` is set and the record the test reads is byte-identical to the file as the batch found
          it (``AT_OPEN``, its sha256 at ``OPENED_AT``), a failing test is run again with the hash computed on the
-         tree the batch found (``src/bowen``, ``config/bowen`` and ``tools`` at ``OPENED_AT``): if it then passes,
+         tree the batch found (``src/bowen``, ``config/bowen`` and ``tools`` at ``OPENED_AT``), and each mutation
+         record tool's ``MUTANTS`` cut to the mutants that tool had then (``mutants_as_found``): if it then passes,
          the hash is the only thing that makes it fail, and it is an expected failure that names the decision; if it
          fails again, it fails as usual. A passing test passes; a record changed since the batch opened (regenerated
          in part, or edited) fails as usual. Step 10 regenerates every record and sets ``OPEN`` to None.
@@ -20,9 +21,11 @@ close it), and while ``OPEN`` is None and a test still carries the mark.
 from __future__ import annotations
 
 import contextlib
+import dataclasses
 import functools
 import hashlib
 import io
+import re
 import subprocess
 import sys
 import tarfile
@@ -41,6 +44,8 @@ OPENED_AT = "9ebf3274554a32f77a401304ad1dec587fc99022"  # 9ebf327, the commit wh
 HASHED_TREES = ("src/bowen", "config/bowen", "tools")  # everything ``tools.ensemble_record.code_hash`` reads
 # ``tools`` is pinned with the engine: steps 7–9 add mutants to the mutation records' tools, which D31 also leaves
 # stale until step 10, so an edit to a hashed tool is excused as a rule edit is; the records still must be as found.
+# A mutant added since changes a record's render as well as its hash (a criterion that does not pass lists it under
+# "Not run"), so the rerun also leaves out each mutant the tool did not have at OPENED_AT (step 7, 2026-10-26).
 
 # Each record a marked test reads, with its sha256 as the batch found it (commit 9ebf327, spec revision 38).
 AT_OPEN = {
@@ -55,6 +60,7 @@ AT_OPEN = {
     "docs/version_2_sweep_record.md": "d170e3d11bd7478495c3775da5f867645f65f4073389aa36b95da6fb4d3c6341",
 }
 
+_DEFINES_MUTANTS = re.compile(r"^MUTANTS\b[^=\n]*=", re.M)  # a module-level assignment, not an import
 _found_tree: Path | None = None  # the hashed trees at OPENED_AT, extracted once per session
 TEMP = None  # pytest's TempPathFactory, set by tests/conftest.py: a test may write only under it (M11.D.7)
 
@@ -108,7 +114,37 @@ def hash_as_found(namespace: dict | None = None):
     with contextlib.ExitStack() as stack:
         for module in modules:
             stack.enter_context(patched(module, "code_hash", code_hash))
+        for module, kept in mutants_as_found(namespace or {}, found):
+            stack.enter_context(patched(module, "MUTANTS", kept))
         yield
+
+
+def mutants_as_found(namespace: dict, found: Path) -> list[tuple[types.ModuleType, tuple]]:
+    """Each reachable tool module under ``tools/`` that holds ``MUTANTS``, with that tuple cut to the mutants whose
+    ``Mutant("id"`` the file that defines it held at ``OPENED_AT`` (none, if the file did not exist), and each kept
+    mutant's criteria cut to those that file named, quoted, at ``OPENED_AT``. A module that imported the tuple (the
+    diagnostic record's tool imports the mutation record's) gets the defining file's cut, as the same object. A mutant
+    or criterion added since is a tool edit D31 leaves for step 10; one whose edits changed since keeps its id here, and
+    its result key moves, so a test that reads it still fails as usual. A criterion added since whose quoted key the old
+    file held elsewhere is kept, and the test fails as usual. A tool whose file names no kept mutant's criteria quoted
+    (its criteria are built, not written out) keeps them all."""
+    tools = (REPO / "tools").resolve()
+    holders: dict[int, list[types.ModuleType]] = {}
+    for module in _reachable_modules(namespace):
+        path = getattr(module, "__file__", None)
+        if path and isinstance(getattr(module, "MUTANTS", None), tuple) and tools in Path(path).resolve().parents:
+            holders.setdefault(id(module.MUTANTS), []).append(module)
+    out = []
+    for modules in holders.values():
+        defining = [m for m in modules if _DEFINES_MUTANTS.search(Path(m.__file__).read_text(encoding="utf-8"))]
+        if len(defining) != 1:
+            raise RuntimeError(f"MUTANTS held by {[m.__name__ for m in modules]} is defined by {len(defining)} of them")
+        then = found / Path(defining[0].__file__).resolve().relative_to(REPO)
+        text = then.read_text(encoding="utf-8") if then.exists() else ""
+        kept = tuple(dataclasses.replace(m, criteria=tuple(c for c in m.criteria if f'"{c}"' in text) or m.criteria)
+                     for m in modules[0].MUTANTS if f'Mutant("{m.id}"' in text)
+        out += [(module, kept) for module in modules]
+    return out
 
 
 def _reachable_modules(namespace: dict) -> list[types.ModuleType]:

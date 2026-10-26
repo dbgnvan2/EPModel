@@ -94,6 +94,9 @@ class EventKinds:
     nodal_reach: Mapping[str, str] = field(default_factory=lambda: MappingProxyType({}))
     # Revision 18 (M1.A.5e): the acts that avoid or soothe under load. From config/bowen/stress_response.md.
     soothing: frozenset[str] = frozenset()
+    # Revision 39 (M1.A.5f): the acts through whose receiver a loaded sender meets their load (displaced coping). From
+    # config/bowen/stress_response.md's second table; never a soothing kind.
+    displacing: frozenset[str] = frozenset()
     # Revision 19 (M4.D.1a): +1 for an act perspective steers toward, -1 for one it steers away from.
     # From config/bowen/perspective_steering.md.
     steering: Mapping[str, int] = field(default_factory=lambda: MappingProxyType({}))
@@ -127,6 +130,8 @@ class EventKinds:
         object.__setattr__(self, "nodal_reach", MappingProxyType(dict(self.nodal_reach)))
         if any(self.mechanisms.get(k) is not Mechanism.MOVE for k in self.soothing):
             raise ValueError("a soothing kind is a declared move (M1.A.5e)")
+        if any(self.mechanisms.get(k) is not Mechanism.MOVE for k in self.displacing) or self.displacing & self.soothing:
+            raise ValueError("a displacing kind is a declared move, and never a soothing one (M1.A.5f)")
         if any(self.mechanisms.get(k) is not Mechanism.MOVE or d not in (1, -1) for k, d in self.steering.items()):
             raise ValueError("a steered kind is a declared move, steered +1 or -1 (M4.D.1a)")
         object.__setattr__(self, "steering", MappingProxyType(dict(self.steering)))

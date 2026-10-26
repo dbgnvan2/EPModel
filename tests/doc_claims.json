@@ -53,6 +53,11 @@
         "doc": "CHANGELOG.md",
         "phrase": "Suite: 1215 tests, 1214 pass and 1 strict expected failure.",
         "why": "the dated entry of 2026-10-25 for stage 3 step 3's P2 draft, giving the suite's size then"
+      },
+      {
+        "doc": "CHANGELOG.md",
+        "phrase": "Suite: 1217 tests, 1216 pass and 1 strict expected failure.",
+        "why": "the dated entry of 2026-10-25 for stage 3 step 3's F1 addition to the probe, giving the suite's size then"
       }
     ]
   },

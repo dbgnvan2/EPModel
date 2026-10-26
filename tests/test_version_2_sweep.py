@@ -537,3 +537,143 @@ def test_m17e1_a_known_defect_is_printed_beside_the_central_verdict():
         heading = text.split(f"## `{key}` — ", 1)[1].split("\n## ", 1)[0]
         assert f"Central verdict PASS: {note}." in heading
     assert text.count("(T-119)") == 2 * len(VERDICT_NOTES)
+
+
+# --- Version 2 stage 3, T-128 (spec revision 39, `M17.E.1`, D24–D26): written first, red --------------------------
+
+STEP_10 = ("spec revision 39, T-128: the named ratio tie_wear_to_transfer_ratio is built into the sweep tool at plan "
+           "step 10 (docs/implementation_plan_version_2_stage_3.md §3.4)")
+RATIO = "tie_wear_to_transfer_ratio"
+RATIO_HEADER = ("| ratio | numerator | denominator | period constant | low | high | scale | grade | spec |\n"
+                "|---|---|---|---|---|---|---|---|---|")
+RATIO_ROW = (f"| `{RATIO}` | `tie_wear_rate` | `calm_transfer_rate` | `slow_tick_fast_ticks` | 1/208 | 4/52 | log | "
+             "[I] | `M17.E.1`, D24–D26 |")
+# The driver config with the ratio: calm_transfer_rate declared on M11.C.42 (a 40-week run, which the ratio does not
+# enter) so its range is in the file; M11.C.23 (52 weeks, exactly one slow tick: not entered, the boundary); M11.C.16
+# (104 weeks) is entered and draws the ratio and calm_transfer_rate.
+RATIO_CONFIG = (TEST_CONFIG + "| `M11.C.42` | `calm_transfer_rate` | 0.025 | 0.1 | log | 1 | [I] | test |\n"
+                "| `M11.C.23` | `learning_rate` | 0.1 | 0.4 | log | — | [I] | test |\n"
+                f"\n## Named ratios\n\n{RATIO_HEADER}\n{RATIO_ROW}\n")
+_EDIT = re.compile(r"\| `(\w+)` \| ([^ |]+) \| ")
+
+
+def _ratio_build(tmp_path):
+    tmp_path.joinpath("sweep.md").write_text(RATIO_CONFIG, encoding="utf-8")
+    text, ran = _build(tmp_path)
+    edits = {}
+    for call in ran.call_args_list:
+        mutant = call.args[0]
+        if not _is_rerun(mutant):
+            found = (_EDIT.match(new) for _f, _old, new in ((mutant.file, mutant.old, mutant.new), *mutant.also))
+            edits[mutant.criteria[0], _index(mutant)] = {m[1]: float(m[2]) for m in found if m}
+    return text, edits, {r["criterion"]: r for r in _results(text)}
+
+
+def _period() -> int:
+    return int(load_constants()["slow_tick_fast_ticks"])
+
+
+def _central_ratio() -> float:
+    c = load_constants()
+    return float(c["tie_wear_rate"]) / (_period() * float(c["calm_transfer_rate"]))
+
+
+@pytest.mark.xfail(strict=True, raises=AssertionError, reason=STEP_10)
+def test_m17e1_s3_16_ratio_drawn_and_numerator_derived(tmp_path):
+    """S3.16: each sample of an entered criterion draws the ratio within its declared range and `calm_transfer_rate`
+    within its own, and its `tie_wear_rate` edit is derived exactly from the two and `slow_tick_fast_ticks` read from
+    `constants.md`; the row records the sample's ratio. No period or range end is a literal in either tool."""
+    _text, edits, results = _ratio_build(tmp_path)
+    rows = results["M11.C.16"]["rows"]
+    assert all(r.get("ratio") is not None for r in rows), "M11.C.16's rows record no ratio"
+    for row in rows:
+        values = edits["M11.C.16", row["index"]]
+        assert {"tie_wear_rate", "calm_transfer_rate"} <= set(values), values
+        assert 1 / 208 <= row["ratio"] <= 4 / 52, row["ratio"]
+        assert 0.025 <= values["calm_transfer_rate"] <= 0.1
+        assert values["tie_wear_rate"] == pytest.approx(row["ratio"] * _period() * values["calm_transfer_rate"], rel=1e-4)
+    assert len({r["ratio"] for r in rows}) == len(rows), "the ratio is not drawn per sample"
+
+    def numbers(path: Path) -> set[str]:
+        text = path.read_text(encoding="utf-8")
+        return {t.string for t in tokenize.generate_tokens(io.StringIO(text).readline) if t.type == tokenize.NUMBER}
+
+    for path in (REPO / "tools" / "version_2_sweep.py", REPO / "tools" / "sweep_config.py"):
+        assert not {"52", "208"} & numbers(path), path.name
+
+
+@pytest.mark.xfail(strict=True, raises=AssertionError, reason=STEP_10)
+def test_m17e1_s3_17_ratio_scope_by_run_length(tmp_path):
+    """S3.17 (Q14): the ratio enters every directional criterion whose run is longer than `slow_tick_fast_ticks` fast
+    ticks and no other: `M11.C.16` (104 weeks) is entered; `M11.C.42` (40 weeks) and `M11.C.23` (52 weeks, the
+    boundary: longer than, not as long as) are not, and their samples edit no `tie_wear_rate`; the record lists the
+    criteria the ratio entered and those it did not, with the reason."""
+    text, edits, results = _ratio_build(tmp_path)
+    assert all("tie_wear_rate" in edits["M11.C.16", r["index"]] for r in results["M11.C.16"]["rows"]), \
+        "the ratio did not enter M11.C.16 (104 weeks)"
+    lines = text.splitlines()
+    entered = [line for line in lines if "`M11.C.16`" in line and "entered" in line and "not entered" not in line]
+    assert entered, "the record does not list M11.C.16 as entered"
+    for key, weeks in (("M11.C.42", "40"), ("M11.C.23", "52")):
+        assert not any("tie_wear_rate" in edits[key, r["index"]] for r in results[key]["rows"]), key
+        assert all(r.get("ratio") is None for r in results[key]["rows"]), key
+        left = [line for line in lines if f"`{key}`" in line and "not entered" in line and "slow_tick_fast_ticks" in line]
+        assert left and weeks in left[0], f"{key} is not listed as not entered, with its run length"
+
+
+@pytest.mark.xfail(strict=True, raises=AssertionError, reason=STEP_10)
+def test_m17e1_s3_18_record_splits_by_ratio(tmp_path):
+    """S3.18 (D26): for an entered criterion the record gives *n of S* and the counts held of counted below and above
+    the ratio's central value (1/52 today, from the constants), in the JSON and in the summary table; no split cell
+    prints PASS or FAIL."""
+    text, _edits, results = _ratio_build(tmp_path)
+    result = results["M11.C.16"]
+    split = result.get("ratio_split")
+    assert split is not None, "M11.C.16's result has no ratio_split"
+    counted = [r for r in result["rows"] if r["outcome"] not in tool.ERRORED]
+    below = [r for r in counted if r["ratio"] < _central_ratio()]
+    assert split["below"]["counted"] == len(below) and split["above"]["counted"] == len(counted) - len(below)
+    assert split["below"]["held"] == sum(r["outcome"] == "PASS" for r in below)
+    assert split["above"]["held"] == sum(r["outcome"] == "PASS" for r in counted if r not in below)
+    lines = text.splitlines()
+    header = next(line for line in lines if line.startswith("| Criterion |"))
+    cells = [c.strip() for c in header.strip("|").split("|")]
+    columns = [i for i, c in enumerate(cells) if "below" in c.lower() or "above" in c.lower()]
+    assert len(columns) == 2, cells
+    row = [c.strip() for c in next(line for line in lines if line.startswith("| `M11.C.16` |")).strip("|").split("|")]
+    for i in columns:
+        assert re.fullmatch(r"\d+ of \d+", row[i]) and "PASS" not in row[i] and "FAIL" not in row[i], row[i]
+
+
+def _with_ratio_row(row: str) -> str:
+    """The committed sweep config with its table of named ratios holding ``row`` alone."""
+    table = f"\n## Named ratios\n\n{RATIO_HEADER}\n{row}\n"
+    if "\n## Named ratios\n" not in CONFIG_TEXT:
+        return CONFIG_TEXT.rstrip("\n") + "\n" + table
+    before, rest = CONFIG_TEXT.split("\n## Named ratios\n", 1)
+    return before + table + ("\n## " + rest.split("\n## ", 1)[1] if "\n## " in rest else "")
+
+
+@pytest.mark.xfail(strict=True, raises=AssertionError, reason=STEP_10)
+def test_s3_19_ratio_row_parsed_strictly():
+    """S3.19 (D25): the committed `config/sweep/sweep.md` has the ratio's row, graded, read by
+    `sweep_config.load_ratios`; a ratio whose derived numerator could leave its admissible bound (1), an unknown
+    numerator, a missing grade and a range that does not hold the central value each fail at load; `M17.E.1` names the
+    ratio (`M10.C.1a` is unchanged, the draft's §20.2)."""
+    load_ratios = getattr(sweep_config, "load_ratios", None)
+    assert load_ratios is not None, "sweep_config has no load_ratios"
+    central = sweep_config.central_values()
+    [ratio] = load_ratios(CONFIG_TEXT, central)
+    assert (ratio.name, ratio.numerator, ratio.denominator, ratio.period) == (
+        RATIO, "tie_wear_rate", "calm_transfer_rate", "slow_tick_fast_ticks")
+    assert ratio.low == pytest.approx(1 / 208) and ratio.high == pytest.approx(4 / 52) and ratio.grade == "[I]"
+    assert ratio.low < _central_ratio() < ratio.high
+    bad = {"numerator past its bound": RATIO_ROW.replace("| 4/52 |", "| 0.5 |"),
+           "unknown numerator": RATIO_ROW.replace("`tie_wear_rate`", "`not_a_constant`"),
+           "missing grade": RATIO_ROW.replace("| [I] |", "|  |"),
+           "range not holding the central value": RATIO_ROW.replace("| 1/208 |", "| 0.03 |")}
+    for why, row in bad.items():
+        assert row != RATIO_ROW, why
+        with pytest.raises(sweep_config.SweepConfigError):
+            load_ratios(_with_ratio_row(row), central)
+    assert RATIO in (REPO / "docs" / "spec_rules" / "M17.md").read_text(encoding="utf-8"), "M17.E.1 does not name it"

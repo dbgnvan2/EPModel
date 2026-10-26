@@ -419,3 +419,46 @@ def test_s1_3a_kinds_without_act_classes_fail_where_a_class_is_read():
     with pytest.raises(TypeError, match="NoneType"):
         legal_outcomes(external, unclassed, params)
 
+
+
+# --- Version 2 stage 3, group C (spec revision 39, approved 2026-10-25): written first, red ----------------------
+
+STRESS_RESPONSE = """# test — which acts are avoiding or soothing, and which displace coping
+
+| kind | why it avoids or soothes |
+|---|---|
+| `DISTANCE` | test |
+| `CUTOFF` | test |
+| `TRIANGLE` | test |
+| `UNDERFUNCTION` | test |
+
+## Displacing
+
+| kind | why it meets the sender's load through the receiver |
+|---|---|
+{rows}
+"""
+
+
+@pytest.mark.xfail(strict=True, raises=AssertionError,
+                   reason="spec revision 39, group C: the displacing table and its loader are built at plan step 7")
+def test_m1a5f_s3_1c_displacing_kinds_come_from_config(tmp_path):
+    """S3.1c (`M1.A.5f`, draft §4): the displacing kinds are read from `config/bowen/stress_response.md`'s second
+    table into `EventKinds.displacing` (today `OVERFUNCTION` alone); a file that lists another kind is read as that
+    kind, so the list is config, not code; a kind listed both soothing and displacing, or not a declared move, fails
+    at load."""
+    from src.bowen.io import load as loader
+
+    assert getattr(loader.load_event_kinds(), "displacing", None) == frozenset({"OVERFUNCTION"}), (
+        "EventKinds carries no displacing kinds read from config/bowen/stress_response.md")
+    load_displacing = getattr(loader, "load_displacing", None)
+    assert load_displacing is not None, "no loader for the displacing table (src/bowen/io/load.py)"
+    kinds = loader.load_event_kinds()
+    path = tmp_path / "stress_response.md"
+    path.write_text(STRESS_RESPONSE.format(rows="| `PURSUE` | test |"), encoding="utf-8")
+    assert load_displacing(kinds, path) == frozenset({"PURSUE"})
+    for bad in ("| `DISTANCE` | soothing too |", "| `DRINKING` | not a move |",
+                "| `OVERFUNCTION` | once |\n| `OVERFUNCTION` | twice |"):
+        path.write_text(STRESS_RESPONSE.format(rows=bad), encoding="utf-8")
+        with pytest.raises(ConfigError):
+            load_displacing(kinds, path)

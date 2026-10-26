@@ -254,3 +254,148 @@ def test_m1a5e_soothing_also_scales_with_the_load_above_usual_and_week_0_is_calm
     respond(new, (Selection(RAVI, "DISTANCE", (MARTA,), 100.0),), {RAVI: 40.0}, PARAMS)
     self_practice(new, (Selection(RAVI, "STAY-IN-CONTACT", (MARTA,), 100.0),), {RAVI: 40.0}, PARAMS)
     assert new.people[RAVI].functional_level == before and new.practice == []
+
+
+# --- Version 2 stage 3, group C (spec revision 39, approved 2026-10-25): written first, red ----------------------
+# Plan docs/implementation_plan_version_2_stage_3.md §3.7, S3.1a, S3.1b, S3.1d. Each is a strict expected failure
+# until plan step 7 builds `M1.A.5f` and `floor_held`; only an AssertionError is expected, so a test that breaks for
+# another reason (a missing import, a typo) fails the suite instead of reading as the rule not yet built. Premises
+# (`M11.5`): a pass confirms the code and is never a finding.
+
+STEP_7 = "spec revision 39, group C: built at plan step 7 (docs/implementation_plan_version_2_stage_3.md §3.8)"
+NADIA = P("nadia")
+HEAVY = 40.0  # a load above usual large enough that the coping amount is well clear of float noise
+
+
+def _coping_amount(person, load=HEAVY):
+    """`M1.A.5e`'s coping amount for this load, the amount `M1.A.5f` moves: response_up_gain × above ÷ 100 ×
+    basic_level ÷ 100."""
+    return PARAMS.response_up_gain * load / 100.0 * person.basic_level / 100.0
+
+
+def _floor(person):
+    return max(0.0, person.basic_level - PARAMS.stress_floor_below_basic)
+
+
+def _displacing_week(receivers, *, sender_load=HEAVY, set_up=None):
+    """One week in which Ravi, loaded, sends `OVERFUNCTION` (the one displacing kind, draft §4) to ``receivers``.
+    Every receiver is at basic level, so each has the floor's whole room, and is loaded with no act of their own, so
+    no settling of their swings in the same week can blur what moved. Returns the state and each person's
+    (functional_level, stress_swing, pseudo_self) before the week."""
+    state = fresh()
+    for pid in receivers:
+        person = state.people[pid]
+        person.functional_level = person.basic_level
+    if set_up:
+        set_up(state)
+    before = {pid: (p.functional_level, p.stress_swing, p.pseudo_self) for pid, p in state.people.items()}
+    load = {RAVI: sender_load, **{pid: HEAVY for pid in receivers}}
+    respond(state, (Selection(RAVI, "OVERFUNCTION", tuple(receivers), 100.0),), load, PARAMS)
+    return state, before
+
+
+def _moved(state, before, pid):
+    return state.people[pid].functional_level - before[pid][0]
+
+
+@pytest.mark.xfail(strict=True, raises=AssertionError, reason=STEP_7)
+def test_m1a5f_s3_1a_displaced_coping_moves_functioning_from_receiver_to_sender():
+    """S3.1a (`M1.A.5f`, D18 revisited): a loaded sender's `OVERFUNCTION` moves the coping amount from the receivers'
+    functional level and stress swing to the sender's, split evenly over the receivers; the family's total functional
+    level and every pseudo-self are unchanged. `OVERFUNCTION` is automatic, so without the rule the sender's own
+    functioning does not move at all (`M1.A.5e`: any other act leaves it)."""
+    for receivers in ((MARTA,), (MARTA, NADIA)):
+        state, before = _displacing_week(receivers)
+        amount = _coping_amount(state.people[RAVI])
+        share = amount / len(receivers)
+        for pid in receivers:
+            assert _moved(state, before, pid) == pytest.approx(-share, rel=1e-9), (receivers, pid)
+            assert state.people[pid].stress_swing - before[pid][1] == pytest.approx(-share, rel=1e-9), (receivers, pid)
+        assert _moved(state, before, RAVI) == pytest.approx(amount, rel=1e-9), receivers
+        assert state.people[RAVI].stress_swing - before[RAVI][1] == pytest.approx(amount, rel=1e-9), receivers
+        total = sum(_moved(state, before, pid) for pid in state.people)
+        assert total == pytest.approx(0.0, abs=1e-12), receivers                    # conserved exactly
+        assert all(state.people[pid].pseudo_self == before[pid][2] for pid in state.people), receivers  # M6.I.4 untouched
+
+
+@pytest.mark.xfail(strict=True, raises=AssertionError, reason=STEP_7)
+def test_m1a5f_s3_1b_no_displacement_when_calm_held_or_at_the_floor():
+    """S3.1b (`M1.A.5f`): nothing moves when the sender is calm, when the receiver holds a position toward the sender
+    (`M1.B.5`), or when the receiver is at their floor; a receiver with less room than its share gives only its room,
+    and the sender is not taken above 100. The unguarded week is checked first, so the guards are not vacuous."""
+    from src.bowen.engine.external import record_stances
+    from src.bowen.engine.moves import holds_position
+
+    state, before = _displacing_week((MARTA,))
+    amount = _coping_amount(state.people[RAVI])
+    assert _moved(state, before, MARTA) == pytest.approx(-amount, rel=1e-9)  # the unguarded week moves it
+
+    calm, before = _displacing_week((MARTA,), sender_load=0.0)                 # the sender is not loaded
+    assert _moved(calm, before, MARTA) == 0.0 and _moved(calm, before, RAVI) == 0.0
+
+    def stance(state):
+        state.tick = 0
+        record_stances(state, (Selection(MARTA, "STAY-IN-CONTACT", (RAVI,), 100.0),), PARAMS)
+        state.tick = 2
+        assert holds_position(state, MARTA, RAVI, PARAMS)
+    held, before = _displacing_week((MARTA,), set_up=stance)
+    assert _moved(held, before, MARTA) == 0.0 and _moved(held, before, RAVI) == 0.0
+
+    def at_floor(state):
+        state.people[MARTA].functional_level = _floor(state.people[MARTA])
+    floored, before = _displacing_week((MARTA,), set_up=at_floor)
+    assert _moved(floored, before, MARTA) == 0.0 and _moved(floored, before, RAVI) == 0.0
+
+    room = amount / 4
+
+    def little_room(state):
+        state.people[MARTA].functional_level = _floor(state.people[MARTA]) + room
+    short, before = _displacing_week((MARTA,), set_up=little_room)
+    assert short.people[MARTA].functional_level == pytest.approx(_floor(short.people[MARTA]), abs=1e-12)
+    assert _moved(short, before, RAVI) == pytest.approx(room, rel=1e-9)
+
+    def near_top(state):
+        state.people[RAVI].functional_level = 100.0 - room
+    capped, before = _displacing_week((MARTA,), set_up=near_top)
+    assert capped.people[RAVI].functional_level == pytest.approx(100.0, abs=1e-12)
+    assert _moved(capped, before, MARTA) == pytest.approx(-room, rel=1e-9)
+
+
+@pytest.mark.xfail(strict=True, raises=AssertionError, reason=STEP_7)
+def test_m1a5e_s3_1d_floor_held_functioning_is_on_a_ledger():
+    """S3.1d (`M1.A.5e`, `M1.A.4k`, F1): a calm week at the floor with a positive swing adds what the floor held to
+    `floor_held`, leaves `functional_level − stress_swing − adjust_swing − floor_held` unchanged, and the estimator's
+    weekly reading leaves `floor_held` out; off the floor, a calm week sheds `floor_held` by the swings' own rate,
+    moving functional level with it."""
+    from dataclasses import fields
+
+    from src.bowen.engine.objects import Person
+    from src.bowen.engine.slow_tick import record_week
+
+    assert "floor_held" in {f.name for f in fields(Person)}, "Person keeps no floor_held ledger (F1, M1.A.5e)"
+    rate = PARAMS.response_relaxation_rate
+    state = fresh()
+    person = state.people[RAVI]
+
+    def ledger():
+        return person.functional_level - person.stress_swing - person.adjust_swing - person.floor_held
+
+    person.functional_level, person.stress_swing = _floor(person), 5.0
+    kept = ledger()
+    respond(state, (), {RAVI: 0.0}, PARAMS)                             # calm: the swing decays, the floor holds
+    assert person.functional_level == _floor(person)
+    assert person.stress_swing == pytest.approx(5.0 * (1 - rate))
+    assert person.floor_held == pytest.approx(5.0 * rate)
+    assert ledger() == pytest.approx(kept, abs=1e-12)
+
+    record_week(state, PARAMS, {RAVI: 0.0}, (), ())
+    own = person.functional_level - (person.pseudo_self or 0.0) - max(0.0, person.adjust_swing) - person.floor_held
+    assert state.estimator_history[RAVI][-1].functional_level == pytest.approx(own)  # M1.A.4k: the floor's, not hers
+
+    person.functional_level = _floor(person) + 10.0                    # off the floor, it is shed with the swings
+    person.stress_swing, person.adjust_swing, person.floor_held = 0.0, 0.0, 2.0
+    level, kept = person.functional_level, ledger()
+    respond(state, (), {RAVI: 0.0}, PARAMS)
+    assert person.floor_held == pytest.approx(2.0 * (1 - rate))
+    assert level - person.functional_level == pytest.approx(2.0 * rate)
+    assert ledger() == pytest.approx(kept, abs=1e-12)

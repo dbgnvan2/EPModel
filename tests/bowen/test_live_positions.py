@@ -88,3 +88,33 @@ def test_m85_single_implementation():
             copies.append(path.name)
     assert sorted(definitions) == ["live_positions.py:avoidance_available", "live_positions.py:positions_live"]
     assert copies == [], f"fusion is read without the predicate: {copies}"
+
+
+# --- Version 2 stage 3, T-014 (spec revision 39, D27): written first, red ------------------------------------------
+
+
+def _calls_in(path: Path) -> set[str]:
+    """The names of the functions called anywhere in ``path`` (a bare name or an attribute's last part)."""
+    tree = ast.parse(path.read_text(encoding="utf-8"))
+    return {node.func.id if isinstance(node.func, ast.Name) else node.func.attr
+            for node in ast.walk(tree) if isinstance(node, ast.Call)
+            and isinstance(node.func, (ast.Name, ast.Attribute))}
+
+
+@pytest.mark.xfail(strict=True, raises=AssertionError,
+                   reason="spec revision 39, T-014 (D27): avoidance_available is removed and M8's preamble restated "
+                          "at plan step 6 (docs/implementation_plan_version_2_stage_3.md §3.6)")
+def test_m8_s3_20_predicate_has_three_callers():
+    """S3.20 (`M8`, D27): `positions_live` is called from exactly three modules — the witness test (`visibility.py`),
+    the coach's position (`external.py`) and triangle activity (`recompute.py`) — and no function beside it in
+    `live_positions.py` goes uncalled in `src/`; `M8`'s preamble says the rule is written for three places."""
+    sources = sorted((REPO / "src").rglob("*.py"))
+    callers = {path.name for path in sources if "positions_live" in _calls_in(path)}
+    assert callers == {"visibility.py", "external.py", "recompute.py"}, sorted(callers)
+    module = REPO / "src" / "bowen" / "engine" / "live_positions.py"
+    defined = {node.name for node in ast.parse(module.read_text(encoding="utf-8")).body
+               if isinstance(node, ast.FunctionDef)}
+    called = set().union(*(_calls_in(path) for path in sources))
+    assert sorted(defined - called - {"positions_live"}) == [], "an uncalled function in live_positions.py"
+    preamble = (REPO / "docs" / "spec_rules" / "M08.md").read_text(encoding="utf-8")
+    assert "written for three places" in preamble and "written for four places" not in preamble

@@ -11,6 +11,8 @@ from __future__ import annotations
 
 import dataclasses
 
+import pytest
+
 from src.bowen.engine.appraise import (
     appraisal_delta, apply_appraisal, calm_transfer, content_gain, effective_perspective, speaker_echo, witness_delta,
 )
@@ -147,3 +149,44 @@ def test_m4c10_calm_transfer_balances():
     records, _, _ = apply_appraisal(state, perceived, PARAMS)
     [calm] = [r for r in records if r.mechanism == "calm_contact"]
     assert abs(sum(v for _, v in calm.acute_anxiety)) < 1e-12 and dict(calm.acute_anxiety)[MARTA] < 0
+
+
+# --- Version 2 stage 3, group A (spec revision 39, approved 2026-10-25): written first, red ----------------------
+
+
+@pytest.mark.xfail(strict=True, raises=AssertionError,
+                   reason="spec revision 39, group A: M4.C.1d's reciprocal contact is built at plan step 9 "
+                          "(docs/implementation_plan_version_2_stage_3.md §3.8)")
+def test_m4c1d_s3_10_relieved_receiver_returns_contact():
+    """S3.10 (`M4.C.1d`, D22): a target relieved by a delivered move with positive contact (its appraisal lowers its
+    anxiety, the whole delivery read, Q11) returns `reciprocal_contact_share` of the contact it took in to the sender's
+    felt contact on the same tie, through the sender's own `M4.C.2` gain, so a sender above `defence_threshold` takes in
+    none of it; a target at its optimum, whose deviation
+    does not fall, returns none. The rule names no kind: the same for `STAY-IN-CONTACT`, `PURSUE` and `TRIANGLE`."""
+    from src.bowen.engine.appraise import tie_change
+
+    share = getattr(PARAMS, "reciprocal_contact_share", None)
+    assert share is not None, "reciprocal_contact_share is not in the register (M4.C.1d is not built)"
+    cases = [(kind, target_contact, relieved, anxious) for kind in ("STAY-IN-CONTACT", "PURSUE", "TRIANGLE")
+             for target_contact, relieved in ((0.0, True), (1.0, False)) for anxious in (False, True)]
+    for kind, target_contact, relieved, anxious in cases:
+        state = fresh()
+        tie = state.ties[RAVI_MARTA]
+        tie.felt_contact[MARTA], tie.felt_impingement[MARTA] = target_contact, 0.0
+        tie.felt_contact[RAVI] = 0.2
+        sender = state.people[RAVI]
+        sender.acute_anxiety = sender.chronic_anxiety + (3 * PARAMS.defence_threshold if anxious else 0.0)
+        sender.outside_ness_outward = sender.outside_ness_inward = 0.0  # a neutral sender (M5.F.1)
+        event = move(kind, 60.0)
+        delivery = as_target(state, event)
+        assert (appraisal_delta(state, delivery, event, PARAMS) < 0) is relieved, (kind, target_contact)
+        _tie, d_contact, _imp = tie_change(state, delivery, event, PARAMS)
+        assert d_contact > 0, kind
+        gain = content_gain(sender, PARAMS)
+        assert gain == (0.0 if anxious else 1.0), (kind, anxious, gain)
+        expected = share * d_contact * gain if relieved else 0.0
+        before = tie.felt_contact[RAVI]
+        apply_appraisal(state, {MARTA: ((delivery, event),)}, PARAMS)
+        assert tie.felt_contact[RAVI] - before == pytest.approx(expected, abs=1e-12), (kind, target_contact, anxious)
+        if relieved and not anxious:
+            assert expected > 0, kind

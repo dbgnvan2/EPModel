@@ -15,6 +15,8 @@ import dataclasses
 from functools import lru_cache
 from pathlib import Path
 
+import pytest
+
 from src.bowen.engine import iposition as ip
 from src.bowen.engine.act import Selection, act
 from src.bowen.engine.appraise import appraisal_delta
@@ -454,3 +456,52 @@ def test_m5d8_success_usually_follows_several_failures():
     # The mode was asserted too until 2026-10-14. With 27 completions, first successes spread over attempts 1 to 62
     # and the only repeated value was 1 (six seeds), so the mode measured ties, not "usually"; the two lines above
     # carry the claim.
+
+
+# --- Version 2 stage 3, group F (spec revision 39, approved 2026-10-25): written first, red ----------------------
+
+
+@pytest.mark.xfail(strict=True, raises=AssertionError,
+                   reason="spec revision 39, group F: M5.F.4's demand share is built at plan step 8 "
+                          "(docs/implementation_plan_version_2_stage_3.md §3.8)")
+def test_m5f4_s3_6_demand_share_falls_with_level():
+    """S3.6 (`M5.F.4`, D20): a genuine `I-POSITION` — the `DEFINE` event — is part self-statement, share `w`, part
+    demand, share `1 − w`, with `w` the mover's self-channel weight that week (`M4.D.1a`). The demand share adds
+    `(1 − w) × assertion_gain` to the impingement the event delivers, the debit of the target's felt contact is scaled
+    by `w`, and the mover's outward axis rises by `(1 − w) × assertion_evidence_gain`. So a mover at level 40 delivers
+    more impingement and debits less contact than one at 60, both with perspective 1."""
+    from src.bowen.engine.appraise import _scale, tie_change
+    from src.bowen.engine.moves import _strength
+    from src.bowen.policy.policy import self_channel_weight
+
+    found = {}
+    for level in (40.0, 60.0):
+        state = fresh(perspective=1.0)
+        mover = state.people[RAVI]
+        mover.basic_level = mover.functional_level = level
+        choose_iposition(state)
+        for _ in range(PARAMS.prepare_ticks):
+            calm(state, RAVI)
+            week(state)
+        assert seq(state).due == ip.DEFINE, level
+        [event] = [r.event for r in take_owed_step(state) if isinstance(r, EmittedRecord)]
+        w = self_channel_weight(mover.functional_level, PARAMS, perspective=1.0)
+        assert 0 < w < 1, (level, w)
+        tie = state.ties[TieId.of(RAVI, MARTA)]
+        mover.outside_ness_outward = 0.0
+        tie.felt_contact[MARTA] = 1.0
+        tie.conductance = 0.5                                            # so the scale is not 1
+        delivery = Delivery(state.tick + 1, event.id, MARTA, Role.TARGET, emitted_tick=state.tick, latency=1)
+        scale = _scale(event, tie.conductance, PARAMS)
+        _tie, _contact, d_imp = tie_change(state, delivery, event, PARAMS)
+        base = (KINDS.components_of("I-POSITION")[1] + PARAMS.assault_gain * axes(mover)[0]) * scale
+        extra = d_imp - base
+        apply_move_effects(state, (delivery,), PARAMS)
+        found[level] = (w, extra, 1.0 - tie.felt_contact[MARTA], mover.outside_ness_outward, scale, _strength(event, PARAMS))
+    for level, (w, extra, debit, outward, scale, strength) in found.items():
+        assert scale == pytest.approx(0.5), (level, scale)               # the step's intensity is fixed (strength 1)
+        assert extra == pytest.approx((1 - w) * PARAMS.assertion_gain * scale, rel=1e-9), level
+        assert debit == pytest.approx(w * PARAMS.debit_gain * strength, rel=1e-9), level
+        assert outward == pytest.approx((1 - w) * PARAMS.assertion_evidence_gain, rel=1e-9), level
+    assert found[40.0][1] > found[60.0][1] > 0                           # more demand at the lower level
+    assert found[40.0][2] < found[60.0][2]                               # less of the contact withdrawn

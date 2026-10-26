@@ -571,3 +571,71 @@ def test_m6i4_capacity_does_not_limit_a_taker_above_basic():
     ravi.pseudo_self = (ravi.pseudo_self or 0.0) + 5.0
     above, _ = _exchange(state, "OVERFUNCTION", RAVI, NADIA, tick=2)
     assert above[0] == pytest.approx(_taken_at(0.0))
+
+
+# --- Version 2 stage 3, group C (spec revision 39, approved 2026-10-25): written first, red ----------------------
+
+
+@pytest.mark.xfail(strict=True, raises=AssertionError,
+                   reason="spec revision 39, group C: M6.I.4a is built at plan step 7 "
+                          "(docs/implementation_plan_version_2_stage_3.md §3.8)")
+def test_m6i4a_s3_4_lent_functioning_returns_with_lost_capacity():
+    """S3.4 (`M6.I.4a`, D19): when a taker's capacity falls over the week by a cause other than the exchange, the
+    borrowed pseudo-self returns to its lenders in the share of capacity lost, `(s_before − s_after) ÷ s_before`, with
+    the same of functional level, split over the lenders in proportion to what each holds lent; the family's total
+    pseudo-self and functional level are unchanged. A taker with no capacity at the week's start, or whose fall stays
+    at or above basic level (where `s` is 1), returns nothing; no lender is given back more than they lent.
+
+    The call is the contract plan step 7 builds to: ``moves.return_lent_functioning(state, params, week_start)``, with
+    ``week_start`` each person's functional level at the week's start; this week carries no exchange, so nothing
+    `M6.I.4` moved needs leaving out of `f`."""
+    from src.bowen.engine import moves
+    from src.bowen.engine.moves import _pole_of
+
+    def set_up(lent):
+        """Ravi, at basic level 50, borrowed 6 and took charge on both his ties; each partner holds what they lent."""
+        state = fresh()
+        ravi = state.people[RAVI]
+        ravi.basic_level, ravi.functional_level, ravi.pseudo_self = 50.0, 50.0, 6.0
+        for pid, held in lent.items():
+            person = state.people[pid]
+            person.functional_level += held - (person.pseudo_self or 0.0)
+            person.pseudo_self = held
+            tie = state.ties[TieId.of(RAVI, pid)]
+            tie.functioning_balance[DEFAULT_AREA] = 0.5 * _pole_of(tie, RAVI)
+        state.tick = PARAMS.exchange_window + 2
+        return state
+
+    def week(state, ravi_level_after):
+        start = {pid: p.functional_level for pid, p in state.people.items()}
+        state.people[RAVI].functional_level = ravi_level_after          # a fall by a cause outside the exchange
+        totals = (sum(p.pseudo_self or 0.0 for p in state.people.values()),
+                  sum(p.functional_level for p in state.people.values()))
+        before = {pid: (p.functional_level, p.pseudo_self) for pid, p in state.people.items()}
+        returned = getattr(moves, "return_lent_functioning", None)
+        assert returned is not None, "M6.I.4a's return is not built (moves.return_lent_functioning)"
+        returned(state, PARAMS, start)
+        after = (sum(p.pseudo_self or 0.0 for p in state.people.values()),
+                 sum(p.functional_level for p in state.people.values()))
+        assert after == pytest.approx(totals, abs=1e-12)                  # conserved
+        return {pid: (state.people[pid].functional_level - before[pid][0],
+                      (state.people[pid].pseudo_self or 0.0) - (before[pid][1] or 0.0)) for pid in state.people}
+
+    floor = 50.0 - PARAMS.stress_floor_below_basic
+    half = floor + 0.5 * (50.0 - floor)                                   # s falls from 1 to 0.5: half the capacity
+    moved = week(set_up({MARTA: -4.0, NADIA: -2.0}), half)
+    back = 0.5 * 6.0
+    assert moved[RAVI][1] == pytest.approx(-back) and moved[RAVI][0] == pytest.approx(-back)
+    assert moved[MARTA][1] == pytest.approx(back * 4 / 6) and moved[MARTA][0] == pytest.approx(back * 4 / 6)
+    assert moved[NADIA][1] == pytest.approx(back * 2 / 6) and moved[NADIA][0] == pytest.approx(back * 2 / 6)
+
+    capped = week(set_up({MARTA: -1.0}), half)                            # a lender gets back no more than they lent
+    assert capped[MARTA][1] == pytest.approx(1.0) and capped[RAVI][1] == pytest.approx(-1.0)
+
+    above = set_up({MARTA: -4.0})
+    above.people[RAVI].functional_level = 55.0
+    assert all(v == (0.0, 0.0) for v in week(above, 51.0).values())       # still at or above basic: s stays 1
+
+    empty = set_up({MARTA: -4.0})
+    empty.people[RAVI].functional_level = floor
+    assert all(v == (0.0, 0.0) for v in week(empty, floor - 1.0).values())  # no capacity at the week's start

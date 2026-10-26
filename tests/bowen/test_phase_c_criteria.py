@@ -386,3 +386,73 @@ def test_s_declared_latency_matches_the_fixtures_ties():
         for pair in crossed:
             a, b = pair.split("-")
             assert ties[TieId.of(P(a), P(b))].latency == declared, (cid, pair)
+
+
+# --- Version 2 stage 3, group F (spec revision 39, approved 2026-10-25): written first, red ----------------------
+
+STEP_8 = ("spec revision 39, group F: M11.C.29's arm (D21) and M11.C.49 are built at plan step 8 "
+          "(docs/implementation_plan_version_2_stage_3.md §3.8)")
+
+
+@pytest.mark.xfail(strict=True, raises=AssertionError, reason=STEP_8)
+def test_m11c29_s3_8_act_window_clear_of_the_spell(monkeypatch):
+    """S3.8 (`M11.C.29`, D21): in both arms the mover F has basic and functional level 60 (the criterion's
+    `mover_level`, as in `M11.C.32`), F's spell is suspended from `t0` to `t0 + prepare_ticks` so the act's `PREPARE`
+    window holds no spell event of F's, M's spell is kept as it is today, and a `completions` readout is declared.
+    The window is read inclusive of `t0 + prepare_ticks`, the week `DEFINE` falls due."""
+    from src.bowen.io.load import load_constants
+
+    settings = CRITERIA["M11.C.29"].settings
+    weeks, t0 = settings["weeks"], settings["t0"]
+    window = range(t0, t0 + int(load_constants()["prepare_ticks"]) + 1)
+    seen = {}
+    original = criteria.scenario
+
+    def capture(family, seed, weeks_, **kwargs):
+        arm = next(iter(kwargs["forced"].values())).kind
+        seen[arm] = kwargs
+        return original(family, seed, weeks_, spells=kwargs["spells"], setup=kwargs["setup"], until=0)
+
+    monkeypatch.setattr(criteria, "scenario", capture)
+    for arm in ("baseline", "treatment"):
+        arm_c29(arm, 0, settings)
+    assert set(seen) == {"DISTANCE", "I-POSITION"}
+    assert settings.get("mover_level") == 60, "M11.C.29 declares no mover_level of 60 (config/bowen/criteria.md)"
+    for arm, kwargs in seen.items():
+        state, _ = original("triad", 0, weeks, spells=kwargs["spells"], setup=kwargs["setup"], until=0)
+        mover = state.people[P("f")]
+        assert (mover.basic_level, mover.functional_level) == (60, 60), arm
+        f_spells = [e.timestamp for e in kwargs["spells"] if e.targets == (P("f"),)]
+        assert not [t for t in f_spells if t in window], (arm, f_spells)
+        assert f_spells, "F's spell removed outright, not suspended over the window"
+        m_spells = [e.timestamp for e in kwargs["spells"] if e.targets == (P("m"),)]
+        assert m_spells == [e.timestamp for e in spell("triad", weeks) if e.targets == (P("m"),)], arm
+    assert "completions" in {r.name for r in CRITERIA["M11.C.29"].readouts}, "M11.C.29 reports no completions"
+
+
+@pytest.mark.ensemble
+def test_m11c49_low_level_iposition_raises_family_anxiety():
+    """S3.7 (`M11.C.49`, D20): the mover F at level 35 against 60, each run less its own unscripted control on the
+    same seed, F's spell suspended over the act's window and perspective 1.0: the family's summed excess anxiety over
+    the six weeks after `t0` and the `CONFLICT` share on the F–M tie are higher at 35 (the two gating, composite limbs);
+    the target's felt impingement (premise limb) and completions are reported. An ensemble criterion, so it runs with
+    `pytest -m ensemble`, outside the default suite, like every criterion test; built at plan step 8."""
+    import os
+
+    from src.bowen.ensemble.criteria import NOT_BUILT
+    from src.bowen.ensemble.criteria_d import CRITERIA_D
+    from src.bowen.ensemble.criteria_d2 import CRITERIA_D2
+    from src.bowen.ensemble.runner import PASS, run_criterion
+    from src.bowen.io.load import load_constants
+
+    registry = {**CRITERIA, **CRITERIA_D, **CRITERIA_D2}           # whichever registry step 8 puts it in
+    assert "M11.C.49" in registry and "M11.C.49" not in NOT_BUILT, "M11.C.49 is not built (plan step 8)"
+    c49 = registry["M11.C.49"]
+    assert c49.cls == "mixed"
+    assert len([r for r in c49.readouts if not r.report_only]) == 2
+    assert len([r for r in c49.readouts if r.report_only]) >= 2
+    constants = load_constants()
+    rules = {k: constants[k] for k in ("ensemble_block", "ensemble_cap", "ensemble_precision", "ensemble_margin",
+                                       "ensemble_alpha", "fallback_flag_rate", "equivalence_margin")}
+    verdict = run_criterion(c49, rules, workers=min(6, os.cpu_count() or 1))
+    assert verdict.outcome == PASS, verdict.outcome

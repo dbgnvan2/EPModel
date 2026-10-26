@@ -448,3 +448,20 @@ def test_m4d1a_steering_bears_on_choice_not_on_competing_urges():
     assert chance(seen, "TRIANGLE") < chance(plain, "TRIANGLE")
     outcomes = legal_outcomes(obs, KINDS, PARAMS)
     assert competing_urges(outcomes, seen, KINDS, PARAMS) == competing_urges(outcomes, plain, KINDS, PARAMS)
+
+
+# --- Version 2 stage 3, group A (spec revision 39, approved 2026-10-25): written first, red ----------------------
+
+
+@pytest.mark.xfail(strict=True, raises=AssertionError,
+                   reason="spec revision 39, group A: TRIANGLE moves to layer 0 (M4.D.3a, P3) at plan step 9 "
+                          "(docs/implementation_plan_version_2_stage_3.md §3.8)")
+def test_m4d3a_s3_11_triangle_is_layer_zero():
+    """S3.11 (`M4.D.3a`, D22): `TRIANGLE` sits in the oldest layer with `DISTANCE` and `CUTOFF`, so its availability
+    does not fall with functional level."""
+    from src.bowen.policy.policy import availability
+
+    assert KINDS.layers["TRIANGLE"] == 0, f"TRIANGLE is in layer {KINDS.layers['TRIANGLE']}"
+    low = availability("TRIANGLE", observe(fresh(ravi={"functional_level": 10.0}), RAVI, PARAMS), KINDS, PARAMS)
+    high = availability("TRIANGLE", observe(fresh(ravi={"functional_level": 80.0}), RAVI, PARAMS), KINDS, PARAMS)
+    assert low == high == 1.0

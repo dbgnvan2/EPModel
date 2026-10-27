@@ -151,12 +151,9 @@ def test_m4c10_calm_transfer_balances():
     assert abs(sum(v for _, v in calm.acute_anxiety)) < 1e-12 and dict(calm.acute_anxiety)[MARTA] < 0
 
 
-# --- Version 2 stage 3, group A (spec revision 39, approved 2026-10-25): written first, red ----------------------
+# --- Version 2 stage 3, group A (spec revision 39, approved 2026-10-25): written first, built at step 9 -------------
 
 
-@pytest.mark.xfail(strict=True, raises=AssertionError,
-                   reason="spec revision 39, group A: M4.C.1d's reciprocal contact is built at plan step 9 "
-                          "(docs/implementation_plan_version_2_stage_3.md §3.8)")
 def test_m4c1d_s3_10_relieved_receiver_returns_contact():
     """S3.10 (`M4.C.1d`, D22): a target relieved by a delivered move with positive contact (its appraisal lowers its
     anxiety, the whole delivery read, Q11) returns `reciprocal_contact_share` of the contact it took in to the sender's
@@ -190,3 +187,63 @@ def test_m4c1d_s3_10_relieved_receiver_returns_contact():
         assert tie.felt_contact[RAVI] - before == pytest.approx(expected, abs=1e-12), (kind, target_contact, anxious)
         if relieved and not anxious:
             assert expected > 0, kind
+
+
+def test_m4c1d_sender_appraises_the_returned_contact_by_their_own_deviation():
+    """`M4.C.1d`: the sender appraises the returned contact by the change in their own two-sided deviation — relief on
+    the "too little" side of their optimum, nothing within its band or past it (the band is not felt, and the "too
+    much" side is impingement, which the returned contact does not carry) — and it is felt contact, not `M1.B.8`'s investment. Each case is set against the
+    same delivery with `reciprocal_contact_share` 0, so only the returned contact differs."""
+    from src.bowen.engine.contact import optimum
+
+    def run(params, sender_contact, check=None):
+        state = fresh()
+        tie = state.ties[RAVI_MARTA]
+        tie.felt_contact[MARTA], tie.felt_impingement[MARTA] = 0.0, 0.0  # the target is relieved
+        sender = state.people[RAVI]
+        sender.acute_anxiety = sender.chronic_anxiety
+        sender.outside_ness_outward = sender.outside_ness_inward = 0.0
+        opt = optimum(sender, tie, PARAMS)
+        tie.felt_contact[RAVI], tie.felt_impingement[RAVI] = sender_contact(opt), 0.0
+        if check is not None:
+            assert check(tie.felt_contact[RAVI], opt), "fixture: the sender's contact is not where the case needs it"
+        event = move("STAY-IN-CONTACT", 60.0)
+        _, attended, _ = apply_appraisal(state, {MARTA: ((as_target(state, event), event),)}, params)
+        return sender.acute_anxiety, attended
+
+    none = dataclasses.replace(PARAMS, reciprocal_contact_share=0.0)
+    wanting = lambda opt: 0.25 * opt  # noqa: E731 — well below the optimum: closeness is wanted
+    past = lambda opt: min(1.0, opt + 0.3)  # noqa: E731 — past it: more contact is not wanted
+    with_share, attended = run(PARAMS, wanting)
+    without, attended_none = run(none, wanting)
+    assert with_share < without, "returned contact on the 'too little' side must relieve the sender"
+    beyond = lambda contact, opt: contact > opt  # noqa: E731
+    assert run(PARAMS, past, beyond)[0] == run(none, past, beyond)[0], "returned contact past the optimum must not be felt"
+    assert attended == attended_none and (RAVI_MARTA, RAVI) not in attended, "returned contact counted as investment"
+
+
+def test_m4c1d_relief_reads_the_whole_delivery():
+    """`M4.C.1d` (Q11): relief is the target's two-sided deviation, contact and impingement together. A `CONFLICT` that
+    eases the target's "too little" side a little while its impingement raises the "too much" side more is not relief,
+    and returns nothing, though its contact side alone would read as relief."""
+    from src.bowen.engine.appraise import tie_change
+    from src.bowen.engine.contact import band, deviation_at, optimum
+
+    state = fresh()
+    tie = state.ties[RAVI_MARTA]
+    target = state.people[MARTA]
+    edge = optimum(target, tie, PARAMS) - band(target, PARAMS)
+    tie.felt_contact[MARTA], tie.felt_impingement[MARTA] = edge - 0.02, band(target, PARAMS)
+    tie.felt_contact[RAVI] = 0.2
+    sender = state.people[RAVI]
+    sender.acute_anxiety = sender.chronic_anxiety
+    event = move("CONFLICT", 60.0)
+    delivery = as_target(state, event)
+    _tie, d_contact, d_imp = tie_change(state, delivery, event, PARAMS)
+    contact, imp = tie.felt_contact[MARTA], tie.felt_impingement[MARTA]
+    contact_only = deviation_at(target, tie, PARAMS, min(1.0, contact + d_contact), imp)
+    assert d_contact > 0 and contact_only < deviation_at(target, tie, PARAMS, contact, imp), "fixture: contact side eases"
+    assert appraisal_delta(state, delivery, event, PARAMS) > 0, "fixture: the delivery as a whole is not relief"
+    before = tie.felt_contact[RAVI]
+    apply_appraisal(state, {MARTA: ((delivery, event),)}, PARAMS)
+    assert tie.felt_contact[RAVI] == before, "a delivery that raised the target's deviation returned contact"

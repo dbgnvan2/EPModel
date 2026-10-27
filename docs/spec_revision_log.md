@@ -57,7 +57,28 @@ lands in the spec in the commit that builds its code (the owner's Q6). This sect
     anxiety; four runs per seed, the act said at `DEFINE`, unprepared (the owner's Q9), the mover's perspective 1.0
     (Q13); its `M11.5` row (Mixed). The Phase C exit condition names it.
   - **§0.3's counts** restated (1067 MUSTs, 93 named tests).
-- **Not yet applied:** group A (`M4.C.1d`, `M4.D.3a`; step 9) and T-128 (`M17.E.1`; step 10).
+- **Step 9 (2026-10-26), group A, the batch's fourth commit** (the engine hash moved again, to the hash in
+  `CHANGELOG.md`'s entry of that day; what a run computes changed, so the golden fingerprints were taken again).
+  - **P1, reciprocal contact (draft §13.5, D22):** `M4.C.1d` new. When a move whose contact component is positive
+    lowers its target's two-sided deviation on the tie, `reciprocal_contact_share` (0.5, `[I]`, the owner's Q10) of
+    the Δ contact the target took in is added to the sender's felt contact on the same tie, through the sender's own
+    `M4.C.2` gain, and the sender appraises it by their own deviation. It names no kind; it is felt contact, not
+    `M1.B.8`'s investment. **One clause differs from the draft:** the draft said a sender past their optimum feels
+    the returned contact "a cost". Under `M4.C.1`'s deviation the "too much" side is impingement, and the returned
+    contact carries none, and the band around the optimum is not felt, so a sender within the band or past their
+    optimum feels nothing from it; the applied text says so (found by the step's unit test, 2026-10-26; pending the
+    owner's review). `model_explainer.md` §19.2's bullet carries the same sentence.
+  - **P3 (draft §13.6, D22):** `M4.D.3a`'s sentence: `TRIANGLE` sits in the oldest layer, with `DISTANCE` and
+    `CUTOFF`; `config/bowen/event_kinds.md`'s row moves from layer 2 to 0 and its preamble says why.
+  - **`M10.C.1a`'s item (draft §13.7)**, **`M11.C.42`'s mutation column (§13.8)** (`reciprocal-contact-removed`),
+    **`M11.C.42`'s and `M11.C.45`'s `M11.5` notes** (§13.9; each without the draft's opening "Revision 39:", which the
+    history-in-body rule does not allow in a requirement; the rule is the draft's) and **`M1.C.1`'s sentence (§13.10)**: `bound_anxiety`
+    is not written, and `M1.C.1` is *partial* in the coverage record (an override in
+    `tools/spec_coverage_overrides.json`).
+  - **The state and mechanism tables** name `M4.C.1d` among the writers of `acute_anxiety` and `felt_contact` and in
+    the base-appraisal row.
+  - **§0.3's counts** restated (1071 MUSTs, 93 named tests).
+- **Not yet applied:** T-128 (`M17.E.1`; step 10).
 
 ### Revision 38 — the stage 2 milestone review's wording fixes, 2026-10-24 ⟦rev38 · owner 2026-10-24, stage 2 milestone review · `docs/cycles/2026-10-24_milestone-review_v2-stage-2.md`, `docs/todo/2026-10-24_stage_2_milestone_review.md`⟧
 

@@ -70,6 +70,7 @@ SCHEMA: Mapping[str, KeySpec] = MappingProxyType(
         "attention_gain": KeySpec(float, "[I]", "M4.C.8"),
         "perspective_anxiety_scale": KeySpec(float, "[I]", "M4.C.4"),
         "calm_transfer_rate": KeySpec(float, "[I]", "M4.C.10"),
+        "reciprocal_contact_share": KeySpec(float, "[I]", "M4.C.1d"),
         "symptom_leak_rate": KeySpec(float, "[I]", "M4.C.3a"),
         "symptom_threshold_gain": KeySpec(float, "[I]", "M7.D.1"),
         "symptom_rearm_fraction": KeySpec(float, "[I]", "M7.D.1"),

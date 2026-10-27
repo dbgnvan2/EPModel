@@ -386,10 +386,11 @@ def test_m4d1h_decide_sets_intensity_by_force():
     from src.bowen.policy import policy
     marker = 77.0
     with mock.patch.object(policy, "force", lambda outcome, obs, params: marker):
-        _, records = scenario("phase_c", 0, 4)
+        _, records = scenario("phase_c", 3, 4)
     from src.bowen.engine.log_records import DecidedBy, EmittedRecord, SelectionRecord
     # Revision 39: a mover without perspective starts an I-POSITION sequence, whose later steps the sequence decides,
-    # not the policy (`M5.D.9`); those are left out, and there must be one here so the filter is exercised.
+    # not the policy (`M5.D.9`); those are left out, and there must be one here so the filter is exercised. Seed 3:
+    # since group A (step 9) seed 0 starts no sequence in its first 30 weeks, and seed 3 does within 4.
     by_policy = {r.event_id for r in records if isinstance(r, SelectionRecord) and r.decided_by is DecidedBy.POLICY}
     steps = {r.event_id for r in records if isinstance(r, SelectionRecord) and r.decided_by is DecidedBy.SEQUENCE}
     moves = [r.event for r in records if isinstance(r, EmittedRecord) and r.event.sender is not None

@@ -40,6 +40,7 @@ class EngineParams:
     attention_gain: float                  # M4.C.8 — amplification of attended feeling; ordering of attended intellect
     perspective_anxiety_scale: float       # M4.C.4, M1.A.18d — excess anxiety that halves the effective perspective
     calm_transfer_rate: float              # M4.C.10 — share of the anxiety gap a calmer sender takes per unit conductance
+    reciprocal_contact_share: float        # M4.C.1d — share of the contact a relieved receiver took in that returns to the sender
     symptom_leak_rate: float               # M4.C.3a — share of the chronicity integral that leaks per tick
     symptom_threshold_gain: float          # M1.A.6, M7.D.1 — onset threshold per point of functional level
     symptom_rearm_fraction: float          # M7.D.1 — share of threshold below which a channel can fire again
@@ -240,8 +241,8 @@ class EngineParams:
             raise ValueError("sink_window >= 1, sink_rate in [0, 1], exchange_budget_reduction non-negative")
         if self.outsider_positional_gain < 0 or self.pseudo_self_transfer_gain < 0:
             raise ValueError("outsider_positional_gain and pseudo_self_transfer_gain must be non-negative")
-        for name in ("witness_weight", "calm_transfer_rate", "symptom_leak_rate", "symptom_rearm_fraction",
-                     "reactive_rate", "investment_leak_rate", "attention_gain", "belief_rate",
+        for name in ("witness_weight", "calm_transfer_rate", "reciprocal_contact_share", "symptom_leak_rate",
+                     "symptom_rearm_fraction", "reactive_rate", "investment_leak_rate", "attention_gain", "belief_rate",
                      "distance_binding_rate", "triangle_transfer_rate", "balance_push_gain", "balance_settle_rate",
                      "balance_harden_rate", "reversal_asymmetry", "rejection_cutoff_gain",
                      "rejection_refusal_gain", "rejection_relief", "rejection_fade",

@@ -139,7 +139,7 @@ MUTANTS = (
            "    push = params.balance_push_gain * _strength(event, params)\n"
            "    push *= 2.0 if state.people[over].sex.value == \"female\" else 0.5\n",
            "a sex term added to pole assignment: a female over-functioner pushes four times as hard"),
-    Mutant("one-sided-deviation", NAMED, ("M11.C.27[", "M11.C.44"), "src/bowen/engine/contact.py",
+    Mutant("one-sided-deviation", NAMED, ("M11.C.27[", "M11.C.44", "M11.C.45"), "src/bowen/engine/contact.py",
            "    return little + much\n", "    return little\n",
            "M4.C.1 made one-sided: only too little contact is felt"),
     Mutant("anger-gate-inverted", NAMED, ("M11.C.32",), "src/bowen/engine/iposition.py",
@@ -290,6 +290,13 @@ MUTANTS = (
            "moved = min(excess(seeker), rate * excess(seeker))",
            "moved = min(excess(seeker), rate * max(0.0, SCALE_MAX / 10 - excess(seeker)))",
            "M1.C.1's relief falls as the seeker's tension rises (still conserved, so the ledger holds)"),
+    # --- spec revision 39, group A (stage 3 step 9; plan §3.7, S3.10, S3.12–S3.14) ----------------
+    # M11.C.42's row: removing M4.C.1d's returned contact (share 0) MUST turn it red, if it passes. M11.C.45's row
+    # adds the existing one-sided-deviation (contact always relieves) beside relief-tension-independent.
+    Mutant("reciprocal-contact-removed", NAMED, ("M11.C.42",), "src/bowen/engine/appraise.py",
+           "    returned = params.reciprocal_contact_share * d_contact * content_gain(sender, params)\n",
+           "    returned = 0.0 * d_contact * content_gain(sender, params)\n",
+           "M4.C.1d removed: a relieved target returns no contact to the sender"),
     # --- spec revision 39, group F (stage 3 step 8; plan §3.7, S3.6, S3.7, S3.9) ------------------
     # M11.C.49's row: M5.F.4's demand share removed (w := 1, the act all self-statement at any level) MUST turn its
     # composite limbs red; inverted (w := 1 − w) MUST reverse them.

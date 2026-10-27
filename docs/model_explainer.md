@@ -711,7 +711,7 @@ At low level a person is nearly all automatic; as level rises a real self-direct
 - `[T]` `KS02.1` — "*better differentiated people have more control than do less differentiated people*" — but never full autonomy at any level.
 - **Consequence** *(regraded `[I]` 2026-08-28)*: differentiation is **not reachable by lengthening a reinforcement horizon**, because the two channels optimise different things. **This is a design decision, not a corpus finding.** The passage it had rested on is the KB10 interview on band-aid *legislation* — societal scale — and the corpus arguably cuts the other way: the actions that can make a system more flexible "are based on a **broad and long-range assessment** of the situation" (`family_evaluation/fe03.md` · FE03.21, Kerr's chapter, `[K]`). What that passage supports is *relieving now worsens later*, not that a longer horizon cannot reach the target. Anxiety-relieving action genuinely relieves anxiety, so an agent choosing a binder is not making an error a longer horizon would correct.
 
-**The ordering within the automatic channel.** Rising anxiety does not simply "raise the reactive weights" — it **slides selection down a complexity ordering**: **cooperation** (requires both systems as a working team) → **conflict** → **dominant-adaptive** ("older evolutionarily, more primitive") → **distance**, the oldest of all. `M4.D.3a`, `KS06.1`
+**The ordering within the automatic channel.** Rising anxiety does not simply "raise the reactive weights" — it **slides selection down a complexity ordering**: **cooperation** (requires both systems as a working team) → **conflict** → **dominant-adaptive** ("older evolutionarily, more primitive") → **distance**, the oldest of all. `TRIANGLE` is placed with distance (revision 39, `[I]`). `M4.D.3a`, `KS06.1`
 
 **Engagement is gated by perspective, not by anxiety.** Nothing else in the model makes an agent approach its hardest tie — every reactive move reduces engagement. "*Of course it is difficult if you lack a theory to guide you.*" Without mindware the loaded tie is **correctly** avoided; with it, the same tie becomes approachable. `M4.D.3b`, `KS15.11`
 
@@ -2088,12 +2088,13 @@ Version 2's stage 2 builds the constant sweep (`M17.E.1`) and the detection-limi
 
 **Agents do not know consequences** (spec `M4.B.3`). An agent feels its own state change and repeats what relieved it. A cost that arrives later is felt as anxiety when it arrives and is credited to whatever it did within the learning horizon at that time. Distance relieves tension now and produces anxiety later from the lack of the relationship. Projection calms a parent now and later troubles the child, who is learning too. The second round of learning comes from those consequences. `[M]` as a design; every constant `[I]`.
 
-### 19.2 The drives and the appraisal (spec `M4.C.1`–`M4.C.1c`)
+### 19.2 The drives and the appraisal (spec `M4.C.1`–`M4.C.1d`)
 
 - **Two-sided appraisal** `[T]` `[K]` — Kerr 2019: people have "a profound need for emotional closeness" and are averse "to too much of it", and threats of too much distance and too much closeness both activate the stress response (`KS03.2`). Threats to contact and to distance are "the fundamental triggers of anxiety" (`KS06.3`). That extraction recommended re-deriving the appraisal rule from it, and revision 11 did. Whether Kerr is reporting Bowen in each place has not been checked.
 - **Level sets steepness and width** `[D]` — "well-differentiated people manage the closeness-distance dilemma more effectively" (`KS03.2`). The functional form is `[I]`; division by functional level, the revision-10 form, is one admissible version.
 - **Anxiety moves the optimum toward closeness** `[T]` `[D]` — the togetherness force intensifies by default as anxiety rises (`KS06.5`).
 - **One function for events and standing load** `[I]` — the standing load is the "too little" side of the same function, so cutoff produces anxiety of its own without a separate rule.
+- **Contact that relieves returns in part to its sender** `[I]` (`M4.C.1d`, revision 39) — the insiders of a triangle are calmed by their alliance (`KS03.1`, `[K]`); a receiver relieved by an approach returns `reciprocal_contact_share` of the contact to the sender, who feels it by their own deviation, so seeking out another relieves only when closeness is wanted. A sender within the band of their optimum or past it feels nothing from it: the band is not felt, and the "too much" side of the deviation is impingement, which the returned contact does not carry.
 
 ### 19.3 Learning (spec `M4.D.6a`, reversed)
 
@@ -2128,7 +2129,9 @@ The core moves keep their names but each is one act. The pattern of the same nam
   sender and that partner are the inside pair; each passes part of their anxiety to the recruited third, who
   also generates more of their own (`KS03.1`). Less passes among better-differentiated members. *Decided
   2026-10-08: step 5 had first made the sender and the person turned to the inside pair, which contradicted
-  `M1.F.1b`, `M11.C.3`, `M11.C.42` and `M6.4`.*
+  `M1.F.1b`, `M11.C.3`, `M11.C.42` and `M6.4`.* *Revision 39:* `TRIANGLE` is in the oldest layer, with
+  distance and cutoff, so falling level does not make it less available (`M4.D.3a`, `KS15.10`, `FE06.20`, `[K]`;
+  the placement `[I]`); a third who is relieved by being approached returns contact to the seeker (`M4.C.1d`).
 - **Taking charge and giving way** push the tie's functioning balance toward one person's pole, and move
   pseudo-self and functional level between the two, conserved.
   - The balance has no stable middle and hardens with time.

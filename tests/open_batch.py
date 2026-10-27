@@ -123,15 +123,22 @@ def hash_as_found(namespace: dict | None = None):
         yield
 
 
+def _own(text: str, mutant_id: str) -> str:
+    """The text of ``Mutant("mutant_id"``'s definition in ``text``: from it to the next ``Mutant(``, or the end."""
+    start = text.find(f'Mutant("{mutant_id}"')
+    end = text.find("Mutant(", start + 1)
+    return text[start:end if end >= 0 else len(text)]
+
+
 def mutants_as_found(namespace: dict, found: Path) -> list[tuple[types.ModuleType, tuple]]:
     """Each reachable tool module under ``tools/`` that holds ``MUTANTS``, with that tuple cut to the mutants whose
     ``Mutant("id"`` the file that defines it held at ``OPENED_AT`` (none, if the file did not exist), and each kept
-    mutant's criteria cut to those that file named, quoted, at ``OPENED_AT``. A module that imported the tuple (the
-    diagnostic record's tool imports the mutation record's) gets the defining file's cut, as the same object. A mutant
-    or criterion added since is a tool edit D31 leaves for step 10; one whose edits changed since keeps its id here, and
-    its result key moves, so a test that reads it still fails as usual. A criterion added since whose quoted key the old
-    file held elsewhere is kept, and the test fails as usual. A tool whose file names no kept mutant's criteria quoted
-    (its criteria are built, not written out) keeps them all."""
+    mutant's criteria cut to those its own definition there named, quoted (from its ``Mutant("id"`` to the next
+    ``Mutant(``; step 9 added ``M11.C.45`` to ``one-sided-deviation``, a key other mutants already quoted). A module
+    that imported the tuple (the diagnostic record's tool imports the mutation record's) gets the defining file's cut,
+    as the same object. A mutant or criterion added since is a tool edit D31 leaves for step 10; one whose edits
+    changed since keeps its id here, and its result key moves, so a test that reads it still fails as usual. A mutant
+    whose definition then named no criterion quoted (its criteria are built, not written out) keeps them all."""
     tools = (REPO / "tools").resolve()
     holders: dict[int, list[types.ModuleType]] = {}
     for module in _reachable_modules(namespace):
@@ -145,7 +152,8 @@ def mutants_as_found(namespace: dict, found: Path) -> list[tuple[types.ModuleTyp
             raise RuntimeError(f"MUTANTS held by {[m.__name__ for m in modules]} is defined by {len(defining)} of them")
         then = found / Path(defining[0].__file__).resolve().relative_to(REPO)
         text = then.read_text(encoding="utf-8") if then.exists() else ""
-        kept = tuple(dataclasses.replace(m, criteria=tuple(c for c in m.criteria if f'"{c}"' in text) or m.criteria)
+        kept = tuple(dataclasses.replace(m, criteria=tuple(c for c in m.criteria if f'"{c}"' in _own(text, m.id))
+                                         or m.criteria)
                      for m in modules[0].MUTANTS if f'Mutant("{m.id}"' in text)
         out += [(module, kept) for module in modules]
     return out

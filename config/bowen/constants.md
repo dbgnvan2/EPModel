@@ -108,6 +108,7 @@ activation_regime: synchronous
 | `attention_gain` | 0.5 | [I] | relative change in appraisal | `M4.C.8` |
 | `perspective_anxiety_scale` | 10.0 | [I] | points of excess anxiety | `M4.C.4` |
 | `calm_transfer_rate` | 0.05 | [I] | share of the anxiety gap per unit conductance | `M4.C.10` |
+| `reciprocal_contact_share` | 0.5 | [I] | share of the contact a relieved receiver took in | `M4.C.1d` |
 | `symptom_leak_rate` | 0.1 | [I] | share of the integral per tick | `M4.C.3a` |
 | `symptom_threshold_gain` | 1.5 | [I] | integral units per functional-level point | `M7.D.1` |
 | `symptom_rearm_fraction` | 0.5 | [I] | share of the threshold | `M7.D.1` |

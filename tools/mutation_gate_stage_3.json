@@ -141,5 +141,96 @@
    ]
   ],
   "expect": "assert not [t for t in f_spells if t in window], (arm, f_spells)"
+ },
+ {
+  "gate": "S3.10",
+  "test": "tests/bowen/test_appraise.py::test_m4c1d_s3_10_relieved_receiver_returns_contact",
+  "mutation": "`reciprocal-contact-removed` (the Phase C mutant's edit): `M4.C.1d`'s share is 0, nothing returns",
+  "edits": [
+   [
+    "src/bowen/engine/appraise.py",
+    "    returned = params.reciprocal_contact_share * d_contact * content_gain(sender, params)\n",
+    "    returned = 0.0 * d_contact * content_gain(sender, params)\n"
+   ]
+  ],
+  "expect": "assert tie.felt_contact[RAVI] - before == pytest.approx(expected, abs=1e-12), (kind, target_contact, anxious)"
+ },
+ {
+  "gate": "S3.10 (any kind)",
+  "test": "tests/bowen/test_appraise.py::test_m4c1d_s3_10_relieved_receiver_returns_contact",
+  "mutation": "`reciprocal-contact-triangle-only`: only a `TRIANGLE` returns contact (the act-generality limb)",
+  "edits": [
+   [
+    "src/bowen/engine/appraise.py",
+    "    if change is None or state.kinds.components_of(event.kind)[0] <= 0:\n",
+    "    if change is None or event.kind != \"TRIANGLE\":\n"
+   ]
+  ],
+  "expect": "assert tie.felt_contact[RAVI] - before == pytest.approx(expected, abs=1e-12), (kind, target_contact, anxious)"
+ },
+ {
+  "gate": "S3.10 (relief)",
+  "test": "tests/bowen/test_appraise.py::test_m4c1d_s3_10_relieved_receiver_returns_contact",
+  "mutation": "the relief condition removed: a target whose deviation does not fall returns contact as well",
+  "edits": [
+   [
+    "src/bowen/engine/appraise.py",
+    "    if after >= before:\n        return None  # the target is not relieved\n",
+    "    if False:\n        return None  # the target is not relieved\n"
+   ]
+  ],
+  "expect": "assert tie.felt_contact[RAVI] - before == pytest.approx(expected, abs=1e-12), (kind, target_contact, anxious)"
+ },
+ {
+  "gate": "S3.10 (sender's gain)",
+  "test": "tests/bowen/test_appraise.py::test_m4c1d_s3_10_relieved_receiver_returns_contact",
+  "mutation": "the sender's `M4.C.2` gain removed: a sender above `defence_threshold` takes in the returned contact",
+  "edits": [
+   [
+    "src/bowen/engine/appraise.py",
+    "    returned = params.reciprocal_contact_share * d_contact * content_gain(sender, params)\n",
+    "    returned = params.reciprocal_contact_share * d_contact\n"
+   ]
+  ],
+  "expect": "assert tie.felt_contact[RAVI] - before == pytest.approx(expected, abs=1e-12), (kind, target_contact, anxious)"
+ },
+ {
+  "gate": "S3.11",
+  "test": "tests/bowen/test_policy.py::test_m4d3a_s3_11_triangle_is_layer_zero",
+  "mutation": "the config row set back to layer 2: `TRIANGLE` placed with conflict, as at revision 38",
+  "edits": [
+   [
+    "config/bowen/event_kinds.md",
+    "| `TRIANGLE` | move | +1 | +1 | 0.3 | 0 | no | automatic | 0 | `M5.A.1` |",
+    "| `TRIANGLE` | move | +1 | +1 | 0.3 | 0 | no | automatic | 2 | `M5.A.1` |"
+   ]
+  ],
+  "expect": "assert KINDS.layers[\"TRIANGLE\"] == 0, f\"TRIANGLE is in layer {KINDS.layers['TRIANGLE']}\""
+ },
+ {
+  "gate": "S3.10 (the sender appraises)",
+  "test": "tests/bowen/test_appraise.py::test_m4c1d_sender_appraises_the_returned_contact_by_their_own_deviation",
+  "mutation": "the sender's appraisal of the returned contact dropped: the contact arrives and is not felt",
+  "edits": [
+   [
+    "src/bowen/engine/appraise.py",
+    "            add(event.id, event.sender, back_delta)\n",
+    "            pass\n"
+   ]
+  ],
+  "expect": "assert with_share < without, \"returned contact on the 'too little' side must relieve the sender\""
+ },
+ {
+  "gate": "S3.10 (the whole delivery)",
+  "test": "tests/bowen/test_appraise.py::test_m4c1d_relief_reads_the_whole_delivery",
+  "mutation": "relief read on the contact side alone (Q11's rejected reading): the delivery's impingement left out",
+  "edits": [
+   [
+    "src/bowen/engine/appraise.py",
+    "    after = deviation_at(target, tie, params, clamp_unit(contact + d_contact), clamp_unit(imp + d_imp))\n    if after >= before:",
+    "    after = deviation_at(target, tie, params, clamp_unit(contact + d_contact), imp)\n    if after >= before:"
+   ]
+  ],
+  "expect": "assert tie.felt_contact[RAVI] == before, \"a delivery that raised the target's deviation returned contact\""
  }
 ]

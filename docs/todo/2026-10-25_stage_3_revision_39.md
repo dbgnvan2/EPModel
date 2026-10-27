@@ -62,3 +62,26 @@ Raised while drafting part 1 of spec revision 39 (`docs/spec_revision_39_draft.m
   the sweep edits a copy of `constants.md`, so the two agree today. `mover_at` sets the mover's systems perspective to
   1.0 in code (the owner's Q13 for `M11.C.49`, and `M11.C.29`'s and `M11.C.32`'s arms before it); a criteria setting
   in `config/bowen/criteria.md` would declare it. Neither changes a result now.
+- [ ] T-140 ⟨later⟩ **`M5.C.1`'s gate and `M4.C.1d`'s returned contact (the step 9 `learning-qa` pass, 2026-10-26).**
+  Under marital distance, `M5.C.1` stops a move addressed to a symptomatic child from improving them; the contact a
+  relieved person returns to that child under `M4.C.1d` is not a move addressed to them, so it calms them. In a probe
+  (a scratch copy), a symptomatic Nadia sends `STAY-IN-CONTACT` to a relieved Marta: Nadia's acute anxiety moves by
+  −0.91 with `reciprocal_contact_share` at 0.5 and by +0.49 (the speaker echo only) at 0. The other direction holds
+  too: a gated target, whose relief is set to 0, still counts as relieved by `M4.C.1`'s deviation and returns contact.
+  The approved text is silent on how the two rules meet. The owner chose to keep the code as built (2026-10-26);
+  whether to gate it (one line in `apply_appraisal`, a sentence in `M4.C.1d`, a test) is left for the owner's review.
+- [ ] T-141 ⟨later⟩ **The sender's appraisal of returned contact reads the event's sign and attention (the step 9
+  `learning-qa` pass, 2026-10-26; low).** `returned_contact` in `src/bowen/engine/appraise.py` signs the sender's
+  appraisal with `sign(event.kind, event.source_position)`, the receiver's sign for the sender's position, and scales
+  it by `attention_factor(sender, event, params)`, where `event.attention` describes the receiver's attention. Every
+  sign in `config/bowen/` is +1 and nothing in `src/` sets an attention other than none, so neither changes a run now;
+  a −1 sign in config would invert the sender's relief.
+- [ ] T-142 ⟨later⟩ **Group A does not turn `M11.C.42` or `M11.C.45` green, and `M11.C.44` stops passing (the step 9
+  targeted run, 2026-10-26).** On Mac Mini1 at engine hash `2a3b84e2d89a` (`docs/review/stage_3_step_9_criteria.md`):
+  `M11.C.42`'s `triangle_reuse` −0.06 ± 0.36 over 50 seeds (revision 38's record −0.34 ± 0.35), so S3.12 is not met;
+  `M11.C.45`'s `triangle_rate` +0.0013 ± 0.0055 over 150 (−0.0019 ± 0.0047), so S3.13 is not met; and `M11.C.44`'s
+  `outside_inside_ratio` −0.020 ± 0.089 over 150, against a pass at +0.10 ± 0.092 in the record (S3.14 reports it
+  beside version 1's verdict). Since none passes, their mutants (`reciprocal-contact-removed` among them) did not run.
+  The `M11.C.27` cells keep their verdicts (three fail, `[unstable,remove_one]` passes), as do `M11.C.16` and
+  `M11.C.41`'s four cells. The settings and `reciprocal_contact_share` (0.5, `[I]`) are not to be tuned to these rows
+  (`M10.B.4`); read with step 10's regeneration and the sweep; left for the owner.

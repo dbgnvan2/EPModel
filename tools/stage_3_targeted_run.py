@@ -8,10 +8,11 @@ Purpose: plan steps 7–9 (`docs/implementation_plan_version_2_stage_3.md` §3.8
          record's, each with the same adaptive rules — and writes a page under ``docs/review/`` beside each criterion's
          row in the committed records (the revision 38 engine, which the open batch keeps). A mutant runs only on a
          criterion that passes here, as the records' rule is (`M11.1d`). Nothing is cached and no record moves.
-Spec:    docs/implementation_plan_version_2_stage_3.md#3.8 (steps 7, 8), #3.7 (S3.2, S3.3, S3.5, S3.7, S3.9);
+Spec:    docs/implementation_plan_version_2_stage_3.md#3.8 (steps 7–9), #3.7 (S3.2, S3.3, S3.5, S3.7, S3.9);
          docs/bowen_agent_model_spec_v2.md#M11.1d
 Tests:   tests/test_stage_3_probes.py::test_stage_3_targeted_run_renders_rows_and_mutants,
-         tests/test_stage_3_probes.py::test_stage_3_targeted_run_sends_each_criterion_to_its_phase
+         tests/test_stage_3_probes.py::test_stage_3_targeted_run_sends_each_criterion_to_its_phase,
+         tests/test_stage_3_probes.py::test_stage_3_targeted_run_names_cells_by_the_records_rule
 
     python3 tools/stage_3_targeted_run.py --criteria M11.C.49 M11.C.29 M11.C.18 \\
         [--workers 6] [--out docs/review/stage_3_step_8_criteria.md] [--title "..."]
@@ -53,6 +54,16 @@ def mutants(phase: str) -> tuple:
     return importlib.import_module(PHASES[phase][2]).MUTANTS
 
 
+def names(phase: str, mutant, cid: str) -> bool:
+    """Whether ``mutant`` names criterion ``cid`` by its record's rule: the Phase C record's ``targets`` also takes a
+    name ending in ``[`` as every cell it begins and a bare name as each of its cells; the Phase D record's is exact.
+    A representation mutant (``"*"``, every criterion) is left to the full record: it names no criterion."""
+    if phase == "D":
+        return cid in mutant.criteria
+    return any(cid == c or (c.endswith("[") and cid.startswith(c)) or cid.startswith(c + "[")
+               for c in mutant.criteria)
+
+
 def committed_rows() -> dict[tuple[str, str], dict]:
     """Each criterion's row in the committed records of its phase, keyed ``(phase, criterion)`` as the child keys it."""
     from tools.record_json import record_json
@@ -79,7 +90,7 @@ def run(criteria: list[str], workers: int) -> tuple[list[dict], list[tuple[str, 
         rows.update((r["criterion"], r) for r in child_rows(None, child, mine, workers, f"no mutant ({phase})"))
         passed = {c for c in mine if rows[c]["outcome"] == "PASS"}
         for mutant in mutants(phase):
-            targets = [c for c in mutant.criteria if c in passed]
+            targets = [c for c in mine if c in passed and names(phase, mutant, c)]
             if targets:
                 mutated += [(mutant.id, r) for r in child_rows(mutant, child, targets, workers, mutant.id)]
     return [rows[c] for c in criteria], mutated
@@ -110,7 +121,7 @@ def render(title: str, engine: str, when: str, rows: list[dict], mutated: list[t
         lines.append(f"| `{row['criterion']}` | {phase} | **{row['outcome']}**{missing} | {row['seeds']} | "
                      f"{_readouts(row)} | {then} |")
     lines += ["", "## Mutants", ""]
-    named = [(m.id, c) for c in criteria for m in mutants(phase_of(c)) if c in m.criteria]
+    named = [(m.id, c) for c in criteria for m in mutants(phase_of(c)) if names(phase_of(c), m, c)]
     if mutated:
         lines += ["| Mutant | Criterion | Outcome under mutant | Seeds | Difference under mutant |", "|---|---|---|---|---|"]
         lines += [f"| `{mid}` | `{r['criterion']}` | {r['outcome']} | {r['seeds']} | {_readouts(r)} |"

@@ -46,6 +46,7 @@ GOOD_ROWS = (
     "| `attention_gain` | 0.5 | [I] | u | `M4.C.8` |\n"
     "| `perspective_anxiety_scale` | 10.0 | [I] | u | `M4.C.4` |\n"
     "| `calm_transfer_rate` | 0.05 | [I] | u | `M4.C.10` |\n"
+    "| `reciprocal_contact_share` | 0.5 | [I] | u | `M4.C.1d` |\n"
     "| `symptom_leak_rate` | 0.1 | [I] | u | `M4.C.3a` |\n"
     "| `symptom_threshold_gain` | 1.5 | [I] | u | `M7.D.1` |\n"
     "| `symptom_rearm_fraction` | 0.5 | [I] | u | `M7.D.1` |\n"

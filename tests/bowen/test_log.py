@@ -186,7 +186,9 @@ def test_m16a7_header_flags_constants_changed_after_freeze():
                                         # spec revision 36, version 2 group G and the event sizes (grief_scale retired)
                                         "conflict_binding_rate", "cutoff_stock_cap", "cutoff_threat_weight",
                                         "cutoff_decay_weeks", "cutoff_floor_share", "positive_bridge_dissipation",
-                                        "tie_repair_steps", "grief_weight", "lcu_scale"}
+                                        "tie_repair_steps", "grief_weight", "lcu_scale",
+                                        # spec revision 39, group A (stage 3 step 9)
+                                        "reciprocal_contact_share"}
     changed = dataclasses.replace(
         constants,
         values=MappingProxyType({**constants.values,

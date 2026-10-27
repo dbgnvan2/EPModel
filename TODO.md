@@ -18,7 +18,7 @@ moves to `docs/TODO_archive.md`. Until 2026-10-22 this file held every item's te
 - T-121 · 2026-10-23 · `M11.C.11`'s named mutant survives · [record](docs/todo/2026-10-23_revision_36_regeneration.md)
 - T-123 · 2026-10-23 · `M11.C.48`'s baseline counts a first cutoff with no … · [record](docs/todo/2026-10-23_revision_36_regeneration.md)
 
-## Later (121)
+## Later (124)
 
 - T-006 · 2026-10-22 · D4, long `Spec:` lines (Part D, 2026-10-22; the … · [record](docs/todo/2026-10-22_model_ergonomics.md)
 - T-007 · 2026-10-22 · Adjacent issues found by Part D's docstring pass, … · [record](docs/todo/2026-10-22_model_ergonomics.md)
@@ -141,3 +141,6 @@ moves to `docs/TODO_archive.md`. Until 2026-10-22 this file held every item's te
 - T-137 · 2026-10-26 · `M11.C.49` fails at its first settings (the step … · [record](docs/todo/2026-10-25_stage_3_revision_39.md)
 - T-138 · 2026-10-26 · `M11.C.29`'s genuine `I-POSITION` almost never completes after D21 … · [record](docs/todo/2026-10-25_stage_3_revision_39.md)
 - T-139 · 2026-10-26 · Two arm settings read outside the run's parameters … · [record](docs/todo/2026-10-25_stage_3_revision_39.md)
+- T-140 · 2026-10-26 · `M5.C.1`'s gate and `M4.C.1d`'s returned contact (the step … · [record](docs/todo/2026-10-25_stage_3_revision_39.md)
+- T-141 · 2026-10-26 · The sender's appraisal of returned contact reads the … · [record](docs/todo/2026-10-25_stage_3_revision_39.md)
+- T-142 · 2026-10-26 · Group A does not turn `M11.C.42` or `M11.C.45` … · [record](docs/todo/2026-10-25_stage_3_revision_39.md)

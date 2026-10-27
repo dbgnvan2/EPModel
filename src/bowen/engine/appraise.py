@@ -3,8 +3,9 @@
 Purpose: give each person the events delivered to them this tick, and appraise
          each one: as the change it makes to the receiver's two-sided deviation,
          through a gain that defends against content under anxiety, with the
-         witness's, the speaker's and the calmer sender's terms.
-Spec:    docs/bowen_agent_model_spec_v2.md#M4.B.1, #M4.C.1, #M4.C.2, #M4.C.4, #M4.C.5, #M4.C.6, #M5.F.1, #M5.F.2, #M4.C.7, #M4.C.8, #M4.C.8a, #M4.C.9, #M4.C.10, #M1.F.2, #M1.F.3, #M1.F.4, #M1.F.5, #M1.F.8
+         witness's, the speaker's and the calmer sender's terms, and the contact a
+         relieved target returns to its sender.
+Spec:    docs/bowen_agent_model_spec_v2.md#M4.B.1, #M4.C.1, #M4.C.2, #M4.C.4, #M4.C.5, #M4.C.6, #M5.F.1, #M5.F.2, #M4.C.7, #M4.C.8, #M4.C.8a, #M4.C.9, #M4.C.10, #M4.C.1d, #M1.F.2, #M1.F.3, #M1.F.4, #M1.F.5, #M1.F.8
 Tests:   tests/bowen/test_appraise.py; tests/bowen/test_contact.py; tests/bowen/test_mechanisms.py
 
 Every form below is the project's, graded [I]; the constants are in
@@ -71,6 +72,16 @@ smaller than addressed to the other directly.
 than its target, ``calm_transfer_rate × conductance × gap`` moves from the target to
 the sender — a transfer, logged as one (`M6.4`). Seeking it is never a move; the
 learner finds it.
+
+**Contact that relieves returns in part** (`M4.C.1d`, spec revision 39): when a move
+whose contact component is positive lowers its target's two-sided deviation on the
+tie (contact and impingement together, from the pre-batch state), a share
+``reciprocal_contact_share`` of the Δ contact the target took in is added to the
+sender's felt contact on the same tie, through the sender's own ``content_gain``,
+and the sender appraises it as delivered contact: by the change in their own
+deviation, with their own steepness, reattribution and attention, and no second
+conductance factor. It names no kind. It is felt contact only, so it does not count
+toward `M1.B.8`'s investment.
 
 **An exogenous stressor** has no tie: ``intensity / intensity_scale × steepness ×
 fidelity``. **An endogenous symptom event** (`M7.D.1`) is appraised the same way,
@@ -301,6 +312,44 @@ def speaker_echo(state: RunState, delivery: Delivery, event: Event, params: Engi
     return params.speaker_echo_gain * _scale(event, conductance, params) * steepness(speaker, params)
 
 
+def returned_contact(state: RunState, delivery: Delivery, event: Event, params: EngineParams):
+    """Purpose: the contact a relieved target returns to the sender, as the sender takes it in, and the sender's
+             appraisal of it, from the pre-batch state; None when nothing returns.
+    Spec:    docs/bowen_agent_model_spec_v2.md#M4.C.1d
+    Tests:   tests/bowen/test_appraise.py::test_m4c1d_s3_10_relieved_receiver_returns_contact
+
+    Returns ``(tie, returned contact, Δ acute of the sender)``.
+    """
+    change = tie_change(state, delivery, event, params)
+    if change is None or state.kinds.components_of(event.kind)[0] <= 0:
+        return None
+    tie, d_contact, d_imp = change
+    sender = state.people[event.sender]
+    if d_contact <= 0 or not sender.alive:
+        return None
+    target = state.people[delivery.recipient]
+    contact, imp = felt_contact(target, tie), felt_impingement(target, tie)
+    before = deviation_at(target, tie, params, contact, imp)
+    after = deviation_at(target, tie, params, clamp_unit(contact + d_contact), clamp_unit(imp + d_imp))
+    if after >= before:
+        return None  # the target is not relieved
+    returned = params.reciprocal_contact_share * d_contact * content_gain(sender, params)
+    if returned <= 0:
+        return None
+    own, own_imp = felt_contact(sender, tie), felt_impingement(sender, tie)
+    change_in_deviation = (deviation_at(sender, tie, params, clamp_unit(own + returned), own_imp)
+                           - deviation_at(sender, tie, params, own, own_imp))
+    reattributed = effective_perspective(sender, tie, params) * own_share(
+        state, sender.id, target.id, params.reappraisal_window
+    )
+    delta = (
+        params.appraisal_gain * steepness(sender, params) * change_in_deviation
+        * state.kinds.sign(event.kind, event.source_position)
+        * (1.0 - reattributed) * attention_factor(sender, event, params)
+    )
+    return tie, returned, delta
+
+
 def calm_transfer(state: RunState, delivery: Delivery, event: Event, params: EngineParams) -> float:
     """Purpose: anxiety a calmer sender takes from its target, from the pre-batch state; 0 otherwise.
     Spec:    docs/bowen_agent_model_spec_v2.md#M4.C.10, #M6.4
@@ -326,7 +375,7 @@ def apply_appraisal(
     params: EngineParams,
 ) -> tuple[list[EffectRecord], dict[tuple[TieId, PersonId], float], dict[PersonId, float]]:
     """Purpose: apply one tick's appraisals, contact changes, echoes and calm transfers as a batch (M1.F.8).
-    Spec:    docs/bowen_agent_model_spec_v2.md#M4.C.1, #M4.C.7, #M4.C.10, #M1.F.5, #M1.F.8
+    Spec:    docs/bowen_agent_model_spec_v2.md#M4.C.1, #M4.C.1d, #M4.C.7, #M4.C.10, #M1.F.5, #M1.F.8
     Tests:   tests/bowen/test_mechanisms.py::test_m1f8_same_tick_batch_order_does_not_change_state
 
     Returns the records; for `M1.B.8`'s investment, the size of what each person
@@ -370,6 +419,13 @@ def apply_appraisal(
             readings[delivery.recipient] = readings.get(delivery.recipient, 0.0) + inward_reading(
                 state, delivery, event, params
             )
+        returned = returned_contact(state, delivery, event, params)
+        if returned is not None:  # M4.C.1d: felt contact only, not counted in `attended` (M1.B.8)
+            tie, back, back_delta = returned
+            key = (tie.id, event.sender)
+            c, i = contact_moves.get(key, (0.0, 0.0))
+            contact_moves[key] = (c + back, i)
+            add(event.id, event.sender, back_delta)
         moved = 0.0 if _gated(state, delivery.recipient, distant) else calm_transfer(state, delivery, event, params)
         if moved:
             transfers.setdefault(event.id, []).append((delivery.recipient, event.sender, moved))

@@ -136,6 +136,22 @@ def test_d31_the_rerun_leaves_out_a_mutant_added_since_the_batch_opened():
     assert "M11.C.2" in next(m for m in tool.MUTANTS if m.id == "witness-path-removed").criteria
 
 
+
+def test_d31_a_criterion_added_to_a_mutant_is_cut_by_its_own_definition():
+    """Step 9 adds ``M11.C.45`` to the Phase C ``one-sided-deviation``. Other mutants quoted ``"M11.C.45"`` in the file
+    the batch found, so a cut by the whole file kept it and the record rendered a "Not run" line it did not have
+    (the step 9 suite run, 2026-10-26); the cut reads the mutant's own definition, and the list is restored after."""
+    from tools import mutation_record
+
+    then = subprocess.run(["git", "-C", str(REPO), "show", f"{open_batch.OPENED_AT}:tools/mutation_record.py"],
+                          capture_output=True, text=True, check=True, timeout=60).stdout
+    now = next(m for m in mutation_record.MUTANTS if m.id == "one-sided-deviation").criteria
+    assert "M11.C.45" in now and '"M11.C.45"' in then
+    with hash_as_found({"tool": mutation_record}):
+        cut = next(m for m in mutation_record.MUTANTS if m.id == "one-sided-deviation").criteria
+    assert cut == ("M11.C.27[", "M11.C.44")
+    assert next(m for m in mutation_record.MUTANTS if m.id == "one-sided-deviation").criteria == now
+
 def test_d31_a_tool_that_imports_mutants_gets_the_defining_files_cut():
     """The diagnostic record's tool imports the mutation record's ``MUTANTS``; its own file defines none. Cut by its own
     file, every mutant would go and its lookup would fail (the step 7 suite run, 2026-10-26: StopIteration). It gets

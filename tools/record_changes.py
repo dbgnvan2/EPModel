@@ -120,9 +120,10 @@ NOT_COMPARED = (
      "`tools/stage_3_displaced_coping_probe.py`, in no record's hash) and step 1's T-130 comparison, new in stage 3; "
      "nothing at {side} to compare"),
     ("docs/review/stage_3_unit_mutation_gate.md, docs/review/stage_3_step_7_criteria.md, "
-     "docs/review/stage_3_step_7_c2_mutants.md, docs/review/stage_3_step_8_criteria.md",
+     "docs/review/stage_3_step_7_c2_mutants.md, docs/review/stage_3_step_8_criteria.md, "
+     "docs/review/stage_3_step_9_criteria.md",
      "stage 3's measurements between the open batch's commits (D31): "
-     "the unit mutation proofs (`tools/mutation_gate.py`) and steps 7's and 8's targeted criteria and mutant runs "
+     "the unit mutation proofs (`tools/mutation_gate.py`) and steps 7's to 9's targeted criteria and mutant runs "
      "(`tools/stage_3_targeted_run.py`), new in stage 3; nothing at {side} to compare"),
     ("docs/version_1_status.md", "version 1's status page, frozen at the tag: "
      "`tests/test_version_1_status.py` checks that it is the tag's, byte for byte"),

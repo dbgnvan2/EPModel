@@ -44,8 +44,10 @@
 > (Phase C step 9): splitting, framing ambiguity and displacing are reactive acts toward the helper.
 > `layer` is an automatic move's place in `M4.D.3a`'s complexity ordering, 0 the oldest: distance and cutoff
 > (0, "single-celled organisms could not survive without a distancing mechanism") → dominant-adaptive,
-> over- and underfunctioning (1) → conflict (2). `PURSUE` and `TRIANGLE` are placed with conflict, `[I]`: the
-> source orders four classes and names neither (`KS06.1`, `KS02.3`).
+> over- and underfunctioning (1) → conflict (2). `PURSUE` is placed with conflict, `[I]`, and `TRIANGLE` with
+> distance and cutoff, layer 0, `[I]` (spec revision 39, `M4.D.3a`, the owner's D22): the source orders four classes
+> and names neither (`KS06.1`, `KS02.3`); triangles may have roots older than language (`KS15.10`) and form among the
+> well differentiated too (`FE06.20`).
 
 | kind | mechanism | inside_sign | outside_sign | contact | impingement | accommodates | channel | layer | spec |
 |---|---|---|---|---|---|---|---|---|---|
@@ -54,7 +56,7 @@
 | `CONFLICT` | move | +1 | +1 | 0.3 | 0.6 | no | automatic | 2 | `M5.A.1` |
 | `OVERFUNCTION` | move | +1 | +1 | 0.2 | 0.5 | no | automatic | 1 | `M5.A.1` |
 | `UNDERFUNCTION` | move | +1 | +1 | 0.2 | 0 | yes | automatic | 1 | `M5.A.1` |
-| `TRIANGLE` | move | +1 | +1 | 0.3 | 0 | no | automatic | 2 | `M5.A.1` |
+| `TRIANGLE` | move | +1 | +1 | 0.3 | 0 | no | automatic | 0 | `M5.A.1` |
 | `CUTOFF` | move | +1 | +1 | 0 | 0 | no | automatic | 0 | `M5.A.1` |
 | `I-POSITION` | move | +1 | +1 | 0.2 | 0.1 | no | self | — | `M5.A.1` |
 | `STAY-IN-CONTACT` | move | +1 | +1 | 0.5 | 0 | no | self | — | `M5.A.1` |

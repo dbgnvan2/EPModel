@@ -190,3 +190,30 @@ def test_stage_3_targeted_run_sends_each_criterion_to_its_phase(monkeypatch):
     assert ran == {("demand-share-removed", "mutant_runner.py"), ("demand-share-inverted", "mutant_runner.py"),
                    ("dependence-gate-removed", "phase_d_mutant_child.py")}
     assert {mid for mid, _ in mutated} == {"demand-share-removed", "demand-share-inverted", "dependence-gate-removed"}
+
+
+def test_stage_3_targeted_run_names_cells_by_the_records_rule(monkeypatch):
+    """Step 9: a Phase C mutant that names ``M11.C.27[`` runs on a passing cell of it, as the Phase C mutation record's
+    ``targets`` would run it, and is listed as not run on a failing one; one that names the bare ``M11.C.41`` runs on a
+    passing cell of it; a representation mutant (``*``) is not run."""
+    import tools.record_cache as cache
+    import tools.stage_3_targeted_run as targeted
+
+    calls = []
+
+    def child_rows(mutant, child, ids, workers, label):
+        calls.append((mutant.id if mutant else None, tuple(ids)))
+        passing = ("M11.C.27[unstable,remove_one]", "M11.C.41[light: lower level]")
+        return [{"criterion": c, "outcome": "PASS" if c in passing else "FAIL", "seeds": 1} for c in ids]
+
+    monkeypatch.setattr(cache, "child_rows", child_rows)
+    cells = ["M11.C.27[stable,add_third]", "M11.C.27[unstable,remove_one]", "M11.C.41[light: lower level]"]
+    rows, mutated = targeted.run(cells, 1)
+    ran = {mid for mid, _ in calls if mid}
+    assert {"one-sided-deviation", "deviation-inverted"} <= ran
+    assert ("one-sided-deviation", ("M11.C.27[unstable,remove_one]",)) in calls
+    assert ("mixing-weight-inverted", ("M11.C.41[light: lower level]",)) in calls        # names the bare "M11.C.41"
+    assert not ran & {"appraisal-sum-order-reversed", "clamp-within-tolerance"}
+    text = targeted.render("t", "abc", "now", rows, mutated, {}, cells)
+    assert "- `one-sided-deviation` → `M11.C.27[stable,add_third]`: the criterion does not pass here" in text
+    assert "`one-sided-deviation` → `M11.C.27[unstable,remove_one]`: the criterion does not pass" not in text

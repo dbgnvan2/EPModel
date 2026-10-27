@@ -316,6 +316,17 @@
   ],
   "note": "`dyad_age` is held and advanced by one each slow tick (`slow_tick.py::run_slow_tick`; `test_m7e4_ties_wear_by_their_members_chronic_anxiety` asserts it reaches 1); nothing reads it, so it does not raise the cost of a pole flip; the flip's rising cost with time in a configuration comes from `functioning_habit` hardening (`M1.B.6`), not from the tie's age"
  },
+ "M1.C.1": {
+  "status": "partial",
+  "evidence": [
+   "tests/bowen/test_moves.py::test_m1c1_anxious_third_helps_less",
+   "tests/bowen/test_moves.py::test_m1c1_partner_not_relieved_by_seekers_triangle",
+   "tests/bowen/test_moves.py::test_m1c1_third_aligned_with_partner_helps_less",
+   "tests/bowen/test_moves.py::test_m1c1_triangle_relieves_the_seeker_and_loads_the_third",
+   "tests/bowen/test_objects.py::test_m1c1_triangle_holds_members_inside_pair_outside_and_bound_anxiety"
+  ],
+  "note": "the triangle's members, inside pair, outside member and the seeker's relief are built and tested; `bound_anxiety` is held as a field but never written: no act binds anxiety into a `Triangle`, so the release paths that read it (`event_effects.py`, `life_course.py`) release nothing. The owner chose not to build it in version 2's stage 3 (D22; spec revision 39, `M1.C.1`'s sentence)"
+ },
  "M1.C.2": {
   "status": "partial",
   "evidence": [

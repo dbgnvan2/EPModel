@@ -13,10 +13,10 @@ import importlib.util
 import re
 import sys
 from pathlib import Path
+from unittest import mock
 
 from src.bowen.ensemble.criteria import CRITERIA, NOT_BUILT
 from src.bowen.io.load import load_constants
-from open_batch import stale_in_open_batch  # tests/ is on the path (its conftest); stage 3's batch, D31
 
 REPO = Path(__file__).resolve().parents[2]
 _spec = importlib.util.spec_from_file_location("ensemble_record_tool", REPO / "tools" / "ensemble_record.py")
@@ -28,11 +28,60 @@ def record_text() -> str:
     return (REPO / "docs" / "phase_c_ensemble_record.md").read_text(encoding="utf-8")
 
 
-@stale_in_open_batch("docs/phase_c_ensemble_record.md")
 def test_m134_ensemble_record_is_current():
+    """MR-23: the record is exactly what its cache renders for the current code, without running anything: a changed
+    engine has no cached result (stale), and a hand edit or a renderer change does not match."""
+    from tools.record_cache import Cache
+
+    with mock.patch("src.bowen.ensemble.runner.run_criterion", side_effect=AssertionError("ran a criterion in a test")):
+        assert _tool.build(Cache(_tool.CACHE_NAME)) == record_text(), "stale or edited: rerun python3 tools/ensemble_record.py"
     match = re.search(r"^code_hash: ([0-9a-f]{64})$", record_text(), re.M)
-    assert match, "the record carries no code hash"
-    assert match.group(1) == _tool.code_hash(*_tool.HASHED_TOOLS), "stale: rerun python3 tools/ensemble_record.py"
+    assert match and match.group(1) == _tool.result_hash(), "the record does not print the code's hash"
+
+
+def _stub_verdict(criterion, rules, workers=1):
+    from src.bowen.ensemble.runner import Verdict
+
+    return Verdict(criterion.id, criterion.cls, "PASS", 3, [], 0.0, {}, [], [], {})
+
+
+def _in_tmp_cache(tmp_path):
+    import tools.record_cache as record_cache
+
+    return mock.patch.object(record_cache, "CACHE_DIR", tmp_path / "cache")
+
+
+def test_mr23_record_renders_from_the_cache(tmp_path):
+    """MR-23: a build with every result cached renders the record without running a criterion and prints the code's
+    hash, which does not cover this tool: a change to the tool alone moves no cached result."""
+    from tools.record_cache import Cache
+
+    with _in_tmp_cache(tmp_path), mock.patch("src.bowen.ensemble.runner.run_criterion", side_effect=_stub_verdict):
+        first = _tool.build(Cache("c"), workers=1)  # each result flushed to the file as it is made
+    with _in_tmp_cache(tmp_path), mock.patch("src.bowen.ensemble.runner.run_criterion",
+                                             side_effect=AssertionError("ran a criterion with its result cached")):
+        assert _tool.build(Cache("c")) == first
+    assert f"code_hash: {_tool.result_hash()}" in first
+    assert _tool.result_hash() == _tool.code_hash()
+    for cid in CRITERIA:
+        assert f"| `{cid}` |" in first, cid
+
+
+def test_mr23_a_stale_entry_is_rerun(tmp_path):
+    """P8 dirty state: a cache holding results for older code is not reused. Every criterion is run again on the
+    current code, and saving the cache drops the old entries."""
+    from tools.record_cache import Cache
+
+    with _in_tmp_cache(tmp_path), mock.patch("src.bowen.ensemble.runner.run_criterion", side_effect=_stub_verdict) as ran:
+        with mock.patch.object(_tool, "result_hash", return_value="0" * 64):
+            _tool.build(Cache("c"), workers=1)  # results for older code
+        cache = Cache("c")
+        old = set(cache.entries)
+        ran.reset_mock()
+        _tool.build(cache, workers=1)
+        assert ran.call_count == len(CRITERIA)
+        cache.save()
+        assert not old & set(Cache("c").entries) and len(Cache("c").entries) == len(CRITERIA)
 
 
 def test_s1_8a_render_is_not_hashed(tmp_path, monkeypatch):
@@ -68,7 +117,6 @@ def test_s1_5b_code_text_keeps_a_line_separator_inside_a_string(tmp_path):
     assert '"a\u2028b\u2028c"' in text.split("\x00")
 
 
-@stale_in_open_batch("docs/phase_c_ensemble_record.md")
 def test_m134_record_covers_every_criterion_and_names_what_is_not_built():
     text = record_text()
     for cid in CRITERIA:
@@ -117,7 +165,6 @@ def test_m111a_every_mutant_applies_exactly_once(tmp_path):
             assert new in (root / file).read_text(encoding="utf-8"), mutant.id
 
 
-@stale_in_open_batch("docs/phase_c_mutation_record.md")
 def test_m111d_mutation_record_is_current():
     """The record is exactly what its cache renders for the current engine and every mutant's current edits: a changed
     engine or mutant has no cached result (KeyError: rerun the tool), and a hand edit does not match."""
@@ -143,7 +190,6 @@ def test_m111c_representation_mutants_ran_on_every_passing_criterion():
         assert _mutants.passing() <= ran, f"{mutant.id} did not run on {sorted(_mutants.passing() - ran)}"
 
 
-@stale_in_open_batch("docs/phase_c_sweep_record.md")
 def test_d9_sweep_record_is_current():
     """Plan D9: every composite criterion was swept at low and high α, H and temperature on the current code."""
     text = (REPO / "docs" / "phase_c_sweep_record.md").read_text(encoding="utf-8")
@@ -428,7 +474,6 @@ def occupancy_rows() -> list[dict]:
     return record_json(text)
 
 
-@stale_in_open_batch("docs/phase_c_level_occupancy.md")
 def test_m111a_level_occupancy_record_is_current():
     text = (REPO / "docs" / "phase_c_level_occupancy.md").read_text(encoding="utf-8")
     match = re.search(r"^code_hash: ([0-9a-f]{64})$", text, re.M)
@@ -614,7 +659,6 @@ sys.modules[_dspec.name] = _diagnostic
 _dspec.loader.exec_module(_diagnostic)
 
 
-@stale_in_open_batch("docs/phase_c_diagnostic_record.md")
 def test_d0_diagnostic_record_is_current():
     """The diagnostic record is what its cache renders for the current engine, variants and probes."""
     try:

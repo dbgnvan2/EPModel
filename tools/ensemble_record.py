@@ -4,17 +4,26 @@ Purpose: produce docs/phase_c_ensemble_record.md — each criterion's verdict, s
          per-readout difference, interval, margin, p, the fallback rate and any flag — stamped
          with a hash of the code and config it ran against (plan D7).
 Spec:    docs/bowen_agent_model_spec_v2.md#M17.A.1, #M11.D.18, #M11.5, #M13.4
-Tests:   tests/bowen/test_ensemble_record.py::test_m134_ensemble_record_is_current
+Tests:   tests/bowen/test_ensemble_record.py::test_m134_ensemble_record_is_current,
+         tests/bowen/test_ensemble_record.py::test_mr23_record_renders_from_the_cache,
+         tests/bowen/test_ensemble_record.py::test_mr23_a_stale_entry_is_rerun
 
     python3 tools/ensemble_record.py [--workers N] [--only ID ...]
 
-The record is generated, never hand-edited. A default-suite test fails when the hash in the
-record no longer matches the code and config, so a stale record cannot stand in for a run.
+Each verdict is cached in docs/records_cache/phase_c_ensemble.json (stage 1 milestone review MR-23, built at stage 3
+step 10), keyed as the Phase D records' results are: by ``result_hash`` (``code_hash`` with no tool: ``src/bowen``
+outside ``render/``, ``config/bowen`` and the rules) and the criterion's key. This tool and its renderer are not in
+the key, so a change to either re-renders the record from the cache; a change to the engine reruns every criterion.
+``--only`` runs only the named criteria that have no result; the record is written when every criterion has one.
+
+The record is generated, never hand-edited. A default-suite test re-renders it from its cache and fails when the
+two differ, so a stale record cannot stand in for a run.
 """
 
 from __future__ import annotations
 
 import argparse
+import dataclasses
 import hashlib
 import json
 import os
@@ -26,11 +35,10 @@ REPO = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO))
 
 RECORD = REPO / "docs" / "phase_c_ensemble_record.md"
+CACHE_NAME = "phase_c_ensemble"  # docs/records_cache/<name>.json (MR-23)
 # RULE_KEYS is an input to every verdict; ``code_hash`` hashes its value, so the other records' cache keys do not
-# change when this file's hashing code does (Phase D plan B2). This record's own stamp also covers this file, because
-# its renderer writes the labels and the JSON spec_coverage parses, and the record is not re-rendered from a cache
-# (review 2026-10-10).
-HASHED_TOOLS = (Path(__file__).resolve(),)
+# change when this file's hashing code does (Phase D plan B2). This file is not in its own record's hash (MR-23): the
+# record is re-rendered from its cache and compared whole, so a renderer change shows as a difference, not a rerun.
 RULE_KEYS = ("ensemble_block", "ensemble_cap", "ensemble_precision", "ensemble_margin", "ensemble_alpha",
              "fallback_flag_rate", "equivalence_margin")
 
@@ -39,9 +47,9 @@ def code_hash(*tools: Path) -> str:
     """Hash of everything a verdict depends on: engine, policy, scenario, ensemble, readouts and config.
 
     ``tools`` adds the generating tools whose own content is an input to a record, so changing one
-    makes that record stale too: this file's ``RULE_KEYS`` (which constants become the ensemble rules,
-    an input to every record), the mutant list of ``tools/mutation_record.py`` and the settings of
-    ``tools/sweep_record.py``. Each record names its tools in its own ``HASHED_TOOLS``.
+    makes that record stale too: the mutant list of ``tools/mutation_record.py`` and the settings of
+    ``tools/sweep_record.py``. Each such record names its tools in its own ``HASHED_TOOLS``. This file's
+    ``RULE_KEYS`` (which constants become the ensemble rules, an input to every record) is hashed by value.
 
     ``src/bowen/render/`` is left out (version 2 stage 1, S1.8a): it turns records into text and no verdict reads it
     (``tests/bowen/test_engine_purity.py::test_s1_8b_only_run_imports_render``), so a renderer change reruns nothing.
@@ -126,22 +134,43 @@ def source_text(source: str) -> str:
     return "\x00".join(kept)
 
 
-def run(workers: int, only: list[str] | None):
+def result_hash() -> str:
+    """The hash of the code that computes a verdict (``code_hash`` with no tool). The record prints it; each cached
+    result is keyed by it (MR-23, as ``tools/phase_d_record.py``'s S1.8c)."""
+    return code_hash()
+
+
+def build(cache, workers: int | None = None, only: list[str] | None = None) -> str:
+    """Purpose: the record, from the cache. With ``workers``, a criterion with no result for the current code is run
+             first and cached (with ``only``, only those it names); a criterion still without a result raises
+             KeyError, so a test can check the committed record without running anything.
+    Spec:    docs/bowen_agent_model_spec_v2.md#M13.4; stage 1 milestone review MR-23 (T-012)
+    Tests:   tests/bowen/test_ensemble_record.py::test_mr23_record_renders_from_the_cache,
+             tests/bowen/test_ensemble_record.py::test_mr23_a_stale_entry_is_rerun
+    """
     from src.bowen.ensemble.criteria import CRITERIA, NOT_BUILT
-    from src.bowen.ensemble.runner import run_criterion
+    from src.bowen.ensemble.runner import Verdict, run_criterion
     from src.bowen.io.load import load_constants
+    from tools.record_cache import result_key
 
     constants = load_constants()
     rules = {k: constants[k] for k in RULE_KEYS}
+    engine = result_hash()
     verdicts = []
     for cid, criterion in CRITERIA.items():
-        if only and not any(cid.startswith(o) for o in only):
-            continue
-        started = time.time()
-        verdict = run_criterion(criterion, rules, workers=workers)
-        verdicts.append((verdict, time.time() - started))
-        print(f"{cid}: {verdict.outcome} ({verdict.seeds} seeds, {time.time() - started:.0f} s)", flush=True)
-    return verdicts, NOT_BUILT, rules
+        key = result_key(engine, None, cid)
+        entry = cache.get(key)
+        if entry is None and workers is not None and (not only or any(cid.startswith(o) for o in only)):
+            started = time.time()
+            verdict = dataclasses.replace(run_criterion(criterion, rules, workers=workers), criterion=cid)
+            cache.put(key, dataclasses.asdict(verdict))
+            cache.flush()  # keep every finished result, whatever happens to the next criterion
+            entry = cache.get(key)
+            print(f"{cid}: {verdict.outcome} ({verdict.seeds} seeds, {time.time() - started:.0f} s)", flush=True)
+        if entry is None:
+            raise KeyError(cid)
+        verdicts.append((Verdict(**entry), None))
+    return render(verdicts, NOT_BUILT, rules, engine)
 
 
 def scripted_cell(scripted: dict) -> str:
@@ -203,12 +232,19 @@ def render(verdicts, not_built, rules, hash_: str) -> str:
 
 
 def main() -> int:
+    from tools.record_cache import Cache
+
     parser = argparse.ArgumentParser()
     parser.add_argument("--workers", type=int, default=os.cpu_count() or 1)
     parser.add_argument("--only", nargs="*")
     args = parser.parse_args()
-    verdicts, not_built, rules = run(args.workers, args.only)
-    RECORD.write_text(render(verdicts, not_built, rules, code_hash(*HASHED_TOOLS)), encoding="utf-8")
+    cache = Cache(CACHE_NAME)
+    try:
+        text = build(cache, workers=args.workers, only=args.only)
+    except KeyError as missing:
+        raise SystemExit(f"no result for {missing} on the current code: run without --only, or name it") from None
+    cache.save()  # every criterion's entry was used; entries for older code go
+    RECORD.write_text(text, encoding="utf-8")
     print(f"wrote {RECORD.relative_to(REPO)}")
     return 0
 

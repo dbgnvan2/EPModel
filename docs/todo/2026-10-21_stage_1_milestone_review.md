@@ -67,7 +67,7 @@ owner's ten decisions and what this batch fixed are in `CHANGELOG.md`. Open:
     line. The tool writes in the app's format, so a key name cannot tell an owner's edit from a value an earlier
     version of the tool wrote; keeping every unknown key would keep stale run output. Owner edits to fields the tool
     draws (a name, a line's notes) are redrawn by design. The file is written in place, not atomically; it is in git.
-- [ ] T-012 ⟨later⟩ **With the next change that moves the engine hash.** Each of these edits moves a record hash, so it waits for a change that
+- [x] T-012 ⟨later⟩ **With the next change that moves the engine hash.** Each of these edits moves a record hash, so it waits for a change that
   reruns the records anyway (owner, D6 and D7, 2026-10-21; until 2026-10-24 the trigger was group G's regeneration, which ran on
   2026-10-23 without it, stage 2 review MR-22):
   - MR-23: move the Phase C ensemble record onto `docs/records_cache`, as Phase D's records are: render it from the
@@ -77,6 +77,9 @@ owner's ten decisions and what this batch fixed are in `CHANGELOG.md`. Open:
   - *2026-10-25: MR-23 is a records tool change, not an engine change, so it moves no record's hash but its own; it
     lands at stage 3 step 10, before the batch's one regeneration, instead of at step 6 as plan §3.6 listed (Claude's
     recommendation under the owner's instruction of 2026-10-25, for the owner's review).*
+  *Closed 2026-10-26 at stage 3 step 10: MR-23 built — `tools/ensemble_record.py` renders the Phase C record from
+  `docs/records_cache/phase_c_ensemble.json`, its own file is out of the hash (`code_hash()` alone), and
+  `tests/bowen/test_ensemble_record.py` compares the full render; the record was regenerated with the batch.*
 - [x] T-013 ⟨now⟩ **Before group G's build starts:** ask the owner the Holmes–Rahe Q3 again (D10, the review's Q14; see
   "Blocking the next phase"). *Closed 2026-10-22: group G was built overnight under the owner's instruction of
   2026-10-22 ("proceed based on your recommendations"); Q3 stands as decided, cites no source, and is listed in the

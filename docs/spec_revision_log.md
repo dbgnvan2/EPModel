@@ -1,12 +1,12 @@
 # Spec revision log
 
-**Status: the record of every revision of `bowen_agent_model_spec_v2.md`, 4 to 39 (revision 39 applied in part). Moved out of the spec at revision 35, 2026-10-22; nothing a run computes changed.**
+**Status: the record of every revision of `bowen_agent_model_spec_v2.md`, 4 to 39 (revision 39 applied in full at stage 3 plan step 10, 2026-10-26). Moved out of the spec at revision 35, 2026-10-22; nothing a run computes changed.**
 
 The spec holds the current rules; this file holds how they got there. Until revision 34 the revision sections stood at the end of the spec, under `M17`, and the front matter's `status:` line listed every revision since 10. `docs/plan_model_ergonomics.md` Part E moved both here (the owner's answer to its §8 Q2, 2026-10-22, "as revision 35"), so a session reading the spec reads 480 fewer lines of history. The sections below are the spec's own text as it stood, tags and all, with the newest first; revisions 13 to 33 were written inline in the requirement bodies and have no section of their own, which Part E's second step records under revision 35.
 
 The sections `### Revision 34` to `### Revision 5` and the undated section are the spec's text as it stood, moved whole; a statement inside one of them (revision 34's, that revisions 13 to 33 are "not here") was true when written, before the bodies' narratives were moved under their own revisions. Those narratives are the bullets `- \`ID\`: sentence`, each the sentence as it stood in the body, under the revision it names, in sections titled "inline narratives moved from the bodies at revision 35" where no section existed.
 
-### Revision 39 — version 2 stage 3, applied in parts from 2026-10-25 ⟦rev39 · owner 2026-10-24 (D18–D31) and 2026-10-25 (Q1–Q14, the draft approved as a whole) · `docs/implementation_plan_version_2_stage_3.md`, `docs/spec_revision_39_draft.md`⟧
+### Revision 39 — version 2 stage 3, applied in full, in parts, 2026-10-25–26 ⟦rev39 · owner 2026-10-24 (D18–D31) and 2026-10-25 (Q1–Q14, the draft approved as a whole) · `docs/implementation_plan_version_2_stage_3.md`, `docs/spec_revision_39_draft.md`⟧
 
 **Approved by the owner 2026-10-25** as `docs/spec_revision_39_draft.md`, through `AskUserQuestion`. Each group's text
 lands in the spec in the commit that builds its code (the owner's Q6). This section lists what has landed.
@@ -78,7 +78,19 @@ lands in the spec in the commit that builds its code (the owner's Q6). This sect
   - **The state and mechanism tables** name `M4.C.1d` among the writers of `acute_anxiety` and `felt_contact` and in
     the base-appraisal row.
   - **§0.3's counts** restated (1071 MUSTs, 93 named tests).
-- **Not yet applied:** T-128 (`M17.E.1`; step 10).
+- **Step 10 (2026-10-26), the batch's last commit; the engine hash did not move** (`2a3b84e2d89a`: the sweep tool and
+  `config/sweep/` are outside it).
+  - **T-128 (draft §20.1, D24–D26, Q14):** `M17.E.1`'s sentence names the ratio `tie_wear_to_transfer_ratio`
+    (`tie_wear_rate` ÷ (`slow_tick_fast_ticks` × `calm_transfer_rate`)), which the sweep draws in place of
+    `tie_wear_rate` for a criterion whose run is longer than one slow tick, and splits each such criterion's samples
+    at the ratio's central value. `M10.C.1a` is unchanged (draft §20.2). `config/sweep/sweep.md` gains the ratio's
+    row under a new `## Named ratios` table and a preamble paragraph (draft §20.3), which says a run length is
+    measured (seed 0 of each arm at the central constants, the longest arm's fast ticks) where the draft's
+    parenthesis named the criteria left out; the measured list is in the stage-end sweep record.
+  - **MR-23 (T-012):** the Phase C ensemble record is rendered from a cache (`docs/records_cache/phase_c_ensemble.json`),
+    as the Phase D records are; nothing in the spec changed.
+  - **The one regeneration (D31):** every record regenerated once on the final hash; the open batch is closed. The
+    revision 39 changes page (`docs/version_2_revision_39_changes.md`) lists what moved against revision 38's records: 6 of the status page's 63 rows differ from revision 38's: `M11.C.2[twelve-person family]`, `M11.C.7[one spouse over sided]`, `M11.C.10[family of origin]` and `M11.C.17` FAIL → PASS, `M11.C.44` PASS → FAIL, and `M11.C.49` new and failing; five Phase C mutation verdicts and one Phase D mutation verdict changed (T-143).
 
 ### Revision 38 — the stage 2 milestone review's wording fixes, 2026-10-24 ⟦rev38 · owner 2026-10-24, stage 2 milestone review · `docs/cycles/2026-10-24_milestone-review_v2-stage-2.md`, `docs/todo/2026-10-24_stage_2_milestone_review.md`⟧
 

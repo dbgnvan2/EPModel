@@ -13,6 +13,8 @@ restored by ``mock.patch``.
 
 from __future__ import annotations
 
+import json
+
 import re
 from unittest import mock
 
@@ -42,7 +44,7 @@ def _sweep_cells(text: str) -> dict[str, str]:
     for line in table.splitlines():
         if line.startswith("| `"):
             parts = [c.strip() for c in line.strip().strip("|").split("|")]
-            cells[parts[0].strip("`")] = parts[6]
+            cells[parts[0].strip("`")] = parts[7]
     return cells
 
 
@@ -68,7 +70,8 @@ def test_w4_s2_9_sweep_column_is_a_fraction_not_a_verdict(tmp_path):
     an unbuilt criterion get a dash; no cell of the column is a pass or a fail word. The reader shows an errored
     count beside the fraction and never folds it into S; a criterion the record shows as declared, not run has no
     cell from the record."""
-    with mock.patch.object(tool, "sweep_fractions", return_value={"M11.C.16": "5 of 8 held"}):
+    with mock.patch.object(tool, "sweep_fractions", return_value={"M11.C.16": "5 of 8 held"}), \
+            mock.patch.object(tool, "sweep_stale", return_value=None):  # a current record; the stale one is tested below
         rows = tool.statuses()
         text = tool.render(rows)
     by_key = {s.key: s for s in rows}
@@ -147,6 +150,63 @@ def test_w1_s2_10_a_tag_row_with_no_row_now_and_a_misplaced_disposition_stop_the
     decided[variant_only[0]] = {"kind": "accepted finding", "reason": "x", "decided": "test", "owner": True}
     with mock.patch.object(tool.v1, "dispositions", return_value=decided), pytest.raises(SystemExit, match=variant_only[0]):
         tool.statuses()
+
+
+def test_s3_24_each_verdict_is_shown_beside_revision_38s():
+    """S3.24: every row shows the verdict this page gave at revision 38 (`9ebf327`, read from git) beside its verdict
+    now and the tag's; a criterion added since (`M11.C.49`) says so; the summary line lists exactly the rows whose
+    verdict moved; a revision 38 row with no row now stops the tool (P2); the column never sets a status."""
+    import pytest
+    earlier = tool.revision_38_verdicts()
+    assert len(earlier) == 62 and "M11.C.49" not in earlier
+    rows = tool.statuses()
+    assert {s.key: s.at_revision_38 for s in rows if s.key in earlier} == earlier
+    assert next(s for s in rows if s.key == "M11.C.49").at_revision_38 == "new since revision 38"
+    text = tool.render(rows)
+    moved = [s for s in rows if s.at_revision_38 != s.verdict]
+    line = next(x for x in text.splitlines() if x.startswith("Verdicts not the one this page gave at revision 38"))
+    assert f": {len(moved)} of {len(rows)} rows" in line and all(f"`{s.key}`" in line for s in moved)
+    header = next(x for x in text.splitlines() if x.startswith("| Criterion |"))
+    assert [c.strip() for c in header.strip("|").split("|")][4:6] == ["At `version-1`", "At revision 38"]
+    with mock.patch.object(tool, "revision_38_verdicts", return_value=dict(earlier, **{"M11.C.999": "PASS"})), \
+            pytest.raises(SystemExit, match="M11.C.999"):
+        tool.statuses()
+    flipped = {k: ("FAIL" if v == "PASS" else "PASS") for k, v in earlier.items()}
+    with mock.patch.object(tool, "revision_38_verdicts", return_value=flipped):
+        assert [(s.status, s.final, s.blocks) for s in tool.statuses()] == [(s.status, s.final, s.blocks) for s in rows]
+
+
+def test_w4_a_fraction_from_an_earlier_engine_is_marked_and_not_counted(tmp_path):
+    """P8/P6 (review of 2026-10-26): a sweep record whose printed hashes are not the current engine's is not read as
+    current. Its fractions are shown with *earlier engine* and every passing directional criterion blocks W4; with the
+    current hashes printed the same record is read as current; a record printing no hash is refused."""
+    import pytest
+    from tools.phase_d_mutation_record import engine_hash as phase_d_engine_hash
+    from tools.record_cache import engine_hash
+
+    rows = [{"criterion": "M11.C.16", "held": 5, "counted": 8, "errored": 0, "rows": []}]
+    body = "```json\n" + json.dumps(rows) + "\n```\n"
+    record = tmp_path / "sweep.md"
+    record.write_text(f"# s\n\nengine_hash: {'0' * 64}\nphase_d_engine_hash: {phase_d_engine_hash()}\n\n{body}",
+                      encoding="utf-8")
+    assert "engine_hash `000000000000`" in tool.sweep_stale(record)
+    with mock.patch.object(tool, "SWEEP_RECORD", record):
+        rows_now = {s.key: s for s in tool.statuses()}
+        note = tool.sweep_stale(record)
+    with mock.patch.object(tool, "sweep_stale", return_value=note):  # render names the record by its repo path
+        text = tool.render(list(rows_now.values()))
+    c16 = rows_now["M11.C.16"]
+    assert c16.sweep == f"5 of 8 held ({tool.STALE_CELL})"
+    assert all("W4" in s.blocks for s in rows_now.values() if s.verdict == "PASS" and s.cls in tool.v1.DIRECTIONAL)
+    assert "The sweep record's fractions were measured on engine_hash `000000000000`" in text
+    record.write_text(f"# s\n\nengine_hash: {engine_hash()}\nphase_d_engine_hash: {phase_d_engine_hash()}\n\n{body}",
+                      encoding="utf-8")
+    assert tool.sweep_stale(record) is None
+    with mock.patch.object(tool, "SWEEP_RECORD", record):
+        assert next(s for s in tool.statuses() if s.key == "M11.C.16").sweep == "5 of 8 held"
+    record.write_text(f"# s\n\n{body}", encoding="utf-8")
+    with pytest.raises(SystemExit, match="no engine_hash line"):
+        tool.sweep_stale(record)
 
 
 def test_w3_a_pass_whose_named_mutant_survived_is_not_labelled_unmutated():

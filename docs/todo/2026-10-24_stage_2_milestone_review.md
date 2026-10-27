@@ -88,7 +88,10 @@ None was rejected.
   owner. `M17.E.1` stays *partial* in `tools/spec_coverage_overrides.json` until the ratio is swept (review MR-1).
   *Decided by the owner 2026-10-24, each as recommended, in stage 3's plan (`docs/implementation_plan_version_2_stage_3.md`
   §3.4, D24–D26): `tie_wear_rate` ÷ (52 × `calm_transfer_rate`), a quarter to four times its central value, on every
-  directional criterion whose run spans a slow tick. Open until the stage-end sweep runs with it.*
+  directional criterion whose run spans a slow tick. Open until the stage-end sweep runs with it.* *2026-10-26, stage 3
+  step 10: built — `M17.E.1` names it, `config/sweep/sweep.md` declares it (1/208 to 4/52, log), the sweep tool draws it
+  for a criterion whose measured run is longer than 52 fast ticks and splits the fraction at 1/52 (S3.16–S3.19 green);
+  it closes at step 11, when the stage-end sweep runs with it.*
 - [x] T-129 ⟨later⟩ **With the next change that moves the engine hash** (owner, 2026-10-24: these edit
   `src/bowen/` and would stale every record cache and the stage 2 sweep):
   - MR-2: `src/bowen/engine/moves.py`'s module docstring (`:63-68`) still says `REDUCE_CUTOFF` hands the cutoff's

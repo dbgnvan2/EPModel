@@ -2,10 +2,109 @@
 
 The entries of `CHANGELOG.md` dated before 2026-10-19, the day version 2 began at the tag `version-1`, moved
 here verbatim on 2026-10-22, the entries of 2026-10-19 and 2026-10-20 on 2026-10-23, and the entries of
-2026-10-21 later on 2026-10-23, the earliest entry of 2026-10-22 (the SP-1 proposal's eight questions) on 2026-10-24, and the next (SP-1 built, with spec revision 34) later on 2026-10-24, and the next (Model ergonomics, Parts A–C) on 2026-10-25, and the next (Model ergonomics, Part D) later on 2026-10-25, and the next (Model ergonomics, Part E) later on 2026-10-25, and the next (Model ergonomics follow-ups) later on 2026-10-25, and the next (the closed and old parts of `TODO.md` and `CHANGELOG.md` archived) on 2026-10-26, and the next (`TODO.md` an index over records; a changelog index) later on 2026-10-26, and the next (Revision 35's dispositions approved by the owner) later on 2026-10-26, and the next two (Spec revision 36, of 2026-10-22, and Revision 36's records regenerated, of 2026-10-23) later on 2026-10-26, so that the live file stays short enough to read (`tests/test_doc_size.py` bounds its size). The heading below is the section they
+2026-10-21 later on 2026-10-23, the earliest entry of 2026-10-22 (the SP-1 proposal's eight questions) on 2026-10-24, and the next (SP-1 built, with spec revision 34) later on 2026-10-24, and the next (Model ergonomics, Parts A–C) on 2026-10-25, and the next (Model ergonomics, Part D) later on 2026-10-25, and the next (Model ergonomics, Part E) later on 2026-10-25, and the next (Model ergonomics follow-ups) later on 2026-10-25, and the next (the closed and old parts of `TODO.md` and `CHANGELOG.md` archived) on 2026-10-26, and the next (`TODO.md` an index over records; a changelog index) later on 2026-10-26, and the next (Revision 35's dispositions approved by the owner) later on 2026-10-26, and the next two (Spec revision 36, of 2026-10-22, and Revision 36's records regenerated, of 2026-10-23) later on 2026-10-26, and the next five (from the cloud sessions' SessionStart hook to Stage 2: Phase C's directional criteria swept, all of 2026-10-23) later on 2026-10-26, so that the live file stays short enough to read (`tests/test_doc_size.py` bounds its size). The heading below is the section they
 were under; nothing in this file is reworded. Later entries are in `CHANGELOG.md`.
 
 ## [Unreleased] — 2026-10-11
+
+### Stage 2: Phase C's directional criteria swept (2026-10-23)
+
+- The constant sweep (`M17.E.1`) run over the Phase C ensemble record's 14 directional criteria (composite and mixed,
+  `M11.5`) at 8 samples each, on the branch `stage-2-phase-c-sweep` (`docs/implementation_plan_version_2.md` §2.10,
+  D15's first step): `python3 tools/version_2_sweep.py --workers 10`, 05:32:36 to 05:59:37 on this Mac, 1620 s wall
+  (27 min 0 s) for 155 child runs — 96 first runs for the 12 criteria the pilot had not run and 59 reruns at 200
+  seeds under the detection-limit rule (`M17.A.1`); the pilot's 24 results came from the cache. Per sample 16.9 s
+  against the pilot's 29.8 s; 27 min against the 48 min the pilot's ratio projected for these 12 (56 min for 14).
+- `config/sweep/sweep.md` gains 104 range rows (121 rows, 31 constants, 14 criteria), each half to double the central
+  value within the file's bounds, every grade `[I]` (`defence_threshold` is the one constant the explainer names, §11.3,
+  `[I]` there); its preamble states which constants a criterion's set holds and why, and the plan's §2.10 lists the
+  judgments, each decided as recommended under the owner's instruction of 2026-10-22, pending the owner's review.
+- Held of 8, a measurement of each range and never a verdict: `M11.C.5` 0, `M11.C.16` 8, `M11.C.27` 2, 3, 6, 6
+  (stable add, stable remove, unstable add, unstable remove), `M11.C.29` 0, `M11.C.41` 8, 8, 0, 1 (light: lower
+  level; heavy: lower level; higher level: heavier stress; lower level: heavier stress), `M11.C.42` 0, `M11.C.44` 2,
+  `M11.C.45` 0. No sample undetermined or errored. `docs/version_2_sweep_record.md` and `docs/version_2_status.md`
+  regenerated; the status page's W4 now names the seven passing Phase D rows not yet swept.
+- Nothing in `src/bowen/` changed; `engine_hash()` printed `66dcbb1e8ba5` before and after; no ensemble, mutation or
+  diagnostic record was rerun. Documents: the plan's status line and §2.10, `docs/theory/_STATUS.md`,
+  `docs/REVIEWER_READING_LIST.md`, T-001's text (`docs/todo/2026-08-22_blocking_the_next_phase.md`).
+  `docs/model_explainer.md` §18.7 quotes the two rule values, which did not change, so it is unchanged.
+
+### Stage 2's pilot built, with spec revision 37 (2026-10-23)
+
+- The constant sweep of `M17.E.1` and the detection-limit rule of `M17.A.1`, built for stage 2's pilot on the branch
+  `stage-2-plan-pilot` (`docs/implementation_plan_version_2.md` §2.10). `tools/version_2_sweep.py` draws joint
+  samples of the `[I]` constants a criterion's mechanism reads over the ranges in `config/sweep/sweep.md` (new;
+  outside `config/bowen/` because the engine hash covers that directory, D12), runs each as an edit of
+  `constants.md` in a copy of the repository through `tools/mutant_runner.py`, reruns a sample whose first run left a
+  gating effect within 2 half-widths of zero at a fixed 200 seeds (D8), and renders `docs/version_2_sweep_record.md`
+  (new) from `docs/records_cache/sweep_v2.json` as *n of S* samples held — a measurement, never a verdict.
+  `tools/sweep_config.py` (new) parses the config strictly. Nothing in `src/bowen/` changed; `engine_hash()` is
+  `66dcbb1e8ba5` before and after; no ensemble, mutation or diagnostic record was rerun.
+- **The pilot:** `M11.C.16` and `M11.C.42` at 8 samples, 10 workers: 476 s wall for 24 child runs (16 first runs, 8
+  reruns at 200 seeds, all of them `M11.C.42`'s). `M11.C.16` held in 8 of 8 samples, `M11.C.42` in 0 of 8. **The
+  projection:** 29.8 s per sample, 3.76 times the Phase C record's time per row; the full sweep over the 34
+  directional rows at 8 samples is 44 h (part II alone 40 h; Phase C and part I 4.1 h; Phase C alone 56 min), so
+  **the full sweep did not run** (the owner's 4-hour rule). D14 (the narrow mark: under half of at least 32 samples;
+  not built yet), D15 (the full sweep not run; Phase C's 14 criteria next, 56 min) and D16 (no drafted `M17`
+  requirement comes in) decided as recommended under the owner's instruction of 2026-10-22, pending the owner's review.
+- `docs/version_2_status.md` (new), from `tools/version_2_status.py` (new): every `M11.C` criterion with its verdict
+  now, its verdict at the tag `version-1`, its mutation evidence, its sweep fraction and its status under W1–W4. At
+  this commit W2 is met; W1 is not (9 rows: the five verdicts changed since the tag, T-122, and the four passing rows
+  without a recorded mutation); W3 is not (`M11.C.11` and `M11.C.15`, whose mutants, red at the tag, survived at revision 36, and
+  `M11.C.48` in both variants, T-123); W4 is not (11 passing directional rows not yet swept). The plan's draft said
+  W3 was unmet on `M11.C.44`; it has `one-sided-deviation` red, and the plan is corrected (§2.9, §2.10).
+- **Spec revision 37** (wording in `M17` only): `M17.A.1` gains the detection limit in a sweep, `M17.E.1` the sample
+  rule (a joint seeded draw, each sample an edit of `constants.md` in a copy, *n of S* with undetermined and errored
+  samples counted apart, a fraction never a pass or a fail, no premise swept). §0.3's count is 1055 MUSTs / 92 tests.
+  `docs/spec_revision_log.md` has the entry; the indexes, the rules view and the coverage page are regenerated.
+- Tests: `tests/test_version_2_sweep.py` (15) and `tests/test_version_2_status.py` (6), each shown failing under its
+  mutation (plan §2.10); `tests/test_doc_checklist.py` now covers `config/sweep/`. The suite is 1146 tests.
+- **The reviews** (plan §2.10, step 6), on the build commit's diff, 04:43:45 to 04:53:07: `learning-qa` 6 min 43 s and
+  a correctness pass 8 min 05 s. Fixed in the next commit, each with a test: the frozen page's `M11.C.8` row was
+  dropped by the reading pattern and no count checked it (P2); a changed row lost its version 1 disposition (now shown
+  as not applied); a criterion with its own `seeds` below the fixed count would have been recorded as rerun at 200
+  seeds without being so (now refused, `M17.A.1`); a `log` range on an integer constant was not refused; a premise late
+  in the config was refused only after earlier samples ran; three tests were tied to the pilot's config; wording in
+  the spec, the explainer, the config and the plan. One minor item recorded, not fixed: T-124. The re-sweep of the fix
+  diff (sonnet, 2 min 20 s) found no blocking item; its minor items are fixed in the same commit (plan §2.10).
+- Documents: the plan (status line, §2.4 W3, §2.9, §2.10), `model_explainer.md` §18.7 (the stage 2 build, the
+  detection limit and the sweep, each `[I]`), `SPEC_REVIEW_CHECKLIST.md` (the config and the two pages),
+  `REVIEWER_READING_LIST.md` (§2, §5, §7), `_STATUS.md`, `README.md`, `CLAUDE.md`, T-001, T-018 and T-123. Three
+  renders that print the spec's revision were re-rendered with no other change: the seed-7 trace and chart
+  (`tools/phase_c_trace.py`) and the famdiag export (`tools/famdiag_export.py`); the two changes pages
+  (`tools/record_changes.py`) list the new pages as not compared.
+
+### The stage 2 plan drafted (2026-10-23)
+
+- `docs/implementation_plan_version_2.md` §2: version 2's stage 2 (the measurement stage, `docs/version_2_plan.md` §3
+  items 2.1–2.5), in the stage 1 format. What the code shows (`M17`: 4 of 29 requirements built; the D9 sweep is six
+  points, not `M17.E.1`'s fraction; a sweep sample is a `Mutant` over `constants.md` rows in a copy, so the engine hash
+  does not move; the hash covers `config/bowen/*.md`, so the sweep's own config lives in `config/sweep/`); six decisions
+  D8–D13, each decided as recommended under the owner's instruction of 2026-10-22, pending the owner's review — D8 the
+  detection-limit rule (a sample whose gating effect is within 2 half-widths is rerun at 200 seeds; `M17.A.1` wording,
+  spec revision 37, the gating records adopt it at the next hash move), D9 the pilot's subjects (`M11.C.16` passing,
+  `M11.C.42` an accepted finding in group A), D10 the scope (directional criteria; the constants each mechanism reads,
+  half to double, log-uniform, drawn jointly; S = 8 for the pilot), D11 the sweep record and `docs/version_2_status.md`
+  with its sweep column, D12 `config/sweep/sweep.md`, D13 none of `M17`'s drafted requirements until the pilot reports;
+  thirteen criteria S2.1–S2.13 with their tests; the order of work ending in the end-of-stage milestone review; no cost
+  estimated before the pilot's measurement. Committed alone, before the build, so the design can be read apart from it.
+  Written overnight on the branch `stage-2-plan-pilot` under the owner's instruction of 2026-10-22.
+
+### The entries of 2026-10-19 and 2026-10-20 archived (2026-10-23)
+
+- The hook entry below took this file past its 80,000-byte limit (`tests/test_doc_size.py`, pushed red at `ad361d7` and
+  fixed here), so the four entries of 2026-10-19 and 2026-10-20 (version 2 stage 1, the `/csdp` sweep, the version 1
+  tag, the document-claim tests) moved to `docs/CHANGELOG_archive.md` verbatim, 11,246 bytes, checked byte for byte;
+  the pointers in this file, `CLAUDE.md`, the checklist and the reading list now say entries before 2026-10-21.
+
+### Cloud sessions: a SessionStart hook makes the suite runnable (2026-10-23)
+
+- `.claude/hooks/session-start.sh`, run by `.claude/settings.json` at session start, does in a Claude Code cloud
+  session what CI does on a blank machine: installs `requirements.txt` and fetches the tag `version-1` (a shallow
+  clone leaves it out, and `tests/test_version_1_status.py` reads it). It exits at once outside a cloud session
+  (`CLAUDE_CODE_REMOTE` unset). Written by a cloud session the owner started on 2026-10-23 (its branch
+  `claude/confident-maxwell-vr5zol`, commit `6b74ba4`), cherry-picked onto `main`; that branch's own G2 proposal is
+  superseded by `docs/PROPOSAL — RELEASE BY TIE (G2).md`, built at revision 36, and was not merged.
 
 ### Revision 36's records regenerated (2026-10-23)
 

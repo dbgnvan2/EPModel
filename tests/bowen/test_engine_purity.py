@@ -157,7 +157,7 @@ def test_m11d4_scan_finds_a_constant_described_as_sourced(tmp_path):
     assert len(invented_constant_findings(tmp_path)) == 1
 
 
-# The tools whose code decides verdicts (record_cache.ENGINE_TOOLS, ensemble_record's HASHED_TOOLS, the Phase D
+# The tools whose code decides verdicts (record_cache.ENGINE_TOOLS, ensemble_record, which runs its criteria, the Phase D
 # mutation child, and the Phase D record tool, which runs its criteria): they may not read the renderer either.
 HASHED_TOOLS = ("mutant_runner.py", "ensemble_record.py", "phase_d_record.py", "phase_d_mutant_child.py",
                 "level_occupancy.py")

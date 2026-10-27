@@ -1639,8 +1639,12 @@
   "evidence": [
    "tests/test_version_2_sweep.py::test_m17e1_s2_2_fraction_counts_only_passing_samples_and_reports_errors",
    "tests/test_version_2_sweep.py::test_m17e1_s2_7_a_sample_edits_each_constant_row_once",
-   "tests/test_version_2_sweep.py::test_m17e1_phase_d_criterion_is_run_by_the_phase_d_child_under_its_hash"
+   "tests/test_version_2_sweep.py::test_m17e1_phase_d_criterion_is_run_by_the_phase_d_child_under_its_hash",
+   "tests/test_version_2_sweep.py::test_m17e1_s3_16_ratio_drawn_and_numerator_derived",
+   "tests/test_version_2_sweep.py::test_m17e1_s3_17_ratio_scope_by_run_length",
+   "tests/test_version_2_sweep.py::test_m17e1_s3_18_record_splits_by_ratio",
+   "tests/test_version_2_sweep.py::test_s3_19_ratio_row_parsed_strictly"
   ],
-  "note": "the sweep samples each directional criterion's declared `[I]` constants and reports *n of S* (`test_m17e1_s2_2_…`, `test_m17e1_s2_7_…`, `test_m17e1_phase_d_…`); the named ratio of the rate ties harden or attenuate to the rate anxiety moves is not declared or swept: stage 2's full sweep ran without it, and the owner moved it to stage 3's plan on 2026-10-24 (T-128; stage 2 milestone review MR-1)"
+  "note": "the sweep samples each directional criterion's declared `[I]` constants and reports *n of S* (`test_m17e1_s2_2_…`, `test_m17e1_s2_7_…`, `test_m17e1_phase_d_…`); the named ratio `tie_wear_to_transfer_ratio` is declared in `config/sweep/sweep.md`, drawn for a criterion whose measured run is longer than one slow tick and split at its central value (S3.16–S3.19, stage 3 plan step 10, T-128), but no committed sweep record carries it yet: the stage-end sweep (plan step 11, D17) runs it"
  }
 }

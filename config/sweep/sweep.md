@@ -55,6 +55,20 @@
 > negative contact, but the readout counts contacts, not a state). Each row's last column names the spec ID and says
 > what the constant does in that criterion. These are judgments; the plan's §2.10 lists them.
 >
+> **Named ratios** (spec revision 39, `M17.E.1`; the owner's D24–D26 of 2026-10-24). `M17.E.1` names one ratio that is
+> swept as an exception to the rule above: `tie_wear_to_transfer_ratio` = `tie_wear_rate` ÷ (`slow_tick_fast_ticks` ×
+> `calm_transfer_rate`). Its central value follows from the constants, 0.05 ÷ (52 × 0.05) = 1/52 ≈ 0.0192; its range
+> is a quarter to four times that, 1/208 to 4/52. Each sample draws the ratio log-uniformly over its range and `calm_transfer_rate` from its own
+> (0.025–0.1), and derives `tie_wear_rate` from the two, so each sample's ratio is exact; the period constant is read
+> from `config/bowen/constants.md`. The ratio and both rates enter the set of every directional criterion whose run is
+> longer than `slow_tick_fast_ticks` fast ticks, so that a slow tick fires before its last tick, and of no other (a
+> run of 52 fast ticks or fewer is not entered; a run length is measured, seed 0 of each arm at the central constants,
+> the longest arm's fast ticks), and the tool lists which criteria it entered and
+> which it did not, with the reason. The sample count stays at `sweep_samples`, so the ratio adds no runs. **The
+> derived `tie_wear_rate` spans 0.00625 to 0.4, one eighth to eight times its central value,** wider than the
+> half-to-double rule every other row follows; it stays inside its admissible bound of 1, and the parser rejects a
+> ratio whose derived numerator could leave it. Every value is `[I]`.
+>
 > Decided as recommended under the owner's instruction of 2026-10-22, approved by the owner 2026-10-24 in T-125
 > (`docs/implementation_plan_version_2.md` §2.2, D8, D10, D12; §2.10, the Phase C and Phase D part I sweeps and
 > part II's ranges, declared 2026-10-23 and swept 2026-10-23–24 across two Macs).
@@ -399,3 +413,9 @@
 | `M11.C.48[phase_d]` | `cutoff_decay_weeks` | 130 | 520 | integer | — | [I] — not named in `model_explainer.md`; `constants.md` grades it [I] | `M1.D.2b`: the weeks over which an uncontacted cut tie's stock decays to its floor |
 | `M11.C.48[phase_d]` | `cutoff_floor_share` | 0.05 | 0.2 | log | 1 | [I] — not named in `model_explainer.md`; `constants.md` grades it [I] | `M1.D.2b`: the floor the stock decays to, as a share of its peak |
 | `M11.C.48[phase_d]` | `positive_bridge_dissipation` | 0.4 | 1.0 | log | 1 | [I] — not named in `model_explainer.md`; `constants.md` grades it [I] | `M1.D.2b`: the share of the stock a positive contact removes, the contact that ends a cutoff; 0.8 runs 0.4 to its bound 1 |
+
+## Named ratios
+
+| ratio | numerator | denominator | period constant | low | high | scale | grade | spec |
+|---|---|---|---|---|---|---|---|---|
+| `tie_wear_to_transfer_ratio` | `tie_wear_rate` | `calm_transfer_rate` | `slow_tick_fast_ticks` | 1/208 | 4/52 | log | [I] | `M17.E.1`, D24–D26 |

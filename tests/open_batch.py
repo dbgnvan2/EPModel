@@ -37,8 +37,9 @@ import pytest
 REPO = Path(__file__).resolve().parents[1]
 
 # The batch, while it is open: why the records are stale and when they stop being. None once step 10 has run.
-OPEN: str | None = ("stage 3's batch (D31): the engine hash moved at plan step 6 (66dcbb1e8ba5 → f90285984f32) and "
-                    "moves again at steps 7–9; every record is regenerated once, at step 10")
+# Closed at plan step 10 (2026-10-26): every record regenerated once on the engine hash 2a3b84e2d89a and the marks
+# taken off. Kept, with the machinery below, so a later batch can reopen it with its own OPENED_AT and AT_OPEN.
+OPEN: str | None = None
 
 OPENED_AT = "9ebf3274554a32f77a401304ad1dec587fc99022"  # 9ebf327, the commit whose records the batch keeps (spec revision 38, engine hash 66dcbb1e8ba5)
 HASHED_TREES = ("src/bowen", "config/bowen", "tools")  # everything ``tools.ensemble_record.code_hash`` reads

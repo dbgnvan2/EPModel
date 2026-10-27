@@ -3,7 +3,7 @@
 *Generated from the spec at revision 39 by `tools/spec_rules_view.py`. Not normative: where this and the spec differ, the spec wins. Do not edit.*
 
 One file per `## M` module of `docs/bowen_agent_model_spec_v2.md`, with §0 as `M00.md`. The view removes,
-mechanically and nothing else: the front matter's `status:` line; every `⟦…⟧` revision tag (582 of them); every block-quote line, the source quotations (17 lines; the `→ file · ID` pointers stay); and the revision-history sections, of which the spec has none since revision 35 moved them to `docs/spec_revision_log.md`. No sentence of a requirement body is removed: `history_in_body.md` lists the 30 IDs whose bodies hold a sentence matching a history phrase (after revision 35 moved the narratives to `docs/spec_revision_log.md`, Part E of `docs/plan_model_ergonomics.md`, these are the sentences that pass left in place, each a "stays" row of `docs/spec_revision_35_dispositions.md`).
+mechanically and nothing else: the front matter's `status:` line; every `⟦…⟧` revision tag (583 of them); every block-quote line, the source quotations (17 lines; the `→ file · ID` pointers stay); and the revision-history sections, of which the spec has none since revision 35 moved them to `docs/spec_revision_log.md`. No sentence of a requirement body is removed: `history_in_body.md` lists the 30 IDs whose bodies hold a sentence matching a history phrase (after revision 35 moved the narratives to `docs/spec_revision_log.md`, Part E of `docs/plan_model_ergonomics.md`, these are the sentences that pass left in place, each a "stays" row of `docs/spec_revision_35_dispositions.md`).
 
 To find an ID's module, grep `docs/spec_index.jsonl` for it: the record's `module` field names the `##` heading, and `lines` the spec's lines.
 
@@ -26,6 +26,6 @@ To find an ID's module, grep `docs/spec_index.jsonl` for it: the record's `modul
 | `M14.md` | M14 — Spec coverage | 28,352 | 4,442 |
 | `M15.md` | M15 — Family diagram import  `Phase E` | 10,329 | 1,616 |
 | `M16.md` | M16 — The run log and the readable trace | 12,091 | 1,889 |
-| `M17.md` | M17 — Phase E: ensemble runner, arms and readouts | 22,621 | 3,372 |
+| `M17.md` | M17 — Phase E: ensemble runner, arms and readouts | 24,121 | 3,607 |
 
-**Size.** The view's 18 module files hold 459,415 bytes (70,726 words) against the spec's 492,608 bytes (75,424 words): 93% of the spec by bytes, 94% by words.
+**Size.** The view's 18 module files hold 460,915 bytes (70,961 words) against the spec's 494,406 bytes (75,702 words): 93% of the spec by bytes, 94% by words.

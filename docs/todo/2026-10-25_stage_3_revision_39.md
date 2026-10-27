@@ -85,3 +85,13 @@ Raised while drafting part 1 of spec revision 39 (`docs/spec_revision_39_draft.m
   The `M11.C.27` cells keep their verdicts (three fail, `[unstable,remove_one]` passes), as do `M11.C.16` and
   `M11.C.41`'s four cells. The settings and `reciprocal_contact_share` (0.5, `[I]`) are not to be tuned to these rows
   (`M10.B.4`); read with step 10's regeneration and the sweep; left for the owner.
+- [ ] T-143 ⟨later⟩ **Mutants that revision 39's regeneration no longer turns red (step 10, 2026-10-26).** From
+  `docs/version_2_revision_39_changes.md`, against revision 38's records (`9ebf327`): in the Phase C mutation record
+  `steepness-level-independent` now survives on `M11.C.41[heavy: lower level]`, `availability-level-inverted` survives
+  and `availability-and-learner-removed` is reversed on `M11.C.16` (`steepness-inverted` turns it red where it
+  survived), and `steepness-inverted` survives on `M11.C.38[-5 vs -10]`; the four `M11.C.44` mutants did not run,
+  since `M11.C.44` fails (T-142). In the Phase D mutation record `M11.C.17` passes for the first time (FAIL → PASS in
+  the Phase D ensemble record) and its one mutant, `landed-contact-changes-nothing`, survives, so that pass is not yet
+  proved by mutation; `triangle-help-ignored` is reversed on `M11.C.46` where it was red. Each criterion that passes
+  with a surviving mutant needs a mutant that turns it red before its pass counts as coverage (CLAUDE.md), or a reason
+  the survivor is expected; read at the stage-end sweep (step 11) and the milestone review; left for the owner.

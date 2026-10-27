@@ -1,5 +1,5 @@
-"""Where version 2 stands: every `M11.C` criterion with its verdict now, its verdict at the tag `version-1`, its
-mutation evidence, its sweep fraction and its status under the stage 2 conditions W1–W4.
+"""Where version 2 stands: every `M11.C` criterion with its verdict now, its verdict at the tag `version-1` and at
+spec revision 38, its mutation evidence, its sweep fraction and its status under the stage 2 conditions W1–W4.
 
 Purpose: generate ``docs/version_2_status.md`` from the records, so no status on it is hand-written (P6: a status is
          checked against the artifact it claims). On the model of ``tools/version_1_status.py``, which is frozen at
@@ -7,7 +7,8 @@ Purpose: generate ``docs/version_2_status.md`` from the records, so no status on
          (the spec's criteria table, the mutation records, the not-built lists, the dispositions) are imported from
          it and the rest is here. The tool holds no editorial content: what the owner decided, and why, is in
          ``docs/version_1_dispositions.md``; the sweep's rules are in ``config/sweep/sweep.md``.
-Spec:    docs/implementation_plan_version_2.md#2.2 (D11), #2.3 (S2.8–S2.11); docs/bowen_agent_model_spec_v2.md#M11.5
+Spec:    docs/implementation_plan_version_2.md#2.2 (D11), #2.3 (S2.8–S2.11); docs/bowen_agent_model_spec_v2.md#M11.5;
+         docs/implementation_plan_version_2_stage_3.md (S3.24: each verdict beside version 1's and revision 38's)
 Tests:   tests/test_version_2_status.py
 
 The rules, version 1's (``docs/version_1_definition.md`` §1, approved 2026-10-15) carried into stage 2:
@@ -22,9 +23,15 @@ The rules, version 1's (``docs/version_1_definition.md`` §1, approved 2026-10-1
 * Version 1's dispositions apply only where the verdict is the tag's. A row whose verdict differs from the verdict
   the frozen page records at the tag is **changed since the tag** and is not final until the owner reviews it; a
   criterion the tag's page does not have is new since the tag and is judged by the rules above alone.
+* The **revision 38 column** shows the verdict this page gave at commit ``REVISION_38`` (the records as revision 38
+  left them, before stage 3's regeneration), read from git; it is shown, never used for a status: a verdict that
+  differs from it is a new result under revision 39's rules (`M11.F`), and the rules above still read only the tag.
 * The **sweep column** (W4) shows *n of S held* for a swept criterion, *not swept* for a directional criterion not
   yet swept, and a dash for a premise, a check or a criterion that is not built. A fraction is a measurement and is
-  never written as a pass or a fail (`M11.5`); W4 asks only that a passing directional criterion has one.
+  never written as a pass or a fail (`M11.5`); W4 asks only that a passing directional criterion has one. A
+  fraction from a sweep record made on an engine that is not the current one (its ``engine_hash`` or
+  ``phase_d_engine_hash`` line differs) is shown with the hash it was measured on and does not count for W4: it
+  measured rules the engine no longer has (P6; the review of 2026-10-26, stage 3 step 10).
 """
 
 from __future__ import annotations
@@ -39,12 +46,14 @@ REPO = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO))
 
 import tools.version_1_status as v1  # noqa: E402
+from tools.record_changes import REVISION_38, ref_text  # noqa: E402
 from tools.record_json import record_json  # noqa: E402
 
 PAGE = REPO / "docs" / "version_2_status.md"
 TAG_PAGE = v1.PAGE                       # docs/version_1_status.md, frozen at the tag `version-1`
 SWEEP_RECORD = REPO / "docs" / "version_2_sweep_record.md"
 CHANGED = "changed since the tag `version-1`, pending the owner's review (T-122)"
+STALE_CELL = "earlier engine; not counted for W4"
 CONDITIONS = (("W1", "every criterion has a final status"),
               ("W2", "every premise and check passes"),
               ("W3", "every passing composite has a recorded mutation"),
@@ -65,6 +74,7 @@ class Status:
     final: bool
     blocks: set = field(default_factory=set)
     note: str = ""
+    at_revision_38: str = ""
 
 
 def record_rows() -> list[tuple[str, str, dict]]:
@@ -93,7 +103,18 @@ def survived_mutants() -> dict[str, list[tuple[str, str]]]:
 
 def tag_verdicts(path: Path = TAG_PAGE) -> dict[str, str]:
     """Criterion key -> its verdict on the frozen page (PASS, FAIL, UNDETERMINED or 'not built')."""
-    text = path.read_text(encoding="utf-8")
+    return page_verdicts(path.read_text(encoding="utf-8"), path.name)
+
+
+def revision_38_verdicts() -> dict[str, str]:
+    """Criterion key -> its verdict on this page as committed at ``REVISION_38``, read from git (S3.24). A missing ref
+    fails; it is never skipped (CI checks out with fetch-depth 0)."""
+    return page_verdicts(ref_text(REVISION_38, PAGE.relative_to(REPO).as_posix()), f"{PAGE.name} at {REVISION_38}")
+
+
+def page_verdicts(text: str, name: str) -> dict[str, str]:
+    """Criterion key -> the fourth cell of each row of a status page's '## Every criterion' table, its verdict."""
+    path = Path(name)
     table = text.split("## Every criterion", 1)
     if len(table) != 2:
         raise SystemExit(f"{path.name}: no '## Every criterion' table")
@@ -103,6 +124,25 @@ def tag_verdicts(path: Path = TAG_PAGE) -> dict[str, str]:
         raise SystemExit(f"{path.name}: {rows} criterion rows in the table, {len(out)} parsed; a row the pattern does "
                          "not read would vanish from the page (P2)")
     return out
+
+
+def sweep_stale(path: Path = SWEEP_RECORD) -> str | None:
+    """Why the sweep record's fractions are not of the current engine, or None when they are (or there is no record).
+    Each hash the record prints is compared with the one its rows are keyed by now; a record printing neither is
+    refused, since its engine cannot be checked."""
+    if not path.exists():
+        return None
+    from tools.phase_d_mutation_record import engine_hash as phase_d_engine_hash
+    from tools.record_cache import engine_hash
+
+    printed = dict(re.findall(r"^(engine_hash|phase_d_engine_hash): (\w+)$", path.read_text(encoding="utf-8"), re.M))
+    if not printed:
+        raise SystemExit(f"{path.name}: no engine_hash line, so its fractions cannot be checked against the engine")
+    now = {"engine_hash": engine_hash, "phase_d_engine_hash": phase_d_engine_hash}
+    moved = [f"{kind} `{value[:12]}`" for kind, value in printed.items() if value != now[kind]()]
+    if not moved:
+        return None
+    return (f"measured on {', '.join(moved)}, not the current engine; not counted for W4 until the sweep is rerun")
 
 
 def sweep_fractions(path: Path = SWEEP_RECORD) -> dict[str, str]:
@@ -132,7 +172,9 @@ def statuses() -> list[Status]:
     decided = v1.dispositions()
     limbs = v1.premise_limbs()
     tag = tag_verdicts()
-    swept = sweep_fractions()
+    earlier = revision_38_verdicts()
+    swept = sweep_fractions(SWEEP_RECORD)
+    sweep_old = sweep_stale(SWEEP_RECORD)
     out: list[Status] = []
     covered = set()
 
@@ -160,6 +202,8 @@ def statuses() -> list[Status]:
         d_tag = decided.get(key)
         d = d_tag if same else None  # version 1's disposition applies only where the verdict is the tag's
         sweep = swept.get(key) or ("not swept" if cls in v1.DIRECTIONAL else "—")
+        if sweep_old and key in swept:
+            sweep += f" ({STALE_CELL})"
         s = Status(key, cls, source, row["outcome"], at_tag, v1._readouts(row), sweep, "", False)
         proof = reds.get(key, [])
         if proof:
@@ -177,7 +221,7 @@ def statuses() -> list[Status]:
                 s.status, s.blocks = "pass, no recorded mutation", {"W1", "W3"}
             else:
                 s.status, s.final = "pass", True
-            if cls in v1.DIRECTIONAL and key not in swept:
+            if cls in v1.DIRECTIONAL and (key not in swept or sweep_old):
                 s.blocks.add("W4")
         else:
             declared = limbs.get(key, limbs.get(cid, frozenset()))
@@ -211,6 +255,7 @@ def statuses() -> list[Status]:
         elif d_tag:  # shown, so the owner sees the decision the new verdict reverses; not applied
             why = "the verdict changed" if at_tag != "—" else "no row at the tag"
             s.note = f"version 1 disposition, not applied ({why}): {d_tag['kind']} — {d_tag['reason']} *({d_tag['decided']})*"
+        s.at_revision_38 = earlier.get(s.key, "new since revision 38")
         out.append(s)
 
     current = {k for k, _, _ in rows}
@@ -244,8 +289,12 @@ def statuses() -> list[Status]:
                        {"W1", "W2"} if cls in v1.PREMISE_LIKE else {"W1"})
         if d:
             s.note = f"{d['reason']} *({d['decided']})*"
+        s.at_revision_38 = earlier.get(s.key, "new since revision 38")
         out.append(s)
 
+    gone = sorted(set(earlier) - {s.key for s in out})
+    if gone:
+        raise SystemExit(f"rows at revision 38 ({REVISION_38}) with no row now: {gone}; shown, not dropped (P2)")
     known = {s.key for s in out} | set(spec)
     stray = sorted((set(decided) | set(limbs)) - known)
     if stray:
@@ -268,6 +317,7 @@ def render(rows: list[Status]) -> str:
         keyed = ", ".join(f"{kind} `{value[:12]}`" for kind, value in found)
         hashes.append(f"- {name} (`{path.relative_to(REPO)}`): {keyed}")
     hashes.append(f"- the tag's page (`{TAG_PAGE.relative_to(REPO)}`): the verdicts at `version-1`")
+    hashes.append(f"- this page as committed at `{REVISION_38}`: the verdicts at spec revision 38")
     lines = [
         "# Version 2 status",
         "",
@@ -275,7 +325,10 @@ def render(rows: list[Status]) -> str:
         "records below and from `docs/version_1_dispositions.md`, against the stage 2 conditions W1–W4",
         "(`docs/implementation_plan_version_2.md` §2.3). A verdict that is not the one the frozen page records at the",
         "tag `version-1` is **changed since the tag** and is not final until the owner reviews it (T-122); a criterion",
-        "the tag's page does not have is new since the tag. The **sweep** column is a measurement, *n of S* samples",
+        "the tag's page does not have is new since the tag. The **at revision 38** column is this page's verdict at",
+        f"commit `{REVISION_38}`, before stage 3's regeneration: shown beside the verdict, never used for a status, since a",
+        "verdict that differs from it is a new result under revision 39's rules (`M11.F`;",
+        "`docs/version_2_revision_39_changes.md` lists every changed field). The **sweep** column is a measurement, *n of S* samples",
         "over the declared ranges in which the direction held (`docs/version_2_sweep_record.md`), never a verdict",
         "(`M11.5`); a premise or check is not swept.",
         "",
@@ -289,15 +342,24 @@ def render(rows: list[Status]) -> str:
         held = blocked(condition)
         state = "**met**" if not held else f"**not met**, {len(held)} rows: " + ", ".join(held)
         lines.append(f"- {condition} ({text}): {state}.")
+    sweep_old = sweep_stale(SWEEP_RECORD)
+    if sweep_old:
+        lines += ["", f"The sweep record's fractions were {sweep_old} (each such cell says *{STALE_CELL}*)."]
     counts: dict[str, int] = {}
     for s in rows:
         counts[s.status] = counts.get(s.status, 0) + 1
+    moved = [s for s in rows if s.at_revision_38 != s.verdict]
     lines += ["", "Rows by status:", *[f"- {k}: {v}" for k, v in sorted(counts.items())], "",
+              f"Verdicts not the one this page gave at revision 38: {len(moved)} of {len(rows)} rows"
+              + (": " + ", ".join(f"`{s.key}` ({s.at_revision_38} → {s.verdict})" for s in moved) if moved else "")
+              + ".", "",
               "## Every criterion", "",
-              "| Criterion | Class | Record | Verdict | At `version-1` | Evidence | Sweep | Status | Final | Blocks | Disposition |",
-              "|---|---|---|---|---|---|---|---|---|---|---|"]
+              "| Criterion | Class | Record | Verdict | At `version-1` | At revision 38 | Evidence | Sweep | Status | Final "
+              "| Blocks | Disposition |",
+              "|---|---|---|---|---|---|---|---|---|---|---|---|"]
     for s in rows:
-        lines.append(f"| `{s.key}` | {s.cls} | {s.source} | {s.verdict} | {s.at_tag} | {s.evidence} | {s.sweep} | "
+        lines.append(f"| `{s.key}` | {s.cls} | {s.source} | {s.verdict} | {s.at_tag} | {s.at_revision_38} | "
+                     f"{s.evidence} | {s.sweep} | "
                      f"{s.status} | {'yes' if s.final else 'no'} | {', '.join(sorted(s.blocks)) or '—'} | {s.note or '—'} |")
     return "\n".join(lines) + "\n"
 

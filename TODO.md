@@ -26,7 +26,6 @@ moves to `docs/TODO_archive.md`. Until 2026-10-22 this file held every item's te
 - T-009 · 2026-10-22 · SP-1 Q7: six requirements whose passage supports less … · [record](docs/todo/2026-10-21_stage_1_milestone_review.md)
 - T-010 · 2026-10-22 · Found while building SP-1 (2026-10-22), not fixed · [record](docs/todo/2026-10-21_stage_1_milestone_review.md)
 - T-011 · 2026-10-22 · From the SP-1 build's review (2026-10-22), not fixed · [record](docs/todo/2026-10-21_stage_1_milestone_review.md)
-- T-012 · 2026-10-21 · With the next change that moves the engine … · [record](docs/todo/2026-10-21_stage_1_milestone_review.md)
 - T-015 · 2026-10-21 · SP-2: extend the document-claim tests · [record](docs/todo/2026-10-21_stage_1_milestone_review.md)
 - T-016 · 2026-10-21 · Adjacent, not fixed · [record](docs/todo/2026-10-21_stage_1_milestone_review.md)
 - T-017 · 2026-10-17 · A genuine `I-POSITION` at level 40 almost never … · [record](docs/todo/2026-10-17_revision_32.md)
@@ -144,3 +143,4 @@ moves to `docs/TODO_archive.md`. Until 2026-10-22 this file held every item's te
 - T-140 · 2026-10-26 · `M5.C.1`'s gate and `M4.C.1d`'s returned contact (the step … · [record](docs/todo/2026-10-25_stage_3_revision_39.md)
 - T-141 · 2026-10-26 · The sender's appraisal of returned contact reads the … · [record](docs/todo/2026-10-25_stage_3_revision_39.md)
 - T-142 · 2026-10-26 · Group A does not turn `M11.C.42` or `M11.C.45` … · [record](docs/todo/2026-10-25_stage_3_revision_39.md)
+- T-143 · 2026-10-26 · Mutants that revision 39's regeneration no longer turns … · [record](docs/todo/2026-10-25_stage_3_revision_39.md)

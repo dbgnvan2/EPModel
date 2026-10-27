@@ -26,7 +26,6 @@ RECORD = "docs/phase_c_ensemble_record.md"
 # The outcome an expected failure raises, named here so the test below is not read as a test marked xfail.
 EXPECTED_FAILURE = pytest.xfail.Exception
 STAMPED = "docs/phase_d_ensemble_record.md"  # prints the hash of the code alone (``code_hash()``, no tool) it was built on
-TOOLED = "docs/phase_c_ensemble_record.md"  # prints ``code_hash(*HASHED_TOOLS)``, with its tool
 
 
 def _marked() -> dict[str, list[str]]:
@@ -39,7 +38,11 @@ def _marked() -> dict[str, list[str]]:
 
 
 def _stamped(record: str = STAMPED) -> str:
-    return re.search(r"^code_hash: ([0-9a-f]{64})$", (REPO / record).read_text(encoding="utf-8"), re.M).group(1)
+    """The code hash ``record`` printed at ``OPENED_AT``, the commit whose records the batch kept (read from git, so the
+    checks below still test the machinery once the records are regenerated and the batch is closed)."""
+    text = subprocess.run(["git", "-C", str(REPO), "show", f"{open_batch.OPENED_AT}:{record}"], capture_output=True,
+                          text=True, check=True, timeout=60).stdout
+    return re.search(r"^code_hash: ([0-9a-f]{64})$", text, re.M).group(1)
 
 
 def test_d31_the_records_are_all_as_found_or_all_regenerated():
@@ -65,12 +68,8 @@ def test_d31_the_hash_as_found_is_the_hash_the_records_were_built_on():
     the rerun under it is a test of the batch's one cause."""
     from tools import ensemble_record
 
-    if open_batch.OPEN is None:
-        return
     with open_batch.hash_as_found():
         assert ensemble_record.code_hash() == _stamped()
-        # with a tool (the path remapped into the tree as found): the Phase C ensemble record's stamp
-        assert ensemble_record.code_hash(*ensemble_record.HASHED_TOOLS) == _stamped(TOOLED)
     assert ensemble_record.code_hash() != _stamped(), "the hash has not moved: no record is stale by the batch"
 
 

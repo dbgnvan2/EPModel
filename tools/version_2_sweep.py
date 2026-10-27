@@ -11,7 +11,8 @@ Purpose: for each criterion declared in ``config/sweep/sweep.md``, report *n of 
          ``tools/phase_d_mutant_child.py`` and cached under ``tools/phase_d_mutation_record.py``'s hash, which covers
          that child; any other by ``tools/mutant_runner.py``'s child under the engine hash.
 Spec:    docs/bowen_agent_model_spec_v2.md#M17.E.1, #M17.A.1 (the detection-limit rule, revision 37);
-         docs/implementation_plan_version_2.md#2.2 (D8, D10, D11)
+         docs/implementation_plan_version_2.md#2.2 (D8, D10, D11);
+         docs/implementation_plan_version_2_stage_3.md#3.4 (the named ratio, D24–D26, Q14)
 Tests:   tests/test_version_2_sweep.py
 
     python3 tools/version_2_sweep.py [--workers N] [--criteria KEY ... [--recompute] | --render-only]
@@ -27,11 +28,22 @@ seeds; the sample's verdict is the second run's and both seed counts are recorde
 that many seeds or more is not rerun. The fraction counts a sample as holding only when its verdict is PASS;
 UNDETERMINED is counted apart; an errored sample (RAISED, BROKEN or FAILED) is counted apart and left out of the
 denominator, never dropped (P2), and a FAILED one is not cached, so it runs again next time (P1).
+
+The named ratio (`M17.E.1`, spec revision 39, D24–D26): a ratio declared under ``## Named ratios`` enters the set of
+every swept criterion whose run is longer than its period constant's value in fast ticks (Q14), so that a slow tick
+fires before the run's last tick, and of no other. A criterion's run length is measured, not read from a setting: one
+seed (seed 0) of each arm at the central constants, counting the fast ticks the engine steps, the longest arm's count
+kept (``measure_run_length``); it is cached beside the results under the hash of ``src/bowen`` and ``config/bowen``.
+An entered criterion's sample draws the ratio and the denominator and derives the numerator from them; the record
+lists the criteria the ratio entered and those it did not, with each run length, and splits each entered criterion's
+*n of S* at the ratio's central value.
 """
 
 from __future__ import annotations
 
 import argparse
+import hashlib
+import inspect
 import json
 import math
 import os
@@ -44,13 +56,14 @@ import numpy as np
 REPO = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO))
 
+from tools.ensemble_record import code_hash  # noqa: E402  (a run length is keyed by the code it was measured on)
 from tools.mutant_runner import Mutant  # noqa: E402
 from tools.phase_d_mutation_record import CHILD as PHASE_D_CHILD  # noqa: E402
 from tools.phase_d_mutation_record import engine_hash as phase_d_engine_hash  # noqa: E402
 from tools.phase_d_record import VERDICT_NOTES, noted  # noqa: E402  (a known defect beside a verdict, review MR-3)
 from tools.record_cache import CHILD, ERRORED, Cache, engine_hash, exit_status, result_key, run_cached  # noqa: E402
 from tools.record_json import record_json  # noqa: E402
-from tools.sweep_config import Range, central_values, load_config, not_run_keys  # noqa: E402
+from tools.sweep_config import SHARE_BOUND, Range, Ratio, central_values, load_config, not_run_keys  # noqa: E402
 
 RECORD = REPO / "docs" / "version_2_sweep_record.md"
 SWEEP_REQUIREMENTS = REPO / "requirements-sweep.txt"  # the sweep machines' NumPy pin; CI installs requirements.txt
@@ -96,6 +109,27 @@ def format_value(value: int | float) -> str:
     return str(value) if isinstance(value, int) else f"{value:.6g}"
 
 
+def ratio_ranges(key: str, declared: list[Range], ratio: Ratio) -> list[Range]:
+    """The ranges an entered criterion's sample draws: its own, then the ratio's denominator over its declared range
+    (unless the criterion declares it), then the ratio itself. The numerator is not drawn: ``with_ratio`` derives it."""
+    extra = [] if any(r.constant == ratio.denominator for r in declared) else [
+        Range(key, ratio.denominator, ratio.denominator_range.low, ratio.denominator_range.high,
+              ratio.denominator_range.scale, ratio.denominator_range.bound, ratio.denominator_range.grade,
+              ratio.denominator_range.why)]
+    return [*declared, *extra, Range(key, ratio.name, ratio.low, ratio.high, ratio.scale, None, ratio.grade, ratio.spec)]
+
+
+def with_ratio(sample: dict[str, int | float], ratio: Ratio, ticks: int) -> tuple[dict[str, int | float], float]:
+    """The sample with the drawn ratio replaced by the numerator it implies: ratio × ``ticks`` × denominator, the
+    denominator taken as its row will be written. Returns the sample and the ratio its written rows give (D24)."""
+    out = {k: v for k, v in sample.items() if k != ratio.name}
+    denominator = float(format_value(out[ratio.denominator]))
+    out[ratio.numerator] = float(sample[ratio.name]) * ticks * denominator
+    if not 0 < out[ratio.numerator] <= SHARE_BOUND:
+        raise ValueError(f"{ratio.name}: derived {ratio.numerator} {out[ratio.numerator]} outside (0, {SHARE_BOUND}]")
+    return out, float(format_value(out[ratio.numerator])) / (ticks * denominator)
+
+
 # --- mutants ----------------------------------------------------------------------------------------------------
 
 def _row_edit(name: str, central: dict[str, str], value: str) -> tuple[str, str, str]:
@@ -126,6 +160,16 @@ def near_limit(row: dict, multiple: float) -> bool:
     equivalence limb (direction 0) has no detection limit of this kind and is not read (`M17.A.1`)."""
     gating = [r for r in row.get("readouts", ()) if not r.get("report_only") and r.get("direction")]
     return any(abs(r["mean_difference"]) < multiple * r["half_width"] for r in gating)
+
+
+def ratio_split(rows: list[dict], ratio: Ratio) -> dict:
+    """D26: *held* of *counted* below and at-or-above the ratio's central value, so a direction that flips across it
+    shows. Errored samples are left out, as from the fraction."""
+    counted = [r for r in rows if r["outcome"] not in ERRORED]
+    sides = {"below": [r for r in counted if r["ratio"] < ratio.central],
+             "above": [r for r in counted if r["ratio"] >= ratio.central]}
+    return {"ratio": ratio.name, "central": ratio.central,
+            **{side: {"held": sum(1 for r in rs if r["outcome"] == PASS), "counted": len(rs)} for side, rs in sides.items()}}
 
 
 def summarise(rows: list[dict]) -> dict:
@@ -164,14 +208,22 @@ def own_seeds(key: str) -> int | None:
 
 
 def sweep_criterion(cache: Cache, key: str, ranges: list[Range], rules: dict, central: dict[str, str],
-                    workers: int | None, engine: str, child: str = CHILD) -> dict:
+                    workers: int | None, engine: str, child: str = CHILD, ratio: Ratio | None = None) -> dict:
+    """One criterion's samples and fraction. With ``ratio`` (an entered criterion, D26), each sample also draws the
+    ratio and its denominator and derives the numerator (``with_ratio``), and the result is split at its central
+    value."""
     multiple, fixed = rules["detection_limit_multiple"], int(rules["detection_limit_seeds"])
+    drawn = ratio_ranges(key, ranges, ratio) if ratio else ranges
+    ticks = int(central[ratio.period]) if ratio else 0
     rows = []
-    for index, sample in enumerate(draw(ranges, int(rules["sweep_samples"]), int(rules["sweep_seed"]), key)):
+    for index, sample in enumerate(draw(drawn, int(rules["sweep_samples"]), int(rules["sweep_seed"]), key)):
+        sample, realised = with_ratio(sample, ratio, ticks) if ratio else (sample, None)
         mutant = sample_mutant(key, index, sample, central)
         first = _result(cache, mutant, key, workers, engine, child)
         row = {"index": index, "values": {k: format_value(v) for k, v in sample.items()}, "outcome": first["outcome"],
                "seeds": first["seeds"], "readouts": _readouts(first), "rerun": False, "error": first.get("error", "")}
+        if ratio:
+            row["ratio"] = realised
         if first["outcome"] not in ERRORED and near_limit(first, multiple) and first["seeds"] < fixed:
             # Refused before the rerun runs, not after (review MR-12, owner 2026-10-24): a criterion that fixes fewer
             # seeds than the declared count would run its own seeds again. One that never needs a rerun is swept.
@@ -189,7 +241,72 @@ def sweep_criterion(cache: Cache, key: str, ranges: list[Range], rules: dict, ce
                         "rerun_seeds": second["seeds"], "rerun_readouts": _readouts(second),
                         "error": second.get("error", "")})
         rows.append(row)
-    return {"criterion": key, **summarise(rows), "constants": _constants(ranges), "rows": rows}
+    result = {"criterion": key, **summarise(rows), "constants": _constants(drawn), "rows": rows}
+    if ratio:
+        result["ratio_split"] = ratio_split(rows, ratio)
+    return result
+
+
+# --- the named ratio's scope (D26, Q14) -------------------------------------------------------------------------
+
+def measure_run_length(key: str, phase_d: bool) -> int:
+    """The fast ticks a criterion's longest arm runs: seed 0 of each arm at the central constants, with the engine's
+    tick (``criteria.run_tick``, through which every arm's ``scenario`` steps) wrapped to keep the highest tick
+    reached. Raises if no arm steps a tick, since then the run length is unknown."""
+    from src.bowen.ensemble import criteria
+
+    if phase_d:
+        from src.bowen.ensemble import criteria_d2
+        from src.bowen.ensemble.criteria_d import CRITERIA_D
+        from src.bowen.ensemble.criteria_d2 import CRITERIA_D2
+        criterion = {**CRITERIA_D, **CRITERIA_D2}[key]
+        # a run cached in the process steps no tick, so a second key sharing it would read 0 or part of its length
+        criteria_d2.life_run.cache_clear()
+        criteria_d2.negative_run_values.cache_clear()
+    else:
+        criterion = criteria.CRITERIA[key]
+    real, longest = criteria.run_tick, 0
+
+    def counted(state, *args, **kwargs):
+        nonlocal longest
+        real(state, *args, **kwargs)
+        longest = max(longest, state.tick)
+
+    criteria.run_tick = counted
+    try:
+        for arm in criterion.arms:
+            criterion.arm(arm, 0, criterion.settings)
+    finally:
+        criteria.run_tick = real
+    if not longest:
+        raise SystemExit(f"{key}: no arm stepped a fast tick, so its run length is unknown")
+    return longest
+
+
+# The measurement's own source is in each length's key: the code hash covers the engine, not this file, so a changed
+# way of measuring would otherwise read lengths measured the old way (P8).
+MEASURED_BY = hashlib.sha256(inspect.getsource(measure_run_length).encode("utf-8")).hexdigest()
+
+
+def run_length(cache: Cache, key: str, phase_d: bool, workers: int | None, code: str) -> int:
+    """``key``'s run length from the cache, measured first when missing and ``workers`` is given; without, a missing
+    one raises ``KeyError``, as a missing result does."""
+    cache_key = result_key(code, {"run_length": "seed 0, the longest arm, central constants",
+                                  "measured_by": MEASURED_BY}, key)
+    cached = cache.get(cache_key)
+    if cached is None:
+        if workers is None:
+            raise KeyError(f"{key}: no cached run length for the current code")
+        cache.put(cache_key, {"run_length_of": key, "ticks": measure_run_length(key, phase_d)})
+        cached = cache.get(cache_key)
+    return int(cached["ticks"])
+
+
+def ratio_scope(ratio: Ratio, ticks: int | None, period: int) -> dict:
+    """Whether ``ratio`` enters a criterion whose run is ``ticks`` long: only when it is longer than ``period`` fast
+    ticks (Q14). ``ticks`` None: a criterion declared, not run, whose run length was not measured."""
+    return {"ratio": ratio.name, "run_ticks": ticks, "period": period,
+            "entered": None if ticks is None else ticks > period}
 
 
 def central_verdicts() -> dict[str, dict]:
@@ -208,7 +325,44 @@ def _fraction(s: dict) -> str:
     return f"{s['held']} of {s['counted']}" if s["counted"] else "no counted sample"
 
 
-def render(results: list[dict], centrals: dict[str, dict], rules: dict, engine: str, phase_d_engine: str) -> str:
+def _split_cell(s: dict, side: str) -> str:
+    split = s.get("ratio_split")
+    return f"{split[side]['held']} of {split[side]['counted']}" if split else "—"
+
+
+def _scope_lines(results: list[dict], ratios: list[Ratio]) -> list[str]:
+    lines = []
+    for ratio in ratios:
+        scoped = [s for s in results if s.get("ratio_scope", {}).get("ratio") == ratio.name]
+        period = scoped[0]["ratio_scope"]["period"] if scoped else None
+        entered = [s for s in scoped if s["ratio_scope"]["entered"]]
+        lines += ["", f"## The named ratio `{ratio.name}` (`M17.E.1`): where it entered", "",
+                  f"`{ratio.name}` = `{ratio.numerator}` ÷ (`{ratio.period}` × `{ratio.denominator}`), {ratio.grade}: "
+                  f"central value {ratio.central:.4g}, range {ratio.low:.4g}–{ratio.high:.4g} ({ratio.scale}). The units "
+                  "differ: the numerator is a share per week (per slow tick), the denominator a share per contact, so "
+                  "the ratio is per week ÷ per contact. It entered the set of every swept criterion whose run is longer "
+                  f"than `{ratio.period}` ({period}) fast ticks, so that a slow tick fires before the run's last tick, "
+                  "and of no other (Q14); in each entered criterion every sample drew the ratio and "
+                  f"`{ratio.denominator}` and derived `{ratio.numerator}` from them. A run length is measured: seed 0 "
+                  "of each arm at the central constants, the longest arm's fast ticks. "
+                  f"{len(entered)} of {len(scoped)} criteria entered.", "",
+                  "| Criterion | Run (fast ticks) | The ratio |", "|---|---|---|"]
+        for s in scoped:
+            scope = s["ratio_scope"]
+            if scope["entered"] is None:
+                why = "not entered: declared, not run, so no run length was measured"
+            elif scope["entered"]:
+                why = f"entered: longer than `{ratio.period}` ({period}), so a slow tick fires before its last tick"
+            else:
+                why = (f"not entered: not longer than `{ratio.period}` ({period}), so tie wear acts at no slow tick "
+                       "before its last tick")
+            run = "—" if scope["run_ticks"] is None else str(scope["run_ticks"])
+            lines.append(f"| `{s['criterion']}` | {run} | {why} |")
+    return lines
+
+
+def render(results: list[dict], centrals: dict[str, dict], rules: dict, engine: str, phase_d_engine: str,
+           ratios: list[Ratio] = ()) -> str:
     lines = [
         "# Version 2 sweep record (`M17.E.1`, stage 2)",
         "",
@@ -239,19 +393,26 @@ def render(results: list[dict], centrals: dict[str, dict], rules: dict, engine: 
         "`apply` and `run_in_copy`. Both are kept in `docs/records_cache/sweep_v2.json`; this file is rendered from that",
         "cache.",
         "",
-        "| Criterion | Class | Central verdict | Constants swept (low–high) | Held | Undetermined | Reruns at fixed count | Errored |",
-        "|---|---|---|---|---|---|---|---|",
     ]
+    split_head = "".join(f" Held below `{r.name}` {r.central:.3g} (per week ÷ per contact) | Held at or above it |"
+                         for r in ratios[:1])
+    lines += [f"| Criterion | Class | Central verdict | Constants swept (low–high) | Held |{split_head} Undetermined | "
+              "Reruns at fixed count | Errored |",
+              "|---|---|---|---|---|" + "---|---|" * len(ratios[:1]) + "---|---|---|"]
     for s in results:
         c = centrals[s["criterion"]]
         swept = "; ".join(f"`{x['constant']}` {x['low']:g}–{x['high']:g}" for x in s["constants"])
+        if s.get("ratio_split"):
+            swept += f"; `{ratios[0].numerator}` derived"
+        split = "".join(f" {_split_cell(s, 'below')} | {_split_cell(s, 'above')} |" for _r in ratios[:1])
         if "not_run" in s:
             lines.append(f"| `{s['criterion']}` | {c['class']} | {noted(s['criterion'], c['outcome'])} | {swept} | "
-                         f"{_fraction(s)} | — | — | — |")
+                         f"{_fraction(s)} |{split} — | — | — |")
             continue
         lines.append(f"| `{s['criterion']}` | {c['class']} | {noted(s['criterion'], c['outcome'])} | {swept} | "
-                     f"{_fraction(s)} | {s['undetermined']} | "
+                     f"{_fraction(s)} |{split} {s['undetermined']} | "
                      f"{s['reruns']} | {s['errored']} |")
+    lines += _scope_lines(results, list(ratios))
     for s in results:
         if "not_run" in s:
             lines += ["", f"## `{s['criterion']}` — declared, not run", "", f"Not run: {s['not_run']}"]
@@ -259,10 +420,17 @@ def render(results: list[dict], centrals: dict[str, dict], rules: dict, engine: 
         lines += ["", f"## `{s['criterion']}` — {_fraction(s)} samples held", ""]
         if s["criterion"] in VERDICT_NOTES:
             lines += [f"Central verdict {centrals[s['criterion']]['outcome']}: {VERDICT_NOTES[s['criterion']]}.", ""]
+        if s.get("ratio_split"):
+            split = s["ratio_split"]
+            lines += [f"`{split['ratio']}` (per week ÷ per contact) entered: held {split['below']['held']} of "
+                      f"{split['below']['counted']} below its central value {split['central']:.4g} and "
+                      f"{split['above']['held']} of {split['above']['counted']} at or above it.", ""]
         lines += ["| Sample | Values | Seeds | Rerun | Verdict | Gating readouts (mean difference ± half-width) |",
                   "|---|---|---|---|---|---|"]
         for r in s["rows"]:
             values = ", ".join(f"`{k}` {v}" for k, v in r["values"].items())
+            if r.get("ratio") is not None:
+                values += f"; ratio {r['ratio']:.4g} (per week ÷ per contact)"
             seeds = f"{r['seeds']} then {r['rerun_seeds']}" if r["rerun"] else str(r["seeds"])
             rerun = f"yes (first {r['first_outcome']})" if r["rerun"] else "no"
             shown = r["rerun_readouts"] if r["rerun"] else r["readouts"]
@@ -274,10 +442,14 @@ def render(results: list[dict], centrals: dict[str, dict], rules: dict, engine: 
     return "\n".join(lines)
 
 
-def _checked(only: list[str] | None = None) -> tuple[dict, dict]:
-    """The rules and the ranges to sweep, once every declared key has been checked (a central record, a directional
-    class) and every key of ``only`` is found declared: nothing runs before all of it passes."""
-    rules, ranges = load_config()
+def _checked(only: list[str] | None = None) -> tuple[dict, dict, list[Ratio]]:
+    """The rules, the ranges to sweep and the named ratios, once every declared key has been checked (a central record,
+    a directional class) and every key of ``only`` is found declared: nothing runs before all of it passes."""
+    config = load_config()
+    rules, ranges = config
+    ratios = list(getattr(config, "ratios", ()))
+    if len(ratios) > 1:
+        raise SystemExit(f"{len(ratios)} named ratios declared; the tool sweeps one (M17.E.1 names one)")
     centrals = central_verdicts()
     for key in ranges:
         if key not in centrals:
@@ -287,7 +459,7 @@ def _checked(only: list[str] | None = None) -> tuple[dict, dict]:
     unknown = [key for key in only or () if key not in ranges]
     if unknown:
         raise SystemExit(f"{', '.join(unknown)}: not declared in config/sweep/sweep.md; nothing ran")
-    return rules, {key: declared for key, declared in ranges.items() if only is None or key in only}
+    return rules, {key: declared for key, declared in ranges.items() if only is None or key in only}, ratios
 
 
 def _constants(ranges: list[Range]) -> list[dict]:
@@ -310,23 +482,38 @@ def sweep(cache: Cache, workers: int | None = None, only: list[str] | None = Non
     across machines, docs/two_mac_sweep.md). With ``workers``, missing results are run first; without, a missing
     result raises ``KeyError``. Without ``only``, a key listed as declared, not run is shown as that and nothing of it
     runs; ``only`` runs such a key like any other (that is how it comes to be run)."""
-    rules, ranges = _checked(only)
+    rules, ranges, ratios = _checked(only)
     central, centrals, engine, phase_d_engine = central_values(), central_verdicts(), engine_hash(), phase_d_engine_hash()
     not_run = {} if only else _not_run(cache, ranges)
-    return [{"criterion": key, "not_run": not_run[key], "constants": _constants(declared), "rows": []}
-            if key in not_run
-            else sweep_criterion(cache, key, declared, rules, central, workers, phase_d_engine, PHASE_D_CHILD.name)
-            if centrals[key]["record"] in PHASE_D_RECORDS
-            else sweep_criterion(cache, key, declared, rules, central, workers, engine)
-            for key, declared in ranges.items()]
+    code = code_hash() if ratios else ""
+    results = []
+    for key, declared in ranges.items():
+        phase_d = centrals[key]["record"] in PHASE_D_RECORDS
+        scope = None
+        if ratios:
+            ticks = None if key in not_run else run_length(cache, key, phase_d, workers, code)
+            scope = ratio_scope(ratios[0], ticks, int(central[ratios[0].period]))
+        ratio = ratios[0] if scope and scope["entered"] else None
+        if key in not_run:
+            result = {"criterion": key, "not_run": not_run[key], "constants": _constants(declared), "rows": []}
+        elif phase_d:
+            result = sweep_criterion(cache, key, declared, rules, central, workers, phase_d_engine, PHASE_D_CHILD.name,
+                                     ratio)
+        else:
+            result = sweep_criterion(cache, key, declared, rules, central, workers, engine, ratio=ratio)
+        if scope:
+            result["ratio_scope"] = scope
+        results.append(result)
+    return results
 
 
 def build(cache: Cache, workers: int | None = None) -> str:
     """The record, from the cache. With ``workers``, missing results are run first; without, a missing result raises
     ``KeyError``, so a test can check the committed record without running anything."""
     results = sweep(cache, workers)
-    rules, _ranges = load_config()
-    return render(results, central_verdicts(), rules, engine_hash(), phase_d_engine_hash())
+    config = load_config()
+    return render(results, central_verdicts(), config[0], engine_hash(), phase_d_engine_hash(),
+                  list(getattr(config, "ratios", ())))
 
 
 # --- the NumPy version ------------------------------------------------------------------------------------------

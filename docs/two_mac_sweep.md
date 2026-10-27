@@ -13,6 +13,11 @@ Their tests are `tests/test_sweep_two_macs.py`.
   names the same run. **If the two Macs compute bit-identical numbers**, the union of their caches is the cache one
   run would have built. Nothing in a split by criterion tests that, because the two shares share no key. The
   cross-check below does, and it is run before every split.
+- A criterion's run length, which decides whether the named ratio enters it (`M17.E.1`, Q14), is measured once per
+  code hash, on seed 0 of each arm at the central constants, and cached in the same file under its own key
+  (`{"run_length_of": key, "ticks": n}`). Each Mac measures the criteria of its own share; the merge treats the
+  entries as results, so a length the two Macs measured differently stops it, and `--render-only` refuses a
+  criterion whose length is not in the cache.
 - `tools/merge_cache.py` writes the union of two cache files. It writes nothing, and never picks one, when:
   - one key holds two different results;
   - the two files record different NumPy versions, or either records none;

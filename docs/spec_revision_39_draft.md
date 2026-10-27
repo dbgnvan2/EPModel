@@ -1,16 +1,17 @@
 # Spec revision 39 — draft (version 2 stage 3)
 
 > **Status: APPROVED by the owner 2026-10-25, as a whole, through `AskUserQuestion` ("Approve"), with part 1's reading
-> of D19 under `M6.I.4a` (functional level returns with the pseudo-self); not yet applied to the spec and not built —
-> each group lands with its code (§24).** Part 1 (§1–§10): group C (P2, F1, `M6.I.4a`) and T-130's wording. Part 2 (§11–§18): group F
+> of D19 under `M6.I.4a` (functional level returns with the pseudo-self); applied to the spec and built in full, each
+> group with its code (§24), at stage 3 plan steps 6–10 (2026-10-25–26; `docs/spec_revision_log.md`'s revision 39
+> lists what landed at each step and where the applied text departs from this page).** Part 1 (§1–§10): group C (P2, F1, `M6.I.4a`) and T-130's wording. Part 2 (§11–§18): group F
 > (`M5.F.4`, `M5.F.2c`, `M11.C.29`'s arm, new `M11.C.49`) and group A (new `M4.C.1d`, `M4.D.3a`,
 > `reciprocal_contact_share`). Part 3 (§19–§24): T-128 (`M17.E.1`, `M10.C.1a`, `config/sweep/sweep.md`) and T-014
 > (`M8`, `M8.1`, `M8.5`, `M13.1`, `M11.C.7`, `M7.D.1a`). Written at plan step 4
 > (`docs/implementation_plan_version_2_stage_3.md` §3.8) from §3.3–§3.5, the proposal
 > `docs/PROPOSAL — DISPLACED COPING (P2).md`, the probes in `docs/review/`, and the owner's answers of 2026-10-25
 > (Q1–Q6, §2 and §9; Q8–Q14, §18). Nothing under `src/bowen/` or `config/bowen/` is edited by this page, and nothing
-> here moves the engine hash (`66dcbb1e8ba5`). The spec stays at revision 38 until each group's approved text is
-> applied in the same commit as its code (the owner's Q6, 2026-10-25, §9; §24 lists where each block lands).
+> here moves the engine hash (`66dcbb1e8ba5`). Each group's approved text was applied in the same commit as its code
+> (the owner's Q6, 2026-10-25, §9; §24 lists where each block lands); the page is kept as approved.
 
 Every new form is Claude's recommendation, graded `[I]`, unless a ledger entry is cited. Attribution grades follow
 `model_explainer.md`'s legend: `[K]` is Kerr's text (`KS`, `FE`), never Bowen's.

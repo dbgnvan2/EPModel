@@ -2060,7 +2060,15 @@ Version 2's stage 2 builds the constant sweep (`M17.E.1`) and the detection-limi
   repository (through `tools/mutant_runner.py`'s child for a Phase C criterion, `tools/phase_d_mutant_child.py`
   for a Phase D one), so the engine hash does not move, and the result is *n of S*
   samples held, with undetermined and errored samples counted apart. A fraction is a measurement beside the
-  gating verdict, never a verdict, and no premise or check is swept (`M11.5`). The sweep config is outside
+  gating verdict, never a verdict, and no premise or check is swept (`M11.5`). **The named ratio** `[I]` (revision
+  39, stage 3 plan step 10, T-128; D24–D26, Q14): how fast a tie hardens or eases against how fast anxiety moves
+  through it is what a criterion over many slow ticks reads, not either rate alone, so the sweep draws
+  `tie_wear_to_transfer_ratio` = `tie_wear_rate` ÷ (`slow_tick_fast_ticks` × `calm_transfer_rate`) log-uniformly
+  over 1/208 to 4/52 (central 1/52) with `calm_transfer_rate` over its own range, and derives `tie_wear_rate` from
+  the two, so the pair moves together and apart. It enters only a criterion whose run is longer than one slow tick
+  (52 fast ticks), the run length measured on seed 0 of each arm at the central constants; such a criterion's
+  *n of S* is also split into the samples below and at or above the central ratio, as counts, never a verdict.
+  The first sweep record to carry it is the stage-end sweep's (plan step 11). The sweep config is outside
   `config/bowen/` because the engine hash covers that directory and a sweep's ranges are an input to a
   measurement, not to the model; a dose–response curve for the one constant a criterion depends on most, sharing
   that range (kept as two requirements, approved by the owner); for threshold constants, the exact interval within which nothing changes, computed from logged

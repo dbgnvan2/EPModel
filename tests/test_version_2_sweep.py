@@ -720,6 +720,10 @@ def test_s3_19_ratio_row_parsed_strictly():
     with pytest.raises(sweep_config.SweepConfigError, match="slow_tick_fast_ticks has a row"):
         load_ratios(swept_period, central)  # the ratio is derived at the central period
     assert RATIO in (REPO / "docs" / "spec_rules" / "M17.md").read_text(encoding="utf-8"), "M17.E.1 does not name it"
+    for heading in ("### Named ratios", "## Named ratios ", "## named ratio", "## Named rations",
+                    "## Named ratios (draft)"):  # step 12's review: a near miss is not read as no ratio
+        with pytest.raises(sweep_config.SweepConfigError, match="is not the heading"):
+            load_ratios(RATIO_CONFIG.replace("\n## Named ratios\n", f"\n{heading}\n"), central)
 
 
 def test_m17e1_run_length_is_measured():

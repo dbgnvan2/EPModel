@@ -2,10 +2,35 @@
 
 The entries of `CHANGELOG.md` dated before 2026-10-19, the day version 2 began at the tag `version-1`, moved
 here verbatim on 2026-10-22, the entries of 2026-10-19 and 2026-10-20 on 2026-10-23, and the entries of
-2026-10-21 later on 2026-10-23, the earliest entry of 2026-10-22 (the SP-1 proposal's eight questions) on 2026-10-24, and the next (SP-1 built, with spec revision 34) later on 2026-10-24, and the next (Model ergonomics, Parts A–C) on 2026-10-25, and the next (Model ergonomics, Part D) later on 2026-10-25, and the next (Model ergonomics, Part E) later on 2026-10-25, and the next (Model ergonomics follow-ups) later on 2026-10-25, and the next (the closed and old parts of `TODO.md` and `CHANGELOG.md` archived) on 2026-10-26, and the next (`TODO.md` an index over records; a changelog index) later on 2026-10-26, and the next (Revision 35's dispositions approved by the owner) later on 2026-10-26, and the next two (Spec revision 36, of 2026-10-22, and Revision 36's records regenerated, of 2026-10-23) later on 2026-10-26, and the next five (from the cloud sessions' SessionStart hook to Stage 2: Phase C's directional criteria swept, all of 2026-10-23) later on 2026-10-26, and the next three (from the night's decisions listed for the owner to Stage 2: Phase D part I's directional criteria swept, all of 2026-10-23) on 2026-10-27, so that the live file stays short enough to read (`tests/test_doc_size.py` bounds its size). The heading below is the section they
+2026-10-21 later on 2026-10-23, the earliest entry of 2026-10-22 (the SP-1 proposal's eight questions) on 2026-10-24, and the next (SP-1 built, with spec revision 34) later on 2026-10-24, and the next (Model ergonomics, Parts A–C) on 2026-10-25, and the next (Model ergonomics, Part D) later on 2026-10-25, and the next (Model ergonomics, Part E) later on 2026-10-25, and the next (Model ergonomics follow-ups) later on 2026-10-25, and the next (the closed and old parts of `TODO.md` and `CHANGELOG.md` archived) on 2026-10-26, and the next (`TODO.md` an index over records; a changelog index) later on 2026-10-26, and the next (Revision 35's dispositions approved by the owner) later on 2026-10-26, and the next two (Spec revision 36, of 2026-10-22, and Revision 36's records regenerated, of 2026-10-23) later on 2026-10-26, and the next five (from the cloud sessions' SessionStart hook to Stage 2: Phase C's directional criteria swept, all of 2026-10-23) later on 2026-10-26, and the next three (from the night's decisions listed for the owner to Stage 2: Phase D part I's directional criteria swept, all of 2026-10-23) on 2026-10-27, and the next (Stage 2: the sweep can run on two Macs, of 2026-10-23) later on 2026-10-27, so that the live file stays short enough to read (`tests/test_doc_size.py` bounds its size). The heading below is the section they
 were under; nothing in this file is reworded. Later entries are in `CHANGELOG.md`.
 
 ## [Unreleased] — 2026-10-11
+
+### Stage 2: the sweep can run on two Macs (2026-10-23)
+
+- Before part II's seven criteria (projected 23–40 h on one Mac), the constant sweep (`M17.E.1`) can be split between
+  davemini2 and Mac Mini1 and the results combined (`docs/two_mac_sweep.md`, the how-to, listed in
+  `docs/SPEC_REVIEW_CHECKLIST.md`; `docs/implementation_plan_version_2.md` §2.10). Nothing in `src/bowen/` changed;
+  `engine_hash()` printed `66dcbb1e8ba5` before and after; no record was rerun. No split run has been made.
+- `tools/version_2_sweep.py --criteria KEY ...`: checks every declared key first, refuses an undeclared one, runs only
+  its share and writes only the cache with every entry kept, never the record. `--recompute` reruns the named
+  criteria, the cross-check that the two Macs compute the same numbers. `--render-only` renders the record from the
+  cache and runs nothing; a missing result stops it with nothing written.
+- `tools/merge_cache.py OTHER`: the union of two cache files, refused with nothing written when one key holds two
+  results, the NumPy versions differ or are missing, or a sweep is running on this Mac.
+- The NumPy version is recorded in a cache file under `_meta` (`tools/record_cache.py`), outside the result keys; a
+  cache without one is written without one. `docs/records_cache/sweep_v2.json` stamped `1.26.4`, the version all its
+  361 results were made under. `requirements-sweep.txt` pins `numpy==1.26.4` for sweep machines; the sweep refuses
+  another version or a cache with results and no version, and `--render-only` is not checked (CI runs NumPy 2).
+  `requirements.txt` stays unpinned for CI's Python 3.13.
+- `tools/two_mac_sweep.py` (`check`, `start`, `status`, `fetch`): checks Mac Mini1 against this checkout (commit,
+  clean files, engine hashes, Python, CPU, NumPy), starts its share detached with its venv's Python, confirms it is
+  running, logs `START`/`EXIT` lines, and copies its cache back to a new file. Tested with `subprocess.run` stubbed
+  and the remote commands run under a local `sh`; not run against a live Mac Mini1 beyond its `pgrep` call.
+- The `learning-qa` pass's seven findings fixed. Tests: `tests/test_sweep_two_macs.py`, 31 tests (43 with
+  parameters), each shown failing under mutation (46 mutants, all killed). The suite: 1192
+  tests (CLAUDE.md updated from 1149).
 
 ### Stage 2: Phase D part I's directional criteria swept (2026-10-23)
 

@@ -221,11 +221,15 @@ def _fraction(raw: str, where: str) -> float:
 
 
 def load_ratios(text: str, central: dict[str, str]) -> list[Ratio]:
-    """The table under ``## Named ratios`` (empty when the section is absent). Each row's three constants must be in
-    ``constants.md`` and the SCHEMA, the period an integer; its range must hold the central ratio; its denominator must
-    have one declared range in ``## Ranges`` and its numerator none (the ratio derives it); and the derived numerator
-    must stay within ``SHARE_BOUND`` at both ends of both ranges (D25), so no sample can leave it."""
+    """The table under ``## Named ratios`` (empty when the section is absent; any other heading that names a ratio is
+    refused, as ``load_not_run`` refuses a near miss of its own). Each row's three constants must be in ``constants.md`` and the
+    SCHEMA, the period an integer; its range must hold the central ratio; its denominator must have one declared range
+    in ``## Ranges`` and its numerator none (the ratio derives it); and the derived numerator must stay within
+    ``SHARE_BOUND`` at both ends of both ranges (D25), so no sample can leave it."""
     if f"\n## {RATIO_HEADING}\n" not in text:
+        near = re.findall(r"^\s*#+.*ratio.*$", text, re.MULTILINE | re.IGNORECASE)
+        if near:  # a misspelt heading would drop the ratio silently (P2; step 12's review)
+            raise SweepConfigError(f"{near[0]!r} is not the heading '## {RATIO_HEADING}'; the ratio would not be read")
         return []
     ranges = load_ranges(text, central)
     out: list[Ratio] = []

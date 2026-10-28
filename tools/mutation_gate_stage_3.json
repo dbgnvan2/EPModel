@@ -232,5 +232,96 @@
    ]
   ],
   "expect": "assert tie.felt_contact[RAVI] == before, \"a delivery that raised the target's deviation returned contact\""
+ },
+ {
+  "gate": "S3.4 (lender direction)",
+  "test": "tests/bowen/test_moves.py::test_m6i4a_returns_only_to_lenders_within_the_caps_dead_or_alive",
+  "mutation": "the balance's direction dropped: every partner holding lent pseudo-self is a lender, whoever the tie names the over-functioner",
+  "edits": [
+   [
+    "src/bowen/engine/moves.py",
+    "            if tie.functioning_balance.get(DEFAULT_AREA, 0.0) * _pole_of(tie, pid) > 0 and (other.pseudo_self or 0.0) < 0:\n",
+    "            if (other.pseudo_self or 0.0) < 0:\n"
+   ]
+  ],
+  "expect": "assert wrong_way[NADIA] == 0.0"
+ },
+ {
+  "gate": "S3.4 (lender at 100)",
+  "test": "tests/bowen/test_moves.py::test_m6i4a_returns_only_to_lenders_within_the_caps_dead_or_alive",
+  "mutation": "the cap at 100 dropped: a lender is given back their share past 100",
+  "edits": [
+   [
+    "src/bowen/engine/moves.py",
+    "                         SCALE_MAX - lender.functional_level, taker.functional_level)\n",
+    "                         taker.functional_level)\n"
+   ]
+  ],
+  "expect": "assert topped[MARTA] == pytest.approx(0.5)"
+ },
+ {
+  "gate": "S3.4 (taker at 0)",
+  "test": "tests/bowen/test_moves.py::test_m6i4a_returns_only_to_lenders_within_the_caps_dead_or_alive",
+  "mutation": "the taker's floor at 0 dropped: a taker gives back more than their level",
+  "edits": [
+   [
+    "src/bowen/engine/moves.py",
+    "                         SCALE_MAX - lender.functional_level, taker.functional_level)\n",
+    "                         SCALE_MAX - lender.functional_level)\n"
+   ]
+  ],
+  "expect": "assert floored[RAVI] == pytest.approx(-1.0)"
+ },
+ {
+  "gate": "S3.4 (dead lender)",
+  "test": "tests/bowen/test_moves.py::test_m6i4a_returns_only_to_lenders_within_the_caps_dead_or_alive",
+  "mutation": "a dead lender left out: nothing is settled against the dead's ledger (`M6.3e`)",
+  "edits": [
+   [
+    "src/bowen/engine/moves.py",
+    "            other = state.people[next(m for m in tie.id.members() if m != pid)]\n",
+    "            other = state.people[next(m for m in tie.id.members() if m != pid)]\n            if not other.alive:\n                continue\n"
+   ]
+  ],
+  "expect": "assert week(dead, half)[MARTA] == pytest.approx(3.0)"
+ },
+ {
+  "gate": "S3.4 (a borrower is no lender)",
+  "test": "tests/bowen/test_moves.py::test_m6i4a_returns_only_to_lenders_within_the_caps_dead_or_alive",
+  "mutation": "the lent-pseudo-self test dropped: a partner holding borrowed pseudo-self on a tie that names the taker counts as a lender",
+  "edits": [
+   [
+    "src/bowen/engine/moves.py",
+    "            if tie.functioning_balance.get(DEFAULT_AREA, 0.0) * _pole_of(tie, pid) > 0 and (other.pseudo_self or 0.0) < 0:\n",
+    "            if tie.functioning_balance.get(DEFAULT_AREA, 0.0) * _pole_of(tie, pid) > 0:\n"
+   ]
+  ],
+  "expect": "assert borrower[MARTA] == pytest.approx(3.0) and borrower[NADIA] == 0.0"
+ },
+ {
+  "gate": "S3.4 (no more than lent)",
+  "test": "tests/bowen/test_moves.py::test_m6i4a_s3_4_lent_functioning_returns_with_lost_capacity",
+  "mutation": "the cap at what was lent dropped: a lender is given back more than they lent",
+  "edits": [
+   [
+    "src/bowen/engine/moves.py",
+    "            amount = min(due * -lender.pseudo_self / lent, -lender.pseudo_self,\n",
+    "            amount = min(due * -lender.pseudo_self / lent,\n"
+   ]
+  ],
+  "expect": "assert capped[MARTA][1] == pytest.approx(1.0) and capped[RAVI][1] == pytest.approx(-1.0)"
+ },
+ {
+  "gate": "S3.4 (in proportion)",
+  "test": "tests/bowen/test_moves.py::test_m6i4a_s3_4_lent_functioning_returns_with_lost_capacity",
+  "mutation": "the split made equal: each lender is given back the same share, not in proportion to what each holds lent",
+  "edits": [
+   [
+    "src/bowen/engine/moves.py",
+    "            amount = min(due * -lender.pseudo_self / lent, -lender.pseudo_self,\n",
+    "            amount = min(due / len(lenders), -lender.pseudo_self,\n"
+   ]
+  ],
+  "expect": "assert moved[MARTA][1] == pytest.approx(back * 4 / 6)"
  }
 ]

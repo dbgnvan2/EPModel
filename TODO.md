@@ -18,7 +18,7 @@ moves to `docs/TODO_archive.md`. Until 2026-10-22 this file held every item's te
 - T-121 · 2026-10-23 · `M11.C.11`'s named mutant survives · [record](docs/todo/2026-10-23_revision_36_regeneration.md)
 - T-123 · 2026-10-23 · `M11.C.48`'s baseline counts a first cutoff with no … · [record](docs/todo/2026-10-23_revision_36_regeneration.md)
 
-## Later (124)
+## Later (127)
 
 - T-006 · 2026-10-22 · D4, long `Spec:` lines (Part D, 2026-10-22; the … · [record](docs/todo/2026-10-22_model_ergonomics.md)
 - T-007 · 2026-10-22 · Adjacent issues found by Part D's docstring pass, … · [record](docs/todo/2026-10-22_model_ergonomics.md)
@@ -144,3 +144,6 @@ moves to `docs/TODO_archive.md`. Until 2026-10-22 this file held every item's te
 - T-142 · 2026-10-26 · Group A does not turn `M11.C.42` or `M11.C.45` … · [record](docs/todo/2026-10-25_stage_3_revision_39.md)
 - T-143 · 2026-10-26 · Mutants that revision 39's regeneration no longer turns … · [record](docs/todo/2026-10-25_stage_3_revision_39.md)
 - T-144 · 2026-10-27 · `M11.C.49` has no declared sweep ranges (step 11, … · [record](docs/todo/2026-10-25_stage_3_revision_39.md)
+- T-145 · 2026-10-27 · `M11.C.21`'s scripted collapse falls between weeks, so `M6.I.4a` … · [record](docs/todo/2026-10-25_stage_3_revision_39.md)
+- T-146 · 2026-10-27 · Displaced coping takes functioning from a receiver who … · [record](docs/todo/2026-10-25_stage_3_revision_39.md)
+- T-147 · 2026-10-27 · The engine imports the policy at call time … · [record](docs/todo/2026-10-25_stage_3_revision_39.md)

@@ -267,6 +267,9 @@ and all agreeing, were brought to the paper's wording at step 6 (T-130).
 - 2026-10-26: stage 3 step 10, the batch's last commit (spec revision 39, part 3, T-128). `M17.E.1`'s sentence on the
   named ratio, `config/sweep/sweep.md`'s `## Named ratios`, and every record regenerated once on `2a3b84e2d89a`. What
   moved is in `version_2_revision_39_changes.md`; each criterion's status beside revision 38's in `version_2_status.md`.
+- 2026-10-27: stage 3 step 12, the reviews of stage 3's whole diff. No rule and no record changed; tests added for
+  `M6.I.4a`'s lenders and caps. Known and deferred to the milestone review's triage: T-145 (`M11.C.21`'s collapse falls
+  between weeks, so `M6.I.4a` never sees it), T-146 and T-147, each moving the engine hash.
 
 ## 9. Not relevant to how the model works now
 

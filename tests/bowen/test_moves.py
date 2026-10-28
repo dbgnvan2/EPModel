@@ -638,6 +638,64 @@ def test_m6i4a_s3_4_lent_functioning_returns_with_lost_capacity():
     assert all(v == (0.0, 0.0) for v in week(empty, floor - 1.0).values())  # no capacity at the week's start
 
 
+def test_m6i4a_returns_only_to_lenders_within_the_caps_dead_or_alive():
+    """`M6.I.4a`'s lenders and caps (stage 3 step 12's correctness pass: none of them had a case). Ravi, at basic level
+    50 holding 6 borrowed, loses half his capacity, so 3 is due back. A partner who holds lent pseudo-self on a tie whose
+    balance names the partner, not Ravi, the over-functioner is not his lender and gets nothing, nor does a partner who
+    holds borrowed pseudo-self on a tie that names Ravi; a lender near 100 is
+    given back only up to 100, and a taker is not taken below 0, what a cap stops staying with the taker; a dead lender
+    is given back their share against their ledger (`M6.3e`). Total pseudo-self and functional level are conserved."""
+    from src.bowen.engine.moves import _pole_of, return_lent_functioning
+
+    def set_up(lent, over=None, basic=50.0):
+        """Ravi borrowed 6; each partner holds what they lent; the tie's balance names ``over`` (default Ravi)."""
+        state = fresh()
+        ravi = state.people[RAVI]
+        ravi.basic_level, ravi.functional_level, ravi.pseudo_self = basic, basic, 6.0
+        for pid, held in lent.items():
+            person = state.people[pid]
+            person.functional_level += held - (person.pseudo_self or 0.0)
+            person.pseudo_self = held
+            tie = state.ties[TieId.of(RAVI, pid)]
+            tie.functioning_balance[DEFAULT_AREA] = 0.5 * _pole_of(tie, (over or {}).get(pid, RAVI))
+        return state
+
+    def week(state, ravi_level_after):
+        start = {pid: p.functional_level for pid, p in state.people.items()}
+        state.people[RAVI].functional_level = ravi_level_after
+        totals = (sum(p.pseudo_self or 0.0 for p in state.people.values()),
+                  sum(p.functional_level for p in state.people.values()))
+        before = {pid: p.pseudo_self or 0.0 for pid, p in state.people.items()}
+        return_lent_functioning(state, PARAMS, start)
+        assert (sum(p.pseudo_self or 0.0 for p in state.people.values()),
+                sum(p.functional_level for p in state.people.values())) == pytest.approx(totals, abs=1e-12)
+        return {pid: (state.people[pid].pseudo_self or 0.0) - before[pid] for pid in state.people}
+
+    floor = 50.0 - PARAMS.stress_floor_below_basic
+    half = floor + 0.5 * (50.0 - floor)                                   # s falls from 1 to 0.5: 3 of the 6 is due
+
+    wrong_way = week(set_up({MARTA: -4.0, NADIA: -2.0}, over={NADIA: NADIA}), half)
+    assert wrong_way[NADIA] == 0.0                                        # Nadia took charge on her tie: not a lender
+    assert wrong_way[MARTA] == pytest.approx(3.0) and wrong_way[RAVI] == pytest.approx(-3.0)
+
+    borrower = week(set_up({MARTA: -4.0, NADIA: 2.0}), half)               # Nadia holds borrowed, not lent
+    assert borrower[MARTA] == pytest.approx(3.0) and borrower[NADIA] == 0.0
+
+    full = set_up({MARTA: -4.0})
+    full.people[MARTA].functional_level = 99.5
+    topped = week(full, half)
+    assert topped[MARTA] == pytest.approx(0.5) and topped[RAVI] == pytest.approx(-0.5)   # not taken above 100
+    assert full.people[MARTA].functional_level == pytest.approx(100.0)
+
+    low = set_up({MARTA: -4.0}, basic=2.0)                                # floor 0: s falls from 1 to 0.5 at level 1
+    floored = week(low, 1.0)
+    assert floored[RAVI] == pytest.approx(-1.0) and low.people[RAVI].functional_level == pytest.approx(0.0)
+
+    dead = set_up({MARTA: -4.0})
+    dead.people[MARTA].alive = False
+    assert week(dead, half)[MARTA] == pytest.approx(3.0)                  # settled against the dead lender's ledger
+
+
 def test_m6i4a_the_weeks_exchange_is_left_out_of_the_fall():
     """`M6.I.4a`: the fall that returns borrowed pseudo-self is a fall by a cause other than the exchange. Ravi, below
     basic level and holding pseudo-self borrowed from Marta, gives way to Nadia this week (`M6.I.4`); what he gave is

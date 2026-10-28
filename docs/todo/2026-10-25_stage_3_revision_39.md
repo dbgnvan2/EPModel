@@ -105,3 +105,37 @@ Raised while drafting part 1 of spec revision 39 (`docs/spec_revision_39_draft.m
   choosing which `[I]` constants its mechanism reads (the I-position's demand share, `M5.F.4`; appraisal; contagion)
   and their ranges, the same judgment as T-125's batch 5; for the owner, before the next sweep that should carry it.
   The owner kept `M17.E.1` *partial* until it is swept (2026-10-27); the sweep record lists it as not swept.
+- [ ] T-145 ⟨later⟩ **`M11.C.21`'s scripted collapse falls between weeks, so `M6.I.4a` never sees it (step 12's
+  `learning-qa` pass, 2026-10-27; major).** `run_tick` reads each person's level at the week's start inside the tick
+  (`src/bowen/engine/tick.py:118`), and `arm_c21` drops both parents' levels in a `before` hook
+  (`src/bowen/ensemble/criteria_d.py`, `collapse`), which runs between week t0 − 1 and week t0. No week holds the
+  drop, so `return_lent_functioning` returns nothing for it, and `M11.C.21`, the criterion the
+  `pseudo-self-return-removed` mutant targets, cannot show whether `M6.I.4a` works. Measured 2026-10-27 by an
+  in-process probe in the session's scratchpad (nothing in the repository changed), 100 seeds each at the committed
+  settings: as built, `target_rise` −0.0409 ± 0.44, p 0.889, FAIL (the Phase D ensemble record's row, reproduced);
+  with the week's start read at the previous week's end (fix (a)), −0.870 ± 0.457, p ≈ 1.0, FAIL the other way. The
+  return now happens, in week t0, and the readout's baseline is the child's level at the end of week t0
+  (`watch` at tick t0 + 1), so what returns is left out of the rise and what follows is the child's settling back. A
+  fix is therefore two decisions for the owner: (a) the week's start read at the previous week's end, kept on the
+  run state, or (b) the drop moved inside the tick as an event; and where `M11.C.21`'s readout starts (the end of
+  week t0 − 1 would count the return). Either moves the engine hash, so every record regenerates and the stage-end
+  sweep reruns. Left for the milestone review's triage batch, so the records regenerate once with whatever else it
+  finds (Claude's recommendation under the owner's overnight instruction, 2026-10-27, for the owner's review). Not
+  T-134 (a return with no lender).
+- [ ] T-146 ⟨later⟩ **Displaced coping takes functioning from a receiver who refuses the act (step 12's `learning-qa`
+  pass, 2026-10-27).** `stress_response.displace()` (`M1.A.5f`) moves functioning from every family member named in
+  the selection's targets when the act is selected (update-order step 8), before delivery. `M1.B.3c`'s refusal is
+  applied at delivery (`rejection.refuse`): a move to a person whose rejection of the sender is above
+  `rejection_refusal_threshold` does not reach them, so `M6.I.4`'s exchange moves nothing, yet `displace()` has
+  already taken up to `response_up_gain × above/100 × basic/100` from that person. `OVERFUNCTION` across a cut-off tie
+  is legal (`REDUCE_CUTOFF` alone requires a severed tie; every other act needs a live one, and a cut-off tie is). `M1.A.5f` says "the
+  act's receivers" and does not say whether a refused target is one, so the wording is the owner's first; the fix,
+  if a refused target is not a receiver, skips it with `refuse()`'s own test, and moves the engine hash. Batched with
+  T-145 for the milestone review's triage (Claude's recommendation, 2026-10-27, for the owner's review).
+- [ ] T-147 ⟨later⟩ **The engine imports the policy at call time (step 12's correctness pass, 2026-10-27).**
+  `src/bowen/engine/iposition.py`'s `demand_share` imports `self_channel_weight` from `src/bowen/policy/policy.py`
+  inside the function, so `M5.F.4` and `M4.D.1a` read one definition of `w`; its docstring records this as
+  deliberate, to avoid a load-time cycle. No run computes anything wrong. It inverts the layering (the policy imports
+  the engine), and a rename in `policy.py` fails only when a `DEFINE` week is reached. Moving `self_channel_weight`
+  into an engine module, with the policy importing it, moves the engine hash, so it waits for a batch that moves it
+  anyway (T-145's).

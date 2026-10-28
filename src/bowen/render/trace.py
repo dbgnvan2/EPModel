@@ -199,8 +199,8 @@ def _what_it_did(event: Event, index: _Index, names: _Names, view: PersonId | No
             for p, _, _ in effect.people:
                 parts.append(f"{names(p)} holds a position: no functioning changes hands")
         elif effect.mechanism == "assertion":
-            parts.append("assertion form (all demand: angry, or no self in it): extra impingement; "
-                         "claiming the position raises the sender's outward axis")
+            parts.append("assertion form (all demand: an angry mover, or self-channel weight 0 at DEFINE): "
+                         "extra impingement; claiming the position raises the sender's outward axis")
         elif effect.mechanism == "landed_contact":
             for p, _, v in effect.people:
                 parts.append(f"the contact lands with {names(p)}: systems perspective {v:+.2f}")

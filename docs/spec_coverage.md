@@ -614,7 +614,7 @@ say whether that test was proved failing by mutation unless its note does.
 | M17.G.2 | not done | — | no test named for it; Phase E builds it and is not built yet |
 | M17.G.3 | not done | — | no test named for it; Phase E builds it and is not built yet |
 
-## Tests named for no spec ID (293)
+## Tests named for no spec ID (294)
 
 Their names embed no requirement ID, so they count only where an override cites them (marked *cited*). The rest check spec documents, tooling or helpers.
 
@@ -847,6 +847,7 @@ Their names embed no requirement ID, so they count only where an override cites 
 - `tests/test_spec_consistency.py::test_d4_suite_size_phrasings_are_recognised`
 - `tests/test_spec_consistency.py::test_every_citing_document_resolves_against_the_spec`
 - `tests/test_spec_consistency.py::test_every_spec_reference_resolves_within_the_spec`
+- `tests/test_spec_consistency.py::test_mr13_current_engine_hash_is_the_one_the_documents_name`
 - `tests/test_spec_consistency.py::test_requirement_counts_agree_with_the_spec`
 - `tests/test_stage_3_probes.py::test_stage_3_displaced_coping_probe_f1_ledger_holds_at_the_floor_and_sheds_off_it`
 - `tests/test_stage_3_probes.py::test_stage_3_displaced_coping_probe_joins_split_runs_by_seed`

@@ -53,7 +53,7 @@ Table 3. All rows are on p. 216.
   reproductions. The value is the same.
 - **`FIND_WORK_LOAD`.** The paper's Table 3 says "Wife begin or stop work". The config's "Spouse begins or stops work"
   makes the item gender-neutral. In the paper, the rater is the one readjusting to a wife's change; the model gives
-  the load to the person who finds work (`who` = self). That mapping is the model's editorial choice (`[I]`, the
+  the load to the household, at the self reach (`who` = self, reach 1). *Corrected 2026-10-28 (stage 3 milestone review MR-10): the code (`life_course.py`), the spec and the explainer send it to the household; `config/bowen/event_sizes.md`'s note waits for the triage batch, since that file is in the engine hash.* That mapping is the model's editorial choice (`[I]`, the
   owner's Q6) and is not something the paper states.
 
 Decided as recommended under the owner's instruction of 2026-10-24, pending the owner's review: at step 6 the config's

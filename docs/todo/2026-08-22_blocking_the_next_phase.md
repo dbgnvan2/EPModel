@@ -40,8 +40,8 @@
 - [ ] T-004 ⟨now⟩ **Coverage page, from Part B's drafting (2026-10-20), not fixed** (owner 2026-10-20: record them here). Each ID's
   note in `docs/spec_coverage.md` gives the detail.
   - *Spec and code disagree; the owner decides which stands.* `M1.A.7`: the parents'-mean term against "MUST NOT be
-    computed from a family average". `M1.A.18`: the 0.3 threshold makes a genuine I-POSITION impossible below it,
-    against "graded, not a hard gate". `M1.A.5c` against `M6.I.4`: a one-sided fall of pseudo-self against its
+    computed from a family average". ~~`M1.A.18`: the 0.3 threshold makes a genuine I-POSITION impossible below it,
+    against "graded, not a hard gate".~~ *resolved at revision 39 (Q8: the threshold retired); taken off 2026-10-28, stage 3 review MR-9.* `M1.A.5c` against `M6.I.4`: a one-sided fall of pseudo-self against its
     conservation across an exchange. `M7.E.1e` against `M7.E.1f` (owner, 2026-10-13): `M7.E.1f`'s `d` uses the
     parents' global `functional_level`. `M1.A.4`: the estimator's rise is scaled by `estimator_rate`, against "rather
     than by a rate constant". `M1.C.4`: the learner keys values by triad and never reads `activation_memory`.
@@ -67,7 +67,7 @@
     revision 36 (`consolidate.py`, a run of three `CONFLICT`s); taken off 2026-10-24, stage 2 review MR-10*; `Person.beliefs`
     (`M1.A.16`); `Person.programmed_reactivity` (`M10.A.1`); the engine never emits `BeliefWriteRecord`, so belief
     writes are not separable from ground-truth changes in a run's log (`M16.A.5`, `M16.A.5a`); the spec register names
-    writers for two `M1.A.5b` fields that do not exist.
+    writers for two `M1.A.5b` fields that do not exist; `Triangle.bound_anxiety` (`M1.C.1`, the owner's D22: no act binds anxiety into a `Triangle`; added 2026-10-28, stage 3 review MR-6).
   - *Register gaps.* Six mechanisms called from `src/bowen/engine/tick.py` have no register row (`M14.A.2`,
     `M14.A.3`): `stressor_load`, `respond`, `reactive_cutoff_cost`, `update_attribution`, `update_focus`,
     `update_danger`.

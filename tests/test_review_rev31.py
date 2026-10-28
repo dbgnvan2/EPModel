@@ -133,7 +133,7 @@ def test_r31a11_plan_closes_the_two_owner_questions():
 def test_r31a12_spec_status_names_revision_31():
     # Revision 32 (2026-10-17) moved the version on; revision 31 stays named in the status line, which revision 35
     # (2026-10-22) moved out of the spec into docs/spec_revision_log.md as it stood.
-    assert re.search(r"^version: 2\.0, revision 3[1-9]$", SPEC, flags=re.M)
+    assert re.search(r"^version: 2\.0, revision (3[1-9]|[4-9]\d)$", SPEC, flags=re.M)
     assert "revision 31, the owner's review of revisions 24 to 30 applied" in LOG
 
 

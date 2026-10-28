@@ -2,10 +2,23 @@
 
 The entries of `CHANGELOG.md` dated before 2026-10-19, the day version 2 began at the tag `version-1`, moved
 here verbatim on 2026-10-22, the entries of 2026-10-19 and 2026-10-20 on 2026-10-23, and the entries of
-2026-10-21 later on 2026-10-23, the earliest entry of 2026-10-22 (the SP-1 proposal's eight questions) on 2026-10-24, and the next (SP-1 built, with spec revision 34) later on 2026-10-24, and the next (Model ergonomics, Parts A–C) on 2026-10-25, and the next (Model ergonomics, Part D) later on 2026-10-25, and the next (Model ergonomics, Part E) later on 2026-10-25, and the next (Model ergonomics follow-ups) later on 2026-10-25, and the next (the closed and old parts of `TODO.md` and `CHANGELOG.md` archived) on 2026-10-26, and the next (`TODO.md` an index over records; a changelog index) later on 2026-10-26, and the next (Revision 35's dispositions approved by the owner) later on 2026-10-26, and the next two (Spec revision 36, of 2026-10-22, and Revision 36's records regenerated, of 2026-10-23) later on 2026-10-26, and the next five (from the cloud sessions' SessionStart hook to Stage 2: Phase C's directional criteria swept, all of 2026-10-23) later on 2026-10-26, and the next three (from the night's decisions listed for the owner to Stage 2: Phase D part I's directional criteria swept, all of 2026-10-23) on 2026-10-27, and the next (Stage 2: the sweep can run on two Macs, of 2026-10-23) later on 2026-10-27, so that the live file stays short enough to read (`tests/test_doc_size.py` bounds its size). The heading below is the section they
+2026-10-21 later on 2026-10-23, the earliest entry of 2026-10-22 (the SP-1 proposal's eight questions) on 2026-10-24, and the next (SP-1 built, with spec revision 34) later on 2026-10-24, and the next (Model ergonomics, Parts A–C) on 2026-10-25, and the next (Model ergonomics, Part D) later on 2026-10-25, and the next (Model ergonomics, Part E) later on 2026-10-25, and the next (Model ergonomics follow-ups) later on 2026-10-25, and the next (the closed and old parts of `TODO.md` and `CHANGELOG.md` archived) on 2026-10-26, and the next (`TODO.md` an index over records; a changelog index) later on 2026-10-26, and the next (Revision 35's dispositions approved by the owner) later on 2026-10-26, and the next two (Spec revision 36, of 2026-10-22, and Revision 36's records regenerated, of 2026-10-23) later on 2026-10-26, and the next five (from the cloud sessions' SessionStart hook to Stage 2: Phase C's directional criteria swept, all of 2026-10-23) later on 2026-10-26, and the next three (from the night's decisions listed for the owner to Stage 2: Phase D part I's directional criteria swept, all of 2026-10-23) on 2026-10-27, and the next (Stage 2: the sweep can run on two Macs, of 2026-10-23) later on 2026-10-27, and the next (The two-Mac cross-check run live, of 2026-10-23) on 2026-10-28, so that the live file stays short enough to read (`tests/test_doc_size.py` bounds its size). The heading below is the section they
 were under; nothing in this file is reworded. Later entries are in `CHANGELOG.md`.
 
 ## [Unreleased] — 2026-10-11
+
+### The two-Mac cross-check run live (2026-10-23)
+
+- With Mac Mini1 pulled to `8501fc0`, `python3 tools/two_mac_sweep.py check` found both Macs equal on the commit,
+  clean files, both engine hashes, Python 3.12.3, NumPy 1.26.4 and arm64 (macOS 15.7.9 here, 15.7.8 there, printed).
+  The cross-check, `start --criteria M11.C.16 --recompute --workers 10` on Mac Mini1 (14:28:38–14:31:45, 8 child
+  runs, exit 0), then `fetch` and `tools/merge_cache.py`, reported 0 results added and 361 already there and equal:
+  Mac Mini1 recomputed `M11.C.16`'s 8 results bit for bit. Not compared yet: a Phase D criterion and a 200-seed
+  rerun. `docs/two_mac_sweep.md`'s *Not verified* and the plan's §2.10 updated; no code or record changed.
+- A second cross-check, `M11.C.23` (Phase D part I), dropped its 9 cached results on Mac Mini1 and ran them again (8
+  first runs and sample 1's rerun at 200 seeds, 14:40:40–14:41:56, exit 0); the merge again reported 0 added and 361
+  equal, and Mac Mini1's cache file matched the committed one byte for byte. The owner chose, for part II: declare its
+  seven criteria's ranges with no run started; run it later on Mac Mini1 alone at 8 samples.
 
 ### Stage 2: the sweep can run on two Macs (2026-10-23)
 

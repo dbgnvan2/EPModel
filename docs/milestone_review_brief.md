@@ -125,7 +125,7 @@ On the machine that runs it:
    read a module's rules, open its file in `docs/spec_rules/` (the spec without its tags, quotations and revision
    sections; not normative). Open the spec and the ledger at the lines the index gives. Do not read `CHANGELOG.md` in full; grep it for the
    item in hand, starting from the generated index at its top (and `docs/CHANGELOG_archive.md`, which holds the
-   entries dated before 2026-10-19). `TODO.md` is a generated index, one line per open item with a link to its record
+   older entries; its header states the boundary). `TODO.md` is a generated index, one line per open item with a link to its record
    under `docs/todo/`; closed items are listed in `docs/TODO_archive.md`. Read the index, then only the records L2
    needs (step 5); never the records whole.
 

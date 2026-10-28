@@ -46,6 +46,9 @@ CITING_DOCS = [
     REPO / "CHANGELOG.md",
     REPO / "TODO.md",
     REPO / "docs" / "milestone_review_brief.md",
+    # Stage 3 milestone review MR-13: the reading list said 581 requirements while every document listed here said 585.
+    REPO / "docs" / "REVIEWER_READING_LIST.md",
+    REPO / "docs" / "SPEC_REVIEW_CHECKLIST.md",
 ]
 
 # A requirement definition: a bolded bare ID starting a line, or heading a table
@@ -360,6 +363,22 @@ def _without_history(doc: str, text: str) -> str:
         if entry["doc"] == doc:
             text = text.replace(entry["phrase"], "")
     return text
+
+
+def test_mr13_current_engine_hash_is_the_one_the_documents_name():
+    """The engine hash CLAUDE.md, README.md and `_STATUS.md` give a session as its hard rule is the records' hash.
+
+    Purpose: a batch that moves the engine hash and regenerates the records must update the documents that state it.
+    Spec:    docs/cycles/2026-10-27_milestone-review_v2-stage-3.md#MR-13
+    Tests:   tests/test_spec_consistency.py::test_mr13_current_engine_hash_is_the_one_the_documents_name
+    """
+    record = (REPO / "docs" / "phase_c_mutation_record.md").read_text(encoding="utf-8")
+    found = re.search(r"^engine_hash: ([0-9a-f]{12})", record, re.M)
+    assert found, "the Phase C mutation record no longer states its engine_hash"
+    current = found.group(1)
+    missing = [doc for doc in ("CLAUDE.md", "README.md", "docs/theory/_STATUS.md")
+               if current not in (REPO / doc).read_text(encoding="utf-8")]
+    assert missing == [], f"the records' engine hash {current} is not named in {missing}"
 
 
 def test_claimed_test_count_matches_the_suite():

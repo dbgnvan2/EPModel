@@ -1,6 +1,6 @@
 # Proposal — displaced coping (version 2 stage 3, group C, P2), with the floor-held functioning (F1)
 
-> **Status: DECIDED 2026-10-25 (Q1–Q4, each as recommended); not built. Spec revision 39, approved by the owner as a whole
+> **Status: DECIDED 2026-10-25 (Q1–Q4, each as recommended); BUILT at stage 3 step 7 (2026-10-26). The owner chose on 2026-10-28 (T-131, option (b)) to give `M1.A.5f`'s transfer its own ledger, netted out of `M7.E.1f`'s parents' term; that is not built (the triage batch). Spec revision 39, approved by the owner as a whole
 > 2026-10-25, carries it as part 1 of `docs/spec_revision_39_draft.md`.** The owner chose P2 as group C's mechanism on
 > 2026-10-24 (D18, revisited after the projection trace; `docs/implementation_plan_version_2_stage_3.md` §3.2). A
 > probe on 2026-10-25 (§6, `docs/review/stage_3_displaced_coping_probe.md`) showed that P2 at coping size does not
@@ -60,7 +60,7 @@ engine `66dcbb1e8ba5`).
 | `FE01.1` | `[K]` `[T]` `[M]` | The same cycle as positive feedback: the anxious one's preoccupation with the "problem one" makes the problem one exaggerate the problem, which raises the anxious one's anxiety; the anxious one ends in a caretaking position and the problem one in a patient or child position, each more than they wanted. Neither can change their own functioning enough to stop it. |
 | `FE06.3` | `[K]` `[T]` | The parents give up self to the child, but less than the child does; the child's functioning is the most impaired. The direction group C has to produce. |
 | `FE07.4` | `[K]` `[T]` `[M]` | The same loop in five steps: the mother's anxiety about the child, her meaning, her treating the child as her image of him, the child learning that acting as that image calms her (and him), and the child taking the image in. Neither is malicious; both are held by it. |
-| `KS00.9` | `[K]` `[T]` | The parents' levels set the family climate (why `M7.E.1f`'s parents' term stays as built). |
+| `KS00.9` | `[K]` `[T]` | The parents' **basic** levels set the family climate. In the model that is the anchor `a`, the parents' mean basic level, not `M7.E.1f`'s parents' term `d`, which is the owner's own `[I]` rule of 2026-10-13; `KS00.9` gives no reason for keeping `d` as built (corrected 2026-10-28, T-131). |
 
 Every entry is Kerr's (`[K]`): Kerr's *Bowen Theory's Secrets* and Kerr's chapters of *Family Evaluation*. None is
 `[K-ext]`, and none gives a magnitude: no entry says how much functioning one act moves. Nothing here is Bowen's own

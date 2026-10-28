@@ -61,7 +61,7 @@ slow tick and the basic-level estimator; the three symptom channels with lock-in
 tie-weighted cross-person term; the `M11.G` family-evaluation readout; and borrowed pseudo-self settling back.
 **Phase D, part II** (spec revision 28): ages, childhood, launch, partners and births, death and its disposition, lost
 income and finding work, and the coach's successor, over a 40-year run. Version 2's stages 1–3 changed rules on top of
-these (spec revisions 33–39; `docs/spec_revision_log.md`).
+these (spec revisions 33–40; `docs/spec_revision_log.md`).
 
 **Where each criterion stands now** is `docs/version_2_status.md`, generated from the records: every `M11.C`
 criterion's verdict, its mutation evidence, its sweep fraction, and its verdict at the tag and at revision 38 beside

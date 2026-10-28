@@ -2,10 +2,60 @@
 
 The entries of `CHANGELOG.md` dated before 2026-10-19, the day version 2 began at the tag `version-1`, moved
 here verbatim on 2026-10-22, the entries of 2026-10-19 and 2026-10-20 on 2026-10-23, and the entries of
-2026-10-21 later on 2026-10-23, the earliest entry of 2026-10-22 (the SP-1 proposal's eight questions) on 2026-10-24, and the next (SP-1 built, with spec revision 34) later on 2026-10-24, and the next (Model ergonomics, Parts A–C) on 2026-10-25, and the next (Model ergonomics, Part D) later on 2026-10-25, and the next (Model ergonomics, Part E) later on 2026-10-25, and the next (Model ergonomics follow-ups) later on 2026-10-25, and the next (the closed and old parts of `TODO.md` and `CHANGELOG.md` archived) on 2026-10-26, and the next (`TODO.md` an index over records; a changelog index) later on 2026-10-26, and the next (Revision 35's dispositions approved by the owner) later on 2026-10-26, and the next two (Spec revision 36, of 2026-10-22, and Revision 36's records regenerated, of 2026-10-23) later on 2026-10-26, and the next five (from the cloud sessions' SessionStart hook to Stage 2: Phase C's directional criteria swept, all of 2026-10-23) later on 2026-10-26, so that the live file stays short enough to read (`tests/test_doc_size.py` bounds its size). The heading below is the section they
+2026-10-21 later on 2026-10-23, the earliest entry of 2026-10-22 (the SP-1 proposal's eight questions) on 2026-10-24, and the next (SP-1 built, with spec revision 34) later on 2026-10-24, and the next (Model ergonomics, Parts A–C) on 2026-10-25, and the next (Model ergonomics, Part D) later on 2026-10-25, and the next (Model ergonomics, Part E) later on 2026-10-25, and the next (Model ergonomics follow-ups) later on 2026-10-25, and the next (the closed and old parts of `TODO.md` and `CHANGELOG.md` archived) on 2026-10-26, and the next (`TODO.md` an index over records; a changelog index) later on 2026-10-26, and the next (Revision 35's dispositions approved by the owner) later on 2026-10-26, and the next two (Spec revision 36, of 2026-10-22, and Revision 36's records regenerated, of 2026-10-23) later on 2026-10-26, and the next five (from the cloud sessions' SessionStart hook to Stage 2: Phase C's directional criteria swept, all of 2026-10-23) later on 2026-10-26, and the next three (from the night's decisions listed for the owner to Stage 2: Phase D part I's directional criteria swept, all of 2026-10-23) on 2026-10-27, so that the live file stays short enough to read (`tests/test_doc_size.py` bounds its size). The heading below is the section they
 were under; nothing in this file is reworded. Later entries are in `CHANGELOG.md`.
 
 ## [Unreleased] — 2026-10-11
+
+### Stage 2: Phase D part I's directional criteria swept (2026-10-23)
+
+- The constant sweep (`M17.E.1`) run over the Phase D part I ensemble record's 13 directional keys (composite and
+  mixed, `M11.5`; `M11.C.7`'s three pairs each a key) at 8 samples each, on the branch `stage-2-part-i-sweep`
+  (`docs/implementation_plan_version_2.md` §2.10, D15's second step; the owner, 2026-10-23). 182 child runs — 104 first
+  runs and 78 reruns at 200 seeds under the detection-limit rule (`M17.A.1`) — in 12,843 s of run time (3 h 34 min),
+  in three segments at 10, 5 and 8 workers, the owner having asked for the Mac back during the run; projected 1.8 h at
+  Phase C's ratio and 3.2 h at the pilot's, both at 10 workers. No sample undetermined or errored. Held of 8:
+  `M11.C.2` 1, `M11.C.7[joint over one spouse]` 3, `M11.C.7[joint over sided]` 7, `M11.C.7[one spouse over sided]` 5,
+  `M11.C.11` 8, `M11.C.12` 0, `M11.C.17` 4, `M11.C.21` 1, `M11.C.22` 6, `M11.C.23` 0, `M11.C.34` 0, `M11.C.39` 8,
+  `M11.C.43` 0 — measurements of the declared ranges, not verdicts. W4 now lists three unmet rows, not seven
+  (`docs/version_2_status.md`, regenerated).
+- `config/sweep/sweep.md`: 125 rows for the 13 keys (246 rows, 60 constants, 27 criteria), every range `[I]`, and the
+  preamble's rules for what is left out (no birth in a part I scenario; a constant an arm's declared condition is set
+  against). The sets are judgments, listed in T-125's batch 5 (decisions 29–44) for the owner's review.
+- Fixed: the sweep ran every criterion through `tools/mutant_runner.py`'s child, which knows only Phase C's criteria,
+  so the first part I run raised `KeyError` on all 104 samples in 81 s. A criterion of a Phase D record now runs
+  through `tools/phase_d_mutant_child.py` and is cached under `tools/phase_d_mutation_record.py`'s hash, printed in the
+  record as `phase_d_engine_hash`; `tools/record_cache.run_cached` takes the child and the hash as arguments. Test:
+  `tests/test_version_2_sweep.py::test_m17e1_phase_d_criterion_is_run_by_the_phase_d_child_under_its_hash`, shown
+  failing with the routing removed and with the Phase C hash used for Phase D keys.
+- Nothing in `src/bowen/` changed; the engine hash is `66dcbb1e8ba5` before and after. Documents: the plan's §2.10,
+  `docs/model_explainer.md` (the sweep's two children), `docs/theory/_STATUS.md`, `docs/REVIEWER_READING_LIST.md`,
+  T-001 and T-125.
+- `CHANGELOG.md` passed its 80,000-byte limit with this entry: its three entries dated 2026-10-20, which the archive's
+  header already counted as moved, went to `docs/CHANGELOG_archive.md` verbatim. `docs/spec_coverage.md` and the two
+  index files regenerated for the new tests; `CLAUDE.md`'s suite count is 1149.
+- From the `learning-qa` review (5 min 25 s): `tools/record_cache.run_cached` refuses a child other than Phase C's
+  given without the hash its results are keyed by (P8); `docs/version_2_status.md` lists the sweep record's
+  `phase_d_engine_hash` beside its `engine_hash`; two figures in the plan's §2.10 corrected. Tests:
+  `test_m17e1_another_child_without_its_hash_is_refused`, `test_s2_11_records_read_shows_every_hash_a_record_keys_by`,
+  each failing on the code before the fix.
+
+### The symptom module's docstring restated from the code (2026-10-23)
+
+- `src/bowen/engine/symptoms.py`'s module docstring still said the spill past the lock-in turn is "split equally".
+  Since spec revision 36 (G2) the release and the spill are both split by bond energy among the living family members
+  on interactive ties (`_release_shares`); ties all at zero split equally and an external agent takes none. The
+  docstring now says so. `M7.D.2d` in `docs/spec_rules/M07.md`, `docs/model_explainer.md` and
+  `docs/readouts_phase_c.md` already matched the code and did not change. No rule changed; the engine hash
+  (`tools/record_cache.py`, docstrings excluded) is `66dcbb1e8ba5` before and after.
+
+### The night's decisions listed in one place for the owner (2026-10-23)
+
+- `docs/todo/2026-10-23_overnight_decisions.md`, one Now item (T-125): the twenty-eight decisions taken as recommended
+  under the owner's instruction of 2026-10-22 ("proceed based on your recommendations - do not wait for my input"),
+  in four batches — spec revision 36 (group G, the event sizes), the stage 2 plan and pilot (revision 37), the Phase C
+  constant sweep, and the coordinating session's own calls (the superseded cloud G2 proposal, the changelog archive
+  split) — each with where it is recorded. Ticking the item means the owner has reviewed the list.
 
 ### Stage 2: Phase C's directional criteria swept (2026-10-23)
 

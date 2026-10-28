@@ -2,7 +2,7 @@
 tags: [model-bt, explainer]
 status: current
 version: 2.0
-date: 2026-10-24
+date: 2026-10-27
 ---
 
 # The model, part by part
@@ -45,6 +45,13 @@ The corpus contains **no instrument, no rater procedure, no comparison group, an
 | **`[K-ext]`** | **Kerr's extension**, by his own account — "I like to think that I may have extended the theory some." | **MUST NOT** be attributed to Bowen. Treat as one authority's proposal. |
 
 A part carrying **`[I]`** is not a defect — the model cannot run without invented constants. A part carrying `[I]` while *claiming* a source is a defect, and that is the failure this grading exists to prevent.
+
+### Verdicts on this page are dated
+
+An entry's *What the criteria show* gives the verdicts as they stood on the date it names, from ad hoc runs or the
+record of the time; it explains why the part was built as it is and is not the current state. The current verdict of
+every `M11.C` criterion, with its mutation evidence and sweep fraction, is on `docs/version_2_status.md`, generated from
+the records.
 
 ### Reading the citations
 
@@ -243,8 +250,10 @@ last three years of weeks:
     the estimator reading borrowed functioning. C.20 also reports how much of its borrowed arm's scripted support a
     held position blocked (about 10%). `M11.C.33` passes; its own mutation, the slow-clock dependence gate, was not
     rerun at revision 23.
-  - `M11.C.17` passes, and it is proved by mutation: removing the coach's landed contact turns it red. Coached people
-    rise by +0.021 ± 0.009 points of basic level in ten years, the whole family by +0.006 ± 0.003. The effect is small.
+  - `M11.C.17` passed, and was proved by mutation then: removing the coach's landed contact turned it red. Coached
+    people rose by +0.021 ± 0.009 points of basic level in ten years, the whole family by +0.006 ± 0.003. The effect
+    is small. At revision 39 it passes in the Phase D record (`coached_rise` +0.0391 ± 0.03), but that mutant,
+    `landed-contact-changes-nothing`, survives, so the pass is not proved by mutation (T-143; `docs/version_2_status.md`).
     Its passes at revisions 19 and 20 were carried by a defect, the system's adjustment stacking; at revisions 21 and 22
     it did not pass in a way that counted.
 
@@ -2068,7 +2077,8 @@ Version 2's stage 2 builds the constant sweep (`M17.E.1`) and the detection-limi
   the two, so the pair moves together and apart. It enters only a criterion whose run is longer than one slow tick
   (52 fast ticks), the run length measured on seed 0 of each arm at the central constants; such a criterion's
   *n of S* is also split into the samples below and at or above the central ratio, as counts, never a verdict.
-  The first sweep record to carry it is the stage-end sweep's (plan step 11). The sweep config is outside
+  The first sweep record to carry it is stage 3's stage-end sweep's (plan step 11, 2026-10-27), in which it entered
+  26 of the 34 keys. The sweep config is outside
   `config/bowen/` because the engine hash covers that directory and a sweep's ranges are an input to a
   measurement, not to the model; a dose–response curve for the one constant a criterion depends on most, sharing
   that range (kept as two requirements, approved by the owner); for threshold constants, the exact interval within which nothing changes, computed from logged

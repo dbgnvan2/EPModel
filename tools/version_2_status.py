@@ -307,7 +307,7 @@ def render(rows: list[Status]) -> str:
         return [f"`{s.key}`" for s in rows if condition in s.blocks]
 
     hashes = []
-    for name, path in (*v1.ENSEMBLE_RECORDS, *v1.MUTATION_RECORDS, ("Stage 2 sweep record", SWEEP_RECORD)):
+    for name, path in (*v1.ENSEMBLE_RECORDS, *v1.MUTATION_RECORDS, ("Sweep record", SWEEP_RECORD)):
         if not path.exists():
             hashes.append(f"- {name} (`{path.relative_to(REPO)}`): not yet generated")
             continue

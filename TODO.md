@@ -131,7 +131,6 @@ moves to `docs/TODO_archive.md`. Until 2026-10-22 this file held every item's te
 - T-118 · 2026-08-22 · When the basic level is fixed is genuinely … · [record](docs/todo/2026-08-22_theory_work.md)
 - T-122 · 2026-10-23 · Four composite verdicts PASS → FAIL at revision … · [record](docs/todo/2026-10-23_revision_36_regeneration.md)
 - T-124 · 2026-10-23 · The Phase D mutation record's `engine_hash` label is … · [record](docs/todo/2026-10-23_stage_2_pilot.md)
-- T-128 · 2026-10-24 · `M17.E.1`'s named ratio, before stage 3's full sweep · [record](docs/todo/2026-10-24_stage_2_milestone_review.md)
 - T-131 · 2026-10-25 · `KS00.9` against `M7.E.1f`'s parents' term (the stage 4 … · [record](docs/todo/2026-10-25_stage_3_revision_39.md)
 - T-132 · 2026-10-25 · `FE04.13`'s second kind of so-called I-position (the stage … · [record](docs/todo/2026-10-25_stage_3_revision_39.md)
 - T-133 · 2026-10-25 · `M5.D.4a`'s anger check at `DEFINE` (the correctness pass … · [record](docs/todo/2026-10-25_stage_3_revision_39.md)
@@ -144,3 +143,4 @@ moves to `docs/TODO_archive.md`. Until 2026-10-22 this file held every item's te
 - T-141 · 2026-10-26 · The sender's appraisal of returned contact reads the … · [record](docs/todo/2026-10-25_stage_3_revision_39.md)
 - T-142 · 2026-10-26 · Group A does not turn `M11.C.42` or `M11.C.45` … · [record](docs/todo/2026-10-25_stage_3_revision_39.md)
 - T-143 · 2026-10-26 · Mutants that revision 39's regeneration no longer turns … · [record](docs/todo/2026-10-25_stage_3_revision_39.md)
+- T-144 · 2026-10-27 · `M11.C.49` has no declared sweep ranges (step 11, … · [record](docs/todo/2026-10-25_stage_3_revision_39.md)

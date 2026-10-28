@@ -1,6 +1,6 @@
-# Running the stage 2 sweep on two Macs
+# Running the stage-end sweep on two Macs
 
-**Status: BUILT 2026-10-23** (`docs/implementation_plan_version_2.md` §2.10); first used for part II's sweep, 2026-10-23–24 (four criteria on Mac Mini1, three here).
+**Status: BUILT 2026-10-23** (`docs/implementation_plan_version_2.md` §2.10); first used for part II's sweep, 2026-10-23–24 (four criteria on Mac Mini1, three here); used for stage 3's stage-end sweep, 2026-10-27 (all 34 declared directional keys: six on Mac Mini1, 28 here; `docs/implementation_plan_version_2_stage_3.md`, step 11).
 
 How to split the constant sweep (`tools/version_2_sweep.py`, `M17.E.1`) between this Mac (davemini2) and Mac
 Mini1, 10 cores each, and combine the results into one record. The tools are `tools/version_2_sweep.py --criteria`
@@ -69,7 +69,11 @@ Their tests are `tests/test_sweep_two_macs.py`.
 ## The cross-check (before every split)
 
 Mac Mini1 runs one already-cached criterion again. Its new results are then merged against this Mac's committed
-ones, and the merge stops if any number differs. `M11.C.16` is the cheapest: 8 samples and no rerun in the pilot
+ones, and the merge stops if any number differs. After the engine hash has moved, nothing here is cached for it yet:
+run the same criteria on both Macs first (`--criteria` here, `start` there), then fetch and merge, before either
+share starts, since the merge refuses while a sweep runs here. `--recompute` then drops only the results of the
+earlier hash, whose keys the new runs do not reuse; its closing line, *N of N result(s) not run again*, counts those
+put back, and says nothing about the check. `M11.C.16` is the cheapest: 8 samples and no rerun in the pilot
 (8 of the pilot's 24 child runs, which took 476 s together here).
 
 ```
@@ -87,9 +91,10 @@ refuses, the two Macs do not compute the same numbers: do not split, and report 
 ## Split the criteria
 
 List the keys still to sweep from the Ranges table of `config/sweep/sweep.md`. Results already cached are read, not
-rerun. Split the keys into two shares of about equal projected time. No per-criterion projection for part II's
-seven exists yet (the whole is projected at 23–40 h on one Mac), so split them by count, four and three, and put the
-criterion expected to take longest in the smaller share. A key with spaces or brackets, such as
+rerun. Split the keys into two shares of about equal projected time. A criterion's cost is about its one-seed run time
+(`measure_run_length`, timed) times the seeds its samples took at the last sweep, first runs and reruns; weigh each
+Mac by its workers (this Mac at 6 under `nice`, Mac Mini1 at 10). At stage 2, with no per-criterion projection, part
+II's seven were split by count, four and three, the longest in the smaller share. A key with spaces or brackets, such as
 `M11.C.7[joint over sided]`, is quoted on the command line.
 
 ## Run both shares
@@ -168,5 +173,15 @@ only the missing samples run.
   2 milestone review's Q4, MR-21) that the check is of the two machines' agreement at one engine hash, which the two
   checks showed at the hash part II ran on, so they cover it. A split after the engine hash moves needs a new one. Both Macs are arm64, with Python 3.12.3 and NumPy 1.26.4; macOS is 15.7.9 here and
   15.7.8 on Mac Mini1.
-- `tools/two_mac_sweep.py` against a live Mac Mini1 was run once, 2026-10-23: `check`, `start`, `status` and `fetch`
-  all worked over SSH. A dropped connection and its retries have not been seen live; the tests stub them.
+- Stage 3's stage-end sweep (2026-10-27) ran after the engine hash moved to `2a3b84e2d89a`, so it had a cross-check
+  of its own: `M11.C.16` (Phase C's child, the named ratio entered) and `M11.C.23` (Phase D's child, the ratio not
+  entered) on both Macs, 19 child runs and 2 run lengths each; the merge added 0 and found all 452 entries equal. Two
+  more of the 34 criteria compared, at the hash every share then ran on. Both Macs are arm64, with Python 3.12.3 and
+  NumPy 1.26.4. This Mac's share ran from a clean `git worktree` of the same commit, because another session's
+  uncommitted files made the main checkout fail `check`'s clean-tree test; the worktree's cache was copied into the
+  main checkout before the merge.
+- `tools/two_mac_sweep.py` against a live Mac Mini1 was run on 2026-10-23 and again on 2026-10-27: `check`, `start`,
+  `status` and `fetch` all worked over SSH. On 2026-10-27, a minute after a share started there (load average 68 on 10
+  cores, Spotlight indexing the temporary repository copies), one `status` call printed `running` and then timed out
+  on its second SSH call after three attempts; the next call worked. A connection dropped mid-`fetch` has not been
+  seen live; the tests stub it.

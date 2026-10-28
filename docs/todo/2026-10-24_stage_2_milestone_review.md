@@ -81,7 +81,7 @@ None was rejected.
 
 ## Open
 
-- [ ] T-128 ⟨later⟩ **`M17.E.1`'s named ratio, before stage 3's full sweep** (owner, Q2, 2026-10-24). Stage 3's plan
+- [x] T-128 ⟨later⟩ **`M17.E.1`'s named ratio, before stage 3's full sweep** (owner, Q2, 2026-10-24). Stage 3's plan
   proposes which two `[I]` rates make the ratio — the rate ties harden or attenuate (candidates: `balance_harden_rate`,
   `M1.B.6`; `tie_wear_rate`, `M7.E.4`) against the rate anxiety moves (candidates: `calm_transfer_rate`, `M4.C.10`;
   `usual_level_rate`, `M1.A.5e`) — names it in `M10`, declares its range in `config/sweep/sweep.md`, and asks the
@@ -91,7 +91,10 @@ None was rejected.
   directional criterion whose run spans a slow tick. Open until the stage-end sweep runs with it.* *2026-10-26, stage 3
   step 10: built — `M17.E.1` names it, `config/sweep/sweep.md` declares it (1/208 to 4/52, log), the sweep tool draws it
   for a criterion whose measured run is longer than 52 fast ticks and splits the fraction at 1/52 (S3.16–S3.19 green);
-  it closes at step 11, when the stage-end sweep runs with it.*
+  it closes at step 11, when the stage-end sweep runs with it.* *2026-10-27, stage 3 step 11: closed — the stage-end
+  sweep ran all 34 declared directional keys with the ratio, split across both Macs; the ratio entered the 26 whose run is
+  longer than 52 fast ticks, and `docs/version_2_sweep_record.md` splits each one's held fraction at 1/52. `M17.E.1`
+  stays *partial* in `tools/spec_coverage_overrides.json` until `M11.C.49` is swept (T-144; the owner, 2026-10-27).*
 - [x] T-129 ⟨later⟩ **With the next change that moves the engine hash** (owner, 2026-10-24: these edit
   `src/bowen/` and would stale every record cache and the stage 2 sweep):
   - MR-2: `src/bowen/engine/moves.py`'s module docstring (`:63-68`) still says `REDUCE_CUTOFF` hands the cutoff's

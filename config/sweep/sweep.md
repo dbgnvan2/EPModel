@@ -77,7 +77,7 @@
 
 | constant | value | grade | unit | why |
 |---|---|---|---|---|
-| `sweep_samples` | 8 | [I] | samples per criterion | the pilot's count (D10): enough to time the runs, not a measurement of a criterion |
+| `sweep_samples` | 8 | [I] | samples per criterion | the pilot's count (D10), kept for the full sweeps: a coarse measurement of the declared ranges, too few for a band or a *narrow* mark (D14) |
 | `sweep_seed` | 2 | [I] | generator seed | with the criterion's key, seeds the draw of its samples; a longer draw begins with the shorter one |
 | `detection_limit_multiple` | 2.0 | [I] | half-widths | D8 (`M17.A.1`): a first run whose gating effect is within this many half-widths of zero is run again |
 | `detection_limit_seeds` | 200 | [I] | seeds | D8: the fixed seed count of that second run, taken as one block; the count the owner chose for `M11.C.10` |

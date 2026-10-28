@@ -94,4 +94,14 @@ Raised while drafting part 1 of spec revision 39 (`docs/spec_revision_39_draft.m
   the Phase D ensemble record) and its one mutant, `landed-contact-changes-nothing`, survives, so that pass is not yet
   proved by mutation; `triangle-help-ignored` is reversed on `M11.C.46` where it was red. Each criterion that passes
   with a surviving mutant needs a mutant that turns it red before its pass counts as coverage (CLAUDE.md), or a reason
-  the survivor is expected; read at the stage-end sweep (step 11) and the milestone review; left for the owner.
+  the survivor is expected; read at the stage-end sweep (step 11) and the milestone review; left for the owner. *2026-10-27,
+  step 11: the stage-end sweep held `M11.C.16`, `M11.C.41[heavy: lower level]` and `M11.C.17` in 8 of 8 samples each
+  (`docs/version_2_sweep_record.md`); a fraction over the ranges is not a mutation proof, so each still waits on the
+  milestone review.*
+- [ ] T-144 ⟨later⟩ **`M11.C.49` has no declared sweep ranges (step 11, 2026-10-27).** `M11.C.49` is a mixed
+  directional criterion, new at revision 39, and `config/sweep/sweep.md` declares no constants for it, so the stage-end
+  sweep ran 34 keys, not the 35 the plan's §3.6 counted ("`M11.C.49` adds one Phase C criterion"). W4 is met without
+  it, since it fails (S3.25 asks for a fraction for every *passing* directional criterion). Declaring its rows means
+  choosing which `[I]` constants its mechanism reads (the I-position's demand share, `M5.F.4`; appraisal; contagion)
+  and their ranges, the same judgment as T-125's batch 5; for the owner, before the next sweep that should carry it.
+  The owner kept `M17.E.1` *partial* until it is swept (2026-10-27); the sweep record lists it as not swept.

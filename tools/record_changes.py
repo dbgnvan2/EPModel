@@ -152,8 +152,11 @@ NOT_COMPARED = (
 BY_SIDE = {
     "docs/version_2_sweep_record.md, docs/version_2_status.md": {
         REVISION_38: "the status page is generated from the records compared here (`tools/version_2_status.py`); "
-                     "the sweep record is the stage 2 sweep's, rendered from its own cache (`tools/version_2_sweep.py`), "
-                     "and is not rerun until stage 3's stage-end sweep (plan step 11, D17), so it is {side}'s",
+                     "the sweep record is rendered from its own cache (`tools/version_2_sweep.py`) and was rerun by "
+                     "stage 3's stage-end sweep (plan step 11, D17) on the engine of steps 6 to 9, drawing the named "
+                     "ratio in place of `tie_wear_rate` where it enters, so its results are not {side}'s; "
+                     "`git diff {ref}` on it shows "
+                     "each criterion's held fraction then and now",
     },
     "docs/review/group_g_readout.md": {
         REVISION_38: "revision 36's before-and-after measurement on 20 seeds (`tools/group_g_readout.py`): its "

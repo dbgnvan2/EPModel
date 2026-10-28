@@ -238,5 +238,5 @@ def test_s2_11_records_read_shows_every_hash_a_record_keys_by():
     record = tool.SWEEP_RECORD.read_text(encoding="utf-8")
     hashes = dict(re.findall(r"^(engine_hash|phase_d_engine_hash): (\w+)", record, re.M))
     assert set(hashes) == {"engine_hash", "phase_d_engine_hash"}
-    line = next(l for l in tool.render(tool.statuses()).splitlines() if l.startswith("- Stage 2 sweep record"))
+    line = next(l for l in tool.render(tool.statuses()).splitlines() if l.startswith("- Sweep record"))
     assert all(f"{kind} `{value[:12]}`" in line for kind, value in hashes.items())

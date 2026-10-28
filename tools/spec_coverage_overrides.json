@@ -1643,8 +1643,10 @@
    "tests/test_version_2_sweep.py::test_m17e1_s3_16_ratio_drawn_and_numerator_derived",
    "tests/test_version_2_sweep.py::test_m17e1_s3_17_ratio_scope_by_run_length",
    "tests/test_version_2_sweep.py::test_m17e1_s3_18_record_splits_by_ratio",
-   "tests/test_version_2_sweep.py::test_s3_19_ratio_row_parsed_strictly"
+   "tests/test_version_2_sweep.py::test_s3_19_ratio_row_parsed_strictly",
+   "tests/test_version_2_sweep.py::test_s2_11_sweep_record_is_current",
+   "tests/test_version_2_sweep.py::test_m17e1_an_undeclared_directional_criterion_is_listed_as_not_swept"
   ],
-  "note": "the sweep samples each directional criterion's declared `[I]` constants and reports *n of S* (`test_m17e1_s2_2_…`, `test_m17e1_s2_7_…`, `test_m17e1_phase_d_…`); the named ratio `tie_wear_to_transfer_ratio` is declared in `config/sweep/sweep.md`, drawn for a criterion whose measured run is longer than one slow tick and split at its central value (S3.16–S3.19, stage 3 plan step 10, T-128), but no committed sweep record carries it yet: the stage-end sweep (plan step 11, D17) runs it"
+  "note": "the sweep samples each directional criterion's declared `[I]` constants and reports *n of S* (`test_m17e1_s2_2_…`, `test_m17e1_s2_7_…`, `test_m17e1_phase_d_…`); the named ratio `tie_wear_to_transfer_ratio` is declared in `config/sweep/sweep.md`, drawn for a criterion whose measured run is longer than one slow tick and split at its central value (S3.16–S3.19, stage 3 plan step 10, T-128); stage 3's stage-end sweep (plan step 11, D17) ran it over the 34 declared keys, and `docs/version_2_sweep_record.md` carries it: 26 entered, each split (`test_s2_11_…` renders the record from the cache); partial because `M11.C.49`, a directional criterion new at revision 39, has no declared ranges and was not swept (T-144; the owner kept it partial, 2026-10-27), and the record lists it as not swept (`test_m17e1_an_undeclared_…`)"
  }
 }

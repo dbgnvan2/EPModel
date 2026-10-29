@@ -190,6 +190,8 @@ def one_seed(seed: int, variants: tuple[str, ...] = tuple(VARIANTS)) -> dict:
                 parents = life_course._living_parents(state, child)
                 history = list(state.estimator_history.get(child, ()))[-ENGINE.slow_tick_fast_ticks:]
                 own = math.fsum(w.functional_level for w in history) / len(history)
+                # the parents' term as at revision 39; from revision 41 (T-131) the engine leaves `w.displaced` out
+                # of it, and this historical tool is not rerun
                 theirs = [m for p in parents
                           if (m := life_course._year_mean(state, p, ENGINE, lambda w: w.functional_level)) is not None]
                 parents_basic = life_course._parents_mean(state, child, "basic_level")

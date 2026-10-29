@@ -99,6 +99,23 @@ class SelectionFromInactivePerson(RuntimeError):
     """The source selected for someone activation did not name."""
 
 
+def week_start_levels(state: RunState) -> dict:
+    """Purpose: each person's level at the week's start, as `M6.I.4a` reads it: their level at the end of the previous
+             tick, so a change made between two weeks (a criterion's ``before`` hook) falls inside the next week.
+    Spec:    docs/bowen_agent_model_spec_v2.md#M6.I.4a
+    Tests:   tests/bowen/test_tick.py::test_m6i4a_t145_the_weeks_start_is_the_level_at_the_end_of_the_previous_tick,
+             tests/bowen/test_tick.py::test_m6i4a_t145_a_fall_between_weeks_is_inside_the_next_week
+
+    Revision 41 (T-145 (a), the owner 2026-10-28). At tick 0, for a person the previous tick did not hold, or when the
+    stored levels are from any tick but the last, the level now: a setup before tick 0, or a run state reused, never
+    reads a stale level (P8).
+    """
+    now = {pid: p.functional_level for pid, p in state.people.items()}
+    if state.tick == 0 or state.week_end_tick != state.tick - 1:
+        return now
+    return {pid: state.week_end_level.get(pid, level) for pid, level in now.items()}
+
+
 def run_tick(
     state: RunState,
     source: Source,
@@ -115,7 +132,7 @@ def run_tick(
     records: list = [TickRecord(state.tick)]
     before = snapshot(state)
     start_acute = {pid: p.acute_anxiety for pid, p in state.people.items()}  # the learner's baseline
-    start_level = {pid: p.functional_level for pid, p in state.people.items()}  # M6.I.4a's capacity at the week's start
+    start_level = week_start_levels(state)  # M6.I.4a's capacity at the week's start: the end of last week (revision 41)
 
     # 1 — standing load, before anything is delivered (M3.D.2, M6.I.8). A spike that has ended can never count again,
     # so it is dropped first (review 2026-10-17: unpruned, 2,543 accumulated over 40 years and slowed the run by half).
@@ -240,6 +257,8 @@ def run_tick(
 
     for record in records:
         emitter.emit(record)
+    # Revision 41 (T-145): the level each person ends the week at, the next week's start for M6.I.4a.
+    state.week_end_tick, state.week_end_level = state.tick, {pid: p.functional_level for pid, p in state.people.items()}
     state.tick += 1
     return tuple(steps)
 

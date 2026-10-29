@@ -7,7 +7,7 @@ Open items, one line each: ID, date raised, title, record. **Now** blocks the cu
 `docs/todo/` (grep its ID). To close one, tick it in its record and run `python3 tools/todo_index.py`: its line
 moves to `docs/TODO_archive.md`. Until 2026-10-22 this file held every item's text; that form is in git history.
 
-## Now (15)
+## Now (10)
 
 - T-001 · 2026-10-19 · Version 2, next · [record](docs/todo/2026-08-22_blocking_the_next_phase.md)
 - T-002 · 2026-10-19 · `/csdp` sweep of 2026-10-19, items not fixed · [record](docs/todo/2026-08-22_blocking_the_next_phase.md)
@@ -17,15 +17,10 @@ moves to `docs/TODO_archive.md`. Until 2026-10-22 this file held every item's te
 - T-120 · 2026-10-23 · `M11.C.15`'s named mutant survives · [record](docs/todo/2026-10-23_revision_36_regeneration.md)
 - T-121 · 2026-10-23 · `M11.C.11`'s named mutant survives · [record](docs/todo/2026-10-23_revision_36_regeneration.md)
 - T-123 · 2026-10-23 · `M11.C.48`'s baseline counts a first cutoff with no … · [record](docs/todo/2026-10-23_revision_36_regeneration.md)
-- T-131 · 2026-10-25 · `KS00.9` against `M7.E.1f`'s parents' term (the stage 4 … · [record](docs/todo/2026-10-25_stage_3_revision_39.md)
-- T-133 · 2026-10-25 · `M5.D.4a`'s anger check at `DEFINE` (the correctness pass … · [record](docs/todo/2026-10-25_stage_3_revision_39.md)
-- T-145 · 2026-10-27 · `M11.C.21`'s scripted collapse falls between weeks, so `M6.I.4a` … · [record](docs/todo/2026-10-25_stage_3_revision_39.md)
-- T-146 · 2026-10-27 · Displaced coping takes functioning from a receiver who … · [record](docs/todo/2026-10-25_stage_3_revision_39.md)
-- T-147 · 2026-10-27 · The engine imports the policy at call time … · [record](docs/todo/2026-10-25_stage_3_revision_39.md)
-- T-148 · 2026-10-28 · `M11.C.16`'s fixed prose against its regenerated table (review … · [record](docs/todo/2026-10-28_stage_3_milestone_review.md)
-- T-149 · 2026-10-28 · `config/bowen/event_sizes.md`'s `FIND_WORK_LOAD` note (review MR-10) · [record](docs/todo/2026-10-28_stage_3_milestone_review.md)
+- T-158 · 2026-10-28 · `M5.D.3`'s "abort is the usual first outcome" no … · [record](docs/todo/2026-10-28_stage_3_milestone_review.md)
+- T-159 · 2026-10-28 · The stage-end sweep on the triage batch's engine … · [record](docs/todo/2026-10-28_stage_3_milestone_review.md)
 
-## Later (129)
+## Later (132)
 
 - T-006 · 2026-10-22 · D4, long `Spec:` lines (Part D, 2026-10-22; the … · [record](docs/todo/2026-10-22_model_ergonomics.md)
 - T-007 · 2026-10-22 · Adjacent issues found by Part D's docstring pass, … · [record](docs/todo/2026-10-22_model_ergonomics.md)
@@ -156,3 +151,6 @@ moves to `docs/TODO_archive.md`. Until 2026-10-22 this file held every item's te
 - T-155 · 2026-10-28 · The projection-trace tool prints the estimator's formula from … · [record](docs/todo/2026-10-28_stage_3_milestone_review.md)
 - T-156 · 2026-10-28 · The i-position probe copies the criterion's mover setup … · [record](docs/todo/2026-10-28_stage_3_milestone_review.md)
 - T-157 · 2026-10-28 · Probe-page tests for frozen pages take 17% of … · [record](docs/todo/2026-10-28_stage_3_milestone_review.md)
+- T-160 · 2026-10-28 · `phase_c_completion_report.md`'s other rows quote the numbers of Phase … · [record](docs/todo/2026-10-28_stage_3_milestone_review.md)
+- T-161 · 2026-10-28 · `M11.C.21`'s parents keep over-functioning toward the child after … · [record](docs/todo/2026-10-28_stage_3_milestone_review.md)
+- T-162 · 2026-10-29 · `M11.C.34` passes at revision 41 and no mutant … · [record](docs/todo/2026-10-28_stage_3_milestone_review.md)

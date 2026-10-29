@@ -671,12 +671,16 @@ def arm_c21(arm, seed, settings):
     """M11.C.21: the nuclear four. In both arms both parents over-function toward C1 every ``act_every`` weeks for the
     whole run: they are projecting parents, and C1 has lent functioning when they collapse. At week ``t0`` both parents'
     functional level drops by ``drop`` in the treatment (none in the
-    baseline), C1 untouched. Read: C1's functional level at the end of the run less at the end of week ``t0`` (the
-    week of the drop)."""
+    baseline), C1 untouched. Read: C1's functional level at the end of the run less at the end of week ``t0 − 1``, just
+    before the drop, so what returns to C1 in week ``t0`` counts (revision 41, T-145: the drop falls between weeks
+    ``t0 − 1`` and ``t0``, and `M6.I.4a` reads week ``t0``'s start at the end of week ``t0 − 1``)."""
     t0, after, drop, every = settings["t0"], settings["after"], settings["drop"], settings["act_every"]
     weeks = t0 + after
     forced = {**_scripted(FATHER, "OVERFUNCTION", CHILD, weeks, every),
               **_scripted(MOTHER, "OVERFUNCTION", CHILD, weeks, every)}
+
+    if t0 < 1:  # the readout starts at the end of week t0 − 1, which a watch after a tick sees only from t0 = 1
+        raise ValueError(f"M11.C.21's t0 must be at least 1, not {t0}")
 
     def collapse(state):
         if arm == "treatment" and state.tick == t0:
@@ -687,7 +691,7 @@ def arm_c21(arm, seed, settings):
 
     at = {}
     state, records = scenario("four", seed, weeks, before=collapse, forced=forced,
-                              watch=lambda s: at.setdefault("t0", s.people[CHILD].functional_level) if s.tick == t0 + 1 else None)
+                              watch=lambda s: at.setdefault("t0", s.people[CHILD].functional_level) if s.tick == t0 else None)
     return result({"target_rise": state.people[CHILD].functional_level - at["t0"]}, records)
 
 

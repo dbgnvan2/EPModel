@@ -595,6 +595,89 @@ def test_m115_report_section_11_is_generated():
     start, end = report.bounds(text)
     assert text[start:end].rstrip("\n") == report.SECTION.rstrip("\n"), "stale: rerun python3 tools/c16_report.py"
     assert "## 12." in text[end:], "the section after §11 was lost"
+    # T-148: the report's two `M11.C.16` rows and the spec's `M11.5` row restate §11, so they are generated with it
+    for key, (path, prefix, after) in report.ROW_PREFIXES.items():
+        assert report.row_line(path.read_text(encoding="utf-8"), prefix, after) == report.RENDERED[key], (
+            f"stale {key}: rerun python3 tools/c16_report.py")
+
+
+def _c16_render(edits: dict[str, dict]):
+    """``tools/c16_report.render`` on the committed records with some of `M11.C.16`'s mutant rows edited."""
+    import copy
+
+    import tools.c16_report as report
+
+    mutants, occupancy, ensemble, sweep = copy.deepcopy(report._records())
+    for row in mutants:
+        if row["criterion"] == "M11.C.16" and row["mutant"] in edits:
+            row.update(edits[row["mutant"]])
+    return report.render(mutants, occupancy, ensemble, sweep)
+
+
+def _gating(mean: float, half: float) -> list[dict]:
+    return [{"readout": "repertoire_entropy", "mean_difference": mean, "half_width": half},
+            {"readout": "top_move_share", "mean_difference": -mean, "half_width": half}]
+
+
+def test_t148_c16_sentences_follow_the_mutant_results():
+    """T-148 (stage 3 milestone review MR-1): the sentences §11 wrote as literal text (the learning bullet, "no other
+    single rule removes the result", "what does not hold") and the rows that restate §11 are computed from the mutant
+    results. Adversarial (P7): each edit below makes the old literal sentence false, and the rendered text follows it;
+    a result the generator has no wording for stops it. Mutation: any of those sentences put back as literal text
+    fails one of these checks."""
+    import pytest
+
+    red_band = _c16_render({"band-level-independent": {"result": "red", "readouts": _gating(-0.001, 0.003)}})
+    assert "Removing `band-level-independent` alone also turns it red" in red_band["section"]
+    assert "No other single rule's removal turns it red" not in red_band["section"]
+    assert "`band-level-independent`" in red_band["row_class"] and "but for `band-level-independent`" in red_band["section"]
+    calm = _c16_render({"steepness-inverted": {"result": "survived", "readouts": _gating(-0.03, 0.006)},
+                        "band-level-independent": {"result": "survived", "readouts": _gating(-0.036, 0.007)}})
+    assert "Of the other inversions" not in calm["section"] and "No other single rule's removal" in calm["section"]
+    assert "`steepness-inverted`" not in calm["row_class"]
+    kept = _c16_render({"availability-and-learner-removed": {"result": "survived", "readouts": _gating(-0.02, 0.005)}})
+    assert "**Learning changes the result's size, not its sign.**" in kept["section"]
+    assert "with availability and the learner removed together." in kept["section"]
+    assert "but not with availability removed as well" not in kept["row_status"]
+    gone = _c16_render({"availability-and-learner-removed": {"result": "reversed", "readouts": _gating(0.01, 0.002)}})
+    assert "**Learning alone does not carry the result" in gone["section"]
+    assert "so learning carries the result only jointly with availability, not alone." in gone["section"]
+    assert "but not with availability removed as well" in gone["row_status"]
+    assert "with availability removed as well it is reversed" in gone["spec_row"]
+    with pytest.raises(SystemExit, match="learner-disabled"):
+        _c16_render({"learner-disabled": {"result": "red"}})
+    with pytest.raises(SystemExit, match="has no wording"):
+        _c16_render({"routing-level-inverted": {"result": "broken"}})
+    # the batch's correctness pass: another inversion reversing C.16 is not "no inversion run reverses C.16"
+    other = _c16_render({"availability-level-inverted": {"result": "survived", "readouts": _gating(-0.02, 0.005)},
+                         "steepness-inverted": {"result": "reversed", "readouts": _gating(0.02, 0.005)}})
+    assert "No inversion run" not in other["section"]
+    assert "does not reverse C.16; `steepness-inverted` does (below).** It leaves it passing" in other["section"]
+    assert "`steepness-inverted` flips C.16, which by that test would make it one" in other["section"]
+    # and availability alone turning it red is not "either set alone keeps a passing result"
+    alone = _c16_render({"availability-level-independent": {"result": "red", "readouts": _gating(-0.001, 0.003)},
+                         "c16-cited-grounds-removed": {"result": "survived", "readouts": _gating(-0.03, 0.006)}})
+    assert "Either set alone keeps a passing result" not in alone["section"]
+    assert "either set alone leaves it passing" not in alone["section"]
+    assert "each single deletion survives" not in alone["section"]
+    assert "Availability alone carries it" in alone["section"]
+    assert "but for `availability-level-independent`" in alone["section"]
+    # the table's "representation mutants: unchanged" row is checked, not written (the batch's learning-qa pass)
+    with pytest.raises(SystemExit, match="representation mutants are not all unchanged"):
+        _c16_render({"clamp-within-tolerance": {"result": "encoding artefact"}})
+    import tools.c16_report as report
+    mutants, occupancy, ensemble, sweep = report._records()
+    with pytest.raises(SystemExit, match="no M11.C.16 row"):
+        report.render(mutants, occupancy, ensemble, [r for r in sweep if r["criterion"] != "M11.C.16"])
+    # §10's table has a row that starts like §13's status row: the status row is looked for from §13's heading on
+    text = report.REPORT.read_text(encoding="utf-8")
+    path, prefix, after = report.ROW_PREFIXES["row_status"]
+    assert after and text.count("\n" + prefix) >= 2 and text.index("\n" + prefix) < text.index(after)
+    with pytest.raises(SystemExit, match="lines start with"):
+        report.row_line(text, prefix)
+    assert report.row_line(text, prefix, after).startswith(prefix)
+    with pytest.raises(SystemExit, match="name a mutant twice"):
+        report.render(mutants + [r for r in mutants if r["criterion"] == "M11.C.16"][:1], occupancy, ensemble, sweep)
 
 
 def test_m111d_run_cached_never_caches_an_errored_row(tmp_path, monkeypatch):

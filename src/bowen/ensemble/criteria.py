@@ -656,7 +656,8 @@ def arm_c32(arm, seed, settings):
             state.ties[TieId.of(P("a"), P("b"))].felt_impingement[P("a")] = settings["angry_impingement"]
 
     state, records = scenario("dyad", seed, settings["weeks"], forced=act("a", "I-POSITION", "b", t0), setup=anger)
-    # Revision 39: the assertion form is the I-POSITION with demand share 1, the angry form (M5.D.4a, M5.F.4).
+    # Revision 39: the assertion form is the I-POSITION with demand share 1, the angry form (M5.D.4a, M5.F.4). From
+    # revision 41 (T-133) that includes a sequence's DEFINE said in anger, in either arm.
     assertion = count(1 for r in records if isinstance(r, EmittedRecord) and r.event.demand_share >= 1.0)
     peaks = count(1 for r in records if isinstance(r, EffectRecord) and r.mechanism == "iposition"
                 for _, f, _ in r.people if f in ("iposition:enter:RESOLVE",))
@@ -670,7 +671,9 @@ def _c49_run(seed, weeks, t0, length, level, said):
     """One of `M11.C.49`'s four runs on the triad: F at ``level``, F's spell suspended over the act's window, F's own
     `I-POSITION` withheld in every week, so the control has none and the act run one; with ``said``, F's `I-POSITION`
     toward M is said at ``t0``: the sequence starts at `DEFINE`, unprepared (`M5.D.2a`; the owner's Q9, 2026-10-25),
-    so it is said in every seed whatever F's anger or excess. Read over the ``length`` weeks after ``t0``."""
+    so it is said in every seed whatever F's anger or excess. From revision 41 (T-133), where F is angry when it is
+    said, it is said as the assertion form, demand share 1 at either level, and the sequence ends (`M5.D.4a`). Read
+    over the ``length`` weeks after ``t0``."""
     from src.bowen.engine import iposition
     from src.bowen.engine.contact import excess
 

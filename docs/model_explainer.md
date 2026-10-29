@@ -2,7 +2,7 @@
 tags: [model-bt, explainer]
 status: current
 version: 2.0
-date: 2026-10-27
+date: 2026-10-28
 ---
 
 # The model, part by part
@@ -277,7 +277,10 @@ last three years of weeks:
   - **Displaced coping (revision 39, `M1.A.5f`).** A loaded person who takes charge of another (`OVERFUNCTION`) meets
     the load through them: the amount coping would have given the sender moves from the receiver's functioning to the
     sender's, on both stress swings, and settles back when each is calm. A receiver holding a position gives nothing,
-    and the receiver's floor bounds it. `[K]` `KS04.7`, `FE01.1` for the direction ("a calmer mother"; the caretaking
+    and the receiver's floor bounds it. A target who would refuse the act (rejection of the sender above the refusal
+    threshold when the act is selected, `M1.B.3c`) is not a receiver and gives nothing (revision 41, T-146, `[I]`). What moved is also kept on
+    each person's `displaced_swing`, which a child's development leaves out of the parents' term (revision 41, T-131,
+    `[I]`). `[K]` `KS04.7`, `FE01.1` for the direction ("a calmer mother"; the caretaking
     and patient positions); the size, the list and the conservation are `[I]`.
   - **What the floor holds is on a ledger (revision 39, F1).** When the floor stops functioning from falling while the
     swings decay, the amount it held goes to `floor_held`, which the estimator leaves out; when calm it is shed by the
@@ -586,8 +589,9 @@ nature, passes ad hoc).
 in an exchange is scaled by their own room above the stress floor: all of it at or above their basic level, a third at
 10 points below, nothing at the floor `[I]` (`M6.I.4`). It mirrors the floor that already stops the one giving way
 from going below it. It was added so that a collapse of the over-functioners reaches the exchange (`M11.C.21`, which
-still fails: the child in that arm has already lent down to its own floor, so there is nothing more for it to keep; the
-owner reclassified it as a composite on 2026-10-17 and accepted its failure as a finding).
+still failed: the child in that arm had already lent down to its own floor, so there was nothing more for it to keep; the
+owner reclassified it as a composite on 2026-10-17 and accepted its failure as a finding. It passes at revision 41,
+when `M6.I.4a`'s return first sees the collapse; see below).
 What the rule did change: it turned the twelve-person family's `M11.C.2` from fail to pass (the child the parents focus
 on carries more symptom load), and it turned `M11.C.22`'s mild-removal limb and `M11.C.17`'s weak coached rise from
 pass to fail. With the rule removed, each run gives its earlier number exactly. The owner kept it on 2026-10-17 and
@@ -595,7 +599,11 @@ accepted `M11.C.22`'s failure for now.
 
 - **Lent functioning returns when the taker's capacity falls (revision 39, `M6.I.4a`).** The share of borrowed
   pseudo-self equal to the share of room above the floor lost goes back to the lenders, conserved. `[I]`, the owner's
-  D19.
+  D19. The week's start is the person's level at the end of the previous week, so a fall made between two weeks, as
+  `M11.C.21`'s scripted collapse is, counts in the next week (revision 41, T-145, `[I]`). `M11.C.21` reads the rise
+  from the end of the week before the collapse, so the return counts; regenerated at revision 41 it passes (the
+  child's rise +0.271 ± 0.32, p 0.0139, 100 seeds), where at revision 40 it failed (−0.04 ± 0.44): before T-145 no week
+  held the collapse, so nothing returned.
 
 > Implement as a **switch with hysteresis, indexed per area** — not a linear scalar and not a personal trait. The old engine's `functioning_balance` is close in name and wrong in shape.
 >
@@ -1019,7 +1027,8 @@ project decisions, not corpus findings, and must never be cited as Bowen's.
   generations, which is the direction the corpus states (`[D]` Ch16) and a magnitude it does not (`[I]`).
 - **A child's basic level** is held at their parents' mean until 5, anchored there, and from 5 to 20 moved each year
   by half the parents' and half the child's own functioning above basic, each read as the estimator reads it, so the
-  exchange and the floor do not reach it and the stress swing does (revision 39), within ±2% of the anchor (`M7.E.1f`;
+  exchange and the floor do not reach it and the stress swing does (revision 39), and what a parent gained or lost by
+  displaced coping does not count in the parents' half (revision 41, `[I]`), within ±2% of the anchor (`M7.E.1f`;
   the owner: "level × .02"). Nothing names which child falls: the child whose own functioning the family pushes down
   ends lower. **Consequence:** ten generations could fall at most about 18 points from the top under ±2%. *Revision 31
   (the owner, 2026-10-16):* the band opens with the parents' acts toward the child — ±2% with none, room to rise to +5%
@@ -2209,11 +2218,13 @@ written; it is not a rule against reopening.
   other's contact, and counts against the speaker. `[K]` `KS05.5`, `KS06.11`, `FE04.13` and the interview `M5.F.4`
   cites (the KB12 interview, `K12.3`, cited and not quoted), for the direction; the form is `[I]`. **The assertion
   form** is the all-demand end: an angry person does not run a sequence, and their `I-POSITION` is one forceful claim.
+  A person angry when a sequence reaches `DEFINE` says the position in that form too, and the sequence ends there,
+  before any opposition (revision 41, `M5.D.4a`, `[I]`).
 - **Otherwise, a sequence over weeks:**
   - **`PREPARE`.** Weeks of private rehearsal lower both impingement axes. It fails if anxiety
     outruns the person's defences. If the other raises the issue first, the person defines unprepared.
   - **`DEFINE`.** The person states their position, and the other loses some of the contact they were
-    receiving.
+    receiving. Angry then, they say it all as demand and the sequence ends (revision 41).
   - **First opposition.** The mover holds only if their anxiety fits their capacity (level × efficacy);
     otherwise they defend, counterattack or go silent, and return to where they started.
   - **`HOLD`.** An angry mover stalls; no peak comes. A calm one who meets the next attack resolves.

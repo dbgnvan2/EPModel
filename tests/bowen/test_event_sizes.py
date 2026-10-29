@@ -228,3 +228,13 @@ def test_m7c1l_an_addition_carries_a_load_for_its_weeks():
     launch = [e for e in state.life.pending if e.kind == LAUNCH_LOAD]
     assert len(launch) == 1 and launch[0].targets == tuple(sorted((lc.LEO, *parents)))  # the parents he left
     assert launch[0].intensity * (1 + params.stressor_persistence * 11) == pytest.approx(params.lcu_scale * 29)
+
+
+def test_m7c1l_t149_the_find_work_note_says_where_the_load_lands():
+    """T-149 (review MR-10, 2026-10-28): `FIND_WORK_LOAD`'s note says what the code does (`life_course.find_work` sends
+    it to the household, at the self reach), not that it goes to the person who finds work."""
+    from pathlib import Path
+
+    text = (Path(__file__).resolve().parents[2] / "config/bowen/event_sizes.md").read_text(encoding="utf-8")
+    [row] = [line for line in text.splitlines() if line.startswith("| `FIND_WORK_LOAD`")]
+    assert "household" in row and "the person who finds work" not in row

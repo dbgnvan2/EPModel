@@ -76,7 +76,8 @@ def one_seed(seed: int) -> dict:
             history = list(state.estimator_history.get(child, ()))[-ENGINE.slow_tick_fast_ticks:]
             own = math.fsum(w.functional_level for w in history) / len(history)
             theirs = [m for p in parents
-                      if (m := life_course._year_mean(state, p, ENGINE, lambda w: w.functional_level)) is not None]
+                      if (m := life_course._year_mean(state, p, ENGINE,  # revision 41 (T-131): net of displaced coping
+                                                     lambda w: w.functional_level - w.displaced)) is not None]
             parents_basic = life_course._parents_mean(state, child, "basic_level")
             row = {"own_term": own - before,
                    "parents_term": (math.fsum(theirs) / len(theirs) - parents_basic) if theirs else math.nan,

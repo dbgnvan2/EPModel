@@ -50,6 +50,7 @@ from src.bowen.engine.events import Mechanism
 from src.bowen.engine.log_records import DecidedBy, EffectRecord
 from src.bowen.engine.moves import holds_position, stress_floor
 from src.bowen.engine.objects import SCALE_MAX, Role
+from src.bowen.engine import rejection
 from src.bowen.engine.params import EngineParams
 from src.bowen.engine.state import ActiveStressor, RunState
 
@@ -115,15 +116,19 @@ def displace(state: RunState, selections, load: dict, params: EngineParams) -> l
     """Purpose: a loaded person's displacing act meets their load through its receivers, conserved.
     Spec:    docs/bowen_agent_model_spec_v2.md#M1.A.5f
     Tests:   tests/bowen/test_stress_response.py::test_m1a5f_s3_1a_displaced_coping_moves_functioning_from_receiver_to_sender,
-             tests/bowen/test_stress_response.py::test_m1a5f_s3_1b_no_displacement_when_calm_held_or_at_the_floor
+             tests/bowen/test_stress_response.py::test_m1a5f_s3_1b_no_displacement_when_calm_held_or_at_the_floor,
+             tests/bowen/test_stress_response.py::test_m1a5f_t146_a_target_who_would_refuse_is_not_a_receiver,
+             tests/bowen/test_stress_response.py::test_m1a5f_t131_displaced_coping_is_booked_on_its_own_ledger
 
     For each act the policy or a script chose (a fallback hold is not a choice), of a kind in ``kinds.displacing``,
     sent by a living person whose load is above their usual level: the coping amount ``response_up_gain × above / 100
     × basic_level / 100`` is split evenly over the act's living family receivers. From each, in id order, the smallest
     of its share, its room above its floor (``functional_level − floor``) and the sender's room below 100 moves from the
     receiver's ``functional_level`` and ``stress_swing`` to the sender's. A receiver holding a position toward the
-    sender (`M1.B.5`) gives nothing. Nothing reads a receiver's age, role in the family, focus or readout. Returns
-    each person's change in functional level, as ``(person, "functional_level", change)`` rows.
+    sender (`M1.B.5`) gives nothing. A target who would refuse the act (`M1.B.3c`, ``rejection.refuses``, read here at
+    selection) is not a receiver (revision 41, T-146). What moves is also booked on both people's ``displaced_swing``
+    (revision 41, T-131), which settles back with the swing. Nothing reads a receiver's age, role in the family, focus
+    or readout. Returns each person's change in functional level, as ``(person, "functional_level", change)`` rows.
     """
     moved: dict = {}
     for sel in sorted(selections, key=lambda s: (s.actor, s.index)):
@@ -135,8 +140,11 @@ def displace(state: RunState, selections, load: dict, params: EngineParams) -> l
         above = above_usual(sender, load.get(sel.actor, 0.0))
         if above <= 0:  # only a loaded sender displaces; calm, the act does nothing here (M1.A.5e)
             continue
+        # Revision 41 (T-146, the owner 2026-10-28): a target who would refuse the act (M1.B.3c) is not a receiver,
+        # read now, at selection, with refuse()'s own test.
         receivers = sorted({t for t in sel.targets if t != sel.actor and t in state.people
-                            and state.people[t].alive and state.people[t].role is Role.MEMBER})
+                            and state.people[t].alive and state.people[t].role is Role.MEMBER
+                            and not rejection.refuses(state, t, sel.actor, sel.kind, params)})
         if not receivers:
             continue
         share = params.response_up_gain * above / SCALE_MAX * sender.basic_level / SCALE_MAX / len(receivers)
@@ -150,8 +158,10 @@ def displace(state: RunState, selections, load: dict, params: EngineParams) -> l
                 continue
             receiver.functional_level -= amount
             receiver.stress_swing -= amount
+            receiver.displaced_swing -= amount  # revision 41 (T-131): its own record, for M7.E.1f's parents' term
             sender.functional_level += amount
             sender.stress_swing += amount
+            sender.displaced_swing += amount
             moved[pid] = moved.get(pid, 0.0) - amount
             moved[sel.actor] = moved.get(sel.actor, 0.0) + amount
     return [(pid, "functional_level", change) for pid, change in sorted(moved.items()) if change]
@@ -202,6 +212,7 @@ def respond(state: RunState, selections, load: dict, params: EngineParams) -> li
             swings = person.stress_swing + person.adjust_swing
             person.stress_swing *= 1.0 - params.response_relaxation_rate
             person.adjust_swing *= 1.0 - params.response_relaxation_rate  # revision 20: the system's adjustment too
+            person.displaced_swing *= 1.0 - params.response_relaxation_rate  # revision 41 (T-131): its part of the swing
             # Revision 39 (F1): what the bound stopped of that decay goes on the floor_held ledger, and the ledger is
             # then shed by the swings' share, as far as the bound lets; what it stops stays on the ledger. In a week the
             # bound did not stop, nothing is added: the two sides differ there only by rounding (review 2026-10-26).

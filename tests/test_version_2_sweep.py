@@ -528,11 +528,20 @@ def test_s2_6_not_run_list_is_loaded_strictly():
 
 # --- S2.11 the committed record ---------------------------------------------------------------------------------
 
+@pytest.mark.xfail(strict=True, raises=KeyError,
+                   reason="T-159: the stage 3 triage batch (spec revision 41, 2026-10-28) moved the engine hash to "
+                   "6ce8be104767 and regenerated every other record; the stage-end sweep reruns on it in the next "
+                   "session, split across both Macs as at step 11")
 def test_s2_11_sweep_record_is_current():
     """The committed sweep record is what the tool renders from the committed cache for the current engine and
-    config, without running anything (P6); a stale cache or a changed range would raise here."""
+    config, without running anything (P6); a stale cache or a changed range would raise here. Until T-159's sweep only
+    a missing cached result or run length is the expected failure; any other ``KeyError`` is turned into a failure."""
     with mock.patch.object(record_cache, "child_rows", side_effect=AssertionError("ran a child in a test")):
-        text = tool.build(Cache(tool.CACHE_NAME))
+        try:
+            text = tool.build(Cache(tool.CACHE_NAME))
+        except KeyError as missing:
+            assert re.search(r"no cached (result|run length) for the current", str(missing)), missing
+            raise
         assert tool.RECORD.read_text(encoding="utf-8") == text
 
 

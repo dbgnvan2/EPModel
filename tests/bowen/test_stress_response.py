@@ -411,3 +411,69 @@ def test_m1a5e_floor_held_takes_nothing_in_a_week_no_bound_stopped():
     for _ in range(4):
         respond(state, (), {RAVI: 0.0}, PARAMS)
         assert ravi.floor_held == 0.0
+
+
+# --- the stage 3 triage batch (spec revision 41): T-146 and T-131 ---------------------------------------------------
+
+
+def _rejecting(level):
+    def set_up(state):
+        from src.bowen.engine.identifiers import TieId
+
+        state.ties[TieId.of(MARTA, RAVI)].rejection[MARTA] = level
+    return set_up
+
+
+def test_m1a5f_t146_a_target_who_would_refuse_is_not_a_receiver():
+    """T-146 (revision 41, the owner 2026-10-28): a target who would refuse the act (`M1.B.3c`: their rejection of the
+    sender above `rejection_refusal_threshold`, read when the act is selected) is not one of `M1.A.5f`'s receivers. It gives nothing,
+    and the coping amount is split over the receivers left. At the threshold itself Marta still gives, so the guard is
+    not vacuous."""
+    from src.bowen.engine.rejection import refuses
+
+    at, before = _displacing_week((MARTA, NADIA), set_up=_rejecting(PARAMS.rejection_refusal_threshold))
+    amount = _coping_amount(at.people[RAVI])
+    assert not refuses(at, MARTA, RAVI, "OVERFUNCTION", PARAMS)
+    assert _moved(at, before, MARTA) == pytest.approx(-amount / 2, rel=1e-9)
+
+    above, before = _displacing_week((MARTA, NADIA), set_up=_rejecting(PARAMS.rejection_refusal_threshold + 0.1))
+    assert refuses(above, MARTA, RAVI, "OVERFUNCTION", PARAMS)
+    assert _moved(above, before, MARTA) == 0.0
+    assert _moved(above, before, NADIA) == pytest.approx(-amount, rel=1e-9)  # the whole amount, from the one receiver
+    assert _moved(above, before, RAVI) == pytest.approx(amount, rel=1e-9)
+
+
+def test_m1a5f_t146_displacement_and_delivery_read_one_refusal_predicate(monkeypatch):
+    """T-146: `displace()` reads `rejection.refuses`, the predicate delivery's `refuse()` reads
+    (`tests/bowen/test_rejection.py::test_m1b3c_t146_delivery_reads_the_shared_refusal_predicate`), so the two test one
+    rule. Each reads it on the rejection of its own week: displacement at selection, delivery when the move lands, after
+    rejection has faded or risen. With the predicate patched to refuse no one, a rejecting Marta gives again."""
+    from src.bowen.engine import rejection
+
+    monkeypatch.setattr(rejection, "refuses", lambda *args, **kwargs: False)
+    state, before = _displacing_week((MARTA,), set_up=_rejecting(PARAMS.rejection_refusal_threshold + 0.1))
+    assert _moved(state, before, MARTA) == pytest.approx(-_coping_amount(state.people[RAVI]), rel=1e-9)
+
+
+def test_m1a5f_t131_displaced_coping_is_booked_on_its_own_ledger():
+    """T-131 (b) (revision 41, the owner 2026-10-28): what `M1.A.5f` moves is also booked on each person's
+    `displaced_swing`, the sender's up and the receiver's down, by the amount moved; the estimator's week carries it
+    (`Week.displaced`); in a calm week it settles back by the swings' own share (`response_relaxation_rate`). Coping
+    (`M1.A.5e`) moves the stress swing and never writes it."""
+    from src.bowen.engine.slow_tick import record_week
+
+    state, _ = _displacing_week((MARTA,))
+    amount = _coping_amount(state.people[RAVI])
+    assert state.people[RAVI].displaced_swing == pytest.approx(amount, rel=1e-9)
+    assert state.people[MARTA].displaced_swing == pytest.approx(-amount, rel=1e-9)
+    assert state.people[NADIA].displaced_swing == 0.0
+    record_week(state, PARAMS, {}, (), ())
+    assert state.estimator_history[RAVI][-1].displaced == state.people[RAVI].displaced_swing
+    ledger = {pid: p.displaced_swing for pid, p in state.people.items()}
+    respond(state, (), {}, PARAMS)  # a calm week for everyone
+    for pid in (RAVI, MARTA):
+        assert state.people[pid].displaced_swing == pytest.approx(
+            ledger[pid] * (1.0 - PARAMS.response_relaxation_rate), rel=1e-9)
+    coped = fresh()
+    respond(coped, (Selection(RAVI, "WITHHOLD", (MARTA,), 100.0),), {RAVI: HEAVY}, PARAMS)
+    assert coped.people[RAVI].stress_swing > 0.0 and coped.people[RAVI].displaced_swing == 0.0

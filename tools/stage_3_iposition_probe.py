@@ -88,7 +88,9 @@ def one_arm(level: float, scripted: bool, seed: int) -> dict:
               and r.event.timestamp in window and {r.event.sender, *r.event.targets} >= {f, m}]
     steps = Counter(field for r in records if isinstance(r, EffectRecord) and r.mechanism == "iposition"
                     for pid, field, _ in r.people if pid == f)
-    forms = Counter(("assertion" if r.event.demand_share >= 1.0 else "genuine")  # revision 39: share 1 is the form
+    # revision 39: share 1 is the assertion form; from revision 41 (T-133) a DEFINE said in anger is one too, and the
+    # sequence it ends is in ``steps`` as ``iposition:end:said_in_anger``
+    forms = Counter(("assertion" if r.event.demand_share >= 1.0 else "genuine")
                     for r in records if isinstance(r, EmittedRecord) and r.event.kind == "I-POSITION"
                     and r.event.sender == f)
     return {

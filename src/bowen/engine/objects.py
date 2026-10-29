@@ -173,6 +173,10 @@ class Person:
     # while the swings decayed, so functional_level − stress_swing − adjust_swing − floor_held is unchanged by the bound.
     # Shed with the swings when calm; the estimator leaves it out (M1.A.4k). Owner decision 2026-10-25.
     floor_held: float = 0.0
+    # Spec revision 41 (T-131 (b), M1.A.5f): the part of stress_swing that displaced coping moved — up in the sender,
+    # down in the receiver — settling back with the swing. A record within stress_swing, not another ledger of
+    # functional_level; M7.E.1f's parents' term leaves it out. Owner decision 2026-10-28.
+    displaced_swing: float = 0.0
     # Spec revision 22: the person's usual excess anxiety — the plain mean of their weeks so far for the first
     # 1 / usual_level_rate weeks, then a running average over about a year. Calm is at or below it; the stress response
     # is driven by the load above it. None until the first week; usual_weeks counts the weeks it has seen.

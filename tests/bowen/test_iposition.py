@@ -445,6 +445,11 @@ def attempts_over_seeds(seeds=192, weeks=100):
     return tuple(outcomes)
 
 
+@pytest.mark.xfail(strict=True, raises=AssertionError,
+                   reason="T-158: since revision 41 (T-133) a mover angry at DEFINE says the position as a demand and "
+                   "the sequence ends before any opposition, so the movers who reach the first opposition are "
+                   "calmer: over the 192 seeds, 62 abort there and 66 hold (125 and 106 at revision 40), and 118 "
+                   "sequences end said in anger. The claim is unchanged and left to the owner (2026-10-28).")
 def test_m5d3_abort_is_the_usual_first_outcome():
     """At the first opposition, aborting is commoner than holding."""
     held = aborted = 0
@@ -519,3 +524,31 @@ def test_m5f4_s3_6_demand_share_falls_with_level():
         assert outward == pytest.approx((1 - w) * PARAMS.assertion_evidence_gain, rel=1e-9), level
     assert found[40.0][1] > found[60.0][1] > 0                           # more demand at the lower level
     assert found[40.0][2] < found[60.0][2]                               # less of the contact withdrawn
+
+
+def test_m5d4a_t133_an_angry_mover_at_define_says_it_all_as_demand_and_the_sequence_ends():
+    """T-133 (b) (revision 41, the owner 2026-10-28): the anger gate is read again when the position is said. A mover
+    calm at selection who is angry when `DEFINE` comes due (here forced early by an impinging move in `PREPARE`) says
+    it as the assertion form, demand share 1, and the sequence ends. The same `DEFINE` said calm is a mixture and moves
+    on to `OPPOSITION`, so the guard is not vacuous."""
+    def forced_define(angry_now):
+        state = fresh(perspective=1.0)
+        choose_iposition(state)
+        calm(state, RAVI)
+        state.tick += 1
+        deliver_to(state, RAVI, MARTA)
+        ip.advance_sequences(state, PARAMS)
+        assert seq(state).due == ip.DEFINE
+        if angry_now:
+            state.ties[TieId.of(RAVI, MARTA)].felt_impingement[RAVI] = 1.0
+        assert ip.angry(state, RAVI, MARTA, PARAMS) is angry_now
+        records = take_owed_step(state)
+        [event] = [r.event for r in records if isinstance(r, EmittedRecord)]
+        return state, records, event
+
+    said_calm, _, event = forced_define(False)
+    assert event.demand_share < 1.0 and seq(said_calm).stage == ip.OPPOSITION
+    said_angry, records, event = forced_define(True)
+    assert event.demand_share == 1.0 and seq(said_angry) is None
+    assert any(name == "iposition:end:said_in_anger" for r in records if isinstance(r, EffectRecord)
+               for _, name, _ in r.people)

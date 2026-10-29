@@ -117,7 +117,8 @@ def test_m11d2_check_catches_a_literal_in_the_policy(tmp_path):
 
 # --- M11.D.8 / M11.D.9 --------------------------------------------------------------------------
 
-EXPECTED_SPEC_REFERENCES = 1035  # M11.D.9: an exact count, not a floor; update it when references change (1035 at spec revision 39's step 9, group A's M4.C.1d, M4.D.3a and the tables' M4.C.1d, 2026-10-26; 1032 at spec revision 39's step 8, group F's M5.F.4, M5.F.2c and M11.C.49, 2026-10-26; 1027 at spec revision 39's step 7, group C's M1.A.5f, M1.A.5e and M6.I.4a text, 2026-10-26; 1016 at spec revision 39's step 6, M8.5's M5.C reference gone with the avoidance gate, 2026-10-25; 969 once spec_references read a block's continuation lines, review 2026-10-22; 938 on the first line only after model ergonomics Part D replaced the fifteen section anchors with numbered IDs, 2026-10-22; 808 at version 2 stage 1, with load_act_classes)
+EXPECTED_SPEC_REFERENCES = 1040  # M11.D.9: an exact count, not a floor; update it when references change (1040 at
+# spec revision 41, the stage 3 triage batch's M1.A.5f, M5.D.4a, M6.I.4a, M7.E.1f and M11.C.21 Spec lines, 2026-10-28; 1035 at spec revision 39's step 9, group A's M4.C.1d, M4.D.3a and the tables' M4.C.1d, 2026-10-26; 1032 at spec revision 39's step 8, group F's M5.F.4, M5.F.2c and M11.C.49, 2026-10-26; 1027 at spec revision 39's step 7, group C's M1.A.5f, M1.A.5e and M6.I.4a text, 2026-10-26; 1016 at spec revision 39's step 6, M8.5's M5.C reference gone with the avoidance gate, 2026-10-25; 969 once spec_references read a block's continuation lines, review 2026-10-22; 938 on the first line only after model ergonomics Part D replaced the fifteen section anchors with numbered IDs, 2026-10-22; 808 at version 2 stage 1, with load_act_classes)
 
 
 def spec_anchors() -> set[str]:
@@ -290,3 +291,37 @@ def test_m16t3_sink_does_not_change_results_under_the_policy():
     quiet = canonical_state(policy_run(seed=5))
     logged = canonical_state(policy_run(seed=5, emitter=Collect()))
     assert logged == quiet
+
+
+def test_t147_the_engine_never_imports_the_policy():
+    """T-147 (revision 41): the policy imports the engine, never the reverse, at load time or at call time. `M4.D.1a`'s
+    mixing weight lives in the engine (`observe.self_channel_weight`) and the policy imports it, so `M5.F.4` and
+    `M4.D.1a` still read one definition of `w`."""
+    from src.bowen.engine import observe
+    from src.bowen.policy import policy
+
+    def policy_imports(source: str) -> list[int]:
+        """The lines of ``source`` that import the policy, or could: a relative import, or a string naming it passed
+        to a call (`importlib.import_module`, `__import__`)."""
+        lines = []
+        for node in ast.walk(ast.parse(source)):
+            if isinstance(node, ast.ImportFrom):  # `from src.bowen.policy…`, `from src.bowen import policy`, `from ..`
+                names = [node.module or ""] + [f"{node.module}.{a.name}" for a in node.names]
+                lines += [node.lineno] * (node.level > 0)  # no relative imports
+            elif isinstance(node, ast.Call):
+                names = [a.value for a in node.args if isinstance(a, ast.Constant) and isinstance(a.value, str)]
+            else:
+                names = [a.name for a in node.names] if isinstance(node, ast.Import) else []
+            lines += [node.lineno for name in names if name.startswith("src.bowen.policy")]
+        return lines
+
+    # the gate catches each form (proved here on text, so no module is ever added under src/bowen to prove it)
+    for form in ("import src.bowen.policy.policy", "from src.bowen.policy.policy import choose",
+                 "from src.bowen import policy", "from ..policy import policy",
+                 "import importlib\nimportlib.import_module('src.bowen.policy.policy')",
+                 "__import__('src.bowen.policy.policy')"):
+        assert policy_imports(f"def f():\n    {form.replace(chr(10), chr(10) + '    ')}\n"), form
+    found = [f"{path.name}:{line}" for path in sorted((REPO / "src/bowen/engine").rglob("*.py"))
+             for line in policy_imports(path.read_text(encoding="utf-8"))]
+    assert found == []
+    assert policy.self_channel_weight is observe.self_channel_weight

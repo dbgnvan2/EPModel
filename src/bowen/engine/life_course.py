@@ -20,7 +20,7 @@ A run has a life course only when its family declares one (``state.life`` is not
    child's mean load over the year (`M7.B.1a`);
 3. a child develops (`M7.E.1f`): held at the parents' mean before 5; anchored at 5; from 6 to 20 moved by
    ``development_rate × d`` within a band around the anchor, where ``d`` is half the parents' mean functioning above
-   basic over the year and half the child's own. The band opens with the parents' acts to the child: from
+   basic over the year, less what each gained or gave by displaced coping (revision 41), and half the child's own. The band opens with the parents' acts to the child: from
    ``anchor × (1 − development_band − (development_band_projection − development_band) × p)`` to
    ``anchor × (1 + development_band + (development_band_support − development_band) × s)``, where ``p`` and ``s``
    are the shares of every act a living parent has sent the child since 5 that were projection-type and supportive
@@ -400,8 +400,10 @@ def _childhood(state: RunState, params: EngineParams) -> list[tuple]:
         else:
             anchor = life.anchors[pid]
             own = _year_mean(state, pid, params, lambda w: w.functional_level)
+            # Revision 41 (T-131 (b), the owner 2026-10-28): the parents' term leaves out what a parent gained or gave by
+            # displaced coping (M1.A.5f); the child's own term keeps it, so the child's loss still counts (FE06.3).
             theirs = [m for p in _living_parents(state, pid)
-                      if (m := _year_mean(state, p, params, lambda w: w.functional_level)) is not None]
+                      if (m := _year_mean(state, p, params, lambda w: w.functional_level - w.displaced)) is not None]
             if own is None:
                 continue
             terms = [own - person.basic_level]  # the child's own functioning above basic

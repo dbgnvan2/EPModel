@@ -71,6 +71,7 @@ from src.bowen.engine.identifiers import PersonId, TieId
 from src.bowen.engine.log_records import DecidedBy
 from src.bowen.engine.observe import (
     INSIDE, OUTSIDE, PROJECTION_KINDS, SCALE_MAX, Observation, band_of, learned_value_key,
+    self_channel_weight as self_channel_weight,  # M4.D.1a, in the engine since revision 41 (T-147)
 )
 from src.bowen.engine.params import EngineParams
 from src.bowen.policy.rules import PolicyRules
@@ -178,19 +179,6 @@ def legal_outcomes(obs: Observation, kinds: EventKinds, params: EngineParams,
     if any(o.channel == AUTOMATIC for o in legal):
         legal.append(Outcome(WITHHOLD, None, SELF))
     return legal
-
-
-def self_channel_weight(functional_level: float, params: EngineParams, perspective: float = 0.0) -> float:
-    """Purpose: the mixing weight — functional level, opened further by systems perspective.
-    Spec:    docs/bowen_agent_model_spec_v2.md#M4.D.1a
-    Tests:   tests/bowen/test_policy.py::test_m4d1a_mixing_weight_reads_functional_level_only,
-             tests/bowen/test_policy.py::test_m4d1a_perspective_opens_the_self_directed_channel
-
-    ``f = (functional_level / 100) ** self_channel_exponent``, and ``w = f + perspective_channel_gain × perspective ×
-    (1 − f)``: with no perspective, ``w = f``; perspective, from coaching or a person's own practice, raises it.
-    """
-    f = min(1.0, max(0.0, functional_level / SCALE_MAX)) ** params.self_channel_exponent
-    return f + params.perspective_channel_gain * min(1.0, max(0.0, perspective)) * (1.0 - f)
 
 
 def availability(kind: str, obs: Observation, kinds: EventKinds, params: EngineParams) -> float:

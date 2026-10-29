@@ -88,6 +88,22 @@ def strength(intensity: float, params: EngineParams) -> float:
     return intensity / params.intensity_scale
 
 
+def refuses(state: RunState, recipient: PersonId, sender: PersonId, kind: str, params: EngineParams) -> bool:
+    """Purpose: whether ``recipient`` refuses a move of ``kind`` from ``sender`` (M1.B.3c), the one test both
+             `refuse` (at delivery) and displaced coping (`M1.A.5f`, at selection; revision 41, T-146) read.
+    Spec:    docs/bowen_agent_model_spec_v2.md#M1.B.3c, #M1.A.5f
+    Tests:   tests/bowen/test_rejection.py::test_m1b3c_a_refused_approach_never_reaches_the_cutter_and_costs_the_sender,
+             tests/bowen/test_stress_response.py::test_m1a5f_t146_a_target_who_would_refuse_is_not_a_receiver
+
+    True when the two share a tie, the kind can be refused, the recipient's rejection of the sender is above
+    ``rejection_refusal_threshold``, and both are alive. Only a move is ever refused; the caller checks the mechanism.
+    """
+    tie = state.tie_between(recipient, sender)
+    return (tie is not None and kind not in NEVER_REFUSED
+            and tie.rejection.get(recipient, 0.0) > params.rejection_refusal_threshold
+            and state.people[sender].alive and state.people[recipient].alive)
+
+
 def refuse(state: RunState, batch: tuple[Delivery, ...], params: EngineParams) -> tuple[tuple[Delivery, ...], list]:
     """Purpose: take out of a tick's batch the moves a rejecting person refuses, and apply each refusal.
     Spec:    docs/bowen_agent_model_spec_v2.md#M1.B.3c, #M6.4
@@ -101,16 +117,12 @@ def refuse(state: RunState, batch: tuple[Delivery, ...], params: EngineParams) -
     records: list = []
     for delivery in sorted(batch):
         event = state.store.event(delivery.event_id)
-        tie = (state.tie_between(delivery.recipient, event.sender)
-               if event.sender is not None and delivery.role is Role.TARGET else None)
-        refused = (
-            tie is not None and event.mechanism is Mechanism.MOVE and event.kind not in NEVER_REFUSED
-            and tie.rejection.get(delivery.recipient, 0.0) > params.rejection_refusal_threshold
-            and state.people[event.sender].alive and state.people[delivery.recipient].alive
-        )
+        refused = (event.sender is not None and delivery.role is Role.TARGET and event.mechanism is Mechanism.MOVE
+                   and refuses(state, delivery.recipient, event.sender, event.kind, params))
         if not refused:
             accepted.append(delivery)
             continue
+        tie = state.tie_between(delivery.recipient, event.sender)
         size = strength(event.intensity, params)
         rose = raise_rejection(tie, delivery.recipient, params.rejection_refusal_gain * size)
         sender = state.people[event.sender]

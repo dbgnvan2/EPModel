@@ -13,6 +13,10 @@
 > **Version 2 stage 1 (spec revision 33, 2026-10-19) changed no constant**, so it has no row here. The act classes it
 > moved out of the code into `act_classes.md` (`M8.3`, `M5.B.4`, `M5.B.5`) are lists of act names, not constants, and
 > their contents did not change.
+>
+> **The stage 3 triage batch (spec revision 41, 2026-10-28) changed no constant**, so it has no row here. Its rules
+> (`M1.A.5f`, `M7.E.1f`, `M5.D.4a`, `M6.I.4a`) read existing constants: `rejection_refusal_threshold`,
+> `response_relaxation_rate`, `assertion_gain` and `assertion_evidence_gain` at the all-demand end.
 
 | key | frozen_value | new_value | date | criterion | post_hoc |
 |---|---|---|---|---|---|

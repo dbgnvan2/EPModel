@@ -64,6 +64,7 @@ class Week:
     self_directed: bool
     nodal: tuple[str, ...]  # the kinds of nodal event that reached them that week: a recurring stressor is one situation
     soothed: bool = False   # revision 19: they met the week with an avoiding or soothing act (the soothing review)
+    displaced: float = 0.0  # revision 41 (T-131): displaced_swing that week; M7.E.1f's parents' term leaves it out
 
 
 def history_length(params: EngineParams) -> int:
@@ -128,7 +129,7 @@ def record_week(state: RunState, params: EngineParams, load: dict, selections, e
         # M1.A.5e). Unledgered, the estimator credited it as the person's own (measured 2026-10-25).
         own = person.functional_level - (person.pseudo_self or 0.0) - max(0.0, person.adjust_swing) - person.floor_held
         weeks.append(Week(state.tick, own, load.get(pid, 0.0), self_directed,
-                          tuple(sorted(nodal.get(pid, ()))), kind in state.kinds.soothing))
+                          tuple(sorted(nodal.get(pid, ()))), kind in state.kinds.soothing, person.displaced_swing))
 
 
 @dataclass(frozen=True)

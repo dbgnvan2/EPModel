@@ -2,10 +2,71 @@
 
 The entries of `CHANGELOG.md` dated before 2026-10-19, the day version 2 began at the tag `version-1`, moved
 here verbatim on 2026-10-22, the entries of 2026-10-19 and 2026-10-20 on 2026-10-23, and the entries of
-2026-10-21 later on 2026-10-23, the earliest entry of 2026-10-22 (the SP-1 proposal's eight questions) on 2026-10-24, and the next (SP-1 built, with spec revision 34) later on 2026-10-24, and the next (Model ergonomics, Parts A–C) on 2026-10-25, and the next (Model ergonomics, Part D) later on 2026-10-25, and the next (Model ergonomics, Part E) later on 2026-10-25, and the next (Model ergonomics follow-ups) later on 2026-10-25, and the next (the closed and old parts of `TODO.md` and `CHANGELOG.md` archived) on 2026-10-26, and the next (`TODO.md` an index over records; a changelog index) later on 2026-10-26, and the next (Revision 35's dispositions approved by the owner) later on 2026-10-26, and the next two (Spec revision 36, of 2026-10-22, and Revision 36's records regenerated, of 2026-10-23) later on 2026-10-26, and the next five (from the cloud sessions' SessionStart hook to Stage 2: Phase C's directional criteria swept, all of 2026-10-23) later on 2026-10-26, and the next three (from the night's decisions listed for the owner to Stage 2: Phase D part I's directional criteria swept, all of 2026-10-23) on 2026-10-27, and the next (Stage 2: the sweep can run on two Macs, of 2026-10-23) later on 2026-10-27, and the next (The two-Mac cross-check run live, of 2026-10-23) on 2026-10-28, so that the live file stays short enough to read (`tests/test_doc_size.py` bounds its size). The heading below is the section they
+2026-10-21 later on 2026-10-23, the earliest entry of 2026-10-22 (the SP-1 proposal's eight questions) on 2026-10-24, and the next (SP-1 built, with spec revision 34) later on 2026-10-24, and the next (Model ergonomics, Parts A–C) on 2026-10-25, and the next (Model ergonomics, Part D) later on 2026-10-25, and the next (Model ergonomics, Part E) later on 2026-10-25, and the next (Model ergonomics follow-ups) later on 2026-10-25, and the next (the closed and old parts of `TODO.md` and `CHANGELOG.md` archived) on 2026-10-26, and the next (`TODO.md` an index over records; a changelog index) later on 2026-10-26, and the next (Revision 35's dispositions approved by the owner) later on 2026-10-26, and the next two (Spec revision 36, of 2026-10-22, and Revision 36's records regenerated, of 2026-10-23) later on 2026-10-26, and the next five (from the cloud sessions' SessionStart hook to Stage 2: Phase C's directional criteria swept, all of 2026-10-23) later on 2026-10-26, and the next three (from the night's decisions listed for the owner to Stage 2: Phase D part I's directional criteria swept, all of 2026-10-23) on 2026-10-27, and the next (Stage 2: the sweep can run on two Macs, of 2026-10-23) later on 2026-10-27, and the next (The two-Mac cross-check run live, of 2026-10-23) on 2026-10-28, and the next four (from Stage 2: Phase D part II's sweep ranges declared to When the full sweep runs, the last of 2026-10-23) on 2026-10-29, so that the live file stays short enough to read (`tests/test_doc_size.py` bounds its size). The heading below is the section they
 were under; nothing in this file is reworded. Later entries are in `CHANGELOG.md`.
 
 ## [Unreleased] — 2026-10-11
+
+### When the full sweep runs: at a stage's end only (D17, 2026-10-23)
+
+- The owner, 2026-10-23: "a full sweep only at a stage's end; between, sweep only the criteria a change targets."
+  Recorded as D17 in plan §2.10, with its reason (every result is keyed by the engine hash, and the full sweep is
+  about two days on two Macs) and what it gives up (a pass made fragile by a change aimed elsewhere is found only at
+  the next full sweep). Also in `CLAUDE.md`'s review rules and `docs/theory/_STATUS.md`, whose order of work now says
+  part II's run was started at 17:38, split across both Macs. Documents only; nothing a run computes changed.
+
+### T-126 closed: `nodal_spike_intensity` stays out of the `M11.C.2` sets (2026-10-23)
+
+- The owner, 2026-10-23: "keep D10's rule; nodal_spike_intensity stays out of both M11.C.2 sets." T-126 ticked;
+  decisions 25, 32 and 47 stand as to this constant. The note is added to the plan's §2.10 judgment (3), to
+  `config/sweep/sweep.md`'s preamble, to T-125's decision 47 and to `docs/theory/_STATUS.md`. No range row, code or
+  record changed.
+
+### Part II's judgments listed for the owner, and two loose ends (2026-10-23)
+
+- T-125 gains batch 6, part II's eight constant-set judgments and the *Declared, not run* list (decisions 45–53; now
+  fifty-three decisions in six batches), each pointing to the plan's §2.10 paragraph that holds it in full.
+- T-126 (Now) asks the owner whether `nodal_spike_intensity` should be swept in both `M11.C.2` sets, where the nodal
+  load acts but no row credits `M4.C.1c`. No code changed.
+- `docs/CHANGELOG_archive.md`: a stray copy of this file's old end-of-file pointer, left between two archived entries,
+  removed; no entry changed. `docs/theory/_STATUS.md` names decisions 45–53 and T-126.
+
+### Stage 2: Phase D part II's sweep ranges declared, no run (2026-10-23)
+
+- The owner, 2026-10-23: declare part II's ranges now and run them later, on Mac Mini1 alone at 8 samples. 81 rows
+  added to `config/sweep/sweep.md` (now 327 rows, 78 constants, 34 criteria) for the part II record's seven composite
+  keys: `M11.C.2[twelve-person family]` (15 constants), `M11.C.6` (6), `M11.C.10` and `M11.C.10[family of origin]` (17
+  each), `M11.C.15` (2), `M11.C.48` and `M11.C.48[phase_d]` (12 each). `M11.C.47` is a premise and is not swept. Each
+  range is half to double the central value within the file's bounds, every grade `[I]`; `development_band_support`'s
+  low end is raised to 0.04, the top of `development_band`'s range, for the engine's invariant.
+- The sets follow D10's rule as the file's preamble states it; the preamble's counts, grades and exclusion list are
+  updated, and the plan's §2.10 lists each set and the eight numbered judgments, decided as recommended under the
+  owner's instruction of 2026-10-22, pending the owner's review. Checked against the code: the estimator skips a child
+  under 20, so `M11.C.6` takes `M7.E.1f`'s four development constants; births to the third generation fall inside
+  `M11.C.2`'s ages read, so `birth_focus_gain` is in its twelve-person set; no differentiating exchange completed in
+  20 seeds of `M11.C.15`'s three runs, so `exchange_budget_reduction` is out; `nodal_spike_intensity` acts in the
+  twelve-person runs but no part II row credits it.
+- The record is built from every declared key, so declaring without a run made
+  `test_s2_11_sweep_record_is_current` raise on a missing result. `config/sweep/sweep.md` gains a section *Declared,
+  not run* listing the seven keys; `tools/sweep_config.py::load_not_run` reads it strictly, and
+  `tools/version_2_sweep.py` shows a listed key in the record with its ranges and no number, runs none of its samples
+  unless `--criteria` names it, and refuses the record once a listed key has a cached result. Three tests (S2.5, S2.6),
+  each failed by a mutant. `docs/version_2_sweep_record.md` was rendered with `--render-only`; the cache did not
+  change. `tools/version_2_status.py::sweep_fractions` leaves a not-run key out, so the status page still shows it
+  *not swept* and W4 still counts it (its test extended). The plan's §2.10 and `docs/two_mac_sweep.md` describe the
+  list.
+- The `learning-qa` review found three low items, all fixed: the record now says the cache holds no result of a
+  not-run key (a share whose samples all errored caches nothing, so "none has run" was not what is checked); the
+  sweep tests' helpers patch the not-run list with their own config; a misspelt *Declared, not run* heading raises
+  instead of listing nothing (a mutant fails the test).
+- Checked: the file parses, `tools/version_2_sweep.py::_checked` passes for each key and for the seven together, and
+  200 joint samples of each key pass `EngineParams`' invariants. Nothing in `src/bowen/` changed (`engine_hash()`
+  `66dcbb1e8ba5`, `phase_d_engine_hash()` `5c3865dcf8f9`); no record was run. Suite: 1195 collected, 1194 passed and
+  1 xfailed (`CLAUDE.md`'s count updated).
+- This entry took the file past its 80,000-byte limit, so the six entries of 2026-10-21 moved to
+  `docs/CHANGELOG_archive.md` verbatim (13,354 bytes, checked as one unchanged span), and a pointer line now ends
+  this file; `CLAUDE.md`, the checklist and the reading list now say entries before 2026-10-22. The plan's status
+  line, `docs/theory/_STATUS.md` and `docs/REVIEWER_READING_LIST.md` now say the part II ranges are declared.
 
 ### The two-Mac cross-check run live (2026-10-23)
 

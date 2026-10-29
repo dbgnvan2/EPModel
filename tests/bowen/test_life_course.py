@@ -913,3 +913,29 @@ def test_m7c1_life_course_constants_out_of_range_are_refused(name, value):
     from src.bowen.scenario.params import engine_params
     with pytest.raises(ValueError):
         dataclasses.replace(engine_params(load_constants()), **{name: value})
+
+
+def test_m7e1f_t131_the_parents_term_leaves_out_displaced_coping():
+    """T-131 (b) (revision 41, the owner 2026-10-28): the parents' term of `d` reads each parent's weekly reading net of
+    `displaced_swing` (`M1.A.5f`'s transfer); the child's own term keeps it, so a child's loss to a displacing parent
+    still lowers the child's development (`FE06.3`). Parents whose readings are higher only by a displaced gain leave
+    the child where plain parents do; the same rise that is not displaced raises the child."""
+    plain, params = _developing(8)
+    displaced, _ = _developing(8)
+    raised, _ = _developing(8)
+    for pid in (RAVI, MARTA):
+        history(plain, pid, 40.0)
+        displaced.estimator_history[pid] = deque(Week(t, 43.0, 0.0, False, (), displaced=3.0) for t in range(52))
+        history(raised, pid, 43.0)
+    for state in (plain, displaced, raised):
+        history(state, NADIA, 39.5)
+        _childhood(state, params)
+    assert displaced.people[NADIA].basic_level == pytest.approx(plain.people[NADIA].basic_level, abs=1e-12)
+    assert raised.people[NADIA].basic_level > plain.people[NADIA].basic_level
+
+    lost, _ = _developing(8)  # the child's own term keeps the child's loss
+    for pid in (RAVI, MARTA):
+        history(lost, pid, 40.0)
+    lost.estimator_history[NADIA] = deque(Week(t, 36.5, 0.0, False, (), displaced=-3.0) for t in range(52))
+    _childhood(lost, params)
+    assert lost.people[NADIA].basic_level < plain.people[NADIA].basic_level

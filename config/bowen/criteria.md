@@ -46,7 +46,9 @@
 >   the matched no-cutoff arm (held only to `t0`, the policy cut the tie by itself in every baseline seed); the
 >   treatment holds it to `t0` as before.
 > * `M11.C.32` — both arms' mover has basic and functional level `mover_level`, so the calm arm can complete the
->   sequence (post hoc: at the fixture's 40 neither arm reached the peak after spec revision 16).
+>   sequence (post hoc: at the fixture's 40 neither arm reached the peak after spec revision 16). From revision 41
+>   (T-133) `assertion_form` also counts a sequence's `DEFINE` said in anger, which `M5.D.4a` makes the assertion
+>   form, in either arm.
 > * `M11.C.7` — the Phase C family under the `nodal` load for `weeks`; the fall in the spouses' combined deviation is
 >   the mean over the first `window` weeks less the mean over the last `window`. The topologies and the scripted
 >   `SPLIT` are in `src/bowen/ensemble/criteria_d.py`'s `arm_c7`.
@@ -64,7 +66,9 @@
 >   mover's completed exchanges are reported, and the row fails if there is none.
 > * `M11.C.49` — four runs per seed on the triad, F at `level_low` and at `level_high`, each once with F's
 >   `I-POSITION` toward M said at `t0` and once with nothing scripted. The said act starts its sequence at `DEFINE`,
->   unprepared (`M5.D.2a`; the owner's Q9), so it is said in every seed. In all four runs F's systems perspective is
+>   unprepared (`M5.D.2a`; the owner's Q9), so it is said in every seed; from revision 41 (T-133), in a seed where F
+>   is angry when it is said it is said as the assertion form, all demand at either level, and the sequence ends
+>   (`M5.D.4a`). In all four runs F's systems perspective is
 >   1.0, F's spell is suspended over the act's window as in `M11.C.29`, the F–M tie is held open to `t0`, and F's own
 >   `I-POSITION` is withheld in every week, so the control has none and the act run one (as in the step 2 probe,
 >   `docs/review/stage_3_iposition_probe.md`). Read over the `window` weeks after `t0` (weeks `t0 + 1` to

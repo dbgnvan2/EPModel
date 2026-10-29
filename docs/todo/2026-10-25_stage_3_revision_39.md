@@ -3,7 +3,7 @@
 Raised while drafting part 1 of spec revision 39 (`docs/spec_revision_39_draft.md`, group C) at plan step 4
 (`docs/implementation_plan_version_2_stage_3.md` §3.8). Items the draft records and does not change.
 
-- [ ] T-131 ⟨now⟩ **`KS00.9` against `M7.E.1f`'s parents' term (the stage 4 check, revision 39 part 1).** `KS00.9`
+- [x] T-131 ⟨now⟩ **`KS00.9` against `M7.E.1f`'s parents' term (the stage 4 check, revision 39 part 1).** `KS00.9`
   `[K]`: "the basic levels of the parents establish the emotional climate". `M7.E.1f`'s parents' term reads the
   parents' functioning above basic (the estimator's reading), which `M1.A.5f` (P2) raises in a parent who displaces
   onto the child; in the joint probe the parents' term carries +0.026 ± 0.019 of `M11.C.6`'s +0.018 ± 0.025
@@ -13,7 +13,14 @@ Raised while drafting part 1 of spec revision 39 (`docs/spec_revision_39_draft.m
   leaves out what `M1.A.5f` gave the parent would be a new rule outside D18, with its own probe. *2026-10-28, the
   milestone review's triage: the owner chose option (b), `M1.A.5f`'s transfer on its own ledger, netted out of `d` only;
   a new rule with a probe, in the triage batch (moves the engine hash). The P2 proposal's `KS00.9` citation was corrected
-  the same day (`KS00.9` is the anchor `a`, the parents' basic levels).*
+  the same day (`KS00.9` is the anchor `a`, the parents' basic levels).* *Closed 2026-10-28 (spec revision 41, the
+  triage batch): `M1.A.5f` books what it moves on each person's `displaced_swing` (the register's new row), and
+  `M7.E.1f`'s parents' term reads the parents' functioning net of it; the child's own term keeps the loss (`FE06.3`).
+  Probe before the build (`M11.C.6`'s arms, seeds 0–99): the parents' term's contribution +0.1535 ± 0.1963 at revision
+  40 and +0.1180 ± 0.1664 with the batch. Regenerated (Phase D part II record): `M11.C.6` still fails, `development`
+  +0.0282 ± 0.095, p 0.687 (+0.0534 ± 0.11 at revision 40). Tests, each shown red first:
+  `tests/bowen/test_stress_response.py::test_m1a5f_t131_displaced_coping_is_booked_on_its_own_ledger` and
+  `tests/bowen/test_life_course.py::test_m7e1f_t131_the_parents_term_leaves_out_displaced_coping`.*
 - [x] T-132 ⟨later⟩ **`FE04.13`'s second kind of so-called I-position (the stage 4 check, revision 39 part 2).**
   `FE04.13` `[K]`: many so-called I-positions are attempts to get others to change or to pry oneself loose from
   intense situations. `M5.F.4`'s mixture (revision 39, D20) models the first as the demand share; the second,
@@ -21,14 +28,21 @@ Raised while drafting part 1 of spec revision 39 (`docs/spec_revision_39_draft.m
   Found, not fixed: no rule drafted. Recorded for the stage 3 milestone review (`docs/milestone_review_brief.md`). *Closed
   2026-10-28: the owner chose to record the second kind as not modelled; `M5.F.4` states `FE04.13` in full and
   `M11.C.29`'s row says its baseline is plain `DISTANCE` (spec revision 40).*
-- [ ] T-133 ⟨now⟩ **`M5.D.4a`'s anger check at `DEFINE` (the correctness pass on revision 39's draft).** `M5.D.4a`
+- [x] T-133 ⟨now⟩ **`M5.D.4a`'s anger check at `DEFINE` (the correctness pass on revision 39's draft).** `M5.D.4a`
   says an `I-POSITION` emitted while the mover's anger is above threshold executes as the assertion form; the code
   checks anger only when the act is selected (`src/bowen/engine/act.py`), not again when a sequence reaches `DEFINE`.
   Revision 39's `M5.F.4` describes the code as it is (`docs/spec_revision_39_draft.md` §13.1). Whether anger at
   `DEFINE` should also turn a said position into the assertion form is not drafted; recorded for the stage 3
   milestone review. *The milestone review's triage (its record, `2026-10-28_stage_3_milestone_review.md`): the owner chose option (b): at `DEFINE`, an angry mover's position is all
   demand (share 1) and the sequence ends; `M5.D.4a` restated to match. In the triage batch (moves the engine hash);
-  `M11.C.32`, `M11.C.29` and `M11.C.49` rerun with the records.*
+  `M11.C.32`, `M11.C.29` and `M11.C.49` rerun with the records.* *Closed 2026-10-28 (spec revision 41, the triage
+  batch): the gate is read again when a sequence's `DEFINE` is said, and an angry mover then says the position all as
+  demand and the sequence ends (`said_in_anger`); `M5.D.4a`, `M5.F.4` and `M5.F.2c` say so. Regenerated (Phase C
+  ensemble record): `M11.C.32` passes, `assertion_form` +0.66 ± 0.25 (+1.33 ± 0.22 at revision 40) and `reached_peak`
+  −0.07 ± 0.064; `M11.C.29` still fails (`third_symptom_weeks` +2.54 ± 4.4, p 0.87); `M11.C.49` still fails, its
+  `family_excess` now holding (+3.27 ± 2.8, p 0.0158) and its `conflict_share` not (+0.00086 ± 0.026, p 0.468). What it
+  does to `M5.D.3`'s first outcome is T-158. Test, shown red first:
+  `tests/bowen/test_iposition.py::test_m5d4a_t133_an_angry_mover_at_define_says_it_all_as_demand_and_the_sequence_ends`.*
 - [ ] T-134 ⟨later⟩ **`M6.I.4a`'s return with no lender is not counted (the step 7 `learning-qa` pass, 2026-10-26).**
   When a taker's capacity falls and no tie's balance names them the over-functioner, the amount due
   (`moves.return_lent_functioning`) has no one to go to and stays with the taker, as `M6.I.4a` allows ("what a cap
@@ -114,7 +128,7 @@ Raised while drafting part 1 of spec revision 39 (`docs/spec_revision_39_draft.m
   choosing which `[I]` constants its mechanism reads (the I-position's demand share, `M5.F.4`; appraisal; contagion)
   and their ranges, the same judgment as T-125's batch 5; for the owner, before the next sweep that should carry it.
   The owner kept `M17.E.1` *partial* until it is swept (2026-10-27); the sweep record lists it as not swept.
-- [ ] T-145 ⟨now⟩ **`M11.C.21`'s scripted collapse falls between weeks, so `M6.I.4a` never sees it (step 12's
+- [x] T-145 ⟨now⟩ **`M11.C.21`'s scripted collapse falls between weeks, so `M6.I.4a` never sees it (step 12's
   `learning-qa` pass, 2026-10-27; major).** `run_tick` reads each person's level at the week's start inside the tick
   (`src/bowen/engine/tick.py:118`), and `arm_c21` drops both parents' levels in a `before` hook
   (`src/bowen/ensemble/criteria_d.py`, `collapse`), which runs between week t0 − 1 and week t0. No week holds the
@@ -130,8 +144,18 @@ Raised while drafting part 1 of spec revision 39 (`docs/spec_revision_39_draft.m
   week t0 − 1 would count the return). Either moves the engine hash, so every record regenerates and the stage-end
   sweep reruns. Left for the milestone review's triage batch, so the records regenerate once with whatever else it
   finds (Claude's recommendation under the owner's overnight instruction, 2026-10-27, for the owner's review). Not
-  T-134 (a return with no lender).
-- [ ] T-146 ⟨now⟩ **Displaced coping takes functioning from a receiver who refuses the act (step 12's `learning-qa`
+  T-134 (a return with no lender). *Closed 2026-10-29 (the triage batch, spec revision 41): fix (a), the owner's
+  choice in the batch's brief. `run_tick` hands `M6.I.4a` each person's level at the end of the previous week, kept on
+  the run state, and `M11.C.21`'s readout starts at the end of week t0 − 1 (Claude's recommendation under the owner's
+  instruction of 2026-10-28, pending the owner's review). Tests, each shown red first:
+  `tests/bowen/test_tick.py::test_m6i4a_t145_the_weeks_start_is_the_level_at_the_end_of_the_previous_tick`,
+  `tests/bowen/test_tick.py::test_m6i4a_t145_a_fall_between_weeks_is_inside_the_next_week`,
+  `tests/bowen/test_phase_d_criteria.py::test_m11c21_t145_the_readout_starts_at_the_end_of_week_t0_minus_1`.
+  Regenerated on `6ce8be104767`: `M11.C.21` passes (`target_rise` +0.271 ± 0.32, p 0.0139, 100 seeds;
+  `docs/phase_d_ensemble_record.md`), and `pseudo-self-return-removed` turns it red (−0.101 ± 0.21, p 0.68;
+  `docs/phase_d_mutation_record.md`), so the mutant now shows whether `M6.I.4a` works. The arm's parents still
+  over-function after they collapse (T-161).*
+- [x] T-146 ⟨now⟩ **Displaced coping takes functioning from a receiver who refuses the act (step 12's `learning-qa`
   pass, 2026-10-27).** `stress_response.displace()` (`M1.A.5f`) moves functioning from every family member named in
   the selection's targets when the act is selected (update-order step 8), before delivery. `M1.B.3c`'s refusal is
   applied at delivery (`rejection.refuse`): a move to a person whose rejection of the sender is above
@@ -140,11 +164,20 @@ Raised while drafting part 1 of spec revision 39 (`docs/spec_revision_39_draft.m
   is legal (`REDUCE_CUTOFF` alone requires a severed tie; every other act needs a live one, and a cut-off tie is). `M1.A.5f` says "the
   act's receivers" and does not say whether a refused target is one, so the wording is the owner's first; the fix,
   if a refused target is not a receiver, skips it with `refuse()`'s own test, and moves the engine hash. Batched with
-  T-145 for the milestone review's triage (Claude's recommendation, 2026-10-27, for the owner's review).
-- [ ] T-147 ⟨now⟩ **The engine imports the policy at call time (step 12's correctness pass, 2026-10-27).**
+  T-145 for the milestone review's triage (Claude's recommendation, 2026-10-27, for the owner's review). *Closed
+  2026-10-28 (spec revision 41, the triage batch): the owner answered through `AskUserQuestion` that a target who would
+  refuse the act is not a receiver. `displace()` skips such a target with `rejection`'s own predicate, the one delivery
+  applies, so the two cannot drift; `M1.A.5f` says so. Tests in `tests/bowen/test_stress_response.py`:
+  `test_m1a5f_t146_a_target_who_would_refuse_is_not_a_receiver` and
+  `test_m1a5f_t146_displacement_and_delivery_read_one_refusal_predicate`, each shown red first.*
+- [x] T-147 ⟨now⟩ **The engine imports the policy at call time (step 12's correctness pass, 2026-10-27).**
   `src/bowen/engine/iposition.py`'s `demand_share` imports `self_channel_weight` from `src/bowen/policy/policy.py`
   inside the function, so `M5.F.4` and `M4.D.1a` read one definition of `w`; its docstring records this as
   deliberate, to avoid a load-time cycle. No run computes anything wrong. It inverts the layering (the policy imports
   the engine), and a rename in `policy.py` fails only when a `DEFINE` week is reached. Moving `self_channel_weight`
   into an engine module, with the policy importing it, moves the engine hash, so it waits for a batch that moves it
-  anyway (T-145's).
+  anyway (T-145's). *Closed 2026-10-28 (the triage batch): `self_channel_weight` is defined in
+  `src/bowen/engine/observe.py`; the policy and `demand_share` import it from there, so the engine imports nothing from
+  the policy. `tests/bowen/test_engineering_gates.py::test_t147_the_engine_never_imports_the_policy` reads every
+  engine module's imports (absolute, `from src.bowen import policy`, and relative) and was proved by mutation with a
+  temporary module that imported the policy each way. No rule changed; the move is in the engine hash with the batch.*

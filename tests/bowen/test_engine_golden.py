@@ -40,7 +40,11 @@ digits. Moved 2026-10-22 by spec revision 36 (group G and the event sizes) and 2
 group C (displaced coping, the floor-held ledger, lent functioning returned; behaviour, both runs) and, the same day,
 its group F (`M5.F.4`'s demand share: a genuine I-POSITION's demand and debit split by the mover's level, in place of
 the perspective-gated assertion form; behaviour, both runs) and its group A (`M4.C.1d`'s returned contact and
-`TRIANGLE` in layer 0; behaviour, both runs).
+`TRIANGLE` in layer 0; behaviour, both runs). Moved 2026-10-29 by spec revision 41, the stage 3 milestone review's
+triage batch: a refusing target is no receiver of displaced coping and its ledger is left out of the parents' term
+(T-146, T-131 (b)), anger read again at an I-position's `DEFINE` (T-133 (b)), and `M6.I.4a`'s week start read at the
+previous week's end (T-145 (a)); behaviour, both runs. The batch was built and measured as one, so the move is not
+attributed to any one of them; T-147 moved a definition from the policy to the engine and changed no value.
 
 **Why the floats are rounded (2026-10-15).** The fingerprints were taken from the exact repr, and CI on Linux failed
 them while the Mac passed: the last bits of a float differ between platforms and Python versions (Python 3.12 changed
@@ -100,8 +104,8 @@ GOLDEN = {
     # the additions' loads and a symptom's own load) each change what a seeded run computes, so every run's log moved.
     # Before revision 36: phase_c c4fd16123fa37db3ccf7d2f6624b3463ef51ec084a44cad1dc0b1501f07ca85c,
     # phase_d 4e5ebdad859f648c37e8bb3222de6f802df94172ff0dd3a5b3e5c1df9b16f559.
-    ("phase_c", 7, 104): "c5e5b729896ea3bfb7265a960cb4bd470a84433da83afae4ecdd0a8d0ca1ef3b",
-    ("phase_d", 11, 208): "45743d8b28a7ed7225a8246c1ebbdb2b858fdc71c159c6681e4e2132f514de09",
+    ("phase_c", 7, 104): "7335821e52bb6610e94caae292141b60eeeedfed792a54196e85d853326eb103",
+    ("phase_d", 11, 208): "0b8680b019e1c83219f337a03d4bdab117109c7921fb08e027db3ba52549fc7f",
 }
 
 

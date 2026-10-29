@@ -35,7 +35,9 @@ debits nothing and raises the claimant's outward axis by ``assertion_evidence_ga
   to the impingement, the self-statement withdraws ``w × debit_gain`` of ``T``'s felt contact
   on the tie (`M5.E.7`; a contact proxy, since `life_energy` is not built), and the mover's
   outward axis rises by ``(1 − w) × assertion_evidence_gain`` (`M5.F.2a`). The others'
-  reaction is their own learned response (`M5.E.0`).
+  reaction is their own learned response (`M5.E.0`). A mover angry when ``DEFINE`` is said
+  says it as the assertion form, all demand, and the sequence ends there (``said_in_anger``,
+  `M5.D.4a`, revision 41, T-133); otherwise ``OPPOSITION`` follows.
 * ``OPPOSITION`` — waits for the first impinging move delivered to the mover from
   anyone. With none in ``opposition_window`` weeks the move **did not land** (`M5.E.3`),
   not a success. At the first opposition the mover holds if its excess anxiety is within
@@ -76,6 +78,7 @@ from src.bowen.engine.identifiers import PersonId, TieId
 from src.bowen.engine.log_records import EffectRecord
 from src.bowen.engine.moves import DEFAULT_AREA
 from src.bowen.engine.objects import SCALE_MAX, Person, TieState
+from src.bowen.engine.observe import self_channel_weight
 from src.bowen.engine.outside_ness import axes, efficacy
 from src.bowen.engine.params import EngineParams
 from src.bowen.engine.sinks import reduce_budget
@@ -136,11 +139,9 @@ def demand_share(state: RunState, mover: PersonId, params: EngineParams) -> floa
     Spec:    docs/bowen_agent_model_spec_v2.md#M5.F.4, #M4.D.1a
     Tests:   tests/bowen/test_iposition.py::test_m5f4_s3_6_demand_share_falls_with_level
 
-    ``w`` is `M4.D.1a`'s mixing weight, read from the policy's own function at call time: the policy imports the
-    engine, so the engine cannot import it when it loads, and one definition keeps the two the same.
+    ``w`` is `M4.D.1a`'s mixing weight, the one definition the policy also reads (``observe.self_channel_weight``; the
+    engine never imports the policy, revision 41, T-147).
     """
-    from src.bowen.policy.policy import self_channel_weight
-
     person = state.people[mover]
     w = self_channel_weight(person.functional_level, params, person.systems_perspective or 0.0)
     return max(0.0, 1.0 - w)  # w may pass 1 by rounding
@@ -283,13 +284,21 @@ def restore_prior_balance(state: RunState, mover: PersonId) -> None:
     person.outside_ness_outward, person.outside_ness_inward = seq.start_axes
 
 
-def step_done(state: RunState, mover: PersonId, params: EngineParams) -> list[EffectRecord]:
+def step_done(state: RunState, mover: PersonId, params: EngineParams, *,
+              said_in_anger: bool = False) -> list[EffectRecord]:
     """Purpose: after the week's outcome was a sequence step, move the sequence on.
-    Spec:    docs/bowen_agent_model_spec_v2.md#M5.D.3, #M5.D.7, #M1.C.5, #M5.E.8
-    Tests:   tests/bowen/test_iposition.py::test_m5d7_completed_exchange_raises_level_and_lowers_the_triangle
+    Spec:    docs/bowen_agent_model_spec_v2.md#M5.D.3, #M5.D.7, #M1.C.5, #M5.E.8, #M5.D.4a
+    Tests:   tests/bowen/test_iposition.py::test_m5d7_completed_exchange_raises_level_and_lowers_the_triangle,
+             tests/bowen/test_iposition.py::test_m5d4a_t133_an_angry_mover_at_define_says_it_all_as_demand_and_the_sequence_ends
+
+    ``said_in_anger``: the ``DEFINE`` was said as the assertion form because the mover was angry when it was said
+    (`M5.D.4a`, revision 41, T-133), so the sequence ends there instead of entering ``OPPOSITION``. The tie's balance is
+    not restored: the position was said, as a demand, not taken back.
     """
     seq = state.people[mover].iposition_state
     step, seq.due, seq.deferrals = seq.due, None, 0
+    if step == DEFINE and said_in_anger:
+        return [end(state, mover, "said_in_anger")]
     if step == DEFINE:
         _set(seq, OPPOSITION, state.tick)
         return [_record(state, mover, "enter", OPPOSITION)]

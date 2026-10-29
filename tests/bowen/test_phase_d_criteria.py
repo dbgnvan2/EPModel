@@ -417,3 +417,24 @@ def test_forced_withheld_label_withholds_that_act_toward_that_person_only():
     assert splits(seed, {t: {second: frozenset({f"SPLIT>{coach}"})} for t in range(104)}) == 0
     with pytest.raises(ValueError, match="no tie"):
         scenario("phase_c", 0, 2, withheld={0: {second: frozenset({"SPLIT>nobody"})}})
+
+
+def test_m11c21_t145_the_readout_starts_at_the_end_of_week_t0_minus_1(monkeypatch):
+    """T-145 (revision 41, the owner 2026-10-28): `M11.C.21`'s rise is read from C1's level at the end of week
+    t0 − 1 (the watch at `s.tick == t0`, after that tick ran), so what returns to C1 in week t0 is counted."""
+    import types
+
+    from src.bowen.ensemble import criteria_d
+
+    def child_at(level):
+        return {criteria_d.CHILD: types.SimpleNamespace(functional_level=level)}
+
+    def fake(family, seed, weeks, *, watch=None, **kwargs):
+        for tick in range(1, weeks + 1):
+            watch(types.SimpleNamespace(tick=tick, people=child_at(30.0 + tick)))
+        return types.SimpleNamespace(people=child_at(40.0)), []
+
+    monkeypatch.setattr(criteria_d, "scenario", fake)
+    monkeypatch.setattr(criteria_d, "result", lambda readouts, records: readouts)
+    settings = {"t0": 3, "after": 2, "drop": 10.0, "act_every": 1}
+    assert criteria_d.arm_c21("treatment", 0, settings)["target_rise"] == pytest.approx(40.0 - 33.0)

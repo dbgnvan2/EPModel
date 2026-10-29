@@ -93,6 +93,17 @@ def test_m1b3c_a_refused_approach_never_reaches_the_cutter_and_costs_the_sender(
     assert open_state.ties[MARITAL].rejection.get(MARTA, 0.0) == 0
 
 
+def test_m1b3c_t146_delivery_reads_the_shared_refusal_predicate(monkeypatch):
+    """T-146 (revision 41): `refuse()` reads `rejection.refuses`, the predicate displaced coping (`M1.A.5f`) reads at
+    selection. With it patched to refuse everyone, a move to a person who rejects no one is refused."""
+    from src.bowen.engine import rejection
+
+    state = fresh()
+    monkeypatch.setattr(rejection, "refuses", lambda *args, **kwargs: True)
+    accepted, records = refuse(state, delivered(state, move("PURSUE", RAVI, MARTA)), PARAMS)
+    assert accepted == () and [r.mechanism for r in records] == ["refusal"]
+
+
 def test_m1b3c_repeated_refusals_raise_rejection_to_its_ceiling():
     state = fresh()
     raise_rejection(state.ties[MARITAL], MARTA, PARAMS.rejection_refusal_threshold + 0.05)

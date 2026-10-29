@@ -52,7 +52,10 @@ def test_stage_3_probe_arms_differ_only_in_the_movers_level(tmp_path):
     for row in rows:
         for level in probe.LEVELS:
             acting, control = row[f"act_{level:g}"], row[f"none_{level:g}"]
-            assert acting["steps"].get("iposition:begin:PREPARE", 0) + acting["forms"].get("assertion", 0) == 1
+            # one I-POSITION from F: a sequence begun, or the assertion form at once; a sequence that reaches
+            # DEFINE with F angry says it as the assertion form too, and ends (M5.D.4a, revision 41, T-133)
+            at_once = acting["forms"].get("assertion", 0) - acting["steps"].get("iposition:end:said_in_anger", 0)
+            assert acting["steps"].get("iposition:begin:PREPARE", 0) + at_once == 1
             assert not control["forms"] and not control["steps"]
             assert acting["mover_basic"] == control["mover_basic"] == level
     page = tmp_path / "probe.md"

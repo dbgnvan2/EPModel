@@ -37,12 +37,15 @@ def test_s1_10b_changes_page_is_current():
 def test_s1_10b_both_pages_read_their_refs():
     """The stage 1 page reads both sides from git (frozen, T-028); the revision 36 page reads stage 1's regeneration
     against `9ebf327`, the last commit before revision 39's regeneration, so it is frozen too (stage 3 plan step 10);
-    the revision 39 page's earlier side is that commit and its later side the working tree; each names its earlier
-    side in its prose; the default build is the tag against the tree (the fixture form below)."""
+    the revision 39 page's earlier side is that commit and its later side `1ca9bb4`, the last commit before revision
+    41's regeneration, so it is frozen too; the revision 41 page's earlier side is `1ca9bb4` and its later side the
+    working tree; each names its earlier side in its prose; the default build is the tag against the tree (the
+    fixture form below)."""
     assert rc.STAGE_1.then == rc.TAG and rc.STAGE_1.now == rc.STAGE_1_REGENERATION
     assert rc.REVISION_36.then == rc.STAGE_1_REGENERATION and rc.REVISION_36.now == rc.REVISION_38
-    assert rc.REVISION_39.then == rc.REVISION_38 and rc.REVISION_39.now is None
-    assert [p for p in rc.PAGES.values() if p.now is None] == [rc.REVISION_39], "one page reads the working tree"
+    assert rc.REVISION_39.then == rc.REVISION_38 and rc.REVISION_39.now == rc.REVISION_40
+    assert rc.REVISION_41.then == rc.REVISION_40 and rc.REVISION_41.now is None
+    assert [p for p in rc.PAGES.values() if p.now is None] == [rc.REVISION_41], "one page reads the working tree"
     assert rc.ref_text(rc.REVISION_38, "docs/phase_c_ensemble_record.md").startswith("#")
     assert rc.ref_text(rc.STAGE_1_REGENERATION, "docs/phase_c_ensemble_record.md").startswith("#")
     assert rc.PAGES["stage-1"].out == rc.OUT

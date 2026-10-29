@@ -43,12 +43,12 @@
  "M1.A.3": {
   "status": "not done",
   "evidence": [],
-  "note": "not built: no code represents the intellect's licence or a joint-decision domain (searched `src/bowen`, `config/bowen`, `tools` for `M1.A.3`, `licence`, `license`, `joint`, `decision`); `TODO.md` open question BV1 records that nothing represents a situation or decision domain; the nearest quantity, `policy.py::self_channel_weight`, is continuous in functional level"
+  "note": "not built: no code represents the intellect's licence or a joint-decision domain (searched `src/bowen`, `config/bowen`, `tools` for `M1.A.3`, `licence`, `license`, `joint`, `decision`); `TODO.md` open question BV1 records that nothing represents a situation or decision domain; the nearest quantity, `observe.py::self_channel_weight` (in the engine since revision 41), is continuous in functional level"
  },
  "M1.A.3c": {
   "status": "not done",
   "evidence": [],
-  "note": "not built: no function of level carries the non-monotone shape over the range (searched `src/bowen`, `config/bowen` for `M1.A.3c`, `overt`, `emotionality`, `expressed`, `monotone`); the only level-shaped weight, `policy.py::self_channel_weight`, is monotone in functional level"
+  "note": "not built: no function of level carries the non-monotone shape over the range (searched `src/bowen`, `config/bowen` for `M1.A.3c`, `overt`, `emotionality`, `expressed`, `monotone`); the only level-shaped weight, `observe.py::self_channel_weight` (in the engine since revision 41), is monotone in functional level"
  },
  "M1.A.3d": {
   "status": "partial",

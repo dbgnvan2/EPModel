@@ -148,3 +148,52 @@ def test_m4a2_trigger_in_the_loop_spikes_the_next_tick():
     # After the spike only the carry-over remains: Ana is more anxious, so her optimum
     # has moved toward closeness (M4.C.1b). It is small beside the spike itself.
     assert 0 <= spiked[12] - quiet[12] < (spiked[11] - quiet[11]) / 10
+
+
+# --- the stage 3 triage batch (spec revision 41): T-145 ---------------------------------------------------------------
+
+
+def test_m6i4a_t145_the_weeks_start_is_the_level_at_the_end_of_the_previous_tick():
+    """T-145 (a) (revision 41, the owner 2026-10-28): `M6.I.4a`'s week-start level is each person's level at the end of
+    the previous tick, kept on the run state. At tick 0, for a person the previous tick did not hold, or when the
+    stored levels are from any tick but the last, it is the level now (P8: a setup that changes levels before tick 0,
+    or a run state reused, never reads a stale level)."""
+    from src.bowen.engine.tick import week_start_levels
+
+    state = fresh()
+    ravi, marta = P("ravi"), P("marta")
+    now = {pid: p.functional_level for pid, p in state.people.items()}
+    assert week_start_levels(state) == now                        # tick 0, nothing stored
+    state.week_end_tick, state.week_end_level = 4, {ravi: now[ravi] + 7.0}
+    assert week_start_levels(state) == now                        # tick 0: never a stored level
+    state.tick = 5
+    assert week_start_levels(state) == {**now, ravi: now[ravi] + 7.0}  # Marta is not stored: her level now
+    assert week_start_levels(state)[marta] == now[marta]
+    state.tick = 7
+    assert week_start_levels(state) == now                        # stored at 4, read at 7: stale
+
+
+def test_m6i4a_t145_a_fall_between_weeks_is_inside_the_next_week(monkeypatch):
+    """T-145 (a): `run_tick` hands `M6.I.4a` each person's level at the end of the previous tick, so a fall that a
+    criterion's `before` hook makes between two weeks (`M11.C.21`'s collapse) is a fall in the week that follows."""
+    from src.bowen.engine import tick as tick_module
+    from src.bowen.ensemble.criteria import scenario
+    from src.bowen.ensemble.criteria_d import FATHER
+
+    seen, ended = {}, {}
+    real = tick_module.return_lent_functioning
+
+    def spy(state, params, week_start, exchange=None):
+        seen[state.tick] = dict(week_start)
+        return real(state, params, week_start, exchange)
+
+    def drop(state):
+        if state.tick == 2:
+            ended["level"] = state.people[FATHER].functional_level
+            state.people[FATHER].functional_level -= 10.0
+            state.people[FATHER].stress_swing -= 10.0
+
+    monkeypatch.setattr(tick_module, "return_lent_functioning", spy)
+    state, _ = scenario("four", 0, 3, before=drop)
+    assert seen[2][FATHER] == pytest.approx(ended["level"])
+    assert state.week_end_tick == 2 and state.week_end_level[FATHER] == state.people[FATHER].functional_level

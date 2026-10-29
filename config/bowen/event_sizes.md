@@ -41,4 +41,4 @@
 | `RETIREMENT_LOAD` | tie | Retirement | 45 | 12 | Holmes–Rahe, `[I]`; `M7.C.1l`: the coachee, through the coach tie |
 | `BIRTH_LOAD` | self | Gain of new family member | 39 | 12 | Holmes–Rahe, `[I]`; `M7.C.1l` |
 | `LAUNCH_LOAD` | self | Son or daughter leaving home | 29 | 12 | Holmes–Rahe, `[I]`; `M7.C.1l`: the child and the parents at home |
-| `FIND_WORK_LOAD` | self | Wife begin or stop work | 26 | 12 | Holmes–Rahe, `[I]`; `M7.C.1l` (the owner, Q6: 26); the gender-neutral reading and the load to the person who finds work (`who` = self) are the model's, `[I]`, the owner's Q6 of the T-130 review (2026-10-24) |
+| `FIND_WORK_LOAD` | self | Wife begin or stop work | 26 | 12 | Holmes–Rahe, `[I]`; `M7.C.1l` (the owner, Q6: 26); the gender-neutral reading and the load to the household, at the self reach (`who` = self, reach 1; `life_course.find_work`), are the model's, `[I]`, the owner's Q6 of the T-130 review (2026-10-24) |

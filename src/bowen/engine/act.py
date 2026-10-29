@@ -120,7 +120,7 @@ def act(state: RunState, selection: Selection, visibility: HouseholdConductanceV
         if params is None:
             raise ValueError("a withheld outcome needs the engine parameters")
         return withhold(state, selection, params)
-    demand = 0.0
+    demand, said_in_anger = 0.0, False
     if selection.kind == I_POSITION and selection.sequence_step is None and params is not None:
         # M5.D.1, M5.D.2a, M5.D.4a: a freshly selected I-POSITION either starts a sequence,
         # emitting nothing this week, or, if the mover is angry, executes at once as the assertion form.
@@ -130,7 +130,10 @@ def act(state: RunState, selection: Selection, visibility: HouseholdConductanceV
             return [_record(state, dataclasses.replace(selection, sequence_step=iposition.PREPARE), None), started]
         demand = 1.0  # the assertion form: all demand (M5.F.4's w = 0 end)
     elif selection.kind == I_POSITION and selection.sequence_step == iposition.DEFINE and params is not None:
-        demand = iposition.demand_share(state, selection.actor, params)  # M5.F.4, read in the DEFINE week
+        # M5.D.4a, revision 41 (T-133 (b), the owner 2026-10-28): the anger gate is read again when the position is
+        # said. Angry, the mover says it as the assertion form, all demand, and the sequence ends (``step_done``).
+        said_in_anger = iposition.angry(state, selection.actor, selection.targets[0], params)
+        demand = 1.0 if said_in_anger else iposition.demand_share(state, selection.actor, params)  # M5.F.4
     if state.kinds.mechanism_of(selection.kind) is not Mechanism.MOVE:
         raise ValueError(f"{selection.kind} is not a move")
     event = Event(
@@ -155,7 +158,7 @@ def act(state: RunState, selection: Selection, visibility: HouseholdConductanceV
         state.queue.schedule(delivery)
     records = [_record(state, selection, event.id), EmittedRecord(resolved.event)]
     if selection.sequence_step in iposition.OUTCOME_STEPS and params is not None:
-        records += iposition.step_done(state, selection.actor, params)
+        records += iposition.step_done(state, selection.actor, params, said_in_anger=said_in_anger)
     return records
 
 

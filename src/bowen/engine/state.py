@@ -69,6 +69,10 @@ class RunState:
     draws: DrawService = field(default_factory=lambda: DrawService(0))
     # M1.A.4k (Phase D plan B6): each person's last estimator_window slow ticks of weeks (slow_tick.Week).
     estimator_history: dict = field(default_factory=dict)
+    # Spec revision 41 (T-145 (a), M6.I.4a): each person's functional level at the end of the tick numbered
+    # week_end_tick, which the next tick reads as its week's start (tick.week_start_levels). Owner decision 2026-10-28.
+    week_end_tick: int | None = None
+    week_end_level: dict = field(default_factory=dict)
     # Spec revision 28 (Phase D part II): the families other than the reference one, keyed by household (M7.C.1h), and
     # the life course's own state (``life_course.LifeCourse``); None when the run has no life course, as every run
     # before part II.
@@ -210,5 +214,7 @@ def canonical_state(state: RunState) -> str:
         "stances": plain(state.stances),
         "witnessed": plain(state.witnessed),
         "estimator_history": plain({p: list(weeks) for p, weeks in state.estimator_history.items()}),  # deques
+        "week_end_tick": state.week_end_tick,  # revision 41 (T-145): M6.I.4a's week start, read next tick
+        "week_end_level": plain(state.week_end_level),
     }
     return json.dumps(body, sort_keys=True, separators=(",", ":"), default=str)

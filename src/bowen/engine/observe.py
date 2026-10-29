@@ -91,6 +91,21 @@ class Observation:
         return next((t for t in self.ties if t.other == other), None)
 
 
+def self_channel_weight(functional_level: float, params: EngineParams, perspective: float = 0.0) -> float:
+    """Purpose: the mixing weight — functional level, opened further by systems perspective.
+    Spec:    docs/bowen_agent_model_spec_v2.md#M4.D.1a, #M5.F.4
+    Tests:   tests/bowen/test_policy.py::test_m4d1a_mixing_weight_reads_functional_level_only,
+             tests/bowen/test_policy.py::test_m4d1a_perspective_opens_the_self_directed_channel
+
+    ``f = (functional_level / 100) ** self_channel_exponent``, and ``w = f + perspective_channel_gain × perspective ×
+    (1 − f)``: with no perspective, ``w = f``; perspective, from coaching or a person's own practice, raises it. It lives in the engine (revision 41, T-147) so that
+    `M5.F.4`'s demand share (`iposition.demand_share`) and the policy read one definition, and the engine never imports
+    the policy.
+    """
+    f = min(1.0, max(0.0, functional_level / SCALE_MAX)) ** params.self_channel_exponent
+    return f + params.perspective_channel_gain * min(1.0, max(0.0, perspective)) * (1.0 - f)
+
+
 def observe(state: RunState, person: PersonId, params: EngineParams) -> Observation:
     """Purpose: build the one person's observation for selection.
     Spec:    docs/bowen_agent_model_spec_v2.md#M4.B.2

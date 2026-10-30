@@ -6,9 +6,11 @@ Purpose: generate ``docs/version_2_status.md`` from the records, so no status on
          the tag and whose ``record_rows`` no longer reads ``main``'s part II record; the live readers it still has
          (the spec's criteria table, the mutation records, the not-built lists, the dispositions) are imported from
          it and the rest is here. The tool holds no editorial content: what the owner decided, and why, is in
-         ``docs/version_1_dispositions.md``; the sweep's rules are in ``config/sweep/sweep.md``.
+         ``docs/version_1_dispositions.md`` (frozen at the tag) and ``docs/version_2_dispositions.md``; the sweep's
+         rules are in ``config/sweep/sweep.md``.
 Spec:    docs/implementation_plan_version_2.md#2.2 (D11), #2.3 (S2.8–S2.11); docs/bowen_agent_model_spec_v2.md#M11.5;
-         docs/implementation_plan_version_2_stage_3.md (S3.24: each verdict beside version 1's and revision 38's)
+         docs/implementation_plan_version_2_stage_3.md (S3.24: each verdict beside version 1's and revision 38's);
+         docs/version_2_definition_plan.md §3 (version 2's dispositions)
 Tests:   tests/test_version_2_status.py
 
 The rules, version 1's (``docs/version_1_definition.md`` §1, approved 2026-10-15) carried into stage 2:
@@ -23,6 +25,13 @@ The rules, version 1's (``docs/version_1_definition.md`` §1, approved 2026-10-1
 * Version 1's dispositions apply only where the verdict is the tag's. A row whose verdict differs from the verdict
   the frozen page records at the tag is **changed since the tag** and is not final until the owner reviews it; a
   criterion the tag's page does not have is new since the tag and is judged by the rules above alone.
+* **Version 2's dispositions** (``docs/version_2_dispositions.md``) each name the verdict they were decided on, and
+  apply only while the row's verdict is that one; a row whose verdict has since moved shows the disposition as not
+  applied (P6: a decision on one result is not a decision on the next). Where one applies it takes precedence over
+  version 1's. Its kinds are version 1's `accepted finding` and `note`, and `verdict reviewed`: the owner's review
+  of a verdict that is not the tag's. A version 2 disposition the owner made, of any kind, is the owner's review of
+  the verdict it names, so the row is no longer held as changed since the tag; one that is Claude's recommendation
+  is shown and leaves the row as it was (``docs/version_2_definition_plan.md`` §3).
 * The **revision 38 column** shows the verdict this page gave at commit ``REVISION_38`` (the records as revision 38
   left them, before stage 3's regeneration), read from git; it is shown, never used for a status: a verdict that
   differs from it is a new result under revision 39's rules (`M11.F`), and the rules above still read only the tag.
@@ -54,6 +63,10 @@ PAGE = REPO / "docs" / "version_2_status.md"
 TAG_PAGE = v1.PAGE                       # docs/version_1_status.md, frozen at the tag `version-1`
 SWEEP_RECORD = REPO / "docs" / "version_2_sweep_record.md"
 CHANGED = "changed since the tag `version-1`, pending the owner's review (T-122)"
+REVIEWED = "changed since the tag `version-1`, reviewed by the owner"
+V2_DISPOSITIONS = REPO / "docs" / "version_2_dispositions.md"
+V2_HEADER = "| criterion | disposition | verdict | decided | reason |"
+V2_KINDS = ("accepted finding", "verdict reviewed", "note")
 STALE_CELL = "earlier engine; not counted for W4"
 CONDITIONS = (("W1", "every criterion has a final status"),
               ("W2", "every premise and check passes"),
@@ -172,6 +185,44 @@ def sweep_refused(path: Path = SWEEP_RECORD) -> dict[str, str]:
             for r in record_json(path) if "refused" in r}
 
 
+def v2_dispositions(path: Path = V2_DISPOSITIONS) -> dict[str, dict]:
+    """Purpose: read version 2's dispositions, strictly: one table, five cells a row, a known kind, a verdict of
+    PASS or FAIL, an `accepted finding` only on a FAIL, `decided` in version 1's two forms, one row a key.
+    Spec:    docs/version_2_definition_plan.md §3
+    Tests:   tests/test_version_2_status.py::test_w1_v2_dispositions_parse_strictly
+    """
+    if not path.exists():
+        return {}
+    text = path.read_text(encoding="utf-8")
+    if text.count(V2_HEADER) != 1:
+        raise SystemExit(f"{path.name}: the table header is missing or repeated")
+    lines = text.split(V2_HEADER, 1)[1].splitlines()[2:]
+    end = next((i for i, line in enumerate(lines) if not line.startswith("|")), len(lines))
+    after = [line for line in lines[end:] if line.startswith("|")]
+    if after:
+        raise SystemExit(f"{path.name}: a row after a break in the table would be skipped: {after[0][:60]}")
+    out = {}
+    for line in lines[:end]:
+        cells = [c.strip() for c in line.strip().strip("|").split("|")]
+        if len(cells) != 5:
+            raise SystemExit(f"{path.name}: a row does not have five cells: {line[:80]}")
+        key, kind, verdict, decided, reason = cells
+        key = key.strip("`")
+        if kind not in V2_KINDS:
+            raise SystemExit(f"{key}: unknown disposition {kind!r} in {path.name}")
+        if verdict not in ("PASS", "FAIL"):
+            raise SystemExit(f"{key}: the verdict a disposition was decided on is PASS or FAIL, not {verdict!r}")
+        if kind == "accepted finding" and verdict != "FAIL":
+            raise SystemExit(f"{key}: only a failing criterion can be accepted as a finding")
+        if not (v1.OWNER.match(decided) or v1.PENDING.match(decided)):
+            raise SystemExit(f"{key}: 'decided' must be 'owner DATE' or the pending form, not {decided!r}")
+        if key in out:
+            raise SystemExit(f"{key}: two disposition rows in {path.name}")
+        out[key] = {"kind": kind, "verdict": verdict, "owner": bool(v1.OWNER.match(decided)), "decided": decided,
+                    "reason": reason}
+    return out
+
+
 def statuses() -> list[Status]:
     spec = v1.spec_criteria()
     rows = record_rows()
@@ -180,6 +231,7 @@ def statuses() -> list[Status]:
     unbuilt = v1.not_built()
     by_test = v1.proved_by_test()
     decided = v1.dispositions()
+    later = v2_dispositions()
     limbs = v1.premise_limbs()
     tag = tag_verdicts()
     earlier = revision_38_verdicts()
@@ -212,6 +264,10 @@ def statuses() -> list[Status]:
         same = at_tag == row["outcome"]
         d_tag = decided.get(key)
         d = d_tag if same else None  # version 1's disposition applies only where the verdict is the tag's
+        d2 = later.get(key)
+        d2_on = d2 is not None and d2["verdict"] == row["outcome"]  # applies only to the verdict it was decided on
+        if d2_on and d2["kind"] != "verdict reviewed":
+            d = d2
         sweep = swept.get(key) or refused.get(key) or ("not swept" if cls in v1.DIRECTIONAL else "—")
         if sweep_old and (key in swept or key in refused):
             sweep += f" ({STALE_CELL})"
@@ -260,12 +316,20 @@ def statuses() -> list[Status]:
             else:
                 s.status, s.blocks = "fail, no disposition", {"W1"}
         if not same and at_tag != "—":
-            s.status, s.final, s.blocks = f"{s.status}; {CHANGED}", False, s.blocks | {"W1"}
+            if d2_on and d2["owner"]:
+                s.status = f"{s.status}; {REVIEWED}"
+            else:
+                s.status, s.final, s.blocks = f"{s.status}; {CHANGED}", False, s.blocks | {"W1"}
         if d:
             s.note = f"{d['reason']} *({d['decided']})*"
         elif d_tag:  # shown, so the owner sees the decision the new verdict reverses; not applied
             why = "the verdict changed" if at_tag != "—" else "no row at the tag"
             s.note = f"version 1 disposition, not applied ({why}): {d_tag['kind']} — {d_tag['reason']} *({d_tag['decided']})*"
+        if d2 and d2 is not d:  # a review, or a version 2 disposition on a verdict that has since moved
+            head = (f"version 2: verdict reviewed ({d2['verdict']})" if d2_on else
+                    f"version 2 disposition, not applied (decided on {d2['verdict']}, now {row['outcome']}): {d2['kind']}")
+            text = f"{head} — {d2['reason']} *({d2['decided']})*"
+            s.note = f"{text} · {s.note}" if s.note else text
         s.at_revision_38 = earlier.get(s.key, "new since revision 38")
         out.append(s)
 
@@ -306,6 +370,10 @@ def statuses() -> list[Status]:
     gone = sorted(set(earlier) - {s.key for s in out})
     if gone:
         raise SystemExit(f"rows at revision 38 ({REVISION_38}) with no row now: {gone}; shown, not dropped (P2)")
+    no_row = sorted(set(later) - {k for k, _, _ in rows})
+    if no_row:
+        raise SystemExit(f"{V2_DISPOSITIONS.name} names rows no record has: {no_row}; it decides on a verdict, so the "
+                         "row must have one")
     known = {s.key for s in out} | set(spec)
     stray = sorted((set(decided) | set(limbs)) - known)
     if stray:
@@ -333,9 +401,11 @@ def render(rows: list[Status]) -> str:
         "# Version 2 status",
         "",
         "Generated by `tools/version_2_status.py`; do not edit. One row per `M11.C` criterion or variant, read from the",
-        "records below and from `docs/version_1_dispositions.md`, against the stage 2 conditions W1–W4",
-        "(`docs/implementation_plan_version_2.md` §2.3). A verdict that is not the one the frozen page records at the",
-        "tag `version-1` is **changed since the tag** and is not final until the owner reviews it (T-122); a criterion",
+        "records below and from `docs/version_1_dispositions.md` and `docs/version_2_dispositions.md`, against the",
+        "stage 2 conditions W1–W4 (`docs/implementation_plan_version_2.md` §2.3). A verdict that is not the one the",
+        "frozen page records at the tag `version-1` is **changed since the tag** and is not final until the owner",
+        "reviews it (T-122; a version 2 disposition the owner made on that verdict is the review); a version 2",
+        "disposition applies only while the verdict it names stands; a criterion",
         "the tag's page does not have is new since the tag. The **at revision 38** column is this page's verdict at",
         f"commit `{REVISION_38}`, before stage 3's regeneration: shown beside the verdict, never used for a status, since a",
         "verdict that differs from it is a new result under revision 39's rules (`M11.F`;",

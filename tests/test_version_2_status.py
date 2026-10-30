@@ -262,3 +262,85 @@ def test_s2_11_records_read_shows_every_hash_a_record_keys_by():
     assert set(hashes) == {"engine_hash", "phase_d_engine_hash"}
     line = next(l for l in tool.render(tool.statuses()).splitlines() if l.startswith("- Sweep record"))
     assert all(f"{kind} `{value[:12]}`" in line for kind, value in hashes.items())
+
+
+# Version 2's dispositions (docs/version_2_definition_plan.md §3).
+
+def _v2(key, kind, verdict, decided="owner 2026-10-29"):
+    return {key: {"kind": kind, "verdict": verdict, "owner": decided.startswith("owner "), "decided": decided,
+                  "reason": "test reason"}}
+
+
+PENDING_TEXT = "Claude's recommendation 2026-10-29, pending owner review"
+
+
+def test_w1_v2_dispositions_parse_strictly(tmp_path):
+    """The committed file parses; a wrong cell count, an unknown kind, a verdict other than PASS or FAIL, an accepted
+    finding on a PASS, a `decided` in neither form, a repeated key and a row after a break each raise."""
+    real = tool.v2_dispositions()
+    assert real and all(d["verdict"] in ("PASS", "FAIL") for d in real.values())
+    head = tool.V2_HEADER + "\n|---|---|---|---|---|\n"
+    good = "| `M11.C.49` | accepted finding | FAIL | owner 2026-10-29 | why |\n"
+    path = tmp_path / "v2.md"
+    path.write_text("# t\n\n" + head + good, encoding="utf-8")
+    assert tool.v2_dispositions(path)["M11.C.49"] == {"kind": "accepted finding", "verdict": "FAIL", "owner": True,
+                                                       "decided": "owner 2026-10-29", "reason": "why"}
+    assert tool.v2_dispositions(tmp_path / "absent.md") == {}
+    bad = (head + "| `M11.C.49` | accepted finding | FAIL | owner 2026-10-29 |\n",
+           head + good.replace("accepted finding", "accepted"),
+           head + good.replace("| FAIL |", "| pass |"),
+           head + good.replace("| FAIL |", "| PASS |"),
+           head + good.replace("owner 2026-10-29", "the owner"),
+           head + good + good,
+           head + good + "\n" + good.replace("49", "48"),
+           "# no table\n")
+    for text in bad:
+        path.write_text(text, encoding="utf-8")
+        with pytest.raises(SystemExit):
+            tool.v2_dispositions(path)
+
+
+def test_w1_v2_disposition_takes_precedence_over_version_1():
+    """`M11.C.42` fails as at the tag and carries version 1's owner-accepted finding; a version 2 row on it that is
+    Claude's recommendation takes its place, so the row is no longer final."""
+    before = {s.key: s for s in tool.statuses()}["M11.C.42"]
+    assert before.final and before.status == "fail accepted as a finding"
+    with mock.patch.object(tool, "v2_dispositions", return_value=_v2("M11.C.42", "accepted finding", "FAIL", PENDING_TEXT)):
+        after = {s.key: s for s in tool.statuses()}["M11.C.42"]
+    assert after.status == "fail, acceptance pending the owner's review" and not after.final and "W1" in after.blocks
+    assert after.note.startswith("test reason") and PENDING_TEXT in after.note
+
+
+def test_w1_v2_verdict_reviewed_by_the_owner_makes_a_changed_verdict_final():
+    """`M11.C.16` (a premise that passes) with the tag's verdict flipped to FAIL is held as changed; the owner's
+    `verdict reviewed` on PASS makes it final, and Claude's recommendation of the same leaves it held."""
+    flipped = dict(tool.tag_verdicts(), **{"M11.C.16": "FAIL"})
+    with mock.patch.object(tool, "tag_verdicts", return_value=flipped):
+        held = {s.key: s for s in tool.statuses()}["M11.C.16"]
+        with mock.patch.object(tool, "v2_dispositions", return_value=_v2("M11.C.16", "verdict reviewed", "PASS")):
+            owner = {s.key: s for s in tool.statuses()}["M11.C.16"]
+        with mock.patch.object(tool, "v2_dispositions",
+                               return_value=_v2("M11.C.16", "verdict reviewed", "PASS", PENDING_TEXT)):
+            claude = {s.key: s for s in tool.statuses()}["M11.C.16"]
+    assert held.status.endswith(tool.CHANGED) and not held.final
+    assert owner.status == f"pass; {tool.REVIEWED}" and owner.final and "W1" not in owner.blocks
+    assert owner.note.startswith("version 2: verdict reviewed (PASS) — test reason")
+    assert claude.status.endswith(tool.CHANGED) and not claude.final and "W1" in claude.blocks
+    assert PENDING_TEXT in claude.note
+
+
+def test_w1_v2_verdict_reviewed_names_the_verdict_it_reviewed():
+    """A review decided on FAIL does not clear a row that now passes: the row stays held as changed, and the page shows
+    the disposition as not applied, with both verdicts."""
+    flipped = dict(tool.tag_verdicts(), **{"M11.C.16": "FAIL"})
+    with mock.patch.object(tool, "tag_verdicts", return_value=flipped), \
+            mock.patch.object(tool, "v2_dispositions", return_value=_v2("M11.C.16", "verdict reviewed", "FAIL")):
+        s = {s.key: s for s in tool.statuses()}["M11.C.16"]
+    assert s.status.endswith(tool.CHANGED) and not s.final and "W1" in s.blocks
+    assert s.note.startswith("version 2 disposition, not applied (decided on FAIL, now PASS): verdict reviewed")
+
+
+def test_w1_v2_a_disposition_on_a_key_with_no_record_row_stops_the_tool():
+    with mock.patch.object(tool, "v2_dispositions", return_value=_v2("M11.C.9", "note", "PASS")):
+        with pytest.raises(SystemExit, match="names rows no record has"):
+            tool.statuses()

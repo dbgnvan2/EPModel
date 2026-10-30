@@ -26,7 +26,9 @@ SUFFIXES = {".py", ".md", ".json", ".yaml", ".yml", ".txt"}
 # The phrase, across a line break and a comment marker as a wrapped comment or docstring splits it.
 PHRASE = re.compile(r"pending(?:\s|#)+owner(?:\s|#)+review", re.IGNORECASE)
 # Path -> how many matches it may hold, for items the owner has not decided yet. Empty at stage 1.
-PENDING: dict[str, int] = {}
+# Version 2's dispositions (2026-10-29) are Claude's recommendations awaiting the owner; each decision is recorded in
+# that file's `decided` cell, and both entries go when every row there is the owner's.
+PENDING: dict[str, int] = {"docs/SPEC_REVIEW_CHECKLIST.md": 1, "docs/version_2_dispositions.md (status line)": 1}
 # D5a: documents read whole, and the one whose state line alone is current; every other `docs/` file is read only for
 # its own status line.
 CURRENT_STATE_DOCS = ("README.md", "CLAUDE.md", "docs/SPEC_REVIEW_CHECKLIST.md")

@@ -614,7 +614,7 @@ say whether that test was proved failing by mutation unless its note does.
 | M17.G.2 | not done | — | no test named for it; Phase E builds it and is not built yet |
 | M17.G.3 | not done | — | no test named for it; Phase E builds it and is not built yet |
 
-## Tests named for no spec ID (297)
+## Tests named for no spec ID (302)
 
 Their names embed no requirement ID, so they count only where an override cites them (marked *cited*). The rest check spec documents, tooling or helpers.
 
@@ -900,6 +900,11 @@ Their names embed no requirement ID, so they count only where an override cites 
 - `tests/test_version_2_status.py::test_w1_s2_10_a_tag_row_with_no_row_now_and_a_misplaced_disposition_stop_the_tool`
 - `tests/test_version_2_status.py::test_w1_s2_10_the_tag_page_is_read_whole`
 - `tests/test_version_2_status.py::test_w1_s2_8_every_criterion_has_a_status`
+- `tests/test_version_2_status.py::test_w1_v2_a_disposition_on_a_key_with_no_record_row_stops_the_tool`
+- `tests/test_version_2_status.py::test_w1_v2_disposition_takes_precedence_over_version_1`
+- `tests/test_version_2_status.py::test_w1_v2_dispositions_parse_strictly`
+- `tests/test_version_2_status.py::test_w1_v2_verdict_reviewed_by_the_owner_makes_a_changed_verdict_final`
+- `tests/test_version_2_status.py::test_w1_v2_verdict_reviewed_names_the_verdict_it_reviewed`
 - `tests/test_version_2_status.py::test_w3_a_pass_whose_named_mutant_survived_is_not_labelled_unmutated`
 - `tests/test_version_2_status.py::test_w4_a_fraction_from_an_earlier_engine_is_marked_and_not_counted`
 - `tests/test_version_2_status.py::test_w4_a_refused_criterion_is_shown_refused_and_still_counts_for_w4`

@@ -173,7 +173,10 @@ def test_m17a1_s2_1_a_fixed_seed_criterion_is_not_rerun(tmp_path):
 
 def test_m17a1_s2_1_a_criterion_fixing_its_own_seeds_below_the_count_is_refused(tmp_path):
     """A criterion with its own `seeds` below the fixed count ignores the sweep's block and cap, so its rerun would run
-    the same seeds again; the sweep refuses rather than record a rerun that is not one (`M17.A.1`)."""
+    the same seeds again; the sweep refuses rather than record a rerun that is not one (`M17.A.1`). Since T-159 a
+    refusal seen before the rerun is the criterion's result (the tests below); this one checks the backstop, which
+    stops the run when a rerun has run and come back at a count of the criterion's own that ``own_seeds`` did not see
+    (it is not patched here, so it finds none)."""
     def child(mutant, _tool, ids, _workers, _label):
         seeds = 100  # the criterion's own count, whatever the stopping rows say
         answer = RERUN[_index(mutant)] if _is_rerun(mutant) else FIRST[_index(mutant)]
@@ -184,23 +187,98 @@ def test_m17a1_s2_1_a_criterion_fixing_its_own_seeds_below_the_count_is_refused(
         tool.build(Cache("sweep_test"), 1)
 
 
-def test_m17a1_a_criterion_fixing_its_own_seeds_is_refused_before_its_rerun_runs(tmp_path):
-    """Review MR-12 (owner 2026-10-24): the refusal comes before the rerun is run, so the criterion's own seeds are
-    never run a second time. Mutation: the check before the rerun removed (the rerun runs, then the backstop refuses)."""
-    reruns = []
+def _refused_build(tmp_path, config: str | None = None):
+    """The build with every criterion fixing 100 seeds of its own: sample 4 is each one's first near the limit.
+    ``config`` replaces the test config (the ratio layout's, say)."""
+    if config is not None:
+        tmp_path.joinpath("sweep.md").write_text(config, encoding="utf-8")
+    calls = []
 
     def child(mutant, _tool, ids, _workers, _label):
-        if _is_rerun(mutant):
-            reruns.append(mutant.id)
+        calls.append((_index(mutant), _is_rerun(mutant)))
         answer = RERUN[_index(mutant)] if _is_rerun(mutant) else FIRST[_index(mutant)]
         return [_row(cid, *answer, 100) for cid in ids]
 
     patches = _patched(tmp_path, child=child)
     with patches[0], patches[1], patches[2], patches[3], patches[4], \
-            mock.patch.object(tool, "own_seeds", return_value=100), \
-            pytest.raises(SystemExit, match="fixes its own seed count at 100"):
-        tool.build(Cache("sweep_test"), 1)
-    assert reruns == []
+            mock.patch.object(tool, "own_seeds", return_value=100):
+        text = tool.build(Cache("sweep_test"), 1)
+    return text, calls
+
+
+def test_m17a1_a_criterion_fixing_its_own_seeds_is_refused_before_its_rerun_runs(tmp_path, capsys):
+    """Review MR-12 (owner 2026-10-24): the refusal comes before the rerun is run, so the criterion's own seeds are
+    never run a second time, and no later sample runs. T-159 (owner 2026-10-29): the refusal is the criterion's result,
+    printed and kept with the samples that ran, not an exit that stops the other criteria and the record. Mutation:
+    the check before the rerun removed (the rerun runs, then the backstop refuses); the loop not stopped at the
+    refusal (samples 5 to 7 run)."""
+    text, calls = _refused_build(tmp_path)
+    assert not any(rerun for _i, rerun in calls)
+    assert sorted({i for i, _r in calls}) == [0, 1, 2, 3, 4]
+    results = _results(text)
+    assert [r["criterion"] for r in results] == ["M11.C.16", "M11.C.42"]
+    for result in results:
+        assert result["refused"] == {"sample": 4, "seeds": 200, "own_seeds": 100}
+        assert [r["index"] for r in result["rows"]] == [0, 1, 2, 3, 4] and not any(r["rerun"] for r in result["rows"])
+        assert [bool(r.get("refused")) for r in result["rows"]] == [False] * 4 + [True]  # the refusing sample marked
+        assert "held" not in result and "counted" not in result and "ratio_split" not in result  # no fraction formed
+    out = capsys.readouterr().out
+    assert "M11.C.16: refused at the rerun" in out and "M11.C.42: refused at the rerun" in out
+
+
+def test_m17a1_a_refused_criterion_is_shown_refused_with_its_samples_and_no_fraction(tmp_path):
+    """T-159 (owner 2026-10-29): the record shows a refused criterion as *refused at the rerun*, never as a fraction:
+    its table row has no counts, and its section names the sample, both seed counts and `M17.A.1` and lists the
+    samples that ran before the refusal. Mutation: the renderer prints a fraction or counts for it; the section left
+    out; the samples left out of it."""
+    text, _calls = _refused_build(tmp_path)
+    for key in ("M11.C.16", "M11.C.42"):
+        cells = next(l for l in text.splitlines() if l.startswith(f"| `{key}` |")).split("|")
+        assert cells[5].strip() == "refused at the rerun" and all(c.strip() == "—" for c in cells[6:-1])
+        section = text.split(f"## `{key}` — refused at the rerun (`M17.A.1`)\n", 1)[1].split("\n## ", 1)[0]
+        assert "Sample 4 needs a rerun at 200 seeds" in section and "fixes its own seed count at 100" in section
+        samples = [l.split("|") for l in section.splitlines() if re.match(r"^\| \d+ \|", l)]
+        assert [int(s[1]) for s in samples] == [0, 1, 2, 3, 4]
+        assert "samples held" not in section
+        # the refusing sample has no verdict of its own (M17.A.1: a near-limit sample's verdict is its rerun's), and
+        # its first run's outcome is named where a rerun's is; the samples before it are as any other
+        assert samples[4][4].strip().startswith("needed; refused (first ") and samples[4][5].strip() == "—"
+        assert all(s[4].strip() == "no" and s[5].strip() != "—" for s in samples[:4])
+
+
+def test_m17a1_a_share_that_hits_a_refusal_names_it_in_its_last_line(tmp_path, capsys):
+    """learning-qa, T-159 (P9): a ``--criteria`` share's last line counts and names the criteria refused at the rerun,
+    since `tools/two_mac_sweep.py status` shows only the log's last lines; a refusal is not a failure, so the share
+    exits 0. Mutation: the refused criteria left out of the line."""
+    def child(mutant, _tool, ids, _workers, _label):
+        answer = RERUN[_index(mutant)] if _is_rerun(mutant) else FIRST[_index(mutant)]
+        return [_row(cid, *answer, 100) for cid in ids]
+
+    patches = _patched(tmp_path, child=child)
+    with patches[0], patches[1], patches[2], patches[3], patches[4], \
+            mock.patch.object(tool, "own_seeds", return_value=100), mock.patch.object(tool, "check_numpy"), \
+            mock.patch.object(record_cache, "_uncached", []):
+        status = tool.main(["--criteria", "M11.C.16", "--workers", "1"])
+    last = capsys.readouterr().out.strip().splitlines()[-1]
+    assert status == 0 and last.startswith("swept 1 criteria into ")
+    assert "1 of them refused at the rerun (`M17.A.1`): M11.C.16;" in last
+
+
+def test_m17a1_a_refused_row_has_the_header_s_cells_in_both_layouts(tmp_path):
+    """Correctness pass, T-159: a refused criterion's summary row has as many cells as the table's header, with and
+    without the named ratio's two columns. Mutation: the ratio's dashes left out of the refused row."""
+    for name, config in (("plain", None), ("ratio", RATIO_CONFIG)):
+        directory = tmp_path / name
+        directory.mkdir()
+        text, _calls = _refused_build(directory, config)
+        lines = text.splitlines()
+        header = next(l for l in lines if l.startswith("| Criterion | Class |"))
+        assert ("Held below" in header) == (name == "ratio"), header
+        refused = [l for l in lines if l.startswith("| `") and "| refused at the rerun |" in l]
+        assert len(refused) == len(_results(text)), name
+        assert all(l.count("|") == header.count("|") for l in refused), name
+        if name == "ratio":  # a refused criterion the ratio entered still says its numerator was derived
+            assert "`tie_wear_rate` derived" in next(l for l in refused if l.startswith("| `M11.C.16` |"))
 
 
 def test_m17a1_a_criterion_fixing_its_own_seeds_is_swept_while_no_sample_needs_a_rerun(tmp_path):
@@ -528,20 +606,11 @@ def test_s2_6_not_run_list_is_loaded_strictly():
 
 # --- S2.11 the committed record ---------------------------------------------------------------------------------
 
-@pytest.mark.xfail(strict=True, raises=KeyError,
-                   reason="T-159: the stage 3 triage batch (spec revision 41, 2026-10-28) moved the engine hash to "
-                   "6ce8be104767 and regenerated every other record; the stage-end sweep reruns on it in the next "
-                   "session, split across both Macs as at step 11")
 def test_s2_11_sweep_record_is_current():
     """The committed sweep record is what the tool renders from the committed cache for the current engine and
-    config, without running anything (P6); a stale cache or a changed range would raise here. Until T-159's sweep only
-    a missing cached result or run length is the expected failure; any other ``KeyError`` is turned into a failure."""
+    config, without running anything (P6); a stale cache or a changed range would raise here."""
     with mock.patch.object(record_cache, "child_rows", side_effect=AssertionError("ran a child in a test")):
-        try:
-            text = tool.build(Cache(tool.CACHE_NAME))
-        except KeyError as missing:
-            assert re.search(r"no cached (result|run length) for the current", str(missing)), missing
-            raise
+        text = tool.build(Cache(tool.CACHE_NAME))
         assert tool.RECORD.read_text(encoding="utf-8") == text
 
 

@@ -207,11 +207,18 @@ def own_seeds(key: str) -> int | None:
     return None if seeds is None else int(seeds)
 
 
+def refusal_text(sample: int, seeds: int, own: int) -> str:
+    return (f"Sample {sample} needs a rerun at {seeds} seeds, but the criterion fixes its own seed count at {own} "
+            "(`config/bowen/criteria.md`), which the runner reads before the block and cap, so the sweep cannot rerun "
+            "it at the declared count and refuses the criterion there (`M17.A.1`)")
+
+
 def sweep_criterion(cache: Cache, key: str, ranges: list[Range], rules: dict, central: dict[str, str],
                     workers: int | None, engine: str, child: str = CHILD, ratio: Ratio | None = None) -> dict:
     """One criterion's samples and fraction. With ``ratio`` (an entered criterion, D26), each sample also draws the
     ratio and its denominator and derives the numerator (``with_ratio``), and the result is split at its central
-    value."""
+    value. A criterion refused at a rerun its own seed count cannot give (`M17.A.1`) has no fraction: its result is
+    the refusal (``refused``) and the samples that ran, the refusing one last."""
     multiple, fixed = rules["detection_limit_multiple"], int(rules["detection_limit_seeds"])
     drawn = ratio_ranges(key, ranges, ratio) if ratio else ranges
     ticks = int(central[ratio.period]) if ratio else 0
@@ -227,11 +234,14 @@ def sweep_criterion(cache: Cache, key: str, ranges: list[Range], rules: dict, ce
         if first["outcome"] not in ERRORED and near_limit(first, multiple) and first["seeds"] < fixed:
             # Refused before the rerun runs, not after (review MR-12, owner 2026-10-24): a criterion that fixes fewer
             # seeds than the declared count would run its own seeds again. One that never needs a rerun is swept.
+            # The refusal is the criterion's result, with the samples that ran and no fraction, so the other criteria
+            # and the record go on (T-159, owner 2026-10-29).
             own = own_seeds(key)
             if own is not None and own < fixed:
-                raise SystemExit(f"{key} sample {index}: needs a rerun at {fixed} seeds, but the criterion fixes its own "
-                                 f"seed count at {own} (config/bowen/criteria.md), which the runner reads before the "
-                                 "block and cap, so the sweep cannot rerun it at the declared count (M17.A.1)")
+                rows.append({**row, "refused": True})
+                print(f"{key}: refused at the rerun: {refusal_text(index, fixed, own)}", flush=True)
+                return {"criterion": key, "refused": {"sample": index, "seeds": fixed, "own_seeds": own},
+                        "samples": len(rows), "constants": _constants(drawn), "rows": rows}
             second = _result(cache, rerun_mutant(mutant, fixed, central), key, workers, engine, child)
             if second["outcome"] not in ERRORED and second["seeds"] != fixed:
                 raise SystemExit(f"{key} sample {index}: the rerun took {second['seeds']} seeds, not {fixed}; the criterion "
@@ -322,6 +332,8 @@ def central_verdicts() -> dict[str, dict]:
 def _fraction(s: dict) -> str:
     if "not_run" in s:
         return "declared, not run"
+    if "refused" in s:
+        return "refused at the rerun"
     return f"{s['held']} of {s['counted']}" if s["counted"] else "no counted sample"
 
 
@@ -385,7 +397,9 @@ def render(results: list[dict], centrals: dict[str, dict], rules: dict, engine: 
         "ensemble record (*central verdict*); a fraction here changes no verdict and is never written as a pass or a",
         "fail. A premise passing is never a finding (`M11.5`), and no premise is swept. A criterion shown as *declared,",
         "not run* is listed under that heading in `config/sweep/sweep.md`: its ranges are declared, the cache holds no",
-        "result of it, and no number is shown for it.",
+        "result of it, and no number is shown for it. A criterion shown as *refused at the rerun* had a sample that",
+        "needed the rerun below while the criterion fixes fewer seeds of its own; the sweep refuses it at that sample",
+        "(`M17.A.1`), so it has no fraction, and the samples that ran up to that one are shown, not counted.",
         "",
         f"The sweep's rules (`config/sweep/sweep.md`, each `[I]`): `sweep_samples` {rules['sweep_samples']} per criterion,",
         f"`sweep_seed` {rules['sweep_seed']}; the detection-limit rule (`M17.A.1`, plan D8): a sample whose first run left a",
@@ -415,12 +429,12 @@ def render(results: list[dict], centrals: dict[str, dict], rules: dict, engine: 
     for s in results:
         c = centrals[s["criterion"]]
         swept = "; ".join(f"`{x['constant']}` {x['low']:g}–{x['high']:g}" for x in s["constants"])
-        if s.get("ratio_split"):
+        if s.get("ratio_split") or (s.get("ratio_scope") or {}).get("entered"):
             swept += f"; `{ratios[0].numerator}` derived"
         split = "".join(f" {_split_cell(s, 'below')} | {_split_cell(s, 'above')} |" for _r in ratios[:1])
-        if "not_run" in s:
+        if "not_run" in s or "refused" in s:
             lines.append(f"| `{s['criterion']}` | {c['class']} | {noted(s['criterion'], c['outcome'])} | {swept} | "
-                         f"{_fraction(s)} |{split} — | — | — |")
+                         f"{_fraction(s)} |{' — | — |' * len(ratios[:1])} — | — | — |")
             continue
         lines.append(f"| `{s['criterion']}` | {c['class']} | {noted(s['criterion'], c['outcome'])} | {swept} | "
                      f"{_fraction(s)} |{split} {s['undetermined']} | "
@@ -431,7 +445,14 @@ def render(results: list[dict], centrals: dict[str, dict], rules: dict, engine: 
         if "not_run" in s:
             lines += ["", f"## `{s['criterion']}` — declared, not run", "", f"Not run: {s['not_run']}"]
             continue
-        lines += ["", f"## `{s['criterion']}` — {_fraction(s)} samples held", ""]
+        if "refused" in s:
+            refused = s["refused"]
+            lines += ["", f"## `{s['criterion']}` — refused at the rerun (`M17.A.1`)", "",
+                      f"{refusal_text(refused['sample'], refused['seeds'], refused['own_seeds'])}. No fraction is "
+                      "formed and no later sample was run; the samples below ran before the refusal and are shown, not "
+                      "counted.", ""]
+        else:
+            lines += ["", f"## `{s['criterion']}` — {_fraction(s)} samples held", ""]
         if s["criterion"] in VERDICT_NOTES:
             lines += [f"Central verdict {centrals[s['criterion']]['outcome']}: {VERDICT_NOTES[s['criterion']]}.", ""]
         if s.get("ratio_split"):
@@ -446,12 +467,14 @@ def render(results: list[dict], centrals: dict[str, dict], rules: dict, engine: 
             if r.get("ratio") is not None:
                 values += f"; ratio {r['ratio']:.4g} (per week ÷ per contact)"
             seeds = f"{r['seeds']} then {r['rerun_seeds']}" if r["rerun"] else str(r["seeds"])
-            rerun = f"yes (first {r['first_outcome']})" if r["rerun"] else "no"
+            rerun = (f"yes (first {r['first_outcome']})" if r["rerun"] else
+                     f"needed; refused (first {r['outcome']}; `M17.A.1`)" if r.get("refused") else "no")
+            verdict = "—" if r.get("refused") else r["outcome"]  # a near-limit sample's verdict is its rerun's: none
             shown = r["rerun_readouts"] if r["rerun"] else r["readouts"]
             readouts = "; ".join(f"`{x['readout']}` {x['mean_difference']:+.3g} ± {abs(x['half_width']):.2g}" for x in shown)
             if r["error"]:
                 readouts = f"*{r['error']}*"
-            lines.append(f"| {r['index']} | {values} | {seeds} | {rerun} | {r['outcome']} | {readouts} |")
+            lines.append(f"| {r['index']} | {values} | {seeds} | {rerun} | {verdict} | {readouts} |")
     lines += ["", "## Machine-readable", "", "```json", json.dumps(results, indent=1, default=float), "```", ""]
     return "\n".join(lines)
 
@@ -601,8 +624,11 @@ def main(argv: list[str] | None = None) -> int:
                 print(f"{len(kept)} of {len(dropped)} result(s) not run again (failed or interrupted); the earlier "
                       "ones kept")
             cache.flush()  # every entry kept: the other share's results and earlier ones are not this run's to prune
-        print(f"swept {len(results)} criteria into {_shown(cache.path)}; the record is not written until "
-              "every share is merged (tools/merge_cache.py) and rendered (--render-only)")
+        refused = [r["criterion"] for r in results if "refused" in r]  # said last: `status` shows the log's tail
+        print(f"swept {len(results)} criteria into {_shown(cache.path)}"
+              + (f", {len(refused)} of them refused at the rerun (`M17.A.1`): {', '.join(refused)}" if refused else "")
+              + "; the record is not written until every share is merged (tools/merge_cache.py) and rendered "
+              "(--render-only)")
         return exit_status()
     try:
         text = build(cache, None if args.render_only else args.workers)

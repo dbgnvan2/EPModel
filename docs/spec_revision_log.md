@@ -1,10 +1,16 @@
 # Spec revision log
 
-**Status: the record of every revision of `bowen_agent_model_spec_v2.md`, 4 to 41 (revision 40 applied 2026-10-28, from the stage 3 milestone review's triage; revision 41, its hash-moving batch, the same day). Moved out of the spec at revision 35, 2026-10-22; nothing a run computes changed.**
+**Status: the record of every revision of `bowen_agent_model_spec_v2.md`, 4 to 42 (revision 40 applied 2026-10-28, from the stage 3 milestone review's triage; revision 41, its hash-moving batch, the same day; revision 42, wording only, 2026-10-29). Moved out of the spec at revision 35, 2026-10-22; nothing a run computes changed.**
 
 The spec holds the current rules; this file holds how they got there. Until revision 34 the revision sections stood at the end of the spec, under `M17`, and the front matter's `status:` line listed every revision since 10. `docs/plan_model_ergonomics.md` Part E moved both here (the owner's answer to its §8 Q2, 2026-10-22, "as revision 35"), so a session reading the spec reads 480 fewer lines of history. The sections below are the spec's own text as it stood, tags and all, with the newest first; revisions 13 to 33 were written inline in the requirement bodies and have no section of their own, which Part E's second step records under revision 35.
 
 The sections `### Revision 34` to `### Revision 5` and the undated section are the spec's text as it stood, moved whole; a statement inside one of them (revision 34's, that revisions 13 to 33 are "not here") was true when written, before the bodies' narratives were moved under their own revisions. Those narratives are the bullets `- \`ID\`: sentence`, each the sentence as it stood in the body, under the revision it names, in sections titled "inline narratives moved from the bodies at revision 35" where no section existed.
+
+### Revision 42 — how the sweep record shows a refused criterion, 2026-10-29 ⟦rev42 · owner 2026-10-29, T-159's stage-end sweep · `docs/todo/2026-10-28_stage_3_milestone_review.md`⟧
+
+**Decided by the owner 2026-10-29** through `AskUserQuestion`, in T-159's session. When the stage-end sweep on `6ce8be104767` reached `M11.C.48`, its sample 2 needed the detection-limit rerun at 200 seeds, and the criterion fixes its own count at 100 (`config/bowen/criteria.md`), so the sweep refused it there, as `M17.A.1` requires (MR-12). The tool stopped the run at the refusal and could write no record. The owner chose to show the criterion refused in the record, with its samples, rather than raise its seed count (which moves the engine hash) or leave it out. The sentence is Claude's, pending the owner's review. Wording only: nothing a run computes changed; `tools/version_2_sweep.py` and `tools/version_2_status.py` are outside the engine hash, which did not move (`6ce8be104767`).
+
+- **Added** to `M17.A.1`: the sweep record shows a refused criterion as *refused at the rerun*, with the sample that needed the rerun, both seed counts and the samples run before it; no fraction is formed, no later sample is run, and the criterion has no sweep result, so `docs/version_2_status.md` keeps `W4` unmet on it.
 
 ### Revision 41 — the stage 3 milestone review's triage batch, 2026-10-28 ⟦rev41 · owner 2026-10-28, stage 3 milestone review triage · `docs/todo/2026-10-28_stage_3_milestone_review.md`, `docs/todo/2026-10-25_stage_3_revision_39.md`⟧
 

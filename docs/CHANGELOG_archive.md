@@ -2,10 +2,85 @@
 
 The entries of `CHANGELOG.md` dated before 2026-10-19, the day version 2 began at the tag `version-1`, moved
 here verbatim on 2026-10-22, the entries of 2026-10-19 and 2026-10-20 on 2026-10-23, and the entries of
-2026-10-21 later on 2026-10-23, the earliest entry of 2026-10-22 (the SP-1 proposal's eight questions) on 2026-10-24, and the next (SP-1 built, with spec revision 34) later on 2026-10-24, and the next (Model ergonomics, Parts A–C) on 2026-10-25, and the next (Model ergonomics, Part D) later on 2026-10-25, and the next (Model ergonomics, Part E) later on 2026-10-25, and the next (Model ergonomics follow-ups) later on 2026-10-25, and the next (the closed and old parts of `TODO.md` and `CHANGELOG.md` archived) on 2026-10-26, and the next (`TODO.md` an index over records; a changelog index) later on 2026-10-26, and the next (Revision 35's dispositions approved by the owner) later on 2026-10-26, and the next two (Spec revision 36, of 2026-10-22, and Revision 36's records regenerated, of 2026-10-23) later on 2026-10-26, and the next five (from the cloud sessions' SessionStart hook to Stage 2: Phase C's directional criteria swept, all of 2026-10-23) later on 2026-10-26, and the next three (from the night's decisions listed for the owner to Stage 2: Phase D part I's directional criteria swept, all of 2026-10-23) on 2026-10-27, and the next (Stage 2: the sweep can run on two Macs, of 2026-10-23) later on 2026-10-27, and the next (The two-Mac cross-check run live, of 2026-10-23) on 2026-10-28, and the next four (from Stage 2: Phase D part II's sweep ranges declared to When the full sweep runs, the last of 2026-10-23) on 2026-10-29, so that the live file stays short enough to read (`tests/test_doc_size.py` bounds its size). The heading below is the section they
+2026-10-21 later on 2026-10-23, the earliest entry of 2026-10-22 (the SP-1 proposal's eight questions) on 2026-10-24, and the next (SP-1 built, with spec revision 34) later on 2026-10-24, and the next (Model ergonomics, Parts A–C) on 2026-10-25, and the next (Model ergonomics, Part D) later on 2026-10-25, and the next (Model ergonomics, Part E) later on 2026-10-25, and the next (Model ergonomics follow-ups) later on 2026-10-25, and the next (the closed and old parts of `TODO.md` and `CHANGELOG.md` archived) on 2026-10-26, and the next (`TODO.md` an index over records; a changelog index) later on 2026-10-26, and the next (Revision 35's dispositions approved by the owner) later on 2026-10-26, and the next two (Spec revision 36, of 2026-10-22, and Revision 36's records regenerated, of 2026-10-23) later on 2026-10-26, and the next five (from the cloud sessions' SessionStart hook to Stage 2: Phase C's directional criteria swept, all of 2026-10-23) later on 2026-10-26, and the next three (from the night's decisions listed for the owner to Stage 2: Phase D part I's directional criteria swept, all of 2026-10-23) on 2026-10-27, and the next (Stage 2: the sweep can run on two Macs, of 2026-10-23) later on 2026-10-27, and the next (The two-Mac cross-check run live, of 2026-10-23) on 2026-10-28, and the next four (from Stage 2: Phase D part II's sweep ranges declared to When the full sweep runs, the last of 2026-10-23) on 2026-10-29, and the next three (from Stage 2: Phase D part II's seven criteria swept across two Macs to The stage 2 milestone review triaged, spec revision 38, the earliest of 2026-10-24) later on 2026-10-29, so that the live file stays short enough to read (`tests/test_doc_size.py` bounds its size). The heading below is the section they
 were under; nothing in this file is reworded. Later entries are in `CHANGELOG.md`.
 
 ## [Unreleased] — 2026-10-11
+
+### The stage 2 milestone review triaged, spec revision 38 (2026-10-24)
+
+- The review (`docs/cycles/2026-10-24_milestone-review_v2-stage-2.md`, branch `review/2026-10-24-v2-stage-2`) was
+  fast-forwarded into `main`. Its triage is `docs/todo/2026-10-24_stage_2_milestone_review.md`: two agents checked
+  the 22 unchallenged findings against their files and dropped none (16 hold as stated, 6 in part). The owner decided
+  the review's seven questions, the batch scope, the class fixes, lint and MR-12, each as recommended.
+- Spec revision 38, wording only: `M1.D.2b`'s decay and `M1.D.2c`'s reference level restated to the code (Q1);
+  `M11.C.48` in `M11.4`'s exceptions (Q6); `M17.A.1`'s refusal placed before the rerun it refuses (MR-12);
+  `M1.F.6a`'s source qualified (MR-14); `M10.A.1`, `M10.A.2`, `M10.C.2` (MR-27), the "Move physics" and
+  `reference_level` register rows (MR-11, MR-8) and `M11.C.48`'s test names (MR-9) corrected; the log's revision 36
+  and 37 tags say approved (MR-16).
+- Tools: `tools/spec_coverage.py` no longer counts an expected failure as evidence, so `M5.B.3` is *partial* (MR-4);
+  `M17.E.1` is *partial* in the overrides until its named ratio is swept (MR-1, T-128); `M1.B.3`'s override note
+  re-derived (MR-10); `tools/version_2_status.py` labels a pass whose named mutant survived as such (MR-28: `M11.C.11`,
+  `M11.C.15`, `M11.C.48`, `M11.C.48[phase_d]`); `tools/phase_d_record.py` and `tools/version_2_sweep.py` print
+  "not evidence (T-123); named mutant survived (T-119)" beside `M11.C.48`'s verdict (MR-3), re-rendered from the
+  cache with nothing rerun; `tools/version_2_sweep.py` refuses a criterion that fixes fewer seeds than the rerun count
+  before running the rerun, not after (MR-12), and puts `--recompute`'s dropped results back in `try/finally` (MR-25).
+- Tests: SP-B's gate, `tests/test_named_tests_resolve.py`, resolves every test a spec row or `Tests:` line names,
+  with allowlists that can only shrink; `tests/test_group_g_readout.py` (MR-9); broken-table tests for the event-size
+  and contact-class loaders (MR-23); the `M5.B.3` arm checks moved out of the expected failure (MR-24); ruff F items
+  under `tools/` and `tests/` (MR-26); the suite-size gate reads "N tests: P pass and X is a strict expected failure"
+  and checks the sum (MR-20).
+- The batch's two review passes (one `learning-qa`, one correctness) found eight items, all fixed here: a
+  `VERDICT_NOTES` note is now checked against the mutation records and `TODO.md`, and a key no record holds is
+  refused; the suite-size gate checks its expected-failure figure against the marks and refuses "all N tests pass"
+  while one exists; rule 2's "an expected failure is not evidence" holds under an override or a recorded verdict too,
+  and `xfail_names` reads class, module, parameter, imperative and `async` forms; the gate's allowlist reason for
+  `M1.F.2`'s and `M11.D.12`'s unwritten tests names T-004, not revision 38; the explainer's `M1.D.2c` line names
+  three `DISTANCE`s and the declared start; the "Move physics" row lists its `reference_level` write; a sweep test
+  shows a short-seeded criterion is swept while no sample needs a rerun. The seed-7 trace, chart and fam-diag export
+  under `docs/review/` were regenerated for the revision number. The suite: 1212 collected, 1211 pass, 1 strict
+  expected failure.
+- Documents: the explainer (`REDUCE_CUTOFF`, the cutoff's end, the decay, the reference level, the event sizes'
+  source, the detection limit, one KB phrase paraphrased, its date), `CLAUDE.md`, `README.md` (version 2 status page
+  and generators), `docs/REVIEWER_READING_LIST.md`, `docs/SPEC_REVIEW_CHECKLIST.md`, `docs/theory/_STATUS.md`,
+  `docs/theory/_SOURCE_QUALITY.md` (what counts as quotation, Q3), `docs/implementation_plan_version_2.md`,
+  `docs/version_2_plan.md`, `docs/two_mac_sweep.md` (Q4), the Holmes–Rahe proposal, `docs/spec_revision_log.md`,
+  `LEARNINGS.md` (Misses), T-004, T-011, T-012, T-014 and T-015; regenerated: `docs/spec_index.jsonl`,
+  `docs/spec_rules/`, `docs/spec_coverage.md`, `docs/version_2_status.md`, `docs/phase_d2_ensemble_record.md`,
+  `docs/version_2_sweep_record.md`, `TODO.md`.
+- Not changed, by the owner's scope: `src/bowen/` and `config/bowen/`, so the engine hash is `66dcbb1e8ba5` as before.
+  Their fixes (MR-2, MR-9, MR-13 and MR-26's docstrings and lint) wait for the next change that moves the hash
+  (T-129). Opened: T-128 (`M17.E.1`'s ratio, stage 3's plan), T-129, T-130 (the event sizes against the paper).
+
+### T-125 closed: the owner approved the fifty-three overnight decisions (2026-10-24)
+
+- The owner approved all fifty-three decisions of T-125 and kept the branch `claude/confident-maxwell-vr5zol` (decision
+  27). Each status phrase that stated one of them as pending the owner's review now reads "approved by the owner
+  2026-10-24" with T-125; the T-122 verdict changes, a finding and not a decision, stay pending.
+- Changed: `CLAUDE.md`, `README.md` (also: revision 36's branch is merged into `main`, not "not merged"),
+  `config/sweep/sweep.md`, the spec (status line, two revision 36 tags, two revision 37 tags), `docs/PROPOSAL — CUTOFF
+  ANXIETY, BRIDGING AND REPAIR.md`, `docs/PROPOSAL — RELEASE BY TIE (G2).md`, `docs/PROPOSAL — EVENT SIZES FROM THE
+  HOLMES–RAHE SCALE.md`, `docs/REVIEWER_READING_LIST.md`, `docs/SPEC_REVIEW_CHECKLIST.md`,
+  `docs/implementation_plan_version_2.md`, `docs/model_explainer.md`, `docs/readouts_phase_c.md`,
+  `docs/theory/_STATUS.md`, `docs/todo/2026-08-22_blocking_the_next_phase.md`.
+- T-125 ticked in `docs/todo/2026-10-23_overnight_decisions.md`; `TODO.md`, `docs/TODO_archive.md` and
+  `docs/spec_rules/README.md` regenerated (`docs/spec_index.jsonl` unchanged). Nothing a run computes changed.
+- Not changed: the status lines of `config/bowen/contact_classes.md` and `config/bowen/event_sizes.md`, which still say
+  pending. The engine hash covers every `*.md` under `config/bowen/`, so editing them made every record stale; the
+  edits were reverted and the hash is `66dcbb1e8ba5` as before. They are corrected at the next change that moves the
+  hash (T-127).
+
+### Stage 2: Phase D part II's seven criteria swept across two Macs (2026-10-24)
+
+- Split by the part II record's seed counts: Mac Mini1 ran `M11.C.6`, `.10[family of origin]`, `.48` and `.48[phase_d]`
+  (17:38:43–00:30:49, 36 child runs), this Mac `M11.C.2[twelve-person family]`, `.10` and `.15` (17:39:01–01:32:59, 34
+  child runs, `nice` 20). A first start with all seven on Mac Mini1 was stopped at 17:38 before any sample finished.
+  The merge added 36 results and found the 361 already here equal; no sample was undetermined or errored.
+- Held of 8 (central verdict): `.2[twelve-person family]` 2 (FAIL), `.6` 0 (FAIL), `.10` 1 (FAIL), `.10[family of
+  origin]` 5 (FAIL), `.15` 4 (PASS), `.48` 8 (PASS), `.48[phase_d]` 8 (PASS). Stage 2's full sweep is complete.
+- The seven keys left `config/sweep/sweep.md`'s *Declared, not run* list; the sweep record, `docs/version_2_status.md`,
+  `docs/spec_coverage.md` and the spec index were regenerated; plan §2.10, `_STATUS.md`, the reading list,
+  `docs/two_mac_sweep.md`'s status line and T-001 updated. Nothing a run computes changed.
 
 ### When the full sweep runs: at a stage's end only (D17, 2026-10-23)
 

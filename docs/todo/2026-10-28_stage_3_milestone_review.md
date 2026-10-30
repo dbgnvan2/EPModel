@@ -79,13 +79,33 @@ records are regenerated once.
   ("at the first opposition") to match; (b) keep `M5.D.3` as it is and record the failure as a finding; or (c) revisit
   where T-133's gate is read. Claude's recommendation under the owner's instruction of 2026-10-28, pending the owner's
   review: (b) until the owner decides, since (a) and (c) change a rule.
-- [ ] T-159 ⟨now⟩ **The stage-end sweep on the triage batch's engine (2026-10-28).** The batch moved the engine hash to
+- [x] T-159 ⟨now⟩ **The stage-end sweep on the triage batch's engine (2026-10-28).** The batch moved the engine hash to
   `6ce8be104767`; every record but `docs/version_2_sweep_record.md` was regenerated once on it. The sweep
   (`tools/version_2_sweep.py`, 34 keys) reruns in the next session, split across both Macs as at step 11
   (`docs/two_mac_sweep.md`); at 8 workers on one Mac it would take about 22 hours. Until it does,
   `tests/test_version_2_sweep.py::test_s2_11_sweep_record_is_current` is a strict expected failure naming this item,
   failing only on a missing cached result for the current engine. Claude's recommendation under the owner's instruction
   of 2026-10-28, pending the owner's review: step 10's precedent, rather than holding the batch's push for a day.
+  *Closed 2026-10-29: the sweep ran on `6ce8be104767`, split across both Macs, after a cross-check on `M11.C.16` and
+  `M11.C.23` (the merge added 0 and found 490 entries equal). 267 first runs and 165 reruns at 200 seeds; none
+  undetermined or errored. 33 keys have a fraction; `M11.C.48` is refused at the rerun at sample 2 (`M17.A.1`, spec
+  revision 42; T-163). `docs/version_2_sweep_record.md` is current, its test passes without a mark, and
+  `docs/version_2_status.md`'s W4 is unmet on `M11.C.48` alone.*
+- [ ] T-163 ⟨later⟩ **`M11.C.48` fixes its own seeds at 100, so the sweep refuses it at the rerun (found in T-159's
+  sweep, 2026-10-29; not fixed).** On `6ce8be104767` sample 2's first run leaves `negative_run` at +0.255 ± 0.14,
+  within two half-widths of zero, so `M17.A.1` needs a rerun at 200 seeds; `config/bowen/criteria.md` fixes the
+  criterion's own count at 100, so the sweep refuses it there and shows it refused (revision 42, the owner's choice of
+  2026-10-29). Samples 0 to 2 held; no fraction is formed, and `docs/version_2_status.md` keeps W4 unmet on it. To
+  decide with the next batch that moves the engine hash: raise its count to 200 or more (the criteria table is in the
+  hash), then sweep it again (`tools/version_2_sweep.py --criteria M11.C.48`). `M11.C.48[phase_d]` reads the same
+  100 seeds (a variant key reads its base ID's section) and swept 8 of 8, because none of its samples needed the
+  rerun; the raised count applies to it too.
+- [ ] T-164 ⟨later⟩ **The merge's running-sweep guard matches the sweep's test file (found in T-159's merge,
+  2026-10-29; not fixed).** `tools/merge_cache.py` refuses while `pgrep -f '[v]ersion_2_sweep.py'` finds a process,
+  and that pattern also matches `python3 -m pytest tests/test_version_2_sweep.py`, so a test run makes the merge
+  refuse. It fails safe (nothing written, and a second try after the tests end merged). `tools/two_mac_sweep.py`'s
+  `status` uses the same pattern on Mac Mini1. To fix: match `tools/version_2_sweep.py` and test that a test run is
+  not taken for a sweep.
 - [ ] T-160 ⟨later⟩ **`phase_c_completion_report.md`'s other rows quote the numbers of Phase C's close (found building
   T-148, 2026-10-28; not fixed).** The report opens by saying every number below comes from a committed, generated
   record. Since T-148, `M11.C.16`'s two rows and §11 are generated from the current records (`tools/c16_report.py`);

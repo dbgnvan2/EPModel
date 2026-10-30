@@ -27,7 +27,8 @@ The rules, version 1's (``docs/version_1_definition.md`` §1, approved 2026-10-1
   left them, before stage 3's regeneration), read from git; it is shown, never used for a status: a verdict that
   differs from it is a new result under revision 39's rules (`M11.F`), and the rules above still read only the tag.
 * The **sweep column** (W4) shows *n of S held* for a swept criterion, *not swept* for a directional criterion not
-  yet swept, and a dash for a premise, a check or a criterion that is not built. A fraction is a measurement and is
+  yet swept, *refused at the rerun* for one the sweep refused (`M17.A.1`; it has no fraction, so W4 still counts it),
+  and a dash for a premise, a check or a criterion that is not built. A fraction is a measurement and is
   never written as a pass or a fail (`M11.5`); W4 asks only that a passing directional criterion has one. A
   fraction from a sweep record made on an engine that is not the current one (its ``engine_hash`` or
   ``phase_d_engine_hash`` line differs) is shown with the hash it was measured on and does not count for W4: it
@@ -153,13 +154,22 @@ def sweep_fractions(path: Path = SWEEP_RECORD) -> dict[str, str]:
         return {}
     out = {}
     for result in record_json(path):
-        if "not_run" in result:
+        if "not_run" in result or "refused" in result:
             continue
         cell = f"{result['held']} of {result['counted']} held"
         if result["errored"]:
             cell += f" ({result['errored']} errored, not counted)"
         out[result["criterion"]] = cell
     return out
+
+
+def sweep_refused(path: Path = SWEEP_RECORD) -> dict[str, str]:
+    """Criterion key -> its sweep cell, for a criterion the sweep record shows as refused at the rerun (`M17.A.1`;
+    T-159, owner 2026-10-29). It has no fraction, so ``sweep_fractions`` leaves it out and W4 still counts it."""
+    if not path.exists():
+        return {}
+    return {r["criterion"]: f"refused at the rerun (`M17.A.1`), sample {r['refused']['sample']}"
+            for r in record_json(path) if "refused" in r}
 
 
 def statuses() -> list[Status]:
@@ -174,6 +184,7 @@ def statuses() -> list[Status]:
     tag = tag_verdicts()
     earlier = revision_38_verdicts()
     swept = sweep_fractions(SWEEP_RECORD)
+    refused = sweep_refused(SWEEP_RECORD)
     sweep_old = sweep_stale(SWEEP_RECORD)
     out: list[Status] = []
     covered = set()
@@ -201,8 +212,8 @@ def statuses() -> list[Status]:
         same = at_tag == row["outcome"]
         d_tag = decided.get(key)
         d = d_tag if same else None  # version 1's disposition applies only where the verdict is the tag's
-        sweep = swept.get(key) or ("not swept" if cls in v1.DIRECTIONAL else "—")
-        if sweep_old and key in swept:
+        sweep = swept.get(key) or refused.get(key) or ("not swept" if cls in v1.DIRECTIONAL else "—")
+        if sweep_old and (key in swept or key in refused):
             sweep += f" ({STALE_CELL})"
         s = Status(key, cls, source, row["outcome"], at_tag, v1._readouts(row), sweep, "", False)
         proof = reds.get(key, [])
@@ -330,7 +341,8 @@ def render(rows: list[Status]) -> str:
         "verdict that differs from it is a new result under revision 39's rules (`M11.F`;",
         "`docs/version_2_revision_39_changes.md` lists every changed field). The **sweep** column is a measurement, *n of S* samples",
         "over the declared ranges in which the direction held (`docs/version_2_sweep_record.md`), never a verdict",
-        "(`M11.5`); a premise or check is not swept.",
+        "(`M11.5`); a premise or check is not swept. A criterion the sweep refused at the rerun (`M17.A.1`) is shown",
+        "so, with the sample, and has no fraction, so W4 counts it as not swept.",
         "",
         "Records read:",
         *hashes,

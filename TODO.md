@@ -7,7 +7,7 @@ Open items, one line each: ID, date raised, title, record. **Now** blocks the cu
 `docs/todo/` (grep its ID). To close one, tick it in its record and run `python3 tools/todo_index.py`: its line
 moves to `docs/TODO_archive.md`. Until 2026-10-22 this file held every item's text; that form is in git history.
 
-## Now (10)
+## Now (9)
 
 - T-001 · 2026-10-19 · Version 2, next · [record](docs/todo/2026-08-22_blocking_the_next_phase.md)
 - T-002 · 2026-10-19 · `/csdp` sweep of 2026-10-19, items not fixed · [record](docs/todo/2026-08-22_blocking_the_next_phase.md)
@@ -18,9 +18,8 @@ moves to `docs/TODO_archive.md`. Until 2026-10-22 this file held every item's te
 - T-121 · 2026-10-23 · `M11.C.11`'s named mutant survives · [record](docs/todo/2026-10-23_revision_36_regeneration.md)
 - T-123 · 2026-10-23 · `M11.C.48`'s baseline counts a first cutoff with no … · [record](docs/todo/2026-10-23_revision_36_regeneration.md)
 - T-158 · 2026-10-28 · `M5.D.3`'s "abort is the usual first outcome" no … · [record](docs/todo/2026-10-28_stage_3_milestone_review.md)
-- T-159 · 2026-10-28 · The stage-end sweep on the triage batch's engine … · [record](docs/todo/2026-10-28_stage_3_milestone_review.md)
 
-## Later (132)
+## Later (134)
 
 - T-006 · 2026-10-22 · D4, long `Spec:` lines (Part D, 2026-10-22; the … · [record](docs/todo/2026-10-22_model_ergonomics.md)
 - T-007 · 2026-10-22 · Adjacent issues found by Part D's docstring pass, … · [record](docs/todo/2026-10-22_model_ergonomics.md)
@@ -154,3 +153,5 @@ moves to `docs/TODO_archive.md`. Until 2026-10-22 this file held every item's te
 - T-160 · 2026-10-28 · `phase_c_completion_report.md`'s other rows quote the numbers of Phase … · [record](docs/todo/2026-10-28_stage_3_milestone_review.md)
 - T-161 · 2026-10-28 · `M11.C.21`'s parents keep over-functioning toward the child after … · [record](docs/todo/2026-10-28_stage_3_milestone_review.md)
 - T-162 · 2026-10-29 · `M11.C.34` passes at revision 41 and no mutant … · [record](docs/todo/2026-10-28_stage_3_milestone_review.md)
+- T-163 · 2026-10-29 · `M11.C.48` fixes its own seeds at 100, so … · [record](docs/todo/2026-10-28_stage_3_milestone_review.md)
+- T-164 · 2026-10-29 · The merge's running-sweep guard matches the sweep's test … · [record](docs/todo/2026-10-28_stage_3_milestone_review.md)

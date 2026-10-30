@@ -2,7 +2,7 @@
 tags: [model-bt, explainer]
 status: current
 version: 2.0
-date: 2026-10-28
+date: 2026-10-29
 ---
 
 # The model, part by part
@@ -2050,7 +2050,10 @@ Version 2's stage 2 builds the constant sweep (`M17.E.1`) and the detection-limi
   second run's (UNDETERMINED if it has not converged there) and both seed counts are recorded; a first run at or
   above that count is not rerun, and a criterion whose own `seeds` is below the count is refused when a sample needs
   the rerun, before it runs, since the runner reads that count before the block and cap (revision 38; such a criterion
-  is swept while no sample needs a rerun, as `M11.C.48`'s 100 seeds were). The multiple
+  is swept while no sample needs a rerun, as `M11.C.48` was until revision 41's engine and `M11.C.48[phase_d]`, on the
+  same 100 seeds, still is). The record shows
+  a refused criterion as *refused at the rerun*: the sample, both seed counts and the samples run before it, with no
+  fraction and no later sample, and it has no sweep result (revision 42; `M11.C.48` at sample 2, 2026-10-29). The multiple
   (2.0) and the count (200) are `[I]`, in `config/sweep/sweep.md`. The gating records themselves adopt the rule
   at their next regeneration (T-018).
 - **Per-seed readouts** (`M17.B` · C28, C29, C39, C40, C41; DL §7.10(f)). Each seed is classified — the arms

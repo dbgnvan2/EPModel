@@ -1,6 +1,6 @@
 # Running the stage-end sweep on two Macs
 
-**Status: BUILT 2026-10-23** (`docs/implementation_plan_version_2.md` §2.10); first used for part II's sweep, 2026-10-23–24 (four criteria on Mac Mini1, three here); used for stage 3's stage-end sweep, 2026-10-27 (all 34 declared directional keys: six on Mac Mini1, 28 here; `docs/implementation_plan_version_2_stage_3.md`, step 11).
+**Status: BUILT 2026-10-23** (`docs/implementation_plan_version_2.md` §2.10); first used for part II's sweep, 2026-10-23–24 (four criteria on Mac Mini1, three here); used for stage 3's stage-end sweep, 2026-10-27 (all 34 declared directional keys: six on Mac Mini1, 28 here; `docs/implementation_plan_version_2_stage_3.md`, step 11), and for its rerun on revision 41's engine, 2026-10-29 (T-159: six keys planned on Mac Mini1 at 8 workers, 28 here; three of Mini1's taken here while it ran).
 
 How to split the constant sweep (`tools/version_2_sweep.py`, `M17.E.1`) between this Mac (davemini2) and Mac
 Mini1, 10 cores each, and combine the results into one record. The tools are `tools/version_2_sweep.py --criteria`
@@ -132,7 +132,9 @@ python3 tools/two_mac_sweep.py status
 
 `status` prints `running`, `stopped` or `error`, then the log's last `START` and `EXIT` lines (which run, and its
 exit status), then its last lines. A FAILED sample is not cached and the run exits 1. Run the same share again;
-only the missing samples run.
+only the missing samples run. A criterion refused at the rerun (`M17.A.1`: a sample needs the 200-seed rerun and the
+criterion fixes fewer seeds of its own) is not a failure: the run prints the refusal, runs no later sample of that
+criterion and goes on, and the record shows it refused.
 
 ## Combine and render
 
@@ -180,6 +182,16 @@ only the missing samples run.
   NumPy 1.26.4. This Mac's share ran from a clean `git worktree` of the same commit, because another session's
   uncommitted files made the main checkout fail `check`'s clean-tree test; the worktree's cache was copied into the
   main checkout before the merge.
+- The rerun on `6ce8be104767` (2026-10-29, T-159) had its own cross-check: `M11.C.16` and `M11.C.23` on both Macs,
+  18 child runs and 2 run lengths each; the merge added 0 and found all 490 entries equal. Two things were done that
+  this page's method does not describe and that no test covers. First, an unclean reboot of this Mac at 09:32 (cause
+  not known) stopped its share; it was restarted from the cache, and only the missing samples ran. Second, when this
+  Mac's share ended at 17:57, a coordinator script outside the repository (`~/epmodel_sweep_2026-10-29/rebalance.py`)
+  ran here the keys Mac Mini1 had not started (`M11.C.48[phase_d]`, `M11.C.48`, `M11.C.15`), then stopped Mac Mini1
+  when its `status` showed one of them. That stop kills a run between or during samples; a sample in flight is lost,
+  never half-written, since the cache is written whole after each sample. Mac Mini1 had run `M11.C.15` as well between
+  two of the coordinator's checks, and the merge found its results equal to this Mac's: a third criterion compared.
+  The merge added Mac Mini1's 35 entries and found 505 equal; no worker was left on either Mac.
 - `tools/two_mac_sweep.py` against a live Mac Mini1 was run on 2026-10-23 and again on 2026-10-27: `check`, `start`,
   `status` and `fetch` all worked over SSH. On 2026-10-27, a minute after a share started there (load average 68 on 10
   cores, Spotlight indexing the temporary repository copies), one `status` call printed `running` and then timed out

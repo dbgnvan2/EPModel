@@ -174,10 +174,10 @@ BY_SIDE = {
                      "`git diff {ref}` on it shows "
                      "each criterion's held fraction then and now",
         REVISION_40: "the status page is generated from the records compared here (`tools/version_2_status.py`); "
-                     "the sweep record is rendered from its own cache (`tools/version_2_sweep.py`) and was not rerun "
-                     "on revision 41's engine, so it is still {side}'s: the stage-end sweep reruns next, split across "
-                     "both Macs (T-159), and `tests/test_version_2_sweep.py::test_s2_11_sweep_record_is_current` is "
-                     "a strict expected failure until it does",
+                     "the sweep record is rendered from its own cache (`tools/version_2_sweep.py`) and was rerun "
+                     "on revision 41's engine by the stage-end sweep, split across both Macs (T-159), so its results "
+                     "are not {side}'s; `git diff {ref}` on it shows each criterion's held fraction, or its refusal "
+                     "at the rerun (`M17.A.1`), then and now",
     },
     "docs/review/group_g_readout.md": {
         REVISION_38: "revision 36's before-and-after measurement on 20 seeds (`tools/group_g_readout.py`): its "

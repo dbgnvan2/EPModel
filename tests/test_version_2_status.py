@@ -71,6 +71,7 @@ def test_w4_s2_9_sweep_column_is_a_fraction_not_a_verdict(tmp_path):
     count beside the fraction and never folds it into S; a criterion the record shows as declared, not run has no
     cell from the record."""
     with mock.patch.object(tool, "sweep_fractions", return_value={"M11.C.16": "5 of 8 held"}), \
+            mock.patch.object(tool, "sweep_refused", return_value={}), \
             mock.patch.object(tool, "sweep_stale", return_value=None):  # a current record; the stale one is tested below
         rows = tool.statuses()
         text = tool.render(rows)
@@ -90,6 +91,27 @@ def test_w4_s2_9_sweep_column_is_a_fraction_not_a_verdict(tmp_path):
                       '"constants": [], "rows": []}]\n```\n', encoding="utf-8")
     assert tool.sweep_fractions(record) == {"M11.C.16": "3 of 7 held (1 errored, not counted)"}
     assert tool.sweep_fractions(tmp_path / "missing.md") == {}
+
+
+def test_w4_a_refused_criterion_is_shown_refused_and_still_counts_for_w4(tmp_path):
+    """T-159 (owner 2026-10-29): a criterion the sweep refused at the rerun (`M17.A.1`) has no fraction. Its cell says
+    it was refused, never *n of S held* nor *not swept*, and W4 still counts it. Mutation: the refusal read as a
+    fraction (W4 met on its row); its cell left as *not swept*."""
+    record = tmp_path / "sweep.md"
+    record.write_text('# r\n\nengine_hash: abc\n\n```json\n[{"criterion": "M11.C.48", "refused": {"sample": 2, '
+                      '"seeds": 200, "own_seeds": 100}, "samples": 3, "constants": [], "rows": []}]\n```\n',
+                      encoding="utf-8")
+    assert tool.sweep_fractions(record) == {}
+    assert tool.sweep_refused(record) == {"M11.C.48": "refused at the rerun (`M17.A.1`), sample 2"}
+    assert tool.sweep_refused(tmp_path / "missing.md") == {}
+    with mock.patch.object(tool, "SWEEP_RECORD", record), mock.patch.object(tool, "sweep_stale", return_value=None):
+        rows = {s.key: s for s in tool.statuses()}
+    assert rows["M11.C.48"].verdict == "PASS"  # a passing directional criterion, so W4 asks for a sweep result
+    assert rows["M11.C.48"].sweep == "refused at the rerun (`M17.A.1`), sample 2" and "W4" in rows["M11.C.48"].blocks
+    # a refusal on an earlier engine is marked as such, as a fraction is (correctness pass, T-159)
+    with mock.patch.object(tool, "SWEEP_RECORD", record), mock.patch.object(tool, "sweep_stale", return_value="old"):
+        stale = {s.key: s for s in tool.statuses()}["M11.C.48"]
+    assert stale.sweep == f"refused at the rerun (`M17.A.1`), sample 2 ({tool.STALE_CELL})" and "W4" in stale.blocks
 
 
 def test_w1_s2_10_a_changed_verdict_is_not_final():

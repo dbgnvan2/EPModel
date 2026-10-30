@@ -7,7 +7,9 @@ whose verdict was PASS, of the samples that gave a verdict. The gating verdict i
 ensemble record (*central verdict*); a fraction here changes no verdict and is never written as a pass or a
 fail. A premise passing is never a finding (`M11.5`), and no premise is swept. A criterion shown as *declared,
 not run* is listed under that heading in `config/sweep/sweep.md`: its ranges are declared, the cache holds no
-result of it, and no number is shown for it.
+result of it, and no number is shown for it. A criterion shown as *refused at the rerun* had a sample that
+needed the rerun below while the criterion fixes fewer seeds of its own; the sweep refuses it at that sample
+(`M17.A.1`), so it has no fraction, and the samples that ran up to that one are shown, not counted.
 
 The sweep's rules (`config/sweep/sweep.md`, each `[I]`): `sweep_samples` 8 per criterion,
 `sweep_seed` 2; the detection-limit rule (`M17.A.1`, plan D8): a sample whose first run left a
@@ -20,8 +22,8 @@ counted here and left out of the denominator, never dropped.
 full sweeps: one sample is an eighth of a fraction, so no band is drawn round it and no *narrow* mark is read,
 which needs at least 32 samples (D14).
 
-engine_hash: 2a3b84e2d89a444e05587ce76fef02d3378bc8bab754921a18eab98ce9635c19
-phase_d_engine_hash: fecf3a1423cd03eb5a4ca2d06ab8aa06648ab414d418529b9b3e4dffad345dfa
+engine_hash: 6ce8be10476712908ce7fe6d632b21bb0292640a1250828bb0e1d81b28f75356
+phase_d_engine_hash: 7d993c44b03261e986efb22e7043584920ff84d0b48a4f4321465760fe2771b4
 
 A Phase C criterion is run by `tools/mutant_runner.py` and its results cached under `engine_hash`; a Phase D
 criterion by `tools/phase_d_mutant_child.py` under `phase_d_engine_hash`, which adds that child and the source of
@@ -33,7 +35,7 @@ cache.
 | `M11.C.16` | composite | PASS | `learning_rate` 0.1–0.4; `credit_horizon` 2–6; `credit_discount` 0.35–1; `cross_person_weight` 0.25–1; `policy_temperature` 0.5–2; `habituation_rate` 0.35–1; `habituation_window` 4–16; `calm_transfer_rate` 0.025–0.1; `tie_wear_to_transfer_ratio` 0.00480769–0.0769231; `tie_wear_rate` derived | 8 of 8 | 6 of 6 | 2 of 2 | 0 | 0 | 0 |
 | `M11.C.42` | composite | FAIL | `learning_rate` 0.1–0.4; `credit_horizon` 2–6; `credit_discount` 0.35–1; `cross_person_weight` 0.25–1; `policy_temperature` 0.5–2; `habituation_rate` 0.35–1; `habituation_window` 4–16; `triangle_transfer_rate` 0.15–0.6; `outsider_positional_gain` 0.25–1; `triangle_activity_window` 2–8 | 0 of 8 | — | — | 0 | 8 | 0 |
 | `M11.C.5` | composite | FAIL | `learning_rate` 0.1–0.4; `credit_horizon` 2–6; `credit_discount` 0.35–1; `cross_person_weight` 0.25–1; `policy_temperature` 0.5–2; `habituation_rate` 0.35–1; `habituation_window` 4–16; `debit_gain` 0.15–0.6; `calm_transfer_rate` 0.025–0.1; `tie_wear_to_transfer_ratio` 0.00480769–0.0769231; `tie_wear_rate` derived | 0 of 8 | 0 of 5 | 0 of 3 | 0 | 8 | 0 |
-| `M11.C.27[stable,add_third]` | composite | FAIL | `appraisal_gain` 1.5–6; `intensity_scale` 50–200; `impingement_relaxation_rate` 0.15–0.6; `contact_band_max` 0.1–0.4; `anxiety_togetherness_gain` 0.25–1; `interactive_resting_contact` 0.25–1; `contact_relaxation_rate` 0.05–0.2 | 2 of 8 | — | — | 0 | 4 | 0 |
+| `M11.C.27[stable,add_third]` | composite | FAIL | `appraisal_gain` 1.5–6; `intensity_scale` 50–200; `impingement_relaxation_rate` 0.15–0.6; `contact_band_max` 0.1–0.4; `anxiety_togetherness_gain` 0.25–1; `interactive_resting_contact` 0.25–1; `contact_relaxation_rate` 0.05–0.2 | 2 of 8 | — | — | 0 | 3 | 0 |
 | `M11.C.27[stable,remove_one]` | composite | FAIL | `appraisal_gain` 1.5–6; `intensity_scale` 50–200; `impingement_relaxation_rate` 0.15–0.6; `contact_band_max` 0.1–0.4; `anxiety_togetherness_gain` 0.25–1; `interactive_resting_contact` 0.25–1; `contact_relaxation_rate` 0.05–0.2 | 3 of 8 | — | — | 0 | 3 | 0 |
 | `M11.C.27[unstable,add_third]` | composite | FAIL | `appraisal_gain` 1.5–6; `intensity_scale` 50–200; `impingement_relaxation_rate` 0.15–0.6; `contact_band_max` 0.1–0.4; `anxiety_togetherness_gain` 0.25–1; `interactive_resting_contact` 0.25–1; `contact_relaxation_rate` 0.05–0.2 | 6 of 8 | — | — | 0 | 5 | 0 |
 | `M11.C.27[unstable,remove_one]` | composite | PASS | `appraisal_gain` 1.5–6; `intensity_scale` 50–200; `impingement_relaxation_rate` 0.15–0.6; `contact_band_max` 0.1–0.4; `anxiety_togetherness_gain` 0.25–1; `interactive_resting_contact` 0.25–1; `contact_relaxation_rate` 0.05–0.2 | 6 of 8 | — | — | 0 | 3 | 0 |
@@ -41,28 +43,28 @@ cache.
 | `M11.C.41[light: lower level]` | mixed | PASS | `appraisal_gain` 1.5–6; `contact_band_max` 0.1–0.4; `self_channel_exponent` 1–4; `capacity_level_per_layer` 10–40; `anxiety_band_low` 2.5–10; `anxiety_band_high` 10–30; `acute_decay_rate` 0.1–0.4; `response_up_gain` 0.25–1; `response_down_gain` 0.25–1; `stress_floor_below_basic` 7.5–30; `calm_transfer_rate` 0.025–0.1; `tie_wear_to_transfer_ratio` 0.00480769–0.0769231; `tie_wear_rate` derived | 8 of 8 | 3 of 3 | 5 of 5 | 0 | 0 | 0 |
 | `M11.C.41[heavy: lower level]` | mixed | PASS | `appraisal_gain` 1.5–6; `contact_band_max` 0.1–0.4; `self_channel_exponent` 1–4; `capacity_level_per_layer` 10–40; `anxiety_band_low` 2.5–10; `anxiety_band_high` 10–30; `acute_decay_rate` 0.1–0.4; `response_up_gain` 0.25–1; `response_down_gain` 0.25–1; `stress_floor_below_basic` 7.5–30; `calm_transfer_rate` 0.025–0.1; `tie_wear_to_transfer_ratio` 0.00480769–0.0769231; `tie_wear_rate` derived | 8 of 8 | 4 of 4 | 4 of 4 | 0 | 0 | 0 |
 | `M11.C.41[higher level: heavier stress]` | mixed | FAIL | `appraisal_gain` 1.5–6; `contact_band_max` 0.1–0.4; `self_channel_exponent` 1–4; `capacity_level_per_layer` 10–40; `anxiety_band_low` 2.5–10; `anxiety_band_high` 10–30; `acute_decay_rate` 0.1–0.4; `response_up_gain` 0.25–1; `response_down_gain` 0.25–1; `stress_floor_below_basic` 7.5–30; `calm_transfer_rate` 0.025–0.1; `tie_wear_to_transfer_ratio` 0.00480769–0.0769231; `tie_wear_rate` derived | 0 of 8 | 0 of 6 | 0 of 2 | 0 | 8 | 0 |
-| `M11.C.41[lower level: heavier stress]` | mixed | FAIL | `appraisal_gain` 1.5–6; `contact_band_max` 0.1–0.4; `self_channel_exponent` 1–4; `capacity_level_per_layer` 10–40; `anxiety_band_low` 2.5–10; `anxiety_band_high` 10–30; `acute_decay_rate` 0.1–0.4; `response_up_gain` 0.25–1; `response_down_gain` 0.25–1; `stress_floor_below_basic` 7.5–30; `calm_transfer_rate` 0.025–0.1; `tie_wear_to_transfer_ratio` 0.00480769–0.0769231; `tie_wear_rate` derived | 1 of 8 | 1 of 3 | 0 of 5 | 0 | 8 | 0 |
-| `M11.C.44` | composite | FAIL | `appraisal_gain` 1.5–6; `intensity_scale` 50–200; `impingement_relaxation_rate` 0.15–0.6; `contact_band_max` 0.1–0.4; `anxiety_togetherness_gain` 0.25–1; `interactive_resting_contact` 0.25–1; `contact_relaxation_rate` 0.05–0.2; `learning_rate` 0.1–0.4; `credit_horizon` 2–6; `credit_discount` 0.35–1; `cross_person_weight` 0.25–1; `policy_temperature` 0.5–2; `habituation_rate` 0.35–1; `habituation_window` 4–16; `calm_transfer_rate` 0.025–0.1; `tie_wear_to_transfer_ratio` 0.00480769–0.0769231; `tie_wear_rate` derived | 3 of 8 | 2 of 4 | 1 of 4 | 0 | 8 | 0 |
+| `M11.C.41[lower level: heavier stress]` | mixed | FAIL | `appraisal_gain` 1.5–6; `contact_band_max` 0.1–0.4; `self_channel_exponent` 1–4; `capacity_level_per_layer` 10–40; `anxiety_band_low` 2.5–10; `anxiety_band_high` 10–30; `acute_decay_rate` 0.1–0.4; `response_up_gain` 0.25–1; `response_down_gain` 0.25–1; `stress_floor_below_basic` 7.5–30; `calm_transfer_rate` 0.025–0.1; `tie_wear_to_transfer_ratio` 0.00480769–0.0769231; `tie_wear_rate` derived | 0 of 8 | 0 of 3 | 0 of 5 | 0 | 8 | 0 |
+| `M11.C.44` | composite | FAIL | `appraisal_gain` 1.5–6; `intensity_scale` 50–200; `impingement_relaxation_rate` 0.15–0.6; `contact_band_max` 0.1–0.4; `anxiety_togetherness_gain` 0.25–1; `interactive_resting_contact` 0.25–1; `contact_relaxation_rate` 0.05–0.2; `learning_rate` 0.1–0.4; `credit_horizon` 2–6; `credit_discount` 0.35–1; `cross_person_weight` 0.25–1; `policy_temperature` 0.5–2; `habituation_rate` 0.35–1; `habituation_window` 4–16; `calm_transfer_rate` 0.025–0.1; `tie_wear_to_transfer_ratio` 0.00480769–0.0769231; `tie_wear_rate` derived | 2 of 8 | 2 of 4 | 0 of 4 | 0 | 8 | 0 |
 | `M11.C.45` | composite | FAIL | `triangle_transfer_rate` 0.15–0.6; `outsider_positional_gain` 0.25–1; `learning_rate` 0.1–0.4; `credit_horizon` 2–6; `credit_discount` 0.35–1; `cross_person_weight` 0.25–1; `policy_temperature` 0.5–2; `habituation_rate` 0.35–1; `habituation_window` 4–16; `calm_transfer_rate` 0.025–0.1; `tie_wear_to_transfer_ratio` 0.00480769–0.0769231; `tie_wear_rate` derived | 0 of 8 | 0 of 5 | 0 of 3 | 0 | 8 | 0 |
-| `M11.C.2` | composite | FAIL | `learning_rate` 0.1–0.4; `credit_horizon` 2–6; `credit_discount` 0.35–1; `cross_person_weight` 0.25–1; `policy_temperature` 0.5–2; `habituation_rate` 0.35–1; `habituation_window` 4–16; `perceived_weakness_gain` 0.005–0.02; `focus_steer_gain` 0.5–2; `focus_reinforce_gain` 0.5–2; `focus_compound_gain` 5–20; `investment_leak_rate` 0.05–0.2; `witness_weight` 0.25–1; `symptom_leak_rate` 0.05–0.2; `calm_transfer_rate` 0.025–0.1; `tie_wear_to_transfer_ratio` 0.00480769–0.0769231; `tie_wear_rate` derived | 4 of 8 | 3 of 4 | 1 of 4 | 0 | 8 | 0 |
-| `M11.C.7[joint over one spouse]` | mixed | FAIL | `appraisal_gain` 1.5–6; `intensity_scale` 50–200; `impingement_relaxation_rate` 0.15–0.6; `contact_band_max` 0.1–0.4; `anxiety_togetherness_gain` 0.25–1; `interactive_resting_contact` 0.25–1; `contact_relaxation_rate` 0.05–0.2; `nodal_spike_intensity` 0.5–2; `landing_rate` 0.075–0.3; `perspective_gain` 0.05–0.2; `binder_failure_fraction` 0.4–1; `calm_transfer_rate` 0.025–0.1; `tie_wear_to_transfer_ratio` 0.00480769–0.0769231; `tie_wear_rate` derived | 4 of 8 | 2 of 4 | 2 of 4 | 0 | 8 | 0 |
-| `M11.C.7[joint over sided]` | mixed | PASS | `appraisal_gain` 1.5–6; `intensity_scale` 50–200; `impingement_relaxation_rate` 0.15–0.6; `contact_band_max` 0.1–0.4; `anxiety_togetherness_gain` 0.25–1; `interactive_resting_contact` 0.25–1; `contact_relaxation_rate` 0.05–0.2; `nodal_spike_intensity` 0.5–2; `landing_rate` 0.075–0.3; `perspective_gain` 0.05–0.2; `binder_failure_fraction` 0.4–1; `calm_transfer_rate` 0.025–0.1; `tie_wear_to_transfer_ratio` 0.00480769–0.0769231; `tie_wear_rate` derived | 7 of 8 | 6 of 6 | 1 of 2 | 0 | 6 | 0 |
-| `M11.C.7[one spouse over sided]` | mixed | PASS | `appraisal_gain` 1.5–6; `intensity_scale` 50–200; `impingement_relaxation_rate` 0.15–0.6; `contact_band_max` 0.1–0.4; `anxiety_togetherness_gain` 0.25–1; `interactive_resting_contact` 0.25–1; `contact_relaxation_rate` 0.05–0.2; `nodal_spike_intensity` 0.5–2; `landing_rate` 0.075–0.3; `perspective_gain` 0.05–0.2; `binder_failure_fraction` 0.4–1; `calm_transfer_rate` 0.025–0.1; `tie_wear_to_transfer_ratio` 0.00480769–0.0769231; `tie_wear_rate` derived | 7 of 8 | 3 of 3 | 4 of 5 | 0 | 5 | 0 |
-| `M11.C.11` | mixed | PASS | `lock_in_gain` 0.1–0.4; `lock_in_turn` 1.5–6; `symptom_threshold_gain` 0.75–3; `symptom_rearm_fraction` 0.25–1; `symptom_leak_rate` 0.05–0.2; `standing_load_gain` 0.1–0.4; `interactive_resting_contact` 0.25–1; `contact_relaxation_rate` 0.05–0.2; `acute_decay_rate` 0.1–0.4; `calm_transfer_rate` 0.025–0.1; `tie_wear_to_transfer_ratio` 0.00480769–0.0769231; `tie_wear_rate` derived | 8 of 8 | 5 of 5 | 3 of 3 | 0 | 1 | 0 |
+| `M11.C.2` | composite | FAIL | `learning_rate` 0.1–0.4; `credit_horizon` 2–6; `credit_discount` 0.35–1; `cross_person_weight` 0.25–1; `policy_temperature` 0.5–2; `habituation_rate` 0.35–1; `habituation_window` 4–16; `perceived_weakness_gain` 0.005–0.02; `focus_steer_gain` 0.5–2; `focus_reinforce_gain` 0.5–2; `focus_compound_gain` 5–20; `investment_leak_rate` 0.05–0.2; `witness_weight` 0.25–1; `symptom_leak_rate` 0.05–0.2; `calm_transfer_rate` 0.025–0.1; `tie_wear_to_transfer_ratio` 0.00480769–0.0769231; `tie_wear_rate` derived | 2 of 8 | 2 of 4 | 0 of 4 | 0 | 8 | 0 |
+| `M11.C.7[joint over one spouse]` | mixed | PASS | `appraisal_gain` 1.5–6; `intensity_scale` 50–200; `impingement_relaxation_rate` 0.15–0.6; `contact_band_max` 0.1–0.4; `anxiety_togetherness_gain` 0.25–1; `interactive_resting_contact` 0.25–1; `contact_relaxation_rate` 0.05–0.2; `nodal_spike_intensity` 0.5–2; `landing_rate` 0.075–0.3; `perspective_gain` 0.05–0.2; `binder_failure_fraction` 0.4–1; `calm_transfer_rate` 0.025–0.1; `tie_wear_to_transfer_ratio` 0.00480769–0.0769231; `tie_wear_rate` derived | 4 of 8 | 2 of 4 | 2 of 4 | 0 | 8 | 0 |
+| `M11.C.7[joint over sided]` | mixed | PASS | `appraisal_gain` 1.5–6; `intensity_scale` 50–200; `impingement_relaxation_rate` 0.15–0.6; `contact_band_max` 0.1–0.4; `anxiety_togetherness_gain` 0.25–1; `interactive_resting_contact` 0.25–1; `contact_relaxation_rate` 0.05–0.2; `nodal_spike_intensity` 0.5–2; `landing_rate` 0.075–0.3; `perspective_gain` 0.05–0.2; `binder_failure_fraction` 0.4–1; `calm_transfer_rate` 0.025–0.1; `tie_wear_to_transfer_ratio` 0.00480769–0.0769231; `tie_wear_rate` derived | 8 of 8 | 6 of 6 | 2 of 2 | 0 | 6 | 0 |
+| `M11.C.7[one spouse over sided]` | mixed | FAIL | `appraisal_gain` 1.5–6; `intensity_scale` 50–200; `impingement_relaxation_rate` 0.15–0.6; `contact_band_max` 0.1–0.4; `anxiety_togetherness_gain` 0.25–1; `interactive_resting_contact` 0.25–1; `contact_relaxation_rate` 0.05–0.2; `nodal_spike_intensity` 0.5–2; `landing_rate` 0.075–0.3; `perspective_gain` 0.05–0.2; `binder_failure_fraction` 0.4–1; `calm_transfer_rate` 0.025–0.1; `tie_wear_to_transfer_ratio` 0.00480769–0.0769231; `tie_wear_rate` derived | 6 of 8 | 3 of 3 | 3 of 5 | 0 | 6 | 0 |
+| `M11.C.11` | mixed | PASS | `lock_in_gain` 0.1–0.4; `lock_in_turn` 1.5–6; `symptom_threshold_gain` 0.75–3; `symptom_rearm_fraction` 0.25–1; `symptom_leak_rate` 0.05–0.2; `standing_load_gain` 0.1–0.4; `interactive_resting_contact` 0.25–1; `contact_relaxation_rate` 0.05–0.2; `acute_decay_rate` 0.1–0.4; `calm_transfer_rate` 0.025–0.1; `tie_wear_to_transfer_ratio` 0.00480769–0.0769231; `tie_wear_rate` derived | 7 of 8 | 4 of 5 | 3 of 3 | 0 | 1 | 0 |
 | `M11.C.12` | composite | FAIL | `learning_rate` 0.1–0.4; `credit_horizon` 2–6; `credit_discount` 0.35–1; `cross_person_weight` 0.25–1; `policy_temperature` 0.5–2; `habituation_rate` 0.35–1; `habituation_window` 4–16; `lock_in_gain` 0.1–0.4; `acute_decay_rate` 0.1–0.4; `calm_transfer_rate` 0.025–0.1; `tie_wear_to_transfer_ratio` 0.00480769–0.0769231; `tie_wear_rate` derived | 0 of 8 | 0 of 6 | 0 of 2 | 0 | 8 | 0 |
-| `M11.C.17` | composite | PASS | `landing_rate` 0.075–0.3; `perspective_gain` 0.05–0.2; `binder_failure_fraction` 0.4–1; `self_practice_gain` 0.0005–0.002; `practice_window` 2–8; `system_adjust_gain` 0.5–2; `estimator_sd_weight` 0.5–2; `estimator_rate` 0.25–1; `perspective_channel_gain` 0.25–1; `perspective_steer_gain` 0.25–1; `nodal_spike_intensity` 0.5–2; `calm_transfer_rate` 0.025–0.1; `tie_wear_to_transfer_ratio` 0.00480769–0.0769231; `tie_wear_rate` derived | 8 of 8 | 2 of 2 | 6 of 6 | 0 | 7 | 0 |
-| `M11.C.21` | composite | FAIL | `pseudo_self_transfer_gain` 1–4; `pseudo_self_relaxation_rate` 0.025–0.1; `exchange_window` 4–16; `response_up_gain` 0.25–1; `response_down_gain` 0.25–1; `response_relaxation_rate` 0.01–0.04; `stress_floor_below_basic` 7.5–30; `calm_transfer_rate` 0.025–0.1; `tie_wear_to_transfer_ratio` 0.00480769–0.0769231; `tie_wear_rate` derived | 0 of 8 | 0 of 4 | 0 of 4 | 0 | 8 | 0 |
-| `M11.C.22` | mixed | PASS | `lock_in_gain` 0.1–0.4; `standing_load_gain` 0.1–0.4; `interactive_resting_contact` 0.25–1; `contact_relaxation_rate` 0.05–0.2; `acute_decay_rate` 0.1–0.4; `calm_transfer_rate` 0.025–0.1; `tie_wear_to_transfer_ratio` 0.00480769–0.0769231; `tie_wear_rate` derived | 7 of 8 | 4 of 5 | 3 of 3 | 0 | 5 | 0 |
-| `M11.C.23` | composite | FAIL | `appraisal_gain` 1.5–6; `intensity_scale` 50–200; `impingement_relaxation_rate` 0.15–0.6; `investment_leak_rate` 0.05–0.2; `symptom_threshold_gain` 0.75–3; `symptom_rearm_fraction` 0.25–1; `symptom_leak_rate` 0.05–0.2; `acute_decay_rate` 0.1–0.4 | 0 of 8 | — | — | 0 | 3 | 0 |
-| `M11.C.34` | mixed | FAIL | `learning_rate` 0.1–0.4; `credit_horizon` 2–6; `credit_discount` 0.35–1; `cross_person_weight` 0.25–1; `policy_temperature` 0.5–2; `habituation_rate` 0.35–1; `habituation_window` 4–16; `self_channel_exponent` 1–4; `capacity_level_per_layer` 10–40; `symptom_event_intensity` 50–200 | 1 of 8 | — | — | 0 | 8 | 0 |
+| `M11.C.17` | composite | PASS | `landing_rate` 0.075–0.3; `perspective_gain` 0.05–0.2; `binder_failure_fraction` 0.4–1; `self_practice_gain` 0.0005–0.002; `practice_window` 2–8; `system_adjust_gain` 0.5–2; `estimator_sd_weight` 0.5–2; `estimator_rate` 0.25–1; `perspective_channel_gain` 0.25–1; `perspective_steer_gain` 0.25–1; `nodal_spike_intensity` 0.5–2; `calm_transfer_rate` 0.025–0.1; `tie_wear_to_transfer_ratio` 0.00480769–0.0769231; `tie_wear_rate` derived | 8 of 8 | 2 of 2 | 6 of 6 | 0 | 8 | 0 |
+| `M11.C.21` | composite | PASS | `pseudo_self_transfer_gain` 1–4; `pseudo_self_relaxation_rate` 0.025–0.1; `exchange_window` 4–16; `response_up_gain` 0.25–1; `response_down_gain` 0.25–1; `response_relaxation_rate` 0.01–0.04; `stress_floor_below_basic` 7.5–30; `calm_transfer_rate` 0.025–0.1; `tie_wear_to_transfer_ratio` 0.00480769–0.0769231; `tie_wear_rate` derived | 4 of 8 | 2 of 4 | 2 of 4 | 0 | 8 | 0 |
+| `M11.C.22` | mixed | PASS | `lock_in_gain` 0.1–0.4; `standing_load_gain` 0.1–0.4; `interactive_resting_contact` 0.25–1; `contact_relaxation_rate` 0.05–0.2; `acute_decay_rate` 0.1–0.4; `calm_transfer_rate` 0.025–0.1; `tie_wear_to_transfer_ratio` 0.00480769–0.0769231; `tie_wear_rate` derived | 8 of 8 | 5 of 5 | 3 of 3 | 0 | 5 | 0 |
+| `M11.C.23` | composite | FAIL | `appraisal_gain` 1.5–6; `intensity_scale` 50–200; `impingement_relaxation_rate` 0.15–0.6; `investment_leak_rate` 0.05–0.2; `symptom_threshold_gain` 0.75–3; `symptom_rearm_fraction` 0.25–1; `symptom_leak_rate` 0.05–0.2; `acute_decay_rate` 0.1–0.4 | 0 of 8 | — | — | 0 | 2 | 0 |
+| `M11.C.34` | mixed | PASS | `learning_rate` 0.1–0.4; `credit_horizon` 2–6; `credit_discount` 0.35–1; `cross_person_weight` 0.25–1; `policy_temperature` 0.5–2; `habituation_rate` 0.35–1; `habituation_window` 4–16; `self_channel_exponent` 1–4; `capacity_level_per_layer` 10–40; `symptom_event_intensity` 50–200 | 1 of 8 | — | — | 0 | 8 | 0 |
 | `M11.C.39` | composite | PASS | `learning_rate` 0.1–0.4; `credit_horizon` 2–6; `credit_discount` 0.35–1; `cross_person_weight` 0.25–1; `policy_temperature` 0.5–2; `habituation_rate` 0.35–1; `habituation_window` 4–16; `witnessed_cutoff_gain` 0.025–0.1; `witness_window` 7–26; `distance_binding_rate` 0.15–0.6; `calm_transfer_rate` 0.025–0.1; `tie_wear_to_transfer_ratio` 0.00480769–0.0769231; `tie_wear_rate` derived | 8 of 8 | 1 of 1 | 7 of 7 | 0 | 1 | 0 |
 | `M11.C.43` | composite | FAIL | `learning_rate` 0.1–0.4; `credit_horizon` 2–6; `credit_discount` 0.35–1; `cross_person_weight` 0.25–1; `policy_temperature` 0.5–2; `habituation_rate` 0.35–1; `habituation_window` 4–16; `calm_transfer_rate` 0.025–0.1; `acute_decay_rate` 0.1–0.4 | 0 of 8 | — | — | 0 | 8 | 0 |
-| `M11.C.2[twelve-person family]` | composite | PASS | `learning_rate` 0.1–0.4; `credit_horizon` 2–6; `credit_discount` 0.35–1; `cross_person_weight` 0.25–1; `policy_temperature` 0.5–2; `habituation_rate` 0.35–1; `habituation_window` 4–16; `perceived_weakness_gain` 0.005–0.02; `focus_steer_gain` 0.5–2; `focus_reinforce_gain` 0.5–2; `focus_compound_gain` 5–20; `investment_leak_rate` 0.05–0.2; `witness_weight` 0.25–1; `symptom_leak_rate` 0.05–0.2; `birth_focus_gain` 0.05–0.2; `calm_transfer_rate` 0.025–0.1; `tie_wear_to_transfer_ratio` 0.00480769–0.0769231; `tie_wear_rate` derived | 2 of 8 | 0 of 4 | 2 of 4 | 0 | 7 | 0 |
-| `M11.C.6` | composite | FAIL | `development_rate` 0.05–0.2; `development_band` 0.01–0.04; `development_band_projection` 0.05–0.2; `development_band_support` 0.04–0.1; `estimator_sd_weight` 0.5–2; `estimator_rate` 0.25–1; `calm_transfer_rate` 0.025–0.1; `tie_wear_to_transfer_ratio` 0.00480769–0.0769231; `tie_wear_rate` derived | 0 of 8 | 0 of 5 | 0 of 3 | 0 | 8 | 0 |
-| `M11.C.10` | composite | FAIL | `learning_rate` 0.1–0.4; `credit_horizon` 2–6; `credit_discount` 0.35–1; `cross_person_weight` 0.25–1; `policy_temperature` 0.5–2; `habituation_rate` 0.35–1; `habituation_window` 4–16; `witnessed_cutoff_gain` 0.025–0.1; `witness_window` 7–26; `reactive_cutoff_gain` 0.05–0.2; `origin_cutoff_anxiety_gain` 5–20; `origin_fusion_gain` 0.25–1; `rejection_cutoff_gain` 0.25–1; `rejection_refusal_gain` 0.05–0.2; `rejection_relief` 0.125–0.5; `rejection_refusal_threshold` 0.15–0.6; `rejection_fade` 0.025–0.1; `calm_transfer_rate` 0.025–0.1; `tie_wear_to_transfer_ratio` 0.00480769–0.0769231; `tie_wear_rate` derived | 3 of 8 | 1 of 6 | 2 of 2 | 0 | 0 | 0 |
-| `M11.C.10[family of origin]` | composite | PASS | `learning_rate` 0.1–0.4; `credit_horizon` 2–6; `credit_discount` 0.35–1; `cross_person_weight` 0.25–1; `policy_temperature` 0.5–2; `habituation_rate` 0.35–1; `habituation_window` 4–16; `witnessed_cutoff_gain` 0.025–0.1; `witness_window` 7–26; `reactive_cutoff_gain` 0.05–0.2; `origin_cutoff_anxiety_gain` 5–20; `origin_fusion_gain` 0.25–1; `rejection_cutoff_gain` 0.25–1; `rejection_refusal_gain` 0.05–0.2; `rejection_relief` 0.125–0.5; `rejection_refusal_threshold` 0.15–0.6; `rejection_fade` 0.025–0.1; `calm_transfer_rate` 0.025–0.1; `tie_wear_to_transfer_ratio` 0.00480769–0.0769231; `tie_wear_rate` derived | 6 of 8 | 4 of 6 | 2 of 2 | 0 | 0 | 0 |
-| `M11.C.15` | composite | PASS | `lock_in_gain` 0.1–0.4; `acute_decay_rate` 0.1–0.4; `calm_transfer_rate` 0.025–0.1; `tie_wear_to_transfer_ratio` 0.00480769–0.0769231; `tie_wear_rate` derived | 6 of 8 | 3 of 3 | 3 of 5 | 0 | 2 | 0 |
-| `M11.C.48` | composite | PASS (not evidence (T-123); named mutant survived (T-119)) | `learning_rate` 0.1–0.4; `credit_horizon` 2–6; `credit_discount` 0.35–1; `cross_person_weight` 0.25–1; `policy_temperature` 0.5–2; `habituation_rate` 0.35–1; `habituation_window` 4–16; `cutoff_stock_cap` 791.5–3166; `cutoff_threat_weight` 0.00156–0.00624; `cutoff_decay_weeks` 130–520; `cutoff_floor_share` 0.05–0.2; `positive_bridge_dissipation` 0.4–1; `calm_transfer_rate` 0.025–0.1; `tie_wear_to_transfer_ratio` 0.00480769–0.0769231; `tie_wear_rate` derived | 8 of 8 | 3 of 3 | 5 of 5 | 0 | 0 | 0 |
+| `M11.C.2[twelve-person family]` | composite | PASS | `learning_rate` 0.1–0.4; `credit_horizon` 2–6; `credit_discount` 0.35–1; `cross_person_weight` 0.25–1; `policy_temperature` 0.5–2; `habituation_rate` 0.35–1; `habituation_window` 4–16; `perceived_weakness_gain` 0.005–0.02; `focus_steer_gain` 0.5–2; `focus_reinforce_gain` 0.5–2; `focus_compound_gain` 5–20; `investment_leak_rate` 0.05–0.2; `witness_weight` 0.25–1; `symptom_leak_rate` 0.05–0.2; `birth_focus_gain` 0.05–0.2; `calm_transfer_rate` 0.025–0.1; `tie_wear_to_transfer_ratio` 0.00480769–0.0769231; `tie_wear_rate` derived | 3 of 8 | 2 of 4 | 1 of 4 | 0 | 7 | 0 |
+| `M11.C.6` | composite | FAIL | `development_rate` 0.05–0.2; `development_band` 0.01–0.04; `development_band_projection` 0.05–0.2; `development_band_support` 0.04–0.1; `estimator_sd_weight` 0.5–2; `estimator_rate` 0.25–1; `calm_transfer_rate` 0.025–0.1; `tie_wear_to_transfer_ratio` 0.00480769–0.0769231; `tie_wear_rate` derived | 1 of 8 | 1 of 5 | 0 of 3 | 0 | 8 | 0 |
+| `M11.C.10` | composite | FAIL | `learning_rate` 0.1–0.4; `credit_horizon` 2–6; `credit_discount` 0.35–1; `cross_person_weight` 0.25–1; `policy_temperature` 0.5–2; `habituation_rate` 0.35–1; `habituation_window` 4–16; `witnessed_cutoff_gain` 0.025–0.1; `witness_window` 7–26; `reactive_cutoff_gain` 0.05–0.2; `origin_cutoff_anxiety_gain` 5–20; `origin_fusion_gain` 0.25–1; `rejection_cutoff_gain` 0.25–1; `rejection_refusal_gain` 0.05–0.2; `rejection_relief` 0.125–0.5; `rejection_refusal_threshold` 0.15–0.6; `rejection_fade` 0.025–0.1; `calm_transfer_rate` 0.025–0.1; `tie_wear_to_transfer_ratio` 0.00480769–0.0769231; `tie_wear_rate` derived | 4 of 8 | 2 of 6 | 2 of 2 | 0 | 0 | 0 |
+| `M11.C.10[family of origin]` | composite | PASS | `learning_rate` 0.1–0.4; `credit_horizon` 2–6; `credit_discount` 0.35–1; `cross_person_weight` 0.25–1; `policy_temperature` 0.5–2; `habituation_rate` 0.35–1; `habituation_window` 4–16; `witnessed_cutoff_gain` 0.025–0.1; `witness_window` 7–26; `reactive_cutoff_gain` 0.05–0.2; `origin_cutoff_anxiety_gain` 5–20; `origin_fusion_gain` 0.25–1; `rejection_cutoff_gain` 0.25–1; `rejection_refusal_gain` 0.05–0.2; `rejection_relief` 0.125–0.5; `rejection_refusal_threshold` 0.15–0.6; `rejection_fade` 0.025–0.1; `calm_transfer_rate` 0.025–0.1; `tie_wear_to_transfer_ratio` 0.00480769–0.0769231; `tie_wear_rate` derived | 7 of 8 | 5 of 6 | 2 of 2 | 0 | 0 | 0 |
+| `M11.C.15` | composite | PASS | `lock_in_gain` 0.1–0.4; `acute_decay_rate` 0.1–0.4; `calm_transfer_rate` 0.025–0.1; `tie_wear_to_transfer_ratio` 0.00480769–0.0769231; `tie_wear_rate` derived | 5 of 8 | 3 of 3 | 2 of 5 | 0 | 3 | 0 |
+| `M11.C.48` | composite | PASS (not evidence (T-123); named mutant survived (T-119)) | `learning_rate` 0.1–0.4; `credit_horizon` 2–6; `credit_discount` 0.35–1; `cross_person_weight` 0.25–1; `policy_temperature` 0.5–2; `habituation_rate` 0.35–1; `habituation_window` 4–16; `cutoff_stock_cap` 791.5–3166; `cutoff_threat_weight` 0.00156–0.00624; `cutoff_decay_weeks` 130–520; `cutoff_floor_share` 0.05–0.2; `positive_bridge_dissipation` 0.4–1; `calm_transfer_rate` 0.025–0.1; `tie_wear_to_transfer_ratio` 0.00480769–0.0769231; `tie_wear_rate` derived | refused at the rerun | — | — | — | — | — |
 | `M11.C.48[phase_d]` | composite | PASS (not evidence (T-123); named mutant survived (T-119)) | `learning_rate` 0.1–0.4; `credit_horizon` 2–6; `credit_discount` 0.35–1; `cross_person_weight` 0.25–1; `policy_temperature` 0.5–2; `habituation_rate` 0.35–1; `habituation_window` 4–16; `cutoff_stock_cap` 791.5–3166; `cutoff_threat_weight` 0.00156–0.00624; `cutoff_decay_weeks` 130–520; `cutoff_floor_share` 0.05–0.2; `positive_bridge_dissipation` 0.4–1; `calm_transfer_rate` 0.025–0.1; `tie_wear_to_transfer_ratio` 0.00480769–0.0769231; `tie_wear_rate` derived | 8 of 8 | 4 of 4 | 4 of 4 | 0 | 0 | 0 |
 
 Directional criteria of the ensemble records with no ranges declared in `config/sweep/sweep.md`, so not swept: `M11.C.49` (mixed, FAIL).
@@ -114,27 +116,27 @@ Directional criteria of the ensemble records with no ranges declared in `config/
 
 | Sample | Values | Seeds | Rerun | Verdict | Gating readouts (mean difference ± half-width) |
 |---|---|---|---|---|---|
-| 0 | `learning_rate` 0.236159, `credit_horizon` 6, `credit_discount` 0.714716, `cross_person_weight` 0.444579, `policy_temperature` 0.507179, `habituation_rate` 0.407344, `habituation_window` 16, `calm_transfer_rate` 0.0751748, `tie_wear_rate` 0.158645; ratio 0.04058 (per week ÷ per contact) | 150 | no | PASS | `repertoire_entropy` -0.029 ± 0.0075 |
-| 1 | `learning_rate` 0.246006, `credit_horizon` 6, `credit_discount` 0.531327, `cross_person_weight` 0.492263, `policy_temperature` 1.22257, `habituation_rate` 0.590682, `habituation_window` 10, `calm_transfer_rate` 0.0277017, `tie_wear_rate` 0.00951686; ratio 0.006607 (per week ÷ per contact) | 150 | no | PASS | `repertoire_entropy` -0.0311 ± 0.0047 |
-| 2 | `learning_rate` 0.179661, `credit_horizon` 4, `credit_discount` 0.495482, `cross_person_weight` 0.626169, `policy_temperature` 0.894911, `habituation_rate` 0.923415, `habituation_window` 4, `calm_transfer_rate` 0.048147, `tie_wear_rate` 0.0177168; ratio 0.007076 (per week ÷ per contact) | 150 | no | PASS | `repertoire_entropy` -0.0382 ± 0.007 |
-| 3 | `learning_rate` 0.217817, `credit_horizon` 6, `credit_discount` 0.679962, `cross_person_weight` 0.289695, `policy_temperature` 1.6521, `habituation_rate` 0.470939, `habituation_window` 12, `calm_transfer_rate` 0.0679417, `tie_wear_rate` 0.0306442; ratio 0.008674 (per week ÷ per contact) | 150 | no | PASS | `repertoire_entropy` -0.0267 ± 0.0041 |
-| 4 | `learning_rate` 0.143476, `credit_horizon` 6, `credit_discount` 0.68072, `cross_person_weight` 0.84911, `policy_temperature` 0.672349, `habituation_rate` 0.742791, `habituation_window` 4, `calm_transfer_rate` 0.082016, `tie_wear_rate` 0.0355717; ratio 0.008341 (per week ÷ per contact) | 150 | no | PASS | `repertoire_entropy` -0.0365 ± 0.0078 |
-| 5 | `learning_rate` 0.393119, `credit_horizon` 6, `credit_discount` 0.469346, `cross_person_weight` 0.873642, `policy_temperature` 0.681513, `habituation_rate` 0.364257, `habituation_window` 5, `calm_transfer_rate` 0.0321407, `tie_wear_rate` 0.00946668; ratio 0.005664 (per week ÷ per contact) | 150 | no | PASS | `repertoire_entropy` -0.0347 ± 0.0085 |
-| 6 | `learning_rate` 0.236048, `credit_horizon` 6, `credit_discount` 0.703237, `cross_person_weight` 0.685955, `policy_temperature` 1.23469, `habituation_rate` 0.574061, `habituation_window` 12, `calm_transfer_rate` 0.0581056, `tie_wear_rate` 0.0445821; ratio 0.01475 (per week ÷ per contact) | 150 | no | PASS | `repertoire_entropy` -0.0299 ± 0.0052 |
-| 7 | `learning_rate` 0.168208, `credit_horizon` 5, `credit_discount` 0.81258, `cross_person_weight` 0.70289, `policy_temperature` 0.886862, `habituation_rate` 0.518562, `habituation_window` 15, `calm_transfer_rate` 0.0676659, `tie_wear_rate` 0.102975; ratio 0.02927 (per week ÷ per contact) | 150 | no | PASS | `repertoire_entropy` -0.029 ± 0.0061 |
+| 0 | `learning_rate` 0.236159, `credit_horizon` 6, `credit_discount` 0.714716, `cross_person_weight` 0.444579, `policy_temperature` 0.507179, `habituation_rate` 0.407344, `habituation_window` 16, `calm_transfer_rate` 0.0751748, `tie_wear_rate` 0.158645; ratio 0.04058 (per week ÷ per contact) | 150 | no | PASS | `repertoire_entropy` -0.0328 ± 0.0082 |
+| 1 | `learning_rate` 0.246006, `credit_horizon` 6, `credit_discount` 0.531327, `cross_person_weight` 0.492263, `policy_temperature` 1.22257, `habituation_rate` 0.590682, `habituation_window` 10, `calm_transfer_rate` 0.0277017, `tie_wear_rate` 0.00951686; ratio 0.006607 (per week ÷ per contact) | 150 | no | PASS | `repertoire_entropy` -0.0303 ± 0.005 |
+| 2 | `learning_rate` 0.179661, `credit_horizon` 4, `credit_discount` 0.495482, `cross_person_weight` 0.626169, `policy_temperature` 0.894911, `habituation_rate` 0.923415, `habituation_window` 4, `calm_transfer_rate` 0.048147, `tie_wear_rate` 0.0177168; ratio 0.007076 (per week ÷ per contact) | 150 | no | PASS | `repertoire_entropy` -0.0442 ± 0.0079 |
+| 3 | `learning_rate` 0.217817, `credit_horizon` 6, `credit_discount` 0.679962, `cross_person_weight` 0.289695, `policy_temperature` 1.6521, `habituation_rate` 0.470939, `habituation_window` 12, `calm_transfer_rate` 0.0679417, `tie_wear_rate` 0.0306442; ratio 0.008674 (per week ÷ per contact) | 150 | no | PASS | `repertoire_entropy` -0.027 ± 0.004 |
+| 4 | `learning_rate` 0.143476, `credit_horizon` 6, `credit_discount` 0.68072, `cross_person_weight` 0.84911, `policy_temperature` 0.672349, `habituation_rate` 0.742791, `habituation_window` 4, `calm_transfer_rate` 0.082016, `tie_wear_rate` 0.0355717; ratio 0.008341 (per week ÷ per contact) | 150 | no | PASS | `repertoire_entropy` -0.0368 ± 0.0075 |
+| 5 | `learning_rate` 0.393119, `credit_horizon` 6, `credit_discount` 0.469346, `cross_person_weight` 0.873642, `policy_temperature` 0.681513, `habituation_rate` 0.364257, `habituation_window` 5, `calm_transfer_rate` 0.0321407, `tie_wear_rate` 0.00946668; ratio 0.005664 (per week ÷ per contact) | 150 | no | PASS | `repertoire_entropy` -0.0304 ± 0.0085 |
+| 6 | `learning_rate` 0.236048, `credit_horizon` 6, `credit_discount` 0.703237, `cross_person_weight` 0.685955, `policy_temperature` 1.23469, `habituation_rate` 0.574061, `habituation_window` 12, `calm_transfer_rate` 0.0581056, `tie_wear_rate` 0.0445821; ratio 0.01475 (per week ÷ per contact) | 150 | no | PASS | `repertoire_entropy` -0.0332 ± 0.0047 |
+| 7 | `learning_rate` 0.168208, `credit_horizon` 5, `credit_discount` 0.81258, `cross_person_weight` 0.70289, `policy_temperature` 0.886862, `habituation_rate` 0.518562, `habituation_window` 15, `calm_transfer_rate` 0.0676659, `tie_wear_rate` 0.102975; ratio 0.02927 (per week ÷ per contact) | 150 | no | PASS | `repertoire_entropy` -0.0315 ± 0.0059 |
 
 ## `M11.C.42` — 0 of 8 samples held
 
 | Sample | Values | Seeds | Rerun | Verdict | Gating readouts (mean difference ± half-width) |
 |---|---|---|---|---|---|
-| 0 | `learning_rate` 0.243415, `credit_horizon` 6, `credit_discount` 0.72759, `cross_person_weight` 0.424282, `policy_temperature` 0.713354, `habituation_rate` 0.834825, `habituation_window` 6, `triangle_transfer_rate` 0.319295, `outsider_positional_gain` 0.609108, `triangle_activity_window` 7 | 100 then 200 | yes (first FAIL) | FAIL | `triangle_reuse` -0.03 ± 0.29 |
-| 1 | `learning_rate` 0.103292, `credit_horizon` 4, `credit_discount` 0.452363, `cross_person_weight` 0.941262, `policy_temperature` 0.884364, `habituation_rate` 0.763423, `habituation_window` 9, `triangle_transfer_rate` 0.199436, `outsider_positional_gain` 0.544356, `triangle_activity_window` 6 | 50 then 200 | yes (first FAIL) | FAIL | `triangle_reuse` +0.015 ± 0.2 |
-| 2 | `learning_rate` 0.138011, `credit_horizon` 5, `credit_discount` 0.907107, `cross_person_weight` 0.259916, `policy_temperature` 0.59995, `habituation_rate` 0.484604, `habituation_window` 5, `triangle_transfer_rate` 0.167455, `outsider_positional_gain` 0.851, `triangle_activity_window` 7 | 100 then 200 | yes (first FAIL) | FAIL | `triangle_reuse` -0.115 ± 0.23 |
-| 3 | `learning_rate` 0.376638, `credit_horizon` 5, `credit_discount` 0.454074, `cross_person_weight` 0.351028, `policy_temperature` 1.0344, `habituation_rate` 0.362446, `habituation_window` 6, `triangle_transfer_rate` 0.248745, `outsider_positional_gain` 0.503446, `triangle_activity_window` 4 | 100 then 200 | yes (first FAIL) | FAIL | `triangle_reuse` -0.005 ± 0.24 |
-| 4 | `learning_rate` 0.303076, `credit_horizon` 2, `credit_discount` 0.650651, `cross_person_weight` 0.288515, `policy_temperature` 0.632274, `habituation_rate` 0.434102, `habituation_window` 6, `triangle_transfer_rate` 0.263411, `outsider_positional_gain` 0.481012, `triangle_activity_window` 4 | 100 then 200 | yes (first FAIL) | FAIL | `triangle_reuse` +0.065 ± 0.26 |
-| 5 | `learning_rate` 0.14743, `credit_horizon` 2, `credit_discount` 0.570639, `cross_person_weight` 0.303226, `policy_temperature` 1.9058, `habituation_rate` 0.556317, `habituation_window` 6, `triangle_transfer_rate` 0.327408, `outsider_positional_gain` 0.735237, `triangle_activity_window` 7 | 100 then 200 | yes (first FAIL) | FAIL | `triangle_reuse` -0.135 ± 0.19 |
-| 6 | `learning_rate` 0.247177, `credit_horizon` 4, `credit_discount` 0.65235, `cross_person_weight` 0.278314, `policy_temperature` 1.93356, `habituation_rate` 0.383194, `habituation_window` 6, `triangle_transfer_rate` 0.417609, `outsider_positional_gain` 0.67345, `triangle_activity_window` 3 | 50 then 200 | yes (first FAIL) | FAIL | `triangle_reuse` -0.065 ± 0.19 |
-| 7 | `learning_rate` 0.153936, `credit_horizon` 6, `credit_discount` 0.932006, `cross_person_weight` 0.377292, `policy_temperature` 1.83363, `habituation_rate` 0.494547, `habituation_window` 12, `triangle_transfer_rate` 0.391734, `outsider_positional_gain` 0.257091, `triangle_activity_window` 7 | 50 then 200 | yes (first FAIL) | FAIL | `triangle_reuse` -0.015 ± 0.2 |
+| 0 | `learning_rate` 0.243415, `credit_horizon` 6, `credit_discount` 0.72759, `cross_person_weight` 0.424282, `policy_temperature` 0.713354, `habituation_rate` 0.834825, `habituation_window` 6, `triangle_transfer_rate` 0.319295, `outsider_positional_gain` 0.609108, `triangle_activity_window` 7 | 100 then 200 | yes (first FAIL) | FAIL | `triangle_reuse` -0.1 ± 0.27 |
+| 1 | `learning_rate` 0.103292, `credit_horizon` 4, `credit_discount` 0.452363, `cross_person_weight` 0.941262, `policy_temperature` 0.884364, `habituation_rate` 0.763423, `habituation_window` 9, `triangle_transfer_rate` 0.199436, `outsider_positional_gain` 0.544356, `triangle_activity_window` 6 | 50 then 200 | yes (first FAIL) | FAIL | `triangle_reuse` -0.04 ± 0.21 |
+| 2 | `learning_rate` 0.138011, `credit_horizon` 5, `credit_discount` 0.907107, `cross_person_weight` 0.259916, `policy_temperature` 0.59995, `habituation_rate` 0.484604, `habituation_window` 5, `triangle_transfer_rate` 0.167455, `outsider_positional_gain` 0.851, `triangle_activity_window` 7 | 100 then 200 | yes (first FAIL) | FAIL | `triangle_reuse` -0.03 ± 0.24 |
+| 3 | `learning_rate` 0.376638, `credit_horizon` 5, `credit_discount` 0.454074, `cross_person_weight` 0.351028, `policy_temperature` 1.0344, `habituation_rate` 0.362446, `habituation_window` 6, `triangle_transfer_rate` 0.248745, `outsider_positional_gain` 0.503446, `triangle_activity_window` 4 | 100 then 200 | yes (first FAIL) | FAIL | `triangle_reuse` -0.07 ± 0.25 |
+| 4 | `learning_rate` 0.303076, `credit_horizon` 2, `credit_discount` 0.650651, `cross_person_weight` 0.288515, `policy_temperature` 0.632274, `habituation_rate` 0.434102, `habituation_window` 6, `triangle_transfer_rate` 0.263411, `outsider_positional_gain` 0.481012, `triangle_activity_window` 4 | 100 then 200 | yes (first FAIL) | FAIL | `triangle_reuse` +0.095 ± 0.26 |
+| 5 | `learning_rate` 0.14743, `credit_horizon` 2, `credit_discount` 0.570639, `cross_person_weight` 0.303226, `policy_temperature` 1.9058, `habituation_rate` 0.556317, `habituation_window` 6, `triangle_transfer_rate` 0.327408, `outsider_positional_gain` 0.735237, `triangle_activity_window` 7 | 100 then 200 | yes (first FAIL) | FAIL | `triangle_reuse` -0.1 ± 0.18 |
+| 6 | `learning_rate` 0.247177, `credit_horizon` 4, `credit_discount` 0.65235, `cross_person_weight` 0.278314, `policy_temperature` 1.93356, `habituation_rate` 0.383194, `habituation_window` 6, `triangle_transfer_rate` 0.417609, `outsider_positional_gain` 0.67345, `triangle_activity_window` 3 | 100 then 200 | yes (first FAIL) | FAIL | `triangle_reuse` +0.025 ± 0.2 |
+| 7 | `learning_rate` 0.153936, `credit_horizon` 6, `credit_discount` 0.932006, `cross_person_weight` 0.377292, `policy_temperature` 1.83363, `habituation_rate` 0.494547, `habituation_window` 12, `triangle_transfer_rate` 0.391734, `outsider_positional_gain` 0.257091, `triangle_activity_window` 7 | 50 then 200 | yes (first FAIL) | FAIL | `triangle_reuse` -0.06 ± 0.19 |
 
 ## `M11.C.5` — 0 of 8 samples held
 
@@ -142,66 +144,66 @@ Directional criteria of the ensemble records with no ranges declared in `config/
 
 | Sample | Values | Seeds | Rerun | Verdict | Gating readouts (mean difference ± half-width) |
 |---|---|---|---|---|---|
-| 0 | `learning_rate` 0.167951, `credit_horizon` 4, `credit_discount` 0.583244, `cross_person_weight` 0.49522, `policy_temperature` 1.08727, `habituation_rate` 0.402631, `habituation_window` 13, `debit_gain` 0.455795, `calm_transfer_rate` 0.0975651, `tie_wear_rate` 0.0425619; ratio 0.008389 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `target_reaction` -4.14 ± 13; `third_person_symptom_load` -7.07 ± 7.9 |
-| 1 | `learning_rate` 0.116804, `credit_horizon` 2, `credit_discount` 0.354291, `cross_person_weight` 0.661715, `policy_temperature` 1.36569, `habituation_rate` 0.581785, `habituation_window` 4, `debit_gain` 0.240328, `calm_transfer_rate` 0.0393902, `tie_wear_rate` 0.0120988; ratio 0.005907 (per week ÷ per contact) | 100 then 200 | yes (first FAIL) | FAIL | `target_reaction` -9.35 ± 15; `third_person_symptom_load` -1.87 ± 8.2 |
-| 2 | `learning_rate` 0.172367, `credit_horizon` 2, `credit_discount` 0.541302, `cross_person_weight` 0.991135, `policy_temperature` 0.846322, `habituation_rate` 0.720015, `habituation_window` 16, `debit_gain` 0.212657, `calm_transfer_rate` 0.0802038, `tie_wear_rate` 0.107879; ratio 0.02587 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `target_reaction` +5.72 ± 14; `third_person_symptom_load` +0.911 ± 8.3 |
-| 3 | `learning_rate` 0.264149, `credit_horizon` 6, `credit_discount` 0.399307, `cross_person_weight` 0.379454, `policy_temperature` 1.97401, `habituation_rate` 0.415494, `habituation_window` 9, `debit_gain` 0.281266, `calm_transfer_rate` 0.0598333, `tie_wear_rate` 0.154223; ratio 0.04957 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `target_reaction` -13.6 ± 13; `third_person_symptom_load` +0.0444 ± 8.1 |
-| 4 | `learning_rate` 0.228626, `credit_horizon` 5, `credit_discount` 0.713561, `cross_person_weight` 0.52963, `policy_temperature` 0.536375, `habituation_rate` 0.547469, `habituation_window` 9, `debit_gain` 0.423481, `calm_transfer_rate` 0.0379478, `tie_wear_rate` 0.0194368; ratio 0.00985 (per week ÷ per contact) | 100 then 200 | yes (first FAIL) | FAIL | `target_reaction` +0.449 ± 16; `third_person_symptom_load` -10.1 ± 8.3 |
-| 5 | `learning_rate` 0.222963, `credit_horizon` 5, `credit_discount` 0.360926, `cross_person_weight` 0.478852, `policy_temperature` 1.7296, `habituation_rate` 0.788242, `habituation_window` 11, `debit_gain` 0.156456, `calm_transfer_rate` 0.0533545, `tie_wear_rate` 0.0242995; ratio 0.008758 (per week ÷ per contact) | 100 then 200 | yes (first FAIL) | FAIL | `target_reaction` -6.4 ± 13; `third_person_symptom_load` -0.727 ± 7.8 |
-| 6 | `learning_rate` 0.128437, `credit_horizon` 6, `credit_discount` 0.41203, `cross_person_weight` 0.602833, `policy_temperature` 1.25917, `habituation_rate` 0.383227, `habituation_window` 9, `debit_gain` 0.362398, `calm_transfer_rate` 0.0281366, `tie_wear_rate` 0.0139033; ratio 0.009503 (per week ÷ per contact) | 100 then 200 | yes (first FAIL) | FAIL | `target_reaction` -6.23 ± 13; `third_person_symptom_load` -2.54 ± 7.8 |
-| 7 | `learning_rate` 0.299045, `credit_horizon` 3, `credit_discount` 0.683178, `cross_person_weight` 0.738792, `policy_temperature` 0.639125, `habituation_rate` 0.594913, `habituation_window` 4, `debit_gain` 0.225207, `calm_transfer_rate` 0.06294, `tie_wear_rate` 0.159856; ratio 0.04884 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `target_reaction` +1.8 ± 18; `third_person_symptom_load` -2.43 ± 8.1 |
+| 0 | `learning_rate` 0.167951, `credit_horizon` 4, `credit_discount` 0.583244, `cross_person_weight` 0.49522, `policy_temperature` 1.08727, `habituation_rate` 0.402631, `habituation_window` 13, `debit_gain` 0.455795, `calm_transfer_rate` 0.0975651, `tie_wear_rate` 0.0425619; ratio 0.008389 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `target_reaction` -8.62 ± 14; `third_person_symptom_load` -1.66 ± 7.5 |
+| 1 | `learning_rate` 0.116804, `credit_horizon` 2, `credit_discount` 0.354291, `cross_person_weight` 0.661715, `policy_temperature` 1.36569, `habituation_rate` 0.581785, `habituation_window` 4, `debit_gain` 0.240328, `calm_transfer_rate` 0.0393902, `tie_wear_rate` 0.0120988; ratio 0.005907 (per week ÷ per contact) | 100 then 200 | yes (first FAIL) | FAIL | `target_reaction` -11.3 ± 15; `third_person_symptom_load` -2.46 ± 8.3 |
+| 2 | `learning_rate` 0.172367, `credit_horizon` 2, `credit_discount` 0.541302, `cross_person_weight` 0.991135, `policy_temperature` 0.846322, `habituation_rate` 0.720015, `habituation_window` 16, `debit_gain` 0.212657, `calm_transfer_rate` 0.0802038, `tie_wear_rate` 0.107879; ratio 0.02587 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `target_reaction` -7.88 ± 14; `third_person_symptom_load` -3.44 ± 8.8 |
+| 3 | `learning_rate` 0.264149, `credit_horizon` 6, `credit_discount` 0.399307, `cross_person_weight` 0.379454, `policy_temperature` 1.97401, `habituation_rate` 0.415494, `habituation_window` 9, `debit_gain` 0.281266, `calm_transfer_rate` 0.0598333, `tie_wear_rate` 0.154223; ratio 0.04957 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `target_reaction` -18.3 ± 14; `third_person_symptom_load` -2.64 ± 8 |
+| 4 | `learning_rate` 0.228626, `credit_horizon` 5, `credit_discount` 0.713561, `cross_person_weight` 0.52963, `policy_temperature` 0.536375, `habituation_rate` 0.547469, `habituation_window` 9, `debit_gain` 0.423481, `calm_transfer_rate` 0.0379478, `tie_wear_rate` 0.0194368; ratio 0.00985 (per week ÷ per contact) | 100 then 200 | yes (first FAIL) | FAIL | `target_reaction` -6.3 ± 15; `third_person_symptom_load` -4.17 ± 8.4 |
+| 5 | `learning_rate` 0.222963, `credit_horizon` 5, `credit_discount` 0.360926, `cross_person_weight` 0.478852, `policy_temperature` 1.7296, `habituation_rate` 0.788242, `habituation_window` 11, `debit_gain` 0.156456, `calm_transfer_rate` 0.0533545, `tie_wear_rate` 0.0242995; ratio 0.008758 (per week ÷ per contact) | 100 then 200 | yes (first FAIL) | FAIL | `target_reaction` -13.6 ± 12; `third_person_symptom_load` -0.038 ± 7.7 |
+| 6 | `learning_rate` 0.128437, `credit_horizon` 6, `credit_discount` 0.41203, `cross_person_weight` 0.602833, `policy_temperature` 1.25917, `habituation_rate` 0.383227, `habituation_window` 9, `debit_gain` 0.362398, `calm_transfer_rate` 0.0281366, `tie_wear_rate` 0.0139033; ratio 0.009503 (per week ÷ per contact) | 100 then 200 | yes (first FAIL) | FAIL | `target_reaction` -11.9 ± 13; `third_person_symptom_load` +1.63 ± 7.4 |
+| 7 | `learning_rate` 0.299045, `credit_horizon` 3, `credit_discount` 0.683178, `cross_person_weight` 0.738792, `policy_temperature` 0.639125, `habituation_rate` 0.594913, `habituation_window` 4, `debit_gain` 0.225207, `calm_transfer_rate` 0.06294, `tie_wear_rate` 0.159856; ratio 0.04884 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `target_reaction` +11 ± 17; `third_person_symptom_load` +0.947 ± 8.9 |
 
 ## `M11.C.27[stable,add_third]` — 2 of 8 samples held
 
 | Sample | Values | Seeds | Rerun | Verdict | Gating readouts (mean difference ± half-width) |
 |---|---|---|---|---|---|
-| 0 | `appraisal_gain` 3.21939, `intensity_scale` 163.745, `impingement_relaxation_rate` 0.315612, `contact_band_max` 0.186038, `anxiety_togetherness_gain` 0.985088, `interactive_resting_contact` 0.462487, `contact_relaxation_rate` 0.0634288 | 50 then 200 | yes (first PASS) | PASS | `pair_deviation` +0.109 ± 0.021 |
-| 1 | `appraisal_gain` 3.26451, `intensity_scale` 81.2751, `impingement_relaxation_rate` 0.410421, `contact_band_max` 0.138111, `anxiety_togetherness_gain` 0.595387, `interactive_resting_contact` 0.450644, `contact_relaxation_rate` 0.0712574 | 50 then 200 | yes (first FAIL) | FAIL | `pair_deviation` -0.0269 ± 0.022 |
-| 2 | `appraisal_gain` 2.12148, `intensity_scale` 50.2241, `impingement_relaxation_rate` 0.441374, `contact_band_max` 0.281172, `anxiety_togetherness_gain` 0.773898, `interactive_resting_contact` 0.619952, `contact_relaxation_rate` 0.0932015 | 50 | no | FAIL | `pair_deviation` -0.161 ± 0.024 |
-| 3 | `appraisal_gain` 2.09872, `intensity_scale` 60.5286, `impingement_relaxation_rate` 0.173556, `contact_band_max` 0.20773, `anxiety_togetherness_gain` 0.348101, `interactive_resting_contact` 0.894493, `contact_relaxation_rate` 0.0552465 | 50 | no | FAIL | `pair_deviation` -0.164 ± 0.036 |
+| 0 | `appraisal_gain` 3.21939, `intensity_scale` 163.745, `impingement_relaxation_rate` 0.315612, `contact_band_max` 0.186038, `anxiety_togetherness_gain` 0.985088, `interactive_resting_contact` 0.462487, `contact_relaxation_rate` 0.0634288 | 50 then 200 | yes (first PASS) | PASS | `pair_deviation` +0.108 ± 0.021 |
+| 1 | `appraisal_gain` 3.26451, `intensity_scale` 81.2751, `impingement_relaxation_rate` 0.410421, `contact_band_max` 0.138111, `anxiety_togetherness_gain` 0.595387, `interactive_resting_contact` 0.450644, `contact_relaxation_rate` 0.0712574 | 50 then 200 | yes (first FAIL) | FAIL | `pair_deviation` -0.0266 ± 0.022 |
+| 2 | `appraisal_gain` 2.12148, `intensity_scale` 50.2241, `impingement_relaxation_rate` 0.441374, `contact_band_max` 0.281172, `anxiety_togetherness_gain` 0.773898, `interactive_resting_contact` 0.619952, `contact_relaxation_rate` 0.0932015 | 50 | no | FAIL | `pair_deviation` -0.162 ± 0.024 |
+| 3 | `appraisal_gain` 2.09872, `intensity_scale` 60.5286, `impingement_relaxation_rate` 0.173556, `contact_band_max` 0.20773, `anxiety_togetherness_gain` 0.348101, `interactive_resting_contact` 0.894493, `contact_relaxation_rate` 0.0552465 | 50 | no | FAIL | `pair_deviation` -0.17 ± 0.036 |
 | 4 | `appraisal_gain` 1.51076, `intensity_scale` 163.485, `impingement_relaxation_rate` 0.339246, `contact_band_max` 0.20039, `anxiety_togetherness_gain` 0.253547, `interactive_resting_contact` 0.727954, `contact_relaxation_rate` 0.0738123 | 50 then 200 | yes (first FAIL) | FAIL | `pair_deviation` +0.00115 ± 0.012 |
 | 5 | `appraisal_gain` 3.04656, `intensity_scale` 171.288, `impingement_relaxation_rate` 0.418897, `contact_band_max` 0.17827, `anxiety_togetherness_gain` 0.254101, `interactive_resting_contact` 0.282656, `contact_relaxation_rate` 0.0866907 | 50 | no | PASS | `pair_deviation` +0.186 ± 0.038 |
-| 6 | `appraisal_gain` 3.25351, `intensity_scale` 57.4221, `impingement_relaxation_rate` 0.202495, `contact_band_max` 0.385533, `anxiety_togetherness_gain` 0.348053, `interactive_resting_contact` 0.388472, `contact_relaxation_rate` 0.0614947 | 50 then 200 | yes (first FAIL) | FAIL | `pair_deviation` -0.152 ± 0.024 |
-| 7 | `appraisal_gain` 5.36649, `intensity_scale` 68.1421, `impingement_relaxation_rate` 0.272825, `contact_band_max` 0.127063, `anxiety_togetherness_gain` 0.581395, `interactive_resting_contact` 0.663369, `contact_relaxation_rate` 0.0697087 | 50 | no | FAIL | `pair_deviation` -0.144 ± 0.029 |
+| 6 | `appraisal_gain` 3.25351, `intensity_scale` 57.4221, `impingement_relaxation_rate` 0.202495, `contact_band_max` 0.385533, `anxiety_togetherness_gain` 0.348053, `interactive_resting_contact` 0.388472, `contact_relaxation_rate` 0.0614947 | 50 | no | FAIL | `pair_deviation` -0.118 ± 0.053 |
+| 7 | `appraisal_gain` 5.36649, `intensity_scale` 68.1421, `impingement_relaxation_rate` 0.272825, `contact_band_max` 0.127063, `anxiety_togetherness_gain` 0.581395, `interactive_resting_contact` 0.663369, `contact_relaxation_rate` 0.0697087 | 50 | no | FAIL | `pair_deviation` -0.145 ± 0.029 |
 
 ## `M11.C.27[stable,remove_one]` — 3 of 8 samples held
 
 | Sample | Values | Seeds | Rerun | Verdict | Gating readouts (mean difference ± half-width) |
 |---|---|---|---|---|---|
-| 0 | `appraisal_gain` 1.94637, `intensity_scale` 65.5402, `impingement_relaxation_rate` 0.408717, `contact_band_max` 0.305158, `anxiety_togetherness_gain` 0.328419, `interactive_resting_contact` 0.630951, `contact_relaxation_rate` 0.0613844 | 50 then 200 | yes (first FAIL) | FAIL | `pair_deviation` -0.0689 ± 0.028 |
-| 1 | `appraisal_gain` 2.13166, `intensity_scale` 65.5624, `impingement_relaxation_rate` 0.558113, `contact_band_max` 0.124115, `anxiety_togetherness_gain` 0.63501, `interactive_resting_contact` 0.782744, `contact_relaxation_rate` 0.073705 | 50 then 200 | yes (first FAIL) | FAIL | `pair_deviation` -0.0287 ± 0.022 |
-| 2 | `appraisal_gain` 3.37815, `intensity_scale` 137.275, `impingement_relaxation_rate` 0.509683, `contact_band_max` 0.273051, `anxiety_togetherness_gain` 0.557841, `interactive_resting_contact` 0.268158, `contact_relaxation_rate` 0.108788 | 100 | no | PASS | `pair_deviation` +0.188 ± 0.036 |
+| 0 | `appraisal_gain` 1.94637, `intensity_scale` 65.5402, `impingement_relaxation_rate` 0.408717, `contact_band_max` 0.305158, `anxiety_togetherness_gain` 0.328419, `interactive_resting_contact` 0.630951, `contact_relaxation_rate` 0.0613844 | 50 then 200 | yes (first FAIL) | FAIL | `pair_deviation` -0.0704 ± 0.028 |
+| 1 | `appraisal_gain` 2.13166, `intensity_scale` 65.5624, `impingement_relaxation_rate` 0.558113, `contact_band_max` 0.124115, `anxiety_togetherness_gain` 0.63501, `interactive_resting_contact` 0.782744, `contact_relaxation_rate` 0.073705 | 50 then 200 | yes (first FAIL) | FAIL | `pair_deviation` -0.0304 ± 0.022 |
+| 2 | `appraisal_gain` 3.37815, `intensity_scale` 137.275, `impingement_relaxation_rate` 0.509683, `contact_band_max` 0.273051, `anxiety_togetherness_gain` 0.557841, `interactive_resting_contact` 0.268158, `contact_relaxation_rate` 0.108788 | 100 | no | PASS | `pair_deviation` +0.191 ± 0.036 |
 | 3 | `appraisal_gain` 5.6257, `intensity_scale` 124.533, `impingement_relaxation_rate` 0.197083, `contact_band_max` 0.229355, `anxiety_togetherness_gain` 0.569121, `interactive_resting_contact` 0.930243, `contact_relaxation_rate` 0.058367 | 50 | no | FAIL | `pair_deviation` -0.279 ± 0.064 |
-| 4 | `appraisal_gain` 2.23335, `intensity_scale` 134.064, `impingement_relaxation_rate` 0.363435, `contact_band_max` 0.118817, `anxiety_togetherness_gain` 0.744403, `interactive_resting_contact` 0.874065, `contact_relaxation_rate` 0.176784 | 100 then 200 | yes (first FAIL) | FAIL | `pair_deviation` -0.00697 ± 0.026 |
+| 4 | `appraisal_gain` 2.23335, `intensity_scale` 134.064, `impingement_relaxation_rate` 0.363435, `contact_band_max` 0.118817, `anxiety_togetherness_gain` 0.744403, `interactive_resting_contact` 0.874065, `contact_relaxation_rate` 0.176784 | 100 then 200 | yes (first FAIL) | FAIL | `pair_deviation` -0.00773 ± 0.026 |
 | 5 | `appraisal_gain` 5.75138, `intensity_scale` 152.03, `impingement_relaxation_rate` 0.45087, `contact_band_max` 0.105905, `anxiety_togetherness_gain` 0.257298, `interactive_resting_contact` 0.319156, `contact_relaxation_rate` 0.101521 | 50 | no | PASS | `pair_deviation` +0.172 ± 0.051 |
-| 6 | `appraisal_gain` 5.50968, `intensity_scale` 173.679, `impingement_relaxation_rate` 0.358226, `contact_band_max` 0.195925, `anxiety_togetherness_gain` 0.521919, `interactive_resting_contact` 0.36494, `contact_relaxation_rate` 0.16257 | 100 | no | PASS | `pair_deviation` +0.221 ± 0.036 |
+| 6 | `appraisal_gain` 5.50968, `intensity_scale` 173.679, `impingement_relaxation_rate` 0.358226, `contact_band_max` 0.195925, `anxiety_togetherness_gain` 0.521919, `interactive_resting_contact` 0.36494, `contact_relaxation_rate` 0.16257 | 100 | no | PASS | `pair_deviation` +0.223 ± 0.036 |
 | 7 | `appraisal_gain` 2.72133, `intensity_scale` 62.1757, `impingement_relaxation_rate` 0.266319, `contact_band_max` 0.122085, `anxiety_togetherness_gain` 0.294768, `interactive_resting_contact` 0.273697, `contact_relaxation_rate` 0.0761002 | 50 | no | FAIL | `pair_deviation` -0.252 ± 0.065 |
 
 ## `M11.C.27[unstable,add_third]` — 6 of 8 samples held
 
 | Sample | Values | Seeds | Rerun | Verdict | Gating readouts (mean difference ± half-width) |
 |---|---|---|---|---|---|
-| 0 | `appraisal_gain` 4.9967, `intensity_scale` 116.116, `impingement_relaxation_rate` 0.229653, `contact_band_max` 0.182273, `anxiety_togetherness_gain` 0.825488, `interactive_resting_contact` 0.648147, `contact_relaxation_rate` 0.0633145 | 50 then 200 | yes (first PASS) | PASS | `pair_deviation` -0.0179 ± 0.018 |
-| 1 | `appraisal_gain` 2.13418, `intensity_scale` 77.0131, `impingement_relaxation_rate` 0.535943, `contact_band_max` 0.119347, `anxiety_togetherness_gain` 0.281775, `interactive_resting_contact` 0.663818, `contact_relaxation_rate` 0.0556888 | 50 then 200 | yes (first PASS) | PASS | `pair_deviation` -0.0263 ± 0.019 |
-| 2 | `appraisal_gain` 1.5612, `intensity_scale` 121.034, `impingement_relaxation_rate` 0.205381, `contact_band_max` 0.131511, `anxiety_togetherness_gain` 0.390468, `interactive_resting_contact` 0.532604, `contact_relaxation_rate` 0.0985462 | 50 then 200 | yes (first FAIL) | FAIL | `pair_deviation` +0.0305 ± 0.021 |
-| 3 | `appraisal_gain` 4.70542, `intensity_scale` 69.7662, `impingement_relaxation_rate` 0.26616, `contact_band_max` 0.232305, `anxiety_togetherness_gain` 0.791657, `interactive_resting_contact` 0.616252, `contact_relaxation_rate` 0.0972467 | 50 | no | PASS | `pair_deviation` -0.144 ± 0.03 |
-| 4 | `appraisal_gain` 3.68045, `intensity_scale` 55.4926, `impingement_relaxation_rate` 0.201886, `contact_band_max` 0.153074, `anxiety_togetherness_gain` 0.950284, `interactive_resting_contact` 0.851684, `contact_relaxation_rate` 0.167232 | 50 | no | PASS | `pair_deviation` -0.173 ± 0.037 |
+| 0 | `appraisal_gain` 4.9967, `intensity_scale` 116.116, `impingement_relaxation_rate` 0.229653, `contact_band_max` 0.182273, `anxiety_togetherness_gain` 0.825488, `interactive_resting_contact` 0.648147, `contact_relaxation_rate` 0.0633145 | 50 then 200 | yes (first PASS) | PASS | `pair_deviation` -0.0175 ± 0.018 |
+| 1 | `appraisal_gain` 2.13418, `intensity_scale` 77.0131, `impingement_relaxation_rate` 0.535943, `contact_band_max` 0.119347, `anxiety_togetherness_gain` 0.281775, `interactive_resting_contact` 0.663818, `contact_relaxation_rate` 0.0556888 | 50 then 200 | yes (first PASS) | PASS | `pair_deviation` -0.0248 ± 0.021 |
+| 2 | `appraisal_gain` 1.5612, `intensity_scale` 121.034, `impingement_relaxation_rate` 0.205381, `contact_band_max` 0.131511, `anxiety_togetherness_gain` 0.390468, `interactive_resting_contact` 0.532604, `contact_relaxation_rate` 0.0985462 | 50 then 200 | yes (first FAIL) | FAIL | `pair_deviation` +0.0309 ± 0.021 |
+| 3 | `appraisal_gain` 4.70542, `intensity_scale` 69.7662, `impingement_relaxation_rate` 0.26616, `contact_band_max` 0.232305, `anxiety_togetherness_gain` 0.791657, `interactive_resting_contact` 0.616252, `contact_relaxation_rate` 0.0972467 | 50 | no | PASS | `pair_deviation` -0.142 ± 0.03 |
+| 4 | `appraisal_gain` 3.68045, `intensity_scale` 55.4926, `impingement_relaxation_rate` 0.201886, `contact_band_max` 0.153074, `anxiety_togetherness_gain` 0.950284, `interactive_resting_contact` 0.851684, `contact_relaxation_rate` 0.167232 | 50 | no | PASS | `pair_deviation` -0.172 ± 0.037 |
 | 5 | `appraisal_gain` 4.21697, `intensity_scale` 116.764, `impingement_relaxation_rate` 0.194577, `contact_band_max` 0.250149, `anxiety_togetherness_gain` 0.789524, `interactive_resting_contact` 0.67269, `contact_relaxation_rate` 0.127649 | 50 then 200 | yes (first PASS) | PASS | `pair_deviation` -0.0287 ± 0.016 |
-| 6 | `appraisal_gain` 1.8878, `intensity_scale` 140.774, `impingement_relaxation_rate` 0.418651, `contact_band_max` 0.283231, `anxiety_togetherness_gain` 0.757527, `interactive_resting_contact` 0.317383, `contact_relaxation_rate` 0.0722103 | 50 | no | FAIL | `pair_deviation` +0.157 ± 0.041 |
-| 7 | `appraisal_gain` 2.15495, `intensity_scale` 83.0917, `impingement_relaxation_rate` 0.208393, `contact_band_max` 0.327936, `anxiety_togetherness_gain` 0.716498, `interactive_resting_contact` 0.570882, `contact_relaxation_rate` 0.119218 | 50 then 200 | yes (first PASS) | PASS | `pair_deviation` -0.0671 ± 0.021 |
+| 6 | `appraisal_gain` 1.8878, `intensity_scale` 140.774, `impingement_relaxation_rate` 0.418651, `contact_band_max` 0.283231, `anxiety_togetherness_gain` 0.757527, `interactive_resting_contact` 0.317383, `contact_relaxation_rate` 0.0722103 | 50 | no | FAIL | `pair_deviation` +0.156 ± 0.041 |
+| 7 | `appraisal_gain` 2.15495, `intensity_scale` 83.0917, `impingement_relaxation_rate` 0.208393, `contact_band_max` 0.327936, `anxiety_togetherness_gain` 0.716498, `interactive_resting_contact` 0.570882, `contact_relaxation_rate` 0.119218 | 50 then 200 | yes (first PASS) | PASS | `pair_deviation` -0.0679 ± 0.021 |
 
 ## `M11.C.27[unstable,remove_one]` — 6 of 8 samples held
 
 | Sample | Values | Seeds | Rerun | Verdict | Gating readouts (mean difference ± half-width) |
 |---|---|---|---|---|---|
-| 0 | `appraisal_gain` 4.27368, `intensity_scale` 169.039, `impingement_relaxation_rate` 0.508709, `contact_band_max` 0.329073, `anxiety_togetherness_gain` 0.562677, `interactive_resting_contact` 0.975383, `contact_relaxation_rate` 0.0925568 | 100 then 200 | yes (first FAIL) | FAIL | `pair_deviation` +0.00115 ± 0.0092 |
-| 1 | `appraisal_gain` 4.28432, `intensity_scale` 83.8127, `impingement_relaxation_rate` 0.17603, `contact_band_max` 0.22004, `anxiety_togetherness_gain` 0.388266, `interactive_resting_contact` 0.554063, `contact_relaxation_rate` 0.15373 | 50 | no | PASS | `pair_deviation` -0.294 ± 0.069 |
+| 0 | `appraisal_gain` 4.27368, `intensity_scale` 169.039, `impingement_relaxation_rate` 0.508709, `contact_band_max` 0.329073, `anxiety_togetherness_gain` 0.562677, `interactive_resting_contact` 0.975383, `contact_relaxation_rate` 0.0925568 | 100 then 200 | yes (first FAIL) | FAIL | `pair_deviation` +0.000892 ± 0.0094 |
+| 1 | `appraisal_gain` 4.28432, `intensity_scale` 83.8127, `impingement_relaxation_rate` 0.17603, `contact_band_max` 0.22004, `anxiety_togetherness_gain` 0.388266, `interactive_resting_contact` 0.554063, `contact_relaxation_rate` 0.15373 | 50 | no | PASS | `pair_deviation` -0.288 ± 0.07 |
 | 2 | `appraisal_gain` 2.95741, `intensity_scale` 63.726, `impingement_relaxation_rate` 0.194424, `contact_band_max` 0.218054, `anxiety_togetherness_gain` 0.414473, `interactive_resting_contact` 0.730379, `contact_relaxation_rate` 0.101606 | 100 | no | PASS | `pair_deviation` -0.349 ± 0.052 |
-| 3 | `appraisal_gain` 3.70094, `intensity_scale` 64.6425, `impingement_relaxation_rate` 0.582141, `contact_band_max` 0.126487, `anxiety_togetherness_gain` 0.336762, `interactive_resting_contact` 0.482914, `contact_relaxation_rate` 0.159016 | 50 then 200 | yes (first FAIL) | FAIL | `pair_deviation` +0.0371 ± 0.022 |
-| 4 | `appraisal_gain` 3.6771, `intensity_scale` 51.9407, `impingement_relaxation_rate` 0.187517, `contact_band_max` 0.115011, `anxiety_togetherness_gain` 0.298663, `interactive_resting_contact` 0.565772, `contact_relaxation_rate` 0.131724 | 50 | no | PASS | `pair_deviation` -0.384 ± 0.069 |
+| 3 | `appraisal_gain` 3.70094, `intensity_scale` 64.6425, `impingement_relaxation_rate` 0.582141, `contact_band_max` 0.126487, `anxiety_togetherness_gain` 0.336762, `interactive_resting_contact` 0.482914, `contact_relaxation_rate` 0.159016 | 50 then 200 | yes (first FAIL) | FAIL | `pair_deviation` +0.0389 ± 0.022 |
+| 4 | `appraisal_gain` 3.6771, `intensity_scale` 51.9407, `impingement_relaxation_rate` 0.187517, `contact_band_max` 0.115011, `anxiety_togetherness_gain` 0.298663, `interactive_resting_contact` 0.565772, `contact_relaxation_rate` 0.131724 | 50 | no | PASS | `pair_deviation` -0.382 ± 0.069 |
 | 5 | `appraisal_gain` 3.42713, `intensity_scale` 197.099, `impingement_relaxation_rate` 0.174214, `contact_band_max` 0.316223, `anxiety_togetherness_gain` 0.73766, `interactive_resting_contact` 0.575493, `contact_relaxation_rate` 0.0576598 | 100 | no | PASS | `pair_deviation` -0.114 ± 0.044 |
 | 6 | `appraisal_gain` 1.82668, `intensity_scale` 76.9574, `impingement_relaxation_rate` 0.204421, `contact_band_max` 0.107316, `anxiety_togetherness_gain` 0.281948, `interactive_resting_contact` 0.280391, `contact_relaxation_rate` 0.0771954 | 100 | no | PASS | `pair_deviation` -0.249 ± 0.056 |
-| 7 | `appraisal_gain` 2.09941, `intensity_scale` 87.134, `impingement_relaxation_rate` 0.303915, `contact_band_max` 0.15086, `anxiety_togetherness_gain` 0.813779, `interactive_resting_contact` 0.665229, `contact_relaxation_rate` 0.169127 | 100 then 200 | yes (first PASS) | PASS | `pair_deviation` -0.049 ± 0.038 |
+| 7 | `appraisal_gain` 2.09941, `intensity_scale` 87.134, `impingement_relaxation_rate` 0.303915, `contact_band_max` 0.15086, `anxiety_togetherness_gain` 0.813779, `interactive_resting_contact` 0.665229, `contact_relaxation_rate` 0.169127 | 100 then 200 | yes (first PASS) | PASS | `pair_deviation` -0.0493 ± 0.038 |
 
 ## `M11.C.29` — 0 of 8 samples held
 
@@ -209,14 +211,14 @@ Directional criteria of the ensemble records with no ranges declared in `config/
 
 | Sample | Values | Seeds | Rerun | Verdict | Gating readouts (mean difference ± half-width) |
 |---|---|---|---|---|---|
-| 0 | `exchange_budget_reduction` 1.35993, `symptom_threshold_gain` 0.904683, `symptom_rearm_fraction` 0.955072, `symptom_leak_rate` 0.0571507, `defence_threshold` 29.6982, `calm_transfer_rate` 0.029203, `tie_wear_rate` 0.019149; ratio 0.01261 (per week ÷ per contact) | 100 then 200 | yes (first FAIL) | FAIL | `third_symptom_weeks` +0.855 ± 0.98 |
-| 1 | `exchange_budget_reduction` 1.81748, `symptom_threshold_gain` 1.84353, `symptom_rearm_fraction` 0.493675, `symptom_leak_rate` 0.0529706, `defence_threshold` 8.25335, `calm_transfer_rate` 0.0359367, `tie_wear_rate` 0.0687346; ratio 0.03678 (per week ÷ per contact) | 50 then 200 | yes (first FAIL) | FAIL | `third_symptom_weeks` +1.49 ± 1.7 |
-| 2 | `exchange_budget_reduction` 3.86377, `symptom_threshold_gain` 0.992607, `symptom_rearm_fraction` 0.621682, `symptom_leak_rate` 0.0709319, `defence_threshold` 8.03431, `calm_transfer_rate` 0.0917358, `tie_wear_rate` 0.0606697; ratio 0.01272 (per week ÷ per contact) | 100 then 200 | yes (first FAIL) | FAIL | `third_symptom_weeks` +0.72 ± 1.3 |
-| 3 | `exchange_budget_reduction` 2.51488, `symptom_threshold_gain` 0.849018, `symptom_rearm_fraction` 0.732814, `symptom_leak_rate` 0.117512, `defence_threshold` 11.9879, `calm_transfer_rate` 0.0585996, `tie_wear_rate` 0.0266025; ratio 0.00873 (per week ÷ per contact) | 100 then 200 | yes (first FAIL) | FAIL | `third_symptom_weeks` +0.7 ± 2 |
-| 4 | `exchange_budget_reduction` 3.86863, `symptom_threshold_gain` 1.4784, `symptom_rearm_fraction` 0.421108, `symptom_leak_rate` 0.0832714, `defence_threshold` 24.3902, `calm_transfer_rate` 0.0491, `tie_wear_rate` 0.0126083; ratio 0.004938 (per week ÷ per contact) | 100 then 200 | yes (first FAIL) | FAIL | `third_symptom_weeks` -0.86 ± 2 |
-| 5 | `exchange_budget_reduction` 1.62934, `symptom_threshold_gain` 0.81197, `symptom_rearm_fraction` 0.915737, `symptom_leak_rate` 0.10264, `defence_threshold` 7.9168, `calm_transfer_rate` 0.0476779, `tie_wear_rate` 0.0259137; ratio 0.01045 (per week ÷ per contact) | 100 then 200 | yes (first FAIL) | FAIL | `third_symptom_weeks` +1.69 ± 1.9 |
-| 6 | `exchange_budget_reduction` 1.23134, `symptom_threshold_gain` 1.30776, `symptom_rearm_fraction` 0.881084, `symptom_leak_rate` 0.0562113, `defence_threshold` 15.6559, `calm_transfer_rate` 0.052619, `tie_wear_rate` 0.0196019; ratio 0.007164 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `third_symptom_weeks` +1.16 ± 1.5 |
-| 7 | `exchange_budget_reduction` 2.77884, `symptom_threshold_gain` 1.36779, `symptom_rearm_fraction` 0.929181, `symptom_leak_rate` 0.187978, `defence_threshold` 8.12845, `calm_transfer_rate` 0.0326161, `tie_wear_rate` 0.00969029; ratio 0.005713 (per week ÷ per contact) | 100 then 200 | yes (first FAIL) | FAIL | `third_symptom_weeks` +2.06 ± 2.2 |
+| 0 | `exchange_budget_reduction` 1.35993, `symptom_threshold_gain` 0.904683, `symptom_rearm_fraction` 0.955072, `symptom_leak_rate` 0.0571507, `defence_threshold` 29.6982, `calm_transfer_rate` 0.029203, `tie_wear_rate` 0.019149; ratio 0.01261 (per week ÷ per contact) | 100 then 200 | yes (first FAIL) | FAIL | `third_symptom_weeks` +0.485 ± 0.94 |
+| 1 | `exchange_budget_reduction` 1.81748, `symptom_threshold_gain` 1.84353, `symptom_rearm_fraction` 0.493675, `symptom_leak_rate` 0.0529706, `defence_threshold` 8.25335, `calm_transfer_rate` 0.0359367, `tie_wear_rate` 0.0687346; ratio 0.03678 (per week ÷ per contact) | 100 then 200 | yes (first FAIL) | FAIL | `third_symptom_weeks` +2.17 ± 1.7 |
+| 2 | `exchange_budget_reduction` 3.86377, `symptom_threshold_gain` 0.992607, `symptom_rearm_fraction` 0.621682, `symptom_leak_rate` 0.0709319, `defence_threshold` 8.03431, `calm_transfer_rate` 0.0917358, `tie_wear_rate` 0.0606697; ratio 0.01272 (per week ÷ per contact) | 100 then 200 | yes (first FAIL) | FAIL | `third_symptom_weeks` +1.07 ± 1.3 |
+| 3 | `exchange_budget_reduction` 2.51488, `symptom_threshold_gain` 0.849018, `symptom_rearm_fraction` 0.732814, `symptom_leak_rate` 0.117512, `defence_threshold` 11.9879, `calm_transfer_rate` 0.0585996, `tie_wear_rate` 0.0266025; ratio 0.00873 (per week ÷ per contact) | 100 then 200 | yes (first FAIL) | FAIL | `third_symptom_weeks` +0.375 ± 1.9 |
+| 4 | `exchange_budget_reduction` 3.86863, `symptom_threshold_gain` 1.4784, `symptom_rearm_fraction` 0.421108, `symptom_leak_rate` 0.0832714, `defence_threshold` 24.3902, `calm_transfer_rate` 0.0491, `tie_wear_rate` 0.0126083; ratio 0.004938 (per week ÷ per contact) | 100 then 200 | yes (first FAIL) | FAIL | `third_symptom_weeks` -1.46 ± 2.2 |
+| 5 | `exchange_budget_reduction` 1.62934, `symptom_threshold_gain` 0.81197, `symptom_rearm_fraction` 0.915737, `symptom_leak_rate` 0.10264, `defence_threshold` 7.9168, `calm_transfer_rate` 0.0476779, `tie_wear_rate` 0.0259137; ratio 0.01045 (per week ÷ per contact) | 100 then 200 | yes (first FAIL) | FAIL | `third_symptom_weeks` +1.43 ± 1.9 |
+| 6 | `exchange_budget_reduction` 1.23134, `symptom_threshold_gain` 1.30776, `symptom_rearm_fraction` 0.881084, `symptom_leak_rate` 0.0562113, `defence_threshold` 15.6559, `calm_transfer_rate` 0.052619, `tie_wear_rate` 0.0196019; ratio 0.007164 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `third_symptom_weeks` +1.61 ± 1.5 |
+| 7 | `exchange_budget_reduction` 2.77884, `symptom_threshold_gain` 1.36779, `symptom_rearm_fraction` 0.929181, `symptom_leak_rate` 0.187978, `defence_threshold` 8.12845, `calm_transfer_rate` 0.0326161, `tie_wear_rate` 0.00969029; ratio 0.005713 (per week ÷ per contact) | 100 then 200 | yes (first FAIL) | FAIL | `third_symptom_weeks` +1.17 ± 2.2 |
 
 ## `M11.C.41[light: lower level]` — 8 of 8 samples held
 
@@ -224,14 +226,14 @@ Directional criteria of the ensemble records with no ranges declared in `config/
 
 | Sample | Values | Seeds | Rerun | Verdict | Gating readouts (mean difference ± half-width) |
 |---|---|---|---|---|---|
-| 0 | `appraisal_gain` 2.72363, `contact_band_max` 0.113093, `self_channel_exponent` 3.77225, `capacity_level_per_layer` 28.2722, `anxiety_band_low` 5.4111, `anxiety_band_high` 15.6566, `acute_decay_rate` 0.326085, `response_up_gain` 0.687626, `response_down_gain` 0.827698, `stress_floor_below_basic` 22.7992, `calm_transfer_rate` 0.0380332, `tie_wear_rate` 0.134866; ratio 0.06819 (per week ÷ per contact) | 150 | no | PASS | `mean_acute` +57.8 ± 6.8; `reactive_over_chance` +0.0192 ± 0.0022 |
-| 1 | `appraisal_gain` 1.56318, `contact_band_max` 0.361389, `self_channel_exponent` 3.73655, `capacity_level_per_layer` 23.4887, `anxiety_band_low` 5.11503, `anxiety_band_high` 11.1355, `acute_decay_rate` 0.122566, `response_up_gain` 0.692783, `response_down_gain` 0.440032, `stress_floor_below_basic` 29.8404, `calm_transfer_rate` 0.0352363, `tie_wear_rate` 0.0918033; ratio 0.0501 (per week ÷ per contact) | 150 | no | PASS | `mean_acute` +1.1e+03 ± 2.9e+02; `reactive_over_chance` +0.0215 ± 0.0026 |
-| 2 | `appraisal_gain` 1.71106, `contact_band_max` 0.335556, `self_channel_exponent` 3.5435, `capacity_level_per_layer` 11.8942, `anxiety_band_low` 8.10966, `anxiety_band_high` 24.1689, `acute_decay_rate` 0.170121, `response_up_gain` 0.913582, `response_down_gain` 0.634539, `stress_floor_below_basic` 12.2506, `calm_transfer_rate` 0.0321118, `tie_wear_rate` 0.0202509; ratio 0.01213 (per week ÷ per contact) | 150 | no | PASS | `mean_acute` +102 ± 19; `reactive_over_chance` +0.0217 ± 0.0021 |
-| 3 | `appraisal_gain` 2.06485, `contact_band_max` 0.102573, `self_channel_exponent` 1.46157, `capacity_level_per_layer` 12.4579, `anxiety_band_low` 7.91653, `anxiety_band_high` 26.6297, `acute_decay_rate` 0.262991, `response_up_gain` 0.691266, `response_down_gain` 0.911477, `stress_floor_below_basic` 16.1559, `calm_transfer_rate` 0.0830677, `tie_wear_rate` 0.0484287; ratio 0.01121 (per week ÷ per contact) | 150 | no | PASS | `mean_acute` +75.5 ± 6.9; `reactive_over_chance` +0.0883 ± 0.0033 |
-| 4 | `appraisal_gain` 4.72033, `contact_band_max` 0.121305, `self_channel_exponent` 1.43704, `capacity_level_per_layer` 13.3828, `anxiety_band_low` 2.50367, `anxiety_band_high` 11.2328, `acute_decay_rate` 0.129386, `response_up_gain` 0.332283, `response_down_gain` 0.513557, `stress_floor_below_basic` 20.3256, `calm_transfer_rate` 0.0558931, `tie_wear_rate` 0.0457406; ratio 0.01574 (per week ÷ per contact) | 150 | no | PASS | `mean_acute` +121 ± 24; `reactive_over_chance` +0.0935 ± 0.0036 |
-| 5 | `appraisal_gain` 5.07969, `contact_band_max` 0.360759, `self_channel_exponent` 1.16769, `capacity_level_per_layer` 32.1697, `anxiety_band_low` 2.85152, `anxiety_band_high` 11.2112, `acute_decay_rate` 0.121477, `response_up_gain` 0.958375, `response_down_gain` 0.254166, `stress_floor_below_basic` 13.5646, `calm_transfer_rate` 0.0361172, `tie_wear_rate` 0.07083; ratio 0.03771 (per week ÷ per contact) | 150 | no | PASS | `mean_acute` +106 ± 16; `reactive_over_chance` +0.0994 ± 0.0037 |
-| 6 | `appraisal_gain` 4.0942, `contact_band_max` 0.308706, `self_channel_exponent` 2.80528, `capacity_level_per_layer` 16.6875, `anxiety_band_low` 4.42776, `anxiety_band_high` 16.4286, `acute_decay_rate` 0.28877, `response_up_gain` 0.712725, `response_down_gain` 0.729246, `stress_floor_below_basic` 18.2392, `calm_transfer_rate` 0.0305463, `tie_wear_rate` 0.0791736; ratio 0.04984 (per week ÷ per contact) | 150 | no | PASS | `mean_acute` +69 ± 7.2; `reactive_over_chance` +0.0384 ± 0.0027 |
-| 7 | `appraisal_gain` 2.34141, `contact_band_max` 0.389176, `self_channel_exponent` 1.92097, `capacity_level_per_layer` 29.8481, `anxiety_band_low` 7.45411, `anxiety_band_high` 17.5241, `acute_decay_rate` 0.354482, `response_up_gain` 0.806017, `response_down_gain` 0.319301, `stress_floor_below_basic` 13.1452, `calm_transfer_rate` 0.0984, `tie_wear_rate` 0.101201; ratio 0.01978 (per week ÷ per contact) | 150 | no | PASS | `mean_acute` +35.7 ± 3; `reactive_over_chance` +0.0688 ± 0.0032 |
+| 0 | `appraisal_gain` 2.72363, `contact_band_max` 0.113093, `self_channel_exponent` 3.77225, `capacity_level_per_layer` 28.2722, `anxiety_band_low` 5.4111, `anxiety_band_high` 15.6566, `acute_decay_rate` 0.326085, `response_up_gain` 0.687626, `response_down_gain` 0.827698, `stress_floor_below_basic` 22.7992, `calm_transfer_rate` 0.0380332, `tie_wear_rate` 0.134866; ratio 0.06819 (per week ÷ per contact) | 150 | no | PASS | `mean_acute` +57.5 ± 6.5; `reactive_over_chance` +0.0199 ± 0.0022 |
+| 1 | `appraisal_gain` 1.56318, `contact_band_max` 0.361389, `self_channel_exponent` 3.73655, `capacity_level_per_layer` 23.4887, `anxiety_band_low` 5.11503, `anxiety_band_high` 11.1355, `acute_decay_rate` 0.122566, `response_up_gain` 0.692783, `response_down_gain` 0.440032, `stress_floor_below_basic` 29.8404, `calm_transfer_rate` 0.0352363, `tie_wear_rate` 0.0918033; ratio 0.0501 (per week ÷ per contact) | 150 | no | PASS | `mean_acute` +967 ± 3.1e+02; `reactive_over_chance` +0.0235 ± 0.0024 |
+| 2 | `appraisal_gain` 1.71106, `contact_band_max` 0.335556, `self_channel_exponent` 3.5435, `capacity_level_per_layer` 11.8942, `anxiety_band_low` 8.10966, `anxiety_band_high` 24.1689, `acute_decay_rate` 0.170121, `response_up_gain` 0.913582, `response_down_gain` 0.634539, `stress_floor_below_basic` 12.2506, `calm_transfer_rate` 0.0321118, `tie_wear_rate` 0.0202509; ratio 0.01213 (per week ÷ per contact) | 150 | no | PASS | `mean_acute` +116 ± 16; `reactive_over_chance` +0.0226 ± 0.0022 |
+| 3 | `appraisal_gain` 2.06485, `contact_band_max` 0.102573, `self_channel_exponent` 1.46157, `capacity_level_per_layer` 12.4579, `anxiety_band_low` 7.91653, `anxiety_band_high` 26.6297, `acute_decay_rate` 0.262991, `response_up_gain` 0.691266, `response_down_gain` 0.911477, `stress_floor_below_basic` 16.1559, `calm_transfer_rate` 0.0830677, `tie_wear_rate` 0.0484287; ratio 0.01121 (per week ÷ per contact) | 150 | no | PASS | `mean_acute` +73.8 ± 6.8; `reactive_over_chance` +0.0876 ± 0.0034 |
+| 4 | `appraisal_gain` 4.72033, `contact_band_max` 0.121305, `self_channel_exponent` 1.43704, `capacity_level_per_layer` 13.3828, `anxiety_band_low` 2.50367, `anxiety_band_high` 11.2328, `acute_decay_rate` 0.129386, `response_up_gain` 0.332283, `response_down_gain` 0.513557, `stress_floor_below_basic` 20.3256, `calm_transfer_rate` 0.0558931, `tie_wear_rate` 0.0457406; ratio 0.01574 (per week ÷ per contact) | 150 | no | PASS | `mean_acute` +115 ± 23; `reactive_over_chance` +0.0926 ± 0.0031 |
+| 5 | `appraisal_gain` 5.07969, `contact_band_max` 0.360759, `self_channel_exponent` 1.16769, `capacity_level_per_layer` 32.1697, `anxiety_band_low` 2.85152, `anxiety_band_high` 11.2112, `acute_decay_rate` 0.121477, `response_up_gain` 0.958375, `response_down_gain` 0.254166, `stress_floor_below_basic` 13.5646, `calm_transfer_rate` 0.0361172, `tie_wear_rate` 0.07083; ratio 0.03771 (per week ÷ per contact) | 150 | no | PASS | `mean_acute` +99.4 ± 17; `reactive_over_chance` +0.101 ± 0.0037 |
+| 6 | `appraisal_gain` 4.0942, `contact_band_max` 0.308706, `self_channel_exponent` 2.80528, `capacity_level_per_layer` 16.6875, `anxiety_band_low` 4.42776, `anxiety_band_high` 16.4286, `acute_decay_rate` 0.28877, `response_up_gain` 0.712725, `response_down_gain` 0.729246, `stress_floor_below_basic` 18.2392, `calm_transfer_rate` 0.0305463, `tie_wear_rate` 0.0791736; ratio 0.04984 (per week ÷ per contact) | 150 | no | PASS | `mean_acute` +74.5 ± 7.8; `reactive_over_chance` +0.039 ± 0.0025 |
+| 7 | `appraisal_gain` 2.34141, `contact_band_max` 0.389176, `self_channel_exponent` 1.92097, `capacity_level_per_layer` 29.8481, `anxiety_band_low` 7.45411, `anxiety_band_high` 17.5241, `acute_decay_rate` 0.354482, `response_up_gain` 0.806017, `response_down_gain` 0.319301, `stress_floor_below_basic` 13.1452, `calm_transfer_rate` 0.0984, `tie_wear_rate` 0.101201; ratio 0.01978 (per week ÷ per contact) | 150 | no | PASS | `mean_acute` +33 ± 2.9; `reactive_over_chance` +0.0679 ± 0.0031 |
 
 ## `M11.C.41[heavy: lower level]` — 8 of 8 samples held
 
@@ -239,14 +241,14 @@ Directional criteria of the ensemble records with no ranges declared in `config/
 
 | Sample | Values | Seeds | Rerun | Verdict | Gating readouts (mean difference ± half-width) |
 |---|---|---|---|---|---|
-| 0 | `appraisal_gain` 4.01613, `contact_band_max` 0.144333, `self_channel_exponent` 1.36066, `capacity_level_per_layer` 16.259, `anxiety_band_low` 3.57521, `anxiety_band_high` 19.3809, `acute_decay_rate` 0.355849, `response_up_gain` 0.727111, `response_down_gain` 0.74252, `stress_floor_below_basic` 18.7095, `calm_transfer_rate` 0.0266516, `tie_wear_rate` 0.0306652; ratio 0.02213 (per week ÷ per contact) | 150 | no | PASS | `mean_acute` +38.6 ± 3.8; `reactive_over_chance` +0.0909 ± 0.0034 |
-| 1 | `appraisal_gain` 1.58847, `contact_band_max` 0.121965, `self_channel_exponent` 1.07666, `capacity_level_per_layer` 29.2061, `anxiety_band_low` 2.99726, `anxiety_band_high` 24.7054, `acute_decay_rate` 0.144591, `response_up_gain` 0.280956, `response_down_gain` 0.973088, `stress_floor_below_basic` 10.0433, `calm_transfer_rate` 0.0267955, `tie_wear_rate` 0.0179797; ratio 0.0129 (per week ÷ per contact) | 100 | no | PASS | `mean_acute` +103 ± 18; `reactive_over_chance` +0.101 ± 0.0043 |
-| 2 | `appraisal_gain` 3.12802, `contact_band_max` 0.150513, `self_channel_exponent` 3.03004, `capacity_level_per_layer` 37.5119, `anxiety_band_low` 5.92981, `anxiety_band_high` 27.6391, `acute_decay_rate` 0.111282, `response_up_gain` 0.445194, `response_down_gain` 0.253762, `stress_floor_below_basic` 14.345, `calm_transfer_rate` 0.0724735, `tie_wear_rate` 0.241428; ratio 0.06406 (per week ÷ per contact) | 150 | no | PASS | `mean_acute` +90.9 ± 30; `reactive_over_chance` +0.0394 ± 0.0025 |
-| 3 | `appraisal_gain` 1.63168, `contact_band_max` 0.154857, `self_channel_exponent` 2.2405, `capacity_level_per_layer` 38.281, `anxiety_band_low` 8.06321, `anxiety_band_high` 20.4048, `acute_decay_rate` 0.269768, `response_up_gain` 0.587543, `response_down_gain` 0.512929, `stress_floor_below_basic` 22.2638, `calm_transfer_rate` 0.0444499, `tie_wear_rate` 0.0770934; ratio 0.03335 (per week ÷ per contact) | 150 | no | PASS | `mean_acute` +79.3 ± 9.2; `reactive_over_chance` +0.0593 ± 0.0027 |
-| 4 | `appraisal_gain` 4.56631, `contact_band_max` 0.126419, `self_channel_exponent` 1.66297, `capacity_level_per_layer` 32.2878, `anxiety_band_low` 3.23619, `anxiety_band_high` 12.4508, `acute_decay_rate` 0.232871, `response_up_gain` 0.701544, `response_down_gain` 0.477579, `stress_floor_below_basic` 12.5699, `calm_transfer_rate` 0.0786341, `tie_wear_rate` 0.0238651; ratio 0.005836 (per week ÷ per contact) | 150 | no | PASS | `mean_acute` +85.2 ± 9.2; `reactive_over_chance` +0.0807 ± 0.0035 |
-| 5 | `appraisal_gain` 1.85667, `contact_band_max` 0.109641, `self_channel_exponent` 1.14778, `capacity_level_per_layer` 14.628, `anxiety_band_low` 4.67259, `anxiety_band_high` 10.0543, `acute_decay_rate` 0.283577, `response_up_gain` 0.838352, `response_down_gain` 0.653498, `stress_floor_below_basic` 16.2741, `calm_transfer_rate` 0.0321089, `tie_wear_rate` 0.0148305; ratio 0.008882 (per week ÷ per contact) | 100 | no | PASS | `mean_acute` +49.1 ± 6.1; `reactive_over_chance` +0.0906 ± 0.0041 |
-| 6 | `appraisal_gain` 3.85953, `contact_band_max` 0.319031, `self_channel_exponent` 1.6313, `capacity_level_per_layer` 10.906, `anxiety_band_low` 2.98594, `anxiety_band_high` 14.3089, `acute_decay_rate` 0.291439, `response_up_gain` 0.259446, `response_down_gain` 0.458535, `stress_floor_below_basic` 7.84099, `calm_transfer_rate` 0.0380135, `tie_wear_rate` 0.0367045; ratio 0.01857 (per week ÷ per contact) | 150 | no | PASS | `mean_acute` +51.9 ± 5.9; `reactive_over_chance` +0.0802 ± 0.0033 |
-| 7 | `appraisal_gain` 1.59129, `contact_band_max` 0.322709, `self_channel_exponent` 1.85828, `capacity_level_per_layer` 23.781, `anxiety_band_low` 6.20482, `anxiety_band_high` 11.2016, `acute_decay_rate` 0.131944, `response_up_gain` 0.848343, `response_down_gain` 0.863749, `stress_floor_below_basic` 10.839, `calm_transfer_rate` 0.0295802, `tie_wear_rate` 0.045842; ratio 0.0298 (per week ÷ per contact) | 150 | no | PASS | `mean_acute` +132 ± 24; `reactive_over_chance` +0.0751 ± 0.0033 |
+| 0 | `appraisal_gain` 4.01613, `contact_band_max` 0.144333, `self_channel_exponent` 1.36066, `capacity_level_per_layer` 16.259, `anxiety_band_low` 3.57521, `anxiety_band_high` 19.3809, `acute_decay_rate` 0.355849, `response_up_gain` 0.727111, `response_down_gain` 0.74252, `stress_floor_below_basic` 18.7095, `calm_transfer_rate` 0.0266516, `tie_wear_rate` 0.0306652; ratio 0.02213 (per week ÷ per contact) | 150 | no | PASS | `mean_acute` +38.8 ± 3.9; `reactive_over_chance` +0.0898 ± 0.0032 |
+| 1 | `appraisal_gain` 1.58847, `contact_band_max` 0.121965, `self_channel_exponent` 1.07666, `capacity_level_per_layer` 29.2061, `anxiety_band_low` 2.99726, `anxiety_band_high` 24.7054, `acute_decay_rate` 0.144591, `response_up_gain` 0.280956, `response_down_gain` 0.973088, `stress_floor_below_basic` 10.0433, `calm_transfer_rate` 0.0267955, `tie_wear_rate` 0.0179797; ratio 0.0129 (per week ÷ per contact) | 150 | no | PASS | `mean_acute` +105 ± 14; `reactive_over_chance` +0.102 ± 0.0034 |
+| 2 | `appraisal_gain` 3.12802, `contact_band_max` 0.150513, `self_channel_exponent` 3.03004, `capacity_level_per_layer` 37.5119, `anxiety_band_low` 5.92981, `anxiety_band_high` 27.6391, `acute_decay_rate` 0.111282, `response_up_gain` 0.445194, `response_down_gain` 0.253762, `stress_floor_below_basic` 14.345, `calm_transfer_rate` 0.0724735, `tie_wear_rate` 0.241428; ratio 0.06406 (per week ÷ per contact) | 150 | no | PASS | `mean_acute` +97.1 ± 29; `reactive_over_chance` +0.0377 ± 0.0026 |
+| 3 | `appraisal_gain` 1.63168, `contact_band_max` 0.154857, `self_channel_exponent` 2.2405, `capacity_level_per_layer` 38.281, `anxiety_band_low` 8.06321, `anxiety_band_high` 20.4048, `acute_decay_rate` 0.269768, `response_up_gain` 0.587543, `response_down_gain` 0.512929, `stress_floor_below_basic` 22.2638, `calm_transfer_rate` 0.0444499, `tie_wear_rate` 0.0770934; ratio 0.03335 (per week ÷ per contact) | 150 | no | PASS | `mean_acute` +73.1 ± 9.3; `reactive_over_chance` +0.0579 ± 0.0028 |
+| 4 | `appraisal_gain` 4.56631, `contact_band_max` 0.126419, `self_channel_exponent` 1.66297, `capacity_level_per_layer` 32.2878, `anxiety_band_low` 3.23619, `anxiety_band_high` 12.4508, `acute_decay_rate` 0.232871, `response_up_gain` 0.701544, `response_down_gain` 0.477579, `stress_floor_below_basic` 12.5699, `calm_transfer_rate` 0.0786341, `tie_wear_rate` 0.0238651; ratio 0.005836 (per week ÷ per contact) | 150 | no | PASS | `mean_acute` +88.8 ± 9.8; `reactive_over_chance` +0.0801 ± 0.0032 |
+| 5 | `appraisal_gain` 1.85667, `contact_band_max` 0.109641, `self_channel_exponent` 1.14778, `capacity_level_per_layer` 14.628, `anxiety_band_low` 4.67259, `anxiety_band_high` 10.0543, `acute_decay_rate` 0.283577, `response_up_gain` 0.838352, `response_down_gain` 0.653498, `stress_floor_below_basic` 16.2741, `calm_transfer_rate` 0.0321089, `tie_wear_rate` 0.0148305; ratio 0.008882 (per week ÷ per contact) | 150 | no | PASS | `mean_acute` +54.6 ± 5.1; `reactive_over_chance` +0.0958 ± 0.0035 |
+| 6 | `appraisal_gain` 3.85953, `contact_band_max` 0.319031, `self_channel_exponent` 1.6313, `capacity_level_per_layer` 10.906, `anxiety_band_low` 2.98594, `anxiety_band_high` 14.3089, `acute_decay_rate` 0.291439, `response_up_gain` 0.259446, `response_down_gain` 0.458535, `stress_floor_below_basic` 7.84099, `calm_transfer_rate` 0.0380135, `tie_wear_rate` 0.0367045; ratio 0.01857 (per week ÷ per contact) | 150 | no | PASS | `mean_acute` +51.4 ± 6.1; `reactive_over_chance` +0.0787 ± 0.0033 |
+| 7 | `appraisal_gain` 1.59129, `contact_band_max` 0.322709, `self_channel_exponent` 1.85828, `capacity_level_per_layer` 23.781, `anxiety_band_low` 6.20482, `anxiety_band_high` 11.2016, `acute_decay_rate` 0.131944, `response_up_gain` 0.848343, `response_down_gain` 0.863749, `stress_floor_below_basic` 10.839, `calm_transfer_rate` 0.0295802, `tie_wear_rate` 0.045842; ratio 0.0298 (per week ÷ per contact) | 150 | no | PASS | `mean_acute` +112 ± 23; `reactive_over_chance` +0.0724 ± 0.0035 |
 
 ## `M11.C.41[higher level: heavier stress]` — 0 of 8 samples held
 
@@ -254,44 +256,44 @@ Directional criteria of the ensemble records with no ranges declared in `config/
 
 | Sample | Values | Seeds | Rerun | Verdict | Gating readouts (mean difference ± half-width) |
 |---|---|---|---|---|---|
-| 0 | `appraisal_gain` 3.916, `contact_band_max` 0.105596, `self_channel_exponent` 2.59508, `capacity_level_per_layer` 19.3821, `anxiety_band_low` 3.38287, `anxiety_band_high` 10.5258, `acute_decay_rate` 0.145846, `response_up_gain` 0.478362, `response_down_gain` 0.395942, `stress_floor_below_basic` 10.9757, `calm_transfer_rate` 0.0954031, `tie_wear_rate` 0.270371; ratio 0.0545 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `mean_acute` +36.1 ± 14; `reactive_over_chance` -0.00079 ± 0.0017 |
-| 1 | `appraisal_gain` 1.62622, `contact_band_max` 0.104138, `self_channel_exponent` 1.49057, `capacity_level_per_layer` 17.736, `anxiety_band_low` 6.76819, `anxiety_band_high` 27.5369, `acute_decay_rate` 0.270239, `response_up_gain` 0.385806, `response_down_gain` 0.386826, `stress_floor_below_basic` 12.6533, `calm_transfer_rate` 0.0862017, `tie_wear_rate` 0.0581461; ratio 0.01297 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `mean_acute` +11.4 ± 3.8; `reactive_over_chance` +8.1e-05 ± 0.0024 |
-| 2 | `appraisal_gain` 2.22966, `contact_band_max` 0.145666, `self_channel_exponent` 3.71931, `capacity_level_per_layer` 22.5077, `anxiety_band_low` 9.98717, `anxiety_band_high` 20.462, `acute_decay_rate` 0.102994, `response_up_gain` 0.273436, `response_down_gain` 0.817008, `stress_floor_below_basic` 9.34468, `calm_transfer_rate` 0.0272947, `tie_wear_rate` 0.0135223; ratio 0.009527 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `mean_acute` -17.1 ± 28; `reactive_over_chance` +0.00051 ± 0.0018 |
-| 3 | `appraisal_gain` 4.14211, `contact_band_max` 0.364218, `self_channel_exponent` 2.59433, `capacity_level_per_layer` 21.8999, `anxiety_band_low` 2.96916, `anxiety_band_high` 22.7834, `acute_decay_rate` 0.110556, `response_up_gain` 0.652376, `response_down_gain` 0.366115, `stress_floor_below_basic` 15.4282, `calm_transfer_rate` 0.098206, `tie_wear_rate` 0.0330079; ratio 0.006464 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `mean_acute` +25.1 ± 28; `reactive_over_chance` +2.16e-06 ± 0.0021 |
-| 4 | `appraisal_gain` 1.7414, `contact_band_max` 0.247001, `self_channel_exponent` 2.72837, `capacity_level_per_layer` 14.8248, `anxiety_band_low` 7.05016, `anxiety_band_high` 11.3676, `acute_decay_rate` 0.189547, `response_up_gain` 0.794525, `response_down_gain` 0.448441, `stress_floor_below_basic` 11.452, `calm_transfer_rate` 0.0311123, `tie_wear_rate` 0.0608829; ratio 0.03763 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `mean_acute` +18.4 ± 7.4; `reactive_over_chance` -0.00139 ± 0.0018 |
-| 5 | `appraisal_gain` 5.12955, `contact_band_max` 0.170912, `self_channel_exponent` 2.16427, `capacity_level_per_layer` 12.2236, `anxiety_band_low` 3.03395, `anxiety_band_high` 20.0989, `acute_decay_rate` 0.218762, `response_up_gain` 0.525135, `response_down_gain` 0.25339, `stress_floor_below_basic` 8.86525, `calm_transfer_rate` 0.0657798, `tie_wear_rate` 0.0529232; ratio 0.01547 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `mean_acute` +8.69 ± 6.2; `reactive_over_chance` -0.000259 ± 0.0019 |
-| 6 | `appraisal_gain` 2.22084, `contact_band_max` 0.148825, `self_channel_exponent` 2.52975, `capacity_level_per_layer` 18.4754, `anxiety_band_low` 2.53771, `anxiety_band_high` 11.1675, `acute_decay_rate` 0.116846, `response_up_gain` 0.25321, `response_down_gain` 0.767968, `stress_floor_below_basic` 13.7587, `calm_transfer_rate` 0.0664162, `tie_wear_rate` 0.052656; ratio 0.01525 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `mean_acute` +21.2 ± 25; `reactive_over_chance` +0.000861 ± 0.0018 |
-| 7 | `appraisal_gain` 1.55221, `contact_band_max` 0.137537, `self_channel_exponent` 1.51283, `capacity_level_per_layer` 12.0763, `anxiety_band_low` 5.27206, `anxiety_band_high` 19.3654, `acute_decay_rate` 0.128922, `response_up_gain` 0.486202, `response_down_gain` 0.367943, `stress_floor_below_basic` 21.6088, `calm_transfer_rate` 0.0842925, `tie_wear_rate` 0.0216461; ratio 0.004938 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `mean_acute` +25.9 ± 17; `reactive_over_chance` -6.09e-05 ± 0.0021 |
+| 0 | `appraisal_gain` 3.916, `contact_band_max` 0.105596, `self_channel_exponent` 2.59508, `capacity_level_per_layer` 19.3821, `anxiety_band_low` 3.38287, `anxiety_band_high` 10.5258, `acute_decay_rate` 0.145846, `response_up_gain` 0.478362, `response_down_gain` 0.395942, `stress_floor_below_basic` 10.9757, `calm_transfer_rate` 0.0954031, `tie_wear_rate` 0.270371; ratio 0.0545 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `mean_acute` +44.8 ± 15; `reactive_over_chance` -0.000553 ± 0.0016 |
+| 1 | `appraisal_gain` 1.62622, `contact_band_max` 0.104138, `self_channel_exponent` 1.49057, `capacity_level_per_layer` 17.736, `anxiety_band_low` 6.76819, `anxiety_band_high` 27.5369, `acute_decay_rate` 0.270239, `response_up_gain` 0.385806, `response_down_gain` 0.386826, `stress_floor_below_basic` 12.6533, `calm_transfer_rate` 0.0862017, `tie_wear_rate` 0.0581461; ratio 0.01297 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `mean_acute` +10.6 ± 3.4; `reactive_over_chance` +9.09e-05 ± 0.0023 |
+| 2 | `appraisal_gain` 2.22966, `contact_band_max` 0.145666, `self_channel_exponent` 3.71931, `capacity_level_per_layer` 22.5077, `anxiety_band_low` 9.98717, `anxiety_band_high` 20.462, `acute_decay_rate` 0.102994, `response_up_gain` 0.273436, `response_down_gain` 0.817008, `stress_floor_below_basic` 9.34468, `calm_transfer_rate` 0.0272947, `tie_wear_rate` 0.0135223; ratio 0.009527 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `mean_acute` +4.27 ± 29; `reactive_over_chance` +0.000808 ± 0.0018 |
+| 3 | `appraisal_gain` 4.14211, `contact_band_max` 0.364218, `self_channel_exponent` 2.59433, `capacity_level_per_layer` 21.8999, `anxiety_band_low` 2.96916, `anxiety_band_high` 22.7834, `acute_decay_rate` 0.110556, `response_up_gain` 0.652376, `response_down_gain` 0.366115, `stress_floor_below_basic` 15.4282, `calm_transfer_rate` 0.098206, `tie_wear_rate` 0.0330079; ratio 0.006464 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `mean_acute` +33 ± 26; `reactive_over_chance` -0.00256 ± 0.0021 |
+| 4 | `appraisal_gain` 1.7414, `contact_band_max` 0.247001, `self_channel_exponent` 2.72837, `capacity_level_per_layer` 14.8248, `anxiety_band_low` 7.05016, `anxiety_band_high` 11.3676, `acute_decay_rate` 0.189547, `response_up_gain` 0.794525, `response_down_gain` 0.448441, `stress_floor_below_basic` 11.452, `calm_transfer_rate` 0.0311123, `tie_wear_rate` 0.0608829; ratio 0.03763 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `mean_acute` +21.6 ± 7.8; `reactive_over_chance` -0.000777 ± 0.0017 |
+| 5 | `appraisal_gain` 5.12955, `contact_band_max` 0.170912, `self_channel_exponent` 2.16427, `capacity_level_per_layer` 12.2236, `anxiety_band_low` 3.03395, `anxiety_band_high` 20.0989, `acute_decay_rate` 0.218762, `response_up_gain` 0.525135, `response_down_gain` 0.25339, `stress_floor_below_basic` 8.86525, `calm_transfer_rate` 0.0657798, `tie_wear_rate` 0.0529232; ratio 0.01547 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `mean_acute` +11.6 ± 6.3; `reactive_over_chance` -0.00107 ± 0.0018 |
+| 6 | `appraisal_gain` 2.22084, `contact_band_max` 0.148825, `self_channel_exponent` 2.52975, `capacity_level_per_layer` 18.4754, `anxiety_band_low` 2.53771, `anxiety_band_high` 11.1675, `acute_decay_rate` 0.116846, `response_up_gain` 0.25321, `response_down_gain` 0.767968, `stress_floor_below_basic` 13.7587, `calm_transfer_rate` 0.0664162, `tie_wear_rate` 0.052656; ratio 0.01525 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `mean_acute` +15.3 ± 27; `reactive_over_chance` +7.24e-05 ± 0.0017 |
+| 7 | `appraisal_gain` 1.55221, `contact_band_max` 0.137537, `self_channel_exponent` 1.51283, `capacity_level_per_layer` 12.0763, `anxiety_band_low` 5.27206, `anxiety_band_high` 19.3654, `acute_decay_rate` 0.128922, `response_up_gain` 0.486202, `response_down_gain` 0.367943, `stress_floor_below_basic` 21.6088, `calm_transfer_rate` 0.0842925, `tie_wear_rate` 0.0216461; ratio 0.004938 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `mean_acute` +33.4 ± 16; `reactive_over_chance` +9.23e-05 ± 0.0019 |
 
-## `M11.C.41[lower level: heavier stress]` — 1 of 8 samples held
+## `M11.C.41[lower level: heavier stress]` — 0 of 8 samples held
 
-`tie_wear_to_transfer_ratio` (per week ÷ per contact) entered: held 1 of 3 below its central value 0.01923 and 0 of 5 at or above it.
-
-| Sample | Values | Seeds | Rerun | Verdict | Gating readouts (mean difference ± half-width) |
-|---|---|---|---|---|---|
-| 0 | `appraisal_gain` 2.66467, `contact_band_max` 0.375253, `self_channel_exponent` 2.36387, `capacity_level_per_layer` 14.2742, `anxiety_band_low` 9.04436, `anxiety_band_high` 10.209, `acute_decay_rate` 0.207457, `response_up_gain` 0.970466, `response_down_gain` 0.799206, `stress_floor_below_basic` 15.3317, `calm_transfer_rate` 0.0638079, `tie_wear_rate` 0.182902; ratio 0.05512 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `mean_acute` +17.9 ± 11; `reactive_over_chance` +0.000489 ± 0.0018 |
-| 1 | `appraisal_gain` 2.00019, `contact_band_max` 0.113452, `self_channel_exponent` 1.57997, `capacity_level_per_layer` 17.0113, `anxiety_band_low` 5.46091, `anxiety_band_high` 27.1584, `acute_decay_rate` 0.396949, `response_up_gain` 0.290049, `response_down_gain` 0.284705, `stress_floor_below_basic` 16.9482, `calm_transfer_rate` 0.0421115, `tie_wear_rate` 0.0114783; ratio 0.005242 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `mean_acute` +8.24 ± 3.4; `reactive_over_chance` -4.61e-05 ± 0.0021 |
-| 2 | `appraisal_gain` 1.58347, `contact_band_max` 0.32936, `self_channel_exponent` 1.06329, `capacity_level_per_layer` 26.5456, `anxiety_band_low` 4.03715, `anxiety_band_high` 19.5121, `acute_decay_rate` 0.221854, `response_up_gain` 0.36266, `response_down_gain` 0.57397, `stress_floor_below_basic` 21.7006, `calm_transfer_rate` 0.0841986, `tie_wear_rate` 0.134437; ratio 0.03071 (per week ÷ per contact) | 100 then 200 | yes (first FAIL) | FAIL | `mean_acute` +10.8 ± 8.5; `reactive_over_chance` +0.0013 ± 0.0023 |
-| 3 | `appraisal_gain` 4.62995, `contact_band_max` 0.144863, `self_channel_exponent` 2.96738, `capacity_level_per_layer` 14.9136, `anxiety_band_low` 3.19469, `anxiety_band_high` 15.884, `acute_decay_rate` 0.121784, `response_up_gain` 0.738898, `response_down_gain` 0.726413, `stress_floor_below_basic` 24.394, `calm_transfer_rate` 0.0393222, `tie_wear_rate` 0.0157189; ratio 0.007687 (per week ÷ per contact) | 100 then 200 | yes (first FAIL) | FAIL | `mean_acute` +35.2 ± 56; `reactive_over_chance` -0.000947 ± 0.0022 |
-| 4 | `appraisal_gain` 3.32486, `contact_band_max` 0.156352, `self_channel_exponent` 1.19384, `capacity_level_per_layer` 21.5938, `anxiety_band_low` 9.39298, `anxiety_band_high` 26.3051, `acute_decay_rate` 0.349198, `response_up_gain` 0.496068, `response_down_gain` 0.304331, `stress_floor_below_basic` 10.3092, `calm_transfer_rate` 0.0313023, `tie_wear_rate` 0.0147716; ratio 0.009075 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | PASS | `mean_acute` +7.51 ± 3.2; `reactive_over_chance` +0.00195 ± 0.0022 |
-| 5 | `appraisal_gain` 4.01073, `contact_band_max` 0.291791, `self_channel_exponent` 1.52381, `capacity_level_per_layer` 19.4256, `anxiety_band_low` 5.94415, `anxiety_band_high` 10.2349, `acute_decay_rate` 0.115985, `response_up_gain` 0.447825, `response_down_gain` 0.729339, `stress_floor_below_basic` 10.2375, `calm_transfer_rate` 0.0912125, `tie_wear_rate` 0.238434; ratio 0.05027 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `mean_acute` +27.7 ± 20; `reactive_over_chance` +0.00142 ± 0.0021 |
-| 6 | `appraisal_gain` 3.20211, `contact_band_max` 0.295927, `self_channel_exponent` 2.23298, `capacity_level_per_layer` 11.8844, `anxiety_band_low` 4.41155, `anxiety_band_high` 13.3866, `acute_decay_rate` 0.115498, `response_up_gain` 0.766626, `response_down_gain` 0.45487, `stress_floor_below_basic` 18.1344, `calm_transfer_rate` 0.0396499, `tie_wear_rate` 0.0927863; ratio 0.045 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `mean_acute` +45.9 ± 31; `reactive_over_chance` -0.000254 ± 0.0021 |
-| 7 | `appraisal_gain` 1.51572, `contact_band_max` 0.10687, `self_channel_exponent` 1.89678, `capacity_level_per_layer` 16.0502, `anxiety_band_low` 2.60085, `anxiety_band_high` 19.4902, `acute_decay_rate` 0.140759, `response_up_gain` 0.377606, `response_down_gain` 0.662727, `stress_floor_below_basic` 17.9135, `calm_transfer_rate` 0.0625561, `tie_wear_rate` 0.11287; ratio 0.0347 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `mean_acute` +19.6 ± 19; `reactive_over_chance` -0.000625 ± 0.0019 |
-
-## `M11.C.44` — 3 of 8 samples held
-
-`tie_wear_to_transfer_ratio` (per week ÷ per contact) entered: held 2 of 4 below its central value 0.01923 and 1 of 4 at or above it.
+`tie_wear_to_transfer_ratio` (per week ÷ per contact) entered: held 0 of 3 below its central value 0.01923 and 0 of 5 at or above it.
 
 | Sample | Values | Seeds | Rerun | Verdict | Gating readouts (mean difference ± half-width) |
 |---|---|---|---|---|---|
-| 0 | `appraisal_gain` 5.5203, `intensity_scale` 81.1361, `impingement_relaxation_rate` 0.151938, `contact_band_max` 0.307381, `anxiety_togetherness_gain` 0.32193, `interactive_resting_contact` 0.308467, `contact_relaxation_rate` 0.164261, `learning_rate` 0.178889, `credit_horizon` 2, `credit_discount` 0.530347, `cross_person_weight` 0.591073, `policy_temperature` 1.01689, `habituation_rate` 0.664684, `habituation_window` 10, `calm_transfer_rate` 0.0463126, `tie_wear_rate` 0.0204833; ratio 0.008505 (per week ÷ per contact) | 100 then 200 | yes (first FAIL) | PASS | `outside_inside_ratio` +0.0649 ± 0.066 |
-| 1 | `appraisal_gain` 5.09006, `intensity_scale` 117.458, `impingement_relaxation_rate` 0.483652, `contact_band_max` 0.133917, `anxiety_togetherness_gain` 0.742605, `interactive_resting_contact` 0.281991, `contact_relaxation_rate` 0.0741504, `learning_rate` 0.326797, `credit_horizon` 5, `credit_discount` 0.598624, `cross_person_weight` 0.732007, `policy_temperature` 1.55935, `habituation_rate` 0.770473, `habituation_window` 12, `calm_transfer_rate` 0.0898341, `tie_wear_rate` 0.0227518; ratio 0.00487 (per week ÷ per contact) | 100 then 200 | yes (first FAIL) | FAIL | `outside_inside_ratio` -0.0395 ± 0.054 |
-| 2 | `appraisal_gain` 1.65139, `intensity_scale` 63.0322, `impingement_relaxation_rate` 0.565249, `contact_band_max` 0.243845, `anxiety_togetherness_gain` 0.428275, `interactive_resting_contact` 0.260209, `contact_relaxation_rate` 0.0881843, `learning_rate` 0.183947, `credit_horizon` 5, `credit_discount` 0.557613, `cross_person_weight` 0.739684, `policy_temperature` 0.799309, `habituation_rate` 0.654515, `habituation_window` 8, `calm_transfer_rate` 0.0999241, `tie_wear_rate` 0.0856162; ratio 0.01648 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `outside_inside_ratio` +0.0446 ± 0.09 |
-| 3 | `appraisal_gain` 2.76648, `intensity_scale` 172.939, `impingement_relaxation_rate` 0.31242, `contact_band_max` 0.226251, `anxiety_togetherness_gain` 0.506852, `interactive_resting_contact` 0.362853, `contact_relaxation_rate` 0.196845, `learning_rate` 0.259392, `credit_horizon` 5, `credit_discount` 0.363965, `cross_person_weight` 0.600794, `policy_temperature` 1.05692, `habituation_rate` 0.404077, `habituation_window` 5, `calm_transfer_rate` 0.0334052, `tie_wear_rate` 0.0200972; ratio 0.01157 (per week ÷ per contact) | 100 then 200 | yes (first FAIL) | PASS | `outside_inside_ratio` +0.0478 ± 0.042 |
-| 4 | `appraisal_gain` 4.47832, `intensity_scale` 105.763, `impingement_relaxation_rate` 0.163159, `contact_band_max` 0.156216, `anxiety_togetherness_gain` 0.349314, `interactive_resting_contact` 0.417866, `contact_relaxation_rate` 0.145617, `learning_rate` 0.124223, `credit_horizon` 4, `credit_discount` 0.496092, `cross_person_weight` 0.400185, `policy_temperature` 1.56126, `habituation_rate` 0.661535, `habituation_window` 5, `calm_transfer_rate` 0.0709641, `tie_wear_rate` 0.156615; ratio 0.04244 (per week ÷ per contact) | 100 then 200 | yes (first FAIL) | PASS | `outside_inside_ratio` +0.0355 ± 0.043 |
-| 5 | `appraisal_gain` 3.7104, `intensity_scale` 178.952, `impingement_relaxation_rate` 0.183154, `contact_band_max` 0.288594, `anxiety_togetherness_gain` 0.937248, `interactive_resting_contact` 0.956587, `contact_relaxation_rate` 0.0853424, `learning_rate` 0.382904, `credit_horizon` 5, `credit_discount` 0.533515, `cross_person_weight` 0.341189, `policy_temperature` 1.64132, `habituation_rate` 0.797178, `habituation_window` 12, `calm_transfer_rate` 0.0842724, `tie_wear_rate` 0.225258; ratio 0.0514 (per week ÷ per contact) | 100 then 200 | yes (first FAIL) | FAIL | `outside_inside_ratio` +0.0367 ± 0.042 |
-| 6 | `appraisal_gain` 2.18813, `intensity_scale` 63.4615, `impingement_relaxation_rate` 0.589588, `contact_band_max` 0.192642, `anxiety_togetherness_gain` 0.402106, `interactive_resting_contact` 0.44597, `contact_relaxation_rate` 0.181818, `learning_rate` 0.331856, `credit_horizon` 3, `credit_discount` 0.520283, `cross_person_weight` 0.331982, `policy_temperature` 1.02198, `habituation_rate` 0.741216, `habituation_window` 8, `calm_transfer_rate` 0.0272287, `tie_wear_rate` 0.0647678; ratio 0.04574 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `outside_inside_ratio` +0.0477 ± 0.091 |
-| 7 | `appraisal_gain` 3.83508, `intensity_scale` 104.284, `impingement_relaxation_rate` 0.161067, `contact_band_max` 0.31181, `anxiety_togetherness_gain` 0.505579, `interactive_resting_contact` 0.286345, `contact_relaxation_rate` 0.0929004, `learning_rate` 0.226844, `credit_horizon` 6, `credit_discount` 0.376124, `cross_person_weight` 0.432833, `policy_temperature` 1.1462, `habituation_rate` 0.383326, `habituation_window` 5, `calm_transfer_rate` 0.0275105, `tie_wear_rate` 0.0952338; ratio 0.06657 (per week ÷ per contact) | 100 then 200 | yes (first FAIL) | FAIL | `outside_inside_ratio` -0.0045 ± 0.049 |
+| 0 | `appraisal_gain` 2.66467, `contact_band_max` 0.375253, `self_channel_exponent` 2.36387, `capacity_level_per_layer` 14.2742, `anxiety_band_low` 9.04436, `anxiety_band_high` 10.209, `acute_decay_rate` 0.207457, `response_up_gain` 0.970466, `response_down_gain` 0.799206, `stress_floor_below_basic` 15.3317, `calm_transfer_rate` 0.0638079, `tie_wear_rate` 0.182902; ratio 0.05512 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `mean_acute` +15.8 ± 10; `reactive_over_chance` +0.00119 ± 0.0017 |
+| 1 | `appraisal_gain` 2.00019, `contact_band_max` 0.113452, `self_channel_exponent` 1.57997, `capacity_level_per_layer` 17.0113, `anxiety_band_low` 5.46091, `anxiety_band_high` 27.1584, `acute_decay_rate` 0.396949, `response_up_gain` 0.290049, `response_down_gain` 0.284705, `stress_floor_below_basic` 16.9482, `calm_transfer_rate` 0.0421115, `tie_wear_rate` 0.0114783; ratio 0.005242 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `mean_acute` +7.36 ± 3.4; `reactive_over_chance` -0.00041 ± 0.0019 |
+| 2 | `appraisal_gain` 1.58347, `contact_band_max` 0.32936, `self_channel_exponent` 1.06329, `capacity_level_per_layer` 26.5456, `anxiety_band_low` 4.03715, `anxiety_band_high` 19.5121, `acute_decay_rate` 0.221854, `response_up_gain` 0.36266, `response_down_gain` 0.57397, `stress_floor_below_basic` 21.7006, `calm_transfer_rate` 0.0841986, `tie_wear_rate` 0.134437; ratio 0.03071 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `mean_acute` +12.8 ± 9.1; `reactive_over_chance` +0.0016 ± 0.0024 |
+| 3 | `appraisal_gain` 4.62995, `contact_band_max` 0.144863, `self_channel_exponent` 2.96738, `capacity_level_per_layer` 14.9136, `anxiety_band_low` 3.19469, `anxiety_band_high` 15.884, `acute_decay_rate` 0.121784, `response_up_gain` 0.738898, `response_down_gain` 0.726413, `stress_floor_below_basic` 24.394, `calm_transfer_rate` 0.0393222, `tie_wear_rate` 0.0157189; ratio 0.007687 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `mean_acute` +90.8 ± 69; `reactive_over_chance` -0.000626 ± 0.0022 |
+| 4 | `appraisal_gain` 3.32486, `contact_band_max` 0.156352, `self_channel_exponent` 1.19384, `capacity_level_per_layer` 21.5938, `anxiety_band_low` 9.39298, `anxiety_band_high` 26.3051, `acute_decay_rate` 0.349198, `response_up_gain` 0.496068, `response_down_gain` 0.304331, `stress_floor_below_basic` 10.3092, `calm_transfer_rate` 0.0313023, `tie_wear_rate` 0.0147716; ratio 0.009075 (per week ÷ per contact) | 100 then 200 | yes (first FAIL) | FAIL | `mean_acute` +7.96 ± 3; `reactive_over_chance` +0.00059 ± 0.0022 |
+| 5 | `appraisal_gain` 4.01073, `contact_band_max` 0.291791, `self_channel_exponent` 1.52381, `capacity_level_per_layer` 19.4256, `anxiety_band_low` 5.94415, `anxiety_band_high` 10.2349, `acute_decay_rate` 0.115985, `response_up_gain` 0.447825, `response_down_gain` 0.729339, `stress_floor_below_basic` 10.2375, `calm_transfer_rate` 0.0912125, `tie_wear_rate` 0.238434; ratio 0.05027 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `mean_acute` +22.2 ± 18; `reactive_over_chance` +0.00124 ± 0.0021 |
+| 6 | `appraisal_gain` 3.20211, `contact_band_max` 0.295927, `self_channel_exponent` 2.23298, `capacity_level_per_layer` 11.8844, `anxiety_band_low` 4.41155, `anxiety_band_high` 13.3866, `acute_decay_rate` 0.115498, `response_up_gain` 0.766626, `response_down_gain` 0.45487, `stress_floor_below_basic` 18.1344, `calm_transfer_rate` 0.0396499, `tie_wear_rate` 0.0927863; ratio 0.045 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `mean_acute` +38.4 ± 27; `reactive_over_chance` +0.0004 ± 0.0021 |
+| 7 | `appraisal_gain` 1.51572, `contact_band_max` 0.10687, `self_channel_exponent` 1.89678, `capacity_level_per_layer` 16.0502, `anxiety_band_low` 2.60085, `anxiety_band_high` 19.4902, `acute_decay_rate` 0.140759, `response_up_gain` 0.377606, `response_down_gain` 0.662727, `stress_floor_below_basic` 17.9135, `calm_transfer_rate` 0.0625561, `tie_wear_rate` 0.11287; ratio 0.0347 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `mean_acute` +39.2 ± 21; `reactive_over_chance` -0.000437 ± 0.0019 |
+
+## `M11.C.44` — 2 of 8 samples held
+
+`tie_wear_to_transfer_ratio` (per week ÷ per contact) entered: held 2 of 4 below its central value 0.01923 and 0 of 4 at or above it.
+
+| Sample | Values | Seeds | Rerun | Verdict | Gating readouts (mean difference ± half-width) |
+|---|---|---|---|---|---|
+| 0 | `appraisal_gain` 5.5203, `intensity_scale` 81.1361, `impingement_relaxation_rate` 0.151938, `contact_band_max` 0.307381, `anxiety_togetherness_gain` 0.32193, `interactive_resting_contact` 0.308467, `contact_relaxation_rate` 0.164261, `learning_rate` 0.178889, `credit_horizon` 2, `credit_discount` 0.530347, `cross_person_weight` 0.591073, `policy_temperature` 1.01689, `habituation_rate` 0.664684, `habituation_window` 10, `calm_transfer_rate` 0.0463126, `tie_wear_rate` 0.0204833; ratio 0.008505 (per week ÷ per contact) | 100 then 200 | yes (first FAIL) | PASS | `outside_inside_ratio` +0.0525 ± 0.058 |
+| 1 | `appraisal_gain` 5.09006, `intensity_scale` 117.458, `impingement_relaxation_rate` 0.483652, `contact_band_max` 0.133917, `anxiety_togetherness_gain` 0.742605, `interactive_resting_contact` 0.281991, `contact_relaxation_rate` 0.0741504, `learning_rate` 0.326797, `credit_horizon` 5, `credit_discount` 0.598624, `cross_person_weight` 0.732007, `policy_temperature` 1.55935, `habituation_rate` 0.770473, `habituation_window` 12, `calm_transfer_rate` 0.0898341, `tie_wear_rate` 0.0227518; ratio 0.00487 (per week ÷ per contact) | 100 then 200 | yes (first FAIL) | FAIL | `outside_inside_ratio` -0.0418 ± 0.054 |
+| 2 | `appraisal_gain` 1.65139, `intensity_scale` 63.0322, `impingement_relaxation_rate` 0.565249, `contact_band_max` 0.243845, `anxiety_togetherness_gain` 0.428275, `interactive_resting_contact` 0.260209, `contact_relaxation_rate` 0.0881843, `learning_rate` 0.183947, `credit_horizon` 5, `credit_discount` 0.557613, `cross_person_weight` 0.739684, `policy_temperature` 0.799309, `habituation_rate` 0.654515, `habituation_window` 8, `calm_transfer_rate` 0.0999241, `tie_wear_rate` 0.0856162; ratio 0.01648 (per week ÷ per contact) | 100 then 200 | yes (first FAIL) | FAIL | `outside_inside_ratio` -0.00726 ± 0.087 |
+| 3 | `appraisal_gain` 2.76648, `intensity_scale` 172.939, `impingement_relaxation_rate` 0.31242, `contact_band_max` 0.226251, `anxiety_togetherness_gain` 0.506852, `interactive_resting_contact` 0.362853, `contact_relaxation_rate` 0.196845, `learning_rate` 0.259392, `credit_horizon` 5, `credit_discount` 0.363965, `cross_person_weight` 0.600794, `policy_temperature` 1.05692, `habituation_rate` 0.404077, `habituation_window` 5, `calm_transfer_rate` 0.0334052, `tie_wear_rate` 0.0200972; ratio 0.01157 (per week ÷ per contact) | 100 then 200 | yes (first FAIL) | PASS | `outside_inside_ratio` +0.0374 ± 0.043 |
+| 4 | `appraisal_gain` 4.47832, `intensity_scale` 105.763, `impingement_relaxation_rate` 0.163159, `contact_band_max` 0.156216, `anxiety_togetherness_gain` 0.349314, `interactive_resting_contact` 0.417866, `contact_relaxation_rate` 0.145617, `learning_rate` 0.124223, `credit_horizon` 4, `credit_discount` 0.496092, `cross_person_weight` 0.400185, `policy_temperature` 1.56126, `habituation_rate` 0.661535, `habituation_window` 5, `calm_transfer_rate` 0.0709641, `tie_wear_rate` 0.156615; ratio 0.04244 (per week ÷ per contact) | 50 then 200 | yes (first FAIL) | FAIL | `outside_inside_ratio` +0.027 ± 0.042 |
+| 5 | `appraisal_gain` 3.7104, `intensity_scale` 178.952, `impingement_relaxation_rate` 0.183154, `contact_band_max` 0.288594, `anxiety_togetherness_gain` 0.937248, `interactive_resting_contact` 0.956587, `contact_relaxation_rate` 0.0853424, `learning_rate` 0.382904, `credit_horizon` 5, `credit_discount` 0.533515, `cross_person_weight` 0.341189, `policy_temperature` 1.64132, `habituation_rate` 0.797178, `habituation_window` 12, `calm_transfer_rate` 0.0842724, `tie_wear_rate` 0.225258; ratio 0.0514 (per week ÷ per contact) | 100 then 200 | yes (first FAIL) | FAIL | `outside_inside_ratio` +0.0369 ± 0.041 |
+| 6 | `appraisal_gain` 2.18813, `intensity_scale` 63.4615, `impingement_relaxation_rate` 0.589588, `contact_band_max` 0.192642, `anxiety_togetherness_gain` 0.402106, `interactive_resting_contact` 0.44597, `contact_relaxation_rate` 0.181818, `learning_rate` 0.331856, `credit_horizon` 3, `credit_discount` 0.520283, `cross_person_weight` 0.331982, `policy_temperature` 1.02198, `habituation_rate` 0.741216, `habituation_window` 8, `calm_transfer_rate` 0.0272287, `tie_wear_rate` 0.0647678; ratio 0.04574 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `outside_inside_ratio` -0.0029 ± 0.084 |
+| 7 | `appraisal_gain` 3.83508, `intensity_scale` 104.284, `impingement_relaxation_rate` 0.161067, `contact_band_max` 0.31181, `anxiety_togetherness_gain` 0.505579, `interactive_resting_contact` 0.286345, `contact_relaxation_rate` 0.0929004, `learning_rate` 0.226844, `credit_horizon` 6, `credit_discount` 0.376124, `cross_person_weight` 0.432833, `policy_temperature` 1.1462, `habituation_rate` 0.383326, `habituation_window` 5, `calm_transfer_rate` 0.0275105, `tie_wear_rate` 0.0952338; ratio 0.06657 (per week ÷ per contact) | 100 then 200 | yes (first FAIL) | FAIL | `outside_inside_ratio` +0.00359 ± 0.053 |
 
 ## `M11.C.45` — 0 of 8 samples held
 
@@ -299,29 +301,29 @@ Directional criteria of the ensemble records with no ranges declared in `config/
 
 | Sample | Values | Seeds | Rerun | Verdict | Gating readouts (mean difference ± half-width) |
 |---|---|---|---|---|---|
-| 0 | `triangle_transfer_rate` 0.487292, `outsider_positional_gain` 0.620514, `learning_rate` 0.138262, `credit_horizon` 2, `credit_discount` 0.479076, `cross_person_weight` 0.413674, `policy_temperature` 0.74167, `habituation_rate` 0.978019, `habituation_window` 5, `calm_transfer_rate` 0.0547255, `tie_wear_rate` 0.132872; ratio 0.04669 (per week ÷ per contact) | 100 then 200 | yes (first FAIL) | FAIL | `triangle_rate` -0.0064 ± 0.0051 |
-| 1 | `triangle_transfer_rate` 0.239221, `outsider_positional_gain` 0.69706, `learning_rate` 0.395542, `credit_horizon` 5, `credit_discount` 0.412539, `cross_person_weight` 0.618203, `policy_temperature` 0.878408, `habituation_rate` 0.368234, `habituation_window` 7, `calm_transfer_rate` 0.0325043, `tie_wear_rate` 0.0151688; ratio 0.008974 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `triangle_rate` -0.00281 ± 0.0048 |
-| 2 | `triangle_transfer_rate` 0.19495, `outsider_positional_gain` 0.411013, `learning_rate` 0.38676, `credit_horizon` 2, `credit_discount` 0.379192, `cross_person_weight` 0.535625, `policy_temperature` 0.564783, `habituation_rate` 0.503806, `habituation_window` 10, `calm_transfer_rate` 0.0362369, `tie_wear_rate` 0.0155835; ratio 0.00827 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `triangle_rate` -0.00302 ± 0.0045 |
-| 3 | `triangle_transfer_rate` 0.229979, `outsider_positional_gain` 0.470087, `learning_rate` 0.160086, `credit_horizon` 5, `credit_discount` 0.381165, `cross_person_weight` 0.675325, `policy_temperature` 0.930769, `habituation_rate` 0.606648, `habituation_window` 7, `calm_transfer_rate` 0.0261306, `tie_wear_rate` 0.0213513; ratio 0.01571 (per week ÷ per contact) | 100 then 200 | yes (first FAIL) | FAIL | `triangle_rate` +0.00206 ± 0.0046 |
-| 4 | `triangle_transfer_rate` 0.256628, `outsider_positional_gain` 0.878354, `learning_rate` 0.163017, `credit_horizon` 5, `credit_discount` 0.689272, `cross_person_weight` 0.745417, `policy_temperature` 0.705216, `habituation_rate` 0.642278, `habituation_window` 13, `calm_transfer_rate` 0.0520264, `tie_wear_rate` 0.0314597; ratio 0.01163 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `triangle_rate` +0.000896 ± 0.0052 |
-| 5 | `triangle_transfer_rate` 0.161769, `outsider_positional_gain` 0.671211, `learning_rate` 0.25462, `credit_horizon` 5, `credit_discount` 0.941083, `cross_person_weight` 0.41249, `policy_temperature` 1.12329, `habituation_rate` 0.498684, `habituation_window` 15, `calm_transfer_rate` 0.0260864, `tie_wear_rate` 0.0573838; ratio 0.0423 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `triangle_rate` +0.000708 ± 0.0045 |
-| 6 | `triangle_transfer_rate` 0.444831, `outsider_positional_gain` 0.87346, `learning_rate` 0.230369, `credit_horizon` 6, `credit_discount` 0.393009, `cross_person_weight` 0.395231, `policy_temperature` 1.9604, `habituation_rate` 0.535981, `habituation_window` 9, `calm_transfer_rate` 0.0663616, `tie_wear_rate` 0.0312519; ratio 0.009056 (per week ÷ per contact) | 100 then 200 | yes (first FAIL) | FAIL | `triangle_rate` -0.0015 ± 0.0035 |
-| 7 | `triangle_transfer_rate` 0.429318, `outsider_positional_gain` 0.829971, `learning_rate` 0.392135, `credit_horizon` 3, `credit_discount` 0.622102, `cross_person_weight` 0.375, `policy_temperature` 1.09606, `habituation_rate` 0.985919, `habituation_window` 8, `calm_transfer_rate` 0.0830431, `tie_wear_rate` 0.126956; ratio 0.0294 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `triangle_rate` -0.00188 ± 0.0052 |
+| 0 | `triangle_transfer_rate` 0.487292, `outsider_positional_gain` 0.620514, `learning_rate` 0.138262, `credit_horizon` 2, `credit_discount` 0.479076, `cross_person_weight` 0.413674, `policy_temperature` 0.74167, `habituation_rate` 0.978019, `habituation_window` 5, `calm_transfer_rate` 0.0547255, `tie_wear_rate` 0.132872; ratio 0.04669 (per week ÷ per contact) | 100 then 200 | yes (first FAIL) | FAIL | `triangle_rate` -0.00681 ± 0.0049 |
+| 1 | `triangle_transfer_rate` 0.239221, `outsider_positional_gain` 0.69706, `learning_rate` 0.395542, `credit_horizon` 5, `credit_discount` 0.412539, `cross_person_weight` 0.618203, `policy_temperature` 0.878408, `habituation_rate` 0.368234, `habituation_window` 7, `calm_transfer_rate` 0.0325043, `tie_wear_rate` 0.0151688; ratio 0.008974 (per week ÷ per contact) | 100 then 200 | yes (first FAIL) | FAIL | `triangle_rate` -0.00346 ± 0.0045 |
+| 2 | `triangle_transfer_rate` 0.19495, `outsider_positional_gain` 0.411013, `learning_rate` 0.38676, `credit_horizon` 2, `credit_discount` 0.379192, `cross_person_weight` 0.535625, `policy_temperature` 0.564783, `habituation_rate` 0.503806, `habituation_window` 10, `calm_transfer_rate` 0.0362369, `tie_wear_rate` 0.0155835; ratio 0.00827 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `triangle_rate` -0.00398 ± 0.0046 |
+| 3 | `triangle_transfer_rate` 0.229979, `outsider_positional_gain` 0.470087, `learning_rate` 0.160086, `credit_horizon` 5, `credit_discount` 0.381165, `cross_person_weight` 0.675325, `policy_temperature` 0.930769, `habituation_rate` 0.606648, `habituation_window` 7, `calm_transfer_rate` 0.0261306, `tie_wear_rate` 0.0213513; ratio 0.01571 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `triangle_rate` +0.0021 ± 0.0047 |
+| 4 | `triangle_transfer_rate` 0.256628, `outsider_positional_gain` 0.878354, `learning_rate` 0.163017, `credit_horizon` 5, `credit_discount` 0.689272, `cross_person_weight` 0.745417, `policy_temperature` 0.705216, `habituation_rate` 0.642278, `habituation_window` 13, `calm_transfer_rate` 0.0520264, `tie_wear_rate` 0.0314597; ratio 0.01163 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `triangle_rate` -0.00308 ± 0.0049 |
+| 5 | `triangle_transfer_rate` 0.161769, `outsider_positional_gain` 0.671211, `learning_rate` 0.25462, `credit_horizon` 5, `credit_discount` 0.941083, `cross_person_weight` 0.41249, `policy_temperature` 1.12329, `habituation_rate` 0.498684, `habituation_window` 15, `calm_transfer_rate` 0.0260864, `tie_wear_rate` 0.0573838; ratio 0.0423 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `triangle_rate` -0.00262 ± 0.0045 |
+| 6 | `triangle_transfer_rate` 0.444831, `outsider_positional_gain` 0.87346, `learning_rate` 0.230369, `credit_horizon` 6, `credit_discount` 0.393009, `cross_person_weight` 0.395231, `policy_temperature` 1.9604, `habituation_rate` 0.535981, `habituation_window` 9, `calm_transfer_rate` 0.0663616, `tie_wear_rate` 0.0312519; ratio 0.009056 (per week ÷ per contact) | 100 then 200 | yes (first FAIL) | FAIL | `triangle_rate` -0.00325 ± 0.0036 |
+| 7 | `triangle_transfer_rate` 0.429318, `outsider_positional_gain` 0.829971, `learning_rate` 0.392135, `credit_horizon` 3, `credit_discount` 0.622102, `cross_person_weight` 0.375, `policy_temperature` 1.09606, `habituation_rate` 0.985919, `habituation_window` 8, `calm_transfer_rate` 0.0830431, `tie_wear_rate` 0.126956; ratio 0.0294 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `triangle_rate` +0.000271 ± 0.0053 |
 
-## `M11.C.2` — 4 of 8 samples held
+## `M11.C.2` — 2 of 8 samples held
 
-`tie_wear_to_transfer_ratio` (per week ÷ per contact) entered: held 3 of 4 below its central value 0.01923 and 1 of 4 at or above it.
+`tie_wear_to_transfer_ratio` (per week ÷ per contact) entered: held 2 of 4 below its central value 0.01923 and 0 of 4 at or above it.
 
 | Sample | Values | Seeds | Rerun | Verdict | Gating readouts (mean difference ± half-width) |
 |---|---|---|---|---|---|
-| 0 | `learning_rate` 0.319636, `credit_horizon` 3, `credit_discount` 0.550629, `cross_person_weight` 0.311257, `policy_temperature` 0.69982, `habituation_rate` 0.686293, `habituation_window` 9, `perceived_weakness_gain` 0.00617721, `focus_steer_gain` 1.77274, `focus_reinforce_gain` 0.622083, `focus_compound_gain` 12.1923, `investment_leak_rate` 0.195108, `witness_weight` 0.771363, `symptom_leak_rate` 0.195266, `calm_transfer_rate` 0.0520675, `tie_wear_rate` 0.100365; ratio 0.03707 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `symptom_load` +0.243 ± 1.1 |
-| 1 | `learning_rate` 0.23438, `credit_horizon` 2, `credit_discount` 0.633393, `cross_person_weight` 0.641563, `policy_temperature` 1.79742, `habituation_rate` 0.421405, `habituation_window` 13, `perceived_weakness_gain` 0.0150041, `focus_steer_gain` 1.6481, `focus_reinforce_gain` 0.733466, `focus_compound_gain` 10.197, `investment_leak_rate` 0.102844, `witness_weight` 0.344779, `symptom_leak_rate` 0.10855, `calm_transfer_rate` 0.0273885, `tie_wear_rate` 0.0553794; ratio 0.03888 (per week ÷ per contact) | 150 then 200 | yes (first PASS) | PASS | `symptom_load` +2.78 ± 2.2 |
-| 2 | `learning_rate` 0.174544, `credit_horizon` 2, `credit_discount` 0.440558, `cross_person_weight` 0.759732, `policy_temperature` 1.34497, `habituation_rate` 0.659347, `habituation_window` 14, `perceived_weakness_gain` 0.0121109, `focus_steer_gain` 1.33298, `focus_reinforce_gain` 0.60585, `focus_compound_gain` 5.65234, `investment_leak_rate` 0.0560708, `witness_weight` 0.52366, `symptom_leak_rate` 0.0899658, `calm_transfer_rate` 0.0300917, `tie_wear_rate` 0.0223341; ratio 0.01427 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | PASS | `symptom_load` +3.54 ± 3.4 |
-| 3 | `learning_rate` 0.163111, `credit_horizon` 4, `credit_discount` 0.83167, `cross_person_weight` 0.36749, `policy_temperature` 0.638322, `habituation_rate` 0.878969, `habituation_window` 5, `perceived_weakness_gain` 0.00580876, `focus_steer_gain` 0.941683, `focus_reinforce_gain` 1.90405, `focus_compound_gain` 6.74004, `investment_leak_rate` 0.121033, `witness_weight` 0.478497, `symptom_leak_rate` 0.194332, `calm_transfer_rate` 0.0664187, `tie_wear_rate` 0.0477898; ratio 0.01384 (per week ÷ per contact) | 150 then 200 | yes (first PASS) | FAIL | `symptom_load` +0.922 ± 1.4 |
-| 4 | `learning_rate` 0.232723, `credit_horizon` 3, `credit_discount` 0.962268, `cross_person_weight` 0.603086, `policy_temperature` 0.751651, `habituation_rate` 0.514916, `habituation_window` 7, `perceived_weakness_gain` 0.0119644, `focus_steer_gain` 0.696735, `focus_reinforce_gain` 1.69032, `focus_compound_gain` 13.9372, `investment_leak_rate` 0.13298, `witness_weight` 0.747547, `symptom_leak_rate` 0.0566175, `calm_transfer_rate` 0.0325788, `tie_wear_rate` 0.0500176; ratio 0.02952 (per week ÷ per contact) | 100 then 200 | yes (first FAIL) | FAIL | `symptom_load` -0.295 ± 4 |
-| 5 | `learning_rate` 0.129033, `credit_horizon` 6, `credit_discount` 0.609336, `cross_person_weight` 0.253621, `policy_temperature` 1.88953, `habituation_rate` 0.73687, `habituation_window` 8, `perceived_weakness_gain` 0.0154843, `focus_steer_gain` 0.698486, `focus_reinforce_gain` 0.547481, `focus_compound_gain` 8.9144, `investment_leak_rate` 0.139106, `witness_weight` 0.861802, `symptom_leak_rate` 0.07406, `calm_transfer_rate` 0.0421111, `tie_wear_rate` 0.0319748; ratio 0.0146 (per week ÷ per contact) | 150 then 200 | yes (first PASS) | PASS | `symptom_load` +5.82 ± 4.7 |
-| 6 | `learning_rate` 0.389171, `credit_horizon` 6, `credit_discount` 0.440554, `cross_person_weight` 0.778207, `policy_temperature` 0.53416, `habituation_rate` 0.861647, `habituation_window` 16, `perceived_weakness_gain` 0.0119238, `focus_steer_gain` 0.893412, `focus_reinforce_gain` 1.6742, `focus_compound_gain` 10.8319, `investment_leak_rate` 0.0534442, `witness_weight` 0.316634, `symptom_leak_rate` 0.0845323, `calm_transfer_rate` 0.0697821, `tie_wear_rate` 0.0355767; ratio 0.009804 (per week ÷ per contact) | 100 then 200 | yes (first PASS) | PASS | `symptom_load` +2.4 ± 2.2 |
-| 7 | `learning_rate` 0.195739, `credit_horizon` 4, `credit_discount` 0.400169, `cross_person_weight` 0.325098, `policy_temperature` 1.01443, `habituation_rate` 0.506049, `habituation_window` 10, `perceived_weakness_gain` 0.0095824, `focus_steer_gain` 1.93559, `focus_reinforce_gain` 0.853587, `focus_compound_gain` 15.6155, `investment_leak_rate` 0.199371, `witness_weight` 0.559465, `symptom_leak_rate` 0.0536454, `calm_transfer_rate` 0.0738145, `tie_wear_rate` 0.206255; ratio 0.05374 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `symptom_load` +1.55 ± 2.7 |
+| 0 | `learning_rate` 0.319636, `credit_horizon` 3, `credit_discount` 0.550629, `cross_person_weight` 0.311257, `policy_temperature` 0.69982, `habituation_rate` 0.686293, `habituation_window` 9, `perceived_weakness_gain` 0.00617721, `focus_steer_gain` 1.77274, `focus_reinforce_gain` 0.622083, `focus_compound_gain` 12.1923, `investment_leak_rate` 0.195108, `witness_weight` 0.771363, `symptom_leak_rate` 0.195266, `calm_transfer_rate` 0.0520675, `tie_wear_rate` 0.100365; ratio 0.03707 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `symptom_load` -1.05 ± 1.2 |
+| 1 | `learning_rate` 0.23438, `credit_horizon` 2, `credit_discount` 0.633393, `cross_person_weight` 0.641563, `policy_temperature` 1.79742, `habituation_rate` 0.421405, `habituation_window` 13, `perceived_weakness_gain` 0.0150041, `focus_steer_gain` 1.6481, `focus_reinforce_gain` 0.733466, `focus_compound_gain` 10.197, `investment_leak_rate` 0.102844, `witness_weight` 0.344779, `symptom_leak_rate` 0.10855, `calm_transfer_rate` 0.0273885, `tie_wear_rate` 0.0553794; ratio 0.03888 (per week ÷ per contact) | 100 then 200 | yes (first FAIL) | FAIL | `symptom_load` -0.178 ± 2.3 |
+| 2 | `learning_rate` 0.174544, `credit_horizon` 2, `credit_discount` 0.440558, `cross_person_weight` 0.759732, `policy_temperature` 1.34497, `habituation_rate` 0.659347, `habituation_window` 14, `perceived_weakness_gain` 0.0121109, `focus_steer_gain` 1.33298, `focus_reinforce_gain` 0.60585, `focus_compound_gain` 5.65234, `investment_leak_rate` 0.0560708, `witness_weight` 0.52366, `symptom_leak_rate` 0.0899658, `calm_transfer_rate` 0.0300917, `tie_wear_rate` 0.0223341; ratio 0.01427 (per week ÷ per contact) | 100 then 200 | yes (first FAIL) | PASS | `symptom_load` +4.29 ± 3.3 |
+| 3 | `learning_rate` 0.163111, `credit_horizon` 4, `credit_discount` 0.83167, `cross_person_weight` 0.36749, `policy_temperature` 0.638322, `habituation_rate` 0.878969, `habituation_window` 5, `perceived_weakness_gain` 0.00580876, `focus_steer_gain` 0.941683, `focus_reinforce_gain` 1.90405, `focus_compound_gain` 6.74004, `investment_leak_rate` 0.121033, `witness_weight` 0.478497, `symptom_leak_rate` 0.194332, `calm_transfer_rate` 0.0664187, `tie_wear_rate` 0.0477898; ratio 0.01384 (per week ÷ per contact) | 100 then 200 | yes (first FAIL) | FAIL | `symptom_load` +0.209 ± 1.3 |
+| 4 | `learning_rate` 0.232723, `credit_horizon` 3, `credit_discount` 0.962268, `cross_person_weight` 0.603086, `policy_temperature` 0.751651, `habituation_rate` 0.514916, `habituation_window` 7, `perceived_weakness_gain` 0.0119644, `focus_steer_gain` 0.696735, `focus_reinforce_gain` 1.69032, `focus_compound_gain` 13.9372, `investment_leak_rate` 0.13298, `witness_weight` 0.747547, `symptom_leak_rate` 0.0566175, `calm_transfer_rate` 0.0325788, `tie_wear_rate` 0.0500176; ratio 0.02952 (per week ÷ per contact) | 100 then 200 | yes (first FAIL) | FAIL | `symptom_load` +2.09 ± 4.1 |
+| 5 | `learning_rate` 0.129033, `credit_horizon` 6, `credit_discount` 0.609336, `cross_person_weight` 0.253621, `policy_temperature` 1.88953, `habituation_rate` 0.73687, `habituation_window` 8, `perceived_weakness_gain` 0.0154843, `focus_steer_gain` 0.698486, `focus_reinforce_gain` 0.547481, `focus_compound_gain` 8.9144, `investment_leak_rate` 0.139106, `witness_weight` 0.861802, `symptom_leak_rate` 0.07406, `calm_transfer_rate` 0.0421111, `tie_wear_rate` 0.0319748; ratio 0.0146 (per week ÷ per contact) | 100 then 200 | yes (first PASS) | PASS | `symptom_load` +4.87 ± 4.9 |
+| 6 | `learning_rate` 0.389171, `credit_horizon` 6, `credit_discount` 0.440554, `cross_person_weight` 0.778207, `policy_temperature` 0.53416, `habituation_rate` 0.861647, `habituation_window` 16, `perceived_weakness_gain` 0.0119238, `focus_steer_gain` 0.893412, `focus_reinforce_gain` 1.6742, `focus_compound_gain` 10.8319, `investment_leak_rate` 0.0534442, `witness_weight` 0.316634, `symptom_leak_rate` 0.0845323, `calm_transfer_rate` 0.0697821, `tie_wear_rate` 0.0355767; ratio 0.009804 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `symptom_load` +0.803 ± 2.4 |
+| 7 | `learning_rate` 0.195739, `credit_horizon` 4, `credit_discount` 0.400169, `cross_person_weight` 0.325098, `policy_temperature` 1.01443, `habituation_rate` 0.506049, `habituation_window` 10, `perceived_weakness_gain` 0.0095824, `focus_steer_gain` 1.93559, `focus_reinforce_gain` 0.853587, `focus_compound_gain` 15.6155, `investment_leak_rate` 0.199371, `witness_weight` 0.559465, `symptom_leak_rate` 0.0536454, `calm_transfer_rate` 0.0738145, `tie_wear_rate` 0.206255; ratio 0.05374 (per week ÷ per contact) | 100 then 200 | yes (first FAIL) | FAIL | `symptom_load` +2.44 ± 2.8 |
 
 ## `M11.C.7[joint over one spouse]` — 4 of 8 samples held
 
@@ -329,59 +331,59 @@ Directional criteria of the ensemble records with no ranges declared in `config/
 
 | Sample | Values | Seeds | Rerun | Verdict | Gating readouts (mean difference ± half-width) |
 |---|---|---|---|---|---|
-| 0 | `appraisal_gain` 4.73991, `intensity_scale` 198.87, `impingement_relaxation_rate` 0.399614, `contact_band_max` 0.202389, `anxiety_togetherness_gain` 0.837177, `interactive_resting_contact` 0.29175, `contact_relaxation_rate` 0.0807754, `nodal_spike_intensity` 0.718999, `landing_rate` 0.178675, `perspective_gain` 0.135758, `binder_failure_fraction` 0.972297, `calm_transfer_rate` 0.0935762, `tie_wear_rate` 0.136836; ratio 0.02812 (per week ÷ per contact) | 100 then 200 | yes (first FAIL) | FAIL | `deviation_fall` +0.0198 ± 0.052 |
-| 1 | `appraisal_gain` 5.17529, `intensity_scale` 61.6313, `impingement_relaxation_rate` 0.363794, `contact_band_max` 0.108704, `anxiety_togetherness_gain` 0.684078, `interactive_resting_contact` 0.683095, `contact_relaxation_rate` 0.06026, `nodal_spike_intensity` 1.53918, `landing_rate` 0.170749, `perspective_gain` 0.117958, `binder_failure_fraction` 0.405277, `calm_transfer_rate` 0.0290945, `tie_wear_rate` 0.0227825; ratio 0.01506 (per week ÷ per contact) | 150 then 200 | yes (first PASS) | FAIL | `deviation_fall` +0.056 ± 0.06 |
-| 2 | `appraisal_gain` 5.21186, `intensity_scale` 51.9998, `impingement_relaxation_rate` 0.286173, `contact_band_max` 0.323554, `anxiety_togetherness_gain` 0.339231, `interactive_resting_contact` 0.863993, `contact_relaxation_rate` 0.0808544, `nodal_spike_intensity` 1.00456, `landing_rate` 0.181196, `perspective_gain` 0.185026, `binder_failure_fraction` 0.474899, `calm_transfer_rate` 0.0381936, `tie_wear_rate` 0.106547; ratio 0.05365 (per week ÷ per contact) | 100 then 200 | yes (first PASS) | PASS | `deviation_fall` +0.0641 ± 0.052 |
-| 3 | `appraisal_gain` 5.1227, `intensity_scale` 130.02, `impingement_relaxation_rate` 0.461276, `contact_band_max` 0.167357, `anxiety_togetherness_gain` 0.326857, `interactive_resting_contact` 0.302813, `contact_relaxation_rate` 0.116781, `nodal_spike_intensity` 0.900345, `landing_rate` 0.140932, `perspective_gain` 0.0816944, `binder_failure_fraction` 0.455151, `calm_transfer_rate` 0.0267508, `tie_wear_rate` 0.0919042; ratio 0.06607 (per week ÷ per contact) | 150 then 200 | yes (first PASS) | PASS | `deviation_fall` +0.0883 ± 0.045 |
-| 4 | `appraisal_gain` 2.04001, `intensity_scale` 133.818, `impingement_relaxation_rate` 0.533983, `contact_band_max` 0.332569, `anxiety_togetherness_gain` 0.326144, `interactive_resting_contact` 0.274072, `contact_relaxation_rate` 0.152476, `nodal_spike_intensity` 1.59055, `landing_rate` 0.0933715, `perspective_gain` 0.0964308, `binder_failure_fraction` 0.607165, `calm_transfer_rate` 0.0546844, `tie_wear_rate` 0.0214474; ratio 0.007542 (per week ÷ per contact) | 100 then 200 | yes (first FAIL) | FAIL | `deviation_fall` +0.0169 ± 0.037 |
-| 5 | `appraisal_gain` 4.88284, `intensity_scale` 167.311, `impingement_relaxation_rate` 0.382538, `contact_band_max` 0.105037, `anxiety_togetherness_gain` 0.471042, `interactive_resting_contact` 0.283632, `contact_relaxation_rate` 0.0910388, `nodal_spike_intensity` 0.961563, `landing_rate` 0.0969713, `perspective_gain` 0.126321, `binder_failure_fraction` 0.662307, `calm_transfer_rate` 0.0425433, `tie_wear_rate` 0.0518078; ratio 0.02342 (per week ÷ per contact) | 100 then 200 | yes (first FAIL) | FAIL | `deviation_fall` +0.00543 ± 0.055 |
-| 6 | `appraisal_gain` 1.87672, `intensity_scale` 64.4287, `impingement_relaxation_rate` 0.36328, `contact_band_max` 0.297055, `anxiety_togetherness_gain` 0.687177, `interactive_resting_contact` 0.344717, `contact_relaxation_rate` 0.0647034, `nodal_spike_intensity` 1.86441, `landing_rate` 0.126718, `perspective_gain` 0.0722306, `binder_failure_fraction` 0.659963, `calm_transfer_rate` 0.0278195, `tie_wear_rate` 0.0123301; ratio 0.008523 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | PASS | `deviation_fall` +0.0476 ± 0.053 |
-| 7 | `appraisal_gain` 4.98611, `intensity_scale` 164.955, `impingement_relaxation_rate` 0.219022, `contact_band_max` 0.32223, `anxiety_togetherness_gain` 0.732269, `interactive_resting_contact` 0.283864, `contact_relaxation_rate` 0.0505148, `nodal_spike_intensity` 0.699834, `landing_rate` 0.169228, `perspective_gain` 0.151155, `binder_failure_fraction` 0.632273, `calm_transfer_rate` 0.0331717, `tie_wear_rate` 0.0120079; ratio 0.006961 (per week ÷ per contact) | 150 then 200 | yes (first PASS) | PASS | `deviation_fall` +0.118 ± 0.069 |
+| 0 | `appraisal_gain` 4.73991, `intensity_scale` 198.87, `impingement_relaxation_rate` 0.399614, `contact_band_max` 0.202389, `anxiety_togetherness_gain` 0.837177, `interactive_resting_contact` 0.29175, `contact_relaxation_rate` 0.0807754, `nodal_spike_intensity` 0.718999, `landing_rate` 0.178675, `perspective_gain` 0.135758, `binder_failure_fraction` 0.972297, `calm_transfer_rate` 0.0935762, `tie_wear_rate` 0.136836; ratio 0.02812 (per week ÷ per contact) | 100 then 200 | yes (first FAIL) | FAIL | `deviation_fall` +0.00557 ± 0.054 |
+| 1 | `appraisal_gain` 5.17529, `intensity_scale` 61.6313, `impingement_relaxation_rate` 0.363794, `contact_band_max` 0.108704, `anxiety_togetherness_gain` 0.684078, `interactive_resting_contact` 0.683095, `contact_relaxation_rate` 0.06026, `nodal_spike_intensity` 1.53918, `landing_rate` 0.170749, `perspective_gain` 0.117958, `binder_failure_fraction` 0.405277, `calm_transfer_rate` 0.0290945, `tie_wear_rate` 0.0227825; ratio 0.01506 (per week ÷ per contact) | 100 then 200 | yes (first PASS) | PASS | `deviation_fall` +0.0539 ± 0.061 |
+| 2 | `appraisal_gain` 5.21186, `intensity_scale` 51.9998, `impingement_relaxation_rate` 0.286173, `contact_band_max` 0.323554, `anxiety_togetherness_gain` 0.339231, `interactive_resting_contact` 0.863993, `contact_relaxation_rate` 0.0808544, `nodal_spike_intensity` 1.00456, `landing_rate` 0.181196, `perspective_gain` 0.185026, `binder_failure_fraction` 0.474899, `calm_transfer_rate` 0.0381936, `tie_wear_rate` 0.106547; ratio 0.05365 (per week ÷ per contact) | 100 then 200 | yes (first PASS) | PASS | `deviation_fall` +0.0702 ± 0.052 |
+| 3 | `appraisal_gain` 5.1227, `intensity_scale` 130.02, `impingement_relaxation_rate` 0.461276, `contact_band_max` 0.167357, `anxiety_togetherness_gain` 0.326857, `interactive_resting_contact` 0.302813, `contact_relaxation_rate` 0.116781, `nodal_spike_intensity` 0.900345, `landing_rate` 0.140932, `perspective_gain` 0.0816944, `binder_failure_fraction` 0.455151, `calm_transfer_rate` 0.0267508, `tie_wear_rate` 0.0919042; ratio 0.06607 (per week ÷ per contact) | 100 then 200 | yes (first PASS) | PASS | `deviation_fall` +0.076 ± 0.039 |
+| 4 | `appraisal_gain` 2.04001, `intensity_scale` 133.818, `impingement_relaxation_rate` 0.533983, `contact_band_max` 0.332569, `anxiety_togetherness_gain` 0.326144, `interactive_resting_contact` 0.274072, `contact_relaxation_rate` 0.152476, `nodal_spike_intensity` 1.59055, `landing_rate` 0.0933715, `perspective_gain` 0.0964308, `binder_failure_fraction` 0.607165, `calm_transfer_rate` 0.0546844, `tie_wear_rate` 0.0214474; ratio 0.007542 (per week ÷ per contact) | 100 then 200 | yes (first FAIL) | FAIL | `deviation_fall` +0.0217 ± 0.042 |
+| 5 | `appraisal_gain` 4.88284, `intensity_scale` 167.311, `impingement_relaxation_rate` 0.382538, `contact_band_max` 0.105037, `anxiety_togetherness_gain` 0.471042, `interactive_resting_contact` 0.283632, `contact_relaxation_rate` 0.0910388, `nodal_spike_intensity` 0.961563, `landing_rate` 0.0969713, `perspective_gain` 0.126321, `binder_failure_fraction` 0.662307, `calm_transfer_rate` 0.0425433, `tie_wear_rate` 0.0518078; ratio 0.02342 (per week ÷ per contact) | 100 then 200 | yes (first FAIL) | FAIL | `deviation_fall` +0.0283 ± 0.052 |
+| 6 | `appraisal_gain` 1.87672, `intensity_scale` 64.4287, `impingement_relaxation_rate` 0.36328, `contact_band_max` 0.297055, `anxiety_togetherness_gain` 0.687177, `interactive_resting_contact` 0.344717, `contact_relaxation_rate` 0.0647034, `nodal_spike_intensity` 1.86441, `landing_rate` 0.126718, `perspective_gain` 0.0722306, `binder_failure_fraction` 0.659963, `calm_transfer_rate` 0.0278195, `tie_wear_rate` 0.0123301; ratio 0.008523 (per week ÷ per contact) | 100 then 200 | yes (first FAIL) | FAIL | `deviation_fall` +0.0186 ± 0.054 |
+| 7 | `appraisal_gain` 4.98611, `intensity_scale` 164.955, `impingement_relaxation_rate` 0.219022, `contact_band_max` 0.32223, `anxiety_togetherness_gain` 0.732269, `interactive_resting_contact` 0.283864, `contact_relaxation_rate` 0.0505148, `nodal_spike_intensity` 0.699834, `landing_rate` 0.169228, `perspective_gain` 0.151155, `binder_failure_fraction` 0.632273, `calm_transfer_rate` 0.0331717, `tie_wear_rate` 0.0120079; ratio 0.006961 (per week ÷ per contact) | 100 then 200 | yes (first PASS) | PASS | `deviation_fall` +0.107 ± 0.065 |
 
-## `M11.C.7[joint over sided]` — 7 of 8 samples held
+## `M11.C.7[joint over sided]` — 8 of 8 samples held
 
-`tie_wear_to_transfer_ratio` (per week ÷ per contact) entered: held 6 of 6 below its central value 0.01923 and 1 of 2 at or above it.
-
-| Sample | Values | Seeds | Rerun | Verdict | Gating readouts (mean difference ± half-width) |
-|---|---|---|---|---|---|
-| 0 | `appraisal_gain` 4.86833, `intensity_scale` 140.595, `impingement_relaxation_rate` 0.32492, `contact_band_max` 0.327293, `anxiety_togetherness_gain` 0.771776, `interactive_resting_contact` 0.379419, `contact_relaxation_rate` 0.0609153, `nodal_spike_intensity` 1.13204, `landing_rate` 0.150691, `perspective_gain` 0.105415, `binder_failure_fraction` 0.707075, `calm_transfer_rate` 0.0254284, `tie_wear_rate` 0.0310886; ratio 0.02351 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `deviation_fall` +0.0397 ± 0.054; `landed_contacts` +7.24 ± 0.48 |
-| 1 | `appraisal_gain` 1.7436, `intensity_scale` 183.369, `impingement_relaxation_rate` 0.296683, `contact_band_max` 0.149397, `anxiety_togetherness_gain` 0.448886, `interactive_resting_contact` 0.598342, `contact_relaxation_rate` 0.121014, `nodal_spike_intensity` 0.523774, `landing_rate` 0.0999119, `perspective_gain` 0.192112, `binder_failure_fraction` 0.981289, `calm_transfer_rate` 0.0273892, `tie_wear_rate` 0.0107019; ratio 0.007514 (per week ÷ per contact) | 150 | no | PASS | `deviation_fall` +0.163 ± 0.055; `landed_contacts` +1.44 ± 0.27 |
-| 2 | `appraisal_gain` 1.67523, `intensity_scale` 151.156, `impingement_relaxation_rate` 0.355044, `contact_band_max` 0.379162, `anxiety_togetherness_gain` 0.317294, `interactive_resting_contact` 0.969223, `contact_relaxation_rate` 0.171422, `nodal_spike_intensity` 0.971179, `landing_rate` 0.118023, `perspective_gain` 0.0807872, `binder_failure_fraction` 0.798753, `calm_transfer_rate` 0.0655493, `tie_wear_rate` 0.0459027; ratio 0.01347 (per week ÷ per contact) | 150 then 200 | yes (first PASS) | PASS | `deviation_fall` +0.0673 ± 0.053; `landed_contacts` +3.04 ± 0.36 |
-| 3 | `appraisal_gain` 3.24901, `intensity_scale` 134.342, `impingement_relaxation_rate` 0.534062, `contact_band_max` 0.37515, `anxiety_togetherness_gain` 0.486862, `interactive_resting_contact` 0.948966, `contact_relaxation_rate` 0.0697739, `nodal_spike_intensity` 0.85174, `landing_rate` 0.10653, `perspective_gain` 0.149848, `binder_failure_fraction` 0.87817, `calm_transfer_rate` 0.0289763, `tie_wear_rate` 0.0139634; ratio 0.009267 (per week ÷ per contact) | 150 | no | PASS | `deviation_fall` +0.134 ± 0.066; `landed_contacts` +4.69 ± 0.43 |
-| 4 | `appraisal_gain` 5.62844, `intensity_scale` 80.8776, `impingement_relaxation_rate` 0.21727, `contact_band_max` 0.220821, `anxiety_togetherness_gain` 0.59637, `interactive_resting_contact` 0.789427, `contact_relaxation_rate` 0.142406, `nodal_spike_intensity` 1.72986, `landing_rate` 0.118201, `perspective_gain` 0.170976, `binder_failure_fraction` 0.823898, `calm_transfer_rate` 0.0448419, `tie_wear_rate` 0.0740911; ratio 0.03177 (per week ÷ per contact) | 150 then 200 | yes (first PASS) | PASS | `deviation_fall` +0.0709 ± 0.043; `landed_contacts` +8.05 ± 0.45 |
-| 5 | `appraisal_gain` 2.94321, `intensity_scale` 83.5407, `impingement_relaxation_rate` 0.506709, `contact_band_max` 0.108372, `anxiety_togetherness_gain` 0.667466, `interactive_resting_contact` 0.720212, `contact_relaxation_rate` 0.0591821, `nodal_spike_intensity` 0.63783, `landing_rate` 0.200878, `perspective_gain` 0.0701579, `binder_failure_fraction` 0.489182, `calm_transfer_rate` 0.0755999, `tie_wear_rate` 0.0727062; ratio 0.01849 (per week ÷ per contact) | 150 then 200 | yes (first PASS) | PASS | `deviation_fall` +0.0448 ± 0.039; `landed_contacts` +14.1 ± 0.63 |
-| 6 | `appraisal_gain` 5.32303, `intensity_scale` 115.953, `impingement_relaxation_rate` 0.389862, `contact_band_max` 0.247904, `anxiety_togetherness_gain` 0.530518, `interactive_resting_contact` 0.914327, `contact_relaxation_rate` 0.18602, `nodal_spike_intensity` 1.0374, `landing_rate` 0.151882, `perspective_gain` 0.0905562, `binder_failure_fraction` 0.469739, `calm_transfer_rate` 0.0872172, `tie_wear_rate` 0.0599853; ratio 0.01323 (per week ÷ per contact) | 150 then 200 | yes (first PASS) | PASS | `deviation_fall` +0.052 ± 0.052; `landed_contacts` +8.54 ± 0.5 |
-| 7 | `appraisal_gain` 2.3685, `intensity_scale` 56.5773, `impingement_relaxation_rate` 0.262462, `contact_band_max` 0.156898, `anxiety_togetherness_gain` 0.790842, `interactive_resting_contact` 0.73059, `contact_relaxation_rate` 0.0697951, `nodal_spike_intensity` 0.90674, `landing_rate` 0.096904, `perspective_gain` 0.177572, `binder_failure_fraction` 0.602382, `calm_transfer_rate` 0.0420366, `tie_wear_rate` 0.0126996; ratio 0.00581 (per week ÷ per contact) | 150 then 200 | yes (first PASS) | PASS | `deviation_fall` +0.133 ± 0.065; `landed_contacts` +9.06 ± 0.42 |
-
-## `M11.C.7[one spouse over sided]` — 7 of 8 samples held
-
-`tie_wear_to_transfer_ratio` (per week ÷ per contact) entered: held 3 of 3 below its central value 0.01923 and 4 of 5 at or above it.
+`tie_wear_to_transfer_ratio` (per week ÷ per contact) entered: held 6 of 6 below its central value 0.01923 and 2 of 2 at or above it.
 
 | Sample | Values | Seeds | Rerun | Verdict | Gating readouts (mean difference ± half-width) |
 |---|---|---|---|---|---|
-| 0 | `appraisal_gain` 2.04662, `intensity_scale` 60.4394, `impingement_relaxation_rate` 0.159763, `contact_band_max` 0.123922, `anxiety_togetherness_gain` 0.41401, `interactive_resting_contact` 0.538129, `contact_relaxation_rate` 0.0628118, `nodal_spike_intensity` 1.45832, `landing_rate` 0.0956636, `perspective_gain` 0.0518629, `binder_failure_fraction` 0.704541, `calm_transfer_rate` 0.0546223, `tie_wear_rate` 0.0801703; ratio 0.02823 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `deviation_fall` +0.0193 ± 0.043; `landed_contacts` +8.49 ± 0.41 |
-| 1 | `appraisal_gain` 1.65522, `intensity_scale` 69.7627, `impingement_relaxation_rate` 0.390855, `contact_band_max` 0.354772, `anxiety_togetherness_gain` 0.726162, `interactive_resting_contact` 0.531785, `contact_relaxation_rate` 0.161771, `nodal_spike_intensity` 0.878326, `landing_rate` 0.230859, `perspective_gain` 0.128788, `binder_failure_fraction` 0.927754, `calm_transfer_rate` 0.0645684, `tie_wear_rate` 0.0247977; ratio 0.007386 (per week ÷ per contact) | 150 then 200 | yes (first PASS) | PASS | `deviation_fall` +0.0704 ± 0.056; `landed_contacts` +19.7 ± 0.74 |
-| 2 | `appraisal_gain` 2.32275, `intensity_scale` 199.039, `impingement_relaxation_rate` 0.246384, `contact_band_max` 0.124341, `anxiety_togetherness_gain` 0.505571, `interactive_resting_contact` 0.869841, `contact_relaxation_rate` 0.150308, `nodal_spike_intensity` 0.6911, `landing_rate` 0.19721, `perspective_gain` 0.198932, `binder_failure_fraction` 0.601904, `calm_transfer_rate` 0.0414454, `tie_wear_rate` 0.0312734; ratio 0.01451 (per week ÷ per contact) | 150 | no | PASS | `deviation_fall` +0.211 ± 0.085; `landed_contacts` +3.91 ± 0.72 |
-| 3 | `appraisal_gain` 2.81749, `intensity_scale` 176.216, `impingement_relaxation_rate` 0.433853, `contact_band_max` 0.100414, `anxiety_togetherness_gain` 0.38921, `interactive_resting_contact` 0.67095, `contact_relaxation_rate` 0.143733, `nodal_spike_intensity` 1.166, `landing_rate` 0.254857, `perspective_gain` 0.102679, `binder_failure_fraction` 0.894461, `calm_transfer_rate` 0.0581822, `tie_wear_rate` 0.0200371; ratio 0.006623 (per week ÷ per contact) | 150 | no | PASS | `deviation_fall` +0.198 ± 0.072; `landed_contacts` +6.25 ± 1 |
-| 4 | `appraisal_gain` 1.9921, `intensity_scale` 68.8123, `impingement_relaxation_rate` 0.15615, `contact_band_max` 0.176038, `anxiety_togetherness_gain` 0.373717, `interactive_resting_contact` 0.673367, `contact_relaxation_rate` 0.0892381, `nodal_spike_intensity` 1.20316, `landing_rate` 0.148612, `perspective_gain` 0.0621015, `binder_failure_fraction` 0.965223, `calm_transfer_rate` 0.0663908, `tie_wear_rate` 0.105947; ratio 0.03069 (per week ÷ per contact) | 150 | no | PASS | `deviation_fall` +0.103 ± 0.05; `landed_contacts` +10.4 ± 0.62 |
-| 5 | `appraisal_gain` 1.94987, `intensity_scale` 114.925, `impingement_relaxation_rate` 0.31031, `contact_band_max` 0.237769, `anxiety_togetherness_gain` 0.549339, `interactive_resting_contact` 0.31733, `contact_relaxation_rate` 0.152152, `nodal_spike_intensity` 0.860404, `landing_rate` 0.132338, `perspective_gain` 0.12817, `binder_failure_fraction` 0.6973, `calm_transfer_rate` 0.0992603, `tie_wear_rate` 0.221643; ratio 0.04294 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | PASS | `deviation_fall` +0.0589 ± 0.041; `landed_contacts` +4.97 ± 0.47 |
-| 6 | `appraisal_gain` 2.17274, `intensity_scale` 101.984, `impingement_relaxation_rate` 0.173096, `contact_band_max` 0.11635, `anxiety_togetherness_gain` 0.456774, `interactive_resting_contact` 0.341947, `contact_relaxation_rate` 0.164374, `nodal_spike_intensity` 1.61753, `landing_rate` 0.142875, `perspective_gain` 0.0518401, `binder_failure_fraction` 0.576428, `calm_transfer_rate` 0.0771942, `tie_wear_rate` 0.0983439; ratio 0.0245 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | PASS | `deviation_fall` +0.0376 ± 0.038; `landed_contacts` +9.08 ± 0.59 |
-| 7 | `appraisal_gain` 5.56478, `intensity_scale` 186.287, `impingement_relaxation_rate` 0.316167, `contact_band_max` 0.194005, `anxiety_togetherness_gain` 0.268886, `interactive_resting_contact` 0.364146, `contact_relaxation_rate` 0.13056, `nodal_spike_intensity` 0.828598, `landing_rate` 0.0771208, `perspective_gain` 0.0630461, `binder_failure_fraction` 0.639891, `calm_transfer_rate` 0.0444587, `tie_wear_rate` 0.0514708; ratio 0.02226 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | PASS | `deviation_fall` +0.0696 ± 0.051; `landed_contacts` +2.41 ± 0.32 |
+| 0 | `appraisal_gain` 4.86833, `intensity_scale` 140.595, `impingement_relaxation_rate` 0.32492, `contact_band_max` 0.327293, `anxiety_togetherness_gain` 0.771776, `interactive_resting_contact` 0.379419, `contact_relaxation_rate` 0.0609153, `nodal_spike_intensity` 1.13204, `landing_rate` 0.150691, `perspective_gain` 0.105415, `binder_failure_fraction` 0.707075, `calm_transfer_rate` 0.0254284, `tie_wear_rate` 0.0310886; ratio 0.02351 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | PASS | `deviation_fall` +0.0601 ± 0.059; `landed_contacts` +6.92 ± 0.5 |
+| 1 | `appraisal_gain` 1.7436, `intensity_scale` 183.369, `impingement_relaxation_rate` 0.296683, `contact_band_max` 0.149397, `anxiety_togetherness_gain` 0.448886, `interactive_resting_contact` 0.598342, `contact_relaxation_rate` 0.121014, `nodal_spike_intensity` 0.523774, `landing_rate` 0.0999119, `perspective_gain` 0.192112, `binder_failure_fraction` 0.981289, `calm_transfer_rate` 0.0273892, `tie_wear_rate` 0.0107019; ratio 0.007514 (per week ÷ per contact) | 150 | no | PASS | `deviation_fall` +0.149 ± 0.067; `landed_contacts` +1.51 ± 0.29 |
+| 2 | `appraisal_gain` 1.67523, `intensity_scale` 151.156, `impingement_relaxation_rate` 0.355044, `contact_band_max` 0.379162, `anxiety_togetherness_gain` 0.317294, `interactive_resting_contact` 0.969223, `contact_relaxation_rate` 0.171422, `nodal_spike_intensity` 0.971179, `landing_rate` 0.118023, `perspective_gain` 0.0807872, `binder_failure_fraction` 0.798753, `calm_transfer_rate` 0.0655493, `tie_wear_rate` 0.0459027; ratio 0.01347 (per week ÷ per contact) | 150 then 200 | yes (first PASS) | PASS | `deviation_fall` +0.0951 ± 0.056; `landed_contacts` +3.4 ± 0.37 |
+| 3 | `appraisal_gain` 3.24901, `intensity_scale` 134.342, `impingement_relaxation_rate` 0.534062, `contact_band_max` 0.37515, `anxiety_togetherness_gain` 0.486862, `interactive_resting_contact` 0.948966, `contact_relaxation_rate` 0.0697739, `nodal_spike_intensity` 0.85174, `landing_rate` 0.10653, `perspective_gain` 0.149848, `binder_failure_fraction` 0.87817, `calm_transfer_rate` 0.0289763, `tie_wear_rate` 0.0139634; ratio 0.009267 (per week ÷ per contact) | 150 | no | PASS | `deviation_fall` +0.153 ± 0.075; `landed_contacts` +4.34 ± 0.44 |
+| 4 | `appraisal_gain` 5.62844, `intensity_scale` 80.8776, `impingement_relaxation_rate` 0.21727, `contact_band_max` 0.220821, `anxiety_togetherness_gain` 0.59637, `interactive_resting_contact` 0.789427, `contact_relaxation_rate` 0.142406, `nodal_spike_intensity` 1.72986, `landing_rate` 0.118201, `perspective_gain` 0.170976, `binder_failure_fraction` 0.823898, `calm_transfer_rate` 0.0448419, `tie_wear_rate` 0.0740911; ratio 0.03177 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | PASS | `deviation_fall` +0.0399 ± 0.043; `landed_contacts` +7.91 ± 0.42 |
+| 5 | `appraisal_gain` 2.94321, `intensity_scale` 83.5407, `impingement_relaxation_rate` 0.506709, `contact_band_max` 0.108372, `anxiety_togetherness_gain` 0.667466, `interactive_resting_contact` 0.720212, `contact_relaxation_rate` 0.0591821, `nodal_spike_intensity` 0.63783, `landing_rate` 0.200878, `perspective_gain` 0.0701579, `binder_failure_fraction` 0.489182, `calm_transfer_rate` 0.0755999, `tie_wear_rate` 0.0727062; ratio 0.01849 (per week ÷ per contact) | 150 then 200 | yes (first PASS) | PASS | `deviation_fall` +0.0737 ± 0.044; `landed_contacts` +14 ± 0.56 |
+| 6 | `appraisal_gain` 5.32303, `intensity_scale` 115.953, `impingement_relaxation_rate` 0.389862, `contact_band_max` 0.247904, `anxiety_togetherness_gain` 0.530518, `interactive_resting_contact` 0.914327, `contact_relaxation_rate` 0.18602, `nodal_spike_intensity` 1.0374, `landing_rate` 0.151882, `perspective_gain` 0.0905562, `binder_failure_fraction` 0.469739, `calm_transfer_rate` 0.0872172, `tie_wear_rate` 0.0599853; ratio 0.01323 (per week ÷ per contact) | 150 then 200 | yes (first PASS) | PASS | `deviation_fall` +0.0748 ± 0.046; `landed_contacts` +8.62 ± 0.54 |
+| 7 | `appraisal_gain` 2.3685, `intensity_scale` 56.5773, `impingement_relaxation_rate` 0.262462, `contact_band_max` 0.156898, `anxiety_togetherness_gain` 0.790842, `interactive_resting_contact` 0.73059, `contact_relaxation_rate` 0.0697951, `nodal_spike_intensity` 0.90674, `landing_rate` 0.096904, `perspective_gain` 0.177572, `binder_failure_fraction` 0.602382, `calm_transfer_rate` 0.0420366, `tie_wear_rate` 0.0126996; ratio 0.00581 (per week ÷ per contact) | 150 then 200 | yes (first PASS) | PASS | `deviation_fall` +0.134 ± 0.06; `landed_contacts` +9.16 ± 0.39 |
 
-## `M11.C.11` — 8 of 8 samples held
+## `M11.C.7[one spouse over sided]` — 6 of 8 samples held
 
-`tie_wear_to_transfer_ratio` (per week ÷ per contact) entered: held 5 of 5 below its central value 0.01923 and 3 of 3 at or above it.
+`tie_wear_to_transfer_ratio` (per week ÷ per contact) entered: held 3 of 3 below its central value 0.01923 and 3 of 5 at or above it.
 
 | Sample | Values | Seeds | Rerun | Verdict | Gating readouts (mean difference ± half-width) |
 |---|---|---|---|---|---|
-| 0 | `lock_in_gain` 0.107069, `lock_in_turn` 3.30325, `symptom_threshold_gain` 2.34664, `symptom_rearm_fraction` 0.628213, `symptom_leak_rate` 0.0585984, `standing_load_gain` 0.146609, `interactive_resting_contact` 0.366123, `contact_relaxation_rate` 0.0597678, `acute_decay_rate` 0.206436, `calm_transfer_rate` 0.0323693, `tie_wear_rate` 0.0750938; ratio 0.04461 (per week ÷ per contact) | 150 | no | PASS | `disturbance` +5.53 ± 1 |
-| 1 | `lock_in_gain` 0.268138, `lock_in_turn` 3.67942, `symptom_threshold_gain` 0.792529, `symptom_rearm_fraction` 0.268857, `symptom_leak_rate` 0.0956034, `standing_load_gain` 0.279867, `interactive_resting_contact` 0.38728, `contact_relaxation_rate` 0.0745692, `acute_decay_rate` 0.22743, `calm_transfer_rate` 0.035412, `tie_wear_rate` 0.0291938; ratio 0.01585 (per week ÷ per contact) | 150 | no | PASS | `disturbance` +3.43 ± 1.4 |
-| 2 | `lock_in_gain` 0.157685, `lock_in_turn` 3.89106, `symptom_threshold_gain` 2.49849, `symptom_rearm_fraction` 0.556649, `symptom_leak_rate` 0.0628399, `standing_load_gain` 0.114712, `interactive_resting_contact` 0.834533, `contact_relaxation_rate` 0.0620534, `acute_decay_rate` 0.287705, `calm_transfer_rate` 0.0593064, `tie_wear_rate` 0.0329999; ratio 0.0107 (per week ÷ per contact) | 150 | no | PASS | `disturbance` +3.83 ± 0.61 |
-| 3 | `lock_in_gain` 0.139775, `lock_in_turn` 2.98555, `symptom_threshold_gain` 0.85571, `symptom_rearm_fraction` 0.333947, `symptom_leak_rate` 0.0611327, `standing_load_gain` 0.100033, `interactive_resting_contact` 0.549222, `contact_relaxation_rate` 0.0612345, `acute_decay_rate` 0.262342, `calm_transfer_rate` 0.0524785, `tie_wear_rate` 0.0582203; ratio 0.02133 (per week ÷ per contact) | 150 | no | PASS | `disturbance` +4.51 ± 0.63 |
-| 4 | `lock_in_gain` 0.20787, `lock_in_turn` 4.63103, `symptom_threshold_gain` 1.67266, `symptom_rearm_fraction` 0.776296, `symptom_leak_rate` 0.0543031, `standing_load_gain` 0.257474, `interactive_resting_contact` 0.444113, `contact_relaxation_rate` 0.154809, `acute_decay_rate` 0.103054, `calm_transfer_rate` 0.0811504, `tie_wear_rate` 0.0665655; ratio 0.01577 (per week ÷ per contact) | 150 then 200 | yes (first PASS) | PASS | `disturbance` +1.51 ± 4.4 |
-| 5 | `lock_in_gain` 0.236547, `lock_in_turn` 4.52927, `symptom_threshold_gain` 2.89374, `symptom_rearm_fraction` 0.568706, `symptom_leak_rate` 0.146316, `standing_load_gain` 0.280527, `interactive_resting_contact` 0.512196, `contact_relaxation_rate` 0.0891365, `acute_decay_rate` 0.179805, `calm_transfer_rate` 0.0968292, `tie_wear_rate` 0.0802802; ratio 0.01594 (per week ÷ per contact) | 150 | no | PASS | `disturbance` +4.8 ± 1.3 |
-| 6 | `lock_in_gain` 0.250351, `lock_in_turn` 4.27322, `symptom_threshold_gain` 0.798436, `symptom_rearm_fraction` 0.557245, `symptom_leak_rate` 0.0602205, `standing_load_gain` 0.247603, `interactive_resting_contact` 0.605967, `contact_relaxation_rate` 0.114078, `acute_decay_rate` 0.241623, `calm_transfer_rate` 0.0755262, `tie_wear_rate` 0.04123; ratio 0.0105 (per week ÷ per contact) | 150 | no | PASS | `disturbance` +4.31 ± 1.1 |
-| 7 | `lock_in_gain` 0.37625, `lock_in_turn` 1.68556, `symptom_threshold_gain` 1.21052, `symptom_rearm_fraction` 0.474639, `symptom_leak_rate` 0.0883783, `standing_load_gain` 0.164096, `interactive_resting_contact` 0.30338, `contact_relaxation_rate` 0.19144, `acute_decay_rate` 0.11899, `calm_transfer_rate` 0.0344941, `tie_wear_rate` 0.0688796; ratio 0.0384 (per week ÷ per contact) | 150 | no | PASS | `disturbance` +6.27 ± 1.8 |
+| 0 | `appraisal_gain` 2.04662, `intensity_scale` 60.4394, `impingement_relaxation_rate` 0.159763, `contact_band_max` 0.123922, `anxiety_togetherness_gain` 0.41401, `interactive_resting_contact` 0.538129, `contact_relaxation_rate` 0.0628118, `nodal_spike_intensity` 1.45832, `landing_rate` 0.0956636, `perspective_gain` 0.0518629, `binder_failure_fraction` 0.704541, `calm_transfer_rate` 0.0546223, `tie_wear_rate` 0.0801703; ratio 0.02823 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `deviation_fall` +0.0305 ± 0.047; `landed_contacts` +8.38 ± 0.46 |
+| 1 | `appraisal_gain` 1.65522, `intensity_scale` 69.7627, `impingement_relaxation_rate` 0.390855, `contact_band_max` 0.354772, `anxiety_togetherness_gain` 0.726162, `interactive_resting_contact` 0.531785, `contact_relaxation_rate` 0.161771, `nodal_spike_intensity` 0.878326, `landing_rate` 0.230859, `perspective_gain` 0.128788, `binder_failure_fraction` 0.927754, `calm_transfer_rate` 0.0645684, `tie_wear_rate` 0.0247977; ratio 0.007386 (per week ÷ per contact) | 150 then 200 | yes (first PASS) | PASS | `deviation_fall` +0.0482 ± 0.055; `landed_contacts` +19.6 ± 0.79 |
+| 2 | `appraisal_gain` 2.32275, `intensity_scale` 199.039, `impingement_relaxation_rate` 0.246384, `contact_band_max` 0.124341, `anxiety_togetherness_gain` 0.505571, `interactive_resting_contact` 0.869841, `contact_relaxation_rate` 0.150308, `nodal_spike_intensity` 0.6911, `landing_rate` 0.19721, `perspective_gain` 0.198932, `binder_failure_fraction` 0.601904, `calm_transfer_rate` 0.0414454, `tie_wear_rate` 0.0312734; ratio 0.01451 (per week ÷ per contact) | 150 | no | PASS | `deviation_fall` +0.274 ± 0.09; `landed_contacts` +3.91 ± 0.73 |
+| 3 | `appraisal_gain` 2.81749, `intensity_scale` 176.216, `impingement_relaxation_rate` 0.433853, `contact_band_max` 0.100414, `anxiety_togetherness_gain` 0.38921, `interactive_resting_contact` 0.67095, `contact_relaxation_rate` 0.143733, `nodal_spike_intensity` 1.166, `landing_rate` 0.254857, `perspective_gain` 0.102679, `binder_failure_fraction` 0.894461, `calm_transfer_rate` 0.0581822, `tie_wear_rate` 0.0200371; ratio 0.006623 (per week ÷ per contact) | 150 | no | PASS | `deviation_fall` +0.188 ± 0.079; `landed_contacts` +6.3 ± 1 |
+| 4 | `appraisal_gain` 1.9921, `intensity_scale` 68.8123, `impingement_relaxation_rate` 0.15615, `contact_band_max` 0.176038, `anxiety_togetherness_gain` 0.373717, `interactive_resting_contact` 0.673367, `contact_relaxation_rate` 0.0892381, `nodal_spike_intensity` 1.20316, `landing_rate` 0.148612, `perspective_gain` 0.0621015, `binder_failure_fraction` 0.965223, `calm_transfer_rate` 0.0663908, `tie_wear_rate` 0.105947; ratio 0.03069 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | PASS | `deviation_fall` +0.0524 ± 0.045; `landed_contacts` +10.6 ± 0.55 |
+| 5 | `appraisal_gain` 1.94987, `intensity_scale` 114.925, `impingement_relaxation_rate` 0.31031, `contact_band_max` 0.237769, `anxiety_togetherness_gain` 0.549339, `interactive_resting_contact` 0.31733, `contact_relaxation_rate` 0.152152, `nodal_spike_intensity` 0.860404, `landing_rate` 0.132338, `perspective_gain` 0.12817, `binder_failure_fraction` 0.6973, `calm_transfer_rate` 0.0992603, `tie_wear_rate` 0.221643; ratio 0.04294 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | PASS | `deviation_fall` +0.0559 ± 0.038; `landed_contacts` +5.08 ± 0.47 |
+| 6 | `appraisal_gain` 2.17274, `intensity_scale` 101.984, `impingement_relaxation_rate` 0.173096, `contact_band_max` 0.11635, `anxiety_togetherness_gain` 0.456774, `interactive_resting_contact` 0.341947, `contact_relaxation_rate` 0.164374, `nodal_spike_intensity` 1.61753, `landing_rate` 0.142875, `perspective_gain` 0.0518401, `binder_failure_fraction` 0.576428, `calm_transfer_rate` 0.0771942, `tie_wear_rate` 0.0983439; ratio 0.0245 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `deviation_fall` +0.00663 ± 0.035; `landed_contacts` +9.24 ± 0.58 |
+| 7 | `appraisal_gain` 5.56478, `intensity_scale` 186.287, `impingement_relaxation_rate` 0.316167, `contact_band_max` 0.194005, `anxiety_togetherness_gain` 0.268886, `interactive_resting_contact` 0.364146, `contact_relaxation_rate` 0.13056, `nodal_spike_intensity` 0.828598, `landing_rate` 0.0771208, `perspective_gain` 0.0630461, `binder_failure_fraction` 0.639891, `calm_transfer_rate` 0.0444587, `tie_wear_rate` 0.0514708; ratio 0.02226 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | PASS | `deviation_fall` +0.0496 ± 0.053; `landed_contacts` +2.44 ± 0.34 |
+
+## `M11.C.11` — 7 of 8 samples held
+
+`tie_wear_to_transfer_ratio` (per week ÷ per contact) entered: held 4 of 5 below its central value 0.01923 and 3 of 3 at or above it.
+
+| Sample | Values | Seeds | Rerun | Verdict | Gating readouts (mean difference ± half-width) |
+|---|---|---|---|---|---|
+| 0 | `lock_in_gain` 0.107069, `lock_in_turn` 3.30325, `symptom_threshold_gain` 2.34664, `symptom_rearm_fraction` 0.628213, `symptom_leak_rate` 0.0585984, `standing_load_gain` 0.146609, `interactive_resting_contact` 0.366123, `contact_relaxation_rate` 0.0597678, `acute_decay_rate` 0.206436, `calm_transfer_rate` 0.0323693, `tie_wear_rate` 0.0750938; ratio 0.04461 (per week ÷ per contact) | 150 | no | PASS | `disturbance` +5.99 ± 1.1 |
+| 1 | `lock_in_gain` 0.268138, `lock_in_turn` 3.67942, `symptom_threshold_gain` 0.792529, `symptom_rearm_fraction` 0.268857, `symptom_leak_rate` 0.0956034, `standing_load_gain` 0.279867, `interactive_resting_contact` 0.38728, `contact_relaxation_rate` 0.0745692, `acute_decay_rate` 0.22743, `calm_transfer_rate` 0.035412, `tie_wear_rate` 0.0291938; ratio 0.01585 (per week ÷ per contact) | 150 | no | PASS | `disturbance` +3.87 ± 1.6 |
+| 2 | `lock_in_gain` 0.157685, `lock_in_turn` 3.89106, `symptom_threshold_gain` 2.49849, `symptom_rearm_fraction` 0.556649, `symptom_leak_rate` 0.0628399, `standing_load_gain` 0.114712, `interactive_resting_contact` 0.834533, `contact_relaxation_rate` 0.0620534, `acute_decay_rate` 0.287705, `calm_transfer_rate` 0.0593064, `tie_wear_rate` 0.0329999; ratio 0.0107 (per week ÷ per contact) | 150 | no | PASS | `disturbance` +3.87 ± 0.56 |
+| 3 | `lock_in_gain` 0.139775, `lock_in_turn` 2.98555, `symptom_threshold_gain` 0.85571, `symptom_rearm_fraction` 0.333947, `symptom_leak_rate` 0.0611327, `standing_load_gain` 0.100033, `interactive_resting_contact` 0.549222, `contact_relaxation_rate` 0.0612345, `acute_decay_rate` 0.262342, `calm_transfer_rate` 0.0524785, `tie_wear_rate` 0.0582203; ratio 0.02133 (per week ÷ per contact) | 150 | no | PASS | `disturbance` +4.6 ± 0.57 |
+| 4 | `lock_in_gain` 0.20787, `lock_in_turn` 4.63103, `symptom_threshold_gain` 1.67266, `symptom_rearm_fraction` 0.776296, `symptom_leak_rate` 0.0543031, `standing_load_gain` 0.257474, `interactive_resting_contact` 0.444113, `contact_relaxation_rate` 0.154809, `acute_decay_rate` 0.103054, `calm_transfer_rate` 0.0811504, `tie_wear_rate` 0.0665655; ratio 0.01577 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `disturbance` +2.29 ± 4.2 |
+| 5 | `lock_in_gain` 0.236547, `lock_in_turn` 4.52927, `symptom_threshold_gain` 2.89374, `symptom_rearm_fraction` 0.568706, `symptom_leak_rate` 0.146316, `standing_load_gain` 0.280527, `interactive_resting_contact` 0.512196, `contact_relaxation_rate` 0.0891365, `acute_decay_rate` 0.179805, `calm_transfer_rate` 0.0968292, `tie_wear_rate` 0.0802802; ratio 0.01594 (per week ÷ per contact) | 150 | no | PASS | `disturbance` +4.14 ± 1.2 |
+| 6 | `lock_in_gain` 0.250351, `lock_in_turn` 4.27322, `symptom_threshold_gain` 0.798436, `symptom_rearm_fraction` 0.557245, `symptom_leak_rate` 0.0602205, `standing_load_gain` 0.247603, `interactive_resting_contact` 0.605967, `contact_relaxation_rate` 0.114078, `acute_decay_rate` 0.241623, `calm_transfer_rate` 0.0755262, `tie_wear_rate` 0.04123; ratio 0.0105 (per week ÷ per contact) | 150 | no | PASS | `disturbance` +2.82 ± 0.94 |
+| 7 | `lock_in_gain` 0.37625, `lock_in_turn` 1.68556, `symptom_threshold_gain` 1.21052, `symptom_rearm_fraction` 0.474639, `symptom_leak_rate` 0.0883783, `standing_load_gain` 0.164096, `interactive_resting_contact` 0.30338, `contact_relaxation_rate` 0.19144, `acute_decay_rate` 0.11899, `calm_transfer_rate` 0.0344941, `tie_wear_rate` 0.0688796; ratio 0.0384 (per week ÷ per contact) | 150 | no | PASS | `disturbance` +6.84 ± 1.8 |
 
 ## `M11.C.12` — 0 of 8 samples held
 
@@ -389,14 +391,14 @@ Directional criteria of the ensemble records with no ranges declared in `config/
 
 | Sample | Values | Seeds | Rerun | Verdict | Gating readouts (mean difference ± half-width) |
 |---|---|---|---|---|---|
-| 0 | `learning_rate` 0.253113, `credit_horizon` 3, `credit_discount` 0.920543, `cross_person_weight` 0.728782, `policy_temperature` 0.943265, `habituation_rate` 0.627552, `habituation_window` 11, `lock_in_gain` 0.359723, `acute_decay_rate` 0.115598, `calm_transfer_rate` 0.0867955, `tie_wear_rate` 0.0504397; ratio 0.01118 (per week ÷ per contact) | 100 then 200 | yes (first FAIL) | FAIL | `marital_conflict` +0.285 ± 0.47 |
-| 1 | `learning_rate` 0.33454, `credit_horizon` 4, `credit_discount` 0.680292, `cross_person_weight` 0.783454, `policy_temperature` 0.707219, `habituation_rate` 0.914206, `habituation_window` 16, `lock_in_gain` 0.164955, `acute_decay_rate` 0.210986, `calm_transfer_rate` 0.0670508, `tie_wear_rate` 0.0513584; ratio 0.01473 (per week ÷ per contact) | 100 then 200 | yes (first FAIL) | FAIL | `marital_conflict` -0.01 ± 0.3 |
-| 2 | `learning_rate` 0.183791, `credit_horizon` 4, `credit_discount` 0.797501, `cross_person_weight` 0.349613, `policy_temperature` 0.518339, `habituation_rate` 0.513632, `habituation_window` 14, `lock_in_gain` 0.170145, `acute_decay_rate` 0.276184, `calm_transfer_rate` 0.0272578, `tie_wear_rate` 0.00745201; ratio 0.005258 (per week ÷ per contact) | 50 then 200 | yes (first FAIL) | FAIL | `marital_conflict` -0.04 ± 0.19 |
-| 3 | `learning_rate` 0.227155, `credit_horizon` 4, `credit_discount` 0.354056, `cross_person_weight` 0.308695, `policy_temperature` 1.25921, `habituation_rate` 0.824224, `habituation_window` 7, `lock_in_gain` 0.295584, `acute_decay_rate` 0.375781, `calm_transfer_rate` 0.0389251, `tie_wear_rate` 0.0350345; ratio 0.01731 (per week ÷ per contact) | 50 then 200 | yes (first FAIL) | FAIL | `marital_conflict` +0.05 ± 0.1 |
-| 4 | `learning_rate` 0.347397, `credit_horizon` 6, `credit_discount` 0.498751, `cross_person_weight` 0.450366, `policy_temperature` 0.671712, `habituation_rate` 0.742618, `habituation_window` 12, `lock_in_gain` 0.121552, `acute_decay_rate` 0.145992, `calm_transfer_rate` 0.0282459, `tie_wear_rate` 0.0284491; ratio 0.01937 (per week ÷ per contact) | 50 then 200 | yes (first FAIL) | FAIL | `marital_conflict` +0.14 ± 0.25 |
-| 5 | `learning_rate` 0.35064, `credit_horizon` 3, `credit_discount` 0.465114, `cross_person_weight` 0.760262, `policy_temperature` 1.05705, `habituation_rate` 0.379322, `habituation_window` 13, `lock_in_gain` 0.258614, `acute_decay_rate` 0.209575, `calm_transfer_rate` 0.0285839, `tie_wear_rate` 0.0795404; ratio 0.05351 (per week ÷ per contact) | 50 then 200 | yes (first FAIL) | FAIL | `marital_conflict` +0.11 ± 0.21 |
-| 6 | `learning_rate` 0.149095, `credit_horizon` 3, `credit_discount` 0.480821, `cross_person_weight` 0.361665, `policy_temperature` 0.919921, `habituation_rate` 0.651875, `habituation_window` 4, `lock_in_gain` 0.37383, `acute_decay_rate` 0.13808, `calm_transfer_rate` 0.0483921, `tie_wear_rate` 0.0480212; ratio 0.01908 (per week ÷ per contact) | 100 then 200 | yes (first FAIL) | FAIL | `marital_conflict` +0.055 ± 0.32 |
-| 7 | `learning_rate` 0.176044, `credit_horizon` 6, `credit_discount` 0.825273, `cross_person_weight` 0.407624, `policy_temperature` 1.27509, `habituation_rate` 0.522844, `habituation_window` 14, `lock_in_gain` 0.317354, `acute_decay_rate` 0.321958, `calm_transfer_rate` 0.0411978, `tie_wear_rate` 0.0207808; ratio 0.0097 (per week ÷ per contact) | 50 then 200 | yes (first FAIL) | FAIL | `marital_conflict` -0.005 ± 0.16 |
+| 0 | `learning_rate` 0.253113, `credit_horizon` 3, `credit_discount` 0.920543, `cross_person_weight` 0.728782, `policy_temperature` 0.943265, `habituation_rate` 0.627552, `habituation_window` 11, `lock_in_gain` 0.359723, `acute_decay_rate` 0.115598, `calm_transfer_rate` 0.0867955, `tie_wear_rate` 0.0504397; ratio 0.01118 (per week ÷ per contact) | 100 then 200 | yes (first FAIL) | FAIL | `marital_conflict` +0.425 ± 0.43 |
+| 1 | `learning_rate` 0.33454, `credit_horizon` 4, `credit_discount` 0.680292, `cross_person_weight` 0.783454, `policy_temperature` 0.707219, `habituation_rate` 0.914206, `habituation_window` 16, `lock_in_gain` 0.164955, `acute_decay_rate` 0.210986, `calm_transfer_rate` 0.0670508, `tie_wear_rate` 0.0513584; ratio 0.01473 (per week ÷ per contact) | 100 then 200 | yes (first FAIL) | FAIL | `marital_conflict` -0.145 ± 0.3 |
+| 2 | `learning_rate` 0.183791, `credit_horizon` 4, `credit_discount` 0.797501, `cross_person_weight` 0.349613, `policy_temperature` 0.518339, `habituation_rate` 0.513632, `habituation_window` 14, `lock_in_gain` 0.170145, `acute_decay_rate` 0.276184, `calm_transfer_rate` 0.0272578, `tie_wear_rate` 0.00745201; ratio 0.005258 (per week ÷ per contact) | 50 then 200 | yes (first FAIL) | FAIL | `marital_conflict` -0.025 ± 0.19 |
+| 3 | `learning_rate` 0.227155, `credit_horizon` 4, `credit_discount` 0.354056, `cross_person_weight` 0.308695, `policy_temperature` 1.25921, `habituation_rate` 0.824224, `habituation_window` 7, `lock_in_gain` 0.295584, `acute_decay_rate` 0.375781, `calm_transfer_rate` 0.0389251, `tie_wear_rate` 0.0350345; ratio 0.01731 (per week ÷ per contact) | 50 then 200 | yes (first FAIL) | FAIL | `marital_conflict` +0.07 ± 0.1 |
+| 4 | `learning_rate` 0.347397, `credit_horizon` 6, `credit_discount` 0.498751, `cross_person_weight` 0.450366, `policy_temperature` 0.671712, `habituation_rate` 0.742618, `habituation_window` 12, `lock_in_gain` 0.121552, `acute_decay_rate` 0.145992, `calm_transfer_rate` 0.0282459, `tie_wear_rate` 0.0284491; ratio 0.01937 (per week ÷ per contact) | 50 then 200 | yes (first FAIL) | FAIL | `marital_conflict` +0.075 ± 0.25 |
+| 5 | `learning_rate` 0.35064, `credit_horizon` 3, `credit_discount` 0.465114, `cross_person_weight` 0.760262, `policy_temperature` 1.05705, `habituation_rate` 0.379322, `habituation_window` 13, `lock_in_gain` 0.258614, `acute_decay_rate` 0.209575, `calm_transfer_rate` 0.0285839, `tie_wear_rate` 0.0795404; ratio 0.05351 (per week ÷ per contact) | 50 then 200 | yes (first FAIL) | FAIL | `marital_conflict` +0.105 ± 0.21 |
+| 6 | `learning_rate` 0.149095, `credit_horizon` 3, `credit_discount` 0.480821, `cross_person_weight` 0.361665, `policy_temperature` 0.919921, `habituation_rate` 0.651875, `habituation_window` 4, `lock_in_gain` 0.37383, `acute_decay_rate` 0.13808, `calm_transfer_rate` 0.0483921, `tie_wear_rate` 0.0480212; ratio 0.01908 (per week ÷ per contact) | 100 then 200 | yes (first FAIL) | FAIL | `marital_conflict` +0.01 ± 0.32 |
+| 7 | `learning_rate` 0.176044, `credit_horizon` 6, `credit_discount` 0.825273, `cross_person_weight` 0.407624, `policy_temperature` 1.27509, `habituation_rate` 0.522844, `habituation_window` 14, `lock_in_gain` 0.317354, `acute_decay_rate` 0.321958, `calm_transfer_rate` 0.0411978, `tie_wear_rate` 0.0207808; ratio 0.0097 (per week ÷ per contact) | 50 then 200 | yes (first FAIL) | FAIL | `marital_conflict` +0.005 ± 0.16 |
 
 ## `M11.C.17` — 8 of 8 samples held
 
@@ -404,70 +406,70 @@ Directional criteria of the ensemble records with no ranges declared in `config/
 
 | Sample | Values | Seeds | Rerun | Verdict | Gating readouts (mean difference ± half-width) |
 |---|---|---|---|---|---|
-| 0 | `landing_rate` 0.0891842, `perspective_gain` 0.12941, `binder_failure_fraction` 0.936039, `self_practice_gain` 0.000504799, `practice_window` 4, `system_adjust_gain` 1.08052, `estimator_sd_weight` 1.50863, `estimator_rate` 0.879074, `perspective_channel_gain` 0.838844, `perspective_steer_gain` 0.408773, `nodal_spike_intensity` 1.99704, `calm_transfer_rate` 0.0724229, `tie_wear_rate` 0.0224841; ratio 0.00597 (per week ÷ per contact) | 150 then 200 | yes (first PASS) | PASS | `coached_rise` +0.0756 ± 0.04 |
-| 1 | `landing_rate` 0.165716, `perspective_gain` 0.16121, `binder_failure_fraction` 0.456436, `self_practice_gain` 0.000611576, `practice_window` 3, `system_adjust_gain` 1.47586, `estimator_sd_weight` 0.926265, `estimator_rate` 0.48062, `perspective_channel_gain` 0.391663, `perspective_steer_gain` 0.356646, `nodal_spike_intensity` 0.908408, `calm_transfer_rate` 0.0885533, `tie_wear_rate` 0.181914; ratio 0.03951 (per week ÷ per contact) | 150 then 200 | yes (first PASS) | PASS | `coached_rise` +0.0537 ± 0.028 |
-| 2 | `landing_rate` 0.130631, `perspective_gain` 0.0983465, `binder_failure_fraction` 0.482788, `self_practice_gain` 0.00084533, `practice_window` 2, `system_adjust_gain` 0.584048, `estimator_sd_weight` 1.6116, `estimator_rate` 0.903514, `perspective_channel_gain` 0.428051, `perspective_steer_gain` 0.393212, `nodal_spike_intensity` 0.707336, `calm_transfer_rate` 0.0403024, `tie_wear_rate` 0.0972841; ratio 0.04642 (per week ÷ per contact) | 150 then 200 | yes (first PASS) | PASS | `coached_rise` +0.0966 ± 0.052 |
-| 3 | `landing_rate` 0.22643, `perspective_gain` 0.160221, `binder_failure_fraction` 0.632983, `self_practice_gain` 0.000514206, `practice_window` 3, `system_adjust_gain` 0.548166, `estimator_sd_weight` 1.6281, `estimator_rate` 0.26448, `perspective_channel_gain` 0.452441, `perspective_steer_gain` 0.508031, `nodal_spike_intensity` 1.76803, `calm_transfer_rate` 0.066248, `tie_wear_rate` 0.122816; ratio 0.03565 (per week ÷ per contact) | 150 | no | PASS | `coached_rise` +0.0486 ± 0.023 |
-| 4 | `landing_rate` 0.0759728, `perspective_gain` 0.172198, `binder_failure_fraction` 0.770939, `self_practice_gain` 0.000936915, `practice_window` 8, `system_adjust_gain` 0.751932, `estimator_sd_weight` 1.03677, `estimator_rate` 0.717309, `perspective_channel_gain` 0.471102, `perspective_steer_gain` 0.885582, `nodal_spike_intensity` 0.683559, `calm_transfer_rate` 0.0504064, `tie_wear_rate` 0.0423193; ratio 0.01615 (per week ÷ per contact) | 150 then 200 | yes (first PASS) | PASS | `coached_rise` +0.0741 ± 0.035 |
-| 5 | `landing_rate` 0.299197, `perspective_gain` 0.0942031, `binder_failure_fraction` 0.700634, `self_practice_gain` 0.00143051, `practice_window` 8, `system_adjust_gain` 1.24803, `estimator_sd_weight` 1.91452, `estimator_rate` 0.302202, `perspective_channel_gain` 0.745792, `perspective_steer_gain` 0.831961, `nodal_spike_intensity` 1.02556, `calm_transfer_rate` 0.0370742, `tie_wear_rate` 0.0860118; ratio 0.04462 (per week ÷ per contact) | 150 then 200 | yes (first PASS) | PASS | `coached_rise` +0.0449 ± 0.023 |
-| 6 | `landing_rate` 0.168712, `perspective_gain` 0.0956895, `binder_failure_fraction` 0.550552, `self_practice_gain` 0.00186488, `practice_window` 5, `system_adjust_gain` 1.13618, `estimator_sd_weight` 1.62898, `estimator_rate` 0.904003, `perspective_channel_gain` 0.991404, `perspective_steer_gain` 0.616236, `nodal_spike_intensity` 0.967802, `calm_transfer_rate` 0.0256083, `tie_wear_rate` 0.0573706; ratio 0.04308 (per week ÷ per contact) | 150 then 200 | yes (first PASS) | PASS | `coached_rise` +0.0689 ± 0.043 |
-| 7 | `landing_rate` 0.11446, `perspective_gain` 0.0550028, `binder_failure_fraction` 0.41146, `self_practice_gain` 0.000955136, `practice_window` 5, `system_adjust_gain` 1.53523, `estimator_sd_weight` 0.7599, `estimator_rate` 0.744171, `perspective_channel_gain` 0.541252, `perspective_steer_gain` 0.64145, `nodal_spike_intensity` 0.583584, `calm_transfer_rate` 0.0291691, `tie_wear_rate` 0.0311693; ratio 0.02055 (per week ÷ per contact) | 150 then 200 | yes (first PASS) | PASS | `coached_rise` +0.0879 ± 0.044 |
+| 0 | `landing_rate` 0.0891842, `perspective_gain` 0.12941, `binder_failure_fraction` 0.936039, `self_practice_gain` 0.000504799, `practice_window` 4, `system_adjust_gain` 1.08052, `estimator_sd_weight` 1.50863, `estimator_rate` 0.879074, `perspective_channel_gain` 0.838844, `perspective_steer_gain` 0.408773, `nodal_spike_intensity` 1.99704, `calm_transfer_rate` 0.0724229, `tie_wear_rate` 0.0224841; ratio 0.00597 (per week ÷ per contact) | 150 then 200 | yes (first PASS) | PASS | `coached_rise` +0.0671 ± 0.037 |
+| 1 | `landing_rate` 0.165716, `perspective_gain` 0.16121, `binder_failure_fraction` 0.456436, `self_practice_gain` 0.000611576, `practice_window` 3, `system_adjust_gain` 1.47586, `estimator_sd_weight` 0.926265, `estimator_rate` 0.48062, `perspective_channel_gain` 0.391663, `perspective_steer_gain` 0.356646, `nodal_spike_intensity` 0.908408, `calm_transfer_rate` 0.0885533, `tie_wear_rate` 0.181914; ratio 0.03951 (per week ÷ per contact) | 150 then 200 | yes (first PASS) | PASS | `coached_rise` +0.0425 ± 0.024 |
+| 2 | `landing_rate` 0.130631, `perspective_gain` 0.0983465, `binder_failure_fraction` 0.482788, `self_practice_gain` 0.00084533, `practice_window` 2, `system_adjust_gain` 0.584048, `estimator_sd_weight` 1.6116, `estimator_rate` 0.903514, `perspective_channel_gain` 0.428051, `perspective_steer_gain` 0.393212, `nodal_spike_intensity` 0.707336, `calm_transfer_rate` 0.0403024, `tie_wear_rate` 0.0972841; ratio 0.04642 (per week ÷ per contact) | 150 then 200 | yes (first PASS) | PASS | `coached_rise` +0.0869 ± 0.046 |
+| 3 | `landing_rate` 0.22643, `perspective_gain` 0.160221, `binder_failure_fraction` 0.632983, `self_practice_gain` 0.000514206, `practice_window` 3, `system_adjust_gain` 0.548166, `estimator_sd_weight` 1.6281, `estimator_rate` 0.26448, `perspective_channel_gain` 0.452441, `perspective_steer_gain` 0.508031, `nodal_spike_intensity` 1.76803, `calm_transfer_rate` 0.066248, `tie_wear_rate` 0.122816; ratio 0.03565 (per week ÷ per contact) | 150 then 200 | yes (first PASS) | PASS | `coached_rise` +0.0327 ± 0.019 |
+| 4 | `landing_rate` 0.0759728, `perspective_gain` 0.172198, `binder_failure_fraction` 0.770939, `self_practice_gain` 0.000936915, `practice_window` 8, `system_adjust_gain` 0.751932, `estimator_sd_weight` 1.03677, `estimator_rate` 0.717309, `perspective_channel_gain` 0.471102, `perspective_steer_gain` 0.885582, `nodal_spike_intensity` 0.683559, `calm_transfer_rate` 0.0504064, `tie_wear_rate` 0.0423193; ratio 0.01615 (per week ÷ per contact) | 150 then 200 | yes (first PASS) | PASS | `coached_rise` +0.0829 ± 0.039 |
+| 5 | `landing_rate` 0.299197, `perspective_gain` 0.0942031, `binder_failure_fraction` 0.700634, `self_practice_gain` 0.00143051, `practice_window` 8, `system_adjust_gain` 1.24803, `estimator_sd_weight` 1.91452, `estimator_rate` 0.302202, `perspective_channel_gain` 0.745792, `perspective_steer_gain` 0.831961, `nodal_spike_intensity` 1.02556, `calm_transfer_rate` 0.0370742, `tie_wear_rate` 0.0860118; ratio 0.04462 (per week ÷ per contact) | 150 then 200 | yes (first PASS) | PASS | `coached_rise` +0.0411 ± 0.022 |
+| 6 | `landing_rate` 0.168712, `perspective_gain` 0.0956895, `binder_failure_fraction` 0.550552, `self_practice_gain` 0.00186488, `practice_window` 5, `system_adjust_gain` 1.13618, `estimator_sd_weight` 1.62898, `estimator_rate` 0.904003, `perspective_channel_gain` 0.991404, `perspective_steer_gain` 0.616236, `nodal_spike_intensity` 0.967802, `calm_transfer_rate` 0.0256083, `tie_wear_rate` 0.0573706; ratio 0.04308 (per week ÷ per contact) | 150 then 200 | yes (first PASS) | PASS | `coached_rise` +0.0731 ± 0.047 |
+| 7 | `landing_rate` 0.11446, `perspective_gain` 0.0550028, `binder_failure_fraction` 0.41146, `self_practice_gain` 0.000955136, `practice_window` 5, `system_adjust_gain` 1.53523, `estimator_sd_weight` 0.7599, `estimator_rate` 0.744171, `perspective_channel_gain` 0.541252, `perspective_steer_gain` 0.64145, `nodal_spike_intensity` 0.583584, `calm_transfer_rate` 0.0291691, `tie_wear_rate` 0.0311693; ratio 0.02055 (per week ÷ per contact) | 150 then 200 | yes (first PASS) | PASS | `coached_rise` +0.0604 ± 0.033 |
 
-## `M11.C.21` — 0 of 8 samples held
+## `M11.C.21` — 4 of 8 samples held
 
-`tie_wear_to_transfer_ratio` (per week ÷ per contact) entered: held 0 of 4 below its central value 0.01923 and 0 of 4 at or above it.
-
-| Sample | Values | Seeds | Rerun | Verdict | Gating readouts (mean difference ± half-width) |
-|---|---|---|---|---|---|
-| 0 | `pseudo_self_transfer_gain` 3.16145, `pseudo_self_relaxation_rate` 0.0578491, `exchange_window` 14, `response_up_gain` 0.864258, `response_down_gain` 0.674234, `response_relaxation_rate` 0.0371156, `stress_floor_below_basic` 9.39285, `calm_transfer_rate` 0.033797, `tie_wear_rate` 0.0309702; ratio 0.01762 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `target_rise` +0.183 ± 0.35 |
-| 1 | `pseudo_self_transfer_gain` 2.79724, `pseudo_self_relaxation_rate` 0.0598766, `exchange_window` 9, `response_up_gain` 0.911502, `response_down_gain` 0.546551, `response_relaxation_rate` 0.0135986, `stress_floor_below_basic` 17.9871, `calm_transfer_rate` 0.0404364, `tie_wear_rate` 0.0427332; ratio 0.02032 (per week ÷ per contact) | 100 then 200 | yes (first FAIL) | FAIL | `target_rise` -0.184 ± 0.32 |
-| 2 | `pseudo_self_transfer_gain` 2.66999, `pseudo_self_relaxation_rate` 0.0532216, `exchange_window` 10, `response_up_gain` 0.294187, `response_down_gain` 0.309349, `response_relaxation_rate` 0.0255333, `stress_floor_below_basic` 10.9823, `calm_transfer_rate` 0.0389357, `tie_wear_rate` 0.124427; ratio 0.06146 (per week ÷ per contact) | 50 then 200 | yes (first FAIL) | FAIL | `target_rise` -0.04 ± 0.16 |
-| 3 | `pseudo_self_transfer_gain` 3.35415, `pseudo_self_relaxation_rate` 0.087287, `exchange_window` 8, `response_up_gain` 0.251014, `response_down_gain` 0.544129, `response_relaxation_rate` 0.034846, `stress_floor_below_basic` 16.3832, `calm_transfer_rate` 0.0322578, `tie_wear_rate` 0.0102495; ratio 0.00611 (per week ÷ per contact) | 50 then 200 | yes (first FAIL) | FAIL | `target_rise` +0.11 ± 0.25 |
-| 4 | `pseudo_self_transfer_gain` 2.13172, `pseudo_self_relaxation_rate` 0.0865612, `exchange_window` 9, `response_up_gain` 0.475247, `response_down_gain` 0.534628, `response_relaxation_rate` 0.0108441, `stress_floor_below_basic` 25.5273, `calm_transfer_rate` 0.040444, `tie_wear_rate` 0.0833149; ratio 0.03962 (per week ÷ per contact) | 100 then 200 | yes (first FAIL) | FAIL | `target_rise` +0.347 ± 0.63 |
-| 5 | `pseudo_self_transfer_gain` 1.59438, `pseudo_self_relaxation_rate` 0.037568, `exchange_window` 5, `response_up_gain` 0.510277, `response_down_gain` 0.293183, `response_relaxation_rate` 0.0293281, `stress_floor_below_basic` 22.0441, `calm_transfer_rate` 0.0292164, `tie_wear_rate` 0.0182714; ratio 0.01203 (per week ÷ per contact) | 100 then 200 | yes (first FAIL) | FAIL | `target_rise` -0.0259 ± 0.46 |
-| 6 | `pseudo_self_transfer_gain` 3.70053, `pseudo_self_relaxation_rate` 0.0593478, `exchange_window` 9, `response_up_gain` 0.832575, `response_down_gain` 0.378656, `response_relaxation_rate` 0.0201371, `stress_floor_below_basic` 10.2331, `calm_transfer_rate` 0.0355789, `tie_wear_rate` 0.0435593; ratio 0.02354 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `target_rise` +0.0144 ± 0.12 |
-| 7 | `pseudo_self_transfer_gain` 2.54228, `pseudo_self_relaxation_rate` 0.0427912, `exchange_window` 14, `response_up_gain` 0.530007, `response_down_gain` 0.510155, `response_relaxation_rate` 0.0211838, `stress_floor_below_basic` 20.0125, `calm_transfer_rate` 0.0465275, `tie_wear_rate` 0.0408101; ratio 0.01687 (per week ÷ per contact) | 100 then 200 | yes (first FAIL) | FAIL | `target_rise` +0.124 ± 0.25 |
-
-## `M11.C.22` — 7 of 8 samples held
-
-`tie_wear_to_transfer_ratio` (per week ÷ per contact) entered: held 4 of 5 below its central value 0.01923 and 3 of 3 at or above it.
+`tie_wear_to_transfer_ratio` (per week ÷ per contact) entered: held 2 of 4 below its central value 0.01923 and 2 of 4 at or above it.
 
 | Sample | Values | Seeds | Rerun | Verdict | Gating readouts (mean difference ± half-width) |
 |---|---|---|---|---|---|
-| 0 | `lock_in_gain` 0.193131, `standing_load_gain` 0.148074, `interactive_resting_contact` 0.66999, `contact_relaxation_rate` 0.159758, `acute_decay_rate` 0.241605, `calm_transfer_rate` 0.0322859, `tie_wear_rate` 0.029788; ratio 0.01774 (per week ÷ per contact) | 150 then 200 | yes (first PASS) | PASS | `mild_removal_effect` +0.597 ± 0.39; `severe_removal_effect` -1.38 ± 0.43 |
-| 1 | `lock_in_gain` 0.215954, `standing_load_gain` 0.186773, `interactive_resting_contact` 0.744572, `contact_relaxation_rate` 0.0898761, `acute_decay_rate` 0.16053, `calm_transfer_rate` 0.030944, `tie_wear_rate` 0.0353946; ratio 0.022 (per week ÷ per contact) | 150 then 200 | yes (first PASS) | PASS | `mild_removal_effect` +2.54 ± 0.96; `severe_removal_effect` -1.4 ± 0.97 |
-| 2 | `lock_in_gain` 0.311552, `standing_load_gain` 0.386133, `interactive_resting_contact` 0.5077, `contact_relaxation_rate` 0.0914797, `acute_decay_rate` 0.303296, `calm_transfer_rate` 0.0467022, `tie_wear_rate` 0.0372834; ratio 0.01535 (per week ÷ per contact) | 150 | no | PASS | `mild_removal_effect` +0.819 ± 0.33; `severe_removal_effect` -1.41 ± 0.37 |
-| 3 | `lock_in_gain` 0.309817, `standing_load_gain` 0.189289, `interactive_resting_contact` 0.659443, `contact_relaxation_rate` 0.0563325, `acute_decay_rate` 0.192868, `calm_transfer_rate` 0.0258792, `tie_wear_rate` 0.0441287; ratio 0.03279 (per week ÷ per contact) | 150 then 200 | yes (first PASS) | PASS | `mild_removal_effect` +1.84 ± 0.73; `severe_removal_effect` -1.74 ± 0.76 |
-| 4 | `lock_in_gain` 0.108471, `standing_load_gain` 0.274828, `interactive_resting_contact` 0.29068, `contact_relaxation_rate` 0.0624741, `acute_decay_rate` 0.24923, `calm_transfer_rate` 0.0764981, `tie_wear_rate` 0.0213038; ratio 0.005356 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `mild_removal_effect` +0.211 ± 0.37; `severe_removal_effect` -1.03 ± 0.42 |
-| 5 | `lock_in_gain` 0.288247, `standing_load_gain` 0.169081, `interactive_resting_contact` 0.795613, `contact_relaxation_rate` 0.056088, `acute_decay_rate` 0.266305, `calm_transfer_rate` 0.0299518, `tie_wear_rate` 0.105959; ratio 0.06803 (per week ÷ per contact) | 150 | no | PASS | `mild_removal_effect` +1.08 ± 0.38; `severe_removal_effect` -0.965 ± 0.47 |
-| 6 | `lock_in_gain` 0.307184, `standing_load_gain` 0.218293, `interactive_resting_contact` 0.37414, `contact_relaxation_rate` 0.12834, `acute_decay_rate` 0.369377, `calm_transfer_rate` 0.0351063, `tie_wear_rate` 0.0126233; ratio 0.006915 (per week ÷ per contact) | 150 | no | PASS | `mild_removal_effect` +0.468 ± 0.19; `severe_removal_effect` -0.817 ± 0.22 |
-| 7 | `lock_in_gain` 0.101875, `standing_load_gain` 0.232923, `interactive_resting_contact` 0.304729, `contact_relaxation_rate` 0.177272, `acute_decay_rate` 0.384219, `calm_transfer_rate` 0.0834044, `tie_wear_rate` 0.0302857; ratio 0.006983 (per week ÷ per contact) | 100 then 200 | yes (first PASS) | PASS | `mild_removal_effect` +0.153 ± 0.13; `severe_removal_effect` -0.226 ± 0.14 |
+| 0 | `pseudo_self_transfer_gain` 3.16145, `pseudo_self_relaxation_rate` 0.0578491, `exchange_window` 14, `response_up_gain` 0.864258, `response_down_gain` 0.674234, `response_relaxation_rate` 0.0371156, `stress_floor_below_basic` 9.39285, `calm_transfer_rate` 0.033797, `tie_wear_rate` 0.0309702; ratio 0.01762 (per week ÷ per contact) | 100 then 200 | yes (first PASS) | PASS | `target_rise` +0.341 ± 0.2 |
+| 1 | `pseudo_self_transfer_gain` 2.79724, `pseudo_self_relaxation_rate` 0.0598766, `exchange_window` 9, `response_up_gain` 0.911502, `response_down_gain` 0.546551, `response_relaxation_rate` 0.0135986, `stress_floor_below_basic` 17.9871, `calm_transfer_rate` 0.0404364, `tie_wear_rate` 0.0427332; ratio 0.02032 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `target_rise` +0.279 ± 0.27 |
+| 2 | `pseudo_self_transfer_gain` 2.66999, `pseudo_self_relaxation_rate` 0.0532216, `exchange_window` 10, `response_up_gain` 0.294187, `response_down_gain` 0.309349, `response_relaxation_rate` 0.0255333, `stress_floor_below_basic` 10.9823, `calm_transfer_rate` 0.0389357, `tie_wear_rate` 0.124427; ratio 0.06146 (per week ÷ per contact) | 150 then 200 | yes (first PASS) | PASS | `target_rise` +0.327 ± 0.18 |
+| 3 | `pseudo_self_transfer_gain` 3.35415, `pseudo_self_relaxation_rate` 0.087287, `exchange_window` 8, `response_up_gain` 0.251014, `response_down_gain` 0.544129, `response_relaxation_rate` 0.034846, `stress_floor_below_basic` 16.3832, `calm_transfer_rate` 0.0322578, `tie_wear_rate` 0.0102495; ratio 0.00611 (per week ÷ per contact) | 50 then 200 | yes (first FAIL) | PASS | `target_rise` +0.242 ± 0.22 |
+| 4 | `pseudo_self_transfer_gain` 2.13172, `pseudo_self_relaxation_rate` 0.0865612, `exchange_window` 9, `response_up_gain` 0.475247, `response_down_gain` 0.534628, `response_relaxation_rate` 0.0108441, `stress_floor_below_basic` 25.5273, `calm_transfer_rate` 0.040444, `tie_wear_rate` 0.0833149; ratio 0.03962 (per week ÷ per contact) | 100 then 200 | yes (first FAIL) | FAIL | `target_rise` +0.0435 ± 0.6 |
+| 5 | `pseudo_self_transfer_gain` 1.59438, `pseudo_self_relaxation_rate` 0.037568, `exchange_window` 5, `response_up_gain` 0.510277, `response_down_gain` 0.293183, `response_relaxation_rate` 0.0293281, `stress_floor_below_basic` 22.0441, `calm_transfer_rate` 0.0292164, `tie_wear_rate` 0.0182714; ratio 0.01203 (per week ÷ per contact) | 50 then 200 | yes (first FAIL) | FAIL | `target_rise` +0.223 ± 0.35 |
+| 6 | `pseudo_self_transfer_gain` 3.70053, `pseudo_self_relaxation_rate` 0.0593478, `exchange_window` 9, `response_up_gain` 0.832575, `response_down_gain` 0.378656, `response_relaxation_rate` 0.0201371, `stress_floor_below_basic` 10.2331, `calm_transfer_rate` 0.0355789, `tie_wear_rate` 0.0435593; ratio 0.02354 (per week ÷ per contact) | 150 then 200 | yes (first PASS) | PASS | `target_rise` +0.309 ± 0.35 |
+| 7 | `pseudo_self_transfer_gain` 2.54228, `pseudo_self_relaxation_rate` 0.0427912, `exchange_window` 14, `response_up_gain` 0.530007, `response_down_gain` 0.510155, `response_relaxation_rate` 0.0211838, `stress_floor_below_basic` 20.0125, `calm_transfer_rate` 0.0465275, `tie_wear_rate` 0.0408101; ratio 0.01687 (per week ÷ per contact) | 50 then 200 | yes (first FAIL) | FAIL | `target_rise` +0.13 ± 0.23 |
+
+## `M11.C.22` — 8 of 8 samples held
+
+`tie_wear_to_transfer_ratio` (per week ÷ per contact) entered: held 5 of 5 below its central value 0.01923 and 3 of 3 at or above it.
+
+| Sample | Values | Seeds | Rerun | Verdict | Gating readouts (mean difference ± half-width) |
+|---|---|---|---|---|---|
+| 0 | `lock_in_gain` 0.193131, `standing_load_gain` 0.148074, `interactive_resting_contact` 0.66999, `contact_relaxation_rate` 0.159758, `acute_decay_rate` 0.241605, `calm_transfer_rate` 0.0322859, `tie_wear_rate` 0.029788; ratio 0.01774 (per week ÷ per contact) | 150 then 200 | yes (first PASS) | PASS | `mild_removal_effect` +0.872 ± 0.39; `severe_removal_effect` -1.04 ± 0.41 |
+| 1 | `lock_in_gain` 0.215954, `standing_load_gain` 0.186773, `interactive_resting_contact` 0.744572, `contact_relaxation_rate` 0.0898761, `acute_decay_rate` 0.16053, `calm_transfer_rate` 0.030944, `tie_wear_rate` 0.0353946; ratio 0.022 (per week ÷ per contact) | 150 then 200 | yes (first PASS) | PASS | `mild_removal_effect` +2.46 ± 0.95; `severe_removal_effect` -1.73 ± 1 |
+| 2 | `lock_in_gain` 0.311552, `standing_load_gain` 0.386133, `interactive_resting_contact` 0.5077, `contact_relaxation_rate` 0.0914797, `acute_decay_rate` 0.303296, `calm_transfer_rate` 0.0467022, `tie_wear_rate` 0.0372834; ratio 0.01535 (per week ÷ per contact) | 150 | no | PASS | `mild_removal_effect` +0.65 ± 0.31; `severe_removal_effect` -1.39 ± 0.36 |
+| 3 | `lock_in_gain` 0.309817, `standing_load_gain` 0.189289, `interactive_resting_contact` 0.659443, `contact_relaxation_rate` 0.0563325, `acute_decay_rate` 0.192868, `calm_transfer_rate` 0.0258792, `tie_wear_rate` 0.0441287; ratio 0.03279 (per week ÷ per contact) | 150 | no | PASS | `mild_removal_effect` +2.27 ± 0.78; `severe_removal_effect` -2.16 ± 0.93 |
+| 4 | `lock_in_gain` 0.108471, `standing_load_gain` 0.274828, `interactive_resting_contact` 0.29068, `contact_relaxation_rate` 0.0624741, `acute_decay_rate` 0.24923, `calm_transfer_rate` 0.0764981, `tie_wear_rate` 0.0213038; ratio 0.005356 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | PASS | `mild_removal_effect` +0.367 ± 0.37; `severe_removal_effect` -0.915 ± 0.44 |
+| 5 | `lock_in_gain` 0.288247, `standing_load_gain` 0.169081, `interactive_resting_contact` 0.795613, `contact_relaxation_rate` 0.056088, `acute_decay_rate` 0.266305, `calm_transfer_rate` 0.0299518, `tie_wear_rate` 0.105959; ratio 0.06803 (per week ÷ per contact) | 150 then 200 | yes (first PASS) | PASS | `mild_removal_effect` +0.908 ± 0.33; `severe_removal_effect` -0.755 ± 0.34 |
+| 6 | `lock_in_gain` 0.307184, `standing_load_gain` 0.218293, `interactive_resting_contact` 0.37414, `contact_relaxation_rate` 0.12834, `acute_decay_rate` 0.369377, `calm_transfer_rate` 0.0351063, `tie_wear_rate` 0.0126233; ratio 0.006915 (per week ÷ per contact) | 150 | no | PASS | `mild_removal_effect` +0.531 ± 0.18; `severe_removal_effect` -0.861 ± 0.2 |
+| 7 | `lock_in_gain` 0.101875, `standing_load_gain` 0.232923, `interactive_resting_contact` 0.304729, `contact_relaxation_rate` 0.177272, `acute_decay_rate` 0.384219, `calm_transfer_rate` 0.0834044, `tie_wear_rate` 0.0302857; ratio 0.006983 (per week ÷ per contact) | 100 then 200 | yes (first PASS) | PASS | `mild_removal_effect` +0.144 ± 0.14; `severe_removal_effect` -0.271 ± 0.14 |
 
 ## `M11.C.23` — 0 of 8 samples held
 
 | Sample | Values | Seeds | Rerun | Verdict | Gating readouts (mean difference ± half-width) |
 |---|---|---|---|---|---|
-| 0 | `appraisal_gain` 3.58516, `intensity_scale` 168.659, `impingement_relaxation_rate` 0.580319, `investment_leak_rate` 0.0886116, `symptom_threshold_gain` 1.15792, `symptom_rearm_fraction` 0.290702, `symptom_leak_rate` 0.0532058, `acute_decay_rate` 0.268107 | 150 | no | FAIL | `relapses` -0.293 ± 0.08 |
+| 0 | `appraisal_gain` 3.58516, `intensity_scale` 168.659, `impingement_relaxation_rate` 0.580319, `investment_leak_rate` 0.0886116, `symptom_threshold_gain` 1.15792, `symptom_rearm_fraction` 0.290702, `symptom_leak_rate` 0.0532058, `acute_decay_rate` 0.268107 | 150 | no | FAIL | `relapses` -0.28 ± 0.079 |
 | 1 | `appraisal_gain` 4.98608, `intensity_scale` 196.07, `impingement_relaxation_rate` 0.333803, `investment_leak_rate` 0.0864568, `symptom_threshold_gain` 1.6239, `symptom_rearm_fraction` 0.939441, `symptom_leak_rate` 0.167007, `acute_decay_rate` 0.130278 | 150 then 200 | yes (first FAIL) | FAIL | `relapses` -0.06 ± 0.036 |
-| 2 | `appraisal_gain` 4.21861, `intensity_scale` 109.624, `impingement_relaxation_rate` 0.394601, `investment_leak_rate` 0.174156, `symptom_threshold_gain` 0.917262, `symptom_rearm_fraction` 0.966819, `symptom_leak_rate` 0.100477, `acute_decay_rate` 0.168432 | 150 then 200 | yes (first FAIL) | FAIL | `relapses` -0.305 ± 0.15 |
+| 2 | `appraisal_gain` 4.21861, `intensity_scale` 109.624, `impingement_relaxation_rate` 0.394601, `investment_leak_rate` 0.174156, `symptom_threshold_gain` 0.917262, `symptom_rearm_fraction` 0.966819, `symptom_leak_rate` 0.100477, `acute_decay_rate` 0.168432 | 150 | no | FAIL | `relapses` -0.36 ± 0.17 |
 | 3 | `appraisal_gain` 2.02278, `intensity_scale` 51.1941, `impingement_relaxation_rate` 0.458806, `investment_leak_rate` 0.167673, `symptom_threshold_gain` 0.874744, `symptom_rearm_fraction` 0.27718, `symptom_leak_rate` 0.0537232, `acute_decay_rate` 0.238419 | 50 | no | FAIL | `relapses` +0 ± 0 |
 | 4 | `appraisal_gain` 3.55723, `intensity_scale` 119.655, `impingement_relaxation_rate` 0.46414, `investment_leak_rate` 0.0563013, `symptom_threshold_gain` 1.11852, `symptom_rearm_fraction` 0.439044, `symptom_leak_rate` 0.0793745, `acute_decay_rate` 0.166008 | 150 | no | FAIL | `relapses` -0.54 ± 0.084 |
 | 5 | `appraisal_gain` 1.95339, `intensity_scale` 124.119, `impingement_relaxation_rate` 0.392701, `investment_leak_rate` 0.051247, `symptom_threshold_gain` 0.770276, `symptom_rearm_fraction` 0.426337, `symptom_leak_rate` 0.0586875, `acute_decay_rate` 0.306218 | 150 | no | FAIL | `relapses` -0.787 ± 0.071 |
 | 6 | `appraisal_gain` 4.75668, `intensity_scale` 177.89, `impingement_relaxation_rate` 0.313944, `investment_leak_rate` 0.15277, `symptom_threshold_gain` 1.80353, `symptom_rearm_fraction` 0.287959, `symptom_leak_rate` 0.0649764, `acute_decay_rate` 0.261158 | 50 | no | FAIL | `relapses` +0 ± 0 |
-| 7 | `appraisal_gain` 1.72352, `intensity_scale` 112.268, `impingement_relaxation_rate` 0.203825, `investment_leak_rate` 0.102973, `symptom_threshold_gain` 1.57252, `symptom_rearm_fraction` 0.817668, `symptom_leak_rate` 0.0644802, `acute_decay_rate` 0.364774 | 50 then 200 | yes (first FAIL) | FAIL | `relapses` -0.065 ± 0.034 |
+| 7 | `appraisal_gain` 1.72352, `intensity_scale` 112.268, `impingement_relaxation_rate` 0.203825, `investment_leak_rate` 0.102973, `symptom_threshold_gain` 1.57252, `symptom_rearm_fraction` 0.817668, `symptom_leak_rate` 0.0644802, `acute_decay_rate` 0.364774 | 150 then 200 | yes (first FAIL) | FAIL | `relapses` -0.075 ± 0.037 |
 
 ## `M11.C.34` — 1 of 8 samples held
 
 | Sample | Values | Seeds | Rerun | Verdict | Gating readouts (mean difference ± half-width) |
 |---|---|---|---|---|---|
-| 0 | `learning_rate` 0.316174, `credit_horizon` 4, `credit_discount` 0.381659, `cross_person_weight` 0.840284, `policy_temperature` 0.737231, `habituation_rate` 0.464758, `habituation_window` 12, `self_channel_exponent` 2.22723, `capacity_level_per_layer` 25.8352, `symptom_event_intensity` 173.925 | 150 then 200 | yes (first FAIL) | FAIL | `automatic_reaction` +0.01 ± 0.13 |
-| 1 | `learning_rate` 0.360369, `credit_horizon` 6, `credit_discount` 0.557458, `cross_person_weight` 0.702786, `policy_temperature` 1.81854, `habituation_rate` 0.660478, `habituation_window` 15, `self_channel_exponent` 2.72989, `capacity_level_per_layer` 18.0334, `symptom_event_intensity` 55.8762 | 150 then 200 | yes (first FAIL) | FAIL | `automatic_reaction` +0.045 ± 0.068 |
-| 2 | `learning_rate` 0.163267, `credit_horizon` 4, `credit_discount` 0.388204, `cross_person_weight` 0.270316, `policy_temperature` 1.27259, `habituation_rate` 0.816169, `habituation_window` 5, `self_channel_exponent` 2.75204, `capacity_level_per_layer` 29.7031, `symptom_event_intensity` 50.3828 | 150 then 200 | yes (first FAIL) | FAIL | `automatic_reaction` +0.015 ± 0.055 |
-| 3 | `learning_rate` 0.383122, `credit_horizon` 6, `credit_discount` 0.634161, `cross_person_weight` 0.282095, `policy_temperature` 1.47862, `habituation_rate` 0.763181, `habituation_window` 12, `self_channel_exponent` 2.06462, `capacity_level_per_layer` 16.3733, `symptom_event_intensity` 167.321 | 150 then 200 | yes (first FAIL) | FAIL | `automatic_reaction` -0.015 ± 0.095 |
-| 4 | `learning_rate` 0.231276, `credit_horizon` 5, `credit_discount` 0.589838, `cross_person_weight` 0.952421, `policy_temperature` 0.638356, `habituation_rate` 0.48567, `habituation_window` 9, `self_channel_exponent` 1.05565, `capacity_level_per_layer` 35.1878, `symptom_event_intensity` 146.501 | 150 then 200 | yes (first FAIL) | FAIL | `automatic_reaction` +0.065 ± 0.13 |
-| 5 | `learning_rate` 0.228158, `credit_horizon` 5, `credit_discount` 0.419287, `cross_person_weight` 0.355496, `policy_temperature` 1.03716, `habituation_rate` 0.517138, `habituation_window` 16, `self_channel_exponent` 1.3545, `capacity_level_per_layer` 24.9092, `symptom_event_intensity` 70.7909 | 100 then 200 | yes (first FAIL) | FAIL | `automatic_reaction` +0.045 ± 0.066 |
-| 6 | `learning_rate` 0.218431, `credit_horizon` 3, `credit_discount` 0.896232, `cross_person_weight` 0.410327, `policy_temperature` 1.77511, `habituation_rate` 0.541809, `habituation_window` 6, `self_channel_exponent` 1.57248, `capacity_level_per_layer` 16.4546, `symptom_event_intensity` 135.082 | 150 then 200 | yes (first PASS) | PASS | `automatic_reaction` -0.11 ± 0.095 |
-| 7 | `learning_rate` 0.259685, `credit_horizon` 3, `credit_discount` 0.650362, `cross_person_weight` 0.278051, `policy_temperature` 1.39925, `habituation_rate` 0.733824, `habituation_window` 8, `self_channel_exponent` 1.23945, `capacity_level_per_layer` 10.0144, `symptom_event_intensity` 70.1459 | 150 then 200 | yes (first FAIL) | FAIL | `automatic_reaction` +0.01 ± 0.1 |
+| 0 | `learning_rate` 0.316174, `credit_horizon` 4, `credit_discount` 0.381659, `cross_person_weight` 0.840284, `policy_temperature` 0.737231, `habituation_rate` 0.464758, `habituation_window` 12, `self_channel_exponent` 2.22723, `capacity_level_per_layer` 25.8352, `symptom_event_intensity` 173.925 | 150 then 200 | yes (first FAIL) | FAIL | `automatic_reaction` -0.065 ± 0.13 |
+| 1 | `learning_rate` 0.360369, `credit_horizon` 6, `credit_discount` 0.557458, `cross_person_weight` 0.702786, `policy_temperature` 1.81854, `habituation_rate` 0.660478, `habituation_window` 15, `self_channel_exponent` 2.72989, `capacity_level_per_layer` 18.0334, `symptom_event_intensity` 55.8762 | 150 then 200 | yes (first FAIL) | FAIL | `automatic_reaction` +0.025 ± 0.06 |
+| 2 | `learning_rate` 0.163267, `credit_horizon` 4, `credit_discount` 0.388204, `cross_person_weight` 0.270316, `policy_temperature` 1.27259, `habituation_rate` 0.816169, `habituation_window` 5, `self_channel_exponent` 2.75204, `capacity_level_per_layer` 29.7031, `symptom_event_intensity` 50.3828 | 150 then 200 | yes (first FAIL) | FAIL | `automatic_reaction` +0.02 ± 0.064 |
+| 3 | `learning_rate` 0.383122, `credit_horizon` 6, `credit_discount` 0.634161, `cross_person_weight` 0.282095, `policy_temperature` 1.47862, `habituation_rate` 0.763181, `habituation_window` 12, `self_channel_exponent` 2.06462, `capacity_level_per_layer` 16.3733, `symptom_event_intensity` 167.321 | 150 then 200 | yes (first FAIL) | FAIL | `automatic_reaction` -0.035 ± 0.09 |
+| 4 | `learning_rate` 0.231276, `credit_horizon` 5, `credit_discount` 0.589838, `cross_person_weight` 0.952421, `policy_temperature` 0.638356, `habituation_rate` 0.48567, `habituation_window` 9, `self_channel_exponent` 1.05565, `capacity_level_per_layer` 35.1878, `symptom_event_intensity` 146.501 | 150 then 200 | yes (first FAIL) | FAIL | `automatic_reaction` +0.05 ± 0.12 |
+| 5 | `learning_rate` 0.228158, `credit_horizon` 5, `credit_discount` 0.419287, `cross_person_weight` 0.355496, `policy_temperature` 1.03716, `habituation_rate` 0.517138, `habituation_window` 16, `self_channel_exponent` 1.3545, `capacity_level_per_layer` 24.9092, `symptom_event_intensity` 70.7909 | 150 then 200 | yes (first FAIL) | FAIL | `automatic_reaction` +0.03 ± 0.075 |
+| 6 | `learning_rate` 0.218431, `credit_horizon` 3, `credit_discount` 0.896232, `cross_person_weight` 0.410327, `policy_temperature` 1.77511, `habituation_rate` 0.541809, `habituation_window` 6, `self_channel_exponent` 1.57248, `capacity_level_per_layer` 16.4546, `symptom_event_intensity` 135.082 | 150 then 200 | yes (first FAIL) | PASS | `automatic_reaction` -0.075 ± 0.1 |
+| 7 | `learning_rate` 0.259685, `credit_horizon` 3, `credit_discount` 0.650362, `cross_person_weight` 0.278051, `policy_temperature` 1.39925, `habituation_rate` 0.733824, `habituation_window` 8, `self_channel_exponent` 1.23945, `capacity_level_per_layer` 10.0144, `symptom_event_intensity` 70.1459 | 150 then 200 | yes (first FAIL) | FAIL | `automatic_reaction` +0.02 ± 0.11 |
 
 ## `M11.C.39` — 8 of 8 samples held
 
@@ -475,119 +477,114 @@ Directional criteria of the ensemble records with no ranges declared in `config/
 
 | Sample | Values | Seeds | Rerun | Verdict | Gating readouts (mean difference ± half-width) |
 |---|---|---|---|---|---|
-| 0 | `learning_rate` 0.363611, `credit_horizon` 6, `credit_discount` 0.643434, `cross_person_weight` 0.289309, `policy_temperature` 0.606511, `habituation_rate` 0.364965, `habituation_window` 7, `witnessed_cutoff_gain` 0.0502022, `witness_window` 19, `distance_binding_rate` 0.508125, `calm_transfer_rate` 0.041189, `tie_wear_rate` 0.135631; ratio 0.06332 (per week ÷ per contact) | 150 | no | PASS | `pattern_after_spell` +4.35 ± 1.5 |
-| 1 | `learning_rate` 0.200118, `credit_horizon` 2, `credit_discount` 0.743532, `cross_person_weight` 0.799295, `policy_temperature` 0.724302, `habituation_rate` 0.653506, `habituation_window` 7, `witnessed_cutoff_gain` 0.0958419, `witness_window` 23, `distance_binding_rate` 0.355212, `calm_transfer_rate` 0.0513688, `tie_wear_rate` 0.143941; ratio 0.05389 (per week ÷ per contact) | 150 | no | PASS | `pattern_after_spell` +9.09 ± 1.6 |
-| 2 | `learning_rate` 0.202225, `credit_horizon` 4, `credit_discount` 0.557024, `cross_person_weight` 0.382767, `policy_temperature` 1.28554, `habituation_rate` 0.594502, `habituation_window` 15, `witnessed_cutoff_gain` 0.0824517, `witness_window` 21, `distance_binding_rate` 0.511222, `calm_transfer_rate` 0.0896252, `tie_wear_rate` 0.159453; ratio 0.03421 (per week ÷ per contact) | 150 | no | PASS | `pattern_after_spell` +4.7 ± 1.1 |
-| 3 | `learning_rate` 0.30235, `credit_horizon` 3, `credit_discount` 0.737198, `cross_person_weight` 0.450418, `policy_temperature` 1.81154, `habituation_rate` 0.965468, `habituation_window` 8, `witnessed_cutoff_gain` 0.0471993, `witness_window` 9, `distance_binding_rate` 0.15904, `calm_transfer_rate` 0.0733355, `tie_wear_rate` 0.104501; ratio 0.0274 (per week ÷ per contact) | 150 | no | PASS | `pattern_after_spell` +4.56 ± 1.4 |
-| 4 | `learning_rate` 0.307239, `credit_horizon` 6, `credit_discount` 0.503951, `cross_person_weight` 0.353995, `policy_temperature` 0.621333, `habituation_rate` 0.584093, `habituation_window` 9, `witnessed_cutoff_gain` 0.055846, `witness_window` 20, `distance_binding_rate` 0.565713, `calm_transfer_rate` 0.0986233, `tie_wear_rate` 0.18037; ratio 0.03517 (per week ÷ per contact) | 150 | no | PASS | `pattern_after_spell` +6.4 ± 1.5 |
-| 5 | `learning_rate` 0.228633, `credit_horizon` 2, `credit_discount` 0.37736, `cross_person_weight` 0.708581, `policy_temperature` 0.636018, `habituation_rate` 0.382314, `habituation_window` 16, `witnessed_cutoff_gain` 0.0409247, `witness_window` 12, `distance_binding_rate` 0.303753, `calm_transfer_rate` 0.0550173, `tie_wear_rate` 0.0702118; ratio 0.02454 (per week ÷ per contact) | 150 | no | PASS | `pattern_after_spell` +4.75 ± 1.3 |
-| 6 | `learning_rate` 0.153077, `credit_horizon` 4, `credit_discount` 0.414112, `cross_person_weight` 0.333766, `policy_temperature` 0.577551, `habituation_rate` 0.354431, `habituation_window` 10, `witnessed_cutoff_gain` 0.0265753, `witness_window` 9, `distance_binding_rate` 0.204882, `calm_transfer_rate` 0.0266895, `tie_wear_rate` 0.00881975; ratio 0.006355 (per week ÷ per contact) | 100 | no | PASS | `pattern_after_spell` +3.4 ± 1.5 |
-| 7 | `learning_rate` 0.162239, `credit_horizon` 3, `credit_discount` 0.397431, `cross_person_weight` 0.35609, `policy_temperature` 1.73666, `habituation_rate` 0.809574, `habituation_window` 7, `witnessed_cutoff_gain` 0.0485532, `witness_window` 12, `distance_binding_rate` 0.180459, `calm_transfer_rate` 0.047129, `tie_wear_rate` 0.0725735; ratio 0.02961 (per week ÷ per contact) | 100 then 200 | yes (first PASS) | PASS | `pattern_after_spell` +1.47 ± 0.79 |
+| 0 | `learning_rate` 0.363611, `credit_horizon` 6, `credit_discount` 0.643434, `cross_person_weight` 0.289309, `policy_temperature` 0.606511, `habituation_rate` 0.364965, `habituation_window` 7, `witnessed_cutoff_gain` 0.0502022, `witness_window` 19, `distance_binding_rate` 0.508125, `calm_transfer_rate` 0.041189, `tie_wear_rate` 0.135631; ratio 0.06332 (per week ÷ per contact) | 150 | no | PASS | `pattern_after_spell` +4.5 ± 1.6 |
+| 1 | `learning_rate` 0.200118, `credit_horizon` 2, `credit_discount` 0.743532, `cross_person_weight` 0.799295, `policy_temperature` 0.724302, `habituation_rate` 0.653506, `habituation_window` 7, `witnessed_cutoff_gain` 0.0958419, `witness_window` 23, `distance_binding_rate` 0.355212, `calm_transfer_rate` 0.0513688, `tie_wear_rate` 0.143941; ratio 0.05389 (per week ÷ per contact) | 150 | no | PASS | `pattern_after_spell` +9.55 ± 1.5 |
+| 2 | `learning_rate` 0.202225, `credit_horizon` 4, `credit_discount` 0.557024, `cross_person_weight` 0.382767, `policy_temperature` 1.28554, `habituation_rate` 0.594502, `habituation_window` 15, `witnessed_cutoff_gain` 0.0824517, `witness_window` 21, `distance_binding_rate` 0.511222, `calm_transfer_rate` 0.0896252, `tie_wear_rate` 0.159453; ratio 0.03421 (per week ÷ per contact) | 150 | no | PASS | `pattern_after_spell` +4.91 ± 1.2 |
+| 3 | `learning_rate` 0.30235, `credit_horizon` 3, `credit_discount` 0.737198, `cross_person_weight` 0.450418, `policy_temperature` 1.81154, `habituation_rate` 0.965468, `habituation_window` 8, `witnessed_cutoff_gain` 0.0471993, `witness_window` 9, `distance_binding_rate` 0.15904, `calm_transfer_rate` 0.0733355, `tie_wear_rate` 0.104501; ratio 0.0274 (per week ÷ per contact) | 150 | no | PASS | `pattern_after_spell` +4.27 ± 1.4 |
+| 4 | `learning_rate` 0.307239, `credit_horizon` 6, `credit_discount` 0.503951, `cross_person_weight` 0.353995, `policy_temperature` 0.621333, `habituation_rate` 0.584093, `habituation_window` 9, `witnessed_cutoff_gain` 0.055846, `witness_window` 20, `distance_binding_rate` 0.565713, `calm_transfer_rate` 0.0986233, `tie_wear_rate` 0.18037; ratio 0.03517 (per week ÷ per contact) | 150 | no | PASS | `pattern_after_spell` +6.05 ± 1.4 |
+| 5 | `learning_rate` 0.228633, `credit_horizon` 2, `credit_discount` 0.37736, `cross_person_weight` 0.708581, `policy_temperature` 0.636018, `habituation_rate` 0.382314, `habituation_window` 16, `witnessed_cutoff_gain` 0.0409247, `witness_window` 12, `distance_binding_rate` 0.303753, `calm_transfer_rate` 0.0550173, `tie_wear_rate` 0.0702118; ratio 0.02454 (per week ÷ per contact) | 150 | no | PASS | `pattern_after_spell` +4.3 ± 1.4 |
+| 6 | `learning_rate` 0.153077, `credit_horizon` 4, `credit_discount` 0.414112, `cross_person_weight` 0.333766, `policy_temperature` 0.577551, `habituation_rate` 0.354431, `habituation_window` 10, `witnessed_cutoff_gain` 0.0265753, `witness_window` 9, `distance_binding_rate` 0.204882, `calm_transfer_rate` 0.0266895, `tie_wear_rate` 0.00881975; ratio 0.006355 (per week ÷ per contact) | 100 | no | PASS | `pattern_after_spell` +3.37 ± 1.4 |
+| 7 | `learning_rate` 0.162239, `credit_horizon` 3, `credit_discount` 0.397431, `cross_person_weight` 0.35609, `policy_temperature` 1.73666, `habituation_rate` 0.809574, `habituation_window` 7, `witnessed_cutoff_gain` 0.0485532, `witness_window` 12, `distance_binding_rate` 0.180459, `calm_transfer_rate` 0.047129, `tie_wear_rate` 0.0725735; ratio 0.02961 (per week ÷ per contact) | 100 then 200 | yes (first PASS) | PASS | `pattern_after_spell` +1.58 ± 0.77 |
 
 ## `M11.C.43` — 0 of 8 samples held
 
 | Sample | Values | Seeds | Rerun | Verdict | Gating readouts (mean difference ± half-width) |
 |---|---|---|---|---|---|
-| 0 | `learning_rate` 0.136107, `credit_horizon` 3, `credit_discount` 0.569511, `cross_person_weight` 0.311083, `policy_temperature` 1.3813, `habituation_rate` 0.768562, `habituation_window` 9, `calm_transfer_rate` 0.0294767, `acute_decay_rate` 0.151027 | 100 then 200 | yes (first FAIL) | FAIL | `loss_rise` -0.429 ± 1.5 |
-| 1 | `learning_rate` 0.12909, `credit_horizon` 3, `credit_discount` 0.733199, `cross_person_weight` 0.335665, `policy_temperature` 1.7256, `habituation_rate` 0.746224, `habituation_window` 16, `calm_transfer_rate` 0.0402122, `acute_decay_rate` 0.127385 | 150 then 200 | yes (first FAIL) | FAIL | `loss_rise` +1.6 ± 1.8 |
-| 2 | `learning_rate` 0.336209, `credit_horizon` 4, `credit_discount` 0.534151, `cross_person_weight` 0.814915, `policy_temperature` 1.7881, `habituation_rate` 0.818246, `habituation_window` 14, `calm_transfer_rate` 0.0830064, `acute_decay_rate` 0.195503 | 150 then 200 | yes (first FAIL) | FAIL | `loss_rise` +0.112 ± 0.99 |
-| 3 | `learning_rate` 0.139483, `credit_horizon` 3, `credit_discount` 0.481041, `cross_person_weight` 0.314678, `policy_temperature` 0.759672, `habituation_rate` 0.598398, `habituation_window` 9, `calm_transfer_rate` 0.0287204, `acute_decay_rate` 0.15932 | 150 then 200 | yes (first FAIL) | FAIL | `loss_rise` -1.73 ± 1.5 |
-| 4 | `learning_rate` 0.130064, `credit_horizon` 6, `credit_discount` 0.618976, `cross_person_weight` 0.956622, `policy_temperature` 0.731758, `habituation_rate` 0.610138, `habituation_window` 5, `calm_transfer_rate` 0.0430309, `acute_decay_rate` 0.362621 | 150 then 200 | yes (first FAIL) | FAIL | `loss_rise` -0.185 ± 0.39 |
-| 5 | `learning_rate` 0.106262, `credit_horizon` 4, `credit_discount` 0.412195, `cross_person_weight` 0.411072, `policy_temperature` 1.92813, `habituation_rate` 0.66315, `habituation_window` 12, `calm_transfer_rate` 0.0844014, `acute_decay_rate` 0.245904 | 100 then 200 | yes (first FAIL) | FAIL | `loss_rise` -0.038 ± 0.64 |
-| 6 | `learning_rate` 0.208365, `credit_horizon` 4, `credit_discount` 0.750669, `cross_person_weight` 0.963837, `policy_temperature` 1.80638, `habituation_rate` 0.820865, `habituation_window` 16, `calm_transfer_rate` 0.089523, `acute_decay_rate` 0.200319 | 100 then 200 | yes (first FAIL) | FAIL | `loss_rise` +0.00658 ± 0.99 |
-| 7 | `learning_rate` 0.191696, `credit_horizon` 2, `credit_discount` 0.406651, `cross_person_weight` 0.847865, `policy_temperature` 0.521067, `habituation_rate` 0.354931, `habituation_window` 6, `calm_transfer_rate` 0.052391, `acute_decay_rate` 0.320814 | 100 then 200 | yes (first FAIL) | FAIL | `loss_rise` -0.478 ± 0.48 |
+| 0 | `learning_rate` 0.136107, `credit_horizon` 3, `credit_discount` 0.569511, `cross_person_weight` 0.311083, `policy_temperature` 1.3813, `habituation_rate` 0.768562, `habituation_window` 9, `calm_transfer_rate` 0.0294767, `acute_decay_rate` 0.151027 | 150 then 200 | yes (first FAIL) | FAIL | `loss_rise` -0.627 ± 1.5 |
+| 1 | `learning_rate` 0.12909, `credit_horizon` 3, `credit_discount` 0.733199, `cross_person_weight` 0.335665, `policy_temperature` 1.7256, `habituation_rate` 0.746224, `habituation_window` 16, `calm_transfer_rate` 0.0402122, `acute_decay_rate` 0.127385 | 150 then 200 | yes (first FAIL) | FAIL | `loss_rise` +1.19 ± 1.9 |
+| 2 | `learning_rate` 0.336209, `credit_horizon` 4, `credit_discount` 0.534151, `cross_person_weight` 0.814915, `policy_temperature` 1.7881, `habituation_rate` 0.818246, `habituation_window` 14, `calm_transfer_rate` 0.0830064, `acute_decay_rate` 0.195503 | 150 then 200 | yes (first FAIL) | FAIL | `loss_rise` +0.233 ± 1 |
+| 3 | `learning_rate` 0.139483, `credit_horizon` 3, `credit_discount` 0.481041, `cross_person_weight` 0.314678, `policy_temperature` 0.759672, `habituation_rate` 0.598398, `habituation_window` 9, `calm_transfer_rate` 0.0287204, `acute_decay_rate` 0.15932 | 150 then 200 | yes (first FAIL) | FAIL | `loss_rise` -1.79 ± 1.5 |
+| 4 | `learning_rate` 0.130064, `credit_horizon` 6, `credit_discount` 0.618976, `cross_person_weight` 0.956622, `policy_temperature` 0.731758, `habituation_rate` 0.610138, `habituation_window` 5, `calm_transfer_rate` 0.0430309, `acute_decay_rate` 0.362621 | 150 then 200 | yes (first FAIL) | FAIL | `loss_rise` -0.179 ± 0.39 |
+| 5 | `learning_rate` 0.106262, `credit_horizon` 4, `credit_discount` 0.412195, `cross_person_weight` 0.411072, `policy_temperature` 1.92813, `habituation_rate` 0.66315, `habituation_window` 12, `calm_transfer_rate` 0.0844014, `acute_decay_rate` 0.245904 | 100 then 200 | yes (first FAIL) | FAIL | `loss_rise` -0.0384 ± 0.67 |
+| 6 | `learning_rate` 0.208365, `credit_horizon` 4, `credit_discount` 0.750669, `cross_person_weight` 0.963837, `policy_temperature` 1.80638, `habituation_rate` 0.820865, `habituation_window` 16, `calm_transfer_rate` 0.089523, `acute_decay_rate` 0.200319 | 150 then 200 | yes (first FAIL) | FAIL | `loss_rise` -0.414 ± 1 |
+| 7 | `learning_rate` 0.191696, `credit_horizon` 2, `credit_discount` 0.406651, `cross_person_weight` 0.847865, `policy_temperature` 0.521067, `habituation_rate` 0.354931, `habituation_window` 6, `calm_transfer_rate` 0.052391, `acute_decay_rate` 0.320814 | 150 then 200 | yes (first FAIL) | FAIL | `loss_rise` -0.459 ± 0.5 |
 
-## `M11.C.2[twelve-person family]` — 2 of 8 samples held
+## `M11.C.2[twelve-person family]` — 3 of 8 samples held
 
-`tie_wear_to_transfer_ratio` (per week ÷ per contact) entered: held 0 of 4 below its central value 0.01923 and 2 of 4 at or above it.
-
-| Sample | Values | Seeds | Rerun | Verdict | Gating readouts (mean difference ± half-width) |
-|---|---|---|---|---|---|
-| 0 | `learning_rate` 0.238526, `credit_horizon` 5, `credit_discount` 0.355068, `cross_person_weight` 0.588724, `policy_temperature` 1.0131, `habituation_rate` 0.455652, `habituation_window` 13, `perceived_weakness_gain` 0.0057173, `focus_steer_gain` 0.929502, `focus_reinforce_gain` 1.66595, `focus_compound_gain` 7.19919, `investment_leak_rate` 0.129473, `witness_weight` 0.309023, `symptom_leak_rate` 0.0714383, `birth_focus_gain` 0.195137, `calm_transfer_rate` 0.0540095, `tie_wear_rate` 0.0228859; ratio 0.008149 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `symptom_load` +0.709 ± 2.1 |
-| 1 | `learning_rate` 0.195987, `credit_horizon` 5, `credit_discount` 0.467033, `cross_person_weight` 0.341653, `policy_temperature` 0.759955, `habituation_rate` 0.622184, `habituation_window` 12, `perceived_weakness_gain` 0.014041, `focus_steer_gain` 1.25112, `focus_reinforce_gain` 0.584036, `focus_compound_gain` 11.488, `investment_leak_rate` 0.0730311, `witness_weight` 0.938235, `symptom_leak_rate` 0.0609428, `birth_focus_gain` 0.0756949, `calm_transfer_rate` 0.033984, `tie_wear_rate` 0.0396439; ratio 0.02243 (per week ÷ per contact) | 150 then 200 | yes (first PASS) | PASS | `symptom_load` +4.16 ± 2.3 |
-| 2 | `learning_rate` 0.203094, `credit_horizon` 4, `credit_discount` 0.821719, `cross_person_weight` 0.386515, `policy_temperature` 0.734499, `habituation_rate` 0.364287, `habituation_window` 14, `perceived_weakness_gain` 0.0120595, `focus_steer_gain` 0.503891, `focus_reinforce_gain` 1.83714, `focus_compound_gain` 8.10401, `investment_leak_rate` 0.0528356, `witness_weight` 0.620874, `symptom_leak_rate` 0.121625, `birth_focus_gain` 0.061994, `calm_transfer_rate` 0.0280685, `tie_wear_rate` 0.0983546; ratio 0.06739 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `symptom_load` +0.441 ± 0.99 |
-| 3 | `learning_rate` 0.342088, `credit_horizon` 3, `credit_discount` 0.601081, `cross_person_weight` 0.941375, `policy_temperature` 0.757708, `habituation_rate` 0.831929, `habituation_window` 7, `perceived_weakness_gain` 0.0177866, `focus_steer_gain` 0.717376, `focus_reinforce_gain` 1.54368, `focus_compound_gain` 15.6349, `investment_leak_rate` 0.186454, `witness_weight` 0.260729, `symptom_leak_rate` 0.10019, `birth_focus_gain` 0.0824805, `calm_transfer_rate` 0.0485519, `tie_wear_rate` 0.0570243; ratio 0.02259 (per week ÷ per contact) | 150 then 200 | yes (first PASS) | FAIL | `symptom_load` +0.883 ± 1.5 |
-| 4 | `learning_rate` 0.132015, `credit_horizon` 4, `credit_discount` 0.861142, `cross_person_weight` 0.957385, `policy_temperature` 1.06158, `habituation_rate` 0.906067, `habituation_window` 12, `perceived_weakness_gain` 0.0188645, `focus_steer_gain` 1.542, `focus_reinforce_gain` 0.926615, `focus_compound_gain` 15.9603, `investment_leak_rate` 0.152261, `witness_weight` 0.295927, `symptom_leak_rate` 0.115641, `birth_focus_gain` 0.194109, `calm_transfer_rate` 0.0292344, `tie_wear_rate` 0.0370355; ratio 0.02436 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | PASS | `symptom_load` +1.28 ± 1.4 |
-| 5 | `learning_rate` 0.124141, `credit_horizon` 4, `credit_discount` 0.401326, `cross_person_weight` 0.449542, `policy_temperature` 1.11169, `habituation_rate` 0.624422, `habituation_window` 5, `perceived_weakness_gain` 0.0177565, `focus_steer_gain` 1.16001, `focus_reinforce_gain` 1.13, `focus_compound_gain` 5.80947, `investment_leak_rate` 0.139294, `witness_weight` 0.852113, `symptom_leak_rate` 0.199337, `birth_focus_gain` 0.10126, `calm_transfer_rate` 0.0766678, `tie_wear_rate` 0.0724411; ratio 0.01817 (per week ÷ per contact) | 150 then 200 | yes (first PASS) | FAIL | `symptom_load` +0.567 ± 0.79 |
-| 6 | `learning_rate` 0.121291, `credit_horizon` 5, `credit_discount` 0.437794, `cross_person_weight` 0.79644, `policy_temperature` 1.81847, `habituation_rate` 0.661091, `habituation_window` 15, `perceived_weakness_gain` 0.00951362, `focus_steer_gain` 1.22517, `focus_reinforce_gain` 0.773904, `focus_compound_gain` 8.46033, `investment_leak_rate` 0.1253, `witness_weight` 0.472288, `symptom_leak_rate` 0.0702896, `birth_focus_gain` 0.141418, `calm_transfer_rate` 0.0973886, `tie_wear_rate` 0.0401304; ratio 0.007924 (per week ÷ per contact) | 200 | no | FAIL | `symptom_load` -0.353 ± 2.1 |
-| 7 | `learning_rate` 0.247366, `credit_horizon` 3, `credit_discount` 0.49812, `cross_person_weight` 0.957124, `policy_temperature` 0.678228, `habituation_rate` 0.447957, `habituation_window` 7, `perceived_weakness_gain` 0.00795284, `focus_steer_gain` 1.22768, `focus_reinforce_gain` 0.654423, `focus_compound_gain` 5.62667, `investment_leak_rate` 0.191275, `witness_weight` 0.275873, `symptom_leak_rate` 0.0617984, `birth_focus_gain` 0.176947, `calm_transfer_rate` 0.0944129, `tie_wear_rate` 0.0386628; ratio 0.007875 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `symptom_load` -0.279 ± 2.1 |
-
-## `M11.C.6` — 0 of 8 samples held
-
-`tie_wear_to_transfer_ratio` (per week ÷ per contact) entered: held 0 of 5 below its central value 0.01923 and 0 of 3 at or above it.
+`tie_wear_to_transfer_ratio` (per week ÷ per contact) entered: held 2 of 4 below its central value 0.01923 and 1 of 4 at or above it.
 
 | Sample | Values | Seeds | Rerun | Verdict | Gating readouts (mean difference ± half-width) |
 |---|---|---|---|---|---|
-| 0 | `development_rate` 0.133393, `development_band` 0.0106515, `development_band_projection` 0.159538, `development_band_support` 0.075051, `estimator_sd_weight` 0.776355, `estimator_rate` 0.453813, `calm_transfer_rate` 0.0646054, `tie_wear_rate` 0.0340115; ratio 0.01012 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `development` -0.0106 ± 0.093 |
-| 1 | `development_rate` 0.172327, `development_band` 0.0193108, `development_band_projection` 0.175067, `development_band_support` 0.0554127, `estimator_sd_weight` 1.01407, `estimator_rate` 0.593047, `calm_transfer_rate` 0.070652, `tie_wear_rate` 0.0449065; ratio 0.01222 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `development` +0.0694 ± 0.11 |
-| 2 | `development_rate` 0.0940983, `development_band` 0.0364394, `development_band_projection` 0.0554397, `development_band_support` 0.0569251, `estimator_sd_weight` 1.91026, `estimator_rate` 0.255068, `calm_transfer_rate` 0.046544, `tie_wear_rate` 0.0286049; ratio 0.01182 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `development` +0.0781 ± 0.1 |
-| 3 | `development_rate` 0.076855, `development_band` 0.0153872, `development_band_projection` 0.0812149, `development_band_support` 0.0950593, `estimator_sd_weight` 1.01608, `estimator_rate` 0.916156, `calm_transfer_rate` 0.0758112, `tie_wear_rate` 0.18105; ratio 0.04593 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `development` +0.0464 ± 0.11 |
-| 4 | `development_rate` 0.119736, `development_band` 0.0177149, `development_band_projection` 0.0569236, `development_band_support` 0.0422829, `estimator_sd_weight` 1.03486, `estimator_rate` 0.919358, `calm_transfer_rate` 0.035332, `tie_wear_rate` 0.0194397; ratio 0.01058 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `development` +0.0876 ± 0.092 |
-| 5 | `development_rate` 0.145331, `development_band` 0.0215925, `development_band_projection` 0.138558, `development_band_support` 0.043696, `estimator_sd_weight` 0.645247, `estimator_rate` 0.343048, `calm_transfer_rate` 0.0286206, `tie_wear_rate` 0.0973264; ratio 0.0654 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `development` -0.00315 ± 0.12 |
-| 6 | `development_rate` 0.165423, `development_band` 0.0106247, `development_band_projection` 0.134143, `development_band_support` 0.0641388, `estimator_sd_weight` 1.44067, `estimator_rate` 0.391847, `calm_transfer_rate` 0.0553664, `tie_wear_rate` 0.0338038; ratio 0.01174 (per week ÷ per contact) | 150 then 200 | yes (first PASS) | FAIL | `development` -0.0696 ± 0.11 |
-| 7 | `development_rate` 0.0602457, `development_band` 0.0310826, `development_band_projection` 0.069509, `development_band_support` 0.0881477, `estimator_sd_weight` 1.63939, `estimator_rate` 0.298905, `calm_transfer_rate` 0.0819257, `tie_wear_rate` 0.304066; ratio 0.07137 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `development` -0.0145 ± 0.12 |
+| 0 | `learning_rate` 0.238526, `credit_horizon` 5, `credit_discount` 0.355068, `cross_person_weight` 0.588724, `policy_temperature` 1.0131, `habituation_rate` 0.455652, `habituation_window` 13, `perceived_weakness_gain` 0.0057173, `focus_steer_gain` 0.929502, `focus_reinforce_gain` 1.66595, `focus_compound_gain` 7.19919, `investment_leak_rate` 0.129473, `witness_weight` 0.309023, `symptom_leak_rate` 0.0714383, `birth_focus_gain` 0.195137, `calm_transfer_rate` 0.0540095, `tie_wear_rate` 0.0228859; ratio 0.008149 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `symptom_load` -0.713 ± 2.1 |
+| 1 | `learning_rate` 0.195987, `credit_horizon` 5, `credit_discount` 0.467033, `cross_person_weight` 0.341653, `policy_temperature` 0.759955, `habituation_rate` 0.622184, `habituation_window` 12, `perceived_weakness_gain` 0.014041, `focus_steer_gain` 1.25112, `focus_reinforce_gain` 0.584036, `focus_compound_gain` 11.488, `investment_leak_rate` 0.0730311, `witness_weight` 0.938235, `symptom_leak_rate` 0.0609428, `birth_focus_gain` 0.0756949, `calm_transfer_rate` 0.033984, `tie_wear_rate` 0.0396439; ratio 0.02243 (per week ÷ per contact) | 150 | no | PASS | `symptom_load` +5.54 ± 2.8 |
+| 2 | `learning_rate` 0.203094, `credit_horizon` 4, `credit_discount` 0.821719, `cross_person_weight` 0.386515, `policy_temperature` 0.734499, `habituation_rate` 0.364287, `habituation_window` 14, `perceived_weakness_gain` 0.0120595, `focus_steer_gain` 0.503891, `focus_reinforce_gain` 1.83714, `focus_compound_gain` 8.10401, `investment_leak_rate` 0.0528356, `witness_weight` 0.620874, `symptom_leak_rate` 0.121625, `birth_focus_gain` 0.061994, `calm_transfer_rate` 0.0280685, `tie_wear_rate` 0.0983546; ratio 0.06739 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `symptom_load` +0.275 ± 0.97 |
+| 3 | `learning_rate` 0.342088, `credit_horizon` 3, `credit_discount` 0.601081, `cross_person_weight` 0.941375, `policy_temperature` 0.757708, `habituation_rate` 0.831929, `habituation_window` 7, `perceived_weakness_gain` 0.0177866, `focus_steer_gain` 0.717376, `focus_reinforce_gain` 1.54368, `focus_compound_gain` 15.6349, `investment_leak_rate` 0.186454, `witness_weight` 0.260729, `symptom_leak_rate` 0.10019, `birth_focus_gain` 0.0824805, `calm_transfer_rate` 0.0485519, `tie_wear_rate` 0.0570243; ratio 0.02259 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `symptom_load` +0.855 ± 1.4 |
+| 4 | `learning_rate` 0.132015, `credit_horizon` 4, `credit_discount` 0.861142, `cross_person_weight` 0.957385, `policy_temperature` 1.06158, `habituation_rate` 0.906067, `habituation_window` 12, `perceived_weakness_gain` 0.0188645, `focus_steer_gain` 1.542, `focus_reinforce_gain` 0.926615, `focus_compound_gain` 15.9603, `investment_leak_rate` 0.152261, `witness_weight` 0.295927, `symptom_leak_rate` 0.115641, `birth_focus_gain` 0.194109, `calm_transfer_rate` 0.0292344, `tie_wear_rate` 0.0370355; ratio 0.02436 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `symptom_load` +0.435 ± 1.3 |
+| 5 | `learning_rate` 0.124141, `credit_horizon` 4, `credit_discount` 0.401326, `cross_person_weight` 0.449542, `policy_temperature` 1.11169, `habituation_rate` 0.624422, `habituation_window` 5, `perceived_weakness_gain` 0.0177565, `focus_steer_gain` 1.16001, `focus_reinforce_gain` 1.13, `focus_compound_gain` 5.80947, `investment_leak_rate` 0.139294, `witness_weight` 0.852113, `symptom_leak_rate` 0.199337, `birth_focus_gain` 0.10126, `calm_transfer_rate` 0.0766678, `tie_wear_rate` 0.0724411; ratio 0.01817 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | PASS | `symptom_load` +0.629 ± 0.7 |
+| 6 | `learning_rate` 0.121291, `credit_horizon` 5, `credit_discount` 0.437794, `cross_person_weight` 0.79644, `policy_temperature` 1.81847, `habituation_rate` 0.661091, `habituation_window` 15, `perceived_weakness_gain` 0.00951362, `focus_steer_gain` 1.22517, `focus_reinforce_gain` 0.773904, `focus_compound_gain` 8.46033, `investment_leak_rate` 0.1253, `witness_weight` 0.472288, `symptom_leak_rate` 0.0702896, `birth_focus_gain` 0.141418, `calm_transfer_rate` 0.0973886, `tie_wear_rate` 0.0401304; ratio 0.007924 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `symptom_load` +0.185 ± 2 |
+| 7 | `learning_rate` 0.247366, `credit_horizon` 3, `credit_discount` 0.49812, `cross_person_weight` 0.957124, `policy_temperature` 0.678228, `habituation_rate` 0.447957, `habituation_window` 7, `perceived_weakness_gain` 0.00795284, `focus_steer_gain` 1.22768, `focus_reinforce_gain` 0.654423, `focus_compound_gain` 5.62667, `investment_leak_rate` 0.191275, `witness_weight` 0.275873, `symptom_leak_rate` 0.0617984, `birth_focus_gain` 0.176947, `calm_transfer_rate` 0.0944129, `tie_wear_rate` 0.0386628; ratio 0.007875 (per week ÷ per contact) | 150 then 200 | yes (first PASS) | PASS | `symptom_load` +2.14 ± 2.1 |
 
-## `M11.C.10` — 3 of 8 samples held
+## `M11.C.6` — 1 of 8 samples held
 
-`tie_wear_to_transfer_ratio` (per week ÷ per contact) entered: held 1 of 6 below its central value 0.01923 and 2 of 2 at or above it.
-
-| Sample | Values | Seeds | Rerun | Verdict | Gating readouts (mean difference ± half-width) |
-|---|---|---|---|---|---|
-| 0 | `learning_rate` 0.357585, `credit_horizon` 2, `credit_discount` 0.534243, `cross_person_weight` 0.307818, `policy_temperature` 1.52319, `habituation_rate` 0.814186, `habituation_window` 7, `witnessed_cutoff_gain` 0.0286783, `witness_window` 23, `reactive_cutoff_gain` 0.134574, `origin_cutoff_anxiety_gain` 16.1541, `origin_fusion_gain` 0.622464, `rejection_cutoff_gain` 0.277297, `rejection_refusal_gain` 0.0725992, `rejection_relief` 0.211708, `rejection_refusal_threshold` 0.214074, `rejection_fade` 0.0689998, `calm_transfer_rate` 0.0602451, `tie_wear_rate` 0.0510811; ratio 0.01631 (per week ÷ per contact) | 200 | no | FAIL | `cut_off_tie_weeks` +57.2 ± 76 |
-| 1 | `learning_rate` 0.263708, `credit_horizon` 6, `credit_discount` 0.394778, `cross_person_weight` 0.726245, `policy_temperature` 0.557409, `habituation_rate` 0.959483, `habituation_window` 10, `witnessed_cutoff_gain` 0.0284212, `witness_window` 14, `reactive_cutoff_gain` 0.135885, `origin_cutoff_anxiety_gain` 16.2944, `origin_fusion_gain` 0.503939, `rejection_cutoff_gain` 0.264017, `rejection_refusal_gain` 0.0779647, `rejection_relief` 0.223592, `rejection_refusal_threshold` 0.155739, `rejection_fade` 0.0952386, `calm_transfer_rate` 0.0286765, `tie_wear_rate` 0.0277261; ratio 0.01859 (per week ÷ per contact) | 200 | no | PASS | `cut_off_tie_weeks` +66.7 ± 68 |
-| 2 | `learning_rate` 0.12486, `credit_horizon` 3, `credit_discount` 0.619861, `cross_person_weight` 0.658071, `policy_temperature` 0.543395, `habituation_rate` 0.461049, `habituation_window` 4, `witnessed_cutoff_gain` 0.03569, `witness_window` 8, `reactive_cutoff_gain` 0.198312, `origin_cutoff_anxiety_gain` 8.30539, `origin_fusion_gain` 0.276445, `rejection_cutoff_gain` 0.755656, `rejection_refusal_gain` 0.142264, `rejection_relief` 0.137072, `rejection_refusal_threshold` 0.175106, `rejection_fade` 0.0609028, `calm_transfer_rate` 0.0292089, `tie_wear_rate` 0.0100411; ratio 0.006611 (per week ÷ per contact) | 200 | no | FAIL | `cut_off_tie_weeks` +69.4 ± 1.2e+02 |
-| 3 | `learning_rate` 0.114691, `credit_horizon` 5, `credit_discount` 0.352371, `cross_person_weight` 0.297733, `policy_temperature` 0.633876, `habituation_rate` 0.351883, `habituation_window` 16, `witnessed_cutoff_gain` 0.0272167, `witness_window` 15, `reactive_cutoff_gain` 0.131799, `origin_cutoff_anxiety_gain` 6.07791, `origin_fusion_gain` 0.660937, `rejection_cutoff_gain` 0.697776, `rejection_refusal_gain` 0.110448, `rejection_relief` 0.179856, `rejection_refusal_threshold` 0.341648, `rejection_fade` 0.095123, `calm_transfer_rate` 0.0804142, `tie_wear_rate` 0.0217851; ratio 0.00521 (per week ÷ per contact) | 200 | no | FAIL | `cut_off_tie_weeks` -9.1 ± 1.1e+02 |
-| 4 | `learning_rate` 0.289425, `credit_horizon` 4, `credit_discount` 0.804418, `cross_person_weight` 0.351417, `policy_temperature` 0.770746, `habituation_rate` 0.68673, `habituation_window` 12, `witnessed_cutoff_gain` 0.0832608, `witness_window` 8, `reactive_cutoff_gain` 0.166873, `origin_cutoff_anxiety_gain` 15.798, `origin_fusion_gain` 0.959046, `rejection_cutoff_gain` 0.956557, `rejection_refusal_gain` 0.099976, `rejection_relief` 0.181532, `rejection_refusal_threshold` 0.197058, `rejection_fade` 0.0325653, `calm_transfer_rate` 0.0443386, `tie_wear_rate` 0.0319528; ratio 0.01386 (per week ÷ per contact) | 200 | no | FAIL | `cut_off_tie_weeks` +43.7 ± 1e+02 |
-| 5 | `learning_rate` 0.104634, `credit_horizon` 4, `credit_discount` 0.748001, `cross_person_weight` 0.629297, `policy_temperature` 1.07257, `habituation_rate` 0.4397, `habituation_window` 4, `witnessed_cutoff_gain` 0.0822201, `witness_window` 9, `reactive_cutoff_gain` 0.0783332, `origin_cutoff_anxiety_gain` 5.08826, `origin_fusion_gain` 0.639699, `rejection_cutoff_gain` 0.47392, `rejection_refusal_gain` 0.173038, `rejection_relief` 0.142868, `rejection_refusal_threshold` 0.190932, `rejection_fade` 0.0561129, `calm_transfer_rate` 0.0281946, `tie_wear_rate` 0.0143164; ratio 0.009765 (per week ÷ per contact) | 200 | no | FAIL | `cut_off_tie_weeks` -16.6 ± 1.2e+02 |
-| 6 | `learning_rate` 0.328304, `credit_horizon` 2, `credit_discount` 0.636216, `cross_person_weight` 0.406132, `policy_temperature` 1.1463, `habituation_rate` 0.480501, `habituation_window` 8, `witnessed_cutoff_gain` 0.0293431, `witness_window` 9, `reactive_cutoff_gain` 0.0632176, `origin_cutoff_anxiety_gain` 6.6713, `origin_fusion_gain` 0.375139, `rejection_cutoff_gain` 0.418657, `rejection_refusal_gain` 0.0711375, `rejection_relief` 0.239712, `rejection_refusal_threshold` 0.177604, `rejection_fade` 0.0864593, `calm_transfer_rate` 0.0682671, `tie_wear_rate` 0.134786; ratio 0.03797 (per week ÷ per contact) | 200 | no | PASS | `cut_off_tie_weeks` +140 ± 77 |
-| 7 | `learning_rate` 0.308492, `credit_horizon` 4, `credit_discount` 0.630264, `cross_person_weight` 0.276788, `policy_temperature` 1.94965, `habituation_rate` 0.479088, `habituation_window` 12, `witnessed_cutoff_gain` 0.0328265, `witness_window` 9, `reactive_cutoff_gain` 0.140874, `origin_cutoff_anxiety_gain` 10.8002, `origin_fusion_gain` 0.736296, `rejection_cutoff_gain` 0.53366, `rejection_refusal_gain` 0.137996, `rejection_relief` 0.287412, `rejection_refusal_threshold` 0.548847, `rejection_fade` 0.0331389, `calm_transfer_rate` 0.096158, `tie_wear_rate` 0.103892; ratio 0.02078 (per week ÷ per contact) | 200 | no | PASS | `cut_off_tie_weeks` +119 ± 1.4e+02 |
-
-## `M11.C.10[family of origin]` — 6 of 8 samples held
-
-`tie_wear_to_transfer_ratio` (per week ÷ per contact) entered: held 4 of 6 below its central value 0.01923 and 2 of 2 at or above it.
+`tie_wear_to_transfer_ratio` (per week ÷ per contact) entered: held 1 of 5 below its central value 0.01923 and 0 of 3 at or above it.
 
 | Sample | Values | Seeds | Rerun | Verdict | Gating readouts (mean difference ± half-width) |
 |---|---|---|---|---|---|
-| 0 | `learning_rate` 0.100036, `credit_horizon` 3, `credit_discount` 0.897915, `cross_person_weight` 0.361846, `policy_temperature` 1.97919, `habituation_rate` 0.637591, `habituation_window` 11, `witnessed_cutoff_gain` 0.0619692, `witness_window` 20, `reactive_cutoff_gain` 0.125241, `origin_cutoff_anxiety_gain` 13.5376, `origin_fusion_gain` 0.930651, `rejection_cutoff_gain` 0.266879, `rejection_refusal_gain` 0.106089, `rejection_relief` 0.247612, `rejection_refusal_threshold` 0.431668, `rejection_fade` 0.0399105, `calm_transfer_rate` 0.05823, `tie_wear_rate` 0.0230119; ratio 0.0076 (per week ÷ per contact) | 200 | no | FAIL | `cut_off_tie_weeks` +89.9 ± 1.3e+02 |
-| 1 | `learning_rate` 0.108276, `credit_horizon` 3, `credit_discount` 0.924498, `cross_person_weight` 0.632482, `policy_temperature` 1.51099, `habituation_rate` 0.673624, `habituation_window` 9, `witnessed_cutoff_gain` 0.0868308, `witness_window` 17, `reactive_cutoff_gain` 0.0618916, `origin_cutoff_anxiety_gain` 5.14819, `origin_fusion_gain` 0.729649, `rejection_cutoff_gain` 0.321955, `rejection_refusal_gain` 0.123326, `rejection_relief` 0.465365, `rejection_refusal_threshold` 0.54367, `rejection_fade` 0.0626832, `calm_transfer_rate` 0.073871, `tie_wear_rate` 0.0614882; ratio 0.01601 (per week ÷ per contact) | 200 | no | PASS | `cut_off_tie_weeks` +140 ± 88 |
-| 2 | `learning_rate` 0.285148, `credit_horizon` 2, `credit_discount` 0.638462, `cross_person_weight` 0.5639, `policy_temperature` 1.72275, `habituation_rate` 0.56619, `habituation_window` 12, `witnessed_cutoff_gain` 0.0851994, `witness_window` 19, `reactive_cutoff_gain` 0.127921, `origin_cutoff_anxiety_gain` 14.3081, `origin_fusion_gain` 0.256843, `rejection_cutoff_gain` 0.675094, `rejection_refusal_gain` 0.142517, `rejection_relief` 0.170935, `rejection_refusal_threshold` 0.399982, `rejection_fade` 0.0826487, `calm_transfer_rate` 0.0337688, `tie_wear_rate` 0.0322308; ratio 0.01835 (per week ÷ per contact) | 200 | no | PASS | `cut_off_tie_weeks` +175 ± 1.3e+02 |
-| 3 | `learning_rate` 0.167235, `credit_horizon` 5, `credit_discount` 0.537824, `cross_person_weight` 0.410065, `policy_temperature` 0.847375, `habituation_rate` 0.705119, `habituation_window` 6, `witnessed_cutoff_gain` 0.0355531, `witness_window` 8, `reactive_cutoff_gain` 0.188619, `origin_cutoff_anxiety_gain` 7.97092, `origin_fusion_gain` 0.742934, `rejection_cutoff_gain` 0.40805, `rejection_refusal_gain` 0.14222, `rejection_relief` 0.163368, `rejection_refusal_threshold` 0.163412, `rejection_fade` 0.03741, `calm_transfer_rate` 0.0326648, `tie_wear_rate` 0.0820632; ratio 0.04831 (per week ÷ per contact) | 200 | no | PASS | `cut_off_tie_weeks` +202 ± 99 |
-| 4 | `learning_rate` 0.333285, `credit_horizon` 5, `credit_discount` 0.461979, `cross_person_weight` 0.584405, `policy_temperature` 0.637759, `habituation_rate` 0.566153, `habituation_window` 16, `witnessed_cutoff_gain` 0.0796423, `witness_window` 13, `reactive_cutoff_gain` 0.0743612, `origin_cutoff_anxiety_gain` 18.2022, `origin_fusion_gain` 0.41816, `rejection_cutoff_gain` 0.265688, `rejection_refusal_gain` 0.0536377, `rejection_relief` 0.143998, `rejection_refusal_threshold` 0.271735, `rejection_fade` 0.0865912, `calm_transfer_rate` 0.0283084, `tie_wear_rate` 0.0134656; ratio 0.009148 (per week ÷ per contact) | 200 | no | PASS | `cut_off_tie_weeks` +227 ± 1e+02 |
-| 5 | `learning_rate` 0.20821, `credit_horizon` 3, `credit_discount` 0.497177, `cross_person_weight` 0.596516, `policy_temperature` 1.07266, `habituation_rate` 0.659282, `habituation_window` 6, `witnessed_cutoff_gain` 0.0751056, `witness_window` 19, `reactive_cutoff_gain` 0.108809, `origin_cutoff_anxiety_gain` 9.47073, `origin_fusion_gain` 0.577109, `rejection_cutoff_gain` 0.670497, `rejection_refusal_gain` 0.146793, `rejection_relief` 0.143306, `rejection_refusal_threshold` 0.304463, `rejection_fade` 0.0492382, `calm_transfer_rate` 0.073379, `tie_wear_rate` 0.0251353; ratio 0.006587 (per week ÷ per contact) | 200 | no | FAIL | `cut_off_tie_weeks` +86.3 ± 1.2e+02 |
-| 6 | `learning_rate` 0.105686, `credit_horizon` 3, `credit_discount` 0.491468, `cross_person_weight` 0.675354, `policy_temperature` 0.632779, `habituation_rate` 0.773863, `habituation_window` 8, `witnessed_cutoff_gain` 0.0923187, `witness_window` 15, `reactive_cutoff_gain` 0.193905, `origin_cutoff_anxiety_gain` 12.0311, `origin_fusion_gain` 0.810522, `rejection_cutoff_gain` 0.475721, `rejection_refusal_gain` 0.0900292, `rejection_relief` 0.419411, `rejection_refusal_threshold` 0.297349, `rejection_fade` 0.0916676, `calm_transfer_rate` 0.0973225, `tie_wear_rate` 0.114754; ratio 0.02268 (per week ÷ per contact) | 200 | no | PASS | `cut_off_tie_weeks` +117 ± 94 |
-| 7 | `learning_rate` 0.25032, `credit_horizon` 2, `credit_discount` 0.462585, `cross_person_weight` 0.907695, `policy_temperature` 0.593559, `habituation_rate` 0.480975, `habituation_window` 7, `witnessed_cutoff_gain` 0.026927, `witness_window` 21, `reactive_cutoff_gain` 0.126444, `origin_cutoff_anxiety_gain` 8.69519, `origin_fusion_gain` 0.310608, `rejection_cutoff_gain` 0.645047, `rejection_refusal_gain` 0.0585807, `rejection_relief` 0.346456, `rejection_refusal_threshold` 0.162826, `rejection_fade` 0.0271727, `calm_transfer_rate` 0.0528552, `tie_wear_rate` 0.0139057; ratio 0.005059 (per week ÷ per contact) | 200 | no | PASS | `cut_off_tie_weeks` +312 ± 1.4e+02 |
+| 0 | `development_rate` 0.133393, `development_band` 0.0106515, `development_band_projection` 0.159538, `development_band_support` 0.075051, `estimator_sd_weight` 0.776355, `estimator_rate` 0.453813, `calm_transfer_rate` 0.0646054, `tie_wear_rate` 0.0340115; ratio 0.01012 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | PASS | `development` -0.0658 ± 0.1 |
+| 1 | `development_rate` 0.172327, `development_band` 0.0193108, `development_band_projection` 0.175067, `development_band_support` 0.0554127, `estimator_sd_weight` 1.01407, `estimator_rate` 0.593047, `calm_transfer_rate` 0.070652, `tie_wear_rate` 0.0449065; ratio 0.01222 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `development` +0.055 ± 0.12 |
+| 2 | `development_rate` 0.0940983, `development_band` 0.0364394, `development_band_projection` 0.0554397, `development_band_support` 0.0569251, `estimator_sd_weight` 1.91026, `estimator_rate` 0.255068, `calm_transfer_rate` 0.046544, `tie_wear_rate` 0.0286049; ratio 0.01182 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `development` +0.0787 ± 0.11 |
+| 3 | `development_rate` 0.076855, `development_band` 0.0153872, `development_band_projection` 0.0812149, `development_band_support` 0.0950593, `estimator_sd_weight` 1.01608, `estimator_rate` 0.916156, `calm_transfer_rate` 0.0758112, `tie_wear_rate` 0.18105; ratio 0.04593 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `development` +0.0384 ± 0.11 |
+| 4 | `development_rate` 0.119736, `development_band` 0.0177149, `development_band_projection` 0.0569236, `development_band_support` 0.0422829, `estimator_sd_weight` 1.03486, `estimator_rate` 0.919358, `calm_transfer_rate` 0.035332, `tie_wear_rate` 0.0194397; ratio 0.01058 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `development` +0.0391 ± 0.094 |
+| 5 | `development_rate` 0.145331, `development_band` 0.0215925, `development_band_projection` 0.138558, `development_band_support` 0.043696, `estimator_sd_weight` 0.645247, `estimator_rate` 0.343048, `calm_transfer_rate` 0.0286206, `tie_wear_rate` 0.0973264; ratio 0.0654 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `development` +0.133 ± 0.11 |
+| 6 | `development_rate` 0.165423, `development_band` 0.0106247, `development_band_projection` 0.134143, `development_band_support` 0.0641388, `estimator_sd_weight` 1.44067, `estimator_rate` 0.391847, `calm_transfer_rate` 0.0553664, `tie_wear_rate` 0.0338038; ratio 0.01174 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `development` +0.0307 ± 0.11 |
+| 7 | `development_rate` 0.0602457, `development_band` 0.0310826, `development_band_projection` 0.069509, `development_band_support` 0.0881477, `estimator_sd_weight` 1.63939, `estimator_rate` 0.298905, `calm_transfer_rate` 0.0819257, `tie_wear_rate` 0.304066; ratio 0.07137 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `development` -0.00548 ± 0.12 |
 
-## `M11.C.15` — 6 of 8 samples held
+## `M11.C.10` — 4 of 8 samples held
 
-`tie_wear_to_transfer_ratio` (per week ÷ per contact) entered: held 3 of 3 below its central value 0.01923 and 3 of 5 at or above it.
+`tie_wear_to_transfer_ratio` (per week ÷ per contact) entered: held 2 of 6 below its central value 0.01923 and 2 of 2 at or above it.
 
 | Sample | Values | Seeds | Rerun | Verdict | Gating readouts (mean difference ± half-width) |
 |---|---|---|---|---|---|
-| 0 | `lock_in_gain` 0.216243, `acute_decay_rate` 0.1302, `calm_transfer_rate` 0.0250005, `tie_wear_rate` 0.0655009; ratio 0.05038 (per week ÷ per contact) | 100 | no | PASS | `death_rise` +16.8 ± 2.4; `recovery_rise` +15.3 ± 1.9 |
-| 1 | `lock_in_gain` 0.120579, `acute_decay_rate` 0.119315, `calm_transfer_rate` 0.0525014, `tie_wear_rate` 0.199499; ratio 0.07307 (per week ÷ per contact) | 100 | no | PASS | `death_rise` +13.3 ± 2; `recovery_rise` +8.99 ± 1.7 |
-| 2 | `lock_in_gain` 0.278729, `acute_decay_rate` 0.328717, `calm_transfer_rate` 0.0824666, `tie_wear_rate` 0.12798; ratio 0.02984 (per week ÷ per contact) | 50 then 200 | yes (first FAIL) | PASS | `death_rise` +0.12 ± 0.15; `recovery_rise` +2.67 ± 0.14 |
-| 3 | `lock_in_gain` 0.134022, `acute_decay_rate` 0.265334, `calm_transfer_rate` 0.0985835, `tie_wear_rate` 0.286975; ratio 0.05598 (per week ÷ per contact) | 100 then 200 | yes (first FAIL) | FAIL | `death_rise` -0.189 ± 0.27; `recovery_rise` +2.12 ± 0.22 |
-| 4 | `lock_in_gain` 0.214458, `acute_decay_rate` 0.164651, `calm_transfer_rate` 0.0402576, `tie_wear_rate` 0.0122809; ratio 0.005866 (per week ÷ per contact) | 100 | no | PASS | `death_rise` +9.1 ± 1.2; `recovery_rise` +9.56 ± 1.1 |
-| 5 | `lock_in_gain` 0.228289, `acute_decay_rate` 0.145458, `calm_transfer_rate` 0.0797857, `tie_wear_rate` 0.0237084; ratio 0.005714 (per week ÷ per contact) | 100 | no | PASS | `death_rise` +12.1 ± 1.8; `recovery_rise` +11.7 ± 1.6 |
-| 6 | `lock_in_gain` 0.152639, `acute_decay_rate` 0.288631, `calm_transfer_rate` 0.053666, `tie_wear_rate` 0.0773196; ratio 0.02771 (per week ÷ per contact) | 50 | no | FAIL | `death_rise` -0.848 ± 0.39; `recovery_rise` +2.24 ± 0.4 |
-| 7 | `lock_in_gain` 0.183078, `acute_decay_rate` 0.1278, `calm_transfer_rate` 0.0523472, `tie_wear_rate` 0.0293682; ratio 0.01079 (per week ÷ per contact) | 100 | no | PASS | `death_rise` +17.9 ± 2.3; `recovery_rise` +15.4 ± 1.9 |
+| 0 | `learning_rate` 0.357585, `credit_horizon` 2, `credit_discount` 0.534243, `cross_person_weight` 0.307818, `policy_temperature` 1.52319, `habituation_rate` 0.814186, `habituation_window` 7, `witnessed_cutoff_gain` 0.0286783, `witness_window` 23, `reactive_cutoff_gain` 0.134574, `origin_cutoff_anxiety_gain` 16.1541, `origin_fusion_gain` 0.622464, `rejection_cutoff_gain` 0.277297, `rejection_refusal_gain` 0.0725992, `rejection_relief` 0.211708, `rejection_refusal_threshold` 0.214074, `rejection_fade` 0.0689998, `calm_transfer_rate` 0.0602451, `tie_wear_rate` 0.0510811; ratio 0.01631 (per week ÷ per contact) | 200 | no | FAIL | `cut_off_tie_weeks` -24.5 ± 73 |
+| 1 | `learning_rate` 0.263708, `credit_horizon` 6, `credit_discount` 0.394778, `cross_person_weight` 0.726245, `policy_temperature` 0.557409, `habituation_rate` 0.959483, `habituation_window` 10, `witnessed_cutoff_gain` 0.0284212, `witness_window` 14, `reactive_cutoff_gain` 0.135885, `origin_cutoff_anxiety_gain` 16.2944, `origin_fusion_gain` 0.503939, `rejection_cutoff_gain` 0.264017, `rejection_refusal_gain` 0.0779647, `rejection_relief` 0.223592, `rejection_refusal_threshold` 0.155739, `rejection_fade` 0.0952386, `calm_transfer_rate` 0.0286765, `tie_wear_rate` 0.0277261; ratio 0.01859 (per week ÷ per contact) | 200 | no | PASS | `cut_off_tie_weeks` +106 ± 73 |
+| 2 | `learning_rate` 0.12486, `credit_horizon` 3, `credit_discount` 0.619861, `cross_person_weight` 0.658071, `policy_temperature` 0.543395, `habituation_rate` 0.461049, `habituation_window` 4, `witnessed_cutoff_gain` 0.03569, `witness_window` 8, `reactive_cutoff_gain` 0.198312, `origin_cutoff_anxiety_gain` 8.30539, `origin_fusion_gain` 0.276445, `rejection_cutoff_gain` 0.755656, `rejection_refusal_gain` 0.142264, `rejection_relief` 0.137072, `rejection_refusal_threshold` 0.175106, `rejection_fade` 0.0609028, `calm_transfer_rate` 0.0292089, `tie_wear_rate` 0.0100411; ratio 0.006611 (per week ÷ per contact) | 200 | no | FAIL | `cut_off_tie_weeks` +35.9 ± 1.1e+02 |
+| 3 | `learning_rate` 0.114691, `credit_horizon` 5, `credit_discount` 0.352371, `cross_person_weight` 0.297733, `policy_temperature` 0.633876, `habituation_rate` 0.351883, `habituation_window` 16, `witnessed_cutoff_gain` 0.0272167, `witness_window` 15, `reactive_cutoff_gain` 0.131799, `origin_cutoff_anxiety_gain` 6.07791, `origin_fusion_gain` 0.660937, `rejection_cutoff_gain` 0.697776, `rejection_refusal_gain` 0.110448, `rejection_relief` 0.179856, `rejection_refusal_threshold` 0.341648, `rejection_fade` 0.095123, `calm_transfer_rate` 0.0804142, `tie_wear_rate` 0.0217851; ratio 0.00521 (per week ÷ per contact) | 200 | no | FAIL | `cut_off_tie_weeks` -46.9 ± 1.1e+02 |
+| 4 | `learning_rate` 0.289425, `credit_horizon` 4, `credit_discount` 0.804418, `cross_person_weight` 0.351417, `policy_temperature` 0.770746, `habituation_rate` 0.68673, `habituation_window` 12, `witnessed_cutoff_gain` 0.0832608, `witness_window` 8, `reactive_cutoff_gain` 0.166873, `origin_cutoff_anxiety_gain` 15.798, `origin_fusion_gain` 0.959046, `rejection_cutoff_gain` 0.956557, `rejection_refusal_gain` 0.099976, `rejection_relief` 0.181532, `rejection_refusal_threshold` 0.197058, `rejection_fade` 0.0325653, `calm_transfer_rate` 0.0443386, `tie_wear_rate` 0.0319528; ratio 0.01386 (per week ÷ per contact) | 200 | no | PASS | `cut_off_tie_weeks` +87.3 ± 99 |
+| 5 | `learning_rate` 0.104634, `credit_horizon` 4, `credit_discount` 0.748001, `cross_person_weight` 0.629297, `policy_temperature` 1.07257, `habituation_rate` 0.4397, `habituation_window` 4, `witnessed_cutoff_gain` 0.0822201, `witness_window` 9, `reactive_cutoff_gain` 0.0783332, `origin_cutoff_anxiety_gain` 5.08826, `origin_fusion_gain` 0.639699, `rejection_cutoff_gain` 0.47392, `rejection_refusal_gain` 0.173038, `rejection_relief` 0.142868, `rejection_refusal_threshold` 0.190932, `rejection_fade` 0.0561129, `calm_transfer_rate` 0.0281946, `tie_wear_rate` 0.0143164; ratio 0.009765 (per week ÷ per contact) | 200 | no | FAIL | `cut_off_tie_weeks` +71.1 ± 1.2e+02 |
+| 6 | `learning_rate` 0.328304, `credit_horizon` 2, `credit_discount` 0.636216, `cross_person_weight` 0.406132, `policy_temperature` 1.1463, `habituation_rate` 0.480501, `habituation_window` 8, `witnessed_cutoff_gain` 0.0293431, `witness_window` 9, `reactive_cutoff_gain` 0.0632176, `origin_cutoff_anxiety_gain` 6.6713, `origin_fusion_gain` 0.375139, `rejection_cutoff_gain` 0.418657, `rejection_refusal_gain` 0.0711375, `rejection_relief` 0.239712, `rejection_refusal_threshold` 0.177604, `rejection_fade` 0.0864593, `calm_transfer_rate` 0.0682671, `tie_wear_rate` 0.134786; ratio 0.03797 (per week ÷ per contact) | 200 | no | PASS | `cut_off_tie_weeks` +115 ± 76 |
+| 7 | `learning_rate` 0.308492, `credit_horizon` 4, `credit_discount` 0.630264, `cross_person_weight` 0.276788, `policy_temperature` 1.94965, `habituation_rate` 0.479088, `habituation_window` 12, `witnessed_cutoff_gain` 0.0328265, `witness_window` 9, `reactive_cutoff_gain` 0.140874, `origin_cutoff_anxiety_gain` 10.8002, `origin_fusion_gain` 0.736296, `rejection_cutoff_gain` 0.53366, `rejection_refusal_gain` 0.137996, `rejection_relief` 0.287412, `rejection_refusal_threshold` 0.548847, `rejection_fade` 0.0331389, `calm_transfer_rate` 0.096158, `tie_wear_rate` 0.103892; ratio 0.02078 (per week ÷ per contact) | 200 | no | PASS | `cut_off_tie_weeks` +142 ± 1.3e+02 |
 
-## `M11.C.48` — 8 of 8 samples held
+## `M11.C.10[family of origin]` — 7 of 8 samples held
+
+`tie_wear_to_transfer_ratio` (per week ÷ per contact) entered: held 5 of 6 below its central value 0.01923 and 2 of 2 at or above it.
+
+| Sample | Values | Seeds | Rerun | Verdict | Gating readouts (mean difference ± half-width) |
+|---|---|---|---|---|---|
+| 0 | `learning_rate` 0.100036, `credit_horizon` 3, `credit_discount` 0.897915, `cross_person_weight` 0.361846, `policy_temperature` 1.97919, `habituation_rate` 0.637591, `habituation_window` 11, `witnessed_cutoff_gain` 0.0619692, `witness_window` 20, `reactive_cutoff_gain` 0.125241, `origin_cutoff_anxiety_gain` 13.5376, `origin_fusion_gain` 0.930651, `rejection_cutoff_gain` 0.266879, `rejection_refusal_gain` 0.106089, `rejection_relief` 0.247612, `rejection_refusal_threshold` 0.431668, `rejection_fade` 0.0399105, `calm_transfer_rate` 0.05823, `tie_wear_rate` 0.0230119; ratio 0.0076 (per week ÷ per contact) | 200 | no | FAIL | `cut_off_tie_weeks` +102 ± 1.4e+02 |
+| 1 | `learning_rate` 0.108276, `credit_horizon` 3, `credit_discount` 0.924498, `cross_person_weight` 0.632482, `policy_temperature` 1.51099, `habituation_rate` 0.673624, `habituation_window` 9, `witnessed_cutoff_gain` 0.0868308, `witness_window` 17, `reactive_cutoff_gain` 0.0618916, `origin_cutoff_anxiety_gain` 5.14819, `origin_fusion_gain` 0.729649, `rejection_cutoff_gain` 0.321955, `rejection_refusal_gain` 0.123326, `rejection_relief` 0.465365, `rejection_refusal_threshold` 0.54367, `rejection_fade` 0.0626832, `calm_transfer_rate` 0.073871, `tie_wear_rate` 0.0614882; ratio 0.01601 (per week ÷ per contact) | 200 | no | PASS | `cut_off_tie_weeks` +227 ± 94 |
+| 2 | `learning_rate` 0.285148, `credit_horizon` 2, `credit_discount` 0.638462, `cross_person_weight` 0.5639, `policy_temperature` 1.72275, `habituation_rate` 0.56619, `habituation_window` 12, `witnessed_cutoff_gain` 0.0851994, `witness_window` 19, `reactive_cutoff_gain` 0.127921, `origin_cutoff_anxiety_gain` 14.3081, `origin_fusion_gain` 0.256843, `rejection_cutoff_gain` 0.675094, `rejection_refusal_gain` 0.142517, `rejection_relief` 0.170935, `rejection_refusal_threshold` 0.399982, `rejection_fade` 0.0826487, `calm_transfer_rate` 0.0337688, `tie_wear_rate` 0.0322308; ratio 0.01835 (per week ÷ per contact) | 200 | no | PASS | `cut_off_tie_weeks` +114 ± 1.1e+02 |
+| 3 | `learning_rate` 0.167235, `credit_horizon` 5, `credit_discount` 0.537824, `cross_person_weight` 0.410065, `policy_temperature` 0.847375, `habituation_rate` 0.705119, `habituation_window` 6, `witnessed_cutoff_gain` 0.0355531, `witness_window` 8, `reactive_cutoff_gain` 0.188619, `origin_cutoff_anxiety_gain` 7.97092, `origin_fusion_gain` 0.742934, `rejection_cutoff_gain` 0.40805, `rejection_refusal_gain` 0.14222, `rejection_relief` 0.163368, `rejection_refusal_threshold` 0.163412, `rejection_fade` 0.03741, `calm_transfer_rate` 0.0326648, `tie_wear_rate` 0.0820632; ratio 0.04831 (per week ÷ per contact) | 200 | no | PASS | `cut_off_tie_weeks` +194 ± 97 |
+| 4 | `learning_rate` 0.333285, `credit_horizon` 5, `credit_discount` 0.461979, `cross_person_weight` 0.584405, `policy_temperature` 0.637759, `habituation_rate` 0.566153, `habituation_window` 16, `witnessed_cutoff_gain` 0.0796423, `witness_window` 13, `reactive_cutoff_gain` 0.0743612, `origin_cutoff_anxiety_gain` 18.2022, `origin_fusion_gain` 0.41816, `rejection_cutoff_gain` 0.265688, `rejection_refusal_gain` 0.0536377, `rejection_relief` 0.143998, `rejection_refusal_threshold` 0.271735, `rejection_fade` 0.0865912, `calm_transfer_rate` 0.0283084, `tie_wear_rate` 0.0134656; ratio 0.009148 (per week ÷ per contact) | 200 | no | PASS | `cut_off_tie_weeks` +189 ± 1.1e+02 |
+| 5 | `learning_rate` 0.20821, `credit_horizon` 3, `credit_discount` 0.497177, `cross_person_weight` 0.596516, `policy_temperature` 1.07266, `habituation_rate` 0.659282, `habituation_window` 6, `witnessed_cutoff_gain` 0.0751056, `witness_window` 19, `reactive_cutoff_gain` 0.108809, `origin_cutoff_anxiety_gain` 9.47073, `origin_fusion_gain` 0.577109, `rejection_cutoff_gain` 0.670497, `rejection_refusal_gain` 0.146793, `rejection_relief` 0.143306, `rejection_refusal_threshold` 0.304463, `rejection_fade` 0.0492382, `calm_transfer_rate` 0.073379, `tie_wear_rate` 0.0251353; ratio 0.006587 (per week ÷ per contact) | 200 | no | PASS | `cut_off_tie_weeks` +101 ± 1.2e+02 |
+| 6 | `learning_rate` 0.105686, `credit_horizon` 3, `credit_discount` 0.491468, `cross_person_weight` 0.675354, `policy_temperature` 0.632779, `habituation_rate` 0.773863, `habituation_window` 8, `witnessed_cutoff_gain` 0.0923187, `witness_window` 15, `reactive_cutoff_gain` 0.193905, `origin_cutoff_anxiety_gain` 12.0311, `origin_fusion_gain` 0.810522, `rejection_cutoff_gain` 0.475721, `rejection_refusal_gain` 0.0900292, `rejection_relief` 0.419411, `rejection_refusal_threshold` 0.297349, `rejection_fade` 0.0916676, `calm_transfer_rate` 0.0973225, `tie_wear_rate` 0.114754; ratio 0.02268 (per week ÷ per contact) | 200 | no | PASS | `cut_off_tie_weeks` +105 ± 80 |
+| 7 | `learning_rate` 0.25032, `credit_horizon` 2, `credit_discount` 0.462585, `cross_person_weight` 0.907695, `policy_temperature` 0.593559, `habituation_rate` 0.480975, `habituation_window` 7, `witnessed_cutoff_gain` 0.026927, `witness_window` 21, `reactive_cutoff_gain` 0.126444, `origin_cutoff_anxiety_gain` 8.69519, `origin_fusion_gain` 0.310608, `rejection_cutoff_gain` 0.645047, `rejection_refusal_gain` 0.0585807, `rejection_relief` 0.346456, `rejection_refusal_threshold` 0.162826, `rejection_fade` 0.0271727, `calm_transfer_rate` 0.0528552, `tie_wear_rate` 0.0139057; ratio 0.005059 (per week ÷ per contact) | 200 | no | PASS | `cut_off_tie_weeks` +410 ± 1.4e+02 |
+
+## `M11.C.15` — 5 of 8 samples held
+
+`tie_wear_to_transfer_ratio` (per week ÷ per contact) entered: held 3 of 3 below its central value 0.01923 and 2 of 5 at or above it.
+
+| Sample | Values | Seeds | Rerun | Verdict | Gating readouts (mean difference ± half-width) |
+|---|---|---|---|---|---|
+| 0 | `lock_in_gain` 0.216243, `acute_decay_rate` 0.1302, `calm_transfer_rate` 0.0250005, `tie_wear_rate` 0.0655009; ratio 0.05038 (per week ÷ per contact) | 100 | no | PASS | `death_rise` +17.4 ± 2.3; `recovery_rise` +15.5 ± 1.9 |
+| 1 | `lock_in_gain` 0.120579, `acute_decay_rate` 0.119315, `calm_transfer_rate` 0.0525014, `tie_wear_rate` 0.199499; ratio 0.07307 (per week ÷ per contact) | 100 | no | PASS | `death_rise` +13.7 ± 2.2; `recovery_rise` +9.52 ± 1.9 |
+| 2 | `lock_in_gain` 0.278729, `acute_decay_rate` 0.328717, `calm_transfer_rate` 0.0824666, `tie_wear_rate` 0.12798; ratio 0.02984 (per week ÷ per contact) | 50 then 200 | yes (first FAIL) | FAIL | `death_rise` +0.0819 ± 0.15; `recovery_rise` +2.75 ± 0.14 |
+| 3 | `lock_in_gain` 0.134022, `acute_decay_rate` 0.265334, `calm_transfer_rate` 0.0985835, `tie_wear_rate` 0.286975; ratio 0.05598 (per week ÷ per contact) | 100 then 200 | yes (first FAIL) | FAIL | `death_rise` -0.00773 ± 0.26; `recovery_rise` +2.26 ± 0.23 |
+| 4 | `lock_in_gain` 0.214458, `acute_decay_rate` 0.164651, `calm_transfer_rate` 0.0402576, `tie_wear_rate` 0.0122809; ratio 0.005866 (per week ÷ per contact) | 100 | no | PASS | `death_rise` +9.29 ± 1.2; `recovery_rise` +10.4 ± 1.1 |
+| 5 | `lock_in_gain` 0.228289, `acute_decay_rate` 0.145458, `calm_transfer_rate` 0.0797857, `tie_wear_rate` 0.0237084; ratio 0.005714 (per week ÷ per contact) | 150 | no | PASS | `death_rise` +13.3 ± 1.5; `recovery_rise` +12.6 ± 1.4 |
+| 6 | `lock_in_gain` 0.152639, `acute_decay_rate` 0.288631, `calm_transfer_rate` 0.053666, `tie_wear_rate` 0.0773196; ratio 0.02771 (per week ÷ per contact) | 50 then 200 | yes (first FAIL) | FAIL | `death_rise` -0.639 ± 0.21; `recovery_rise` +2.39 ± 0.21 |
+| 7 | `lock_in_gain` 0.183078, `acute_decay_rate` 0.1278, `calm_transfer_rate` 0.0523472, `tie_wear_rate` 0.0293682; ratio 0.01079 (per week ÷ per contact) | 100 | no | PASS | `death_rise` +15.9 ± 2.4; `recovery_rise` +13.2 ± 1.8 |
+
+## `M11.C.48` — refused at the rerun (`M17.A.1`)
+
+Sample 2 needs a rerun at 200 seeds, but the criterion fixes its own seed count at 100 (`config/bowen/criteria.md`), which the runner reads before the block and cap, so the sweep cannot rerun it at the declared count and refuses the criterion there (`M17.A.1`). No fraction is formed and no later sample was run; the samples below ran before the refusal and are shown, not counted.
 
 Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
 
-`tie_wear_to_transfer_ratio` (per week ÷ per contact) entered: held 3 of 3 below its central value 0.01923 and 5 of 5 at or above it.
-
 | Sample | Values | Seeds | Rerun | Verdict | Gating readouts (mean difference ± half-width) |
 |---|---|---|---|---|---|
-| 0 | `learning_rate` 0.247892, `credit_horizon` 5, `credit_discount` 0.672568, `cross_person_weight` 0.712342, `policy_temperature` 1.61102, `habituation_rate` 0.394202, `habituation_window` 7, `cutoff_stock_cap` 1712.32, `cutoff_threat_weight` 0.00382396, `cutoff_decay_weeks` 314, `cutoff_floor_share` 0.106912, `positive_bridge_dissipation` 0.732122, `calm_transfer_rate` 0.0458045, `tie_wear_rate` 0.0818156; ratio 0.03435 (per week ÷ per contact) | 100 | no | PASS | `negative_run` +0.394 ± 0.11 |
-| 1 | `learning_rate` 0.376126, `credit_horizon` 6, `credit_discount` 0.571656, `cross_person_weight` 0.493781, `policy_temperature` 0.978477, `habituation_rate` 0.998807, `habituation_window` 14, `cutoff_stock_cap` 1872.46, `cutoff_threat_weight` 0.00622121, `cutoff_decay_weeks` 361, `cutoff_floor_share` 0.0619932, `positive_bridge_dissipation` 0.475072, `calm_transfer_rate` 0.0491674, `tie_wear_rate` 0.1283; ratio 0.05018 (per week ÷ per contact) | 100 | no | PASS | `negative_run` +0.427 ± 0.18 |
-| 2 | `learning_rate` 0.134183, `credit_horizon` 6, `credit_discount` 0.956053, `cross_person_weight` 0.559969, `policy_temperature` 0.558845, `habituation_rate` 0.601236, `habituation_window` 9, `cutoff_stock_cap` 910.191, `cutoff_threat_weight` 0.00200315, `cutoff_decay_weeks` 434, `cutoff_floor_share` 0.183506, `positive_bridge_dissipation` 0.690904, `calm_transfer_rate` 0.029131, `tie_wear_rate` 0.0150323; ratio 0.009924 (per week ÷ per contact) | 100 | no | PASS | `negative_run` +0.328 ± 0.14 |
-| 3 | `learning_rate` 0.132511, `credit_horizon` 2, `credit_discount` 0.625784, `cross_person_weight` 0.853318, `policy_temperature` 0.627963, `habituation_rate` 0.682449, `habituation_window` 12, `cutoff_stock_cap` 1546.55, `cutoff_threat_weight` 0.00390046, `cutoff_decay_weeks` 179, `cutoff_floor_share` 0.0517486, `positive_bridge_dissipation` 0.888263, `calm_transfer_rate` 0.0302485, `tie_wear_rate` 0.0156122; ratio 0.009926 (per week ÷ per contact) | 100 | no | PASS | `negative_run` +0.435 ± 0.14 |
-| 4 | `learning_rate` 0.187776, `credit_horizon` 5, `credit_discount` 0.37549, `cross_person_weight` 0.250366, `policy_temperature` 1.54959, `habituation_rate` 0.456227, `habituation_window` 12, `cutoff_stock_cap` 2182.26, `cutoff_threat_weight` 0.00619186, `cutoff_decay_weeks` 162, `cutoff_floor_share` 0.121419, `positive_bridge_dissipation` 0.772162, `calm_transfer_rate` 0.0813982, `tie_wear_rate` 0.049161; ratio 0.01161 (per week ÷ per contact) | 100 | no | PASS | `negative_run` +0.39 ± 0.12 |
-| 5 | `learning_rate` 0.194065, `credit_horizon` 2, `credit_discount` 0.435368, `cross_person_weight` 0.870515, `policy_temperature` 0.859063, `habituation_rate` 0.413353, `habituation_window` 6, `cutoff_stock_cap` 1555.53, `cutoff_threat_weight` 0.00210926, `cutoff_decay_weeks` 436, `cutoff_floor_share` 0.0770757, `positive_bridge_dissipation` 0.73602, `calm_transfer_rate` 0.0354213, `tie_wear_rate` 0.12847; ratio 0.06975 (per week ÷ per contact) | 100 | no | PASS | `negative_run` +0.38 ± 0.14 |
-| 6 | `learning_rate` 0.375307, `credit_horizon` 4, `credit_discount` 0.978037, `cross_person_weight` 0.464834, `policy_temperature` 0.555075, `habituation_rate` 0.818658, `habituation_window` 15, `cutoff_stock_cap` 1860.44, `cutoff_threat_weight` 0.0042895, `cutoff_decay_weeks` 362, `cutoff_floor_share` 0.0594356, `positive_bridge_dissipation` 0.7915, `calm_transfer_rate` 0.0337366, `tie_wear_rate` 0.036246; ratio 0.02066 (per week ÷ per contact) | 100 | no | PASS | `negative_run` +0.461 ± 0.17 |
-| 7 | `learning_rate` 0.217627, `credit_horizon` 5, `credit_discount` 0.694019, `cross_person_weight` 0.255281, `policy_temperature` 1.7415, `habituation_rate` 0.65354, `habituation_window` 12, `cutoff_stock_cap` 1185.86, `cutoff_threat_weight` 0.00184698, `cutoff_decay_weeks` 405, `cutoff_floor_share` 0.0854268, `positive_bridge_dissipation` 0.461717, `calm_transfer_rate` 0.0554836, `tie_wear_rate` 0.0663722; ratio 0.023 (per week ÷ per contact) | 100 | no | PASS | `negative_run` +0.419 ± 0.13 |
+| 0 | `learning_rate` 0.247892, `credit_horizon` 5, `credit_discount` 0.672568, `cross_person_weight` 0.712342, `policy_temperature` 1.61102, `habituation_rate` 0.394202, `habituation_window` 7, `cutoff_stock_cap` 1712.32, `cutoff_threat_weight` 0.00382396, `cutoff_decay_weeks` 314, `cutoff_floor_share` 0.106912, `positive_bridge_dissipation` 0.732122, `calm_transfer_rate` 0.0458045, `tie_wear_rate` 0.0818156; ratio 0.03435 (per week ÷ per contact) | 100 | no | PASS | `negative_run` +0.456 ± 0.12 |
+| 1 | `learning_rate` 0.376126, `credit_horizon` 6, `credit_discount` 0.571656, `cross_person_weight` 0.493781, `policy_temperature` 0.978477, `habituation_rate` 0.998807, `habituation_window` 14, `cutoff_stock_cap` 1872.46, `cutoff_threat_weight` 0.00622121, `cutoff_decay_weeks` 361, `cutoff_floor_share` 0.0619932, `positive_bridge_dissipation` 0.475072, `calm_transfer_rate` 0.0491674, `tie_wear_rate` 0.1283; ratio 0.05018 (per week ÷ per contact) | 100 | no | PASS | `negative_run` +0.381 ± 0.16 |
+| 2 | `learning_rate` 0.134183, `credit_horizon` 6, `credit_discount` 0.956053, `cross_person_weight` 0.559969, `policy_temperature` 0.558845, `habituation_rate` 0.601236, `habituation_window` 9, `cutoff_stock_cap` 910.191, `cutoff_threat_weight` 0.00200315, `cutoff_decay_weeks` 434, `cutoff_floor_share` 0.183506, `positive_bridge_dissipation` 0.690904, `calm_transfer_rate` 0.029131, `tie_wear_rate` 0.0150323; ratio 0.009924 (per week ÷ per contact) | 100 | needed; refused (first PASS; `M17.A.1`) | — | `negative_run` +0.255 ± 0.14 |
 
 ## `M11.C.48[phase_d]` — 8 of 8 samples held
 
@@ -597,14 +594,14 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
 
 | Sample | Values | Seeds | Rerun | Verdict | Gating readouts (mean difference ± half-width) |
 |---|---|---|---|---|---|
-| 0 | `learning_rate` 0.24419, `credit_horizon` 2, `credit_discount` 0.796021, `cross_person_weight` 0.309535, `policy_temperature` 1.3338, `habituation_rate` 0.639086, `habituation_window` 8, `cutoff_stock_cap` 1441.13, `cutoff_threat_weight` 0.00277184, `cutoff_decay_weeks` 301, `cutoff_floor_share` 0.0890746, `positive_bridge_dissipation` 0.609697, `calm_transfer_rate` 0.090142, `tie_wear_rate` 0.295153; ratio 0.06297 (per week ÷ per contact) | 100 | no | PASS | `negative_run` +0.416 ± 0.053 |
-| 1 | `learning_rate` 0.362105, `credit_horizon` 2, `credit_discount` 0.578237, `cross_person_weight` 0.901504, `policy_temperature` 1.18975, `habituation_rate` 0.773857, `habituation_window` 9, `cutoff_stock_cap` 1101.41, `cutoff_threat_weight` 0.00156209, `cutoff_decay_weeks` 217, `cutoff_floor_share` 0.199758, `positive_bridge_dissipation` 0.453333, `calm_transfer_rate` 0.075583, `tie_wear_rate` 0.0469057; ratio 0.01193 (per week ÷ per contact) | 100 | no | PASS | `negative_run` +0.52 ± 0.063 |
-| 2 | `learning_rate` 0.242537, `credit_horizon` 5, `credit_discount` 0.458654, `cross_person_weight` 0.287328, `policy_temperature` 1.30557, `habituation_rate` 0.989447, `habituation_window` 6, `cutoff_stock_cap` 1215.66, `cutoff_threat_weight` 0.00465533, `cutoff_decay_weeks` 274, `cutoff_floor_share` 0.131322, `positive_bridge_dissipation` 0.40812, `calm_transfer_rate` 0.0331747, `tie_wear_rate` 0.0113581; ratio 0.006584 (per week ÷ per contact) | 100 | no | PASS | `negative_run` +0.462 ± 0.069 |
-| 3 | `learning_rate` 0.104382, `credit_horizon` 6, `credit_discount` 0.959591, `cross_person_weight` 0.389648, `policy_temperature` 0.745754, `habituation_rate` 0.350142, `habituation_window` 6, `cutoff_stock_cap` 1114.98, `cutoff_threat_weight` 0.00206921, `cutoff_decay_weeks` 269, `cutoff_floor_share` 0.164162, `positive_bridge_dissipation` 0.983134, `calm_transfer_rate` 0.092571, `tie_wear_rate` 0.243201; ratio 0.05052 (per week ÷ per contact) | 100 | no | PASS | `negative_run` +0.33 ± 0.055 |
-| 4 | `learning_rate` 0.376206, `credit_horizon` 2, `credit_discount` 0.785203, `cross_person_weight` 0.477829, `policy_temperature` 1.9944, `habituation_rate` 0.564005, `habituation_window` 10, `cutoff_stock_cap` 1708.69, `cutoff_threat_weight` 0.00483194, `cutoff_decay_weeks` 474, `cutoff_floor_share` 0.0554266, `positive_bridge_dissipation` 0.5437, `calm_transfer_rate` 0.0967873, `tie_wear_rate` 0.0305304; ratio 0.006066 (per week ÷ per contact) | 100 | no | PASS | `negative_run` +0.522 ± 0.079 |
-| 5 | `learning_rate` 0.330207, `credit_horizon` 3, `credit_discount` 0.639876, `cross_person_weight` 0.948444, `policy_temperature` 0.851724, `habituation_rate` 0.847914, `habituation_window` 11, `cutoff_stock_cap` 2541.14, `cutoff_threat_weight` 0.00577269, `cutoff_decay_weeks` 317, `cutoff_floor_share` 0.0760002, `positive_bridge_dissipation` 0.459051, `calm_transfer_rate` 0.0849694, `tie_wear_rate` 0.192865; ratio 0.04365 (per week ÷ per contact) | 100 | no | PASS | `negative_run` +0.467 ± 0.062 |
-| 6 | `learning_rate` 0.193397, `credit_horizon` 5, `credit_discount` 0.780096, `cross_person_weight` 0.828628, `policy_temperature` 1.28402, `habituation_rate` 0.837309, `habituation_window` 7, `cutoff_stock_cap` 1207.89, `cutoff_threat_weight` 0.0015714, `cutoff_decay_weeks` 354, `cutoff_floor_share` 0.137174, `positive_bridge_dissipation` 0.465099, `calm_transfer_rate` 0.0271436, `tie_wear_rate` 0.0610813; ratio 0.04328 (per week ÷ per contact) | 100 | no | PASS | `negative_run` +0.454 ± 0.058 |
-| 7 | `learning_rate` 0.128485, `credit_horizon` 3, `credit_discount` 0.506122, `cross_person_weight` 0.339178, `policy_temperature` 1.70249, `habituation_rate` 0.482606, `habituation_window` 12, `cutoff_stock_cap` 831.482, `cutoff_threat_weight` 0.0034399, `cutoff_decay_weeks` 472, `cutoff_floor_share` 0.0551299, `positive_bridge_dissipation` 0.413452, `calm_transfer_rate` 0.0629708, `tie_wear_rate` 0.045015; ratio 0.01375 (per week ÷ per contact) | 100 | no | PASS | `negative_run` +0.392 ± 0.055 |
+| 0 | `learning_rate` 0.24419, `credit_horizon` 2, `credit_discount` 0.796021, `cross_person_weight` 0.309535, `policy_temperature` 1.3338, `habituation_rate` 0.639086, `habituation_window` 8, `cutoff_stock_cap` 1441.13, `cutoff_threat_weight` 0.00277184, `cutoff_decay_weeks` 301, `cutoff_floor_share` 0.0890746, `positive_bridge_dissipation` 0.609697, `calm_transfer_rate` 0.090142, `tie_wear_rate` 0.295153; ratio 0.06297 (per week ÷ per contact) | 100 | no | PASS | `negative_run` +0.396 ± 0.057 |
+| 1 | `learning_rate` 0.362105, `credit_horizon` 2, `credit_discount` 0.578237, `cross_person_weight` 0.901504, `policy_temperature` 1.18975, `habituation_rate` 0.773857, `habituation_window` 9, `cutoff_stock_cap` 1101.41, `cutoff_threat_weight` 0.00156209, `cutoff_decay_weeks` 217, `cutoff_floor_share` 0.199758, `positive_bridge_dissipation` 0.453333, `calm_transfer_rate` 0.075583, `tie_wear_rate` 0.0469057; ratio 0.01193 (per week ÷ per contact) | 100 | no | PASS | `negative_run` +0.484 ± 0.067 |
+| 2 | `learning_rate` 0.242537, `credit_horizon` 5, `credit_discount` 0.458654, `cross_person_weight` 0.287328, `policy_temperature` 1.30557, `habituation_rate` 0.989447, `habituation_window` 6, `cutoff_stock_cap` 1215.66, `cutoff_threat_weight` 0.00465533, `cutoff_decay_weeks` 274, `cutoff_floor_share` 0.131322, `positive_bridge_dissipation` 0.40812, `calm_transfer_rate` 0.0331747, `tie_wear_rate` 0.0113581; ratio 0.006584 (per week ÷ per contact) | 100 | no | PASS | `negative_run` +0.457 ± 0.059 |
+| 3 | `learning_rate` 0.104382, `credit_horizon` 6, `credit_discount` 0.959591, `cross_person_weight` 0.389648, `policy_temperature` 0.745754, `habituation_rate` 0.350142, `habituation_window` 6, `cutoff_stock_cap` 1114.98, `cutoff_threat_weight` 0.00206921, `cutoff_decay_weeks` 269, `cutoff_floor_share` 0.164162, `positive_bridge_dissipation` 0.983134, `calm_transfer_rate` 0.092571, `tie_wear_rate` 0.243201; ratio 0.05052 (per week ÷ per contact) | 100 | no | PASS | `negative_run` +0.31 ± 0.055 |
+| 4 | `learning_rate` 0.376206, `credit_horizon` 2, `credit_discount` 0.785203, `cross_person_weight` 0.477829, `policy_temperature` 1.9944, `habituation_rate` 0.564005, `habituation_window` 10, `cutoff_stock_cap` 1708.69, `cutoff_threat_weight` 0.00483194, `cutoff_decay_weeks` 474, `cutoff_floor_share` 0.0554266, `positive_bridge_dissipation` 0.5437, `calm_transfer_rate` 0.0967873, `tie_wear_rate` 0.0305304; ratio 0.006066 (per week ÷ per contact) | 100 | no | PASS | `negative_run` +0.508 ± 0.08 |
+| 5 | `learning_rate` 0.330207, `credit_horizon` 3, `credit_discount` 0.639876, `cross_person_weight` 0.948444, `policy_temperature` 0.851724, `habituation_rate` 0.847914, `habituation_window` 11, `cutoff_stock_cap` 2541.14, `cutoff_threat_weight` 0.00577269, `cutoff_decay_weeks` 317, `cutoff_floor_share` 0.0760002, `positive_bridge_dissipation` 0.459051, `calm_transfer_rate` 0.0849694, `tie_wear_rate` 0.192865; ratio 0.04365 (per week ÷ per contact) | 100 | no | PASS | `negative_run` +0.439 ± 0.061 |
+| 6 | `learning_rate` 0.193397, `credit_horizon` 5, `credit_discount` 0.780096, `cross_person_weight` 0.828628, `policy_temperature` 1.28402, `habituation_rate` 0.837309, `habituation_window` 7, `cutoff_stock_cap` 1207.89, `cutoff_threat_weight` 0.0015714, `cutoff_decay_weeks` 354, `cutoff_floor_share` 0.137174, `positive_bridge_dissipation` 0.465099, `calm_transfer_rate` 0.0271436, `tie_wear_rate` 0.0610813; ratio 0.04328 (per week ÷ per contact) | 100 | no | PASS | `negative_run` +0.415 ± 0.06 |
+| 7 | `learning_rate` 0.128485, `credit_horizon` 3, `credit_discount` 0.506122, `cross_person_weight` 0.339178, `policy_temperature` 1.70249, `habituation_rate` 0.482606, `habituation_window` 12, `cutoff_stock_cap` 831.482, `cutoff_threat_weight` 0.0034399, `cutoff_decay_weeks` 472, `cutoff_floor_share` 0.0551299, `positive_bridge_dissipation` 0.413452, `calm_transfer_rate` 0.0629708, `tie_wear_rate` 0.045015; ratio 0.01375 (per week ÷ per contact) | 100 | no | PASS | `negative_run` +0.368 ± 0.059 |
 
 ## Machine-readable
 
@@ -702,8 +699,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "repertoire_entropy",
-      "mean_difference": -0.02899796035096963,
-      "half_width": 0.007486307513730182,
+      "mean_difference": -0.032783338866696446,
+      "half_width": 0.008173863105283995,
       "direction": -1
      }
     ],
@@ -729,8 +726,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "repertoire_entropy",
-      "mean_difference": -0.031110037101639308,
-      "half_width": 0.004653734172714887,
+      "mean_difference": -0.030283957190578727,
+      "half_width": 0.005041591865285099,
       "direction": -1
      }
     ],
@@ -756,8 +753,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "repertoire_entropy",
-      "mean_difference": -0.03819785974150132,
-      "half_width": 0.007007822885136923,
+      "mean_difference": -0.0442349162479783,
+      "half_width": 0.007922140757421578,
       "direction": -1
      }
     ],
@@ -783,8 +780,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "repertoire_entropy",
-      "mean_difference": -0.02668249642551099,
-      "half_width": 0.004051282941718797,
+      "mean_difference": -0.027040982241942176,
+      "half_width": 0.0040245135791477996,
       "direction": -1
      }
     ],
@@ -810,8 +807,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "repertoire_entropy",
-      "mean_difference": -0.03651341665262695,
-      "half_width": 0.007827684815316998,
+      "mean_difference": -0.036835740698921725,
+      "half_width": 0.007549126849815902,
       "direction": -1
      }
     ],
@@ -837,8 +834,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "repertoire_entropy",
-      "mean_difference": -0.03470936223834399,
-      "half_width": 0.008513840442302589,
+      "mean_difference": -0.030425443759517775,
+      "half_width": 0.008538077346072488,
       "direction": -1
      }
     ],
@@ -864,8 +861,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "repertoire_entropy",
-      "mean_difference": -0.02989717329968658,
-      "half_width": 0.005151028229384112,
+      "mean_difference": -0.0331886548915744,
+      "half_width": 0.004730974003565241,
       "direction": -1
      }
     ],
@@ -891,8 +888,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "repertoire_entropy",
-      "mean_difference": -0.029041252479629135,
-      "half_width": 0.0060654074769269034,
+      "mean_difference": -0.03148381599657331,
+      "half_width": 0.005867781831671767,
       "direction": -1
      }
     ],
@@ -1020,8 +1017,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "triangle_reuse",
-      "mean_difference": 0.19,
-      "half_width": 0.368208414851802,
+      "mean_difference": 0.18,
+      "half_width": 0.35280000000000006,
       "direction": 1
      }
     ],
@@ -1032,8 +1029,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "triangle_reuse",
-      "mean_difference": -0.03,
-      "half_width": 0.2867401127524828,
+      "mean_difference": -0.1,
+      "half_width": 0.2729751953684293,
       "direction": 1
      }
     ]
@@ -1057,8 +1054,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "triangle_reuse",
-      "mean_difference": -0.02,
-      "half_width": 0.3650323821252026,
+      "mean_difference": 0.1,
+      "half_width": 0.3808411742445924,
       "direction": 1
      }
     ],
@@ -1069,8 +1066,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "triangle_reuse",
-      "mean_difference": 0.015,
-      "half_width": 0.19721630142495497,
+      "mean_difference": -0.04,
+      "half_width": 0.20553835964712805,
       "direction": 1
      }
     ]
@@ -1094,8 +1091,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "triangle_reuse",
-      "mean_difference": -0.02,
-      "half_width": 0.30767895113201515,
+      "mean_difference": -0.04,
+      "half_width": 0.2920732826265396,
       "direction": 1
      }
     ],
@@ -1106,8 +1103,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "triangle_reuse",
-      "mean_difference": -0.115,
-      "half_width": 0.23006229045073245,
+      "mean_difference": -0.03,
+      "half_width": 0.23575336912815556,
       "direction": 1
      }
     ]
@@ -1131,8 +1128,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "triangle_reuse",
-      "mean_difference": 0.15,
-      "half_width": 0.3657552860765368,
+      "mean_difference": 0.09,
+      "half_width": 0.3579484055141201,
       "direction": 1
      }
     ],
@@ -1143,8 +1140,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "triangle_reuse",
-      "mean_difference": -0.005,
-      "half_width": 0.24482659189823008,
+      "mean_difference": -0.07,
+      "half_width": 0.24640343761877948,
       "direction": 1
      }
     ]
@@ -1168,8 +1165,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "triangle_reuse",
-      "mean_difference": -0.1,
-      "half_width": 0.36162081820826664,
+      "mean_difference": -0.08,
+      "half_width": 0.3754974849611129,
       "direction": 1
      }
     ],
@@ -1180,8 +1177,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "triangle_reuse",
-      "mean_difference": 0.065,
-      "half_width": 0.2625492463018478,
+      "mean_difference": 0.095,
+      "half_width": 0.2616359198826956,
       "direction": 1
      }
     ]
@@ -1205,8 +1202,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "triangle_reuse",
-      "mean_difference": -0.1,
-      "half_width": 0.27927785664481386,
+      "mean_difference": -0.11,
+      "half_width": 0.26265891082227427,
       "direction": 1
      }
     ],
@@ -1217,8 +1214,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "triangle_reuse",
-      "mean_difference": -0.135,
-      "half_width": 0.19084886861929867,
+      "mean_difference": -0.1,
+      "half_width": 0.18432568947109615,
       "direction": 1
      }
     ]
@@ -1238,12 +1235,12 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
      "triangle_activity_window": "3"
     },
     "outcome": "FAIL",
-    "seeds": 50,
+    "seeds": 100,
     "readouts": [
      {
       "readout": "triangle_reuse",
-      "mean_difference": -0.04,
-      "half_width": 0.3754924233589807,
+      "mean_difference": -0.15,
+      "half_width": 0.29923289129426134,
       "direction": 1
      }
     ],
@@ -1254,8 +1251,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "triangle_reuse",
-      "mean_difference": -0.065,
-      "half_width": 0.18541038605288918,
+      "mean_difference": 0.025,
+      "half_width": 0.1996290907391674,
       "direction": 1
      }
     ]
@@ -1279,8 +1276,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "triangle_reuse",
-      "mean_difference": -0.14,
-      "half_width": 0.296377057141743,
+      "mean_difference": -0.24,
+      "half_width": 0.33860324865541375,
       "direction": 1
      }
     ],
@@ -1291,8 +1288,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "triangle_reuse",
-      "mean_difference": -0.015,
-      "half_width": 0.19867915146318363,
+      "mean_difference": -0.06,
+      "half_width": 0.1893064071258405,
       "direction": 1
      }
     ]
@@ -1405,14 +1402,14 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "target_reaction",
-      "mean_difference": -2.129902726848813,
-      "half_width": 15.283419371160816,
+      "mean_difference": -6.666608914981592,
+      "half_width": 16.314234256684585,
       "direction": 1
      },
      {
       "readout": "third_person_symptom_load",
-      "mean_difference": -7.712201719214263,
-      "half_width": 9.124604576355196,
+      "mean_difference": -2.9723646013785157,
+      "half_width": 8.415324273444398,
       "direction": 1
      }
     ],
@@ -1424,14 +1421,14 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "target_reaction",
-      "mean_difference": -4.142189042212863,
-      "half_width": 12.639968836906478,
+      "mean_difference": -8.623896021965487,
+      "half_width": 13.658193536957356,
       "direction": 1
      },
      {
       "readout": "third_person_symptom_load",
-      "mean_difference": -7.074090705627134,
-      "half_width": 7.942223729537949,
+      "mean_difference": -1.6561247929031007,
+      "half_width": 7.468293731461628,
       "direction": 1
      }
     ]
@@ -1455,14 +1452,14 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "target_reaction",
-      "mean_difference": -3.027348716148639,
-      "half_width": 21.020962792378928,
+      "mean_difference": -4.557950319803029,
+      "half_width": 20.18513859709732,
       "direction": 1
      },
      {
       "readout": "third_person_symptom_load",
-      "mean_difference": -6.811800256658614,
-      "half_width": 11.132328464983766,
+      "mean_difference": -3.7104982934841964,
+      "half_width": 11.513036796957524,
       "direction": 1
      }
     ],
@@ -1474,14 +1471,14 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "target_reaction",
-      "mean_difference": -9.347104361969256,
-      "half_width": 15.083304333344023,
+      "mean_difference": -11.27462652396437,
+      "half_width": 15.270864856263435,
       "direction": 1
      },
      {
       "readout": "third_person_symptom_load",
-      "mean_difference": -1.8731709767241946,
-      "half_width": 8.22940815645637,
+      "mean_difference": -2.4578016405043654,
+      "half_width": 8.287779215007996,
       "direction": 1
      }
     ]
@@ -1505,14 +1502,14 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "target_reaction",
-      "mean_difference": 0.8758044497166035,
-      "half_width": 16.410732882504753,
+      "mean_difference": -11.103970557825402,
+      "half_width": 16.78667328289558,
       "direction": 1
      },
      {
       "readout": "third_person_symptom_load",
-      "mean_difference": 1.0873727876764951,
-      "half_width": 9.182557845765722,
+      "mean_difference": -1.7662521165934204,
+      "half_width": 10.24004813970496,
       "direction": 1
      }
     ],
@@ -1524,14 +1521,14 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "target_reaction",
-      "mean_difference": 5.720669231593759,
-      "half_width": 14.386588485675942,
+      "mean_difference": -7.882461762408485,
+      "half_width": 14.466330669363616,
       "direction": 1
      },
      {
       "readout": "third_person_symptom_load",
-      "mean_difference": 0.9108973318067954,
-      "half_width": 8.30096580326157,
+      "mean_difference": -3.4380095564641495,
+      "half_width": 8.829644541578258,
       "direction": 1
      }
     ]
@@ -1555,14 +1552,14 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "target_reaction",
-      "mean_difference": -15.573023148262479,
-      "half_width": 15.152078395463628,
+      "mean_difference": -20.180403027103548,
+      "half_width": 16.038201440044244,
       "direction": 1
      },
      {
       "readout": "third_person_symptom_load",
-      "mean_difference": -0.21465525995275964,
-      "half_width": 9.133120373465614,
+      "mean_difference": -3.7305999765248257,
+      "half_width": 9.153209310128407,
       "direction": 1
      }
     ],
@@ -1574,14 +1571,14 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "target_reaction",
-      "mean_difference": -13.64947337965959,
-      "half_width": 13.364449440421758,
+      "mean_difference": -18.300362594320646,
+      "half_width": 13.896512881983334,
       "direction": 1
      },
      {
       "readout": "third_person_symptom_load",
-      "mean_difference": 0.044438930435031804,
-      "half_width": 8.126176452943156,
+      "mean_difference": -2.6392745323651208,
+      "half_width": 8.020390313869552,
       "direction": 1
      }
     ]
@@ -1605,14 +1602,14 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "target_reaction",
-      "mean_difference": -9.779112002578206,
-      "half_width": 23.037683003553816,
+      "mean_difference": -18.645282852298642,
+      "half_width": 22.5179667654615,
       "direction": 1
      },
      {
       "readout": "third_person_symptom_load",
-      "mean_difference": -13.272528633510456,
-      "half_width": 10.681038571519037,
+      "mean_difference": -1.2068394149012556,
+      "half_width": 11.124231529721197,
       "direction": 1
      }
     ],
@@ -1624,14 +1621,14 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "target_reaction",
-      "mean_difference": 0.44934130821387497,
-      "half_width": 15.956549642766676,
+      "mean_difference": -6.299499947572194,
+      "half_width": 14.854622682473773,
       "direction": 1
      },
      {
       "readout": "third_person_symptom_load",
-      "mean_difference": -10.05408714459404,
-      "half_width": 8.321228154497394,
+      "mean_difference": -4.174490827037885,
+      "half_width": 8.400028955161558,
       "direction": 1
      }
     ]
@@ -1655,14 +1652,14 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "target_reaction",
-      "mean_difference": -20.261941715072016,
-      "half_width": 18.991149074694125,
+      "mean_difference": -29.949701234885296,
+      "half_width": 15.867710368250457,
       "direction": 1
      },
      {
       "readout": "third_person_symptom_load",
-      "mean_difference": -1.4687921346478083,
-      "half_width": 10.597894166773,
+      "mean_difference": 0.5128184001591811,
+      "half_width": 10.104862909574527,
       "direction": 1
      }
     ],
@@ -1674,14 +1671,14 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "target_reaction",
-      "mean_difference": -6.399312104962633,
-      "half_width": 12.774544804377284,
+      "mean_difference": -13.647484764656864,
+      "half_width": 11.69947915231996,
       "direction": 1
      },
      {
       "readout": "third_person_symptom_load",
-      "mean_difference": -0.7272086286501461,
-      "half_width": 7.76331570220873,
+      "mean_difference": -0.037965300082108654,
+      "half_width": 7.66974527220194,
       "direction": 1
      }
     ]
@@ -1705,14 +1702,14 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "target_reaction",
-      "mean_difference": -13.198157294811558,
-      "half_width": 20.090334129247253,
+      "mean_difference": -17.656362764967408,
+      "half_width": 18.807965863424624,
       "direction": 1
      },
      {
       "readout": "third_person_symptom_load",
-      "mean_difference": -7.341710268046592,
-      "half_width": 11.787399450951913,
+      "mean_difference": -2.8494654046839094,
+      "half_width": 11.093320030324746,
       "direction": 1
      }
     ],
@@ -1724,14 +1721,14 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "target_reaction",
-      "mean_difference": -6.2330844376931624,
-      "half_width": 13.362328800150603,
+      "mean_difference": -11.863802500495371,
+      "half_width": 13.053242130246772,
       "direction": 1
      },
      {
       "readout": "third_person_symptom_load",
-      "mean_difference": -2.53810848250702,
-      "half_width": 7.830209517491209,
+      "mean_difference": 1.6296713286155127,
+      "half_width": 7.442085596711337,
       "direction": 1
      }
     ]
@@ -1755,14 +1752,14 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "target_reaction",
-      "mean_difference": 11.18227014820637,
-      "half_width": 19.706819459469923,
+      "mean_difference": 16.21088951321116,
+      "half_width": 18.55840405562583,
       "direction": 1
      },
      {
       "readout": "third_person_symptom_load",
-      "mean_difference": -1.1474691515439144,
-      "half_width": 9.74367892374834,
+      "mean_difference": 3.689372746565525,
+      "half_width": 9.988204395313819,
       "direction": 1
      }
     ],
@@ -1774,14 +1771,14 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "target_reaction",
-      "mean_difference": 1.798128725726982,
-      "half_width": 17.613206987291314,
+      "mean_difference": 11.025671365123468,
+      "half_width": 16.866127125469472,
       "direction": 1
      },
      {
       "readout": "third_person_symptom_load",
-      "mean_difference": -2.4312257246529922,
-      "half_width": 8.139529370522476,
+      "mean_difference": 0.9467117519210387,
+      "half_width": 8.882575867036271,
       "direction": 1
      }
     ]
@@ -1813,7 +1810,7 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
   "held": 2,
   "undetermined": 0,
   "errored": 0,
-  "reruns": 4,
+  "reruns": 3,
   "constants": [
    {
     "constant": "appraisal_gain",
@@ -1882,8 +1879,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "pair_deviation",
-      "mean_difference": 0.07461944302093373,
-      "half_width": 0.03874727423494899,
+      "mean_difference": 0.07172577936526457,
+      "half_width": 0.03859913951407911,
       "direction": 1
      }
     ],
@@ -1894,8 +1891,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "pair_deviation",
-      "mean_difference": 0.10872099178869934,
-      "half_width": 0.021459090576371288,
+      "mean_difference": 0.10802391799895168,
+      "half_width": 0.021461474773366792,
       "direction": 1
      }
     ]
@@ -1916,8 +1913,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "pair_deviation",
-      "mean_difference": -0.0328952318665766,
-      "half_width": 0.041825361403571334,
+      "mean_difference": -0.030296003478308298,
+      "half_width": 0.043540838860657904,
       "direction": 1
      }
     ],
@@ -1928,8 +1925,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "pair_deviation",
-      "mean_difference": -0.026889126543326695,
-      "half_width": 0.021870550437400618,
+      "mean_difference": -0.026621081879015848,
+      "half_width": 0.022049976262638715,
       "direction": 1
      }
     ]
@@ -1950,8 +1947,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "pair_deviation",
-      "mean_difference": -0.1610675989776451,
-      "half_width": 0.02386817887238943,
+      "mean_difference": -0.16154747765640529,
+      "half_width": 0.023854822418665586,
       "direction": 1
      }
     ],
@@ -1974,8 +1971,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "pair_deviation",
-      "mean_difference": -0.16423903505741094,
-      "half_width": 0.0361001081872859,
+      "mean_difference": -0.16951620748247972,
+      "half_width": 0.035682376987738164,
       "direction": 1
      }
     ],
@@ -1998,8 +1995,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "pair_deviation",
-      "mean_difference": 0.005589175174453405,
-      "half_width": 0.025468054580320084,
+      "mean_difference": 0.005545137931899128,
+      "half_width": 0.025477087407064402,
       "direction": 1
      }
     ],
@@ -2010,8 +2007,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "pair_deviation",
-      "mean_difference": 0.0011478588867659275,
-      "half_width": 0.011620564075920731,
+      "mean_difference": 0.0011514883389706942,
+      "half_width": 0.011609778757745798,
       "direction": 1
      }
     ]
@@ -2032,8 +2029,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "pair_deviation",
-      "mean_difference": 0.18619888808265325,
-      "half_width": 0.03796135355206576,
+      "mean_difference": 0.18620068370010895,
+      "half_width": 0.03796069106700545,
       "direction": 1
      }
     ],
@@ -2056,23 +2053,13 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "pair_deviation",
-      "mean_difference": -0.10820444204338722,
-      "half_width": 0.05587808535425986,
+      "mean_difference": -0.1176060891092938,
+      "half_width": 0.0527718894412914,
       "direction": 1
      }
     ],
-    "rerun": true,
-    "error": "",
-    "first_outcome": "FAIL",
-    "rerun_seeds": 200,
-    "rerun_readouts": [
-     {
-      "readout": "pair_deviation",
-      "mean_difference": -0.15193736482008238,
-      "half_width": 0.024089690309249123,
-      "direction": 1
-     }
-    ]
+    "rerun": false,
+    "error": ""
    },
    {
     "index": 7,
@@ -2090,8 +2077,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "pair_deviation",
-      "mean_difference": -0.1438004008268929,
-      "half_width": 0.029214116582544896,
+      "mean_difference": -0.14450875709126287,
+      "half_width": 0.02917909319036085,
       "direction": 1
      }
     ],
@@ -2182,8 +2169,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "pair_deviation",
-      "mean_difference": -0.08838019723490521,
-      "half_width": 0.058467178558060294,
+      "mean_difference": -0.08887185039606499,
+      "half_width": 0.05839848836371358,
       "direction": 1
      }
     ],
@@ -2194,8 +2181,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "pair_deviation",
-      "mean_difference": -0.06888866676433908,
-      "half_width": 0.027816706449234695,
+      "mean_difference": -0.07043837396013809,
+      "half_width": 0.027759005915286943,
       "direction": 1
      }
     ]
@@ -2216,8 +2203,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "pair_deviation",
-      "mean_difference": -0.05453118418773199,
-      "half_width": 0.043693751398645675,
+      "mean_difference": -0.05684219786385629,
+      "half_width": 0.04384158482054688,
       "direction": 1
      }
     ],
@@ -2228,8 +2215,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "pair_deviation",
-      "mean_difference": -0.028705056624154898,
-      "half_width": 0.0215139567097839,
+      "mean_difference": -0.030383289273217765,
+      "half_width": 0.021636991147567033,
       "direction": 1
      }
     ]
@@ -2250,8 +2237,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "pair_deviation",
-      "mean_difference": 0.18800420510613544,
-      "half_width": 0.03627424757648838,
+      "mean_difference": 0.19057330843807216,
+      "half_width": 0.0363624124013224,
       "direction": 1
      }
     ],
@@ -2274,8 +2261,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "pair_deviation",
-      "mean_difference": -0.2787404605300676,
-      "half_width": 0.06438105123870182,
+      "mean_difference": -0.2787448000285239,
+      "half_width": 0.06438354462071805,
       "direction": 1
      }
     ],
@@ -2298,8 +2285,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "pair_deviation",
-      "mean_difference": -0.013304451445476284,
-      "half_width": 0.035950450880050666,
+      "mean_difference": -0.012539676609745311,
+      "half_width": 0.03568376134674731,
       "direction": 1
      }
     ],
@@ -2310,8 +2297,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "pair_deviation",
-      "mean_difference": -0.006971141047833736,
-      "half_width": 0.02611144048972836,
+      "mean_difference": -0.007732889843997781,
+      "half_width": 0.026173599027496768,
       "direction": 1
      }
     ]
@@ -2332,8 +2319,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "pair_deviation",
-      "mean_difference": 0.17248263610809977,
-      "half_width": 0.051095842879607965,
+      "mean_difference": 0.17248653920585166,
+      "half_width": 0.05109495360196205,
       "direction": 1
      }
     ],
@@ -2356,8 +2343,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "pair_deviation",
-      "mean_difference": 0.22060169011676778,
-      "half_width": 0.03581344905130222,
+      "mean_difference": 0.22329417722806089,
+      "half_width": 0.03554129860002954,
       "direction": 1
      }
     ],
@@ -2380,8 +2367,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "pair_deviation",
-      "mean_difference": -0.2523532770380256,
-      "half_width": 0.06544440082539636,
+      "mean_difference": -0.25236768228330697,
+      "half_width": 0.06544556786300056,
       "direction": 1
      }
     ],
@@ -2472,8 +2459,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "pair_deviation",
-      "mean_difference": -0.03611981957058782,
-      "half_width": 0.030754485935143405,
+      "mean_difference": -0.0361049531558069,
+      "half_width": 0.030757860152749526,
       "direction": -1
      }
     ],
@@ -2484,8 +2471,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "pair_deviation",
-      "mean_difference": -0.01789199678278232,
-      "half_width": 0.01767884466329652,
+      "mean_difference": -0.017461831198772683,
+      "half_width": 0.017701998581540028,
       "direction": -1
      }
     ]
@@ -2506,8 +2493,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "pair_deviation",
-      "mean_difference": -0.038756996170673366,
-      "half_width": 0.03692727308130617,
+      "mean_difference": -0.0435074285864736,
+      "half_width": 0.03640834138342841,
       "direction": -1
      }
     ],
@@ -2518,8 +2505,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "pair_deviation",
-      "mean_difference": -0.02634440744227069,
-      "half_width": 0.01944335036000059,
+      "mean_difference": -0.024845186634404208,
+      "half_width": 0.02058310994092134,
       "direction": -1
      }
     ]
@@ -2540,8 +2527,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "pair_deviation",
-      "mean_difference": 0.01948804112919281,
-      "half_width": 0.04239302806243377,
+      "mean_difference": 0.019486413790215915,
+      "half_width": 0.04239258680207727,
       "direction": -1
      }
     ],
@@ -2552,8 +2539,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "pair_deviation",
-      "mean_difference": 0.030506725417089955,
-      "half_width": 0.021416318966450083,
+      "mean_difference": 0.03094205756123517,
+      "half_width": 0.02133691290762419,
       "direction": -1
      }
     ]
@@ -2574,8 +2561,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "pair_deviation",
-      "mean_difference": -0.1443420464181657,
-      "half_width": 0.030086412624771124,
+      "mean_difference": -0.1418231552382481,
+      "half_width": 0.030303920299327703,
       "direction": -1
      }
     ],
@@ -2598,8 +2585,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "pair_deviation",
-      "mean_difference": -0.17257690541215898,
-      "half_width": 0.03664550535785885,
+      "mean_difference": -0.17155484313316985,
+      "half_width": 0.03656417104586248,
       "direction": -1
      }
     ],
@@ -2622,8 +2609,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "pair_deviation",
-      "mean_difference": -0.0469089154530133,
-      "half_width": 0.02877872253277789,
+      "mean_difference": -0.046909277231982516,
+      "half_width": 0.028773850779770193,
       "direction": -1
      }
     ],
@@ -2634,8 +2621,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "pair_deviation",
-      "mean_difference": -0.028747375598498305,
-      "half_width": 0.01581193942436181,
+      "mean_difference": -0.02872650256077328,
+      "half_width": 0.01590935359067643,
       "direction": -1
      }
     ]
@@ -2656,8 +2643,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "pair_deviation",
-      "mean_difference": 0.15654381076692972,
-      "half_width": 0.04141698979024715,
+      "mean_difference": 0.15587067324551143,
+      "half_width": 0.04130137737167585,
       "direction": -1
      }
     ],
@@ -2680,8 +2667,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "pair_deviation",
-      "mean_difference": -0.06177507160208373,
-      "half_width": 0.040980587995846626,
+      "mean_difference": -0.06143316881932889,
+      "half_width": 0.04097552069715183,
       "direction": -1
      }
     ],
@@ -2692,8 +2679,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "pair_deviation",
-      "mean_difference": -0.06711072482653245,
-      "half_width": 0.02085178124639499,
+      "mean_difference": -0.06785281717684592,
+      "half_width": 0.020792160214649306,
       "direction": -1
      }
     ]
@@ -2782,8 +2769,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "pair_deviation",
-      "mean_difference": 0.006293212043134801,
-      "half_width": 0.013942738556646683,
+      "mean_difference": 0.005093239139678849,
+      "half_width": 0.014351224809955395,
       "direction": -1
      }
     ],
@@ -2794,8 +2781,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "pair_deviation",
-      "mean_difference": 0.001152549497714245,
-      "half_width": 0.009215572097297125,
+      "mean_difference": 0.0008920798599592655,
+      "half_width": 0.009378786762170832,
       "direction": -1
      }
     ]
@@ -2816,8 +2803,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "pair_deviation",
-      "mean_difference": -0.2935220117062741,
-      "half_width": 0.06911060480088242,
+      "mean_difference": -0.2882074768532369,
+      "half_width": 0.06991717160046149,
       "direction": -1
      }
     ],
@@ -2840,8 +2827,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "pair_deviation",
-      "mean_difference": -0.3494837305172354,
-      "half_width": 0.051571439849915614,
+      "mean_difference": -0.3486482852571758,
+      "half_width": 0.05163289626904614,
       "direction": -1
      }
     ],
@@ -2864,8 +2851,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "pair_deviation",
-      "mean_difference": 0.032904142576273325,
-      "half_width": 0.048677511678872555,
+      "mean_difference": 0.03332178793293,
+      "half_width": 0.04876209507168516,
       "direction": -1
      }
     ],
@@ -2876,8 +2863,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "pair_deviation",
-      "mean_difference": 0.03712229318139318,
-      "half_width": 0.021662368582082227,
+      "mean_difference": 0.03888437140303134,
+      "half_width": 0.021506062865953496,
       "direction": -1
      }
     ]
@@ -2898,8 +2885,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "pair_deviation",
-      "mean_difference": -0.3836055237594209,
-      "half_width": 0.06931087958998706,
+      "mean_difference": -0.3816236875922667,
+      "half_width": 0.06905680209254768,
       "direction": -1
      }
     ],
@@ -2922,8 +2909,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "pair_deviation",
-      "mean_difference": -0.11357104308430925,
-      "half_width": 0.04414624538212224,
+      "mean_difference": -0.113627913962574,
+      "half_width": 0.04413399827791947,
       "direction": -1
      }
     ],
@@ -2946,8 +2933,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "pair_deviation",
-      "mean_difference": -0.2492677433876574,
-      "half_width": 0.05563885806781869,
+      "mean_difference": -0.2493691220619977,
+      "half_width": 0.055630602392414866,
       "direction": -1
      }
     ],
@@ -2970,8 +2957,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "pair_deviation",
-      "mean_difference": -0.07931396234380932,
-      "half_width": 0.05261800065710134,
+      "mean_difference": -0.0799367599664196,
+      "half_width": 0.05230536364682594,
       "direction": -1
      }
     ],
@@ -2982,8 +2969,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "pair_deviation",
-      "mean_difference": -0.048967657380150395,
-      "half_width": 0.038422948836723765,
+      "mean_difference": -0.04926141474754265,
+      "half_width": 0.03806096275058028,
       "direction": -1
      }
     ]
@@ -3072,8 +3059,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "third_symptom_weeks",
-      "mean_difference": 1.7,
-      "half_width": 1.4881352713576093,
+      "mean_difference": 1.1,
+      "half_width": 1.4137878628748095,
       "direction": -1
      }
     ],
@@ -3085,8 +3072,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "third_symptom_weeks",
-      "mean_difference": 0.855,
-      "half_width": 0.9783634123541035,
+      "mean_difference": 0.485,
+      "half_width": 0.9405965808141107,
       "direction": -1
      }
     ]
@@ -3103,12 +3090,12 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
      "tie_wear_rate": "0.0687346"
     },
     "outcome": "FAIL",
-    "seeds": 50,
+    "seeds": 100,
     "readouts": [
      {
       "readout": "third_symptom_weeks",
-      "mean_difference": 0.7,
-      "half_width": 3.6163384797333338,
+      "mean_difference": 2.71,
+      "half_width": 2.4216307583314536,
       "direction": -1
      }
     ],
@@ -3120,8 +3107,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "third_symptom_weeks",
-      "mean_difference": 1.49,
-      "half_width": 1.685138969322604,
+      "mean_difference": 2.165,
+      "half_width": 1.6509277982927901,
       "direction": -1
      }
     ]
@@ -3142,8 +3129,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "third_symptom_weeks",
-      "mean_difference": 0.48,
-      "half_width": 2.087412315608379,
+      "mean_difference": 0.47,
+      "half_width": 2.0466707693177715,
       "direction": -1
      }
     ],
@@ -3155,8 +3142,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "third_symptom_weeks",
-      "mean_difference": 0.72,
-      "half_width": 1.348881812286602,
+      "mean_difference": 1.07,
+      "half_width": 1.335603362721344,
       "direction": -1
      }
     ]
@@ -3177,8 +3164,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "third_symptom_weeks",
-      "mean_difference": 2.97,
-      "half_width": 3.085662403812677,
+      "mean_difference": 1.78,
+      "half_width": 2.8740699656189177,
       "direction": -1
      }
     ],
@@ -3190,8 +3177,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "third_symptom_weeks",
-      "mean_difference": 0.7,
-      "half_width": 2.036038601286736,
+      "mean_difference": 0.375,
+      "half_width": 1.9242881644126206,
       "direction": -1
      }
     ]
@@ -3212,8 +3199,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "third_symptom_weeks",
-      "mean_difference": -1.64,
-      "half_width": 2.9064182557181466,
+      "mean_difference": -2.43,
+      "half_width": 3.6021511532567723,
       "direction": -1
      }
     ],
@@ -3225,8 +3212,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "third_symptom_weeks",
-      "mean_difference": -0.86,
-      "half_width": 2.0157439424210195,
+      "mean_difference": -1.46,
+      "half_width": 2.200175266476759,
       "direction": -1
      }
     ]
@@ -3247,8 +3234,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "third_symptom_weeks",
-      "mean_difference": 1.91,
-      "half_width": 2.8932475392949635,
+      "mean_difference": 1.35,
+      "half_width": 2.8029550568114807,
       "direction": -1
      }
     ],
@@ -3260,8 +3247,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "third_symptom_weeks",
-      "mean_difference": 1.69,
-      "half_width": 1.9083693244738988,
+      "mean_difference": 1.425,
+      "half_width": 1.855596699326867,
       "direction": -1
      }
     ]
@@ -3282,8 +3269,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "third_symptom_weeks",
-      "mean_difference": 0.98,
-      "half_width": 1.9059777095395802,
+      "mean_difference": 1.3866666666666667,
+      "half_width": 1.8784830011376235,
       "direction": -1
      }
     ],
@@ -3295,8 +3282,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "third_symptom_weeks",
-      "mean_difference": 1.155,
-      "half_width": 1.4986350398658,
+      "mean_difference": 1.61,
+      "half_width": 1.5299757751555463,
       "direction": -1
      }
     ]
@@ -3317,8 +3304,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "third_symptom_weeks",
-      "mean_difference": 2.68,
-      "half_width": 2.9757333365920156,
+      "mean_difference": 1.17,
+      "half_width": 3.1374912994527033,
       "direction": -1
      }
     ],
@@ -3330,8 +3317,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "third_symptom_weeks",
-      "mean_difference": 2.055,
-      "half_width": 2.160391760443685,
+      "mean_difference": 1.165,
+      "half_width": 2.2214347082493946,
       "direction": -1
      }
     ]
@@ -3472,14 +3459,14 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "mean_acute",
-      "mean_difference": 57.783432806799865,
-      "half_width": 6.812749767980756,
+      "mean_difference": 57.49841604261329,
+      "half_width": 6.503200874158345,
       "direction": 1
      },
      {
       "readout": "reactive_over_chance",
-      "mean_difference": 0.019165463948413775,
-      "half_width": 0.00223536972173961,
+      "mean_difference": 0.01988706193440351,
+      "half_width": 0.0021620212046361306,
       "direction": 1
      }
     ],
@@ -3508,14 +3495,14 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "mean_acute",
-      "mean_difference": 1099.5168118074778,
-      "half_width": 290.83767078484107,
+      "mean_difference": 967.2109226621792,
+      "half_width": 305.1654748930444,
       "direction": 1
      },
      {
       "readout": "reactive_over_chance",
-      "mean_difference": 0.021478878866518,
-      "half_width": 0.0025612897582707444,
+      "mean_difference": 0.023458980374328434,
+      "half_width": 0.002393303700098231,
       "direction": 1
      }
     ],
@@ -3544,14 +3531,14 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "mean_acute",
-      "mean_difference": 101.6558959915632,
-      "half_width": 18.602129021856964,
+      "mean_difference": 116.16705030063783,
+      "half_width": 16.165090031310555,
       "direction": 1
      },
      {
       "readout": "reactive_over_chance",
-      "mean_difference": 0.021691772150090334,
-      "half_width": 0.0021033410879186974,
+      "mean_difference": 0.022625993189828445,
+      "half_width": 0.0022140747425772925,
       "direction": 1
      }
     ],
@@ -3580,14 +3567,14 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "mean_acute",
-      "mean_difference": 75.54993920571901,
-      "half_width": 6.939806151191028,
+      "mean_difference": 73.78132707962376,
+      "half_width": 6.758838555181443,
       "direction": 1
      },
      {
       "readout": "reactive_over_chance",
-      "mean_difference": 0.08833508936132482,
-      "half_width": 0.0033223177225009622,
+      "mean_difference": 0.08755690121135212,
+      "half_width": 0.0033639725333820796,
       "direction": 1
      }
     ],
@@ -3616,14 +3603,14 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "mean_acute",
-      "mean_difference": 121.38778974334066,
-      "half_width": 23.53995526673264,
+      "mean_difference": 115.31511637716612,
+      "half_width": 22.587237028809756,
       "direction": 1
      },
      {
       "readout": "reactive_over_chance",
-      "mean_difference": 0.09352841680304394,
-      "half_width": 0.0035766530681120862,
+      "mean_difference": 0.09261995979353511,
+      "half_width": 0.003113619767781561,
       "direction": 1
      }
     ],
@@ -3652,14 +3639,14 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "mean_acute",
-      "mean_difference": 106.28270680876477,
-      "half_width": 15.60877716001469,
+      "mean_difference": 99.41169221673594,
+      "half_width": 16.6868680177376,
       "direction": 1
      },
      {
       "readout": "reactive_over_chance",
-      "mean_difference": 0.09939337537486131,
-      "half_width": 0.003658608214220537,
+      "mean_difference": 0.10084791703046087,
+      "half_width": 0.003714718539969591,
       "direction": 1
      }
     ],
@@ -3688,14 +3675,14 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "mean_acute",
-      "mean_difference": 69.04719571269983,
-      "half_width": 7.177691713899734,
+      "mean_difference": 74.47572214015771,
+      "half_width": 7.774219732235943,
       "direction": 1
      },
      {
       "readout": "reactive_over_chance",
-      "mean_difference": 0.038440446792476685,
-      "half_width": 0.002688905068121259,
+      "mean_difference": 0.038952655288119885,
+      "half_width": 0.0024933666999093136,
       "direction": 1
      }
     ],
@@ -3724,14 +3711,14 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "mean_acute",
-      "mean_difference": 35.727688601622695,
-      "half_width": 2.9688713657982255,
+      "mean_difference": 32.98447980737201,
+      "half_width": 2.9142111330699527,
       "direction": 1
      },
      {
       "readout": "reactive_over_chance",
-      "mean_difference": 0.06878375203998867,
-      "half_width": 0.003207587138424551,
+      "mean_difference": 0.06788295660983962,
+      "half_width": 0.003068436682553428,
       "direction": 1
      }
     ],
@@ -3875,14 +3862,14 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "mean_acute",
-      "mean_difference": 38.61790782140756,
-      "half_width": 3.7619872790212505,
+      "mean_difference": 38.77717666713276,
+      "half_width": 3.903995227452465,
       "direction": 1
      },
      {
       "readout": "reactive_over_chance",
-      "mean_difference": 0.09091857404763178,
-      "half_width": 0.003374726227252947,
+      "mean_difference": 0.08981595096901901,
+      "half_width": 0.0032256301596043082,
       "direction": 1
      }
     ],
@@ -3907,18 +3894,18 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
      "tie_wear_rate": "0.0179797"
     },
     "outcome": "PASS",
-    "seeds": 100,
+    "seeds": 150,
     "readouts": [
      {
       "readout": "mean_acute",
-      "mean_difference": 103.32450714259593,
-      "half_width": 17.597127979303764,
+      "mean_difference": 105.2442475778897,
+      "half_width": 13.75256692461056,
       "direction": 1
      },
      {
       "readout": "reactive_over_chance",
-      "mean_difference": 0.10073875292426501,
-      "half_width": 0.004303423153914565,
+      "mean_difference": 0.1024138408634148,
+      "half_width": 0.003439201429368526,
       "direction": 1
      }
     ],
@@ -3947,14 +3934,14 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "mean_acute",
-      "mean_difference": 90.87905491694929,
-      "half_width": 30.36825939350565,
+      "mean_difference": 97.11656685095828,
+      "half_width": 29.470936080387297,
       "direction": 1
      },
      {
       "readout": "reactive_over_chance",
-      "mean_difference": 0.03940847309141252,
-      "half_width": 0.0025234810778438747,
+      "mean_difference": 0.03767527388732304,
+      "half_width": 0.0025547349010195974,
       "direction": 1
      }
     ],
@@ -3983,14 +3970,14 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "mean_acute",
-      "mean_difference": 79.28516832592099,
-      "half_width": 9.160445755775385,
+      "mean_difference": 73.05461559301614,
+      "half_width": 9.313411832633138,
       "direction": 1
      },
      {
       "readout": "reactive_over_chance",
-      "mean_difference": 0.05926456328983778,
-      "half_width": 0.002723048660185572,
+      "mean_difference": 0.05791042530991036,
+      "half_width": 0.0027932546990213076,
       "direction": 1
      }
     ],
@@ -4019,14 +4006,14 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "mean_acute",
-      "mean_difference": 85.21664585592312,
-      "half_width": 9.17570839880055,
+      "mean_difference": 88.83765553399742,
+      "half_width": 9.785754674326627,
       "direction": 1
      },
      {
       "readout": "reactive_over_chance",
-      "mean_difference": 0.08071358587802277,
-      "half_width": 0.0035196711777959826,
+      "mean_difference": 0.08009593990121644,
+      "half_width": 0.003182001065426381,
       "direction": 1
      }
     ],
@@ -4051,18 +4038,18 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
      "tie_wear_rate": "0.0148305"
     },
     "outcome": "PASS",
-    "seeds": 100,
+    "seeds": 150,
     "readouts": [
      {
       "readout": "mean_acute",
-      "mean_difference": 49.05837249902833,
-      "half_width": 6.085807589218397,
+      "mean_difference": 54.63822061832816,
+      "half_width": 5.093329150204161,
       "direction": 1
      },
      {
       "readout": "reactive_over_chance",
-      "mean_difference": 0.09064881569797853,
-      "half_width": 0.00410693274626398,
+      "mean_difference": 0.09577754416162103,
+      "half_width": 0.003471801883693968,
       "direction": 1
      }
     ],
@@ -4091,14 +4078,14 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "mean_acute",
-      "mean_difference": 51.9451779464945,
-      "half_width": 5.936773618580277,
+      "mean_difference": 51.35925726215839,
+      "half_width": 6.123067815432831,
       "direction": 1
      },
      {
       "readout": "reactive_over_chance",
-      "mean_difference": 0.0801694413359753,
-      "half_width": 0.0032520404594388983,
+      "mean_difference": 0.07872593680905636,
+      "half_width": 0.003274779774475751,
       "direction": 1
      }
     ],
@@ -4127,14 +4114,14 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "mean_acute",
-      "mean_difference": 132.21745826520996,
-      "half_width": 23.85707315718908,
+      "mean_difference": 112.15582721258298,
+      "half_width": 22.882268001498222,
       "direction": 1
      },
      {
       "readout": "reactive_over_chance",
-      "mean_difference": 0.07509604308098124,
-      "half_width": 0.003314830621323916,
+      "mean_difference": 0.07242825727077094,
+      "half_width": 0.0034914398932527372,
       "direction": 1
      }
     ],
@@ -4278,14 +4265,14 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "mean_acute",
-      "mean_difference": 36.14173403643737,
-      "half_width": 16.633425731896942,
+      "mean_difference": 37.60871595643598,
+      "half_width": 17.22774332855246,
       "direction": 1
      },
      {
       "readout": "reactive_over_chance",
-      "mean_difference": 0.00036282490860104323,
-      "half_width": 0.0020556583032883737,
+      "mean_difference": -0.00044971921004104484,
+      "half_width": 0.0019183594298160483,
       "direction": 1
      }
     ],
@@ -4297,14 +4284,14 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "mean_acute",
-      "mean_difference": 36.113952291190465,
-      "half_width": 14.290604176026807,
+      "mean_difference": 44.81569587067113,
+      "half_width": 15.337706314091477,
       "direction": 1
      },
      {
       "readout": "reactive_over_chance",
-      "mean_difference": -0.0007896782127191123,
-      "half_width": 0.0017195838968011893,
+      "mean_difference": -0.0005528308457969436,
+      "half_width": 0.0016015498310799664,
       "direction": 1
      }
     ]
@@ -4330,14 +4317,14 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "mean_acute",
-      "mean_difference": 10.789293274769584,
-      "half_width": 4.467589838696355,
+      "mean_difference": 10.006467332795786,
+      "half_width": 4.215007702599706,
       "direction": 1
      },
      {
       "readout": "reactive_over_chance",
-      "mean_difference": 0.0004009324115394916,
-      "half_width": 0.002833516237601574,
+      "mean_difference": 0.0008651028569825891,
+      "half_width": 0.0027663942902460036,
       "direction": 1
      }
     ],
@@ -4349,14 +4336,14 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "mean_acute",
-      "mean_difference": 11.37313099401782,
-      "half_width": 3.8118530430818254,
+      "mean_difference": 10.638123044499157,
+      "half_width": 3.408142458055203,
       "direction": 1
      },
      {
       "readout": "reactive_over_chance",
-      "mean_difference": 8.095635987890836e-05,
-      "half_width": 0.002363862999178319,
+      "mean_difference": 9.08506599904748e-05,
+      "half_width": 0.002321848148397896,
       "direction": 1
      }
     ]
@@ -4382,14 +4369,14 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "mean_acute",
-      "mean_difference": -34.1917356773355,
-      "half_width": 33.84013855979553,
+      "mean_difference": 3.7090045052818703,
+      "half_width": 35.80394580939217,
       "direction": 1
      },
      {
       "readout": "reactive_over_chance",
-      "mean_difference": -2.2017412419697754e-05,
-      "half_width": 0.002036496104215314,
+      "mean_difference": 0.00011609618396170991,
+      "half_width": 0.0021040458343644813,
       "direction": 1
      }
     ],
@@ -4401,14 +4388,14 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "mean_acute",
-      "mean_difference": -17.08996314162084,
-      "half_width": 28.17394957711431,
+      "mean_difference": 4.2709071819659945,
+      "half_width": 29.18609999435742,
       "direction": 1
      },
      {
       "readout": "reactive_over_chance",
-      "mean_difference": 0.0005102060703880301,
-      "half_width": 0.001752147498359,
+      "mean_difference": 0.0008076974075966234,
+      "half_width": 0.0018008889761825361,
       "direction": 1
      }
     ]
@@ -4434,14 +4421,14 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "mean_acute",
-      "mean_difference": 17.195740081358842,
-      "half_width": 32.68574955028447,
+      "mean_difference": 42.278179485807,
+      "half_width": 28.27104312515526,
       "direction": 1
      },
      {
       "readout": "reactive_over_chance",
-      "mean_difference": -0.00046431981093825495,
-      "half_width": 0.002458472033093035,
+      "mean_difference": -0.0024461121118540367,
+      "half_width": 0.0024229046885838076,
       "direction": 1
      }
     ],
@@ -4453,14 +4440,14 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "mean_acute",
-      "mean_difference": 25.0691243905339,
-      "half_width": 28.068746981474387,
+      "mean_difference": 33.03760952931164,
+      "half_width": 26.30025278277035,
       "direction": 1
      },
      {
       "readout": "reactive_over_chance",
-      "mean_difference": 2.160257899561507e-06,
-      "half_width": 0.002079474313620298,
+      "mean_difference": -0.0025617236857103875,
+      "half_width": 0.0021094045880721522,
       "direction": 1
      }
     ]
@@ -4486,14 +4473,14 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "mean_acute",
-      "mean_difference": 16.705596192956644,
-      "half_width": 8.566789565604521,
+      "mean_difference": 22.67703618337713,
+      "half_width": 8.685063383537289,
       "direction": 1
      },
      {
       "readout": "reactive_over_chance",
-      "mean_difference": -0.0019159492486561834,
-      "half_width": 0.0021446298985371443,
+      "mean_difference": -0.0008966202834487403,
+      "half_width": 0.0019643933407286584,
       "direction": 1
      }
     ],
@@ -4505,14 +4492,14 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "mean_acute",
-      "mean_difference": 18.358217171084547,
-      "half_width": 7.350600678047678,
+      "mean_difference": 21.602794211455798,
+      "half_width": 7.825629818546608,
       "direction": 1
      },
      {
       "readout": "reactive_over_chance",
-      "mean_difference": -0.0013850335429452176,
-      "half_width": 0.0017986835672435017,
+      "mean_difference": -0.0007771022665964269,
+      "half_width": 0.0016931698183291234,
       "direction": 1
      }
     ]
@@ -4538,14 +4525,14 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "mean_acute",
-      "mean_difference": 8.41370639904917,
-      "half_width": 7.652470169939015,
+      "mean_difference": 12.70009542006514,
+      "half_width": 7.078461588538445,
       "direction": 1
      },
      {
       "readout": "reactive_over_chance",
-      "mean_difference": -0.00030347022362152014,
-      "half_width": 0.002136549821428967,
+      "mean_difference": -0.0012397376521388317,
+      "half_width": 0.0022434496662981055,
       "direction": 1
      }
     ],
@@ -4557,14 +4544,14 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "mean_acute",
-      "mean_difference": 8.687873316802193,
-      "half_width": 6.184977149889657,
+      "mean_difference": 11.64819706202451,
+      "half_width": 6.34964622885487,
       "direction": 1
      },
      {
       "readout": "reactive_over_chance",
-      "mean_difference": -0.00025861283794769276,
-      "half_width": 0.001903892240632919,
+      "mean_difference": -0.001067269548202057,
+      "half_width": 0.0018414893069278262,
       "direction": 1
      }
     ]
@@ -4590,14 +4577,14 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "mean_acute",
-      "mean_difference": 24.32977671768751,
-      "half_width": 29.5200785181683,
+      "mean_difference": 21.203753768919736,
+      "half_width": 30.260272263851554,
       "direction": 1
      },
      {
       "readout": "reactive_over_chance",
-      "mean_difference": 0.0009056029411818375,
-      "half_width": 0.0019506893670127891,
+      "mean_difference": 0.00019880944068584742,
+      "half_width": 0.0020127710161693133,
       "direction": 1
      }
     ],
@@ -4609,14 +4596,14 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "mean_acute",
-      "mean_difference": 21.21623862480677,
-      "half_width": 24.91482733832192,
+      "mean_difference": 15.311823133557764,
+      "half_width": 26.56690602279167,
       "direction": 1
      },
      {
       "readout": "reactive_over_chance",
-      "mean_difference": 0.0008611748924245293,
-      "half_width": 0.0017517128609401795,
+      "mean_difference": 7.244972166308775e-05,
+      "half_width": 0.0016979404962720723,
       "direction": 1
      }
     ]
@@ -4642,14 +4629,14 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "mean_acute",
-      "mean_difference": 29.502398222668926,
-      "half_width": 19.837439071872335,
+      "mean_difference": 35.65958945653526,
+      "half_width": 19.04373577182246,
       "direction": 1
      },
      {
       "readout": "reactive_over_chance",
-      "mean_difference": 0.0005588537224003594,
-      "half_width": 0.0023505748483097235,
+      "mean_difference": 0.00032695066540582,
+      "half_width": 0.002216867240965353,
       "direction": 1
      }
     ],
@@ -4661,14 +4648,14 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "mean_acute",
-      "mean_difference": 25.88082487817313,
-      "half_width": 17.36369574666868,
+      "mean_difference": 33.407563654173785,
+      "half_width": 16.47872708042322,
       "direction": 1
      },
      {
       "readout": "reactive_over_chance",
-      "mean_difference": -6.091207323152603e-05,
-      "half_width": 0.002054490853752708,
+      "mean_difference": 9.23296270290163e-05,
+      "half_width": 0.0019039679150819411,
       "direction": 1
      }
     ]
@@ -4697,7 +4684,7 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
   "criterion": "M11.C.41[lower level: heavier stress]",
   "samples": 8,
   "counted": 8,
-  "held": 1,
+  "held": 0,
   "undetermined": 0,
   "errored": 0,
   "reruns": 8,
@@ -4809,14 +4796,14 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "mean_acute",
-      "mean_difference": 16.91535983335208,
-      "half_width": 13.606586579067885,
+      "mean_difference": 18.45935421104228,
+      "half_width": 12.445396725259894,
       "direction": 1
      },
      {
       "readout": "reactive_over_chance",
-      "mean_difference": 0.0014152382329291131,
-      "half_width": 0.0020655277066893366,
+      "mean_difference": 0.0015592358962362466,
+      "half_width": 0.0019711967150442115,
       "direction": 1
      }
     ],
@@ -4828,14 +4815,14 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "mean_acute",
-      "mean_difference": 17.948785170393755,
-      "half_width": 11.438686944971602,
+      "mean_difference": 15.769483387891066,
+      "half_width": 10.444204245777287,
       "direction": 1
      },
      {
       "readout": "reactive_over_chance",
-      "mean_difference": 0.0004892659109637997,
-      "half_width": 0.0018134843331303026,
+      "mean_difference": 0.00118564803678435,
+      "half_width": 0.0016641708858077578,
       "direction": 1
      }
     ]
@@ -4861,14 +4848,14 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "mean_acute",
-      "mean_difference": 7.336849925409783,
-      "half_width": 3.6477299194456414,
+      "mean_difference": 5.8584038934220555,
+      "half_width": 3.592627616188862,
       "direction": 1
      },
      {
       "readout": "reactive_over_chance",
-      "mean_difference": 0.00031255332472583517,
-      "half_width": 0.0025023302105047778,
+      "mean_difference": -0.0007248936014633202,
+      "half_width": 0.0022465166396816076,
       "direction": 1
      }
     ],
@@ -4880,14 +4867,14 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "mean_acute",
-      "mean_difference": 8.238904039295823,
-      "half_width": 3.411089945702621,
+      "mean_difference": 7.3637490958941525,
+      "half_width": 3.440207128986166,
       "direction": 1
      },
      {
       "readout": "reactive_over_chance",
-      "mean_difference": -4.610166876717947e-05,
-      "half_width": 0.002057232551435095,
+      "mean_difference": -0.0004104220762366727,
+      "half_width": 0.0018624470141246716,
       "direction": 1
      }
     ]
@@ -4909,18 +4896,18 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
      "tie_wear_rate": "0.134437"
     },
     "outcome": "FAIL",
-    "seeds": 100,
+    "seeds": 150,
     "readouts": [
      {
       "readout": "mean_acute",
-      "mean_difference": 3.733702868722353,
-      "half_width": 10.506489798369476,
+      "mean_difference": 10.020436415423644,
+      "half_width": 10.905491303255157,
       "direction": 1
      },
      {
       "readout": "reactive_over_chance",
-      "mean_difference": -0.00045837380844218465,
-      "half_width": 0.0031477833486305744,
+      "mean_difference": 0.0011692481325854466,
+      "half_width": 0.002553336271433285,
       "direction": 1
      }
     ],
@@ -4932,14 +4919,14 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "mean_acute",
-      "mean_difference": 10.755439386878125,
-      "half_width": 8.549497802088924,
+      "mean_difference": 12.78111052078671,
+      "half_width": 9.089828996505718,
       "direction": 1
      },
      {
       "readout": "reactive_over_chance",
-      "mean_difference": 0.0012983192320596857,
-      "half_width": 0.00227016837376933,
+      "mean_difference": 0.001598979956645284,
+      "half_width": 0.00237024337387009,
       "direction": 1
      }
     ]
@@ -4961,18 +4948,18 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
      "tie_wear_rate": "0.0157189"
     },
     "outcome": "FAIL",
-    "seeds": 100,
+    "seeds": 150,
     "readouts": [
      {
       "readout": "mean_acute",
-      "mean_difference": 42.6902190074071,
-      "half_width": 84.41572018441414,
+      "mean_difference": 86.6088975049362,
+      "half_width": 85.3814354238314,
       "direction": 1
      },
      {
       "readout": "reactive_over_chance",
-      "mean_difference": -0.0022878030362949086,
-      "half_width": 0.003161187441591582,
+      "mean_difference": -0.0003049841318085929,
+      "half_width": 0.0024656316991394584,
       "direction": 1
      }
     ],
@@ -4984,14 +4971,14 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "mean_acute",
-      "mean_difference": 35.16026716755459,
-      "half_width": 56.057555725596366,
+      "mean_difference": 90.79339450193089,
+      "half_width": 69.41550371641934,
       "direction": 1
      },
      {
       "readout": "reactive_over_chance",
-      "mean_difference": -0.0009470975278155819,
-      "half_width": 0.0021797228709931433,
+      "mean_difference": -0.0006259196150430666,
+      "half_width": 0.002182349361772916,
       "direction": 1
      }
     ]
@@ -5012,19 +4999,19 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
      "calm_transfer_rate": "0.0313023",
      "tie_wear_rate": "0.0147716"
     },
-    "outcome": "PASS",
-    "seeds": 150,
+    "outcome": "FAIL",
+    "seeds": 100,
     "readouts": [
      {
       "readout": "mean_acute",
-      "mean_difference": 8.26256216376857,
-      "half_width": 3.541269967558126,
+      "mean_difference": 8.986048056078442,
+      "half_width": 4.485420237284036,
       "direction": 1
      },
      {
       "readout": "reactive_over_chance",
-      "mean_difference": 0.0020199534778325224,
-      "half_width": 0.002421124459640138,
+      "mean_difference": 0.0018960432546207332,
+      "half_width": 0.0030232494478407814,
       "direction": 1
      }
     ],
@@ -5036,14 +5023,14 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "mean_acute",
-      "mean_difference": 7.506144163877854,
-      "half_width": 3.1627310220461085,
+      "mean_difference": 7.963665031670639,
+      "half_width": 3.010437648166129,
       "direction": 1
      },
      {
       "readout": "reactive_over_chance",
-      "mean_difference": 0.0019493043418744268,
-      "half_width": 0.0021905831645428414,
+      "mean_difference": 0.0005901737768589034,
+      "half_width": 0.002168300249034861,
       "direction": 1
      }
     ]
@@ -5069,14 +5056,14 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "mean_acute",
-      "mean_difference": 25.878559537197162,
-      "half_width": 23.920904191216962,
+      "mean_difference": 20.991245541829723,
+      "half_width": 21.417013732770027,
       "direction": 1
      },
      {
       "readout": "reactive_over_chance",
-      "mean_difference": 0.0010946039874695894,
-      "half_width": 0.0025176948242631703,
+      "mean_difference": 0.0018390535992075497,
+      "half_width": 0.0025172198657934623,
       "direction": 1
      }
     ],
@@ -5088,14 +5075,14 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "mean_acute",
-      "mean_difference": 27.70302949937911,
-      "half_width": 19.690382330502416,
+      "mean_difference": 22.152700374837867,
+      "half_width": 18.4150938329058,
       "direction": 1
      },
      {
       "readout": "reactive_over_chance",
-      "mean_difference": 0.001420477133601546,
-      "half_width": 0.0020712661898141045,
+      "mean_difference": 0.0012420845627277054,
+      "half_width": 0.002069984045620562,
       "direction": 1
      }
     ]
@@ -5121,14 +5108,14 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "mean_acute",
-      "mean_difference": 44.89659731172165,
-      "half_width": 38.670635371538644,
+      "mean_difference": 40.361860670375485,
+      "half_width": 31.17053870423731,
       "direction": 1
      },
      {
       "readout": "reactive_over_chance",
-      "mean_difference": -0.0003608814223351646,
-      "half_width": 0.0022847491669743276,
+      "mean_difference": 0.0004955610062934993,
+      "half_width": 0.0023855112954028783,
       "direction": 1
      }
     ],
@@ -5140,14 +5127,14 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "mean_acute",
-      "mean_difference": 45.86106898369557,
-      "half_width": 31.481159484574693,
+      "mean_difference": 38.41901250333808,
+      "half_width": 27.261585981279367,
       "direction": 1
      },
      {
       "readout": "reactive_over_chance",
-      "mean_difference": -0.00025441985894229606,
-      "half_width": 0.0021089882467428185,
+      "mean_difference": 0.00040040833886490184,
+      "half_width": 0.002072261702442397,
       "direction": 1
      }
     ]
@@ -5173,14 +5160,14 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "mean_acute",
-      "mean_difference": 17.481079668052775,
-      "half_width": 21.135284529008686,
+      "mean_difference": 37.38466422039125,
+      "half_width": 22.345267688128057,
       "direction": 1
      },
      {
       "readout": "reactive_over_chance",
-      "mean_difference": -0.00028348338814873105,
-      "half_width": 0.002262382013928436,
+      "mean_difference": -0.0005111310993972303,
+      "half_width": 0.002154258773401875,
       "direction": 1
      }
     ],
@@ -5192,14 +5179,14 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "mean_acute",
-      "mean_difference": 19.618092592759147,
-      "half_width": 19.12254333237701,
+      "mean_difference": 39.22631847194968,
+      "half_width": 20.53773732881344,
       "direction": 1
      },
      {
       "readout": "reactive_over_chance",
-      "mean_difference": -0.0006246869039930192,
-      "half_width": 0.0019461708855742406,
+      "mean_difference": -0.0004373552484620291,
+      "half_width": 0.0019012205788403991,
       "direction": 1
      }
     ]
@@ -5209,7 +5196,7 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
    "ratio": "tie_wear_to_transfer_ratio",
    "central": 0.019230769230769232,
    "below": {
-    "held": 1,
+    "held": 0,
     "counted": 3
    },
    "above": {
@@ -5228,7 +5215,7 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
   "criterion": "M11.C.44",
   "samples": 8,
   "counted": 8,
-  "held": 3,
+  "held": 2,
   "undetermined": 0,
   "errored": 0,
   "reruns": 8,
@@ -5372,8 +5359,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "outside_inside_ratio",
-      "mean_difference": 0.04718855509091446,
-      "half_width": 0.08250592405519683,
+      "mean_difference": 0.029178302908989442,
+      "half_width": 0.07740938403010068,
       "direction": 1
      }
     ],
@@ -5385,8 +5372,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "outside_inside_ratio",
-      "mean_difference": 0.0649151730580584,
-      "half_width": 0.06589274907809763,
+      "mean_difference": 0.052475703949613484,
+      "half_width": 0.05790677730512452,
       "direction": 1
      }
     ]
@@ -5416,8 +5403,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "outside_inside_ratio",
-      "mean_difference": -0.06037805788291226,
-      "half_width": 0.07646957441849953,
+      "mean_difference": -0.06056320962721704,
+      "half_width": 0.08327682694029305,
       "direction": 1
      }
     ],
@@ -5429,8 +5416,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "outside_inside_ratio",
-      "mean_difference": -0.03949914229376839,
-      "half_width": 0.05429489037962462,
+      "mean_difference": -0.041785142596395514,
+      "half_width": 0.054370515616800875,
       "direction": 1
      }
     ]
@@ -5456,12 +5443,12 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
      "tie_wear_rate": "0.0856162"
     },
     "outcome": "FAIL",
-    "seeds": 150,
+    "seeds": 100,
     "readouts": [
      {
       "readout": "outside_inside_ratio",
-      "mean_difference": 0.048495415027494694,
-      "half_width": 0.10184313591235367,
+      "mean_difference": -0.025047688548726764,
+      "half_width": 0.12140473269330918,
       "direction": 1
      }
     ],
@@ -5473,8 +5460,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "outside_inside_ratio",
-      "mean_difference": 0.04457982375831501,
-      "half_width": 0.0899293953906415,
+      "mean_difference": -0.007259497800725692,
+      "half_width": 0.08691268536311611,
       "direction": 1
      }
     ]
@@ -5504,8 +5491,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "outside_inside_ratio",
-      "mean_difference": 0.03979669003159421,
-      "half_width": 0.06108155550860041,
+      "mean_difference": 0.02496753407734974,
+      "half_width": 0.06287067909614454,
       "direction": 1
      }
     ],
@@ -5517,8 +5504,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "outside_inside_ratio",
-      "mean_difference": 0.047809982114972824,
-      "half_width": 0.04242398300411664,
+      "mean_difference": 0.03744667954510409,
+      "half_width": 0.04301309031259431,
       "direction": 1
      }
     ]
@@ -5543,13 +5530,13 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
      "calm_transfer_rate": "0.0709641",
      "tie_wear_rate": "0.156615"
     },
-    "outcome": "PASS",
-    "seeds": 100,
+    "outcome": "FAIL",
+    "seeds": 50,
     "readouts": [
      {
       "readout": "outside_inside_ratio",
-      "mean_difference": 0.05661135327000325,
-      "half_width": 0.060629220792029405,
+      "mean_difference": 0.016663196266269525,
+      "half_width": 0.07363780952294277,
       "direction": 1
      }
     ],
@@ -5561,8 +5548,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "outside_inside_ratio",
-      "mean_difference": 0.03549050441996562,
-      "half_width": 0.0431616085198391,
+      "mean_difference": 0.026982821696058496,
+      "half_width": 0.041653574995262975,
       "direction": 1
      }
     ]
@@ -5592,8 +5579,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "outside_inside_ratio",
-      "mean_difference": 0.031819507894375834,
-      "half_width": 0.05809393772247353,
+      "mean_difference": 0.029650292741630384,
+      "half_width": 0.059016398801555,
       "direction": 1
      }
     ],
@@ -5605,8 +5592,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "outside_inside_ratio",
-      "mean_difference": 0.036747537862125326,
-      "half_width": 0.04202042477654992,
+      "mean_difference": 0.036899857076556,
+      "half_width": 0.041339170079164676,
       "direction": 1
      }
     ]
@@ -5636,8 +5623,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "outside_inside_ratio",
-      "mean_difference": 0.013767930615914914,
-      "half_width": 0.10190798995128279,
+      "mean_difference": -0.05492203078125261,
+      "half_width": 0.09943970871810956,
       "direction": 1
      }
     ],
@@ -5649,8 +5636,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "outside_inside_ratio",
-      "mean_difference": 0.04770496600663002,
-      "half_width": 0.09098113167167082,
+      "mean_difference": -0.0029040555739092435,
+      "half_width": 0.08446181199531373,
       "direction": 1
      }
     ]
@@ -5680,8 +5667,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "outside_inside_ratio",
-      "mean_difference": -0.003011067141035315,
-      "half_width": 0.07126304626595567,
+      "mean_difference": -0.009412547988126492,
+      "half_width": 0.07409099777108967,
       "direction": 1
      }
     ],
@@ -5693,8 +5680,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "outside_inside_ratio",
-      "mean_difference": -0.004504547237433112,
-      "half_width": 0.04942580693646316,
+      "mean_difference": 0.0035850848390370717,
+      "half_width": 0.052720735675056946,
       "direction": 1
      }
     ]
@@ -5708,7 +5695,7 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "counted": 4
    },
    "above": {
-    "held": 1,
+    "held": 0,
     "counted": 4
    }
   },
@@ -5827,8 +5814,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "triangle_rate",
-      "mean_difference": -0.011666666666666669,
-      "half_width": 0.007116695644915336,
+      "mean_difference": -0.009333333333333334,
+      "half_width": 0.00642008069568985,
       "direction": 1
      }
     ],
@@ -5840,8 +5827,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "triangle_rate",
-      "mean_difference": -0.006395833333333334,
-      "half_width": 0.005116443760865162,
+      "mean_difference": -0.0068125,
+      "half_width": 0.0049314228182850426,
       "direction": 1
      }
     ]
@@ -5862,12 +5849,12 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
      "tie_wear_rate": "0.0151688"
     },
     "outcome": "FAIL",
-    "seeds": 150,
+    "seeds": 100,
     "readouts": [
      {
       "readout": "triangle_rate",
-      "mean_difference": -0.004416666666666666,
-      "half_width": 0.005300340537978987,
+      "mean_difference": -0.0031666666666666653,
+      "half_width": 0.0059585752558548545,
       "direction": 1
      }
     ],
@@ -5879,8 +5866,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "triangle_rate",
-      "mean_difference": -0.0028125,
-      "half_width": 0.0047815880732632095,
+      "mean_difference": -0.003458333333333333,
+      "half_width": 0.00448545436088277,
       "direction": 1
      }
     ]
@@ -5905,8 +5892,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "triangle_rate",
-      "mean_difference": -0.003777777777777779,
-      "half_width": 0.005266518311908832,
+      "mean_difference": -0.0030833333333333333,
+      "half_width": 0.0053648061003319205,
       "direction": 1
      }
     ],
@@ -5918,8 +5905,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "triangle_rate",
-      "mean_difference": -0.0030208333333333337,
-      "half_width": 0.004481278435614572,
+      "mean_difference": -0.003979166666666667,
+      "half_width": 0.004580164626822268,
       "direction": 1
      }
     ]
@@ -5940,12 +5927,12 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
      "tie_wear_rate": "0.0213513"
     },
     "outcome": "FAIL",
-    "seeds": 100,
+    "seeds": 150,
     "readouts": [
      {
       "readout": "triangle_rate",
-      "mean_difference": -0.00029166666666666523,
-      "half_width": 0.0063048100636158445,
+      "mean_difference": 0.003277777777777778,
+      "half_width": 0.005329735826826698,
       "direction": 1
      }
     ],
@@ -5957,8 +5944,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "triangle_rate",
-      "mean_difference": 0.002062500000000001,
-      "half_width": 0.004608868565593236,
+      "mean_difference": 0.0021041666666666674,
+      "half_width": 0.004660571964965219,
       "direction": 1
      }
     ]
@@ -5983,8 +5970,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "triangle_rate",
-      "mean_difference": 0.0003888888888888895,
-      "half_width": 0.006035880854107215,
+      "mean_difference": -0.005194444444444445,
+      "half_width": 0.005526733424292626,
       "direction": 1
      }
     ],
@@ -5996,8 +5983,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "triangle_rate",
-      "mean_difference": 0.0008958333333333346,
-      "half_width": 0.005214095523081018,
+      "mean_difference": -0.003083333333333334,
+      "half_width": 0.004888098052248701,
       "direction": 1
      }
     ]
@@ -6022,8 +6009,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "triangle_rate",
-      "mean_difference": 0.0011666666666666668,
-      "half_width": 0.005439209414559369,
+      "mean_difference": -0.002138888888888888,
+      "half_width": 0.005183356828408177,
       "direction": 1
      }
     ],
@@ -6035,8 +6022,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "triangle_rate",
-      "mean_difference": 0.0007083333333333337,
-      "half_width": 0.0045215477822017625,
+      "mean_difference": -0.002624999999999999,
+      "half_width": 0.004488516788032424,
       "direction": 1
      }
     ]
@@ -6061,8 +6048,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "triangle_rate",
-      "mean_difference": 0.0016249999999999993,
-      "half_width": 0.004983018804190697,
+      "mean_difference": -0.0005416666666666672,
+      "half_width": 0.005056509874963209,
       "direction": 1
      }
     ],
@@ -6074,8 +6061,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "triangle_rate",
-      "mean_difference": -0.0015000000000000007,
-      "half_width": 0.003533326427729417,
+      "mean_difference": -0.0032500000000000003,
+      "half_width": 0.0036385272758381825,
       "direction": 1
      }
     ]
@@ -6100,8 +6087,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "triangle_rate",
-      "mean_difference": -0.0024166666666666677,
-      "half_width": 0.006059034966299803,
+      "mean_difference": 0.0016388888888888898,
+      "half_width": 0.006001447107093093,
       "direction": 1
      }
     ],
@@ -6113,8 +6100,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "triangle_rate",
-      "mean_difference": -0.0018750000000000004,
-      "half_width": 0.005220799352799217,
+      "mean_difference": 0.0002708333333333333,
+      "half_width": 0.005316322730785024,
       "direction": 1
      }
     ]
@@ -6143,7 +6130,7 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
   "criterion": "M11.C.2",
   "samples": 8,
   "counted": 8,
-  "held": 4,
+  "held": 2,
   "undetermined": 0,
   "errored": 0,
   "reruns": 8,
@@ -6287,8 +6274,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "symptom_load",
-      "mean_difference": 0.2622357033742091,
-      "half_width": 1.3778839078550438,
+      "mean_difference": -1.0443586229395265,
+      "half_width": 1.4262320305908882,
       "direction": 1
      }
     ],
@@ -6300,8 +6287,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "symptom_load",
-      "mean_difference": 0.2428285251252771,
-      "half_width": 1.1491036718644774,
+      "mean_difference": -1.0544681394980784,
+      "half_width": 1.1963532711187204,
       "direction": 1
      }
     ]
@@ -6326,26 +6313,26 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
      "calm_transfer_rate": "0.0273885",
      "tie_wear_rate": "0.0553794"
     },
-    "outcome": "PASS",
-    "seeds": 150,
+    "outcome": "FAIL",
+    "seeds": 100,
     "readouts": [
      {
       "readout": "symptom_load",
-      "mean_difference": 2.5599472157019316,
-      "half_width": 2.565705893895765,
+      "mean_difference": -0.3238117845893389,
+      "half_width": 3.128964161401677,
       "direction": 1
      }
     ],
     "rerun": true,
     "error": "",
     "ratio": 0.03888451216891986,
-    "first_outcome": "PASS",
+    "first_outcome": "FAIL",
     "rerun_seeds": 200,
     "rerun_readouts": [
      {
       "readout": "symptom_load",
-      "mean_difference": 2.779655104680691,
-      "half_width": 2.196452979730998,
+      "mean_difference": -0.17806708527359733,
+      "half_width": 2.251097934453343,
       "direction": 1
      }
     ]
@@ -6371,12 +6358,12 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
      "tie_wear_rate": "0.0223341"
     },
     "outcome": "PASS",
-    "seeds": 150,
+    "seeds": 100,
     "readouts": [
      {
       "readout": "symptom_load",
-      "mean_difference": 2.8719235216720165,
-      "half_width": 4.000975448436704,
+      "mean_difference": 3.2152581785908647,
+      "half_width": 4.308575345865057,
       "direction": 1
      }
     ],
@@ -6388,8 +6375,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "symptom_load",
-      "mean_difference": 3.538988268738424,
-      "half_width": 3.416156190533326,
+      "mean_difference": 4.292621207805064,
+      "half_width": 3.329750643443727,
       "direction": 1
      }
     ]
@@ -6415,25 +6402,25 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
      "tie_wear_rate": "0.0477898"
     },
     "outcome": "FAIL",
-    "seeds": 150,
+    "seeds": 100,
     "readouts": [
      {
       "readout": "symptom_load",
-      "mean_difference": 2.027003043468101,
-      "half_width": 1.705308567972728,
+      "mean_difference": -0.4457405212138205,
+      "half_width": 1.6196871420172674,
       "direction": 1
      }
     ],
     "rerun": true,
     "error": "",
     "ratio": 0.013836985899823625,
-    "first_outcome": "PASS",
+    "first_outcome": "FAIL",
     "rerun_seeds": 200,
     "rerun_readouts": [
      {
       "readout": "symptom_load",
-      "mean_difference": 0.9224560795116125,
-      "half_width": 1.4426043405378846,
+      "mean_difference": 0.20883123516757654,
+      "half_width": 1.3134546546319967,
       "direction": 1
      }
     ]
@@ -6463,8 +6450,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "symptom_load",
-      "mean_difference": -3.135461625509098,
-      "half_width": 5.78219494830279,
+      "mean_difference": 2.1014936490677085,
+      "half_width": 6.245960711220821,
       "direction": 1
      }
     ],
@@ -6476,8 +6463,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "symptom_load",
-      "mean_difference": -0.29519352521319037,
-      "half_width": 4.038073968689985,
+      "mean_difference": 2.091453121680483,
+      "half_width": 4.131159700237097,
       "direction": 1
      }
     ]
@@ -6503,12 +6490,12 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
      "tie_wear_rate": "0.0319748"
     },
     "outcome": "PASS",
-    "seeds": 150,
+    "seeds": 100,
     "readouts": [
      {
       "readout": "symptom_load",
-      "mean_difference": 5.8095844293074785,
-      "half_width": 5.434737998084325,
+      "mean_difference": 8.708452853670842,
+      "half_width": 6.995062741769678,
       "direction": 1
      }
     ],
@@ -6520,8 +6507,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "symptom_load",
-      "mean_difference": 5.820400789117907,
-      "half_width": 4.74610749793637,
+      "mean_difference": 4.868529558633477,
+      "half_width": 4.857500807295449,
       "direction": 1
      }
     ]
@@ -6546,26 +6533,26 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
      "calm_transfer_rate": "0.0697821",
      "tie_wear_rate": "0.0355767"
     },
-    "outcome": "PASS",
-    "seeds": 100,
+    "outcome": "FAIL",
+    "seeds": 150,
     "readouts": [
      {
       "readout": "symptom_load",
-      "mean_difference": 3.920214236450988,
-      "half_width": 3.0739761467994793,
+      "mean_difference": 1.0703287208211725,
+      "half_width": 2.840405331939313,
       "direction": 1
      }
     ],
     "rerun": true,
     "error": "",
     "ratio": 0.00980433818547031,
-    "first_outcome": "PASS",
+    "first_outcome": "FAIL",
     "rerun_seeds": 200,
     "rerun_readouts": [
      {
       "readout": "symptom_load",
-      "mean_difference": 2.398421958229249,
-      "half_width": 2.2186236084622633,
+      "mean_difference": 0.8034705802694692,
+      "half_width": 2.3747242796954824,
       "direction": 1
      }
     ]
@@ -6591,12 +6578,12 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
      "tie_wear_rate": "0.206255"
     },
     "outcome": "FAIL",
-    "seeds": 150,
+    "seeds": 100,
     "readouts": [
      {
       "readout": "symptom_load",
-      "mean_difference": 1.8182027497896274,
-      "half_width": 3.1891050623166866,
+      "mean_difference": 2.0797739318546276,
+      "half_width": 4.103379966146621,
       "direction": 1
      }
     ],
@@ -6608,8 +6595,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "symptom_load",
-      "mean_difference": 1.5463407720240725,
-      "half_width": 2.682335428652076,
+      "mean_difference": 2.4402087209716554,
+      "half_width": 2.843766155937049,
       "direction": 1
      }
     ]
@@ -6619,11 +6606,11 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
    "ratio": "tie_wear_to_transfer_ratio",
    "central": 0.019230769230769232,
    "below": {
-    "held": 3,
+    "held": 2,
     "counted": 4
    },
    "above": {
-    "held": 1,
+    "held": 0,
     "counted": 4
    }
   },
@@ -6758,8 +6745,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "deviation_fall",
-      "mean_difference": 0.05889591161779699,
-      "half_width": 0.06834926717133387,
+      "mean_difference": 0.017598365197182247,
+      "half_width": 0.07252848797284946,
       "direction": 1
      }
     ],
@@ -6771,8 +6758,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "deviation_fall",
-      "mean_difference": 0.019789503857016638,
-      "half_width": 0.05194083271482258,
+      "mean_difference": 0.005570739005036509,
+      "half_width": 0.05438585994080928,
       "direction": 1
      }
     ]
@@ -6794,13 +6781,13 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
      "calm_transfer_rate": "0.0290945",
      "tie_wear_rate": "0.0227825"
     },
-    "outcome": "FAIL",
-    "seeds": 150,
+    "outcome": "PASS",
+    "seeds": 100,
     "readouts": [
      {
       "readout": "deviation_fall",
-      "mean_difference": 0.08990073839555211,
-      "half_width": 0.06737564105767559,
+      "mean_difference": 0.10118095776331044,
+      "half_width": 0.08060563632187409,
       "direction": 1
      }
     ],
@@ -6812,8 +6799,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "deviation_fall",
-      "mean_difference": 0.056013371544277504,
-      "half_width": 0.06037585538469632,
+      "mean_difference": 0.05388378956481275,
+      "half_width": 0.06101244141926181,
       "direction": 1
      }
     ]
@@ -6840,8 +6827,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "deviation_fall",
-      "mean_difference": 0.06378666232660817,
-      "half_width": 0.06575021237762058,
+      "mean_difference": 0.08830531872773607,
+      "half_width": 0.07416766762554158,
       "direction": 1
      }
     ],
@@ -6853,8 +6840,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "deviation_fall",
-      "mean_difference": 0.06413224002947898,
-      "half_width": 0.05249189533203376,
+      "mean_difference": 0.07022843510372315,
+      "half_width": 0.05210166976890779,
       "direction": 1
      }
     ]
@@ -6877,12 +6864,12 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
      "tie_wear_rate": "0.0919042"
     },
     "outcome": "PASS",
-    "seeds": 150,
+    "seeds": 100,
     "readouts": [
      {
       "readout": "deviation_fall",
-      "mean_difference": 0.09057987310516967,
-      "half_width": 0.05293616855012724,
+      "mean_difference": 0.09780262399322648,
+      "half_width": 0.05707774764131969,
       "direction": 1
      }
     ],
@@ -6894,8 +6881,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "deviation_fall",
-      "mean_difference": 0.08827224657566805,
-      "half_width": 0.04498220727525425,
+      "mean_difference": 0.07601930959502175,
+      "half_width": 0.039079148746933155,
       "direction": 1
      }
     ]
@@ -6922,8 +6909,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "deviation_fall",
-      "mean_difference": 0.04405653816530732,
-      "half_width": 0.0552077115420279,
+      "mean_difference": 0.026397798280993926,
+      "half_width": 0.05809019274080042,
       "direction": 1
      }
     ],
@@ -6935,8 +6922,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "deviation_fall",
-      "mean_difference": 0.01687469244387609,
-      "half_width": 0.037456084549710625,
+      "mean_difference": 0.02169125365745399,
+      "half_width": 0.04157291176645544,
       "direction": 1
      }
     ]
@@ -6963,8 +6950,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "deviation_fall",
-      "mean_difference": 0.024465007367664784,
-      "half_width": 0.07326207289971048,
+      "mean_difference": 0.037548326292889275,
+      "half_width": 0.07613364859496063,
       "direction": 1
      }
     ],
@@ -6976,8 +6963,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "deviation_fall",
-      "mean_difference": 0.005426754482684665,
-      "half_width": 0.054924026510958464,
+      "mean_difference": 0.02830388145348002,
+      "half_width": 0.05151008222269584,
       "direction": 1
      }
     ]
@@ -6999,13 +6986,13 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
      "calm_transfer_rate": "0.0278195",
      "tie_wear_rate": "0.0123301"
     },
-    "outcome": "PASS",
-    "seeds": 150,
+    "outcome": "FAIL",
+    "seeds": 100,
     "readouts": [
      {
       "readout": "deviation_fall",
-      "mean_difference": 0.03833422431250757,
-      "half_width": 0.06151580096139803,
+      "mean_difference": 0.04743244713934889,
+      "half_width": 0.06759088552948282,
       "direction": 1
      }
     ],
@@ -7017,8 +7004,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "deviation_fall",
-      "mean_difference": 0.047553561271962835,
-      "half_width": 0.05264354378197177,
+      "mean_difference": 0.018595063085636236,
+      "half_width": 0.053806527023860296,
       "direction": 1
      }
     ]
@@ -7041,12 +7028,12 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
      "tie_wear_rate": "0.0120079"
     },
     "outcome": "PASS",
-    "seeds": 150,
+    "seeds": 100,
     "readouts": [
      {
       "readout": "deviation_fall",
-      "mean_difference": 0.13707091555448506,
-      "half_width": 0.07891184859005214,
+      "mean_difference": 0.14891122095945236,
+      "half_width": 0.09254784870050203,
       "direction": 1
      }
     ],
@@ -7058,8 +7045,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "deviation_fall",
-      "mean_difference": 0.1178637646558665,
-      "half_width": 0.06869291876521672,
+      "mean_difference": 0.10688621319257802,
+      "half_width": 0.06540101855264588,
       "direction": 1
      }
     ]
@@ -7088,7 +7075,7 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
   "criterion": "M11.C.7[joint over sided]",
   "samples": 8,
   "counted": 8,
-  "held": 7,
+  "held": 8,
   "undetermined": 0,
   "errored": 0,
   "reruns": 6,
@@ -7203,19 +7190,19 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
      "calm_transfer_rate": "0.0254284",
      "tie_wear_rate": "0.0310886"
     },
-    "outcome": "FAIL",
+    "outcome": "PASS",
     "seeds": 150,
     "readouts": [
      {
       "readout": "deviation_fall",
-      "mean_difference": 0.018494287410203168,
-      "half_width": 0.062213702822401976,
+      "mean_difference": 0.05623577226521584,
+      "half_width": 0.06859906084813559,
       "direction": 1
      },
      {
       "readout": "landed_contacts",
-      "mean_difference": 7.053333333333334,
-      "half_width": 0.5107309197257471,
+      "mean_difference": 6.906666666666666,
+      "half_width": 0.5526161132741797,
       "direction": 1
      }
     ],
@@ -7227,14 +7214,14 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "deviation_fall",
-      "mean_difference": 0.03972002380886755,
-      "half_width": 0.05372246097285097,
+      "mean_difference": 0.060067598856066926,
+      "half_width": 0.0594066186789501,
       "direction": 1
      },
      {
       "readout": "landed_contacts",
-      "mean_difference": 7.235,
-      "half_width": 0.475042656852146,
+      "mean_difference": 6.915,
+      "half_width": 0.49743444526558817,
       "direction": 1
      }
     ]
@@ -7261,14 +7248,14 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "deviation_fall",
-      "mean_difference": 0.16333576006259312,
-      "half_width": 0.05455635678782557,
+      "mean_difference": 0.14852384066438054,
+      "half_width": 0.06726143381799411,
       "direction": 1
      },
      {
       "readout": "landed_contacts",
-      "mean_difference": 1.44,
-      "half_width": 0.27153493074183915,
+      "mean_difference": 1.5133333333333334,
+      "half_width": 0.291238745773159,
       "direction": 1
      }
     ],
@@ -7298,14 +7285,14 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "deviation_fall",
-      "mean_difference": 0.08599459947924655,
-      "half_width": 0.062175751859311006,
+      "mean_difference": 0.07782562506473698,
+      "half_width": 0.06532388491042578,
       "direction": 1
      },
      {
       "readout": "landed_contacts",
-      "mean_difference": 2.953333333333333,
-      "half_width": 0.4029564721516689,
+      "mean_difference": 3.44,
+      "half_width": 0.43461854168744746,
       "direction": 1
      }
     ],
@@ -7317,14 +7304,14 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "deviation_fall",
-      "mean_difference": 0.06728699264839409,
-      "half_width": 0.05273054688604304,
+      "mean_difference": 0.0951357346571785,
+      "half_width": 0.05605363548804988,
       "direction": 1
      },
      {
       "readout": "landed_contacts",
-      "mean_difference": 3.035,
-      "half_width": 0.36267984996114583,
+      "mean_difference": 3.395,
+      "half_width": 0.3688862931669218,
       "direction": 1
      }
     ]
@@ -7351,14 +7338,14 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "deviation_fall",
-      "mean_difference": 0.13424405950773424,
-      "half_width": 0.06562215590863148,
+      "mean_difference": 0.15269886581386752,
+      "half_width": 0.07543161852637144,
       "direction": 1
      },
      {
       "readout": "landed_contacts",
-      "mean_difference": 4.6866666666666665,
-      "half_width": 0.42810626319597467,
+      "mean_difference": 4.34,
+      "half_width": 0.44064737082373495,
       "direction": 1
      }
     ],
@@ -7388,33 +7375,33 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "deviation_fall",
-      "mean_difference": 0.06453984125371455,
-      "half_width": 0.05061234004962351,
+      "mean_difference": 0.03347773059196215,
+      "half_width": 0.04919277096509262,
       "direction": 1
      },
      {
       "readout": "landed_contacts",
-      "mean_difference": 7.96,
-      "half_width": 0.550913157587999,
+      "mean_difference": 7.74,
+      "half_width": 0.512626634150303,
       "direction": 1
      }
     ],
     "rerun": true,
     "error": "",
     "ratio": 0.03177449764960553,
-    "first_outcome": "PASS",
+    "first_outcome": "FAIL",
     "rerun_seeds": 200,
     "rerun_readouts": [
      {
       "readout": "deviation_fall",
-      "mean_difference": 0.07086451205174811,
-      "half_width": 0.043282854162264364,
+      "mean_difference": 0.039940578954842,
+      "half_width": 0.04309724449088056,
       "direction": 1
      },
      {
       "readout": "landed_contacts",
-      "mean_difference": 8.055,
-      "half_width": 0.4521869313729915,
+      "mean_difference": 7.91,
+      "half_width": 0.42421083124636705,
       "direction": 1
      }
     ]
@@ -7441,14 +7428,14 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "deviation_fall",
-      "mean_difference": 0.06547697134253912,
-      "half_width": 0.04403894567578727,
+      "mean_difference": 0.06338598033301167,
+      "half_width": 0.0469520900031449,
       "direction": 1
      },
      {
       "readout": "landed_contacts",
-      "mean_difference": 14.086666666666666,
-      "half_width": 0.7612949228861503,
+      "mean_difference": 13.873333333333333,
+      "half_width": 0.6584774842662487,
       "direction": 1
      }
     ],
@@ -7460,14 +7447,14 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "deviation_fall",
-      "mean_difference": 0.044825628028861184,
-      "half_width": 0.03917264975479722,
+      "mean_difference": 0.07369548487011285,
+      "half_width": 0.04422462198265198,
       "direction": 1
      },
      {
       "readout": "landed_contacts",
-      "mean_difference": 14.11,
-      "half_width": 0.6342442051440391,
+      "mean_difference": 14.015,
+      "half_width": 0.561203120905945,
       "direction": 1
      }
     ]
@@ -7494,14 +7481,14 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "deviation_fall",
-      "mean_difference": 0.06505177981265982,
-      "half_width": 0.057869034602900035,
+      "mean_difference": 0.07602021886976834,
+      "half_width": 0.05179807043302358,
       "direction": 1
      },
      {
       "readout": "landed_contacts",
-      "mean_difference": 8.38,
-      "half_width": 0.5439395505300864,
+      "mean_difference": 8.48,
+      "half_width": 0.6081096945670232,
       "direction": 1
      }
     ],
@@ -7513,14 +7500,14 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "deviation_fall",
-      "mean_difference": 0.051962956542247786,
-      "half_width": 0.052127668018093654,
+      "mean_difference": 0.07475960800893772,
+      "half_width": 0.04636143022691234,
       "direction": 1
      },
      {
       "readout": "landed_contacts",
-      "mean_difference": 8.54,
-      "half_width": 0.4986094303361104,
+      "mean_difference": 8.62,
+      "half_width": 0.5405418877962295,
       "direction": 1
      }
     ]
@@ -7547,14 +7534,14 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "deviation_fall",
-      "mean_difference": 0.1483929676308882,
-      "half_width": 0.07861303149447314,
+      "mean_difference": 0.13931420846368806,
+      "half_width": 0.07234065142694213,
       "direction": 1
      },
      {
       "readout": "landed_contacts",
-      "mean_difference": 9.133333333333333,
-      "half_width": 0.5022057714106645,
+      "mean_difference": 9.253333333333334,
+      "half_width": 0.4669182605907375,
       "direction": 1
      }
     ],
@@ -7566,14 +7553,14 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "deviation_fall",
-      "mean_difference": 0.1328348621365192,
-      "half_width": 0.06516485555023524,
+      "mean_difference": 0.13369108708479038,
+      "half_width": 0.060498884645366215,
       "direction": 1
      },
      {
       "readout": "landed_contacts",
-      "mean_difference": 9.06,
-      "half_width": 0.42065778975362145,
+      "mean_difference": 9.165,
+      "half_width": 0.3916988667472186,
       "direction": 1
      }
     ]
@@ -7587,7 +7574,7 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "counted": 6
    },
    "above": {
-    "held": 1,
+    "held": 2,
     "counted": 2
    }
   },
@@ -7602,10 +7589,10 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
   "criterion": "M11.C.7[one spouse over sided]",
   "samples": 8,
   "counted": 8,
-  "held": 7,
+  "held": 6,
   "undetermined": 0,
   "errored": 0,
-  "reruns": 5,
+  "reruns": 6,
   "constants": [
    {
     "constant": "appraisal_gain",
@@ -7722,14 +7709,14 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "deviation_fall",
-      "mean_difference": 0.02079169747189667,
-      "half_width": 0.046456548731809016,
+      "mean_difference": 0.023892980926396058,
+      "half_width": 0.053950472640670884,
       "direction": 1
      },
      {
       "readout": "landed_contacts",
-      "mean_difference": 8.413333333333334,
-      "half_width": 0.48070346463258284,
+      "mean_difference": 8.313333333333333,
+      "half_width": 0.5456642704791602,
       "direction": 1
      }
     ],
@@ -7741,14 +7728,14 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "deviation_fall",
-      "mean_difference": 0.01927501571550065,
-      "half_width": 0.043107227128543674,
+      "mean_difference": 0.03054195432458993,
+      "half_width": 0.047138952442654584,
       "direction": 1
      },
      {
       "readout": "landed_contacts",
-      "mean_difference": 8.49,
-      "half_width": 0.4133317005425144,
+      "mean_difference": 8.385,
+      "half_width": 0.4622107833458735,
       "direction": 1
      }
     ]
@@ -7775,14 +7762,14 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "deviation_fall",
-      "mean_difference": 0.08798544448068849,
-      "half_width": 0.0626927179269117,
+      "mean_difference": 0.07590370664937919,
+      "half_width": 0.06010063300270271,
       "direction": 1
      },
      {
       "readout": "landed_contacts",
-      "mean_difference": 19.373333333333335,
-      "half_width": 0.8373347764988489,
+      "mean_difference": 19.346666666666668,
+      "half_width": 0.9392030692293405,
       "direction": 1
      }
     ],
@@ -7794,14 +7781,14 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "deviation_fall",
-      "mean_difference": 0.07035005091612884,
-      "half_width": 0.055669902670695874,
+      "mean_difference": 0.04820991242352113,
+      "half_width": 0.05460116866246987,
       "direction": 1
      },
      {
       "readout": "landed_contacts",
-      "mean_difference": 19.655,
-      "half_width": 0.7393418557734254,
+      "mean_difference": 19.64,
+      "half_width": 0.7920888250276408,
       "direction": 1
      }
     ]
@@ -7828,14 +7815,14 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "deviation_fall",
-      "mean_difference": 0.21106540613877872,
-      "half_width": 0.08486328557970614,
+      "mean_difference": 0.2743365173736623,
+      "half_width": 0.09039783244135761,
       "direction": 1
      },
      {
       "readout": "landed_contacts",
       "mean_difference": 3.9133333333333336,
-      "half_width": 0.7207015162297764,
+      "half_width": 0.7297080473261808,
       "direction": 1
      }
     ],
@@ -7865,14 +7852,14 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "deviation_fall",
-      "mean_difference": 0.19809274869671323,
-      "half_width": 0.07194696618383696,
+      "mean_difference": 0.18847014403061185,
+      "half_width": 0.07893832639761778,
       "direction": 1
      },
      {
       "readout": "landed_contacts",
-      "mean_difference": 6.246666666666667,
-      "half_width": 0.9979339686057596,
+      "mean_difference": 6.3,
+      "half_width": 1.0202164265718228,
       "direction": 1
      }
     ],
@@ -7902,20 +7889,36 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "deviation_fall",
-      "mean_difference": 0.1033013057896649,
-      "half_width": 0.04960393841824253,
+      "mean_difference": 0.04124516607481642,
+      "half_width": 0.052237223377143586,
       "direction": 1
      },
      {
       "readout": "landed_contacts",
       "mean_difference": 10.366666666666667,
-      "half_width": 0.6208916347262861,
+      "half_width": 0.6242047982247262,
       "direction": 1
      }
     ],
-    "rerun": false,
+    "rerun": true,
     "error": "",
-    "ratio": 0.03068862414208456
+    "ratio": 0.03068862414208456,
+    "first_outcome": "FAIL",
+    "rerun_seeds": 200,
+    "rerun_readouts": [
+     {
+      "readout": "deviation_fall",
+      "mean_difference": 0.052372855815982895,
+      "half_width": 0.044707510317111024,
+      "direction": 1
+     },
+     {
+      "readout": "landed_contacts",
+      "mean_difference": 10.585,
+      "half_width": 0.5514524469127235,
+      "direction": 1
+     }
+    ]
    },
    {
     "index": 5,
@@ -7939,14 +7942,14 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "deviation_fall",
-      "mean_difference": 0.0459128362231154,
-      "half_width": 0.045902810421148854,
+      "mean_difference": 0.03432436061472988,
+      "half_width": 0.04271344647862942,
       "direction": 1
      },
      {
       "readout": "landed_contacts",
-      "mean_difference": 4.926666666666667,
-      "half_width": 0.5224791833766146,
+      "mean_difference": 4.973333333333334,
+      "half_width": 0.5217714032846259,
       "direction": 1
      }
     ],
@@ -7958,14 +7961,14 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "deviation_fall",
-      "mean_difference": 0.05885268268694836,
-      "half_width": 0.04073628583087415,
+      "mean_difference": 0.055868595543979875,
+      "half_width": 0.038473260697718295,
       "direction": 1
      },
      {
       "readout": "landed_contacts",
-      "mean_difference": 4.97,
-      "half_width": 0.4731966697275098,
+      "mean_difference": 5.08,
+      "half_width": 0.4665098778489618,
       "direction": 1
      }
     ]
@@ -7987,19 +7990,19 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
      "calm_transfer_rate": "0.0771942",
      "tie_wear_rate": "0.0983439"
     },
-    "outcome": "PASS",
+    "outcome": "FAIL",
     "seeds": 150,
     "readouts": [
      {
       "readout": "deviation_fall",
-      "mean_difference": 0.02759164527822623,
-      "half_width": 0.04177532917694501,
+      "mean_difference": -0.012373381268214129,
+      "half_width": 0.03942562779784322,
       "direction": 1
      },
      {
       "readout": "landed_contacts",
-      "mean_difference": 9.04,
-      "half_width": 0.6964297965811022,
+      "mean_difference": 9.273333333333333,
+      "half_width": 0.6779243379787031,
       "direction": 1
      }
     ],
@@ -8011,14 +8014,14 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "deviation_fall",
-      "mean_difference": 0.03756099515969644,
-      "half_width": 0.03770175687968181,
+      "mean_difference": 0.006627594771076237,
+      "half_width": 0.03528735368368916,
       "direction": 1
      },
      {
       "readout": "landed_contacts",
-      "mean_difference": 9.08,
-      "half_width": 0.5947506625072088,
+      "mean_difference": 9.245,
+      "half_width": 0.5828057933512836,
       "direction": 1
      }
     ]
@@ -8045,14 +8048,14 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "deviation_fall",
-      "mean_difference": 0.0535418023616857,
-      "half_width": 0.06067908268290956,
+      "mean_difference": 0.04724461844372779,
+      "half_width": 0.06103981606123701,
       "direction": 1
      },
      {
       "readout": "landed_contacts",
-      "mean_difference": 2.4266666666666667,
-      "half_width": 0.3653777493861084,
+      "mean_difference": 2.36,
+      "half_width": 0.3810066553347802,
       "direction": 1
      }
     ],
@@ -8064,14 +8067,14 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "deviation_fall",
-      "mean_difference": 0.06958012286895293,
-      "half_width": 0.05076648808121584,
+      "mean_difference": 0.04960670161954371,
+      "half_width": 0.05319047451666279,
       "direction": 1
      },
      {
       "readout": "landed_contacts",
-      "mean_difference": 2.41,
-      "half_width": 0.3238213031625769,
+      "mean_difference": 2.445,
+      "half_width": 0.3413809022221513,
       "direction": 1
      }
     ]
@@ -8085,7 +8088,7 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "counted": 3
    },
    "above": {
-    "held": 4,
+    "held": 3,
     "counted": 5
    }
   },
@@ -8100,7 +8103,7 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
   "criterion": "M11.C.11",
   "samples": 8,
   "counted": 8,
-  "held": 8,
+  "held": 7,
   "undetermined": 0,
   "errored": 0,
   "reruns": 1,
@@ -8204,8 +8207,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "disturbance",
-      "mean_difference": 5.534438513938569,
-      "half_width": 1.029242712871675,
+      "mean_difference": 5.993096976667401,
+      "half_width": 1.0515040082237648,
       "direction": 1
      }
     ],
@@ -8233,8 +8236,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "disturbance",
-      "mean_difference": 3.4309787737285298,
-      "half_width": 1.388593670292067,
+      "mean_difference": 3.8694084408370215,
+      "half_width": 1.6220890569510187,
       "direction": 1
      }
     ],
@@ -8262,8 +8265,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "disturbance",
-      "mean_difference": 3.830276209170369,
-      "half_width": 0.6070274738076121,
+      "mean_difference": 3.8737122958776036,
+      "half_width": 0.5609879268176841,
       "direction": 1
      }
     ],
@@ -8291,8 +8294,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "disturbance",
-      "mean_difference": 4.508967264965541,
-      "half_width": 0.6299836918594744,
+      "mean_difference": 4.599118974712391,
+      "half_width": 0.5677420525782919,
       "direction": 1
      }
     ],
@@ -8315,26 +8318,26 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
      "calm_transfer_rate": "0.0811504",
      "tie_wear_rate": "0.0665655"
     },
-    "outcome": "PASS",
+    "outcome": "FAIL",
     "seeds": 150,
     "readouts": [
      {
       "readout": "disturbance",
-      "mean_difference": 2.030851537366685,
-      "half_width": 5.142336447671375,
+      "mean_difference": 1.843605134676944,
+      "half_width": 4.934665520047741,
       "direction": 1
      }
     ],
     "rerun": true,
     "error": "",
     "ratio": 0.015774485020785718,
-    "first_outcome": "PASS",
+    "first_outcome": "FAIL",
     "rerun_seeds": 200,
     "rerun_readouts": [
      {
       "readout": "disturbance",
-      "mean_difference": 1.5081557190992516,
-      "half_width": 4.428420389467879,
+      "mean_difference": 2.285494854604653,
+      "half_width": 4.240410491534743,
       "direction": 1
      }
     ]
@@ -8359,8 +8362,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "disturbance",
-      "mean_difference": 4.804078782901797,
-      "half_width": 1.3356111562237327,
+      "mean_difference": 4.143441965350797,
+      "half_width": 1.2427392044325567,
       "direction": 1
      }
     ],
@@ -8388,8 +8391,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "disturbance",
-      "mean_difference": 4.310135619893532,
-      "half_width": 1.0723428775443342,
+      "mean_difference": 2.8199639664012786,
+      "half_width": 0.9358451438993294,
       "direction": 1
      }
     ],
@@ -8417,8 +8420,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "disturbance",
-      "mean_difference": 6.271151260000695,
-      "half_width": 1.8377073681711351,
+      "mean_difference": 6.838833045068494,
+      "half_width": 1.7795744028950722,
       "direction": 1
      }
     ],
@@ -8431,7 +8434,7 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
    "ratio": "tie_wear_to_transfer_ratio",
    "central": 0.019230769230769232,
    "below": {
-    "held": 5,
+    "held": 4,
     "counted": 5
    },
    "above": {
@@ -8554,8 +8557,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "marital_conflict",
-      "mean_difference": 0.12,
-      "half_width": 0.6181011731116681,
+      "mean_difference": 0.33,
+      "half_width": 0.5716403630312196,
       "direction": 1
      }
     ],
@@ -8567,8 +8570,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "marital_conflict",
-      "mean_difference": 0.285,
-      "half_width": 0.46651349864940733,
+      "mean_difference": 0.425,
+      "half_width": 0.429692556914053,
       "direction": 1
      }
     ]
@@ -8593,8 +8596,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "marital_conflict",
-      "mean_difference": -0.09,
-      "half_width": 0.412353519017923,
+      "mean_difference": -0.16,
+      "half_width": 0.3887395721424498,
       "direction": 1
      }
     ],
@@ -8606,8 +8609,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "marital_conflict",
-      "mean_difference": -0.01,
-      "half_width": 0.2992842369259727,
+      "mean_difference": -0.145,
+      "half_width": 0.3007023466927597,
       "direction": 1
      }
     ]
@@ -8632,8 +8635,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "marital_conflict",
-      "mean_difference": -0.24,
-      "half_width": 0.33860324865541375,
+      "mean_difference": -0.14,
+      "half_width": 0.31184508974809916,
       "direction": 1
      }
     ],
@@ -8645,8 +8648,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "marital_conflict",
-      "mean_difference": -0.04,
-      "half_width": 0.18735886400060706,
+      "mean_difference": -0.025,
+      "half_width": 0.1902206996435044,
       "direction": 1
      }
     ]
@@ -8671,8 +8674,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "marital_conflict",
-      "mean_difference": 0.08,
-      "half_width": 0.22980478672125168,
+      "mean_difference": 0.1,
+      "half_width": 0.2325854681617061,
       "direction": 1
      }
     ],
@@ -8684,8 +8687,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "marital_conflict",
-      "mean_difference": 0.05,
-      "half_width": 0.10186354060468648,
+      "mean_difference": 0.07,
+      "half_width": 0.10163586989961396,
       "direction": 1
      }
     ]
@@ -8710,8 +8713,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "marital_conflict",
-      "mean_difference": -0.14,
-      "half_width": 0.44097999954646466,
+      "mean_difference": -0.24,
+      "half_width": 0.4321807029472741,
       "direction": 1
      }
     ],
@@ -8723,8 +8726,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "marital_conflict",
-      "mean_difference": 0.14,
-      "half_width": 0.2454339674165111,
+      "mean_difference": 0.075,
+      "half_width": 0.25045485254997385,
       "direction": 1
      }
     ]
@@ -8749,8 +8752,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "marital_conflict",
-      "mean_difference": 0.04,
-      "half_width": 0.3263411711690696,
+      "mean_difference": 0.08,
+      "half_width": 0.3490017764997766,
       "direction": 1
      }
     ],
@@ -8762,8 +8765,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "marital_conflict",
-      "mean_difference": 0.11,
-      "half_width": 0.20969924191637293,
+      "mean_difference": 0.105,
+      "half_width": 0.20813184794897022,
       "direction": 1
      }
     ]
@@ -8788,8 +8791,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "marital_conflict",
-      "mean_difference": -0.11,
-      "half_width": 0.4735038173557897,
+      "mean_difference": -0.23,
+      "half_width": 0.471005922886262,
       "direction": 1
      }
     ],
@@ -8801,8 +8804,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "marital_conflict",
-      "mean_difference": 0.055,
-      "half_width": 0.3205279812023723,
+      "mean_difference": 0.01,
+      "half_width": 0.31804680165063914,
       "direction": 1
      }
     ]
@@ -8827,8 +8830,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "marital_conflict",
-      "mean_difference": -0.02,
-      "half_width": 0.30921940430703887,
+      "mean_difference": 0.0,
+      "half_width": 0.30672463220289303,
       "direction": 1
      }
     ],
@@ -8840,8 +8843,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "marital_conflict",
-      "mean_difference": -0.005,
-      "half_width": 0.15626816212031905,
+      "mean_difference": 0.005,
+      "half_width": 0.1556492636228378,
       "direction": 1
      }
     ]
@@ -8873,7 +8876,7 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
   "held": 8,
   "undetermined": 0,
   "errored": 0,
-  "reruns": 7,
+  "reruns": 8,
   "constants": [
    {
     "constant": "landing_rate",
@@ -8990,8 +8993,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "coached_rise",
-      "mean_difference": 0.08345452532712408,
-      "half_width": 0.04812298776886489,
+      "mean_difference": 0.07333308299056955,
+      "half_width": 0.04439098704070679,
       "direction": 1
      }
     ],
@@ -9003,8 +9006,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "coached_rise",
-      "mean_difference": 0.07563112827208697,
-      "half_width": 0.03963113345080543,
+      "mean_difference": 0.06705465333185634,
+      "half_width": 0.03747642347808792,
       "direction": 1
      }
     ]
@@ -9031,8 +9034,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "coached_rise",
-      "mean_difference": 0.057146964733727684,
-      "half_width": 0.03383525205977089,
+      "mean_difference": 0.0443387129405315,
+      "half_width": 0.029110711490300856,
       "direction": 1
      }
     ],
@@ -9044,8 +9047,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "coached_rise",
-      "mean_difference": 0.053703059211014106,
-      "half_width": 0.028262764809266722,
+      "mean_difference": 0.04245106173928139,
+      "half_width": 0.024149055191904644,
       "direction": 1
      }
     ]
@@ -9072,8 +9075,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "coached_rise",
-      "mean_difference": 0.10371809040263177,
-      "half_width": 0.06351702698321562,
+      "mean_difference": 0.099402704917754,
+      "half_width": 0.05734741452358659,
       "direction": 1
      }
     ],
@@ -9085,8 +9088,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "coached_rise",
-      "mean_difference": 0.09660358571269137,
-      "half_width": 0.052172034353744526,
+      "mean_difference": 0.08694943336047958,
+      "half_width": 0.04552581218907603,
       "direction": 1
      }
     ]
@@ -9113,14 +9116,24 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "coached_rise",
-      "mean_difference": 0.04856060380693838,
-      "half_width": 0.02340107282387574,
+      "mean_difference": 0.03235867730269111,
+      "half_width": 0.022099494279035764,
       "direction": 1
      }
     ],
-    "rerun": false,
+    "rerun": true,
     "error": "",
-    "ratio": 0.035651584256825165
+    "ratio": 0.035651584256825165,
+    "first_outcome": "PASS",
+    "rerun_seeds": 200,
+    "rerun_readouts": [
+     {
+      "readout": "coached_rise",
+      "mean_difference": 0.03269065256377836,
+      "half_width": 0.018971134431424348,
+      "direction": 1
+     }
+    ]
    },
    {
     "index": 4,
@@ -9144,8 +9157,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "coached_rise",
-      "mean_difference": 0.08592608946031771,
-      "half_width": 0.04408186548769614,
+      "mean_difference": 0.08731096841156315,
+      "half_width": 0.04778744980247895,
       "direction": 1
      }
     ],
@@ -9157,8 +9170,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "coached_rise",
-      "mean_difference": 0.07405553818233286,
-      "half_width": 0.03497777368907041,
+      "mean_difference": 0.08294491519185657,
+      "half_width": 0.0393050389881967,
       "direction": 1
      }
     ]
@@ -9185,8 +9198,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "coached_rise",
-      "mean_difference": 0.05056844949890902,
-      "half_width": 0.02818821959364475,
+      "mean_difference": 0.04343614810153542,
+      "half_width": 0.0254857214169246,
       "direction": 1
      }
     ],
@@ -9198,8 +9211,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "coached_rise",
-      "mean_difference": 0.04490495080066273,
-      "half_width": 0.023152641237191216,
+      "mean_difference": 0.04108576405466218,
+      "half_width": 0.021940861787638457,
       "direction": 1
      }
     ]
@@ -9226,8 +9239,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "coached_rise",
-      "mean_difference": 0.0665839026855649,
-      "half_width": 0.04990519995556494,
+      "mean_difference": 0.07212680196910198,
+      "half_width": 0.05269275145593927,
       "direction": 1
      }
     ],
@@ -9239,8 +9252,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "coached_rise",
-      "mean_difference": 0.06888335734134957,
-      "half_width": 0.042520369847196295,
+      "mean_difference": 0.07313188502253054,
+      "half_width": 0.04712808435720045,
       "direction": 1
      }
     ]
@@ -9267,8 +9280,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "coached_rise",
-      "mean_difference": 0.08936505889290487,
-      "half_width": 0.05186766181688525,
+      "mean_difference": 0.06548771886415738,
+      "half_width": 0.039633247144575674,
       "direction": 1
      }
     ],
@@ -9280,8 +9293,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "coached_rise",
-      "mean_difference": 0.08794837885858334,
-      "half_width": 0.04444182322666759,
+      "mean_difference": 0.06038850026268282,
+      "half_width": 0.0328002175277405,
       "direction": 1
      }
     ]
@@ -9310,7 +9323,7 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
   "criterion": "M11.C.21",
   "samples": 8,
   "counted": 8,
-  "held": 0,
+  "held": 4,
   "undetermined": 0,
   "errored": 0,
   "reruns": 8,
@@ -9393,26 +9406,26 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
      "calm_transfer_rate": "0.033797",
      "tie_wear_rate": "0.0309702"
     },
-    "outcome": "FAIL",
-    "seeds": 150,
+    "outcome": "PASS",
+    "seeds": 100,
     "readouts": [
      {
       "readout": "target_rise",
-      "mean_difference": 0.284556935719902,
-      "half_width": 0.4664171992230955,
+      "mean_difference": 0.5006593272337334,
+      "half_width": 0.340449605253739,
       "direction": 1
      }
     ],
     "rerun": true,
     "error": "",
     "ratio": 0.017622296926673053,
-    "first_outcome": "FAIL",
+    "first_outcome": "PASS",
     "rerun_seeds": 200,
     "rerun_readouts": [
      {
       "readout": "target_rise",
-      "mean_difference": 0.1826418768592867,
-      "half_width": 0.35241392395461,
+      "mean_difference": 0.34068023828153854,
+      "half_width": 0.2046430746223894,
       "direction": 1
      }
     ]
@@ -9431,12 +9444,12 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
      "tie_wear_rate": "0.0427332"
     },
     "outcome": "FAIL",
-    "seeds": 100,
+    "seeds": 150,
     "readouts": [
      {
       "readout": "target_rise",
-      "mean_difference": -0.03873348777837585,
-      "half_width": 0.5207471292212176,
+      "mean_difference": 0.15894496398894065,
+      "half_width": 0.2126641895916839,
       "direction": 1
      }
     ],
@@ -9448,8 +9461,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "target_rise",
-      "mean_difference": -0.184452080190107,
-      "half_width": 0.32429294534798536,
+      "mean_difference": 0.27864482852191375,
+      "half_width": 0.2739742586700315,
       "direction": 1
      }
     ]
@@ -9467,26 +9480,26 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
      "calm_transfer_rate": "0.0389357",
      "tie_wear_rate": "0.124427"
     },
-    "outcome": "FAIL",
-    "seeds": 50,
+    "outcome": "PASS",
+    "seeds": 150,
     "readouts": [
      {
       "readout": "target_rise",
-      "mean_difference": -0.06574177571188543,
-      "half_width": 0.2999233265680469,
+      "mean_difference": 0.36092017253554554,
+      "half_width": 0.21311647144774948,
       "direction": 1
      }
     ],
     "rerun": true,
     "error": "",
     "ratio": 0.06145585986837075,
-    "first_outcome": "FAIL",
+    "first_outcome": "PASS",
     "rerun_seeds": 200,
     "rerun_readouts": [
      {
       "readout": "target_rise",
-      "mean_difference": -0.04000934843040982,
-      "half_width": 0.16231328316066246,
+      "mean_difference": 0.3271555119746364,
+      "half_width": 0.17906418284261527,
       "direction": 1
      }
     ]
@@ -9504,13 +9517,13 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
      "calm_transfer_rate": "0.0322578",
      "tie_wear_rate": "0.0102495"
     },
-    "outcome": "FAIL",
+    "outcome": "PASS",
     "seeds": 50,
     "readouts": [
      {
       "readout": "target_rise",
-      "mean_difference": -0.051035752137056606,
-      "half_width": 0.18674232203762553,
+      "mean_difference": 0.2013785969740563,
+      "half_width": 0.47715166790571145,
       "direction": 1
      }
     ],
@@ -9522,8 +9535,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "target_rise",
-      "mean_difference": 0.10972324825879155,
-      "half_width": 0.2549238626655992,
+      "mean_difference": 0.24165146287706032,
+      "half_width": 0.21917089738836107,
       "direction": 1
      }
     ]
@@ -9546,8 +9559,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "target_rise",
-      "mean_difference": 0.11897035452404921,
-      "half_width": 0.8359582207622742,
+      "mean_difference": -0.7629738219296293,
+      "half_width": 0.9431490700432633,
       "direction": 1
      }
     ],
@@ -9559,8 +9572,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "target_rise",
-      "mean_difference": 0.34665162942865435,
-      "half_width": 0.6319568839111103,
+      "mean_difference": 0.043480670579150595,
+      "half_width": 0.5995616384261382,
       "direction": 1
      }
     ]
@@ -9579,12 +9592,12 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
      "tie_wear_rate": "0.0182714"
     },
     "outcome": "FAIL",
-    "seeds": 100,
+    "seeds": 50,
     "readouts": [
      {
       "readout": "target_rise",
-      "mean_difference": -0.15226537914777918,
-      "half_width": 0.6843402381482047,
+      "mean_difference": 0.2163436951266503,
+      "half_width": 0.6617374987046216,
       "direction": 1
      }
     ],
@@ -9596,8 +9609,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "target_rise",
-      "mean_difference": -0.02592215369925903,
-      "half_width": 0.45871873589232787,
+      "mean_difference": 0.22335473499934866,
+      "half_width": 0.35218905052029775,
       "direction": 1
      }
     ]
@@ -9615,26 +9628,26 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
      "calm_transfer_rate": "0.0355789",
      "tie_wear_rate": "0.0435593"
     },
-    "outcome": "FAIL",
+    "outcome": "PASS",
     "seeds": 150,
     "readouts": [
      {
       "readout": "target_rise",
-      "mean_difference": 0.011438020638854358,
-      "half_width": 0.15514961123097956,
+      "mean_difference": 0.38781239859047995,
+      "half_width": 0.42083928111772795,
       "direction": 1
      }
     ],
     "rerun": true,
     "error": "",
     "ratio": 0.02354425927034974,
-    "first_outcome": "FAIL",
+    "first_outcome": "PASS",
     "rerun_seeds": 200,
     "rerun_readouts": [
      {
       "readout": "target_rise",
-      "mean_difference": 0.014398096580866753,
-      "half_width": 0.11970305899626175,
+      "mean_difference": 0.3094566107539596,
+      "half_width": 0.3480778675450408,
       "direction": 1
      }
     ]
@@ -9653,12 +9666,12 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
      "tie_wear_rate": "0.0408101"
     },
     "outcome": "FAIL",
-    "seeds": 100,
+    "seeds": 50,
     "readouts": [
      {
       "readout": "target_rise",
-      "mean_difference": 0.2100039025241535,
-      "half_width": 0.4783975357131613,
+      "mean_difference": 0.36088631401636784,
+      "half_width": 0.40959207092366057,
       "direction": 1
      }
     ],
@@ -9670,8 +9683,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "target_rise",
-      "mean_difference": 0.12412017714117413,
-      "half_width": 0.24747544085370676,
+      "mean_difference": 0.13035379816930384,
+      "half_width": 0.2270199832146959,
       "direction": 1
      }
     ]
@@ -9681,11 +9694,11 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
    "ratio": "tie_wear_to_transfer_ratio",
    "central": 0.019230769230769232,
    "below": {
-    "held": 0,
+    "held": 2,
     "counted": 4
    },
    "above": {
-    "held": 0,
+    "held": 2,
     "counted": 4
    }
   },
@@ -9700,7 +9713,7 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
   "criterion": "M11.C.22",
   "samples": 8,
   "counted": 8,
-  "held": 7,
+  "held": 8,
   "undetermined": 0,
   "errored": 0,
   "reruns": 5,
@@ -9772,14 +9785,14 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "mild_removal_effect",
-      "mean_difference": 0.45065960610669475,
-      "half_width": 0.44839172869160554,
+      "mean_difference": 0.799123682391473,
+      "half_width": 0.43996489662560684,
       "direction": 1
      },
      {
       "readout": "severe_removal_effect",
-      "mean_difference": -1.5133935114729349,
-      "half_width": 0.512229497396313,
+      "mean_difference": -1.0275570220685533,
+      "half_width": 0.49605523316917693,
       "direction": -1
      }
     ],
@@ -9791,14 +9804,14 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "mild_removal_effect",
-      "mean_difference": 0.5966002171456082,
-      "half_width": 0.3893450022914818,
+      "mean_difference": 0.8719664793596212,
+      "half_width": 0.3872129783488761,
       "direction": 1
      },
      {
       "readout": "severe_removal_effect",
-      "mean_difference": -1.377870107771842,
-      "half_width": 0.43017428940668273,
+      "mean_difference": -1.038699181562082,
+      "half_width": 0.41153824289720486,
       "direction": -1
      }
     ]
@@ -9819,14 +9832,14 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "mild_removal_effect",
-      "mean_difference": 2.859005609014375,
-      "half_width": 1.1545853983555727,
+      "mean_difference": 2.698542185988232,
+      "half_width": 1.0812193537366774,
       "direction": 1
      },
      {
       "readout": "severe_removal_effect",
-      "mean_difference": -1.2162172316570263,
-      "half_width": 1.103108710161806,
+      "mean_difference": -1.6736567319993925,
+      "half_width": 1.2131722362583688,
       "direction": -1
      }
     ],
@@ -9838,14 +9851,14 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "mild_removal_effect",
-      "mean_difference": 2.5374156174838403,
-      "half_width": 0.9584390941495603,
+      "mean_difference": 2.4605363897809744,
+      "half_width": 0.9486141593535073,
       "direction": 1
      },
      {
       "readout": "severe_removal_effect",
-      "mean_difference": -1.399923242280535,
-      "half_width": 0.9725690485324459,
+      "mean_difference": -1.725534293252038,
+      "half_width": 1.00601825991714,
       "direction": -1
      }
     ]
@@ -9866,14 +9879,14 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "mild_removal_effect",
-      "mean_difference": 0.8189912756924869,
-      "half_width": 0.3287170896188061,
+      "mean_difference": 0.6495066669693504,
+      "half_width": 0.3106603920438677,
       "direction": 1
      },
      {
       "readout": "severe_removal_effect",
-      "mean_difference": -1.413353111302328,
-      "half_width": 0.37376863592210263,
+      "mean_difference": -1.3867901085244494,
+      "half_width": 0.364605017648205,
       "direction": -1
      }
     ],
@@ -9897,36 +9910,20 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "mild_removal_effect",
-      "mean_difference": 1.5933160389904029,
-      "half_width": 0.860871042456207,
+      "mean_difference": 2.27009588837679,
+      "half_width": 0.7808164051868663,
       "direction": 1
      },
      {
       "readout": "severe_removal_effect",
-      "mean_difference": -1.7238992418001282,
-      "half_width": 0.8938357531693948,
+      "mean_difference": -2.1639036403824257,
+      "half_width": 0.9310078504976621,
       "direction": -1
      }
     ],
-    "rerun": true,
+    "rerun": false,
     "error": "",
-    "ratio": 0.03279192734527521,
-    "first_outcome": "PASS",
-    "rerun_seeds": 200,
-    "rerun_readouts": [
-     {
-      "readout": "mild_removal_effect",
-      "mean_difference": 1.8362550923239078,
-      "half_width": 0.733013403897623,
-      "direction": 1
-     },
-     {
-      "readout": "severe_removal_effect",
-      "mean_difference": -1.7351179345244636,
-      "half_width": 0.7627882572289204,
-      "direction": -1
-     }
-    ]
+    "ratio": 0.03279192734527521
    },
    {
     "index": 4,
@@ -9939,19 +9936,19 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
      "calm_transfer_rate": "0.0764981",
      "tie_wear_rate": "0.0213038"
     },
-    "outcome": "FAIL",
+    "outcome": "PASS",
     "seeds": 150,
     "readouts": [
      {
       "readout": "mild_removal_effect",
-      "mean_difference": 0.039570412278567085,
-      "half_width": 0.43673172406078037,
+      "mean_difference": 0.24147631166646458,
+      "half_width": 0.42999255153175686,
       "direction": 1
      },
      {
       "readout": "severe_removal_effect",
-      "mean_difference": -1.267269102283903,
-      "half_width": 0.45349898487778945,
+      "mean_difference": -1.0210927530647524,
+      "half_width": 0.5007039839530855,
       "direction": -1
      }
     ],
@@ -9963,14 +9960,14 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "mild_removal_effect",
-      "mean_difference": 0.21068552787616945,
-      "half_width": 0.3741239135295549,
+      "mean_difference": 0.36683201254921655,
+      "half_width": 0.36535330847376896,
       "direction": 1
      },
      {
       "readout": "severe_removal_effect",
-      "mean_difference": -1.0289228482073838,
-      "half_width": 0.41513356653330774,
+      "mean_difference": -0.9154026967991332,
+      "half_width": 0.44426217874034996,
       "direction": -1
      }
     ]
@@ -9991,20 +9988,36 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "mild_removal_effect",
-      "mean_difference": 1.0783624428123808,
-      "half_width": 0.37598992535801523,
+      "mean_difference": 1.0120137056528884,
+      "half_width": 0.3720287209909503,
       "direction": 1
      },
      {
       "readout": "severe_removal_effect",
-      "mean_difference": -0.9649046887451783,
-      "half_width": 0.47484482365603786,
+      "mean_difference": -0.6845291285223701,
+      "half_width": 0.396640055937722,
       "direction": -1
      }
     ],
-    "rerun": false,
+    "rerun": true,
     "error": "",
-    "ratio": 0.06803174022673351
+    "ratio": 0.06803174022673351,
+    "first_outcome": "PASS",
+    "rerun_seeds": 200,
+    "rerun_readouts": [
+     {
+      "readout": "mild_removal_effect",
+      "mean_difference": 0.9081783578935765,
+      "half_width": 0.3252679591029749,
+      "direction": 1
+     },
+     {
+      "readout": "severe_removal_effect",
+      "mean_difference": -0.7547481246492438,
+      "half_width": 0.3431072674437412,
+      "direction": -1
+     }
+    ]
    },
    {
     "index": 6,
@@ -10022,14 +10035,14 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "mild_removal_effect",
-      "mean_difference": 0.46816153243924463,
-      "half_width": 0.1858822460166931,
+      "mean_difference": 0.530506369517009,
+      "half_width": 0.17915678253381262,
       "direction": 1
      },
      {
       "readout": "severe_removal_effect",
-      "mean_difference": -0.8168948034390409,
-      "half_width": 0.22206368447444305,
+      "mean_difference": -0.8606296514224256,
+      "half_width": 0.20273537267395303,
       "direction": -1
      }
     ],
@@ -10053,14 +10066,14 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "mild_removal_effect",
-      "mean_difference": 0.23873420234493556,
-      "half_width": 0.20153437534536547,
+      "mean_difference": 0.1973371151690631,
+      "half_width": 0.18672626906625636,
       "direction": 1
      },
      {
       "readout": "severe_removal_effect",
-      "mean_difference": -0.30710194309157735,
-      "half_width": 0.2001794003451723,
+      "mean_difference": -0.3035751077301161,
+      "half_width": 0.18189971909482366,
       "direction": -1
      }
     ],
@@ -10072,14 +10085,14 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "mild_removal_effect",
-      "mean_difference": 0.15299774349786013,
-      "half_width": 0.13488743716116885,
+      "mean_difference": 0.1440725593464612,
+      "half_width": 0.1355965996117639,
       "direction": 1
      },
      {
       "readout": "severe_removal_effect",
-      "mean_difference": -0.2260634953290776,
-      "half_width": 0.14395150946720695,
+      "mean_difference": -0.27077380393787287,
+      "half_width": 0.13603069483625932,
       "direction": -1
      }
     ]
@@ -10089,7 +10102,7 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
    "ratio": "tie_wear_to_transfer_ratio",
    "central": 0.019230769230769232,
    "below": {
-    "held": 4,
+    "held": 5,
     "counted": 5
    },
    "above": {
@@ -10111,7 +10124,7 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
   "held": 0,
   "undetermined": 0,
   "errored": 0,
-  "reruns": 3,
+  "reruns": 2,
   "constants": [
    {
     "constant": "appraisal_gain",
@@ -10188,8 +10201,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "relapses",
-      "mean_difference": -0.29333333333333333,
-      "half_width": 0.07984821992508706,
+      "mean_difference": -0.28,
+      "half_width": 0.0789244205621671,
       "direction": 1
      }
     ],
@@ -10248,23 +10261,13 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "relapses",
-      "mean_difference": -0.3466666666666667,
-      "half_width": 0.17782578978819605,
+      "mean_difference": -0.36,
+      "half_width": 0.17321666560653992,
       "direction": 1
      }
     ],
-    "rerun": true,
-    "error": "",
-    "first_outcome": "FAIL",
-    "rerun_seeds": 200,
-    "rerun_readouts": [
-     {
-      "readout": "relapses",
-      "mean_difference": -0.305,
-      "half_width": 0.15041415455151563,
-      "direction": 1
-     }
-    ]
+    "rerun": false,
+    "error": ""
    },
    {
     "index": 3,
@@ -10309,7 +10312,7 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
      {
       "readout": "relapses",
       "mean_difference": -0.54,
-      "half_width": 0.08421353916663825,
+      "half_width": 0.08421353916663828,
       "direction": 1
      }
     ],
@@ -10379,12 +10382,12 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
      "acute_decay_rate": "0.364774"
     },
     "outcome": "FAIL",
-    "seeds": 50,
+    "seeds": 150,
     "readouts": [
      {
       "readout": "relapses",
-      "mean_difference": -0.02,
-      "half_width": 0.03919999999999999,
+      "mean_difference": -0.08,
+      "half_width": 0.04356140154652955,
       "direction": 1
      }
     ],
@@ -10395,8 +10398,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "relapses",
-      "mean_difference": -0.065,
-      "half_width": 0.03425247964467748,
+      "mean_difference": -0.075,
+      "half_width": 0.03659578194657694,
       "direction": 1
      }
     ]
@@ -10509,8 +10512,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "automatic_reaction",
-      "mean_difference": 0.02,
-      "half_width": 0.14055713750572446,
+      "mean_difference": -0.05333333333333334,
+      "half_width": 0.15265268402111903,
       "direction": -1
      }
     ],
@@ -10521,8 +10524,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "automatic_reaction",
-      "mean_difference": 0.01,
-      "half_width": 0.12808947563654172,
+      "mean_difference": -0.065,
+      "half_width": 0.13186747649357639,
       "direction": -1
      }
     ]
@@ -10546,8 +10549,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "automatic_reaction",
-      "mean_difference": 0.05333333333333334,
-      "half_width": 0.07596517432787003,
+      "mean_difference": 0.07333333333333333,
+      "half_width": 0.06709848160840613,
       "direction": -1
      }
     ],
@@ -10558,8 +10561,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "automatic_reaction",
-      "mean_difference": 0.045,
-      "half_width": 0.06848734468432505,
+      "mean_difference": 0.025,
+      "half_width": 0.05965962920421078,
       "direction": -1
      }
     ]
@@ -10584,7 +10587,7 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
      {
       "readout": "automatic_reaction",
       "mean_difference": -0.013333333333333334,
-      "half_width": 0.05558167392013625,
+      "half_width": 0.06934089100092661,
       "direction": -1
      }
     ],
@@ -10595,8 +10598,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "automatic_reaction",
-      "mean_difference": 0.015,
-      "half_width": 0.054661297893822326,
+      "mean_difference": 0.02,
+      "half_width": 0.06360996729836049,
       "direction": -1
      }
     ]
@@ -10620,8 +10623,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "automatic_reaction",
-      "mean_difference": -0.013333333333333334,
-      "half_width": 0.10648820865779886,
+      "mean_difference": -0.05333333333333334,
+      "half_width": 0.10287589824623729,
       "direction": -1
      }
     ],
@@ -10632,8 +10635,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "automatic_reaction",
-      "mean_difference": -0.015,
-      "half_width": 0.09472201168412459,
+      "mean_difference": -0.035,
+      "half_width": 0.09044763164589639,
       "direction": -1
      }
     ]
@@ -10657,8 +10660,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "automatic_reaction",
-      "mean_difference": 0.07333333333333333,
-      "half_width": 0.1518737715201817,
+      "mean_difference": 0.06,
+      "half_width": 0.1414834692836478,
       "direction": -1
      }
     ],
@@ -10669,8 +10672,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "automatic_reaction",
-      "mean_difference": 0.065,
-      "half_width": 0.1266400993914224,
+      "mean_difference": 0.05,
+      "half_width": 0.11686723128723346,
       "direction": -1
      }
     ]
@@ -10690,12 +10693,12 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
      "symptom_event_intensity": "70.7909"
     },
     "outcome": "FAIL",
-    "seeds": 100,
+    "seeds": 150,
     "readouts": [
      {
       "readout": "automatic_reaction",
-      "mean_difference": 0.05,
-      "half_width": 0.09395700714645605,
+      "mean_difference": 0.02,
+      "half_width": 0.08388633622302084,
       "direction": -1
      }
     ],
@@ -10706,8 +10709,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "automatic_reaction",
-      "mean_difference": 0.045,
-      "half_width": 0.06560812396074316,
+      "mean_difference": 0.03,
+      "half_width": 0.0747056723913063,
       "direction": -1
      }
     ]
@@ -10731,20 +10734,20 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "automatic_reaction",
-      "mean_difference": -0.08,
-      "half_width": 0.11357002471841496,
+      "mean_difference": -0.04,
+      "half_width": 0.12558680447647744,
       "direction": -1
      }
     ],
     "rerun": true,
     "error": "",
-    "first_outcome": "PASS",
+    "first_outcome": "FAIL",
     "rerun_seeds": 200,
     "rerun_readouts": [
      {
       "readout": "automatic_reaction",
-      "mean_difference": -0.11,
-      "half_width": 0.09503991861661744,
+      "mean_difference": -0.075,
+      "half_width": 0.10391567416267583,
       "direction": -1
      }
     ]
@@ -10768,8 +10771,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "automatic_reaction",
-      "mean_difference": -0.02666666666666667,
-      "half_width": 0.11116334784027253,
+      "mean_difference": -0.006666666666666667,
+      "half_width": 0.12367902264051268,
       "direction": -1
      }
     ],
@@ -10780,8 +10783,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "automatic_reaction",
-      "mean_difference": 0.01,
-      "half_width": 0.10488873837159987,
+      "mean_difference": 0.02,
+      "half_width": 0.10848058344664552,
       "direction": -1
      }
     ]
@@ -10910,8 +10913,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "pattern_after_spell",
-      "mean_difference": 4.346666666666667,
-      "half_width": 1.5175285211186809,
+      "mean_difference": 4.5,
+      "half_width": 1.5767179345685634,
       "direction": 1
      }
     ],
@@ -10940,8 +10943,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "pattern_after_spell",
-      "mean_difference": 9.086666666666666,
-      "half_width": 1.633177578255905,
+      "mean_difference": 9.553333333333333,
+      "half_width": 1.545646699248035,
       "direction": 1
      }
     ],
@@ -10970,8 +10973,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "pattern_after_spell",
-      "mean_difference": 4.7,
-      "half_width": 1.1083945703087565,
+      "mean_difference": 4.906666666666666,
+      "half_width": 1.161343376825453,
       "direction": 1
      }
     ],
@@ -11000,8 +11003,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "pattern_after_spell",
-      "mean_difference": 4.56,
-      "half_width": 1.407096694174267,
+      "mean_difference": 4.266666666666667,
+      "half_width": 1.3553516385540858,
       "direction": 1
      }
     ],
@@ -11030,8 +11033,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "pattern_after_spell",
-      "mean_difference": 6.4,
-      "half_width": 1.4657918888087553,
+      "mean_difference": 6.053333333333334,
+      "half_width": 1.4083551406225003,
       "direction": 1
      }
     ],
@@ -11060,8 +11063,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "pattern_after_spell",
-      "mean_difference": 4.753333333333333,
-      "half_width": 1.305122747830753,
+      "mean_difference": 4.3,
+      "half_width": 1.4104239228183013,
       "direction": 1
      }
     ],
@@ -11090,8 +11093,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "pattern_after_spell",
-      "mean_difference": 3.4,
-      "half_width": 1.4683162073778537,
+      "mean_difference": 3.37,
+      "half_width": 1.4250388510032583,
       "direction": 1
      }
     ],
@@ -11120,8 +11123,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "pattern_after_spell",
-      "mean_difference": 1.69,
-      "half_width": 1.1019663152746548,
+      "mean_difference": 2.02,
+      "half_width": 1.0190096170282001,
       "direction": 1
      }
     ],
@@ -11133,8 +11136,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "pattern_after_spell",
-      "mean_difference": 1.465,
-      "half_width": 0.7885271240272164,
+      "mean_difference": 1.585,
+      "half_width": 0.7733742176999534,
       "direction": 1
      }
     ]
@@ -11247,12 +11250,12 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
      "acute_decay_rate": "0.151027"
     },
     "outcome": "FAIL",
-    "seeds": 100,
+    "seeds": 150,
     "readouts": [
      {
       "readout": "loss_rise",
-      "mean_difference": 0.040555847893769224,
-      "half_width": 1.8306519132227048,
+      "mean_difference": -0.5568996425738325,
+      "half_width": 1.710040656466379,
       "direction": 1
      }
     ],
@@ -11263,8 +11266,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "loss_rise",
-      "mean_difference": -0.42880093337788666,
-      "half_width": 1.5003286866063619,
+      "mean_difference": -0.6271713828842708,
+      "half_width": 1.4994230697385464,
       "direction": 1
      }
     ]
@@ -11287,8 +11290,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "loss_rise",
-      "mean_difference": 1.778191302864548,
-      "half_width": 2.1983220929445513,
+      "mean_difference": 1.3428979722937957,
+      "half_width": 2.211928225581955,
       "direction": 1
      }
     ],
@@ -11299,8 +11302,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "loss_rise",
-      "mean_difference": 1.6018194931341034,
-      "half_width": 1.8159034056886985,
+      "mean_difference": 1.1941785954286062,
+      "half_width": 1.8655124575201518,
       "direction": 1
      }
     ]
@@ -11323,8 +11326,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "loss_rise",
-      "mean_difference": 0.18967804548270284,
-      "half_width": 1.1543100529175419,
+      "mean_difference": 0.3976868244706298,
+      "half_width": 1.180998444073467,
       "direction": 1
      }
     ],
@@ -11335,8 +11338,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "loss_rise",
-      "mean_difference": 0.11181690713516872,
-      "half_width": 0.9932007603364937,
+      "mean_difference": 0.23281598661745243,
+      "half_width": 1.0149329937191154,
       "direction": 1
      }
     ]
@@ -11359,8 +11362,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "loss_rise",
-      "mean_difference": -1.5609434287375363,
-      "half_width": 1.6935077719842935,
+      "mean_difference": -1.7797624473375895,
+      "half_width": 1.6637060206724765,
       "direction": 1
      }
     ],
@@ -11371,8 +11374,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "loss_rise",
-      "mean_difference": -1.7268305194706204,
-      "half_width": 1.4712760002030416,
+      "mean_difference": -1.7866363391156432,
+      "half_width": 1.4500439027395888,
       "direction": 1
      }
     ]
@@ -11395,8 +11398,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "loss_rise",
-      "mean_difference": -0.35521654882454956,
-      "half_width": 0.4448438343983934,
+      "mean_difference": -0.31699556977558674,
+      "half_width": 0.4529717941130898,
       "direction": 1
      }
     ],
@@ -11407,8 +11410,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "loss_rise",
-      "mean_difference": -0.18530737710902778,
-      "half_width": 0.38545753608872957,
+      "mean_difference": -0.17921839250832122,
+      "half_width": 0.39386931691089155,
       "direction": 1
      }
     ]
@@ -11431,8 +11434,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "loss_rise",
-      "mean_difference": 0.23692343885734368,
-      "half_width": 0.8505658647940113,
+      "mean_difference": 0.3879417810447298,
+      "half_width": 0.8559996626904226,
       "direction": 1
      }
     ],
@@ -11443,8 +11446,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "loss_rise",
-      "mean_difference": -0.03804494124472232,
-      "half_width": 0.6386333406178961,
+      "mean_difference": -0.038425392265166176,
+      "half_width": 0.672265901658428,
       "direction": 1
      }
     ]
@@ -11463,12 +11466,12 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
      "acute_decay_rate": "0.200319"
     },
     "outcome": "FAIL",
-    "seeds": 100,
+    "seeds": 150,
     "readouts": [
      {
       "readout": "loss_rise",
-      "mean_difference": -1.354928496145629,
-      "half_width": 1.2836084560620111,
+      "mean_difference": -0.4660271429637434,
+      "half_width": 1.152704224071772,
       "direction": 1
      }
     ],
@@ -11479,8 +11482,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "loss_rise",
-      "mean_difference": 0.006581995496821449,
-      "half_width": 0.9865125152125817,
+      "mean_difference": -0.41391539003052785,
+      "half_width": 1.0039081182056449,
       "direction": 1
      }
     ]
@@ -11499,12 +11502,12 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
      "acute_decay_rate": "0.320814"
     },
     "outcome": "FAIL",
-    "seeds": 100,
+    "seeds": 150,
     "readouts": [
      {
       "readout": "loss_rise",
-      "mean_difference": -0.5692533068471556,
-      "half_width": 0.6240189198950734,
+      "mean_difference": -0.3233489009934337,
+      "half_width": 0.548995405243574,
       "direction": 1
      }
     ],
@@ -11515,8 +11518,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "loss_rise",
-      "mean_difference": -0.47753091766851713,
-      "half_width": 0.4812518164499724,
+      "mean_difference": -0.45926002666226695,
+      "half_width": 0.4950440766666355,
       "direction": 1
      }
     ]
@@ -11533,7 +11536,7 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
   "criterion": "M11.C.2[twelve-person family]",
   "samples": 8,
   "counted": 8,
-  "held": 2,
+  "held": 3,
   "undetermined": 0,
   "errored": 0,
   "reruns": 7,
@@ -11685,8 +11688,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "symptom_load",
-      "mean_difference": 0.616497971718365,
-      "half_width": 2.461169895872812,
+      "mean_difference": 0.6167093922949947,
+      "half_width": 2.472355475423723,
       "direction": 1
      }
     ],
@@ -11698,8 +11701,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "symptom_load",
-      "mean_difference": 0.7087725647301015,
-      "half_width": 2.143794960054529,
+      "mean_difference": -0.7129904836344789,
+      "half_width": 2.1264710536588365,
       "direction": 1
      }
     ]
@@ -11730,24 +11733,14 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "symptom_load",
-      "mean_difference": 4.561320652436728,
-      "half_width": 2.6045979874145155,
+      "mean_difference": 5.53516920149406,
+      "half_width": 2.7517679301950997,
       "direction": 1
      }
     ],
-    "rerun": true,
+    "rerun": false,
     "error": "",
-    "ratio": 0.02243357733956251,
-    "first_outcome": "PASS",
-    "rerun_seeds": 200,
-    "rerun_readouts": [
-     {
-      "readout": "symptom_load",
-      "mean_difference": 4.160848664588297,
-      "half_width": 2.311053294336113,
-      "direction": 1
-     }
-    ]
+    "ratio": 0.02243357733956251
    },
    {
     "index": 2,
@@ -11775,8 +11768,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "symptom_load",
-      "mean_difference": 0.6012886736825167,
-      "half_width": 1.138664969152378,
+      "mean_difference": 0.2974771705766921,
+      "half_width": 1.1631815808973323,
       "direction": 1
      }
     ],
@@ -11788,8 +11781,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "symptom_load",
-      "mean_difference": 0.44073809163554983,
-      "half_width": 0.9876639144534104,
+      "mean_difference": 0.2748868542292053,
+      "half_width": 0.973044660852732,
       "direction": 1
      }
     ]
@@ -11820,21 +11813,21 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "symptom_load",
-      "mean_difference": 2.248969598032289,
-      "half_width": 1.7234579934662335,
+      "mean_difference": 0.4959438733553501,
+      "half_width": 1.536028675202366,
       "direction": 1
      }
     ],
     "rerun": true,
     "error": "",
     "ratio": 0.022586575475854784,
-    "first_outcome": "PASS",
+    "first_outcome": "FAIL",
     "rerun_seeds": 200,
     "rerun_readouts": [
      {
       "readout": "symptom_load",
-      "mean_difference": 0.8829309487718803,
-      "half_width": 1.4945909295372206,
+      "mean_difference": 0.8549022379615419,
+      "half_width": 1.3607321634416327,
       "direction": 1
      }
     ]
@@ -11860,13 +11853,13 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
      "calm_transfer_rate": "0.0292344",
      "tie_wear_rate": "0.0370355"
     },
-    "outcome": "PASS",
+    "outcome": "FAIL",
     "seeds": 150,
     "readouts": [
      {
       "readout": "symptom_load",
-      "mean_difference": 1.1066086239152295,
-      "half_width": 1.5447655731511498,
+      "mean_difference": 0.07125662731624875,
+      "half_width": 1.5353411872064404,
       "direction": 1
      }
     ],
@@ -11878,8 +11871,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "symptom_load",
-      "mean_difference": 1.2822608663548898,
-      "half_width": 1.3519511504438546,
+      "mean_difference": 0.4353115017669257,
+      "half_width": 1.310178095256751,
       "direction": 1
      }
     ]
@@ -11905,26 +11898,26 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
      "calm_transfer_rate": "0.0766678",
      "tie_wear_rate": "0.0724411"
     },
-    "outcome": "FAIL",
+    "outcome": "PASS",
     "seeds": 150,
     "readouts": [
      {
       "readout": "symptom_load",
-      "mean_difference": 0.7745738629916901,
-      "half_width": 0.8603856149750356,
+      "mean_difference": 0.324113453019238,
+      "half_width": 0.8002096837953607,
       "direction": 1
      }
     ],
     "rerun": true,
     "error": "",
     "ratio": 0.018170575873092443,
-    "first_outcome": "PASS",
+    "first_outcome": "FAIL",
     "rerun_seeds": 200,
     "rerun_readouts": [
      {
       "readout": "symptom_load",
-      "mean_difference": 0.5669477316873385,
-      "half_width": 0.7869754169295544,
+      "mean_difference": 0.6287464512075488,
+      "half_width": 0.6950900306515221,
       "direction": 1
      }
     ]
@@ -11951,18 +11944,28 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
      "tie_wear_rate": "0.0401304"
     },
     "outcome": "FAIL",
-    "seeds": 200,
+    "seeds": 150,
     "readouts": [
      {
       "readout": "symptom_load",
-      "mean_difference": -0.3527575914817932,
-      "half_width": 2.083039044929898,
+      "mean_difference": 0.27164124582463806,
+      "half_width": 2.1960495706681438,
       "direction": 1
      }
     ],
-    "rerun": false,
+    "rerun": true,
     "error": "",
-    "ratio": 0.007924320316119766
+    "ratio": 0.007924320316119766,
+    "first_outcome": "FAIL",
+    "rerun_seeds": 200,
+    "rerun_readouts": [
+     {
+      "readout": "symptom_load",
+      "mean_difference": 0.1846243818171016,
+      "half_width": 1.9692977200204396,
+      "direction": 1
+     }
+    ]
    },
    {
     "index": 7,
@@ -11985,26 +11988,26 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
      "calm_transfer_rate": "0.0944129",
      "tie_wear_rate": "0.0386628"
     },
-    "outcome": "FAIL",
+    "outcome": "PASS",
     "seeds": 150,
     "readouts": [
      {
       "readout": "symptom_load",
-      "mean_difference": -0.38081536993787396,
-      "half_width": 2.357809112706278,
+      "mean_difference": 2.2101220795977725,
+      "half_width": 2.40625630817927,
       "direction": 1
      }
     ],
     "rerun": true,
     "error": "",
     "ratio": 0.007875146135913468,
-    "first_outcome": "FAIL",
+    "first_outcome": "PASS",
     "rerun_seeds": 200,
     "rerun_readouts": [
      {
       "readout": "symptom_load",
-      "mean_difference": -0.2789014705247143,
-      "half_width": 2.0640465475219774,
+      "mean_difference": 2.139131250781993,
+      "half_width": 2.139429648078865,
       "direction": 1
      }
     ]
@@ -12014,11 +12017,11 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
    "ratio": "tie_wear_to_transfer_ratio",
    "central": 0.019230769230769232,
    "below": {
-    "held": 0,
+    "held": 2,
     "counted": 4
    },
    "above": {
-    "held": 2,
+    "held": 1,
     "counted": 4
    }
   },
@@ -12033,7 +12036,7 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
   "criterion": "M11.C.6",
   "samples": 8,
   "counted": 8,
-  "held": 0,
+  "held": 1,
   "undetermined": 0,
   "errored": 0,
   "reruns": 8,
@@ -12108,13 +12111,13 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
      "calm_transfer_rate": "0.0646054",
      "tie_wear_rate": "0.0340115"
     },
-    "outcome": "FAIL",
+    "outcome": "PASS",
     "seeds": 150,
     "readouts": [
      {
       "readout": "development",
-      "mean_difference": -0.0035598873814947753,
-      "half_width": 0.11159032099603577,
+      "mean_difference": -0.0608234162283128,
+      "half_width": 0.11552066448973111,
       "direction": -1
      }
     ],
@@ -12126,8 +12129,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "development",
-      "mean_difference": -0.010561464494943919,
-      "half_width": 0.09314166176509053,
+      "mean_difference": -0.06582594065931481,
+      "half_width": 0.10087439618275316,
       "direction": -1
      }
     ]
@@ -12149,8 +12152,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "development",
-      "mean_difference": 0.015283571675392314,
-      "half_width": 0.12774324836987347,
+      "mean_difference": 0.0423456264935291,
+      "half_width": 0.1352409366974386,
       "direction": -1
      }
     ],
@@ -12162,8 +12165,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "development",
-      "mean_difference": 0.06937343093890198,
-      "half_width": 0.11316037327004516,
+      "mean_difference": 0.05500004227148121,
+      "half_width": 0.11841052974454391,
       "direction": -1
      }
     ]
@@ -12185,8 +12188,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "development",
-      "mean_difference": 0.10856605568448216,
-      "half_width": 0.12013567219692432,
+      "mean_difference": 0.09444902015563486,
+      "half_width": 0.1310204593221638,
       "direction": -1
      }
     ],
@@ -12198,8 +12201,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "development",
-      "mean_difference": 0.07805431412954934,
-      "half_width": 0.10379880922470319,
+      "mean_difference": 0.0786563557718695,
+      "half_width": 0.11476901414099192,
       "direction": -1
      }
     ]
@@ -12221,8 +12224,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "development",
-      "mean_difference": 0.050337530097212334,
-      "half_width": 0.13372460028328156,
+      "mean_difference": -0.019055486020592552,
+      "half_width": 0.1298463385311926,
       "direction": -1
      }
     ],
@@ -12234,8 +12237,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "development",
-      "mean_difference": 0.04641710351869321,
-      "half_width": 0.10790095502916307,
+      "mean_difference": 0.03842370457285547,
+      "half_width": 0.10873694933251006,
       "direction": -1
      }
     ]
@@ -12257,8 +12260,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "development",
-      "mean_difference": 0.10159330252399977,
-      "half_width": 0.10431066538180367,
+      "mean_difference": 0.02404561964945207,
+      "half_width": 0.10852262126794247,
       "direction": -1
      }
     ],
@@ -12270,8 +12273,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "development",
-      "mean_difference": 0.08755406774309868,
-      "half_width": 0.09206827615060992,
+      "mean_difference": 0.0390527822532113,
+      "half_width": 0.09441672381183971,
       "direction": -1
      }
     ]
@@ -12293,8 +12296,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "development",
-      "mean_difference": 0.028958688446792422,
-      "half_width": 0.13476296708974964,
+      "mean_difference": 0.08919143413378373,
+      "half_width": 0.13030463431728811,
       "direction": -1
      }
     ],
@@ -12306,8 +12309,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "development",
-      "mean_difference": -0.0031491409422518403,
-      "half_width": 0.11670520238268363,
+      "mean_difference": 0.13296392063212245,
+      "half_width": 0.11483211340340208,
       "direction": -1
      }
     ]
@@ -12329,21 +12332,21 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "development",
-      "mean_difference": -0.10441769381158585,
-      "half_width": 0.1239129452732909,
+      "mean_difference": -0.0014328505882994118,
+      "half_width": 0.1211084624962214,
       "direction": -1
      }
     ],
     "rerun": true,
     "error": "",
     "ratio": 0.01174129213608031,
-    "first_outcome": "PASS",
+    "first_outcome": "FAIL",
     "rerun_seeds": 200,
     "rerun_readouts": [
      {
       "readout": "development",
-      "mean_difference": -0.06963063800645461,
-      "half_width": 0.10548784518220965,
+      "mean_difference": 0.03065317172634739,
+      "half_width": 0.11129162921916218,
       "direction": -1
      }
     ]
@@ -12365,8 +12368,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "development",
-      "mean_difference": 0.04292661948986587,
-      "half_width": 0.13940691759086127,
+      "mean_difference": -0.031887875729395415,
+      "half_width": 0.1370873850425428,
       "direction": -1
      }
     ],
@@ -12378,8 +12381,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "development",
-      "mean_difference": -0.014500361120220049,
-      "half_width": 0.1191996061649484,
+      "mean_difference": -0.00548393961881569,
+      "half_width": 0.11743530774441963,
       "direction": -1
      }
     ]
@@ -12389,7 +12392,7 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
    "ratio": "tie_wear_to_transfer_ratio",
    "central": 0.019230769230769232,
    "below": {
-    "held": 0,
+    "held": 1,
     "counted": 5
    },
    "above": {
@@ -12408,7 +12411,7 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
   "criterion": "M11.C.10",
   "samples": 8,
   "counted": 8,
-  "held": 3,
+  "held": 4,
   "undetermined": 0,
   "errored": 0,
   "reruns": 0,
@@ -12576,8 +12579,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "cut_off_tie_weeks",
-      "mean_difference": 57.19,
-      "half_width": 76.01964816550546,
+      "mean_difference": -24.53,
+      "half_width": 73.23985164030762,
       "direction": 1
      }
     ],
@@ -12613,8 +12616,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "cut_off_tie_weeks",
-      "mean_difference": 66.73,
-      "half_width": 67.51753547069816,
+      "mean_difference": 105.695,
+      "half_width": 72.52825984952209,
       "direction": 1
      }
     ],
@@ -12650,8 +12653,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "cut_off_tie_weeks",
-      "mean_difference": 69.415,
-      "half_width": 120.54930379746064,
+      "mean_difference": 35.885,
+      "half_width": 112.11582527995422,
       "direction": 1
      }
     ],
@@ -12687,8 +12690,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "cut_off_tie_weeks",
-      "mean_difference": -9.095,
-      "half_width": 107.53343329228323,
+      "mean_difference": -46.87,
+      "half_width": 111.83742106152692,
       "direction": 1
      }
     ],
@@ -12719,13 +12722,13 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
      "calm_transfer_rate": "0.0443386",
      "tie_wear_rate": "0.0319528"
     },
-    "outcome": "FAIL",
+    "outcome": "PASS",
     "seeds": 200,
     "readouts": [
      {
       "readout": "cut_off_tie_weeks",
-      "mean_difference": 43.71,
-      "half_width": 100.22593663838923,
+      "mean_difference": 87.285,
+      "half_width": 98.81310705213494,
       "direction": 1
      }
     ],
@@ -12761,8 +12764,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "cut_off_tie_weeks",
-      "mean_difference": -16.615,
-      "half_width": 122.62862325878868,
+      "mean_difference": 71.1,
+      "half_width": 119.4335301448227,
       "direction": 1
      }
     ],
@@ -12798,8 +12801,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "cut_off_tie_weeks",
-      "mean_difference": 139.545,
-      "half_width": 76.77224158151861,
+      "mean_difference": 114.785,
+      "half_width": 75.84740211734314,
       "direction": 1
      }
     ],
@@ -12835,8 +12838,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "cut_off_tie_weeks",
-      "mean_difference": 118.835,
-      "half_width": 141.2272837047264,
+      "mean_difference": 142.075,
+      "half_width": 134.023490969656,
       "direction": 1
      }
     ],
@@ -12849,7 +12852,7 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
    "ratio": "tie_wear_to_transfer_ratio",
    "central": 0.019230769230769232,
    "below": {
-    "held": 1,
+    "held": 2,
     "counted": 6
    },
    "above": {
@@ -12868,7 +12871,7 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
   "criterion": "M11.C.10[family of origin]",
   "samples": 8,
   "counted": 8,
-  "held": 6,
+  "held": 7,
   "undetermined": 0,
   "errored": 0,
   "reruns": 0,
@@ -13036,8 +13039,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "cut_off_tie_weeks",
-      "mean_difference": 89.87,
-      "half_width": 130.8133515455425,
+      "mean_difference": 101.98,
+      "half_width": 140.89679548209182,
       "direction": 1
      }
     ],
@@ -13073,8 +13076,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "cut_off_tie_weeks",
-      "mean_difference": 140.115,
-      "half_width": 88.37037315180434,
+      "mean_difference": 226.585,
+      "half_width": 94.38719433426162,
       "direction": 1
      }
     ],
@@ -13110,8 +13113,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "cut_off_tie_weeks",
-      "mean_difference": 174.71,
-      "half_width": 127.5983114428342,
+      "mean_difference": 113.665,
+      "half_width": 114.87126639065649,
       "direction": 1
      }
     ],
@@ -13147,8 +13150,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "cut_off_tie_weeks",
-      "mean_difference": 201.62,
-      "half_width": 98.6363880262203,
+      "mean_difference": 194.35,
+      "half_width": 97.12145264109047,
       "direction": 1
      }
     ],
@@ -13184,8 +13187,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "cut_off_tie_weeks",
-      "mean_difference": 226.785,
-      "half_width": 103.79361860260637,
+      "mean_difference": 188.675,
+      "half_width": 108.82292531560722,
       "direction": 1
      }
     ],
@@ -13216,13 +13219,13 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
      "calm_transfer_rate": "0.073379",
      "tie_wear_rate": "0.0251353"
     },
-    "outcome": "FAIL",
+    "outcome": "PASS",
     "seeds": 200,
     "readouts": [
      {
       "readout": "cut_off_tie_weeks",
-      "mean_difference": 86.3,
-      "half_width": 122.37215547179869,
+      "mean_difference": 100.62,
+      "half_width": 117.91141444903315,
       "direction": 1
      }
     ],
@@ -13258,8 +13261,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "cut_off_tie_weeks",
-      "mean_difference": 116.79,
-      "half_width": 93.62210080983782,
+      "mean_difference": 105.05,
+      "half_width": 79.66167476845169,
       "direction": 1
      }
     ],
@@ -13295,8 +13298,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "cut_off_tie_weeks",
-      "mean_difference": 311.67,
-      "half_width": 144.51399425705955,
+      "mean_difference": 409.81,
+      "half_width": 135.20209892200558,
       "direction": 1
      }
     ],
@@ -13309,7 +13312,7 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
    "ratio": "tie_wear_to_transfer_ratio",
    "central": 0.019230769230769232,
    "below": {
-    "held": 4,
+    "held": 5,
     "counted": 6
    },
    "above": {
@@ -13328,10 +13331,10 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
   "criterion": "M11.C.15",
   "samples": 8,
   "counted": 8,
-  "held": 6,
+  "held": 5,
   "undetermined": 0,
   "errored": 0,
-  "reruns": 2,
+  "reruns": 3,
   "constants": [
    {
     "constant": "lock_in_gain",
@@ -13376,14 +13379,14 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "death_rise",
-      "mean_difference": 16.78142734479188,
-      "half_width": 2.3842748229187363,
+      "mean_difference": 17.411519938206236,
+      "half_width": 2.3414227298219603,
       "direction": 1
      },
      {
       "readout": "recovery_rise",
-      "mean_difference": 15.317753511810809,
-      "half_width": 1.853691433255096,
+      "mean_difference": 15.548057792708244,
+      "half_width": 1.9408232816841609,
       "direction": 1
      }
     ],
@@ -13404,14 +13407,14 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "death_rise",
-      "mean_difference": 13.349153279275129,
-      "half_width": 2.0039677052996288,
+      "mean_difference": 13.736372235488961,
+      "half_width": 2.16553764474413,
       "direction": 1
      },
      {
       "readout": "recovery_rise",
-      "mean_difference": 8.989812550471454,
-      "half_width": 1.6938616609236992,
+      "mean_difference": 9.520602072878921,
+      "half_width": 1.9284525396914796,
       "direction": 1
      }
     ],
@@ -13427,19 +13430,19 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
      "calm_transfer_rate": "0.0824666",
      "tie_wear_rate": "0.12798"
     },
-    "outcome": "PASS",
+    "outcome": "FAIL",
     "seeds": 50,
     "readouts": [
      {
       "readout": "death_rise",
-      "mean_difference": 0.11025842555919738,
-      "half_width": 0.3062885997314368,
+      "mean_difference": -0.0012369267426432628,
+      "half_width": 0.29480186621773263,
       "direction": 1
      },
      {
       "readout": "recovery_rise",
-      "mean_difference": 2.534999000309022,
-      "half_width": 0.2969222841042939,
+      "mean_difference": 2.681727241376768,
+      "half_width": 0.2995705748320062,
       "direction": 1
      }
     ],
@@ -13451,14 +13454,14 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "death_rise",
-      "mean_difference": 0.11961887178511897,
-      "half_width": 0.14926027397868594,
+      "mean_difference": 0.08192341794726246,
+      "half_width": 0.1464210151858922,
       "direction": 1
      },
      {
       "readout": "recovery_rise",
-      "mean_difference": 2.6704236306861127,
-      "half_width": 0.14442841238452733,
+      "mean_difference": 2.7500090099959027,
+      "half_width": 0.14439679121015997,
       "direction": 1
      }
     ]
@@ -13476,14 +13479,14 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "death_rise",
-      "mean_difference": -0.16692659852888606,
-      "half_width": 0.38038155805040463,
+      "mean_difference": 0.05753794994361227,
+      "half_width": 0.39041951650131235,
       "direction": 1
      },
      {
       "readout": "recovery_rise",
-      "mean_difference": 2.088589617446372,
-      "half_width": 0.3316569486334785,
+      "mean_difference": 2.188369473280998,
+      "half_width": 0.3644936734446863,
       "direction": 1
      }
     ],
@@ -13495,14 +13498,14 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "rerun_readouts": [
      {
       "readout": "death_rise",
-      "mean_difference": -0.189451729767539,
-      "half_width": 0.26751351226434905,
+      "mean_difference": -0.007731771618195502,
+      "half_width": 0.261495344486577,
       "direction": 1
      },
      {
       "readout": "recovery_rise",
-      "mean_difference": 2.1189924145751324,
-      "half_width": 0.22484865047997507,
+      "mean_difference": 2.2571697211281543,
+      "half_width": 0.22699212458655532,
       "direction": 1
      }
     ]
@@ -13520,14 +13523,14 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "death_rise",
-      "mean_difference": 9.100652023033847,
-      "half_width": 1.1871079043661958,
+      "mean_difference": 9.287131869066657,
+      "half_width": 1.1560028853176771,
       "direction": 1
      },
      {
       "readout": "recovery_rise",
-      "mean_difference": 9.560221572354587,
-      "half_width": 1.080665185576634,
+      "mean_difference": 10.358964168251676,
+      "half_width": 1.1125017732180322,
       "direction": 1
      }
     ],
@@ -13544,18 +13547,18 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
      "tie_wear_rate": "0.0237084"
     },
     "outcome": "PASS",
-    "seeds": 100,
+    "seeds": 150,
     "readouts": [
      {
       "readout": "death_rise",
-      "mean_difference": 12.050335485712624,
-      "half_width": 1.808081159658529,
+      "mean_difference": 13.275739664515452,
+      "half_width": 1.5084935606801055,
       "direction": 1
      },
      {
       "readout": "recovery_rise",
-      "mean_difference": 11.746728994590375,
-      "half_width": 1.5509310598937642,
+      "mean_difference": 12.617556586854185,
+      "half_width": 1.4292556329540818,
       "direction": 1
      }
     ],
@@ -13576,20 +13579,36 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "death_rise",
-      "mean_difference": -0.847577002454444,
-      "half_width": 0.3869843354837817,
+      "mean_difference": -0.7387716223805408,
+      "half_width": 0.4119790419927059,
       "direction": 1
      },
      {
       "readout": "recovery_rise",
-      "mean_difference": 2.2438332949877586,
-      "half_width": 0.3978199949333069,
+      "mean_difference": 2.563293997254888,
+      "half_width": 0.39162055625929204,
       "direction": 1
      }
     ],
-    "rerun": false,
+    "rerun": true,
     "error": "",
-    "ratio": 0.02770684203434921
+    "ratio": 0.02770684203434921,
+    "first_outcome": "FAIL",
+    "rerun_seeds": 200,
+    "rerun_readouts": [
+     {
+      "readout": "death_rise",
+      "mean_difference": -0.6385741663426695,
+      "half_width": 0.20692633089532625,
+      "direction": 1
+     },
+     {
+      "readout": "recovery_rise",
+      "mean_difference": 2.39079808773317,
+      "half_width": 0.20520626733548353,
+      "direction": 1
+     }
+    ]
    },
    {
     "index": 7,
@@ -13604,14 +13623,14 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "death_rise",
-      "mean_difference": 17.899947757899163,
-      "half_width": 2.2801296044694324,
+      "mean_difference": 15.91059065503735,
+      "half_width": 2.4281592373743943,
       "direction": 1
      },
      {
       "readout": "recovery_rise",
-      "mean_difference": 15.36461992317353,
-      "half_width": 1.8942109591597365,
+      "mean_difference": 13.238158566771796,
+      "half_width": 1.8169095864325144,
       "direction": 1
      }
     ],
@@ -13628,7 +13647,7 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "counted": 3
    },
    "above": {
-    "held": 3,
+    "held": 2,
     "counted": 5
    }
   },
@@ -13641,12 +13660,12 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
  },
  {
   "criterion": "M11.C.48",
-  "samples": 8,
-  "counted": 8,
-  "held": 8,
-  "undetermined": 0,
-  "errored": 0,
-  "reruns": 0,
+  "refused": {
+   "sample": 2,
+   "seeds": 200,
+   "own_seeds": 100
+  },
+  "samples": 3,
   "constants": [
    {
     "constant": "learning_rate",
@@ -13771,8 +13790,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "negative_run",
-      "mean_difference": 0.39449999999999996,
-      "half_width": 0.10812358728970779,
+      "mean_difference": 0.4557142857142856,
+      "half_width": 0.12101689635394944,
       "direction": 1
      }
     ],
@@ -13803,8 +13822,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "negative_run",
-      "mean_difference": 0.42749999999999994,
-      "half_width": 0.184443804641704,
+      "mean_difference": 0.3813571428571428,
+      "half_width": 0.15965982178730426,
       "direction": 1
      }
     ],
@@ -13835,188 +13854,17 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "negative_run",
-      "mean_difference": 0.32849999999999996,
-      "half_width": 0.14395574244906958,
+      "mean_difference": 0.2545714285714285,
+      "half_width": 0.13709885128300708,
       "direction": 1
      }
     ],
     "rerun": false,
     "error": "",
-    "ratio": 0.00992354166721679
-   },
-   {
-    "index": 3,
-    "values": {
-     "learning_rate": "0.132511",
-     "credit_horizon": "2",
-     "credit_discount": "0.625784",
-     "cross_person_weight": "0.853318",
-     "policy_temperature": "0.627963",
-     "habituation_rate": "0.682449",
-     "habituation_window": "12",
-     "cutoff_stock_cap": "1546.55",
-     "cutoff_threat_weight": "0.00390046",
-     "cutoff_decay_weeks": "179",
-     "cutoff_floor_share": "0.0517486",
-     "positive_bridge_dissipation": "0.888263",
-     "calm_transfer_rate": "0.0302485",
-     "tie_wear_rate": "0.0156122"
-    },
-    "outcome": "PASS",
-    "seeds": 100,
-    "readouts": [
-     {
-      "readout": "negative_run",
-      "mean_difference": 0.43530952380952376,
-      "half_width": 0.14263587845357223,
-      "direction": 1
-     }
-    ],
-    "rerun": false,
-    "error": "",
-    "ratio": 0.00992560343106651
-   },
-   {
-    "index": 4,
-    "values": {
-     "learning_rate": "0.187776",
-     "credit_horizon": "5",
-     "credit_discount": "0.37549",
-     "cross_person_weight": "0.250366",
-     "policy_temperature": "1.54959",
-     "habituation_rate": "0.456227",
-     "habituation_window": "12",
-     "cutoff_stock_cap": "2182.26",
-     "cutoff_threat_weight": "0.00619186",
-     "cutoff_decay_weeks": "162",
-     "cutoff_floor_share": "0.121419",
-     "positive_bridge_dissipation": "0.772162",
-     "calm_transfer_rate": "0.0813982",
-     "tie_wear_rate": "0.049161"
-    },
-    "outcome": "PASS",
-    "seeds": 100,
-    "readouts": [
-     {
-      "readout": "negative_run",
-      "mean_difference": 0.3901428571428571,
-      "half_width": 0.12171402887195222,
-      "direction": 1
-     }
-    ],
-    "rerun": false,
-    "error": "",
-    "ratio": 0.011614554697202717
-   },
-   {
-    "index": 5,
-    "values": {
-     "learning_rate": "0.194065",
-     "credit_horizon": "2",
-     "credit_discount": "0.435368",
-     "cross_person_weight": "0.870515",
-     "policy_temperature": "0.859063",
-     "habituation_rate": "0.413353",
-     "habituation_window": "6",
-     "cutoff_stock_cap": "1555.53",
-     "cutoff_threat_weight": "0.00210926",
-     "cutoff_decay_weeks": "436",
-     "cutoff_floor_share": "0.0770757",
-     "positive_bridge_dissipation": "0.73602",
-     "calm_transfer_rate": "0.0354213",
-     "tie_wear_rate": "0.12847"
-    },
-    "outcome": "PASS",
-    "seeds": 100,
-    "readouts": [
-     {
-      "readout": "negative_run",
-      "mean_difference": 0.38040476190476186,
-      "half_width": 0.13855428847484266,
-      "direction": 1
-     }
-    ],
-    "rerun": false,
-    "error": "",
-    "ratio": 0.06974834133916381
-   },
-   {
-    "index": 6,
-    "values": {
-     "learning_rate": "0.375307",
-     "credit_horizon": "4",
-     "credit_discount": "0.978037",
-     "cross_person_weight": "0.464834",
-     "policy_temperature": "0.555075",
-     "habituation_rate": "0.818658",
-     "habituation_window": "15",
-     "cutoff_stock_cap": "1860.44",
-     "cutoff_threat_weight": "0.0042895",
-     "cutoff_decay_weeks": "362",
-     "cutoff_floor_share": "0.0594356",
-     "positive_bridge_dissipation": "0.7915",
-     "calm_transfer_rate": "0.0337366",
-     "tie_wear_rate": "0.036246"
-    },
-    "outcome": "PASS",
-    "seeds": 100,
-    "readouts": [
-     {
-      "readout": "negative_run",
-      "mean_difference": 0.46095238095238095,
-      "half_width": 0.16928370571050153,
-      "direction": 1
-     }
-    ],
-    "rerun": false,
-    "error": "",
-    "ratio": 0.02066119471252176
-   },
-   {
-    "index": 7,
-    "values": {
-     "learning_rate": "0.217627",
-     "credit_horizon": "5",
-     "credit_discount": "0.694019",
-     "cross_person_weight": "0.255281",
-     "policy_temperature": "1.7415",
-     "habituation_rate": "0.65354",
-     "habituation_window": "12",
-     "cutoff_stock_cap": "1185.86",
-     "cutoff_threat_weight": "0.00184698",
-     "cutoff_decay_weeks": "405",
-     "cutoff_floor_share": "0.0854268",
-     "positive_bridge_dissipation": "0.461717",
-     "calm_transfer_rate": "0.0554836",
-     "tie_wear_rate": "0.0663722"
-    },
-    "outcome": "PASS",
-    "seeds": 100,
-    "readouts": [
-     {
-      "readout": "negative_run",
-      "mean_difference": 0.4194761904761905,
-      "half_width": 0.1315342306699473,
-      "direction": 1
-     }
-    ],
-    "rerun": false,
-    "error": "",
-    "ratio": 0.02300478810925141
+    "ratio": 0.00992354166721679,
+    "refused": true
    }
   ],
-  "ratio_split": {
-   "ratio": "tie_wear_to_transfer_ratio",
-   "central": 0.019230769230769232,
-   "below": {
-    "held": 3,
-    "counted": 3
-   },
-   "above": {
-    "held": 5,
-    "counted": 5
-   }
-  },
   "ratio_scope": {
    "ratio": "tie_wear_to_transfer_ratio",
    "run_ticks": 520,
@@ -14156,8 +14004,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "negative_run",
-      "mean_difference": 0.4158613935939753,
-      "half_width": 0.05291648967752414,
+      "mean_difference": 0.3962493275006812,
+      "half_width": 0.056578294754981204,
       "direction": 1
      }
     ],
@@ -14188,8 +14036,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "negative_run",
-      "mean_difference": 0.519926672526846,
-      "half_width": 0.06287436418492424,
+      "mean_difference": 0.4838307994256407,
+      "half_width": 0.06695735112703112,
       "direction": 1
      }
     ],
@@ -14220,8 +14068,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "negative_run",
-      "mean_difference": 0.46178289761587654,
-      "half_width": 0.06850204691794873,
+      "mean_difference": 0.4573630509995186,
+      "half_width": 0.059366974196206714,
       "direction": 1
      }
     ],
@@ -14252,8 +14100,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "negative_run",
-      "mean_difference": 0.3302242459381165,
-      "half_width": 0.05530200220612681,
+      "mean_difference": 0.3100197005205897,
+      "half_width": 0.054969436548837805,
       "direction": 1
      }
     ],
@@ -14284,8 +14132,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "negative_run",
-      "mean_difference": 0.5219852509368728,
-      "half_width": 0.0790879892182659,
+      "mean_difference": 0.5077943299919171,
+      "half_width": 0.07972370926266535,
       "direction": 1
      }
     ],
@@ -14316,8 +14164,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "negative_run",
-      "mean_difference": 0.46720643186510047,
-      "half_width": 0.06195615511472544,
+      "mean_difference": 0.4392807452504829,
+      "half_width": 0.061218588426242546,
       "direction": 1
      }
     ],
@@ -14348,8 +14196,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "negative_run",
-      "mean_difference": 0.4536959432715711,
-      "half_width": 0.057607674880959935,
+      "mean_difference": 0.41535665749749173,
+      "half_width": 0.06019420781233413,
       "direction": 1
      }
     ],
@@ -14380,8 +14228,8 @@ Central verdict PASS: not evidence (T-123); named mutant survived (T-119).
     "readouts": [
      {
       "readout": "negative_run",
-      "mean_difference": 0.39190528911309386,
-      "half_width": 0.05505338126723375,
+      "mean_difference": 0.3680260026774419,
+      "half_width": 0.05891816216536503,
       "direction": 1
      }
     ],

@@ -21,11 +21,11 @@ the event-kind rows, the contact classes and the loader fields that revision 36 
 
 <!-- before measurements: {'engine': '2842f0e8fea8e9e20f04a49d02ae5b9e21ab7dde80dd69e157d8c56c6e93d8ef', 'seeds': 20, 'largest_stock': {'phase_c': 975.8816476509318, 'phase_d': 1582.948148137233}, 'mean_run': {'phase_c': 2.192857142857143, 'phase_d': 1.536096256684492}, 'excess': {'phase_c': 23.897789031711973, 'phase_d': 15.083498303260505}, 'symptom_share': {'phase_c': 0.36045329670329673, 'phase_d': 0.24683339195122372}} -->
 
-## after — engine hash `6ce8be104767`, 20 seeds per family, 2026-10-28
+## after — engine hash `da5981f6ec0b`, 20 seeds per family, 2026-10-30
 
 | family | weeks | cuts | largest stock at a cut (tie, week, seed) | median stock at a cut | seeds with a cutoff | first cutoffs | mean run before the first cutoff | median run | mean matched uncut run | mean longest uncut run | excess anxiety | symptom weeks |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
 | phase_c | 520 | 459 | 292.2 (`marta~ravi`, week 191, seed 4, bond 60) | 1.209 | 20 of 20 | 140 | 2.1 | 1 | 1.513 | 2.036 | 22.39 | 0.2964 |
 | phase_d | 2080 | 5210 | 305.1 (`marta~pia`, week 555, seed 20, bond 50) | 5.331 | 20 of 20 | 748 | 1.356 | 1 | 0.8621 | 1.527 | 12.39 | 0.1593 |
 
-<!-- after measurements: {'engine': '6ce8be10476712908ce7fe6d632b21bb0292640a1250828bb0e1d81b28f75356', 'seeds': 20, 'largest_stock': {'phase_c': 292.1780290401236, 'phase_d': 305.07564825769117}, 'mean_run': {'phase_c': 2.1, 'phase_d': 1.3556149732620322}, 'excess': {'phase_c': 22.39288093220639, 'phase_d': 12.388470060826227}, 'symptom_share': {'phase_c': 0.2963598901098901, 'phase_d': 0.15929995423416338}} -->
+<!-- after measurements: {'engine': 'da5981f6ec0b05b834f21d4a10c2335124279ae5fecb7de0011ee4bd1acc8f6f', 'seeds': 20, 'largest_stock': {'phase_c': 292.1780290401236, 'phase_d': 305.07564825769117}, 'mean_run': {'phase_c': 2.1, 'phase_d': 1.3556149732620322}, 'excess': {'phase_c': 22.39288093220639, 'phase_d': 12.388470060826227}, 'symptom_share': {'phase_c': 0.2963598901098901, 'phase_d': 0.15929995423416338}} -->

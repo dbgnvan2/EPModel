@@ -117,8 +117,8 @@ def test_m11d2_check_catches_a_literal_in_the_policy(tmp_path):
 
 # --- M11.D.8 / M11.D.9 --------------------------------------------------------------------------
 
-EXPECTED_SPEC_REFERENCES = 1040  # M11.D.9: an exact count, not a floor; update it when references change (1040 at
-# spec revision 41, the stage 3 triage batch's M1.A.5f, M5.D.4a, M6.I.4a, M7.E.1f and M11.C.21 Spec lines, 2026-10-28; 1035 at spec revision 39's step 9, group A's M4.C.1d, M4.D.3a and the tables' M4.C.1d, 2026-10-26; 1032 at spec revision 39's step 8, group F's M5.F.4, M5.F.2c and M11.C.49, 2026-10-26; 1027 at spec revision 39's step 7, group C's M1.A.5f, M1.A.5e and M6.I.4a text, 2026-10-26; 1016 at spec revision 39's step 6, M8.5's M5.C reference gone with the avoidance gate, 2026-10-25; 969 once spec_references read a block's continuation lines, review 2026-10-22; 938 on the first line only after model ergonomics Part D replaced the fifteen section anchors with numbered IDs, 2026-10-22; 808 at version 2 stage 1, with load_act_classes)
+EXPECTED_SPEC_REFERENCES = 1041  # M11.D.9: an exact count, not a floor; update it when references change (1041 at
+# spec revision 43, negative_runs.unmatched's Spec line, 2026-10-30; 1040 at spec revision 41, the stage 3 triage batch's M1.A.5f, M5.D.4a, M6.I.4a, M7.E.1f and M11.C.21 Spec lines, 2026-10-28; 1035 at spec revision 39's step 9, group A's M4.C.1d, M4.D.3a and the tables' M4.C.1d, 2026-10-26; 1032 at spec revision 39's step 8, group F's M5.F.4, M5.F.2c and M11.C.49, 2026-10-26; 1027 at spec revision 39's step 7, group C's M1.A.5f, M1.A.5e and M6.I.4a text, 2026-10-26; 1016 at spec revision 39's step 6, M8.5's M5.C reference gone with the avoidance gate, 2026-10-25; 969 once spec_references read a block's continuation lines, review 2026-10-22; 938 on the first line only after model ergonomics Part D replaced the fifteen section anchors with numbered IDs, 2026-10-22; 808 at version 2 stage 1, with load_act_classes)
 
 
 def spec_anchors() -> set[str]:

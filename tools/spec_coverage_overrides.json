@@ -1015,11 +1015,11 @@
   "note": "`invariant_tolerance` is 1e-9 in `config/bowen/constants.md`, a required key (`test_m11d3_config_rejects_missing_required_key`), graded `[I]` against the schema (`test_m0_1_grade_must_match_the_spec`, `test_m101_repository_constants_load_and_are_graded`); `M6.I.1` is reported every tick (`test_m4g2_invariants_asserted_every_tick`), but no test feeds `invariants.budget_problems` a violation"
  },
  "M6.2": {
-  "status": "partial",
+  "status": "done",
   "evidence": [
    "tests/bowen/test_phase_d_criteria.py::test_m11c11_removal_three_phase_shape"
   ],
-  "note": "partial through `M11.C.11` (partial: its ensemble passes, but no mutant has turned it red since revision 36's regeneration of 2026-10-23, T-121): its removal arms run with `invariants.assert_invariants` checking `M6.4`'s ledger every tick, so a removal that broke `M6.I.6` would raise"
+  "note": "done through `M11.C.11` (done: ensemble PASS, and `removed-member-holds-not-released-on-return` turns it red since spec revision 43, T-121): its removal arms run with `invariants.assert_invariants` checking `M6.4`'s ledger every tick, so a removal that broke `M6.I.6` would raise"
  },
  "M6.4": {
   "status": "partial",

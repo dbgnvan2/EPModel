@@ -91,7 +91,7 @@ records are regenerated once.
   undetermined or errored. 33 keys have a fraction; `M11.C.48` is refused at the rerun at sample 2 (`M17.A.1`, spec
   revision 42; T-163). `docs/version_2_sweep_record.md` is current, its test passes without a mark, and
   `docs/version_2_status.md`'s W4 is unmet on `M11.C.48` alone.*
-- [ ] T-163 ⟨later⟩ **`M11.C.48` fixes its own seeds at 100, so the sweep refuses it at the rerun (found in T-159's
+- [x] T-163 ⟨later⟩ **`M11.C.48` fixes its own seeds at 100, so the sweep refuses it at the rerun (found in T-159's
   sweep, 2026-10-29; not fixed).** On `6ce8be104767` sample 2's first run leaves `negative_run` at +0.255 ± 0.14,
   within two half-widths of zero, so `M17.A.1` needs a rerun at 200 seeds; `config/bowen/criteria.md` fixes the
   criterion's own count at 100, so the sweep refuses it there and shows it refused (revision 42, the owner's choice of
@@ -100,6 +100,10 @@ records are regenerated once.
   hash), then sweep it again (`tools/version_2_sweep.py --criteria M11.C.48`). `M11.C.48[phase_d]` reads the same
   100 seeds (a variant key reads its base ID's section) and swept 8 of 8, because none of its samples needed the
   rerun; the raised count applies to it too.
+  *Closed 2026-10-30 (spec revision 43, Claude's recommendation under the owner's instruction of 2026-10-29, pending
+  owner review):* the criterion's seeds are 200 (`config/bowen/criteria.md`);
+  `tests/test_version_2_sweep.py::test_m11c48_t163_own_seeds_reach_the_detection_limit`. It is swept again at the
+  stage-end sweep on `da5981f6ec0b`.
 - [ ] T-164 ⟨later⟩ **The merge's running-sweep guard matches the sweep's test file (found in T-159's merge,
   2026-10-29; not fixed).** `tools/merge_cache.py` refuses while `pgrep -f '[v]ersion_2_sweep.py'` finds a process,
   and that pattern also matches `python3 -m pytest tests/test_version_2_sweep.py`, so a test run makes the merge
@@ -120,10 +124,25 @@ records are regenerated once.
   target rises when both overfunctioners' capacity falls; whether collapsed parents should keep acting as projecting
   parents is the arm's design, not a rule, and changing it moves the engine hash (the arm is under
   `src/bowen/`). To decide with the next batch that moves the hash.
-- [ ] T-162 ⟨later⟩ **`M11.C.34` passes at revision 41 and no mutant turns it red (found in revision 41's
+  - 2026-10-29, the version 2 definition batch (`docs/version_2_definition_plan.md` §2): built as Claude's
+    recommendation (the treatment's lending stops at `t0`, the baseline's runs on) and **withdrawn before the
+    regeneration** on the batch's `learning-qa` review. That form makes the arms differ by the scripted lending as well
+    as the collapse, and the lending alone carries the pass, which is a rule writing the outcome (§19). Ad hoc, 40 seeds
+    (1–40), `target_rise` at the criterion's settings: baseline 0.21; treatment with the drop 5.37; treatment with the
+    lending stopped and **no** drop 6.14; as built at revision 41, treatment −0.04 (the review's measurement,
+    `scratchpad` script, not a record). With that form `pseudo-self-return-removed` reads 4.92 against 0.21, so the
+    named mutant would survive. The two forms left for the owner: (a) keep the arm as it is (lending in both arms for
+    the whole run), or (b) stop the lending at `t0` in **both** arms, so the arms differ by the drop alone; ad hoc, (b)
+    reads 5.37 against 6.14, a fail. Claude's recommendation: (b), since it is the only form whose arms differ by the
+    collapse alone; it reverses the owner's arm design of 2026-10-16 and turns the verdict, so it waits for the owner.
+- [x] T-162 ⟨later⟩ **`M11.C.34` passes at revision 41 and no mutant turns it red (found in revision 41's
   regeneration, 2026-10-29; not fixed).** At revision 40 it failed and its failure was accepted as a finding (version
   1's disposition, owner 2026-10-17); regenerated on `6ce8be104767` it passes (`automatic_reaction` −0.113 ± 0.13, p
   0.0388, `docs/phase_d_ensemble_record.md`). No mutant in either mutation record targets it, so
   `docs/version_2_status.md` holds it under W3 (every passing composite has a recorded mutation) and
   `docs/spec_coverage.md` lists it as partial. Adding a mutant (`tools/phase_d_mutation_record.py`) moves no rule;
   which rule to remove, and the owner's review of the changed verdict (T-122), come first.
+  *Closed 2026-10-30 (spec revision 43, Claude's recommendation under the owner's instruction of 2026-10-29, pending
+  owner review):* the declared mutant is built, `mixing-weight-blind-to-level` (`M4.D.1a`'s mixing weight fixed at
+  the scale's middle), and turns the criterion red (−0.04 ± 0.12, p 0.26, `docs/phase_d_mutation_record.md`). The
+  owner's review of the changed verdict (T-122) is still open.

@@ -28,7 +28,10 @@ The definitions, `[I]` (`docs/readouts_phase_c.md`, "Negative runs"; the proposa
   the baseline for a cutoff is the mean of the runs standing on the uncut ties in the cutoff's week — the same point
   in time, read the same way, so neither arm has more weeks to build a run in. The longest run an uncut tie reached
   within the window is reported beside it, not compared: a maximum over ties and weeks against one point is biased
-  against the criterion (learnings P7; the revision 36 report's decisions).
+  against the criterion (learnings P7; the revision 36 report's decisions);
+* a first cutoff with **no uncut tie** in its week has no baseline. It is left out of both arms and counted
+  (``unmatched``), since reading its baseline as 0 while its own run stays in the treatment biases the comparison
+  toward a pass (learnings P7; T-123, spec revision 43).
 """
 
 from __future__ import annotations
@@ -60,6 +63,7 @@ class FirstCutoff:
     run: int  # negative contacts received across the tie in a row, up to the cutoff's week
     uncut: float  # the mean run standing in the cutoff's week on the ties with no CUTOFF in weeks [0, week]
     longest_uncut: int  # reported only: the longest run those ties reached within the window
+    matched: bool = True  # False when no tie was uncut in the cutoff's week: no baseline, left out of both arms (T-123)
 
 
 def contacts(records, kinds: EventKinds, members: frozenset[PersonId] | None = None) -> list[Contact]:
@@ -155,14 +159,24 @@ def first_cutoff_runs(records, kinds: EventKinds, members: frozenset[PersonId] |
         standing = [run_at(runs[t], week + 1) for t in uncut]
         mean = math.fsum(standing) / len(standing) if standing else 0.0
         longest = max((longest_run_within(runs[t], week) for t in uncut), default=0)
-        out.append(FirstCutoff(tie, week, own, mean, longest))
+        out.append(FirstCutoff(tie, week, own, mean, longest, bool(standing)))
     return out
 
 
 def arm_values(firsts: list[FirstCutoff]) -> tuple[float, float]:
-    """`M11.C.48`'s two arms for one seed: the mean run before its first cutoffs (treatment) and the mean of the matched
-    uncut ties' standing runs in those weeks (baseline). A seed with no cutoff gives 0 in both arms, and is counted."""
-    if not firsts:
+    """`M11.C.48`'s two arms for one seed: the mean run before its matched first cutoffs (treatment) and the mean of
+    the uncut ties' standing runs in those weeks (baseline). A first cutoff with no uncut tie in its week is left out of
+    both (T-123; ``unmatched`` counts it). A seed with no matched cutoff gives 0 in both arms, and is counted."""
+    matched = [f for f in firsts if f.matched]
+    if not matched:
         return 0.0, 0.0
-    n = len(firsts)
-    return math.fsum(f.run for f in firsts) / n, math.fsum(f.uncut for f in firsts) / n
+    n = len(matched)
+    return math.fsum(f.run for f in matched) / n, math.fsum(f.uncut for f in matched) / n
+
+
+def unmatched(firsts: list[FirstCutoff]) -> int:
+    """Purpose: how many first cutoffs had no uncut tie in their week, so were left out of both arms (T-123).
+    Spec:    docs/bowen_agent_model_spec_v2.md#M11.C.48
+    Tests:   tests/bowen/test_negative_runs.py::test_m11c48_t123_an_unmatched_first_cutoff_is_left_out_of_both_arms_and_counted
+    """
+    return count(1 for f in firsts if not f.matched)

@@ -265,12 +265,14 @@ def test_m11c48_reads_the_run_before_the_first_cutoff():
     assert arm_values(firsts) == (2.0, 1.5) and arm_values([]) == (0.0, 0.0)
     settings = {"weeks": 104}
     base, treat = arm_c48("baseline", 7, settings), arm_c48("treatment", 7, settings)
-    run, uncut, firsts_n, _ = negative_run_values("phase_c", 7, 104)
+    run, uncut, firsts_n, alone, _ = negative_run_values("phase_c", 7, 104)
     assert treat.readouts["negative_run"] == run == treat.readouts["run_before_cutoff"]
     assert base.readouts["negative_run"] == uncut and base.readouts["run_before_cutoff"] == 0.0
     assert base.readouts["first_cutoffs"] == treat.readouts["first_cutoffs"] == float(firsts_n)
     assert firsts_n > 0, "seed 7 of the Phase B family has a first cutoff in 104 weeks; the arms read it"
+    assert treat.readouts["unmatched_cutoffs"] == float(alone) and base.readouts["unmatched_cutoffs"] == 0.0
     for cid in ("M11.C.48", "M11.C.48[phase_d]"):
-        assert CRITERIA_D2[cid].seeds == 100 and CRITERIA_D2[cid].cls == "composite"
+        assert CRITERIA_D2[cid].seeds == 200 and CRITERIA_D2[cid].cls == "composite"  # T-163
         assert [(r.name, r.direction, r.report_only) for r in CRITERIA_D2[cid].readouts] == [
-            ("negative_run", +1, False), ("run_before_cutoff", +1, True), ("first_cutoffs", +1, True)]
+            ("negative_run", +1, False), ("run_before_cutoff", +1, True), ("first_cutoffs", +1, True),
+            ("unmatched_cutoffs", +1, True)]

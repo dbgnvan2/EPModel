@@ -7,17 +7,14 @@ Open items, one line each: ID, date raised, title, record. **Now** blocks the cu
 `docs/todo/` (grep its ID). To close one, tick it in its record and run `python3 tools/todo_index.py`: its line
 moves to `docs/TODO_archive.md`. Until 2026-10-22 this file held every item's text; that form is in git history.
 
-## Now (9)
+## Now (6)
 
 - T-001 · 2026-10-19 · Version 2, next · [record](docs/todo/2026-08-22_blocking_the_next_phase.md)
 - T-002 · 2026-10-19 · `/csdp` sweep of 2026-10-19, items not fixed · [record](docs/todo/2026-08-22_blocking_the_next_phase.md)
 - T-003 · 2026-10-20 · Coverage page, minor, from the Part A review … · [record](docs/todo/2026-08-22_blocking_the_next_phase.md)
 - T-004 · 2026-10-20 · Coverage page, from Part B's drafting (2026-10-20), not … · [record](docs/todo/2026-08-22_blocking_the_next_phase.md)
-- T-119 · 2026-10-23 · `M11.C.48`'s named mutant survives on both families · [record](docs/todo/2026-10-23_revision_36_regeneration.md)
-- T-120 · 2026-10-23 · `M11.C.15`'s named mutant survives · [record](docs/todo/2026-10-23_revision_36_regeneration.md)
-- T-121 · 2026-10-23 · `M11.C.11`'s named mutant survives · [record](docs/todo/2026-10-23_revision_36_regeneration.md)
-- T-123 · 2026-10-23 · `M11.C.48`'s baseline counts a first cutoff with no … · [record](docs/todo/2026-10-23_revision_36_regeneration.md)
 - T-158 · 2026-10-28 · `M5.D.3`'s "abort is the usual first outcome" no … · [record](docs/todo/2026-10-28_stage_3_milestone_review.md)
+- T-167 · 2026-10-30 · The stage-end sweep reruns on spec revision 43's … · [record](docs/todo/2026-10-29_version_2_definition.md)
 
 ## Later (134)
 
@@ -152,6 +149,6 @@ moves to `docs/TODO_archive.md`. Until 2026-10-22 this file held every item's te
 - T-157 · 2026-10-28 · Probe-page tests for frozen pages take 17% of … · [record](docs/todo/2026-10-28_stage_3_milestone_review.md)
 - T-160 · 2026-10-28 · `phase_c_completion_report.md`'s other rows quote the numbers of Phase … · [record](docs/todo/2026-10-28_stage_3_milestone_review.md)
 - T-161 · 2026-10-28 · `M11.C.21`'s parents keep over-functioning toward the child after … · [record](docs/todo/2026-10-28_stage_3_milestone_review.md)
-- T-162 · 2026-10-29 · `M11.C.34` passes at revision 41 and no mutant … · [record](docs/todo/2026-10-28_stage_3_milestone_review.md)
-- T-163 · 2026-10-29 · `M11.C.48` fixes its own seeds at 100, so … · [record](docs/todo/2026-10-28_stage_3_milestone_review.md)
 - T-164 · 2026-10-29 · The merge's running-sweep guard matches the sweep's test … · [record](docs/todo/2026-10-28_stage_3_milestone_review.md)
+- T-165 · 2026-10-29 · `M11.C.17`'s coached rise runs through the coach's I-position … · [record](docs/todo/2026-10-29_version_2_definition.md)
+- T-166 · 2026-10-29 · `tools/group_g_readout.py` still averages unmatched first cutoffs (the batch's … · [record](docs/todo/2026-10-29_version_2_definition.md)

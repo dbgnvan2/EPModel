@@ -1,6 +1,6 @@
 # History written into requirement bodies
 
-*Generated from the spec at revision 42 by `tools/spec_rules_view.py`. Not normative: where this and the spec differ, the spec wins. Do not edit.*
+*Generated from the spec at revision 43 by `tools/spec_rules_view.py`. Not normative: where this and the spec differ, the spec wins. Do not edit.*
 
 Every ID whose body holds a sentence matching a history phrase (`tools/spec_index_rules.json`, `history_phrases`), with the sentence and the phrase it matched: **30 IDs**. The view keeps every one of these sentences (C3). This list was the input to Part E: revision 35 (2026-10-22) moved or rewrote the narratives, with one row per sentence in `docs/spec_revision_35_dispositions.md`, approved by the owner 2026-10-22, so what is listed now is what that pass left in place — rule text, recorded results and cross-references that match a phrase — each a row marked "stays" that gives the reason. Line numbers are the spec's.
 
@@ -93,7 +93,7 @@ Every ID whose body holds a sentence matching a history phrase (`tools/spec_inde
 
 ## M11.C.17 (line 1343)
 
-- Kerr's "differentiation is rare" stays a property the runs show or fail to show, not a rule | `test_m11c17_coach_helps_and_is_not_required` | D | the external agent's effect (`M1.E.7`'s landed contact) removed **MUST** turn this red *Regenerated at revision 31:* **fails**, −0.00008 ± 0.0013 (it passed weakly before, +0.00053 ± 0.00063). ⟨\b(?:at|in|since|by|from|until|before|after) revision \d+⟩
+- Kerr's "differentiation is rare" stays a property the runs show or fail to show, not a rule | `test_m11c17_coach_helps_and_is_not_required` | D | the external agent's effect (`M1.E.7`'s landed contact) removed **MUST** turn this red; the effect also runs through `M5.D.5`'s pull-up when the coach's own `I-POSITION` resolves, so removing that pull-up for an external mover **MUST** turn it red as well (`coach-pull-up-removed`, `docs/phase_d_mutation_record.md`) *Regenerated at revision 31:* **fails**, −0.00008 ± 0.0013 (it passed weakly before, +0.00053 ± 0.00063). ⟨\b(?:at|in|since|by|from|until|before|after) revision \d+⟩
 - Accept M11.C.22 failing for now and apply M11.C.21's reclassification at the next code change") *Regenerated at revision 32, with the nodal-event spike:* **passes**, weakly, +0.00089 ± 0.0013 (p 0.015, 150 seeds); it failed before the spike (+0.00013). ⟨\b(?:at|in|since|by|from|until|before|after) revision \d+⟩
 
 ## M11.C.24 (line 1345)

@@ -1427,7 +1427,9 @@ is still learned from felt relief, and what it then costs is the physics below.
   policy to `CUTOFF`'s learned value. Its verdict is a finding under this revision's rules, reported beside version 1's
   verdicts, never in their place. *Re-sweep of 2026-10-23:* the pass recorded that day is not evidence: the readout gave a
   first cutoff with no matched uncut tie a baseline of 0, and with those left out of both arms the direction reverses on
-  both families (T-123, `docs/readouts_phase_c.md`, "Negative runs").
+  both families (T-123, `docs/readouts_phase_c.md`, "Negative runs"). *Revision 43* (T-123, T-163, `[I]`, Claude's recommendation 2026-10-29 under the owner's instruction to proceed, pending the owner's review):
+  such an unmatched first cutoff is left out of both arms and counted (`unmatched_cutoffs`), and the criterion runs
+  200 seeds, so the sweep's detection-limit rerun never needs more than it sets. At revision 43's regeneration (`da5981f6ec0b`, 200 seeds; `docs/phase_d2_ensemble_record.md`) the criterion **fails** on both families: −0.291 ± 0.12 on the Phase B family and −0.11 ± 0.063 on the twelve-person family, with 1.31 and 13.6 unmatched first cutoffs a seed left out.
 - **New fields:** `cutoff_peak` and `reference_level` on the tie (§4, `M14.A`); `tie_state` names five states
   (`M1.B.3`), rejection held meaning `CUT_OFF` (`M1.B.3c`).
 

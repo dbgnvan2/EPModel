@@ -2,10 +2,99 @@
 
 The entries of `CHANGELOG.md` dated before 2026-10-19, the day version 2 began at the tag `version-1`, moved
 here verbatim on 2026-10-22, the entries of 2026-10-19 and 2026-10-20 on 2026-10-23, and the entries of
-2026-10-21 later on 2026-10-23, the earliest entry of 2026-10-22 (the SP-1 proposal's eight questions) on 2026-10-24, and the next (SP-1 built, with spec revision 34) later on 2026-10-24, and the next (Model ergonomics, Parts A–C) on 2026-10-25, and the next (Model ergonomics, Part D) later on 2026-10-25, and the next (Model ergonomics, Part E) later on 2026-10-25, and the next (Model ergonomics follow-ups) later on 2026-10-25, and the next (the closed and old parts of `TODO.md` and `CHANGELOG.md` archived) on 2026-10-26, and the next (`TODO.md` an index over records; a changelog index) later on 2026-10-26, and the next (Revision 35's dispositions approved by the owner) later on 2026-10-26, and the next two (Spec revision 36, of 2026-10-22, and Revision 36's records regenerated, of 2026-10-23) later on 2026-10-26, and the next five (from the cloud sessions' SessionStart hook to Stage 2: Phase C's directional criteria swept, all of 2026-10-23) later on 2026-10-26, and the next three (from the night's decisions listed for the owner to Stage 2: Phase D part I's directional criteria swept, all of 2026-10-23) on 2026-10-27, and the next (Stage 2: the sweep can run on two Macs, of 2026-10-23) later on 2026-10-27, and the next (The two-Mac cross-check run live, of 2026-10-23) on 2026-10-28, and the next four (from Stage 2: Phase D part II's sweep ranges declared to When the full sweep runs, the last of 2026-10-23) on 2026-10-29, and the next three (from Stage 2: Phase D part II's seven criteria swept across two Macs to The stage 2 milestone review triaged, spec revision 38, the earliest of 2026-10-24) later on 2026-10-29, so that the live file stays short enough to read (`tests/test_doc_size.py` bounds its size). The heading below is the section they
+2026-10-21 later on 2026-10-23, the earliest entry of 2026-10-22 (the SP-1 proposal's eight questions) on 2026-10-24, and the next (SP-1 built, with spec revision 34) later on 2026-10-24, and the next (Model ergonomics, Parts A–C) on 2026-10-25, and the next (Model ergonomics, Part D) later on 2026-10-25, and the next (Model ergonomics, Part E) later on 2026-10-25, and the next (Model ergonomics follow-ups) later on 2026-10-25, and the next (the closed and old parts of `TODO.md` and `CHANGELOG.md` archived) on 2026-10-26, and the next (`TODO.md` an index over records; a changelog index) later on 2026-10-26, and the next (Revision 35's dispositions approved by the owner) later on 2026-10-26, and the next two (Spec revision 36, of 2026-10-22, and Revision 36's records regenerated, of 2026-10-23) later on 2026-10-26, and the next five (from the cloud sessions' SessionStart hook to Stage 2: Phase C's directional criteria swept, all of 2026-10-23) later on 2026-10-26, and the next three (from the night's decisions listed for the owner to Stage 2: Phase D part I's directional criteria swept, all of 2026-10-23) on 2026-10-27, and the next (Stage 2: the sweep can run on two Macs, of 2026-10-23) later on 2026-10-27, and the next (The two-Mac cross-check run live, of 2026-10-23) on 2026-10-28, and the next four (from Stage 2: Phase D part II's sweep ranges declared to When the full sweep runs, the last of 2026-10-23) on 2026-10-29, and the next three (from Stage 2: Phase D part II's seven criteria swept across two Macs to The stage 2 milestone review triaged, spec revision 38, the earliest of 2026-10-24) later on 2026-10-29, and the next five (from Version 2 stage 3's implementation plan drafted to Rule: a finished session writes the next session's brief, the last of 2026-10-24) on 2026-10-30, so that the live file stays short enough to read (`tests/test_doc_size.py` bounds its size). The heading below is the section they
 were under; nothing in this file is reworded. Later entries are in `CHANGELOG.md`.
 
 ## [Unreleased] — 2026-10-11
+
+### Rule: a finished session writes the next session's brief (2026-10-24)
+
+- `CLAUDE.md`, token budget: the owner's rule that a session whose work is done ends with a brief for the next session
+  that can be pasted as written.
+
+### T-130 checked: the event sizes agree with Holmes and Rahe (1967) (2026-10-24)
+
+- The owner supplied a scan of the article (`Holmes1967SRRS.pdf`, journal pages 213–218; its embedded title is the
+  article's DOI). All thirteen values in `config/bowen/event_sizes.md` agree with Table 3 on p. 216. Two item names
+  differ from the paper's wording: `JOB_LOSS` ("Fired at work", where the config says "Dismissal from work") and
+  `FIND_WORK_LOAD` ("Wife begin or stop work", where the config says "Spouse begins or stops work"). Two more differ
+  by an article. `docs/review/stage_3_t130_event_sizes.md` gives the comparison value by value, with each rank.
+- No value needs correcting. Dropping "unchecked" from the config, the spec (`M1.F.6a`) and the explainer, the
+  paper's wording in the `item` column, and T-130's tick wait for step 6 (plan §3.6). The wording choice was decided
+  as recommended, pending the owner's review. Nothing under `src/bowen/` or `config/bowen/` changed; the engine hash
+  is unchanged (`66dcbb1e8ba5`).
+- Documents updated: the review page, the plan's status line, `_STATUS.md`, the reading list, the checklist entry,
+  and the T-130 note in its record.
+- `c3abfb3` was pushed red: `test_d5b_status_claims_agree_with_each_documents_own_status` could not read the review
+  page's status line, which was written as `**Status, 2026-…` instead of `**Status: …`. The background run's
+  notification gave the exit code of the trailing `echo`, not pytest's. The fix commit restores the line's form.
+
+### Stage 3 steps 1 and 2: the projection trace, the I-position probe, T-130 not yet checked (2026-10-24)
+
+- **Step 2a, the projection trace** (`tools/stage_3_projection_trace.py`, in no `HASHED_TOOLS` list;
+  `docs/review/stage_3_projection_trace.md`). `M11.C.6`'s own arm, both arms, seeds 0–149, 8 min 7 s at 10 workers on
+  this Mac. Summed over the development steps at ages 6–20, treatment − baseline: `development` +0.0886 ± 0.0439 (the
+  record's value, reproduced); the child's own term +0.0951 ± 0.0362; the parents' term −0.0072 ± 0.0296. The band
+  bound 6 of 2250 steps in each arm. The step reads the estimator's functional level, which already leaves out
+  pseudo-self (`slow_tick.py::record_week`, revision 23), so the exchange moves neither term; plan §3.1's reading
+  was wrong there and is marked corrected. About half of the own-term difference is the child's stress swing
+  (`M1.A.5e`), from age 14: +0.94 of +1.90 summed over ages. Read on the same weeks, P1 would move the parents' term
+  from −0.30 / −0.31 to −5.05 / −5.28 (baseline / treatment), with a difference of −0.17 ± 0.56 (first-order, no
+  re-run). **D18's condition was met.** The owner was asked again and chose P2, displaced coping (D18, revisited):
+  P1 is dropped, and P2 is drafted for approval before revision 39.
+- **Step 2b, the I-position probe** (`tools/stage_3_iposition_probe.py`, in no `HASHED_TOOLS` list;
+  `docs/review/stage_3_iposition_probe.md`). On the triad, mover F at level 35 or 60, perspective 1.0, `I-POSITION`
+  toward M scripted at week 1 (at week 4, F was angry in 13–14 of 40 seeds); no spell in weeks 1–5; F's own
+  `I-POSITION` withheld every other week; a no-act control at each level; seeds 0–199, 25 s. Level 35 − level 60,
+  both acting: the family's excess +7.40 ± 0.36, M's acute anxiety +0.78 ± 0.19. The controls differ by as much. The
+  act's own effect at level 35 less at level 60 is −0.06 ± 0.32 on the family's excess, −0.04 ± 0.23 on M's acute
+  anxiety and −0.005 ± 0.026 on the `CONFLICT` share. At level 35, 132 of 176 genuine sequences failed PREPARE
+  (14 of 176 at level 60). Completions: 0 at level 35, 9 at level 60. **D20's condition was not met**, so D20 stands
+  (build A) and was not put again. For the plan's new group F criterion (§3.7): a control or the `w = 1` mutant is needed, and the low-level
+  mover's PREPARE window has to be calm enough to reach DEFINE.
+- **Step 1, T-130: not checked.** The publisher refuses automated access (HTTP 403) and a search found only
+  reproductions of the scale, not the article. `docs/review/stage_3_t130_event_sizes.md` records the attempts and
+  the thirteen values to check. T-130 stays open and nothing in `config/bowen/event_sizes.md` changes; the owner
+  will supply the PDF.
+- Smoke tests: `tests/test_stage_3_probes.py`, two tests on seeds 0 and 0–2. `docs/spec_coverage.md` was regenerated:
+  it lists the two tests under "Tests named for no spec ID" (267 → 269), and nothing else changed. The engine hash is
+  unchanged (`66dcbb1e8ba5`); no record goes stale.
+- Housekeeping the suite required: the oldest live changelog entry (SP-1 built, 2026-10-22) moved verbatim to
+  `docs/CHANGELOG_archive.md`, checked by script against `HEAD` (the live file was 83,031 bytes against its 80,000
+  limit); the three new pages added to `tools/record_changes.py`'s `NOT_COMPARED`, and both changes pages regenerated
+  (one row each); `CLAUDE.md`'s suite count. Suite: 1214 tests, 1213 pass and 1 strict expected failure.
+- Documents updated: the plan's status line, D18 and D20 rows and §3.3.1–§3.3.2 results; the checklist (three new
+  pages); the reading list; `_STATUS.md`; the T-130 item's record. The spec, the explainer and the config are
+  unchanged because nothing a run computes changed.
+
+### Version 2 stage 3's implementation plan approved (2026-10-24)
+
+- The owner approved the plan as written ("Approved: the stage 3 plan as written"). Its status line, the checklist,
+  the reading list and `_STATUS.md` say so. Steps 1 (T-130) and 2 (the projection trace and the I-position probe)
+  are next, in a session of their own.
+
+### Version 2 stage 3's implementation plan drafted (2026-10-24)
+
+- `docs/implementation_plan_version_2_stage_3.md`, a draft for owner approval: one proposal for each group the owner
+  chose (C, projection; F, `I-POSITION` at a low level; A, triangle relief), `M17.E.1`'s named ratio (T-128), T-014's
+  four questions, where T-129's edits land, every criterion with its test and mutation, the order of work and the
+  compute. Three read-only agents gathered the group facts (about 440k subagent tokens, about 6 minutes in parallel).
+- What the reading found: under projection `M11.C.6`'s child ends higher, not lower, because the development step
+  averages the child's functioning with the parents', and the parents' term counts pseudo-self borrowed from the child;
+  `M11.C.29` completes no genuine `I-POSITION` because its act falls on a spell week; a `TRIANGLE` relieves its seeker
+  about a third of a `DISTANCE` and its contact never reaches the seeker; `Triangle.bound_anxiety` is never written.
+- The owner decided D18–D31 the same day through `AskUserQuestion`, one at a time, each as recommended: group C, a
+  trace then the parents' term net of borrowed pseudo-self, and lent functioning returned on a collapse; group F, a
+  probe then the act weighted between self-statement and demand by level, `M11.C.29`'s mover at level 60 with F's
+  spell paused, and a new criterion comparing a lower- and a higher-level mover; group A, contact returned to a relieved sender's tie and `TRIANGLE` moved to layer
+  0; T-128, `tie_wear_rate` ÷ (52 × `calm_transfer_rate`) over a quarter to four times its central value on every
+  directional criterion whose run spans a slow tick; T-014, the avoidance gate dropped, fusion left unbuilt, the
+  coach's going along with a `SPLIT` declared, the illness size kept; one batch with one regeneration.
+- Nothing a run computes changed; the engine hash is `66dcbb1e8ba5`. Documents updated: the plan,
+  `docs/SPEC_REVIEW_CHECKLIST.md`, `docs/REVIEWER_READING_LIST.md`, `docs/theory/_STATUS.md`,
+  `docs/implementation_plan_version_2.md`'s status line, and the T-014 and T-128 records (decided, open until built). This entry took `CHANGELOG.md` over its size limit, so
+  the earliest entry of 2026-10-22 (the SP-1 proposal's eight questions) moved verbatim to `docs/CHANGELOG_archive.md`,
+  and `CLAUDE.md`'s line on what the live file holds says so.
 
 ### The stage 2 milestone review triaged, spec revision 38 (2026-10-24)
 

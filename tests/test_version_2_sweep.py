@@ -298,8 +298,9 @@ def test_m17a1_a_criterion_fixing_its_own_seeds_is_swept_while_no_sample_needs_a
 
 
 def test_m17a1_own_seeds_reads_the_criterions_section():
-    """`M11.C.48` fixes 100 seeds, and its Phase D variant reads the same section; a criterion with no count has none."""
-    assert tool.own_seeds("M11.C.48") == 100 and tool.own_seeds("M11.C.48[phase_d]") == 100
+    """`M11.C.48` fixes 200 seeds (100 until revision 43, T-163), and its Phase D variant reads the same section; a
+    criterion with no count has none."""
+    assert tool.own_seeds("M11.C.48") == 200 and tool.own_seeds("M11.C.48[phase_d]") == 200
     assert tool.own_seeds("M11.C.16") is None
 
 
@@ -606,6 +607,10 @@ def test_s2_6_not_run_list_is_loaded_strictly():
 
 # --- S2.11 the committed record ---------------------------------------------------------------------------------
 
+@pytest.mark.xfail(strict=True, raises=KeyError,
+                   reason="T-167: the version 2 definition batch (spec revision 43, 2026-10-30) moved the engine hash "
+                   "to da5981f6ec0b and regenerated every other record; the stage-end sweep reruns on it, split across "
+                   "both Macs")
 def test_s2_11_sweep_record_is_current():
     """The committed sweep record is what the tool renders from the committed cache for the current engine and
     config, without running anything (P6); a stale cache or a changed range would raise here."""
@@ -634,23 +639,25 @@ def test_m17e1_a_known_defect_is_printed_beside_the_central_verdict(tmp_path):
     record tool's ``VERDICT_NOTES`` is printed with its note in the summary table's central-verdict cell and under its
     own heading; the machine-readable block is unchanged. Mutation: the renderer does not read the notes. Built on the
     stubbed driver, so it checks the renderer apart from the committed cache (review of 2026-10-26: run on the cache
-    as it stood then, it stopped at the first missing run length and never reached ``render``)."""
+    as it stood then, it stopped at the first missing run length and never reached ``render``). ``VERDICT_NOTES`` is
+    empty since spec revision 43, so the test supplies its own note."""
     from tools.phase_d_record import VERDICT_NOTES
 
-    rows = "".join(f"| `{key}` | `learning_rate` | 0.1 | 0.4 | log | — | [I] | test |\n" for key in VERDICT_NOTES)
-    # `M11.C.48` fixes 100 seeds, so the rerun count is set to it: a first run at that count is not rerun (`M17.A.1`)
-    config = TEST_CONFIG.replace("| `detection_limit_seeds` | 200 |", "| `detection_limit_seeds` | 100 |")
-    assert config != TEST_CONFIG
-    (tmp_path / "sweep.md").write_text(config + rows, encoding="utf-8")
-    with mock.patch.object(tool, "phase_d_engine_hash", return_value="d" * 64):
+    notes = {"M11.C.48": "test note (T-0)", "M11.C.48[phase_d]": "test note (T-0)"}
+    rows = "".join(f"| `{key}` | `learning_rate` | 0.1 | 0.4 | log | — | [I] | test |\n" for key in notes)
+    (tmp_path / "sweep.md").write_text(TEST_CONFIG + rows, encoding="utf-8")
+    with mock.patch.dict(VERDICT_NOTES, notes), \
+            mock.patch.object(tool, "phase_d_engine_hash", return_value="d" * 64):
         text, _ran = _build(tmp_path, child=_clean_child_rows)
-    for key, note in VERDICT_NOTES.items():
+    centrals = tool.central_verdicts()  # the committed ensemble records' verdicts
+    for key, note in notes.items():
+        outcome = centrals[key]["outcome"]
         row = next(line for line in text.splitlines() if line.startswith(f"| `{key}` |"))
-        assert f"| PASS ({note}) |" in row, row
+        assert f"| {outcome} ({note}) |" in row, row
         heading = text.split(f"## `{key}` — ", 1)[1].split("\n## ", 1)[0]
-        assert f"Central verdict PASS: {note}." in heading
-    assert text.count("(T-119)") == 2 * len(VERDICT_NOTES)
-    assert all("(T-119)" not in json.dumps(r) for r in _results(text)), "the notes reached the machine-readable block"
+        assert f"Central verdict {outcome}: {note}." in heading
+    assert text.count("(T-0)") == 2 * len(notes)
+    assert all("(T-0)" not in json.dumps(r) for r in _results(text)), "the notes reached the machine-readable block"
 
 
 # --- Version 2 stage 3, T-128 (spec revision 39, `M17.E.1`, D24–D26): written first at plan step 5, green at step 10 -
@@ -841,3 +848,15 @@ def test_m17e1_run_length_is_cached_and_never_measured_without_workers(tmp_path)
             assert measured.call_count == 1
             assert tool.run_length(cache, "M11.C.16", False, 1, "b" * 64) == 104  # another code: measured again
             assert measured.call_count == 2
+
+
+def test_m11c48_t163_own_seeds_reach_the_detection_limit():
+    """T-163 (Claude's recommendation 2026-10-29, pending owner review): a swept criterion that fixes its own seed
+    count must fix at least the sweep's rerun count (`detection_limit_seeds`), or `M17.A.1` refuses it at a rerun;
+    `M11.C.48` fixed 100 against 200 and was refused at the stage-end sweep of 2026-10-29."""
+    rules, ranges = tool.load_config()
+    fixed = int(rules["detection_limit_seeds"])
+    own = {key: tool.own_seeds(key) for key in ranges}
+    assert own["M11.C.48"] is not None and own["M11.C.48[phase_d]"] is not None  # the check reads a fixed count
+    short = {key: n for key, n in own.items() if n is not None and n < fixed}
+    assert short == {}, f"swept criteria whose own seed count is below {fixed}: {short}"

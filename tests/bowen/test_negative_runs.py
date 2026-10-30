@@ -94,3 +94,27 @@ def test_m11c48_members_filter_and_no_cutoff_seed():
     assert {c.tie for c in contacts(records, KINDS, frozenset({A, B}))} == {AB}
     assert first_cutoffs(records, frozenset({A, E})) == {}
     assert arm_values(first_cutoff_runs([act("CONFLICT", A, B, 1)], KINDS)) == (0.0, 0.0)
+
+
+def test_m11c48_t123_an_unmatched_first_cutoff_is_left_out_of_both_arms_and_counted():
+    """T-123 (learnings P7; Claude's recommendation 2026-10-29, pending owner review): a first cutoff with no uncut tie
+    in its week has no baseline. Counting it as 0 there and keeping its run in the treatment biases the comparison
+    toward a pass, so it is left out of both arms and counted. a~b is cut at week 2 with no other tie in contact by then
+    (unmatched); c~d is cut at week 6 with e~f uncut (matched)."""
+    from src.bowen.readouts.negative_runs import unmatched
+
+    records = ([act("CONFLICT", A, B, 1), act("CONFLICT", A, B, 2), act("CUTOFF", A, B, 2)] +
+               [act("CONFLICT", C, D, w) for w in range(3, 7)] + [act("CUTOFF", C, D, 6)] +
+               [act("CONFLICT", E, F, 4)])
+    firsts = first_cutoff_runs(records, KINDS)
+    assert [(f.tie, f.matched) for f in firsts] == [(AB, False), (CD, True)]
+    assert arm_values(firsts) == (4.0, 1.0)  # c~d's run of 4 against e~f's 1; a~b's 2 against nothing is not read
+    assert unmatched(firsts) == 1
+    alone = first_cutoff_runs(records[:3], KINDS)  # a seed whose only first cutoff is unmatched reads 0 in both
+    assert arm_values(alone) == (0.0, 0.0) and unmatched(alone) == 1
+    # An uncut tie in contact whose standing run is 0 (its last contact positive) is a baseline of 0, not no baseline:
+    # matched means a tie was uncut and in contact by the cutoff's week, not that its run was above 0 (learning-qa).
+    zero = records[:3] + [act("CONFLICT", E, F, 1), act("STAY-IN-CONTACT", E, F, 2)]
+    firsts = first_cutoff_runs(zero, KINDS)
+    assert [(f.tie, f.matched, f.uncut) for f in firsts] == [(AB, True, 0.0)]
+    assert arm_values(firsts) == (2.0, 0.0) and unmatched(firsts) == 0

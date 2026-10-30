@@ -223,7 +223,7 @@
 | M11.C.47 | stress_intensity | 120.0 | [I] |
 | M11.C.48 | weeks | 520 | [I] |
 | M11.C.48 | years | 40 | [I] |
-| M11.C.48 | seeds | 100 | [I] |
+| M11.C.48 | seeds | 200 | [I] |
 | M11.C.39 | spell_weeks | 26 | [I] |
 | M11.C.39 | after | 52 | [I] |
 | M11.C.39 | quiet | 8 | [I] |

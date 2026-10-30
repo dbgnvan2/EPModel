@@ -45,9 +45,9 @@
         "why": "the dated entry of 2026-10-20 for the Python 3.11 fix, giving the suite's size then (archived 2026-10-23)"
       },
       {
-        "doc": "CHANGELOG.md",
+        "doc": "docs/CHANGELOG_archive.md",
         "phrase": "Suite: 1214 tests, 1213 pass and 1 strict expected failure.",
-        "why": "the dated entry of 2026-10-24 for stage 3 steps 1 and 2, giving the suite's size then"
+        "why": "the dated entry of 2026-10-24 for stage 3 steps 1 and 2, giving the suite's size then (archived 2026-10-30)"
       },
       {
         "doc": "CHANGELOG.md",

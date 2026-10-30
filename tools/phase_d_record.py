@@ -133,10 +133,9 @@ REWORDED_2 = (
 # (tools/version_2_sweep.py), until the defect is fixed and the records regenerated (milestone review MR-3). A note
 # changes no verdict and nothing a run computes reads it; neither tool is in a cache key, so editing this re-renders
 # the records without a rerun. Remove a key's entry when the items it names close.
-VERDICT_NOTES = {
-    "M11.C.48": "not evidence (T-123); named mutant survived (T-119)",
-    "M11.C.48[phase_d]": "not evidence (T-123); named mutant survived (T-119)",
-}
+# Empty since spec revision 43 (2026-10-29): `M11.C.48`'s note named T-123, fixed there, and T-119, whose mutant is not
+# run while the criterion fails.
+VERDICT_NOTES: dict[str, str] = {}
 
 
 def noted(key: str, verdict: str) -> str:

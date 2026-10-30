@@ -96,21 +96,22 @@ def test_w4_s2_9_sweep_column_is_a_fraction_not_a_verdict(tmp_path):
 def test_w4_a_refused_criterion_is_shown_refused_and_still_counts_for_w4(tmp_path):
     """T-159 (owner 2026-10-29): a criterion the sweep refused at the rerun (`M17.A.1`) has no fraction. Its cell says
     it was refused, never *n of S held* nor *not swept*, and W4 still counts it. Mutation: the refusal read as a
-    fraction (W4 met on its row); its cell left as *not swept*."""
+    fraction (W4 met on its row); its cell left as *not swept*. Built on `M11.C.16`, a passing directional criterion,
+    since `M11.C.48` fails at spec revision 43."""
     record = tmp_path / "sweep.md"
-    record.write_text('# r\n\nengine_hash: abc\n\n```json\n[{"criterion": "M11.C.48", "refused": {"sample": 2, '
+    record.write_text('# r\n\nengine_hash: abc\n\n```json\n[{"criterion": "M11.C.16", "refused": {"sample": 2, '
                       '"seeds": 200, "own_seeds": 100}, "samples": 3, "constants": [], "rows": []}]\n```\n',
                       encoding="utf-8")
     assert tool.sweep_fractions(record) == {}
-    assert tool.sweep_refused(record) == {"M11.C.48": "refused at the rerun (`M17.A.1`), sample 2"}
+    assert tool.sweep_refused(record) == {"M11.C.16": "refused at the rerun (`M17.A.1`), sample 2"}
     assert tool.sweep_refused(tmp_path / "missing.md") == {}
     with mock.patch.object(tool, "SWEEP_RECORD", record), mock.patch.object(tool, "sweep_stale", return_value=None):
         rows = {s.key: s for s in tool.statuses()}
-    assert rows["M11.C.48"].verdict == "PASS"  # a passing directional criterion, so W4 asks for a sweep result
-    assert rows["M11.C.48"].sweep == "refused at the rerun (`M17.A.1`), sample 2" and "W4" in rows["M11.C.48"].blocks
+    assert rows["M11.C.16"].verdict == "PASS"  # a passing directional criterion, so W4 asks for a sweep result
+    assert rows["M11.C.16"].sweep == "refused at the rerun (`M17.A.1`), sample 2" and "W4" in rows["M11.C.16"].blocks
     # a refusal on an earlier engine is marked as such, as a fraction is (correctness pass, T-159)
     with mock.patch.object(tool, "SWEEP_RECORD", record), mock.patch.object(tool, "sweep_stale", return_value="old"):
-        stale = {s.key: s for s in tool.statuses()}["M11.C.48"]
+        stale = {s.key: s for s in tool.statuses()}["M11.C.16"]
     assert stale.sweep == f"refused at the rerun (`M17.A.1`), sample 2 ({tool.STALE_CELL})" and "W4" in stale.blocks
 
 
@@ -235,18 +236,26 @@ def test_w3_a_pass_whose_named_mutant_survived_is_not_labelled_unmutated():
     """Milestone review MR-28: a directional pass with no red mutant was labelled "pass, no recorded mutation" even
     where its named mutant ran and survived (`M11.C.11`, `M11.C.15`, `M11.C.48`, `M11.C.48[phase_d]`,
     `docs/phase_d_mutation_record.md`). Such a pass says the mutant survived, names it, and still blocks W1 and W3; a
-    pass with no mutant in any record keeps the old label. Mutation: survived mutants not read (all four unmutated)."""
+    pass with no mutant in any record keeps the old label. Since spec revision 43 `M11.C.11`, `M11.C.15` and
+    `M11.C.17` each have a red mutant beside the survivor, so they are proved; with the red ones taken away the
+    survivor is what the page shows. Mutation: survived mutants not read (all three unmutated)."""
+    keys = ("M11.C.11", "M11.C.15", "M11.C.17")
     rows = {s.key: s for s in tool.statuses()}
-    for key in ("M11.C.11", "M11.C.15", "M11.C.48", "M11.C.48[phase_d]"):
+    for key in keys:
+        assert rows[key].status == "pass" and rows[key].final and "proved by" in rows[key].evidence, key
+    reds = {k: v for k, v in tool.v1.red_mutants().items() if k not in keys}
+    with mock.patch.object(tool.v1, "red_mutants", return_value=reds):
+        rows = {s.key: s for s in tool.statuses()}
+        with mock.patch.object(tool, "survived_mutants", return_value={}):
+            unmutated = {s.key: s for s in tool.statuses()}
+    for key in keys:
         s = rows[key]
         assert s.status == "pass, named mutant survived", (key, s.status)
         assert not s.final and {"W1", "W3"} <= s.blocks
         assert "survived" in s.evidence, (key, s.evidence)
-    assert rows["M11.C.48"].evidence.endswith("; survived: `cutoff-blind-to-learned-value` (Phase D mutation record)")
-    with mock.patch.object(tool, "survived_mutants", return_value={}):
-        unmutated = {s.key: s for s in tool.statuses()}
-    assert unmutated["M11.C.48"].status == "pass, no recorded mutation"
-    assert not unmutated["M11.C.48"].final and {"W1", "W3"} <= unmutated["M11.C.48"].blocks
+    assert rows["M11.C.17"].evidence.endswith("; survived: `landed-contact-changes-nothing` (Phase D mutation record)")
+    assert unmutated["M11.C.17"].status == "pass, no recorded mutation"
+    assert not unmutated["M11.C.17"].final and {"W1", "W3"} <= unmutated["M11.C.17"].blocks
 
 
 def test_s2_11_status_page_is_current():

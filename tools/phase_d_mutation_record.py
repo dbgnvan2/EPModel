@@ -84,7 +84,30 @@ MUTANTS = (
            "        people_rows.append((pid, \"symptom_bound\", -person.symptom_bound))\n"
            "        person.symptom_bound = 0.0\n",
            "M6.3c's release of the dead person's symptom-bound anxiety (M6.I.1) replaced by discarding it"),
+    # T-120: M11.C.15's arm runs with grief off, so the survivor above is not grief: the dead mother's distance-bound
+    # stock and triangle stock are released too (M6.3c), each carrying part of the rise. This one discards all of what
+    # her symptom, ties and triangles held; M6.3b's pass-on of her own acute anxiety is not bound and is left (spec revision 43).
+    Mutant("death-all-bound-anxiety-discarded", NAMED, ("M11.C.15",), "src/bowen/engine/life_course.py",
+           "    moved = release_bound(state, pid)  # as when a symptom ends (M7.D.2a); nothing if no partner is left\n",
+           "    moved = ()  # mutant: the symptom-bound anxiety is discarded at the death, not released\n"
+           "    if person.symptom_bound:\n"
+           "        people_rows.append((pid, \"symptom_bound\", -person.symptom_bound))\n"
+           "        person.symptom_bound = 0.0\n",
+           "M6.3c's release (M6.I.1) replaced by discarding: what the dead person's symptom, ties and triangles held",
+           also=(("src/bowen/engine/life_course.py",
+                  "            state.people[other].acute_anxiety += held\n            acute.append((other, held))\n", ""),
+                 ("src/bowen/engine/life_course.py",
+                  "            for m in living:\n                state.people[m].acute_anxiety += held / len(living)\n"
+                  "                acute.append((m, held / len(living)))\n", ""))),
     # (M11.C.15's arm calls die() directly, not through yearly(), so the death check there is not on its path.)
+    # T-162: M11.C.34's row, "making the response independent of the responder's functional_level MUST turn this red".
+    # The response channel is M4.D.1a's mixing weight; this fixes it at the middle of the scale for everyone (spec
+    # revision 43).
+    Mutant("mixing-weight-blind-to-level", NAMED, ("M11.C.34",), "src/bowen/engine/observe.py",
+           "    f = min(1.0, max(0.0, functional_level / SCALE_MAX)) ** params.self_channel_exponent\n",
+           "    f = 0.5 ** params.self_channel_exponent  # mutant: the mixing weight does not read functional level\n",
+           "M4.D.1a's mixing weight made independent of the responder's functional level (fixed at the scale's "
+           "middle); M5.F.4's demand share reads the same weight, so it changes too"),
     # Revision 32's regeneration (with the nodal spike) turned M11.C.17, M11.C.22 and two M11.C.7 pairs green. M11.C.17's
     # row: the external agent's effect (M1.E.7's landed contact) removed MUST turn it red; the same edit is what the two
     # M11.C.7 pairs' deviation limb rests on (the coach's position only matters if landing does something).
@@ -92,6 +115,14 @@ MUTANTS = (
            ("M11.C.17", "M11.C.7[joint over one spouse]", "M11.C.7[joint over sided]"), "config/bowen/constants.md",
            "| `perspective_gain` | 0.1 |", "| `perspective_gain` | 0.0 |",
            "M1.E.7's landed contact removed: a coach's contact that lands raises no systems perspective"),
+    # M11.C.17's survivor above: the coached rise does not run through M1.E.7 alone. M5.D.5's pull-up when the coach's
+    # own I-POSITION resolves closes part of the gap to the coach's level, and the slow tick's estimator credits it to the
+    # member's own functioning. This removes that pull-up for an external mover (spec revision 43).
+    Mutant("coach-pull-up-removed", NAMED, ("M11.C.17",), "src/bowen/engine/iposition.py",
+           "    gap = max(0.0, state.people[mover].functional_level - other.functional_level)\n",
+           "    gap = 0.0 if state.people[mover].role.value == 'external' else max(\n"
+           "        0.0, state.people[mover].functional_level - other.functional_level)\n",
+           "M5.D.5's pull-up removed when the mover is an external agent: a coach's resolved I-POSITION raises no one"),
     # M11.C.22's row: M7.D.2a's stabilising term flattened MUST turn it red (the lock-in that holds the partners' excess).
     Mutant("lock-in-removed", NAMED, ("M11.C.22",), "config/bowen/constants.md",
            "| `lock_in_gain` | 0.2 |", "| `lock_in_gain` | 0.0 |",
@@ -175,6 +206,20 @@ MUTANTS = (
            "M7.D.2a's hold released over every tie, worry edges and non-interactive ties included, at every release "
            "(a symptom's end, a death, past the turn, a binder lost): so a removed member's symptom gives back what it "
            "held while they are away, not on return"),
+    # T-121: the survivor above leaves M1.D.2a (c)'s other frozen hold: the reunion's RECONCILIATION returns the ties'
+    # distance-bound stock to their members. This one releases neither hold on return (spec revision 43).
+    Mutant("removed-member-holds-not-released-on-return", NAMED, ("M11.C.11",), "src/bowen/engine/symptoms.py",
+           "    shares = _release_shares(state, pid)\n    amount = share * person.symptom_bound\n",
+           "    everyone = tuple(sorted(o for t in state.ties_of(pid) for o in t.id.members()\n"
+           "                            if o != pid and state.people[o].alive))\n"
+           "    shares = tuple((o, 1.0 / len(everyone)) for o in everyone) if everyone else ()\n"
+           "    amount = share * person.symptom_bound\n",
+           "M7.D.2a's hold released while the member is away, and M1.D.2a (c)'s tie stock not returned by the reunion: "
+           "neither hold a removed member's absence froze is released on return",
+           also=(("src/bowen/engine/event_effects.py",
+                  "        returned = release_bound_distance(\n"
+                  "            state, tie, tuple(m for m in tie.id.members() if state.people[m].alive)\n        )\n",
+                  "        returned = ()\n"),)),
     # M11.C.48 (version 2 group G1, spec revision 36): the run of negatives before a cutoff is emergent, through the
     # policy's learned value of CUTOFF. Blinding CUTOFF to its learned value (weighted as if it were the best-valued
     # act whenever it is legal) makes cutoffs fall without regard to what preceded them, so the run before a cutoff is

@@ -157,19 +157,20 @@ def test_m17a1_a_known_defect_is_printed_beside_its_verdict():
     """Milestone review MR-3: `M11.C.48`'s PASS was printed unqualified while its readout's baseline is known wrong
     (T-123) and its named mutant survived (T-119). Each key of ``VERDICT_NOTES`` that this record holds is printed
     with its note in the verdict cell, once; the machine-readable block keeps the bare outcome; no other row carries a
-    note. Mutation: the renderer does not read ``VERDICT_NOTES``."""
+    note. ``VERDICT_NOTES`` is empty since spec revision 43 (T-123 fixed, T-119's mutant not run on a failing
+    criterion), so the renderer is checked with a test note. Mutation: the renderer does not read ``VERDICT_NOTES``."""
     from tools.record_json import record_json
 
-    notes = _tool.VERDICT_NOTES
-    assert set(notes) == {"M11.C.48", "M11.C.48[phase_d]"}
-    text = _rendered(2)
+    assert _tool.VERDICT_NOTES == {}, "a note is back: check it against the records (the next test)"
+    note = "test note (T-0)"
+    with mock.patch.dict(_tool.VERDICT_NOTES, {"M11.C.48": note, "M11.C.48[phase_d]": note}):
+        text = _rendered(2)
     outcomes = {r["criterion"]: r["outcome"] for r in record_json(text)}
-    for key, note in notes.items():
+    for key in ("M11.C.48", "M11.C.48[phase_d]"):
         row = next(line for line in text.splitlines() if line.startswith(f"| `{key}` |"))
         assert f"| **{outcomes[key]}** ({note}) |" in row, row
-        assert text.count(note) == 2  # the two notes are the same text, one per row
-    assert all(outcomes[k] == "PASS" for k in notes)
-    assert text.count("(T-123)") == len(notes)
+    assert text.count(note) == 2  # one per row
+    assert note not in _rendered(2)
 
 
 def test_m17a1_each_verdict_note_is_true_of_the_records_and_the_todo_list():

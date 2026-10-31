@@ -29,8 +29,9 @@ The rules, version 1's (``docs/version_1_definition.md`` §1, approved 2026-10-1
   apply only while the row's verdict is that one; a row whose verdict has since moved shows the disposition as not
   applied (P6: a decision on one result is not a decision on the next). Where one applies it takes precedence over
   version 1's. Its kinds are version 1's `accepted finding` and `note`, and `verdict reviewed`: the owner's review
-  of a verdict that is not the tag's. A version 2 disposition the owner made, of any kind, is the owner's review of
-  the verdict it names, so the row is no longer held as changed since the tag; one that is Claude's recommendation
+  of a verdict that is not the tag's. A version 2 disposition the owner made, other than a `note`, is the owner's review
+  of the verdict it names, so the row is no longer held as changed since the tag (a note changes no status, so it
+  reviews nothing: 2026-10-31, `M11.C.21`); one that is Claude's recommendation
   is shown and leaves the row as it was (``docs/version_2_definition_plan.md`` §3).
 * The **revision 38 column** shows the verdict this page gave at commit ``REVISION_38`` (the records as revision 38
   left them, before stage 3's regeneration), read from git; it is shown, never used for a status: a verdict that
@@ -316,7 +317,7 @@ def statuses() -> list[Status]:
             else:
                 s.status, s.blocks = "fail, no disposition", {"W1"}
         if not same and at_tag != "—":
-            if d2_on and d2["owner"]:
+            if d2_on and d2["owner"] and d2["kind"] != "note":  # a note changes no status, so it reviews nothing
                 s.status = f"{s.status}; {REVIEWED}"
             else:
                 s.status, s.final, s.blocks = f"{s.status}; {CHANGED}", False, s.blocks | {"W1"}
@@ -404,8 +405,8 @@ def render(rows: list[Status]) -> str:
         "records below and from `docs/version_1_dispositions.md` and `docs/version_2_dispositions.md`, against the",
         "stage 2 conditions W1–W4 (`docs/implementation_plan_version_2.md` §2.3). A verdict that is not the one the",
         "frozen page records at the tag `version-1` is **changed since the tag** and is not final until the owner",
-        "reviews it (T-122; a version 2 disposition the owner made on that verdict is the review); a version 2",
-        "disposition applies only while the verdict it names stands; a criterion",
+        "reviews it (T-122; a version 2 disposition the owner made on that verdict, other than a note, is the review); a",
+        "version 2 disposition applies only while the verdict it names stands; a criterion",
         "the tag's page does not have is new since the tag. The **at revision 38** column is this page's verdict at",
         f"commit `{REVISION_38}`, before stage 3's regeneration: shown beside the verdict, never used for a status, since a",
         "verdict that differs from it is a new result under revision 39's rules (`M11.F`;",

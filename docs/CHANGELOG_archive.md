@@ -2,10 +2,36 @@
 
 The entries of `CHANGELOG.md` dated before 2026-10-19, the day version 2 began at the tag `version-1`, moved
 here verbatim on 2026-10-22, the entries of 2026-10-19 and 2026-10-20 on 2026-10-23, and the entries of
-2026-10-21 later on 2026-10-23, the earliest entry of 2026-10-22 (the SP-1 proposal's eight questions) on 2026-10-24, and the next (SP-1 built, with spec revision 34) later on 2026-10-24, and the next (Model ergonomics, Parts A–C) on 2026-10-25, and the next (Model ergonomics, Part D) later on 2026-10-25, and the next (Model ergonomics, Part E) later on 2026-10-25, and the next (Model ergonomics follow-ups) later on 2026-10-25, and the next (the closed and old parts of `TODO.md` and `CHANGELOG.md` archived) on 2026-10-26, and the next (`TODO.md` an index over records; a changelog index) later on 2026-10-26, and the next (Revision 35's dispositions approved by the owner) later on 2026-10-26, and the next two (Spec revision 36, of 2026-10-22, and Revision 36's records regenerated, of 2026-10-23) later on 2026-10-26, and the next five (from the cloud sessions' SessionStart hook to Stage 2: Phase C's directional criteria swept, all of 2026-10-23) later on 2026-10-26, and the next three (from the night's decisions listed for the owner to Stage 2: Phase D part I's directional criteria swept, all of 2026-10-23) on 2026-10-27, and the next (Stage 2: the sweep can run on two Macs, of 2026-10-23) later on 2026-10-27, and the next (The two-Mac cross-check run live, of 2026-10-23) on 2026-10-28, and the next four (from Stage 2: Phase D part II's sweep ranges declared to When the full sweep runs, the last of 2026-10-23) on 2026-10-29, and the next three (from Stage 2: Phase D part II's seven criteria swept across two Macs to The stage 2 milestone review triaged, spec revision 38, the earliest of 2026-10-24) later on 2026-10-29, and the next five (from Version 2 stage 3's implementation plan drafted to Rule: a finished session writes the next session's brief, the last of 2026-10-24) on 2026-10-30, so that the live file stays short enough to read (`tests/test_doc_size.py` bounds its size). The heading below is the section they
+2026-10-21 later on 2026-10-23, the earliest entry of 2026-10-22 (the SP-1 proposal's eight questions) on 2026-10-24, and the next (SP-1 built, with spec revision 34) later on 2026-10-24, and the next (Model ergonomics, Parts A–C) on 2026-10-25, and the next (Model ergonomics, Part D) later on 2026-10-25, and the next (Model ergonomics, Part E) later on 2026-10-25, and the next (Model ergonomics follow-ups) later on 2026-10-25, and the next (the closed and old parts of `TODO.md` and `CHANGELOG.md` archived) on 2026-10-26, and the next (`TODO.md` an index over records; a changelog index) later on 2026-10-26, and the next (Revision 35's dispositions approved by the owner) later on 2026-10-26, and the next two (Spec revision 36, of 2026-10-22, and Revision 36's records regenerated, of 2026-10-23) later on 2026-10-26, and the next five (from the cloud sessions' SessionStart hook to Stage 2: Phase C's directional criteria swept, all of 2026-10-23) later on 2026-10-26, and the next three (from the night's decisions listed for the owner to Stage 2: Phase D part I's directional criteria swept, all of 2026-10-23) on 2026-10-27, and the next (Stage 2: the sweep can run on two Macs, of 2026-10-23) later on 2026-10-27, and the next (The two-Mac cross-check run live, of 2026-10-23) on 2026-10-28, and the next four (from Stage 2: Phase D part II's sweep ranges declared to When the full sweep runs, the last of 2026-10-23) on 2026-10-29, and the next three (from Stage 2: Phase D part II's seven criteria swept across two Macs to The stage 2 milestone review triaged, spec revision 38, the earliest of 2026-10-24) later on 2026-10-29, and the next five (from Version 2 stage 3's implementation plan drafted to Rule: a finished session writes the next session's brief, the last of 2026-10-24) on 2026-10-30, and the next (Stage 3 step 3: P2 (displaced coping) drafted with F1, probed, for the owner's approval, the earliest of 2026-10-25) on 2026-10-31, so that the live file stays short enough to read (`tests/test_doc_size.py` bounds its size). The heading below is the section they
 were under; nothing in this file is reworded. Later entries are in `CHANGELOG.md`.
 
 ## [Unreleased] — 2026-10-11
+
+### Stage 3 step 3: P2 (displaced coping) drafted with F1, probed, for the owner's approval (2026-10-25)
+
+- `docs/PROPOSAL — DISPLACED COPING (P2).md`: group C's mechanism, a new requirement beside `M1.A.5e`. A loaded parent's `OVERFUNCTION`
+  toward someone meets their own load as coping does under `M1.A.5e` and moves the same amount of functional level to
+  the receiver, conserved. Each step is graded and attributed; the §19 check, the constants (none new), a *displacing*
+  table for `config/bowen/stress_response.md`, the `M11.5` classes, tests S3.1a–S3.1d, three mutants and the spec
+  changes for revision 39 are set out. Q1–Q3 in its §9 are open for the owner.
+- `tools/stage_3_displaced_coping_probe.py` (outside every `HASHED_TOOLS` list) puts P2 in by wrapping `tick.respond`
+  in its own process and writes `docs/review/stage_3_displaced_coping_probe.md`: 150 seeds, five variants. P2 does not
+  move `M11.C.6`'s direction at coping size: it lowers the child's own term and raises the parents' term by about as
+  much (`development` +0.0886 ± 0.0439 as built, +0.0919 ± 0.0420 with P2 `OVERFUNCTION`). Of the own term's
+  +0.0951, +0.0620 is functioning the stress response's floor holds while the swings decay (`stress_response.respond`),
+  which the estimator credits to the child.
+- Owner decision, 2026-10-25: P2 as drafted plus F1, the floor-held functioning put on a ledger (`Person.floor_held`)
+  that the estimator nets out; the two are probed together on Mac Mini1 before revision 39. `M11.C.6` is reported as
+  read and never tuned.
+- The plan's §3.3.1, §3.7 (S3.1 replaced by S3.1a–S3.1d) and §3.8 are restated to match. One test added
+  (`tests/test_stage_3_probes.py`). Nothing under `src/bowen/` or `config/bowen/` changed; the engine hash is unchanged
+  (`66dcbb1e8ba5`).
+- Documents updated: the proposal (new), the probe page (new), the plan and its status line, `_STATUS.md`, the reading
+  list, and the checklist. The oldest live entry (Model ergonomics, Parts A–C, 2026-10-22) moved verbatim to
+  `docs/CHANGELOG_archive.md` to keep this file under its size limit.
+- Housekeeping the suite required: the new probe page added to `tools/record_changes.py`'s `NOT_COMPARED` and both
+  changes pages regenerated; `docs/spec_coverage.md` regenerated; the 2026-10-24 entry's suite count listed as history
+  in `tests/doc_claims.json`; `CLAUDE.md`'s suite count. Suite: 1215 tests, 1214 pass and 1 strict expected failure.
 
 ### Rule: a finished session writes the next session's brief (2026-10-24)
 

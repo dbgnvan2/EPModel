@@ -449,7 +449,8 @@ def attempts_over_seeds(seeds=192, weeks=100):
                    reason="T-158: since revision 41 (T-133) a mover angry at DEFINE says the position as a demand and "
                    "the sequence ends before any opposition, so the movers who reach the first opposition are "
                    "calmer: over the 192 seeds, 62 abort there and 66 hold (125 and 106 at revision 40), and 118 "
-                   "sequences end said in anger. The claim is unchanged and left to the owner (2026-10-28).")
+                   "sequences end said in anger. The claim is unchanged; the owner kept it as a finding (2026-10-31, "
+                   "T-158 (b)).")
 def test_m5d3_abort_is_the_usual_first_outcome():
     """At the first opposition, aborting is commoner than holding."""
     held = aborted = 0

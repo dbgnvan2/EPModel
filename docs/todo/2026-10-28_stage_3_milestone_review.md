@@ -69,7 +69,7 @@ records are regenerated once.
 - [ ] T-157 ⟨later⟩ **Probe-page tests for frozen pages take 17% of the default suite (review MR-21, 2026-10-28).** Mark
   the two slow tests in `tests/test_stage_3_probes.py` (the displaced-coping probe, 39 s, and the trace, 18 s)
   `ensemble` or `slow`, and update the suite count in CLAUDE.md in the same commit.
-- [ ] T-158 ⟨now⟩ **`M5.D.3`'s "abort is the usual first outcome" no longer holds after T-133 (the triage batch,
+- [x] T-158 ⟨now⟩ **`M5.D.3`'s "abort is the usual first outcome" no longer holds after T-133 (the triage batch,
   2026-10-28).** Since spec revision 41 a mover angry when a sequence reaches `DEFINE` says the position as a demand and
   the sequence ends there (`M5.D.4a`), so the movers who reach the first opposition are calmer. Over
   `tests/bowen/test_iposition.py`'s 192 seeds: 62 abort at the first opposition and 66 hold (125 and 106 at revision 40),
@@ -83,6 +83,9 @@ records are regenerated once.
     redefines the outcome to fit, and an angry position falls before the first opposition where `M5.D.3` places the
     branches; (c) moves the gate the owner chose. (a)'s theory case (an angry position is reactive, as a counterattack
     is) is the owner's to weigh. Nothing changed; the strict expected failure stays.
+  - 2026-10-31, owner 2026-10-31 (`docs/version_2_definition_plan.md` §8, D6, as recommended): **(b)**. `M5.D.3` and
+    its strict expected failure are kept as a finding: after T-133 an abort is not the usual first outcome in the
+    model. Closed; nothing changed.
 - [x] T-159 ⟨now⟩ **The stage-end sweep on the triage batch's engine (2026-10-28).** The batch moved the engine hash to
   `6ce8be104767`; every record but `docs/version_2_sweep_record.md` was regenerated once on it. The sweep
   (`tools/version_2_sweep.py`, 34 keys) reruns in the next session, split across both Macs as at step 11
@@ -145,6 +148,9 @@ records are regenerated once.
     differs by the drop alone, so that is not what sets (b) apart; (b) is the only form in which nothing after the
     collapse is scripted, so whether collapsed parents lend less is their own policy's (§19). Moves the hash; waits
     for the owner, then goes in one batch with T-165's rule if the owner takes it.
+  - 2026-10-31, owner 2026-10-31 (`docs/version_2_definition_plan.md` §8, D4, as recommended): **(b)**, the scripted
+    `OVERFUNCTION` ends at `t0` in both arms, reversing the arm design of 2026-10-16. Built at spec revision 44 with
+    T-165, tests first; `M11.C.21` is then expected to fail and is decided again on the verdict that run gives.
 - [x] T-162 ⟨later⟩ **`M11.C.34` passes at revision 41 and no mutant turns it red (found in revision 41's
   regeneration, 2026-10-29; not fixed).** At revision 40 it failed and its failure was accepted as a finding (version
   1's disposition, owner 2026-10-17); regenerated on `6ce8be104767` it passes (`automatic_reaction` −0.113 ± 0.13, p

@@ -614,7 +614,7 @@ say whether that test was proved failing by mutation unless its note does.
 | M17.G.2 | not done | — | no test named for it; Phase E builds it and is not built yet |
 | M17.G.3 | not done | — | no test named for it; Phase E builds it and is not built yet |
 
-## Tests named for no spec ID (302)
+## Tests named for no spec ID (303)
 
 Their names embed no requirement ID, so they count only where an override cites them (marked *cited*). The rest check spec documents, tooling or helpers.
 
@@ -901,6 +901,7 @@ Their names embed no requirement ID, so they count only where an override cites 
 - `tests/test_version_2_status.py::test_w1_s2_10_the_tag_page_is_read_whole`
 - `tests/test_version_2_status.py::test_w1_s2_8_every_criterion_has_a_status`
 - `tests/test_version_2_status.py::test_w1_v2_a_disposition_on_a_key_with_no_record_row_stops_the_tool`
+- `tests/test_version_2_status.py::test_w1_v2_an_owners_note_does_not_review_a_changed_verdict`
 - `tests/test_version_2_status.py::test_w1_v2_disposition_takes_precedence_over_version_1`
 - `tests/test_version_2_status.py::test_w1_v2_dispositions_parse_strictly`
 - `tests/test_version_2_status.py::test_w1_v2_verdict_reviewed_by_the_owner_makes_a_changed_verdict_final`

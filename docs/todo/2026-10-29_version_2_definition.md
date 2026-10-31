@@ -20,6 +20,10 @@ on the owner's instruction of 2026-10-29 to proceed with Claude's recommendation
     outside the family. Recommended rule: `M5.D.5`'s pull-up does not apply when the mover is the external agent
     (the alternative, booking it as borrowed functioning the estimator removes, needs a new ledger). Moves the hash;
     `M11.C.17` is then expected to fail (`coach-pull-up-removed` reads −0.00003 ± 0.00017) and need a decision.
+  - 2026-10-31, owner 2026-10-31 (`docs/version_2_definition_plan.md` §8, D5, as recommended): **not earned.**
+    `M5.D.5`'s pull-up does not apply when the mover is the external agent; it replaces revision 43's
+    `coach-pull-up-removed` clause in `M11.C.17` (D1). Built at spec revision 44 with T-161, tests first; `M11.C.17`
+    is then expected to fail and is decided again.
 - [x] T-166 ⟨later⟩ **`tools/group_g_readout.py` still averages unmatched first cutoffs (the batch's `learning-qa`
   review, 2026-10-29; not fixed).** Its "mean run before the first cutoff" and "mean matched uncut run" columns read
   every first cutoff, so an unmatched one counts with a baseline of 0, the bias T-123 removed from `M11.C.48`. It is
@@ -38,3 +42,10 @@ on the owner's instruction of 2026-10-29 to proceed with Claude's recommendation
   *Closed 2026-10-30:* the sweep reran on `da5981f6ec0b`, split across both Macs after a cross-check (`docs/two_mac_sweep.md`,
   "Not verified"). Only `M11.C.48` and `M11.C.48[phase_d]` moved: each holds 0 of 8, and neither is refused. The
   strict expected failure is gone from `test_s2_11_sweep_record_is_current`, and `docs/version_2_status.md`'s W4 is met.
+- [ ] T-168 ⟨later⟩ **`tests/test_stale_text.py`'s phrase misses the possessive form (the `learning-qa` review of the
+  owner's step 7 decisions, 2026-10-31; not fixed).** `PHRASE` matches "pending owner review" and not "pending the
+  owner's review", the form version 2's documents use, so `PENDING` was emptied on 2026-10-31 while the scan could
+  not see that form; the review found three such sites the scan missed (`CLAUDE.md`'s revisions 42 and 43,
+  `README.md`'s revision 43), fixed by hand the same day. Widen it to both forms; it will then flag MR-22's genuinely
+  pending text (revision 40, the spec's status line and `docs/spec_revision_log.md`) and dated history entries, which
+  need `PENDING` entries or an exemption rule. Changes no engine file.

@@ -111,7 +111,7 @@ REVISION_43 = Page(
      f"`{REVISION_42}` (2026-10-29: the records of revision 41's regeneration, which revision 42 left as they were),",
      "against the record as committed now, after revision 43's one regeneration (the version 2 definition batch,",
      "2026-10-29: T-123, T-163, and the Phase D mutants of T-120, T-121, T-162 and `M11.C.17`; Claude's",
-     "recommendations, pending the owner's review). Revision 43 changed rules, so",
+     "recommendations, approved by the owner 2026-10-31). Revision 43 changed rules, so",
      "a changed verdict here is a **new result under a new rule**, reported beside revision 42's and version 1's",
      "verdicts and never in their place (`M11.F`); a premise passing is never a finding (`M11.5`). It is not a"),
     "revision 42")

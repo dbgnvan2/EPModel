@@ -66,3 +66,7 @@ premise passing, and a changed one is a new result under revision 36's rules, ke
     reviewed` in `docs/version_2_dispositions.md`; its declared mutant turns it red; the sweep holds it in 1 of 8), and
     `M11.C.21` PASS, not recommended (a `note` row): its pass rests on T-161's scripted lending; T-161 (b) first. Open
     until the owner writes `owner` and a date in those rows.
+  - 2026-10-31, owner 2026-10-31 (`docs/version_2_definition_plan.md` §8, D3, as recommended): `M11.C.34`'s pass
+    reviewed (`verdict reviewed`, owner 2026-10-31, in `docs/version_2_dispositions.md`); `M11.C.21`'s not, T-161 (b)
+    first (its `note` row, owner 2026-10-31; a `note` reviews nothing, so the page keeps the row held). Open until
+    `M11.C.21`'s verdict after spec revision 44 (T-161) is decided.

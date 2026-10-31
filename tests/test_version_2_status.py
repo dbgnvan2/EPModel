@@ -338,6 +338,18 @@ def test_w1_v2_verdict_reviewed_by_the_owner_makes_a_changed_verdict_final():
     assert PENDING_TEXT in claude.note
 
 
+def test_w1_v2_an_owners_note_does_not_review_a_changed_verdict():
+    """A `note` is carried beside the status without changing it (`docs/version_2_dispositions.md`), so the owner's
+    note on a changed verdict leaves it held. Found 2026-10-31: `M11.C.21`'s note, which records that the owner did
+    not review its pass (D3), made the page read "reviewed by the owner" and W1 met."""
+    flipped = dict(tool.tag_verdicts(), **{"M11.C.16": "FAIL"})
+    with mock.patch.object(tool, "tag_verdicts", return_value=flipped), \
+            mock.patch.object(tool, "v2_dispositions", return_value=_v2("M11.C.16", "note", "PASS")):
+        s = {s.key: s for s in tool.statuses()}["M11.C.16"]
+    assert s.status.endswith(tool.CHANGED) and not s.final and "W1" in s.blocks
+    assert s.note.startswith("test reason")
+
+
 def test_w1_v2_verdict_reviewed_names_the_verdict_it_reviewed():
     """A review decided on FAIL does not clear a row that now passes: the row stays held as changed, and the page shows
     the disposition as not applied, with both verdicts."""

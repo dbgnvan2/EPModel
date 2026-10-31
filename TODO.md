@@ -7,15 +7,14 @@ Open items, one line each: ID, date raised, title, record. **Now** blocks the cu
 `docs/todo/` (grep its ID). To close one, tick it in its record and run `python3 tools/todo_index.py`: its line
 moves to `docs/TODO_archive.md`. Until 2026-10-22 this file held every item's text; that form is in git history.
 
-## Now (5)
+## Now (4)
 
 - T-001 · 2026-10-19 · Version 2, next · [record](docs/todo/2026-08-22_blocking_the_next_phase.md)
 - T-002 · 2026-10-19 · `/csdp` sweep of 2026-10-19, items not fixed · [record](docs/todo/2026-08-22_blocking_the_next_phase.md)
 - T-003 · 2026-10-20 · Coverage page, minor, from the Part A review … · [record](docs/todo/2026-08-22_blocking_the_next_phase.md)
 - T-004 · 2026-10-20 · Coverage page, from Part B's drafting (2026-10-20), not … · [record](docs/todo/2026-08-22_blocking_the_next_phase.md)
-- T-158 · 2026-10-28 · `M5.D.3`'s "abort is the usual first outcome" no … · [record](docs/todo/2026-10-28_stage_3_milestone_review.md)
 
-## Later (133)
+## Later (134)
 
 - T-006 · 2026-10-22 · D4, long `Spec:` lines (Part D, 2026-10-22; the … · [record](docs/todo/2026-10-22_model_ergonomics.md)
 - T-007 · 2026-10-22 · Adjacent issues found by Part D's docstring pass, … · [record](docs/todo/2026-10-22_model_ergonomics.md)
@@ -150,3 +149,4 @@ moves to `docs/TODO_archive.md`. Until 2026-10-22 this file held every item's te
 - T-161 · 2026-10-28 · `M11.C.21`'s parents keep over-functioning toward the child after … · [record](docs/todo/2026-10-28_stage_3_milestone_review.md)
 - T-164 · 2026-10-29 · The merge's running-sweep guard matches the sweep's test … · [record](docs/todo/2026-10-28_stage_3_milestone_review.md)
 - T-165 · 2026-10-29 · `M11.C.17`'s coached rise runs through the coach's I-position … · [record](docs/todo/2026-10-29_version_2_definition.md)
+- T-168 · 2026-10-31 · `tests/test_stale_text.py`'s phrase misses the possessive form (the `learning-qa` … · [record](docs/todo/2026-10-29_version_2_definition.md)

@@ -50,9 +50,9 @@
         "why": "the dated entry of 2026-10-24 for stage 3 steps 1 and 2, giving the suite's size then (archived 2026-10-30)"
       },
       {
-        "doc": "CHANGELOG.md",
+        "doc": "docs/CHANGELOG_archive.md",
         "phrase": "Suite: 1215 tests, 1214 pass and 1 strict expected failure.",
-        "why": "the dated entry of 2026-10-25 for stage 3 step 3's P2 draft, giving the suite's size then"
+        "why": "the dated entry of 2026-10-25 for stage 3 step 3's P2 draft, giving the suite's size then (archived 2026-10-31)"
       },
       {
         "doc": "CHANGELOG.md",

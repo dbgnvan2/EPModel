@@ -73,7 +73,7 @@ The classes of contact are `config/bowen/contact_classes.md`.
 - **Defect found at the re-sweep of 2026-10-23 (T-123, learnings P7):** a first cutoff with no such tie (no other tie
   with a contact in the window by that week) was given a baseline of 0 and its own run kept in the treatment arm.
   Measured on the regenerated runs: 139 of 700 first cutoffs on the Phase B family (100 seeds) and 284 of 749 on the twelve-person family (20 seeds); with those left out of both arms the difference is −0.28 ± 0.15 and −0.21 ± 0.18 (2 se) against +0.43 ± 0.16 and +0.44 ± 0.10 as built. **The pass recorded on 2026-10-23 is not evidence.**
-- **Since revision 43 (T-123, Claude's recommendation 2026-10-29 under the owner's instruction to proceed, pending the owner's review):** a first cutoff with no uncut tie in its
+- **Since revision 43 (T-123, Claude's recommendation 2026-10-29 under the owner's instruction to proceed, approved by the owner 2026-10-31):** a first cutoff with no uncut tie in its
   week is **unmatched**: it is left out of both arms and counted (`FirstCutoff.matched`, `unmatched`; the
   treatment arm's report-only readout `unmatched_cutoffs`). A seed whose first cutoffs are all unmatched reads 0 in
   both arms, as a seed with no cutoff does. The criterion runs 200 seeds, at least the sweep's rerun count, so

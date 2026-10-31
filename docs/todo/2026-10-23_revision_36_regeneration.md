@@ -61,3 +61,8 @@ premise passing, and a changed one is a new result under revision 36's rules, ke
   fails, its mutation clause (`M4.D.6f` removed **MUST** turn it red) cannot be proved: a mutant runs only against
   a passing criterion, and `test_m11c10_family_of_origin_variant_is_proved_red_by_removing_m4d6f` now pins the
   missing row to that one cause (the re-sweep of 2026-10-23).
+  - 2026-10-30, Claude's recommendation 2026-10-30 under the owner's instruction of that night to proceed without stopping, pending the owner's review (`docs/version_2_definition_plan.md` §8, D3): the four PASS → FAIL rows of revision 36 are back at the tag's verdict and no longer
+    held. Two changed verdicts remain, both from revision 41: `M11.C.34` PASS, recommended as reviewed (`verdict
+    reviewed` in `docs/version_2_dispositions.md`; its declared mutant turns it red; the sweep holds it in 1 of 8), and
+    `M11.C.21` PASS, not recommended (a `note` row): its pass rests on T-161's scripted lending; T-161 (b) first. Open
+    until the owner writes `owner` and a date in those rows.

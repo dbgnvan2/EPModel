@@ -15,7 +15,7 @@ moves to `docs/TODO_archive.md`. Until 2026-10-22 this file held every item's te
 - T-004 · 2026-10-20 · Coverage page, from Part B's drafting (2026-10-20), not … · [record](docs/todo/2026-08-22_blocking_the_next_phase.md)
 - T-158 · 2026-10-28 · `M5.D.3`'s "abort is the usual first outcome" no … · [record](docs/todo/2026-10-28_stage_3_milestone_review.md)
 
-## Later (134)
+## Later (133)
 
 - T-006 · 2026-10-22 · D4, long `Spec:` lines (Part D, 2026-10-22; the … · [record](docs/todo/2026-10-22_model_ergonomics.md)
 - T-007 · 2026-10-22 · Adjacent issues found by Part D's docstring pass, … · [record](docs/todo/2026-10-22_model_ergonomics.md)
@@ -150,4 +150,3 @@ moves to `docs/TODO_archive.md`. Until 2026-10-22 this file held every item's te
 - T-161 · 2026-10-28 · `M11.C.21`'s parents keep over-functioning toward the child after … · [record](docs/todo/2026-10-28_stage_3_milestone_review.md)
 - T-164 · 2026-10-29 · The merge's running-sweep guard matches the sweep's test … · [record](docs/todo/2026-10-28_stage_3_milestone_review.md)
 - T-165 · 2026-10-29 · `M11.C.17`'s coached rise runs through the coach's I-position … · [record](docs/todo/2026-10-29_version_2_definition.md)
-- T-166 · 2026-10-29 · `tools/group_g_readout.py` still averages unmatched first cutoffs (the batch's … · [record](docs/todo/2026-10-29_version_2_definition.md)

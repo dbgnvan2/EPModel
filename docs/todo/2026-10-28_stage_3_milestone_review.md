@@ -79,6 +79,10 @@ records are regenerated once.
   ("at the first opposition") to match; (b) keep `M5.D.3` as it is and record the failure as a finding; or (c) revisit
   where T-133's gate is read. Claude's recommendation under the owner's instruction of 2026-10-28, pending the owner's
   review: (b) until the owner decides, since (a) and (c) change a rule.
+  - 2026-10-30, Claude's recommendation 2026-10-30 under the owner's instruction of that night to proceed without stopping, pending the owner's review (`docs/version_2_definition_plan.md` §8, D6): **(b)** stands. (a) counts an angry position as an abort branch so the test passes, which
+    redefines the outcome to fit, and an angry position falls before the first opposition where `M5.D.3` places the
+    branches; (c) moves the gate the owner chose. (a)'s theory case (an angry position is reactive, as a counterattack
+    is) is the owner's to weigh. Nothing changed; the strict expected failure stays.
 - [x] T-159 ⟨now⟩ **The stage-end sweep on the triage batch's engine (2026-10-28).** The batch moved the engine hash to
   `6ce8be104767`; every record but `docs/version_2_sweep_record.md` was regenerated once on it. The sweep
   (`tools/version_2_sweep.py`, 34 keys) reruns in the next session, split across both Macs as at step 11
@@ -135,6 +139,12 @@ records are regenerated once.
     the whole run), or (b) stop the lending at `t0` in **both** arms, so the arms differ by the drop alone; ad hoc, (b)
     reads 5.37 against 6.14, a fail. Claude's recommendation: (b), since it is the only form whose arms differ by the
     collapse alone; it reverses the owner's arm design of 2026-10-16 and turns the verdict, so it waits for the owner.
+  - 2026-10-30, Claude's recommendation 2026-10-30 under the owner's instruction of that night to proceed without stopping, pending the owner's review (`docs/version_2_definition_plan.md` §8, D4): **(b)**, now measured at the criterion's own 100 seeds on `da5981f6ec0b`, ad hoc (a
+    scratch copy with `arm_c21`'s scripted acts ending at `t0` in both arms, `tools/stage_3_targeted_run.py --criteria
+    M11.C.21`, no record): FAIL, `target_rise` −0.72 ± 1.09, p 0.94. The reason for (b) is restated: form (a) also
+    differs by the drop alone, so that is not what sets (b) apart; (b) is the only form in which nothing after the
+    collapse is scripted, so whether collapsed parents lend less is their own policy's (§19). Moves the hash; waits
+    for the owner, then goes in one batch with T-165's rule if the owner takes it.
 - [x] T-162 ⟨later⟩ **`M11.C.34` passes at revision 41 and no mutant turns it red (found in revision 41's
   regeneration, 2026-10-29; not fixed).** At revision 40 it failed and its failure was accepted as a finding (version
   1's disposition, owner 2026-10-17); regenerated on `6ce8be104767` it passes (`automatic_reaction` −0.113 ± 0.13, p

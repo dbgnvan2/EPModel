@@ -192,6 +192,14 @@ criterion and goes on, and the record shows it refused.
   never half-written, since the cache is written whole after each sample. Mac Mini1 had run `M11.C.15` as well between
   two of the coordinator's checks, and the merge found its results equal to this Mac's: a third criterion compared.
   The merge added Mac Mini1's 35 entries and found 505 equal; no worker was left on either Mac.
+- The rerun on `da5981f6ec0b` (2026-10-30, T-167, spec revision 43) had its own cross-check: `M11.C.16` and
+  `M11.C.23` on both Macs, 18 runs each, two of them `M11.C.23`'s reruns at 200 seeds; the merge added 0 and found all
+  486 entries equal. Mac Mini1 then ran `M11.C.6`, `M11.C.10`, `M11.C.10[family of origin]` and `M11.C.15` at 8
+  workers, and this Mac the other 30 criteria at 6 workers under `nice -n 15`, from a clean `git worktree` of the same
+  commit, as on 2026-10-27. Both shares exited 0, Mac Mini1's at 20:07 and
+  this Mac's at 20:18; the merge added Mac Mini1's 47 entries and found 486 equal, and no worker was left on
+  either Mac. Only `M11.C.48` and `M11.C.48[phase_d]` moved against the rerun on `6ce8be104767`; every other
+  criterion's samples were unchanged.
 - `tools/two_mac_sweep.py` against a live Mac Mini1 was run on 2026-10-23 and again on 2026-10-27: `check`, `start`,
   `status` and `fetch` all worked over SSH. On 2026-10-27, a minute after a share started there (load average 68 on 10
   cores, Spotlight indexing the temporary repository copies), one `status` call printed `running` and then timed out

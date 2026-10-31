@@ -18,8 +18,11 @@ on the owner's instruction of 2026-10-29 to proceed with Claude's recommendation
   every first cutoff, so an unmatched one counts with a baseline of 0, the bias T-123 removed from `M11.C.48`. It is
   revision 36's before-and-after page, whose "before" side was measured on the old definition; filter its "after" side
   on `FirstCutoff.matched` with a note, or state the difference on the page. No rule changes.
-- [ ] T-167 ⟨now⟩ **The stage-end sweep reruns on spec revision 43's engine, `da5981f6ec0b` (the batch, 2026-10-30;
+- [x] T-167 ⟨now⟩ **The stage-end sweep reruns on spec revision 43's engine, `da5981f6ec0b` (the batch, 2026-10-30;
   not run yet).** Every record but `docs/version_2_sweep_record.md` was regenerated on it;
   `tests/test_version_2_sweep.py::test_s2_11_sweep_record_is_current` is a strict expected failure until the sweep
   reruns, split across both Macs (`docs/two_mac_sweep.md`; Mac Mini1 at 8 workers). `M11.C.48` now runs 200 seeds, so
   the sweep can no longer refuse it at the rerun (T-163); it fails centrally, so W4 does not count it.
+  *Closed 2026-10-30:* the sweep reran on `da5981f6ec0b`, split across both Macs after a cross-check (`docs/two_mac_sweep.md`,
+  "Not verified"). Only `M11.C.48` and `M11.C.48[phase_d]` moved: each holds 0 of 8, and neither is refused. The
+  strict expected failure is gone from `test_s2_11_sweep_record_is_current`, and `docs/version_2_status.md`'s W4 is met.

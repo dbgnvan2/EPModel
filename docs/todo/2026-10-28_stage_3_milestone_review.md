@@ -102,8 +102,8 @@ records are regenerated once.
   rerun; the raised count applies to it too.
   *Closed 2026-10-30 (spec revision 43, Claude's recommendation under the owner's instruction of 2026-10-29, pending
   owner review):* the criterion's seeds are 200 (`config/bowen/criteria.md`);
-  `tests/test_version_2_sweep.py::test_m11c48_t163_own_seeds_reach_the_detection_limit`. It is swept again at the
-  stage-end sweep on `da5981f6ec0b`.
+  `tests/test_version_2_sweep.py::test_m11c48_t163_own_seeds_reach_the_detection_limit`. The stage-end sweep on
+  `da5981f6ec0b` (2026-10-30, T-167) swept it 0 of 8, with no refusal.
 - [ ] T-164 ⟨later⟩ **The merge's running-sweep guard matches the sweep's test file (found in T-159's merge,
   2026-10-29; not fixed).** `tools/merge_cache.py` refuses while `pgrep -f '[v]ersion_2_sweep.py'` finds a process,
   and that pattern also matches `python3 -m pytest tests/test_version_2_sweep.py`, so a test run makes the merge

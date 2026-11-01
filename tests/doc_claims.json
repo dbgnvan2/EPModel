@@ -110,6 +110,8 @@
       "docs/phase_d_status_2026-10-13.md": "a dated report; its status is 'a report, not an approval'",
       "docs/phase_d2_status_2026-10-13.md": "a dated report; its status is 'a report, not an approval'",
       "docs/version_2_stage_1_changes.md": "a generated record, with no status line",
+      "docs/version_2_status.md": "a generated record, with no status line (tools/version_2_status.py); it states W1 to W4 instead",
+      "docs/version_2_sweep_record.md": "a generated record, with no status line (tools/version_2_sweep.py); a measurement, never a verdict",
       "docs/version_2_revision_39_changes.md": "a generated record, with no status line",
       "docs/version_2_revision_44_changes.md": "a generated record, with no status line",
       "docs/version_1_status.md": "a generated record frozen at the tag `version-1`, with no status line",

@@ -22,8 +22,8 @@ counted here and left out of the denominator, never dropped.
 full sweeps: one sample is an eighth of a fraction, so no band is drawn round it and no *narrow* mark is read,
 which needs at least 32 samples (D14).
 
-engine_hash: da5981f6ec0b05b834f21d4a10c2335124279ae5fecb7de0011ee4bd1acc8f6f
-phase_d_engine_hash: c1db95c00bb41f257afe5750f3d6e4ec31b6ddd4a71b10d2294b5daf9edaea1a
+engine_hash: 09ca2b46c7e0692661108964b274336370bcc5f3d3e4c6dfbe38bab4beb998fd
+phase_d_engine_hash: 3e03e66ade9fe9f40f322c130946abf702fbe7a28f00b7ce055676dbd18917a6
 
 A Phase C criterion is run by `tools/mutant_runner.py` and its results cached under `engine_hash`; a Phase D
 criterion by `tools/phase_d_mutant_child.py` under `phase_d_engine_hash`, which adds that child and the source of
@@ -46,22 +46,22 @@ cache.
 | `M11.C.41[lower level: heavier stress]` | mixed | FAIL | `appraisal_gain` 1.5–6; `contact_band_max` 0.1–0.4; `self_channel_exponent` 1–4; `capacity_level_per_layer` 10–40; `anxiety_band_low` 2.5–10; `anxiety_band_high` 10–30; `acute_decay_rate` 0.1–0.4; `response_up_gain` 0.25–1; `response_down_gain` 0.25–1; `stress_floor_below_basic` 7.5–30; `calm_transfer_rate` 0.025–0.1; `tie_wear_to_transfer_ratio` 0.00480769–0.0769231; `tie_wear_rate` derived | 0 of 8 | 0 of 3 | 0 of 5 | 0 | 8 | 0 |
 | `M11.C.44` | composite | FAIL | `appraisal_gain` 1.5–6; `intensity_scale` 50–200; `impingement_relaxation_rate` 0.15–0.6; `contact_band_max` 0.1–0.4; `anxiety_togetherness_gain` 0.25–1; `interactive_resting_contact` 0.25–1; `contact_relaxation_rate` 0.05–0.2; `learning_rate` 0.1–0.4; `credit_horizon` 2–6; `credit_discount` 0.35–1; `cross_person_weight` 0.25–1; `policy_temperature` 0.5–2; `habituation_rate` 0.35–1; `habituation_window` 4–16; `calm_transfer_rate` 0.025–0.1; `tie_wear_to_transfer_ratio` 0.00480769–0.0769231; `tie_wear_rate` derived | 2 of 8 | 2 of 4 | 0 of 4 | 0 | 8 | 0 |
 | `M11.C.45` | composite | FAIL | `triangle_transfer_rate` 0.15–0.6; `outsider_positional_gain` 0.25–1; `learning_rate` 0.1–0.4; `credit_horizon` 2–6; `credit_discount` 0.35–1; `cross_person_weight` 0.25–1; `policy_temperature` 0.5–2; `habituation_rate` 0.35–1; `habituation_window` 4–16; `calm_transfer_rate` 0.025–0.1; `tie_wear_to_transfer_ratio` 0.00480769–0.0769231; `tie_wear_rate` derived | 0 of 8 | 0 of 5 | 0 of 3 | 0 | 8 | 0 |
-| `M11.C.2` | composite | FAIL | `learning_rate` 0.1–0.4; `credit_horizon` 2–6; `credit_discount` 0.35–1; `cross_person_weight` 0.25–1; `policy_temperature` 0.5–2; `habituation_rate` 0.35–1; `habituation_window` 4–16; `perceived_weakness_gain` 0.005–0.02; `focus_steer_gain` 0.5–2; `focus_reinforce_gain` 0.5–2; `focus_compound_gain` 5–20; `investment_leak_rate` 0.05–0.2; `witness_weight` 0.25–1; `symptom_leak_rate` 0.05–0.2; `calm_transfer_rate` 0.025–0.1; `tie_wear_to_transfer_ratio` 0.00480769–0.0769231; `tie_wear_rate` derived | 2 of 8 | 2 of 4 | 0 of 4 | 0 | 8 | 0 |
-| `M11.C.7[joint over one spouse]` | mixed | PASS | `appraisal_gain` 1.5–6; `intensity_scale` 50–200; `impingement_relaxation_rate` 0.15–0.6; `contact_band_max` 0.1–0.4; `anxiety_togetherness_gain` 0.25–1; `interactive_resting_contact` 0.25–1; `contact_relaxation_rate` 0.05–0.2; `nodal_spike_intensity` 0.5–2; `landing_rate` 0.075–0.3; `perspective_gain` 0.05–0.2; `binder_failure_fraction` 0.4–1; `calm_transfer_rate` 0.025–0.1; `tie_wear_to_transfer_ratio` 0.00480769–0.0769231; `tie_wear_rate` derived | 4 of 8 | 2 of 4 | 2 of 4 | 0 | 8 | 0 |
+| `M11.C.2` | composite | FAIL | `learning_rate` 0.1–0.4; `credit_horizon` 2–6; `credit_discount` 0.35–1; `cross_person_weight` 0.25–1; `policy_temperature` 0.5–2; `habituation_rate` 0.35–1; `habituation_window` 4–16; `perceived_weakness_gain` 0.005–0.02; `focus_steer_gain` 0.5–2; `focus_reinforce_gain` 0.5–2; `focus_compound_gain` 5–20; `investment_leak_rate` 0.05–0.2; `witness_weight` 0.25–1; `symptom_leak_rate` 0.05–0.2; `calm_transfer_rate` 0.025–0.1; `tie_wear_to_transfer_ratio` 0.00480769–0.0769231; `tie_wear_rate` derived | 3 of 8 | 2 of 4 | 1 of 4 | 0 | 8 | 0 |
+| `M11.C.7[joint over one spouse]` | mixed | PASS | `appraisal_gain` 1.5–6; `intensity_scale` 50–200; `impingement_relaxation_rate` 0.15–0.6; `contact_band_max` 0.1–0.4; `anxiety_togetherness_gain` 0.25–1; `interactive_resting_contact` 0.25–1; `contact_relaxation_rate` 0.05–0.2; `nodal_spike_intensity` 0.5–2; `landing_rate` 0.075–0.3; `perspective_gain` 0.05–0.2; `binder_failure_fraction` 0.4–1; `calm_transfer_rate` 0.025–0.1; `tie_wear_to_transfer_ratio` 0.00480769–0.0769231; `tie_wear_rate` derived | 3 of 8 | 1 of 4 | 2 of 4 | 0 | 8 | 0 |
 | `M11.C.7[joint over sided]` | mixed | PASS | `appraisal_gain` 1.5–6; `intensity_scale` 50–200; `impingement_relaxation_rate` 0.15–0.6; `contact_band_max` 0.1–0.4; `anxiety_togetherness_gain` 0.25–1; `interactive_resting_contact` 0.25–1; `contact_relaxation_rate` 0.05–0.2; `nodal_spike_intensity` 0.5–2; `landing_rate` 0.075–0.3; `perspective_gain` 0.05–0.2; `binder_failure_fraction` 0.4–1; `calm_transfer_rate` 0.025–0.1; `tie_wear_to_transfer_ratio` 0.00480769–0.0769231; `tie_wear_rate` derived | 8 of 8 | 6 of 6 | 2 of 2 | 0 | 6 | 0 |
 | `M11.C.7[one spouse over sided]` | mixed | FAIL | `appraisal_gain` 1.5–6; `intensity_scale` 50–200; `impingement_relaxation_rate` 0.15–0.6; `contact_band_max` 0.1–0.4; `anxiety_togetherness_gain` 0.25–1; `interactive_resting_contact` 0.25–1; `contact_relaxation_rate` 0.05–0.2; `nodal_spike_intensity` 0.5–2; `landing_rate` 0.075–0.3; `perspective_gain` 0.05–0.2; `binder_failure_fraction` 0.4–1; `calm_transfer_rate` 0.025–0.1; `tie_wear_to_transfer_ratio` 0.00480769–0.0769231; `tie_wear_rate` derived | 6 of 8 | 3 of 3 | 3 of 5 | 0 | 6 | 0 |
 | `M11.C.11` | mixed | PASS | `lock_in_gain` 0.1–0.4; `lock_in_turn` 1.5–6; `symptom_threshold_gain` 0.75–3; `symptom_rearm_fraction` 0.25–1; `symptom_leak_rate` 0.05–0.2; `standing_load_gain` 0.1–0.4; `interactive_resting_contact` 0.25–1; `contact_relaxation_rate` 0.05–0.2; `acute_decay_rate` 0.1–0.4; `calm_transfer_rate` 0.025–0.1; `tie_wear_to_transfer_ratio` 0.00480769–0.0769231; `tie_wear_rate` derived | 7 of 8 | 4 of 5 | 3 of 3 | 0 | 1 | 0 |
 | `M11.C.12` | composite | FAIL | `learning_rate` 0.1–0.4; `credit_horizon` 2–6; `credit_discount` 0.35–1; `cross_person_weight` 0.25–1; `policy_temperature` 0.5–2; `habituation_rate` 0.35–1; `habituation_window` 4–16; `lock_in_gain` 0.1–0.4; `acute_decay_rate` 0.1–0.4; `calm_transfer_rate` 0.025–0.1; `tie_wear_to_transfer_ratio` 0.00480769–0.0769231; `tie_wear_rate` derived | 0 of 8 | 0 of 6 | 0 of 2 | 0 | 8 | 0 |
-| `M11.C.17` | composite | PASS | `landing_rate` 0.075–0.3; `perspective_gain` 0.05–0.2; `binder_failure_fraction` 0.4–1; `self_practice_gain` 0.0005–0.002; `practice_window` 2–8; `system_adjust_gain` 0.5–2; `estimator_sd_weight` 0.5–2; `estimator_rate` 0.25–1; `perspective_channel_gain` 0.25–1; `perspective_steer_gain` 0.25–1; `nodal_spike_intensity` 0.5–2; `calm_transfer_rate` 0.025–0.1; `tie_wear_to_transfer_ratio` 0.00480769–0.0769231; `tie_wear_rate` derived | 8 of 8 | 2 of 2 | 6 of 6 | 0 | 8 | 0 |
-| `M11.C.21` | composite | PASS | `pseudo_self_transfer_gain` 1–4; `pseudo_self_relaxation_rate` 0.025–0.1; `exchange_window` 4–16; `response_up_gain` 0.25–1; `response_down_gain` 0.25–1; `response_relaxation_rate` 0.01–0.04; `stress_floor_below_basic` 7.5–30; `calm_transfer_rate` 0.025–0.1; `tie_wear_to_transfer_ratio` 0.00480769–0.0769231; `tie_wear_rate` derived | 4 of 8 | 2 of 4 | 2 of 4 | 0 | 8 | 0 |
+| `M11.C.17` | composite | FAIL | `landing_rate` 0.075–0.3; `perspective_gain` 0.05–0.2; `binder_failure_fraction` 0.4–1; `self_practice_gain` 0.0005–0.002; `practice_window` 2–8; `system_adjust_gain` 0.5–2; `estimator_sd_weight` 0.5–2; `estimator_rate` 0.25–1; `perspective_channel_gain` 0.25–1; `perspective_steer_gain` 0.25–1; `nodal_spike_intensity` 0.5–2; `calm_transfer_rate` 0.025–0.1; `tie_wear_to_transfer_ratio` 0.00480769–0.0769231; `tie_wear_rate` derived | 3 of 8 | 0 of 2 | 3 of 6 | 0 | 8 | 0 |
+| `M11.C.21` | composite | FAIL | `pseudo_self_transfer_gain` 1–4; `pseudo_self_relaxation_rate` 0.025–0.1; `exchange_window` 4–16; `response_up_gain` 0.25–1; `response_down_gain` 0.25–1; `response_relaxation_rate` 0.01–0.04; `stress_floor_below_basic` 7.5–30; `calm_transfer_rate` 0.025–0.1; `tie_wear_to_transfer_ratio` 0.00480769–0.0769231; `tie_wear_rate` derived | 0 of 8 | 0 of 4 | 0 of 4 | 0 | 8 | 0 |
 | `M11.C.22` | mixed | PASS | `lock_in_gain` 0.1–0.4; `standing_load_gain` 0.1–0.4; `interactive_resting_contact` 0.25–1; `contact_relaxation_rate` 0.05–0.2; `acute_decay_rate` 0.1–0.4; `calm_transfer_rate` 0.025–0.1; `tie_wear_to_transfer_ratio` 0.00480769–0.0769231; `tie_wear_rate` derived | 8 of 8 | 5 of 5 | 3 of 3 | 0 | 5 | 0 |
 | `M11.C.23` | composite | FAIL | `appraisal_gain` 1.5–6; `intensity_scale` 50–200; `impingement_relaxation_rate` 0.15–0.6; `investment_leak_rate` 0.05–0.2; `symptom_threshold_gain` 0.75–3; `symptom_rearm_fraction` 0.25–1; `symptom_leak_rate` 0.05–0.2; `acute_decay_rate` 0.1–0.4 | 0 of 8 | — | — | 0 | 2 | 0 |
 | `M11.C.34` | mixed | PASS | `learning_rate` 0.1–0.4; `credit_horizon` 2–6; `credit_discount` 0.35–1; `cross_person_weight` 0.25–1; `policy_temperature` 0.5–2; `habituation_rate` 0.35–1; `habituation_window` 4–16; `self_channel_exponent` 1–4; `capacity_level_per_layer` 10–40; `symptom_event_intensity` 50–200 | 1 of 8 | — | — | 0 | 8 | 0 |
 | `M11.C.39` | composite | PASS | `learning_rate` 0.1–0.4; `credit_horizon` 2–6; `credit_discount` 0.35–1; `cross_person_weight` 0.25–1; `policy_temperature` 0.5–2; `habituation_rate` 0.35–1; `habituation_window` 4–16; `witnessed_cutoff_gain` 0.025–0.1; `witness_window` 7–26; `distance_binding_rate` 0.15–0.6; `calm_transfer_rate` 0.025–0.1; `tie_wear_to_transfer_ratio` 0.00480769–0.0769231; `tie_wear_rate` derived | 8 of 8 | 1 of 1 | 7 of 7 | 0 | 1 | 0 |
 | `M11.C.43` | composite | FAIL | `learning_rate` 0.1–0.4; `credit_horizon` 2–6; `credit_discount` 0.35–1; `cross_person_weight` 0.25–1; `policy_temperature` 0.5–2; `habituation_rate` 0.35–1; `habituation_window` 4–16; `calm_transfer_rate` 0.025–0.1; `acute_decay_rate` 0.1–0.4 | 0 of 8 | — | — | 0 | 8 | 0 |
-| `M11.C.2[twelve-person family]` | composite | PASS | `learning_rate` 0.1–0.4; `credit_horizon` 2–6; `credit_discount` 0.35–1; `cross_person_weight` 0.25–1; `policy_temperature` 0.5–2; `habituation_rate` 0.35–1; `habituation_window` 4–16; `perceived_weakness_gain` 0.005–0.02; `focus_steer_gain` 0.5–2; `focus_reinforce_gain` 0.5–2; `focus_compound_gain` 5–20; `investment_leak_rate` 0.05–0.2; `witness_weight` 0.25–1; `symptom_leak_rate` 0.05–0.2; `birth_focus_gain` 0.05–0.2; `calm_transfer_rate` 0.025–0.1; `tie_wear_to_transfer_ratio` 0.00480769–0.0769231; `tie_wear_rate` derived | 3 of 8 | 2 of 4 | 1 of 4 | 0 | 7 | 0 |
+| `M11.C.2[twelve-person family]` | composite | PASS | `learning_rate` 0.1–0.4; `credit_horizon` 2–6; `credit_discount` 0.35–1; `cross_person_weight` 0.25–1; `policy_temperature` 0.5–2; `habituation_rate` 0.35–1; `habituation_window` 4–16; `perceived_weakness_gain` 0.005–0.02; `focus_steer_gain` 0.5–2; `focus_reinforce_gain` 0.5–2; `focus_compound_gain` 5–20; `investment_leak_rate` 0.05–0.2; `witness_weight` 0.25–1; `symptom_leak_rate` 0.05–0.2; `birth_focus_gain` 0.05–0.2; `calm_transfer_rate` 0.025–0.1; `tie_wear_to_transfer_ratio` 0.00480769–0.0769231; `tie_wear_rate` derived | 2 of 8 | 1 of 4 | 1 of 4 | 0 | 8 | 0 |
 | `M11.C.6` | composite | FAIL | `development_rate` 0.05–0.2; `development_band` 0.01–0.04; `development_band_projection` 0.05–0.2; `development_band_support` 0.04–0.1; `estimator_sd_weight` 0.5–2; `estimator_rate` 0.25–1; `calm_transfer_rate` 0.025–0.1; `tie_wear_to_transfer_ratio` 0.00480769–0.0769231; `tie_wear_rate` derived | 1 of 8 | 1 of 5 | 0 of 3 | 0 | 8 | 0 |
-| `M11.C.10` | composite | FAIL | `learning_rate` 0.1–0.4; `credit_horizon` 2–6; `credit_discount` 0.35–1; `cross_person_weight` 0.25–1; `policy_temperature` 0.5–2; `habituation_rate` 0.35–1; `habituation_window` 4–16; `witnessed_cutoff_gain` 0.025–0.1; `witness_window` 7–26; `reactive_cutoff_gain` 0.05–0.2; `origin_cutoff_anxiety_gain` 5–20; `origin_fusion_gain` 0.25–1; `rejection_cutoff_gain` 0.25–1; `rejection_refusal_gain` 0.05–0.2; `rejection_relief` 0.125–0.5; `rejection_refusal_threshold` 0.15–0.6; `rejection_fade` 0.025–0.1; `calm_transfer_rate` 0.025–0.1; `tie_wear_to_transfer_ratio` 0.00480769–0.0769231; `tie_wear_rate` derived | 4 of 8 | 2 of 6 | 2 of 2 | 0 | 0 | 0 |
+| `M11.C.10` | composite | FAIL | `learning_rate` 0.1–0.4; `credit_horizon` 2–6; `credit_discount` 0.35–1; `cross_person_weight` 0.25–1; `policy_temperature` 0.5–2; `habituation_rate` 0.35–1; `habituation_window` 4–16; `witnessed_cutoff_gain` 0.025–0.1; `witness_window` 7–26; `reactive_cutoff_gain` 0.05–0.2; `origin_cutoff_anxiety_gain` 5–20; `origin_fusion_gain` 0.25–1; `rejection_cutoff_gain` 0.25–1; `rejection_refusal_gain` 0.05–0.2; `rejection_relief` 0.125–0.5; `rejection_refusal_threshold` 0.15–0.6; `rejection_fade` 0.025–0.1; `calm_transfer_rate` 0.025–0.1; `tie_wear_to_transfer_ratio` 0.00480769–0.0769231; `tie_wear_rate` derived | 3 of 8 | 1 of 6 | 2 of 2 | 0 | 0 | 0 |
 | `M11.C.10[family of origin]` | composite | PASS | `learning_rate` 0.1–0.4; `credit_horizon` 2–6; `credit_discount` 0.35–1; `cross_person_weight` 0.25–1; `policy_temperature` 0.5–2; `habituation_rate` 0.35–1; `habituation_window` 4–16; `witnessed_cutoff_gain` 0.025–0.1; `witness_window` 7–26; `reactive_cutoff_gain` 0.05–0.2; `origin_cutoff_anxiety_gain` 5–20; `origin_fusion_gain` 0.25–1; `rejection_cutoff_gain` 0.25–1; `rejection_refusal_gain` 0.05–0.2; `rejection_relief` 0.125–0.5; `rejection_refusal_threshold` 0.15–0.6; `rejection_fade` 0.025–0.1; `calm_transfer_rate` 0.025–0.1; `tie_wear_to_transfer_ratio` 0.00480769–0.0769231; `tie_wear_rate` derived | 7 of 8 | 5 of 6 | 2 of 2 | 0 | 0 | 0 |
 | `M11.C.15` | composite | PASS | `lock_in_gain` 0.1–0.4; `acute_decay_rate` 0.1–0.4; `calm_transfer_rate` 0.025–0.1; `tie_wear_to_transfer_ratio` 0.00480769–0.0769231; `tie_wear_rate` derived | 5 of 8 | 3 of 3 | 2 of 5 | 0 | 3 | 0 |
 | `M11.C.48` | composite | FAIL | `learning_rate` 0.1–0.4; `credit_horizon` 2–6; `credit_discount` 0.35–1; `cross_person_weight` 0.25–1; `policy_temperature` 0.5–2; `habituation_rate` 0.35–1; `habituation_window` 4–16; `cutoff_stock_cap` 791.5–3166; `cutoff_threat_weight` 0.00156–0.00624; `cutoff_decay_weeks` 130–520; `cutoff_floor_share` 0.05–0.2; `positive_bridge_dissipation` 0.4–1; `calm_transfer_rate` 0.025–0.1; `tie_wear_to_transfer_ratio` 0.00480769–0.0769231; `tie_wear_rate` derived | 0 of 8 | 0 of 3 | 0 of 5 | 0 | 0 | 0 |
@@ -116,14 +116,14 @@ Directional criteria of the ensemble records with no ranges declared in `config/
 
 | Sample | Values | Seeds | Rerun | Verdict | Gating readouts (mean difference ± half-width) |
 |---|---|---|---|---|---|
-| 0 | `learning_rate` 0.236159, `credit_horizon` 6, `credit_discount` 0.714716, `cross_person_weight` 0.444579, `policy_temperature` 0.507179, `habituation_rate` 0.407344, `habituation_window` 16, `calm_transfer_rate` 0.0751748, `tie_wear_rate` 0.158645; ratio 0.04058 (per week ÷ per contact) | 150 | no | PASS | `repertoire_entropy` -0.0328 ± 0.0082 |
-| 1 | `learning_rate` 0.246006, `credit_horizon` 6, `credit_discount` 0.531327, `cross_person_weight` 0.492263, `policy_temperature` 1.22257, `habituation_rate` 0.590682, `habituation_window` 10, `calm_transfer_rate` 0.0277017, `tie_wear_rate` 0.00951686; ratio 0.006607 (per week ÷ per contact) | 150 | no | PASS | `repertoire_entropy` -0.0303 ± 0.005 |
-| 2 | `learning_rate` 0.179661, `credit_horizon` 4, `credit_discount` 0.495482, `cross_person_weight` 0.626169, `policy_temperature` 0.894911, `habituation_rate` 0.923415, `habituation_window` 4, `calm_transfer_rate` 0.048147, `tie_wear_rate` 0.0177168; ratio 0.007076 (per week ÷ per contact) | 150 | no | PASS | `repertoire_entropy` -0.0442 ± 0.0079 |
-| 3 | `learning_rate` 0.217817, `credit_horizon` 6, `credit_discount` 0.679962, `cross_person_weight` 0.289695, `policy_temperature` 1.6521, `habituation_rate` 0.470939, `habituation_window` 12, `calm_transfer_rate` 0.0679417, `tie_wear_rate` 0.0306442; ratio 0.008674 (per week ÷ per contact) | 150 | no | PASS | `repertoire_entropy` -0.027 ± 0.004 |
-| 4 | `learning_rate` 0.143476, `credit_horizon` 6, `credit_discount` 0.68072, `cross_person_weight` 0.84911, `policy_temperature` 0.672349, `habituation_rate` 0.742791, `habituation_window` 4, `calm_transfer_rate` 0.082016, `tie_wear_rate` 0.0355717; ratio 0.008341 (per week ÷ per contact) | 150 | no | PASS | `repertoire_entropy` -0.0368 ± 0.0075 |
-| 5 | `learning_rate` 0.393119, `credit_horizon` 6, `credit_discount` 0.469346, `cross_person_weight` 0.873642, `policy_temperature` 0.681513, `habituation_rate` 0.364257, `habituation_window` 5, `calm_transfer_rate` 0.0321407, `tie_wear_rate` 0.00946668; ratio 0.005664 (per week ÷ per contact) | 150 | no | PASS | `repertoire_entropy` -0.0304 ± 0.0085 |
-| 6 | `learning_rate` 0.236048, `credit_horizon` 6, `credit_discount` 0.703237, `cross_person_weight` 0.685955, `policy_temperature` 1.23469, `habituation_rate` 0.574061, `habituation_window` 12, `calm_transfer_rate` 0.0581056, `tie_wear_rate` 0.0445821; ratio 0.01475 (per week ÷ per contact) | 150 | no | PASS | `repertoire_entropy` -0.0332 ± 0.0047 |
-| 7 | `learning_rate` 0.168208, `credit_horizon` 5, `credit_discount` 0.81258, `cross_person_weight` 0.70289, `policy_temperature` 0.886862, `habituation_rate` 0.518562, `habituation_window` 15, `calm_transfer_rate` 0.0676659, `tie_wear_rate` 0.102975; ratio 0.02927 (per week ÷ per contact) | 150 | no | PASS | `repertoire_entropy` -0.0315 ± 0.0059 |
+| 0 | `learning_rate` 0.236159, `credit_horizon` 6, `credit_discount` 0.714716, `cross_person_weight` 0.444579, `policy_temperature` 0.507179, `habituation_rate` 0.407344, `habituation_window` 16, `calm_transfer_rate` 0.0751748, `tie_wear_rate` 0.158645; ratio 0.04058 (per week ÷ per contact) | 150 | no | PASS | `repertoire_entropy` -0.0322 ± 0.0082 |
+| 1 | `learning_rate` 0.246006, `credit_horizon` 6, `credit_discount` 0.531327, `cross_person_weight` 0.492263, `policy_temperature` 1.22257, `habituation_rate` 0.590682, `habituation_window` 10, `calm_transfer_rate` 0.0277017, `tie_wear_rate` 0.00951686; ratio 0.006607 (per week ÷ per contact) | 150 | no | PASS | `repertoire_entropy` -0.0312 ± 0.005 |
+| 2 | `learning_rate` 0.179661, `credit_horizon` 4, `credit_discount` 0.495482, `cross_person_weight` 0.626169, `policy_temperature` 0.894911, `habituation_rate` 0.923415, `habituation_window` 4, `calm_transfer_rate` 0.048147, `tie_wear_rate` 0.0177168; ratio 0.007076 (per week ÷ per contact) | 150 | no | PASS | `repertoire_entropy` -0.0436 ± 0.0079 |
+| 3 | `learning_rate` 0.217817, `credit_horizon` 6, `credit_discount` 0.679962, `cross_person_weight` 0.289695, `policy_temperature` 1.6521, `habituation_rate` 0.470939, `habituation_window` 12, `calm_transfer_rate` 0.0679417, `tie_wear_rate` 0.0306442; ratio 0.008674 (per week ÷ per contact) | 150 | no | PASS | `repertoire_entropy` -0.0272 ± 0.0039 |
+| 4 | `learning_rate` 0.143476, `credit_horizon` 6, `credit_discount` 0.68072, `cross_person_weight` 0.84911, `policy_temperature` 0.672349, `habituation_rate` 0.742791, `habituation_window` 4, `calm_transfer_rate` 0.082016, `tie_wear_rate` 0.0355717; ratio 0.008341 (per week ÷ per contact) | 150 | no | PASS | `repertoire_entropy` -0.0357 ± 0.0076 |
+| 5 | `learning_rate` 0.393119, `credit_horizon` 6, `credit_discount` 0.469346, `cross_person_weight` 0.873642, `policy_temperature` 0.681513, `habituation_rate` 0.364257, `habituation_window` 5, `calm_transfer_rate` 0.0321407, `tie_wear_rate` 0.00946668; ratio 0.005664 (per week ÷ per contact) | 150 | no | PASS | `repertoire_entropy` -0.0294 ± 0.0085 |
+| 6 | `learning_rate` 0.236048, `credit_horizon` 6, `credit_discount` 0.703237, `cross_person_weight` 0.685955, `policy_temperature` 1.23469, `habituation_rate` 0.574061, `habituation_window` 12, `calm_transfer_rate` 0.0581056, `tie_wear_rate` 0.0445821; ratio 0.01475 (per week ÷ per contact) | 150 | no | PASS | `repertoire_entropy` -0.0331 ± 0.0048 |
+| 7 | `learning_rate` 0.168208, `credit_horizon` 5, `credit_discount` 0.81258, `cross_person_weight` 0.70289, `policy_temperature` 0.886862, `habituation_rate` 0.518562, `habituation_window` 15, `calm_transfer_rate` 0.0676659, `tie_wear_rate` 0.102975; ratio 0.02927 (per week ÷ per contact) | 150 | no | PASS | `repertoire_entropy` -0.0314 ± 0.0055 |
 
 ## `M11.C.42` — 0 of 8 samples held
 
@@ -144,14 +144,14 @@ Directional criteria of the ensemble records with no ranges declared in `config/
 
 | Sample | Values | Seeds | Rerun | Verdict | Gating readouts (mean difference ± half-width) |
 |---|---|---|---|---|---|
-| 0 | `learning_rate` 0.167951, `credit_horizon` 4, `credit_discount` 0.583244, `cross_person_weight` 0.49522, `policy_temperature` 1.08727, `habituation_rate` 0.402631, `habituation_window` 13, `debit_gain` 0.455795, `calm_transfer_rate` 0.0975651, `tie_wear_rate` 0.0425619; ratio 0.008389 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `target_reaction` -8.62 ± 14; `third_person_symptom_load` -1.66 ± 7.5 |
-| 1 | `learning_rate` 0.116804, `credit_horizon` 2, `credit_discount` 0.354291, `cross_person_weight` 0.661715, `policy_temperature` 1.36569, `habituation_rate` 0.581785, `habituation_window` 4, `debit_gain` 0.240328, `calm_transfer_rate` 0.0393902, `tie_wear_rate` 0.0120988; ratio 0.005907 (per week ÷ per contact) | 100 then 200 | yes (first FAIL) | FAIL | `target_reaction` -11.3 ± 15; `third_person_symptom_load` -2.46 ± 8.3 |
-| 2 | `learning_rate` 0.172367, `credit_horizon` 2, `credit_discount` 0.541302, `cross_person_weight` 0.991135, `policy_temperature` 0.846322, `habituation_rate` 0.720015, `habituation_window` 16, `debit_gain` 0.212657, `calm_transfer_rate` 0.0802038, `tie_wear_rate` 0.107879; ratio 0.02587 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `target_reaction` -7.88 ± 14; `third_person_symptom_load` -3.44 ± 8.8 |
-| 3 | `learning_rate` 0.264149, `credit_horizon` 6, `credit_discount` 0.399307, `cross_person_weight` 0.379454, `policy_temperature` 1.97401, `habituation_rate` 0.415494, `habituation_window` 9, `debit_gain` 0.281266, `calm_transfer_rate` 0.0598333, `tie_wear_rate` 0.154223; ratio 0.04957 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `target_reaction` -18.3 ± 14; `third_person_symptom_load` -2.64 ± 8 |
-| 4 | `learning_rate` 0.228626, `credit_horizon` 5, `credit_discount` 0.713561, `cross_person_weight` 0.52963, `policy_temperature` 0.536375, `habituation_rate` 0.547469, `habituation_window` 9, `debit_gain` 0.423481, `calm_transfer_rate` 0.0379478, `tie_wear_rate` 0.0194368; ratio 0.00985 (per week ÷ per contact) | 100 then 200 | yes (first FAIL) | FAIL | `target_reaction` -6.3 ± 15; `third_person_symptom_load` -4.17 ± 8.4 |
-| 5 | `learning_rate` 0.222963, `credit_horizon` 5, `credit_discount` 0.360926, `cross_person_weight` 0.478852, `policy_temperature` 1.7296, `habituation_rate` 0.788242, `habituation_window` 11, `debit_gain` 0.156456, `calm_transfer_rate` 0.0533545, `tie_wear_rate` 0.0242995; ratio 0.008758 (per week ÷ per contact) | 100 then 200 | yes (first FAIL) | FAIL | `target_reaction` -13.6 ± 12; `third_person_symptom_load` -0.038 ± 7.7 |
-| 6 | `learning_rate` 0.128437, `credit_horizon` 6, `credit_discount` 0.41203, `cross_person_weight` 0.602833, `policy_temperature` 1.25917, `habituation_rate` 0.383227, `habituation_window` 9, `debit_gain` 0.362398, `calm_transfer_rate` 0.0281366, `tie_wear_rate` 0.0139033; ratio 0.009503 (per week ÷ per contact) | 100 then 200 | yes (first FAIL) | FAIL | `target_reaction` -11.9 ± 13; `third_person_symptom_load` +1.63 ± 7.4 |
-| 7 | `learning_rate` 0.299045, `credit_horizon` 3, `credit_discount` 0.683178, `cross_person_weight` 0.738792, `policy_temperature` 0.639125, `habituation_rate` 0.594913, `habituation_window` 4, `debit_gain` 0.225207, `calm_transfer_rate` 0.06294, `tie_wear_rate` 0.159856; ratio 0.04884 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `target_reaction` +11 ± 17; `third_person_symptom_load` +0.947 ± 8.9 |
+| 0 | `learning_rate` 0.167951, `credit_horizon` 4, `credit_discount` 0.583244, `cross_person_weight` 0.49522, `policy_temperature` 1.08727, `habituation_rate` 0.402631, `habituation_window` 13, `debit_gain` 0.455795, `calm_transfer_rate` 0.0975651, `tie_wear_rate` 0.0425619; ratio 0.008389 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `target_reaction` -10.3 ± 14; `third_person_symptom_load` -0.865 ± 7.6 |
+| 1 | `learning_rate` 0.116804, `credit_horizon` 2, `credit_discount` 0.354291, `cross_person_weight` 0.661715, `policy_temperature` 1.36569, `habituation_rate` 0.581785, `habituation_window` 4, `debit_gain` 0.240328, `calm_transfer_rate` 0.0393902, `tie_wear_rate` 0.0120988; ratio 0.005907 (per week ÷ per contact) | 100 then 200 | yes (first FAIL) | FAIL | `target_reaction` -10.8 ± 15; `third_person_symptom_load` -3.01 ± 8.4 |
+| 2 | `learning_rate` 0.172367, `credit_horizon` 2, `credit_discount` 0.541302, `cross_person_weight` 0.991135, `policy_temperature` 0.846322, `habituation_rate` 0.720015, `habituation_window` 16, `debit_gain` 0.212657, `calm_transfer_rate` 0.0802038, `tie_wear_rate` 0.107879; ratio 0.02587 (per week ÷ per contact) | 100 then 200 | yes (first FAIL) | FAIL | `target_reaction` -6.13 ± 15; `third_person_symptom_load` -3.69 ± 9 |
+| 3 | `learning_rate` 0.264149, `credit_horizon` 6, `credit_discount` 0.399307, `cross_person_weight` 0.379454, `policy_temperature` 1.97401, `habituation_rate` 0.415494, `habituation_window` 9, `debit_gain` 0.281266, `calm_transfer_rate` 0.0598333, `tie_wear_rate` 0.154223; ratio 0.04957 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `target_reaction` -18.2 ± 14; `third_person_symptom_load` -1.89 ± 8.1 |
+| 4 | `learning_rate` 0.228626, `credit_horizon` 5, `credit_discount` 0.713561, `cross_person_weight` 0.52963, `policy_temperature` 0.536375, `habituation_rate` 0.547469, `habituation_window` 9, `debit_gain` 0.423481, `calm_transfer_rate` 0.0379478, `tie_wear_rate` 0.0194368; ratio 0.00985 (per week ÷ per contact) | 100 then 200 | yes (first FAIL) | FAIL | `target_reaction` -5.52 ± 15; `third_person_symptom_load` -4.49 ± 8.5 |
+| 5 | `learning_rate` 0.222963, `credit_horizon` 5, `credit_discount` 0.360926, `cross_person_weight` 0.478852, `policy_temperature` 1.7296, `habituation_rate` 0.788242, `habituation_window` 11, `debit_gain` 0.156456, `calm_transfer_rate` 0.0533545, `tie_wear_rate` 0.0242995; ratio 0.008758 (per week ÷ per contact) | 100 then 200 | yes (first FAIL) | FAIL | `target_reaction` -16.6 ± 12; `third_person_symptom_load` -1.82 ± 7.7 |
+| 6 | `learning_rate` 0.128437, `credit_horizon` 6, `credit_discount` 0.41203, `cross_person_weight` 0.602833, `policy_temperature` 1.25917, `habituation_rate` 0.383227, `habituation_window` 9, `debit_gain` 0.362398, `calm_transfer_rate` 0.0281366, `tie_wear_rate` 0.0139033; ratio 0.009503 (per week ÷ per contact) | 100 then 200 | yes (first FAIL) | FAIL | `target_reaction` -14.5 ± 13; `third_person_symptom_load` +2.26 ± 7.5 |
+| 7 | `learning_rate` 0.299045, `credit_horizon` 3, `credit_discount` 0.683178, `cross_person_weight` 0.738792, `policy_temperature` 0.639125, `habituation_rate` 0.594913, `habituation_window` 4, `debit_gain` 0.225207, `calm_transfer_rate` 0.06294, `tie_wear_rate` 0.159856; ratio 0.04884 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `target_reaction` +10.1 ± 17; `third_person_symptom_load` +1.07 ± 8.9 |
 
 ## `M11.C.27[stable,add_third]` — 2 of 8 samples held
 
@@ -226,14 +226,14 @@ Directional criteria of the ensemble records with no ranges declared in `config/
 
 | Sample | Values | Seeds | Rerun | Verdict | Gating readouts (mean difference ± half-width) |
 |---|---|---|---|---|---|
-| 0 | `appraisal_gain` 2.72363, `contact_band_max` 0.113093, `self_channel_exponent` 3.77225, `capacity_level_per_layer` 28.2722, `anxiety_band_low` 5.4111, `anxiety_band_high` 15.6566, `acute_decay_rate` 0.326085, `response_up_gain` 0.687626, `response_down_gain` 0.827698, `stress_floor_below_basic` 22.7992, `calm_transfer_rate` 0.0380332, `tie_wear_rate` 0.134866; ratio 0.06819 (per week ÷ per contact) | 150 | no | PASS | `mean_acute` +57.5 ± 6.5; `reactive_over_chance` +0.0199 ± 0.0022 |
-| 1 | `appraisal_gain` 1.56318, `contact_band_max` 0.361389, `self_channel_exponent` 3.73655, `capacity_level_per_layer` 23.4887, `anxiety_band_low` 5.11503, `anxiety_band_high` 11.1355, `acute_decay_rate` 0.122566, `response_up_gain` 0.692783, `response_down_gain` 0.440032, `stress_floor_below_basic` 29.8404, `calm_transfer_rate` 0.0352363, `tie_wear_rate` 0.0918033; ratio 0.0501 (per week ÷ per contact) | 150 | no | PASS | `mean_acute` +967 ± 3.1e+02; `reactive_over_chance` +0.0235 ± 0.0024 |
+| 0 | `appraisal_gain` 2.72363, `contact_band_max` 0.113093, `self_channel_exponent` 3.77225, `capacity_level_per_layer` 28.2722, `anxiety_band_low` 5.4111, `anxiety_band_high` 15.6566, `acute_decay_rate` 0.326085, `response_up_gain` 0.687626, `response_down_gain` 0.827698, `stress_floor_below_basic` 22.7992, `calm_transfer_rate` 0.0380332, `tie_wear_rate` 0.134866; ratio 0.06819 (per week ÷ per contact) | 150 | no | PASS | `mean_acute` +57.7 ± 6.5; `reactive_over_chance` +0.0199 ± 0.0022 |
+| 1 | `appraisal_gain` 1.56318, `contact_band_max` 0.361389, `self_channel_exponent` 3.73655, `capacity_level_per_layer` 23.4887, `anxiety_band_low` 5.11503, `anxiety_band_high` 11.1355, `acute_decay_rate` 0.122566, `response_up_gain` 0.692783, `response_down_gain` 0.440032, `stress_floor_below_basic` 29.8404, `calm_transfer_rate` 0.0352363, `tie_wear_rate` 0.0918033; ratio 0.0501 (per week ÷ per contact) | 150 | no | PASS | `mean_acute` +1.03e+03 ± 3.1e+02; `reactive_over_chance` +0.0232 ± 0.0024 |
 | 2 | `appraisal_gain` 1.71106, `contact_band_max` 0.335556, `self_channel_exponent` 3.5435, `capacity_level_per_layer` 11.8942, `anxiety_band_low` 8.10966, `anxiety_band_high` 24.1689, `acute_decay_rate` 0.170121, `response_up_gain` 0.913582, `response_down_gain` 0.634539, `stress_floor_below_basic` 12.2506, `calm_transfer_rate` 0.0321118, `tie_wear_rate` 0.0202509; ratio 0.01213 (per week ÷ per contact) | 150 | no | PASS | `mean_acute` +116 ± 16; `reactive_over_chance` +0.0226 ± 0.0022 |
-| 3 | `appraisal_gain` 2.06485, `contact_band_max` 0.102573, `self_channel_exponent` 1.46157, `capacity_level_per_layer` 12.4579, `anxiety_band_low` 7.91653, `anxiety_band_high` 26.6297, `acute_decay_rate` 0.262991, `response_up_gain` 0.691266, `response_down_gain` 0.911477, `stress_floor_below_basic` 16.1559, `calm_transfer_rate` 0.0830677, `tie_wear_rate` 0.0484287; ratio 0.01121 (per week ÷ per contact) | 150 | no | PASS | `mean_acute` +73.8 ± 6.8; `reactive_over_chance` +0.0876 ± 0.0034 |
-| 4 | `appraisal_gain` 4.72033, `contact_band_max` 0.121305, `self_channel_exponent` 1.43704, `capacity_level_per_layer` 13.3828, `anxiety_band_low` 2.50367, `anxiety_band_high` 11.2328, `acute_decay_rate` 0.129386, `response_up_gain` 0.332283, `response_down_gain` 0.513557, `stress_floor_below_basic` 20.3256, `calm_transfer_rate` 0.0558931, `tie_wear_rate` 0.0457406; ratio 0.01574 (per week ÷ per contact) | 150 | no | PASS | `mean_acute` +115 ± 23; `reactive_over_chance` +0.0926 ± 0.0031 |
-| 5 | `appraisal_gain` 5.07969, `contact_band_max` 0.360759, `self_channel_exponent` 1.16769, `capacity_level_per_layer` 32.1697, `anxiety_band_low` 2.85152, `anxiety_band_high` 11.2112, `acute_decay_rate` 0.121477, `response_up_gain` 0.958375, `response_down_gain` 0.254166, `stress_floor_below_basic` 13.5646, `calm_transfer_rate` 0.0361172, `tie_wear_rate` 0.07083; ratio 0.03771 (per week ÷ per contact) | 150 | no | PASS | `mean_acute` +99.4 ± 17; `reactive_over_chance` +0.101 ± 0.0037 |
-| 6 | `appraisal_gain` 4.0942, `contact_band_max` 0.308706, `self_channel_exponent` 2.80528, `capacity_level_per_layer` 16.6875, `anxiety_band_low` 4.42776, `anxiety_band_high` 16.4286, `acute_decay_rate` 0.28877, `response_up_gain` 0.712725, `response_down_gain` 0.729246, `stress_floor_below_basic` 18.2392, `calm_transfer_rate` 0.0305463, `tie_wear_rate` 0.0791736; ratio 0.04984 (per week ÷ per contact) | 150 | no | PASS | `mean_acute` +74.5 ± 7.8; `reactive_over_chance` +0.039 ± 0.0025 |
-| 7 | `appraisal_gain` 2.34141, `contact_band_max` 0.389176, `self_channel_exponent` 1.92097, `capacity_level_per_layer` 29.8481, `anxiety_band_low` 7.45411, `anxiety_band_high` 17.5241, `acute_decay_rate` 0.354482, `response_up_gain` 0.806017, `response_down_gain` 0.319301, `stress_floor_below_basic` 13.1452, `calm_transfer_rate` 0.0984, `tie_wear_rate` 0.101201; ratio 0.01978 (per week ÷ per contact) | 150 | no | PASS | `mean_acute` +33 ± 2.9; `reactive_over_chance` +0.0679 ± 0.0031 |
+| 3 | `appraisal_gain` 2.06485, `contact_band_max` 0.102573, `self_channel_exponent` 1.46157, `capacity_level_per_layer` 12.4579, `anxiety_band_low` 7.91653, `anxiety_band_high` 26.6297, `acute_decay_rate` 0.262991, `response_up_gain` 0.691266, `response_down_gain` 0.911477, `stress_floor_below_basic` 16.1559, `calm_transfer_rate` 0.0830677, `tie_wear_rate` 0.0484287; ratio 0.01121 (per week ÷ per contact) | 150 | no | PASS | `mean_acute` +74.7 ± 6.8; `reactive_over_chance` +0.0872 ± 0.0034 |
+| 4 | `appraisal_gain` 4.72033, `contact_band_max` 0.121305, `self_channel_exponent` 1.43704, `capacity_level_per_layer` 13.3828, `anxiety_band_low` 2.50367, `anxiety_band_high` 11.2328, `acute_decay_rate` 0.129386, `response_up_gain` 0.332283, `response_down_gain` 0.513557, `stress_floor_below_basic` 20.3256, `calm_transfer_rate` 0.0558931, `tie_wear_rate` 0.0457406; ratio 0.01574 (per week ÷ per contact) | 150 | no | PASS | `mean_acute` +124 ± 22; `reactive_over_chance` +0.0932 ± 0.0032 |
+| 5 | `appraisal_gain` 5.07969, `contact_band_max` 0.360759, `self_channel_exponent` 1.16769, `capacity_level_per_layer` 32.1697, `anxiety_band_low` 2.85152, `anxiety_band_high` 11.2112, `acute_decay_rate` 0.121477, `response_up_gain` 0.958375, `response_down_gain` 0.254166, `stress_floor_below_basic` 13.5646, `calm_transfer_rate` 0.0361172, `tie_wear_rate` 0.07083; ratio 0.03771 (per week ÷ per contact) | 150 | no | PASS | `mean_acute` +100 ± 17; `reactive_over_chance` +0.101 ± 0.0035 |
+| 6 | `appraisal_gain` 4.0942, `contact_band_max` 0.308706, `self_channel_exponent` 2.80528, `capacity_level_per_layer` 16.6875, `anxiety_band_low` 4.42776, `anxiety_band_high` 16.4286, `acute_decay_rate` 0.28877, `response_up_gain` 0.712725, `response_down_gain` 0.729246, `stress_floor_below_basic` 18.2392, `calm_transfer_rate` 0.0305463, `tie_wear_rate` 0.0791736; ratio 0.04984 (per week ÷ per contact) | 150 | no | PASS | `mean_acute` +73.8 ± 7.8; `reactive_over_chance` +0.0393 ± 0.0025 |
+| 7 | `appraisal_gain` 2.34141, `contact_band_max` 0.389176, `self_channel_exponent` 1.92097, `capacity_level_per_layer` 29.8481, `anxiety_band_low` 7.45411, `anxiety_band_high` 17.5241, `acute_decay_rate` 0.354482, `response_up_gain` 0.806017, `response_down_gain` 0.319301, `stress_floor_below_basic` 13.1452, `calm_transfer_rate` 0.0984, `tie_wear_rate` 0.101201; ratio 0.01978 (per week ÷ per contact) | 150 | no | PASS | `mean_acute` +34.3 ± 3; `reactive_over_chance` +0.0679 ± 0.0031 |
 
 ## `M11.C.41[heavy: lower level]` — 8 of 8 samples held
 
@@ -241,14 +241,14 @@ Directional criteria of the ensemble records with no ranges declared in `config/
 
 | Sample | Values | Seeds | Rerun | Verdict | Gating readouts (mean difference ± half-width) |
 |---|---|---|---|---|---|
-| 0 | `appraisal_gain` 4.01613, `contact_band_max` 0.144333, `self_channel_exponent` 1.36066, `capacity_level_per_layer` 16.259, `anxiety_band_low` 3.57521, `anxiety_band_high` 19.3809, `acute_decay_rate` 0.355849, `response_up_gain` 0.727111, `response_down_gain` 0.74252, `stress_floor_below_basic` 18.7095, `calm_transfer_rate` 0.0266516, `tie_wear_rate` 0.0306652; ratio 0.02213 (per week ÷ per contact) | 150 | no | PASS | `mean_acute` +38.8 ± 3.9; `reactive_over_chance` +0.0898 ± 0.0032 |
-| 1 | `appraisal_gain` 1.58847, `contact_band_max` 0.121965, `self_channel_exponent` 1.07666, `capacity_level_per_layer` 29.2061, `anxiety_band_low` 2.99726, `anxiety_band_high` 24.7054, `acute_decay_rate` 0.144591, `response_up_gain` 0.280956, `response_down_gain` 0.973088, `stress_floor_below_basic` 10.0433, `calm_transfer_rate` 0.0267955, `tie_wear_rate` 0.0179797; ratio 0.0129 (per week ÷ per contact) | 150 | no | PASS | `mean_acute` +105 ± 14; `reactive_over_chance` +0.102 ± 0.0034 |
-| 2 | `appraisal_gain` 3.12802, `contact_band_max` 0.150513, `self_channel_exponent` 3.03004, `capacity_level_per_layer` 37.5119, `anxiety_band_low` 5.92981, `anxiety_band_high` 27.6391, `acute_decay_rate` 0.111282, `response_up_gain` 0.445194, `response_down_gain` 0.253762, `stress_floor_below_basic` 14.345, `calm_transfer_rate` 0.0724735, `tie_wear_rate` 0.241428; ratio 0.06406 (per week ÷ per contact) | 150 | no | PASS | `mean_acute` +97.1 ± 29; `reactive_over_chance` +0.0377 ± 0.0026 |
-| 3 | `appraisal_gain` 1.63168, `contact_band_max` 0.154857, `self_channel_exponent` 2.2405, `capacity_level_per_layer` 38.281, `anxiety_band_low` 8.06321, `anxiety_band_high` 20.4048, `acute_decay_rate` 0.269768, `response_up_gain` 0.587543, `response_down_gain` 0.512929, `stress_floor_below_basic` 22.2638, `calm_transfer_rate` 0.0444499, `tie_wear_rate` 0.0770934; ratio 0.03335 (per week ÷ per contact) | 150 | no | PASS | `mean_acute` +73.1 ± 9.3; `reactive_over_chance` +0.0579 ± 0.0028 |
-| 4 | `appraisal_gain` 4.56631, `contact_band_max` 0.126419, `self_channel_exponent` 1.66297, `capacity_level_per_layer` 32.2878, `anxiety_band_low` 3.23619, `anxiety_band_high` 12.4508, `acute_decay_rate` 0.232871, `response_up_gain` 0.701544, `response_down_gain` 0.477579, `stress_floor_below_basic` 12.5699, `calm_transfer_rate` 0.0786341, `tie_wear_rate` 0.0238651; ratio 0.005836 (per week ÷ per contact) | 150 | no | PASS | `mean_acute` +88.8 ± 9.8; `reactive_over_chance` +0.0801 ± 0.0032 |
-| 5 | `appraisal_gain` 1.85667, `contact_band_max` 0.109641, `self_channel_exponent` 1.14778, `capacity_level_per_layer` 14.628, `anxiety_band_low` 4.67259, `anxiety_band_high` 10.0543, `acute_decay_rate` 0.283577, `response_up_gain` 0.838352, `response_down_gain` 0.653498, `stress_floor_below_basic` 16.2741, `calm_transfer_rate` 0.0321089, `tie_wear_rate` 0.0148305; ratio 0.008882 (per week ÷ per contact) | 150 | no | PASS | `mean_acute` +54.6 ± 5.1; `reactive_over_chance` +0.0958 ± 0.0035 |
-| 6 | `appraisal_gain` 3.85953, `contact_band_max` 0.319031, `self_channel_exponent` 1.6313, `capacity_level_per_layer` 10.906, `anxiety_band_low` 2.98594, `anxiety_band_high` 14.3089, `acute_decay_rate` 0.291439, `response_up_gain` 0.259446, `response_down_gain` 0.458535, `stress_floor_below_basic` 7.84099, `calm_transfer_rate` 0.0380135, `tie_wear_rate` 0.0367045; ratio 0.01857 (per week ÷ per contact) | 150 | no | PASS | `mean_acute` +51.4 ± 6.1; `reactive_over_chance` +0.0787 ± 0.0033 |
-| 7 | `appraisal_gain` 1.59129, `contact_band_max` 0.322709, `self_channel_exponent` 1.85828, `capacity_level_per_layer` 23.781, `anxiety_band_low` 6.20482, `anxiety_band_high` 11.2016, `acute_decay_rate` 0.131944, `response_up_gain` 0.848343, `response_down_gain` 0.863749, `stress_floor_below_basic` 10.839, `calm_transfer_rate` 0.0295802, `tie_wear_rate` 0.045842; ratio 0.0298 (per week ÷ per contact) | 150 | no | PASS | `mean_acute` +112 ± 23; `reactive_over_chance` +0.0724 ± 0.0035 |
+| 0 | `appraisal_gain` 4.01613, `contact_band_max` 0.144333, `self_channel_exponent` 1.36066, `capacity_level_per_layer` 16.259, `anxiety_band_low` 3.57521, `anxiety_band_high` 19.3809, `acute_decay_rate` 0.355849, `response_up_gain` 0.727111, `response_down_gain` 0.74252, `stress_floor_below_basic` 18.7095, `calm_transfer_rate` 0.0266516, `tie_wear_rate` 0.0306652; ratio 0.02213 (per week ÷ per contact) | 150 | no | PASS | `mean_acute` +39.1 ± 3.9; `reactive_over_chance` +0.0891 ± 0.0032 |
+| 1 | `appraisal_gain` 1.58847, `contact_band_max` 0.121965, `self_channel_exponent` 1.07666, `capacity_level_per_layer` 29.2061, `anxiety_band_low` 2.99726, `anxiety_band_high` 24.7054, `acute_decay_rate` 0.144591, `response_up_gain` 0.280956, `response_down_gain` 0.973088, `stress_floor_below_basic` 10.0433, `calm_transfer_rate` 0.0267955, `tie_wear_rate` 0.0179797; ratio 0.0129 (per week ÷ per contact) | 150 | no | PASS | `mean_acute` +102 ± 13; `reactive_over_chance` +0.103 ± 0.0035 |
+| 2 | `appraisal_gain` 3.12802, `contact_band_max` 0.150513, `self_channel_exponent` 3.03004, `capacity_level_per_layer` 37.5119, `anxiety_band_low` 5.92981, `anxiety_band_high` 27.6391, `acute_decay_rate` 0.111282, `response_up_gain` 0.445194, `response_down_gain` 0.253762, `stress_floor_below_basic` 14.345, `calm_transfer_rate` 0.0724735, `tie_wear_rate` 0.241428; ratio 0.06406 (per week ÷ per contact) | 150 | no | PASS | `mean_acute` +96.7 ± 29; `reactive_over_chance` +0.0378 ± 0.0026 |
+| 3 | `appraisal_gain` 1.63168, `contact_band_max` 0.154857, `self_channel_exponent` 2.2405, `capacity_level_per_layer` 38.281, `anxiety_band_low` 8.06321, `anxiety_band_high` 20.4048, `acute_decay_rate` 0.269768, `response_up_gain` 0.587543, `response_down_gain` 0.512929, `stress_floor_below_basic` 22.2638, `calm_transfer_rate` 0.0444499, `tie_wear_rate` 0.0770934; ratio 0.03335 (per week ÷ per contact) | 150 | no | PASS | `mean_acute` +74.9 ± 9.3; `reactive_over_chance` +0.0579 ± 0.0029 |
+| 4 | `appraisal_gain` 4.56631, `contact_band_max` 0.126419, `self_channel_exponent` 1.66297, `capacity_level_per_layer` 32.2878, `anxiety_band_low` 3.23619, `anxiety_band_high` 12.4508, `acute_decay_rate` 0.232871, `response_up_gain` 0.701544, `response_down_gain` 0.477579, `stress_floor_below_basic` 12.5699, `calm_transfer_rate` 0.0786341, `tie_wear_rate` 0.0238651; ratio 0.005836 (per week ÷ per contact) | 150 | no | PASS | `mean_acute` +88.4 ± 9.7; `reactive_over_chance` +0.0804 ± 0.0032 |
+| 5 | `appraisal_gain` 1.85667, `contact_band_max` 0.109641, `self_channel_exponent` 1.14778, `capacity_level_per_layer` 14.628, `anxiety_band_low` 4.67259, `anxiety_band_high` 10.0543, `acute_decay_rate` 0.283577, `response_up_gain` 0.838352, `response_down_gain` 0.653498, `stress_floor_below_basic` 16.2741, `calm_transfer_rate` 0.0321089, `tie_wear_rate` 0.0148305; ratio 0.008882 (per week ÷ per contact) | 150 | no | PASS | `mean_acute` +53 ± 4.8; `reactive_over_chance` +0.0955 ± 0.0036 |
+| 6 | `appraisal_gain` 3.85953, `contact_band_max` 0.319031, `self_channel_exponent` 1.6313, `capacity_level_per_layer` 10.906, `anxiety_band_low` 2.98594, `anxiety_band_high` 14.3089, `acute_decay_rate` 0.291439, `response_up_gain` 0.259446, `response_down_gain` 0.458535, `stress_floor_below_basic` 7.84099, `calm_transfer_rate` 0.0380135, `tie_wear_rate` 0.0367045; ratio 0.01857 (per week ÷ per contact) | 150 | no | PASS | `mean_acute` +53.1 ± 6; `reactive_over_chance` +0.0786 ± 0.0032 |
+| 7 | `appraisal_gain` 1.59129, `contact_band_max` 0.322709, `self_channel_exponent` 1.85828, `capacity_level_per_layer` 23.781, `anxiety_band_low` 6.20482, `anxiety_band_high` 11.2016, `acute_decay_rate` 0.131944, `response_up_gain` 0.848343, `response_down_gain` 0.863749, `stress_floor_below_basic` 10.839, `calm_transfer_rate` 0.0295802, `tie_wear_rate` 0.045842; ratio 0.0298 (per week ÷ per contact) | 150 | no | PASS | `mean_acute` +119 ± 23; `reactive_over_chance` +0.0727 ± 0.0036 |
 
 ## `M11.C.41[higher level: heavier stress]` — 0 of 8 samples held
 
@@ -256,14 +256,14 @@ Directional criteria of the ensemble records with no ranges declared in `config/
 
 | Sample | Values | Seeds | Rerun | Verdict | Gating readouts (mean difference ± half-width) |
 |---|---|---|---|---|---|
-| 0 | `appraisal_gain` 3.916, `contact_band_max` 0.105596, `self_channel_exponent` 2.59508, `capacity_level_per_layer` 19.3821, `anxiety_band_low` 3.38287, `anxiety_band_high` 10.5258, `acute_decay_rate` 0.145846, `response_up_gain` 0.478362, `response_down_gain` 0.395942, `stress_floor_below_basic` 10.9757, `calm_transfer_rate` 0.0954031, `tie_wear_rate` 0.270371; ratio 0.0545 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `mean_acute` +44.8 ± 15; `reactive_over_chance` -0.000553 ± 0.0016 |
-| 1 | `appraisal_gain` 1.62622, `contact_band_max` 0.104138, `self_channel_exponent` 1.49057, `capacity_level_per_layer` 17.736, `anxiety_band_low` 6.76819, `anxiety_band_high` 27.5369, `acute_decay_rate` 0.270239, `response_up_gain` 0.385806, `response_down_gain` 0.386826, `stress_floor_below_basic` 12.6533, `calm_transfer_rate` 0.0862017, `tie_wear_rate` 0.0581461; ratio 0.01297 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `mean_acute` +10.6 ± 3.4; `reactive_over_chance` +9.09e-05 ± 0.0023 |
-| 2 | `appraisal_gain` 2.22966, `contact_band_max` 0.145666, `self_channel_exponent` 3.71931, `capacity_level_per_layer` 22.5077, `anxiety_band_low` 9.98717, `anxiety_band_high` 20.462, `acute_decay_rate` 0.102994, `response_up_gain` 0.273436, `response_down_gain` 0.817008, `stress_floor_below_basic` 9.34468, `calm_transfer_rate` 0.0272947, `tie_wear_rate` 0.0135223; ratio 0.009527 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `mean_acute` +4.27 ± 29; `reactive_over_chance` +0.000808 ± 0.0018 |
-| 3 | `appraisal_gain` 4.14211, `contact_band_max` 0.364218, `self_channel_exponent` 2.59433, `capacity_level_per_layer` 21.8999, `anxiety_band_low` 2.96916, `anxiety_band_high` 22.7834, `acute_decay_rate` 0.110556, `response_up_gain` 0.652376, `response_down_gain` 0.366115, `stress_floor_below_basic` 15.4282, `calm_transfer_rate` 0.098206, `tie_wear_rate` 0.0330079; ratio 0.006464 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `mean_acute` +33 ± 26; `reactive_over_chance` -0.00256 ± 0.0021 |
-| 4 | `appraisal_gain` 1.7414, `contact_band_max` 0.247001, `self_channel_exponent` 2.72837, `capacity_level_per_layer` 14.8248, `anxiety_band_low` 7.05016, `anxiety_band_high` 11.3676, `acute_decay_rate` 0.189547, `response_up_gain` 0.794525, `response_down_gain` 0.448441, `stress_floor_below_basic` 11.452, `calm_transfer_rate` 0.0311123, `tie_wear_rate` 0.0608829; ratio 0.03763 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `mean_acute` +21.6 ± 7.8; `reactive_over_chance` -0.000777 ± 0.0017 |
-| 5 | `appraisal_gain` 5.12955, `contact_band_max` 0.170912, `self_channel_exponent` 2.16427, `capacity_level_per_layer` 12.2236, `anxiety_band_low` 3.03395, `anxiety_band_high` 20.0989, `acute_decay_rate` 0.218762, `response_up_gain` 0.525135, `response_down_gain` 0.25339, `stress_floor_below_basic` 8.86525, `calm_transfer_rate` 0.0657798, `tie_wear_rate` 0.0529232; ratio 0.01547 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `mean_acute` +11.6 ± 6.3; `reactive_over_chance` -0.00107 ± 0.0018 |
-| 6 | `appraisal_gain` 2.22084, `contact_band_max` 0.148825, `self_channel_exponent` 2.52975, `capacity_level_per_layer` 18.4754, `anxiety_band_low` 2.53771, `anxiety_band_high` 11.1675, `acute_decay_rate` 0.116846, `response_up_gain` 0.25321, `response_down_gain` 0.767968, `stress_floor_below_basic` 13.7587, `calm_transfer_rate` 0.0664162, `tie_wear_rate` 0.052656; ratio 0.01525 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `mean_acute` +15.3 ± 27; `reactive_over_chance` +7.24e-05 ± 0.0017 |
-| 7 | `appraisal_gain` 1.55221, `contact_band_max` 0.137537, `self_channel_exponent` 1.51283, `capacity_level_per_layer` 12.0763, `anxiety_band_low` 5.27206, `anxiety_band_high` 19.3654, `acute_decay_rate` 0.128922, `response_up_gain` 0.486202, `response_down_gain` 0.367943, `stress_floor_below_basic` 21.6088, `calm_transfer_rate` 0.0842925, `tie_wear_rate` 0.0216461; ratio 0.004938 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `mean_acute` +33.4 ± 16; `reactive_over_chance` +9.23e-05 ± 0.0019 |
+| 0 | `appraisal_gain` 3.916, `contact_band_max` 0.105596, `self_channel_exponent` 2.59508, `capacity_level_per_layer` 19.3821, `anxiety_band_low` 3.38287, `anxiety_band_high` 10.5258, `acute_decay_rate` 0.145846, `response_up_gain` 0.478362, `response_down_gain` 0.395942, `stress_floor_below_basic` 10.9757, `calm_transfer_rate` 0.0954031, `tie_wear_rate` 0.270371; ratio 0.0545 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `mean_acute` +44.1 ± 15; `reactive_over_chance` -0.000295 ± 0.0016 |
+| 1 | `appraisal_gain` 1.62622, `contact_band_max` 0.104138, `self_channel_exponent` 1.49057, `capacity_level_per_layer` 17.736, `anxiety_band_low` 6.76819, `anxiety_band_high` 27.5369, `acute_decay_rate` 0.270239, `response_up_gain` 0.385806, `response_down_gain` 0.386826, `stress_floor_below_basic` 12.6533, `calm_transfer_rate` 0.0862017, `tie_wear_rate` 0.0581461; ratio 0.01297 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `mean_acute` +10.6 ± 3.5; `reactive_over_chance` +0.000239 ± 0.0024 |
+| 2 | `appraisal_gain` 2.22966, `contact_band_max` 0.145666, `self_channel_exponent` 3.71931, `capacity_level_per_layer` 22.5077, `anxiety_band_low` 9.98717, `anxiety_band_high` 20.462, `acute_decay_rate` 0.102994, `response_up_gain` 0.273436, `response_down_gain` 0.817008, `stress_floor_below_basic` 9.34468, `calm_transfer_rate` 0.0272947, `tie_wear_rate` 0.0135223; ratio 0.009527 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `mean_acute` -1.07 ± 29; `reactive_over_chance` +0.000394 ± 0.0018 |
+| 3 | `appraisal_gain` 4.14211, `contact_band_max` 0.364218, `self_channel_exponent` 2.59433, `capacity_level_per_layer` 21.8999, `anxiety_band_low` 2.96916, `anxiety_band_high` 22.7834, `acute_decay_rate` 0.110556, `response_up_gain` 0.652376, `response_down_gain` 0.366115, `stress_floor_below_basic` 15.4282, `calm_transfer_rate` 0.098206, `tie_wear_rate` 0.0330079; ratio 0.006464 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `mean_acute` +26.8 ± 26; `reactive_over_chance` -0.00232 ± 0.0021 |
+| 4 | `appraisal_gain` 1.7414, `contact_band_max` 0.247001, `self_channel_exponent` 2.72837, `capacity_level_per_layer` 14.8248, `anxiety_band_low` 7.05016, `anxiety_band_high` 11.3676, `acute_decay_rate` 0.189547, `response_up_gain` 0.794525, `response_down_gain` 0.448441, `stress_floor_below_basic` 11.452, `calm_transfer_rate` 0.0311123, `tie_wear_rate` 0.0608829; ratio 0.03763 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `mean_acute` +22 ± 7.8; `reactive_over_chance` -0.000349 ± 0.0017 |
+| 5 | `appraisal_gain` 5.12955, `contact_band_max` 0.170912, `self_channel_exponent` 2.16427, `capacity_level_per_layer` 12.2236, `anxiety_band_low` 3.03395, `anxiety_band_high` 20.0989, `acute_decay_rate` 0.218762, `response_up_gain` 0.525135, `response_down_gain` 0.25339, `stress_floor_below_basic` 8.86525, `calm_transfer_rate` 0.0657798, `tie_wear_rate` 0.0529232; ratio 0.01547 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `mean_acute` +10.9 ± 6.3; `reactive_over_chance` -0.000399 ± 0.0019 |
+| 6 | `appraisal_gain` 2.22084, `contact_band_max` 0.148825, `self_channel_exponent` 2.52975, `capacity_level_per_layer` 18.4754, `anxiety_band_low` 2.53771, `anxiety_band_high` 11.1675, `acute_decay_rate` 0.116846, `response_up_gain` 0.25321, `response_down_gain` 0.767968, `stress_floor_below_basic` 13.7587, `calm_transfer_rate` 0.0664162, `tie_wear_rate` 0.052656; ratio 0.01525 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `mean_acute` +14 ± 27; `reactive_over_chance` +0.000322 ± 0.0017 |
+| 7 | `appraisal_gain` 1.55221, `contact_band_max` 0.137537, `self_channel_exponent` 1.51283, `capacity_level_per_layer` 12.0763, `anxiety_band_low` 5.27206, `anxiety_band_high` 19.3654, `acute_decay_rate` 0.128922, `response_up_gain` 0.486202, `response_down_gain` 0.367943, `stress_floor_below_basic` 21.6088, `calm_transfer_rate` 0.0842925, `tie_wear_rate` 0.0216461; ratio 0.004938 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `mean_acute` +32.6 ± 16; `reactive_over_chance` +0.000153 ± 0.002 |
 
 ## `M11.C.41[lower level: heavier stress]` — 0 of 8 samples held
 
@@ -271,14 +271,14 @@ Directional criteria of the ensemble records with no ranges declared in `config/
 
 | Sample | Values | Seeds | Rerun | Verdict | Gating readouts (mean difference ± half-width) |
 |---|---|---|---|---|---|
-| 0 | `appraisal_gain` 2.66467, `contact_band_max` 0.375253, `self_channel_exponent` 2.36387, `capacity_level_per_layer` 14.2742, `anxiety_band_low` 9.04436, `anxiety_band_high` 10.209, `acute_decay_rate` 0.207457, `response_up_gain` 0.970466, `response_down_gain` 0.799206, `stress_floor_below_basic` 15.3317, `calm_transfer_rate` 0.0638079, `tie_wear_rate` 0.182902; ratio 0.05512 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `mean_acute` +15.8 ± 10; `reactive_over_chance` +0.00119 ± 0.0017 |
-| 1 | `appraisal_gain` 2.00019, `contact_band_max` 0.113452, `self_channel_exponent` 1.57997, `capacity_level_per_layer` 17.0113, `anxiety_band_low` 5.46091, `anxiety_band_high` 27.1584, `acute_decay_rate` 0.396949, `response_up_gain` 0.290049, `response_down_gain` 0.284705, `stress_floor_below_basic` 16.9482, `calm_transfer_rate` 0.0421115, `tie_wear_rate` 0.0114783; ratio 0.005242 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `mean_acute` +7.36 ± 3.4; `reactive_over_chance` -0.00041 ± 0.0019 |
-| 2 | `appraisal_gain` 1.58347, `contact_band_max` 0.32936, `self_channel_exponent` 1.06329, `capacity_level_per_layer` 26.5456, `anxiety_band_low` 4.03715, `anxiety_band_high` 19.5121, `acute_decay_rate` 0.221854, `response_up_gain` 0.36266, `response_down_gain` 0.57397, `stress_floor_below_basic` 21.7006, `calm_transfer_rate` 0.0841986, `tie_wear_rate` 0.134437; ratio 0.03071 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `mean_acute` +12.8 ± 9.1; `reactive_over_chance` +0.0016 ± 0.0024 |
-| 3 | `appraisal_gain` 4.62995, `contact_band_max` 0.144863, `self_channel_exponent` 2.96738, `capacity_level_per_layer` 14.9136, `anxiety_band_low` 3.19469, `anxiety_band_high` 15.884, `acute_decay_rate` 0.121784, `response_up_gain` 0.738898, `response_down_gain` 0.726413, `stress_floor_below_basic` 24.394, `calm_transfer_rate` 0.0393222, `tie_wear_rate` 0.0157189; ratio 0.007687 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `mean_acute` +90.8 ± 69; `reactive_over_chance` -0.000626 ± 0.0022 |
-| 4 | `appraisal_gain` 3.32486, `contact_band_max` 0.156352, `self_channel_exponent` 1.19384, `capacity_level_per_layer` 21.5938, `anxiety_band_low` 9.39298, `anxiety_band_high` 26.3051, `acute_decay_rate` 0.349198, `response_up_gain` 0.496068, `response_down_gain` 0.304331, `stress_floor_below_basic` 10.3092, `calm_transfer_rate` 0.0313023, `tie_wear_rate` 0.0147716; ratio 0.009075 (per week ÷ per contact) | 100 then 200 | yes (first FAIL) | FAIL | `mean_acute` +7.96 ± 3; `reactive_over_chance` +0.00059 ± 0.0022 |
-| 5 | `appraisal_gain` 4.01073, `contact_band_max` 0.291791, `self_channel_exponent` 1.52381, `capacity_level_per_layer` 19.4256, `anxiety_band_low` 5.94415, `anxiety_band_high` 10.2349, `acute_decay_rate` 0.115985, `response_up_gain` 0.447825, `response_down_gain` 0.729339, `stress_floor_below_basic` 10.2375, `calm_transfer_rate` 0.0912125, `tie_wear_rate` 0.238434; ratio 0.05027 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `mean_acute` +22.2 ± 18; `reactive_over_chance` +0.00124 ± 0.0021 |
-| 6 | `appraisal_gain` 3.20211, `contact_band_max` 0.295927, `self_channel_exponent` 2.23298, `capacity_level_per_layer` 11.8844, `anxiety_band_low` 4.41155, `anxiety_band_high` 13.3866, `acute_decay_rate` 0.115498, `response_up_gain` 0.766626, `response_down_gain` 0.45487, `stress_floor_below_basic` 18.1344, `calm_transfer_rate` 0.0396499, `tie_wear_rate` 0.0927863; ratio 0.045 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `mean_acute` +38.4 ± 27; `reactive_over_chance` +0.0004 ± 0.0021 |
-| 7 | `appraisal_gain` 1.51572, `contact_band_max` 0.10687, `self_channel_exponent` 1.89678, `capacity_level_per_layer` 16.0502, `anxiety_band_low` 2.60085, `anxiety_band_high` 19.4902, `acute_decay_rate` 0.140759, `response_up_gain` 0.377606, `response_down_gain` 0.662727, `stress_floor_below_basic` 17.9135, `calm_transfer_rate` 0.0625561, `tie_wear_rate` 0.11287; ratio 0.0347 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `mean_acute` +39.2 ± 21; `reactive_over_chance` -0.000437 ± 0.0019 |
+| 0 | `appraisal_gain` 2.66467, `contact_band_max` 0.375253, `self_channel_exponent` 2.36387, `capacity_level_per_layer` 14.2742, `anxiety_band_low` 9.04436, `anxiety_band_high` 10.209, `acute_decay_rate` 0.207457, `response_up_gain` 0.970466, `response_down_gain` 0.799206, `stress_floor_below_basic` 15.3317, `calm_transfer_rate` 0.0638079, `tie_wear_rate` 0.182902; ratio 0.05512 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `mean_acute` +17.4 ± 11; `reactive_over_chance` +0.00106 ± 0.0017 |
+| 1 | `appraisal_gain` 2.00019, `contact_band_max` 0.113452, `self_channel_exponent` 1.57997, `capacity_level_per_layer` 17.0113, `anxiety_band_low` 5.46091, `anxiety_band_high` 27.1584, `acute_decay_rate` 0.396949, `response_up_gain` 0.290049, `response_down_gain` 0.284705, `stress_floor_below_basic` 16.9482, `calm_transfer_rate` 0.0421115, `tie_wear_rate` 0.0114783; ratio 0.005242 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `mean_acute` +6.49 ± 3.5; `reactive_over_chance` +3.4e-05 ± 0.0019 |
+| 2 | `appraisal_gain` 1.58347, `contact_band_max` 0.32936, `self_channel_exponent` 1.06329, `capacity_level_per_layer` 26.5456, `anxiety_band_low` 4.03715, `anxiety_band_high` 19.5121, `acute_decay_rate` 0.221854, `response_up_gain` 0.36266, `response_down_gain` 0.57397, `stress_floor_below_basic` 21.7006, `calm_transfer_rate` 0.0841986, `tie_wear_rate` 0.134437; ratio 0.03071 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `mean_acute` +13 ± 9; `reactive_over_chance` +0.00116 ± 0.0023 |
+| 3 | `appraisal_gain` 4.62995, `contact_band_max` 0.144863, `self_channel_exponent` 2.96738, `capacity_level_per_layer` 14.9136, `anxiety_band_low` 3.19469, `anxiety_band_high` 15.884, `acute_decay_rate` 0.121784, `response_up_gain` 0.738898, `response_down_gain` 0.726413, `stress_floor_below_basic` 24.394, `calm_transfer_rate` 0.0393222, `tie_wear_rate` 0.0157189; ratio 0.007687 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `mean_acute` +93.4 ± 71; `reactive_over_chance` -0.000535 ± 0.0022 |
+| 4 | `appraisal_gain` 3.32486, `contact_band_max` 0.156352, `self_channel_exponent` 1.19384, `capacity_level_per_layer` 21.5938, `anxiety_band_low` 9.39298, `anxiety_band_high` 26.3051, `acute_decay_rate` 0.349198, `response_up_gain` 0.496068, `response_down_gain` 0.304331, `stress_floor_below_basic` 10.3092, `calm_transfer_rate` 0.0313023, `tie_wear_rate` 0.0147716; ratio 0.009075 (per week ÷ per contact) | 100 then 200 | yes (first FAIL) | FAIL | `mean_acute` +8.06 ± 3; `reactive_over_chance` +0.000682 ± 0.0022 |
+| 5 | `appraisal_gain` 4.01073, `contact_band_max` 0.291791, `self_channel_exponent` 1.52381, `capacity_level_per_layer` 19.4256, `anxiety_band_low` 5.94415, `anxiety_band_high` 10.2349, `acute_decay_rate` 0.115985, `response_up_gain` 0.447825, `response_down_gain` 0.729339, `stress_floor_below_basic` 10.2375, `calm_transfer_rate` 0.0912125, `tie_wear_rate` 0.238434; ratio 0.05027 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `mean_acute` +26.1 ± 19; `reactive_over_chance` +0.00124 ± 0.0021 |
+| 6 | `appraisal_gain` 3.20211, `contact_band_max` 0.295927, `self_channel_exponent` 2.23298, `capacity_level_per_layer` 11.8844, `anxiety_band_low` 4.41155, `anxiety_band_high` 13.3866, `acute_decay_rate` 0.115498, `response_up_gain` 0.766626, `response_down_gain` 0.45487, `stress_floor_below_basic` 18.1344, `calm_transfer_rate` 0.0396499, `tie_wear_rate` 0.0927863; ratio 0.045 (per week ÷ per contact) | 100 then 200 | yes (first FAIL) | FAIL | `mean_acute` +36.5 ± 27; `reactive_over_chance` -0.000338 ± 0.002 |
+| 7 | `appraisal_gain` 1.51572, `contact_band_max` 0.10687, `self_channel_exponent` 1.89678, `capacity_level_per_layer` 16.0502, `anxiety_band_low` 2.60085, `anxiety_band_high` 19.4902, `acute_decay_rate` 0.140759, `response_up_gain` 0.377606, `response_down_gain` 0.662727, `stress_floor_below_basic` 17.9135, `calm_transfer_rate` 0.0625561, `tie_wear_rate` 0.11287; ratio 0.0347 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `mean_acute` +42.1 ± 20; `reactive_over_chance` -0.000167 ± 0.0019 |
 
 ## `M11.C.44` — 2 of 8 samples held
 
@@ -310,35 +310,35 @@ Directional criteria of the ensemble records with no ranges declared in `config/
 | 6 | `triangle_transfer_rate` 0.444831, `outsider_positional_gain` 0.87346, `learning_rate` 0.230369, `credit_horizon` 6, `credit_discount` 0.393009, `cross_person_weight` 0.395231, `policy_temperature` 1.9604, `habituation_rate` 0.535981, `habituation_window` 9, `calm_transfer_rate` 0.0663616, `tie_wear_rate` 0.0312519; ratio 0.009056 (per week ÷ per contact) | 100 then 200 | yes (first FAIL) | FAIL | `triangle_rate` -0.00325 ± 0.0036 |
 | 7 | `triangle_transfer_rate` 0.429318, `outsider_positional_gain` 0.829971, `learning_rate` 0.392135, `credit_horizon` 3, `credit_discount` 0.622102, `cross_person_weight` 0.375, `policy_temperature` 1.09606, `habituation_rate` 0.985919, `habituation_window` 8, `calm_transfer_rate` 0.0830431, `tie_wear_rate` 0.126956; ratio 0.0294 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `triangle_rate` +0.000271 ± 0.0053 |
 
-## `M11.C.2` — 2 of 8 samples held
+## `M11.C.2` — 3 of 8 samples held
 
-`tie_wear_to_transfer_ratio` (per week ÷ per contact) entered: held 2 of 4 below its central value 0.01923 and 0 of 4 at or above it.
-
-| Sample | Values | Seeds | Rerun | Verdict | Gating readouts (mean difference ± half-width) |
-|---|---|---|---|---|---|
-| 0 | `learning_rate` 0.319636, `credit_horizon` 3, `credit_discount` 0.550629, `cross_person_weight` 0.311257, `policy_temperature` 0.69982, `habituation_rate` 0.686293, `habituation_window` 9, `perceived_weakness_gain` 0.00617721, `focus_steer_gain` 1.77274, `focus_reinforce_gain` 0.622083, `focus_compound_gain` 12.1923, `investment_leak_rate` 0.195108, `witness_weight` 0.771363, `symptom_leak_rate` 0.195266, `calm_transfer_rate` 0.0520675, `tie_wear_rate` 0.100365; ratio 0.03707 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `symptom_load` -1.05 ± 1.2 |
-| 1 | `learning_rate` 0.23438, `credit_horizon` 2, `credit_discount` 0.633393, `cross_person_weight` 0.641563, `policy_temperature` 1.79742, `habituation_rate` 0.421405, `habituation_window` 13, `perceived_weakness_gain` 0.0150041, `focus_steer_gain` 1.6481, `focus_reinforce_gain` 0.733466, `focus_compound_gain` 10.197, `investment_leak_rate` 0.102844, `witness_weight` 0.344779, `symptom_leak_rate` 0.10855, `calm_transfer_rate` 0.0273885, `tie_wear_rate` 0.0553794; ratio 0.03888 (per week ÷ per contact) | 100 then 200 | yes (first FAIL) | FAIL | `symptom_load` -0.178 ± 2.3 |
-| 2 | `learning_rate` 0.174544, `credit_horizon` 2, `credit_discount` 0.440558, `cross_person_weight` 0.759732, `policy_temperature` 1.34497, `habituation_rate` 0.659347, `habituation_window` 14, `perceived_weakness_gain` 0.0121109, `focus_steer_gain` 1.33298, `focus_reinforce_gain` 0.60585, `focus_compound_gain` 5.65234, `investment_leak_rate` 0.0560708, `witness_weight` 0.52366, `symptom_leak_rate` 0.0899658, `calm_transfer_rate` 0.0300917, `tie_wear_rate` 0.0223341; ratio 0.01427 (per week ÷ per contact) | 100 then 200 | yes (first FAIL) | PASS | `symptom_load` +4.29 ± 3.3 |
-| 3 | `learning_rate` 0.163111, `credit_horizon` 4, `credit_discount` 0.83167, `cross_person_weight` 0.36749, `policy_temperature` 0.638322, `habituation_rate` 0.878969, `habituation_window` 5, `perceived_weakness_gain` 0.00580876, `focus_steer_gain` 0.941683, `focus_reinforce_gain` 1.90405, `focus_compound_gain` 6.74004, `investment_leak_rate` 0.121033, `witness_weight` 0.478497, `symptom_leak_rate` 0.194332, `calm_transfer_rate` 0.0664187, `tie_wear_rate` 0.0477898; ratio 0.01384 (per week ÷ per contact) | 100 then 200 | yes (first FAIL) | FAIL | `symptom_load` +0.209 ± 1.3 |
-| 4 | `learning_rate` 0.232723, `credit_horizon` 3, `credit_discount` 0.962268, `cross_person_weight` 0.603086, `policy_temperature` 0.751651, `habituation_rate` 0.514916, `habituation_window` 7, `perceived_weakness_gain` 0.0119644, `focus_steer_gain` 0.696735, `focus_reinforce_gain` 1.69032, `focus_compound_gain` 13.9372, `investment_leak_rate` 0.13298, `witness_weight` 0.747547, `symptom_leak_rate` 0.0566175, `calm_transfer_rate` 0.0325788, `tie_wear_rate` 0.0500176; ratio 0.02952 (per week ÷ per contact) | 100 then 200 | yes (first FAIL) | FAIL | `symptom_load` +2.09 ± 4.1 |
-| 5 | `learning_rate` 0.129033, `credit_horizon` 6, `credit_discount` 0.609336, `cross_person_weight` 0.253621, `policy_temperature` 1.88953, `habituation_rate` 0.73687, `habituation_window` 8, `perceived_weakness_gain` 0.0154843, `focus_steer_gain` 0.698486, `focus_reinforce_gain` 0.547481, `focus_compound_gain` 8.9144, `investment_leak_rate` 0.139106, `witness_weight` 0.861802, `symptom_leak_rate` 0.07406, `calm_transfer_rate` 0.0421111, `tie_wear_rate` 0.0319748; ratio 0.0146 (per week ÷ per contact) | 100 then 200 | yes (first PASS) | PASS | `symptom_load` +4.87 ± 4.9 |
-| 6 | `learning_rate` 0.389171, `credit_horizon` 6, `credit_discount` 0.440554, `cross_person_weight` 0.778207, `policy_temperature` 0.53416, `habituation_rate` 0.861647, `habituation_window` 16, `perceived_weakness_gain` 0.0119238, `focus_steer_gain` 0.893412, `focus_reinforce_gain` 1.6742, `focus_compound_gain` 10.8319, `investment_leak_rate` 0.0534442, `witness_weight` 0.316634, `symptom_leak_rate` 0.0845323, `calm_transfer_rate` 0.0697821, `tie_wear_rate` 0.0355767; ratio 0.009804 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `symptom_load` +0.803 ± 2.4 |
-| 7 | `learning_rate` 0.195739, `credit_horizon` 4, `credit_discount` 0.400169, `cross_person_weight` 0.325098, `policy_temperature` 1.01443, `habituation_rate` 0.506049, `habituation_window` 10, `perceived_weakness_gain` 0.0095824, `focus_steer_gain` 1.93559, `focus_reinforce_gain` 0.853587, `focus_compound_gain` 15.6155, `investment_leak_rate` 0.199371, `witness_weight` 0.559465, `symptom_leak_rate` 0.0536454, `calm_transfer_rate` 0.0738145, `tie_wear_rate` 0.206255; ratio 0.05374 (per week ÷ per contact) | 100 then 200 | yes (first FAIL) | FAIL | `symptom_load` +2.44 ± 2.8 |
-
-## `M11.C.7[joint over one spouse]` — 4 of 8 samples held
-
-`tie_wear_to_transfer_ratio` (per week ÷ per contact) entered: held 2 of 4 below its central value 0.01923 and 2 of 4 at or above it.
+`tie_wear_to_transfer_ratio` (per week ÷ per contact) entered: held 2 of 4 below its central value 0.01923 and 1 of 4 at or above it.
 
 | Sample | Values | Seeds | Rerun | Verdict | Gating readouts (mean difference ± half-width) |
 |---|---|---|---|---|---|
-| 0 | `appraisal_gain` 4.73991, `intensity_scale` 198.87, `impingement_relaxation_rate` 0.399614, `contact_band_max` 0.202389, `anxiety_togetherness_gain` 0.837177, `interactive_resting_contact` 0.29175, `contact_relaxation_rate` 0.0807754, `nodal_spike_intensity` 0.718999, `landing_rate` 0.178675, `perspective_gain` 0.135758, `binder_failure_fraction` 0.972297, `calm_transfer_rate` 0.0935762, `tie_wear_rate` 0.136836; ratio 0.02812 (per week ÷ per contact) | 100 then 200 | yes (first FAIL) | FAIL | `deviation_fall` +0.00557 ± 0.054 |
-| 1 | `appraisal_gain` 5.17529, `intensity_scale` 61.6313, `impingement_relaxation_rate` 0.363794, `contact_band_max` 0.108704, `anxiety_togetherness_gain` 0.684078, `interactive_resting_contact` 0.683095, `contact_relaxation_rate` 0.06026, `nodal_spike_intensity` 1.53918, `landing_rate` 0.170749, `perspective_gain` 0.117958, `binder_failure_fraction` 0.405277, `calm_transfer_rate` 0.0290945, `tie_wear_rate` 0.0227825; ratio 0.01506 (per week ÷ per contact) | 100 then 200 | yes (first PASS) | PASS | `deviation_fall` +0.0539 ± 0.061 |
-| 2 | `appraisal_gain` 5.21186, `intensity_scale` 51.9998, `impingement_relaxation_rate` 0.286173, `contact_band_max` 0.323554, `anxiety_togetherness_gain` 0.339231, `interactive_resting_contact` 0.863993, `contact_relaxation_rate` 0.0808544, `nodal_spike_intensity` 1.00456, `landing_rate` 0.181196, `perspective_gain` 0.185026, `binder_failure_fraction` 0.474899, `calm_transfer_rate` 0.0381936, `tie_wear_rate` 0.106547; ratio 0.05365 (per week ÷ per contact) | 100 then 200 | yes (first PASS) | PASS | `deviation_fall` +0.0702 ± 0.052 |
-| 3 | `appraisal_gain` 5.1227, `intensity_scale` 130.02, `impingement_relaxation_rate` 0.461276, `contact_band_max` 0.167357, `anxiety_togetherness_gain` 0.326857, `interactive_resting_contact` 0.302813, `contact_relaxation_rate` 0.116781, `nodal_spike_intensity` 0.900345, `landing_rate` 0.140932, `perspective_gain` 0.0816944, `binder_failure_fraction` 0.455151, `calm_transfer_rate` 0.0267508, `tie_wear_rate` 0.0919042; ratio 0.06607 (per week ÷ per contact) | 100 then 200 | yes (first PASS) | PASS | `deviation_fall` +0.076 ± 0.039 |
-| 4 | `appraisal_gain` 2.04001, `intensity_scale` 133.818, `impingement_relaxation_rate` 0.533983, `contact_band_max` 0.332569, `anxiety_togetherness_gain` 0.326144, `interactive_resting_contact` 0.274072, `contact_relaxation_rate` 0.152476, `nodal_spike_intensity` 1.59055, `landing_rate` 0.0933715, `perspective_gain` 0.0964308, `binder_failure_fraction` 0.607165, `calm_transfer_rate` 0.0546844, `tie_wear_rate` 0.0214474; ratio 0.007542 (per week ÷ per contact) | 100 then 200 | yes (first FAIL) | FAIL | `deviation_fall` +0.0217 ± 0.042 |
-| 5 | `appraisal_gain` 4.88284, `intensity_scale` 167.311, `impingement_relaxation_rate` 0.382538, `contact_band_max` 0.105037, `anxiety_togetherness_gain` 0.471042, `interactive_resting_contact` 0.283632, `contact_relaxation_rate` 0.0910388, `nodal_spike_intensity` 0.961563, `landing_rate` 0.0969713, `perspective_gain` 0.126321, `binder_failure_fraction` 0.662307, `calm_transfer_rate` 0.0425433, `tie_wear_rate` 0.0518078; ratio 0.02342 (per week ÷ per contact) | 100 then 200 | yes (first FAIL) | FAIL | `deviation_fall` +0.0283 ± 0.052 |
-| 6 | `appraisal_gain` 1.87672, `intensity_scale` 64.4287, `impingement_relaxation_rate` 0.36328, `contact_band_max` 0.297055, `anxiety_togetherness_gain` 0.687177, `interactive_resting_contact` 0.344717, `contact_relaxation_rate` 0.0647034, `nodal_spike_intensity` 1.86441, `landing_rate` 0.126718, `perspective_gain` 0.0722306, `binder_failure_fraction` 0.659963, `calm_transfer_rate` 0.0278195, `tie_wear_rate` 0.0123301; ratio 0.008523 (per week ÷ per contact) | 100 then 200 | yes (first FAIL) | FAIL | `deviation_fall` +0.0186 ± 0.054 |
-| 7 | `appraisal_gain` 4.98611, `intensity_scale` 164.955, `impingement_relaxation_rate` 0.219022, `contact_band_max` 0.32223, `anxiety_togetherness_gain` 0.732269, `interactive_resting_contact` 0.283864, `contact_relaxation_rate` 0.0505148, `nodal_spike_intensity` 0.699834, `landing_rate` 0.169228, `perspective_gain` 0.151155, `binder_failure_fraction` 0.632273, `calm_transfer_rate` 0.0331717, `tie_wear_rate` 0.0120079; ratio 0.006961 (per week ÷ per contact) | 100 then 200 | yes (first PASS) | PASS | `deviation_fall` +0.107 ± 0.065 |
+| 0 | `learning_rate` 0.319636, `credit_horizon` 3, `credit_discount` 0.550629, `cross_person_weight` 0.311257, `policy_temperature` 0.69982, `habituation_rate` 0.686293, `habituation_window` 9, `perceived_weakness_gain` 0.00617721, `focus_steer_gain` 1.77274, `focus_reinforce_gain` 0.622083, `focus_compound_gain` 12.1923, `investment_leak_rate` 0.195108, `witness_weight` 0.771363, `symptom_leak_rate` 0.195266, `calm_transfer_rate` 0.0520675, `tie_wear_rate` 0.100365; ratio 0.03707 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `symptom_load` -0.888 ± 1.2 |
+| 1 | `learning_rate` 0.23438, `credit_horizon` 2, `credit_discount` 0.633393, `cross_person_weight` 0.641563, `policy_temperature` 1.79742, `habituation_rate` 0.421405, `habituation_window` 13, `perceived_weakness_gain` 0.0150041, `focus_steer_gain` 1.6481, `focus_reinforce_gain` 0.733466, `focus_compound_gain` 10.197, `investment_leak_rate` 0.102844, `witness_weight` 0.344779, `symptom_leak_rate` 0.10855, `calm_transfer_rate` 0.0273885, `tie_wear_rate` 0.0553794; ratio 0.03888 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `symptom_load` -0.655 ± 2.3 |
+| 2 | `learning_rate` 0.174544, `credit_horizon` 2, `credit_discount` 0.440558, `cross_person_weight` 0.759732, `policy_temperature` 1.34497, `habituation_rate` 0.659347, `habituation_window` 14, `perceived_weakness_gain` 0.0121109, `focus_steer_gain` 1.33298, `focus_reinforce_gain` 0.60585, `focus_compound_gain` 5.65234, `investment_leak_rate` 0.0560708, `witness_weight` 0.52366, `symptom_leak_rate` 0.0899658, `calm_transfer_rate` 0.0300917, `tie_wear_rate` 0.0223341; ratio 0.01427 (per week ÷ per contact) | 100 then 200 | yes (first PASS) | PASS | `symptom_load` +5.31 ± 3.2 |
+| 3 | `learning_rate` 0.163111, `credit_horizon` 4, `credit_discount` 0.83167, `cross_person_weight` 0.36749, `policy_temperature` 0.638322, `habituation_rate` 0.878969, `habituation_window` 5, `perceived_weakness_gain` 0.00580876, `focus_steer_gain` 0.941683, `focus_reinforce_gain` 1.90405, `focus_compound_gain` 6.74004, `investment_leak_rate` 0.121033, `witness_weight` 0.478497, `symptom_leak_rate` 0.194332, `calm_transfer_rate` 0.0664187, `tie_wear_rate` 0.0477898; ratio 0.01384 (per week ÷ per contact) | 100 then 200 | yes (first FAIL) | FAIL | `symptom_load` +0.159 ± 1.3 |
+| 4 | `learning_rate` 0.232723, `credit_horizon` 3, `credit_discount` 0.962268, `cross_person_weight` 0.603086, `policy_temperature` 0.751651, `habituation_rate` 0.514916, `habituation_window` 7, `perceived_weakness_gain` 0.0119644, `focus_steer_gain` 0.696735, `focus_reinforce_gain` 1.69032, `focus_compound_gain` 13.9372, `investment_leak_rate` 0.13298, `witness_weight` 0.747547, `symptom_leak_rate` 0.0566175, `calm_transfer_rate` 0.0325788, `tie_wear_rate` 0.0500176; ratio 0.02952 (per week ÷ per contact) | 100 then 200 | yes (first FAIL) | FAIL | `symptom_load` +2.37 ± 4.2 |
+| 5 | `learning_rate` 0.129033, `credit_horizon` 6, `credit_discount` 0.609336, `cross_person_weight` 0.253621, `policy_temperature` 1.88953, `habituation_rate` 0.73687, `habituation_window` 8, `perceived_weakness_gain` 0.0154843, `focus_steer_gain` 0.698486, `focus_reinforce_gain` 0.547481, `focus_compound_gain` 8.9144, `investment_leak_rate` 0.139106, `witness_weight` 0.861802, `symptom_leak_rate` 0.07406, `calm_transfer_rate` 0.0421111, `tie_wear_rate` 0.0319748; ratio 0.0146 (per week ÷ per contact) | 100 then 200 | yes (first PASS) | PASS | `symptom_load` +5.7 ± 4.8 |
+| 6 | `learning_rate` 0.389171, `credit_horizon` 6, `credit_discount` 0.440554, `cross_person_weight` 0.778207, `policy_temperature` 0.53416, `habituation_rate` 0.861647, `habituation_window` 16, `perceived_weakness_gain` 0.0119238, `focus_steer_gain` 0.893412, `focus_reinforce_gain` 1.6742, `focus_compound_gain` 10.8319, `investment_leak_rate` 0.0534442, `witness_weight` 0.316634, `symptom_leak_rate` 0.0845323, `calm_transfer_rate` 0.0697821, `tie_wear_rate` 0.0355767; ratio 0.009804 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `symptom_load` +0.923 ± 2.4 |
+| 7 | `learning_rate` 0.195739, `credit_horizon` 4, `credit_discount` 0.400169, `cross_person_weight` 0.325098, `policy_temperature` 1.01443, `habituation_rate` 0.506049, `habituation_window` 10, `perceived_weakness_gain` 0.0095824, `focus_steer_gain` 1.93559, `focus_reinforce_gain` 0.853587, `focus_compound_gain` 15.6155, `investment_leak_rate` 0.199371, `witness_weight` 0.559465, `symptom_leak_rate` 0.0536454, `calm_transfer_rate` 0.0738145, `tie_wear_rate` 0.206255; ratio 0.05374 (per week ÷ per contact) | 100 then 200 | yes (first PASS) | PASS | `symptom_load` +3.23 ± 2.8 |
+
+## `M11.C.7[joint over one spouse]` — 3 of 8 samples held
+
+`tie_wear_to_transfer_ratio` (per week ÷ per contact) entered: held 1 of 4 below its central value 0.01923 and 2 of 4 at or above it.
+
+| Sample | Values | Seeds | Rerun | Verdict | Gating readouts (mean difference ± half-width) |
+|---|---|---|---|---|---|
+| 0 | `appraisal_gain` 4.73991, `intensity_scale` 198.87, `impingement_relaxation_rate` 0.399614, `contact_band_max` 0.202389, `anxiety_togetherness_gain` 0.837177, `interactive_resting_contact` 0.29175, `contact_relaxation_rate` 0.0807754, `nodal_spike_intensity` 0.718999, `landing_rate` 0.178675, `perspective_gain` 0.135758, `binder_failure_fraction` 0.972297, `calm_transfer_rate` 0.0935762, `tie_wear_rate` 0.136836; ratio 0.02812 (per week ÷ per contact) | 100 then 200 | yes (first FAIL) | FAIL | `deviation_fall` +0.00497 ± 0.054 |
+| 1 | `appraisal_gain` 5.17529, `intensity_scale` 61.6313, `impingement_relaxation_rate` 0.363794, `contact_band_max` 0.108704, `anxiety_togetherness_gain` 0.684078, `interactive_resting_contact` 0.683095, `contact_relaxation_rate` 0.06026, `nodal_spike_intensity` 1.53918, `landing_rate` 0.170749, `perspective_gain` 0.117958, `binder_failure_fraction` 0.405277, `calm_transfer_rate` 0.0290945, `tie_wear_rate` 0.0227825; ratio 0.01506 (per week ÷ per contact) | 100 then 200 | yes (first PASS) | FAIL | `deviation_fall` +0.0411 ± 0.06 |
+| 2 | `appraisal_gain` 5.21186, `intensity_scale` 51.9998, `impingement_relaxation_rate` 0.286173, `contact_band_max` 0.323554, `anxiety_togetherness_gain` 0.339231, `interactive_resting_contact` 0.863993, `contact_relaxation_rate` 0.0808544, `nodal_spike_intensity` 1.00456, `landing_rate` 0.181196, `perspective_gain` 0.185026, `binder_failure_fraction` 0.474899, `calm_transfer_rate` 0.0381936, `tie_wear_rate` 0.106547; ratio 0.05365 (per week ÷ per contact) | 100 then 200 | yes (first PASS) | PASS | `deviation_fall` +0.0719 ± 0.053 |
+| 3 | `appraisal_gain` 5.1227, `intensity_scale` 130.02, `impingement_relaxation_rate` 0.461276, `contact_band_max` 0.167357, `anxiety_togetherness_gain` 0.326857, `interactive_resting_contact` 0.302813, `contact_relaxation_rate` 0.116781, `nodal_spike_intensity` 0.900345, `landing_rate` 0.140932, `perspective_gain` 0.0816944, `binder_failure_fraction` 0.455151, `calm_transfer_rate` 0.0267508, `tie_wear_rate` 0.0919042; ratio 0.06607 (per week ÷ per contact) | 100 then 200 | yes (first PASS) | PASS | `deviation_fall` +0.0665 ± 0.039 |
+| 4 | `appraisal_gain` 2.04001, `intensity_scale` 133.818, `impingement_relaxation_rate` 0.533983, `contact_band_max` 0.332569, `anxiety_togetherness_gain` 0.326144, `interactive_resting_contact` 0.274072, `contact_relaxation_rate` 0.152476, `nodal_spike_intensity` 1.59055, `landing_rate` 0.0933715, `perspective_gain` 0.0964308, `binder_failure_fraction` 0.607165, `calm_transfer_rate` 0.0546844, `tie_wear_rate` 0.0214474; ratio 0.007542 (per week ÷ per contact) | 100 then 200 | yes (first FAIL) | FAIL | `deviation_fall` +0.0175 ± 0.041 |
+| 5 | `appraisal_gain` 4.88284, `intensity_scale` 167.311, `impingement_relaxation_rate` 0.382538, `contact_band_max` 0.105037, `anxiety_togetherness_gain` 0.471042, `interactive_resting_contact` 0.283632, `contact_relaxation_rate` 0.0910388, `nodal_spike_intensity` 0.961563, `landing_rate` 0.0969713, `perspective_gain` 0.126321, `binder_failure_fraction` 0.662307, `calm_transfer_rate` 0.0425433, `tie_wear_rate` 0.0518078; ratio 0.02342 (per week ÷ per contact) | 100 then 200 | yes (first FAIL) | FAIL | `deviation_fall` +0.0269 ± 0.051 |
+| 6 | `appraisal_gain` 1.87672, `intensity_scale` 64.4287, `impingement_relaxation_rate` 0.36328, `contact_band_max` 0.297055, `anxiety_togetherness_gain` 0.687177, `interactive_resting_contact` 0.344717, `contact_relaxation_rate` 0.0647034, `nodal_spike_intensity` 1.86441, `landing_rate` 0.126718, `perspective_gain` 0.0722306, `binder_failure_fraction` 0.659963, `calm_transfer_rate` 0.0278195, `tie_wear_rate` 0.0123301; ratio 0.008523 (per week ÷ per contact) | 100 then 200 | yes (first FAIL) | FAIL | `deviation_fall` +0.0187 ± 0.053 |
+| 7 | `appraisal_gain` 4.98611, `intensity_scale` 164.955, `impingement_relaxation_rate` 0.219022, `contact_band_max` 0.32223, `anxiety_togetherness_gain` 0.732269, `interactive_resting_contact` 0.283864, `contact_relaxation_rate` 0.0505148, `nodal_spike_intensity` 0.699834, `landing_rate` 0.169228, `perspective_gain` 0.151155, `binder_failure_fraction` 0.632273, `calm_transfer_rate` 0.0331717, `tie_wear_rate` 0.0120079; ratio 0.006961 (per week ÷ per contact) | 100 then 200 | yes (first PASS) | PASS | `deviation_fall` +0.109 ± 0.065 |
 
 ## `M11.C.7[joint over sided]` — 8 of 8 samples held
 
@@ -346,14 +346,14 @@ Directional criteria of the ensemble records with no ranges declared in `config/
 
 | Sample | Values | Seeds | Rerun | Verdict | Gating readouts (mean difference ± half-width) |
 |---|---|---|---|---|---|
-| 0 | `appraisal_gain` 4.86833, `intensity_scale` 140.595, `impingement_relaxation_rate` 0.32492, `contact_band_max` 0.327293, `anxiety_togetherness_gain` 0.771776, `interactive_resting_contact` 0.379419, `contact_relaxation_rate` 0.0609153, `nodal_spike_intensity` 1.13204, `landing_rate` 0.150691, `perspective_gain` 0.105415, `binder_failure_fraction` 0.707075, `calm_transfer_rate` 0.0254284, `tie_wear_rate` 0.0310886; ratio 0.02351 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | PASS | `deviation_fall` +0.0601 ± 0.059; `landed_contacts` +6.92 ± 0.5 |
-| 1 | `appraisal_gain` 1.7436, `intensity_scale` 183.369, `impingement_relaxation_rate` 0.296683, `contact_band_max` 0.149397, `anxiety_togetherness_gain` 0.448886, `interactive_resting_contact` 0.598342, `contact_relaxation_rate` 0.121014, `nodal_spike_intensity` 0.523774, `landing_rate` 0.0999119, `perspective_gain` 0.192112, `binder_failure_fraction` 0.981289, `calm_transfer_rate` 0.0273892, `tie_wear_rate` 0.0107019; ratio 0.007514 (per week ÷ per contact) | 150 | no | PASS | `deviation_fall` +0.149 ± 0.067; `landed_contacts` +1.51 ± 0.29 |
-| 2 | `appraisal_gain` 1.67523, `intensity_scale` 151.156, `impingement_relaxation_rate` 0.355044, `contact_band_max` 0.379162, `anxiety_togetherness_gain` 0.317294, `interactive_resting_contact` 0.969223, `contact_relaxation_rate` 0.171422, `nodal_spike_intensity` 0.971179, `landing_rate` 0.118023, `perspective_gain` 0.0807872, `binder_failure_fraction` 0.798753, `calm_transfer_rate` 0.0655493, `tie_wear_rate` 0.0459027; ratio 0.01347 (per week ÷ per contact) | 150 then 200 | yes (first PASS) | PASS | `deviation_fall` +0.0951 ± 0.056; `landed_contacts` +3.4 ± 0.37 |
-| 3 | `appraisal_gain` 3.24901, `intensity_scale` 134.342, `impingement_relaxation_rate` 0.534062, `contact_band_max` 0.37515, `anxiety_togetherness_gain` 0.486862, `interactive_resting_contact` 0.948966, `contact_relaxation_rate` 0.0697739, `nodal_spike_intensity` 0.85174, `landing_rate` 0.10653, `perspective_gain` 0.149848, `binder_failure_fraction` 0.87817, `calm_transfer_rate` 0.0289763, `tie_wear_rate` 0.0139634; ratio 0.009267 (per week ÷ per contact) | 150 | no | PASS | `deviation_fall` +0.153 ± 0.075; `landed_contacts` +4.34 ± 0.44 |
-| 4 | `appraisal_gain` 5.62844, `intensity_scale` 80.8776, `impingement_relaxation_rate` 0.21727, `contact_band_max` 0.220821, `anxiety_togetherness_gain` 0.59637, `interactive_resting_contact` 0.789427, `contact_relaxation_rate` 0.142406, `nodal_spike_intensity` 1.72986, `landing_rate` 0.118201, `perspective_gain` 0.170976, `binder_failure_fraction` 0.823898, `calm_transfer_rate` 0.0448419, `tie_wear_rate` 0.0740911; ratio 0.03177 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | PASS | `deviation_fall` +0.0399 ± 0.043; `landed_contacts` +7.91 ± 0.42 |
-| 5 | `appraisal_gain` 2.94321, `intensity_scale` 83.5407, `impingement_relaxation_rate` 0.506709, `contact_band_max` 0.108372, `anxiety_togetherness_gain` 0.667466, `interactive_resting_contact` 0.720212, `contact_relaxation_rate` 0.0591821, `nodal_spike_intensity` 0.63783, `landing_rate` 0.200878, `perspective_gain` 0.0701579, `binder_failure_fraction` 0.489182, `calm_transfer_rate` 0.0755999, `tie_wear_rate` 0.0727062; ratio 0.01849 (per week ÷ per contact) | 150 then 200 | yes (first PASS) | PASS | `deviation_fall` +0.0737 ± 0.044; `landed_contacts` +14 ± 0.56 |
-| 6 | `appraisal_gain` 5.32303, `intensity_scale` 115.953, `impingement_relaxation_rate` 0.389862, `contact_band_max` 0.247904, `anxiety_togetherness_gain` 0.530518, `interactive_resting_contact` 0.914327, `contact_relaxation_rate` 0.18602, `nodal_spike_intensity` 1.0374, `landing_rate` 0.151882, `perspective_gain` 0.0905562, `binder_failure_fraction` 0.469739, `calm_transfer_rate` 0.0872172, `tie_wear_rate` 0.0599853; ratio 0.01323 (per week ÷ per contact) | 150 then 200 | yes (first PASS) | PASS | `deviation_fall` +0.0748 ± 0.046; `landed_contacts` +8.62 ± 0.54 |
-| 7 | `appraisal_gain` 2.3685, `intensity_scale` 56.5773, `impingement_relaxation_rate` 0.262462, `contact_band_max` 0.156898, `anxiety_togetherness_gain` 0.790842, `interactive_resting_contact` 0.73059, `contact_relaxation_rate` 0.0697951, `nodal_spike_intensity` 0.90674, `landing_rate` 0.096904, `perspective_gain` 0.177572, `binder_failure_fraction` 0.602382, `calm_transfer_rate` 0.0420366, `tie_wear_rate` 0.0126996; ratio 0.00581 (per week ÷ per contact) | 150 then 200 | yes (first PASS) | PASS | `deviation_fall` +0.134 ± 0.06; `landed_contacts` +9.16 ± 0.39 |
+| 0 | `appraisal_gain` 4.86833, `intensity_scale` 140.595, `impingement_relaxation_rate` 0.32492, `contact_band_max` 0.327293, `anxiety_togetherness_gain` 0.771776, `interactive_resting_contact` 0.379419, `contact_relaxation_rate` 0.0609153, `nodal_spike_intensity` 1.13204, `landing_rate` 0.150691, `perspective_gain` 0.105415, `binder_failure_fraction` 0.707075, `calm_transfer_rate` 0.0254284, `tie_wear_rate` 0.0310886; ratio 0.02351 (per week ÷ per contact) | 150 then 200 | yes (first PASS) | PASS | `deviation_fall` +0.071 ± 0.059; `landed_contacts` +6.92 ± 0.5 |
+| 1 | `appraisal_gain` 1.7436, `intensity_scale` 183.369, `impingement_relaxation_rate` 0.296683, `contact_band_max` 0.149397, `anxiety_togetherness_gain` 0.448886, `interactive_resting_contact` 0.598342, `contact_relaxation_rate` 0.121014, `nodal_spike_intensity` 0.523774, `landing_rate` 0.0999119, `perspective_gain` 0.192112, `binder_failure_fraction` 0.981289, `calm_transfer_rate` 0.0273892, `tie_wear_rate` 0.0107019; ratio 0.007514 (per week ÷ per contact) | 150 | no | PASS | `deviation_fall` +0.149 ± 0.066; `landed_contacts` +1.56 ± 0.29 |
+| 2 | `appraisal_gain` 1.67523, `intensity_scale` 151.156, `impingement_relaxation_rate` 0.355044, `contact_band_max` 0.379162, `anxiety_togetherness_gain` 0.317294, `interactive_resting_contact` 0.969223, `contact_relaxation_rate` 0.171422, `nodal_spike_intensity` 0.971179, `landing_rate` 0.118023, `perspective_gain` 0.0807872, `binder_failure_fraction` 0.798753, `calm_transfer_rate` 0.0655493, `tie_wear_rate` 0.0459027; ratio 0.01347 (per week ÷ per contact) | 150 then 200 | yes (first PASS) | PASS | `deviation_fall` +0.093 ± 0.057; `landed_contacts` +3.44 ± 0.37 |
+| 3 | `appraisal_gain` 3.24901, `intensity_scale` 134.342, `impingement_relaxation_rate` 0.534062, `contact_band_max` 0.37515, `anxiety_togetherness_gain` 0.486862, `interactive_resting_contact` 0.948966, `contact_relaxation_rate` 0.0697739, `nodal_spike_intensity` 0.85174, `landing_rate` 0.10653, `perspective_gain` 0.149848, `binder_failure_fraction` 0.87817, `calm_transfer_rate` 0.0289763, `tie_wear_rate` 0.0139634; ratio 0.009267 (per week ÷ per contact) | 150 | no | PASS | `deviation_fall` +0.163 ± 0.077; `landed_contacts` +4.34 ± 0.44 |
+| 4 | `appraisal_gain` 5.62844, `intensity_scale` 80.8776, `impingement_relaxation_rate` 0.21727, `contact_band_max` 0.220821, `anxiety_togetherness_gain` 0.59637, `interactive_resting_contact` 0.789427, `contact_relaxation_rate` 0.142406, `nodal_spike_intensity` 1.72986, `landing_rate` 0.118201, `perspective_gain` 0.170976, `binder_failure_fraction` 0.823898, `calm_transfer_rate` 0.0448419, `tie_wear_rate` 0.0740911; ratio 0.03177 (per week ÷ per contact) | 150 then 200 | yes (first PASS) | PASS | `deviation_fall` +0.0522 ± 0.041; `landed_contacts` +7.94 ± 0.42 |
+| 5 | `appraisal_gain` 2.94321, `intensity_scale` 83.5407, `impingement_relaxation_rate` 0.506709, `contact_band_max` 0.108372, `anxiety_togetherness_gain` 0.667466, `interactive_resting_contact` 0.720212, `contact_relaxation_rate` 0.0591821, `nodal_spike_intensity` 0.63783, `landing_rate` 0.200878, `perspective_gain` 0.0701579, `binder_failure_fraction` 0.489182, `calm_transfer_rate` 0.0755999, `tie_wear_rate` 0.0727062; ratio 0.01849 (per week ÷ per contact) | 150 then 200 | yes (first PASS) | PASS | `deviation_fall` +0.0819 ± 0.043; `landed_contacts` +14.1 ± 0.56 |
+| 6 | `appraisal_gain` 5.32303, `intensity_scale` 115.953, `impingement_relaxation_rate` 0.389862, `contact_band_max` 0.247904, `anxiety_togetherness_gain` 0.530518, `interactive_resting_contact` 0.914327, `contact_relaxation_rate` 0.18602, `nodal_spike_intensity` 1.0374, `landing_rate` 0.151882, `perspective_gain` 0.0905562, `binder_failure_fraction` 0.469739, `calm_transfer_rate` 0.0872172, `tie_wear_rate` 0.0599853; ratio 0.01323 (per week ÷ per contact) | 150 then 200 | yes (first PASS) | PASS | `deviation_fall` +0.0754 ± 0.048; `landed_contacts` +8.61 ± 0.54 |
+| 7 | `appraisal_gain` 2.3685, `intensity_scale` 56.5773, `impingement_relaxation_rate` 0.262462, `contact_band_max` 0.156898, `anxiety_togetherness_gain` 0.790842, `interactive_resting_contact` 0.73059, `contact_relaxation_rate` 0.0697951, `nodal_spike_intensity` 0.90674, `landing_rate` 0.096904, `perspective_gain` 0.177572, `binder_failure_fraction` 0.602382, `calm_transfer_rate` 0.0420366, `tie_wear_rate` 0.0126996; ratio 0.00581 (per week ÷ per contact) | 150 then 200 | yes (first PASS) | PASS | `deviation_fall` +0.136 ± 0.062; `landed_contacts` +9.22 ± 0.39 |
 
 ## `M11.C.7[one spouse over sided]` — 6 of 8 samples held
 
@@ -361,14 +361,14 @@ Directional criteria of the ensemble records with no ranges declared in `config/
 
 | Sample | Values | Seeds | Rerun | Verdict | Gating readouts (mean difference ± half-width) |
 |---|---|---|---|---|---|
-| 0 | `appraisal_gain` 2.04662, `intensity_scale` 60.4394, `impingement_relaxation_rate` 0.159763, `contact_band_max` 0.123922, `anxiety_togetherness_gain` 0.41401, `interactive_resting_contact` 0.538129, `contact_relaxation_rate` 0.0628118, `nodal_spike_intensity` 1.45832, `landing_rate` 0.0956636, `perspective_gain` 0.0518629, `binder_failure_fraction` 0.704541, `calm_transfer_rate` 0.0546223, `tie_wear_rate` 0.0801703; ratio 0.02823 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `deviation_fall` +0.0305 ± 0.047; `landed_contacts` +8.38 ± 0.46 |
-| 1 | `appraisal_gain` 1.65522, `intensity_scale` 69.7627, `impingement_relaxation_rate` 0.390855, `contact_band_max` 0.354772, `anxiety_togetherness_gain` 0.726162, `interactive_resting_contact` 0.531785, `contact_relaxation_rate` 0.161771, `nodal_spike_intensity` 0.878326, `landing_rate` 0.230859, `perspective_gain` 0.128788, `binder_failure_fraction` 0.927754, `calm_transfer_rate` 0.0645684, `tie_wear_rate` 0.0247977; ratio 0.007386 (per week ÷ per contact) | 150 then 200 | yes (first PASS) | PASS | `deviation_fall` +0.0482 ± 0.055; `landed_contacts` +19.6 ± 0.79 |
-| 2 | `appraisal_gain` 2.32275, `intensity_scale` 199.039, `impingement_relaxation_rate` 0.246384, `contact_band_max` 0.124341, `anxiety_togetherness_gain` 0.505571, `interactive_resting_contact` 0.869841, `contact_relaxation_rate` 0.150308, `nodal_spike_intensity` 0.6911, `landing_rate` 0.19721, `perspective_gain` 0.198932, `binder_failure_fraction` 0.601904, `calm_transfer_rate` 0.0414454, `tie_wear_rate` 0.0312734; ratio 0.01451 (per week ÷ per contact) | 150 | no | PASS | `deviation_fall` +0.274 ± 0.09; `landed_contacts` +3.91 ± 0.73 |
-| 3 | `appraisal_gain` 2.81749, `intensity_scale` 176.216, `impingement_relaxation_rate` 0.433853, `contact_band_max` 0.100414, `anxiety_togetherness_gain` 0.38921, `interactive_resting_contact` 0.67095, `contact_relaxation_rate` 0.143733, `nodal_spike_intensity` 1.166, `landing_rate` 0.254857, `perspective_gain` 0.102679, `binder_failure_fraction` 0.894461, `calm_transfer_rate` 0.0581822, `tie_wear_rate` 0.0200371; ratio 0.006623 (per week ÷ per contact) | 150 | no | PASS | `deviation_fall` +0.188 ± 0.079; `landed_contacts` +6.3 ± 1 |
-| 4 | `appraisal_gain` 1.9921, `intensity_scale` 68.8123, `impingement_relaxation_rate` 0.15615, `contact_band_max` 0.176038, `anxiety_togetherness_gain` 0.373717, `interactive_resting_contact` 0.673367, `contact_relaxation_rate` 0.0892381, `nodal_spike_intensity` 1.20316, `landing_rate` 0.148612, `perspective_gain` 0.0621015, `binder_failure_fraction` 0.965223, `calm_transfer_rate` 0.0663908, `tie_wear_rate` 0.105947; ratio 0.03069 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | PASS | `deviation_fall` +0.0524 ± 0.045; `landed_contacts` +10.6 ± 0.55 |
-| 5 | `appraisal_gain` 1.94987, `intensity_scale` 114.925, `impingement_relaxation_rate` 0.31031, `contact_band_max` 0.237769, `anxiety_togetherness_gain` 0.549339, `interactive_resting_contact` 0.31733, `contact_relaxation_rate` 0.152152, `nodal_spike_intensity` 0.860404, `landing_rate` 0.132338, `perspective_gain` 0.12817, `binder_failure_fraction` 0.6973, `calm_transfer_rate` 0.0992603, `tie_wear_rate` 0.221643; ratio 0.04294 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | PASS | `deviation_fall` +0.0559 ± 0.038; `landed_contacts` +5.08 ± 0.47 |
-| 6 | `appraisal_gain` 2.17274, `intensity_scale` 101.984, `impingement_relaxation_rate` 0.173096, `contact_band_max` 0.11635, `anxiety_togetherness_gain` 0.456774, `interactive_resting_contact` 0.341947, `contact_relaxation_rate` 0.164374, `nodal_spike_intensity` 1.61753, `landing_rate` 0.142875, `perspective_gain` 0.0518401, `binder_failure_fraction` 0.576428, `calm_transfer_rate` 0.0771942, `tie_wear_rate` 0.0983439; ratio 0.0245 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `deviation_fall` +0.00663 ± 0.035; `landed_contacts` +9.24 ± 0.58 |
-| 7 | `appraisal_gain` 5.56478, `intensity_scale` 186.287, `impingement_relaxation_rate` 0.316167, `contact_band_max` 0.194005, `anxiety_togetherness_gain` 0.268886, `interactive_resting_contact` 0.364146, `contact_relaxation_rate` 0.13056, `nodal_spike_intensity` 0.828598, `landing_rate` 0.0771208, `perspective_gain` 0.0630461, `binder_failure_fraction` 0.639891, `calm_transfer_rate` 0.0444587, `tie_wear_rate` 0.0514708; ratio 0.02226 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | PASS | `deviation_fall` +0.0496 ± 0.053; `landed_contacts` +2.44 ± 0.34 |
+| 0 | `appraisal_gain` 2.04662, `intensity_scale` 60.4394, `impingement_relaxation_rate` 0.159763, `contact_band_max` 0.123922, `anxiety_togetherness_gain` 0.41401, `interactive_resting_contact` 0.538129, `contact_relaxation_rate` 0.0628118, `nodal_spike_intensity` 1.45832, `landing_rate` 0.0956636, `perspective_gain` 0.0518629, `binder_failure_fraction` 0.704541, `calm_transfer_rate` 0.0546223, `tie_wear_rate` 0.0801703; ratio 0.02823 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `deviation_fall` +0.0365 ± 0.048; `landed_contacts` +8.39 ± 0.46 |
+| 1 | `appraisal_gain` 1.65522, `intensity_scale` 69.7627, `impingement_relaxation_rate` 0.390855, `contact_band_max` 0.354772, `anxiety_togetherness_gain` 0.726162, `interactive_resting_contact` 0.531785, `contact_relaxation_rate` 0.161771, `nodal_spike_intensity` 0.878326, `landing_rate` 0.230859, `perspective_gain` 0.128788, `binder_failure_fraction` 0.927754, `calm_transfer_rate` 0.0645684, `tie_wear_rate` 0.0247977; ratio 0.007386 (per week ÷ per contact) | 150 then 200 | yes (first PASS) | PASS | `deviation_fall` +0.0487 ± 0.054; `landed_contacts` +19.6 ± 0.79 |
+| 2 | `appraisal_gain` 2.32275, `intensity_scale` 199.039, `impingement_relaxation_rate` 0.246384, `contact_band_max` 0.124341, `anxiety_togetherness_gain` 0.505571, `interactive_resting_contact` 0.869841, `contact_relaxation_rate` 0.150308, `nodal_spike_intensity` 0.6911, `landing_rate` 0.19721, `perspective_gain` 0.198932, `binder_failure_fraction` 0.601904, `calm_transfer_rate` 0.0414454, `tie_wear_rate` 0.0312734; ratio 0.01451 (per week ÷ per contact) | 150 | no | PASS | `deviation_fall` +0.281 ± 0.088; `landed_contacts` +3.91 ± 0.73 |
+| 3 | `appraisal_gain` 2.81749, `intensity_scale` 176.216, `impingement_relaxation_rate` 0.433853, `contact_band_max` 0.100414, `anxiety_togetherness_gain` 0.38921, `interactive_resting_contact` 0.67095, `contact_relaxation_rate` 0.143733, `nodal_spike_intensity` 1.166, `landing_rate` 0.254857, `perspective_gain` 0.102679, `binder_failure_fraction` 0.894461, `calm_transfer_rate` 0.0581822, `tie_wear_rate` 0.0200371; ratio 0.006623 (per week ÷ per contact) | 150 | no | PASS | `deviation_fall` +0.208 ± 0.079; `landed_contacts` +6.3 ± 1 |
+| 4 | `appraisal_gain` 1.9921, `intensity_scale` 68.8123, `impingement_relaxation_rate` 0.15615, `contact_band_max` 0.176038, `anxiety_togetherness_gain` 0.373717, `interactive_resting_contact` 0.673367, `contact_relaxation_rate` 0.0892381, `nodal_spike_intensity` 1.20316, `landing_rate` 0.148612, `perspective_gain` 0.0621015, `binder_failure_fraction` 0.965223, `calm_transfer_rate` 0.0663908, `tie_wear_rate` 0.105947; ratio 0.03069 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | PASS | `deviation_fall` +0.0565 ± 0.045; `landed_contacts` +10.6 ± 0.55 |
+| 5 | `appraisal_gain` 1.94987, `intensity_scale` 114.925, `impingement_relaxation_rate` 0.31031, `contact_band_max` 0.237769, `anxiety_togetherness_gain` 0.549339, `interactive_resting_contact` 0.31733, `contact_relaxation_rate` 0.152152, `nodal_spike_intensity` 0.860404, `landing_rate` 0.132338, `perspective_gain` 0.12817, `binder_failure_fraction` 0.6973, `calm_transfer_rate` 0.0992603, `tie_wear_rate` 0.221643; ratio 0.04294 (per week ÷ per contact) | 150 then 200 | yes (first PASS) | PASS | `deviation_fall` +0.0707 ± 0.037; `landed_contacts` +5.05 ± 0.46 |
+| 6 | `appraisal_gain` 2.17274, `intensity_scale` 101.984, `impingement_relaxation_rate` 0.173096, `contact_band_max` 0.11635, `anxiety_togetherness_gain` 0.456774, `interactive_resting_contact` 0.341947, `contact_relaxation_rate` 0.164374, `nodal_spike_intensity` 1.61753, `landing_rate` 0.142875, `perspective_gain` 0.0518401, `binder_failure_fraction` 0.576428, `calm_transfer_rate` 0.0771942, `tie_wear_rate` 0.0983439; ratio 0.0245 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `deviation_fall` +0.00504 ± 0.034; `landed_contacts` +9.27 ± 0.58 |
+| 7 | `appraisal_gain` 5.56478, `intensity_scale` 186.287, `impingement_relaxation_rate` 0.316167, `contact_band_max` 0.194005, `anxiety_togetherness_gain` 0.268886, `interactive_resting_contact` 0.364146, `contact_relaxation_rate` 0.13056, `nodal_spike_intensity` 0.828598, `landing_rate` 0.0771208, `perspective_gain` 0.0630461, `binder_failure_fraction` 0.639891, `calm_transfer_rate` 0.0444587, `tie_wear_rate` 0.0514708; ratio 0.02226 (per week ÷ per contact) | 150 then 200 | yes (first PASS) | PASS | `deviation_fall` +0.0574 ± 0.053; `landed_contacts` +2.45 ± 0.34 |
 
 ## `M11.C.11` — 7 of 8 samples held
 
@@ -400,35 +400,35 @@ Directional criteria of the ensemble records with no ranges declared in `config/
 | 6 | `learning_rate` 0.149095, `credit_horizon` 3, `credit_discount` 0.480821, `cross_person_weight` 0.361665, `policy_temperature` 0.919921, `habituation_rate` 0.651875, `habituation_window` 4, `lock_in_gain` 0.37383, `acute_decay_rate` 0.13808, `calm_transfer_rate` 0.0483921, `tie_wear_rate` 0.0480212; ratio 0.01908 (per week ÷ per contact) | 100 then 200 | yes (first FAIL) | FAIL | `marital_conflict` +0.01 ± 0.32 |
 | 7 | `learning_rate` 0.176044, `credit_horizon` 6, `credit_discount` 0.825273, `cross_person_weight` 0.407624, `policy_temperature` 1.27509, `habituation_rate` 0.522844, `habituation_window` 14, `lock_in_gain` 0.317354, `acute_decay_rate` 0.321958, `calm_transfer_rate` 0.0411978, `tie_wear_rate` 0.0207808; ratio 0.0097 (per week ÷ per contact) | 50 then 200 | yes (first FAIL) | FAIL | `marital_conflict` +0.005 ± 0.16 |
 
-## `M11.C.17` — 8 of 8 samples held
+## `M11.C.17` — 3 of 8 samples held
 
-`tie_wear_to_transfer_ratio` (per week ÷ per contact) entered: held 2 of 2 below its central value 0.01923 and 6 of 6 at or above it.
-
-| Sample | Values | Seeds | Rerun | Verdict | Gating readouts (mean difference ± half-width) |
-|---|---|---|---|---|---|
-| 0 | `landing_rate` 0.0891842, `perspective_gain` 0.12941, `binder_failure_fraction` 0.936039, `self_practice_gain` 0.000504799, `practice_window` 4, `system_adjust_gain` 1.08052, `estimator_sd_weight` 1.50863, `estimator_rate` 0.879074, `perspective_channel_gain` 0.838844, `perspective_steer_gain` 0.408773, `nodal_spike_intensity` 1.99704, `calm_transfer_rate` 0.0724229, `tie_wear_rate` 0.0224841; ratio 0.00597 (per week ÷ per contact) | 150 then 200 | yes (first PASS) | PASS | `coached_rise` +0.0671 ± 0.037 |
-| 1 | `landing_rate` 0.165716, `perspective_gain` 0.16121, `binder_failure_fraction` 0.456436, `self_practice_gain` 0.000611576, `practice_window` 3, `system_adjust_gain` 1.47586, `estimator_sd_weight` 0.926265, `estimator_rate` 0.48062, `perspective_channel_gain` 0.391663, `perspective_steer_gain` 0.356646, `nodal_spike_intensity` 0.908408, `calm_transfer_rate` 0.0885533, `tie_wear_rate` 0.181914; ratio 0.03951 (per week ÷ per contact) | 150 then 200 | yes (first PASS) | PASS | `coached_rise` +0.0425 ± 0.024 |
-| 2 | `landing_rate` 0.130631, `perspective_gain` 0.0983465, `binder_failure_fraction` 0.482788, `self_practice_gain` 0.00084533, `practice_window` 2, `system_adjust_gain` 0.584048, `estimator_sd_weight` 1.6116, `estimator_rate` 0.903514, `perspective_channel_gain` 0.428051, `perspective_steer_gain` 0.393212, `nodal_spike_intensity` 0.707336, `calm_transfer_rate` 0.0403024, `tie_wear_rate` 0.0972841; ratio 0.04642 (per week ÷ per contact) | 150 then 200 | yes (first PASS) | PASS | `coached_rise` +0.0869 ± 0.046 |
-| 3 | `landing_rate` 0.22643, `perspective_gain` 0.160221, `binder_failure_fraction` 0.632983, `self_practice_gain` 0.000514206, `practice_window` 3, `system_adjust_gain` 0.548166, `estimator_sd_weight` 1.6281, `estimator_rate` 0.26448, `perspective_channel_gain` 0.452441, `perspective_steer_gain` 0.508031, `nodal_spike_intensity` 1.76803, `calm_transfer_rate` 0.066248, `tie_wear_rate` 0.122816; ratio 0.03565 (per week ÷ per contact) | 150 then 200 | yes (first PASS) | PASS | `coached_rise` +0.0327 ± 0.019 |
-| 4 | `landing_rate` 0.0759728, `perspective_gain` 0.172198, `binder_failure_fraction` 0.770939, `self_practice_gain` 0.000936915, `practice_window` 8, `system_adjust_gain` 0.751932, `estimator_sd_weight` 1.03677, `estimator_rate` 0.717309, `perspective_channel_gain` 0.471102, `perspective_steer_gain` 0.885582, `nodal_spike_intensity` 0.683559, `calm_transfer_rate` 0.0504064, `tie_wear_rate` 0.0423193; ratio 0.01615 (per week ÷ per contact) | 150 then 200 | yes (first PASS) | PASS | `coached_rise` +0.0829 ± 0.039 |
-| 5 | `landing_rate` 0.299197, `perspective_gain` 0.0942031, `binder_failure_fraction` 0.700634, `self_practice_gain` 0.00143051, `practice_window` 8, `system_adjust_gain` 1.24803, `estimator_sd_weight` 1.91452, `estimator_rate` 0.302202, `perspective_channel_gain` 0.745792, `perspective_steer_gain` 0.831961, `nodal_spike_intensity` 1.02556, `calm_transfer_rate` 0.0370742, `tie_wear_rate` 0.0860118; ratio 0.04462 (per week ÷ per contact) | 150 then 200 | yes (first PASS) | PASS | `coached_rise` +0.0411 ± 0.022 |
-| 6 | `landing_rate` 0.168712, `perspective_gain` 0.0956895, `binder_failure_fraction` 0.550552, `self_practice_gain` 0.00186488, `practice_window` 5, `system_adjust_gain` 1.13618, `estimator_sd_weight` 1.62898, `estimator_rate` 0.904003, `perspective_channel_gain` 0.991404, `perspective_steer_gain` 0.616236, `nodal_spike_intensity` 0.967802, `calm_transfer_rate` 0.0256083, `tie_wear_rate` 0.0573706; ratio 0.04308 (per week ÷ per contact) | 150 then 200 | yes (first PASS) | PASS | `coached_rise` +0.0731 ± 0.047 |
-| 7 | `landing_rate` 0.11446, `perspective_gain` 0.0550028, `binder_failure_fraction` 0.41146, `self_practice_gain` 0.000955136, `practice_window` 5, `system_adjust_gain` 1.53523, `estimator_sd_weight` 0.7599, `estimator_rate` 0.744171, `perspective_channel_gain` 0.541252, `perspective_steer_gain` 0.64145, `nodal_spike_intensity` 0.583584, `calm_transfer_rate` 0.0291691, `tie_wear_rate` 0.0311693; ratio 0.02055 (per week ÷ per contact) | 150 then 200 | yes (first PASS) | PASS | `coached_rise` +0.0604 ± 0.033 |
-
-## `M11.C.21` — 4 of 8 samples held
-
-`tie_wear_to_transfer_ratio` (per week ÷ per contact) entered: held 2 of 4 below its central value 0.01923 and 2 of 4 at or above it.
+`tie_wear_to_transfer_ratio` (per week ÷ per contact) entered: held 0 of 2 below its central value 0.01923 and 3 of 6 at or above it.
 
 | Sample | Values | Seeds | Rerun | Verdict | Gating readouts (mean difference ± half-width) |
 |---|---|---|---|---|---|
-| 0 | `pseudo_self_transfer_gain` 3.16145, `pseudo_self_relaxation_rate` 0.0578491, `exchange_window` 14, `response_up_gain` 0.864258, `response_down_gain` 0.674234, `response_relaxation_rate` 0.0371156, `stress_floor_below_basic` 9.39285, `calm_transfer_rate` 0.033797, `tie_wear_rate` 0.0309702; ratio 0.01762 (per week ÷ per contact) | 100 then 200 | yes (first PASS) | PASS | `target_rise` +0.341 ± 0.2 |
-| 1 | `pseudo_self_transfer_gain` 2.79724, `pseudo_self_relaxation_rate` 0.0598766, `exchange_window` 9, `response_up_gain` 0.911502, `response_down_gain` 0.546551, `response_relaxation_rate` 0.0135986, `stress_floor_below_basic` 17.9871, `calm_transfer_rate` 0.0404364, `tie_wear_rate` 0.0427332; ratio 0.02032 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `target_rise` +0.279 ± 0.27 |
-| 2 | `pseudo_self_transfer_gain` 2.66999, `pseudo_self_relaxation_rate` 0.0532216, `exchange_window` 10, `response_up_gain` 0.294187, `response_down_gain` 0.309349, `response_relaxation_rate` 0.0255333, `stress_floor_below_basic` 10.9823, `calm_transfer_rate` 0.0389357, `tie_wear_rate` 0.124427; ratio 0.06146 (per week ÷ per contact) | 150 then 200 | yes (first PASS) | PASS | `target_rise` +0.327 ± 0.18 |
-| 3 | `pseudo_self_transfer_gain` 3.35415, `pseudo_self_relaxation_rate` 0.087287, `exchange_window` 8, `response_up_gain` 0.251014, `response_down_gain` 0.544129, `response_relaxation_rate` 0.034846, `stress_floor_below_basic` 16.3832, `calm_transfer_rate` 0.0322578, `tie_wear_rate` 0.0102495; ratio 0.00611 (per week ÷ per contact) | 50 then 200 | yes (first FAIL) | PASS | `target_rise` +0.242 ± 0.22 |
-| 4 | `pseudo_self_transfer_gain` 2.13172, `pseudo_self_relaxation_rate` 0.0865612, `exchange_window` 9, `response_up_gain` 0.475247, `response_down_gain` 0.534628, `response_relaxation_rate` 0.0108441, `stress_floor_below_basic` 25.5273, `calm_transfer_rate` 0.040444, `tie_wear_rate` 0.0833149; ratio 0.03962 (per week ÷ per contact) | 100 then 200 | yes (first FAIL) | FAIL | `target_rise` +0.0435 ± 0.6 |
-| 5 | `pseudo_self_transfer_gain` 1.59438, `pseudo_self_relaxation_rate` 0.037568, `exchange_window` 5, `response_up_gain` 0.510277, `response_down_gain` 0.293183, `response_relaxation_rate` 0.0293281, `stress_floor_below_basic` 22.0441, `calm_transfer_rate` 0.0292164, `tie_wear_rate` 0.0182714; ratio 0.01203 (per week ÷ per contact) | 50 then 200 | yes (first FAIL) | FAIL | `target_rise` +0.223 ± 0.35 |
-| 6 | `pseudo_self_transfer_gain` 3.70053, `pseudo_self_relaxation_rate` 0.0593478, `exchange_window` 9, `response_up_gain` 0.832575, `response_down_gain` 0.378656, `response_relaxation_rate` 0.0201371, `stress_floor_below_basic` 10.2331, `calm_transfer_rate` 0.0355789, `tie_wear_rate` 0.0435593; ratio 0.02354 (per week ÷ per contact) | 150 then 200 | yes (first PASS) | PASS | `target_rise` +0.309 ± 0.35 |
-| 7 | `pseudo_self_transfer_gain` 2.54228, `pseudo_self_relaxation_rate` 0.0427912, `exchange_window` 14, `response_up_gain` 0.530007, `response_down_gain` 0.510155, `response_relaxation_rate` 0.0211838, `stress_floor_below_basic` 20.0125, `calm_transfer_rate` 0.0465275, `tie_wear_rate` 0.0408101; ratio 0.01687 (per week ÷ per contact) | 50 then 200 | yes (first FAIL) | FAIL | `target_rise` +0.13 ± 0.23 |
+| 0 | `landing_rate` 0.0891842, `perspective_gain` 0.12941, `binder_failure_fraction` 0.936039, `self_practice_gain` 0.000504799, `practice_window` 4, `system_adjust_gain` 1.08052, `estimator_sd_weight` 1.50863, `estimator_rate` 0.879074, `perspective_channel_gain` 0.838844, `perspective_steer_gain` 0.408773, `nodal_spike_intensity` 1.99704, `calm_transfer_rate` 0.0724229, `tie_wear_rate` 0.0224841; ratio 0.00597 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `coached_rise` +6.96e-05 ± 0.00068 |
+| 1 | `landing_rate` 0.165716, `perspective_gain` 0.16121, `binder_failure_fraction` 0.456436, `self_practice_gain` 0.000611576, `practice_window` 3, `system_adjust_gain` 1.47586, `estimator_sd_weight` 0.926265, `estimator_rate` 0.48062, `perspective_channel_gain` 0.391663, `perspective_steer_gain` 0.356646, `nodal_spike_intensity` 0.908408, `calm_transfer_rate` 0.0885533, `tie_wear_rate` 0.181914; ratio 0.03951 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `coached_rise` +5.47e-06 ± 0.00039 |
+| 2 | `landing_rate` 0.130631, `perspective_gain` 0.0983465, `binder_failure_fraction` 0.482788, `self_practice_gain` 0.00084533, `practice_window` 2, `system_adjust_gain` 0.584048, `estimator_sd_weight` 1.6116, `estimator_rate` 0.903514, `perspective_channel_gain` 0.428051, `perspective_steer_gain` 0.393212, `nodal_spike_intensity` 0.707336, `calm_transfer_rate` 0.0403024, `tie_wear_rate` 0.0972841; ratio 0.04642 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `coached_rise` +0.00339 ± 0.0063 |
+| 3 | `landing_rate` 0.22643, `perspective_gain` 0.160221, `binder_failure_fraction` 0.632983, `self_practice_gain` 0.000514206, `practice_window` 3, `system_adjust_gain` 0.548166, `estimator_sd_weight` 1.6281, `estimator_rate` 0.26448, `perspective_channel_gain` 0.452441, `perspective_steer_gain` 0.508031, `nodal_spike_intensity` 1.76803, `calm_transfer_rate` 0.066248, `tie_wear_rate` 0.122816; ratio 0.03565 (per week ÷ per contact) | 150 then 200 | yes (first PASS) | PASS | `coached_rise` +0.000112 ± 0.0001 |
+| 4 | `landing_rate` 0.0759728, `perspective_gain` 0.172198, `binder_failure_fraction` 0.770939, `self_practice_gain` 0.000936915, `practice_window` 8, `system_adjust_gain` 0.751932, `estimator_sd_weight` 1.03677, `estimator_rate` 0.717309, `perspective_channel_gain` 0.471102, `perspective_steer_gain` 0.885582, `nodal_spike_intensity` 0.683559, `calm_transfer_rate` 0.0504064, `tie_wear_rate` 0.0423193; ratio 0.01615 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `coached_rise` +0.00018 ± 0.00036 |
+| 5 | `landing_rate` 0.299197, `perspective_gain` 0.0942031, `binder_failure_fraction` 0.700634, `self_practice_gain` 0.00143051, `practice_window` 8, `system_adjust_gain` 1.24803, `estimator_sd_weight` 1.91452, `estimator_rate` 0.302202, `perspective_channel_gain` 0.745792, `perspective_steer_gain` 0.831961, `nodal_spike_intensity` 1.02556, `calm_transfer_rate` 0.0370742, `tie_wear_rate` 0.0860118; ratio 0.04462 (per week ÷ per contact) | 150 then 200 | yes (first PASS) | PASS | `coached_rise` +0.000399 ± 0.00022 |
+| 6 | `landing_rate` 0.168712, `perspective_gain` 0.0956895, `binder_failure_fraction` 0.550552, `self_practice_gain` 0.00186488, `practice_window` 5, `system_adjust_gain` 1.13618, `estimator_sd_weight` 1.62898, `estimator_rate` 0.904003, `perspective_channel_gain` 0.991404, `perspective_steer_gain` 0.616236, `nodal_spike_intensity` 0.967802, `calm_transfer_rate` 0.0256083, `tie_wear_rate` 0.0573706; ratio 0.04308 (per week ÷ per contact) | 150 then 200 | yes (first PASS) | PASS | `coached_rise` +0.00317 ± 0.0014 |
+| 7 | `landing_rate` 0.11446, `perspective_gain` 0.0550028, `binder_failure_fraction` 0.41146, `self_practice_gain` 0.000955136, `practice_window` 5, `system_adjust_gain` 1.53523, `estimator_sd_weight` 0.7599, `estimator_rate` 0.744171, `perspective_channel_gain` 0.541252, `perspective_steer_gain` 0.64145, `nodal_spike_intensity` 0.583584, `calm_transfer_rate` 0.0291691, `tie_wear_rate` 0.0311693; ratio 0.02055 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `coached_rise` +0.0003 ± 0.00062 |
+
+## `M11.C.21` — 0 of 8 samples held
+
+`tie_wear_to_transfer_ratio` (per week ÷ per contact) entered: held 0 of 4 below its central value 0.01923 and 0 of 4 at or above it.
+
+| Sample | Values | Seeds | Rerun | Verdict | Gating readouts (mean difference ± half-width) |
+|---|---|---|---|---|---|
+| 0 | `pseudo_self_transfer_gain` 3.16145, `pseudo_self_relaxation_rate` 0.0578491, `exchange_window` 14, `response_up_gain` 0.864258, `response_down_gain` 0.674234, `response_relaxation_rate` 0.0371156, `stress_floor_below_basic` 9.39285, `calm_transfer_rate` 0.033797, `tie_wear_rate` 0.0309702; ratio 0.01762 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `target_rise` -0.204 ± 0.79 |
+| 1 | `pseudo_self_transfer_gain` 2.79724, `pseudo_self_relaxation_rate` 0.0598766, `exchange_window` 9, `response_up_gain` 0.911502, `response_down_gain` 0.546551, `response_relaxation_rate` 0.0135986, `stress_floor_below_basic` 17.9871, `calm_transfer_rate` 0.0404364, `tie_wear_rate` 0.0427332; ratio 0.02032 (per week ÷ per contact) | 100 then 200 | yes (first FAIL) | FAIL | `target_rise` -1.04 ± 1 |
+| 2 | `pseudo_self_transfer_gain` 2.66999, `pseudo_self_relaxation_rate` 0.0532216, `exchange_window` 10, `response_up_gain` 0.294187, `response_down_gain` 0.309349, `response_relaxation_rate` 0.0255333, `stress_floor_below_basic` 10.9823, `calm_transfer_rate` 0.0389357, `tie_wear_rate` 0.124427; ratio 0.06146 (per week ÷ per contact) | 100 then 200 | yes (first FAIL) | FAIL | `target_rise` -0.696 ± 0.63 |
+| 3 | `pseudo_self_transfer_gain` 3.35415, `pseudo_self_relaxation_rate` 0.087287, `exchange_window` 8, `response_up_gain` 0.251014, `response_down_gain` 0.544129, `response_relaxation_rate` 0.034846, `stress_floor_below_basic` 16.3832, `calm_transfer_rate` 0.0322578, `tie_wear_rate` 0.0102495; ratio 0.00611 (per week ÷ per contact) | 100 then 200 | yes (first FAIL) | FAIL | `target_rise` -0.821 ± 1.2 |
+| 4 | `pseudo_self_transfer_gain` 2.13172, `pseudo_self_relaxation_rate` 0.0865612, `exchange_window` 9, `response_up_gain` 0.475247, `response_down_gain` 0.534628, `response_relaxation_rate` 0.0108441, `stress_floor_below_basic` 25.5273, `calm_transfer_rate` 0.040444, `tie_wear_rate` 0.0833149; ratio 0.03962 (per week ÷ per contact) | 100 then 200 | yes (first FAIL) | FAIL | `target_rise` -1.1 ± 1.5 |
+| 5 | `pseudo_self_transfer_gain` 1.59438, `pseudo_self_relaxation_rate` 0.037568, `exchange_window` 5, `response_up_gain` 0.510277, `response_down_gain` 0.293183, `response_relaxation_rate` 0.0293281, `stress_floor_below_basic` 22.0441, `calm_transfer_rate` 0.0292164, `tie_wear_rate` 0.0182714; ratio 0.01203 (per week ÷ per contact) | 50 then 200 | yes (first FAIL) | FAIL | `target_rise` +0.452 ± 0.91 |
+| 6 | `pseudo_self_transfer_gain` 3.70053, `pseudo_self_relaxation_rate` 0.0593478, `exchange_window` 9, `response_up_gain` 0.832575, `response_down_gain` 0.378656, `response_relaxation_rate` 0.0201371, `stress_floor_below_basic` 10.2331, `calm_transfer_rate` 0.0355789, `tie_wear_rate` 0.0435593; ratio 0.02354 (per week ÷ per contact) | 100 then 200 | yes (first FAIL) | FAIL | `target_rise` -0.824 ± 0.84 |
+| 7 | `pseudo_self_transfer_gain` 2.54228, `pseudo_self_relaxation_rate` 0.0427912, `exchange_window` 14, `response_up_gain` 0.530007, `response_down_gain` 0.510155, `response_relaxation_rate` 0.0211838, `stress_floor_below_basic` 20.0125, `calm_transfer_rate` 0.0465275, `tie_wear_rate` 0.0408101; ratio 0.01687 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `target_rise` -0.273 ± 0.87 |
 
 ## `M11.C.22` — 8 of 8 samples held
 
@@ -499,20 +499,20 @@ Directional criteria of the ensemble records with no ranges declared in `config/
 | 6 | `learning_rate` 0.208365, `credit_horizon` 4, `credit_discount` 0.750669, `cross_person_weight` 0.963837, `policy_temperature` 1.80638, `habituation_rate` 0.820865, `habituation_window` 16, `calm_transfer_rate` 0.089523, `acute_decay_rate` 0.200319 | 150 then 200 | yes (first FAIL) | FAIL | `loss_rise` -0.414 ± 1 |
 | 7 | `learning_rate` 0.191696, `credit_horizon` 2, `credit_discount` 0.406651, `cross_person_weight` 0.847865, `policy_temperature` 0.521067, `habituation_rate` 0.354931, `habituation_window` 6, `calm_transfer_rate` 0.052391, `acute_decay_rate` 0.320814 | 150 then 200 | yes (first FAIL) | FAIL | `loss_rise` -0.459 ± 0.5 |
 
-## `M11.C.2[twelve-person family]` — 3 of 8 samples held
+## `M11.C.2[twelve-person family]` — 2 of 8 samples held
 
-`tie_wear_to_transfer_ratio` (per week ÷ per contact) entered: held 2 of 4 below its central value 0.01923 and 1 of 4 at or above it.
+`tie_wear_to_transfer_ratio` (per week ÷ per contact) entered: held 1 of 4 below its central value 0.01923 and 1 of 4 at or above it.
 
 | Sample | Values | Seeds | Rerun | Verdict | Gating readouts (mean difference ± half-width) |
 |---|---|---|---|---|---|
-| 0 | `learning_rate` 0.238526, `credit_horizon` 5, `credit_discount` 0.355068, `cross_person_weight` 0.588724, `policy_temperature` 1.0131, `habituation_rate` 0.455652, `habituation_window` 13, `perceived_weakness_gain` 0.0057173, `focus_steer_gain` 0.929502, `focus_reinforce_gain` 1.66595, `focus_compound_gain` 7.19919, `investment_leak_rate` 0.129473, `witness_weight` 0.309023, `symptom_leak_rate` 0.0714383, `birth_focus_gain` 0.195137, `calm_transfer_rate` 0.0540095, `tie_wear_rate` 0.0228859; ratio 0.008149 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `symptom_load` -0.713 ± 2.1 |
-| 1 | `learning_rate` 0.195987, `credit_horizon` 5, `credit_discount` 0.467033, `cross_person_weight` 0.341653, `policy_temperature` 0.759955, `habituation_rate` 0.622184, `habituation_window` 12, `perceived_weakness_gain` 0.014041, `focus_steer_gain` 1.25112, `focus_reinforce_gain` 0.584036, `focus_compound_gain` 11.488, `investment_leak_rate` 0.0730311, `witness_weight` 0.938235, `symptom_leak_rate` 0.0609428, `birth_focus_gain` 0.0756949, `calm_transfer_rate` 0.033984, `tie_wear_rate` 0.0396439; ratio 0.02243 (per week ÷ per contact) | 150 | no | PASS | `symptom_load` +5.54 ± 2.8 |
-| 2 | `learning_rate` 0.203094, `credit_horizon` 4, `credit_discount` 0.821719, `cross_person_weight` 0.386515, `policy_temperature` 0.734499, `habituation_rate` 0.364287, `habituation_window` 14, `perceived_weakness_gain` 0.0120595, `focus_steer_gain` 0.503891, `focus_reinforce_gain` 1.83714, `focus_compound_gain` 8.10401, `investment_leak_rate` 0.0528356, `witness_weight` 0.620874, `symptom_leak_rate` 0.121625, `birth_focus_gain` 0.061994, `calm_transfer_rate` 0.0280685, `tie_wear_rate` 0.0983546; ratio 0.06739 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `symptom_load` +0.275 ± 0.97 |
-| 3 | `learning_rate` 0.342088, `credit_horizon` 3, `credit_discount` 0.601081, `cross_person_weight` 0.941375, `policy_temperature` 0.757708, `habituation_rate` 0.831929, `habituation_window` 7, `perceived_weakness_gain` 0.0177866, `focus_steer_gain` 0.717376, `focus_reinforce_gain` 1.54368, `focus_compound_gain` 15.6349, `investment_leak_rate` 0.186454, `witness_weight` 0.260729, `symptom_leak_rate` 0.10019, `birth_focus_gain` 0.0824805, `calm_transfer_rate` 0.0485519, `tie_wear_rate` 0.0570243; ratio 0.02259 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `symptom_load` +0.855 ± 1.4 |
-| 4 | `learning_rate` 0.132015, `credit_horizon` 4, `credit_discount` 0.861142, `cross_person_weight` 0.957385, `policy_temperature` 1.06158, `habituation_rate` 0.906067, `habituation_window` 12, `perceived_weakness_gain` 0.0188645, `focus_steer_gain` 1.542, `focus_reinforce_gain` 0.926615, `focus_compound_gain` 15.9603, `investment_leak_rate` 0.152261, `witness_weight` 0.295927, `symptom_leak_rate` 0.115641, `birth_focus_gain` 0.194109, `calm_transfer_rate` 0.0292344, `tie_wear_rate` 0.0370355; ratio 0.02436 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `symptom_load` +0.435 ± 1.3 |
-| 5 | `learning_rate` 0.124141, `credit_horizon` 4, `credit_discount` 0.401326, `cross_person_weight` 0.449542, `policy_temperature` 1.11169, `habituation_rate` 0.624422, `habituation_window` 5, `perceived_weakness_gain` 0.0177565, `focus_steer_gain` 1.16001, `focus_reinforce_gain` 1.13, `focus_compound_gain` 5.80947, `investment_leak_rate` 0.139294, `witness_weight` 0.852113, `symptom_leak_rate` 0.199337, `birth_focus_gain` 0.10126, `calm_transfer_rate` 0.0766678, `tie_wear_rate` 0.0724411; ratio 0.01817 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | PASS | `symptom_load` +0.629 ± 0.7 |
-| 6 | `learning_rate` 0.121291, `credit_horizon` 5, `credit_discount` 0.437794, `cross_person_weight` 0.79644, `policy_temperature` 1.81847, `habituation_rate` 0.661091, `habituation_window` 15, `perceived_weakness_gain` 0.00951362, `focus_steer_gain` 1.22517, `focus_reinforce_gain` 0.773904, `focus_compound_gain` 8.46033, `investment_leak_rate` 0.1253, `witness_weight` 0.472288, `symptom_leak_rate` 0.0702896, `birth_focus_gain` 0.141418, `calm_transfer_rate` 0.0973886, `tie_wear_rate` 0.0401304; ratio 0.007924 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `symptom_load` +0.185 ± 2 |
-| 7 | `learning_rate` 0.247366, `credit_horizon` 3, `credit_discount` 0.49812, `cross_person_weight` 0.957124, `policy_temperature` 0.678228, `habituation_rate` 0.447957, `habituation_window` 7, `perceived_weakness_gain` 0.00795284, `focus_steer_gain` 1.22768, `focus_reinforce_gain` 0.654423, `focus_compound_gain` 5.62667, `investment_leak_rate` 0.191275, `witness_weight` 0.275873, `symptom_leak_rate` 0.0617984, `birth_focus_gain` 0.176947, `calm_transfer_rate` 0.0944129, `tie_wear_rate` 0.0386628; ratio 0.007875 (per week ÷ per contact) | 150 then 200 | yes (first PASS) | PASS | `symptom_load` +2.14 ± 2.1 |
+| 0 | `learning_rate` 0.238526, `credit_horizon` 5, `credit_discount` 0.355068, `cross_person_weight` 0.588724, `policy_temperature` 1.0131, `habituation_rate` 0.455652, `habituation_window` 13, `perceived_weakness_gain` 0.0057173, `focus_steer_gain` 0.929502, `focus_reinforce_gain` 1.66595, `focus_compound_gain` 7.19919, `investment_leak_rate` 0.129473, `witness_weight` 0.309023, `symptom_leak_rate` 0.0714383, `birth_focus_gain` 0.195137, `calm_transfer_rate` 0.0540095, `tie_wear_rate` 0.0228859; ratio 0.008149 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `symptom_load` -0.683 ± 2.1 |
+| 1 | `learning_rate` 0.195987, `credit_horizon` 5, `credit_discount` 0.467033, `cross_person_weight` 0.341653, `policy_temperature` 0.759955, `habituation_rate` 0.622184, `habituation_window` 12, `perceived_weakness_gain` 0.014041, `focus_steer_gain` 1.25112, `focus_reinforce_gain` 0.584036, `focus_compound_gain` 11.488, `investment_leak_rate` 0.0730311, `witness_weight` 0.938235, `symptom_leak_rate` 0.0609428, `birth_focus_gain` 0.0756949, `calm_transfer_rate` 0.033984, `tie_wear_rate` 0.0396439; ratio 0.02243 (per week ÷ per contact) | 150 then 200 | yes (first PASS) | PASS | `symptom_load` +5.39 ± 2.4 |
+| 2 | `learning_rate` 0.203094, `credit_horizon` 4, `credit_discount` 0.821719, `cross_person_weight` 0.386515, `policy_temperature` 0.734499, `habituation_rate` 0.364287, `habituation_window` 14, `perceived_weakness_gain` 0.0120595, `focus_steer_gain` 0.503891, `focus_reinforce_gain` 1.83714, `focus_compound_gain` 8.10401, `investment_leak_rate` 0.0528356, `witness_weight` 0.620874, `symptom_leak_rate` 0.121625, `birth_focus_gain` 0.061994, `calm_transfer_rate` 0.0280685, `tie_wear_rate` 0.0983546; ratio 0.06739 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `symptom_load` +0.105 ± 0.97 |
+| 3 | `learning_rate` 0.342088, `credit_horizon` 3, `credit_discount` 0.601081, `cross_person_weight` 0.941375, `policy_temperature` 0.757708, `habituation_rate` 0.831929, `habituation_window` 7, `perceived_weakness_gain` 0.0177866, `focus_steer_gain` 0.717376, `focus_reinforce_gain` 1.54368, `focus_compound_gain` 15.6349, `investment_leak_rate` 0.186454, `witness_weight` 0.260729, `symptom_leak_rate` 0.10019, `birth_focus_gain` 0.0824805, `calm_transfer_rate` 0.0485519, `tie_wear_rate` 0.0570243; ratio 0.02259 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `symptom_load` +0.718 ± 1.3 |
+| 4 | `learning_rate` 0.132015, `credit_horizon` 4, `credit_discount` 0.861142, `cross_person_weight` 0.957385, `policy_temperature` 1.06158, `habituation_rate` 0.906067, `habituation_window` 12, `perceived_weakness_gain` 0.0188645, `focus_steer_gain` 1.542, `focus_reinforce_gain` 0.926615, `focus_compound_gain` 15.9603, `investment_leak_rate` 0.152261, `witness_weight` 0.295927, `symptom_leak_rate` 0.115641, `birth_focus_gain` 0.194109, `calm_transfer_rate` 0.0292344, `tie_wear_rate` 0.0370355; ratio 0.02436 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `symptom_load` +0.447 ± 1.3 |
+| 5 | `learning_rate` 0.124141, `credit_horizon` 4, `credit_discount` 0.401326, `cross_person_weight` 0.449542, `policy_temperature` 1.11169, `habituation_rate` 0.624422, `habituation_window` 5, `perceived_weakness_gain` 0.0177565, `focus_steer_gain` 1.16001, `focus_reinforce_gain` 1.13, `focus_compound_gain` 5.80947, `investment_leak_rate` 0.139294, `witness_weight` 0.852113, `symptom_leak_rate` 0.199337, `birth_focus_gain` 0.10126, `calm_transfer_rate` 0.0766678, `tie_wear_rate` 0.0724411; ratio 0.01817 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | PASS | `symptom_load` +0.695 ± 0.7 |
+| 6 | `learning_rate` 0.121291, `credit_horizon` 5, `credit_discount` 0.437794, `cross_person_weight` 0.79644, `policy_temperature` 1.81847, `habituation_rate` 0.661091, `habituation_window` 15, `perceived_weakness_gain` 0.00951362, `focus_steer_gain` 1.22517, `focus_reinforce_gain` 0.773904, `focus_compound_gain` 8.46033, `investment_leak_rate` 0.1253, `witness_weight` 0.472288, `symptom_leak_rate` 0.0702896, `birth_focus_gain` 0.141418, `calm_transfer_rate` 0.0973886, `tie_wear_rate` 0.0401304; ratio 0.007924 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `symptom_load` +0.17 ± 1.9 |
+| 7 | `learning_rate` 0.247366, `credit_horizon` 3, `credit_discount` 0.49812, `cross_person_weight` 0.957124, `policy_temperature` 0.678228, `habituation_rate` 0.447957, `habituation_window` 7, `perceived_weakness_gain` 0.00795284, `focus_steer_gain` 1.22768, `focus_reinforce_gain` 0.654423, `focus_compound_gain` 5.62667, `investment_leak_rate` 0.191275, `witness_weight` 0.275873, `symptom_leak_rate` 0.0617984, `birth_focus_gain` 0.176947, `calm_transfer_rate` 0.0944129, `tie_wear_rate` 0.0386628; ratio 0.007875 (per week ÷ per contact) | 150 then 200 | yes (first PASS) | FAIL | `symptom_load` +2.02 ± 2.1 |
 
 ## `M11.C.6` — 1 of 8 samples held
 
@@ -520,29 +520,29 @@ Directional criteria of the ensemble records with no ranges declared in `config/
 
 | Sample | Values | Seeds | Rerun | Verdict | Gating readouts (mean difference ± half-width) |
 |---|---|---|---|---|---|
-| 0 | `development_rate` 0.133393, `development_band` 0.0106515, `development_band_projection` 0.159538, `development_band_support` 0.075051, `estimator_sd_weight` 0.776355, `estimator_rate` 0.453813, `calm_transfer_rate` 0.0646054, `tie_wear_rate` 0.0340115; ratio 0.01012 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | PASS | `development` -0.0658 ± 0.1 |
-| 1 | `development_rate` 0.172327, `development_band` 0.0193108, `development_band_projection` 0.175067, `development_band_support` 0.0554127, `estimator_sd_weight` 1.01407, `estimator_rate` 0.593047, `calm_transfer_rate` 0.070652, `tie_wear_rate` 0.0449065; ratio 0.01222 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `development` +0.055 ± 0.12 |
-| 2 | `development_rate` 0.0940983, `development_band` 0.0364394, `development_band_projection` 0.0554397, `development_band_support` 0.0569251, `estimator_sd_weight` 1.91026, `estimator_rate` 0.255068, `calm_transfer_rate` 0.046544, `tie_wear_rate` 0.0286049; ratio 0.01182 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `development` +0.0787 ± 0.11 |
-| 3 | `development_rate` 0.076855, `development_band` 0.0153872, `development_band_projection` 0.0812149, `development_band_support` 0.0950593, `estimator_sd_weight` 1.01608, `estimator_rate` 0.916156, `calm_transfer_rate` 0.0758112, `tie_wear_rate` 0.18105; ratio 0.04593 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `development` +0.0384 ± 0.11 |
-| 4 | `development_rate` 0.119736, `development_band` 0.0177149, `development_band_projection` 0.0569236, `development_band_support` 0.0422829, `estimator_sd_weight` 1.03486, `estimator_rate` 0.919358, `calm_transfer_rate` 0.035332, `tie_wear_rate` 0.0194397; ratio 0.01058 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `development` +0.0391 ± 0.094 |
-| 5 | `development_rate` 0.145331, `development_band` 0.0215925, `development_band_projection` 0.138558, `development_band_support` 0.043696, `estimator_sd_weight` 0.645247, `estimator_rate` 0.343048, `calm_transfer_rate` 0.0286206, `tie_wear_rate` 0.0973264; ratio 0.0654 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `development` +0.133 ± 0.11 |
-| 6 | `development_rate` 0.165423, `development_band` 0.0106247, `development_band_projection` 0.134143, `development_band_support` 0.0641388, `estimator_sd_weight` 1.44067, `estimator_rate` 0.391847, `calm_transfer_rate` 0.0553664, `tie_wear_rate` 0.0338038; ratio 0.01174 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `development` +0.0307 ± 0.11 |
-| 7 | `development_rate` 0.0602457, `development_band` 0.0310826, `development_band_projection` 0.069509, `development_band_support` 0.0881477, `estimator_sd_weight` 1.63939, `estimator_rate` 0.298905, `calm_transfer_rate` 0.0819257, `tie_wear_rate` 0.304066; ratio 0.07137 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `development` -0.00548 ± 0.12 |
+| 0 | `development_rate` 0.133393, `development_band` 0.0106515, `development_band_projection` 0.159538, `development_band_support` 0.075051, `estimator_sd_weight` 0.776355, `estimator_rate` 0.453813, `calm_transfer_rate` 0.0646054, `tie_wear_rate` 0.0340115; ratio 0.01012 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | PASS | `development` -0.0602 ± 0.1 |
+| 1 | `development_rate` 0.172327, `development_band` 0.0193108, `development_band_projection` 0.175067, `development_band_support` 0.0554127, `estimator_sd_weight` 1.01407, `estimator_rate` 0.593047, `calm_transfer_rate` 0.070652, `tie_wear_rate` 0.0449065; ratio 0.01222 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `development` +0.0635 ± 0.12 |
+| 2 | `development_rate` 0.0940983, `development_band` 0.0364394, `development_band_projection` 0.0554397, `development_band_support` 0.0569251, `estimator_sd_weight` 1.91026, `estimator_rate` 0.255068, `calm_transfer_rate` 0.046544, `tie_wear_rate` 0.0286049; ratio 0.01182 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `development` +0.057 ± 0.11 |
+| 3 | `development_rate` 0.076855, `development_band` 0.0153872, `development_band_projection` 0.0812149, `development_band_support` 0.0950593, `estimator_sd_weight` 1.01608, `estimator_rate` 0.916156, `calm_transfer_rate` 0.0758112, `tie_wear_rate` 0.18105; ratio 0.04593 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `development` +0.0502 ± 0.11 |
+| 4 | `development_rate` 0.119736, `development_band` 0.0177149, `development_band_projection` 0.0569236, `development_band_support` 0.0422829, `estimator_sd_weight` 1.03486, `estimator_rate` 0.919358, `calm_transfer_rate` 0.035332, `tie_wear_rate` 0.0194397; ratio 0.01058 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `development` +0.0605 ± 0.093 |
+| 5 | `development_rate` 0.145331, `development_band` 0.0215925, `development_band_projection` 0.138558, `development_band_support` 0.043696, `estimator_sd_weight` 0.645247, `estimator_rate` 0.343048, `calm_transfer_rate` 0.0286206, `tie_wear_rate` 0.0973264; ratio 0.0654 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `development` +0.121 ± 0.11 |
+| 6 | `development_rate` 0.165423, `development_band` 0.0106247, `development_band_projection` 0.134143, `development_band_support` 0.0641388, `estimator_sd_weight` 1.44067, `estimator_rate` 0.391847, `calm_transfer_rate` 0.0553664, `tie_wear_rate` 0.0338038; ratio 0.01174 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `development` +0.0285 ± 0.11 |
+| 7 | `development_rate` 0.0602457, `development_band` 0.0310826, `development_band_projection` 0.069509, `development_band_support` 0.0881477, `estimator_sd_weight` 1.63939, `estimator_rate` 0.298905, `calm_transfer_rate` 0.0819257, `tie_wear_rate` 0.304066; ratio 0.07137 (per week ÷ per contact) | 150 then 200 | yes (first FAIL) | FAIL | `development` -0.018 ± 0.12 |
 
-## `M11.C.10` — 4 of 8 samples held
+## `M11.C.10` — 3 of 8 samples held
 
-`tie_wear_to_transfer_ratio` (per week ÷ per contact) entered: held 2 of 6 below its central value 0.01923 and 2 of 2 at or above it.
+`tie_wear_to_transfer_ratio` (per week ÷ per contact) entered: held 1 of 6 below its central value 0.01923 and 2 of 2 at or above it.
 
 | Sample | Values | Seeds | Rerun | Verdict | Gating readouts (mean difference ± half-width) |
 |---|---|---|---|---|---|
-| 0 | `learning_rate` 0.357585, `credit_horizon` 2, `credit_discount` 0.534243, `cross_person_weight` 0.307818, `policy_temperature` 1.52319, `habituation_rate` 0.814186, `habituation_window` 7, `witnessed_cutoff_gain` 0.0286783, `witness_window` 23, `reactive_cutoff_gain` 0.134574, `origin_cutoff_anxiety_gain` 16.1541, `origin_fusion_gain` 0.622464, `rejection_cutoff_gain` 0.277297, `rejection_refusal_gain` 0.0725992, `rejection_relief` 0.211708, `rejection_refusal_threshold` 0.214074, `rejection_fade` 0.0689998, `calm_transfer_rate` 0.0602451, `tie_wear_rate` 0.0510811; ratio 0.01631 (per week ÷ per contact) | 200 | no | FAIL | `cut_off_tie_weeks` -24.5 ± 73 |
-| 1 | `learning_rate` 0.263708, `credit_horizon` 6, `credit_discount` 0.394778, `cross_person_weight` 0.726245, `policy_temperature` 0.557409, `habituation_rate` 0.959483, `habituation_window` 10, `witnessed_cutoff_gain` 0.0284212, `witness_window` 14, `reactive_cutoff_gain` 0.135885, `origin_cutoff_anxiety_gain` 16.2944, `origin_fusion_gain` 0.503939, `rejection_cutoff_gain` 0.264017, `rejection_refusal_gain` 0.0779647, `rejection_relief` 0.223592, `rejection_refusal_threshold` 0.155739, `rejection_fade` 0.0952386, `calm_transfer_rate` 0.0286765, `tie_wear_rate` 0.0277261; ratio 0.01859 (per week ÷ per contact) | 200 | no | PASS | `cut_off_tie_weeks` +106 ± 73 |
-| 2 | `learning_rate` 0.12486, `credit_horizon` 3, `credit_discount` 0.619861, `cross_person_weight` 0.658071, `policy_temperature` 0.543395, `habituation_rate` 0.461049, `habituation_window` 4, `witnessed_cutoff_gain` 0.03569, `witness_window` 8, `reactive_cutoff_gain` 0.198312, `origin_cutoff_anxiety_gain` 8.30539, `origin_fusion_gain` 0.276445, `rejection_cutoff_gain` 0.755656, `rejection_refusal_gain` 0.142264, `rejection_relief` 0.137072, `rejection_refusal_threshold` 0.175106, `rejection_fade` 0.0609028, `calm_transfer_rate` 0.0292089, `tie_wear_rate` 0.0100411; ratio 0.006611 (per week ÷ per contact) | 200 | no | FAIL | `cut_off_tie_weeks` +35.9 ± 1.1e+02 |
-| 3 | `learning_rate` 0.114691, `credit_horizon` 5, `credit_discount` 0.352371, `cross_person_weight` 0.297733, `policy_temperature` 0.633876, `habituation_rate` 0.351883, `habituation_window` 16, `witnessed_cutoff_gain` 0.0272167, `witness_window` 15, `reactive_cutoff_gain` 0.131799, `origin_cutoff_anxiety_gain` 6.07791, `origin_fusion_gain` 0.660937, `rejection_cutoff_gain` 0.697776, `rejection_refusal_gain` 0.110448, `rejection_relief` 0.179856, `rejection_refusal_threshold` 0.341648, `rejection_fade` 0.095123, `calm_transfer_rate` 0.0804142, `tie_wear_rate` 0.0217851; ratio 0.00521 (per week ÷ per contact) | 200 | no | FAIL | `cut_off_tie_weeks` -46.9 ± 1.1e+02 |
-| 4 | `learning_rate` 0.289425, `credit_horizon` 4, `credit_discount` 0.804418, `cross_person_weight` 0.351417, `policy_temperature` 0.770746, `habituation_rate` 0.68673, `habituation_window` 12, `witnessed_cutoff_gain` 0.0832608, `witness_window` 8, `reactive_cutoff_gain` 0.166873, `origin_cutoff_anxiety_gain` 15.798, `origin_fusion_gain` 0.959046, `rejection_cutoff_gain` 0.956557, `rejection_refusal_gain` 0.099976, `rejection_relief` 0.181532, `rejection_refusal_threshold` 0.197058, `rejection_fade` 0.0325653, `calm_transfer_rate` 0.0443386, `tie_wear_rate` 0.0319528; ratio 0.01386 (per week ÷ per contact) | 200 | no | PASS | `cut_off_tie_weeks` +87.3 ± 99 |
-| 5 | `learning_rate` 0.104634, `credit_horizon` 4, `credit_discount` 0.748001, `cross_person_weight` 0.629297, `policy_temperature` 1.07257, `habituation_rate` 0.4397, `habituation_window` 4, `witnessed_cutoff_gain` 0.0822201, `witness_window` 9, `reactive_cutoff_gain` 0.0783332, `origin_cutoff_anxiety_gain` 5.08826, `origin_fusion_gain` 0.639699, `rejection_cutoff_gain` 0.47392, `rejection_refusal_gain` 0.173038, `rejection_relief` 0.142868, `rejection_refusal_threshold` 0.190932, `rejection_fade` 0.0561129, `calm_transfer_rate` 0.0281946, `tie_wear_rate` 0.0143164; ratio 0.009765 (per week ÷ per contact) | 200 | no | FAIL | `cut_off_tie_weeks` +71.1 ± 1.2e+02 |
-| 6 | `learning_rate` 0.328304, `credit_horizon` 2, `credit_discount` 0.636216, `cross_person_weight` 0.406132, `policy_temperature` 1.1463, `habituation_rate` 0.480501, `habituation_window` 8, `witnessed_cutoff_gain` 0.0293431, `witness_window` 9, `reactive_cutoff_gain` 0.0632176, `origin_cutoff_anxiety_gain` 6.6713, `origin_fusion_gain` 0.375139, `rejection_cutoff_gain` 0.418657, `rejection_refusal_gain` 0.0711375, `rejection_relief` 0.239712, `rejection_refusal_threshold` 0.177604, `rejection_fade` 0.0864593, `calm_transfer_rate` 0.0682671, `tie_wear_rate` 0.134786; ratio 0.03797 (per week ÷ per contact) | 200 | no | PASS | `cut_off_tie_weeks` +115 ± 76 |
-| 7 | `learning_rate` 0.308492, `credit_horizon` 4, `credit_discount` 0.630264, `cross_person_weight` 0.276788, `policy_temperature` 1.94965, `habituation_rate` 0.479088, `habituation_window` 12, `witnessed_cutoff_gain` 0.0328265, `witness_window` 9, `reactive_cutoff_gain` 0.140874, `origin_cutoff_anxiety_gain` 10.8002, `origin_fusion_gain` 0.736296, `rejection_cutoff_gain` 0.53366, `rejection_refusal_gain` 0.137996, `rejection_relief` 0.287412, `rejection_refusal_threshold` 0.548847, `rejection_fade` 0.0331389, `calm_transfer_rate` 0.096158, `tie_wear_rate` 0.103892; ratio 0.02078 (per week ÷ per contact) | 200 | no | PASS | `cut_off_tie_weeks` +142 ± 1.3e+02 |
+| 0 | `learning_rate` 0.357585, `credit_horizon` 2, `credit_discount` 0.534243, `cross_person_weight` 0.307818, `policy_temperature` 1.52319, `habituation_rate` 0.814186, `habituation_window` 7, `witnessed_cutoff_gain` 0.0286783, `witness_window` 23, `reactive_cutoff_gain` 0.134574, `origin_cutoff_anxiety_gain` 16.1541, `origin_fusion_gain` 0.622464, `rejection_cutoff_gain` 0.277297, `rejection_refusal_gain` 0.0725992, `rejection_relief` 0.211708, `rejection_refusal_threshold` 0.214074, `rejection_fade` 0.0689998, `calm_transfer_rate` 0.0602451, `tie_wear_rate` 0.0510811; ratio 0.01631 (per week ÷ per contact) | 200 | no | FAIL | `cut_off_tie_weeks` -28.9 ± 74 |
+| 1 | `learning_rate` 0.263708, `credit_horizon` 6, `credit_discount` 0.394778, `cross_person_weight` 0.726245, `policy_temperature` 0.557409, `habituation_rate` 0.959483, `habituation_window` 10, `witnessed_cutoff_gain` 0.0284212, `witness_window` 14, `reactive_cutoff_gain` 0.135885, `origin_cutoff_anxiety_gain` 16.2944, `origin_fusion_gain` 0.503939, `rejection_cutoff_gain` 0.264017, `rejection_refusal_gain` 0.0779647, `rejection_relief` 0.223592, `rejection_refusal_threshold` 0.155739, `rejection_fade` 0.0952386, `calm_transfer_rate` 0.0286765, `tie_wear_rate` 0.0277261; ratio 0.01859 (per week ÷ per contact) | 200 | no | PASS | `cut_off_tie_weeks` +112 ± 73 |
+| 2 | `learning_rate` 0.12486, `credit_horizon` 3, `credit_discount` 0.619861, `cross_person_weight` 0.658071, `policy_temperature` 0.543395, `habituation_rate` 0.461049, `habituation_window` 4, `witnessed_cutoff_gain` 0.03569, `witness_window` 8, `reactive_cutoff_gain` 0.198312, `origin_cutoff_anxiety_gain` 8.30539, `origin_fusion_gain` 0.276445, `rejection_cutoff_gain` 0.755656, `rejection_refusal_gain` 0.142264, `rejection_relief` 0.137072, `rejection_refusal_threshold` 0.175106, `rejection_fade` 0.0609028, `calm_transfer_rate` 0.0292089, `tie_wear_rate` 0.0100411; ratio 0.006611 (per week ÷ per contact) | 200 | no | FAIL | `cut_off_tie_weeks` +44.1 ± 1.1e+02 |
+| 3 | `learning_rate` 0.114691, `credit_horizon` 5, `credit_discount` 0.352371, `cross_person_weight` 0.297733, `policy_temperature` 0.633876, `habituation_rate` 0.351883, `habituation_window` 16, `witnessed_cutoff_gain` 0.0272167, `witness_window` 15, `reactive_cutoff_gain` 0.131799, `origin_cutoff_anxiety_gain` 6.07791, `origin_fusion_gain` 0.660937, `rejection_cutoff_gain` 0.697776, `rejection_refusal_gain` 0.110448, `rejection_relief` 0.179856, `rejection_refusal_threshold` 0.341648, `rejection_fade` 0.095123, `calm_transfer_rate` 0.0804142, `tie_wear_rate` 0.0217851; ratio 0.00521 (per week ÷ per contact) | 200 | no | FAIL | `cut_off_tie_weeks` -45.9 ± 1.1e+02 |
+| 4 | `learning_rate` 0.289425, `credit_horizon` 4, `credit_discount` 0.804418, `cross_person_weight` 0.351417, `policy_temperature` 0.770746, `habituation_rate` 0.68673, `habituation_window` 12, `witnessed_cutoff_gain` 0.0832608, `witness_window` 8, `reactive_cutoff_gain` 0.166873, `origin_cutoff_anxiety_gain` 15.798, `origin_fusion_gain` 0.959046, `rejection_cutoff_gain` 0.956557, `rejection_refusal_gain` 0.099976, `rejection_relief` 0.181532, `rejection_refusal_threshold` 0.197058, `rejection_fade` 0.0325653, `calm_transfer_rate` 0.0443386, `tie_wear_rate` 0.0319528; ratio 0.01386 (per week ÷ per contact) | 200 | no | FAIL | `cut_off_tie_weeks` +78.6 ± 98 |
+| 5 | `learning_rate` 0.104634, `credit_horizon` 4, `credit_discount` 0.748001, `cross_person_weight` 0.629297, `policy_temperature` 1.07257, `habituation_rate` 0.4397, `habituation_window` 4, `witnessed_cutoff_gain` 0.0822201, `witness_window` 9, `reactive_cutoff_gain` 0.0783332, `origin_cutoff_anxiety_gain` 5.08826, `origin_fusion_gain` 0.639699, `rejection_cutoff_gain` 0.47392, `rejection_refusal_gain` 0.173038, `rejection_relief` 0.142868, `rejection_refusal_threshold` 0.190932, `rejection_fade` 0.0561129, `calm_transfer_rate` 0.0281946, `tie_wear_rate` 0.0143164; ratio 0.009765 (per week ÷ per contact) | 200 | no | FAIL | `cut_off_tie_weeks` +71 ± 1.2e+02 |
+| 6 | `learning_rate` 0.328304, `credit_horizon` 2, `credit_discount` 0.636216, `cross_person_weight` 0.406132, `policy_temperature` 1.1463, `habituation_rate` 0.480501, `habituation_window` 8, `witnessed_cutoff_gain` 0.0293431, `witness_window` 9, `reactive_cutoff_gain` 0.0632176, `origin_cutoff_anxiety_gain` 6.6713, `origin_fusion_gain` 0.375139, `rejection_cutoff_gain` 0.418657, `rejection_refusal_gain` 0.0711375, `rejection_relief` 0.239712, `rejection_refusal_threshold` 0.177604, `rejection_fade` 0.0864593, `calm_transfer_rate` 0.0682671, `tie_wear_rate` 0.134786; ratio 0.03797 (per week ÷ per contact) | 200 | no | PASS | `cut_off_tie_weeks` +107 ± 77 |
+| 7 | `learning_rate` 0.308492, `credit_horizon` 4, `credit_discount` 0.630264, `cross_person_weight` 0.276788, `policy_temperature` 1.94965, `habituation_rate` 0.479088, `habituation_window` 12, `witnessed_cutoff_gain` 0.0328265, `witness_window` 9, `reactive_cutoff_gain` 0.140874, `origin_cutoff_anxiety_gain` 10.8002, `origin_fusion_gain` 0.736296, `rejection_cutoff_gain` 0.53366, `rejection_refusal_gain` 0.137996, `rejection_relief` 0.287412, `rejection_refusal_threshold` 0.548847, `rejection_fade` 0.0331389, `calm_transfer_rate` 0.096158, `tie_wear_rate` 0.103892; ratio 0.02078 (per week ÷ per contact) | 200 | no | PASS | `cut_off_tie_weeks` +144 ± 1.3e+02 |
 
 ## `M11.C.10[family of origin]` — 7 of 8 samples held
 
@@ -550,14 +550,14 @@ Directional criteria of the ensemble records with no ranges declared in `config/
 
 | Sample | Values | Seeds | Rerun | Verdict | Gating readouts (mean difference ± half-width) |
 |---|---|---|---|---|---|
-| 0 | `learning_rate` 0.100036, `credit_horizon` 3, `credit_discount` 0.897915, `cross_person_weight` 0.361846, `policy_temperature` 1.97919, `habituation_rate` 0.637591, `habituation_window` 11, `witnessed_cutoff_gain` 0.0619692, `witness_window` 20, `reactive_cutoff_gain` 0.125241, `origin_cutoff_anxiety_gain` 13.5376, `origin_fusion_gain` 0.930651, `rejection_cutoff_gain` 0.266879, `rejection_refusal_gain` 0.106089, `rejection_relief` 0.247612, `rejection_refusal_threshold` 0.431668, `rejection_fade` 0.0399105, `calm_transfer_rate` 0.05823, `tie_wear_rate` 0.0230119; ratio 0.0076 (per week ÷ per contact) | 200 | no | FAIL | `cut_off_tie_weeks` +102 ± 1.4e+02 |
-| 1 | `learning_rate` 0.108276, `credit_horizon` 3, `credit_discount` 0.924498, `cross_person_weight` 0.632482, `policy_temperature` 1.51099, `habituation_rate` 0.673624, `habituation_window` 9, `witnessed_cutoff_gain` 0.0868308, `witness_window` 17, `reactive_cutoff_gain` 0.0618916, `origin_cutoff_anxiety_gain` 5.14819, `origin_fusion_gain` 0.729649, `rejection_cutoff_gain` 0.321955, `rejection_refusal_gain` 0.123326, `rejection_relief` 0.465365, `rejection_refusal_threshold` 0.54367, `rejection_fade` 0.0626832, `calm_transfer_rate` 0.073871, `tie_wear_rate` 0.0614882; ratio 0.01601 (per week ÷ per contact) | 200 | no | PASS | `cut_off_tie_weeks` +227 ± 94 |
-| 2 | `learning_rate` 0.285148, `credit_horizon` 2, `credit_discount` 0.638462, `cross_person_weight` 0.5639, `policy_temperature` 1.72275, `habituation_rate` 0.56619, `habituation_window` 12, `witnessed_cutoff_gain` 0.0851994, `witness_window` 19, `reactive_cutoff_gain` 0.127921, `origin_cutoff_anxiety_gain` 14.3081, `origin_fusion_gain` 0.256843, `rejection_cutoff_gain` 0.675094, `rejection_refusal_gain` 0.142517, `rejection_relief` 0.170935, `rejection_refusal_threshold` 0.399982, `rejection_fade` 0.0826487, `calm_transfer_rate` 0.0337688, `tie_wear_rate` 0.0322308; ratio 0.01835 (per week ÷ per contact) | 200 | no | PASS | `cut_off_tie_weeks` +114 ± 1.1e+02 |
-| 3 | `learning_rate` 0.167235, `credit_horizon` 5, `credit_discount` 0.537824, `cross_person_weight` 0.410065, `policy_temperature` 0.847375, `habituation_rate` 0.705119, `habituation_window` 6, `witnessed_cutoff_gain` 0.0355531, `witness_window` 8, `reactive_cutoff_gain` 0.188619, `origin_cutoff_anxiety_gain` 7.97092, `origin_fusion_gain` 0.742934, `rejection_cutoff_gain` 0.40805, `rejection_refusal_gain` 0.14222, `rejection_relief` 0.163368, `rejection_refusal_threshold` 0.163412, `rejection_fade` 0.03741, `calm_transfer_rate` 0.0326648, `tie_wear_rate` 0.0820632; ratio 0.04831 (per week ÷ per contact) | 200 | no | PASS | `cut_off_tie_weeks` +194 ± 97 |
-| 4 | `learning_rate` 0.333285, `credit_horizon` 5, `credit_discount` 0.461979, `cross_person_weight` 0.584405, `policy_temperature` 0.637759, `habituation_rate` 0.566153, `habituation_window` 16, `witnessed_cutoff_gain` 0.0796423, `witness_window` 13, `reactive_cutoff_gain` 0.0743612, `origin_cutoff_anxiety_gain` 18.2022, `origin_fusion_gain` 0.41816, `rejection_cutoff_gain` 0.265688, `rejection_refusal_gain` 0.0536377, `rejection_relief` 0.143998, `rejection_refusal_threshold` 0.271735, `rejection_fade` 0.0865912, `calm_transfer_rate` 0.0283084, `tie_wear_rate` 0.0134656; ratio 0.009148 (per week ÷ per contact) | 200 | no | PASS | `cut_off_tie_weeks` +189 ± 1.1e+02 |
-| 5 | `learning_rate` 0.20821, `credit_horizon` 3, `credit_discount` 0.497177, `cross_person_weight` 0.596516, `policy_temperature` 1.07266, `habituation_rate` 0.659282, `habituation_window` 6, `witnessed_cutoff_gain` 0.0751056, `witness_window` 19, `reactive_cutoff_gain` 0.108809, `origin_cutoff_anxiety_gain` 9.47073, `origin_fusion_gain` 0.577109, `rejection_cutoff_gain` 0.670497, `rejection_refusal_gain` 0.146793, `rejection_relief` 0.143306, `rejection_refusal_threshold` 0.304463, `rejection_fade` 0.0492382, `calm_transfer_rate` 0.073379, `tie_wear_rate` 0.0251353; ratio 0.006587 (per week ÷ per contact) | 200 | no | PASS | `cut_off_tie_weeks` +101 ± 1.2e+02 |
-| 6 | `learning_rate` 0.105686, `credit_horizon` 3, `credit_discount` 0.491468, `cross_person_weight` 0.675354, `policy_temperature` 0.632779, `habituation_rate` 0.773863, `habituation_window` 8, `witnessed_cutoff_gain` 0.0923187, `witness_window` 15, `reactive_cutoff_gain` 0.193905, `origin_cutoff_anxiety_gain` 12.0311, `origin_fusion_gain` 0.810522, `rejection_cutoff_gain` 0.475721, `rejection_refusal_gain` 0.0900292, `rejection_relief` 0.419411, `rejection_refusal_threshold` 0.297349, `rejection_fade` 0.0916676, `calm_transfer_rate` 0.0973225, `tie_wear_rate` 0.114754; ratio 0.02268 (per week ÷ per contact) | 200 | no | PASS | `cut_off_tie_weeks` +105 ± 80 |
-| 7 | `learning_rate` 0.25032, `credit_horizon` 2, `credit_discount` 0.462585, `cross_person_weight` 0.907695, `policy_temperature` 0.593559, `habituation_rate` 0.480975, `habituation_window` 7, `witnessed_cutoff_gain` 0.026927, `witness_window` 21, `reactive_cutoff_gain` 0.126444, `origin_cutoff_anxiety_gain` 8.69519, `origin_fusion_gain` 0.310608, `rejection_cutoff_gain` 0.645047, `rejection_refusal_gain` 0.0585807, `rejection_relief` 0.346456, `rejection_refusal_threshold` 0.162826, `rejection_fade` 0.0271727, `calm_transfer_rate` 0.0528552, `tie_wear_rate` 0.0139057; ratio 0.005059 (per week ÷ per contact) | 200 | no | PASS | `cut_off_tie_weeks` +410 ± 1.4e+02 |
+| 0 | `learning_rate` 0.100036, `credit_horizon` 3, `credit_discount` 0.897915, `cross_person_weight` 0.361846, `policy_temperature` 1.97919, `habituation_rate` 0.637591, `habituation_window` 11, `witnessed_cutoff_gain` 0.0619692, `witness_window` 20, `reactive_cutoff_gain` 0.125241, `origin_cutoff_anxiety_gain` 13.5376, `origin_fusion_gain` 0.930651, `rejection_cutoff_gain` 0.266879, `rejection_refusal_gain` 0.106089, `rejection_relief` 0.247612, `rejection_refusal_threshold` 0.431668, `rejection_fade` 0.0399105, `calm_transfer_rate` 0.05823, `tie_wear_rate` 0.0230119; ratio 0.0076 (per week ÷ per contact) | 200 | no | PASS | `cut_off_tie_weeks` +104 ± 1.4e+02 |
+| 1 | `learning_rate` 0.108276, `credit_horizon` 3, `credit_discount` 0.924498, `cross_person_weight` 0.632482, `policy_temperature` 1.51099, `habituation_rate` 0.673624, `habituation_window` 9, `witnessed_cutoff_gain` 0.0868308, `witness_window` 17, `reactive_cutoff_gain` 0.0618916, `origin_cutoff_anxiety_gain` 5.14819, `origin_fusion_gain` 0.729649, `rejection_cutoff_gain` 0.321955, `rejection_refusal_gain` 0.123326, `rejection_relief` 0.465365, `rejection_refusal_threshold` 0.54367, `rejection_fade` 0.0626832, `calm_transfer_rate` 0.073871, `tie_wear_rate` 0.0614882; ratio 0.01601 (per week ÷ per contact) | 200 | no | PASS | `cut_off_tie_weeks` +221 ± 95 |
+| 2 | `learning_rate` 0.285148, `credit_horizon` 2, `credit_discount` 0.638462, `cross_person_weight` 0.5639, `policy_temperature` 1.72275, `habituation_rate` 0.56619, `habituation_window` 12, `witnessed_cutoff_gain` 0.0851994, `witness_window` 19, `reactive_cutoff_gain` 0.127921, `origin_cutoff_anxiety_gain` 14.3081, `origin_fusion_gain` 0.256843, `rejection_cutoff_gain` 0.675094, `rejection_refusal_gain` 0.142517, `rejection_relief` 0.170935, `rejection_refusal_threshold` 0.399982, `rejection_fade` 0.0826487, `calm_transfer_rate` 0.0337688, `tie_wear_rate` 0.0322308; ratio 0.01835 (per week ÷ per contact) | 200 | no | FAIL | `cut_off_tie_weeks` +97.6 ± 1.2e+02 |
+| 3 | `learning_rate` 0.167235, `credit_horizon` 5, `credit_discount` 0.537824, `cross_person_weight` 0.410065, `policy_temperature` 0.847375, `habituation_rate` 0.705119, `habituation_window` 6, `witnessed_cutoff_gain` 0.0355531, `witness_window` 8, `reactive_cutoff_gain` 0.188619, `origin_cutoff_anxiety_gain` 7.97092, `origin_fusion_gain` 0.742934, `rejection_cutoff_gain` 0.40805, `rejection_refusal_gain` 0.14222, `rejection_relief` 0.163368, `rejection_refusal_threshold` 0.163412, `rejection_fade` 0.03741, `calm_transfer_rate` 0.0326648, `tie_wear_rate` 0.0820632; ratio 0.04831 (per week ÷ per contact) | 200 | no | PASS | `cut_off_tie_weeks` +197 ± 97 |
+| 4 | `learning_rate` 0.333285, `credit_horizon` 5, `credit_discount` 0.461979, `cross_person_weight` 0.584405, `policy_temperature` 0.637759, `habituation_rate` 0.566153, `habituation_window` 16, `witnessed_cutoff_gain` 0.0796423, `witness_window` 13, `reactive_cutoff_gain` 0.0743612, `origin_cutoff_anxiety_gain` 18.2022, `origin_fusion_gain` 0.41816, `rejection_cutoff_gain` 0.265688, `rejection_refusal_gain` 0.0536377, `rejection_relief` 0.143998, `rejection_refusal_threshold` 0.271735, `rejection_fade` 0.0865912, `calm_transfer_rate` 0.0283084, `tie_wear_rate` 0.0134656; ratio 0.009148 (per week ÷ per contact) | 200 | no | PASS | `cut_off_tie_weeks` +181 ± 1.1e+02 |
+| 5 | `learning_rate` 0.20821, `credit_horizon` 3, `credit_discount` 0.497177, `cross_person_weight` 0.596516, `policy_temperature` 1.07266, `habituation_rate` 0.659282, `habituation_window` 6, `witnessed_cutoff_gain` 0.0751056, `witness_window` 19, `reactive_cutoff_gain` 0.108809, `origin_cutoff_anxiety_gain` 9.47073, `origin_fusion_gain` 0.577109, `rejection_cutoff_gain` 0.670497, `rejection_refusal_gain` 0.146793, `rejection_relief` 0.143306, `rejection_refusal_threshold` 0.304463, `rejection_fade` 0.0492382, `calm_transfer_rate` 0.073379, `tie_wear_rate` 0.0251353; ratio 0.006587 (per week ÷ per contact) | 200 | no | PASS | `cut_off_tie_weeks` +117 ± 1.2e+02 |
+| 6 | `learning_rate` 0.105686, `credit_horizon` 3, `credit_discount` 0.491468, `cross_person_weight` 0.675354, `policy_temperature` 0.632779, `habituation_rate` 0.773863, `habituation_window` 8, `witnessed_cutoff_gain` 0.0923187, `witness_window` 15, `reactive_cutoff_gain` 0.193905, `origin_cutoff_anxiety_gain` 12.0311, `origin_fusion_gain` 0.810522, `rejection_cutoff_gain` 0.475721, `rejection_refusal_gain` 0.0900292, `rejection_relief` 0.419411, `rejection_refusal_threshold` 0.297349, `rejection_fade` 0.0916676, `calm_transfer_rate` 0.0973225, `tie_wear_rate` 0.114754; ratio 0.02268 (per week ÷ per contact) | 200 | no | PASS | `cut_off_tie_weeks` +104 ± 80 |
+| 7 | `learning_rate` 0.25032, `credit_horizon` 2, `credit_discount` 0.462585, `cross_person_weight` 0.907695, `policy_temperature` 0.593559, `habituation_rate` 0.480975, `habituation_window` 7, `witnessed_cutoff_gain` 0.026927, `witness_window` 21, `reactive_cutoff_gain` 0.126444, `origin_cutoff_anxiety_gain` 8.69519, `origin_fusion_gain` 0.310608, `rejection_cutoff_gain` 0.645047, `rejection_refusal_gain` 0.0585807, `rejection_relief` 0.346456, `rejection_refusal_threshold` 0.162826, `rejection_fade` 0.0271727, `calm_transfer_rate` 0.0528552, `tie_wear_rate` 0.0139057; ratio 0.005059 (per week ÷ per contact) | 200 | no | PASS | `cut_off_tie_weeks` +411 ± 1.3e+02 |
 
 ## `M11.C.15` — 5 of 8 samples held
 
@@ -580,14 +580,14 @@ Directional criteria of the ensemble records with no ranges declared in `config/
 
 | Sample | Values | Seeds | Rerun | Verdict | Gating readouts (mean difference ± half-width) |
 |---|---|---|---|---|---|
-| 0 | `learning_rate` 0.247892, `credit_horizon` 5, `credit_discount` 0.672568, `cross_person_weight` 0.712342, `policy_temperature` 1.61102, `habituation_rate` 0.394202, `habituation_window` 7, `cutoff_stock_cap` 1712.32, `cutoff_threat_weight` 0.00382396, `cutoff_decay_weeks` 314, `cutoff_floor_share` 0.106912, `positive_bridge_dissipation` 0.732122, `calm_transfer_rate` 0.0458045, `tie_wear_rate` 0.0818156; ratio 0.03435 (per week ÷ per contact) | 200 | no | FAIL | `negative_run` -0.237 ± 0.092 |
-| 1 | `learning_rate` 0.376126, `credit_horizon` 6, `credit_discount` 0.571656, `cross_person_weight` 0.493781, `policy_temperature` 0.978477, `habituation_rate` 0.998807, `habituation_window` 14, `cutoff_stock_cap` 1872.46, `cutoff_threat_weight` 0.00622121, `cutoff_decay_weeks` 361, `cutoff_floor_share` 0.0619932, `positive_bridge_dissipation` 0.475072, `calm_transfer_rate` 0.0491674, `tie_wear_rate` 0.1283; ratio 0.05018 (per week ÷ per contact) | 200 | no | FAIL | `negative_run` -0.29 ± 0.1 |
-| 2 | `learning_rate` 0.134183, `credit_horizon` 6, `credit_discount` 0.956053, `cross_person_weight` 0.559969, `policy_temperature` 0.558845, `habituation_rate` 0.601236, `habituation_window` 9, `cutoff_stock_cap` 910.191, `cutoff_threat_weight` 0.00200315, `cutoff_decay_weeks` 434, `cutoff_floor_share` 0.183506, `positive_bridge_dissipation` 0.690904, `calm_transfer_rate` 0.029131, `tie_wear_rate` 0.0150323; ratio 0.009924 (per week ÷ per contact) | 200 | no | FAIL | `negative_run` -0.314 ± 0.1 |
-| 3 | `learning_rate` 0.132511, `credit_horizon` 2, `credit_discount` 0.625784, `cross_person_weight` 0.853318, `policy_temperature` 0.627963, `habituation_rate` 0.682449, `habituation_window` 12, `cutoff_stock_cap` 1546.55, `cutoff_threat_weight` 0.00390046, `cutoff_decay_weeks` 179, `cutoff_floor_share` 0.0517486, `positive_bridge_dissipation` 0.888263, `calm_transfer_rate` 0.0302485, `tie_wear_rate` 0.0156122; ratio 0.009926 (per week ÷ per contact) | 200 | no | FAIL | `negative_run` -0.256 ± 0.1 |
+| 0 | `learning_rate` 0.247892, `credit_horizon` 5, `credit_discount` 0.672568, `cross_person_weight` 0.712342, `policy_temperature` 1.61102, `habituation_rate` 0.394202, `habituation_window` 7, `cutoff_stock_cap` 1712.32, `cutoff_threat_weight` 0.00382396, `cutoff_decay_weeks` 314, `cutoff_floor_share` 0.106912, `positive_bridge_dissipation` 0.732122, `calm_transfer_rate` 0.0458045, `tie_wear_rate` 0.0818156; ratio 0.03435 (per week ÷ per contact) | 200 | no | FAIL | `negative_run` -0.243 ± 0.093 |
+| 1 | `learning_rate` 0.376126, `credit_horizon` 6, `credit_discount` 0.571656, `cross_person_weight` 0.493781, `policy_temperature` 0.978477, `habituation_rate` 0.998807, `habituation_window` 14, `cutoff_stock_cap` 1872.46, `cutoff_threat_weight` 0.00622121, `cutoff_decay_weeks` 361, `cutoff_floor_share` 0.0619932, `positive_bridge_dissipation` 0.475072, `calm_transfer_rate` 0.0491674, `tie_wear_rate` 0.1283; ratio 0.05018 (per week ÷ per contact) | 200 | no | FAIL | `negative_run` -0.286 ± 0.099 |
+| 2 | `learning_rate` 0.134183, `credit_horizon` 6, `credit_discount` 0.956053, `cross_person_weight` 0.559969, `policy_temperature` 0.558845, `habituation_rate` 0.601236, `habituation_window` 9, `cutoff_stock_cap` 910.191, `cutoff_threat_weight` 0.00200315, `cutoff_decay_weeks` 434, `cutoff_floor_share` 0.183506, `positive_bridge_dissipation` 0.690904, `calm_transfer_rate` 0.029131, `tie_wear_rate` 0.0150323; ratio 0.009924 (per week ÷ per contact) | 200 | no | FAIL | `negative_run` -0.318 ± 0.1 |
+| 3 | `learning_rate` 0.132511, `credit_horizon` 2, `credit_discount` 0.625784, `cross_person_weight` 0.853318, `policy_temperature` 0.627963, `habituation_rate` 0.682449, `habituation_window` 12, `cutoff_stock_cap` 1546.55, `cutoff_threat_weight` 0.00390046, `cutoff_decay_weeks` 179, `cutoff_floor_share` 0.0517486, `positive_bridge_dissipation` 0.888263, `calm_transfer_rate` 0.0302485, `tie_wear_rate` 0.0156122; ratio 0.009926 (per week ÷ per contact) | 200 | no | FAIL | `negative_run` -0.255 ± 0.1 |
 | 4 | `learning_rate` 0.187776, `credit_horizon` 5, `credit_discount` 0.37549, `cross_person_weight` 0.250366, `policy_temperature` 1.54959, `habituation_rate` 0.456227, `habituation_window` 12, `cutoff_stock_cap` 2182.26, `cutoff_threat_weight` 0.00619186, `cutoff_decay_weeks` 162, `cutoff_floor_share` 0.121419, `positive_bridge_dissipation` 0.772162, `calm_transfer_rate` 0.0813982, `tie_wear_rate` 0.049161; ratio 0.01161 (per week ÷ per contact) | 200 | no | FAIL | `negative_run` -0.277 ± 0.1 |
 | 5 | `learning_rate` 0.194065, `credit_horizon` 2, `credit_discount` 0.435368, `cross_person_weight` 0.870515, `policy_temperature` 0.859063, `habituation_rate` 0.413353, `habituation_window` 6, `cutoff_stock_cap` 1555.53, `cutoff_threat_weight` 0.00210926, `cutoff_decay_weeks` 436, `cutoff_floor_share` 0.0770757, `positive_bridge_dissipation` 0.73602, `calm_transfer_rate` 0.0354213, `tie_wear_rate` 0.12847; ratio 0.06975 (per week ÷ per contact) | 200 | no | FAIL | `negative_run` -0.269 ± 0.1 |
 | 6 | `learning_rate` 0.375307, `credit_horizon` 4, `credit_discount` 0.978037, `cross_person_weight` 0.464834, `policy_temperature` 0.555075, `habituation_rate` 0.818658, `habituation_window` 15, `cutoff_stock_cap` 1860.44, `cutoff_threat_weight` 0.0042895, `cutoff_decay_weeks` 362, `cutoff_floor_share` 0.0594356, `positive_bridge_dissipation` 0.7915, `calm_transfer_rate` 0.0337366, `tie_wear_rate` 0.036246; ratio 0.02066 (per week ÷ per contact) | 200 | no | FAIL | `negative_run` -0.242 ± 0.13 |
-| 7 | `learning_rate` 0.217627, `credit_horizon` 5, `credit_discount` 0.694019, `cross_person_weight` 0.255281, `policy_temperature` 1.7415, `habituation_rate` 0.65354, `habituation_window` 12, `cutoff_stock_cap` 1185.86, `cutoff_threat_weight` 0.00184698, `cutoff_decay_weeks` 405, `cutoff_floor_share` 0.0854268, `positive_bridge_dissipation` 0.461717, `calm_transfer_rate` 0.0554836, `tie_wear_rate` 0.0663722; ratio 0.023 (per week ÷ per contact) | 200 | no | FAIL | `negative_run` -0.256 ± 0.1 |
+| 7 | `learning_rate` 0.217627, `credit_horizon` 5, `credit_discount` 0.694019, `cross_person_weight` 0.255281, `policy_temperature` 1.7415, `habituation_rate` 0.65354, `habituation_window` 12, `cutoff_stock_cap` 1185.86, `cutoff_threat_weight` 0.00184698, `cutoff_decay_weeks` 405, `cutoff_floor_share` 0.0854268, `positive_bridge_dissipation` 0.461717, `calm_transfer_rate` 0.0554836, `tie_wear_rate` 0.0663722; ratio 0.023 (per week ÷ per contact) | 200 | no | FAIL | `negative_run` -0.276 ± 0.1 |
 
 ## `M11.C.48[phase_d]` — 0 of 8 samples held
 
@@ -595,14 +595,14 @@ Directional criteria of the ensemble records with no ranges declared in `config/
 
 | Sample | Values | Seeds | Rerun | Verdict | Gating readouts (mean difference ± half-width) |
 |---|---|---|---|---|---|
-| 0 | `learning_rate` 0.24419, `credit_horizon` 2, `credit_discount` 0.796021, `cross_person_weight` 0.309535, `policy_temperature` 1.3338, `habituation_rate` 0.639086, `habituation_window` 8, `cutoff_stock_cap` 1441.13, `cutoff_threat_weight` 0.00277184, `cutoff_decay_weeks` 301, `cutoff_floor_share` 0.0890746, `positive_bridge_dissipation` 0.609697, `calm_transfer_rate` 0.090142, `tie_wear_rate` 0.295153; ratio 0.06297 (per week ÷ per contact) | 200 | no | FAIL | `negative_run` -0.115 ± 0.056 |
-| 1 | `learning_rate` 0.362105, `credit_horizon` 2, `credit_discount` 0.578237, `cross_person_weight` 0.901504, `policy_temperature` 1.18975, `habituation_rate` 0.773857, `habituation_window` 9, `cutoff_stock_cap` 1101.41, `cutoff_threat_weight` 0.00156209, `cutoff_decay_weeks` 217, `cutoff_floor_share` 0.199758, `positive_bridge_dissipation` 0.453333, `calm_transfer_rate` 0.075583, `tie_wear_rate` 0.0469057; ratio 0.01193 (per week ÷ per contact) | 200 | no | FAIL | `negative_run` -0.0903 ± 0.062 |
-| 2 | `learning_rate` 0.242537, `credit_horizon` 5, `credit_discount` 0.458654, `cross_person_weight` 0.287328, `policy_temperature` 1.30557, `habituation_rate` 0.989447, `habituation_window` 6, `cutoff_stock_cap` 1215.66, `cutoff_threat_weight` 0.00465533, `cutoff_decay_weeks` 274, `cutoff_floor_share` 0.131322, `positive_bridge_dissipation` 0.40812, `calm_transfer_rate` 0.0331747, `tie_wear_rate` 0.0113581; ratio 0.006584 (per week ÷ per contact) | 200 | no | FAIL | `negative_run` -0.143 ± 0.056 |
-| 3 | `learning_rate` 0.104382, `credit_horizon` 6, `credit_discount` 0.959591, `cross_person_weight` 0.389648, `policy_temperature` 0.745754, `habituation_rate` 0.350142, `habituation_window` 6, `cutoff_stock_cap` 1114.98, `cutoff_threat_weight` 0.00206921, `cutoff_decay_weeks` 269, `cutoff_floor_share` 0.164162, `positive_bridge_dissipation` 0.983134, `calm_transfer_rate` 0.092571, `tie_wear_rate` 0.243201; ratio 0.05052 (per week ÷ per contact) | 200 | no | FAIL | `negative_run` -0.183 ± 0.049 |
-| 4 | `learning_rate` 0.376206, `credit_horizon` 2, `credit_discount` 0.785203, `cross_person_weight` 0.477829, `policy_temperature` 1.9944, `habituation_rate` 0.564005, `habituation_window` 10, `cutoff_stock_cap` 1708.69, `cutoff_threat_weight` 0.00483194, `cutoff_decay_weeks` 474, `cutoff_floor_share` 0.0554266, `positive_bridge_dissipation` 0.5437, `calm_transfer_rate` 0.0967873, `tie_wear_rate` 0.0305304; ratio 0.006066 (per week ÷ per contact) | 200 | no | FAIL | `negative_run` -0.167 ± 0.07 |
-| 5 | `learning_rate` 0.330207, `credit_horizon` 3, `credit_discount` 0.639876, `cross_person_weight` 0.948444, `policy_temperature` 0.851724, `habituation_rate` 0.847914, `habituation_window` 11, `cutoff_stock_cap` 2541.14, `cutoff_threat_weight` 0.00577269, `cutoff_decay_weeks` 317, `cutoff_floor_share` 0.0760002, `positive_bridge_dissipation` 0.459051, `calm_transfer_rate` 0.0849694, `tie_wear_rate` 0.192865; ratio 0.04365 (per week ÷ per contact) | 200 | no | FAIL | `negative_run` -0.135 ± 0.064 |
-| 6 | `learning_rate` 0.193397, `credit_horizon` 5, `credit_discount` 0.780096, `cross_person_weight` 0.828628, `policy_temperature` 1.28402, `habituation_rate` 0.837309, `habituation_window` 7, `cutoff_stock_cap` 1207.89, `cutoff_threat_weight` 0.0015714, `cutoff_decay_weeks` 354, `cutoff_floor_share` 0.137174, `positive_bridge_dissipation` 0.465099, `calm_transfer_rate` 0.0271436, `tie_wear_rate` 0.0610813; ratio 0.04328 (per week ÷ per contact) | 200 | no | FAIL | `negative_run` -0.127 ± 0.06 |
-| 7 | `learning_rate` 0.128485, `credit_horizon` 3, `credit_discount` 0.506122, `cross_person_weight` 0.339178, `policy_temperature` 1.70249, `habituation_rate` 0.482606, `habituation_window` 12, `cutoff_stock_cap` 831.482, `cutoff_threat_weight` 0.0034399, `cutoff_decay_weeks` 472, `cutoff_floor_share` 0.0551299, `positive_bridge_dissipation` 0.413452, `calm_transfer_rate` 0.0629708, `tie_wear_rate` 0.045015; ratio 0.01375 (per week ÷ per contact) | 200 | no | FAIL | `negative_run` -0.184 ± 0.057 |
+| 0 | `learning_rate` 0.24419, `credit_horizon` 2, `credit_discount` 0.796021, `cross_person_weight` 0.309535, `policy_temperature` 1.3338, `habituation_rate` 0.639086, `habituation_window` 8, `cutoff_stock_cap` 1441.13, `cutoff_threat_weight` 0.00277184, `cutoff_decay_weeks` 301, `cutoff_floor_share` 0.0890746, `positive_bridge_dissipation` 0.609697, `calm_transfer_rate` 0.090142, `tie_wear_rate` 0.295153; ratio 0.06297 (per week ÷ per contact) | 200 | no | FAIL | `negative_run` -0.117 ± 0.056 |
+| 1 | `learning_rate` 0.362105, `credit_horizon` 2, `credit_discount` 0.578237, `cross_person_weight` 0.901504, `policy_temperature` 1.18975, `habituation_rate` 0.773857, `habituation_window` 9, `cutoff_stock_cap` 1101.41, `cutoff_threat_weight` 0.00156209, `cutoff_decay_weeks` 217, `cutoff_floor_share` 0.199758, `positive_bridge_dissipation` 0.453333, `calm_transfer_rate` 0.075583, `tie_wear_rate` 0.0469057; ratio 0.01193 (per week ÷ per contact) | 200 | no | FAIL | `negative_run` -0.095 ± 0.06 |
+| 2 | `learning_rate` 0.242537, `credit_horizon` 5, `credit_discount` 0.458654, `cross_person_weight` 0.287328, `policy_temperature` 1.30557, `habituation_rate` 0.989447, `habituation_window` 6, `cutoff_stock_cap` 1215.66, `cutoff_threat_weight` 0.00465533, `cutoff_decay_weeks` 274, `cutoff_floor_share` 0.131322, `positive_bridge_dissipation` 0.40812, `calm_transfer_rate` 0.0331747, `tie_wear_rate` 0.0113581; ratio 0.006584 (per week ÷ per contact) | 200 | no | FAIL | `negative_run` -0.142 ± 0.056 |
+| 3 | `learning_rate` 0.104382, `credit_horizon` 6, `credit_discount` 0.959591, `cross_person_weight` 0.389648, `policy_temperature` 0.745754, `habituation_rate` 0.350142, `habituation_window` 6, `cutoff_stock_cap` 1114.98, `cutoff_threat_weight` 0.00206921, `cutoff_decay_weeks` 269, `cutoff_floor_share` 0.164162, `positive_bridge_dissipation` 0.983134, `calm_transfer_rate` 0.092571, `tie_wear_rate` 0.243201; ratio 0.05052 (per week ÷ per contact) | 200 | no | FAIL | `negative_run` -0.179 ± 0.049 |
+| 4 | `learning_rate` 0.376206, `credit_horizon` 2, `credit_discount` 0.785203, `cross_person_weight` 0.477829, `policy_temperature` 1.9944, `habituation_rate` 0.564005, `habituation_window` 10, `cutoff_stock_cap` 1708.69, `cutoff_threat_weight` 0.00483194, `cutoff_decay_weeks` 474, `cutoff_floor_share` 0.0554266, `positive_bridge_dissipation` 0.5437, `calm_transfer_rate` 0.0967873, `tie_wear_rate` 0.0305304; ratio 0.006066 (per week ÷ per contact) | 200 | no | FAIL | `negative_run` -0.159 ± 0.07 |
+| 5 | `learning_rate` 0.330207, `credit_horizon` 3, `credit_discount` 0.639876, `cross_person_weight` 0.948444, `policy_temperature` 0.851724, `habituation_rate` 0.847914, `habituation_window` 11, `cutoff_stock_cap` 2541.14, `cutoff_threat_weight` 0.00577269, `cutoff_decay_weeks` 317, `cutoff_floor_share` 0.0760002, `positive_bridge_dissipation` 0.459051, `calm_transfer_rate` 0.0849694, `tie_wear_rate` 0.192865; ratio 0.04365 (per week ÷ per contact) | 200 | no | FAIL | `negative_run` -0.137 ± 0.063 |
+| 6 | `learning_rate` 0.193397, `credit_horizon` 5, `credit_discount` 0.780096, `cross_person_weight` 0.828628, `policy_temperature` 1.28402, `habituation_rate` 0.837309, `habituation_window` 7, `cutoff_stock_cap` 1207.89, `cutoff_threat_weight` 0.0015714, `cutoff_decay_weeks` 354, `cutoff_floor_share` 0.137174, `positive_bridge_dissipation` 0.465099, `calm_transfer_rate` 0.0271436, `tie_wear_rate` 0.0610813; ratio 0.04328 (per week ÷ per contact) | 200 | no | FAIL | `negative_run` -0.122 ± 0.059 |
+| 7 | `learning_rate` 0.128485, `credit_horizon` 3, `credit_discount` 0.506122, `cross_person_weight` 0.339178, `policy_temperature` 1.70249, `habituation_rate` 0.482606, `habituation_window` 12, `cutoff_stock_cap` 831.482, `cutoff_threat_weight` 0.0034399, `cutoff_decay_weeks` 472, `cutoff_floor_share` 0.0551299, `positive_bridge_dissipation` 0.413452, `calm_transfer_rate` 0.0629708, `tie_wear_rate` 0.045015; ratio 0.01375 (per week ÷ per contact) | 200 | no | FAIL | `negative_run` -0.185 ± 0.059 |
 
 ## Machine-readable
 
@@ -700,8 +700,8 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "readouts": [
      {
       "readout": "repertoire_entropy",
-      "mean_difference": -0.032783338866696446,
-      "half_width": 0.008173863105283995,
+      "mean_difference": -0.03220914373442418,
+      "half_width": 0.008187754070185153,
       "direction": -1
      }
     ],
@@ -727,8 +727,8 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "readouts": [
      {
       "readout": "repertoire_entropy",
-      "mean_difference": -0.030283957190578727,
-      "half_width": 0.005041591865285099,
+      "mean_difference": -0.03119873794157426,
+      "half_width": 0.004966143033665045,
       "direction": -1
      }
     ],
@@ -754,8 +754,8 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "readouts": [
      {
       "readout": "repertoire_entropy",
-      "mean_difference": -0.0442349162479783,
-      "half_width": 0.007922140757421578,
+      "mean_difference": -0.04355921174967377,
+      "half_width": 0.00789139414728846,
       "direction": -1
      }
     ],
@@ -781,8 +781,8 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "readouts": [
      {
       "readout": "repertoire_entropy",
-      "mean_difference": -0.027040982241942176,
-      "half_width": 0.0040245135791477996,
+      "mean_difference": -0.02719570608416034,
+      "half_width": 0.003882205062675314,
       "direction": -1
      }
     ],
@@ -808,8 +808,8 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "readouts": [
      {
       "readout": "repertoire_entropy",
-      "mean_difference": -0.036835740698921725,
-      "half_width": 0.007549126849815902,
+      "mean_difference": -0.03572293159325574,
+      "half_width": 0.007614363639336751,
       "direction": -1
      }
     ],
@@ -835,8 +835,8 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "readouts": [
      {
       "readout": "repertoire_entropy",
-      "mean_difference": -0.030425443759517775,
-      "half_width": 0.008538077346072488,
+      "mean_difference": -0.029432447277263615,
+      "half_width": 0.0084572599134735,
       "direction": -1
      }
     ],
@@ -862,8 +862,8 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "readouts": [
      {
       "readout": "repertoire_entropy",
-      "mean_difference": -0.0331886548915744,
-      "half_width": 0.004730974003565241,
+      "mean_difference": -0.03313800765364722,
+      "half_width": 0.004845100928327048,
       "direction": -1
      }
     ],
@@ -889,8 +889,8 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "readouts": [
      {
       "readout": "repertoire_entropy",
-      "mean_difference": -0.03148381599657331,
-      "half_width": 0.005867781831671767,
+      "mean_difference": -0.03135266510889004,
+      "half_width": 0.005539681896181707,
       "direction": -1
      }
     ],
@@ -1403,14 +1403,14 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "readouts": [
      {
       "readout": "target_reaction",
-      "mean_difference": -6.666608914981592,
-      "half_width": 16.314234256684585,
+      "mean_difference": -8.91291677014217,
+      "half_width": 16.586507326935326,
       "direction": 1
      },
      {
       "readout": "third_person_symptom_load",
-      "mean_difference": -2.9723646013785157,
-      "half_width": 8.415324273444398,
+      "mean_difference": -1.9172181424515695,
+      "half_width": 8.569196097969725,
       "direction": 1
      }
     ],
@@ -1422,14 +1422,14 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "rerun_readouts": [
      {
       "readout": "target_reaction",
-      "mean_difference": -8.623896021965487,
-      "half_width": 13.658193536957356,
+      "mean_difference": -10.308626913335921,
+      "half_width": 13.83718281233843,
       "direction": 1
      },
      {
       "readout": "third_person_symptom_load",
-      "mean_difference": -1.6561247929031007,
-      "half_width": 7.468293731461628,
+      "mean_difference": -0.8647649487078906,
+      "half_width": 7.5635191714754555,
       "direction": 1
      }
     ]
@@ -1453,14 +1453,14 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "readouts": [
      {
       "readout": "target_reaction",
-      "mean_difference": -4.557950319803029,
-      "half_width": 20.18513859709732,
+      "mean_difference": -5.161383424203279,
+      "half_width": 20.28342761336669,
       "direction": 1
      },
      {
       "readout": "third_person_symptom_load",
-      "mean_difference": -3.7104982934841964,
-      "half_width": 11.513036796957524,
+      "mean_difference": -3.751749681023236,
+      "half_width": 11.639905489180308,
       "direction": 1
      }
     ],
@@ -1472,14 +1472,14 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "rerun_readouts": [
      {
       "readout": "target_reaction",
-      "mean_difference": -11.27462652396437,
-      "half_width": 15.270864856263435,
+      "mean_difference": -10.836377790515412,
+      "half_width": 15.120461447372966,
       "direction": 1
      },
      {
       "readout": "third_person_symptom_load",
-      "mean_difference": -2.4578016405043654,
-      "half_width": 8.287779215007996,
+      "mean_difference": -3.0084723108016873,
+      "half_width": 8.374824605016963,
       "direction": 1
      }
     ]
@@ -1499,18 +1499,18 @@ Directional criteria of the ensemble records with no ranges declared in `config/
      "tie_wear_rate": "0.107879"
     },
     "outcome": "FAIL",
-    "seeds": 150,
+    "seeds": 100,
     "readouts": [
      {
       "readout": "target_reaction",
-      "mean_difference": -11.103970557825402,
-      "half_width": 16.78667328289558,
+      "mean_difference": -1.9085982367742502,
+      "half_width": 21.418646235515325,
       "direction": 1
      },
      {
       "readout": "third_person_symptom_load",
-      "mean_difference": -1.7662521165934204,
-      "half_width": 10.24004813970496,
+      "mean_difference": 0.4211094875615878,
+      "half_width": 11.54313510203611,
       "direction": 1
      }
     ],
@@ -1522,14 +1522,14 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "rerun_readouts": [
      {
       "readout": "target_reaction",
-      "mean_difference": -7.882461762408485,
-      "half_width": 14.466330669363616,
+      "mean_difference": -6.126717456387373,
+      "half_width": 14.62358642610274,
       "direction": 1
      },
      {
       "readout": "third_person_symptom_load",
-      "mean_difference": -3.4380095564641495,
-      "half_width": 8.829644541578258,
+      "mean_difference": -3.6926707253267517,
+      "half_width": 8.975542598728028,
       "direction": 1
      }
     ]
@@ -1553,14 +1553,14 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "readouts": [
      {
       "readout": "target_reaction",
-      "mean_difference": -20.180403027103548,
-      "half_width": 16.038201440044244,
+      "mean_difference": -20.099477398930013,
+      "half_width": 15.689142575698764,
       "direction": 1
      },
      {
       "readout": "third_person_symptom_load",
-      "mean_difference": -3.7305999765248257,
-      "half_width": 9.153209310128407,
+      "mean_difference": -2.680030201998284,
+      "half_width": 9.240902898216769,
       "direction": 1
      }
     ],
@@ -1572,14 +1572,14 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "rerun_readouts": [
      {
       "readout": "target_reaction",
-      "mean_difference": -18.300362594320646,
-      "half_width": 13.896512881983334,
+      "mean_difference": -18.24470359741372,
+      "half_width": 13.670908794718105,
       "direction": 1
      },
      {
       "readout": "third_person_symptom_load",
-      "mean_difference": -2.6392745323651208,
-      "half_width": 8.020390313869552,
+      "mean_difference": -1.8888182203220947,
+      "half_width": 8.074930726795259,
       "direction": 1
      }
     ]
@@ -1603,14 +1603,14 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "readouts": [
      {
       "readout": "target_reaction",
-      "mean_difference": -18.645282852298642,
-      "half_width": 22.5179667654615,
+      "mean_difference": -17.086317171874352,
+      "half_width": 22.500680711059392,
       "direction": 1
      },
      {
       "readout": "third_person_symptom_load",
-      "mean_difference": -1.2068394149012556,
-      "half_width": 11.124231529721197,
+      "mean_difference": -1.8441157603197262,
+      "half_width": 11.28865188344034,
       "direction": 1
      }
     ],
@@ -1622,14 +1622,14 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "rerun_readouts": [
      {
       "readout": "target_reaction",
-      "mean_difference": -6.299499947572194,
-      "half_width": 14.854622682473773,
+      "mean_difference": -5.52001710736005,
+      "half_width": 14.835984155073502,
       "direction": 1
      },
      {
       "readout": "third_person_symptom_load",
-      "mean_difference": -4.174490827037885,
-      "half_width": 8.400028955161558,
+      "mean_difference": -4.493128999747119,
+      "half_width": 8.452371942003948,
       "direction": 1
      }
     ]
@@ -1653,14 +1653,14 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "readouts": [
      {
       "readout": "target_reaction",
-      "mean_difference": -29.949701234885296,
-      "half_width": 15.867710368250457,
+      "mean_difference": -34.82047663666816,
+      "half_width": 15.923293351482979,
       "direction": 1
      },
      {
       "readout": "third_person_symptom_load",
-      "mean_difference": 0.5128184001591811,
-      "half_width": 10.104862909574527,
+      "mean_difference": -2.2580891797682985,
+      "half_width": 10.298160469589233,
       "direction": 1
      }
     ],
@@ -1672,14 +1672,14 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "rerun_readouts": [
      {
       "readout": "target_reaction",
-      "mean_difference": -13.647484764656864,
-      "half_width": 11.69947915231996,
+      "mean_difference": -16.646487572031567,
+      "half_width": 11.820705986380501,
       "direction": 1
      },
      {
       "readout": "third_person_symptom_load",
-      "mean_difference": -0.037965300082108654,
-      "half_width": 7.66974527220194,
+      "mean_difference": -1.8176886573813726,
+      "half_width": 7.692212123344888,
       "direction": 1
      }
     ]
@@ -1703,14 +1703,14 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "readouts": [
      {
       "readout": "target_reaction",
-      "mean_difference": -17.656362764967408,
-      "half_width": 18.807965863424624,
+      "mean_difference": -21.07521121870389,
+      "half_width": 18.416387129334893,
       "direction": 1
      },
      {
       "readout": "third_person_symptom_load",
-      "mean_difference": -2.8494654046839094,
-      "half_width": 11.093320030324746,
+      "mean_difference": -0.8421865641030842,
+      "half_width": 11.59327612761115,
       "direction": 1
      }
     ],
@@ -1722,14 +1722,14 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "rerun_readouts": [
      {
       "readout": "target_reaction",
-      "mean_difference": -11.863802500495371,
-      "half_width": 13.053242130246772,
+      "mean_difference": -14.475820188853707,
+      "half_width": 13.16857006286331,
       "direction": 1
      },
      {
       "readout": "third_person_symptom_load",
-      "mean_difference": 1.6296713286155127,
-      "half_width": 7.442085596711337,
+      "mean_difference": 2.257050734520549,
+      "half_width": 7.545220729706009,
       "direction": 1
      }
     ]
@@ -1753,14 +1753,14 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "readouts": [
      {
       "readout": "target_reaction",
-      "mean_difference": 16.21088951321116,
-      "half_width": 18.55840405562583,
+      "mean_difference": 14.97477337183841,
+      "half_width": 18.60244099935209,
       "direction": 1
      },
      {
       "readout": "third_person_symptom_load",
-      "mean_difference": 3.689372746565525,
-      "half_width": 9.988204395313819,
+      "mean_difference": 3.851699414509372,
+      "half_width": 10.042545489644011,
       "direction": 1
      }
     ],
@@ -1772,14 +1772,14 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "rerun_readouts": [
      {
       "readout": "target_reaction",
-      "mean_difference": 11.025671365123468,
-      "half_width": 16.866127125469472,
+      "mean_difference": 10.098584259093906,
+      "half_width": 16.88801754901707,
       "direction": 1
      },
      {
       "readout": "third_person_symptom_load",
-      "mean_difference": 0.9467117519210387,
-      "half_width": 8.882575867036271,
+      "mean_difference": 1.068456752878925,
+      "half_width": 8.917645026696457,
       "direction": 1
      }
     ]
@@ -3460,14 +3460,14 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "readouts": [
      {
       "readout": "mean_acute",
-      "mean_difference": 57.49841604261329,
-      "half_width": 6.503200874158345,
+      "mean_difference": 57.67804471133256,
+      "half_width": 6.47468079204354,
       "direction": 1
      },
      {
       "readout": "reactive_over_chance",
-      "mean_difference": 0.01988706193440351,
-      "half_width": 0.0021620212046361306,
+      "mean_difference": 0.019907997606918134,
+      "half_width": 0.002172227387009985,
       "direction": 1
      }
     ],
@@ -3496,14 +3496,14 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "readouts": [
      {
       "readout": "mean_acute",
-      "mean_difference": 967.2109226621792,
-      "half_width": 305.1654748930444,
+      "mean_difference": 1029.3002482817733,
+      "half_width": 312.50188268175947,
       "direction": 1
      },
      {
       "readout": "reactive_over_chance",
-      "mean_difference": 0.023458980374328434,
-      "half_width": 0.002393303700098231,
+      "mean_difference": 0.023230745397133264,
+      "half_width": 0.0024036602689425654,
       "direction": 1
      }
     ],
@@ -3532,14 +3532,14 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "readouts": [
      {
       "readout": "mean_acute",
-      "mean_difference": 116.16705030063783,
-      "half_width": 16.165090031310555,
+      "mean_difference": 116.42669615303392,
+      "half_width": 15.582487607796518,
       "direction": 1
      },
      {
       "readout": "reactive_over_chance",
-      "mean_difference": 0.022625993189828445,
-      "half_width": 0.0022140747425772925,
+      "mean_difference": 0.022626148418930122,
+      "half_width": 0.0022459104885517475,
       "direction": 1
      }
     ],
@@ -3568,14 +3568,14 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "readouts": [
      {
       "readout": "mean_acute",
-      "mean_difference": 73.78132707962376,
-      "half_width": 6.758838555181443,
+      "mean_difference": 74.71393112062779,
+      "half_width": 6.752431166851088,
       "direction": 1
      },
      {
       "readout": "reactive_over_chance",
-      "mean_difference": 0.08755690121135212,
-      "half_width": 0.0033639725333820796,
+      "mean_difference": 0.08719022763989419,
+      "half_width": 0.003363248133366847,
       "direction": 1
      }
     ],
@@ -3604,14 +3604,14 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "readouts": [
      {
       "readout": "mean_acute",
-      "mean_difference": 115.31511637716612,
-      "half_width": 22.587237028809756,
+      "mean_difference": 124.04514679191998,
+      "half_width": 22.446819561253157,
       "direction": 1
      },
      {
       "readout": "reactive_over_chance",
-      "mean_difference": 0.09261995979353511,
-      "half_width": 0.003113619767781561,
+      "mean_difference": 0.09315117052784942,
+      "half_width": 0.0031667911103624136,
       "direction": 1
      }
     ],
@@ -3640,14 +3640,14 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "readouts": [
      {
       "readout": "mean_acute",
-      "mean_difference": 99.41169221673594,
-      "half_width": 16.6868680177376,
+      "mean_difference": 100.01403514274864,
+      "half_width": 16.918948356741087,
       "direction": 1
      },
      {
       "readout": "reactive_over_chance",
-      "mean_difference": 0.10084791703046087,
-      "half_width": 0.003714718539969591,
+      "mean_difference": 0.10135838459446707,
+      "half_width": 0.0035368036866677043,
       "direction": 1
      }
     ],
@@ -3676,14 +3676,14 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "readouts": [
      {
       "readout": "mean_acute",
-      "mean_difference": 74.47572214015771,
-      "half_width": 7.774219732235943,
+      "mean_difference": 73.83338127436015,
+      "half_width": 7.769466231330309,
       "direction": 1
      },
      {
       "readout": "reactive_over_chance",
-      "mean_difference": 0.038952655288119885,
-      "half_width": 0.0024933666999093136,
+      "mean_difference": 0.03928482844765308,
+      "half_width": 0.002510952846202288,
       "direction": 1
      }
     ],
@@ -3712,14 +3712,14 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "readouts": [
      {
       "readout": "mean_acute",
-      "mean_difference": 32.98447980737201,
-      "half_width": 2.9142111330699527,
+      "mean_difference": 34.27216765245898,
+      "half_width": 2.9864025221230244,
       "direction": 1
      },
      {
       "readout": "reactive_over_chance",
-      "mean_difference": 0.06788295660983962,
-      "half_width": 0.003068436682553428,
+      "mean_difference": 0.06793092677177752,
+      "half_width": 0.003142337519549679,
       "direction": 1
      }
     ],
@@ -3863,14 +3863,14 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "readouts": [
      {
       "readout": "mean_acute",
-      "mean_difference": 38.77717666713276,
-      "half_width": 3.903995227452465,
+      "mean_difference": 39.06270511551402,
+      "half_width": 3.898688364543271,
       "direction": 1
      },
      {
       "readout": "reactive_over_chance",
-      "mean_difference": 0.08981595096901901,
-      "half_width": 0.0032256301596043082,
+      "mean_difference": 0.08914425128452973,
+      "half_width": 0.0032163316423698563,
       "direction": 1
      }
     ],
@@ -3899,14 +3899,14 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "readouts": [
      {
       "readout": "mean_acute",
-      "mean_difference": 105.2442475778897,
-      "half_width": 13.75256692461056,
+      "mean_difference": 101.71655149743188,
+      "half_width": 13.146989939393846,
       "direction": 1
      },
      {
       "readout": "reactive_over_chance",
-      "mean_difference": 0.1024138408634148,
-      "half_width": 0.003439201429368526,
+      "mean_difference": 0.10344939101750264,
+      "half_width": 0.003519454590966384,
       "direction": 1
      }
     ],
@@ -3935,14 +3935,14 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "readouts": [
      {
       "readout": "mean_acute",
-      "mean_difference": 97.11656685095828,
-      "half_width": 29.470936080387297,
+      "mean_difference": 96.66637612026156,
+      "half_width": 29.28409662927525,
       "direction": 1
      },
      {
       "readout": "reactive_over_chance",
-      "mean_difference": 0.03767527388732304,
-      "half_width": 0.0025547349010195974,
+      "mean_difference": 0.03776846854999718,
+      "half_width": 0.0025616672890197132,
       "direction": 1
      }
     ],
@@ -3971,14 +3971,14 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "readouts": [
      {
       "readout": "mean_acute",
-      "mean_difference": 73.05461559301614,
-      "half_width": 9.313411832633138,
+      "mean_difference": 74.89834717994661,
+      "half_width": 9.253150578963284,
       "direction": 1
      },
      {
       "readout": "reactive_over_chance",
-      "mean_difference": 0.05791042530991036,
-      "half_width": 0.0027932546990213076,
+      "mean_difference": 0.05788380581895493,
+      "half_width": 0.0028774241384987953,
       "direction": 1
      }
     ],
@@ -4007,14 +4007,14 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "readouts": [
      {
       "readout": "mean_acute",
-      "mean_difference": 88.83765553399742,
-      "half_width": 9.785754674326627,
+      "mean_difference": 88.41314159030378,
+      "half_width": 9.704341122312703,
       "direction": 1
      },
      {
       "readout": "reactive_over_chance",
-      "mean_difference": 0.08009593990121644,
-      "half_width": 0.003182001065426381,
+      "mean_difference": 0.08037725825347265,
+      "half_width": 0.0031610255235508694,
       "direction": 1
      }
     ],
@@ -4043,14 +4043,14 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "readouts": [
      {
       "readout": "mean_acute",
-      "mean_difference": 54.63822061832816,
-      "half_width": 5.093329150204161,
+      "mean_difference": 52.9946222343258,
+      "half_width": 4.75070635893402,
       "direction": 1
      },
      {
       "readout": "reactive_over_chance",
-      "mean_difference": 0.09577754416162103,
-      "half_width": 0.003471801883693968,
+      "mean_difference": 0.0955292693089158,
+      "half_width": 0.003595965864496934,
       "direction": 1
      }
     ],
@@ -4079,14 +4079,14 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "readouts": [
      {
       "readout": "mean_acute",
-      "mean_difference": 51.35925726215839,
-      "half_width": 6.123067815432831,
+      "mean_difference": 53.11702296439764,
+      "half_width": 6.034221318926061,
       "direction": 1
      },
      {
       "readout": "reactive_over_chance",
-      "mean_difference": 0.07872593680905636,
-      "half_width": 0.003274779774475751,
+      "mean_difference": 0.07860020802675795,
+      "half_width": 0.003169974402962226,
       "direction": 1
      }
     ],
@@ -4115,14 +4115,14 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "readouts": [
      {
       "readout": "mean_acute",
-      "mean_difference": 112.15582721258298,
-      "half_width": 22.882268001498222,
+      "mean_difference": 119.25903656816939,
+      "half_width": 22.505632213144505,
       "direction": 1
      },
      {
       "readout": "reactive_over_chance",
-      "mean_difference": 0.07242825727077094,
-      "half_width": 0.0034914398932527372,
+      "mean_difference": 0.07273499283906389,
+      "half_width": 0.0036208680894225516,
       "direction": 1
      }
     ],
@@ -4266,14 +4266,14 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "readouts": [
      {
       "readout": "mean_acute",
-      "mean_difference": 37.60871595643598,
-      "half_width": 17.22774332855246,
+      "mean_difference": 36.02596554582667,
+      "half_width": 17.134099896108154,
       "direction": 1
      },
      {
       "readout": "reactive_over_chance",
-      "mean_difference": -0.00044971921004104484,
-      "half_width": 0.0019183594298160483,
+      "mean_difference": -0.00020635816388936263,
+      "half_width": 0.0019082336958854316,
       "direction": 1
      }
     ],
@@ -4285,14 +4285,14 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "rerun_readouts": [
      {
       "readout": "mean_acute",
-      "mean_difference": 44.81569587067113,
-      "half_width": 15.337706314091477,
+      "mean_difference": 44.079115378254194,
+      "half_width": 15.255509962726626,
       "direction": 1
      },
      {
       "readout": "reactive_over_chance",
-      "mean_difference": -0.0005528308457969436,
-      "half_width": 0.0016015498310799664,
+      "mean_difference": -0.0002953378052692548,
+      "half_width": 0.0015805431613711382,
       "direction": 1
      }
     ]
@@ -4318,14 +4318,14 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "readouts": [
      {
       "readout": "mean_acute",
-      "mean_difference": 10.006467332795786,
-      "half_width": 4.215007702599706,
+      "mean_difference": 9.67969974643016,
+      "half_width": 4.236505504531827,
       "direction": 1
      },
      {
       "readout": "reactive_over_chance",
-      "mean_difference": 0.0008651028569825891,
-      "half_width": 0.0027663942902460036,
+      "mean_difference": 0.001013854120681966,
+      "half_width": 0.0029132841838037313,
       "direction": 1
      }
     ],
@@ -4337,14 +4337,14 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "rerun_readouts": [
      {
       "readout": "mean_acute",
-      "mean_difference": 10.638123044499157,
-      "half_width": 3.408142458055203,
+      "mean_difference": 10.55520264804265,
+      "half_width": 3.451241788056995,
       "direction": 1
      },
      {
       "readout": "reactive_over_chance",
-      "mean_difference": 9.08506599904748e-05,
-      "half_width": 0.002321848148397896,
+      "mean_difference": 0.0002387969821940579,
+      "half_width": 0.0024235459404957035,
       "direction": 1
      }
     ]
@@ -4370,14 +4370,14 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "readouts": [
      {
       "readout": "mean_acute",
-      "mean_difference": 3.7090045052818703,
-      "half_width": 35.80394580939217,
+      "mean_difference": 1.1648671508510355,
+      "half_width": 35.29089940494265,
       "direction": 1
      },
      {
       "readout": "reactive_over_chance",
-      "mean_difference": 0.00011609618396170991,
-      "half_width": 0.0021040458343644813,
+      "mean_difference": -0.0004303564096835607,
+      "half_width": 0.0020449393445754653,
       "direction": 1
      }
     ],
@@ -4389,14 +4389,14 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "rerun_readouts": [
      {
       "readout": "mean_acute",
-      "mean_difference": 4.2709071819659945,
-      "half_width": 29.18609999435742,
+      "mean_difference": -1.0660287466203864,
+      "half_width": 29.048998289862705,
       "direction": 1
      },
      {
       "readout": "reactive_over_chance",
-      "mean_difference": 0.0008076974075966234,
-      "half_width": 0.0018008889761825361,
+      "mean_difference": 0.0003941817263180139,
+      "half_width": 0.0017657386683606413,
       "direction": 1
      }
     ]
@@ -4422,14 +4422,14 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "readouts": [
      {
       "readout": "mean_acute",
-      "mean_difference": 42.278179485807,
-      "half_width": 28.27104312515526,
+      "mean_difference": 33.67489531231506,
+      "half_width": 28.34589225598881,
       "direction": 1
      },
      {
       "readout": "reactive_over_chance",
-      "mean_difference": -0.0024461121118540367,
-      "half_width": 0.0024229046885838076,
+      "mean_difference": -0.0021607120571674634,
+      "half_width": 0.0024018174995379974,
       "direction": 1
      }
     ],
@@ -4441,14 +4441,14 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "rerun_readouts": [
      {
       "readout": "mean_acute",
-      "mean_difference": 33.03760952931164,
-      "half_width": 26.30025278277035,
+      "mean_difference": 26.79192515187181,
+      "half_width": 25.92528735385043,
       "direction": 1
      },
      {
       "readout": "reactive_over_chance",
-      "mean_difference": -0.0025617236857103875,
-      "half_width": 0.0021094045880721522,
+      "mean_difference": -0.002323119997422084,
+      "half_width": 0.002144081906938563,
       "direction": 1
      }
     ]
@@ -4474,14 +4474,14 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "readouts": [
      {
       "readout": "mean_acute",
-      "mean_difference": 22.67703618337713,
-      "half_width": 8.685063383537289,
+      "mean_difference": 23.483601982567457,
+      "half_width": 8.711674079969761,
       "direction": 1
      },
      {
       "readout": "reactive_over_chance",
-      "mean_difference": -0.0008966202834487403,
-      "half_width": 0.0019643933407286584,
+      "mean_difference": -0.0003312280389241244,
+      "half_width": 0.002023397666958686,
       "direction": 1
      }
     ],
@@ -4493,14 +4493,14 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "rerun_readouts": [
      {
       "readout": "mean_acute",
-      "mean_difference": 21.602794211455798,
-      "half_width": 7.825629818546608,
+      "mean_difference": 22.015139043195823,
+      "half_width": 7.830881458923439,
       "direction": 1
      },
      {
       "readout": "reactive_over_chance",
-      "mean_difference": -0.0007771022665964269,
-      "half_width": 0.0016931698183291234,
+      "mean_difference": -0.00034941210534091325,
+      "half_width": 0.0017384535393672493,
       "direction": 1
      }
     ]
@@ -4526,14 +4526,14 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "readouts": [
      {
       "readout": "mean_acute",
-      "mean_difference": 12.70009542006514,
-      "half_width": 7.078461588538445,
+      "mean_difference": 12.42742576907358,
+      "half_width": 6.934556246298773,
       "direction": 1
      },
      {
       "readout": "reactive_over_chance",
-      "mean_difference": -0.0012397376521388317,
-      "half_width": 0.0022434496662981055,
+      "mean_difference": -0.0002239123853318875,
+      "half_width": 0.0022993359998532354,
       "direction": 1
      }
     ],
@@ -4545,14 +4545,14 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "rerun_readouts": [
      {
       "readout": "mean_acute",
-      "mean_difference": 11.64819706202451,
-      "half_width": 6.34964622885487,
+      "mean_difference": 10.91824072213838,
+      "half_width": 6.29424765389671,
       "direction": 1
      },
      {
       "readout": "reactive_over_chance",
-      "mean_difference": -0.001067269548202057,
-      "half_width": 0.0018414893069278262,
+      "mean_difference": -0.00039922450057385786,
+      "half_width": 0.0018829180634259508,
       "direction": 1
      }
     ]
@@ -4578,14 +4578,14 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "readouts": [
      {
       "readout": "mean_acute",
-      "mean_difference": 21.203753768919736,
-      "half_width": 30.260272263851554,
+      "mean_difference": 22.967420565173747,
+      "half_width": 30.04260678909686,
       "direction": 1
      },
      {
       "readout": "reactive_over_chance",
-      "mean_difference": 0.00019880944068584742,
-      "half_width": 0.0020127710161693133,
+      "mean_difference": 0.000504343109626614,
+      "half_width": 0.0020360587530042066,
       "direction": 1
      }
     ],
@@ -4597,14 +4597,14 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "rerun_readouts": [
      {
       "readout": "mean_acute",
-      "mean_difference": 15.311823133557764,
-      "half_width": 26.56690602279167,
+      "mean_difference": 13.955332118554248,
+      "half_width": 26.632648346798867,
       "direction": 1
      },
      {
       "readout": "reactive_over_chance",
-      "mean_difference": 7.244972166308775e-05,
-      "half_width": 0.0016979404962720723,
+      "mean_difference": 0.00032212854327515124,
+      "half_width": 0.0017167849555317137,
       "direction": 1
      }
     ]
@@ -4630,14 +4630,14 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "readouts": [
      {
       "readout": "mean_acute",
-      "mean_difference": 35.65958945653526,
-      "half_width": 19.04373577182246,
+      "mean_difference": 33.82793808601021,
+      "half_width": 18.851569614541315,
       "direction": 1
      },
      {
       "readout": "reactive_over_chance",
-      "mean_difference": 0.00032695066540582,
-      "half_width": 0.002216867240965353,
+      "mean_difference": -7.91924874281157e-05,
+      "half_width": 0.002261890298975805,
       "direction": 1
      }
     ],
@@ -4649,14 +4649,14 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "rerun_readouts": [
      {
       "readout": "mean_acute",
-      "mean_difference": 33.407563654173785,
-      "half_width": 16.47872708042322,
+      "mean_difference": 32.619682372060055,
+      "half_width": 16.32740958187339,
       "direction": 1
      },
      {
       "readout": "reactive_over_chance",
-      "mean_difference": 9.23296270290163e-05,
-      "half_width": 0.0019039679150819411,
+      "mean_difference": 0.00015278305439526046,
+      "half_width": 0.0019845266520938146,
       "direction": 1
      }
     ]
@@ -4797,14 +4797,14 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "readouts": [
      {
       "readout": "mean_acute",
-      "mean_difference": 18.45935421104228,
-      "half_width": 12.445396725259894,
+      "mean_difference": 20.219573680823476,
+      "half_width": 12.569084357698939,
       "direction": 1
      },
      {
       "readout": "reactive_over_chance",
-      "mean_difference": 0.0015592358962362466,
-      "half_width": 0.0019711967150442115,
+      "mean_difference": 0.0015116731018394343,
+      "half_width": 0.001991678923175336,
       "direction": 1
      }
     ],
@@ -4816,14 +4816,14 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "rerun_readouts": [
      {
       "readout": "mean_acute",
-      "mean_difference": 15.769483387891066,
-      "half_width": 10.444204245777287,
+      "mean_difference": 17.391248130800133,
+      "half_width": 10.532924370459837,
       "direction": 1
      },
      {
       "readout": "reactive_over_chance",
-      "mean_difference": 0.00118564803678435,
-      "half_width": 0.0016641708858077578,
+      "mean_difference": 0.0010584634476321396,
+      "half_width": 0.001702376668938872,
       "direction": 1
      }
     ]
@@ -4849,14 +4849,14 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "readouts": [
      {
       "readout": "mean_acute",
-      "mean_difference": 5.8584038934220555,
-      "half_width": 3.592627616188862,
+      "mean_difference": 4.942384781064728,
+      "half_width": 3.6221335276982676,
       "direction": 1
      },
      {
       "readout": "reactive_over_chance",
-      "mean_difference": -0.0007248936014633202,
-      "half_width": 0.0022465166396816076,
+      "mean_difference": -0.00014328780703188807,
+      "half_width": 0.0023133677629618814,
       "direction": 1
      }
     ],
@@ -4868,14 +4868,14 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "rerun_readouts": [
      {
       "readout": "mean_acute",
-      "mean_difference": 7.3637490958941525,
-      "half_width": 3.440207128986166,
+      "mean_difference": 6.48860668050188,
+      "half_width": 3.4643082102143126,
       "direction": 1
      },
      {
       "readout": "reactive_over_chance",
-      "mean_difference": -0.0004104220762366727,
-      "half_width": 0.0018624470141246716,
+      "mean_difference": 3.397987348798759e-05,
+      "half_width": 0.001900595510911826,
       "direction": 1
      }
     ]
@@ -4901,14 +4901,14 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "readouts": [
      {
       "readout": "mean_acute",
-      "mean_difference": 10.020436415423644,
-      "half_width": 10.905491303255157,
+      "mean_difference": 10.594395172798654,
+      "half_width": 10.767656572425981,
       "direction": 1
      },
      {
       "readout": "reactive_over_chance",
-      "mean_difference": 0.0011692481325854466,
-      "half_width": 0.002553336271433285,
+      "mean_difference": 0.0007343866803737925,
+      "half_width": 0.0024645281618197188,
       "direction": 1
      }
     ],
@@ -4920,14 +4920,14 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "rerun_readouts": [
      {
       "readout": "mean_acute",
-      "mean_difference": 12.78111052078671,
-      "half_width": 9.089828996505718,
+      "mean_difference": 12.9755961135501,
+      "half_width": 8.980266313702076,
       "direction": 1
      },
      {
       "readout": "reactive_over_chance",
-      "mean_difference": 0.001598979956645284,
-      "half_width": 0.00237024337387009,
+      "mean_difference": 0.0011630677856151982,
+      "half_width": 0.002331114606095261,
       "direction": 1
      }
     ]
@@ -4953,14 +4953,14 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "readouts": [
      {
       "readout": "mean_acute",
-      "mean_difference": 86.6088975049362,
-      "half_width": 85.3814354238314,
+      "mean_difference": 88.5431174253458,
+      "half_width": 87.1039495628931,
       "direction": 1
      },
      {
       "readout": "reactive_over_chance",
-      "mean_difference": -0.0003049841318085929,
-      "half_width": 0.0024656316991394584,
+      "mean_difference": -0.00018974401130531467,
+      "half_width": 0.0024664645924869907,
       "direction": 1
      }
     ],
@@ -4972,14 +4972,14 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "rerun_readouts": [
      {
       "readout": "mean_acute",
-      "mean_difference": 90.79339450193089,
-      "half_width": 69.41550371641934,
+      "mean_difference": 93.4216883597486,
+      "half_width": 70.67577505198234,
       "direction": 1
      },
      {
       "readout": "reactive_over_chance",
-      "mean_difference": -0.0006259196150430666,
-      "half_width": 0.002182349361772916,
+      "mean_difference": -0.0005348644514377251,
+      "half_width": 0.0021877915464387594,
       "direction": 1
      }
     ]
@@ -5005,14 +5005,14 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "readouts": [
      {
       "readout": "mean_acute",
-      "mean_difference": 8.986048056078442,
-      "half_width": 4.485420237284036,
+      "mean_difference": 9.389074746906081,
+      "half_width": 4.462816828882881,
       "direction": 1
      },
      {
       "readout": "reactive_over_chance",
-      "mean_difference": 0.0018960432546207332,
-      "half_width": 0.0030232494478407814,
+      "mean_difference": 0.001862774675302311,
+      "half_width": 0.003159254012499284,
       "direction": 1
      }
     ],
@@ -5024,14 +5024,14 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "rerun_readouts": [
      {
       "readout": "mean_acute",
-      "mean_difference": 7.963665031670639,
-      "half_width": 3.010437648166129,
+      "mean_difference": 8.062687604718338,
+      "half_width": 3.0243010152791703,
       "direction": 1
      },
      {
       "readout": "reactive_over_chance",
-      "mean_difference": 0.0005901737768589034,
-      "half_width": 0.002168300249034861,
+      "mean_difference": 0.0006819815113826804,
+      "half_width": 0.0022125616299829938,
       "direction": 1
      }
     ]
@@ -5057,14 +5057,14 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "readouts": [
      {
       "readout": "mean_acute",
-      "mean_difference": 20.991245541829723,
-      "half_width": 21.417013732770027,
+      "mean_difference": 26.737701898242022,
+      "half_width": 22.120238213705143,
       "direction": 1
      },
      {
       "readout": "reactive_over_chance",
-      "mean_difference": 0.0018390535992075497,
-      "half_width": 0.0025172198657934623,
+      "mean_difference": 0.0015899301686818834,
+      "half_width": 0.0024993669881316245,
       "direction": 1
      }
     ],
@@ -5076,14 +5076,14 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "rerun_readouts": [
      {
       "readout": "mean_acute",
-      "mean_difference": 22.152700374837867,
-      "half_width": 18.4150938329058,
+      "mean_difference": 26.07625641489332,
+      "half_width": 18.86400328882268,
       "direction": 1
      },
      {
       "readout": "reactive_over_chance",
-      "mean_difference": 0.0012420845627277054,
-      "half_width": 0.002069984045620562,
+      "mean_difference": 0.0012385817466654913,
+      "half_width": 0.002088034710063862,
       "direction": 1
      }
     ]
@@ -5105,18 +5105,18 @@ Directional criteria of the ensemble records with no ranges declared in `config/
      "tie_wear_rate": "0.0927863"
     },
     "outcome": "FAIL",
-    "seeds": 150,
+    "seeds": 100,
     "readouts": [
      {
       "readout": "mean_acute",
-      "mean_difference": 40.361860670375485,
-      "half_width": 31.17053870423731,
+      "mean_difference": 31.44413446257697,
+      "half_width": 33.21987358691918,
       "direction": 1
      },
      {
       "readout": "reactive_over_chance",
-      "mean_difference": 0.0004955610062934993,
-      "half_width": 0.0023855112954028783,
+      "mean_difference": -0.0011738423389277236,
+      "half_width": 0.0030628168704324352,
       "direction": 1
      }
     ],
@@ -5128,14 +5128,14 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "rerun_readouts": [
      {
       "readout": "mean_acute",
-      "mean_difference": 38.41901250333808,
-      "half_width": 27.261585981279367,
+      "mean_difference": 36.51092499340867,
+      "half_width": 26.57474937561912,
       "direction": 1
      },
      {
       "readout": "reactive_over_chance",
-      "mean_difference": 0.00040040833886490184,
-      "half_width": 0.002072261702442397,
+      "mean_difference": -0.0003378207438687858,
+      "half_width": 0.0020146691622667853,
       "direction": 1
      }
     ]
@@ -5161,14 +5161,14 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "readouts": [
      {
       "readout": "mean_acute",
-      "mean_difference": 37.38466422039125,
-      "half_width": 22.345267688128057,
+      "mean_difference": 42.71992633792795,
+      "half_width": 21.78316621950076,
       "direction": 1
      },
      {
       "readout": "reactive_over_chance",
-      "mean_difference": -0.0005111310993972303,
-      "half_width": 0.002154258773401875,
+      "mean_difference": -0.00019651180999251375,
+      "half_width": 0.002109847436606944,
       "direction": 1
      }
     ],
@@ -5180,14 +5180,14 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "rerun_readouts": [
      {
       "readout": "mean_acute",
-      "mean_difference": 39.22631847194968,
-      "half_width": 20.53773732881344,
+      "mean_difference": 42.06176718081827,
+      "half_width": 20.210201361550766,
       "direction": 1
      },
      {
       "readout": "reactive_over_chance",
-      "mean_difference": -0.0004373552484620291,
-      "half_width": 0.0019012205788403991,
+      "mean_difference": -0.0001669010641452104,
+      "half_width": 0.0018613091674622155,
       "direction": 1
      }
     ]
@@ -6131,7 +6131,7 @@ Directional criteria of the ensemble records with no ranges declared in `config/
   "criterion": "M11.C.2",
   "samples": 8,
   "counted": 8,
-  "held": 2,
+  "held": 3,
   "undetermined": 0,
   "errored": 0,
   "reruns": 8,
@@ -6275,8 +6275,8 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "readouts": [
      {
       "readout": "symptom_load",
-      "mean_difference": -1.0443586229395265,
-      "half_width": 1.4262320305908882,
+      "mean_difference": -0.8407437352349213,
+      "half_width": 1.4176679166378272,
       "direction": 1
      }
     ],
@@ -6288,8 +6288,8 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "rerun_readouts": [
      {
       "readout": "symptom_load",
-      "mean_difference": -1.0544681394980784,
-      "half_width": 1.1963532711187204,
+      "mean_difference": -0.8884609022621109,
+      "half_width": 1.191924629408746,
       "direction": 1
      }
     ]
@@ -6315,12 +6315,12 @@ Directional criteria of the ensemble records with no ranges declared in `config/
      "tie_wear_rate": "0.0553794"
     },
     "outcome": "FAIL",
-    "seeds": 100,
+    "seeds": 150,
     "readouts": [
      {
       "readout": "symptom_load",
-      "mean_difference": -0.3238117845893389,
-      "half_width": 3.128964161401677,
+      "mean_difference": -0.7798230334588163,
+      "half_width": 2.4435118808351692,
       "direction": 1
      }
     ],
@@ -6332,8 +6332,8 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "rerun_readouts": [
      {
       "readout": "symptom_load",
-      "mean_difference": -0.17806708527359733,
-      "half_width": 2.251097934453343,
+      "mean_difference": -0.6551021101736036,
+      "half_width": 2.2775794809793317,
       "direction": 1
      }
     ]
@@ -6363,21 +6363,21 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "readouts": [
      {
       "readout": "symptom_load",
-      "mean_difference": 3.2152581785908647,
-      "half_width": 4.308575345865057,
+      "mean_difference": 5.041288142833508,
+      "half_width": 4.292049454353388,
       "direction": 1
      }
     ],
     "rerun": true,
     "error": "",
     "ratio": 0.01427310265212411,
-    "first_outcome": "FAIL",
+    "first_outcome": "PASS",
     "rerun_seeds": 200,
     "rerun_readouts": [
      {
       "readout": "symptom_load",
-      "mean_difference": 4.292621207805064,
-      "half_width": 3.329750643443727,
+      "mean_difference": 5.309285819461042,
+      "half_width": 3.2042847195751296,
       "direction": 1
      }
     ]
@@ -6407,8 +6407,8 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "readouts": [
      {
       "readout": "symptom_load",
-      "mean_difference": -0.4457405212138205,
-      "half_width": 1.6196871420172674,
+      "mean_difference": -0.4567508439645269,
+      "half_width": 1.6197416312419233,
       "direction": 1
      }
     ],
@@ -6420,8 +6420,8 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "rerun_readouts": [
      {
       "readout": "symptom_load",
-      "mean_difference": 0.20883123516757654,
-      "half_width": 1.3134546546319967,
+      "mean_difference": 0.15863061181946145,
+      "half_width": 1.3140110132140668,
       "direction": 1
      }
     ]
@@ -6451,8 +6451,8 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "readouts": [
      {
       "readout": "symptom_load",
-      "mean_difference": 2.1014936490677085,
-      "half_width": 6.245960711220821,
+      "mean_difference": 3.1099903642578086,
+      "half_width": 6.19286088372018,
       "direction": 1
      }
     ],
@@ -6464,8 +6464,8 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "rerun_readouts": [
      {
       "readout": "symptom_load",
-      "mean_difference": 2.091453121680483,
-      "half_width": 4.131159700237097,
+      "mean_difference": 2.368032655401884,
+      "half_width": 4.153102832004852,
       "direction": 1
      }
     ]
@@ -6495,8 +6495,8 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "readouts": [
      {
       "readout": "symptom_load",
-      "mean_difference": 8.708452853670842,
-      "half_width": 6.995062741769678,
+      "mean_difference": 8.948843961306313,
+      "half_width": 7.0323709820517735,
       "direction": 1
      }
     ],
@@ -6508,8 +6508,8 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "rerun_readouts": [
      {
       "readout": "symptom_load",
-      "mean_difference": 4.868529558633477,
-      "half_width": 4.857500807295449,
+      "mean_difference": 5.704640342336465,
+      "half_width": 4.781976663317065,
       "direction": 1
      }
     ]
@@ -6539,8 +6539,8 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "readouts": [
      {
       "readout": "symptom_load",
-      "mean_difference": 1.0703287208211725,
-      "half_width": 2.840405331939313,
+      "mean_difference": 1.2292310267738311,
+      "half_width": 2.8395835065479478,
       "direction": 1
      }
     ],
@@ -6552,8 +6552,8 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "rerun_readouts": [
      {
       "readout": "symptom_load",
-      "mean_difference": 0.8034705802694692,
-      "half_width": 2.3747242796954824,
+      "mean_difference": 0.9226473097339629,
+      "half_width": 2.374450118395127,
       "direction": 1
      }
     ]
@@ -6578,26 +6578,26 @@ Directional criteria of the ensemble records with no ranges declared in `config/
      "calm_transfer_rate": "0.0738145",
      "tie_wear_rate": "0.206255"
     },
-    "outcome": "FAIL",
+    "outcome": "PASS",
     "seeds": 100,
     "readouts": [
      {
       "readout": "symptom_load",
-      "mean_difference": 2.0797739318546276,
-      "half_width": 4.103379966146621,
+      "mean_difference": 3.3447626392229264,
+      "half_width": 4.011330033401115,
       "direction": 1
      }
     ],
     "rerun": true,
     "error": "",
     "ratio": 0.053735272984201034,
-    "first_outcome": "FAIL",
+    "first_outcome": "PASS",
     "rerun_seeds": 200,
     "rerun_readouts": [
      {
       "readout": "symptom_load",
-      "mean_difference": 2.4402087209716554,
-      "half_width": 2.843766155937049,
+      "mean_difference": 3.2317011028052742,
+      "half_width": 2.811112490191577,
       "direction": 1
      }
     ]
@@ -6611,7 +6611,7 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "counted": 4
    },
    "above": {
-    "held": 0,
+    "held": 1,
     "counted": 4
    }
   },
@@ -6626,7 +6626,7 @@ Directional criteria of the ensemble records with no ranges declared in `config/
   "criterion": "M11.C.7[joint over one spouse]",
   "samples": 8,
   "counted": 8,
-  "held": 4,
+  "held": 3,
   "undetermined": 0,
   "errored": 0,
   "reruns": 8,
@@ -6746,8 +6746,8 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "readouts": [
      {
       "readout": "deviation_fall",
-      "mean_difference": 0.017598365197182247,
-      "half_width": 0.07252848797284946,
+      "mean_difference": 0.015866709388068542,
+      "half_width": 0.07255195345970392,
       "direction": 1
      }
     ],
@@ -6759,8 +6759,8 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "rerun_readouts": [
      {
       "readout": "deviation_fall",
-      "mean_difference": 0.005570739005036509,
-      "half_width": 0.05438585994080928,
+      "mean_difference": 0.004968250385486267,
+      "half_width": 0.05363836606488052,
       "direction": 1
      }
     ]
@@ -6782,13 +6782,13 @@ Directional criteria of the ensemble records with no ranges declared in `config/
      "calm_transfer_rate": "0.0290945",
      "tie_wear_rate": "0.0227825"
     },
-    "outcome": "PASS",
+    "outcome": "FAIL",
     "seeds": 100,
     "readouts": [
      {
       "readout": "deviation_fall",
-      "mean_difference": 0.10118095776331044,
-      "half_width": 0.08060563632187409,
+      "mean_difference": 0.08345258020257135,
+      "half_width": 0.07827454886002864,
       "direction": 1
      }
     ],
@@ -6800,8 +6800,8 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "rerun_readouts": [
      {
       "readout": "deviation_fall",
-      "mean_difference": 0.05388378956481275,
-      "half_width": 0.06101244141926181,
+      "mean_difference": 0.041117870521902126,
+      "half_width": 0.060455743945701405,
       "direction": 1
      }
     ]
@@ -6828,8 +6828,8 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "readouts": [
      {
       "readout": "deviation_fall",
-      "mean_difference": 0.08830531872773607,
-      "half_width": 0.07416766762554158,
+      "mean_difference": 0.09230757704333399,
+      "half_width": 0.07587405349954436,
       "direction": 1
      }
     ],
@@ -6841,8 +6841,8 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "rerun_readouts": [
      {
       "readout": "deviation_fall",
-      "mean_difference": 0.07022843510372315,
-      "half_width": 0.05210166976890779,
+      "mean_difference": 0.07192619777029105,
+      "half_width": 0.052669635779038146,
       "direction": 1
      }
     ]
@@ -6869,8 +6869,8 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "readouts": [
      {
       "readout": "deviation_fall",
-      "mean_difference": 0.09780262399322648,
-      "half_width": 0.05707774764131969,
+      "mean_difference": 0.08803045950186608,
+      "half_width": 0.05559993803260188,
       "direction": 1
      }
     ],
@@ -6882,8 +6882,8 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "rerun_readouts": [
      {
       "readout": "deviation_fall",
-      "mean_difference": 0.07601930959502175,
-      "half_width": 0.039079148746933155,
+      "mean_difference": 0.06654556165815563,
+      "half_width": 0.03885337531448324,
       "direction": 1
      }
     ]
@@ -6910,8 +6910,8 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "readouts": [
      {
       "readout": "deviation_fall",
-      "mean_difference": 0.026397798280993926,
-      "half_width": 0.05809019274080042,
+      "mean_difference": 0.021983656350883073,
+      "half_width": 0.05616687816616257,
       "direction": 1
      }
     ],
@@ -6923,8 +6923,8 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "rerun_readouts": [
      {
       "readout": "deviation_fall",
-      "mean_difference": 0.02169125365745399,
-      "half_width": 0.04157291176645544,
+      "mean_difference": 0.017482067189155,
+      "half_width": 0.04056960647597611,
       "direction": 1
      }
     ]
@@ -6951,8 +6951,8 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "readouts": [
      {
       "readout": "deviation_fall",
-      "mean_difference": 0.037548326292889275,
-      "half_width": 0.07613364859496063,
+      "mean_difference": 0.03933166118754204,
+      "half_width": 0.07655633250043356,
       "direction": 1
      }
     ],
@@ -6964,8 +6964,8 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "rerun_readouts": [
      {
       "readout": "deviation_fall",
-      "mean_difference": 0.02830388145348002,
-      "half_width": 0.05151008222269584,
+      "mean_difference": 0.026896469034329358,
+      "half_width": 0.050757195525523276,
       "direction": 1
      }
     ]
@@ -6992,8 +6992,8 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "readouts": [
      {
       "readout": "deviation_fall",
-      "mean_difference": 0.04743244713934889,
-      "half_width": 0.06759088552948282,
+      "mean_difference": 0.039566917347399075,
+      "half_width": 0.06574670284337933,
       "direction": 1
      }
     ],
@@ -7005,8 +7005,8 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "rerun_readouts": [
      {
       "readout": "deviation_fall",
-      "mean_difference": 0.018595063085636236,
-      "half_width": 0.053806527023860296,
+      "mean_difference": 0.01866014398133816,
+      "half_width": 0.0534084603184573,
       "direction": 1
      }
     ]
@@ -7033,8 +7033,8 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "readouts": [
      {
       "readout": "deviation_fall",
-      "mean_difference": 0.14891122095945236,
-      "half_width": 0.09254784870050203,
+      "mean_difference": 0.1481571081443504,
+      "half_width": 0.09258176373199915,
       "direction": 1
      }
     ],
@@ -7046,8 +7046,8 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "rerun_readouts": [
      {
       "readout": "deviation_fall",
-      "mean_difference": 0.10688621319257802,
-      "half_width": 0.06540101855264588,
+      "mean_difference": 0.10929015306273979,
+      "half_width": 0.06542984390035238,
       "direction": 1
      }
     ]
@@ -7057,7 +7057,7 @@ Directional criteria of the ensemble records with no ranges declared in `config/
    "ratio": "tie_wear_to_transfer_ratio",
    "central": 0.019230769230769232,
    "below": {
-    "held": 2,
+    "held": 1,
     "counted": 4
    },
    "above": {
@@ -7196,33 +7196,33 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "readouts": [
      {
       "readout": "deviation_fall",
-      "mean_difference": 0.05623577226521584,
-      "half_width": 0.06859906084813559,
+      "mean_difference": 0.07336753636811463,
+      "half_width": 0.06752233902307117,
       "direction": 1
      },
      {
       "readout": "landed_contacts",
-      "mean_difference": 6.906666666666666,
-      "half_width": 0.5526161132741797,
+      "mean_difference": 6.92,
+      "half_width": 0.5539126504603815,
       "direction": 1
      }
     ],
     "rerun": true,
     "error": "",
     "ratio": 0.023511416066590594,
-    "first_outcome": "FAIL",
+    "first_outcome": "PASS",
     "rerun_seeds": 200,
     "rerun_readouts": [
      {
       "readout": "deviation_fall",
-      "mean_difference": 0.060067598856066926,
-      "half_width": 0.0594066186789501,
+      "mean_difference": 0.07101271134538516,
+      "half_width": 0.05878402337525913,
       "direction": 1
      },
      {
       "readout": "landed_contacts",
-      "mean_difference": 6.915,
-      "half_width": 0.49743444526558817,
+      "mean_difference": 6.925,
+      "half_width": 0.4982410014013168,
       "direction": 1
      }
     ]
@@ -7249,14 +7249,14 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "readouts": [
      {
       "readout": "deviation_fall",
-      "mean_difference": 0.14852384066438054,
-      "half_width": 0.06726143381799411,
+      "mean_difference": 0.1488557515483762,
+      "half_width": 0.06622406318618014,
       "direction": 1
      },
      {
       "readout": "landed_contacts",
-      "mean_difference": 1.5133333333333334,
-      "half_width": 0.291238745773159,
+      "mean_difference": 1.56,
+      "half_width": 0.29402484607913126,
       "direction": 1
      }
     ],
@@ -7286,14 +7286,14 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "readouts": [
      {
       "readout": "deviation_fall",
-      "mean_difference": 0.07782562506473698,
-      "half_width": 0.06532388491042578,
+      "mean_difference": 0.07146033249308956,
+      "half_width": 0.06634059295045394,
       "direction": 1
      },
      {
       "readout": "landed_contacts",
-      "mean_difference": 3.44,
-      "half_width": 0.43461854168744746,
+      "mean_difference": 3.4466666666666668,
+      "half_width": 0.43265912707191084,
       "direction": 1
      }
     ],
@@ -7305,14 +7305,14 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "rerun_readouts": [
      {
       "readout": "deviation_fall",
-      "mean_difference": 0.0951357346571785,
-      "half_width": 0.05605363548804988,
+      "mean_difference": 0.09301948491892521,
+      "half_width": 0.05651242579038359,
       "direction": 1
      },
      {
       "readout": "landed_contacts",
-      "mean_difference": 3.395,
-      "half_width": 0.3688862931669218,
+      "mean_difference": 3.445,
+      "half_width": 0.37247969261026187,
       "direction": 1
      }
     ]
@@ -7339,14 +7339,14 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "readouts": [
      {
       "readout": "deviation_fall",
-      "mean_difference": 0.15269886581386752,
-      "half_width": 0.07543161852637144,
+      "mean_difference": 0.1630110910884224,
+      "half_width": 0.0765137093663341,
       "direction": 1
      },
      {
       "readout": "landed_contacts",
       "mean_difference": 4.34,
-      "half_width": 0.44064737082373495,
+      "half_width": 0.4414268230290106,
       "direction": 1
      }
     ],
@@ -7376,33 +7376,33 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "readouts": [
      {
       "readout": "deviation_fall",
-      "mean_difference": 0.03347773059196215,
-      "half_width": 0.04919277096509262,
+      "mean_difference": 0.042208676098190796,
+      "half_width": 0.048053942623295993,
       "direction": 1
      },
      {
       "readout": "landed_contacts",
-      "mean_difference": 7.74,
-      "half_width": 0.512626634150303,
+      "mean_difference": 7.786666666666667,
+      "half_width": 0.5086400641607977,
       "direction": 1
      }
     ],
     "rerun": true,
     "error": "",
     "ratio": 0.03177449764960553,
-    "first_outcome": "FAIL",
+    "first_outcome": "PASS",
     "rerun_seeds": 200,
     "rerun_readouts": [
      {
       "readout": "deviation_fall",
-      "mean_difference": 0.039940578954842,
-      "half_width": 0.04309724449088056,
+      "mean_difference": 0.052247406903357545,
+      "half_width": 0.0412729599947397,
       "direction": 1
      },
      {
       "readout": "landed_contacts",
-      "mean_difference": 7.91,
-      "half_width": 0.42421083124636705,
+      "mean_difference": 7.94,
+      "half_width": 0.42019862639963573,
       "direction": 1
      }
     ]
@@ -7429,14 +7429,14 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "readouts": [
      {
       "readout": "deviation_fall",
-      "mean_difference": 0.06338598033301167,
-      "half_width": 0.0469520900031449,
+      "mean_difference": 0.07939788957711127,
+      "half_width": 0.046277298942995204,
       "direction": 1
      },
      {
       "readout": "landed_contacts",
-      "mean_difference": 13.873333333333333,
-      "half_width": 0.6584774842662487,
+      "mean_difference": 13.92,
+      "half_width": 0.664511866531085,
       "direction": 1
      }
     ],
@@ -7448,14 +7448,14 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "rerun_readouts": [
      {
       "readout": "deviation_fall",
-      "mean_difference": 0.07369548487011285,
-      "half_width": 0.04422462198265198,
+      "mean_difference": 0.08190851938114532,
+      "half_width": 0.04332264743456478,
       "direction": 1
      },
      {
       "readout": "landed_contacts",
-      "mean_difference": 14.015,
-      "half_width": 0.561203120905945,
+      "mean_difference": 14.055,
+      "half_width": 0.5625293343998173,
       "direction": 1
      }
     ]
@@ -7482,14 +7482,14 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "readouts": [
      {
       "readout": "deviation_fall",
-      "mean_difference": 0.07602021886976834,
-      "half_width": 0.05179807043302358,
+      "mean_difference": 0.07474593067307889,
+      "half_width": 0.051852618521788685,
       "direction": 1
      },
      {
       "readout": "landed_contacts",
-      "mean_difference": 8.48,
-      "half_width": 0.6081096945670232,
+      "mean_difference": 8.46,
+      "half_width": 0.610059696202469,
       "direction": 1
      }
     ],
@@ -7501,14 +7501,14 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "rerun_readouts": [
      {
       "readout": "deviation_fall",
-      "mean_difference": 0.07475960800893772,
-      "half_width": 0.04636143022691234,
+      "mean_difference": 0.07542792947471344,
+      "half_width": 0.04804842119757906,
       "direction": 1
      },
      {
       "readout": "landed_contacts",
-      "mean_difference": 8.62,
-      "half_width": 0.5405418877962295,
+      "mean_difference": 8.605,
+      "half_width": 0.5375582911479551,
       "direction": 1
      }
     ]
@@ -7535,14 +7535,14 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "readouts": [
      {
       "readout": "deviation_fall",
-      "mean_difference": 0.13931420846368806,
-      "half_width": 0.07234065142694213,
+      "mean_difference": 0.13750221776974475,
+      "half_width": 0.07468468785875977,
       "direction": 1
      },
      {
       "readout": "landed_contacts",
-      "mean_difference": 9.253333333333334,
-      "half_width": 0.4669182605907375,
+      "mean_difference": 9.3,
+      "half_width": 0.46120065076759853,
       "direction": 1
      }
     ],
@@ -7554,14 +7554,14 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "rerun_readouts": [
      {
       "readout": "deviation_fall",
-      "mean_difference": 0.13369108708479038,
-      "half_width": 0.060498884645366215,
+      "mean_difference": 0.1361564459297217,
+      "half_width": 0.06228746225675369,
       "direction": 1
      },
      {
       "readout": "landed_contacts",
-      "mean_difference": 9.165,
-      "half_width": 0.3916988667472186,
+      "mean_difference": 9.22,
+      "half_width": 0.3873332259691885,
       "direction": 1
      }
     ]
@@ -7710,14 +7710,14 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "readouts": [
      {
       "readout": "deviation_fall",
-      "mean_difference": 0.023892980926396058,
-      "half_width": 0.053950472640670884,
+      "mean_difference": 0.0354050743806137,
+      "half_width": 0.05542838937178274,
       "direction": 1
      },
      {
       "readout": "landed_contacts",
-      "mean_difference": 8.313333333333333,
-      "half_width": 0.5456642704791602,
+      "mean_difference": 8.326666666666666,
+      "half_width": 0.5432523480084591,
       "direction": 1
      }
     ],
@@ -7729,14 +7729,14 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "rerun_readouts": [
      {
       "readout": "deviation_fall",
-      "mean_difference": 0.03054195432458993,
-      "half_width": 0.047138952442654584,
+      "mean_difference": 0.03647436775046065,
+      "half_width": 0.04806502728221875,
       "direction": 1
      },
      {
       "readout": "landed_contacts",
-      "mean_difference": 8.385,
-      "half_width": 0.4622107833458735,
+      "mean_difference": 8.395,
+      "half_width": 0.460583235020457,
       "direction": 1
      }
     ]
@@ -7763,14 +7763,14 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "readouts": [
      {
       "readout": "deviation_fall",
-      "mean_difference": 0.07590370664937919,
-      "half_width": 0.06010063300270271,
+      "mean_difference": 0.0752115344011879,
+      "half_width": 0.05910315002755147,
       "direction": 1
      },
      {
       "readout": "landed_contacts",
-      "mean_difference": 19.346666666666668,
-      "half_width": 0.9392030692293405,
+      "mean_difference": 19.36,
+      "half_width": 0.9392567506645367,
       "direction": 1
      }
     ],
@@ -7782,14 +7782,14 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "rerun_readouts": [
      {
       "readout": "deviation_fall",
-      "mean_difference": 0.04820991242352113,
-      "half_width": 0.05460116866246987,
+      "mean_difference": 0.048697028743120846,
+      "half_width": 0.05370695611613647,
       "direction": 1
      },
      {
       "readout": "landed_contacts",
-      "mean_difference": 19.64,
-      "half_width": 0.7920888250276408,
+      "mean_difference": 19.645,
+      "half_width": 0.7919495896601084,
       "direction": 1
      }
     ]
@@ -7816,14 +7816,14 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "readouts": [
      {
       "readout": "deviation_fall",
-      "mean_difference": 0.2743365173736623,
-      "half_width": 0.09039783244135761,
+      "mean_difference": 0.28107235647465045,
+      "half_width": 0.08811637559897738,
       "direction": 1
      },
      {
       "readout": "landed_contacts",
-      "mean_difference": 3.9133333333333336,
-      "half_width": 0.7297080473261808,
+      "mean_difference": 3.9066666666666667,
+      "half_width": 0.7302755052832485,
       "direction": 1
      }
     ],
@@ -7853,8 +7853,8 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "readouts": [
      {
       "readout": "deviation_fall",
-      "mean_difference": 0.18847014403061185,
-      "half_width": 0.07893832639761778,
+      "mean_difference": 0.20807044100564806,
+      "half_width": 0.07892351607516052,
       "direction": 1
      },
      {
@@ -7890,14 +7890,14 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "readouts": [
      {
       "readout": "deviation_fall",
-      "mean_difference": 0.04124516607481642,
-      "half_width": 0.052237223377143586,
+      "mean_difference": 0.04496774479688033,
+      "half_width": 0.05286580494476015,
       "direction": 1
      },
      {
       "readout": "landed_contacts",
-      "mean_difference": 10.366666666666667,
-      "half_width": 0.6242047982247262,
+      "mean_difference": 10.386666666666667,
+      "half_width": 0.6198859142107024,
       "direction": 1
      }
     ],
@@ -7909,14 +7909,14 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "rerun_readouts": [
      {
       "readout": "deviation_fall",
-      "mean_difference": 0.052372855815982895,
-      "half_width": 0.044707510317111024,
+      "mean_difference": 0.05648501333174008,
+      "half_width": 0.044962590742013225,
       "direction": 1
      },
      {
       "readout": "landed_contacts",
       "mean_difference": 10.585,
-      "half_width": 0.5514524469127235,
+      "half_width": 0.5491722983420884,
       "direction": 1
      }
     ]
@@ -7943,8 +7943,8 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "readouts": [
      {
       "readout": "deviation_fall",
-      "mean_difference": 0.03432436061472988,
-      "half_width": 0.04271344647862942,
+      "mean_difference": 0.04662455108635031,
+      "half_width": 0.040963355445001175,
       "direction": 1
      },
      {
@@ -7957,19 +7957,19 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "rerun": true,
     "error": "",
     "ratio": 0.04294129057251877,
-    "first_outcome": "FAIL",
+    "first_outcome": "PASS",
     "rerun_seeds": 200,
     "rerun_readouts": [
      {
       "readout": "deviation_fall",
-      "mean_difference": 0.055868595543979875,
-      "half_width": 0.038473260697718295,
+      "mean_difference": 0.07074608642125019,
+      "half_width": 0.03713775957100986,
       "direction": 1
      },
      {
       "readout": "landed_contacts",
-      "mean_difference": 5.08,
-      "half_width": 0.4665098778489618,
+      "mean_difference": 5.055,
+      "half_width": 0.4614834892542433,
       "direction": 1
      }
     ]
@@ -7996,14 +7996,14 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "readouts": [
      {
       "readout": "deviation_fall",
-      "mean_difference": -0.012373381268214129,
-      "half_width": 0.03942562779784322,
+      "mean_difference": -0.011717362765530051,
+      "half_width": 0.03867186658662417,
       "direction": 1
      },
      {
       "readout": "landed_contacts",
       "mean_difference": 9.273333333333333,
-      "half_width": 0.6779243379787031,
+      "half_width": 0.6776707465178463,
       "direction": 1
      }
     ],
@@ -8015,14 +8015,14 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "rerun_readouts": [
      {
       "readout": "deviation_fall",
-      "mean_difference": 0.006627594771076237,
-      "half_width": 0.03528735368368916,
+      "mean_difference": 0.005040760398596535,
+      "half_width": 0.03408422142548541,
       "direction": 1
      },
      {
       "readout": "landed_contacts",
-      "mean_difference": 9.245,
-      "half_width": 0.5828057933512836,
+      "mean_difference": 9.27,
+      "half_width": 0.5811825553241128,
       "direction": 1
      }
     ]
@@ -8049,33 +8049,33 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "readouts": [
      {
       "readout": "deviation_fall",
-      "mean_difference": 0.04724461844372779,
-      "half_width": 0.06103981606123701,
+      "mean_difference": 0.05647694758747234,
+      "half_width": 0.06096795253825265,
       "direction": 1
      },
      {
       "readout": "landed_contacts",
-      "mean_difference": 2.36,
-      "half_width": 0.3810066553347802,
+      "mean_difference": 2.3666666666666667,
+      "half_width": 0.38061698018842427,
       "direction": 1
      }
     ],
     "rerun": true,
     "error": "",
     "ratio": 0.022263878091871265,
-    "first_outcome": "FAIL",
+    "first_outcome": "PASS",
     "rerun_seeds": 200,
     "rerun_readouts": [
      {
       "readout": "deviation_fall",
-      "mean_difference": 0.04960670161954371,
-      "half_width": 0.05319047451666279,
+      "mean_difference": 0.05741767650725119,
+      "half_width": 0.05305921081126126,
       "direction": 1
      },
      {
       "readout": "landed_contacts",
-      "mean_difference": 2.445,
-      "half_width": 0.3413809022221513,
+      "mean_difference": 2.45,
+      "half_width": 0.34111289927273525,
       "direction": 1
      }
     ]
@@ -8874,7 +8874,7 @@ Directional criteria of the ensemble records with no ranges declared in `config/
   "criterion": "M11.C.17",
   "samples": 8,
   "counted": 8,
-  "held": 8,
+  "held": 3,
   "undetermined": 0,
   "errored": 0,
   "reruns": 8,
@@ -8989,26 +8989,26 @@ Directional criteria of the ensemble records with no ranges declared in `config/
      "calm_transfer_rate": "0.0724229",
      "tie_wear_rate": "0.0224841"
     },
-    "outcome": "PASS",
+    "outcome": "FAIL",
     "seeds": 150,
     "readouts": [
      {
       "readout": "coached_rise",
-      "mean_difference": 0.07333308299056955,
-      "half_width": 0.04439098704070679,
+      "mean_difference": 0.0003213933104836997,
+      "half_width": 0.0006030033265323106,
       "direction": 1
      }
     ],
     "rerun": true,
     "error": "",
     "ratio": 0.0059703013613309945,
-    "first_outcome": "PASS",
+    "first_outcome": "FAIL",
     "rerun_seeds": 200,
     "rerun_readouts": [
      {
       "readout": "coached_rise",
-      "mean_difference": 0.06705465333185634,
-      "half_width": 0.03747642347808792,
+      "mean_difference": 6.956138068700212e-05,
+      "half_width": 0.0006789542095806928,
       "direction": 1
      }
     ]
@@ -9030,26 +9030,26 @@ Directional criteria of the ensemble records with no ranges declared in `config/
      "calm_transfer_rate": "0.0885533",
      "tie_wear_rate": "0.181914"
     },
-    "outcome": "PASS",
+    "outcome": "FAIL",
     "seeds": 150,
     "readouts": [
      {
       "readout": "coached_rise",
-      "mean_difference": 0.0443387129405315,
-      "half_width": 0.029110711490300856,
+      "mean_difference": -7.106122681766654e-06,
+      "half_width": 0.00052351457442575,
       "direction": 1
      }
     ],
     "rerun": true,
     "error": "",
     "ratio": 0.03950554246816498,
-    "first_outcome": "PASS",
+    "first_outcome": "FAIL",
     "rerun_seeds": 200,
     "rerun_readouts": [
      {
       "readout": "coached_rise",
-      "mean_difference": 0.04245106173928139,
-      "half_width": 0.024149055191904644,
+      "mean_difference": 5.470738324273583e-06,
+      "half_width": 0.0003925179938007816,
       "direction": 1
      }
     ]
@@ -9071,26 +9071,26 @@ Directional criteria of the ensemble records with no ranges declared in `config/
      "calm_transfer_rate": "0.0403024",
      "tie_wear_rate": "0.0972841"
     },
-    "outcome": "PASS",
+    "outcome": "FAIL",
     "seeds": 150,
     "readouts": [
      {
       "readout": "coached_rise",
-      "mean_difference": 0.099402704917754,
-      "half_width": 0.05734741452358659,
+      "mean_difference": 0.00016319111362056066,
+      "half_width": 0.0004190698527783229,
       "direction": 1
      }
     ],
     "rerun": true,
     "error": "",
     "ratio": 0.046420264721780256,
-    "first_outcome": "PASS",
+    "first_outcome": "FAIL",
     "rerun_seeds": 200,
     "rerun_readouts": [
      {
       "readout": "coached_rise",
-      "mean_difference": 0.08694943336047958,
-      "half_width": 0.04552581218907603,
+      "mean_difference": 0.003389023797586539,
+      "half_width": 0.00626507038621188,
       "direction": 1
      }
     ]
@@ -9117,8 +9117,8 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "readouts": [
      {
       "readout": "coached_rise",
-      "mean_difference": 0.03235867730269111,
-      "half_width": 0.022099494279035764,
+      "mean_difference": 0.00011272239988028806,
+      "half_width": 0.0001228480923811701,
       "direction": 1
      }
     ],
@@ -9130,8 +9130,8 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "rerun_readouts": [
      {
       "readout": "coached_rise",
-      "mean_difference": 0.03269065256377836,
-      "half_width": 0.018971134431424348,
+      "mean_difference": 0.00011236526283234127,
+      "half_width": 0.00010309603882606409,
       "direction": 1
      }
     ]
@@ -9153,26 +9153,26 @@ Directional criteria of the ensemble records with no ranges declared in `config/
      "calm_transfer_rate": "0.0504064",
      "tie_wear_rate": "0.0423193"
     },
-    "outcome": "PASS",
+    "outcome": "FAIL",
     "seeds": 150,
     "readouts": [
      {
       "readout": "coached_rise",
-      "mean_difference": 0.08731096841156315,
-      "half_width": 0.04778744980247895,
+      "mean_difference": 0.00025346427786011817,
+      "half_width": 0.000482264143494672,
       "direction": 1
      }
     ],
     "rerun": true,
     "error": "",
     "ratio": 0.016145423841172794,
-    "first_outcome": "PASS",
+    "first_outcome": "FAIL",
     "rerun_seeds": 200,
     "rerun_readouts": [
      {
       "readout": "coached_rise",
-      "mean_difference": 0.08294491519185657,
-      "half_width": 0.0393050389881967,
+      "mean_difference": 0.0001801566050973946,
+      "half_width": 0.00036306061369701883,
       "direction": 1
      }
     ]
@@ -9199,8 +9199,8 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "readouts": [
      {
       "readout": "coached_rise",
-      "mean_difference": 0.04343614810153542,
-      "half_width": 0.0254857214169246,
+      "mean_difference": 0.000318955050959057,
+      "half_width": 0.0001941936024334863,
       "direction": 1
      }
     ],
@@ -9212,8 +9212,8 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "rerun_readouts": [
      {
       "readout": "coached_rise",
-      "mean_difference": 0.04108576405466218,
-      "half_width": 0.021940861787638457,
+      "mean_difference": 0.00039927086215584494,
+      "half_width": 0.00022486940090860077,
       "direction": 1
      }
     ]
@@ -9240,8 +9240,8 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "readouts": [
      {
       "readout": "coached_rise",
-      "mean_difference": 0.07212680196910198,
-      "half_width": 0.05269275145593927,
+      "mean_difference": 0.003276575648415161,
+      "half_width": 0.001777099154555556,
       "direction": 1
      }
     ],
@@ -9253,8 +9253,8 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "rerun_readouts": [
      {
       "readout": "coached_rise",
-      "mean_difference": 0.07313188502253054,
-      "half_width": 0.04712808435720045,
+      "mean_difference": 0.0031715732731710487,
+      "half_width": 0.0014155729570206098,
       "direction": 1
      }
     ]
@@ -9276,26 +9276,26 @@ Directional criteria of the ensemble records with no ranges declared in `config/
      "calm_transfer_rate": "0.0291691",
      "tie_wear_rate": "0.0311693"
     },
-    "outcome": "PASS",
+    "outcome": "FAIL",
     "seeds": 150,
     "readouts": [
      {
       "readout": "coached_rise",
-      "mean_difference": 0.06548771886415738,
-      "half_width": 0.039633247144575674,
+      "mean_difference": 0.00031256946807907583,
+      "half_width": 0.0008147621417381901,
       "direction": 1
      }
     ],
     "rerun": true,
     "error": "",
     "ratio": 0.020549472400060866,
-    "first_outcome": "PASS",
+    "first_outcome": "FAIL",
     "rerun_seeds": 200,
     "rerun_readouts": [
      {
       "readout": "coached_rise",
-      "mean_difference": 0.06038850026268282,
-      "half_width": 0.0328002175277405,
+      "mean_difference": 0.0003003437112324825,
+      "half_width": 0.0006215375392503829,
       "direction": 1
      }
     ]
@@ -9305,11 +9305,11 @@ Directional criteria of the ensemble records with no ranges declared in `config/
    "ratio": "tie_wear_to_transfer_ratio",
    "central": 0.019230769230769232,
    "below": {
-    "held": 2,
+    "held": 0,
     "counted": 2
    },
    "above": {
-    "held": 6,
+    "held": 3,
     "counted": 6
    }
   },
@@ -9324,7 +9324,7 @@ Directional criteria of the ensemble records with no ranges declared in `config/
   "criterion": "M11.C.21",
   "samples": 8,
   "counted": 8,
-  "held": 4,
+  "held": 0,
   "undetermined": 0,
   "errored": 0,
   "reruns": 8,
@@ -9407,26 +9407,26 @@ Directional criteria of the ensemble records with no ranges declared in `config/
      "calm_transfer_rate": "0.033797",
      "tie_wear_rate": "0.0309702"
     },
-    "outcome": "PASS",
-    "seeds": 100,
+    "outcome": "FAIL",
+    "seeds": 150,
     "readouts": [
      {
       "readout": "target_rise",
-      "mean_difference": 0.5006593272337334,
-      "half_width": 0.340449605253739,
+      "mean_difference": -0.031513085706035324,
+      "half_width": 1.0042596194872484,
       "direction": 1
      }
     ],
     "rerun": true,
     "error": "",
     "ratio": 0.017622296926673053,
-    "first_outcome": "PASS",
+    "first_outcome": "FAIL",
     "rerun_seeds": 200,
     "rerun_readouts": [
      {
       "readout": "target_rise",
-      "mean_difference": 0.34068023828153854,
-      "half_width": 0.2046430746223894,
+      "mean_difference": -0.20376011721219556,
+      "half_width": 0.7871807475745692,
       "direction": 1
      }
     ]
@@ -9445,12 +9445,12 @@ Directional criteria of the ensemble records with no ranges declared in `config/
      "tie_wear_rate": "0.0427332"
     },
     "outcome": "FAIL",
-    "seeds": 150,
+    "seeds": 100,
     "readouts": [
      {
       "readout": "target_rise",
-      "mean_difference": 0.15894496398894065,
-      "half_width": 0.2126641895916839,
+      "mean_difference": -2.191363133344772,
+      "half_width": 1.475896515582285,
       "direction": 1
      }
     ],
@@ -9462,8 +9462,8 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "rerun_readouts": [
      {
       "readout": "target_rise",
-      "mean_difference": 0.27864482852191375,
-      "half_width": 0.2739742586700315,
+      "mean_difference": -1.0444809629966914,
+      "half_width": 1.0088516399968654,
       "direction": 1
      }
     ]
@@ -9481,26 +9481,26 @@ Directional criteria of the ensemble records with no ranges declared in `config/
      "calm_transfer_rate": "0.0389357",
      "tie_wear_rate": "0.124427"
     },
-    "outcome": "PASS",
-    "seeds": 150,
+    "outcome": "FAIL",
+    "seeds": 100,
     "readouts": [
      {
       "readout": "target_rise",
-      "mean_difference": 0.36092017253554554,
-      "half_width": 0.21311647144774948,
+      "mean_difference": -1.0319378656341314,
+      "half_width": 0.9450102353679599,
       "direction": 1
      }
     ],
     "rerun": true,
     "error": "",
     "ratio": 0.06145585986837075,
-    "first_outcome": "PASS",
+    "first_outcome": "FAIL",
     "rerun_seeds": 200,
     "rerun_readouts": [
      {
       "readout": "target_rise",
-      "mean_difference": 0.3271555119746364,
-      "half_width": 0.17906418284261527,
+      "mean_difference": -0.6955657900152795,
+      "half_width": 0.6335632413616741,
       "direction": 1
      }
     ]
@@ -9518,13 +9518,13 @@ Directional criteria of the ensemble records with no ranges declared in `config/
      "calm_transfer_rate": "0.0322578",
      "tie_wear_rate": "0.0102495"
     },
-    "outcome": "PASS",
-    "seeds": 50,
+    "outcome": "FAIL",
+    "seeds": 100,
     "readouts": [
      {
       "readout": "target_rise",
-      "mean_difference": 0.2013785969740563,
-      "half_width": 0.47715166790571145,
+      "mean_difference": -0.7788524559806327,
+      "half_width": 1.8302270825466913,
       "direction": 1
      }
     ],
@@ -9536,8 +9536,8 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "rerun_readouts": [
      {
       "readout": "target_rise",
-      "mean_difference": 0.24165146287706032,
-      "half_width": 0.21917089738836107,
+      "mean_difference": -0.8214956273534699,
+      "half_width": 1.1907809818075072,
       "direction": 1
      }
     ]
@@ -9560,8 +9560,8 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "readouts": [
      {
       "readout": "target_rise",
-      "mean_difference": -0.7629738219296293,
-      "half_width": 0.9431490700432633,
+      "mean_difference": -1.4687415717258514,
+      "half_width": 2.110862605785368,
       "direction": 1
      }
     ],
@@ -9573,8 +9573,8 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "rerun_readouts": [
      {
       "readout": "target_rise",
-      "mean_difference": 0.043480670579150595,
-      "half_width": 0.5995616384261382,
+      "mean_difference": -1.0955256832670877,
+      "half_width": 1.5232762179406498,
       "direction": 1
      }
     ]
@@ -9597,8 +9597,8 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "readouts": [
      {
       "readout": "target_rise",
-      "mean_difference": 0.2163436951266503,
-      "half_width": 0.6617374987046216,
+      "mean_difference": -0.45483560020486485,
+      "half_width": 1.6903449668370554,
       "direction": 1
      }
     ],
@@ -9610,8 +9610,8 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "rerun_readouts": [
      {
       "readout": "target_rise",
-      "mean_difference": 0.22335473499934866,
-      "half_width": 0.35218905052029775,
+      "mean_difference": 0.4519270535699186,
+      "half_width": 0.9118915594813273,
       "direction": 1
      }
     ]
@@ -9629,26 +9629,26 @@ Directional criteria of the ensemble records with no ranges declared in `config/
      "calm_transfer_rate": "0.0355789",
      "tie_wear_rate": "0.0435593"
     },
-    "outcome": "PASS",
-    "seeds": 150,
+    "outcome": "FAIL",
+    "seeds": 100,
     "readouts": [
      {
       "readout": "target_rise",
-      "mean_difference": 0.38781239859047995,
-      "half_width": 0.42083928111772795,
+      "mean_difference": -1.093213890910412,
+      "half_width": 1.21522494240572,
       "direction": 1
      }
     ],
     "rerun": true,
     "error": "",
     "ratio": 0.02354425927034974,
-    "first_outcome": "PASS",
+    "first_outcome": "FAIL",
     "rerun_seeds": 200,
     "rerun_readouts": [
      {
       "readout": "target_rise",
-      "mean_difference": 0.3094566107539596,
-      "half_width": 0.3480778675450408,
+      "mean_difference": -0.8236097055883362,
+      "half_width": 0.8389009078476846,
       "direction": 1
      }
     ]
@@ -9667,12 +9667,12 @@ Directional criteria of the ensemble records with no ranges declared in `config/
      "tie_wear_rate": "0.0408101"
     },
     "outcome": "FAIL",
-    "seeds": 50,
+    "seeds": 150,
     "readouts": [
      {
       "readout": "target_rise",
-      "mean_difference": 0.36088631401636784,
-      "half_width": 0.40959207092366057,
+      "mean_difference": -0.058468801322782156,
+      "half_width": 1.056721240677137,
       "direction": 1
      }
     ],
@@ -9684,8 +9684,8 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "rerun_readouts": [
      {
       "readout": "target_rise",
-      "mean_difference": 0.13035379816930384,
-      "half_width": 0.2270199832146959,
+      "mean_difference": -0.2729260958840241,
+      "half_width": 0.8695868083888488,
       "direction": 1
      }
     ]
@@ -9695,11 +9695,11 @@ Directional criteria of the ensemble records with no ranges declared in `config/
    "ratio": "tie_wear_to_transfer_ratio",
    "central": 0.019230769230769232,
    "below": {
-    "held": 2,
+    "held": 0,
     "counted": 4
    },
    "above": {
-    "held": 2,
+    "held": 0,
     "counted": 4
    }
   },
@@ -11537,10 +11537,10 @@ Directional criteria of the ensemble records with no ranges declared in `config/
   "criterion": "M11.C.2[twelve-person family]",
   "samples": 8,
   "counted": 8,
-  "held": 3,
+  "held": 2,
   "undetermined": 0,
   "errored": 0,
-  "reruns": 7,
+  "reruns": 8,
   "constants": [
    {
     "constant": "learning_rate",
@@ -11689,8 +11689,8 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "readouts": [
      {
       "readout": "symptom_load",
-      "mean_difference": 0.6167093922949947,
-      "half_width": 2.472355475423723,
+      "mean_difference": 0.6711083914694935,
+      "half_width": 2.464417596287416,
       "direction": 1
      }
     ],
@@ -11702,8 +11702,8 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "rerun_readouts": [
      {
       "readout": "symptom_load",
-      "mean_difference": -0.7129904836344789,
-      "half_width": 2.1264710536588365,
+      "mean_difference": -0.6834536993155865,
+      "half_width": 2.1217892279558845,
       "direction": 1
      }
     ]
@@ -11734,14 +11734,24 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "readouts": [
      {
       "readout": "symptom_load",
-      "mean_difference": 5.53516920149406,
-      "half_width": 2.7517679301950997,
+      "mean_difference": 5.3586555139750605,
+      "half_width": 2.7393370074992887,
       "direction": 1
      }
     ],
-    "rerun": false,
+    "rerun": true,
     "error": "",
-    "ratio": 0.02243357733956251
+    "ratio": 0.02243357733956251,
+    "first_outcome": "PASS",
+    "rerun_seeds": 200,
+    "rerun_readouts": [
+     {
+      "readout": "symptom_load",
+      "mean_difference": 5.38989614544225,
+      "half_width": 2.3677061448903984,
+      "direction": 1
+     }
+    ]
    },
    {
     "index": 2,
@@ -11769,8 +11779,8 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "readouts": [
      {
       "readout": "symptom_load",
-      "mean_difference": 0.2974771705766921,
-      "half_width": 1.1631815808973323,
+      "mean_difference": 0.04426534613090799,
+      "half_width": 1.1537652967765981,
       "direction": 1
      }
     ],
@@ -11782,8 +11792,8 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "rerun_readouts": [
      {
       "readout": "symptom_load",
-      "mean_difference": 0.2748868542292053,
-      "half_width": 0.973044660852732,
+      "mean_difference": 0.105485111749072,
+      "half_width": 0.9677554027382823,
       "direction": 1
      }
     ]
@@ -11814,8 +11824,8 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "readouts": [
      {
       "readout": "symptom_load",
-      "mean_difference": 0.4959438733553501,
-      "half_width": 1.536028675202366,
+      "mean_difference": 0.39538887725823796,
+      "half_width": 1.5236510410552708,
       "direction": 1
      }
     ],
@@ -11827,8 +11837,8 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "rerun_readouts": [
      {
       "readout": "symptom_load",
-      "mean_difference": 0.8549022379615419,
-      "half_width": 1.3607321634416327,
+      "mean_difference": 0.7178948265642846,
+      "half_width": 1.3454086427362504,
       "direction": 1
      }
     ]
@@ -11859,8 +11869,8 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "readouts": [
      {
       "readout": "symptom_load",
-      "mean_difference": 0.07125662731624875,
-      "half_width": 1.5353411872064404,
+      "mean_difference": 0.1599430142512629,
+      "half_width": 1.5243651516364136,
       "direction": 1
      }
     ],
@@ -11872,8 +11882,8 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "rerun_readouts": [
      {
       "readout": "symptom_load",
-      "mean_difference": 0.4353115017669257,
-      "half_width": 1.310178095256751,
+      "mean_difference": 0.4471845571754695,
+      "half_width": 1.29301876886001,
       "direction": 1
      }
     ]
@@ -11904,8 +11914,8 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "readouts": [
      {
       "readout": "symptom_load",
-      "mean_difference": 0.324113453019238,
-      "half_width": 0.8002096837953607,
+      "mean_difference": 0.36562938513454035,
+      "half_width": 0.793101158553132,
       "direction": 1
      }
     ],
@@ -11917,8 +11927,8 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "rerun_readouts": [
      {
       "readout": "symptom_load",
-      "mean_difference": 0.6287464512075488,
-      "half_width": 0.6950900306515221,
+      "mean_difference": 0.6951534540203981,
+      "half_width": 0.6951582698585422,
       "direction": 1
      }
     ]
@@ -11949,8 +11959,8 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "readouts": [
      {
       "readout": "symptom_load",
-      "mean_difference": 0.27164124582463806,
-      "half_width": 2.1960495706681438,
+      "mean_difference": 0.19463781848719197,
+      "half_width": 2.143781232511255,
       "direction": 1
      }
     ],
@@ -11962,8 +11972,8 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "rerun_readouts": [
      {
       "readout": "symptom_load",
-      "mean_difference": 0.1846243818171016,
-      "half_width": 1.9692977200204396,
+      "mean_difference": 0.16991833877494628,
+      "half_width": 1.9316542615017955,
       "direction": 1
      }
     ]
@@ -11989,13 +11999,13 @@ Directional criteria of the ensemble records with no ranges declared in `config/
      "calm_transfer_rate": "0.0944129",
      "tie_wear_rate": "0.0386628"
     },
-    "outcome": "PASS",
+    "outcome": "FAIL",
     "seeds": 150,
     "readouts": [
      {
       "readout": "symptom_load",
-      "mean_difference": 2.2101220795977725,
-      "half_width": 2.40625630817927,
+      "mean_difference": 2.196101561013361,
+      "half_width": 2.405161752102038,
       "direction": 1
      }
     ],
@@ -12007,8 +12017,8 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "rerun_readouts": [
      {
       "readout": "symptom_load",
-      "mean_difference": 2.139131250781993,
-      "half_width": 2.139429648078865,
+      "mean_difference": 2.0153216351909196,
+      "half_width": 2.1309372439923786,
       "direction": 1
      }
     ]
@@ -12018,7 +12028,7 @@ Directional criteria of the ensemble records with no ranges declared in `config/
    "ratio": "tie_wear_to_transfer_ratio",
    "central": 0.019230769230769232,
    "below": {
-    "held": 2,
+    "held": 1,
     "counted": 4
    },
    "above": {
@@ -12117,8 +12127,8 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "readouts": [
      {
       "readout": "development",
-      "mean_difference": -0.0608234162283128,
-      "half_width": 0.11552066448973111,
+      "mean_difference": -0.04343738036024116,
+      "half_width": 0.11530191706055262,
       "direction": -1
      }
     ],
@@ -12130,8 +12140,8 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "rerun_readouts": [
      {
       "readout": "development",
-      "mean_difference": -0.06582594065931481,
-      "half_width": 0.10087439618275316,
+      "mean_difference": -0.06020327096896175,
+      "half_width": 0.09989443075089992,
       "direction": -1
      }
     ]
@@ -12153,8 +12163,8 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "readouts": [
      {
       "readout": "development",
-      "mean_difference": 0.0423456264935291,
-      "half_width": 0.1352409366974386,
+      "mean_difference": 0.05001746041257126,
+      "half_width": 0.13125379389095343,
       "direction": -1
      }
     ],
@@ -12166,8 +12176,8 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "rerun_readouts": [
      {
       "readout": "development",
-      "mean_difference": 0.05500004227148121,
-      "half_width": 0.11841052974454391,
+      "mean_difference": 0.0635006051904502,
+      "half_width": 0.11568506673932123,
       "direction": -1
      }
     ]
@@ -12189,8 +12199,8 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "readouts": [
      {
       "readout": "development",
-      "mean_difference": 0.09444902015563486,
-      "half_width": 0.1310204593221638,
+      "mean_difference": 0.06924063414800775,
+      "half_width": 0.13019756484036227,
       "direction": -1
      }
     ],
@@ -12202,8 +12212,8 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "rerun_readouts": [
      {
       "readout": "development",
-      "mean_difference": 0.0786563557718695,
-      "half_width": 0.11476901414099192,
+      "mean_difference": 0.057039468486319224,
+      "half_width": 0.11417287682344536,
       "direction": -1
      }
     ]
@@ -12225,8 +12235,8 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "readouts": [
      {
       "readout": "development",
-      "mean_difference": -0.019055486020592552,
-      "half_width": 0.1298463385311926,
+      "mean_difference": -0.003993024959122427,
+      "half_width": 0.13213165217613168,
       "direction": -1
      }
     ],
@@ -12238,8 +12248,8 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "rerun_readouts": [
      {
       "readout": "development",
-      "mean_difference": 0.03842370457285547,
-      "half_width": 0.10873694933251006,
+      "mean_difference": 0.050239148939621996,
+      "half_width": 0.11013525664418447,
       "direction": -1
      }
     ]
@@ -12261,8 +12271,8 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "readouts": [
      {
       "readout": "development",
-      "mean_difference": 0.02404561964945207,
-      "half_width": 0.10852262126794247,
+      "mean_difference": 0.047287613474861274,
+      "half_width": 0.1056002425355208,
       "direction": -1
      }
     ],
@@ -12274,8 +12284,8 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "rerun_readouts": [
      {
       "readout": "development",
-      "mean_difference": 0.0390527822532113,
-      "half_width": 0.09441672381183971,
+      "mean_difference": 0.0605347843581022,
+      "half_width": 0.09316108409038978,
       "direction": -1
      }
     ]
@@ -12297,8 +12307,8 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "readouts": [
      {
       "readout": "development",
-      "mean_difference": 0.08919143413378373,
-      "half_width": 0.13030463431728811,
+      "mean_difference": 0.08694169176966478,
+      "half_width": 0.13047635337278746,
       "direction": -1
      }
     ],
@@ -12310,8 +12320,8 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "rerun_readouts": [
      {
       "readout": "development",
-      "mean_difference": 0.13296392063212245,
-      "half_width": 0.11483211340340208,
+      "mean_difference": 0.12102301332492588,
+      "half_width": 0.11386181034203462,
       "direction": -1
      }
     ]
@@ -12333,8 +12343,8 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "readouts": [
      {
       "readout": "development",
-      "mean_difference": -0.0014328505882994118,
-      "half_width": 0.1211084624962214,
+      "mean_difference": -0.0011821723829502655,
+      "half_width": 0.11880547078416698,
       "direction": -1
      }
     ],
@@ -12346,8 +12356,8 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "rerun_readouts": [
      {
       "readout": "development",
-      "mean_difference": 0.03065317172634739,
-      "half_width": 0.11129162921916218,
+      "mean_difference": 0.02854850690608451,
+      "half_width": 0.1097614339577687,
       "direction": -1
      }
     ]
@@ -12369,8 +12379,8 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "readouts": [
      {
       "readout": "development",
-      "mean_difference": -0.031887875729395415,
-      "half_width": 0.1370873850425428,
+      "mean_difference": -0.04703206415925147,
+      "half_width": 0.14157496584058574,
       "direction": -1
      }
     ],
@@ -12382,8 +12392,8 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "rerun_readouts": [
      {
       "readout": "development",
-      "mean_difference": -0.00548393961881569,
-      "half_width": 0.11743530774441963,
+      "mean_difference": -0.018038812280775682,
+      "half_width": 0.1203393690540728,
       "direction": -1
      }
     ]
@@ -12412,7 +12422,7 @@ Directional criteria of the ensemble records with no ranges declared in `config/
   "criterion": "M11.C.10",
   "samples": 8,
   "counted": 8,
-  "held": 4,
+  "held": 3,
   "undetermined": 0,
   "errored": 0,
   "reruns": 0,
@@ -12580,8 +12590,8 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "readouts": [
      {
       "readout": "cut_off_tie_weeks",
-      "mean_difference": -24.53,
-      "half_width": 73.23985164030762,
+      "mean_difference": -28.86,
+      "half_width": 73.72802933724029,
       "direction": 1
      }
     ],
@@ -12617,8 +12627,8 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "readouts": [
      {
       "readout": "cut_off_tie_weeks",
-      "mean_difference": 105.695,
-      "half_width": 72.52825984952209,
+      "mean_difference": 111.985,
+      "half_width": 72.82623129574884,
       "direction": 1
      }
     ],
@@ -12654,8 +12664,8 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "readouts": [
      {
       "readout": "cut_off_tie_weeks",
-      "mean_difference": 35.885,
-      "half_width": 112.11582527995422,
+      "mean_difference": 44.115,
+      "half_width": 112.51730871674141,
       "direction": 1
      }
     ],
@@ -12691,8 +12701,8 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "readouts": [
      {
       "readout": "cut_off_tie_weeks",
-      "mean_difference": -46.87,
-      "half_width": 111.83742106152692,
+      "mean_difference": -45.895,
+      "half_width": 112.15415304597103,
       "direction": 1
      }
     ],
@@ -12723,13 +12733,13 @@ Directional criteria of the ensemble records with no ranges declared in `config/
      "calm_transfer_rate": "0.0443386",
      "tie_wear_rate": "0.0319528"
     },
-    "outcome": "PASS",
+    "outcome": "FAIL",
     "seeds": 200,
     "readouts": [
      {
       "readout": "cut_off_tie_weeks",
-      "mean_difference": 87.285,
-      "half_width": 98.81310705213494,
+      "mean_difference": 78.595,
+      "half_width": 97.50832843247944,
       "direction": 1
      }
     ],
@@ -12765,8 +12775,8 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "readouts": [
      {
       "readout": "cut_off_tie_weeks",
-      "mean_difference": 71.1,
-      "half_width": 119.4335301448227,
+      "mean_difference": 70.98,
+      "half_width": 119.34925672479324,
       "direction": 1
      }
     ],
@@ -12802,8 +12812,8 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "readouts": [
      {
       "readout": "cut_off_tie_weeks",
-      "mean_difference": 114.785,
-      "half_width": 75.84740211734314,
+      "mean_difference": 107.28,
+      "half_width": 76.52993531244773,
       "direction": 1
      }
     ],
@@ -12839,8 +12849,8 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "readouts": [
      {
       "readout": "cut_off_tie_weeks",
-      "mean_difference": 142.075,
-      "half_width": 134.023490969656,
+      "mean_difference": 143.63,
+      "half_width": 134.2145098475305,
       "direction": 1
      }
     ],
@@ -12853,7 +12863,7 @@ Directional criteria of the ensemble records with no ranges declared in `config/
    "ratio": "tie_wear_to_transfer_ratio",
    "central": 0.019230769230769232,
    "below": {
-    "held": 2,
+    "held": 1,
     "counted": 6
    },
    "above": {
@@ -13035,13 +13045,13 @@ Directional criteria of the ensemble records with no ranges declared in `config/
      "calm_transfer_rate": "0.05823",
      "tie_wear_rate": "0.0230119"
     },
-    "outcome": "FAIL",
+    "outcome": "PASS",
     "seeds": 200,
     "readouts": [
      {
       "readout": "cut_off_tie_weeks",
-      "mean_difference": 101.98,
-      "half_width": 140.89679548209182,
+      "mean_difference": 104.035,
+      "half_width": 139.32144534801344,
       "direction": 1
      }
     ],
@@ -13077,8 +13087,8 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "readouts": [
      {
       "readout": "cut_off_tie_weeks",
-      "mean_difference": 226.585,
-      "half_width": 94.38719433426162,
+      "mean_difference": 221.405,
+      "half_width": 94.81515540927103,
       "direction": 1
      }
     ],
@@ -13109,13 +13119,13 @@ Directional criteria of the ensemble records with no ranges declared in `config/
      "calm_transfer_rate": "0.0337688",
      "tie_wear_rate": "0.0322308"
     },
-    "outcome": "PASS",
+    "outcome": "FAIL",
     "seeds": 200,
     "readouts": [
      {
       "readout": "cut_off_tie_weeks",
-      "mean_difference": 113.665,
-      "half_width": 114.87126639065649,
+      "mean_difference": 97.595,
+      "half_width": 117.77678756654586,
       "direction": 1
      }
     ],
@@ -13151,8 +13161,8 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "readouts": [
      {
       "readout": "cut_off_tie_weeks",
-      "mean_difference": 194.35,
-      "half_width": 97.12145264109047,
+      "mean_difference": 196.89,
+      "half_width": 96.59126790617157,
       "direction": 1
      }
     ],
@@ -13188,8 +13198,8 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "readouts": [
      {
       "readout": "cut_off_tie_weeks",
-      "mean_difference": 188.675,
-      "half_width": 108.82292531560722,
+      "mean_difference": 181.485,
+      "half_width": 109.21780969903891,
       "direction": 1
      }
     ],
@@ -13225,8 +13235,8 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "readouts": [
      {
       "readout": "cut_off_tie_weeks",
-      "mean_difference": 100.62,
-      "half_width": 117.91141444903315,
+      "mean_difference": 117.41,
+      "half_width": 116.26041842517678,
       "direction": 1
      }
     ],
@@ -13262,8 +13272,8 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "readouts": [
      {
       "readout": "cut_off_tie_weeks",
-      "mean_difference": 105.05,
-      "half_width": 79.66167476845169,
+      "mean_difference": 103.78,
+      "half_width": 79.82776083426027,
       "direction": 1
      }
     ],
@@ -13299,8 +13309,8 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "readouts": [
      {
       "readout": "cut_off_tie_weeks",
-      "mean_difference": 409.81,
-      "half_width": 135.20209892200558,
+      "mean_difference": 410.76,
+      "half_width": 134.07818435292177,
       "direction": 1
      }
     ],
@@ -13791,8 +13801,8 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "readouts": [
      {
       "readout": "negative_run",
-      "mean_difference": -0.2366277777777778,
-      "half_width": 0.09166463480150149,
+      "mean_difference": -0.24344722222222223,
+      "half_width": 0.09347803912181389,
       "direction": 1
      }
     ],
@@ -13823,8 +13833,8 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "readouts": [
      {
       "readout": "negative_run",
-      "mean_difference": -0.2895166666666667,
-      "half_width": 0.1012642161839761,
+      "mean_difference": -0.2861555555555555,
+      "half_width": 0.09932868984150989,
       "direction": 1
      }
     ],
@@ -13855,8 +13865,8 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "readouts": [
      {
       "readout": "negative_run",
-      "mean_difference": -0.31444722222222227,
-      "half_width": 0.10289157032628395,
+      "mean_difference": -0.31778055555555557,
+      "half_width": 0.103006508539395,
       "direction": 1
      }
     ],
@@ -13887,8 +13897,8 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "readouts": [
      {
       "readout": "negative_run",
-      "mean_difference": -0.25555,
-      "half_width": 0.10330217331271145,
+      "mean_difference": -0.25506388888888887,
+      "half_width": 0.10360855021858169,
       "direction": 1
      }
     ],
@@ -13919,8 +13929,8 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "readouts": [
      {
       "readout": "negative_run",
-      "mean_difference": -0.2767527777777778,
-      "half_width": 0.10292061421335336,
+      "mean_difference": -0.2773777777777778,
+      "half_width": 0.10200292230348366,
       "direction": 1
      }
     ],
@@ -13951,8 +13961,8 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "readouts": [
      {
       "readout": "negative_run",
-      "mean_difference": -0.26945694444444446,
-      "half_width": 0.10175733792632273,
+      "mean_difference": -0.2694569444444444,
+      "half_width": 0.1030724279840928,
       "direction": 1
      }
     ],
@@ -14015,8 +14025,8 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "readouts": [
      {
       "readout": "negative_run",
-      "mean_difference": -0.2557944444444445,
-      "half_width": 0.09957138238058523,
+      "mean_difference": -0.27615555555555554,
+      "half_width": 0.10049498968372494,
       "direction": 1
      }
     ],
@@ -14176,8 +14186,8 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "readouts": [
      {
       "readout": "negative_run",
-      "mean_difference": -0.11515954814130488,
-      "half_width": 0.05620263619172628,
+      "mean_difference": -0.11692027390411658,
+      "half_width": 0.05598322102435512,
       "direction": 1
      }
     ],
@@ -14208,8 +14218,8 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "readouts": [
      {
       "readout": "negative_run",
-      "mean_difference": -0.0903199375354768,
-      "half_width": 0.06198907693873425,
+      "mean_difference": -0.09504823434555718,
+      "half_width": 0.05960615034631085,
       "direction": 1
      }
     ],
@@ -14240,8 +14250,8 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "readouts": [
      {
       "readout": "negative_run",
-      "mean_difference": -0.1425303731131841,
-      "half_width": 0.05627862770168379,
+      "mean_difference": -0.1417852854482323,
+      "half_width": 0.05603036850738579,
       "direction": 1
      }
     ],
@@ -14272,8 +14282,8 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "readouts": [
      {
       "readout": "negative_run",
-      "mean_difference": -0.18322864122326835,
-      "half_width": 0.04862297428925679,
+      "mean_difference": -0.1794184661280358,
+      "half_width": 0.048511129198153306,
       "direction": 1
      }
     ],
@@ -14304,8 +14314,8 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "readouts": [
      {
       "readout": "negative_run",
-      "mean_difference": -0.16708040248709896,
-      "half_width": 0.06954472969896557,
+      "mean_difference": -0.15935071613379845,
+      "half_width": 0.07021150154395382,
       "direction": 1
      }
     ],
@@ -14336,8 +14346,8 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "readouts": [
      {
       "readout": "negative_run",
-      "mean_difference": -0.13529575544360348,
-      "half_width": 0.06425466922185025,
+      "mean_difference": -0.1371684294504972,
+      "half_width": 0.06309355852152915,
       "direction": 1
      }
     ],
@@ -14368,8 +14378,8 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "readouts": [
      {
       "readout": "negative_run",
-      "mean_difference": -0.1267444153247746,
-      "half_width": 0.059661096954060334,
+      "mean_difference": -0.12184720933496067,
+      "half_width": 0.05938087100377325,
       "direction": 1
      }
     ],
@@ -14400,8 +14410,8 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "readouts": [
      {
       "readout": "negative_run",
-      "mean_difference": -0.18385214207402453,
-      "half_width": 0.056889888896123855,
+      "mean_difference": -0.18450567644357338,
+      "half_width": 0.05881173283687204,
       "direction": 1
      }
     ],

@@ -124,7 +124,7 @@ records are regenerated once.
   +1.10), which the records have moved away from since. To decide: generate those rows from the records as T-148 does,
   or restate the opening as the report's state at Phase C's close, pointing at `docs/version_2_status.md` for where each
   criterion stands now.
-- [ ] T-161 ⟨later⟩ **`M11.C.21`'s parents keep over-functioning toward the child after they collapse (found building
+- [x] T-161 ⟨later⟩ **`M11.C.21`'s parents keep over-functioning toward the child after they collapse (found building
   T-145, 2026-10-28; not fixed).** `arm_c21` (`src/bowen/ensemble/criteria_d.py`) scripts both parents'
   `OVERFUNCTION` toward C1 every `act_every` weeks for the whole run, the weeks after the collapse included, so the
   treatment arm measures the return of lent functioning against lending that goes on. `M11.C.21` asks whether the
@@ -154,6 +154,8 @@ records are regenerated once.
   - 2026-10-31, built at spec revision 44 (`src/bowen/ensemble/criteria_d.py` `arm_c21`, test
     `test_m11c21_t161_the_scripted_overfunction_ends_at_t0_in_both_arms`, shown red first). Regenerated on
     `09ca2b46c7e0` (Mac Mini1): `M11.C.21` fails, `target_rise` −0.72 ± 1.09, p 0.94 (100 seeds), the ad hoc value.
+  - 2026-10-31, owner 2026-10-31, through `AskUserQuestion`: `M11.C.21`'s FAIL accepted as a finding
+    (`docs/version_2_dispositions.md`). Closed.
 - [x] T-162 ⟨later⟩ **`M11.C.34` passes at revision 41 and no mutant turns it red (found in revision 41's
   regeneration, 2026-10-29; not fixed).** At revision 40 it failed and its failure was accepted as a finding (version
   1's disposition, owner 2026-10-17); regenerated on `6ce8be104767` it passes (`automatic_reaction` −0.113 ± 0.13, p

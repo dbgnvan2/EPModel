@@ -2,10 +2,42 @@
 
 The entries of `CHANGELOG.md` dated before 2026-10-19, the day version 2 began at the tag `version-1`, moved
 here verbatim on 2026-10-22, the entries of 2026-10-19 and 2026-10-20 on 2026-10-23, and the entries of
-2026-10-21 later on 2026-10-23, the earliest entry of 2026-10-22 (the SP-1 proposal's eight questions) on 2026-10-24, and the next (SP-1 built, with spec revision 34) later on 2026-10-24, and the next (Model ergonomics, Parts A–C) on 2026-10-25, and the next (Model ergonomics, Part D) later on 2026-10-25, and the next (Model ergonomics, Part E) later on 2026-10-25, and the next (Model ergonomics follow-ups) later on 2026-10-25, and the next (the closed and old parts of `TODO.md` and `CHANGELOG.md` archived) on 2026-10-26, and the next (`TODO.md` an index over records; a changelog index) later on 2026-10-26, and the next (Revision 35's dispositions approved by the owner) later on 2026-10-26, and the next two (Spec revision 36, of 2026-10-22, and Revision 36's records regenerated, of 2026-10-23) later on 2026-10-26, and the next five (from the cloud sessions' SessionStart hook to Stage 2: Phase C's directional criteria swept, all of 2026-10-23) later on 2026-10-26, and the next three (from the night's decisions listed for the owner to Stage 2: Phase D part I's directional criteria swept, all of 2026-10-23) on 2026-10-27, and the next (Stage 2: the sweep can run on two Macs, of 2026-10-23) later on 2026-10-27, and the next (The two-Mac cross-check run live, of 2026-10-23) on 2026-10-28, and the next four (from Stage 2: Phase D part II's sweep ranges declared to When the full sweep runs, the last of 2026-10-23) on 2026-10-29, and the next three (from Stage 2: Phase D part II's seven criteria swept across two Macs to The stage 2 milestone review triaged, spec revision 38, the earliest of 2026-10-24) later on 2026-10-29, and the next five (from Version 2 stage 3's implementation plan drafted to Rule: a finished session writes the next session's brief, the last of 2026-10-24) on 2026-10-30, and the next (Stage 3 step 3: P2 (displaced coping) drafted with F1, probed, for the owner's approval, the earliest of 2026-10-25) on 2026-10-31, and the next three (from The two-Mac driver reaches Mac Mini1 through the `macmini1` alias to Stage 3 step 3: P2 and F1 probed together on Mac Mini1, all of 2026-10-25) later on 2026-10-31, so that the live file stays short enough to read (`tests/test_doc_size.py` bounds its size). The heading below is the section they
+2026-10-21 later on 2026-10-23, the earliest entry of 2026-10-22 (the SP-1 proposal's eight questions) on 2026-10-24, and the next (SP-1 built, with spec revision 34) later on 2026-10-24, and the next (Model ergonomics, Parts A–C) on 2026-10-25, and the next (Model ergonomics, Part D) later on 2026-10-25, and the next (Model ergonomics, Part E) later on 2026-10-25, and the next (Model ergonomics follow-ups) later on 2026-10-25, and the next (the closed and old parts of `TODO.md` and `CHANGELOG.md` archived) on 2026-10-26, and the next (`TODO.md` an index over records; a changelog index) later on 2026-10-26, and the next (Revision 35's dispositions approved by the owner) later on 2026-10-26, and the next two (Spec revision 36, of 2026-10-22, and Revision 36's records regenerated, of 2026-10-23) later on 2026-10-26, and the next five (from the cloud sessions' SessionStart hook to Stage 2: Phase C's directional criteria swept, all of 2026-10-23) later on 2026-10-26, and the next three (from the night's decisions listed for the owner to Stage 2: Phase D part I's directional criteria swept, all of 2026-10-23) on 2026-10-27, and the next (Stage 2: the sweep can run on two Macs, of 2026-10-23) later on 2026-10-27, and the next (The two-Mac cross-check run live, of 2026-10-23) on 2026-10-28, and the next four (from Stage 2: Phase D part II's sweep ranges declared to When the full sweep runs, the last of 2026-10-23) on 2026-10-29, and the next three (from Stage 2: Phase D part II's seven criteria swept across two Macs to The stage 2 milestone review triaged, spec revision 38, the earliest of 2026-10-24) later on 2026-10-29, and the next five (from Version 2 stage 3's implementation plan drafted to Rule: a finished session writes the next session's brief, the last of 2026-10-24) on 2026-10-30, and the next (Stage 3 step 3: P2 (displaced coping) drafted with F1, probed, for the owner's approval, the earliest of 2026-10-25) on 2026-10-31, and the next three (from The two-Mac driver reaches Mac Mini1 through the `macmini1` alias to Stage 3 step 3: P2 and F1 probed together on Mac Mini1, all of 2026-10-25) later on 2026-10-31, and the next (Stage 3 step 4: spec revision 39, part 1 drafted (group C), for the owner's approval, of 2026-10-25) on 2026-11-01, so that the live file stays short enough to read (`tests/test_doc_size.py` bounds its size). The heading below is the section they
 were under; nothing in this file is reworded. Later entries are in `CHANGELOG.md`.
 
 ## [Unreleased] — 2026-10-11
+
+### Stage 3 step 4: spec revision 39, part 1 drafted (group C), for the owner's approval (2026-10-25)
+
+- The owner decided the displaced coping proposal's Q1–Q4 on 2026-10-25, each as recommended, through
+  `AskUserQuestion`: `OVERFUNCTION` alone is displacing (Q1); `floor_held` is shed with the swings off the floor
+  (Q2); P2 is conserved (Q3); revision 39 is drafted with P2 and F1 and `M11.C.6` reported as read (Q4, recorded in
+  this session's first commit). T-130's two item names quote the paper ("Fired at work", "Wife begin or stop work").
+- `docs/spec_revision_39_draft.md` (new) holds revision 39's part 1: the new displaced-coping requirement, `M1.A.5e`'s
+  exception and `floor_held` ledger, `M1.A.4k` leaving `floor_held` out, `M7.E.1f`'s one sentence on what `d` reads,
+  the new lent-functioning return (D19), `M11.C.6`'s and `M11.C.21`'s mutation columns and `M11.5` notes, the *displacing* table for
+  `config/bowen/stress_response.md`, the explainer's text, T-130's wording for `M1.F.6a` and `event_sizes.md`, the §19
+  check, and the stage 4 check against `KS04.7`, `FE01.1`, `FE06.3`, `FE07.4` and `KS00.9`. Each "replace" span was
+  checked by script against the revision 38 text.
+- One correctness pass over the draft (`sonnet`, read-only, about 65k tokens, 2 minutes) found 2 major and 5 minor
+  items, all fixed in the draft: the lent-functioning return's capacity `s` written as `M6.I.4`'s formula with the `s_before` = 0 case,
+  the week's timing and the dead lender's share, and what it adds to D19's wording (functioning moves with the
+  returned pseudo-self; four copied forms) set out for the owner's review; displaced coping's floor clamped at 0, its three
+  bounds listed and the receiver order stated, `FE06.3`'s difference written into its text, and its first step
+  regraded (the passages `[T]`, the generalisation to `OVERFUNCTION` `[M]` `[I]`); `M7.E.1f`'s sentence says a
+  negative system adjustment is read; §6's "Q6" names the T-130 review.
+- From the stage 4 check, the owner decided two more questions as recommended (the draft's §9): Q5, `KS00.9` ("the
+  basic levels of the parents establish the emotional climate") against `M7.E.1f`'s parents' term, which reads
+  functioning that displaced coping raises in a parent who displaces onto the child, is recorded as T-131 for the stage 3
+  milestone review and `M7.E.1f` is left as it is; Q6, each group's approved text is applied to the spec, config and
+  explainer in the same commit as its code, so the spec stays at revision 38 until step 6.
+- Parts 2 and 3 (groups F and A, T-128's `M17.E.1` and `M10.C.1a`, T-014's `M8`, `M8.1`, `M8.5`, `M13.1`, `M11.C.7`,
+  `M7.D.1a`) are not drafted yet. Nothing under `src/bowen/` or `config/bowen/` changed and the spec is unchanged, so
+  the indexes and the rules view were not regenerated; the engine hash is unchanged (`66dcbb1e8ba5`).
+- Documents updated: the proposal (status line, §9), the plan (status line, D18's row, §3.8 step 4, §3.11),
+  `_STATUS.md`, the reading list, the checklist, a new TODO record (`docs/todo/2026-10-25_stage_3_revision_39.md`,
+  T-131) and `TODO.md`. `docs/version_2_plan.md` is unchanged: it carries no stage 3 status line, and step 4 is not
+  done until revision 39 is approved.
 
 ### Stage 3 step 3: P2 and F1 probed together on Mac Mini1 (2026-10-25)
 

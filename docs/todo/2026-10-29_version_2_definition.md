@@ -3,12 +3,17 @@
 Items found while building the version 2 definition batch (`docs/version_2_definition_plan.md` §2, spec revision 43),
 on the owner's instruction of 2026-10-29 to proceed with Claude's recommendations.
 
-- [ ] T-170 ⟨now⟩ **The stage-end sweep reruns on spec revision 44's engine, `09ca2b46c7e0` (the batch, 2026-10-31;
+- [x] T-170 ⟨now⟩ **The stage-end sweep reruns on spec revision 44's engine, `09ca2b46c7e0` (the batch, 2026-10-31;
   not run yet).** Every record but `docs/version_2_sweep_record.md` was regenerated on it;
   `tests/test_version_2_sweep.py::test_s2_11_sweep_record_is_current` is a strict expected failure until the sweep
   reruns, split across both Macs (`docs/two_mac_sweep.md`; Mac Mini1 at 10 workers, this Mac at 8 under `nice -n 15`),
   after a cross-check on `M11.C.16` and `M11.C.23`.
-- [ ] T-165 ⟨later⟩ **`M11.C.17`'s coached rise runs through the coach's I-position pull-up, which the estimator
+  *Closed 2026-11-01:* the sweep reran on `09ca2b46c7e0`, split across both Macs after a cross-check
+  (`docs/two_mac_sweep.md`, "Not verified"). Six criteria moved: `M11.C.17` (8 of 8 to 3 of 8) and `M11.C.21` (4 of 8
+  to 0 of 8), whose central verdicts are now FAIL and accepted findings (owner 2026-10-31); `M11.C.2` (2 to 3 of 8),
+  `M11.C.7[joint over one spouse]` (4 to 3), `M11.C.2[twelve-person family]` (3 to 2) and `M11.C.10` (4 to 3). The
+  strict expected failure is gone from `test_s2_11_sweep_record_is_current`, and `docs/version_2_status.md`'s W4 is met.
+- [x] T-165 ⟨later⟩ **`M11.C.17`'s coached rise runs through the coach's I-position pull-up, which the estimator
   counts as the member's own functioning (found tracing `landed-contact-changes-nothing`'s survival, 2026-10-29; not
   decided).** With `perspective_gain` at 0 the coached arm still rises (ad hoc, 150 seeds: +0.0332 ± 0.028). The rise
   comes from `M5.D.5`'s pull-up when the coach's own `I-POSITION` resolves (`src/bowen/engine/iposition.py`,
@@ -33,6 +38,8 @@ on the owner's instruction of 2026-10-29 to proceed with Claude's recommendation
     `test_m5d5_t165_an_external_movers_resolve_pulls_no_one_up`, shown red first); `coach-pull-up-removed` retired.
     Regenerated on `09ca2b46c7e0` (Mac Mini1): `M11.C.17` fails, `coached_rise` −0.00003 ± 0.00017, p 0.43 (150
     seeds); in 136 of 150 seeds the two arms' coached rise is the same (`docs/version_2_revision_44_changes.md`).
+  - 2026-10-31, owner 2026-10-31, through `AskUserQuestion`: `M11.C.17`'s FAIL accepted as a finding
+    (`docs/version_2_dispositions.md`); why the remaining path is flat is T-169. Closed.
 - [x] T-166 ⟨later⟩ **`tools/group_g_readout.py` still averages unmatched first cutoffs (the batch's `learning-qa`
   review, 2026-10-29; not fixed).** Its "mean run before the first cutoff" and "mean matched uncut run" columns read
   every first cutoff, so an unmatched one counts with a baseline of 0, the bias T-123 removed from `M11.C.48`. It is

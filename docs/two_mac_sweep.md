@@ -200,6 +200,13 @@ criterion and goes on, and the record shows it refused.
   this Mac's at 20:18; the merge added Mac Mini1's 47 entries and found 486 equal, and no worker was left on
   either Mac. Only `M11.C.48` and `M11.C.48[phase_d]` moved against the rerun on `6ce8be104767`; every other
   criterion's samples were unchanged.
+- The rerun on `09ca2b46c7e0` (2026-10-31 to 2026-11-01, T-170, spec revision 44) had its own cross-check: `M11.C.16`
+  and `M11.C.23` on both Macs, `--recompute`; the merge added 0 and found all 491 entries equal. Mac Mini1 then ran
+  `M11.C.6`, `M11.C.10`, `M11.C.10[family of origin]` and `M11.C.15` at 10 workers, and this Mac the other 30
+  criteria at 8 workers under `nice -n 15`, from a clean `git worktree` of the same commit. Both shares started at
+  17:13 and exited 0 at 04:17 and 04:18 the next morning; the merge added Mac Mini1's 47 entries and found 491 equal,
+  and no worker was left on either Mac. Six keys moved against the rerun on `da5981f6ec0b`: `M11.C.17`, `M11.C.21`,
+  `M11.C.2`, `M11.C.7[joint over one spouse]`, `M11.C.2[twelve-person family]` and `M11.C.10`.
 - `tools/two_mac_sweep.py` against a live Mac Mini1 was run on 2026-10-23 and again on 2026-10-27: `check`, `start`,
   `status` and `fetch` all worked over SSH. On 2026-10-27, a minute after a share started there (load average 68 on 10
   cores, Spotlight indexing the temporary repository copies), one `status` call printed `running` and then timed out

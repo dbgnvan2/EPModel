@@ -49,7 +49,7 @@ premise passing, and a changed one is a new result under revision 36's rules, ke
   `tests/bowen/test_negative_runs.py::test_m11c48_t123_an_unmatched_first_cutoff_is_left_out_of_both_arms_and_counted`.
   On `da5981f6ec0b` the criterion fails on both families (`docs/phase_d2_ensemble_record.md`). The group G readout
   still averages unmatched cutoffs (T-166).
-- [ ] T-122 ⟨later⟩ **Four composite verdicts PASS → FAIL at revision 36, for the owner's review:** `M11.C.17`
+- [x] T-122 ⟨later⟩ **Four composite verdicts PASS → FAIL at revision 36, for the owner's review:** `M11.C.17`
   (`coached_rise` +0.000272 ± 0.00042, p 0.205, from +0.000888 ± 0.0013, p 0.0148), `M11.C.7[joint over one spouse]`
   (`deviation_fall` +0.0309 ± 0.056, p 0.177, from +0.0429 ± 0.052, p 0.0497), `M11.C.10[family of origin]`
   (`cut_off_tie_weeks` −31.8 ± 130, p 0.674, from +238 ± 150, p 0.00107) and `M11.C.2[twelve-person family]`
@@ -70,3 +70,6 @@ premise passing, and a changed one is a new result under revision 36's rules, ke
     reviewed (`verdict reviewed`, owner 2026-10-31, in `docs/version_2_dispositions.md`); `M11.C.21`'s not, T-161 (b)
     first (its `note` row, owner 2026-10-31; a `note` reviews nothing, so the page keeps the row held). Open until
     `M11.C.21`'s verdict after spec revision 44 (T-161) is decided.
+  - 2026-10-31, owner 2026-10-31, through `AskUserQuestion` after spec revision 44: `M11.C.21` fails and is accepted as
+    a finding, and so is `M11.C.17`, which revision 44 moved from the tag's PASS to FAIL (T-165); both rows in
+    `docs/version_2_dispositions.md`. No changed verdict is left unreviewed. Closed.

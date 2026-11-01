@@ -438,3 +438,29 @@ def test_m11c21_t145_the_readout_starts_at_the_end_of_week_t0_minus_1(monkeypatc
     monkeypatch.setattr(criteria_d, "result", lambda readouts, records: readouts)
     settings = {"t0": 3, "after": 2, "drop": 10.0, "act_every": 1}
     assert criteria_d.arm_c21("treatment", 0, settings)["target_rise"] == pytest.approx(40.0 - 33.0)
+
+
+def test_m11c21_t161_the_scripted_overfunction_ends_at_t0_in_both_arms(monkeypatch):
+    """T-161 (b) (spec revision 44, the owner 2026-10-31, D4): both parents' scripted `OVERFUNCTION` toward C1 runs
+    from week 0 to week t0 − 1 and ends at t0, in both arms; after t0 the parents act on their own policy, so the arms
+    differ by the drop alone."""
+    import types
+
+    from src.bowen.ensemble import criteria_d
+
+    seen = {}
+
+    def fake(family, seed, weeks, *, forced=None, watch=None, **kwargs):
+        seen[arm] = forced
+        for tick in range(1, weeks + 1):
+            watch(types.SimpleNamespace(tick=tick, people={criteria_d.CHILD: types.SimpleNamespace(functional_level=0.0)}))
+        return types.SimpleNamespace(people={criteria_d.CHILD: types.SimpleNamespace(functional_level=0.0)}), []
+
+    monkeypatch.setattr(criteria_d, "scenario", fake)
+    monkeypatch.setattr(criteria_d, "result", lambda readouts, records: readouts)
+    settings = {"t0": 5, "after": 5, "drop": 10.0, "act_every": 2}  # week t0 − 1 = 4 is an act week, so it is pinned
+    for arm in ("baseline", "treatment"):
+        criteria_d.arm_c21(arm, 0, settings)
+        assert set(seen[arm]) == {(t, p) for t in (0, 2, 4) for p in (criteria_d.FATHER, criteria_d.MOTHER)}
+        assert all(s.kind == "OVERFUNCTION" and s.targets == (criteria_d.CHILD,) for s in seen[arm].values())
+    assert seen["baseline"] == seen["treatment"]

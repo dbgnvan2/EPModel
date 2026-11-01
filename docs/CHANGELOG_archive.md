@@ -2,10 +2,50 @@
 
 The entries of `CHANGELOG.md` dated before 2026-10-19, the day version 2 began at the tag `version-1`, moved
 here verbatim on 2026-10-22, the entries of 2026-10-19 and 2026-10-20 on 2026-10-23, and the entries of
-2026-10-21 later on 2026-10-23, the earliest entry of 2026-10-22 (the SP-1 proposal's eight questions) on 2026-10-24, and the next (SP-1 built, with spec revision 34) later on 2026-10-24, and the next (Model ergonomics, Parts A–C) on 2026-10-25, and the next (Model ergonomics, Part D) later on 2026-10-25, and the next (Model ergonomics, Part E) later on 2026-10-25, and the next (Model ergonomics follow-ups) later on 2026-10-25, and the next (the closed and old parts of `TODO.md` and `CHANGELOG.md` archived) on 2026-10-26, and the next (`TODO.md` an index over records; a changelog index) later on 2026-10-26, and the next (Revision 35's dispositions approved by the owner) later on 2026-10-26, and the next two (Spec revision 36, of 2026-10-22, and Revision 36's records regenerated, of 2026-10-23) later on 2026-10-26, and the next five (from the cloud sessions' SessionStart hook to Stage 2: Phase C's directional criteria swept, all of 2026-10-23) later on 2026-10-26, and the next three (from the night's decisions listed for the owner to Stage 2: Phase D part I's directional criteria swept, all of 2026-10-23) on 2026-10-27, and the next (Stage 2: the sweep can run on two Macs, of 2026-10-23) later on 2026-10-27, and the next (The two-Mac cross-check run live, of 2026-10-23) on 2026-10-28, and the next four (from Stage 2: Phase D part II's sweep ranges declared to When the full sweep runs, the last of 2026-10-23) on 2026-10-29, and the next three (from Stage 2: Phase D part II's seven criteria swept across two Macs to The stage 2 milestone review triaged, spec revision 38, the earliest of 2026-10-24) later on 2026-10-29, and the next five (from Version 2 stage 3's implementation plan drafted to Rule: a finished session writes the next session's brief, the last of 2026-10-24) on 2026-10-30, and the next (Stage 3 step 3: P2 (displaced coping) drafted with F1, probed, for the owner's approval, the earliest of 2026-10-25) on 2026-10-31, so that the live file stays short enough to read (`tests/test_doc_size.py` bounds its size). The heading below is the section they
+2026-10-21 later on 2026-10-23, the earliest entry of 2026-10-22 (the SP-1 proposal's eight questions) on 2026-10-24, and the next (SP-1 built, with spec revision 34) later on 2026-10-24, and the next (Model ergonomics, Parts A–C) on 2026-10-25, and the next (Model ergonomics, Part D) later on 2026-10-25, and the next (Model ergonomics, Part E) later on 2026-10-25, and the next (Model ergonomics follow-ups) later on 2026-10-25, and the next (the closed and old parts of `TODO.md` and `CHANGELOG.md` archived) on 2026-10-26, and the next (`TODO.md` an index over records; a changelog index) later on 2026-10-26, and the next (Revision 35's dispositions approved by the owner) later on 2026-10-26, and the next two (Spec revision 36, of 2026-10-22, and Revision 36's records regenerated, of 2026-10-23) later on 2026-10-26, and the next five (from the cloud sessions' SessionStart hook to Stage 2: Phase C's directional criteria swept, all of 2026-10-23) later on 2026-10-26, and the next three (from the night's decisions listed for the owner to Stage 2: Phase D part I's directional criteria swept, all of 2026-10-23) on 2026-10-27, and the next (Stage 2: the sweep can run on two Macs, of 2026-10-23) later on 2026-10-27, and the next (The two-Mac cross-check run live, of 2026-10-23) on 2026-10-28, and the next four (from Stage 2: Phase D part II's sweep ranges declared to When the full sweep runs, the last of 2026-10-23) on 2026-10-29, and the next three (from Stage 2: Phase D part II's seven criteria swept across two Macs to The stage 2 milestone review triaged, spec revision 38, the earliest of 2026-10-24) later on 2026-10-29, and the next five (from Version 2 stage 3's implementation plan drafted to Rule: a finished session writes the next session's brief, the last of 2026-10-24) on 2026-10-30, and the next (Stage 3 step 3: P2 (displaced coping) drafted with F1, probed, for the owner's approval, the earliest of 2026-10-25) on 2026-10-31, and the next three (from The two-Mac driver reaches Mac Mini1 through the `macmini1` alias to Stage 3 step 3: P2 and F1 probed together on Mac Mini1, all of 2026-10-25) later on 2026-10-31, so that the live file stays short enough to read (`tests/test_doc_size.py` bounds its size). The heading below is the section they
 were under; nothing in this file is reworded. Later entries are in `CHANGELOG.md`.
 
 ## [Unreleased] — 2026-10-11
+
+### Stage 3 step 3: P2 and F1 probed together on Mac Mini1 (2026-10-25)
+
+- The four F1 variants ran on Mac Mini1 (150 seeds, 10 workers, about 27 minutes), and their rows were joined by seed
+  with the five earlier variants' rows here; `docs/review/stage_3_displaced_coping_probe.md` is regenerated from both
+  and its Reading rewritten. `M11.C.6` expects a negative difference. With F1 the difference in `development` falls from
+  +0.0886 ± 0.0439 to +0.0288 ± 0.0245; with P2 `OVERFUNCTION` and F1 to +0.0178 ± 0.0254, an interval that includes
+  zero (the child's own term −0.0087 ± 0.0185, the parents' +0.0262 ± 0.0191). F1 kept gives the same within the
+  intervals. No variant shows the decline; reported as read, nothing tuned.
+- `docs/PROPOSAL — DISPLACED COPING (P2).md` gains §6.1 (the joint probe) and Q4 (draft revision 39 on that reading,
+  recommended, or trace the parents' term first); §9's next step is revision 39's draft.
+- The probe tool's summary no longer fails on a split run without `as_built` (the Mac Mini1 run's own render stopped
+  there after writing its rows); the join test covers it. Nothing under `src/bowen/` or `config/bowen/` changed; the
+  engine hash is unchanged (`66dcbb1e8ba5`).
+- Documents updated: the probe page, the proposal (status line, §6.1, §9), the plan (status line, §3.3.1, §3.8 step 3),
+  `_STATUS.md` and the reading list.
+
+### Stage 3 step 3: F1 added to the displaced coping probe, for the joint run on Mac Mini1 (2026-10-25)
+
+- `tools/stage_3_displaced_coping_probe.py` gains F1 (`docs/PROPOSAL — DISPLACED COPING (P2).md` §4.2) as four
+  variants: F1 alone and with P2 `OVERFUNCTION`, each with the ledger shed in a calm week (§9 Q2's recommendation) or
+  kept. F1 is put in by wrapping `tick.respond` and `tick.record_week` in the tool's process: what a bound held goes
+  on a per-person `floor_held` ledger, which the estimator's reading leaves out. `--variants` runs a subset, and
+  `--rows-in` joins several rows files by seed, so the five earlier variants' rows are reused, not rerun.
+- Two tests added (`tests/test_stage_3_probes.py`): the F1 ledger holds at the floor and sheds off it (its floor bound
+  proved by a mutant, run), and split runs join by seed. Suite: 1217 tests, 1216 pass and 1 strict expected failure.
+- Nothing under `src/bowen/` or `config/bowen/` changed; the engine hash is unchanged (`66dcbb1e8ba5`). Documents
+  updated: `CLAUDE.md`'s suite count; the probe page and the proposal follow with the run's numbers.
+
+### The two-Mac driver reaches Mac Mini1 through the `macmini1` alias (2026-10-25)
+
+- `tools/two_mac_sweep.py`'s `HOST` is now `macmini1`, the `~/.ssh/config` alias on this Mac (mini1.local, user
+  davemini, a key of its own without a passphrase, IPv4 only). Mac Mini1 refused this Mac's default key, and its IPv6
+  link-local route reset connections. `docs/two_mac_sweep.md` names the alias under *Before you start* and in the
+  `fetch` step. A live `check` reached Mac Mini1 through it.
+- `.gitignore` takes the eleven lines a security scan added on Mac Mini1 on 2026-10-25 (`node_modules/`, `.env.*`
+  except `.env.example`, and backup copies such as `*.bak-*`), so that Mac Mini1's checkout is clean after it pulls;
+  `check` refuses a split while either Mac has uncommitted changes to tracked files. No tracked file is ignored by them.
+- Nothing under `src/bowen/` or `config/bowen/` changed; the engine hash is unchanged (`66dcbb1e8ba5`). Documents
+  updated: `docs/two_mac_sweep.md`.
 
 ### Stage 3 step 3: P2 (displaced coping) drafted with F1, probed, for the owner's approval (2026-10-25)
 

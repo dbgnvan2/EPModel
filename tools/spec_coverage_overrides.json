@@ -858,7 +858,7 @@
  "M5.D.5": {
   "status": "partial",
   "evidence": [],
-  "note": "the opposition pulls up to the mover's level, not a mean, and the gain is outside M6.I.4 (step 8); the payoff propagating to subsequent movers is not built"
+  "note": "the opposition pulls up to the mover's level, not a mean, and the gain is outside M6.I.4 (step 8); an external mover pulls no one up (revision 44, T-165); the payoff propagating to subsequent movers is not built"
  },
  "M5.D.7b": {
   "status": "not done",

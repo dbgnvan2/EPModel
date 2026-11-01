@@ -37,9 +37,11 @@
 > * `M11.C.14` — every `act_every` weeks for `weeks`, both parents use the variant's technique toward C1 in the
 >   treatment and hold back (`WITHHOLD`, no target) in the baseline, so both arms lose the same weeks of the parents'
 >   own acts. C1 starts with an active symptom at `start_severity` of its threshold.
-> * `M11.C.21` — in both arms both parents over-function toward C1 every `act_every` weeks for the whole run
->   (`t0 + after` weeks), so C1 has lent functioning before the collapse; the arms differ only by the treatment's
->   `drop` in both parents' functional level at week `t0`. A composite since 2026-10-17 (owner decision).
+> * `M11.C.21` — in both arms both parents over-function toward C1 every `act_every` weeks, so C1 has lent
+>   functioning before the collapse; the arms differ only by the treatment's `drop` in both parents' functional level
+>   at week `t0`. A composite since 2026-10-17 (owner decision). Until revision 43 the scripted acts ran for the whole
+>   run (`t0 + after` weeks); from revision 44 (T-161 (b), the owner 2026-10-31, D4) they run from week 0 to week
+>   `t0 − 1` and end at `t0` in both arms, so after it the parents act on their own policy.
 >
 > **Version 1, the premises' arms (2026-10-17; spec revision 32, Claude's recommendation, approved by the owner 2026-10-17):**
 > * `M11.C.4` — the exception to the held-open rule below: the baseline holds `a`–`b` open for the whole run, so it is

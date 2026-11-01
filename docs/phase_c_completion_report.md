@@ -415,35 +415,35 @@ lies wholly on the opposite side; here `availability-and-learner-removed` is.
 
 | Mutant | Kind | Entropy difference | Top-move share difference | Result |
 |---|---|---|---|---|
-| *none (representation mutants: unchanged)* | — | -0.040 ± 0.006 | +0.054 ± 0.009 | pass |
-| `steepness-level-independent` | named | -0.005 ± 0.004 | +0.012 ± 0.006 | survived |
-| `mixing-weight-level-independent` | named | -0.032 ± 0.006 | +0.047 ± 0.010 | survived |
-| `learner-disabled` | named | -0.013 ± 0.002 | +0.026 ± 0.005 | survived |
-| `threshold-level-independent` | deletion | -0.027 ± 0.005 | +0.035 ± 0.009 | survived |
+| *none (representation mutants: unchanged)* | — | -0.039 ± 0.006 | +0.051 ± 0.009 | pass |
+| `steepness-level-independent` | named | -0.006 ± 0.004 | +0.013 ± 0.006 | survived |
+| `mixing-weight-level-independent` | named | -0.033 ± 0.006 | +0.048 ± 0.010 | survived |
+| `learner-disabled` | named | -0.013 ± 0.003 | +0.026 ± 0.005 | survived |
+| `threshold-level-independent` | deletion | -0.027 ± 0.006 | +0.036 ± 0.008 | survived |
 | `threshold-level-inverted` | sign-inverted | -0.022 ± 0.006 | +0.035 ± 0.010 | survived |
-| `standing-load-level-independent` | deletion | -0.036 ± 0.007 | +0.052 ± 0.008 | survived |
-| `standing-load-level-inverted` | sign-inverted | -0.031 ± 0.007 | +0.049 ± 0.010 | survived |
-| `level-blind` | deletion | +0.003 ± 0.004 | -0.001 ± 0.006 | **red** |
-| `availability-level-independent` | deletion | -0.028 ± 0.006 | +0.044 ± 0.008 | survived |
-| `availability-level-inverted` | sign-inverted | -0.015 ± 0.006 | +0.002 ± 0.010 | survived |
+| `standing-load-level-independent` | deletion | -0.038 ± 0.007 | +0.054 ± 0.008 | survived |
+| `standing-load-level-inverted` | sign-inverted | -0.031 ± 0.006 | +0.049 ± 0.009 | survived |
+| `level-blind` | deletion | +0.003 ± 0.004 | -0.002 ± 0.006 | **red** |
+| `availability-level-independent` | deletion | -0.027 ± 0.006 | +0.043 ± 0.008 | survived |
+| `availability-level-inverted` | sign-inverted | -0.015 ± 0.006 | +0.003 ± 0.010 | survived |
 | `availability-and-learner-removed` | deletion | +0.002 ± 0.002 | -0.005 ± 0.004 | **reversed** |
-| `band-level-independent` | deletion | -0.036 ± 0.006 | +0.057 ± 0.010 | survived |
-| `band-level-inverted` | sign-inverted | -0.037 ± 0.006 | +0.052 ± 0.010 | survived |
-| `outside-ness-level-independent` | deletion | -0.038 ± 0.005 | +0.048 ± 0.008 | survived |
-| `outside-ness-level-inverted` | sign-inverted | -0.032 ± 0.006 | +0.049 ± 0.009 | survived |
-| `routing-level-independent` | deletion | -0.033 ± 0.006 | +0.050 ± 0.010 | survived |
+| `band-level-independent` | deletion | -0.037 ± 0.006 | +0.058 ± 0.010 | survived |
+| `band-level-inverted` | sign-inverted | -0.036 ± 0.006 | +0.053 ± 0.010 | survived |
+| `outside-ness-level-independent` | deletion | -0.038 ± 0.006 | +0.051 ± 0.009 | survived |
+| `outside-ness-level-inverted` | sign-inverted | -0.033 ± 0.006 | +0.049 ± 0.009 | survived |
+| `routing-level-independent` | deletion | -0.032 ± 0.006 | +0.049 ± 0.009 | survived |
 | `routing-level-inverted` | sign-inverted | -0.039 ± 0.006 | +0.057 ± 0.010 | survived |
-| `hold-level-independent` | deletion | -0.040 ± 0.006 | +0.054 ± 0.009 | survived |
-| `hold-level-inverted` | sign-inverted | -0.040 ± 0.006 | +0.054 ± 0.009 | survived |
-| `c16-cited-grounds-removed` | deletion | -0.010 ± 0.004 | +0.021 ± 0.006 | survived |
-| `c16-grounds-removed` | deletion | +0.001 ± 0.004 | -0.003 ± 0.006 | **red** |
+| `hold-level-independent` | deletion | -0.039 ± 0.006 | +0.052 ± 0.009 | survived |
+| `hold-level-inverted` | sign-inverted | -0.039 ± 0.006 | +0.052 ± 0.009 | survived |
+| `c16-cited-grounds-removed` | deletion | -0.011 ± 0.004 | +0.023 ± 0.007 | survived |
+| `c16-grounds-removed` | deletion | -0.000 ± 0.003 | -0.001 ± 0.006 | **red** |
 | `steepness-inverted` | sign-inverted | -0.002 ± 0.003 | +0.011 ± 0.005 | survived |
 | `mixing-weight-inverted` | sign-inverted | -0.036 ± 0.006 | +0.062 ± 0.010 | survived |
-| `learner-inverted` | sign-inverted | -0.041 ± 0.008 | +0.048 ± 0.012 | survived |
+| `learner-inverted` | sign-inverted | -0.039 ± 0.008 | +0.046 ± 0.012 | survived |
 
 What this shows:
 
-- **No inversion run reverses C.16.** Inverting `M4.D.3a`'s availability leaves it passing: entropy -0.015 ± 0.006 and top-move share +0.002 ± 0.010. **This inversion is weak where C.16 runs.**
+- **No inversion run reverses C.16.** Inverting `M4.D.3a`'s availability leaves it passing: entropy -0.015 ± 0.006 and top-move share +0.003 ± 0.010. **This inversion is weak where C.16 runs.**
   It equals the deletion (every layer fully available) at level 20 and below on both layers, and at 40 and below on
   layer 1. Under the mutant, over the whole run, the lowered arm's members spend 39.9% of member-weeks at level 20 or
   below and 95.5% at 40 or below; the baseline arm's, 0.0% and 56.3%. Over the last
@@ -452,12 +452,12 @@ What this shows:
   of selections). So it mostly reverses layer 2 only. A stronger
   inversion was not tried.
 - **Availability carries part of the narrowing, not all of it.** Removing it leaves entropy at
-  -0.028 ± 0.006, against -0.040 ± 0.006 unmutated. No other single rule's removal turns it red; the level-blind mutant, which removes all nine at once, leaves no difference at all.
+  -0.027 ± 0.006, against -0.039 ± 0.006 unmutated. No other single rule's removal turns it red; the level-blind mutant, which removes all nine at once, leaves no difference at all.
 - **C.16's cited grounds.** Its criterion row cites `M4.C.1a` (KS03.2: steepness and band) and `M1.C.3a` (routing).
   Removing those together with `M4.D.3a`'s availability (`c16-grounds-removed`) turns it red: entropy
-  +0.001 ± 0.004. Removing the two cited rules alone, with availability kept (`c16-cited-grounds-removed`), leaves it passing: entropy -0.010 ± 0.004. Removing availability alone leaves it passing (-0.028 ± 0.006). Either set alone keeps a passing result; only removing both removes it, which is the pattern `M11.5`'s redundancy clause describes.
-- `M5.D.3`'s hold capacity acts in C.16's runs: the two hold mutants both leave it passing (entropy -0.040 ± 0.006 and -0.040 ± 0.006, against -0.040 ± 0.006 unmutated), each within the unmutated difference's half-width.
-- **Learning alone does not carry the result; with availability removed as well, removing it reverses it.** `M4.D.6` disabled leaves entropy at -0.013 ± 0.002, outside the half-width of the unmutated difference, and lowers the top-move share difference to +0.026 ± 0.005. Inverted, it leaves the narrowing within the half-width of the unmutated difference (-0.041 ± 0.008). With availability already removed, removing the learner as well takes the entropy difference from -0.028 ± 0.006 to +0.002 ± 0.002 (reversed) and the top-move share difference from +0.044 ± 0.008 to -0.005 ± 0.004.
+  -0.000 ± 0.003. Removing the two cited rules alone, with availability kept (`c16-cited-grounds-removed`), leaves it passing: entropy -0.011 ± 0.004. Removing availability alone leaves it passing (-0.027 ± 0.006). Either set alone keeps a passing result; only removing both removes it, which is the pattern `M11.5`'s redundancy clause describes.
+- `M5.D.3`'s hold capacity acts in C.16's runs: the two hold mutants both leave it passing (entropy -0.039 ± 0.006 and -0.039 ± 0.006, against -0.039 ± 0.006 unmutated), each within the unmutated difference's half-width.
+- **Learning alone does not carry the result; with availability removed as well, removing it reverses it.** `M4.D.6` disabled leaves entropy at -0.013 ± 0.003, outside the half-width of the unmutated difference, and lowers the top-move share difference to +0.026 ± 0.005. Inverted, it leaves the narrowing within the half-width of the unmutated difference (-0.039 ± 0.008). With availability already removed, removing the learner as well takes the entropy difference from -0.027 ± 0.006 to +0.002 ± 0.002 (reversed) and the top-move share difference from +0.043 ± 0.008 to -0.005 ± 0.004.
 
 Why composite, and not premise:
 

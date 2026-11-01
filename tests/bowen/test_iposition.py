@@ -254,12 +254,13 @@ def test_m5d4_an_angry_mover_stalls_rather_than_aborts():
     assert seq(state) is None and ends == ["iposition:end:stalled"]
 
 
-def drive_to_resolve(state):
+def drive_to_resolve(state, before_peak=lambda state: None):
     opposition_held(state)
     calm(state, RAVI)
     state.ties[TieId.of(RAVI, MARTA)].felt_impingement[RAVI] = 0.0
     week(state)
     deliver_to(state, RAVI, MARTA, index=1)  # the final attack, met calmly
+    before_peak(state)
     ip.advance_sequences(state, PARAMS)
     assert seq(state).stage == ip.RESOLVE
 
@@ -282,6 +283,28 @@ def test_m5d5_opposition_pulls_up_to_the_movers_level():
     assert state.people[MARTA].functional_level == marta_before + PARAMS.pull_up_rate * gap
     mean = sum(p.functional_level for p in state.people.values()) / len(state.people)
     assert state.people[RAVI].functional_level > mean  # pulled toward the mover, not a mean
+
+
+def test_m5d5_t165_an_external_movers_resolve_pulls_no_one_up():
+    """T-165 (spec revision 44, the owner 2026-10-31, D5): `M5.D.5`'s pull-up does not apply when the mover is the
+    external agent (`FE06.10`, `FE11.6`). The sequence still resolves and its follow-up is still due; the target's
+    level does not move toward the coach's."""
+    from src.bowen.engine.objects import Role as PersonRole
+
+    state = fresh()
+    state.people[RAVI].functional_level = 60.0
+    before = {}
+
+    def as_coach(state):
+        state.people[RAVI].role = PersonRole.EXTERNAL  # the mover is the external agent when the peak resolves
+        before["marta"] = state.people[MARTA].functional_level
+
+    drive_to_resolve(state, before_peak=as_coach)
+    assert before["marta"] < 60.0  # a member mover would pull her up (test_m5d5 above)
+    assert seq(state).pull_up == 0.0
+    assert state.people[MARTA].functional_level == before["marta"]
+    week(state)
+    assert seq(state).due == ip.FOLLOW_UP
 
 
 def test_m5d6_follow_up_is_due_the_week_after_resolve_and_skipping_it_reverts():

@@ -607,6 +607,9 @@ def test_s2_6_not_run_list_is_loaded_strictly():
 
 # --- S2.11 the committed record ---------------------------------------------------------------------------------
 
+@pytest.mark.xfail(strict=True, raises=KeyError,
+                   reason="T-170: spec revision 44 (2026-10-31) moved the engine hash to 09ca2b46c7e0 and "
+                   "regenerated every other record; the stage-end sweep reruns on it, split across both Macs")
 def test_s2_11_sweep_record_is_current():
     """The committed sweep record is what the tool renders from the committed cache for the current engine and
     config, without running anything (P6); a stale cache or a changed range would raise here."""

@@ -52,7 +52,7 @@ debits nothing and raises the claimant's outward axis by ``assertion_evidence_ga
   no attack in ``hold_window`` weeks the sequence settles without a peak.
 * ``RESOLVE`` — the opposition pulls up to the mover's level: ``T``'s functional level
   closes ``pull_up_rate`` of the gap to the mover's, if the mover's is higher (`M5.D.5`;
-  solid self, outside `M6.I.4`). ``FOLLOW_UP`` is due the next week (`M5.D.6`).
+  solid self, outside `M6.I.4`); an external mover pulls no one up (revision 44, T-165). ``FOLLOW_UP`` is due the next week (`M5.D.6`).
 * ``FOLLOW_UP`` (an outcome) — `STAY-IN-CONTACT` to ``T``. If it cannot be made (the tie
   is not live, or ``T`` has died) the pull-up is reverted and nothing completes. Made, the
   exchange is **complete** (`M5.D.7`): the mover's functional level rises by the small
@@ -78,6 +78,7 @@ from src.bowen.engine.identifiers import PersonId, TieId
 from src.bowen.engine.log_records import EffectRecord
 from src.bowen.engine.moves import DEFAULT_AREA
 from src.bowen.engine.objects import SCALE_MAX, Person, TieState
+from src.bowen.engine.objects import Role as PersonRole
 from src.bowen.engine.observe import self_channel_weight
 from src.bowen.engine.outside_ness import axes, efficacy
 from src.bowen.engine.params import EngineParams
@@ -262,11 +263,17 @@ def advance_sequences(state: RunState, params: EngineParams) -> list[EffectRecor
 def resolve(state: RunState, mover: PersonId, params: EngineParams) -> EffectRecord:
     """Purpose: the opposition pulls up to the mover's level, not to a mean (M5.D.5).
     Spec:    docs/bowen_agent_model_spec_v2.md#M5.D.5, #M5.D.6
-    Tests:   tests/bowen/test_iposition.py::test_m5d5_opposition_pulls_up_to_the_movers_level
+    Tests:   tests/bowen/test_iposition.py::test_m5d5_opposition_pulls_up_to_the_movers_level,
+             tests/bowen/test_iposition.py::test_m5d5_t165_an_external_movers_resolve_pulls_no_one_up
+
+    An external mover pulls no one up (revision 44, T-165): a rise toward the coach's own level is not the member's.
     """
     seq = state.people[mover].iposition_state
     other = state.people[seq.target]
-    gap = max(0.0, state.people[mover].functional_level - other.functional_level)
+    if state.people[mover].role is PersonRole.EXTERNAL:
+        gap = 0.0
+    else:
+        gap = max(0.0, state.people[mover].functional_level - other.functional_level)
     seq.pull_up = params.pull_up_rate * gap
     other.functional_level += seq.pull_up
     _set(seq, RESOLVE, state.tick)

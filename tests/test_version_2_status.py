@@ -236,10 +236,11 @@ def test_w3_a_pass_whose_named_mutant_survived_is_not_labelled_unmutated():
     """Milestone review MR-28: a directional pass with no red mutant was labelled "pass, no recorded mutation" even
     where its named mutant ran and survived (`M11.C.11`, `M11.C.15`, `M11.C.48`, `M11.C.48[phase_d]`,
     `docs/phase_d_mutation_record.md`). Such a pass says the mutant survived, names it, and still blocks W1 and W3; a
-    pass with no mutant in any record keeps the old label. Since spec revision 43 `M11.C.11`, `M11.C.15` and
-    `M11.C.17` each have a red mutant beside the survivor, so they are proved; with the red ones taken away the
-    survivor is what the page shows. Mutation: survived mutants not read (all three unmutated)."""
-    keys = ("M11.C.11", "M11.C.15", "M11.C.17")
+    pass with no mutant in any record keeps the old label. Since spec revision 43 `M11.C.11` and `M11.C.15` each have a
+    red mutant beside the survivor, so they are proved; with the red ones taken away the survivor is what the page
+    shows. `M11.C.17` left this test at revision 44 (T-165): its red mutant, `coach-pull-up-removed`, became the rule
+    and was retired. Mutation: survived mutants not read (both unmutated)."""
+    keys = ("M11.C.11", "M11.C.15")
     rows = {s.key: s for s in tool.statuses()}
     for key in keys:
         assert rows[key].status == "pass" and rows[key].final and "proved by" in rows[key].evidence, key
@@ -253,9 +254,9 @@ def test_w3_a_pass_whose_named_mutant_survived_is_not_labelled_unmutated():
         assert s.status == "pass, named mutant survived", (key, s.status)
         assert not s.final and {"W1", "W3"} <= s.blocks
         assert "survived" in s.evidence, (key, s.evidence)
-    assert rows["M11.C.17"].evidence.endswith("; survived: `landed-contact-changes-nothing` (Phase D mutation record)")
-    assert unmutated["M11.C.17"].status == "pass, no recorded mutation"
-    assert not unmutated["M11.C.17"].final and {"W1", "W3"} <= unmutated["M11.C.17"].blocks
+        assert s.evidence.endswith("(Phase D mutation record)"), (key, s.evidence)
+        assert unmutated[key].status == "pass, no recorded mutation", (key, unmutated[key].status)
+        assert not unmutated[key].final and {"W1", "W3"} <= unmutated[key].blocks
 
 
 def test_s2_11_status_page_is_current():

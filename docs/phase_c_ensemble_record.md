@@ -5,7 +5,7 @@ seeds (`M3.D.4a`), stopped adaptively (`M17.A.1`, `M13.4`): `UNDETERMINED` at th
 pass. Every verdict carries its class (`M11.5`). **A premise passing confirms that the code renders the
 spec; it is not a finding about families.** The constants are the Phase C freeze of 2026-10-07.
 
-code_hash: acd9b162e605d81693dd2d4672010d3d2ca3fb83e3c98a8e67c9cfc7fe6a5ff2
+code_hash: fb62c634202c9b0730b7e6d9a7cb94b202a6f0d55d309c267486ddbdcd3ac97f
 
 Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25, `ensemble_margin` = 0.1, `ensemble_alpha` = 0.05, `fallback_flag_rate` = 0.2, `equivalence_margin` = 0.5.
 
@@ -14,8 +14,8 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
 | `M11.C.1` | premise | **PASS** | 150 | `time_to_threshold` -2.89 ± 0.21, p 7.13e-27, holds | — | 0.00 | — |
 | `M11.C.3` | premise | **PASS** | 50 | `seeker_anxiety` -1.33 ± 0.15, p 2.68e-09, holds; `third_anxiety` +1.13 ± 0.21, p 3.49e-08, holds; `partner_anxiety` +0.962 ± 0.19 (reported only) | baseline 0 of 50; treatment 0 of 50 | 0.00 | — |
 | `M11.C.4` | premise | **PASS** | 100 | `actor_relief_now` -2.55 ± 0.4, p 4.67e-16, holds; `family_anxiety_at_nodal` +9 ± 1.2, p 3.92e-17, holds | baseline 0 of 100; treatment 3 of 100 (3 rewritten) | 0.00 | — |
-| `M11.C.5` | composite | **FAIL** | 100 | `target_reaction` -9.14 ± 22, p 0.599, does not hold; `third_person_symptom_load` -3.35 ± 11, p 0.75, does not hold | treatment 0 of 100 | 0.00 | — |
-| `M11.C.16` | composite | **PASS** | 150 | `repertoire_entropy` -0.0405 ± 0.006, p 3.69e-21, holds; `top_move_share` +0.0535 ± 0.0089 (reported only) | — | 0.00 | — |
+| `M11.C.5` | composite | **FAIL** | 100 | `target_reaction` -6.12 ± 21, p 0.413, does not hold; `third_person_symptom_load` -3.9 ± 11, p 0.79, does not hold | treatment 0 of 100 | 0.00 | — |
+| `M11.C.16` | composite | **PASS** | 150 | `repertoire_entropy` -0.0392 ± 0.006, p 1.83e-20, holds; `top_move_share` +0.0515 ± 0.0091 (reported only) | — | 0.00 | — |
 | `M11.C.19` | check | **PASS** | 50 | `outward_failed` +1 ± 0, p 8e-13, holds; `inward_failed` -1 ± 0, p 8e-13, holds | — | 0.00 | — |
 | `M11.C.25` | premise | **PASS** | 50 | `first_dominant` +0 ± 0, equivalence bound 0.246, within | — | 0.00 | — |
 | `M11.C.29` | mixed | **FAIL** | 50 | `budget` +0 ± 0.11 (reported only); `third_symptom_weeks` +2.54 ± 4.4, p 0.87, does not hold; `completions` +0 ± 0 (reported only) | baseline 14 of 200 (7 owed a step, 7 rewritten); treatment 5 of 50 (2 owed a step, 3 rewritten) | 0.00 | move never occurred: (I-POSITION completed) |
@@ -32,10 +32,10 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
 | `M11.C.38[-0 vs -5]` | premise | **PASS** | 100 | `time_to_threshold` -1.55 ± 0.23, p 3.68e-16, holds | — | 0.00 | — |
 | `M11.C.38[-5 vs -10]` | premise | **PASS** | 100 | `time_to_threshold` -1.21 ± 0.19, p 4.7e-15, holds | — | 0.00 | — |
 | `M11.C.38[-10 vs -15]` | premise | **PASS** | 100 | `time_to_threshold` -0.99 ± 0.14, p 1.35e-15, holds | — | 0.00 | — |
-| `M11.C.41[light: lower level]` | mixed | **PASS** | 150 | `mean_acute` +93.7 ± 9.7, p 5.46e-26, holds; `reactive_over_chance` +0.0642 ± 0.0031, p 1.16e-26, holds | — | 0.00 | — |
-| `M11.C.41[heavy: lower level]` | mixed | **PASS** | 150 | `mean_acute` +104 ± 11, p 2.72e-25, holds; `reactive_over_chance` +0.0642 ± 0.003, p 1.16e-26, holds | — | 0.00 | — |
-| `M11.C.41[higher level: heavier stress]` | mixed | **FAIL** | 100 | `mean_acute` +12.7 ± 8.2, p 0.00515, holds; `reactive_over_chance` -0.000661 ± 0.0025, p 0.625, does not hold | — | 0.00 | — |
-| `M11.C.41[lower level: heavier stress]` | mixed | **FAIL** | 150 | `mean_acute` +19.2 ± 13, p 0.00631, holds; `reactive_over_chance` -0.00119 ± 0.0024, p 0.915, does not hold | — | 0.00 | — |
+| `M11.C.41[light: lower level]` | mixed | **PASS** | 150 | `mean_acute` +96.4 ± 9.9, p 5.58e-26, holds; `reactive_over_chance` +0.0642 ± 0.0031, p 1.16e-26, holds | — | 0.00 | — |
+| `M11.C.41[heavy: lower level]` | mixed | **PASS** | 150 | `mean_acute` +107 ± 11, p 1.51e-25, holds; `reactive_over_chance` +0.0645 ± 0.003, p 1.16e-26, holds | — | 0.00 | — |
+| `M11.C.41[higher level: heavier stress]` | mixed | **FAIL** | 100 | `mean_acute` +11.9 ± 7.9, p 0.00419, holds; `reactive_over_chance` -0.000574 ± 0.0026, p 0.614, does not hold | — | 0.00 | — |
+| `M11.C.41[lower level: heavier stress]` | mixed | **FAIL** | 150 | `mean_acute` +19.5 ± 13, p 0.00752, holds; `reactive_over_chance` -0.00107 ± 0.0023, p 0.893, does not hold | — | 0.00 | — |
 
 ## Not built in Phase C
 
@@ -230,29 +230,29 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
   "readouts": [
    {
     "baseline_position": null,
-    "baseline_sd": 131.68039579660964,
+    "baseline_sd": 130.30708628964604,
     "direction": 1,
-    "half_width": 21.80673701198884,
+    "half_width": 21.334903751262555,
     "holds": false,
-    "mean_difference": -9.13628505306585,
-    "n_nonzero": 88,
-    "p": 0.5993757991943538,
-    "pooled_sd": 126.88985977456197,
+    "mean_difference": -6.1194855959071095,
+    "n_nonzero": 89,
+    "p": 0.4125730897621354,
+    "pooled_sd": 125.55811741936456,
     "readout": "target_reaction",
-    "w_plus": 1898.0
+    "w_plus": 2057.0
    },
    {
     "baseline_position": null,
-    "baseline_sd": 48.798881156361915,
+    "baseline_sd": 49.51685831021746,
     "direction": 1,
-    "half_width": 10.778895107494439,
+    "half_width": 11.186993571955686,
     "holds": false,
-    "mean_difference": -3.346834078666548,
-    "n_nonzero": 92,
-    "p": 0.7503498176375472,
-    "pooled_sd": 48.63364467690495,
+    "mean_difference": -3.904975721313728,
+    "n_nonzero": 91,
+    "p": 0.7897153186787945,
+    "pooled_sd": 49.46903400918308,
     "readout": "third_person_symptom_load",
-    "w_plus": 1966.0
+    "w_plus": 1890.0
    }
   ],
   "fallback_rate": 0.0,
@@ -278,24 +278,24 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
   "readouts": [
    {
     "baseline_position": null,
-    "baseline_sd": 0.019135225994162543,
+    "baseline_sd": 0.019333319831202823,
     "direction": -1,
-    "half_width": 0.005962809776228614,
+    "half_width": 0.006037611459080532,
     "holds": true,
-    "mean_difference": -0.040476717294645005,
-    "n_nonzero": 147,
-    "p": 3.690586868906096e-21,
-    "pooled_sd": 0.02616834534457519,
+    "mean_difference": -0.03923547505361842,
+    "n_nonzero": 146,
+    "p": 1.8306539177471367e-20,
+    "pooled_sd": 0.026127072889557797,
     "readout": "repertoire_entropy",
-    "w_plus": 10284.0
+    "w_plus": 10074.0
    },
    {
     "baseline_position": null,
-    "baseline_sd": 0.03119137098041544,
+    "baseline_sd": 0.031859573674180325,
     "direction": 1,
-    "half_width": 0.008885015744527307,
-    "mean_difference": 0.05353881314068033,
-    "pooled_sd": 0.03980119776694734,
+    "half_width": 0.009066985077615698,
+    "mean_difference": 0.05149206939363502,
+    "pooled_sd": 0.039709122103266915,
     "readout": "top_move_share",
     "report_only": true
    }
@@ -1416,27 +1416,27 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
   "readouts": [
    {
     "baseline_position": null,
-    "baseline_sd": 31.446896806346377,
+    "baseline_sd": 31.346674297511118,
     "direction": 1,
-    "half_width": 9.709282167259797,
+    "half_width": 9.905559857060405,
     "holds": true,
-    "mean_difference": 93.70817191913729,
+    "mean_difference": 96.36329770346066,
     "n_nonzero": 148,
-    "p": 5.464982990601762e-26,
-    "pooled_sd": 44.986212005275696,
+    "p": 5.576693177500595e-26,
+    "pooled_sd": 45.17206376082663,
     "readout": "mean_acute",
-    "w_plus": 10987.0
+    "w_plus": 10986.0
    },
    {
     "baseline_position": null,
-    "baseline_sd": 0.019418106125652184,
+    "baseline_sd": 0.01900008303400972,
     "direction": 1,
-    "half_width": 0.0031039619773567135,
+    "half_width": 0.0030920105321475097,
     "holds": true,
-    "mean_difference": 0.06418151907462906,
+    "mean_difference": 0.0641529737863021,
     "n_nonzero": 150,
     "p": 1.1614203074307053e-26,
-    "pooled_sd": 0.017859357619614522,
+    "pooled_sd": 0.017704819134795338,
     "readout": "reactive_over_chance",
     "w_plus": 11325.0
    }
@@ -1454,27 +1454,27 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
   "readouts": [
    {
     "baseline_position": null,
-    "baseline_sd": 34.42710353761131,
+    "baseline_sd": 31.646523527424367,
     "direction": 1,
-    "half_width": 11.129010381721189,
+    "half_width": 11.110585826510558,
     "holds": true,
-    "mean_difference": 103.93957396828804,
+    "mean_difference": 107.14548002583535,
     "n_nonzero": 150,
-    "p": 2.7174731168635117e-25,
-    "pooled_sd": 50.972061940358344,
+    "p": 1.5092554378064862e-25,
+    "pooled_sd": 50.61258704836108,
     "readout": "mean_acute",
-    "w_plus": 11166.0
+    "w_plus": 11196.0
    },
    {
     "baseline_position": null,
-    "baseline_sd": 0.019477595645540222,
+    "baseline_sd": 0.019357223751694172,
     "direction": 1,
-    "half_width": 0.0029503899598588815,
+    "half_width": 0.0029577799395596118,
     "holds": true,
-    "mean_difference": 0.06423965674670318,
+    "mean_difference": 0.06446419283460403,
     "n_nonzero": 150,
     "p": 1.1614203074307053e-26,
-    "pooled_sd": 0.017735606190014366,
+    "pooled_sd": 0.01754464924860045,
     "readout": "reactive_over_chance",
     "w_plus": 11325.0
    }
@@ -1492,29 +1492,29 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
   "readouts": [
    {
     "baseline_position": null,
-    "baseline_sd": 29.315975955495183,
+    "baseline_sd": 29.21084333869326,
     "direction": 1,
-    "half_width": 8.239644319501226,
+    "half_width": 7.859094982808708,
     "holds": true,
-    "mean_difference": 12.683053200829194,
-    "n_nonzero": 97,
-    "p": 0.005150754005969173,
-    "pooled_sd": 33.95025332668066,
+    "mean_difference": 11.902252079152676,
+    "n_nonzero": 98,
+    "p": 0.0041892819259992135,
+    "pooled_sd": 32.025812894671006,
     "readout": "mean_acute",
-    "w_plus": 3090.0
+    "w_plus": 3170.0
    },
    {
     "baseline_position": null,
-    "baseline_sd": 0.019531815643790067,
+    "baseline_sd": 0.019143317040065617,
     "direction": 1,
-    "half_width": 0.002526882383232559,
+    "half_width": 0.002593415922455137,
     "holds": false,
-    "mean_difference": -0.0006614139542045355,
-    "n_nonzero": 85,
-    "p": 0.6254660647375849,
-    "pooled_sd": 0.01955348424006755,
+    "mean_difference": -0.0005744337408165149,
+    "n_nonzero": 86,
+    "p": 0.6135186717751306,
+    "pooled_sd": 0.019349533990898247,
     "readout": "reactive_over_chance",
-    "w_plus": 1755.0
+    "w_plus": 1804.0
    }
   ],
   "fallback_rate": 0.0,
@@ -1530,29 +1530,29 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
   "readouts": [
    {
     "baseline_position": null,
-    "baseline_sd": 55.30471247930166,
+    "baseline_sd": 55.66342335241454,
     "direction": 1,
-    "half_width": 13.091315204027826,
+    "half_width": 13.403888849714347,
     "holds": true,
-    "mean_difference": 19.157463281779485,
-    "n_nonzero": 141,
-    "p": 0.006309004027803112,
-    "pooled_sd": 59.454553910244215,
+    "mean_difference": 19.533537568530793,
+    "n_nonzero": 142,
+    "p": 0.007518101830565898,
+    "pooled_sd": 60.0840335837823,
     "readout": "mean_acute",
-    "w_plus": 6218.0
+    "w_plus": 6271.0
    },
    {
     "baseline_position": null,
-    "baseline_sd": 0.016150865724891522,
+    "baseline_sd": 0.01630699499884532,
     "direction": 1,
-    "half_width": 0.0023545824570837663,
+    "half_width": 0.0023328786766779034,
     "holds": false,
-    "mean_difference": -0.0011940168912994741,
+    "mean_difference": -0.0010738840095359343,
     "n_nonzero": 143,
-    "p": 0.9153347787146014,
-    "pooled_sd": 0.01597775305521493,
+    "p": 0.8931344549598637,
+    "pooled_sd": 0.01591925577770591,
     "readout": "reactive_over_chance",
-    "w_plus": 4466.5
+    "w_plus": 4531.5
    }
   ],
   "fallback_rate": 0.0,

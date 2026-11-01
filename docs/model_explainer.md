@@ -255,7 +255,9 @@ last three years of weeks:
     is small. At revision 39 it passes in the Phase D record (`coached_rise` +0.0391 ± 0.03), but that mutant,
     `landed-contact-changes-nothing`, survives, so the pass is not proved by mutation (T-143; `docs/version_2_status.md`).
     Its passes at revisions 19 and 20 were carried by a defect, the system's adjustment stacking; at revisions 21 and 22
-    it did not pass in a way that counted.
+    it did not pass in a way that counted. At revision 44 the pull-up of a resolved I-position no longer applies when
+    the coach is the mover (T-165, the owner's D5), and the row fails (`coached_rise` −0.00003 ± 0.00017, p 0.43, 150
+    seeds): in 136 of the 150 seeds the two arms' coached rise is the same, so the pull-up was what carried the pass.
 
   Flattening the load weighting leaves C.18 and C.20 passing, so at revision 20 their mutation clauses were restated
   to the mechanisms above (owner decision, 2026-10-11; `docs/implementation_plan_phase_d.md`, step 6).
@@ -603,7 +605,10 @@ accepted `M11.C.22`'s failure for now.
   `M11.C.21`'s scripted collapse is, counts in the next week (revision 41, T-145, `[I]`). `M11.C.21` reads the rise
   from the end of the week before the collapse, so the return counts; regenerated at revision 41 it passes (the
   child's rise +0.271 ± 0.32, p 0.0139, 100 seeds), where at revision 40 it failed (−0.04 ± 0.44): before T-145 no week
-  held the collapse, so nothing returned.
+  held the collapse, so nothing returned. That pass rested on the arm's design: the parents' scripted over-functioning
+  toward the child went on after their collapse. At revision 44 the scripted acts end at the collapse in both arms
+  (T-161 (b), the owner's D4), so what the parents do after it is their own policy's, and the row fails (−0.72 ± 1.09,
+  p 0.94, 100 seeds).
 
 > Implement as a **switch with hysteresis, indexed per area** — not a linear scalar and not a personal trait. The old engine's `functioning_balance` is close in name and wrong in shape.
 >
@@ -763,7 +768,7 @@ At low level a person is nearly all automatic; as level rises a real self-direct
 3. **Abort branches — defend, counterattack, go silent.** These sit at the *first* opposition and are the **usual** response, not the exception. Each returns the mover to the prior balance.
 4. **Hold course.** ⚠ **Corrected 2026-08-27 — this step was stated backwards here and in the spec.** The gate is the mover's **freedom from** anger: "when he is finally able to maintain his course **without getting angry** at the opposition… the opposition does a final intense emotional attack." An angry mover **does not reach the peak at all** — the sequence stalls quietly rather than aborting loudly, which is a different failure from step 3's. Ch13 mentions anger exactly once and it is the mover's; Kerr 1988 (`FE04.4`) and Bowen 1988 (`FE11.19`) say the same about the same person's anger. **Anger is negative evidence for a differentiated move, never a gate admitting one.** → spec `M5.D.4`, `M5.D.4a`
 5. **The peak** — a final intense emotional attack.
-6. **If the mover stays calm:** "the opposition becomes calm and **pulls up to his level** of individuality," and then "another, and another will do the same."
+6. **If the mover stays calm:** "the opposition becomes calm and **pulls up to his level** of individuality," and then "another, and another will do the same." In the model the pull-up does not apply when the mover is the coach (`M5.D.5`, revision 44, T-165): a family member can go beyond the coach's level, so the coach does not lift anyone toward its own (`[K]` `FE06.10`), and the family changes when its leader emerges from within it (`[B]` `FE11.6`).
 7. **Mandatory follow-up the next day** — "this is the point where the feeling system dictates withdrawal, which will result in the system 'tightening up' again." **Skipping it reverts the gain.**
 
 **Source:** `[M]` Ch13 · L13.3 for the sequence; `[T]` Ch21 · L21.4 for the follow-up and the timings; `[T]` `FE11.9` for the `PREPARE` phase that now precedes step 1 — Bowen's own February 1967 trip ran **months of planning** and **one private letter per important triangle**, timed "**to cause the triangles to come to me**". **Success usually follows several failures.**
@@ -2233,7 +2238,8 @@ written; it is not a rule against reopening.
   - **First opposition.** The mover holds only if their anxiety fits their capacity (level × efficacy);
     otherwise they defend, counterattack or go silent, and return to where they started.
   - **`HOLD`.** An angry mover stalls; no peak comes. A calm one who meets the next attack resolves.
-  - **`RESOLVE`.** The other rises toward the mover's level.
+  - **`RESOLVE`.** The other rises toward the mover's level, unless the mover is the coach: a coach's resolved
+    position raises no one (revision 44, T-165).
   - **`FOLLOW_UP`.** Contact the next week completes the exchange. It brings a small level gain, a
     permanent drop in the triangle's intensity, and lower impingement on both sides of the tie.
 - **No reaction is not success.** It means the move did not land.

@@ -151,6 +151,9 @@ records are regenerated once.
   - 2026-10-31, owner 2026-10-31 (`docs/version_2_definition_plan.md` §8, D4, as recommended): **(b)**, the scripted
     `OVERFUNCTION` ends at `t0` in both arms, reversing the arm design of 2026-10-16. Built at spec revision 44 with
     T-165, tests first; `M11.C.21` is then expected to fail and is decided again on the verdict that run gives.
+  - 2026-10-31, built at spec revision 44 (`src/bowen/ensemble/criteria_d.py` `arm_c21`, test
+    `test_m11c21_t161_the_scripted_overfunction_ends_at_t0_in_both_arms`, shown red first). Regenerated on
+    `09ca2b46c7e0` (Mac Mini1): `M11.C.21` fails, `target_rise` −0.72 ± 1.09, p 0.94 (100 seeds), the ad hoc value.
 - [x] T-162 ⟨later⟩ **`M11.C.34` passes at revision 41 and no mutant turns it red (found in revision 41's
   regeneration, 2026-10-29; not fixed).** At revision 40 it failed and its failure was accepted as a finding (version
   1's disposition, owner 2026-10-17); regenerated on `6ce8be104767` it passes (`automatic_reaction` −0.113 ± 0.13, p

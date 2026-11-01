@@ -668,16 +668,17 @@ def arm_c34(arm, seed, settings):
 
 
 def arm_c21(arm, seed, settings):
-    """M11.C.21: the nuclear four. In both arms both parents over-function toward C1 every ``act_every`` weeks for the
-    whole run: they are projecting parents, and C1 has lent functioning when they collapse. At week ``t0`` both parents'
-    functional level drops by ``drop`` in the treatment (none in the
-    baseline), C1 untouched. Read: C1's functional level at the end of the run less at the end of week ``t0 − 1``, just
+    """M11.C.21: the nuclear four. In both arms both parents over-function toward C1 every ``act_every`` weeks from week
+    0 to week ``t0 − 1``: they are projecting parents, and C1 has lent functioning when they collapse. The scripted acts
+    end at ``t0`` in both arms, so after it the parents act on their own policy and the arms differ by the drop alone
+    (revision 44, T-161 (b)). At week ``t0`` both parents' functional level drops by ``drop`` in the treatment (none in
+    the baseline), C1 untouched. Read: C1's functional level at the end of the run less at the end of week ``t0 − 1``, just
     before the drop, so what returns to C1 in week ``t0`` counts (revision 41, T-145: the drop falls between weeks
     ``t0 − 1`` and ``t0``, and `M6.I.4a` reads week ``t0``'s start at the end of week ``t0 − 1``)."""
     t0, after, drop, every = settings["t0"], settings["after"], settings["drop"], settings["act_every"]
     weeks = t0 + after
-    forced = {**_scripted(FATHER, "OVERFUNCTION", CHILD, weeks, every),
-              **_scripted(MOTHER, "OVERFUNCTION", CHILD, weeks, every)}
+    forced = {**_scripted(FATHER, "OVERFUNCTION", CHILD, t0, every),
+              **_scripted(MOTHER, "OVERFUNCTION", CHILD, t0, every)}
 
     if t0 < 1:  # the readout starts at the end of week t0 − 1, which a watch after a tick sees only from t0 = 1
         raise ValueError(f"M11.C.21's t0 must be at least 1, not {t0}")

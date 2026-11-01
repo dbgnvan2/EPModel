@@ -24,7 +24,7 @@ Reviewer: ________  Started: ________  Spec revision reviewed: ________
 
 These define what the model does. A run that disagrees with them is a defect.
 
-- [ ] [bowen_agent_model_spec_v2.md](bowen_agent_model_spec_v2.md) — the spec (v2.0, revision 43; version 1 is
+- [ ] [bowen_agent_model_spec_v2.md](bowen_agent_model_spec_v2.md) — the spec (v2.0, revision 44; version 1 is
       revision 32). Objects (M1), reference family (M2), clocks and ordering (M3), the fast tick (M4), moves (M5),
       invariants (M6), the slow tick (M7), live positions (M8), beliefs (M9), parameters (M10), acceptance criteria
       (M11), framing (M11.F), the readout schema (M11.G), out of scope (M12), the run log and trace (M16).
@@ -222,6 +222,8 @@ verdicts over ensembles (`tools/phase_d_record.py`; plan step 12). Mutations are
 **Generated, 2026-10-28 (the stage 3 milestone review's triage batch):** [version_2_revision_41_changes.md](version_2_revision_41_changes.md) — the same records at `1ca9bb4` (revision 39's regeneration, which revision 40 kept) compared with the records after spec revision 41's one regeneration, from `tools/record_changes.py revision-41`: a changed verdict is a new result under a new rule, reported beside revision 40's and version 1's verdicts (`M11.F`), never a finding when the criterion is a premise (`M11.5`). Frozen at `c9b9b0c` since revision 43.
 
 **Generated, 2026-10-30 (the version 2 definition batch):** [version_2_revision_43_changes.md](version_2_revision_43_changes.md) — the same records at `c9b9b0c` (revision 41's regeneration, which revision 42 kept) compared with the records after spec revision 43's one regeneration, from `tools/record_changes.py revision-43`: a changed verdict is a new result under a new rule, reported beside revision 42's and version 1's verdicts (`M11.F`), never a finding when the criterion is a premise (`M11.5`). Its batch is Claude's recommendations, approved by the owner 2026-10-31.
+
+**Generated, 2026-10-31 (the batch from the owner's D4 and D5):** [version_2_revision_44_changes.md](version_2_revision_44_changes.md) — the same records at `64512b6` (revision 43's regeneration) compared with the records after spec revision 44's one regeneration, from `tools/record_changes.py revision-44`: a changed verdict is a new result under a new rule, reported beside revision 43's and version 1's verdicts (`M11.F`), never a finding when the criterion is a premise (`M11.5`). Its batch is the owner's D4 and D5 of 2026-10-31.
 
 **Approved 2026-10-21:** [milestone_review_brief.md](milestone_review_brief.md) — the brief for a
 critical review of the whole model at each milestone (end of version 2's stages 2 and 3, before a tag, before an

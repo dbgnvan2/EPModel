@@ -3,6 +3,11 @@
 Items found while building the version 2 definition batch (`docs/version_2_definition_plan.md` §2, spec revision 43),
 on the owner's instruction of 2026-10-29 to proceed with Claude's recommendations.
 
+- [ ] T-170 ⟨now⟩ **The stage-end sweep reruns on spec revision 44's engine, `09ca2b46c7e0` (the batch, 2026-10-31;
+  not run yet).** Every record but `docs/version_2_sweep_record.md` was regenerated on it;
+  `tests/test_version_2_sweep.py::test_s2_11_sweep_record_is_current` is a strict expected failure until the sweep
+  reruns, split across both Macs (`docs/two_mac_sweep.md`; Mac Mini1 at 10 workers, this Mac at 8 under `nice -n 15`),
+  after a cross-check on `M11.C.16` and `M11.C.23`.
 - [ ] T-165 ⟨later⟩ **`M11.C.17`'s coached rise runs through the coach's I-position pull-up, which the estimator
   counts as the member's own functioning (found tracing `landed-contact-changes-nothing`'s survival, 2026-10-29; not
   decided).** With `perspective_gain` at 0 the coached arm still rises (ad hoc, 150 seeds: +0.0332 ± 0.028). The rise
@@ -24,6 +29,10 @@ on the owner's instruction of 2026-10-29 to proceed with Claude's recommendation
     `M5.D.5`'s pull-up does not apply when the mover is the external agent; it replaces revision 43's
     `coach-pull-up-removed` clause in `M11.C.17` (D1). Built at spec revision 44 with T-161, tests first; `M11.C.17`
     is then expected to fail and is decided again.
+  - 2026-10-31, built at spec revision 44 (`src/bowen/engine/iposition.py`, test
+    `test_m5d5_t165_an_external_movers_resolve_pulls_no_one_up`, shown red first); `coach-pull-up-removed` retired.
+    Regenerated on `09ca2b46c7e0` (Mac Mini1): `M11.C.17` fails, `coached_rise` −0.00003 ± 0.00017, p 0.43 (150
+    seeds); in 136 of 150 seeds the two arms' coached rise is the same (`docs/version_2_revision_44_changes.md`).
 - [x] T-166 ⟨later⟩ **`tools/group_g_readout.py` still averages unmatched first cutoffs (the batch's `learning-qa`
   review, 2026-10-29; not fixed).** Its "mean run before the first cutoff" and "mean matched uncut run" columns read
   every first cutoff, so an unmatched one counts with a baseline of 0, the bias T-123 removed from `M11.C.48`. It is
@@ -49,3 +58,14 @@ on the owner's instruction of 2026-10-29 to proceed with Claude's recommendation
   `README.md`'s revision 43), fixed by hand the same day. Widen it to both forms; it will then flag MR-22's genuinely
   pending text (revision 40, the spec's status line and `docs/spec_revision_log.md`) and dated history entries, which
   need `PENDING` entries or an exemption rule. Changes no engine file.
+- [ ] T-169 ⟨later⟩ **A coach's completed `I-POSITION` exchange still acts on the member (spec revision 44's
+  `learning-qa` review, 2026-10-31; not decided).** Revision 44 (T-165, D5) takes away `M5.D.5`'s pull-up when the mover
+  is the external agent. When that exchange completes (`complete`, `src/bowen/engine/iposition.py`), the member target's
+  outside-ness axes are still multiplied by `1 − respect_gain`, the tie's `functioning_habit` is set to 0, the shared
+  triangle takes `triangle_floor_decrement` and the budget is reduced (`M5.D.7`, `M1.C.5`); whether any of these reaches
+  the member's estimated own functioning, and so `M11.C.17`'s coached rise, was not traced, and whether D5's reasoning
+  covers them is the owner's. Two smaller items from the same review: `M5.D.5`'s "the payoff **MUST** propagate to
+  subsequent movers" is not built (coverage partial), and when it is it must leave an external mover's sequence out;
+  and `tests/bowen/test_iposition.py::test_m5d5_opposition_pulls_up_to_the_movers_level`'s last assertion (the mover
+  above the mean) always holds, since the mover is set to 60, so the exact-formula assertion above it carries the
+  test. No engine file changed.

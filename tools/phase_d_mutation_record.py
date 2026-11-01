@@ -115,14 +115,8 @@ MUTANTS = (
            ("M11.C.17", "M11.C.7[joint over one spouse]", "M11.C.7[joint over sided]"), "config/bowen/constants.md",
            "| `perspective_gain` | 0.1 |", "| `perspective_gain` | 0.0 |",
            "M1.E.7's landed contact removed: a coach's contact that lands raises no systems perspective"),
-    # M11.C.17's survivor above: the coached rise does not run through M1.E.7 alone. M5.D.5's pull-up when the coach's
-    # own I-POSITION resolves closes part of the gap to the coach's level, and the slow tick's estimator credits it to the
-    # member's own functioning. This removes that pull-up for an external mover (spec revision 43).
-    Mutant("coach-pull-up-removed", NAMED, ("M11.C.17",), "src/bowen/engine/iposition.py",
-           "    gap = max(0.0, state.people[mover].functional_level - other.functional_level)\n",
-           "    gap = 0.0 if state.people[mover].role.value == 'external' else max(\n"
-           "        0.0, state.people[mover].functional_level - other.functional_level)\n",
-           "M5.D.5's pull-up removed when the mover is an external agent: a coach's resolved I-POSITION raises no one"),
+    # Revision 43's coach-pull-up-removed (M5.D.5's pull-up removed for an external mover) is retired: at revision 44
+    # (T-165, the owner 2026-10-31, D5) that removal is the rule, so the coach's resolved I-POSITION raises no one.
     # M11.C.22's row: M7.D.2a's stabilising term flattened MUST turn it red (the lock-in that holds the partners' excess).
     Mutant("lock-in-removed", NAMED, ("M11.C.22",), "config/bowen/constants.md",
            "| `lock_in_gain` | 0.2 |", "| `lock_in_gain` | 0.0 |",

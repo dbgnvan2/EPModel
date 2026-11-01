@@ -14,6 +14,10 @@
 > moved out of the code into `act_classes.md` (`M8.3`, `M5.B.4`, `M5.B.5`) are lists of act names, not constants, and
 > their contents did not change.
 >
+> **Spec revision 44 (2026-10-31; T-161 (b) and T-165, the owner's D4 and D5) changed no constant**, so it has no row
+> here. `M5.D.5`'s pull-up reads `pull_up_rate` as before and skips an external mover; `M11.C.21`'s scripted acts end at
+> `t0` with its settings in `criteria.md` unchanged.
+>
 > **The version 2 definition batch (spec revision 43, 2026-10-29) changed no constant**, so it has no row here.
 > `M11.C.48`'s seed count (100 → 200, T-163) is a criterion setting in `criteria.md`, not a constant; `M11.C.48`'s
 > readout (T-123) is code. The four new Phase D mutants (`M11.C.11`, `M11.C.15`, `M11.C.17`, `M11.C.34`) edit the

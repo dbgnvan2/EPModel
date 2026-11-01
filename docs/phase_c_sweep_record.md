@@ -9,15 +9,15 @@ the mutation record's **reversed**, which needs every gating interval wholly on 
 readout reported beside the verdict and never tested is marked *(report only)*. Plan D9's fourth
 constant, each criterion's dominant constant, is not swept: plan §3 names none.
 
-engine_hash: da5981f6ec0b05b834f21d4a10c2335124279ae5fecb7de0011ee4bd1acc8f6f
+engine_hash: 09ca2b46c7e0692661108964b274336370bcc5f3d3e4c6dfbe38bab4beb998fd
 
 Results are cached by `tools/mutant_runner.py` (`docs/records_cache/sweep.json`); this file is rendered
 from that cache.
 
 | Criterion | Central verdict | Setting | Verdict | Seeds | Readouts (mean difference; direction) |
 |---|---|---|---|---|---|
-| `M11.C.5` | FAIL | learning_rate 0.1 | FAIL | 100 | `target_reaction` -5.97 **opposite sign**; `third_person_symptom_load` -5.1 **opposite sign** |
-| `M11.C.16` | PASS | learning_rate 0.1 | PASS | 150 | `repertoire_entropy` -0.0294; `top_move_share` +0.0483 *(report only)* |
+| `M11.C.5` | FAIL | learning_rate 0.1 | FAIL | 100 | `target_reaction` -6.52 **opposite sign**; `third_person_symptom_load` -6.16 **opposite sign** |
+| `M11.C.16` | PASS | learning_rate 0.1 | PASS | 150 | `repertoire_entropy` -0.0311; `top_move_share` +0.0505 *(report only)* |
 | `M11.C.42` | FAIL | learning_rate 0.1 | FAIL | 100 | `triangle_reuse` -0.21 **opposite sign** |
 | `M11.C.44` | FAIL | learning_rate 0.1 | FAIL | 150 | `outside_inside_ratio` +0.0453 |
 | `M11.C.45` | FAIL | learning_rate 0.1 | FAIL | 150 | `triangle_rate` -0.00153 **opposite sign** |
@@ -25,8 +25,8 @@ from that cache.
 | `M11.C.27[stable,remove_one]` | FAIL | learning_rate 0.1 | FAIL | 50 | `pair_deviation` -0.134 **opposite sign**; `pair_deviation_week_1` -0.134 **opposite sign** *(report only)*; `pair_deviation_week_2` -0.0776 **opposite sign** *(report only)*; `pair_deviation_week_3` +0.0226 *(report only)*; `pair_deviation_week_4` +0.0971 *(report only)*; `pair_deviation_week_5` +0.161 *(report only)*; `pair_deviation_week_6` +0.178 *(report only)*; `pair_deviation_week_7` +0.167 *(report only)*; `pair_deviation_week_8` +0.229 *(report only)*; `pair_deviation_week_9` +0.241 *(report only)*; `pair_deviation_week_10` +0.208 *(report only)*; `pair_deviation_week_11` +0.187 *(report only)*; `pair_deviation_week_12` +0.177 *(report only)* |
 | `M11.C.27[unstable,add_third]` | FAIL | learning_rate 0.1 | FAIL | 50 | `pair_deviation` +0.0153 **opposite sign**; `pair_deviation_week_1` +0.0153 **opposite sign** *(report only)*; `pair_deviation_week_2` +0.0659 **opposite sign** *(report only)*; `pair_deviation_week_3` +0.0911 **opposite sign** *(report only)*; `pair_deviation_week_4` +0.0676 **opposite sign** *(report only)*; `pair_deviation_week_5` +0.0609 **opposite sign** *(report only)*; `pair_deviation_week_6` +0.0813 **opposite sign** *(report only)*; `pair_deviation_week_7` +0.074 **opposite sign** *(report only)*; `pair_deviation_week_8` +0.0994 **opposite sign** *(report only)*; `pair_deviation_week_9` +0.107 **opposite sign** *(report only)*; `pair_deviation_week_10` +0.1 **opposite sign** *(report only)*; `pair_deviation_week_11` +0.13 **opposite sign** *(report only)*; `pair_deviation_week_12` +0.136 **opposite sign** *(report only)* |
 | `M11.C.27[unstable,remove_one]` | PASS | learning_rate 0.1 | PASS | 100 | `pair_deviation` -0.0768; `pair_deviation_week_1` -0.0768 *(report only)*; `pair_deviation_week_2` -0.0304 *(report only)*; `pair_deviation_week_3` +0.0389 **opposite sign** *(report only)*; `pair_deviation_week_4` +0.08 **opposite sign** *(report only)*; `pair_deviation_week_5` +0.105 **opposite sign** *(report only)*; `pair_deviation_week_6` +0.141 **opposite sign** *(report only)*; `pair_deviation_week_7` +0.163 **opposite sign** *(report only)*; `pair_deviation_week_8` +0.212 **opposite sign** *(report only)*; `pair_deviation_week_9` +0.223 **opposite sign** *(report only)*; `pair_deviation_week_10` +0.238 **opposite sign** *(report only)*; `pair_deviation_week_11` +0.239 **opposite sign** *(report only)*; `pair_deviation_week_12` +0.24 **opposite sign** *(report only)* |
-| `M11.C.5` | FAIL | learning_rate 0.4 | FAIL | 150 | `target_reaction` +3.15; `third_person_symptom_load` +1.44 |
-| `M11.C.16` | PASS | learning_rate 0.4 | PASS | 150 | `repertoire_entropy` -0.0412; `top_move_share` +0.0531 *(report only)* |
+| `M11.C.5` | FAIL | learning_rate 0.4 | FAIL | 150 | `target_reaction` -1.74 **opposite sign**; `third_person_symptom_load` +1.71 |
+| `M11.C.16` | PASS | learning_rate 0.4 | PASS | 150 | `repertoire_entropy` -0.0413; `top_move_share` +0.0548 *(report only)* |
 | `M11.C.42` | FAIL | learning_rate 0.4 | FAIL | 100 | `triangle_reuse` -0.05 **opposite sign** |
 | `M11.C.44` | FAIL | learning_rate 0.4 | FAIL | 150 | `outside_inside_ratio` -0.00951 **opposite sign** |
 | `M11.C.45` | FAIL | learning_rate 0.4 | FAIL | 150 | `triangle_rate` -0.000667 **opposite sign** |
@@ -34,8 +34,8 @@ from that cache.
 | `M11.C.27[stable,remove_one]` | FAIL | learning_rate 0.4 | FAIL | 100 | `pair_deviation` -0.0759 **opposite sign**; `pair_deviation_week_1` -0.0759 **opposite sign** *(report only)*; `pair_deviation_week_2` -0.0494 **opposite sign** *(report only)*; `pair_deviation_week_3` +0.00071 *(report only)*; `pair_deviation_week_4` +0.037 *(report only)*; `pair_deviation_week_5` +0.115 *(report only)*; `pair_deviation_week_6` +0.175 *(report only)*; `pair_deviation_week_7` +0.212 *(report only)*; `pair_deviation_week_8` +0.27 *(report only)*; `pair_deviation_week_9` +0.283 *(report only)*; `pair_deviation_week_10` +0.278 *(report only)*; `pair_deviation_week_11` +0.228 *(report only)*; `pair_deviation_week_12` +0.219 *(report only)* |
 | `M11.C.27[unstable,add_third]` | FAIL | learning_rate 0.4 | FAIL | 50 | `pair_deviation` -0.0082; `pair_deviation_week_1` -0.0082 *(report only)*; `pair_deviation_week_2` +0.0404 **opposite sign** *(report only)*; `pair_deviation_week_3` +0.0917 **opposite sign** *(report only)*; `pair_deviation_week_4` +0.0752 **opposite sign** *(report only)*; `pair_deviation_week_5` +0.0795 **opposite sign** *(report only)*; `pair_deviation_week_6` +0.0982 **opposite sign** *(report only)*; `pair_deviation_week_7` +0.047 **opposite sign** *(report only)*; `pair_deviation_week_8` +0.0659 **opposite sign** *(report only)*; `pair_deviation_week_9` +0.0548 **opposite sign** *(report only)*; `pair_deviation_week_10` +0.0544 **opposite sign** *(report only)*; `pair_deviation_week_11` +0.0603 **opposite sign** *(report only)*; `pair_deviation_week_12` +0.0199 **opposite sign** *(report only)* |
 | `M11.C.27[unstable,remove_one]` | PASS | learning_rate 0.4 | PASS | 50 | `pair_deviation` -0.126; `pair_deviation_week_1` -0.126 *(report only)*; `pair_deviation_week_2` -0.0602 *(report only)*; `pair_deviation_week_3` -0.021 *(report only)*; `pair_deviation_week_4` +0.0594 **opposite sign** *(report only)*; `pair_deviation_week_5` +0.106 **opposite sign** *(report only)*; `pair_deviation_week_6` +0.174 **opposite sign** *(report only)*; `pair_deviation_week_7` +0.192 **opposite sign** *(report only)*; `pair_deviation_week_8` +0.182 **opposite sign** *(report only)*; `pair_deviation_week_9` +0.229 **opposite sign** *(report only)*; `pair_deviation_week_10` +0.227 **opposite sign** *(report only)*; `pair_deviation_week_11` +0.188 **opposite sign** *(report only)*; `pair_deviation_week_12` +0.168 **opposite sign** *(report only)* |
-| `M11.C.5` | FAIL | credit_horizon 2 | FAIL | 150 | `target_reaction` -3.03 **opposite sign**; `third_person_symptom_load` -4 **opposite sign** |
-| `M11.C.16` | PASS | credit_horizon 2 | PASS | 150 | `repertoire_entropy` -0.0399; `top_move_share` +0.0536 *(report only)* |
+| `M11.C.5` | FAIL | credit_horizon 2 | FAIL | 150 | `target_reaction` -2.22 **opposite sign**; `third_person_symptom_load` -3.46 **opposite sign** |
+| `M11.C.16` | PASS | credit_horizon 2 | PASS | 150 | `repertoire_entropy` -0.0403; `top_move_share` +0.0538 *(report only)* |
 | `M11.C.42` | FAIL | credit_horizon 2 | FAIL | 50 | `triangle_reuse` +0.22 |
 | `M11.C.44` | FAIL | credit_horizon 2 | PASS | 100 | `outside_inside_ratio` +0.143 |
 | `M11.C.45` | FAIL | credit_horizon 2 | FAIL | 150 | `triangle_rate` -0.00372 **opposite sign** |
@@ -43,8 +43,8 @@ from that cache.
 | `M11.C.27[stable,remove_one]` | FAIL | credit_horizon 2 | FAIL | 50 | `pair_deviation` -0.148 **opposite sign**; `pair_deviation_week_1` -0.148 **opposite sign** *(report only)*; `pair_deviation_week_2` -0.0875 **opposite sign** *(report only)*; `pair_deviation_week_3` -0.00286 **opposite sign** *(report only)*; `pair_deviation_week_4` +0.0545 *(report only)*; `pair_deviation_week_5` +0.106 *(report only)*; `pair_deviation_week_6` +0.149 *(report only)*; `pair_deviation_week_7` +0.175 *(report only)*; `pair_deviation_week_8` +0.236 *(report only)*; `pair_deviation_week_9` +0.195 *(report only)*; `pair_deviation_week_10` +0.229 *(report only)*; `pair_deviation_week_11` +0.274 *(report only)*; `pair_deviation_week_12` +0.229 *(report only)* |
 | `M11.C.27[unstable,add_third]` | FAIL | credit_horizon 2 | FAIL | 50 | `pair_deviation` -0.0189; `pair_deviation_week_1` -0.0189 *(report only)*; `pair_deviation_week_2` +0.0351 **opposite sign** *(report only)*; `pair_deviation_week_3` +0.0662 **opposite sign** *(report only)*; `pair_deviation_week_4` +0.071 **opposite sign** *(report only)*; `pair_deviation_week_5` +0.0992 **opposite sign** *(report only)*; `pair_deviation_week_6` +0.0829 **opposite sign** *(report only)*; `pair_deviation_week_7` +0.0272 **opposite sign** *(report only)*; `pair_deviation_week_8` +0.0113 **opposite sign** *(report only)*; `pair_deviation_week_9` +0.00281 **opposite sign** *(report only)*; `pair_deviation_week_10` +0.0468 **opposite sign** *(report only)*; `pair_deviation_week_11` +0.0455 **opposite sign** *(report only)*; `pair_deviation_week_12` +0.0216 **opposite sign** *(report only)* |
 | `M11.C.27[unstable,remove_one]` | PASS | credit_horizon 2 | PASS | 100 | `pair_deviation` -0.0665; `pair_deviation_week_1` -0.0665 *(report only)*; `pair_deviation_week_2` -0.0257 *(report only)*; `pair_deviation_week_3` +0.0236 **opposite sign** *(report only)*; `pair_deviation_week_4` +0.076 **opposite sign** *(report only)*; `pair_deviation_week_5` +0.0963 **opposite sign** *(report only)*; `pair_deviation_week_6` +0.16 **opposite sign** *(report only)*; `pair_deviation_week_7` +0.179 **opposite sign** *(report only)*; `pair_deviation_week_8` +0.224 **opposite sign** *(report only)*; `pair_deviation_week_9` +0.237 **opposite sign** *(report only)*; `pair_deviation_week_10` +0.25 **opposite sign** *(report only)*; `pair_deviation_week_11` +0.253 **opposite sign** *(report only)*; `pair_deviation_week_12` +0.248 **opposite sign** *(report only)* |
-| `M11.C.5` | FAIL | credit_horizon 6 | FAIL | 150 | `target_reaction` +1.4; `third_person_symptom_load` +2.86 |
-| `M11.C.16` | PASS | credit_horizon 6 | PASS | 150 | `repertoire_entropy` -0.0273; `top_move_share` +0.0394 *(report only)* |
+| `M11.C.5` | FAIL | credit_horizon 6 | FAIL | 150 | `target_reaction` +2.13; `third_person_symptom_load` +3.96 |
+| `M11.C.16` | PASS | credit_horizon 6 | PASS | 150 | `repertoire_entropy` -0.0269; `top_move_share` +0.0385 *(report only)* |
 | `M11.C.42` | FAIL | credit_horizon 6 | FAIL | 100 | `triangle_reuse` -0.11 **opposite sign** |
 | `M11.C.44` | FAIL | credit_horizon 6 | FAIL | 150 | `outside_inside_ratio` +0.0864 |
 | `M11.C.45` | FAIL | credit_horizon 6 | FAIL | 150 | `triangle_rate` -0.00383 **opposite sign** |
@@ -52,8 +52,8 @@ from that cache.
 | `M11.C.27[stable,remove_one]` | FAIL | credit_horizon 6 | FAIL | 100 | `pair_deviation` -0.0898 **opposite sign**; `pair_deviation_week_1` -0.0898 **opposite sign** *(report only)*; `pair_deviation_week_2` -0.0455 **opposite sign** *(report only)*; `pair_deviation_week_3` +0.0351 *(report only)*; `pair_deviation_week_4` +0.0826 *(report only)*; `pair_deviation_week_5` +0.131 *(report only)*; `pair_deviation_week_6` +0.174 *(report only)*; `pair_deviation_week_7` +0.203 *(report only)*; `pair_deviation_week_8` +0.233 *(report only)*; `pair_deviation_week_9` +0.251 *(report only)*; `pair_deviation_week_10` +0.321 *(report only)*; `pair_deviation_week_11` +0.3 *(report only)*; `pair_deviation_week_12` +0.302 *(report only)* |
 | `M11.C.27[unstable,add_third]` | FAIL | credit_horizon 6 | FAIL | 50 | `pair_deviation` +0.0113 **opposite sign**; `pair_deviation_week_1` +0.0113 **opposite sign** *(report only)*; `pair_deviation_week_2` +0.0459 **opposite sign** *(report only)*; `pair_deviation_week_3` +0.0709 **opposite sign** *(report only)*; `pair_deviation_week_4` +0.0764 **opposite sign** *(report only)*; `pair_deviation_week_5` +0.0811 **opposite sign** *(report only)*; `pair_deviation_week_6` +0.0656 **opposite sign** *(report only)*; `pair_deviation_week_7` +0.0708 **opposite sign** *(report only)*; `pair_deviation_week_8` +0.0444 **opposite sign** *(report only)*; `pair_deviation_week_9` +0.0364 **opposite sign** *(report only)*; `pair_deviation_week_10` +0.00884 **opposite sign** *(report only)*; `pair_deviation_week_11` -0.0142 *(report only)*; `pair_deviation_week_12` +0.00486 **opposite sign** *(report only)* |
 | `M11.C.27[unstable,remove_one]` | PASS | credit_horizon 6 | PASS | 50 | `pair_deviation` -0.0924; `pair_deviation_week_1` -0.0924 *(report only)*; `pair_deviation_week_2` -0.0648 *(report only)*; `pair_deviation_week_3` +0.0226 **opposite sign** *(report only)*; `pair_deviation_week_4` +0.107 **opposite sign** *(report only)*; `pair_deviation_week_5` +0.141 **opposite sign** *(report only)*; `pair_deviation_week_6` +0.212 **opposite sign** *(report only)*; `pair_deviation_week_7` +0.224 **opposite sign** *(report only)*; `pair_deviation_week_8` +0.195 **opposite sign** *(report only)*; `pair_deviation_week_9` +0.203 **opposite sign** *(report only)*; `pair_deviation_week_10` +0.21 **opposite sign** *(report only)*; `pair_deviation_week_11` +0.217 **opposite sign** *(report only)*; `pair_deviation_week_12` +0.212 **opposite sign** *(report only)* |
-| `M11.C.5` | FAIL | policy_temperature 0.5 | FAIL | 150 | `target_reaction` +10.4; `third_person_symptom_load` -6.28 **opposite sign** |
-| `M11.C.16` | PASS | policy_temperature 0.5 | PASS | 150 | `repertoire_entropy` -0.0312; `top_move_share` +0.0408 *(report only)* |
+| `M11.C.5` | FAIL | policy_temperature 0.5 | FAIL | 150 | `target_reaction` +10.8; `third_person_symptom_load` -5.81 **opposite sign** |
+| `M11.C.16` | PASS | policy_temperature 0.5 | PASS | 150 | `repertoire_entropy` -0.0315; `top_move_share` +0.0405 *(report only)* |
 | `M11.C.42` | FAIL | policy_temperature 0.5 | FAIL | 100 | `triangle_reuse` -0.33 **opposite sign** |
 | `M11.C.44` | FAIL | policy_temperature 0.5 | FAIL | 150 | `outside_inside_ratio` -0.0154 **opposite sign** |
 | `M11.C.45` | FAIL | policy_temperature 0.5 | FAIL | 150 | `triangle_rate` +0.00161 |
@@ -61,8 +61,8 @@ from that cache.
 | `M11.C.27[stable,remove_one]` | FAIL | policy_temperature 0.5 | FAIL | 100 | `pair_deviation` -0.0812 **opposite sign**; `pair_deviation_week_1` -0.0812 **opposite sign** *(report only)*; `pair_deviation_week_2` -0.0552 **opposite sign** *(report only)*; `pair_deviation_week_3` -0.0132 **opposite sign** *(report only)*; `pair_deviation_week_4` +0.0483 *(report only)*; `pair_deviation_week_5` +0.121 *(report only)*; `pair_deviation_week_6` +0.173 *(report only)*; `pair_deviation_week_7` +0.232 *(report only)*; `pair_deviation_week_8` +0.256 *(report only)*; `pair_deviation_week_9` +0.287 *(report only)*; `pair_deviation_week_10` +0.265 *(report only)*; `pair_deviation_week_11` +0.272 *(report only)*; `pair_deviation_week_12` +0.274 *(report only)* |
 | `M11.C.27[unstable,add_third]` | FAIL | policy_temperature 0.5 | FAIL | 50 | `pair_deviation` -0.00151; `pair_deviation_week_1` -0.00151 *(report only)*; `pair_deviation_week_2` +0.0456 **opposite sign** *(report only)*; `pair_deviation_week_3` +0.0819 **opposite sign** *(report only)*; `pair_deviation_week_4` +0.0753 **opposite sign** *(report only)*; `pair_deviation_week_5` +0.078 **opposite sign** *(report only)*; `pair_deviation_week_6` +0.0813 **opposite sign** *(report only)*; `pair_deviation_week_7` +0.0275 **opposite sign** *(report only)*; `pair_deviation_week_8` +0.0624 **opposite sign** *(report only)*; `pair_deviation_week_9` +0.079 **opposite sign** *(report only)*; `pair_deviation_week_10` +0.0944 **opposite sign** *(report only)*; `pair_deviation_week_11` +0.0956 **opposite sign** *(report only)*; `pair_deviation_week_12` +0.025 **opposite sign** *(report only)* |
 | `M11.C.27[unstable,remove_one]` | PASS | policy_temperature 0.5 | PASS | 50 | `pair_deviation` -0.132; `pair_deviation_week_1` -0.132 *(report only)*; `pair_deviation_week_2` -0.0726 *(report only)*; `pair_deviation_week_3` -0.0111 *(report only)*; `pair_deviation_week_4` +0.0694 **opposite sign** *(report only)*; `pair_deviation_week_5` +0.134 **opposite sign** *(report only)*; `pair_deviation_week_6` +0.183 **opposite sign** *(report only)*; `pair_deviation_week_7` +0.238 **opposite sign** *(report only)*; `pair_deviation_week_8` +0.227 **opposite sign** *(report only)*; `pair_deviation_week_9` +0.204 **opposite sign** *(report only)*; `pair_deviation_week_10` +0.203 **opposite sign** *(report only)*; `pair_deviation_week_11` +0.216 **opposite sign** *(report only)*; `pair_deviation_week_12` +0.225 **opposite sign** *(report only)* |
-| `M11.C.5` | FAIL | policy_temperature 2.0 | FAIL | 150 | `target_reaction` -12.7 **opposite sign**; `third_person_symptom_load` +5.84 |
-| `M11.C.16` | PASS | policy_temperature 2.0 | PASS | 150 | `repertoire_entropy` -0.0299; `top_move_share` +0.0551 *(report only)* |
+| `M11.C.5` | FAIL | policy_temperature 2.0 | FAIL | 150 | `target_reaction` -8.72 **opposite sign**; `third_person_symptom_load` +3.78 |
+| `M11.C.16` | PASS | policy_temperature 2.0 | PASS | 150 | `repertoire_entropy` -0.029; `top_move_share` +0.0529 *(report only)* |
 | `M11.C.42` | FAIL | policy_temperature 2.0 | FAIL | 50 | `triangle_reuse` +0.18 |
 | `M11.C.44` | FAIL | policy_temperature 2.0 | FAIL | 100 | `outside_inside_ratio` +0.0103 |
 | `M11.C.45` | FAIL | policy_temperature 2.0 | FAIL | 100 | `triangle_rate` +0.00208 |
@@ -83,15 +83,15 @@ from that cache.
   "readouts": [
    {
     "direction": 1,
-    "half_width": 22.121705356141703,
-    "mean_difference": -5.968764597866487,
+    "half_width": 22.044621558229576,
+    "mean_difference": -6.516156611264563,
     "readout": "target_reaction",
     "report_only": false
    },
    {
     "direction": 1,
-    "half_width": 11.745588159462812,
-    "mean_difference": -5.104355786848124,
+    "half_width": 11.693621435807493,
+    "mean_difference": -6.1569075850015365,
     "readout": "third_person_symptom_load",
     "report_only": false
    }
@@ -106,15 +106,15 @@ from that cache.
   "readouts": [
    {
     "direction": -1,
-    "half_width": 0.0050897438018291325,
-    "mean_difference": -0.029410543890870274,
+    "half_width": 0.00524275280172618,
+    "mean_difference": -0.031115628151906664,
     "readout": "repertoire_entropy",
     "report_only": false
    },
    {
     "direction": 1,
-    "half_width": 0.007236902208982361,
-    "mean_difference": 0.04826326987011749,
+    "half_width": 0.007442157299235121,
+    "mean_difference": 0.05048785074772715,
     "readout": "top_move_share",
     "report_only": true
    }
@@ -577,15 +577,15 @@ from that cache.
   "readouts": [
    {
     "direction": 1,
-    "half_width": 18.764053693186504,
-    "mean_difference": 3.1467080198391475,
+    "half_width": 18.844773699405714,
+    "mean_difference": -1.7404821395718977,
     "readout": "target_reaction",
     "report_only": false
    },
    {
     "direction": 1,
-    "half_width": 8.924981346845993,
-    "mean_difference": 1.4440547630993583,
+    "half_width": 8.83354699674473,
+    "mean_difference": 1.708688543431709,
     "readout": "third_person_symptom_load",
     "report_only": false
    }
@@ -600,15 +600,15 @@ from that cache.
   "readouts": [
    {
     "direction": -1,
-    "half_width": 0.006561915896565988,
-    "mean_difference": -0.0412031290981683,
+    "half_width": 0.006381006851672582,
+    "mean_difference": -0.04130851431607847,
     "readout": "repertoire_entropy",
     "report_only": false
    },
    {
     "direction": 1,
-    "half_width": 0.010830150831682412,
-    "mean_difference": 0.053130007315066875,
+    "half_width": 0.010741061884805052,
+    "mean_difference": 0.05477609490056738,
     "readout": "top_move_share",
     "report_only": true
    }
@@ -1071,15 +1071,15 @@ from that cache.
   "readouts": [
    {
     "direction": 1,
-    "half_width": 16.15369572113777,
-    "mean_difference": -3.025726480585642,
+    "half_width": 16.268182278110924,
+    "mean_difference": -2.2168369655643962,
     "readout": "target_reaction",
     "report_only": false
    },
    {
     "direction": 1,
-    "half_width": 10.179967096354217,
-    "mean_difference": -4.003893676180986,
+    "half_width": 10.289676451820581,
+    "mean_difference": -3.463925550252977,
     "readout": "third_person_symptom_load",
     "report_only": false
    }
@@ -1094,15 +1094,15 @@ from that cache.
   "readouts": [
    {
     "direction": -1,
-    "half_width": 0.006074816135746837,
-    "mean_difference": -0.0398593818407601,
+    "half_width": 0.005979014814525188,
+    "mean_difference": -0.04029080133433716,
     "readout": "repertoire_entropy",
     "report_only": false
    },
    {
     "direction": 1,
-    "half_width": 0.00904313502050814,
-    "mean_difference": 0.05362586194702164,
+    "half_width": 0.008874370441245694,
+    "mean_difference": 0.053820167560551094,
     "readout": "top_move_share",
     "report_only": true
    }
@@ -1565,15 +1565,15 @@ from that cache.
   "readouts": [
    {
     "direction": 1,
-    "half_width": 18.024238999376628,
-    "mean_difference": 1.395323611670886,
+    "half_width": 17.79175550488201,
+    "mean_difference": 2.1261492012477734,
     "readout": "target_reaction",
     "report_only": false
    },
    {
     "direction": 1,
-    "half_width": 9.78557870617591,
-    "mean_difference": 2.8557973401403682,
+    "half_width": 9.690105766154772,
+    "mean_difference": 3.9556831927364153,
     "readout": "third_person_symptom_load",
     "report_only": false
    }
@@ -1588,15 +1588,15 @@ from that cache.
   "readouts": [
    {
     "direction": -1,
-    "half_width": 0.005813986060021748,
-    "mean_difference": -0.027321067845128784,
+    "half_width": 0.005871876994832217,
+    "mean_difference": -0.02688075924176257,
     "readout": "repertoire_entropy",
     "report_only": false
    },
    {
     "direction": 1,
-    "half_width": 0.008482111135502951,
-    "mean_difference": 0.03941940067311806,
+    "half_width": 0.008696547569157933,
+    "mean_difference": 0.038546122309963515,
     "readout": "top_move_share",
     "report_only": true
    }
@@ -2059,15 +2059,15 @@ from that cache.
   "readouts": [
    {
     "direction": 1,
-    "half_width": 15.492809130663169,
-    "mean_difference": 10.43326936114736,
+    "half_width": 15.442852132853766,
+    "mean_difference": 10.829820140377356,
     "readout": "target_reaction",
     "report_only": false
    },
    {
     "direction": 1,
-    "half_width": 11.064794277345825,
-    "mean_difference": -6.284767318786279,
+    "half_width": 10.992904214890736,
+    "mean_difference": -5.807118050250442,
     "readout": "third_person_symptom_load",
     "report_only": false
    }
@@ -2082,15 +2082,15 @@ from that cache.
   "readouts": [
    {
     "direction": -1,
-    "half_width": 0.006991797561677423,
-    "mean_difference": -0.031195180233875977,
+    "half_width": 0.006869593780160511,
+    "mean_difference": -0.03148342547109806,
     "readout": "repertoire_entropy",
     "report_only": false
    },
    {
     "direction": 1,
-    "half_width": 0.010687173074634827,
-    "mean_difference": 0.04079679533078271,
+    "half_width": 0.010584180597472613,
+    "mean_difference": 0.04051866567933807,
     "readout": "top_move_share",
     "report_only": true
    }
@@ -2553,15 +2553,15 @@ from that cache.
   "readouts": [
    {
     "direction": 1,
-    "half_width": 16.8961605512592,
-    "mean_difference": -12.65755811577527,
+    "half_width": 16.456268335178407,
+    "mean_difference": -8.719691881498344,
     "readout": "target_reaction",
     "report_only": false
    },
    {
     "direction": 1,
-    "half_width": 8.860513306531072,
-    "mean_difference": 5.839685359295487,
+    "half_width": 9.036742093587096,
+    "mean_difference": 3.7772010920728794,
     "readout": "third_person_symptom_load",
     "report_only": false
    }
@@ -2576,15 +2576,15 @@ from that cache.
   "readouts": [
    {
     "direction": -1,
-    "half_width": 0.004287099207658376,
-    "mean_difference": -0.029867516047483587,
+    "half_width": 0.004211416370352154,
+    "mean_difference": -0.02895781498932193,
     "readout": "repertoire_entropy",
     "report_only": false
    },
    {
     "direction": 1,
-    "half_width": 0.007076684098515039,
-    "mean_difference": 0.055089909522695726,
+    "half_width": 0.007012861473998076,
+    "mean_difference": 0.052944173712969195,
     "readout": "top_move_share",
     "report_only": true
    }

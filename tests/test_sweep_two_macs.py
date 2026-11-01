@@ -200,11 +200,12 @@ def test_m17e1_a_cache_without_meta_is_written_without_it(tmp_path):
 
 def test_m17e1_sweep_machines_pin_numpy_and_ci_does_not():
     """``requirements-sweep.txt`` pins the version the committed cache records; ``requirements.txt``, which CI installs
-    on Python 3.11–3.13 (1.26.4 has no 3.13 wheel), leaves NumPy unpinned."""
+    on Python 3.11–3.13 (1.26.4 has no 3.13 wheel), does not pin NumPy (its major version is bounded, T-151)."""
     assert tool.sweep_numpy_pin() == PIN
     assert Cache(tool.CACHE_NAME).meta == {"numpy": PIN}
     lines = [ln.split("#")[0].strip() for ln in (REPO / "requirements.txt").read_text(encoding="utf-8").splitlines()]
-    assert "numpy" in lines
+    numpy = [ln for ln in lines if ln.startswith("numpy")]
+    assert len(numpy) == 1 and "==" not in numpy[0]
 
 
 # --- the merge --------------------------------------------------------------------------------------------------

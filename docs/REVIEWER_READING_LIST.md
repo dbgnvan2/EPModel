@@ -134,6 +134,7 @@ The last command writes the trace and chart listed in §4. The commands that reg
 | [review/phase_c_chart_seed7.html](review/phase_c_chart_seed7.html) | The same run as a chart of each person's anxiety and functioning by week. |
 | [review/phase_c_famdiag_seed7.json](review/phase_c_famdiag_seed7.json) | The same run as a family diagram. It opens in a separate viewer, `epmodel-fam-diag`, which is a **private repository** an outside reviewer cannot open; the file is readable as JSON, and the trace shows the same run. How a run maps to the diagram is in [<PROPOSAL — RUN VISUALIZATION MAPPING.md>](<PROPOSAL — RUN VISUALIZATION MAPPING.md>). |
 | [REVIEW_version_1_outputs.md](REVIEW_version_1_outputs.md) | Every kind of output the model produces and the framing each carries so it cannot be read as a statement about a real family. Signed off by the owner 2026-10-17. |
+| [REVIEW_version_2_outputs.md](REVIEW_version_2_outputs.md) | The same review for version 2's W8: version 1's outputs again and the pages version 2 added (group G's readout, stage 3's probes, traces and criteria pages, the sweep record, the status and changes pages). Signed off by the owner 2026-11-01. |
 
 Seed 7 was used for the first traces and was not chosen for what it shows. A test fails when any of the three files
 above is not what its tool renders now.
@@ -305,6 +306,9 @@ and all agreeing, were brought to the paper's wording at step 6 (T-130).
 - 2026-11-01: the stage-end sweep reran on `09ca2b46c7e0`, split across both Macs (T-170): `M11.C.17` holds 3 of 8
   samples and `M11.C.21` 0 of 8. The owner decided both rows on their FAIL, each an accepted finding (2026-10-31,
   `version_2_dispositions.md`). `version_2_status.md`: W1 to W4 met.
+- 2026-11-01: W5 to W8. The owner signed off the results of stage 3's groups C, F and A (W5; none moved its target
+  criteria the way its proposal expected, each recorded as measured) and the outputs' framing (W8,
+  `REVIEW_version_2_outputs.md`); CI is green on the last commit (W7) and T-151 pins `ruff` and bounds NumPy.
 
 ## 9. Not relevant to how the model works now
 

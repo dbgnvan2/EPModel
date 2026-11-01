@@ -1,6 +1,6 @@
 # Version 2's definition: what is left, and the plan to meet it
 
-**Status: drafted 2026-10-29 on `main` at `c9b9b0c` (engine hash `6ce8be104767`); steps 3 to 5 built 2026-10-30 at spec revision 43 (engine hash `da5981f6ec0b`), T-161 withdrawn (§7), approved by the owner 2026-10-31 (§8, D1); step 7's decisions recommended by Claude 2026-10-30 under the owner's instruction to proceed, and each taken by the owner 2026-10-31 as recommended (§8); D4 and D5 built 2026-10-31 at spec revision 44 (engine hash `09ca2b46c7e0`), one regeneration on Mac Mini1: `M11.C.21` and `M11.C.17` fail (§7); the stage-end sweep reran on it 2026-11-01 and the owner decided both rows as accepted findings (§7); W1 to W4 met.** The brief asked for a plan and a
+**Status: drafted 2026-10-29 on `main` at `c9b9b0c` (engine hash `6ce8be104767`); steps 3 to 5 built 2026-10-30 at spec revision 43 (engine hash `da5981f6ec0b`), T-161 withdrawn (§7), approved by the owner 2026-10-31 (§8, D1); step 7's decisions recommended by Claude 2026-10-30 under the owner's instruction to proceed, and each taken by the owner 2026-10-31 as recommended (§8); D4 and D5 built 2026-10-31 at spec revision 44 (engine hash `09ca2b46c7e0`), one regeneration on Mac Mini1: `M11.C.21` and `M11.C.17` fail (§7); the stage-end sweep reran on it 2026-11-01 and the owner decided both rows as accepted findings (§7); W1 to W4 met; W5 and W8 signed off by the owner 2026-11-01, W6 and W7 hold (§5).** The brief asked for a plan and a
 stop for the owner's approval; the owner then said, the same evening, "proceed with your own recommendations … do as
 much as you can". Every decision below marked **(R)** was Claude's recommendation under that instruction; the owner approved
 revision 43, which built them, on 2026-10-31 (§8, D1). The items the brief listed as awaiting the owner (revision 41's
@@ -107,12 +107,20 @@ seeds roughly doubles its own share. The sweep was about 22 hours of one Mac at 
 
 - **W5** (each chosen group has a proposal the owner decided, its result recorded beside version 1's): the proposals
   for C, F and A were approved 2026-10-24 and built at stage 3; the results are in the status page's version 1 column.
-  What is left is the owner's sign-off on the results (not code-testable), after step 6.
+  What is left is the owner's sign-off on the results (not code-testable), after step 6. *Signed off by the owner
+  2026-11-01* for each of C, F and A, on Claude's recommendation ("go with your recommendations on the sign offs"):
+  none moved its target criteria in the direction its proposal expected, and each result stands beside version 1's
+  as measured, not tuned. C: `M11.C.6`, `.21`, `.2` fail as at the tag; `M11.C.2[twelve-person family]` passes again,
+  carried by witnessing. F: `M11.C.49` fails (accepted finding); `M11.C.29` fails as at the tag. A: `M11.C.42`, `.45`
+  fail as at the tag; `M11.C.44`'s pass at revision 38 is gone. Version 1 disposition texts that describe causes from
+  before stage 3 are T-171.
 - **W6** (documents agree with the code): `tests/test_doc_checklist.py`, `tests/test_spec_consistency.py` and the
   record-current tests, green at every commit.
 - **W7** (suite and CI green): `.github/workflows/tests.yml` on the last commit. T-151 (pin `ruff`, bound numpy's major
-  version) makes that check repeatable and is a cloud-session candidate.
+  version) makes that check repeatable and is a cloud-session candidate. *2026-11-01:* CI green on `5957648` on
+  Python 3.11–3.13 (run 41302506920); T-151 built (`ruff==0.17.3`, `numpy>=1.26,<3`).
 - **W8** (no output speaks about a real family): the owner's review of the outputs (not code-testable), at the close.
+  *Signed off by the owner 2026-11-01* (`docs/REVIEW_version_2_outputs.md`).
 
 ## 6. Adjacent issues found while drafting, not fixed
 
@@ -133,7 +141,8 @@ Updated as the steps land; each entry names its commit.
 - Step 7, Claude's recommendations (2026-10-30, §8): each of the five rows carries one in `docs/version_2_dispositions.md`, pending the owner; T-158, T-161 and T-165 carry theirs in their records. T-166 built (§8). W1 is still unmet on the five rows.
 - Step 7, the owner's decisions (2026-10-31, §8): D1–D6 each taken as recommended, recorded as `owner 2026-10-31` in `docs/version_2_dispositions.md` and in the records of T-122, T-158, T-161 and T-165. W1 is met on four of the five rows; `M11.C.21` waits on spec revision 44 (D4, D5), the next batch.
 - Spec revision 44 (2026-10-31, D4 and D5): `arm_c21`'s scripted `OVERFUNCTION` ends at `t0` in both arms (T-161 (b)); `M5.D.5`'s pull-up does not apply to an external mover (T-165), and `coach-pull-up-removed` is retired. Tests first, each shown red. One regeneration on Mac Mini1 (10 workers, 12:57 to 16:35), engine hash `da5981f6ec0b` → `09ca2b46c7e0` (`docs/version_2_revision_44_changes.md`): `M11.C.21` fails (−0.72 ± 1.09, p 0.94) and `M11.C.17` fails (`coached_rise` −0.00003 ± 0.00017, p 0.43); no other ensemble verdict changed.
-- The stage-end sweep on `09ca2b46c7e0` (2026-10-31 to 2026-11-01, T-170), split across both Macs after a cross-check (491 results equal, 0 added): `M11.C.17` holds 3 of 8 samples and `M11.C.21` 0 of 8; `M11.C.2`, `M11.C.7[joint over one spouse]`, `M11.C.2[twelve-person family]` and `M11.C.10` each moved by one sample. The owner decided `M11.C.21` and `M11.C.17` on their FAIL, each an accepted finding (2026-10-31). `docs/version_2_status.md`: W1 to W4 met. Next: W5 to W8 and the version 2 close (§5).
+- The stage-end sweep on `09ca2b46c7e0` (2026-10-31 to 2026-11-01, T-170), split across both Macs after a cross-check (491 results equal, 0 added): `M11.C.17` holds 3 of 8 samples and `M11.C.21` 0 of 8; `M11.C.2`, `M11.C.7[joint over one spouse]`, `M11.C.2[twelve-person family]` and `M11.C.10` each moved by one sample. The owner decided `M11.C.21` and `M11.C.17` on their FAIL, each an accepted finding (2026-10-31). `docs/version_2_status.md`: W1 to W4 met.
+- W5 to W8 (2026-11-01, §5): CI green on `5957648` (W7) and T-151 built; the doc and record-current tests green (W6); W5 signed off for groups C, F and A and W8 signed off by the owner (`docs/REVIEW_version_2_outputs.md`), each on Claude's recommendation. T-171 filed. Next: the owner's decision on closing version 2.
 
 ## 8. The owner's review: Claude's recommendations, 2026-10-30
 

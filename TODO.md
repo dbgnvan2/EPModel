@@ -14,7 +14,7 @@ moves to `docs/TODO_archive.md`. Until 2026-10-22 this file held every item's te
 - T-003 · 2026-10-20 · Coverage page, minor, from the Part A review … · [record](docs/todo/2026-08-22_blocking_the_next_phase.md)
 - T-004 · 2026-10-20 · Coverage page, from Part B's drafting (2026-10-20), not … · [record](docs/todo/2026-08-22_blocking_the_next_phase.md)
 
-## Later (132)
+## Later (133)
 
 - T-006 · 2026-10-22 · D4, long `Spec:` lines (Part D, 2026-10-22; the … · [record](docs/todo/2026-10-22_model_ergonomics.md)
 - T-007 · 2026-10-22 · Adjacent issues found by Part D's docstring pass, … · [record](docs/todo/2026-10-22_model_ergonomics.md)
@@ -137,7 +137,6 @@ moves to `docs/TODO_archive.md`. Until 2026-10-22 this file held every item's te
 - T-143 · 2026-10-26 · Mutants that revision 39's regeneration no longer turns … · [record](docs/todo/2026-10-25_stage_3_revision_39.md)
 - T-144 · 2026-10-27 · `M11.C.49` has no declared sweep ranges (step 11, … · [record](docs/todo/2026-10-25_stage_3_revision_39.md)
 - T-150 · 2026-10-28 · Transcript phrases outside the spec, and a test … · [record](docs/todo/2026-10-28_stage_3_milestone_review.md)
-- T-151 · 2026-10-28 · CI installs whatever `ruff` and `numpy` are current … · [record](docs/todo/2026-10-28_stage_3_milestone_review.md)
 - T-152 · 2026-10-28 · A probe test's "as built" assertion cannot fail … · [record](docs/todo/2026-10-28_stage_3_milestone_review.md)
 - T-153 · 2026-10-28 · `test_d31_every_listed_record_is_marked_and_no_other` asserts nothing while the batch is closed · [record](docs/todo/2026-10-28_stage_3_milestone_review.md)
 - T-154 · 2026-10-28 · The family-of-origin arm's held-weeks check was loosened to … · [record](docs/todo/2026-10-28_stage_3_milestone_review.md)
@@ -148,3 +147,5 @@ moves to `docs/TODO_archive.md`. Until 2026-10-22 this file held every item's te
 - T-164 · 2026-10-29 · The merge's running-sweep guard matches the sweep's test … · [record](docs/todo/2026-10-28_stage_3_milestone_review.md)
 - T-168 · 2026-10-31 · `tests/test_stale_text.py`'s phrase misses the possessive form (the `learning-qa` … · [record](docs/todo/2026-10-29_version_2_definition.md)
 - T-169 · 2026-10-31 · A coach's completed `I-POSITION` exchange still acts on … · [record](docs/todo/2026-10-29_version_2_definition.md)
+- T-171 · 2026-11-01 · Five version 1 disposition texts describe causes from … · [record](docs/todo/2026-10-29_version_2_definition.md)
+- T-172 · 2026-11-01 · Three minor items from the W5–W8 reviews (2026-11-01) · [record](docs/todo/2026-10-29_version_2_definition.md)

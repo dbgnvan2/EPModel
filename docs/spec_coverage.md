@@ -614,7 +614,7 @@ say whether that test was proved failing by mutation unless its note does.
 | M17.G.2 | not done | — | no test named for it; Phase E builds it and is not built yet |
 | M17.G.3 | not done | — | no test named for it; Phase E builds it and is not built yet |
 
-## Tests named for no spec ID (303)
+## Tests named for no spec ID (308)
 
 Their names embed no requirement ID, so they count only where an override cites them (marked *cited*). The rest check spec documents, tooling or helpers.
 
@@ -828,6 +828,9 @@ Their names embed no requirement ID, so they count only where an override cites 
 - `tests/test_requirements.py::test_d3_requirement_lines_are_parsed_to_names`
 - `tests/test_requirements.py::test_d3_requirements_match_the_imports`
 - `tests/test_requirements.py::test_d3_the_requirements_file_of_2026_10_19_is_reported`
+- `tests/test_requirements.py::test_t151_bounds_that_look_right_and_are_not`
+- `tests/test_requirements.py::test_t151_ruff_is_pinned_and_numpys_major_version_bounded`
+- `tests/test_requirements.py::test_t151_the_file_before_t151_is_reported`
 - `tests/test_review_rev31.py::test_r31a10_launch_age_approved`
 - `tests/test_review_rev31.py::test_r31a11_plan_closes_the_two_owner_questions`
 - `tests/test_review_rev31.py::test_r31a12_spec_status_names_revision_31`
@@ -893,6 +896,8 @@ Their names embed no requirement ID, so they count only where an override cites 
 - `tests/test_version_1_status.py::test_v1_the_committed_page_and_dispositions_are_the_tags`
 - `tests/test_version_1_status.py::test_v1_the_tag_marks_the_commit_the_owner_chose`
 - `tests/test_version_1_status.py::test_v1_the_tags_status_tests_pass_in_a_copy_of_the_tagged_tree`
+- `tests/test_version_2_outputs.py::test_w8_a_page_without_the_framing_is_reported`
+- `tests/test_version_2_outputs.py::test_w8_every_version_2_readout_page_carries_the_framing`
 - `tests/test_version_2_status.py::test_s2_11_records_read_shows_every_hash_a_record_keys_by`
 - `tests/test_version_2_status.py::test_s2_11_status_page_is_current`
 - `tests/test_version_2_status.py::test_s3_24_each_verdict_is_shown_beside_revision_38s`

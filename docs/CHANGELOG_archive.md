@@ -2,10 +2,40 @@
 
 The entries of `CHANGELOG.md` dated before 2026-10-19, the day version 2 began at the tag `version-1`, moved
 here verbatim on 2026-10-22, the entries of 2026-10-19 and 2026-10-20 on 2026-10-23, and the entries of
-2026-10-21 later on 2026-10-23, the earliest entry of 2026-10-22 (the SP-1 proposal's eight questions) on 2026-10-24, and the next (SP-1 built, with spec revision 34) later on 2026-10-24, and the next (Model ergonomics, Parts A–C) on 2026-10-25, and the next (Model ergonomics, Part D) later on 2026-10-25, and the next (Model ergonomics, Part E) later on 2026-10-25, and the next (Model ergonomics follow-ups) later on 2026-10-25, and the next (the closed and old parts of `TODO.md` and `CHANGELOG.md` archived) on 2026-10-26, and the next (`TODO.md` an index over records; a changelog index) later on 2026-10-26, and the next (Revision 35's dispositions approved by the owner) later on 2026-10-26, and the next two (Spec revision 36, of 2026-10-22, and Revision 36's records regenerated, of 2026-10-23) later on 2026-10-26, and the next five (from the cloud sessions' SessionStart hook to Stage 2: Phase C's directional criteria swept, all of 2026-10-23) later on 2026-10-26, and the next three (from the night's decisions listed for the owner to Stage 2: Phase D part I's directional criteria swept, all of 2026-10-23) on 2026-10-27, and the next (Stage 2: the sweep can run on two Macs, of 2026-10-23) later on 2026-10-27, and the next (The two-Mac cross-check run live, of 2026-10-23) on 2026-10-28, and the next four (from Stage 2: Phase D part II's sweep ranges declared to When the full sweep runs, the last of 2026-10-23) on 2026-10-29, and the next three (from Stage 2: Phase D part II's seven criteria swept across two Macs to The stage 2 milestone review triaged, spec revision 38, the earliest of 2026-10-24) later on 2026-10-29, and the next five (from Version 2 stage 3's implementation plan drafted to Rule: a finished session writes the next session's brief, the last of 2026-10-24) on 2026-10-30, and the next (Stage 3 step 3: P2 (displaced coping) drafted with F1, probed, for the owner's approval, the earliest of 2026-10-25) on 2026-10-31, and the next three (from The two-Mac driver reaches Mac Mini1 through the `macmini1` alias to Stage 3 step 3: P2 and F1 probed together on Mac Mini1, all of 2026-10-25) later on 2026-10-31, and the next (Stage 3 step 4: spec revision 39, part 1 drafted (group C), for the owner's approval, of 2026-10-25) on 2026-11-01, so that the live file stays short enough to read (`tests/test_doc_size.py` bounds its size). The heading below is the section they
+2026-10-21 later on 2026-10-23, the earliest entry of 2026-10-22 (the SP-1 proposal's eight questions) on 2026-10-24, and the next (SP-1 built, with spec revision 34) later on 2026-10-24, and the next (Model ergonomics, Parts A–C) on 2026-10-25, and the next (Model ergonomics, Part D) later on 2026-10-25, and the next (Model ergonomics, Part E) later on 2026-10-25, and the next (Model ergonomics follow-ups) later on 2026-10-25, and the next (the closed and old parts of `TODO.md` and `CHANGELOG.md` archived) on 2026-10-26, and the next (`TODO.md` an index over records; a changelog index) later on 2026-10-26, and the next (Revision 35's dispositions approved by the owner) later on 2026-10-26, and the next two (Spec revision 36, of 2026-10-22, and Revision 36's records regenerated, of 2026-10-23) later on 2026-10-26, and the next five (from the cloud sessions' SessionStart hook to Stage 2: Phase C's directional criteria swept, all of 2026-10-23) later on 2026-10-26, and the next three (from the night's decisions listed for the owner to Stage 2: Phase D part I's directional criteria swept, all of 2026-10-23) on 2026-10-27, and the next (Stage 2: the sweep can run on two Macs, of 2026-10-23) later on 2026-10-27, and the next (The two-Mac cross-check run live, of 2026-10-23) on 2026-10-28, and the next four (from Stage 2: Phase D part II's sweep ranges declared to When the full sweep runs, the last of 2026-10-23) on 2026-10-29, and the next three (from Stage 2: Phase D part II's seven criteria swept across two Macs to The stage 2 milestone review triaged, spec revision 38, the earliest of 2026-10-24) later on 2026-10-29, and the next five (from Version 2 stage 3's implementation plan drafted to Rule: a finished session writes the next session's brief, the last of 2026-10-24) on 2026-10-30, and the next (Stage 3 step 3: P2 (displaced coping) drafted with F1, probed, for the owner's approval, the earliest of 2026-10-25) on 2026-10-31, and the next three (from The two-Mac driver reaches Mac Mini1 through the `macmini1` alias to Stage 3 step 3: P2 and F1 probed together on Mac Mini1, all of 2026-10-25) later on 2026-10-31, and the next (Stage 3 step 4: spec revision 39, part 1 drafted (group C), for the owner's approval, of 2026-10-25) on 2026-11-01, and the next (Stage 3 step 4: spec revision 39, parts 2 and 3 drafted; revision 39 approved by the owner, of 2026-10-25) later on 2026-11-01, so that the live file stays short enough to read (`tests/test_doc_size.py` bounds its size). The heading below is the section they
 were under; nothing in this file is reworded. Later entries are in `CHANGELOG.md`.
 
 ## [Unreleased] — 2026-10-11
+
+### Stage 3 step 4: spec revision 39, parts 2 and 3 drafted; revision 39 approved by the owner (2026-10-25)
+
+- `docs/spec_revision_39_draft.md` gains part 2 (§11–§18) and part 3 (§19–§24). Part 2, group F: `M5.F.4` rewritten
+  so a genuine `I-POSITION` is a self-statement, share `w` (the mover's self-channel weight), and a demand, share
+  `1 − w`; the assertion form is the mixture at `w = 0`; `M5.F.2c`'s sentence; `M11.C.29`'s arm (D21); a new criterion after `M11.C.48`
+  (four runs, the act's effect at level 35 against 60, each against its own control). Group A: a new requirement after `M4.C.1c`
+  (contact that relieves its receiver returns in part to its sender, `reciprocal_contact_share` 0.5, `[I]`);
+  `TRIANGLE` in layer 0 (`M4.D.3a`); `M11.C.42`'s and `M11.5`'s rows; `M1.C.1`'s `bound_anxiety` sentence. Part 3:
+  T-128's named ratio in `M17.E.1` and `config/sweep/sweep.md`; T-014's `M8`, `M8.1`, `M8.5`, `M13.1`, `M11.C.7` and
+  `M7.D.1a`; `M11.C.21`'s quoted effect reconciled with the records. Each block's config, explainer text, §19 check
+  and stage 4 check against `_LEDGER.md` are in the draft. All 27 "replace" spans were checked by script against the
+  revision 38 spec.
+- The owner decided Q8–Q14 on 2026-10-25 through `AskUserQuestion`, each as recommended:
+  `assertion_perspective_threshold` retired (Q8); the new criterion's act starts at `DEFINE` (Q9);
+  `reciprocal_contact_share` 0.5 with its stated reasoning (Q10); relief judged on the whole delivery (Q11);
+  `M1.C.1` *partial* with a spec sentence (Q12); the new criterion's mover at perspective 1.0 (Q13); the ratio enters only a
+  criterion whose run is longer than one slow tick, refining D26 (Q14). The owner then approved revision 39 as a
+  whole (parts 1–3), including part 1's reading of D19 (functioning returns with the lent pseudo-self). The spec stays at revision 38 until each
+  group's text lands with its code, from step 6.
+- One correctness pass over parts 2 and 3 (`sonnet`, read-only, about 250k tokens, 9 minutes) found 8 errors and 14
+  lesser items. Twenty are fixed in the draft (two after Q13 and Q14). One is recorded as T-133 (`M5.D.4a`'s anger
+  check at `DEFINE`). One was checked and left. `FE04.13`'s distancing share is recorded as T-132. Both are for the
+  stage 3 milestone review (`docs/todo/2026-10-25_stage_3_revision_39.md`).
+- The oldest entry (Model ergonomics, Part E) moved verbatim to `docs/CHANGELOG_archive.md` to keep this file under
+  its size limit.
+- Documents updated: the draft; the stage 3 plan's status line, step 4 row, §3.4's D26 paragraph and S3.17's row;
+  `docs/theory/_STATUS.md`; `docs/REVIEWER_READING_LIST.md`; `docs/SPEC_REVIEW_CHECKLIST.md`; `CLAUDE.md`'s
+  changelog sentence; the P2 proposal's status line; the TODO record. No engine change: nothing under `src/bowen/` or `config/bowen/` was edited, and
+  the engine hash stays `66dcbb1e8ba5`.
 
 ### Stage 3 step 4: spec revision 39, part 1 drafted (group C), for the owner's approval (2026-10-25)
 

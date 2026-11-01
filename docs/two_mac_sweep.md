@@ -29,7 +29,8 @@ Their tests are `tests/test_sweep_two_macs.py`.
   - The cache file records it under `_meta`, outside the result keys.
   - A sweep run refuses a NumPy other than the pin, other than the cache's, or a cache that holds results and
     records no version.
-  - `requirements.txt` stays unpinned, because CI tests Python 3.11–3.13 and NumPy 1.26.4 has no wheel for 3.13.
+  - `requirements.txt` does not pin NumPy, because CI tests Python 3.11–3.13 and NumPy 1.26.4 has no wheel for 3.13;
+    it bounds NumPy's major version (`>=1.26,<3`, T-151).
     `--render-only` does not check NumPy.
 - A run with `--criteria` does the following:
   - It checks every declared key first: an ensemble record holds it, and its class is directional.

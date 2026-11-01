@@ -527,8 +527,10 @@ not decide them.
 - **The value of `reciprocal_contact_share`.** `[I]`, set before the suite runs (`M10.B.4`); the owner approves the
   value and its stated reasoning at step 4, and the stage-end sweep reports how far each direction survives over its
   range.
-- **W5:** owner sign-off on each group's proposal (this plan's approval) and on its result (after step 11).
-- **W8:** no output presents the model as speaking about a real family; owner review, as in version 1.
+- **W5:** owner sign-off on each group's proposal (this plan's approval) and on its result (after step 11). *The results
+  were signed off by the owner 2026-11-01* (`docs/version_2_definition_plan.md` §5).
+- **W8:** no output presents the model as speaking about a real family; owner review, as in version 1. *Signed off by
+  the owner 2026-11-01* (`docs/REVIEW_version_2_outputs.md`).
 
 ## 3.13 Adjacent issues found while planning, not fixed
 

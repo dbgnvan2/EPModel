@@ -40,7 +40,7 @@ only to change it or to see its sources and history. These files are generated (
 `tools/spec_rules_view.py`) and checked current by tests; never edit them. `TODO.md` is a generated index of the open
 items, one line each (ID, date, title, record), under **Now** or **Later**; an item's text is in its record under
 `docs/todo/`, where it is ticked to close it (`tools/todo_index.py` then moves its line to `docs/TODO_archive.md`).
-`CHANGELOG.md` opens with a generated index of its entries and holds the entries from 2026-10-25 on;
+`CHANGELOG.md` opens with a generated index of its entries and holds the entries from 2026-10-25's stage 3 step 5 on;
 the earlier entries are in `docs/CHANGELOG_archive.md`, verbatim. `tests/test_todo_index.py` keeps the generated
 parts current and `tests/test_doc_size.py` keeps both live files under a size limit.
 
@@ -88,7 +88,7 @@ full table.
   while `main` stood at spec revision 11; on 2026-10-21 `main` was fast-forwarded to it. `plan-phase-b` stays on GitHub
   as history and takes no new commits. A session's own branch merges into `main`.
 - Run tests before declaring done: `python3 -m pytest tests/`
-- **A red suite is never normal — 1287 tests: 1285 pass and 2 are strict expected failures** (each marked `xfail(strict=True)` with a reason naming why, so it turns the suite red if it starts passing: `M5.B.3`'s third-party cost (G1's A6); `test_m5d3_abort_is_the_usual_first_outcome`, which no longer holds after spec revision 41's T-133 (T-158, kept as a finding by the owner 2026-10-31); `test_s2_11_sweep_record_is_current` lost its mark when the stage-end sweep reran on `09ca2b46c7e0`, 2026-11-01, T-170). Stage 3's open batch closed at step 10: `tests/open_batch.py`'s `OPEN` is None and no test carries its mark. Measured 2026-11-01 on this Mac with `python3 -m pytest tests/`; counts are as collected by the default run; the 52 `ensemble`-marked criterion tests are deselected by `pytest.ini` and run with `python3 -m pytest -m ensemble`). The dated history of counts is in `CHANGELOG.md`, in the entry of 2026-10-22 that moved it out of this file.
+- **A red suite is never normal — 1292 tests: 1290 pass and 2 are strict expected failures** (each marked `xfail(strict=True)` with a reason naming why, so it turns the suite red if it starts passing: `M5.B.3`'s third-party cost (G1's A6); `test_m5d3_abort_is_the_usual_first_outcome`, which no longer holds after spec revision 41's T-133 (T-158, kept as a finding by the owner 2026-10-31); `test_s2_11_sweep_record_is_current` lost its mark when the stage-end sweep reran on `09ca2b46c7e0`, 2026-11-01, T-170). Stage 3's open batch closed at step 10: `tests/open_batch.py`'s `OPEN` is None and no test carries its mark. Measured 2026-11-01 on this Mac with `python3 -m pytest tests/`; counts are as collected by the default run; the 52 `ensemble`-marked criterion tests are deselected by `pytest.ini` and run with `python3 -m pytest -m ensemble`). The dated history of counts is in `CHANGELOG.md`, in the entry of 2026-10-22 that moved it out of this file.
 
 ## Token budget — how to read this repo (owner rule, 2026-10-22)
 

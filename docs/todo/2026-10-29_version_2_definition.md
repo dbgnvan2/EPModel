@@ -3,6 +3,18 @@
 Items found while building the version 2 definition batch (`docs/version_2_definition_plan.md` §2, spec revision 43),
 on the owner's instruction of 2026-10-29 to proceed with Claude's recommendations.
 
+- [ ] T-172 ⟨later⟩ **Three minor items from the W5–W8 reviews (2026-11-01).** (a) `tests/test_requirements.py`'s
+  `requirement_specifiers`, like `requirement_names`, raises on a `-r` or `--index-url` line, and the NumPy bound
+  check rejects a valid `<3.0` or `<=3` (the safe direction, with a misleading message). (b) Nothing checks that the
+  `ruff` `tests/test_lint.py` runs locally matches the pin (this Mac has 0.15.1; CI installs 0.17.3). (c)
+  `tests/test_version_2_outputs.py` names its four readout pages instead of finding them, so a fifth would go
+  unchecked.
+- [ ] T-171 ⟨later⟩ **Five version 1 disposition texts describe causes from before stage 3 (found summarising W5,
+  2026-11-01; not decided).** `docs/version_2_status.md` shows version 1's text for `M11.C.2[twelve-person family]`
+  (it says the pass is proved by removing focus on weakness; it is now carried by witnessing, `witness-path-removed`),
+  `M11.C.29` (it describes the level-40 arm, not stage 3's level-60 arm with F's spell paused), and `M11.C.42`, `.44`
+  and `.45` (causes found at Phase C's close, before group A). Version 1's file is frozen, so the fix is a version 2
+  `note` per row stating the current cause, for the owner's review; no verdict changes.
 - [x] T-170 ⟨now⟩ **The stage-end sweep reruns on spec revision 44's engine, `09ca2b46c7e0` (the batch, 2026-10-31;
   not run yet).** Every record but `docs/version_2_sweep_record.md` was regenerated on it;
   `tests/test_version_2_sweep.py::test_s2_11_sweep_record_is_current` is a strict expected failure until the sweep

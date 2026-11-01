@@ -168,3 +168,51 @@ def test_d3_requirement_lines_are_parsed_to_names():
     """D3.4: comments, versions, extras and markers are not part of the name."""
     text = "# c\n\nnumpy>=1.26  # x\nPyYAML[extra]==6.0 ; python_version>'3.10'\npytest-cov\n"
     assert requirement_names(text) == ["numpy", "pyyaml", "pytest-cov"]
+
+
+# --- T-151: the linter pinned, NumPy's major version bounded ----------------------------------------------------
+
+def requirement_specifiers(text: str) -> dict[str, str]:
+    """T-151: each listed distribution's version specifier, spaces removed (empty when it has none)."""
+    found = {}
+    for line in (line.split("#", 1)[0].strip() for line in text.splitlines()):
+        if line:
+            name = re.match(r"[A-Za-z0-9][A-Za-z0-9._-]*", line).group(0)
+            found[normalise(name)] = line[len(name):].split(";")[0].replace(" ", "")
+    return found
+
+
+def version_findings(text: str) -> list[str]:
+    """T-151 (review MR-15): a ruff release that adds an F rule turns `test_lint.py` red with no code change, and
+    NumPy's draws feed the golden fingerprints, so `ruff` is pinned to one version and NumPy's major version has an
+    upper bound. NumPy is not pinned: CI tests Python 3.11–3.13, and the sweep's 1.26.4 has no 3.13 wheel."""
+    spec = requirement_specifiers(text)
+    findings = []
+    if not re.fullmatch(r"==\d+(\.\d+)*", spec.get("ruff", "")):
+        findings.append("ruff is not pinned to one version")
+    if not re.search(r"(^|,)<\d+(,|$)", spec.get("numpy", "")):
+        findings.append("numpy has no upper bound on its major version")
+    if "==" in spec.get("numpy", ""):
+        findings.append("numpy is pinned to one version")
+    return findings
+
+
+def test_t151_ruff_is_pinned_and_numpys_major_version_bounded():
+    """T-151: the real file."""
+    assert version_findings((REPO / "requirements.txt").read_text(encoding="utf-8")) == []
+
+
+def test_t151_the_file_before_t151_is_reported():
+    """T-151: `requirements.txt` as it was to 2026-11-01 left both open."""
+    before = "numpy  # draws\npytest>=8.4,<9  # runner\nruff  # linter\n"
+    assert version_findings(before) == ["ruff is not pinned to one version",
+                                        "numpy has no upper bound on its major version"]
+
+
+def test_t151_bounds_that_look_right_and_are_not():
+    """T-151 (adversarial): a floor is not a pin, a minor bound is not a major one, and an exact NumPy is refused."""
+    assert version_findings("numpy<2.5\nruff>=0.17.3\n") == ["ruff is not pinned to one version",
+                                                             "numpy has no upper bound on its major version"]
+    assert version_findings("numpy==1.26.4\nruff==0.17.3\n") == ["numpy has no upper bound on its major version",
+                                                               "numpy is pinned to one version"]
+    assert version_findings("numpy >= 1.26, < 3\nruff == 0.17.3\n") == []

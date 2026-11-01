@@ -49,9 +49,14 @@ records are regenerated once.
   other documents were not checked. `tests/test_asr_quotations.py` reads only quoted spans of four words or more, so it
   cannot find unquoted reuse. To decide: sweep the explainer the same way, and either add a test built on the n-gram
   comparison (with an allowlist of theory vocabulary in `tests/asr_quotations.json`) or record why the test stays as it is.
-- [ ] T-151 ⟨later⟩ **CI installs whatever `ruff` and `numpy` are current (review MR-15, 2026-10-28).** Pin `ruff` to the
+- [x] T-151 ⟨later⟩ **CI installs whatever `ruff` and `numpy` are current (review MR-15, 2026-10-28).** Pin `ruff` to the
   version that passed CI run 40630271972 and bound numpy's major version in `requirements.txt`; bump each on purpose,
   in its own commit. numpy's draws feed the golden fingerprints.
+  *Closed 2026-11-01:* `requirements.txt` pins `ruff==0.17.3`, the version CI installed from about 2026-10-28 (run
+  40143543898 of 2026-10-24 installed 0.17.2) and on run 41302506920, and bounds NumPy to `>=1.26,<3`: the sweep machines' 1.26.4 and CI's 2.4.6 (Python
+  3.11) and 2.5.4 (3.12, 3.13) all pass the suite. Tests: `tests/test_requirements.py::test_t151_*` (shown red first),
+  and `test_m17e1_sweep_machines_pin_numpy_and_ci_does_not` restated to "not pinned". This Mac's own `ruff` is 0.15.1,
+  outside the pin; `test_lint.py` passes under both, and only CI installs from the file.
 - [ ] T-152 ⟨later⟩ **A probe test's "as built" assertion cannot fail (review MR-16, 2026-10-28).**
   `tests/test_stage_3_probes.py:80–81`: the `as_built` variant never installs the displacement wrapper, so its tallies
   are 0 by construction. Delete it, or check the engine's own displacement in the `as_built` treatment arm.

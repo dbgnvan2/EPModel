@@ -2,7 +2,7 @@
 
 Purpose: prove a passing Phase D criterion fails when the mechanism its spec row names is removed (`M11.1d`), as
          ``tools/mutation_record.py`` does for Phase C. Phase D's other mutation runs are reported in the plan, ad hoc.
-Spec:    docs/bowen_agent_model_spec_v2.md#M11.1a, #M11.1d, #M11.C.10, #M11.C.14, #M11.C.18, #M11.C.20, #M11.C.33
+Spec:    docs/bowen_agent_model_spec_v2.md#M11.1a, #M11.1d, #M11.C.10, #M11.C.14, #M11.C.18, #M11.C.20, #M11.C.33, #M11.C.34
 Tests:   tests/bowen/test_phase_d_mutation_record.py::test_m111d_phase_d_mutation_record_is_current
 
     python3 tools/phase_d_mutation_record.py [--workers N]
@@ -108,6 +108,22 @@ MUTANTS = (
            "    f = 0.5 ** params.self_channel_exponent  # mutant: the mixing weight does not read functional level\n",
            "M4.D.1a's mixing weight made independent of the responder's functional level (fixed at the scale's "
            "middle); M5.F.4's demand share reads the same weight, so it changes too"),
+    # T-173 (pre-tag review MR-3, Unverified 1–2): the mutant above changes two readers of one weight, and keeps the
+    # learner. This one changes the weight at the policy's call site only, so M5.F.4's demand share still reads level.
+    Mutant("mixing-weight-blind-to-level-in-policy-only", NAMED, ("M11.C.34",), "src/bowen/policy/policy.py",
+           "    mix = {SELF: self_channel_weight(obs.functional_level, params, obs.systems_perspective)}\n",
+           "    mix = {SELF: self_channel_weight(SCALE_MAX / 2, params, obs.systems_perspective)}  # mutant\n",
+           "M4.D.1a's mixing weight fixed at the scale's middle in the policy only; M5.F.4's demand share still reads "
+           "the mover's functional level"),
+    # The learned limb: learning off, as in M11.C.39's baseline. Learned values start empty, so every one stays 0 and
+    # nothing learned steers which automatic act is chosen or toward whom, nor iposition._abort_act's draw; M4.D.1a's
+    # level-dependent share is kept.
+    Mutant("learner-off-share-kept", NAMED, ("M11.C.34",), "config/bowen/constants.md",
+           "| `learning_rate` | 0.2 |", "| `learning_rate` | 0.0 |",
+           "M4.D.6 and M4.D.6f disabled in both arms: no learned value moves from 0, so learning steers no automatic "
+           "act and M5.F.4's abort draw is uniform; M4.D.1a's level-dependent share is unchanged",
+           also=(("config/bowen/constants.md", "| `witnessed_cutoff_gain` | 0.05 |",
+                  "| `witnessed_cutoff_gain` | 0.0 |"),)),
     # Revision 32's regeneration (with the nodal spike) turned M11.C.17, M11.C.22 and two M11.C.7 pairs green. M11.C.17's
     # row: the external agent's effect (M1.E.7's landed contact) removed MUST turn it red; the same edit is what the two
     # M11.C.7 pairs' deviation limb rests on (the coach's position only matters if landing does something).

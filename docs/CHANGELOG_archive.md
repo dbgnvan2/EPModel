@@ -2,10 +2,53 @@
 
 The entries of `CHANGELOG.md` dated before 2026-10-19, the day version 2 began at the tag `version-1`, moved
 here verbatim on 2026-10-22, the entries of 2026-10-19 and 2026-10-20 on 2026-10-23, and the entries of
-2026-10-21 later on 2026-10-23, the earliest entry of 2026-10-22 (the SP-1 proposal's eight questions) on 2026-10-24, and the next (SP-1 built, with spec revision 34) later on 2026-10-24, and the next (Model ergonomics, Parts A–C) on 2026-10-25, and the next (Model ergonomics, Part D) later on 2026-10-25, and the next (Model ergonomics, Part E) later on 2026-10-25, and the next (Model ergonomics follow-ups) later on 2026-10-25, and the next (the closed and old parts of `TODO.md` and `CHANGELOG.md` archived) on 2026-10-26, and the next (`TODO.md` an index over records; a changelog index) later on 2026-10-26, and the next (Revision 35's dispositions approved by the owner) later on 2026-10-26, and the next two (Spec revision 36, of 2026-10-22, and Revision 36's records regenerated, of 2026-10-23) later on 2026-10-26, and the next five (from the cloud sessions' SessionStart hook to Stage 2: Phase C's directional criteria swept, all of 2026-10-23) later on 2026-10-26, and the next three (from the night's decisions listed for the owner to Stage 2: Phase D part I's directional criteria swept, all of 2026-10-23) on 2026-10-27, and the next (Stage 2: the sweep can run on two Macs, of 2026-10-23) later on 2026-10-27, and the next (The two-Mac cross-check run live, of 2026-10-23) on 2026-10-28, and the next four (from Stage 2: Phase D part II's sweep ranges declared to When the full sweep runs, the last of 2026-10-23) on 2026-10-29, and the next three (from Stage 2: Phase D part II's seven criteria swept across two Macs to The stage 2 milestone review triaged, spec revision 38, the earliest of 2026-10-24) later on 2026-10-29, and the next five (from Version 2 stage 3's implementation plan drafted to Rule: a finished session writes the next session's brief, the last of 2026-10-24) on 2026-10-30, and the next (Stage 3 step 3: P2 (displaced coping) drafted with F1, probed, for the owner's approval, the earliest of 2026-10-25) on 2026-10-31, and the next three (from The two-Mac driver reaches Mac Mini1 through the `macmini1` alias to Stage 3 step 3: P2 and F1 probed together on Mac Mini1, all of 2026-10-25) later on 2026-10-31, and the next (Stage 3 step 4: spec revision 39, part 1 drafted (group C), for the owner's approval, of 2026-10-25) on 2026-11-01, and the next (Stage 3 step 4: spec revision 39, parts 2 and 3 drafted; revision 39 approved by the owner, of 2026-10-25) later on 2026-11-01, and the next (Stage 3 step 5: the tests first, red, of 2026-10-25) later on 2026-11-01, so that the live file stays short enough to read (`tests/test_doc_size.py` bounds its size). The heading below is the section they
+2026-10-21 later on 2026-10-23, the earliest entry of 2026-10-22 (the SP-1 proposal's eight questions) on 2026-10-24, and the next (SP-1 built, with spec revision 34) later on 2026-10-24, and the next (Model ergonomics, Parts A–C) on 2026-10-25, and the next (Model ergonomics, Part D) later on 2026-10-25, and the next (Model ergonomics, Part E) later on 2026-10-25, and the next (Model ergonomics follow-ups) later on 2026-10-25, and the next (the closed and old parts of `TODO.md` and `CHANGELOG.md` archived) on 2026-10-26, and the next (`TODO.md` an index over records; a changelog index) later on 2026-10-26, and the next (Revision 35's dispositions approved by the owner) later on 2026-10-26, and the next two (Spec revision 36, of 2026-10-22, and Revision 36's records regenerated, of 2026-10-23) later on 2026-10-26, and the next five (from the cloud sessions' SessionStart hook to Stage 2: Phase C's directional criteria swept, all of 2026-10-23) later on 2026-10-26, and the next three (from the night's decisions listed for the owner to Stage 2: Phase D part I's directional criteria swept, all of 2026-10-23) on 2026-10-27, and the next (Stage 2: the sweep can run on two Macs, of 2026-10-23) later on 2026-10-27, and the next (The two-Mac cross-check run live, of 2026-10-23) on 2026-10-28, and the next four (from Stage 2: Phase D part II's sweep ranges declared to When the full sweep runs, the last of 2026-10-23) on 2026-10-29, and the next three (from Stage 2: Phase D part II's seven criteria swept across two Macs to The stage 2 milestone review triaged, spec revision 38, the earliest of 2026-10-24) later on 2026-10-29, and the next five (from Version 2 stage 3's implementation plan drafted to Rule: a finished session writes the next session's brief, the last of 2026-10-24) on 2026-10-30, and the next (Stage 3 step 3: P2 (displaced coping) drafted with F1, probed, for the owner's approval, the earliest of 2026-10-25) on 2026-10-31, and the next three (from The two-Mac driver reaches Mac Mini1 through the `macmini1` alias to Stage 3 step 3: P2 and F1 probed together on Mac Mini1, all of 2026-10-25) later on 2026-10-31, and the next (Stage 3 step 4: spec revision 39, part 1 drafted (group C), for the owner's approval, of 2026-10-25) on 2026-11-01, and the next (Stage 3 step 4: spec revision 39, parts 2 and 3 drafted; revision 39 approved by the owner, of 2026-10-25) later on 2026-11-01, and the next (Stage 3 step 5: the tests first, red, of 2026-10-25) later on 2026-11-01, and the next (Stage 3 step 6: the batch's first commit, T-130's wording, T-014 and T-129, of 2026-10-25) later on 2026-11-01, so that the live file stays short enough to read (`tests/test_doc_size.py` bounds its size). The heading below is the section they
 were under; nothing in this file is reworded. Later entries are in `CHANGELOG.md`.
 
 ## [Unreleased] — 2026-10-11
+
+### Stage 3 step 6: the batch's first commit, T-130's wording, T-014 and T-129 (2026-10-25)
+
+- **What.** Plan §3.6's edits in one commit, the first of stage 3's batch to move the engine hash
+  (`66dcbb1e8ba5` → `f90285984f32`). No result changed: the golden fingerprint tests pass unchanged (S3.23), and the
+  seed-7 trace, chart and fam-diag export differ only in the revision label. Spec revision 39 is applied in part.
+- **T-130.** `config/bowen/event_sizes.md` no longer calls its values unchecked (they agree with Holmes and Rahe's
+  Table 3, p. 216), and four item names follow the table's wording; `M1.F.6a` and the explainer's §11.5 say the same.
+- **T-014** (revision 39 part 3, the draft's §21). The `M8` preamble, `M8.1`, `M8.5`, `M13.1`, `M11.C.7` and its
+  `M11.5` row, and `M7.D.1a` carry the approved text. `live_positions.avoidance_available` and its test are removed
+  (D27); `positions_live` is the one definition, with three callers (S3.20 green); fusion stays unbuilt (D28, `M8.1`
+  partial). The explainer's §11.4 and §13.1, `_RESOLUTIONS.md` and version 2's plan follow.
+- **T-129.** The fourteen `ruff check --select F` findings are fixed (unused imports and a dead assignment; the four
+  names `policy.py` imports from `observe.py` are marked as re-exports), and `SOURCE_ALLOWED` in
+  `tests/test_named_tests_resolve.py` is empty (S3.22 green). Docstrings in `moves.py`, `rejection.py`, `objects.py`
+  and `invariants.py` are restated from the code (MR-2, MR-9, MR-13). T-127's status lines are updated.
+- **The open batch** (Claude's recommendation, for the owner's review). D31 leaves the records keyed by the hash
+  stale until step 10; CLAUDE.md says a red suite is never normal. New `tests/open_batch.py` marks the eleven tests
+  that read those nine records: a failure is an expected failure only while the batch is open, the record is
+  byte-identical to the file at `9ebf327`, and the test passes when rerun with the hash computed on the tree at
+  `9ebf327` (`git archive` into pytest's temporary directory), so a failure the hash does not explain still fails and
+  the renderer checks in two of the eleven still run. New `tests/test_open_batch.py` fails when some listed records are
+  regenerated and others not, when a mark outlives the batch, and when the pinned hash is not the one a record prints.
+  The gate test counts the marks as a third figure, each on a module-level test with no argument, collected once.
+  `pytest.ini` adds `-rx`, so each expected failure's reason is printed.
+- **Review.** One `learning-qa` pass (about 85k tokens, 4 minutes) found five issues, all fixed: the mark excused any
+  failure while the record was unchanged (now only one the opening hash explains); it switched off the two renderer
+  checks (now run under the opening hash); a regeneration in part stayed green (now all or none); expected failures
+  were not listed in the summary (`-rx`); the gate counted decorator lines without checking what they decorate. One
+  correctness pass (`sonnet`, read-only, about 115k tokens, 2 minutes) found the spec edits match the draft, and one
+  wording point in `invariants.py`, fixed. A narrow re-check of the fix (`sonnet`, about 103k tokens, 2 minutes)
+  found the gate's scan read the mark's own nested tests as loose marks (fixed), and three gaps, closed: the pinned
+  hash with a tool is checked against a record's stamp, the patch is checked restored after a failed rerun, and the
+  batch's commit is named in full.
+- **Deferred.** MR-23 (T-012), a records-tool change, moves to step 10, before the one regeneration.
+- Suite: 1236 tests: 1211 pass, 14 are strict expected failures and 11 are expected failures of the open batch.
+  `EXPECTED_SPEC_REFERENCES` is 1016 (`M8.5`'s reference to `M5.C` went with the old text).
+- Documents updated: the spec, `docs/spec_revision_log.md`, `config/bowen/event_sizes.md` and `contact_classes.md`,
+  `docs/model_explainer.md`, `docs/theory/_RESOLUTIONS.md`, `docs/version_2_plan.md`, the stage 3 plan (status line
+  and step 6 row), `docs/theory/_STATUS.md`, `docs/REVIEWER_READING_LIST.md`, the checklist, README, `CLAUDE.md`, the
+  T-014, T-127, T-129 and T-130 records, `tools/spec_coverage_overrides.json`; generated: the spec index, the rules
+  view, `docs/spec_coverage.md`, the seed-7 renders, `TODO.md`. The oldest entry here (the model ergonomics
+  follow-ups) moved to `docs/CHANGELOG_archive.md` verbatim.
 
 ### Stage 3 step 5: the tests first, red (2026-10-25)
 

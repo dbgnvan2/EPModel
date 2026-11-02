@@ -1,10 +1,18 @@
 # Spec revision log
 
-**Status: the record of every revision of `bowen_agent_model_spec_v2.md`, 4 to 45 (revision 45, wording only, from the pre-tag milestone review's triage, 2026-11-01; revision 44, the batch from the owner's D4 and D5, 2026-10-31; revision 43, the version 2 definition batch, 2026-10-29; revision 40 applied 2026-10-28, from the stage 3 milestone review's triage; revision 41, its hash-moving batch, the same day; revision 42, wording only, 2026-10-29). Moved out of the spec at revision 35, 2026-10-22; nothing a run computes changed.**
+**Status: the record of every revision of `bowen_agent_model_spec_v2.md`, 4 to 46 (revision 46, wording only, after the tag `version-2`, from T-173's two mutants, 2026-11-01; revision 45, wording only, from the pre-tag milestone review's triage, 2026-11-01; revision 44, the batch from the owner's D4 and D5, 2026-10-31; revision 43, the version 2 definition batch, 2026-10-29; revision 40 applied 2026-10-28, from the stage 3 milestone review's triage; revision 41, its hash-moving batch, the same day; revision 42, wording only, 2026-10-29). Moved out of the spec at revision 35, 2026-10-22; nothing a run computes changed.**
 
 The spec holds the current rules; this file holds how they got there. Until revision 34 the revision sections stood at the end of the spec, under `M17`, and the front matter's `status:` line listed every revision since 10. `docs/plan_model_ergonomics.md` Part E moved both here (the owner's answer to its §8 Q2, 2026-10-22, "as revision 35"), so a session reading the spec reads 480 fewer lines of history. The sections below are the spec's own text as it stood, tags and all, with the newest first; revisions 13 to 33 were written inline in the requirement bodies and have no section of their own, which Part E's second step records under revision 35.
 
 The sections `### Revision 34` to `### Revision 5` and the undated section are the spec's text as it stood, moved whole; a statement inside one of them (revision 34's, that revisions 13 to 33 are "not here") was true when written, before the bodies' narratives were moved under their own revisions. Those narratives are the bullets `- \`ID\`: sentence`, each the sentence as it stood in the body, under the revision it names, in sections titled "inline narratives moved from the bodies at revision 35" where no section existed.
+
+### Revision 46 — `M11.C.34` restated from T-173's two mutants, wording only, 2026-11-01 ⟦rev46 · Claude's recommendation 2026-11-01, pending the owner's review · `docs/todo/2026-11-01_pre_tag_milestone_review.md` (T-173)⟧
+
+After the tag `version-2`. Two mutants were added to the Phase D mutation record for `M11.C.34` (the review's MR-3 and Unverified 1–2); each runs in a temporary copy, so nothing a run computes changed and the engine hash did not move (`09ca2b46c7e0`). Only the two new mutants ran (150 seeds each, this Mac).
+
+- `mixing-weight-blind-to-level-in-policy-only`: `M4.D.1a`'s weight fixed at the scale's middle at the policy's call site, `M5.F.4`'s demand share untouched. Red, −0.027 ± 0.13, p 0.35.
+- `learner-off-share-kept`: `learning_rate` and `witnessed_cutoff_gain` 0, `M4.D.1a`'s share kept. Red, +0.027 ± 0.055, p 0.88.
+- **Restated** (`M11.C.34`'s row and its `M11.5` row, Claude's recommendation pending the owner): the pass does not hold without learning and is not the premise share's alone; the two mutants that fix the share turn it red too, but their intervals contain the unmutated −0.113, so the premise limb is not shown; revision 45's reading, that the pass is the premise share's and its learned limb untested, is superseded. The class stays mixed.
 
 ### Revision 45 — the pre-tag milestone review's triage, wording only, 2026-11-01 ⟦rev45 · owner 2026-11-01, Q1–Q8 · `docs/todo/2026-11-01_pre_tag_milestone_review.md`⟧
 

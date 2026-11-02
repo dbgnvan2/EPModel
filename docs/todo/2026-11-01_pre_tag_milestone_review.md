@@ -26,11 +26,32 @@ changed, engine hash `09ca2b46c7e0` unchanged): MR-1 (the explainer and the `con
 closed), MR-8 (`tools/spec_coverage.py` quotes version 2's dispositions), MR-9, MR-10, MR-11, MR-12, MR-13, MR-14. MR-15
 and the review's open checks are below.
 
-- [ ] T-173 ⟨later⟩ **`M11.C.34`'s learned limb has no mutant (review MR-3 and Unverified 1–2, 2026-11-01).** Add to
+- [x] T-173 ⟨later⟩ **`M11.C.34`'s learned limb has no mutant (review MR-3 and Unverified 1–2, 2026-11-01).** Add to
   `tools/phase_d_mutation_record.py` a mutant that keeps `M4.D.1a`'s level-dependent share and removes the learned
   targeting (the policy's learner off, or blind to the bearer), and a one-off that fixes the weight only at the policy's
   call site, not in `M5.F.4`'s demand share. Both move no engine hash; the Phase D mutation record is regenerated for
   them alone. If the pass survives the learner-off mutant, the disposition says the result is the premise share's.
+  **Done 2026-11-01** (spec revision 46, wording only; engine hash `09ca2b46c7e0` and the Phase D mutation record's
+  `3e03e66ade9f` unchanged). Two mutants added to `tools/phase_d_mutation_record.py`, only they ran (150 seeds each,
+  this Mac, 8 workers): `mixing-weight-blind-to-level-in-policy-only` red (−0.027 ± 0.13, p 0.35) and
+  `learner-off-share-kept` red (+0.027 ± 0.055, p 0.88). The pass did not survive the learner-off mutant, so it is not
+  the premise share's alone. The two reds from fixing the share (the declared mutant and the policy-only one) are
+  weak: each interval contains the unmutated −0.113, so on a pass at p 0.039 they cannot be told from noise and the
+  premise limb is not shown; the policy-only one shows the policy's read alone is enough to lose the pass, and
+  `M5.F.4`'s read is not isolated. Learning off also makes `iposition._abort_act`'s draw uniform (correctness pass).
+  An ad hoc count, not a record: for each of seeds 0–149 and each arm, `CRITERIA_D["M11.C.34"].arm(arm, seed,
+  settings)`'s `automatic_reaction`, run in a copy of `src/`, `config/` and `tools/` with and without
+  `learner-off-share-kept`'s edits (applied by `tools/mutant_runner.apply`), 8 processes. Unmutated, the others' extra
+  automatic acts toward the bearer average +0.087 per seed at the low level and −0.027 at the high, 0 in 113 and 108
+  of 150 seeds; learner off, +0.007 and +0.033, 0 in 147 and 136 of 150. So the reaction is small even unmutated, and
+  learning off lowers the low arm's and raises the high arm's. Restated as Claude's recommendation pending the owner's
+  review (T-178): the disposition's row (the owner's review of the PASS verdict unchanged), the spec's `M11.C.34` row
+  and its `M11.5` row (class mixed).
+- [ ] T-178 ⟨now⟩ **The owner's review of spec revision 46's reading of `M11.C.34` (T-173, 2026-11-01).** Revision 46
+  supersedes revision 45's reading (the pass is the premise share's, the learned limb untested) with: the pass does not
+  hold without learning and is not the premise share's alone, and the premise limb is not shown. Approve it, or say
+  otherwise; then drop "pending the owner" from the spec's `M11.C.34` and `M11.5` rows, the disposition's row and the
+  status lines, in one commit.
 - [ ] T-174 ⟨later⟩ **`tools/group_g_readout.py` keeps no per-run results (review MR-15, 2026-11-01).** Cache each
   `one_run` in `docs/records_cache/` through `tools/record_cache`, keyed by the engine hash and `(family, seed)`, and add a
   render-only path, so a change of wording does not rerun 20 seeds per family.

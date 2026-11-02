@@ -21,6 +21,8 @@ engine_hash: 3e03e66ade9fe9f40f322c130946abf702fbe7a28f00b7ce055676dbd18917a6
 | `death-bound-anxiety-discarded` | named | M6.3c's release of the dead person's symptom-bound anxiety (M6.I.1) replaced by discarding it | `M11.C.15` | PASS | 100 | `death_rise` +1.22 ± 0.73, p 0.0009; `recovery_rise` +4.88 ± 0.53, p 8.7e-18 | **survived** |
 | `death-all-bound-anxiety-discarded` | named | M6.3c's release (M6.I.1) replaced by discarding: what the dead person's symptom, ties and triangles held | `M11.C.15` | FAIL | 50 | `death_rise` -1.32 ± 0.79, p 1; `recovery_rise` +5.27 ± 0.73, p 3.9e-10 | **red** |
 | `mixing-weight-blind-to-level` | named | M4.D.1a's mixing weight made independent of the responder's functional level (fixed at the scale's middle); M5.F.4's demand share reads the same weight, so it changes too | `M11.C.34` | FAIL | 150 | `automatic_reaction` -0.04 ± 0.12, p 0.26 | **red** |
+| `mixing-weight-blind-to-level-in-policy-only` | named | M4.D.1a's mixing weight fixed at the scale's middle in the policy only; M5.F.4's demand share still reads the mover's functional level | `M11.C.34` | FAIL | 150 | `automatic_reaction` -0.0267 ± 0.13, p 0.35 | **red** |
+| `learner-off-share-kept` | named | M4.D.6 and M4.D.6f disabled in both arms: no learned value moves from 0, so learning steers no automatic act and M5.F.4's abort draw is uniform; M4.D.1a's level-dependent share is unchanged | `M11.C.34` | FAIL | 150 | `automatic_reaction` +0.0267 ± 0.055, p 0.88 | **red** |
 | `landed-contact-changes-nothing` | named | M1.E.7's landed contact removed: a coach's contact that lands raises no systems perspective | `M11.C.7[joint over one spouse]` | FAIL | 100 | `deviation_fall` -0.00887 ± 0.054, p 0.79; `landed_contacts` -0.01 ± 0.94 (reported) | **red** |
 | `landed-contact-changes-nothing` | named | M1.E.7's landed contact removed: a coach's contact that lands raises no systems perspective | `M11.C.7[joint over sided]` | FAIL | 150 | `deviation_fall` +0.00764 ± 0.037, p 0.63; `landed_contacts` +9.14 ± 0.6, p 1.5e-26 | **red** |
 | `lock-in-removed` | named | M7.D.2a's stabilising term removed: an active symptom holds none of its partners' excess | `M11.C.22` | FAIL | 100 | `mild_removal_effect` -0.166 ± 0.56, p 0.56; `severe_removal_effect` -0.166 ± 0.56, p 0.44 | **red** |
@@ -287,6 +289,42 @@ Part II criteria that pass but are not proved here; where their mutation is repo
     "half_width": 0.1242106200000844,
     "mean_difference": -0.04,
     "p": 0.2612369151972753,
+    "readout": "automatic_reaction",
+    "report_only": false
+   }
+  ]
+ },
+ {
+  "mutant": "mixing-weight-blind-to-level-in-policy-only",
+  "kind": "named",
+  "criterion": "M11.C.34",
+  "outcome": "FAIL",
+  "seeds": 150,
+  "result": "red",
+  "readouts": [
+   {
+    "direction": -1,
+    "half_width": 0.12567801431091075,
+    "mean_difference": -0.02666666666666667,
+    "p": 0.3455571843366349,
+    "readout": "automatic_reaction",
+    "report_only": false
+   }
+  ]
+ },
+ {
+  "mutant": "learner-off-share-kept",
+  "kind": "named",
+  "criterion": "M11.C.34",
+  "outcome": "FAIL",
+  "seeds": 150,
+  "result": "red",
+  "readouts": [
+   {
+    "direction": -1,
+    "half_width": 0.05545783787934804,
+    "mean_difference": 0.02666666666666667,
+    "p": 0.879669189453125,
     "readout": "automatic_reaction",
     "report_only": false
    }

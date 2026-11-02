@@ -96,15 +96,37 @@ def test_m141_accepted_finding_shows_its_disposition():
     2026-10-23): then its row is done, a new result under a new rule, and still quotes the disposition beside the pass.
     Mutation: the disposition is not read."""
     from tools.version_1_status import dispositions
+    from tools.version_2_status import v2_dispositions
 
     rows = _rows()
-    decided = {k: d for k, d in dispositions().items() if d["kind"] in ("accepted finding", "out of scope")}
+    current = TOOL.current_dispositions(dispositions(), v2_dispositions())
+    decided = {k: d for k, d in current.items() if d["kind"] in ("accepted finding", "out of scope")}
     assert decided, "no accepted finding or out-of-scope disposition, so this checks nothing"
     for key, d in decided.items():
         row = rows[key.split("[")[0]]
         assert d["reason"] in row["note"], key
         if row["status"] == "done":
             assert f"{key.split('[')[0]} PASS" in row["note"], key  # done only on a pass the records show
+
+
+def test_m141_version_2_disposition_replaces_version_1():
+    """Milestone review MR-8: where version 2 has a disposition row for a key, the page quotes it and not version 1's
+    row for that key; a key version 2 has no row for keeps version 1's. Mutation: version 1's dispositions only."""
+    from tools.version_1_status import dispositions
+    from tools.version_2_status import v2_dispositions
+
+    v1, v2 = dispositions(), v2_dispositions()
+    both = sorted(set(v1) & set(v2))
+    only_v1 = sorted(set(v1) - set(v2))
+    assert both and only_v1, "no key in both files, or none in version 1's only, so this checks nothing"
+    rows = _rows()
+    for key in both:
+        note = rows[key.split("[")[0]]["note"]
+        assert v2[key]["reason"] in note, key
+        assert v1[key]["reason"] not in note, key
+        assert f"version 2 disposition for `{key}` ({v2[key]['decided']})" in note, key
+    for key in only_v1:
+        assert f"version 1 disposition for `{key}` ({v1[key]['decided']})" in rows[key.split("[")[0]]["note"], key
 
 
 def test_m141_header_names_each_record_read():

@@ -69,6 +69,20 @@ V2_DISPOSITIONS = REPO / "docs" / "version_2_dispositions.md"
 V2_HEADER = "| criterion | disposition | verdict | decided | reason |"
 V2_KINDS = ("accepted finding", "verdict reviewed", "note")
 STALE_CELL = "earlier engine; not counted for W4"
+NARROW_MIN_SAMPLES = 32  # D14 (`docs/implementation_plan_version_2.md`): the narrow mark is read only from this many
+
+
+def w4_narrow_note() -> str:
+    """W4's line on the narrow mark: not read while the sweep takes fewer than D14's samples (owner 2026-11-01, the
+    pre-tag review's Q2). The sample count is read from ``config/sweep/sweep.md``, so the line cannot go stale."""
+    from tools.sweep_config import CONFIG, load_rules
+
+    samples = int(load_rules(CONFIG.read_text(encoding="utf-8"))["sweep_samples"])
+    if samples >= NARROW_MIN_SAMPLES:
+        return f"W4's **narrow** mark is read from {samples} samples (D14) but is not built yet: build it before this page counts W4."
+    return (f"W4's **narrow** mark is not read: D14 (`docs/implementation_plan_version_2.md`) reads it only from a sweep of "
+            f"at least {NARROW_MIN_SAMPLES} samples, and the sweep takes {samples}, so the column shows the fraction and no "
+            "mark (owner 2026-11-01, the pre-tag review's Q2).")
 CONDITIONS = (("W1", "every criterion has a final status"),
               ("W2", "every premise and check passes"),
               ("W3", "every passing composite has a recorded mutation"),
@@ -425,6 +439,7 @@ def render(rows: list[Status]) -> str:
         held = blocked(condition)
         state = "**met**" if not held else f"**not met**, {len(held)} rows: " + ", ".join(held)
         lines.append(f"- {condition} ({text}): {state}.")
+    lines += ["", w4_narrow_note()]
     sweep_old = sweep_stale(SWEEP_RECORD)
     if sweep_old:
         lines += ["", f"The sweep record's fractions were {sweep_old} (each such cell says *{STALE_CELL}*)."]

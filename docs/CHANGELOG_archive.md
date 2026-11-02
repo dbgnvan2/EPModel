@@ -2,10 +2,45 @@
 
 The entries of `CHANGELOG.md` dated before 2026-10-19, the day version 2 began at the tag `version-1`, moved
 here verbatim on 2026-10-22, the entries of 2026-10-19 and 2026-10-20 on 2026-10-23, and the entries of
-2026-10-21 later on 2026-10-23, the earliest entry of 2026-10-22 (the SP-1 proposal's eight questions) on 2026-10-24, and the next (SP-1 built, with spec revision 34) later on 2026-10-24, and the next (Model ergonomics, Parts A–C) on 2026-10-25, and the next (Model ergonomics, Part D) later on 2026-10-25, and the next (Model ergonomics, Part E) later on 2026-10-25, and the next (Model ergonomics follow-ups) later on 2026-10-25, and the next (the closed and old parts of `TODO.md` and `CHANGELOG.md` archived) on 2026-10-26, and the next (`TODO.md` an index over records; a changelog index) later on 2026-10-26, and the next (Revision 35's dispositions approved by the owner) later on 2026-10-26, and the next two (Spec revision 36, of 2026-10-22, and Revision 36's records regenerated, of 2026-10-23) later on 2026-10-26, and the next five (from the cloud sessions' SessionStart hook to Stage 2: Phase C's directional criteria swept, all of 2026-10-23) later on 2026-10-26, and the next three (from the night's decisions listed for the owner to Stage 2: Phase D part I's directional criteria swept, all of 2026-10-23) on 2026-10-27, and the next (Stage 2: the sweep can run on two Macs, of 2026-10-23) later on 2026-10-27, and the next (The two-Mac cross-check run live, of 2026-10-23) on 2026-10-28, and the next four (from Stage 2: Phase D part II's sweep ranges declared to When the full sweep runs, the last of 2026-10-23) on 2026-10-29, and the next three (from Stage 2: Phase D part II's seven criteria swept across two Macs to The stage 2 milestone review triaged, spec revision 38, the earliest of 2026-10-24) later on 2026-10-29, and the next five (from Version 2 stage 3's implementation plan drafted to Rule: a finished session writes the next session's brief, the last of 2026-10-24) on 2026-10-30, and the next (Stage 3 step 3: P2 (displaced coping) drafted with F1, probed, for the owner's approval, the earliest of 2026-10-25) on 2026-10-31, and the next three (from The two-Mac driver reaches Mac Mini1 through the `macmini1` alias to Stage 3 step 3: P2 and F1 probed together on Mac Mini1, all of 2026-10-25) later on 2026-10-31, and the next (Stage 3 step 4: spec revision 39, part 1 drafted (group C), for the owner's approval, of 2026-10-25) on 2026-11-01, and the next (Stage 3 step 4: spec revision 39, parts 2 and 3 drafted; revision 39 approved by the owner, of 2026-10-25) later on 2026-11-01, so that the live file stays short enough to read (`tests/test_doc_size.py` bounds its size). The heading below is the section they
+2026-10-21 later on 2026-10-23, the earliest entry of 2026-10-22 (the SP-1 proposal's eight questions) on 2026-10-24, and the next (SP-1 built, with spec revision 34) later on 2026-10-24, and the next (Model ergonomics, Parts A–C) on 2026-10-25, and the next (Model ergonomics, Part D) later on 2026-10-25, and the next (Model ergonomics, Part E) later on 2026-10-25, and the next (Model ergonomics follow-ups) later on 2026-10-25, and the next (the closed and old parts of `TODO.md` and `CHANGELOG.md` archived) on 2026-10-26, and the next (`TODO.md` an index over records; a changelog index) later on 2026-10-26, and the next (Revision 35's dispositions approved by the owner) later on 2026-10-26, and the next two (Spec revision 36, of 2026-10-22, and Revision 36's records regenerated, of 2026-10-23) later on 2026-10-26, and the next five (from the cloud sessions' SessionStart hook to Stage 2: Phase C's directional criteria swept, all of 2026-10-23) later on 2026-10-26, and the next three (from the night's decisions listed for the owner to Stage 2: Phase D part I's directional criteria swept, all of 2026-10-23) on 2026-10-27, and the next (Stage 2: the sweep can run on two Macs, of 2026-10-23) later on 2026-10-27, and the next (The two-Mac cross-check run live, of 2026-10-23) on 2026-10-28, and the next four (from Stage 2: Phase D part II's sweep ranges declared to When the full sweep runs, the last of 2026-10-23) on 2026-10-29, and the next three (from Stage 2: Phase D part II's seven criteria swept across two Macs to The stage 2 milestone review triaged, spec revision 38, the earliest of 2026-10-24) later on 2026-10-29, and the next five (from Version 2 stage 3's implementation plan drafted to Rule: a finished session writes the next session's brief, the last of 2026-10-24) on 2026-10-30, and the next (Stage 3 step 3: P2 (displaced coping) drafted with F1, probed, for the owner's approval, the earliest of 2026-10-25) on 2026-10-31, and the next three (from The two-Mac driver reaches Mac Mini1 through the `macmini1` alias to Stage 3 step 3: P2 and F1 probed together on Mac Mini1, all of 2026-10-25) later on 2026-10-31, and the next (Stage 3 step 4: spec revision 39, part 1 drafted (group C), for the owner's approval, of 2026-10-25) on 2026-11-01, and the next (Stage 3 step 4: spec revision 39, parts 2 and 3 drafted; revision 39 approved by the owner, of 2026-10-25) later on 2026-11-01, and the next (Stage 3 step 5: the tests first, red, of 2026-10-25) later on 2026-11-01, so that the live file stays short enough to read (`tests/test_doc_size.py` bounds its size). The heading below is the section they
 were under; nothing in this file is reworded. Later entries are in `CHANGELOG.md`.
 
 ## [Unreleased] — 2026-10-11
+
+### Stage 3 step 5: the tests first, red (2026-10-25)
+
+- Sixteen stage 3 tests for plan steps 6–10 are written before any engine change, each with its spec ID or S3 ID in
+  its name: S3.1a–S3.1d (displaced coping, its config table, `M1.A.5e`'s `floor_held` ledger), S3.4 (lent
+  functioning returned with lost capacity), S3.6 (`M5.F.4`'s demand share), S3.7 (the new I-position criterion), S3.8
+  (`M11.C.29`'s arm), S3.10 (reciprocal contact), S3.11 (`TRIANGLE` in layer 0), S3.16–S3.19 (`M17.E.1`'s named ratio in the sweep tool), S3.20 (`positions_live`'s three
+  callers) and S3.22 (`ruff check --select F` clean, new file `tests/test_lint.py`). Each was run with `--runxfail`
+  and fails on an `AssertionError` that names the missing rule, none on an import error or a typo.
+- Marking (Claude's recommendation, overnight, for the owner's review): the fifteen default-run tests are
+  `xfail(strict=True, raises=AssertionError)` with a reason naming the step that turns each green, so a test that
+  starts passing, or fails for any other reason, turns the suite red; S3.7 is `ensemble`-marked, out of the default
+  run like every criterion test. The plan's step 5 row lists the names the tests fix for the build (among them
+  `EventKinds.displacing`, `Person.floor_held`, `moves.return_lent_functioning`, `sweep_config.load_ratios`) and three
+  readings: displaced coping's room above the floor is read as `functional_level − floor`, since the draft's parenthesis gives
+  the floor itself (its wording is fixed at step 7); S3.8's window includes `t0 + prepare_ticks`; S3.19 checks
+  `M17.E.1`, since `M10.C.1a` is unchanged (the draft's §20.2). §3.7's rows for S3.6, S3.7 and S3.19 are corrected to
+  the draft (the mutant `demand-share-removed`; `M17.E.1`).
+- The suite is 1232 tests: 1216 pass and 16 are strict expected failures (fifteen new expected failures); the
+  `ensemble`-marked criterion tests rise from 51 to 52. Nothing under `src/bowen/` or `config/bowen/` changed, the spec
+  did not change, and the engine hash stays `66dcbb1e8ba5`. `ruff check --select F` still reports T-129's 14 findings,
+  none in the new tests.
+- One correctness pass (`sonnet`, read-only, about 183k tokens, 6 minutes) found no test that would stay red once its
+  rule is built as the draft says, and six weaknesses, five fixed: S3.10 gains an anxious sender, who takes in none of
+  the returned contact; S3.6 runs at conductance 0.5, so the event's scale is not 1; S3.16's tolerance allows for the
+  tool's six-digit values; S3.17 checks the 52-week boundary; S3.7 finds the criterion in any registry; S3.22 runs
+  ruff from the interpreter's environment when installed there. The sixth (S3.1c expects failures the draft does not
+  name) is recorded in the step 5 row for step 7's config text.
+- `docs/spec_coverage.md` regenerated: `M1.A.5e` and `M5.F.4` read *partial* while their stage 3 tests are expected
+  failures (an expected failure is not evidence), and the nine tests named for requirements revision 39 adds are listed
+  as named for no spec ID until that text lands.
+- Documents updated: the stage 3 plan (status line, step 5 row, §3.7's rows for S3.6, S3.7 and S3.19),
+  `docs/theory/_STATUS.md`, `docs/REVIEWER_READING_LIST.md`, `CLAUDE.md` (the suite count and the ensemble count),
+  `docs/spec_coverage.md` and `docs/spec_index.jsonl` (generated), `tests/doc_claims.json` (step 3's dated
+  suite count of 1217) and this entry.
 
 ### Stage 3 step 4: spec revision 39, parts 2 and 3 drafted; revision 39 approved by the owner (2026-10-25)
 

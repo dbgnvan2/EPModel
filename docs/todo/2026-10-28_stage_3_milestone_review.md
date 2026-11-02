@@ -46,8 +46,8 @@ records are regenerated once.
   reworded every distinctive run of three or more words that the spec shared with a quoted span of the KB extractions
   or `_LECTURES_1979.md` (an n-gram comparison; theory vocabulary such as "differentiation of self" and common phrases such as "level of anxiety" kept). The same
   comparison at four words finds about 14 lines in `docs/model_explainer.md` (for example its lines 837, 996, 2119);
-  other documents were not checked. `tests/test_asr_quotations.py` reads only quoted spans of four words or more, so it
-  cannot find unquoted reuse. To decide: sweep the explainer the same way, and either add a test built on the n-gram
+  other documents were not checked. `tests/test_asr_quotations.py` reads only quoted spans (of four words or more until 2026-11-01, two since, the pre-tag
+  review's MR-9), so it cannot find unquoted reuse. To decide: sweep the explainer the same way, and either add a test built on the n-gram
   comparison (with an allowlist of theory vocabulary in `tests/asr_quotations.json`) or record why the test stays as it is.
 - [x] T-151 ⟨later⟩ **CI installs whatever `ruff` and `numpy` are current (review MR-15, 2026-10-28).** Pin `ruff` to the
   version that passed CI run 40630271972 and bound numpy's major version in `requirements.txt`; bump each on purpose,

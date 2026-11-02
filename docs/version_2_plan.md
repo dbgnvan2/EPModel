@@ -399,7 +399,7 @@ are new.
 | W1 | Every `M11.C` criterion, including any added in version 2, has a final status, as V1. | the version 2 status page (generated) and a test that no criterion lacks one |
 | W2 | Every premise and check passes, as V2. | the same page, by class |
 | W3 | Every passing composite has a recorded mutation, as V3. | the record tests (`test_m111d_*`) |
-| W4 | Every passing directional criterion has a sweep result: the fraction of samples in which its direction holds over declared ranges, with a pass below a declared fraction marked **narrow** (the fraction is the owner's, Q4). | a generated sweep record and its column on the status page; a test that every passing row has one |
+| W4 | Every passing directional criterion has a sweep result: the fraction of samples in which its direction holds over declared ranges, with a pass below a declared fraction marked **narrow** (the fraction is the owner's, Q4). | a generated sweep record and its column on the status page; a test that every passing row has one. The narrow mark is read only from a sweep of 32 samples or more (D14); version 2's stage-end sweep took 8, so W4 closed with fractions and no mark (owner 2026-11-01, the pre-tag review's Q2) |
 | W5 | Each finding group the owner chose (Q2) has a proposal the owner decided, and if a rule changed, its result is recorded beside version 1's. | the status page's version 1 column; owner sign-off on each proposal (not code-testable) |
 | W6 | The documents agree with the code, as V5. | `tests/test_doc_checklist.py`, `tests/test_spec_consistency.py`, the record-current tests |
 | W7 | The suite and CI are green on every supported Python version, as V6. | `.github/workflows/tests.yml` on the last commit |

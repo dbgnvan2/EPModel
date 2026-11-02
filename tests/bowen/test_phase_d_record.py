@@ -173,20 +173,41 @@ def test_m17a1_a_known_defect_is_printed_beside_its_verdict():
     assert note not in _rendered(2)
 
 
-def test_m17a1_each_verdict_note_is_true_of_the_records_and_the_todo_list():
-    """Learning-qa, 2026-10-24: a ``VERDICT_NOTES`` note is a claim (P6) and nothing checked it. Each key must be a
-    criterion an ensemble record holds (a typo or a key left behind is refused, not skipped); each T-ID it cites must
-    be open in `TODO.md`; "named mutant survived" must be what the mutation records say. When T-119 or T-123 closes,
-    or a mutant turns the criterion red, this fails until the note is changed. Mutation: a note citing a closed item."""
+def _verdict_note_problems(notes: dict[str, str]) -> list[str]:
+    """What is untrue in ``notes``, each a ``VERDICT_NOTES`` note checked against the records and `TODO.md`."""
     from tools.version_2_status import survived_mutants
     from tools.version_2_sweep import central_verdicts
 
     centrals, survivors = central_verdicts(), survived_mutants()
     open_items = set(re.findall(r"^- (T-\d+) ", (REPO / "TODO.md").read_text(encoding="utf-8"), re.M))
-    for key, note in _tool.VERDICT_NOTES.items():
-        assert key in centrals, f"VERDICT_NOTES names {key}, which no ensemble record holds"
+    problems = []
+    for key, note in notes.items():
+        if key not in centrals:
+            problems.append(f"VERDICT_NOTES names {key}, which no ensemble record holds")
+            continue
         cited = set(re.findall(r"T-\d+", note))
-        assert cited and cited <= open_items, f"{key}'s note cites {sorted(cited - open_items)}, not open in TODO.md"
-        if "named mutant survived" in note:
-            assert any(kind == "named" for kind, _ in survivors.get(key, [])), (
-                f"{key}'s note says its named mutant survived; no mutation record says so")
+        if not cited or not cited <= open_items:
+            problems.append(f"{key}'s note cites {sorted(cited - open_items)}, not open in TODO.md")
+        if "named mutant survived" in note and not any(kind == "named" for kind, _ in survivors.get(key, [])):
+            problems.append(f"{key}'s note says its named mutant survived; no mutation record says so")
+    return problems
+
+
+def test_m17a1_each_verdict_note_is_true_of_the_records_and_the_todo_list():
+    """Learning-qa, 2026-10-24: a ``VERDICT_NOTES`` note is a claim (P6) and nothing checked it. Each key must be a
+    criterion an ensemble record holds (a typo or a key left behind is refused, not skipped); each T-ID it cites must
+    be open in `TODO.md`; "named mutant survived" must be what the mutation records say. When T-119 or T-123 closes,
+    or a mutant turns the criterion red, this fails until the note is changed. ``VERDICT_NOTES`` is empty since spec
+    revision 43, so the check is also run on planted notes, each false in one way, and must refuse each (the pre-tag
+    review's MR-14, owner 2026-11-01). Mutation: a note citing a closed item."""
+    assert _verdict_note_problems(_tool.VERDICT_NOTES) == []
+    planted = {
+        "M11.C.999": "an unknown key (T-1)",                     # no record holds it
+        "M11.C.48": "baseline under review (T-0)",              # T-0 is not open
+        "M11.C.34": "named mutant survived (T-0)",              # its named mutant turned it red
+    }
+    problems = _verdict_note_problems(planted)
+    assert len(problems) == 4, problems
+    assert any("M11.C.999" in p for p in problems)
+    assert any("M11.C.48's note cites ['T-0']" in p for p in problems)
+    assert any("M11.C.34's note says its named mutant survived" in p for p in problems)

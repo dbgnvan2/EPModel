@@ -1,15 +1,16 @@
 """No new quotation of the two speech-recognition sources (SP-1).
 
 Purpose: the 1979 tapes and the Kerr–Bowen interviews are ASR transcripts, and the rule is to cite them, never quote
-         them. A quoted span of four or more words in a block (a paragraph, list item or table row) that cites one of
-         them fails, unless its file is exempt or the span is allowlisted with its written source. Quote marks are
-         paired inside each block, so a stray or short quote mark cannot swallow a quotation in the next one. The
-         transcripts are not in the repository, so this test reads citations, not transcripts. It misses a quotation
-         whose citation sits in another block or that has none, one set as a block quote without quote marks, one
-         whose marks do not pair (a curly opening closed by a straight one), and one after a stray quote mark in its
+         them. A quoted span of two or more words (`min_words` in the rules; a single transcript word may stand with its
+         citation, the owner's rule in docs/theory/_SOURCE_QUALITY.md) in a block (a paragraph, list item or table row)
+         that cites one of them fails, unless its file is exempt or the span is allowlisted with its written source.
+         Quote marks are paired inside each block, so a stray or short quote mark cannot swallow a quotation in the next
+         one. The transcripts are not in the repository, so this test reads citations, not transcripts. It misses a
+         quotation whose citation sits in another block or that has none, one set as a block quote without quote marks,
+         one whose marks do not pair (a curly opening closed by a straight one), and one after a stray quote mark in its
          own block; one longer than 800 characters; one in straight single quotes or guillemets; one beside a citation
-         form not in the rules (`KB-04`, `T6.8`, "tape five"); an HTML entity in a Markdown file is not decoded; and only
-         tracked `.md` and `.html` files are read. In HTML a block is a blank-line chunk, which can hold several
+         form not in the rules (`KB-04`, `T6.8`, "tape five"); an HTML entity in a Markdown file is not decoded; and
+         only tracked `.md` and `.html` files are read. In HTML a block is a blank-line chunk, which can hold several
          elements, and a Markdown block quote is one block however many paragraphs it has, so a citation anywhere in it
          flags every quotation in it (the proposal's §5, form A; §9).
 Spec:    docs/PROPOSAL — ASR QUOTATIONS (SP-1).md#SP1.2, #SP1.4, #SP1.5
@@ -111,11 +112,12 @@ def repo_findings(rules: dict) -> tuple[list[Finding], list[Finding]]:
 
 
 def test_sp1_2_no_quotation_beside_asr_citation():
-    open_, _ = repo_findings(load_rules())
+    rules = load_rules()
+    open_, _ = repo_findings(rules)
     assert not open_, (
-        f"{len(open_)} quoted span(s) of four or more words sit in a block that cites a 1979 tape or a Kerr–Bowen "
-        "interview. Those sources are ASR transcripts: paraphrase and cite them (SP-1). A written-source quotation "
-        "goes on tests/asr_quotations.json's allowlist with its source.\n" + "\n".join(map(str, open_)))
+        f"{len(open_)} quoted span(s) of {rules['min_words']} or more words sit in a block that cites a 1979 tape or a "
+        "Kerr–Bowen interview. Those sources are ASR transcripts: paraphrase and cite them (SP-1). A written-source "
+        "quotation goes on tests/asr_quotations.json's allowlist with its source.\n" + "\n".join(map(str, open_)))
 
 
 _MUTANT = """# A made-up note
@@ -124,7 +126,9 @@ The KB04 interview is cited here, and a new quotation sits beside it: "this sent
 
 A written source may be quoted: "a made-up line standing for a book" (`kerr_book/ks12.md` · KS12.3).
 
-Three words: "too short here" (KB04).
+One word: "grotesque" (KB04).
+
+Two words: "never spoken" (KB04).
 
 "a quotation in a paragraph of its own"
 
@@ -148,11 +152,12 @@ _MUTANT_PAIRING = """The flag "on" is set; "a real quotation of the tape text" (
 
 
 def test_sp1_2_mutant_new_quotation_fails():
-    """The checker the repository test uses catches a new quoted span beside a `KB04` citation, and passes a written
-    quotation beside a written citation, a span under four words, and (the known limit) a span whose citation is in
-    another paragraph or table row."""
+    """The checker the repository test uses catches a new quoted span beside a `KB04` citation, two words included,
+    and passes a written quotation beside a written citation, a single quoted word, and (the known limit) a span whose
+    citation is in another paragraph or table row."""
     rules = load_rules()
-    assert [f.span for f in findings("mutant.md", _MUTANT, rules)] == ["this sentence was never spoken by anyone"]
+    assert [f.span for f in findings("mutant.md", _MUTANT, rules)] == [
+        "this sentence was never spoken by anyone", "never spoken"]
     assert [f.span for f in findings("mutant.html", _MUTANT_HTML, rules)] == [
         "a quoted line in html text", "an entity encoded quotation of tape text"]
     assert [f.span for f in findings("mutant.md", _MUTANT_PAIRING, rules)] == [

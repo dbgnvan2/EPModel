@@ -40,9 +40,10 @@ An ``M11.C`` criterion's test is ensemble-marked and outside the default suite, 
 * **Not built** (``src/bowen/ensemble/criteria.py``'s and ``tools/phase_d_record.py``'s
   ``NOT_BUILT``): **not done**, with the reason.
 
-Where the owner recorded a version 1 disposition for a criterion (``docs/version_1_dispositions.md``,
-read by the frozen ``tools/version_1_status.py``'s parser), the note quotes it; the status stays what
-the records show. The page's header names each record read and the hash it states (plan A3).
+Where the owner recorded a disposition for a criterion, the note quotes it: version 2's row
+(``docs/version_2_dispositions.md``, read by ``tools/version_2_status.py``'s parser) where there is one,
+else version 1's (``docs/version_1_dispositions.md``, read by the frozen ``tools/version_1_status.py``'s
+parser; milestone review MR-8). The status stays what the records show. The page's header names each record read and the hash it states (plan A3).
 """
 
 from __future__ import annotations
@@ -144,9 +145,22 @@ def unmet_clauses(text: str) -> set[str]:
     return {cid for cid, cells in _consistency._criterion_rows(text) if len(cells) >= 4 and UNMET_CLAUSE.search(cells[3])}
 
 
+def current_dispositions(version_1: dict[str, dict], version_2: dict[str, dict]) -> dict[str, dict]:
+    """Purpose: the disposition rows the page quotes: version 2's row for a key in place of version 1's, and version 1's
+    row for a key version 2 has no row for (milestone review MR-8).
+    Spec:    docs/bowen_agent_model_spec_v2.md#M14.1
+    Tests:   tests/bowen/test_spec_coverage.py::test_m141_version_2_disposition_replaces_version_1
+    """
+    out = {key: {**d, "version": 1} for key, d in version_1.items()}
+    out.update({key: {**d, "version": 2} for key, d in version_2.items()})
+    return out
+
+
 def disposition_notes(spec_id: str, dispositions: dict[str, dict]) -> list[str]:
-    """The owner's version 1 dispositions for the ID or any of its variants, quoted (plan A2)."""
-    return [f"version 1 disposition for `{key}` ({d['decided']}), {d['kind']}: {d['reason']}"
+    """The owner's current dispositions for the ID or any of its variants, quoted (plan A2): version 2's row where
+    there is one, else version 1's. A version 2 row names the verdict it was decided on."""
+    return [f"version {d['version']} disposition for `{key}` ({d['decided']}), {d['kind']}"
+            + (f" on {d['verdict']}" if d["version"] == 2 else "") + f": {d['reason']}"
             for key, d in dispositions.items() if key.split("[")[0] == spec_id]
 
 _consistency_spec = importlib.util.spec_from_file_location("spec_consistency", REPO / "tests" / "test_spec_consistency.py")
@@ -291,8 +305,9 @@ def coverage(overrides: dict) -> list[dict]:
     unmet = unmet_clauses(text)
     classes = {cid: cls.lower() for cid, cls in CLASS_ROW.findall(text)}
     from tools.version_1_status import dispositions
+    from tools.version_2_status import v2_dispositions
 
-    decided = dispositions()
+    decided = current_dispositions(dispositions(), v2_dispositions())
     unknown = sorted(set(overrides) - set(ids))
     if unknown:
         raise ValueError(f"overrides name IDs the spec does not define: {unknown}")
@@ -383,8 +398,9 @@ def render(rows: list[dict], overrides_name: str, unmapped: list[str] | None = N
         "row does not say its own mutation clause is not met; or when it is run as a test, not an ensemble.",
         "That last check reads the row's own annotation only, not which mutant the clause names: a criterion",
         "proved only by a joint mutant is done (`docs/phase_c_completion_report.md`).",
-        "Where the owner recorded a version 1 disposition (`docs/version_1_dispositions.md`), the note quotes",
-        "it; the status stays what the records show. The D9 sweep (`docs/phase_c_sweep_record.md`) is",
+        "Where the owner recorded a disposition, the note quotes version 2's row (`docs/version_2_dispositions.md`)",
+        "where there is one, else version 1's (`docs/version_1_dispositions.md`); the status stays what the",
+        "records show. The D9 sweep (`docs/phase_c_sweep_record.md`) is",
         "reported, not gated.",
         "",
         "Records read, each with the hash it states:",

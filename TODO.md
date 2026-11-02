@@ -14,7 +14,7 @@ moves to `docs/TODO_archive.md`. Until 2026-10-22 this file held every item's te
 - T-003 · 2026-10-20 · Coverage page, minor, from the Part A review … · [record](docs/todo/2026-08-22_blocking_the_next_phase.md)
 - T-004 · 2026-10-20 · Coverage page, from Part B's drafting (2026-10-20), not … · [record](docs/todo/2026-08-22_blocking_the_next_phase.md)
 
-## Later (133)
+## Later (137)
 
 - T-006 · 2026-10-22 · D4, long `Spec:` lines (Part D, 2026-10-22; the … · [record](docs/todo/2026-10-22_model_ergonomics.md)
 - T-007 · 2026-10-22 · Adjacent issues found by Part D's docstring pass, … · [record](docs/todo/2026-10-22_model_ergonomics.md)
@@ -57,7 +57,6 @@ moves to `docs/TODO_archive.md`. Until 2026-10-22 this file held every item's te
 - T-048 · 2026-10-16 · After revision 31 part B (2026-10-16), for the … · [record](docs/todo/2026-10-11_phase_d.md)
 - T-049 · 2026-10-16 · Failing criteria from steps 8–10, each the owner's … · [record](docs/todo/2026-10-11_phase_d.md)
 - T-050 · 2026-10-11 · `M11.C.2` fails · [record](docs/todo/2026-10-11_phase_d.md)
-- T-051 · 2026-10-11 · `M11.C.34` fails · [record](docs/todo/2026-10-11_phase_d.md)
 - T-052 · 2026-10-13 · `M11.C.17`'s coached rise nearly vanished · [record](docs/todo/2026-10-11_phase_d.md)
 - T-053 · 2026-10-12 · Reviews of revisions 25–27 (2026-10-12), not fixed, with … · [record](docs/todo/2026-10-11_phase_d.md)
 - T-054 · 2026-10-13 · Phase D record, review of 2026-10-13, minor · [record](docs/todo/2026-10-11_phase_d.md)
@@ -149,3 +148,8 @@ moves to `docs/TODO_archive.md`. Until 2026-10-22 this file held every item's te
 - T-169 · 2026-10-31 · A coach's completed `I-POSITION` exchange still acts on … · [record](docs/todo/2026-10-29_version_2_definition.md)
 - T-171 · 2026-11-01 · Five version 1 disposition texts describe causes from … · [record](docs/todo/2026-10-29_version_2_definition.md)
 - T-172 · 2026-11-01 · Three minor items from the W5–W8 reviews (2026-11-01) · [record](docs/todo/2026-10-29_version_2_definition.md)
+- T-173 · 2026-11-01 · `M11.C.34`'s learned limb has no mutant (review MR-3 … · [record](docs/todo/2026-11-01_pre_tag_milestone_review.md)
+- T-174 · 2026-11-01 · `tools/group_g_readout.py` keeps no per-run results (review MR-15, 2026-11-01) · [record](docs/todo/2026-11-01_pre_tag_milestone_review.md)
+- T-175 · 2026-11-01 · Hand-restated status goes stale (review systemic pattern 1, … · [record](docs/todo/2026-11-01_pre_tag_milestone_review.md)
+- T-176 · 2026-11-01 · Why `M11.C.48`'s direction is reversed (review MR-6 and … · [record](docs/todo/2026-11-01_pre_tag_milestone_review.md)
+- T-177 · 2026-11-01 · `config/bowen/constants.md:56–57` still says `hold_gain` makes aborts the usual … · [record](docs/todo/2026-11-01_pre_tag_milestone_review.md)

@@ -2,7 +2,7 @@
 tags: [model-bt, explainer]
 status: current
 version: 2.0
-date: 2026-10-29
+date: 2026-11-01
 ---
 
 # The model, part by part
@@ -768,7 +768,7 @@ At low level a person is nearly all automatic; as level rises a real self-direct
 3. **Abort branches — defend, counterattack, go silent.** These sit at the *first* opposition and are the **usual** response, not the exception. Each returns the mover to the prior balance.
 4. **Hold course.** ⚠ **Corrected 2026-08-27 — this step was stated backwards here and in the spec.** The gate is the mover's **freedom from** anger: "when he is finally able to maintain his course **without getting angry** at the opposition… the opposition does a final intense emotional attack." An angry mover **does not reach the peak at all** — the sequence stalls quietly rather than aborting loudly, which is a different failure from step 3's. Ch13 mentions anger exactly once and it is the mover's; Kerr 1988 (`FE04.4`) and Bowen 1988 (`FE11.19`) say the same about the same person's anger. **Anger is negative evidence for a differentiated move, never a gate admitting one.** → spec `M5.D.4`, `M5.D.4a`
 5. **The peak** — a final intense emotional attack.
-6. **If the mover stays calm:** "the opposition becomes calm and **pulls up to his level** of individuality," and then "another, and another will do the same." In the model the pull-up does not apply when the mover is the coach (`M5.D.5`, revision 44, T-165): a family member can go beyond the coach's level, so the coach does not lift anyone toward its own (`[K]` `FE06.10`), and the family changes when its leader emerges from within it (`[B]` `FE11.6`).
+6. **If the mover stays calm:** "the opposition becomes calm and **pulls up to his level** of individuality," and then "another, and another will do the same." In the model the pull-up does not apply when the mover is the coach (`M5.D.5`, revision 44, T-165). That is a modelling choice, the owner's D5 (`[I]`): the reason that both parties rise does not hold for a mover outside the family. Two sources are context, not its ground: a family member can go beyond the coach's level, so the coach's level is no ceiling (`[K]` `FE06.10`), which the pull-up never was, since it only raises those below the mover; and the family changes when its leader emerges from within it (`[B]` `FE11.6`).
 7. **Mandatory follow-up the next day** — "this is the point where the feeling system dictates withdrawal, which will result in the system 'tightening up' again." **Skipping it reverts the gain.**
 
 **Source:** `[M]` Ch13 · L13.3 for the sequence; `[T]` Ch21 · L21.4 for the follow-up and the timings; `[T]` `FE11.9` for the `PREPARE` phase that now precedes step 1 — Bowen's own February 1967 trip ran **months of planning** and **one private letter per important triangle**, timed "**to cause the triangles to come to me**". **Success usually follows several failures.**
@@ -2057,8 +2057,8 @@ Version 2's stage 2 builds the constant sweep (`M17.E.1`) and the detection-limi
   second run's (UNDETERMINED if it has not converged there) and both seed counts are recorded; a first run at or
   above that count is not rerun, and a criterion whose own `seeds` is below the count is refused when a sample needs
   the rerun, before it runs, since the runner reads that count before the block and cap (revision 38; such a criterion
-  is swept while no sample needs a rerun, as `M11.C.48` was until revision 41's engine and `M11.C.48[phase_d]`, on the
-  same 100 seeds, still is). The record shows
+  is swept while no sample needs a rerun; `M11.C.48`'s two variants were refused at the rerun on 100 seeds until
+  revision 43 raised their seeds to 200, T-163). The record shows
   a refused criterion as *refused at the rerun*: the sample, both seed counts and the samples run before it, with no
   fraction and no later sample, and it has no sweep result (revision 42; `M11.C.48` at sample 2, 2026-10-29). The multiple
   (2.0) and the count (200) are `[I]`, in `config/sweep/sweep.md`. The gating records themselves adopt the rule
@@ -2244,9 +2244,13 @@ written; it is not a rule against reopening.
     permanent drop in the triangle's intensity, and lower impingement on both sides of the tie.
 - **No reaction is not success.** It means the move did not land.
 
-In the reference family, with Ravi given perspective, most attempts fail in preparation, most that meet
-opposition abort, and the first success comes after many attempts. The rate at which movers hold
-(`hold_gain`) was set so that aborting is the usual outcome, which the spec requires (`M5.D.3`).
+The spec requires that aborting is the usual outcome at the first opposition (`M5.D.3`), and the rate at which movers
+hold (`hold_gain`, `[I]`) was first set against that. Since revision 41 (T-133) the model does not meet it. A mover
+angry at `DEFINE` says the position as a demand and the sequence ends before any opposition, so the movers who reach
+the first opposition are calmer: on the triad with F the mover, over 192 seeds, 62 sequences abort there and 66 hold, and 118
+sequences end said in anger (`test_m5d3_abort_is_the_usual_first_outcome`, a strict expected failure). The owner kept
+the requirement and the divergence as a finding (T-158 (b), 2026-10-31). In the Phase C family, preparation fails in
+most attempts (1,907 of 1,941 in that test's fixture notes), so the test runs on the triad.
 
 ### 19.5 Calmer contact (spec `M4.C.10`)
 

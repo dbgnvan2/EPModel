@@ -11,7 +11,7 @@ without this list being updated, and when a link here points at a file that no l
 are parsed by `src/bowen/io/load.py` at run time, so they stay with the config; they are linked from here.
 
 **Approved, for an outside reviewer:** [REVIEWER_READING_LIST.md](REVIEWER_READING_LIST.md) (approved by the owner
-2026-10-20; revised 2026-10-21, 2026-10-22, 2026-10-23, 2026-10-24, 2026-10-27 and 2026-10-28, not yet reviewed by the owner: "Before you start", §8's 2026-10-21 entry, §9's link to
+2026-10-20; revised 2026-10-21, 2026-10-22, 2026-10-23, 2026-10-24, 2026-10-27, 2026-10-28 and 2026-10-29 to 2026-11-01, not yet reviewed by the owner: "Before you start", §8's 2026-10-21 entry, §9's link to
 the milestone review brief, corrections from the stage 1, stage 2 and stage 3 milestone reviews, and the rows for stage 2's pages) selects the documents that describe
 what the model does and how it works, in reading order, says which version to review, and lists known problems in the
 documents.
@@ -24,7 +24,7 @@ Reviewer: ________  Started: ________  Spec revision reviewed: ________
 
 These define what the model does. A run that disagrees with them is a defect.
 
-- [ ] [bowen_agent_model_spec_v2.md](bowen_agent_model_spec_v2.md) — the spec (v2.0, revision 44; version 1 is
+- [ ] [bowen_agent_model_spec_v2.md](bowen_agent_model_spec_v2.md) — the spec (v2.0, revision 45; version 1 is
       revision 32). Objects (M1), reference family (M2), clocks and ordering (M3), the fast tick (M4), moves (M5),
       invariants (M6), the slow tick (M7), live positions (M8), beliefs (M9), parameters (M10), acceptance criteria
       (M11), framing (M11.F), the readout schema (M11.G), out of scope (M12), the run log and trace (M16).
@@ -211,7 +211,7 @@ verdicts over ensembles (`tools/phase_d_record.py`; plan step 12). Mutations are
 **Begun 2026-10-29; every row decided by the owner 2026-10-31:** [version_2_dispositions.md](version_2_dispositions.md) — version 2's dispositions of the criteria, read by `tools/version_2_status.py` after version 1's frozen file: each names the verdict it was decided on and applies only while that verdict stands; kinds `accepted finding`, `verdict reviewed` (the owner's review of a verdict not the tag's) and `note`. Its five rows were Claude's recommendations, each decided by the owner 2026-10-31 as recommended.
 
 **Generated, 2026-10-19:** [version_2_stage_1_changes.md](version_2_stage_1_changes.md) — the records in its table compared, row by row, with the same rows at the tag `version-1`, from `tools/record_changes.py`: each changed verdict, moved effect and changed value; the other records are listed under "Not compared here" (review MR-20, 2026-10-21). Stage 1 changed none. Frozen 2026-10-23: both sides read from git, the tag and stage 1's regeneration commit `7aa9fc5` (T-028).
-**Generated, 2026-10-29 (stage 3's stage-end sweep, rerun on revision 41's engine, T-159):** [version_2_sweep_record.md](version_2_sweep_record.md) — the constant sweep (`M17.E.1`): for each swept criterion, *n of S* samples over the declared ranges (`config/sweep/sweep.md`) in which the direction held, with every sample's values, seeds, rerun under the detection-limit rule (`M17.A.1`) and verdict; a measurement, never a verdict. From `tools/version_2_sweep.py`, rendered from `records_cache/sweep_v2.json`. The current record: 34 keys, with the named ratio in 26 of them; 33 have a fraction and `M11.C.48` is *refused at the rerun* (`M17.A.1`, revision 42; T-163); `M11.C.49` is not swept (T-144).
+**Generated, 2026-11-01 (the stage-end sweep rerun on revision 44's engine `09ca2b46c7e0`, T-170):** [version_2_sweep_record.md](version_2_sweep_record.md) — the constant sweep (`M17.E.1`): for each swept criterion, *n of S* samples over the declared ranges (`config/sweep/sweep.md`) in which the direction held, with every sample's values, seeds, rerun under the detection-limit rule (`M17.A.1`) and verdict; a measurement, never a verdict. From `tools/version_2_sweep.py`, rendered from `records_cache/sweep_v2.json`. The current record: 34 keys, with the named ratio in 26 of them; each has a fraction, `M11.C.48` 0 of 8 (no key is *refused at the rerun* since revision 43 raised its seeds, T-163); `M11.C.49` is not swept (T-144).
 
 **Built, 2026-10-23 (stage 2 how-to):** [two_mac_sweep.md](two_mac_sweep.md) — running the constant sweep on two Macs (davemini2 and Mac Mini1) and combining the results: splitting the criteria (`tools/version_2_sweep.py --criteria`, which writes only the cache), starting Mac Mini1's share over SSH and copying its cache back (`tools/two_mac_sweep.py`), merging (`tools/merge_cache.py`, which refuses a key with two results or two NumPy versions) and rendering (`--render-only`). The sweep machines' NumPy pin is `requirements-sweep.txt`. Not verified: bit-identical results across the two Macs.
 

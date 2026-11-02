@@ -1,6 +1,6 @@
 # Version 2, condition W8: review of the outputs
 
-**Status: signed off by the owner 2026-11-01** (drafted the same day, at `5957648`, engine hash `09ca2b46c7e0`). W8 of
+**Status: signed off by the owner 2026-11-01**, and confirmed the same day as the owner's review of the outputs for W8 (the pre-tag milestone review's Q3) (drafted the same day, at `5957648`, engine hash `09ca2b46c7e0`). W8 of
 `docs/version_2_plan.md` §4: "No output presents the model as speaking about a real family (`M11.F.9`), as V7." It is
 checked by the owner's review, not by code. This form follows version 1's (`docs/REVIEW_version_1_outputs.md`, signed
 off 2026-10-17): the outputs version 1 had are listed again with their current framing, and the outputs version 2

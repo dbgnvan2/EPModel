@@ -1,6 +1,6 @@
 {
   "_purpose": "Rules for tests/test_asr_quotations.py (SP-1; docs/PROPOSAL — ASR QUOTATIONS (SP-1).md §5). The 1979 tapes and the Kerr–Bowen interviews are ASR transcripts: cite them, never quote them. A quoted span of min_words or more words in a paragraph matching asr_citations fails, unless its file is exempt or it is on the allowlist with its written source. Editorial content, so it lives here and not in the test.",
-  "min_words": 4,
+  "min_words": 2,
   "frozen_record_note": "Quotations of the 1979 tapes and the Kerr–Bowen interviews in this record are ASR text. They were written after the no-quotation rule (2026-08-23) and break it. They are kept unedited as the record of what was approved; they are not the speakers' words and are not copied into other documents.",
   "asr_citations": [
     "\\bKB\\d{2}\\b",
@@ -43,6 +43,11 @@
       "source": "Not a written source: an ASR quotation in the 2026-08-28 backlog. Its paraphrase was deferred by the owner on 2026-10-22 (TODO.md, the SP-1 remainder); remove this entry when it is paraphrased."
     },
     {
+      "file": "docs/todo/2026-08-23_sources.md",
+      "span": "hidden dependence network",
+      "source": "Not a quotation of a source: the project's own name for a construct it withdrew from its Ch15 extraction (_LEDGER.md L15.2)."
+    },
+    {
       "file": "docs/agent_model_proposal.html",
       "span": "models from the sciences of inanimate things",
       "source": "Written source: theory/ch17.md, the printed interview in Family Therapy in Clinical Practice (one of the 22 papers)."
@@ -81,6 +86,16 @@
       "file": "docs/agent_model_proposal.html",
       "span": "Dr. Kerr has written a major portion of the book, without my knowledge of its content. This has been purposeful.",
       "source": "Written source: family_evaluation/fe11.md · FE11.0 (Bowen's preface to Family Evaluation, written)."
+    },
+    {
+      "file": "docs/agent_model_proposal.html",
+      "span": "for my research",
+      "source": "Written source: theory/ch17.md (the printed interview, one of the 22 papers)."
+    },
+    {
+      "file": "docs/agent_model_proposal.html",
+      "span": "You are correct.",
+      "source": "Written source: theory/ch17.md, Bowen's reply in the printed interview (one of the 22 papers)."
     },
     {
       "file": "docs/spec_revision_log.md",
@@ -173,6 +188,16 @@
       "source": "Written source: family_evaluation/fe11.md · FE11.2 (Bowen's Epilogue, written; SP-1 Q3)."
     },
     {
+      "file": "docs/bowen_agent_model_spec_v2.md",
+      "span": "Under load",
+      "source": "Not a quotation of a source: the spec quoting its own term to say how it is read (M1.E.7)."
+    },
+    {
+      "file": "docs/bowen_agent_model_spec_v2.md",
+      "span": "know to detriangle",
+      "source": "Not a quotation of a source: the owner's words (revision 19, 2026-10-11)."
+    },
+    {
       "file": "docs/spec_revision_log.md",
       "span": "actions are taken to relieve the anxiety of the moment rather than being determined by a long-term view",
       "source": "Written source: family_evaluation/fe05.md · FE05.4 (Kerr's chapter, written). Moved with the revision sections to spec_revision_log.md at revision 35 (2026-10-22)."
@@ -193,6 +218,11 @@
       "source": "Not a quotation of a source: the spec's own wording for an observable, quoted in the revision 8 history record. Moved with the revision sections to spec_revision_log.md at revision 35 (2026-10-22)."
     },
     {
+      "file": "docs/spec_revision_log.md",
+      "span": "i approve proceed",
+      "source": "Not a quotation of a source: the owner's approval of plan §4.8 (2026-10-14)."
+    },
+    {
       "file": "docs/milestone_review_brief.md",
       "span": "What the Hijack set supports",
       "source": "Not a quotation of a source: a section title in docs/theory/_SOURCE_QUALITY.md."
@@ -201,6 +231,11 @@
       "file": "docs/model_explainer.md",
       "span": "are based on a **broad and long-range assessment** of the situation",
       "source": "Written source: family_evaluation/fe03.md · FE03.21 (Kerr's chapter, written; SP-1 Q8)."
+    },
+    {
+      "file": "docs/model_explainer.md",
+      "span": "calming for both",
+      "source": "Written source: kerr_book/ks04.md · KS04.13 (Kerr, written)."
     },
     {
       "file": "docs/theory/_STATUS.md",
@@ -268,9 +303,49 @@
       "source": "Not a quotation of a source: the extraction note's restatement at theory/ch16.md line 169 of a written paper (the paper reads begin, not begins, at ch16.md line 264)."
     },
     {
+      "file": "docs/theory/_STATUS.md",
+      "span": "can… or",
+      "source": "Not a transcript quotation: one of the extraction audit's examples of modal inflation (a hedged source wording turned into MUST), two function words."
+    },
+    {
+      "file": "docs/theory/_STATUS.md",
+      "span": "the estimator's observables",
+      "source": "Not a quotation of a source: M1.A.4e's earlier wording, quoted where it was corrected (revision 8)."
+    },
+    {
+      "file": "docs/theory/_STATUS.md",
+      "span": "carrying discomfort",
+      "source": "Not a quotation of a source: the spec's wording for an observable (revision 8)."
+    },
+    {
       "file": "docs/theory/_LEDGER.md",
       "span": "eight to ten generations to schizophrenia — revised **up** from at least three",
       "source": "Not a quotation of a source: the ledger's own pass-1 wording, quoted where it is withdrawn."
+    },
+    {
+      "file": "docs/theory/_LEDGER.md",
+      "span": "Therapeutic-itis",
+      "source": "One coined word (hyphenated, so the word count reads two) beside KB03; the owner's rule (_SOURCE_QUALITY.md, 2026-10-24) lets a single transcript word stand with its citation."
+    },
+    {
+      "file": "docs/theory/_LEDGER.md",
+      "span": "Bowen's own ordering",
+      "source": "Not a quotation of a source: the ledger's own pass-1 wording, quoted where it is withdrawn (L15.3)."
+    },
+    {
+      "file": "docs/todo/2026-10-21_stage_1_milestone_review.md",
+      "span": "Revision 1",
+      "source": "Not a quotation of a source: a section heading in _LECTURES_1979.md."
+    },
+    {
+      "file": "docs/todo/2026-10-28_stage_3_milestone_review.md",
+      "span": "differentiation of self",
+      "source": "Not a quotation of a source: theory vocabulary named as an example of what revision 40 kept."
+    },
+    {
+      "file": "docs/todo/2026-10-28_stage_3_milestone_review.md",
+      "span": "level of anxiety",
+      "source": "Not a quotation of a source: a common phrase named as an example of what revision 40 kept."
     }
   ]
 }

@@ -311,7 +311,7 @@ classified rows: 87 ASR quotations and 64 kept quotations (written sources and t
 quotation), as the drafters classified them. "Caught" is how many of today's ASR quotations the test would have failed on; "flagged" is how many kept
 quotations it fails on and that would need an allowlist entry.
 
-**A. A citation test in the default suite.** For each quoted span of four or more words in a tracked `.md` or
+**A. A citation test in the default suite.** For each quoted span of four or more words (two or more since 2026-11-01, SP1.2) in a tracked `.md` or
 `.html` file, fail if an ASR citation is near it, unless the file is exempt or the span is allowlisted. It needs no
 transcripts, so it runs in CI and on both Macs. The citation pattern was measured in two forms: the scan's
 (`KBnn`, `Knn.n`, `Tape N`, "Kerr–Bowen", "interview"), and a broadened one that adds `kb/kbNN`, `_KB_PASS2`,
@@ -455,7 +455,7 @@ spec revision. No change under `src/bowen/` or `config/bowen/`, so the engine ha
 | ID | Acceptance criterion | Verified by |
 |---|---|---|
 | SP1.1 | Every §4 entry, as the owner approved it, replaces the current text at its line, and Q8's trace is applied: the passage is added to `fe03.md` as a finding and cited in all three places. | `python3 -m pytest -m transcripts` reports no finding outside the allowlist (SP1.3); SP1.2's test passes. |
-| SP1.2 | A quoted span of four or more words beside an ASR citation, outside an exempt file and not allowlisted, fails the default suite. | `tests/test_asr_quotations.py::test_sp1_2_no_quotation_beside_asr_citation`, proved failing by `test_sp1_2_mutant_new_quotation_fails`, which feeds a made-up document with a new quoted span beside a `KB04` citation to the same checker. |
+| SP1.2 | A quoted span of four or more words (two or more since 2026-11-01, the owner's answer to the pre-tag milestone review's Q8, matching `_SOURCE_QUALITY.md`'s rule of 2026-10-24) beside an ASR citation, outside an exempt file and not allowlisted, fails the default suite. | `tests/test_asr_quotations.py::test_sp1_2_no_quotation_beside_asr_citation`, proved failing by `test_sp1_2_mutant_new_quotation_fails`, which feeds a made-up document with a new quoted span beside a `KB04` citation to the same checker. |
 | SP1.3 | The local test fails on a quoted four-word transcript run and on an unquoted seven-word run, and skips with its reason when the transcripts are absent. | `tests/test_asr_quotations_local.py::test_sp1_3_no_transcript_runs` (marker `transcripts`); `test_sp1_3_mutant_transcript_run_fails` builds its mutant from the transcript at run time, so no transcript words are committed; `test_sp1_3_skips_without_transcripts`. |
 | SP1.4 | Every exempt path and allowlisted span in `tests/asr_quotations.json` exists, and every entry has a reason. | `tests/test_asr_quotations.py::test_sp1_4_rules_entries_are_live` |
 | SP1.5 | `DECISIONS FOR APPROVAL.md` and `proposal_rev11_emergence.md` carry the frozen-record note. | `tests/test_asr_quotations.py::test_sp1_5_frozen_records_carry_note` |

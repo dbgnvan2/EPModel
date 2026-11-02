@@ -20,7 +20,7 @@ To find an ID's module, grep `docs/spec_index.jsonl` for it: the record's `modul
 | `M08.md` | M8 — The live-position predicate | 5,462 | 850 |
 | `M09.md` | M9 — The belief layer | 4,529 | 705 |
 | `M10.md` | M10 — Parameters | 13,103 | 1,990 |
-| `M11.md` | M11 — Acceptance criteria | 111,358 | 17,082 |
+| `M11.md` | M11 — Acceptance criteria | 111,319 | 17,076 |
 | `M12.md` | M12 — Out of scope, and must never be built | 3,092 | 472 |
 | `M13.md` | M13 — Implementation order | 7,457 | 1,116 |
 | `M14.md` | M14 — Spec coverage | 28,777 | 4,508 |
@@ -28,4 +28,4 @@ To find an ID's module, grep `docs/spec_index.jsonl` for it: the record's `modul
 | `M16.md` | M16 — The run log and the readable trace | 12,049 | 1,880 |
 | `M17.md` | M17 — Phase E: ensemble runner, arms and readouts | 24,385 | 3,654 |
 
-**Size.** The view's 18 module files hold 471,094 bytes (72,591 words) against the spec's 511,386 bytes (78,287 words): 92% of the spec by bytes, 93% by words.
+**Size.** The view's 18 module files hold 471,055 bytes (72,585 words) against the spec's 511,399 bytes (78,288 words): 92% of the spec by bytes, 93% by words.

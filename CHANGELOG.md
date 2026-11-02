@@ -33,8 +33,8 @@ All notable changes to this project are recorded here. Dates are ISO.
   Unverified 1–2); only they ran (150 seeds each, this Mac). `mixing-weight-blind-to-level-in-policy-only` (the weight
   fixed at the policy's call site, `M5.F.4` untouched): red, −0.027 ± 0.13, p 0.35. `learner-off-share-kept` (learning
   off, `M4.D.1a`'s share kept): red, +0.027 ± 0.055, p 0.88. The pass does not hold without learning; the premise
-  limb is not shown (both share-fixing reds lie within noise). Revision 45's reading is superseded, as Claude's recommendation pending the owner's
-  review. Each mutant runs in a temporary copy: the engine hash (`09ca2b46c7e0`) and the Phase D mutation record's
+  limb is not shown (both share-fixing reds lie within noise). Revision 45's reading is superseded, Claude's recommendation, approved by the owner
+  2026-11-02 (T-178). Each mutant runs in a temporary copy: the engine hash (`09ca2b46c7e0`) and the Phase D mutation record's
   (`3e03e66ade9f`) did not move.
 - **Documents.** `docs/phase_d_mutation_record.md` (regenerated), the spec's `M11.C.34` and `M11.5` rows and front
   matter, `docs/spec_revision_log.md`, `docs/version_2_dispositions.md`, `docs/version_2_status.md`,

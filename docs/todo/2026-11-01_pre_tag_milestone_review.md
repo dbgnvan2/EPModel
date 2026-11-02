@@ -44,14 +44,15 @@ and the review's open checks are below.
   `learner-off-share-kept`'s edits (applied by `tools/mutant_runner.apply`), 8 processes. Unmutated, the others' extra
   automatic acts toward the bearer average +0.087 per seed at the low level and −0.027 at the high, 0 in 113 and 108
   of 150 seeds; learner off, +0.007 and +0.033, 0 in 147 and 136 of 150. So the reaction is small even unmutated, and
-  learning off lowers the low arm's and raises the high arm's. Restated as Claude's recommendation pending the owner's
-  review (T-178): the disposition's row (the owner's review of the PASS verdict unchanged), the spec's `M11.C.34` row
+  learning off lowers the low arm's and raises the high arm's. Restated as Claude's recommendation, approved by the owner
+  2026-11-02 (T-178): the disposition's row (the owner's review of the PASS verdict unchanged), the spec's `M11.C.34` row
   and its `M11.5` row (class mixed).
-- [ ] T-178 ⟨now⟩ **The owner's review of spec revision 46's reading of `M11.C.34` (T-173, 2026-11-01).** Revision 46
+- [x] T-178 ⟨now⟩ **The owner's review of spec revision 46's reading of `M11.C.34` (T-173, 2026-11-01).** Revision 46
   supersedes revision 45's reading (the pass is the premise share's, the learned limb untested) with: the pass does not
   hold without learning and is not the premise share's alone, and the premise limb is not shown. Approve it, or say
   otherwise; then drop "pending the owner" from the spec's `M11.C.34` and `M11.5` rows, the disposition's row and the
-  status lines, in one commit.
+  status lines, in one commit. **Approved by the owner 2026-11-02** through `AskUserQuestion`, as recommended; the
+  markers dropped in one commit.
 - [ ] T-174 ⟨later⟩ **`tools/group_g_readout.py` keeps no per-run results (review MR-15, 2026-11-01).** Cache each
   `one_run` in `docs/records_cache/` through `tools/record_cache`, keyed by the engine hash and `(family, seed)`, and add a
   render-only path, so a change of wording does not rerun 20 seeds per family.

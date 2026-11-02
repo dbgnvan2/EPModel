@@ -7,13 +7,12 @@ Open items, one line each: ID, date raised, title, record. **Now** blocks the cu
 `docs/todo/` (grep its ID). To close one, tick it in its record and run `python3 tools/todo_index.py`: its line
 moves to `docs/TODO_archive.md`. Until 2026-10-22 this file held every item's text; that form is in git history.
 
-## Now (5)
+## Now (4)
 
 - T-001 · 2026-10-19 · Version 2, next · [record](docs/todo/2026-08-22_blocking_the_next_phase.md)
 - T-002 · 2026-10-19 · `/csdp` sweep of 2026-10-19, items not fixed · [record](docs/todo/2026-08-22_blocking_the_next_phase.md)
 - T-003 · 2026-10-20 · Coverage page, minor, from the Part A review … · [record](docs/todo/2026-08-22_blocking_the_next_phase.md)
 - T-004 · 2026-10-20 · Coverage page, from Part B's drafting (2026-10-20), not … · [record](docs/todo/2026-08-22_blocking_the_next_phase.md)
-- T-178 · 2026-11-01 · The owner's review of spec revision 46's reading … · [record](docs/todo/2026-11-01_pre_tag_milestone_review.md)
 
 ## Later (136)
 

@@ -20,6 +20,7 @@ READOUT_PAGES = (
     "docs/review/stage_3_displaced_coping_probe.md",
     "docs/review/stage_3_iposition_probe.md",
     "docs/review/stage_3_projection_trace.md",
+    "docs/review/t176_negative_run_trace.md",
 )
 
 

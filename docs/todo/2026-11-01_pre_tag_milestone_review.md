@@ -61,9 +61,28 @@ and the review's open checks are below.
   revision makes some of them stale (MR-2, MR-4, MR-10, MR-11, MR-13). Make each point to one generated or test-checked
   source instead, extend `tests/doc_claims.json` to labels and revision ranges, and add the checklist to the documents
   a sweep rerun updates.
-- [ ] T-176 ⟨later⟩ **Why `M11.C.48`'s direction is reversed (review MR-6 and Unverified 3, 2026-11-01).** Trace whether
+- [x] T-176 ⟨later⟩ **Why `M11.C.48`'s direction is reversed (review MR-6 and Unverified 3, 2026-11-01).** Trace whether
   comparing matched first cutoffs with the ties that stayed uncut in the same week produces the shorter run. Read only;
   the finding stands until the trace says otherwise.
+  **Done 2026-11-02** (read only; engine hash `09ca2b46c7e0` unchanged). `tools/t176_negative_run_trace.py` reruns the
+  criterion's 200 seeds on both families, reproduces the record's `negative_run` (−0.319 ± 0.104, −0.113 ± 0.062) and
+  sets other baselines beside it (`docs/review/t176_negative_run_trace.md`). The comparison produces the reversal: the
+  readout counts an uncut tie only if it had a contact by the cutoff's week, but counts a cut tie with none at a run of
+  0 (329 of 1137 and 1419 of 4791 matched cutoffs). With the same condition on both arms the difference is
+  +0.029 ± 0.136 on the Phase B family and +0.344 ± 0.078 on the twelve-person family. Matching on relation, or on
+  whether the uncut tie is cut off later, does not remove it. On cut ties with a contact, the twelve-person family's
+  run lengthens more than the uncut ties' over 13 and 52 weeks (+0.218 ± 0.078, +0.419 ± 0.141); the Phase B
+  family's does not differ. The owner approved restating both disposition rows through `AskUserQuestion`
+  (2026-11-02), and opened T-179.
+- [ ] T-179 ⟨later⟩ **Whether `M11.C.48`'s readout reads both arms under the same contact condition (T-176,
+  2026-11-02).** `first_cutoff_runs` counts an uncut tie only if it had a contact by the cutoff's week but counts a cut
+  tie with none at a run of 0, and that produces the reversal (`docs/review/t176_negative_run_trace.md`). Decide whether
+  to leave out cut ties with no contact, count uncut ties with no contact at 0 (on the twelve-person family this needs
+  the week each tie to a person born in the run existed), or keep the readout. The design point in
+  `docs/version_2_plan.md` (G1, "Ties with no contact in the window are reported, not dropped") was not followed: the
+  readout drops uncut ties with no contact and reports no count of them. A change moves the M11.C.48 rows of the
+  ensemble record and needs a spec revision, `docs/readouts_phase_c.md`'s "Negative runs" and the disposition rows with
+  it.
 - [ ] T-177 ⟨later⟩ **`config/bowen/constants.md:56–57` still says `hold_gain` makes aborts the usual outcome (review
   MR-1, 2026-11-01).** `tools/ensemble_record.py`'s `code_hash` reads every `config/bowen/*.md` but
   `constants_changes.md`, so a note there moves the engine hash; it was left out of revision 45. Add the sentence that

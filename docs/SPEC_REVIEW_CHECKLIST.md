@@ -233,6 +233,8 @@ critical review of the whole model at each milestone (end of version 2's stages 
 outside review), run by a session
 without the build history on either Mac: what it checks, how it is set up, the report's form and how it is triaged.
 
+**Drafted 2026-11-02, for approval:** [plan_t179_negative_run_contact_condition.md](plan_t179_negative_run_contact_condition.md) — T-179, the owner's option (a): `M11.C.48`'s readout leaves out a first cutoff on a tie with no contact by its week, on the same condition the baseline already has, and counts it (`no_contact_cutoffs`); acceptance criteria T179.1–T179.12 mapped to tests, one regeneration across both Macs, T-177 in the same batch. Not built.
+
 **Built 2026-10-20:** [plan_doc_claim_tests.md](plan_doc_claim_tests.md) — tests that fail when a document restates a fact that has since changed: the spec revision in four places, repo paths in README and CLAUDE.md, `requirements.txt` against the imports, the suite-size pattern widened, and status claims checked against each document's own status line, both ways. Each test with the files it reads and the mutation that proves it fails; the build record (§12) and each criterion's status (§13). Approved by the owner 2026-10-20.
 
 **Built 2026-10-22, revision 36 (A6 not shown):** [<PROPOSAL — CUTOFF ANXIETY, BRIDGING AND REPAIR.md>](<PROPOSAL — CUTOFF ANXIETY, BRIDGING AND REPAIR.md>) — version 2's G1: the owner's decisions on a cut-off tie's anxiety (peak, decay to a 10% floor, negative and positive bridging, repair) turned into rules, tests and the new negative-run composite criterion, with eleven questions (Q1–Q11, all decided by the owner) and two stated conflicts with the spec (`M1.D.2a`, `M5.B.3`).

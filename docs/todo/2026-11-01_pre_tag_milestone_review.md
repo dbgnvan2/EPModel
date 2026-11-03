@@ -83,6 +83,10 @@ and the review's open checks are below.
   readout drops uncut ties with no contact and reports no count of them. A change moves the M11.C.48 rows of the
   ensemble record and needs a spec revision, `docs/readouts_phase_c.md`'s "Negative runs" and the disposition rows with
   it.
+  **Decided 2026-11-02:** the owner chose (a) through `AskUserQuestion`: leave out a first cutoff on a tie with no
+  contact by its week, and count it. The readout is in the engine hash (`tools/ensemble_record.py`'s `code_hash` reads
+  `src/bowen/**/*.py` but `render/`), so the change moves it and needs one regeneration. The plan,
+  `docs/plan_t179_negative_run_contact_condition.md`, waits for the owner's approval; open until it is built.
 - [ ] T-177 ⟨later⟩ **`config/bowen/constants.md:56–57` still says `hold_gain` makes aborts the usual outcome (review
   MR-1, 2026-11-01).** `tools/ensemble_record.py`'s `code_hash` reads every `config/bowen/*.md` but
   `constants_changes.md`, so a note there moves the engine hash; it was left out of revision 45. Add the sentence that

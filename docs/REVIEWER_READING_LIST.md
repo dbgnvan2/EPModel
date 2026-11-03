@@ -313,6 +313,9 @@ and all agreeing, were brought to the paper's wording at step 6 (T-130).
   had a contact by the cutoff's week but counts a cut tie with none at a run of 0 (`review/t176_negative_run_trace.md`).
   The owner restated both disposition rows; whether the readout should change is T-179. No rule changed and the
   engine hash did not move.
+- 2026-11-02: T-179, the owner chose option (a): a first cutoff on a tie with no contact by its week is left out of both
+  arms and counted. The plan (`plan_t179_negative_run_contact_condition.md`) waits for the owner's approval; nothing is
+  built and the engine hash has not moved.
 
 ## 9. Not relevant to how the model works now
 

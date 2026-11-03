@@ -1,7 +1,9 @@
 # Plan: `M11.C.48` reads both arms under the same contact condition (T-179)
 
-**Status: approved by the owner as written, 2026-11-02, with §5's Q1 as recommended (the status page stays live).
-Written 2026-11-02 on `main` at `033f4fe` (spec revision 46, engine hash `09ca2b46c7e0`). Nothing is built.** The owner chose option (a) through `AskUserQuestion` on 2026-11-02: leave out a first
+**Status: built 2026-11-03 as spec revision 47 (engine hash `0b363cb3186c`); the status report is §3.1. Approved by the
+owner as written, 2026-11-02, with §5's Q1 as recommended (the status page stays live). Step 7 was changed by the owner
+on 2026-11-03: only `M11.C.48`'s two keys were swept, into the cache, and the sweep record waits for the full sweep
+(T-181). Written 2026-11-02 on `main` at `033f4fe` (spec revision 46, engine hash `09ca2b46c7e0`).** The owner chose option (a) through `AskUserQuestion` on 2026-11-02: leave out a first
 cutoff on a tie with no contact by the cutoff's week, and count it, as unmatched cutoffs are counted. Options (b)
 (count uncut ties with no contact at a run of 0) and (c) (keep the readout) were not chosen.
 
@@ -60,6 +62,27 @@ once a mutant of the code it covers turns it red.
 
 T179.6 and T179.7 are checks on generated records, not code tests: a test cannot run 200 seeds in the suite. The
 commit that lands them quotes the numbers, and the reviewer checks them against the records.
+
+### 3.1 Status report (2026-11-03)
+
+| ID | Status | Evidence |
+|---|---|---|
+| T179.1 | done | `tests/bowen/test_negative_runs.py::test_m11c48_t179_a_cut_tie_with_no_contact_is_left_out_of_both_arms_and_counted`; red under the mutant |
+| T179.2 | done | `tests/bowen/test_negative_runs.py::test_m11c48_t179_each_first_cutoff_is_counted_once`; red under the mutant |
+| T179.3 | done | `tests/bowen/test_negative_runs.py::test_m11c48_t179_a_contact_in_the_cutoffs_week_counts_on_both_sides`; red under the mutant |
+| T179.4 | done | `tests/bowen/test_phase_d2_criteria.py::test_m11c48_reads_the_run_before_the_first_cutoff` (extended) and `::test_m11c48_t179_a_seed_whose_cutoffs_are_all_left_out_reads_0_and_is_counted` (`matched_seed`, added after learning-qa); each red under its mutant |
+| T179.5 | done | `tests/test_t176_negative_run_trace.py::test_m11c48_t176_trace_reproduces_the_criterions_arms`; red with revision 46's condition restored |
+| T179.6 | done | `docs/phase_d2_ensemble_record.md`: `negative_run` +0.0286 ± 0.14 (Phase B family) and +0.344 ± 0.078 (twelve-person family); `docs/review/t176_negative_run_trace.md` at `0b363cb3186c`: +0.029 ± 0.136 and +0.344 ± 0.078, the same as its same-condition row at `09ca2b46c7e0` |
+| T179.7 | done, a finding | `docs/phase_d_mutation_record.md`: `cutoff-blind-to-learned-value` **survived** on `M11.C.48[phase_d]` (+0.229 ± 0.054); reported, not hidden: the disposition row, the spec row's mutation clause and T-180 |
+| T179.8 | done | `docs/bowen_agent_model_spec_v2.md` (status line, `M11.C.48`'s row), `docs/spec_revision_log.md` "Revision 47"; `tests/test_doc_claims.py::test_d1_spec_revision_restatements_match_the_front_matter` |
+| T179.9 | done | `docs/readouts_phase_c.md`, "Negative runs" (the revision 47 bullet) |
+| T179.10 | done | `docs/version_2_dispositions.md` (both rows, owner 2026-11-03); `docs/version_2_status.md` regenerated; `tests/test_version_2_status.py::test_s2_11_status_page_is_current` |
+| T179.11 | done | `config/bowen/constants.md`, the sentence after the `hold_gain` note; T-177 ticked |
+| T179.12 | done | `python3 -m pytest tests/`: 1300 tests, 1297 pass, 3 strict expected failures (the third is the sweep record, T-181, the owner's choice of 2026-11-03); `CLAUDE.md` restates it |
+
+Also built beyond the table: `tools/group_g_readout.py` counts no-contact cutoffs in their own column
+(`tests/test_group_g_readout.py::test_m11c48_t179_readout_counts_no_contact_first_cutoffs_apart_from_unmatched_ones`),
+and `docs/version_2_revision_47_changes.md` (`tools/record_changes.py revision-47`).
 
 ## 4. Order of work and what it costs
 

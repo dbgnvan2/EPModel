@@ -58,6 +58,11 @@
         "doc": "docs/CHANGELOG_archive.md",
         "phrase": "Suite: 1217 tests, 1216 pass and 1 strict expected failure.",
         "why": "the dated entry of 2026-10-25 for stage 3 step 3's F1 addition to the probe, giving the suite's size then (archived 2026-10-31)"
+      },
+      {
+        "doc": "CHANGELOG.md",
+        "phrase": "The suite: 1295 tests,\n  1293 pass and 2 strict expected failures.",
+        "why": "the dated entry of 2026-11-02 for T-176's trace, giving the suite's size then"
       }
     ]
   },
@@ -114,6 +119,7 @@
       "docs/version_2_sweep_record.md": "a generated record, with no status line (tools/version_2_sweep.py); a measurement, never a verdict",
       "docs/version_2_revision_39_changes.md": "a generated record, with no status line",
       "docs/version_2_revision_44_changes.md": "a generated record, with no status line",
+      "docs/version_2_revision_47_changes.md": "a generated record, with no status line",
       "docs/todo/2026-11-01_pre_tag_milestone_review.md": "a TODO record, with no status line; its items are ticked to close them",
       "docs/version_1_status.md": "a generated record frozen at the tag `version-1`, with no status line",
       "docs/review/stage_3_step_7_criteria.md": "a generated measurement between the open batch's commits (D31), with no status line",

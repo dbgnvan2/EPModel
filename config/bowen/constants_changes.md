@@ -14,6 +14,11 @@
 > moved out of the code into `act_classes.md` (`M8.3`, `M5.B.4`, `M5.B.5`) are lists of act names, not constants, and
 > their contents did not change.
 >
+> **Spec revision 47 (2026-11-02; T-179, the owner's option (a), with T-177) changed no constant**, so it has no row
+> here. `M11.C.48`'s readout (a first cutoff on a tie with no contact by its week left out of both arms and counted) is
+> code. T-177 added a sentence to `constants.md`'s note on `hold_gain` (since revision 41 aborts are not the usual
+> outcome, T-158); the value of `hold_gain` did not change.
+>
 > **Spec revision 44 (2026-10-31; T-161 (b) and T-165, the owner's D4 and D5) changed no constant**, so it has no row
 > here. `M5.D.5`'s pull-up reads `pull_up_rate` as before and skips an external mover; `M11.C.21`'s scripted acts end at
 > `t0` with its settings in `criteria.md` unchanged.

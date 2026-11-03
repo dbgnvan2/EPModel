@@ -19,12 +19,19 @@ from src.bowen.ensemble.criteria_d2 import negative_run_values
 def test_m11c48_t176_trace_reproduces_the_criterions_arms(tmp_path):
     """Seed 0 of the Phase B family: the trace's treatment and baseline are the criterion's arms, its cutoff count
     and unmatched count are the criterion's, and the criterion's contrast row reads each cutoff's own run less its
-    uncut baseline. Mutation: running the seed without the declared spell (``spells=()``) changes the arms (seen on
-    seed 0 while the tool was written)."""
+    uncut baseline. Since spec revision 47 (T-179) the criterion's row reads only cut ties with a contact by their
+    week, the readout's condition, and revision 46's row reads the no-contact ones at a run of 0 beside it. Mutations:
+    running the seed without the declared spell (``spells=()``) changes the arms (seen on seed 0 while the tool was
+    written); restoring revision 46's condition in the readout (a cut tie always in contact) stops the trace."""
     row = t176.one_seed(("phase_c", 0))
-    run, uncut, firsts, unmatched, _ = negative_run_values("phase_c", 0, t176.weeks_of("phase_c"))
+    run, uncut, firsts, unmatched, silent, _, _ = negative_run_values("phase_c", 0, t176.weeks_of("phase_c"))
     assert math.isclose(row["treatment"], run) and math.isclose(row["baseline"], uncut)
-    assert len(row["cutoffs"]) == firsts and sum(not c["matched"] for c in row["cutoffs"]) == unmatched
+    assert len(row["cutoffs"]) == firsts and sum(not c["matched"] for c in row["cutoffs"]) == unmatched + silent
+    assert silent == sum(not c["own_contact"] for c in row["cutoffs"]) > 0
+    rev46 = dict(t176.CONTRASTS)["revision 46's readout: a cut tie with no contact by its cutoff's week read at a run of 0"]
+    old = [c["run"] - c["uncut"] for c in row["cutoffs"] if c["matched_rev46"]]
+    assert math.isclose(t176.seed_mean(row["cutoffs"], rev46), math.fsum(old) / len(old))
+    assert len(old) > sum(c["matched"] for c in row["cutoffs"])  # revision 46 read the no-contact cutoffs too
     criterion = dict(t176.CONTRASTS)[t176.CONTRASTS[0][0]]
     assert math.isclose(t176.seed_mean(row["cutoffs"], criterion), run - uncut)
     page = tmp_path / "trace.md"
@@ -51,7 +58,7 @@ def test_m11c48_t176_rows_the_reading_rests_on_read_what_they_say():
     runs = {t: runs_by_week(cs) for t, cs in per_tie.items()}
     cut = {t: w for t, w in first_cutoffs(records, members).items() if t not in declared}
     assert declared
-    contact_only = dict(t176.CONTRASTS)["criterion, cut ties with a contact by their cutoff's week only"]
+    contact_only = t176.CONTRASTS[0][1]  # the criterion's row: cut ties with a contact only (T-179)
     assert {c["own_contact"] for c in row["cutoffs"]} == {True, False}
     assert any(c["lags"] for c in row["cutoffs"])
     assert any(c["uncut_later"] is not None for c in row["cutoffs"])  # the split is read, not None == None

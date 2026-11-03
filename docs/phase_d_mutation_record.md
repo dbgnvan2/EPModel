@@ -7,7 +7,7 @@ passes; a red mutant is **reversed** when every gating readout's interval lies w
 direction (`M11.1d`). Phase D's other mutation runs are ad hoc and reported in
 `docs/implementation_plan_phase_d.md`.
 
-engine_hash: 3e03e66ade9fe9f40f322c130946abf702fbe7a28f00b7ce055676dbd18917a6
+engine_hash: 020160abb6db9dcee64df84aaa217e82c5e5842ead860614556101d501aecd30
 
 | Mutant | Kind | What it changes | Criterion | Verdict under mutant | Seeds | Difference under mutant | Result |
 |---|---|---|---|---|---|---|---|
@@ -32,6 +32,7 @@ engine_hash: 3e03e66ade9fe9f40f322c130946abf702fbe7a28f00b7ce055676dbd18917a6
 | `coach-position-blind` | named | M8.3 made position-blind: a coach drawn onto one spouse's side still counts as a live position | `M11.C.7[joint over sided]` | FAIL | 100 | `deviation_fall` -0.0365 ± 0.056, p 0.92; `landed_contacts` -0.14 ± 0.8, p 0.59 | **red** |
 | `removed-member-hold-released-while-away` | named | M7.D.2a's hold released over every tie, worry edges and non-interactive ties included, at every release (a symptom's end, a death, past the turn, a binder lost): so a removed member's symptom gives back what it held while they are away, not on return | `M11.C.11` | PASS | 150 | `disturbance` +2.01 ± 1.1, p 0.00013 | **survived** |
 | `removed-member-holds-not-released-on-return` | named | M7.D.2a's hold released while the member is away, and M1.D.2a (c)'s tie stock not returned by the reunion: neither hold a removed member's absence froze is released on return | `M11.C.11` | FAIL | 150 | `disturbance` +0.426 ± 1.1, p 0.17 | **red** |
+| `cutoff-blind-to-learned-value` | named | M4.D.6's learned value of CUTOFF ignored: CUTOFF carries the top automatic weight whenever it is legal, so cutoffs no longer follow a run of negatives | `M11.C.48[phase_d]` | PASS | 200 | `negative_run` +0.229 ± 0.054, p 2.2e-13; `run_before_cutoff` +1.59 ± 0.052 (reported); `first_cutoffs` +0 ± 0 (reported); `unmatched_cutoffs` +9.62 ± 0.26 (reported); `no_contact_cutoffs` +14 ± 0.4 (reported); `matched_seed` +1 ± 0 (reported) | **survived** |
 
 ## Not run
 
@@ -47,7 +48,6 @@ Criteria a mutant targets that do not pass in their ensemble record.
 - `pseudo-self-return-removed` → `M11.C.21`
 - `coach-position-blind` → `M11.C.7[one spouse over sided]`
 - `cutoff-blind-to-learned-value` → `M11.C.48`
-- `cutoff-blind-to-learned-value` → `M11.C.48[phase_d]`
 
 ## Passing with no mutant in this record
 
@@ -527,6 +527,59 @@ Part II criteria that pass but are not proved here; where their mutation is repo
     "p": 0.16567941877238526,
     "readout": "disturbance",
     "report_only": false
+   }
+  ]
+ },
+ {
+  "mutant": "cutoff-blind-to-learned-value",
+  "kind": "named",
+  "criterion": "M11.C.48[phase_d]",
+  "outcome": "PASS",
+  "seeds": 200,
+  "result": "survived",
+  "readouts": [
+   {
+    "direction": 1,
+    "half_width": 0.053615462236161586,
+    "mean_difference": 0.22948685119072437,
+    "p": 2.2227534780001093e-13,
+    "readout": "negative_run",
+    "report_only": false
+   },
+   {
+    "direction": 1,
+    "half_width": 0.052243931600658176,
+    "mean_difference": 1.5901890473647438,
+    "readout": "run_before_cutoff",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.0,
+    "mean_difference": 0.0,
+    "readout": "first_cutoffs",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.2556046629437596,
+    "mean_difference": 9.625,
+    "readout": "unmatched_cutoffs",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.39713719260319064,
+    "mean_difference": 14.0,
+    "readout": "no_contact_cutoffs",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.0,
+    "mean_difference": 1.0,
+    "readout": "matched_seed",
+    "report_only": true
    }
   ]
  }

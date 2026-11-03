@@ -10,7 +10,10 @@ Tests:   tests/bowen/test_negative_runs.py::test_m11c48_run_before_the_first_cut
          tests/bowen/test_negative_runs.py::test_m11c48_a_declared_cut_off_tie_is_left_out_on_both_sides,
          tests/bowen/test_negative_runs.py::test_m11c48_a_refusal_is_a_negative_contact_counted_once,
          tests/bowen/test_negative_runs.py::test_m11c48_two_first_cutoffs_on_one_seed,
-         tests/bowen/test_negative_runs.py::test_m11c48_members_filter_and_no_cutoff_seed
+         tests/bowen/test_negative_runs.py::test_m11c48_members_filter_and_no_cutoff_seed,
+         tests/bowen/test_negative_runs.py::test_m11c48_t179_a_cut_tie_with_no_contact_is_left_out_of_both_arms_and_counted,
+         tests/bowen/test_negative_runs.py::test_m11c48_t179_each_first_cutoff_is_counted_once,
+         tests/bowen/test_negative_runs.py::test_m11c48_t179_a_contact_in_the_cutoffs_week_counts_on_both_sides
 
 The definitions, `[I]` (`docs/readouts_phase_c.md`, "Negative runs"; the proposal
 `docs/PROPOSAL — CUTOFF ANXIETY, BRIDGING AND REPAIR.md` §4, the owner's D12):
@@ -31,7 +34,12 @@ The definitions, `[I]` (`docs/readouts_phase_c.md`, "Negative runs"; the proposa
   against the criterion (learnings P7; the revision 36 report's decisions);
 * a first cutoff with **no uncut tie** in its week has no baseline. It is left out of both arms and counted
   (``unmatched``), since reading its baseline as 0 while its own run stays in the treatment biases the comparison
-  toward a pass (learnings P7; T-123, spec revision 43).
+  toward a pass (learnings P7; T-123, spec revision 43);
+* a first cutoff on a tie with **no contact** by its week is left out of both arms and counted (``no_contact``): the
+  baseline reads an uncut tie only if it had a contact by that week, so the cut tie is read under the same condition,
+  not at a run of 0 (learnings P7; T-179, the owner's option (a), spec revision 47). Each first cutoff is matched,
+  unmatched or no-contact, and only one of them. Uncut ties with no contact are not counted: that needs the week from
+  which each tie existed (T-179's option (b), not chosen).
 """
 
 from __future__ import annotations
@@ -63,7 +71,8 @@ class FirstCutoff:
     run: int  # negative contacts received across the tie in a row, up to the cutoff's week
     uncut: float  # the mean run standing in the cutoff's week on the ties with no CUTOFF in weeks [0, week]
     longest_uncut: int  # reported only: the longest run those ties reached within the window
-    matched: bool = True  # False when no tie was uncut in the cutoff's week: no baseline, left out of both arms (T-123)
+    matched: bool = True  # False when no tie was uncut in the cutoff's week (T-123) or the tie had no contact (T-179)
+    contact: bool = True  # False when the cut tie had no contact by the cutoff's week: left out of both arms (T-179)
 
 
 def contacts(records, kinds: EventKinds, members: frozenset[PersonId] | None = None) -> list[Contact]:
@@ -135,15 +144,24 @@ def longest_run_within(runs: list[tuple[int, int]], last_week: int) -> int:
     return max((run for w, run in runs if w <= last_week), default=0)
 
 
+def in_contact(runs: list[tuple[int, int]], week: int) -> bool:
+    """A tie is in contact at ``week`` if it had a contact in any week up to and including it: the one condition both
+    arms are read under (T-179)."""
+    return any(w <= week for w, _ in runs)
+
+
 def first_cutoff_runs(records, kinds: EventKinds, members: frozenset[PersonId] | None = None,
                       declared_cut: frozenset[TieId] = frozenset()) -> list[FirstCutoff]:
     """Purpose: each tie's first cutoff with the negative run before it, the mean run standing in that week on the
     seed's ties not cut off by then (the baseline), and the longest run those ties reached in the window (reported).
     A tie the family declares cut off (``declared_cut``) has no first cutoff in the run and is not an uncut tie
-    either: it is left out on both sides. A tie with no contact in the window is not an uncut tie in it.
+    either: it is left out on both sides. A tie with no contact in the window is not an uncut tie in it, and a first
+    cutoff on a tie with no contact by its week is not matched (T-179).
     Spec:    docs/bowen_agent_model_spec_v2.md#M11.C.48
     Tests:   tests/bowen/test_negative_runs.py::test_m11c48_run_before_the_first_cutoff_against_uncut_ties,
-             tests/bowen/test_negative_runs.py::test_m11c48_a_declared_cut_off_tie_is_left_out_on_both_sides
+             tests/bowen/test_negative_runs.py::test_m11c48_a_declared_cut_off_tie_is_left_out_on_both_sides,
+             tests/bowen/test_negative_runs.py::test_m11c48_t179_a_cut_tie_with_no_contact_is_left_out_of_both_arms_and_counted,
+             tests/bowen/test_negative_runs.py::test_m11c48_t179_a_contact_in_the_cutoffs_week_counts_on_both_sides
     """
     per_tie: dict[TieId, list[Contact]] = defaultdict(list)
     for c in contacts(records, kinds, members):
@@ -155,18 +173,21 @@ def first_cutoff_runs(records, kinds: EventKinds, members: frozenset[PersonId] |
     for tie, week in sorted(cutoffs.items(), key=lambda kv: (kv[1], str(kv[0]))):
         own = run_at(runs.get(tie, []), week + 1)  # contacts in the cutoff's week count (same-week batch, M1.F.8)
         uncut = [t for t in sorted(runs, key=str) if t != tie and (t not in cutoffs or cutoffs[t] > week)
-                 and any(w <= week for w, _ in runs[t])]
+                 and in_contact(runs[t], week)]
         standing = [run_at(runs[t], week + 1) for t in uncut]
         mean = math.fsum(standing) / len(standing) if standing else 0.0
         longest = max((longest_run_within(runs[t], week) for t in uncut), default=0)
-        out.append(FirstCutoff(tie, week, own, mean, longest, bool(standing)))
+        contact = in_contact(runs.get(tie, []), week)
+        out.append(FirstCutoff(tie, week, own, mean, longest, contact and bool(standing), contact))
     return out
 
 
 def arm_values(firsts: list[FirstCutoff]) -> tuple[float, float]:
     """`M11.C.48`'s two arms for one seed: the mean run before its matched first cutoffs (treatment) and the mean of
     the uncut ties' standing runs in those weeks (baseline). A first cutoff with no uncut tie in its week is left out of
-    both (T-123; ``unmatched`` counts it). A seed with no matched cutoff gives 0 in both arms, and is counted."""
+    both (T-123; ``unmatched`` counts it), and so is one on a tie with no contact by its week (T-179; ``no_contact``
+    counts it). A seed with no matched cutoff gives 0 in both arms, and is counted (``M11.C.48``'s report-only
+    ``matched_seed`` is 0 on it, learning-qa 2026-11-02)."""
     matched = [f for f in firsts if f.matched]
     if not matched:
         return 0.0, 0.0
@@ -175,8 +196,20 @@ def arm_values(firsts: list[FirstCutoff]) -> tuple[float, float]:
 
 
 def unmatched(firsts: list[FirstCutoff]) -> int:
-    """Purpose: how many first cutoffs had no uncut tie in their week, so were left out of both arms (T-123).
+    """Purpose: how many first cutoffs on a tie in contact had no uncut tie in their week, so were left out of both
+    arms (T-123); a cutoff with no contact is counted by ``no_contact`` instead (T-179).
     Spec:    docs/bowen_agent_model_spec_v2.md#M11.C.48
-    Tests:   tests/bowen/test_negative_runs.py::test_m11c48_t123_an_unmatched_first_cutoff_is_left_out_of_both_arms_and_counted
+    Tests:   tests/bowen/test_negative_runs.py::test_m11c48_t123_an_unmatched_first_cutoff_is_left_out_of_both_arms_and_counted,
+             tests/bowen/test_negative_runs.py::test_m11c48_t179_each_first_cutoff_is_counted_once
     """
-    return count(1 for f in firsts if not f.matched)
+    return count(1 for f in firsts if f.contact and not f.matched)
+
+
+def no_contact(firsts: list[FirstCutoff]) -> int:
+    """Purpose: how many first cutoffs fell on a tie with no contact by their week, so were left out of both arms
+    (T-179); none of them is also counted as unmatched.
+    Spec:    docs/bowen_agent_model_spec_v2.md#M11.C.48
+    Tests:   tests/bowen/test_negative_runs.py::test_m11c48_t179_a_cut_tie_with_no_contact_is_left_out_of_both_arms_and_counted,
+             tests/bowen/test_negative_runs.py::test_m11c48_t179_each_first_cutoff_is_counted_once
+    """
+    return count(1 for f in firsts if not f.contact)

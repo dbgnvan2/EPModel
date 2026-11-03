@@ -1,10 +1,35 @@
 # Spec revision log
 
-**Status: the record of every revision of `bowen_agent_model_spec_v2.md`, 4 to 46 (revision 46, wording only, after the tag `version-2`, from T-173's two mutants, 2026-11-01; revision 45, wording only, from the pre-tag milestone review's triage, 2026-11-01; revision 44, the batch from the owner's D4 and D5, 2026-10-31; revision 43, the version 2 definition batch, 2026-10-29; revision 40 applied 2026-10-28, from the stage 3 milestone review's triage; revision 41, its hash-moving batch, the same day; revision 42, wording only, 2026-10-29). Moved out of the spec at revision 35, 2026-10-22; nothing a run computes changed.**
+**Status: the record of every revision of `bowen_agent_model_spec_v2.md`, 4 to 47 (revision 47, `M11.C.48`'s readout reads both arms under one contact condition, after the tag `version-2`, 2026-11-02–03; revision 46, wording only, after the tag `version-2`, from T-173's two mutants, 2026-11-01; revision 45, wording only, from the pre-tag milestone review's triage, 2026-11-01; revision 44, the batch from the owner's D4 and D5, 2026-10-31; revision 43, the version 2 definition batch, 2026-10-29; revision 40 applied 2026-10-28, from the stage 3 milestone review's triage; revision 41, its hash-moving batch, the same day; revision 42, wording only, 2026-10-29). Moved out of the spec at revision 35, 2026-10-22; nothing a run computes changed.**
 
 The spec holds the current rules; this file holds how they got there. Until revision 34 the revision sections stood at the end of the spec, under `M17`, and the front matter's `status:` line listed every revision since 10. `docs/plan_model_ergonomics.md` Part E moved both here (the owner's answer to its §8 Q2, 2026-10-22, "as revision 35"), so a session reading the spec reads 480 fewer lines of history. The sections below are the spec's own text as it stood, tags and all, with the newest first; revisions 13 to 33 were written inline in the requirement bodies and have no section of their own, which Part E's second step records under revision 35.
 
 The sections `### Revision 34` to `### Revision 5` and the undated section are the spec's text as it stood, moved whole; a statement inside one of them (revision 34's, that revisions 13 to 33 are "not here") was true when written, before the bodies' narratives were moved under their own revisions. Those narratives are the bullets `- \`ID\`: sentence`, each the sentence as it stood in the body, under the revision it names, in sections titled "inline narratives moved from the bodies at revision 35" where no section existed.
+
+### Revision 47 — `M11.C.48` reads both arms under one contact condition, 2026-11-02–03 ⟦rev47 · owner 2026-11-02, option (a), the plan approved as written the same day; the disposition rows owner 2026-11-03 · `docs/plan_t179_negative_run_contact_condition.md` (T-179)⟧
+
+After the tag `version-2`. T-176's trace (`docs/review/t176_negative_run_trace.md`) found that `first_cutoff_runs`
+counted an uncut tie only if it had a contact by the cutoff's week but counted a cut tie with none at a run of 0, and
+that this reversed `M11.C.48`'s direction on both families. The owner chose to leave such cut ties out (option (a)).
+
+- **The readout** (`src/bowen/readouts/negative_runs.py`): one test, `in_contact` (a contact in the cutoff's week or
+  before), on both sides. A first cutoff on a tie not in contact is left out of both arms and counted
+  (`no_contact_cutoffs`, report only); each first cutoff is matched, unmatched or no-contact, and only one of them.
+  Uncut ties with no contact stay out of the baseline and are not counted (option (b), not chosen). A seed's
+  `matched_seed` (report only) is 1 when it has a matched cutoff, so its mean is the share of seeds the verdict rests
+  on (learning-qa, before the regeneration).
+- **T-177**: the sentence that since revision 41 aborts are not the usual outcome follows the `hold_gain` note in
+  `config/bowen/constants.md`.
+- **The engine hash** moved from `09ca2b46c7e0` to `0b363cb3186c` (Phase D `3e03e66ade9f` to `020160abb6db`); every
+  record but the sweep record was regenerated once on it, split across both Macs
+  (`docs/version_2_revision_47_changes.md`).
+- **Results.** `M11.C.48` fails with no difference (its interval contains zero), not the reversal; `M11.C.48[phase_d]`
+  passes, in the direction the criterion states. Both equal the trace's same-condition row at revision 46, as the plan
+  expected (T179.6). The named mutant `cutoff-blind-to-learned-value` survives on `M11.C.48[phase_d]` (T179.7), so the
+  pass is not shown to come from the learned value (T-180). No other verdict moved.
+- **The owner's decisions** (2026-11-03, through `AskUserQuestion`): `M11.C.48` stays an accepted finding, its reason
+  restated; `M11.C.48[phase_d]`'s PASS is recorded as reviewed, with W3 unmet on it. Only `M11.C.48`'s two keys were
+  swept on the new engine, into the cache; the sweep record waits for the full sweep (T-181).
 
 ### Revision 46 — `M11.C.34` restated from T-173's two mutants, wording only, 2026-11-01 ⟦rev46 · Claude's recommendation 2026-11-01, approved by the owner 2026-11-02 (T-178) · `docs/todo/2026-11-01_pre_tag_milestone_review.md` (T-173)⟧
 

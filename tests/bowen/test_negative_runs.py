@@ -118,3 +118,47 @@ def test_m11c48_t123_an_unmatched_first_cutoff_is_left_out_of_both_arms_and_coun
     firsts = first_cutoff_runs(zero, KINDS)
     assert [(f.tie, f.matched, f.uncut) for f in firsts] == [(AB, True, 0.0)]
     assert arm_values(firsts) == (2.0, 0.0) and unmatched(firsts) == 0
+
+
+def test_m11c48_t179_a_cut_tie_with_no_contact_is_left_out_of_both_arms_and_counted():
+    """T-179 (the owner's option (a), 2026-11-02; learnings P7): the baseline reads an uncut tie only if it had a
+    contact by the cutoff's week, so a first cutoff on a tie with no contact by its week is left out of both arms and
+    counted, not read at a run of 0. a~b is cut at week 2 with no contact; c~d takes four conflicts in weeks 3–6 and is
+    cut at week 6; e~f is uncut, with a conflict in weeks 1 and 4. Read at 0, a~b's cutoff would make the arms
+    (2.0, 1.5)."""
+    from src.bowen.readouts.negative_runs import no_contact, unmatched
+
+    records = ([act("CUTOFF", A, B, 2)] + [act("CONFLICT", C, D, w) for w in range(3, 7)] +
+               [act("CUTOFF", C, D, 6), act("CONFLICT", E, F, 1), act("CONFLICT", E, F, 4)])
+    firsts = first_cutoff_runs(records, KINDS)
+    assert [(f.tie, f.contact, f.matched) for f in firsts] == [(AB, False, False), (CD, True, True)]
+    assert arm_values(firsts) == (4.0, 2.0)  # c~d's run of 4 against e~f's 2 at week 6
+    assert no_contact(firsts) == 1 and unmatched(firsts) == 0
+
+
+def test_m11c48_t179_each_first_cutoff_is_counted_once():
+    """T-179: every first cutoff is matched, unmatched or no-contact, and only one of them. a~b is cut at week 1 with no
+    contact and no tie in contact either: it counts as no-contact, not also as unmatched. c~d has a contact and no
+    uncut tie in contact by week 2: unmatched. e~f, two conflicts, is cut at week 5 against the uncut tie a~d, in
+    contact from week 3: matched."""
+    from src.bowen.readouts.negative_runs import no_contact, unmatched
+
+    AD = TieId.of(A, D)
+    records = [act("CUTOFF", A, B, 1), act("CONFLICT", C, D, 2), act("CUTOFF", C, D, 2), act("CONFLICT", A, D, 3),
+               act("CONFLICT", E, F, 4), act("CONFLICT", E, F, 5), act("CUTOFF", E, F, 5)]
+    firsts = first_cutoff_runs(records, KINDS)
+    assert [(f.tie, f.contact, f.matched) for f in firsts] == [(AB, False, False), (CD, True, False), (EF, True, True)]
+    assert (no_contact(firsts), unmatched(firsts), sum(f.matched for f in firsts)) == (1, 1, 1)
+    assert no_contact(firsts) + unmatched(firsts) + sum(f.matched for f in firsts) == len(firsts)
+    assert arm_values(firsts) == (2.0, 1.0) and AD not in {f.tie for f in firsts}
+
+
+def test_m11c48_t179_a_contact_in_the_cutoffs_week_counts_on_both_sides():
+    """T-179: one contact condition on both arms. a~b's only contact is a conflict in its cutoff's week, and e~f's only
+    contact is in that week too: both are in contact by week 2, so the cutoff is matched, run 1 against 1."""
+    from src.bowen.readouts.negative_runs import no_contact
+
+    records = [act("CONFLICT", A, B, 2, 0), act("CUTOFF", A, B, 2, 1), act("CONFLICT", E, F, 2)]
+    firsts = first_cutoff_runs(records, KINDS)
+    assert [(f.tie, f.contact, f.matched) for f in firsts] == [(AB, True, True)]
+    assert arm_values(firsts) == (1.0, 1.0) and no_contact(firsts) == 0

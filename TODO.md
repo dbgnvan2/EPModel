@@ -150,5 +150,5 @@ moves to `docs/TODO_archive.md`. Until 2026-10-22 this file held every item's te
 - T-172 · 2026-11-01 · Three minor items from the W5–W8 reviews (2026-11-01) · [record](docs/todo/2026-10-29_version_2_definition.md)
 - T-174 · 2026-11-01 · `tools/group_g_readout.py` keeps no per-run results (review MR-15, 2026-11-01) · [record](docs/todo/2026-11-01_pre_tag_milestone_review.md)
 - T-175 · 2026-11-01 · Hand-restated status goes stale (review systemic pattern 1, … · [record](docs/todo/2026-11-01_pre_tag_milestone_review.md)
-- T-177 · 2026-11-01 · `config/bowen/constants.md:56–57` still says `hold_gain` makes aborts the usual … · [record](docs/todo/2026-11-01_pre_tag_milestone_review.md)
-- T-179 · 2026-11-02 · Whether `M11.C.48`'s readout reads both arms under the … · [record](docs/todo/2026-11-01_pre_tag_milestone_review.md)
+- T-180 · 2026-11-03 · `M11.C.48[phase_d]` passes but its named mutant survives (T-179, … · [record](docs/todo/2026-11-01_pre_tag_milestone_review.md)
+- T-181 · 2026-11-03 · The sweep record is stale since spec revision … · [record](docs/todo/2026-11-01_pre_tag_milestone_review.md)

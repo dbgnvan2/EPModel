@@ -49,7 +49,7 @@ Acts count when they pass between the two members of the tie, in either directio
 > **Owner review (plan §9), 2026-10-10:** the definitions above are the owner's. Rendering one trace per pattern is
 > done by the run visualization (`tools/famdiag_export.py`). No criterion reads these readouts (checked 2026-10-10).
 
-## Negative runs — what `M11.C.48` reads (version 2 group G1, spec revision 36)
+## Negative runs — what `M11.C.48` reads (version 2 group G1, spec revision 36; T-123 at revision 43; T-179 at revision 47)
 
 `src/bowen/readouts/negative_runs.py`; `tests/bowen/test_negative_runs.py` checks each definition on hand-built records.
 Each definition is `[I]` (the owner's D12 of 2026-10-19, `docs/PROPOSAL — CUTOFF ANXIETY, BRIDGING AND REPAIR.md` §4;
@@ -78,8 +78,29 @@ The classes of contact are `config/bowen/contact_classes.md`.
   treatment arm's report-only readout `unmatched_cutoffs`). A seed whose first cutoffs are all unmatched reads 0 in
   both arms, as a seed with no cutoff does. The criterion runs 200 seeds, at least the sweep's rerun count, so
   `M17.A.1` never refuses it (T-163). At revision 43's regeneration (`da5981f6ec0b`, 200 seeds; `docs/phase_d2_ensemble_record.md`) the criterion **fails** on both families: −0.291 ± 0.12 on the Phase B family and −0.11 ± 0.063 on the twelve-person family, with 1.31 and 13.6 unmatched first cutoffs a seed left out.
+- **Defect found by T-176's trace (2026-11-02, learnings P7):** the baseline reads an uncut tie only if it had a
+  contact by the cutoff's week, but a cut tie with no contact by its week entered the treatment at a run of 0. 329 of
+  1137 matched first cutoffs on the Phase B family and 1419 of 4791 on the twelve-person family were such ties; with
+  the same condition on both arms the difference was +0.029 ± 0.136 and +0.344 ± 0.078 against the record's −0.319 ±
+  0.104 and −0.113 ± 0.062 (`docs/review/t176_negative_run_trace.md`; the runs are those of `09ca2b46c7e0`, and the trace was regenerated at `0b363cb3186c` with the same runs).
+- **Since revision 47 (T-179, the owner's option (a) of 2026-11-02; `docs/plan_t179_negative_run_contact_condition.md`):**
+  one contact condition on both arms, a contact in the cutoff's week or before (`negative_runs.in_contact`). A first
+  cutoff on a tie with no contact by its week is **no-contact**: it is left out of both arms and counted
+  (`FirstCutoff.contact`, `no_contact`; the treatment arm's report-only readout `no_contact_cutoffs`). Each first
+  cutoff is matched, unmatched or no-contact, and only one of them: a no-contact cutoff with no uncut tie either is
+  counted as no-contact, and `unmatched` counts only cutoffs on a tie in contact. Uncut ties with no contact are still
+  left out and not counted: counting them needs the week from which each tie existed (people are born in the
+  twelve-person family's run), the option (b) the owner did not choose. So the version 2 plan's design point for G1,
+  that ties with no contact are "reported, not dropped" (`docs/version_2_plan.md`), is met for cut ties and not for
+  uncut ones.
+  On the regenerated record (`0b363cb3186c`, `docs/phase_d2_ensemble_record.md`) `M11.C.48` fails with no difference
+  and `M11.C.48[phase_d]` passes; the named mutant survives on the latter (T-180). The 200-seed trace,
+  `docs/review/t176_negative_run_trace.md`, gives the counts: 365 of 1400 first cutoffs no-contact on the Phase B
+  family, 2121 of 7509 on the twelve-person family.
 - Per seed, the treatment arm is the mean run before its matched first cutoffs and the baseline the mean of their baselines;
-  both read one run. A seed with no cutoff reads 0 in both and is counted; `first_cutoffs` is reported beside the
+  both read one run. A seed with no matched first cutoff (none at all, or all of them unmatched or no-contact) reads 0
+  in both; the report-only `matched_seed` is 1 on a seed with a matched first cutoff, so its mean is the share of seeds
+  the arms read (learning-qa, 2026-11-02); `first_cutoffs` is reported beside the
   arms. `docs/review/group_g_readout.md` measures the same on 20 seeds before and after the revision.
 
 **Onset loads in two readers.** The loads a symptom onset raises (`M7.D.1a`) travel on the stressor mechanism with

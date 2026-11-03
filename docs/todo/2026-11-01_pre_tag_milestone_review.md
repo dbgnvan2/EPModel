@@ -74,7 +74,7 @@ and the review's open checks are below.
   run lengthens more than the uncut ties' over 13 and 52 weeks (+0.218 ± 0.078, +0.419 ± 0.141); the Phase B
   family's does not differ. The owner approved restating both disposition rows through `AskUserQuestion`
   (2026-11-02), and opened T-179.
-- [ ] T-179 ⟨later⟩ **Whether `M11.C.48`'s readout reads both arms under the same contact condition (T-176,
+- [x] T-179 ⟨later⟩ **Whether `M11.C.48`'s readout reads both arms under the same contact condition (T-176,
   2026-11-02).** `first_cutoff_runs` counts an uncut tie only if it had a contact by the cutoff's week but counts a cut
   tie with none at a run of 0, and that produces the reversal (`docs/review/t176_negative_run_trace.md`). Decide whether
   to leave out cut ties with no contact, count uncut ties with no contact at 0 (on the twelve-person family this needs
@@ -87,8 +87,32 @@ and the review's open checks are below.
   contact by its week, and count it. The readout is in the engine hash (`tools/ensemble_record.py`'s `code_hash` reads
   `src/bowen/**/*.py` but `render/`), so the change moves it and needs one regeneration. The plan,
   `docs/plan_t179_negative_run_contact_condition.md`, was approved by the owner as written the same day (§5's Q1 as
-  recommended); open until it is built.
-- [ ] T-177 ⟨later⟩ **`config/bowen/constants.md:56–57` still says `hold_gain` makes aborts the usual outcome (review
+  recommended).
+  **Done 2026-11-03** as spec revision 47 (the plan's §3.1 is the status report). The engine hash moved from
+  `09ca2b46c7e0` to `0b363cb3186c`; every record but the sweep record was regenerated once on it, split across both Macs
+  (`docs/version_2_revision_47_changes.md`). `M11.C.48` fails with no difference (its interval contains zero) and
+  `M11.C.48[phase_d]` passes, each equal to the trace's same-condition row (T179.6); the named mutant survives on the
+  latter (T179.7, T-180). No other verdict moved. The owner decided through `AskUserQuestion` (2026-11-03) to sweep
+  only `M11.C.48`'s two keys on the new engine, into the cache (the sweep record waits for T-181), and both disposition
+  rows: `M11.C.48` an accepted finding, restated; `M11.C.48[phase_d]`'s PASS reviewed, with W3 unmet on it.
+- [x] T-177 ⟨later⟩ **`config/bowen/constants.md:56–57` still says `hold_gain` makes aborts the usual outcome (review
   MR-1, 2026-11-01).** `tools/ensemble_record.py`'s `code_hash` reads every `config/bowen/*.md` but
   `constants_changes.md`, so a note there moves the engine hash; it was left out of revision 45. Add the sentence that
   since revision 41 aborts are not the usual outcome (T-158 (b)) with the next batch that moves the hash.
+  **Done 2026-11-03** with T-179's batch (spec revision 47): the sentence follows the `hold_gain` note in
+  `config/bowen/constants.md`; the hash moved with the readout's change, and one regeneration covered both.
+- [ ] T-180 ⟨later⟩ **`M11.C.48[phase_d]` passes but its named mutant survives (T-179, 2026-11-03).** At spec revision
+  47 the criterion passes on the twelve-person family, and `cutoff-blind-to-learned-value` (the policy weights `CUTOFF`
+  as its best-valued act whenever it is legal) leaves it passing (`docs/phase_d_mutation_record.md`), so the pass is
+  not shown to come from `M4.D.6`'s learned value and W3 is unmet on the row. The mutant keeps
+  `availability(CUTOFF, …)`, which may carry the direction. Trace, read only, what makes a cut tie's run longer than an
+  uncut tie's under the mutant (CUTOFF's legality and availability against the run standing on the tie), then put to
+  the owner whether the mutant, the rule or the row's mutation clause changes. Decided by the owner 2026-11-03 through
+  `AskUserQuestion` (the disposition row records the PASS as reviewed and W3 unmet).
+- [ ] T-181 ⟨later⟩ **The sweep record is stale since spec revision 47 (T-179, 2026-11-03).** Revision 47 moved the
+  engine hash to `0b363cb3186c` (Phase D `020160abb6db`), so every swept criterion's cached result is on the earlier
+  engine, `tests/test_version_2_sweep.py::test_s2_11_sweep_record_is_current` is a strict expected failure, and W4 is
+  unmet on the passing rows (`docs/version_2_status.md`). The owner chose on 2026-11-03 to run only `M11.C.48` and
+  `M11.C.48[phase_d]` into the cache in this batch. Rerun the full sweep, split across both Macs
+  (`docs/two_mac_sweep.md`, about 11 h), at the next stage end or before an outside review, and take the test's mark
+  off.

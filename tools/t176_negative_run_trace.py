@@ -11,6 +11,9 @@ Purpose: T-176 (`docs/todo/2026-11-01_pre_tag_milestone_review.md`; the pre-tag 
          cutoff's week only, the condition the readout puts on the uncut ties and not on the cut one. It also counts
          contacts and negative contacts on each tie in the 52 weeks before the cutoff. It writes
          `docs/review/t176_negative_run_trace.md` and keeps that page's hand-written "Reading" section.
+         Since spec revision 47 (T-179) the readout leaves out a cut tie with no contact by its week, so the criterion's
+         rows read the cut ties with a contact; one row keeps revision 46's reading, a cut tie with no contact at a run
+         of 0, beside it.
 Spec:    docs/bowen_agent_model_spec_v2.md#M11.C.48
 Tests:   tests/test_t176_negative_run_trace.py::test_m11c48_t176_trace_reproduces_the_criterions_arms,
          tests/test_t176_negative_run_trace.py::test_m11c48_t176_rows_the_reading_rests_on_read_what_they_say
@@ -116,6 +119,7 @@ def trace(records, kinds, members, declared, relations) -> dict:
         rows.append({
             "tie": tie, "week": week, "relation": relation, "run": f.run, "uncut": f.uncut, "matched": f.matched,
             "own_contact": any(w <= week for w, _ in own),
+            "matched_rev46": bool(uncut),  # revision 46's readout matched a cutoff whenever an uncut tie was in contact
             "uncut_never": _mean(standing[t] for t in uncut if t not in cutoffs),
             "uncut_later": _mean(standing[t] for t in uncut if t in cutoffs),
             "uncut_same": _mean(standing[t] for t in uncut if relations.get(t, UNDECLARED) == relation),
@@ -124,7 +128,8 @@ def trace(records, kinds, members, declared, relations) -> dict:
             "contacts": own_window[0], "negatives": own_window[1],
             "uncut_contacts": _mean(c for c, _ in uncut_windows), "uncut_negatives": _mean(n for _, n in uncut_windows),
         })
-        if f.matched != bool(uncut) or (uncut and not math.isclose(f.uncut, _mean(standing.values()))):
+        if (f.contact != rows[-1]["own_contact"] or f.matched != (bool(uncut) and f.contact)
+                or (uncut and not math.isclose(f.uncut, _mean(standing.values())))):
             raise RuntimeError(f"the trace's uncut ties are not the readout's at {tie}, week {week}")
     treatment, baseline = arm_values(firsts)
     known = {t for t in relations if set(t.members()) <= members and t not in declared} | set(runs) | set(cutoffs)
@@ -150,16 +155,23 @@ def interval(values) -> tuple[float, float, int]:
 
 
 def seed_mean(cutoffs, value) -> float | None:
-    """A seed's mean of ``value`` over its matched first cutoffs where it is defined (None where it is nowhere)."""
-    return _mean(v for v in (value(c) for c in cutoffs if c["matched"]) if v is not None)
+    """A seed's mean of ``value`` over its first cutoffs where it is defined (None where it is nowhere). Each contrast
+    says which cutoffs it reads: ``_matched`` wraps the ones that read the readout's matched cutoffs."""
+    return _mean(v for v in (value(c) for c in cutoffs) if v is not None)
+
+
+def _matched(value):
+    """A contrast over the readout's matched first cutoffs: a tie in contact by its cutoff's week, with an uncut tie in
+    contact that week (T-123, T-179)."""
+    return lambda c: value(c) if c["matched"] else None
 
 
 def _diff(a, b):
     return None if a is None or b is None else a - b
 
 
-CONTRASTS = (
-    ("criterion: cut tie's run − mean run on every uncut tie that week",
+CONTRASTS = tuple((name, _matched(value)) for name, value in (
+    ("criterion: cut tie's run − mean run on every uncut tie that week (a contact by the cutoff's week on both)",
      lambda c: c["run"] - c["uncut"]),
     ("cut tie's run − uncut ties never cut off in the run",
      lambda c: _diff(c["run"], c["uncut_never"])),
@@ -167,30 +179,31 @@ CONTRASTS = (
      lambda c: _diff(c["run"], c["uncut_later"])),
     ("cut tie's run − uncut ties of the same declared relation",
      lambda c: _diff(c["run"], c["uncut_same"])),
-    ("criterion, cut ties with a contact by their cutoff's week only",
-     lambda c: c["run"] - c["uncut"] if c["own_contact"] else None),
     (f"criterion, cutoffs after week {LATE} only",
      lambda c: c["run"] - c["uncut"] if c["week"] > LATE else None),
-) + tuple(
-    # From here on, cut ties with a contact by their cutoff's week only: the uncut ties carry that condition, and a
-    # cut tie with no contact would enter every row below at 0 (learning-qa, 2026-11-02). Each lag row reads the
-    # cutoffs in week k or later, so the lag rows read different cutoffs.
-    (f"cut tie's run at its cutoff − its own run {k} weeks before (contact only)",
-     (lambda k: lambda c: c["run"] - c["lags"][k][0] if k in c["lags"] and c["own_contact"] else None)(k))
+)) + (
+    # Revision 46's readout (T-176): a cut tie with no contact by its cutoff's week read at a run of 0 against the uncut
+    # ties in contact. Kept beside the criterion so the page shows what T-179 changed.
+    ("revision 46's readout: a cut tie with no contact by its cutoff's week read at a run of 0",
+     lambda c: c["run"] - c["uncut"] if c["matched_rev46"] else None),
+) + tuple((name, _matched(value)) for name, value in tuple(
+    # Each lag row reads the cutoffs in week k or later, so the lag rows read different cutoffs.
+    (f"cut tie's run at its cutoff − its own run {k} weeks before",
+     (lambda k: lambda c: c["run"] - c["lags"][k][0] if k in c["lags"] else None)(k))
     for k in LAGS
 ) + (
-    (f"the 4-week row on the cutoffs the {LAGS[1]}-week row reads (contact only)",
-     lambda c: c["run"] - c["lags"][4][0] if LAGS[1] in c["lags"] and c["own_contact"] else None),
+    (f"the 4-week row on the cutoffs the {LAGS[1]}-week row reads",
+     lambda c: c["run"] - c["lags"][4][0] if LAGS[1] in c["lags"] else None),
 ) + tuple(
-    (f"the same change over {k} weeks, cut tie − mean of the uncut ties (contact only)",
+    (f"the same change over {k} weeks, cut tie − mean of the uncut ties",
      (lambda k: lambda c: (c["run"] - c["lags"][k][0]) - (c["uncut"] - c["lags"][k][1])
-      if k in c["lags"] and c["lags"][k][1] is not None and c["own_contact"] else None)(k)) for k in LAGS
+      if k in c["lags"] and c["lags"][k][1] is not None else None)(k)) for k in LAGS
 ) + (
-    (f"contacts in the {WINDOW} weeks up to the cutoff's, cut tie − mean of the uncut ties (contact only)",
-     lambda c: _diff(c["contacts"], c["uncut_contacts"]) if c["own_contact"] else None),
-    (f"negative contacts in the {WINDOW} weeks up to the cutoff's, cut tie − mean of the uncut ties (contact only)",
-     lambda c: _diff(c["negatives"], c["uncut_negatives"]) if c["own_contact"] else None),
-)
+    (f"contacts in the {WINDOW} weeks up to the cutoff's, cut tie − mean of the uncut ties",
+     lambda c: _diff(c["contacts"], c["uncut_contacts"])),
+    (f"negative contacts in the {WINDOW} weeks up to the cutoff's, cut tie − mean of the uncut ties",
+     lambda c: _diff(c["negatives"], c["uncut_negatives"])),
+))
 
 
 def summarise(rows: list[dict]) -> dict:
@@ -214,7 +227,9 @@ def summarise(rows: list[dict]) -> dict:
             "with_matched": sum(1 for r in seeds if any(c["matched"] for c in r["cutoffs"])),
             "firsts": len(cut), "matched": len(matched),
             "zero_run": sum(1 for c in matched if c["run"] == 0),
-            "no_contact": sum(1 for c in matched if not c["own_contact"]),
+            "no_contact": sum(1 for c in cut if not c["own_contact"]),
+            "unmatched": sum(1 for c in cut if c["own_contact"] and not c["matched"]),
+            "no_contact_rev46": sum(1 for c in cut if not c["own_contact"] and c["matched_rev46"]),
             "median_week": statistics.median(c["week"] for c in matched) if matched else None,
             "early": sum(1 for c in matched if c["week"] < 13),
             "contrasts": contrasts, "by_relation": by_relation,
@@ -246,8 +261,9 @@ def render(summary: dict, engine: str, when: str, keep: str) -> str:
         f"Engine hash `{engine}`, {when}. Each seed is run as `M11.C.48`'s arm runs it (`negative_run_values`, "
         "`src/bowen/ensemble/criteria_d2.py`), and every first cutoff is read by the criterion's own readout "
         "(`src/bowen/readouts/negative_runs.py`); on every cutoff the tool checks that the readout matched it exactly when "
-        "the trace's uncut set is not empty and that the set's mean run is the readout's baseline. "
-        "Each row is a per-seed mean over the seed's matched first cutoffs where the row is defined, then mean ± "
+        "the cut tie had a contact by its week and the trace's uncut set is not empty, and that the set's mean run is "
+        "the readout's baseline. Each row but revision 46's is a per-seed mean over the seed's matched first cutoffs "
+        "where the row is defined (revision 46's row reads every cutoff with an uncut tie in contact), then mean ± "
         "1.96 × sd ÷ √n over the seeds where it is defined (`n`). The first row of each table is the criterion's own "
         "difference and is read over every seed, a seed with no matched cutoff entering as 0, as the record reads it "
         "(`docs/phase_d2_ensemble_record.md`). A negative contact is the readout's: a rebuff, a refusal or an act in "
@@ -255,10 +271,12 @@ def render(summary: dict, engine: str, when: str, keep: str) -> str:
     ]
     for family, s in summary.items():
         lines += ["", f"## {LABELS[family]}", "",
-                  f"{s['seeds']} seeds; {s['firsts']} first cutoffs, {s['matched']} matched "
-                  f"({s['firsts'] - s['matched']} unmatched, left out as the readout leaves them out); "
+                  f"{s['seeds']} seeds; {s['firsts']} first cutoffs: {s['matched']} matched, {s['unmatched']} "
+                  f"unmatched and {s['no_contact']} on a tie with no contact by the cutoff's week, the last two left "
+                  f"out as the readout leaves them out ({s['no_contact_rev46']} of the no-contact cutoffs had an uncut "
+                  f"tie in contact, so revision 46's readout matched them at a run of 0); "
                   f"{s['with_matched']} seeds with a matched cutoff. Of the matched cutoffs, {s['zero_run']} stand on "
-                  f"a run of 0 and {s['no_contact']} on a tie with no contact at all by the cutoff's week; the median "
+                  f"a run of 0; the median "
                   f"matched cutoff falls in week {s['median_week']}, and {s['early']} fall in weeks 0–12. Each seed has "
                   f"{s['ties'][0]}–{s['ties'][1]} member ties not declared cut off (declared, or with a contact or a "
                   f"cutoff in the run); {s['never_cut']} of them over all seeds are never cut off, "

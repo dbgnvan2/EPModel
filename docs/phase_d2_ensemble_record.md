@@ -5,7 +5,7 @@ seeds (`M3.D.4a`), stopped adaptively (`M17.A.1`, `M13.4`): `UNDETERMINED` at th
 pass. Every verdict carries its class (`M11.5`). **A premise passing confirms that the code renders the
 spec; it is not a finding about families.** Spec revision 28 applies the owner's life-course decisions of 2026-10-13; its forms are Claude's recommendation, approved by the owner 2026-10-16.
 
-code_hash: fb62c634202c9b0730b7e6d9a7cb94b202a6f0d55d309c267486ddbdcd3ac97f
+code_hash: bfddfa3b4d274f4c1e9072b8af3ff54a05722367fa8601490d98dccdcc597539
 
 Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25, `ensemble_margin` = 0.1, `ensemble_alpha` = 0.05, `fallback_flag_rate` = 0.2, `equivalence_margin` = 0.5.
 
@@ -17,8 +17,8 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
 | `M11.C.10[family of origin]` | composite | **PASS** | 200 | `cut_off_tie_weeks` +161 ± 1.2e+02, p 0.0153, holds; `child_cut_weeks` +72.4 ± 50 (reported only) | treatment 43590 of 128000 (7816 dead, 183 owed a step, 1 rewritten, 35590 target dead) | 0.00 | — |
 | `M11.C.47` | premise | **PASS** | 150 | `felt_danger` +0.129 ± 0.032, p 9.03e-15, holds; `principled_cutoff` +0.0724 ± 0.021, p 8.39e-13, holds; `held_weeks` -11.2 ± 4.6 (reported only) | — | 0.00 | — |
 | `M11.C.2[twelve-person family]` | composite | **PASS** | 150 | `symptom_load` +2.22 ± 1.5, p 0.0019, holds | — | 0.00 | — |
-| `M11.C.48` | composite | **FAIL** | 200 | `negative_run` -0.319 ± 0.1, p 1, does not hold; `run_before_cutoff` +1.29 ± 0.094 (reported only); `first_cutoffs` +0 ± 0 (reported only); `unmatched_cutoffs` +1.31 ± 0.1 (reported only) | — | 0.00 | — |
-| `M11.C.48[phase_d]` | composite | **FAIL** | 200 | `negative_run` -0.113 ± 0.062, p 1, does not hold; `run_before_cutoff` +1.35 ± 0.057 (reported only); `first_cutoffs` +0 ± 0 (reported only); `unmatched_cutoffs` +13.6 ± 0.39 (reported only) | — | 0.00 | — |
+| `M11.C.48` | composite | **FAIL** | 200 | `negative_run` +0.0286 ± 0.14, p 0.108, does not hold; `run_before_cutoff` +1.81 ± 0.12 (reported only); `first_cutoffs` +0 ± 0 (reported only); `unmatched_cutoffs` +1.14 ± 0.062 (reported only); `no_contact_cutoffs` +1.82 ± 0.16 (reported only); `matched_seed` +1 ± 0 (reported only) | — | 0.00 | — |
+| `M11.C.48[phase_d]` | composite | **PASS** | 200 | `negative_run` +0.344 ± 0.078, p 2.14e-15, holds; `run_before_cutoff` +1.91 ± 0.07 (reported only); `first_cutoffs` +0 ± 0 (reported only); `unmatched_cutoffs` +10.1 ± 0.28 (reported only); `no_contact_cutoffs` +10.6 ± 0.39 (reported only); `matched_seed` +1 ± 0 (reported only) | — | 0.00 | — |
 
 ## Not run as an ensemble in part II
 
@@ -283,24 +283,24 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
   "readouts": [
    {
     "baseline_position": null,
-    "baseline_sd": 0.737832480913603,
+    "baseline_sd": 0.899246763106699,
     "direction": 1,
-    "half_width": 0.10358011520458493,
+    "half_width": 0.13631592188770192,
     "holds": false,
-    "mean_difference": -0.31863055555555553,
-    "n_nonzero": 187,
-    "p": 0.9999999938897446,
-    "pooled_sd": 0.7069895944612182,
+    "mean_difference": 0.02864444444444446,
+    "n_nonzero": 175,
+    "p": 0.10753427669896236,
+    "pooled_sd": 0.8730636676662652,
     "readout": "negative_run",
-    "w_plus": 4567.5
+    "w_plus": 8532.5
    },
    {
     "baseline_position": null,
-    "baseline_sd": 0.6747383222122137,
+    "baseline_sd": 0.8460706794587943,
     "direction": 1,
-    "half_width": 0.09351396045988723,
-    "mean_difference": 1.2903333333333333,
-    "pooled_sd": 0.47711204316269007,
+    "half_width": 0.11725941370245097,
+    "mean_difference": 1.8144999999999998,
+    "pooled_sd": 0.5982623148084233,
     "readout": "run_before_cutoff",
     "report_only": true
    },
@@ -316,12 +316,32 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
    },
    {
     "baseline_position": null,
-    "baseline_sd": 0.7199769678058142,
+    "baseline_sd": 0.4447064414818807,
     "direction": 1,
-    "half_width": 0.0997837168617895,
-    "mean_difference": 1.315,
-    "pooled_sd": 0.5091005962336198,
+    "half_width": 0.06163316832019857,
+    "mean_difference": 1.135,
+    "pooled_sd": 0.31445494040917643,
     "readout": "unmatched_cutoffs",
+    "report_only": true
+   },
+   {
+    "baseline_position": null,
+    "baseline_sd": 1.140561000992461,
+    "direction": 1,
+    "half_width": 0.1580736899591024,
+    "mean_difference": 1.825,
+    "pooled_sd": 0.8064984181586857,
+    "readout": "no_contact_cutoffs",
+    "report_only": true
+   },
+   {
+    "baseline_position": null,
+    "baseline_sd": 0.0,
+    "direction": 1,
+    "half_width": 0.0,
+    "mean_difference": 1.0,
+    "pooled_sd": 0.0,
+    "readout": "matched_seed",
     "report_only": true
    }
   ],
@@ -333,29 +353,29 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
  {
   "criterion": "M11.C.48[phase_d]",
   "class": "composite",
-  "outcome": "FAIL",
+  "outcome": "PASS",
   "seeds": 200,
   "readouts": [
    {
     "baseline_position": null,
-    "baseline_sd": 0.37500891006724063,
+    "baseline_sd": 0.44797727429429174,
     "direction": 1,
-    "half_width": 0.062463333103561385,
-    "holds": false,
-    "mean_difference": -0.1128364881243585,
-    "n_nonzero": 190,
-    "p": 0.9999748187582729,
-    "pooled_sd": 0.3929213631421931,
+    "half_width": 0.0776362488530883,
+    "holds": true,
+    "mean_difference": 0.3443052644035452,
+    "n_nonzero": 192,
+    "p": 2.1422836382349714e-15,
+    "pooled_sd": 0.4766234864502268,
     "readout": "negative_run",
-    "w_plus": 5996.0
+    "w_plus": 15314.0
    },
    {
     "baseline_position": null,
-    "baseline_sd": 0.4100520852248147,
+    "baseline_sd": 0.5036429860405046,
     "direction": 1,
-    "half_width": 0.05683031958002151,
-    "mean_difference": 1.3490347149862731,
-    "pooled_sd": 0.28995061010215056,
+    "half_width": 0.06980135666235136,
+    "mean_difference": 1.914095900204214,
+    "pooled_sd": 0.3561293707262825,
     "readout": "run_before_cutoff",
     "report_only": true
    },
@@ -371,12 +391,32 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
    },
    {
     "baseline_position": null,
-    "baseline_sd": 2.8287646681437986,
+    "baseline_sd": 2.040691576537906,
     "direction": 1,
-    "half_width": 0.39204678112817715,
-    "mean_difference": 13.59,
-    "pooled_sd": 2.0002386792253937,
+    "half_width": 0.28282542300772306,
+    "mean_difference": 10.08,
+    "pooled_sd": 1.4429868520802198,
     "readout": "unmatched_cutoffs",
+    "report_only": true
+   },
+   {
+    "baseline_position": null,
+    "baseline_sd": 2.792483630054186,
+    "direction": 1,
+    "half_width": 0.3870184857880932,
+    "mean_difference": 10.605,
+    "pooled_sd": 1.9745841111637412,
+    "readout": "no_contact_cutoffs",
+    "report_only": true
+   },
+   {
+    "baseline_position": null,
+    "baseline_sd": 0.0,
+    "direction": 1,
+    "half_width": 0.0,
+    "mean_difference": 1.0,
+    "pooled_sd": 0.0,
+    "readout": "matched_seed",
     "report_only": true
    }
   ],

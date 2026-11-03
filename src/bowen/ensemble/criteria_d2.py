@@ -112,18 +112,19 @@ def arm_c15(arm, seed, settings):
 
 
 @functools.lru_cache(maxsize=None)
-def negative_run_values(family: str, seed: int, weeks: int) -> tuple[float, float, int, int, tuple]:
+def negative_run_values(family: str, seed: int, weeks: int) -> tuple[float, float, int, int, int, bool, tuple]:
     """Purpose: one seed of `M11.C.48`: the family as declared, under its baseline stressor spell (the Phase B family)
     or its nodal load (the twelve-person family); returns the mean negative run before the seed's matched first
     cutoffs, the mean run standing in those weeks on the ties not cut off, how many first cutoffs there were, how many
-    of them were unmatched and left out (T-123), and the run's books. Cached
+    of them were unmatched and left out (T-123), how many fell on a tie with no contact by their week and were left
+    out (T-179), whether any was matched (a seed with none reads 0 in both arms), and the run's books. Cached
     per process: both arms read one run (``docs/readouts_phase_c.md``, "Negative runs").
     Spec:    docs/bowen_agent_model_spec_v2.md#M11.C.48, #M1.D.2b
     Tests:   tests/bowen/test_phase_d2_criteria.py::test_m11c48_reads_the_run_before_the_first_cutoff
     """
     from src.bowen.engine.objects import Role
     from src.bowen.ensemble.criteria import spell
-    from src.bowen.readouts.negative_runs import arm_values, first_cutoff_runs, unmatched
+    from src.bowen.readouts.negative_runs import arm_values, first_cutoff_runs, no_contact, unmatched
 
     declared: set = set()
 
@@ -139,17 +140,19 @@ def negative_run_values(family: str, seed: int, weeks: int) -> tuple[float, floa
     members = frozenset(p for p, q in state.people.items() if q.role is Role.MEMBER)
     firsts = first_cutoff_runs(records, state.kinds, members, frozenset(declared))
     run, uncut = arm_values(firsts)
-    return run, uncut, len(firsts), unmatched(firsts), tuple(Counter(b) for b in scripted_bookkeeping(records))
+    return run, uncut, len(firsts), unmatched(firsts), no_contact(firsts), any(f.matched for f in firsts), tuple(Counter(b) for b in scripted_bookkeeping(records))
 
 
 def _arm_c48(family: str, arm: str, seed: int, weeks: int) -> ArmResult:
-    run, uncut, firsts, alone, books = negative_run_values(family, seed, weeks)
+    run, uncut, firsts, alone, silent, read, books = negative_run_values(family, seed, weeks)
     if arm == "baseline":
         readouts = {"negative_run": uncut, "run_before_cutoff": 0.0, "first_cutoffs": float(firsts),
-                    "unmatched_cutoffs": 0.0}
+                    "unmatched_cutoffs": 0.0, "no_contact_cutoffs": 0.0, "matched_seed": 0.0}
     else:
+        # matched_seed: 1 on a seed with a matched first cutoff, so its mean is the share of seeds the arms read; a seed
+        # with none reads 0 in both arms (learning-qa, 2026-11-02, P2/P9)
         readouts = {"negative_run": run, "run_before_cutoff": run, "first_cutoffs": float(firsts),
-                    "unmatched_cutoffs": float(alone)}
+                    "unmatched_cutoffs": float(alone), "no_contact_cutoffs": float(silent), "matched_seed": float(read)}
     return ArmResult(readouts, *(Counter(c) for c in books))
 
 
@@ -474,12 +477,15 @@ CRITERIA_D2: dict[str, Criterion] = {
     # until revision 43, T-163: at least the sweep's rerun count, so M17.A.1 never refuses it).
     "M11.C.48": C("M11.C.48", "composite", ("baseline", "treatment"),
                   (Readout("negative_run", +1), Readout("run_before_cutoff", +1, report_only=True),
-                   Readout("first_cutoffs", +1, report_only=True), Readout("unmatched_cutoffs", +1, report_only=True)),
+                   Readout("first_cutoffs", +1, report_only=True), Readout("unmatched_cutoffs", +1, report_only=True),
+                   Readout("no_contact_cutoffs", +1, report_only=True), Readout("matched_seed", +1, report_only=True)),
                   arm_c48, ("CUTOFF",), settings=SETTINGS["M11.C.48"], seeds=SETTINGS["M11.C.48"]["seeds"]),
     "M11.C.48[phase_d]": C("M11.C.48", "composite", ("baseline", "treatment"),
                            (Readout("negative_run", +1), Readout("run_before_cutoff", +1, report_only=True),
                             Readout("first_cutoffs", +1, report_only=True),
-                            Readout("unmatched_cutoffs", +1, report_only=True)),
+                            Readout("unmatched_cutoffs", +1, report_only=True),
+                            Readout("no_contact_cutoffs", +1, report_only=True),
+                            Readout("matched_seed", +1, report_only=True)),
                            arm_c48_phase_d, ("CUTOFF",), settings=SETTINGS["M11.C.48"],
                            seeds=SETTINGS["M11.C.48"]["seeds"]),
 }

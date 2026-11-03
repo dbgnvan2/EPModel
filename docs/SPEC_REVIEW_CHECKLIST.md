@@ -24,7 +24,7 @@ Reviewer: ________  Started: ________  Spec revision reviewed: ________
 
 These define what the model does. A run that disagrees with them is a defect.
 
-- [ ] [bowen_agent_model_spec_v2.md](bowen_agent_model_spec_v2.md) — the spec (v2.0, revision 46; version 1 is
+- [ ] [bowen_agent_model_spec_v2.md](bowen_agent_model_spec_v2.md) — the spec (v2.0, revision 47; version 1 is
       revision 32). Objects (M1), reference family (M2), clocks and ordering (M3), the fast tick (M4), moves (M5),
       invariants (M6), the slow tick (M7), live positions (M8), beliefs (M9), parameters (M10), acceptance criteria
       (M11), framing (M11.F), the readout schema (M11.G), out of scope (M12), the run log and trace (M16).
@@ -226,6 +226,8 @@ verdicts over ensembles (`tools/phase_d_record.py`; plan step 12). Mutations are
 
 **Generated, 2026-10-30 (the version 2 definition batch):** [version_2_revision_43_changes.md](version_2_revision_43_changes.md) — the same records at `c9b9b0c` (revision 41's regeneration, which revision 42 kept) compared with the records after spec revision 43's one regeneration, from `tools/record_changes.py revision-43`: a changed verdict is a new result under a new rule, reported beside revision 42's and version 1's verdicts (`M11.F`), never a finding when the criterion is a premise (`M11.5`). Its batch is Claude's recommendations, approved by the owner 2026-10-31.
 
+**Generated, 2026-11-03 (T-179, spec revision 47):** [version_2_revision_47_changes.md](version_2_revision_47_changes.md) — the records at `02ea189` (revision 44's regeneration, its stage-end sweep and revision 46's two mutants) compared with the records after spec revision 47's one regeneration, from `tools/record_changes.py revision-47`: `M11.C.48`'s readout reads both arms under one contact condition, so a changed verdict is a new result under a new reading, reported beside revision 46's and never in its place. The sweep record is not compared: only `M11.C.48`'s two keys ran on the new engine, into the cache (T-181).
+
 **Generated, 2026-10-31 (the batch from the owner's D4 and D5):** [version_2_revision_44_changes.md](version_2_revision_44_changes.md) — the same records at `64512b6` (revision 43's regeneration) compared with the records after spec revision 44's one regeneration, from `tools/record_changes.py revision-44`: a changed verdict is a new result under a new rule, reported beside revision 43's and version 1's verdicts (`M11.F`), never a finding when the criterion is a premise (`M11.5`). Its batch is the owner's D4 and D5 of 2026-10-31.
 
 **Approved 2026-10-21:** [milestone_review_brief.md](milestone_review_brief.md) — the brief for a
@@ -233,7 +235,7 @@ critical review of the whole model at each milestone (end of version 2's stages 
 outside review), run by a session
 without the build history on either Mac: what it checks, how it is set up, the report's form and how it is triaged.
 
-**Approved 2026-11-02:** [plan_t179_negative_run_contact_condition.md](plan_t179_negative_run_contact_condition.md) — T-179, the owner's option (a): `M11.C.48`'s readout leaves out a first cutoff on a tie with no contact by its week, on the same condition the baseline already has, and counts it (`no_contact_cutoffs`); acceptance criteria T179.1–T179.12 mapped to tests, one regeneration across both Macs, T-177 in the same batch. Not built.
+**Approved 2026-11-02, built 2026-11-03:** [plan_t179_negative_run_contact_condition.md](plan_t179_negative_run_contact_condition.md) — T-179, the owner's option (a): `M11.C.48`'s readout leaves out a first cutoff on a tie with no contact by its week, on the same condition the baseline already has, and counts it (`no_contact_cutoffs`); acceptance criteria T179.1–T179.12 mapped to tests, one regeneration across both Macs, T-177 in the same batch. Built as spec revision 47; its §3.1 is the status report.
 
 **Built 2026-10-20:** [plan_doc_claim_tests.md](plan_doc_claim_tests.md) — tests that fail when a document restates a fact that has since changed: the spec revision in four places, repo paths in README and CLAUDE.md, `requirements.txt` against the imports, the suite-size pattern widened, and status claims checked against each document's own status line, both ways. Each test with the files it reads and the mutation that proves it fails; the build record (§12) and each criterion's status (§13). Approved by the owner 2026-10-20.
 

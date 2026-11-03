@@ -54,7 +54,9 @@
 > of functional level per completed exchange, against basic levels around 40, and `basic_level` is never
 > written by an exchange. No realistic number of exchanges in a run should read as differentiation: the KB
 > interviews call that reading "grotesque". **`hold_gain` was chosen against `M5.D.3`**, so that aborts are the
-> usual outcome at first opposition; `constants_changes.md` records the measurement.
+> usual outcome at first opposition; `constants_changes.md` records the measurement. Since revision 41 (T-133) aborts
+> are not the usual outcome: a mover angry at `DEFINE` says the position as a demand and the sequence ends before any
+> opposition, so the movers who reach it are calmer (T-158; the owner kept `M5.D.3`'s claim as a finding, T-158 (b)).
 >
 > **Phase D B4, 2026-10-11 — cutoff as rejection** (`M1.B.3c`, owner decisions P1 and P2), from
 > `rejection_cutoff_gain` to `declared_rejection`. All `[I]`. One `CUTOFF` at the policy's intensity takes rejection

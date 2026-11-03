@@ -42,15 +42,15 @@ def test_g1_readout_section_is_rendered_from_measurements():
     c = _row(section, "phase_c")
     assert c[:3] == ["phase_c", str(tool.RUNS["phase_c"]), "2"]
     assert c[3] == "90 (`marta-nadia`, week 30, seed 1, bond 2.5)"
-    assert c[4:14] == ["65", "1 of 2", "1", "0", "4", "4", "2", "5", "15", "0.3"]
+    assert c[4:15] == ["65", "1 of 2", "1", "0", "0", "4", "4", "2", "5", "15", "0.3"]
     d = _row(section, "phase_d")
     assert d[3] == "9 (`a-c`, week 200, seed 2, bond 1.5)"
-    assert d[4:14] == ["8", "2 of 2", "2", "0", "4", "4", "2", "5", "2", "0.25"]
+    assert d[4:15] == ["8", "2 of 2", "2", "0", "0", "4", "4", "2", "5", "2", "0.25"]
     comment = next(line for line in section.splitlines() if line.startswith("<!-- after measurements: "))
     data = ast.literal_eval(comment.removeprefix("<!-- after measurements: ").removesuffix(" -->"))
     assert data == {"engine": "e" * 64, "seeds": 2,
                     "largest_stock": {"phase_c": 90.0, "phase_d": 9.0}, "mean_run": {"phase_c": 4, "phase_d": 4},
-                    "unmatched": {"phase_c": 0, "phase_d": 0},
+                    "unmatched": {"phase_c": 0, "phase_d": 0}, "no_contact": {"phase_c": 0, "phase_d": 0},
                     "excess": {"phase_c": 15.0, "phase_d": 2.0}, "symptom_share": {"phase_c": 0.30000000000000004,
                                                                                    "phase_d": 0.25}}
 
@@ -78,7 +78,24 @@ def test_m11c48_t166_readout_leaves_unmatched_first_cutoffs_out_of_the_run_colum
     results[3] = dict(results[3], firsts=results[3]["firsts"] + [("a-d", 300, 30, 0, 50, False)])
     section = tool.render_section("after", results, "e" * 64, 2)
     d = _row(section, "phase_d")
-    assert d[5:12] == ["2 of 2", "3", "1", "4", "4", "2", "5"]
+    assert d[5:13] == ["2 of 2", "3", "1", "0", "4", "4", "2", "5"]
     comment = next(line for line in section.splitlines() if line.startswith("<!-- after measurements: "))
     data = ast.literal_eval(comment.removeprefix("<!-- after measurements: ").removesuffix(" -->"))
     assert data["mean_run"]["phase_d"] == 4 and data["unmatched"] == {"phase_c": 0, "phase_d": 1}
+
+
+def test_m11c48_t179_readout_counts_no_contact_first_cutoffs_apart_from_unmatched_ones():
+    """T-179 (learning-qa, 2026-11-02, P2): a first cutoff on a tie with no contact by its week (``contact`` False) is
+    left out of the run columns and counted under "no contact", not under "unmatched", so a section measured after
+    revision 47 can be set beside one measured before it. Here Phase D's seed 2 gains a no-contact first cutoff at a run
+    of 0 and an unmatched one. Mutation: counting the no-contact cutoff as unmatched, as a merged column would."""
+    results = _results()
+    results[3] = dict(results[3], firsts=results[3]["firsts"] + [("a-e", 300, 0, 2, 3, False, False),
+                                                                 ("a-d", 310, 30, 0, 50, False, True)])
+    section = tool.render_section("after", results, "e" * 64, 2)
+    d = _row(section, "phase_d")
+    assert d[5:13] == ["2 of 2", "4", "1", "1", "4", "4", "2", "5"]
+    comment = next(line for line in section.splitlines() if line.startswith("<!-- after measurements: "))
+    data = ast.literal_eval(comment.removeprefix("<!-- after measurements: ").removesuffix(" -->"))
+    assert data["unmatched"] == {"phase_c": 0, "phase_d": 1} and data["no_contact"] == {"phase_c": 0, "phase_d": 1}
+    assert data["mean_run"]["phase_d"] == 4

@@ -314,8 +314,8 @@ and all agreeing, were brought to the paper's wording at step 6 (T-130).
   The owner restated both disposition rows; whether the readout should change is T-179. No rule changed and the
   engine hash did not move.
 - 2026-11-02: T-179, the owner chose option (a): a first cutoff on a tie with no contact by its week is left out of both
-  arms and counted. The plan (`plan_t179_negative_run_contact_condition.md`) waits for the owner's approval; nothing is
-  built and the engine hash has not moved.
+  arms and counted. The owner approved the plan (`plan_t179_negative_run_contact_condition.md`) as written the same day;
+  nothing is built yet and the engine hash has not moved.
 
 ## 9. Not relevant to how the model works now
 

@@ -37,8 +37,8 @@ All notable changes to this project are recorded here. Dates are ISO.
   of 0, and (c), keeping the readout, were not chosen. `tools/ensemble_record.py`'s `code_hash` reads
   `src/bowen/readouts/`, so the change moves the engine hash and needs one regeneration of every record.
   `docs/plan_t179_negative_run_contact_condition.md` maps acceptance criteria T179.1–T179.12 to tests, orders the work,
-  puts the regeneration across both Macs (about 4 hours) and carries T-177 in the same batch. It waits for the owner's
-  approval; nothing is built. No rule, readout or record changed, and the engine hash (`09ca2b46c7e0`) did not move.
+  puts the regeneration across both Macs (about 4 hours) and carries T-177 in the same batch. The owner approved it as
+  written the same day, §5's Q1 as recommended (the status page stays live); nothing is built. No rule, readout or record changed, and the engine hash (`09ca2b46c7e0`) did not move.
 - **Documents.** The plan (new), `docs/SPEC_REVIEW_CHECKLIST.md`, `docs/REVIEWER_READING_LIST.md`, T-179's record,
   `TODO.md` and this file's index (regenerated). The spec, the explainer and `docs/readouts_phase_c.md` are unchanged:
   they describe the readout as built, which has not changed.

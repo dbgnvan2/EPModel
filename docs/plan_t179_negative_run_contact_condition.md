@@ -1,7 +1,7 @@
 # Plan: `M11.C.48` reads both arms under the same contact condition (T-179)
 
-**Status: draft for approval, written 2026-11-02 on `main` at `033f4fe` (spec revision 46, engine hash `09ca2b46c7e0`).
-Nothing is built.** The owner chose option (a) through `AskUserQuestion` on 2026-11-02: leave out a first
+**Status: approved by the owner as written, 2026-11-02, with §5's Q1 as recommended (the status page stays live).
+Written 2026-11-02 on `main` at `033f4fe` (spec revision 46, engine hash `09ca2b46c7e0`). Nothing is built.** The owner chose option (a) through `AskUserQuestion` on 2026-11-02: leave out a first
 cutoff on a tie with no contact by the cutoff's week, and count it, as unmatched cutoffs are counted. Options (b)
 (count uncut ties with no contact at a run of 0) and (c) (keep the readout) were not chosen.
 
@@ -95,7 +95,7 @@ the criteria it targets (step 7).
   not frozen at the tag `version-2` as `docs/version_1_status.md` is at `version-1`. This batch is the first after the
   tag that moves a verdict. Recommendation: leave the page live, and have its header name the tag and the revisions
   since it (the tag stays at `8c4e0bf`). The other choice is to freeze it at the tag and start a version 3 page, which
-  waits on version 3's scope.
+  waits on version 3's scope. **Decided 2026-11-02: as recommended** (the owner approved the plan as written).
 - **After step 8: the two disposition rows.** On the Phase B family the same-condition difference holds zero inside
   its interval, so `M11.C.48` is expected to stay FAIL with a new reason (no difference, not a reversal); on the
   twelve-person family it is expected to pass. Each row is put to the owner with its record numbers.

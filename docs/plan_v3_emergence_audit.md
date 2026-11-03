@@ -1,9 +1,10 @@
 # Plan: the emergence audit (version 3, part 1; T-182)
 
-**Status: draft for approval. Written 2026-11-03 on `main` at `5c7fc9b` (spec revision 47, engine hash `0b363cb3186c`,
+**Status: approved by the owner as written, 2026-11-03, with §9's Q1–Q7 each as recommended (through
+`AskUserQuestion`). Written 2026-11-03 on `main` at `5c7fc9b` (spec revision 47, engine hash `0b363cb3186c`,
 Phase D `020160abb6db`). Nothing is built.** No edit under `src/bowen/` or `config/bowen/` is planned: every ablation
 is a mutant applied to a temporary copy of the repository, as the mutation records already do
-(`tools/mutant_runner.py`). §9 lists what the owner decides.
+(`tools/mutant_runner.py`). §9 lists what the owner decided.
 
 ## 1. Why
 
@@ -255,6 +256,9 @@ The build commit:
 `config/bowen/constants_changes.md` is not touched: no constant changes.
 
 ## 9. What the owner decides
+
+**Decided 2026-11-03:** the owner answered Q1–Q7 through `AskUserQuestion`, each as recommended, and approved the
+plan as written. `M11.1f` goes into the spec at the build, as version 3's first revision.
 
 Each is written for `AskUserQuestion`, with the recommendation first. "Other" is always open.
 

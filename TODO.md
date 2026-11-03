@@ -152,5 +152,5 @@ moves to `docs/TODO_archive.md`. Until 2026-10-22 this file held every item's te
 - T-175 · 2026-11-01 · Hand-restated status goes stale (review systemic pattern 1, … · [record](docs/todo/2026-11-01_pre_tag_milestone_review.md)
 - T-180 · 2026-11-03 · `M11.C.48[phase_d]` passes but its named mutant survives (T-179, … · [record](docs/todo/2026-11-01_pre_tag_milestone_review.md)
 - T-181 · 2026-11-03 · The sweep record is stale since spec revision … · [record](docs/todo/2026-11-01_pre_tag_milestone_review.md)
-- T-182 · 2026-11-03 · The emergence audit: plan for approval (2026-11-03) · [record](docs/todo/2026-11-03_version_3_emergence_audit.md)
+- T-182 · 2026-11-03 · The emergence audit: build the approved plan (2026-11-03) · [record](docs/todo/2026-11-03_version_3_emergence_audit.md)
 - T-183 · 2026-11-03 · The LLM-agent experiment: the plan waits for the … · [record](docs/todo/2026-11-03_version_3_llm_agent_experiment.md)

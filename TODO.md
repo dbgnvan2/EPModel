@@ -14,7 +14,7 @@ moves to `docs/TODO_archive.md`. Until 2026-10-22 this file held every item's te
 - T-003 · 2026-10-20 · Coverage page, minor, from the Part A review … · [record](docs/todo/2026-08-22_blocking_the_next_phase.md)
 - T-004 · 2026-10-20 · Coverage page, from Part B's drafting (2026-10-20), not … · [record](docs/todo/2026-08-22_blocking_the_next_phase.md)
 
-## Later (137)
+## Later (138)
 
 - T-006 · 2026-10-22 · D4, long `Spec:` lines (Part D, 2026-10-22; the … · [record](docs/todo/2026-10-22_model_ergonomics.md)
 - T-007 · 2026-10-22 · Adjacent issues found by Part D's docstring pass, … · [record](docs/todo/2026-10-22_model_ergonomics.md)
@@ -153,3 +153,4 @@ moves to `docs/TODO_archive.md`. Until 2026-10-22 this file held every item's te
 - T-180 · 2026-11-03 · `M11.C.48[phase_d]` passes but its named mutant survives (T-179, … · [record](docs/todo/2026-11-01_pre_tag_milestone_review.md)
 - T-181 · 2026-11-03 · The sweep record is stale since spec revision … · [record](docs/todo/2026-11-01_pre_tag_milestone_review.md)
 - T-182 · 2026-11-03 · The emergence audit: plan for approval (2026-11-03) · [record](docs/todo/2026-11-03_version_3_emergence_audit.md)
+- T-183 · 2026-11-03 · The LLM-agent experiment: the plan waits for the … · [record](docs/todo/2026-11-03_version_3_llm_agent_experiment.md)

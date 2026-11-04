@@ -2,7 +2,7 @@
 
 **Status: approved by the owner as written, 2026-11-03, with §9's Q1–Q7 each as recommended (through
 `AskUserQuestion`). Written 2026-11-03 on `main` at `5c7fc9b` (spec revision 47, engine hash `0b363cb3186c`,
-Phase D `020160abb6db`). §7 steps 1–3 built 2026-11-03: the tool, its tests and the pilot; the requirement is `M11.1g` at spec revision 48, because `M11.1f` already held the missing-move rule, and its tests are named `test_m111g_…`. T-181's full sweep is done (2026-11-04, same engine hash). The owner chose L0 first (2026-11-03): step 4 runs L0 on the 13 in-scope rows; steps 5–6 wait for the owner after it.** No edit under `src/bowen/` or `config/bowen/` is planned: every ablation
+Phase D `020160abb6db`). §7 steps 1–3 built 2026-11-03: the tool, its tests and the pilot; the requirement is `M11.1g` at spec revision 48, because `M11.1f` already held the missing-move rule, and its tests are named `test_m111g_…`. T-181's full sweep is done (2026-11-04, same engine hash). The owner chose L0 first (2026-11-03): step 4 ran 2026-11-04, L0 on the 13 in-scope rows split across both Macs in 45 min of wall time; 10 of 13 survive and `M11.C.34`, `M11.C.10[family of origin]` and `M11.C.2[twelve-person family]` go red. Steps 5–6 wait for the owner.** No edit under `src/bowen/` or `config/bowen/` is planned: every ablation
 is a mutant applied to a temporary copy of the repository, as the mutation records already do
 (`tools/mutant_runner.py`). §9 lists what the owner decided.
 

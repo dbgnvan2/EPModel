@@ -56,6 +56,15 @@ AUDITED = ("composite", "mixed")  # M11.5: a premise or a check passing is never
 CLASSES = ("premise", "composite", "check", "mixed")
 ABLATION, CARRIER = "ablation", "carrier"
 RED = ("red", "reversed")
+# plan §7: pilot = step 3 (L0 on the pilot rows); l0 = step 4 (L0 on every in-scope row, no carriers, owner
+# 2026-11-03); full = steps 4 to 6 (L0 to L4 on every row, and the carriers of each L0 survivor)
+STAGES = ("pilot", "l0", "full")
+STAGE_TEXT = {
+    "pilot": " The pilot (plan §7 step 3): L0 only, on the pilot rows and the two controls; no carriers.",
+    "l0": " The L0 stage (plan §7 step 4): L0 only, on every in-scope row and the two controls; L1 to L4 and the "
+          "carriers are not run.",
+    "full": "",
+}
 NOT_EVIDENCE = ("broken", "not run (child failed)")  # judge's: no evidence either way
 # plan §2: the mutation records' mutants whose edits must be L0's, so the audit's L0 rows can be checked against them
 L0_TWINS = ("learning-off-in-both-arms", "learner-off-share-kept")
@@ -189,7 +198,8 @@ def _id(cell: str) -> str:
 def read_config(text: str | None = None) -> Config:
     """Purpose: the exclusions, controls, stage and pilot rows, parsed strictly.
     Spec:    docs/plan_v3_emergence_audit.md#3, #5
-    Tests:   tests/test_emergence_audit.py::test_m111g_ea12_no_row_dropped_silently
+    Tests:   tests/test_emergence_audit.py::test_m111g_ea12_no_row_dropped_silently,
+             tests/test_emergence_audit.py::test_m111g_ea12_the_config_is_parsed_strictly
     """
     text = CONFIG.read_text(encoding="utf-8") if text is None else text
     exclusions = _unique(_table(text, "Exclusions", "| criterion | reason |"), "Exclusions")
@@ -202,8 +212,8 @@ def read_config(text: str | None = None) -> Config:
             raise SystemExit(f"{CONFIG.name}: control {control!r} expects {expected!r}, not red or survived")
         controls.append((control, _id(cid), ablation, expected, reason))
     stage = dict(_table(text, "Stage", "| setting | value |")).get("stage")
-    if stage not in ("pilot", "full"):
-        raise SystemExit(f"{CONFIG.name}: the stage is {stage!r}, not pilot or full")
+    if stage not in STAGES:
+        raise SystemExit(f"{CONFIG.name}: the stage is {stage!r}, not one of {', '.join(STAGES)}")
     pilot = _unique(_table(text, "Pilot rows", "| criterion | reason |"), "Pilot rows")
     return Config(exclusions, tuple(controls), stage, pilot)
 
@@ -387,7 +397,8 @@ def build(cache: Cache, workers: int | None = None, *, records: dict | None = No
     Spec:    docs/bowen_agent_model_spec_v2.md#M11.1g; docs/plan_v3_emergence_audit.md#3, #4, #7
     Tests:   tests/test_emergence_audit.py::test_m111g_ea14_emergence_audit_record_is_current,
              tests/test_emergence_audit.py::test_m111g_ea8_build_refuses_a_failed_control,
-             tests/test_emergence_audit.py::test_m111g_ea11_carriers_named_only_for_survivors
+             tests/test_emergence_audit.py::test_m111g_ea11_carriers_named_only_for_survivors,
+             tests/test_emergence_audit.py::test_m111g_ea12_l0_stage_runs_l0_on_every_row_and_nothing_else
     """
     from_files = records is None
     records = read_records() if from_files else records
@@ -416,7 +427,8 @@ def build(cache: Cache, workers: int | None = None, *, records: dict | None = No
         raise SystemExit(f"{CONFIG.name}: pilot rows {stray} are not in scope")
     pilot = config.stage == "pilot"
     run_rows = [r for r in audited if r.key in config.pilot] if pilot else audited
-    ablations = (L0,) if pilot else ABLATIONS
+    full = config.stage == "full"
+    ablations = ABLATIONS if full else (L0,)
 
     def entry(row, mutant, result, label):
         v, note = verdict(row, mutant, result, limbs, alpha)
@@ -449,7 +461,7 @@ def build(cache: Cache, workers: int | None = None, *, records: dict | None = No
         verdicts += [entry(r, mutant, results[r.key], mutant.id) for r in run_rows]
 
     carriers = []
-    if not pilot:
+    if full:
         survivors = [r for r in run_rows if any(v["criterion"] == r.key and v["ablation"] == "L0"
                                                  and v["verdict"] == "survived" for v in verdicts)]
         for row in survivors:
@@ -547,8 +559,7 @@ def render(engine, config, audited, by_class, excluded, controls, verdicts, carr
         "",
         f"engine_hash: {engine}",
         "",
-        f"Stage: **{config.stage}**." + (" The pilot (plan §7 step 3): L0 only, on the pilot rows and the two controls; no "
-                                         "carriers." if config.stage == "pilot" else ""),
+        f"Stage: **{config.stage}**." + STAGE_TEXT[config.stage],
         "",
         "## Ablations",
         "",
@@ -591,13 +602,20 @@ def render(engine, config, audited, by_class, excluded, controls, verdicts, carr
         "",
         "Not run yet:",
         "",
-        *([f"- `{k}`: not in the pilot; runs at the full stage" for k in not_yet] or ["- none"]),
+        *([f"- `{k}`: not in the pilot; runs at the full stage" for k in not_yet]
+          + (["- L1 to L4 on every row: run at the full stage (plan §7 step 5)"] if config.stage == "l0" else [])
+          or ["- none"]),
         "",
         "## Carriers",
         "",
     ]
     if config.stage == "pilot":
         lines += ["Not run in the pilot: carriers are run for each L0 survivor at the full stage (plan §7 step 6).", ""]
+    elif config.stage == "l0":
+        survivors = [e["criterion"] for e in verdicts if e["verdict"] == "survived"]
+        lines += [f"Not run at the L0 stage: carriers are run for each L0 survivor at the full stage (plan §7 step 6). "
+                  f"{len(survivors)} of {len(verdicts)} rows survived L0"
+                  + (": " + ", ".join(f"`{k}`" for k in survivors) if survivors else "") + ".", ""]
     elif not carriers:
         lines += ["No row survived L0, so no carrier was run.", ""]
     for c in carriers:

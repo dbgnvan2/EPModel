@@ -297,15 +297,36 @@ def test_m111g_ea12_no_row_dropped_silently():
 
 def test_m111g_ea12_the_config_is_parsed_strictly():
     text = ea.CONFIG.read_text(encoding="utf-8")
-    assert ea.read_config(text).stage in ("pilot", "full")
+    assert ea.read_config(text).stage in ea.STAGES
+    for stage in ea.STAGES:
+        assert ea.read_config(text.replace("| stage | pilot |", f"| stage | {stage} |")
+                              .replace("| stage | l0 |", f"| stage | {stage} |")
+                              .replace("| stage | full |", f"| stage | {stage} |")).stage == stage
     with pytest.raises(SystemExit, match="unknown ablation"):
         ea.read_config(text.replace("| positive | `M11.C.39` | L0 |", "| positive | `M11.C.39` | L9 |"))
-    with pytest.raises(SystemExit, match="not pilot or full"):
-        ea.read_config(text.replace("| stage | pilot |", "| stage | some |").replace("| stage | full |", "| stage | some |"))
+    with pytest.raises(SystemExit, match="not one of pilot, l0, full"):
+        ea.read_config(text.replace("| stage | pilot |", "| stage | some |").replace("| stage | l0 |", "| stage | some |")
+                       .replace("| stage | full |", "| stage | some |"))
     with pytest.raises(SystemExit, match="cells"):
         ea.read_config(text.replace("| `M11.C.39` | its treatment arm", "| `M11.C.39` | its | treatment arm"))
     with pytest.raises(SystemExit, match="twice"):
         ea.read_config(text.replace("| `M11.C.48[phase_d]` |", "| `M11.C.27[unstable,remove_one]` |"))
+
+
+def test_m111g_ea12_l0_stage_runs_l0_on_every_row_and_nothing_else():
+    """Plan §7 step 4 (owner 2026-11-03): the l0 stage needs L0's results on every in-scope row and no others; L1 to
+    L4 and the carriers are not asked for, and the record says so."""
+    cache = full_cache()
+    l0_keys = {result_key(ENGINE, ea.L0.definition(), k) for k in ("X.16", "X.41", "X.39", "X.3")}
+    cache.entries = {k: v for k, v in cache.entries.items() if k in l0_keys}
+    data = record_json(text := build(cache, config=config("l0")))
+    assert {(v["criterion"], v["ablation"]) for v in data["verdicts"]} == {("X.16", "L0"), ("X.41", "L0")}
+    assert data["carriers"] == [] and data["stage"] == "l0"
+    assert set(cache.asked) <= l0_keys
+    assert "- L1 to L4 on every row: run at the full stage (plan §7 step 5)" in text
+    assert "2 of 2 rows survived L0: `X.16`, `X.41`." in text
+    red = {("L0", "X.41"): result("X.41", "FAIL", [readout(diff=0.0, p=0.9)])}
+    assert "1 of 2 rows survived L0: `X.16`." in build(full_cache(red), config=config("l0"))
 
 
 # --- EA-13 -----------------------------------------------------------------------------------------------------------

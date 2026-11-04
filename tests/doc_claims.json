@@ -63,6 +63,11 @@
         "doc": "CHANGELOG.md",
         "phrase": "The suite: 1295 tests,\n  1293 pass and 2 strict expected failures.",
         "why": "the dated entry of 2026-11-02 for T-176's trace, giving the suite's size then"
+      },
+      {
+        "doc": "CHANGELOG.md",
+        "phrase": "1326 tests, 1324 pass, 2 strict xfail.",
+        "why": "the dated entry of 2026-11-04 for T-181's full sweep, giving the suite's size then"
       }
     ]
   },

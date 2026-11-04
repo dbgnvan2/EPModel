@@ -26,3 +26,18 @@ The plan is `docs/plan_v3_emergence_audit.md`.
   row, 134 for all 13 rows against the plan's 21): after T-181, run step 4 only, L0 on all 13 rows split across
   both Macs (about 1.3–3.8 h); then cost L1–L4 and the carriers from the real survivor count and put them to
   the owner before they start.
+  **Step 4 run 2026-11-04** (`docs/emergence_audit_record.md`, stage `l0`, added to the tool for it): L0 on the 13
+  in-scope rows, the two 2080-tick rows not cached by the pilot on Mac Mini1 (43 min) and eight here (6 min). Both
+  controls hold; 10 of 13 survive; `M11.C.34`, `M11.C.10[family of origin]` and `M11.C.2[twelve-person family]` go red. Open until L1–L4 and
+  the carriers (113 joint mutants for the 10 survivors) run, or the owner closes it.
+- [ ] T-184 ⟨later⟩ **The emergence audit's cache records no NumPy version, so `tools/merge_cache.py` refuses it
+  (2026-11-04).** `tools/emergence_audit.py` never sets `Cache.meta["numpy"]`, as `tools/version_2_sweep.py`'s
+  `check_numpy` does, so a two-Mac split of the audit cannot be merged by the merge tool as it stands. Step 4's
+  merge stamped NumPy 1.26.4 on scratch copies of both files (both interpreters measured at 1.26.4 by
+  `tools/two_mac_sweep.py check` and again after the run), ran `merge_cache.merge` on them for its conflict check,
+  and wrote the union back without the stamp. Also: `merge_cache.local_sweep_running` looks only for
+  `version_2_sweep.py`, not for `emergence_audit.py`. And: the tool has no way to run a subset of rows, and
+  `Cache.save` keeps only the keys read since loading, so a subset run (step 4 used `_results` on each Mac's
+  rows) silently drops every other cached result; it dropped the pilot's five, recovered from git. Add a row
+  subset to the tool that flushes without pruning, with a test that a subset run keeps the other keys. Fix all
+  three, with tests, before step 5 is split (learning-qa, 2026-11-04).

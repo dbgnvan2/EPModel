@@ -10,7 +10,7 @@ names its outcome, and the owner decides it for each survivor.
 
 engine_hash: 535720826a372a860e2907a0cd10068134ecf12367ea83fa7259c908c54b30a0
 
-Stage: **pilot**. The pilot (plan §7 step 3): L0 only, on the pilot rows and the two controls; no carriers.
+Stage: **l0**. The L0 stage (plan §7 step 4): L0 only, on every in-scope row and the two controls; L1 to L4 and the carriers are not run.
 
 ## Ablations
 
@@ -88,40 +88,41 @@ Never findings. The build refuses to render the record if either does not hold.
 
 | Criterion | Class | Ablation | Outcome | Seeds | Difference under ablation | Verdict |
 |---|---|---|---|---|---|---|
+| `M11.C.16` | composite | L0 | PASS | 100 | `repertoire_entropy` -0.0151 ± 0.0019; `top_move_share` +0.0279 ± 0.0041 (reported) | **survived** |
 | `M11.C.27[unstable,remove_one]` | composite | L0 | PASS | 100 | `pair_deviation` -0.0696 ± 0.049; `pair_deviation_week_1` -0.0696 ± 0.049 (reported); `pair_deviation_week_2` -0.0543 ± 0.053 (reported); `pair_deviation_week_3` +0.00367 ± 0.044 (reported); `pair_deviation_week_4` +0.0707 ± 0.047 (reported); `pair_deviation_week_5` +0.0958 ± 0.051 (reported); `pair_deviation_week_6` +0.158 ± 0.049 (reported); `pair_deviation_week_7` +0.161 ± 0.048 (reported); `pair_deviation_week_8` +0.21 ± 0.057 (reported); `pair_deviation_week_9` +0.21 ± 0.05 (reported); `pair_deviation_week_10` +0.214 ± 0.052 (reported); `pair_deviation_week_11` +0.216 ± 0.055 (reported); `pair_deviation_week_12` +0.224 ± 0.054 (reported) | **survived** |
 | `M11.C.41[light: lower level]` | mixed | L0 | PASS | 150 | `mean_acute` +128 ± 12; `reactive_over_chance` +0.0653 ± 0.0027 | **survived** (premise limbs not declared (tools/version_1_status.premise_limbs; pending the owner, docs/version_1_dispositions.md), so judged on every limb) |
+| `M11.C.41[heavy: lower level]` | mixed | L0 | PASS | 100 | `mean_acute` +124 ± 14; `reactive_over_chance` +0.0677 ± 0.0034 | **survived** (premise limbs not declared (tools/version_1_status.premise_limbs; pending the owner, docs/version_1_dispositions.md), so judged on every limb) |
+| `M11.C.22` | mixed | L0 | PASS | 100 | `mild_removal_effect` +1.51 ± 0.73, p 4e-05; `severe_removal_effect` -1.73 ± 0.88, p 0.0001 (premise limb) | **survived** |
+| `M11.C.11` | mixed | L0 | PASS | 150 | `disturbance` +6.33 ± 1.6, p 1.2e-12 | **survived** (premise limbs not declared (tools/version_1_status.premise_limbs; pending the owner, docs/version_1_dispositions.md), so judged on every limb) |
+| `M11.C.34` | mixed | L0 | FAIL | 150 | `automatic_reaction` +0.0267 ± 0.055, p 0.88 | **red** (premise limbs not declared (tools/version_1_status.premise_limbs; pending the owner, docs/version_1_dispositions.md), so judged on every limb) |
+| `M11.C.7[joint over one spouse]` | mixed | L0 | PASS | 100 | `deviation_fall` +0.0503 ± 0.057, p 0.024; `landed_contacts` +0.36 ± 0.98 (reported) (premise limb) | **survived** |
+| `M11.C.7[joint over sided]` | mixed | L0 | PASS | 150 | `deviation_fall` +0.0806 ± 0.045, p 0.00015; `landed_contacts` +9.05 ± 0.57, p 1e-26 (premise limb) | **survived** |
+| `M11.C.15` | composite | L0 | PASS | 50 | `death_rise` +3.83 ± 0.65, p 6.1e-10; `recovery_rise` +7.45 ± 0.9, p 3.9e-10 | **survived** |
+| `M11.C.10[family of origin]` | composite | L0 | FAIL | 200 | `cut_off_tie_weeks` +35.8 ± 1.3e+02, p 0.19; `child_cut_weeks` +39.7 ± 43 (reported) | **red** |
+| `M11.C.2[twelve-person family]` | composite | L0 | FAIL | 150 | `symptom_load` +1.13 ± 1.5, p 0.092 | **red** |
 | `M11.C.48[phase_d]` | composite | L0 | PASS | 200 | `negative_run` +0.245 ± 0.076, p 5.3e-13; `run_before_cutoff` +1.73 ± 0.06 (reported); `first_cutoffs` +0 ± 0 (reported); `unmatched_cutoffs` +9.8 ± 0.27 (reported); `no_contact_cutoffs` +10.6 ± 0.36 (reported); `matched_seed` +1 ± 0 (reported) | **survived** |
 
 Not run yet:
 
-- `M11.C.16`: not in the pilot; runs at the full stage
-- `M11.C.41[heavy: lower level]`: not in the pilot; runs at the full stage
-- `M11.C.22`: not in the pilot; runs at the full stage
-- `M11.C.11`: not in the pilot; runs at the full stage
-- `M11.C.34`: not in the pilot; runs at the full stage
-- `M11.C.7[joint over one spouse]`: not in the pilot; runs at the full stage
-- `M11.C.7[joint over sided]`: not in the pilot; runs at the full stage
-- `M11.C.15`: not in the pilot; runs at the full stage
-- `M11.C.10[family of origin]`: not in the pilot; runs at the full stage
-- `M11.C.2[twelve-person family]`: not in the pilot; runs at the full stage
+- L1 to L4 on every row: run at the full stage (plan §7 step 5)
 
 ## Carriers
 
-Not run in the pilot: carriers are run for each L0 survivor at the full stage (plan §7 step 6).
+Not run at the L0 stage: carriers are run for each L0 survivor at the full stage (plan §7 step 6). 10 of 13 rows survived L0: `M11.C.16`, `M11.C.27[unstable,remove_one]`, `M11.C.41[light: lower level]`, `M11.C.41[heavy: lower level]`, `M11.C.22`, `M11.C.11`, `M11.C.7[joint over one spouse]`, `M11.C.7[joint over sided]`, `M11.C.15`, `M11.C.48[phase_d]`.
 
 Not tested: the legal set's structural preconditions (a tie to a living person; a closed triad for `TRIANGLE`): they define what an act is and are not mutated (plan §4).
 
 ## Agreement with the mutation records
 
 - `learning-off-in-both-arms` → `M11.C.39`: agrees (FAIL, 50 seeds)
-- `learner-off-share-kept` → `M11.C.34`: not run here yet
+- `learner-off-share-kept` → `M11.C.34`: agrees (FAIL, 150 seeds)
 
 ## Machine-readable
 
 ```json
 {
  "engine_hash": "535720826a372a860e2907a0cd10068134ecf12367ea83fa7259c908c54b30a0",
- "stage": "pilot",
+ "stage": "l0",
  "scope": {
   "audited": 13,
   "passing": 37,
@@ -225,6 +226,32 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
   }
  ],
  "verdicts": [
+  {
+   "criterion": "M11.C.16",
+   "class": "composite",
+   "ablation": "L0",
+   "outcome": "PASS",
+   "seeds": 100,
+   "verdict": "survived",
+   "note": "",
+   "readouts": [
+    {
+     "direction": -1,
+     "half_width": 0.0019019408303837635,
+     "mean_difference": -0.015098614736630836,
+     "readout": "repertoire_entropy",
+     "report_only": false
+    },
+    {
+     "direction": 1,
+     "half_width": 0.0040828170040574045,
+     "mean_difference": 0.027901955671045274,
+     "readout": "top_move_share",
+     "report_only": true
+    }
+   ],
+   "premise_limbs": []
+  },
   {
    "criterion": "M11.C.27[unstable,remove_one]",
    "class": "composite",
@@ -355,6 +382,236 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
    "premise_limbs": []
   },
   {
+   "criterion": "M11.C.41[heavy: lower level]",
+   "class": "mixed",
+   "ablation": "L0",
+   "outcome": "PASS",
+   "seeds": 100,
+   "verdict": "survived",
+   "note": "premise limbs not declared (tools/version_1_status.premise_limbs; pending the owner, docs/version_1_dispositions.md), so judged on every limb",
+   "readouts": [
+    {
+     "direction": 1,
+     "half_width": 14.47511265689074,
+     "mean_difference": 124.34628655120892,
+     "readout": "mean_acute",
+     "report_only": false
+    },
+    {
+     "direction": 1,
+     "half_width": 0.0034384227304441657,
+     "mean_difference": 0.06771527955646514,
+     "readout": "reactive_over_chance",
+     "report_only": false
+    }
+   ],
+   "premise_limbs": []
+  },
+  {
+   "criterion": "M11.C.22",
+   "class": "mixed",
+   "ablation": "L0",
+   "outcome": "PASS",
+   "seeds": 100,
+   "verdict": "survived",
+   "note": "",
+   "readouts": [
+    {
+     "direction": 1,
+     "half_width": 0.7311636524150382,
+     "mean_difference": 1.5072084575924631,
+     "p": 3.964414135902439e-05,
+     "readout": "mild_removal_effect",
+     "report_only": false
+    },
+    {
+     "direction": -1,
+     "half_width": 0.8821210660498027,
+     "mean_difference": -1.7291657199656632,
+     "p": 0.00010034695686498821,
+     "readout": "severe_removal_effect",
+     "report_only": false
+    }
+   ],
+   "premise_limbs": [
+    "severe_removal_effect"
+   ]
+  },
+  {
+   "criterion": "M11.C.11",
+   "class": "mixed",
+   "ablation": "L0",
+   "outcome": "PASS",
+   "seeds": 150,
+   "verdict": "survived",
+   "note": "premise limbs not declared (tools/version_1_status.premise_limbs; pending the owner, docs/version_1_dispositions.md), so judged on every limb",
+   "readouts": [
+    {
+     "direction": 1,
+     "half_width": 1.5742518779775805,
+     "mean_difference": 6.331230056410611,
+     "p": 1.1789865022008164e-12,
+     "readout": "disturbance",
+     "report_only": false
+    }
+   ],
+   "premise_limbs": []
+  },
+  {
+   "criterion": "M11.C.34",
+   "class": "mixed",
+   "ablation": "L0",
+   "outcome": "FAIL",
+   "seeds": 150,
+   "verdict": "red",
+   "note": "premise limbs not declared (tools/version_1_status.premise_limbs; pending the owner, docs/version_1_dispositions.md), so judged on every limb",
+   "readouts": [
+    {
+     "direction": -1,
+     "half_width": 0.05545783787934804,
+     "mean_difference": 0.02666666666666667,
+     "p": 0.879669189453125,
+     "readout": "automatic_reaction",
+     "report_only": false
+    }
+   ],
+   "premise_limbs": []
+  },
+  {
+   "criterion": "M11.C.7[joint over one spouse]",
+   "class": "mixed",
+   "ablation": "L0",
+   "outcome": "PASS",
+   "seeds": 100,
+   "verdict": "survived",
+   "note": "",
+   "readouts": [
+    {
+     "direction": 1,
+     "half_width": 0.057289407680303016,
+     "mean_difference": 0.05027865207709802,
+     "p": 0.023578365833241917,
+     "readout": "deviation_fall",
+     "report_only": false
+    },
+    {
+     "direction": 1,
+     "half_width": 0.9823807848612708,
+     "mean_difference": 0.36,
+     "readout": "landed_contacts",
+     "report_only": true
+    }
+   ],
+   "premise_limbs": [
+    "landed_contacts"
+   ]
+  },
+  {
+   "criterion": "M11.C.7[joint over sided]",
+   "class": "mixed",
+   "ablation": "L0",
+   "outcome": "PASS",
+   "seeds": 150,
+   "verdict": "survived",
+   "note": "",
+   "readouts": [
+    {
+     "direction": 1,
+     "half_width": 0.0445723060050741,
+     "mean_difference": 0.080558010711801,
+     "p": 0.00015119271557451715,
+     "readout": "deviation_fall",
+     "report_only": false
+    },
+    {
+     "direction": 1,
+     "half_width": 0.5723084272475666,
+     "mean_difference": 9.053333333333333,
+     "p": 1.0412635887445385e-26,
+     "readout": "landed_contacts",
+     "report_only": false
+    }
+   ],
+   "premise_limbs": [
+    "landed_contacts"
+   ]
+  },
+  {
+   "criterion": "M11.C.15",
+   "class": "composite",
+   "ablation": "L0",
+   "outcome": "PASS",
+   "seeds": 50,
+   "verdict": "survived",
+   "note": "",
+   "readouts": [
+    {
+     "direction": 1,
+     "half_width": 0.6548286421042248,
+     "mean_difference": 3.8294385973609595,
+     "p": 6.092242673422525e-10,
+     "readout": "death_rise",
+     "report_only": false
+    },
+    {
+     "direction": 1,
+     "half_width": 0.8975517863342578,
+     "mean_difference": 7.449228552061852,
+     "p": 3.895246103609213e-10,
+     "readout": "recovery_rise",
+     "report_only": false
+    }
+   ],
+   "premise_limbs": []
+  },
+  {
+   "criterion": "M11.C.10[family of origin]",
+   "class": "composite",
+   "ablation": "L0",
+   "outcome": "FAIL",
+   "seeds": 200,
+   "verdict": "red",
+   "note": "",
+   "readouts": [
+    {
+     "direction": 1,
+     "half_width": 131.76189318515227,
+     "mean_difference": 35.77,
+     "p": 0.19045277295651158,
+     "readout": "cut_off_tie_weeks",
+     "report_only": false
+    },
+    {
+     "direction": 1,
+     "half_width": 43.09178744836743,
+     "mean_difference": 39.655,
+     "readout": "child_cut_weeks",
+     "report_only": true
+    }
+   ],
+   "premise_limbs": []
+  },
+  {
+   "criterion": "M11.C.2[twelve-person family]",
+   "class": "composite",
+   "ablation": "L0",
+   "outcome": "FAIL",
+   "seeds": 150,
+   "verdict": "red",
+   "note": "",
+   "readouts": [
+    {
+     "direction": 1,
+     "half_width": 1.4894770473212458,
+     "mean_difference": 1.1347995817999545,
+     "p": 0.09178580327756981,
+     "readout": "symptom_load",
+     "report_only": false
+    }
+   ],
+   "premise_limbs": []
+  },
+  {
    "criterion": "M11.C.48[phase_d]",
    "class": "composite",
    "ablation": "L0",
@@ -411,17 +668,6 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
   }
  ],
  "carriers": [],
- "not_run_yet": [
-  "M11.C.16",
-  "M11.C.41[heavy: lower level]",
-  "M11.C.22",
-  "M11.C.11",
-  "M11.C.34",
-  "M11.C.7[joint over one spouse]",
-  "M11.C.7[joint over sided]",
-  "M11.C.15",
-  "M11.C.10[family of origin]",
-  "M11.C.2[twelve-person family]"
- ]
+ "not_run_yet": []
 }
 ```

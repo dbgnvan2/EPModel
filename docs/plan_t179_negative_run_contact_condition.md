@@ -2,8 +2,8 @@
 
 **Status: built 2026-11-03 as spec revision 47 (engine hash `0b363cb3186c`); the status report is §3.1. Approved by the
 owner as written, 2026-11-02, with §5's Q1 as recommended (the status page stays live). Step 7 was changed by the owner
-on 2026-11-03: only `M11.C.48`'s two keys were swept, into the cache, and the sweep record waits for the full sweep
-(T-181). Written 2026-11-02 on `main` at `033f4fe` (spec revision 46, engine hash `09ca2b46c7e0`).** The owner chose option (a) through `AskUserQuestion` on 2026-11-02: leave out a first
+on 2026-11-03: only `M11.C.48`'s two keys were swept, into the cache, and the sweep record waited for the full sweep
+(T-181), done 2026-11-04. Written 2026-11-02 on `main` at `033f4fe` (spec revision 46, engine hash `09ca2b46c7e0`).** The owner chose option (a) through `AskUserQuestion` on 2026-11-02: leave out a first
 cutoff on a tie with no contact by the cutoff's week, and count it, as unmatched cutoffs are counted. Options (b)
 (count uncut ties with no contact at a run of 0) and (c) (keep the readout) were not chosen.
 

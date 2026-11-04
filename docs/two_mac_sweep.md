@@ -1,6 +1,6 @@
 # Running the stage-end sweep on two Macs
 
-**Status: BUILT 2026-10-23** (`docs/implementation_plan_version_2.md` §2.10); first used for part II's sweep, 2026-10-23–24 (four criteria on Mac Mini1, three here); used for stage 3's stage-end sweep, 2026-10-27 (all 34 declared directional keys: six on Mac Mini1, 28 here; `docs/implementation_plan_version_2_stage_3.md`, step 11), and for its rerun on revision 41's engine, 2026-10-29 (T-159: six keys planned on Mac Mini1 at 8 workers, 28 here; three of Mini1's taken here while it ran); its rerun on revision 43's engine, 2026-10-30 (T-167: four keys on Mac Mini1 at 8 workers, 30 here); and its rerun on revision 44's engine, 2026-10-31 to 2026-11-01 (T-170: four keys on Mac Mini1 at 10 workers, 30 here at 8).
+**Status: BUILT 2026-10-23** (`docs/implementation_plan_version_2.md` §2.10); first used for part II's sweep, 2026-10-23–24 (four criteria on Mac Mini1, three here); used for stage 3's stage-end sweep, 2026-10-27 (all 34 declared directional keys: six on Mac Mini1, 28 here; `docs/implementation_plan_version_2_stage_3.md`, step 11), and for its rerun on revision 41's engine, 2026-10-29 (T-159: six keys planned on Mac Mini1 at 8 workers, 28 here; three of Mini1's taken here while it ran); its rerun on revision 43's engine, 2026-10-30 (T-167: four keys on Mac Mini1 at 8 workers, 30 here); its rerun on revision 44's engine, 2026-10-31 to 2026-11-01 (T-170: four keys on Mac Mini1 at 10 workers, 30 here at 8); and its rerun on revision 47's engine, 2026-11-03 to 2026-11-04 (T-181: the same split).
 
 How to split the constant sweep (`tools/version_2_sweep.py`, `M17.E.1`) between this Mac (davemini2) and Mac
 Mini1, 10 cores each, and combine the results into one record. The tools are `tools/version_2_sweep.py --criteria`
@@ -208,6 +208,15 @@ criterion and goes on, and the record shows it refused.
   17:13 and exited 0 at 04:17 and 04:18 the next morning; the merge added Mac Mini1's 47 entries and found 491 equal,
   and no worker was left on either Mac. Six keys moved against the rerun on `da5981f6ec0b`: `M11.C.17`, `M11.C.21`,
   `M11.C.2`, `M11.C.7[joint over one spouse]`, `M11.C.2[twelve-person family]` and `M11.C.10`.
+- The rerun on `0b363cb3186c` (Phase D `020160abb6db`, 2026-11-03 to 2026-11-04, T-181, spec revision 47) had its
+  own cross-check: `M11.C.16` and `M11.C.23` on both Macs; the merge added 0 and found all 510 entries equal. Mac
+  Mini1 was fast-forwarded to the same commit first (`git pull --ff-only` over SSH). It then ran `M11.C.6`,
+  `M11.C.10`, `M11.C.10[family of origin]` and `M11.C.15` at 10 workers, and this Mac the other 30 criteria at 8
+  workers under `nice -n 15`, from a clean `git worktree` of the same commit; `M11.C.48`'s two keys were already in
+  the cache from T-179's batch and were read, not run. Both shares started at 19:02; this Mac's exited 0 at 03:10
+  and Mac Mini1's at 05:51. The merge added Mac Mini1's 47 entries and found 510 equal, and no worker was left on
+  either Mac. Only `M11.C.48` (0 → 3 of 8 held) and `M11.C.48[phase_d]` (0 → 8 of 8) moved against the rerun on
+  `09ca2b46c7e0`; every other criterion's samples were unchanged.
 - `tools/two_mac_sweep.py` against a live Mac Mini1 was run on 2026-10-23 and again on 2026-10-27: `check`, `start`,
   `status` and `fetch` all worked over SSH. On 2026-10-27, a minute after a share started there (load average 68 on 10
   cores, Spotlight indexing the temporary repository copies), one `status` call printed `running` and then timed out

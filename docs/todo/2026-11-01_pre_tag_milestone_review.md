@@ -112,10 +112,15 @@ and the review's open checks are below.
   **The emergence audit's pilot (2026-11-03, T-182):** the row survives L0, all learning off (`negative_run` +0.245 ±
   0.076 at 200 seeds, `docs/emergence_audit_record.md`), so its direction does not need learning at all, not only
   `CUTOFF`'s learned value. Which non-learning term carries it is the full run's carrier step (C1–C7 with L0).
-- [ ] T-181 ⟨later⟩ **The sweep record is stale since spec revision 47 (T-179, 2026-11-03).** Revision 47 moved the
+- [x] T-181 ⟨later⟩ **The sweep record is stale since spec revision 47 (T-179, 2026-11-03).** Revision 47 moved the
   engine hash to `0b363cb3186c` (Phase D `020160abb6db`), so every swept criterion's cached result is on the earlier
   engine, `tests/test_version_2_sweep.py::test_s2_11_sweep_record_is_current` is a strict expected failure, and W4 is
   unmet on the passing rows (`docs/version_2_status.md`). The owner chose on 2026-11-03 to run only `M11.C.48` and
   `M11.C.48[phase_d]` into the cache in this batch. Rerun the full sweep, split across both Macs
   (`docs/two_mac_sweep.md`, about 11 h), at the next stage end or before an outside review, and take the test's mark
   off.
+  **Done 2026-11-04.** The full sweep reran on `0b363cb3186c` (Phase D `020160abb6db`), split across both Macs after a
+  cross-check that found all 510 entries equal (`docs/two_mac_sweep.md`): Mac Mini1 ran `M11.C.6`, `M11.C.10`,
+  `M11.C.10[family of origin]` and `M11.C.15`, this Mac the other 30 keys. Only `M11.C.48` (3 of 8 held, central FAIL)
+  and `M11.C.48[phase_d]` (8 of 8, central PASS) moved against revision 44's sweep; the other 32 keys' samples are
+  unchanged. The test's mark is off, and `docs/version_2_status.md` shows W4 met.

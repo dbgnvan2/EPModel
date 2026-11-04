@@ -2,10 +2,64 @@
 
 The entries of `CHANGELOG.md` dated before 2026-10-19, the day version 2 began at the tag `version-1`, moved
 here verbatim on 2026-10-22, the entries of 2026-10-19 and 2026-10-20 on 2026-10-23, and the entries of
-2026-10-21 later on 2026-10-23, the earliest entry of 2026-10-22 (the SP-1 proposal's eight questions) on 2026-10-24, and the next (SP-1 built, with spec revision 34) later on 2026-10-24, and the next (Model ergonomics, Parts A–C) on 2026-10-25, and the next (Model ergonomics, Part D) later on 2026-10-25, and the next (Model ergonomics, Part E) later on 2026-10-25, and the next (Model ergonomics follow-ups) later on 2026-10-25, and the next (the closed and old parts of `TODO.md` and `CHANGELOG.md` archived) on 2026-10-26, and the next (`TODO.md` an index over records; a changelog index) later on 2026-10-26, and the next (Revision 35's dispositions approved by the owner) later on 2026-10-26, and the next two (Spec revision 36, of 2026-10-22, and Revision 36's records regenerated, of 2026-10-23) later on 2026-10-26, and the next five (from the cloud sessions' SessionStart hook to Stage 2: Phase C's directional criteria swept, all of 2026-10-23) later on 2026-10-26, and the next three (from the night's decisions listed for the owner to Stage 2: Phase D part I's directional criteria swept, all of 2026-10-23) on 2026-10-27, and the next (Stage 2: the sweep can run on two Macs, of 2026-10-23) later on 2026-10-27, and the next (The two-Mac cross-check run live, of 2026-10-23) on 2026-10-28, and the next four (from Stage 2: Phase D part II's sweep ranges declared to When the full sweep runs, the last of 2026-10-23) on 2026-10-29, and the next three (from Stage 2: Phase D part II's seven criteria swept across two Macs to The stage 2 milestone review triaged, spec revision 38, the earliest of 2026-10-24) later on 2026-10-29, and the next five (from Version 2 stage 3's implementation plan drafted to Rule: a finished session writes the next session's brief, the last of 2026-10-24) on 2026-10-30, and the next (Stage 3 step 3: P2 (displaced coping) drafted with F1, probed, for the owner's approval, the earliest of 2026-10-25) on 2026-10-31, and the next three (from The two-Mac driver reaches Mac Mini1 through the `macmini1` alias to Stage 3 step 3: P2 and F1 probed together on Mac Mini1, all of 2026-10-25) later on 2026-10-31, and the next (Stage 3 step 4: spec revision 39, part 1 drafted (group C), for the owner's approval, of 2026-10-25) on 2026-11-01, and the next (Stage 3 step 4: spec revision 39, parts 2 and 3 drafted; revision 39 approved by the owner, of 2026-10-25) later on 2026-11-01, and the next (Stage 3 step 5: the tests first, red, of 2026-10-25) later on 2026-11-01, and the next (Stage 3 step 6: the batch's first commit, T-130's wording, T-014 and T-129, of 2026-10-25) later on 2026-11-01, and the next (Stage 3 step 7: group C, displaced coping, the floor-held ledger and lent functioning returned, of 2026-10-26) on 2026-11-03, so that the live file stays short enough to read (`tests/test_doc_size.py` bounds its size). The heading below is the section they
+2026-10-21 later on 2026-10-23, the earliest entry of 2026-10-22 (the SP-1 proposal's eight questions) on 2026-10-24, and the next (SP-1 built, with spec revision 34) later on 2026-10-24, and the next (Model ergonomics, Parts A–C) on 2026-10-25, and the next (Model ergonomics, Part D) later on 2026-10-25, and the next (Model ergonomics, Part E) later on 2026-10-25, and the next (Model ergonomics follow-ups) later on 2026-10-25, and the next (the closed and old parts of `TODO.md` and `CHANGELOG.md` archived) on 2026-10-26, and the next (`TODO.md` an index over records; a changelog index) later on 2026-10-26, and the next (Revision 35's dispositions approved by the owner) later on 2026-10-26, and the next two (Spec revision 36, of 2026-10-22, and Revision 36's records regenerated, of 2026-10-23) later on 2026-10-26, and the next five (from the cloud sessions' SessionStart hook to Stage 2: Phase C's directional criteria swept, all of 2026-10-23) later on 2026-10-26, and the next three (from the night's decisions listed for the owner to Stage 2: Phase D part I's directional criteria swept, all of 2026-10-23) on 2026-10-27, and the next (Stage 2: the sweep can run on two Macs, of 2026-10-23) later on 2026-10-27, and the next (The two-Mac cross-check run live, of 2026-10-23) on 2026-10-28, and the next four (from Stage 2: Phase D part II's sweep ranges declared to When the full sweep runs, the last of 2026-10-23) on 2026-10-29, and the next three (from Stage 2: Phase D part II's seven criteria swept across two Macs to The stage 2 milestone review triaged, spec revision 38, the earliest of 2026-10-24) later on 2026-10-29, and the next five (from Version 2 stage 3's implementation plan drafted to Rule: a finished session writes the next session's brief, the last of 2026-10-24) on 2026-10-30, and the next (Stage 3 step 3: P2 (displaced coping) drafted with F1, probed, for the owner's approval, the earliest of 2026-10-25) on 2026-10-31, and the next three (from The two-Mac driver reaches Mac Mini1 through the `macmini1` alias to Stage 3 step 3: P2 and F1 probed together on Mac Mini1, all of 2026-10-25) later on 2026-10-31, and the next (Stage 3 step 4: spec revision 39, part 1 drafted (group C), for the owner's approval, of 2026-10-25) on 2026-11-01, and the next (Stage 3 step 4: spec revision 39, parts 2 and 3 drafted; revision 39 approved by the owner, of 2026-10-25) later on 2026-11-01, and the next (Stage 3 step 5: the tests first, red, of 2026-10-25) later on 2026-11-01, and the next (Stage 3 step 6: the batch's first commit, T-130's wording, T-014 and T-129, of 2026-10-25) later on 2026-11-01, and the next (Stage 3 step 7: group C, displaced coping, the floor-held ledger and lent functioning returned, of 2026-10-26) on 2026-11-03, and the next (Stage 3 step 8: group F, the I-position as a mixture of self-statement and demand, of 2026-10-26) on 2026-11-04, so that the live file stays short enough to read (`tests/test_doc_size.py` bounds its size). The heading below is the section they
 were under; nothing in this file is reworded. Later entries are in `CHANGELOG.md`.
 
 ## [Unreleased] — 2026-10-11
+
+### Stage 3 step 8: group F, the I-position as a mixture of self-statement and demand (2026-10-26)
+
+- **What.** Plan step 8, the batch's third commit. Spec revision 39's group F lands with its code; the engine hash
+  moved `b8e9ad1333e2` → `b819660f58b9`, and what a run computes changed.
+- **A (`M5.F.4`, D20).** A genuine `I-POSITION`'s `DEFINE` event carries `demand_share` = `1 − w`, `w` the mover's own
+  self-channel weight that week (`iposition.demand_share`); the angry assertion form carries 1. The share adds
+  `(1 − w) × assertion_gain` to the impingement delivered (`appraise.py`), scales the target's debit by `w` and
+  raises the mover's outward axis by `(1 − w) × assertion_evidence_gain` (`moves.iposition_effect`). The perspective
+  threshold is retired (the owner's Q8): `assertion_perspective_threshold` leaves `config/bowen/constants.md`, with a
+  `constants_changes.md` row, and is listed in `RETIRED` so the frozen constants of 2026-10-07 still load. A mover
+  without perspective now starts a sequence like any other; the Phase B script's Marta begins hers at week 31 and
+  says it at 35 (`config/bowen/script_phase_b.md`). `M11.C.32` counts the assertion form as share ≥ 1.
+- **`M11.C.29`'s arm (D21).** F at `mover_level` in both arms, F's spell suspended over the act's window
+  (`act_window`, `suspended`), M's kept; `completions` reported, and a row with no completion fails.
+- **`M11.C.49`, new.** Four runs per seed on the triad, F at 35 and at 60, each with the act and with an unscripted
+  control; the act starts at `DEFINE`, unprepared, by a `before` hook in `src/bowen/ensemble/criteria.py` (Q9);
+  perspective 1.0 (Q13). Its `M11.5` row is Mixed; the Phase C exit condition names it.
+- **Tests.** S3.6 and S3.8 lose their strict marks and pass; S3.7 is `ensemble`-marked. The unit mutation gate adds
+  S3.6's and S3.8's proofs (`review/stage_3_unit_mutation_gate.md`, 11 of 11 proved). New: the open batch's rerun
+  leaves out a criterion added since `9ebf327`, as step 7's pin does for mutants, so
+  `test_m134_record_covers_every_criterion_and_names_what_is_not_built` is marked stale in the batch; the targeted-run
+  tool sends each criterion to its phase's child; the trace renders an `I-POSITION` that starts its sequence.
+- **Mutants.** Phase C (`tools/mutation_record.py`): `demand-share-removed`, `demand-share-inverted` (`M11.C.49`),
+  `budget-reduction-removed` (`M11.C.29`), `iposition-debit-removed` (`M11.C.5`). Phase D
+  (`tools/phase_d_mutation_record.py`): `stress-response-removed` (`M11.C.18`), `borrowed-pseudo-self-read-as-own`
+  (`M11.C.20`), `dependence-gate-removed` (`M11.C.33`). The spec names these; no tool had them before.
+- **The targeted run** (`tools/stage_3_targeted_run.py`, now taking Phase C and Phase D criteria, on Mac Mini1 at
+  `b819660f58b9`, `review/stage_3_step_8_criteria.md`; no record moved). `M11.C.49` FAIL: `family_excess` +2.17 ± 3.0,
+  `conflict_share` +0.003 ± 0.028; reported, `target_impingement` +0.085 ± 0.023 and `completions` −0.31 ± 0.074
+  (T-137). `M11.C.29` FAIL: `third_symptom_weeks` +0.9 ± 3.7, and the genuine arm completes in 1 of 100 seeds (seed 82; the control, F
+  withdrawing, in 3), T-138. `M11.C.32` PASS (+1.44 ± 0.2, −0.23 ±
+  0.092); `M11.C.5` FAIL; `M11.C.18`, `.20`, `.33` PASS. Each passing criterion's mutants turn it red
+  (`borrowed-pseudo-self-read-as-own` reverses `M11.C.20`); the mutants of the three failing criteria did not run.
+- **Golden fingerprints** moved, both runs, and were taken again with `tests/bowen/test_engine_golden.py`'s own
+  `_records` and `_fingerprint`.
+- **Deviations, for the owner's review** (the plan's step 8 row): F's own `I-POSITION` withheld in every week of all
+  four `M11.C.49` runs; a run with no move on the F–M tie reads a `CONFLICT` share of 0 and is counted; the open
+  batch's rerun cuts criteria as well as mutants; `M11.C.29`'s completions read with a pseudo-move in
+  `requires_moves`; `demand_share` imports the policy's `self_channel_weight` locally, to avoid an import cycle.
+- **`M5.B.3`'s A6 test** (the owner, 2026-10-26: assert beyond noise). Group F made it pass by a margin inside its
+  noise, so it now builds every arm of `range(30)` and asserts the paired mean less two standard errors is above 0;
+  it stays a strict expected failure, its reason updated (62.78 against 62.78, +0.002 ± 0.94).
+- **The open batch.** `tests/open_batch.py`'s `registry_as_found` reads the criteria the batch found, so the version 2
+  status tests do not stop on `M11.C.49`, registered with no record row until step 10; a table is cut only through
+  the module that defines it.
+- **Review.** One `learning-qa` pass and one correctness pass (sonnet); every finding fixed: `M5.F.4`'s tail restored
+  (an edit had cut it), the register's rows name the demand share, `arm_c49` raises unless only the act's arm says it,
+  `demand_share` clamped at 0, the `before` hook keeps the begin record, `test_m13` checks a begun sequence delivers,
+  the targeted run's page names a missing move. `act_window` reading `load_constants` and `mover_at`'s fixed
+  perspective are recorded as T-139.
+- **CHANGELOG.** The three oldest entries (revision 35's dispositions and spec revision 36, 2026-10-22; revision 36's
+  records regenerated, 2026-10-23) moved to `docs/CHANGELOG_archive.md`, verbatim.
+- Suite: 1247 tests: 1228 pass, 7 strict expected failures, 12 open-batch expected failures (`python3 -m pytest tests/`, 2026-10-26).
 
 ### Stage 3 step 7: group C, displaced coping, the floor-held ledger and lent functioning returned (2026-10-26)
 

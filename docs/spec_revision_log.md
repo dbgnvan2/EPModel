@@ -1,10 +1,21 @@
 # Spec revision log
 
-**Status: the record of every revision of `bowen_agent_model_spec_v2.md`, 4 to 47 (revision 47, `M11.C.48`'s readout reads both arms under one contact condition, after the tag `version-2`, 2026-11-02–03; revision 46, wording only, after the tag `version-2`, from T-173's two mutants, 2026-11-01; revision 45, wording only, from the pre-tag milestone review's triage, 2026-11-01; revision 44, the batch from the owner's D4 and D5, 2026-10-31; revision 43, the version 2 definition batch, 2026-10-29; revision 40 applied 2026-10-28, from the stage 3 milestone review's triage; revision 41, its hash-moving batch, the same day; revision 42, wording only, 2026-10-29). Moved out of the spec at revision 35, 2026-10-22; nothing a run computes changed.**
+**Status: the record of every revision of `bowen_agent_model_spec_v2.md`, 4 to 48 (revision 48, `M11.1g`, the emergence audit, version 3's first revision, 2026-11-03; revision 47, `M11.C.48`'s readout reads both arms under one contact condition, after the tag `version-2`, 2026-11-02–03; revision 46, wording only, after the tag `version-2`, from T-173's two mutants, 2026-11-01; revision 45, wording only, from the pre-tag milestone review's triage, 2026-11-01; revision 44, the batch from the owner's D4 and D5, 2026-10-31; revision 43, the version 2 definition batch, 2026-10-29; revision 40 applied 2026-10-28, from the stage 3 milestone review's triage; revision 41, its hash-moving batch, the same day; revision 42, wording only, 2026-10-29). Moved out of the spec at revision 35, 2026-10-22; nothing a run computes changed.**
 
 The spec holds the current rules; this file holds how they got there. Until revision 34 the revision sections stood at the end of the spec, under `M17`, and the front matter's `status:` line listed every revision since 10. `docs/plan_model_ergonomics.md` Part E moved both here (the owner's answer to its §8 Q2, 2026-10-22, "as revision 35"), so a session reading the spec reads 480 fewer lines of history. The sections below are the spec's own text as it stood, tags and all, with the newest first; revisions 13 to 33 were written inline in the requirement bodies and have no section of their own, which Part E's second step records under revision 35.
 
 The sections `### Revision 34` to `### Revision 5` and the undated section are the spec's text as it stood, moved whole; a statement inside one of them (revision 34's, that revisions 13 to 33 are "not here") was true when written, before the bodies' narratives were moved under their own revisions. Those narratives are the bullets `- \`ID\`: sentence`, each the sentence as it stood in the body, under the revision it names, in sections titled "inline narratives moved from the bodies at revision 35" where no section existed.
+
+### Revision 48 — `M11.1g`, the emergence audit, 2026-11-03 ⟦rev48 · owner 2026-11-03, T-182 Q1 · `docs/plan_v3_emergence_audit.md`⟧
+
+Version 3's first revision, wording in `M11` only. `M11.1g` is added after `M11.1f`: every passing composite or mixed
+criterion is rerun with learning removed (all four learning paths, then each alone), a survivor is traced to the
+non-learning terms and own mutants that carry it, and two controls must hold before the record is rendered. The
+plan named the requirement `M11.1f`; that ID already held the missing-move rule (revision 10), so the new one is
+`M11.1g`, and its tests are named `test_m111g_ea<n>_…`. No rule changed and nothing a run computes changed: the spec
+is not in the engine hash, which stays `0b363cb3186c` (Phase D `020160abb6db`). The tool is
+`tools/emergence_audit.py`, its exclusions and controls `config/audit/emergence_audit.md`, its record
+`docs/emergence_audit_record.md`, which at this revision holds the pilot (plan §7 step 3) only.
 
 ### Revision 47 — `M11.C.48` reads both arms under one contact condition, 2026-11-02–03 ⟦rev47 · owner 2026-11-02, option (a), the plan approved as written the same day; the disposition rows owner 2026-11-03 · `docs/plan_t179_negative_run_contact_condition.md` (T-179)⟧
 

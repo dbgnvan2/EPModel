@@ -24,7 +24,7 @@ Reviewer: ________  Started: ________  Spec revision reviewed: ________
 
 These define what the model does. A run that disagrees with them is a defect.
 
-- [ ] [bowen_agent_model_spec_v2.md](bowen_agent_model_spec_v2.md) — the spec (v2.0, revision 47; version 1 is
+- [ ] [bowen_agent_model_spec_v2.md](bowen_agent_model_spec_v2.md) — the spec (v2.0, revision 48; version 1 is
       revision 32). Objects (M1), reference family (M2), clocks and ordering (M3), the fast tick (M4), moves (M5),
       invariants (M6), the slow tick (M7), live positions (M8), beliefs (M9), parameters (M10), acceptance criteria
       (M11), framing (M11.F), the readout schema (M11.G), out of scope (M12), the run log and trace (M16).
@@ -43,6 +43,7 @@ These define what the model does. A run that disagrees with them is a defect.
 - [ ] [../config/bowen/contact_classes.md](../config/bowen/contact_classes.md) — which acts across a tie count as negative or positive contact (`M1.D.2b`, `M1.D.2c`, `M11.C.48`; revision 36).
 - [ ] [../config/bowen/event_sizes.md](../config/bowen/event_sizes.md) — the Holmes–Rahe life-change units each stressor the engine raises is sized from (`M1.F.6a`; revision 36).
 - [ ] [../config/bowen/policy.md](../config/bowen/policy.md) — the selection policy.
+- [ ] [../config/audit/emergence_audit.md](../config/audit/emergence_audit.md) — the emergence audit's exclusions with their reasons, its two controls, its stage (`pilot` or `full`) and the pilot rows (`M11.1g`, revision 48). Read by `tools/emergence_audit.py` only, never by the engine; outside `config/bowen/` for the reason `config/sweep/sweep.md` is.
 - [ ] [../config/sweep/sweep.md](../config/sweep/sweep.md) — the constant sweep's rules (`sweep_samples`, `sweep_seed`, the detection-limit multiple and seed count), per swept criterion the `[I]` constants its mechanism reads with their ranges (`M17.E.1`, `M17.A.1`; revision 37), and the named ratios (`## Named ratios`, revision 39). Read by `tools/version_2_sweep.py` only, never by the engine; outside `config/bowen/` because the engine hash covers that directory (plan D12).
 - [ ] [../config/bowen/family_phase_c.md](../config/bowen/family_phase_c.md) — the family run in Phase C.
 - [ ] [../config/bowen/family_phase_d.md](../config/bowen/family_phase_d.md) — the reference family the owner specified (spec `M2.A`, revision 13), with its life course from revision 28: starting ages as settings, who earns, the coachee (`M2.A.0j`, `M2.A.0k`).
@@ -189,6 +190,8 @@ verdicts over ensembles (`tools/phase_d_record.py`; plan step 12). Mutations are
 
 **Generated, 2026-10-15:** [phase_d_mutation_record.md](phase_d_mutation_record.md) — Phase D part II criteria under declared mutants (first: `M4.D.6f` removed on `M11.C.10[family of origin]`), from `tools/phase_d_mutation_record.py`, rendered from `records_cache/phase_d_mutation.json`; a default-suite test fails when it is stale.
 
+**Generated, 2026-11-03 (the pilot only):** [emergence_audit_record.md](emergence_audit_record.md) — the emergence audit (`M11.1g`): passing composite and mixed criteria rerun with learning removed (L0 all, L1–L4 one path each), the two controls, and the carriers of each L0 survivor; from `tools/emergence_audit.py`, rendered from `records_cache/emergence_audit.json`; a default-suite test fails when it is stale. At revision 48 it holds the pilot (plan §7 step 3): L0 on three rows and the controls.
+
 **Reviewed by the owner 2026-10-16:** [REVIEW_spec_revisions_24-30.md](REVIEW_spec_revisions_24-30.md) — the owner's review form for spec revisions 24–30 (drafted 2026-10-15): one entry per requirement added or changed, with its source, constants and measured effect, and Approve / Change / Reject; and seven inconsistencies found while drafting it. All 85 entries are decided: 81 approved as built, 4 changed.
 
 **Approved, 2026-10-15:** [version_1_definition.md](version_1_definition.md) — what version 1 of the agent model is: seven conditions, each checked by a test, a record or an owner sign-off, where the model stands against them, and the owner's eight decisions.
@@ -235,7 +238,7 @@ critical review of the whole model at each milestone (end of version 2's stages 
 outside review), run by a session
 without the build history on either Mac: what it checks, how it is set up, the report's form and how it is triaged.
 
-**Approved 2026-11-03 (T-182):** [plan_v3_emergence_audit.md](plan_v3_emergence_audit.md) — version 3, part 1: the emergence audit. Reruns every passing composite and mixed criterion with learning from felt relief removed (L0, and one learning path at a time, L1–L4), reports which results survive, and traces each survivor to the non-learning term that carries it; a generated record outside the engine hash, its tests EA-1 to EA-16, the run's cost across both Macs, and the owner's questions Q1–Q7, each answered as recommended. Nothing is built.
+**Approved 2026-11-03 (T-182):** [plan_v3_emergence_audit.md](plan_v3_emergence_audit.md) — version 3, part 1: the emergence audit. Reruns every passing composite and mixed criterion with learning from felt relief removed (L0, and one learning path at a time, L1–L4), reports which results survive, and traces each survivor to the non-learning term that carries it; a generated record outside the engine hash, its tests EA-1 to EA-16, the run's cost across both Macs, and the owner's questions Q1–Q7, each answered as recommended. Steps 1–3 built 2026-11-03 (the tool, `M11.1g` at spec revision 48, the pilot); the full run waits for T-181's sweep.
 
 **Approved 2026-11-02, built 2026-11-03:** [plan_t179_negative_run_contact_condition.md](plan_t179_negative_run_contact_condition.md) — T-179, the owner's option (a): `M11.C.48`'s readout leaves out a first cutoff on a tie with no contact by its week, on the same condition the baseline already has, and counts it (`no_contact_cutoffs`); acceptance criteria T179.1–T179.12 mapped to tests, one regeneration across both Macs, T-177 in the same batch. Built as spec revision 47; its §3.1 is the status report.
 

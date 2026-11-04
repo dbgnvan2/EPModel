@@ -2,7 +2,7 @@
 
 **Status: approved by the owner as written, 2026-11-03, with §9's Q1–Q7 each as recommended (through
 `AskUserQuestion`). Written 2026-11-03 on `main` at `5c7fc9b` (spec revision 47, engine hash `0b363cb3186c`,
-Phase D `020160abb6db`). Nothing is built.** No edit under `src/bowen/` or `config/bowen/` is planned: every ablation
+Phase D `020160abb6db`). §7 steps 1–3 built 2026-11-03: the tool, its tests and the pilot; the requirement is `M11.1g` at spec revision 48, because `M11.1f` already held the missing-move rule, and its tests are named `test_m111g_…`. Steps 4–6 wait for T-181's full sweep.** No edit under `src/bowen/` or `config/bowen/` is planned: every ablation
 is a mutant applied to a temporary copy of the repository, as the mutation records already do
 (`tools/mutant_runner.py`). §9 lists what the owner decided.
 

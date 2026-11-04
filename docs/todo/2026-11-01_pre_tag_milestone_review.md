@@ -109,6 +109,9 @@ and the review's open checks are below.
   uncut tie's under the mutant (CUTOFF's legality and availability against the run standing on the tie), then put to
   the owner whether the mutant, the rule or the row's mutation clause changes. Decided by the owner 2026-11-03 through
   `AskUserQuestion` (the disposition row records the PASS as reviewed and W3 unmet).
+  **The emergence audit's pilot (2026-11-03, T-182):** the row survives L0, all learning off (`negative_run` +0.245 ±
+  0.076 at 200 seeds, `docs/emergence_audit_record.md`), so its direction does not need learning at all, not only
+  `CUTOFF`'s learned value. Which non-learning term carries it is the full run's carrier step (C1–C7 with L0).
 - [ ] T-181 ⟨later⟩ **The sweep record is stale since spec revision 47 (T-179, 2026-11-03).** Revision 47 moved the
   engine hash to `0b363cb3186c` (Phase D `020160abb6db`), so every swept criterion's cached result is on the earlier
   engine, `tests/test_version_2_sweep.py::test_s2_11_sweep_record_is_current` is a strict expected failure, and W4 is

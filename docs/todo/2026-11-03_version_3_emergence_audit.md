@@ -30,6 +30,10 @@ The plan is `docs/plan_v3_emergence_audit.md`.
   in-scope rows, the two 2080-tick rows not cached by the pilot on Mac Mini1 (43 min) and eight here (6 min). Both
   controls hold; 10 of 13 survive; `M11.C.34`, `M11.C.10[family of origin]` and `M11.C.2[twelve-person family]` go red. Open until L1–L4 and
   the carriers (113 joint mutants for the 10 survivors) run, or the owner closes it.
+  **Owner 2026-11-04, on the restated cost** (carriers on the 10 survivors about 2.5–6 h of wall time on both
+  Macs, `M11.C.48[phase_d]` 61% of it; L1–L4 on all 13 rows about 2.5–6.5 h): fix T-184 first, then run the
+  carriers of the 10 survivors only; L1–L4 waits. The tool needs a stage for that (L0 and the carriers, no
+  L1–L4), with a test and its mutation, as `l0` was added.
 - [ ] T-184 ⟨later⟩ **The emergence audit's cache records no NumPy version, so `tools/merge_cache.py` refuses it
   (2026-11-04).** `tools/emergence_audit.py` never sets `Cache.meta["numpy"]`, as `tools/version_2_sweep.py`'s
   `check_numpy` does, so a two-Mac split of the audit cannot be merged by the merge tool as it stands. Step 4's

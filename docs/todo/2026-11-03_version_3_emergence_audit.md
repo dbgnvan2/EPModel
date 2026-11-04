@@ -22,3 +22,7 @@ The plan is `docs/plan_v3_emergence_audit.md`.
   both controls hold; `M11.C.27[unstable,remove_one]`, `M11.C.41[light: lower level]` and `M11.C.48[phase_d]` all
   survive L0. Open until steps 4–6 run, after T-181, with the owner's approval of the restated cost; each survivor
   gets its T-item once its carriers are known.
+  **Owner 2026-11-03, on the restated cost** (17,700 seed-ticks a minute measured; carriers 6–30 joint mutants a
+  row, 134 for all 13 rows against the plan's 21): after T-181, run step 4 only, L0 on all 13 rows split across
+  both Macs (about 1.3–3.8 h); then cost L1–L4 and the carriers from the real survivor count and put them to
+  the owner before they start.

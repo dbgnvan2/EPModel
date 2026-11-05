@@ -125,6 +125,10 @@ for one spec revision that takes all nine.
   mutation clause changes). `M11.5`'s note stays as it is until then. Alternatives: amend `M11.5`'s note now to say
   the row passes without learning and its carrier is not found (wording, at the next revision); replace the row's
   mutation clause with a mutant chosen by reading and run it; or record the survivor as reviewed and change nothing.
+  **Owner 2026-11-05, through `AskUserQuestion`:** as recommended: trace, then probe. A read-only trace of the
+  policy path from a run of negative contacts to `CUTOFF`'s weight with learning off, then a per-act probe under L0
+  (`tools/probes.py`); then `M11.1d`'s question of the carrier found, and T-180 decided with it. `M11.5` unchanged
+  until then. Open until the carrier is found and the owner decides.
 - [ ] T-186 ⟨later⟩ **`M11.C.15` is carried by the release of bound anxiety at a death, a rule `M11.5` does not name
   (2026-11-04).** Under L0 it passes (`death_rise` +3.83 ± 0.65, `recovery_rise` +7.45 ± 0.9, 50 seeds). Its one
   carrier is `death-all-bound-anxiety-discarded` (`M6.3c`'s release at a death, under `M6.I.1`, replaced by

@@ -14,7 +14,7 @@ moves to `docs/TODO_archive.md`. Until 2026-10-22 this file held every item's te
 - T-003 · 2026-10-20 · Coverage page, minor, from the Part A review … · [record](docs/todo/2026-08-22_blocking_the_next_phase.md)
 - T-004 · 2026-10-20 · Coverage page, from Part B's drafting (2026-10-20), not … · [record](docs/todo/2026-08-22_blocking_the_next_phase.md)
 
-## Later (146)
+## Later (145)
 
 - T-006 · 2026-10-22 · D4, long `Spec:` lines (Part D, 2026-10-22; the … · [record](docs/todo/2026-10-22_model_ergonomics.md)
 - T-007 · 2026-10-22 · Adjacent issues found by Part D's docstring pass, … · [record](docs/todo/2026-10-22_model_ergonomics.md)
@@ -161,4 +161,3 @@ moves to `docs/TODO_archive.md`. Until 2026-10-22 this file held every item's te
 - T-190 · 2026-11-04 · `M11.C.27[unstable,remove_one]` is carried by `M11.5`'s `M4.C.1` and also … · [record](docs/todo/2026-11-03_version_3_emergence_audit.md)
 - T-191 · 2026-11-04 · `M11.C.11`'s return limb is carried by the removed … · [record](docs/todo/2026-11-03_version_3_emergence_audit.md)
 - T-192 · 2026-11-04 · `M11.C.41`'s two level cells are carried by the … · [record](docs/todo/2026-11-03_version_3_emergence_audit.md)
-- T-193 · 2026-11-04 · `M11.C.7[joint over sided]` is carried by the landed … · [record](docs/todo/2026-11-03_version_3_emergence_audit.md)

@@ -2,10 +2,69 @@
 
 The entries of `CHANGELOG.md` dated before 2026-10-19, the day version 2 began at the tag `version-1`, moved
 here verbatim on 2026-10-22, the entries of 2026-10-19 and 2026-10-20 on 2026-10-23, and the entries of
-2026-10-21 later on 2026-10-23, the earliest entry of 2026-10-22 (the SP-1 proposal's eight questions) on 2026-10-24, and the next (SP-1 built, with spec revision 34) later on 2026-10-24, and the next (Model ergonomics, Parts A–C) on 2026-10-25, and the next (Model ergonomics, Part D) later on 2026-10-25, and the next (Model ergonomics, Part E) later on 2026-10-25, and the next (Model ergonomics follow-ups) later on 2026-10-25, and the next (the closed and old parts of `TODO.md` and `CHANGELOG.md` archived) on 2026-10-26, and the next (`TODO.md` an index over records; a changelog index) later on 2026-10-26, and the next (Revision 35's dispositions approved by the owner) later on 2026-10-26, and the next two (Spec revision 36, of 2026-10-22, and Revision 36's records regenerated, of 2026-10-23) later on 2026-10-26, and the next five (from the cloud sessions' SessionStart hook to Stage 2: Phase C's directional criteria swept, all of 2026-10-23) later on 2026-10-26, and the next three (from the night's decisions listed for the owner to Stage 2: Phase D part I's directional criteria swept, all of 2026-10-23) on 2026-10-27, and the next (Stage 2: the sweep can run on two Macs, of 2026-10-23) later on 2026-10-27, and the next (The two-Mac cross-check run live, of 2026-10-23) on 2026-10-28, and the next four (from Stage 2: Phase D part II's sweep ranges declared to When the full sweep runs, the last of 2026-10-23) on 2026-10-29, and the next three (from Stage 2: Phase D part II's seven criteria swept across two Macs to The stage 2 milestone review triaged, spec revision 38, the earliest of 2026-10-24) later on 2026-10-29, and the next five (from Version 2 stage 3's implementation plan drafted to Rule: a finished session writes the next session's brief, the last of 2026-10-24) on 2026-10-30, and the next (Stage 3 step 3: P2 (displaced coping) drafted with F1, probed, for the owner's approval, the earliest of 2026-10-25) on 2026-10-31, and the next three (from The two-Mac driver reaches Mac Mini1 through the `macmini1` alias to Stage 3 step 3: P2 and F1 probed together on Mac Mini1, all of 2026-10-25) later on 2026-10-31, and the next (Stage 3 step 4: spec revision 39, part 1 drafted (group C), for the owner's approval, of 2026-10-25) on 2026-11-01, and the next (Stage 3 step 4: spec revision 39, parts 2 and 3 drafted; revision 39 approved by the owner, of 2026-10-25) later on 2026-11-01, and the next (Stage 3 step 5: the tests first, red, of 2026-10-25) later on 2026-11-01, and the next (Stage 3 step 6: the batch's first commit, T-130's wording, T-014 and T-129, of 2026-10-25) later on 2026-11-01, and the next (Stage 3 step 7: group C, displaced coping, the floor-held ledger and lent functioning returned, of 2026-10-26) on 2026-11-03, and the next (Stage 3 step 8: group F, the I-position as a mixture of self-statement and demand, of 2026-10-26) on 2026-11-04, and the next (Stage 3 step 9: group A, contact returned by a relieved receiver and TRIANGLE with distance, of 2026-10-26) later on 2026-11-04, so that the live file stays short enough to read (`tests/test_doc_size.py` bounds its size). The heading below is the section they
+2026-10-21 later on 2026-10-23, the earliest entry of 2026-10-22 (the SP-1 proposal's eight questions) on 2026-10-24, and the next (SP-1 built, with spec revision 34) later on 2026-10-24, and the next (Model ergonomics, Parts A–C) on 2026-10-25, and the next (Model ergonomics, Part D) later on 2026-10-25, and the next (Model ergonomics, Part E) later on 2026-10-25, and the next (Model ergonomics follow-ups) later on 2026-10-25, and the next (the closed and old parts of `TODO.md` and `CHANGELOG.md` archived) on 2026-10-26, and the next (`TODO.md` an index over records; a changelog index) later on 2026-10-26, and the next (Revision 35's dispositions approved by the owner) later on 2026-10-26, and the next two (Spec revision 36, of 2026-10-22, and Revision 36's records regenerated, of 2026-10-23) later on 2026-10-26, and the next five (from the cloud sessions' SessionStart hook to Stage 2: Phase C's directional criteria swept, all of 2026-10-23) later on 2026-10-26, and the next three (from the night's decisions listed for the owner to Stage 2: Phase D part I's directional criteria swept, all of 2026-10-23) on 2026-10-27, and the next (Stage 2: the sweep can run on two Macs, of 2026-10-23) later on 2026-10-27, and the next (The two-Mac cross-check run live, of 2026-10-23) on 2026-10-28, and the next four (from Stage 2: Phase D part II's sweep ranges declared to When the full sweep runs, the last of 2026-10-23) on 2026-10-29, and the next three (from Stage 2: Phase D part II's seven criteria swept across two Macs to The stage 2 milestone review triaged, spec revision 38, the earliest of 2026-10-24) later on 2026-10-29, and the next five (from Version 2 stage 3's implementation plan drafted to Rule: a finished session writes the next session's brief, the last of 2026-10-24) on 2026-10-30, and the next (Stage 3 step 3: P2 (displaced coping) drafted with F1, probed, for the owner's approval, the earliest of 2026-10-25) on 2026-10-31, and the next three (from The two-Mac driver reaches Mac Mini1 through the `macmini1` alias to Stage 3 step 3: P2 and F1 probed together on Mac Mini1, all of 2026-10-25) later on 2026-10-31, and the next (Stage 3 step 4: spec revision 39, part 1 drafted (group C), for the owner's approval, of 2026-10-25) on 2026-11-01, and the next (Stage 3 step 4: spec revision 39, parts 2 and 3 drafted; revision 39 approved by the owner, of 2026-10-25) later on 2026-11-01, and the next (Stage 3 step 5: the tests first, red, of 2026-10-25) later on 2026-11-01, and the next (Stage 3 step 6: the batch's first commit, T-130's wording, T-014 and T-129, of 2026-10-25) later on 2026-11-01, and the next (Stage 3 step 7: group C, displaced coping, the floor-held ledger and lent functioning returned, of 2026-10-26) on 2026-11-03, and the next (Stage 3 step 8: group F, the I-position as a mixture of self-statement and demand, of 2026-10-26) on 2026-11-04, and the next (Stage 3 step 9: group A, contact returned by a relieved receiver and TRIANGLE with distance, of 2026-10-26) later on 2026-11-04, and the next (Stage 3 step 10: the sweep's named ratio, one regeneration, the open batch closed, of 2026-10-26) on 2026-11-05, so that the live file stays short enough to read (`tests/test_doc_size.py` bounds its size). The heading below is the section they
 were under; nothing in this file is reworded. Later entries are in `CHANGELOG.md`.
 
 ## [Unreleased] — 2026-10-11
+
+### Stage 3 step 10: the sweep's named ratio, one regeneration, the open batch closed (2026-10-26)
+
+- **What.** Plan step 10, the batch's last commit. T-128 (`M17.E.1`'s named ratio) in the sweep tool, MR-23 (T-012),
+  and every record regenerated once on the final engine hash, `2a3b84e2d89a`, which did not move: the sweep tool and
+  `config/sweep/` are outside it. Spec revision 39 is now applied in full. The open batch (D31) is closed.
+- **T-128 (D24–D26, Q14).** `config/sweep/sweep.md` gains `## Named ratios` with `tie_wear_to_transfer_ratio` =
+  `tie_wear_rate` ÷ (`slow_tick_fast_ticks` × `calm_transfer_rate`), central 1/52, 1/208 to 4/52 on a log scale, `[I]`.
+  `tools/sweep_config.py` loads it and refuses a ratio whose period constant has a `## Ranges` row (the ratio is
+  derived at the period's central value). `tools/version_2_sweep.py` draws the ratio in place of `tie_wear_rate` for a
+  criterion whose run is longer than 52 fast ticks, writes the ratio on each sample, and splits each such criterion's
+  samples at the central value. A criterion's run length is measured, not listed: seed 0 of each arm at the central
+  constants, the longest arm's fast ticks, cached under the engine hash and the measuring function's own source hash.
+  `M17.E.1`'s sentence names the ratio. S3.16–S3.19 lose their strict marks and pass; S3.16 compares the row's ratio
+  with one redrawn from the seed, after a mutant that ignored the numerator survived the first version.
+- **MR-23 (T-012, closed).** `tools/ensemble_record.py` renders the Phase C ensemble record from
+  `docs/records_cache/phase_c_ensemble.json`, as the Phase D records are rendered; its own file is out of its hash
+  (the record prints `code_hash()` alone, `042166ee2147`, as both Phase D ensemble records do), and
+  `tests/bowen/test_ensemble_record.py` compares the full render.
+- **The regeneration.** Here: the Phase C ensemble record (4 min 31 s), mutation record (32 min 48 s), sweep record
+  (8 min 11 s), diagnostic record (8 min 29 s), level occupancy (35 s), the group G readout's "after" section, Phase D
+  part I (16 min 15 s) and the Phase D mutation record (93 min 23 s, six workers; step 7's four `M11.C.6` mutants run
+  the 884-tick arms). Mac Mini1: Phase D part II (95 min 6 s), copied back, its `code_hash` checked. Then the seed-7
+  trace and fam-diag export, `tools/c16_report.py`, and the generated indexes.
+- **What moved** (`docs/version_2_revision_39_changes.md`, new, against `9ebf327`, the records revision 36's
+  regeneration left and the batch kept). The status page: 6 of 63 rows differ from revision 38's.
+  `M11.C.2[twelve-person family]` (symptom load +2.61 ± 1.6), `M11.C.7[one spouse over sided]`,
+  `M11.C.10[family of origin]` (cut-off tie weeks +220 ± 146) and `M11.C.17` (coached rise +0.039 ± 0.030) go from
+  FAIL to PASS; `M11.C.44` goes from PASS to FAIL (−0.020 ± 0.089, T-142); `M11.C.49` is new and fails (family excess
+  +3.1 ± 2.9, `CONFLICT` share +0.003 ± 0.027, T-137). `M11.C.42` and `M11.C.45` still fail (T-142). The Phase C
+  mutation record: 5 of 114 verdicts changed, and the four `M11.C.44` mutants no longer run. The Phase D mutation
+  record: 1 of 11 changed, 8 rows new; `M11.C.17`'s one mutant survives, so its new pass is not yet proved by
+  mutation. The sweep record: 3 of 54 settings changed, all on `M11.C.44`. T-143 lists the mutants that no longer turn
+  red. Each is a new result under a new rule, reported beside revision 38's and version 1's verdicts (`M11.F`); no
+  constant was tuned to a row (`M10.B.4`).
+- **Pages.** `tools/record_changes.py` gains the revision 39 page; the revision 36 page is frozen at `9ebf327` (its
+  later side was the working tree). The status page (S3.24) gains a column with revision 38's verdict and a summary
+  line of the rows that differ; a sweep record built on an earlier engine (the stage 2 sweep record, until step 11)
+  has each fraction marked "earlier engine; not counted for W4", and W4 does not count it.
+- **The open batch closed.** `tests/open_batch.py`'s `OPEN` is None and the twelve marks are off; each of the eleven
+  record-current tests and the `M13.4` record test passes. `test_s2_11_sweep_record_is_current` stays a strict
+  expected failure until step 11 re-sweeps with the ratio, and now fails as expected only on a missing cache entry for
+  the current engine (any other `KeyError` fails it). `test_m17e1_a_known_defect…` runs on a built record and passes.
+- **Review fixes (learning-qa).** The stale sweep record had been read as current by the status page (now marked, not
+  counted); the MR-3 guard had been disabled by an `xfail`; the run-length cache key lacked the measuring method; the
+  Phase D criteria's `lru_cache`s were not cleared between run-length measurements; a swept period constant would have
+  been silently held central. Each fixed with a test.
+- **For the owner's review.** `sweep.md`'s preamble says the run length is measured where the draft's parenthesis
+  named the criteria left out; strict expected failures go to 2, not 1 (`test_s2_11` waits for step 11's re-sweep);
+  the revision 36 page frozen at `9ebf327`; `SweepConfig` a tuple subclass carrying the ratios; the status page's
+  revision 38 column and the earlier-engine W4 rule; `docs/spec_revision_39_draft.md`'s status line corrected (it had
+  said "not yet applied" since step 6); T-128 left open until step 11; Phase D part I and the Phase D mutation record
+  run here rather than on Mac Mini1; the wall time stated after the run had started.
+- **Documents.** The spec (line 4's status, `M17.E.1`), `config/sweep/sweep.md`, the explainer's §18.7, the revision
+  log, the revision 39 draft's status, the plan's status line and step 10 row, `_STATUS.md`, the reading list, README,
+  CLAUDE.md, `docs/two_mac_sweep.md`, `docs/SPEC_REVIEW_CHECKLIST.md`, the coverage overrides, T-012 (closed), T-128,
+  T-143 (new); every generated record and index. No constant changed, so `constants_changes.md` did not.
+- **Suite.** 1257 tests: 1255 pass and 2 are strict expected failures (`M5.B.3`; `test_s2_11` until step 11);
+  the open batch's count is 0. Measured 2026-10-26 on this Mac.
 
 ### Stage 3 step 9: group A, contact returned by a relieved receiver and TRIANGLE with distance (2026-10-26)
 

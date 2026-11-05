@@ -616,7 +616,7 @@ say whether that test was proved failing by mutation unless its note does.
 | M17.G.2 | not done | — | no test named for it; Phase E builds it and is not built yet |
 | M17.G.3 | not done | — | no test named for it; Phase E builds it and is not built yet |
 
-## Tests named for no spec ID (315)
+## Tests named for no spec ID (318)
 
 Their names embed no requirement ID, so they count only where an override cites them (marked *cited*). The rest check spec documents, tooling or helpers.
 
@@ -804,6 +804,7 @@ Their names embed no requirement ID, so they count only where an override cites 
 - `tests/test_emergence_audit.py::test_t184_argument_refusals`
 - `tests/test_emergence_audit.py::test_t184_merge_sees_a_running_audit`
 - `tests/test_emergence_audit.py::test_t184_render_only_runs_nothing_and_refuses_a_missing_result`
+- `tests/test_emergence_audit.py::test_t192_a_mixed_row_with_only_premise_limbs_leaves_scope`
 - `tests/test_group_g_readout.py::test_g1_readout_page_keeps_the_other_labels_section`
 - `tests/test_group_g_readout.py::test_g1_readout_section_is_rendered_from_measurements`
 - `tests/test_lint.py::test_s3_22_ruff_f_clean`
@@ -910,6 +911,8 @@ Their names embed no requirement ID, so they count only where an override cites 
 - `tests/test_version_2_status.py::test_s2_11_records_read_shows_every_hash_a_record_keys_by`
 - `tests/test_version_2_status.py::test_s2_11_status_page_is_current`
 - `tests/test_version_2_status.py::test_s3_24_each_verdict_is_shown_beside_revision_38s`
+- `tests/test_version_2_status.py::test_t192_premise_limbs_merge_both_tables`
+- `tests/test_version_2_status.py::test_t192_v2_premise_limbs_parse_strictly`
 - `tests/test_version_2_status.py::test_w1_s2_10_a_changed_verdict_is_not_final`
 - `tests/test_version_2_status.py::test_w1_s2_10_a_tag_row_with_no_row_now_and_a_misplaced_disposition_stop_the_tool`
 - `tests/test_version_2_status.py::test_w1_s2_10_the_tag_page_is_read_whole`

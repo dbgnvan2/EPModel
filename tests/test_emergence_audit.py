@@ -105,11 +105,32 @@ def test_m111g_ea1_scope_is_passing_composite_and_mixed():
 
 
 def test_m111g_ea1_the_real_scope_is_the_plans():
-    """On the committed records the scope is plan §3's thirteen rows, with `M11.C.39` excluded as the control."""
-    audited, rows, _, excluded = ea.in_scope(ea.read_records(), ea.read_config())
+    """On the committed records the scope is plan §3's thirteen rows less `M11.C.41`'s two level cells (T-192), with
+    `M11.C.39` excluded as the control."""
+    audited, rows, by_class, excluded = ea.in_scope(ea.read_records(), ea.read_config())
     ea.check_registries(rows)
-    assert len(audited) == 13 and "M11.C.48[phase_d]" in {r.key for r in audited}
+    assert len(audited) == 11 and "M11.C.48[phase_d]" in {r.key for r in audited}
     assert [k for k, _ in excluded] == ["M11.C.39"]
+    # T-192 (owner 2026-11-05): M11.C.41's two level cells have only premise limbs, so they leave the scope.
+    level_cells = ["M11.C.41[light: lower level]", "M11.C.41[heavy: lower level]"]
+    assert [(k, c) for k, c in by_class if k in level_cells] == [(k, ea.NO_COMPOSITE) for k in level_cells]
+
+
+def test_t192_a_mixed_row_with_only_premise_limbs_leaves_scope():
+    """A passing mixed row each of whose gating readouts is a declared premise limb is left out by class; one with a
+    composite limb left, with no declared limb, or with no readouts in its record stays in scope."""
+    def mixed(key, *names, report_only=()):
+        row = record_row(key, "mixed")
+        row["readouts"] = [{"readout": n} for n in names] + [{"readout": n, "report_only": True} for n in report_only]
+        return row
+
+    recs = records(extra_d=[mixed("X.50", "a", "b", report_only=("c",)), mixed("X.51[v]", "a", "b"),
+                            mixed("X.52", "a")])
+    limbs = {"X.50": frozenset({"a", "b"}), "X.51": frozenset({"a"}), "X.41": frozenset({"a"})}
+    audited, _, by_class, _ = ea.in_scope(recs, config(), limbs)
+    assert ("X.50", ea.NO_COMPOSITE) in by_class
+    assert {"X.41", "X.51[v]", "X.52"} <= {r.key for r in audited} and "X.50" not in {r.key for r in audited}
+    assert ("X.50", ea.NO_COMPOSITE) not in ea.in_scope(recs, config(), {})[2]
 
 
 # --- EA-2 ------------------------------------------------------------------------------------------------------------
@@ -411,7 +432,7 @@ class _Share:
         self.patches = [mock.patch.object(record_cache, "CACHE_DIR", self.tmp_path),
                         mock.patch.object(ea, "read_records", return_value=records()),
                         mock.patch.object(ea, "read_config", return_value=config(self.stage)),
-                        mock.patch("tools.version_1_status.premise_limbs", return_value={}),
+                        mock.patch("tools.version_2_status.premise_limbs", return_value={}),
                         mock.patch.object(ea, "engine_hash", return_value=ENGINE),
                         mock.patch.object(ea, "_alpha", return_value=0.05),
                         mock.patch.object(ea, "check_agreement", return_value=[]),

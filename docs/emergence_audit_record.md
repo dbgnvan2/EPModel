@@ -24,14 +24,12 @@ Stage: **carriers**. The carriers stage (plan §7 steps 4 and 6, owner 2026-11-0
 
 ## Scope
 
-13 of 37 passing rows audited; 1 excluded; 23 out by class (a premise or a check passing is never a finding, `M11.5`).
+11 of 37 passing rows audited; 1 excluded; 25 out by class (a premise or a check passing, or a mixed row with no composite limb, is never a finding, `M11.5`).
 
 | Criterion | Class | Seeds at pass |
 |---|---|---|
 | `M11.C.16` | composite | 150 |
 | `M11.C.27[unstable,remove_one]` | composite | 100 |
-| `M11.C.41[light: lower level]` | mixed | 150 |
-| `M11.C.41[heavy: lower level]` | mixed | 150 |
 | `M11.C.22` | mixed | 150 |
 | `M11.C.11` | mixed | 150 |
 | `M11.C.34` | mixed | 150 |
@@ -71,6 +69,8 @@ Out by class:
 - `M11.C.24` (premise)
 - `M11.C.46` (premise)
 - `M11.C.47` (premise)
+- `M11.C.41[light: lower level]` (mixed, every gating readout a declared premise limb)
+- `M11.C.41[heavy: lower level]` (mixed, every gating readout a declared premise limb)
 
 ## Controls
 
@@ -90,11 +90,9 @@ Never findings. The build refuses to render the record if either does not hold.
 |---|---|---|---|---|---|---|
 | `M11.C.16` | composite | L0 | PASS | 100 | `repertoire_entropy` -0.0151 ± 0.0019; `top_move_share` +0.0279 ± 0.0041 (reported) | **survived** |
 | `M11.C.27[unstable,remove_one]` | composite | L0 | PASS | 100 | `pair_deviation` -0.0696 ± 0.049; `pair_deviation_week_1` -0.0696 ± 0.049 (reported); `pair_deviation_week_2` -0.0543 ± 0.053 (reported); `pair_deviation_week_3` +0.00367 ± 0.044 (reported); `pair_deviation_week_4` +0.0707 ± 0.047 (reported); `pair_deviation_week_5` +0.0958 ± 0.051 (reported); `pair_deviation_week_6` +0.158 ± 0.049 (reported); `pair_deviation_week_7` +0.161 ± 0.048 (reported); `pair_deviation_week_8` +0.21 ± 0.057 (reported); `pair_deviation_week_9` +0.21 ± 0.05 (reported); `pair_deviation_week_10` +0.214 ± 0.052 (reported); `pair_deviation_week_11` +0.216 ± 0.055 (reported); `pair_deviation_week_12` +0.224 ± 0.054 (reported) | **survived** |
-| `M11.C.41[light: lower level]` | mixed | L0 | PASS | 150 | `mean_acute` +128 ± 12; `reactive_over_chance` +0.0653 ± 0.0027 | **survived** (premise limbs not declared (tools/version_1_status.premise_limbs; pending the owner, docs/version_1_dispositions.md), so judged on every limb) |
-| `M11.C.41[heavy: lower level]` | mixed | L0 | PASS | 100 | `mean_acute` +124 ± 14; `reactive_over_chance` +0.0677 ± 0.0034 | **survived** (premise limbs not declared (tools/version_1_status.premise_limbs; pending the owner, docs/version_1_dispositions.md), so judged on every limb) |
 | `M11.C.22` | mixed | L0 | PASS | 100 | `mild_removal_effect` +1.51 ± 0.73, p 4e-05; `severe_removal_effect` -1.73 ± 0.88, p 0.0001 (premise limb) | **survived** |
-| `M11.C.11` | mixed | L0 | PASS | 150 | `disturbance` +6.33 ± 1.6, p 1.2e-12 | **survived** (premise limbs not declared (tools/version_1_status.premise_limbs; pending the owner, docs/version_1_dispositions.md), so judged on every limb) |
-| `M11.C.34` | mixed | L0 | FAIL | 150 | `automatic_reaction` +0.0267 ± 0.055, p 0.88 | **red** (premise limbs not declared (tools/version_1_status.premise_limbs; pending the owner, docs/version_1_dispositions.md), so judged on every limb) |
+| `M11.C.11` | mixed | L0 | PASS | 150 | `disturbance` +6.33 ± 1.6, p 1.2e-12 | **survived** (premise limbs not declared (docs/version_1_dispositions.md, docs/version_2_dispositions.md), so judged on every limb) |
+| `M11.C.34` | mixed | L0 | FAIL | 150 | `automatic_reaction` +0.0267 ± 0.055, p 0.88 | **red** (premise limbs not declared (docs/version_1_dispositions.md, docs/version_2_dispositions.md), so judged on every limb) |
 | `M11.C.7[joint over one spouse]` | mixed | L0 | PASS | 100 | `deviation_fall` +0.0503 ± 0.057, p 0.024; `landed_contacts` +0.36 ± 0.98 (reported) (premise limb) | **survived** |
 | `M11.C.7[joint over sided]` | mixed | L0 | PASS | 150 | `deviation_fall` +0.0806 ± 0.045, p 0.00015; `landed_contacts` +9.05 ± 0.57, p 1e-26 (premise limb) | **survived** |
 | `M11.C.15` | composite | L0 | PASS | 50 | `death_rise` +3.83 ± 0.65, p 6.1e-10; `recovery_rise` +7.45 ± 0.9, p 3.9e-10 | **survived** |
@@ -164,54 +162,6 @@ Carriers: **C2, C7:one-sided-deviation, C7:deviation-inverted**.
 | `M11.C.27[unstable,remove_one]` | composite | C7:one-sided-deviation | FAIL | 100 | `pair_deviation` +0.135 ± 0.036; `pair_deviation_week_1` +0.135 ± 0.036 (reported); `pair_deviation_week_2` +0.16 ± 0.039 (reported); `pair_deviation_week_3` +0.166 ± 0.043 (reported); `pair_deviation_week_4` +0.166 ± 0.046 (reported); `pair_deviation_week_5` +0.184 ± 0.047 (reported); `pair_deviation_week_6` +0.212 ± 0.049 (reported); `pair_deviation_week_7` +0.226 ± 0.051 (reported); `pair_deviation_week_8` +0.237 ± 0.049 (reported); `pair_deviation_week_9` +0.242 ± 0.052 (reported); `pair_deviation_week_10` +0.252 ± 0.053 (reported); `pair_deviation_week_11` +0.263 ± 0.055 (reported); `pair_deviation_week_12` +0.266 ± 0.058 (reported) | **reversed** |
 | `M11.C.27[unstable,remove_one]` | composite | C7:deviation-inverted | FAIL | 100 | `pair_deviation` +0.081 ± 0.052; `pair_deviation_week_1` +0.081 ± 0.052 (reported); `pair_deviation_week_2` +0.0592 ± 0.055 (reported); `pair_deviation_week_3` +0.0448 ± 0.058 (reported); `pair_deviation_week_4` +0.0126 ± 0.055 (reported); `pair_deviation_week_5` -0.00423 ± 0.058 (reported); `pair_deviation_week_6` -0.0478 ± 0.054 (reported); `pair_deviation_week_7` -0.0695 ± 0.051 (reported); `pair_deviation_week_8` -0.102 ± 0.055 (reported); `pair_deviation_week_9` -0.131 ± 0.05 (reported); `pair_deviation_week_10` -0.159 ± 0.052 (reported); `pair_deviation_week_11` -0.131 ± 0.051 (reported); `pair_deviation_week_12` -0.17 ± 0.054 (reported) | **reversed** |
 
-### `M11.C.41[light: lower level]`
-
-Carriers: **C2, C7:mixing-weight-level-independent, C7:level-blind, C7:steepness-inverted, C7:mixing-weight-inverted**.
-
-`M11.5` says it rests on: `M4.C.1a`; `M4.D.1a` mixing weight. Note: anxiety and reactive-share limbs are premise through the mixing weight (`M4.D.3` amended); which reactive acts rise is learned. The reactive-share limb is premise in the two level cells only; in the two heavier-stress cells it is composite, since the mixing weight reads functional level, not anxiety, and stress reaches it only through the stress response's bounded fall in functioning (`M1.A.5e`)
-
-| Criterion | Class | Ablation | Outcome | Seeds | Difference under ablation | Verdict |
-|---|---|---|---|---|---|---|
-| `M11.C.41[light: lower level]` | mixed | C1 | PASS | 150 | `mean_acute` +126 ± 11; `reactive_over_chance` +0.0652 ± 0.0027 | **survived** (premise limbs not declared (tools/version_1_status.premise_limbs; pending the owner, docs/version_1_dispositions.md), so judged on every limb) |
-| `M11.C.41[light: lower level]` | mixed | C2 | FAIL | 150 | `mean_acute` +86.5 ± 10; `reactive_over_chance` +0.000759 ± 0.0023 | **red** (premise limbs not declared (tools/version_1_status.premise_limbs; pending the owner, docs/version_1_dispositions.md), so judged on every limb) |
-| `M11.C.41[light: lower level]` | mixed | C3 | PASS | 150 | `mean_acute` +131 ± 11; `reactive_over_chance` +0.0653 ± 0.0027 | **survived** (premise limbs not declared (tools/version_1_status.premise_limbs; pending the owner, docs/version_1_dispositions.md), so judged on every limb) |
-| `M11.C.41[light: lower level]` | mixed | C4 | PASS | 150 | `mean_acute` +129 ± 13; `reactive_over_chance` +0.0648 ± 0.0026 | **survived** (premise limbs not declared (tools/version_1_status.premise_limbs; pending the owner, docs/version_1_dispositions.md), so judged on every limb) |
-| `M11.C.41[light: lower level]` | mixed | C5 | PASS | 150 | `mean_acute` +139 ± 13; `reactive_over_chance` +0.0702 ± 0.0027 | **survived** (premise limbs not declared (tools/version_1_status.premise_limbs; pending the owner, docs/version_1_dispositions.md), so judged on every limb) |
-| `M11.C.41[light: lower level]` | mixed | C6 | PASS | 150 | `mean_acute` +119 ± 10; `reactive_over_chance` +0.0672 ± 0.0026 | **survived** (premise limbs not declared (tools/version_1_status.premise_limbs; pending the owner, docs/version_1_dispositions.md), so judged on every limb) |
-| `M11.C.41[light: lower level]` | mixed | C7:steepness-level-independent | PASS | 150 | `mean_acute` +11.2 ± 6.7; `reactive_over_chance` +0.065 ± 0.0026 | **survived** (premise limbs not declared (tools/version_1_status.premise_limbs; pending the owner, docs/version_1_dispositions.md), so judged on every limb) |
-| `M11.C.41[light: lower level]` | mixed | C7:mixing-weight-level-independent | FAIL | 150 | `mean_acute` +84.7 ± 9.9; `reactive_over_chance` +0.00035 ± 0.0023 | **red** (premise limbs not declared (tools/version_1_status.premise_limbs; pending the owner, docs/version_1_dispositions.md), so judged on every limb) |
-| `M11.C.41[light: lower level]` | mixed | C7:threshold-level-independent | PASS | 150 | `mean_acute` +137 ± 16; `reactive_over_chance` +0.0655 ± 0.0027 | **survived** (premise limbs not declared (tools/version_1_status.premise_limbs; pending the owner, docs/version_1_dispositions.md), so judged on every limb) |
-| `M11.C.41[light: lower level]` | mixed | C7:threshold-level-inverted | PASS | 150 | `mean_acute` +104 ± 11; `reactive_over_chance` +0.0657 ± 0.0026 | **survived** (premise limbs not declared (tools/version_1_status.premise_limbs; pending the owner, docs/version_1_dispositions.md), so judged on every limb) |
-| `M11.C.41[light: lower level]` | mixed | C7:standing-load-level-independent | PASS | 150 | `mean_acute` +132 ± 13; `reactive_over_chance` +0.0651 ± 0.0026 | **survived** (premise limbs not declared (tools/version_1_status.premise_limbs; pending the owner, docs/version_1_dispositions.md), so judged on every limb) |
-| `M11.C.41[light: lower level]` | mixed | C7:standing-load-level-inverted | PASS | 150 | `mean_acute` +130 ± 12; `reactive_over_chance` +0.0649 ± 0.0027 | **survived** (premise limbs not declared (tools/version_1_status.premise_limbs; pending the owner, docs/version_1_dispositions.md), so judged on every limb) |
-| `M11.C.41[light: lower level]` | mixed | C7:level-blind | FAIL | 50 | `mean_acute` +1.41 ± 2; `reactive_over_chance` +0.00028 ± 0.00082 | **red** (premise limbs not declared (tools/version_1_status.premise_limbs; pending the owner, docs/version_1_dispositions.md), so judged on every limb) |
-| `M11.C.41[light: lower level]` | mixed | C7:steepness-inverted | FAIL | 150 | `mean_acute` -17.8 ± 3.5; `reactive_over_chance` +0.0651 ± 0.0026 | **red** (premise limbs not declared (tools/version_1_status.premise_limbs; pending the owner, docs/version_1_dispositions.md), so judged on every limb) |
-| `M11.C.41[light: lower level]` | mixed | C7:mixing-weight-inverted | FAIL | 150 | `mean_acute` +42.1 ± 9.5; `reactive_over_chance` -0.124 ± 0.0036 | **red** (premise limbs not declared (tools/version_1_status.premise_limbs; pending the owner, docs/version_1_dispositions.md), so judged on every limb) |
-
-### `M11.C.41[heavy: lower level]`
-
-Carriers: **C2, C7:mixing-weight-level-independent, C7:level-blind, C7:steepness-inverted, C7:mixing-weight-inverted**.
-
-`M11.5` says it rests on: `M4.C.1a`; `M4.D.1a` mixing weight. Note: anxiety and reactive-share limbs are premise through the mixing weight (`M4.D.3` amended); which reactive acts rise is learned. The reactive-share limb is premise in the two level cells only; in the two heavier-stress cells it is composite, since the mixing weight reads functional level, not anxiety, and stress reaches it only through the stress response's bounded fall in functioning (`M1.A.5e`)
-
-| Criterion | Class | Ablation | Outcome | Seeds | Difference under ablation | Verdict |
-|---|---|---|---|---|---|---|
-| `M11.C.41[heavy: lower level]` | mixed | C1 | PASS | 100 | `mean_acute` +139 ± 15; `reactive_over_chance` +0.0675 ± 0.003 | **survived** (premise limbs not declared (tools/version_1_status.premise_limbs; pending the owner, docs/version_1_dispositions.md), so judged on every limb) |
-| `M11.C.41[heavy: lower level]` | mixed | C2 | FAIL | 150 | `mean_acute` +89.8 ± 11; `reactive_over_chance` +0.000176 ± 0.0021 | **red** (premise limbs not declared (tools/version_1_status.premise_limbs; pending the owner, docs/version_1_dispositions.md), so judged on every limb) |
-| `M11.C.41[heavy: lower level]` | mixed | C3 | PASS | 150 | `mean_acute` +135 ± 11; `reactive_over_chance` +0.0652 ± 0.0024 | **survived** (premise limbs not declared (tools/version_1_status.premise_limbs; pending the owner, docs/version_1_dispositions.md), so judged on every limb) |
-| `M11.C.41[heavy: lower level]` | mixed | C4 | PASS | 100 | `mean_acute` +126 ± 15; `reactive_over_chance` +0.0684 ± 0.0034 | **survived** (premise limbs not declared (tools/version_1_status.premise_limbs; pending the owner, docs/version_1_dispositions.md), so judged on every limb) |
-| `M11.C.41[heavy: lower level]` | mixed | C5 | PASS | 150 | `mean_acute` +149 ± 13; `reactive_over_chance` +0.0708 ± 0.0026 | **survived** (premise limbs not declared (tools/version_1_status.premise_limbs; pending the owner, docs/version_1_dispositions.md), so judged on every limb) |
-| `M11.C.41[heavy: lower level]` | mixed | C6 | PASS | 150 | `mean_acute` +130 ± 13; `reactive_over_chance` +0.0681 ± 0.0025 | **survived** (premise limbs not declared (tools/version_1_status.premise_limbs; pending the owner, docs/version_1_dispositions.md), so judged on every limb) |
-| `M11.C.41[heavy: lower level]` | mixed | C7:steepness-level-independent | PASS | 150 | `mean_acute` +13.4 ± 7.5; `reactive_over_chance` +0.0646 ± 0.0027 | **survived** (premise limbs not declared (tools/version_1_status.premise_limbs; pending the owner, docs/version_1_dispositions.md), so judged on every limb) |
-| `M11.C.41[heavy: lower level]` | mixed | C7:mixing-weight-level-independent | FAIL | 150 | `mean_acute` +89.3 ± 11; `reactive_over_chance` +0.000334 ± 0.0021 | **red** (premise limbs not declared (tools/version_1_status.premise_limbs; pending the owner, docs/version_1_dispositions.md), so judged on every limb) |
-| `M11.C.41[heavy: lower level]` | mixed | C7:threshold-level-independent | PASS | 150 | `mean_acute` +159 ± 19; `reactive_over_chance` +0.0686 ± 0.0028 | **survived** (premise limbs not declared (tools/version_1_status.premise_limbs; pending the owner, docs/version_1_dispositions.md), so judged on every limb) |
-| `M11.C.41[heavy: lower level]` | mixed | C7:threshold-level-inverted | PASS | 150 | `mean_acute` +124 ± 15; `reactive_over_chance` +0.0681 ± 0.0028 | **survived** (premise limbs not declared (tools/version_1_status.premise_limbs; pending the owner, docs/version_1_dispositions.md), so judged on every limb) |
-| `M11.C.41[heavy: lower level]` | mixed | C7:standing-load-level-independent | PASS | 150 | `mean_acute` +130 ± 13; `reactive_over_chance` +0.0683 ± 0.0026 | **survived** (premise limbs not declared (tools/version_1_status.premise_limbs; pending the owner, docs/version_1_dispositions.md), so judged on every limb) |
-| `M11.C.41[heavy: lower level]` | mixed | C7:standing-load-level-inverted | PASS | 150 | `mean_acute` +131 ± 12; `reactive_over_chance` +0.0679 ± 0.0027 | **survived** (premise limbs not declared (tools/version_1_status.premise_limbs; pending the owner, docs/version_1_dispositions.md), so judged on every limb) |
-| `M11.C.41[heavy: lower level]` | mixed | C7:level-blind | FAIL | 50 | `mean_acute` +0.406 ± 2.6; `reactive_over_chance` +0.000195 ± 0.00051 | **red** (premise limbs not declared (tools/version_1_status.premise_limbs; pending the owner, docs/version_1_dispositions.md), so judged on every limb) |
-| `M11.C.41[heavy: lower level]` | mixed | C7:steepness-inverted | FAIL | 150 | `mean_acute` -25.2 ± 5.3; `reactive_over_chance` +0.0663 ± 0.0024 | **red** (premise limbs not declared (tools/version_1_status.premise_limbs; pending the owner, docs/version_1_dispositions.md), so judged on every limb) |
-| `M11.C.41[heavy: lower level]` | mixed | C7:mixing-weight-inverted | FAIL | 150 | `mean_acute` +32.2 ± 9.7; `reactive_over_chance` -0.124 ± 0.0035 | **red** (premise limbs not declared (tools/version_1_status.premise_limbs; pending the owner, docs/version_1_dispositions.md), so judged on every limb) |
-
 ### `M11.C.22`
 
 Carriers: **C7:lock-in-removed**.
@@ -236,14 +186,14 @@ Carriers: **C7:removed-member-holds-not-released-on-return**.
 
 | Criterion | Class | Ablation | Outcome | Seeds | Difference under ablation | Verdict |
 |---|---|---|---|---|---|---|
-| `M11.C.11` | mixed | C1 | PASS | 150 | `disturbance` +6.39 ± 1.4, p 1.6e-14 | **survived** (premise limbs not declared (tools/version_1_status.premise_limbs; pending the owner, docs/version_1_dispositions.md), so judged on every limb) |
-| `M11.C.11` | mixed | C2 | PASS | 150 | `disturbance` +4.92 ± 1.3, p 2.3e-11 | **survived** (premise limbs not declared (tools/version_1_status.premise_limbs; pending the owner, docs/version_1_dispositions.md), so judged on every limb) |
-| `M11.C.11` | mixed | C3 | PASS | 150 | `disturbance` +5.16 ± 1.5, p 1e-09 | **survived** (premise limbs not declared (tools/version_1_status.premise_limbs; pending the owner, docs/version_1_dispositions.md), so judged on every limb) |
-| `M11.C.11` | mixed | C4 | PASS | 150 | `disturbance` +6.35 ± 1.6, p 1.1e-12 | **survived** (premise limbs not declared (tools/version_1_status.premise_limbs; pending the owner, docs/version_1_dispositions.md), so judged on every limb) |
-| `M11.C.11` | mixed | C5 | PASS | 150 | `disturbance` +4.23 ± 1.5, p 5.2e-08 | **survived** (premise limbs not declared (tools/version_1_status.premise_limbs; pending the owner, docs/version_1_dispositions.md), so judged on every limb) |
-| `M11.C.11` | mixed | C6 | PASS | 150 | `disturbance` +5.95 ± 1.3, p 1.4e-13 | **survived** (premise limbs not declared (tools/version_1_status.premise_limbs; pending the owner, docs/version_1_dispositions.md), so judged on every limb) |
-| `M11.C.11` | mixed | C7:removed-member-hold-released-while-away | PASS | 150 | `disturbance` +1.51 ± 1.3, p 0.0055 | **survived** (premise limbs not declared (tools/version_1_status.premise_limbs; pending the owner, docs/version_1_dispositions.md), so judged on every limb) |
-| `M11.C.11` | mixed | C7:removed-member-holds-not-released-on-return | FAIL | 150 | `disturbance` -0.0171 ± 1.3, p 0.39 | **red** (premise limbs not declared (tools/version_1_status.premise_limbs; pending the owner, docs/version_1_dispositions.md), so judged on every limb) |
+| `M11.C.11` | mixed | C1 | PASS | 150 | `disturbance` +6.39 ± 1.4, p 1.6e-14 | **survived** (premise limbs not declared (docs/version_1_dispositions.md, docs/version_2_dispositions.md), so judged on every limb) |
+| `M11.C.11` | mixed | C2 | PASS | 150 | `disturbance` +4.92 ± 1.3, p 2.3e-11 | **survived** (premise limbs not declared (docs/version_1_dispositions.md, docs/version_2_dispositions.md), so judged on every limb) |
+| `M11.C.11` | mixed | C3 | PASS | 150 | `disturbance` +5.16 ± 1.5, p 1e-09 | **survived** (premise limbs not declared (docs/version_1_dispositions.md, docs/version_2_dispositions.md), so judged on every limb) |
+| `M11.C.11` | mixed | C4 | PASS | 150 | `disturbance` +6.35 ± 1.6, p 1.1e-12 | **survived** (premise limbs not declared (docs/version_1_dispositions.md, docs/version_2_dispositions.md), so judged on every limb) |
+| `M11.C.11` | mixed | C5 | PASS | 150 | `disturbance` +4.23 ± 1.5, p 5.2e-08 | **survived** (premise limbs not declared (docs/version_1_dispositions.md, docs/version_2_dispositions.md), so judged on every limb) |
+| `M11.C.11` | mixed | C6 | PASS | 150 | `disturbance` +5.95 ± 1.3, p 1.4e-13 | **survived** (premise limbs not declared (docs/version_1_dispositions.md, docs/version_2_dispositions.md), so judged on every limb) |
+| `M11.C.11` | mixed | C7:removed-member-hold-released-while-away | PASS | 150 | `disturbance` +1.51 ± 1.3, p 0.0055 | **survived** (premise limbs not declared (docs/version_1_dispositions.md, docs/version_2_dispositions.md), so judged on every limb) |
+| `M11.C.11` | mixed | C7:removed-member-holds-not-released-on-return | FAIL | 150 | `disturbance` -0.0171 ± 1.3, p 0.39 | **red** (premise limbs not declared (docs/version_1_dispositions.md, docs/version_2_dispositions.md), so judged on every limb) |
 
 ### `M11.C.7[joint over one spouse]`
 
@@ -325,7 +275,7 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
  "engine_hash": "535720826a372a860e2907a0cd10068134ecf12367ea83fa7259c908c54b30a0",
  "stage": "carriers",
  "scope": {
-  "audited": 13,
+  "audited": 11,
   "passing": 37,
   "excluded": [
    "M11.C.39"
@@ -353,7 +303,9 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
    "M11.C.40",
    "M11.C.24",
    "M11.C.46",
-   "M11.C.47"
+   "M11.C.47",
+   "M11.C.41[light: lower level]",
+   "M11.C.41[heavy: lower level]"
   ]
  },
  "controls": [
@@ -557,58 +509,6 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
    "premise_limbs": []
   },
   {
-   "criterion": "M11.C.41[light: lower level]",
-   "class": "mixed",
-   "ablation": "L0",
-   "outcome": "PASS",
-   "seeds": 150,
-   "verdict": "survived",
-   "note": "premise limbs not declared (tools/version_1_status.premise_limbs; pending the owner, docs/version_1_dispositions.md), so judged on every limb",
-   "readouts": [
-    {
-     "direction": 1,
-     "half_width": 12.12339424467696,
-     "mean_difference": 128.48291742799358,
-     "readout": "mean_acute",
-     "report_only": false
-    },
-    {
-     "direction": 1,
-     "half_width": 0.0026642809787797202,
-     "mean_difference": 0.06533523150057025,
-     "readout": "reactive_over_chance",
-     "report_only": false
-    }
-   ],
-   "premise_limbs": []
-  },
-  {
-   "criterion": "M11.C.41[heavy: lower level]",
-   "class": "mixed",
-   "ablation": "L0",
-   "outcome": "PASS",
-   "seeds": 100,
-   "verdict": "survived",
-   "note": "premise limbs not declared (tools/version_1_status.premise_limbs; pending the owner, docs/version_1_dispositions.md), so judged on every limb",
-   "readouts": [
-    {
-     "direction": 1,
-     "half_width": 14.47511265689074,
-     "mean_difference": 124.34628655120892,
-     "readout": "mean_acute",
-     "report_only": false
-    },
-    {
-     "direction": 1,
-     "half_width": 0.0034384227304441657,
-     "mean_difference": 0.06771527955646514,
-     "readout": "reactive_over_chance",
-     "report_only": false
-    }
-   ],
-   "premise_limbs": []
-  },
-  {
    "criterion": "M11.C.22",
    "class": "mixed",
    "ablation": "L0",
@@ -645,7 +545,7 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
    "outcome": "PASS",
    "seeds": 150,
    "verdict": "survived",
-   "note": "premise limbs not declared (tools/version_1_status.premise_limbs; pending the owner, docs/version_1_dispositions.md), so judged on every limb",
+   "note": "premise limbs not declared (docs/version_1_dispositions.md, docs/version_2_dispositions.md), so judged on every limb",
    "readouts": [
     {
      "direction": 1,
@@ -665,7 +565,7 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
    "outcome": "FAIL",
    "seeds": 150,
    "verdict": "red",
-   "note": "premise limbs not declared (tools/version_1_status.premise_limbs; pending the owner, docs/version_1_dispositions.md), so judged on every limb",
+   "note": "premise limbs not declared (docs/version_1_dispositions.md, docs/version_2_dispositions.md), so judged on every limb",
    "readouts": [
     {
      "direction": -1,
@@ -2505,818 +2405,6 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
    "m115_note": "follows from `M4.C.1`'s two-sided shape; no prior-state term. *Checked 2026-10-08: after the `M1.C.1` decision one cell passes ([unstable, remove one]); it flips only under inversion of `M4.C.1`'s deviation, the sign of all appraisal; kept composite.*"
   },
   {
-   "criterion": "M11.C.41[light: lower level]",
-   "candidates": [
-    {
-     "criterion": "M11.C.41[light: lower level]",
-     "class": "mixed",
-     "ablation": "C1",
-     "outcome": "PASS",
-     "seeds": 150,
-     "verdict": "survived",
-     "note": "premise limbs not declared (tools/version_1_status.premise_limbs; pending the owner, docs/version_1_dispositions.md), so judged on every limb",
-     "readouts": [
-      {
-       "direction": 1,
-       "half_width": 11.32749834181763,
-       "mean_difference": 126.18619174228785,
-       "readout": "mean_acute",
-       "report_only": false
-      },
-      {
-       "direction": 1,
-       "half_width": 0.0026567454043822255,
-       "mean_difference": 0.06517000483561321,
-       "readout": "reactive_over_chance",
-       "report_only": false
-      }
-     ],
-     "premise_limbs": []
-    },
-    {
-     "criterion": "M11.C.41[light: lower level]",
-     "class": "mixed",
-     "ablation": "C2",
-     "outcome": "FAIL",
-     "seeds": 150,
-     "verdict": "red",
-     "note": "premise limbs not declared (tools/version_1_status.premise_limbs; pending the owner, docs/version_1_dispositions.md), so judged on every limb",
-     "readouts": [
-      {
-       "direction": 1,
-       "half_width": 9.999626140324448,
-       "mean_difference": 86.51361747285911,
-       "readout": "mean_acute",
-       "report_only": false
-      },
-      {
-       "direction": 1,
-       "half_width": 0.0022978838597227406,
-       "mean_difference": 0.0007585016151312691,
-       "readout": "reactive_over_chance",
-       "report_only": false
-      }
-     ],
-     "premise_limbs": []
-    },
-    {
-     "criterion": "M11.C.41[light: lower level]",
-     "class": "mixed",
-     "ablation": "C3",
-     "outcome": "PASS",
-     "seeds": 150,
-     "verdict": "survived",
-     "note": "premise limbs not declared (tools/version_1_status.premise_limbs; pending the owner, docs/version_1_dispositions.md), so judged on every limb",
-     "readouts": [
-      {
-       "direction": 1,
-       "half_width": 11.480940948358313,
-       "mean_difference": 131.0799919633771,
-       "readout": "mean_acute",
-       "report_only": false
-      },
-      {
-       "direction": 1,
-       "half_width": 0.0026664311500943063,
-       "mean_difference": 0.06528036910730442,
-       "readout": "reactive_over_chance",
-       "report_only": false
-      }
-     ],
-     "premise_limbs": []
-    },
-    {
-     "criterion": "M11.C.41[light: lower level]",
-     "class": "mixed",
-     "ablation": "C4",
-     "outcome": "PASS",
-     "seeds": 150,
-     "verdict": "survived",
-     "note": "premise limbs not declared (tools/version_1_status.premise_limbs; pending the owner, docs/version_1_dispositions.md), so judged on every limb",
-     "readouts": [
-      {
-       "direction": 1,
-       "half_width": 12.920898444992712,
-       "mean_difference": 129.31463267014274,
-       "readout": "mean_acute",
-       "report_only": false
-      },
-      {
-       "direction": 1,
-       "half_width": 0.0026021841093737874,
-       "mean_difference": 0.06475360979737722,
-       "readout": "reactive_over_chance",
-       "report_only": false
-      }
-     ],
-     "premise_limbs": []
-    },
-    {
-     "criterion": "M11.C.41[light: lower level]",
-     "class": "mixed",
-     "ablation": "C5",
-     "outcome": "PASS",
-     "seeds": 150,
-     "verdict": "survived",
-     "note": "premise limbs not declared (tools/version_1_status.premise_limbs; pending the owner, docs/version_1_dispositions.md), so judged on every limb",
-     "readouts": [
-      {
-       "direction": 1,
-       "half_width": 12.834898482418017,
-       "mean_difference": 138.95241553539216,
-       "readout": "mean_acute",
-       "report_only": false
-      },
-      {
-       "direction": 1,
-       "half_width": 0.0027079902130129783,
-       "mean_difference": 0.0701889654619145,
-       "readout": "reactive_over_chance",
-       "report_only": false
-      }
-     ],
-     "premise_limbs": []
-    },
-    {
-     "criterion": "M11.C.41[light: lower level]",
-     "class": "mixed",
-     "ablation": "C6",
-     "outcome": "PASS",
-     "seeds": 150,
-     "verdict": "survived",
-     "note": "premise limbs not declared (tools/version_1_status.premise_limbs; pending the owner, docs/version_1_dispositions.md), so judged on every limb",
-     "readouts": [
-      {
-       "direction": 1,
-       "half_width": 10.369696073888177,
-       "mean_difference": 118.8068398287164,
-       "readout": "mean_acute",
-       "report_only": false
-      },
-      {
-       "direction": 1,
-       "half_width": 0.0025886851278549496,
-       "mean_difference": 0.06717901800014775,
-       "readout": "reactive_over_chance",
-       "report_only": false
-      }
-     ],
-     "premise_limbs": []
-    },
-    {
-     "criterion": "M11.C.41[light: lower level]",
-     "class": "mixed",
-     "ablation": "C7:steepness-level-independent",
-     "outcome": "PASS",
-     "seeds": 150,
-     "verdict": "survived",
-     "note": "premise limbs not declared (tools/version_1_status.premise_limbs; pending the owner, docs/version_1_dispositions.md), so judged on every limb",
-     "readouts": [
-      {
-       "direction": 1,
-       "half_width": 6.666826155448994,
-       "mean_difference": 11.201198238712038,
-       "readout": "mean_acute",
-       "report_only": false
-      },
-      {
-       "direction": 1,
-       "half_width": 0.002637430705515489,
-       "mean_difference": 0.06504190935710992,
-       "readout": "reactive_over_chance",
-       "report_only": false
-      }
-     ],
-     "premise_limbs": []
-    },
-    {
-     "criterion": "M11.C.41[light: lower level]",
-     "class": "mixed",
-     "ablation": "C7:mixing-weight-level-independent",
-     "outcome": "FAIL",
-     "seeds": 150,
-     "verdict": "red",
-     "note": "premise limbs not declared (tools/version_1_status.premise_limbs; pending the owner, docs/version_1_dispositions.md), so judged on every limb",
-     "readouts": [
-      {
-       "direction": 1,
-       "half_width": 9.93557596925962,
-       "mean_difference": 84.65597802467002,
-       "readout": "mean_acute",
-       "report_only": false
-      },
-      {
-       "direction": 1,
-       "half_width": 0.00232072619161624,
-       "mean_difference": 0.0003504435233032386,
-       "readout": "reactive_over_chance",
-       "report_only": false
-      }
-     ],
-     "premise_limbs": []
-    },
-    {
-     "criterion": "M11.C.41[light: lower level]",
-     "class": "mixed",
-     "ablation": "C7:threshold-level-independent",
-     "outcome": "PASS",
-     "seeds": 150,
-     "verdict": "survived",
-     "note": "premise limbs not declared (tools/version_1_status.premise_limbs; pending the owner, docs/version_1_dispositions.md), so judged on every limb",
-     "readouts": [
-      {
-       "direction": 1,
-       "half_width": 15.96124194290569,
-       "mean_difference": 136.73996748589508,
-       "readout": "mean_acute",
-       "report_only": false
-      },
-      {
-       "direction": 1,
-       "half_width": 0.0026893521745658617,
-       "mean_difference": 0.06545011430809522,
-       "readout": "reactive_over_chance",
-       "report_only": false
-      }
-     ],
-     "premise_limbs": []
-    },
-    {
-     "criterion": "M11.C.41[light: lower level]",
-     "class": "mixed",
-     "ablation": "C7:threshold-level-inverted",
-     "outcome": "PASS",
-     "seeds": 150,
-     "verdict": "survived",
-     "note": "premise limbs not declared (tools/version_1_status.premise_limbs; pending the owner, docs/version_1_dispositions.md), so judged on every limb",
-     "readouts": [
-      {
-       "direction": 1,
-       "half_width": 10.746433866302139,
-       "mean_difference": 103.96965235204264,
-       "readout": "mean_acute",
-       "report_only": false
-      },
-      {
-       "direction": 1,
-       "half_width": 0.0026055610555864696,
-       "mean_difference": 0.06567096301693263,
-       "readout": "reactive_over_chance",
-       "report_only": false
-      }
-     ],
-     "premise_limbs": []
-    },
-    {
-     "criterion": "M11.C.41[light: lower level]",
-     "class": "mixed",
-     "ablation": "C7:standing-load-level-independent",
-     "outcome": "PASS",
-     "seeds": 150,
-     "verdict": "survived",
-     "note": "premise limbs not declared (tools/version_1_status.premise_limbs; pending the owner, docs/version_1_dispositions.md), so judged on every limb",
-     "readouts": [
-      {
-       "direction": 1,
-       "half_width": 12.64803173290719,
-       "mean_difference": 132.06389969935412,
-       "readout": "mean_acute",
-       "report_only": false
-      },
-      {
-       "direction": 1,
-       "half_width": 0.002594174185031547,
-       "mean_difference": 0.06505618542372119,
-       "readout": "reactive_over_chance",
-       "report_only": false
-      }
-     ],
-     "premise_limbs": []
-    },
-    {
-     "criterion": "M11.C.41[light: lower level]",
-     "class": "mixed",
-     "ablation": "C7:standing-load-level-inverted",
-     "outcome": "PASS",
-     "seeds": 150,
-     "verdict": "survived",
-     "note": "premise limbs not declared (tools/version_1_status.premise_limbs; pending the owner, docs/version_1_dispositions.md), so judged on every limb",
-     "readouts": [
-      {
-       "direction": 1,
-       "half_width": 11.750035211670621,
-       "mean_difference": 129.7822465950407,
-       "readout": "mean_acute",
-       "report_only": false
-      },
-      {
-       "direction": 1,
-       "half_width": 0.0026733890843867727,
-       "mean_difference": 0.06486060101333031,
-       "readout": "reactive_over_chance",
-       "report_only": false
-      }
-     ],
-     "premise_limbs": []
-    },
-    {
-     "criterion": "M11.C.41[light: lower level]",
-     "class": "mixed",
-     "ablation": "C7:level-blind",
-     "outcome": "FAIL",
-     "seeds": 50,
-     "verdict": "red",
-     "note": "premise limbs not declared (tools/version_1_status.premise_limbs; pending the owner, docs/version_1_dispositions.md), so judged on every limb",
-     "readouts": [
-      {
-       "direction": 1,
-       "half_width": 1.9601916087312241,
-       "mean_difference": 1.408358024875571,
-       "readout": "mean_acute",
-       "report_only": false
-      },
-      {
-       "direction": 1,
-       "half_width": 0.0008242140809025486,
-       "mean_difference": 0.00028039289286921955,
-       "readout": "reactive_over_chance",
-       "report_only": false
-      }
-     ],
-     "premise_limbs": []
-    },
-    {
-     "criterion": "M11.C.41[light: lower level]",
-     "class": "mixed",
-     "ablation": "C7:steepness-inverted",
-     "outcome": "FAIL",
-     "seeds": 150,
-     "verdict": "red",
-     "note": "premise limbs not declared (tools/version_1_status.premise_limbs; pending the owner, docs/version_1_dispositions.md), so judged on every limb",
-     "readouts": [
-      {
-       "direction": 1,
-       "half_width": 3.545572714603445,
-       "mean_difference": -17.75624833334781,
-       "readout": "mean_acute",
-       "report_only": false
-      },
-      {
-       "direction": 1,
-       "half_width": 0.0025738087862520573,
-       "mean_difference": 0.06508317003420727,
-       "readout": "reactive_over_chance",
-       "report_only": false
-      }
-     ],
-     "premise_limbs": []
-    },
-    {
-     "criterion": "M11.C.41[light: lower level]",
-     "class": "mixed",
-     "ablation": "C7:mixing-weight-inverted",
-     "outcome": "FAIL",
-     "seeds": 150,
-     "verdict": "red",
-     "note": "premise limbs not declared (tools/version_1_status.premise_limbs; pending the owner, docs/version_1_dispositions.md), so judged on every limb",
-     "readouts": [
-      {
-       "direction": 1,
-       "half_width": 9.45236973100944,
-       "mean_difference": 42.13307639211079,
-       "readout": "mean_acute",
-       "report_only": false
-      },
-      {
-       "direction": 1,
-       "half_width": 0.0035533758464543932,
-       "mean_difference": -0.12443697751249895,
-       "readout": "reactive_over_chance",
-       "report_only": false
-      }
-     ],
-     "premise_limbs": []
-    }
-   ],
-   "not_run": [],
-   "carriers": [
-    "C2",
-    "C7:mixing-weight-level-independent",
-    "C7:level-blind",
-    "C7:steepness-inverted",
-    "C7:mixing-weight-inverted"
-   ],
-   "red_without_fail": [],
-   "m115_rests_on": "`M4.C.1a`; `M4.D.1a` mixing weight",
-   "m115_note": "anxiety and reactive-share limbs are premise through the mixing weight (`M4.D.3` amended); which reactive acts rise is learned. The reactive-share limb is premise in the two level cells only; in the two heavier-stress cells it is composite, since the mixing weight reads functional level, not anxiety, and stress reaches it only through the stress response's bounded fall in functioning (`M1.A.5e`)"
-  },
-  {
-   "criterion": "M11.C.41[heavy: lower level]",
-   "candidates": [
-    {
-     "criterion": "M11.C.41[heavy: lower level]",
-     "class": "mixed",
-     "ablation": "C1",
-     "outcome": "PASS",
-     "seeds": 100,
-     "verdict": "survived",
-     "note": "premise limbs not declared (tools/version_1_status.premise_limbs; pending the owner, docs/version_1_dispositions.md), so judged on every limb",
-     "readouts": [
-      {
-       "direction": 1,
-       "half_width": 14.562520142165075,
-       "mean_difference": 139.38638119820283,
-       "readout": "mean_acute",
-       "report_only": false
-      },
-      {
-       "direction": 1,
-       "half_width": 0.002964655199830553,
-       "mean_difference": 0.06751846178037861,
-       "readout": "reactive_over_chance",
-       "report_only": false
-      }
-     ],
-     "premise_limbs": []
-    },
-    {
-     "criterion": "M11.C.41[heavy: lower level]",
-     "class": "mixed",
-     "ablation": "C2",
-     "outcome": "FAIL",
-     "seeds": 150,
-     "verdict": "red",
-     "note": "premise limbs not declared (tools/version_1_status.premise_limbs; pending the owner, docs/version_1_dispositions.md), so judged on every limb",
-     "readouts": [
-      {
-       "direction": 1,
-       "half_width": 11.101479480608731,
-       "mean_difference": 89.7858157911282,
-       "readout": "mean_acute",
-       "report_only": false
-      },
-      {
-       "direction": 1,
-       "half_width": 0.0020709314484302498,
-       "mean_difference": 0.00017619480516568837,
-       "readout": "reactive_over_chance",
-       "report_only": false
-      }
-     ],
-     "premise_limbs": []
-    },
-    {
-     "criterion": "M11.C.41[heavy: lower level]",
-     "class": "mixed",
-     "ablation": "C3",
-     "outcome": "PASS",
-     "seeds": 150,
-     "verdict": "survived",
-     "note": "premise limbs not declared (tools/version_1_status.premise_limbs; pending the owner, docs/version_1_dispositions.md), so judged on every limb",
-     "readouts": [
-      {
-       "direction": 1,
-       "half_width": 11.215974465442413,
-       "mean_difference": 134.6784275244596,
-       "readout": "mean_acute",
-       "report_only": false
-      },
-      {
-       "direction": 1,
-       "half_width": 0.002382274520437781,
-       "mean_difference": 0.0651868003187129,
-       "readout": "reactive_over_chance",
-       "report_only": false
-      }
-     ],
-     "premise_limbs": []
-    },
-    {
-     "criterion": "M11.C.41[heavy: lower level]",
-     "class": "mixed",
-     "ablation": "C4",
-     "outcome": "PASS",
-     "seeds": 100,
-     "verdict": "survived",
-     "note": "premise limbs not declared (tools/version_1_status.premise_limbs; pending the owner, docs/version_1_dispositions.md), so judged on every limb",
-     "readouts": [
-      {
-       "direction": 1,
-       "half_width": 14.585001899909662,
-       "mean_difference": 126.395817339812,
-       "readout": "mean_acute",
-       "report_only": false
-      },
-      {
-       "direction": 1,
-       "half_width": 0.0033954121086899125,
-       "mean_difference": 0.06840654649689042,
-       "readout": "reactive_over_chance",
-       "report_only": false
-      }
-     ],
-     "premise_limbs": []
-    },
-    {
-     "criterion": "M11.C.41[heavy: lower level]",
-     "class": "mixed",
-     "ablation": "C5",
-     "outcome": "PASS",
-     "seeds": 150,
-     "verdict": "survived",
-     "note": "premise limbs not declared (tools/version_1_status.premise_limbs; pending the owner, docs/version_1_dispositions.md), so judged on every limb",
-     "readouts": [
-      {
-       "direction": 1,
-       "half_width": 12.722900855860773,
-       "mean_difference": 148.95106955256207,
-       "readout": "mean_acute",
-       "report_only": false
-      },
-      {
-       "direction": 1,
-       "half_width": 0.002620753797528076,
-       "mean_difference": 0.07078656147415395,
-       "readout": "reactive_over_chance",
-       "report_only": false
-      }
-     ],
-     "premise_limbs": []
-    },
-    {
-     "criterion": "M11.C.41[heavy: lower level]",
-     "class": "mixed",
-     "ablation": "C6",
-     "outcome": "PASS",
-     "seeds": 150,
-     "verdict": "survived",
-     "note": "premise limbs not declared (tools/version_1_status.premise_limbs; pending the owner, docs/version_1_dispositions.md), so judged on every limb",
-     "readouts": [
-      {
-       "direction": 1,
-       "half_width": 12.852795991087948,
-       "mean_difference": 129.67730352271224,
-       "readout": "mean_acute",
-       "report_only": false
-      },
-      {
-       "direction": 1,
-       "half_width": 0.0025491640270491195,
-       "mean_difference": 0.06809833745432266,
-       "readout": "reactive_over_chance",
-       "report_only": false
-      }
-     ],
-     "premise_limbs": []
-    },
-    {
-     "criterion": "M11.C.41[heavy: lower level]",
-     "class": "mixed",
-     "ablation": "C7:steepness-level-independent",
-     "outcome": "PASS",
-     "seeds": 150,
-     "verdict": "survived",
-     "note": "premise limbs not declared (tools/version_1_status.premise_limbs; pending the owner, docs/version_1_dispositions.md), so judged on every limb",
-     "readouts": [
-      {
-       "direction": 1,
-       "half_width": 7.466119971749276,
-       "mean_difference": 13.42954357102273,
-       "readout": "mean_acute",
-       "report_only": false
-      },
-      {
-       "direction": 1,
-       "half_width": 0.002659933020522975,
-       "mean_difference": 0.06456670535793724,
-       "readout": "reactive_over_chance",
-       "report_only": false
-      }
-     ],
-     "premise_limbs": []
-    },
-    {
-     "criterion": "M11.C.41[heavy: lower level]",
-     "class": "mixed",
-     "ablation": "C7:mixing-weight-level-independent",
-     "outcome": "FAIL",
-     "seeds": 150,
-     "verdict": "red",
-     "note": "premise limbs not declared (tools/version_1_status.premise_limbs; pending the owner, docs/version_1_dispositions.md), so judged on every limb",
-     "readouts": [
-      {
-       "direction": 1,
-       "half_width": 11.329340738110298,
-       "mean_difference": 89.2817836435941,
-       "readout": "mean_acute",
-       "report_only": false
-      },
-      {
-       "direction": 1,
-       "half_width": 0.0020512757046126464,
-       "mean_difference": 0.00033419806652254053,
-       "readout": "reactive_over_chance",
-       "report_only": false
-      }
-     ],
-     "premise_limbs": []
-    },
-    {
-     "criterion": "M11.C.41[heavy: lower level]",
-     "class": "mixed",
-     "ablation": "C7:threshold-level-independent",
-     "outcome": "PASS",
-     "seeds": 150,
-     "verdict": "survived",
-     "note": "premise limbs not declared (tools/version_1_status.premise_limbs; pending the owner, docs/version_1_dispositions.md), so judged on every limb",
-     "readouts": [
-      {
-       "direction": 1,
-       "half_width": 19.164420677666104,
-       "mean_difference": 159.1723814670654,
-       "readout": "mean_acute",
-       "report_only": false
-      },
-      {
-       "direction": 1,
-       "half_width": 0.002796842323106028,
-       "mean_difference": 0.06856421719693769,
-       "readout": "reactive_over_chance",
-       "report_only": false
-      }
-     ],
-     "premise_limbs": []
-    },
-    {
-     "criterion": "M11.C.41[heavy: lower level]",
-     "class": "mixed",
-     "ablation": "C7:threshold-level-inverted",
-     "outcome": "PASS",
-     "seeds": 150,
-     "verdict": "survived",
-     "note": "premise limbs not declared (tools/version_1_status.premise_limbs; pending the owner, docs/version_1_dispositions.md), so judged on every limb",
-     "readouts": [
-      {
-       "direction": 1,
-       "half_width": 15.47015433447046,
-       "mean_difference": 123.87493725826256,
-       "readout": "mean_acute",
-       "report_only": false
-      },
-      {
-       "direction": 1,
-       "half_width": 0.0027979624276008455,
-       "mean_difference": 0.06805261883939119,
-       "readout": "reactive_over_chance",
-       "report_only": false
-      }
-     ],
-     "premise_limbs": []
-    },
-    {
-     "criterion": "M11.C.41[heavy: lower level]",
-     "class": "mixed",
-     "ablation": "C7:standing-load-level-independent",
-     "outcome": "PASS",
-     "seeds": 150,
-     "verdict": "survived",
-     "note": "premise limbs not declared (tools/version_1_status.premise_limbs; pending the owner, docs/version_1_dispositions.md), so judged on every limb",
-     "readouts": [
-      {
-       "direction": 1,
-       "half_width": 12.651932373573588,
-       "mean_difference": 130.48306269228027,
-       "readout": "mean_acute",
-       "report_only": false
-      },
-      {
-       "direction": 1,
-       "half_width": 0.0026333759426486456,
-       "mean_difference": 0.06826106943155308,
-       "readout": "reactive_over_chance",
-       "report_only": false
-      }
-     ],
-     "premise_limbs": []
-    },
-    {
-     "criterion": "M11.C.41[heavy: lower level]",
-     "class": "mixed",
-     "ablation": "C7:standing-load-level-inverted",
-     "outcome": "PASS",
-     "seeds": 150,
-     "verdict": "survived",
-     "note": "premise limbs not declared (tools/version_1_status.premise_limbs; pending the owner, docs/version_1_dispositions.md), so judged on every limb",
-     "readouts": [
-      {
-       "direction": 1,
-       "half_width": 12.41584806205168,
-       "mean_difference": 131.34884949756446,
-       "readout": "mean_acute",
-       "report_only": false
-      },
-      {
-       "direction": 1,
-       "half_width": 0.002664752867426678,
-       "mean_difference": 0.06789301998621321,
-       "readout": "reactive_over_chance",
-       "report_only": false
-      }
-     ],
-     "premise_limbs": []
-    },
-    {
-     "criterion": "M11.C.41[heavy: lower level]",
-     "class": "mixed",
-     "ablation": "C7:level-blind",
-     "outcome": "FAIL",
-     "seeds": 50,
-     "verdict": "red",
-     "note": "premise limbs not declared (tools/version_1_status.premise_limbs; pending the owner, docs/version_1_dispositions.md), so judged on every limb",
-     "readouts": [
-      {
-       "direction": 1,
-       "half_width": 2.6375687909987278,
-       "mean_difference": 0.4057818364438049,
-       "readout": "mean_acute",
-       "report_only": false
-      },
-      {
-       "direction": 1,
-       "half_width": 0.0005089440262880123,
-       "mean_difference": 0.000195344253429027,
-       "readout": "reactive_over_chance",
-       "report_only": false
-      }
-     ],
-     "premise_limbs": []
-    },
-    {
-     "criterion": "M11.C.41[heavy: lower level]",
-     "class": "mixed",
-     "ablation": "C7:steepness-inverted",
-     "outcome": "FAIL",
-     "seeds": 150,
-     "verdict": "red",
-     "note": "premise limbs not declared (tools/version_1_status.premise_limbs; pending the owner, docs/version_1_dispositions.md), so judged on every limb",
-     "readouts": [
-      {
-       "direction": 1,
-       "half_width": 5.270194140455239,
-       "mean_difference": -25.16185921402159,
-       "readout": "mean_acute",
-       "report_only": false
-      },
-      {
-       "direction": 1,
-       "half_width": 0.0024365317546113153,
-       "mean_difference": 0.06625139731335482,
-       "readout": "reactive_over_chance",
-       "report_only": false
-      }
-     ],
-     "premise_limbs": []
-    },
-    {
-     "criterion": "M11.C.41[heavy: lower level]",
-     "class": "mixed",
-     "ablation": "C7:mixing-weight-inverted",
-     "outcome": "FAIL",
-     "seeds": 150,
-     "verdict": "red",
-     "note": "premise limbs not declared (tools/version_1_status.premise_limbs; pending the owner, docs/version_1_dispositions.md), so judged on every limb",
-     "readouts": [
-      {
-       "direction": 1,
-       "half_width": 9.714014149969177,
-       "mean_difference": 32.19049626253743,
-       "readout": "mean_acute",
-       "report_only": false
-      },
-      {
-       "direction": 1,
-       "half_width": 0.003480193624485363,
-       "mean_difference": -0.1235039968109315,
-       "readout": "reactive_over_chance",
-       "report_only": false
-      }
-     ],
-     "premise_limbs": []
-    }
-   ],
-   "not_run": [],
-   "carriers": [
-    "C2",
-    "C7:mixing-weight-level-independent",
-    "C7:level-blind",
-    "C7:steepness-inverted",
-    "C7:mixing-weight-inverted"
-   ],
-   "red_without_fail": [],
-   "m115_rests_on": "`M4.C.1a`; `M4.D.1a` mixing weight",
-   "m115_note": "anxiety and reactive-share limbs are premise through the mixing weight (`M4.D.3` amended); which reactive acts rise is learned. The reactive-share limb is premise in the two level cells only; in the two heavier-stress cells it is composite, since the mixing weight reads functional level, not anxiety, and stress reaches it only through the stress response's bounded fall in functioning (`M1.A.5e`)"
-  },
-  {
    "criterion": "M11.C.22",
    "candidates": [
     {
@@ -3548,7 +2636,7 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
      "outcome": "PASS",
      "seeds": 150,
      "verdict": "survived",
-     "note": "premise limbs not declared (tools/version_1_status.premise_limbs; pending the owner, docs/version_1_dispositions.md), so judged on every limb",
+     "note": "premise limbs not declared (docs/version_1_dispositions.md, docs/version_2_dispositions.md), so judged on every limb",
      "readouts": [
       {
        "direction": 1,
@@ -3568,7 +2656,7 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
      "outcome": "PASS",
      "seeds": 150,
      "verdict": "survived",
-     "note": "premise limbs not declared (tools/version_1_status.premise_limbs; pending the owner, docs/version_1_dispositions.md), so judged on every limb",
+     "note": "premise limbs not declared (docs/version_1_dispositions.md, docs/version_2_dispositions.md), so judged on every limb",
      "readouts": [
       {
        "direction": 1,
@@ -3588,7 +2676,7 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
      "outcome": "PASS",
      "seeds": 150,
      "verdict": "survived",
-     "note": "premise limbs not declared (tools/version_1_status.premise_limbs; pending the owner, docs/version_1_dispositions.md), so judged on every limb",
+     "note": "premise limbs not declared (docs/version_1_dispositions.md, docs/version_2_dispositions.md), so judged on every limb",
      "readouts": [
       {
        "direction": 1,
@@ -3608,7 +2696,7 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
      "outcome": "PASS",
      "seeds": 150,
      "verdict": "survived",
-     "note": "premise limbs not declared (tools/version_1_status.premise_limbs; pending the owner, docs/version_1_dispositions.md), so judged on every limb",
+     "note": "premise limbs not declared (docs/version_1_dispositions.md, docs/version_2_dispositions.md), so judged on every limb",
      "readouts": [
       {
        "direction": 1,
@@ -3628,7 +2716,7 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
      "outcome": "PASS",
      "seeds": 150,
      "verdict": "survived",
-     "note": "premise limbs not declared (tools/version_1_status.premise_limbs; pending the owner, docs/version_1_dispositions.md), so judged on every limb",
+     "note": "premise limbs not declared (docs/version_1_dispositions.md, docs/version_2_dispositions.md), so judged on every limb",
      "readouts": [
       {
        "direction": 1,
@@ -3648,7 +2736,7 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
      "outcome": "PASS",
      "seeds": 150,
      "verdict": "survived",
-     "note": "premise limbs not declared (tools/version_1_status.premise_limbs; pending the owner, docs/version_1_dispositions.md), so judged on every limb",
+     "note": "premise limbs not declared (docs/version_1_dispositions.md, docs/version_2_dispositions.md), so judged on every limb",
      "readouts": [
       {
        "direction": 1,
@@ -3668,7 +2756,7 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
      "outcome": "PASS",
      "seeds": 150,
      "verdict": "survived",
-     "note": "premise limbs not declared (tools/version_1_status.premise_limbs; pending the owner, docs/version_1_dispositions.md), so judged on every limb",
+     "note": "premise limbs not declared (docs/version_1_dispositions.md, docs/version_2_dispositions.md), so judged on every limb",
      "readouts": [
       {
        "direction": 1,
@@ -3688,7 +2776,7 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
      "outcome": "FAIL",
      "seeds": 150,
      "verdict": "red",
-     "note": "premise limbs not declared (tools/version_1_status.premise_limbs; pending the owner, docs/version_1_dispositions.md), so judged on every limb",
+     "note": "premise limbs not declared (docs/version_1_dispositions.md, docs/version_2_dispositions.md), so judged on every limb",
      "readouts": [
       {
        "direction": 1,

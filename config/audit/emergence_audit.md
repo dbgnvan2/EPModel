@@ -43,8 +43,10 @@ in-scope row under L0 to L4 and the carriers of each L0 survivor (steps 4 to 6, 
 
 ## Pilot rows
 
+`M11.C.41[light: lower level]` was a pilot row (a short Phase C row, 80 ticks, and a mixed one) until the owner
+declared its premise limbs on 2026-11-05 (T-192), which took it out of the audit's scope; a pilot row must be in scope.
+
 | criterion | reason |
 |---|---|
 | `M11.C.48[phase_d]` | T-180: it passes at revision 47 and its named mutant `cutoff-blind-to-learned-value` survives |
 | `M11.C.27[unstable,remove_one]` | a short Phase C row (21 ticks) |
-| `M11.C.41[light: lower level]` | a short Phase C row (80 ticks), and a mixed one |

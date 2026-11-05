@@ -239,14 +239,21 @@ def read_records() -> dict[str, list[dict]]:
     return {phase: record_json(path) for phase, path in RECORDS.items()}
 
 
-def in_scope(records: dict[str, list[dict]], config: Config):
+def in_scope(records: dict[str, list[dict]], config: Config, limbs: dict[str, frozenset[str]] | None = None):
     """Purpose: the passing composite and mixed rows of the records, less the exclusions; and what was left out.
     Spec:    docs/bowen_agent_model_spec_v2.md#M11.1g, #M11.5; docs/plan_v3_emergence_audit.md#3
-    Tests:   tests/test_emergence_audit.py::test_m111g_ea1_scope_is_passing_composite_and_mixed
+    Tests:   tests/test_emergence_audit.py::test_m111g_ea1_scope_is_passing_composite_and_mixed,
+             tests/test_emergence_audit.py::test_t192_a_mixed_row_with_only_premise_limbs_leaves_scope
 
     Returns (audited rows, every row by key, the passing rows left out by class as (key, class), the excluded rows as
-    (key, reason)). A key held by two records, a class outside `M11.5`'s four, a stale exclusion and a control on a
-    row that does not pass all raise."""
+    (key, reason)). A mixed row each of whose gating readouts is a declared premise limb (``limbs``; by default
+    ``tools/version_2_status.premise_limbs``, both dispositions files) has no composite limb to judge, so it is left
+    out by class, as a premise is (T-192, owner 2026-11-05). A key held by two records, a class outside `M11.5`'s
+    four, a stale exclusion and a control on a row that does not pass all raise."""
+    if limbs is None:
+        from tools.version_2_status import premise_limbs
+
+        limbs = premise_limbs()
     every: dict[str, tuple[str, dict]] = {}
     for phase, rows in records.items():
         for r in rows:
@@ -256,7 +263,13 @@ def in_scope(records: dict[str, list[dict]], config: Config):
                 raise SystemExit(f"{r['criterion']}: class {r['class']!r} is not one of M11.5's {CLASSES}")
             every[r["criterion"]] = (phase, r)
     passing = [(k, p, r) for k, (p, r) in every.items() if r["outcome"] == "PASS"]
-    composite = [(k, p, r) for k, p, r in passing if r["class"] in AUDITED]
+    def all_premise(k, r):
+        declared = limbs.get(k, limbs.get(k.split("[", 1)[0], frozenset()))
+        gating = {o["readout"] for o in r.get("readouts", []) if not o.get("report_only")}
+        return r["class"] == "mixed" and bool(gating) and gating <= declared
+
+    no_composite = [(k, p, r) for k, p, r in passing if all_premise(k, r)]
+    composite = [(k, p, r) for k, p, r in passing if r["class"] in AUDITED and not all_premise(k, r)]
     stale = sorted(set(config.exclusions) - {k for k, _, _ in composite})
     if stale:
         raise SystemExit(f"{CONFIG.name}: excludes {stale}, which are not passing composite or mixed rows")
@@ -265,9 +278,13 @@ def in_scope(records: dict[str, list[dict]], config: Config):
             raise SystemExit(f"{CONFIG.name}: the {control} control {cid} does not pass in its record")
     audited = [Row(k, p, r["class"], r["seeds"]) for k, p, r in composite if k not in config.exclusions]
     by_class = [(k, r["class"]) for k, _, r in passing if r["class"] not in AUDITED]
+    by_class += [(k, NO_COMPOSITE) for k, _, _ in no_composite]
     excluded = [(k, config.exclusions[k]) for k, _, _ in composite if k in config.exclusions]
     rows = {k: Row(k, p, r["class"], r["seeds"]) for k, (p, r) in every.items()}
     return audited, rows, by_class, excluded
+
+
+NO_COMPOSITE = "mixed, every gating readout a declared premise limb"
 
 
 def check_registries(rows: dict[str, Row]) -> None:
@@ -319,7 +336,7 @@ def verdict(row: Row, mutant: Mutant, result: dict, limbs: dict[str, frozenset[s
     Tests:   tests/test_emergence_audit.py::test_m111g_ea9_verdicts_follow_judge,
              tests/test_emergence_audit.py::test_m111g_ea10_premise_limb_does_not_decide_a_mixed_row
 
-    A mixed row's premise limbs (``tools/version_1_status.premise_limbs``) are run and shown but do not decide it, as on
+    A mixed row's premise limbs (``tools/version_2_status.premise_limbs``) are run and shown but do not decide it, as on
     the status page: a FAIL whose composite limbs all hold (each limb's Holm decision recomputed from the row's p values
     over every directional limb, premise limbs included, as the runner makes it, so a premise limb with the smallest p
     can stop the step-down before a composite limb: the same family as the row's own verdict) survives. A required move that never occurred, a run that did
@@ -413,12 +430,12 @@ def build(cache: Cache, workers: int | None = None, *, records: dict | None = No
     records = read_records() if from_files else records
     config = read_config() if config is None else config
     if limbs is None:
-        from tools.version_1_status import premise_limbs
+        from tools.version_2_status import premise_limbs
 
         limbs = premise_limbs()
     engine = engine_hash() if engine is None else engine
     alpha = _alpha() if alpha is None else alpha
-    audited, rows, by_class, excluded = in_scope(records, config)
+    audited, rows, by_class, excluded = in_scope(records, config, limbs)
     if from_files:
         check_registries(rows)
     def premise_of(row):
@@ -428,8 +445,8 @@ def build(cache: Cache, workers: int | None = None, *, records: dict | None = No
     if phase_c_premise:
         raise SystemExit(f"{phase_c_premise}: a Phase C mixed row with premise limbs cannot be judged; the Phase C "
                          "child (tools/mutant_runner.py) prints no p or within_bound for its limbs")
-    undeclared = ("premise limbs not declared (tools/version_1_status.premise_limbs; pending the owner, "
-                  "docs/version_1_dispositions.md), so judged on every limb")
+    undeclared = ("premise limbs not declared (docs/version_1_dispositions.md, docs/version_2_dispositions.md), "
+                  "so judged on every limb")
     keys = {r.key for r in audited}
     stray = sorted(set(config.pilot) - keys)
     if stray:
@@ -505,12 +522,12 @@ def share(cache: Cache, keys: list[str], workers: int, labels: list[str] | None 
     records = read_records() if records is None else records
     config = read_config() if config is None else config
     if limbs is None:
-        from tools.version_1_status import premise_limbs
+        from tools.version_2_status import premise_limbs
 
         limbs = premise_limbs()
     engine = engine_hash() if engine is None else engine
     alpha = _alpha() if alpha is None else alpha
-    audited = {r.key: r for r in in_scope(records, config)[0]}
+    audited = {r.key: r for r in in_scope(records, config, limbs)[0]}
     unknown = sorted(set(keys) - set(audited))
     if unknown:
         raise SystemExit(f"{unknown}: not rows the audit judges (the controls run only in a whole run); nothing ran")
@@ -642,7 +659,8 @@ def render(engine, config, audited, by_class, excluded, controls, verdicts, carr
         "## Scope",
         "",
         f"{len(audited)} of {passing} passing rows audited; {len(excluded)} excluded; "
-        f"{len(by_class)} out by class (a premise or a check passing is never a finding, `M11.5`).",
+        f"{len(by_class)} out by class (a premise or a check passing, or a mixed row with no composite limb, is "
+        "never a finding, `M11.5`).",
         "",
         "| Criterion | Class | Seeds at pass |",
         "|---|---|---|",

@@ -366,3 +366,50 @@ def test_w1_v2_a_disposition_on_a_key_with_no_record_row_stops_the_tool():
     with mock.patch.object(tool, "v2_dispositions", return_value=_v2("M11.C.9", "note", "PASS")):
         with pytest.raises(SystemExit, match="names rows no record has"):
             tool.statuses()
+
+
+def test_t192_v2_premise_limbs_parse_strictly(tmp_path):
+    """T-192 (owner 2026-11-05): the committed file declares `M11.C.41`'s two level cells' premise limbs and nothing
+    for `M11.C.34`; the dispositions table still parses beside the second table; a wrong cell count, an unregistered
+    key, a readout the criterion does not have, a repeated key and a row after a break each raise."""
+    real = tool.v2_premise_limbs()
+    both = frozenset({"mean_acute", "reactive_over_chance"})
+    assert real == {"M11.C.41[light: lower level]": both, "M11.C.41[heavy: lower level]": both}
+    assert "M11.C.34" not in tool.premise_limbs() and "M11.C.41" not in tool.premise_limbs()
+    assert "M11.C.49" in tool.v2_dispositions()  # the first table is not cut short by the second
+    disp = tool.V2_HEADER + "\n|---|---|---|---|---|\n| `M11.C.49` | accepted finding | FAIL | owner 2026-10-29 | why |\n"
+    head = "\n## Premise limbs\n\n" + v1.PREMISE_LIMBS_HEADER + "\n|---|---|\n"
+    good = "| `M11.C.22` | `mild_removal_effect` |\n"
+    path = tmp_path / "v2.md"
+    path.write_text("# t\n\n" + disp + head + good, encoding="utf-8")
+    assert tool.v2_premise_limbs(path) == {"M11.C.22": frozenset({"mild_removal_effect"})}
+    assert list(tool.v2_dispositions(path)) == ["M11.C.49"]
+    path.write_text("# t\n\n" + disp, encoding="utf-8")
+    assert tool.v2_premise_limbs(path) == {}
+    bad = (head + "| `M11.C.22` |\n",
+           head + good.replace("M11.C.22", "M11.C.99"),
+           head + good.replace("mild_removal_effect", "landed_contacts"),
+           head + good + good,
+           head + good + "\n" + good.replace("22", "7").replace("mild_removal_effect", "landed_contacts"),
+           head + head + good)
+    for text in bad:
+        path.write_text("# t\n\n" + disp + text, encoding="utf-8")
+        with pytest.raises(SystemExit):
+            tool.v2_premise_limbs(path)
+
+
+def test_t192_premise_limbs_merge_both_tables():
+    """The limbs in force are version 1's frozen table and version 2's; a key in both raises; the status page reads
+    the merged set."""
+    merged = tool.premise_limbs()
+    assert set(v1.premise_limbs()) <= set(merged) and set(tool.v2_premise_limbs()) <= set(merged)
+    with mock.patch.object(tool, "v2_premise_limbs", return_value={"M11.C.7": frozenset({"landed_contacts"})}):
+        with pytest.raises(SystemExit, match="both dispositions files"):
+            tool.premise_limbs()
+    with mock.patch.object(tool, "v2_premise_limbs", return_value={"M11.C.7[joint over sided]": frozenset()}):
+        with pytest.raises(SystemExit, match="both dispositions files"):
+            tool.premise_limbs()  # a variant of a criterion version 1 declares by its base id
+    with mock.patch.object(tool, "premise_limbs", return_value={}) as seen:
+        tool.statuses()
+    assert seen.called
+

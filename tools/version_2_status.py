@@ -211,7 +211,7 @@ def v2_dispositions(path: Path = V2_DISPOSITIONS) -> dict[str, dict]:
     text = path.read_text(encoding="utf-8")
     if text.count(V2_HEADER) != 1:
         raise SystemExit(f"{path.name}: the table header is missing or repeated")
-    lines = text.split(V2_HEADER, 1)[1].splitlines()[2:]
+    lines = text.split(V2_HEADER, 1)[1].split(v1.PREMISE_LIMBS_HEADER, 1)[0].splitlines()[2:]
     end = next((i for i, line in enumerate(lines) if not line.startswith("|")), len(lines))
     after = [line for line in lines[end:] if line.startswith("|")]
     if after:
@@ -238,6 +238,65 @@ def v2_dispositions(path: Path = V2_DISPOSITIONS) -> dict[str, dict]:
     return out
 
 
+def v2_premise_limbs(path: Path = V2_DISPOSITIONS) -> dict[str, frozenset[str]]:
+    """Purpose: read the premise limbs declared in version 2 (the second table of ``docs/version_2_dispositions.md``),
+             strictly: two cells a row, a key the code registers (a variant, or a base id for every variant), each
+             readout one that criterion has, one row a key.
+    Spec:    docs/bowen_agent_model_spec_v2.md#M11.5; docs/todo/2026-11-03_version_3_emergence_audit.md (T-192)
+    Tests:   tests/test_version_2_status.py::test_t192_v2_premise_limbs_parse_strictly
+    """
+    if not path.exists():
+        return {}
+    text = path.read_text(encoding="utf-8")
+    count = text.count(v1.PREMISE_LIMBS_HEADER)
+    if count == 0:
+        return {}
+    if count != 1:
+        raise SystemExit(f"{path.name}: the premise-limbs table header is repeated")
+    lines = text.split(v1.PREMISE_LIMBS_HEADER, 1)[1].splitlines()[2:]
+    end = next((i for i, line in enumerate(lines) if not line.startswith("|")), len(lines))
+    after = [line for line in lines[end:] if line.startswith("|")]
+    if after:
+        raise SystemExit(f"{path.name}: a premise-limb row after a break in the table would be skipped: {after[0][:60]}")
+    from src.bowen.ensemble.criteria import CRITERIA
+    from src.bowen.ensemble.criteria_d import CRITERIA_D
+    from src.bowen.ensemble.criteria_d2 import CRITERIA_D2
+
+    registry = {**CRITERIA, **CRITERIA_D, **CRITERIA_D2}
+    out = {}
+    for line in lines[:end]:
+        cells = [c.strip() for c in line.strip().strip("|").split("|")]
+        if len(cells) != 2:
+            raise SystemExit(f"{path.name}: a premise-limb row does not have two cells: {line[:80]}")
+        key = cells[0].strip("`")
+        names = frozenset(n.strip().strip("`") for n in cells[1].split(","))
+        variants = [c for k, c in registry.items() if k == key or k.split("[", 1)[0] == key]
+        if not variants:
+            raise SystemExit(f"{key}: a premise-limb row names a key the code does not register")
+        for c in variants:
+            unknown = sorted(names - {r.name for r in c.readouts})
+            if unknown:
+                raise SystemExit(f"{key}: premise limbs {unknown} are not readouts of {c.id}")
+        if key in out:
+            raise SystemExit(f"{key}: two premise-limb rows in {path.name}")
+        out[key] = names
+    return out
+
+
+def premise_limbs() -> dict[str, frozenset[str]]:
+    """Purpose: the premise limbs in force: version 1's table (``docs/version_1_dispositions.md``, frozen at the tag)
+             and version 2's (``v2_premise_limbs``). A criterion in both raises, whether as the same key or as a variant
+             and its base id: version 1's table is frozen, so a change to one of its rows is not made by restating it.
+    Spec:    docs/bowen_agent_model_spec_v2.md#M11.5; docs/todo/2026-11-03_version_3_emergence_audit.md (T-192)
+    Tests:   tests/test_version_2_status.py::test_t192_premise_limbs_merge_both_tables
+    """
+    old, new = v1.premise_limbs(), v2_premise_limbs()
+    both = sorted(k for k in new if k.split("[", 1)[0] in {o.split("[", 1)[0] for o in old})
+    if both:
+        raise SystemExit(f"{both}: premise limbs declared in both dispositions files")
+    return {**old, **new}
+
+
 def statuses() -> list[Status]:
     spec = v1.spec_criteria()
     rows = record_rows()
@@ -247,7 +306,7 @@ def statuses() -> list[Status]:
     by_test = v1.proved_by_test()
     decided = v1.dispositions()
     later = v2_dispositions()
-    limbs = v1.premise_limbs()
+    limbs = premise_limbs()
     tag = tag_verdicts()
     earlier = revision_38_verdicts()
     swept = sweep_fractions(SWEEP_RECORD)

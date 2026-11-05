@@ -72,6 +72,9 @@ The plan is `docs/plan_v3_emergence_audit.md`.
   **Owner 2026-11-04, through `AskUserQuestion`:** the nine T-items are made in the order proposed above, the four
   rows whose carriers match `M11.5` last; L1–L4 do not run now (the survivors are triaged first). Open until the
   nine T-items are made and triaged, or the owner closes it.
+  **Made 2026-11-04:** T-185 to T-193, in the owner's order (T-192 holds both `M11.C.41` cells) (below), each with its carriers,
+  its `M11.5` note, `M11.1d`'s question and Claude's recommendation; T-185 is put to the owner first. Open until
+  the nine are decided.
 - [x] T-184 ⟨later⟩ **The emergence audit's cache records no NumPy version, so `tools/merge_cache.py` refuses it
   (2026-11-04).** `tools/emergence_audit.py` never sets `Cache.meta["numpy"]`, as `tools/version_2_sweep.py`'s
   `check_numpy` does, so a two-Mac split of the audit cannot be merged by the merge tool as it stands. Step 4's
@@ -97,3 +100,138 @@ The plan is `docs/plan_v3_emergence_audit.md`.
   refusals dropped); after the reviews, `test_t184_a_share_runs_no_carriers_for_a_row_red_under_l0`,
   `test_t184_render_only_runs_nothing_and_refuses_a_missing_result` and `test_t184_argument_refusals`, and the
   running check's pattern made to skip the test files' names (six more mutations).
+
+## The ten survivors, nine T-items (T-182's triage, 2026-11-04)
+
+Made in the owner's order of 2026-11-04; T-192 holds `M11.C.41`'s two cells, so ten survivors make nine items. Carriers and results are from `docs/emergence_audit_record.md` (stage
+`carriers`, engine `0b363cb3186c`, Phase D `020160abb6db`); each row's class and note are `M11.5`'s table. Each item
+asks `M11.1d`'s question of its carriers: does a rule that carries the row name its outcome? A survivor is not a
+defect by itself; the owner decides each. No rule changes in this batch: an item decided as a wording change waits
+for one spec revision that takes all nine.
+
+- [ ] T-185 ⟨later⟩ **`M11.C.48[phase_d]` survives with all learning off and no carrier is found (2026-11-04).**
+  With T-180. Under L0 the row passes at 200 seeds (`negative_run` +0.245 ± 0.076, p 5.3e-13), and it passes under
+  every one of its 7 candidates: C1–C6 (+0.187 to +0.306) and its own mutant `cutoff-blind-to-learned-value`, whose
+  numbers equal L0's exactly, since with learning off there is no learned value for the mutant to remove.
+  `M11.5` says it rests on `CUTOFF`'s learned value (`M4.D.6`) and the cut-off tie's stock (`M1.D.2b`), and that it
+  "comes from learning over time"; the first is contradicted by L0, and the second holds only on a tie already cut
+  off, so it is not an obvious source of the run before a tie's first cutoff. The legal set's structural
+  preconditions were not mutated (plan §4).
+  **`M11.1d`'s question** cannot be asked yet: the minimal set of rules that produces the direction is not known.
+  **Claude's recommendation:** trace it before deciding: read the policy path, without learning, from a run of
+  negative contacts on a tie to `CUTOFF`'s weight on that tie, then run a per-act probe under L0
+  (`tools/probes.py`; the plan's Q3 names it as useful if C1–C7 find no carrier) to find which term carries it;
+  then ask `M11.1d`'s question of what it finds and decide T-180 with it (whether the mutant, the rule or the row's
+  mutation clause changes). `M11.5`'s note stays as it is until then. Alternatives: amend `M11.5`'s note now to say
+  the row passes without learning and its carrier is not found (wording, at the next revision); replace the row's
+  mutation clause with a mutant chosen by reading and run it; or record the survivor as reviewed and change nothing.
+- [ ] T-186 ⟨later⟩ **`M11.C.15` is carried by the release of bound anxiety at a death, a rule `M11.5` does not name
+  (2026-11-04).** Under L0 it passes (`death_rise` +3.83 ± 0.65, `recovery_rise` +7.45 ± 0.9, 50 seeds). Its one
+  carrier is `death-all-bound-anxiety-discarded` (`M6.3c`'s release at a death, under `M6.I.1`, replaced by
+  discarding): `death_rise` goes to -0.872 ± 0.65 and `recovery_rise` does not move. Discarding the symptom hold
+  alone (`death-bound-anxiety-discarded`) leaves it passing (`death_rise` +1.4 ± 0.64). `M11.5` classes it
+  composite, "rests on" blank, note "`M7.D.3` withdrawn"; the criterion row's own mutation clause already names
+  `M6.I.1` and `M6.3c`.
+  **`M11.1d`'s question:** does `M6.3c` or `M6.I.1` name the row's outcome, that death destabilises "exactly as
+  recovery does"? `M6.3c` has three clauses: tie-bound anxiety on a tie to the dead goes to the tie's living member;
+  a triangle with the dead discharges equally to its living members; and the dead person's `symptom_bound` goes back
+  to the partners, "as when a symptom ends". The third states the equivalence with recovery, but for the symptom
+  hold only, and that hold alone does not carry the row; the first two do not name destabilisation. `M6.I.1` says
+  the budget is conserved.
+  **Claude's recommendation:** keep it composite and fill `M11.5`'s "rests on" cell with `M6.3c`'s release (under
+  `M6.I.1`), the carrier found (wording, at the next revision). Alternatives: class it premise, reading `M6.3c`'s
+  "as when a symptom ends" as writing the equivalence in (the text supports this for the symptom hold only); or
+  change nothing.
+- [ ] T-187 ⟨later⟩ **`M11.C.7[joint over one spouse]` is carried by three policy terms and the landed contact
+  (2026-11-04).** Under L0 the composite limb passes thinly (`deviation_fall` +0.0503 ± 0.057, p 0.024, 100 seeds).
+  Carriers: C2 (`M4.D.1a`'s mixing weight blind to level, in the policy only), C4 (`M4.D.1a`'s perspective steering),
+  C6 (`M4.D.1d`'s competing urges) and `landed-contact-changes-nothing` (`M1.E.7`'s `perspective_gain` 0); under each
+  the limb goes red (p 0.12 to 0.43). `M11.5`: mixed, `M8`'s predicate for the landed-contacts limb; the deviation
+  ordering composite, "no rule writes it".
+  **`M11.1d`'s question:** does any of the four name the ordering joint > one spouse in the couple's
+  deviation fall? None does: each is a general term of selection or of a coach's contact, and the row needs
+  all four. The thin L0 margin means part of what the joint mutants show is how little the pass has to lose.
+  **Claude's recommendation:** no defect; keep it mixed and add the four carriers to `M11.5`'s note (wording, at the
+  next revision). Alternatives: change nothing; or rerun L0 on the row at more seeds first, to see whether the thin
+  pass holds.
+- [ ] T-188 ⟨later⟩ **`M11.C.22`'s mild limb is carried by lock-in alone (2026-11-04).** Under L0 both limbs pass
+  (`mild_removal_effect` +1.51 ± 0.73, `severe_removal_effect` -1.73 ± 0.88, 100 seeds). The one carrier,
+  `lock-in-removed` (`M7.D.2a`'s stabilising term flattened), takes both to the same -0.0142 ± 0.058 (50 seeds), so
+  it removes the whole difference between the arms rather than the mild limb alone. `M11.5`: mixed since revision 32
+  (it was premise), the severe limb on `M7.D.2a` and `M7.D.2d`, the mild limb composite as "the net of lock-in and
+  other mechanisms"; the `M11.C.22` row gives the net as `M7.D.2a`'s lock-in (+7.3) against other mechanisms (about
+  −6.8). Those other mechanisms work against the limb, so the audit could not find them as carriers.
+  **`M11.1d`'s question:** does `M7.D.2a` name the mild limb's outcome? It names the direction: the configuration
+  "resists the symptom's removal". It does not name the margin the limb asserts, that the resistance outweighs the
+  relief removing any member brings (the row: "Unrestated, the mild limb fails").
+  **Claude's recommendation:** keep it mixed and amend `M11.5`'s note to say lock-in alone carries the mild limb's
+  direction and the other mechanisms only reduce it (wording, at the next revision). Alternatives, about as strong:
+  class the mild limb premise as well, on `M7.D.2a`'s "resists the symptom's removal", which reverses revision 32's
+  reasoning and takes the row out of the audit's scope; or change nothing.
+- [ ] T-189 ⟨later⟩ **`M11.C.16` is reversed by inverting `M4.D.3a`'s availability once learning is off
+  (2026-11-04).** Under L0 it passes (`repertoire_entropy` -0.0151 ± 0.0019, 100 seeds), as `M11.5`'s note already
+  records ("With the learner disabled it still passes"). Carriers: C1 (every capacity layer available),
+  `level-blind`, `availability-level-independent`, `availability-and-learner-removed`, `c16-grounds-removed`, and
+  `availability-level-inverted`, which reverses it (+0.0117 ± 0.0018). What is new is that reversal: with learning
+  on, the same inversion leaves it passing. `M11.5`: composite by owner decision. Its note says that inversion
+  equals the deletion over much of the lowered arm's member-weeks, so "a stronger inversion might reverse it; none
+  was tried"; that composite "rests on a reading: of the nine rules only availability names a narrower repertoire";
+  and that a same-day reclassification to premise was withdrawn. (The note gives `availability-and-learner-removed`
+  as reversed, +0.002 ± 0.002; the audit has it red, +0.00143 ± 0.0015.)
+  **`M11.1d`'s question:** `M11.1d` says a criterion that flips under inversion of a single rule is restated one
+  level up or recorded under `M10.C.5` as a programmed premise. Here it flips under the inversion together with all
+  learning removed, so it is not a clean single-rule flip; the rule inverted (`M4.D.3a`: rising anxiety slides
+  selection down the complexity ordering) is the one the note reads as naming a narrower repertoire.
+  **Claude's recommendation:** keep it composite and add the L0 reversal to `M11.5`'s note, with the corrected
+  `availability-and-learner-removed` result (wording, at the next revision); the note's own caveat (the inversion is
+  weak) is answered in one direction by L0, and the premise reading was already put and withdrawn. Alternatives:
+  class it premise on `M4.D.3a` and mark the rule under `M10.C.5`; or restate it one level up (for instance, require
+  the learned narrowing to exceed what availability alone gives under L0).
+- [ ] T-190 ⟨later⟩ **`M11.C.27[unstable,remove_one]` is carried by `M11.5`'s `M4.C.1` and also by C2
+  (2026-11-04).** Under L0 it passes (`pair_deviation` -0.0696 ± 0.049, 100 seeds). Carriers: C2 (`M4.D.1a`'s mixing
+  weight blind to level, in the policy only; red), `one-sided-deviation` and `deviation-inverted` (both reverse it).
+  `M11.5`: composite, "follows from `M4.C.1`'s two-sided shape"; checked 2026-10-08, it flips only under inversion of
+  `M4.C.1`'s deviation, and was kept composite. C2 is not in the note.
+  **`M11.1d`'s question:** does `M4.C.1` (anxiety rises with deviation from the contact optimum, either side) or the
+  mixing weight name that removing one stabilises an unstable twosome? Neither does; but the row flips under one rule's
+  inversion, which `M11.1d` answers by restating or by `M10.C.5`, and that was decided 2026-10-08 with learning on.
+  **Claude's recommendation:** keep it composite and add C2 to `M11.5`'s note (wording, at the next revision); the
+  single-rule flip is the one already decided, and L0 adds no new one. Alternatives: record `M4.C.1` under `M10.C.5`
+  for this cell; or change nothing.
+- [ ] T-191 ⟨later⟩ **`M11.C.11`'s return limb is carried by the removed member's two holds coming back on return
+  (2026-11-04).** Under L0 it passes (`disturbance` +6.33 ± 1.6, 150 seeds). The one carrier,
+  `removed-member-holds-not-released-on-return` (`M7.D.2a`'s symptom hold released while the member is away, and
+  `M1.D.2a` (c)'s tie stock not returned by the reunion), takes it to -0.0171 ± 1.3. Releasing the symptom hold alone
+  while away (`removed-member-hold-released-while-away`) leaves it passing (+1.51 ± 1.3, p 0.0055), so neither hold
+  alone carries it. (The proposal above called the carrier "`M6.I.6`'s hold"; it is these two.) `M11.5`: mixed, the
+  conservation limb premise on `M6.I.6`, the return limb composite, "no rule says the return is larger". Its premise
+  limbs are not declared in `tools/version_1_status.premise_limbs`, so the audit judged it on its one readout.
+  **`M11.1d`'s question:** do `M7.D.2a`'s hold or `M1.D.2a` (c)'s tie stock name that the return is the larger
+  disturbance? Each says what a stock holds and when it is released or returned, not that the return is larger;
+  the row needs both.
+  **Claude's recommendation:** keep the return limb composite and name both holds in `M11.5`'s note (wording, at
+  the next revision). Alternatives: class the return limb premise, reading the holds' return at once as what makes
+  the return large; or change nothing.
+- [ ] T-192 ⟨later⟩ **`M11.C.41`'s two level cells are carried by the terms `M11.5` names (2026-11-04).** Under L0
+  both pass (`[light: lower level]` `mean_acute` +128 ± 12, `reactive_over_chance` +0.0653; `[heavy: lower level]`
+  +124 ± 14, +0.0677). Each is carried by C2, `mixing-weight-level-independent`, `level-blind`,
+  `steepness-inverted` and `mixing-weight-inverted`. `M11.5`: mixed, resting on "`M4.C.1a`; `M4.D.1a` mixing
+  weight", both limbs premise in the level cells. The audit judged every limb because the premise limbs are not
+  declared (pending the owner, `docs/version_1_dispositions.md`, with `M11.C.34`).
+  **`M11.1d`'s question:** the mixing weight reads functional level, so it names a lower level's higher reactive
+  share; `steepness-inverted` (`M4.C.1a`) reverses the anxiety limb (`mean_acute` -17.8 and -25.2) and leaves the
+  reactive share up. Both are rules `M11.5` already names for these cells.
+  **Claude's recommendation:** no rule change; declare these premise limbs when the owner answers the pending
+  question, after which the two cells have no composite limb and leave the audit's scope. Alternative: change
+  nothing until that question is answered.
+- [ ] T-193 ⟨later⟩ **`M11.C.7[joint over sided]` is carried by the landed contact and the coach's position, as
+  `M11.5` says (2026-11-04).** Under L0 it passes (`deviation_fall` +0.0806 ± 0.045, p 0.00015, 150 seeds). Carriers:
+  `landed-contact-changes-nothing` (`M1.E.7`) and `coach-position-blind` (`M8.3` made position-blind: a coach drawn
+  onto one spouse's side still counts as a live position); no policy term. Under `coach-position-blind` the
+  landed-contacts premise limb collapses too (+0.34 ± 0.84, p 0.19), so the deviation limb going red follows from
+  the arms no longer differing. `M11.5`: mixed, `M8`'s predicate for the landed-contacts limb; the coach's going
+  along with a `SPLIT` a declared premise of the sided arm (D29).
+  **`M11.1d`'s question:** neither carrier names the ordering joint > sided; both remove what distinguishes the
+  sided arm, which `M11.5` already declares premise.
+  **Claude's recommendation:** no change; record the survivor as reviewed. Alternative: add the two carriers to
+  `M11.5`'s note at the next revision.

@@ -129,6 +129,56 @@ for one spec revision that takes all nine.
   policy path from a run of negative contacts to `CUTOFF`'s weight with learning off, then a per-act probe under L0
   (`tools/probes.py`); then `M11.1d`'s question of the carrier found, and T-180 decided with it. `M11.5` unchanged
   until then. Open until the carrier is found and the owner decides.
+  **The trace (2026-11-05, read only, learning off).** Before a tie's first cutoff nothing in the policy is tie-specific
+  for `CUTOFF`: its within-channel weight is `exp(0) × availability(CUTOFF)` (`policy.channel_weights`), the same on
+  every live tie of the person; focus steering (`M4.D.1g`) bears on `OVERFUNCTION`, `PURSUE` and `TRIANGLE` only;
+  perspective's steering on `TRIANGLE`, `CONFLICT`, `DETRIANGLE` and `PREVENT_ALIGNMENT` only; the loaded-tie gate on
+  the self channel only. `CONFLICT` and `DISTANCE` are as tie-blind. On a tie not declared cut off, no refusal can
+  fall before its first cutoff: rejection is raised by a delivered `CUTOFF` (`event_effects`), by a refusal, which needs
+  rejection held (`rejection.refuses`), and at the start only on a declared cut-off tie
+  (`rejection.seed_declared_rejection`), which the row leaves out. A cutoff cannot make a refusal count in its own week
+  either: refusals are taken at the tick's step 2, cutoffs applied at step 4. So with learning off the run before a
+  cutoff is `CONFLICT` and `DISTANCE`
+  against `STAY-IN-CONTACT`, and the policy does not pick the tie with the longer run to cut.
+  **The probe (2026-11-05)** (`tools/c48_carrier_probe.py`; not `tools/probes.py`, whose every edit reruns the
+  diagnostic record's probes): the row's own scenario, 200 seeds, each matched first cutoff's run read against subsets
+  of its baseline, under L0 (in a temporary copy) and on the unmodified engine. It reproduces both records' differences.
+  A tie's **sides** are how many of its members had sent a move other than `CUTOFF` across it by the cutoff's week
+  (the run's window); a member under the acting age (`acting_age_years`, 10) sends none, but the probe does not read
+  age, so a one-sided tie is any tie one member has not acted on. A subset line reads only the cutoffs whose subset is
+  not empty, so the row's own difference on those same cutoffs is given beside it.
+
+  | Difference in the run (cutoffs read: L0 / learning on) | L0: subset · the row on those cutoffs | learning on: subset · the row on those cutoffs |
+  |---|---|---|
+  | the row: against every uncut tie in contact (3432 / 3372) | +0.245 ± 0.076 | +0.344 ± 0.078 |
+  | against uncut ties with as many sides (2876 / 2800) | +0.104 ± 0.070 · +0.193 ± 0.070 | +0.098 ± 0.082 · +0.242 ± 0.080 |
+  | two-sided cut ties, against two-sided uncut ties (1325 / 1344) | +0.066 ± 0.127 · +0.412 ± 0.106 | +0.038 ± 0.120 · +0.470 ± 0.097 |
+  | one-sided cut ties, against one-sided uncut ties (1551 / 1456) | +0.123 ± 0.093 · −0.032 ± 0.102 | +0.147 ± 0.123 · +0.017 ± 0.124 |
+  | against the cutter's other uncut ties (1522 / 1478) | −0.014 ± 0.105 · +0.081 ± 0.092 | −0.009 ± 0.125 · +0.082 ± 0.115 |
+  | against the other member's other uncut ties (1835 / 1854) | +0.293 ± 0.093 · +0.230 ± 0.085 | +0.276 ± 0.102 · +0.318 ± 0.090 |
+  | the cutter's other uncut ties, against every uncut tie (1522 / 1478) | +0.094 ± 0.053 | +0.091 ± 0.054 |
+  | two-sided against one-sided uncut ties, baseline only (1775 / 1774) | +0.785 ± 0.129 | +0.842 ± 0.116 |
+  | share of ties two-sided, cut / baseline (pooled over cutoffs) | 0.509 / 0.327 | 0.531 / 0.324 |
+
+  (Per-seed means over 200 seeds, ± 1.96 standard errors over seeds, except the pooled shares; the counts are
+  cutoffs.) **What it shows.** Within a person the policy is tie-blind for `CUTOFF` before a first cutoff (the trace),
+  and the row's direction comes from what its two arms are made of, in two parts. (1) *Sides:* a cut tie is more often
+  one both members act on (51% against 33% under L0; 53% against 32% with learning on), and those ties hold runs longer
+  by about 0.8 (two members can add to the run and either can cut; the probe does not test this). Matching on sides removes about 0.09 of the row's
+  difference under L0 and 0.14 with learning on, on the same cutoffs, and among two-sided cut ties it removes nearly all
+  of it (+0.41 to +0.07; +0.47 to +0.04). (2) *Who cuts:* the cutter's other uncut ties hold runs longer than the
+  family's by about +0.09 in both, a person-level term the probe does not trace (what makes a person cut more, such as
+  the automatic channel's share or anxiety, is not tested). About +0.10 is left after matching on sides, the same with
+  learning and without, and it sits in the one-sided cut ties (+0.12, +0.15); it may be part (2) and is not
+  explained. The line against the cutter's own other ties cannot decide between the two: the row on those cutoffs is
+  itself only +0.08 (± 0.09 under L0, ± 0.12 with learning on). Learning's addition to the row (+0.245 to +0.344) is not left after matching on sides
+  (+0.104 against +0.098), within intervals of about ± 0.08, which fits `cutoff-blind-to-learned-value` leaving the
+  row passing.
+  **`M11.1d`'s question:** no rule in the set found names the run or the cutoff — the acting age, the draw of `CUTOFF`
+  from a person's live ties with equal weight, and the readout's baseline (every uncut tie in contact) — so it is not a
+  programmed premise. It is a comparison whose arms differ in a condition (how many members act on the tie, and whose
+  ties they are), the same class as T-123 and T-179 (learnings P7). Not shown: the person-level part and the +0.10
+  left after matching. T-180 is put to the owner with this.
 - [ ] T-186 ⟨later⟩ **`M11.C.15` is carried by the release of bound anxiety at a death, a rule `M11.5` does not name
   (2026-11-04).** Under L0 it passes (`death_rise` +3.83 ± 0.65, `recovery_rise` +7.45 ± 0.9, 50 seeds). Its one
   carrier is `death-all-bound-anxiety-discarded` (`M6.3c`'s release at a death, under `M6.I.1`, replaced by

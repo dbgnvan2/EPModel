@@ -112,6 +112,13 @@ and the review's open checks are below.
   **The emergence audit's pilot (2026-11-03, T-182):** the row survives L0, all learning off (`negative_run` +0.245 ±
   0.076 at 200 seeds, `docs/emergence_audit_record.md`), so its direction does not need learning at all, not only
   `CUTOFF`'s learned value. Which non-learning term carries it is the full run's carrier step (C1–C7 with L0).
+  **Traced and probed (2026-11-05, T-185):** no policy term picks the tie: before a first cutoff the policy weighs
+  `CUTOFF` the same on every live tie of a person. The direction comes from the comparison's composition. Cut ties are
+  more often ties both members act on (51% against the baseline's 33% under L0), which hold longer runs; on the same
+  cutoffs, matching on that lowers the difference from +0.193 to +0.104 ± 0.070 under L0 and from +0.242 to
+  +0.098 ± 0.082 with learning on. The cutter's other ties also run longer than the family's (+0.09): a person-level
+  part the probe does not trace. The numbers and `M11.1d`'s answer are in T-185's note
+  (`docs/todo/2026-11-03_version_3_emergence_audit.md`). The decision is put to the owner.
 - [x] T-181 ⟨later⟩ **The sweep record is stale since spec revision 47 (T-179, 2026-11-03).** Revision 47 moved the
   engine hash to `0b363cb3186c` (Phase D `020160abb6db`), so every swept criterion's cached result is on the earlier
   engine, `tests/test_version_2_sweep.py::test_s2_11_sweep_record_is_current` is a strict expected failure, and W4 is

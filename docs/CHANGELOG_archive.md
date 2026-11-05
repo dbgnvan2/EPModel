@@ -2,10 +2,58 @@
 
 The entries of `CHANGELOG.md` dated before 2026-10-19, the day version 2 began at the tag `version-1`, moved
 here verbatim on 2026-10-22, the entries of 2026-10-19 and 2026-10-20 on 2026-10-23, and the entries of
-2026-10-21 later on 2026-10-23, the earliest entry of 2026-10-22 (the SP-1 proposal's eight questions) on 2026-10-24, and the next (SP-1 built, with spec revision 34) later on 2026-10-24, and the next (Model ergonomics, Parts A–C) on 2026-10-25, and the next (Model ergonomics, Part D) later on 2026-10-25, and the next (Model ergonomics, Part E) later on 2026-10-25, and the next (Model ergonomics follow-ups) later on 2026-10-25, and the next (the closed and old parts of `TODO.md` and `CHANGELOG.md` archived) on 2026-10-26, and the next (`TODO.md` an index over records; a changelog index) later on 2026-10-26, and the next (Revision 35's dispositions approved by the owner) later on 2026-10-26, and the next two (Spec revision 36, of 2026-10-22, and Revision 36's records regenerated, of 2026-10-23) later on 2026-10-26, and the next five (from the cloud sessions' SessionStart hook to Stage 2: Phase C's directional criteria swept, all of 2026-10-23) later on 2026-10-26, and the next three (from the night's decisions listed for the owner to Stage 2: Phase D part I's directional criteria swept, all of 2026-10-23) on 2026-10-27, and the next (Stage 2: the sweep can run on two Macs, of 2026-10-23) later on 2026-10-27, and the next (The two-Mac cross-check run live, of 2026-10-23) on 2026-10-28, and the next four (from Stage 2: Phase D part II's sweep ranges declared to When the full sweep runs, the last of 2026-10-23) on 2026-10-29, and the next three (from Stage 2: Phase D part II's seven criteria swept across two Macs to The stage 2 milestone review triaged, spec revision 38, the earliest of 2026-10-24) later on 2026-10-29, and the next five (from Version 2 stage 3's implementation plan drafted to Rule: a finished session writes the next session's brief, the last of 2026-10-24) on 2026-10-30, and the next (Stage 3 step 3: P2 (displaced coping) drafted with F1, probed, for the owner's approval, the earliest of 2026-10-25) on 2026-10-31, and the next three (from The two-Mac driver reaches Mac Mini1 through the `macmini1` alias to Stage 3 step 3: P2 and F1 probed together on Mac Mini1, all of 2026-10-25) later on 2026-10-31, and the next (Stage 3 step 4: spec revision 39, part 1 drafted (group C), for the owner's approval, of 2026-10-25) on 2026-11-01, and the next (Stage 3 step 4: spec revision 39, parts 2 and 3 drafted; revision 39 approved by the owner, of 2026-10-25) later on 2026-11-01, and the next (Stage 3 step 5: the tests first, red, of 2026-10-25) later on 2026-11-01, and the next (Stage 3 step 6: the batch's first commit, T-130's wording, T-014 and T-129, of 2026-10-25) later on 2026-11-01, and the next (Stage 3 step 7: group C, displaced coping, the floor-held ledger and lent functioning returned, of 2026-10-26) on 2026-11-03, and the next (Stage 3 step 8: group F, the I-position as a mixture of self-statement and demand, of 2026-10-26) on 2026-11-04, so that the live file stays short enough to read (`tests/test_doc_size.py` bounds its size). The heading below is the section they
+2026-10-21 later on 2026-10-23, the earliest entry of 2026-10-22 (the SP-1 proposal's eight questions) on 2026-10-24, and the next (SP-1 built, with spec revision 34) later on 2026-10-24, and the next (Model ergonomics, Parts A–C) on 2026-10-25, and the next (Model ergonomics, Part D) later on 2026-10-25, and the next (Model ergonomics, Part E) later on 2026-10-25, and the next (Model ergonomics follow-ups) later on 2026-10-25, and the next (the closed and old parts of `TODO.md` and `CHANGELOG.md` archived) on 2026-10-26, and the next (`TODO.md` an index over records; a changelog index) later on 2026-10-26, and the next (Revision 35's dispositions approved by the owner) later on 2026-10-26, and the next two (Spec revision 36, of 2026-10-22, and Revision 36's records regenerated, of 2026-10-23) later on 2026-10-26, and the next five (from the cloud sessions' SessionStart hook to Stage 2: Phase C's directional criteria swept, all of 2026-10-23) later on 2026-10-26, and the next three (from the night's decisions listed for the owner to Stage 2: Phase D part I's directional criteria swept, all of 2026-10-23) on 2026-10-27, and the next (Stage 2: the sweep can run on two Macs, of 2026-10-23) later on 2026-10-27, and the next (The two-Mac cross-check run live, of 2026-10-23) on 2026-10-28, and the next four (from Stage 2: Phase D part II's sweep ranges declared to When the full sweep runs, the last of 2026-10-23) on 2026-10-29, and the next three (from Stage 2: Phase D part II's seven criteria swept across two Macs to The stage 2 milestone review triaged, spec revision 38, the earliest of 2026-10-24) later on 2026-10-29, and the next five (from Version 2 stage 3's implementation plan drafted to Rule: a finished session writes the next session's brief, the last of 2026-10-24) on 2026-10-30, and the next (Stage 3 step 3: P2 (displaced coping) drafted with F1, probed, for the owner's approval, the earliest of 2026-10-25) on 2026-10-31, and the next three (from The two-Mac driver reaches Mac Mini1 through the `macmini1` alias to Stage 3 step 3: P2 and F1 probed together on Mac Mini1, all of 2026-10-25) later on 2026-10-31, and the next (Stage 3 step 4: spec revision 39, part 1 drafted (group C), for the owner's approval, of 2026-10-25) on 2026-11-01, and the next (Stage 3 step 4: spec revision 39, parts 2 and 3 drafted; revision 39 approved by the owner, of 2026-10-25) later on 2026-11-01, and the next (Stage 3 step 5: the tests first, red, of 2026-10-25) later on 2026-11-01, and the next (Stage 3 step 6: the batch's first commit, T-130's wording, T-014 and T-129, of 2026-10-25) later on 2026-11-01, and the next (Stage 3 step 7: group C, displaced coping, the floor-held ledger and lent functioning returned, of 2026-10-26) on 2026-11-03, and the next (Stage 3 step 8: group F, the I-position as a mixture of self-statement and demand, of 2026-10-26) on 2026-11-04, and the next (Stage 3 step 9: group A, contact returned by a relieved receiver and TRIANGLE with distance, of 2026-10-26) later on 2026-11-04, so that the live file stays short enough to read (`tests/test_doc_size.py` bounds its size). The heading below is the section they
 were under; nothing in this file is reworded. Later entries are in `CHANGELOG.md`.
 
 ## [Unreleased] — 2026-10-11
+
+### Stage 3 step 9: group A, contact returned by a relieved receiver and TRIANGLE with distance (2026-10-26)
+
+- **What.** Plan step 9, the batch's fourth commit. Spec revision 39's group A lands with its code; the engine hash
+  moved `b819660f58b9` → `2a3b84e2d89a`, and what a run computes changed.
+- **P1 (`M4.C.1d`, D22).** When a delivery of an act with a positive contact component raises its target's felt
+  contact and lowers the target's two-sided deviation (`M4.C.1`, impingement included, on the pre-batch state), the
+  sender takes `reciprocal_contact_share × Δcontact × content_gain(sender)` as felt contact on the same tie and
+  appraises it by their own deviation (`appraise.returned_contact`). It is not counted in `attended` (`M1.B.8`). The
+  rule names no kind. `reciprocal_contact_share` is 0.5, `[I]` (`constants.md`, a `constants_changes.md` row).
+- **P3 (`M4.D.3a`).** `TRIANGLE` is layer 0 in `config/bowen/event_kinds.md`, so its availability does not fall with
+  functional level.
+- **Tests.** S3.10 and S3.11 lose their strict marks and pass. Two more unit tests: the sender appraises the
+  returned contact by their own deviation, and relief reads the whole delivery (Q11). The unit mutation gate adds
+  S3.10's and S3.11's proofs (`review/stage_3_unit_mutation_gate.md`, 18 of 18 proved). The golden fingerprints were
+  taken again with the module's own `_records` and `_fingerprint`; each of P1 and P3 alone moves both, and with both
+  off step 8's values return.
+- **Mutants.** Phase C `reciprocal-contact-removed` (`M11.C.42`); `one-sided-deviation` now also names `M11.C.45`.
+  `tools/stage_3_targeted_run.py` matched a mutant's criteria exactly, so a mutant naming `M11.C.27[` or `M11.C.41` did
+  not run on a passing cell of it; it now uses the Phase C record's rule (a test proves it), and the run was redone,
+  its criterion rows identical to the first.
+- **The suite run's fixes.** `tests/open_batch.py` cut a mutant's criteria by every quoted key in the file the batch
+  found, so `one-sided-deviation`'s new `M11.C.45` (quoted there by other mutants) stayed and the Phase C mutation
+  record's as-found render gained a line; it now reads the mutant's own definition (a test proves it).
+  `test_m4d1h_decide_sets_intensity_by_force` needs a sequence-decided step: since group A seed 0 starts none in 30
+  weeks, so it runs seed 3. `test_m16a7`'s after-freeze set adds `reciprocal_contact_share`. The `M11.5` notes for
+  `M11.C.42` and `M11.C.45` drop the draft's opening "Revision 39:" (the history-in-body rule).
+- **The targeted run** (Mac Mini1 at `2a3b84e2d89a`, `review/stage_3_step_9_criteria.md`; no record moved).
+  `M11.C.42` FAIL: `triangle_reuse` −0.06 ± 0.36 (50 seeds). `M11.C.45` FAIL: `triangle_rate` +0.0013 ± 0.0055.
+  `M11.C.44` FAIL: `outside_inside_ratio` −0.020 ± 0.089, where revision 38's record passes (T-142). `M11.C.27`: three
+  cells fail and `[unstable,remove_one]` passes (`pair_deviation` −0.081 ± 0.05), and both its mutants turn it red, as in the record. `M11.C.16` PASS
+  (`repertoire_entropy` −0.0385 ± 0.0062); four of its 24 named mutants turn it red, as in the record, but
+  `steepness-inverted` is now red and `availability-level-inverted` now survives. `M11.C.41`: the two lower-level
+  cells pass and the two heavier-stress cells fail, as in the record; on each passing cell four of nine named mutants
+  turn it red, and `steepness-level-independent`, red on `[heavy: lower level]` in the record, now survives. S3.12 and S3.13 are not met.
+- **For the owner's review.** `M4.C.1d`'s clause on a sender near or past the optimum reads "within its band or past
+  it nothing", since the deviation's "too much" side is impingement; the register rows (`acute_anxiety`,
+  `felt_contact`, base appraisal) and the explainer's sentence on it are additions to the draft. `M5.C.1`'s gate does
+  not cover returned contact, kept as built by the owner's choice (T-140). T-141 (low) and T-142 recorded.
+- **Review.** One `learning-qa` pass and one correctness pass (sonnet). Fixed: Q11's whole-delivery reading untested
+  (test and gate added), the clause widened to the band, a vacuous assertion replaced by a fixture check, the
+  constants_changes sweep clause restored, the status documents.
+- **Documents.** The spec (`M4.C.1d`, `M4.D.3a`, `M1.C.1`, `M10.C.1a`, `M11.C.42`, the `M11.5` notes, the register,
+  §0.3's count, the status line), the explainer (§5.2, §19.2, §19.4), `event_kinds.md`, `constants.md`,
+  `constants_changes.md`, the revision log, the plan (status line, step 9 row), `_STATUS.md`, the reading list,
+  `README.md`, `CLAUDE.md`, the proposal's requirement count, the checklist, T-140–T-142; the generated files
+  regenerated.
+- Suite: 1251 tests: 1234 pass, 5 strict expected failures, 12 open-batch expected failures (`python3 -m pytest tests/`, 2026-10-26).
 
 ### Stage 3 step 8: group F, the I-position as a mixture of self-statement and demand (2026-10-26)
 

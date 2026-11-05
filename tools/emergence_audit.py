@@ -9,6 +9,8 @@ Spec:    docs/bowen_agent_model_spec_v2.md#M11.1g, #M11.1d, #M11.5, #M11.1a; doc
 Tests:   tests/test_emergence_audit.py
 
     python3 tools/emergence_audit.py [--workers N]
+    python3 tools/emergence_audit.py --criteria KEY... [--candidates LABEL...] [--workers N]   (one machine's share)
+    python3 tools/emergence_audit.py --render-only
     python3 tools/emergence_audit.py --probe NAME      (in a mutated copy only: EA-3 to EA-7's short runs)
 
 Each ablation and carrier is a ``tools.mutant_runner.Mutant``: a literal replacement applied to a temporary copy of the
@@ -21,7 +23,9 @@ reversed; a broken edit, a failed child and an engine exception are reported and
 The results are cached in ``docs/records_cache/emergence_audit.json`` under ``engine_hash`` (both children's hashes,
 which cover ``src/bowen``, ``config/bowen``, the rules, both children and ``apply`` and ``run_in_copy``) and each
 mutant's edits. This file, the config file and the record are not in it, so a label, a reason or the renderer changes
-without a rerun (learnings P38). Nothing here changes what a run computes.
+without a rerun (learnings P38). Nothing here changes what a run computes. The cache records the NumPy version its
+results were made under (``_meta``, as the sweep's does, ``tools/version_2_sweep.check_numpy``), so two machines'
+shares can be merged by ``tools/merge_cache.py`` (T-184; ``docs/two_mac_sweep.md``).
 """
 
 from __future__ import annotations
@@ -57,12 +61,16 @@ CLASSES = ("premise", "composite", "check", "mixed")
 ABLATION, CARRIER = "ablation", "carrier"
 RED = ("red", "reversed")
 # plan §7: pilot = step 3 (L0 on the pilot rows); l0 = step 4 (L0 on every in-scope row, no carriers, owner
-# 2026-11-03); full = steps 4 to 6 (L0 to L4 on every row, and the carriers of each L0 survivor)
-STAGES = ("pilot", "l0", "full")
+# 2026-11-03); carriers = steps 4 and 6 (L0 on every row and the carriers of each L0 survivor, no L1 to L4, owner
+# 2026-11-04); full = steps 4 to 6 (L0 to L4 on every row, and the carriers of each L0 survivor)
+STAGES = ("pilot", "l0", "carriers", "full")
+CARRIER_STAGES = ("carriers", "full")
 STAGE_TEXT = {
     "pilot": " The pilot (plan §7 step 3): L0 only, on the pilot rows and the two controls; no carriers.",
     "l0": " The L0 stage (plan §7 step 4): L0 only, on every in-scope row and the two controls; L1 to L4 and the "
           "carriers are not run.",
+    "carriers": " The carriers stage (plan §7 steps 4 and 6, owner 2026-11-04): L0 on every in-scope row and the two "
+                "controls, and the carriers of each L0 survivor; L1 to L4 are not run.",
     "full": "",
 }
 NOT_EVIDENCE = ("broken", "not run (child failed)")  # judge's: no evidence either way
@@ -398,7 +406,8 @@ def build(cache: Cache, workers: int | None = None, *, records: dict | None = No
     Tests:   tests/test_emergence_audit.py::test_m111g_ea14_emergence_audit_record_is_current,
              tests/test_emergence_audit.py::test_m111g_ea8_build_refuses_a_failed_control,
              tests/test_emergence_audit.py::test_m111g_ea11_carriers_named_only_for_survivors,
-             tests/test_emergence_audit.py::test_m111g_ea12_l0_stage_runs_l0_on_every_row_and_nothing_else
+             tests/test_emergence_audit.py::test_m111g_ea12_l0_stage_runs_l0_on_every_row_and_nothing_else,
+             tests/test_emergence_audit.py::test_m111g_ea12_carriers_stage_runs_l0_and_carriers_and_no_l1_to_l4
     """
     from_files = records is None
     records = read_records() if from_files else records
@@ -461,7 +470,7 @@ def build(cache: Cache, workers: int | None = None, *, records: dict | None = No
         verdicts += [entry(r, mutant, results[r.key], mutant.id) for r in run_rows]
 
     carriers = []
-    if full:
+    if config.stage in CARRIER_STAGES:
         survivors = [r for r in run_rows if any(v["criterion"] == r.key and v["ablation"] == "L0"
                                                  and v["verdict"] == "survived" for v in verdicts)]
         for row in survivors:
@@ -479,6 +488,69 @@ def build(cache: Cache, workers: int | None = None, *, records: dict | None = No
     agreed = check_agreement(controls + verdicts, engine) if agreement else []
     not_yet = [] if not pilot else [r.key for r in audited if r.key not in config.pilot]
     return render(engine, config, audited, by_class, excluded, controls, verdicts, carriers, not_yet, agreed)
+
+
+def share(cache: Cache, keys: list[str], workers: int, labels: list[str] | None = None, *,
+          records: dict | None = None, config: Config | None = None, limbs: dict | None = None,
+          engine: str | None = None, alpha: float | None = None) -> int:
+    """Purpose: one machine's share of a split run (T-184): the stage's ablations on the named rows and, at the carriers
+             and full stages, the carriers of each that survives L0; with ``labels``, L0 and only those carriers, so
+             one row's carriers can be split across machines. Every key and label is checked before anything runs.
+             The caller flushes the cache, pruning nothing, and writes no record, so every other cached result is kept.
+    Spec:    docs/plan_v3_emergence_audit.md#7; docs/two_mac_sweep.md
+    Tests:   tests/test_emergence_audit.py::test_t184_a_share_runs_only_its_rows_and_keeps_the_others,
+             tests/test_emergence_audit.py::test_t184_a_share_refuses_an_unknown_row_or_label_before_running
+
+    Returns the number of results asked for (cached or run)."""
+    records = read_records() if records is None else records
+    config = read_config() if config is None else config
+    if limbs is None:
+        from tools.version_1_status import premise_limbs
+
+        limbs = premise_limbs()
+    engine = engine_hash() if engine is None else engine
+    alpha = _alpha() if alpha is None else alpha
+    audited = {r.key: r for r in in_scope(records, config)[0]}
+    unknown = sorted(set(keys) - set(audited))
+    if unknown:
+        raise SystemExit(f"{unknown}: not rows the audit judges (the controls run only in a whole run); nothing ran")
+    chosen = [audited[k] for k in dict.fromkeys(keys)]
+    carry = config.stage in CARRIER_STAGES
+    if labels and not carry:
+        raise SystemExit(f"--candidates names carriers, and the {config.stage} stage runs none; nothing ran")
+    for row in chosen if labels else ():
+        bad = sorted(set(labels) - {label for label, _ in carrier_candidates(row)[0]})
+        if bad:
+            raise SystemExit(f"{row.key}: {bad} are not among its carrier candidates; nothing ran")
+    ablations = (L0,) if labels or config.stage != "full" else ABLATIONS
+    asked, l0 = 0, {}
+    for mutant in ablations:
+        results = _results(cache, mutant, chosen, workers, engine)
+        asked += len(chosen)
+        l0 = results if mutant is L0 else l0
+    for row in chosen if carry else ():
+        v, _ = verdict(row, L0, l0[row.key], limbs, alpha)
+        if v != "survived":
+            print(f"{row.key}: {v} under L0, so no carriers run", flush=True)
+            continue
+        for label, mutant in carrier_candidates(row)[0]:
+            if not labels or label in labels:
+                _results(cache, mutant, [row], workers, engine)
+                asked += 1
+    return asked
+
+
+def check_numpy(cache: Cache) -> None:
+    """Purpose: refuse a run under a NumPy other than the sweep machines' pin or other than the one the cache's results
+             were made under, and record it in the cache's ``_meta`` (T-184): the sweep's own check, so
+             ``tools/merge_cache.py`` can show two machines' results match.
+    Spec:    docs/two_mac_sweep.md
+    Tests:   tests/test_emergence_audit.py::test_t184_a_run_records_numpy_and_refuses_another"""
+    import numpy as np
+
+    from tools import version_2_sweep
+
+    version_2_sweep.check_numpy(cache, np.__version__, version_2_sweep.sweep_numpy_pin())
 
 
 def check_agreement(entries: list[dict], engine: str) -> list[str]:
@@ -603,7 +675,8 @@ def render(engine, config, audited, by_class, excluded, controls, verdicts, carr
         "Not run yet:",
         "",
         *([f"- `{k}`: not in the pilot; runs at the full stage" for k in not_yet]
-          + (["- L1 to L4 on every row: run at the full stage (plan §7 step 5)"] if config.stage == "l0" else [])
+          + (["- L1 to L4 on every row: run at the full stage (plan §7 step 5)"]
+             if config.stage in ("l0", "carriers") else [])
           or ["- none"]),
         "",
         "## Carriers",
@@ -710,19 +783,48 @@ def run_probe(mutant: Mutant | None, name: str) -> float:
     return rows[0]["value"]
 
 
-def main() -> int:
+def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--workers", type=int, default=os.cpu_count() or 1)
     parser.add_argument("--probe", choices=("learned", "own", "cross", "witnessed", "soothing"))
-    args = parser.parse_args()
+    parser.add_argument("--criteria", nargs="+", metavar="KEY",
+                        help="run only these rows (one machine's share, docs/two_mac_sweep.md): write the cache, "
+                             "pruning nothing, and no record")
+    parser.add_argument("--candidates", nargs="+", metavar="LABEL",
+                        help="with --criteria: L0 and only these carrier candidates (C1 to C6, C7:<mutant>)")
+    parser.add_argument("--render-only", action="store_true",
+                        help="run nothing: render the record from the cache, or stop if a result is missing")
+    args = parser.parse_args(argv)
     if args.probe:
         print(json.dumps(probe(args.probe), default=float), flush=True)
         return 0
+    if args.candidates and not args.criteria:
+        parser.error("--candidates splits the named rows' carriers, and needs --criteria")
+    if args.criteria and args.render_only:
+        parser.error("--criteria runs a share and writes no record; --render-only runs nothing")
     cache = Cache(CACHE)
+    if args.render_only:  # runs nothing, so no NumPy check; the cache is never written
+        try:
+            text = build(cache)
+        except KeyError as missing:
+            raise SystemExit(f"{missing.args[0]}; the record is not written. Run the missing share (the controls run "
+                             "only in a whole run), or merge the other machine's cache first.") from None
+        RECORD.write_text(text, encoding="utf-8")
+        print(f"wrote {RECORD.relative_to(REPO) if RECORD.is_relative_to(REPO) else RECORD}")
+        return 0
+    check_numpy(cache)
+    if args.criteria:
+        try:
+            asked = share(cache, args.criteria, args.workers, args.candidates)
+        finally:
+            cache.flush()  # every key kept: a share never prunes another machine's or another row's results
+        print(f"share: {asked} result(s) for {len(set(args.criteria))} row(s); cache written, nothing pruned; no record "
+              "written", flush=True)
+        return exit_status()
     text = build(cache, args.workers)
     cache.save()
     RECORD.write_text(text, encoding="utf-8")
-    print(f"wrote {RECORD.relative_to(REPO)}")
+    print(f"wrote {RECORD.relative_to(REPO) if RECORD.is_relative_to(REPO) else RECORD}")
     return exit_status()
 
 

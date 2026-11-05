@@ -165,6 +165,38 @@ criterion and goes on, and the record shows it refused.
 4. Commit the cache and the record from this Mac, and push. Mac Mini1's checkout then holds its own modified copy of
    the cache. The owner discards it there (`git checkout -- docs/records_cache/sweep_v2.json`) and pulls.
 
+## The emergence audit (T-184)
+
+`tools/emergence_audit.py` (`M11.1g`) is split the same way, without `tools/two_mac_sweep.py`'s `start`, `status` and
+`fetch`, which name the sweep's cache. Its cache, `docs/records_cache/emergence_audit.json`, records the NumPy version
+its results were made under, as the sweep's does (the sweep's own check, so a run under another NumPy, or on a cache
+holding results with no version, is refused before anything runs). Its tests are in `tests/test_emergence_audit.py`
+(`test_t184_…`).
+
+1. Run `check` as above: both Macs on the same commit, engine hashes and NumPy.
+2. On each Mac, run that Mac's share of the rows, at the stage `config/audit/emergence_audit.md` sets:
+
+   ```
+   python3 tools/emergence_audit.py --criteria KEY... [--candidates LABEL...] --workers N
+   ```
+
+   A share runs the stage's ablations on the named rows and, at the `carriers` and `full` stages, the carriers of each
+   that survives L0. `--candidates` (C1 to C6, `C7:<mutant>`) runs L0 and only the named carriers, so one row's
+   carriers can be split across both Macs. Every key and label is checked before anything runs; the controls run only
+   in a whole run. A share writes the cache with nothing pruned and writes no record.
+3. Copy Mac Mini1's cache to a new file (`scp macmini1:ProjectsMini1/EPModel/docs/records_cache/emergence_audit.json
+   <path>`) and, once this Mac's share has stopped, merge it: `python3 tools/merge_cache.py <path> --into
+   docs/records_cache/emergence_audit.json`. The merge refuses while a sweep or an audit runs on this Mac.
+4. Render the record with no run, and check it: `python3 tools/emergence_audit.py --render-only`, then `python3 -m
+   pytest tests/test_emergence_audit.py -q`. `--render-only` runs no child and checks no NumPy version; it needs every
+   result cached, the controls included, which only a whole run runs, and stops with a message, writing no record,
+   when one is missing.
+
+The cache committed before T-184 recorded no version. It was stamped NumPy 1.26.4 once, by hand, on 2026-11-04, as the
+sweep's cache was on 2026-10-23: its 15 results were made on this Mac (the pilot, 2026-11-03, and step 4) and on Mac
+Mini1 (step 4), and `tools/two_mac_sweep.py check` measured both interpreters at 1.26.4 before and after step 4, as the
+sweep's own check had enforced on this Mac for T-181 the same days.
+
 ## Not verified
 
 - That the two Macs give bit-identical results for every criterion. The cross-check was run twice, 2026-10-23, and

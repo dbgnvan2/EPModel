@@ -301,12 +301,13 @@ def test_m111g_ea12_the_config_is_parsed_strictly():
     for stage in ea.STAGES:
         assert ea.read_config(text.replace("| stage | pilot |", f"| stage | {stage} |")
                               .replace("| stage | l0 |", f"| stage | {stage} |")
+                              .replace("| stage | carriers |", f"| stage | {stage} |")
                               .replace("| stage | full |", f"| stage | {stage} |")).stage == stage
     with pytest.raises(SystemExit, match="unknown ablation"):
         ea.read_config(text.replace("| positive | `M11.C.39` | L0 |", "| positive | `M11.C.39` | L9 |"))
-    with pytest.raises(SystemExit, match="not one of pilot, l0, full"):
+    with pytest.raises(SystemExit, match="not one of pilot, l0, carriers, full"):
         ea.read_config(text.replace("| stage | pilot |", "| stage | some |").replace("| stage | l0 |", "| stage | some |")
-                       .replace("| stage | full |", "| stage | some |"))
+                       .replace("| stage | carriers |", "| stage | some |").replace("| stage | full |", "| stage | some |"))
     with pytest.raises(SystemExit, match="cells"):
         ea.read_config(text.replace("| `M11.C.39` | its treatment arm", "| `M11.C.39` | its | treatment arm"))
     with pytest.raises(SystemExit, match="twice"):
@@ -366,3 +367,191 @@ def test_m111g_ea15_class_shown_premise_never_audited():
     assert "| `X.41` | mixed | L0 |" in text and "| `X.16` | composite | L0 |" in text
     committed = record_json(ea.RECORD)
     assert {v["class"] for v in committed["verdicts"]} <= set(ea.AUDITED)
+
+
+def test_m111g_ea12_carriers_stage_runs_l0_and_carriers_and_no_l1_to_l4():
+    """Owner 2026-11-04: the carriers stage needs L0 on every in-scope row and the controls, and the carriers of each
+    L0 survivor; L1 to L4 are not asked for, and the record says so."""
+    allowed = {result_key(ENGINE, ea.L0.definition(), k) for k in ("X.16", "X.41", "X.39", "X.3")}
+    allowed |= {result_key(ENGINE, m.definition(), k) for k in ("X.16", "X.41") for m in joints(k)}
+    red = {("L0", "X.41"): result("X.41", "FAIL", [readout(diff=0.0, p=0.9)])}
+    for overrides, survivors in (({}, ["X.16", "X.41"]), (red, ["X.16"])):
+        cache = full_cache(overrides)
+        cache.entries = {k: v for k, v in cache.entries.items() if k in allowed}
+        data = record_json(text := build(cache, config=config("carriers")))
+        assert {(v["criterion"], v["ablation"]) for v in data["verdicts"]} == {("X.16", "L0"), ("X.41", "L0")}
+        assert [c["criterion"] for c in data["carriers"]] == survivors and data["stage"] == "carriers"
+        assert all(len(c["candidates"]) == len(joints(c["criterion"])) for c in data["carriers"])
+        assert set(cache.asked) <= allowed
+        assert "- L1 to L4 on every row: run at the full stage (plan §7 step 5)" in text
+        assert ea.STAGE_TEXT["carriers"] in text and "### `X.16`" in text
+
+
+# --- T-184: the cache's NumPy version, the merge's running check, one machine's share -------------------------------
+class _Share:
+    """``main`` on the fixture records at the carriers stage, with a real cache file under ``tmp_path`` and a stub child
+    that passes every row; ``ran`` is each (mutant id, criteria) the stub was asked to run."""
+
+    def __init__(self, tmp_path, stage="carriers", pin=None, given=None):
+        self.tmp_path, self.stage, self.pin, self.ran, self.given = tmp_path, stage, pin, [], given or {}
+
+    def fake_run_cached(self, cache, mutant, ids, workers, label, child, engine):
+        self.ran.append((mutant.id, tuple(ids)))
+        out = [self.given.get((mutant.id, cid), result(cid)) for cid in ids]
+        for r in out:
+            cache.put(result_key(engine, mutant.definition(), r["criterion"]), r)
+        cache.flush()
+        return out
+
+    def __enter__(self):
+        import numpy as np
+
+        from tools import version_2_sweep
+
+        self.patches = [mock.patch.object(record_cache, "CACHE_DIR", self.tmp_path),
+                        mock.patch.object(ea, "read_records", return_value=records()),
+                        mock.patch.object(ea, "read_config", return_value=config(self.stage)),
+                        mock.patch("tools.version_1_status.premise_limbs", return_value={}),
+                        mock.patch.object(ea, "engine_hash", return_value=ENGINE),
+                        mock.patch.object(ea, "_alpha", return_value=0.05),
+                        mock.patch.object(ea, "check_agreement", return_value=[]),
+                        mock.patch.object(ea, "check_registries"),
+                        mock.patch.object(ea, "RECORD", self.tmp_path / "record.md"),
+                        mock.patch.object(ea, "run_cached", side_effect=self.fake_run_cached),
+                        mock.patch.object(version_2_sweep, "sweep_numpy_pin", return_value=self.pin or np.__version__)]
+        for p in self.patches:
+            p.start()
+        return self
+
+    def __exit__(self, *exc):
+        for p in reversed(self.patches):
+            p.stop()
+
+    def file(self):
+        return record_cache.read_cache_file(self.tmp_path / f"{ea.CACHE}.json")
+
+
+def _seed_cache(tmp_path, meta):
+    other = {"a" * 64: result("Y.1"), "b" * 64: result("Y.2")}
+    record_cache.write_cache_file(tmp_path / f"{ea.CACHE}.json", other, meta)
+    return other
+
+
+def test_t184_a_share_runs_only_its_rows_and_keeps_the_others(tmp_path):
+    """A share runs L0 and the carriers of its own rows only, and flushes: every other cached result is kept (step 4's
+    subset run kept only the keys it read, and dropped the pilot's five)."""
+    import numpy as np
+
+    other = _seed_cache(tmp_path, {"numpy": np.__version__})
+    with _Share(tmp_path) as s:
+        assert ea.main(["--criteria", "X.16", "--workers", "1"]) == 0
+        entries, meta = s.file()
+    assert s.ran[0] == ("L0", ("X.16",)) and {ids for _, ids in s.ran} == {("X.16",)}
+    assert {mid for mid, _ in s.ran} == {"L0", *(m.id for m in joints("X.16"))}  # no L1 to L4 at this stage
+    assert all(entries[k] == v for k, v in other.items())  # nothing pruned
+    assert len(entries) == len(other) + 1 + len(joints("X.16")) and meta == {"numpy": np.__version__}
+    with _Share(tmp_path) as s:
+        ea.main(["--criteria", "X.41", "--candidates", "C1", "C3", "--workers", "1"])
+        entries, _ = s.file()
+    assert [mid for mid, _ in s.ran] == ["L0", "L0+C1", "L0+C3"]  # one row's carriers split by label
+    assert all(entries[k] == v for k, v in other.items())
+
+
+def test_t184_a_share_refuses_an_unknown_row_or_label_before_running(tmp_path):
+    import numpy as np
+
+    _seed_cache(tmp_path, {"numpy": np.__version__})
+    for argv, match in ((["--criteria", "X.16", "X.99"], "X.99"), (["--criteria", "X.39"], "X.39"),
+                        (["--criteria", "X.16", "--candidates", "C9"], "C9")):
+        with _Share(tmp_path) as s, pytest.raises(SystemExit, match=match):
+            ea.main([*argv, "--workers", "1"])
+        assert s.ran == []
+    with _Share(tmp_path, stage="l0") as s, pytest.raises(SystemExit, match="runs none"):
+        ea.main(["--criteria", "X.16", "--candidates", "C1", "--workers", "1"])
+    assert s.ran == []
+
+
+def test_t184_a_run_records_numpy_and_refuses_another(tmp_path):
+    """The audit's cache records the NumPy version as the sweep's does; a run under another one, or on a cache of
+    unknown origin, is refused before anything runs. The committed cache records the sweep machines' pin."""
+    import numpy as np
+
+    from tools import version_2_sweep
+
+    with _Share(tmp_path) as s:
+        ea.main(["--criteria", "X.16", "--workers", "1"])
+        assert s.file()[1] == {"numpy": np.__version__}
+    for meta, pin, match in (({"numpy": "0.0.2"}, None, "0.0.2"), ({}, None, "records no NumPy"),
+                             ({"numpy": np.__version__}, "0.0.1", "0.0.1")):
+        _seed_cache(tmp_path, meta)
+        for argv in (["--criteria", "X.16"], []):
+            with _Share(tmp_path, pin=pin) as s, pytest.raises(SystemExit, match=match):
+                ea.main([*argv, "--workers", "1"])
+            assert s.ran == []
+    assert Cache(ea.CACHE).meta == {"numpy": version_2_sweep.sweep_numpy_pin()}
+
+
+def test_t184_merge_sees_a_running_audit():
+    """``local_sweep_running`` looks for the audit as well as the sweep, and its pattern never matches pgrep itself."""
+    import re
+    import subprocess
+
+    from tools import merge_cache
+
+    with mock.patch.object(merge_cache.subprocess, "run",
+                           return_value=subprocess.CompletedProcess([], 1, b"", b"")) as run:
+        merge_cache.local_sweep_running()
+    pattern = run.call_args.args[0][-1]
+    for line in ("python3 tools/emergence_audit.py --criteria M11.C.16 --workers 8",
+                 ".venv/bin/python tools/version_2_sweep.py --criteria M11.C.42"):
+        assert re.search(pattern, line), line
+    for line in ("python3 tools/merge_cache.py other.json", f"pgrep -f {pattern}",
+                 "python3 -m pytest tests/test_emergence_audit.py -q", "python3 -m pytest tests/test_version_2_sweep.py"):
+        assert not re.search(pattern, line), line
+
+
+def test_t184_a_share_runs_no_carriers_for_a_row_red_under_l0(tmp_path, capsys):
+    """A share runs a row's carriers only when it survives L0, as a whole run does; a key named twice runs once."""
+    import numpy as np
+
+    _seed_cache(tmp_path, {"numpy": np.__version__})
+    red = {("L0", "X.41"): result("X.41", "FAIL", [readout(diff=0.0, p=0.9)])}
+    with _Share(tmp_path, given=red) as s:
+        ea.main(["--criteria", "X.41", "X.16", "X.41", "--workers", "1"])
+    l0 = [ids for mid, ids in s.ran if mid == "L0"]
+    assert sorted(l0) == [("X.16",), ("X.41",)]  # one child each; X.41, named twice, asked once
+    assert {ids for mid, ids in s.ran if mid != "L0"} == {("X.16",)}  # no carrier of X.41
+    assert "X.41: red under L0, so no carriers run" in capsys.readouterr().out
+
+
+def test_t184_render_only_runs_nothing_and_refuses_a_missing_result(tmp_path):
+    """``--render-only`` renders the whole record from the cache with no run and no NumPy check, writes no cache, and
+    stops with a message, writing no record, when a result is missing."""
+    cache = full_cache()
+    l1 = {result_key(ENGINE, m.definition(), k) for m in ea.ABLATIONS[1:] for k in ("X.16", "X.41")}
+    entries = {k: v for k, v in cache.entries.items() if k not in l1}  # the carriers stage asks for no L1-L4
+    record_cache.write_cache_file(tmp_path / f"{ea.CACHE}.json", entries, {})  # no NumPy recorded: not checked
+    before = (tmp_path / f"{ea.CACHE}.json").read_bytes()
+    with _Share(tmp_path, pin="0.0.1") as s:
+        assert ea.main(["--render-only"]) == 0
+        rendered = (tmp_path / "record.md").read_text(encoding="utf-8")
+        fake = FakeCache({}, [])
+        fake.entries = record_cache.read_cache_file(tmp_path / f"{ea.CACHE}.json")[0]  # as reloaded: sorted keys
+        expected = build(fake, config=config("carriers"))
+    assert s.ran == [] and rendered == expected and (tmp_path / f"{ea.CACHE}.json").read_bytes() == before
+    (tmp_path / "record.md").unlink()
+    record_cache.write_cache_file(tmp_path / f"{ea.CACHE}.json",
+                                  {k: v for k, v in entries.items()
+                                   if k != result_key(ENGINE, ea.L0.definition(), "X.16")}, {})
+    before = (tmp_path / f"{ea.CACHE}.json").read_bytes()
+    with _Share(tmp_path) as s, pytest.raises(SystemExit, match="the record is not written"):
+        ea.main(["--render-only"])
+    assert s.ran == [] and not (tmp_path / "record.md").exists()
+    assert (tmp_path / f"{ea.CACHE}.json").read_bytes() == before
+
+
+def test_t184_argument_refusals(tmp_path):
+    for argv in (["--candidates", "C1"], ["--criteria", "X.16", "--render-only"]):
+        with _Share(tmp_path) as s, pytest.raises(SystemExit):
+            ea.main(argv)
+        assert s.ran == []

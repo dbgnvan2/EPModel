@@ -8,6 +8,7 @@ Purpose: the union of two cache files, written into the first. A key is a hash o
          --render-only`` renders the record from the merged cache with no child run.
 Spec:    docs/bowen_agent_model_spec_v2.md#M17.E.1; docs/implementation_plan_version_2.md#2.10; docs/two_mac_sweep.md
 Tests:   tests/test_sweep_two_macs.py::test_m17e1_merge_is_the_union,
+         tests/test_emergence_audit.py::test_t184_merge_sees_a_running_audit,
          tests/test_sweep_two_macs.py::test_m17e1_merge_refuses_a_key_with_two_results_and_writes_nothing,
          tests/test_sweep_two_macs.py::test_m17e1_merge_refuses_another_or_an_unknown_numpy,
          tests/test_sweep_two_macs.py::test_m17e1_merged_cache_renders_the_whole_record_without_a_run
@@ -31,18 +32,25 @@ DEFAULT_INTO = CACHE_DIR / "sweep_v2.json"
 SHOWN = 10  # conflicting keys named in the refusal; the count is always given in full
 
 
+# The tools that hold a cache file and rewrite it whole after each run: the sweep and the emergence audit (T-184). Each
+# name must start a word or follow a slash, so their test files (``test_emergence_audit.py``) do not count; the bracket
+# keeps pgrep from matching its own command line (review, 2026-11-04).
+RUNNING_TOOLS = r"(^|[ /])[v]ersion_2_sweep\.py|(^|[ /])[e]mergence_audit\.py"
+
+
 def local_sweep_running() -> bool:
-    """A sweep running here holds the cache it loaded and rewrites the whole file after each run, so a merge made
-    meanwhile would be lost at its next write. ``pgrep`` failing (exit above 1) counts as running: refuse, not guess."""
-    found = subprocess.run(["pgrep", "-f", "[v]ersion_2_sweep.py"], capture_output=True, timeout=30)
+    """A sweep or an audit running here holds the cache it loaded and rewrites the whole file after each run, so a
+    merge made meanwhile would be lost at its next write. ``pgrep`` failing (exit above 1) counts as running: refuse,
+    not guess."""
+    found = subprocess.run(["pgrep", "-f", RUNNING_TOOLS], capture_output=True, timeout=30)
     return found.returncode != 1
 
 
 def merge(into: Path, other: Path) -> tuple[int, int]:
     """Write the union of ``other`` and ``into`` into ``into``; return (keys added, keys already there and equal)."""
     if local_sweep_running():
-        raise SystemExit("a sweep is running on this machine and would overwrite the merge at its next write; merge "
-                         "after it stops. Nothing written.")
+        raise SystemExit("a sweep or an emergence audit is running on this machine and would overwrite the merge at "
+                         "its next write; merge after it stops. Nothing written.")
     ours, our_meta = read_cache_file(into)
     theirs, their_meta = read_cache_file(other)
     if not our_meta.get("numpy") or not their_meta.get("numpy"):

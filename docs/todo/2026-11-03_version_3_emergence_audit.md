@@ -68,8 +68,10 @@ The plan is `docs/plan_v3_emergence_audit.md`.
   lock-in; (5) `M11.C.16`, `M4.D.3a`'s availability reverses it with learning off; (6) `M11.C.27`, C2 beside
   `M4.C.1`; (7) `M11.C.11`, the return limb carried by `M6.I.6`'s hold; (8) `M11.C.41`, both cells, as `M11.5`
   says, with the pending premise-limb question; (9) `M11.C.7[joint over sided]`, as `M11.5` says. Each is decided
-  by `M11.1d`'s test: whether a rule that carries it names its outcome. Open until the owner triages them and
-  decides L1–L4, or closes it.
+  by `M11.1d`'s test: whether a rule that carries it names its outcome.
+  **Owner 2026-11-04, through `AskUserQuestion`:** the nine T-items are made in the order proposed above, the four
+  rows whose carriers match `M11.5` last; L1–L4 do not run now (the survivors are triaged first). Open until the
+  nine T-items are made and triaged, or the owner closes it.
 - [x] T-184 ⟨later⟩ **The emergence audit's cache records no NumPy version, so `tools/merge_cache.py` refuses it
   (2026-11-04).** `tools/emergence_audit.py` never sets `Cache.meta["numpy"]`, as `tools/version_2_sweep.py`'s
   `check_numpy` does, so a two-Mac split of the audit cannot be merged by the merge tool as it stands. Step 4's

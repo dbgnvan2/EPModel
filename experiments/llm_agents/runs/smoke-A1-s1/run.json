@@ -1,0 +1,40 @@
+{
+  "run_id": "smoke-A1-s1",
+  "phase": "smoke",
+  "pool": "main",
+  "arm": "A1",
+  "seed": 1,
+  "family": "phase_c",
+  "weeks_planned": 1,
+  "weeks_completed": 0,
+  "model_requested": "claude-haiku-5-5",
+  "models_returned": [
+    "claude-haiku-5-5"
+  ],
+  "api_version": "2023-06-01",
+  "sdk_version": "0.78.0",
+  "effort": "low",
+  "thinking": "disabled",
+  "max_tokens": 64,
+  "sampling": "default; not settable (temperature, top_p and top_k return a 400 since API version 2026-10-21)",
+  "time": "2026-11-06T23:57:08Z",
+  "engine_hash": "0b363cb3186c",
+  "code_hash": "2deea5b86cd5",
+  "template_hash": "e5d3cbc7545d",
+  "label_hash": "8d9c86c3af55",
+  "config_hash": "8213c19fff2a",
+  "permutations": null,
+  "status": "complete",
+  "status_detail": "one call; parsed choice '19'",
+  "counts": {
+    "calls": 1,
+    "cached": 0,
+    "reasks": 0,
+    "fallbacks": 0,
+    "retries": 0,
+    "cost": 0.000113,
+    "failures": {}
+  },
+  "selections": 1,
+  "fallback_share": 0.0
+}

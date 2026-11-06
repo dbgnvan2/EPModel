@@ -249,7 +249,7 @@ Carriers: **C7:death-all-bound-anxiety-discarded**.
 
 Carriers: **no carrier among 7 candidates**.
 
-`M11.5` says it rests on: the policy's learned value of `CUTOFF` (`M4.D.6`) and the cut-off tie's stock (`M1.D.2b`). Note: no rule states the run before a cutoff; it comes from learning over time, so a pass or a fail is informative
+`M11.5` says it rests on: on the twelve-person family, what the two arms are made of: a cut tie is more often one both members act on, and such ties hold longer runs, and the cutter's other ties run longer than the family's (T-185's probe, `tools/c48_carrier_probe.py`); not `CUTOFF`'s learned value (`M4.D.6`), since the row passes with all learning removed and its named mutant there gives the same result (`docs/emergence_audit_record.md`); the cut-off tie's stock (`M1.D.2b`) holds only after a cutoff. Note: no rule states the run before a cutoff or names the cutoff (`M11.1d`), so a pass or a fail is informative; with learning removed the policy weighs `CUTOFF` the same on every live tie of a person before a first cutoff, so a pass is a comparison whose arms differ in a condition (learnings P7, as T-123 and T-179) and is not reported as a finding about learning; about +0.10 is left after matching on how many members act on the tie, and it is not explained
 
 | Criterion | Class | Ablation | Outcome | Seeds | Difference under ablation | Verdict |
 |---|---|---|---|---|---|---|
@@ -3897,8 +3897,8 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
    "not_run": [],
    "carriers": [],
    "red_without_fail": [],
-   "m115_rests_on": "the policy's learned value of `CUTOFF` (`M4.D.6`) and the cut-off tie's stock (`M1.D.2b`)",
-   "m115_note": "no rule states the run before a cutoff; it comes from learning over time, so a pass or a fail is informative"
+   "m115_rests_on": "on the twelve-person family, what the two arms are made of: a cut tie is more often one both members act on, and such ties hold longer runs, and the cutter's other ties run longer than the family's (T-185's probe, `tools/c48_carrier_probe.py`); not `CUTOFF`'s learned value (`M4.D.6`), since the row passes with all learning removed and its named mutant there gives the same result (`docs/emergence_audit_record.md`); the cut-off tie's stock (`M1.D.2b`) holds only after a cutoff",
+   "m115_note": "no rule states the run before a cutoff or names the cutoff (`M11.1d`), so a pass or a fail is informative; with learning removed the policy weighs `CUTOFF` the same on every live tie of a person before a first cutoff, so a pass is a comparison whose arms differ in a condition (learnings P7, as T-123 and T-179) and is not reported as a finding about learning; about +0.10 is left after matching on how many members act on the tie, and it is not explained"
   }
  ],
  "not_run_yet": []

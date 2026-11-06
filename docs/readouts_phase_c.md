@@ -94,7 +94,11 @@ The classes of contact are `config/bowen/contact_classes.md`.
   that ties with no contact are "reported, not dropped" (`docs/version_2_plan.md`), is met for cut ties and not for
   uncut ones.
   On the regenerated record (`0b363cb3186c`, `docs/phase_d2_ensemble_record.md`) `M11.C.48` fails with no difference
-  and `M11.C.48[phase_d]` passes; the named mutant survives on the latter (T-180). The 200-seed trace,
+  and `M11.C.48[phase_d]` passes; the named mutant survives on the latter (T-180). It passes with all learning removed too: its arms differ in how
+  many members act on the tie (51% of cut ties are acted on by both members, against 33% of the baseline's), and such ties
+  hold longer runs, and the cutter's other ties run longer than the family's;
+  about +0.10 left after matching on how many members act is not explained (T-185, `tools/c48_carrier_probe.py`; spec
+  revision 50). The 200-seed trace,
   `docs/review/t176_negative_run_trace.md`, gives the counts: 365 of 1400 first cutoffs no-contact on the Phase B
   family, 2121 of 7509 on the twelve-person family.
 - Per seed, the treatment arm is the mean run before its matched first cutoffs and the baseline the mean of their baselines;

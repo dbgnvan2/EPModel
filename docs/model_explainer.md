@@ -1441,7 +1441,10 @@ is still learned from felt relief, and what it then costs is the physics below.
   regeneration (`0b363cb3186c`, 200 seeds; `docs/phase_d2_ensemble_record.md`) the criterion **fails** on the Phase B
   family with no difference (+0.0286 ± 0.14, the interval containing zero) and **passes** on the twelve-person family
   (+0.344 ± 0.078), in the direction it states. The named mutant `cutoff-blind-to-learned-value` survives there
-  (+0.229 ± 0.054, `docs/phase_d_mutation_record.md`), so that pass is not shown to come from the learned value (T-180).
+  (+0.229 ± 0.054, `docs/phase_d_mutation_record.md`), so that pass is not shown to come from the learned value (T-180). *Revision 50* (T-180, T-185, wording only, the owner 2026-11-05): the pass holds with all learning removed
+  (`docs/emergence_audit_record.md`), and T-185's probe (`tools/c48_carrier_probe.py`) found it comes in part from what the arms are made of: a cut tie is more often one both members act on, which holds a longer run, and the cutter's other ties run
+  longer than the family's. The policy weighs `CUTOFF` the same on every live tie of a person before a first cutoff, so the
+  pass is not a finding about learning, and the mutant did not turn it red.
 - **New fields:** `cutoff_peak` and `reference_level` on the tie (§4, `M14.A`); `tie_state` names five states
   (`M1.B.3`), rejection held meaning `CUT_OFF` (`M1.B.3c`).
 

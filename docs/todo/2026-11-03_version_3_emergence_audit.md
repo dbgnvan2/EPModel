@@ -110,7 +110,7 @@ asks `M11.1d`'s question of its carriers: does a rule that carries the row name 
 defect by itself; the owner decides each. No rule changes in this batch: an item decided as a wording change waits
 for one spec revision that takes all nine.
 
-- [ ] T-185 ⟨later⟩ **`M11.C.48[phase_d]` survives with all learning off and no carrier is found (2026-11-04).**
+- [x] T-185 ⟨later⟩ **`M11.C.48[phase_d]` survives with all learning off and no carrier is found (2026-11-04).**
   With T-180. Under L0 the row passes at 200 seeds (`negative_run` +0.245 ± 0.076, p 5.3e-13), and it passes under
   every one of its 7 candidates: C1–C6 (+0.187 to +0.306) and its own mutant `cutoff-blind-to-learned-value`, whose
   numbers equal L0's exactly, since with learning off there is no learned value for the mutant to remove.
@@ -180,6 +180,14 @@ for one spec revision that takes all nine.
   programmed premise. It is a comparison whose arms differ in a condition (how many members act on the tie, and whose
   ties they are), the same class as T-123 and T-179 (learnings P7). Not shown: the person-level part and the +0.10
   left after matching. T-180 is put to the owner with this.
+  **Owner 2026-11-05, through `AskUserQuestion` (with T-180):** wording only, as recommended. At spec revision 50,
+  `M11.5`'s row for `M11.C.48` and the criterion's own row say that on the twelve-person family the direction holds
+  with all learning off and comes in part from what its arms are made of (how many members act on the tie, and who cuts), not
+  from `CUTOFF`'s learned value; the mutation clause says `cutoff-blind-to-learned-value` did not turn
+  `M11.C.48[phase_d]` red, since the row passes with learning removed, and W3 stays unmet on that row with this reason. The pass
+  is recorded as reviewed and is not reported as a finding about learning. No rule, code or config changes; the engine
+  hash stays `0b363cb3186c`. Closes when revision 50 is built.
+  **Built 2026-11-05:** spec revision 50 (`docs/spec_revision_log.md`), wording in `M11` only; the engine hash stays `0b363cb3186c`.
 - [x] T-186 ⟨later⟩ **`M11.C.15` is carried by the release of bound anxiety at a death, a rule `M11.5` does not name
   (2026-11-04).** Under L0 it passes (`death_rise` +3.83 ± 0.65, `recovery_rise` +7.45 ± 0.9, 50 seeds). Its one
   carrier is `death-all-bound-anxiety-discarded` (`M6.3c`'s release at a death, under `M6.I.1`, replaced by

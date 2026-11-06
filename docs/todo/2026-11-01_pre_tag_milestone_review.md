@@ -101,7 +101,7 @@ and the review's open checks are below.
   since revision 41 aborts are not the usual outcome (T-158 (b)) with the next batch that moves the hash.
   **Done 2026-11-03** with T-179's batch (spec revision 47): the sentence follows the `hold_gain` note in
   `config/bowen/constants.md`; the hash moved with the readout's change, and one regeneration covered both.
-- [ ] T-180 ⟨later⟩ **`M11.C.48[phase_d]` passes but its named mutant survives (T-179, 2026-11-03).** At spec revision
+- [x] T-180 ⟨later⟩ **`M11.C.48[phase_d]` passes but its named mutant survives (T-179, 2026-11-03).** At spec revision
   47 the criterion passes on the twelve-person family, and `cutoff-blind-to-learned-value` (the policy weights `CUTOFF`
   as its best-valued act whenever it is legal) leaves it passing (`docs/phase_d_mutation_record.md`), so the pass is
   not shown to come from `M4.D.6`'s learned value and W3 is unmet on the row. The mutant keeps
@@ -119,6 +119,14 @@ and the review's open checks are below.
   +0.098 ± 0.082 with learning on. The cutter's other ties also run longer than the family's (+0.09): a person-level
   part the probe does not trace. The numbers and `M11.1d`'s answer are in T-185's note
   (`docs/todo/2026-11-03_version_3_emergence_audit.md`). The decision is put to the owner.
+  **Owner 2026-11-05, through `AskUserQuestion` (with T-185):** wording only, as recommended. At spec revision 50,
+  `M11.5`'s row for `M11.C.48` and the criterion's own row say that on the twelve-person family the direction holds
+  with all learning off and comes in part from what its arms are made of (how many members act on the tie, and who cuts), not
+  from `CUTOFF`'s learned value; the mutation clause says `cutoff-blind-to-learned-value` did not turn
+  `M11.C.48[phase_d]` red, since the row passes with learning removed, and W3 stays unmet on that row with this reason. The pass
+  is recorded as reviewed and is not reported as a finding about learning. No rule, code or config changes; the engine
+  hash stays `0b363cb3186c`. Closes when revision 50 is built.
+  **Built 2026-11-05:** spec revision 50 (`docs/spec_revision_log.md`), wording in `M11` only; the engine hash stays `0b363cb3186c`.
 - [x] T-181 ⟨later⟩ **The sweep record is stale since spec revision 47 (T-179, 2026-11-03).** Revision 47 moved the
   engine hash to `0b363cb3186c` (Phase D `020160abb6db`), so every swept criterion's cached result is on the earlier
   engine, `tests/test_version_2_sweep.py::test_s2_11_sweep_record_is_current` is a strict expected failure, and W4 is

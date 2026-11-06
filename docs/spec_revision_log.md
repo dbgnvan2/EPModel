@@ -1,10 +1,29 @@
 # Spec revision log
 
-**Status: the record of every revision of `bowen_agent_model_spec_v2.md`, 4 to 49 (revision 49, the emergence audit's survivors in `M11.5` and `M11.1g`'s scope, wording only, 2026-11-05; revision 48, `M11.1g`, the emergence audit, version 3's first revision, 2026-11-03; revision 47, `M11.C.48`'s readout reads both arms under one contact condition, after the tag `version-2`, 2026-11-02–03; revision 46, wording only, after the tag `version-2`, from T-173's two mutants, 2026-11-01; revision 45, wording only, from the pre-tag milestone review's triage, 2026-11-01; revision 44, the batch from the owner's D4 and D5, 2026-10-31; revision 43, the version 2 definition batch, 2026-10-29; revision 40 applied 2026-10-28, from the stage 3 milestone review's triage; revision 41, its hash-moving batch, the same day; revision 42, wording only, 2026-10-29). Moved out of the spec at revision 35, 2026-10-22; nothing a run computes changed.**
+**Status: the record of every revision of `bowen_agent_model_spec_v2.md`, 4 to 50 (revision 50, what carries `M11.C.48[phase_d]` in `M11.5` and the criterion's row, wording only, 2026-11-05; revision 49, the emergence audit's survivors in `M11.5` and `M11.1g`'s scope, wording only, 2026-11-05; revision 48, `M11.1g`, the emergence audit, version 3's first revision, 2026-11-03; revision 47, `M11.C.48`'s readout reads both arms under one contact condition, after the tag `version-2`, 2026-11-02–03; revision 46, wording only, after the tag `version-2`, from T-173's two mutants, 2026-11-01; revision 45, wording only, from the pre-tag milestone review's triage, 2026-11-01; revision 44, the batch from the owner's D4 and D5, 2026-10-31; revision 43, the version 2 definition batch, 2026-10-29; revision 40 applied 2026-10-28, from the stage 3 milestone review's triage; revision 41, its hash-moving batch, the same day; revision 42, wording only, 2026-10-29). Moved out of the spec at revision 35, 2026-10-22; nothing a run computes changed.**
 
 The spec holds the current rules; this file holds how they got there. Until revision 34 the revision sections stood at the end of the spec, under `M17`, and the front matter's `status:` line listed every revision since 10. `docs/plan_model_ergonomics.md` Part E moved both here (the owner's answer to its §8 Q2, 2026-10-22, "as revision 35"), so a session reading the spec reads 480 fewer lines of history. The sections below are the spec's own text as it stood, tags and all, with the newest first; revisions 13 to 33 were written inline in the requirement bodies and have no section of their own, which Part E's second step records under revision 35.
 
 The sections `### Revision 34` to `### Revision 5` and the undated section are the spec's text as it stood, moved whole; a statement inside one of them (revision 34's, that revisions 13 to 33 are "not here") was true when written, before the bodies' narratives were moved under their own revisions. Those narratives are the bullets `- \`ID\`: sentence`, each the sentence as it stood in the body, under the revision it names, in sections titled "inline narratives moved from the bodies at revision 35" where no section existed.
+
+### Revision 50 — what carries `M11.C.48[phase_d]`, 2026-11-05 ⟦rev50 · owner 2026-11-05, T-180, T-185⟧
+
+Wording in `M11` only. `M11.C.48[phase_d]` passes, its named mutant `cutoff-blind-to-learned-value` survives (T-180),
+and it survives with all learning removed and under each of its seven joint mutants (T-185,
+`docs/emergence_audit_record.md`). T-185's trace and probe (`tools/c48_carrier_probe.py`, 2026-11-05) found that with
+learning removed the policy weighs `CUTOFF` the same on every live tie of a person before a first cutoff, and that the
+direction comes in part from what the two arms are made of: a cut tie is more often one both members act on (51% against 33%),
+and such ties hold longer runs; the cutter's other ties run longer than the family's (+0.09). Matching on how many
+members act on the tie lowers the difference from +0.193 to +0.104 ± 0.070 with learning removed and from +0.242 to
++0.098 ± 0.082 with it. The owner decided wording only (2026-11-05, through `AskUserQuestion`): `M11.5`'s row for
+`M11.C.48` names that composition and says a pass is not a finding about learning; the criterion's row says the same,
+and its mutation clause says the mutant did not turn the `[phase_d]` row red, with W3 unmet there for that reason; the
+`M11.4` exception row gains one clause. About +0.10 of the direction, left after matching on how many members act on
+the tie, is not explained, and each new sentence says so. The rev36-tagged sentences of the criterion's row and of its
+`M11.5` note were restated; the rev36 tag stays on the part of each that stands (no rule writes the run, so the
+criterion is informative), and the rest carries rev50's tag. No class changed. No rule changed and nothing a run computes changed: the spec
+is not in the engine hash, which stays `0b363cb3186c` (Phase D `020160abb6db`). The audit record was re-rendered from
+its cache (it quotes `M11.5`'s cells; nothing ran).
 
 ### Revision 49 — the emergence audit's survivors in `M11.5`, and `M11.1g`'s scope, 2026-11-05 ⟦rev49 · owner 2026-11-05, T-186 to T-192⟧
 

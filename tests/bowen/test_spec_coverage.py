@@ -177,7 +177,8 @@ def test_m141_unmet_clause_marker_reads_exactly_the_annotated_rows():
     annotation, in whatever words, forces a look; wordings that say "not met" without those two words are read too,
     and wordings that say "met" are not."""
     text = TOOL.SPEC.read_text(encoding="utf-8")
-    assert TOOL.unmet_clauses(text) == {"M11.C.14", "M11.C.16", "M11.C.46"}
+    # M11.C.48 since spec revision 50: its mutant survives on `[phase_d]` (T-180, T-185).
+    assert TOOL.unmet_clauses(text) == {"M11.C.14", "M11.C.16", "M11.C.46", "M11.C.48"}
     for unmet in ("*Not met, 2026-10-08*", "**Mutation clause not met:**", "not yet met", "the clause is unmet",
                   "it isn't met"):
         assert TOOL.UNMET_CLAUSE.search(unmet), unmet

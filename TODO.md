@@ -149,4 +149,4 @@ moves to `docs/TODO_archive.md`. Until 2026-10-22 this file held every item's te
 - T-172 · 2026-11-01 · Three minor items from the W5–W8 reviews (2026-11-01) · [record](docs/todo/2026-10-29_version_2_definition.md)
 - T-174 · 2026-11-01 · `tools/group_g_readout.py` keeps no per-run results (review MR-15, 2026-11-01) · [record](docs/todo/2026-11-01_pre_tag_milestone_review.md)
 - T-175 · 2026-11-01 · Hand-restated status goes stale (review systemic pattern 1, … · [record](docs/todo/2026-11-01_pre_tag_milestone_review.md)
-- T-183 · 2026-11-03 · The LLM-agent experiment: the plan waits for the … · [record](docs/todo/2026-11-03_version_3_llm_agent_experiment.md)
+- T-183 · 2026-11-03 · The LLM-agent experiment: build the approved plan (2026-11-03; … · [record](docs/todo/2026-11-03_version_3_llm_agent_experiment.md)

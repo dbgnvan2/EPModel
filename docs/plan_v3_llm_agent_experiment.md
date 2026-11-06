@@ -1,10 +1,11 @@
 # Plan: the LLM-agent experiment (version 3, part 2; T-183)
 
-**Status: draft for approval. Nothing is built.** Written 2026-11-03 on `main` at `5c7fc9b` (spec revision 47, engine
+**Status: approved by the owner 2026-11-06, Q1–Q7 as recommended (§9). Nothing is built; no live call has been
+made.** Written 2026-11-03 on `main` at `5c7fc9b` (spec revision 47, engine
 hash `0b363cb3186c`). The owner decided on 2026-11-03 that version 3 has two new utilities: this experiment and an
 emergence audit of the learning model (`docs/plan_v3_emergence_audit.md`, T-182). This plan settles what the experiment is, how it keeps the
 theory out of the agents, its scale and cost, how a run replays, how results are compared, how calls are hardened,
-and its acceptance criteria. §9 holds the decisions for the owner, each with a recommendation.
+and its acceptance criteria. §9 holds the seven decisions, each with its recommendation, and the owner's answers.
 
 ## 1. What it is, and what it is not
 
@@ -292,6 +293,10 @@ learned values, and Halim on the policy.
 | Q5 | Budget cap and cache storage (§5, §8) | Caps of $10 (pilot and main) and $35 (cross-check), $45 in all. The response cache is committed, gzipped, per run. |
 | Q6 | Comparison (§6) | Layer 1 only. Layer 2 (rerunning composite criteria) is decided after layer 1, in its own plan. |
 | Q7 | Does the spec gain a version 3 section? | Not now. The experiment is outside the model of record, so this plan is its contract. If the owner later wants its results to stand as evidence about the model, a spec section is written then, with `M11.F.9` in full. |
+
+**Decided 2026-11-06.** The owner chose every recommendation above, Q1–Q7, through AskUserQuestion. Q2's plain-label
+wording is still reviewed by the owner before any run, as Q2 says, and each live phase of §11 step 7 still waits for
+the owner's go-ahead.
 
 ## 10. Acceptance criteria and tests
 

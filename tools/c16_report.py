@@ -11,6 +11,9 @@ Tests:   tests/bowen/test_ensemble_record.py::test_m115_report_section_11_is_gen
 
 This rewrites §11 from its heading to the next top-level heading (``bounds``), the report's two `M11.C.16` table rows
 (``ROW_CLASS``, ``ROW_STATUS``) and the spec's `M11.5` row (``SPEC_ROW``). The module computes them when imported.
+The spec row's L0 sentence (T-189, revision 49) is read from docs/emergence_audit_record.md's JSON: the audit's
+verdicts for `C7:availability-level-inverted` and `C7:availability-and-learner-removed`; a missing or unworded one
+stops the run.
 Its qualitative claims (whether an inversion reverses C.16, whether removing a rule turns it red, whether learning
 carries the result alone) are chosen from the mutant results; the sentences that were literal text until the stage 3
 milestone review (MR-1, T-148: the learning bullet, "no other single rule", "what does not hold") are computed too. A
@@ -42,10 +45,13 @@ def _join(names: list[str]) -> str:
     return quoted[0] if len(quoted) == 1 else ", ".join(quoted[:-1]) + " and " + quoted[-1]
 
 
-def render(mutants: list[dict], occupancy: list[dict], ensemble: list[dict], sweep: list[dict]) -> dict[str, str]:
-    """Purpose: §11, the two report rows and the `M11.5` row, from the records' rows (``record_json``'s form).
-    Spec:    docs/bowen_agent_model_spec_v2.md#M11.5, #M11.C.16
-    Tests:   tests/bowen/test_ensemble_record.py::test_t148_c16_sentences_follow_the_mutant_results"""
+def render(mutants: list[dict], occupancy: list[dict], ensemble: list[dict], sweep: list[dict],
+           audit: dict | None = None) -> dict[str, str]:
+    """Purpose: §11, the two report rows and the `M11.5` row, from the records' rows (``record_json``'s form);
+             ``audit`` is the emergence audit record's JSON (the committed one when None), for the row's L0 sentence.
+    Spec:    docs/bowen_agent_model_spec_v2.md#M11.5, #M11.C.16, #M11.1g
+    Tests:   tests/bowen/test_ensemble_record.py::test_t148_c16_sentences_follow_the_mutant_results,
+             tests/bowen/test_ensemble_record.py::test_t189_c16_row_l0_sentence_follows_the_audit_record"""
     names = [r["mutant"] for r in mutants if r["criterion"] == "M11.C.16"]
     if len(names) != len(set(names)):  # a dict would keep the last of two rows silently
         raise SystemExit(f"M11.C.16's mutant rows name a mutant twice: {sorted(n for n in set(names) if names.count(n) > 1)}")
@@ -302,10 +308,38 @@ So C.16 stays partial in `docs/spec_coverage.md` (the tool reads the unmet claus
                   f"with the learner disabled{'' if al == 'survived' else ', but not with availability removed as well'}; "
                   f"removing availability alone takes {share:.0%} of the entropy difference away. Composite by owner "
                   "decision (§11). |")
-    ROW_INV = ("No inversion run reverses it." if not [m for m in reversed_ if c16[m]["kind"] == "sign-inverted"] else
+    ROW_INV = ("No inversion run in that record reverses it." if not [m for m in reversed_ if c16[m]["kind"] == "sign-inverted"] else
                f"{_join([m for m in reversed_ if c16[m]['kind'] == 'sign-inverted'])} reverses it.")
     AVAIL_INV = {"reversed": "reverses it", "red": "cancels it (its gating interval spans zero)",
                  "survived": "leaves it passing"}[inverted]
+    # T-189 (owner 2026-11-05): the emergence audit's L0 results for the two availability mutants, from its record.
+    audit = record_json(AUDIT_RECORD) if audit is None else audit
+    found = [c for c in audit["carriers"] if c["criterion"] == "M11.C.16"]
+    if len(found) != 1:
+        raise SystemExit(f"the emergence audit record has {len(found)} M11.C.16 carrier entries, not one")
+    l0 = {}
+    for name in ("availability-level-inverted", "availability-and-learner-removed"):
+        hits = [c for c in found[0]["candidates"] if c["ablation"] == f"C7:{name}"]
+        if len(hits) != 1 or hits[0]["verdict"] not in WORDED:
+            raise SystemExit(f"the emergence audit record has no single worded C7:{name} result for M11.C.16")
+        l0[name] = hits[0]
+    def la(name):
+        x = ro(l0[name], E)
+        return f"{x['mean_difference']:+.3g} ± {x['half_width']:.2g}, {l0[name]['seeds']} seeds"
+    L0_VERB = {"reversed": "reverses it", "red": "turns it red", "survived": "leaves it passing"}
+    L0_IS = {"reversed": "reversed", "red": "red", "survived": "still passing"}
+    both = l0["availability-and-learner-removed"]["verdict"]
+    runs = {m: c16[m]["seeds"] for m in ("learner-disabled", "availability-and-learner-removed")}
+    if len(set(runs.values())) != 1:  # the sentence gives one seed count for both learner-disabled runs
+        raise SystemExit(f"M11.C.16's learner-disabled runs have different seed counts: {runs}")
+    L0_SENTENCE = (
+        f" With all four learning paths removed (`M11.1g`'s L0, `docs/emergence_audit_record.md`), inverting "
+        f"availability {L0_VERB[l0['availability-level-inverted']['verdict']]} ({la('availability-level-inverted')}), "
+        f"and with availability removed as well it is {L0_IS[both]}"
+        + (f", not {WORD[al]}" if both != al else "")
+        + f" ({la('availability-and-learner-removed')}); the learner-disabled results above are the mutation "
+        f"record's runs, with `M4.D.6` disabled ({c16['availability-and-learner-removed']['seeds']} seeds)."
+        + " ⟦rev49 · owner 2026-11-05, T-189⟧")
     SPEC_ROW = (
         "| M11.C.16 | Composite | — | *Checked 2026-10-08 from `M11.1d`'s mutants (`docs/phase_c_mutation_record.md`); "
         "class kept by owner decision. All nine level-reading rules listed at `M11.C.1` were run as deletion and "
@@ -321,6 +355,7 @@ So C.16 stays partial in `docs/spec_coverage.md` (the tool reads the unmet claus
         f"{HOLD_ROW} With the learner disabled it still passes"
         + (", and with availability removed as well." if al == "survived" else
            f"; with availability removed as well it is {WORD[al]} ({N('availability-and-learner-removed', E)}).")
+        + L0_SENTENCE
         + " Composite rests on a reading: of the nine rules only availability names a narrower repertoire, so the "
         "premise definition's redundancy clause does not apply. The criterion row's own grounds (`M4.C.1a`'s KS03.2 "
         "text, `M1.C.3a`'s \"stays fixed\") could be read as stating it, which would make it a premise. Removing those "
@@ -332,6 +367,9 @@ So C.16 stays partial in `docs/spec_coverage.md` (the tool reads the unmet claus
         "narrowing) and the mutation clause above are not met (see the criterion row). A same-day reclassification to "
         "premise, which read the availability inversion's cancellation as a flip, was withdrawn. Report §11.* |")
     return {"section": sec, "row_class": ROW_CLASS, "row_status": ROW_STATUS, "spec_row": SPEC_ROW}
+
+
+AUDIT_RECORD = REPO / "docs" / "emergence_audit_record.md"
 
 
 def _records() -> tuple[list[dict], list[dict], list[dict], list[dict]]:

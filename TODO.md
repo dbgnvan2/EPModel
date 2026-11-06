@@ -14,7 +14,7 @@ moves to `docs/TODO_archive.md`. Until 2026-10-22 this file held every item's te
 - T-003 · 2026-10-20 · Coverage page, minor, from the Part A review … · [record](docs/todo/2026-08-22_blocking_the_next_phase.md)
 - T-004 · 2026-10-20 · Coverage page, from Part B's drafting (2026-10-20), not … · [record](docs/todo/2026-08-22_blocking_the_next_phase.md)
 
-## Later (144)
+## Later (138)
 
 - T-006 · 2026-10-22 · D4, long `Spec:` lines (Part D, 2026-10-22; the … · [record](docs/todo/2026-10-22_model_ergonomics.md)
 - T-007 · 2026-10-22 · Adjacent issues found by Part D's docstring pass, … · [record](docs/todo/2026-10-22_model_ergonomics.md)
@@ -154,9 +154,3 @@ moves to `docs/TODO_archive.md`. Until 2026-10-22 this file held every item's te
 - T-182 · 2026-11-03 · The emergence audit: build the approved plan (2026-11-03) · [record](docs/todo/2026-11-03_version_3_emergence_audit.md)
 - T-183 · 2026-11-03 · The LLM-agent experiment: the plan waits for the … · [record](docs/todo/2026-11-03_version_3_llm_agent_experiment.md)
 - T-185 · 2026-11-04 · `M11.C.48[phase_d]` survives with all learning off and no … · [record](docs/todo/2026-11-03_version_3_emergence_audit.md)
-- T-186 · 2026-11-04 · `M11.C.15` is carried by the release of bound … · [record](docs/todo/2026-11-03_version_3_emergence_audit.md)
-- T-187 · 2026-11-04 · `M11.C.7[joint over one spouse]` is carried by three … · [record](docs/todo/2026-11-03_version_3_emergence_audit.md)
-- T-188 · 2026-11-04 · `M11.C.22`'s mild limb is carried by lock-in alone … · [record](docs/todo/2026-11-03_version_3_emergence_audit.md)
-- T-189 · 2026-11-04 · `M11.C.16` is reversed by inverting `M4.D.3a`'s availability once … · [record](docs/todo/2026-11-03_version_3_emergence_audit.md)
-- T-190 · 2026-11-04 · `M11.C.27[unstable,remove_one]` is carried by `M11.5`'s `M4.C.1` and also … · [record](docs/todo/2026-11-03_version_3_emergence_audit.md)
-- T-191 · 2026-11-04 · `M11.C.11`'s return limb is carried by the removed … · [record](docs/todo/2026-11-03_version_3_emergence_audit.md)

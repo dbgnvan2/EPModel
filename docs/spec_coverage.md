@@ -616,7 +616,7 @@ say whether that test was proved failing by mutation unless its note does.
 | M17.G.2 | not done | — | no test named for it; Phase E builds it and is not built yet |
 | M17.G.3 | not done | — | no test named for it; Phase E builds it and is not built yet |
 
-## Tests named for no spec ID (318)
+## Tests named for no spec ID (319)
 
 Their names embed no requirement ID, so they count only where an override cites them (marked *cited*). The rest check spec documents, tooling or helpers.
 
@@ -650,6 +650,7 @@ Their names embed no requirement ID, so they count only where an override cites 
 - `tests/bowen/test_ensemble_record.py::test_s1_8a_render_is_not_hashed`
 - `tests/bowen/test_ensemble_record.py::test_sweep_tool_shares_the_loaded_mutation_tool`
 - `tests/bowen/test_ensemble_record.py::test_t148_c16_sentences_follow_the_mutant_results`
+- `tests/bowen/test_ensemble_record.py::test_t189_c16_row_l0_sentence_follows_the_audit_record`
 - `tests/bowen/test_events.py::test_b1_delivered_at_matches_delivered_to_filtered`
 - `tests/bowen/test_events.py::test_b1_indexes_match_a_full_scan`
 - `tests/bowen/test_external.py::test_m8_2_an_unrecruited_coach_is_live`

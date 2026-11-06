@@ -75,7 +75,7 @@ The plan is `docs/plan_v3_emergence_audit.md`.
   **Made 2026-11-04:** T-185 to T-193, in the owner's order (T-192 holds both `M11.C.41` cells) (below), each with its carriers,
   its `M11.5` note, `M11.1d`'s question and Claude's recommendation; T-185 is put to the owner first. Open until
   the nine are decided.
-  **2026-11-05:** T-186 to T-193 decided by the owner (each below); T-185 is still open.
+  **2026-11-05:** T-186 to T-193 decided by the owner (each below); T-185 is still open. T-186 to T-191 built the same day at spec revision 49, with `M11.1g`'s scope sentence from T-192.
 - [x] T-184 ⟨later⟩ **The emergence audit's cache records no NumPy version, so `tools/merge_cache.py` refuses it
   (2026-11-04).** `tools/emergence_audit.py` never sets `Cache.meta["numpy"]`, as `tools/version_2_sweep.py`'s
   `check_numpy` does, so a two-Mac split of the audit cannot be merged by the merge tool as it stands. Step 4's
@@ -180,7 +180,7 @@ for one spec revision that takes all nine.
   programmed premise. It is a comparison whose arms differ in a condition (how many members act on the tie, and whose
   ties they are), the same class as T-123 and T-179 (learnings P7). Not shown: the person-level part and the +0.10
   left after matching. T-180 is put to the owner with this.
-- [ ] T-186 ⟨later⟩ **`M11.C.15` is carried by the release of bound anxiety at a death, a rule `M11.5` does not name
+- [x] T-186 ⟨later⟩ **`M11.C.15` is carried by the release of bound anxiety at a death, a rule `M11.5` does not name
   (2026-11-04).** Under L0 it passes (`death_rise` +3.83 ± 0.65, `recovery_rise` +7.45 ± 0.9, 50 seeds). Its one
   carrier is `death-all-bound-anxiety-discarded` (`M6.3c`'s release at a death, under `M6.I.1`, replaced by
   discarding): `death_rise` goes to -0.872 ± 0.65 and `recovery_rise` does not move. Discarding the symptom hold
@@ -198,7 +198,8 @@ for one spec revision that takes all nine.
   "as when a symptom ends" as writing the equivalence in (the text supports this for the symptom hold only); or
   change nothing.
   **Decided 2026-11-05:** the owner chose through `AskUserQuestion`, as recommended: keep it composite and fill `M11.5`'s "rests on" cell with `M6.3c`'s release at a death (under `M6.I.1`), the carrier found. Wording, waiting for the one spec revision that takes all nine.
-- [ ] T-187 ⟨later⟩ **`M11.C.7[joint over one spouse]` is carried by three policy terms and the landed contact
+  **Built 2026-11-05:** spec revision 49 (`docs/spec_revision_log.md`), wording in `M11.5` only; the engine hash stays `0b363cb3186c`.
+- [x] T-187 ⟨later⟩ **`M11.C.7[joint over one spouse]` is carried by three policy terms and the landed contact
   (2026-11-04).** Under L0 the composite limb passes thinly (`deviation_fall` +0.0503 ± 0.057, p 0.024, 100 seeds).
   Carriers: C2 (`M4.D.1a`'s mixing weight blind to level, in the policy only), C4 (`M4.D.1a`'s perspective steering),
   C6 (`M4.D.1d`'s competing urges) and `landed-contact-changes-nothing` (`M1.E.7`'s `perspective_gain` 0); under each
@@ -211,7 +212,8 @@ for one spec revision that takes all nine.
   next revision). Alternatives: change nothing; or rerun L0 on the row at more seeds first, to see whether the thin
   pass holds.
   **Decided 2026-11-05:** the owner chose through `AskUserQuestion`, as recommended: no defect; keep it mixed and add the four carriers (C2, C4, C6 and `landed-contact-changes-nothing`) to `M11.5`'s note. Wording, at the next revision.
-- [ ] T-188 ⟨later⟩ **`M11.C.22`'s mild limb is carried by lock-in alone (2026-11-04).** Under L0 both limbs pass
+  **Built 2026-11-05:** spec revision 49 (`docs/spec_revision_log.md`), wording in `M11.5` only; the engine hash stays `0b363cb3186c`.
+- [x] T-188 ⟨later⟩ **`M11.C.22`'s mild limb is carried by lock-in alone (2026-11-04).** Under L0 both limbs pass
   (`mild_removal_effect` +1.51 ± 0.73, `severe_removal_effect` -1.73 ± 0.88, 100 seeds). The one carrier,
   `lock-in-removed` (`M7.D.2a`'s stabilising term flattened), takes both to the same -0.0142 ± 0.058 (50 seeds), so
   it removes the whole difference between the arms rather than the mild limb alone. `M11.5`: mixed since revision 32
@@ -226,7 +228,8 @@ for one spec revision that takes all nine.
   class the mild limb premise as well, on `M7.D.2a`'s "resists the symptom's removal", which reverses revision 32's
   reasoning and takes the row out of the audit's scope; or change nothing.
   **Decided 2026-11-05:** the owner chose through `AskUserQuestion`, as recommended: keep it mixed and amend `M11.5`'s note to say lock-in alone carries the mild limb's direction and the other mechanisms only reduce it. Wording, at the next revision.
-- [ ] T-189 ⟨later⟩ **`M11.C.16` is reversed by inverting `M4.D.3a`'s availability once learning is off
+  **Built 2026-11-05:** spec revision 49 (`docs/spec_revision_log.md`), wording in `M11.5` only; the engine hash stays `0b363cb3186c`.
+- [x] T-189 ⟨later⟩ **`M11.C.16` is reversed by inverting `M4.D.3a`'s availability once learning is off
   (2026-11-04).** Under L0 it passes (`repertoire_entropy` -0.0151 ± 0.0019, 100 seeds), as `M11.5`'s note already
   records ("With the learner disabled it still passes"). Carriers: C1 (every capacity layer available),
   `level-blind`, `availability-level-independent`, `availability-and-learner-removed`, `c16-grounds-removed`, and
@@ -245,8 +248,9 @@ for one spec revision that takes all nine.
   weak) is answered in one direction by L0, and the premise reading was already put and withdrawn. Alternatives:
   class it premise on `M4.D.3a` and mark the rule under `M10.C.5`; or restate it one level up (for instance, require
   the learned narrowing to exceed what availability alone gives under L0).
-  **Decided 2026-11-05:** the owner chose through `AskUserQuestion`, as recommended: keep it composite and add to `M11.5`'s note the L0 reversal under `availability-level-inverted` (+0.0117 ± 0.0018) and the corrected `availability-and-learner-removed` result (+0.00143 ± 0.0015, red, not reversed). Wording, at the next revision.
-- [ ] T-190 ⟨later⟩ **`M11.C.27[unstable,remove_one]` is carried by `M11.5`'s `M4.C.1` and also by C2
+  **Decided 2026-11-05:** the owner chose through `AskUserQuestion`, as recommended: keep it composite and add to `M11.5`'s note the L0 reversal under `availability-level-inverted` (+0.0117 ± 0.0018) and the corrected `availability-and-learner-removed` result (+0.00143 ± 0.0015, red, not reversed). Wording, at the next revision. (At the plan's review the same day the owner chose to keep the mutation record's reversal beside it, each run named, rather than call the audit's result a correction; see the Built line.)
+  **Built 2026-11-05:** spec revision 49 (`docs/spec_revision_log.md`): `tools/c16_report.py` reads the two results from the audit record's JSON into `M11.C.16`'s row, beside the mutation record's reversal, each run named (the owner, 2026-11-05: keep both rather than call the audit's a correction); test `tests/bowen/test_ensemble_record.py::test_t189_c16_row_l0_sentence_follows_the_audit_record`, proved failing by mutation. The engine hash stays `0b363cb3186c`.
+- [x] T-190 ⟨later⟩ **`M11.C.27[unstable,remove_one]` is carried by `M11.5`'s `M4.C.1` and also by C2
   (2026-11-04).** Under L0 it passes (`pair_deviation` -0.0696 ± 0.049, 100 seeds). Carriers: C2 (`M4.D.1a`'s mixing
   weight blind to level, in the policy only; red), `one-sided-deviation` and `deviation-inverted` (both reverse it).
   `M11.5`: composite, "follows from `M4.C.1`'s two-sided shape"; checked 2026-10-08, it flips only under inversion of
@@ -258,7 +262,8 @@ for one spec revision that takes all nine.
   single-rule flip is the one already decided, and L0 adds no new one. Alternatives: record `M4.C.1` under `M10.C.5`
   for this cell; or change nothing.
   **Decided 2026-11-05:** the owner chose through `AskUserQuestion`, as recommended: keep it composite and add C2 to `M11.5`'s note. Wording, at the next revision.
-- [ ] T-191 ⟨later⟩ **`M11.C.11`'s return limb is carried by the removed member's two holds coming back on return
+  **Built 2026-11-05:** spec revision 49 (`docs/spec_revision_log.md`), wording in `M11.5` only; the engine hash stays `0b363cb3186c`.
+- [x] T-191 ⟨later⟩ **`M11.C.11`'s return limb is carried by the removed member's two holds coming back on return
   (2026-11-04).** Under L0 it passes (`disturbance` +6.33 ± 1.6, 150 seeds). The one carrier,
   `removed-member-holds-not-released-on-return` (`M7.D.2a`'s symptom hold released while the member is away, and
   `M1.D.2a` (c)'s tie stock not returned by the reunion), takes it to -0.0171 ± 1.3. Releasing the symptom hold alone
@@ -273,6 +278,7 @@ for one spec revision that takes all nine.
   the next revision). Alternatives: class the return limb premise, reading the holds' return at once as what makes
   the return large; or change nothing.
   **Decided 2026-11-05:** the owner chose through `AskUserQuestion`, as recommended: keep the return limb composite and name both holds (`M7.D.2a`'s symptom hold and `M1.D.2a` (c)'s tie stock) in `M11.5`'s note. Wording, at the next revision.
+  **Built 2026-11-05:** spec revision 49 (`docs/spec_revision_log.md`), wording in `M11.5` only; the engine hash stays `0b363cb3186c`.
 - [x] T-192 ⟨later⟩ **`M11.C.41`'s two level cells are carried by the terms `M11.5` names (2026-11-04).** Under L0
   both pass (`[light: lower level]` `mean_acute` +128 ± 12, `reactive_over_chance` +0.0653; `[heavy: lower level]`
   +124 ± 14, +0.0677). Each is carried by C2, `mixing-weight-level-independent`, `level-blind`,
@@ -286,7 +292,7 @@ for one spec revision that takes all nine.
   question, after which the two cells have no composite limb and leave the audit's scope. Alternative: change
   nothing until that question is answered.
   **Decided 2026-11-05:** the owner chose through `AskUserQuestion`, as recommended: declare the premise limbs. In `M11.C.41`'s two level cells (`[light: lower level]`, `[heavy: lower level]`) `mean_acute` and `reactive_over_chance` are premise limbs, to be added to `docs/version_1_dispositions.md`'s premise-limb table; the heavier-stress cells' reactive share stays composite (the owner's reading of 2026-10-17). The two level cells then have no composite limb and leave the audit's scope. In the same call, on `M11.C.34`: no premise limb is declared; its one readout is the learned part (the owner's reading of 2026-10-17, borne out by T-173), the class stays mixed, and the question pending since version 1 closes with no table row. Needs a build: the table rows and the sentence above the table that calls the question the owner's, with whatever checks the dispositions file against the tag `version-1`.
-  **Built 2026-11-05:** `docs/version_1_dispositions.md` is byte-identical to the tag (`tests/test_version_1_status.py`), so the owner chose (`AskUserQuestion`, as recommended) to put the rows in a second table of `docs/version_2_dispositions.md`, with the sentence closing the question; version 1's file and the tag test are unchanged. `tools/version_2_status.py`'s `premise_limbs` merges both tables (a criterion in both raises) and is read by the status page and `tools/emergence_audit.py`. A mixed row each of whose gating readouts is a declared premise limb now leaves the audit's scope, out by class; the two level cells left it (13 rows to 11), and `M11.C.41[light: lower level]` left the audit config's pilot rows. The owner chose to re-render `docs/emergence_audit_record.md` from the cache (`--render-only`, nothing run); the engine hash stays `0b363cb3186c` (Phase D `020160abb6db`). Tests: `tests/test_version_2_status.py::test_t192_v2_premise_limbs_parse_strictly`, `::test_t192_premise_limbs_merge_both_tables`, `tests/test_emergence_audit.py::test_t192_a_mixed_row_with_only_premise_limbs_leaves_scope`, each proved failing by mutation. Not changed: `M11.1g`'s wording says every passing mixed criterion is rerun and does not say that one with no composite limb leaves the scope; that sentence is for the spec revision that takes T-186 to T-191's wording.
+  **Built 2026-11-05:** `docs/version_1_dispositions.md` is byte-identical to the tag (`tests/test_version_1_status.py`), so the owner chose (`AskUserQuestion`, as recommended) to put the rows in a second table of `docs/version_2_dispositions.md`, with the sentence closing the question; version 1's file and the tag test are unchanged. `tools/version_2_status.py`'s `premise_limbs` merges both tables (a criterion in both raises) and is read by the status page and `tools/emergence_audit.py`. A mixed row each of whose gating readouts is a declared premise limb now leaves the audit's scope, out by class; the two level cells left it (13 rows to 11), and `M11.C.41[light: lower level]` left the audit config's pilot rows. The owner chose to re-render `docs/emergence_audit_record.md` from the cache (`--render-only`, nothing run); the engine hash stays `0b363cb3186c` (Phase D `020160abb6db`). Tests: `tests/test_version_2_status.py::test_t192_v2_premise_limbs_parse_strictly`, `::test_t192_premise_limbs_merge_both_tables`, `tests/test_emergence_audit.py::test_t192_a_mixed_row_with_only_premise_limbs_leaves_scope`, each proved failing by mutation. Not changed: `M11.1g`'s wording says every passing mixed criterion is rerun and does not say that one with no composite limb leaves the scope; that sentence is for the spec revision that takes T-186 to T-191's wording. Written at spec revision 49 (2026-11-05).
 - [x] T-193 ⟨later⟩ **`M11.C.7[joint over sided]` is carried by the landed contact and the coach's position, as
   `M11.5` says (2026-11-04).** Under L0 it passes (`deviation_fall` +0.0806 ± 0.045, p 0.00015, 150 seeds). Carriers:
   `landed-contact-changes-nothing` (`M1.E.7`) and `coach-position-blind` (`M8.3` made position-blind: a coach drawn

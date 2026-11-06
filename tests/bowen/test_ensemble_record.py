@@ -619,6 +619,62 @@ def _gating(mean: float, half: float) -> list[dict]:
             {"readout": "top_move_share", "mean_difference": -mean, "half_width": half}]
 
 
+def _c16_audit(edits: dict[str, dict]) -> dict:
+    """The committed emergence audit record's JSON with some of `M11.C.16`'s carrier candidates edited."""
+    import copy
+
+    import tools.c16_report as report
+    from tools.record_json import record_json
+
+    audit = copy.deepcopy(record_json(report.AUDIT_RECORD))
+    for entry in audit["carriers"]:
+        if entry["criterion"] == "M11.C.16":
+            for cand in entry["candidates"]:
+                if cand["ablation"] in edits:
+                    cand.update(edits[cand["ablation"]])
+    return audit
+
+
+def test_t189_c16_row_l0_sentence_follows_the_audit_record():
+    """T-189 (owner 2026-11-05, spec revision 49): the `M11.5` row's L0 sentence is computed from the emergence audit
+    record. Adversarial (P7): each edit makes the committed sentence false, and the rendered row follows it; a missing
+    candidate stops the tool. Mutation: the sentence written as literal text fails the edited-verdict checks."""
+    import copy
+
+    import pytest
+
+    import tools.c16_report as report
+
+    committed = report.RENDERED["spec_row"]
+    assert "inverting availability reverses it (+0.0117 ± 0.0018, 150 seeds)" in committed
+    assert "with availability removed as well it is red, not reversed (+0.00143 ± 0.0015, 100 seeds)" in committed
+    records = copy.deepcopy(report._records())
+    same = report.render(*records, audit=_c16_audit(
+        {"C7:availability-and-learner-removed": {"verdict": "reversed"},
+         "C7:availability-level-inverted": {"verdict": "survived"}}))["spec_row"]
+    assert "inverting availability leaves it passing" in same
+    assert "it is reversed (+0.00143" in same and "not reversed" not in same
+    other = report.render(*records, audit=_c16_audit(
+        {"C7:availability-and-learner-removed": {"verdict": "survived"},
+         "C7:availability-level-inverted": {"verdict": "red"}}))["spec_row"]
+    assert "inverting availability turns it red" in other
+    assert "it is still passing, not reversed (+0.00143" in other
+    mutants = copy.deepcopy(records[0])
+    for row in mutants:
+        if row["criterion"] == "M11.C.16" and row["mutant"] == "learner-disabled":
+            row["seeds"] = 100
+    with pytest.raises(SystemExit, match="different seed counts"):
+        report.render(mutants, *records[1:])
+    gone = _c16_audit({})
+    for entry in gone["carriers"]:
+        if entry["criterion"] == "M11.C.16":
+            entry["candidates"] = [c for c in entry["candidates"] if c["ablation"] != "C7:availability-level-inverted"]
+    with pytest.raises(SystemExit, match="C7:availability-level-inverted"):
+        report.render(*records, audit=gone)
+    with pytest.raises(SystemExit, match="has no single worded"):
+        report.render(*records, audit=_c16_audit({"C7:availability-and-learner-removed": {"verdict": "broken"}}))
+
+
 def test_t148_c16_sentences_follow_the_mutant_results():
     """T-148 (stage 3 milestone review MR-1): the sentences §11 wrote as literal text (the learning bullet, "no other
     single rule removes the result", "what does not hold") and the rows that restate §11 are computed from the mutant

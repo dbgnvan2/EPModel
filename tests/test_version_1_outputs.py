@@ -48,8 +48,10 @@ def test_v7_virtual_family_appears_only_where_it_is_framed():
     """`M11.F.10`: the term only beside its framing. The spec defines the rule; the explainer's §1.1 is the framing."""
     # CHANGELOG_archive.md: the root CHANGELOG's entries before 2026-10-19, moved verbatim 2026-10-22; the scan never
     # read the root file, and the one use there is the entry that added `M11.F.10` itself.
+    # llm_agent_experiment_report.md: the LLM-agent experiment's generated report, whose framing block uses the term
+    # to deny it (its LX.20, tests/experiments/llm_agents/test_report.py::test_lx20_framing_block_present).
     allowed = {"bowen_agent_model_spec_v2.md", "model_explainer.md", "REVIEW_version_1_outputs.md",
-               "CHANGELOG_archive.md"}
+               "CHANGELOG_archive.md", "llm_agent_experiment_report.md"}
     using = sorted(p.name for p in DOCS.glob("*.md") if "virtual family" in p.read_text(encoding="utf-8").lower())
     assert set(using) <= allowed, set(using) - allowed
     assert "virtual family" not in (REPO / "README.md").read_text(encoding="utf-8").lower()

@@ -16,7 +16,8 @@ from pathlib import Path
 REPO = Path(__file__).resolve().parents[1]
 DOCS = REPO / "docs"
 CHECKLIST = DOCS / "SPEC_REVIEW_CHECKLIST.md"
-COVERED_ROOTS = (DOCS, REPO / "config" / "bowen", REPO / "config" / "sweep")  # config/sweep since stage 2 (D12)
+COVERED_ROOTS = (DOCS, REPO / "config" / "bowen", REPO / "config" / "sweep",  # config/sweep since stage 2 (D12)
+                 REPO / "experiments" / "llm_agents" / "config")  # the LLM-agent experiment's editorial files (T-183)
 
 # Markdown link targets: `](<path with spaces>)` or `](path)`.
 _LINK = re.compile(r"\]\(<([^>]+)>\)|\]\(([^)\s]+)\)")

@@ -1,0 +1,12 @@
+{
+  "not_started": [],
+  "phase": "baseline",
+  "runs": {
+    "baseline-A0-s1": "complete",
+    "baseline-A0-s2": "complete",
+    "baseline-A0-s3": "complete",
+    "baseline-A0-s4": "complete",
+    "baseline-A0-s5": "complete"
+  },
+  "runs_planned": 5
+}

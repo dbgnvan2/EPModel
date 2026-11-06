@@ -616,7 +616,7 @@ say whether that test was proved failing by mutation unless its note does.
 | M17.G.2 | not done | — | no test named for it; Phase E builds it and is not built yet |
 | M17.G.3 | not done | — | no test named for it; Phase E builds it and is not built yet |
 
-## Tests named for no spec ID (320)
+## Tests named for no spec ID (365)
 
 Their names embed no requirement ID, so they count only where an override cites them (marked *cited*). The rest check spec documents, tooling or helpers.
 
@@ -757,6 +757,51 @@ Their names embed no requirement ID, so they count only where an override cites 
 - `tests/bowen/test_spec_rules_view.py::test_c5_every_spec_id_appears_in_exactly_one_view_file`
 - `tests/bowen/test_spec_rules_view.py::test_c5_view_is_current_and_holds_nothing_else`
 - `tests/bowen/test_spec_rules_view.py::test_e2_every_dispositions_row_is_true_of_the_spec_and_the_log`
+- `tests/experiments/llm_agents/test_budget.py::test_lx11_cached_rounds_are_not_charged`
+- `tests/experiments/llm_agents/test_budget.py::test_lx11_estimate_over_cap_refuses`
+- `tests/experiments/llm_agents/test_budget.py::test_lx11_phase_record_lists_runs_not_started`
+- `tests/experiments/llm_agents/test_budget.py::test_lx11_spent_counts_every_cached_response`
+- `tests/experiments/llm_agents/test_budget.py::test_lx11_stops_before_crossing`
+- `tests/experiments/llm_agents/test_budget.py::test_lx11_total_cap_refuses_before_starting`
+- `tests/experiments/llm_agents/test_cache.py::test_lx8_miss_is_not_replayable`
+- `tests/experiments/llm_agents/test_cache.py::test_lx8_replay_leaves_unfinished_runs_resumable`
+- `tests/experiments/llm_agents/test_cache.py::test_lx8_replay_never_calls`
+- `tests/experiments/llm_agents/test_cache.py::test_lx8_replay_that_differs_is_not_replayable`
+- `tests/experiments/llm_agents/test_cache.py::test_lx9_run_key_separates_entries`
+- `tests/experiments/llm_agents/test_client.py::test_lx12_backoff_is_capped_and_grows`
+- `tests/experiments/llm_agents/test_client.py::test_lx12_exhausted_is_not_a_result`
+- `tests/experiments/llm_agents/test_client.py::test_lx12_model_check_is_retried`
+- `tests/experiments/llm_agents/test_client.py::test_lx12_rate_limit_timeout_connection_are_transient`
+- `tests/experiments/llm_agents/test_client.py::test_lx12_resumes_from_cache`
+- `tests/experiments/llm_agents/test_client.py::test_lx12_retry_after_beyond_the_cap_is_honoured`
+- `tests/experiments/llm_agents/test_client.py::test_lx12_transient_is_retried`
+- `tests/experiments/llm_agents/test_client.py::test_lx13_permanent_is_not_retried`
+- `tests/experiments/llm_agents/test_client.py::test_lx13_status_codes_map_to_permanent_or_transient`
+- `tests/experiments/llm_agents/test_client.py::test_lx14_failed_parse_path`
+- `tests/experiments/llm_agents/test_isolation.py::test_lx15_live_client_only_when_asked`
+- `tests/experiments/llm_agents/test_isolation.py::test_lx15_no_key_in_repo`
+- `tests/experiments/llm_agents/test_isolation.py::test_lx1_engine_never_imports_the_experiment`
+- `tests/experiments/llm_agents/test_isolation.py::test_lx1_writes_only_under_runs`
+- `tests/experiments/llm_agents/test_prompts.py::test_lx4_a_banned_term_is_caught`
+- `tests/experiments/llm_agents/test_prompts.py::test_lx4_no_banned_term_in_any_arm`
+- `tests/experiments/llm_agents/test_prompts.py::test_lx5_labels_differ_between_seeds`
+- `tests/experiments/llm_agents/test_prompts.py::test_lx5_opaque_arm_has_no_description`
+- `tests/experiments/llm_agents/test_prompts.py::test_lx6_shuffle_is_a_derangement_within_groups`
+- `tests/experiments/llm_agents/test_prompts.py::test_lx7_no_feedback_arm_shows_no_tension`
+- `tests/experiments/llm_agents/test_prompts.py::test_lx7_render_without_feedback_drops_every_number_of_tension`
+- `tests/experiments/llm_agents/test_record.py::test_lx10_run_record_fields`
+- `tests/experiments/llm_agents/test_record.py::test_lx10_status_is_one_of_the_declared`
+- `tests/experiments/llm_agents/test_report.py::test_lx16_framing_and_counts`
+- `tests/experiments/llm_agents/test_report.py::test_lx16_report_is_current`
+- `tests/experiments/llm_agents/test_report.py::test_lx20_framing_block_present`
+- `tests/experiments/llm_agents/test_source.py::test_lx17_a0_matches_the_ensemble`
+- `tests/experiments/llm_agents/test_source.py::test_lx18_logging_is_a_pure_observer`
+- `tests/experiments/llm_agents/test_source.py::test_lx19_offer_draw_is_isolated`
+- `tests/experiments/llm_agents/test_source.py::test_lx2_external_agent_keeps_the_policy`
+- `tests/experiments/llm_agents/test_source.py::test_lx2_one_selection_per_active_member`
+- `tests/experiments/llm_agents/test_source.py::test_lx3_choice_is_always_legal`
+- `tests/experiments/llm_agents/test_source.py::test_lx3_illegal_choice_fails_to_parse`
+- `tests/experiments/llm_agents/test_source.py::test_lx7_history_change_is_to_the_next_round`
 - `tests/test_asr_quotations.py::test_sp1_2_every_citation_form_is_read`
 - `tests/test_asr_quotations.py::test_sp1_2_mutant_new_quotation_fails`
 - `tests/test_asr_quotations.py::test_sp1_2_mutant_unlisted_quotation_in_an_allowlisted_file_fails`

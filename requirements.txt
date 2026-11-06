@@ -1,5 +1,6 @@
-# What src/, tools/ and tests/ import, plus the linter. CI installs only this file.
+# What src/, tools/, experiments/ and tests/ import, plus the linter. CI installs only this file.
 # ruff is pinned and NumPy's major version bounded (T-151); bump either on purpose, in its own commit.
 numpy>=1.26,<3           # The agent model's draws and the ensemble statistics; the sweep's 1.26.4 and CI's 2.x pass
 pytest>=8.4,<9           # Test runner; 8.x is what pytest-asyncio 1.x requires if installed
 ruff==0.17.3             # Linter; what CI installed from about 2026-10-28 (0.17.2 before)
+anthropic==2.6.0         # The LLM-agent experiment's live client only (experiments/llm_agents/client.py imports it lazily; no test calls it); PyPI's latest on 2026-11-06

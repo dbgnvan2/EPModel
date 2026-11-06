@@ -17,8 +17,9 @@ papers/*.pdf
 papers/**/*.pdf
 papers/_candidates.json
 
-# run logs — regenerable with python3 -m src.bowen.run
-runs/
+# run logs — regenerable with python3 -m src.bowen.run (the root's only; the LLM-agent experiment's
+# experiments/llm_agents/runs/ is committed, plan §8 and Q5)
+/runs/
 
 # a record cache's write in progress (tools/record_cache.py); left only by a run killed mid-write
 docs/records_cache/*.partial

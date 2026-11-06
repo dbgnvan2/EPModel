@@ -1,7 +1,9 @@
 # Plan: the LLM-agent experiment (version 3, part 2; T-183)
 
-**Status: approved by the owner 2026-11-06, Q1–Q7 as recommended (§9). Nothing is built; no live call has been
-made.** Written 2026-11-03 on `main` at `5c7fc9b` (spec revision 47, engine
+**Status: approved by the owner 2026-11-06, Q1–Q7 as recommended (§9). §11 steps 1–6 built 2026-11-06 under
+`experiments/llm_agents/` (its README), with tests LX.1–LX.20 offline and the A0 baseline run; no live call has been
+made. The wording of `act_labels.md` and `prompt_text.md` waits for the owner (Q2); step 7 waits for the owner's
+go-ahead.** Written 2026-11-03 on `main` at `5c7fc9b` (spec revision 47, engine
 hash `0b363cb3186c`). The owner decided on 2026-11-03 that version 3 has two new utilities: this experiment and an
 emergence audit of the learning model (`docs/plan_v3_emergence_audit.md`, T-182). This plan settles what the experiment is, how it keeps the
 theory out of the agents, its scale and cost, how a run replays, how results are compared, how calls are hardened,
@@ -192,9 +194,13 @@ live in `config/llm.md`. Cost is computed from each response's `usage` and the p
 - **Before a phase:** the runner prints the estimate (calls × tokens × price). It refuses to start if the estimate is
   over the cap.
 - **During a phase:** before each round it checks `spent + this round's worst case` (every call at `max_tokens`
-  output) against the cap. If that would go over, it stops before the round. Every run then in progress is marked
-  `stopped_at_budget`. The record gives weeks completed out of planned, the runs not started, and the money spent (P9:
-  what was dropped is announced).
+  output, its input (text and output schema) at `worst_case_chars_per_token`, or at the costliest call seen so far if
+  that is more, and every call counted twice for a re-ask; a call already in the cache counts nothing) against the
+  cap. If that would go over, it stops before the round. Every run then in progress is marked
+  `stopped_at_budget`. The record gives weeks completed out of planned, and the money spent; the phase's own record,
+  `runs/phase-<name>.json`, gives the runs not started (P9: what was dropped is announced). As built: what was spent
+  is summed from the response caches, every response paid for, so a run that crashed before its record was written
+  still counts; and the estimate is checked against the total cap as well as the pool's.
 - **A stopped run is not a result.** Its responses stay cached, so it can resume once the cap is raised. It is left out
   of the comparison, and the report says "N of M runs complete" for each arm.
 
@@ -237,7 +243,7 @@ learned values, and Halim on the policy.
   without it.
 - **Timeout, retry, backoff (E1, E5, P5).** The timeout is from config (60 s). The SDK's own retries are off
   (`max_retries=0`) so that every retry goes through one loop that logs it. That loop retries 429, 5xx, timeouts and
-  connection errors, up to 5 attempts, with exponential backoff and jitter, capped at 60 s, honouring `retry-after`.
+  connection errors, up to 5 attempts, with exponential backoff and jitter, capped at 60 s, honouring `retry-after` (up to `retry_after_max_seconds`, 300 s, as built).
   It does not retry 400, 401, 403 or 404: the run stops with the error, and the method, status and a response snippet
   are logged, never the key (E4, E7).
 - **Transient is not terminal (P1).** If retries run out, the run is marked `incomplete_transient` and stops. No choice
@@ -269,6 +275,10 @@ learned values, and Halim on the policy.
   week, for audit.
 - **Replay.** `--replay` never calls the client. A missing key means the rendered prompt has changed: the engine,
   family, labels or template moved. The run is then marked `not_replayable` and stops, and nothing is filled in.
+  As built: a change that leaves every prompt the same but moves what follows still hits the cache, so replay also
+  compares the replayed summary with the committed one, and a difference marks the run `not_replayable`, naming the
+  recorded hashes that moved. Only `complete` and `invalid` runs are replayed; a stopped or incomplete run never
+  fetched its later weeks, and keeps its resumable status.
 - **The run record** (`runs/<run_id>/run.json`) holds:
   - the requested model ID and the returned `model`;
   - the API version and SDK version;
@@ -277,7 +287,8 @@ learned values, and Halim on the policy.
   - the date and time;
   - the engine hash, the experiment's own code hash, the template hash and the label-file hash;
   - the arm, the seed and the permutations;
-  - the status: `complete`, `stopped_at_budget`, `incomplete_transient`, `invalid` or `not_replayable`;
+  - the status: `complete`, `stopped_at_budget`, `incomplete_transient`, `invalid`, `not_replayable` or
+    `stopped_permanent` (a 400, 401, 403 or 404 stopped it, §7; named at build);
   - the counts: calls, re-asks, fallbacks, retries and cost.
 - **Purity.** With a replayed `LLMSource`, the same seed with the log sink on and off reaches the same final state
   (`M16.B`, LX.18).
@@ -352,7 +363,8 @@ counts.
   T-183 in `docs/todo/2026-11-03_version_3_llm_agent_experiment.md`, indexed in `TODO.md`.
 - **Added at build:**
   - `experiments/llm_agents/README.md`;
-  - its three config files;
+  - its config files: the plan's three, and `prompt_text.md` and `report_text.md`, added at build so that no
+    prompt or report wording is in code (rule 9);
   - `docs/llm_agent_experiment_report.md`, the generated report.
 
   The checklist covers `docs/` and `config/bowen/`. The build extends `tests/test_doc_checklist.py` to

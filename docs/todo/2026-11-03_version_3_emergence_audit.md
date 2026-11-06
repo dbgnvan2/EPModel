@@ -5,7 +5,7 @@ The owner decided that version 3 adds two utilities: this emergence audit and a 
 relief removed, reports which results survive, and traces each survivor to the non-learning term that carries it.
 The plan is `docs/plan_v3_emergence_audit.md`.
 
-- [ ] T-182 ⟨later⟩ **The emergence audit: build the approved plan (2026-11-03).** `docs/plan_v3_emergence_audit.md`,
+- [x] T-182 ⟨later⟩ **The emergence audit: build the approved plan (2026-11-03).** `docs/plan_v3_emergence_audit.md`,
   written on spec revision 47 (engine hash `0b363cb3186c`), approved by the owner 2026-11-03. It sets
   five ablations (L0 all learning off; L1–L4 one learning path each), the scope (passing composite and mixed rows of
   the three ensemble records; premises and checks out; `M11.C.39` the positive control, `M11.C.3` the negative), the
@@ -76,6 +76,10 @@ The plan is `docs/plan_v3_emergence_audit.md`.
   its `M11.5` note, `M11.1d`'s question and Claude's recommendation; T-185 is put to the owner first. Open until
   the nine are decided.
   **2026-11-05:** T-186 to T-193 decided by the owner (each below); T-185 is still open. T-186 to T-191 built the same day at spec revision 49, with `M11.1g`'s scope sentence from T-192.
+  **Closed 2026-11-05 by the owner, through `AskUserQuestion`, as recommended:** all nine survivor items are decided
+  (T-185 to T-192 built at spec revisions 49 and 50; T-193 with no change). The audit's question, what survives with all learning off and
+  what carries it, is answered by L0 and the carriers. Plan §7 step 5 (L1–L4) was not run, by the owner's decision of
+  2026-11-04, and no item holds it; steps 1–4, 6 and 7 are done. Spec revision 50's adjacent note became T-194.
 - [x] T-184 ⟨later⟩ **The emergence audit's cache records no NumPy version, so `tools/merge_cache.py` refuses it
   (2026-11-04).** `tools/emergence_audit.py` never sets `Cache.meta["numpy"]`, as `tools/version_2_sweep.py`'s
   `check_numpy` does, so a two-Mac split of the audit cannot be merged by the merge tool as it stands. Step 4's
@@ -313,3 +317,13 @@ for one spec revision that takes all nine.
   **Claude's recommendation:** no change; record the survivor as reviewed. Alternative: add the two carriers to
   `M11.5`'s note at the next revision.
   **Decided 2026-11-05:** the owner chose through `AskUserQuestion`, as recommended: no change; the survivor is recorded as reviewed, and the item closes.
+
+- [ ] T-194 ⟨later⟩ **Which other within-run criteria compare arms that differ in a condition besides the one compared
+  (2026-11-05).** Spec revision 50 found that `M11.C.48[phase_d]`'s direction comes in part from what its arms are
+  made of (a cut tie is more often one both members act on; the cutter's other ties run longer than the family's),
+  not from learning (T-180, T-185). Its adjacent note: `M11.C.48` on the Phase B family (fails) and other within-run
+  comparisons may carry the same difference in their arms' composition (learnings P7). The check is read-only: list
+  every criterion whose two arms are drawn from one run, say for each whether the arms differ in a condition besides
+  the one compared, from the criterion's code and `M11.5`'s row, and put any that do to the owner, each with Claude's
+  recommendation. It changes no rule and runs nothing slow. Made by the owner 2026-11-05, through
+  `AskUserQuestion`, as recommended. Open until the check is done and its findings are put to the owner.

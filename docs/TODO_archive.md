@@ -18,6 +18,7 @@ was moved whole). Those items have no records. Open items are indexed in `TODO.m
 - T-187 · closed 2026-11-05 · `M11.C.7[joint over one spouse]` is carried by three … · [record](todo/2026-11-03_version_3_emergence_audit.md)
 - T-186 · closed 2026-11-05 · `M11.C.15` is carried by the release of bound … · [record](todo/2026-11-03_version_3_emergence_audit.md)
 - T-185 · closed 2026-11-05 · `M11.C.48[phase_d]` survives with all learning off and no … · [record](todo/2026-11-03_version_3_emergence_audit.md)
+- T-182 · closed 2026-11-05 · The emergence audit: build the approved plan (2026-11-03) · [record](todo/2026-11-03_version_3_emergence_audit.md)
 - T-180 · closed 2026-11-05 · `M11.C.48[phase_d]` passes but its named mutant survives (T-179, … · [record](todo/2026-11-01_pre_tag_milestone_review.md)
 - T-184 · closed 2026-11-04 · The emergence audit's cache records no NumPy version, … · [record](todo/2026-11-03_version_3_emergence_audit.md)
 - T-181 · closed 2026-11-04 · The sweep record is stale since spec revision … · [record](todo/2026-11-01_pre_tag_milestone_review.md)

@@ -369,6 +369,10 @@ and all agreeing, were brought to the paper's wording at step 6 (T-130).
   describe earlier causes (`M11.C.2`, `M11.C.29`, `M11.C.42`, `M11.C.44`, `M11.C.45`); no status changed. Claude's
   recommendation under the owner's instruction to proceed, pending the owner's review. The engine hash did not move
   (`0b363cb3186c`).
+- 2026-11-06: spec revision 54, wording in `M11` only (T-199): `M11.5`'s note for `M11.C.42` now says `M4.C.1d`'s
+  contact is returned to its sender by a relieved receiver, where it said "returned to a relieved seeker". Claude's
+  recommendation under the owner's instruction to proceed, pending the owner's review. The engine hash did not move
+  (`0b363cb3186c`).
 
 ## 9. Not relevant to how the model works now
 

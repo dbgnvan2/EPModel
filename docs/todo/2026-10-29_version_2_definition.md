@@ -3,10 +3,12 @@
 Items found while building the version 2 definition batch (`docs/version_2_definition_plan.md` §2, spec revision 43),
 on the owner's instruction of 2026-10-29 to proceed with Claude's recommendations.
 
-- [ ] T-199 ⟨later⟩ **`M11.5`'s note for `M11.C.42` says `M4.C.1d`'s contact is "returned to a relieved seeker"
+- [x] T-199 ⟨later⟩ **`M11.5`'s note for `M11.C.42` says `M4.C.1d`'s contact is "returned to a relieved seeker"
   (found by T-171's learning-qa pass, 2026-11-06; wording only, not decided).** `M4.C.1d` returns contact to its
   sender when the delivery relieves its receiver, so the relieved one is the receiver. The note should say "returned to
   its sender by a relieved receiver", as T-171's note on `M11.C.42` does; a spec wording revision, for the owner.
+  *Closed 2026-11-06 (spec revision 54, Claude's recommendation under the owner's instruction to proceed, pending the
+  owner's review): the note now says the contact is returned to its sender by a relieved receiver.*
 - [ ] T-172 ⟨later⟩ **Three minor items from the W5–W8 reviews (2026-11-01).** (a) `tests/test_requirements.py`'s
   `requirement_specifiers`, like `requirement_names`, raises on a `-r` or `--index-url` line, and the NumPy bound
   check rejects a valid `<3.0` or `<=3` (the safe direction, with a misleading message). (b) Nothing checks that the

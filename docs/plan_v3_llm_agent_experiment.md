@@ -2,8 +2,8 @@
 
 **Status: approved by the owner 2026-11-06, Q1–Q7 as recommended (§9). §11 steps 1–6 built 2026-11-06 under
 `experiments/llm_agents/` (its README), with tests LX.1–LX.20 offline and the A0 baseline run; no live call has been
-made. The wording of `act_labels.md` and `prompt_text.md` waits for the owner (Q2); step 7 waits for the owner's
-go-ahead.** Written 2026-11-03 on `main` at `5c7fc9b` (spec revision 47, engine
+made. The owner approved the plain-label and prompt wording 2026-11-06 (Q2, §9), with A4 showing no tension number of
+any kind (§2) and the build's three extras accepted; step 7 waits for the owner's go-ahead.** Written 2026-11-03 on `main` at `5c7fc9b` (spec revision 47, engine
 hash `0b363cb3186c`). The owner decided on 2026-11-03 that version 3 has two new utilities: this experiment and an
 emergence audit of the learning model (`docs/plan_v3_emergence_audit.md`, T-182). This plan settles what the experiment is, how it keeps the
 theory out of the agents, its scale and cost, how a run replays, how results are compared, how calls are hardened,
@@ -64,7 +64,7 @@ All arms run the same family, horizon and engine seeds.
 | A1 | LLM | **opaque tokens**, permuted per seed (`K1`…`K16`), no description | yes | **primary** |
 | A2 | LLM | **plain descriptions** with no theory vocabulary (§3.2) | yes | contamination probe |
 | A3 | LLM | A2's descriptions **shuffled** onto other acts' mechanics (§3.3) | yes | contamination test |
-| A4 | LLM | A2's descriptions | **no** (no tension line, no history of tension) | contamination test |
+| A4 | LLM | A2's descriptions | **no** (no tension line, no history of tension, no tie strain, no believed tension) | contamination test |
 
 A1 is the closest analogue to the learning model. The learning agents know nothing about an act except what followed
 it. With opaque labels, an LLM agent can only learn the same way, from what followed. A2–A4 exist to measure how much
@@ -83,8 +83,10 @@ tension. It cannot see what the others feel. It answers with its choice only.
 - the round number;
 - its own tension (`acute_excess`, rounded) and the change since its last round (A4: neither);
 - for each tie: the other person's token (`P1`…`Pn`, permuted per seed), how strained the tie feels to it (its own
-  `deviation`, rounded), and whether contact is open, broken off by rejection (`severed`) or stopped (`cut_off`);
-- what it believes about other ties, including ties it is not part of (`beliefs`, believed tension and contact);
+  `deviation`, rounded; A4: not shown), and whether contact is open, broken off by rejection (`severed`) or stopped
+  (`cut_off`);
+- what it believes about other ties, including ties it is not part of (`beliefs`, believed tension and contact; A4:
+  contact only);
 - what reached it this round: "P4 did K7 toward you" or "you saw P2 do K3 toward P5" (`inbox`, target or witness);
 - its own last `history_rounds` (12) rounds: what it chose and, after each, the change in its tension (A4: choices
   only);
@@ -106,8 +108,8 @@ Each act has a short plain description: "seek more closeness with", "pull back f
 for", "let … take over a task for you", "turn to … about the other one", "stop all contact with", "say plainly where you
 stand to", "keep in touch with, calmly", "step out of the middle between … and another", "decline to take sides with",
 "reopen contact with", "stir things up with", and three for the moves toward an outside person. These are editorial
-content, so they go in `experiments/llm_agents/config/act_labels.md` (rule 9), not in code. **Their wording is for the
-owner's review (Q2)** before any run.
+content, so they go in `experiments/llm_agents/config/act_labels.md` (rule 9), not in code. Their wording was approved by
+the owner 2026-11-06, as drafted (Q2).
 
 ### 3.3 The shuffled arm (A3)
 
@@ -305,9 +307,14 @@ learned values, and Halim on the policy.
 | Q6 | Comparison (§6) | Layer 1 only. Layer 2 (rerunning composite criteria) is decided after layer 1, in its own plan. |
 | Q7 | Does the spec gain a version 3 section? | Not now. The experiment is outside the model of record, so this plan is its contract. If the owner later wants its results to stand as evidence about the model, a spec section is written then, with `M11.F.9` in full. |
 
-**Decided 2026-11-06.** The owner chose every recommendation above, Q1–Q7, through AskUserQuestion. Q2's plain-label
-wording is still reviewed by the owner before any run, as Q2 says, and each live phase of §11 step 7 still waits for
-the owner's go-ahead.
+**Decided 2026-11-06.** The owner chose every recommendation above, Q1–Q7, through AskUserQuestion. Each live phase of
+§11 step 7 still waits for the owner's go-ahead.
+
+**Q2's wording, decided 2026-11-06 after the build, through AskUserQuestion, each as recommended.** `act_labels.md` and
+`prompt_text.md` are approved as drafted. A4 hides every tension number, not only the person's own: a tie's strain and a
+pair's believed tension move after the agent's own acts, so showing them would show felt change (§2's intent); ties,
+their contact state and believed contact stay, since contact is not felt tension. The build's three extras are accepted:
+`prompt_text.md` and `report_text.md`, the status `stopped_permanent`, and the standard spells in every arm (LX.17).
 
 ## 10. Acceptance criteria and tests
 
@@ -323,7 +330,7 @@ counts.
 | LX.4 | No rendered prompt in any arm contains a banned term | `test_prompts.py::test_lx4_no_banned_term_in_any_arm` (real-length run, stub chooser) and `::test_lx4_a_banned_term_is_caught` (adversarial, P7) |
 | LX.5 | A1 prompts carry no plain description, and their labels are permuted per seed | `test_prompts.py::test_lx5_opaque_arm_has_no_description`, `::test_lx5_labels_differ_between_seeds` |
 | LX.6 | A3's permutation is a derangement inside each legality group | `test_prompts.py::test_lx6_shuffle_is_a_derangement_within_groups` |
-| LX.7 | A4 prompts carry no tension number or change | `test_prompts.py::test_lx7_no_feedback_arm_shows_no_tension` |
+| LX.7 | A4 prompts carry no tension number or change: not the person's own tension, its change, a past round's change, a tie's strain or a pair's believed tension; contact stays | `test_prompts.py::test_lx7_no_feedback_arm_shows_no_tension`, `::test_lx7_render_without_feedback_drops_every_number_of_tension` |
 | LX.8 | Replay never calls the client, and a cache miss under replay marks the run `not_replayable` | `test_cache.py::test_lx8_replay_never_calls`, `::test_lx8_miss_is_not_replayable` |
 | LX.9 | Two runs with an identical prompt keep separate entries (dirty state, P8) | `test_cache.py::test_lx9_run_key_separates_entries` |
 | LX.10 | The run record has every field of §8 | `test_record.py::test_lx10_run_record_fields` |

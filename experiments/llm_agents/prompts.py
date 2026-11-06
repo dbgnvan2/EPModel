@@ -110,9 +110,11 @@ def render(labeller: Labeller, r: RoundInput) -> Prompt:
                      else t["tension_line"].format(tension=_num(r.tension), change=_signed(r.change)))
     lines.append(t["tie_header"])
     contact = {"open": t["contact_open"], "broken": t["contact_broken"], "stopped": t["contact_stopped"]}
-    lines += [t["tie_line"].format(other=o, strain=_num(s), contact=contact[c]) for o, s, c in r.ties]
+    # A4 shows no tension number at all: the strain on a tie and a pair's believed tension go with the person's own (§2)
+    tie_key, belief_key = ("tie_line", "belief_line") if feedback else ("tie_line_no_feedback", "belief_line_no_feedback")
+    lines += [t[tie_key].format(other=o, strain=_num(s), contact=contact[c]) for o, s, c in r.ties]
     lines.append(t["belief_header"])
-    lines += [t["belief_line"].format(a=a, b=b, tension=_num(x), contact=f"{c:.2f}") for a, b, x, c in r.beliefs] \
+    lines += [t[belief_key].format(a=a, b=b, tension=_num(x), contact=f"{c:.2f}") for a, b, x, c in r.beliefs] \
         or [t["belief_none"]]
     lines.append(t["seen_header"])
     lines += [labeller.seen(s) for s in r.seen] or [t["seen_none"]]

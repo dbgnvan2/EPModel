@@ -102,24 +102,42 @@ def test_lx6_shuffle_is_a_derangement_within_groups(seed):
     assert permutations("A2", seed, ["a", "b"], labels).label_of == {k: k for k in labels}
 
 
-def test_lx7_no_feedback_arm_shows_no_tension():
-    text = load_text()
+def _tension_marks(text) -> list[str]:
+    """The fixed words that go with a tension number: the person's own tension and its change, the change after a past
+    round, a tie's strain and a pair's believed tension (owner, 2026-11-06: A4 shows none of them)."""
     marks = [_fragments(text[k])[0] for k in ("tension_first", "tension_line")]
     marks.append(_fragments(text["history_line"])[-1])
+    marks.append(_fragments(text["tie_line"])[0])     # ": strain"
+    marks.append(_fragments(text["belief_line"])[0])  # ": tension"
+    return marks
+
+
+def test_lx7_no_feedback_arm_shows_no_tension():
+    marks = _tension_marks(load_text())
     _, a4 = stub_run("A4", 1, WEEKS)
     for key, prompt in a4.prompts.items():
         assert not [m for m in marks if m in prompt.user], f"A4 {key}"
-    # The check bites: A2's prompts carry both the tension line and the change in the history.
+    # The check bites: A2's prompts carry the tension line, the change in the history, a tie's strain and a belief's
+    # tension.
     _, a2 = stub_run("A2", 1, WEEKS)
     users = [p.user for p in a2.prompts.values()]
     assert all(any(m in u for u in users) for m in marks)
 
 
+_NUMBER = re.compile(r"(?<![\w.])[-+]?\d+(?:\.\d+)?")  # a number standing alone, not the digit in a token such as P2
+
+
 def test_lx7_render_without_feedback_drops_every_number_of_tension():
-    labels = load_labels()
-    r = RoundInput(5, 37.0, -4.0, (("P2", 3.0, "open"),), (), (Seen(None, None, None, False),),
-                   ((4, "pull back from P2", -4.0),), (OptionSpec("DISTANCE", "P2"),))
+    """Every number that moves after the person's acts is a tension number except believed contact, which stays: in A4
+    the round message carries only the round numbers, the option ids and believed contact."""
+    labels, text = load_labels(), load_text()
+    r = RoundInput(5, 37.0, -4.0, (("P2", 23.0, "open"),), (("P2", "P3", 58.0, 0.71),), (Seen(None, None, None, False),),
+                   ((4, "pull back from P2", -9.0),), (OptionSpec("DISTANCE", "P2"),))
+    moving = {"37", "-4", "23", "58", "-9"}
     for arm, shows in (("A4", False), ("A2", True)):
-        lab = Labeller(SPECS[arm], permutations(arm, 1, ["a", "b"], labels), labels, load_text())
-        user = render(lab, r).user
-        assert ("37" in user) is shows and ("-4" in user) is shows
+        lab = Labeller(SPECS[arm], permutations(arm, 1, ["a", "b"], labels), labels, text)
+        numbers = set(_NUMBER.findall(render(lab, r).user))
+        assert (moving <= numbers) is shows, arm
+        assert "0.71" in numbers and text["contact_open"] in render(lab, r).user, f"{arm}: contact stays"
+        if not shows:
+            assert numbers == {"5", "4", "1", "0.71"}, numbers  # round, past round, option id, believed contact

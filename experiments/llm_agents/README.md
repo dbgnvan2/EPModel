@@ -6,7 +6,8 @@ The report it generates is `docs/llm_agent_experiment_report.md`.
 
 **Status (2026-11-06).** Plan steps 1–6 are built and tested offline. No live call has been made. A0 (the model's own
 policy, no call, no cost) has been run for its five seeds and is in the report. The wording in `config/act_labels.md`
-and `config/prompt_text.md` waits for the owner's review (Q2). Each live phase (the smoke call LX.L1, the pilot
+and `config/prompt_text.md` was approved by the owner 2026-11-06 (Q2); arm A4 shows no tension number of any kind (no
+own tension or change, no tie strain, no believed tension). Each live phase (the smoke call LX.L1, the pilot
 LX.L2, the main phase, the cross-check) waits for the owner's go-ahead.
 
 ## What it does
@@ -39,13 +40,13 @@ the policy. Arms A0–A4 are in the plan's §2.
 | File | What it holds | Status |
 |---|---|---|
 | `config/llm.md` | Models, thinking and effort, prices, retries, caps, scale, phases | decided by the owner 2026-11-06 |
-| `config/act_labels.md` | Each act's plain label and what others see (A2–A4) | **draft, for the owner's review (Q2)** |
-| `config/prompt_text.md` | Every fixed word of the prompt | **draft, for the owner's review (Q2)** |
+| `config/act_labels.md` | Each act's plain label and what others see (A2–A4) | approved by the owner 2026-11-06 (Q2) |
+| `config/prompt_text.md` | Every fixed word of the prompt | approved by the owner 2026-11-06 (Q2) |
 | `config/banned_terms.md` | The lint's terms; the family file's names are added at check time | built |
 | `config/report_text.md` | The report's fixed sentences | built |
 
 The plan named three config files. `prompt_text.md` and `report_text.md` were added at build so that no prompt or
-report wording lives in code.
+report wording lives in code; the owner accepted both 2026-11-06.
 
 ## Commands (from the repo root)
 

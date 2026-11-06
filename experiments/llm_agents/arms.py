@@ -28,7 +28,7 @@ class ArmSpec:
     llm: bool          # an LLM decides for the family members
     opaque: bool       # act labels are opaque tokens
     shuffled: bool     # plain labels sit on other acts' mechanics
-    feedback: bool     # the agent sees its tension and its change
+    feedback: bool     # the agent sees tension numbers: its own and its change, a tie's strain, a pair's believed tension
 
 
 SPECS: Mapping[str, ArmSpec] = {

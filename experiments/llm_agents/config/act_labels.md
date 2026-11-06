@@ -1,7 +1,7 @@
 # LLM-agent experiment — the plain act labels (arms A2, A3, A4)
 
-> **Status: draft, for the owner's review before any run** (`docs/plan_v3_llm_agent_experiment.md` §3.2, Q2). No run
-> has used these words.
+> **Status: approved by the owner 2026-11-06, as drafted** (`docs/plan_v3_llm_agent_experiment.md` §3.2, Q2). No live
+> run has used these words yet.
 >
 > One row per act kind the policy can select (`config/bowen/event_kinds.md`, channel `automatic` or `self`). Read by
 > `experiments/llm_agents/config.py`; a kind the engine has and this table lacks, or the reverse, is refused at load.

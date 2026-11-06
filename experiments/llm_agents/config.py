@@ -174,8 +174,9 @@ def load_banned(path: Path = CONFIG / "banned_terms.md") -> tuple[tuple[str, str
 
 
 TEXT_KEYS = frozenset({
-    "system", "round_header", "tension_first", "tension_line", "tie_header", "tie_line", "contact_open",
-    "contact_broken", "contact_stopped", "belief_header", "belief_line", "belief_none", "seen_header", "seen_target",
+    "system", "round_header", "tension_first", "tension_line", "tie_header", "tie_line", "tie_line_no_feedback",
+    "contact_open", "contact_broken", "contact_stopped", "belief_header", "belief_line", "belief_line_no_feedback",
+    "belief_none", "seen_header", "seen_target",
     "seen_witness", "seen_opaque_target", "seen_opaque_witness", "seen_outside", "seen_none", "history_header",
     "history_line", "history_line_no_feedback", "history_none", "option_header", "option_line", "option_opaque",
     "option_opaque_triad", "option_hold", "answer", "reask",

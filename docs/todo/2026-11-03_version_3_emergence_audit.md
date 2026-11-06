@@ -370,11 +370,52 @@ for one spec revision that takes all nine.
   `docs/version_2_dispositions.md`'s `M11.C.48` row, `docs/model_explainer.md` and `docs/readouts_phase_c.md` carry it.
   Adjacent, not fixed: `M11.C.2`'s criterion row still states revision 31's carrier on the twelve-person family (the
   witness path removed survives), which `docs/phase_d_mutation_record.md` no longer shows; added to T-171.
-- [ ] T-196 ⟨later⟩ **Run `M11.C.48`'s carrier probe on the Phase B family (2026-11-05).** From T-194, the owner's
+- [x] T-196 ⟨later⟩ **Run `M11.C.48`'s carrier probe on the Phase B family (2026-11-05).** From T-194, the owner's
   decision through `AskUserQuestion`. `tools/c48_carrier_probe.py` runs on the twelve-person family only; extend it
   (outside the engine hash) to the Phase B family and read the matched first cutoffs' runs against baseline subsets
   matched on tie type and on ties not cut later, under L0 and on the unmodified engine. Report what is left after
   matching; feed T-195's wording.
+  **Done 2026-11-05** (nothing under `src/bowen/` or `config/bowen/` changed; the engine hash stays `0b363cb3186c`).
+  `tools/c48_carrier_probe.py --family phase_c` runs the criterion's own Phase B scenario (`family_phase_c.md`, its
+  baseline stressor spell, 520 weeks), and every row now also reads the baseline on ties of the cut tie's declared class
+  (its conductance at week 0), on ties never cut later, and on both. 200 seeds run (0–199), on the unmodified engine
+  (200 with a matched first cutoff) and under L0 (`--l0`; 199 with one); each row's baseline equals the readout's. The row reproduces the record: +0.029 ± 0.136 (200 seeds,
+  808 matched first cutoffs; the record's `negative_run` +0.0286 ± 0.14).
+
+  | Comparison (per-seed mean ± 95%) | Engine | L0 |
+  |---|---|---|
+  | the row: run − all uncut ties | +0.029 ± 0.136 | +0.060 ± 0.130 |
+  | run − uncut ties of the cut tie's class | −0.004 ± 0.186 (the row on those cutoffs +0.011) | +0.026 ± 0.162 (+0.052) |
+  | run − uncut ties with as many sides | +0.057 ± 0.154 (+0.077) | +0.148 ± 0.146 (+0.164) |
+  | run − the cutter's other uncut ties | +0.097 ± 0.213 (+0.075) | −0.081 ± 0.192 (−0.058) |
+  | share of ties both members act on, cut / baseline (pooled) | 0.772 / 0.779 | 0.779 / 0.767 |
+  | cut ties at conductance 0.6 / 1.0 (pooled) | 272 / 536 | 268 / 541 |
+  | baseline ties at 0.6 / 1.0 (pooled) | 399 / 1312 | 440 / 1303 |
+  | baseline ties cut later in the run (pooled tie-instances, one per matched cutoff) | 1711 of 1711 | 1743 of 1743 |
+
+  What it shows: (1) the arms differ in tie class: a grandparent tie (0.6) is 34% of the cut ties and 23% of the
+  baseline's, and matched on class no difference is detected on either engine (intervals ±0.16–0.19; the class
+  matching reads 572 of 808 cutoffs on the engine and 570 of 809 under L0, the rest having no uncut tie of their
+  class); (2) unlike the twelve-person family (51% against 33% under L0), the cut and baseline ties are acted on by both
+  members equally often here, so that carrier is absent; (3) at every matched cutoff all the uncut baseline ties are
+  cut later in the run (1711 tie-instances on the engine, 1743 under L0), so a baseline of never-cut ties is empty and
+  that matching cannot be made: every first cutoff is compared only with ties that are themselves cut later; (4) on
+  the unmodified engine no comparison has an interval that excludes zero; under L0 the two matched on sides do, the
+  two-sided pair (+0.222 ± 0.171, the row on those cutoffs +0.255) and all cutoffs (+0.148 ± 0.146, only just; the row
+  on those cutoffs +0.164 ± 0.145), and in each the matching lowers the row's own direction on those cutoffs rather
+  than making one. So on the engine the fail is no difference detected, at a width of about ±0.14–0.19, under each
+  matching tried, and the arms' unmatched composition does not hide a direction of that size; with learning removed a
+  small direction appears on the cutoffs matched on sides. Not measured: matching on age or on
+  how long a tie had existed; a different baseline (ties never cut cannot be one on this family). Rows:
+  scratchpad only, not committed (the command above regenerates them in about seven minutes). Folded into the spec by
+  T-198.
+- [ ] T-198 ⟨later⟩ **Fold T-196's findings (and T-197's) into `M11.5` at the next revision (2026-11-05).** From
+  T-196, Claude's recommendation under the owner's instruction of 2026-11-05 to proceed, pending the owner's review.
+  Wording in `M11` only: `M11.C.48`'s `M11.5` note on the Phase B family says matching on the cut tie's class leaves no
+  difference, the two arms are acted on by both members equally often, and every baseline tie is cut later, so no
+  never-cut baseline exists; revision 51's "among them" before the tie classes is removed, since the baseline holds
+  only the 1.0 and 0.6 ties (Dr Halim is external, and the readout reads contacts between members only), and the
+  CHANGELOG's revision 51 entry already says so. Batch it with T-197's result, one revision.
 - [ ] T-197 ⟨later⟩ **Does `M11.C.2[twelve-person family]`'s pass hold when the arms are matched (2026-11-05).** From
   T-194, the owner's decision through `AskUserQuestion`. A read-only probe outside the engine hash: compare each
   picked child's load at 20–30 against its own load before projection, or match the most- and least-projected

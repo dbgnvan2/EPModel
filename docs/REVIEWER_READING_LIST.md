@@ -346,6 +346,12 @@ and all agreeing, were brought to the paper's wording at step 6 (T-130).
   `M11.C.2`'s fail on the Phase C family and its pass on the twelve-person family are not separated from the two
   children's difference in starting state (and birth order). It went ahead of T-196 and T-197, Claude's recommendation
   under the owner's instruction to proceed, pending the owner's review. The engine hash did not move (`0b363cb3186c`).
+- 2026-11-05: T-196, `M11.C.48`'s carrier probe on the Phase B family (`tools/c48_carrier_probe.py --family phase_c`,
+  200 seeds, the engine and L0): matched on the cut tie's class no difference is detected; the arms are acted on by
+  both members equally often; at every matched cutoff all the uncut baseline ties are cut later, so no never-cut
+  baseline exists. On the engine the fail is no difference detected (about ±0.14–0.19) under each matching tried;
+  under L0 the comparisons matched on sides only just exclude zero. T-198 folds this into `M11.5` at the next revision. Nothing in the engine
+  changed (`0b363cb3186c`).
 
 ## 9. Not relevant to how the model works now
 

@@ -11,7 +11,12 @@ Spec:    docs/bowen_agent_model_spec_v2.md#M11.C.48, #M11.1d, #M11.1g; docs/plan
 Tests:   none; a diagnostic for T-185, reported in docs/todo/2026-11-03_version_3_emergence_audit.md (T-185). Outside the
          engine hash: it changes nothing a run computes.
 
-    python3 tools/c48_carrier_probe.py --seeds N [--start S] [--l0]
+    python3 tools/c48_carrier_probe.py --seeds N [--start S] [--l0] [--family phase_d|phase_c]
+
+``--family phase_c`` (T-196, 2026-11-05) runs `M11.C.48`'s own Phase B scenario instead (``family_phase_c.md``, its
+baseline stressor spell, ``weeks`` from the criterion's settings), as ``criteria_d2.negative_run_values`` does. Every row
+also reads the baseline on ties of the cut tie's declared class (its conductance at week 0; the twelve-person family's
+ties born in the run have none and are their own class), on uncut ties never cut later in the run, and on both.
 
 ``--l0`` runs it in a temporary copy of the repository with the emergence audit's L0 applied (``tools/emergence_audit.L0``,
 ``tools/mutant_runner.apply``), never in the working tree. One JSON row per matched first cutoff.
@@ -38,24 +43,31 @@ def _mean(xs):
     return math.fsum(xs) / len(xs) if xs else None
 
 
-def rows_for_seed(seed: int) -> list[dict]:
+def rows_for_seed(seed: int, family: str = "phase_d") -> list[dict]:
     from src.bowen.engine.events import Mechanism
     from src.bowen.engine.identifiers import TieId
     from src.bowen.engine.log_records import EmittedRecord
     from src.bowen.engine.objects import Role, TieState
-    from src.bowen.ensemble.criteria import ROLES, SETTINGS, scenario
+    from src.bowen.ensemble.criteria import ROLES, SETTINGS, scenario, spell
     from src.bowen.ensemble.criteria_d import nodal
     from src.bowen.ensemble.criteria_d2 import YEAR
     from src.bowen.readouts import negative_runs as nr
 
-    weeks = SETTINGS["M11.C.48"]["years"] * YEAR
     declared: set = set()
+    declared_class: dict = {}
 
     def setup(state) -> None:
         declared.update(t for t, tie in state.ties.items() if tie.tie_state is TieState.CUT_OFF)
+        declared_class.update((t, round(tie.conductance, 3)) for t, tie in state.ties.items())
 
-    parents = (ROLES["phase_d", "parent_1"], ROLES["phase_d", "parent_2"])
-    state, records = scenario("phase_d", seed, weeks, spells=nodal(weeks, parents), setup=setup)
+    if family == "phase_d":
+        weeks = SETTINGS["M11.C.48"]["years"] * YEAR
+        parents = (ROLES["phase_d", "parent_1"], ROLES["phase_d", "parent_2"])
+        spells = nodal(weeks, parents)
+    else:
+        weeks = SETTINGS["M11.C.48"]["weeks"]
+        spells = spell(family, weeks)
+    state, records = scenario(family, seed, weeks, spells=spells, setup=setup)
     members = frozenset(p for p, q in state.people.items() if q.role is Role.MEMBER)
     kinds = state.kinds
     firsts = nr.first_cutoff_runs(records, kinds, members, frozenset(declared))
@@ -129,6 +141,10 @@ def rows_for_seed(seed: int) -> list[dict]:
         theirs = [standing[t] for t in uncut if b in t.members()]
         neither = [standing[t] for t in uncut if a not in t.members() and b not in t.members()]
         base_people = sorted({m for t in uncut for m in t.members()}, key=str)
+        cls = declared_class.get(f.tie)
+        like = [t for t in uncut if declared_class.get(t) == cls]
+        never = [t for t in uncut if t not in cut_weeks]
+        like_never = [t for t in like if t not in cut_weeks]
         out.append({
             "seed": seed, "week": f.week, "tie": str(f.tie), "cutter": str(a),
             "run": f.run, "uncut_mean": f.uncut, "check": abs(_mean(standing.values()) - f.uncut) < 1e-9,
@@ -145,6 +161,12 @@ def rows_for_seed(seed: int) -> list[dict]:
             "baseline_two_sided_share": len(two) / len(uncut),
             "two_sided_mean": _mean(standing[t] for t in two),
             "one_sided_mean": _mean(standing[t] for t in uncut if sides(t, f.week) < 2),
+            "cut_class": cls, "baseline_classes": dict(Counter(str(declared_class.get(t)) for t in uncut)),
+            "baseline_cut_later": sum(1 for t in uncut if t in cut_weeks),
+            "same_class_mean": _mean(standing[t] for t in like), "same_class_n": len(like),
+            "never_cut_mean": _mean(standing[t] for t in never), "never_cut_n": len(never),
+            "same_class_never_cut_mean": _mean(standing[t] for t in like_never),
+            "same_class_never_cut_sides_mean": _mean(standing[t] for t in like_never if sides(t, f.week) == own_sides),
         })
     return out
 
@@ -212,6 +234,13 @@ def summarise(rows: list[dict]) -> list[str]:
         f"share of ties both members act on (pooled): cut {len(two) / len(rows):.3f}, baseline "
         f"{math.fsum(r['baseline_two_sided_share'] for r in rows) / len(rows):.3f}",
         f"uncut two-sided ties - uncut one-sided ties: {_seed_mean(rows, diff('two_sided_mean', 'one_sided_mean'))}",
+        f"cut ties by declared class (pooled): {dict(sorted(Counter(str(r.get('cut_class')) for r in rows).items()))}; "
+        f"baseline ties by class (pooled): {dict(sorted(sum((Counter(r.get('baseline_classes', {})) for r in rows), Counter()).items()))}; "
+        f"baseline ties cut later (pooled): {sum(r.get('baseline_cut_later', 0) for r in rows)}",
+        paired("run - uncut ties of the cut tie's class", rows, "same_class_mean"),
+        paired("run - uncut ties never cut in the run", rows, "never_cut_mean"),
+        paired("run - uncut ties of its class, never cut", rows, "same_class_never_cut_mean"),
+        paired("run - uncut ties of its class, never cut, with as many sides", rows, "same_class_never_cut_sides_mean"),
     ]
 
 
@@ -220,6 +249,7 @@ def main() -> int:
     parser.add_argument("--seeds", type=int)
     parser.add_argument("--start", type=int, default=0)
     parser.add_argument("--l0", action="store_true")
+    parser.add_argument("--family", choices=("phase_d", "phase_c"), default="phase_d")
     parser.add_argument("--summarise", nargs="+", metavar="JSONL", help="summarise rows this probe printed")
     args = parser.parse_args()
     if args.summarise:
@@ -229,9 +259,9 @@ def main() -> int:
     if args.seeds is None:
         parser.error("--seeds is required unless --summarise is given")
     if args.l0:
-        return _in_l0_copy(["--seeds", str(args.seeds), "--start", str(args.start)])
+        return _in_l0_copy(["--seeds", str(args.seeds), "--start", str(args.start), "--family", args.family])
     for seed in range(args.start, args.start + args.seeds):
-        for row in rows_for_seed(seed):
+        for row in rows_for_seed(seed, args.family):
             print(json.dumps(row, default=float), flush=True)
     return 0
 

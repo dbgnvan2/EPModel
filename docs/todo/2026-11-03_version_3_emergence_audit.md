@@ -415,9 +415,56 @@ for one spec revision that takes all nine.
   difference, the two arms are acted on by both members equally often, and every baseline tie is cut later, so no
   never-cut baseline exists; revision 51's "among them" before the tie classes is removed, since the baseline holds
   only the 1.0 and 0.6 ties (Dr Halim is external, and the readout reads contacts between members only), and the
-  CHANGELOG's revision 51 entry already says so. Batch it with T-197's result, one revision.
-- [ ] T-197 ⟨later⟩ **Does `M11.C.2[twelve-person family]`'s pass hold when the arms are matched (2026-11-05).** From
+  CHANGELOG's revision 51 entry already says so. With T-197 (done 2026-11-05): `M11.C.2`'s `M11.5` note on the
+  twelve-person family says that with which child is picked held the direction is not detected over the three children
+  (+0.17 ± 0.47 over 600 seeds), that the three-child reading is not separated from the eldest child's different start
+  and shorter window (Leo, 8 at week 0), and that between the two children born into the run a direction remains with
+  their early state held, at the edge of detection (+0.80 ± 0.63); the numbers are from a probe, so the note cites the
+  T-197 item, not the record. One revision for both.
+- [x] T-197 ⟨later⟩ **Does `M11.C.2[twelve-person family]`'s pass hold when the arms are matched (2026-11-05).** From
   T-194, the owner's decision through `AskUserQuestion`. A read-only probe outside the engine hash: compare each
   picked child's load at 20–30 against its own load before projection, or match the most- and least-projected
   children on starting level and birth order, and say whether the direction (+2.22 ± 1.5) survives. Feed T-195's
   wording; no rule changes from the probe alone.
+  **Done 2026-11-05** (read only; nothing under `src/bowen/` or `config/bowen/` changed; the engine hash stays
+  `0b363cb3186c`). `tools/c2_matched_probe.py` runs the row's own `criteria_d2.life_run` per seed with one more observer
+  (it only reads state; seed 0 gives the criterion's numbers exactly) and reads each child's declared birth rank, its
+  state when first seen at 5 or older (basic, chronic anxiety and functional level), and its mean load before 5. Leo
+  is 8 at week 0, so his state is read at week 0 and he has no load before 5. The record's 150 seeds (0–149) were run,
+  then 450 more (150–599) to narrow the intervals; the 150 reproduce the record (+2.221 ± 1.536).
+
+  | Reading (mean ± 95%) | 150 seeds | 600 seeds |
+  |---|---|---|
+  | the row: most-projected load − least-projected load | +2.22 ± 1.54 | +1.35 ± 0.82 |
+  | most − least: birth rank | −0.46 ± 0.22 | −0.46 ± 0.11 |
+  | most − least: chronic anxiety when first seen at 5 or older (Leo's is his week-0 value at 8) | −3.30 ± 1.70 | −3.34 ± 0.85 |
+  | rank 1 (Leo): most-projected / least-projected, in seeds | 71 / 34 | 286 / 134 |
+  | matched on rank, load as most − as least: rank 1, 2, 3 | +1.70 ± 3.13, +1.20 ± 2.91, +1.58 ± 2.56 | +0.44 ± 1.56, +0.32 ± 1.49, +0.83 ± 1.21 |
+  | within seed, load per act per year, acts only | +1.15 ± 0.84 | +0.73 ± 0.47 |
+  | within seed, which child held (rank, linear) | +0.63 ± 0.89 | +0.17 ± 0.47 |
+  | within seed, which child held (two indicators) | +0.68 ± 0.88 | +0.22 ± 0.47 |
+  | within seed, rank and state when first seen at 5 or older held | +0.64 ± 0.89 | +0.16 ± 0.47 |
+  | Nadia and Pia only: acts only; rank held; rank and state at 5 held; and load before 5 held | | +0.83 ± 0.68; +0.55 ± 0.64; +0.80 ± 0.63; +0.80 ± 0.63 |
+  | Nadia and Pia only, most − least: chronic anxiety at 5; functional level at 5; load before 5 | | −0.14 ± 0.29; −0.89 ± 0.56; +1.87 ± 1.08 |
+
+  What it shows (the 600-seed column; within-seed intervals clustered by seed). The family's three children are
+  always Leo, Nadia and Pia, so holding birth rank holds which child it is, and with it age at week 0 and the length
+  of the window under 20 (Leo, 8 at week 0, is observed under 20 for about 12 years, the girls for about 20; his acts
+  per year are higher). (1) The arms differ in which child they are: the most-projected child is Leo in 286 of 600
+  seeds and the least-projected in 134. The lower anxiety of the most-projected child (−3.34 ± 0.85) is that same
+  fact, since Leo's value is read at 8, not 5; between Nadia and Pia it is −0.14 ± 0.29. (2) The direction keeps its
+  sign under every matching tried. Matched on rank, no rank's difference is detected. With which child held, the
+  within-seed slope over the three children is +0.17 ± 0.47 (indicators +0.22 ± 0.47) and is not detected; the
+  unmatched slope is +0.73 ± 0.47. The two slopes' intervals overlap and the probe does not test their difference.
+  (3) Between Nadia and Pia the slope is +0.83 ± 0.68 unmatched, +0.55 ± 0.64 with rank held (not detected), and
+  +0.80 ± 0.63 with rank, state at 5 and load before 5 held (only just detected). The more-projected of the two already
+  carried more load before 5 (+1.87 ± 1.08) and had a lower functional level at 5 (−0.89 ± 0.56), which fits focus on
+  weakness steering the acts; with that early load held, the slope is unchanged. So the row's pass is not separated
+  from which child is picked: over the three children, with the child held, no direction is detected, and the
+  three-child reading is not separated from Leo's different start and shorter window; between the two children born
+  into the run a direction of about the same size as the unmatched three-child slope remains with their early state
+  held, at the edge of detection. The pass is not a finding about projection alone (as revision 51 says).
+  Not measured: whether Leo's shorter observed window under 20 itself raises his acts per year; matching on the
+  parents' state. The extra 450 seeds are a probe, not the record: the row's verdict stays
+  the record's. Rows: scratchpad only, not committed (about 9 minutes per 150 seeds on 8 workers). Folded into the
+  spec by T-198.

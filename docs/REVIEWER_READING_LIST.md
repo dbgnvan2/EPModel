@@ -350,8 +350,14 @@ and all agreeing, were brought to the paper's wording at step 6 (T-130).
   200 seeds, the engine and L0): matched on the cut tie's class no difference is detected; the arms are acted on by
   both members equally often; at every matched cutoff all the uncut baseline ties are cut later, so no never-cut
   baseline exists. On the engine the fail is no difference detected (about ±0.14–0.19) under each matching tried;
-  under L0 the comparisons matched on sides only just exclude zero. T-198 folds this into `M11.5` at the next revision. Nothing in the engine
-  changed (`0b363cb3186c`).
+  under L0 the comparisons matched on sides only just exclude zero. T-198 folds this into `M11.5` at the next
+  revision. Nothing in the engine changed (`0b363cb3186c`).
+- 2026-11-05: T-197, `M11.C.2[twelve-person family]` with its arms matched (`tools/c2_matched_probe.py`, the record's
+  150 seeds and 450 more): the most-projected child is more often the eldest (Leo, 8 at week 0); with which child is
+  picked held the direction is not detected over the three children (+0.17 ± 0.47 over 600 seeds); between Nadia and
+  Pia one remains with their early state held, at the edge of detection (+0.80 ± 0.63). Read the row's pass as not
+  separated from which child is picked, and not as a finding about projection alone. T-198 folds it into `M11.5`; the
+  verdict is the record's, and nothing in the engine changed (`0b363cb3186c`).
 
 ## 9. Not relevant to how the model works now
 

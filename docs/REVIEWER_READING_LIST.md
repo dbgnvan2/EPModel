@@ -336,6 +336,11 @@ and all agreeing, were brought to the paper's wording at step 6 (T-130).
   tie is more often one both members act on; the cutter's other ties run longer), not from `CUTOFF`'s learned value.
   `M11.5`'s row, the criterion's row and its mutation clause say so; the pass stays reviewed and is not a finding about
   learning. The engine hash did not move (`0b363cb3186c`).
+- 2026-11-05: T-182, the emergence audit, closed. T-194's read-only check found four within-run rows whose arms differ
+  in a condition besides the one compared: `M11.C.48` on the Phase B family, `M11.C.2` on the Phase C family,
+  `M11.C.2[twelve-person family]`, and `M11.C.11`'s return limb (by design). Until T-195's wording lands, read the two
+  fails and the `M11.C.2[twelve-person family]` pass with that in mind; T-196 and T-197 are the probes. Nothing ran
+  and the engine hash did not move (`0b363cb3186c`).
 
 ## 9. Not relevant to how the model works now
 

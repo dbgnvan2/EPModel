@@ -318,7 +318,7 @@ for one spec revision that takes all nine.
   `M11.5`'s note at the next revision.
   **Decided 2026-11-05:** the owner chose through `AskUserQuestion`, as recommended: no change; the survivor is recorded as reviewed, and the item closes.
 
-- [ ] T-194 ⟨later⟩ **Which other within-run criteria compare arms that differ in a condition besides the one compared
+- [x] T-194 ⟨later⟩ **Which other within-run criteria compare arms that differ in a condition besides the one compared
   (2026-11-05).** Spec revision 50 found that `M11.C.48[phase_d]`'s direction comes in part from what its arms are
   made of (a cut tie is more often one both members act on; the cutter's other ties run longer than the family's),
   not from learning (T-180, T-185). Its adjacent note: `M11.C.48` on the Phase B family (fails) and other within-run
@@ -327,3 +327,49 @@ for one spec revision that takes all nine.
   the one compared, from the criterion's code and `M11.5`'s row, and put any that do to the owner, each with Claude's
   recommendation. It changes no rule and runs nothing slow. Made by the owner 2026-11-05, through
   `AskUserQuestion`, as recommended. Open until the check is done and its findings are put to the owner.
+  **The check (2026-11-05, read only; nothing run).** Every `M11.C` criterion and keyed row was read from its code
+  (through `docs/spec_index.jsonl`) and `M11.5`'s row (`docs/spec_rules/M11.md`). Besides the `[phase_d]` reference row, five rows
+  draw both arms from one run, or compare two windows of runs identical until the change; the other criteria compare arms run with different
+  settings, or have no second arm (`M11.C.37`) or no code (`M11.C.8`, `M11.C.9`, `M11.C.13`, `M11.C.28`).
+
+  | Row | Arms (one run) | Other condition the arms differ in, or how matched | Verdict | Code | `M11.5` |
+  |---|---|---|---|---|---|
+  | `M11.C.48[phase_d]` (reference) | the run on each tie at its first `CUTOFF`; the mean standing run that week on the uncut ties in contact | matched on the week and on contact only; not on who is in the tie, how many members act on it, or the cutter's ties against the family's (spec revision 50) | differs | `src/bowen/readouts/negative_runs.py:174-180`; `src/bowen/ensemble/criteria_d2.py::negative_run_values` | `docs/spec_rules/M11.md:172` |
+  | `M11.C.48` (Phase B family; fails) | the same arms, on `family_phase_c.md` | as above, and the baseline mixes tie types the cut tie is not matched to: spouse and parent ties at conductance 1.0 with the grandparent ties at 0.6 (`sofia`–`ravi` at latency 2), `config/bowen/family_phase_c.md:40-46`; it also counts ties cut later (`negative_runs.py:175`). T-185's probe ran on the twelve-person family only | differs | `negative_runs.py:174-180`; `criteria_d2.py::arm_c48` | `M11.md:172` (no Phase B clause) |
+  | `M11.C.2` (Phase C family; fails, accepted as a finding) | the second-half load of the child who received the most projection-type acts in the first half; of the child who received the fewest | the arms are Nadia and Pia, who differ at the start: age 17/14, chronic anxiety 52/37, channel mental/social, sibling rank 2/3 (`family_phase_c.md:29-30`); the pick is by act count, which focus on weakness steers by the child's own state (`M11.md:72`); the half split stops load attracting acts in its own window only | differs | `src/bowen/ensemble/criteria_d.py:504-533` (pick `:532`) | `M11.md:126` |
+  | `M11.C.2[twelve-person family]` (passes) | the mean load at ages 20–30 of the child with the most projection acts per year under 20; of the child with the fewest, from one `life_run` | read at the same ages, so age is matched; the children still differ in birth order, the calendar years of the nodal load, weeks observed, and starting state, and the pick depends on a child's weakness, which can carry into ages 20–30 without projection; a child never seen at 20–30 is left out and counted | differs | `criteria_d2.py:338-343` (`_pick`), `:385-393` | `M11.md:126` |
+  | `M11.C.11` (return limb) | two runs identical until the return; the disturbance at removal (weeks 44–60) against that at return (weeks 96–112) | the windows differ in time in the run and in the 52 weeks away before the return; that history is what the limb compares, and T-191 named its carrier (the removed member's two holds returning together) | differs (by design) | `criteria_d.py:323-339`; `config/bowen/criteria.md:197-199` | `M11.md:135` |
+  | `M11.C.26` | beliefs read against each driving's own sink; the same readings against the next driving's label | matched by construction: the same runs and readings, only the labels rotated | matched | `criteria_d.py:375-406` | `M11.md:150` |
+
+  Not checked: the policy's choice of which tie to cut and which child to target was not read line by line; the
+  Phase B carriers of `M11.C.48` are not measured; that `M11.C.11`'s two runs draw the same random numbers before
+  week 104 was not confirmed.
+  **Claude's recommendations, put to the owner through `AskUserQuestion` (2026-11-05), one question per row that
+  differs:** `M11.C.48` on the Phase B family — wording at the next revision (its arms are unmatched as `[phase_d]`'s
+  are, so its fail is not a finding about the run before a cutoff) and a later item to run
+  `tools/c48_carrier_probe.py` on that family; `M11.C.2` on the Phase C family — wording at the next revision (the
+  arms are two children who differ in starting state, so the fail is not separated from that difference);
+  `M11.C.2[twelve-person family]` — wording at the next revision and a later read-only check of whether the pass
+  holds against each child's own load before projection or matched on starting level; `M11.C.11` — record as
+  reviewed and change nothing. Alternatives offered: wording only, or record as reviewed, for each.
+  **Owner 2026-11-05, through `AskUserQuestion`:** all four as recommended. The wording is T-195, the two checks
+  T-196 and T-197; `M11.C.11` is recorded as reviewed. The check is done and its findings are decided; the item
+  closes.
+- [ ] T-195 ⟨later⟩ **`M11.5`'s notes for the within-run rows whose arms differ (2026-11-05).** From T-194, the owner's
+  decision through `AskUserQuestion`. Wording in `M11` only, at the next spec revision: `M11.C.48`'s note says the
+  Phase B family's arms are unmatched in the same way as `[phase_d]`'s (and its baseline mixes tie types and counts
+  ties cut later), so its fail is not a finding about the run before a cutoff; `M11.C.2`'s note says the Phase C
+  family's arms are two children who differ in starting state (Nadia and Pia), so its fail is not separated from that
+  difference and is not reported as a finding about projection alone, and that the twelve-person row's arms differ
+  in birth order and starting state (learnings P7). Fold in what T-196 and T-197 find if they close first. Changes
+  nothing a run computes.
+- [ ] T-196 ⟨later⟩ **Run `M11.C.48`'s carrier probe on the Phase B family (2026-11-05).** From T-194, the owner's
+  decision through `AskUserQuestion`. `tools/c48_carrier_probe.py` runs on the twelve-person family only; extend it
+  (outside the engine hash) to the Phase B family and read the matched first cutoffs' runs against baseline subsets
+  matched on tie type and on ties not cut later, under L0 and on the unmodified engine. Report what is left after
+  matching; feed T-195's wording.
+- [ ] T-197 ⟨later⟩ **Does `M11.C.2[twelve-person family]`'s pass hold when the arms are matched (2026-11-05).** From
+  T-194, the owner's decision through `AskUserQuestion`. A read-only probe outside the engine hash: compare each
+  picked child's load at 20–30 against its own load before projection, or match the most- and least-projected
+  children on starting level and birth order, and say whether the direction (+2.22 ± 1.5) survives. Feed T-195's
+  wording; no rule changes from the probe alone.

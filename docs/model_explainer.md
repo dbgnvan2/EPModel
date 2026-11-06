@@ -595,7 +595,8 @@ still failed: the child in that arm had already lent down to its own floor, so t
 owner reclassified it as a composite on 2026-10-17 and accepted its failure as a finding. It passes at revision 41,
 when `M6.I.4a`'s return first sees the collapse; see below).
 What the rule did change: it turned the twelve-person family's `M11.C.2` from fail to pass (the child the parents focus
-on carries more symptom load), and it turned `M11.C.22`'s mild-removal limb and `M11.C.17`'s weak coached rise from
+on carries more symptom load; the two children it compares differ in birth order and starting state too, so the pass is not separated
+from that difference, spec revision 51, T-195, and T-197 is to check it with the arms matched), and it turned `M11.C.22`'s mild-removal limb and `M11.C.17`'s weak coached rise from
 pass to fail. With the rule removed, each run gives its earlier number exactly. The owner kept it on 2026-10-17 and
 accepted `M11.C.22`'s failure for now.
 
@@ -1444,7 +1445,7 @@ is still learned from felt relief, and what it then costs is the physics below.
   (+0.229 ± 0.054, `docs/phase_d_mutation_record.md`), so that pass is not shown to come from the learned value (T-180). *Revision 50* (T-180, T-185, wording only, the owner 2026-11-05): the pass holds with all learning removed
   (`docs/emergence_audit_record.md`), and T-185's probe (`tools/c48_carrier_probe.py`) found it comes in part from what the arms are made of: a cut tie is more often one both members act on, which holds a longer run, and the cutter's other ties run
   longer than the family's. The policy weighs `CUTOFF` the same on every live tie of a person before a first cutoff, so the
-  pass is not a finding about learning, and the mutant did not turn it red.
+  pass is not a finding about learning, and the mutant did not turn it red. *Revision 51* (T-194, T-195, wording only, the owner 2026-11-05): on the Phase B family, where it fails, the arms are unmatched in the same way, and the baseline also mixes tie types and counts ties cut later, so that fail is not a finding about the run before a cutoff either.
 - **New fields:** `cutoff_peak` and `reference_level` on the tie (§4, `M14.A`); `tie_state` names five states
   (`M1.B.3`), rejection held meaning `CUT_OFF` (`M1.B.3c`).
 
@@ -2154,7 +2155,7 @@ The automatic channel learns from felt relief over a short horizon. The form app
   watched. The cross-person part is how calming another person can teach an act (`FE07.4`). *Revision 26
   (2026-10-12; Claude's recommendation, approved by the owner 2026-10-16):* that average is weighted by how strong the actor's tie
   to each of them is, so a parent's calming counts for more than a witness's. Measured, `M11.C.2` fails: the child who
-  received the most projection-type acts early carries no more symptom load later.
+  received the most projection-type acts early carries no more symptom load later. *Revision 51* (T-194, T-195, the owner 2026-11-05): the two arms are Nadia and Pia, who differ at the start in age, chronic anxiety, symptom channel and sibling rank, so the fail is not separated from that difference and is not reported as a finding about projection alone.
 - **Discounting and the horizon.** Later weeks count less. Nothing after the third week reaches the
   act, so a cost that comes later is felt but credited to whatever was done just before it.
 - **Habituation.** Relief from the same act toward the same person shrinks with each recent repetition.

@@ -14,7 +14,10 @@ on the owner's instruction of 2026-10-29 to proceed with Claude's recommendation
   (it says the pass is proved by removing focus on weakness; it is now carried by witnessing, `witness-path-removed`),
   `M11.C.29` (it describes the level-40 arm, not stage 3's level-60 arm with F's spell paused), and `M11.C.42`, `.44`
   and `.45` (causes found at Phase C's close, before group A). Version 1's file is frozen, so the fix is a version 2
-  `note` per row stating the current cause, for the owner's review; no verdict changes.
+  `note` per row stating the current cause, for the owner's review; no verdict changes. *Added 2026-11-05 (spec revision 51,
+  T-195):* the spec's own `M11.C.2` row has the same staleness: its mutation cell and its revision 31 sentence say the
+  witness path removed survives and focus on weakness removed turns the twelve-person row red, while the current
+  mutation record has `witness-path-removed` red and `weakness-focus-and-steering-removed` surviving.
 - [x] T-170 ⟨now⟩ **The stage-end sweep reruns on spec revision 44's engine, `09ca2b46c7e0` (the batch, 2026-10-31;
   not run yet).** Every record but `docs/version_2_sweep_record.md` was regenerated on it;
   `tests/test_version_2_sweep.py::test_s2_11_sweep_record_is_current` is a strict expected failure until the sweep

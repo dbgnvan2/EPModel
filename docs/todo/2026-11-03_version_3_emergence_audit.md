@@ -355,7 +355,7 @@ for one spec revision that takes all nine.
   **Owner 2026-11-05, through `AskUserQuestion`:** all four as recommended. The wording is T-195, the two checks
   T-196 and T-197; `M11.C.11` is recorded as reviewed. The check is done and its findings are decided; the item
   closes.
-- [ ] T-195 ⟨later⟩ **`M11.5`'s notes for the within-run rows whose arms differ (2026-11-05).** From T-194, the owner's
+- [x] T-195 ⟨later⟩ **`M11.5`'s notes for the within-run rows whose arms differ (2026-11-05).** From T-194, the owner's
   decision through `AskUserQuestion`. Wording in `M11` only, at the next spec revision: `M11.C.48`'s note says the
   Phase B family's arms are unmatched in the same way as `[phase_d]`'s (and its baseline mixes tie types and counts
   ties cut later), so its fail is not a finding about the run before a cutoff; `M11.C.2`'s note says the Phase C
@@ -363,6 +363,13 @@ for one spec revision that takes all nine.
   difference and is not reported as a finding about projection alone, and that the twelve-person row's arms differ
   in birth order and starting state (learnings P7). Fold in what T-196 and T-197 find if they close first. Changes
   nothing a run computes.
+  **Done 2026-11-05 at spec revision 51** (wording in `M11` only; the engine hash stays `0b363cb3186c`), ahead of
+  T-196 and T-197: the brief put the order to the owner, who was away; Claude's recommendation, this wording first
+  and the probes folded in later, was taken under the owner's instruction of 2026-11-05 to proceed without stopping,
+  pending the owner's review. `M11.5`'s rows for `M11.C.2` and `M11.C.48`, both criteria's rows, the revision log,
+  `docs/version_2_dispositions.md`'s `M11.C.48` row, `docs/model_explainer.md` and `docs/readouts_phase_c.md` carry it.
+  Adjacent, not fixed: `M11.C.2`'s criterion row still states revision 31's carrier on the twelve-person family (the
+  witness path removed survives), which `docs/phase_d_mutation_record.md` no longer shows; added to T-171.
 - [ ] T-196 ⟨later⟩ **Run `M11.C.48`'s carrier probe on the Phase B family (2026-11-05).** From T-194, the owner's
   decision through `AskUserQuestion`. `tools/c48_carrier_probe.py` runs on the twelve-person family only; extend it
   (outside the engine hash) to the Phase B family and read the matched first cutoffs' runs against baseline subsets

@@ -1,9 +1,9 @@
 # Plan: the LLM-agent experiment (version 3, part 2; T-183)
 
 **Status: approved by the owner 2026-11-06, Q1–Q7 as recommended (§9). §11 steps 1–6 built 2026-11-06 under
-`experiments/llm_agents/` (its README), with tests LX.1–LX.20 offline and the A0 baseline run; no live call has been
-made. The owner approved the plain-label and prompt wording 2026-11-06 (Q2, §9), with A4 showing no tension number of
-any kind (§2) and the build's three extras accepted; step 7 waits for the owner's go-ahead.** Written 2026-11-03 on `main` at `5c7fc9b` (spec revision 47, engine
+`experiments/llm_agents/` (its README), with tests LX.1–LX.20 offline and the A0 baseline run. The owner approved the plain-label and prompt wording 2026-11-06 (Q2, §9), with A4 showing no tension number of
+any kind (§2) and the build's three extras accepted. Step 7's smoke call (LX.L1) was made 2026-11-06 on the owner's go-ahead and
+passed (§11); the pilot, the main phase and the cross-check each wait for the owner's go-ahead.** Written 2026-11-03 on `main` at `5c7fc9b` (spec revision 47, engine
 hash `0b363cb3186c`). The owner decided on 2026-11-03 that version 3 has two new utilities: this experiment and an
 emergence audit of the learning model (`docs/plan_v3_emergence_audit.md`, T-182). This plan settles what the experiment is, how it keeps the
 theory out of the agents, its scale and cost, how a run replays, how results are compared, how calls are hardened,
@@ -348,7 +348,8 @@ counts.
 **Untested by the suite (live API only).** These are flagged rather than covered by a mock:
 
 - **LX.L1.** The real API accepts the request shape: the schema enum, the thinking setting and effort. This is checked
-  by one owner-approved smoke call (cost < $0.01) before the pilot, and recorded in the run record.
+  by one owner-approved smoke call (cost < $0.01) before the pilot, and recorded in the run record. Checked
+  2026-11-06: accepted, parsed, $0.000113 (§11 step 7).
 - **LX.L2.** The real model's outputs, and the token sizes behind the estimate in §5. These are checked in the pilot,
   and the estimate is restated from the pilot's `usage` before the main phase.
 
@@ -363,6 +364,11 @@ counts.
    Then commit, with the suite green. No live call has been made up to this step.
 7. Live, each step only on the owner's go-ahead: the smoke call (LX.L1), then the pilot (LX.L2), then the main phase,
    then the cross-check. Each phase is committed with its cache, its run records and the regenerated report.
+   **The smoke call, 2026-11-06:** one call to `claude-haiku-5-5` with `thinking: disabled` at effort `low` and the
+   schema enum was accepted (HTTP 200, `stop_reason` `end_turn`), its answer `{"choice": "19"}` parsed to a legal
+   option, no retry and no re-ask, and its cost, $0.000113 (1,082 input and 10 output tokens), was logged against the
+   `main` pool. Both model IDs were found by the Models API first. The record and the cache are
+   `experiments/llm_agents/runs/smoke-A1-s1/`. LX.L1 holds.
 
 ## 12. Documents
 

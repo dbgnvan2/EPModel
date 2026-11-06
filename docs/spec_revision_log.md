@@ -1,10 +1,29 @@
 # Spec revision log
 
-**Status: the record of every revision of `bowen_agent_model_spec_v2.md`, 4 to 51 (revision 51, the within-run rows whose arms differ in `M11.5`, wording only, 2026-11-05; revision 50, what carries `M11.C.48[phase_d]` in `M11.5` and the criterion's row, wording only, 2026-11-05; revision 49, the emergence audit's survivors in `M11.5` and `M11.1g`'s scope, wording only, 2026-11-05; revision 48, `M11.1g`, the emergence audit, version 3's first revision, 2026-11-03; revision 47, `M11.C.48`'s readout reads both arms under one contact condition, after the tag `version-2`, 2026-11-02–03; revision 46, wording only, after the tag `version-2`, from T-173's two mutants, 2026-11-01; revision 45, wording only, from the pre-tag milestone review's triage, 2026-11-01; revision 44, the batch from the owner's D4 and D5, 2026-10-31; revision 43, the version 2 definition batch, 2026-10-29; revision 40 applied 2026-10-28, from the stage 3 milestone review's triage; revision 41, its hash-moving batch, the same day; revision 42, wording only, 2026-10-29). Moved out of the spec at revision 35, 2026-10-22; nothing a run computes changed.**
+**Status: the record of every revision of `bowen_agent_model_spec_v2.md`, 4 to 52 (revision 52, T-196's and T-197's probes in `M11.5`, wording only, pending the owner's review, 2026-11-06; revision 51, the within-run rows whose arms differ in `M11.5`, wording only, 2026-11-05; revision 50, what carries `M11.C.48[phase_d]` in `M11.5` and the criterion's row, wording only, 2026-11-05; revision 49, the emergence audit's survivors in `M11.5` and `M11.1g`'s scope, wording only, 2026-11-05; revision 48, `M11.1g`, the emergence audit, version 3's first revision, 2026-11-03; revision 47, `M11.C.48`'s readout reads both arms under one contact condition, after the tag `version-2`, 2026-11-02–03; revision 46, wording only, after the tag `version-2`, from T-173's two mutants, 2026-11-01; revision 45, wording only, from the pre-tag milestone review's triage, 2026-11-01; revision 44, the batch from the owner's D4 and D5, 2026-10-31; revision 43, the version 2 definition batch, 2026-10-29; revision 40 applied 2026-10-28, from the stage 3 milestone review's triage; revision 41, its hash-moving batch, the same day; revision 42, wording only, 2026-10-29). Moved out of the spec at revision 35, 2026-10-22; nothing a run computes changed.**
 
 The spec holds the current rules; this file holds how they got there. Until revision 34 the revision sections stood at the end of the spec, under `M17`, and the front matter's `status:` line listed every revision since 10. `docs/plan_model_ergonomics.md` Part E moved both here (the owner's answer to its §8 Q2, 2026-10-22, "as revision 35"), so a session reading the spec reads 480 fewer lines of history. The sections below are the spec's own text as it stood, tags and all, with the newest first; revisions 13 to 33 were written inline in the requirement bodies and have no section of their own, which Part E's second step records under revision 35.
 
 The sections `### Revision 34` to `### Revision 5` and the undated section are the spec's text as it stood, moved whole; a statement inside one of them (revision 34's, that revisions 13 to 33 are "not here") was true when written, before the bodies' narratives were moved under their own revisions. Those narratives are the bullets `- \`ID\`: sentence`, each the sentence as it stood in the body, under the revision it names, in sections titled "inline narratives moved from the bodies at revision 35" where no section existed.
+
+### Revision 52 — the matched probes of the within-run rows, 2026-11-06 ⟦rev52 · Claude's recommendation 2026-11-06 under the owner's instruction of 2026-11-05 to proceed, pending the owner's review (T-196, T-197, T-198)⟧
+
+Wording in `M11` only. Revision 51 wrote that `M11.C.48` on the Phase B family and both rows of `M11.C.2` compare arms
+that differ in a condition besides the one compared, and left two probes open. T-196
+(`tools/c48_carrier_probe.py --family phase_c`, 200 seeds, the engine and L0) found that matched on the cut tie's
+class no difference is detected, that the cut and baseline ties are acted on by both members about equally often (0.77 against 0.78) on that
+family (unlike the twelve-person family), and that at every matched cutoff all the uncut baseline ties are cut later
+in the run, so no never-cut baseline can be formed. T-197 (`tools/c2_matched_probe.py`, the record's 150 seeds and
+450 more) found that on the twelve-person family the most-projected child is more often Leo, the eldest, 8 at week 0;
+with which child is picked held, no direction is detected over the three children (+0.17 ± 0.47 against +0.73 ± 0.47
+unmatched; the two intervals overlap and their difference is not tested); between Nadia and Pia a direction remains
+with their early state held, at the edge of detection (+0.80 ± 0.63). `M11.5`'s two notes now say so, citing the
+probes, whose numbers are not the record's; revision 51's "among them" before the tie classes is removed, since the
+baseline holds only the 1.0 and 0.6 ties (the readout reads contacts between members only, and Dr Halim is external).
+The criterion rows are unchanged. Folding the probes in was Claude's recommendation (T-198), taken under the owner's
+instruction of 2026-11-05 to proceed without stopping, pending the owner's review. No class changed. No rule changed
+and nothing a run computes changed: the spec is not in the engine hash, which stays `0b363cb3186c` (Phase D
+`020160abb6db`).
 
 ### Revision 51 — the within-run rows whose arms differ, 2026-11-05 ⟦rev51 · owner 2026-11-05, T-194, T-195⟧
 

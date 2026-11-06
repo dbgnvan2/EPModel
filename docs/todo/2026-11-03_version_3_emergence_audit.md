@@ -397,7 +397,7 @@ for one spec revision that takes all nine.
   baseline's, and matched on class no difference is detected on either engine (intervals ±0.16–0.19; the class
   matching reads 572 of 808 cutoffs on the engine and 570 of 809 under L0, the rest having no uncut tie of their
   class); (2) unlike the twelve-person family (51% against 33% under L0), the cut and baseline ties are acted on by both
-  members equally often here, so that carrier is absent; (3) at every matched cutoff all the uncut baseline ties are
+  members about equally often here, so that carrier is absent; (3) at every matched cutoff all the uncut baseline ties are
   cut later in the run (1711 tie-instances on the engine, 1743 under L0), so a baseline of never-cut ties is empty and
   that matching cannot be made: every first cutoff is compared only with ties that are themselves cut later; (4) on
   the unmodified engine no comparison has an interval that excludes zero; under L0 the two matched on sides do, the
@@ -409,10 +409,10 @@ for one spec revision that takes all nine.
   how long a tie had existed; a different baseline (ties never cut cannot be one on this family). Rows:
   scratchpad only, not committed (the command above regenerates them in about seven minutes). Folded into the spec by
   T-198.
-- [ ] T-198 ⟨later⟩ **Fold T-196's findings (and T-197's) into `M11.5` at the next revision (2026-11-05).** From
+- [x] T-198 ⟨later⟩ **Fold T-196's findings (and T-197's) into `M11.5` at the next revision (2026-11-05).** From
   T-196, Claude's recommendation under the owner's instruction of 2026-11-05 to proceed, pending the owner's review.
   Wording in `M11` only: `M11.C.48`'s `M11.5` note on the Phase B family says matching on the cut tie's class leaves no
-  difference, the two arms are acted on by both members equally often, and every baseline tie is cut later, so no
+  difference, the two arms are acted on by both members about equally often (0.77 against 0.78), and every baseline tie is cut later, so no
   never-cut baseline exists; revision 51's "among them" before the tie classes is removed, since the baseline holds
   only the 1.0 and 0.6 ties (Dr Halim is external, and the readout reads contacts between members only), and the
   CHANGELOG's revision 51 entry already says so. With T-197 (done 2026-11-05): `M11.C.2`'s `M11.5` note on the
@@ -421,6 +421,10 @@ for one spec revision that takes all nine.
   and shorter window (Leo, 8 at week 0), and that between the two children born into the run a direction remains with
   their early state held, at the edge of detection (+0.80 ± 0.63); the numbers are from a probe, so the note cites the
   T-197 item, not the record. One revision for both.
+  **Done 2026-11-06 at spec revision 52** (wording in `M11` only; the engine hash stays `0b363cb3186c`): both
+  `M11.5` notes, the revision log, front matter, `docs/version_2_dispositions.md`'s `M11.C.48` row, one sentence each
+  in `docs/model_explainer.md` and `docs/readouts_phase_c.md`; the criterion rows are unchanged. Pending the owner's
+  review, as T-196, T-197 and the order of revision 51 are.
 - [x] T-197 ⟨later⟩ **Does `M11.C.2[twelve-person family]`'s pass hold when the arms are matched (2026-11-05).** From
   T-194, the owner's decision through `AskUserQuestion`. A read-only probe outside the engine hash: compare each
   picked child's load at 20–30 against its own load before projection, or match the most- and least-projected

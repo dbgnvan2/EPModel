@@ -99,8 +99,10 @@ The classes of contact are `config/bowen/contact_classes.md`.
   hold longer runs, and the cutter's other ties run longer than the family's;
   about +0.10 left after matching on how many members act is not explained (T-185, `tools/c48_carrier_probe.py`; spec
   revision 50). On the Phase B family the fail is not a finding about the run before a cutoff either: its arms are
-  unmatched in the same way, and its baseline also mixes tie types, among them the spouse and parent ties (conductance 1.0)
-  with the grandparent ties (0.6), and counts ties cut later in the run (spec revision 51, T-195; its carriers are not measured, T-196). The 200-seed trace,
+  unmatched in the same way, and its baseline also mixes tie types, the spouse and parent ties (conductance 1.0) with the
+  grandparent ties (0.6), and counts ties cut later in the run (spec revision 51, T-195). T-196's probe (spec revision
+  52) found that matched on tie class no difference is detected (−0.004 ± 0.186), and that at every matched cutoff all the uncut
+  baseline ties are cut later, so no never-cut baseline exists on this family. The 200-seed trace,
   `docs/review/t176_negative_run_trace.md`, gives the counts: 365 of 1400 first cutoffs no-contact on the Phase B
   family, 2121 of 7509 on the twelve-person family.
 - Per seed, the treatment arm is the mean run before its matched first cutoffs and the baseline the mean of their baselines;

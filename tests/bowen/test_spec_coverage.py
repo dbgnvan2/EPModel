@@ -111,7 +111,9 @@ def test_m141_accepted_finding_shows_its_disposition():
 
 def test_m141_version_2_disposition_replaces_version_1():
     """Milestone review MR-8: where version 2 has a disposition row for a key, the page quotes it and not version 1's
-    row for that key; a key version 2 has no row for keeps version 1's. Mutation: version 1's dispositions only."""
+    row for that key; a key version 2 has no row for keeps version 1's. A version 2 `note` changes no status, so it is
+    quoted before version 1's row for that key, not in its place (T-171, 2026-11-06). Mutation: version 1's
+    dispositions only; or a note replacing version 1's row, as before T-171."""
     from tools.version_1_status import dispositions
     from tools.version_2_status import v2_dispositions
 
@@ -120,11 +122,17 @@ def test_m141_version_2_disposition_replaces_version_1():
     only_v1 = sorted(set(v1) - set(v2))
     assert both and only_v1, "no key in both files, or none in version 1's only, so this checks nothing"
     rows = _rows()
+    notes = [key for key in both if v2[key]["kind"] == "note"]
+    assert notes and len(notes) < len(both), "no note, or only notes, among the keys in both files"
     for key in both:
         note = rows[key.split("[")[0]]["note"]
         assert v2[key]["reason"] in note, key
-        assert v1[key]["reason"] not in note, key
         assert f"version 2 disposition for `{key}` ({v2[key]['decided']})" in note, key
+        if key in notes:
+            assert v1[key]["reason"] in note, key
+            assert note.index(v2[key]["reason"]) < note.index(v1[key]["reason"]), key
+        else:
+            assert v1[key]["reason"] not in note, key
     for key in only_v1:
         assert f"version 1 disposition for `{key}` ({v1[key]['decided']})" in rows[key.split("[")[0]]["note"], key
 

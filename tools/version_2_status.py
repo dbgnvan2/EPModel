@@ -28,11 +28,12 @@ The rules, version 1's (``docs/version_1_definition.md`` §1, approved 2026-10-1
 * **Version 2's dispositions** (``docs/version_2_dispositions.md``) each name the verdict they were decided on, and
   apply only while the row's verdict is that one; a row whose verdict has since moved shows the disposition as not
   applied (P6: a decision on one result is not a decision on the next). Where one applies it takes precedence over
-  version 1's. Its kinds are version 1's `accepted finding` and `note`, and `verdict reviewed`: the owner's review
-  of a verdict that is not the tag's. A version 2 disposition the owner made, other than a `note`, is the owner's review
-  of the verdict it names, so the row is no longer held as changed since the tag (a note changes no status, so it
-  reviews nothing: 2026-10-31, `M11.C.21`); one that is Claude's recommendation
-  is shown and leaves the row as it was (``docs/version_2_definition_plan.md`` §3).
+  version 1's, except that a `note` is shown beside version 1's disposition, applied or not, never in its place
+  (T-171). Its kinds are version 1's `accepted finding` and `note`, and `verdict reviewed`: the owner's review of a
+  verdict that is not the tag's. A version 2 disposition the owner made, other than a `note`, is the owner's review of
+  the verdict it names, so the row is no longer held as changed since the tag (a note changes no status, so it reviews
+  nothing: 2026-10-31, `M11.C.21`); one that is Claude's recommendation is shown and leaves the row as it was
+  (``docs/version_2_definition_plan.md`` §3).
 * The **revision 38 column** shows the verdict this page gave at commit ``REVISION_38`` (the records as revision 38
   left them, before stage 3's regeneration), read from git; it is shown, never used for a status: a verdict that
   differs from it is a new result under revision 39's rules (`M11.F`), and the rules above still read only the tag.
@@ -340,8 +341,8 @@ def statuses() -> list[Status]:
         d = d_tag if same else None  # version 1's disposition applies only where the verdict is the tag's
         d2 = later.get(key)
         d2_on = d2 is not None and d2["verdict"] == row["outcome"]  # applies only to the verdict it was decided on
-        if d2_on and d2["kind"] != "verdict reviewed":
-            d = d2
+        if d2_on and d2["kind"] != "verdict reviewed" and not (d2["kind"] == "note" and d_tag):
+            d = d2  # a note changes no status, so it never takes the place of version 1's disposition (T-171)
         sweep = swept.get(key) or refused.get(key) or ("not swept" if cls in v1.DIRECTIONAL else "—")
         if sweep_old and (key in swept or key in refused):
             sweep += f" ({STALE_CELL})"
@@ -400,7 +401,8 @@ def statuses() -> list[Status]:
             why = "the verdict changed" if at_tag != "—" else "no row at the tag"
             s.note = f"version 1 disposition, not applied ({why}): {d_tag['kind']} — {d_tag['reason']} *({d_tag['decided']})*"
         if d2 and d2 is not d:  # a review, or a version 2 disposition on a verdict that has since moved
-            head = (f"version 2: verdict reviewed ({d2['verdict']})" if d2_on else
+            head = ("version 2 note" if d2_on and d2["kind"] == "note" else
+                    f"version 2: verdict reviewed ({d2['verdict']})" if d2_on else
                     f"version 2 disposition, not applied (decided on {d2['verdict']}, now {row['outcome']}): {d2['kind']}")
             text = f"{head} — {d2['reason']} *({d2['decided']})*"
             s.note = f"{text} · {s.note}" if s.note else text

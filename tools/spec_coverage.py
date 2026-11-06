@@ -147,21 +147,28 @@ def unmet_clauses(text: str) -> set[str]:
 
 def current_dispositions(version_1: dict[str, dict], version_2: dict[str, dict]) -> dict[str, dict]:
     """Purpose: the disposition rows the page quotes: version 2's row for a key in place of version 1's, and version 1's
-    row for a key version 2 has no row for (milestone review MR-8).
+    row for a key version 2 has no row for (milestone review MR-8); a version 2 `note` changes no status, so it is
+    carried before version 1's row (``beside``), not in its place (T-171).
     Spec:    docs/bowen_agent_model_spec_v2.md#M14.1
     Tests:   tests/bowen/test_spec_coverage.py::test_m141_version_2_disposition_replaces_version_1
     """
     out = {key: {**d, "version": 1} for key, d in version_1.items()}
-    out.update({key: {**d, "version": 2} for key, d in version_2.items()})
+    for key, d in version_2.items():
+        if d["kind"] == "note" and key in out:
+            out[key] = {**out[key], "beside": {**d, "version": 2}}
+        else:
+            out[key] = {**d, "version": 2}
     return out
 
 
 def disposition_notes(spec_id: str, dispositions: dict[str, dict]) -> list[str]:
     """The owner's current dispositions for the ID or any of its variants, quoted (plan A2): version 2's row where
-    there is one, else version 1's. A version 2 row names the verdict it was decided on."""
-    return [f"version {d['version']} disposition for `{key}` ({d['decided']}), {d['kind']}"
-            + (f" on {d['verdict']}" if d["version"] == 2 else "") + f": {d['reason']}"
-            for key, d in dispositions.items() if key.split("[")[0] == spec_id]
+    there is one, else version 1's, with a version 2 `note` quoted before it. A version 2 row names the verdict it was
+    decided on."""
+    return [f"version {e['version']} disposition for `{key}` ({e['decided']}), {e['kind']}"
+            + (f" on {e['verdict']}" if e["version"] == 2 else "") + f": {e['reason']}"
+            for key, d in dispositions.items() if key.split("[")[0] == spec_id
+            for e in ([d["beside"]] if "beside" in d else []) + [d]]
 
 _consistency_spec = importlib.util.spec_from_file_location("spec_consistency", REPO / "tests" / "test_spec_consistency.py")
 _consistency = importlib.util.module_from_spec(_consistency_spec)

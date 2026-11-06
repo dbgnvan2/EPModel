@@ -135,7 +135,7 @@ def test_w1_s2_10_a_changed_verdict_is_not_final():
         assert s.status.endswith(tool.CHANGED) and not s.final and "W1" in s.blocks
         assert s.at_tag == flipped[key]
     note = changed["M11.C.42"].note  # the tag's disposition is shown as not applied, never applied
-    assert note.startswith("version 1 disposition, not applied (the verdict changed): accepted finding") and "owner 2026-10-17" in note
+    assert "version 1 disposition, not applied (the verdict changed): accepted finding" in note and "owner 2026-10-17" in note
     assert tool.CHANGED in changed["M11.C.42"].status and not changed["M11.C.42"].final
     text = tool.render(list(changed.values()))
     assert "| FAIL | PASS |" in text and tool.CHANGED in text
@@ -349,6 +349,26 @@ def test_w1_v2_an_owners_note_does_not_review_a_changed_verdict():
         s = {s.key: s for s in tool.statuses()}["M11.C.16"]
     assert s.status.endswith(tool.CHANGED) and not s.final and "W1" in s.blocks
     assert s.note.startswith("test reason")
+
+
+def test_w1_v2_a_note_sits_beside_version_1s_disposition_without_replacing_it():
+    """T-171 (2026-11-06): a version 2 `note` is carried beside the status without changing it, so on a row whose
+    verdict is the tag's it does not take the place of version 1's applied disposition. `M11.C.42` fails as at the
+    tag with version 1's owner-accepted finding; with a note on FAIL it stays final and accepted, and the page shows
+    the note first, then version 1's reason; with the tag's verdict flipped, the note is shown before version 1's
+    disposition marked not applied. Mutation: let an applied note replace `d`, as before T-171, and the status falls
+    to "fail, no disposition"."""
+    with mock.patch.object(tool, "v2_dispositions", return_value=_v2("M11.C.42", "note", "FAIL", PENDING_TEXT)):
+        s = {s.key: s for s in tool.statuses()}["M11.C.42"]
+    assert s.status == "fail accepted as a finding" and s.final and not s.blocks
+    assert s.note.startswith(f"version 2 note — test reason *({PENDING_TEXT})* · ")
+    assert "owner 2026-10-17" in s.note.split(" · ", 1)[1]
+    flipped = dict(tool.tag_verdicts(), **{"M11.C.42": "PASS"})  # version 1's disposition shown as not applied
+    with mock.patch.object(tool, "tag_verdicts", return_value=flipped), \
+            mock.patch.object(tool, "v2_dispositions", return_value=_v2("M11.C.42", "note", "FAIL", PENDING_TEXT)):
+        held = {s.key: s for s in tool.statuses()}["M11.C.42"]
+    assert held.note.startswith("version 2 note — test reason")
+    assert " · version 1 disposition, not applied (the verdict changed): accepted finding" in held.note
 
 
 def test_w1_v2_verdict_reviewed_names_the_verdict_it_reviewed():

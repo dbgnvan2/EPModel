@@ -1,7 +1,8 @@
 # Proposal — social cues and the channels a signal travels on
 
-**Status: DRAFT 2026-11-07, for owner review.** No part of it has been implemented. Q5 was answered by the owner the
-same day, with its follow-up (the imagined part of a cue is meaning only; §5, §8); the rest is open. No requirement in the spec changed,
+**Status: DECIDED 2026-11-07 (Q1–Q11, each as recommended; Q5 in the owner's own words, with its follow-up that the
+imagined part of a cue is meaning only); not built.** The build waits for T-183's cross-check (T-202, which starts with
+Q7's ledger search); `KS10.1`'s uncertainty term is a separate proposal (T-203). No requirement in the spec changed,
 no file under `src/bowen/` or `config/bowen/` changed, and the engine hash did not move. The owner asked on
 2026-11-07 (1) whether Kerr's four social cues can be a structure in the model's appraisal and (2) whether a
 message can be sent as "[words], [tone], [expression]". This document answers both, maps the answer onto the
@@ -170,7 +171,7 @@ down — fits the model if it is split as follows.
   not wants (§3).
 - **Needs and dependency that follow from age.** A young child's capacity to supply attention or help is small and
   its need for a caretaker's attention is large. This is a property of age, not of a role. The corpus source for
-  its form has not been checked in this pass, so it is graded `[I]` until a ledger check finds one (Q7).
+  its form has not been checked in this pass, so it is graded `[I]` until a ledger check finds one (Q7, decided: search first, in T-202).
 - **Life goals, through `life_energy`.** Goal-directed activity (`M1.A.10`, `M6.I.3`, `FIND_WORK` in `M7.C.1k`)
   draws on the same budget as relationship-seeking. The model needs no goal objects to express "pursues their own
   life goals": the share of energy that goes to goals is derived from level (`M10.A.1`). `KS07.6` supplies the
@@ -209,7 +210,7 @@ answer to the owner's second question is yes, inside the engine: an event is "[w
    rises.** This is the owner's framing. The corpus supports the general direction — the less self, the more a
    person is "governed by reactions to such real or imagined cues" (`KS01.7`) — but no extraction entry says that
    anxiety shifts weight from words to the nonverbal channels. Graded `[I]` for the direction as well as the size
-   (Q4).
+   (Q4, decided 2026-11-07: kept, graded `[I]`).
 4. **A cue's meaning can be perceived without having been sent.** The perceived cue is the sent cue plus a perception error.
    With point 5's split, the error is on **meaning**, not on presence: what is imagined is a threatening meaning given
    to a signal that is there (a neutral face read as disapproval, a tired voice read as an expectation), or to an
@@ -244,7 +245,7 @@ fused pair detects each other's leak strongly — that part of the reading is ri
 anxiety and belief. The owner's answer: lower differentiation means more sensitivity to a signal, not more accurate
 reading of it; the sensitivity is accurate that a signal is being sent, not about what it means. Graded `[D]` as a
 direction from the two sources together; every size `[I]`. Point 3 (the anxiety weighting of the nonverbal channels)
-is separate and still open as Q4.
+is separate; Q4 kept it, graded `[I]`.
 
 ---
 
@@ -300,25 +301,29 @@ never words, and a plain-word rendering only as a contamination arm, as A3 is no
 
 ---
 
-## 8. Questions for the owner
+## 8. Questions for the owner — decided 2026-11-07
 
-| # | Question | Recommendation |
-|---|---|---|
-| **Q1** | Do the four cues decompose `M4.C.1`'s two axes, or become four drives of their own? | **Decompose** (§3). Four drives is a premise change, puts a wish for approval into every agent, and turns an open list into the set of drives. |
-| **Q2** | Disapproval: inward impingement only (as `M4.C.5` now), or impingement plus a smaller too-little component? | **Both**, impingement larger, as `CONFLICT` carries both. `FE03.3`'s too-little set includes feeling unloved and rejected. |
-| **Q3** | Another's distress: which side? | **Impingement** (a pull to fix it), graded `[X]`; the corpus does not say. Alternative: no side of its own, with distress acting only through the sender's leak raising the receiver's anxiety. |
-| **Q4** | Keep `SC-5` (nonverbal weighted more as anxiety rises) though no extraction entry states it? | **Keep, graded `[I]`, as a premise.** Or drop it and let accuracy (`SC-6`) carry the effect; the model would then be fully sourced on this point. |
-| **Q5** | Sensitivity and accuracy as two terms, to hold `ch18` and `KS09.4` together? | **Answered by the owner, 2026-11-07:** yes — lower differentiation means more sensitivity to a signal, which is accurate that a signal is being sent but not about what it means. Written into §5 point 5 and `SC-7`; the follow-up — the imagined part of a cue is meaning, not presence (§5 point 4, `SC-6`) — answered by the owner the same day: meaning only. |
-| **Q6** | `KS10.1`'s uncertainty term (variance in whether a cue comes intensifies the reaction)? | **Later**, as its own proposal; it is a separate mechanism with its own criterion (`KS09.8`'s intermittent withdrawal). |
-| **Q7** | `SC-12`'s age dependency: build at `[I]`, or first look for a source? | **Look first.** A ledger search for age and dependency before building; build at `[I]` only if none is found and the owner wants it. |
-| **Q8** | Show the cues to the LLM agents? | **No, engine-only** (§7). |
-| **Q9** | Does a private hop drop the nonverbal channels, and does a witness read all four? | **Yes to both**, `[I]` in form. |
-| **Q10** | Use the owner's file's unfound quotations? | **No** until an extraction pass on Kerr's chapters 2, 8 and 15 finds them (§1.3). |
-| **Q11** | Build at all in version 3, and when? | **Yes, behind a switch off by default**, `SC-2` and `SC-3` first, after T-183's cross-check. Every step moves the engine hash, so it goes in one batch with a single regeneration of the records. |
+| # | Question | Recommendation | The owner's decision, 2026-11-07 |
+|---|---|---|---|
+| **Q1** | Do the four cues decompose `M4.C.1`'s two axes, or become four drives of their own? | **Decompose** (§3). Four drives is a premise change, puts a wish for approval into every agent, and turns an open list into the set of drives. | **as recommended** |
+| **Q2** | Disapproval: inward impingement only (as `M4.C.5` now), or impingement plus a smaller too-little component? | **Both**, impingement larger, as `CONFLICT` carries both. `FE03.3`'s too-little set includes feeling unloved and rejected. | **as recommended** |
+| **Q3** | Another's distress: which side? | **Impingement** (a pull to fix it), graded `[X]`; the corpus does not say. Alternative: no side of its own, with distress acting only through the sender's leak raising the receiver's anxiety. | **as recommended** |
+| **Q4** | Keep `SC-5` (nonverbal weighted more as anxiety rises) though no extraction entry states it? | **Keep, graded `[I]`, as a premise.** Or drop it and let accuracy (`SC-6`) carry the effect; the model would then be fully sourced on this point. | **as recommended** |
+| **Q5** | Sensitivity and accuracy as two terms, to hold `ch18` and `KS09.4` together? | **Answered by the owner, 2026-11-07:** yes — lower differentiation means more sensitivity to a signal, which is accurate that a signal is being sent but not about what it means. Written into §5 point 5 and `SC-7`; the follow-up — the imagined part of a cue is meaning, not presence (§5 point 4, `SC-6`) — answered by the owner the same day: meaning only. | as answered (this row) |
+| **Q6** | `KS10.1`'s uncertainty term (variance in whether a cue comes intensifies the reaction)? | **Later**, as its own proposal; it is a separate mechanism with its own criterion (`KS09.8`'s intermittent withdrawal). | **as recommended** |
+| **Q7** | `SC-12`'s age dependency: build at `[I]`, or first look for a source? | **Look first.** A ledger search for age and dependency before building; build at `[I]` only if none is found and the owner wants it. | **as recommended** |
+| **Q8** | Show the cues to the LLM agents? | **No, engine-only** (§7). | **as recommended** |
+| **Q9** | Does a private hop drop the nonverbal channels, and does a witness read all four? | **Yes to both**, `[I]` in form. | **as recommended** |
+| **Q10** | Use the owner's file's unfound quotations? | **No** until an extraction pass on Kerr's chapters 2, 8 and 15 finds them (§1.3). | **as recommended** |
+| **Q11** | Build at all in version 3, and when? | **Yes, behind a switch off by default**, `SC-2` and `SC-3` first, after T-183's cross-check. Every step moves the engine hash, so it goes in one batch with a single regeneration of the records. | **as recommended** |
 
 ---
 
 ## 9. What this document changed
+
+The owner decided Q1–Q11 on 2026-11-07, each as recommended (Q5 in their own words). Follow-ups are in
+`docs/todo/2026-11-07_social_cues.md`: T-202, the build (after T-183's cross-check; Q7's ledger search first, then
+`SC-2` and `SC-3` behind a switch off by default), and T-203, `KS10.1`'s uncertainty term as its own proposal (Q6).
 
 This document only. It is listed in `docs/SPEC_REVIEW_CHECKLIST.md` and `docs/REVIEWER_READING_LIST.md`. No spec
 requirement, code, config or record changed; the engine hash did not move.

@@ -18,7 +18,8 @@ from experiments.llm_agents import files
 from experiments.llm_agents.config import CONFIG, HERE
 
 STATUSES = ("complete", "stopped_at_budget", "incomplete_transient", "invalid", "not_replayable", "stopped_permanent")
-SAMPLING = "default; not settable (temperature, top_p and top_k return a 400 since API version 2026-10-21)"
+SAMPLING = ("default; not settable, not sent, not seedable (on API version 2023-06-01, the SDK's, claude-haiku-5-5 and "
+            "claude-sonnet-5-5 return a 400 for any non-default temperature, top_p or top_k; on 2026-10-21 any value is a 400)")
 FIELDS = ("run_id", "phase", "pool", "arm", "seed", "family", "weeks_planned", "weeks_completed", "model_requested",
           "models_returned", "api_version", "sdk_version", "effort", "thinking", "max_tokens", "sampling", "time",
           "engine_hash", "code_hash", "template_hash", "label_hash", "config_hash", "permutations", "status",

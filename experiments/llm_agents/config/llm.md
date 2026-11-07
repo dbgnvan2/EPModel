@@ -7,8 +7,9 @@
 > * **Models** (L1). Model IDs live here and nowhere in code. Before any live phase the runner checks each ID it will
 >   use against the Models API and stops if one is not found. `claude-haiku-5-5` takes `thinking: disabled` at effort
 >   `low`; `claude-sonnet-5-5` takes `between_tools`, the setting that turns its thinking off (`disabled` is a 400 on
->   it). Sampling (`temperature`, `top_p`, `top_k`) cannot be set since API version `2026-10-21`; the run record says
->   so.
+>   it). Sampling (`temperature`, `top_p`, `top_k`) is not sent, so it is the model's default and
+>   cannot be seeded: at API version `2023-06-01`, the one the SDK sends, both models return a 400 for any non-default
+>   value (a model rule), and at `2026-10-21` any value is a 400 on every model; the run record says so.
 > * **Prices** are dollars per million tokens, read from the `claude-api` skill's model table (cached 2026-10-06) on
 >   `prices_read`; they are checked against the pricing page before the first live run (LX.L2).
 > * **Estimate** (§5): `estimate_input_tokens` and `estimate_output_tokens` are the plan's per-call estimate, to be

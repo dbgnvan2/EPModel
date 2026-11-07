@@ -145,8 +145,12 @@ None of these tests has a threshold. Each is reported as a direction with the nu
 - **Structured output.** `output_config.format` is a JSON schema `{"choice": <enum of this round's option ids>}`, so
   an option outside the legal set cannot come back. The parsed choice is still checked against the legal set (L4).
   `max_tokens` is 64, from config.
-- **Sampling.** Since API version `2026-10-21`, `temperature`, `top_p` and `top_k` return a 400 on every model. The
-  sampling is therefore the model's default and cannot be seeded. The run record says so (LX.10).
+- **Sampling.** `temperature`, `top_p` and `top_k` are not sent. The client sends API version `2023-06-01` (the SDK's
+  default, SDK 0.78.0), at which `claude-haiku-5-5` and `claude-sonnet-5-5` return a 400 for any non-default value, a
+  rule of those models; at version `2026-10-21` any value is a 400 on every model. The sampling is therefore the
+  model's default and cannot be seeded. The run record says so (LX.10). (Corrected 2026-11-06 before the pilot: the
+  first wording gave `2026-10-21` as the reason, which is not the version the client sends; the request did not
+  change. The smoke call's record keeps the first wording, as it was made.)
 - **Prompt caching.** The system prompt is first and fixed. If it is shorter than the model's minimum cacheable prefix,
   it is not cached, and the estimate in §5 assumes it is not.
 - **No batch API.** Each round depends on the last, so the batch API would mean 208 sequential batches. Instead, calls

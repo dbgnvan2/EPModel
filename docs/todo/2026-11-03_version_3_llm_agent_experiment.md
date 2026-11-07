@@ -55,3 +55,13 @@ utilities the owner decided version 3 has (2026-11-03).
   order is random; show fewer options per call; or loosen the rule. The main phase (2026-11-07) showed a position
   effect in 0 of 5 seeds of each arm, position 1 between 0.026 and 0.049 against about 0.036, so the lean did not show
   at that scale; the stronger rule was not computed per run.
+- [ ] T-201 ⟨later⟩ **Whether A1's holding back responds to tension, or to the words "hold back" (2026-11-07).** In the
+  main phase A1, the opaque arm and the only one where felt tension is the agent's sole guide, chose `hold back` in
+  about 92–97% of its choices (the pilots: 0.989 in the fixed order, 0.951 shuffled); A2–A4 almost never did. A1's
+  act labels are opaque (`K1`…`K16`), but its withhold option is rendered in plain English, `hold back from <option>`
+  (plan §3.1), so the model may choose it because the words read as the safe choice, not because holding back lowered
+  its tension. No arm separates the two: A4 hides tension for A2's labels only, and there is no A1 without tension.
+  This bears on what A1 can show about emotional process (owner's question, 2026-11-07). Checks: (1) A1's hold share
+  by week over the 208 weeks and against its tension history, from the committed `choices.jsonl.gz` (no live call;
+  learning from relief would show a trend); (2) if needed, an A1 run with tension hidden, or with the withhold option
+  given an opaque token, which needs a plan change and the owner's cost go-ahead.

@@ -14,7 +14,7 @@ moves to `docs/TODO_archive.md`. Until 2026-10-22 this file held every item's te
 - T-003 · 2026-10-20 · Coverage page, minor, from the Part A review … · [record](docs/todo/2026-08-22_blocking_the_next_phase.md)
 - T-004 · 2026-10-20 · Coverage page, from Part B's drafting (2026-10-20), not … · [record](docs/todo/2026-08-22_blocking_the_next_phase.md)
 
-## Later (135)
+## Later (136)
 
 - T-006 · 2026-10-22 · D4, long `Spec:` lines (Part D, 2026-10-22; the … · [record](docs/todo/2026-10-22_model_ergonomics.md)
 - T-007 · 2026-10-22 · Adjacent issues found by Part D's docstring pass, … · [record](docs/todo/2026-10-22_model_ergonomics.md)
@@ -151,3 +151,4 @@ moves to `docs/TODO_archive.md`. Until 2026-10-22 this file held every item's te
 - T-175 · 2026-11-01 · Hand-restated status goes stale (review systemic pattern 1, … · [record](docs/todo/2026-11-01_pre_tag_milestone_review.md)
 - T-183 · 2026-11-03 · The LLM-agent experiment: build the approved plan (2026-11-03; … · [record](docs/todo/2026-11-03_version_3_llm_agent_experiment.md)
 - T-200 · 2026-11-06 · The LLM agents' remaining lean toward the top … · [record](docs/todo/2026-11-03_version_3_llm_agent_experiment.md)
+- T-201 · 2026-11-07 · Whether A1's holding back responds to tension, or … · [record](docs/todo/2026-11-03_version_3_llm_agent_experiment.md)

@@ -21,5 +21,9 @@ utilities the owner decided version 3 has (2026-11-03).
   at the pilot, for the owner: the model chooses by list position (six of seven members give the same option id
   almost every week, the first "hold back" option; options are numbered in a fixed order, `K1` first). The owner
   decided 2026-11-06: fix the option order first (a proposal for a per-person, per-round shuffle, for the owner's
-  approval), then a second pilot, then the main phase. Open: that proposal; then the main phase and the cross-check,
-  each on the owner's go-ahead.
+  approval), then a second pilot, then the main phase. The proposal written 2026-11-06 as the plan's §13 (one
+  shuffle per person per round over acts and holds, keyed by seed, week and person outside the engine's draws; ids
+  the shuffled positions; the first pilot kept replayable through a recorded `option_order`; LX.21–LX.26; a position
+  readout per arm; a second pilot the size of LX.L2, about $0.04), its seven questions answered by the owner the same
+  day, each as recommended. Open: build §13; then the second pilot, the main phase and the cross-check, each on the
+  owner's go-ahead.

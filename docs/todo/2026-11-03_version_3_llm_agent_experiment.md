@@ -38,7 +38,11 @@ utilities the owner decided version 3 has (2026-11-03).
   `K1` at 0.033: the fixed-id habit and the `K1` preference are gone, a lean toward the top of the list is not, and
   the effect does not count as gone. The owner decided 2026-11-06 to proceed to the main phase as is, the lean to
   be reported and controlled for in the analysis (each choice's position is recorded), and recorded for later review
-  as T-200. Open: the main phase and the cross-check, each on the owner's go-ahead.
+  as T-200. The owner approved the main phase's cost 2026-11-07 ($5.97 estimated, `main` pool, Haiku); it ran
+  the same day: 20 runs `complete`, 29,115 calls, 0 re-asks, fallbacks, retries or failures, $5.087992 (the pool at
+  $5.147736 of $10); every run replays. A position effect in 0 of 5 seeds of each arm; A3 follows labels over mechanics
+  in 5 of 5 seeds; A4 keeps A2's direction for every pattern (distance 4 of 5); results in the report and plan §11
+  step 7. Open: the cross-check, on the owner's go-ahead.
 - [ ] T-200 ⟨later⟩ **The LLM agents' remaining lean toward the top of the option list (2026-11-06).** The second
   pilot (`pilot2-A1-s1`, plan §13.5), in the shuffled order, put 12 choices at position 1 against 6.6 expected by
   chance, and 32 in the first two positions against 13.3 (counted from `choices.jsonl.gz`; the report shows the
@@ -48,4 +52,6 @@ utilities the owner decided version 3 has (2026-11-03).
   no option, and each choice's position is recorded, so the lean can be reported and controlled for in the analysis;
   this item is for later review. A gap: `report.py::position_readout` computes the approved rule (its "Position
   effect" column), not the stronger one, which is only in the plan's text. Possible fixes: say in the prompt that the
-  order is random; show fewer options per call; or loosen the rule.
+  order is random; show fewer options per call; or loosen the rule. The main phase (2026-11-07) showed a position
+  effect in 0 of 5 seeds of each arm, position 1 between 0.026 and 0.049 against about 0.036, so the lean did not show
+  at that scale; the stronger rule was not computed per run.

@@ -4,7 +4,7 @@
 `experiments/llm_agents/` (its README), with tests LX.1–LX.20 offline and the A0 baseline run. The owner approved the plain-label and prompt wording 2026-11-06 (Q2, §9), with A4 showing no tension number of
 any kind (§2) and the build's three extras accepted. Step 7's smoke call (LX.L1) was made 2026-11-06 on the owner's go-ahead and
 passed (§11), and the pilot (LX.L2) the same day: complete, $0.029851, the estimate restated from its usage (§11);
-its choices showed a list-position effect, and the owner decided to fix the option order first: the fix (§13) was proposed and its seven questions answered 2026-11-06, each as recommended, and built the same day with tests LX.21–LX.26 (§10, §11), the first pilot still replaying; the second pilot (§13.5) was run 2026-11-06 on the owner's go-ahead, judged by the stronger rule the owner adopted the same day: complete, $0.029782, the K1 and same-id effect gone but position 1 still above the mean of 1/N, so the effect does not count as gone (§13.5); the owner decided the same day to proceed as is, the lean recorded for later review (T-200); the main phase and the cross-check each wait for the owner's go-ahead.** Written 2026-11-03 on `main` at `5c7fc9b` (spec revision 47, engine
+its choices showed a list-position effect, and the owner decided to fix the option order first: the fix (§13) was proposed and its seven questions answered 2026-11-06, each as recommended, and built the same day with tests LX.21–LX.26 (§10, §11), the first pilot still replaying; the second pilot (§13.5) was run 2026-11-06 on the owner's go-ahead, judged by the stronger rule the owner adopted the same day: complete, $0.029782, the K1 and same-id effect gone but position 1 still above the mean of 1/N, so the effect does not count as gone (§13.5); the owner decided the same day to proceed as is, the lean recorded for later review (T-200). The owner approved the main phase's cost 2026-11-07, and it ran the same day: 20 runs complete, 29,115 calls, $5.087992, no position effect in any arm's seeds (§11 step 7); the cross-check waits for the owner's go-ahead.** Written 2026-11-03 on `main` at `5c7fc9b` (spec revision 47, engine
 hash `0b363cb3186c`). The owner decided on 2026-11-03 that version 3 has two new utilities: this experiment and an
 emergence audit of the learning model (`docs/plan_v3_emergence_audit.md`, T-182). This plan settles what the experiment is, how it keeps the
 theory out of the agents, its scale and cost, how a run replays, how results are compared, how calls are hardened,
@@ -372,7 +372,8 @@ repeat kinds counted by id. Each failed its named test by an assertion, and the 
   and the estimate is restated from the pilot's `usage` before the main phase. Checked 2026-11-06: the pilot
   completed; input mean 1,590 and max 2,337 tokens, output 10 on every call; the estimate restated (§11 step 7). The
   outputs show a list-position effect, reported to the owner (§11 step 7). The second pilot (2026-11-06, shuffled
-  order, §13.5): complete, 182 calls, $0.029782; the effect does not count as gone, reported to the owner.
+  order, §13.5): complete, 182 calls, $0.029782; the effect does not count as gone, reported to the owner. The main phase (2026-11-07):
+  20 runs, 29,115 calls, $5.087992; input sizes as estimated, the estimate within its cost.
 
 ## 11. Order of work
 
@@ -421,6 +422,25 @@ repeat kinds counted by id. Each failed its named test by an assertion, and the 
    fixed-id habit are gone; a lean toward the top of the list is not, so the effect does not count as gone (§13.5) and
    the main phase waited for the owner's decision. The owner decided 2026-11-06 to proceed as is, the lean
    reported and controlled for in the analysis and recorded for later review (T-200, §13.5).
+   **The main phase, 2026-11-07:** the owner approved its cost in this session ("approve the main phase cost"),
+   against the estimate of 29,120 calls, about $5.97, from the `main` pool's $10 cap; the main phase stays on
+   `claude-haiku-5-5`. Before the run: the pool had spent $0.06; if every call cost as much as the costliest pilot
+   call scaled for A2/A3's longer prompts, with all 64 output tokens, the phase would cost about $9.40; the code's
+   per-round guard stops a run before any round whose bound would cross the cap. Run at low priority: A1–A4 × seeds
+   1–5, 208 weeks, `option_order` `shuffled`: all 20 runs `complete`, 29,115 calls (the engine asked one member fewer
+   in five weeks; every call made a selection, none flagged), 0 cached, 0 re-asks, fallbacks, retries or failures,
+   $5.087992; the `main` pool has spent $5.147736 of $10. `runner replay`: every run `complete`, the pilots at their
+   committed summaries. From the regenerated report (`docs/llm_agent_experiment_report.md`), each a direction over
+   five seeds with no threshold: a position effect in 0 of 5 seeds of each arm (position 1 between 0.026 and 0.049
+   against a mean `1/N` of 0.036 to 0.039, same id 42 to 61 against about 53 by chance, first tenth 0.079 to 0.113),
+   so the second pilot's top-of-list lean does not show at this scale (T-200 records it); against A0, every LLM arm
+   is lower in fixed triangles in 5 of 5 seeds and higher in cutoff in 5 of 5 (A3 3 of 5), and A1, A2 and A4 are lower
+   in conflict, over/underfunctioning and projection in 5 of 5 (A3 4 of 5); A1 holds back in 0.916 to 0.965 of its
+   choices, A2–A4 in 0.002 or less. Contamination (§3.4): A3 follows A2 by the label shown more than by the mechanics
+   in 5 of 5 seeds, so A2's patterns are counted as driven by what the words mean; A4 keeps A2's direction for every
+   pattern in 5 of 5 seeds (distance 4 of 5), so the patterns did not come from felt relief; no pattern appears in A2
+   and not in A1. These are readouts of a language model choosing in an invented family, not findings about families
+   (`M11.F.9`). The cross-check waits for the owner's go-ahead.
 
 ## 12. Documents
 
@@ -550,7 +570,8 @@ not counted against the fix.
 favours no option, and each choice's position is recorded, so the lean is reported and controlled for in the
 analysis. Recorded for later review as T-200 (possible fixes there: say in the prompt that the order is random, show
 fewer options per call, or loosen the rule; and the report computes the approved rule, not the stronger one). The
-main phase's own cost go-ahead is separate (§11 step 7).
+main phase's own cost go-ahead is separate (§11 step 7); the owner gave it 2026-11-07, and the main phase showed no
+position effect in any arm's seeds (§11 step 7).
 
 ### 13.6 The owner's answers (2026-11-06, each as recommended)
 

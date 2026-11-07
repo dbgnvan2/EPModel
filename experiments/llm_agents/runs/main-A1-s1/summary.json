@@ -1,0 +1,71 @@
+{
+  "arm": "A1",
+  "seed": 1,
+  "weeks": 208,
+  "engine_hash": "0b363cb3186c",
+  "evaluation": {
+    "intensity.mean_excess": 4.037204412481961,
+    "intensity.budget_occupancy": 0.9995889016832943,
+    "stress.exogenous_events": 26,
+    "adaptiveness.automatic_acts": 15,
+    "adaptiveness.reactivity_per_stress": 0.004807692307692308
+  },
+  "patterns": {
+    "subjects": 13,
+    "weeks": 208,
+    "subject_weeks": {
+      "cutoff": 208,
+      "distance": 1818,
+      "over_underfunctioning": 9,
+      "projection": 17
+    }
+  },
+  "acts_by_mechanics": {
+    "CONFLICT": 8,
+    "CUTOFF": 7,
+    "DISPLACE": 1,
+    "DISTANCE": 1,
+    "OVERFUNCTION": 13,
+    "PROVOKE": 1,
+    "PURSUE": 4,
+    "SPLIT": 1,
+    "STAY-IN-CONTACT": 20,
+    "UNDERFUNCTION": 10,
+    "WITHHOLD:CONFLICT": 269,
+    "WITHHOLD:CUTOFF": 392,
+    "WITHHOLD:DISPLACE": 1,
+    "WITHHOLD:DISTANCE": 63,
+    "WITHHOLD:FRAME_AMBIGUITY": 2,
+    "WITHHOLD:OVERFUNCTION": 455,
+    "WITHHOLD:PURSUE": 29,
+    "WITHHOLD:SPLIT": 5,
+    "WITHHOLD:TRIANGLE": 7,
+    "WITHHOLD:UNDERFUNCTION": 167
+  },
+  "acts_by_label": {
+    "CONFLICT": 8,
+    "CUTOFF": 7,
+    "DISPLACE": 1,
+    "DISTANCE": 1,
+    "OVERFUNCTION": 13,
+    "PROVOKE": 1,
+    "PURSUE": 4,
+    "SPLIT": 1,
+    "STAY-IN-CONTACT": 20,
+    "UNDERFUNCTION": 10,
+    "WITHHOLD:CONFLICT": 269,
+    "WITHHOLD:CUTOFF": 392,
+    "WITHHOLD:DISPLACE": 1,
+    "WITHHOLD:DISTANCE": 63,
+    "WITHHOLD:FRAME_AMBIGUITY": 2,
+    "WITHHOLD:OVERFUNCTION": 455,
+    "WITHHOLD:PURSUE": 29,
+    "WITHHOLD:SPLIT": 5,
+    "WITHHOLD:TRIANGLE": 7,
+    "WITHHOLD:UNDERFUNCTION": 167
+  },
+  "llm_selections": 1456,
+  "llm_fallbacks": 0,
+  "llm_no_options": 0,
+  "summary_hash": "8e0ccb51a4c2"
+}

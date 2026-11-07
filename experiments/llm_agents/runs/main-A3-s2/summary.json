@@ -1,0 +1,39 @@
+{
+  "arm": "A3",
+  "seed": 2,
+  "weeks": 208,
+  "engine_hash": "0b363cb3186c",
+  "evaluation": {
+    "intensity.mean_excess": 26.67161008109628,
+    "intensity.budget_occupancy": 0.56953279,
+    "stress.exogenous_events": 26,
+    "adaptiveness.automatic_acts": 3,
+    "adaptiveness.reactivity_per_stress": 0.0009615384615384616
+  },
+  "patterns": {
+    "subjects": 13,
+    "weeks": 208,
+    "subject_weeks": {
+      "cutoff": 208,
+      "distance": 1207
+    }
+  },
+  "acts_by_mechanics": {
+    "CONFLICT": 5,
+    "I-POSITION": 2,
+    "PROVOKE": 1437,
+    "REDUCE_CUTOFF": 6,
+    "UNDERFUNCTION": 6
+  },
+  "acts_by_label": {
+    "CUTOFF": 5,
+    "DISTANCE": 2,
+    "I-POSITION": 6,
+    "REDUCE_CUTOFF": 6,
+    "STAY-IN-CONTACT": 1437
+  },
+  "llm_selections": 1456,
+  "llm_fallbacks": 0,
+  "llm_no_options": 0,
+  "summary_hash": "49e670d4ac14"
+}

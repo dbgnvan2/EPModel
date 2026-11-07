@@ -1,0 +1,27 @@
+{
+  "not_started": [],
+  "phase": "main",
+  "runs": {
+    "main-A1-s1": "complete",
+    "main-A1-s2": "complete",
+    "main-A1-s3": "complete",
+    "main-A1-s4": "complete",
+    "main-A1-s5": "complete",
+    "main-A2-s1": "complete",
+    "main-A2-s2": "complete",
+    "main-A2-s3": "complete",
+    "main-A2-s4": "complete",
+    "main-A2-s5": "complete",
+    "main-A3-s1": "complete",
+    "main-A3-s2": "complete",
+    "main-A3-s3": "complete",
+    "main-A3-s4": "complete",
+    "main-A3-s5": "complete",
+    "main-A4-s1": "complete",
+    "main-A4-s2": "complete",
+    "main-A4-s3": "complete",
+    "main-A4-s4": "complete",
+    "main-A4-s5": "complete"
+  },
+  "runs_planned": 20
+}

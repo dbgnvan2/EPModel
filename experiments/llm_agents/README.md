@@ -16,7 +16,9 @@ first pilot still replays in the fixed order to its committed summary. The secon
 (`runs/pilot2-A1-s1/`). Judged by the stronger rule the owner adopted before it (plan §13.5), the position effect does
 not count as gone: the fixed-id habit and the `K1` preference are gone (7 same-id against 108 same-option pairs of 175,
 `K1` at 0.033), but position 1 is at 0.066 against a mean `1/N` of 0.036. The owner decided
-2026-11-06 to proceed as is, the lean recorded for later review (T-200). A0 (the model's own
+2026-11-06 to proceed as is, the lean recorded for later review (T-200). The main phase ran 2026-11-07 on the owner's
+cost approval: 20 runs complete, 29,115 calls, no re-ask, fallback, retry or failure, $5.087992 (`runs/main-*`); no
+position effect in any arm's seeds. The cross-check waits for the owner's go-ahead. A0 (the model's own
 policy, no call, no cost) has been run for its five seeds and is in the report. The wording in `config/act_labels.md`
 and `config/prompt_text.md` was approved by the owner 2026-11-06 (Q2); arm A4 shows no tension number of any kind (no
 own tension or change, no tie strain, no believed tension). Each further live phase (the second pilot, the main

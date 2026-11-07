@@ -1,0 +1,50 @@
+{
+  "arm": "A3",
+  "seed": 3,
+  "weeks": 208,
+  "engine_hash": "0b363cb3186c",
+  "evaluation": {
+    "intensity.mean_excess": 49.200860281200114,
+    "intensity.budget_occupancy": 0.999999999696302,
+    "stress.exogenous_events": 26,
+    "adaptiveness.automatic_acts": 352,
+    "adaptiveness.reactivity_per_stress": 0.11282051282051282
+  },
+  "patterns": {
+    "subjects": 13,
+    "weeks": 208,
+    "subject_weeks": {
+      "cutoff": 10,
+      "distance": 902,
+      "fixed_triangle": 15,
+      "over_underfunctioning": 685,
+      "projection": 445
+    }
+  },
+  "acts_by_mechanics": {
+    "CONFLICT": 14,
+    "CUTOFF": 138,
+    "FRAME_AMBIGUITY": 1,
+    "OVERFUNCTION": 1196,
+    "PROVOKE": 40,
+    "REDUCE_CUTOFF": 34,
+    "UNDERFUNCTION": 30,
+    "WITHHOLD:CONFLICT": 1,
+    "WITHHOLD:OVERFUNCTION": 2
+  },
+  "acts_by_label": {
+    "CUTOFF": 30,
+    "DISTANCE": 40,
+    "I-POSITION": 138,
+    "PURSUE": 14,
+    "REDUCE_CUTOFF": 34,
+    "SPLIT": 1,
+    "STAY-IN-CONTACT": 1196,
+    "WITHHOLD:PURSUE": 1,
+    "WITHHOLD:STAY-IN-CONTACT": 2
+  },
+  "llm_selections": 1456,
+  "llm_fallbacks": 0,
+  "llm_no_options": 0,
+  "summary_hash": "04ee36d9f5e3"
+}

@@ -106,10 +106,13 @@ Every tool result stays in context for the rest of the session, so how a file is
 - **The size limits in `tests/test_doc_size.py` are the enforcement.** A file that outgrows its limit is split or
   archived, not exempted.
 - **One task per session, started from a brief;** a new session once a batch is pushed.
-- **A session that finishes its work ends by writing the next session's brief** (owner rule, 2026-10-24): a prompt
-  the owner can paste as it is, in a fenced block in the final reply. It names the task and the plan step, the files to
-  read (by index and line range), what is already found or decided, what is pending the owner's review, the hard rules
-  (the engine hash, the suite count, commit to `main` and push), and the point at which to stop.
+- **A session that finishes its work starts the next session from a brief** (owner rule, 2026-10-24; changed
+  2026-11-06 so the owner no longer copies and pastes): the brief goes into a new Claude Code session via
+  `start_session`, in its own worktree from `origin/main` — a card the owner clicks, or started at once when the owner has
+  already said to go ahead — not into a fenced block for the owner to paste. It names the task and the plan step, the
+  files to read (by index and line range), what is already found or decided, what is pending the owner's review, the
+  hard rules (the engine hash, the suite count, commit to `main` and push), and the point at which to stop. A brief
+  pasted into a session is started the same way unless the owner says to run it there.
 
 ## Documentation stays current with the build (owner rule, 2026-10-10)
 

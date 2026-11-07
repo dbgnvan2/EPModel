@@ -1,0 +1,62 @@
+{
+  "arm": "A1",
+  "seed": 1,
+  "weeks": 26,
+  "engine_hash": "0b363cb3186c",
+  "evaluation": {
+    "intensity.mean_excess": 4.258639150433665,
+    "intensity.budget_occupancy": 0.0,
+    "stress.exogenous_events": 12,
+    "adaptiveness.automatic_acts": 8,
+    "adaptiveness.reactivity_per_stress": 0.005555555555555556
+  },
+  "patterns": {
+    "subjects": 13,
+    "weeks": 26,
+    "subject_weeks": {
+      "cutoff": 26,
+      "distance": 202,
+      "over_underfunctioning": 4
+    }
+  },
+  "acts_by_mechanics": {
+    "CUTOFF": 1,
+    "DISTANCE": 1,
+    "PURSUE": 4,
+    "SPLIT": 1,
+    "STAY-IN-CONTACT": 1,
+    "UNDERFUNCTION": 1,
+    "WITHHOLD:CONFLICT": 32,
+    "WITHHOLD:CUTOFF": 5,
+    "WITHHOLD:DISPLACE": 3,
+    "WITHHOLD:DISTANCE": 15,
+    "WITHHOLD:FRAME_AMBIGUITY": 4,
+    "WITHHOLD:OVERFUNCTION": 34,
+    "WITHHOLD:PURSUE": 47,
+    "WITHHOLD:SPLIT": 1,
+    "WITHHOLD:TRIANGLE": 2,
+    "WITHHOLD:UNDERFUNCTION": 30
+  },
+  "acts_by_label": {
+    "CUTOFF": 1,
+    "DISTANCE": 1,
+    "PURSUE": 4,
+    "SPLIT": 1,
+    "STAY-IN-CONTACT": 1,
+    "UNDERFUNCTION": 1,
+    "WITHHOLD:CONFLICT": 32,
+    "WITHHOLD:CUTOFF": 5,
+    "WITHHOLD:DISPLACE": 3,
+    "WITHHOLD:DISTANCE": 15,
+    "WITHHOLD:FRAME_AMBIGUITY": 4,
+    "WITHHOLD:OVERFUNCTION": 34,
+    "WITHHOLD:PURSUE": 47,
+    "WITHHOLD:SPLIT": 1,
+    "WITHHOLD:TRIANGLE": 2,
+    "WITHHOLD:UNDERFUNCTION": 30
+  },
+  "llm_selections": 182,
+  "llm_fallbacks": 0,
+  "llm_no_options": 0,
+  "summary_hash": "6615cb2a53be"
+}

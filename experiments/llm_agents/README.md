@@ -11,8 +11,11 @@ calls, no re-ask, fallback, retry or failure, $0.029851 (`runs/pilot-A1-s1/`); t
 usage (`estimate_output_tokens` 10), and its choices show a list-position effect, reported to the owner. The owner decided to shuffle the option order
 (plan §13); the fix was built 2026-11-06 with tests LX.21–LX.26, no live call made: each round's options are
 numbered in an order drawn per (seed, week, person token), `option_order` `shuffled` in `config/llm.md`, and the
-first pilot still replays in the fixed order to its committed summary. The second pilot, `run pilot2 --live`, waits
-for the owner's go-ahead. A0 (the model's own
+first pilot still replays in the fixed order to its committed summary. The second pilot, `run pilot2 --live`, was run
+2026-11-06 on the owner's go-ahead and completed: 182 calls, no re-ask, fallback, retry or failure, $0.029782
+(`runs/pilot2-A1-s1/`). Judged by the stronger rule the owner adopted before it (plan §13.5), the position effect does
+not count as gone: the fixed-id habit and the `K1` preference are gone (7 same-id against 108 same-option pairs of 175,
+`K1` at 0.033), but position 1 is at 0.066 against a mean `1/N` of 0.036. The main phase waits for the owner. A0 (the model's own
 policy, no call, no cost) has been run for its five seeds and is in the report. The wording in `config/act_labels.md`
 and `config/prompt_text.md` was approved by the owner 2026-11-06 (Q2); arm A4 shows no tension number of any kind (no
 own tension or change, no tie strain, no believed tension). Each further live phase (the second pilot, the main

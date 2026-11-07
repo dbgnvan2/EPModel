@@ -4,7 +4,7 @@
 `experiments/llm_agents/` (its README), with tests LX.1–LX.20 offline and the A0 baseline run. The owner approved the plain-label and prompt wording 2026-11-06 (Q2, §9), with A4 showing no tension number of
 any kind (§2) and the build's three extras accepted. Step 7's smoke call (LX.L1) was made 2026-11-06 on the owner's go-ahead and
 passed (§11), and the pilot (LX.L2) the same day: complete, $0.029851, the estimate restated from its usage (§11);
-its choices showed a list-position effect, and the owner decided to fix the option order first: the fix (§13) was proposed and its seven questions answered 2026-11-06, each as recommended, and built the same day with tests LX.21–LX.26 (§10, §11), the first pilot still replaying; the second pilot (§13.5) waits for the owner's go-ahead; the main phase and the cross-check each wait for the owner's go-ahead.** Written 2026-11-03 on `main` at `5c7fc9b` (spec revision 47, engine
+its choices showed a list-position effect, and the owner decided to fix the option order first: the fix (§13) was proposed and its seven questions answered 2026-11-06, each as recommended, and built the same day with tests LX.21–LX.26 (§10, §11), the first pilot still replaying; the second pilot (§13.5) was run 2026-11-06 on the owner's go-ahead, judged by the stronger rule the owner adopted the same day: complete, $0.029782, the K1 and same-id effect gone but position 1 still above the mean of 1/N, so the effect does not count as gone and the main phase waits for the owner (§13.5); the main phase and the cross-check each wait for the owner's go-ahead.** Written 2026-11-03 on `main` at `5c7fc9b` (spec revision 47, engine
 hash `0b363cb3186c`). The owner decided on 2026-11-03 that version 3 has two new utilities: this experiment and an
 emergence audit of the learning model (`docs/plan_v3_emergence_audit.md`, T-182). This plan settles what the experiment is, how it keeps the
 theory out of the agents, its scale and cost, how a run replays, how results are compared, how calls are hardened,
@@ -371,7 +371,8 @@ repeat kinds counted by id. Each failed its named test by an assertion, and the 
 - **LX.L2.** The real model's outputs, and the token sizes behind the estimate in §5. These are checked in the pilot,
   and the estimate is restated from the pilot's `usage` before the main phase. Checked 2026-11-06: the pilot
   completed; input mean 1,590 and max 2,337 tokens, output 10 on every call; the estimate restated (§11 step 7). The
-  outputs show a list-position effect, reported to the owner (§11 step 7).
+  outputs show a list-position effect, reported to the owner (§11 step 7). The second pilot (2026-11-06, shuffled
+  order, §13.5): complete, 182 calls, $0.029782; the effect does not count as gone, reported to the owner.
 
 ## 11. Order of work
 
@@ -412,8 +413,13 @@ repeat kinds counted by id. Each failed its named test by an assertion, and the 
    to its committed summary hash `d94482be4672` and wrote its `choices.jsonl.gz`. The readout of that run: 182 choices,
    position 1 at 0.011 against a mean 1/N of 0.036, 148 same-id and 173 same-option pairs of 175, holds 0.989, every
    choice on token `K1`, 0.978 of choices in the seventh tenth of the list. In the fixed order the same option keeps
-   nearly the same place, so this does not tell position from content; the second pilot does. The second pilot
-   (§13.5) waits for the owner's go-ahead.
+   nearly the same place, so this does not tell position from content; the second pilot does.
+   **The second pilot, 2026-11-06:** on the owner's go-ahead, judged by the stronger rule the owner adopted before the
+   run (§13.5). `pilot2-A1-s1`: `complete`, 182 calls, 0 re-asks, fallbacks, retries or failures, $0.029782; every run
+   replays `complete`, `pilot-A1-s1` at its summary hash `d94482be4672`. Position 1 at 0.066 against 0.036, same id 7
+   against 6.4 by chance and 108 same-option of 175 pairs, holds 0.951, K1 at 0.033. The `K1` preference and the
+   fixed-id habit are gone; a lean toward the top of the list is not, so the effect does not count as gone (§13.5) and
+   the main phase waits for the owner's decision.
 
 ## 12. Documents
 
@@ -507,7 +513,8 @@ always answers the last option scored "no effect" with 152 same-id pairs of 175.
 as context the rule does not use, the same-id pairs a position-blind choice would give by chance (the sum of `1/N`
 over the pairs), the share at the last position, and the flagged weeks. A stronger rule would compare same-id
 repeats with that chance figure and look at any fixed position, not only the first; whether to adopt it for §13.5's
-"effect gone" test is the owner's decision. The rule as approved is unchanged.
+"effect gone" test was the owner's decision. **The owner adopted it for §13.5, 2026-11-06** (13.5). The report's
+"Position effect" column, which the main-phase seed count uses, still applies the rule as approved above.
 
 ### 13.5 The second pilot
 
@@ -517,6 +524,26 @@ build and its review. **The effect counts as gone if**, over its 175 week-to-wee
 outnumber same-id repeats, and the position-1 share is not above the mean of `1/N`. A preference for holds, or for
 one act, that persists under the shuffle is a content preference, not a position effect: it is reported, not
 counted against the fix. If the effect is not gone, the main phase waits and the result goes to the owner.
+
+**The stronger rule (the owner, 2026-11-06, before the run).** The effect counts as gone only if all four hold:
+same-option repeats above same-id repeats; same-id repeats not above the same-id repeats a position-blind choice
+would give by chance (the sum of `1/N` over the pairs); the position-1 share not above the mean of `1/N`; and the
+last-position share not above the mean of `1/N`. It is stricter than the approved rule, so a near-random result can
+read "not gone" and go to the owner, never the reverse.
+
+**The second pilot, 2026-11-06, on the owner's go-ahead.** `pilot2-A1-s1`, `option_order` `shuffled`: `complete`, 182
+calls, 0 re-asks, fallbacks, retries or failures, $0.029782 against the estimate's $0.0373
+(`experiments/llm_agents/runs/pilot2-A1-s1/`). From the report's position table: position 1 at 0.066 against a mean
+`1/N` of 0.036 (12 choices against 6.6 by chance), the last position at 0.022; same id 7 against 6.4 by chance and
+108 same-option pairs of 175; holds 0.951; by act token K14 0.280, K10 0.187, K16 0.176, K4 0.170, K11 0.088, K1
+0.033, the rest 0.022 or less. The report's own "Position effect" column reads "no". Against the first pilot (148
+same-id pairs, every choice on `K1`), the fixed-id habit and the `K1` preference are gone, and the choices follow
+content. **The effect does not count as gone**, under either rule: position 1 is above the mean of `1/N` (both rules),
+and same id is above chance, 7 against 6.4 (the stronger rule; a difference of less than one pair). A lean toward the
+top of the list remains: the first tenth of the list takes 0.214 of choices and the second 0.143 (report), and, counted
+offline from `choices.jsonl.gz` and not in the report, the first two positions take 32 choices against 13.3 by chance.
+The main phase waits; the result goes to the owner. The hold share, 0.951, is a content preference and is reported,
+not counted against the fix.
 
 ### 13.6 The owner's answers (2026-11-06, each as recommended)
 

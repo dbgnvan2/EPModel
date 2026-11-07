@@ -1,0 +1,8 @@
+{
+  "not_started": [],
+  "phase": "pilot2",
+  "runs": {
+    "pilot2-A1-s1": "complete"
+  },
+  "runs_planned": 1
+}

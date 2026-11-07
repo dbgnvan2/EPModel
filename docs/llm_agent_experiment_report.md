@@ -88,18 +88,21 @@ Whether the language model chooses by where an option is listed rather than by w
 | Run | Choices | Flagged | Position 1 | Last | Mean 1/N | Same id | Same id by chance | Same option | Pairs | Holds | Position effect |
 |---|---|---|---|---|---|---|---|---|---|---|---|
 | pilot-A1-s1 | 182 | 0 | 0.011 | 0.000 | 0.036 | 148 | 6.3 | 173 | 175 | 0.989 | no |
+| pilot2-A1-s1 | 182 | 0 | 0.066 | 0.022 | 0.036 | 7 | 6.4 | 108 | 175 | 0.951 | no |
 
 Chosen position as a share of the list, in tenths (share of choices):
 
 | Run | 1/10 | 2/10 | 3/10 | 4/10 | 5/10 | 6/10 | 7/10 | 8/10 | 9/10 | 10/10 |
 |---|---|---|---|---|---|---|---|---|---|---|
 | pilot-A1-s1 | 0.011 | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 | 0.978 | 0.011 | 0.000 | 0.000 |
+| pilot2-A1-s1 | 0.214 | 0.143 | 0.099 | 0.088 | 0.110 | 0.044 | 0.055 | 0.088 | 0.066 | 0.093 |
 
 Share of choices by act token (opaque arm):
 
-| Run | K1 |
-|---|---|
-| pilot-A1-s1 | 1.000 |
+| Run | K1 | K2 | K3 | K4 | K5 | K6 | K9 | K10 | K11 | K14 | K16 |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| pilot-A1-s1 | 1.000 | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 |
+| pilot2-A1-s1 | 0.033 | 0.016 | 0.005 | 0.170 | 0.011 | 0.011 | 0.022 | 0.187 | 0.088 | 0.280 | 0.176 |
 
 A1: a position effect in 0 of 0 main-phase seeds.
 A2: a position effect in 0 of 0 main-phase seeds.

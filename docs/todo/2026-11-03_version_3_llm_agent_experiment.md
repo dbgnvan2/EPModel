@@ -30,7 +30,11 @@ utilities the owner decided version 3 has (2026-11-03).
   phase `pilot2`, the position readout in the report, tests LX.21–LX.26 each proved failing by its named mutation; the
   first pilot replays in the fixed order to its committed summary hash. Its readout: 173 same-option against 148
   same-id pairs of 175, position 1 at 0.011 against 0.036, every choice on `K1`: in the fixed order position and
-  content are not told apart. Pending the owner: whether §13.5's "effect gone" rule gains a chance baseline and a
-  check of any fixed position (the review found it can score a random chooser as an effect and miss a last-position
-  one; plan §13.4). Open: the second pilot (`run pilot2 --live`), the main phase and the cross-check, each
-  on the owner's go-ahead.
+  content are not told apart. The owner decided 2026-11-06 that §13.5's "effect gone" test uses the stronger rule
+  (same-option above same-id, same-id not above chance, position 1 and the last position not above the mean of
+  `1/N`; plan §13.5). The second pilot run 2026-11-06 on the owner's go-ahead: `pilot2-A1-s1`, `complete`, 182 calls,
+  0 re-asks, fallbacks, retries or failures, $0.029782; every run replays `complete`, `pilot-A1-s1` at `d94482be4672`.
+  Position 1 at 0.066 against 0.036, same id 7 against 6.4 by chance and 108 same-option pairs of 175, holds 0.951,
+  `K1` at 0.033: the fixed-id habit and the `K1` preference are gone, a lean toward the top of the list is not, and
+  the effect does not count as gone. Pending the owner: what to do about the remaining lean before the main phase.
+  Open: the main phase and the cross-check, each on the owner's go-ahead.

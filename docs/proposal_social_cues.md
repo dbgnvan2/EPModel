@@ -1,7 +1,7 @@
 # Proposal — social cues and the channels a signal travels on
 
 **Status: DRAFT 2026-11-07, for owner review.** No part of it has been implemented. Q5 was answered by the owner the
-same day (§5, §8); the rest is open. No requirement in the spec changed,
+same day, with its follow-up (the imagined part of a cue is meaning only; §5, §8); the rest is open. No requirement in the spec changed,
 no file under `src/bowen/` or `config/bowen/` changed, and the engine hash did not move. The owner asked on
 2026-11-07 (1) whether Kerr's four social cues can be a structure in the model's appraisal and (2) whether a
 message can be sent as "[words], [tone], [expression]". This document answers both, maps the answer onto the
@@ -35,7 +35,8 @@ are `[K]` as well and are not cited as Bowen's text.
 
 1. The cues are **sensitivities to threats**: they are where a person reads a threat, not things a person pursues.
    Nothing in the five entries makes approval or attention a goal.
-2. A cue may be **real or imagined** (`KS01.7`, `KS07.6`): it can be perceived without having been sent.
+2. A cue may be **real or imagined** (`KS01.7`, `KS07.6`): a threatening meaning can be perceived that the sender did not send (the imagined part is meaning only, the owner,
+   2026-11-07; §5 point 4).
 3. Differentiation changes **two** things: how accurately a cue is perceived, and how intense the reaction is
    (`KS09.4`). Both change by degree. "Accurately" here means the meaning given to a signal, not whether a signal
    is noticed: a less differentiated person is *more* sensitive to a signal being sent (the owner, 2026-11-07, Q5;
@@ -209,10 +210,11 @@ answer to the owner's second question is yes, inside the engine: an event is "[w
    person is "governed by reactions to such real or imagined cues" (`KS01.7`) — but no extraction entry says that
    anxiety shifts weight from words to the nonverbal channels. Graded `[I]` for the direction as well as the size
    (Q4).
-4. **A cue can be perceived without having been sent.** The perceived cue is the sent cue plus a perception error.
+4. **A cue's meaning can be perceived without having been sent.** The perceived cue is the sent cue plus a perception error.
    With point 5's split, the error is on **meaning**, not on presence: what is imagined is a threatening meaning given
    to a signal that is there (a neutral face read as disapproval, a tired voice read as an expectation), or to an
-   absence (`M4.C.1c`). Claude's reading of the owner's Q5 answer, pending the owner's review.
+   absence (`M4.C.1c`). Never a signal detected when none was sent. Decided by the owner, 2026-11-07 ("meaning
+   only"), following the Q5 answer.
    The error has a bias toward each cue's threat pole that grows with the receiver's acute anxiety and with what the
    receiver believes about the sender (`M9.7`), and a spread. So a neutral event can be read as disapproval, and a
    receiver who believes the sender disapproves reads disapproval more often (`FE03.3` "perception (or
@@ -264,7 +266,7 @@ carriers *signal channels* in requirement text.
 | **SC-3** | An Event carries four **signal channels** — words, tone, face, posture — each a cue vector. (amends `M1.F.1`) | `[T]` `[K]` `FE03.3`; `[B]` `ch18` (footsteps folded into posture) | Structural: an Event built without the field is refused. | check |
 | **SC-4** | **Words are chosen; tone, face and posture leak** the sender's acute anxiety onto the threat poles (mainly expectation and distress). (new `M4.C.13`, beside `M4.C.10`, under which contact with a calmer sender already lowers the receiver's anxiety; the leak is the channel that difference would travel on) | mechanism `[T]` `[K]` `KS08.4`; sizes `[I]` | `KS08.4`'s two arms: same move kind, same words, the sender's acute anxiety held high or low by script. (i) Receiver's felt impingement from the event higher in the high arm — premise. (ii) Over the following weeks, the receiver's voluntary contact toward the sender higher in the low arm — composite. Mutant: leak set to zero. | (i) premise, (ii) composite |
 | **SC-5** | The receiver's **weight on the nonverbal channels**, and its negative reading of them, rise with its own acute anxiety. (new `M4.C.11`) | `[I]`, direction and size (§5 point 3) | Same event, receiver's acute anxiety high or low: the nonverbal share of the felt change higher in the high arm. Mutant: weight held constant. | premise |
-| **SC-6** | **Real or imagined.** The perceived cue is the sent cue plus an error biased toward the threat pole by the receiver's acute anxiety and its belief about the sender (`M9.7`); a cue can be perceived that was not sent. (new `M4.C.12`; extends `M4.C.5` to the four cues) | `[T]` `[K]` `KS01.7`, `KS07.6`, `FE03.3`; form `[I]` | Every sender scripted neutral on every cue. (i) Receiver at low level against high level: perceived disapproval higher at low level — premise. (ii) Over the run, the low-level receiver's share of `DISTANCE` and `CONFLICT` on those ties higher — composite. Mutant: bias zeroed. | (i) premise, (ii) composite |
+| **SC-6** | **Real or imagined.** The perceived cue is the sent cue plus an error biased toward the threat pole by the receiver's acute anxiety and its belief about the sender (`M9.7`). The error is on meaning only: a threatening meaning can be read into a signal that is present, or into an absence, that the sender did not send; presence itself is never imagined (the owner, 2026-11-07). (new `M4.C.12`; extends `M4.C.5` to the four cues) | `[T]` `[K]` `KS01.7`, `KS07.6`, `FE03.3`; form `[I]` | Every sender scripted neutral on every cue. (i) Receiver at low level against high level: perceived disapproval higher at low level — premise. (ii) Over the run, the low-level receiver's share of `DISTANCE` and `CONFLICT` on those ties higher — composite. Mutant: bias zeroed. | (i) premise, (ii) composite |
 | **SC-7** | **Differentiation by degree, on three terms.** As `functional_level` falls, **sensitivity** to a signal's presence rises, while **meaning error** (spread and threat bias) and **reaction steepness** rise too; all three derived from level (`M10.A.1`), none reaching zero at any level. Sensitivity is about presence only: it never adds meaning. (amends `M4.C.1a`; new `M4.C.14`) | meaning error and steepness `[T]` `[K]` `KS09.4`, `KS23.1`, `KS01.7`; sensitivity `[D]` from `ch18` `[B]` with `KS09.4`, the owner's Q5 answer; sizes `[I]` | Check: at the top of the level range, sensitivity, error and steepness are above zero. Arms at two levels, the same small leak sent: (i) the lower-level receiver detects it more often — premise; (ii) the same leak with a neutral meaning: the lower-level receiver reads a threatening meaning more often — premise. Mutants: sensitivity not scaled by level; error not scaled by level. | check + premise |
 | **SC-8** | **Self-attribution by channel.** With `systems_perspective`, the nonverbal part of what is received on a tie is attributed in proportion to the agent's own recent nonverbal leak on that tie. (amends `M4.C.6`) | `[T]` `[M]` `[K]` `KS17.3`; share `[I]` | Two anxious agents on one tie; one arm gives one of them perspective: the tie's escalation (both members' acute anxiety over the exchange) lower in that arm. Mutant: attribution reads the words channel instead. | composite |
 | **SC-9** | **Attention is finite.** The attention cue a person can send per week is bounded by the relationship share of its `life_energy`; goal-directed activity and an external stressor reduce what others perceive as attention. (amends `M1.A.10`, `M6.I.3`) | `[T]` `[K]` `KS07.6`; form `[I]` | An external work stressor on one spouse against none: the other spouse's too-little deviation on the tie higher, and their `PURSUE` or `CONFLICT` rate on it higher. Mutant: attention not bounded by the budget. | composite |
@@ -306,7 +308,7 @@ never words, and a plain-word rendering only as a contamination arm, as A3 is no
 | **Q2** | Disapproval: inward impingement only (as `M4.C.5` now), or impingement plus a smaller too-little component? | **Both**, impingement larger, as `CONFLICT` carries both. `FE03.3`'s too-little set includes feeling unloved and rejected. |
 | **Q3** | Another's distress: which side? | **Impingement** (a pull to fix it), graded `[X]`; the corpus does not say. Alternative: no side of its own, with distress acting only through the sender's leak raising the receiver's anxiety. |
 | **Q4** | Keep `SC-5` (nonverbal weighted more as anxiety rises) though no extraction entry states it? | **Keep, graded `[I]`, as a premise.** Or drop it and let accuracy (`SC-6`) carry the effect; the model would then be fully sourced on this point. |
-| **Q5** | Sensitivity and accuracy as two terms, to hold `ch18` and `KS09.4` together? | **Answered by the owner, 2026-11-07:** yes — lower differentiation means more sensitivity to a signal, which is accurate that a signal is being sent but not about what it means. Written into §5 point 5 and `SC-7`; that the imagined part of a cue is meaning, not presence (§5 point 4), is Claude's reading of the answer, pending review. |
+| **Q5** | Sensitivity and accuracy as two terms, to hold `ch18` and `KS09.4` together? | **Answered by the owner, 2026-11-07:** yes — lower differentiation means more sensitivity to a signal, which is accurate that a signal is being sent but not about what it means. Written into §5 point 5 and `SC-7`; the follow-up — the imagined part of a cue is meaning, not presence (§5 point 4, `SC-6`) — answered by the owner the same day: meaning only. |
 | **Q6** | `KS10.1`'s uncertainty term (variance in whether a cue comes intensifies the reaction)? | **Later**, as its own proposal; it is a separate mechanism with its own criterion (`KS09.8`'s intermittent withdrawal). |
 | **Q7** | `SC-12`'s age dependency: build at `[I]`, or first look for a source? | **Look first.** A ledger search for age and dependency before building; build at `[I]` only if none is found and the owner wants it. |
 | **Q8** | Show the cues to the LLM agents? | **No, engine-only** (§7). |

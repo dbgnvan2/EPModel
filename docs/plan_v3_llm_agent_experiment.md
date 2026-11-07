@@ -3,7 +3,8 @@
 **Status: approved by the owner 2026-11-06, Q1–Q7 as recommended (§9). §11 steps 1–6 built 2026-11-06 under
 `experiments/llm_agents/` (its README), with tests LX.1–LX.20 offline and the A0 baseline run. The owner approved the plain-label and prompt wording 2026-11-06 (Q2, §9), with A4 showing no tension number of
 any kind (§2) and the build's three extras accepted. Step 7's smoke call (LX.L1) was made 2026-11-06 on the owner's go-ahead and
-passed (§11); the pilot, the main phase and the cross-check each wait for the owner's go-ahead.** Written 2026-11-03 on `main` at `5c7fc9b` (spec revision 47, engine
+passed (§11), and the pilot (LX.L2) the same day: complete, $0.029851, the estimate restated from its usage (§11);
+the main phase and the cross-check each wait for the owner's go-ahead.** Written 2026-11-03 on `main` at `5c7fc9b` (spec revision 47, engine
 hash `0b363cb3186c`). The owner decided on 2026-11-03 that version 3 has two new utilities: this experiment and an
 emergence audit of the learning model (`docs/plan_v3_emergence_audit.md`, T-182). This plan settles what the experiment is, how it keeps the
 theory out of the agents, its scale and cost, how a run replays, how results are compared, how calls are hardened,
@@ -355,7 +356,9 @@ counts.
   by one owner-approved smoke call (cost < $0.01) before the pilot, and recorded in the run record. Checked
   2026-11-06: accepted, parsed, $0.000113 (§11 step 7).
 - **LX.L2.** The real model's outputs, and the token sizes behind the estimate in §5. These are checked in the pilot,
-  and the estimate is restated from the pilot's `usage` before the main phase.
+  and the estimate is restated from the pilot's `usage` before the main phase. Checked 2026-11-06: the pilot
+  completed; input mean 1,590 and max 2,337 tokens, output 10 on every call; the estimate restated (§11 step 7). The
+  outputs show a list-position effect, reported to the owner (§11 step 7).
 
 ## 11. Order of work
 
@@ -373,6 +376,20 @@ counts.
    option, no retry and no re-ask, and its cost, $0.000113 (1,082 input and 10 output tokens), was logged against the
    `main` pool. Both model IDs were found by the Models API first. The record and the cache are
    `experiments/llm_agents/runs/smoke-A1-s1/`. LX.L1 holds.
+   **The pilot, 2026-11-06:** before it, the prices in `config/llm.md` were checked against the pricing page (they
+   match) and §4's sampling wording was corrected (no change to the request). One live run, A1, seed 1, 26 weeks,
+   on `claude-haiku-5-5`: `complete`, 182 calls, all `end_turn`, 0 re-asks, 0 fallbacks (share 0.0 against 0.01), 0
+   retries, 0 failures, $0.029851 against the estimate's $0.041 (`experiments/llm_agents/runs/pilot-A1-s1/`). Input
+   per call: mean 1,590, max 2,337, level at about 1,700 after week 15; output 10 on every call. Sized offline for
+   208 weeks with the stub chooser and scaled by the pilot's tokens per character, the four arms' means are about
+   1,716 (A1), 2,068 (A2), 2,128 (A3) and 1,742 (A4). Restated: the per-call estimate is 2,000 input (unchanged) and
+   10 output tokens (was 50), $0.000205 a call on Haiku; the main phase is 29,120 calls, about $5.97, against the
+   main pool's $9.97 left; the cross-check 5,824 calls, about $23.88, against $35 (its output not yet measured). §3:
+   the lint finds no banned term in the 21 stored prompts. The choices show a list-position effect: six of the seven
+   members give the same option id almost every week, the first "hold back from" option, and two chose option 1 (the
+   first act, `K1`, which in seed 1 is `CUTOFF`) in week 0. The option order is fixed (`prompts.py::ordered_options`).
+   No prompt was changed; whether to change the order before the main phase is the owner's decision. LX.L2 holds for
+   the token sizes.
 
 ## 12. Documents
 

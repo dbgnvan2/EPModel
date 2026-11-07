@@ -6,11 +6,13 @@ The report it generates is `docs/llm_agent_experiment_report.md`.
 
 **Status (2026-11-06).** Plan steps 1–6 are built and tested offline. The smoke call LX.L1 was made 2026-11-06 on the
 owner's go-ahead and passed: the request shape was accepted, the answer parsed, $0.000113 was logged against the
-`main` pool (`runs/smoke-A1-s1/`). A0 (the model's own
+`main` pool (`runs/smoke-A1-s1/`). The pilot LX.L2 was run 2026-11-06 on the owner's go-ahead and completed: 182
+calls, no re-ask, fallback, retry or failure, $0.029851 (`runs/pilot-A1-s1/`); the estimate was restated from its
+usage (`estimate_output_tokens` 10), and its choices show a list-position effect, reported to the owner. A0 (the model's own
 policy, no call, no cost) has been run for its five seeds and is in the report. The wording in `config/act_labels.md`
 and `config/prompt_text.md` was approved by the owner 2026-11-06 (Q2); arm A4 shows no tension number of any kind (no
-own tension or change, no tie strain, no believed tension). Each further live phase (the pilot LX.L2, the main
-phase, the cross-check) waits for the owner's go-ahead.
+own tension or change, no tie strain, no believed tension). Each further live phase (the main phase, the
+cross-check) waits for the owner's go-ahead.
 
 ## What it does
 

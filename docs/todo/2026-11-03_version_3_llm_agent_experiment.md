@@ -13,7 +13,11 @@ utilities the owner decided version 3 has (2026-11-03).
   A4 hiding a tie's strain and a pair's believed tension as well as the person's own tension (built the same day,
   LX.7 widened), and the build's three extras accepted. Step 7's smoke call LX.L1 made 2026-11-06 on the
   owner's go-ahead: one call to `claude-haiku-5-5`, `end_turn`, the choice parsed, $0.000113 against the $10 pool
-  (`experiments/llm_agents/runs/smoke-A1-s1/`). Open: the pilot LX.L2, the main phase and the cross-check, each on
-  the owner's go-ahead. Found at the smoke call, not fixed: the record's `sampling` line cites API version
-  `2026-10-21`, but the request went out at the SDK's `anthropic-version` `2023-06-01`; check the claim before the
-  pilot.
+  (`experiments/llm_agents/runs/smoke-A1-s1/`). The smoke call's `sampling` wording corrected 2026-11-06 before the
+  pilot (the client sends `2023-06-01`; the request unchanged), and the prices checked against the pricing page. The
+  pilot LX.L2 run 2026-11-06 on the owner's go-ahead: A1, seed 1, 26 weeks, `complete`, 182 calls, 0 re-asks,
+  fallbacks, retries or failures, $0.029851 (`experiments/llm_agents/runs/pilot-A1-s1/`); input mean 1,590 and max
+  2,337 tokens, output 10; `estimate_output_tokens` restated 50 → 10, the main phase $5.97 against $9.97 left. Found
+  at the pilot, for the owner: the model chooses by list position (six of seven members give the same option id
+  almost every week, the first "hold back" option; options are numbered in a fixed order, `K1` first). Open: the
+  owner's go-ahead for the main phase, and whether the option order changes first; then the cross-check.

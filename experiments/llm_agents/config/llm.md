@@ -12,8 +12,10 @@
 >   value (a model rule), and at `2026-10-21` any value is a 400 on every model; the run record says so.
 > * **Prices** are dollars per million tokens, read from the `claude-api` skill's model table (cached 2026-10-06) on
 >   `prices_read`; they are checked against the pricing page before the first live run (LX.L2).
-> * **Estimate** (§5): `estimate_input_tokens` and `estimate_output_tokens` are the plan's per-call estimate, to be
->   restated from the pilot's `usage`. **Worst case** before a round (§5): each call's input is its prompt's length
+> * **Estimate** (§5): `estimate_input_tokens` and `estimate_output_tokens` are the per-call estimate, restated
+>   2026-11-06 from the pilot's `usage` (LX.L2): input 2,000 (the pilot's mean 1,590, max 2,337 over 26 weeks of A1;
+>   the four arms' 208-week mean, sized offline, about 1,910, rounded up), output 10 (every one of the pilot's 182
+>   calls; the plan's first figure was 50). The cross-check model's output is not yet measured. **Worst case** before a round (§5): each call's input is its prompt's length
 >   in characters divided by `worst_case_chars_per_token` (2, below English text's usual 3–4, so the bound is high),
 >   its output is `max_tokens`, and every call is counted twice, for a possible re-ask.
 > * **Phases** (§11 step 7). `smoke` is one call (LX.L1); `pilot` is A1, one seed, 26 weeks (LX.L2); `main` is A1–A4
@@ -51,7 +53,7 @@
 | `max_fallback_share` | 0.01 |
 | `history_rounds` | 12 |
 | `estimate_input_tokens` | 2000 |
-| `estimate_output_tokens` | 50 |
+| `estimate_output_tokens` | 10 |
 | `worst_case_chars_per_token` | 2 |
 | `cap_main_usd` | 10 |
 | `cap_cross_check_usd` | 35 |

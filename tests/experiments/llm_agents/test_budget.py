@@ -36,7 +36,9 @@ def test_lx11_estimate_over_cap_refuses(tmp_path):
     cfg = config()
     est = estimate(cfg.phases["main"], cfg, members(cfg))
     assert est["calls"] == 4 * 5 * 208 * 7 and not est["over"], "the decided phase fits its cap"
-    assert est["cost"] == pytest.approx(est["calls"] * (2000 * 0.10 + 50 * 0.50) / 1e6)
+    pin, pout = cfg.prices(cfg.get("model_main"))
+    per = (cfg.number("estimate_input_tokens") * pin + cfg.number("estimate_output_tokens") * pout) / 1e6
+    assert est["cost"] == pytest.approx(est["calls"] * per)
     low = config(cap_main_usd=est["cost"] * 0.5)
     assert estimate(low.phases["main"], low, members(low))["over"]
     with pytest.raises(OverCap):

@@ -38,7 +38,7 @@ def test_lx16_report_is_current(tmp_path):
 
 def _synthetic():
     base = load_summaries()
-    out = [dict(s, phase="baseline") for s in base if s["seed"] in (1, 2)]
+    out = [dict(s, phase="baseline") for s in base if s["arm"] == "A0" and s["seed"] in (1, 2)]
     for s in list(out):
         x = copy.deepcopy(s)
         x["arm"], x["phase"] = "A2", "main"

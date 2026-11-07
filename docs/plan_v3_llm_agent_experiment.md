@@ -4,7 +4,7 @@
 `experiments/llm_agents/` (its README), with tests LX.1–LX.20 offline and the A0 baseline run. The owner approved the plain-label and prompt wording 2026-11-06 (Q2, §9), with A4 showing no tension number of
 any kind (§2) and the build's three extras accepted. Step 7's smoke call (LX.L1) was made 2026-11-06 on the owner's go-ahead and
 passed (§11), and the pilot (LX.L2) the same day: complete, $0.029851, the estimate restated from its usage (§11);
-its choices showed a list-position effect, and the owner decided to fix the option order first: the fix (§13) was proposed and its seven questions answered 2026-11-06, each as recommended, not yet built; then a second pilot; the main phase and the cross-check each wait for the owner's go-ahead.** Written 2026-11-03 on `main` at `5c7fc9b` (spec revision 47, engine
+its choices showed a list-position effect, and the owner decided to fix the option order first: the fix (§13) was proposed and its seven questions answered 2026-11-06, each as recommended, and built the same day with tests LX.21–LX.26 (§10, §11), the first pilot still replaying; the second pilot (§13.5) waits for the owner's go-ahead; the main phase and the cross-check each wait for the owner's go-ahead.** Written 2026-11-03 on `main` at `5c7fc9b` (spec revision 47, engine
 hash `0b363cb3186c`). The owner decided on 2026-11-03 that version 3 has two new utilities: this experiment and an
 emergence audit of the learning model (`docs/plan_v3_emergence_audit.md`, T-182). This plan settles what the experiment is, how it keeps the
 theory out of the agents, its scale and cost, how a run replays, how results are compared, how calls are hardened,
@@ -294,6 +294,8 @@ learned values, and Halim on the policy.
   - the date and time;
   - the engine hash, the experiment's own code hash, the template hash and the label-file hash;
   - the arm, the seed and the permutations;
+  - the order the options were numbered in, `option_order` (`fixed` or `shuffled`, §13); a record written before
+    the field is read as `fixed`;
   - the status: `complete`, `stopped_at_budget`, `incomplete_transient`, `invalid`, `not_replayable` or
     `stopped_permanent` (a 400, 401, 403 or 404 stopped it, §7; named at build);
   - the counts: calls, re-asks, fallbacks, retries and cost.
@@ -349,6 +351,17 @@ counts.
 | LX.18 | A replayed LLM run reaches the same final state with logging on and off | `test_source.py::test_lx18_logging_is_a_pure_observer` |
 | LX.19 | The offer gate's draw has its own purpose and changes no other draw | `test_source.py::test_lx19_offer_draw_is_isolated` |
 | LX.20 | The report never names a real family or presents an agent as a person (`M11.F.9`) | `test_report.py::test_lx20_framing_block_present` |
+| LX.21 | The option order differs across rounds and seeds for one person, and the same `(seed, week, person)` gives the same order in every arm and every process (§13.1) | `test_prompts.py::test_lx21_order_differs_across_rounds_and_seeds`, `::test_lx21_order_is_shared_across_arms` |
+| LX.22 | The shuffle requests no engine draw, and a chooser that picks by option text reaches the same final state and choices under `shuffled` and `fixed` | `test_source.py::test_lx22_order_requests_no_engine_draw`, `::test_lx22_order_changes_no_outcome` |
+| LX.23 | Every option is offered exactly once, and acts and holds interleave | `test_prompts.py::test_lx23_every_option_offered_once`, `::test_lx23_acts_and_holds_interleave` |
+| LX.24 | Answering id `i` selects the option shown as `i`, in every round of a real-length stub run | `test_source.py::test_lx24_id_maps_to_the_option_shown` |
+| LX.25 | The run record carries `option_order`; a record without it replays as `fixed`, and the committed `pilot-A1-s1` replays `complete` with its committed summary hash | `test_record.py::test_lx25_record_carries_option_order`, `test_cache.py::test_lx25_committed_pilot_replays_fixed` |
+| LX.26 | The report's position readout (§13.4) is generated per LLM arm and tells position from content (adversarial, P7) | `test_report.py::test_lx26_position_readout_per_arm`, `::test_lx26_position_and_content_choosers_differ` |
+
+LX.21–LX.26 were each proved failing by the mutation §13.3 names, 2026-11-06: one shuffle key on the seed only, the
+arm added to the key, an engine draw under its own purpose taken each round, the last option dropped, acts and holds
+shuffled as two blocks, `_select` indexing the fixed order, a missing `option_order` read as `shuffled`, and both
+repeat kinds counted by id. Each failed its named test by an assertion, and the code was restored.
 
 **Untested by the suite (live API only).** These are flagged rather than covered by a mock:
 
@@ -391,7 +404,16 @@ counts.
    No prompt was changed; whether to change the order before the main phase is the owner's decision. LX.L2 holds for
    the token sizes.
    **The option order, 2026-11-06:** the owner decided to shuffle the options before the main phase and run a second
-   pilot; the fix is §13, its questions answered as recommended, built in the next session.
+   pilot; the fix is §13, its questions answered as recommended. **Built 2026-11-06** (no live call): `option_order`
+   in `llm.md` (`shuffled`) and in the run record; the shuffle in `prompts.py::arranged`, drawn by
+   `arms.py::option_rng`; the prompt carries the numbered options' mechanics (`Prompt.specs`), and `_select` maps the
+   id through them; the phase `pilot2`; each LLM run's choices with their positions in `choices.jsonl.gz`, and the
+   position readout in the report; tests LX.21–LX.26 (§10). `runner replay` replays `pilot-A1-s1` in the fixed order
+   to its committed summary hash `d94482be4672` and wrote its `choices.jsonl.gz`. The readout of that run: 182 choices,
+   position 1 at 0.011 against a mean 1/N of 0.036, 148 same-id and 173 same-option pairs of 175, holds 0.989, every
+   choice on token `K1`, 0.978 of choices in the seventh tenth of the list. In the fixed order the same option keeps
+   nearly the same place, so this does not tell position from content; the second pilot does. The second pilot
+   (§13.5) waits for the owner's go-ahead.
 
 ## 12. Documents
 
@@ -407,9 +429,12 @@ counts.
   `experiments/llm_agents/config/`, so the experiment's editorial files are indexed too.
 - **Not changed:** the spec (Q7), `docs/model_explainer.md` and `config/bowen/`. The experiment adds nothing to the
   model of record.
-- **Adjacent issues found, not fixed:** none.
+- **Adjacent issues found, not fixed:** during an I-POSITION sequence the engine makes a family member's act toward
+  the sequence's other as `STAY-IN-CONTACT` (`src/bowen/engine/iposition.py`, `M5.D.9`), so in a few rounds the act
+  that runs is not the one the agent chose, and the prompt does not say so. Found 2026-11-06 by LX.24's record check;
+  the same in either option order; engine behaviour, unchanged here.
 
-## 13. The option order (proposed and decided 2026-11-06, not built)
+## 13. The option order (proposed and decided 2026-11-06, built 2026-11-06)
 
 **Why.** The pilot (LX.L2, §11 step 7) showed the model choosing by list position. `prompts.py::ordered_options`
 numbers the options in a fixed order: acts by target and label, then every `hold back from` line. Six of the seven
@@ -450,7 +475,8 @@ already judges by the summary, not by that hash. The engine hash does not move: 
 
 ### 13.3 Acceptance criteria
 
-Each test is proved failing by the named mutation before it counts. They join §10 when built.
+Each test is proved failing by the named mutation before it counts. Built 2026-11-06 and in §10, each proved failing by
+its mutation.
 
 | ID | Criterion | Test | Mutation that must fail it |
 |---|---|---|---|
@@ -468,6 +494,20 @@ position 1 against the mean of `1/N` over the rounds; the chosen position as a s
 week-to-week pairs that repeat the same id against those that repeat the same option (by mechanics); the share of
 holds; and for A1 the share by token number. A position effect reads as same-id repeats above same-option repeats
 and a position-1 share above `1/N`. The report says in how many seeds of each arm it holds.
+
+As built: the readout is read from each complete LLM run's `runs/<run_id>/choices.jsonl.gz` (one line per family
+member's week: the id, the list's length, the option's mechanics and, in A1, its act token), kept out of the summary
+so no summary hash moves. The report gives one row per run, the pilots included, and counts the seeds with a position
+effect over the main phase's runs of each arm. Pairs are one person's consecutive weeks, both with a choice.
+
+**For the owner, before the second pilot (from the build's review, 2026-11-06).** The rule above has no chance
+baseline and looks only at position 1. Run offline on 26-week A1 stub runs: a chooser that picks at random scored
+"effect" in 3 of 8 runs (same id 9 against same option 2, position 1 at 0.044 against 0.036), and a chooser that
+always answers the last option scored "no effect" with 152 same-id pairs of 175. The readout therefore also shows,
+as context the rule does not use, the same-id pairs a position-blind choice would give by chance (the sum of `1/N`
+over the pairs), the share at the last position, and the flagged weeks. A stronger rule would compare same-id
+repeats with that chance figure and look at any fixed position, not only the first; whether to adopt it for §13.5's
+"effect gone" test is the owner's decision. The rule as approved is unchanged.
 
 ### 13.5 The second pilot
 

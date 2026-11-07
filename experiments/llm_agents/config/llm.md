@@ -25,6 +25,11 @@
 > * **Scale** (Q3): the family is `phase_c`, the run is `horizon_weeks` weekly ticks, the standard spell of the
 >   ensemble (`config/bowen/criteria.md`'s `spell`: a `JOB_LOSS` to each parent on the declared weeks) runs in every
 >   arm, as in the ensemble's baseline arms, so A0 is the ensemble's own assembly (LX.17).
+> * `option_order` (§13.1, decided 2026-11-06): `shuffled` numbers each round's options in an order drawn per
+>   (seed, week, person token), over acts and holds together, outside the engine's draws; `fixed` is the order the
+>   first pilot ran in (acts by target and label, then the holds), kept only so that run replays. A run record
+>   carries the order it ran in; a record without one is read as `fixed`. `pilot2` is the second pilot (§13.5): the
+>   same as `pilot`, run in the shuffled order.
 > * `max_fallback_share` (§7): a run with more of its LLM selections as `llm_failed_to_parse` holds is `invalid`.
 > * `audit_prompt_weeks` (§8): the weeks whose full prompts are stored for audit; `last` is the run's last week.
 > * `evaluation_window_weeks` and `evaluation_readouts` (§6): the window of the `M11.G.1` evaluation and the numeric
@@ -63,9 +68,11 @@
 | `spells` | standard |
 | `audit_prompt_weeks` | 0, 1, last |
 | `evaluation_window_weeks` | 52 |
+| `option_order` | shuffled |
 | `evaluation_readouts` | intensity.mean_excess, intensity.budget_occupancy, stress.exogenous_events, adaptiveness.automatic_acts, adaptiveness.reactivity_per_stress |
 | `phase.baseline` | arms=A0; seeds=1,2,3,4,5; weeks=208; model=none; pool=none |
 | `phase.smoke` | arms=A1; seeds=1; weeks=1; model=claude-haiku-5-5; pool=main; calls=1 |
 | `phase.pilot` | arms=A1; seeds=1; weeks=26; model=claude-haiku-5-5; pool=main |
+| `phase.pilot2` | arms=A1; seeds=1; weeks=26; model=claude-haiku-5-5; pool=main |
 | `phase.main` | arms=A1,A2,A3,A4; seeds=1,2,3,4,5; weeks=208; model=claude-haiku-5-5; pool=main |
 | `phase.cross_check` | arms=A1,A2; seeds=1,2; weeks=208; model=claude-sonnet-5-5; pool=cross_check |

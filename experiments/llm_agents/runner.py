@@ -65,13 +65,16 @@ def members(cfg: LLMConfig) -> int:
 class Outcome:
     record: dict
     summary: dict | None
+    choices: list | None = None     # the family members' choices, with each one's position (§13.4)
 
 
 def run_one(phase: Phase, arm: str, seed: int, *, cfg: LLMConfig, live: bool,
             transport_factory: Callable[[LLMConfig], object] | None = None, transport=None,
             budget: Budget | None = None, runs: Path = files.RUNS, write_record: bool = True,
-            sleep: Callable[[float], None] = time.sleep) -> Outcome:
+            sleep: Callable[[float], None] = time.sleep, option_order: str | None = None) -> Outcome:
     """Purpose: one run of a phase, to an honest status, with what it got written under ``runs/<run_id>/``.
+             ``option_order`` is the order its options are numbered in: None takes ``llm.md``'s; replay passes the
+             recorded run's (§13.2).
     Spec:    docs/plan_v3_llm_agent_experiment.md#5, #7, #8
     Tests:   tests/experiments/llm_agents/test_budget.py::test_lx11_stops_before_crossing,
              tests/experiments/llm_agents/test_client.py::test_lx12_resumes_from_cache
@@ -93,6 +96,12 @@ def run_one(phase: Phase, arm: str, seed: int, *, cfg: LLMConfig, live: bool,
                                 reask_text=text["reask"], transport=transport if live else None, budget=budget,
                                 sleep=sleep)
     weeks_audit = audit_weeks(cfg, phase.weeks)
+    order = (option_order or cfg.get("option_order")) if spec.llm else None
+    if spec.llm and (directory / "run.json").exists():
+        # a resumed run keeps the order it began in: another order would render other prompts and buy them again
+        was = run_record.option_order(json.loads((directory / "run.json").read_text(encoding="utf-8")))
+        if was != order:
+            raise ValueError(f"{rid} ran in the {was} option order; it is not resumed in the {order} order")
 
     def before_round(week, prompts):
         if live and budget is not None:
@@ -104,7 +113,7 @@ def run_one(phase: Phase, arm: str, seed: int, *, cfg: LLMConfig, live: bool,
         if week in weeks_audit:
             audit[f"{week}:{token}"] = {"week": week, "person": token, "system": prompt.system, "user": prompt.user}
 
-    run = build(arm, seed, phase.weeks, chooser, before_round=before_round, on_prompt=on_prompt)
+    run = build(arm, seed, phase.weeks, chooser, before_round=before_round, on_prompt=on_prompt, option_order=order)
     watch = run_summary.PatternWatch(run)
     status, detail, done = "complete", None, 0
     try:
@@ -137,9 +146,10 @@ def run_one(phase: Phase, arm: str, seed: int, *, cfg: LLMConfig, live: bool,
         sdk_version=getattr(transport, "sdk_version", None) if live else None,
         effort=cfg.effort(model) if model else None, thinking=cfg.thinking(model) if model else None,
         max_tokens=cfg.integer("max_tokens") if model else None,
-        permutations=run.perms.as_record() if run.perms else None, status=status, status_detail=detail,
+        permutations=run.perms.as_record() if run.perms else None, option_order=order, status=status, status_detail=detail,
         counts=counts, selections=selections, fallback_share=round(share, 6))
     summary = run_summary.summarize(run, watch, cfg) if status == "complete" else None
+    choices = run_summary.choice_records(run) if summary is not None and spec.llm else None
     if write_record:
         run_record.write(rec, directory, runs)
         if audit and chooser is not None and chooser.cache.new:
@@ -147,9 +157,11 @@ def run_one(phase: Phase, arm: str, seed: int, *, cfg: LLMConfig, live: bool,
             files.write_bytes(directory / "prompts_audit.jsonl.gz", gzip.compress(lines.encode(), mtime=0), runs=runs)
     if summary is not None and write_record:
         run_summary.write(summary, directory, runs)
+        if choices is not None:
+            run_summary.write_choices(choices, directory, runs)
     if status == "stopped_permanent":
         raise PermanentError(detail)
-    return Outcome(rec, summary)
+    return Outcome(rec, summary, choices)
 
 
 def run_phase(name: str, *, live: bool, cfg: LLMConfig | None = None, transport_factory=None,
@@ -212,9 +224,12 @@ def replay_all(runs: Path = files.RUNS, cfg: LLMConfig | None = None) -> list[Ou
     """Purpose: every committed complete or invalid run, from its cache; never calls the client (LX.8). A moved prompt
              (a cache miss) or a replay whose summary differs from the committed one marks it not replayable; a
              stopped or incomplete run, and the one-call smoke record, are skipped, their status left as it is (P1).
+             Each run is rendered in the option order it ran in, a record without one in the fixed order (§13.2); a
+             replay that matches its committed summary writes the run's choices with their positions (§13.4).
     Spec:    docs/plan_v3_llm_agent_experiment.md#6
     Tests:   tests/experiments/llm_agents/test_cache.py::test_lx8_replay_leaves_unfinished_runs_resumable,
-             tests/experiments/llm_agents/test_cache.py::test_lx8_replay_that_differs_is_not_replayable
+             tests/experiments/llm_agents/test_cache.py::test_lx8_replay_that_differs_is_not_replayable,
+             tests/experiments/llm_agents/test_cache.py::test_lx25_committed_pilot_replays_fixed
     """
     cfg = cfg or load_llm()
     outcomes = []
@@ -227,7 +242,8 @@ def replay_all(runs: Path = files.RUNS, cfg: LLMConfig | None = None) -> list[Ou
             continue
         phase = cfg.phases[rec["phase"]]
         phase = Phase(phase.name, phase.arms, phase.seeds, rec["weeks_planned"], phase.model, phase.pool, phase.calls)
-        out = run_one(phase, rec["arm"], rec["seed"], cfg=cfg, live=False, runs=runs, write_record=False)
+        out = run_one(phase, rec["arm"], rec["seed"], cfg=cfg, live=False, runs=runs, write_record=False,
+                      option_order=run_record.option_order(rec))
         detail = out.record["status_detail"] if out.record["status"] == "not_replayable" else None
         committed = path.parent / "summary.json"
         if detail is None and out.summary is not None and committed.exists():
@@ -241,6 +257,8 @@ def replay_all(runs: Path = files.RUNS, cfg: LLMConfig | None = None) -> list[Ou
             log.warning("replay: %s not replayable: %s", rec["run_id"], detail)
             rec["status"], rec["status_detail"] = "not_replayable", detail
             run_record.write(rec, path.parent, runs)
+        elif out.choices is not None:
+            run_summary.write_choices(out.choices, path.parent, runs)
         outcomes.append(out)
     return outcomes
 
@@ -278,6 +296,7 @@ def smoke(cfg: LLMConfig, transport_factory=None, runs: Path = files.RUNS) -> di
         weeks_planned=phase.weeks, weeks_completed=0, model=phase.model, models_returned=[entry.get("model")],
         api_version=transport.api_version, sdk_version=transport.sdk_version, effort=cfg.effort(phase.model),
         thinking=cfg.thinking(phase.model), max_tokens=cfg.integer("max_tokens"), permutations=None,
+        option_order=cfg.get("option_order"),
         status="complete" if answer.choice else "invalid", status_detail=f"one call; parsed choice {answer.choice!r}",
         counts=chooser.counts.as_record(), selections=1, fallback_share=0.0 if answer.choice else 1.0)
     run_record.write(rec, runs / rid, runs)

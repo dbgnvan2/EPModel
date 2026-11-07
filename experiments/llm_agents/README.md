@@ -8,11 +8,15 @@ The report it generates is `docs/llm_agent_experiment_report.md`.
 owner's go-ahead and passed: the request shape was accepted, the answer parsed, $0.000113 was logged against the
 `main` pool (`runs/smoke-A1-s1/`). The pilot LX.L2 was run 2026-11-06 on the owner's go-ahead and completed: 182
 calls, no re-ask, fallback, retry or failure, $0.029851 (`runs/pilot-A1-s1/`); the estimate was restated from its
-usage (`estimate_output_tokens` 10), and its choices show a list-position effect, reported to the owner. A0 (the model's own
+usage (`estimate_output_tokens` 10), and its choices show a list-position effect, reported to the owner. The owner decided to shuffle the option order
+(plan §13); the fix was built 2026-11-06 with tests LX.21–LX.26, no live call made: each round's options are
+numbered in an order drawn per (seed, week, person token), `option_order` `shuffled` in `config/llm.md`, and the
+first pilot still replays in the fixed order to its committed summary. The second pilot, `run pilot2 --live`, waits
+for the owner's go-ahead. A0 (the model's own
 policy, no call, no cost) has been run for its five seeds and is in the report. The wording in `config/act_labels.md`
 and `config/prompt_text.md` was approved by the owner 2026-11-06 (Q2); arm A4 shows no tension number of any kind (no
-own tension or change, no tie strain, no believed tension). Each further live phase (the main phase, the
-cross-check) waits for the owner's go-ahead.
+own tension or change, no tie strain, no believed tension). Each further live phase (the second pilot, the main
+phase, the cross-check) waits for the owner's go-ahead.
 
 ## What it does
 
@@ -27,15 +31,15 @@ the policy. Arms A0–A4 are in the plan's §2.
 | Module | What it is |
 |---|---|
 | `config.py` | Reads the five config files strictly; an unknown or missing entry is refused |
-| `arms.py` | The arms, and each seed's person tokens, opaque act tokens and A3's derangement |
-| `prompts.py` | The pure renderer (no network, no file I/O), and the banned-term lint |
+| `arms.py` | The arms, and each seed's person tokens, opaque act tokens and A3's derangement; the generator of each round's option order |
+| `prompts.py` | The pure renderer (no network, no file I/O), with the round's option order (`arranged`), and the banned-term lint |
 | `source.py` | `LLMSource`, the engine `Source` for A1–A4; `build` assembles a run as the ensemble does |
 | `client.py` | The request, the cache lookup, the one retry loop, the parse and the one re-ask; the only module that imports `anthropic`, lazily |
 | `cache.py` | The response cache, one gzipped JSON-lines file per run |
 | `budget.py` | The estimate before a phase, and the worst case before each round |
 | `record.py` | `run.json`, with every field of the plan's §8 |
-| `summary.py` | A run's summary, by the model's own readout functions |
-| `report.py` | Renders the report from the complete runs' summaries |
+| `summary.py` | A run's summary, by the model's own readout functions; each LLM run's choices with their positions |
+| `report.py` | Renders the report from the complete runs' summaries, with the position readout (plan §13.4) |
 | `runner.py` | The command line |
 | `files.py` | The only place the package writes: `runs/` and the report |
 
@@ -59,6 +63,7 @@ python3 -m experiments.llm_agents.runner estimate main    # calls × tokens × p
 python3 -m experiments.llm_agents.runner run baseline     # A0: no call, no cost
 python3 -m experiments.llm_agents.runner smoke --live     # LX.L1, one call: only on the owner's go-ahead
 python3 -m experiments.llm_agents.runner run pilot --live # LX.L2: only on the owner's go-ahead
+python3 -m experiments.llm_agents.runner run pilot2 --live # the second pilot, shuffled order: only on the owner's go-ahead
 python3 -m experiments.llm_agents.runner replay           # every committed run, from its cache; never calls
 python3 -m experiments.llm_agents.runner report           # regenerate docs/llm_agent_experiment_report.md
 ```
@@ -70,15 +75,19 @@ environment; it is never in the repo, the config or a log.
 
 `runs/<phase>-<arm>-s<seed>/` holds `run.json` (the record), `summary.json` (what the report reads),
 `responses.jsonl.gz` (every response, keyed by run and request) and `prompts_audit.jsonl.gz` (the full prompts of the
-weeks in `audit_prompt_weeks`). `runs/phase-<name>.json` records a phase's runs and the runs it did not start. A
+weeks in `audit_prompt_weeks`), and, for a complete LLM run, `choices.jsonl.gz` (each family member's week: the id
+chosen, the list's length and the option's mechanics, which the position readout reads; outside the summary, so it
+moves no summary hash). `run.json` records `option_order`; a record without it ran in the fixed order and replays in
+it. `runs/phase-<name>.json` records a phase's runs and the runs it did not start. A
 run's status is one of `complete`, `stopped_at_budget`, `incomplete_transient`,
 `invalid`, `not_replayable` or `stopped_permanent` (a 4xx the retry loop does not retry; the plan's §7 says such a
 run stops, and this status names it). Only a complete run is a result. What a pool has spent is summed from the
 response caches. `replay` replays complete and invalid runs only, and marks a run `not_replayable` if a cached
-response is missing or its replayed summary differs from the committed one.
+response is missing or its replayed summary differs from the committed one; a replay that matches writes the run's
+`choices.jsonl.gz`.
 
 ## Tests
 
-`tests/experiments/llm_agents/`, one test or more per acceptance criterion LX.1–LX.20, each named for its ID. No test
+`tests/experiments/llm_agents/`, one test or more per acceptance criterion LX.1–LX.26, each named for its ID. No test
 calls the API: the choosers are stubs and the SDK's errors are mapped through a stand-in module. LX.L1 and LX.L2 are
 live-only and are checked by the smoke call and the pilot.

@@ -72,3 +72,73 @@ def test_lx20_framing_block_present():
     # The prompts' banned list is not the report's: the framing block itself says "family", to deny it is a real one.
     # The check bites: a report that names a person is caught.
     assert banned_hits(report + "\nRavi's acts", names)
+
+
+# --- §13.4: the position readout (LX.26) ----------------------------------------------------------------------------
+
+def _readout(chooser, arm="A1", weeks=26):
+    from experiments.llm_agents.report import position_readout
+    from experiments.llm_agents.source import build, execute
+    from experiments.llm_agents.summary import choice_records
+
+    run = execute(build(arm, 1, weeks, chooser))
+    return position_readout(choice_records(run)), choice_records(run)
+
+
+def test_lx26_position_readout_per_arm():
+    from conftest import StubChooser
+
+    from experiments.llm_agents.report import position_readout
+
+    summaries = load_summaries()
+    pilot = [s for s in summaries if s.get("run_id") == "pilot-A1-s1"]
+    assert pilot and "choices" in pilot[0], "the committed pilot's choices are read"
+    report = files.REPORT.read_text(encoding="utf-8")
+    assert "## Option position (§13.4)" in report
+    r = position_readout(pilot[0]["choices"])
+    assert f"| pilot-A1-s1 | {r['choices']} | {r['flagged']} | {r['position_1']:.3f} | {r['last']:.3f} | " \
+           f"{r['mean_inverse_n']:.3f} | {r['same_id']} | {r['same_id_chance']:.1f} | {r['same_option']} | " \
+           f"{r['pairs']} |" in report
+    for arm in ("A1", "A2", "A3", "A4"):
+        assert f"{arm}: a position effect in " in report
+    # Per arm: each LLM arm's run gets its own row, and only A1 (opaque) has a token share.
+    rows = {}
+    for arm in ("A1", "A2"):
+        _, choices = _readout(StubChooser(), arm, 3)
+        rows[arm] = dict(s for s in [("arm", arm), ("phase", "main"), ("seed", 1), ("run_id", f"main-{arm}-s1"),
+                                     ("choices", choices)])
+        rows[arm].update(patterns={"subjects": 1, "weeks": 1, "subject_weeks": {}},
+                         evaluation={k: 0.0 for k in load_llm().listed("evaluation_readouts")},
+                         acts_by_label={}, acts_by_mechanics={})
+    text = render(list(rows.values()))
+    assert "| main-A1-s1 |" in text and "| main-A2-s1 |" in text
+    from experiments.llm_agents.report import position_readout as readout
+    k = int(readout(rows["A1"]["choices"])["effect"])
+    assert f"A1: a position effect in {k} of 1 main-phase seeds" in text
+    tokens = text.split("Share of choices by act token")[1]
+    assert "main-A1-s1" in tokens and "main-A2-s1" not in tokens
+
+
+def test_lx26_position_and_content_choosers_differ():
+    from conftest import FirstChooser, TextChooser
+
+    first, _ = _readout(FirstChooser())
+    content, _ = _readout(TextChooser())
+    # 26 weeks of 7 members give at most 175 week-to-week pairs; a round with no option breaks a pair
+    assert 150 < first["pairs"] <= 175 and 150 < content["pairs"] <= 175
+    # Position only: every pair repeats the id, few repeat the option, and position 1 is far above 1/N.
+    assert first["same_id"] > first["same_option"]
+    assert first["position_1"] > first["mean_inverse_n"]
+    assert first["effect"]
+    assert first["same_id"] > first["same_id_chance"]
+    # Content only (adversarial, P7: it repeats a lot too, but by option): no effect, in several seeds. Its position-1
+    # share alone is near 1/N and may fall either side in one seed, so the rule's two signs are read together.
+    assert content["same_option"] >= content["same_id"] and not content["effect"]
+    for seed in (2, 3, 4):
+        from experiments.llm_agents.source import build, execute
+        from experiments.llm_agents.summary import choice_records
+        from experiments.llm_agents.report import position_readout
+
+        other = position_readout(choice_records(execute(build("A1", seed, 26, TextChooser()))))
+        assert other["same_option"] > other["same_id"] and not other["effect"], seed
+        assert other["same_id"] < 3 * other["same_id_chance"], "a content chooser repeats ids near chance only"

@@ -141,3 +141,86 @@ def test_lx7_render_without_feedback_drops_every_number_of_tension():
         assert "0.71" in numbers and text["contact_open"] in render(lab, r).user, f"{arm}: contact stays"
         if not shows:
             assert numbers == {"5", "4", "1", "0.71"}, numbers  # round, past round, option id, believed contact
+
+
+# --- §13: the option order (LX.21, LX.23) ---------------------------------------------------------------------------
+
+def _labeller(arm, seed, order="shuffled"):
+    labels = load_labels()
+    return Labeller(SPECS[arm], permutations(arm, seed, ["a", "b", "c"], labels), labels, load_text(), order, seed)
+
+
+def _round_input(week, person="P1"):
+    """One round with acts and holds over several kinds and targets, none a triad act."""
+    options = []
+    for kind, target in (("PURSUE", "P2"), ("DISTANCE", "P2"), ("CONFLICT", "P3"), ("CUTOFF", "P3"),
+                         ("STAY-IN-CONTACT", "P4"), ("I-POSITION", "P2")):
+        options.append(OptionSpec(kind, target))
+        if kind in ("PURSUE", "DISTANCE", "CONFLICT", "CUTOFF"):
+            options.append(OptionSpec(kind, target, hold=True))
+    return RoundInput(week + 1, 10.0, None, (("P2", 3.0, "open"),), (), (), (), tuple(options), person)
+
+
+def test_lx21_order_differs_across_rounds_and_seeds():
+    labeller = _labeller("A1", 1)
+    by_round = [render(labeller, _round_input(w)).specs for w in range(12)]
+    assert len(set(by_round)) == 12, "a new order every round for one person"
+    by_seed = [render(_labeller("A1", s), _round_input(5)).specs for s in range(1, 9)]
+    assert len(set(by_seed)) == 8, "a different order in each seed for the same round"
+    by_person = [render(labeller, _round_input(5, f"P{i}")).specs for i in range(1, 6)]
+    assert len(set(by_person)) == 5, "a different order for each person in the same round"
+    # A round without the person's token is refused, not given one order for everyone.
+    with pytest.raises(ValueError, match="person's token"):
+        render(labeller, _round_input(5, ""))
+    # The fixed order, for the first pilot's replay, is the same every round.
+    fixed = _labeller("A1", 1, "fixed")
+    assert len({render(fixed, _round_input(w)).specs for w in range(12)}) == 1
+
+
+def test_lx21_order_is_shared_across_arms():
+    import subprocess
+    import sys
+
+    from conftest import REPO_ROOT
+
+    orders = {arm: render(_labeller(arm, 3), _round_input(7)).specs for arm in LLM_ARMS}
+    assert len(set(orders.values())) == 1, "the order is keyed by (seed, week, person), not the arm"
+    # ... and the same in another process: the draw is a hash, not the process's hash seed.
+    code = ("import sys; sys.path.insert(0, 'tests/experiments/llm_agents'); "
+            "from test_prompts import _labeller, _round_input; from experiments.llm_agents.prompts import render; "
+            "print(repr(render(_labeller('A2', 3), _round_input(7)).specs))")
+    out = subprocess.run([sys.executable, "-c", code], cwd=REPO_ROOT, capture_output=True, text=True, timeout=120,
+                         env={"PYTHONHASHSEED": "12345", "PATH": "/usr/bin:/bin"}, check=True)
+    assert out.stdout.strip() == repr(orders["A1"])
+
+
+def test_lx23_every_option_offered_once():
+    from collections import Counter
+
+    from conftest import captured_run
+
+    run, chooser, rounds = captured_run("A1", 1, WEEKS)
+    assert len(chooser.prompts) > WEEKS, "a real-length run"
+    for key, prompt in chooser.prompts.items():
+        r = rounds[key]
+        assert Counter(prompt.specs) == Counter(r.options), f"{key}: the list is a permutation of the legal options"
+        assert len(prompt.specs) == len(prompt.options) == len(set(prompt.specs))
+        assert [t for _, t in prompt.options] == [run.source.labeller.option(o) for o in prompt.specs]
+        assert prompt.ids == tuple(str(i) for i in range(1, len(prompt.specs) + 1))
+
+
+def test_lx23_acts_and_holds_interleave():
+    from conftest import captured_run
+
+    _, chooser, _ = captured_run("A1", 1, WEEKS)
+
+    def hold_before_act(prompt):
+        holds = [i for i, o in enumerate(prompt.specs) if o.hold]
+        acts = [i for i, o in enumerate(prompt.specs) if not o.hold]
+        return bool(holds and acts and min(holds) < max(acts))
+    assert any(hold_before_act(p) for p in chooser.prompts.values()), "some round lists a hold before an act"
+    first = {p.specs[0].hold for p in chooser.prompts.values() if any(o.hold for o in p.specs)}
+    assert first == {True, False}, "neither kind has a fixed first line"
+    # The check bites: the fixed order never lists a hold before an act.
+    _, fixed, _ = captured_run("A1", 1, WEEKS, "fixed")
+    assert not any(hold_before_act(p) for p in fixed.prompts.values())

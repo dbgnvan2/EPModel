@@ -17,7 +17,7 @@ import re
 from dataclasses import dataclass
 from typing import Iterable, Mapping
 
-from experiments.llm_agents.arms import ArmSpec, Permutations
+from experiments.llm_agents.arms import ArmSpec, Permutations, option_rng
 from experiments.llm_agents.config import Label
 
 
@@ -49,6 +49,7 @@ class RoundInput:
     seen: tuple[Seen, ...]
     history: tuple[tuple[int, str, float | None], ...]  # (round, option text shown, change after it)
     options: tuple[OptionSpec, ...]
+    person: str = ""                             # the person's token: with the round, it keys the option order (§13.1)
 
 
 @dataclass(frozen=True)
@@ -56,6 +57,7 @@ class Prompt:
     system: str
     user: str
     options: tuple[tuple[str, str], ...]         # (id, text), ids "1".."N"
+    specs: tuple[OptionSpec, ...] = ()           # the option numbered ``i`` is ``specs[i - 1]`` (§13.1)
 
     @property
     def ids(self) -> tuple[str, ...]:
@@ -64,12 +66,15 @@ class Prompt:
 
 @dataclass(frozen=True)
 class Labeller:
-    """How one run names acts: opaque tokens (A1) or plain labels, possibly shuffled (A3)."""
+    """How one run names acts: opaque tokens (A1) or plain labels, possibly shuffled (A3); and, with ``seed``, the
+    order its options are numbered in (``order``: ``fixed`` or ``shuffled``, §13.1)."""
 
     spec: ArmSpec
     perms: Permutations
     labels: Mapping[str, Label]
     text: Mapping[str, str]
+    order: str = "fixed"
+    seed: int = 0
 
     def option(self, o: OptionSpec) -> str:
         if self.spec.opaque:
@@ -102,7 +107,8 @@ def _signed(x: float) -> str:
 
 
 def render(labeller: Labeller, r: RoundInput) -> Prompt:
-    """Purpose: the system prompt and the round message, with the options numbered in a fixed order."""
+    """Purpose: the system prompt and the round message, with the options numbered in the run's order (§13.1); the
+             prompt carries the numbered options' mechanics, so a chosen id is mapped through the order shown."""
     t, feedback = labeller.text, labeller.spec.feedback
     lines = ["<round>", t["round_header"].format(round=r.round)]
     if feedback:
@@ -127,15 +133,35 @@ def render(labeller: Labeller, r: RoundInput) -> Prompt:
                 lines.append(t["history_line_no_feedback"].format(round=rnd, option=text))
     else:
         lines.append(t["history_none"])
-    options = tuple((str(i), labeller.option(o)) for i, o in enumerate(ordered_options(labeller, r.options), start=1))
+    specs = arranged(labeller, r)
+    options = tuple((str(i), labeller.option(o)) for i, o in enumerate(specs, start=1))
     lines.append(t["option_header"])
     lines += [t["option_line"].format(id=i, text=text) for i, text in options]
     lines += ["</round>", t["answer"]]
-    return Prompt(t["system"], "\n".join(lines), options)
+    return Prompt(t["system"], "\n".join(lines), options, specs)
+
+
+def arranged(labeller: Labeller, r: RoundInput) -> tuple[OptionSpec, ...]:
+    """Purpose: the round's options in the order ``render`` numbers them (id ``n`` is element ``n - 1``): the fixed
+             order, or one shuffle over acts and holds together, presorted by mechanics (kind, target, third, hold),
+             not by the arm's label text, and drawn per (seed, week, person token) (§13.1).
+    Spec:    docs/plan_v3_llm_agent_experiment.md#13.1
+    Tests:   tests/experiments/llm_agents/test_prompts.py::test_lx23_every_option_offered_once,
+             tests/experiments/llm_agents/test_prompts.py::test_lx23_acts_and_holds_interleave
+    """
+    if labeller.order == "fixed":
+        return ordered_options(labeller, r.options)
+    if labeller.order != "shuffled":
+        raise ValueError(f"option order {labeller.order!r} is not fixed or shuffled")
+    if not r.person:
+        raise ValueError("a shuffled order needs the person's token: without it every person gets one order")
+    specs = sorted(r.options, key=lambda o: (o.kind, o.target, o.third or "", o.hold))
+    option_rng(labeller.seed, r.round - 1, r.person).shuffle(specs)
+    return tuple(specs)
 
 
 def ordered_options(labeller: Labeller, options: Iterable[OptionSpec]) -> tuple[OptionSpec, ...]:
-    """The options in the order ``render`` numbers them: id ``n`` is element ``n - 1``."""
+    """The fixed order (the first pilot's, §13.1): acts by target and label, then every hold."""
     options = list(options)
     acts = sorted((o for o in options if not o.hold), key=lambda o: (o.target, labeller.option(o)))
     holds = sorted((o for o in options if o.hold), key=lambda o: (o.target, labeller.option(o)))

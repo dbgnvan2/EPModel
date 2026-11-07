@@ -45,6 +45,17 @@ def rng(purpose: str, seed: int) -> random.Random:
     return random.Random(int.from_bytes(digest[:8], "big"))
 
 
+def option_rng(seed: int, week: int, person_token: str) -> random.Random:
+    """Purpose: the generator of one round's option order (§13.1), keyed by (seed, week, person token) and not by the
+             arm, so two arms in the same state show the same order; outside the engine's draw service (LX.22).
+    Spec:    docs/plan_v3_llm_agent_experiment.md#13.1
+    Tests:   tests/experiments/llm_agents/test_prompts.py::test_lx21_order_differs_across_rounds_and_seeds,
+             tests/experiments/llm_agents/test_prompts.py::test_lx21_order_is_shared_across_arms
+    """
+    digest = hashlib.sha256(f"experiments.llm_agents|option_order|{seed}|{week}|{person_token}".encode()).digest()
+    return random.Random(int.from_bytes(digest[:8], "big"))
+
+
 def derangement(items: list[str], r: random.Random) -> dict[str, str]:
     """A permutation with no fixed point; a group of one keeps its own (§3.3)."""
     if len(items) < 2:

@@ -83,6 +83,16 @@
         "doc": "CHANGELOG.md",
         "phrase": "Suite: 1340 tests, 1338 pass, 2 strict expected failures.",
         "why": "the dated entries of 2026-11-06 (spec revisions 52 to 54, T-183's decisions), giving the suite's size before T-183's build"
+      },
+      {
+        "doc": "CHANGELOG.md",
+        "phrase": "Suite: 1415\n  tests, 1413 pass, 2 strict expected failures.",
+        "why": "the dated entries of 2026-11-06 (T-183's build, steps 1–6, and its Q2 decisions), giving the suite's size before the option-order fix"
+      },
+      {
+        "doc": "CHANGELOG.md",
+        "phrase": "Suite: 1415 tests, 1413 pass, 2 strict expected failures.",
+        "why": "the dated entries of 2026-11-06 (T-183's build, steps 1–6, and its Q2 decisions), giving the suite's size before the option-order fix"
       }
     ]
   },

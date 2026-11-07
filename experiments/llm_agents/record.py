@@ -2,9 +2,11 @@
 
 Purpose: write ``runs/<run_id>/run.json`` with every field of §8: the models requested and returned, the API and SDK
          versions, effort, thinking, ``max_tokens``, sampling, the time, the engine, code, template and label hashes,
-         the arm, seed and permutations, the status and the counts (LX.10).
+         the arm, seed and permutations, the order the options were numbered in, the status and the counts (LX.10,
+         LX.25). A record without ``option_order`` was written before it existed and is read as ``fixed`` (§13.2).
 Spec:    docs/plan_v3_llm_agent_experiment.md#8
-Tests:   tests/experiments/llm_agents/test_record.py::test_lx10_run_record_fields
+Tests:   tests/experiments/llm_agents/test_record.py::test_lx10_run_record_fields,
+         tests/experiments/llm_agents/test_record.py::test_lx25_record_carries_option_order
 """
 
 from __future__ import annotations
@@ -22,7 +24,7 @@ SAMPLING = ("default; not settable, not sent, not seedable (on API version 2023-
             "claude-sonnet-5-5 return a 400 for any non-default temperature, top_p or top_k; on 2026-10-21 any value is a 400)")
 FIELDS = ("run_id", "phase", "pool", "arm", "seed", "family", "weeks_planned", "weeks_completed", "model_requested",
           "models_returned", "api_version", "sdk_version", "effort", "thinking", "max_tokens", "sampling", "time",
-          "engine_hash", "code_hash", "template_hash", "label_hash", "config_hash", "permutations", "status",
+          "engine_hash", "code_hash", "template_hash", "label_hash", "config_hash", "permutations", "option_order", "status",
           "status_detail", "counts", "selections", "fallback_share")
 
 
@@ -47,7 +49,8 @@ def engine_hash() -> str:
 
 def make(*, run_id: str, phase: str, pool: str | None, arm: str, seed: int, family: str, weeks_planned: int,
          weeks_completed: int, model: str | None, models_returned, api_version: str | None, sdk_version: str | None,
-         effort: str | None, thinking: str | None, max_tokens: int | None, permutations: dict | None, status: str,
+         effort: str | None, thinking: str | None, max_tokens: int | None, permutations: dict | None,
+         option_order: str | None, status: str,
          status_detail: str | None, counts: dict, selections: int, fallback_share: float) -> dict:
     """Purpose: the run record, with every field of §8 and nothing left implicit.
     Spec:    docs/plan_v3_llm_agent_experiment.md#8
@@ -64,11 +67,19 @@ def make(*, run_id: str, phase: str, pool: str | None, arm: str, seed: int, fami
         "engine_hash": engine_hash(), "code_hash": code_hash(),
         "template_hash": file_hash(CONFIG / "prompt_text.md"), "label_hash": file_hash(CONFIG / "act_labels.md"),
         "config_hash": file_hash(CONFIG / "llm.md", CONFIG / "banned_terms.md"),
-        "permutations": permutations, "status": status, "status_detail": status_detail, "counts": counts,
+        "permutations": permutations, "option_order": option_order, "status": status, "status_detail": status_detail, "counts": counts,
         "selections": selections, "fallback_share": fallback_share,
     }
     assert tuple(record) == FIELDS
     return record
+
+
+def option_order(record: dict) -> str:
+    """Purpose: the order a recorded run's options were numbered in; a record from before the field is ``fixed``.
+    Spec:    docs/plan_v3_llm_agent_experiment.md#13.2
+    Tests:   tests/experiments/llm_agents/test_cache.py::test_lx25_committed_pilot_replays_fixed
+    """
+    return record.get("option_order") or "fixed"
 
 
 def write(record: dict, directory: Path, runs: Path = files.RUNS) -> Path:

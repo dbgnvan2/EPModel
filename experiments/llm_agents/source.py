@@ -20,7 +20,7 @@ from typing import Callable, Protocol, Sequence
 
 from experiments.llm_agents.arms import SPECS, Permutations, permutations
 from experiments.llm_agents.config import load_labels, load_llm, load_text
-from experiments.llm_agents.prompts import Labeller, OptionSpec, Prompt, RoundInput, Seen, ordered_options, render
+from experiments.llm_agents.prompts import Labeller, OptionSpec, Prompt, RoundInput, Seen, render
 from src.bowen.engine.act import WITHHOLD, Selection
 from src.bowen.engine.draws import DrawKey
 from src.bowen.engine.events import Role as DeliveryRole
@@ -70,6 +70,8 @@ class Choice:
     flag: str | None            # None, llm_failed_to_parse or llm_no_options
     reasks: int
     tension: float
+    options: int = 0                     # how many options were shown (the list's length, N)
+    spec: OptionSpec | None = None      # the chosen option's mechanics, as shown (§13.4)
 
 
 def offered(obs: Observation, outcomes: Sequence[Outcome], kinds, params: EngineParams, state: RunState) -> list[Outcome]:
@@ -160,7 +162,8 @@ class LLMSource:
             seen.append(Seen(ev.kind if ev.kind in self.labeller.labels else None,
                              tok.get(ev.sender) if ev.sender is not None else None,
                              tok.get(ev.targets[0]) if ev.targets else None, d.role is DeliveryRole.WITNESS))
-        r = RoundInput(obs.tick + 1, tension, change, ties, beliefs, tuple(seen), tuple(history), tuple(specs))
+        r = RoundInput(obs.tick + 1, tension, change, ties, beliefs, tuple(seen), tuple(history), tuple(specs),
+                       tok[pid])
         return r, specs, by_spec, tuple(o.label for o in legal), obs
 
     def selections(self, tick: int, active: tuple[PersonId, ...], state: RunState) -> tuple[Selection, ...]:
@@ -191,10 +194,12 @@ class LLMSource:
         if prompt is None or answer is None or answer.choice not in prompt.ids:
             flag = NO_OPTIONS if prompt is None else FAILED
             self.choices.append(Choice(r.round - 1, pid.value, token, None, None, WITHHOLD, None, flag,
-                                       answer.reasks if answer else 0, r.tension))
+                                       answer.reasks if answer else 0, r.tension,
+                                       len(prompt.ids) if prompt is not None else 0))
             return Selection(actor=pid, kind=WITHHOLD, targets=(), intensity=0.0, decided_by=DecidedBy.FALLBACK,
                              legal_set=legal, fallback_rule=flag)
-        spec = ordered_options(self.labeller, specs)[int(answer.choice) - 1]
+        # the id is a position in the order this prompt was numbered in, never the fixed order (§13.1, LX.24)
+        spec = prompt.specs[int(answer.choice) - 1]
         outcome = by_spec[spec]
         text = dict(prompt.options)[answer.choice]
         mem.history.append([r.round, text, r.tension, None])
@@ -206,7 +211,7 @@ class LLMSource:
                             intensity=force(outcome, obs, self.params), decided_by=DecidedBy.SCRIPTED,
                             legal_set=legal)
         self.choices.append(Choice(r.round - 1, pid.value, token, answer.choice, text, sel.kind,
-                                   outcome.target.value, None, answer.reasks, r.tension))
+                                   outcome.target.value, None, answer.reasks, r.tension, len(prompt.ids), spec))
         return sel
 
 
@@ -225,8 +230,9 @@ class Run:
 
 
 def build(arm: str, seed: int, weeks: int, chooser: Chooser | None = None, *,
-          before_round=None, on_prompt=None) -> Run:
+          before_round=None, on_prompt=None, option_order: str | None = None) -> Run:
     """Purpose: assemble one run as the ensemble's ``criteria.scenario`` does, with A0 on the policy (LX.17).
+             ``option_order`` is the order its options are numbered in; None takes ``llm.md``'s (§13.1).
     Spec:    docs/plan_v3_llm_agent_experiment.md#2, #5
     Tests:   tests/experiments/llm_agents/test_source.py::test_lx17_a0_matches_the_ensemble
     """
@@ -245,7 +251,7 @@ def build(arm: str, seed: int, weeks: int, chooser: Chooser | None = None, *,
             raise ValueError(f"arm {arm} needs a chooser")
         labels = load_labels()
         perms = permutations(arm, seed, sorted(p.value for p in parts.state.people), labels)
-        labeller = Labeller(spec, perms, labels, load_text())
+        labeller = Labeller(spec, perms, labels, load_text(), option_order or cfg.get("option_order"), seed)
         source = LLMSource(events, parts.params, labeller, chooser, history_rounds=cfg.integer("history_rounds"),
                            max_concurrency=cfg.integer("max_concurrency"), before_round=before_round,
                            on_prompt=on_prompt)

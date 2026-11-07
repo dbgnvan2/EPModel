@@ -101,3 +101,22 @@ def test_lx8_replay_that_differs_is_not_replayable(tmp_path):
     replay_all(tmp_path, cfg)
     rec = json.loads(record.read_text())
     assert rec["status"] == "not_replayable" and "differs from the committed 000000000000" in rec["status_detail"]
+
+
+def test_lx25_committed_pilot_replays_fixed(tmp_path):
+    import shutil
+
+    from experiments.llm_agents import files
+    from experiments.llm_agents.summary import CHOICES
+
+    committed = files.RUNS / "pilot-A1-s1"
+    rec = json.loads((committed / "run.json").read_text())
+    assert "option_order" not in rec, "the first pilot's record predates the field: it is read as fixed"
+    shutil.copytree(committed, tmp_path / "pilot-A1-s1")
+    (tmp_path / "pilot-A1-s1" / CHOICES).unlink()
+    [out] = replay_all(tmp_path, config())
+    assert out.record["status"] == "complete" and out.record["option_order"] == "fixed"
+    assert out.summary["summary_hash"] == json.loads((committed / "summary.json").read_text())["summary_hash"]
+    assert json.loads((tmp_path / "pilot-A1-s1" / "run.json").read_text()) == rec, "the record is left as it was"
+    # The matched replay writes the run's choices with their positions, the same as the committed file.
+    assert (tmp_path / "pilot-A1-s1" / CHOICES).read_bytes() == (committed / CHOICES).read_bytes()

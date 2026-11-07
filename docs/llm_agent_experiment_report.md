@@ -80,3 +80,28 @@ Not computed: it needs complete runs of both arms on the same seeds.
 ## Cross-check on the second model
 
 0 of 4 planned cross-check runs complete.
+
+## Option position (§13.4)
+
+Whether the language model chooses by where an option is listed rather than by what it is (§13.4), per complete run of an LLM arm, the pilots included. Position 1 is the share of choices of the first option listed, against the mean of 1/N, the share a choice blind to position would give it. Same id and same option count the pairs of one person's consecutive weeks that repeat the option number, and that repeat the option itself (by its mechanics). A position effect is same-id repeats above same-option repeats and a position-1 share above the mean of 1/N, a direction with no threshold. The first pilot (`pilot-A1-s1`) ran in the fixed order, where the same option stays at nearly the same place every week, so its row cannot tell position from content and is shown for comparison only; every later run is in the shuffled order (§13.1).
+
+| Run | Choices | Flagged | Position 1 | Last | Mean 1/N | Same id | Same id by chance | Same option | Pairs | Holds | Position effect |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| pilot-A1-s1 | 182 | 0 | 0.011 | 0.000 | 0.036 | 148 | 6.3 | 173 | 175 | 0.989 | no |
+
+Chosen position as a share of the list, in tenths (share of choices):
+
+| Run | 1/10 | 2/10 | 3/10 | 4/10 | 5/10 | 6/10 | 7/10 | 8/10 | 9/10 | 10/10 |
+|---|---|---|---|---|---|---|---|---|---|---|
+| pilot-A1-s1 | 0.011 | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 | 0.978 | 0.011 | 0.000 | 0.000 |
+
+Share of choices by act token (opaque arm):
+
+| Run | K1 |
+|---|---|
+| pilot-A1-s1 | 1.000 |
+
+A1: a position effect in 0 of 0 main-phase seeds.
+A2: a position effect in 0 of 0 main-phase seeds.
+A3: a position effect in 0 of 0 main-phase seeds.
+A4: a position effect in 0 of 0 main-phase seeds.

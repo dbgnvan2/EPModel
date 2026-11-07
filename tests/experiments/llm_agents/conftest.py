@@ -43,6 +43,57 @@ def stub_run(arm: str, seed: int, weeks: int, salt: str = "stub"):
     return run, chooser
 
 
+class TextChooser:
+    """A chooser that picks by what an option says, never where it is listed: the option whose text sorts first
+    (LX.22, LX.26). Under any order it picks the same option from the same options."""
+
+    def __init__(self):
+        self.prompts = {}
+
+    def choose(self, week, person_token, prompt):
+        self.prompts[(week, person_token)] = prompt
+        return Answer(min(prompt.options, key=lambda o: o[1])[0])
+
+
+class FirstChooser:
+    """A chooser that always answers the first option listed: position only (LX.26)."""
+
+    def choose(self, week, person_token, prompt):
+        return Answer(prompt.ids[0])
+
+
+class DrawRecorder:
+    """Stands in for ``state.draws``: passes every call through and keeps every draw key asked of it (LX.22)."""
+
+    def __init__(self, inner):
+        self.inner, self.keys = inner, set()
+
+    def __getattr__(self, name):
+        attr = getattr(self.inner, name)
+        if not callable(attr):
+            return attr
+
+        def call(*args, **kwargs):
+            self.keys.update(a for a in args if type(a).__name__ == "DrawKey")
+            return attr(*args, **kwargs)
+        return call
+
+
+@functools.cache
+def captured_run(arm: str, seed: int, weeks: int, option_order: str = "shuffled"):
+    """One stub-chooser run that also keeps each round's ``RoundInput``, keyed by (week, person token) (LX.23)."""
+    chooser = StubChooser()
+    run = build(arm, seed, weeks, chooser, option_order=option_order)
+    rounds, inner = {}, run.source._round
+
+    def _round(state, pid):
+        out = inner(state, pid)
+        rounds[(out[0].round - 1, out[0].person)] = out[0]
+        return out
+    run.source._round = _round
+    return execute(run), chooser, rounds
+
+
 class StubTransport:
     """A stand-in for the API: answers each request with an option id picked by a hash of the request, and counts
     the calls. ``fail`` maps a call number (1-based) to an exception to raise instead; ``fail_if(body)`` returns one

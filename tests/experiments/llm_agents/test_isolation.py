@@ -46,7 +46,7 @@ def test_lx1_writes_only_under_runs(tmp_path):
     # A run writes into its runs directory and nowhere else.
     run_one(phase(2), "A1", 1, cfg=config(), live=True, transport=StubTransport(), runs=tmp_path)
     assert {p.name for p in (tmp_path / "main-A1-s1").iterdir()} == {"responses.jsonl.gz", "run.json", "summary.json",
-                                                                       "prompts_audit.jsonl.gz"}
+                                                                       "prompts_audit.jsonl.gz", "choices.jsonl.gz"}
 
 
 def test_lx15_no_key_in_repo():

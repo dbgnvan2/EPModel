@@ -25,5 +25,12 @@ utilities the owner decided version 3 has (2026-11-03).
   shuffle per person per round over acts and holds, keyed by seed, week and person outside the engine's draws; ids
   the shuffled positions; the first pilot kept replayable through a recorded `option_order`; LX.21–LX.26; a position
   readout per arm; a second pilot the size of LX.L2, about $0.04), its seven questions answered by the owner the same
-  day, each as recommended. Open: build §13; then the second pilot, the main phase and the cross-check, each on the
-  owner's go-ahead.
+  day, each as recommended. §13 built 2026-11-06, no live call: `option_order` `shuffled` in `config/llm.md` and in
+  the run record, the shuffle drawn outside the engine's draws, `_select` mapping the id through the order shown, the
+  phase `pilot2`, the position readout in the report, tests LX.21–LX.26 each proved failing by its named mutation; the
+  first pilot replays in the fixed order to its committed summary hash. Its readout: 173 same-option against 148
+  same-id pairs of 175, position 1 at 0.011 against 0.036, every choice on `K1`: in the fixed order position and
+  content are not told apart. Pending the owner: whether §13.5's "effect gone" rule gains a chance baseline and a
+  check of any fixed position (the review found it can score a random chooser as an effect and miss a last-position
+  one; plan §13.4). Open: the second pilot (`run pilot2 --live`), the main phase and the cross-check, each
+  on the owner's go-ahead.

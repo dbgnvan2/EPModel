@@ -175,3 +175,67 @@ def test_lx7_history_change_is_to_the_next_round():
         assert first[3] == by[(1, pid.value)].tension
         checked += 1
     assert checked >= 3, "enough members chose in week 0 and failed in week 1 to make the check bite"
+
+
+# --- §13: the option order (LX.22, LX.24) ---------------------------------------------------------------------------
+
+def _text_run(order):
+    from conftest import DrawRecorder, TextChooser
+
+    run = build("A1", 1, WEEKS, TextChooser(), option_order=order)
+    recorder = DrawRecorder(run.state.draws)
+    run.state.draws = recorder
+    return execute(run), recorder
+
+
+def test_lx22_order_requests_no_engine_draw():
+    shuffled, s_draws = _text_run("shuffled")
+    fixed, f_draws = _text_run("fixed")
+    assert s_draws.keys, "the recorder saw the run's draws"
+    assert s_draws.keys == f_draws.keys, "the shuffle asked the engine's draw service for nothing"
+
+
+def test_lx22_order_changes_no_outcome():
+    shuffled, _ = _text_run("shuffled")
+    fixed, _ = _text_run("fixed")
+    assert final_state(shuffled.state) == final_state(fixed.state)
+
+    def picks(run):
+        return [(c.week, c.token, c.option, c.kind, c.target, c.flag) for c in run.source.choices]
+    assert picks(shuffled) == picks(fixed)
+    # The ids differ: the same options were listed at other places (the check is not trivially of one order).
+    assert [c.option_id for c in shuffled.source.choices] != [c.option_id for c in fixed.source.choices]
+
+
+def test_lx24_id_maps_to_the_option_shown():
+    run, chooser = stub_run("A1", 1, WEEKS)
+    assert run.source.labeller.order == "shuffled"
+    token_of = {p.value: t for p, t in run.source.tokens.items()}
+    chosen = 0
+    for c in run.source.choices:
+        if c.flag is not None:
+            continue
+        prompt = chooser.prompts[(c.week, c.token)]
+        shown = prompt.specs[int(c.option_id) - 1]
+        assert dict(prompt.options)[c.option_id] == run.source.labeller.option(shown) == c.option
+        assert c.spec == shown, f"week {c.week} {c.token}: id {c.option_id} ran {c.spec}, not the option shown"
+        assert c.kind == (WITHHOLD if shown.hold else shown.kind) and token_of[c.target] == shown.target
+        chosen += 1
+    assert chosen > WEEKS
+    # What the engine ran is what was shown: each member's selection record names the shown act.
+    shown_by = {(c.week, c.person): prompt_spec for c in run.source.choices if c.flag is None
+                for prompt_spec in (chooser.prompts[(c.week, c.token)].specs[int(c.option_id) - 1],)}
+    checked = 0
+    for r in run.records:
+        if isinstance(r, SelectionRecord) and (r.tick, r.actor.value) in shown_by:
+            spec = shown_by[(r.tick, r.actor.value)]
+            if spec.hold:
+                assert r.withheld == spec.kind
+                checked += 1
+            elif r.event_id is not None:
+                # during an I-POSITION sequence the engine makes an act toward the sequence's other as STAY-IN-CONTACT
+                # (src/bowen/engine/iposition.py, M5.D.9), in either order; so that one substitution is allowed
+                kind = run.state.store.event(r.event_id).kind
+                assert kind in (spec.kind, "STAY-IN-CONTACT"), f"tick {r.tick} {r.actor}: ran {kind}, shown {spec}"
+                checked += kind == spec.kind
+    assert checked > chosen // 2

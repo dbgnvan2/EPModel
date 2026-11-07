@@ -12,6 +12,7 @@ refuses a summary computed on another.
 
 from __future__ import annotations
 
+import gzip
 import json
 from collections import Counter
 from pathlib import Path
@@ -108,6 +109,39 @@ def summarize(run, watch: PatternWatch, cfg) -> dict:
     }
     out["summary_hash"] = text_hash(canonical_json(out))[:12]
     return out
+
+
+def choice_records(run) -> list[dict]:
+    """Purpose: each family member's choice in a run, with its position and the option's mechanics, for the position
+             readout (§13.4). A1's act token is kept, so the report can give the share by token number. Not part of
+             the summary, so a run's summary hash does not depend on it.
+    Spec:    docs/plan_v3_llm_agent_experiment.md#13.4
+    Tests:   tests/experiments/llm_agents/test_report.py::test_lx26_position_readout_per_arm
+    """
+    opaque = run.source.labeller.spec.opaque
+    out = []
+    for c in run.source.choices:
+        s = c.spec
+        out.append({"week": c.week, "person": c.token, "id": c.option_id, "options": c.options, "flag": c.flag,
+                    "kind": s.kind if s else None, "target": s.target if s else None, "third": s.third if s else None,
+                    "hold": s.hold if s else None,
+                    "act_token": run.perms.act_token[s.kind] if s and opaque else None})
+    return out
+
+
+CHOICES = "choices.jsonl.gz"
+
+
+def write_choices(choices: list[dict], directory: Path, runs: Path = files.RUNS) -> Path:
+    lines = "".join(canonical_json(c) + "\n" for c in choices)
+    return files.write_bytes(directory / CHOICES, gzip.compress(lines.encode(), mtime=0), runs=runs)
+
+
+def read_choices(directory: Path) -> list[dict] | None:
+    path = directory / CHOICES
+    if not path.exists():
+        return None
+    return [json.loads(line) for line in gzip.decompress(path.read_bytes()).decode().splitlines() if line]
 
 
 def write(summary: dict, directory: Path, runs: Path = files.RUNS) -> Path:

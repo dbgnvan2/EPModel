@@ -616,7 +616,7 @@ say whether that test was proved failing by mutation unless its note does.
 | M17.G.2 | not done | — | no test named for it; Phase E builds it and is not built yet |
 | M17.G.3 | not done | — | no test named for it; Phase E builds it and is not built yet |
 
-## Tests named for no spec ID (365)
+## Tests named for no spec ID (377)
 
 Their names embed no requirement ID, so they count only where an override cites them (marked *cited*). The rest check spec documents, tooling or helpers.
 
@@ -763,6 +763,7 @@ Their names embed no requirement ID, so they count only where an override cites 
 - `tests/experiments/llm_agents/test_budget.py::test_lx11_spent_counts_every_cached_response`
 - `tests/experiments/llm_agents/test_budget.py::test_lx11_stops_before_crossing`
 - `tests/experiments/llm_agents/test_budget.py::test_lx11_total_cap_refuses_before_starting`
+- `tests/experiments/llm_agents/test_cache.py::test_lx25_committed_pilot_replays_fixed`
 - `tests/experiments/llm_agents/test_cache.py::test_lx8_miss_is_not_replayable`
 - `tests/experiments/llm_agents/test_cache.py::test_lx8_replay_leaves_unfinished_runs_resumable`
 - `tests/experiments/llm_agents/test_cache.py::test_lx8_replay_never_calls`
@@ -782,6 +783,10 @@ Their names embed no requirement ID, so they count only where an override cites 
 - `tests/experiments/llm_agents/test_isolation.py::test_lx15_no_key_in_repo`
 - `tests/experiments/llm_agents/test_isolation.py::test_lx1_engine_never_imports_the_experiment`
 - `tests/experiments/llm_agents/test_isolation.py::test_lx1_writes_only_under_runs`
+- `tests/experiments/llm_agents/test_prompts.py::test_lx21_order_differs_across_rounds_and_seeds`
+- `tests/experiments/llm_agents/test_prompts.py::test_lx21_order_is_shared_across_arms`
+- `tests/experiments/llm_agents/test_prompts.py::test_lx23_acts_and_holds_interleave`
+- `tests/experiments/llm_agents/test_prompts.py::test_lx23_every_option_offered_once`
 - `tests/experiments/llm_agents/test_prompts.py::test_lx4_a_banned_term_is_caught`
 - `tests/experiments/llm_agents/test_prompts.py::test_lx4_no_banned_term_in_any_arm`
 - `tests/experiments/llm_agents/test_prompts.py::test_lx5_labels_differ_between_seeds`
@@ -791,12 +796,19 @@ Their names embed no requirement ID, so they count only where an override cites 
 - `tests/experiments/llm_agents/test_prompts.py::test_lx7_render_without_feedback_drops_every_number_of_tension`
 - `tests/experiments/llm_agents/test_record.py::test_lx10_run_record_fields`
 - `tests/experiments/llm_agents/test_record.py::test_lx10_status_is_one_of_the_declared`
+- `tests/experiments/llm_agents/test_record.py::test_lx25_record_carries_option_order`
+- `tests/experiments/llm_agents/test_record.py::test_lx25_resumed_run_keeps_its_order`
 - `tests/experiments/llm_agents/test_report.py::test_lx16_framing_and_counts`
 - `tests/experiments/llm_agents/test_report.py::test_lx16_report_is_current`
 - `tests/experiments/llm_agents/test_report.py::test_lx20_framing_block_present`
+- `tests/experiments/llm_agents/test_report.py::test_lx26_position_and_content_choosers_differ`
+- `tests/experiments/llm_agents/test_report.py::test_lx26_position_readout_per_arm`
 - `tests/experiments/llm_agents/test_source.py::test_lx17_a0_matches_the_ensemble`
 - `tests/experiments/llm_agents/test_source.py::test_lx18_logging_is_a_pure_observer`
 - `tests/experiments/llm_agents/test_source.py::test_lx19_offer_draw_is_isolated`
+- `tests/experiments/llm_agents/test_source.py::test_lx22_order_changes_no_outcome`
+- `tests/experiments/llm_agents/test_source.py::test_lx22_order_requests_no_engine_draw`
+- `tests/experiments/llm_agents/test_source.py::test_lx24_id_maps_to_the_option_shown`
 - `tests/experiments/llm_agents/test_source.py::test_lx2_external_agent_keeps_the_policy`
 - `tests/experiments/llm_agents/test_source.py::test_lx2_one_selection_per_active_member`
 - `tests/experiments/llm_agents/test_source.py::test_lx3_choice_is_always_legal`

@@ -96,10 +96,11 @@ REQUIRED = frozenset({
     "backoff_base_seconds", "backoff_cap_seconds", "retry_after_max_seconds", "max_concurrency", "max_fallback_share", "history_rounds",
     "estimate_input_tokens", "estimate_output_tokens", "worst_case_chars_per_token", "cap_main_usd",
     "cap_cross_check_usd", "cap_total_usd", "family", "horizon_weeks", "spells", "audit_prompt_weeks",
-    "evaluation_window_weeks", "evaluation_readouts",
+    "evaluation_window_weeks", "evaluation_readouts", "option_order",
 })
 PER_MODEL = ("thinking", "effort", "price_input", "price_output")
-PHASES = ("baseline", "smoke", "pilot", "main", "cross_check")
+PHASES = ("baseline", "smoke", "pilot", "pilot2", "main", "cross_check")
+OPTION_ORDERS = ("fixed", "shuffled")   # §13.1: `fixed` only to replay a run recorded before the shuffle
 THINKING = frozenset({"disabled", "between_tools"})
 
 
@@ -137,6 +138,8 @@ def load_llm(path: Path = CONFIG / "llm.md") -> LLMConfig:
         raise ConfigError(f"{path}: missing {sorted(expected - set(plain))}, unknown {sorted(set(plain) - expected)}")
     if set(phases) != set(PHASES):
         raise ConfigError(f"{path}: phases {sorted(phases)}, expected {sorted(PHASES)}")
+    if plain["option_order"] not in OPTION_ORDERS:
+        raise ConfigError(f"{path}: option_order must be one of {OPTION_ORDERS}")
     for m in models:
         if plain[f"thinking.{m}"] not in THINKING:
             raise ConfigError(f"{path}: thinking.{m} must be one of {sorted(THINKING)}")

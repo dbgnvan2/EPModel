@@ -4,7 +4,7 @@
 `experiments/llm_agents/` (its README), with tests LX.1–LX.20 offline and the A0 baseline run. The owner approved the plain-label and prompt wording 2026-11-06 (Q2, §9), with A4 showing no tension number of
 any kind (§2) and the build's three extras accepted. Step 7's smoke call (LX.L1) was made 2026-11-06 on the owner's go-ahead and
 passed (§11), and the pilot (LX.L2) the same day: complete, $0.029851, the estimate restated from its usage (§11);
-its choices showed a list-position effect, and the owner decided to fix the option order first: the fix (§13) was proposed and its seven questions answered 2026-11-06, each as recommended, and built the same day with tests LX.21–LX.26 (§10, §11), the first pilot still replaying; the second pilot (§13.5) was run 2026-11-06 on the owner's go-ahead, judged by the stronger rule the owner adopted the same day: complete, $0.029782, the K1 and same-id effect gone but position 1 still above the mean of 1/N, so the effect does not count as gone and the main phase waits for the owner (§13.5); the main phase and the cross-check each wait for the owner's go-ahead.** Written 2026-11-03 on `main` at `5c7fc9b` (spec revision 47, engine
+its choices showed a list-position effect, and the owner decided to fix the option order first: the fix (§13) was proposed and its seven questions answered 2026-11-06, each as recommended, and built the same day with tests LX.21–LX.26 (§10, §11), the first pilot still replaying; the second pilot (§13.5) was run 2026-11-06 on the owner's go-ahead, judged by the stronger rule the owner adopted the same day: complete, $0.029782, the K1 and same-id effect gone but position 1 still above the mean of 1/N, so the effect does not count as gone (§13.5); the owner decided the same day to proceed as is, the lean recorded for later review (T-200); the main phase and the cross-check each wait for the owner's go-ahead.** Written 2026-11-03 on `main` at `5c7fc9b` (spec revision 47, engine
 hash `0b363cb3186c`). The owner decided on 2026-11-03 that version 3 has two new utilities: this experiment and an
 emergence audit of the learning model (`docs/plan_v3_emergence_audit.md`, T-182). This plan settles what the experiment is, how it keeps the
 theory out of the agents, its scale and cost, how a run replays, how results are compared, how calls are hardened,
@@ -419,7 +419,8 @@ repeat kinds counted by id. Each failed its named test by an assertion, and the 
    replays `complete`, `pilot-A1-s1` at its summary hash `d94482be4672`. Position 1 at 0.066 against 0.036, same id 7
    against 6.4 by chance and 108 same-option of 175 pairs, holds 0.951, K1 at 0.033. The `K1` preference and the
    fixed-id habit are gone; a lean toward the top of the list is not, so the effect does not count as gone (§13.5) and
-   the main phase waits for the owner's decision.
+   the main phase waited for the owner's decision. The owner decided 2026-11-06 to proceed as is, the lean
+   reported and controlled for in the analysis and recorded for later review (T-200, §13.5).
 
 ## 12. Documents
 
@@ -544,6 +545,12 @@ top of the list remains: the first tenth of the list takes 0.214 of choices and 
 offline from `choices.jsonl.gz` and not in the report, the first two positions take 32 choices against 13.3 by chance.
 The main phase waits; the result goes to the owner. The hold share, 0.951, is a content preference and is reported,
 not counted against the fix.
+
+**The owner's decision on the lean, 2026-11-06:** proceed to the main phase as is. The order is shuffled, so the lean
+favours no option, and each choice's position is recorded, so the lean is reported and controlled for in the
+analysis. Recorded for later review as T-200 (possible fixes there: say in the prompt that the order is random, show
+fewer options per call, or loosen the rule; and the report computes the approved rule, not the stronger one). The
+main phase's own cost go-ahead is separate (§11 step 7).
 
 ### 13.6 The owner's answers (2026-11-06, each as recommended)
 

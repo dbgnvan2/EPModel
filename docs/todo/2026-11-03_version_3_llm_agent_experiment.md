@@ -36,5 +36,16 @@ utilities the owner decided version 3 has (2026-11-03).
   0 re-asks, fallbacks, retries or failures, $0.029782; every run replays `complete`, `pilot-A1-s1` at `d94482be4672`.
   Position 1 at 0.066 against 0.036, same id 7 against 6.4 by chance and 108 same-option pairs of 175, holds 0.951,
   `K1` at 0.033: the fixed-id habit and the `K1` preference are gone, a lean toward the top of the list is not, and
-  the effect does not count as gone. Pending the owner: what to do about the remaining lean before the main phase.
-  Open: the main phase and the cross-check, each on the owner's go-ahead.
+  the effect does not count as gone. The owner decided 2026-11-06 to proceed to the main phase as is, the lean to
+  be reported and controlled for in the analysis (each choice's position is recorded), and recorded for later review
+  as T-200. Open: the main phase and the cross-check, each on the owner's go-ahead.
+- [ ] T-200 ⟨later⟩ **The LLM agents' remaining lean toward the top of the option list (2026-11-06).** The second
+  pilot (`pilot2-A1-s1`, plan §13.5), in the shuffled order, put 12 choices at position 1 against 6.6 expected by
+  chance, and 32 in the first two positions against 13.3 (counted from `choices.jsonl.gz`; the report shows the
+  first tenth of the list at 0.214). The stronger "effect gone" rule the owner adopted for §13.5 fails only on this
+  lean (and on same id 7 against 6.4 by chance, less than one pair); the fixed-id habit and the `K1` preference are
+  gone. The owner decided 2026-11-06 to proceed to the main phase as is: the order is shuffled, so the lean favours
+  no option, and each choice's position is recorded, so the lean can be reported and controlled for in the analysis;
+  this item is for later review. A gap: `report.py::position_readout` computes the approved rule (its "Position
+  effect" column), not the stronger one, which is only in the plan's text. Possible fixes: say in the prompt that the
+  order is random; show fewer options per call; or loosen the rule.

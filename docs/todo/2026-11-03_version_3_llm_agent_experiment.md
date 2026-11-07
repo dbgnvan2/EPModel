@@ -19,5 +19,7 @@ utilities the owner decided version 3 has (2026-11-03).
   fallbacks, retries or failures, $0.029851 (`experiments/llm_agents/runs/pilot-A1-s1/`); input mean 1,590 and max
   2,337 tokens, output 10; `estimate_output_tokens` restated 50 → 10, the main phase $5.97 against $9.97 left. Found
   at the pilot, for the owner: the model chooses by list position (six of seven members give the same option id
-  almost every week, the first "hold back" option; options are numbered in a fixed order, `K1` first). Open: the
-  owner's go-ahead for the main phase, and whether the option order changes first; then the cross-check.
+  almost every week, the first "hold back" option; options are numbered in a fixed order, `K1` first). The owner
+  decided 2026-11-06: fix the option order first (a proposal for a per-person, per-round shuffle, for the owner's
+  approval), then a second pilot, then the main phase. Open: that proposal; then the main phase and the cross-check,
+  each on the owner's go-ahead.

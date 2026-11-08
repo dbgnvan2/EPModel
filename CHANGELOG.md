@@ -53,7 +53,7 @@ All notable changes to this project are recorded here. Dates are ISO.
 - **Spec revision 55's draft.** `docs/spec_revision_55_draft.md`: the requirement text for `SC-1` to `SC-11`, each
   with grade, source and `M11.5` class; six new composite criteria, both arms with the cues on;
   the starting `[I]` values; two questions (R55-Q1, R55-Q2). Every quotation checked against the extraction files.
-  Nothing applied.
+  Nothing applied. The owner approved it 2026-11-08, R55-Q1 and R55-Q2 as recommended.
 - **What.** `docs/plan_t202_social_cues.md`: T-202's step 1, the ledger search for
   `SC-12` (the corpus supports the direction that a young child's dependency falls as it matures, `KS09.6` and `K14.5`,
   with the cause on the parents' side; no magnitude; `KS09.8` runs against a small capacity to supply), each `SC`

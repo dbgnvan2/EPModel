@@ -13,7 +13,8 @@ Items from `docs/proposal_social_cues.md`, decided by the owner on 2026-11-07 (Q
   engine-hash batch with one regeneration of the records (Q11). Switching it on by default is a later owner decision. *2026-11-07:* step 1 (the ledger search) done and the plan
   written, `docs/plan_t202_social_cues.md`; the owner approved it the same day with D1–D6 each as recommended
   (`SC-12` not built, T-204; `SC-9` on a stressor-load proxy; the emergence audit and sweep records xfail until the
-  stage end). Step 2: `docs/spec_revision_55_draft.md`, for the owner's review. Nothing built.
+  stage end). Step 2: `docs/spec_revision_55_draft.md`, approved by the owner 2026-11-08 (R55-Q1, R55-Q2 as recommended);
+  the build started.
 - [ ] T-203 ⟨later⟩ **`KS10.1`'s uncertainty term as its own proposal (2026-11-07).** Uncertainty about whether and
   when a cue will come intensifies the reaction (`KS10.1`; `KS09.8`'s intermittent withdrawal). Left out of
   `docs/proposal_social_cues.md` by the owner's Q6 (2026-11-07): a separate mechanism, variance in the other's

@@ -616,7 +616,7 @@ say whether that test was proved failing by mutation unless its note does.
 | M17.G.2 | not done | — | no test named for it; Phase E builds it and is not built yet |
 | M17.G.3 | not done | — | no test named for it; Phase E builds it and is not built yet |
 
-## Tests named for no spec ID (377)
+## Tests named for no spec ID (378)
 
 Their names embed no requirement ID, so they count only where an override cites them (marked *cited*). The rest check spec documents, tooling or helpers.
 
@@ -803,6 +803,7 @@ Their names embed no requirement ID, so they count only where an override cites 
 - `tests/experiments/llm_agents/test_report.py::test_lx20_framing_block_present`
 - `tests/experiments/llm_agents/test_report.py::test_lx26_position_and_content_choosers_differ`
 - `tests/experiments/llm_agents/test_report.py::test_lx26_position_readout_per_arm`
+- `tests/experiments/llm_agents/test_report.py::test_lx27_cross_check_against_main`
 - `tests/experiments/llm_agents/test_source.py::test_lx17_a0_matches_the_ensemble`
 - `tests/experiments/llm_agents/test_source.py::test_lx18_logging_is_a_pure_observer`
 - `tests/experiments/llm_agents/test_source.py::test_lx19_offer_draw_is_isolated`

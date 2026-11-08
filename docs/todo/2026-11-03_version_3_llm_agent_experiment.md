@@ -42,7 +42,13 @@ utilities the owner decided version 3 has (2026-11-03).
   the same day: 20 runs `complete`, 29,115 calls, 0 re-asks, fallbacks, retries or failures, $5.087992 (the pool at
   $5.147736 of $10); every run replays. A position effect in 0 of 5 seeds of each arm; A3 follows labels over mechanics
   in 5 of 5 seeds; A4 keeps A2's direction for every pattern (distance 4 of 5); results in the report and plan §11
-  step 7. Open: the cross-check, on the owner's go-ahead.
+  step 7. The owner chose `claude-sonnet-5-5` for the cross-check and approved its cost 2026-11-07 ($23.88
+  estimated, `cross_check` pool); it ran the same day: 4 runs `complete`, 5,820 calls, 0 re-asks, fallbacks, retries
+  or failures, 10 output tokens a call, $20.526398 (the pool at $20.526398 of $35, both pools $25.674134 of $45); every
+  run replays. For A1 and A2 the direction against A0 is the same as the main phase's on the same seed for every
+  pattern and readout in 2 of 2 seeds, except A2's distance (1 of 2); no position effect in the 4 runs; A1 holds back
+  less on the second model (0.446, 0.635 against 0.916 to 0.965). The report's cross-check table (LX.27) is Claude's
+  addition, pending the owner's review. Open: T-183's closing review, the owner's decision.
 - [ ] T-200 ⟨later⟩ **The LLM agents' remaining lean toward the top of the option list (2026-11-06).** The second
   pilot (`pilot2-A1-s1`, plan §13.5), in the shuffled order, put 12 choices at position 1 against 6.6 expected by
   chance, and 32 in the first two positions against 13.3 (counted from `choices.jsonl.gz`; the report shows the

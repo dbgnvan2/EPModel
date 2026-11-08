@@ -61,6 +61,26 @@ def test_lx16_framing_and_counts():
                for s in summaries)
 
 
+def test_lx27_cross_check_against_main():
+    """The cross-check's direction is read on its own seeds against A0 and paired with the main phase on the same
+    seed only (adversarial, P7): the cross-check agrees with main on seed 1 and not on seed 2, so it counts 1 of 2,
+    and a main run of another seed is never its pair."""
+    out = _synthetic()
+    a0 = {s["seed"]: s for s in out if s["arm"] == "A0"}
+    for seed, bump_main, bump_cross in ((1, 50, 50), (2, 0, 50)):
+        for phase, bump in (("main", bump_main), ("cross_check", bump_cross)):
+            x = copy.deepcopy(a0[seed])
+            x["arm"], x["phase"] = "A1", phase
+            x["patterns"]["subject_weeks"]["conflict"] = x["patterns"]["subject_weeks"].get("conflict", 0) + bump
+            out.append(x)
+    text = render(out)
+    assert "2 of 4 planned cross-check runs complete." in text
+    assert "| conflict | higher in 2, lower in 0, equal in 0 of 2 | 1 of 2 seeds |" in text
+    # A cross-check run on a seed the main phase never ran has no pair: the cell says so instead of borrowing one.
+    lonely = [s for s in out if not (s["arm"] == "A1" and s["phase"] == "main" and s["seed"] == 2)]
+    assert "| conflict | higher in 2, lower in 0, equal in 0 of 2 | 1 of 1 seeds |" in render(lonely)
+
+
 def test_lx20_framing_block_present():
     report = files.REPORT.read_text(encoding="utf-8")
     first_table = report.index("| Arm |")

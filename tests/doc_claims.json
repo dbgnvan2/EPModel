@@ -93,6 +93,16 @@
         "doc": "CHANGELOG.md",
         "phrase": "Suite: 1415 tests, 1413 pass, 2 strict expected failures.",
         "why": "the dated entries of 2026-11-06 (T-183's build, steps 1–6, and its Q2 decisions), giving the suite's size before the option-order fix"
+      },
+      {
+        "doc": "CHANGELOG.md",
+        "phrase": "Before the run: 1427 tests, 1425 pass, 2 strict expected failures.",
+        "why": "the dated entries of 2026-11-06 and 2026-11-07 (T-183's second pilot and main phase), giving the suite's size before the cross-check added LX.27"
+      },
+      {
+        "doc": "CHANGELOG.md",
+        "phrase": "1427 tests, 1425 pass and 2 strict expected failures (twelve added).",
+        "why": "the dated entry of 2026-11-06 (T-183's option-order fix), giving the suite's size before the cross-check added LX.27"
       }
     ]
   },

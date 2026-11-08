@@ -18,11 +18,14 @@ not count as gone: the fixed-id habit and the `K1` preference are gone (7 same-i
 `K1` at 0.033), but position 1 is at 0.066 against a mean `1/N` of 0.036. The owner decided
 2026-11-06 to proceed as is, the lean recorded for later review (T-200). The main phase ran 2026-11-07 on the owner's
 cost approval: 20 runs complete, 29,115 calls, no re-ask, fallback, retry or failure, $5.087992 (`runs/main-*`); no
-position effect in any arm's seeds. The cross-check waits for the owner's go-ahead. A0 (the model's own
+position effect in any arm's seeds. The cross-check ran 2026-11-07 on `claude-sonnet-5-5`, on the owner's choice of
+model and cost approval: 4 runs complete, 5,820 calls, no re-ask, fallback, retry or failure, $20.526398
+(`runs/cross_check-*`); its direction against A0 is the main phase's on the same seed for every pattern and readout
+but A2's distance. A0 (the model's own
 policy, no call, no cost) has been run for its five seeds and is in the report. The wording in `config/act_labels.md`
 and `config/prompt_text.md` was approved by the owner 2026-11-06 (Q2); arm A4 shows no tension number of any kind (no
-own tension or change, no tie strain, no believed tension). Each further live phase (the second pilot, the main
-phase, the cross-check) waits for the owner's go-ahead.
+own tension or change, no tie strain, no believed tension). Every planned live phase has run; T-183's closing review
+is the owner's next decision.
 
 ## What it does
 

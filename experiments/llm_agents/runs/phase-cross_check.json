@@ -1,0 +1,11 @@
+{
+  "not_started": [],
+  "phase": "cross_check",
+  "runs": {
+    "cross_check-A1-s1": "complete",
+    "cross_check-A1-s2": "complete",
+    "cross_check-A2-s1": "complete",
+    "cross_check-A2-s2": "complete"
+  },
+  "runs_planned": 4
+}

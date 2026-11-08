@@ -19,8 +19,8 @@ Every number below is read from the runs' summaries by the model's own readout f
 | Arm | Complete runs |
 |---|---|
 | A0 | 5 of 5 complete |
-| A1 | 5 of 7 complete |
-| A2 | 5 of 7 complete |
+| A1 | 7 of 7 complete |
+| A2 | 7 of 7 complete |
 | A3 | 5 of 5 complete |
 | A4 | 5 of 5 complete |
 
@@ -89,7 +89,24 @@ Patterns that appear in A2 and not in A1 (counted as needing the plain words): n
 
 ## Cross-check on the second model
 
-0 of 4 planned cross-check runs complete.
+4 of 4 planned cross-check runs complete.
+
+The same arms on the second model, on the same seeds: each pattern's and readout's direction against A0, and the seeds in which that direction is the same as the main phase's on the same seed. A direction that holds on both models is not one model's habit; one that differs depends on the model.
+
+| Pattern or readout | A1 against A0 | A1 same as main | A2 against A0 | A2 same as main |
+|---|---|---|---|---|
+| conflict | higher in 0, lower in 2, equal in 0 of 2 | 2 of 2 seeds | higher in 0, lower in 2, equal in 0 of 2 | 2 of 2 seeds |
+| cutoff | higher in 2, lower in 0, equal in 0 of 2 | 2 of 2 seeds | higher in 2, lower in 0, equal in 0 of 2 | 2 of 2 seeds |
+| distance | higher in 2, lower in 0, equal in 0 of 2 | 2 of 2 seeds | higher in 2, lower in 0, equal in 0 of 2 | 1 of 2 seeds |
+| fixed_triangle | higher in 0, lower in 2, equal in 0 of 2 | 2 of 2 seeds | higher in 0, lower in 2, equal in 0 of 2 | 2 of 2 seeds |
+| fusion | higher in 0, lower in 2, equal in 0 of 2 | 2 of 2 seeds | higher in 0, lower in 2, equal in 0 of 2 | 2 of 2 seeds |
+| over_underfunctioning | higher in 0, lower in 2, equal in 0 of 2 | 2 of 2 seeds | higher in 0, lower in 2, equal in 0 of 2 | 2 of 2 seeds |
+| projection | higher in 0, lower in 2, equal in 0 of 2 | 2 of 2 seeds | higher in 0, lower in 2, equal in 0 of 2 | 2 of 2 seeds |
+| intensity.mean_excess | higher in 0, lower in 2, equal in 0 of 2 | 2 of 2 seeds | higher in 0, lower in 2, equal in 0 of 2 | 2 of 2 seeds |
+| intensity.budget_occupancy | higher in 0, lower in 2, equal in 0 of 2 | 2 of 2 seeds | higher in 0, lower in 2, equal in 0 of 2 | 2 of 2 seeds |
+| stress.exogenous_events | higher in 0, lower in 0, equal in 2 of 2 | 2 of 2 seeds | higher in 0, lower in 0, equal in 2 of 2 | 2 of 2 seeds |
+| adaptiveness.automatic_acts | higher in 0, lower in 2, equal in 0 of 2 | 2 of 2 seeds | higher in 0, lower in 2, equal in 0 of 2 | 2 of 2 seeds |
+| adaptiveness.reactivity_per_stress | higher in 0, lower in 2, equal in 0 of 2 | 2 of 2 seeds | higher in 0, lower in 2, equal in 0 of 2 | 2 of 2 seeds |
 
 ## Option position (§13.4)
 
@@ -97,6 +114,8 @@ Whether the language model chooses by where an option is listed rather than by w
 
 | Run | Choices | Flagged | Position 1 | Last | Mean 1/N | Same id | Same id by chance | Same option | Pairs | Holds | Position effect |
 |---|---|---|---|---|---|---|---|---|---|---|---|
+| cross_check-A1-s1 | 1456 | 0 | 0.032 | 0.039 | 0.036 | 52 | 52.1 | 1389 | 1449 | 0.446 | no |
+| cross_check-A1-s2 | 1456 | 0 | 0.044 | 0.035 | 0.037 | 48 | 53.5 | 1357 | 1449 | 0.635 | no |
 | main-A1-s1 | 1456 | 0 | 0.040 | 0.034 | 0.036 | 49 | 52.7 | 1080 | 1449 | 0.955 | no |
 | main-A1-s2 | 1455 | 0 | 0.049 | 0.031 | 0.037 | 56 | 52.9 | 1219 | 1447 | 0.965 | no |
 | main-A1-s3 | 1455 | 0 | 0.047 | 0.035 | 0.037 | 55 | 52.8 | 1139 | 1447 | 0.953 | no |
@@ -104,6 +123,8 @@ Whether the language model chooses by where an option is listed rather than by w
 | main-A1-s5 | 1456 | 0 | 0.034 | 0.025 | 0.036 | 52 | 52.4 | 1094 | 1449 | 0.916 | no |
 | pilot-A1-s1 | 182 | 0 | 0.011 | 0.000 | 0.036 | 148 | 6.3 | 173 | 175 | 0.989 | no |
 | pilot2-A1-s1 | 182 | 0 | 0.066 | 0.022 | 0.036 | 7 | 6.4 | 108 | 175 | 0.951 | no |
+| cross_check-A2-s1 | 1455 | 0 | 0.032 | 0.038 | 0.036 | 60 | 52.5 | 1402 | 1447 | 0.001 | no |
+| cross_check-A2-s2 | 1453 | 0 | 0.034 | 0.026 | 0.036 | 51 | 52.6 | 1391 | 1444 | 0.000 | no |
 | main-A2-s1 | 1456 | 0 | 0.038 | 0.038 | 0.036 | 61 | 52.7 | 1346 | 1449 | 0.000 | no |
 | main-A2-s2 | 1456 | 0 | 0.035 | 0.027 | 0.036 | 58 | 52.8 | 1336 | 1449 | 0.000 | no |
 | main-A2-s3 | 1456 | 0 | 0.037 | 0.041 | 0.036 | 56 | 52.9 | 1320 | 1449 | 0.000 | no |
@@ -124,6 +145,8 @@ Chosen position as a share of the list, in tenths (share of choices):
 
 | Run | 1/10 | 2/10 | 3/10 | 4/10 | 5/10 | 6/10 | 7/10 | 8/10 | 9/10 | 10/10 |
 |---|---|---|---|---|---|---|---|---|---|---|
+| cross_check-A1-s1 | 0.084 | 0.100 | 0.090 | 0.125 | 0.098 | 0.109 | 0.090 | 0.112 | 0.085 | 0.108 |
+| cross_check-A1-s2 | 0.082 | 0.106 | 0.080 | 0.112 | 0.098 | 0.102 | 0.106 | 0.106 | 0.089 | 0.118 |
 | main-A1-s1 | 0.111 | 0.126 | 0.101 | 0.123 | 0.095 | 0.075 | 0.096 | 0.096 | 0.074 | 0.102 |
 | main-A1-s2 | 0.106 | 0.109 | 0.100 | 0.106 | 0.096 | 0.099 | 0.098 | 0.109 | 0.082 | 0.096 |
 | main-A1-s3 | 0.100 | 0.114 | 0.104 | 0.111 | 0.080 | 0.091 | 0.102 | 0.108 | 0.089 | 0.100 |
@@ -131,6 +154,8 @@ Chosen position as a share of the list, in tenths (share of choices):
 | main-A1-s5 | 0.113 | 0.120 | 0.091 | 0.098 | 0.084 | 0.104 | 0.088 | 0.114 | 0.093 | 0.096 |
 | pilot-A1-s1 | 0.011 | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 | 0.978 | 0.011 | 0.000 | 0.000 |
 | pilot2-A1-s1 | 0.214 | 0.143 | 0.099 | 0.088 | 0.110 | 0.044 | 0.055 | 0.088 | 0.066 | 0.093 |
+| cross_check-A2-s1 | 0.076 | 0.107 | 0.100 | 0.131 | 0.082 | 0.096 | 0.098 | 0.087 | 0.102 | 0.123 |
+| cross_check-A2-s2 | 0.085 | 0.105 | 0.081 | 0.120 | 0.094 | 0.099 | 0.110 | 0.088 | 0.104 | 0.114 |
 | main-A2-s1 | 0.087 | 0.120 | 0.093 | 0.111 | 0.090 | 0.095 | 0.097 | 0.091 | 0.104 | 0.113 |
 | main-A2-s2 | 0.084 | 0.101 | 0.090 | 0.116 | 0.089 | 0.095 | 0.103 | 0.100 | 0.096 | 0.126 |
 | main-A2-s3 | 0.085 | 0.122 | 0.092 | 0.137 | 0.084 | 0.090 | 0.086 | 0.090 | 0.093 | 0.120 |
@@ -151,6 +176,8 @@ Share of choices by act token (opaque arm):
 
 | Run | K1 | K2 | K3 | K4 | K5 | K6 | K7 | K8 | K9 | K10 | K11 | K12 | K13 | K14 | K15 | K16 |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| cross_check-A1-s1 | 0.990 | 0.003 | 0.005 | 0.000 | 0.001 | 0.000 | 0.000 | 0.000 | 0.000 | 0.001 | 0.001 | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 |
+| cross_check-A1-s2 | 0.855 | 0.000 | 0.000 | 0.000 | 0.000 | 0.001 | 0.000 | 0.000 | 0.000 | 0.007 | 0.000 | 0.137 | 0.000 | 0.000 | 0.000 | 0.000 |
 | main-A1-s1 | 0.274 | 0.001 | 0.014 | 0.122 | 0.004 | 0.005 | 0.000 | 0.000 | 0.001 | 0.321 | 0.044 | 0.000 | 0.000 | 0.023 | 0.001 | 0.190 |
 | main-A1-s2 | 0.278 | 0.000 | 0.007 | 0.001 | 0.000 | 0.140 | 0.005 | 0.096 | 0.137 | 0.016 | 0.003 | 0.165 | 0.008 | 0.001 | 0.145 | 0.001 |
 | main-A1-s3 | 0.014 | 0.010 | 0.003 | 0.003 | 0.000 | 0.178 | 0.148 | 0.005 | 0.001 | 0.236 | 0.098 | 0.000 | 0.298 | 0.001 | 0.005 | 0.000 |

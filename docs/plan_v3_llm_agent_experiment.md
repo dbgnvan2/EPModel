@@ -4,7 +4,7 @@
 `experiments/llm_agents/` (its README), with tests LX.1–LX.20 offline and the A0 baseline run. The owner approved the plain-label and prompt wording 2026-11-06 (Q2, §9), with A4 showing no tension number of
 any kind (§2) and the build's three extras accepted. Step 7's smoke call (LX.L1) was made 2026-11-06 on the owner's go-ahead and
 passed (§11), and the pilot (LX.L2) the same day: complete, $0.029851, the estimate restated from its usage (§11);
-its choices showed a list-position effect, and the owner decided to fix the option order first: the fix (§13) was proposed and its seven questions answered 2026-11-06, each as recommended, and built the same day with tests LX.21–LX.26 (§10, §11), the first pilot still replaying; the second pilot (§13.5) was run 2026-11-06 on the owner's go-ahead, judged by the stronger rule the owner adopted the same day: complete, $0.029782, the K1 and same-id effect gone but position 1 still above the mean of 1/N, so the effect does not count as gone (§13.5); the owner decided the same day to proceed as is, the lean recorded for later review (T-200). The owner approved the main phase's cost 2026-11-07, and it ran the same day: 20 runs complete, 29,115 calls, $5.087992, no position effect in any arm's seeds (§11 step 7); the cross-check waits for the owner's go-ahead.** Written 2026-11-03 on `main` at `5c7fc9b` (spec revision 47, engine
+its choices showed a list-position effect, and the owner decided to fix the option order first: the fix (§13) was proposed and its seven questions answered 2026-11-06, each as recommended, and built the same day with tests LX.21–LX.26 (§10, §11), the first pilot still replaying; the second pilot (§13.5) was run 2026-11-06 on the owner's go-ahead, judged by the stronger rule the owner adopted the same day: complete, $0.029782, the K1 and same-id effect gone but position 1 still above the mean of 1/N, so the effect does not count as gone (§13.5); the owner decided the same day to proceed as is, the lean recorded for later review (T-200). The owner approved the main phase's cost 2026-11-07, and it ran the same day: 20 runs complete, 29,115 calls, $5.087992, no position effect in any arm's seeds (§11 step 7). The owner chose the cross-check's model (`claude-sonnet-5-5`, as planned) and approved its cost 2026-11-07, and it ran the same day: 4 runs complete, 5,820 calls, $20.526398, the direction against A0 the same as the main phase's on the same seed for every pattern and readout but A2's distance (§11 step 7). Every planned live phase has run; T-183's closing review is the owner's next decision.** Written 2026-11-03 on `main` at `5c7fc9b` (spec revision 47, engine
 hash `0b363cb3186c`). The owner decided on 2026-11-03 that version 3 has two new utilities: this experiment and an
 emergence audit of the learning model (`docs/plan_v3_emergence_audit.md`, T-182). This plan settles what the experiment is, how it keeps the
 theory out of the agents, its scale and cost, how a run replays, how results are compared, how calls are hardened,
@@ -357,6 +357,7 @@ counts.
 | LX.24 | Answering id `i` selects the option shown as `i`, in every round of a real-length stub run | `test_source.py::test_lx24_id_maps_to_the_option_shown` |
 | LX.25 | The run record carries `option_order`; a record without it replays as `fixed`, and the committed `pilot-A1-s1` replays `complete` with its committed summary hash | `test_record.py::test_lx25_record_carries_option_order`, `test_cache.py::test_lx25_committed_pilot_replays_fixed` |
 | LX.26 | The report's position readout (§13.4) is generated per LLM arm and tells position from content (adversarial, P7) | `test_report.py::test_lx26_position_readout_per_arm`, `::test_lx26_position_and_content_choosers_differ` |
+| LX.27 | The report gives the cross-check's direction against A0 per pattern and readout, and the seeds in which it is the same as the main phase's on the same seed, never pairing a run with another seed's (adversarial, P7; added 2026-11-07, Claude's addition pending the owner's review) | `test_report.py::test_lx27_cross_check_against_main` |
 
 LX.21–LX.26 were each proved failing by the mutation §13.3 names, 2026-11-06: one shuffle key on the seed only, the
 arm added to the key, an engine draw under its own purpose taken each round, the last option dropped, acts and holds
@@ -440,7 +441,27 @@ repeat kinds counted by id. Each failed its named test by an assertion, and the 
    in 5 of 5 seeds, so A2's patterns are counted as driven by what the words mean; A4 keeps A2's direction for every
    pattern in 5 of 5 seeds (distance 4 of 5), so the patterns did not come from felt relief; no pattern appears in A2
    and not in A1. These are readouts of a language model choosing in an invented family, not findings about families
-   (`M11.F.9`). The cross-check waits for the owner's go-ahead.
+   (`M11.F.9`).
+   **The cross-check, 2026-11-07:** the owner chose the plan's model, `claude-sonnet-5-5` (a DeepSeek model stays a
+   separate, later question), and approved the cost in this session, both through `AskUserQuestion`, against the
+   estimate of 5,824 calls, about $23.88, and a worst case of about $30.95 (every call at the largest pilot prompt,
+   2,337 tokens, with all 64 output tokens), from the `cross_check` pool's $35. The prices were last checked against the
+   pricing page on 2026-11-06 (they match); the Models API found the ID before the run. Run at low priority: A1, A2 ×
+   seeds 1–2, 208 weeks, `option_order` `shuffled`, thinking `between_tools`: all 4 runs `complete`, 5,820 calls (4 fewer
+   than the estimate's 7 a week; every call made a selection), 0 cached, 0 re-asks, fallbacks, retries or failures, every
+   `stop_reason` `end_turn`, $20.526398 against the estimate's $23.88; the `cross_check` pool has spent $20.526398 of
+   $35, the two pools $25.674134 of $45. Its output, measured for the first time: 10 tokens on every call; input per
+   call a mean of 1,643 to 1,774 by run, a maximum of 2,543. `runner replay`: every run `complete`, the pilots at their
+   committed summaries. The report had only counted the cross-check's runs; it now gives, per pattern and readout, the
+   second model's direction against A0 and the seeds in which it is the same as the main phase's on the same seed
+   (Claude's addition, pending the owner's review; LX.27, proved failing by two mutants: pairing every seed with the
+   main phase's first seed, and pairing a seed the main phase did not run). From the regenerated report, each a
+   direction over two seeds with no threshold: for A1 and A2, every pattern and readout has the same direction against
+   A0 on both models in 2 of 2 seeds, except A2's distance (1 of 2: the second model is higher than A0 in both seeds,
+   the main phase in one of them); a position effect in 0 of the 4 runs; A1 holds back in 0.446 and 0.635 of its
+   choices on the second model against 0.916 to 0.965 on the first, and A2 in 0.001 or less on both. These are readouts
+   of language models choosing in an invented family, not findings about families (`M11.F.9`). Every planned live
+   phase has run; T-183's closing review is the owner's next decision.
 
 ## 12. Documents
 

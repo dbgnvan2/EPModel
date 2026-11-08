@@ -50,6 +50,10 @@ All notable changes to this project are recorded here. Dates are ISO.
   `life_energy` is not built; the emergence audit and sweep record tests strict xfail until the stage end; `SC-12`
   not built, its parent-side mechanism opened as T-204; Mac Mini1 if it answers, else this Mac. Next: spec revision
   55's draft.
+- **Spec revision 55's draft.** `docs/spec_revision_55_draft.md`: the requirement text for `SC-1` to `SC-11`, each
+  with grade, source and `M11.5` class; six new composite criteria, both arms with the cues on;
+  the starting `[I]` values; two questions (R55-Q1, R55-Q2). Every quotation checked against the extraction files.
+  Nothing applied.
 - **What.** `docs/plan_t202_social_cues.md`: T-202's step 1, the ledger search for
   `SC-12` (the corpus supports the direction that a young child's dependency falls as it matures, `KS09.6` and `K14.5`,
   with the cause on the parents' side; no magnitude; `KS09.8` runs against a small capacity to supply), each `SC`
@@ -57,7 +61,7 @@ All notable changes to this project are recorded here. Dates are ISO.
   and the regeneration's cost (about 4 h across both Macs, or 7–8 h on this Mac alone). Six decisions for the owner,
   D1–D6. Found in the code: `life_energy` is not built (`SC-9`), and the emergence audit and sweep records are
   keyed by the engine hash. Mac Mini1 timed out at the check.
-- **Documents.** The plan (new), `docs/SPEC_REVIEW_CHECKLIST.md`, `docs/REVIEWER_READING_LIST.md`, T-202's and
+- **Documents.** The plan and the draft (new), `docs/SPEC_REVIEW_CHECKLIST.md`, `docs/REVIEWER_READING_LIST.md`, T-202's and
   T-204's record, `TODO.md` and this file's index (regenerated). No rule, code, config or record changed; the engine hash
   (`0b363cb3186c`) did not move.
 

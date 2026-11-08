@@ -1,7 +1,7 @@
 # Plan: build the social cues proposal (T-202)
 
-**Status: APPROVED by the owner 2026-11-07, with D1–D6 each as recommended (§7); not built.** The next step is the
-spec revision 55 draft (step 2), for the owner's approval before any code. No requirement, code, config or record
+**Status: APPROVED by the owner 2026-11-07, with D1–D6 each as recommended (§7); not built.** Step 2's draft is
+`docs/spec_revision_55_draft.md`, for the owner's approval before any code. No requirement, code, config or record
 changed, and the engine hash (`0b363cb3186c`) did not move. The proposal is `docs/proposal_social_cues.md`, decided by
 the owner 2026-11-07 (Q1–Q11, each as recommended). This plan covers T-202's four steps
 (`docs/todo/2026-11-07_social_cues.md`): (1) the ledger search for `SC-12`, done here (§2); (2) spec revision 55 as a

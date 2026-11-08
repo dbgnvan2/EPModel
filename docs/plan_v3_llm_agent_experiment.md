@@ -4,7 +4,7 @@
 `experiments/llm_agents/` (its README), with tests LX.1–LX.20 offline and the A0 baseline run. The owner approved the plain-label and prompt wording 2026-11-06 (Q2, §9), with A4 showing no tension number of
 any kind (§2) and the build's three extras accepted. Step 7's smoke call (LX.L1) was made 2026-11-06 on the owner's go-ahead and
 passed (§11), and the pilot (LX.L2) the same day: complete, $0.029851, the estimate restated from its usage (§11);
-its choices showed a list-position effect, and the owner decided to fix the option order first: the fix (§13) was proposed and its seven questions answered 2026-11-06, each as recommended, and built the same day with tests LX.21–LX.26 (§10, §11), the first pilot still replaying; the second pilot (§13.5) was run 2026-11-06 on the owner's go-ahead, judged by the stronger rule the owner adopted the same day: complete, $0.029782, the K1 and same-id effect gone but position 1 still above the mean of 1/N, so the effect does not count as gone (§13.5); the owner decided the same day to proceed as is, the lean recorded for later review (T-200). The owner approved the main phase's cost 2026-11-07, and it ran the same day: 20 runs complete, 29,115 calls, $5.087992, no position effect in any arm's seeds (§11 step 7). The owner chose the cross-check's model (`claude-sonnet-5-5`, as planned) and approved its cost 2026-11-07, and it ran the same day: 4 runs complete, 5,820 calls, $20.526398, the direction against A0 the same as the main phase's on the same seed for every pattern and readout but A2's distance (§11 step 7). Every planned live phase has run; T-183's closing review is the owner's next decision.** Written 2026-11-03 on `main` at `5c7fc9b` (spec revision 47, engine
+its choices showed a list-position effect, and the owner decided to fix the option order first: the fix (§13) was proposed and its seven questions answered 2026-11-06, each as recommended, and built the same day with tests LX.21–LX.26 (§10, §11), the first pilot still replaying; the second pilot (§13.5) was run 2026-11-06 on the owner's go-ahead, judged by the stronger rule the owner adopted the same day: complete, $0.029782, the K1 and same-id effect gone but position 1 still above the mean of 1/N, so the effect does not count as gone (§13.5); the owner decided the same day to proceed as is, the lean recorded for later review (T-200). The owner approved the main phase's cost 2026-11-07, and it ran the same day: 20 runs complete, 29,115 calls, $5.087992, no position effect in any arm's seeds (§11 step 7). The owner chose the cross-check's model (`claude-sonnet-5-5`, as planned) and approved its cost 2026-11-07, and it ran the same day: 4 runs complete, 5,820 calls, $20.526398, the direction against A0 the same as the main phase's on the same seed for every pattern and readout but A2's distance (§11 step 7). Every planned live phase has run. T-183's closing review (`docs/version_3_llm_experiment_closing_review.md`) was decided by the owner 2026-11-07, every question as recommended: T-183 closed at layer 1, with no layer 2 (§6) and no other model family now; T-200 closed with no change; LX.27 approved; T-201 kept open, its no-cost hold-share check run (§11 step 7).** Written 2026-11-03 on `main` at `5c7fc9b` (spec revision 47, engine
 hash `0b363cb3186c`). The owner decided on 2026-11-03 that version 3 has two new utilities: this experiment and an
 emergence audit of the learning model (`docs/plan_v3_emergence_audit.md`, T-182). This plan settles what the experiment is, how it keeps the
 theory out of the agents, its scale and cost, how a run replays, how results are compared, how calls are hardened,
@@ -235,7 +235,9 @@ No claim uses an absolute threshold. Every sentence of the report that quotes a 
 **Layer 2 (not in this plan; Q6).** Composite `M11.C` criteria could be rerun with `LLMSource` in both of their arms,
 to ask whether each asserted direction holds under LLM agents. Each criterion doubles the calls. The selection rule
 would be: composite (`M11.5`), on `phase_c`, and with a readout that does not read the policy's learned values (so
-`M11.C.42` and `M11.C.48` are out). Recommended: decide after layer 1's results, in a plan of its own.
+`M11.C.42` and `M11.C.48` are out). Recommended: decide after layer 1's results, in a plan of its own. **Decided by
+the owner 2026-11-07, at T-183's closing review: no layer 2.** Layer 1 counts the LLM arms' patterns as driven by the
+model's prior, not felt relief, so a layer 2 would test what the language model expects families to do.
 
 **What the report never says.** It never says the model or the LLM speaks about a real family, or that an LLM agent
 is a person (`M11.F.9`). It never says the experiment confirms or refutes a mechanism (§1, reason 4). It never treats
@@ -461,7 +463,14 @@ repeat kinds counted by id. Each failed its named test by an assertion, and the 
    the main phase in one of them); a position effect in 0 of the 4 runs; A1 holds back in 0.446 and 0.635 of its
    choices on the second model against 0.916 to 0.965 on the first, and A2 in 0.001 or less on both. These are readouts
    of language models choosing in an invented family, not findings about families (`M11.F.9`). Every planned live
-   phase has run; T-183's closing review is the owner's next decision.
+   phase has run.
+   **The closing review, 2026-11-07** (`docs/version_3_llm_experiment_closing_review.md`, no live call): the owner's
+   answers, through `AskUserQuestion`, each as recommended: T-183 closed at layer 1; T-200 closed with no change (the
+   stronger §13.5 rule was for the pilot and is not used on full-length runs; the report keeps the approved rule);
+   LX.27 approved; no other model family now; no layer 2 (§6); T-201 kept open, and its no-cost check run: from the
+   committed `choices.jsonl.gz`, A1's hold share by 52-week block is level on Haiku, with 23 or 24 holds in the first
+   28 choices of each seed, and moves with no shared direction on Sonnet; no run shows holding back growing with
+   experience (the review's §4.2).
 
 ## 12. Documents
 
@@ -592,7 +601,10 @@ favours no option, and each choice's position is recorded, so the lean is report
 analysis. Recorded for later review as T-200 (possible fixes there: say in the prompt that the order is random, show
 fewer options per call, or loosen the rule; and the report computes the approved rule, not the stronger one). The
 main phase's own cost go-ahead is separate (§11 step 7); the owner gave it 2026-11-07, and the main phase showed no
-position effect in any arm's seeds (§11 step 7).
+position effect in any arm's seeds (§11 step 7). **T-200 closed by the owner 2026-11-07, no change** (closing review
+§4.1): under the approved rule no position effect in any of the 24 main and cross-check runs; the stronger rule, with
+four strict conditions and no tolerance, reads "not gone" in 21 of the 24 by small margins both ways, so it is not used
+on full-length runs.
 
 ### 13.6 The owner's answers (2026-11-06, each as recommended)
 

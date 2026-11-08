@@ -3,7 +3,7 @@
 Items from planning the LLM-agent experiment (`docs/plan_v3_llm_agent_experiment.md`), the second of the two new
 utilities the owner decided version 3 has (2026-11-03).
 
-- [ ] T-183 ⟨later⟩ **The LLM-agent experiment: build the approved plan (2026-11-03; approved 2026-11-06).** The
+- [x] T-183 ⟨later⟩ **The LLM-agent experiment: build the approved plan (2026-11-03; approved 2026-11-06).** The
   plan's seven decisions (§9, Q1–Q7) on the arms and contamination tests, what the agent is told and the plain-label
   wording, step and scale, the model, the budget cap and cache storage, the comparison, and whether the spec gains a
   version 3 section were decided by the owner on 2026-11-06, each as recommended. §11 steps 1–6 built 2026-11-06
@@ -48,8 +48,12 @@ utilities the owner decided version 3 has (2026-11-03).
   run replays. For A1 and A2 the direction against A0 is the same as the main phase's on the same seed for every
   pattern and readout in 2 of 2 seeds, except A2's distance (1 of 2); no position effect in the 4 runs; A1 holds back
   less on the second model (0.446, 0.635 against 0.916 to 0.965). The report's cross-check table (LX.27) is Claude's
-  addition, pending the owner's review. Open: T-183's closing review, the owner's decision.
-- [ ] T-200 ⟨later⟩ **The LLM agents' remaining lean toward the top of the option list (2026-11-06).** The second
+  addition, pending the owner's review.
+  **Closed 2026-11-07 by the owner, through `AskUserQuestion`, every question as recommended**, at the closing review
+  (`docs/version_3_llm_experiment_closing_review.md`, no live call): T-183 closed at layer 1; no layer 2 (plan §6); no
+  other model family now, revisited only if T-201 shows A1 responds to tension; LX.27 approved; T-200 closed with no
+  change; T-201 kept open, its no-cost check run. Spend at close: $25.674134 of $45.
+- [x] T-200 ⟨later⟩ **The LLM agents' remaining lean toward the top of the option list (2026-11-06).** The second
   pilot (`pilot2-A1-s1`, plan §13.5), in the shuffled order, put 12 choices at position 1 against 6.6 expected by
   chance, and 32 in the first two positions against 13.3 (counted from `choices.jsonl.gz`; the report shows the
   first tenth of the list at 0.214). The stronger "effect gone" rule the owner adopted for §13.5 fails only on this
@@ -61,6 +65,10 @@ utilities the owner decided version 3 has (2026-11-03).
   order is random; show fewer options per call; or loosen the rule. The main phase (2026-11-07) showed a position
   effect in 0 of 5 seeds of each arm, position 1 between 0.026 and 0.049 against about 0.036, so the lean did not show
   at that scale; the stronger rule was not computed per run.
+  **Closed 2026-11-07 by the owner, no change** (closing review §4.1): under the approved rule no position effect in
+  any of the 24 main and cross-check runs; counted offline from the report's table, the stronger rule reads "not gone"
+  in 21 of the 24 by small margins in both directions, since it has four strict conditions and no tolerance; it was
+  written for the 182-call pilot and is not used on full-length runs. The report keeps the approved rule only.
 - [ ] T-201 ⟨later⟩ **Whether A1's holding back responds to tension, or to the words "hold back" (2026-11-07).** In the
   main phase A1, the opaque arm and the only one where felt tension is the agent's sole guide, chose `hold back` in
   about 92–97% of its choices (the pilots: 0.989 in the fixed order, 0.951 shuffled); A2–A4 almost never did. A1's
@@ -71,3 +79,12 @@ utilities the owner decided version 3 has (2026-11-03).
   by week over the 208 weeks and against its tension history, from the committed `choices.jsonl.gz` (no live call;
   learning from relief would show a trend); (2) if needed, an A1 run with tension hidden, or with the withhold option
   given an opaque token, which needs a plan change and the owner's cost go-ahead.
+  **New evidence and check (1), 2026-11-07, at T-183's closing review** (§4.2 there). On `claude-sonnet-5-5`, A1 holds
+  back in 0.446 and 0.635 of its choices, and its choices fall on act token `K1` in 0.990 and 0.855 of them (report),
+  though `K1` stands for a different act in each seed: a preference for the token's name. Check (1), run on the
+  owner's go-ahead, offline, from the committed `choices.jsonl.gz`: on Haiku A1 holds back in 23 or 24 of its first 28
+  choices in every seed, and its hold share by 52-week block stays level (0.893 to 0.973); on Sonnet it starts near half
+  and moves with no shared direction over the two seeds; in every run the persons split between a higher and a lower
+  later half. No run shows holding back growing with experience. This fits a starting preference for the option's
+  text more than a learned response to tension; a week-by-week response to tension is not ruled out. Open: the tension
+  per week (an offline replay from the cache), and check (2).

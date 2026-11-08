@@ -4,7 +4,7 @@ The contract is `docs/plan_v3_llm_agent_experiment.md`. This directory is outsid
 `src/bowen/` or `config/bowen/` names it, it changes no engine rule, and the engine hash does not move with it (LX.1).
 The report it generates is `docs/llm_agent_experiment_report.md`.
 
-**Status (2026-11-06).** Plan steps 1–6 are built and tested offline. The smoke call LX.L1 was made 2026-11-06 on the
+**Status (2026-11-07): closed at layer 1.** Plan steps 1–6 are built and tested offline. The smoke call LX.L1 was made 2026-11-06 on the
 owner's go-ahead and passed: the request shape was accepted, the answer parsed, $0.000113 was logged against the
 `main` pool (`runs/smoke-A1-s1/`). The pilot LX.L2 was run 2026-11-06 on the owner's go-ahead and completed: 182
 calls, no re-ask, fallback, retry or failure, $0.029851 (`runs/pilot-A1-s1/`); the estimate was restated from its
@@ -24,8 +24,10 @@ model and cost approval: 4 runs complete, 5,820 calls, no re-ask, fallback, retr
 but A2's distance. A0 (the model's own
 policy, no call, no cost) has been run for its five seeds and is in the report. The wording in `config/act_labels.md`
 and `config/prompt_text.md` was approved by the owner 2026-11-06 (Q2); arm A4 shows no tension number of any kind (no
-own tension or change, no tie strain, no believed tension). Every planned live phase has run; T-183's closing review
-is the owner's next decision.
+own tension or change, no tie strain, no believed tension). Every planned live phase has run. T-183's closing review
+(`docs/version_3_llm_experiment_closing_review.md`) was decided by the owner 2026-11-07, every question as recommended:
+T-183 and T-200 closed, LX.27 approved, no layer 2 and no other model family now; T-201 (does A1's holding back respond
+to tension?) stays open, its no-cost hold-share check run.
 
 ## What it does
 
@@ -97,6 +99,6 @@ response is missing or its replayed summary differs from the committed one; a re
 
 ## Tests
 
-`tests/experiments/llm_agents/`, one test or more per acceptance criterion LX.1–LX.26, each named for its ID. No test
+`tests/experiments/llm_agents/`, one test or more per acceptance criterion LX.1–LX.27, each named for its ID. No test
 calls the API: the choosers are stubs and the SDK's errors are mapped through a stand-in module. LX.L1 and LX.L2 are
 live-only and are checked by the smoke call and the pilot.

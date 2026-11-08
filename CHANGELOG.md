@@ -39,22 +39,26 @@ All notable changes to this project are recorded here. Dates are ISO.
 - 2026-11-02 — T-176: why `M11.C.48`'s direction is reversed, a trace (2026-11-02)
 - 2026-11-01 — T-173: `M11.C.34`'s learned limb under two mutants; spec revision 46, wording only (2026-11-01)
 - 2026-11-01 — Version 2 tagged (2026-11-01)
-- 2026-11-01 — The pre-tag milestone review's triage: spec revision 45, wording only (2026-11-01)
 <!-- changelog index end -->
 
 ## [Unreleased] — 2026-10-11
 
 ### T-202: the plan to build the social cues proposal (2026-11-07)
 
-- **What.** `docs/plan_t202_social_cues.md`, a draft for the owner's approval: T-202's step 1, the ledger search for
+- **Approved.** The owner approved the plan the same day through `AskUserQuestion`, D1–D6 each as recommended: the
+  deviation form for the cue reading; four criteria changed from the proposal; `SC-9` on a stressor-load proxy while
+  `life_energy` is not built; the emergence audit and sweep record tests strict xfail until the stage end; `SC-12`
+  not built, its parent-side mechanism opened as T-204; Mac Mini1 if it answers, else this Mac. Next: spec revision
+  55's draft.
+- **What.** `docs/plan_t202_social_cues.md`: T-202's step 1, the ledger search for
   `SC-12` (the corpus supports the direction that a young child's dependency falls as it matures, `KS09.6` and `K14.5`,
   with the cause on the parents' side; no magnitude; `KS09.8` runs against a small capacity to supply), each `SC`
   criterion with its test and the mutant that must turn it red, the order of work, which steps move the engine hash,
   and the regeneration's cost (about 4 h across both Macs, or 7–8 h on this Mac alone). Six decisions for the owner,
   D1–D6. Found in the code: `life_energy` is not built (`SC-9`), and the emergence audit and sweep records are
   keyed by the engine hash. Mac Mini1 timed out at the check.
-- **Documents.** The plan (new), `docs/SPEC_REVIEW_CHECKLIST.md`, `docs/REVIEWER_READING_LIST.md`, T-202's record,
-  `TODO.md` and this file's index (regenerated). No rule, code, config or record changed; the engine hash
+- **Documents.** The plan (new), `docs/SPEC_REVIEW_CHECKLIST.md`, `docs/REVIEWER_READING_LIST.md`, T-202's and
+  T-204's record, `TODO.md` and this file's index (regenerated). No rule, code, config or record changed; the engine hash
   (`0b363cb3186c`) did not move.
 
 ### T-183 closed: the LLM-agent experiment's closing review (2026-11-07)
@@ -806,39 +810,3 @@ All notable changes to this project are recorded here. Dates are ISO.
   `09ca2b46c7e0`, W1–W8 holding, the pre-tag milestone review triaged. CI run 41369663069 green on Python 3.11–3.13.
 - **Documents.** `docs/theory/_STATUS.md`, `docs/version_2_definition_plan.md` (status line, §7), `README.md`,
   `CLAUDE.md`. Nothing a run computes changed; the engine hash did not move.
-
-### The pre-tag milestone review's triage: spec revision 45, wording only (2026-11-01)
-
-- **What.** The review `docs/cycles/2026-11-01_milestone-review_v2-pre-tag.md` (branch `review/2026-11-01-pre-tag`,
-  fast-forwarded into `main`) found 3 major and 12 minor findings. The owner answered its eight questions on 2026-11-01,
-  each as recommended (`docs/todo/2026-11-01_pre_tag_milestone_review.md`): MR-22 approved; W4 closed under D14's
-  deferral (no narrow mark from 8 samples); the W5 and W8 sign-offs count as the owner's review; `M11.C.34`'s pass
-  restated as running through `M4.D.1a`'s premise share, its learned limb untested (T-173); `M11.C.48`'s finding says the
-  direction is reversed; `M5.D.3` carries its finding note; the verdict-note check proved on planted notes; SP-1 at two
-  words.
-- **Spec revision 45** (wording only): the status line, `M5.D.3`'s finding note, `M5.D.5`'s coach rule graded `[I]`
-  with its sources as context, `M11.C.34`'s row (revision 27's measurement marked superseded; revision 44's measurement,
-  its mutant and the owner's reading added) and its `M11.5` row, MR-22 recorded as approved.
-- **Review.** One `learning-qa` pass and one correctness pass. Fixed: a note added to `config/bowen/constants.md` moved
-  the engine hash (that file is hashed), so it was taken out (T-177); 62 and 66 count sequences, not seeds; W4's note
-  reads the sample count from `config/sweep/sweep.md`; SP-1's form A notes the two-word limit.
-- **Code and tests.** `tools/spec_coverage.py` quotes version 2's dispositions in place of version 1's for the same
-  key (`test_m141_version_2_disposition_replaces_version_1`, shown failing on version 1's rows alone).
-  `tools/version_2_status.py` prints W4's deferral. `tests/asr_quotations.json`'s `min_words` is 2, with 15 spans
-  allowlisted, each a written source or the project's own words. `test_m17a1_each_verdict_note_is_true_of_the_records_and_the_todo_list`
-  refuses three planted false notes.
-- **Filed.** T-173 (`M11.C.34`'s learner-off mutant), T-174 (`group_g_readout.py`'s cache), T-175 (status lines point
-  to one source), T-176 (`M11.C.48`'s reversal traced), T-177 (`constants.md`'s `hold_gain` sentence). T-051 closed, superseded.
-- **Suite.** 1293 tests: 1291 pass and 2 are strict expected failures (`M5.B.3`; `M5.D.3`, T-158); one test added (`test_m141_version_2_disposition_replaces_version_1`). Measured 2026-11-01 on this Mac with `python3 -m pytest tests/`; 52 `ensemble`-marked tests deselected.
-- **Documents.** The spec, `docs/spec_revision_log.md`, `docs/model_explainer.md` (MR-1, MR-5, MR-12, its date),
-  `config/bowen/constants_changes.md` (`hold_gain`'s note; no value changed; `constants.md` is in the engine hash, so
-  its sentence waits for T-177),
-  `docs/version_2_dispositions.md`, `docs/version_2_plan.md` §4, `docs/version_2_definition_plan.md`,
-  `docs/theory/_STATUS.md`, `docs/implementation_plan_version_2_stage_3.md`, `docs/PROPOSAL — DISPLACED COPING (P2).md`,
-  `docs/PROPOSAL — ASR QUOTATIONS (SP-1).md` (SP1.2), `docs/two_mac_sweep.md`, `docs/REVIEW_version_2_outputs.md`,
-  `docs/REVIEWER_READING_LIST.md`, `docs/SPEC_REVIEW_CHECKLIST.md`, `README.md`, `CLAUDE.md`, `docs/todo/`, and the
-  generated pages (`docs/version_2_status.md`, `docs/spec_coverage.md`, the spec indexes, `TODO.md`, and the three
-  `docs/review/phase_c_*_seed7` pages, whose only change is the revision they stamp). Nothing a run
-  computes changed and the engine hash did not move (`09ca2b46c7e0`), so no record was rerun and
-  `docs/readouts_phase_c.md` needed no change. This file's earliest entry moved verbatim to `docs/CHANGELOG_archive.md`
-  for the size limit.

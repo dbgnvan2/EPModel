@@ -1,6 +1,7 @@
 # Plan: build the social cues proposal (T-202)
 
-**Status: DRAFT 2026-11-07, for owner review.** Nothing in it is built yet. No requirement, code, config or record
+**Status: APPROVED by the owner 2026-11-07, with D1–D6 each as recommended (§7); not built.** The next step is the
+spec revision 55 draft (step 2), for the owner's approval before any code. No requirement, code, config or record
 changed, and the engine hash (`0b363cb3186c`) did not move. The proposal is `docs/proposal_social_cues.md`, decided by
 the owner 2026-11-07 (Q1–Q11, each as recommended). This plan covers T-202's four steps
 (`docs/todo/2026-11-07_social_cues.md`): (1) the ledger search for `SC-12`, done here (§2); (2) spec revision 55 as a
@@ -91,11 +92,11 @@ switch on** (a per-criterion override), so the criteria test the cues while ever
 | | `::test_sc7_m4c14_lower_level_detects_a_small_leak_more_often` | sensitivity not scaled by level | premise |
 | | `::test_sc7_m4c14_lower_level_reads_threat_into_neutral_more_often` | meaning error not scaled by level | premise |
 | **SC-8** (`M4.C.6`) | `M11.C.52` — two anxious agents on one tie; one arm gives one of them perspective: the tie's escalation lower in that arm | attribution reads the word channel instead of the nonverbal ones | composite; **risk, D2** |
-| **SC-9** (`M1.A.10`, `M6.I.3`) | `M11.C.53` — a work stressor on one spouse against none: the other spouse's too-little deviation on the tie and its `PURSUE` or `CONFLICT` rate higher | attention sent not reduced by the sender's load | composite; **depends on D3** |
+| **SC-9** (`M1.A.10`, `M6.I.3`; a proxy, D3) | `M11.C.53` — a work stressor on one spouse against none: the other spouse's too-little deviation on the tie and its `PURSUE` or `CONFLICT` rate higher | attention sent not reduced by the sender's load | composite |
 | **SC-10** (`M9.9`) | `M11.C.54` — a parent's starting belief about one child set false-negative against neutral, the child's own state equal: that child's later `functional_level` lower (gated); its share of supplying moves toward the parent reported, not gated (D2) | the belief not sent as leak | composite |
 | **SC-11** (`M1.A.14b`, `M11.G`) | `tests/test_repo_layout.py::test_sc11_no_role_field` — no config key or `Person` field names a role; the role words live in `config/lint/role_labels.md` (outside `config/bowen/`, so editing them does not move the hash) | a `caretaker` field added | check |
 | | `M11.C.55` — across seeds on the twelve-person family, the child who becomes the main supplier to a parent is predicted better by that child's learned relief from supplying than by birth order | supply weighted by birth order | composite |
-| **SC-12** | **depends on D5** (§2) | | |
+| **SC-12** | **not built in T-202** (D5, decided 2026-11-07); follow-up T-204 | | |
 
 Every criterion test name carries its `SC` ID and its spec ID. The new readout for `SC-11`, `src/bowen/readouts/roles.py`,
 is computed after the run and never read by the policy; a test checks that no module under `src/bowen/engine/` imports
@@ -160,7 +161,10 @@ size limit), `CLAUDE.md` (the suite count and the spec status), the proposal's s
 
 ---
 
-## 7. What the owner decides now
+## 7. The owner's decisions
+
+**Decided 2026-11-07, through `AskUserQuestion`: D1–D6 each as recommended, and the plan approved.** D5's follow-up
+is T-204 (`docs/todo/2026-11-07_social_cues.md`). The text below is the decision as put.
 
 - **D1 — how a cue reading reduces to the current components.** Recommended: **the deviation form**. Each move kind
   keeps its contact and impingement in `event_kinds.md`; the felt change is those components plus the cue weights

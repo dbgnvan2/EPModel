@@ -14,7 +14,7 @@ moves to `docs/TODO_archive.md`. Until 2026-10-22 this file held every item's te
 - T-003 · 2026-10-20 · Coverage page, minor, from the Part A review … · [record](docs/todo/2026-08-22_blocking_the_next_phase.md)
 - T-004 · 2026-10-20 · Coverage page, from Part B's drafting (2026-10-20), not … · [record](docs/todo/2026-08-22_blocking_the_next_phase.md)
 
-## Later (136)
+## Later (137)
 
 - T-006 · 2026-10-22 · D4, long `Spec:` lines (Part D, 2026-10-22; the … · [record](docs/todo/2026-10-22_model_ergonomics.md)
 - T-007 · 2026-10-22 · Adjacent issues found by Part D's docstring pass, … · [record](docs/todo/2026-10-22_model_ergonomics.md)
@@ -152,3 +152,4 @@ moves to `docs/TODO_archive.md`. Until 2026-10-22 this file held every item's te
 - T-201 · 2026-11-07 · Whether A1's holding back responds to tension, or … · [record](docs/todo/2026-11-03_version_3_llm_agent_experiment.md)
 - T-202 · 2026-11-07 · Build the social cues proposal, after T-183's cross-check … · [record](docs/todo/2026-11-07_social_cues.md)
 - T-203 · 2026-11-07 · `KS10.1`'s uncertainty term as its own proposal (2026-11-07) · [record](docs/todo/2026-11-07_social_cues.md)
+- T-204 · 2026-11-07 · `KS09.6`'s parent-side separation as its own proposal (2026-11-07) · [record](docs/todo/2026-11-07_social_cues.md)

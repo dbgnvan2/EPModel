@@ -10,7 +10,8 @@ Items from `docs/proposal_social_cues.md`, decided by the owner on 2026-11-07 (Q
   the nonverbal channels, a witness reads all four (Q9); the owner's summary file's unfound quotations not used (Q10).
   Steps: (1) a ledger search for age and dependency before `SC-12` (Q7); (2) a spec revision with `SC-1` to `SC-12`;
   (3) `SC-2` and `SC-3` behind a switch off by default, the golden fingerprints holding; (4) the rest, in one
-  engine-hash batch with one regeneration of the records (Q11). Switching it on by default is a later owner decision.
+  engine-hash batch with one regeneration of the records (Q11). Switching it on by default is a later owner decision. *2026-11-07:* step 1 (the ledger search) done and the plan
+  written, `docs/plan_t202_social_cues.md` (draft for the owner's approval, D1–D6); nothing built.
 - [ ] T-203 ⟨later⟩ **`KS10.1`'s uncertainty term as its own proposal (2026-11-07).** Uncertainty about whether and
   when a cue will come intensifies the reaction (`KS10.1`; `KS09.8`'s intermittent withdrawal). Left out of
   `docs/proposal_social_cues.md` by the owner's Q6 (2026-11-07): a separate mechanism, variance in the other's

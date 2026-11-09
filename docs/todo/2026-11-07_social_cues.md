@@ -42,6 +42,13 @@ Items from `docs/proposal_social_cues.md`, decided by the owner on 2026-11-07 (Q
   by (`M4.D.6`), so a pass may show only that the policy follows its own values (T-202's learning-qa pass, P7). A
   probe: the same comparison with learning removed (`M10.B.5`'s switch), which should leave the two predictors equal.
   `M11.5`'s row says its probe decides whether it is informative; until that probe runs, the row is not a finding.
+  *Probed 2026-11-09 (`docs/review/2026-11-09_sc_pass_probes.md`, `tools/sc_pass_probe.py`; open, closing is the
+  owner's call):* with learning off the two predictors do not become equal: every learned value stays 0, the relief
+  predictor names no one (0 hits) and the row fails (−0.080 ± 0.047, 150 seeds). With it on, the past twenty years'
+  supply predicts the window only at chance (0.633 hits per seed, chance 0.633) while the year-20 learned value
+  predicts it (1.067), and birth order is below chance (0.307; 0.080 with learning off). The pass is consistent with
+  selection following learned value; it is not a finding that the supplier is learned rather than given. A wording for
+  `M11.5`'s row and two criterion changes are proposed in the record, not applied.
 - [ ] T-207 ⟨now⟩ **How the LLM experiment's committed runs follow an engine-hash move (2026-11-08).** T-202 moved the
   engine hash; the runs under `experiments/llm_agents/runs/` record `0b363cb3186c`. With `social_cues_enabled` off the
   engine computes the same runs (the golden fingerprints hold), but a replay restamps the hash into the summary, and
@@ -57,3 +64,9 @@ Items from `docs/proposal_social_cues.md`, decided by the owner on 2026-11-07 (Q
   because the direction goes. The pass is not separated from the threshold, and the mutant is not shown to remove what
   the criterion reads. A probe: more seeds on both arms and on the mutant, and the same comparison with the cues'
   nonverbal channels set equal (`M4.C.1f`). Until then the row is a composite pass at the margin, not a finding.
+  *Probed 2026-11-09 (`docs/review/2026-11-09_sc_pass_probes.md`, `tools/sc_pass_probe.py`; open, closing is the
+  owner's call):* on 500 seeds the pass holds clear of the test (−17.0 ± 10.1, p 0.0018), and the named mutant
+  survives (−12.5 ± 10.2, p 0.031): it removes a detected +4.5 ± 1.5 of the effect, paired, and a detected residual
+  remains. With the nonverbal channels equal the difference is −9.3 ± 8.6, p 0.053, not detected; with the cues off
+  −22.2 ± 8.3, no different from the recorded effect (paired −5.2 ± 8.5). The pass is not a finding about
+  self-attribution by channel alone; by `M11.5`'s row the row now comes back to the owner. A wording for the row is proposed in the record, not applied.

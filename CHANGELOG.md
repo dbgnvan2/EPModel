@@ -50,7 +50,7 @@ All notable changes to this project are recorded here. Dates are ISO.
   T-206's held `M11.C.55` change; one regeneration (about 6 h on one Mac, measured at revision 55); the stage-end sweep
   on the final engine (about 11–13 h split, T-181's times); eight questions for the owner. The status page's three
   record hashes cover three input sets and are each current; only the sweep record is on an earlier engine. Mac Mini1
-  did not answer `ssh macmini1`. No code, config, record or run changed; the engine hash did not move.
+  did not answer `ssh macmini1`. The owner answered all eight the same day, each as recommended. No code, config, record or run changed; the engine hash did not move.
 - **Documents.** The new plan, `docs/SPEC_REVIEW_CHECKLIST.md`, T-001's record (it carried 2026-10-29's state), and
   the generated `TODO.md` and changelog index.
 

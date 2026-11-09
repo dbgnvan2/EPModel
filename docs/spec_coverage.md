@@ -632,7 +632,7 @@ say whether that test was proved failing by mutation unless its note does.
 | M17.G.2 | not done | — | no test named for it; Phase E builds it and is not built yet |
 | M17.G.3 | not done | — | no test named for it; Phase E builds it and is not built yet |
 
-## Tests named for no spec ID (378)
+## Tests named for no spec ID (381)
 
 Their names embed no requirement ID, so they count only where an override cites them (marked *cited*). The rest check spec documents, tooling or helpers.
 
@@ -784,6 +784,9 @@ Their names embed no requirement ID, so they count only where an override cites 
 - `tests/experiments/llm_agents/test_cache.py::test_lx8_replay_leaves_unfinished_runs_resumable`
 - `tests/experiments/llm_agents/test_cache.py::test_lx8_replay_never_calls`
 - `tests/experiments/llm_agents/test_cache.py::test_lx8_replay_that_differs_is_not_replayable`
+- `tests/experiments/llm_agents/test_cache.py::test_lx8_t207_replay_reads_behavior_not_the_engine_hash`
+- `tests/experiments/llm_agents/test_cache.py::test_lx8_t207_replay_refuses_a_changed_status_or_a_complete_run_without_its_summary`
+- `tests/experiments/llm_agents/test_cache.py::test_lx8_t207_replay_refuses_changed_choices_or_a_summary_off_its_hash`
 - `tests/experiments/llm_agents/test_cache.py::test_lx9_run_key_separates_entries`
 - `tests/experiments/llm_agents/test_client.py::test_lx12_backoff_is_capped_and_grows`
 - `tests/experiments/llm_agents/test_client.py::test_lx12_exhausted_is_not_a_result`

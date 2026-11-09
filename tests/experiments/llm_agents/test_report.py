@@ -11,7 +11,6 @@ import copy
 import json
 import re
 
-import pytest
 from conftest import stub_run
 
 from experiments.llm_agents import files
@@ -24,7 +23,6 @@ from experiments.llm_agents.source import family_terms
 from src.bowen.render.trace import FRAMING
 
 
-@pytest.mark.xfail(strict=True, reason="T-202 (spec revision 55): the social cues moved the engine hash; the LLM experiment's committed runs record 0b363cb3186c, and with the switch off the engine computes the same runs (the golden fingerprints hold), but a replay restamps the hash and a changed hash marks a run not replayable, so how the runs follow an engine move is the owner's decision (T-207); no live call")
 def test_lx16_report_is_current(tmp_path):
     summaries = load_summaries()
     assert summaries, "the A0 baseline is committed"

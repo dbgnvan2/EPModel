@@ -17,7 +17,6 @@ from experiments.llm_agents import record
 from experiments.llm_agents.runner import run_one
 
 
-@pytest.mark.xfail(strict=True, reason="T-202 (spec revision 55): the social cues moved the engine hash; the LLM experiment's committed runs record 0b363cb3186c, and with the switch off the engine computes the same runs (the golden fingerprints hold), but a replay restamps the hash and a changed hash marks a run not replayable, so how the runs follow an engine move is the owner's decision (T-207); no live call")
 def test_lx10_run_record_fields(tmp_path):
     cfg = config()
     run_one(phase(3), "A3", 2, cfg=cfg, live=True, transport=StubTransport(), runs=tmp_path)
@@ -30,7 +29,7 @@ def test_lx10_run_record_fields(tmp_path):
                                                                   cfg.integer("max_tokens"))
     assert rec["sampling"].startswith("default; not settable")
     assert rec["time"].endswith("Z")
-    assert rec["engine_hash"] == "0b363cb3186c"
+    assert rec["engine_hash"] == record.engine_hash()
     for h in ("code_hash", "template_hash", "label_hash", "config_hash"):
         assert len(rec[h]) == 12, h
     assert (rec["arm"], rec["seed"], rec["status"]) == ("A3", 2, "complete")

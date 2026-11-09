@@ -96,14 +96,82 @@ def test_lx8_replay_that_differs_is_not_replayable(tmp_path):
     assert json.loads(record.read_text())["status"] == "complete"
     summary = tmp_path / "main-A1-s1" / "summary.json"
     data = json.loads(summary.read_text())
-    data["summary_hash"] = "000000000000"
+    data["llm_selections"] += 1
+    data["summary_hash"] = _hashed(data)
     summary.write_text(json.dumps(data))
     replay_all(tmp_path, cfg)
     rec = json.loads(record.read_text())
-    assert rec["status"] == "not_replayable" and "differs from the committed 000000000000" in rec["status_detail"]
+    assert rec["status"] == "not_replayable" and f"differs from the committed {data['summary_hash']}" in rec["status_detail"]
 
 
-@pytest.mark.xfail(strict=True, reason="T-202 (spec revision 55): the social cues moved the engine hash; the LLM experiment's committed runs record 0b363cb3186c, and with the switch off the engine computes the same runs (the golden fingerprints hold), but a replay restamps the hash and a changed hash marks a run not replayable, so how the runs follow an engine move is the owner's decision (T-207); no live call")
+def _hashed(summary: dict) -> str:
+    from experiments.llm_agents.cache import canonical_json, text_hash
+    return text_hash(canonical_json({k: v for k, v in summary.items() if k != "summary_hash"}))[:12]
+
+
+def test_lx8_t207_replay_reads_behavior_not_the_engine_hash(tmp_path, monkeypatch):
+    # T-207 (the owner, 2026-11-09, "Replay by behavior"): the engine hash is provenance, not the test. A replay on a
+    # moved engine that reaches the same behavior is complete and restamps the summary; a replay on a moved engine
+    # whose behavior differs is still not replayable, though the hash rule no longer decides it.
+    from collections import Counter
+
+    from experiments.llm_agents import record as run_record
+    from experiments.llm_agents import summary as run_summary
+
+    cfg = config()
+    run_one(phase(5), "A1", 1, cfg=cfg, live=True, transport=StubTransport(), runs=tmp_path)
+    d = tmp_path / "main-A1-s1"
+    live_record = json.loads((d / "run.json").read_text())
+    committed = json.loads((d / "summary.json").read_text())
+    choices = (d / "choices.jsonl.gz").read_bytes()
+
+    # The engine moved and the behavior did not: complete, the summary restamped, the run record left as it was.
+    monkeypatch.setattr(run_record, "engine_hash", lambda: "feedfacecafe")
+    [out] = replay_all(tmp_path, cfg)
+    assert out.record["status"] == "complete"
+    restamped = json.loads((d / "summary.json").read_text())
+    assert restamped["engine_hash"] == "feedfacecafe" and restamped["summary_hash"] == _hashed(restamped)
+    assert run_summary.behavior(restamped) == run_summary.behavior(committed)
+    assert json.loads((d / "run.json").read_text()) == live_record, "the live run's engine hash stays as provenance"
+    assert (d / "choices.jsonl.gz").read_bytes() == choices
+
+    # The engine moved again and its behavior differs, with every prompt the same: not replayable.
+    monkeypatch.setattr(run_record, "engine_hash", lambda: "0123456789ab")
+    acts = run_summary.act_counts
+    monkeypatch.setattr(run_summary, "act_counts", lambda run: acts(run) + Counter({"CONFLICT": 1}))
+    [out] = replay_all(tmp_path, cfg)
+    rec = json.loads((d / "run.json").read_text())
+    assert rec["status"] == "not_replayable" and "differs from the committed" in rec["status_detail"]
+    assert "engine_hash" in rec["status_detail"]
+    assert json.loads((d / "summary.json").read_text()) == restamped, "a refused replay writes no summary"
+
+
+def test_lx8_t207_replay_refuses_changed_choices_or_a_summary_off_its_hash(tmp_path):
+    # Same acts: a replay whose choices differ from the committed choices is refused even when the summary matches.
+    # A committed summary whose hash is not the hash of its content was edited by hand, and is refused (P6).
+    from experiments.llm_agents import summary as run_summary
+
+    cfg = config()
+    run_one(phase(5), "A1", 1, cfg=cfg, live=True, transport=StubTransport(), runs=tmp_path)
+    d = tmp_path / "main-A1-s1"
+    good = (d / "run.json").read_text()
+    choices = run_summary.read_choices(d)
+    choices[0] = dict(choices[0], week=choices[0]["week"] + 1)
+    run_summary.write_choices(choices, d, tmp_path)
+    replay_all(tmp_path, cfg)
+    rec = json.loads((d / "run.json").read_text())
+    assert rec["status"] == "not_replayable" and "choices differ" in rec["status_detail"]
+
+    (d / "run.json").write_text(good)
+    (d / "choices.jsonl.gz").unlink()
+    data = json.loads((d / "summary.json").read_text())
+    data["summary_hash"] = "000000000000"
+    (d / "summary.json").write_text(json.dumps(data))
+    replay_all(tmp_path, cfg)
+    rec = json.loads((d / "run.json").read_text())
+    assert rec["status"] == "not_replayable" and "not the hash of its content" in rec["status_detail"]
+
+
 def test_lx25_committed_pilot_replays_fixed(tmp_path):
     import shutil
 
@@ -121,3 +189,24 @@ def test_lx25_committed_pilot_replays_fixed(tmp_path):
     assert json.loads((tmp_path / "pilot-A1-s1" / "run.json").read_text()) == rec, "the record is left as it was"
     # The matched replay writes the run's choices with their positions, the same as the committed file.
     assert (tmp_path / "pilot-A1-s1" / CHOICES).read_bytes() == (committed / CHOICES).read_bytes()
+
+
+def test_lx8_t207_replay_refuses_a_changed_status_or_a_complete_run_without_its_summary(tmp_path):
+    # The behavior check needs both summaries; a replay that ends in another status than the committed run's, or a
+    # complete run with no committed summary to compare, is not the committed run, and is refused rather than passed.
+    cfg = config()
+    run_one(phase(5), "A1", 1, cfg=cfg, live=True, transport=StubTransport(), runs=tmp_path)
+    d = tmp_path / "main-A1-s1"
+    good = json.loads((d / "run.json").read_text())
+    (d / "run.json").write_text(json.dumps(dict(good, status="invalid")))
+    replay_all(tmp_path, cfg)
+    rec = json.loads((d / "run.json").read_text())
+    assert rec["status"] == "not_replayable"
+    assert "status complete differs from the committed invalid" in rec["status_detail"]
+
+    (d / "run.json").write_text(json.dumps(good))
+    (d / "summary.json").unlink()
+    replay_all(tmp_path, cfg)
+    rec = json.loads((d / "run.json").read_text())
+    assert rec["status"] == "not_replayable" and "has no summary" in rec["status_detail"]
+    assert not (d / "summary.json").exists(), "a refused replay writes no summary"

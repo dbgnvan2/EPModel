@@ -59,7 +59,7 @@ Items from `docs/proposal_social_cues.md`, decided by the owner on 2026-11-07 (Q
   window that is not the window's own start. They wait for the next batch that moves the engine hash, because the
   criterion's code and settings are in it and every record would rerun. Then: regenerate once, record the verdict as
   found with no tuning, and close this item. Open until then.
-- [ ] T-207 ⟨now⟩ **How the LLM experiment's committed runs follow an engine-hash move (2026-11-08).** T-202 moved the
+- [x] T-207 ⟨now⟩ **How the LLM experiment's committed runs follow an engine-hash move (2026-11-08).** T-202 moved the
   engine hash; the runs under `experiments/llm_agents/runs/` record `0b363cb3186c`. With `social_cues_enabled` off the
   engine computes the same runs (the golden fingerprints hold), but a replay restamps the hash into the summary, and
   `replay_all` marks a run whose summary hash changed `not_replayable`. Three tests are marked `xfail(strict=True)`
@@ -68,6 +68,15 @@ Items from `docs/proposal_social_cues.md`, decided by the owner on 2026-11-07 (Q
   hash; leave the runs on the old engine and say so in the report; or rerun live (a cost decision). Taken as
   recommended under the owner's overnight instruction, pending owner review: the xfail marks; no live call, no run
   rewritten.
+  *Decided 2026-11-09 (the owner: "Replay by behavior (Recommended)"); closed 2026-11-09:* replay counts a run when
+  its replay reaches the committed run's behavior (the summary without `engine_hash` and `summary_hash`, and the
+  choices), and refuses one whose behavior differs, whatever the hash; a committed summary off its own hash, a replay
+  ending in another status, and a complete run without its summary are refused
+  (`experiments/llm_agents/summary.py::replay_differs`; tests `test_lx8_t207_*`, the behavior check proved by
+  mutation). The engine hash stays recorded as provenance: `run.json` keeps the live run's, `summary.json` takes the
+  engine it was replayed on. `runner replay` restamped all 31 replayed runs from `0b363cb3186c` to `927550dfcb8a`
+  from their cached responses, with no live call: only those two summary fields moved. The three xfail marks are
+  removed (`docs/plan_v3_llm_agent_experiment.md` §8).
 - [x] T-208 ⟨later⟩ **`M11.C.52`'s pass and its named mutant (2026-11-09).** On revision 55's engine `M11.C.52` passes
   with `escalation` -23.8 ± 24.4 (p 0.046, 100 seeds), and `cue-attribution-discount-removed` turns it red with
   -20.7 ± 25.4: the mutant leaves the effect near the same size and is caught because the interval crosses 0, not

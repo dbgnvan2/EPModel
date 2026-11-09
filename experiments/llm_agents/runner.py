@@ -222,13 +222,19 @@ REPLAYED = ("complete", "invalid")
 
 def replay_all(runs: Path = files.RUNS, cfg: LLMConfig | None = None) -> list[Outcome]:
     """Purpose: every committed complete or invalid run, from its cache; never calls the client (LX.8). A moved prompt
-             (a cache miss) or a replay whose summary differs from the committed one marks it not replayable; a
-             stopped or incomplete run, and the one-call smoke record, are skipped, their status left as it is (P1).
-             Each run is rendered in the option order it ran in, a record without one in the fixed order (§13.2); a
-             replay that matches its committed summary writes the run's choices with their positions (§13.4).
+             (a cache miss) or a replay whose behavior differs from the committed run's (``replay_differs``: its
+             summary without the engine hash, and its choices), a replay that ends in another status, or a complete run with
+             no committed summary marks it not replayable; the engine hash is
+             provenance, not the test (T-207). A stopped or incomplete run, and the one-call smoke record, are
+             skipped, their status left as it is (P1). Each run is rendered in the option order it ran in, a record
+             without one in the fixed order (§13.2); a replay that matches restamps the committed summary with the
+             engine it was replayed on, leaves the run record as it was, and writes the run's choices with their
+             positions (§13.4).
     Spec:    docs/plan_v3_llm_agent_experiment.md#6
     Tests:   tests/experiments/llm_agents/test_cache.py::test_lx8_replay_leaves_unfinished_runs_resumable,
              tests/experiments/llm_agents/test_cache.py::test_lx8_replay_that_differs_is_not_replayable,
+             tests/experiments/llm_agents/test_cache.py::test_lx8_t207_replay_reads_behavior_not_the_engine_hash,
+             tests/experiments/llm_agents/test_cache.py::test_lx8_t207_replay_refuses_a_changed_status_or_a_complete_run_without_its_summary,
              tests/experiments/llm_agents/test_cache.py::test_lx25_committed_pilot_replays_fixed
     """
     cfg = cfg or load_llm()
@@ -246,19 +252,30 @@ def replay_all(runs: Path = files.RUNS, cfg: LLMConfig | None = None) -> list[Ou
                       option_order=run_record.option_order(rec))
         detail = out.record["status_detail"] if out.record["status"] == "not_replayable" else None
         committed = path.parent / "summary.json"
-        if detail is None and out.summary is not None and committed.exists():
-            was = json.loads(committed.read_text(encoding="utf-8"))["summary_hash"]
-            if out.summary["summary_hash"] != was:
+        was = json.loads(committed.read_text(encoding="utf-8")) if committed.exists() else None
+        if detail is None and out.record["status"] != rec["status"]:
+            # the replay ended in another status (a complete run now invalid, or the reverse): not the committed run
+            detail = f"the replay's status {out.record['status']} differs from the committed {rec['status']}"
+        elif detail is None and rec["status"] == "complete" and was is None:
+            detail = "the committed run is complete but has no summary to compare the replay with"
+        if detail is None and out.summary is not None and was is not None:
+            detail = run_summary.replay_differs(was, out.summary, run_summary.read_choices(path.parent), out.choices)
+            if detail is not None:
                 moved = [k for k in ("engine_hash", "code_hash", "template_hash", "label_hash", "config_hash")
                          if rec.get(k) != out.record[k]]
-                detail = (f"the replay's summary {out.summary['summary_hash']} differs from the committed {was}; "
-                          f"changed since the run: {', '.join(moved) or 'no recorded hash'}")
+                detail += f"; changed since the run: {', '.join(moved) or 'no recorded hash'}"
         if detail is not None:
             log.warning("replay: %s not replayable: %s", rec["run_id"], detail)
             rec["status"], rec["status_detail"] = "not_replayable", detail
             run_record.write(rec, path.parent, runs)
-        elif out.choices is not None:
-            run_summary.write_choices(out.choices, path.parent, runs)
+        else:
+            # The same behavior: the summary takes the engine it was replayed on, and the run record keeps the engine
+            # the live run ran on, as provenance (T-207).
+            if out.summary is not None and was is not None and out.summary != was:
+                log.info("replay: %s restamped, engine %s", rec["run_id"], out.summary["engine_hash"])
+                run_summary.write(out.summary, path.parent, runs)
+            if out.choices is not None:
+                run_summary.write_choices(out.choices, path.parent, runs)
         outcomes.append(out)
     return outcomes
 

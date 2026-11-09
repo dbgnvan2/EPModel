@@ -94,8 +94,10 @@ run's status is one of `complete`, `stopped_at_budget`, `incomplete_transient`,
 `invalid`, `not_replayable` or `stopped_permanent` (a 4xx the retry loop does not retry; the plan's §7 says such a
 run stops, and this status names it). Only a complete run is a result. What a pool has spent is summed from the
 response caches. `replay` replays complete and invalid runs only, and marks a run `not_replayable` if a cached
-response is missing or its replayed summary differs from the committed one; a replay that matches writes the run's
-`choices.jsonl.gz`.
+response is missing or its replayed behavior differs from the committed run's: the summary without its engine hash,
+and the choices, or its status differs, or a complete run has no committed summary. The engine hash is provenance, not the test (T-207, the owner 2026-11-09): a replay that matches on
+a moved engine restamps `summary.json` with that engine, keeps `run.json`'s engine hash as the live run's, and writes
+the run's `choices.jsonl.gz`.
 
 ## Tests
 

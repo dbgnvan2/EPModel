@@ -13,6 +13,7 @@ refuses a summary computed on another.
 from __future__ import annotations
 
 import gzip
+import logging
 import json
 from collections import Counter
 from pathlib import Path
@@ -29,6 +30,8 @@ from src.bowen.readouts.patterns import (
     Reading, ReadoutParams, current_patterns, fixed_triangle, last_projection_act, tie_readings,
 )
 from src.bowen.render.trace import framing
+
+log = logging.getLogger("experiments.llm_agents.summary")
 
 
 class PatternWatch:
@@ -109,6 +112,43 @@ def summarize(run, watch: PatternWatch, cfg) -> dict:
     }
     out["summary_hash"] = text_hash(canonical_json(out))[:12]
     return out
+
+
+PROVENANCE = ("engine_hash", "summary_hash")
+
+
+def behavior(summary: dict) -> dict:
+    """The summary without its provenance: what the run did (its acts, readouts and pattern weeks), not where."""
+    return {k: v for k, v in summary.items() if k not in PROVENANCE}
+
+
+def behavior_hash(summary: dict) -> str:
+    return text_hash(canonical_json(behavior(summary)))[:12]
+
+
+def replay_differs(committed: dict, replayed: dict, committed_choices: list[dict] | None,
+                   replayed_choices: list[dict] | None) -> str | None:
+    """Purpose: why a replay is not the committed run, or None when it is: the committed summary must carry the hash
+             of its own content (a hand-edited summary is refused, P6), the replay must reach the same behavior (the
+             summary without its engine hash), and, where both exist, the same choices. The engine hash is
+             provenance, not the test (T-207, the owner 2026-11-09).
+    Spec:    docs/plan_v3_llm_agent_experiment.md#8
+    Tests:   tests/experiments/llm_agents/test_cache.py::test_lx8_t207_replay_reads_behavior_not_the_engine_hash,
+             tests/experiments/llm_agents/test_cache.py::test_lx8_t207_replay_refuses_changed_choices_or_a_summary_off_its_hash,
+             tests/experiments/llm_agents/test_cache.py::test_lx8_replay_that_differs_is_not_replayable
+    """
+    was = committed.get("summary_hash")
+    if text_hash(canonical_json({k: v for k, v in committed.items() if k != "summary_hash"}))[:12] != was:
+        return f"the committed summary's hash {was} is not the hash of its content"
+    if behavior_hash(replayed) != behavior_hash(committed):
+        return (f"the replay's summary {replayed['summary_hash']} differs from the committed {was} in behavior "
+                f"({behavior_hash(replayed)} against {behavior_hash(committed)})")
+    if committed_choices is None and replayed_choices is not None:
+        log.info("replay: no committed choices to compare; the summary decides, and the replay's choices are written")
+    if committed_choices is not None and replayed_choices is not None:
+        if [json.loads(canonical_json(c)) for c in replayed_choices] != committed_choices:
+            return "the replay's choices differ from the committed choices"
+    return None
 
 
 def choice_records(run) -> list[dict]:

@@ -2,7 +2,7 @@
   "arm": "A1",
   "seed": 1,
   "weeks": 208,
-  "engine_hash": "0b363cb3186c",
+  "engine_hash": "927550dfcb8a",
   "evaluation": {
     "intensity.mean_excess": 4.037204412481961,
     "intensity.budget_occupancy": 0.9995889016832943,
@@ -67,5 +67,5 @@
   "llm_selections": 1456,
   "llm_fallbacks": 0,
   "llm_no_options": 0,
-  "summary_hash": "8e0ccb51a4c2"
+  "summary_hash": "f178bd4b064c"
 }

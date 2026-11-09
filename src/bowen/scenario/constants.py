@@ -228,6 +228,37 @@ SCHEMA: Mapping[str, KeySpec] = MappingProxyType(
         "balance_harden_rate": KeySpec(float, "[I]", "M1.B.6"),
         "reversal_asymmetry": KeySpec(float, "[I]", "M1.B.7"),
         "pseudo_self_transfer_gain": KeySpec(float, "[I]", "M6.I.4"),
+        "social_cues_enabled": KeySpec(int, "[I]", "M4.C.1f"),  # spec revision 55
+        "cue_attention_contact_weight": KeySpec(float, "[I]", "M4.C.1e"),  # spec revision 55
+        "cue_attention_impingement_weight": KeySpec(float, "[I]", "M4.C.1e"),  # spec revision 55
+        "cue_approval_contact_weight": KeySpec(float, "[I]", "M4.C.1e"),  # spec revision 55
+        "cue_approval_impingement_weight": KeySpec(float, "[I]", "M4.C.1e"),  # spec revision 55
+        "cue_expectations_contact_weight": KeySpec(float, "[I]", "M4.C.1e"),  # spec revision 55
+        "cue_expectations_impingement_weight": KeySpec(float, "[I]", "M4.C.1e"),  # spec revision 55
+        "cue_distress_contact_weight": KeySpec(float, "[I]", "M4.C.1e"),  # spec revision 55
+        "cue_distress_impingement_weight": KeySpec(float, "[I]", "M4.C.1e"),  # spec revision 55
+        "unmet_expectation_weight": KeySpec(float, "[I]", "M4.C.1e"),  # spec revision 55
+        "cue_leak_gain": KeySpec(float, "[I]", "M4.C.13"),  # spec revision 55
+        "cue_leak_expectations_share": KeySpec(float, "[I]", "M4.C.13"),  # spec revision 55
+        "cue_leak_distress_share": KeySpec(float, "[I]", "M4.C.13"),  # spec revision 55
+        "cue_tone_share": KeySpec(float, "[I]", "M4.C.13"),  # spec revision 55
+        "cue_face_share": KeySpec(float, "[I]", "M4.C.13"),  # spec revision 55
+        "cue_posture_share": KeySpec(float, "[I]", "M4.C.13"),  # spec revision 55
+        "nonverbal_weight_base": KeySpec(float, "[I]", "M4.C.11"),  # spec revision 55
+        "nonverbal_weight_anxiety_gain": KeySpec(float, "[I]", "M4.C.11"),  # spec revision 55
+        "nonverbal_weight_cap": KeySpec(float, "[I]", "M4.C.11"),  # spec revision 55
+        "cue_sensitivity_floor": KeySpec(float, "[I]", "M4.C.14"),  # spec revision 55
+        "cue_sensitivity_level_gain": KeySpec(float, "[I]", "M4.C.14"),  # spec revision 55
+        "cue_bias_floor": KeySpec(float, "[I]", "M4.C.14"),  # spec revision 55
+        "cue_bias_level_gain": KeySpec(float, "[I]", "M4.C.14"),  # spec revision 55
+        "cue_bias_anxiety_gain": KeySpec(float, "[I]", "M4.C.12"),  # spec revision 55
+        "cue_bias_belief_gain": KeySpec(float, "[I]", "M4.C.12"),  # spec revision 55
+        "cue_spread_floor": KeySpec(float, "[I]", "M4.C.14"),  # spec revision 55
+        "cue_spread_level_gain": KeySpec(float, "[I]", "M4.C.14"),  # spec revision 55
+        "attention_load_gain": KeySpec(float, "[I]", "M4.C.15"),  # spec revision 55
+        "attention_load_scale": KeySpec(float, "[I]", "M4.C.15"),  # spec revision 55
+        "belief_cue_rate": KeySpec(float, "[I]", "M9.9"),  # spec revision 55
+        "belief_leak_gain": KeySpec(float, "[I]", "M9.9"),  # spec revision 55
     }
 )
 

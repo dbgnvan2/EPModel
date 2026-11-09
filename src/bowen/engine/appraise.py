@@ -95,6 +95,7 @@ from __future__ import annotations
 
 import math
 
+from src.bowen.engine import cues
 from src.bowen.engine.contact import clamp_unit, deviation, deviation_at, excess, felt_contact, felt_impingement, steepness
 from src.bowen.engine.events import Attention, Delivery, Event, Mechanism, Role
 from src.bowen.engine.identifiers import PersonId, TieId
@@ -186,8 +187,17 @@ def _conductance(state: RunState, a: PersonId, b: PersonId | None) -> float:
     return tie.conductance if tie is not None else 0.0
 
 
-def tie_change(state: RunState, delivery: Delivery, event: Event, params: EngineParams):
-    """The tie and the (Δ contact, Δ impingement) a move delivered to its target makes, or None."""
+def tie_change_parts(state: RunState, delivery: Delivery, event: Event, params: EngineParams):
+    """Purpose: the tie, the (Δ contact, Δ impingement) the words part of a delivered move makes, and the part tone,
+             face and posture make, or None.
+    Spec:    docs/bowen_agent_model_spec_v2.md#M4.C.1, #M4.C.1e, #M4.C.6
+    Tests:   tests/bowen/test_social_cues.py::test_m4c1f_sc2_reduction_with_equal_channels
+
+    The words part is the move kind's components (`M4.C.1`, `M5.F.1`, `M5.F.4`) and, while the social cues are on,
+    the cue the words are read to carry and an unmet expectation (`M4.C.1e`); the nonverbal part is the cue tone,
+    face and posture are read to carry, (0, 0) while the cues are off. The cue parts are scaled as the move's own
+    components are.
+    """
     if event.mechanism is not Mechanism.MOVE or delivery.role is not Role.TARGET or event.sender is None:
         return None
     tie = state.tie_between(delivery.recipient, event.sender)
@@ -199,7 +209,24 @@ def tie_change(state: RunState, delivery: Delivery, event: Event, params: Engine
     outward, inward = axes(state.people[event.sender])
     d_contact = contact * scale * content_gain(receiver, params) * (1.0 - params.hollow_gain * inward)
     d_imp = (impingement + params.assault_gain * outward + params.assertion_gain * event.demand_share) * scale
-    return tie, d_contact, d_imp
+    if not cues.on(params):
+        return tie, (d_contact, d_imp), (0.0, 0.0)
+    read = cues.reading(state, delivery, event, params)
+    w_contact, w_imp = cues.cue_components(read.words, params)
+    w_contact += cues.unmet_expectation(receiver, event.sender, read.total, params)
+    n_contact, n_imp = cues.cue_components(read.nonverbal, params)
+    return tie, (d_contact + w_contact * scale, d_imp + w_imp * scale), (n_contact * scale, n_imp * scale)
+
+
+def tie_change(state: RunState, delivery: Delivery, event: Event, params: EngineParams):
+    """The tie and the (Δ contact, Δ impingement) a move delivered to its target makes, or None."""
+    parts = tie_change_parts(state, delivery, event, params)
+    if parts is None:
+        return None
+    tie, (w_contact, w_imp), (n_contact, n_imp) = parts
+    if not cues.on(params):
+        return tie, w_contact, w_imp
+    return tie, w_contact + n_contact, w_imp + n_imp
 
 
 def inward_reading(state: RunState, delivery: Delivery, event: Event, params: EngineParams) -> float:
@@ -225,6 +252,10 @@ def appraisal_delta(state: RunState, delivery: Delivery, event: Event, params: E
     """
     person = state.people[delivery.recipient]
     sign = state.kinds.sign(event.kind, event.source_position)
+    if cues.on(params):
+        parts = tie_change_parts(state, delivery, event, params)
+        if parts is not None:
+            return _appraisal_by_channel(state, person, event, parts, params, sign)
     change = tie_change(state, delivery, event, params)
     if change is not None:
         tie, d_contact, d_imp = change
@@ -239,9 +270,37 @@ def appraisal_delta(state: RunState, delivery: Delivery, event: Event, params: E
             * (1.0 - reattributed) * attention_factor(person, event, params)
         )
     if delivery.role is Role.WITNESS:
-        return witness_delta(state, person, event, params, sign) * sign
+        read = 1.0
+        if cues.on(params) and event.mechanism is Mechanism.MOVE and event.sender is not None:
+            read = cues.witness_factor(cues.reading(state, delivery, event, params).total, params)  # M4.C.9
+        return witness_delta(state, person, event, params, sign) * sign * read
     conductance = _conductance(state, person.id, event.sender)
     return _scale(event, conductance, params) * steepness(person, params) * sign * attention_factor(person, event, params)
+
+
+def _appraisal_by_channel(state: RunState, person: Person, event: Event, parts, params: EngineParams,
+                          sign: int) -> float:
+    """Purpose: with the social cues on, a reappraiser attributes to its own output the nonverbal part of a received
+             move, in proportion to its own recent nonverbal leak on the tie; the words part is not reattributed.
+    Spec:    docs/bowen_agent_model_spec_v2.md#M4.C.6, #M4.C.1e
+    Tests:   tests/bowen/test_social_cues.py::test_m4c6_sc8_attribution_reads_the_nonverbal_part_only
+
+        Δ acute = appraisal_gain × steepness × ((dev_words − before) + (1 − perspective × own leak share)
+                  × (dev_full − dev_words)) × sign × attention factor
+    """
+    tie, (w_contact, w_imp), (n_contact, n_imp) = parts
+    contact, imp = felt_contact(person, tie), felt_impingement(person, tie)
+    before = deviation_at(person, tie, params, contact, imp)
+    words = deviation_at(person, tie, params, clamp_unit(contact + w_contact), clamp_unit(imp + w_imp))
+    full = deviation_at(person, tie, params, clamp_unit(contact + w_contact + n_contact),
+                        clamp_unit(imp + w_imp + n_imp))
+    reattributed = effective_perspective(person, tie, params) * cues.own_leak_share(
+        state, person.id, event.sender, params.reappraisal_window
+    )
+    return (
+        params.appraisal_gain * steepness(person, params) * ((words - before) + (1.0 - reattributed) * (full - words))
+        * sign * attention_factor(person, event, params)
+    )
 
 
 def believed_tension(witness: Person, event: Event) -> float:
@@ -403,6 +462,12 @@ def apply_appraisal(
             per_event[event_id][person] += value
 
     distant = marital_distance_high(state, params)
+    if cues.on(params):
+        # M4.C.12: each delivery is read once, this week; M1.F.1c: a move without signals is refused.
+        state.cue_readings = {}
+        for delivery, event in items:
+            if event.mechanism is Mechanism.MOVE and event.signals is None:
+                raise ValueError(f"move {event.id} carries no signals while the social cues are on (M1.F.1c)")
     for delivery, event in items:
         delta = appraisal_delta(state, delivery, event, params)
         if delta < 0 and delivery.role is Role.TARGET and _gated(state, delivery.recipient, distant):
@@ -430,6 +495,7 @@ def apply_appraisal(
         if moved:
             transfers.setdefault(event.id, []).append((delivery.recipient, event.sender, moved))
 
+    belief_records = cues.update_cue_beliefs(state, items, params) if cues.on(params) else []  # M9.9, after the batch
     for person in sorted(anxiety):
         state.people[person].acute_anxiety += anxiety[person]
     for (tie_id, member), (d_contact, d_imp) in sorted(contact_moves.items()):
@@ -453,4 +519,5 @@ def apply_appraisal(
             pairs[sender] = pairs.get(sender, 0.0) + moved
         records.append(EffectRecord(tick=state.tick, mechanism="calm_contact", cause=event_id,
                                     acute_anxiety=tuple(sorted(pairs.items()))))
+    records += belief_records
     return records, attended, readings

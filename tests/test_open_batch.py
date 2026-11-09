@@ -27,6 +27,10 @@ RECORD = "docs/phase_c_ensemble_record.md"
 EXPECTED_FAILURE = pytest.xfail.Exception
 STAMPED = "docs/phase_d_ensemble_record.md"  # prints the hash of the code alone (``code_hash()``, no tool) it was built on
 
+# The criteria of `criteria.CRITERIA` added since the stage 3 batch opened: step 8's `M11.C.49` and spec revision 55's
+# social cues (T-202); the registry also counts revision 55's `M11.C.55`, in `criteria_d2`.
+ADDED_SINCE = {"M11.C.49", "M11.C.50", "M11.C.51", "M11.C.52", "M11.C.53", "M11.C.54"}
+
 
 def _marked() -> dict[str, list[str]]:
     """Each record named by a mark in the suite, with the files that mark a test for it."""
@@ -180,7 +184,7 @@ def test_d31_the_rerun_leaves_out_a_criterion_added_since_the_batch_opened():
     namespace = {"CRITERIA": now, "tool": criteria}
     with hash_as_found(namespace):
         assert "M11.C.49" not in criteria.CRITERIA and "M11.C.49" not in namespace["CRITERIA"]
-        assert set(criteria.CRITERIA) == set(now) - {"M11.C.49"}
+        assert set(criteria.CRITERIA) == set(now) - ADDED_SINCE
         assert namespace["CRITERIA"] is criteria.CRITERIA
     assert criteria.CRITERIA is now and namespace["CRITERIA"] is now, "the found table outlived the rerun"
     keyed = [k for k in criteria_d.CRITERIA_D if "[" in k]
@@ -215,7 +219,7 @@ def test_d31_the_status_tool_reads_the_criteria_the_batch_found():
     before_registered, before_spec = v1.registered(), v1.spec_criteria()
     assert "M11.C.49" in before_registered and "M11.C.49" in before_spec
     with open_batch.registry_as_found() as added:
-        assert added == {"M11.C.49"}
-        assert v1.registered() == before_registered - {"M11.C.49"}
-        assert set(v1.spec_criteria()) == set(before_spec) - {"M11.C.49"}
+        assert added == ADDED_SINCE | {"M11.C.55"}
+        assert v1.registered() == before_registered - added
+        assert set(v1.spec_criteria()) == set(before_spec) - added
     assert v1.registered() == before_registered and v1.spec_criteria() == before_spec

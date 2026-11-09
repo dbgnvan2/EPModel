@@ -115,3 +115,23 @@ The classes of contact are `config/bowen/contact_classes.md`.
 `exogenous=True`, as `M1.F.7` requires of every stressor, on the `ENDOGENOUS` channel. The evaluation readout's stress
 term (`M11.G.2`) reads the channel and leaves them out, since they are an output of the run; the run chart
 (`tools/run_chart.py`) marks events by the mechanism they travel on and shows them with the exogenous stressors.
+
+## The supply readout — who supplied whom (`M11.G.5`, spec revision 55, T-202)
+
+`src/bowen/readouts/roles.py`; `tests/bowen/test_roles_readout.py`. Computed after a run from its records; nothing in
+the engine or the policy reads it (`M1.A.14b`), and no role is stored (`tests/test_repo_layout.py::test_m1a14b_sc11_no_role_field`
+scans config keys and `Person` fields for the words in `config/lint/role_labels.md`). Each definition is `[I]`.
+
+- A **supplying move** is a move of a kind listed in `config/lint/supply_kinds.md` (`STAY-IN-CONTACT`, attention
+  given; `OVERFUNCTION`, help given). The list is editorial and kept outside `config/bowen/`, so it does not move the
+  engine hash.
+- **`supply_counts`**: per ordered (sender, target) pair, the supplying moves sent over a declared window, each target
+  of a move counted once.
+- **`main_supplier`**: of a declared set of people, the one who sent a given person the most supplying moves; no one
+  on a tie for the most or when none did.
+- **`ReadingTap`** (only when the social cues are on): a `watch` that copies each week's cue readings made by targets,
+  never by witnesses, and reports the mean perceived attention and approval cue per (sender, receiver).
+- A role name may label this readout in a report ("the one who supplies the mother most"), never a person.
+- `M11.C.54` reports the child's supplying moves toward the parent; `M11.C.55` compares, per parent, how often the
+  child with the highest learned value on the supplying kinds toward that parent at the window's start, and how often
+  the first-born, is that parent's main supplier over the window.

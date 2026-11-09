@@ -1,10 +1,64 @@
 # Spec revision log
 
-**Status: the record of every revision of `bowen_agent_model_spec_v2.md`, 4 to 54 (revision 54, `M11.5`'s note for `M11.C.42` names `M4.C.1d`'s relieved party correctly, wording only, pending the owner's review, 2026-11-06; revision 53, `M11.C.2`'s mutation cell restated to the current mutation record, wording only, pending the owner's review, 2026-11-06; revision 52, T-196's and T-197's probes in `M11.5`, wording only, pending the owner's review, 2026-11-06; revision 51, the within-run rows whose arms differ in `M11.5`, wording only, 2026-11-05; revision 50, what carries `M11.C.48[phase_d]` in `M11.5` and the criterion's row, wording only, 2026-11-05; revision 49, the emergence audit's survivors in `M11.5` and `M11.1g`'s scope, wording only, 2026-11-05; revision 48, `M11.1g`, the emergence audit, version 3's first revision, 2026-11-03; revision 47, `M11.C.48`'s readout reads both arms under one contact condition, after the tag `version-2`, 2026-11-02–03; revision 46, wording only, after the tag `version-2`, from T-173's two mutants, 2026-11-01; revision 45, wording only, from the pre-tag milestone review's triage, 2026-11-01; revision 44, the batch from the owner's D4 and D5, 2026-10-31; revision 43, the version 2 definition batch, 2026-10-29; revision 40 applied 2026-10-28, from the stage 3 milestone review's triage; revision 41, its hash-moving batch, the same day; revision 42, wording only, 2026-10-29). Moved out of the spec at revision 35, 2026-10-22; nothing a run computes changed.**
+**Status: the record of every revision of `bowen_agent_model_spec_v2.md`, 4 to 55 (revision 55, the social cues, behind a switch that is off by default, choices taken as recommended pending the owner's review, 2026-11-08; revision 54, `M11.5`'s note for `M11.C.42` names `M4.C.1d`'s relieved party correctly, wording only, pending the owner's review, 2026-11-06; revision 53, `M11.C.2`'s mutation cell restated to the current mutation record, wording only, pending the owner's review, 2026-11-06; revision 52, T-196's and T-197's probes in `M11.5`, wording only, pending the owner's review, 2026-11-06; revision 51, the within-run rows whose arms differ in `M11.5`, wording only, 2026-11-05; revision 50, what carries `M11.C.48[phase_d]` in `M11.5` and the criterion's row, wording only, 2026-11-05; revision 49, the emergence audit's survivors in `M11.5` and `M11.1g`'s scope, wording only, 2026-11-05; revision 48, `M11.1g`, the emergence audit, version 3's first revision, 2026-11-03; revision 47, `M11.C.48`'s readout reads both arms under one contact condition, after the tag `version-2`, 2026-11-02–03; revision 46, wording only, after the tag `version-2`, from T-173's two mutants, 2026-11-01; revision 45, wording only, from the pre-tag milestone review's triage, 2026-11-01; revision 44, the batch from the owner's D4 and D5, 2026-10-31; revision 43, the version 2 definition batch, 2026-10-29; revision 40 applied 2026-10-28, from the stage 3 milestone review's triage; revision 41, its hash-moving batch, the same day; revision 42, wording only, 2026-10-29). Moved out of the spec at revision 35, 2026-10-22; nothing a run computes changed.**
 
 The spec holds the current rules; this file holds how they got there. Until revision 34 the revision sections stood at the end of the spec, under `M17`, and the front matter's `status:` line listed every revision since 10. `docs/plan_model_ergonomics.md` Part E moved both here (the owner's answer to its §8 Q2, 2026-10-22, "as revision 35"), so a session reading the spec reads 480 fewer lines of history. The sections below are the spec's own text as it stood, tags and all, with the newest first; revisions 13 to 33 were written inline in the requirement bodies and have no section of their own, which Part E's second step records under revision 35.
 
 The sections `### Revision 34` to `### Revision 5` and the undated section are the spec's text as it stood, moved whole; a statement inside one of them (revision 34's, that revisions 13 to 33 are "not here") was true when written, before the bodies' narratives were moved under their own revisions. Those narratives are the bullets `- \`ID\`: sentence`, each the sentence as it stood in the body, under the revision it names, in sections titled "inline narratives moved from the bodies at revision 35" where no section existed.
+
+### Revision 55 — the social cues, 2026-11-08 ⟦rev55 · owner 2026-11-08, T-202; the draft `docs/spec_revision_55_draft.md` approved with R55-Q1 and R55-Q2 as recommended⟧
+
+Built from `docs/proposal_social_cues.md` under the plan `docs/plan_t202_social_cues.md` (D1 to D6 approved by the
+owner, each as recommended). A move carries four signal channels, words, tone, face and posture (`M1.F.1c`); the
+receiver reads them as attention, approval, expectations and distress cues (`M4.C.1e`), with a nonverbal share that
+rises with the receiver's anxiety (`M4.C.11`), a reading that adds threat bias and spread the lower the receiver's
+level (`M4.C.12`, `M4.C.14`), a leak from an anxious sender (`M4.C.13`), an attention cue lowered by the sender's
+stressor load (`M4.C.15`), and cue beliefs that move toward the cues perceived and leak back out as distress
+(`M9.9`); `M4.C.1f` is the reduction, the switch off or the channels equal. The supply readout `M11.G.5` reports who
+supplies whom, read from the acts, never from a label (`M1.A.14b`). Six composite criteria, `M11.C.50` to
+`M11.C.55`, each with a named mutant. Every rule is behind `social_cues_enabled` (`[I]`, 0): no existing run changed
+and the golden fingerprints hold. 31 constants, all `[I]`, in `config/bowen/constants.md`, each logged in
+`config/bowen/constants_changes.md`. The engine hash moved from `0b363cb3186c` to `927550dfcb8a`; every record but the
+emergence audit and the version 2 sweep was regenerated once on it (D4; `docs/version_3_revision_55_changes.md`).
+
+**Departures from the approved draft**, each taken as recommended under the owner's overnight instruction of
+2026-11-08, pending the owner's review:
+
+- The supply readout is `M11.G.5`, not `M11.G.4`, which already names another readout.
+- The constants are rows of `config/bowen/constants.md`, not a new `config/bowen/social_cues.md` (one register, one
+  parser).
+- `M11.C.55`'s window is stated in run years (`window_from_year` 20 of 30), as the Phase D part II runs count them.
+- `M11.C.52`'s mutant is `cue-attribution-discount-removed` (the owner's pick, 2026-11-08).
+- The criteria's rows name their tests in full.
+- The cue-reading draw is a register row of `M3.D.4b` ("Cue perception").
+- The work landed as one commit, not through the open-batch machinery (`tests/open_batch.py` stays closed).
+
+**Other choices taken as recommended under the owner's overnight instruction of 2026-11-08, pending the owner's
+review:**
+
+- `M11.C.55`'s relief predictor names the child with the highest summed relief toward the parent and no child on a
+  tie; the first build also required that value to be above 0, which left most parents unnamed (a defect, fixed).
+- `cues.py`'s 2.0 (a half-width doubled to a width) is on the structural-literal list of
+  `tests/bowen/test_engineering_gates.py`.
+- `RunState.cue_readings` is outside the canonical state (`NOT_CANONICAL`): it holds one week's readings, emptied at
+  the next week's appraisal and never read across weeks.
+- The emergence audit record and the version 2 sweep record are not rerun (D4); their is-current tests are strict
+  expected failures until the stage end or the owner's decision on the switch's default. So is the audit's scope test
+  (`test_m111g_ea1_the_real_scope_is_the_plans`): `M11.C.52` and `M11.C.55` pass, so the scope on the committed records
+  is 13 rows, not plan §3's 11.
+- The LLM experiment's committed runs record `0b363cb3186c`; three of its tests are strict expected failures until the
+  owner decides how its runs follow an engine move (T-207). No live call and no run rewritten.
+- The new unit tests are named for their requirement first (`test_m4c12_sc6_…`), as `tools/spec_coverage.py` reads a
+  test's ID from the start of its name; the plan and the unit mutation record were renamed to match.
+
+**Found in the build:** the first regeneration failed in its pool workers: `criteria.py` imported `criteria_sc` at its end and `criteria_sc` imported from `criteria`, so a worker that unpickled one of `criteria_sc`'s arms met a circular import. `criteria_sc` now adds its criteria to `CRITERIA` itself; `tests/bowen/test_criteria_sc.py::test_m11c50_criteria_table_is_whole_whichever_module_is_imported_first` fails on the old code. The engine hash moved again, to `927550dfcb8a`, and the records were regenerated on it.
+
+**Results, recorded as found (the owner, 2026-11-08):** no existing row of any regenerated record changed, the switch off. `M11.C.50`, `M11.C.51`, `M11.C.53` and `M11.C.54` fail (`M11.C.53`'s too-little limb holds, its pursuit limb does not); `M11.C.52` passes at p 0.046 and its named mutant turns it red with the effect near the same size (T-208); `M11.C.55` passes and its named mutant reverses it, which T-206's probe has to separate from the policy's own input. Each is a composite: a pass or a fail is a finding, never a premise confirmed.
+
+**Found and left open:** T-205 (`M11.G.5`'s perceived-cue half has no report), T-206 (whether `M11.C.55`'s relief
+predictor is more than the policy's own input). With the cues on, the words part of a received move is no longer
+reattributed under `M4.C.6` (as the approved draft says): an agent with systems perspective whose nonverbal channels
+are neutral loses that reattribution. For the owner's review.
 
 ### Revision 54 — `M11.5`'s note for `M11.C.42` corrected, 2026-11-06 ⟦rev54 · Claude's recommendation 2026-11-06 under the owner's instruction to proceed, pending the owner's review (T-199)⟧
 

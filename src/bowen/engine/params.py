@@ -189,6 +189,38 @@ class EngineParams:
     force_anxiety_gain: float                # M4.D.1h, revision 30 — an anxious person acts with more force
     focus_compound_gain: float               # M1.B.8b, revision 30 — anxious focus grows where it already is
     lock_in_turn: float                    # M7.D.2d, revision 24 — the severity (load over threshold) past which lock-in turns over
+    # Spec revision 55 (T-202): the social cues, behind one switch that is off by default (M4.C.1f).
+    social_cues_enabled: int  # M4.C.1f
+    cue_attention_contact_weight: float  # M4.C.1e
+    cue_attention_impingement_weight: float  # M4.C.1e
+    cue_approval_contact_weight: float  # M4.C.1e
+    cue_approval_impingement_weight: float  # M4.C.1e
+    cue_expectations_contact_weight: float  # M4.C.1e
+    cue_expectations_impingement_weight: float  # M4.C.1e
+    cue_distress_contact_weight: float  # M4.C.1e
+    cue_distress_impingement_weight: float  # M4.C.1e
+    unmet_expectation_weight: float  # M4.C.1e
+    cue_leak_gain: float  # M4.C.13
+    cue_leak_expectations_share: float  # M4.C.13
+    cue_leak_distress_share: float  # M4.C.13
+    cue_tone_share: float  # M4.C.13
+    cue_face_share: float  # M4.C.13
+    cue_posture_share: float  # M4.C.13
+    nonverbal_weight_base: float  # M4.C.11
+    nonverbal_weight_anxiety_gain: float  # M4.C.11
+    nonverbal_weight_cap: float  # M4.C.11
+    cue_sensitivity_floor: float  # M4.C.14
+    cue_sensitivity_level_gain: float  # M4.C.14
+    cue_bias_floor: float  # M4.C.14
+    cue_bias_level_gain: float  # M4.C.14
+    cue_bias_anxiety_gain: float  # M4.C.12
+    cue_bias_belief_gain: float  # M4.C.12
+    cue_spread_floor: float  # M4.C.14
+    cue_spread_level_gain: float  # M4.C.14
+    attention_load_gain: float  # M4.C.15
+    attention_load_scale: float  # M4.C.15
+    belief_cue_rate: float  # M9.9
+    belief_leak_gain: float  # M9.9
 
     def __post_init__(self) -> None:
         for name in (
@@ -324,3 +356,26 @@ class EngineParams:
                self.force_anxiety_gain, self.focus_compound_gain) < 0:
             raise ValueError("origin_cutoff_anxiety_gain, origin_fusion_gain, danger_gain, focus_reinforce_gain, "
                              "force_anxiety_gain and focus_compound_gain must be non-negative")
+        # Spec revision 55 (M4.C.1f): the switch is 0 or 1; every cue gain is non-negative; shares and probabilities
+        # are in [0, 1]; the nonverbal weight's cap is below one and at least its base.
+        if self.social_cues_enabled not in (0, 1):
+            raise ValueError("social_cues_enabled is 0 (off) or 1 (on)")
+        for name in ("cue_attention_contact_weight", "cue_attention_impingement_weight", "cue_approval_contact_weight",
+                     "cue_approval_impingement_weight", "cue_expectations_contact_weight",
+                     "cue_expectations_impingement_weight", "cue_distress_contact_weight",
+                     "cue_distress_impingement_weight", "unmet_expectation_weight", "cue_leak_gain",
+                     "nonverbal_weight_anxiety_gain", "cue_bias_floor", "cue_bias_level_gain", "cue_bias_anxiety_gain",
+                     "cue_bias_belief_gain", "cue_spread_floor", "cue_spread_level_gain", "attention_load_gain",
+                     "belief_leak_gain"):
+            if getattr(self, name) < 0:
+                raise ValueError(f"{name} must be non-negative")
+        for name in ("cue_leak_expectations_share", "cue_leak_distress_share", "cue_tone_share", "cue_face_share",
+                     "cue_posture_share", "nonverbal_weight_base", "cue_sensitivity_floor", "belief_cue_rate"):
+            if not 0.0 <= getattr(self, name) <= 1.0:
+                raise ValueError(f"{name} must be in [0, 1]")
+        if not self.nonverbal_weight_base <= self.nonverbal_weight_cap < 1.0:
+            raise ValueError("nonverbal_weight_cap is at least nonverbal_weight_base and below one (M4.C.11)")
+        if self.cue_sensitivity_floor + self.cue_sensitivity_level_gain > 1.0 or self.cue_sensitivity_level_gain < 0:
+            raise ValueError("cue sensitivity is a probability: floor + level gain at most 1, level gain non-negative")
+        if self.attention_load_scale <= 0:
+            raise ValueError("attention_load_scale must be positive")

@@ -7,14 +7,15 @@ Open items, one line each: ID, date raised, title, record. **Now** blocks the cu
 `docs/todo/` (grep its ID). To close one, tick it in its record and run `python3 tools/todo_index.py`: its line
 moves to `docs/TODO_archive.md`. Until 2026-10-22 this file held every item's text; that form is in git history.
 
-## Now (4)
+## Now (5)
 
 - T-001 · 2026-10-19 · Version 2, next · [record](docs/todo/2026-08-22_blocking_the_next_phase.md)
 - T-002 · 2026-10-19 · `/csdp` sweep of 2026-10-19, items not fixed · [record](docs/todo/2026-08-22_blocking_the_next_phase.md)
 - T-003 · 2026-10-20 · Coverage page, minor, from the Part A review … · [record](docs/todo/2026-08-22_blocking_the_next_phase.md)
 - T-004 · 2026-10-20 · Coverage page, from Part B's drafting (2026-10-20), not … · [record](docs/todo/2026-08-22_blocking_the_next_phase.md)
+- T-207 · 2026-11-08 · How the LLM experiment's committed runs follow an … · [record](docs/todo/2026-11-07_social_cues.md)
 
-## Later (137)
+## Later (139)
 
 - T-006 · 2026-10-22 · D4, long `Spec:` lines (Part D, 2026-10-22; the … · [record](docs/todo/2026-10-22_model_ergonomics.md)
 - T-007 · 2026-10-22 · Adjacent issues found by Part D's docstring pass, … · [record](docs/todo/2026-10-22_model_ergonomics.md)
@@ -150,6 +151,8 @@ moves to `docs/TODO_archive.md`. Until 2026-10-22 this file held every item's te
 - T-174 · 2026-11-01 · `tools/group_g_readout.py` keeps no per-run results (review MR-15, 2026-11-01) · [record](docs/todo/2026-11-01_pre_tag_milestone_review.md)
 - T-175 · 2026-11-01 · Hand-restated status goes stale (review systemic pattern 1, … · [record](docs/todo/2026-11-01_pre_tag_milestone_review.md)
 - T-201 · 2026-11-07 · Whether A1's holding back responds to tension, or … · [record](docs/todo/2026-11-03_version_3_llm_agent_experiment.md)
-- T-202 · 2026-11-07 · Build the social cues proposal, after T-183's cross-check … · [record](docs/todo/2026-11-07_social_cues.md)
 - T-203 · 2026-11-07 · `KS10.1`'s uncertainty term as its own proposal (2026-11-07) · [record](docs/todo/2026-11-07_social_cues.md)
 - T-204 · 2026-11-07 · `KS09.6`'s parent-side separation as its own proposal (2026-11-07) · [record](docs/todo/2026-11-07_social_cues.md)
+- T-205 · 2026-11-08 · Wire `M11.G.5`'s perceived-cue half into a report (2026-11-08) · [record](docs/todo/2026-11-07_social_cues.md)
+- T-206 · 2026-11-08 · Whether `M11.C.55`'s relief predictor is more than the … · [record](docs/todo/2026-11-07_social_cues.md)
+- T-208 · 2026-11-09 · `M11.C.52`'s pass and its named mutant (2026-11-09) · [record](docs/todo/2026-11-07_social_cues.md)

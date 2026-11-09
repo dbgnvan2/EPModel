@@ -312,10 +312,11 @@ def test_sweep_tool_shares_the_loaded_mutation_tool():
 
 def _setting_reads():
     """Each top-level function's literal ``settings["k"]`` reads, and every literal ``SETTINGS["s"]["k"]`` /
-    ``SPELL["k"]`` / ``NODAL["k"]``, over both criteria modules (Phase C and Phase D)."""
+    ``SPELL["k"]`` / ``NODAL["k"]``, over every criteria module (Phase C, Phase D and the social cues)."""
     import ast
 
-    tree = ast.Module(body=[node for name in ("criteria.py", "criteria_d.py", "criteria_d2.py")
+    tree = ast.Module(body=[node for name in ("criteria.py", "criteria_d.py", "criteria_d2.py",
+                                         "criteria_sc.py")
                             for node in ast.parse((REPO / "src" / "bowen" / "ensemble" / name)
                                                   .read_text(encoding="utf-8")).body], type_ignores=[])
 

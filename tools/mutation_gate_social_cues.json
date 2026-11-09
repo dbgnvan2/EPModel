@@ -1,0 +1,270 @@
+[
+ {
+  "gate": "SC-1",
+  "test": "tests/bowen/test_social_cues.py::test_m4c1e_sc1_disapproval_raises_inward_impingement",
+  "mutation": "approval's impingement weight set to 0",
+  "edits": [
+   [
+    "src/bowen/engine/cues.py",
+    "        (params.cue_approval_contact_weight, params.cue_approval_impingement_weight),",
+    "        (params.cue_approval_contact_weight, 0.0),"
+   ]
+  ],
+  "expect": "assert i_threat > i_neutral"
+ },
+ {
+  "gate": "SC-1",
+  "test": "tests/bowen/test_social_cues.py::test_m4c1e_sc1_cues_only_move_contact_and_impingement",
+  "mutation": "a cue written to a person field the policy reads",
+  "edits": [
+   [
+    "src/bowen/engine/cues.py",
+    "        person.cue_beliefs[event.sender.value] = moved\n",
+    "        person.cue_beliefs[event.sender.value] = moved\n        person.involvement_weight += moved[1]\n"
+   ]
+  ],
+  "expect": "assert changed <="
+ },
+ {
+  "gate": "SC-1",
+  "test": "tests/bowen/test_social_cues.py::test_m4c1e_sc1_an_unmet_expectation_reads_as_too_little",
+  "mutation": "an unmet expectation costs nothing",
+  "edits": [
+   [
+    "src/bowen/engine/cues.py",
+    "    return -params.unmet_expectation_weight * shortfall",
+    "    return 0.0"
+   ]
+  ],
+  "expect": "assert c_held < c_none"
+ },
+ {
+  "gate": "SC-2",
+  "test": "tests/bowen/test_engine_golden.py::test_b1_seeded_run_log_is_unchanged",
+  "mutation": "the switch ignored (the cue path always on)",
+  "edits": [
+   [
+    "src/bowen/engine/cues.py",
+    "    return params is not None and params.social_cues_enabled == 1",
+    "    return params is not None"
+   ]
+  ]
+ },
+ {
+  "gate": "SC-2",
+  "test": "tests/bowen/test_social_cues.py::test_m4c1f_sc2_reduction_with_equal_channels",
+  "mutation": "a baseline added to every cue reading",
+  "edits": [
+   [
+    "src/bowen/engine/cues.py",
+    "    contact = math.fsum(wc * p for (wc, _), p in zip(weights, vector))",
+    "    contact = 0.01 + math.fsum(wc * p for (wc, _), p in zip(weights, vector))"
+   ]
+  ],
+  "expect": "assert results[0] == results[1]"
+ },
+ {
+  "gate": "SC-3",
+  "test": "tests/bowen/test_social_cues.py::test_m1f1_sc3_move_without_signals_is_refused_when_on",
+  "mutation": "the refusal removed",
+  "edits": [
+   [
+    "src/bowen/engine/appraise.py",
+    "            if event.mechanism is Mechanism.MOVE and event.signals is None:",
+    "            if False:"
+   ],
+   [
+    "src/bowen/engine/cues.py",
+    "    if event.signals is None:\n        raise ValueError(f\"move {event.id} carries no signals while the social cues are on (M1.F.1c)\")",
+    "    if event.signals is None:\n        return Reading(NEUTRAL, NEUTRAL)"
+   ]
+  ]
+ },
+ {
+  "gate": "SC-3",
+  "test": "tests/bowen/test_social_cues.py::test_m1f1_sc3_signals_absent_and_unlogged_when_off",
+  "mutation": "signals logged while None",
+  "edits": [
+   [
+    "src/bowen/engine/log_records.py",
+    "                if not (f.metadata.get(LOG_OMIT_NONE) and getattr(value, f.name) is None)}",
+    "                if True}"
+   ]
+  ],
+  "expect": "assert '\"signals\"' not in serialize"
+ },
+ {
+  "gate": "SC-3",
+  "test": "tests/bowen/test_social_cues.py::test_m4c9_sc3_private_hop_carries_words_only",
+  "mutation": "the hop keeps tone, face and posture",
+  "edits": [
+   [
+    "src/bowen/engine/cues.py",
+    "    if not event.route:  # in presence",
+    "    if True:  # in presence"
+   ]
+  ],
+  "expect": "assert hopped.nonverbal =="
+ },
+ {
+  "gate": "SC-3",
+  "test": "tests/bowen/test_social_cues.py::test_m4c9_sc3_witness_reads_all_four",
+  "mutation": "the witness reads the words only",
+  "edits": [
+   [
+    "src/bowen/engine/cues.py",
+    "    if not event.route:  # in presence",
+    "    if not event.route and delivery.role is Role.TARGET:  # in presence"
+   ]
+  ],
+  "expect": "assert seen.nonverbal !="
+ },
+ {
+  "gate": "SC-4",
+  "test": "tests/bowen/test_social_cues.py::test_m4c13_sc4_anxious_sender_leak_raises_receiver_impingement",
+  "mutation": "leak set to 0",
+  "edits": [
+   [
+    "src/bowen/engine/cues.py",
+    "    leak = params.cue_leak_gain * anxious_share(person, params)",
+    "    leak = 0.0 * anxious_share(person, params)"
+   ]
+  ],
+  "expect": "assert anxious > calm"
+ },
+ {
+  "gate": "SC-5",
+  "test": "tests/bowen/test_social_cues.py::test_m4c11_sc5_nonverbal_share_rises_with_receiver_anxiety",
+  "mutation": "the weight held constant",
+  "edits": [
+   [
+    "src/bowen/engine/cues.py",
+    "               params.nonverbal_weight_base + params.nonverbal_weight_anxiety_gain * anxious_share(person, params))",
+    "               params.nonverbal_weight_base)"
+   ]
+  ],
+  "expect": "assert weights[0] < weights[1]"
+ },
+ {
+  "gate": "SC-6",
+  "test": "tests/bowen/test_social_cues.py::test_m4c12_sc6_neutral_cue_read_as_threat_more_at_low_level",
+  "mutation": "bias set to 0",
+  "edits": [
+   [
+    "src/bowen/engine/cues.py",
+    "    return tuple(base + params.cue_bias_belief_gain * max(0.0, -b) for b in believed)",
+    "    return tuple(0.0 for b in believed)"
+   ]
+  ],
+  "expect": "assert high < 0.0"
+ },
+ {
+  "gate": "SC-6",
+  "test": "tests/bowen/test_social_cues.py::test_m4c12_sc6_a_believed_threat_is_read_into_neutral_moves",
+  "mutation": "the belief term of the bias removed",
+  "edits": [
+   [
+    "src/bowen/engine/cues.py",
+    "    return tuple(base + params.cue_bias_belief_gain * max(0.0, -b) for b in believed)",
+    "    return tuple(base for b in believed)"
+   ]
+  ],
+  "expect": "assert _mean_read(50.0, belief="
+ },
+ {
+  "gate": "SC-6",
+  "test": "tests/bowen/test_social_cues.py::test_m4c12_sc6_presence_is_never_imagined",
+  "mutation": "an undetected channel read with the error",
+  "edits": [
+   [
+    "src/bowen/engine/cues.py",
+    "            if share > 0 and _draw(state, event, person.id, f\"detect:{channel.value}\") < s + (1.0 - s) * strongest:",
+    "            if share > 0:"
+   ]
+  ],
+  "expect": "assert read(state, signed(i, route=route), params).nonverbal =="
+ },
+ {
+  "gate": "SC-7",
+  "test": "tests/bowen/test_social_cues.py::test_m4c14_sc7_lower_level_detects_a_small_leak_more_often",
+  "mutation": "sensitivity not scaled by level",
+  "edits": [
+   [
+    "src/bowen/engine/cues.py",
+    "    return params.cue_sensitivity_floor + params.cue_sensitivity_level_gain * low_level_share(person)",
+    "    return params.cue_sensitivity_floor + params.cue_sensitivity_level_gain * 0.5"
+   ]
+  ],
+  "expect": "assert _detected(20.0) > _detected(80.0)"
+ },
+ {
+  "gate": "SC-7",
+  "test": "tests/bowen/test_social_cues.py::test_m4c14_sc7_lower_level_reads_threat_into_neutral_more_often",
+  "mutation": "meaning error not scaled by level",
+  "edits": [
+   [
+    "src/bowen/engine/cues.py",
+    "    base = (params.cue_bias_floor + params.cue_bias_level_gain * low_level_share(person)",
+    "    base = (params.cue_bias_floor + params.cue_bias_level_gain * 0.5"
+   ],
+   [
+    "src/bowen/engine/cues.py",
+    "    return params.cue_spread_floor + params.cue_spread_level_gain * low_level_share(person)",
+    "    return params.cue_spread_floor + params.cue_spread_level_gain * 0.5"
+   ]
+  ],
+  "expect": "assert threatened(20.0) > threatened(80.0)"
+ },
+ {
+  "gate": "SC-8",
+  "test": "tests/bowen/test_social_cues.py::test_m4c6_sc8_attribution_reads_the_nonverbal_part_only",
+  "mutation": "the attribution moved to the words part",
+  "edits": [
+   [
+    "src/bowen/engine/appraise.py",
+    "        params.appraisal_gain * steepness(person, params) * ((words - before) + (1.0 - reattributed) * (full - words))",
+    "        params.appraisal_gain * steepness(person, params) * ((1.0 - reattributed) * (words - before) + (full - words))"
+   ]
+  ],
+  "expect": "assert delta(1.0, nonverbal=False) == delta(0.0, nonverbal=False)"
+ },
+ {
+  "gate": "SC-9",
+  "test": "tests/bowen/test_social_cues.py::test_m4c15_sc9_stressor_load_lowers_the_attention_cue",
+  "mutation": "attention not lowered by the load",
+  "edits": [
+   [
+    "src/bowen/engine/cues.py",
+    "    load = min(1.0, stressor_load(state, sender, params) / params.attention_load_scale)",
+    "    load = 0.0"
+   ]
+  ],
+  "expect": "assert free.tone[0] == 0.0 > loaded.tone[0]"
+ },
+ {
+  "gate": "SC-10",
+  "test": "tests/bowen/test_social_cues.py::test_m99_sc10_belief_moves_toward_the_perceived_cues",
+  "mutation": "the belief not moved by what is perceived",
+  "edits": [
+   [
+    "src/bowen/engine/cues.py",
+    "    moved = tuple(_clamp(b + params.belief_cue_rate * (p - b)) for b, p in zip(held, found.total))",
+    "    moved = held"
+   ]
+  ],
+  "expect": "assert -1.0 < held[1] < 0.0"
+ },
+ {
+  "gate": "SC-10",
+  "test": "tests/bowen/test_social_cues.py::test_m99_sc10_believed_distress_is_sent_as_leak",
+  "mutation": "the belief not sent as leak",
+  "edits": [
+   [
+    "src/bowen/engine/cues.py",
+    " + params.belief_leak_gain * believed_mean",
+    " + 0.0 * believed_mean"
+   ]
+  ],
+  "expect": "assert believing.tone[2] <"
+ }
+]

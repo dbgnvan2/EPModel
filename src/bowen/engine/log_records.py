@@ -21,7 +21,7 @@ import json
 from dataclasses import dataclass
 from typing import Any, Protocol
 
-from src.bowen.engine.events import Delivery, Event, EventId
+from src.bowen.engine.events import LOG_OMIT_NONE, Delivery, Event, EventId
 from src.bowen.engine.identifiers import PersonId, TieId, TriangleId
 
 
@@ -202,7 +202,8 @@ def plain(value: Any) -> Any:
     if isinstance(value, dt.date):
         return value.isoformat()
     if dataclasses.is_dataclass(value):
-        return {f.name: plain(getattr(value, f.name)) for f in dataclasses.fields(value)}
+        return {f.name: plain(getattr(value, f.name)) for f in dataclasses.fields(value)
+                if not (f.metadata.get(LOG_OMIT_NONE) and getattr(value, f.name) is None)}
     if isinstance(value, (tuple, list)):
         return [plain(v) for v in value]
     if isinstance(value, dict):

@@ -11,7 +11,7 @@ from __future__ import annotations
 import dataclasses
 from dataclasses import dataclass
 
-from src.bowen.engine import iposition
+from src.bowen.engine import cues, iposition
 
 from src.bowen.engine.events import Channel, Event, EventId, Mechanism, SourcePosition
 from src.bowen.engine.identifiers import PersonId
@@ -151,6 +151,9 @@ def act(state: RunState, selection: Selection, visibility: HouseholdConductanceV
         route=selection.route,
         fidelity=visibility.fidelity_for(selection.route),
         demand_share=demand,
+        # M1.F.1c (spec revision 55): the signal channels, from the sender's state, only while the cues are on.
+        signals=cues.sender_signals(state, selection.actor, tuple(sorted(selection.targets)), params)
+        if cues.on(params) else None,
     )
     resolved = visibility.resolve(event, state.people, state.ties)
     state.store.record_event(resolved.event)

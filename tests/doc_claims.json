@@ -103,6 +103,11 @@
         "doc": "CHANGELOG.md",
         "phrase": "1427 tests, 1425 pass and 2 strict expected failures (twelve added).",
         "why": "the dated entry of 2026-11-06 (T-183's option-order fix), giving the suite's size before the cross-check added LX.27"
+      },
+      {
+        "doc": "CHANGELOG.md",
+        "phrase": "1428 tests, 1426 pass, 2 strict expected failures (one added, LX.27).",
+        "why": "the dated entry of 2026-11-07 (T-183's cross-check), giving the suite's size before T-202's social cues"
       }
     ]
   },
@@ -161,6 +166,7 @@
       "docs/version_2_revision_39_changes.md": "a generated record, with no status line",
       "docs/version_2_revision_44_changes.md": "a generated record, with no status line",
       "docs/version_2_revision_47_changes.md": "a generated record, with no status line",
+      "docs/version_3_revision_55_changes.md": "a generated record, with no status line",
       "docs/todo/2026-11-01_pre_tag_milestone_review.md": "a TODO record, with no status line; its items are ticked to close them",
       "docs/version_1_status.md": "a generated record frozen at the tag `version-1`, with no status line",
       "docs/review/stage_3_step_7_criteria.md": "a generated measurement between the open batch's commits (D31), with no status line",

@@ -454,6 +454,67 @@ def arm_c47(arm, seed, settings):
                    "held_weeks": count(held)}, records)
 
 
+# --- M11.C.55: who supplies a parent is learned, not given by birth order (spec revision 55, M1.A.14b) -------------
+
+
+@functools.lru_cache(maxsize=2)
+def supplier_run(seed: int, years: int, from_year: int) -> dict:
+    """Purpose: one run of the twelve-person family with the social cues on (`M4.C.1f`), summarised for `M11.C.55`:
+             per parent, the child who was the main supplier over ``[from_year, years)`` (`M11.G.5`), the child with
+             the highest felt relief from supplying that parent at ``from_year`` (its learned values on the supplying
+             kinds toward that parent, summed over bands and positions, `M4.D.6`), and the first-born child.
+    Spec:    docs/bowen_agent_model_spec_v2.md#M11.C.55, #M11.G.5, #M1.A.14b
+    Tests:   tests/bowen/test_criteria_sc.py::test_m11c55_predictors_read_before_the_window
+
+    Both predictors are read from the same run (the lesson of T-194): the relief at ``from_year``, before any move the
+    window counts, and the birth order, which is static (`M1.A.14`). A child with no learned value on those kinds toward
+    the parent reads 0. A predictor that names no one (a tie for the highest) is a miss, as is a parent no child
+    supplied over the window.
+    """
+    from src.bowen.engine.value_keys import key_parts
+    from src.bowen.readouts.roles import load_supply_kinds, main_supplier, supply_counts
+
+    kinds = load_supply_kinds()
+    parents = (ROLES["phase_d", "parent_1"], ROLES["phase_d", "parent_2"])
+    family = load_family(FAMILIES["phase_d"])
+    children = tuple(sorted(p for p in family.people if set(family.parents_of(p)) == set(parents)))
+    start = from_year * YEAR
+    relief: dict = {}
+
+    def watch(state):
+        if state.tick == start:  # the week just run is the last before the window
+            for c in children:
+                for parent in parents:
+                    relief[c, parent] = math.fsum(v for k, v in state.people[c].learned_values.items()
+                                                  if key_parts(k)[2] in kinds and key_parts(k)[3] == parent.value)
+
+    state, records = scenario("phase_d", seed, years * YEAR, watch=watch, overrides={"social_cues_enabled": 1})
+    counts = supply_counts(records, kinds, since=start)
+    first = tuple(c for c in children if state.people[c].sibling_position.rank == 1)
+    if len(relief) != len(children) * len(parents):
+        raise RuntimeError(f"M11.C.55: the relief predictor was not read at week {start} (run of {years * YEAR} weeks)")
+    hits = {"relief": 0, "birth_order": 0}
+    supplied = 0
+    for parent in parents:
+        main = main_supplier(counts, parent, children)
+        values = sorted(((relief[c, parent], c) for c in children), reverse=True)
+        by_relief = values[0][1] if values[0][0] != values[1][0] else None  # a tie for the highest names no one
+        if main is not None:
+            supplied += 1
+            hits["relief"] += by_relief == main
+            hits["birth_order"] += first == (main,)
+    return {"hits": hits, "parents_supplied": supplied, "relief": dict(relief), "records": records}
+
+
+def arm_c55(arm, seed, settings):
+    """M11.C.55: the baseline reads how often birth order names each parent's main supplier, the treatment how often
+    the learned relief does, on the same run (see ``supplier_run``)."""
+    summary = supplier_run(seed, settings["years"], settings["window_from_year"])
+    hit = summary["hits"]["birth_order" if arm == "baseline" else "relief"]
+    return result({"predicted_main_supplier": float(hit), "parents_supplied": float(summary["parents_supplied"])},
+                  summary["records"])
+
+
 C = Criterion
 CRITERIA_D2: dict[str, Criterion] = {
     "M11.C.15": C("M11.C.15", "composite", ("baseline", "treatment"),
@@ -488,4 +549,8 @@ CRITERIA_D2: dict[str, Criterion] = {
                             Readout("matched_seed", +1, report_only=True)),
                            arm_c48_phase_d, ("CUTOFF",), settings=SETTINGS["M11.C.48"],
                            seeds=SETTINGS["M11.C.48"]["seeds"]),
+    # Spec revision 55 (T-202): the cues on in its one run; two predictors of the same run's main supplier.
+    "M11.C.55": C("M11.C.55", "composite", ("baseline", "treatment"),
+                  (Readout("predicted_main_supplier", +1), Readout("parents_supplied", +1, report_only=True)),
+                  arm_c55, settings=SETTINGS["M11.C.55"]),
 }

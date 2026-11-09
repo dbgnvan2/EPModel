@@ -5,7 +5,7 @@ seeds (`M3.D.4a`), stopped adaptively (`M17.A.1`, `M13.4`): `UNDETERMINED` at th
 pass. Every verdict carries its class (`M11.5`). **A premise passing confirms that the code renders the
 spec; it is not a finding about families.** Spec revision 28 applies the owner's life-course decisions of 2026-10-13; its forms are Claude's recommendation, approved by the owner 2026-10-16.
 
-code_hash: bfddfa3b4d274f4c1e9072b8af3ff54a05722367fa8601490d98dccdcc597539
+code_hash: a5fc2228eb464b9be41667697accb9a8c77db720bd68d869d8f74960d7e6ecb3
 
 Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25, `ensemble_margin` = 0.1, `ensemble_alpha` = 0.05, `fallback_flag_rate` = 0.2, `equivalence_margin` = 0.5.
 
@@ -19,6 +19,7 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
 | `M11.C.2[twelve-person family]` | composite | **PASS** | 150 | `symptom_load` +2.22 ± 1.5, p 0.0019, holds | — | 0.00 | — |
 | `M11.C.48` | composite | **FAIL** | 200 | `negative_run` +0.0286 ± 0.14, p 0.108, does not hold; `run_before_cutoff` +1.81 ± 0.12 (reported only); `first_cutoffs` +0 ± 0 (reported only); `unmatched_cutoffs` +1.14 ± 0.062 (reported only); `no_contact_cutoffs` +1.82 ± 0.16 (reported only); `matched_seed` +1 ± 0 (reported only) | — | 0.00 | — |
 | `M11.C.48[phase_d]` | composite | **PASS** | 200 | `negative_run` +0.344 ± 0.078, p 2.14e-15, holds; `run_before_cutoff` +1.91 ± 0.07 (reported only); `first_cutoffs` +0 ± 0 (reported only); `unmatched_cutoffs` +10.1 ± 0.28 (reported only); `no_contact_cutoffs` +10.6 ± 0.39 (reported only); `matched_seed` +1 ± 0 (reported only) | — | 0.00 | — |
+| `M11.C.55` | composite | **PASS** | 150 | `predicted_main_supplier` +0.76 ± 0.15, p 1.89e-14, holds; `parents_supplied` +0 ± 0 (reported only) | — | 0.00 | — |
 
 ## Not run as an ensemble in part II
 
@@ -34,6 +35,7 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
 - `M11.C.2[twelve-person family]`: halim_successor 0.05, halim 0.04, dario 0.02
 - `M11.C.48`: ana 0.00, bruno 0.00, halim 0.00
 - `M11.C.48[phase_d]`: halim_successor 0.04, halim 0.04, dario 0.02
+- `M11.C.55`: halim 0.03, dario 0.01, iris 0.00
 
 ## Machine-readable
 
@@ -421,6 +423,41 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
    }
   ],
   "fallback_rate": 0.004860127523458086,
+  "flags": [],
+  "missing_moves": [],
+  "scripted": {}
+ },
+ {
+  "criterion": "M11.C.55",
+  "class": "composite",
+  "outcome": "PASS",
+  "seeds": 150,
+  "readouts": [
+   {
+    "baseline_position": null,
+    "baseline_sd": 0.5786662130535651,
+    "direction": 1,
+    "half_width": 0.14561445462581368,
+    "holds": true,
+    "mean_difference": 0.76,
+    "n_nonzero": 111,
+    "p": 1.8916371054493095e-14,
+    "pooled_sd": 0.6271985937983597,
+    "readout": "predicted_main_supplier",
+    "w_plus": 5559.5
+   },
+   {
+    "baseline_position": null,
+    "baseline_sd": 0.301005027940793,
+    "direction": 1,
+    "half_width": 0.0,
+    "mean_difference": 0.0,
+    "pooled_sd": 0.301005027940793,
+    "readout": "parents_supplied",
+    "report_only": true
+   }
+  ],
+  "fallback_rate": 0.0009196762574978305,
   "flags": [],
   "missing_moves": [],
   "scripted": {}

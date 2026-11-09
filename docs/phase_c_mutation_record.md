@@ -11,7 +11,7 @@ unimported name) is **broken** and proves nothing; an engine exception under a m
 representation mutant (`M11.1c`) should leave every verdict
 unchanged; a change is reported as an **encoding artefact**.
 
-engine_hash: 0b363cb3186c68d36d8c1f92c6a354e5d2f374a7464209e35737e6bf8de9994e
+engine_hash: 927550dfcb8a5396c9c298a2a13226d5b5a821b5972c1e5925e9b21d6d07119f
 
 Results are cached by `tools/mutant_runner.py` under the engine hash and each mutant's own edits
 (`docs/records_cache/mutation.json`); this file is rendered from that cache.
@@ -104,6 +104,7 @@ Results are cached by `tools/mutant_runner.py` under the engine hash and each mu
 | `cutoff-later-costs-removed` | deletion | M4.A.1's tie term, M1.B.3c's refusal cost (for every refused move) and M1.B.3d's reactive cutoff cost removed | `M11.C.4` | FAIL | 150 | `actor_relief_now` -2.53 ± 0.31; `family_anxiety_at_nodal` -4.61 ± 0.64 | **red** |
 | `anger-gate-removed` | deletion | M5.D.4's anger gate removed: the mover is never angry | `M11.C.32` | FAIL | 50 | `assertion_form` +0 ± 0; `reached_peak` +0.02 ± 0.068 | **red** |
 | `witness-reach-inverted` | sign-inverted | the witness feels more through weaker ties | `M11.C.35` | FAIL | 100 | `witness_appraisal` -0.447 ± 0.068 | **reversed** |
+| `cue-attribution-discount-removed` | named | M4.C.6's self-attribution removed: perspective no longer discounts the nonverbal part of an appraisal | `M11.C.52` | FAIL | 100 | `escalation` -20.7 ± 25 | **red** |
 | `appraisal-sum-order-reversed` | representation | same-tick appraisal summed in reverse order (M1.F.8: order-free up to float rounding) | `M11.C.1` | PASS | 150 | `time_to_threshold` -2.89 ± 0.21 | **unchanged** |
 | `appraisal-sum-order-reversed` | representation | same-tick appraisal summed in reverse order (M1.F.8: order-free up to float rounding) | `M11.C.3` | PASS | 50 | `seeker_anxiety` -1.33 ± 0.15; `third_anxiety` +1.13 ± 0.21; `partner_anxiety` +0.962 ± 0.19 | **unchanged** |
 | `appraisal-sum-order-reversed` | representation | same-tick appraisal summed in reverse order (M1.F.8: order-free up to float rounding) | `M11.C.4` | PASS | 100 | `actor_relief_now` -2.55 ± 0.4; `family_anxiety_at_nodal` +9 ± 1.2 | **unchanged** |
@@ -118,6 +119,7 @@ Results are cached by `tools/mutant_runner.py` under the engine hash and each mu
 | `appraisal-sum-order-reversed` | representation | same-tick appraisal summed in reverse order (M1.F.8: order-free up to float rounding) | `M11.C.38[-10 vs -15]` | PASS | 100 | `time_to_threshold` -0.99 ± 0.14 | **unchanged** |
 | `appraisal-sum-order-reversed` | representation | same-tick appraisal summed in reverse order (M1.F.8: order-free up to float rounding) | `M11.C.41[light: lower level]` | PASS | 150 | `mean_acute` +96.4 ± 9.9; `reactive_over_chance` +0.0642 ± 0.0031 | **unchanged** |
 | `appraisal-sum-order-reversed` | representation | same-tick appraisal summed in reverse order (M1.F.8: order-free up to float rounding) | `M11.C.41[heavy: lower level]` | PASS | 150 | `mean_acute` +107 ± 11; `reactive_over_chance` +0.0645 ± 0.003 | **unchanged** |
+| `appraisal-sum-order-reversed` | representation | same-tick appraisal summed in reverse order (M1.F.8: order-free up to float rounding) | `M11.C.52` | PASS | 100 | `escalation` -23.8 ± 24 | **unchanged** |
 | `clamp-within-tolerance` | representation | felt contact and impingement clamped 1e-12 inside [0, 1] | `M11.C.1` | PASS | 150 | `time_to_threshold` -2.89 ± 0.21 | **unchanged** |
 | `clamp-within-tolerance` | representation | felt contact and impingement clamped 1e-12 inside [0, 1] | `M11.C.3` | PASS | 50 | `seeker_anxiety` -1.33 ± 0.15; `third_anxiety` +1.13 ± 0.21; `partner_anxiety` +0.962 ± 0.19 | **unchanged** |
 | `clamp-within-tolerance` | representation | felt contact and impingement clamped 1e-12 inside [0, 1] | `M11.C.4` | PASS | 100 | `actor_relief_now` -2.55 ± 0.4; `family_anxiety_at_nodal` +9 ± 1.2 | **unchanged** |
@@ -132,6 +134,7 @@ Results are cached by `tools/mutant_runner.py` under the engine hash and each mu
 | `clamp-within-tolerance` | representation | felt contact and impingement clamped 1e-12 inside [0, 1] | `M11.C.38[-10 vs -15]` | PASS | 100 | `time_to_threshold` -0.99 ± 0.14 | **unchanged** |
 | `clamp-within-tolerance` | representation | felt contact and impingement clamped 1e-12 inside [0, 1] | `M11.C.41[light: lower level]` | PASS | 150 | `mean_acute` +96.7 ± 9.9; `reactive_over_chance` +0.0641 ± 0.0031 | **unchanged** |
 | `clamp-within-tolerance` | representation | felt contact and impingement clamped 1e-12 inside [0, 1] | `M11.C.41[heavy: lower level]` | PASS | 150 | `mean_acute` +107 ± 11; `reactive_over_chance` +0.0645 ± 0.003 | **unchanged** |
+| `clamp-within-tolerance` | representation | felt contact and impingement clamped 1e-12 inside [0, 1] | `M11.C.52` | PASS | 100 | `escalation` -23.8 ± 24 | **unchanged** |
 
 ## Not run
 
@@ -178,6 +181,10 @@ criterion.
 - `demand-share-inverted` → `M11.C.49`
 - `budget-reduction-removed` → `M11.C.29`
 - `iposition-debit-removed` → `M11.C.5`
+- `cue-leak-removed` → `M11.C.50`
+- `cue-belief-bias-removed` → `M11.C.51`
+- `cue-attention-load-removed` → `M11.C.53`
+- `cue-belief-leak-removed` → `M11.C.54`
 
 ## Machine-readable
 
@@ -2213,6 +2220,23 @@ criterion.
   ]
  },
  {
+  "mutant": "cue-attribution-discount-removed",
+  "kind": "named",
+  "criterion": "M11.C.52",
+  "outcome": "FAIL",
+  "seeds": 100,
+  "result": "red",
+  "readouts": [
+   {
+    "direction": -1,
+    "half_width": 25.383070573307574,
+    "mean_difference": -20.669579859617098,
+    "readout": "escalation",
+    "report_only": false
+   }
+  ]
+ },
+ {
   "mutant": "appraisal-sum-order-reversed",
   "kind": "representation",
   "criterion": "M11.C.1",
@@ -2591,6 +2615,23 @@ criterion.
   ]
  },
  {
+  "mutant": "appraisal-sum-order-reversed",
+  "kind": "representation",
+  "criterion": "M11.C.52",
+  "outcome": "PASS",
+  "seeds": 100,
+  "result": "unchanged",
+  "readouts": [
+   {
+    "direction": -1,
+    "half_width": 24.441988779055414,
+    "mean_difference": -23.78443244916921,
+    "readout": "escalation",
+    "report_only": false
+   }
+  ]
+ },
+ {
   "mutant": "clamp-within-tolerance",
   "kind": "representation",
   "criterion": "M11.C.1",
@@ -2964,6 +3005,23 @@ criterion.
     "half_width": 0.0029536663632735594,
     "mean_difference": 0.06454631127624805,
     "readout": "reactive_over_chance",
+    "report_only": false
+   }
+  ]
+ },
+ {
+  "mutant": "clamp-within-tolerance",
+  "kind": "representation",
+  "criterion": "M11.C.52",
+  "outcome": "PASS",
+  "seeds": 100,
+  "result": "unchanged",
+  "readouts": [
+   {
+    "direction": -1,
+    "half_width": 24.441988779062786,
+    "mean_difference": -23.78443244907503,
+    "readout": "escalation",
     "report_only": false
    }
   ]

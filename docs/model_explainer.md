@@ -1209,6 +1209,60 @@ Three separate findings that all constrain how an event resolves:
   the same weeks. Both techniques then pass, but they pass with the gate removed too: in this family the gate has
   almost nothing to block, so the pass shows that no technique helps, not that the gate is the reason.
 
+
+### 9.6 Social cues and signal channels *(spec revision 55, built 2026-11-08: T-202, the owner's decisions Q1–Q11 of 2026-11-07, the plan's D1–D6 and the draft approved 2026-11-08; off by default)*
+
+**For:** what a person reads in a move besides its kind: whether the other is attending, approves, expects something,
+is upset; and how anxiety leaks into a move the sender did not choose to send.
+
+**Does:** when `social_cues_enabled` is on (`M4.C.1f`; it is **off** by default, and with it off a run is the run of
+the engine before this revision, record for record), every move carries four **signal channels** — words, tone, face,
+posture — each a vector over four **cues**: attention, approval, expectations, distress, each in [−1, 1], the threat
+pole negative (`M1.F.1c`, `M4.C.1e`). The engine sets them at act; no policy chooses them.
+
+- **Words carry no cue.** The move kind's two components already are what the words say, so the word channel is the
+  baseline and only a departure from it on another channel adds a felt change (the deviation form, plan D1). With the
+  three nonverbal channels empty, a move feels exactly as it did before the revision (`M4.C.1f`). `[I]` in form.
+- **Leak** (`M4.C.13`). A sender's acute anxiety above its defence threshold leaks onto tone, face and posture as
+  expectation and distress at the threat pole, in proportion to the excess. `[K]` `[D]` (`KS08.4`, the expectation in
+  the mother's voice); sizes `[I]`.
+- **Attention is finite** (`M4.C.15`). A sender carrying a lasting stressor sends a lower attention cue. A proxy for
+  `life_energy` (`M1.A.10`, `M6.I.3`, not built), stated as one (plan D3). `[K]` `[D]` (`KS07.6`); sizes `[I]`.
+- **Reading** (`M4.C.11`, `M4.C.12`, `M4.C.14`). The receiver weighs the nonverbal channels against the words, more
+  heavily the more acutely anxious it is (`M4.C.11`, `[I]`, a premise kept by the owner, Q4). Each nonverbal channel
+  is detected or missed by a keyed draw (the `cue_perception` class, `M3.D.4b`); a lower level detects a small leak
+  more often (sensitivity). The meaning read carries an error: a bias toward threat that grows as level falls, as
+  acute anxiety rises, and as the receiver already believes the sender threatening, plus a spread. **The error is on
+  meaning, never on presence:** a channel that carries nothing is never read as carrying something (`M4.C.12`,
+  `KS01.7`'s "real or imagined cues", `[K]` `[T]`). No term reaches zero at the top level (`M4.C.14`).
+- **The cues move the two drives and are not drives** (`M4.C.1e`). Each cue moves felt contact and felt impingement by
+  two config weights: attention moves contact; approval moves both, impingement more; expectations and distress move
+  impingement (the side of distress is `[X]`: the corpus does not say, Q3). A received attention or approval cue
+  below what the receiver believes about that partner reads as too little (an unmet expectation).
+- **Expectations are beliefs** (`M9.9`). Each person holds a cue belief about each partner, smoothed from what it
+  reads as a target. A parent's believed distress about a child leaks back onto the parent's own moves toward that
+  child, so a false belief can start a projection with no signal from the child (`M7.E.1d`, `KS09.3`); what follows
+  is learned, not written.
+- **Self-attribution by channel** (`M4.C.6`). With the cues on, an agent with `systems_perspective` discounts the
+  nonverbal part of a received move in proportion to its own recent leak on that tie: what looked like the other's
+  tense face was partly a reflection of its own (`KS17.3`, `[K]` `[T]` `[M]`).
+- **A private hop carries words only** (`M1.F.4`, Q9); a witness reads all four channels from its own position
+  (`M4.C.9`).
+- **No roles** (`M1.A.14b`, `M11.G.5`). No config key or `Person` field names a role (`config/lint/role_labels.md`,
+  scanned by a test). Who supplied attention, approval and help to whom is a readout computed after a run
+  (`src/bowen/readouts/roles.py`, the kinds in `config/lint/supply_kinds.md`), and nothing the engine or policy reads.
+
+**Every constant is `[I]`.** The corpus names the cues and their directions and gives no magnitude; the 31 keys are in
+`config/bowen/constants.md` and `constants_changes.md` (revision 55). The unit gates and their mutants are in
+`docs/review/social_cues_unit_mutation_gate.md` (20 of 20 proved).
+
+**Tested by:** `tests/bowen/test_social_cues.py` (the mechanics, `SC-1`–`SC-10`), `tests/test_repo_layout.py::test_m1a14b_sc11_no_role_field`,
+`tests/bowen/test_roles_readout.py`, and the six composite criteria `M11.C.50`–`M11.C.55`
+(`src/bowen/ensemble/criteria_sc.py`, and `criteria_d2.py` for `M11.C.55`), each run with the cues on in both arms.
+Their verdicts are in the ensemble and mutation records, not here. At the 40-seed probe before the regeneration, with
+the constants as declared, only `M11.C.53` (a preoccupied spouse is felt as less attentive) showed a direction that
+its mutant removed; the owner chose to record all six as found, with no tuning (2026-11-08).
+
 ---
 
 ## 10. Readouts — including the three that lie

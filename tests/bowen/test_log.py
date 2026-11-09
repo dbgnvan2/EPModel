@@ -188,7 +188,21 @@ def test_m16a7_header_flags_constants_changed_after_freeze():
                                         "cutoff_decay_weeks", "cutoff_floor_share", "positive_bridge_dissipation",
                                         "tie_repair_steps", "grief_weight", "lcu_scale",
                                         # spec revision 39, group A (stage 3 step 9)
-                                        "reciprocal_contact_share"}
+                                        "reciprocal_contact_share",
+                                        # spec revision 55, the social cues (T-202)
+                                        "social_cues_enabled", "cue_attention_contact_weight",
+                                        "cue_attention_impingement_weight", "cue_approval_contact_weight",
+                                        "cue_approval_impingement_weight", "cue_expectations_contact_weight",
+                                        "cue_expectations_impingement_weight", "cue_distress_contact_weight",
+                                        "cue_distress_impingement_weight", "unmet_expectation_weight",
+                                        "cue_leak_gain", "cue_leak_expectations_share", "cue_leak_distress_share",
+                                        "cue_tone_share", "cue_face_share", "cue_posture_share",
+                                        "nonverbal_weight_base", "nonverbal_weight_anxiety_gain",
+                                        "nonverbal_weight_cap", "cue_sensitivity_floor",
+                                        "cue_sensitivity_level_gain", "cue_bias_floor", "cue_bias_level_gain",
+                                        "cue_bias_anxiety_gain", "cue_bias_belief_gain", "cue_spread_floor",
+                                        "cue_spread_level_gain", "attention_load_gain", "attention_load_scale",
+                                        "belief_cue_rate", "belief_leak_gain"}
     changed = dataclasses.replace(
         constants,
         values=MappingProxyType({**constants.values,

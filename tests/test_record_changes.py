@@ -42,16 +42,19 @@ def test_s1_10b_both_pages_read_their_refs():
     `c9b9b0c`, the last commit before revision 43's regeneration, so it is frozen too; the revision 43 page's earlier
     side is `c9b9b0c` and its later side `64512b6`, the last commit before revision 44's regeneration, so it is frozen
     too; the revision 44 page's earlier side is `64512b6` and its later side `02ea189`, the last commit before revision
-    47's regeneration, so it is frozen too; the revision 47 page's earlier side is `02ea189` and its later side the
-    working tree; each names its earlier side in its prose; the default build is the tag against the tree (the fixture form below)."""
+    47's regeneration, so it is frozen too; the revision 47 page's earlier side is `02ea189` and its later side `a694e78`,
+    the last commit before revision 55's regeneration, so it is frozen too; the revision 55 page's earlier side is
+    `a694e78` and its later side the working tree; each names its earlier side in its prose; the default build is the tag against the tree (the fixture form below)."""
     assert rc.STAGE_1.then == rc.TAG and rc.STAGE_1.now == rc.STAGE_1_REGENERATION
     assert rc.REVISION_36.then == rc.STAGE_1_REGENERATION and rc.REVISION_36.now == rc.REVISION_38
     assert rc.REVISION_39.then == rc.REVISION_38 and rc.REVISION_39.now == rc.REVISION_40
     assert rc.REVISION_41.then == rc.REVISION_40 and rc.REVISION_41.now == rc.REVISION_42
     assert rc.REVISION_43.then == rc.REVISION_42 and rc.REVISION_43.now == rc.REVISION_43_END
     assert rc.REVISION_44.then == rc.REVISION_43_END and rc.REVISION_44.now == rc.REVISION_46_END
-    assert rc.REVISION_47.then == rc.REVISION_46_END and rc.REVISION_47.now is None
-    assert [p for p in rc.PAGES.values() if p.now is None] == [rc.REVISION_47], "one page reads the working tree"
+    assert rc.REVISION_47.then == rc.REVISION_46_END and rc.REVISION_47.now == rc.REVISION_54_END
+    assert rc.REVISION_55.then == rc.REVISION_54_END and rc.REVISION_55.now is None
+    assert [p for p in rc.PAGES.values() if p.now is None] == [rc.REVISION_55], "one page reads the working tree"
+    assert rc.ref_text(rc.REVISION_54_END, "docs/phase_c_ensemble_record.md").startswith("#")
     assert rc.ref_text(rc.REVISION_46_END, "docs/phase_c_ensemble_record.md").startswith("#")
     assert rc.ref_text(rc.REVISION_43_END, "docs/phase_c_ensemble_record.md").startswith("#")
     assert rc.ref_text(rc.REVISION_42, "docs/phase_c_ensemble_record.md").startswith("#")

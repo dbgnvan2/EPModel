@@ -150,6 +150,10 @@ class Person:
     # M9.8, revision 12 P2a: belief about each tie the person is not party to.
     # Written by ``beliefs.initialise_beliefs`` and step 3's ``beliefs.update_beliefs``.
     tie_beliefs: dict | None = None
+    # M9.9 (spec revision 55): the believed cue vector each partner sends this person, keyed by the partner's id,
+    # written only from the cues the person perceives as a target (``cues.update_cue_beliefs``). None, or a partner
+    # missing, means neutral. Used only while the social cues are on.
+    cue_beliefs: dict | None = None
     # M4.D.6: the automatic channel's learned value per (anxiety band, act, target or triangle),
     # keyed as text. Absent means the shared initial value 0 — equal for every legal act
     # (plan D3). Written by the learner from Phase C step 7.

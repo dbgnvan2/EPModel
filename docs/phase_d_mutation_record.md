@@ -7,7 +7,7 @@ passes; a red mutant is **reversed** when every gating readout's interval lies w
 direction (`M11.1d`). Phase D's other mutation runs are ad hoc and reported in
 `docs/implementation_plan_phase_d.md`.
 
-engine_hash: 020160abb6db9dcee64df84aaa217e82c5e5842ead860614556101d501aecd30
+engine_hash: fa37a4c64ee166893819c6ad9dddea4808bdd6cb9a88369ec27e8042dbd9988f
 
 | Mutant | Kind | What it changes | Criterion | Verdict under mutant | Seeds | Difference under mutant | Result |
 |---|---|---|---|---|---|---|---|
@@ -33,6 +33,7 @@ engine_hash: 020160abb6db9dcee64df84aaa217e82c5e5842ead860614556101d501aecd30
 | `removed-member-hold-released-while-away` | named | M7.D.2a's hold released over every tie, worry edges and non-interactive ties included, at every release (a symptom's end, a death, past the turn, a binder lost): so a removed member's symptom gives back what it held while they are away, not on return | `M11.C.11` | PASS | 150 | `disturbance` +2.01 ± 1.1, p 0.00013 | **survived** |
 | `removed-member-holds-not-released-on-return` | named | M7.D.2a's hold released while the member is away, and M1.D.2a (c)'s tie stock not returned by the reunion: neither hold a removed member's absence froze is released on return | `M11.C.11` | FAIL | 150 | `disturbance` +0.426 ± 1.1, p 0.17 | **red** |
 | `cutoff-blind-to-learned-value` | named | M4.D.6's learned value of CUTOFF ignored: CUTOFF carries the top automatic weight whenever it is legal, so cutoffs no longer follow a run of negatives | `M11.C.48[phase_d]` | PASS | 200 | `negative_run` +0.229 ± 0.054, p 2.2e-13; `run_before_cutoff` +1.59 ± 0.052 (reported); `first_cutoffs` +0 ± 0 (reported); `unmatched_cutoffs` +9.62 ± 0.26 (reported); `no_contact_cutoffs` +14 ± 0.4 (reported); `matched_seed` +1 ± 0 (reported) | **survived** |
+| `supply-by-birth-order` | named | M1.A.14b broken: the first-born's supplying kinds carry a higher learned value and the later-born's a lower one, so who supplies follows birth order | `M11.C.55` | FAIL | 200 | `predicted_main_supplier` -0.535 ± 0.17, p 1; `parents_supplied` +0 ± 0 (reported) | **reversed** |
 
 ## Not run
 
@@ -579,6 +580,31 @@ Part II criteria that pass but are not proved here; where their mutation is repo
     "half_width": 0.0,
     "mean_difference": 1.0,
     "readout": "matched_seed",
+    "report_only": true
+   }
+  ]
+ },
+ {
+  "mutant": "supply-by-birth-order",
+  "kind": "named",
+  "criterion": "M11.C.55",
+  "outcome": "FAIL",
+  "seeds": 200,
+  "result": "reversed",
+  "readouts": [
+   {
+    "direction": 1,
+    "half_width": 0.1706639420191847,
+    "mean_difference": -0.535,
+    "p": 0.9999999848860021,
+    "readout": "predicted_main_supplier",
+    "report_only": false
+   },
+   {
+    "direction": 1,
+    "half_width": 0.0,
+    "mean_difference": 0.0,
+    "readout": "parents_supplied",
     "report_only": true
    }
   ]

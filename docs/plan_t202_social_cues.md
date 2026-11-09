@@ -1,8 +1,7 @@
 # Plan: build the social cues proposal (T-202)
 
-**Status: APPROVED by the owner 2026-11-07, with D1–D6 each as recommended (§7); not built.** Step 2's draft,
-`docs/spec_revision_55_draft.md`, was approved by the owner 2026-11-08; the build started. No requirement, code, config or record
-changed, and the engine hash (`0b363cb3186c`) did not move. The proposal is `docs/proposal_social_cues.md`, decided by
+**Status: APPROVED by the owner 2026-11-07, with D1–D6 each as recommended (§7); BUILT 2026-11-09 as spec revision 55.** Step 2's draft,
+`docs/spec_revision_55_draft.md`, was approved by the owner 2026-11-08. Steps 3 and 4 are built behind `social_cues_enabled`, off by default; the engine hash moved from `0b363cb3186c` to `927550dfcb8a` and the records were regenerated once on it, here (Mac Mini1 did not answer, D6), with no existing row changed (`docs/version_3_revision_55_changes.md`). The departures from this plan and the choices taken as recommended under the owner's overnight instruction of 2026-11-08, pending the owner's review, are listed in `docs/spec_revision_log.md` (revision 55); T-202's record has the results. The proposal is `docs/proposal_social_cues.md`, decided by
 the owner 2026-11-07 (Q1–Q11, each as recommended). This plan covers T-202's four steps
 (`docs/todo/2026-11-07_social_cues.md`): (1) the ledger search for `SC-12`, done here (§2); (2) spec revision 55 as a
 draft for approval; (3) `SC-2` and `SC-3` behind a switch that is off by default; (4) the rest, in one engine-hash
@@ -76,25 +75,25 @@ switch on** (a per-criterion override), so the criteria test the cues while ever
 
 | ID | Test | Mutant that must make it red | Class |
 |---|---|---|---|
-| **SC-1** (`M4.C.1e`) | `tests/bowen/test_social_cues.py::test_sc1_m4c1e_disapproval_raises_inward_impingement` — one delivery, the perceived approval cue −1 against 0, perception error off: the receiver's felt impingement change higher in the first | approval's impingement weight set to 0 | premise |
-| | `::test_sc1_m4c1e_cues_only_move_contact_and_impingement` — the reading returns a (Δcontact, Δimpingement) pair and writes no new state field the policy reads | a cue written to a new `Person` field the policy reads | check |
+| **SC-1** (`M4.C.1e`) | `tests/bowen/test_social_cues.py::test_m4c1e_sc1_disapproval_raises_inward_impingement` — one delivery, the perceived approval cue −1 against 0, perception error off: the receiver's felt impingement change higher in the first | approval's impingement weight set to 0 | premise |
+| | `::test_m4c1e_sc1_cues_only_move_contact_and_impingement` — the reading returns a (Δcontact, Δimpingement) pair and writes no new state field the policy reads | a cue written to a new `Person` field the policy reads | check |
 | **SC-2** (`M4.C.1f`) | `tests/bowen/test_engine_golden.py::test_b1_seeded_run_log_is_unchanged`, its fingerprints **not edited** — the switch off against the current engine | the switch ignored (the cue path always on) | check |
-| | `test_social_cues.py::test_sc2_m4c1f_reduction_with_equal_channels` — switch on, four channels equal to the words, no leak, no perception error: every move kind's (Δcontact, Δimpingement) equals the switch-off value | the word-cue baseline not subtracted (see D1) | check |
-| **SC-3** (`M1.F.1`) | `test_social_cues.py::test_sc3_m1f1_move_without_signals_is_refused_when_on`; `::test_sc3_m1f1_signals_absent_and_unlogged_when_off` | the refusal removed | check |
-| SC-3, Q9 clause (`M1.F.4`, `M4.C.9`) | `::test_sc3_q9_private_hop_carries_words_only`; `::test_sc3_q9_witness_reads_all_four` | the hop keeps tone; the witness reads words only | check |
-| **SC-4**(i) (`M4.C.13`) | `::test_sc4_m4c13_anxious_sender_leak_raises_receiver_impingement` — same move, same words, the sender's acute anxiety high against low | leak set to 0 | premise |
+| | `test_social_cues.py::test_m4c1f_sc2_reduction_with_equal_channels` — switch on, four channels equal to the words, no leak, no perception error: every move kind's (Δcontact, Δimpingement) equals the switch-off value | the word-cue baseline not subtracted (see D1) | check |
+| **SC-3** (`M1.F.1`) | `test_social_cues.py::test_m1f1_sc3_move_without_signals_is_refused_when_on`; `::test_m1f1_sc3_signals_absent_and_unlogged_when_off` | the refusal removed | check |
+| SC-3, Q9 clause (`M1.F.4`, `M4.C.9`) | `::test_m4c9_sc3_private_hop_carries_words_only`; `::test_m4c9_sc3_witness_reads_all_four` | the hop keeps tone; the witness reads words only | check |
+| **SC-4**(i) (`M4.C.13`) | `::test_m4c13_sc4_anxious_sender_leak_raises_receiver_impingement` — same move, same words, the sender's acute anxiety high against low | leak set to 0 | premise |
 | **SC-4**(ii) | `M11.C.50` — `KS08.4`'s two arms over the following weeks: the receiver's voluntary contact toward the sender higher in the low-anxiety arm | leak set to 0 | composite |
-| **SC-5** (`M4.C.11`) | `::test_sc5_m4c11_nonverbal_share_rises_with_receiver_anxiety` | the weight held constant | premise |
-| **SC-6**(i) (`M4.C.12`) | `::test_sc6_m4c12_neutral_cue_read_as_threat_more_at_low_level` — every sender neutral, 2000 keyed draws per arm | bias set to 0 | premise |
-| | `::test_sc6_m4c12_presence_is_never_imagined` — no signal sent on a channel: perceived presence 0 at every level | error allowed onto presence | check |
+| **SC-5** (`M4.C.11`) | `::test_m4c11_sc5_nonverbal_share_rises_with_receiver_anxiety` | the weight held constant | premise |
+| **SC-6**(i) (`M4.C.12`) | `::test_m4c12_sc6_neutral_cue_read_as_threat_more_at_low_level` — every sender neutral, 2000 keyed draws per arm | bias set to 0 | premise |
+| | `::test_m4c12_sc6_presence_is_never_imagined` — no signal sent on a channel: perceived presence 0 at every level | error allowed onto presence | check |
 | **SC-6**(ii) | `M11.C.51` — **changed from the proposal's arms, D2:** same level, the receiver's starting belief that the sender disapproves set against neutral; over the run, the receiver's share of `DISTANCE` and `CONFLICT` on that tie higher in the first | bias set to 0 | composite |
-| **SC-7** (`M4.C.14`, `M4.C.1a`) | `::test_sc7_m4c14_no_term_reaches_zero_at_the_top_level` | — (a check against the config's floors) | check |
-| | `::test_sc7_m4c14_lower_level_detects_a_small_leak_more_often` | sensitivity not scaled by level | premise |
-| | `::test_sc7_m4c14_lower_level_reads_threat_into_neutral_more_often` | meaning error not scaled by level | premise |
+| **SC-7** (`M4.C.14`, `M4.C.1a`) | `::test_m4c14_sc7_no_term_reaches_zero_at_the_top_level` | — (a check against the config's floors) | check |
+| | `::test_m4c14_sc7_lower_level_detects_a_small_leak_more_often` | sensitivity not scaled by level | premise |
+| | `::test_m4c14_sc7_lower_level_reads_threat_into_neutral_more_often` | meaning error not scaled by level | premise |
 | **SC-8** (`M4.C.6`) | `M11.C.52` — two anxious agents on one tie; one arm gives one of them perspective: the tie's escalation lower in that arm | attribution reads the word channel instead of the nonverbal ones | composite; **risk, D2** |
 | **SC-9** (`M1.A.10`, `M6.I.3`; a proxy, D3) | `M11.C.53` — a work stressor on one spouse against none: the other spouse's too-little deviation on the tie and its `PURSUE` or `CONFLICT` rate higher | attention sent not reduced by the sender's load | composite |
 | **SC-10** (`M9.9`) | `M11.C.54` — a parent's starting belief about one child set false-negative against neutral, the child's own state equal: that child's later `functional_level` lower (gated); its share of supplying moves toward the parent reported, not gated (D2) | the belief not sent as leak | composite |
-| **SC-11** (`M1.A.14b`, `M11.G`) | `tests/test_repo_layout.py::test_sc11_no_role_field` — no config key or `Person` field names a role; the role words live in `config/lint/role_labels.md` (outside `config/bowen/`, so editing them does not move the hash) | a `caretaker` field added | check |
+| **SC-11** (`M1.A.14b`, `M11.G`) | `tests/test_repo_layout.py::test_m1a14b_sc11_no_role_field` — no config key or `Person` field names a role; the role words live in `config/lint/role_labels.md` (outside `config/bowen/`, so editing them does not move the hash) | a `caretaker` field added | check |
 | | `M11.C.55` — across seeds on the twelve-person family, the child who becomes the main supplier to a parent is predicted better by that child's learned relief from supplying than by birth order | supply weighted by birth order | composite |
 | **SC-12** | **not built in T-202** (D5, decided 2026-11-07); follow-up T-204 | | |
 

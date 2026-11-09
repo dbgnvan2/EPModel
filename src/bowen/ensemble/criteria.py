@@ -124,6 +124,13 @@ REQUIRED = {
     # Version 1 (2026-10-17): the triangle change proved (spec revision 15).
     "M11.C.46": ("t0", "latency", "bond_near", "bond_far"),
     "M11.C.7": ("weeks", "window"),
+    # Spec revision 55 (T-202): the social cues' criteria, built in ``criteria_sc`` (M11.C.55 in ``criteria_d2``).
+    "M11.C.50": ("t0", "window", "after", "high_excess", "low_excess", "scripted_kind"),
+    "M11.C.51": ("weeks", "believed_disapproval"),
+    "M11.C.52": ("weeks", "start_excess", "perspective"),
+    "M11.C.53": ("t0", "stressor_weeks", "stressor_kind", "stressor_intensity"),
+    "M11.C.54": ("weeks", "believed_threat"),
+    "M11.C.55": ("years", "window_from_year"),
 }
 
 
@@ -905,3 +912,9 @@ NOT_BUILT = {
     "M11.C.13": "needs incidents located in a community; the model has none",
 }
 # M11.C.7 and M11.C.14 were not built in Phase C; both are built in Phase D (docs/phase_d_ensemble_record.md).
+
+# Spec revision 55 (T-202): the social cues' criteria on the Phase C families, both arms with the cues on (M4.C.1f).
+# Imported last, as a module: ``criteria_sc`` reads this module's helpers and adds its criteria to ``CRITERIA`` itself,
+# so the table is whole whichever of the two modules is imported first (a worker that unpickles one of
+# ``criteria_sc``'s arms imports it first).
+import src.bowen.ensemble.criteria_sc  # noqa: E402, F401

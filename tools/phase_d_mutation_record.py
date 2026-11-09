@@ -241,6 +241,18 @@ MUTANTS = (
            "            weight = math.exp((value - top) / params.policy_temperature) * availability(o.kind, obs, kinds, params)\n",
            "M4.D.6's learned value of CUTOFF ignored: CUTOFF carries the top automatic weight whenever it is legal, so "
            "cutoffs no longer follow a run of negatives"),
+    # Spec revision 55 (T-202): supplying weighted by birth order, read through a field the policy is not given.
+    Mutant("supply-by-birth-order", NAMED, ("M11.C.55",), "src/bowen/policy/policy.py",
+           "            value = obs.learned_values.get(o.value_key, 0.0)\n",
+           "            value = obs.learned_values.get(o.value_key, 0.0) + ((1.0 if obs.rank == 1 else -1.0) "
+           "if obs.rank and o.kind in (\"STAY-IN-CONTACT\", \"OVERFUNCTION\") else 0.0)\n",
+           "M1.A.14b broken: the first-born's supplying kinds carry a higher learned value and the later-born's a lower "
+           "one, so who supplies follows birth order",
+           also=(("src/bowen/engine/observe.py", "    inbox: tuple[Delivered, ...]\n\n    def tie_to",
+                  "    inbox: tuple[Delivered, ...]\n    rank: int = 0\n\n    def tie_to"),
+                 ("src/bowen/engine/observe.py", "learned_values=MappingProxyType(dict(me.learned_values)), inbox=inbox,\n",
+                  "learned_values=MappingProxyType(dict(me.learned_values)), inbox=inbox,\n"
+                  "        rank=me.sibling_position.rank if me.sibling_position else 0,\n"))),
 )
 # Passing part II criteria with no mutant in this record, and where their mutation is reported.
 AD_HOC = {

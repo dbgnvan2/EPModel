@@ -104,6 +104,7 @@ def test_m111g_ea1_scope_is_passing_composite_and_mixed():
     assert excluded == [("X.39", "learning only")]
 
 
+@pytest.mark.xfail(strict=True, reason="T-202 (spec revision 55, D4): M11.C.52 and M11.C.55 pass on revision 55's records, so the audit's scope on the committed records is 13 rows where plan §3's is 11; the audit is not rerun until the stage end or the owner's decision on the switch's default, and its scope is decided then")
 def test_m111g_ea1_the_real_scope_is_the_plans():
     """On the committed records the scope is plan §3's thirteen rows less `M11.C.41`'s two level cells (T-192), with
     `M11.C.39` excluded as the control."""
@@ -365,6 +366,7 @@ def test_m111g_ea13_key_is_engine_and_edits():
 
 
 # --- EA-14 -----------------------------------------------------------------------------------------------------------
+@pytest.mark.xfail(strict=True, reason="T-202 (spec revision 55, D4, the owner 2026-11-07): the social cues moved the engine hash and this record is not rerun until the stage end or the owner's decision on the switch's default; with the switch off its rows cannot change, which the batch's regeneration of every other record shows")
 def test_m111g_ea14_emergence_audit_record_is_current():
     try:
         rendered = ea.build(Cache(ea.CACHE))

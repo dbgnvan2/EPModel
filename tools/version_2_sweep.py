@@ -273,6 +273,7 @@ def measure_run_length(key: str, phase_d: bool) -> int:
         # a run cached in the process steps no tick, so a second key sharing it would read 0 or part of its length
         criteria_d2.life_run.cache_clear()
         criteria_d2.negative_run_values.cache_clear()
+        criteria_d2.supplier_run.cache_clear()
     else:
         criterion = criteria.CRITERIA[key]
     real, longest = criteria.run_tick, 0

@@ -5,7 +5,7 @@ seeds (`M3.D.4a`), stopped adaptively (`M17.A.1`, `M13.4`): `UNDETERMINED` at th
 pass. Every verdict carries its class (`M11.5`). **A premise passing confirms that the code renders the
 spec; it is not a finding about families.** The constants are the Phase C freeze of 2026-10-07.
 
-code_hash: bfddfa3b4d274f4c1e9072b8af3ff54a05722367fa8601490d98dccdcc597539
+code_hash: a5fc2228eb464b9be41667697accb9a8c77db720bd68d869d8f74960d7e6ecb3
 
 Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25, `ensemble_margin` = 0.1, `ensemble_alpha` = 0.05, `fallback_flag_rate` = 0.2, `equivalence_margin` = 0.5.
 
@@ -36,6 +36,11 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
 | `M11.C.41[heavy: lower level]` | mixed | **PASS** | 150 | `mean_acute` +107 ± 11, p 1.51e-25, holds; `reactive_over_chance` +0.0645 ± 0.003, p 1.16e-26, holds | — | 0.00 | — |
 | `M11.C.41[higher level: heavier stress]` | mixed | **FAIL** | 100 | `mean_acute` +11.9 ± 7.9, p 0.00419, holds; `reactive_over_chance` -0.000574 ± 0.0026, p 0.614, does not hold | — | 0.00 | — |
 | `M11.C.41[lower level: heavier stress]` | mixed | **FAIL** | 150 | `mean_acute` +19.5 ± 13, p 0.00752, holds; `reactive_over_chance` -0.00107 ± 0.0023, p 0.893, does not hold | — | 0.00 | — |
+| `M11.C.50` | composite | **FAIL** | 100 | `contact_toward_sender` +0.11 ± 0.4, p 0.314, does not hold | baseline 0 of 800; treatment 4 of 800 (4 owed a step) | 0.00 | — |
+| `M11.C.51` | composite | **FAIL** | 50 | `distance_conflict_share` -0.00338 ± 0.042, p 0.542, does not hold; `no_moves` +0 ± 0 (reported only) | — | 0.00 | — |
+| `M11.C.52` | composite | **PASS** | 100 | `escalation` -23.8 ± 24, p 0.0457, holds | — | 0.00 | — |
+| `M11.C.53` | composite | **FAIL** | 100 | `too_little_on_marital_tie` +0.0101 ± 0.0066, p 7.98e-05, holds; `pursue_conflict_toward_stressed` +0.01 ± 0.19, p 0.416, does not hold | — | 0.00 | — |
+| `M11.C.54` | composite | **FAIL** | 100 | `child_functional_level` -0.681 ± 2, p 0.238, does not hold; `child_supply_to_parent` -0.65 ± 0.84 (reported only) | — | 0.00 | — |
 
 ## Not built in Phase C
 
@@ -68,6 +73,11 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
 - `M11.C.41[heavy: lower level]`: ana 0.00, bruno 0.00, halim 0.00
 - `M11.C.41[higher level: heavier stress]`: ana 0.00, bruno 0.00, halim 0.00
 - `M11.C.41[lower level: heavier stress]`: ana 0.00, bruno 0.00, halim 0.00
+- `M11.C.50`: ana 0.00, bruno 0.00, halim 0.00
+- `M11.C.51`: ana 0.00, bruno 0.00, halim 0.00
+- `M11.C.52`: a 0.00, b 0.00, pa 0.00
+- `M11.C.53`: ana 0.00, bruno 0.00, halim 0.00
+- `M11.C.54`: ana 0.00, bruno 0.00, halim 0.00
 
 ## Machine-readable
 
@@ -1553,6 +1563,183 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
     "pooled_sd": 0.01591925577770591,
     "readout": "reactive_over_chance",
     "w_plus": 4531.5
+   }
+  ],
+  "fallback_rate": 0.0,
+  "flags": [],
+  "missing_moves": [],
+  "scripted": {}
+ },
+ {
+  "criterion": "M11.C.50",
+  "class": "composite",
+  "outcome": "FAIL",
+  "seeds": 100,
+  "readouts": [
+   {
+    "baseline_position": null,
+    "baseline_sd": 2.050769749546878,
+    "direction": 1,
+    "half_width": 0.4036031233924252,
+    "holds": false,
+    "mean_difference": 0.11,
+    "n_nonzero": 72,
+    "p": 0.31407119866016847,
+    "pooled_sd": 2.1364442280092266,
+    "readout": "contact_toward_sender",
+    "w_plus": 1399.0
+   }
+  ],
+  "fallback_rate": 0.0,
+  "flags": [],
+  "missing_moves": [],
+  "scripted": {
+   "baseline": {
+    "dead": 0,
+    "made": 800,
+    "not legal": 0,
+    "not reached": 0,
+    "owed a step": 0,
+    "rewritten": 0,
+    "target dead": 0
+   },
+   "treatment": {
+    "dead": 0,
+    "made": 796,
+    "not legal": 0,
+    "not reached": 0,
+    "owed a step": 4,
+    "rewritten": 0,
+    "target dead": 0
+   }
+  }
+ },
+ {
+  "criterion": "M11.C.51",
+  "class": "composite",
+  "outcome": "FAIL",
+  "seeds": 50,
+  "readouts": [
+   {
+    "baseline_position": null,
+    "baseline_sd": 0.16730726160992793,
+    "direction": 1,
+    "half_width": 0.04230937482937962,
+    "holds": false,
+    "mean_difference": -0.0033839836633954234,
+    "n_nonzero": 24,
+    "p": 0.54195237159729,
+    "pooled_sd": 0.17917141381269971,
+    "readout": "distance_conflict_share",
+    "w_plus": 146.5
+   },
+   {
+    "baseline_position": null,
+    "baseline_sd": 0.0,
+    "direction": 1,
+    "half_width": 0.0,
+    "mean_difference": 0.0,
+    "pooled_sd": 0.0,
+    "readout": "no_moves",
+    "report_only": true
+   }
+  ],
+  "fallback_rate": 0.0,
+  "flags": [],
+  "missing_moves": [],
+  "scripted": {}
+ },
+ {
+  "criterion": "M11.C.52",
+  "class": "composite",
+  "outcome": "PASS",
+  "seeds": 100,
+  "readouts": [
+   {
+    "baseline_position": null,
+    "baseline_sd": 119.39967653377349,
+    "direction": -1,
+    "half_width": 24.441988779055414,
+    "holds": true,
+    "mean_difference": -23.78443244916922,
+    "n_nonzero": 92,
+    "p": 0.045705230887766,
+    "pooled_sd": 106.31062131224893,
+    "readout": "escalation",
+    "w_plus": 2573.0
+   }
+  ],
+  "fallback_rate": 0.0,
+  "flags": [],
+  "missing_moves": [],
+  "scripted": {}
+ },
+ {
+  "criterion": "M11.C.53",
+  "class": "composite",
+  "outcome": "FAIL",
+  "seeds": 100,
+  "readouts": [
+   {
+    "baseline_position": null,
+    "baseline_sd": 0.10502829780640878,
+    "direction": 1,
+    "half_width": 0.006608145975040369,
+    "holds": true,
+    "mean_difference": 0.010069391109949831,
+    "n_nonzero": 63,
+    "p": 7.980302769169464e-05,
+    "pooled_sd": 0.10458715303512621,
+    "readout": "too_little_on_marital_tie",
+    "w_plus": 1560.0
+   },
+   {
+    "baseline_position": null,
+    "baseline_sd": 1.0647710428713648,
+    "direction": 1,
+    "half_width": 0.18995756676615222,
+    "holds": false,
+    "mean_difference": 0.01,
+    "n_nonzero": 52,
+    "p": 0.415777800840863,
+    "pooled_sd": 1.0612314173695203,
+    "readout": "pursue_conflict_toward_stressed",
+    "w_plus": 711.5
+   }
+  ],
+  "fallback_rate": 0.0,
+  "flags": [],
+  "missing_moves": [],
+  "scripted": {}
+ },
+ {
+  "criterion": "M11.C.54",
+  "class": "composite",
+  "outcome": "FAIL",
+  "seeds": 100,
+  "readouts": [
+   {
+    "baseline_position": null,
+    "baseline_sd": 8.787488752859904,
+    "direction": -1,
+    "half_width": 2.0193661932824414,
+    "holds": false,
+    "mean_difference": -0.6812977894215473,
+    "n_nonzero": 87,
+    "p": 0.23787410751987892,
+    "pooled_sd": 8.536556236207051,
+    "readout": "child_functional_level",
+    "w_plus": 2083.0
+   },
+   {
+    "baseline_position": null,
+    "baseline_sd": 4.0787574855907565,
+    "direction": 0,
+    "half_width": 0.8391640621668227,
+    "mean_difference": -0.65,
+    "pooled_sd": 3.663931486722144,
+    "readout": "child_supply_to_parent",
+    "report_only": true
    }
   ],
   "fallback_rate": 0.0,

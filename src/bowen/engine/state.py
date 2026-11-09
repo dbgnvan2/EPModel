@@ -78,6 +78,10 @@ class RunState:
     # before part II.
     other_families: dict = field(default_factory=dict)
     life: object | None = None
+    # Spec revision 55 (M4.C.12): each delivery's cue reading, keyed by (event id, recipient), made once when the
+    # delivery is appraised and read again by later steps of the same week (``cues.reading``). Empty while the social
+    # cues are off.
+    cue_readings: dict = field(default_factory=dict)
 
     def families(self) -> tuple[Family, ...]:
         """The reference family, then the others in household order."""
@@ -184,6 +188,7 @@ def new_run_state(
 NOT_CANONICAL = {
     "kinds": "the event kinds are configuration, fixed for the run",
     "draws": "each draw is a function of the seed and its key; the service's cache holds only values already drawn",
+    "cue_readings": "the week's cue readings, emptied at the next week's appraisal and never read across weeks (M4.C.12)",
 }
 
 

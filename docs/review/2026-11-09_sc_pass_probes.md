@@ -70,15 +70,15 @@ So the row's pass is a pass of "a member with `systems_perspective` damps the ti
 by something else; with the cues off no difference from the recorded effect is detected. It is not a finding about
 self-attribution by channel alone.
 
-**Proposed wording (not applied; the owner's call).** `M11.5`'s row for `M11.C.52` could read: "needs `M4.C.6` by
+**Wording, applied at spec revision 56 (the owner, 2026-11-09, relayed by another Claude session).** `M11.5`'s row for `M11.C.52` now reads: "needs `M4.C.6` by
 channel, `M4.C.13` on both sides and the exchange over weeks; T-208's probe (`docs/review/2026-11-09_sc_pass_probes.md`):
 on 500 seeds the pass holds (−17.0 ± 10.1) and its named mutant survives (−12.5 ± 10.2), removing +4.5 ± 1.5 of the
 effect; with the nonverbal channels equal it is −9.3 ± 8.6 (p 0.053), and with the cues off −22.2 ± 8.3, no different
 from the recorded effect. A detected part of the pass is carried by paths other than the by-channel discount, so it is
 not a finding about self-attribution by channel alone." The
-criterion's row in `M11` would need the matching sentence about its mutant. A mutant that removes all the paths except
+criterion's row in `M11` has the matching sentence about its mutant. A mutant that removes all the paths except
 the by-channel discount, or a baseline arm that has the other paths and lacks the discount, would test what the
-criterion's title names. Choosing between them is the owner's call.
+criterion's title names: T-209, opened by the owner 2026-11-09.
 
 ## T-206: `M11.C.55`, who supplies a parent is learned, not given by birth order
 
@@ -123,19 +123,19 @@ So the row's pass shows that, with learning on, a child's learned value on the s
 not show that who supplies is *learned rather than given*: the predictor is the policy's selection input, and the
 comparison arm is structurally disadvantaged.
 
-**Proposed wording (not applied; the owner's call).** `M11.5`'s row for `M11.C.55` could read: "needs learning from
+**Wording, applied at spec revision 56 (the owner, 2026-11-09, relayed by another Claude session).** `M11.5`'s row for `M11.C.55` now reads: "needs learning from
 relief (`M4.D.6`); a within-run predictor. T-206's probe (`docs/review/2026-11-09_sc_pass_probes.md`): with learning off
 the relief predictor names no one and the row fails; with it on, the predictor is the policy's own selection input,
 and the past twenty years' supply predicts the window only at chance, while birth order predicts it below chance
 (0.307 per seed against 0.633). The pass is consistent with selection following learned value. It is not a finding that the
-supplier is learned rather than given." Two changes would make the criterion informative, each the owner's call:
-compare the relief predictor with chance or with prior supply rather than with birth order; and read the relief at a
+supplier is learned rather than given." Two changes would make the criterion informative; the owner decided both 2026-11-09 and held them for the next batch that moves the engine hash (T-206):
+compare the relief predictor with chance and with prior supply rather than with birth order; and read the relief at a
 week before the window that is not the window's own start, so the value is not the one the policy selects by over the
 window. Either one changes a criterion and moves the records.
 
 ## What this record does not cover
 
-- It does not split `M11.C.52`'s residual among `systems_perspective`'s other paths.
+- It does not split `M11.C.52`'s residual among `systems_perspective`'s other paths (T-209).
 - It does not test a frozen-learning condition for `M11.C.55` (learning on to year 20, off from then), which would show
-  whether the window's supply follows the values held at year 20 without further learning.
-- It does not find the cause of birth order's below-chance hit rate on the twelve-person family.
+  whether the window's supply follows the values held at year 20 without further learning (T-210).
+- It does not find the cause of birth order's below-chance hit rate on the twelve-person family (T-211).

@@ -32,11 +32,15 @@ Items from `docs/proposal_social_cues.md`, decided by the owner on 2026-11-07 (Q
   matures, and failure to do so prolongs dependency; `KS09.6` rejects developmental stages. The owner decided
   2026-11-07 (plan D5) not to build `SC-12`'s age term on the child, and to take this mechanism up as a separate
   proposal. `KS09.8`'s inverted projection (a child overfunctioning toward a dysfunctional parent) bears on it.
-- [ ] T-205 ⟨later⟩ **Wire `M11.G.5`'s perceived-cue half into a report (2026-11-08).** `ReadingTap` in
+- [x] T-205 ⟨later⟩ **Wire `M11.G.5`'s perceived-cue half into a report (2026-11-08).** `ReadingTap` in
   `src/bowen/readouts/roles.py` (the mean perceived attention and approval cue per pair, when the social cues are on)
   is tested by `tests/bowen/test_roles_readout.py` and has no other caller: no record, criterion or report runs it, so
   `M11.G.5` is built in code and reported nowhere (T-202's learning-qa pass, 2026-11-08). Wire it into the trace or the
   evaluation readout once the owner decides the switch's default, or record why not.
+  *Closed 2026-11-09 (the owner, 2026-11-09, "go with your recommendations"):* `social_cues_enabled` stays off by
+  default, because neither cue pass is yet a finding about the cues (T-206, T-208,
+  `docs/review/2026-11-09_sc_pass_probes.md`). `M11.G.5`'s perceived-cue half stays out of the reports until the
+  isolating arm of T-209 exists; `ReadingTap` keeps its unit test.
 - [ ] T-206 ⟨later⟩ **Whether `M11.C.55`'s relief predictor is more than the policy's own input (2026-11-08).** The
   predictor is the child's learned value on the supplying kinds toward the parent, which is what the policy selects
   by (`M4.D.6`), so a pass may show only that the policy follows its own values (T-202's learning-qa pass, P7). A
@@ -48,7 +52,13 @@ Items from `docs/proposal_social_cues.md`, decided by the owner on 2026-11-07 (Q
   supply predicts the window only at chance (0.633 hits per seed, chance 0.633) while the year-20 learned value
   predicts it (1.067), and birth order is below chance (0.307; 0.080 with learning off). The pass is consistent with
   selection following learned value; it is not a finding that the supplier is learned rather than given. A wording for
-  `M11.5`'s row and two criterion changes are proposed in the record, not applied.
+  `M11.5`'s row and two criterion changes were proposed in the record; the wording is applied at spec revision 56 and the criterion changes are held (below).
+  *Decided 2026-11-09 (the owner: "go with your recommendations", and for the criterion changes "Hold for next
+  batch"):* the record's wording is in `M11.5`'s row (spec revision 56). Both criterion changes are decided: compare
+  the relief predictor with chance and with prior supply, not with birth order; read the relief at a week before the
+  window that is not the window's own start. They wait for the next batch that moves the engine hash, because the
+  criterion's code and settings are in it and every record would rerun. Then: regenerate once, record the verdict as
+  found with no tuning, and close this item. Open until then.
 - [ ] T-207 ⟨now⟩ **How the LLM experiment's committed runs follow an engine-hash move (2026-11-08).** T-202 moved the
   engine hash; the runs under `experiments/llm_agents/runs/` record `0b363cb3186c`. With `social_cues_enabled` off the
   engine computes the same runs (the golden fingerprints hold), but a replay restamps the hash into the summary, and
@@ -58,7 +68,7 @@ Items from `docs/proposal_social_cues.md`, decided by the owner on 2026-11-07 (Q
   hash; leave the runs on the old engine and say so in the report; or rerun live (a cost decision). Taken as
   recommended under the owner's overnight instruction, pending owner review: the xfail marks; no live call, no run
   rewritten.
-- [ ] T-208 ⟨later⟩ **`M11.C.52`'s pass and its named mutant (2026-11-09).** On revision 55's engine `M11.C.52` passes
+- [x] T-208 ⟨later⟩ **`M11.C.52`'s pass and its named mutant (2026-11-09).** On revision 55's engine `M11.C.52` passes
   with `escalation` -23.8 ± 24.4 (p 0.046, 100 seeds), and `cue-attribution-discount-removed` turns it red with
   -20.7 ± 25.4: the mutant leaves the effect near the same size and is caught because the interval crosses 0, not
   because the direction goes. The pass is not separated from the threshold, and the mutant is not shown to remove what
@@ -69,4 +79,21 @@ Items from `docs/proposal_social_cues.md`, decided by the owner on 2026-11-07 (Q
   survives (−12.5 ± 10.2, p 0.031): it removes a detected +4.5 ± 1.5 of the effect, paired, and a detected residual
   remains. With the nonverbal channels equal the difference is −9.3 ± 8.6, p 0.053, not detected; with the cues off
   −22.2 ± 8.3, no different from the recorded effect (paired −5.2 ± 8.5). The pass is not a finding about
-  self-attribution by channel alone; by `M11.5`'s row the row now comes back to the owner. A wording for the row is proposed in the record, not applied.
+  self-attribution by channel alone; by `M11.5`'s row the row now comes back to the owner. A wording for the row was proposed in the record and is applied at spec revision 56 (below).
+  *Closed 2026-11-09 (the owner, 2026-11-09, "go with your recommendations", relayed by another
+  Claude session):* recorded as found: the pass holds, its named mutant survives, and the pass is not a finding about
+  self-attribution by channel alone. The record's wording is in `M11.5`'s row and the criterion's row (spec revision
+  56). An arm or mutant that isolates the by-channel discount is T-209.
+- [ ] T-209 ⟨later⟩ **An arm or mutant that isolates `M4.C.6`'s by-channel discount in `M11.C.52` (2026-11-09).**
+  T-208's probe (`docs/review/2026-11-09_sc_pass_probes.md`): the named mutant `cue-attribution-discount-removed`
+  removes a detected +4.5 ± 1.5 of the pass and a detected −12.5 ± 10.2 remains, carried by `systems_perspective`'s
+  other paths. Build a mutant that removes every path but the by-channel discount, or a baseline arm that has the
+  other paths and lacks the discount, so that the residual paths no longer carry the pass (the owner, 2026-11-09).
+  `M11.G.5`'s perceived-cue half enters the reports when this exists (T-205).
+- [ ] T-210 ⟨later⟩ **`M11.C.55` under frozen learning (2026-11-09).** Learning on up to the relief's read week, off
+  from then: does the window's supply follow the values held at that week without further learning? Left open by the
+  owner, 2026-11-09; not run (`docs/review/2026-11-09_sc_pass_probes.md`, "What this record does not cover").
+- [ ] T-211 ⟨later⟩ **Why birth order predicts the main supplier below chance on the twelve-person family
+  (2026-11-09).** The first-born is the main supplier in years 20–30 for 0.307 parents per seed against chance 0.633
+  with learning on, and 0.080 with it off (T-206's probe). Candidates: age at the window, leaving the parents'
+  household. Left open by the owner, 2026-11-09; not run.

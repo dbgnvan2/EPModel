@@ -1,6 +1,6 @@
 # The spec's current rules, by module
 
-*Generated from the spec at revision 55 by `tools/spec_rules_view.py`. Not normative: where this and the spec differ, the spec wins. Do not edit.*
+*Generated from the spec at revision 56 by `tools/spec_rules_view.py`. Not normative: where this and the spec differ, the spec wins. Do not edit.*
 
 One file per `## M` module of `docs/bowen_agent_model_spec_v2.md`, with §0 as `M00.md`. The view removes,
 mechanically and nothing else: the front matter's `status:` line; every `⟦…⟧` revision tag (665 of them); every block-quote line, the source quotations (17 lines; the `→ file · ID` pointers stay); and the revision-history sections, of which the spec has none since revision 35 moved them to `docs/spec_revision_log.md`. No sentence of a requirement body is removed: `history_in_body.md` lists the 30 IDs whose bodies hold a sentence matching a history phrase (after revision 35 moved the narratives to `docs/spec_revision_log.md`, Part E of `docs/plan_model_ergonomics.md`, these are the sentences that pass left in place, each a "stays" row of `docs/spec_revision_35_dispositions.md`).
@@ -20,7 +20,7 @@ To find an ID's module, grep `docs/spec_index.jsonl` for it: the record's `modul
 | `M08.md` | M8 — The live-position predicate | 5,462 | 850 |
 | `M09.md` | M9 — The belief layer | 5,762 | 910 |
 | `M10.md` | M10 — Parameters | 13,779 | 2,088 |
-| `M11.md` | M11 — Acceptance criteria | 125,985 | 19,379 |
+| `M11.md` | M11 — Acceptance criteria | 127,404 | 19,607 |
 | `M12.md` | M12 — Out of scope, and must never be built | 3,092 | 472 |
 | `M13.md` | M13 — Implementation order | 7,925 | 1,192 |
 | `M14.md` | M14 — Spec coverage | 29,026 | 4,554 |
@@ -28,4 +28,4 @@ To find an ID's module, grep `docs/spec_index.jsonl` for it: the record's `modul
 | `M16.md` | M16 — The run log and the readable trace | 12,049 | 1,880 |
 | `M17.md` | M17 — Phase E: ensemble runner, arms and readouts | 24,385 | 3,654 |
 
-**Size.** The view's 18 module files hold 500,884 bytes (77,305 words) against the spec's 549,281 bytes (84,164 words): 91% of the spec by bytes, 92% by words.
+**Size.** The view's 18 module files hold 502,303 bytes (77,533 words) against the spec's 551,303 bytes (84,480 words): 91% of the spec by bytes, 92% by words.

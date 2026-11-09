@@ -384,6 +384,12 @@ and all agreeing, were brought to the paper's wording at step 6 (T-130).
   emergence audit and the version 2 sweep was regenerated once on it (`docs/version_3_revision_55_changes.md`). The
   departures from the approved draft and the choices taken as recommended under the owner's overnight instruction,
   pending the owner's review, are in `spec_revision_log.md`. Known problems: T-205, T-206, T-207.
+- 2026-11-09: spec revision 56, wording in `M11` only (T-206, T-208, the owner's decisions of 2026-11-09): the probes
+  of the two cue passes (`review/2026-11-09_sc_pass_probes.md`) are written into `M11.5`'s rows for `M11.C.52` and
+  `M11.C.55`. Neither pass is a finding about what its criterion names. `M11.C.55`'s two criterion changes are decided
+  and held for the next batch that moves the engine hash (T-206 open); `social_cues_enabled` stays off by default
+  (T-205 closed); T-209 to T-211 opened. The engine hash did not move (`927550dfcb8a`). Known problems: T-206, T-207,
+  T-209.
 
 ## 9. Not relevant to how the model works now
 

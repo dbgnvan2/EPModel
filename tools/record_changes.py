@@ -233,8 +233,16 @@ NOT_COMPARED = (
      "{famdiag}"),
     ("docs/review/t176_negative_run_trace.md", "T-176's trace of `M11.C.48`, after the tag "
      "(`tools/t176_negative_run_trace.py`, in no record's hash); nothing at {side} to compare"),
-    ("docs/review/2026-11-09_sc_pass_probes.md", "T-206's and T-208's probes of `M11.C.52` and `M11.C.55`, after "
-     "revision 55 (`tools/sc_pass_probe.py`, in no record's hash); nothing at {side} to compare"),
+    ("docs/review/2026-11-09_sc_pass_probes.md, "
+     "docs/review/sc_pass_probes/c52_recorded.jsonl, "
+     "docs/review/sc_pass_probes/c52_recorded_mutant.jsonl, "
+     "docs/review/sc_pass_probes/c52_equal.jsonl, "
+     "docs/review/sc_pass_probes/c52_equal_mutant.jsonl, "
+     "docs/review/sc_pass_probes/c52_off.jsonl, "
+     "docs/review/sc_pass_probes/c55_recorded.jsonl, "
+     "docs/review/sc_pass_probes/c55_off.jsonl",
+     "T-206's and T-208's probes of `M11.C.52` and `M11.C.55`, after "
+     "revision 55, and their per-seed rows (`tools/sc_pass_probe.py`, in no record's hash); nothing at {side} to compare"),
 )
 # A not-compared entry whose reason differs by the page's earlier side: path -> {earlier ref: why}. A page whose ref is
 # not named takes the entry's reason in NOT_COMPARED.

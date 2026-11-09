@@ -60,7 +60,7 @@
         "why": "the dated entry of 2026-10-25 for stage 3 step 3's F1 addition to the probe, giving the suite's size then (archived 2026-10-31)"
       },
       {
-        "doc": "CHANGELOG.md",
+        "doc": "docs/CHANGELOG_archive.md",
         "phrase": "The suite: 1295 tests,\n  1293 pass and 2 strict expected failures.",
         "why": "the dated entry of 2026-11-02 for T-176's trace, giving the suite's size then"
       },
@@ -171,7 +171,8 @@
       "docs/version_1_status.md": "a generated record frozen at the tag `version-1`, with no status line",
       "docs/review/stage_3_step_7_criteria.md": "a generated measurement between the open batch's commits (D31), with no status line",
       "docs/review/stage_3_step_8_criteria.md": "a generated measurement between the open batch's commits (D31), with no status line",
-      "docs/review/stage_3_step_9_criteria.md": "a generated measurement between the open batch's commits (D31), with no status line"
+      "docs/review/stage_3_step_9_criteria.md": "a generated measurement between the open batch's commits (D31), with no status line",
+      "docs/review/2026-11-09_sc_pass_probes.md": "a measurement of two passes (T-206, T-208), never a verdict, with no status line"
     }
   },
   "coverage_future_phase": {

@@ -151,7 +151,7 @@ mutation before it counts. The table is written for the recommended answers; ano
 | S1.8a | `src/bowen/render/` is not in `code_hash` | `tests/bowen/test_ensemble_record.py::test_s1_8a_render_is_not_hashed`: a code edit under `render/` on a copy leaves the hash unchanged | `render/` included |
 | S1.8b | No verdict reads the renderer | `tests/bowen/test_engine_purity.py::test_s1_8b_only_run_imports_render`: outside `render/`, only `src/bowen/run.py` imports `src.bowen.render` | an import added to a readout |
 | S1.8c | The Phase D ensemble results are cached in `docs/records_cache/`, keyed as Phase C's are, and the Phase D records re-render from the cache | `tests/bowen/test_phase_d_record.py::test_s1_8c_records_render_from_the_cache`; dirty state (P8): `::test_s1_8c_a_stale_entry_is_rerun` | the key without the engine hash |
-| S1.9 | The riders (D7) | (i) `tests/test_stale_text.py::test_s1_9_no_pending_review_text_for_decided_items`; (ii) `tests/bowen/test_patterns.py::test_s1_9_readouts_read_now`; (iii) is S1.5b; (iv) `tests/bowen/test_phase_d_mutation_record.py::test_s1_9_engine_hash_ignores_comments`; (v) no new test: the trace's record-current test covers it | (i) one stale string put back; (ii) `now` ignored; (iv) `inspect.getsource` restored |
+| S1.9 | The riders (D7) | (i) `tests/test_stale_text.py::test_s1_9_no_pending_review_text_for_decided_items`, retired 2026-11-10 with D5a (effort budget rule 5, `docs/plan_doc_claim_tests.md`); (ii) `tests/bowen/test_patterns.py::test_s1_9_readouts_read_now`; (iii) is S1.5b; (iv) `tests/bowen/test_phase_d_mutation_record.py::test_s1_9_engine_hash_ignores_comments`; (v) no new test: the trace's record-current test covers it | (i) one stale string put back; (ii) `now` ignored; (iv) `inspect.getsource` restored |
 | S1.10a | Every record is regenerated once on the new hash and matches its record-current test | the existing record-current tests | — |
 | S1.10b | Each criterion's verdict, effect and p at the tag `version-1` against stage 1's records, in a generated page | `tools/record_changes.py` writes `docs/version_2_stage_1_changes.md`; `tests/test_record_changes.py::test_s1_10b_changes_page_is_current` | a hand edit to the page |
 | S1.10c | The suite passes, and CI passes on 3.11, 3.12 and 3.13 | `python3 -m pytest tests/`; `.github/workflows/tests.yml` on the pushed commit | — |
@@ -252,7 +252,7 @@ mutations are edits applied by a scratch tool and reverted, and none is kept in 
 | S1.8b | `tests/bowen/test_engine_purity.py::test_s1_8b_only_run_imports_render` | an import of the renderer added to `readouts/patterns.py` | fails |
 | S1.8c | `tests/bowen/test_phase_d_record.py::test_s1_8c_records_render_from_the_cache` | the cache never read | fails |
 | S1.8c | `tests/bowen/test_phase_d_record.py::test_s1_8c_a_stale_entry_is_rerun` (P8) | the key without the engine hash | fails |
-| S1.9 (i) | `tests/test_stale_text.py::test_s1_9_no_pending_review_text_for_decided_items` | one reworded site put back as "pending owner review" | fails |
+| S1.9 (i) | `tests/test_stale_text.py::test_s1_9_no_pending_review_text_for_decided_items` | one reworded site put back as "pending owner review" | fails; test retired 2026-11-10 with D5a |
 | S1.9 (ii) | `tests/bowen/test_patterns.py::test_s1_9_readouts_read_now` | the readouts ignore `now` | fails |
 | S1.9 (iv) | `tests/bowen/test_phase_d_mutation_record.py::test_s1_9_engine_hash_ignores_comments` | raw `inspect.getsource` restored | fails |
 

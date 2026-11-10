@@ -632,7 +632,7 @@ say whether that test was proved failing by mutation unless its note does.
 | M17.G.2 | not done | — | no test named for it; Phase E builds it and is not built yet |
 | M17.G.3 | not done | — | no test named for it; Phase E builds it and is not built yet |
 
-## Tests named for no spec ID (381)
+## Tests named for no spec ID (369)
 
 Their names embed no requirement ID, so they count only where an override cites them (marked *cited*). The rest check spec documents, tooling or helpers.
 
@@ -867,14 +867,6 @@ Their names embed no requirement ID, so they count only where an override cites 
 - `tests/test_doc_size.py::test_live_files_are_within_their_limits`
 - `tests/test_doc_size.py::test_the_latest_date_in_the_item_is_its_close_date`
 - `tests/test_doc_size.py::test_todo_holds_no_stale_ticked_item`
-- `tests/test_doc_status.py::test_d5b_a_decided_label_on_a_draft_is_reported`
-- `tests/test_doc_status.py::test_d5b_a_reviewed_document_called_for_review_is_reported`
-- `tests/test_doc_status.py::test_d5b_an_unknown_wording_is_not_skipped_silently`
-- `tests/test_doc_status.py::test_d5b_classification_handles_negation`
-- `tests/test_doc_status.py::test_d5b_readme_and_status_lines_are_read`
-- `tests/test_doc_status.py::test_d5b_status_claims_agree_with_each_documents_own_status`
-- `tests/test_doc_status.py::test_d5b_the_scan_is_not_vacuous`
-- `tests/test_doc_status.py::test_d5b_the_unclassified_lists_are_current`
 - `tests/test_emergence_audit.py::test_t184_a_run_records_numpy_and_refuses_another`
 - `tests/test_emergence_audit.py::test_t184_a_share_refuses_an_unknown_row_or_label_before_running`
 - `tests/test_emergence_audit.py::test_t184_a_share_runs_no_carriers_for_a_row_red_under_l0`
@@ -950,10 +942,6 @@ Their names embed no requirement ID, so they count only where an override cites 
 - `tests/test_stage_3_probes.py::test_stage_3_targeted_run_renders_rows_and_mutants`
 - `tests/test_stage_3_probes.py::test_stage_3_targeted_run_sends_each_criterion_to_its_phase`
 - `tests/test_stage_3_probes.py::test_stage_3_trace_reproduces_the_development_step`
-- `tests/test_stale_text.py::test_d5a_current_state_documents_carry_no_stale_pending_review`
-- `tests/test_stale_text.py::test_d5a_the_scan_reads_status_lines_and_the_state_line`
-- `tests/test_stale_text.py::test_s1_9_no_pending_review_text_for_decided_items`
-- `tests/test_stale_text.py::test_s1_9_the_scan_finds_a_wrapped_phrase`
 - `tests/test_sweep.py::test_base_id_strips_the_version_suffix`
 - `tests/test_sweep.py::test_catalogue_ids_are_unversioned_whichever_form_the_index_uses`
 - `tests/test_sweep.py::test_main_drops_a_catalogued_paper_returned_with_a_version_suffix`

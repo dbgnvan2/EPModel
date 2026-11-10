@@ -13,6 +13,7 @@ Read the relevant file from `~/.claude/standards/` before starting work:
 
 | Standard | When |
 |---|---|
+| `effort-budget.md` | **Every task**, before planning verification, records or review passes. Rule 1 sets the tier from the paths a change touches (`src/bowen/`, `config/bowen/` and the readouts are Full; tests or config only are Light; a document is None); rule 5 bans tests that assert on prose; rule 9 ends a batch with the ratio |
 | `learnings.md` | P4 (hardcoded constants — simulation parameters belong in config), P7 (scoring/ranking proxies), P9 (magic size/count caps in simulation loops), P23 (any stochastic-output regression fixture) |
 | `file-maintainability.md` | Any new module or significant refactor |
 
@@ -87,8 +88,12 @@ full table.
 - **Work goes on `main`** (owner decision 2026-10-21). From 2026-10-06 to 2026-10-21 the work was on `plan-phase-b`
   while `main` stood at spec revision 11; on 2026-10-21 `main` was fast-forwarded to it. `plan-phase-b` stays on GitHub
   as history and takes no new commits. A session's own branch merges into `main`.
+- **No test asserts on prose** (effort budget rule 5). A test may assert on structure a document restates — the
+  spec revision, a repo path, a count, the engine hash, a generated file equal to its generator's output — and on
+  the ASR no-quotation rule. It must never judge a wording: D5a and D5b were retired on 2026-11-10 for it
+  (`docs/plan_doc_claim_tests.md`), so do not rebuild them.
 - Run tests before declaring done: `python3 -m pytest tests/`
-- **A red suite is never normal — 1486 tests: 1481 pass and 5 are strict expected failures** (each marked `xfail(strict=True)` with a reason naming why, so it turns the suite red if it starts passing: `M5.B.3`'s third-party cost (G1's A6); `test_m5d3_abort_is_the_usual_first_outcome`, which no longer holds after spec revision 41's T-133 (T-158, kept as a finding by the owner 2026-10-31); and three from spec revision 55 (T-202), pending the owner's review: the version 2 sweep record, the emergence audit record and the audit's scope test, which are not rerun on revision 55's engine (D4); the LLM experiment's three record tests, marked there, pass since T-207 (2026-11-09) made its replay read behavior and restamped its runs). Stage 3's open batch closed at step 10: `tests/open_batch.py`'s `OPEN` is None and no test carries its mark. Measured 2026-11-09 on this Mac with `python3 -m pytest tests/`; counts are as collected by the default run; the 58 `ensemble`-marked criterion tests are deselected by `pytest.ini` and run with `python3 -m pytest -m ensemble`). The dated history of counts is in `CHANGELOG.md`, in the entry of 2026-10-22 that moved it out of this file.
+- **A red suite is never normal — 1458 tests: 1453 pass and 5 are strict expected failures** (each marked `xfail(strict=True)` with a reason naming why, so it turns the suite red if it starts passing: `M5.B.3`'s third-party cost (G1's A6); `test_m5d3_abort_is_the_usual_first_outcome`, which no longer holds after spec revision 41's T-133 (T-158, kept as a finding by the owner 2026-10-31); and three from spec revision 55 (T-202), pending the owner's review: the version 2 sweep record, the emergence audit record and the audit's scope test, which are not rerun on revision 55's engine (D4); the LLM experiment's three record tests, marked there, pass since T-207 (2026-11-09) made its replay read behavior and restamped its runs). Stage 3's open batch closed at step 10: `tests/open_batch.py`'s `OPEN` is None and no test carries its mark. Measured 2026-11-10 on this Mac with `python3 -m pytest tests/`, after D5a and D5b were retired (28 tests, effort budget rule 5: no test asserts on prose); counts are as collected by the default run; the 58 `ensemble`-marked criterion tests are deselected by `pytest.ini` and run with `python3 -m pytest -m ensemble`). The dated history of counts is in `CHANGELOG.md`, in the entry of 2026-10-22 that moved it out of this file.
 
 ## Token budget — how to read this repo (owner rule, 2026-10-22)
 

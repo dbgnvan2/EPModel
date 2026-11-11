@@ -1,6 +1,6 @@
 # Spec revisions 51–55: the parts pending the owner's review, prepared
 
-**Status: prepared 2026-11-10 for the owner's decisions; nothing here is decided.** Written at spec revision 57,
+**Status: prepared 2026-11-10; decided by the owner 2026-11-10 (§10). The decisions are not yet written into the spec, the revision log or the status lines; that waits for the version 2 definition plan's step 4 to land (§10).** Prepared at spec revision 57,
 engine hash `d3779684dd53`, commit `3d84065`. This document changes no rule, class, verdict, record or status line.
 A recommendation is Claude's; a status line changes only when the owner decides the item.
 
@@ -381,3 +381,28 @@ hash.
 - It did not reread the owner-decided parts listed under "What is not in scope".
 - It did not check `docs/model_explainer.md`, `docs/readouts_phase_c.md` or `CHANGELOG.md` against these revisions.
 - It did not check T-138's trace (R53-3) or the spec's citations of `KS23.1` from before revision 55 (F-2).
+
+## 10. The owner's decisions (2026-11-10)
+
+Asked in this order, in one dialog, each with "Other" available.
+
+| Item | Decision |
+|---|---|
+| R51-1, R52-1, R52-2, R53-3, R54-1, R55-1, R55-2, R55-3, R55-5, R55-6, R55-7, R55-8, R55-9, R55-10, R55-13 | **Approved** as they stand (15 items) |
+| R53-1, R53-2 | **Approved with the change** recommended in R53-1: keep the restated mutation cell; replace "so the pass needs the witness path …" with the two mutants' numbers, which turned the pass red and which survived, and that the two are not separated from each other; move the revision 31 mutation sentence to `docs/spec_revision_log.md`. The version 2 note says the same |
+| R55-14 | **Approved as built; decided again with T-209**, before any decision to turn `social_cues_enabled` on |
+| R55-4, R55-11, R55-12 | No decision needed (the owner's own pick, or superseded), as §8 gives |
+| F-1 | **Fix**: move `M4.C.1e`'s table and paragraph and `M4.C.14`'s bullets and closing paragraph back under their own rules |
+| F-2, F-3, F-4 | Not selected; not acted on |
+
+**Not yet done; to do after step 4 lands** (step 4 edits the same status files on its own branch,
+`claude/nifty-allen-37cdf4`). All of it is wording only, and the engine hash does not move:
+
+1. Write R53-1's change into `M11.C.2`'s row in `docs/bowen_agent_model_spec_v2.md`, and R53-2's into its note in
+   `docs/version_2_dispositions.md`, with that row's `decided` cell set to the owner, 2026-11-10; regenerate
+   `docs/version_2_status.md`.
+2. Fix F-1 in the spec, then regenerate `docs/spec_index.jsonl` and `docs/spec_rules/`.
+3. Change "pending the owner's review" to the owner's approval of 2026-11-10 in the entries for revisions 51–55 in
+   `docs/spec_revision_log.md`, in the spec's status line, in `CLAUDE.md` and in `docs/REVIEWER_READING_LIST.md`.
+4. Add a changelog entry, and close any todo record these decisions settle.
+

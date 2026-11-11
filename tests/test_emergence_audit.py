@@ -104,13 +104,15 @@ def test_m111g_ea1_scope_is_passing_composite_and_mixed():
     assert excluded == [("X.39", "learning only")]
 
 
-@pytest.mark.xfail(strict=True, reason="T-202 (spec revision 55, D4): M11.C.52 and M11.C.55 pass on revision 55's records, so the audit's scope on the committed records is 13 rows where plan §3's is 11; the audit is not rerun until the version 2 definition plan's step 5 (the owner's Q7 (a) of 2026-11-09), and its scope is decided then")
 def test_m111g_ea1_the_real_scope_is_the_plans():
     """On the committed records the scope is plan §3's thirteen rows less `M11.C.41`'s two level cells (T-192), with
-    `M11.C.39` excluded as the control."""
+    `M11.C.39` excluded as the control, and the two cue rows that pass since spec revision 55, `M11.C.52` and
+    `M11.C.55` (Claude's recommendation 2026-11-11, pending the owner's review: `M11.1g` audits every passing composite
+    row, so they enter by its rule)."""
     audited, rows, by_class, excluded = ea.in_scope(ea.read_records(), ea.read_config())
     ea.check_registries(rows)
-    assert len(audited) == 11 and "M11.C.48[phase_d]" in {r.key for r in audited}
+    keys = {r.key for r in audited}
+    assert len(audited) == 13 and {"M11.C.48[phase_d]", "M11.C.52", "M11.C.55"} <= keys
     assert [k for k, _ in excluded] == ["M11.C.39"]
     # T-192 (owner 2026-11-05): M11.C.41's two level cells have only premise limbs, so they leave the scope.
     level_cells = ["M11.C.41[light: lower level]", "M11.C.41[heavy: lower level]"]
@@ -366,7 +368,6 @@ def test_m111g_ea13_key_is_engine_and_edits():
 
 
 # --- EA-14 -----------------------------------------------------------------------------------------------------------
-@pytest.mark.xfail(strict=True, reason="T-202 (spec revision 55, D4, the owner 2026-11-07): the social cues, and then spec revision 57 (T-185, T-206), each moved the engine hash, and this record is not rerun until the version 2 definition plan's step 5 (the owner's Q7 (a) of 2026-11-09), which reruns the audit's L0 stage and its carriers on the current engine")
 def test_m111g_ea14_emergence_audit_record_is_current():
     try:
         rendered = ea.build(Cache(ea.CACHE))

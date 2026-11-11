@@ -472,3 +472,29 @@ for one spec revision that takes all nine.
   parents' state. The extra 450 seeds are a probe, not the record: the row's verdict stays
   the record's. Rows: scratchpad only, not committed (about 9 minutes per 150 seeds on 8 workers). Folded into the
   spec by T-198.
+
+- [ ] T-213 ⟨later⟩ **The emergence audit on `d3779684dd53`: its scope and three rows for the owner (2026-11-11).** From
+  the version 2 definition plan's step 5 (`docs/implementation_plan_version_2_definition.md` §4.2, the owner's Q7 (a)),
+  run 2026-11-11 under the owner's instruction of that night to proceed with the recommendations, split across both
+  Macs (this Mac's nine rows in 53 min at 6 workers, Mac Mini1's four 2080-tick rows in 2 h 53 min at 10; the merge
+  added Mini1's 11 results and found 128 equal; the controls held). `docs/emergence_audit_record.md` is current and its
+  two strict expected failures are off. Each item below is Claude's recommendation, pending the owner's review; nothing
+  in the spec was changed for them.
+  (a) **Scope.** On the current records 13 rows are in scope: the 11 of 2026-11-05 and `M11.C.52` and `M11.C.55`, which
+  pass since spec revision 55. `M11.1g` audits every passing composite row, so both are in; the scope test
+  (`tests/test_emergence_audit.py::test_m111g_ea1_the_real_scope_is_the_plans`) now asserts 13. **Recommended: keep
+  both in.**
+  (b) **`M11.C.48[phase_d]`: two carriers where the last run had none.** It survives L0 (+0.104 ± 0.070). With L0, C1
+  (every capacity layer available, `M4.D.3a`) gives −0.0093 ± 0.077 and C2 (the mixing weight blind to level in the
+  policy, `M4.D.1a`) +0.017 ± 0.066, both red, each interval wholly below L0's mean; C3 to C6 and its named mutant
+  survive. In the record this run replaces (engine `535720826a37`) none of the seven was a carrier; revision 57's matched baseline (T-185) came between.
+  So with learning removed the pass is carried by the policy's reading of level. Neither rule names the run before a
+  cutoff. **Recommended: write this into `M11.5`'s row at the next revision, wording in `M11` only, no class change**
+  (as `M11.C.15`'s carrier note).
+  (c) **`M11.C.52` survives L0** (−16 ± 19 at 100 seeds), as T-208's probe with the cues off led one to expect. Of its
+  carriers C1 to C4, C6 and its named mutant are red and C5 survives, but at 100 seeds every red carrier's interval but
+  C2's contains L0's mean; C2 (+4.1 ± 15) lies above it. So only C2 is separated, at the edge, and the rest are not
+  read as carriers. **Recommended: no `M11.5` change now; fold it into T-209**, whose arm or mutant reads the row at
+  more seeds.
+  (d) **`M11.C.55` reverses under L0.** With learning off its relief predictor names no parent (a tie names no one,
+  T-206's probe), so it fails by its own definition and no carrier runs. **Recommended: no change; not a finding.**

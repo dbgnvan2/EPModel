@@ -8,7 +8,7 @@ direction (`tools/mutation_record.py`'s `judge`). A mixed row is judged on its c
 is evidence for triage, not a defect by itself: the defect test is `M11.1d`'s, whether a rule that carries it
 names its outcome, and the owner decides it for each survivor.
 
-engine_hash: 535720826a372a860e2907a0cd10068134ecf12367ea83fa7259c908c54b30a0
+engine_hash: 1c4388a25590d7b294d31436801a7d7f0c1e67caad597600bd86b03280cae424
 
 Stage: **carriers**. The carriers stage (plan §7 steps 4 and 6, owner 2026-11-04): L0 on every in-scope row and the two controls, and the carriers of each L0 survivor; L1 to L4 are not run.
 
@@ -24,12 +24,13 @@ Stage: **carriers**. The carriers stage (plan §7 steps 4 and 6, owner 2026-11-0
 
 ## Scope
 
-11 of 37 passing rows audited; 1 excluded; 25 out by class (a premise or a check passing, or a mixed row with no composite limb, is never a finding, `M11.5`).
+13 of 39 passing rows audited; 1 excluded; 25 out by class (a premise or a check passing, or a mixed row with no composite limb, is never a finding, `M11.5`).
 
 | Criterion | Class | Seeds at pass |
 |---|---|---|
 | `M11.C.16` | composite | 150 |
 | `M11.C.27[unstable,remove_one]` | composite | 100 |
+| `M11.C.52` | composite | 100 |
 | `M11.C.22` | mixed | 150 |
 | `M11.C.11` | mixed | 150 |
 | `M11.C.34` | mixed | 150 |
@@ -39,6 +40,7 @@ Stage: **carriers**. The carriers stage (plan §7 steps 4 and 6, owner 2026-11-0
 | `M11.C.10[family of origin]` | composite | 200 |
 | `M11.C.2[twelve-person family]` | composite | 150 |
 | `M11.C.48[phase_d]` | composite | 200 |
+| `M11.C.55` | composite | 150 |
 
 Excluded:
 
@@ -90,6 +92,7 @@ Never findings. The build refuses to render the record if either does not hold.
 |---|---|---|---|---|---|---|
 | `M11.C.16` | composite | L0 | PASS | 100 | `repertoire_entropy` -0.0151 ± 0.0019; `top_move_share` +0.0279 ± 0.0041 (reported) | **survived** |
 | `M11.C.27[unstable,remove_one]` | composite | L0 | PASS | 100 | `pair_deviation` -0.0696 ± 0.049; `pair_deviation_week_1` -0.0696 ± 0.049 (reported); `pair_deviation_week_2` -0.0543 ± 0.053 (reported); `pair_deviation_week_3` +0.00367 ± 0.044 (reported); `pair_deviation_week_4` +0.0707 ± 0.047 (reported); `pair_deviation_week_5` +0.0958 ± 0.051 (reported); `pair_deviation_week_6` +0.158 ± 0.049 (reported); `pair_deviation_week_7` +0.161 ± 0.048 (reported); `pair_deviation_week_8` +0.21 ± 0.057 (reported); `pair_deviation_week_9` +0.21 ± 0.05 (reported); `pair_deviation_week_10` +0.214 ± 0.052 (reported); `pair_deviation_week_11` +0.216 ± 0.055 (reported); `pair_deviation_week_12` +0.224 ± 0.054 (reported) | **survived** |
+| `M11.C.52` | composite | L0 | PASS | 100 | `escalation` -16 ± 19 | **survived** |
 | `M11.C.22` | mixed | L0 | PASS | 100 | `mild_removal_effect` +1.51 ± 0.73, p 4e-05; `severe_removal_effect` -1.73 ± 0.88, p 0.0001 (premise limb) | **survived** |
 | `M11.C.11` | mixed | L0 | PASS | 150 | `disturbance` +6.33 ± 1.6, p 1.2e-12 | **survived** (premise limbs not declared (docs/version_1_dispositions.md, docs/version_2_dispositions.md), so judged on every limb) |
 | `M11.C.34` | mixed | L0 | FAIL | 150 | `automatic_reaction` +0.0267 ± 0.055, p 0.88 | **red** (premise limbs not declared (docs/version_1_dispositions.md, docs/version_2_dispositions.md), so judged on every limb) |
@@ -98,7 +101,8 @@ Never findings. The build refuses to render the record if either does not hold.
 | `M11.C.15` | composite | L0 | PASS | 50 | `death_rise` +3.83 ± 0.65, p 6.1e-10; `recovery_rise` +7.45 ± 0.9, p 3.9e-10 | **survived** |
 | `M11.C.10[family of origin]` | composite | L0 | FAIL | 200 | `cut_off_tie_weeks` +35.8 ± 1.3e+02, p 0.19; `child_cut_weeks` +39.7 ± 43 (reported) | **red** |
 | `M11.C.2[twelve-person family]` | composite | L0 | FAIL | 150 | `symptom_load` +1.13 ± 1.5, p 0.092 | **red** |
-| `M11.C.48[phase_d]` | composite | L0 | PASS | 200 | `negative_run` +0.245 ± 0.076, p 5.3e-13; `run_before_cutoff` +1.73 ± 0.06 (reported); `first_cutoffs` +0 ± 0 (reported); `unmatched_cutoffs` +9.8 ± 0.27 (reported); `no_contact_cutoffs` +10.6 ± 0.36 (reported); `matched_seed` +1 ± 0 (reported) | **survived** |
+| `M11.C.48[phase_d]` | composite | L0 | PASS | 200 | `negative_run` +0.104 ± 0.07, p 0.00066; `run_before_cutoff` +1.67 ± 0.059 (reported); `first_cutoffs` +0 ± 0 (reported); `unmatched_cutoffs` +9.8 ± 0.27 (reported); `no_contact_cutoffs` +10.6 ± 0.36 (reported); `unsided_cutoffs` +2.78 ± 0.16 (reported); `unmatched_left_out_run` +1.67 ± 0.092 (reported); `unsided_left_out_run` +2.09 ± 0.2 (reported); `matched_seed` +1 ± 0 (reported) | **survived** |
+| `M11.C.55` | composite | L0 | FAIL | 150 | `predicted_main_supplier` -0.22 ± 0.081, p 1; `predicted_over_chance` -0.622 ± 0.02, p 1; `parents_supplied` +0 ± 0 (reported); `birth_order_hits` +0 ± 0 (reported) | **reversed** |
 
 Not run yet:
 
@@ -161,6 +165,22 @@ Carriers: **C2, C7:one-sided-deviation, C7:deviation-inverted**.
 | `M11.C.27[unstable,remove_one]` | composite | C6 | PASS | 100 | `pair_deviation` -0.0677 ± 0.052; `pair_deviation_week_1` -0.0677 ± 0.052 (reported); `pair_deviation_week_2` -0.06 ± 0.054 (reported); `pair_deviation_week_3` +0.00271 ± 0.047 (reported); `pair_deviation_week_4` +0.053 ± 0.05 (reported); `pair_deviation_week_5` +0.0726 ± 0.053 (reported); `pair_deviation_week_6` +0.141 ± 0.051 (reported); `pair_deviation_week_7` +0.14 ± 0.054 (reported); `pair_deviation_week_8` +0.182 ± 0.051 (reported); `pair_deviation_week_9` +0.19 ± 0.049 (reported); `pair_deviation_week_10` +0.21 ± 0.062 (reported); `pair_deviation_week_11` +0.198 ± 0.064 (reported); `pair_deviation_week_12` +0.243 ± 0.059 (reported) | **survived** |
 | `M11.C.27[unstable,remove_one]` | composite | C7:one-sided-deviation | FAIL | 100 | `pair_deviation` +0.135 ± 0.036; `pair_deviation_week_1` +0.135 ± 0.036 (reported); `pair_deviation_week_2` +0.16 ± 0.039 (reported); `pair_deviation_week_3` +0.166 ± 0.043 (reported); `pair_deviation_week_4` +0.166 ± 0.046 (reported); `pair_deviation_week_5` +0.184 ± 0.047 (reported); `pair_deviation_week_6` +0.212 ± 0.049 (reported); `pair_deviation_week_7` +0.226 ± 0.051 (reported); `pair_deviation_week_8` +0.237 ± 0.049 (reported); `pair_deviation_week_9` +0.242 ± 0.052 (reported); `pair_deviation_week_10` +0.252 ± 0.053 (reported); `pair_deviation_week_11` +0.263 ± 0.055 (reported); `pair_deviation_week_12` +0.266 ± 0.058 (reported) | **reversed** |
 | `M11.C.27[unstable,remove_one]` | composite | C7:deviation-inverted | FAIL | 100 | `pair_deviation` +0.081 ± 0.052; `pair_deviation_week_1` +0.081 ± 0.052 (reported); `pair_deviation_week_2` +0.0592 ± 0.055 (reported); `pair_deviation_week_3` +0.0448 ± 0.058 (reported); `pair_deviation_week_4` +0.0126 ± 0.055 (reported); `pair_deviation_week_5` -0.00423 ± 0.058 (reported); `pair_deviation_week_6` -0.0478 ± 0.054 (reported); `pair_deviation_week_7` -0.0695 ± 0.051 (reported); `pair_deviation_week_8` -0.102 ± 0.055 (reported); `pair_deviation_week_9` -0.131 ± 0.05 (reported); `pair_deviation_week_10` -0.159 ± 0.052 (reported); `pair_deviation_week_11` -0.131 ± 0.051 (reported); `pair_deviation_week_12` -0.17 ± 0.054 (reported) | **reversed** |
+
+### `M11.C.52`
+
+Carriers: **C1, C2, C3, C4, C6, C7:cue-attribution-discount-removed**.
+
+`M11.5` says it rests on: —. Note: needs `M4.C.6` by channel, `M4.C.13` on both sides and the exchange over weeks; T-208's probe (`docs/review/2026-11-09_sc_pass_probes.md`): on 500 seeds the pass holds (−17.0 ± 10.1) and its named mutant survives (−12.5 ± 10.2), removing +4.5 ± 1.5 of the effect; with the nonverbal channels equal it is −9.3 ± 8.6 (p 0.053), and with the cues off −22.2 ± 8.3, no different from the recorded effect. A detected part of the pass is carried by paths other than the by-channel discount, so it is not a finding about self-attribution by channel alone (the owner, 2026-11-09)
+
+| Criterion | Class | Ablation | Outcome | Seeds | Difference under ablation | Verdict |
+|---|---|---|---|---|---|---|
+| `M11.C.52` | composite | C1 | FAIL | 100 | `escalation` -10.2 ± 18 | **red** |
+| `M11.C.52` | composite | C2 | FAIL | 100 | `escalation` +4.08 ± 15 | **red** |
+| `M11.C.52` | composite | C3 | FAIL | 100 | `escalation` -8.05 ± 17 | **red** |
+| `M11.C.52` | composite | C4 | FAIL | 100 | `escalation` -3.51 ± 19 | **red** |
+| `M11.C.52` | composite | C5 | PASS | 100 | `escalation` -27.1 ± 20 | **survived** |
+| `M11.C.52` | composite | C6 | FAIL | 100 | `escalation` -14.3 ± 17 | **red** |
+| `M11.C.52` | composite | C7:cue-attribution-discount-removed | FAIL | 100 | `escalation` -10.8 ± 19 | **red** |
 
 ### `M11.C.22`
 
@@ -247,19 +267,19 @@ Carriers: **C7:death-all-bound-anxiety-discarded**.
 
 ### `M11.C.48[phase_d]`
 
-Carriers: **no carrier among 7 candidates**.
+Carriers: **C1, C2**.
 
-`M11.5` says it rests on: on the twelve-person family, what the two arms are made of: a cut tie is more often one both members act on, and such ties hold longer runs, and the cutter's other ties run longer than the family's (T-185's probe, `tools/c48_carrier_probe.py`); not `CUTOFF`'s learned value (`M4.D.6`), since the row passes with all learning removed and its named mutant there gives the same result (`docs/emergence_audit_record.md`); the cut-off tie's stock (`M1.D.2b`) holds only after a cutoff. Note: no rule states the run before a cutoff or names the cutoff (`M11.1d`), so a pass or a fail is informative; with learning removed the policy weighs `CUTOFF` the same on every live tie of a person before a first cutoff, so a pass is a comparison whose arms differ in a condition (learnings P7, as T-123 and T-179) and is not reported as a finding about learning; about +0.10 is left after matching on how many members act on the tie, and it is not explained; on the Phase B family, where it fails, the arms are unmatched in the same way, and the baseline also mixes tie types the cut tie is not matched to (the spouse and parent ties at conductance 1.0 with the grandparent ties at 0.6, `config/bowen/family_phase_c.md`) and counts ties cut later in the run, so the fail is not a finding about the run before a cutoff; T-196 measures what carries it there; T-196's probe (`tools/c48_carrier_probe.py --family phase_c`) found that matched on the cut tie's class no difference is detected, that the cut and baseline ties are acted on by both members about equally often (0.77 against 0.78) there, and that at every matched cutoff all the uncut baseline ties are cut later in the run, so a baseline of ties never cut cannot be formed on this family
+`M11.5` says it rests on: on the twelve-person family, what the two arms are made of: the cutter's other ties run longer than the family's (T-185's probe, `tools/c48_carrier_probe.py`); a cut tie is more often one both members act on, and such ties hold longer runs, which the baseline matches out of the comparison; not `CUTOFF`'s learned value (`M4.D.6`), since the row passes with all learning removed and its named mutant there gives the same result (`docs/emergence_audit_record.md`); the cut-off tie's stock (`M1.D.2b`) holds only after a cutoff. Note: no rule states the run before a cutoff or names the cutoff (`M11.1d`), so a pass or a fail is informative; with learning removed the policy weighs `CUTOFF` the same on every live tie of a person before a first cutoff, so a pass is a comparison whose arms differ in a condition (learnings P7, as T-123 and T-179) and is not reported as a finding about learning; +0.104 ± 0.070 is left after matching on how many members act on the tie, which the baseline does, and it is not explained; matching also drops the cutoffs with no uncut tie of their own sides, and on the Phase B family those hold runs shorter than the matched ones, which raises the treatment arm, so the mean run each exit left out is reported beside the arms (`unmatched_left_out_run`, `unsided_left_out_run`) and a verdict is read with them (learnings P2, P9); on the Phase B family, where it fails, the arms are unmatched in the same way, and the baseline also mixes tie types the cut tie is not matched to (the spouse and parent ties at conductance 1.0 with the grandparent ties at 0.6, `config/bowen/family_phase_c.md`) and counts ties cut later in the run, so the fail is not a finding about the run before a cutoff; T-196 measures what carries it there; T-196's probe (`tools/c48_carrier_probe.py --family phase_c`) found that matched on the cut tie's class no difference is detected, that the cut and baseline ties are acted on by both members about equally often (0.77 against 0.78) there, and that at every matched cutoff all the uncut baseline ties are cut later in the run, so a baseline of ties never cut cannot be formed on this family
 
 | Criterion | Class | Ablation | Outcome | Seeds | Difference under ablation | Verdict |
 |---|---|---|---|---|---|---|
-| `M11.C.48[phase_d]` | composite | C1 | PASS | 200 | `negative_run` +0.189 ± 0.066, p 2.3e-08; `run_before_cutoff` +1.76 ± 0.06 (reported); `first_cutoffs` +0 ± 0 (reported); `unmatched_cutoffs` +9.94 ± 0.27 (reported); `no_contact_cutoffs` +9.93 ± 0.4 (reported); `matched_seed` +1 ± 0 (reported) | **survived** |
-| `M11.C.48[phase_d]` | composite | C2 | PASS | 200 | `negative_run` +0.187 ± 0.055, p 2.3e-09; `run_before_cutoff` +1.39 ± 0.051 (reported); `first_cutoffs` +0 ± 0 (reported); `unmatched_cutoffs` +10 ± 0.23 (reported); `no_contact_cutoffs` +9.58 ± 0.37 (reported); `matched_seed` +1 ± 0 (reported) | **survived** |
-| `M11.C.48[phase_d]` | composite | C3 | PASS | 200 | `negative_run` +0.306 ± 0.058, p 2.8e-18; `run_before_cutoff` +1.76 ± 0.061 (reported); `first_cutoffs` +0 ± 0 (reported); `unmatched_cutoffs` +9.87 ± 0.25 (reported); `no_contact_cutoffs` +10.3 ± 0.39 (reported); `matched_seed` +1 ± 0 (reported) | **survived** |
-| `M11.C.48[phase_d]` | composite | C4 | PASS | 200 | `negative_run` +0.207 ± 0.077, p 2.7e-11; `run_before_cutoff` +1.71 ± 0.059 (reported); `first_cutoffs` +0 ± 0 (reported); `unmatched_cutoffs` +9.66 ± 0.3 (reported); `no_contact_cutoffs` +10.8 ± 0.36 (reported); `matched_seed` +1 ± 0 (reported) | **survived** |
-| `M11.C.48[phase_d]` | composite | C5 | PASS | 200 | `negative_run` +0.281 ± 0.055, p 2.2e-17; `run_before_cutoff` +1.74 ± 0.052 (reported); `first_cutoffs` +0 ± 0 (reported); `unmatched_cutoffs` +9.95 ± 0.27 (reported); `no_contact_cutoffs` +10.4 ± 0.38 (reported); `matched_seed` +1 ± 0 (reported) | **survived** |
-| `M11.C.48[phase_d]` | composite | C6 | PASS | 200 | `negative_run` +0.22 ± 0.071, p 6.2e-10; `run_before_cutoff` +1.69 ± 0.055 (reported); `first_cutoffs` +0 ± 0 (reported); `unmatched_cutoffs` +9.88 ± 0.24 (reported); `no_contact_cutoffs` +10.6 ± 0.36 (reported); `matched_seed` +1 ± 0 (reported) | **survived** |
-| `M11.C.48[phase_d]` | composite | C7:cutoff-blind-to-learned-value | PASS | 200 | `negative_run` +0.245 ± 0.076, p 5.3e-13; `run_before_cutoff` +1.73 ± 0.06 (reported); `first_cutoffs` +0 ± 0 (reported); `unmatched_cutoffs` +9.8 ± 0.27 (reported); `no_contact_cutoffs` +10.6 ± 0.36 (reported); `matched_seed` +1 ± 0 (reported) | **survived** |
+| `M11.C.48[phase_d]` | composite | C1 | FAIL | 200 | `negative_run` -0.00931 ± 0.077, p 0.32; `run_before_cutoff` +1.67 ± 0.062 (reported); `first_cutoffs` +0 ± 0 (reported); `unmatched_cutoffs` +9.94 ± 0.27 (reported); `no_contact_cutoffs` +9.93 ± 0.4 (reported); `unsided_cutoffs` +2.75 ± 0.15 (reported); `unmatched_left_out_run` +1.91 ± 0.1 (reported); `unsided_left_out_run` +2.31 ± 0.22 (reported); `matched_seed` +1 ± 0 (reported) | **red** |
+| `M11.C.48[phase_d]` | composite | C2 | FAIL | 200 | `negative_run` +0.0171 ± 0.066, p 0.29; `run_before_cutoff` +1.3 ± 0.053 (reported); `first_cutoffs` +0 ± 0 (reported); `unmatched_cutoffs` +10 ± 0.23 (reported); `no_contact_cutoffs` +9.58 ± 0.37 (reported); `unsided_cutoffs` +2.58 ± 0.16 (reported); `unmatched_left_out_run` +1.21 ± 0.068 (reported); `unsided_left_out_run` +1.86 ± 0.21 (reported); `matched_seed` +1 ± 0 (reported) | **red** |
+| `M11.C.48[phase_d]` | composite | C3 | PASS | 200 | `negative_run` +0.0894 ± 0.07, p 0.002; `run_before_cutoff` +1.67 ± 0.062 (reported); `first_cutoffs` +0 ± 0 (reported); `unmatched_cutoffs` +9.87 ± 0.25 (reported); `no_contact_cutoffs` +10.3 ± 0.39 (reported); `unsided_cutoffs` +2.62 ± 0.17 (reported); `unmatched_left_out_run` +1.62 ± 0.091 (reported); `unsided_left_out_run` +2.32 ± 0.23 (reported); `matched_seed` +1 ± 0 (reported) | **survived** |
+| `M11.C.48[phase_d]` | composite | C4 | PASS | 200 | `negative_run` +0.0483 ± 0.076, p 0.022; `run_before_cutoff` +1.64 ± 0.061 (reported); `first_cutoffs` +0 ± 0 (reported); `unmatched_cutoffs` +9.66 ± 0.3 (reported); `no_contact_cutoffs` +10.8 ± 0.36 (reported); `unsided_cutoffs` +2.79 ± 0.17 (reported); `unmatched_left_out_run` +1.74 ± 0.096 (reported); `unsided_left_out_run` +2.1 ± 0.2 (reported); `matched_seed` +1 ± 0 (reported) | **survived** |
+| `M11.C.48[phase_d]` | composite | C5 | PASS | 200 | `negative_run` +0.147 ± 0.066, p 5.1e-06; `run_before_cutoff` +1.69 ± 0.056 (reported); `first_cutoffs` +0 ± 0 (reported); `unmatched_cutoffs` +9.95 ± 0.27 (reported); `no_contact_cutoffs` +10.4 ± 0.38 (reported); `unsided_cutoffs` +2.76 ± 0.19 (reported); `unmatched_left_out_run` +1.79 ± 0.093 (reported); `unsided_left_out_run` +2.11 ± 0.19 (reported); `matched_seed` +1 ± 0 (reported) | **survived** |
+| `M11.C.48[phase_d]` | composite | C6 | PASS | 200 | `negative_run` +0.0615 ± 0.078, p 0.036; `run_before_cutoff` +1.61 ± 0.058 (reported); `first_cutoffs` +0 ± 0 (reported); `unmatched_cutoffs` +9.88 ± 0.24 (reported); `no_contact_cutoffs` +10.6 ± 0.36 (reported); `unsided_cutoffs` +2.76 ± 0.15 (reported); `unmatched_left_out_run` +1.71 ± 0.091 (reported); `unsided_left_out_run` +2.04 ± 0.19 (reported); `matched_seed` +1 ± 0 (reported) | **survived** |
+| `M11.C.48[phase_d]` | composite | C7:cutoff-blind-to-learned-value | PASS | 200 | `negative_run` +0.104 ± 0.07, p 0.00066; `run_before_cutoff` +1.67 ± 0.059 (reported); `first_cutoffs` +0 ± 0 (reported); `unmatched_cutoffs` +9.8 ± 0.27 (reported); `no_contact_cutoffs` +10.6 ± 0.36 (reported); `unsided_cutoffs` +2.78 ± 0.16 (reported); `unmatched_left_out_run` +1.67 ± 0.092 (reported); `unsided_left_out_run` +2.09 ± 0.2 (reported); `matched_seed` +1 ± 0 (reported) | **survived** |
 
 Not tested: the legal set's structural preconditions (a tie to a living person; a closed triad for `TRIANGLE`): they define what an act is and are not mutated (plan §4).
 
@@ -272,11 +292,11 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
 
 ```json
 {
- "engine_hash": "535720826a372a860e2907a0cd10068134ecf12367ea83fa7259c908c54b30a0",
+ "engine_hash": "1c4388a25590d7b294d31436801a7d7f0c1e67caad597600bd86b03280cae424",
  "stage": "carriers",
  "scope": {
-  "audited": 11,
-  "passing": 37,
+  "audited": 13,
+  "passing": 39,
   "excluded": [
    "M11.C.39"
   ],
@@ -509,6 +529,25 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
    "premise_limbs": []
   },
   {
+   "criterion": "M11.C.52",
+   "class": "composite",
+   "ablation": "L0",
+   "outcome": "PASS",
+   "seeds": 100,
+   "verdict": "survived",
+   "note": "",
+   "readouts": [
+    {
+     "direction": -1,
+     "half_width": 18.796742289307733,
+     "mean_difference": -16.01854523652113,
+     "readout": "escalation",
+     "report_only": false
+    }
+   ],
+   "premise_limbs": []
+  },
+  {
    "criterion": "M11.C.22",
    "class": "mixed",
    "ablation": "L0",
@@ -723,16 +762,16 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
    "readouts": [
     {
      "direction": 1,
-     "half_width": 0.0763692888825524,
-     "mean_difference": 0.24540032279910265,
-     "p": 5.28419111255807e-13,
+     "half_width": 0.07021805266157648,
+     "mean_difference": 0.10350406845192683,
+     "p": 0.000664756990415206,
      "readout": "negative_run",
      "report_only": false
     },
     {
      "direction": 1,
-     "half_width": 0.060141166756306395,
-     "mean_difference": 1.7277220464443426,
+     "half_width": 0.059369339873719666,
+     "mean_difference": 1.6653439231047589,
      "readout": "run_before_cutoff",
      "report_only": true
     },
@@ -759,9 +798,72 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
     },
     {
      "direction": 1,
+     "half_width": 0.1639029397794369,
+     "mean_difference": 2.78,
+     "readout": "unsided_cutoffs",
+     "report_only": true
+    },
+    {
+     "direction": 1,
+     "half_width": 0.09207245462697915,
+     "mean_difference": 1.673161408036408,
+     "readout": "unmatched_left_out_run",
+     "report_only": true
+    },
+    {
+     "direction": 1,
+     "half_width": 0.200732192115186,
+     "mean_difference": 2.089916666666667,
+     "readout": "unsided_left_out_run",
+     "report_only": true
+    },
+    {
+     "direction": 1,
      "half_width": 0.0,
      "mean_difference": 1.0,
      "readout": "matched_seed",
+     "report_only": true
+    }
+   ],
+   "premise_limbs": []
+  },
+  {
+   "criterion": "M11.C.55",
+   "class": "composite",
+   "ablation": "L0",
+   "outcome": "FAIL",
+   "seeds": 150,
+   "verdict": "reversed",
+   "note": "",
+   "readouts": [
+    {
+     "direction": 1,
+     "half_width": 0.08054122959347922,
+     "mean_difference": -0.22,
+     "p": 0.999999336880733,
+     "readout": "predicted_main_supplier",
+     "report_only": false
+    },
+    {
+     "direction": 1,
+     "half_width": 0.020184844708843463,
+     "mean_difference": -0.6222222222222221,
+     "p": 1.0,
+     "readout": "predicted_over_chance",
+     "report_only": false
+    },
+    {
+     "direction": 1,
+     "half_width": 0.0,
+     "mean_difference": 0.0,
+     "readout": "parents_supplied",
+     "report_only": true
+    },
+    {
+     "direction": 1,
+     "half_width": 0.0,
+     "mean_difference": 0.0,
+     "readout": "birth_order_hits",
      "report_only": true
     }
    ],
@@ -2405,6 +2507,156 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
    "m115_note": "follows from `M4.C.1`'s two-sided shape; no prior-state term. *Checked 2026-10-08: after the `M1.C.1` decision one cell passes ([unstable, remove one]); it flips only under inversion of `M4.C.1`'s deviation, the sign of all appraisal; kept composite.* *Emergence audit (T-190): `[unstable, remove one]` passes with learning removed; besides the two `M4.C.1` inversions (`one-sided-deviation`, `deviation-inverted`), which reverse it, C2 (`M4.D.1a`'s mixing weight blind to level, in the policy only) turns it red. Kept composite.*"
   },
   {
+   "criterion": "M11.C.52",
+   "candidates": [
+    {
+     "criterion": "M11.C.52",
+     "class": "composite",
+     "ablation": "C1",
+     "outcome": "FAIL",
+     "seeds": 100,
+     "verdict": "red",
+     "note": "",
+     "readouts": [
+      {
+       "direction": -1,
+       "half_width": 18.08742794438564,
+       "mean_difference": -10.173758781209003,
+       "readout": "escalation",
+       "report_only": false
+      }
+     ],
+     "premise_limbs": []
+    },
+    {
+     "criterion": "M11.C.52",
+     "class": "composite",
+     "ablation": "C2",
+     "outcome": "FAIL",
+     "seeds": 100,
+     "verdict": "red",
+     "note": "",
+     "readouts": [
+      {
+       "direction": -1,
+       "half_width": 14.909091023870227,
+       "mean_difference": 4.0822191809416655,
+       "readout": "escalation",
+       "report_only": false
+      }
+     ],
+     "premise_limbs": []
+    },
+    {
+     "criterion": "M11.C.52",
+     "class": "composite",
+     "ablation": "C3",
+     "outcome": "FAIL",
+     "seeds": 100,
+     "verdict": "red",
+     "note": "",
+     "readouts": [
+      {
+       "direction": -1,
+       "half_width": 17.453921758714465,
+       "mean_difference": -8.054321389202746,
+       "readout": "escalation",
+       "report_only": false
+      }
+     ],
+     "premise_limbs": []
+    },
+    {
+     "criterion": "M11.C.52",
+     "class": "composite",
+     "ablation": "C4",
+     "outcome": "FAIL",
+     "seeds": 100,
+     "verdict": "red",
+     "note": "",
+     "readouts": [
+      {
+       "direction": -1,
+       "half_width": 18.9808188545883,
+       "mean_difference": -3.5063103829174724,
+       "readout": "escalation",
+       "report_only": false
+      }
+     ],
+     "premise_limbs": []
+    },
+    {
+     "criterion": "M11.C.52",
+     "class": "composite",
+     "ablation": "C5",
+     "outcome": "PASS",
+     "seeds": 100,
+     "verdict": "survived",
+     "note": "",
+     "readouts": [
+      {
+       "direction": -1,
+       "half_width": 19.503653297114255,
+       "mean_difference": -27.067429144829116,
+       "readout": "escalation",
+       "report_only": false
+      }
+     ],
+     "premise_limbs": []
+    },
+    {
+     "criterion": "M11.C.52",
+     "class": "composite",
+     "ablation": "C6",
+     "outcome": "FAIL",
+     "seeds": 100,
+     "verdict": "red",
+     "note": "",
+     "readouts": [
+      {
+       "direction": -1,
+       "half_width": 17.06908032477294,
+       "mean_difference": -14.278803880359487,
+       "readout": "escalation",
+       "report_only": false
+      }
+     ],
+     "premise_limbs": []
+    },
+    {
+     "criterion": "M11.C.52",
+     "class": "composite",
+     "ablation": "C7:cue-attribution-discount-removed",
+     "outcome": "FAIL",
+     "seeds": 100,
+     "verdict": "red",
+     "note": "",
+     "readouts": [
+      {
+       "direction": -1,
+       "half_width": 18.772923620098087,
+       "mean_difference": -10.778457263569486,
+       "readout": "escalation",
+       "report_only": false
+      }
+     ],
+     "premise_limbs": []
+    }
+   ],
+   "not_run": [],
+   "carriers": [
+    "C1",
+    "C2",
+    "C3",
+    "C4",
+    "C6",
+    "C7:cue-attribution-discount-removed"
+   ],
+   "red_without_fail": [],
+   "m115_rests_on": "\u2014",
+   "m115_note": "needs `M4.C.6` by channel, `M4.C.13` on both sides and the exchange over weeks; T-208's probe (`docs/review/2026-11-09_sc_pass_probes.md`): on 500 seeds the pass holds (\u221217.0 \u00b1 10.1) and its named mutant survives (\u221212.5 \u00b1 10.2), removing +4.5 \u00b1 1.5 of the effect; with the nonverbal channels equal it is \u22129.3 \u00b1 8.6 (p 0.053), and with the cues off \u221222.2 \u00b1 8.3, no different from the recorded effect. A detected part of the pass is carried by paths other than the by-channel discount, so it is not a finding about self-attribution by channel alone (the owner, 2026-11-09)"
+  },
+  {
    "criterion": "M11.C.22",
    "candidates": [
     {
@@ -3512,23 +3764,23 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
      "criterion": "M11.C.48[phase_d]",
      "class": "composite",
      "ablation": "C1",
-     "outcome": "PASS",
+     "outcome": "FAIL",
      "seeds": 200,
-     "verdict": "survived",
+     "verdict": "red",
      "note": "",
      "readouts": [
       {
        "direction": 1,
-       "half_width": 0.06574111552548645,
-       "mean_difference": 0.18907602197045104,
-       "p": 2.333381489549724e-08,
+       "half_width": 0.07656603013439366,
+       "mean_difference": -0.009305536389219507,
+       "p": 0.3217582354301465,
        "readout": "negative_run",
        "report_only": false
       },
       {
        "direction": 1,
-       "half_width": 0.05973471793214299,
-       "mean_difference": 1.7603326318022476,
+       "half_width": 0.061612956445829814,
+       "mean_difference": 1.667081178120275,
        "readout": "run_before_cutoff",
        "report_only": true
       },
@@ -3555,6 +3807,27 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
       },
       {
        "direction": 1,
+       "half_width": 0.1488352770632435,
+       "mean_difference": 2.75,
+       "readout": "unsided_cutoffs",
+       "report_only": true
+      },
+      {
+       "direction": 1,
+       "half_width": 0.09978147684519013,
+       "mean_difference": 1.9080476606726606,
+       "readout": "unmatched_left_out_run",
+       "report_only": true
+      },
+      {
+       "direction": 1,
+       "half_width": 0.22140628223284897,
+       "mean_difference": 2.306142857142857,
+       "readout": "unsided_left_out_run",
+       "report_only": true
+      },
+      {
+       "direction": 1,
        "half_width": 0.0,
        "mean_difference": 1.0,
        "readout": "matched_seed",
@@ -3567,23 +3840,23 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
      "criterion": "M11.C.48[phase_d]",
      "class": "composite",
      "ablation": "C2",
-     "outcome": "PASS",
+     "outcome": "FAIL",
      "seeds": 200,
-     "verdict": "survived",
+     "verdict": "red",
      "note": "",
      "readouts": [
       {
        "direction": 1,
-       "half_width": 0.05515874777263051,
-       "mean_difference": 0.18701805527320708,
-       "p": 2.256797245617417e-09,
+       "half_width": 0.06569602570672488,
+       "mean_difference": 0.017051232813034837,
+       "p": 0.29429276704717083,
        "readout": "negative_run",
        "report_only": false
       },
       {
        "direction": 1,
-       "half_width": 0.051065184833991265,
-       "mean_difference": 1.385660262329316,
+       "half_width": 0.05287659415596193,
+       "mean_difference": 1.3048862617001162,
        "readout": "run_before_cutoff",
        "report_only": true
       },
@@ -3610,6 +3883,27 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
       },
       {
        "direction": 1,
+       "half_width": 0.16455972079625897,
+       "mean_difference": 2.585,
+       "readout": "unsided_cutoffs",
+       "report_only": true
+      },
+      {
+       "direction": 1,
+       "half_width": 0.06823226963542223,
+       "mean_difference": 1.2084908216783217,
+       "readout": "unmatched_left_out_run",
+       "report_only": true
+      },
+      {
+       "direction": 1,
+       "half_width": 0.20679392963420537,
+       "mean_difference": 1.8625952380952377,
+       "readout": "unsided_left_out_run",
+       "report_only": true
+      },
+      {
+       "direction": 1,
        "half_width": 0.0,
        "mean_difference": 1.0,
        "readout": "matched_seed",
@@ -3629,16 +3923,16 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
      "readouts": [
       {
        "direction": 1,
-       "half_width": 0.05786446656119637,
-       "mean_difference": 0.30609249930579163,
-       "p": 2.7644881775090024e-18,
+       "half_width": 0.06981989089309622,
+       "mean_difference": 0.08938166960730332,
+       "p": 0.0020380605643161597,
        "readout": "negative_run",
        "report_only": false
       },
       {
        "direction": 1,
-       "half_width": 0.06138450198656805,
-       "mean_difference": 1.760910867378161,
+       "half_width": 0.062099945893197485,
+       "mean_difference": 1.6715683732117554,
        "readout": "run_before_cutoff",
        "report_only": true
       },
@@ -3665,6 +3959,27 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
       },
       {
        "direction": 1,
+       "half_width": 0.16820436481170323,
+       "mean_difference": 2.62,
+       "readout": "unsided_cutoffs",
+       "report_only": true
+      },
+      {
+       "direction": 1,
+       "half_width": 0.09067979834214719,
+       "mean_difference": 1.6167300754800755,
+       "readout": "unmatched_left_out_run",
+       "report_only": true
+      },
+      {
+       "direction": 1,
+       "half_width": 0.2285095990295201,
+       "mean_difference": 2.322583333333333,
+       "readout": "unsided_left_out_run",
+       "report_only": true
+      },
+      {
+       "direction": 1,
        "half_width": 0.0,
        "mean_difference": 1.0,
        "readout": "matched_seed",
@@ -3684,16 +3999,16 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
      "readouts": [
       {
        "direction": 1,
-       "half_width": 0.0772437584106903,
-       "mean_difference": 0.20661579771118127,
-       "p": 2.70950518246544e-11,
+       "half_width": 0.07623220305984323,
+       "mean_difference": 0.04826731670073665,
+       "p": 0.02208777202146385,
        "readout": "negative_run",
        "report_only": false
       },
       {
        "direction": 1,
-       "half_width": 0.05862830372024993,
-       "mean_difference": 1.7119505775946582,
+       "half_width": 0.06115381854306157,
+       "mean_difference": 1.640433936226312,
        "readout": "run_before_cutoff",
        "report_only": true
       },
@@ -3720,6 +4035,27 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
       },
       {
        "direction": 1,
+       "half_width": 0.16532777615343164,
+       "mean_difference": 2.79,
+       "readout": "unsided_cutoffs",
+       "report_only": true
+      },
+      {
+       "direction": 1,
+       "half_width": 0.0956618789385957,
+       "mean_difference": 1.7424152652902651,
+       "readout": "unmatched_left_out_run",
+       "report_only": true
+      },
+      {
+       "direction": 1,
+       "half_width": 0.20010781769823566,
+       "mean_difference": 2.0994107142857144,
+       "readout": "unsided_left_out_run",
+       "report_only": true
+      },
+      {
+       "direction": 1,
        "half_width": 0.0,
        "mean_difference": 1.0,
        "readout": "matched_seed",
@@ -3739,16 +4075,16 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
      "readouts": [
       {
        "direction": 1,
-       "half_width": 0.05546806395885927,
-       "mean_difference": 0.28117421683896104,
-       "p": 2.1723219101889096e-17,
+       "half_width": 0.06613734048884179,
+       "mean_difference": 0.1470539964761617,
+       "p": 5.1043853914589324e-06,
        "readout": "negative_run",
        "report_only": false
       },
       {
        "direction": 1,
-       "half_width": 0.05224738028149571,
-       "mean_difference": 1.7449495928235326,
+       "half_width": 0.056140284199059275,
+       "mean_difference": 1.6871704904142986,
        "readout": "run_before_cutoff",
        "report_only": true
       },
@@ -3775,6 +4111,27 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
       },
       {
        "direction": 1,
+       "half_width": 0.1880787261658822,
+       "mean_difference": 2.76,
+       "readout": "unsided_cutoffs",
+       "report_only": true
+      },
+      {
+       "direction": 1,
+       "half_width": 0.09307346386189992,
+       "mean_difference": 1.7874411421911425,
+       "readout": "unmatched_left_out_run",
+       "report_only": true
+      },
+      {
+       "direction": 1,
+       "half_width": 0.19211906550158048,
+       "mean_difference": 2.11299358974359,
+       "readout": "unsided_left_out_run",
+       "report_only": true
+      },
+      {
+       "direction": 1,
        "half_width": 0.0,
        "mean_difference": 1.0,
        "readout": "matched_seed",
@@ -3794,16 +4151,16 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
      "readouts": [
       {
        "direction": 1,
-       "half_width": 0.07101072894739807,
-       "mean_difference": 0.22047785246165932,
-       "p": 6.228434340589957e-10,
+       "half_width": 0.0780753580909791,
+       "mean_difference": 0.061548383034663985,
+       "p": 0.03637212596830486,
        "readout": "negative_run",
        "report_only": false
       },
       {
        "direction": 1,
-       "half_width": 0.055159909572956946,
-       "mean_difference": 1.6852052773369672,
+       "half_width": 0.05836634416791523,
+       "mean_difference": 1.6081037613702085,
        "readout": "run_before_cutoff",
        "report_only": true
       },
@@ -3830,6 +4187,27 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
       },
       {
        "direction": 1,
+       "half_width": 0.15424296959129682,
+       "mean_difference": 2.76,
+       "readout": "unsided_cutoffs",
+       "report_only": true
+      },
+      {
+       "direction": 1,
+       "half_width": 0.09132971978883753,
+       "mean_difference": 1.7064921883671884,
+       "readout": "unmatched_left_out_run",
+       "report_only": true
+      },
+      {
+       "direction": 1,
+       "half_width": 0.1896438122659554,
+       "mean_difference": 2.0365,
+       "readout": "unsided_left_out_run",
+       "report_only": true
+      },
+      {
+       "direction": 1,
        "half_width": 0.0,
        "mean_difference": 1.0,
        "readout": "matched_seed",
@@ -3849,16 +4227,16 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
      "readouts": [
       {
        "direction": 1,
-       "half_width": 0.0763692888825524,
-       "mean_difference": 0.24540032279910265,
-       "p": 5.28419111255807e-13,
+       "half_width": 0.07021805266157648,
+       "mean_difference": 0.10350406845192683,
+       "p": 0.000664756990415206,
        "readout": "negative_run",
        "report_only": false
       },
       {
        "direction": 1,
-       "half_width": 0.060141166756306395,
-       "mean_difference": 1.7277220464443426,
+       "half_width": 0.059369339873719666,
+       "mean_difference": 1.6653439231047589,
        "readout": "run_before_cutoff",
        "report_only": true
       },
@@ -3885,6 +4263,27 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
       },
       {
        "direction": 1,
+       "half_width": 0.1639029397794369,
+       "mean_difference": 2.78,
+       "readout": "unsided_cutoffs",
+       "report_only": true
+      },
+      {
+       "direction": 1,
+       "half_width": 0.09207245462697915,
+       "mean_difference": 1.673161408036408,
+       "readout": "unmatched_left_out_run",
+       "report_only": true
+      },
+      {
+       "direction": 1,
+       "half_width": 0.200732192115186,
+       "mean_difference": 2.089916666666667,
+       "readout": "unsided_left_out_run",
+       "report_only": true
+      },
+      {
+       "direction": 1,
        "half_width": 0.0,
        "mean_difference": 1.0,
        "readout": "matched_seed",
@@ -3895,10 +4294,13 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
     }
    ],
    "not_run": [],
-   "carriers": [],
+   "carriers": [
+    "C1",
+    "C2"
+   ],
    "red_without_fail": [],
-   "m115_rests_on": "on the twelve-person family, what the two arms are made of: a cut tie is more often one both members act on, and such ties hold longer runs, and the cutter's other ties run longer than the family's (T-185's probe, `tools/c48_carrier_probe.py`); not `CUTOFF`'s learned value (`M4.D.6`), since the row passes with all learning removed and its named mutant there gives the same result (`docs/emergence_audit_record.md`); the cut-off tie's stock (`M1.D.2b`) holds only after a cutoff",
-   "m115_note": "no rule states the run before a cutoff or names the cutoff (`M11.1d`), so a pass or a fail is informative; with learning removed the policy weighs `CUTOFF` the same on every live tie of a person before a first cutoff, so a pass is a comparison whose arms differ in a condition (learnings P7, as T-123 and T-179) and is not reported as a finding about learning; about +0.10 is left after matching on how many members act on the tie, and it is not explained; on the Phase B family, where it fails, the arms are unmatched in the same way, and the baseline also mixes tie types the cut tie is not matched to (the spouse and parent ties at conductance 1.0 with the grandparent ties at 0.6, `config/bowen/family_phase_c.md`) and counts ties cut later in the run, so the fail is not a finding about the run before a cutoff; T-196 measures what carries it there; T-196's probe (`tools/c48_carrier_probe.py --family phase_c`) found that matched on the cut tie's class no difference is detected, that the cut and baseline ties are acted on by both members about equally often (0.77 against 0.78) there, and that at every matched cutoff all the uncut baseline ties are cut later in the run, so a baseline of ties never cut cannot be formed on this family"
+   "m115_rests_on": "on the twelve-person family, what the two arms are made of: the cutter's other ties run longer than the family's (T-185's probe, `tools/c48_carrier_probe.py`); a cut tie is more often one both members act on, and such ties hold longer runs, which the baseline matches out of the comparison; not `CUTOFF`'s learned value (`M4.D.6`), since the row passes with all learning removed and its named mutant there gives the same result (`docs/emergence_audit_record.md`); the cut-off tie's stock (`M1.D.2b`) holds only after a cutoff",
+   "m115_note": "no rule states the run before a cutoff or names the cutoff (`M11.1d`), so a pass or a fail is informative; with learning removed the policy weighs `CUTOFF` the same on every live tie of a person before a first cutoff, so a pass is a comparison whose arms differ in a condition (learnings P7, as T-123 and T-179) and is not reported as a finding about learning; +0.104 \u00b1 0.070 is left after matching on how many members act on the tie, which the baseline does, and it is not explained; matching also drops the cutoffs with no uncut tie of their own sides, and on the Phase B family those hold runs shorter than the matched ones, which raises the treatment arm, so the mean run each exit left out is reported beside the arms (`unmatched_left_out_run`, `unsided_left_out_run`) and a verdict is read with them (learnings P2, P9); on the Phase B family, where it fails, the arms are unmatched in the same way, and the baseline also mixes tie types the cut tie is not matched to (the spouse and parent ties at conductance 1.0 with the grandparent ties at 0.6, `config/bowen/family_phase_c.md`) and counts ties cut later in the run, so the fail is not a finding about the run before a cutoff; T-196 measures what carries it there; T-196's probe (`tools/c48_carrier_probe.py --family phase_c`) found that matched on the cut tie's class no difference is detected, that the cut and baseline ties are acted on by both members about equally often (0.77 against 0.78) there, and that at every matched cutoff all the uncut baseline ties are cut later in the run, so a baseline of ties never cut cannot be formed on this family"
   }
  ],
  "not_run_yet": []

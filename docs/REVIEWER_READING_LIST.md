@@ -426,6 +426,14 @@ and all agreeing, were brought to the paper's wording at step 6 (T-130).
   twelve-person pass, and the revision 31 mutation sentence moved to the revision log. R55-14 is to be decided again
   with T-209. F-1 fixed: `M4.C.1e`'s and `M4.C.14`'s text is back under its own rules. F-2, F-3 and F-4 were not
   acted on. The engine hash did not move (`d3779684dd53`).
+- 2026-11-11: the version 2 definition plan's step 5 (`docs/implementation_plan_version_2_definition.md` §4.2): the
+  emergence audit rerun on `d3779684dd53`, split across both Macs, and `docs/emergence_audit_record.md` current; its two
+  strict expected failures are off. 13 rows in scope (with `M11.C.52` and `M11.C.55`), 9 survive L0, each with at
+  least one carrier. `M11.C.48[phase_d]` now has two carriers, C1 and C2, the policy's reading of level, where the record
+  it replaces had none. Step 6: the four failing cue rows carry Claude's recommendation to accept each as a finding
+  (`docs/version_2_dispositions.md`), pending the owner's review, so W1 is not met. T-213 holds the audit's
+  recommendations, pending the owner's review. Known problems: the version 2 sweep record still stands on
+  `927550dfcb8a` and reruns at step 7, so its record-current test is a strict expected failure.
 
 ## 9. Not relevant to how the model works now
 

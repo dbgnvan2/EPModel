@@ -254,3 +254,11 @@ sweep's own check had enforced on this Mac for T-181 the same days.
   cores, Spotlight indexing the temporary repository copies), one `status` call printed `running` and then timed out
   on its second SSH call after three attempts; the next call worked. A connection dropped mid-`fetch` has not been
   seen live; the tests stub it.
+- The emergence audit's rerun on `d3779684dd53` (2026-11-11, the version 2 definition plan's step 5, T-213) was split
+  by row: Mac Mini1 ran the four 2080-tick rows (`M11.C.48[phase_d]`, `M11.C.2[twelve-person family]`,
+  `M11.C.10[family of origin]`, `M11.C.55`) at 10 workers in 2 h 53 min, and this Mac the other nine at 6 workers
+  under `nice -n 19` in 53 min, from a clean `git worktree` of `6c35437`. The merge added Mac Mini1's 11 results and
+  found 128 equal; no row ran on both Macs, so the merge compared results only for the cache entries both held from
+  before. The whole run that followed ran only the two controls. Because `tools/merge_cache.py` refuses while a sweep
+  runs on this Mac, this Mac's share of the stage-end sweep, started when its audit share ended, was stopped by
+  SIGTERM for the merge and the controls and then restarted from its cache; only the sample in flight was lost.

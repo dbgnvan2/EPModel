@@ -6,7 +6,7 @@ reported, never gating and never counted as mutation proof (`tools/spec_coverage
 mutation records). Results are cached (`docs/records_cache/diagnostic.json`) under the engine hash, each
 variant's edits and each probe's own source.
 
-engine_hash: 927550dfcb8a5396c9c298a2a13226d5b5a821b5972c1e5925e9b21d6d07119f
+engine_hash: d3779684dd5358f830691be1d251b5d6b22cc5ea19e6ccdcef82eb6ff1910354
 
 ## D1 · `d1-c29-third-person`
 

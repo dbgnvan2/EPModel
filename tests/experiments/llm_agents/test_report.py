@@ -11,8 +11,6 @@ import copy
 import json
 import re
 
-import pytest
-
 from conftest import stub_run
 
 from experiments.llm_agents import files
@@ -25,7 +23,6 @@ from experiments.llm_agents.source import family_terms
 from src.bowen.render.trace import FRAMING
 
 
-@pytest.mark.xfail(strict=True, reason="spec revision 57 (T-185, T-206, 2026-11-10): the two changes the owner held for this batch moved the engine hash from 927550dfcb8a to d3779684dd53, and every record is regenerated once on it at the version 2 definition plan's step 4 (docs/implementation_plan_version_2_definition.md §4.1), not here, so this record is stale by decision until then")
 def test_lx16_report_is_current(tmp_path):
     summaries = load_summaries()
     assert summaries, "the A0 baseline is committed"

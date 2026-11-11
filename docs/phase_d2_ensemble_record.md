@@ -5,7 +5,7 @@ seeds (`M3.D.4a`), stopped adaptively (`M17.A.1`, `M13.4`): `UNDETERMINED` at th
 pass. Every verdict carries its class (`M11.5`). **A premise passing confirms that the code renders the
 spec; it is not a finding about families.** Spec revision 28 applies the owner's life-course decisions of 2026-10-13; its forms are Claude's recommendation, approved by the owner 2026-10-16.
 
-code_hash: a5fc2228eb464b9be41667697accb9a8c77db720bd68d869d8f74960d7e6ecb3
+code_hash: b751f1941dfe1b337eb21baa3abaf6b50e4edd10f274b6436279f7e25cd26f74
 
 Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25, `ensemble_margin` = 0.1, `ensemble_alpha` = 0.05, `fallback_flag_rate` = 0.2, `equivalence_margin` = 0.5.
 
@@ -17,9 +17,9 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
 | `M11.C.10[family of origin]` | composite | **PASS** | 200 | `cut_off_tie_weeks` +161 ± 1.2e+02, p 0.0153, holds; `child_cut_weeks` +72.4 ± 50 (reported only) | treatment 43590 of 128000 (7816 dead, 183 owed a step, 1 rewritten, 35590 target dead) | 0.00 | — |
 | `M11.C.47` | premise | **PASS** | 150 | `felt_danger` +0.129 ± 0.032, p 9.03e-15, holds; `principled_cutoff` +0.0724 ± 0.021, p 8.39e-13, holds; `held_weeks` -11.2 ± 4.6 (reported only) | — | 0.00 | — |
 | `M11.C.2[twelve-person family]` | composite | **PASS** | 150 | `symptom_load` +2.22 ± 1.5, p 0.0019, holds | — | 0.00 | — |
-| `M11.C.48` | composite | **FAIL** | 200 | `negative_run` +0.0286 ± 0.14, p 0.108, does not hold; `run_before_cutoff` +1.81 ± 0.12 (reported only); `first_cutoffs` +0 ± 0 (reported only); `unmatched_cutoffs` +1.14 ± 0.062 (reported only); `no_contact_cutoffs` +1.82 ± 0.16 (reported only); `matched_seed` +1 ± 0 (reported only) | — | 0.00 | — |
-| `M11.C.48[phase_d]` | composite | **PASS** | 200 | `negative_run` +0.344 ± 0.078, p 2.14e-15, holds; `run_before_cutoff` +1.91 ± 0.07 (reported only); `first_cutoffs` +0 ± 0 (reported only); `unmatched_cutoffs` +10.1 ± 0.28 (reported only); `no_contact_cutoffs` +10.6 ± 0.39 (reported only); `matched_seed` +1 ± 0 (reported only) | — | 0.00 | — |
-| `M11.C.55` | composite | **PASS** | 150 | `predicted_main_supplier` +0.76 ± 0.15, p 1.89e-14, holds; `parents_supplied` +0 ± 0 (reported only) | — | 0.00 | — |
+| `M11.C.48` | composite | **FAIL** | 200 | `negative_run` +0.0567 ± 0.15, p 0.11, does not hold; `run_before_cutoff` +1.86 ± 0.13 (reported only); `first_cutoffs` +0 ± 0 (reported only); `unmatched_cutoffs` +1.14 ± 0.062 (reported only); `no_contact_cutoffs` +1.82 ± 0.16 (reported only); `unsided_cutoffs` +0.56 ± 0.097 (reported only); `unmatched_left_out_run` +4.37 ± 0.63 (reported only); `unsided_left_out_run` +0.599 ± 0.13 (reported only); `matched_seed` +0.99 ± 0.014 (reported only) | — | 0.00 | — |
+| `M11.C.48[phase_d]` | composite | **PASS** | 200 | `negative_run` +0.0977 ± 0.082, p 0.00591, holds; `run_before_cutoff` +1.8 ± 0.072 (reported only); `first_cutoffs` +0 ± 0 (reported only); `unmatched_cutoffs` +10.1 ± 0.28 (reported only); `no_contact_cutoffs` +10.6 ± 0.39 (reported only); `unsided_cutoffs` +2.86 ± 0.15 (reported only); `unmatched_left_out_run` +1.97 ± 0.13 (reported only); `unsided_left_out_run` +2.5 ± 0.25 (reported only); `matched_seed` +1 ± 0 (reported only) | — | 0.00 | — |
+| `M11.C.55` | composite | **PASS** | 150 | `predicted_main_supplier` +0.38 ± 0.16, p 6.38e-06, holds; `predicted_over_chance` +0.38 ± 0.11, p 6.62e-09, holds; `parents_supplied` +0 ± 0 (reported only); `birth_order_hits` +0 ± 0 (reported only) | — | 0.00 | — |
 
 ## Not run as an ensemble in part II
 
@@ -285,24 +285,24 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
   "readouts": [
    {
     "baseline_position": null,
-    "baseline_sd": 0.899246763106699,
+    "baseline_sd": 0.9813723954826215,
     "direction": 1,
-    "half_width": 0.13631592188770192,
+    "half_width": 0.1521423811878915,
     "holds": false,
-    "mean_difference": 0.02864444444444446,
-    "n_nonzero": 175,
-    "p": 0.10753427669896236,
-    "pooled_sd": 0.8730636676662652,
+    "mean_difference": 0.056727777777777766,
+    "n_nonzero": 170,
+    "p": 0.11018079469422155,
+    "pooled_sd": 0.9731432467089821,
     "readout": "negative_run",
-    "w_plus": 8532.5
+    "w_plus": 8055.5
    },
    {
     "baseline_position": null,
-    "baseline_sd": 0.8460706794587943,
+    "baseline_sd": 0.9648439141204648,
     "direction": 1,
-    "half_width": 0.11725941370245097,
-    "mean_difference": 1.8144999999999998,
-    "pooled_sd": 0.5982623148084233,
+    "half_width": 0.1337205441943857,
+    "mean_difference": 1.8559166666666667,
+    "pooled_sd": 0.6822476744611515,
     "readout": "run_before_cutoff",
     "report_only": true
    },
@@ -338,11 +338,41 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
    },
    {
     "baseline_position": null,
-    "baseline_sd": 0.0,
+    "baseline_sd": 0.6991739562551852,
     "direction": 1,
-    "half_width": 0.0,
-    "mean_difference": 1.0,
-    "pooled_sd": 0.0,
+    "half_width": 0.09690056655662532,
+    "mean_difference": 0.56,
+    "pooled_sd": 0.49439064569706803,
+    "readout": "unsided_cutoffs",
+    "report_only": true
+   },
+   {
+    "baseline_position": null,
+    "baseline_sd": 4.580646512609165,
+    "direction": 1,
+    "half_width": 0.6348452174117523,
+    "mean_difference": 4.3745,
+    "pooled_sd": 3.2390062112844507,
+    "readout": "unmatched_left_out_run",
+    "report_only": true
+   },
+   {
+    "baseline_position": null,
+    "baseline_sd": 0.9546558418518737,
+    "direction": 1,
+    "half_width": 0.13230854941667117,
+    "mean_difference": 0.59875,
+    "pooled_sd": 0.6750436194728121,
+    "readout": "unsided_left_out_run",
+    "report_only": true
+   },
+   {
+    "baseline_position": null,
+    "baseline_sd": 0.09974842727441166,
+    "direction": 1,
+    "half_width": 0.01382442671033221,
+    "mean_difference": 0.99,
+    "pooled_sd": 0.07053278933842966,
     "readout": "matched_seed",
     "report_only": true
    }
@@ -360,24 +390,24 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
   "readouts": [
    {
     "baseline_position": null,
-    "baseline_sd": 0.44797727429429174,
+    "baseline_sd": 0.5674599597310545,
     "direction": 1,
-    "half_width": 0.0776362488530883,
+    "half_width": 0.08227131351952001,
     "holds": true,
-    "mean_difference": 0.3443052644035452,
-    "n_nonzero": 192,
-    "p": 2.1422836382349714e-15,
-    "pooled_sd": 0.4766234864502268,
+    "mean_difference": 0.09767972681389449,
+    "n_nonzero": 178,
+    "p": 0.0059129753895846284,
+    "pooled_sd": 0.5449280702389269,
     "readout": "negative_run",
-    "w_plus": 15314.0
+    "w_plus": 9699.0
    },
    {
     "baseline_position": null,
-    "baseline_sd": 0.5036429860405046,
+    "baseline_sd": 0.5214234340444162,
     "direction": 1,
-    "half_width": 0.06980135666235136,
-    "mean_difference": 1.914095900204214,
-    "pooled_sd": 0.3561293707262825,
+    "half_width": 0.0722656010321471,
+    "mean_difference": 1.80314562748483,
+    "pooled_sd": 0.36870204608238316,
     "readout": "run_before_cutoff",
     "report_only": true
    },
@@ -413,6 +443,36 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
    },
    {
     "baseline_position": null,
+    "baseline_sd": 1.107489351333268,
+    "direction": 1,
+    "half_width": 0.15349019316225032,
+    "mean_difference": 2.86,
+    "pooled_sd": 0.7831132304196446,
+    "readout": "unsided_cutoffs",
+    "report_only": true
+   },
+   {
+    "baseline_position": null,
+    "baseline_sd": 0.9063967523293363,
+    "direction": 1,
+    "half_width": 0.1256201808434373,
+    "mean_difference": 1.969131313131313,
+    "pooled_sd": 0.6409192900175373,
+    "readout": "unmatched_left_out_run",
+    "report_only": true
+   },
+   {
+    "baseline_position": null,
+    "baseline_sd": 1.7764776089420844,
+    "direction": 1,
+    "half_width": 0.24620723532616626,
+    "mean_difference": 2.5012083333333335,
+    "pooled_sd": 1.2561593639090116,
+    "readout": "unsided_left_out_run",
+    "report_only": true
+   },
+   {
+    "baseline_position": null,
     "baseline_sd": 0.0,
     "direction": 1,
     "half_width": 0.0,
@@ -435,16 +495,29 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
   "readouts": [
    {
     "baseline_position": null,
-    "baseline_sd": 0.5786662130535651,
+    "baseline_sd": 0.727380762770928,
     "direction": 1,
-    "half_width": 0.14561445462581368,
+    "half_width": 0.1569643434053452,
     "holds": true,
-    "mean_difference": 0.76,
-    "n_nonzero": 111,
-    "p": 1.8916371054493095e-14,
-    "pooled_sd": 0.6271985937983597,
+    "mean_difference": 0.38,
+    "n_nonzero": 87,
+    "p": 6.376973167936564e-06,
+    "pooled_sd": 0.7160824318589323,
     "readout": "predicted_main_supplier",
-    "w_plus": 5559.5
+    "w_plus": 2897.5
+   },
+   {
+    "baseline_position": null,
+    "baseline_sd": 0.10033500931359766,
+    "direction": 1,
+    "half_width": 0.11073473230923224,
+    "holds": true,
+    "mean_difference": 0.38000000000000017,
+    "n_nonzero": 150,
+    "p": 6.620560782482791e-09,
+    "pooled_sd": 0.503255620176639,
+    "readout": "predicted_over_chance",
+    "w_plus": 8649.0
    },
    {
     "baseline_position": null,
@@ -454,6 +527,16 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
     "mean_difference": 0.0,
     "pooled_sd": 0.301005027940793,
     "readout": "parents_supplied",
+    "report_only": true
+   },
+   {
+    "baseline_position": null,
+    "baseline_sd": 0.5786662130535651,
+    "direction": 1,
+    "half_width": 0.0,
+    "mean_difference": 0.0,
+    "pooled_sd": 0.5786662130535651,
+    "readout": "birth_order_hits",
     "report_only": true
    }
   ],

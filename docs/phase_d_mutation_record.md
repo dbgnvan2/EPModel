@@ -7,7 +7,7 @@ passes; a red mutant is **reversed** when every gating readout's interval lies w
 direction (`M11.1d`). Phase D's other mutation runs are ad hoc and reported in
 `docs/implementation_plan_phase_d.md`.
 
-engine_hash: fa37a4c64ee166893819c6ad9dddea4808bdd6cb9a88369ec27e8042dbd9988f
+engine_hash: 2a61518d5824672b11ba4fd9923fdea455afc01703dac00c1d013b4070475743
 
 | Mutant | Kind | What it changes | Criterion | Verdict under mutant | Seeds | Difference under mutant | Result |
 |---|---|---|---|---|---|---|---|
@@ -32,8 +32,8 @@ engine_hash: fa37a4c64ee166893819c6ad9dddea4808bdd6cb9a88369ec27e8042dbd9988f
 | `coach-position-blind` | named | M8.3 made position-blind: a coach drawn onto one spouse's side still counts as a live position | `M11.C.7[joint over sided]` | FAIL | 100 | `deviation_fall` -0.0365 ± 0.056, p 0.92; `landed_contacts` -0.14 ± 0.8, p 0.59 | **red** |
 | `removed-member-hold-released-while-away` | named | M7.D.2a's hold released over every tie, worry edges and non-interactive ties included, at every release (a symptom's end, a death, past the turn, a binder lost): so a removed member's symptom gives back what it held while they are away, not on return | `M11.C.11` | PASS | 150 | `disturbance` +2.01 ± 1.1, p 0.00013 | **survived** |
 | `removed-member-holds-not-released-on-return` | named | M7.D.2a's hold released while the member is away, and M1.D.2a (c)'s tie stock not returned by the reunion: neither hold a removed member's absence froze is released on return | `M11.C.11` | FAIL | 150 | `disturbance` +0.426 ± 1.1, p 0.17 | **red** |
-| `cutoff-blind-to-learned-value` | named | M4.D.6's learned value of CUTOFF ignored: CUTOFF carries the top automatic weight whenever it is legal, so cutoffs no longer follow a run of negatives | `M11.C.48[phase_d]` | PASS | 200 | `negative_run` +0.229 ± 0.054, p 2.2e-13; `run_before_cutoff` +1.59 ± 0.052 (reported); `first_cutoffs` +0 ± 0 (reported); `unmatched_cutoffs` +9.62 ± 0.26 (reported); `no_contact_cutoffs` +14 ± 0.4 (reported); `matched_seed` +1 ± 0 (reported) | **survived** |
-| `supply-by-birth-order` | named | M1.A.14b broken: the first-born's supplying kinds carry a higher learned value and the later-born's a lower one, so who supplies follows birth order | `M11.C.55` | FAIL | 200 | `predicted_main_supplier` -0.535 ± 0.17, p 1; `parents_supplied` +0 ± 0 (reported) | **reversed** |
+| `cutoff-blind-to-learned-value` | named | M4.D.6's learned value of CUTOFF ignored: CUTOFF carries the top automatic weight whenever it is legal, so cutoffs no longer follow a run of negatives | `M11.C.48[phase_d]` | FAIL | 200 | `negative_run` -0.00758 ± 0.069, p 0.35; `run_before_cutoff` +1.52 ± 0.054 (reported); `first_cutoffs` +0 ± 0 (reported); `unmatched_cutoffs` +9.62 ± 0.26 (reported); `no_contact_cutoffs` +14 ± 0.4 (reported); `unsided_cutoffs` +2.4 ± 0.15 (reported); `unmatched_left_out_run` +1.25 ± 0.068 (reported); `unsided_left_out_run` +1.94 ± 0.2 (reported); `matched_seed` +1 ± 0 (reported) | **red** |
+| `supply-by-birth-order` | named | M1.A.14b broken: the first-born's supplying kinds carry a higher learned value and the later-born's a lower one, so who supplies follows birth order | `M11.C.55` | FAIL | 200 | `predicted_main_supplier` -0.62 ± 0.16, p 1; `predicted_over_chance` -0.005 ± 0.09, p 0.77; `parents_supplied` +0 ± 0 (reported); `birth_order_hits` +0 ± 0 (reported) | **red** |
 
 ## Not run
 
@@ -535,22 +535,22 @@ Part II criteria that pass but are not proved here; where their mutation is repo
   "mutant": "cutoff-blind-to-learned-value",
   "kind": "named",
   "criterion": "M11.C.48[phase_d]",
-  "outcome": "PASS",
+  "outcome": "FAIL",
   "seeds": 200,
-  "result": "survived",
+  "result": "red",
   "readouts": [
    {
     "direction": 1,
-    "half_width": 0.053615462236161586,
-    "mean_difference": 0.22948685119072437,
-    "p": 2.2227534780001093e-13,
+    "half_width": 0.06946607418365926,
+    "mean_difference": -0.007581547677345996,
+    "p": 0.350080652387975,
     "readout": "negative_run",
     "report_only": false
    },
    {
     "direction": 1,
-    "half_width": 0.052243931600658176,
-    "mean_difference": 1.5901890473647438,
+    "half_width": 0.05361269866685491,
+    "mean_difference": 1.515040758669435,
     "readout": "run_before_cutoff",
     "report_only": true
    },
@@ -577,6 +577,27 @@ Part II criteria that pass but are not proved here; where their mutation is repo
    },
    {
     "direction": 1,
+    "half_width": 0.15289635139975308,
+    "mean_difference": 2.405,
+    "readout": "unsided_cutoffs",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.06826950931884813,
+    "mean_difference": 1.2499737623487623,
+    "readout": "unmatched_left_out_run",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.20079456504606386,
+    "mean_difference": 1.937916666666667,
+    "readout": "unsided_left_out_run",
+    "report_only": true
+   },
+   {
+    "direction": 1,
     "half_width": 0.0,
     "mean_difference": 1.0,
     "readout": "matched_seed",
@@ -590,14 +611,22 @@ Part II criteria that pass but are not proved here; where their mutation is repo
   "criterion": "M11.C.55",
   "outcome": "FAIL",
   "seeds": 200,
-  "result": "reversed",
+  "result": "red",
   "readouts": [
    {
     "direction": 1,
-    "half_width": 0.1706639420191847,
-    "mean_difference": -0.535,
-    "p": 0.9999999848860021,
+    "half_width": 0.16236457766521,
+    "mean_difference": -0.62,
+    "p": 0.9999999999362319,
     "readout": "predicted_main_supplier",
+    "report_only": false
+   },
+   {
+    "direction": 1,
+    "half_width": 0.08998162117697743,
+    "mean_difference": -0.004999999999999949,
+    "p": 0.7677651520205426,
+    "readout": "predicted_over_chance",
     "report_only": false
    },
    {
@@ -605,6 +634,13 @@ Part II criteria that pass but are not proved here; where their mutation is repo
     "half_width": 0.0,
     "mean_difference": 0.0,
     "readout": "parents_supplied",
+    "report_only": true
+   },
+   {
+    "direction": 1,
+    "half_width": 0.0,
+    "mean_difference": 0.0,
+    "readout": "birth_order_hits",
     "report_only": true
    }
   ]

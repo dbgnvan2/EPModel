@@ -41,7 +41,7 @@ Items from `docs/proposal_social_cues.md`, decided by the owner on 2026-11-07 (Q
   default, because neither cue pass is yet a finding about the cues (T-206, T-208,
   `docs/review/2026-11-09_sc_pass_probes.md`). `M11.G.5`'s perceived-cue half stays out of the reports until the
   isolating arm of T-209 exists; `ReadingTap` keeps its unit test.
-- [ ] T-206 ⟨later⟩ **Whether `M11.C.55`'s relief predictor is more than the policy's own input (2026-11-08).** The
+- [x] T-206 ⟨later⟩ **Whether `M11.C.55`'s relief predictor is more than the policy's own input (2026-11-08).** The
   predictor is the child's learned value on the supplying kinds toward the parent, which is what the policy selects
   by (`M4.D.6`), so a pass may show only that the policy follows its own values (T-202's learning-qa pass, P7). A
   probe: the same comparison with learning removed (`M10.B.5`'s switch), which should leave the two predictors equal.
@@ -64,6 +64,14 @@ Items from `docs/proposal_social_cues.md`, decided by the owner on 2026-11-07 (Q
   chance, with birth order and the supplied count report-only, and reads the relief `relief_lead_weeks` (52) before
   the window. The engine hash moved from `927550dfcb8a` to `d3779684dd53`. The verdict is read at the plan's step 4's
   regeneration, as found; this item closes then.
+  *Closed 2026-11-11 (the plan's step 4's regeneration, `docs/version_3_revision_57_changes.md`):* `M11.C.55`
+  passes as found, with no tuning, on 150 seeds: `predicted_main_supplier` +0.38 ± 0.157 (p 6.38e-06) against the
+  supply over the weeks before the window, and `predicted_over_chance` +0.38 ± 0.111 (p 6.62e-09) against the run's
+  own chance; `birth_order_hits` is report-only at +0 ± 0. Its named mutant `supply-by-birth-order` turns it red,
+  where at revision 55 it reversed it. At revision 55 the single `predicted_main_supplier` readout stood at
+  +0.76 ± 0.146 against birth order, so the pass holds under a reading that compares something else. What the pass
+  means, and whether `M11.5`'s row changes, is the owner's at the plan's step 6; T-212 asks whether the two
+  predictors should be read to the same week.
 - [x] T-207 ⟨now⟩ **How the LLM experiment's committed runs follow an engine-hash move (2026-11-08).** T-202 moved the
   engine hash; the runs under `experiments/llm_agents/runs/` record `0b363cb3186c`. With `social_cues_enabled` off the
   engine computes the same runs (the golden fingerprints hold), but a replay restamps the hash into the summary, and

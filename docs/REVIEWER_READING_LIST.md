@@ -404,9 +404,22 @@ and all agreeing, were brought to the paper's wording at step 6 (T-130).
   the uncut ties acted on by as many of their members as the cut tie, and a first cutoff with none of its own sides is
   left out of both arms and counted (`unsided_cutoffs`, T-185, the owner's Q3 (a)); this also changes `M11.C.48` on the
   Phase B family, whose fail is the owner's accepted finding of 2026-11-03. The engine hash moved from `927550dfcb8a`
-  to `d3779684dd53`. **No verdict is reread yet:** the records are regenerated on the new hash at the plan's step 4,
-  and until then the record-current tests that read the hash are strict expected failures. Known problems: T-209, and
-  every record in the tree still stands on `927550dfcb8a`.
+  to `d3779684dd53`. No verdict was reread in that commit: the records are regenerated on the new hash at the plan's
+  step 4, below. Known problems: T-209.
+- 2026-11-11: the version 2 definition plan's step 4, the one regeneration on `d3779684dd53`, run 2026-11-10 to 11
+  split across both Macs (the owner's Q8 (a)): every record in scope is current on that hash and the eleven
+  revision-57 marks are off. `docs/version_3_revision_57_changes.md` is the comparison. **No criterion's verdict
+  moved**, so `M11.C.48`'s fail on the Phase B family stands and the owner's acceptance of it (2026-11-03) still
+  applies, and `M11.C.48[phase_d]` and `M11.C.55` still pass. Two mutants of the Phase D mutation record moved:
+  `cutoff-blind-to-learned-value` from survived to red on `M11.C.48[phase_d]`, which retires that criterion's
+  surviving-mutant status and meets W3, and `supply-by-birth-order` from reversed to red on `M11.C.55`. Both
+  criteria's effect sizes moved under their new readings (`M11.C.48[phase_d]`'s `negative_run` from +0.344 to
+  +0.0977, `M11.C.55`'s `predicted_main_supplier` from +0.76 against birth order to +0.38 against prior supply, with
+  a second readout +0.38 against chance). **What any of this means is not decided here:** the dispositions are the
+  owner's, one criterion at a time, at the plan's step 6. `docs/spec_coverage.md` gained three done IDs (`M11.1a`,
+  `M13.4`, `M17.A.1`) because their covering tests are no longer expected failures. Known problems: T-209; the
+  version 2 sweep record and the emergence audit record still stand on `927550dfcb8a` by decision and rerun at the
+  plan's steps 7 and 5, so their three record-current tests are strict expected failures.
 
 ## 9. Not relevant to how the model works now
 

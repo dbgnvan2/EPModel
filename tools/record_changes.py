@@ -265,6 +265,9 @@ NOT_COMPARED = (
      "docs/review/sc_pass_probes/c55_off.jsonl",
      "T-206's and T-208's probes of `M11.C.52` and `M11.C.55`, after "
      "revision 55, and their per-seed rows (`tools/sc_pass_probe.py`, in no record's hash); nothing at {side} to compare"),
+    ("docs/review/2026-11-10_revisions_51_55_review_prep.md", "the review prep for spec revisions 51 to 55, "
+     "written from the documents and the committed records and deciding nothing (2026-11-10); it runs nothing, "
+     "so there is no result of its own to compare"),
 )
 # A not-compared entry whose reason differs by the page's earlier side: path -> {earlier ref: why}. A page whose ref is
 # not named takes the entry's reason in NOT_COMPARED.
